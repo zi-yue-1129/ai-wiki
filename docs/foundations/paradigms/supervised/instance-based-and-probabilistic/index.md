@@ -35,7 +35,7 @@ GPs give calibrated uncertainty with few data points and drive Bayesian optimisa
 
 ## Connections
 
-The Bayesian view links to [Probabilistic & Bayesian Methods](../../../probabilistic/index.md). In psychology, exemplar theories of categorisation (Nosofsky) are kNN-like and prototype theories are centroid classifiers.
+The Bayesian view links to [Probabilistic & Bayesian Methods](../../../probabilistic/index.md). In psychology, exemplar theories of categorisation are kNN-like and prototype theories are centroid classifiers.
 
 ## Further reading
 
