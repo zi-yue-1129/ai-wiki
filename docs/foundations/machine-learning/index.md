@@ -104,3 +104,19 @@ L1 (sparsity), L2 (weight decay), early stopping, data augmentation, dropout, en
 - *The Elements of Statistical Learning* (free PDF)
 - [scikit-learn user guide](https://scikit-learn.org/stable/user_guide.html)
 - Hsuan-Tien Lin, *Machine Learning Foundations/Techniques* (NTU, Mandarin)
+
+## References
+
+### Seminal papers
+
+- Zhang, C., et al. (2017). *Understanding deep learning requires rethinking generalization*. ICLR. https://arxiv.org/abs/1611.03530 — Shows that large models can memorise random labels, which undermines simple capacity-based accounts of generalisation.
+- Hastie, T., Tibshirani, R. & Friedman, J. *The Elements of Statistical Learning*, 2nd ed. https://hastie.su.domains/ElemStatLearn/ — The standard graduate reference on supervised and unsupervised methods, with the statistical theory behind them. Free PDF from the authors.
+
+### Lectures and videos
+
+- Abu-Mostafa, Y. S. *Learning From Data*. Caltech. https://work.caltech.edu/telecourse — A free introductory course on the theory and practice of learning from data, covering the VC dimension, bias–variance and regularisation.
+
+### Articles and documentation
+
+- Domingos, P. (2012). A Few Useful Things to Know About Machine Learning. *Communications of the ACM*, 55(10). https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf — Twelve practical lessons for practitioners on generalisation, features and overfitting.
+- scikit-learn developers. *User Guide*. https://scikit-learn.org/stable/user_guide.html — The practical reference for standard algorithms, model evaluation and common pitfalls, with runnable examples.
