@@ -55,8 +55,8 @@ The same objective underlies [self-supervised](../../self-supervised/index.md) p
 
 ### Lectures and videos
 
-- (none checked for this page)
+(none checked for this page)
 
 ### Articles and documentation
 
-- (none beyond the entries above)
+(none beyond the entries above)

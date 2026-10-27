@@ -53,7 +53,7 @@ LLM evaluation adds benchmark contamination and judge-model bias; see [Large Lan
 
 ### Surveys and textbooks
 
-- (none checked for this page)
+(none checked for this page)
 
 ### Lectures and videos
 

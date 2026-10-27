@@ -57,7 +57,7 @@ The Bayesian view links to [Probabilistic & Bayesian Methods](../../../probabili
 
 ### Articles and documentation
 
-- (none beyond the entries above)
+(none beyond the entries above)
 
 ## Further reading
 
