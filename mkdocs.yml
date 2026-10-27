@@ -47,6 +47,7 @@ theme:
 
 hooks:
   - hooks/related.py
+  - hooks/knowledge_map.py
 
 plugins:
   - search:
@@ -71,6 +72,7 @@ plugins:
           site_name: AI Wiki 人工智慧知識庫
           nav_translations:
             Home: 首頁
+            Knowledge Map: 知識地圖
             Getting Started: 開始
             Learning Paths: 學習路線
             Open-Source Resource Survey: 開源資源調查
@@ -205,6 +207,7 @@ extra_css:
 
 nav:
   - Home: index.md
+  - Knowledge Map: knowledge-map/index.md
   - Getting Started:
       - start/index.md
       - Learning Paths: start/learning-paths/index.md

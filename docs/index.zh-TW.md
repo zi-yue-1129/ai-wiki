@@ -15,24 +15,10 @@ hide:
 
 ## 知識地圖
 
-```mermaid
-flowchart LR
-  M[數學基礎] --> ML[機器學習]
-  ML --> DL[深度學習]
-  ML --> RL[強化學習]
-  DL --> TF[Transformer]
-  TF --> LLM[大型語言模型]
-  LLM --> AG[AI 代理人]
-  DL --> CV[電腦視覺]
-  DL --> GEN[生成模型]
-  NS[神經科學] <--> NAI[NeuroAI]
-  CS[認知科學 / 心理學] <--> NAI
-  NAI <--> DL
-  RL <--> NS
-  LLM --> APP[各領域應用]
-  CV --> APP
-  APP --> SOC[安全・倫理・治理]
-```
+每個方塊是一個領域。兩個領域之間的連線代表其中的頁面彼此連結，線條越粗表示連結越多。點選方塊即可進入該領域，或打開[完整知識地圖](knowledge-map/index.md)查看每個主題。
+
+<!-- knowledge-map:overview -->
+
 
 ## 六大區塊
 
