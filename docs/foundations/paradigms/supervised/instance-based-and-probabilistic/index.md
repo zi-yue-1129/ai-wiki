@@ -37,10 +37,16 @@ GPs give calibrated uncertainty with few data points and drive Bayesian optimisa
 
 The Bayesian view links to [Probabilistic & Bayesian Methods](../../../probabilistic/index.md). In psychology, exemplar theories of categorisation are kNN-like and prototype theories are centroid classifiers.
 
+## References
+
+- Cover & Hart (1967), "Nearest neighbor pattern classification", *IEEE Transactions on Information Theory* 13(1). https://scilit.com/publications/1c1a8d2564999a97b19d96400e1cd017
+- Ng & Jordan (2001), "On discriminative vs. generative classifiers: a comparison of logistic regression and naive Bayes", NeurIPS. https://papers.nips.cc/paper/2001/hash/7b7a53e239400a13bd6be6c91c4f6c4e-Abstract.html
+- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting
+- Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599. Calibration of probabilistic classifiers.
+- Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), arXiv:math/0612821. https://arxiv.org/abs/math/0612821
+
 ## Further reading
 
-- Cover & Hart (1967), "Nearest neighbor pattern classification", *IEEE Transactions on Information Theory* 13(1). The k-NN error bound.
-- Ng & Jordan (2001), "On discriminative vs. generative classifiers: a comparison of logistic regression and naive Bayes", NeurIPS. The sample-complexity comparison discussed above.
-- Rasmussen & Williams, *Gaussian Processes for Machine Learning* (2006). Free online; the standard GP reference.
-- Murphy, *Probabilistic Machine Learning: An Introduction* (2022). Chapters on generative classifiers and GPs.
+- Rasmussen & Williams, *Gaussian Processes for Machine Learning* (2006). Free online.
+- Murphy, *Probabilistic Machine Learning: An Introduction* (2022).
 - Video: StatQuest with Josh Starmer (YouTube channel), episodes on Naive Bayes.

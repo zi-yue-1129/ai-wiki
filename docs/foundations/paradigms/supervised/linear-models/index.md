@@ -43,10 +43,16 @@ Strengths: convex training, strong theory, calibrated probabilities (logistic), 
 
 The delta rule that trains a single linear unit is the same equation as the Rescorla–Wagner model of conditioning (see [Supervised Learning](../index.md)). Linear probes, a logistic regression trained on frozen features, are the standard way to test what a [self-supervised](../../self-supervised/index.md) representation has learned.
 
+## References
+
+- Tibshirani (1996), "Regression shrinkage and selection via the lasso", *Journal of the Royal Statistical Society B*. https://www.math.cuhk.edu.hk/~btjin/math6221/p7.pdf
+- Ng & Jordan (2001), "On discriminative vs. generative classifiers", NeurIPS. https://papers.nips.cc/paper/2001/hash/7b7a53e239400a13bd6be6c91c4f6c4e-Abstract.html
+- Andrew Ng, Stanford CS229 lecture notes. https://cs229.stanford.edu/main_notes.pdf
+- Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599. Calibrated probabilities from logistic outputs.
+- Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980.
+
 ## Further reading
 
-- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, chapters 3–4 (free PDF from the authors). The standard reference for least squares and shrinkage.
-- McCullagh & Nelder, *Generalized Linear Models*, 2nd ed. (1989). The definitive treatment of GLMs and their link functions.
-- Tibshirani (1996), "Regression shrinkage and selection via the lasso", *Journal of the Royal Statistical Society B*. The paper that introduced the $\ell_1$ penalty for sparse regression.
-- Andrew Ng, Stanford CS229 lecture notes (free online). Clear derivation of logistic regression.
-- Video: StatQuest with Josh Starmer, "Logistic Regression" and "Ridge, Lasso and Elastic Net" (YouTube). Short visual explanations of the same ideas.
+- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, chapters 3–4 (free PDF from the authors).
+- McCullagh & Nelder, *Generalized Linear Models*, 2nd ed. (1989).
+- Video: StatQuest with Josh Starmer (YouTube channel), episodes on logistic regression, ridge, lasso and elastic net.

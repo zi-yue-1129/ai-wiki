@@ -44,12 +44,16 @@ No learner beats another across all possible problems; learning works because re
 
 Distribution shift breaks the i.i.d. assumption; see [transfer theory](../../transfer/index.md) and [online learning](../../online/index.md) for guarantees without it.
 
+## References
+
+- Valiant (1984), "A theory of the learnable", *Communications of the ACM* 27(11). https://mlanthology.org/misc/1984/valiant1984misc-theory
+- Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. https://mlanthology.org/iclr/2017/zhang2017iclr-understanding
+- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, arXiv:1812.11118.
+- Kaplan et al. (2020), "Scaling laws for neural language models", arXiv:2001.08361.
+- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572.
+
 ## Further reading
 
-- Valiant (1984), "A theory of the learnable", *Communications of the ACM* 27(11). Introduces PAC learning.
-- Vapnik, *Statistical Learning Theory* (1998). Wiley; VC theory and structural risk minimisation.
+- Vapnik, *Statistical Learning Theory* (1998). Wiley.
 - Shalev-Shwartz & Ben-David, *Understanding Machine Learning: From Theory to Algorithms*, Cambridge University Press (2014).
-- Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. Networks fit random labels.
-- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS* 116(32), arXiv:1812.11118. Double descent.
-- Kaplan et al. (2020), "Scaling laws for neural language models", arXiv:2001.08361.
 - Video: Yaser Abu-Mostafa, Caltech "Learning From Data" lectures on VC dimension and generalisation (YouTube).

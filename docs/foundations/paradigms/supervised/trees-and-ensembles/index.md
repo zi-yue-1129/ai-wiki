@@ -38,13 +38,16 @@ Stacking trains a meta-model on the predictions of diverse base models. Averagin
 
 Why do trees beat deep networks on many tabular tasks? Grinsztajn et al. (2022) point to irregular target functions and uninformative features, where trees are more robust. Tree ensembles are widely used in finance, healthcare risk scoring and recommender ranking; see [Applications](../../../../applications/index.md).
 
+## References
+
+- Quinlan (1986), "Induction of decision trees", *Machine Learning* 1(1). https://mlanthology.org/mlj/1986/quinlan1986mlj-induction
+- Breiman (2001), "Random forests", *Machine Learning* 45(1). https://mlanthology.org/mlj/2001/breiman2001mlj-random
+- Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). https://doi.org/10.1214/AOS/1013203451
+- Ke et al. (2017), "LightGBM: a highly efficient gradient boosting decision tree", NeurIPS. https://neurips.cc/virtual/2017/poster/9099
+- Prokhorenkova et al. (2018), "CatBoost: unbiased boosting with categorical features", NeurIPS. https://proceedings.neurips.cc/paper/2018/hash/14491b756b3a51daac41c24863285549-Abstract.html
+- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, arXiv:2207.08815.
+
 ## Further reading
 
-- Quinlan (1986), "Induction of decision trees", *Machine Learning* 1(1). The ID3 algorithm.
-- Breiman (2001), "Random forests", *Machine Learning* 45(1). Introduces bagged trees with random feature selection.
-- Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). Derives gradient boosting as functional gradient descent.
-- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD, arXiv:1603.02754.
-- Ke et al. (2017), "LightGBM: a highly efficient gradient boosting decision tree", NeurIPS. Histogram-based splits and leaf-wise growth.
-- Prokhorenkova et al. (2018), "CatBoost: unbiased boosting with categorical features", NeurIPS. Ordered boosting for categorical data.
-- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", arXiv:2207.08815. Benchmark and analysis.
+- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD.
 - Video: StatQuest with Josh Starmer (YouTube channel), episodes on random forests and gradient boosting.

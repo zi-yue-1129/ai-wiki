@@ -40,11 +40,16 @@ Kernel ridge regression, kernel PCA, [Gaussian processes](../instance-based-and-
 
 Training scales between $O(n^2)$ and $O(n^3)$ in the number of examples, which is why deep learning displaced SVMs on large data. Random Fourier features and Nyström approximations scale kernels up. The **neural tangent kernel** (Jacot et al., 2018) shows that infinitely wide networks trained by gradient descent behave like a kernel machine, linking the two fields.
 
+## References
+
+- Boser, Guyon & Vapnik (1992), "A training algorithm for optimal margin classifiers", COLT. https://mlanthology.org/colt/1992/boser1992colt-training
+- Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018
+- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. Includes calibration of SVM scores. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting
+- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572.
+- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, arXiv:1812.11118.
+
 ## Further reading
 
-- Boser, Guyon & Vapnik (1992), "A training algorithm for optimal margin classifiers", COLT. The first kernel SVM paper.
-- Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. The soft-margin SVM.
-- Platt (1999), "Probabilistic outputs for support vector machines", in *Advances in Large Margin Classifiers*. Sigmoid calibration of SVM scores.
-- Schölkopf & Smola, *Learning with Kernels* (2002). Full treatment of kernels and the representer theorem.
-- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572. Links infinitely wide networks to kernel machines.
-- Video: Yaser Abu-Mostafa, Caltech "Learning From Data" lectures on support vector machines and kernels (YouTube).
+- Platt (1999), "Probabilistic outputs for support vector machines", in *Advances in Large Margin Classifiers*.
+- Schölkopf & Smola, *Learning with Kernels* (2002).
+- Video: Yaser Abu-Mostafa, Caltech "Learning From Data" lectures on support vector machines (YouTube).
