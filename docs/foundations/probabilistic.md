@@ -1,4 +1,76 @@
 # Probabilistic & Bayesian Methods
 
-!!! info "Work in progress"
-    This page is being written.
+## Why probability?
+
+The world is uncertain: sensors are noisy, information is incomplete, the future is unknown. Probability is a **consistent language for representing and updating beliefs**.
+
+## Bayesian inference
+
+\[
+\underbrace{p(\theta\mid D)}_{\text{posterior}} = \frac{\overbrace{p(D\mid\theta)}^{\text{likelihood}}\;\overbrace{p(\theta)}^{\text{prior}}}{p(D)}
+\]
+
+Advantages: natural uncertainty quantification, principled use of prior knowledge, robustness with small data.
+
+## Probabilistic graphical models
+
+Graphs encode conditional dependencies so high-dimensional joint distributions become tractable.
+
+| Type | Graph | Examples |
+|---|---|---|
+| Bayesian network | Directed acyclic | Medical diagnosis, causal models |
+| Markov random field | Undirected | Image segmentation, Ising model |
+| Hidden Markov model | Directed chain | Early speech recognition, gene finding |
+| Conditional random field | Undirected, conditioned on input | Named-entity recognition |
+| Kalman filter | Linear-Gaussian state space | Tracking, navigation |
+| Topic model (LDA) | Hierarchical | Document topics |
+
+## Inference
+
+- **Exact**: variable elimination, belief propagation (on trees)
+- **Approximate**:
+    - **Sampling**: MCMC (Metropolis–Hastings, Gibbs, HMC/NUTS)
+    - **Variational inference**: approximate the posterior with a simpler \(q\) by maximising the evidence lower bound (ELBO) — a VAE is amortised variational inference
+
+## Causal inference
+
+Correlation is not causation. Pearl's ladder of causation:
+
+1. **Association** (seeing): \(p(y\mid x)\)
+2. **Intervention** (doing): \(p(y\mid do(x))\)
+3. **Counterfactuals** (imagining): what would y have been had x not happened?
+
+Tools: structural causal models, do-calculus, the potential-outcomes framework (Rubin), instrumental variables, difference-in-differences, double machine learning. Essential for using AI in medicine, economics and policy.
+
+## Bayesian deep learning and uncertainty
+
+- Bayesian neural networks, MC dropout, deep ensembles
+- **Aleatoric** (data noise) vs **epistemic** (model ignorance) uncertainty
+- **Conformal prediction**: distribution-free prediction sets with coverage guarantees; increasingly popular in medical AI
+- Gaussian processes: small-data regression and Bayesian optimisation (hyperparameters, experimental design)
+
+## The Bayesian brain
+
+A major idea in cognitive science and neuroscience: **the brain performs (approximate) Bayesian inference**.
+
+- **Perception** combines sensory evidence (likelihood) with experience (prior) — e.g. the "light comes from above" prior shapes how we see shaded bumps and dents.
+- **Multisensory integration**: humans weight vision and touch by their reliability, close to the statistical optimum (Ernst & Banks, 2002).
+- **Motor control**: people integrate priors with sensory feedback in a Bayesian way (Körding & Wolpert, 2004).
+- **Cognitive development**: how children learn causal structure and word meanings from sparse data (Gopnik, Tenenbaum).
+- **Predictive coding and the free-energy principle**: see [Cognitive Science](../brain-mind/cognitive-science.md).
+- **Computational psychiatry**: schizophrenia and autism have been modelled as imbalances in the weighting of priors and sensory evidence (see [Mental Health](../applications/mental-health.md)).
+
+Critiques: "Bayesian" models can be flexible enough to fit almost anything; humans also show systematic departures from optimal inference (see [Psychology & AI](../brain-mind/psychology.md)). **Resource-rational** analysis (Lieder & Griffiths, 2020) reconciles the two: people approximate Bayesian inference under limited time and computation.
+
+## Probabilistic programming
+
+Write a generative model as a program; the system performs inference: [PyMC](https://www.pymc.io/), [Stan](https://mc-stan.org/), [NumPyro](https://num.pyro.ai/), [Pyro](https://pyro.ai/).
+
+## Resources
+
+- Koller & Friedman, *Probabilistic Graphical Models* (and Coursera course)
+- Murphy, *Probabilistic Machine Learning*
+- Bishop, *Pattern Recognition and Machine Learning* (free PDF)
+- McElreath, *Statistical Rethinking* (lectures free online)
+- Pearl & Mackenzie, *The Book of Why*
+- Griffiths, Chater & Tenenbaum, *Bayesian Models of Cognition* (2024)

@@ -77,6 +77,19 @@ plugins:
             Machine Learning: 機器學習
             Deep Learning: 深度學習
             Reinforcement Learning: 強化學習
+            Learning Paradigms: 學習範式
+            Supervised Learning: 監督式學習
+            Unsupervised Learning: 非監督式學習
+            Semi- & Weakly Supervised Learning: 半監督與弱監督學習
+            Self-Supervised Learning: 自監督學習
+            Imitation Learning: 模仿學習
+            Transfer Learning & Domain Adaptation: 遷移學習與領域適應
+            Meta-Learning & Few-Shot Learning: 元學習與少樣本學習
+            Continual Learning: 持續學習
+            Active Learning: 主動學習
+            Online Learning & Bandits: 線上學習與多臂吃角子老虎
+            Federated & Privacy-Preserving Learning: 聯邦學習與隱私保護學習
+            Other Paradigms: 其他學習範式
             Probabilistic & Bayesian Methods: 機率圖模型與貝氏方法
             Symbolic AI, Search & Planning: 符號 AI、搜尋與規劃
             Evolutionary & Swarm Intelligence: 演化計算與群體智慧
@@ -197,7 +210,21 @@ nav:
       - Mathematics: foundations/math.md
       - Machine Learning: foundations/machine-learning.md
       - Deep Learning: foundations/deep-learning.md
-      - Reinforcement Learning: foundations/reinforcement-learning.md
+      - Learning Paradigms:
+          - foundations/paradigms/index.md
+          - Supervised Learning: foundations/paradigms/supervised.md
+          - Unsupervised Learning: foundations/paradigms/unsupervised.md
+          - Semi- & Weakly Supervised Learning: foundations/paradigms/semi-supervised.md
+          - Self-Supervised Learning: foundations/paradigms/self-supervised.md
+          - Reinforcement Learning: foundations/reinforcement-learning.md
+          - Imitation Learning: foundations/paradigms/imitation.md
+          - Transfer Learning & Domain Adaptation: foundations/paradigms/transfer.md
+          - Meta-Learning & Few-Shot Learning: foundations/paradigms/meta-learning.md
+          - Continual Learning: foundations/paradigms/continual.md
+          - Active Learning: foundations/paradigms/active.md
+          - Online Learning & Bandits: foundations/paradigms/online.md
+          - Federated & Privacy-Preserving Learning: foundations/paradigms/federated.md
+          - Other Paradigms: foundations/paradigms/other.md
       - Probabilistic & Bayesian Methods: foundations/probabilistic.md
       - Symbolic AI, Search & Planning: foundations/symbolic-ai.md
       - Evolutionary & Swarm Intelligence: foundations/evolutionary.md

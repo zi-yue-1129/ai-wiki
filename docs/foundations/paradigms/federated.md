@@ -1,0 +1,61 @@
+# Federated & Privacy-Preserving Learning
+
+## Federated learning
+
+Train a shared model **without centralising the data**. Each client (phone, hospital, bank) trains locally and sends only model updates; a server aggregates them.
+
+```mermaid
+flowchart TB
+  S[Server: global model] -->|send weights| C1[Client 1 trains locally]
+  S --> C2[Client 2 trains locally]
+  S --> C3[Client 3 trains locally]
+  C1 -->|updates| A[Aggregate: FedAvg]
+  C2 --> A
+  C3 --> A
+  A --> S
+```
+
+**FedAvg** (McMahan et al., 2017): clients run several local SGD steps, the server averages their weights in proportion to their data size.
+
+| Variant | Setting |
+|---|---|
+| Cross-device | Millions of phones, intermittently available (e.g. keyboard next-word prediction) |
+| Cross-silo | A few institutions (hospitals, banks) with large datasets |
+| Horizontal | Same features, different samples |
+| Vertical | Same samples, different features (a bank and a retailer sharing customers) |
+| Federated fine-tuning of foundation models | LoRA adapters trained across sites |
+
+**Challenges**: non-i.i.d. data across clients (FedProx, SCAFFOLD address drift), communication cost, stragglers, personalisation, and the fact that **updates can leak data** (gradient inversion attacks) — federated learning alone is not a privacy guarantee.
+
+## Privacy-enhancing technologies
+
+| Technique | Guarantee | Cost |
+|---|---|---|
+| Differential privacy (DP, DP-SGD) | Bounded influence of any one individual (ε, δ) | Accuracy loss, especially for small groups |
+| Secure aggregation | Server sees only the sum of updates | Communication / crypto overhead |
+| Homomorphic encryption | Compute on encrypted data | Very slow for large models |
+| Secure multi-party computation | Joint computation without revealing inputs | Complex, slow |
+| Trusted execution environments | Hardware-isolated computation | Trust in hardware vendor; side channels |
+| Synthetic data | Share generated rather than real data | Utility and privacy must both be verified |
+
+Differential privacy definition: a mechanism \(M\) is (ε, δ)-DP if for neighbouring datasets \(D, D'\) and any output set \(S\),
+\(\Pr[M(D)\in S] \le e^\varepsilon \Pr[M(D')\in S] + \delta\).
+
+## Attacks motivating this area
+
+- **Membership inference**: was this person in the training set?
+- **Model inversion / training-data extraction**: LLMs can regurgitate memorised text, including personal data (Carlini et al., 2021).
+- **Attribute inference** and **gradient leakage**.
+
+## Applications
+
+- Mobile keyboards, voice assistants
+- Multi-hospital medical imaging models (e.g. federated tumour segmentation, FeTS)
+- Financial fraud detection across banks
+- Neuroscience: federated analysis of brain-imaging data across consortia (e.g. ENIGMA-style collaborations) where raw scans cannot be shared
+
+## Further reading
+
+- Kairouz et al. (2021), "Advances and Open Problems in Federated Learning"
+- Dwork & Roth, *The Algorithmic Foundations of Differential Privacy* (free)
+- [Flower](https://flower.ai/), [TensorFlow Federated](https://www.tensorflow.org/federated), [Opacus](https://opacus.ai/) (DP for PyTorch)
