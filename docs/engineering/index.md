@@ -1,4 +1,28 @@
 # Engineering
 
-!!! info "Work in progress"
-    This page is being written.
+How AI systems are actually built, adapted, evaluated and run.
+
+| Page | Focus |
+|---|---|
+| [Frameworks & Tools](frameworks/index.md) | PyTorch, JAX, Hugging Face, inference engines, agent frameworks |
+| [Data](data/index.md) | Collection, labelling, cleaning, synthetic data, governance |
+| [Training & Fine-tuning](training/index.md) | Pre-training at scale, SFT, LoRA/QLoRA, preference optimisation, distillation |
+| [Prompt Engineering](prompting/index.md) | Writing effective prompts, structured output, context engineering |
+| [Retrieval-Augmented Generation](rag/index.md) | Grounding LLMs in your documents |
+| [Evaluation & Benchmarks](evaluation/index.md) | Benchmarks, LLM-as-judge, contamination, human evaluation |
+| [MLOps & Deployment](mlops/index.md) | Serving, monitoring, quantisation, cost, LLMOps |
+| [AI Hardware](hardware/index.md) | GPUs, TPUs, NPUs, memory bandwidth, interconnects, neuromorphic chips |
+
+## Choosing an approach for an LLM application
+
+```mermaid
+flowchart TD
+  A[Task] --> B{Can a good prompt solve it?}
+  B -->|Yes| P[Prompting + evals]
+  B -->|Needs private or fresh knowledge| R[RAG / tools]
+  B -->|Needs a consistent style, format or skill| F[Fine-tuning, often LoRA]
+  B -->|Needs multi-step actions| G[Agent / workflow]
+  P & R & F & G --> E[Evaluation set → iterate]
+```
+
+Start simple: a strong model with a clear prompt and an evaluation set. Add retrieval for knowledge, fine-tuning for behaviour, and agents only when steps cannot be fixed in advance.
