@@ -1,3 +1,7 @@
+---
+references: not-required  # lists and meta pages cite through their entries
+---
+
 # Datasets
 
 Widely used datasets, grouped by field. Check each dataset's licence and terms before use.

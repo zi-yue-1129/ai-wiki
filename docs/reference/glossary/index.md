@@ -1,3 +1,7 @@
+---
+references: not-required  # lists and meta pages cite through their entries
+---
+
 # Glossary
 
 English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the page where they are explained.
