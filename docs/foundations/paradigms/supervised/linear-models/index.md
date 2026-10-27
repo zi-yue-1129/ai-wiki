@@ -45,6 +45,8 @@ The delta rule that trains a single linear unit is the same equation as the Resc
 
 ## Further reading
 
-- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, chapters 3–4.
-- McCullagh & Nelder, *Generalized Linear Models* (1989).
-- Tibshirani (1996), "Regression shrinkage and selection via the lasso", *JRSS B*.
+- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, chapters 3–4 (free PDF from the authors). The standard reference for least squares and shrinkage.
+- McCullagh & Nelder, *Generalized Linear Models*, 2nd ed. (1989). The definitive treatment of GLMs and their link functions.
+- Tibshirani (1996), "Regression shrinkage and selection via the lasso", *Journal of the Royal Statistical Society B*. The paper that introduced the $\ell_1$ penalty for sparse regression.
+- Stanford CS229, Andrew Ng, lecture notes "Supervised learning, discriminative algorithms" (free online). Clear derivation of logistic regression.
+- Video: StatQuest with Josh Starmer, "Logistic Regression" and "Ridge, Lasso and Elastic Net" (YouTube). Short visual explanations of the same ideas.

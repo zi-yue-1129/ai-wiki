@@ -40,6 +40,11 @@ Why do trees beat deep networks on many tabular tasks? Grinsztajn et al. (2022) 
 
 ## Further reading
 
-- Breiman (2001), "Random forests", *Machine Learning*.
-- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", arXiv:1603.02754.
-- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", arXiv:2207.08815.
+- Quinlan (1986), "Induction of decision trees", *Machine Learning* 1(1). The ID3 algorithm.
+- Breiman (2001), "Random forests", *Machine Learning* 45(1). Introduces bagged trees with random feature selection.
+- Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). Derives gradient boosting as functional gradient descent.
+- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD, arXiv:1603.02754.
+- Ke et al. (2017), "LightGBM: a highly efficient gradient boosting decision tree", NeurIPS. Histogram-based splits and leaf-wise growth.
+- Prokhorenkova et al. (2018), "CatBoost: unbiased boosting with categorical features", NeurIPS. Ordered boosting for categorical data.
+- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", arXiv:2207.08815. Benchmark and analysis.
+- Video: StatQuest with Josh Starmer, "Random Forests" and "Gradient Boost" series (YouTube).

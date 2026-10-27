@@ -42,5 +42,9 @@ The same objective underlies [self-supervised](../../self-supervised/index.md) p
 
 ## Further reading
 
-- Goodfellow, Bengio & Courville, *Deep Learning*, chapters 7–8.
+- Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *Journal of the American Statistical Association* 101(473). Classification-calibrated surrogate losses.
+- Lin et al. (2017), "Focal loss for dense object detection", ICCV, arXiv:1708.02002. Down-weights easy examples.
+- Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980.
+- Loshchilov & Hutter (2019), "Decoupled weight decay regularization", ICLR, arXiv:1711.05101. AdamW.
 - Ruder (2016), "An overview of gradient descent optimization algorithms", arXiv:1609.04747.
+- Stanford CS231n, "Optimization" course notes, cs231n.github.io/optimization-1 (free online). Practical guide to SGD and learning rates.

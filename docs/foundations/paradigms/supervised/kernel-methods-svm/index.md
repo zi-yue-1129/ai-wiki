@@ -42,6 +42,9 @@ Training scales between $O(n^2)$ and $O(n^3)$ in the number of examples, which i
 
 ## Further reading
 
-- Schölkopf & Smola, *Learning with Kernels* (2002).
-- Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning*.
-- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", arXiv:1806.07572.
+- Boser, Guyon & Vapnik (1992), "A training algorithm for optimal margin classifiers", COLT. The first kernel SVM paper.
+- Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. The soft-margin SVM.
+- Platt (1999), "Probabilistic outputs for support vector machines", in *Advances in Large Margin Classifiers*. Sigmoid calibration of SVM scores.
+- Schölkopf & Smola, *Learning with Kernels* (2002). Full treatment of kernels and the representer theorem.
+- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572. Links infinitely wide networks to kernel machines.
+- Video: Yaser Abu-Mostafa, Caltech "Learning From Data" lectures on support vector machines and kernels (YouTube).
