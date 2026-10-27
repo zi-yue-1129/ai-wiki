@@ -58,3 +58,13 @@ Even "self-supervised" foundation models rely on supervised steps: **supervised 
 - Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning* (free PDF)
 - [scikit-learn supervised learning guide](https://scikit-learn.org/stable/supervised_learning.html)
 - Geirhos et al. (2020), "Shortcut learning in deep neural networks", *Nature Machine Intelligence*
+
+## Subtopics
+
+- [Linear models and GLMs](linear-models/index.md): regression, logistic and regularised linear models.
+- [Decision trees and ensembles](trees-and-ensembles/index.md): random forests and gradient boosting.
+- [Support vector machines and kernels](kernel-methods-svm/index.md): maximum margin and the kernel trick.
+- [Instance-based and probabilistic classifiers](instance-based-and-probabilistic/index.md): kNN, naive Bayes, discriminant analysis, Gaussian processes.
+- [Loss functions and optimisation](loss-functions-and-optimization/index.md): what "wrong" means and how parameters are found.
+- [Generalisation theory](generalization-theory/index.md): why fitting a sample transfers to new data.
+- [Evaluation and validation](evaluation-and-validation/index.md): splits, metrics and common leakage errors.
