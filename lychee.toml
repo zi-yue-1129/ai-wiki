@@ -1,0 +1,11 @@
+# External link check configuration (https://lychee.cli.rs)
+max_concurrency = 8
+max_retries = 3
+timeout = 30
+accept = ["100..=103", "200..=299", "403", "429"]
+exclude_path = ["site"]
+exclude = [
+  "^https://github\\.com/zi-yue-1129/ai-wiki/(edit|issues/new)",
+  "^https?://localhost",
+  "^https?://127\\.0\\.0\\.1",
+]

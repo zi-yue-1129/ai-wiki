@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Contributing guide
+    url: https://zi-yue-1129.github.io/ai-wiki/reference/contributing/
+    about: How to write, translate and review pages

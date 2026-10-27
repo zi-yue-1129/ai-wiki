@@ -1,0 +1,54 @@
+name: Topic request
+description: Suggest a topic the wiki should cover, or a page that needs expanding
+title: "[Topic] "
+labels: ["topic-request"]
+body:
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      placeholder: e.g. Predictive coding and the free-energy principle
+    validations:
+      required: true
+  - type: dropdown
+    id: section
+    attributes:
+      label: Section
+      options:
+        - Getting Started
+        - Foundations
+        - Models & Techniques
+        - Brain & Mind
+        - Applications
+        - Engineering
+        - AI & Society
+        - Reference
+        - Not sure
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Request type
+      options:
+        - New page
+        - Expand an existing page or stub
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What should the page cover, and why does it matter?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Good sources to start from
+      description: Papers, textbooks, courses or surveys.
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Contribution
+      options:
+        - label: I'd like to write this page myself
