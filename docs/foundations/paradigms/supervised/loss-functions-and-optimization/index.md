@@ -44,14 +44,14 @@ The same objective underlies [self-supervised](../../self-supervised/index.md) p
 
 ### Seminal papers
 
-- Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), arXiv:math/0612821. https://arxiv.org/abs/math/0612821
-- Lin et al. (2017), "Focal loss for dense object detection", ICCV, arXiv:1708.02002.
-- Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980.
-- Loshchilov & Hutter (2019), "Decoupled weight decay regularization", ICLR, arXiv:1711.05101.
+- Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), arXiv:math/0612821. https://arxiv.org/abs/math/0612821 — Shows which convex surrogate losses still give good classifiers.
+- Lin et al. (2017), "Focal loss for dense object detection", ICCV, arXiv:1708.02002 — Down-weights easy examples in cross-entropy, which helps with class imbalance.
+- Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980 — The Adam optimiser with adaptive per-parameter step sizes.
+- Loshchilov & Hutter (2019), "Decoupled weight decay regularization", ICLR, arXiv:1711.05101 — Introduces AdamW, which applies weight decay separately from the gradient update.
 
 ### Surveys and textbooks
 
-- Ruder (2016), "An overview of gradient descent optimization algorithms", arXiv:1609.04747.
+- Ruder (2016), "An overview of gradient descent optimization algorithms", arXiv:1609.04747 — Survey of gradient descent variants, with clear explanations of momentum and adaptive methods.
 
 ### Lectures and videos
 

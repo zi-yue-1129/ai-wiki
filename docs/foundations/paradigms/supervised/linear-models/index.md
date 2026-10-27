@@ -47,21 +47,21 @@ The delta rule that trains a single linear unit is the same equation as the Resc
 
 ### Seminal papers
 
-- Tibshirani (1996), "Regression shrinkage and selection via the lasso", *Journal of the Royal Statistical Society B*. https://www.math.cuhk.edu.hk/~btjin/math6221/p7.pdf
-- Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980.
-- Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599. Calibrated probabilities from logistic outputs.
+- Tibshirani (1996), "Regression shrinkage and selection via the lasso", *JRSS B*. https://www.math.cuhk.edu.hk/~btjin/math6221/p7.pdf — Introduces the lasso, the L1 penalty that sets some coefficients exactly to zero.
+- Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980 — The Adam optimiser, the default for training logistic and neural models by gradient descent.
+- Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599 — Shows that predicted probabilities can be miscalibrated and proposes temperature scaling as a fix.
 
 ### Surveys and textbooks
 
-- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, Springer (2009), chapters 3–4. https://doi.org/10.1007/978-0-387-84858-7
+- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, Springer (2009), chapters 3–4. https://doi.org/10.1007/978-0-387-84858-7 — Standard textbook treatment of least squares, shrinkage and linear classifiers, with free PDF from the authors.
 
 ### Lectures and videos
 
-- StatQuest with Josh Starmer, episodes on logistic regression and regularisation, YouTube. https://www.youtube.com/@statquest
+- StatQuest with Josh Starmer, episodes on logistic regression and regularisation, YouTube. https://www.youtube.com/@statquest — Short visual explanations of logistic regression, ridge and lasso for beginners.
 
 ### Articles and documentation
 
-- Andrew Ng, Stanford CS229 lecture notes. https://cs229.stanford.edu/main_notes.pdf
+- Andrew Ng, Stanford CS229 lecture notes. https://cs229.stanford.edu/main_notes.pdf — Derivations of linear and logistic regression and the generalised linear model framework.
 
 ## Further reading
 

@@ -44,10 +44,10 @@ Training scales between $O(n^2)$ and $O(n^3)$ in the number of examples, which i
 
 ### Seminal papers
 
-- Boser, Guyon & Vapnik (1992), "A training algorithm for optimal margin classifiers", COLT. https://mlanthology.org/colt/1992/boser1992colt-training
-- Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018
-- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572.
-- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. Includes calibration of SVM scores. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting
+- Boser, Guyon & Vapnik (1992), "A training algorithm for optimal margin classifiers", COLT. https://mlanthology.org/colt/1992/boser1992colt-training — The first kernel SVM paper, combining maximum margins with the kernel trick.
+- Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — Introduces the soft-margin SVM, which allows some training errors.
+- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572 — Shows that infinitely wide networks trained by gradient descent behave like a kernel machine.
+- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting — Compares how well classifiers including SVMs produce calibrated probabilities.
 
 ### Surveys and textbooks
 
@@ -55,11 +55,11 @@ Training scales between $O(n^2)$ and $O(n^3)$ in the number of examples, which i
 
 ### Lectures and videos
 
-- Yaser Abu-Mostafa, *Learning From Data*, Caltech online course (2012), lectures on support vector machines and kernels. https://work.caltech.edu/telecourse
+- Yaser Abu-Mostafa, *Learning From Data*, Caltech online course (2012), lectures on support vector machines and kernels. https://work.caltech.edu/telecourse — Free university course that builds SVMs and kernels from learning theory.
 
 ### Articles and documentation
 
-- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, arXiv:1812.11118.
+- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, arXiv:1812.11118 — Explains how kernel and neural models can interpolate training data and still generalise.
 
 ## Further reading
 

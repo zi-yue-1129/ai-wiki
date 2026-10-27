@@ -71,8 +71,8 @@ Even "self-supervised" foundation models rely on supervised steps: **supervised 
 
 ## References
 
-- Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018
-- Boser, Guyon & Vapnik (1992), "A training algorithm for optimal margin classifiers", COLT. https://mlanthology.org/colt/1992/boser1992colt-training
-- Breiman (2001), "Random forests", *Machine Learning* 45(1). https://mlanthology.org/mlj/2001/breiman2001mlj-random
-- Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). https://doi.org/10.1214/AOS/1013203451
-- Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. https://mlanthology.org/iclr/2017/zhang2017iclr-understanding
+- Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — Introduces the soft-margin SVM, the classic supervised classifier.
+- Boser, Guyon & Vapnik (1992), "A training algorithm for optimal margin classifiers", COLT. https://mlanthology.org/colt/1992/boser1992colt-training — The first kernel SVM paper, combining margins with the kernel trick.
+- Breiman (2001), "Random forests", *Machine Learning* 45(1). https://mlanthology.org/mlj/2001/breiman2001mlj-random — Random forests, the strongest general-purpose tree ensemble of its era.
+- Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). https://doi.org/10.1214/AOS/1013203451 — Gradient boosting, the basis of most modern tabular models.
+- Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. https://mlanthology.org/iclr/2017/zhang2017iclr-understanding — Shows why classical generalisation theory does not explain deep networks.

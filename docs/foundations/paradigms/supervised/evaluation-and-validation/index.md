@@ -46,10 +46,10 @@ LLM evaluation adds benchmark contamination and judge-model bias; see [Large Lan
 
 ### Seminal papers
 
-- Saito & Rehmsmeier (2015), "The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets", *PLoS ONE* 10(3). https://pmc.ncbi.nlm.nih.gov/articles/PMC4349800
-- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting
-- Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599. Temperature scaling.
-- Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. Models can memorise, so held-out tests matter. https://mlanthology.org/iclr/2017/zhang2017iclr-understanding
+- Saito & Rehmsmeier (2015), "The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets", *PLoS ONE* 10(3). https://pmc.ncbi.nlm.nih.gov/articles/PMC4349800 — Shows why precision-recall curves are more informative than ROC curves for rare positives.
+- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting — Compares probability calibration across common classifiers and the effect of calibration methods.
+- Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599 — Shows that modern networks are overconfident and that temperature scaling corrects it.
+- Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. https://mlanthology.org/iclr/2017/zhang2017iclr-understanding — Shows that networks can memorise random labels, so held-out tests are essential.
 
 ### Surveys and textbooks
 
@@ -57,8 +57,8 @@ LLM evaluation adds benchmark contamination and judge-model bias; see [Large Lan
 
 ### Lectures and videos
 
-- StatQuest with Josh Starmer, episodes on ROC curves and AUC, YouTube. https://www.youtube.com/@statquest
+- StatQuest with Josh Starmer, episodes on ROC curves and AUC, YouTube. https://www.youtube.com/@statquest — Visual explanation of how ROC curves and AUC are built and what they measure.
 
 ### Articles and documentation
 
-- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", arXiv:2207.08815. A careful benchmark design.
+- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", arXiv:2207.08815 — Careful benchmark design, useful as a model for fair comparisons between methods.
