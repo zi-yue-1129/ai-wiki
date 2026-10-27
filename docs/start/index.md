@@ -2,9 +2,9 @@
 
 This section gives you the big picture:
 
-- [Learning Paths](learning-paths.md): reading orders for different backgrounds (beginners, engineers, researchers, neuroscience/psychology people, domain professionals).
-- [Open-Source Resource Survey](open-source-survey.md): the most complete open AI textbooks, courses, knowledge bases and awesome lists, with license comparison.
-- [History of AI](history.md): from the 1943 artificial neuron to today's language models and agents.
+- [Learning Paths](learning-paths/index.md): reading orders for different backgrounds (beginners, engineers, researchers, neuroscience/psychology people, domain professionals).
+- [Open-Source Resource Survey](open-source-survey/index.md): the most complete open AI textbooks, courses, knowledge bases and awesome lists, with license comparison.
+- [History of AI](history/index.md): from the 1943 artificial neuron to today's language models and agents.
 
 ## What is artificial intelligence?
 

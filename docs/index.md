@@ -8,9 +8,9 @@ hide:
 An open, continuously growing wiki that maps **the whole landscape of artificial intelligence**: from mathematics and machine learning to large language models and agents; from how neuroscience, cognitive science and psychology inspire AI (and how AI is changing those sciences) to how AI is used in medicine, science, education, law, art and more; and finally the engineering practice and societal questions around it.
 
 !!! tip "How to use this site"
-    - New here? Start with the [Learning Paths](start/learning-paths.md) and pick the one that fits your background.
-    - Looking for source material? The [Open-Source Resource Survey](start/open-source-survey.md) compares the best open AI textbooks, courses, knowledge bases and awesome lists, with their licenses.
-    - Hit an unfamiliar term? Check the [Glossary](reference/glossary.md), or hover over an abbreviation.
+    - New here? Start with the [Learning Paths](start/learning-paths/index.md) and pick the one that fits your background.
+    - Looking for source material? The [Open-Source Resource Survey](start/open-source-survey/index.md) compares the best open AI textbooks, courses, knowledge bases and awesome lists, with their licenses.
+    - Hit an unfamiliar term? Check the [Glossary](reference/glossary/index.md), or hover over an abbreviation.
     - A Traditional Chinese (繁體中文) version is available from the language switcher in the header.
 
 ## Knowledge map

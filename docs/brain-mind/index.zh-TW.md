@@ -24,16 +24,16 @@ flowchart TB
 
 | 頁面 | 重點 |
 |---|---|
-| [神經科學基礎](neuroscience.md) | 神經元、突觸、腦區、研究方法 |
-| [計算神經科學](computational-neuroscience.md) | 神經元模型、神經編碼、Marr 三層次 |
-| [NeuroAI](neuroai.md) | 深度網路作為大腦模型、大腦啟發的 AI、信用分配 |
-| [脈衝神經網路與神經形態運算](snn-neuromorphic.md) | SNN、STDP、Loihi、TrueNorth、低功耗 AI |
-| [記憶與學習的神經機制](memory-learning.md) | 海馬迴、突觸可塑性、互補學習系統、災難性遺忘 |
-| [認知科學](cognitive-science.md) | 知覺、注意、語言、推理、預測處理 |
-| [認知架構](cognitive-architectures.md) | ACT-R、Soar、全域工作空間、LLM 代理人架構 |
-| [心理學與 AI](psychology.md) | 認知偏誤、雙歷程理論、發展心理學、機器心理學 |
-| [意識與心靈哲學](consciousness.md) | 意識理論、AI 能否有意識、中文房間 |
-| [腦機介面與神經解碼](bci.md) | 侵入式與非侵入式 BCI、從腦活動解碼語言與影像 |
+| [神經科學基礎](neuroscience/index.md) | 神經元、突觸、腦區、研究方法 |
+| [計算神經科學](computational-neuroscience/index.md) | 神經元模型、神經編碼、Marr 三層次 |
+| [NeuroAI](neuroai/index.md) | 深度網路作為大腦模型、大腦啟發的 AI、信用分配 |
+| [脈衝神經網路與神經形態運算](snn-neuromorphic/index.md) | SNN、STDP、Loihi、TrueNorth、低功耗 AI |
+| [記憶與學習的神經機制](memory-learning/index.md) | 海馬迴、突觸可塑性、互補學習系統、災難性遺忘 |
+| [認知科學](cognitive-science/index.md) | 知覺、注意、語言、推理、預測處理 |
+| [認知架構](cognitive-architectures/index.md) | ACT-R、Soar、全域工作空間、LLM 代理人架構 |
+| [心理學與 AI](psychology/index.md) | 認知偏誤、雙歷程理論、發展心理學、機器心理學 |
+| [意識與心靈哲學](consciousness/index.md) | 意識理論、AI 能否有意識、中文房間 |
+| [腦機介面與神經解碼](bci/index.md) | 侵入式與非侵入式 BCI、從腦活動解碼語言與影像 |
 
 ## 雙向關係一覽
 

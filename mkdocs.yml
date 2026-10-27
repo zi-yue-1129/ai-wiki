@@ -202,97 +202,97 @@ nav:
   - Home: index.md
   - Getting Started:
       - start/index.md
-      - Learning Paths: start/learning-paths.md
-      - Open-Source Resource Survey: start/open-source-survey.md
-      - History of AI: start/history.md
+      - Learning Paths: start/learning-paths/index.md
+      - Open-Source Resource Survey: start/open-source-survey/index.md
+      - History of AI: start/history/index.md
   - Foundations:
       - foundations/index.md
-      - Mathematics: foundations/math.md
-      - Machine Learning: foundations/machine-learning.md
-      - Deep Learning: foundations/deep-learning.md
+      - Mathematics: foundations/math/index.md
+      - Machine Learning: foundations/machine-learning/index.md
+      - Deep Learning: foundations/deep-learning/index.md
       - Learning Paradigms:
           - foundations/paradigms/index.md
-          - Supervised Learning: foundations/paradigms/supervised.md
-          - Unsupervised Learning: foundations/paradigms/unsupervised.md
-          - Semi- & Weakly Supervised Learning: foundations/paradigms/semi-supervised.md
-          - Self-Supervised Learning: foundations/paradigms/self-supervised.md
-          - Reinforcement Learning: foundations/reinforcement-learning.md
-          - Imitation Learning: foundations/paradigms/imitation.md
-          - Transfer Learning & Domain Adaptation: foundations/paradigms/transfer.md
-          - Meta-Learning & Few-Shot Learning: foundations/paradigms/meta-learning.md
-          - Continual Learning: foundations/paradigms/continual.md
-          - Active Learning: foundations/paradigms/active.md
-          - Online Learning & Bandits: foundations/paradigms/online.md
-          - Federated & Privacy-Preserving Learning: foundations/paradigms/federated.md
-          - Other Paradigms: foundations/paradigms/other.md
-      - Probabilistic & Bayesian Methods: foundations/probabilistic.md
-      - Symbolic AI, Search & Planning: foundations/symbolic-ai.md
-      - Evolutionary & Swarm Intelligence: foundations/evolutionary.md
+          - Supervised Learning: foundations/paradigms/supervised/index.md
+          - Unsupervised Learning: foundations/paradigms/unsupervised/index.md
+          - Semi- & Weakly Supervised Learning: foundations/paradigms/semi-supervised/index.md
+          - Self-Supervised Learning: foundations/paradigms/self-supervised/index.md
+          - Reinforcement Learning: foundations/paradigms/reinforcement-learning/index.md
+          - Imitation Learning: foundations/paradigms/imitation/index.md
+          - Transfer Learning & Domain Adaptation: foundations/paradigms/transfer/index.md
+          - Meta-Learning & Few-Shot Learning: foundations/paradigms/meta-learning/index.md
+          - Continual Learning: foundations/paradigms/continual/index.md
+          - Active Learning: foundations/paradigms/active/index.md
+          - Online Learning & Bandits: foundations/paradigms/online/index.md
+          - Federated & Privacy-Preserving Learning: foundations/paradigms/federated/index.md
+          - Other Paradigms: foundations/paradigms/other/index.md
+      - Probabilistic & Bayesian Methods: foundations/probabilistic/index.md
+      - Symbolic AI, Search & Planning: foundations/symbolic-ai/index.md
+      - Evolutionary & Swarm Intelligence: foundations/evolutionary/index.md
   - Models:
       - models/index.md
-      - Transformers & Attention: models/transformer.md
-      - Large Language Models: models/llm.md
-      - Generative Models: models/generative.md
-      - Computer Vision: models/computer-vision.md
-      - Natural Language Processing: models/nlp.md
-      - Speech & Audio: models/speech.md
-      - Multimodal Models: models/multimodal.md
-      - Graph Neural Networks: models/gnn.md
-      - AI Agents: models/agents.md
-      - World Models & Embodied AI: models/world-models.md
+      - Transformers & Attention: models/transformer/index.md
+      - Large Language Models: models/llm/index.md
+      - Generative Models: models/generative/index.md
+      - Computer Vision: models/computer-vision/index.md
+      - Natural Language Processing: models/nlp/index.md
+      - Speech & Audio: models/speech/index.md
+      - Multimodal Models: models/multimodal/index.md
+      - Graph Neural Networks: models/gnn/index.md
+      - AI Agents: models/agents/index.md
+      - World Models & Embodied AI: models/world-models/index.md
   - Brain & Mind:
       - brain-mind/index.md
-      - Neuroscience Basics: brain-mind/neuroscience.md
-      - Computational Neuroscience: brain-mind/computational-neuroscience.md
-      - NeuroAI: brain-mind/neuroai.md
-      - Spiking Networks & Neuromorphic Computing: brain-mind/snn-neuromorphic.md
-      - Memory & Learning in the Brain: brain-mind/memory-learning.md
-      - Cognitive Science: brain-mind/cognitive-science.md
-      - Cognitive Architectures: brain-mind/cognitive-architectures.md
-      - Psychology & AI: brain-mind/psychology.md
-      - Consciousness & Philosophy of Mind: brain-mind/consciousness.md
-      - Brain-Computer Interfaces: brain-mind/bci.md
+      - Neuroscience Basics: brain-mind/neuroscience/index.md
+      - Computational Neuroscience: brain-mind/computational-neuroscience/index.md
+      - NeuroAI: brain-mind/neuroai/index.md
+      - Spiking Networks & Neuromorphic Computing: brain-mind/snn-neuromorphic/index.md
+      - Memory & Learning in the Brain: brain-mind/memory-learning/index.md
+      - Cognitive Science: brain-mind/cognitive-science/index.md
+      - Cognitive Architectures: brain-mind/cognitive-architectures/index.md
+      - Psychology & AI: brain-mind/psychology/index.md
+      - Consciousness & Philosophy of Mind: brain-mind/consciousness/index.md
+      - Brain-Computer Interfaces: brain-mind/bci/index.md
   - Applications:
       - applications/index.md
-      - Healthcare: applications/healthcare.md
-      - Life Sciences & Drug Discovery: applications/life-science.md
-      - Scientific Discovery: applications/science.md
-      - Mental Health: applications/mental-health.md
-      - Education: applications/education.md
-      - Finance: applications/finance.md
-      - Law: applications/law.md
-      - Robotics: applications/robotics.md
-      - Autonomous Driving & Transport: applications/autonomous-driving.md
-      - Manufacturing & Industry: applications/manufacturing.md
-      - Agriculture & Food: applications/agriculture.md
-      - Climate & Energy: applications/climate-energy.md
-      - Art, Media & Creativity: applications/creative.md
-      - Games: applications/games.md
-      - Cybersecurity: applications/cybersecurity.md
-      - Social Sciences & Humanities: applications/social-science.md
-      - Software Development: applications/software.md
+      - Healthcare: applications/healthcare/index.md
+      - Life Sciences & Drug Discovery: applications/life-science/index.md
+      - Scientific Discovery: applications/science/index.md
+      - Mental Health: applications/mental-health/index.md
+      - Education: applications/education/index.md
+      - Finance: applications/finance/index.md
+      - Law: applications/law/index.md
+      - Robotics: applications/robotics/index.md
+      - Autonomous Driving & Transport: applications/autonomous-driving/index.md
+      - Manufacturing & Industry: applications/manufacturing/index.md
+      - Agriculture & Food: applications/agriculture/index.md
+      - Climate & Energy: applications/climate-energy/index.md
+      - Art, Media & Creativity: applications/creative/index.md
+      - Games: applications/games/index.md
+      - Cybersecurity: applications/cybersecurity/index.md
+      - Social Sciences & Humanities: applications/social-science/index.md
+      - Software Development: applications/software/index.md
   - Engineering:
       - engineering/index.md
-      - Frameworks & Tools: engineering/frameworks.md
-      - Data: engineering/data.md
-      - Training & Fine-tuning: engineering/training.md
-      - Prompt Engineering: engineering/prompting.md
-      - Retrieval-Augmented Generation: engineering/rag.md
-      - Evaluation & Benchmarks: engineering/evaluation.md
-      - MLOps & Deployment: engineering/mlops.md
-      - AI Hardware: engineering/hardware.md
+      - Frameworks & Tools: engineering/frameworks/index.md
+      - Data: engineering/data/index.md
+      - Training & Fine-tuning: engineering/training/index.md
+      - Prompt Engineering: engineering/prompting/index.md
+      - Retrieval-Augmented Generation: engineering/rag/index.md
+      - Evaluation & Benchmarks: engineering/evaluation/index.md
+      - MLOps & Deployment: engineering/mlops/index.md
+      - AI Hardware: engineering/hardware/index.md
   - AI & Society:
       - society/index.md
-      - Safety & Alignment: society/safety-alignment.md
-      - Interpretability: society/interpretability.md
-      - Ethics & Fairness: society/ethics.md
-      - Law, Policy & Governance: society/governance.md
-      - Economics & Work: society/economics.md
-      - Philosophy of AI: society/philosophy.md
+      - Safety & Alignment: society/safety-alignment/index.md
+      - Interpretability: society/interpretability/index.md
+      - Ethics & Fairness: society/ethics/index.md
+      - Law, Policy & Governance: society/governance/index.md
+      - Economics & Work: society/economics/index.md
+      - Philosophy of AI: society/philosophy/index.md
   - Reference:
       - reference/index.md
-      - Glossary: reference/glossary.md
-      - Landmark Papers: reference/papers.md
-      - Courses & Books: reference/courses-books.md
-      - Datasets: reference/datasets.md
-      - Contributing: reference/contributing.md
+      - Glossary: reference/glossary/index.md
+      - Landmark Papers: reference/papers/index.md
+      - Courses & Books: reference/courses-books/index.md
+      - Datasets: reference/datasets/index.md
+      - Contributing: reference/contributing/index.md
