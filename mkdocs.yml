@@ -77,6 +77,7 @@ plugins:
             History of AI: AI 發展史
             Foundations: 基礎理論
             Mathematics: 數學基礎
+            Information Theory: 資訊理論
             Machine Learning: 機器學習
             Deep Learning: 深度學習
             Reinforcement Learning: 強化學習
@@ -213,6 +214,7 @@ nav:
   - Foundations:
       - foundations/index.md
       - Mathematics: foundations/math/index.md
+      - Information Theory: foundations/information-theory/index.md
       - Machine Learning: foundations/machine-learning/index.md
       - Deep Learning: foundations/deep-learning/index.md
       - Learning Paradigms:
