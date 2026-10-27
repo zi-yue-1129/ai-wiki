@@ -1,3 +1,7 @@
+---
+references: not-required  # lists and meta pages cite through their entries
+---
+
 # Roadmap & Coverage
 
 The goal of this wiki is **complete coverage of artificial intelligence**: how it works, how it relates to the brain and mind, and how every field uses it. This page tracks how far we are and what is still missing.

@@ -1,3 +1,7 @@
+---
+references: not-required  # lists and meta pages cite through their entries
+---
+
 # Style Guide
 
 How pages in this wiki are written, so that hundreds of pages by many authors read as one work.
@@ -63,6 +67,7 @@ All fields are optional.
 | `last_reviewed` | `YYYY-MM-DD` | Last time someone checked the whole page is still accurate. Pages older than 12 months are flagged |
 | `related` | list of topic folders (or `.md` pages) relative to `docs/` | Topics in other categories this one also belongs to. Builds a reciprocal *Related topics* section (see below) |
 | `tags` | list of words | Cross-cutting themes, collected on the Tags page |
+| `references` | `not-required` | Exempts a list or meta page from the References check |
 | `translation_reviewed` | `YYYY-MM-DD` | On a translation: last time it was checked against the English page |
 
 ## Topics in more than one category
@@ -94,9 +99,56 @@ tags:
 ## Sources and licensing
 
 - Content is licensed **CC BY-SA 4.0**. Write in your own words.
-- Every non-obvious claim needs a source, as a footnote (`[^1]`) or in the references list.
+- Every non-obvious claim needs a source. See the Citations section below.
 - You may adapt material from CC BY, CC BY-SA or MIT sources with attribution. Material under non-commercial (NC) or no-derivatives (ND) licenses may only be linked, not copied.
 - Images: only your own or openly licensed ones, with the license and source in the caption.
+
+## Citations
+
+Good references are what make a page trustworthy and useful for learning. Every topic page ends with a `## References` section.
+
+**How many:** at least 5 entries, and more is better. Aim for a spread across the four kinds below. Entries are checked by the build (`--check`): each needs a DOI, arXiv id or URL.
+
+**What to include**
+
+- **Seminal papers.** The papers that introduced or defined the idea. Prefer the original publication.
+- **Surveys and textbooks.** Reviews and books a reader can use to go deeper. Link a free version when one is legally available.
+- **Lectures and videos.** Courses and talks from universities, research labs, conferences or official channels. Name the speaker, course or event, and year.
+- **Articles and documentation.** Official documentation, posts from the original authors or labs, and careful journalism. Prefer primary sources over commentary.
+
+**Format**
+
+Group entries under these headings when the page has enough of them. Use one line per entry:
+
+```markdown
+## References
+
+### Seminal papers
+
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *J. Physiology*. doi:10.1113/jphysiol.1962.sp006837
+
+### Surveys and textbooks
+
+- Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*. MIT Press. https://www.deeplearningbook.org/
+
+### Lectures and videos
+
+- Lecturer, *Course title*, University, Year. https://example.edu/course
+
+### Articles and documentation
+
+- Organization. *Page title*. https://example.org/page
+```
+
+**Rules**
+
+1. **Open every link before you add it.** Confirm the title, authors, year and that it says what you cite it for. Never guess a DOI, arXiv id or URL, and never cite a paper you have not at least read the abstract of.
+2. **Cite a specific claim with a footnote** (`[^1]`) that points to the entry. Keep a general reading list in References.
+3. **Videos:** use the course page or the speaker's official channel, not a re-upload.
+4. **Don't copy.** Citing a source is not a license to reproduce its text, figures or diagrams. Paraphrase, and link.
+5. **Dead links** are found by the weekly link check. Replace them with an archived copy or a newer source, don't just delete the entry.
+6. Pages that are pure lists or meta pages (the roadmap, the glossary, the reference lists) set `references: not-required` in their front matter. Section overviews are exempt automatically.
 
 ## Formatting
 

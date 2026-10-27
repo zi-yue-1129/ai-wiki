@@ -1,3 +1,7 @@
+---
+references: not-required  # lists and meta pages cite through their entries
+---
+
 # Landmark Papers
 
 A curated reading list. Each entry: authors (year), title — why it matters.
