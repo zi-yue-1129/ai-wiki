@@ -41,7 +41,6 @@ The Bayesian view links to [Probabilistic & Bayesian Methods](../../../probabili
 
 - Cover & Hart (1967), "Nearest neighbor pattern classification", *IEEE Transactions on Information Theory* 13(1). The k-NN error bound.
 - Ng & Jordan (2001), "On discriminative vs. generative classifiers: a comparison of logistic regression and naive Bayes", NeurIPS. The sample-complexity comparison discussed above.
-- Nosofsky (1986), "Attention, similarity, and the identification–categorization relationship", *Journal of Experimental Psychology: General* 115(1). The exemplar model of categorisation.
 - Rasmussen & Williams, *Gaussian Processes for Machine Learning* (2006). Free online; the standard GP reference.
 - Murphy, *Probabilistic Machine Learning: An Introduction* (2022). Chapters on generative classifiers and GPs.
-- Video: StatQuest with Josh Starmer, "Naive Bayes" and "Gaussian Processes" episodes (YouTube).
+- Video: StatQuest with Josh Starmer (YouTube channel), episodes on Naive Bayes.

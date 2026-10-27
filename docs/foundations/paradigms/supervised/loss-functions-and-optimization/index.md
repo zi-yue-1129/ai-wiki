@@ -47,4 +47,4 @@ The same objective underlies [self-supervised](../../self-supervised/index.md) p
 - Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980.
 - Loshchilov & Hutter (2019), "Decoupled weight decay regularization", ICLR, arXiv:1711.05101. AdamW.
 - Ruder (2016), "An overview of gradient descent optimization algorithms", arXiv:1609.04747.
-- Stanford CS231n, "Optimization" course notes, cs231n.github.io/optimization-1 (free online). Practical guide to SGD and learning rates.
+- Stanford CS231n course notes on optimisation (free online). Practical guide to SGD and learning rates.

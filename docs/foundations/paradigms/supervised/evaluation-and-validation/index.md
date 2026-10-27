@@ -47,4 +47,4 @@ LLM evaluation adds benchmark contamination and judge-model bias; see [Large Lan
 - Saito & Rehmsmeier (2015), "The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets", *PLoS ONE* 10(3). Why PR-AUC matters for rare positives.
 - Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. Calibration of different classifiers.
 - Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599. Temperature scaling.
-- Video: StatQuest with Josh Starmer, "ROC and AUC, Clearly Explained!" (YouTube).
+- Video: StatQuest with Josh Starmer (YouTube channel), episodes on ROC curves and AUC.

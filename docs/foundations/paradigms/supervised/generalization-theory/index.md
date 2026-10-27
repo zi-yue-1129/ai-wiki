@@ -48,7 +48,7 @@ Distribution shift breaks the i.i.d. assumption; see [transfer theory](../../tra
 
 - Valiant (1984), "A theory of the learnable", *Communications of the ACM* 27(11). Introduces PAC learning.
 - Vapnik, *Statistical Learning Theory* (1998). Wiley; VC theory and structural risk minimisation.
-- Shalev-Shwartz & Ben-David, *Understanding Machine Learning: From Theory to Algorithms* (2014). Free PDF from the authors.
+- Shalev-Shwartz & Ben-David, *Understanding Machine Learning: From Theory to Algorithms*, Cambridge University Press (2014).
 - Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. Networks fit random labels.
 - Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS* 116(32), arXiv:1812.11118. Double descent.
 - Kaplan et al. (2020), "Scaling laws for neural language models", arXiv:2001.08361.
