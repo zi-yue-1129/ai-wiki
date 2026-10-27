@@ -217,7 +217,15 @@ nav:
       - Deep Learning: foundations/deep-learning/index.md
       - Learning Paradigms:
           - foundations/paradigms/index.md
-          - Supervised Learning: foundations/paradigms/supervised/index.md
+          - Supervised Learning:
+              - foundations/paradigms/supervised/index.md
+              - Linear Models & GLMs: foundations/paradigms/supervised/linear-models/index.md
+              - Trees & Ensembles: foundations/paradigms/supervised/trees-and-ensembles/index.md
+              - Kernels & SVMs: foundations/paradigms/supervised/kernel-methods-svm/index.md
+              - kNN, Naive Bayes & Gaussian Processes: foundations/paradigms/supervised/instance-based-and-probabilistic/index.md
+              - Loss Functions & Optimisation: foundations/paradigms/supervised/loss-functions-and-optimization/index.md
+              - Generalisation Theory: foundations/paradigms/supervised/generalization-theory/index.md
+              - Evaluation & Validation: foundations/paradigms/supervised/evaluation-and-validation/index.md
           - Unsupervised Learning: foundations/paradigms/unsupervised/index.md
           - Semi- & Weakly Supervised Learning: foundations/paradigms/semi-supervised/index.md
           - Self-Supervised Learning: foundations/paradigms/self-supervised/index.md
