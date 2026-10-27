@@ -1,0 +1,271 @@
+site_name: AI Wiki
+site_description: An open, comprehensive wiki of artificial intelligence — foundations, models, brain and cognitive science, applications across fields, engineering, and society
+site_author: starpig
+site_url: https://zi-yue-1129.github.io/ai-wiki/
+repo_url: https://github.com/zi-yue-1129/ai-wiki
+repo_name: zi-yue-1129/ai-wiki
+edit_uri: edit/main/docs/
+copyright: Content licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+
+theme:
+  name: material
+  language: en
+  icon:
+    logo: material/brain
+    repo: fontawesome/brands/github
+  favicon: assets/favicon.svg
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
+    - content.tooltips
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+      separator: '[\s​\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - tags
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: zh-TW
+          name: 繁體中文
+          build: true
+          site_name: AI Wiki 人工智慧知識庫
+          nav_translations:
+            Home: 首頁
+            Getting Started: 開始
+            Learning Paths: 學習路線
+            Open-Source Resource Survey: 開源資源調查
+            History of AI: AI 發展史
+            Foundations: 基礎理論
+            Mathematics: 數學基礎
+            Machine Learning: 機器學習
+            Deep Learning: 深度學習
+            Reinforcement Learning: 強化學習
+            Probabilistic & Bayesian Methods: 機率圖模型與貝氏方法
+            Symbolic AI, Search & Planning: 符號 AI、搜尋與規劃
+            Evolutionary & Swarm Intelligence: 演化計算與群體智慧
+            Models: 模型與技術
+            Transformers & Attention: Transformer 與注意力
+            Large Language Models: 大型語言模型
+            Generative Models: 生成模型
+            Computer Vision: 電腦視覺
+            Natural Language Processing: 自然語言處理
+            Speech & Audio: 語音與音訊
+            Multimodal Models: 多模態模型
+            Graph Neural Networks: 圖神經網路
+            AI Agents: AI 代理人
+            World Models & Embodied AI: 世界模型與具身智慧
+            Brain & Mind: 腦與心智
+            Neuroscience Basics: 神經科學基礎
+            Computational Neuroscience: 計算神經科學
+            NeuroAI: NeuroAI：大腦與 AI 的雙向啟發
+            Spiking Networks & Neuromorphic Computing: 脈衝神經網路與神經形態運算
+            Memory & Learning in the Brain: 記憶與學習的神經機制
+            Cognitive Science: 認知科學
+            Cognitive Architectures: 認知架構
+            Psychology & AI: 心理學與 AI
+            Consciousness & Philosophy of Mind: 意識與心靈哲學
+            Brain-Computer Interfaces: 腦機介面與神經解碼
+            Applications: 領域應用
+            Healthcare: 醫療與健康
+            Life Sciences & Drug Discovery: 生命科學與藥物開發
+            Scientific Discovery: 科學研究
+            Mental Health: 心理健康
+            Education: 教育
+            Finance: 金融
+            Law: 法律
+            Robotics: 機器人
+            Autonomous Driving & Transport: 自駕車與交通
+            Manufacturing & Industry: 製造與工業
+            Agriculture & Food: 農業與食品
+            Climate & Energy: 氣候與能源
+            Art, Media & Creativity: 藝術、媒體與創作
+            Games: 遊戲
+            Cybersecurity: 資訊安全
+            Social Sciences & Humanities: 社會科學與人文
+            Software Development: 軟體開發
+            Engineering: 工程實務
+            Frameworks & Tools: 框架與工具
+            Data: 資料工程
+            Training & Fine-tuning: 訓練與微調
+            Prompt Engineering: 提示工程
+            Retrieval-Augmented Generation: 檢索增強生成 RAG
+            Evaluation & Benchmarks: 評估與基準
+            MLOps & Deployment: MLOps 與部署
+            AI Hardware: AI 硬體
+            AI & Society: AI 與社會
+            Safety & Alignment: AI 安全與對齊
+            Interpretability: 可解釋性
+            Ethics & Fairness: 倫理與公平
+            Law, Policy & Governance: 法規與治理
+            Economics & Work: 經濟與勞動
+            Philosophy of AI: AI 哲學
+            Reference: 參考
+            Glossary: 名詞對照表
+            Landmark Papers: 經典論文
+            Courses & Books: 課程與書籍
+            Datasets: 資料集
+            Contributing: 參與貢獻
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - start/index.md
+      - Learning Paths: start/learning-paths.md
+      - Open-Source Resource Survey: start/open-source-survey.md
+      - History of AI: start/history.md
+  - Foundations:
+      - foundations/index.md
+      - Mathematics: foundations/math.md
+      - Machine Learning: foundations/machine-learning.md
+      - Deep Learning: foundations/deep-learning.md
+      - Reinforcement Learning: foundations/reinforcement-learning.md
+      - Probabilistic & Bayesian Methods: foundations/probabilistic.md
+      - Symbolic AI, Search & Planning: foundations/symbolic-ai.md
+      - Evolutionary & Swarm Intelligence: foundations/evolutionary.md
+  - Models:
+      - models/index.md
+      - Transformers & Attention: models/transformer.md
+      - Large Language Models: models/llm.md
+      - Generative Models: models/generative.md
+      - Computer Vision: models/computer-vision.md
+      - Natural Language Processing: models/nlp.md
+      - Speech & Audio: models/speech.md
+      - Multimodal Models: models/multimodal.md
+      - Graph Neural Networks: models/gnn.md
+      - AI Agents: models/agents.md
+      - World Models & Embodied AI: models/world-models.md
+  - Brain & Mind:
+      - brain-mind/index.md
+      - Neuroscience Basics: brain-mind/neuroscience.md
+      - Computational Neuroscience: brain-mind/computational-neuroscience.md
+      - NeuroAI: brain-mind/neuroai.md
+      - Spiking Networks & Neuromorphic Computing: brain-mind/snn-neuromorphic.md
+      - Memory & Learning in the Brain: brain-mind/memory-learning.md
+      - Cognitive Science: brain-mind/cognitive-science.md
+      - Cognitive Architectures: brain-mind/cognitive-architectures.md
+      - Psychology & AI: brain-mind/psychology.md
+      - Consciousness & Philosophy of Mind: brain-mind/consciousness.md
+      - Brain-Computer Interfaces: brain-mind/bci.md
+  - Applications:
+      - applications/index.md
+      - Healthcare: applications/healthcare.md
+      - Life Sciences & Drug Discovery: applications/life-science.md
+      - Scientific Discovery: applications/science.md
+      - Mental Health: applications/mental-health.md
+      - Education: applications/education.md
+      - Finance: applications/finance.md
+      - Law: applications/law.md
+      - Robotics: applications/robotics.md
+      - Autonomous Driving & Transport: applications/autonomous-driving.md
+      - Manufacturing & Industry: applications/manufacturing.md
+      - Agriculture & Food: applications/agriculture.md
+      - Climate & Energy: applications/climate-energy.md
+      - Art, Media & Creativity: applications/creative.md
+      - Games: applications/games.md
+      - Cybersecurity: applications/cybersecurity.md
+      - Social Sciences & Humanities: applications/social-science.md
+      - Software Development: applications/software.md
+  - Engineering:
+      - engineering/index.md
+      - Frameworks & Tools: engineering/frameworks.md
+      - Data: engineering/data.md
+      - Training & Fine-tuning: engineering/training.md
+      - Prompt Engineering: engineering/prompting.md
+      - Retrieval-Augmented Generation: engineering/rag.md
+      - Evaluation & Benchmarks: engineering/evaluation.md
+      - MLOps & Deployment: engineering/mlops.md
+      - AI Hardware: engineering/hardware.md
+  - AI & Society:
+      - society/index.md
+      - Safety & Alignment: society/safety-alignment.md
+      - Interpretability: society/interpretability.md
+      - Ethics & Fairness: society/ethics.md
+      - Law, Policy & Governance: society/governance.md
+      - Economics & Work: society/economics.md
+      - Philosophy of AI: society/philosophy.md
+  - Reference:
+      - reference/index.md
+      - Glossary: reference/glossary.md
+      - Landmark Papers: reference/papers.md
+      - Courses & Books: reference/courses-books.md
+      - Datasets: reference/datasets.md
+      - Contributing: reference/contributing.md
