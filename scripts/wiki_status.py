@@ -246,6 +246,21 @@ def check(pages: list[Page]) -> int:
             problems.append(f"docs/{p.path.as_posix()}: status must be one of {', '.join(STATUSES)}")
         if "last_reviewed" in meta and as_date(meta["last_reviewed"]) is None:
             problems.append(f"docs/{p.path.as_posix()}: last_reviewed must be YYYY-MM-DD")
+        related = meta.get("related", [])
+        if not isinstance(related, list):
+            problems.append(f"docs/{p.path.as_posix()}: related must be a list of paths")
+            related = []
+        for entry in related:
+            # Same resolution as hooks/related.py: a folder means its index.md.
+            target = str(entry).strip("/")
+            target = target if target.endswith(".md") else f"{target}/index.md"
+            if target == p.path.as_posix():
+                problems.append(f"docs/{p.path.as_posix()}: related lists the page itself")
+            elif is_translation(Path(target)) or not (DOCS / target).is_file():
+                problems.append(
+                    f"docs/{p.path.as_posix()}: related topic '{entry}' not found "
+                    "(use a topic folder or English page relative to docs/, e.g. brain-mind/neuroai)"
+                )
     for line in problems:
         print(f"::error::{line}" if "GITHUB_ACTIONS" in os.environ else line)
     print(f"{len(pages)} pages checked, {len(problems)} problem(s).")

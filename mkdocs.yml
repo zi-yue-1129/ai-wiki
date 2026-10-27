@@ -45,6 +45,9 @@ theme:
     - content.action.edit
     - content.tooltips
 
+hooks:
+  - hooks/related.py
+
 plugins:
   - search:
       lang:

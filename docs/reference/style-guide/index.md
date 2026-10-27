@@ -61,7 +61,29 @@ All fields are optional.
 |---|---|---|
 | `status` | `stub`, `draft`, `complete` | Overrides the automatic status (stub if it has the marker above, draft under 400 words, otherwise complete) |
 | `last_reviewed` | `YYYY-MM-DD` | Last time someone checked the whole page is still accurate. Pages older than 12 months are flagged |
+| `related` | list of topic folders (or `.md` pages) relative to `docs/` | Topics in other categories this one also belongs to. Builds a reciprocal *Related topics* section (see below) |
+| `tags` | list of words | Cross-cutting themes, collected on the Tags page |
 | `translation_reviewed` | `YYYY-MM-DD` | On a translation: last time it was checked against the English page |
+
+## Topics in more than one category
+
+Many topics belong to several categories at once: reinforcement learning is a learning paradigm, a model of dopamine in the brain, and a tool in robotics. Each topic has **one home folder**, chosen by where a reader would look first, and is connected to its other categories in the front matter of its English page:
+
+```yaml
+---
+related:
+  - brain-mind/memory-learning
+  - applications/robotics
+tags:
+  - reinforcement learning
+---
+```
+
+- `related` lists topic folders relative to `docs/` (`brain-mind/neuroai` means `brain-mind/neuroai/index.md`); a single sub-page can be named with its file, e.g. `models/llm/tokenization.md`. Declare each relationship once, on either page: the build adds a *Related topics* section to **both** pages, in every language, with titles in that language. Don't hand-write a "Related topics" section.
+- `tags` groups pages by cross-cutting themes; every tag is listed on the Tags page in Reference.
+- Use `related` for topics that share a subject, not for every page you mention. Link inline in the text as well wherever the connection is explained.
+- Don't copy the same content into two categories; write it once and link to it.
+- `python scripts/wiki_status.py --check` fails if a `related` entry doesn't exist.
 
 ## Links
 
