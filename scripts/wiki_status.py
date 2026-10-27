@@ -250,15 +250,16 @@ def check(pages: list[Page]) -> int:
         if not isinstance(related, list):
             problems.append(f"docs/{p.path.as_posix()}: related must be a list of paths")
             related = []
-        own_topic = p.path.parent.as_posix() if p.path.name == "index.md" else None
-        for target in related:
-            target = str(target).strip("/")
-            if target == own_topic:
+        for entry in related:
+            # Same resolution as hooks/related.py: a folder means its index.md.
+            target = str(entry).strip("/")
+            target = target if target.endswith(".md") else f"{target}/index.md"
+            if target == p.path.as_posix():
                 problems.append(f"docs/{p.path.as_posix()}: related lists the page itself")
-            elif not (DOCS / target / "index.md").is_file():
+            elif is_translation(Path(target)) or not (DOCS / target).is_file():
                 problems.append(
-                    f"docs/{p.path.as_posix()}: related topic '{target}' not found "
-                    "(use a topic folder relative to docs/, e.g. brain-mind/neuroai)"
+                    f"docs/{p.path.as_posix()}: related topic '{entry}' not found "
+                    "(use a topic folder or English page relative to docs/, e.g. brain-mind/neuroai)"
                 )
     for line in problems:
         print(f"::error::{line}" if "GITHUB_ACTIONS" in os.environ else line)
