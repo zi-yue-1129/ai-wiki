@@ -27,6 +27,8 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
+      - name: Generate coverage status
+        run: python scripts/wiki_status.py --format page > includes/status.md
       - run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'

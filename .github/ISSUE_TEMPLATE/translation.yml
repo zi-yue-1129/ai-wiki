@@ -1,0 +1,41 @@
+name: Translation
+description: Request or offer a translation, or report a translation problem
+title: "[Translation] "
+labels: ["translation"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page URL or path
+      placeholder: docs/models/llm.md
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options:
+        - 繁體中文 (zh-TW)
+        - Other (say which below)
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Request type
+      options:
+        - Missing translation
+        - Translation is behind the English page
+        - Translation error
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Contribution
+      options:
+        - label: I'd like to do this translation myself

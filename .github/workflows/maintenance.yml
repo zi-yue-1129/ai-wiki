@@ -1,0 +1,74 @@
+name: Maintenance
+
+on:
+  pull_request:
+  schedule:
+    - cron: "0 1 * * 1" # Mondays 01:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Check page structure
+        run: python scripts/wiki_status.py --check
+
+  health-report:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Page status
+        run: python scripts/wiki_status.py --format issue > report.md
+      - name: Check external links
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config lychee.toml --no-progress "docs/**/*.md" README.md
+          output: lychee.md
+          format: markdown
+          fail: false
+      - name: Publish health report issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            cat report.md
+            echo
+            echo "## External links"
+            echo
+            if [ "${{ steps.lychee.outputs.exit_code }}" = "0" ]; then
+              echo "All external links are reachable. 🎉"
+            else
+              cat lychee.md
+            fi
+          } > body.md
+          gh label create wiki-health --color 0e8a16 --description "Weekly wiki health report" 2>/dev/null || true
+          number=$(gh issue list --label wiki-health --state open --json number --jq '.[0].number')
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --body-file body.md
+          else
+            gh issue create --title "Wiki health report" --label wiki-health --body-file body.md
+          fi

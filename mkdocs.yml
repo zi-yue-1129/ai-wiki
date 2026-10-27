@@ -155,6 +155,8 @@ plugins:
             Courses & Books: 課程與書籍
             Datasets: 資料集
             Contributing: 參與貢獻
+            Roadmap & Coverage: 路線圖與覆蓋率
+            Style Guide: 寫作風格指南
 
 markdown_extensions:
   - abbr
@@ -296,3 +298,5 @@ nav:
       - Courses & Books: reference/courses-books/index.md
       - Datasets: reference/datasets/index.md
       - Contributing: reference/contributing/index.md
+      - Roadmap & Coverage: reference/roadmap/index.md
+      - Style Guide: reference/style-guide/index.md

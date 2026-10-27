@@ -1,0 +1,28 @@
+name: Correction
+description: Report a factual error, outdated information or a broken link
+title: "[Fix] "
+labels: ["correction"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page URL
+      placeholder: https://zi-yue-1129.github.io/ai-wiki/...
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong?
+      description: Quote the passage if you can.
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: What should it say instead?
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Links that support the correction.
