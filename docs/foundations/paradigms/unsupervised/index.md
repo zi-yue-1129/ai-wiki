@@ -1,3 +1,8 @@
+---
+related:
+- brain-mind/computational-neuroscience
+---
+
 # Unsupervised Learning
 
 ## Idea

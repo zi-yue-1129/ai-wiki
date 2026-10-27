@@ -1,3 +1,11 @@
+---
+related:
+- brain-mind/cognitive-architectures
+- brain-mind/psychology
+- models/agents
+- applications/science
+---
+
 # Symbolic AI, Search & Planning
 
 ## What is symbolic AI?

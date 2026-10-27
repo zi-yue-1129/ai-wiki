@@ -1,3 +1,9 @@
+---
+related:
+- foundations/probabilistic
+- foundations/machine-learning
+---
+
 # Mathematics for AI
 
 Five areas of mathematics carry most of AI. This page explains where each is used and the minimum you need.

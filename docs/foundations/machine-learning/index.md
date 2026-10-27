@@ -1,3 +1,11 @@
+---
+related:
+- foundations/paradigms
+- foundations/paradigms/supervised
+- foundations/probabilistic
+- engineering/evaluation
+---
+
 # Machine Learning
 
 ## Intuition

@@ -1,3 +1,10 @@
+---
+related:
+- brain-mind/snn-neuromorphic
+- brain-mind/memory-learning
+- models/computer-vision
+---
+
 # NeuroAI
 
 **NeuroAI** is the two-way exchange between neuroscience and AI: using brains to inspire better AI, and using AI models to understand brains. Zador et al. (2023, *Nature Communications*), "Catalyzing next-generation AI through NeuroAI", argued for an "embodied Turing test" — AI that matches animals' sensorimotor competence — as the field's grand challenge.

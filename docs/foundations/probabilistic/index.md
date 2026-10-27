@@ -1,3 +1,10 @@
+---
+related:
+- brain-mind/cognitive-science
+- applications/mental-health
+- foundations/paradigms/active
+---
+
 # Probabilistic & Bayesian Methods
 
 ## Why probability?

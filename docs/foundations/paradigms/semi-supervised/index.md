@@ -1,3 +1,8 @@
+---
+related:
+- applications/healthcare
+---
+
 # Semi- & Weakly Supervised Learning
 
 Labels are often the bottleneck: a radiologist's hour is expensive, but unlabelled scans are plentiful. These paradigms squeeze more out of limited or imperfect supervision.

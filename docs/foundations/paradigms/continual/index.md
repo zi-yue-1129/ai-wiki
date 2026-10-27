@@ -1,3 +1,9 @@
+---
+related:
+- brain-mind/memory-learning
+- engineering/mlops
+---
+
 # Continual Learning
 
 ## Idea

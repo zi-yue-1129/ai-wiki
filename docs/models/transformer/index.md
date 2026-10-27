@@ -1,3 +1,10 @@
+---
+related:
+- models/llm
+- society/interpretability
+- brain-mind/memory-learning
+---
+
 # Transformers & Attention
 
 ## Intuition

@@ -1,3 +1,10 @@
+---
+related:
+- applications/robotics
+- brain-mind/cognitive-science
+- brain-mind/memory-learning
+---
+
 # World Models & Embodied AI
 
 ## What is a world model?

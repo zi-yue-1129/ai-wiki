@@ -1,3 +1,10 @@
+---
+related:
+- applications/healthcare
+- society/ethics
+- applications/finance
+---
+
 # Federated & Privacy-Preserving Learning
 
 ## Federated learning

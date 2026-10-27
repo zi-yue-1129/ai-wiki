@@ -1,3 +1,9 @@
+---
+related:
+- brain-mind/computational-neuroscience
+- brain-mind/bci
+---
+
 # Neuroscience Basics
 
 ## A sense of scale

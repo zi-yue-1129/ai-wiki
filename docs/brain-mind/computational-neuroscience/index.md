@@ -1,3 +1,9 @@
+---
+related:
+- brain-mind/neuroai
+- brain-mind/snn-neuromorphic
+---
+
 # Computational Neuroscience
 
 Understanding **how the nervous system computes** with mathematical models, simulation and data analysis.

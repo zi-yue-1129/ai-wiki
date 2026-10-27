@@ -1,3 +1,9 @@
+---
+related:
+- models/world-models
+- brain-mind/cognitive-science
+---
+
 # Multimodal Models
 
 Humans understand the world through vision, hearing, language and touch together. Multimodal models integrate several data types.

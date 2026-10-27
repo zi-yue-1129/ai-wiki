@@ -1,3 +1,9 @@
+---
+related:
+- brain-mind/bci
+- models/multimodal
+---
+
 # Speech & Audio
 
 ## Tasks
