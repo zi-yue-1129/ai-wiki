@@ -11,6 +11,14 @@ How a page's status is decided (English page = docs/**/<name>.md):
   2. Otherwise a page containing the "Work in progress" admonition is a stub.
   3. Otherwise a page under DRAFT_WORDS words is a draft, else complete.
 
+References: every page that is not a stub needs a "## References" section with at
+least REFERENCE_MIN entries, each carrying a DOI, arXiv id or URL and a note of
+at least ANNOTATION_MIN_WORDS words after " — " saying what the source covers. Pages marked
+`references: not-required` in front matter (meta pages such as the roadmap) are
+exempt, as are section overviews (docs/<section>/index.md). --check enforces this only on pages the current branch changes relative
+to the base branch, so the existing backlog does not fail every PR. The full
+backlog is listed as a count.
+
 A page is stale when its last review (`last_reviewed:` front matter, falling back
 to its last git commit) is older than STALE_DAYS.
 
@@ -41,6 +49,12 @@ STUB_MARKER = "Work in progress"
 DRAFT_WORDS = 400
 STALE_DAYS = 365
 STATUSES = ("stub", "draft", "complete")
+REFERENCE_MIN = 5
+ANNOTATION_SEP = " — "
+ANNOTATION_MIN_WORDS = 6
+REFERENCE_HEADING = re.compile(r"^##\s+References\s*$", re.M)
+NEXT_H2 = re.compile(r"^##\s", re.M)
+IDENTIFIER = re.compile(r"https?://|doi\.org|10\.\d{4,}/|arXiv:\s*\d{4}\.\d{4,5}", re.I)
 STATUS_ICON = {"stub": "⬜", "draft": "🟨", "complete": "✅"}
 
 FRONT_MATTER = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
@@ -226,6 +240,51 @@ def render(pages: list[Page], base: str, heading: str) -> str:
     return "\n".join(out)
 
 
+def reference_problems(path: Path) -> list[str]:
+    """Return problems with a page's References section (empty if it is fine)."""
+    meta, body = read(path)
+    rel = path.relative_to(DOCS).as_posix()
+    if meta.get("references") == "not-required" or rel == "index.md" or (
+        len(Path(rel).parts) == 2 and Path(rel).name == "index.md"
+    ):
+        # Home and section overviews only point at their topics.
+        return []
+    heading = REFERENCE_HEADING.search(body)
+    if not heading:
+        return [f"docs/{rel}: missing a '## References' section"]
+    rest = body[heading.end():]
+    nxt = NEXT_H2.search(rest)
+    section = rest[: nxt.start()] if nxt else rest
+    entries = [l for l in section.splitlines() if re.match(r"^(- |\[\^)", l.strip())]
+    problems = []
+    if len(entries) < REFERENCE_MIN:
+        problems.append(f"docs/{rel}: References has {len(entries)} entries, at least {REFERENCE_MIN} required")
+    for entry in entries:
+        if not IDENTIFIER.search(entry):
+            problems.append(f"docs/{rel}: reference without a DOI, arXiv id or URL: {entry.strip()[:70]}")
+        _, sep, note = entry.partition(ANNOTATION_SEP)
+        if not sep or len(note.split()) < ANNOTATION_MIN_WORDS:
+            problems.append(
+                f"docs/{rel}: reference needs a note of at least {ANNOTATION_MIN_WORDS} words after ' — ' "
+                f"saying what it covers: {entry.strip()[:70]}"
+            )
+    return problems
+
+
+def changed_pages() -> set[str] | None:
+    """Pages changed relative to the PR's base branch, or None outside a PR."""
+    base = os.environ.get("GITHUB_BASE_REF")
+    if not base:
+        return None
+    out = subprocess.run(
+        ["git", "diff", "--name-only", f"origin/{base}...HEAD", "--", "docs"],
+        cwd=ROOT, capture_output=True, text=True,
+    )
+    if out.returncode != 0:
+        return None
+    return {Path(l).relative_to("docs").as_posix() for l in out.stdout.splitlines() if l.endswith(".md") and not is_translation(Path(l))}
+
+
 def check(pages: list[Page]) -> int:
     problems: list[str] = []
     nav = nav_paths()
@@ -261,9 +320,23 @@ def check(pages: list[Page]) -> int:
                     f"docs/{p.path.as_posix()}: related topic '{entry}' not found "
                     "(use a topic folder or English page relative to docs/, e.g. brain-mind/neuroai)"
                 )
+    changed = changed_pages()
+    backlog = 0
+    for p in pages:
+        if p.status == "stub":
+            continue
+        issues = reference_problems(DOCS / p.path)
+        if not issues:
+            continue
+        if changed is not None and p.path.as_posix() in changed:
+            problems.extend(issues)
+        else:
+            backlog += 1
     for line in problems:
         print(f"::error::{line}" if "GITHUB_ACTIONS" in os.environ else line)
     print(f"{len(pages)} pages checked, {len(problems)} problem(s).")
+    if backlog:
+        print(f"{backlog} existing page(s) lack a complete References section; enforced once they are edited.")
     return 1 if problems else 0
 
 

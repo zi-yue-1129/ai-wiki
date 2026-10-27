@@ -1,3 +1,7 @@
+---
+references: not-required  # lists and meta pages cite through their entries
+---
+
 # Contributing
 
 This wiki aims to cover everything about AI, from the mathematics to the neuroscience to how each field uses it. It only gets there with steady contributions. All help is welcome, from fixing a typo to writing a whole section.
@@ -15,7 +19,7 @@ This wiki aims to cover everything about AI, from the mathematics to the neurosc
 
 ## Writing or expanding a page
 
-1. Read the [Style Guide](../style-guide/index.md).
+1. Read the [Style Guide](../style-guide/index.md), especially the Citations section of the [Style Guide](../style-guide/index.md): every topic page needs a References section with at least 5 verified entries.
 2. To avoid duplicate work, comment on the related issue (or open one) saying you are working on it.
 3. For a new page, copy `templates/page-template.md` into the right folder (see [Where pages live](../style-guide/index.md)) and add it to `nav` in `mkdocs.yml`. For a stub, replace the "Work in progress" admonition with real content.
 4. Preview locally:
@@ -46,7 +50,7 @@ This wiki aims to cover everything about AI, from the mathematics to the neurosc
 
 These run on GitHub Actions so problems don't pile up unnoticed:
 
-- **Every pull request**: strict site build (catches broken internal links) and a structure check (every page in the nav, every translation has an English page, valid front matter).
+- **Every pull request**: strict site build (catches broken internal links) and a structure check (every page in the nav, every translation has an English page, valid front matter). Pages changed in the PR must have a complete References section; existing pages are checked once they are edited.
 - **Every deploy**: the coverage status on the [Roadmap](../roadmap/index.md) is regenerated.
 - **Every week**: a *Wiki health report* issue lists stubs, drafts, pages not reviewed for a year, outdated or missing translations, and broken external links.
 

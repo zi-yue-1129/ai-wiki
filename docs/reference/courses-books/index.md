@@ -1,3 +1,7 @@
+---
+references: not-required  # lists and meta pages cite through their entries
+---
+
 # Courses & Books
 
 Free or openly licensed resources are marked **(free)**. See also the [Open-Source Resource Survey](../../start/open-source-survey/index.md).
