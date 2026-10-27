@@ -250,14 +250,15 @@ def check(pages: list[Page]) -> int:
         if not isinstance(related, list):
             problems.append(f"docs/{p.path.as_posix()}: related must be a list of paths")
             related = []
+        own_topic = p.path.parent.as_posix() if p.path.name == "index.md" else None
         for target in related:
-            target = str(target).lstrip("/")
-            if target == p.path.as_posix():
+            target = str(target).strip("/")
+            if target == own_topic:
                 problems.append(f"docs/{p.path.as_posix()}: related lists the page itself")
-            elif not target.endswith(".md") or is_translation(Path(target)) or not (DOCS / target).is_file():
+            elif not (DOCS / target / "index.md").is_file():
                 problems.append(
-                    f"docs/{p.path.as_posix()}: related page '{target}' not found "
-                    "(use an English page path relative to docs/, e.g. models/llm/index.md)"
+                    f"docs/{p.path.as_posix()}: related topic '{target}' not found "
+                    "(use a topic folder relative to docs/, e.g. brain-mind/neuroai)"
                 )
     for line in problems:
         print(f"::error::{line}" if "GITHUB_ACTIONS" in os.environ else line)
