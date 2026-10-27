@@ -12,7 +12,8 @@ How a page's status is decided (English page = docs/**/<name>.md):
   3. Otherwise a page under DRAFT_WORDS words is a draft, else complete.
 
 References: every page that is not a stub needs a "## References" section with at
-least REFERENCE_MIN entries, each carrying a DOI, arXiv id or URL. Pages marked
+least REFERENCE_MIN entries, each carrying a DOI, arXiv id or URL and a note of
+at least ANNOTATION_MIN_WORDS words after " — " saying what the source covers. Pages marked
 `references: not-required` in front matter (meta pages such as the roadmap) are
 exempt, as are section overviews (docs/<section>/index.md). --check enforces this only on pages the current branch changes relative
 to the base branch, so the existing backlog does not fail every PR. The full
@@ -49,6 +50,8 @@ DRAFT_WORDS = 400
 STALE_DAYS = 365
 STATUSES = ("stub", "draft", "complete")
 REFERENCE_MIN = 5
+ANNOTATION_SEP = " — "
+ANNOTATION_MIN_WORDS = 6
 REFERENCE_HEADING = re.compile(r"^##\s+References\s*$", re.M)
 NEXT_H2 = re.compile(r"^##\s", re.M)
 IDENTIFIER = re.compile(r"https?://|doi\.org|10\.\d{4,}/|arXiv:\s*\d{4}\.\d{4,5}", re.I)
@@ -259,6 +262,12 @@ def reference_problems(path: Path) -> list[str]:
     for entry in entries:
         if not IDENTIFIER.search(entry):
             problems.append(f"docs/{rel}: reference without a DOI, arXiv id or URL: {entry.strip()[:70]}")
+        _, sep, note = entry.partition(ANNOTATION_SEP)
+        if not sep or len(note.split()) < ANNOTATION_MIN_WORDS:
+            problems.append(
+                f"docs/{rel}: reference needs a note of at least {ANNOTATION_MIN_WORDS} words after ' — ' "
+                f"saying what it covers: {entry.strip()[:70]}"
+            )
     return problems
 
 

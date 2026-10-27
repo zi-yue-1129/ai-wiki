@@ -39,22 +39,22 @@ What is still debated or unsolved.
 
 ## References
 
-Aim for at least 5 entries in total; the Citations section of the style guide has the rules. Every entry needs a DOI, arXiv id or URL.
+Aim for at least 5 entries in total; the Citations section of the style guide has the rules. Every entry needs a DOI, arXiv id or URL, and a note after " — " saying what it covers.
 
 ### Seminal papers
 
-- Author, *Title*, Venue (Year). https://doi.org/... or https://arxiv.org/abs/...
+- Author, *Title*, Venue (Year). https://doi.org/... or https://arxiv.org/abs/... — What the paper shows, in one or two sentences.
 
 ### Surveys and textbooks
 
-- Author, *Title*, Publisher (Year). Link to a free version where one exists.
+- Author, *Title*, Publisher (Year). Link to a free version where one exists. — Who the book is for and what it covers.
 
 ### Lectures and videos
 
-- Speaker, *Course or talk title*, Institution or event (Year). Link to the official page.
+- Speaker, *Course or talk title*, Institution or event (Year). Link to the official page. — What the lecture covers and its level.
 
 ### Articles and documentation
 
-- Organization or author, *Page title*. Link.
+- Organization or author, *Page title*. Link. — What the page explains and why it is useful.
 
 Use footnotes for specific claims: a sentence ending in `[^1]` points to `[^1]: ...` below, or to the matching entry above.

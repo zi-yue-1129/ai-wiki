@@ -13,7 +13,7 @@ Instructions for the scheduled Claude routine that drafts one page per day as a 
     Skip any topic that already has an open pull request (check branch names starting `auto/` and PR titles), and skip pages changed on `main` in the last 2 days, since someone may be writing them.
 3. Write the English page following `docs/reference/style-guide/index.md` and `templates/page-template.md`:
     - Original prose, encyclopedic tone, 800 to 2000 words.
-    - End the page with a `## References` section that follows the Citations rules in the style guide: at least 5 entries across seminal papers, surveys and textbooks, lectures and videos, and articles and documentation. Every entry needs a DOI, arXiv id or URL.
+    - End the page with a `## References` section that follows the Citations rules in the style guide: at least 5 entries across seminal papers, surveys and textbooks, lectures and videos, and articles and documentation. Every entry needs a DOI, arXiv id or URL, and a short note after " — " saying what the source covers, so readers can decide whether to open it.
     - Open every link and check its title, authors, year and content before adding it. Prefer the original paper and official course or channel pages for videos. Never invent a citation, DOI or URL; if you can't verify an entry, leave it out.
     - In the PR body, list each reference with the check you made (for example "opened, abstract matches").
     - Include the brain and mind connection where one genuinely exists.

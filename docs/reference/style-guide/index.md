@@ -118,37 +118,38 @@ Good references are what make a page trustworthy and useful for learning. Every 
 
 **Format**
 
-Group entries under these headings when the page has enough of them. Use one line per entry:
+Group entries under these headings when the page has enough of them. Use one line per entry: the citation, the link, then a dash and a short note on what the source covers, so readers can decide whether to open it:
 
 ```markdown
 ## References
 
 ### Seminal papers
 
-- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762
-- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *J. Physiology*. doi:10.1113/jphysiol.1962.sp006837
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — Introduces the Transformer, replacing recurrence with multi-head self-attention.
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *J. Physiology*. doi:10.1113/jphysiol.1962.sp006837 — The original receptive-field study of cat visual cortex, the root of later convolutional vision models.
 
 ### Surveys and textbooks
 
-- Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*. MIT Press. https://www.deeplearningbook.org/
+- Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*. MIT Press. https://www.deeplearningbook.org/ — Comprehensive textbook covering the mathematics and practice of deep learning, free online.
 
 ### Lectures and videos
 
-- Lecturer, *Course title*, University, Year. https://example.edu/course
+- Lecturer, *Course title*, University, Year. https://example.edu/course — Full lecture series on the topic from first principles, with problem sets.
 
 ### Articles and documentation
 
-- Organization. *Page title*. https://example.org/page
+- Organization. *Page title*. https://example.org/page — Practical walkthrough of the method, with diagrams.
 ```
 
 **Rules**
 
 1. **Open every link before you add it.** Confirm the title, authors, year and that it says what you cite it for. Never guess a DOI, arXiv id or URL, and never cite a paper you have not at least read the abstract of.
 2. **Cite a specific claim with a footnote** (`[^1]`) that points to the entry. Keep a general reading list in References.
-3. **Videos:** use the course page or the speaker's official channel, not a re-upload.
-4. **Don't copy.** Citing a source is not a license to reproduce its text, figures or diagrams. Paraphrase, and link.
-5. **Dead links** are found by the weekly link check. Replace them with an archived copy or a newer source, don't just delete the entry.
-6. Pages that are pure lists or meta pages (the roadmap, the glossary, the reference lists) set `references: not-required` in their front matter. Section overviews are exempt automatically.
+3. **Annotate every entry.** Add a dash and one or two sentences after the link saying what the source covers and who it is for. Describe the content, not how good it is, so readers can decide whether to open it.
+4. **Videos:** use the course page or the speaker's official channel, not a re-upload.
+5. **Don't copy.** Citing a source is not a license to reproduce its text, figures or diagrams. Paraphrase, and link.
+6. **Dead links** are found by the weekly link check. Replace them with an archived copy or a newer source, don't just delete the entry.
+7. Pages that are pure lists or meta pages (the roadmap, the glossary, the reference lists) set `references: not-required` in their front matter. Section overviews are exempt automatically.
 
 ## Formatting
 
