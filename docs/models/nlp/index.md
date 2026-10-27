@@ -1,3 +1,9 @@
+---
+related:
+- brain-mind/cognitive-science
+- models/speech
+---
+
 # Natural Language Processing
 
 ## Timeline

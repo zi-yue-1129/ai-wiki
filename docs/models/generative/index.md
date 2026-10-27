@@ -1,3 +1,10 @@
+---
+related:
+- applications/creative
+- applications/life-science
+- brain-mind/bci
+---
+
 # Generative Models
 
 Generative models learn the data distribution \(p(x)\) and can **produce new samples**; discriminative models learn \(p(y\mid x)\).

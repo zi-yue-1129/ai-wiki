@@ -1,3 +1,8 @@
+---
+related:
+- applications/finance
+---
+
 # Online Learning & Bandits
 
 ## Online learning

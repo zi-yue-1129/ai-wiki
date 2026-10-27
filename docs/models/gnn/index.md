@@ -1,3 +1,10 @@
+---
+related:
+- applications/life-science
+- applications/science
+- brain-mind/neuroscience
+---
+
 # Graph Neural Networks
 
 ## Why graphs?

@@ -1,3 +1,11 @@
+---
+related:
+- brain-mind/neuroai
+- brain-mind/neuroscience
+- models/transformer
+- foundations/paradigms/self-supervised
+---
+
 # Deep Learning
 
 ## Intuition

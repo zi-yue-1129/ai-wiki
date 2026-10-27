@@ -1,3 +1,10 @@
+---
+related:
+- models/llm
+- brain-mind/cognitive-science
+- models/computer-vision
+---
+
 # Self-Supervised Learning
 
 ## Idea

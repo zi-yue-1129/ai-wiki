@@ -1,3 +1,11 @@
+---
+related:
+- applications/robotics
+- applications/autonomous-driving
+- models/world-models
+- brain-mind/psychology
+---
+
 # Imitation Learning
 
 ## Idea

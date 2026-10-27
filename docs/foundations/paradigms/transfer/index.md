@@ -1,3 +1,8 @@
+---
+related:
+- engineering/training
+---
+
 # Transfer Learning & Domain Adaptation
 
 ## Idea

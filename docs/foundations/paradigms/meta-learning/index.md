@@ -1,3 +1,9 @@
+---
+related:
+- brain-mind/memory-learning
+- models/llm
+---
+
 # Meta-Learning & Few-Shot Learning
 
 ## Idea

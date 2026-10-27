@@ -1,4 +1,85 @@
-# Spiking Networks & Neuromorphic Computing
+---
+related:
+- engineering/hardware
+---
 
-!!! info "Work in progress"
-    This page is being written.
+# Spiking Neural Networks & Neuromorphic Computing
+
+## Why spikes?
+
+Biological neurons communicate with brief, discrete **spikes**. Spiking neural networks (SNNs) — sometimes called the "third generation" of neural networks (Maass, 1997) — model this explicitly. The appeal:
+
+- **Energy efficiency**: computation happens only when spikes occur (event-driven), and spikes are binary
+- **Temporal coding**: timing itself can carry information
+- **Biological fidelity**: a bridge between neuroscience models and machine learning
+- **Natural fit to event-based sensors** (dynamic vision sensors, silicon cochleas)
+
+## Neuron models used in SNNs
+
+| Model | Notes |
+|---|---|
+| Leaky integrate-and-fire (LIF) | The workhorse; see [Computational Neuroscience](../computational-neuroscience/index.md) |
+| Adaptive LIF / ALIF | Adds spike-frequency adaptation; improves temporal tasks (Bellec et al., 2018) |
+| Izhikevich | Rich firing patterns at low cost |
+| Resonate-and-fire | Oscillatory dynamics |
+| Hodgkin–Huxley | Too expensive for large SNNs; used for detailed modelling |
+
+## Spike coding schemes
+
+| Scheme | Information carried by |
+|---|---|
+| Rate coding | Number of spikes in a window |
+| Time-to-first-spike / latency | When the first spike arrives |
+| Phase coding | Spike timing relative to an oscillation |
+| Population / rank-order coding | Which neurons spike, in what order |
+| Delta / event coding | Changes in the input |
+
+## Training SNNs
+
+The spike is a step function, so its derivative is zero almost everywhere — backprop doesn't directly apply.
+
+| Approach | Idea | Tools |
+|---|---|---|
+| ANN-to-SNN conversion | Train a normal network, map activations to firing rates | Good accuracy, but often needs many time steps |
+| Surrogate gradients | Use a smooth stand-in derivative in the backward pass; backprop through time (Neftci, Mostafa & Zenke, 2019) | snnTorch, SpikingJelly, Norse, Lava-DL |
+| Local / biologically plausible rules | STDP, three-factor rules, e-prop (Bellec et al., 2020) | Online learning on chip |
+| Exact spike-time gradients | EventProp and related methods | Event-based training |
+| Evolutionary / reservoir approaches | Liquid state machines | Few trained parameters |
+
+### Spike-timing-dependent plasticity (STDP)
+
+If a presynaptic spike precedes a postsynaptic spike by Δt > 0, the synapse strengthens; if it follows, it weakens — typically with an exponential window of tens of milliseconds (Bi & Poo, 1998). STDP alone performs unsupervised feature learning; combined with a reward signal (reward-modulated STDP) it supports reinforcement learning.
+
+## Neuromorphic hardware
+
+| Chip / system | Organisation | Notes |
+|---|---|---|
+| TrueNorth | IBM (2014) | 1 million neurons, ~70 mW |
+| Loihi / Loihi 2 | Intel (2017 / 2021) | On-chip learning; Hala Point system (2024) with ~1.15 billion neurons |
+| SpiNNaker / SpiNNaker 2 | University of Manchester / TU Dresden | Many ARM cores for real-time brain simulation |
+| BrainScaleS | Heidelberg | Analogue, accelerated (faster than biological time) |
+| Akida | BrainChip | Commercial edge AI |
+| Speck / Xylo | SynSense | Ultra-low-power vision and audio |
+| Tianjic | Tsinghua University | Hybrid ANN/SNN chip (Nature, 2019) |
+| Darwin series | Zhejiang University | Large-scale neuromorphic systems |
+
+Related: **in-memory computing** with memristors and phase-change memory, which stores weights where computation happens — like synapses.
+
+## Where SNNs shine (and don't)
+
+**Good fits**: always-on sensing (keyword spotting, gesture recognition, anomaly detection), event-camera vision, robotics with tight power budgets, brain-computer interfaces and implants, predictive maintenance on vibration signals, real-time brain simulation.
+
+**Challenges**: accuracy gap to ANNs on large benchmarks has narrowed but persists in places; training is slower; tooling and hardware are fragmented; energy gains depend heavily on spike sparsity and the hardware actually used — benchmark carefully. Spiking versions of Transformers and LLMs (e.g. Spikformer, SpikeGPT) are active research.
+
+## Event-based sensors
+
+**Dynamic vision sensors** (event cameras) output per-pixel brightness changes asynchronously with microsecond latency and high dynamic range — inspired by the retina. Natural partners for SNNs in drones, robotics and high-speed tracking.
+
+## Resources
+
+- Eshraghian et al. (2023), "Training Spiking Neural Networks Using Lessons From Deep Learning", *Proceedings of the IEEE*, with the [snnTorch](https://snntorch.readthedocs.io/) tutorials
+- Roy, Jaiswal & Panda (2019), "Towards spike-based machine intelligence with neuromorphic computing", *Nature*
+- Schuman et al. (2022), "Opportunities for neuromorphic computing algorithms and applications", *Nature Computational Science*
+- Gerstner et al., *Neuronal Dynamics* (free online)
+- [Open Neuromorphic](https://open-neuromorphic.org/) community
+- Frameworks: [snnTorch](https://github.com/jeshraghian/snntorch), [SpikingJelly](https://github.com/fangwei123456/spikingjelly), [Norse](https://github.com/norse/norse), [Lava](https://github.com/lava-nc/lava), [Brian2](https://briansimulator.org/)

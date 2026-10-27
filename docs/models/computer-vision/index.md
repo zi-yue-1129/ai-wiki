@@ -1,3 +1,11 @@
+---
+related:
+- brain-mind/neuroai
+- applications/healthcare
+- applications/autonomous-driving
+- applications/manufacturing
+---
+
 # Computer Vision
 
 ## Task map

@@ -1,3 +1,8 @@
+---
+related:
+- applications/science
+---
+
 # Active Learning
 
 ## Idea

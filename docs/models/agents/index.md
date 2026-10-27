@@ -1,3 +1,11 @@
+---
+related:
+- brain-mind/cognitive-architectures
+- applications/software
+- society/safety-alignment
+- engineering/rag
+---
+
 # AI Agents
 
 ## Definition

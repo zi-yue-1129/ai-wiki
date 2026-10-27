@@ -1,3 +1,9 @@
+---
+related:
+- models/llm
+- brain-mind/snn-neuromorphic
+---
+
 # Other Learning Paradigms
 
 Shorter entries for paradigms that do not fit neatly elsewhere.

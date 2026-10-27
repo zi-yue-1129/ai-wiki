@@ -1,3 +1,15 @@
+---
+related:
+- brain-mind/memory-learning
+- brain-mind/neuroai
+- applications/robotics
+- applications/games
+- models/llm
+- society/safety-alignment
+- foundations/paradigms/online
+- foundations/paradigms/imitation
+---
+
 # Reinforcement Learning
 
 ## Intuition

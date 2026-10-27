@@ -1,3 +1,9 @@
+---
+related:
+- foundations/paradigms/meta-learning
+- applications/science
+---
+
 # Evolutionary & Swarm Intelligence
 
 ## Evolutionary computation
