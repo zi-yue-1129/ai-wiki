@@ -15,6 +15,7 @@ Instructions for the scheduled Claude routine that drafts one page per day as a 
     - Original prose, encyclopedic tone, 800 to 2000 words.
     - Cite real, verifiable sources (papers with DOI or arXiv links, textbooks, official docs). Search the web to confirm each one exists. Never invent a citation.
     - Include the brain and mind connection where one genuinely exists.
+    - If the topic also belongs to other categories, add those pages to `related` in the front matter (see "Topics in more than one category" in the style guide) rather than duplicating content. Also check whether existing pages should list the new page.
     - Remove the "Work in progress" admonition. Set `status: draft` and `last_reviewed:` to today in the front matter.
     - New pages go in the folder tree described under "Where pages live" in the style guide (a new sub-topic of an existing topic goes inside that topic's folder). Add them to `nav` in `mkdocs.yml` with a `nav_translations` entry, link them from the parent folder's `index.md`, and tick the roadmap box.
 4. Also write the Traditional Chinese translation (`<page>.zh-TW.md` next to the English file) with `translation_reviewed:` set to today, using glossary terms.

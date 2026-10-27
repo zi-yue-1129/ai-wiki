@@ -246,6 +246,19 @@ def check(pages: list[Page]) -> int:
             problems.append(f"docs/{p.path.as_posix()}: status must be one of {', '.join(STATUSES)}")
         if "last_reviewed" in meta and as_date(meta["last_reviewed"]) is None:
             problems.append(f"docs/{p.path.as_posix()}: last_reviewed must be YYYY-MM-DD")
+        related = meta.get("related", [])
+        if not isinstance(related, list):
+            problems.append(f"docs/{p.path.as_posix()}: related must be a list of paths")
+            related = []
+        for target in related:
+            target = str(target).lstrip("/")
+            if target == p.path.as_posix():
+                problems.append(f"docs/{p.path.as_posix()}: related lists the page itself")
+            elif not target.endswith(".md") or is_translation(Path(target)) or not (DOCS / target).is_file():
+                problems.append(
+                    f"docs/{p.path.as_posix()}: related page '{target}' not found "
+                    "(use an English page path relative to docs/, e.g. models/llm/index.md)"
+                )
     for line in problems:
         print(f"::error::{line}" if "GITHUB_ACTIONS" in os.environ else line)
     print(f"{len(pages)} pages checked, {len(problems)} problem(s).")

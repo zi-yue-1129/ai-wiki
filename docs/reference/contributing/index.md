@@ -32,7 +32,8 @@ This wiki aims to cover everything about AI, from the mathematics to the neurosc
     python scripts/wiki_status.py --check
     ```
 
-6. Open a pull request. If the page was on the roadmap's missing-topics list, tick its box in the same PR.
+6. If the topic also belongs to other categories, link them with `related` in the front matter (see the [Style Guide](../style-guide/index.md)).
+7. Open a pull request. If the page was on the roadmap's missing-topics list, tick its box in the same PR.
 
 ## Translating a page
 

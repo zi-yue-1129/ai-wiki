@@ -2,6 +2,8 @@
 # Optional metadata read by scripts/wiki_status.py. Delete lines you don't need.
 status: draft            # stub | draft | complete (otherwise inferred from the page)
 last_reviewed: 2026-01-01  # date someone last checked the whole page for accuracy
+related:                 # pages in other categories this topic also belongs to (paths relative to docs/)
+  - brain-mind/neuroai/index.md
 ---
 
 # Page Title

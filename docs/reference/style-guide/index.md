@@ -61,7 +61,26 @@ All fields are optional.
 |---|---|---|
 | `status` | `stub`, `draft`, `complete` | Overrides the automatic status (stub if it has the marker above, draft under 400 words, otherwise complete) |
 | `last_reviewed` | `YYYY-MM-DD` | Last time someone checked the whole page is still accurate. Pages older than 12 months are flagged |
+| `related` | list of paths relative to `docs/` | Pages in other categories this topic also belongs to. Builds a reciprocal *Related pages* section (see below) |
 | `translation_reviewed` | `YYYY-MM-DD` | On a translation: last time it was checked against the English page |
+
+## Topics in more than one category
+
+Many topics belong to several categories at once: reinforcement learning is a learning paradigm, a model of dopamine in the brain, and a tool in robotics. Each topic has **one home folder**, chosen by where a reader would look first, and is connected to its other categories with `related` in the front matter:
+
+```yaml
+---
+related:
+  - brain-mind/memory-learning/index.md
+  - applications/robotics/index.md
+---
+```
+
+- Declare each relationship once, on either page. The build adds a *Related pages* section to **both** pages, in every language, using each page's translated title where one exists.
+- Use English page paths relative to `docs/`; translations inherit the field.
+- Use `related` for pages that share a subject, not for every page you mention. Link inline in the text as well wherever the connection is explained.
+- Don't copy the same content into two categories; write it once and link to it.
+- `python scripts/wiki_status.py --check` fails if a `related` path doesn't exist.
 
 ## Links
 
