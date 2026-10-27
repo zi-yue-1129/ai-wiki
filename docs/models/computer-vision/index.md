@@ -74,3 +74,20 @@ Medical imaging ([Healthcare](../../applications/healthcare/index.md)), autonomo
 - [d2l: Computer Vision](https://d2l.ai/chapter_computer-vision/index.html)
 - Szeliski, *Computer Vision: Algorithms and Applications*, 2nd ed. (free PDF)
 - [Ultralytics](https://docs.ultralytics.com/), [Detectron2](https://github.com/facebookresearch/detectron2), [timm](https://github.com/huggingface/pytorch-image-models)
+
+## References
+
+### Seminal papers
+
+- Krizhevsky, A., Sutskever, I. & Hinton, G. E. (2012). *ImageNet Classification with Deep Convolutional Neural Networks*. NeurIPS. https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html — The AlexNet result that started the deep-learning era in vision.
+- Redmon, J., et al. (2016). *You Only Look Once: Unified, Real-Time Object Detection*. CVPR. https://arxiv.org/abs/1506.02640 — Frames object detection as a single regression pass, enabling real-time detection.
+- Ronneberger, O., et al. (2015). *U-Net: Convolutional Networks for Biomedical Image Segmentation*. arXiv. https://arxiv.org/abs/1505.04597 — An encoder–decoder with skip connections, the standard architecture for pixel-level segmentation.
+- Dosovitskiy, A., et al. (2021). *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*. ICLR. https://arxiv.org/abs/2010.11929 — The Vision Transformer, which applies a plain Transformer to image patches.
+
+### Surveys and textbooks
+
+- Szeliski, R. *Computer Vision: Algorithms and Applications*, 2nd ed. https://szeliski.org/Book/ — A comprehensive textbook covering classical and learning-based vision; the author offers a free PDF for personal use.
+
+### Lectures and videos
+
+- Li, F.-F., Adeli, E., Johnson, J., et al. *CS231n: Deep Learning for Computer Vision*. Stanford University. https://cs231n.stanford.edu/ — A Stanford course on neural networks for visual recognition, with lecture materials and assignments.

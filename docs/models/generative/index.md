@@ -62,3 +62,20 @@ Key techniques:
 - Stanford CS236, *Deep Generative Models*
 - Yang Song, "Generative Modeling by Estimating Gradients of the Data Distribution"
 - *Understanding Deep Learning*, chapters 14–18
+
+## References
+
+### Seminal papers
+
+- Goodfellow, I. J., et al. (2014). *Generative Adversarial Networks*. arXiv. https://arxiv.org/abs/1406.2661 — Introduces GANs, where a generator and a discriminator are trained against each other.
+- Kingma, D. P. & Welling, M. (2013). *Auto-Encoding Variational Bayes*. arXiv. https://arxiv.org/abs/1312.6114 — The variational autoencoder, a latent-variable model trained with a reparameterised variational bound.
+- Ho, J., et al. (2020). *Denoising Diffusion Probabilistic Models*. arXiv. https://arxiv.org/abs/2006.11239 — Shows that learning to reverse a gradual noising process yields high-quality image generation.
+- Rombach, R., et al. (2022). *High-Resolution Image Synthesis with Latent Diffusion Models*. CVPR. https://arxiv.org/abs/2112.10752 — Runs diffusion in a compressed latent space, the approach behind Stable Diffusion.
+
+### Surveys and textbooks
+
+- Yang, L., et al. (2022). *Diffusion Models: A Comprehensive Survey of Methods and Applications*. arXiv. https://arxiv.org/abs/2209.00796 — A survey of diffusion methods and their uses across vision, audio and other domains.
+
+### Articles and documentation
+
+- Weng, L. (2021). *What are Diffusion Models?* Lil'Log. https://lilianweng.github.io/posts/2021-07-11-diffusion-models/ — A clear derivation of the diffusion training objective and its variants, with diagrams.
