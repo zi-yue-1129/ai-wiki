@@ -44,12 +44,21 @@ LLM evaluation adds benchmark contamination and judge-model bias; see [Large Lan
 
 ## References
 
+### Seminal papers
+
 - Saito & Rehmsmeier (2015), "The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets", *PLoS ONE* 10(3). https://pmc.ncbi.nlm.nih.gov/articles/PMC4349800
 - Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting
 - Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599. Temperature scaling.
+- Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. Models can memorise, so held-out tests matter. https://mlanthology.org/iclr/2017/zhang2017iclr-understanding
+
+### Surveys and textbooks
+
+- (none checked for this page)
+
+### Lectures and videos
+
+- StatQuest with Josh Starmer, episodes on ROC curves and AUC, YouTube. https://www.youtube.com/@statquest
+
+### Articles and documentation
+
 - Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", arXiv:2207.08815. A careful benchmark design.
-- Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. Models memorise, so held-out tests matter. https://mlanthology.org/iclr/2017/zhang2017iclr-understanding
-
-## Further reading
-
-- Video: StatQuest with Josh Starmer (YouTube channel), episodes on ROC curves and AUC.

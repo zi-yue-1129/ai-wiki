@@ -46,14 +46,22 @@ Distribution shift breaks the i.i.d. assumption; see [transfer theory](../../tra
 
 ## References
 
+### Seminal papers
+
 - Valiant (1984), "A theory of the learnable", *Communications of the ACM* 27(11). https://mlanthology.org/misc/1984/valiant1984misc-theory
 - Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. https://mlanthology.org/iclr/2017/zhang2017iclr-understanding
-- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, arXiv:1812.11118.
-- Kaplan et al. (2020), "Scaling laws for neural language models", arXiv:2001.08361.
 - Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572.
 
-## Further reading
+### Surveys and textbooks
 
-- Vapnik, *Statistical Learning Theory* (1998). Wiley.
-- Shalev-Shwartz & Ben-David, *Understanding Machine Learning: From Theory to Algorithms*, Cambridge University Press (2014).
-- Video: Yaser Abu-Mostafa, Caltech "Learning From Data" lectures on VC dimension and generalisation (YouTube).
+- Vapnik, *Statistical Learning Theory*, Wiley (1998). https://www.wiley-vch.de/en/areas-interest/mathematics-statistics/statistical-learning-theory-978-0-471-03003-4
+- Shalev-Shwartz & Ben-David, *Understanding Machine Learning: From Theory to Algorithms*, Cambridge University Press (2014). https://doi.org/10.1017/CBO9781107298019
+
+### Lectures and videos
+
+- Yaser Abu-Mostafa, *Learning From Data*, Caltech online course (2012), lectures on VC dimension and generalisation. https://work.caltech.edu/telecourse
+
+### Articles and documentation
+
+- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, arXiv:1812.11118.
+- Kaplan et al. (2020), "Scaling laws for neural language models", arXiv:2001.08361.

@@ -45,14 +45,24 @@ The delta rule that trains a single linear unit is the same equation as the Resc
 
 ## References
 
+### Seminal papers
+
 - Tibshirani (1996), "Regression shrinkage and selection via the lasso", *Journal of the Royal Statistical Society B*. https://www.math.cuhk.edu.hk/~btjin/math6221/p7.pdf
-- Ng & Jordan (2001), "On discriminative vs. generative classifiers", NeurIPS. https://papers.nips.cc/paper/2001/hash/7b7a53e239400a13bd6be6c91c4f6c4e-Abstract.html
-- Andrew Ng, Stanford CS229 lecture notes. https://cs229.stanford.edu/main_notes.pdf
-- Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599. Calibrated probabilities from logistic outputs.
 - Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980.
+- Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599. Calibrated probabilities from logistic outputs.
+
+### Surveys and textbooks
+
+- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, Springer (2009), chapters 3–4. https://doi.org/10.1007/978-0-387-84858-7
+
+### Lectures and videos
+
+- StatQuest with Josh Starmer, episodes on logistic regression and regularisation, YouTube. https://www.youtube.com/@statquest
+
+### Articles and documentation
+
+- Andrew Ng, Stanford CS229 lecture notes. https://cs229.stanford.edu/main_notes.pdf
 
 ## Further reading
 
-- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, chapters 3–4 (free PDF from the authors).
-- McCullagh & Nelder, *Generalized Linear Models*, 2nd ed. (1989).
-- Video: StatQuest with Josh Starmer (YouTube channel), episodes on logistic regression, ridge, lasso and elastic net.
+- McCullagh & Nelder, *Generalized Linear Models*, 2nd ed. (1989). No free link checked.

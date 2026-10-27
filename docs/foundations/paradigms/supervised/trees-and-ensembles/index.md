@@ -40,14 +40,26 @@ Why do trees beat deep networks on many tabular tasks? Grinsztajn et al. (2022) 
 
 ## References
 
+### Seminal papers
+
 - Quinlan (1986), "Induction of decision trees", *Machine Learning* 1(1). https://mlanthology.org/mlj/1986/quinlan1986mlj-induction
 - Breiman (2001), "Random forests", *Machine Learning* 45(1). https://mlanthology.org/mlj/2001/breiman2001mlj-random
 - Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). https://doi.org/10.1214/AOS/1013203451
 - Ke et al. (2017), "LightGBM: a highly efficient gradient boosting decision tree", NeurIPS. https://neurips.cc/virtual/2017/poster/9099
 - Prokhorenkova et al. (2018), "CatBoost: unbiased boosting with categorical features", NeurIPS. https://proceedings.neurips.cc/paper/2018/hash/14491b756b3a51daac41c24863285549-Abstract.html
+
+### Surveys and textbooks
+
+- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, Springer (2009), chapters 9, 10 and 15 on trees, boosting and random forests. https://doi.org/10.1007/978-0-387-84858-7
+
+### Lectures and videos
+
+- StatQuest with Josh Starmer, episodes on random forests and gradient boosting, YouTube. https://www.youtube.com/@statquest
+
+### Articles and documentation
+
 - Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, arXiv:2207.08815.
 
 ## Further reading
 
-- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD.
-- Video: StatQuest with Josh Starmer (YouTube channel), episodes on random forests and gradient boosting.
+- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD. No link checked.
