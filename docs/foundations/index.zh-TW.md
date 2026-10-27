@@ -7,6 +7,7 @@
 | [數學基礎](math/index.md) | 線性代數、微積分、機率統計、資訊理論、最佳化各在 AI 中扮演什麼角色？ |
 | [機器學習](machine-learning/index.md) | 如何從資料中學習？如何判斷學得好不好？ |
 | [深度學習](deep-learning/index.md) | 為什麼多層神經網路這麼有效？怎麼訓練？ |
+| [學習範式](paradigms/index.md) | 監督、非監督、半監督／弱監督、自監督、強化、模仿、遷移、元學習、持續、主動、線上、聯邦學習：學習訊號是什麼？資料怎麼來？ |
 | [強化學習](paradigms/reinforcement-learning/index.md) | 如何從試誤與獎勵中學習行為？和大腦的多巴胺有什麼關係？ |
 | [機率圖模型與貝氏方法](probabilistic/index.md) | 如何表達與推論不確定性？大腦是貝氏推論機器嗎？ |
 | [符號 AI、搜尋與規劃](symbolic-ai/index.md) | 邏輯、知識表示、搜尋與規劃如何運作？在 LLM 時代還重要嗎？ |
@@ -27,3 +28,5 @@ flowchart LR
 | 強化學習 | 稀疏的獎勵 | 遊戲、控制、對齊 | 基底核與多巴胺系統 |
 
 這個「小腦—監督、皮質—非監督、基底核—強化」的分工假說來自 Doya（1999），是 [NeuroAI](../brain-mind/neuroai/index.md) 的經典觀點之一。
+
+完整的分類（含模仿、遷移、元學習、持續、主動、線上與聯邦學習）見 [學習範式](paradigms/index.md)。
