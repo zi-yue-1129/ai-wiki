@@ -4,6 +4,10 @@ related:
 - brain-mind/neuroscience
 - models/transformer
 - foundations/paradigms/self-supervised
+aliases:
+  - 深度學習
+  - 深度神經網路
+  - Deep neural networks
 ---
 
 # Deep Learning
@@ -90,6 +94,29 @@ Since 2024, **test-time compute scaling** — letting models think longer before
 - **Grokking**: sudden generalisation long after the training loss has converged
 - **Emergent abilities**: genuine phase transitions or artefacts of discontinuous metrics? (Schaeffer et al., 2023)
 - **Representational convergence**: do different models and modalities converge on similar representations of the world? (Huh et al., 2024, "Platonic representation hypothesis")
+
+## Key methods
+
+### AlexNet (Krizhevsky, Sutskever & Hinton, 2012)
+
+- **Problem:** classify 1.3 million high-resolution ImageNet images into 1,000 classes, where earlier systems fell well short.
+- **Core idea:** a large deep convolutional network trained on GPUs. It uses non-saturating neurons to speed up training and a new regularisation method for the fully connected layers to reduce overfitting.
+- **Architecture:** five convolutional layers, some followed by max-pooling, and two fully connected layers ending in a 1,000-way softmax, with about 60 million parameters.
+- **Results:** on the LSVRC-2010 test data, top-1 and top-5 error rates of 39.7% and 18.9%, which the authors describe as considerably better than the previous state of the art.
+- **Limitations:** the evidence is one network on a 2010 benchmark. Training relied on a large labelled dataset and GPU compute, which were not common at the time.
+
+### Residual networks (He et al., 2015)
+
+- **Problem:** very deep networks are hard to optimise, so adding layers stops helping.
+- **Core idea:** each block learns a residual function of its input and adds the input back through a shortcut. Passing the signal through unchanged is then easy to learn.
+- **Equation:** for a block with input \(x\),
+
+\[
+y = \mathcal{F}(x, \{W_i\}) + x
+\]
+
+- **Results:** networks up to 152 layers deep, about eight times deeper than VGG nets with lower complexity. An ensemble of these networks reached 3.57% error on the ImageNet test set and won first place in the ILSVRC 2015 classification task.
+- **Limitations:** the 3.57% figure comes from an ensemble, not a single network. The identity shortcut is a design choice the paper motivates, not one it proves optimal.
 
 ## Resources
 
