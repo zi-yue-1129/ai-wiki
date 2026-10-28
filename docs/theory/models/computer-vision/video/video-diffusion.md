@@ -67,7 +67,7 @@ Pre-visualisation for film, short creative clips, synthetic data for training pe
 ### Seminal papers
 
 - Ho, Jain and Abbeel, *Denoising Diffusion Probabilistic Models* (2020). https://arxiv.org/abs/2006.11239 — The denoising diffusion objective that video models extend.
-- Ho, Salimans, Gritsenko, Chan, Norouzi and Fleet, *Video Diffusion Models* (2022). https://arxiv.org/abs/2204.03458 — Extends diffusion to video.
+- Ho, Salimans, Gritsenko, Chan, Norouzi and Fleet, *Video Diffusion Models* (2022). https://arxiv.org/abs/2204.03458 — Extends the image diffusion objective to video, denoising a sequence of frames together.
 - Ho, Chan, Saharia, Whang, Gao, Gritsenko, Kingma, Poole, Norouzi, Fleet and Salimans, *Imagen Video: High Definition Video Generation with Diffusion Models* (2022). https://arxiv.org/abs/2210.02303 — A cascade of text-conditioned video diffusion models.
 - Rombach, Blattmann, Lorenz, Esser and Ommer, *High-Resolution Image Synthesis with Latent Diffusion Models*, IEEE/CVF Conference on Computer Vision and Pattern Recognition (2022). https://doi.org/10.1109/CVPR52688.2022.01042 — Latent diffusion, the basis for compressed video diffusion.
 - Blattmann, Rombach, Ling, Dockhorn, Kim, Fidler and Kreis, *Align your Latents: High-Resolution Video Synthesis with Latent Diffusion Models* (2023). https://arxiv.org/abs/2304.08818 — Latent video diffusion for high-resolution clips.

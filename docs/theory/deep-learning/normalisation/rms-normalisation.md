@@ -64,7 +64,7 @@ Normalisation inside large language models, where its lower cost matters at scal
 ### Seminal papers
 
 - Zhang and Sennrich, *Root Mean Square Layer Normalization* (2019). https://arxiv.org/abs/1910.07467 — Introduces RMSNorm and reports its speed and performance.
-- Ba, Kiros and Hinton, *Layer Normalization* (2016). https://arxiv.org/abs/1607.06450 — The normalisation that RMSNorm simplifies.
+- Ba, Kiros and Hinton, *Layer Normalization* (2016). https://arxiv.org/abs/1607.06450 — Layer normalisation, the normalisation that RMSNorm simplifies by dropping the mean subtraction.
 - Ioffe and Szegedy, *Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift* (2015). https://arxiv.org/abs/1502.03167 — The batch-based method that motivated the family.
 - Xiong, Yang, He, Zheng, Zheng, Xing, Zhang, Lan, Wang and Liu, *On Layer Normalization in the Transformer Architecture* (2020). https://arxiv.org/abs/2002.04745 — Analyses where normalisation is placed in Transformer blocks.
 - Vaswani et al., *Attention Is All You Need* (2017). https://arxiv.org/abs/1706.03762 — The Transformer architecture in which these normalisations are used.

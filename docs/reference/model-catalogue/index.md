@@ -91,6 +91,6 @@ Anthropic's Claude models have no single public technical report in the form abo
 - Touvron et al., *Llama 2: Open Foundation and Fine-Tuned Chat Models* (2023). https://arxiv.org/abs/2307.09288 — The Llama 2 report, with sizes from 7B to 70B.
 - OpenAI, *GPT-4 Technical Report* (2023). https://arxiv.org/abs/2303.08774 — The GPT-4 report; its abstract gives no parameter count.
 - Gemini Team, *Gemini: A Family of Highly Capable Multimodal Models* (2023). https://arxiv.org/abs/2312.11805 — The Gemini report, with Ultra, Pro and Nano tiers.
-- Bai et al., *Qwen Technical Report* (2023). https://arxiv.org/abs/2309.16609 — The first Qwen report.
+- Bai et al., *Qwen Technical Report* (2023). https://arxiv.org/abs/2309.16609 — The first Qwen technical report, introducing the model family listed in this catalogue.
 - Jiang et al., *Mistral 7B* (2023). https://arxiv.org/abs/2310.06825 — The Mistral 7B report, with a 7-billion-parameter model.
 - DeepSeek-AI, *DeepSeek-V3 Technical Report* (2024). https://arxiv.org/abs/2412.19437 — Reports 671 billion total and 37 billion activated parameters.

@@ -78,6 +78,7 @@ Students use a reading method to prepare for a seminar or a literature review. P
 ### Seminal papers
 
 - Keshav, *How to Read a Paper*, ACM SIGCOMM Computer Communication Review (2007). https://doi.org/10.1145/1273445.1273458 — A three-pass method for reading research papers, from computer systems but widely used beyond it.
+- Goodfellow, Bengio and Courville, *Deep Learning*, MIT Press (2016). https://www.deeplearningbook.org/ — A textbook that defines the notation and terms many papers assume.
 - Lipton and Steinhardt, *Troubling Trends in Machine Learning Scholarship* (2018). https://arxiv.org/abs/1807.03341 — Catalogues common problems in machine learning papers and how they distort the literature.
 - Pineau, Vincent-Lamarre, Sinha, Larivière, Beygelzimer, d'Alché-Buc, Fox and Larochelle, *Improving Reproducibility in Machine Learning Research (A Report from the NeurIPS 2019 Reproducibility Program)* (2020). https://arxiv.org/abs/2003.12206 — Reports on the reproducibility program and its practical recommendations.
 - Vaswani et al., *Attention Is All You Need* (2017). https://arxiv.org/abs/1706.03762 — The paper used as the worked example above.

@@ -58,12 +58,12 @@ Deep learning now underlies speech recognition, translation, image analysis, dru
 ### Seminal papers
 
 - Hinton, Osindero and Teh, *A Fast Learning Algorithm for Deep Belief Nets*, Neural Computation (2006). https://doi.org/10.1162/neco.2006.18.7.1527 — Introduces a layer-wise procedure for training deep belief networks.
-- Krizhevsky, Sutskever and Hinton, *ImageNet Classification with Deep Convolutional Neural Networks*, NeurIPS (2012). https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html — The AlexNet paper.
+- Krizhevsky, Sutskever and Hinton, *ImageNet Classification with Deep Convolutional Neural Networks*, NeurIPS (2012). https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html — The AlexNet paper, a deep convolutional network trained on ImageNet.
 - Sutskever, Vinyals and Le, *Sequence to Sequence Learning with Neural Networks* (2014). https://arxiv.org/abs/1409.3215 — An encoder-decoder model for sequence transduction.
 - Bahdanau, Cho and Bengio, *Neural Machine Translation by Jointly Learning to Align and Translate* (2014). https://arxiv.org/abs/1409.0473 — Introduces attention for neural machine translation.
-- Silver et al., *Mastering the game of Go with deep neural networks and tree search*, Nature (2016). https://doi.org/10.1038/nature16961 — The AlphaGo paper.
-- Vaswani et al., *Attention Is All You Need* (2017). https://arxiv.org/abs/1706.03762 — Introduces the Transformer.
-- Brown et al., *Language Models are Few-Shot Learners* (2020). https://arxiv.org/abs/2005.14165 — The GPT-3 report.
+- Silver et al., *Mastering the game of Go with deep neural networks and tree search*, Nature (2016). https://doi.org/10.1038/nature16961 — The AlphaGo paper, combining deep networks with tree search to play Go.
+- Vaswani et al., *Attention Is All You Need* (2017). https://arxiv.org/abs/1706.03762 — Introduces the Transformer, an attention-only architecture for sequence modelling.
+- Brown et al., *Language Models are Few-Shot Learners* (2020). https://arxiv.org/abs/2005.14165 — The GPT-3 report, with the 175 billion parameter figure.
 
 ### Surveys and textbooks
 

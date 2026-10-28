@@ -64,11 +64,11 @@ Action recognition supports sports analysis, surveillance review and video searc
 ### Seminal papers
 
 - Simonyan and Zisserman, *Two-Stream Convolutional Networks for Action Recognition in Videos* (2014). https://arxiv.org/abs/1406.2199 — Two streams for appearance and optical flow.
-- Tran, Bourdev, Fergus, Torresani and Paluri, *Learning Spatiotemporal Features with 3D Convolutional Networks* (2015). https://arxiv.org/abs/1412.0767 — Three-dimensional convolutions for video features.
+- Tran, Bourdev, Fergus, Torresani and Paluri, *Learning Spatiotemporal Features with 3D Convolutional Networks* (2015). https://arxiv.org/abs/1412.0767 — Three-dimensional convolutions that learn spatiotemporal features directly from video clips.
 - Carreira and Zisserman, *Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset* (2017). https://arxiv.org/abs/1705.07750 — The I3D model and the Kinetics dataset.
 - Arnab, Dehghani, Heigold, Sun, Lučić and Schmid, *ViViT: A Video Vision Transformer* (2021). https://arxiv.org/abs/2103.15691 — A pure Transformer for video classification.
-- Ho, Salimans, Gritsenko, Chan, Norouzi and Fleet, *Video Diffusion Models* (2022). https://arxiv.org/abs/2204.03458 — Diffusion models for video generation.
+- Ho, Salimans, Gritsenko, Chan, Norouzi and Fleet, *Video Diffusion Models* (2022). https://arxiv.org/abs/2204.03458 — Extends diffusion models to video, denoising a sequence of frames jointly.
 
 ### Articles and documentation
 
-- Tong, Song, Wang and Wang, *VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training* (2022). https://arxiv.org/abs/2203.12602 — Masked pretraining for video Transformers.
+- Tong, Song, Wang and Wang, *VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training* (2022). https://arxiv.org/abs/2203.12602 — Masked pretraining that reduces the labelled data video Transformers need.

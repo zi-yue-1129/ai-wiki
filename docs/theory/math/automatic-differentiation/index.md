@@ -64,7 +64,7 @@ Training every modern neural network, computing physical simulation sensitivitie
 ### Seminal papers
 
 - Baydin, Pearlmutter, Radul and Siskind, *Automatic differentiation in machine learning: a survey*, Journal of Machine Learning Research (2018). https://arxiv.org/abs/1502.05767 — A survey of automatic differentiation for machine learning, covering both modes.
-- Rumelhart, Hinton and Williams, *Learning representations by back-propagating errors*, Nature (1986). https://doi.org/10.1038/323533a0 — Popularises backpropagation for multi-layer networks.
+- Rumelhart, Hinton and Williams, *Learning representations by back-propagating errors*, Nature (1986). https://doi.org/10.1038/323533a0 — Popularises backpropagation, which is reverse-mode differentiation applied to multi-layer networks.
 - Pearlmutter and Siskind, *Reverse-mode AD in a functional framework: Lambda the ultimate backpropagator*, ACM Transactions on Programming Languages and Systems (2008). https://doi.org/10.1145/1330017.1330018 — Reverse mode as a functional transformation.
 
 ### Surveys and textbooks
