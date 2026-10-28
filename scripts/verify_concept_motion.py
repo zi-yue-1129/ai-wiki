@@ -70,6 +70,8 @@ def main() -> int:
         static_path = ASSETS / f"{stem}-still.svg"
         errors.extend(verify_svg(animated_path, True))
         errors.extend(verify_svg(static_path, False))
+        if stem == "moe-top2-routing":
+            errors.extend(verify_svg(ASSETS / "moe-top2-routing-token-b.svg", False))
         for suffix in (".md", ".zh-TW.md"):
             page = DOCS / (page_stem + suffix)
             if not page.is_file():
