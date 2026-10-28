@@ -28,6 +28,10 @@ Dhariwal 與 Nichol（2021）指出，以另外訓練的分類器的梯度來引
 
 等價地寫成 \(\tilde\epsilon = \epsilon_\theta(x_t,t) + (1+w)\big(\epsilon_\theta(x_t,t,c) - \epsilon_\theta(x_t,t)\big)\)，可見每一步是從無條件預測朝條件預測移動。\(w = 0\) 時即為單純的條件模型。每一步的成本加倍，因為需要兩次網路評估。
 
+![無分類器引導動態向量外插：引導權重增加時，雜訊預測點沿有條件與無條件預測的差向量往外移動，再隨權重降低返回。](../../../../../assets/concept-animations/cfg-extrapolation-motion.svg)
+
+*原創循環向量空間教學動畫，CC BY-SA 4.0。* 圖中固定的有條件與無條件雜訊預測，是將高維預測張量**示意投影至二維**。隨著示意引導權重從 \(w=0\) 增至 \(w=1.5\)，引導後的預測依 \(\epsilon_{\text{cond}}+w(\epsilon_{\text{cond}}-\epsilon_{\text{uncond}})\) 從有條件預測向外延伸；權重降低時再返回。**這不是實際去噪軌跡，也不是模型實測輸出**。參見 [Ho 與 Salimans（2022）](https://arxiv.org/abs/2207.12598)。Wiki 網站提供「暫停動畫」按鈕及偏好減少動態效果時的靜態畫面。
+
 ## 結果
 
 論文只在 ImageNet 的 64×64 與 128×128 上評估。表中同時報告 FID 與 Inception score。
