@@ -23,6 +23,10 @@ Each page follows the same structure: **landscape** (main use cases), **landmark
 | [Cybersecurity](cybersecurity/index.md) | Detection, vulnerability discovery, AI-enabled attacks, securing AI |
 | [Social Sciences & Humanities](social-science/index.md) | Computational social science, digital humanities, simulating societies |
 | [Software Development](software/index.md) | Code assistants, coding agents, testing, productivity evidence |
+| [Military & Defence](military/index.md) | Surveillance and reconnaissance, logistics, autonomy and the policy debate |
+| [Space & Astronomy](space-astronomy/index.md) | Survey classification, exoplanets, gravitational waves, anomaly search |
+| [Architecture & Urban Planning](architecture-urban/index.md) | Building energy, structural inspection, urban mobility, generative design |
+| [Telecommunications](telecommunications/index.md) | Learned radio, network operations, traffic prediction, network LLMs |
 
 ## Methods behind each field
 
@@ -47,6 +51,10 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Cybersecurity | [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Safety & Alignment](../society/safety-alignment/index.md) |
 | Social Sciences & Humanities | [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md), [Ethics & Fairness](../society/ethics/index.md) |
 | Software Development | [Large Language Models](../theory/models/llm/index.md), [AI Agents](../theory/models/agents/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
+| Military & Defence | [Computer Vision](../theory/models/computer-vision/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
+| Space & Astronomy | [Convolutional Neural Networks](../theory/models/cnn/index.md), [Active Learning](../theory/paradigms/active/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
+| Architecture & Urban Planning | [Computer Vision](../theory/models/computer-vision/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md), [Graph Neural Networks](../theory/models/gnn/index.md), [Generative Models](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
+| Telecommunications | [Autoencoders & Representations](../theory/paradigms/unsupervised/autoencoders-and-representations/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Federated Learning](../theory/paradigms/federated/index.md), [Large Language Models](../theory/models/llm/index.md) |
 
 ## Cross-cutting patterns
 

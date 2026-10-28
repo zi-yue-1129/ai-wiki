@@ -524,6 +524,10 @@ plugins:
             Cybersecurity: 資訊安全
             Social Sciences & Humanities: 社會科學與人文
             Software Development: 軟體開發
+            Military & Defence: 軍事與國防
+            Space & Astronomy: 太空與天文
+            Architecture & Urban Planning: 建築與城市規劃
+            Telecommunications: 電信
             Engineering: 工程實務
             Frameworks & Tools: 框架與工具
             Data: 資料工程
@@ -1096,6 +1100,10 @@ nav:
       - Cybersecurity: applications/cybersecurity/index.md
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md
+      - Military & Defence: applications/military/index.md
+      - Space & Astronomy: applications/space-astronomy/index.md
+      - Architecture & Urban Planning: applications/architecture-urban/index.md
+      - Telecommunications: applications/telecommunications/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools: engineering/frameworks/index.md
