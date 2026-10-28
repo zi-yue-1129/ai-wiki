@@ -49,7 +49,7 @@ DeepSeek-R1-Zero skips stages 1 and 3. Its rewards are an accuracy reward and a 
 
 ## Results
 
-- **AIME 2024, pass@1 (DeepSeek-R1-Zero):** the paper reports the score rising from 15.6% to 71.0% during RL training.
+- **AIME 2024, pass@1 (DeepSeek-R1-Zero):** the paper reports the score rising from 15.6% to 77.9% during RL training, and Table 3 lists 77.9% for R1-Zero.
 - **AIME 2024, pass@1 (DeepSeek-R1):** 79.8%.
 - **MATH-500, pass@1 (DeepSeek-R1):** 97.3%.
 - The abstract also states that reasoning patterns from the large model can be used to improve smaller models.
