@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - applications/robotics/navigation
@@ -39,13 +39,13 @@ NoMaD is a conditional denoising diffusion policy:
 2. **Goal mask.** A binary mask *m* controls attention to the goal token. In training, *m* is drawn from a Bernoulli distribution with *p* = 0.5. At test time, *m* = 1 gives undirected exploration and *m* = 0 gives goal-conditioned navigation.
 3. **Transformer and denoiser.** A four-layer Transformer decoder with four heads produces a context for a one-dimensional conditional U-Net, which denoises a sequence of future actions. The paper's figure shows eight future actions.
 4. **Training.** The denoising objective is a mean-squared error between the noise added to ground-truth action sequences and the noise the network predicts. A temporal-distance term is added with a small weight.
-5. **Sampling.** At test time the policy draws actions by running ten denoising steps. Exploration runs in the undirected mode inside a topological graph built online, with frontier-based subgoal selection following ViKiNG.
+5. **Sampling.** At test time the policy draws actions by running ten denoising steps. Exploration runs in the undirected mode inside a topological graph built online, with frontier-based subgoal selection.
 
 The model has about 19 million parameters, as listed in the paper's comparison table.
 
 ## Results
 
-The paper reports two kinds of evaluation. Exploration is scored by the share of successful runs and the number of collisions. Table I of the paper gives these values for NoMaD and for comparison methods in indoor and outdoor settings:
+The paper reports two kinds of evaluation. Exploration is scored by the share of successful runs and the number of collisions. Table I of the paper gives these values for NoMaD and for comparison methods:
 
 | Method | Exploration success | Collisions per run | Navigation success |
 |---|---|---|---|
@@ -56,13 +56,13 @@ The paper reports two kinds of evaluation. Exploration is scored by the share of
 | Subgoal diffusion (335M parameters) | 77% | 1.7 | 90% |
 | NoMaD (19M parameters) | 98% | 0.2 | 90% |
 
-Table II of the paper reports the undirected and goal-conditioned success rates of NoMaD at 98% and 92%, against 98% for a plain diffusion policy in undirected mode and 92% for a ViNT policy in goal-conditioned mode. The paper's experiments run on a mobile robot in unseen environments. The text gives different counts of evaluation environments in different places, so the environment list should be read from the paper's own appendix.
+Table II of the paper reports NoMaD's success at 98% in undirected exploration and 92% in goal-conditioned navigation. The paper's experiments run on a mobile robot in unseen environments. The text gives different counts of evaluation environments in different places, so the environment list should be read from the paper's own appendix.
 
 ## Limitations
 
 - Exploration relies on standard frontier-based planning. The paper proposes smarter region selection, such as semantic or prior-based strategies, as future work.
 - Goal images are general but are not always the most natural way for a user to say where to go. Language and spatial coordinates are not supported in this version.
-- The authors describe the results as a proof of concept. They report that NoMaD succeeds in all but the hardest environment, and they give little analysis of other failure modes.
+- The authors describe the results as a proof of concept.
 
 ## Connections
 

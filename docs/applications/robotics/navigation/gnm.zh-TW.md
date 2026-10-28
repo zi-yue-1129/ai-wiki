@@ -49,14 +49,21 @@ GNM 由 Shah、Sridhar、Bhorkar、Hirose 與 Levine（2022）提出，是一個
 | 原始路點 | 0.42 | 0.26 |
 | 正規化路點 | 1.00 | 0.95 |
 
-跨機器人方面，GNM 優於論文所比較的最佳單一資料集策略。論文主表報告的平均成功率，LoCoBot 為 0.96 對 0.62，DJI Tello 為 0.99 對 0.79，Vizbot 為 0.93 對 0.51，Clearpath Jackal 為 0.94 對 0.68。主要比較對象是單一資料集策略與 ImageNet 微調。論文沒有與 ViNG 的直接比較。
+表 II 比較 GNM 與兩個單一機器人基線 GS 與 RECON，涵蓋四台機器人：LoCoBot、DJI Tello、Vizbot 與 Clearpath Jackal（Shah et al., 2022, Table II）。數值為平均成功率。
+
+| 方法 | LoCoBot | DJI Tello | Vizbot | Jackal |
+|---|---|---|---|---|
+| GS | 0.26 | 0.21 | 0.51 | 0.31 |
+| RECON | 0.62 | 0.79 | 0.26 | 0.68 |
+| GNM | 0.96 | 0.99 | 0.93 | 0.94 |
+
+論文的圖說指出，共享策略在每台機器人上都優於該機器人上最佳的單一機器人策略。論文沒有與 ViNG 的直接比較。
 
 ## 限制
 
-- 大部分訓練資料來自有輪的地面機器人，因此對空中或足式平台的主張只依賴少數部署。四旋翼機是 DJI Tello，論文將其限制在離地約一公尺的平面上飛行。
 - 模型以模仿學習訓練，因此繼承行為複製的限制，包括對示範資料分布的敏感性。
 - 正規化需要每台機器人的最高速度，每個新平台都必須事先知道。
-- 論文正文提到的資料量（約 60 小時）與其表格（70 小時）不一致，因此需要精確數字時應以論文表格為準。
+- 正文與表 I 給出的資料集數量與資料時數不一致，因此需要精確數字時，應以論文的表格為準。
 
 ## 相關連結
 
@@ -76,4 +83,4 @@ GNM 由 Shah、Sridhar、Bhorkar、Hirose 與 Levine（2022）提出，是一個
 - Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N. & Levine, S. (2023). *ViNT: A Foundation Model for Visual Navigation*. arXiv. https://arxiv.org/abs/2306.14846 — 將相同想法擴展到更多資料，並加入時間距離與路點輸出的 Transformer 後繼模型。
 - Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N. & Levine, S. (2021). *ViNG: Learning Open-World Navigation with Visual Goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — 較早的單一機器人方法，結合學習的策略與拓撲圖。
 - Sridhar, A., Shah, D., Glossop, C. & Levine, S. (2023). *NoMaD: Goal Masked Diffusion Policies for Navigation and Exploration*. arXiv. https://arxiv.org/abs/2310.07896 — 基於擴散的後繼模型，用於以目標為條件的導航與探索。
-- Hirose, N., Xia, F., Martín-Martín, R., Sadeghian, A. & Savarese, S. (2019). *Deep Visual MPC-Policy Learning for Navigation*. arXiv. https://arxiv.org/abs/1903.02749 — 較早的學習式視覺導航策略，能沿著視覺軌跡前進並避開未見過的障礙物。
+- Savinov, N., Dosovitskiy, A. & Koltun, V. (2018). *Semi-parametric Topological Memory for Navigation*. arXiv. https://arxiv.org/abs/1803.00653 — 後續學習式方法所依據的拓撲記憶。

@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - applications/robotics/navigation
@@ -39,15 +39,15 @@ The architecture has four main parts:
 1. **Encoders.** Two EfficientNet-B0 encoders process the current observation with its past context, and the goal. The goal encoder is fused with the current observation by stacking them channel-wise.
 2. **Transformer.** A decoder-only transformer with four layers, four heads and 512-dimensional tokens. The model has about 31 million parameters, and the paper uses five past frames as context.
 3. **Outputs.** One head predicts the temporal distance to the subgoal. The second predicts five future relative waypoints.
-4. **Subgoal search.** A diffusion model proposes candidate subgoal images, ViNT grounds each candidate by predicting how far it is, and an A*-like search with a goal-directed heuristic picks the next subgoal.
+4. **Subgoal search.** A diffusion model with about 318 million parameters, sampled with 200 DDIM steps, proposes candidate subgoal images. ViNT grounds each candidate by predicting how far it is, and an A*-like search with a goal-directed heuristic picks the next subgoal.
 
 For adaptation, the whole model is fine-tuned end to end with a learning rate of 10⁻⁴ for five epochs. A learned goal token can replace the image goal encoder so that the model accepts other goal types, such as GPS waypoints or routing commands.
 
 ## Results
 
-The paper reports that the model was trained on eight robotic platforms and eleven datasets, described in the main text as over 100 hours of trajectories. The paper's table gives a different total, so the exact amount should be taken from the paper's data table. For undirected goal reaching, ViNT scores 0.94 indoors and 1.00 outdoors, against 0.72 and 0.44 for end-to-end behaviour cloning and 0.19 and 0.23 for RECON on the same settings (Shah et al., 2023, Table 1).
+The main text describes the training data as eleven datasets from eight robotic platforms, with over 100 hours of trajectories. Other totals appear in the paper's tables and captions, so the exact amount should be taken from the paper's data table. For undirected goal reaching, ViNT scores 0.94 indoors and 1.00 outdoors, against 0.72 and 0.44 for end-to-end behaviour cloning and 0.19 and 0.23 for RECON on the same settings (Shah et al., 2023, Table 1).
 
-With subgoal diffusion, the paper reports coverage of 1,270 metres with a GPS-guided run and 1,040 metres with a satellite-guided run, reaching the goal in both cases, with success rates of 0.95 and 1.00 (Table 2). In zero-shot coverage runs on new robots, the maximum distance travelled is larger for ViNT than for GNM on the LoCoBot, the Go 1 and the Vizbot. On the Clearpath Jackal the two are nearly equal (Table 3). The paper reports that fine-tuning can master a new environment with about one hour of data, with about 80% success.
+With subgoal diffusion, the paper reports distances of 1,270 metres in a GPS-guided run and 1,040 metres in a satellite-guided run, with success rates of 0.95 and 1.00 (Table 2). In zero-shot runs on new robots, ViNT covers more distance than GNM on the LoCoBot (120 m against 60 m), the Go 1 (45 m against 8 m) and the Vizbot (110 m against 20 m). On the Clearpath Jackal the two are nearly equal, at 438 m and 427 m (Table 3). The paper reports that fine-tuning can master a new environment with about one hour of data, with about 80% success.
 
 ## Limitations
 

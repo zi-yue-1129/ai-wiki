@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - applications/robotics/navigation
@@ -36,7 +36,7 @@ Build the graph from a walkthrough, adding an edge between consecutive frames an
 
 The method has three learned or computed parts:
 
-1. **Memory graph.** Each node stores an observation, two consecutive RGB frames at 160 by 120 pixels. The walkthrough is subsampled by a factor of four. Consecutive nodes are connected. Visual shortcuts are added where the retrieval network reports that two observations are far apart in time but look similar, with a threshold chosen so that about 2,000 shortcuts are created.
+1. **Memory graph.** Each node stores one observation image. The walkthrough is subsampled by a factor of four. Consecutive nodes are connected. Visual shortcuts are added where the retrieval network reports that two observations are far apart in time but look similar, with a threshold chosen so that about 2,000 shortcuts are created.
 2. **Retrieval network.** A Siamese network with ResNet-18 encoders produces a 512-dimensional embedding for each observation. The two embeddings are concatenated and passed through fully connected layers, and a two-way softmax predicts whether the observations are temporally close. It is trained self-supervised with cross-entropy. Positive pairs are at most 20 steps apart, and negative pairs are at least 100 steps apart.
 3. **Locomotion network and planning.** A second network takes the current observation and the next waypoint observation and outputs a softmax over seven discrete actions: no-op, forward, backward, strafe left, strafe right, turn left and turn right. The agent localises itself in the graph, finds the shortest path with Dijkstra's algorithm, and chooses as its waypoint the furthest node on the path, within a short window of steps, whose similarity to the current view exceeds a threshold.
 
