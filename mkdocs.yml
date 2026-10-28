@@ -323,6 +323,10 @@ plugins:
             Distributed Training: 分散式訓練
             Vector Databases and Semantic Search: 向量資料庫與語意搜尋
             LLM Application Security: LLM 應用安全
+            Synthetic Data: 合成資料
+            Self-Instruct: Self-Instruct
+            Textbook-quality data: 教科書品質的合成資料
+            Model Collapse: 模型崩潰
             Prompt Engineering: 提示工程
             Retrieval-Augmented Generation: 檢索增強生成 RAG
             Evaluation & Benchmarks: 評估與基準
@@ -590,6 +594,12 @@ nav:
       - Distributed Training: engineering/distributed-training/index.md
       - Vector Databases: engineering/vector-databases/index.md
       - LLM Application Security: engineering/llm-security/index.md
+      - Synthetic Data:
+          - engineering/synthetic-data/index.md
+          - Self-Instruct: engineering/synthetic-data/self-instruct.md
+          - Textbook-quality data: engineering/synthetic-data/textbook-data.md
+          - TinyStories: engineering/synthetic-data/tinystories.md
+          - Model Collapse: engineering/synthetic-data/model-collapse.md
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
