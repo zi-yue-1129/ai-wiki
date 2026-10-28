@@ -335,6 +335,8 @@ plugins:
             AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             RFdiffusion: RFdiffusion（蛋白質骨架設計）
             ESM-2 and ESMFold: ESM-2 與 ESMFold
+            ESM-2: ESM-2
+            ESMFold: ESMFold
             OpenAI Five: OpenAI Five（Dota 2）
             End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
@@ -1117,6 +1119,8 @@ nav:
           - AlphaFold 2 (Jumper et al. 2021): applications/life-science/alphafold-2.md
           - RFdiffusion: applications/life-science/rfdiffusion/index.md
           - ESM-2 and ESMFold: applications/life-science/esm/index.md
+          - ESM-2: applications/life-science/esm/esm-2.md
+          - ESMFold: applications/life-science/esm/esmfold.md
       - Scientific Discovery: applications/science/index.md
       - Mental Health: applications/mental-health/index.md
       - Education: applications/education/index.md
