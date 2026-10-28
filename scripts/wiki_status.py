@@ -271,6 +271,15 @@ def reference_problems(path: Path) -> list[str]:
     return problems
 
 
+LINK_TARGET = re.compile(r"\[[^\]\n]*\]\([^)\n]*\)")
+RELATED_ITEM = re.compile(r"(?m)^(\s*-\s+)(theory|foundations|models)/\S*$")
+
+
+def normalise_links(text: str) -> str:
+    """Blank out link targets and related: entries, which are the only things a move rewrites."""
+    return RELATED_ITEM.sub(r"\1X", LINK_TARGET.sub("[]()", text))
+
+
 def changed_pages() -> set[str] | None:
     """Pages changed relative to the PR's base branch, or None outside a PR."""
     base = os.environ.get("GITHUB_BASE_REF")
@@ -290,9 +299,22 @@ def changed_pages() -> set[str] | None:
         if fields[0].startswith("R"):
             continue
         path = Path(fields[-1])
-        if path.suffix == ".md" and not is_translation(path):
+        if path.suffix == ".md" and not is_translation(path) and not only_links_changed(base, fields[0], path):
             changed.add(path.relative_to("docs").as_posix())
     return changed
+
+
+def only_links_changed(base: str, status: str, path: Path) -> bool:
+    """True when a modified page differs from the base only in link targets, e.g. after a move."""
+    if status != "M":
+        return False
+    old = subprocess.run(
+        ["git", "show", f"origin/{base}:{path.as_posix()}"],
+        cwd=ROOT, capture_output=True, text=True,
+    )
+    if old.returncode != 0:
+        return False
+    return normalise_links(old.stdout) == normalise_links((ROOT / path).read_text(encoding="utf-8"))
 
 
 def check(pages: list[Page]) -> int:
