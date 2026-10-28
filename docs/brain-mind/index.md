@@ -34,6 +34,7 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Psychology & AI](psychology/index.md) | Cognitive biases, dual-process theory, development, machine psychology |
 | [Consciousness & Philosophy of Mind](consciousness/index.md) | Theories of consciousness, could AI be conscious, the Chinese room |
 | [Brain-Computer Interfaces](bci/index.md) | Invasive and non-invasive BCIs, decoding language and images from brain activity |
+| [Language in the Brain](language-in-brain/index.md) | Dual-stream speech processing, the language network, language models predicting brain responses |
 
 ## Two-way influence at a glance
 

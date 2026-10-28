@@ -34,6 +34,7 @@ flowchart TB
 | [心理學與 AI](psychology/index.md) | 認知偏誤、雙歷程理論、發展心理學、機器心理學 |
 | [意識與心靈哲學](consciousness/index.md) | 意識理論、AI 能否有意識、中文房間 |
 | [腦機介面與神經解碼](bci/index.md) | 侵入式與非侵入式 BCI、從腦活動解碼語言與影像 |
+| [大腦中的語言](language-in-brain/index.md) | 雙路徑語音處理、語言網路、預測大腦反應的語言模型 |
 
 ## 雙向關係一覽
 
