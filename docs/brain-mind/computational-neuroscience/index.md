@@ -30,7 +30,7 @@ Richards et al. (2019, *Nature Neuroscience*), "A deep learning framework for ne
 |---|---|---|
 | McCulloch–Pitts | Minimal | Binary threshold unit |
 | Rate model | Simple | Output is firing rate; like an artificial neuron |
-| Leaky integrate-and-fire (LIF) | Simple | Integrates input with leak; spikes and resets at threshold — basis of SNNs |
+| [Leaky integrate-and-fire (LIF)](lif/index.md) | Simple | Integrates input with leak; spikes and resets at threshold — basis of SNNs |
 | Izhikevich | Moderate | Two variables reproduce many firing patterns |
 | Hodgkin–Huxley | High | Ion-channel dynamics of the action potential (Nobel Prize 1963) |
 | Multi-compartment | Very high | Detailed dendritic morphology |
