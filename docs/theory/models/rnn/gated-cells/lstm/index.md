@@ -25,6 +25,14 @@ Errors sent back through many time steps tend to either blow up or shrink to not
 
 The LSTM replaces the plain recurrent unit with a memory cell built around a self-connected linear unit, which the paper calls the "constant error carousel". Because the cell's state is updated by addition, error can flow back through it without being repeatedly multiplied. Two multiplicative gates, one on the input and one on the output, decide when information is written into the cell and when it is read out.
 
+
+### Animated walkthrough
+
+![Original LSTM cell animation: an input gate writes a candidate to recurrent memory, the cell retains its state, and an output gate reads it.](../../../../../assets/concept-animations/lstm-write-retain-read.svg)
+
+*Original CC BY-SA 4.0 teaching animation of the **1997 two-gate LSTM**, without a later forget gate (Hochreiter & Schmidhuber, 1997; see References). Write, retain and read are separated to make their roles visible; in an actual cell the input and output gates can operate in the same time step. The state blocks are schematic, not measured activations. [Open the full-size animation](../../../../../assets/concept-animations/lstm-write-retain-read.svg); in the standalone SVG, hover or focus with the keyboard to pause. Reduced-motion settings disable the animation. GitHub may show a static fallback frame.*
+
+
 ## Equation or algorithm
 
 For memory cell \(c\) at time \(t\), with input gate \(y_{\text{in}}\), output gate \(y_{\text{out}}\) and the squashing functions \(g\) and \(h\), the paper gives
