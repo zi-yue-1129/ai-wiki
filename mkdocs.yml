@@ -227,6 +227,10 @@ plugins:
             Deep Learning: 深度學習
             Optimisation: 最佳化
             SGD & Momentum: SGD 與動量
+            Heavy-Ball Momentum: 重球動量
+            Nesterov Momentum: Nesterov 動量
+            Adam: Adam
+            AdamW: AdamW
             Adaptive Methods: 自適應方法
             Second-Order Methods: 二階方法
             Learning-Rate Schedules: 學習率排程
@@ -482,8 +486,14 @@ nav:
       - Deep Learning: theory/deep-learning/index.md
       - Optimisation:
           - theory/optimization/index.md
-          - SGD & Momentum: theory/optimization/sgd-and-momentum.md
-          - Adaptive Methods: theory/optimization/adaptive/index.md
+          - SGD & Momentum:
+              - theory/optimization/sgd-and-momentum/index.md
+              - Heavy-Ball Momentum: theory/optimization/sgd-and-momentum/heavy-ball.md
+              - Nesterov Momentum: theory/optimization/sgd-and-momentum/nesterov.md
+          - Adaptive Methods:
+              - theory/optimization/adaptive/index.md
+              - Adam: theory/optimization/adaptive/adam.md
+              - AdamW: theory/optimization/adaptive/adamw.md
           - Second-Order Methods: theory/optimization/second-order.md
           - Learning-Rate Schedules: theory/optimization/learning-rate-schedules.md
           - Regularisation & Weight Decay: theory/optimization/regularisation-and-weight-decay.md

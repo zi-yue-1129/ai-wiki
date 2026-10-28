@@ -43,8 +43,8 @@ The optimisers below are grouped by what information they use. Each subpage give
 
 | Family | Uses | Subpage | Status |
 |---|---|---|---|
-| First-order, SGD family | Gradient and momentum | [SGD and momentum](sgd-and-momentum.md) | Draft |
-| Adaptive methods | Per-parameter scale from squared gradients | [Adaptive methods](adaptive/index.md) | Draft (Adam, AdamW written) |
+| First-order, SGD family | Gradient and momentum | [SGD and momentum](sgd-and-momentum/index.md) | Draft |
+| Adaptive methods | Per-parameter scale from squared gradients | [Adaptive methods](adaptive/index.md) | Draft (Adam and AdamW have their own pages) |
 | Second-order and quasi-Newton | Curvature (Hessian or its approximation) | [Second-order methods](second-order.md) | Planned |
 | Learning-rate schedules and warm-up | How \(\eta\) changes over time | [Learning-rate schedules](learning-rate-schedules.md) | Planned |
 | Regularisation and weight decay | Penalties that the optimiser must respect | [Regularisation and weight decay](regularisation-and-weight-decay.md) | Planned |
