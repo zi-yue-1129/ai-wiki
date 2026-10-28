@@ -30,7 +30,7 @@ A trained network is usually over-parameterised. Many weights contribute little 
 | Quantisation | Bits per number (weights, activations, cache) | Rounding error; needs calibration | [Quantisation](quantisation/index.md) |
 | Pruning | Number of weights, channels or heads | Accuracy loss at high sparsity; speed-up depends on hardware | [Pruning](pruning/index.md) |
 | Knowledge distillation | Size of the model itself | Student quality bounded by teacher and data | [Knowledge distillation](knowledge-distillation/index.md) |
-| Low-rank factorisation | Parameters in large matrices | Loss when weight matrices have high effective rank | This page, below |
+| Low-rank factorisation | Parameters in large matrices | Loss when weight matrices have high effective rank | [Low-rank factorisation and efficient architectures](low-rank-and-efficient-architectures/index.md) |
 
 Compression is usually applied **after** training, which is called post-training compression. Training-aware methods, such as quantisation-aware training or distillation, change the training run itself and usually recover more quality at the same size. Efficient architecture design, such as depthwise-separable convolutions or grouped-query attention, is a related but different strategy: it chooses a small model before training rather than shrinking a large one.
 
@@ -48,6 +48,8 @@ Compression is usually applied **after** training, which is called post-training
 Most methods share a loop: score the importance of each part of the model, remove or round the least important parts, then repair the damage. The repair step is what separates a method that works at large compression from one that does not. It may be fine-tuning on labelled data, reconstruction of each layer's output on a small calibration set, or simple distillation from the original model.
 
 ### Low-rank factorisation
+
+The method pages for this family, covering truncated SVD, low-rank filter expansion and LoRA, are under [low-rank factorisation and efficient architectures](low-rank-and-efficient-architectures/index.md).
 
 A weight matrix \(W \in \mathbb{R}^{m \times n}\) can be approximated by the product of two thinner matrices, \(W \approx UV\) with \(U \in \mathbb{R}^{m \times r}\) and \(V \in \mathbb{R}^{r \times n}\). The truncated singular value decomposition gives the best rank-\(r\) approximation in the Frobenius norm. The parameter count falls from \(mn\) to \(r(m+n)\), which is a saving whenever \(r\) is small relative to the dimensions.
 
