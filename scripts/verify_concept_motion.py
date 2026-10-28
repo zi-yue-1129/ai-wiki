@@ -27,6 +27,8 @@ TOPICS = {
     "dqn-target-sync": "theory/paradigms/reinforcement-learning/deep-q-networks/index",
     "adamw-decoupled-paths": "theory/optimization/adaptive/adamw",
     "td3-delayed-twin-critics": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/td3/index",
+    "ppo-clipped-objective": "theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index",
+    "prioritized-replay-cycle": "theory/paradigms/reinforcement-learning/experience-replay/index",
 }
 FORBIDDEN = {"script", "foreignObject", "iframe", "image"}
 LIMIT = 50 * 1024
@@ -93,7 +95,7 @@ def main() -> int:
                 (page.parent / link).resolve() for link in links
             }:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics"}:
+            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)

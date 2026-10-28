@@ -18,6 +18,12 @@ A plain policy-gradient step can be too large, and performance can collapse afte
 
 Let \(r_t(\theta) = \pi_\theta(a_t \mid s_t) / \pi_{\theta_{\text{old}}}(a_t \mid s_t)\) be the probability ratio. The clipped objective keeps \(r_t\) inside \([1-\varepsilon, 1+\varepsilon]\) wherever that would otherwise reward a large move. Taking the minimum of the clipped and unclipped terms means the objective gains nothing from pushing the ratio beyond the band. The paper uses \(\varepsilon = 0.2\) for continuous control. Because the update stays near the old policy, one batch of data can support several epochs of minibatch updates.
 
+### Visual walkthrough: what clipping actually changes
+
+![PPO clipped surrogate: moving probability ratios on the positive- and negative-advantage branches](../../../../assets/concept-animations/ppo-clipped-objective-motion.svg)
+
+*Original teaching schematic (CC BY-SA 4.0).* The dashed lines show the **unclipped** term \(r_t\hat A_t\); solid lines show the **clipped surrogate** for a single sample. Over four states, the markers move across illustrative probability ratios. For **positive advantage**, further increasing \(r_t\) beyond \(1+\varepsilon\) no longer increases this sample's surrogate. For **negative advantage**, further decreasing \(r_t\) below \(1-\varepsilon\) no longer increases it. Clipping **does not hard-constrain the probability ratio itself**, nor guarantee a trust region. The illustration uses \(\varepsilon=0.2\); marker positions and heights are schematic, not measured policy updates. On MkDocs, use Play/Pause; the [static GitHub overview](../../../../assets/concept-animations/ppo-clipped-objective-still.svg) shows both plateaus.
+
 ## Equation or algorithm
 
 With advantage estimate \(\hat{A}_t\), the clipped surrogate is

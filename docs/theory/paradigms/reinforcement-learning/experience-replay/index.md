@@ -45,6 +45,12 @@ The original deep Q-network used uniform sampling from a buffer of recent transi
 
 Prioritised replay gives each transition a priority, usually the magnitude of its TD error, and samples in proportion to a power of that priority. High-error transitions are replayed more often, which speeds learning. Because the sampling distribution is no longer the data distribution, each update is weighted with importance-sampling weights. Priorities are stale once the network changes, and computing them for a large buffer needs an efficient data structure such as a sum tree.
 
+#### Animated walkthrough: prioritized sampling
+
+![Prioritized replay cycle: store, assign priorities, sample a transition and refresh its priority](../../../../assets/concept-animations/prioritized-replay-cycle-motion.svg)
+
+*Original teaching schematic (CC BY-SA 4.0).* Four stages show a new transition entering the buffer, illustrative priority bars, one **stochastic** draw of transition T4 for a learner, and a refreshed priority after a new TD-error estimate. A taller bar increases sampling probability; it **does not force** that transition to be selected. The bars, sample and update are schematic, not measured errors or training outcomes. Importance-sampling weights used to correct the altered sampling distribution are not drawn. On MkDocs, use Play/Pause; the [static GitHub overview](../../../../assets/concept-animations/prioritized-replay-cycle-still.svg) shows the sampled transition and learner.
+
 ### Hindsight replay
 
 In goal-conditioned tasks most episodes end in failure, so they give little learning signal. Hindsight replay treats the state the agent did reach as if it had been the intended goal, and stores the transition with that relabelled goal and a reward of success. The method turns failures into useful examples for the goal the agent actually achieved.
