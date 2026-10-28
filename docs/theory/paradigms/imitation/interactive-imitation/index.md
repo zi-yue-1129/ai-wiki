@@ -18,7 +18,7 @@ The core loop is the same in most methods. The learner rolls out its current pol
 
 ## DAgger
 
-Dataset Aggregation (DAgger) runs the learner's policy, records the states it visits, labels those states with the expert's actions and aggregates them with all earlier data. Ross, Gordon & Bagnell (2011) show that, for a no-regret online learner, the resulting policy has a performance bound that grows linearly with the horizon rather than quadratically, which is the gap that behavioural cloning leaves open.
+The method has its own page: [DAgger](dagger.md). Dataset Aggregation (DAgger) runs the learner's policy, records the states it visits, labels those states with the expert's actions and aggregates them with all earlier data. Ross, Gordon & Bagnell (2011) show that, for a no-regret online learner, the resulting policy has a performance bound that grows linearly with the horizon rather than quadratically, which is the gap that behavioural cloning leaves open.
 
 Practical variants mix the expert and learner in rollouts, with the expert taking over with some probability that decays over iterations. The main cost is the need for an expert who can label arbitrary states on demand.
 
@@ -28,7 +28,7 @@ When an expert can only intervene occasionally, the policy can be trained on the
 
 ## Noise injection and robustness
 
-DART injects noise into the expert's own demonstrations so that the recorded data contains recovery behaviour from perturbed states, while the expert's actions remain near-optimal (Laskey et al., 2017). It gives robustness without an online expert, at the cost of extra demonstration effort.
+The method has its own page: [DART](dart.md). DART injects noise into the expert's own demonstrations so that the recorded data contains recovery behaviour from perturbed states, while the expert's actions remain near-optimal (Laskey et al., 2017). It gives robustness without an online expert, at the cost of extra demonstration effort.
 
 ## Learning from reward-based feedback
 
