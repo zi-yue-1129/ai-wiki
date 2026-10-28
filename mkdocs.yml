@@ -310,6 +310,9 @@ plugins:
             Attention Is All You Need: Attention Is All You Need 原始論文
             Additive Attention (Bahdanau): 加性注意力（Bahdanau）
             Deep Q-Networks: 深度 Q 網路
+            AlphaGo: 阿爾法圍棋
+            AlphaZero: 阿爾法零
+            MuZero: MuZero
             Proximal Policy Optimisation: 近端策略最佳化
             AlexNet: AlexNet
             GPT-3 Few-Shot Learning: GPT-3 少樣本學習
@@ -852,10 +855,13 @@ nav:
           - Reinforcement Learning:
               - theory/paradigms/reinforcement-learning/index.md
               - Deep Q-Networks: theory/paradigms/reinforcement-learning/deep-q-networks/index.md
+              - AlphaGo: theory/paradigms/reinforcement-learning/alphago/index.md
+              - AlphaZero: theory/paradigms/reinforcement-learning/alphazero/index.md
               - Proximal Policy Optimisation: theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index.md
               - Value-Based Methods: theory/paradigms/reinforcement-learning/value-based-methods/index.md
               - Policy Gradient & Actor-Critic: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
               - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
+              - MuZero: theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md
               - Offline RL: theory/paradigms/reinforcement-learning/offline-rl/index.md
               - Learning from Human Feedback: theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
               - Experience Replay: theory/paradigms/reinforcement-learning/experience-replay/index.md
