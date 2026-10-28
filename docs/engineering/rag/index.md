@@ -4,6 +4,9 @@ related:
 - brain-mind/memory-learning
 - applications/law
 - engineering/evaluation
+aliases:
+  - RAG
+  - 檢索增強
 ---
 
 # Retrieval-Augmented Generation
