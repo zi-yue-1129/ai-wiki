@@ -261,6 +261,10 @@ plugins:
             Attention Variants: 注意力變體
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
+            Attention Is All You Need: Attention Is All You Need 原始論文
+            Additive Attention (Bahdanau): 加性注意力（Bahdanau）
+            Deep Q-Networks: 深度 Q 網路
+            Proximal Policy Optimisation: 近端策略最佳化
             AlexNet: AlexNet
             GPT-3 Few-Shot Learning: GPT-3 少樣本學習
             Compute-Optimal Training: 運算最佳化訓練
@@ -575,6 +579,8 @@ nav:
               - Theory & Evaluation: theory/paradigms/self-supervised/theory-and-evaluation/index.md
           - Reinforcement Learning:
               - theory/paradigms/reinforcement-learning/index.md
+              - Deep Q-Networks: theory/paradigms/reinforcement-learning/deep-q-networks/index.md
+              - Proximal Policy Optimisation: theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index.md
               - Value-Based Methods: theory/paradigms/reinforcement-learning/value-based-methods/index.md
               - Policy Gradient & Actor-Critic: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
               - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
@@ -679,6 +685,8 @@ nav:
                   - Sequence to Sequence: theory/models/rnn/sequence-modes/sequence-to-sequence/index.md
           - Transformers & Attention:
               - theory/models/transformer/index.md
+              - Attention Is All You Need: theory/models/transformer/attention-is-all-you-need/index.md
+              - Additive Attention (Bahdanau): theory/models/transformer/bahdanau-attention/index.md
               - Attention Variants: theory/models/transformer/attention-variants/index.md
               - Positional Encodings: theory/models/transformer/positional-encodings/index.md
               - KV Cache: theory/models/transformer/kv-cache/index.md

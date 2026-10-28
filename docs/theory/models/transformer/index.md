@@ -76,20 +76,19 @@ Standard attention costs \(O(n^2)\) in sequence length n.
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### Attention Is All You Need (Vaswani et al., 2017)
 
-- **Problem:** recurrent sequence models process tokens one after another. That limits parallel training and makes long-range dependencies hard to learn.
-- **Core idea:** remove recurrence and convolution entirely. Each position attends to all others through multi-head scaled dot-product attention, and positional information is added to the embeddings.
-- **Algorithm:** the encoder and the decoder each stack layers of multi-head attention and a feed-forward network. The decoder masks future positions, so each output depends only on earlier outputs.
-- **Results:** 28.4 BLEU on WMT 2014 English-to-German, more than 2 BLEU above the previous best results, including ensembles. A single model reached 41.8 BLEU on English-to-French. Training took 3.5 days on eight GPUs.
-- **Limitations:** the cost of attention grows with the square of the sequence length (see Efficiency above). The original model is an encoder–decoder for translation, not the decoder-only form that most language models use today.
+- **Overview:** Replaces recurrence and convolution with multi-head scaled dot-product attention, so each position attends to all others in parallel.
+- **Comparison:** The architecture the rest of this page builds on. The attention variants and positional encodings below change its parts.
+- **Full write-up:** [Attention Is All You Need](attention-is-all-you-need/index.md)
 
 ### Neural machine translation with learned alignment (Bahdanau et al., 2015)
 
-- **Problem:** encoder–decoder translation compresses a whole source sentence into one fixed-length vector, which loses information in long sentences.
-- **Core idea:** at each output step, the decoder searches the source sentence with a soft alignment, a weighted average of the encoder's states. The weights are learned from how well each source position matches the current decoder state.
-- **Results:** the paper reports that the attention model keeps translation quality on long sentences better than the fixed-vector baseline.
-- **Limitations:** the encoder and decoder are still recurrent, so training remains sequential. The alignment costs time proportional to the source length for each output word.
+- **Overview:** The decoder searches the source sentence with learned soft alignment weights, instead of relying on one fixed-length vector.
+- **Comparison:** The earlier, recurrent form of attention. The Transformer above removes the recurrence that this paper still needs.
+- **Full write-up:** [Additive Attention (Bahdanau)](bahdanau-attention/index.md)
 
 ## Components and variants
 
