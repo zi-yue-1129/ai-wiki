@@ -24,6 +24,10 @@ Each page follows the same structure: **landscape** (main use cases), **landmark
 | [Social Sciences & Humanities](social-science/index.md) | Computational social science, digital humanities, simulating societies |
 | [Software Development](software/index.md) | Code assistants, coding agents, testing, productivity evidence |
 | [Linguistics & Machine Translation](linguistics-translation/index.md) | Neural translation, low-resource languages, corpus linguistics, translator tools |
+| [Government & Public Services](government/index.md) | Benefits, risk scoring, tax enforcement, public information services |
+| [Retail, Marketing & E-commerce](retail-marketing/index.md) | Recommendations, demand forecasting, pricing, churn prediction |
+| [Journalism & Information Ecosystems](journalism/index.md) | Automated reporting, verification, misinformation |
+| [Accessibility & Assistive Technology](accessibility/index.md) | Image description, captions, alternative text for disabled users |
 
 ## Methods behind each field
 
@@ -49,6 +53,10 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Social Sciences & Humanities | [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md), [Ethics & Fairness](../society/ethics/index.md) |
 | Software Development | [Large Language Models](../theory/models/llm/index.md), [AI Agents](../theory/models/agents/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
 | Linguistics & Machine Translation | [Natural Language Processing](../theory/models/nlp/index.md), [Transformer](../theory/models/transformer/index.md), [Attention in Brains & Machines](../brain-mind/attention-brain-machine/index.md) |
+| Government & Public Services | [Trees and ensembles](../theory/paradigms/supervised/trees-and-ensembles/index.md), [Evaluation & Validation](../theory/paradigms/supervised/evaluation-and-validation/index.md), [Ethics & Fairness](../society/ethics/index.md) |
+| Retail, Marketing & E-commerce | [Contextual Bandits](../theory/paradigms/online/contextual-bandits/index.md), [Trees and ensembles](../theory/paradigms/supervised/trees-and-ensembles/index.md) |
+| Journalism & Information Ecosystems | [Large Language Models](../theory/models/llm/index.md), [RAG](../engineering/rag/index.md), [Safety & Alignment](../society/safety-alignment/index.md) |
+| Accessibility & Assistive Technology | [Computer Vision](../theory/models/computer-vision/index.md), [Multimodal Models](../theory/models/multimodal/index.md) |
 
 ## Cross-cutting patterns
 

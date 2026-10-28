@@ -525,6 +525,10 @@ plugins:
             Social Sciences & Humanities: 社會科學與人文
             Software Development: 軟體開發
             Linguistics & Machine Translation: 語言學與機器翻譯
+            Government & Public Services: 政府與公共服務
+            Retail, Marketing & E-commerce: 零售、行銷與電子商務
+            Journalism & Information Ecosystems: 新聞與資訊生態
+            Accessibility & Assistive Technology: 無障礙與輔助科技
             Engineering: 工程實務
             Frameworks & Tools: 框架與工具
             Data: 資料工程
@@ -1098,6 +1102,10 @@ nav:
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md
       - Linguistics & Machine Translation: applications/linguistics-translation/index.md
+      - Government & Public Services: applications/government/index.md
+      - Retail, Marketing & E-commerce: applications/retail-marketing/index.md
+      - Journalism & Information Ecosystems: applications/journalism/index.md
+      - Accessibility & Assistive Technology: applications/accessibility/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools: engineering/frameworks/index.md
