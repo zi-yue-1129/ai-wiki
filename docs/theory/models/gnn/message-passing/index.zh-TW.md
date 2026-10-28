@@ -60,7 +60,7 @@ Xu 等人（2018）探討哪些聚合函數能像 Weisfeiler–Leman 檢驗一�
 
 ## 相關連結
 
-訊息傳遞的觀點是 [圖神經網路](../index.md) 家族的核心。對鄰居做注意力，是 Transformer 中 [注意力變體](../../transformer/attention-variants/index.md) 在圖上的對應，只是以圖的結構取代了完整的 token 集合。表達力的問題也與[符號 AI](../../../symbolic-ai/index.md)中關係推理的理論相連。
+訊息傳遞的觀點是 [圖神經網路](../index.md) 家族的核心。對鄰居做注意力，是 Transformer 中 [注意力變體](../../transformer/attention-variants/index.md) 在圖上的對應，只是以圖的結構取代了完整的 token 集合。表達力的問題也與[符號 AI](../../../paradigms/symbolic-ai/index.md)中關係推理的理論相連。
 
 ## 未解問題與更多變體
 

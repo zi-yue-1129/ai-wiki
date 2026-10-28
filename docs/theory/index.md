@@ -8,13 +8,9 @@ The core theory behind every AI technique.
 | [Machine Learning](machine-learning/index.md) | How do we learn from data, and how do we know it worked? |
 | [Deep Learning](deep-learning/index.md) | Why are multi-layer neural networks so effective, and how are they trained? |
 | [Optimisation](optimization/index.md) | How does gradient descent find good parameters, and why do methods like Adam and AdamW work? |
-| [Learning Paradigms](paradigms/index.md) | Supervised, unsupervised, semi-/weakly supervised, self-supervised, reinforcement, imitation, transfer, meta, continual, active, online, federated learning — what signal, what setting? |
+| [Learning Paradigms](paradigms/index.md) | Supervised, unsupervised, semi-/weakly supervised, self-supervised, reinforcement, imitation, transfer, meta, continual, active, online, federated learning, and the probabilistic, symbolic and evolutionary approaches — what signal, what setting? |
 | [Reinforcement Learning](paradigms/reinforcement-learning/index.md) | How do agents learn behaviour from trial, error and reward — and what does dopamine have to do with it? |
-| [Probabilistic & Bayesian Methods](probabilistic/index.md) | How do we represent and reason with uncertainty? Is the brain a Bayesian machine? |
-| [Symbolic AI, Search & Planning](symbolic-ai/index.md) | How do logic, knowledge representation, search and planning work, and do they still matter in the LLM era? |
-| [Evolutionary & Swarm Intelligence](evolutionary/index.md) | How can evolution and collective behaviour be used for optimisation? |
 | [Information Theory](information-theory/index.md) | How do entropy, KL divergence and mutual information quantify learning? |
-| [Generative Models](generative/index.md) | How can a model learn a distribution and sample new data from it? |
 | [Model Compression](model-compression/index.md) | How do pruning, quantisation and distillation shrink a model without losing its skill? |
 
 ## Theory or models?

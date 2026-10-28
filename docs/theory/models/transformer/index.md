@@ -90,6 +90,12 @@ Each method has its own page. The overview and comparison here are brief.
 - **Comparison:** The earlier, recurrent form of attention. The Transformer above removes the recurrence that this paper still needs.
 - **Full write-up:** [Additive Attention (Bahdanau)](bahdanau-attention/index.md)
 
+### Diffusion Transformer (Peebles & Xie, 2022)
+
+- **Overview:** Replaces the U-Net denoiser of latent diffusion with a Transformer over latent patches, and shows that sample quality improves with more compute.
+- **Comparison:** The same attention block as above, used as a denoiser rather than a language model. The generative algorithm it plugs into is in [Diffusion Models](../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md).
+- **Full write-up:** [Diffusion Transformer (DiT)](dit/index.md)
+
 ## Components and variants
 
 Each part of the Transformer has its own family of variants, with its own trade-offs and open questions:

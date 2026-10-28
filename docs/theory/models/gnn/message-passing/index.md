@@ -60,7 +60,7 @@ Xu et al. (2018) asked which aggregation functions can distinguish graphs as wel
 
 ## Connections
 
-The message-passing view is the core of the [graph neural network](../index.md) family. Attention over neighbours is the graph counterpart of the [attention variants](../../transformer/attention-variants/index.md) in Transformers, with the graph structure replacing the full token set. The expressivity questions also connect to the theory of [symbolic and relational reasoning](../../../symbolic-ai/index.md).
+The message-passing view is the core of the [graph neural network](../index.md) family. Attention over neighbours is the graph counterpart of the [attention variants](../../transformer/attention-variants/index.md) in Transformers, with the graph structure replacing the full token set. The expressivity questions also connect to the theory of [symbolic and relational reasoning](../../../paradigms/symbolic-ai/index.md).
 
 ## Open issues and further variants
 

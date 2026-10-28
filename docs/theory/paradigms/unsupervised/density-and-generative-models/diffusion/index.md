@@ -20,7 +20,7 @@ aliases:
 
 # Diffusion Models
 
-Diffusion models are a family of generative networks that create data by reversing a gradual noising process. They power most modern image, video and audio generators. Diffusion is one generative algorithm, so its general place is in [Generative Models](../index.md). This page covers the algorithm itself: the forward and reverse processes, how the denoising network is conditioned on text or other inputs, and how samples are drawn. The networks that do the denoising are ordinary architecture families, described in [Convolutional Networks](../../models/cnn/index.md) and [Transformers & Attention](../../models/transformer/index.md).
+Diffusion models are a family of generative networks that create data by reversing a gradual noising process. They power most modern image, video and audio generators. Diffusion is one generative algorithm, so its general place is in [Generative Models](../generative-models/index.md). This page covers the algorithm itself: the forward and reverse processes, how the denoising network is conditioned on text or other inputs, and how samples are drawn. The networks that do the denoising are ordinary architecture families, described in [Convolutional Networks](../../../../models/cnn/index.md) and [Transformers & Attention](../../../../models/transformer/index.md).
 
 ## Overview
 
@@ -68,7 +68,7 @@ Each named method has its own page with the problem, core idea, equations, resul
 - [DDPM](ddpm.md) (Ho, Jain & Abbeel, 2020): the noise-prediction objective and the sampler that made diffusion practical for images.
 - [DDIM](ddim.md) (Song, Meng & Ermon, 2020/2021): a non-Markovian sampler that reuses the DDPM model in far fewer steps.
 - [Latent Diffusion](latent-diffusion.md) (Rombach et al., 2021/2022): diffusion in the latent space of an autoencoder, with cross-attention conditioning.
-- [DiT](dit.md) (Peebles & Xie, 2022/2023): a Transformer denoiser that replaces the U-Net and scales with compute.
+- [DiT](../../../../models/transformer/dit/index.md) (Peebles & Xie, 2022/2023): a Transformer denoiser that replaces the U-Net and scales with compute.
 - [Classifier-free guidance](classifier-free-guidance.md) (Ho & Salimans, 2022): conditioning control without a separate classifier.
 
 ### Comparison
@@ -78,15 +78,15 @@ Each named method has its own page with the problem, core idea, equations, resul
 | [DDPM](ddpm.md) | Training objective and Markov sampler | About 1,000 | U-Net | Time step; class or text added by other methods |
 | [DDIM](ddim.md) | Non-Markovian sampler on the same model | Any subsequence, far fewer | Same as DDPM | Same as DDPM |
 | [Latent Diffusion](latent-diffusion.md) | Diffusion in an autoencoder latent | Few to many | U-Net | Cross-attention |
-| [DiT](dit.md) | Transformer denoiser | Few to many | Transformer on patches | Adaptive layer norm with time step and class |
+| [DiT](../../../../models/transformer/dit/index.md) | Transformer denoiser | Few to many | Transformer on patches | Adaptive layer norm with time step and class |
 | [Classifier-free guidance](classifier-free-guidance.md) | Sampling-time combination of two predictions | Unchanged, but two evaluations per step | Any | Guidance scale \(w\) |
 
 ## Connections
 
-- **Generative modelling:** diffusion is one of several generative algorithms, alongside autoregressive models, VAEs and GANs, described in [Generative Models](../index.md).
-- **Transformers:** the DiT backbone reuses the attention machinery in [Transformers & Attention](../../models/transformer/index.md).
-- **Convolutional networks:** the U-Net backbone is built from the layers in [Convolutional Networks](../../models/cnn/index.md).
-- **Brain and mind:** diffusion models have been used to decode images from brain activity; see [Brain-Computer Interfaces](../../../brain-mind/bci/index.md). For how the brain's own learning compares with these training objectives, see [NeuroAI](../../../brain-mind/neuroai/index.md).
+- **Generative modelling:** diffusion is one of several generative algorithms, alongside autoregressive models, VAEs and GANs, described in [Generative Models](../generative-models/index.md).
+- **Transformers:** the DiT backbone reuses the attention machinery in [Transformers & Attention](../../../../models/transformer/index.md).
+- **Convolutional networks:** the U-Net backbone is built from the layers in [Convolutional Networks](../../../../models/cnn/index.md).
+- **Brain and mind:** diffusion models have been used to decode images from brain activity; see [Brain-Computer Interfaces](../../../../../brain-mind/bci/index.md). For how the brain's own learning compares with these training objectives, see [NeuroAI](../../../../../brain-mind/neuroai/index.md).
 
 ## Applications
 

@@ -26,7 +26,7 @@ Offline policies cannot be evaluated by running them safely, so off-policy evalu
 
 ## Connections
 
-Offline RL is closely tied to [imitation learning](../../imitation/index.md), since the data are often demonstrations, and to [value-based methods](../value-based-methods/index.md). The distribution-shift problem is the same one studied in [transfer learning](../../transfer/index.md). Reasoning about logged data under confounding draws on [probabilistic methods](../../../probabilistic/index.md).
+Offline RL is closely tied to [imitation learning](../../imitation/index.md), since the data are often demonstrations, and to [value-based methods](../value-based-methods/index.md). The distribution-shift problem is the same one studied in [transfer learning](../../transfer/index.md). Reasoning about logged data under confounding draws on [probabilistic methods](../../probabilistic/index.md).
 
 ## Applications
 

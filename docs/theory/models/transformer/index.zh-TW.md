@@ -83,6 +83,12 @@ Transformer（Vaswani et al., 2017，"Attention Is All You Need"）完全以注�
 - **比較：** 較早、仍使用遞迴的注意力形式。上方的 Transformer 移除了這篇論文仍需要的遞迴。
 - **完整內容：** [加性注意力（Bahdanau）](bahdanau-attention/index.md)
 
+### 擴散 Transformer（Peebles 與 Xie，2022）
+
+- **概要：** 以作用於潛在空間區塊的 Transformer 取代潛在擴散中的 U-Net 去噪器，並顯示樣本品質隨運算量增加而提升。
+- **比較：** 與上述相同的注意力區塊，但用作去噪器而非語言模型。它所套用的生成演算法見[擴散模型](../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md)。
+- **完整介紹：** [擴散 Transformer（DiT）](dit/index.md)
+
 ## 組件與變體
 
 Transformer 的每個部分都有自己的變體家族，各有取捨與未解問題：

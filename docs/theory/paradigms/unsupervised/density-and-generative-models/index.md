@@ -1,6 +1,6 @@
 ---
 related:
-  - theory/generative
+  - theory/paradigms/unsupervised/density-and-generative-models/generative-models
 tags:
   - unsupervised learning
   - density estimation
@@ -17,7 +17,7 @@ Given samples from an unknown distribution, density estimation asks for a functi
 
 ## Trade-offs between methods
 
-Density methods differ in three properties: whether they give an exact likelihood, how fast they sample, and how stable their training is. Kernel density estimates and Gaussian mixtures have an exact likelihood and sample easily, but kernel methods scale poorly to high-dimensional data. GANs sample quickly but have no likelihood and train adversarially. Diffusion models train stably but sample in many iterative steps. The concrete families, with their pros and cons, are compared in [Generative Models](../../../generative/index.md).
+Density methods differ in three properties: whether they give an exact likelihood, how fast they sample, and how stable their training is. Kernel density estimates and Gaussian mixtures have an exact likelihood and sample easily, but kernel methods scale poorly to high-dimensional data. GANs sample quickly but have no likelihood and train adversarially. Diffusion models train stably but sample in many iterative steps. The concrete families, with their pros and cons, are compared in [Generative Models](generative-models/index.md).
 
 ## Key ideas
 
@@ -31,7 +31,7 @@ Density methods differ in three properties: whether they give an exact likelihoo
 
 ## Connections
 
-Clustering with Gaussian mixtures is density estimation with discrete latent variables, see [clustering](../clustering/index.md). Anomaly detection uses the estimated density, see [anomaly detection](../anomaly-detection/index.md). Modern generative systems are covered in [Generative Models](../../../generative/index.md).
+Clustering with Gaussian mixtures is density estimation with discrete latent variables, see [clustering](../clustering/index.md). Anomaly detection uses the estimated density, see [anomaly detection](../anomaly-detection/index.md). Modern generative systems are covered in [Generative Models](generative-models/index.md), and diffusion models have their own method pages in [Diffusion Models](diffusion/index.md).
 
 ## Applications
 

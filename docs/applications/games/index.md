@@ -1,7 +1,7 @@
 ---
 related:
 - theory/paradigms/reinforcement-learning
-- theory/symbolic-ai
+- theory/paradigms/symbolic-ai
 - theory/models/agents
 - applications/creative
 ---

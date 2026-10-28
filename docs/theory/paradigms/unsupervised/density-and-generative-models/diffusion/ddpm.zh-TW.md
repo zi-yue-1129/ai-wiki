@@ -45,9 +45,9 @@ L_{\text{simple}} = \mathbb{E}_{t, x_0, \epsilon}\big[\|\epsilon - \epsilon_\the
 ## 關聯
 
 - 較快的取樣器是 [DDIM](ddim.md)，它重用同一個訓練好的模型。
-- 潛在空間的後繼方法是[潛在擴散](latent-diffusion.md)，Transformer 後繼是 [DiT](dit.md)。
+- 潛在空間的後繼方法是[潛在擴散](latent-diffusion.md)，Transformer 後繼是 [DiT](../../../../models/transformer/dit/index.md)。
 - 條件化方法是[無分類器引導](classifier-free-guidance.md)。
-- 變分架構連結到[機率方法](../../probabilistic/index.md)的背景。
+- 變分架構連結到[機率方法](../../../probabilistic/index.md)的背景。
 
 ## 開放問題
 

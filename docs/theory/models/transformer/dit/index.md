@@ -15,7 +15,7 @@ aliases:
 
 # DiT: Diffusion Transformers
 
-DiT, or Diffusion Transformer, is a diffusion denoiser that replaces the U-Net with a Transformer operating on patches of a latent image. Peebles and Xie (2022) showed that its quality improves steadily with more compute, in the same way language-model quality does. The family-level picture is on the [Diffusion Models](index.md) page, and the attention machinery is described in [Transformers & Attention](../../models/transformer/index.md).
+DiT, or Diffusion Transformer, is a diffusion denoiser that replaces the U-Net with a Transformer operating on patches of a latent image. Peebles and Xie (2022) showed that its quality improves steadily with more compute, in the same way language-model quality does. The family-level picture is on the [Diffusion Models](../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md) page, and the attention machinery is described in [Transformers & Attention](../index.md).
 
 ## Overview
 
@@ -36,7 +36,7 @@ For a latent \(z_t\) at time step \(t\) with class label \(c\), the model predic
 \epsilon_\theta(z_t, t, c) = \mathrm{DiT}\big(\mathrm{patchify}(z_t);\ \mathrm{emb}(t) + \mathrm{emb}(c)\big)
 \]
 
-Training uses the same noise-prediction loss as [DDPM](ddpm.md), applied to latents. Scaling is studied by varying depth, width and patch size, which changes Gflops, and measuring FID at each point.
+Training uses the same noise-prediction loss as [DDPM](../../../paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md), applied to latents. Scaling is studied by varying depth, width and patch size, which changes Gflops, and measuring FID at each point.
 
 ## Key methods
 
@@ -50,9 +50,9 @@ Training uses the same noise-prediction loss as [DDPM](ddpm.md), applied to late
 
 ## Connections
 
-- DiT uses the latent setting of [Latent Diffusion](latent-diffusion.md) and replaces its U-Net denoiser.
-- The attention blocks are those described in [Transformers & Attention](../../models/transformer/index.md).
-- DiT models can be sampled with the faster [DDIM](ddim.md) updates.
+- DiT uses the latent setting of [Latent Diffusion](../../../paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md) and replaces its U-Net denoiser.
+- The attention blocks are those described in [Transformers & Attention](../index.md).
+- DiT models can be sampled with the faster [DDIM](../../../paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md) updates.
 
 ## Open questions
 

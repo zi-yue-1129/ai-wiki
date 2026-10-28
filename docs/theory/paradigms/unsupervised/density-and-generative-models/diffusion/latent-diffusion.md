@@ -53,9 +53,9 @@ Here \(\tau_\theta(c)\) is the encoding of the condition \(c\), and the denoiser
 
 - The latent objective is the [DDPM](ddpm.md) objective applied to latents.
 - Latent sampling typically uses the faster sampler in [DDIM](ddim.md).
-- The later Transformer denoiser is [DiT](dit.md).
+- The later Transformer denoiser is [DiT](../../../../models/transformer/dit/index.md).
 - Text conditioning relies on the guidance method in [classifier-free guidance](classifier-free-guidance.md).
-- The denoiser's convolutional and attention layers are described in [Convolutional Networks](../../models/cnn/index.md) and [Transformers & Attention](../../models/transformer/index.md).
+- The denoiser's convolutional and attention layers are described in [Convolutional Networks](../../../../models/cnn/index.md) and [Transformers & Attention](../../../../models/transformer/index.md).
 
 ## Open questions
 

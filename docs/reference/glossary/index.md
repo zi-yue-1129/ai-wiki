@@ -20,7 +20,7 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 | Backpropagation | 反向傳播 | Computing gradients with the chain rule |
 | Bandit | 多臂吃角子老虎問題 | One-step decision problem balancing exploration and exploitation ([Online Learning](../../theory/paradigms/online/index.md)) |
 | Batch normalisation | 批次正規化 | Normalising activations across a mini-batch |
-| Bayesian inference | 貝氏推論 | Updating beliefs with Bayes' rule ([Probabilistic Methods](../../theory/probabilistic/index.md)) |
+| Bayesian inference | 貝氏推論 | Updating beliefs with Bayes' rule ([Probabilistic Methods](../../theory/paradigms/probabilistic/index.md)) |
 | Benchmark | 基準測試 | Standard task for comparing models ([Evaluation](../../engineering/evaluation/index.md)) |
 | Bias–variance trade-off | 偏差—變異權衡 | Tension between underfitting and overfitting |
 | Brain-computer interface (BCI) | 腦機介面 | Decoding brain signals to control devices ([BCI](../../brain-mind/bci/index.md)) |
@@ -40,7 +40,7 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 |---|---|---|
 | Data augmentation | 資料增強 | Creating modified copies of training data |
 | Differential privacy | 差分隱私 | A formal guarantee that one person's data barely changes the output ([Privacy and Data Protection](../../society/privacy/index.md)) |
-| Diffusion model | 擴散模型 | Generative model that learns to denoise ([Generative Models](../../theory/generative/index.md)) |
+| Diffusion model | 擴散模型 | Generative model that learns to denoise ([Generative Models](../../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md)) |
 | Distillation | 知識蒸餾 | Training a small model to imitate a large one |
 | Distribution shift | 分布偏移 | Test data differ from training data |
 | Dopamine | 多巴胺 | Neuromodulator signalling reward-prediction error |

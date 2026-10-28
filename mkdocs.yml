@@ -33,7 +33,6 @@ theme:
   features:
     - navigation.tabs
     - navigation.tabs.sticky
-    - navigation.sections
     - navigation.indexes
     - navigation.top
     - navigation.footer
@@ -57,8 +56,8 @@ plugins:
       redirect_maps:
         'foundations/deep-learning/index.md': 'theory/deep-learning/index.md'
         'foundations/deep-learning/index.zh-TW.md': 'theory/deep-learning/index.zh-TW.md'
-        'foundations/evolutionary/index.md': 'theory/evolutionary/index.md'
-        'foundations/evolutionary/index.zh-TW.md': 'theory/evolutionary/index.zh-TW.md'
+        'foundations/evolutionary/index.md': 'theory/paradigms/evolutionary/index.md'
+        'foundations/evolutionary/index.zh-TW.md': 'theory/paradigms/evolutionary/index.zh-TW.md'
         'foundations/index.md': 'theory/index.md'
         'foundations/index.zh-TW.md': 'theory/index.zh-TW.md'
         'foundations/information-theory/index.md': 'theory/information-theory/index.md'
@@ -167,16 +166,36 @@ plugins:
         'foundations/paradigms/unsupervised/dimensionality-reduction/index.md': 'theory/paradigms/unsupervised/dimensionality-reduction/index.md'
         'foundations/paradigms/unsupervised/index.md': 'theory/paradigms/unsupervised/index.md'
         'foundations/paradigms/unsupervised/index.zh-TW.md': 'theory/paradigms/unsupervised/index.zh-TW.md'
-        'foundations/probabilistic/index.md': 'theory/probabilistic/index.md'
-        'foundations/probabilistic/index.zh-TW.md': 'theory/probabilistic/index.zh-TW.md'
-        'foundations/symbolic-ai/index.md': 'theory/symbolic-ai/index.md'
-        'foundations/symbolic-ai/index.zh-TW.md': 'theory/symbolic-ai/index.zh-TW.md'
+        'foundations/probabilistic/index.md': 'theory/paradigms/probabilistic/index.md'
+        'foundations/probabilistic/index.zh-TW.md': 'theory/paradigms/probabilistic/index.zh-TW.md'
+        'foundations/symbolic-ai/index.md': 'theory/paradigms/symbolic-ai/index.md'
+        'foundations/symbolic-ai/index.zh-TW.md': 'theory/paradigms/symbolic-ai/index.zh-TW.md'
+        'theory/probabilistic/index.md': 'theory/paradigms/probabilistic/index.md'
+        'theory/probabilistic/index.zh-TW.md': 'theory/paradigms/probabilistic/index.zh-TW.md'
+        'theory/symbolic-ai/index.md': 'theory/paradigms/symbolic-ai/index.md'
+        'theory/symbolic-ai/index.zh-TW.md': 'theory/paradigms/symbolic-ai/index.zh-TW.md'
+        'theory/evolutionary/index.md': 'theory/paradigms/evolutionary/index.md'
+        'theory/evolutionary/index.zh-TW.md': 'theory/paradigms/evolutionary/index.zh-TW.md'
+        'theory/generative/index.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md'
+        'theory/generative/index.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.zh-TW.md'
+        'theory/generative/diffusion/index.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md'
+        'theory/generative/diffusion/index.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.zh-TW.md'
+        'theory/generative/diffusion/ddpm.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md'
+        'theory/generative/diffusion/ddpm.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.zh-TW.md'
+        'theory/generative/diffusion/ddim.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md'
+        'theory/generative/diffusion/ddim.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.zh-TW.md'
+        'theory/generative/diffusion/latent-diffusion.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md'
+        'theory/generative/diffusion/latent-diffusion.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.zh-TW.md'
+        'theory/generative/diffusion/classifier-free-guidance.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md'
+        'theory/generative/diffusion/classifier-free-guidance.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.zh-TW.md'
+        'theory/generative/diffusion/dit.md': 'theory/models/transformer/dit/index.md'
+        'theory/generative/diffusion/dit.zh-TW.md': 'theory/models/transformer/dit/index.zh-TW.md'
         'models/agents/index.md': 'theory/models/agents/index.md'
         'models/agents/index.zh-TW.md': 'theory/models/agents/index.zh-TW.md'
         'models/computer-vision/index.md': 'theory/models/computer-vision/index.md'
         'models/computer-vision/index.zh-TW.md': 'theory/models/computer-vision/index.zh-TW.md'
-        'models/generative/index.md': 'theory/generative/index.md'
-        'models/generative/index.zh-TW.md': 'theory/generative/index.zh-TW.md'
+        'models/generative/index.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md'
+        'models/generative/index.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.zh-TW.md'
         'models/gnn/index.md': 'theory/models/gnn/index.md'
         'models/gnn/index.zh-TW.md': 'theory/models/gnn/index.zh-TW.md'
         'models/index.md': 'theory/models/index.md'
@@ -319,6 +338,8 @@ plugins:
             DDIM: DDIM
             Latent Diffusion: 潛在擴散
             DiT: DiT 擴散 Transformer
+            Diffusion Transformer (DiT): 擴散 Transformer（DiT）
+            Density Estimation & Generative Models: 密度估計與生成模型
             Classifier-Free Guidance: 無分類器引導
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
@@ -665,7 +686,15 @@ nav:
               - theory/paradigms/unsupervised/index.md
               - Clustering: theory/paradigms/unsupervised/clustering/index.md
               - Dimensionality Reduction: theory/paradigms/unsupervised/dimensionality-reduction/index.md
-              - Density Estimation & Generative Models: theory/paradigms/unsupervised/density-and-generative-models/index.md
+              - Density Estimation & Generative Models:
+                  - theory/paradigms/unsupervised/density-and-generative-models/index.md
+                  - Generative Models: theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md
+                  - Diffusion Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
+                      - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
+                      - DDIM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md
+                      - Latent Diffusion: theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md
+                      - Classifier-Free Guidance: theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md
               - Autoencoders & Representations: theory/paradigms/unsupervised/autoencoders-and-representations/index.md
               - Anomaly Detection: theory/paradigms/unsupervised/anomaly-detection/index.md
           - Semi- & Weakly Supervised Learning:
@@ -742,18 +771,9 @@ nav:
               - Communication Efficiency: theory/paradigms/federated/communication-efficiency/index.md
               - Vertical & Cross-silo: theory/paradigms/federated/vertical-and-cross-silo/index.md
           - Other Paradigms: theory/paradigms/other/index.md
-      - Probabilistic & Bayesian Methods: theory/probabilistic/index.md
-      - Symbolic AI, Search & Planning: theory/symbolic-ai/index.md
-      - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
-      - Generative Models:
-          - theory/generative/index.md
-          - Diffusion Models:
-              - theory/generative/diffusion/index.md
-              - DDPM: theory/generative/diffusion/ddpm.md
-              - DDIM: theory/generative/diffusion/ddim.md
-              - Latent Diffusion: theory/generative/diffusion/latent-diffusion.md
-              - DiT: theory/generative/diffusion/dit.md
-              - Classifier-Free Guidance: theory/generative/diffusion/classifier-free-guidance.md
+          - Probabilistic & Bayesian Methods: theory/paradigms/probabilistic/index.md
+          - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
+          - Evolutionary & Swarm Intelligence: theory/paradigms/evolutionary/index.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation:
@@ -865,6 +885,7 @@ nav:
               - theory/models/transformer/index.md
               - Attention Is All You Need: theory/models/transformer/attention-is-all-you-need/index.md
               - Additive Attention (Bahdanau): theory/models/transformer/bahdanau-attention/index.md
+              - Diffusion Transformer (DiT): theory/models/transformer/dit/index.md
               - Attention Variants:
                   - theory/models/transformer/attention-variants/index.md
                   - FlashAttention: theory/models/transformer/attention-variants/flash-attention/index.md

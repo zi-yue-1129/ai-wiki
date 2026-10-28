@@ -4,7 +4,7 @@ translation_reviewed: 2026-10-28
 
 # 擴散模型
 
-擴散模型是一類生成網路，透過逆轉逐步加噪的過程來產生資料。今日大多數影像、影片與音訊生成器都以它為基礎。擴散是一種生成演算法，其一般位置在[生成模型](../index.md)中。本頁討論演算法本身：前向與反向過程、去噪網路如何以文字或其他輸入進行條件化，以及如何取樣。執行去噪的網路屬於一般架構家族，見[卷積網路](../../models/cnn/index.md)與[Transformer 與注意力](../../models/transformer/index.md)。
+擴散模型是一類生成網路，透過逆轉逐步加噪的過程來產生資料。今日大多數影像、影片與音訊生成器都以它為基礎。擴散是一種生成演算法，其一般位置在[生成模型](../generative-models/index.md)中。本頁討論演算法本身：前向與反向過程、去噪網路如何以文字或其他輸入進行條件化，以及如何取樣。執行去噪的網路屬於一般架構家族，見[卷積網路](../../../../models/cnn/index.md)與[Transformer 與注意力](../../../../models/transformer/index.md)。
 
 ## 概述
 
@@ -52,7 +52,7 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 - [DDPM](ddpm.md)（Ho、Jain 與 Abbeel，2020）：雜訊預測目標與取樣器，使擴散在影像上變得實用。
 - [DDIM](ddim.md)（Song、Meng 與 Ermon，2020/2021）：非馬可夫取樣器，以少得多的步數重用 DDPM 模型。
 - [潛在擴散](latent-diffusion.md)（Rombach 等人，2021/2022）：在自編碼器潛在空間中擴散，並以交叉注意力條件化。
-- [DiT](dit.md)（Peebles 與 Xie，2022/2023）：取代 U-Net 且隨運算量擴展的 Transformer 去噪器。
+- [DiT](../../../../models/transformer/dit/index.md)（Peebles 與 Xie，2022/2023）：取代 U-Net 且隨運算量擴展的 Transformer 去噪器。
 - [無分類器引導](classifier-free-guidance.md)（Ho 與 Salimans，2022）：不需另外分類器的條件控制。
 
 ### 比較
@@ -62,15 +62,15 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 | [DDPM](ddpm.md) | 訓練目標與馬可夫取樣器 | 約 1,000 | U-Net | 時間步；類別或文字由其他方法加入 |
 | [DDIM](ddim.md) | 同一模型上的非馬可夫取樣器 | 任意子序列，遠少於 DDPM | 同 DDPM | 同 DDPM |
 | [潛在擴散](latent-diffusion.md) | 在自編碼器潛在空間中擴散 | 少到多 | U-Net | 交叉注意力 |
-| [DiT](dit.md) | Transformer 去噪器 | 少到多 | 作用於圖塊的 Transformer | 自適應層正規化，含時間步與類別 |
+| [DiT](../../../../models/transformer/dit/index.md) | Transformer 去噪器 | 少到多 | 作用於圖塊的 Transformer | 自適應層正規化，含時間步與類別 |
 | [無分類器引導](classifier-free-guidance.md) | 取樣時結合兩種預測 | 不變，但每步兩次評估 | 任意 | 引導比例 \(w\) |
 
 ## 關聯
 
-- **生成模型：** 擴散是數種生成演算法之一，與自回歸模型、VAE、GAN 並列，見[生成模型](../index.md)。
-- **Transformer：** DiT 骨幹重用了[Transformer 與注意力](../../models/transformer/index.md)中的注意力機制。
-- **卷積網路：** U-Net 骨幹由[卷積網路](../../models/cnn/index.md)中的層所構成。
-- **大腦與心智：** 擴散模型已被用於從腦部活動解碼影像，見[腦機介面](../../../brain-mind/bci/index.md)。至於大腦自身的學習如何與這些訓練目標比較，見 [NeuroAI](../../../brain-mind/neuroai/index.md)。
+- **生成模型：** 擴散是數種生成演算法之一，與自回歸模型、VAE、GAN 並列，見[生成模型](../generative-models/index.md)。
+- **Transformer：** DiT 骨幹重用了[Transformer 與注意力](../../../../models/transformer/index.md)中的注意力機制。
+- **卷積網路：** U-Net 骨幹由[卷積網路](../../../../models/cnn/index.md)中的層所構成。
+- **大腦與心智：** 擴散模型已被用於從腦部活動解碼影像，見[腦機介面](../../../../../brain-mind/bci/index.md)。至於大腦自身的學習如何與這些訓練目標比較，見 [NeuroAI](../../../../../brain-mind/neuroai/index.md)。
 
 ## 應用
 

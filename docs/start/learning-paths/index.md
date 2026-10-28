@@ -27,9 +27,9 @@ Pick the path that fits your background. Each stop links to a page on this site;
 ## Path C: Researcher (ML theory and frontier)
 
 1. [Mathematics](../../theory/math/index.md) including information theory and convex optimisation
-2. [Probabilistic & Bayesian Methods](../../theory/probabilistic/index.md)
+2. [Probabilistic & Bayesian Methods](../../theory/paradigms/probabilistic/index.md)
 3. Theory sections of [Deep Learning](../../theory/deep-learning/index.md) (generalisation, double descent, scaling laws)
-4. [Generative Models](../../theory/generative/index.md) (diffusion, flow matching)
+4. [Generative Models](../../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md) (diffusion, flow matching)
 5. [Reinforcement Learning](../../theory/paradigms/reinforcement-learning/index.md) → [World Models](../../theory/models/world-models/index.md)
 6. [Interpretability](../../society/interpretability/index.md) → [Safety & Alignment](../../society/safety-alignment/index.md)
 7. [Landmark Papers](../../reference/papers/index.md)

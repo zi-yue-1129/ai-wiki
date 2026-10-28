@@ -19,6 +19,9 @@ A **learning paradigm** describes *what kind of signal* a system learns from and
 | [Online & bandits](online/index.md) | Feedback after each prediction or action | One sample at a time | Recommendation, ad selection, clinical trials |
 | [Federated & private](federated/index.md) | Any of the above, but data stays distributed or protected | Across devices / institutions | Keyboard prediction, multi-hospital models |
 | [Other paradigms](other/index.md) | Multi-task, curriculum, multiple-instance, PU learning, in-context learning, … | Varies | — |
+| [Probabilistic & Bayesian](probabilistic/index.md) | Prior beliefs, updated by evidence through Bayes' rule | Any data, with explicit uncertainty | Gaussian processes, topic models, probabilistic programming |
+| [Symbolic AI, search & planning](symbolic-ai/index.md) | Hand-written rules and knowledge, plus search over states | A problem specification and a knowledge base | Expert systems, theorem proving, classical planning |
+| [Evolutionary & swarm](evolutionary/index.md) | Fitness scores for a population of candidate solutions | Successive generations of candidates | Genetic algorithms, neuroevolution, particle swarm optimisation |
 
 ## How they relate
 
@@ -70,3 +73,13 @@ Doya (1999) proposed a division of labour — **cerebellum: supervised; cortex: 
 3. **Does the data change over time?** Yes → online or continual learning, with drift monitoring.
 4. **Can the data leave its owner?** No → federated learning, differential privacy.
 5. **Do you need to adapt to many new tasks quickly?** → foundation model + in-context learning, or meta-learning.
+
+## References
+
+### Seminal papers
+
+- Doya, K. (1999). *What are the computations of the cerebellum, the basal ganglia and the cerebral cortex?* Neural Networks, 12(7–8). https://doi.org/10.1016/S0893-6080(99)00046-5 — Proposes the cerebellum, basal ganglia and cortex as supervised, reinforcement and unsupervised learners.
+- Wang, J. X., et al. (2018). *Prefrontal cortex as a meta-reinforcement learning system.* Nature Neuroscience, 21, 860–868. https://doi.org/10.1038/s41593-018-0147-8 — Shows how a recurrent network trained with reinforcement learning can learn to learn.
+- Bandura, A., Ross, D. & Ross, S. A. (1961). *Transmission of aggression through imitation of aggressive models.* Journal of Abnormal and Social Psychology, 63(3). Reprint: https://www.yorku.ca/pclassic/Bandura/bobo.htm — The Bobo doll studies on observational learning.
+- Pan, S. J. & Yang, Q. (2010). *A Survey on Transfer Learning.* IEEE Transactions on Knowledge and Data Engineering, 22(10). https://www.cse.ust.hk/~qyang/Docs/2009/tkde_transfer_learning.pdf — Defines transfer learning settings and reviews the main approaches to moving knowledge across tasks and domains.
+- Kairouz, P., et al. (2021). *Advances and Open Problems in Federated Learning.* Foundations and Trends in Machine Learning, 14(1–2). https://arxiv.org/abs/1912.04977 — Surveys federated learning, its privacy and communication challenges, and open problems.

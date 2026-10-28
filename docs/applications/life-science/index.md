@@ -1,6 +1,6 @@
 ---
 related:
-- theory/generative
+- theory/paradigms/unsupervised/density-and-generative-models/generative-models
 - theory/models/gnn
 - applications/science
 - applications/healthcare

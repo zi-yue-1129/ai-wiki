@@ -31,21 +31,21 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Field | Methods to read first |
 |---|---|
 | Healthcare | [Computer Vision](../theory/models/computer-vision/index.md), [Federated Learning](../theory/paradigms/federated/index.md), [Evaluation & Validation](../theory/paradigms/supervised/evaluation-and-validation/index.md) |
-| Life Sciences & Drug Discovery | [Graph Neural Networks](../theory/models/gnn/index.md), [Generative Models](../theory/generative/index.md), [Active Learning](../theory/paradigms/active/index.md) |
+| Life Sciences & Drug Discovery | [Graph Neural Networks](../theory/models/gnn/index.md), [Generative Models](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md), [Active Learning](../theory/paradigms/active/index.md) |
 | Scientific Discovery | [Graph Neural Networks](../theory/models/gnn/index.md), [Active Learning](../theory/paradigms/active/index.md), [Mathematics](../theory/math/index.md) |
-| Mental Health | [Psychology & AI](../brain-mind/psychology/index.md), [Probabilistic & Bayesian Methods](../theory/probabilistic/index.md) |
+| Mental Health | [Psychology & AI](../brain-mind/psychology/index.md), [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md) |
 | Education | [Large Language Models](../theory/models/llm/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
-| Finance | [Contextual Bandits](../theory/paradigms/online/contextual-bandits/index.md), [Streaming & Concept Drift](../theory/paradigms/online/streaming-and-concept-drift/index.md), [Probabilistic & Bayesian Methods](../theory/probabilistic/index.md) |
+| Finance | [Contextual Bandits](../theory/paradigms/online/contextual-bandits/index.md), [Streaming & Concept Drift](../theory/paradigms/online/streaming-and-concept-drift/index.md), [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md) |
 | Law | [Retrieval-Augmented Generation](../engineering/rag/index.md), [Interpretability](../society/interpretability/index.md) |
 | Robotics | [Imitation Learning](../theory/paradigms/imitation/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [World Models & Embodied AI](../theory/models/world-models/index.md), [Hand-eye coordination for grasping](robotics/hand-eye-grasping/index.md) |
 | Autonomous Driving & Transport | [Sim-to-Real Transfer](../theory/paradigms/transfer/sim-to-real/index.md), [World Models & Embodied AI](../theory/models/world-models/index.md), [End-to-end steering from pixels](autonomous-driving/end-to-end-steering/index.md) |
 | Manufacturing & Industry | [Computer Vision](../theory/models/computer-vision/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
 | Agriculture & Food | [Computer Vision](../theory/models/computer-vision/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
 | Climate & Energy | [Streaming & Concept Drift](../theory/paradigms/online/streaming-and-concept-drift/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
-| Art, Media & Creativity | [Generative Models](../theory/generative/index.md), [Multimodal Models](../theory/models/multimodal/index.md) |
-| Games | [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Symbolic AI, Search & Planning](../theory/symbolic-ai/index.md) |
+| Art, Media & Creativity | [Generative Models](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md), [Multimodal Models](../theory/models/multimodal/index.md) |
+| Games | [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Symbolic AI, Search & Planning](../theory/paradigms/symbolic-ai/index.md) |
 | Cybersecurity | [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Safety & Alignment](../society/safety-alignment/index.md) |
-| Social Sciences & Humanities | [Probabilistic & Bayesian Methods](../theory/probabilistic/index.md), [Ethics & Fairness](../society/ethics/index.md) |
+| Social Sciences & Humanities | [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md), [Ethics & Fairness](../society/ethics/index.md) |
 | Software Development | [Large Language Models](../theory/models/llm/index.md), [AI Agents](../theory/models/agents/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
 
 ## Cross-cutting patterns

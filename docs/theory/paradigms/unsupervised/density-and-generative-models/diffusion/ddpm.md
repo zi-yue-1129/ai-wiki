@@ -54,9 +54,9 @@ Training samples a clean image, a random \(t\) and noise \(\epsilon\), then take
 ## Connections
 
 - Its faster sampler is [DDIM](ddim.md), which reuses the same trained model.
-- Its latent-space successor is [Latent Diffusion](latent-diffusion.md), and its Transformer successor is [DiT](dit.md).
+- Its latent-space successor is [Latent Diffusion](latent-diffusion.md), and its Transformer successor is [DiT](../../../../models/transformer/dit/index.md).
 - Its conditioning method is [classifier-free guidance](classifier-free-guidance.md).
-- The variational framing links to the probabilistic background in [Probabilistic Methods](../../probabilistic/index.md).
+- The variational framing links to the probabilistic background in [Probabilistic Methods](../../../probabilistic/index.md).
 
 ## Open questions
 

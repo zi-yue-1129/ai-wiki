@@ -4,3 +4,9 @@
 .md-typeset { line-height: 1.8; }
 .md-typeset table:not([class]) { font-size: .75rem; }
 .md-typeset .grid.cards > ul > li { border-radius: .4rem; }
+
+/* Sidebar: a guide line per nested level, so depth stays visible in both languages */
+.md-nav--primary .md-nav__list .md-nav__list {
+  border-left: 1px solid var(--md-default-fg-color--lightest);
+  margin-left: .6rem;
+}

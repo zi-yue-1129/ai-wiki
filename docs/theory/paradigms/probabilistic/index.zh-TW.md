@@ -61,10 +61,10 @@
 - **多感官整合**：人類整合視覺與觸覺時，會依各自的可靠度加權，接近統計最佳（Ernst & Banks, 2002）。
 - **運動控制**：Körding & Wolpert（2004）顯示人類在運動中以貝氏方式整合先驗與感覺回饋。
 - **認知發展**：兒童如何從少量資料學習因果關係與詞彙（Gopnik、Tenenbaum 的研究）。
-- **預測編碼與自由能原理**：見 [認知科學](../../brain-mind/cognitive-science/index.md)。
-- **精神疾病的計算觀點**：思覺失調、自閉症可能與先驗和感覺證據的權重失衡有關（計算精神醫學，見 [心理健康](../../applications/mental-health/index.md)）。
+- **預測編碼與自由能原理**：見 [認知科學](../../../brain-mind/cognitive-science/index.md)。
+- **精神疾病的計算觀點**：思覺失調、自閉症可能與先驗和感覺證據的權重失衡有關（計算精神醫學，見 [心理健康](../../../applications/mental-health/index.md)）。
 
-批評：「貝氏」可能過於有彈性，幾乎能解釋任何行為；人類也有大量系統性偏離最佳推論的偏誤（見 [心理學與 AI](../../brain-mind/psychology/index.md)）。
+批評：「貝氏」可能過於有彈性，幾乎能解釋任何行為；人類也有大量系統性偏離最佳推論的偏誤（見 [心理學與 AI](../../../brain-mind/psychology/index.md)）。
 
 ## 機率程式設計
 

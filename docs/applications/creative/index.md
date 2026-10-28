@@ -1,6 +1,6 @@
 ---
 related:
-- theory/generative
+- theory/paradigms/unsupervised/density-and-generative-models/generative-models
 - theory/models/multimodal
 - theory/models/speech
 - society/governance
