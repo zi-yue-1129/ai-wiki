@@ -73,3 +73,11 @@ Doya (1999) proposed a division of labour — **cerebellum: supervised; cortex: 
 3. **Does the data change over time?** Yes → online or continual learning, with drift monitoring.
 4. **Can the data leave its owner?** No → federated learning, differential privacy.
 5. **Do you need to adapt to many new tasks quickly?** → foundation model + in-context learning, or meta-learning.
+
+## References
+
+### Seminal papers
+
+- Doya, K. (1999). *What are the computations of the cerebellum, the basal ganglia and the cerebral cortex?* Neural Networks, 12(7–8). https://doi.org/10.1016/S0893-6080(99)00046-5 — Proposes the cerebellum, basal ganglia and cortex as supervised, reinforcement and unsupervised learners.
+- Wang, J. X., et al. (2018). *Prefrontal cortex as a meta-reinforcement learning system.* Nature Neuroscience, 21, 860–868. https://doi.org/10.1038/s41593-018-0147-8 — Shows how a recurrent network trained with reinforcement learning can learn to learn.
+- Bandura, A., Ross, D. & Ross, S. A. (1961). *Transmission of aggression through imitation of aggressive models.* Journal of Abnormal and Social Psychology, 63(3). — The Bobo doll studies on observational learning.
