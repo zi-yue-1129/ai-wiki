@@ -16,6 +16,7 @@ How AI systems are actually built, adapted, evaluated and run.
 | [Evaluation & Benchmarks](evaluation/index.md) | Benchmarks, LLM-as-judge, contamination, human evaluation |
 | [Inference Optimization](inference-optimization/index.md) | Batching, paged KV caches, speculative decoding, attention variants |
 | [MLOps & Deployment](mlops/index.md) | Serving, monitoring, quantisation, cost, LLMOps |
+| [AI Coding Assistants](coding-assistants/index.md) | Completion, chat and agents for programming; productivity and security evidence |
 | [AI Hardware](hardware/index.md) | GPUs, TPUs, NPUs, memory bandwidth, interconnects, neuromorphic chips |
 | [On-device and Edge AI](on-device-edge/index.md) | Compression, quantisation, distillation, NPUs, TinyML |
 
