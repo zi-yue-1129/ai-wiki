@@ -59,7 +59,7 @@ The abstract reports that the uncertainty-based rule explains a range of experim
 
 ## Connections
 
-- **Reward prediction error**: the model-free controller is updated by the same prediction error that dopamine neurons signal. See [Neuroscience Basics](../../neuroscience/index.md), where the dopamine key method is described.
+- **Reward prediction error**: the model-free controller is updated by the same prediction error that dopamine neurons signal. See [Dopamine Reward Prediction Error](../../neuroscience/dopamine-reward-prediction-error/index.md).
 - **Diffusion decision model**: a different question, about how evidence accumulates into a choice. See [Diffusion Decision Model](../diffusion-model/index.md).
 - **Reinforcement learning**: the same distinction is central to AI agents, which combine learned values with planning. See [Reinforcement Learning](../../../theory/paradigms/reinforcement-learning/index.md).
 
