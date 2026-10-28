@@ -480,7 +480,6 @@ nav:
       - Machine Learning: theory/machine-learning/index.md
       - Deep Learning:
           - theory/deep-learning/index.md
-          - AlexNet: theory/deep-learning/alexnet/index.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum: theory/optimization/sgd-and-momentum.md
@@ -614,6 +613,7 @@ nav:
                   - Deformable Convolution: theory/models/cnn/convolution-variants/deformable-convolution/index.md
               - Backbones & Scaling:
                   - theory/models/cnn/backbones-and-scaling/index.md
+                  - AlexNet: theory/models/cnn/backbones-and-scaling/alexnet/index.md
                   - VGG: theory/models/cnn/backbones-and-scaling/vgg/index.md
                   - ResNet: theory/models/cnn/backbones-and-scaling/resnet/index.md
                   - EfficientNet: theory/models/cnn/backbones-and-scaling/efficientnet/index.md

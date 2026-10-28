@@ -29,8 +29,8 @@ The evidence is one network on a 2010 benchmark. Training relied on a large labe
 
 ## Connections
 
-- Parent topic: [Deep Learning](../index.md)
-- Other method on this topic: [ResNet, in the CNN section](../../models/cnn/backbones-and-scaling/resnet/index.md)
+- Parent topic: [Backbones and Scaling](../index.md)
+- Other method on this topic: [ResNet](../resnet/index.md)
 
 ## References
 

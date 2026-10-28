@@ -99,7 +99,7 @@ Kaplan et al.（2020）與 Hoffmann et al.（2022，「Chinchilla」）發現，
 
 - **概述：** 一個在 GPU 上訓練的大型深度卷積網路，使用非飽和神經元與一種新的正則化方法。
 - **比較：** 下方的殘差網路把這類影像辨識網路推向更大的深度。
-- **完整內容：** [AlexNet](alexnet/index.md)
+- **完整內容：** [AlexNet](../models/cnn/backbones-and-scaling/alexnet/index.md)
 
 ### 殘差網路（He 等人，2015）
 

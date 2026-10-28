@@ -107,7 +107,7 @@ Each method has its own page. The overview and comparison here are brief.
 
 - **Overview:** A large deep convolutional network trained on GPUs, using non-saturating neurons and a new regularisation method.
 - **Comparison:** The image-recognition network that the residual network below extends to much greater depth.
-- **Full write-up:** [AlexNet](alexnet/index.md)
+- **Full write-up:** [AlexNet](../models/cnn/backbones-and-scaling/alexnet/index.md)
 
 ### Residual networks (He et al., 2015)
 
