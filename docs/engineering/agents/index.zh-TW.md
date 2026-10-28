@@ -40,6 +40,14 @@ aliases:
 - [代理評估](agent-evaluation.md)：檢查最終狀態的基準，以及與之並用的可靠度與成本指標。
 - [代理可觀測性與追蹤](agent-observability.md)：記錄 span 與 trace，使執行過程可以除錯、監控與稽核。
 
+### 命名方法
+
+- [ReAct](react.zh-TW.md)：在同一段交錯序列中進行推理與行動。
+- [Reflexion](reflexion.zh-TW.md)：跨次嘗試以語言反思並存入記憶。
+- [Toolformer](toolformer.zh-TW.md)：從模型自身文字中學會的工具呼叫。
+- [Voyager](voyager.zh-TW.md)：在探索 Minecraft 時建立可執行技能庫的代理。
+- [SWE-agent](swe-agent.zh-TW.md)：用於解決軟體問題的代理電腦介面。
+
 ## 關聯
 
 - 代理的理論，包括規劃與記憶，見[AI 代理](../../theory/models/agents/index.zh-TW.md)。
