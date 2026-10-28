@@ -35,6 +35,10 @@ During autoregressive generation a decoder stores the keys and values of every e
 
 vLLM's PagedAttention stores the cache in fixed-size blocks, mapped through a table as in virtual memory. Requests then no longer need one large contiguous region, which removes most fragmentation and lets requests that share a prompt prefix share its blocks. Kwon et al. (2023) reported substantially higher serving throughput than systems that reserved memory per request.
 
+![Animated PagedAttention diagram: logical KV blocks of two requests share prefix blocks but map to non-contiguous GPU memory blocks.](../../../../assets/concept-animations/paged-kv-cache.gif)
+
+*Original animated schematic, CC BY-SA 4.0.* The block table maps logical blocks to physical GPU KV-cache blocks; **P0** and **P1** are a shared, identical prompt prefix, while **A2** and **B2** are request-specific continuations. Physical block IDs are illustrative, not memory addresses or measured allocation results. The animation shows **block allocation and sharing**, not attention weights or KV quantisation. See [Kwon et al. (2023)](https://arxiv.org/abs/2309.06180).
+
 ### Eviction
 
 Eviction keeps a fixed budget of tokens and removes the rest. H2O keeps the "heavy hitters", the tokens that have received the most accumulated attention, together with the most recent tokens. Scissorhands keeps tokens whose importance has persisted over time. StreamingLLM observed that the first few tokens receive large attention whatever their content, and that keeping these attention sinks with a recent window lets a model run on very long streams without retraining. It does not preserve distant content, so it is a stabilising method rather than a memory method. SnapKV uses the attention from the last part of the prompt to choose, for each head, which earlier positions to keep.
