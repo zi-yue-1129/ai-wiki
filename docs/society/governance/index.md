@@ -58,6 +58,12 @@ Fines reach up to 7% of global turnover for prohibited practices. In late 2025 t
 - **UN**: General Assembly resolutions; an Independent International Scientific Panel on AI and a Global Dialogue on AI Governance established in 2025
 - Standards: ISO/IEC 42001 (AI management systems), ISO/IEC 23894 (risk), IEEE 7000 series, CEN-CENELEC harmonised standards for the AI Act
 
+## Pages on specific issues
+
+- [Compute governance and export controls](compute-governance.md): compute thresholds, export controls and the critiques of compute as a policy lever.
+- [AI, elections and democracy](elections-and-democracy.md): the persuasion evidence, deepfakes in campaigns and the stakes for democratic choice.
+- [AI incident databases](incidents.md): how incidents are recorded and classified, and the reporting duties in regulation.
+
 ## Key policy debates
 
 - Open-weight vs closed models

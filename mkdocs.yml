@@ -823,6 +823,12 @@ plugins:
             AI in Taiwan: 台灣的 AI
             Children, Education Policy & AI: 兒童、教育政策與 AI
             Law, Policy & Governance: 法規與治理
+            Surveillance & Human Rights: 監控與人權
+            AI Companionship: AI 陪伴
+            AI Literacy: AI 素養
+            Compute Governance & Export Controls: 算力治理與出口管制
+            AI, Elections & Democracy: AI、選舉與民主
+            AI Incident Databases: AI 事件資料庫
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
             Reference: 參考
@@ -1702,7 +1708,14 @@ nav:
       - Open versus Closed Models: society/open-vs-closed/index.md
       - AI in Taiwan: society/ai-in-taiwan/index.md
       - Children, Education Policy & AI: society/children-education-policy/index.md
-      - Law, Policy & Governance: society/governance/index.md
+      - Surveillance & Human Rights: society/surveillance/index.md
+      - AI Companionship: society/human-ai-interaction/ai-companionship.md
+      - AI Literacy: society/human-ai-interaction/ai-literacy.md
+      - Law, Policy & Governance:
+          - society/governance/index.md
+          - Compute Governance & Export Controls: society/governance/compute-governance.md
+          - AI, Elections & Democracy: society/governance/elections-and-democracy.md
+          - AI Incident Databases: society/governance/incidents.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
   - Reference:
