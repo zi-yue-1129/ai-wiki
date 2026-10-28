@@ -225,6 +225,7 @@ plugins:
             Information Theory: 資訊理論
             Machine Learning: 機器學習
             Deep Learning: 深度學習
+            Optimisation: 最佳化
             Reinforcement Learning: 強化學習
             Learning Paradigms: 學習範式
             Supervised Learning: 監督式學習
@@ -380,6 +381,7 @@ nav:
       - Information Theory: theory/information-theory/index.md
       - Machine Learning: theory/machine-learning/index.md
       - Deep Learning: theory/deep-learning/index.md
+      - Optimisation: theory/optimization/index.md
       - Learning Paradigms:
           - theory/paradigms/index.md
           - Supervised Learning:
