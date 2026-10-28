@@ -23,6 +23,7 @@ Each page follows the same structure: **landscape** (main use cases), **landmark
 | [Cybersecurity](cybersecurity/index.md) | Detection, vulnerability discovery, AI-enabled attacks, securing AI |
 | [Social Sciences & Humanities](social-science/index.md) | Computational social science, digital humanities, simulating societies |
 | [Software Development](software/index.md) | Code assistants, coding agents, testing, productivity evidence |
+| [Linguistics & Machine Translation](linguistics-translation/index.md) | Neural translation, low-resource languages, corpus linguistics, translator tools |
 
 ## Methods behind each field
 
@@ -47,6 +48,7 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Cybersecurity | [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Safety & Alignment](../society/safety-alignment/index.md) |
 | Social Sciences & Humanities | [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md), [Ethics & Fairness](../society/ethics/index.md) |
 | Software Development | [Large Language Models](../theory/models/llm/index.md), [AI Agents](../theory/models/agents/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
+| Linguistics & Machine Translation | [Natural Language Processing](../theory/models/nlp/index.md), [Transformer](../theory/models/transformer/index.md), [Attention in Brains & Machines](../brain-mind/attention-brain-machine/index.md) |
 
 ## Cross-cutting patterns
 

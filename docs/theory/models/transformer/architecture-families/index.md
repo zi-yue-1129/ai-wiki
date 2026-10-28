@@ -94,6 +94,7 @@ Most large language models in use today are decoder-only. The reasons below are 
 - Devlin, J., et al. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*. NAACL 2019. [DOI 10.18653/v1/N19-1423](https://doi.org/10.18653/v1/N19-1423) — The encoder-only family, with masked-token pre-training.
 - Raffel, C., et al. (2020). *Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer*. Journal of Machine Learning Research 21(140), 1–67. [arXiv:1910.10683](https://arxiv.org/abs/1910.10683) — The encoder-decoder family, with span corruption and a unified text-to-text format.
 - Brown, T., et al. (2020). *Language Models are Few-Shot Learners*. [arXiv:2005.14165](https://arxiv.org/abs/2005.14165) — The decoder-only family at scale, with few-shot prompting.
+- Lewis, M., et al. (2019). *BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension*. [arXiv:1910.13461](https://arxiv.org/abs/1910.13461) — A denoising encoder-decoder pre-trained by corrupting and reconstructing text, which the paper relates to BERT and GPT.
 
 ### Surveys and textbooks
 

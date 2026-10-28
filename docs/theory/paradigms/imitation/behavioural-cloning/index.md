@@ -16,6 +16,8 @@ Collect a dataset of expert state–action pairs $(s_i, a_i)$ and minimise a los
 
 Behavioural cloning suffers from **covariate shift**. The learner's own mistakes lead it to states the expert never visited, and in those states it has no training data. Small errors then compound over a long trajectory, so a policy with low training loss can still fail badly in practice (Ross & Bagnell, 2010). Multi-modal experts, where several actions are equally good, also cause averaging artefacts with simple regression losses.
 
+A related failure, in which the policy uses features that correlate with the expert's actions but do not cause them, is covered in [causal confusion](causal-confusion.md).
+
 ## Remedies
 
 - **More and better data**: diverse demonstrations and corrective examples that show recovery from errors.

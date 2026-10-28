@@ -87,6 +87,8 @@ where \(\tilde{x}\) is the corrupted input with sentinels and \(y\) is the targe
 - Raffel, C., et al. (2020). *Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer*. Journal of Machine Learning Research 21(140), 1–67. [arXiv:1910.10683](https://arxiv.org/abs/1910.10683) — Introduces T5, the text-to-text framing, span corruption and the C4 corpus.
 - Devlin, J., et al. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*. NAACL 2019. [DOI 10.18653/v1/N19-1423](https://doi.org/10.18653/v1/N19-1423) — The masked-token objective that span corruption generalises.
 - Vaswani, A., et al. (2017). *Attention Is All You Need*. NeurIPS. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — The encoder-decoder Transformer that T5 uses.
+- Lewis, M., et al. (2019). *BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension*. [arXiv:1910.13461](https://arxiv.org/abs/1910.13461) — A denoising encoder-decoder pre-trained by corrupting and reconstructing text, which the paper relates to BERT and GPT.
+- Brown, T., et al. (2020). *Language Models are Few-Shot Learners*. [arXiv:2005.14165](https://arxiv.org/abs/2005.14165) — Scales the decoder-only model to 175 billion parameters and reports few-shot results from prompts alone.
 
 ### Surveys and textbooks
 

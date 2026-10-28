@@ -73,6 +73,8 @@ BERT 式的模型需要為每個任務加上專屬的輸出層，而分類、跨
 - Raffel, C., et al. (2020). *Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer*. Journal of Machine Learning Research 21(140), 1–67. [arXiv:1910.10683](https://arxiv.org/abs/1910.10683) — 提出 T5、文字到文字的框架、跨度破壞與 C4 語料。
 - Devlin, J., et al. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*. NAACL 2019. [DOI 10.18653/v1/N19-1423](https://doi.org/10.18653/v1/N19-1423) — 跨度破壞所推廣的遮蓋 token 目標。
 - Vaswani, A., et al. (2017). *Attention Is All You Need*. NeurIPS. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — T5 所使用的編碼器–解碼器 Transformer。
+- Lewis, M., et al. (2019). *BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension*. [arXiv:1910.13461](https://arxiv.org/abs/1910.13461) — 以破壞並重建文字進行預訓練的去噪編碼器–解碼器，論文將它與 BERT 和 GPT 相連。
+- Brown, T., et al. (2020). *Language Models are Few-Shot Learners*. [arXiv:2005.14165](https://arxiv.org/abs/2005.14165) — 將解碼器專用模型擴大到 1,750 億參數，並報告僅靠提示的少樣本結果。
 
 ### 綜述與教科書
 

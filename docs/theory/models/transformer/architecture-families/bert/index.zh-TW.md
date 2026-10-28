@@ -78,10 +78,11 @@ BERT（Bidirectional Encoder Representations from Transformers，雙向編碼器
 - Devlin, J., et al. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*. NAACL 2019. [DOI 10.18653/v1/N19-1423](https://doi.org/10.18653/v1/N19-1423) — 提出 BERT，以遮蓋 token 與下一句預測進行預訓練，並以單一輸出層微調。
 - Vaswani, A., et al. (2017). *Attention Is All You Need*. NeurIPS. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — BERT 編碼器所建立於其上的 Transformer 區塊。
 - Raffel, C., et al. (2020). *Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer*. Journal of Machine Learning Research 21(140), 1–67. [arXiv:1910.10683](https://arxiv.org/abs/1910.10683) — 編碼器–解碼器的比較對象，使用不同的破壞目標。
+- Liu, Y., et al. (2019). *RoBERTa: A Robustly Optimized BERT Pretraining Approach*. [arXiv:1907.11692](https://arxiv.org/abs/1907.11692) — 對 BERT 預訓練的複製研究，改變訓練配方與資料，並報告每項改動的效果。
 
 ### 綜述與教科書
 
-（本頁尚未查核）
+- Rogers, A., Kovaleva, O. & Rumshisky, A. (2020). *A Primer in BERTology: What we know about how BERT works*. Transactions of the ACL. [arXiv:2002.12327](https://arxiv.org/abs/2002.12327) — 對超過 150 篇 BERT 運作方式研究的綜述，涵蓋它學到什麼，以及其訓練目標的改動。
 
 ### 講座
 

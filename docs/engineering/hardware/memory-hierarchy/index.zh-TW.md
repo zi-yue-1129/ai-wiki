@@ -18,7 +18,7 @@ translation_reviewed: 2026-10-28
 |---|---|---|---|
 | 暫存器 | 每個處理單元內部 | 非常小 | 最快 |
 | 晶片上的 SRAM | 晶片上的快取、共享記憶體與暫存區 | 小 | 非常快 |
-| 晶片外的高頻寬記憶體（HBM）或 DRAM | 與晶片並排的封裝 | 數十到數百 GB | 當前資料中心 GPU 上為每秒數 TB |
+| 晶片外的高頻寬記憶體（HBM）或 DRAM | 與晶片並排的封裝 | 大 | 比晶片上的 SRAM 慢得多 |
 | 主機記憶體與儲存 | 跨越主機或網路連線 | 非常大 | 慢得多 |
 
 哪些工作留在快的層級，由軟體決定。把矩陣乘法切成分塊，讓每個分塊在 SRAM 中被重複使用，就是典型的做法。
@@ -37,19 +37,19 @@ I = \frac{\text{FLOPs}}{\text{搬移的位元組數}}
 P = \min\left(P_{\text{peak}},\; B \cdot I\right)
 \]
 
-兩項在轉折點 \(I^* = P_{\text{peak}} / B\) 相交。\(I < I^*\) 的核心受記憶體限制，\(I > I^*\) 的核心受運算限制。在近代資料中心 GPU 上，稠密半精度運算的轉折點通常落在每位元組數百 FLOPs 的範圍。
+兩項在轉折點 \(I^* = P_{\text{peak}} / B\) 相交。\(I < I^*\) 的核心受記憶體限制，\(I > I^*\) 的核心受運算限制。
 
-解碼說明了這對 LLM 為何重要。對一個以每參數兩位元組儲存、具有 \(N\) 個參數的稠密模型，為一條序列生成一個 token 約需 \(2N\) 次 FLOPs，並讀取約 \(2N\) 位元組的權重，因此 \(I \approx 1\)。這遠低於轉折點，所以這一步受限於權重的讀取速度。若在同一批次中服務 \(b\) 條序列，每個權重只讀取一次便供所有序列共用，強度會提高到約 \(b\)。KV 快取還會帶來額外的讀取，且隨上下文長度增加，因此長上下文會把解碼進一步推向記憶體的上限。
+解碼說明了這對 LLM 為何重要。對一個以每參數兩位元組儲存、具有 \(N\) 個參數的稠密模型，為一條序列生成一個 token 約需 \(2N\) 次 FLOPs，並讀取約 \(2N\) 位元組的權重，因此 \(I \approx 1\)。這遠低於具有大型運算單元的任何加速器的轉折點，所以這一步受限於權重的讀取速度。若在同一批次中服務 \(b\) 條序列，每個權重只讀取一次便供所有序列共用，強度會提高到約 \(b\)。KV 快取還會帶來額外的讀取，且隨上下文長度增加，因此長上下文會把解碼進一步推向記憶體的上限。
 
 ## 結果
 
-Ivanov 等人主張，由於算術運算已遠快於記憶體，資料搬移是 Transformer 訓練的主要瓶頸，並藉由改變資料佈局來減少搬移。Gholami 等人在服務情境中提出相同的論點，並指出如今限制大部分工作的是記憶體頻寬，而非運算。Dao 等人顯示，重新安排注意力計算，使其較少讀寫高頻寬記憶體，可以加速注意力，且得到的結果完全相同，見 [FlashAttention](../../../theory/models/transformer/attention-variants/flash-attention/index.zh-TW.md) 頁面。Pope 等人則用推論效率的解析模型，為生成階段選擇大型 Transformer 在 TPU v4 切片上的分割方式。
+Ivanov 等人主張，資料搬移而非算術運算，是訓練 Transformer 時的關鍵瓶頸；他們的資料搬移最佳化，在一個 BERT 編碼器層上比所測試的框架快 1.30 倍。Gholami 等人主張，AI 服務的主要瓶頸是記憶體頻寬，而非運算。Dao 等人顯示，重新安排注意力計算，使其較少讀寫高頻寬記憶體，可以加速注意力，且得到的結果完全相同，見 [FlashAttention](../../../theory/models/transformer/attention-variants/flash-attention/index.zh-TW.md) 頁面。Pope 等人建立推論效率的解析模型，並以它為 TPU v4 切片選擇合適的分割策略。
 
 ## 限制
 
 屋頂線模型是一種簡化的描述。它忽略了延遲、運算與記憶體存取之間的重疊、快取命中率，以及晶片之間的通訊。算術強度同時取決於演算法與實作：融合的核心，其強度可能遠高於逐一執行相同運算。實務上很少能達到峰值頻寬或峰值 FLOPs，因此實測數字低於任一上限。
 
-## 開放問題與相關變體
+## 開放問題
 
 - **記憶體牆。** Gholami 等人主張，記憶體頻寬的成長慢於運算，因此兩者的差距會逐漸擴大。新的記憶體技術能否彌合這個差距，仍是開放問題。
 - **模型端的解法。** 以更少的位元儲存權重，可以減少每個 token 讀取的位元組數，從而提高強度，見[量化](../../../theory/model-compression/quantisation/index.zh-TW.md)。
@@ -64,19 +64,15 @@ Ivanov 等人主張，由於算術運算已遠快於記憶體，資料搬移是 
 
 ### 開創性論文
 
-- Ivanov, A., 等人 (2020). *Data Movement Is All You Need: A Case Study on Optimizing Transformers*. arXiv:2007.00072. https://arxiv.org/abs/2007.00072 — 主張限制 Transformer 訓練的是資料搬移而非算術運算，並透過資料佈局來減少搬移。
+- Ivanov, A., 等人 (2020). *Data Movement Is All You Need: A Case Study on Optimizing Transformers*. arXiv:2007.00072. https://arxiv.org/abs/2007.00072 — 主張限制 Transformer 訓練的關鍵是資料搬移，並報告一個在 BERT 編碼器層上達到 1.30 倍加速的資料搬移最佳化。
 - Dao, T., 等人 (2022). *FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness*. arXiv:2205.14135. https://arxiv.org/abs/2205.14135 — 以較少的高頻寬記憶體讀寫計算精確注意力，因此速度更快。
-- Williams, S., 等人 (2009). *Roofline: an insightful visual performance model for multicore architectures*. Communications of the ACM 52(4). https://doi.org/10.1145/1498765.1498785 — 提出屋頂線模型，以峰值運算能力與記憶體頻寬限制可達到的效能。
+- Williams, S., Waterman, A. 與 Patterson, D. (2009). *Roofline: An Insightful Visual Performance Model for Multicore Architectures*. Communications of the ACM 52(4). https://doi.org/10.1145/1498765.1498785 — 提出屋頂線模型，以峰值運算能力與記憶體頻寬限制可達到的效能。
 
 ### 綜述與教科書
 
-- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — 綜述資料流如何利用本地儲存，以降低記憶體存取的能量成本。
-
-### 講座與影片
-
-（本頁尚未查核任何項目）
+- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — 綜述資料流如何利用本地儲存，以降低資料搬移的能量成本。
 
 ### 文章與文件
 
-- Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張限制 AI 服務的主要因素是記憶體頻寬，而非運算。
-- Pope, R., 等人 (2022). *Efficiently Scaling Transformer Inference*. arXiv:2211.05102. https://arxiv.org/abs/2211.05102 — 以推論效率的解析模型，為大型 Transformer 選擇在 TPU v4 切片上的分割方式。
+- Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張 AI 服務的主要瓶頸是記憶體頻寬，而非運算。
+- Pope, R., 等人 (2022). *Efficiently Scaling Transformer Inference*. arXiv:2211.05102. https://arxiv.org/abs/2211.05102 — 建立推論效率的解析模型，並用以為 TPU v4 切片選擇分割策略。

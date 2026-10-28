@@ -36,6 +36,13 @@ Training minimises the empirical risk $\hat R(\theta)=\frac1n\sum_i L(f_\theta(x
 - **Learning-rate schedules** (warm-up, cosine decay) matter as much as the choice of optimiser.
 - Convex problems (linear models, SVMs) have a single global optimum; deep networks do not, yet SGD works surprisingly well.
 
+## Class imbalance
+
+Two ways to counter imbalanced classes, one changing the training loss and one changing the decision rule:
+
+- [Class-balanced loss](class-balanced-loss.md): reweights classes by the effective number of samples.
+- [Logit adjustment](logit-adjustment.md): shifts scores by the class prior, post-hoc or in the loss.
+
 ## Connections
 
 The same objective underlies [self-supervised](../../self-supervised/index.md) pre-training; only the source of labels changes. See also [Deep Learning](../../../deep-learning/index.md) for backpropagation, and the roadmap entry for a full Optimization page.

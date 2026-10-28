@@ -81,6 +81,7 @@ translation_reviewed: 2026-10-28
 - Devlin, J., et al. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*. NAACL 2019. [DOI 10.18653/v1/N19-1423](https://doi.org/10.18653/v1/N19-1423) — 編碼器專用家族，以遮蓋 token 進行預訓練。
 - Raffel, C., et al. (2020). *Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer*. Journal of Machine Learning Research 21(140), 1–67. [arXiv:1910.10683](https://arxiv.org/abs/1910.10683) — 編碼器–解碼器家族，使用跨度破壞與統一的文字到文字格式。
 - Brown, T., et al. (2020). *Language Models are Few-Shot Learners*. [arXiv:2005.14165](https://arxiv.org/abs/2005.14165) — 規模化的解碼器專用家族，使用少樣本提示。
+- Lewis, M., et al. (2019). *BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension*. [arXiv:1910.13461](https://arxiv.org/abs/1910.13461) — 以破壞並重建文字進行預訓練的去噪編碼器–解碼器，論文將它與 BERT 和 GPT 相連。
 
 ### 綜述與教科書
 

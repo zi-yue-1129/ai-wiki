@@ -92,10 +92,11 @@ The pre-training data is the BooksCorpus (800M words) and English Wikipedia (2,5
 - Devlin, J., et al. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*. NAACL 2019. [DOI 10.18653/v1/N19-1423](https://doi.org/10.18653/v1/N19-1423) — Introduces BERT, pre-trained with masked-token and next-sentence prediction and fine-tuned with one output layer.
 - Vaswani, A., et al. (2017). *Attention Is All You Need*. NeurIPS. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — The Transformer block that BERT's encoder is built from.
 - Raffel, C., et al. (2020). *Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer*. Journal of Machine Learning Research 21(140), 1–67. [arXiv:1910.10683](https://arxiv.org/abs/1910.10683) — The encoder-decoder comparison point, with a different corruption objective.
+- Liu, Y., et al. (2019). *RoBERTa: A Robustly Optimized BERT Pretraining Approach*. [arXiv:1907.11692](https://arxiv.org/abs/1907.11692) — A replication study of BERT pre-training that changes the training recipe and data, and reports the effect of each change.
 
 ### Surveys and textbooks
 
-(none checked for this page)
+- Rogers, A., Kovaleva, O. & Rumshisky, A. (2020). *A Primer in BERTology: What we know about how BERT works*. Transactions of the ACL. [arXiv:2002.12327](https://arxiv.org/abs/2002.12327) — A survey of more than 150 studies of how BERT works, what it learns, and how its training objectives have been changed.
 
 ### Lectures
 
