@@ -62,7 +62,7 @@ Bai et al. (2022) also keep a small set of human helpfulness labels, so that the
 The following methods share the preference-learning idea. Each is compared briefly here, and the detail sits on the linked pages.
 
 - [RLHF](../../theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md) (Christiano et al., 2017; Ouyang et al., 2022): human comparisons train a reward model, which guides reinforcement learning.
-- **RLAIF** (Lee et al., 2024): AI labels replace human labels in the same pipeline. The label source changes, the learning procedure does not.
+- [**RLAIF**](rlaif.md) (Lee et al., 2024): AI labels replace human labels in the same pipeline. The label source changes, the learning procedure does not.
 - **Constitutional AI** (Bai et al., 2022): RLAIF combined with critique and revision guided by a written constitution.
 - [DPO](../../theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo/index.md) (Rafailov et al., 2023): removes the explicit reward model and fits the policy directly to preference pairs. Constitutional or AI-generated pairs can be used with DPO as well.
 
