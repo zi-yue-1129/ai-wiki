@@ -42,37 +42,14 @@ The inner dimensions need the most bandwidth, so they stay within a node. Outer 
 
 ## Key methods
 
-### Megatron-LM tensor parallelism (Shoeybi et al., 2019)
+Each named method has its own page, covering the problem it solves, its core idea, the algorithm, the reported results and its limitations. The table compares them.
 
-- **Problem:** a transformer layer's weight matrices could not fit on one GPU, and data parallelism alone did not reduce per-device memory.
-- **Core idea:** split each MLP block's first weight matrix by columns and the second by rows, so the two halves combine with a single all-reduce per block. Attention is split by heads in the same way.
-- **Equation or algorithm:** for $Y = \mathrm{GeLU}(XA)$ with $A = [A_1, A_2]$ split by columns, each device computes $\mathrm{GeLU}(XA_i)$ on its own, and the next matrix is split by rows so that the partial results sum in one reduction.
-- **Results:** the paper reports training multi-billion-parameter language models on hundreds of GPUs, with scaling that stays close to linear for that size of model.
-- **Limitations:** the communication pattern assumes fast intra-node links; tensor parallelism across slow networks is costly.
-
-### ZeRO: partitioning optimizer state, gradients and parameters (Rajbhandari et al., 2020)
-
-- **Problem:** data parallelism replicates all model state on every device, so the memory per device does not shrink as more devices are added.
-- **Core idea:** partition the state across the data-parallel group in three stages. Stage 1 shards the optimizer state, stage 2 also shards gradients, and stage 3 also shards parameters, which are gathered layer by layer when needed.
-- **Equation or algorithm:** with $\Psi$ parameters, $N_d$ data-parallel devices and Adam in mixed precision (about $K = 12$ bytes of optimizer state per parameter), the paper's per-device memory is $(4 + \tfrac{12}{N_d})\Psi$ bytes for stage 1, $(2 + \tfrac{14}{N_d})\Psi$ for stage 2, and $\tfrac{16}{N_d}\Psi$ for stage 3.
-- **Results:** the paper reports training models of more than a hundred billion parameters on large clusters, with memory reduction that scales with the number of devices.
-- **Limitations:** stage 3 adds all-gather traffic in both forward and backward passes, so communication cost rises as memory falls.
-
-### GPipe: pipeline parallelism with micro-batches (Huang et al., 2019)
-
-- **Problem:** a model too large for one device cannot be placed on one device, and a single batch leaves the other stages idle while one stage works.
-- **Core idea:** split the network into $K$ sequential stages on $K$ devices, divide each mini-batch into $M$ micro-batches, and pipeline them so that several stages work at once. Gradients are accumulated and the optimizer step is taken once per batch, which keeps the training semantics of synchronous SGD.
-- **Equation or algorithm:** the idle fraction, or bubble, is approximately $\frac{K-1}{M+K-1}$, so more micro-batches make the pipeline more efficient.
-- **Results:** the paper reports near-linear speedup with more accelerators for very large image models, the setting in which it was evaluated.
-- **Limitations:** the bubble grows when $M$ is small, and activations for every in-flight micro-batch must be kept, which motivated later schedules such as 1F1B.
-
-### PyTorch FSDP (Zhao et al., 2023)
-
-- **Problem:** data-parallel sharding, as in ZeRO, has to be practical inside a mainstream deep-learning framework, with minimal changes to user code.
-- **Core idea:** wrap each module in a sharded unit, store its flattened parameters across devices, all-gather them just before use, and free them afterwards. Prefetching overlaps the all-gather with computation.
-- **Equation or algorithm:** each sharded unit performs an all-gather of its parameters in the forward pass and again in the backward pass, followed by a reduce-scatter of gradients.
-- **Results:** the paper reports memory and throughput results for large transformer models on many GPUs, and documents the design trade-offs that affect performance.
-- **Limitations:** unit boundaries and prefetch settings strongly affect throughput, so tuning is needed for each model.
+| Method | Problem it solves | Core idea | Main trade-off | Page |
+|---|---|---|---|---|
+| Megatron-LM tensor parallelism | A layer's weights do not fit on one device | Split each block by columns then rows, with one all-reduce | Needs fast intra-node links | [Megatron-LM Tensor Parallelism](megatron-tensor-parallelism.md) |
+| ZeRO | Data parallelism replicates all model state | Partition optimizer state, gradients, then parameters in three stages | Stage 3 adds all-gather traffic | [ZeRO](zero.md) |
+| GPipe | A model too large for one device leaves stages idle | Split layers into stages and pipeline micro-batches | Bubble of $\frac{K-1}{M+K-1}$ and activation memory | [GPipe](gpipe.md) |
+| PyTorch FSDP | Sharding must be practical inside a framework | Gather each unit's parameters, compute, free, and reduce-scatter gradients | Unit boundaries and prefetching need tuning | [PyTorch FSDP](fsdp.md) |
 
 ## Connections
 
