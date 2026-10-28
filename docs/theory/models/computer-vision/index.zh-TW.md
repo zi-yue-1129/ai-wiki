@@ -5,7 +5,7 @@
 | 任務 | 輸出 | 代表性模型 |
 |---|---|---|
 | 影像分類 | 類別 | ResNet、EfficientNet、ViT、ConvNeXt |
-| 物件偵測 | 邊界框加類別 | Faster R-CNN、YOLO 系列、DETR、RT-DETR |
+| [物件偵測](object-detection/index.md) | 邊界框加類別 | Faster R-CNN、YOLO 系列、DETR、RT-DETR |
 | 語意／實例／全景分割 | 逐像素標籤 | U-Net、Mask R-CNN、Mask2Former |
 | 可提示的分割 | 任意物件的遮罩 | SAM、SAM 2（影片） |
 | 開放詞彙偵測 | 找出以文字描述的物件 | Grounding DINO、OWL-ViT |
