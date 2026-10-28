@@ -64,6 +64,8 @@ Liu 等人（2022）從 ResNet 出發，逐步修改其設計，借用 Transform
 
 - He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — 殘差連接使極深的 CNN 能夠訓練，是後續骨幹的基礎。
 - Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". arXiv:1905.11946 — 同時縮放深度、寬度與輸入解析度的複合縮放。
+- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". arXiv:1409.1556 — 堆疊小型 3×3 卷積的普通深層設計，即 VGG 的基礎。
+- Huang, G., et al. (2017). "Densely Connected Convolutional Networks". arXiv:1608.06993 — 每一層都與其後所有層相連，重用特徵並改善梯度流。
 
 ### 綜述與教科書
 

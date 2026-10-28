@@ -53,7 +53,7 @@ MLP 區塊出現在 [CNN](../cnn/index.md)、[RNN](../rnn/index.md) 與 [Transfo
 
 ### 開創性論文
 
-- Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). "Learning representations by back-propagating errors". *Nature* 323. — 推廣了以反向傳播訓練具隱藏層的多層網路。
+- Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). "Learning representations by back-propagating errors". *Nature* 323: 533–536. https://doi.org/10.1038/323533a0 — 推廣了以反向傳播訓練具隱藏層的多層網路。
 - He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — 殘差連接，使深層網路能夠訓練。
 - Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". arXiv:1607.06450 — 在特徵上而非批次上做正規化。
 
