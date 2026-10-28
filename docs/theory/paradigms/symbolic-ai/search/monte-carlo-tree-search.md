@@ -70,7 +70,7 @@ After the budget of iterations, the move with the most visits, or the highest me
 
 ### Seminal papers
 
-- Kocsis, L. & Szepesvári, C. (2006). Bandit based Monte-Carlo planning. In *Machine Learning: ECML 2006*, Lecture Notes in Computer Science, 282–293. https://doi.org/10.1007/11871842_29 — Introduces UCT, the tree policy that makes MCTS converge to the minimax value.
+- Kocsis, L. & Szepesvári, C. (2006). Bandit based Monte-Carlo planning. In *Machine Learning: ECML 2006*, Lecture Notes in Computer Science, 282–293. https://doi.org/10.1007/11871842_29 — Introduces UCT (UCB applied to trees). The paper proves consistency and finite-sample bounds for finite-horizon MDPs, and reports on P-game trees that UCT's failure rate goes to zero. It does not prove convergence to the minimax value.
 - Coulom, R. (2007). Efficient selectivity and backup operators in Monte-Carlo tree search. In *Computers and Games*, Lecture Notes in Computer Science, 72–83. https://doi.org/10.1007/978-3-540-75538-8_7 — Names the method and studies its backup operators for Go.
 - Auer, P., Cesa-Bianchi, N. & Fischer, P. (2002). Finite-time analysis of the multiarmed bandit problem. *Machine Learning* 47(2–3), 235–256. https://doi.org/10.1023/A:1013689704352 — Gives the UCB1 bound that the selection rule depends on.
 

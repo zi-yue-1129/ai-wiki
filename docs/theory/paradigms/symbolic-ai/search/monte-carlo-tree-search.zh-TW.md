@@ -57,7 +57,7 @@ translation_reviewed: 2026-10-28
 
 ### 奠基性論文
 
-- Kocsis, L. & Szepesvári, C. (2006). Bandit based Monte-Carlo planning. In *Machine Learning: ECML 2006*, Lecture Notes in Computer Science, 282–293. https://doi.org/10.1007/11871842_29 — 提出 UCT，使 MCTS 的值收斂到極小極大值。
+- Kocsis, L. & Szepesvári, C. (2006). Bandit based Monte-Carlo planning. In *Machine Learning: ECML 2006*, Lecture Notes in Computer Science, 282–293. https://doi.org/10.1007/11871842_29 — 提出 UCT（UCB 應用於樹）。論文證明有限期 MDP 下的一致性與有限樣本界，並在 P-game 樹上報告 UCT 的失敗率趨近於零；論文並未證明收斂到極小極大值。
 - Coulom, R. (2007). Efficient selectivity and backup operators in Monte-Carlo tree search. In *Computers and Games*, Lecture Notes in Computer Science, 72–83. https://doi.org/10.1007/978-3-540-75538-8_7 — 為此方法命名，並研究圍棋中的回傳運算子。
 - Auer, P., Cesa-Bianchi, N. & Fischer, P. (2002). Finite-time analysis of the multiarmed bandit problem. *Machine Learning* 47(2–3), 235–256. https://doi.org/10.1023/A:1013689704352 — 給出選擇規則所依據的 UCB1 界限。
 

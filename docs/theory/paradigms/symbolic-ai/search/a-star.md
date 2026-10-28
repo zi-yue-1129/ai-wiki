@@ -50,7 +50,7 @@ A\* keeps a priority queue of frontier nodes ordered by \(f\). It repeatedly rem
 
 - **Path planning**: shortest routes on road networks and grid maps, including robot navigation.
 - **Puzzles**: sliding-tile puzzles with the Manhattan distance heuristic.
-- **Planning**: heuristic state-space search in classical planning, where heuristics are often derived from relaxed problems (Helmert, 2006).
+- **Planning**: heuristic state-space search in classical planning. Helmert (2006) contrasts relaxation-based heuristics with the causal-graph heuristic used by Fast Downward.
 
 ## Open questions
 
@@ -67,5 +67,5 @@ A\* keeps a priority queue of frontier nodes ordered by \(f\). It repeatedly rem
 ### Surveys and textbooks
 
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — Textbook treatment of A\* with admissible and consistent heuristics.
-- Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — Uses A\* with heuristics derived from relaxed problems in classical planning.
+- Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — Describes the Fast Downward planner, a best-first search planner whose heuristic is built from a hierarchical decomposition of the planning task (the causal graph heuristic).
 - Blum, A. L. & Furst, M. L. (1997). Fast planning through planning graph analysis. *Artificial Intelligence* 90(1–2), 281–300. https://doi.org/10.1016/S0004-3702(96)00047-1 — Shows how graph-based heuristics speed up heuristic search for planning.
