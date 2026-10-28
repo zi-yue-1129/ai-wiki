@@ -40,13 +40,13 @@ Which pretext task produces the most transferable representation is largely an e
 
 ### Seminal papers
 
-- Doersch, Gupta & Efros (2015), "Unsupervised visual representation learning by context prediction", ICCV, arXiv:1505.05192 — Learns features by predicting the relative position of image patches.
-- Gidaris, Singh & Komodakis (2018), "Unsupervised representation learning by predicting image rotations", ICLR, arXiv:1803.07728 — Rotation prediction, a simple pretext task with strong transfer results.
-- Oord, Li & Vinyals (2018), "Representation learning with contrastive predictive coding", arXiv:1807.03748 — Predicts future latent states of sequences, a general pretext task.
+- Doersch, Gupta & Efros (2015), "Unsupervised visual representation learning by context prediction", ICCV, [arXiv:1505.05192](https://arxiv.org/abs/1505.05192) — Learns features by predicting the relative position of image patches.
+- Gidaris, Singh & Komodakis (2018), "Unsupervised representation learning by predicting image rotations", ICLR, [arXiv:1803.07728](https://arxiv.org/abs/1803.07728) — Rotation prediction, a simple pretext task with strong transfer results.
+- Oord, Li & Vinyals (2018), "Representation learning with contrastive predictive coding", [arXiv:1807.03748](https://arxiv.org/abs/1807.03748) — Predicts future latent states of sequences, a general pretext task.
 
 ### Surveys and textbooks
 
-- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), arXiv:1206.5538 — Survey placing pretext tasks among representation-learning methods.
+- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), [arXiv:1206.5538](https://arxiv.org/abs/1206.5538) — Survey placing pretext tasks among representation-learning methods.
 
 ### Lectures and videos
 
@@ -54,7 +54,7 @@ Which pretext task produces the most transferable representation is largely an e
 
 ### Articles and documentation
 
-- Kolesnikov, Zhai & Beyer (2019), "Revisiting self-supervised visual representation learning", CVPR, arXiv:1901.09005 — Careful comparison of pretext tasks under the same architecture and training budget.
+- Kolesnikov, Zhai & Beyer (2019), "Revisiting self-supervised visual representation learning", CVPR, [arXiv:1901.09005](https://arxiv.org/abs/1901.09005) — Careful comparison of pretext tasks under the same architecture and training budget.
 
 ## Further reading
 

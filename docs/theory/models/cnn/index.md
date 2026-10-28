@@ -62,8 +62,8 @@ The receptive field of a CNN grows with depth, a property that the [recurrent](.
 ### Seminal papers
 
 - LeCun, Y., Bottou, L., Bengio, Y. & Haffner, P. (1998). "Gradient-based learning applied to document recognition". *Proceedings of the IEEE* 86(11). https://doi.org/10.1109/5.726791 — Introduces the LeNet family of convolutional networks trained by gradient descent.
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — Residual connections that allow very deep CNNs to train.
-- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". arXiv:1905.11946 — Compound scaling of depth, width and resolution.
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — Residual connections that allow very deep CNNs to train.
+- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". [arXiv:1905.11946](https://arxiv.org/abs/1905.11946) — Compound scaling of depth, width and resolution.
 
 ### Surveys and textbooks
 
@@ -75,4 +75,4 @@ The receptive field of a CNN grows with depth, a property that the [recurrent](.
 
 ### Articles and documentation
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt, a modernised pure CNN that matches Transformer baselines.
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt, a modernised pure CNN that matches Transformer baselines.

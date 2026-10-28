@@ -31,11 +31,11 @@ A replay buffer holds tuples \((s_t, a_t, r_t, s_{t+1})\) produced by a behaviou
 | Variant | Idea | Key paper |
 |---|---|---|
 | Uniform replay | Sample transitions uniformly from a fixed-size FIFO buffer | Mnih et al. (2015) |
-| Prioritised replay | Sample with probability growing with the TD error, and correct the bias with importance weights | Schaul et al. (2015), arXiv:1511.05952 |
-| Hindsight replay (HER) | Relabel failed transitions in goal-conditioned tasks with the goal that was actually reached | Andrychowicz et al. (2017), arXiv:1707.01495 |
+| Prioritised replay | Sample with probability growing with the TD error, and correct the bias with importance weights | Schaul et al. (2015), [arXiv:1511.05952](https://arxiv.org/abs/1511.05952) |
+| Hindsight replay (HER) | Relabel failed transitions in goal-conditioned tasks with the goal that was actually reached | Andrychowicz et al. (2017), [arXiv:1707.01495](https://arxiv.org/abs/1707.01495) |
 | Sequence replay | Store fixed-length sequences with the recurrent state at their start, and use a burn-in prefix to rebuild that state | Kapturowski et al. (2019), ICLR |
-| Distributed replay | Many actors feed one shared prioritised buffer, while a single learner samples from it | Horgan et al. (2018), arXiv:1803.00933 |
-| Capacity and ratio studies | Measure how buffer size and the number of updates per collected transition change learning | Fedus et al. (2020), arXiv:2007.06700 |
+| Distributed replay | Many actors feed one shared prioritised buffer, while a single learner samples from it | Horgan et al. (2018), [arXiv:1803.00933](https://arxiv.org/abs/1803.00933) |
+| Capacity and ratio studies | Measure how buffer size and the number of updates per collected transition change learning | Fedus et al. (2020), [arXiv:2007.06700](https://arxiv.org/abs/2007.06700) |
 
 ### Uniform replay
 
@@ -80,14 +80,14 @@ The brain comparison is one of the best-known in computational neuroscience. Dur
 ### Seminal papers
 
 - Mnih, V., et al. (2015). "Human-level control through deep reinforcement learning". *Nature* 518. https://doi.org/10.1038/nature14236 — The deep Q-network, which popularised uniform replay with a target network.
-- Schaul, T., et al. (2015). "Prioritized Experience Replay". arXiv:1511.05952 — Samples transitions by TD error and corrects the bias with importance weights.
-- Andrychowicz, M., et al. (2017). "Hindsight Experience Replay". arXiv:1707.01495 — Relabels failed goal-conditioned episodes with the goals that were reached.
-- Horgan, D., et al. (2018). "Distributed Prioritized Experience Replay". arXiv:1803.00933 — Many actors share one prioritised buffer, scaling replay to large numbers of environments.
+- Schaul, T., et al. (2015). "Prioritized Experience Replay". [arXiv:1511.05952](https://arxiv.org/abs/1511.05952) — Samples transitions by TD error and corrects the bias with importance weights.
+- Andrychowicz, M., et al. (2017). "Hindsight Experience Replay". [arXiv:1707.01495](https://arxiv.org/abs/1707.01495) — Relabels failed goal-conditioned episodes with the goals that were reached.
+- Horgan, D., et al. (2018). "Distributed Prioritized Experience Replay". [arXiv:1803.00933](https://arxiv.org/abs/1803.00933) — Many actors share one prioritised buffer, scaling replay to large numbers of environments.
 - Kapturowski, S., et al. (2019). "Recurrent Experience Replay in Distributed Reinforcement Learning". ICLR. https://iclr.cc/virtual/2019/poster/648 — Stores recurrent sequences with stored hidden states and burn-in.
 
 ### Surveys and textbooks
 
-- Fedus, W., et al. (2020). "Revisiting Fundamentals of Experience Replay". arXiv:2007.06700 — Studies how buffer capacity and the replay ratio change the results of value-based agents.
+- Fedus, W., et al. (2020). "Revisiting Fundamentals of Experience Replay". [arXiv:2007.06700](https://arxiv.org/abs/2007.06700) — Studies how buffer capacity and the replay ratio change the results of value-based agents.
 
 ### Lectures and videos
 

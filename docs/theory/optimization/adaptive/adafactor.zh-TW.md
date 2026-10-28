@@ -58,7 +58,7 @@ Adam 對每個參數保存兩個狀態值，即一階矩與二階矩。對大型
 
 ### 開創性論文
 
-- Shazeer, N. & Stern, M.（2018）。*Adafactor: Adaptive Learning Rates with Sublinear Memory Cost*。arXiv。https://arxiv.org/abs/1804.04235 — 把矩陣參數的二階矩估計分解為列和與行和，使記憶體相對於參數數量為次線性。
+- Shazeer, N. & Stern, M.（2018）。*Adafactor: Adaptive Learning Rates with Sublinear Memory Cost*。ICML 2018，PMLR 80，頁 4596–4604。https://proceedings.mlr.press/v80/shazeer18a.html — 把矩陣參數的二階矩估計分解為列和與行和，使記憶體相對於參數數量為次線性。
 - Kingma, D. P. & Ba, J.（2015）。*Adam: A Method for Stochastic Optimization*。ICLR。https://arxiv.org/abs/1412.6980 — Adafactor 在記憶體上近似的完整二階矩方法。
 - Chen, X., 等人（2023）。*Symbolic Discovery of Optimization Algorithms*。arXiv。https://arxiv.org/abs/2302.06675 — Lion，另一種以記憶體使用為動機的最佳化器，與 Adafactor 的節省作比較。
 - Duchi, J., Hazan, E. & Singer, Y.（2011）。Adaptive Subgradient Methods for Online Learning and Stochastic Optimization。*Journal of Machine Learning Research*，12，2121–2159。https://jmlr.org/papers/v12/duchi11a.html — Adafactor 的分解估計所推廣的累積逐座標累加器。

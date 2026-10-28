@@ -74,11 +74,11 @@ The procedure, in the paper's form:
 
 ### Seminal papers
 
-- Schulman, Wolski, Dhariwal, Radford & Klimov (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — The PPO paper, with the clipped objective and the experiments reported above.
-- Schulman, Levine, Moritz, Jordan & Abbeel (2015), "Trust region policy optimization", *Proceedings of ICML 2015*, arXiv:1502.05477 — TRPO, the constrained method that PPO simplifies.
-- Schulman, Moritz, Levine, Jordan & Abbeel (2016), "High-dimensional continuous control using generalized advantage estimation", arXiv:1506.02438 — GAE, the advantage estimator used in the PPO experiments.
-- Mnih et al. (2016), "Asynchronous methods for deep reinforcement learning", arXiv:1602.01783 — A3C, the parallel actor-critic family that the PPO paper's synchronous baseline A2C belongs to.
-- Engstrom, Ilyas, Santurkar, Tsipras, Janoos, Rudolph & Madry (2020), "Implementation matters in deep policy gradients: a case study on PPO and TRPO", arXiv:2005.12729 — Shows that code-level details account for most of PPO's gain over TRPO.
+- Schulman, Wolski, Dhariwal, Radford & Klimov (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The PPO paper, with the clipped objective and the experiments reported above.
+- Schulman, Levine, Moritz, Jordan & Abbeel (2015), "Trust region policy optimization", *Proceedings of ICML 2015*, [arXiv:1502.05477](https://arxiv.org/abs/1502.05477) — TRPO, the constrained method that PPO simplifies.
+- Schulman, Moritz, Levine, Jordan & Abbeel (2016), "High-dimensional continuous control using generalized advantage estimation", [arXiv:1506.02438](https://arxiv.org/abs/1506.02438) — GAE, the advantage estimator used in the PPO experiments.
+- Mnih et al. (2016), "Asynchronous methods for deep reinforcement learning", [arXiv:1602.01783](https://arxiv.org/abs/1602.01783) — A3C, the parallel actor-critic family that the PPO paper's synchronous baseline A2C belongs to.
+- Engstrom, Ilyas, Santurkar, Tsipras, Janoos, Rudolph & Madry (2020), "Implementation matters in deep policy gradients: a case study on PPO and TRPO", [arXiv:2005.12729](https://arxiv.org/abs/2005.12729) — Shows that code-level details account for most of PPO's gain over TRPO.
 
 ### Surveys and textbooks
 
@@ -86,4 +86,4 @@ The procedure, in the paper's form:
 
 ### Articles and documentation
 
-- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", arXiv:2203.02155 — InstructGPT, which fine-tunes a language model with reinforcement learning from human feedback.
+- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — InstructGPT, which fine-tunes a language model with reinforcement learning from human feedback.

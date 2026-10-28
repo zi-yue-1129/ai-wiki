@@ -35,12 +35,12 @@ Exploration methods differ in what signal they add to the reward:
 | Family | Idea | Key paper |
 |---|---|---|
 | Random action noise | ε-greedy or softmax action selection | Sutton & Barto (2018) |
-| Pseudo-count bonus | Estimate state visitation with a density model and add a bonus that falls with visits | Bellemare et al. (2016), arXiv:1606.01868 |
-| Intrinsic Curiosity Module | Bonus is the error of a forward model in a learned feature space | Pathak et al. (2017), arXiv:1705.05363 |
-| Random network distillation | Bonus is the error of a predictor that imitates a fixed random network | Burda et al. (2018), arXiv:1810.12894 |
-| Noisy networks | Learn the scale of noise on network weights, so exploration adapts during training | Fortunato et al. (2017), arXiv:1706.10295 |
-| Bootstrapped DQN | Several value heads on a shared network; a sampled head guides each episode | Osband et al. (2016), arXiv:1602.04621 |
-| Go-Explore | Keep an archive of visited states, return to promising ones, then explore from them | Ecoffet et al. (2019), arXiv:1901.10995 |
+| Pseudo-count bonus | Estimate state visitation with a density model and add a bonus that falls with visits | Bellemare et al. (2016), [arXiv:1606.01868](https://arxiv.org/abs/1606.01868) |
+| Intrinsic Curiosity Module | Bonus is the error of a forward model in a learned feature space | Pathak et al. (2017), [arXiv:1705.05363](https://arxiv.org/abs/1705.05363) |
+| Random network distillation | Bonus is the error of a predictor that imitates a fixed random network | Burda et al. (2018), [arXiv:1810.12894](https://arxiv.org/abs/1810.12894) |
+| Noisy networks | Learn the scale of noise on network weights, so exploration adapts during training | Fortunato et al. (2017), [arXiv:1706.10295](https://arxiv.org/abs/1706.10295) |
+| Bootstrapped DQN | Several value heads on a shared network; a sampled head guides each episode | Osband et al. (2016), [arXiv:1602.04621](https://arxiv.org/abs/1602.04621) |
+| Go-Explore | Keep an archive of visited states, return to promising ones, then explore from them | Ecoffet et al. (2019), [arXiv:1901.10995](https://arxiv.org/abs/1901.10995) |
 
 ### Count-based and prediction-based bonuses
 
@@ -80,11 +80,11 @@ Psychology and neuroscience separate two kinds of exploration in human choice. W
 
 ### Seminal papers
 
-- Bellemare, M. G., et al. (2016). "Unifying Count-Based Exploration and Intrinsic Motivation". arXiv:1606.01868 — Derives count-based bonuses from pseudo-counts of a density model.
-- Pathak, D., et al. (2017). "Curiosity-driven Exploration by Self-supervised Prediction". arXiv:1705.05363 — Uses forward-model prediction error in a learned feature space as the bonus.
-- Burda, Y., et al. (2018). "Exploration by Random Network Distillation". arXiv:1810.12894 — Uses the error of a predictor that copies a fixed random network as the novelty bonus.
-- Osband, I., et al. (2016). "Deep Exploration via Bootstrapped DQN". arXiv:1602.04621 — Uses an ensemble of value heads for consistent, deep exploration.
-- Ecoffet, A., et al. (2019). "Go-Explore: a New Approach for Hard-Exploration Problems". arXiv:1901.10995 — Archives promising states and returns to them before exploring.
+- Bellemare, M. G., et al. (2016). "Unifying Count-Based Exploration and Intrinsic Motivation". [arXiv:1606.01868](https://arxiv.org/abs/1606.01868) — Derives count-based bonuses from pseudo-counts of a density model.
+- Pathak, D., et al. (2017). "Curiosity-driven Exploration by Self-supervised Prediction". [arXiv:1705.05363](https://arxiv.org/abs/1705.05363) — Uses forward-model prediction error in a learned feature space as the bonus.
+- Burda, Y., et al. (2018). "Exploration by Random Network Distillation". [arXiv:1810.12894](https://arxiv.org/abs/1810.12894) — Uses the error of a predictor that copies a fixed random network as the novelty bonus.
+- Osband, I., et al. (2016). "Deep Exploration via Bootstrapped DQN". [arXiv:1602.04621](https://arxiv.org/abs/1602.04621) — Uses an ensemble of value heads for consistent, deep exploration.
+- Ecoffet, A., et al. (2019). "Go-Explore: a New Approach for Hard-Exploration Problems". [arXiv:1901.10995](https://arxiv.org/abs/1901.10995) — Archives promising states and returns to them before exploring.
 
 ### Surveys and textbooks
 
@@ -97,4 +97,4 @@ Psychology and neuroscience separate two kinds of exploration in human choice. W
 ### Articles and documentation
 
 - Wilson, R. C., et al. (2014). "Humans use directed and random exploration to solve the explore–exploit dilemma". *Journal of Experimental Psychology: General* 143(6). https://doi.org/10.1037/a0038199 — Behavioural evidence that people use both uncertainty-directed and random exploration.
-- Fortunato, M., et al. (2017). "Noisy Networks for Exploration". arXiv:1706.10295 — Learns the noise scale of network weights so exploration decays where the agent is certain.
+- Fortunato, M., et al. (2017). "Noisy Networks for Exploration". [arXiv:1706.10295](https://arxiv.org/abs/1706.10295) — Learns the noise scale of network weights so exploration decays where the agent is certain.

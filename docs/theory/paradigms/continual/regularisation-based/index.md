@@ -41,14 +41,14 @@ Regularisation alone does not prevent forgetting over long sequences. The import
 
 ### Seminal papers
 
-- Kirkpatrick et al. (2017), "Overcoming catastrophic forgetting in neural networks", PNAS, arXiv:1612.00796 — EWC, which protects parameters important to earlier tasks with a Fisher-weighted penalty.
-- Zenke, Poole & Ganguli (2017), "Continual learning through synaptic intelligence", ICML, arXiv:1703.04200 — SI, which estimates parameter importance online during training.
-- Li & Hoiem (2016), "Learning without forgetting", ECCV, arXiv:1606.09282 — LwF, which distils the old model's outputs to keep earlier behaviour without old data.
+- Kirkpatrick et al. (2017), "Overcoming catastrophic forgetting in neural networks", PNAS, [arXiv:1612.00796](https://arxiv.org/abs/1612.00796) — EWC, which protects parameters important to earlier tasks with a Fisher-weighted penalty.
+- Zenke, Poole & Ganguli (2017), "Continual learning through synaptic intelligence", ICML, [arXiv:1703.04200](https://arxiv.org/abs/1703.04200) — SI, which estimates parameter importance online during training.
+- Li & Hoiem (2016), "Learning without forgetting", ECCV, [arXiv:1606.09282](https://arxiv.org/abs/1606.09282) — LwF, which distils the old model's outputs to keep earlier behaviour without old data.
 
 ### Surveys and textbooks
 
-- De Lange et al. (2021), "A continual learning survey: defying forgetting in classification tasks", IEEE TPAMI, arXiv:1909.08383 — Survey and comparison of regularisation, replay and architecture methods.
-- Parisi, Kemker, Part, Kanan & Wermter (2019), "Continual lifelong learning with neural networks: a review", Neural Networks, arXiv:1802.07569 — Review of continual learning methods and their links to biological learning.
+- De Lange et al. (2021), "A continual learning survey: defying forgetting in classification tasks", IEEE TPAMI, [arXiv:1909.08383](https://arxiv.org/abs/1909.08383) — Survey and comparison of regularisation, replay and architecture methods.
+- Parisi, Kemker, Part, Kanan & Wermter (2019), "Continual lifelong learning with neural networks: a review", Neural Networks, [arXiv:1802.07569](https://arxiv.org/abs/1802.07569) — Review of continual learning methods and their links to biological learning.
 
 ### Lectures and videos
 

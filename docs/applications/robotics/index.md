@@ -42,6 +42,12 @@ One landmark method anchors the learning discussion below. Its full write-up is 
 - **Comparison:** Classical teach-and-repeat tracks a taught route with odometry. Learned methods such as ViNG, GNM, ViNT and NoMaD regress or sample continuous motion, and they differ in output and in how much data they use.
 - **Full write-up:** [Navigation with visual goals](navigation/index.md)
 
+### Visual localisation (Zaffar et al., 2021; Keetha et al., 2023; Berton et al., 2023)
+
+- **Overview:** A robot recovers where it is by retrieving matching images from a database. The methods differ in whether the encoder is a frozen foundation model or one trained for viewpoint robustness.
+- **Comparison:** AnyLoc uses frozen DINOv2 features with no encoder training. EigenPlaces trains on several views of each place. Zaffar et al. give a benchmark that separates viewpoint from appearance change.
+- **Full write-up:** [Visual localisation](visual-localisation/index.md)
+
 ## Learning-based robotics
 
 | Approach | Examples |

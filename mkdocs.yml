@@ -320,6 +320,19 @@ plugins:
             Learning from Human Feedback: 從人類回饋學習
             Reward Modelling: 獎勵建模
             Direct Preference Optimisation: 直接偏好最佳化
+            Value-Based Methods: 值函數方法
+            Q-Learning: Q 學習
+            SARSA: SARSA
+            Double DQN: 雙重 DQN
+            Rainbow: Rainbow
+            Policy Gradient & Actor-Critic: 策略梯度與演員–評論家
+            REINFORCE: REINFORCE
+            A3C: 異步優勢演員–評論家
+            TRPO: 信賴區域策略最佳化
+            DDPG: 深度確定性策略梯度
+            TD3: 雙延遲深度確定性策略梯度
+            SAC: 軟演員–評論家
+            GRPO: 群組相對策略最佳化
             AlexNet: AlexNet
             GPT-3 Few-Shot Learning: GPT-3 少樣本學習
             Compute-Optimal Training: 運算最佳化訓練
@@ -355,6 +368,10 @@ plugins:
             GNM: GNM
             ViNT: ViNT
             NoMaD: NoMaD
+            Visual Localisation: 視覺定位
+            AnyLoc: AnyLoc
+            EigenPlaces: EigenPlaces
+            DINOv2: DINOv2
             AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             RFdiffusion: RFdiffusion（蛋白質骨架設計）
             ESM-2 and ESMFold: ESM-2 與 ESMFold
@@ -401,6 +418,10 @@ plugins:
             Real NVP: Real NVP
             Glow: Glow
             Flow Matching: 流匹配
+            Conditional Flow Matching: 條件流匹配
+            Rectified Flow: 修正流
+            Stochastic Interpolants: 隨機插值
+            Minibatch OT Flow Matching: 小批次最優傳輸流匹配
             Classifier-Free Guidance: 無分類器引導
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
@@ -658,6 +679,8 @@ plugins:
             In-Memory and Analogue Computing: 記憶體內與類比運算
             Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
             Mixed-Precision Training: 混合精度訓練
+            FP8 Formats: FP8 格式
+            Gradient Checkpointing: 梯度檢查點
             Roofline Model: 屋頂線模型
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
@@ -722,6 +745,8 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
+  # Turns bare https:// URLs in plain text (reference and further-reading entries) into links.
+  - pymdownx.magiclink
   - pymdownx.snippets:
       auto_append:
         - includes/abbreviations.md
@@ -740,6 +765,7 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/mathjax.js
+  - javascripts/knowledge-map.js
   - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
 
 extra_css:
@@ -842,7 +868,12 @@ nav:
                           - theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/index.md
                           - Real NVP: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/realnvp.md
                           - Glow: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/glow.md
-                      - Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/index.md
+                      - Flow Matching:
+                          - theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/index.md
+                          - Conditional Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/conditional-flow-matching.md
+                          - Rectified Flow: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/rectified-flow.md
+                          - Stochastic Interpolants: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/stochastic-interpolants.md
+                          - Minibatch OT Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/minibatch-ot-flow-matching.md
                   - Diffusion Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
                       - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
@@ -862,7 +893,9 @@ nav:
               - theory/paradigms/self-supervised/index.md
               - Contrastive Learning: theory/paradigms/self-supervised/contrastive-learning/index.md
               - Masked Prediction: theory/paradigms/self-supervised/masked-prediction/index.md
-              - Non-Contrastive Methods: theory/paradigms/self-supervised/non-contrastive-methods/index.md
+              - Non-Contrastive Methods:
+                  - theory/paradigms/self-supervised/non-contrastive-methods/index.md
+                  - DINOv2: theory/paradigms/self-supervised/non-contrastive-methods/dinov2.md
               - Pretext Tasks: theory/paradigms/self-supervised/pretext-tasks/index.md
               - Theory & Evaluation: theory/paradigms/self-supervised/theory-and-evaluation/index.md
           - Reinforcement Learning:
@@ -871,8 +904,21 @@ nav:
               - AlphaGo: theory/paradigms/reinforcement-learning/alphago/index.md
               - AlphaZero: theory/paradigms/reinforcement-learning/alphazero/index.md
               - Proximal Policy Optimisation: theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index.md
-              - Value-Based Methods: theory/paradigms/reinforcement-learning/value-based-methods/index.md
-              - Policy Gradient & Actor-Critic: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
+              - Value-Based Methods:
+                  - theory/paradigms/reinforcement-learning/value-based-methods/index.md
+                  - Q-Learning: theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.md
+                  - SARSA: theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.md
+                  - Double DQN: theory/paradigms/reinforcement-learning/value-based-methods/double-dqn/index.md
+                  - Rainbow: theory/paradigms/reinforcement-learning/value-based-methods/rainbow/index.md
+              - Policy Gradient & Actor-Critic:
+                  - theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
+                  - REINFORCE: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index.md
+                  - A3C: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/a3c/index.md
+                  - TRPO: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/trpo/index.md
+                  - DDPG: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/ddpg/index.md
+                  - TD3: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/td3/index.md
+                  - SAC: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/sac/index.md
+                  - GRPO: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index.md
               - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
               - MuZero: theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md
               - Offline RL: theory/paradigms/reinforcement-learning/offline-rl/index.md
@@ -940,6 +986,9 @@ nav:
           - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
           - Evolutionary & Swarm Intelligence:
               - theory/paradigms/evolutionary/index.md
+              - Genetic Algorithms: theory/paradigms/evolutionary/genetic-algorithms.md
+              - Genetic Programming: theory/paradigms/evolutionary/genetic-programming.md
+              - NEAT: theory/paradigms/evolutionary/neat.md
               - MAP-Elites: theory/paradigms/evolutionary/map-elites.md
               - Particle Swarm Optimisation: theory/paradigms/evolutionary/particle-swarm.md
               - Ant Colony Optimisation: theory/paradigms/evolutionary/ant-colony.md
@@ -1265,6 +1314,10 @@ nav:
               - GNM: applications/robotics/navigation/gnm.md
               - ViNT: applications/robotics/navigation/vint.md
               - NoMaD: applications/robotics/navigation/nomad.md
+          - Visual Localisation:
+              - applications/robotics/visual-localisation/index.md
+              - AnyLoc: applications/robotics/visual-localisation/anyloc.md
+              - EigenPlaces: applications/robotics/visual-localisation/eigenplaces.md
       - Autonomous Driving & Transport:
           - applications/autonomous-driving/index.md
           - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md
@@ -1350,6 +1403,8 @@ nav:
           - In-Memory and Analogue Computing: engineering/hardware/in-memory-computing/index.md
           - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md
           - Mixed-Precision Training: engineering/hardware/co-design/mixed-precision.md
+          - FP8 Formats: engineering/hardware/co-design/fp8.md
+          - Gradient Checkpointing: engineering/hardware/co-design/gradient-checkpointing.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md

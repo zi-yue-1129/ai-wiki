@@ -56,6 +56,9 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 
 - [Adam](adam.md)（Kingma 與 Ba，2014/2015）：動量加上以二階矩為基礎的逐參數尺度，並做偏差校正。
 - [AdamW](adamw.md)（Loshchilov 與 Hutter，2017/2019）：把權重衰減移到自適應步驟之外的 Adam。
+- [AdaGrad](adagrad.md)（Duchi 等人，2011）：依累積的平方梯度為每個座標設定步長，適合稀疏特徵，但步長會隨訓練而縮小。
+- [Lion](lion.md)（Chen 等人，2023）：以單一動量緩衝的符號更新，使每個參數的最佳化器狀態比 Adam 少一半。
+- [Adafactor](adafactor.md)（Shazeer 與 Stern，2018）：對矩陣參數以因式分解的二階矩估計，只保存列和與行和，而非每個元素一個值。
 
 ### 比較
 
@@ -64,6 +67,9 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 | 帶動量的 SGD | 有（重球或 Nesterov） | 無，所有參數共用一個學習率 | 通常在梯度中加入 L2 | [SGD 與動量](../sgd-and-momentum/index.md) |
 | Adam | 有，一階矩 | 有，二階矩的平方根 | 若使用，為梯度中的 L2 | [Adam](adam.md) |
 | AdamW | 有，一階矩 | 有，二階矩的平方根 | 解耦，位於步驟之外 | [AdamW](adamw.md) |
+| AdaGrad | 無 | 有，累積平方梯度的平方根 | 本表未涵蓋 | [AdaGrad](adagrad.md) |
+| Adafactor | 可選，可省略 | 有，矩陣參數的因式分解二階矩 | 本表未涵蓋 | [Adafactor](adafactor.md) |
+| Lion | 有，一個緩衝 | 無，更新為符號 | 解耦，加在符號步驟上 | [Lion](lion.md) |
 
 ## 關聯
 
@@ -88,10 +94,12 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR. https://arxiv.org/abs/1412.6980 — 提出 Adam，一種利用梯度偏差校正矩估計的自適應方法。
 - Loshchilov, I. & Hutter, F. (2019). Decoupled Weight Decay Regularization. ICLR. https://arxiv.org/abs/1711.05101 — 指出 L2 正則化與權重衰減在 Adam 下不同，並提出 AdamW。
 - Duchi, J., Hazan, E. & Singer, Y. (2011). Adaptive Subgradient Methods for Online Learning and Stochastic Optimization. *JMLR*. https://jmlr.org/papers/v12/duchi11a.html — 提出 AdaGrad，依每個座標累積的平方梯度縮放步長。
+- Shazeer, N. & Stern, M. (2018). Adafactor: Adaptive Learning Rates with Sublinear Memory Cost. ICML 2018, PMLR 80, pp. 4596–4604. https://proceedings.mlr.press/v80/shazeer18a.html — 把矩陣參數的二階矩估計分解，以減少最佳化器記憶體。
+- Chen, X., Liang, C., Huang, D., Real, E., Wang, K., Liu, Y., Pham, H., Dong, X., Luong, T., Hsieh, C.-J., Lu, Y. & Le, Q. V. (2023). Symbolic Discovery of Optimization Algorithms. arXiv. https://arxiv.org/abs/2302.06675 — 提出 Lion，一種只保存單一動量緩衝的符號式最佳化器。
 
 ### 綜述與教科書
 
-- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization Methods for Large-Scale Machine Learning. *SIAM Review*. https://arxiv.org/abs/1606.04838 — 隨機梯度方法綜述，包含自適應變體，以及它們在大型資料集上的取捨。
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2016). Optimization Methods for Large-Scale Machine Learning. arXiv. https://arxiv.org/abs/1606.04838 — 隨機梯度方法綜述，包含自適應變體，以及它們在大型資料集上的取捨。
 
 ### 文章與文件
 

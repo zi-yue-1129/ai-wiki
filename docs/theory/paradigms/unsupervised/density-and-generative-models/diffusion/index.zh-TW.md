@@ -43,15 +43,15 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 
 ### 較快的取樣
 
-單純的取樣器需要和訓練一樣多的步數。兩種想法可以減少步數：DDIM 這類非馬可夫取樣器能以少很多的步數重用同一個訓練好的模型；蒸餾則訓練學生模型，讓它一步就能達到教師模型數步的效果。無分類器引導以多樣性換取提示的忠實度，並在取樣時套用，不需要另外的分類器。
+單純的取樣器需要和訓練一樣多的步數。兩種想法可以減少步數：DDIM 這類非馬可夫取樣器能以少很多的步數重用同一個訓練好的模型。在無條件 CIFAR-10 上，DDIM 以 50 步達到 FID 4.67，DDPM 同樣 50 步為 8.01。蒸餾則訓練學生模型，讓它一步就能達到教師模型數步的效果。無分類器引導以多樣性換取提示的忠實度，並在取樣時套用，不需要另外的分類器。
 
 ## 關鍵方法
 
 每個具名方法都有自己的頁面，包含問題、核心想法、公式、結果與限制。
 
 - [DDPM](ddpm.md)（Ho、Jain 與 Abbeel，2020）：雜訊預測目標與取樣器，使擴散在影像上變得實用。
-- [DDIM](ddim.md)（Song、Meng 與 Ermon，2020/2021）：非馬可夫取樣器，以少得多的步數重用 DDPM 模型。
-- [潛在擴散](latent-diffusion.md)（Rombach 等人，2021/2022）：在自編碼器潛在空間中擴散，並以交叉注意力條件化。
+- [DDIM](ddim.md)（Song、Meng 與 Ermon，2021）：非馬可夫取樣器，以少得多的步數重用 DDPM 模型。
+- [潛在擴散](latent-diffusion.md)（Rombach 等人，2022）：在自編碼器潛在空間中擴散，並以交叉注意力條件化。
 - [DiT](../../../../models/transformer/dit/index.md)（Peebles 與 Xie，2022/2023）：取代 U-Net 且隨運算量擴展的 Transformer 去噪器。
 - [無分類器引導](classifier-free-guidance.md)（Ho 與 Salimans，2022）：不需另外分類器的條件控制。
 
@@ -63,7 +63,7 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 | [DDIM](ddim.md) | 同一模型上的非馬可夫取樣器 | 任意子序列，遠少於 DDPM | 同 DDPM | 同 DDPM |
 | [潛在擴散](latent-diffusion.md) | 在自編碼器潛在空間中擴散 | 少到多 | U-Net | 交叉注意力 |
 | [DiT](../../../../models/transformer/dit/index.md) | Transformer 去噪器 | 少到多 | 作用於圖塊的 Transformer | 自適應層正規化，含時間步與類別 |
-| [無分類器引導](classifier-free-guidance.md) | 取樣時結合兩種預測 | 不變，但每步兩次評估 | 任意 | 引導比例 \(w\) |
+| [無分類器引導](classifier-free-guidance.md) | 取樣時結合兩種預測 | 不變，但每步兩次評估 | 任意 | 引導權重 \(w\)，\(w = 0\) 即一般有條件模型 |
 
 ## 關聯
 

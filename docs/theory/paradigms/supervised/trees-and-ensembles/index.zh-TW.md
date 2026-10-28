@@ -58,7 +58,7 @@ tags:
 
 ### 文章與文件
 
-- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, arXiv:2207.08815 — 基準測試與分析，說明為什麼在表格資料上樹的集成常勝過神經網路。
+- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, [arXiv:2207.08815](https://arxiv.org/abs/2207.08815) — 基準測試與分析，說明為什麼在表格資料上樹的集成常勝過神經網路。
 
 ## 延伸學習
 

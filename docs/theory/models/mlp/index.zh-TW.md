@@ -63,8 +63,8 @@ MLP 區塊出現在 [CNN](../cnn/index.md)、[RNN](../rnn/index.md) 與 [Transfo
 ### 開創性論文
 
 - Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). "Learning representations by back-propagating errors". *Nature* 323: 533–536. https://doi.org/10.1038/323533a0 — 推廣了以反向傳播訓練具隱藏層的多層網路。
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — 殘差連接，使深層網路能夠訓練。
-- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". arXiv:1607.06450 — 在特徵上而非批次上做正規化。
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — 殘差連接，使深層網路能夠訓練。
+- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". [arXiv:1607.06450](https://arxiv.org/abs/1607.06450) — 在特徵上而非批次上做正規化。
 
 ### 綜述與教科書
 
@@ -76,4 +76,4 @@ MLP 區塊出現在 [CNN](../cnn/index.md)、[RNN](../rnn/index.md) 與 [Transfo
 
 ### 文章與文件
 
-- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". arXiv:1606.08415 — GELU 激活函數，被許多 Transformer 模型採用。
+- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". [arXiv:1606.08415](https://arxiv.org/abs/1606.08415) — GELU 激活函數，被許多 Transformer 模型採用。

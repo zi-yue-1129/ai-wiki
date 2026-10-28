@@ -75,7 +75,7 @@ The abstract reports that Lion improves ViT accuracy on ImageNet by up to 2% and
 - Chen, X., Liang, C., Huang, D., Real, E., Wang, K., Liu, Y., Pham, H., Dong, X., Luong, T., Hsieh, C.-J., Lu, Y. & Le, Q. V. (2023). *Symbolic Discovery of Optimization Algorithms*. arXiv. https://arxiv.org/abs/2302.06675 — Introduces Lion, a sign-based optimiser that keeps a single momentum buffer.
 - Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — The two-buffer method that Lion is compared against.
 - Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — The decoupled weight decay used in Lion's update.
-- Shazeer, N. & Stern, M. (2018). *Adafactor: Adaptive Learning Rates with Sublinear Memory Cost*. arXiv. https://arxiv.org/abs/1804.04235 — Another memory-saving adaptive method, for comparison.
+- Shazeer, N. & Stern, M. (2018). *Adafactor: Adaptive Learning Rates with Sublinear Memory Cost*. ICML 2018, PMLR 80, pp. 4596–4604. https://proceedings.mlr.press/v80/shazeer18a.html — Another memory-saving adaptive method, for comparison.
 
 ### Surveys and textbooks
 

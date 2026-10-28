@@ -58,9 +58,9 @@ The [MLP](../index.md) family page contrasts it with batch normalisation, which 
 
 ### Seminal papers
 
-- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". arXiv:1607.06450 — Normalises over features rather than over the batch.
-- Ioffe, S. & Szegedy, C. (2015). "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift". arXiv:1502.03167 — Normalises activations over each mini-batch, the method that layer normalisation was proposed as an alternative to.
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — Residual connections that make deep networks trainable.
+- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". [arXiv:1607.06450](https://arxiv.org/abs/1607.06450) — Normalises over features rather than over the batch.
+- Ioffe, S. & Szegedy, C. (2015). "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift". [arXiv:1502.03167](https://arxiv.org/abs/1502.03167) — Normalises activations over each mini-batch, the method that layer normalisation was proposed as an alternative to.
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — Residual connections that make deep networks trainable.
 
 ### Surveys and textbooks
 
@@ -72,4 +72,4 @@ The [MLP](../index.md) family page contrasts it with batch normalisation, which 
 
 ### Articles and documentation
 
-- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". arXiv:1606.08415 — The GELU activation, used in many Transformer models.
+- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". [arXiv:1606.08415](https://arxiv.org/abs/1606.08415) — The GELU activation, used in many Transformer models.

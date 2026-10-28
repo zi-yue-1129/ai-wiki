@@ -44,14 +44,14 @@ Training stability and sample efficiency on real hardware are still limiting. Di
 
 ### Seminal papers
 
-- Ho & Ermon (2016), "Generative adversarial imitation learning", NeurIPS, arXiv:1606.03476 — Introduces GAIL, which matches the expert's state–action distribution with a discriminator and policy-gradient RL.
-- Fu, Luo & Levine (2018), "Learning robust rewards with adversarial inverse reinforcement learning", ICLR, arXiv:1710.11248 — AIRL, which recovers state-dependent rewards that transfer across changed dynamics.
-- Finn, Levine & Abbeel (2016), "Guided cost learning: deep inverse optimal control via policy optimization", ICML, arXiv:1603.00448 — Connects inverse optimal control with a generative-adversarial view of learning costs from samples.
-- Goodfellow, Pouget-Abadie, Mirza, Xu, Warde-Farley, Ozair, Courville & Bengio (2014), "Generative adversarial networks", NeurIPS, arXiv:1406.2661 — The adversarial training framework that these imitation methods build on.
+- Ho & Ermon (2016), "Generative adversarial imitation learning", NeurIPS, [arXiv:1606.03476](https://arxiv.org/abs/1606.03476) — Introduces GAIL, which matches the expert's state–action distribution with a discriminator and policy-gradient RL.
+- Fu, Luo & Levine (2018), "Learning robust rewards with adversarial inverse reinforcement learning", ICLR, [arXiv:1710.11248](https://arxiv.org/abs/1710.11248) — AIRL, which recovers state-dependent rewards that transfer across changed dynamics.
+- Finn, Levine & Abbeel (2016), "Guided cost learning: deep inverse optimal control via policy optimization", ICML, [arXiv:1603.00448](https://arxiv.org/abs/1603.00448) — Connects inverse optimal control with a generative-adversarial view of learning costs from samples.
+- Goodfellow, Pouget-Abadie, Mirza, Xu, Warde-Farley, Ozair, Courville & Bengio (2014), "Generative adversarial networks", NeurIPS, [arXiv:1406.2661](https://arxiv.org/abs/1406.2661) — The adversarial training framework that these imitation methods build on.
 
 ### Surveys and textbooks
 
-- Osa et al. (2018), "An algorithmic perspective on imitation learning", arXiv:1811.06711 — Survey that places adversarial imitation among other learning-from-demonstration methods.
+- Osa et al. (2018), "An algorithmic perspective on imitation learning", [arXiv:1811.06711](https://arxiv.org/abs/1811.06711) — Survey that places adversarial imitation among other learning-from-demonstration methods.
 
 ### Lectures and videos
 
@@ -63,4 +63,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Kostrikov, Agrawal, Dwibedi, Levine & Tompson (2019), "Imitation learning via off-policy distribution matching", arXiv:1912.05032 — Off-policy variant that avoids much of the online interaction needed by GAIL.
+- Kostrikov, Agrawal, Dwibedi, Levine & Tompson (2019), "Imitation learning via off-policy distribution matching", [arXiv:1912.05032](https://arxiv.org/abs/1912.05032) — Off-policy variant that avoids much of the online interaction needed by GAIL.
