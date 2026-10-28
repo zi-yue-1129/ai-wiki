@@ -26,7 +26,7 @@ translation_reviewed: 2026-10-28
 3. **模擬**：從新節點開始，通常以隨機著法模擬到終局，得到結果。
 4. **回傳**：更新路徑上每個節點的造訪次數與平均結果。
 
-完成預定次數的迭代後，選擇造訪次數最多（或平均結果最高）的著法。Coulom（2007）為此方法命名，並研究了圍棋中的回傳運算子。
+完成預定次數的迭代後，選擇造訪次數最多（或平均結果最高）的著法。Coulom（2007）比較了圍棋中的回傳運算子，並報告 robust max 與平均的混合效果最佳。論文將此術語歸於 Chang、Fu 與 Marcus，而非 Coulom。
 
 ## 變體
 
@@ -58,7 +58,7 @@ translation_reviewed: 2026-10-28
 ### 奠基性論文
 
 - Kocsis, L. & Szepesvári, C. (2006). Bandit based Monte-Carlo planning. In *Machine Learning: ECML 2006*, Lecture Notes in Computer Science, 282–293. https://doi.org/10.1007/11871842_29 — 提出 UCT（UCB 應用於樹）。論文證明有限期 MDP 下的一致性與有限樣本界，並在 P-game 樹上報告 UCT 的失敗率趨近於零；論文並未證明收斂到極小極大值。
-- Coulom, R. (2007). Efficient selectivity and backup operators in Monte-Carlo tree search. In *Computers and Games*, Lecture Notes in Computer Science, 72–83. https://doi.org/10.1007/978-3-540-75538-8_7 — 為此方法命名，並研究圍棋中的回傳運算子。
+- Coulom, R. (2007). Efficient selectivity and backup operators in Monte-Carlo tree search. In *Computers and Games*, Lecture Notes in Computer Science, 72–83. https://doi.org/10.1007/978-3-540-75538-8_7 — 比較圍棋中的回傳運算子（平均、最大、robust max 與混合）。論文將此術語歸於 Chang、Fu 與 Marcus。
 - Auer, P., Cesa-Bianchi, N. & Fischer, P. (2002). Finite-time analysis of the multiarmed bandit problem. *Machine Learning* 47(2–3), 235–256. https://doi.org/10.1023/A:1013689704352 — 給出選擇規則所依據的 UCB1 界限。
 
 ### 綜述與教科書
