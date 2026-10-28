@@ -62,10 +62,10 @@ Piaget 曾主張，物體恆存在嬰兒期後段（約第二年）才發展出�
 ### 開創性論文
 
 - Baillargeon, R., Spelke, E. S. & Wasserman, S.（1985）。Object permanence in five-month-old infants. *Cognition*。https://doi.org/10.1016/0010-0277(85)90008-3 — 以注視時間顯示，年幼的嬰兒預期被遮住的物體會繼續存在。
-- Saffran, J. R., Aslin, R. N. & Newport, E. L.（1996）。Statistical learning by 8-month-old infants. *Science*。https://pubmed.ncbi.nlm.nih.gov/8943209/ — 另一種注視時間範式，應用於語音切分。
+- Saffran, J. R., Aslin, R. N. & Newport, E. L.（1996）。Statistical learning by 8-month-old infants. *Science*。https://doi.org/10.1126/science.274.5294.1926 — 另一種注視時間範式，應用於語音切分。
 
 ### 綜述與教科書
 
-- Spelke, E. S. & Kinzler, K. D.（2007）。Core knowledge. *Developmental Science*。https://pmc.ncbi.nlm.nih.gov/articles/PMC2746564 — 這個範式所要檢驗的核心知識觀點，嬰兒對物體的預期正是為了檢驗它。
+- Spelke, E. S. & Kinzler, K. D.（2007）。Core knowledge. *Developmental Science*。https://doi.org/10.1111/j.1467-7687.2007.00569.x — 這個範式所要檢驗的核心知識觀點，嬰兒對物體的預期正是為了檢驗它。
 - Lake, B. M., Ullman, T. D., Tenenbaum, J. B. & Gershman, S. J.（2017）。Building machines that learn and think like people. *Behavioral and Brain Sciences*。https://doi.org/10.1017/S0140525X16001837 — 討論兒童與機器中的直覺物理與物體知識。
-- Kidd, C., Piantadosi, S. T. & Aslin, R. N.（2012）。The Goldilocks effect: human infants allocate attention to visual sequences that are neither too simple nor too complex. *PLoS ONE*。https://pmc.ncbi.nlm.nih.gov/articles/PMC3359326 — 利用嬰兒注視時間，顯示他們注意中等複雜度的序列。
+- Kidd, C., Piantadosi, S. T. & Aslin, R. N.（2012）。The Goldilocks effect: human infants allocate attention to visual sequences that are neither too simple nor too complex. *PLoS ONE*。https://doi.org/10.1371/journal.pone.0036399 — 利用嬰兒注視時間，顯示他們注意中等複雜度的序列。

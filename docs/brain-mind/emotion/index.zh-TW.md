@@ -79,7 +79,7 @@ flowchart LR
 
 - Russell, J. A.（1980）。A circumplex model of affect. *Journal of Personality and Social Psychology*。https://doi.org/10.1037/h0077714 — 提出情緒狀態可放在由效價與喚起度界定的圓上。
 - LeDoux, J. E.（2000）。Emotion circuits in the brain. *Annual Review of Neuroscience*。https://doi.org/10.1146/annurev.neuro.23.1.155 — 回顧以杏仁核為中心、負責恐懼與威脅的迴路。
-- Picard, R. W.（1997）。*Affective Computing*。MIT Press。https://www.schweitzer-online.de/en/buch/Picard/Affective-Computing/9780262161701/A39598287/ — 建立能辨識、詮釋與表達情緒之機器系統的領域框架。
+- Picard, R. W.（1997）。*Affective Computing*。MIT Press。https://doi.org/10.7551/mitpress/1140.001.0001 — 建立能辨識、詮釋與表達情緒之機器系統的領域框架。
 
 ### 綜述與回顧
 

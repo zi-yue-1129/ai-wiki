@@ -63,7 +63,7 @@ aliases:
 ### 開創性論文
 
 - Neftci, E. O., Mostafa, H. & Zenke, F.（2019）。Surrogate gradient learning in spiking neural networks. *arXiv*。https://arxiv.org/abs/1901.09948 — 提出替代梯度，使脈衝神經網路能以時間反向傳播來訓練。
-- Bellec, G., et al.（2020）。A solution to the learning dilemma for recurrent networks of spiking neurons. *Nature Communications*。https://pmc.ncbi.nlm.nih.gov/articles/PMC7367848 — e-prop 學習規則，是脈衝網路上時間反向傳播的線上近似。
+- Bellec, G., et al.（2020）。A solution to the learning dilemma for recurrent networks of spiking neurons. *Nature Communications*。https://doi.org/10.1038/s41467-020-17236-y — e-prop 學習規則，是脈衝網路上時間反向傳播的線上近似。
 
 ### 綜述與教科書
 

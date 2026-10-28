@@ -71,7 +71,7 @@ Differential privacy definition: a mechanism \(M\) is (ε, δ)-DP if for neighbo
 
 ## Further reading
 
-- Dwork & Roth, *The Algorithmic Foundations of Differential Privacy*. Foundations and Trends in Theoretical Computer Science, 9(3–4). https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf — The standard textbook on differential privacy, with the mechanisms and proofs in full.
+- Dwork & Roth, *The Algorithmic Foundations of Differential Privacy*. Foundations and Trends in Theoretical Computer Science, 9(3–4). https://doi.org/10.1561/0400000042 — The standard textbook on differential privacy, with the mechanisms and proofs in full.
 - [Flower](https://flower.ai/), [TensorFlow Federated](https://www.tensorflow.org/federated), [Opacus](https://opacus.ai/) (DP for PyTorch)
 
 ## References

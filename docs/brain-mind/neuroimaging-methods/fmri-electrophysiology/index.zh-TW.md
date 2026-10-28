@@ -62,10 +62,10 @@ Logothetis 等人（2001）在猴子的皮質中記錄電活動，同時對同�
 ### 開創性論文
 
 - Logothetis, N. K., Pauls, J., Augath, M., Trinath, T. & Oeltermann, A.（2001）。Neurophysiological investigation of the basis of the fMRI signal. *Nature*。https://doi.org/10.1038/35084005 — 把 BOLD 訊號與同一批動物記錄的局部場電位及脈衝相關聯。
-- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W.（1990）。Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*。https://pmc.ncbi.nlm.nih.gov/articles/PMC55275 — BOLD 訊號所測量的血氧對比。
-- Hubel, D. H. & Wiesel, T. N.（1962）。Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*。https://pubmed.ncbi.nlm.nih.gov/14449617/ — 脈衝測量所依據的單神經元記錄傳統。
+- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W.（1990）。Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*。https://doi.org/10.1073/pnas.87.24.9868 — BOLD 訊號所測量的血氧對比。
+- Hubel, D. H. & Wiesel, T. N.（1962）。Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*。https://doi.org/10.1113/jphysiol.1962.sp006837 — 脈衝測量所依據的單神經元記錄傳統。
 
 ### 文章與原始研究
 
-- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N.（2010）。New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*。https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923 — 功能性磁振造影方法，其詮釋取決於本文所檢驗的耦合。
+- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N.（2010）。New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*。https://doi.org/10.1152/jn.00032.2010 — 功能性磁振造影方法，其詮釋取決於本文所檢驗的耦合。
 - Goldstein, A., Zada, Z., Buchnik, E., Schain, M., Price, A., 等人（2022）。Shared computational principles for language processing in humans and deep language models. *Nature Neuroscience*。https://doi.org/10.1038/s41593-022-01026-4 — 使用皮質腦電圖這種直接的電測量，與較慢的血液基礎訊號比較。

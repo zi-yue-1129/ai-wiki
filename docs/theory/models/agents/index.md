@@ -100,4 +100,6 @@ Sumers et al. (2023), "Cognitive Architectures for Language Agents" (CoALA), lay
 
 ### Articles and documentation
 
+## Further learning
+
 - Erik S. & Zhang, B. (2024). *Building effective agents*. Anthropic Engineering. https://www.anthropic.com/engineering/building-effective-agents — A practical guide to simple, composable agent workflows, and when a fully autonomous agent is worth its cost.

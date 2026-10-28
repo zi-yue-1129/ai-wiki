@@ -92,4 +92,6 @@ Sumers et al.（2023），"Cognitive Architectures for Language Agents"（CoALA�
 
 ### 文章與文件
 
+## 延伸學習
+
 - Erik S. & Zhang, B. (2024). *Building effective agents*. Anthropic Engineering. https://www.anthropic.com/engineering/building-effective-agents — 關於簡單、可組合的代理人工作流程的實務指南，以及何時完全自主的代理人值得付出其成本。

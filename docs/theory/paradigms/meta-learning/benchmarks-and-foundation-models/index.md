@@ -43,7 +43,7 @@ Benchmarks saturate and can reward dataset-specific tricks. It is not clear whet
 
 ### Seminal papers
 
-- Lake, Salakhutdinov & Tenenbaum (2015), "Human-level concept learning through probabilistic program induction", Science. https://cbmm.mit.edu/publications/human-level-concept-learning-through-probabilistic-program-induction — Introduces the Omniglot concept-learning task and a Bayesian program-induction model.
+- Lake, Salakhutdinov & Tenenbaum (2015), "Human-level concept learning through probabilistic program induction", Science. https://doi.org/10.1126/science.aab3050 — Introduces the Omniglot concept-learning task and a Bayesian program-induction model.
 - Vinyals et al. (2016), "Matching networks for one shot learning", NeurIPS, arXiv:1606.04080 — Introduces the episodic protocol and the miniImageNet one-shot benchmark used in the field.
 - Brown et al. (2020), "Language models are few-shot learners", NeurIPS, arXiv:2005.14165 — Shows that a large language model performs few-shot tasks from examples in the prompt, without gradient updates.
 - Chen, Liu, Kira, Wang & Huang (2019), "A closer look at few-shot classification", ICLR, arXiv:1904.04232 — Shows that a simple baseline with standard training matches many episodic methods.

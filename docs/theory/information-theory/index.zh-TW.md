@@ -71,10 +71,10 @@ H(p,q) = H(p) + D_{\mathrm{KL}}(p\,\|\,q)
 
 - Shannon, C. E. (1948). *A Mathematical Theory of Communication*. Bell System Technical Journal, 27, 379–423 and 623–656. https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf — 奠基之作：以熵衡量資訊，並定義壓縮與可靠通訊的極限。此為網路上的重印版本。
 - Linsker, R. (1988). Self-organization in a perceptual network. *Computer*, 21(3), 105–117. https://doi.org/10.1109/2.36 — 提出 infomax 原則：一個分層的感知模型，會藉由保留關於輸入的資訊而自我組織。
-- Barlow, H. B. (1961). Possible principles underlying the transformations of sensory messages. In *Sensory Communication*, pp. 217–234. https://mlanthology.org/misc/1961/barlow1961misc-possible — 提出感覺處理會減少冗餘，是效率編碼假說的起源。
+- Barlow, H. B. (1961). Possible principles underlying the transformations of sensory messages. In *Sensory Communication*, pp. 217–234. https://doi.org/10.7551/mitpress/9780262518420.003.0013 — 提出感覺處理會減少冗餘，是效率編碼假說的起源。
 - Tishby, N., Pereira, F. C. & Bialek, W. (2000). The information bottleneck method. arXiv:physics/0004057. https://arxiv.org/abs/physics/0004057 — 定義相關資訊，並推導壓縮輸入與預測目標之間的權衡。
 - Alemi, A. A., Fischer, I., Dillon, J. V. & Murphy, K. (2016). Deep variational information bottleneck. arXiv:1612.00410. https://arxiv.org/abs/1612.00410 — 使資訊瓶頸能以神經網路訓練，並回報相較某些標準正則化方法有更好的泛化與對抗性強健性。
-- Saxe, A. M., Bansal, Y., Dapello, J., Advani, M., Kolchinsky, A., Tracey, B. D. & Cox, D. (2019). On the information bottleneck theory of deep learning. *Journal of Statistical Mechanics*. https://research.ibm.com/publications/on-the-information-bottleneck-theory-of-deep-learning — 主張關於深度網路壓縮的核心論點在一般情況下並不成立，觀察到的壓縮主要取決於非線性函數。
+- Saxe, A. M., Bansal, Y., Dapello, J., Advani, M., Kolchinsky, A., Tracey, B. D. & Cox, D. (2019). On the information bottleneck theory of deep learning. *Journal of Statistical Mechanics*. https://doi.org/10.1088/1742-5468/ab3985 — 主張關於深度網路壓縮的核心論點在一般情況下並不成立，觀察到的壓縮主要取決於非線性函數。
 
 ### 教科書與綜述
 

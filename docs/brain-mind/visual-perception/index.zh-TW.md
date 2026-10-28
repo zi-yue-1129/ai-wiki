@@ -87,7 +87,7 @@ flowchart LR
 ### 開創性論文
 
 - Hubel, D. H. & Wiesel, T. N.（1962）。Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*。https://doi.org/10.1113/jphysiol.1962.sp006837 — 發現有方向選擇性的簡單與複雜細胞，是階層式視覺模型的生物學靈感。
-- Goodale, M. A. & Milner, A. D.（1992）。Separate visual pathways for perception and action. *Trends in Neurosciences*。https://pubmed.ncbi.nlm.nih.gov/1374953/ — 提出腹側「什麼」與背側「如何」路徑，至今仍是視覺研究的主要架構。
+- Goodale, M. A. & Milner, A. D.（1992）。Separate visual pathways for perception and action. *Trends in Neurosciences*。https://doi.org/10.1016/0166-2236(92)90344-8 — 提出腹側「什麼」與背側「如何」路徑，至今仍是視覺研究的主要架構。
 - Krizhevsky, A., Sutskever, I. & Hinton, G. E.（2012）。ImageNet Classification with Deep Convolutional Neural Networks. *NeurIPS*。https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html — AlexNet 論文，使深度卷積網路成為影像辨識的標準模型。
 - Yamins, D. L. K., Hong, H., Cadieu, C. F., Solomon, E. A., Seibert, D. & DiCarlo, J. J.（2014）。Performance-optimized hierarchical models predict neural responses in higher visual cortex. *PNAS*。https://doi.org/10.1073/pnas.1403112111 — 顯示物體辨識效能能預測網路對 IT 反應的解釋力。
 - Geirhos, R., Rubisch, P., Michaelis, C., Bethge, M., Wichmann, F. A. & Brendel, W.（2019）。ImageNet-trained CNNs are biased towards texture. *ICLR*。https://arxiv.org/abs/1811.12231 — 顯示一般 CNN 依賴紋理，風格化訓練可使其轉向形狀。
@@ -99,4 +99,4 @@ flowchart LR
 
 ### 講座與影片
 
-- Yamins, D., *Predictive Models of Neurons in Sensory Cortex*，史丹佛大學課程資料。https://web.stanford.edu/~yamins/computational-models-of-sensory-cortex.html — 由 2014 年論文作者撰寫的課程資料，說明如何以最佳化網路模擬感覺皮質。
+- Yamins, D., *Computational Models of Sensory Cortex*，史丹佛大學課程資料。https://web.stanford.edu/~yamins/computational-models-of-sensory-cortex.html — 由 2014 年論文作者撰寫的課程資料，說明如何以最佳化網路模擬感覺皮質。

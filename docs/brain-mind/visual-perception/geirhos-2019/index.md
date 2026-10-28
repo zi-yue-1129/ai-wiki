@@ -75,4 +75,4 @@ The summary used for this page gives these results qualitatively. Check the full
 ### Surveys and reviews
 
 - Lindsay, G. W. (2021). Convolutional Neural Networks as a Model of the Visual System: Past, Present, and Future. *Journal of Cognitive Neuroscience*. https://doi.org/10.1162/jocn_a_01544 — A review of how CNNs have been used as models of the visual system, and what they explain and miss.
-- Goodale, M. A. & Milner, A. D. (1992). Separate visual pathways for perception and action. *Trends in Neurosciences*. https://pubmed.ncbi.nlm.nih.gov/1374953/ — The ventral and dorsal streams that set up the human-side contrast in the shape question.
+- Goodale, M. A. & Milner, A. D. (1992). Separate visual pathways for perception and action. *Trends in Neurosciences*. https://doi.org/10.1016/0166-2236(92)90344-8 — The ventral and dorsal streams that set up the human-side contrast in the shape question.

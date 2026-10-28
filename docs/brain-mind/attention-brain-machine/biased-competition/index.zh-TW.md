@@ -61,13 +61,13 @@ Desimone 與 Duncan（1995）提出，同一感受野內的刺激會在視覺皮
 
 ### 開創性論文
 
-- Desimone, R. & Duncan, J.（1995）。Neural mechanisms of selective visual attention. *Annual Review of Neuroscience*。https://www.mrc-cbu.cam.ac.uk/bibliography/articles/3148 — 提出偏向競爭，即由上而下的訊號解決同一感受野內刺激之間的競爭。
+- Desimone, R. & Duncan, J.（1995）。Neural mechanisms of selective visual attention. *Annual Review of Neuroscience*。https://doi.org/10.1146/annurev.ne.18.030195.001205 — 提出偏向競爭，即由上而下的訊號解決同一感受野內刺激之間的競爭。
 - Itti, L., Koch, C. & Niebur, E.（1998）。A model of saliency-based visual attention for rapid scene analysis. *IEEE Transactions on Pattern Analysis and Machine Intelligence*。https://doi.org/10.1109/34.730558 — 以特徵對比為基礎的由下而上注意力模型，是偏向競爭的對應面。
 - Mnih, V., Heess, N., 等人（2014）。Recurrent Models of Visual Attention. *NeurIPS*。https://arxiv.org/abs/1406.6247 — 學習而得的由上而下注意力選取模型，是目標導向選擇的機器版本。
 
 ### 綜述與回顧
 
-- Corbetta, M. & Shulman, G. L.（2002）。Control of goal-directed and stimulus-driven attention in the brain. *Nature Reviews Neuroscience*。https://pubmed.ncbi.nlm.nih.gov/11994752/ — 提供由上而下與由下而上訊號的背側與腹側注意力網路。
+- Corbetta, M. & Shulman, G. L.（2002）。Control of goal-directed and stimulus-driven attention in the brain. *Nature Reviews Neuroscience*。https://doi.org/10.1038/nrn755 — 提供由上而下與由下而上訊號的背側與腹側注意力網路。
 
 ### 文章與原始研究
 

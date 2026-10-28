@@ -75,9 +75,9 @@ Each method has its own page. This table is only a comparison.
 
 ### Seminal papers
 
-- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W. (1990). Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*. https://pmc.ncbi.nlm.nih.gov/articles/PMC55275 — Shows that magnetic resonance contrast depends on blood oxygenation, the basis of BOLD fMRI.
+- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W. (1990). Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*. https://doi.org/10.1073/pnas.87.24.9868 — Shows that magnetic resonance contrast depends on blood oxygenation, the basis of BOLD fMRI.
 - Logothetis, N. K., Pauls, J., Augath, M., Trinath, T. & Oeltermann, A. (2001). Neurophysiological investigation of the basis of the fMRI signal. *Nature*. https://doi.org/10.1038/35084005 — Records electrical activity and fMRI together, and relates the BOLD signal to local field potentials and spiking.
-- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N. (2010). New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*. https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923 — A fMRI method that defines each person's regions functionally, with a worked application to language.
+- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N. (2010). New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*. https://doi.org/10.1152/jn.00032.2010 — A fMRI method that defines each person's regions functionally, with a worked application to language.
 
 ### Articles and primary research
 
