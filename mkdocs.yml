@@ -665,6 +665,32 @@ plugins:
             Consistency Models and Fast Samplers: 一致性模型與快速取樣器
             Model Extraction and Theft: 模型萃取與竊取
             Deceptive alignment and sleeper agents: 欺騙性對齊與潛伏代理人
+            Automated Planning: 自動規劃
+            AI Incident Databases and Case Studies: AI 事故資料庫與案例研究
+            Dartmouth and the Symbolic Era: 達特茅斯會議與符號時代（1956–1974）
+            Logic Theorist and General Problem Solver: Logic Theorist 與通用問題求解器
+            Perceptron and the Minsky–Papert Critique: 感知器與 Minsky–Papert 批判
+            Probabilistic Graphical Models: 機率圖模型
+            Hidden Markov Model: 隱馬可夫模型
+            Conditional Random Field: 條件隨機場
+            Belief Propagation: 信念傳播
+            Neural Architecture Search and AutoML: 神經架構搜尋與 AutoML
+            NAS with Reinforcement Learning: 以強化學習進行 NAS
+            Regularized Evolution: 正則化演化
+            Hyperparameter Optimisation: 超參數最佳化
+            Multi-Agent Reinforcement Learning: 多代理人強化學習
+            Population-Based Training: 基於族群的訓練
+            Model Specifications and Behaviour Policies: 模型規範與行為政策
+            Weather Forecasting and Earth Observation: 天氣預報與地球觀測
+            Spatial Navigation and Cognitive Maps: 空間導航與認知地圖
+            Place Cells: 位置細胞
+            Grid Cells: 網格細胞
+            Tolman–Eichenbaum Machine: Tolman–Eichenbaum 機器
+            Model Catalogue: 主要模型目錄
+            Expert Systems and the AI Winters: 專家系統與 AI 寒冬（1974–2006）
+            MYCIN and Certainty Factors: MYCIN 與確定性因子
+            Backpropagation and the Connectionist Revival: 反向傳播與連結主義的復興
+            Statistical Language Processing: 統計語言處理
 
 markdown_extensions:
   - abbr
@@ -715,7 +741,18 @@ nav:
       - start/index.md
       - Learning Paths: start/learning-paths/index.md
       - Open-Source Resource Survey: start/open-source-survey/index.md
-      - History of AI: start/history/index.md
+      - History of AI:
+          - start/history/index.md
+          - Dartmouth and the Symbolic Era:
+              - start/history/symbolic-era/index.md
+              - Logic Theorist and General Problem Solver: start/history/symbolic-era/logic-theorist/index.md
+              - Perceptron and the Minsky–Papert Critique: start/history/symbolic-era/perceptron/index.md
+              - ELIZA: start/history/symbolic-era/eliza/index.md
+          - Expert Systems and the AI Winters:
+              - start/history/expert-systems-and-winters/index.md
+              - MYCIN and Certainty Factors: start/history/expert-systems-and-winters/mycin/index.md
+              - Backpropagation and the Connectionist Revival: start/history/expert-systems-and-winters/backpropagation-revival/index.md
+              - Statistical Language Processing: start/history/expert-systems-and-winters/statistical-nlp/index.md
   - Theory:
       - theory/index.md
       - Mathematics:
@@ -765,6 +802,12 @@ nav:
               - Xavier (Glorot) Initialisation: theory/deep-learning/initialisation/glorot-xavier/index.md
               - He Initialisation: theory/deep-learning/initialisation/he-initialisation/index.md
               - Maximal Update Parametrisation (muP): theory/deep-learning/initialisation/mup/index.md
+          - Neural Architecture Search and AutoML:
+              - theory/deep-learning/nas-automl/index.md
+              - NAS with Reinforcement Learning: theory/deep-learning/nas-automl/nas-rl/index.md
+              - Regularized Evolution: theory/deep-learning/nas-automl/regularized-evolution/index.md
+              - DARTS: theory/deep-learning/nas-automl/darts/index.md
+              - MnasNet: theory/deep-learning/nas-automl/mnasnet/index.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum:
@@ -790,6 +833,7 @@ nav:
           - Large-Batch & Distributed: theory/optimization/large-batch-and-distributed.md
           - Zeroth-Order & Evolutionary: theory/optimization/zeroth-order-and-evolutionary.md
           - Theory & Landscapes: theory/optimization/theory-and-landscapes.md
+          - Hyperparameter Optimisation: theory/optimization/hyperparameter-optimisation.md
       - Learning Paradigms:
           - theory/paradigms/index.md
           - Supervised Learning:
@@ -839,6 +883,11 @@ nav:
                   - AlphaGo: theory/paradigms/reinforcement-learning/mcts-and-self-play/alphago/index.md
                   - AlphaZero: theory/paradigms/reinforcement-learning/mcts-and-self-play/alphazero/index.md
                   - MuZero: theory/paradigms/reinforcement-learning/mcts-and-self-play/muzero/index.md
+              - Multi-Agent Reinforcement Learning:
+                  - theory/paradigms/reinforcement-learning/multi-agent-rl/index.md
+                  - QMIX: theory/paradigms/reinforcement-learning/multi-agent-rl/qmix/index.md
+                  - MADDPG: theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md
+                  - Population-Based Training: theory/paradigms/reinforcement-learning/multi-agent-rl/population-based-training/index.md
           - Imitation Learning:
               - theory/paradigms/imitation/index.md
               - Behavioural Cloning: theory/paradigms/imitation/behavioural-cloning/index.md
@@ -901,6 +950,11 @@ nav:
               - Gibbs Sampling: theory/probabilistic/mcmc/gibbs-sampling/index.md
               - Hamiltonian Monte Carlo and NUTS: theory/probabilistic/mcmc/hamiltonian-monte-carlo/index.md
               - Langevin Dynamics: theory/probabilistic/mcmc/langevin-dynamics/index.md
+          - Probabilistic Graphical Models:
+              - theory/probabilistic/graphical-models/index.md
+              - Hidden Markov Model: theory/probabilistic/graphical-models/hidden-markov-model/index.md
+              - Conditional Random Field: theory/probabilistic/graphical-models/conditional-random-field/index.md
+              - Belief Propagation: theory/probabilistic/graphical-models/belief-propagation/index.md
       - Symbolic AI, Search & Planning:
           - theory/symbolic-ai/index.md
           - Search Algorithms:
@@ -912,6 +966,11 @@ nav:
               - theory/symbolic-ai/knowledge-graphs/index.md
               - RotatE: theory/symbolic-ai/knowledge-graphs/rotate/index.md
               - GraphRAG: theory/symbolic-ai/knowledge-graphs/graphrag/index.md
+          - Automated Planning:
+              - theory/symbolic-ai/planning/index.md
+              - STRIPS: theory/symbolic-ai/planning/strips/index.md
+              - SHOP2: theory/symbolic-ai/planning/shop2/index.md
+              - SayCan: theory/symbolic-ai/planning/saycan/index.md
       - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
       - Generative Models:
           - theory/generative/index.md
@@ -1205,6 +1264,11 @@ nav:
           - brain-mind/sleep-and-consolidation/index.md
           - Hippocampal Replay: brain-mind/sleep-and-consolidation/hippocampal-replay/index.md
           - Targeted Memory Reactivation: brain-mind/sleep-and-consolidation/targeted-memory-reactivation/index.md
+      - Spatial Navigation and Cognitive Maps:
+          - brain-mind/navigation-cognitive-maps/index.md
+          - Place Cells: brain-mind/navigation-cognitive-maps/place-cells/index.md
+          - Grid Cells: brain-mind/navigation-cognitive-maps/grid-cells/index.md
+          - Tolman–Eichenbaum Machine: brain-mind/navigation-cognitive-maps/tolman-eichenbaum-machine/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
@@ -1238,6 +1302,10 @@ nav:
           - AlphaGeometry: applications/mathematics/alphageometry/index.md
           - AlphaProof: applications/mathematics/alphaproof/index.md
           - FunSearch: applications/mathematics/funsearch/index.md
+      - Weather Forecasting and Earth Observation:
+          - applications/weather-and-earth-observation/index.md
+          - GraphCast: applications/weather-and-earth-observation/graphcast/index.md
+          - Pangu-Weather: applications/weather-and-earth-observation/pangu-weather/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools:
@@ -1343,6 +1411,7 @@ nav:
           - Dangerous-Capability Evaluations and Frontier Safety Frameworks: society/safety-alignment/dangerous-capability-evals.md
           - Scalable Oversight: society/safety-alignment/scalable-oversight.md
           - Deceptive alignment and sleeper agents: society/safety-alignment/deceptive-alignment.md
+          - Model Specifications and Behaviour Policies: society/safety-alignment/model-specs.md
       - Interpretability:
           - society/interpretability/index.md
           - Mechanistic Interpretability and Circuits: society/interpretability/mechanistic-interpretability.md
@@ -1380,6 +1449,7 @@ nav:
           - society/governance/index.md
           - Compute Governance and Export Controls: society/governance/compute-governance.md
           - "AI, Elections and Democracy": society/governance/elections-and-democracy.md
+          - AI Incident Databases and Case Studies: society/governance/incidents.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
       - Human-AI Interaction and Trust:
@@ -1407,3 +1477,4 @@ nav:
       - Roadmap & Coverage: reference/roadmap/index.md
       - Style Guide: reference/style-guide/index.md
       - "Conferences & Journals": reference/venues/index.md
+      - Model Catalogue: reference/model-catalogue/index.md
