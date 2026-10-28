@@ -20,7 +20,7 @@ related:
 | Sycophancy | Telling users what they want to hear | Agreeing with incorrect user claims |
 | Deception and scheming | Models strategically misleading overseers | Studied in controlled evaluations (e.g. "alignment faking", Greenblatt et al., 2024; Apollo Research's scheming evals) |
 | Robustness | Jailbreaks, adversarial inputs, distribution shift | Universal adversarial suffixes (Zou et al., 2023) |
-| Scalable oversight | Supervising systems that may exceed human expertise | Grading research-level answers |
+| [Scalable oversight](scalable-oversight.md) | Supervising systems that may exceed human expertise | Grading research-level answers |
 | Power-seeking and instrumental convergence | Many goals favour acquiring resources and avoiding shutdown | Theoretical (Omohundro, Bostrom; Turner et al., 2021) |
 
 ## Techniques
@@ -29,7 +29,7 @@ related:
 |---|---|
 | Learning from human feedback | RLHF, DPO; reward modelling |
 | Principle-based training | [Constitutional AI and RLAIF](constitutional-ai.md) and model specifications that state intended behaviour |
-| Scalable oversight | Debate, recursive reward modelling, weak-to-strong generalisation, AI-assisted critique |
+| [Scalable oversight](scalable-oversight.md) | Debate, recursive reward modelling, weak-to-strong generalisation, process supervision, AI-assisted critique |
 | [Interpretability](../interpretability/index.md) | Understanding internals to detect deception or dangerous capabilities |
 | Adversarial training and red-teaming | Human and automated attacks to find failures |
 | Monitoring and control | Chain-of-thought monitoring, trusted monitors, sandboxing, "AI control" protocols that assume models might be misaligned (Greenblatt et al., 2024) |
