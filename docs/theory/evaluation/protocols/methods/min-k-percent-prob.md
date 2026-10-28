@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -22,7 +22,7 @@ Min-K% Prob is a detection method that decides whether a text was in a model's p
 
 ## Problem
 
-Overlap checks need the training corpus, and many models do not publish theirs. Earlier likelihood-based methods can also need a reference model trained on similar data. The problem is to detect pretraining data with access only to the model's outputs and no knowledge of the corpus.
+Overlap checks need the training corpus, and many models do not publish theirs. Some earlier detection methods need a reference model trained on similar data. The problem is to detect pretraining data with access only to the model's outputs and no knowledge of the corpus.
 
 ## Core idea
 
@@ -39,14 +39,15 @@ The method needs no reference model and no training of an attack classifier.
 
 ## Results
 
-The abstract of Shi et al. (2024) reports that Min-K% Prob achieves a 7.4% improvement on WikiMIA over previous methods. The abstract does not give the AUC values; they are in the paper's results section, which this page has not read in full. The page therefore reports only the improvement that the abstract states.
+The abstract of Shi et al. (2024) reports that Min-K% Prob achieves a 7.4% improvement on WikiMIA over previous methods. The paper reports its WikiMIA results as AUC, with an average of 0.72 for Min-K% Prob in Table 1.
 
 ## Limitations
 
-- **Benchmark dependence.** The reported gain is on WikiMIA, which is built from Wikipedia-style text. A text type that is naturally full of rare words, such as code or names, can produce high false signals.
-- **Choice of K.** The result depends on K, and the best value is not the same for every corpus.
+- **Benchmark dependence.** The 7.4% gain is on WikiMIA. The paper's separate case study on excerpts from copyrighted books in Books3 (Section 5, AUC 0.88) is a different setting, and neither result shows how the method behaves on code.
+- **Choice of K.** The paper sets k = 20 after a sweep from 10 to 50 on a validation set. This page does not show that 20 is best for other corpora.
+- **Decision direction.** Figure 1 says a high average log-likelihood indicates pretraining data, but Algorithm 1 is written the other way. Check the sign convention before reusing a threshold.
 - **Ranking, not proof.** The score shows that a text is probably in the training data. It does not show exactly which documents were used, so it is a statistical signal, not a definitive check.
-- **Model behaviour.** Models that are heavily tuned or that have been filtered after pretraining can give less reliable likelihoods.
+- **Model access.** The method needs token probabilities from the model, so it cannot be applied to models that do not expose them.
 
 ## Connections
 
@@ -63,7 +64,7 @@ The abstract of Shi et al. (2024) reports that Min-K% Prob achieves a 7.4% impro
 ### Seminal papers
 
 - Shi, W. et al. (2024). *Detecting Pretraining Data from Large Language Models*. arXiv. https://arxiv.org/abs/2310.16789 — Proposes Min-K% Prob, a likelihood-based detector that needs no reference model, and reports a 7.4% improvement on WikiMIA.
-- Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. arXiv. https://arxiv.org/abs/2012.07805 — Shows that memorised training text can be recognised by its high likelihood, the idea behind likelihood-based detection.
-- Shokri, R., Stronati, M., Song, C. & Shmatikov, V. (2017). *Membership Inference Attacks Against Machine Learning Models*. IEEE Symposium on Security and Privacy. https://arxiv.org/abs/1610.05820 — Introduces membership inference, the attack family to which likelihood-based detection belongs.
-- Oren, Y. et al. (2023). *Proving Test Set Contamination in Black Box Language Models*. arXiv. https://arxiv.org/abs/2310.17623 — Gives a black-box statistical test for contamination that also uses only model outputs.
+- Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. arXiv. https://arxiv.org/abs/2012.07805 — Shows that training examples can be extracted from a language model by querying it, which motivates detecting memorised text.
+- Shokri, R., Stronati, M., Song, C. & Shmatikov, V. (2017). *Membership Inference Attacks Against Machine Learning Models*. IEEE Symposium on Security and Privacy. https://arxiv.org/abs/1610.05820 — Studies whether a model with black-box access reveals if a given record was in its training data, the attack family that likelihood-based detection resembles.
+- Oren, Y. et al. (2023). *Proving Test Set Contamination in Black Box Language Models*. arXiv. https://arxiv.org/abs/2310.17623 — Gives a black-box statistical test for contamination that needs neither pretraining data nor model weights.
 - Dodge, J. et al. (2021). *Documenting Large Webtext Corpora: A Case Study on the Colossal Clean Crawled Corpus*. arXiv. https://arxiv.org/abs/2104.08758 — Finds benchmark evaluation examples inside the C4 web corpus, showing that pretraining text can contain test data.
