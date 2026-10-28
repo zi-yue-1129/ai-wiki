@@ -40,7 +40,7 @@ Full treatment, with the methods compared and the open questions: [Mechanistic i
 
 - **Circuits**: small subnetworks implementing identifiable algorithms — curve detectors in vision models, induction heads in Transformers, indirect-object identification circuits
 - **Superposition**: networks represent more features than they have neurons by using overlapping directions (Elhage et al., 2022), making single neurons polysemantic
-- **Sparse autoencoders (SAEs) and dictionary learning** extract millions of more interpretable features from LLM activations (Anthropic's "Scaling Monosemanticity", 2024; similar work at OpenAI and Google DeepMind's Gemma Scope)
+- **Sparse autoencoders (SAEs) and dictionary learning** extract millions of more interpretable features from LLM activations (Anthropic's "Scaling Monosemanticity", 2024; similar work at OpenAI and Google DeepMind's Gemma Scope). Full treatment: [Sparse autoencoders and feature dictionaries](sparse-autoencoders.md)
 - **Attribution graphs / circuit tracing**: tracing how features interact to produce outputs, e.g. revealing multi-step reasoning and planning ahead in rhymes (Anthropic, 2025)
 - **Causal interventions**: activation patching, causal tracing (locating factual recall, Meng et al., 2022), steering vectors
 - **Probing**: linear classifiers that read information from activations — e.g. truthfulness directions, board state in Othello-GPT. Control tasks and representation analysis are covered in [Probing classifiers and representation analysis](probing.md)
