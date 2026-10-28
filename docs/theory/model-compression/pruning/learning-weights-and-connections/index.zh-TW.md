@@ -16,7 +16,7 @@ AlexNet 這類用於影像分類的大型網路，包含的參數遠多於所需
 
 ## 公式或演算法
 
-量值低於門檻的權重設為零，並以遮罩固定。接著在剩餘權重上重新訓練。門檻在數輪中逐步提高，每輪之間都進行重新訓練，直到達到目標稀疏度。
+量值低於門檻的權重設為零，並以遮罩固定。接著在剩餘權重上重新訓練。摘要描述三個步驟：學習哪些連接重要、剪除權重較小的連接，再重新訓練保留下來的連接。
 
 ## 結果
 
@@ -42,7 +42,7 @@ AlexNet 這類用於影像分類的大型網路，包含的參數遠多於所需
 - Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — 顯示剪枝加重新訓練使 AlexNet 的參數從 6100 萬降到 670 萬。
 - Han, S., Mao, H., Dally, W. J. (2016). *Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding*. ICLR. https://arxiv.org/abs/1510.00149 — 在剪枝之外加入量化與編碼，合併後可縮小 35 到 49 倍。
 - Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — 顯示剪枝後的子網路可以從原始初始權重訓練。
-- Zhu, M., Gupta, S. (2017). *To prune, or not to prune: exploring the efficacy of pruning for model compression*. arXiv:1710.01878. https://arxiv.org/abs/1710.01878 — 比較剪枝後的大型網路與同參數量的小型稠密網路。
+- Zhu, M., Gupta, S. (2017). *To prune, or not to prune: exploring the efficacy of pruning for model compression*. arXiv:1710.01878. https://arxiv.org/abs/1710.01878 — 比較剪枝後的大型網路與記憶體佔用相同的小型稠密網路。
 
 ### 綜述與教科書
 
