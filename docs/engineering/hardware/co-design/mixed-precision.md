@@ -17,7 +17,7 @@ aliases:
 
 # Mixed-Precision Training
 
-Mixed-precision training stores most values and runs most arithmetic in 16-bit floating point, while keeping a single-precision copy of the weights and scaling the loss so that small gradients survive. Micikevicius et al. (2017) show that this reduces the memory used by deep learning models by nearly two times, across several architectures, with no loss of accuracy in their experiments. It is a training technique, and it sits in the [co-design overview](index.md) as the number-format lever for training.
+Mixed-precision training stores most values and runs most arithmetic in 16-bit floating point, while keeping a single-precision copy of the weights and scaling the loss so that small gradients survive. Micikevicius et al. (2017) report that this reduces the memory used by deep learning models by nearly two times, across several architectures. It is a training technique, and it sits in the [co-design overview](index.md) as the number-format lever for training.
 
 ## Problem
 
