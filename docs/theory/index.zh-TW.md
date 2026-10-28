@@ -12,6 +12,7 @@
 | [強化學習](paradigms/reinforcement-learning/index.md) | 如何從試誤與獎勵中學習行為？和大腦的多巴胺有什麼關係？ |
 | [資訊理論](information-theory/index.md) | 熵、KL 散度與互資訊如何量化學習？ |
 | [模型壓縮](model-compression/index.md) | 剪枝、量化與蒸餾如何在不損失能力的前提下縮小模型？ |
+| [評估](evaluation/index.md) | 如何衡量模型的好壞？基準分數能信到什麼程度？ |
 
 ## 理論還是模型？
 

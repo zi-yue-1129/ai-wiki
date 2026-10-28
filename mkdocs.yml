@@ -399,6 +399,9 @@ plugins:
             Test-Time Compute Scaling: 測試時運算擴展
             Generative Models: 生成模型
             Model Compression: 模型壓縮
+            Evaluation: 評估
+            Metrics: 指標
+            Protocols: 評估協定
             Quantisation: 量化
             Pruning: 剪枝
             Knowledge Distillation: 知識蒸餾
@@ -896,6 +899,10 @@ nav:
               - Truncated SVD: theory/model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md
               - Low-Rank Filter Expansion: theory/model-compression/low-rank-and-efficient-architectures/low-rank-filter-expansion/index.md
               - LoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
+      - Evaluation:
+          - theory/evaluation/index.md
+          - Metrics: theory/evaluation/metrics/index.md
+          - Protocols: theory/evaluation/protocols/index.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons:
