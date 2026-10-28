@@ -17,7 +17,7 @@ aliases:
 
 # SGD and Momentum
 
-Stochastic gradient descent (SGD) and its momentum variants are the simplest optimisers used for deep learning. They use one learning rate for every parameter and rely on the gradient alone. They remain the default for many vision models and are the baseline against which adaptive methods are compared. The [overview](index.md) places them among the other families.
+Stochastic gradient descent (SGD) and its momentum variants are the simplest optimisers used for deep learning. They use one learning rate for every parameter and rely on the gradient alone. They remain the default for many vision models and are the baseline against which adaptive methods are compared. The [overview](../index.md) places them among the other families.
 
 ## Overview
 
@@ -29,7 +29,7 @@ Gradient descent moves the parameters against the gradient of the training loss,
 - **Learning rate \(\eta\)**: the step size. Too large makes the loss diverge; too small makes training slow.
 - **Momentum**: a running average of past gradients that smooths the direction and speeds progress along consistent slopes.
 - **Nesterov momentum**: a variant that evaluates the gradient at a look-ahead point.
-- **Learning-rate schedule**: a rule that changes \(\eta\) during training, covered in [Learning-rate schedules](learning-rate-schedules.md).
+- **Learning-rate schedule**: a rule that changes \(\eta\) during training, covered in [Learning-rate schedules](../learning-rate-schedules.md).
 
 ## How it works
 
@@ -40,6 +40,8 @@ For a convex, \(L\)-smooth loss, gradient descent with \(\eta = 1/L\) decreases 
 The noise is not only a cost. It helps the optimiser leave saddle points and is often associated with convergence to flatter minima, a link that is still debated.
 
 ### Heavy-ball momentum
+
+The full method, with its analysis, is on the [Heavy-ball momentum](heavy-ball.md) page.
 
 Polyak's heavy-ball method keeps a velocity:
 
@@ -54,7 +56,17 @@ Directions that repeat accumulate, and directions that flip sign cancel. This da
 
 ### Nesterov momentum
 
+The full method, with its guarantees, is on the [Nesterov momentum](nesterov.md) page.
+
 Nesterov's variant computes the gradient at the look-ahead point \(\theta_{t-1} - \eta\beta v_{t-1}\) rather than at \(\theta_{t-1}\). This corrects the velocity before it is applied, and it is widely used when training convolutional networks with SGD.
+
+## Comparison
+
+| Method | Gradient evaluated at | Update in one line | Detail |
+|---|---|---|---|
+| Plain SGD | Current parameters | \(\theta \leftarrow \theta - \eta g\) | This page |
+| Heavy-ball | Current parameters | Accumulate velocity, then step | [Heavy-ball momentum](heavy-ball.md) |
+| Nesterov | Look-ahead point | Correct velocity before the step | [Nesterov momentum](nesterov.md) |
 
 ## Practical notes
 
@@ -64,9 +76,9 @@ Nesterov's variant computes the gradient at the look-ahead point \(\theta_{t-1} 
 
 ## Connections
 
-- [Adaptive methods](adaptive/index.md) rescale each coordinate of the same update.
-- [Deep learning](../deep-learning/index.md) explains the backpropagation step that produces \(g_t\).
-- [NeuroAI](../../brain-mind/neuroai/index.md) discusses why exact gradient steps are hard to match in biological learning.
+- [Adaptive methods](../adaptive/index.md) rescale each coordinate of the same update.
+- [Deep learning](../../deep-learning/index.md) explains the backpropagation step that produces \(g_t\).
+- [NeuroAI](../../../brain-mind/neuroai/index.md) discusses why exact gradient steps are hard to match in biological learning.
 
 ## Applications
 

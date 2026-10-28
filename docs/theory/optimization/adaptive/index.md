@@ -54,8 +54,8 @@ Because every coordinate is scaled, the update size is bounded by roughly \(\eta
 |---|---|---|
 | AdaGrad | Accumulate all past squared gradients; suits sparse features | Planned |
 | RMSProp | Exponential average of squared gradients instead of a sum | Planned |
-| Adam | Momentum plus adaptive scale, with bias correction | This page |
-| AdamW | Adam with decoupled weight decay | This page |
+| Adam | Momentum plus adaptive scale, with bias correction | [Adam](adam.md) |
+| AdamW | Adam with decoupled weight decay | [AdamW](adamw.md) |
 | LARS, LAMB | Layer-wise scaling of the step by the weight norm, for very large batches | Planned |
 | Adafactor | Factorised second-moment estimate to save memory | Planned |
 | Lion | Sign-based update from momentum; less memory than Adam | Planned |
@@ -64,25 +64,22 @@ Because every coordinate is scaled, the update size is bounded by roughly \(\eta
 
 ## Key methods
 
-### Adam (Kingma & Ba, 2014/2015)
+Each named method has its own page with the problem, core idea, equations, results and limitations.
 
-- **Problem:** stochastic gradients are noisy and sparse, and first-order methods need careful, problem-specific learning rates.
-- **Core idea:** adapt a separate step size for each parameter using running estimates of the first and second moments of its gradient, with bias correction for early steps.
-- **Equation or algorithm:** the update above, with \(\beta_1 \approx 0.9\), \(\beta_2 \approx 0.999\) and \(\epsilon\) a small constant.
-- **Results:** the abstract describes the method as working well in practice and comparing favourably with other stochastic optimisers. It gives no benchmark numbers in the abstract; the experimental results are in the paper's body.
-- **Limitations:** the paper's convergence analysis is in the online convex optimisation framework, not for deep networks. Adam can generalise worse than SGD with momentum on some image tasks, and its per-parameter scaling interacts badly with L2 regularisation (see AdamW).
+- [Adam](adam.md) (Kingma & Ba, 2014/2015): momentum plus a per-parameter scale from the second moment, with bias correction.
+- [AdamW](adamw.md) (Loshchilov & Hutter, 2017/2019): Adam with weight decay applied outside the adaptive step.
 
-### AdamW (Loshchilov & Hutter, 2017/2019)
+### Comparison
 
-- **Problem:** for adaptive methods, adding an L2 penalty to the loss is not the same as weight decay. The penalty is rescaled by the adaptive denominator, so regularisation weakens for parameters with large gradients.
-- **Core idea:** apply weight decay directly to the parameters, outside the adaptive step, so the decay factor is decoupled from the gradient scaling.
-- **Equation or algorithm:** \(\theta_t = \theta_{t-1} - \eta\big(\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon} + \lambda\,\theta_{t-1}\big)\).
-- **Results:** the abstract reports that decoupled decay substantially improves Adam's generalisation and lets it compete with SGD with momentum on image classification. It gives no specific numbers in the abstract.
-- **Limitations:** the decay coefficient and learning rate still interact, and the benefit has been reported mainly for image classification. AdamW is now common for Transformer models, but its advantage on other tasks depends on tuning.
+| Method | Momentum | Per-parameter scale | Weight decay | Detail |
+|---|---|---|---|---|
+| SGD with momentum | Yes (heavy-ball or Nesterov) | No, one rate for all | Usually L2 in the gradient | [SGD and momentum](../sgd-and-momentum/index.md) |
+| Adam | Yes, first moment | Yes, root of second moment | L2 in the gradient, if used | [Adam](adam.md) |
+| AdamW | Yes, first moment | Yes, root of second moment | Decoupled, outside the step | [AdamW](adamw.md) |
 
 ## Connections
 
-- [SGD and momentum](../sgd-and-momentum.md) is the non-adaptive baseline that these methods are compared with.
+- [SGD and momentum](../sgd-and-momentum/index.md) is the non-adaptive baseline that these methods are compared with.
 - [Loss functions and optimisation](../../paradigms/supervised/loss-functions-and-optimization/index.md) covers weight decay as a regulariser.
 - [Mathematics](../../math/index.md) gives the moment and convexity background.
 
