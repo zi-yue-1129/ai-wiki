@@ -23,7 +23,7 @@ related:
 | Video understanding | Actions, events | SlowFast, VideoMAE, video VLMs |
 | Tracking | Trajectories | SORT, ByteTrack |
 | OCR and document understanding | Text, layout | PaddleOCR, Donut, VLMs |
-| Image generation and editing | Images | See [Generative Models](../../generative/index.md) |
+| Image generation and editing | Images | See [Generative Models](../../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 
 ## Evolution of architectures
 

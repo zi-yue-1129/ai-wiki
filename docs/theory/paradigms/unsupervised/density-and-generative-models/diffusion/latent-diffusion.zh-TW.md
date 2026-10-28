@@ -41,9 +41,9 @@ L_{\text{LDM}} = \mathbb{E}_{E(x),\epsilon,t,c}\big[\|\epsilon - \epsilon_\theta
 
 - 潛在目標就是套用在潛在表示上的 [DDPM](ddpm.md) 目標。
 - 潛在取樣可以使用 [DDIM](ddim.md) 較快的取樣器。
-- 後來的 Transformer 去噪器是 [DiT](dit.md)。
+- 後來的 Transformer 去噪器是 [DiT](../../../../models/transformer/dit/index.md)。
 - 文字條件化依賴[無分類器引導](classifier-free-guidance.md)。
-- 去噪器的卷積與注意力層分別見[卷積網路](../../models/cnn/index.md)與[Transformer 與注意力](../../models/transformer/index.md)。
+- 去噪器的卷積與注意力層分別見[卷積網路](../../../../models/cnn/index.md)與[Transformer 與注意力](../../../../models/transformer/index.md)。
 
 ## 開放問題
 

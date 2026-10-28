@@ -2,7 +2,7 @@
 
 生成模型學習資料分布 \(p(x)\)，並能**產生新的樣本**；判別模型則學習 \(p(y\mid x)\)。
 
-生成式建模是一種**方法**，而不是一種架構。[模型](../models/index.md)中的任何家族，例如卷積、循環、Transformer 或狀態空間網路，都可以訓練成生成模型。下面各節的家族是生成式演算法，差別在於它們如何表示分布，以及如何從中取樣。
+生成式建模是一種**方法**，而不是一種架構。[模型](../../../../models/index.md)中的任何家族，例如卷積、循環、Transformer 或狀態空間網路，都可以訓練成生成模型。下面各節的家族是生成式演算法，差別在於它們如何表示分布，以及如何從中取樣。
 
 ## 模型家族
 
@@ -18,9 +18,9 @@
 
 ## 擴散模型
 
-完整說明包含比較表，以及每個方法各自的頁面（DDPM、DDIM、潛在擴散、DiT、無分類器引導），見[擴散模型](diffusion/index.md)。
+完整說明包含比較表，以及每個方法各自的頁面（DDPM、DDIM、潛在擴散、無分類器引導；DiT 去噪器則是 [Transformer](../../../../models/transformer/dit/index.md) 的方法），見[擴散模型](../diffusion/index.md)。
 
-![擴散模型動態概念圖：從雜訊開始，經過多個去噪步驟逐漸產生具有結構的樣本。](../../assets/concept-animations/diffusion-denoising.gif)
+![擴散模型動態概念圖：從雜訊開始，經過多個去噪步驟逐漸產生具有結構的樣本。](../../../../../assets/concept-animations/diffusion-denoising.gif)
 
 *動態概念圖 · 原創示意，CC BY-SA 4.0。*
 
@@ -45,8 +45,8 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 
 ## 應用領域
 
-- 影像、影片、3D、音樂、語音（見[多模態模型](../models/multimodal/index.md)、[藝術與創作](../../applications/creative/index.md)）
-- 蛋白質設計（RFdiffusion）、分子與材料生成（見[生命科學](../../applications/life-science/index.md)）
+- 影像、影片、3D、音樂、語音（見[多模態模型](../../../../models/multimodal/index.md)、[藝術與創作](../../../../../applications/creative/index.md)）
+- 蛋白質設計（RFdiffusion）、分子與材料生成（見[生命科學](../../../../../applications/life-science/index.md)）
 - 天氣（GenCast 以擴散模型產生機率預報）
 - 機器人策略（Diffusion Policy）
 - 資料擴增與合成資料
@@ -56,7 +56,7 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 - **以生成模型進行感知推論**：Helmholtz 的「無意識推論」與預測編碼認為，大腦使用內部的生成模型來預測並解釋感官輸入
 - **Helmholtz 機器與醒睡演算法**（Hinton et al., 1995）：受睡眠啟發的生成模型訓練方式
 - **夢與想像**：一種假說把夢視為大腦生成模型的離線樣本，有助於泛化（Hoel, 2021，「過度擬合的大腦假說」）
-- **以擴散模型從 fMRI 重建影像**（Takagi & Nishimoto, 2023）——見[腦機介面](../../brain-mind/bci/index.md)
+- **以擴散模型從 fMRI 重建影像**（Takagi & Nishimoto, 2023）——見[腦機介面](../../../../../brain-mind/bci/index.md)
 
 ## 學習資源
 

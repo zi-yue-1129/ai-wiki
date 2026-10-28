@@ -4,7 +4,7 @@ translation_reviewed: 2026-10-28
 
 # DiT：擴散 Transformer
 
-DiT（Diffusion Transformer，擴散 Transformer）是一種擴散去噪器，它以作用於潛在影像圖塊的 Transformer 取代 U-Net。Peebles 與 Xie（2022）指出，它的品質隨運算量穩定提升，與語言模型的情況相同。家族層級的全貌見[擴散模型](index.md)頁，注意力機制見[Transformer 與注意力](../../models/transformer/index.md)。
+DiT（Diffusion Transformer，擴散 Transformer）是一種擴散去噪器，它以作用於潛在影像圖塊的 Transformer 取代 U-Net。Peebles 與 Xie（2022）指出，它的品質隨運算量穩定提升，與語言模型的情況相同。家族層級的全貌見[擴散模型](../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md)頁，注意力機制見[Transformer 與注意力](../index.md)。
 
 ## 概述
 
@@ -25,7 +25,7 @@ DiT（Diffusion Transformer，擴散 Transformer）是一種擴散去噪器，�
 \epsilon_\theta(z_t, t, c) = \mathrm{DiT}\big(\mathrm{patchify}(z_t);\ \mathrm{emb}(t) + \mathrm{emb}(c)\big)
 \]
 
-訓練使用與 [DDPM](ddpm.md) 相同的雜訊預測損失，只是套用在潛在表示上。擴展性的研究方式是改變深度、寬度與圖塊大小（這會改變 Gflops），並在每個點測量 FID。
+訓練使用與 [DDPM](../../../paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md) 相同的雜訊預測損失，只是套用在潛在表示上。擴展性的研究方式是改變深度、寬度與圖塊大小（這會改變 Gflops），並在每個點測量 FID。
 
 ## 關鍵方法
 
@@ -39,9 +39,9 @@ DiT（Diffusion Transformer，擴散 Transformer）是一種擴散去噪器，�
 
 ## 關聯
 
-- DiT 採用[潛在擴散](latent-diffusion.md)的潛在設定，並取代其 U-Net 去噪器。
-- 注意力區塊見[Transformer 與注意力](../../models/transformer/index.md)。
-- DiT 模型可以用較快的 [DDIM](ddim.md) 更新進行取樣。
+- DiT 採用[潛在擴散](../../../paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md)的潛在設定，並取代其 U-Net 去噪器。
+- 注意力區塊見[Transformer 與注意力](../index.md)。
+- DiT 模型可以用較快的 [DDIM](../../../paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md) 更新進行取樣。
 
 ## 開放問題
 

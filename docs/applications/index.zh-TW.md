@@ -31,7 +31,7 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | 領域 | 先讀的方法 |
 |---|---|
 | 醫療保健 | [電腦視覺](../theory/models/computer-vision/index.md)、[聯邦學習](../theory/paradigms/federated/index.md)、[評估與驗證](../theory/paradigms/supervised/evaluation-and-validation/index.md) |
-| 生命科學與藥物發現 | [圖神經網路](../theory/models/gnn/index.md)、[生成模型](../theory/generative/index.md)、[主動學習](../theory/paradigms/active/index.md) |
+| 生命科學與藥物發現 | [圖神經網路](../theory/models/gnn/index.md)、[生成模型](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md)、[主動學習](../theory/paradigms/active/index.md) |
 | 科學發現 | [圖神經網路](../theory/models/gnn/index.md)、[主動學習](../theory/paradigms/active/index.md)、[數學基礎](../theory/math/index.md) |
 | 心理健康 | [心理學與 AI](../brain-mind/psychology/index.md)、[機率與貝氏方法](../theory/paradigms/probabilistic/index.md) |
 | 教育 | [大型語言模型](../theory/models/llm/index.md)、[評估與基準](../engineering/evaluation/index.md) |
@@ -42,7 +42,7 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | 製造與工業 | [電腦視覺](../theory/models/computer-vision/index.md)、[異常偵測](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
 | 農業與食品 | [電腦視覺](../theory/models/computer-vision/index.md)、[領域適應](../theory/paradigms/transfer/domain-adaptation/index.md) |
 | 氣候與能源 | [串流與概念漂移](../theory/paradigms/online/streaming-and-concept-drift/index.md)、[領域適應](../theory/paradigms/transfer/domain-adaptation/index.md) |
-| 藝術、媒體與創作 | [生成模型](../theory/generative/index.md)、[多模態模型](../theory/models/multimodal/index.md) |
+| 藝術、媒體與創作 | [生成模型](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md)、[多模態模型](../theory/models/multimodal/index.md) |
 | 遊戲 | [強化學習](../theory/paradigms/reinforcement-learning/index.md)、[符號 AI、搜尋與規劃](../theory/paradigms/symbolic-ai/index.md) |
 | 資訊安全 | [異常偵測](../theory/paradigms/unsupervised/anomaly-detection/index.md)、[安全與對齊](../society/safety-alignment/index.md) |
 | 社會科學與人文學 | [機率與貝氏方法](../theory/paradigms/probabilistic/index.md)、[倫理與公平](../society/ethics/index.md) |

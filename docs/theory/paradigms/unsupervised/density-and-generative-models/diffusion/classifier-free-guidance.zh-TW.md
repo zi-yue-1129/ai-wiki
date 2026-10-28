@@ -40,7 +40,7 @@ Dhariwal 與 Nichol（2021）指出，用另外訓練的分類器的梯度來引
 ## 關聯
 
 - 條件通常由[潛在擴散](latent-diffusion.md)中描述的交叉注意力路徑編碼。
-- 去噪器常是 [DiT](dit.md) 或 U-Net；引導與骨幹無關。
+- 去噪器常是 [DiT](../../../../models/transformer/dit/index.md) 或 U-Net；引導與骨幹無關。
 - [DDIM](ddim.md) 的較快取樣器可以與引導結合。
 
 ## 開放問題

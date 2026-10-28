@@ -31,7 +31,7 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Field | Methods to read first |
 |---|---|
 | Healthcare | [Computer Vision](../theory/models/computer-vision/index.md), [Federated Learning](../theory/paradigms/federated/index.md), [Evaluation & Validation](../theory/paradigms/supervised/evaluation-and-validation/index.md) |
-| Life Sciences & Drug Discovery | [Graph Neural Networks](../theory/models/gnn/index.md), [Generative Models](../theory/generative/index.md), [Active Learning](../theory/paradigms/active/index.md) |
+| Life Sciences & Drug Discovery | [Graph Neural Networks](../theory/models/gnn/index.md), [Generative Models](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md), [Active Learning](../theory/paradigms/active/index.md) |
 | Scientific Discovery | [Graph Neural Networks](../theory/models/gnn/index.md), [Active Learning](../theory/paradigms/active/index.md), [Mathematics](../theory/math/index.md) |
 | Mental Health | [Psychology & AI](../brain-mind/psychology/index.md), [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md) |
 | Education | [Large Language Models](../theory/models/llm/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
@@ -42,7 +42,7 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Manufacturing & Industry | [Computer Vision](../theory/models/computer-vision/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
 | Agriculture & Food | [Computer Vision](../theory/models/computer-vision/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
 | Climate & Energy | [Streaming & Concept Drift](../theory/paradigms/online/streaming-and-concept-drift/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
-| Art, Media & Creativity | [Generative Models](../theory/generative/index.md), [Multimodal Models](../theory/models/multimodal/index.md) |
+| Art, Media & Creativity | [Generative Models](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md), [Multimodal Models](../theory/models/multimodal/index.md) |
 | Games | [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Symbolic AI, Search & Planning](../theory/paradigms/symbolic-ai/index.md) |
 | Cybersecurity | [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Safety & Alignment](../society/safety-alignment/index.md) |
 | Social Sciences & Humanities | [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md), [Ethics & Fairness](../society/ethics/index.md) |

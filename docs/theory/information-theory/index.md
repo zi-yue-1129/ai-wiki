@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-27
 related:
   - brain-mind/neuroai
-  - theory/generative
+  - theory/paradigms/unsupervised/density-and-generative-models/generative-models
 tags:
   - information theory
   - entropy
@@ -45,7 +45,7 @@ Because \(H(p)\) does not depend on the model \(q\), minimising cross-entropy ag
 
 **Learning as coding.** A classifier trained with cross-entropy loss is a maximum-likelihood estimator for categorical outputs. Minimising the average \(-\log q_\theta(y\mid x)\) over the training set is the same as minimising the KL divergence between the empirical data distribution and the model. The loss is explained in more detail on the [loss functions page](../paradigms/supervised/loss-functions-and-optimization/index.md).
 
-Variational autoencoders use the same ideas. Their training objective has a reconstruction term and a KL term that keeps the learned latent distribution close to a simple prior, which is why they appear in the [generative models](../generative/index.md) section.
+Variational autoencoders use the same ideas. Their training objective has a reconstruction term and a KL term that keeps the learned latent distribution close to a simple prior, which is why they appear in the [generative models](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) section.
 
 **The information bottleneck.** Tishby, Pereira and Bialek (2000) framed representation learning as a trade-off. Compress an input \(X\) into a representation \(T\) that keeps as much information as possible about a target \(Y\). Formally, one minimises \(I(X;T) - \beta\, I(T;Y)\), where \(\beta\) sets how much predictive power is worth compared with compression. Alemi and colleagues (2016) made this objective trainable with neural networks by replacing the intractable terms with variational bounds. They reported better generalisation and better resistance to adversarial attacks than some standard regularisers.
 

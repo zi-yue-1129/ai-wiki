@@ -40,7 +40,7 @@ references: not-required  # lists and meta pages cite through their entries
 |---|---|---|
 | Data augmentation | 資料增強 | 產生訓練資料的修改版本 |
 | Differential privacy | 差分隱私 | 單一個人的資料幾乎不改變輸出的形式化保證（[隱私與資料保護](../../society/privacy/index.md)） |
-| Diffusion model | 擴散模型 | 學習去除雜訊的生成模型（[生成模型](../../theory/generative/index.md)） |
+| Diffusion model | 擴散模型 | 學習去除雜訊的生成模型（[生成模型](../../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md)） |
 | Distillation | 知識蒸餾 | 訓練小模型模仿大模型 |
 | Distribution shift | 分布偏移 | 測試資料與訓練資料不同 |
 | Dopamine | 多巴胺 | 傳遞獎勵預測誤差的神經調節物質 |

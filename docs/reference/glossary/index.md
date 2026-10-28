@@ -40,7 +40,7 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 |---|---|---|
 | Data augmentation | 資料增強 | Creating modified copies of training data |
 | Differential privacy | 差分隱私 | A formal guarantee that one person's data barely changes the output ([Privacy and Data Protection](../../society/privacy/index.md)) |
-| Diffusion model | 擴散模型 | Generative model that learns to denoise ([Generative Models](../../theory/generative/index.md)) |
+| Diffusion model | 擴散模型 | Generative model that learns to denoise ([Generative Models](../../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md)) |
 | Distillation | 知識蒸餾 | Training a small model to imitate a large one |
 | Distribution shift | 分布偏移 | Test data differ from training data |
 | Dopamine | 多巴胺 | Neuromodulator signalling reward-prediction error |

@@ -59,8 +59,8 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 | Transformer | 全域注意力、排列等變性（加上位置） | 幾乎所有模態 | [Transformer](../models/transformer/index.md) |
 | 狀態空間模型（S4、Mamba） | 線性循環，能有效處理長序列 | 長序列、音訊、基因組學 | [Transformer](../models/transformer/index.md) |
 | 圖神經網路 | 圖結構、排列不變性 | 分子、社會網路 | [GNN](../models/gnn/index.md) |
-| 自編碼器／VAE | 瓶頸式壓縮 | 表徵學習、生成 | [生成模型](../generative/index.md) |
-| 擴散模型 | 迭代去噪 | 影像、影片、分子 | [生成模型](../generative/index.md) |
+| 自編碼器／VAE | 瓶頸式壓縮 | 表徵學習、生成 | [生成模型](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
+| 擴散模型 | 迭代去噪 | 影像、影片、分子 | [生成模型](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 
 ## 讓深度網路能被訓練的技巧
 

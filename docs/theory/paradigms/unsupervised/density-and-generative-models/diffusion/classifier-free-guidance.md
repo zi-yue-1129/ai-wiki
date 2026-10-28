@@ -50,7 +50,7 @@ With \(w = 1\) this is the plain conditional model. Larger \(w\) pushes the samp
 ## Connections
 
 - The condition is usually encoded by a cross-attention path described in [Latent Diffusion](latent-diffusion.md).
-- The denoiser is often a [DiT](dit.md) or U-Net; guidance is independent of the backbone.
+- The denoiser is often a [DiT](../../../../models/transformer/dit/index.md) or U-Net; guidance is independent of the backbone.
 - The faster samplers in [DDIM](ddim.md) can be combined with guidance.
 
 ## Open questions
