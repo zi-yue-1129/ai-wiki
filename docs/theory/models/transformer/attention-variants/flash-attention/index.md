@@ -34,6 +34,14 @@ Standard attention computes the score matrix \(S = QK^\top / \sqrt{d}\), applies
 
 Split \(Q\), \(K\) and \(V\) into blocks that fit in on-chip SRAM. For each block of queries, stream over the blocks of keys and values, compute the partial scores, and update the output as each block arrives. The softmax is computed incrementally, so the full row of scores never exists in memory at once. In the backward pass, the method recomputes the scores that it did not store, which trades a little extra arithmetic for much less memory traffic.
 
+
+### Animated walkthrough
+
+![Animated FlashAttention: one query block streams four key/value blocks through an SRAM score-tile workspace, updating the running output after each block.](../../../../../assets/concept-animations/flashattention-streaming-tiles.svg)
+
+*Original CC BY-SA 4.0 teaching animation. The highlighted columns **schematically represent successive K/V blocks**, not a full attention matrix stored in SRAM or HBM. The bars indicate repeated updates to the running output, not measured values or a GPU execution trace. This is exact attention with online softmax, not a sparse or approximate attention algorithm (Dao et al., 2022; see References). [Open the full-size animation](../../../../../assets/concept-animations/flashattention-streaming-tiles.svg) to inspect it on a small screen; in the standalone SVG, hover or focus with the keyboard to pause. Reduced-motion settings disable the animation. GitHub may show only the static fallback frame.*
+
+
 ## Equation or algorithm
 
 For one query row, let the running maximum be \(m\) and the running normaliser be \(\ell\). When a new block of scores \(s\) arrives, the update is
