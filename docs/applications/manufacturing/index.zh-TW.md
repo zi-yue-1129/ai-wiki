@@ -15,7 +15,7 @@
 
 ## 半導體與電子
 
-- **晶片設計**：強化學習輔助的平面規劃（Mirhoseini et al., 2021，以及後來對其主張的辯論）、用於布局、繞線與驗證的機器學習電子設計自動化（EDA）工具；由 LLM 生成 RTL
+- **晶片設計**：強化學習輔助的平面規劃（Mirhoseini et al., 2021）；ML 驅動的 EDA 工具用於佈局、繞線與驗證；LLM 生成 RTL
 - **晶圓廠良率**：晶圓圖缺陷分類、虛擬量測、製程管制模型
 - **微影**：以 GPU 與機器學習加速的計算微影
 
@@ -27,9 +27,21 @@
 - **資料孤島**與 OT／IT 整合
 - 面向操作員的**可解釋性**與安全認證
 
-## 學習資源
+## 關鍵方法
 
-- MVTec 異常偵測資料集（MVTec AD）
-- NASA C-MAPSS 渦扇引擎退化資料集；PHM Society 的資料競賽
-- Lee 等人關於工業 AI 與資訊物理系統的文獻
-- [anomalib](https://github.com/openvinotoolkit/anomalib) 開源函式庫
+下列三種方法與本頁最相關。每一項都連結到解釋該方法的頁面。
+
+- [異常偵測](../../theory/paradigms/unsupervised/anomaly-detection/index.md)：PatchCore 與 PaDiM 依正常零件的分布為瑕疵評分，適合稀少瑕疵（Roth et al., 2021；Defard et al., 2020）。
+- [殘差 CNN](../../theory/models/cnn/backbones-and-scaling/resnet/index.md)：用於視覺品質檢測與瑕疵分類的骨幹網路（He et al., 2016）。
+- [Transformer](../../theory/models/transformer/attention-is-all-you-need/index.md)：支撐以手冊與維修紀錄為基礎之 LLM 助手的架構（Vaswani et al., 2017）。
+
+## 參考文獻
+
+### 開創性論文
+
+- Roth et al. (2021). Towards Total Recall in Industrial Anomaly Detection. arXiv. https://arxiv.org/abs/2106.08265 — PatchCore 以比較影像區塊特徵與正常區塊記憶庫的方式為異常評分。
+- Defard et al. (2020). PaDiM: a Patch Distribution Modeling Framework for Anomaly Detection and Localization. arXiv. https://arxiv.org/abs/2011.08785 — PaDiM 對正常區塊特徵的分布建模，用於定位異常。
+- Bergmann et al. (2019). MVTec AD — A Comprehensive Real-World Dataset for Unsupervised Anomaly Detection. CVPR. https://doi.org/10.1109/CVPR.2019.00982 — 工業影像基準資料集，用於無監督瑕疵偵測。
+- Mirhoseini et al. (2021). A graph placement methodology for fast chip design. *Nature*. https://doi.org/10.1038/s41586-021-03544-w — 以強化學習進行晶片平面規劃，是上文晶片設計敘述的依據。
+- He, K. et al. (2016). Deep Residual Learning for Image Recognition. CVPR. https://doi.org/10.1109/CVPR.2016.90 — 殘差連接，使非常深的 CNN 能夠訓練。
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — 提出 Transformer，以多頭自注意力為核心。

@@ -14,9 +14,9 @@
 
 ## 證據
 
-- **人類一對一家教**效果非常顯著——Bloom 的「2 sigma 問題」（1984）設定了這個目標，雖然後來的統合分析發現效果較小，但仍然很大
+- **人類一對一家教**效果非常顯著。Bloom 的「2 sigma 問題」（1984）設定了讓團體教學達到一對一家教效果的目標（Bloom, 1984）
 - **智慧型教學系統**平均帶來中等程度的學習成效（VanLehn, 2011；Kulik & Fletcher, 2016）
-- **LLM 家教**：奈及利亞的一項隨機試驗發現，以 GPT-4 為基礎的課後輔導計畫，在六週內顯著提升了英語學習成效（世界銀行，2024–2025）；哈佛的一項物理課研究發現，依據教學最佳實踐設計的 AI 家教，在學習成效上優於主動學習課堂（Kestin et al., 2025, *Scientific Reports*）
+- **LLM 家教**：一項物理課程的隨機試驗發現，依教學最佳實務設計的 AI 家教，比課堂主動學習產生更大的學習成效（Kestin et al., 2025）
 - **不加結構的 LLM 使用可能有害**：高中生在無限制使用 GPT-4 時，練習成績較好，但拿掉工具後考試成績變差；家教式的版本則減輕了這種傷害（Bastani et al., 2025, *PNAS*）
 
 ## 方法
@@ -46,9 +46,25 @@
 - **公平性**：裝置、網路與付費工具的取得不平等
 - 自動評分中的**偏見**
 
-## 學習資源
+## 關鍵方法
 
-- UNESCO (2023)，*Guidance for Generative AI in Education and Research*
-- Holmes、Bialik 與 Fadel，*Artificial Intelligence in Education*
-- Koedinger 與 Corbett，認知導師相關研究
-- [EdArXiv](https://edarxiv.org/)，近期的教育研究預印本
+下列兩種方法與本頁最相關。每一項都連結到解釋該方法的頁面。
+
+- [Transformer](../../theory/models/transformer/attention-is-all-you-need/index.md)：用於深度知識追蹤的序列模型，依學習者的歷史預測其下一個回答（Vaswani et al., 2017）。
+- [InstructGPT 與 RLHF](../../theory/models/llm/instructgpt-rlhf/index.md)：LLM 家教背後的訓練方法，可調整為引導而非直接給答案（Ouyang et al., 2022）。
+
+## 參考文獻
+
+### 開創性論文
+
+- Bloom (1984). The 2 Sigma Problem: The Search for Methods of Group Instruction as Effective as One-to-One Tutoring. *Educational Researcher*. https://doi.org/10.3102/0013189X013006004 — 設定了一對一家教優於團體教學的基準。
+- Kestin et al. (2025). AI tutoring outperforms in-class active learning: an RCT introducing a novel research-based design in an authentic educational setting. *Scientific Reports*. https://doi.org/10.1038/s41598-025-97652-6 — 在物理課程中比較 AI 家教與課堂主動學習的隨機試驗。
+- Bastani et al. (2025). Generative AI without guardrails can harm learning: Evidence from high school mathematics. *PNAS*. https://doi.org/10.1073/pnas.2422633122 — 無限制的 GPT-4 使用會損害考試成績，家教式版本可減輕傷害。
+- Liang et al. (2023). GPT detectors are biased against non-native English writers. *Patterns*. https://doi.org/10.1016/j.patter.2023.100779 — 顯示 AI 文本偵測器會把非母語英文寫作誤判為機器生成。
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — 提出 Transformer，以多頭自注意力為核心。
+- Ouyang, L. et al. (2022). Training language models to follow instructions with human feedback. NeurIPS. https://arxiv.org/abs/2203.02155 — InstructGPT，以人類偏好回饋進行指令微調。
+
+### 綜述與教科書
+
+- VanLehn (2011). The Relative Effectiveness of Human Tutoring, Intelligent Tutoring Systems, and Other Tutoring Systems. *Educational Psychologist*. https://doi.org/10.1080/00461520.2011.611369 — 比較人類家教、智慧型教學系統與其他教學系統的效果。
+- Kulik & Fletcher (2016). Effectiveness of Intelligent Tutoring Systems. *Review of Educational Research*. https://doi.org/10.3102/0034654315581420 — 智慧型教學系統學習成效的統合分析。
