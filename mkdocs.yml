@@ -505,7 +505,9 @@ nav:
       - Probabilistic & Bayesian Methods: theory/probabilistic/index.md
       - Symbolic AI, Search & Planning: theory/symbolic-ai/index.md
       - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
-      - Generative Models: theory/generative/index.md
+      - Generative Models:
+          - theory/generative/index.md
+          - Diffusion Models: theory/generative/diffusion/index.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation: theory/model-compression/quantisation/index.md
@@ -531,8 +533,6 @@ nav:
               - theory/models/ssm/index.md
               - Structured State Spaces: theory/models/ssm/structured-state-spaces/index.md
               - Selective State Spaces: theory/models/ssm/selective-state-spaces/index.md
-          - Diffusion Models:
-              - theory/models/diffusion/index.md
           - Large Language Models:
               - theory/models/llm/index.md
               - Imitation in Foundation Models: theory/models/llm/imitation-in-foundation-models/index.md

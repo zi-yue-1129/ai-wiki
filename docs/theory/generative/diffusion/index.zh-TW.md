@@ -4,7 +4,7 @@ translation_reviewed: 2026-10-28
 
 # 擴散模型
 
-擴散模型是一類生成網路，透過逆轉逐步加噪的過程來產生資料。今日大多數影像、影片與音訊生成器都以它為基礎。學習去噪的一般概念在[生成模型](../../generative/index.md)中說明；本頁討論架構家族：執行去噪的網路、如何以文字或其他輸入進行條件化，以及如何取樣。
+擴散模型是一類生成網路，透過逆轉逐步加噪的過程來產生資料。今日大多數影像、影片與音訊生成器都以它為基礎。擴散是一種生成演算法，其一般位置在[生成模型](../index.md)中。本頁討論演算法本身：前向與反向過程、去噪網路如何以文字或其他輸入進行條件化，以及如何取樣。執行去噪的網路屬於一般架構家族，見[卷積網路](../../models/cnn/index.md)與[Transformer 與注意力](../../models/transformer/index.md)。
 
 ## 概述
 
@@ -73,9 +73,9 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 
 ## 關聯
 
-- **生成模型：** 擴散是數種生成家族之一，其一般理論見[生成模型](../../generative/index.md)。
-- **Transformer：** DiT 骨幹重用了[Transformer 與注意力](../transformer/index.md)中的注意力機制。
-- **卷積網路：** U-Net 骨幹由[卷積網路](../cnn/index.md)中的層所構成。
+- **生成模型：** 擴散是數種生成演算法之一，與自回歸模型、VAE、GAN 並列，見[生成模型](../index.md)。
+- **Transformer：** DiT 骨幹重用了[Transformer 與注意力](../../models/transformer/index.md)中的注意力機制。
+- **卷積網路：** U-Net 骨幹由[卷積網路](../../models/cnn/index.md)中的層所構成。
 - **大腦與心智：** 擴散模型已被用於從腦部活動解碼影像，見[腦機介面](../../../brain-mind/bci/index.md)。至於大腦自身的學習如何與這些訓練目標比較，見 [NeuroAI](../../../brain-mind/neuroai/index.md)。
 
 ## 應用

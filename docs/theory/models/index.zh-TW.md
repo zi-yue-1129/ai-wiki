@@ -15,7 +15,6 @@ references: not-required
 | [循環網路](rnn/index.md) | 隱藏狀態逐步在序列中傳遞 | [門控單元](rnn/gated-cells/index.md)、[序列模式](rnn/sequence-modes/index.md) |
 | [Transformer 與注意力](transformer/index.md) | 以注意力依內容路由資訊 | [注意力變體](transformer/attention-variants/index.md)、[位置編碼](transformer/positional-encodings/index.md)、[KV 快取](transformer/kv-cache/index.md) |
 | [狀態空間模型](ssm/index.md) | 隨時間更新的線性狀態，具有長程記憶 | [結構化狀態空間](ssm/structured-state-spaces/index.md)、[選擇性狀態空間](ssm/selective-state-spaces/index.md) |
-| [擴散模型](diffusion/index.md) | 學習逆轉逐步加噪的過程來生成資料 | 去噪骨幹（U-Net、DiT）、潛在擴散、引導 |
 | [圖神經網路](gnn/index.md) | 沿圖的邊進行訊息傳遞 | [訊息傳遞](gnn/message-passing/index.md) |
 
 ## 應用與系統

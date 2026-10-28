@@ -2,7 +2,6 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/generative
   - theory/models/transformer
   - theory/models/cnn
   - brain-mind/neuroai
@@ -21,7 +20,7 @@ aliases:
 
 # Diffusion Models
 
-Diffusion models are a family of generative networks that create data by reversing a gradual noising process. They power most modern image, video and audio generators. The general idea of learning to denoise is explained in [Generative Models](../../generative/index.md); this page covers the architecture family: the networks that do the denoising, how they are conditioned on text or other inputs, and how they are sampled.
+Diffusion models are a family of generative networks that create data by reversing a gradual noising process. They power most modern image, video and audio generators. Diffusion is one generative algorithm, so its general place is in [Generative Models](../index.md). This page covers the algorithm itself: the forward and reverse processes, how the denoising network is conditioned on text or other inputs, and how samples are drawn. The networks that do the denoising are ordinary architecture families, described in [Convolutional Networks](../../models/cnn/index.md) and [Transformers & Attention](../../models/transformer/index.md).
 
 ## Overview
 
@@ -90,9 +89,9 @@ A naive sampler needs as many steps as training. Two ideas reduce this. Non-Mark
 
 ## Connections
 
-- **Generative modelling:** diffusion is one of several generative families, and its general theory is in [Generative Models](../../generative/index.md).
-- **Transformers:** the DiT backbone reuses the attention machinery in [Transformers & Attention](../transformer/index.md).
-- **Convolutional networks:** the U-Net backbone is built from the layers in [Convolutional Networks](../cnn/index.md).
+- **Generative modelling:** diffusion is one of several generative algorithms, alongside autoregressive models, VAEs and GANs, described in [Generative Models](../index.md).
+- **Transformers:** the DiT backbone reuses the attention machinery in [Transformers & Attention](../../models/transformer/index.md).
+- **Convolutional networks:** the U-Net backbone is built from the layers in [Convolutional Networks](../../models/cnn/index.md).
 - **Brain and mind:** diffusion models have been used to decode images from brain activity; see [Brain-Computer Interfaces](../../../brain-mind/bci/index.md). For how the brain's own learning compares with these training objectives, see [NeuroAI](../../../brain-mind/neuroai/index.md).
 
 ## Applications
