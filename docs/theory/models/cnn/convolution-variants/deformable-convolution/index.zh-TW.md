@@ -10,7 +10,7 @@ tags:
   - convolution
   - object detection
   - spatial adaptation
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # 可變形卷積

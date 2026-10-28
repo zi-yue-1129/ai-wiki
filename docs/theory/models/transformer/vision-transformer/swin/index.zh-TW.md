@@ -15,7 +15,7 @@ aliases:
   - Swin Transformer
   - Shifted windows
   - 移位視窗 Transformer
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # Swin Transformer
