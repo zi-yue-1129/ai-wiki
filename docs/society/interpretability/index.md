@@ -65,10 +65,16 @@ Interpretability researchers face the problems neuroscientists have faced for de
 - Steering behaviour without retraining
 - Scientific discovery: learning new concepts from superhuman models (e.g. chess concepts from AlphaZero, Schut et al., 2023)
 
-## Resources
+## References
 
-- Molnar, *Interpretable Machine Learning* (free online)
-- [Transformer Circuits Thread](https://transformer-circuits.pub/)
-- Neel Nanda's mechanistic interpretability guides; [TransformerLens](https://github.com/TransformerLensOrg/TransformerLens)
-- Bereska & Gavves (2024), "Mechanistic Interpretability for AI Safety — A Review"
-- [Captum](https://captum.ai/), [SHAP](https://github.com/shap/shap)
+- Ribeiro, M. T., Singh, S. & Guestrin, C. (2016). "Why Should I Trust You?": Explaining the Predictions of Any Classifier. *Proceedings of KDD 2016*. https://arxiv.org/abs/1602.04938 — Introduces LIME, which explains one prediction by fitting a simple surrogate model around that input.
+- Lundberg, S. M. & Lee, S.-I. (2017). A Unified Approach to Interpreting Model Predictions. *NeurIPS 2017*. https://arxiv.org/abs/1705.07874 — SHAP: attributes a prediction to its input features using Shapley values from cooperative game theory.
+- Bau, D. et al. (2017). Network Dissection: Quantifying Interpretability of Deep Visual Representations. *CVPR 2017*. https://arxiv.org/abs/1704.05796 — Measures how well individual hidden units align with human-labelled visual concepts.
+- Olah, C. et al. (2020). Zoom In: An Introduction to Circuits. *Distill*. https://doi.org/10.23915/distill.00024.001 — Argues that features and the connections between them in a vision network can be studied as circuits.
+- Elhage, N. et al. (2021). A Mathematical Framework for Transformer Circuits. *Transformer Circuits Thread*. https://transformer-circuits.pub/2021/framework/index.html — Frames attention and MLP components of small transformers as linear algebra on the residual stream.
+
+## Further learning
+
+- [Transformer Circuits Thread](https://transformer-circuits.pub/) — ongoing series of mechanistic interpretability papers.
+- [TransformerLens](https://github.com/TransformerLensOrg/TransformerLens) — open-source library for inspecting transformer activations.
+- [Captum](https://captum.ai/) and [SHAP](https://github.com/shap/shap) — open-source attribution libraries for PyTorch and general models.

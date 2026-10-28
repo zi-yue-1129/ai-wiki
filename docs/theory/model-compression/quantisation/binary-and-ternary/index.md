@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -38,7 +38,7 @@ BinaryConnect shows that training with binary weights is possible. XNOR-Net adds
 
 ## Trade-offs
 
-- **Compression versus accuracy.** Going from ternary to binary halves the storage per weight but removes the zero value. The accuracy cost depends on the task and the training recipe, so the papers' tables are the reference.
+- **Compression versus accuracy.** A binary weight takes one bit, and a ternary weight takes about 1.6 bits (log₂ 3) when packed tightly, so going from ternary to binary saves less than half the storage, and the zero value is lost. The accuracy cost depends on the task and the training recipe, so the papers' tables are the reference.
 - **Hardware support.** Binary and ternary networks gain most when the chip implements bitwise operations. On a GPU, the gain is limited.
 - **Training difficulty.** Gradient approximations are biased, and results depend on the training schedule.
 
@@ -56,9 +56,11 @@ The extreme low-bit regime connects to the [hardware](../../../../engineering/ha
 
 ### Seminal papers
 
-- Courbariaux, M., Bengio, Y., David, J.-P. (2015). *BinaryConnect: Training Deep Neural Networks with Binary Weights during Propagations*. arXiv:1511.00363. https://arxiv.org/abs/1511.00363 — Trains with binary weights in the forward pass while keeping real-valued weights for updates.
-- Rastegari, M., Ordonez, V., Redmon, J., Farhadi, A. (2016). *XNOR-Net: ImageNet Classification Using Binary Convolutional Neural Networks*. arXiv:1603.05279. https://arxiv.org/abs/1603.05279 — Binary filters with scale factors that keep AlexNet within 2.9% top-1 accuracy.
-- Li, F., Liu, B., Wang, X., Zhang, B., Yan, J. (2016). *Ternary Weight Networks*. arXiv:1605.04711. https://arxiv.org/abs/1605.04711 — Three-value weights with a learned threshold and scale, reaching up to 16 times compression.
+- Courbariaux, M., Bengio, Y., David, J.-P. (2015). *BinaryConnect: Training Deep Neural Networks with Binary Weights during Propagations*. arXiv:1511.00363. https://arxiv.org/abs/1511.00363 — Uses binary weights in both forward and backward propagation, keeping real-valued weights to accumulate gradients.
+- Rastegari, M., Ordonez, V., Redmon, J., Farhadi, A. (2016). *XNOR-Net: ImageNet Classification Using Binary Convolutional Neural Networks*. arXiv:1603.05279. https://arxiv.org/abs/1603.05279 — Binary filters with scale factors. The binary-weight AlexNet is within 2.9% of full-precision top-1 accuracy, and XNOR-Net, which also binarises the inputs, runs convolutions 58 times faster.
+- Li, F., Liu, B., Wang, X., Zhang, B., Yan, J. (2016). *Ternary Weight Networks*. arXiv:1605.04711. https://arxiv.org/abs/1605.04711 — Three-value weights chosen by a threshold-based function, with a scaling factor that minimises the distance to the full-precision weights, reaching up to 16 times compression.
+- Hubara, I., Soudry, D., El-Yaniv, R. (2016). *Binarized Neural Networks*. arXiv:1602.02505. https://arxiv.org/abs/1602.02505 — Trains networks whose weights and activations are both binary at run time.
+- Zhu, C., Han, S., Mao, H., Dally, W. J. (2016). *Trained Ternary Quantization*. arXiv:1612.01064. https://arxiv.org/abs/1612.01064 — Learns separate scaling factors for the positive and negative ternary values in each layer.
 
 ### Surveys and textbooks
 

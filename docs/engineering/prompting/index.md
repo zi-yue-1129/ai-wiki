@@ -54,9 +54,15 @@ Any untrusted text in the context (web pages, emails, documents, tool outputs) c
 - Asking for things the model cannot know (private or very recent facts) without supplying them
 - Over-long prompts full of irrelevant rules
 
-## Resources
+## References
 
-- [Prompt Engineering Guide](https://www.promptingguide.ai/) (DAIR.AI; MIT)
-- Anthropic, OpenAI and Google prompting documentation
-- Schulhoff et al. (2024), "The Prompt Report: A Systematic Survey of Prompting Techniques"
-- Wei et al. (2022), chain-of-thought; Wang et al. (2023), self-consistency
+- Wei, J. et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — Introduces prompts whose worked examples include intermediate reasoning steps, the technique in the Techniques section.
+- Wang, X. et al. (2023). *Self-Consistency Improves Chain of Thought Reasoning in Language Models*. ICLR 2023. https://arxiv.org/abs/2203.11171 — Samples several reasoning paths and takes a majority vote over the final answers, a common test-time method.
+- Yao, S. et al. (2023). *ReAct: Synergizing Reasoning and Acting in Language Models*. ICLR 2023. https://arxiv.org/abs/2210.03629 — Interleaves reasoning traces with tool actions, the basis of many agent prompting patterns on this page.
+- Brown, T. et al. (2020). *Language Models are Few-Shot Learners*. NeurIPS 2020. https://arxiv.org/abs/2005.14165 — Shows that large language models can perform new tasks from a few examples placed in the prompt.
+- Schulhoff, S. et al. (2024). *The Prompt Report: A Systematic Survey of Prompt Engineering Techniques*. arXiv. https://arxiv.org/abs/2406.06608 — Broad taxonomy of prompting techniques with shared terminology, useful for checking the list of methods here.
+- Greshake, K. et al. (2023). *Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection*. arXiv. https://arxiv.org/abs/2302.12173 — Shows that instructions hidden in retrieved content can hijack an application, the threat model in the security section.
+
+## Further learning
+
+- [Prompt Engineering Guide](https://www.promptingguide.ai/) (DAIR.AI; MIT) — community guide with a worked example for each technique above.

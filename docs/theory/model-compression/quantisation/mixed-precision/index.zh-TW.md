@@ -21,7 +21,7 @@ translation_reviewed: 2026-10-28
 
 | 方法 | 分配單位 | 敏感度度量 | 頁面 |
 | --- | --- | --- | --- |
-| 基於 Hessian 的逐層分配 | 整層 | 每層 Hessian 最大特徵值 | [HAWQ](hawq/index.zh-TW.md) |
+| 基於 Hessian 的逐層分配 | 整層 | 每層 Hessian 的最大特徵值（HAWQ）或跡（HAWQ-V2） | [HAWQ](hawq/index.zh-TW.md) |
 | 離群值分解 | 矩陣乘法內的維度 | 激活離群值的大小 | [LLM.int8()](../post-training/llm-int8/index.zh-TW.md) |
 
 逐層分配適合卷積網路，因為各層的敏感度差異很大。離群值分解適合大型 Transformer，因為少數維度主導了誤差。
@@ -46,7 +46,9 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Dong, Z., Yao, Z., Gholami, A., Mahoney, M., Keutzer, K. (2019). *HAWQ: Hessian AWare Quantization of Neural Networks with Mixed-Precision*. arXiv:1905.03696. https://arxiv.org/abs/1905.03696 — 依據每層的 Hessian 譜分配位元寬度。
+- Dong, Z., Yao, Z., Gholami, A., Mahoney, M., Keutzer, K. (2019). *HAWQ: Hessian AWare Quantization of Neural Networks with Mixed-Precision*. arXiv:1905.03696. https://arxiv.org/abs/1905.03696 — 以每層 Hessian 的最大特徵值作為敏感度來分配位元寬度，取代窮舉搜尋。
+- Dong, Z., 等人 (2020). *HAWQ-V2: Hessian Aware trace-Weighted Quantization of Neural Networks*. arXiv:1911.03852. https://arxiv.org/abs/1911.03852 — 以跡加權的度量取代最大特徵值，使用更多 Hessian 譜的資訊。
+- Wang, K., 等人 (2019). *HAQ: Hardware-Aware Automated Quantization with Mixed Precision*. arXiv:1811.08886. https://arxiv.org/abs/1811.08886 — 以硬體感知的回饋搜尋各層的位元寬度，而非使用固定的敏感度規則。
 - Frantar, E., 等人 (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. arXiv:2210.17323. https://arxiv.org/abs/2210.17323 — 以二階資訊補償 3 與 4 位元的捨入，是大型語言模型的均勻精度基準。
 
 ### 綜述與教科書
