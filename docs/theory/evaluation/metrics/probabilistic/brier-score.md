@@ -31,6 +31,13 @@ Use the Brier score when the probabilities are used directly and a single bounde
 
 Using the same predictions, the squared errors are $0.01$, $0.64$, $0.09$ and $0.16$. The Brier score is their mean, $0.225$. Unlike log loss, the squared error is bounded, so one confident mistake adds at most 1 to a case's contribution.
 
+## Properties and variants
+
+- **Proper scoring rule.** The Brier score is the mean squared difference between the predicted probability and the 0/1 outcome. Its expected value is minimised by the true probability, so like log loss it rewards honest probabilities.
+- **Bounded.** For binary outcomes each case contributes between 0 and 1, so one extreme mistake cannot dominate the total the way it can with log loss.
+- **Skill score.** Comparing with a forecast that always outputs the prevalence $\pi$ gives the Brier skill score $1 - \mathrm{BS} / \mathrm{BS}_{\mathrm{ref}}$, where $\mathrm{BS}_{\mathrm{ref}} = \pi(1 - \pi)$. Positive values mean the model beats the constant baseline.
+- **Limit.** The penalty is quadratic, so it reacts less to rare, confident mistakes, which may matter in safety-critical settings.
+
 ## Pitfalls
 
 - **Rare events.** For a rare outcome, a model that predicts a small constant probability has a low Brier score without any skill. Compare it with the base rate, $p_{\text{base}}(1 - p_{\text{base}})$, as a baseline.

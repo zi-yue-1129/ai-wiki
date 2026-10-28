@@ -31,6 +31,13 @@ Use calibration error when probabilities are used for decisions, reported to use
 
 Use the same four predictions with two equal-width bins. This is too few bins for a real evaluation and is only meant to show the arithmetic. The bin $[0, 0.5)$ holds one case with mean confidence 0.30 and observed positive rate 0. The bin $[0.5, 1]$ holds three cases with mean confidence 0.77 and observed positive rate 0.67. ECE is $\tfrac{1}{4} \cdot 0.30 + \tfrac{3}{4} \cdot 0.10 = 0.15$.
 
+## Properties and variants
+
+- **Definition.** ECE is $\sum_m \frac{|B_m|}{n}\,\left|\mathrm{acc}(B_m) - \mathrm{conf}(B_m)\right|$, the weighted average gap between confidence and accuracy over bins $B_m$. Variants take the largest gap across bins (maximum calibration error), or compute gaps per class for multi-class outputs.
+- **Binning.** Equal-width bins are simple. Equal-mass (adaptive) bins hold roughly the same number of cases each, which keeps estimates stable where predictions cluster.
+- **Trivial calibration.** A constant predictor that always outputs the prevalence has an ECE of zero in the population, yet it has no ability to rank cases. ECE should be read alongside a discrimination metric such as ROC-AUC or log loss.
+- **Limit.** The estimate is biased when bins are small, and the value depends on the number of bins.
+
 ## Pitfalls
 
 - **Bin choice.** Equal-width bins are sensitive to the number of bins and to sparse ranges. Report the bin count and the binning scheme.

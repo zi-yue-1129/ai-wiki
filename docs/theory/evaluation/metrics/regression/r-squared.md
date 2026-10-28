@@ -29,6 +29,13 @@ Use $R^2$ to summarise how much of the target's variation a model explains, and 
 
 Using the same values, the mean of the true values is $2.875$. The total sum of squares is $29.19$ and the residual sum of squares is $1.5$, so $R^2 = 1 - 1.5 / 29.19 \approx 0.949$. The model explains about 95% of the variance here, but the number does not say whether errors of 0.5 units are acceptable.
 
+## Properties and variants
+
+- **Decomposition.** $R^2 = 1 - \mathrm{SS}_{\mathrm{res}} / \mathrm{SS}_{\mathrm{tot}}$. For a least-squares fit with an intercept, evaluated on the training data, $R^2$ lies between 0 and 1 and equals the squared correlation between predictions and targets. In simple linear regression it equals the squared Pearson correlation between $x$ and $y$.
+- **Out of sample.** On held-out data $R^2$ can be negative, because predictions can be worse than the test-set mean. The training value is not an out-of-sample score.
+- **Adjusted and predictive variants.** Adjusted $R^2$ penalises the number of predictors. Predictive $R^2$ (often written $Q^2$) uses held-out predictions and is the one to report for prediction.
+- **Limit.** A high $R^2$ does not reveal bias, and it does not show that the relationship is linear or that the model is correct.
+
 ## Pitfalls
 
 - **Test-set variance.** $R^2$ depends on the variance of the test targets. A model can score well on one dataset and poorly on another with the same errors.

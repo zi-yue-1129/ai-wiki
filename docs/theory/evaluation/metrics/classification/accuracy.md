@@ -31,6 +31,13 @@ Use accuracy when the classes are roughly balanced and every kind of error has t
 
 Using the 100 cases above, accuracy is $(40 + 30) / 100 = 0.70$. The same classifier has precision 0.80 and recall 0.67 (see [precision](precision.md) and [recall](recall.md)), so accuracy alone does not show which kind of error dominates.
 
+## Properties and variants
+
+- **Baseline.** A classifier that always predicts the majority class scores that class's share of the data. On data that is 90% negative, 0.90 accuracy is no improvement.
+- **Balanced accuracy.** The mean of recall over classes, which for two classes is $\tfrac{1}{2}(\mathrm{TPR} + \mathrm{TNR})$. It does not depend on class sizes.
+- **Top-k accuracy.** In multi-class problems, a case counts as correct if the true class is among the $k$ highest scores.
+- **Limit.** Accuracy treats every error alike, so it cannot express unequal costs of false alarms and misses.
+
 ## Pitfalls
 
 - **Imbalance.** A high score can come from predicting the majority class. Compare against the majority-class rate as a baseline.

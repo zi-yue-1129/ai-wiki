@@ -31,6 +31,14 @@ Use IoU when the question is how well a predicted region matches the reference, 
 
 Take a strip of 10 pixels. The predicted region covers pixels 1 to 6 (6 pixels) and the reference covers pixels 4 to 7 (4 pixels), so they share 3 pixels. The union is $6 + 4 - 3 = 7$, so IoU $= 3 / 7 \approx 0.43$. For the same masks, [Dice](dice.md) gives 0.60, which shows how far the two measures can differ.
 
+## Properties and variants
+
+- **Pixel form.** For a binary mask, $|A \cap B| = \mathrm{TP}$ and $|A \cup B| = \mathrm{TP} + \mathrm{FP} + \mathrm{FN}$, so $\mathrm{IoU} = \mathrm{TP} / (\mathrm{TP} + \mathrm{FP} + \mathrm{FN})$. This is the Jaccard index of the two sets.
+- **Relation to Dice.** $\mathrm{Dice} = 2\,\mathrm{IoU} / (1 + \mathrm{IoU})$. The two are monotone functions of each other, so they rank models identically on a single region.
+- **Mean IoU.** The mean over classes (mIoU) is the usual summary for multi-class segmentation. Per-class values show whether rare classes are failing.
+- **Box variant.** Generalised IoU subtracts a penalty based on the smallest enclosing box. It still gives a useful signal when boxes do not overlap, where plain IoU is zero for every such pair.
+- **Limit.** Small or thin objects have small areas, so a few boundary pixels can change IoU a lot.
+
 ## Pitfalls
 
 - **Averaging.** Mean IoU over classes or images can hide poor performance on rare or small objects. Report per-class values.

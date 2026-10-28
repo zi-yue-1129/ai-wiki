@@ -29,6 +29,13 @@ Use NDCG to compare rankings in search and recommendation, especially when relev
 
 Take six items whose graded relevance, in the order the model ranks them, is $(3, 2, 3, 0, 1, 2)$. The discounted cumulative gain is $\mathrm{DCG} = \sum_{i=1}^{6} \mathrm{rel}_i / \log_2(i + 1) \approx 6.86$. The ideal order $(3, 3, 2, 2, 1, 0)$ gives $\mathrm{IDCG} \approx 7.14$, so NDCG is $6.86 / 7.14 \approx 0.96$.
 
+## Properties and variants
+
+- **Gain and discount.** The gain is the relevance, and the discount $1 / \log_2(i + 1)$ falls with rank $i$. Järvelin and Kekäläinen (2002) introduced this family of discounted cumulated gains. Scikit-learn uses linear gain. Web search often uses exponential gain, $2^{\mathrm{rel}} - 1$, which weights high grades more heavily.
+- **Normalisation.** Dividing by the ideal DCG gives 1 for the best possible order of the same items, so scores are comparable across queries with different numbers of relevant items.
+- **Cut-off variant.** NDCG@$k$ computes both DCG and the ideal DCG over the top $k$ positions, so it measures only the top of the list.
+- **Limit.** The discount base and the gain function are conventions. Two papers reporting "NDCG" may use different ones, so the formula must be stated.
+
 ## Pitfalls
 
 - **Normalisation per query.** NDCG is computed for each query and then averaged. A query with no relevant items needs a stated convention.

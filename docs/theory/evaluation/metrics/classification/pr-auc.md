@@ -31,6 +31,13 @@ Use PR-AUC when positives are rare, as in fraud or fault detection, and when the
 
 Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (negative), 0.6 (positive), 0.3 (negative). Precision at the two positives is $1/1$ and $2/3$, so average precision is $(1 + 2/3) / 2 \approx 0.83$, which matches the value `average_precision_score` returns. A random ranking would score 0.5 here, the prevalence of positives.
 
+## Properties and variants
+
+- **Baseline.** A random ranking gives PR-AUC equal to the prevalence, so the value should be read against that baseline, as described in the interpretation section.
+- **Interpolation variants.** Older benchmarks, such as early PASCAL VOC evaluations, used 11-point interpolated average precision. At recall levels $0, 0.1, \ldots, 1$ it takes the maximum precision at or above each level and averages those. This differs from the step-wise average precision used here.
+- **Single-point summaries.** Precision at a fixed recall, such as 90%, is a single-point summary that some applications prefer.
+- **Limit.** Like ROC-AUC it judges the ranking but not calibration, and its value depends on prevalence.
+
 ## Pitfalls
 
 - **Prevalence.** Two datasets with different positive rates give different PR-AUC baselines. Report the prevalence next to the score.

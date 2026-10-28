@@ -29,6 +29,13 @@ Use recall when a missed positive is costly, for example in disease screening or
 
 Using the 100 cases above, there are 60 actual positives and the classifier finds 40 of them. Recall is $40 / (40 + 20) = 0.67$. It says nothing about the 10 false alarms, which precision captures.
 
+## Properties and variants
+
+- **Range and undefined case.** Recall lies in $[0, 1]$ and is undefined when there are no actual positives. It is also called sensitivity or the true positive rate.
+- **Ignores true negatives.** Like precision, it does not change when correct negatives are added.
+- **Trivial maximum.** Predicting every case as positive gives recall 1, so recall should be reported alongside precision or a false-positive measure.
+- **Variant.** Macro recall averages per-class recall, which gives rare classes the same weight as common ones.
+
 ## Pitfalls
 
 - **Trivial recall.** A model that predicts everything positive has recall 1.0 and is useless. Always read recall with precision.

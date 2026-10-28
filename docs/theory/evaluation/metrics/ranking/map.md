@@ -33,6 +33,13 @@ Use MAP for information retrieval benchmarks where relevance is yes or no and ev
 
 Take one query whose ranked list has binary labels $(1, 0, 1, 0, 0, 1)$, where 1 means relevant. Precision at the three relevant positions is $1/1$, $2/3$ and $3/6$. Average precision is $(1 + 2/3 + 1/2) / 3 \approx 0.72$. MAP over several queries is the mean of such values.
 
+## Properties and variants
+
+- **Binary relevance and recall.** AP divides by $R$, the total number of relevant items, not by the number retrieved. Relevant items that are never retrieved therefore lower the score, which makes MAP sensitive to recall.
+- **Truncated variant.** MAP@$k$ counts only relevant items in the top $k$. The denominator may be the total number of relevant items or $k$, depending on the convention, which must be stated.
+- **Geometric mean.** GMAP takes the geometric mean of per-query AP, which penalises queries that score near zero more strongly.
+- **Limit.** MAP assumes the judgements are complete. Unjudged relevant items count as non-relevant, which biases the score downward.
+
 ## Pitfalls
 
 - **Query weighting.** MAP gives every query equal weight, so a few queries with many relevant items do not dominate. Report the number of queries.

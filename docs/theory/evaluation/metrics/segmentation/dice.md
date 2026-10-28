@@ -31,6 +31,13 @@ Use Dice for binary or per-class segmentation where the region size varies, part
 
 Use the two regions from the [IoU](iou.md) example: 6 predicted pixels, 4 reference pixels and 3 shared. Dice is $2 \cdot 3 / (6 + 4) = 0.60$. As a check, $2 \cdot 0.43 / (1 + 0.43) \approx 0.60$. If both masks were empty, the formula would be $0/0$, which is the empty-mask case in the pitfalls below.
 
+## Properties and variants
+
+- **Pixel form.** $\mathrm{Dice} = 2\,\mathrm{TP} / (2\,\mathrm{TP} + \mathrm{FP} + \mathrm{FN})$. The factor 2 counts the overlap once for each region, so the score is 1 only when the regions are identical.
+- **Soft Dice loss.** For training, hard masks are replaced by predicted probabilities, and $1 - \mathrm{Dice}$ is minimised. Milletari et al. (2016) trained a volumetric segmentation network with a Dice-based objective of this kind.
+- **Generalised Dice.** Sudre et al. (2017) weight each class by the inverse square of its size, so small structures count about as much as large ones in the overall score.
+- **Limit.** Dice rewards overlap of large regions and says little about where the boundary lies. Boundary-distance measures are often reported alongside it.
+
 ## Pitfalls
 
 - **Empty masks.** If both masks are empty, the formula is 0/0. The convention for this case must be stated.

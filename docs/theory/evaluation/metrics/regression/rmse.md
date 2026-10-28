@@ -29,6 +29,13 @@ Use RMSE when large errors are disproportionately costly, or when the target is 
 
 Using the same values, the squared errors are $0.25, 0.25, 0, 1$. Their mean is $0.375$, and the square root gives RMSE $\approx 0.61$. RMSE is larger than the MAE of 0.5 because squaring gives the single error of 1 more weight.
 
+## Properties and variants
+
+- **Minimiser.** The constant that minimises RMSE, or equivalently MSE, is the mean of the targets.
+- **Relation to MAE.** On the same errors, RMSE is never smaller than MAE, and the two are equal only when all absolute errors are the same.
+- **Variants.** Normalised RMSE divides by the range or the mean of the targets so that results can be compared across datasets. MSE is the same quantity without the square root. It is smooth everywhere, which is why it is common as a training loss.
+- **Limit.** A few large errors can dominate the value, so RMSE can look poor even when the typical error is small.
+
 ## Pitfalls
 
 - **Outliers.** A few extreme errors can dominate RMSE. Check the error distribution, not only the summary.

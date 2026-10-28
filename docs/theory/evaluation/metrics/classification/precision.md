@@ -29,6 +29,13 @@ Use precision when acting on a positive prediction is expensive or harmful, for 
 
 Using the 100 cases above, the classifier predicts 50 positives. Precision is $40 / (40 + 10) = 0.80$: four in five flagged cases are correct. It says nothing about the 20 positives that were missed.
 
+## Properties and variants
+
+- **Range and undefined case.** Precision lies in $[0, 1]$. It is undefined when there are no positive predictions ($\mathrm{TP} + \mathrm{FP} = 0$), so the convention used, such as `zero_division`, must be stated.
+- **Ignores true negatives.** Adding correct negatives does not change precision, which makes it useful when negatives are plentiful.
+- **Precision at $k$.** In retrieval, precision at $k$ is the share of relevant items among the top $k$ results.
+- **Limit.** A model that predicts positive only for its most certain cases can have high precision with very low recall.
+
 ## Pitfalls
 
 - **Threshold dependence.** Precision at one threshold says little about the model as a whole. Pair it with a threshold-free metric such as [PR-AUC](pr-auc.md).

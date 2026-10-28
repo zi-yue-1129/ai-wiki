@@ -31,6 +31,13 @@ Use log-loss to compare probabilistic models on the same data, or to monitor a m
 
 Take four predicted probabilities $p = (0.9, 0.8, 0.3, 0.6)$ for true labels $y = (1, 0, 0, 1)$. The per-case losses are $0.105$, $1.609$, $0.357$ and $0.511$. Their mean, $0.646$, is the log loss. The second case is confidently wrong and dominates the total.
 
+## Properties and variants
+
+- **Proper scoring rule.** Log loss is the negative log-likelihood of a Bernoulli model. Its expected value $-\mathbb{E}[\,y \log q + (1 - y) \log(1 - q)\,]$ is minimised when $q$ equals the true probability, which is why it rewards honest probabilities.
+- **Unbounded.** A predicted probability of exactly 0 for a true positive gives infinite loss, so implementations clip probabilities to $[\epsilon, 1 - \epsilon]$. The clipping constant is a convention and should be reported.
+- **Multi-class.** With softmax outputs, the same quantity is the cross-entropy over classes.
+- **Limit.** A few confident mistakes can dominate the mean, so a model can rank well and still have a poor log loss.
+
 ## Pitfalls
 
 - **Outliers.** A single extreme wrong prediction can raise the average sharply. Clip probabilities away from 0 and 1 only with a stated bound.

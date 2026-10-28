@@ -29,6 +29,13 @@ Use MAE when the error costs grow in proportion to the size of the error, and wh
 
 Take true values $(3, -0.5, 2, 7)$ and predictions $(2.5, 0, 2, 8)$. The absolute errors are $0.5, 0.5, 0, 1$, so MAE is their mean, $0.5$. The largest error, 1, contributes as much as the two 0.5 errors together.
 
+## Properties and variants
+
+- **Minimiser.** The constant that minimises mean absolute error is the median of the targets, while the constant that minimises squared error is the mean. MAE therefore summarises a typical error rather than the mean error.
+- **Units and robustness.** MAE is in the units of the target and grows linearly with error size, so a single outlier has a bounded effect compared with RMSE.
+- **Relative variant.** MAPE divides each error by the true value: $\frac{100\%}{n}\sum |y - \hat y| / |y|$. It is undefined when a target is zero, and it is asymmetric: an under-prediction can cost at most 100%, while an over-prediction has no upper limit.
+- **Limit.** MAE depends on scale, so targets measured in different units can only be compared after normalisation.
+
 ## Pitfalls
 
 - **Scale.** MAE cannot be compared across targets with different units. Normalise the target, or report a relative metric such as [R²](r-squared.md) for cross-task comparison.
