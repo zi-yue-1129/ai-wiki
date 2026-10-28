@@ -19,7 +19,8 @@ tags:
 | [視覺](vision/index.md) | [ImageNet](vision/imagenet.md)、[COCO](vision/coco.md) | 分類、偵測與實例分割 |
 | [語言](language/index.md) | [GLUE](language/glue.md)、[SuperGLUE](language/superglue.md)、[MMLU](language/mmlu.md)、[GPQA](language/gpqa.md)、[人類的最後考試](language/hle.md) | 理解、知識與專家推理 |
 | [數學與程式](math-and-code/index.md) | [GSM8K](math-and-code/gsm8k.md)、[MATH](math-and-code/math.md)、[SWE-bench](math-and-code/swe-bench.md) | 數學與軟體推理 |
-| [推理與代理](reasoning-agents/index.md) | [ARC-AGI](reasoning-agents/arc-agi.md) | 從少數範例中獲得規則 |
+| [多模態](multimodal/index.md) | [VQA v2](multimodal/vqa-v2.md)、[MMMU](multimodal/mmmu.md) | 結合影像、知識與推理 |
+| [推理與代理](reasoning-agents/index.md) | [ARC-AGI](reasoning-agents/arc-agi.md)、[GAIA](reasoning-agents/gaia.md)、[WebArena](reasoning-agents/webarena.md) | 規則獲得、真實世界問題與網頁任務 |
 | [少樣本](few-shot/index.md) | [miniImageNet](few-shot/mini-imagenet.md) | 從少數有標籤的範例辨識新類別 |
 
 ## 如何解讀分數

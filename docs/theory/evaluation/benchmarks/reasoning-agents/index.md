@@ -10,11 +10,13 @@ tags:
 
 # Reasoning and Agent Benchmarks
 
-This family asks whether a system can acquire a new rule from a few examples and apply it, rather than recall a fact or follow a known procedure. The benchmarks are designed so that memorised knowledge does not solve them.
+This family asks whether a system can acquire a new rule from a few examples and apply it, rather than recall a fact or follow a known procedure. Agent benchmarks add the question of whether it can carry out multi-step tasks with tools or in a web environment. The benchmarks are designed so that memorised knowledge does not solve them.
 
 | Benchmark | Task | Main metric |
 |---|---|---|
 | [ARC-AGI](arc-agi.md) | Infer a grid transformation from examples | Exact match on the output grid |
+| [GAIA](gaia.md) | Real-world questions that need browsing and tools | Exact-match accuracy |
+| [WebArena](webarena.md) | Tasks on self-hosted websites | Task success rate |
 
 ## Common issues
 

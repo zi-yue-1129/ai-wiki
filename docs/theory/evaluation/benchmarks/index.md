@@ -19,7 +19,8 @@ A benchmark is a fixed set of tasks, data and a metric that a community agrees t
 | [Vision](vision/index.md) | [ImageNet](vision/imagenet.md), [COCO](vision/coco.md) | Classification, detection and instance segmentation |
 | [Language](language/index.md) | [GLUE](language/glue.md), [SuperGLUE](language/superglue.md), [MMLU](language/mmlu.md), [GPQA](language/gpqa.md), [Humanity's Last Exam](language/hle.md) | Understanding, knowledge and expert reasoning |
 | [Math and code](math-and-code/index.md) | [GSM8K](math-and-code/gsm8k.md), [MATH](math-and-code/math.md), [SWE-bench](math-and-code/swe-bench.md) | Mathematical and software reasoning |
-| [Reasoning and agents](reasoning-agents/index.md) | [ARC-AGI](reasoning-agents/arc-agi.md) | Acquiring a rule from a few examples |
+| [Multimodal](multimodal/index.md) | [VQA v2](multimodal/vqa-v2.md), [MMMU](multimodal/mmmu.md) | Combining images with knowledge and reasoning |
+| [Reasoning and agents](reasoning-agents/index.md) | [ARC-AGI](reasoning-agents/arc-agi.md), [GAIA](reasoning-agents/gaia.md), [WebArena](reasoning-agents/webarena.md) | Rule acquisition, real-world questions and web tasks |
 | [Few-shot](few-shot/index.md) | [miniImageNet](few-shot/mini-imagenet.md) | Recognising new classes from few labelled examples |
 
 ## Reading a score

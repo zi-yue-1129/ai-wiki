@@ -491,6 +491,11 @@ plugins:
             Math and code: 數學與程式
             Reasoning and agents: 推理與代理
             Few-shot: 少樣本
+            Multimodal: 多模態
+            GAIA: GAIA
+            WebArena: WebArena
+            VQA v2: VQA v2
+            MMMU: MMMU
             ImageNet: ImageNet
             COCO: COCO
             GLUE: GLUE
@@ -1261,6 +1266,12 @@ nav:
               - Reasoning and agents:
                   - theory/evaluation/benchmarks/reasoning-agents/index.md
                   - ARC-AGI: theory/evaluation/benchmarks/reasoning-agents/arc-agi.md
+                  - GAIA: theory/evaluation/benchmarks/reasoning-agents/gaia.md
+                  - WebArena: theory/evaluation/benchmarks/reasoning-agents/webarena.md
+              - Multimodal:
+                  - theory/evaluation/benchmarks/multimodal/index.md
+                  - VQA v2: theory/evaluation/benchmarks/multimodal/vqa-v2.md
+                  - MMMU: theory/evaluation/benchmarks/multimodal/mmmu.md
               - Few-shot:
                   - theory/evaluation/benchmarks/few-shot/index.md
                   - miniImageNet: theory/evaluation/benchmarks/few-shot/mini-imagenet.md
