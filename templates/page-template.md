@@ -6,6 +6,8 @@ related:                 # topics in other categories this one also belongs to (
   - brain-mind/neuroai
 tags:                    # cross-cutting themes, listed on the Tags page
   - neuroscience
+aliases:                 # other names readers search for, in other languages or abbreviations (used by search)
+  - 神經科學
 ---
 
 # Page Title
