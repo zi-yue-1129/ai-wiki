@@ -97,6 +97,8 @@ The idea of learning from a teacher's graded judgements, rather than from hard a
 
 - Hinton, G., Vinyals, O., Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — Introduces soft targets and temperature for training a small model from a large one.
 - Sanh, V., Debut, L., Chaumond, J., Wolf, T. (2019). *DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter*. arXiv:1910.01108. https://arxiv.org/abs/1910.01108 — A distilled BERT that keeps 97% of the language understanding of the teacher at 40% smaller size.
+- Romero, A., et al. (2014). *FitNets: Hints for Thin Deep Nets*. arXiv:1412.6550. https://arxiv.org/abs/1412.6550 — Trains a thin, deep student on intermediate hints from a teacher, with about 10.4 times fewer parameters than the teacher on CIFAR-10.
+- Kim, Y., Rush, A. M. (2016). *Sequence-Level Knowledge Distillation*. arXiv:1606.07947. https://arxiv.org/abs/1606.07947 — Distils sequence models by training on teacher outputs, giving a student about 10 times faster than its teacher with little loss in performance.
 
 ### Surveys and textbooks
 

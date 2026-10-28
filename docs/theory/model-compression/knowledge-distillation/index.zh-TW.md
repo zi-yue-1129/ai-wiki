@@ -83,6 +83,8 @@ Hinton 等人結合兩種損失。學生以真實標籤的交叉熵項訓練，�
 
 - Hinton, G., Vinyals, O., Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — 介紹用軟目標與溫度，從大模型訓練小模型。
 - Sanh, V., Debut, L., Chaumond, J., Wolf, T. (2019). *DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter*. arXiv:1910.01108. https://arxiv.org/abs/1910.01108 — 蒸餾後的 BERT，體積小 40%，保留教師 97% 的語言理解能力。
+- Romero, A., 等人 (2014). *FitNets: Hints for Thin Deep Nets*. arXiv:1412.6550. https://arxiv.org/abs/1412.6550 — 以教師的中間層提示訓練較窄的深層學生，在 CIFAR-10 上學生的參數約為教師的十分之一。
+- Kim, Y., Rush, A. M. (2016). *Sequence-Level Knowledge Distillation*. arXiv:1606.07947. https://arxiv.org/abs/1606.07947 — 以教師輸出訓練序列模型，學生速度約為教師的 10 倍，效能損失很小。
 
 ### 綜述與教科書
 
