@@ -1,4 +1,6 @@
 ---
+status: complete
+last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 ---
 
@@ -24,15 +26,15 @@ PETS 有兩個組成部分：
 在每個規劃步驟中，智能體：
 
 1. 以目前收集的資料擬合機率式集成。
-2. 取樣動作序列；對每個序列，在視野 \(H\) 內以隨機選出的集成成員傳播粒子。
-3. 以預測獎勵的總和為每個序列評分，並選擇分數最高者。
+2. 以交叉熵方法最佳化一段長度為 \(H\) 的動作序列。對每個候選序列，粒子在視野內沿集成向前傳播，每個粒子使用隨機選出的一個集成成員。
+3. 以粒子上平均的預測獎勵總和為每個候選評分，並保留最佳序列。
 4. 執行第一個動作，觀察下一個狀態，加入資料，然後重複。
 
 此方法不會在想像的資料上學習策略，而是在每一步直接用模型規劃。
 
 ## 結果
 
-摘要報告，PETS 「在數個具挑戰性的基準任務上，達到無模型演算法的漸近表現，同時所需樣本數顯著減少」。在半獵豹（half-cheetah）任務上，作者報告 PETS 所需樣本數分別是軟演員–評論家的 8 分之一，以及近端策略最佳化的 125 分之一。
+摘要報告，PETS「在數個具挑戰性的基準任務上，達到無模型演算法的漸近表現，同時所需樣本數顯著減少」。在半獵豹（half-cheetah）任務上，摘要指出 PETS 所需樣本數分別是軟演員–評論家的八分之一，以及近端策略最佳化的一百二十五分之一。
 
 ## 限制
 
@@ -43,14 +45,14 @@ PETS 有兩個組成部分：
 ## 關聯
 
 - 上層主題：[基於模型的強化學習](../index.md)。
-- 規劃的概念與模型預測控制相關，上層頁面將其列為主要方法之一。
+- 規劃的概念與模型預測控制相關。
 - [MBPO](../mbpo/index.md) 使用類似的集成，但以無模型學習器訓練策略，而不是在每一步規劃。
 - 論文中的基準是[軟演員–評論家](../../policy-gradient-and-actor-critic/sac/index.md)與 [PPO](../../proximal-policy-optimisation/index.md)。
 
 ## 應用
 
 - **機器人控制**，適用於真實試驗很少的情況。
-- **連續控制**任務，動態模型平滑的情況。
+- **連續控制基準**，例如半獵豹，樣本效率是主要的比較點。
 
 ## 未解問題
 
@@ -61,8 +63,8 @@ PETS 有兩個組成部分：
 
 ### 奠基性論文
 
-- Chua, Calandra, McAllister & Levine（2018），"Deep reinforcement learning in a handful of trials using probabilistic dynamics models"，[arXiv:1805.12114](https://arxiv.org/abs/1805.12114)——PETS 論文，包含機率式集成、軌跡取樣與樣本效率比較。
-- Janner 等人（2019），"When to trust your model: Model-based policy optimization"，[arXiv:1906.08253](https://arxiv.org/abs/1906.08253)——MBPO，以短程模型展開訓練策略的基於模型方法。
-- Kurutach 等人（2018），"Model-ensemble trust-region policy optimization"，[arXiv:1802.10592](https://arxiv.org/abs/1802.10592)——早期使用模型集成以減少策略最佳化中模型誤差的方法。
-- Haarnoja 等人（2018），"Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor"，[arXiv:1801.01290](https://arxiv.org/abs/1801.01290)——PETS 用來比較樣本效率的無模型基準。
-- Schulman 等人（2017），"Proximal policy optimization algorithms"，[arXiv:1707.06347](https://arxiv.org/abs/1707.06347)——PETS 用來比較樣本效率的無模型基準。
+- Chua, Calandra, McAllister & Levine（2018），"Deep reinforcement learning in a handful of trials using probabilistic dynamics models"，[arXiv:1805.12114](https://arxiv.org/abs/1805.12114) — PETS 論文，包含機率式集成、軌跡取樣與樣本效率比較。
+- Janner 等人（2019），"When to trust your model: Model-based policy optimization"，[arXiv:1906.08253](https://arxiv.org/abs/1906.08253) — MBPO，以短程模型展開訓練策略的基於模型方法。
+- Kurutach 等人（2018），"Model-ensemble trust-region policy optimization"，[arXiv:1802.10592](https://arxiv.org/abs/1802.10592) — 早期使用模型集成以減少策略最佳化中模型誤差的方法。
+- Haarnoja 等人（2018），"Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor"，[arXiv:1801.01290](https://arxiv.org/abs/1801.01290) — PETS 用來比較樣本效率的無模型基準。
+- Schulman 等人（2017），"Proximal policy optimization algorithms"，[arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — PETS 用來比較樣本效率的無模型基準。

@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - MBPO
@@ -30,10 +30,10 @@ The procedure repeats the following steps:
 
 1. Collect real transitions with the current policy and add them to the environment buffer.
 2. Train the dynamics ensemble on the environment buffer.
-3. Sample \(B\) states from the environment buffer, and roll each out for \(k\) steps with the model and the current policy. Add the generated transitions to the model buffer.
+3. Sample a batch of states from the environment buffer, and roll each out for \(k\) steps with the model and the current policy. Add the generated transitions to the model buffer. (The paper uses \(B\) for the size of the model ensemble.)
 4. Take several gradient steps of the model-free update on minibatches drawn from both buffers.
 
-The analysis in the paper gives a monotonic-improvement bound for model-based policy optimisation. The bound depends on the model's error and on how far the policy moves from the data, and it suggests that real off-policy data is preferable in the worst case. The paper argues that an empirical estimate of model generalisation can justify short model usage in practice.
+The analysis in the paper gives a monotonic-improvement guarantee for model-based policy optimisation. The bound depends on the model's error and on how far the policy moves from the data. Taken literally, it suggests that real off-policy data is always preferable to model-generated on-policy data, and the bound is maximised when the rollout length \(k = 0\). The paper calls the analysis overly pessimistic, and argues that an empirical estimate of model generalisation can justify short model usage in practice.
 
 ## Results
 
