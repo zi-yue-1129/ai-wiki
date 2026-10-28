@@ -44,7 +44,7 @@ Chouldechova (2017) studies recidivism prediction instruments, including COMPAS.
 
 ## Limitations
 
-- **Error-rate conflict.** When base rates differ, calibration within groups cannot be combined with equal error rates, so a calibrated tool can still produce unequal false-positive rates.
+- **Score balance versus error rates.** The impossibility result concerns the two score-balance conditions, not the error rates of a thresholded decision. Calibrated scores can still produce unequal false-positive and false-negative rates when base rates differ, so equal error rates need a separate check.
 - **Score meaning.** Calibration says nothing about the decisions taken at a threshold; a calibrated score can still lead to unequal decisions.
 - **Data needs.** Checking calibration within small groups needs enough outcome data at each score level.
 

@@ -56,7 +56,7 @@ The authors write that "we must sacrifice a small amount of accuracy to ensuring
 - **Unobserved variables.** Counterfactual predictions depend on background variables that are not observed, so they must be inferred from the model.
 - **Synthetic evaluation.** The experiments assume that the true model matches the assumed model, so they do not test robustness to misspecification.
 - **Level 1 is often impractical.** Few observed variables are typically non-descendants of a protected attribute.
-- **Individual, not average, criterion.** Average causal effects can be non-zero even when a predictor is counterfactually fair.
+- **Individual, not average, criterion.** A zero average effect can hide opposing individual effects, and it does not guarantee counterfactual fairness.
 
 ## References
 

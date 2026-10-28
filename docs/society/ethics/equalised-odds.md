@@ -54,7 +54,7 @@ The authors conclude that equal opportunity costs less than a quarter of what de
 
 ## Limitations
 
-- **Base rates.** When base rates differ, equalised odds cannot hold together with calibration within groups (Chouldechova, 2017; Kleinberg et al., 2017).
+- **Base rates.** When base rates differ, equalised odds cannot hold together with equal precision, that is, predictive parity (Chouldechova, 2017). Calibration within groups is a separate condition on scores, covered by Kleinberg et al. (2017).
 - **Post-processing cost.** Group-specific thresholds lower the profit or accuracy of the decision, and the adjusted rule needs the protected attribute at decision time.
 - **Not proof of fairness.** The paper states that satisfying the criterion, or any other criterion that uses only the joint statistics, "should not be considered a conclusive proof of fairness". Two causal scenarios with identical joint statistics cannot be told apart by such a test.
 - **Labels.** The criterion assumes the true outcome is measured correctly. The authors note that the target may itself be unreliable or biased, so equal error rates against a biased label are a weaker guarantee.
