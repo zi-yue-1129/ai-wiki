@@ -22,6 +22,10 @@ Activations in large language models contain outlier channels with much larger v
 
 Scale each input channel down in the activations and up in the corresponding weights, so that both become easier to quantise. The scaling is chosen per channel and balances the difficulty between the two.
 
+![Animated SmoothQuant schematic: a large activation-channel outlier is reduced while the corresponding weight channel is rescaled upward before W8A8 quantisation.](../../../../../assets/concept-animations/smoothquant-rescaling.gif)
+
+*Original animated schematic, CC BY-SA 4.0.* A positive **per-input-channel** scale \(s\) redistributes dynamic range: \(X' = X\operatorname{diag}(s)^{-1}\), \(W'=\operatorname{diag}(s)W\), and therefore \(X'W'=XW\) **before quantisation**. The highlighted activation outlier becomes smaller as the matching weight channel grows. The bars are illustrative—not calibrated values, measured quantisation error or actual model activations. Subsequent INT8 rounding is **not** mathematically lossless. [Xiao et al. (2022/2023)](https://arxiv.org/abs/2211.10438).
+
 ## Equation or algorithm
 
 For a linear layer \(Y = XW\), the method computes \(Y = (X\,\mathrm{diag}(s)^{-1})(\mathrm{diag}(s)\,W)\) with scales \(s\) chosen from activation and weight statistics. The rescaled activations and weights are then quantised to 8 bits.

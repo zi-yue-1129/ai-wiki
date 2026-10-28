@@ -23,6 +23,10 @@ N:M sparsity keeps at most \(N\) non-zero values in every block of \(M\) consecu
 
 Unstructured sparsity can remove many weights, but the irregular positions of the zeros give little speed-up on dense hardware. Structured sparsity removes whole channels, which is fast but coarse. An N:M pattern sits between them: within each small block the positions of the non-zero values are fixed to a regular rule, so the hardware can store the compressed values together with a small index, and the computation skips the zeros.
 
+![Animated 2:4 structured sparsity: four weights per group are evaluated, two are retained, and their values and positions are packed for supported sparse hardware.](../../../../assets/concept-animations/nm-sparsity-packing.gif)
+
+*Original animated schematic, CC BY-SA 4.0.* In each **four-element group**, this example retains the **two largest-magnitude weights** and zeroes the others, then packs the retained values with position metadata. The 2:4 pattern enables compatible sparse matrix-multiplication hardware to skip the zeros; **a 50% nonzero reduction does not guarantee a 2× end-to-end speed-up**. All values and hardware pulses are illustrative, not benchmark results. [Mishra et al. (2021)](https://arxiv.org/abs/2104.08378).
+
 ## Key concepts
 
 - **Pattern.** The rule \(N\):\(M\). The 2:4 pattern keeps half of the weights, and other patterns such as 1:4 or 4:8 are also studied.
