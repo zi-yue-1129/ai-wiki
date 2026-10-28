@@ -50,7 +50,7 @@ Forward mode gives exact derivatives and needs no stored graph, so its memory us
 
 ## Connections
 
-Forward mode is the efficient choice for sensitivity analysis and for Jacobian-vector products, and it composes with reverse mode to compute Hessian-vector products. The parent [chapter](index.md) explains how the two modes relate. Training with [backpropagation](../../deep-learning/index.md) uses reverse mode instead. The underlying calculus is in [Calculus](../index.md#2-calculus).
+Forward mode is the efficient choice for sensitivity analysis and for Jacobian-vector products, and it composes with reverse mode to compute Hessian-vector products. The parent [chapter](index.md) explains how the two modes relate. Training with [backpropagation](../../deep-learning/index.md) uses reverse mode instead. The underlying calculus is in [Calculus](../index.md).
 
 ## Applications
 

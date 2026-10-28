@@ -48,7 +48,7 @@ Frameworks record a graph during the forward computation and replay it in revers
 
 ## Connections
 
-Gradient-based training, covered in [Deep learning](../../deep-learning/index.md), depends on reverse-mode differentiation. The notation for gradients is in [Notation and symbols](../../../reference/notation/index.md). Derivative computation in general is treated by Griewank and Walther [(Griewank and Walther, 2008)](https://doi.org/10.1137/1.9780898717761). The calculus that the chain rule builds on is in [Calculus](../index.md#2-calculus).
+Gradient-based training, covered in [Deep learning](../../deep-learning/index.md), depends on reverse-mode differentiation. The notation for gradients is in [Notation and symbols](../../../reference/notation/index.md). Derivative computation in general is treated by Griewank and Walther [(Griewank and Walther, 2008)](https://doi.org/10.1137/1.9780898717761). The calculus that the chain rule builds on is in [Calculus](../index.md).
 
 ## Applications
 
