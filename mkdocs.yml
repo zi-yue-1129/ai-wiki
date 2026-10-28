@@ -342,6 +342,10 @@ plugins:
             Latent Diffusion: 潛在擴散
             DiT: DiT 擴散 Transformer
             Diffusion Transformer (DiT): 擴散 Transformer（DiT）
+            Mixture of Experts: 混合專家
+            Sparsely-Gated MoE: 稀疏閘控混合專家
+            Switch Transformer: Switch Transformer
+            Mixtral: Mixtral 8x7B
             Density Estimation & Generative Models: 密度估計與生成模型
             Classifier-Free Guidance: 無分類器引導
             Structured State Spaces: 結構化狀態空間
@@ -895,6 +899,11 @@ nav:
               - Attention Is All You Need: theory/models/transformer/attention-is-all-you-need/index.md
               - Additive Attention (Bahdanau): theory/models/transformer/bahdanau-attention/index.md
               - Diffusion Transformer (DiT): theory/models/transformer/dit/index.md
+              - Mixture of Experts:
+                  - theory/models/mixture-of-experts/index.md
+                  - Sparsely-Gated MoE: theory/models/mixture-of-experts/sparsely-gated.md
+                  - Switch Transformer: theory/models/mixture-of-experts/switch-transformer.md
+                  - Mixtral: theory/models/mixture-of-experts/mixtral.md
               - Attention Variants:
                   - theory/models/transformer/attention-variants/index.md
                   - FlashAttention: theory/models/transformer/attention-variants/flash-attention/index.md

@@ -67,7 +67,7 @@ Co-design ties a model to a chip. A network tuned for one accelerator may lose m
 
 - **Which formats generalise.** It is not yet clear which 8-bit or 4-bit formats will remain usable across chip generations, or how far their accuracy holds for long reasoning chains.
 - **Hand kernels versus compilers.** Hand-written CUDA kernels give the most control, while compilers and higher-level languages reach more hardware with less effort. The balance between them is changing.
-- **Mixture of experts.** Shazeer et al. (2017) show that conditional computation can greatly increase model capacity at a similar compute cost. The cost moves to memory and to communication between chips, which is why the expert layout must be matched to the [interconnect](../interconnects/index.md).
+- **[Mixture of experts](../../../theory/models/mixture-of-experts/index.md).** Shazeer et al. (2017) show that conditional computation can greatly increase model capacity at a similar compute cost. The cost moves to memory and to communication between chips, which is why the expert layout must be matched to the [interconnect](../interconnects/index.md).
 - **Attention memory.** The [grouped-query attention](../../inference-optimization/grouped-query-attention.md) design reduces the [KV cache](../../../theory/models/transformer/kv-cache/index.md) that long-context decoding must read, and [PagedAttention](../../inference-optimization/paged-attention.md) reduces how much of that memory is wasted.
 - **Related:** [quantisation](../../../theory/model-compression/quantisation/index.md) is the model-side half of the number-format lever, and the [model compression](../../../theory/model-compression/index.md) methods decide which formats a model can use.
 

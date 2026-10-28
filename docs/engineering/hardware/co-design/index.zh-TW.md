@@ -48,7 +48,7 @@ Tan 等人（2018）把手機上量測到的推論速度納入 MnasNet 的搜尋
 
 - **哪些格式能通用。** 目前尚不清楚哪些 8 位元或 4 位元格式能在晶片世代之間持續使用，或它們的準確度在長推理鏈上能維持多久。
 - **手工核心與編譯器。** 手寫的 CUDA 核心控制力最強，而編譯器與高階語言能以較少的努力支援更多硬體。兩者之間的平衡正在改變。
-- **混合專家。** Shazeer 等人（2017）顯示，條件式計算可以在相近的運算成本下大幅提高模型容量。成本會轉移到記憶體與晶片之間的通訊上，因此專家的配置必須配合[互連](../interconnects/index.zh-TW.md)。
+- **[混合專家](../../../theory/models/mixture-of-experts/index.zh-TW.md)。** Shazeer 等人（2017）顯示，條件式計算可以在相近的運算成本下大幅提高模型容量。成本會轉移到記憶體與晶片之間的通訊上，因此專家的配置必須配合[互連](../interconnects/index.zh-TW.md)。
 - **注意力的記憶體。** [分組查詢注意力](../../inference-optimization/grouped-query-attention.zh-TW.md)設計減少了長上下文解碼必須讀取的 [KV 快取](../../../theory/models/transformer/kv-cache/index.zh-TW.md)，而 [PagedAttention](../../inference-optimization/paged-attention.zh-TW.md) 則減少了該記憶體中被浪費的部分。
 - **相關：** [量化](../../../theory/model-compression/quantisation/index.zh-TW.md)是數值格式槓桿在模型端的一半，而[模型壓縮](../../../theory/model-compression/index.zh-TW.md)的各種方法，決定模型能使用哪些格式。
 

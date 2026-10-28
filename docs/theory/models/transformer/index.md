@@ -72,7 +72,7 @@ Standard attention costs \(O(n^2)\) in sequence length n.
 | Multi-head latent attention (MLA) | Compress K/V into a low-dimensional latent (DeepSeek-V2 onward) |
 | Sparse / sliding-window attention | Attend to a subset of positions (Longformer, Mistral) |
 | Linear attention | Kernel approximations reduce cost to \(O(n)\) |
-| Mixture of experts (MoE) | Replace the FFN with many experts and route each token to a few — many parameters, modest compute |
+| [Mixture of experts (MoE)](../mixture-of-experts/index.md) | Replace the FFN with many experts and route each token to a few — many parameters, modest compute |
 
 ## Key methods
 
