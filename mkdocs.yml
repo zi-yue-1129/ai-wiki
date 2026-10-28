@@ -509,6 +509,7 @@ plugins:
             AI Accelerators: AI 加速器
             TPU: TPU
             Eyeriss v2: Eyeriss v2
+            Memory Hierarchy and Bandwidth: 記憶體階層與頻寬
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
             GPTQ: GPTQ
@@ -1040,6 +1041,7 @@ nav:
               - engineering/hardware/accelerators/index.md
               - TPU: engineering/hardware/accelerators/tpu/index.md
               - Eyeriss v2: engineering/hardware/accelerators/eyeriss-v2/index.md
+          - Memory Hierarchy and Bandwidth: engineering/hardware/memory-hierarchy/index.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md

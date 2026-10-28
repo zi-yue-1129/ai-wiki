@@ -30,6 +30,7 @@
 ## 子章節
 
 - [AI 加速器](accelerators/index.zh-TW.md)：GPU、TPU 與 ASIC 的設計原則，並附 [TPU](accelerators/tpu/index.zh-TW.md) 與 [Eyeriss v2](accelerators/eyeriss-v2/index.zh-TW.md) 頁面。
+- [記憶體階層與頻寬](memory-hierarchy/index.zh-TW.md)：暫存器、晶片上的 SRAM 與 HBM、算術強度、屋頂線模型，以及為何 LLM 解碼受頻寬限制。
 
 ## 供應鏈與政策
 
