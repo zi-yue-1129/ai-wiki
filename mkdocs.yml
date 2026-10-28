@@ -630,6 +630,28 @@ plugins:
             "Surveillance & Facial Recognition": 監控與人臉辨識
             Runaway Feedback Loops: 失控回饋迴圈
             Knowledge Graphs: 知識圖譜
+            Flow Matching and Rectified Flow: 流匹配與整流流
+            Conditional Flow Matching: 條件流匹配
+            Rectified Flow: 整流流
+            Image Segmentation: 圖像分割
+            Fully Convolutional Networks: 全卷積網路
+            Weight Initialisation and Signal Propagation: 權重初始化與信號傳播
+            Xavier (Glorot) Initialisation: Xavier（Glorot）初始化
+            He Initialisation: He 初始化
+            Maximal Update Parametrisation (muP): 最大更新參數化（muP）
+            Markov Chain Monte Carlo: 馬可夫鏈蒙地卡羅
+            Metropolis–Hastings: Metropolis–Hastings 演算法
+            Gibbs Sampling: 吉布斯取樣
+            Hamiltonian Monte Carlo and NUTS: 哈密頓蒙地卡羅與 NUTS
+            Langevin Dynamics: 朗之萬動力學
+            Adversarial Examples and Robustness: 對抗樣本與穩健性
+            Fast Gradient Sign Method: 快速梯度符號法
+            PGD and Adversarial Training: PGD 與對抗訓練
+            Randomized Smoothing: 隨機平滑
+            FlashAttention and Fused Kernels: 快閃注意力與融合核函式
+            Sparse Autoencoders and Feature Dictionaries: 稀疏自編碼器與特徵字典
+            Algorithmic Auditing and Impact Assessment: 演算法稽核與影響評估
+            "AI, Elections and Democracy": AI、選舉與民主
 
 markdown_extensions:
   - abbr
@@ -703,6 +725,11 @@ nav:
               - Deep Ensembles: theory/machine-learning/uncertainty-and-calibration/deep-ensembles/index.md
               - MC Dropout: theory/machine-learning/uncertainty-and-calibration/mc-dropout/index.md
               - Conformal Prediction: theory/machine-learning/uncertainty-and-calibration/conformal-prediction/index.md
+          - Adversarial Examples and Robustness:
+              - theory/machine-learning/adversarial-robustness/index.md
+              - Fast Gradient Sign Method: theory/machine-learning/adversarial-robustness/fgsm/index.md
+              - PGD and Adversarial Training: theory/machine-learning/adversarial-robustness/pgd-adversarial-training/index.md
+              - Randomized Smoothing: theory/machine-learning/adversarial-robustness/randomized-smoothing/index.md
       - Deep Learning:
           - theory/deep-learning/index.md
           - Normalisation Layers:
@@ -715,6 +742,11 @@ nav:
               - Stochastic Depth: theory/deep-learning/dropout/stochastic-depth/index.md
               - Mixup and CutMix: theory/deep-learning/dropout/mixup/index.md
               - Label Smoothing: theory/deep-learning/dropout/label-smoothing/index.md
+          - Weight Initialisation and Signal Propagation:
+              - theory/deep-learning/initialisation/index.md
+              - Xavier (Glorot) Initialisation: theory/deep-learning/initialisation/glorot-xavier/index.md
+              - He Initialisation: theory/deep-learning/initialisation/he-initialisation/index.md
+              - Maximal Update Parametrisation (muP): theory/deep-learning/initialisation/mup/index.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum:
@@ -845,6 +877,12 @@ nav:
               - Variational Autoencoder: theory/probabilistic/variational-inference/variational-autoencoder/index.md
               - Black-Box Variational Inference: theory/probabilistic/variational-inference/black-box-variational-inference/index.md
               - Normalising Flow Posteriors: theory/probabilistic/variational-inference/normalising-flow-posteriors/index.md
+          - Markov Chain Monte Carlo:
+              - theory/probabilistic/mcmc/index.md
+              - Metropolis–Hastings: theory/probabilistic/mcmc/metropolis-hastings/index.md
+              - Gibbs Sampling: theory/probabilistic/mcmc/gibbs-sampling/index.md
+              - Hamiltonian Monte Carlo and NUTS: theory/probabilistic/mcmc/hamiltonian-monte-carlo/index.md
+              - Langevin Dynamics: theory/probabilistic/mcmc/langevin-dynamics/index.md
       - Symbolic AI, Search & Planning:
           - theory/symbolic-ai/index.md
           - Search Algorithms:
@@ -875,6 +913,11 @@ nav:
               - theory/generative/vae/index.md
               - β-VAE: theory/generative/vae/beta-vae/index.md
               - VQ-VAE: theory/generative/vae/vq-vae/index.md
+          - Flow Matching and Rectified Flow:
+              - theory/generative/flow-matching/index.md
+              - Conditional Flow Matching: theory/generative/flow-matching/conditional-flow-matching/index.md
+              - Rectified Flow: theory/generative/flow-matching/rectified-flow/index.md
+              - OT-CFM: theory/generative/flow-matching/ot-cfm/index.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation:
@@ -1035,6 +1078,12 @@ nav:
                   - YOLO: theory/models/computer-vision/object-detection/yolo/index.md
                   - RetinaNet and Focal Loss: theory/models/computer-vision/object-detection/retinanet/index.md
                   - DETR: theory/models/computer-vision/object-detection/detr/index.md
+              - Image Segmentation:
+                  - theory/models/computer-vision/segmentation/index.md
+                  - Fully Convolutional Networks: theory/models/computer-vision/segmentation/fcn/index.md
+                  - U-Net: theory/models/computer-vision/segmentation/unet/index.md
+                  - Mask R-CNN: theory/models/computer-vision/segmentation/mask-rcnn/index.md
+                  - Segment Anything: theory/models/computer-vision/segmentation/sam/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
@@ -1176,6 +1225,7 @@ nav:
           - Parameter-Efficient Fine-Tuning: engineering/training/peft-lora.md
           - "Preference Optimisation: DPO and Its Successors": engineering/training/preference-optimisation.md
           - Mixed-Precision Training and Gradient Checkpointing: engineering/training/mixed-precision-and-checkpointing.md
+          - FlashAttention and Fused Kernels: engineering/training/flash-attention.md
       - Distributed Training:
           - engineering/distributed-training/index.md
           - Megatron-LM Tensor Parallelism: engineering/distributed-training/megatron-tensor-parallelism.md
@@ -1267,10 +1317,12 @@ nav:
           - Mechanistic Interpretability and Circuits: society/interpretability/mechanistic-interpretability.md
           - "Feature Attribution: SHAP, LIME and Saliency": society/interpretability/feature-attribution.md
           - Probing Classifiers and Representation Analysis: society/interpretability/probing.md
+          - Sparse Autoencoders and Feature Dictionaries: society/interpretability/sparse-autoencoders.md
       - Ethics & Fairness:
           - society/ethics/index.md
           - Fairness Definitions and Impossibility Results: society/ethics/fairness-definitions.md
           - Case Studies in Algorithmic Bias: society/ethics/bias-case-studies.md
+          - Algorithmic Auditing and Impact Assessment: society/ethics/algorithmic-auditing.md
       - Privacy & Data Protection:
           - society/privacy/index.md
           - Differential privacy: society/privacy/differential-privacy.md
@@ -1296,6 +1348,7 @@ nav:
       - Law, Policy & Governance:
           - society/governance/index.md
           - Compute Governance and Export Controls: society/governance/compute-governance.md
+          - "AI, Elections and Democracy": society/governance/elections-and-democracy.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
       - Human-AI Interaction and Trust:
