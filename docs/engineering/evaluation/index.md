@@ -62,7 +62,7 @@ Also report important task, language and user-group slices, latency, cost and fa
 
 ## Pitfalls
 
-- **Contamination**: test items leak into training data — use held-out, dynamic or private sets
+- **Contamination**: test items leak into training data — use held-out, dynamic or private sets; see [Benchmark Contamination](contamination.md)
 - **Saturation**: benchmarks stop discriminating once models near the ceiling
 - **Goodhart's law**: optimising for a benchmark erodes its meaning
 - **Prompt sensitivity**: small format changes swing scores; report settings
