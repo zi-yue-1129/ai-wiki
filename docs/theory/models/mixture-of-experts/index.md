@@ -37,6 +37,10 @@ For an input \(x\), the router computes a score for each expert, keeps the top \
 
 Sparse routing makes the layer hard to scale in practice. Experts must be placed on different accelerators, and each step must send tokens to the right expert and back, an all-to-all communication pattern. The cost of MoE is therefore paid partly in memory and communication rather than in arithmetic, which is why hardware and interconnect design matter for it.
 
+![Sparse MoE routing diagram showing a token sent by a router to only two of four experts, whose outputs are combined.](../../../assets/concept-animations/moe-sparse-routing.svg)
+
+*Original sparse-routing concept diagram, CC BY-SA 4.0.* This single-token **top-2** example sends the token to experts E2 and E3; the inactive experts do not run for that token. The two selected outputs are **combined using routing weights** (simplified as a sum symbol). Dashed links represent unselected candidates, **not actual token dispatches**. Expert counts, connections, and colours are illustrative, not measured routing probabilities or model activations. The router normally scores each token separately; see [Shazeer et al. (2017)](https://arxiv.org/abs/1701.06538) and [Jiang et al. (2024)](https://arxiv.org/abs/2401.04088).
+
 ## Key methods
 
 | Method | Contribution | Routing | Page |
