@@ -46,7 +46,7 @@ LoRA reduces the cost of training and of storing task-specific weights, but not 
 
 - **Rank choice.** How the rank should depend on the task and the layer is not settled, and it is usually tuned by experiment.
 - **Related:** [truncated SVD](../truncated-svd/index.md) uses the same low-rank structure to compress a trained matrix rather than to adapt it.
-- **Composition.** Whether LoRA updates can be combined with quantised base models without losing accuracy is an active practical question.
+- **Composition.** Whether LoRA updates can be combined with quantised base models without losing accuracy is an active practical question. [QLoRA](qlora.md) answers it for a 4-bit base, and reports matching 16-bit LoRA on the benchmarks it tests.
 
 ## Connections
 
