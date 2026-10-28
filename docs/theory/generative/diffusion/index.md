@@ -63,29 +63,23 @@ A naive sampler needs as many steps as training. Two ideas reduce this. Non-Mark
 
 ## Key methods
 
-### Denoising Diffusion Probabilistic Models (Ho, Jain & Abbeel, 2020)
+Each named method has its own page with the problem, core idea, equations, results and limitations.
 
-- **Problem:** GANs produce sharp images but train unstably, and likelihood-based models of the time produced weaker samples.
-- **Core idea:** train a network to predict the noise added at random time steps, with a weighted variational bound that simplifies to the noise-prediction loss above.
-- **Equation or algorithm:** the loss in the section above, with a fixed linear noise schedule and ancestral sampling over \(T\) steps.
-- **Results:** the abstract reports an Inception score of 9.46 and an FID of 3.17 on unconditional CIFAR-10, described as state of the art at the time. It describes sample quality on 256×256 LSUN as similar to ProgressiveGAN, without a number in the abstract.
-- **Limitations:** sampling needs hundreds of network evaluations, which makes generation slow. The abstract does not report training or sampling cost.
+- [DDPM](ddpm.md) (Ho, Jain & Abbeel, 2020): the noise-prediction objective and the sampler that made diffusion practical for images.
+- [DDIM](ddim.md) (Song, Meng & Ermon, 2020/2021): a non-Markovian sampler that reuses the DDPM model in far fewer steps.
+- [Latent Diffusion](latent-diffusion.md) (Rombach et al., 2021/2022): diffusion in the latent space of an autoencoder, with cross-attention conditioning.
+- [DiT](dit.md) (Peebles & Xie, 2022/2023): a Transformer denoiser that replaces the U-Net and scales with compute.
+- [Classifier-free guidance](classifier-free-guidance.md) (Ho & Salimans, 2022): conditioning control without a separate classifier.
 
-### High-Resolution Image Synthesis with Latent Diffusion Models (Rombach et al., 2021/2022)
+### Comparison
 
-- **Problem:** pixel-space diffusion consumes very large amounts of compute, which the authors describe as often hundreds of GPU days.
-- **Core idea:** train the diffusion model in the latent space of a pretrained autoencoder, and add cross-attention layers so the model can be conditioned on text, layouts or other inputs.
-- **Equation or algorithm:** the same objective as DDPM applied to latents \(z = E(x)\), with cross-attention on the denoiser's intermediate features.
-- **Results:** the abstract reports state-of-the-art results on image data and a new state of the art for image inpainting, with competitive results on unconditional generation, semantic scene synthesis and super-resolution at lower compute than pixel-space models. It gives no benchmark numbers in the abstract.
-- **Limitations:** the autoencoder limits the detail that can be reconstructed. The abstract does not quantify the compute saving; the main text does.
-
-### Scalable Diffusion Models with Transformers (Peebles & Xie, 2022/2023)
-
-- **Problem:** the U-Net backbone is hand-designed, and it was unclear whether diffusion quality scales with compute in the same way as Transformer language models.
-- **Core idea:** replace the U-Net in latent diffusion with a Transformer over latent patches, and measure quality against forward-pass compute in Gflops.
-- **Equation or algorithm:** the latent is split into patches of size \(p\), embedded as tokens, and processed with adaptive layer normalisation that takes the time step and class label as conditioning.
-- **Results:** the abstract reports that larger models, with more Gflops from depth, width or more tokens, consistently have lower FID. The largest model, DiT-XL/2, reaches an FID of 2.27 on class-conditional ImageNet at 256×256, outperforming earlier diffusion models. It gives no FID for 512×512 in the abstract.
-- **Limitations:** the results are on class-conditional ImageNet, which is a narrower benchmark than text-to-image. The abstract gives no training-compute figures.
+| Method | What it changes | Sampling steps | Denoiser | Conditioning |
+|---|---|---|---|---|
+| [DDPM](ddpm.md) | Training objective and Markov sampler | About 1,000 | U-Net | Time step; class or text added by other methods |
+| [DDIM](ddim.md) | Non-Markovian sampler on the same model | Any subsequence, far fewer | Same as DDPM | Same as DDPM |
+| [Latent Diffusion](latent-diffusion.md) | Diffusion in an autoencoder latent | Few to many | U-Net | Cross-attention |
+| [DiT](dit.md) | Transformer denoiser | Few to many | Transformer on patches | Adaptive layer norm with time step and class |
+| [Classifier-free guidance](classifier-free-guidance.md) | Sampling-time combination of two predictions | Unchanged, but two evaluations per step | Any | Guidance scale \(w\) |
 
 ## Connections
 
