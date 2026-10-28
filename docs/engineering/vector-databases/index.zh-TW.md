@@ -30,37 +30,17 @@ flowchart LR
 
 ## 關鍵方法
 
-### HNSW：階層式可導航小世界圖（Malkov and Yashunin, 2016）
+每個方法都有自己的頁面。本節比較它們，並連結到細節。
 
-- **問題**：樹狀與雜湊式索引在高維度下會失去準確度或速度，而對大型資料集做精確搜尋又太慢。
-- **核心想法**：建立多層的鄰近圖。上層保存稀疏抽樣的點，並有長距離連結；最底層保存所有點與短距離連結。查詢從最上層出發，每一步貪婪地移到最近的鄰居，逐層下降。
-- **方程式或演算法**：每次插入會從指數遞減的分布抽出層級，然後把新點連到至多 $M$ 個鄰居，鄰居由偏好多樣性的啟發式方法挑選。搜尋時維護一個大小為 $\mathrm{efSearch}$ 的候選清單。
-- **結果**：論文指出，在多個基準資料集上，它的召回率與速度取捨優於早期的圖與樹狀方法，且搜尋成本隨資料量增加而緩慢成長。
-- **限制**：圖結構保存在記憶體中，刪除點時更新成本高。記憶體用量隨 $M$ 增加，因此大型索引需要量化或磁碟式變體。
+| 方法 | 類別 | 優點 | 主要成本 | 頁面 |
+|---|---|---|---|---|
+| HNSW | 鄰近圖索引 | 低延遲下的高召回率 | 記憶體用量高，刪除成本高 | [HNSW](hnsw.zh-TW.md) |
+| FAISS 中的 IVF-PQ | 倒排檔案加乘積量化 | 有限記憶體下的十億規模搜尋 | 量化誤差限制召回率 | [FAISS 中的 IVF-PQ](ivf-pq-faiss.zh-TW.md) |
+| ScaNN | 非等向性量化 | 以內積排序時，每個位元組的召回率較高 | 效益依賴內積排序 | [ScaNN](scann.zh-TW.md) |
+| 密集段落檢索 | 訓練過的雙編碼器 | 從有標註的配對中學習語意比對 | 需要標註資料；每個段落一個向量 | [密集段落檢索](dense-passage-retrieval.zh-TW.md) |
+| ColBERT | 對 token 向量的晚期互動 | 保留細粒度的比對細節 | 索引大得多，需要多向量搜尋 | [ColBERT](colbert.zh-TW.md) |
 
-### FAISS 中的 IVF-PQ（Johnson, Douze and Jégou, 2017）
-
-- **問題**：為數十億筆項目儲存並掃描全精度向量，超過單一 GPU 或伺服器的記憶體與時間。
-- **核心想法**：用粗量化器把資料集分成 $n_{\text{list}}$ 個區格（倒排檔案，IVF），使查詢只掃描最近的少數區格。在每個區格內，用乘積量化（PQ）壓縮每個向量：把它切成 $m$ 個子向量，並為每個子向量儲存最近質心的索引，每個子向量只佔一個位元組。
-- **方程式或演算法**：與壓縮向量的距離近似為 $\lVert q - x \rVert^2 \approx \sum_{j=1}^{m} \lVert q_j - c_{j}(x_j) \rVert^2$，其中 $c_j(x_j)$ 是第 $j$ 個子向量所儲存的質心。預先計算的查找表使每一項都只是一次表格讀取。
-- **結果**：論文指出在 GPU 上完成十億規模的相似度搜尋，記憶體、速度與召回率之間的取捨由 $m$ 與探查的區格數控制。
-- **限制**：PQ 的誤差會限制召回率，因此系統常以精確距離重新排序前幾名候選。訓練量化器需要有代表性的資料。
-
-### ScaNN：非等向性向量量化（Guo et al., 2020）
-
-- **問題**：一般量化會在各方向上平均地最小化重建誤差，但對內積搜尋而言，只有與查詢方向平行的誤差會改變排名第一的項目。
-- **核心想法**：使用分數感知的損失函數，對平行於資料向量的誤差分量給予比正交分量更重的懲罰，使量化器保留對內積最重要的向量部分。
-- **方程式或演算法**：量化損失把殘差的平行分量以係數 $\eta > 1$ 加權，相對於正交分量，並與碼本一起聯合最佳化。
-- **結果**：論文指出，在最大內積搜尋基準上，相同速度下的召回率優於先前的量化器。
-- **限制**：效益與內積排序綁定，且該方法的調校會與量化之前的分割步驟互相影響。
-
-### 密集段落檢索（Karpukhin et al., 2020）
-
-- **問題**：BM25 等稀疏關鍵字檢索會漏掉改寫過的說法，以及用詞不同的相關段落。
-- **核心想法**：訓練兩個 BERT 編碼器，一個處理問題，一個處理段落，使問題與其相關段落的內積相似度很高。訓練使用批次內負樣本，把同一批次中其他問題的正樣本當作便宜的負樣本。
-- **方程式或演算法**：相關性為內積 $\mathrm{sim}(q, p) = E_Q(q)^\top E_P(p)$，以每個問題一個正樣本與數個負樣本的 softmax 損失訓練。
-- **結果**：論文指出，在多個開放領域問答資料集上，其前 k 筆檢索準確度高於 BM25。
-- **限制**：訓練需要有標註的問題與段落配對；雙編碼器會把每個段落壓縮成一個向量，可能失去晚期互動模型保留的細節。
+前三者是回答「如何快速找到最近向量」的索引與壓縮方法；後兩者則是決定向量「代表什麼」的編碼器設計：每個段落一個向量，或每個 token 一個向量。典型的系統會把訓練過的編碼器與 ANN 索引結合，而圖索引與量化索引之間的選擇，取決於記憶體、更新頻率與召回率目標。
 
 ## 相關連結
 
@@ -81,7 +61,7 @@ flowchart LR
 - **過濾搜尋**：當過濾條件移除大部分候選時，如何維持高召回率，仍是活躍的工程問題。
 - **索引更新**：圖形與量化索引能處理插入，但刪除與頻繁重新嵌入的成本高。
 - **泛化能力**：在某個領域調校的檢索器，換到另一個領域可能表現不佳。BEIR（Thakur et al., 2021）顯示，許多密集檢索器在零樣本的跨領域任務上表現不及 BM25。
-- **晚期互動**：ColBERT 為每個 token 保留一個向量，以較高的儲存成本換取更細緻的比對。它是否勝過單向量模型，取決於任務與預算。
+- **晚期互動**：[ColBERT](colbert.zh-TW.md) 為每個 token 保留一個向量，以較高的儲存成本換取更細緻的比對。它是否勝過單向量模型，取決於任務與預算。
 
 ## 參考文獻
 
@@ -89,9 +69,9 @@ flowchart LR
 
 - Malkov, Y. A. & Yashunin, D. A. (2016). *Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs*. https://arxiv.org/abs/1603.09320 — 提出分層圖索引，即廣泛使用的 HNSW 近似最近鄰方法的基礎。
 - Johnson, J., Douze, M. & Jégou, H. (2017). *Billion-scale similarity search with GPUs*. https://arxiv.org/abs/1702.08734 — 說明 FAISS 函式庫，以及使用倒排檔案與乘積量化在 GPU 上做十億規模搜尋。
-- Guo, R. et al. (2020). *Accelerating Large-Scale Inference with Anisotropic Vector Quantization*. ICML 2020. https://arxiv.org/abs/1908.10396 — 為最大內積搜尋提出分數感知的量化損失。
-- Karpukhin, V. et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. EMNLP 2020. https://arxiv.org/abs/2004.04906 — 顯示訓練過的雙編碼器在段落檢索上可以勝過 BM25。
-- Khattab, O. & Zaharia, M. (2020). *ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT*. SIGIR 2020. https://arxiv.org/abs/2004.12832 — 保留 token 層級的嵌入，並以晚期互動為文件評分，以儲存空間換取準確度。
+- Guo, R. et al. (2019). *Accelerating Large-Scale Inference with Anisotropic Vector Quantization*. arXiv:1908.10396. https://arxiv.org/abs/1908.10396 — 為最大內積搜尋提出分數感知的量化損失。
+- Karpukhin, V. et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. arXiv:2004.04906. https://arxiv.org/abs/2004.04906 — 顯示訓練過的雙編碼器在段落檢索上可以勝過 BM25。
+- Khattab, O. & Zaharia, M. (2020). *ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT*. arXiv:2004.12832. https://arxiv.org/abs/2004.12832 — 保留 token 層級的嵌入，並以晚期互動為文件評分，以儲存空間換取準確度。
 
 ### 基準
 

@@ -41,29 +41,15 @@ The guard in the diagram is the important part. Filtering the input is useful bu
 
 ## Key methods
 
-### Indirect prompt injection (Greshake et al., 2023)
+Each method has its own page. This section compares them and points to the detail.
 
-- **Problem:** applications that retrieve web pages, emails or documents feed that text into the model's context, which the developer does not control.
-- **Core idea:** place instructions in content the application will later retrieve. When the model processes that content, it may follow the instructions, for example to exfiltrate conversation data or to change its answer.
-- **Equation or algorithm:** no formula; the paper gives a threat taxonomy and attack patterns, including data theft, worming across messages, and manipulating retrieved information.
-- **Results:** the paper demonstrates attacks against real LLM-integrated applications, including a search-augmented chat system, showing that the attacks work outside a lab setting.
-- **Limitations:** the paper predates standard defences such as separate tool permissions and output checks, so its success rates describe systems of that time.
+| Method | What it targets | Main cost or limit | Page |
+|---|---|---|---|
+| Indirect prompt injection | Instructions hidden in content the application retrieves | Filters are incomplete, so structural controls are needed | [Indirect prompt injection](indirect-prompt-injection.md) |
+| Universal and transferable adversarial suffixes | Refusals in aligned models, found by automated search | Needs gradient access to an open model; unusual text | [Universal adversarial suffixes](universal-adversarial-suffixes.md) |
+| Training-data extraction | Memorised training text that a model reproduces | Depends on how often a sequence appears in training data | [Training-data extraction](../../society/privacy/training-data-extraction.md) |
 
-### Universal and transferable adversarial suffixes (Zou et al., 2023)
-
-- **Problem:** aligned models refuse direct harmful requests, but it was unclear whether refusals could be broken automatically at scale.
-- **Core idea:** search for a suffix of tokens that, appended to a harmful request, makes the model begin its answer with an affirmative phrase. The search uses greedy coordinate gradient steps on an open model and selects token swaps that lower the loss of that target phrase.
-- **Equation or algorithm:** choose the suffix $s$ that minimises $\mathcal{L}(x \oplus s) = -\log p(y^\star \mid x \oplus s)$, where $x$ is the request and $y^\star$ is an affirmative target. Candidate token swaps are ranked by gradient, then evaluated exactly.
-- **Results:** the paper reports suffixes that transfer across prompts and to closed commercial models that were not used in the search.
-- **Limitations:** the attack needs gradient access to an open model and produces unusual text. Later defences, including input perplexity filters and adversarial training, reduce but do not eliminate it.
-
-### Training-data extraction (Carlini et al., 2021)
-
-- **Problem:** language models can memorise rare training text, and it was unclear how much could be recovered by querying a model alone.
-- **Core idea:** generate many samples from the model, then rank them by membership signals such as low perplexity relative to a reference model, and inspect the top candidates for memorised sequences.
-- **Equation or algorithm:** rank each sample by a membership score, such as the ratio of the model's perplexity to that of a smaller reference model, and keep the high-ranking samples for manual inspection.
-- **Results:** the paper extracts hundreds of memorised sequences from GPT-2, including personal contact details, showing that memorisation is a real privacy risk.
-- **Limitations:** extraction success depends on how often a sequence appears in training data. Deduplication and differential privacy reduce it, at some cost to model quality.
+The first two are injection and jailbreak methods that matter for applications built on tools and retrieval. The third is a privacy risk of the model itself, and its detailed page sits under society because the same method applies to any language model.
 
 ## Defences
 
@@ -104,7 +90,7 @@ The OWASP Top 10 for Large Language Model Applications lists the common categori
 
 - Greshake, K. et al. (2023). *Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection*. https://arxiv.org/abs/2302.12173 — Introduces indirect prompt injection and shows attacks against real LLM-integrated applications.
 - Zou, A. et al. (2023). *Universal and Transferable Adversarial Attacks on Aligned Language Models*. https://arxiv.org/abs/2307.15043 — Finds adversarial suffixes by gradient search that transfer across prompts and to closed models.
-- Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. USENIX Security 2021. https://arxiv.org/abs/2012.07805 — Recovers memorised training sequences, including personal information, from a language model by sampling and ranking.
+- Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. arXiv:2012.07805. https://arxiv.org/abs/2012.07805 — Recovers memorised training sequences, including personal information, from a language model by sampling and ranking.
 - Perez, F. & Ribeiro, I. (2022). *Ignore Previous Prompt: Attack Techniques For Language Models*. NeurIPS 2022 ML Safety Workshop. https://arxiv.org/abs/2211.09527 — Catalogues goal hijacking and prompt leaking attacks on prompt-based applications.
 
 ### Articles and documentation

@@ -403,6 +403,13 @@ plugins:
             GPipe: GPipe 管線平行
             PyTorch FSDP: PyTorch FSDP
             Vector Databases and Semantic Search: 向量資料庫與語意搜尋
+            HNSW: HNSW
+            IVF-PQ in FAISS: FAISS 中的 IVF-PQ
+            ScaNN: ScaNN
+            Dense Passage Retrieval: 密集段落檢索
+            ColBERT: ColBERT
+            Indirect Prompt Injection: 間接提示注入
+            Universal Adversarial Suffixes: 通用對抗後綴
             LLM Application Security: LLM 應用安全
             Synthetic Data: 合成資料
             Self-Instruct: Self-Instruct
@@ -807,8 +814,17 @@ nav:
           - ZeRO: engineering/distributed-training/zero.md
           - GPipe: engineering/distributed-training/gpipe.md
           - PyTorch FSDP: engineering/distributed-training/fsdp.md
-      - Vector Databases: engineering/vector-databases/index.md
-      - LLM Application Security: engineering/llm-security/index.md
+      - Vector Databases and Semantic Search:
+          - engineering/vector-databases/index.md
+          - HNSW: engineering/vector-databases/hnsw.md
+          - IVF-PQ in FAISS: engineering/vector-databases/ivf-pq-faiss.md
+          - ScaNN: engineering/vector-databases/scann.md
+          - Dense Passage Retrieval: engineering/vector-databases/dense-passage-retrieval.md
+          - ColBERT: engineering/vector-databases/colbert.md
+      - LLM Application Security:
+          - engineering/llm-security/index.md
+          - Indirect Prompt Injection: engineering/llm-security/indirect-prompt-injection.md
+          - Universal Adversarial Suffixes: engineering/llm-security/universal-adversarial-suffixes.md
       - Synthetic Data:
           - engineering/synthetic-data/index.md
           - Self-Instruct: engineering/synthetic-data/self-instruct.md

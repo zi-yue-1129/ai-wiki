@@ -39,37 +39,17 @@ Documents are chunked and embedded once, then stored in an index. At query time 
 
 ## Key methods
 
-### HNSW: hierarchical navigable small-world graphs (Malkov and Yashunin, 2016)
+Each method has its own page. This section compares them and points to the detail.
 
-- **Problem:** tree-based and hash-based indexes lose accuracy or speed in high dimensions, and exact search is too slow for large collections.
-- **Core idea:** build a multilayer proximity graph. Upper layers hold a sparse sample of points with long-range links, and the bottom layer holds all points with short-range links. A query starts at the top layer and descends, greedily moving to the closest neighbour at each step.
-- **Equation or algorithm:** each insertion draws a layer from an exponentially decaying distribution, then connects the new point to up to $M$ neighbours chosen by a heuristic that favours diverse neighbours. Search keeps a candidate list of size $\mathrm{efSearch}$.
-- **Results:** the paper reports higher recall-speed trade-offs than earlier graph and tree methods on several benchmark datasets, with search cost growing slowly with collection size.
-- **Limitations:** the graph lives in memory and is costly to update when deleting points. Memory use grows with $M$, so large indexes need quantisation or disk-based variants.
+| Method | Family | Strength | Main cost | Page |
+|---|---|---|---|---|
+| HNSW | Proximity graph index | High recall at low latency | Memory use and costly deletions | [HNSW](hnsw.md) |
+| IVF-PQ in FAISS | Inverted file with product quantisation | Billion-scale search in limited memory | Quantisation error limits recall | [IVF-PQ in FAISS](ivf-pq-faiss.md) |
+| ScaNN | Anisotropic quantisation | Better recall per byte for inner-product ranking | Benefit depends on inner-product ranking | [ScaNN](scann.md) |
+| Dense passage retrieval | Trained dual encoder | Learns semantic matching from labelled pairs | Needs labelled data; one vector per passage | [Dense passage retrieval](dense-passage-retrieval.md) |
+| ColBERT | Late interaction over token vectors | Keeps fine-grained matching detail | Much larger index and multi-vector search | [ColBERT](colbert.md) |
 
-### IVF-PQ in FAISS (Johnson, Douze and Jégou, 2017)
-
-- **Problem:** storing and scanning full-precision vectors for billions of items exceeds the memory and time of a single GPU or server.
-- **Core idea:** split the collection into $n_{\text{list}}$ cells with a coarse quantiser (inverted file, IVF), so a query only scans the few cells nearest to it. Inside each cell, compress each vector with product quantisation (PQ): split it into $m$ sub-vectors and store the index of the nearest centroid for each, using one byte per sub-vector.
-- **Equation or algorithm:** distance to a compressed vector is approximated as $\lVert q - x \rVert^2 \approx \sum_{j=1}^{m} \lVert q_j - c_{j}(x_j) \rVert^2$, where $c_j(x_j)$ is the centroid stored for sub-vector $j$. Precomputed lookup tables make each term a table read.
-- **Results:** the paper reports billion-scale similarity search on GPUs, with the trade-off between memory, speed and recall controlled by $m$ and the number of probed cells.
-- **Limitations:** PQ error limits recall, so systems often re-rank the top candidates with exact distances. Training the quantiser needs representative data.
-
-### ScaNN: anisotropic vector quantisation (Guo et al., 2020)
-
-- **Problem:** standard quantisation minimises the reconstruction error evenly in every direction, but for inner-product search only the error parallel to the query direction changes which item ranks first.
-- **Core idea:** use a score-aware loss that penalises the error component parallel to the data vector more heavily than the orthogonal component, so the quantiser keeps the parts of vectors that matter most for inner products.
-- **Equation or algorithm:** the quantisation loss weights the residual's parallel component by a factor $\eta > 1$ relative to its orthogonal component, which is optimised jointly with the codebook.
-- **Results:** the paper reports better recall at a given speed than prior quantisers on maximum inner-product search benchmarks.
-- **Limitations:** the benefit is tied to inner-product ranking, and the method's tuning interacts with the partitioning step that precedes quantisation.
-
-### Dense passage retrieval (Karpukhin et al., 2020)
-
-- **Problem:** sparse keyword retrieval such as BM25 misses paraphrases and relevant passages with different wording.
-- **Core idea:** train two BERT encoders, one for questions and one for passages, so that a question and its relevant passage have high dot-product similarity. Training uses in-batch negatives, which reuses other questions' positives as cheap negatives.
-- **Equation or algorithm:** relevance is the dot product $\mathrm{sim}(q, p) = E_Q(q)^\top E_P(p)$, trained with a softmax loss over one positive and several negatives per question.
-- **Results:** the paper reports higher top-k retrieval accuracy than BM25 on several open-domain question-answering datasets.
-- **Limitations:** training needs labelled question-passage pairs, and dual encoders compress each passage into one vector, which can lose detail that late-interaction models keep.
+The first three are index and compression methods that answer how to find nearest vectors quickly. The last two are encoder designs that decide what the vectors mean: one vector per passage, or one per token. A typical system combines a trained encoder with an ANN index, and the choice between graph and quantised indexes depends on memory, update rate and recall targets.
 
 ## Connections
 
@@ -90,7 +70,7 @@ Documents are chunked and embedded once, then stored in an index. At query time 
 - **Filtered search**: keeping recall high when a filter removes most candidates is still an active engineering problem.
 - **Index updates**: graph and quantised indexes handle insertions well, but deletions and frequent re-embedding are costly.
 - **Generalisation**: a retriever tuned on one domain can fall short on another. BEIR (Thakur et al., 2021) showed that many dense retrievers underperform BM25 zero-shot on out-of-domain tasks.
-- **Late interaction**: ColBERT keeps one vector per token for finer matching at higher storage cost. Whether this beats single-vector models depends on the task and budget.
+- **Late interaction**: [ColBERT](colbert.md) keeps one vector per token for finer matching at higher storage cost. Whether this beats single-vector models depends on the task and budget.
 
 ## References
 
@@ -98,9 +78,9 @@ Documents are chunked and embedded once, then stored in an index. At query time 
 
 - Malkov, Y. A. & Yashunin, D. A. (2016). *Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs*. https://arxiv.org/abs/1603.09320 — Introduces the layered graph index that underlies HNSW, a widely used ANN method.
 - Johnson, J., Douze, M. & Jégou, H. (2017). *Billion-scale similarity search with GPUs*. https://arxiv.org/abs/1702.08734 — Describes the FAISS library and GPU search at billion scale with inverted files and product quantisation.
-- Guo, R. et al. (2020). *Accelerating Large-Scale Inference with Anisotropic Vector Quantization*. ICML 2020. https://arxiv.org/abs/1908.10396 — Proposes a score-aware quantisation loss for maximum inner-product search.
-- Karpukhin, V. et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. EMNLP 2020. https://arxiv.org/abs/2004.04906 — Shows that trained dual encoders can outperform BM25 for passage retrieval.
-- Khattab, O. & Zaharia, M. (2020). *ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT*. SIGIR 2020. https://arxiv.org/abs/2004.12832 — Keeps token-level embeddings and scores documents by late interaction, trading storage for accuracy.
+- Guo, R. et al. (2019). *Accelerating Large-Scale Inference with Anisotropic Vector Quantization*. arXiv:1908.10396. https://arxiv.org/abs/1908.10396 — Proposes a score-aware quantisation loss for maximum inner-product search.
+- Karpukhin, V. et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. arXiv:2004.04906. https://arxiv.org/abs/2004.04906 — Shows that trained dual encoders can outperform BM25 for passage retrieval.
+- Khattab, O. & Zaharia, M. (2020). *ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT*. arXiv:2004.12832. https://arxiv.org/abs/2004.12832 — Keeps token-level embeddings and scores documents by late interaction, trading storage for accuracy.
 
 ### Benchmarks
 
