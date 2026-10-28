@@ -29,6 +29,8 @@
 | 卡爾曼濾波 | 線性高斯狀態空間 | 追蹤、導航 |
 | 主題模型 LDA | 階層式 | 文件主題分析 |
 
+詳細頁面：[機率圖模型](graphical-models/index.md)，包含[信念傳播](graphical-models/belief-propagation.md)與[隱馬可夫模型](graphical-models/hidden-markov-models.md)。
+
 ## 推論方法
 
 - **精確推論**：變數消去、信念傳播（樹狀圖）
@@ -55,6 +57,8 @@
 - **偶然不確定性**（資料雜訊）vs **認知不確定性**（模型不知道）
 - 共形預測（conformal prediction）：提供分布無關的預測區間保證，近年在醫療 AI 流行
 - 高斯過程：小資料迴歸、貝氏最佳化（超參數調整、實驗設計）
+
+詳細頁面：[不確定性量化與校準](uncertainty-calibration/index.md)，包含[共形預測](uncertainty-calibration/conformal-prediction.md)、[溫度縮放](uncertainty-calibration/temperature-scaling.md)、[深度集成](uncertainty-calibration/deep-ensembles.md)與[期望校準誤差](uncertainty-calibration/expected-calibration-error.md)。
 
 ## 貝氏大腦假說
 

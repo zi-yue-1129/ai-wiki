@@ -71,4 +71,4 @@ The methods of the period were applied to theorem proving, game playing, puzzle 
 
 ### Surveys and textbooks
 
-- Lighthill, *Artificial Intelligence: A General Survey*, Science Research Council (1973). https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm — A critical survey of AI's progress, which dates the report to 1972 and was published in 1973. It frames the combinatorial explosion as a central obstacle. Covered in more detail in [the next chapter](../expert-systems-and-winters/index.md).
+- Lighthill, *Artificial Intelligence: A General Survey*, Science Research Council (1972). https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm — A critical survey of AI's progress, which dates the report to 1972 and was published in 1973. It frames the combinatorial explosion as a central obstacle. Covered in more detail in [the next chapter](../expert-systems-and-winters/index.md).

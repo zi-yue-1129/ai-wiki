@@ -262,6 +262,28 @@ plugins:
             Metropolis–Hastings: Metropolis–Hastings
             Gibbs Sampling: 吉布斯抽樣
             Hamiltonian Monte Carlo: 哈密頓蒙地卡羅
+            Graphical Models: 機率圖模型
+            Belief Propagation: 信念傳播
+            Hidden Markov Models: 隱馬可夫模型
+            Search Algorithms: 搜尋演算法
+            A* Search: A* 搜尋
+            Alpha–Beta Pruning: α–β 剪枝
+            Monte Carlo Tree Search: 蒙地卡羅樹搜尋
+            Automated Planning: 自動規劃
+            STRIPS: STRIPS
+            GraphPlan: GraphPlan
+            Knowledge Graphs: 知識圖譜
+            TransE: TransE
+            Neuro-Symbolic AI: 神經符號 AI
+            Markov Logic Networks: 馬可夫邏輯網路
+            Theorem Proving: 自動定理證明
+            Resolution: 歸結
+            DPLL: DPLL
+            Uncertainty Quantification and Calibration: 不確定性量化與校準
+            Conformal Prediction: 共形預測
+            Temperature Scaling: 溫度縮放
+            Deep Ensembles: 深度集成
+            Expected Calibration Error: 期望校準誤差
             Information Theory: 資訊理論
             Causal Inference: 因果推論
             Machine Learning: 機器學習
@@ -501,6 +523,7 @@ plugins:
             Stochastic Interpolants: 隨機插值
             Minibatch OT Flow Matching: 小批次最優傳輸流匹配
             Classifier-Free Guidance: 無分類器引導
+            Consistency Models and Fast Samplers: 一致性模型與快速取樣器
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
             Message Passing: 訊息傳遞
@@ -860,6 +883,10 @@ plugins:
             PagedAttention and vLLM: PagedAttention 與 vLLM
             Speculative Decoding: 推測式解碼
             Multi-Query Attention: 多查詢注意力
+            KV Cache Compression and Eviction: KV 快取壓縮與淘汰
+            H2O: H2O
+            StreamingLLM: StreamingLLM
+            KIVI: KIVI
             Grouped-Query Attention: 分組查詢注意力
             Fused Kernels: 融合核心
             MLOps & Deployment: MLOps 與部署
@@ -878,6 +905,10 @@ plugins:
             Roofline Model: 屋頂線模型
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
+            TinyML and Mobile Runtimes: TinyML 與行動執行環境
+            MCUNet: MCUNet
+            LiteRT: LiteRT
+            ExecuTorch: ExecuTorch
             GPTQ: GPTQ
             AI & Society: AI 與社會
             Safety & Alignment: AI 安全與對齊
@@ -896,6 +927,13 @@ plugins:
             Mechanistic interpretability and circuits: 機制可解釋性與電路
             Sparse autoencoders and feature dictionaries: 稀疏自編碼器與特徵字典
             Ethics & Fairness: 倫理與公平
+            Fairness Definitions: 公平性定義
+            Bias Case Studies: 偏見案例研究
+            Algorithmic Auditing: 演算法稽核與影響評估
+            Feature Attribution: 特徵歸因
+            Probing Classifiers: 探測分類器
+            Human-AI Interaction & Trust: 人機互動與信任
+            Automation Bias: 自動化偏誤與過度依賴
             Privacy & Data Protection: 隱私與資料保護
             Differential privacy: 差分隱私
             Membership inference: 成員推論
@@ -1153,6 +1191,7 @@ nav:
                       - DDIM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md
                       - Latent Diffusion: theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md
                       - Classifier-Free Guidance: theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md
+                      - Consistency Models and Fast Samplers: theory/paradigms/unsupervised/density-and-generative-models/diffusion/consistency-models.md
               - Autoencoders & Representations: theory/paradigms/unsupervised/autoencoders-and-representations/index.md
               - Anomaly Detection: theory/paradigms/unsupervised/anomaly-detection/index.md
           - Semi- & Weakly Supervised Learning:
@@ -1300,6 +1339,10 @@ nav:
           - Other Paradigms: theory/paradigms/other/index.md
           - Probabilistic & Bayesian Methods:
               - theory/paradigms/probabilistic/index.md
+              - Graphical Models:
+                  - theory/paradigms/probabilistic/graphical-models/index.md
+                  - Belief Propagation: theory/paradigms/probabilistic/graphical-models/belief-propagation.md
+                  - Hidden Markov Models: theory/paradigms/probabilistic/graphical-models/hidden-markov-models.md
               - Variational Inference:
                   - theory/paradigms/probabilistic/variational-inference/index.md
                   - Mean-Field Variational Inference: theory/paradigms/probabilistic/variational-inference/mean-field.md
@@ -1309,7 +1352,33 @@ nav:
                   - Metropolis–Hastings: theory/paradigms/probabilistic/mcmc/metropolis-hastings.md
                   - Gibbs Sampling: theory/paradigms/probabilistic/mcmc/gibbs-sampling.md
                   - Hamiltonian Monte Carlo: theory/paradigms/probabilistic/mcmc/hamiltonian-monte-carlo.md
-          - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
+              - Uncertainty Quantification and Calibration:
+                  - theory/paradigms/probabilistic/uncertainty-calibration/index.md
+                  - Conformal Prediction: theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction.md
+                  - Temperature Scaling: theory/paradigms/probabilistic/uncertainty-calibration/temperature-scaling.md
+                  - Deep Ensembles: theory/paradigms/probabilistic/uncertainty-calibration/deep-ensembles.md
+                  - Expected Calibration Error: theory/paradigms/probabilistic/uncertainty-calibration/expected-calibration-error.md
+          - Symbolic AI, Search & Planning:
+              - theory/paradigms/symbolic-ai/index.md
+              - Search Algorithms:
+                  - theory/paradigms/symbolic-ai/search/index.md
+                  - A* Search: theory/paradigms/symbolic-ai/search/a-star.md
+                  - Alpha–Beta Pruning: theory/paradigms/symbolic-ai/search/alpha-beta-pruning.md
+                  - Monte Carlo Tree Search: theory/paradigms/symbolic-ai/search/monte-carlo-tree-search.md
+              - Automated Planning:
+                  - theory/paradigms/symbolic-ai/planning/index.md
+                  - STRIPS: theory/paradigms/symbolic-ai/planning/strips.md
+                  - GraphPlan: theory/paradigms/symbolic-ai/planning/graphplan.md
+              - Theorem Proving:
+                  - theory/paradigms/symbolic-ai/theorem-proving/index.md
+                  - Resolution: theory/paradigms/symbolic-ai/theorem-proving/resolution.md
+                  - DPLL: theory/paradigms/symbolic-ai/theorem-proving/dpll.md
+              - Knowledge Graphs:
+                  - theory/paradigms/symbolic-ai/knowledge-graphs/index.md
+                  - TransE: theory/paradigms/symbolic-ai/knowledge-graphs/transe.md
+              - Neuro-Symbolic AI:
+                  - theory/paradigms/symbolic-ai/neuro-symbolic/index.md
+                  - Markov Logic Networks: theory/paradigms/symbolic-ai/neuro-symbolic/markov-logic-networks.md
           - Evolutionary & Swarm Intelligence:
               - theory/paradigms/evolutionary/index.md
               - Genetic Algorithms: theory/paradigms/evolutionary/genetic-algorithms.md
@@ -1860,6 +1929,11 @@ nav:
           - PagedAttention and vLLM: engineering/inference-optimization/paged-attention.md
           - Speculative Decoding: engineering/inference-optimization/speculative-decoding.md
           - Multi-Query Attention: engineering/inference-optimization/multi-query-attention.md
+          - KV Cache Compression and Eviction:
+              - engineering/inference-optimization/kv-cache-compression.md
+              - H2O: engineering/inference-optimization/h2o.md
+              - StreamingLLM: engineering/inference-optimization/streamingllm.md
+              - KIVI: engineering/inference-optimization/kivi.md
           - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
           - Fused Kernels: engineering/inference-optimization/fused-kernels.md
       - MLOps & Deployment: engineering/mlops/index.md
@@ -1881,6 +1955,11 @@ nav:
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
+          - TinyML and Mobile Runtimes:
+              - engineering/on-device-edge/tinyml-and-mobile-runtimes/index.md
+              - MCUNet: engineering/on-device-edge/tinyml-and-mobile-runtimes/mcunet.md
+              - LiteRT: engineering/on-device-edge/tinyml-and-mobile-runtimes/litert.md
+              - ExecuTorch: engineering/on-device-edge/tinyml-and-mobile-runtimes/executorch.md
   - AI & Society:
       - society/index.md
       - Safety & Alignment:
@@ -1900,7 +1979,13 @@ nav:
           - Sparse autoencoders and feature dictionaries: society/interpretability/sparse-autoencoders.md
           - k-sparse autoencoders: society/interpretability/k-sparse-autoencoders.md
           - JumpReLU sparse autoencoders: society/interpretability/jumprelu-sae.md
-      - Ethics & Fairness: society/ethics/index.md
+          - Feature Attribution: society/interpretability/feature-attribution.md
+          - Probing Classifiers: society/interpretability/probing.md
+      - Ethics & Fairness:
+          - society/ethics/index.md
+          - Fairness Definitions: society/ethics/fairness-definitions.md
+          - Bias Case Studies: society/ethics/bias-case-studies.md
+          - Algorithmic Auditing: society/ethics/algorithmic-auditing.md
       - Privacy & Data Protection:
           - society/privacy/index.md
           - Differential privacy: society/privacy/differential-privacy.md
@@ -1926,8 +2011,11 @@ nav:
       - AI in Taiwan: society/ai-in-taiwan/index.md
       - Children, Education Policy & AI: society/children-education-policy/index.md
       - Surveillance & Human Rights: society/surveillance/index.md
-      - AI Companionship: society/human-ai-interaction/ai-companionship.md
-      - AI Literacy: society/human-ai-interaction/ai-literacy.md
+      - Human-AI Interaction & Trust:
+          - society/human-ai-interaction/index.md
+          - Automation Bias: society/human-ai-interaction/automation-bias.md
+          - AI Companionship: society/human-ai-interaction/ai-companionship.md
+          - AI Literacy: society/human-ai-interaction/ai-literacy.md
       - Law, Policy & Governance:
           - society/governance/index.md
           - Compute Governance & Export Controls: society/governance/compute-governance.md

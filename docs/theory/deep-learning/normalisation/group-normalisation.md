@@ -39,7 +39,7 @@ The set $\mathcal{S}_i$ contains the positions and channels of group $i$ within 
 
 ## Results
 
-The paper reports that group normalisation performs about as well as batch normalisation at typical batch sizes and better than batch normalisation at small batch sizes. Its abstract reports that group normalisation has 10.6% lower error than batch normalisation at a batch size of 2  [(Wu and He, 2018)](https://arxiv.org/abs/1803.08494).
+The abstract reports that, on ResNet-50 trained on ImageNet, group normalisation has 10.6% lower error than batch normalisation at a batch size of 2. Comparisons at other batch sizes are in the paper [(Wu and He, 2018)](https://arxiv.org/abs/1803.08494).
 
 ## Limitations
 

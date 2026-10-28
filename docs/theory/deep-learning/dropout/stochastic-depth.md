@@ -35,11 +35,11 @@ For a residual block with branch function $f_l$, the training update is
 
 $$\mathbf{h}_{l} = \mathbf{h}_{l-1} + b_l \, f_l(\mathbf{h}_{l-1}), \qquad b_l \sim \mathrm{Bernoulli}(p_l)$$
 
-At test time the branch is multiplied by its expected value, $p_l$. The survival probabilities used in the paper decrease linearly with depth.
+At test time the branch is multiplied by its expected value, $p_l$. The paper's survival schedule is described in its method section, and this page does not restate it.
 
 ## Results
 
-The paper reports lower test error on several image classification benchmarks and a substantial reduction in training time, with the numbers in its experiments section.
+The abstract reports that training time is substantially reduced and gives a test error of 4.91% on CIFAR-10. The comparisons are in the paper.
 
 ## Limitations
 

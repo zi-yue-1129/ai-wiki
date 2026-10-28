@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/models/transformer
@@ -32,12 +32,10 @@ Structure predictors such as [AlphaFold 2](../alphafold-2.md) search sequence da
 3. Pass the output to an equivariant transformer structure module, which produces atomic coordinates.
 4. Repeat the trunk and structure steps for three recycling steps, then output the structure and its predicted confidences.
 
-The authors train the folding head with the same losses used for AlphaFold, so the training objective follows the AlphaFold line of work while the input and architecture differ.
-
 ## Results
 
-- **Speed**: the preprint reports inference up to 60 times faster than the state of the art on the forward pass alone, with the claim that resolution and accuracy are maintained.
-- **Atlas**: the authors fold more than 617 million sequences from the MGnify90 database. About 225 million of the predictions are high confidence.
+- **Speed**: the preprint reports that ESMFold runs about 6 times faster than one AlphaFold2 model on a 384-residue protein, and up to about 60 times faster on shorter sequences.
+- **Atlas**: the authors fold more than 617 million sequences from the MGnify90 database. About 225 million of the predictions pass a high-confidence threshold (pLDDT and pTM both above 0.7).
 - Accuracy numbers on benchmark test sets are reported in the paper and are not restated here.
 
 ## Limitations
@@ -49,7 +47,7 @@ The authors train the folding head with the same losses used for AlphaFold, so t
 ## Connections
 
 - [ESM-2](esm-2.md): the language model that ESMFold is built on.
-- [AlphaFold 2](../alphafold-2.md): the alignment-based predictor. ESMFold's authors describe their method as a simplification of current structure predictors, and it shares AlphaFold's training losses.
+- [AlphaFold 2](../alphafold-2.md): the alignment-based predictor that ESMFold is compared with on speed.
 - [RFdiffusion](../rfdiffusion/index.md): a design tool that uses a structure predictor, RoseTTAFold, rather than a language model.
 - Brain and mind: no direct connection. The method works on sequences and structures, not on neural data.
 

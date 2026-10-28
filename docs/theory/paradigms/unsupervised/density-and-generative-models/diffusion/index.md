@@ -71,6 +71,7 @@ Each named method has its own page with the problem, core idea, equations, resul
 
 - [DDPM](ddpm.md) (Ho, Jain & Abbeel, 2020): the noise-prediction objective and the sampler that made diffusion practical for images.
 - [DDIM](ddim.md) (Song, Meng & Ermon, 2021): a non-Markovian sampler that reuses the DDPM model in far fewer steps.
+- [Consistency models and fast samplers](consistency-models.md) (Song et al., 2023): models that map any point of a trajectory to its output, supporting one-step generation.
 - [Latent Diffusion](latent-diffusion.md) (Rombach et al., 2022): diffusion in the latent space of an autoencoder, with cross-attention conditioning.
 - [DiT](../../../../models/transformer/dit/index.md) (Peebles & Xie, 2023): a Transformer denoiser that replaces the U-Net and scales with compute.
 - [Classifier-free guidance](classifier-free-guidance.md) (Ho & Salimans, 2022): conditioning control without a separate classifier.

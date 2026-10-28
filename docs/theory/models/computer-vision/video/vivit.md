@@ -28,15 +28,15 @@ Full attention over every spatiotemporal token is expensive, because the number 
 
 ## Core idea
 
-A clip is cut into non-overlapping spatiotemporal tubelets, each embedded as a token. The authors propose several factorised encoders that split the attention. One variant applies spatial attention within each frame and then temporal attention across frames at each position. Another applies spatial and temporal transformers in sequence. The factorised versions cut the cost, and the authors report that they are competitive with full attention in their experiments.
+A clip is cut into non-overlapping spatiotemporal tubelets, each embedded as a token. The authors propose several factorised encoders that split the attention. One variant applies spatial attention within each frame and then temporal attention across frames at each position. Another applies spatial and temporal transformers in sequence. The factorised versions cut the cost, and the paper's experiments compare the variants.
 
 ## Equation
 
-For a video with $T$ frames and $N$ spatial tokens per frame, full self-attention costs on the order of $(TN)^2$ operations. A factorised encoder with spatial attention followed by temporal attention costs on the order of $T N^2 + N T^2$, which is much smaller when $T$ and $N$ are both large. The attention itself is the standard scaled dot-product form from the Transformer paper.
+For a video with $T$ frames and $N$ spatial tokens per frame, full self-attention costs on the order of $(TN)^2$ operations. A factorised encoder with spatial attention followed by temporal attention costs on the order of $T N^2 + N T^2$, which is much smaller when $T$ and $N$ are both large. The attention itself is the standard scaled dot-product form from the Transformer paper. The cost expressions above are this page's own estimate, not figures quoted from the paper.
 
 ## Results
 
-The paper reports state-of-the-art results on several action recognition benchmarks at the time, with the figures in its results tables. The numbers are not restated here, and they depend on whether the model is pretrained on large image or video datasets.
+The abstract reports state-of-the-art results on several video classification benchmarks, including Kinetics 400 and 600, Epic Kitchens, Something-Something v2 and Moments in Time. The figures are in the paper's results tables and are not restated here.
 
 ## Limitations
 

@@ -23,6 +23,8 @@ related:
 | Knowledge graphs | (entity, relation, entity) triples | Wikidata, Google Knowledge Graph |
 | Commonsense knowledge bases | Everyday knowledge | Cyc, ConceptNet, ATOMIC |
 
+Detailed pages: [Knowledge graphs and knowledge representation](knowledge-graphs/index.md), with [TransE](knowledge-graphs/transe.md).
+
 ## Search
 
 | Kind | Algorithms | Use |
@@ -36,6 +38,8 @@ related:
 
 A* uses \( f(n) = g(n) + h(n) \); with an admissible heuristic \(h\) (never overestimates), A* is optimal.
 
+Detailed pages: [Search algorithms](search/index.md), with [A\* search](search/a-star.md), [alpha–beta pruning](search/alpha-beta-pruning.md) and [Monte Carlo tree search](search/monte-carlo-tree-search.md).
+
 ## Automated planning
 
 - **STRIPS / PDDL**: actions with preconditions and effects; planners find action sequences
@@ -43,11 +47,15 @@ A* uses \( f(n) = g(n) + h(n) \); with an admissible heuristic \(h\) (never over
 - **Planning under uncertainty**: MDPs, POMDPs
 - **Applications**: logistics, space missions (NASA's Remote Agent), game AI, robot task planning
 
+Detailed pages: [Automated planning](planning/index.md), with [STRIPS](planning/strips.md) and [GraphPlan](planning/graphplan.md).
+
 ## Automated reasoning and theorem proving
 
 - SAT/SMT solvers (Z3): chip and software verification, scheduling
 - Interactive theorem provers: Lean, Coq (Rocq), Isabelle
 - **AI for mathematics**: LLMs combined with Lean (AlphaProof reached silver-medal level at IMO 2024; several systems later reached gold-medal level on IMO problems); the Mathlib community formalising mathematics
+
+Detailed pages: [Automated theorem proving and formal mathematics](theorem-proving/index.md), with [resolution](theorem-proving/resolution.md) and [DPLL](theorem-proving/dpll.md).
 
 ## Strengths and weaknesses
 
@@ -70,6 +78,8 @@ Combine neural networks' perception and learning with symbolic reasoning and int
 - **Knowledge graphs + LLMs**: GraphRAG
 
 The cognitive-science counterpart is **dual-process theory**: fast, intuitive "System 1" resembles neural networks; slow, deliberate "System 2" resembles symbolic reasoning (see [Psychology & AI](../../../brain-mind/psychology/index.md)). Some theorists argue human thought relies on a symbolic "language of thought" (Fodor).
+
+Detailed pages: [Neuro-symbolic AI](neuro-symbolic/index.md), with [Markov logic networks](neuro-symbolic/markov-logic-networks.md).
 
 ## Resources
 

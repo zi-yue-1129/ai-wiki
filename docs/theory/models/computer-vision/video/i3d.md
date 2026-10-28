@@ -35,11 +35,11 @@ If a two-dimensional filter $W \in \mathbb{R}^{k \times k}$ is inflated to $T$ f
 
 $$W_{\text{3D}}(t, i, j) = \frac{1}{T} W(i, j), \qquad t = 1, \ldots, T,$$
 
-so that a video of identical frames produces the same output as the image network applied to one frame. The division by $T$ keeps the response scale stable.
+so that a video of identical frames produces the same output as the image network applied to one frame. The division by $T$ keeps the response scale stable. This is a summary of the inflation rule, and the paper's description should be checked before the formula is relied on.
 
 ## Results
 
-The paper reports that pretraining on Kinetics and then fine-tuning on smaller datasets gives strong results on HMDB-51 and UCF-101, with the figures given in the abstract and results tables. Refer to the paper for exact numbers.
+The abstract reports 80.9% accuracy on HMDB-51 and 98.0% on UCF-101 after pretraining on Kinetics. The paper's tables give the full comparisons.
 
 ## Limitations
 

@@ -24,6 +24,8 @@
 
 提醒：歸因圖可能不忠實，或無法通過合理性檢查（Adebayo et al., 2018）；而解釋本身也可能增加過度信任。
 
+兩個方法頁面有更深入的說明：[特徵歸因：SHAP、LIME 與顯著性](feature-attribution.md)與[探測分類器與表徵分析](probing.md)。
+
 ## 機械式可解釋性
 
 - **[電路](mechanistic-interpretability.md)**：實現可辨識演算法的小型子網路——視覺模型中的曲線偵測器、Transformer 中的歸納頭（induction heads）、間接賓語辨識電路
