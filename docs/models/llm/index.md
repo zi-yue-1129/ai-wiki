@@ -7,6 +7,9 @@ related:
 - engineering/training
 - brain-mind/psychology
 - society/safety-alignment
+aliases:
+  - LLM
+  - 大語言模型
 ---
 
 # Large Language Models
