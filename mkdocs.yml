@@ -241,6 +241,8 @@ plugins:
             Cosine Annealing with Warm Restarts: 附暖重啟的餘弦退火
             Cyclical Learning Rates: 循環學習率
             Regularisation & Weight Decay: 正則化與權重衰減
+            Sharp Minima: 尖銳極小值
+            SGD Noise Scale: SGD 雜訊尺度
             Gradient Clipping & Normalisation: 梯度裁剪與正規化
             Large-Batch & Distributed: 大批次與分散式
             Zeroth-Order & Evolutionary: 零階與演化
@@ -632,7 +634,10 @@ nav:
               - Gradual Warm-up: theory/optimization/gradual-warm-up.md
               - Cosine Annealing with Warm Restarts: theory/optimization/cosine-annealing-warm-restarts.md
               - Cyclical Learning Rates: theory/optimization/cyclical-learning-rates.md
-          - Regularisation & Weight Decay: theory/optimization/regularisation-and-weight-decay.md
+          - Regularisation & Weight Decay:
+              - theory/optimization/regularisation-and-weight-decay.md
+              - Sharp Minima: theory/optimization/sharp-minima.md
+              - SGD Noise Scale: theory/optimization/sgd-noise-scale.md
           - Gradient Clipping & Normalisation: theory/optimization/gradient-clipping-and-normalisation.md
           - Large-Batch & Distributed: theory/optimization/large-batch-and-distributed.md
           - Zeroth-Order & Evolutionary: theory/optimization/zeroth-order-and-evolutionary.md
