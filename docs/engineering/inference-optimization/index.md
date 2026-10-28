@@ -56,6 +56,7 @@ Each named method has its own page, which gives the problem, the core idea, the 
 | Speculative decoding | One token per full pass underuses the GPU | A draft model proposes tokens that the target verifies in one pass | Speedup depends on the acceptance rate | [Speculative decoding](speculative-decoding.md) |
 | Multi-query attention | Each head keeps its own large KV cache | One shared key and value head for all queries | Some loss of quality | [Multi-query attention](multi-query-attention.md) |
 | Grouped-query attention | Multi-query attention can lose too much quality | Groups of query heads share one key-value head | Cache is larger than multi-query | [Grouped-query attention](grouped-query-attention.md) |
+| KV cache compression and eviction | Stored keys and values fill memory at long context | Keep fewer tokens, or store fewer bits per value | Accuracy can fall on tasks that need dropped content | [KV cache compression](kv-cache-compression.md) |
 
 ## Connections
 
