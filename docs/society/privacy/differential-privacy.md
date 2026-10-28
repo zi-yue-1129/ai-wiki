@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - 差分隱私
@@ -36,7 +36,7 @@ Add random noise to the output, scaled to how much one record could change the a
 
 ## Results
 
-Dwork et al. (2006) give a formal guarantee and a method for calibrating noise, rather than an empirical benchmark. Abadi et al. (2016) show that deep networks can be trained with DP-SGD, with the privacy cost tracked across training. The exact accuracy trade-off depends on the task, the dataset and the privacy budget, so comparisons should be made against the specific paper.
+Dwork et al. (2006) give a formal guarantee and a method for calibrating noise, rather than an empirical benchmark. Abadi et al. (2016) report that deep neural networks with non-convex objectives can be trained under a modest privacy budget. The exact accuracy trade-off depends on the task, the dataset and the privacy budget, so comparisons should be made against the specific paper.
 
 ## Limitations
 
