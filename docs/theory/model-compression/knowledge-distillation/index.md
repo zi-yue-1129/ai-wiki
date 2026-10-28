@@ -64,6 +64,16 @@ For a language model, the same idea is used at the level of tokens, or of whole 
 - **Results:** The abstract reports that DistilBERT reduces the size of a BERT model by 40% while retaining 97% of its language understanding capabilities, and that it is 60% faster.
 - **Limitations:** The student is still bounded by the teacher's knowledge and is evaluated on language understanding benchmarks, which do not cover every use. The pretraining distillation needs a large corpus.
 
+## Variants
+
+Each method family has its own page with key methods and open issues:
+
+- [Feature-based distillation](feature-based/index.md): hint layers and attention transfer.
+- [Relation-based distillation](relation-based/index.md): matching distances and similarities between examples.
+- [Self-distillation](self-distillation/index.md): born-again networks and deep-layer self-teaching.
+- [Data-free distillation](data-free/index.md): distillation from synthetic samples.
+- [Distillation for large language models](llm-distillation/index.md): on-policy distillation and reasoning traces.
+
 ## Trade-offs
 
 - **Size versus quality.** Smaller students lose capability, especially on tasks that need the teacher's broader knowledge.

@@ -68,6 +68,17 @@ Large language models changed the problem. Retraining them is costly, so recent 
 - **Results:** The authors report that Wanda significantly outperforms the established baseline of magnitude pruning on large language models.
 - **Limitations:** The method removes weights without correcting the remaining ones, so the accuracy loss at very high sparsity is larger than with methods that update weights.
 
+## Variants
+
+Each method family has its own page with key methods and open issues:
+
+- [Magnitude pruning](magnitude-pruning/index.md): gradual schedules and the magnitude baseline.
+- [Lottery ticket hypothesis](lottery-ticket/index.md): winning tickets, rewinding and pruning early in training.
+- [Structured and channel pruning](structured-pruning/index.md): filter pruning and network slimming.
+- [N:M sparsity](n-m-sparsity/index.md): the 2:4 pattern and sparse tensor cores.
+
+One-shot pruning of large language models, with SparseGPT and Wanda, is covered in the key methods above.
+
 ## Connections
 
 Pruning and sparse computation depend on what chips can skip. The support for N:M patterns and sparse matrix kernels is part of the story in [AI hardware](../../../engineering/hardware/index.md).

@@ -60,6 +60,14 @@ q = \operatorname{clip}\!\left(\operatorname{round}\!\left(\frac{x}{s}\right) + 
 - **SmoothQuant**（Xiao 等人，2022）：透過逐通道縮放，把激活離群值的困難轉移到權重上，使權重與激活值都能量化為 8 位元。摘要報告，對大型語言模型可達 1.56 倍加速與 2 倍記憶體縮減，準確度損失可忽略。
 - **KV 快取量化**：以較少位元儲存注意力快取。見 [KV 快取管理](../../../theory/models/transformer/kv-cache/index.zh-TW.md)。
 
+## 變體
+
+每個方法家族都有自己的頁面，包含重要方法與開放問題：
+
+- [量化感知訓練](quantisation-aware-training/index.zh-TW.md)：可學習步長與純整數推論。
+- [二值與三值](binary-and-ternary/index.zh-TW.md)：BinaryConnect、XNOR-Net 與三值權重網路。
+- [混合精度](mixed-precision/index.zh-TW.md)：以 HAWQ 依基於 Hessian 的敏感度為每層選擇位元寬度。
+
 ## 取捨
 
 - **位元數與品質**：從 8 位元降到 4 位元，記憶體大約再減半，但品質損失隨之增加，並依任務而異。推理與長脈絡任務通常最先退化。

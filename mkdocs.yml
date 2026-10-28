@@ -276,6 +276,18 @@ plugins:
             Quantisation: 量化
             Pruning: 剪枝
             Knowledge Distillation: 知識蒸餾
+            Quantisation-Aware Training: 量化感知訓練
+            Binary & Ternary: 二值與三值
+            Mixed Precision: 混合精度
+            Magnitude Pruning: 量值剪枝
+            Lottery Ticket Hypothesis: 彩票假說
+            Structured & Channel Pruning: 結構化與通道剪枝
+            N:M Sparsity: N:M 稀疏
+            Feature-Based: 特徵式
+            Relation-Based: 關係式
+            Self-Distillation: 自我蒸餾
+            Data-Free: 無資料
+            LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
             Natural Language Processing: 自然語言處理
             Speech & Audio: 語音與音訊
@@ -508,9 +520,24 @@ nav:
       - Generative Models: theory/generative/index.md
       - Model Compression:
           - theory/model-compression/index.md
-          - Quantisation: theory/model-compression/quantisation/index.md
-          - Pruning: theory/model-compression/pruning/index.md
-          - Knowledge Distillation: theory/model-compression/knowledge-distillation/index.md
+          - Quantisation:
+              - theory/model-compression/quantisation/index.md
+              - Quantisation-Aware Training: theory/model-compression/quantisation/quantisation-aware-training/index.md
+              - Binary & Ternary: theory/model-compression/quantisation/binary-and-ternary/index.md
+              - Mixed Precision: theory/model-compression/quantisation/mixed-precision/index.md
+          - Pruning:
+              - theory/model-compression/pruning/index.md
+              - Magnitude Pruning: theory/model-compression/pruning/magnitude-pruning/index.md
+              - Lottery Ticket Hypothesis: theory/model-compression/pruning/lottery-ticket/index.md
+              - Structured & Channel Pruning: theory/model-compression/pruning/structured-pruning/index.md
+              - N:M Sparsity: theory/model-compression/pruning/n-m-sparsity/index.md
+          - Knowledge Distillation:
+              - theory/model-compression/knowledge-distillation/index.md
+              - Feature-Based: theory/model-compression/knowledge-distillation/feature-based/index.md
+              - Relation-Based: theory/model-compression/knowledge-distillation/relation-based/index.md
+              - Self-Distillation: theory/model-compression/knowledge-distillation/self-distillation/index.md
+              - Data-Free: theory/model-compression/knowledge-distillation/data-free/index.md
+              - LLM Distillation: theory/model-compression/knowledge-distillation/llm-distillation/index.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons: theory/models/mlp/index.md

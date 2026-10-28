@@ -75,6 +75,14 @@ Quantising a single layer with weights \(W\) and calibration inputs \(X\) means 
 - **SmoothQuant** (Xiao et al., 2022): moves the difficulty of activation outliers into the weights by a per-channel scaling, so that both weights and activations can be quantised to 8 bits. The abstract reports up to 1.56 times speed-up and 2 times memory reduction for large language models with negligible accuracy loss.
 - **KV-cache quantisation**: stores the attention cache in fewer bits. See [KV cache management](../../../theory/models/transformer/kv-cache/index.md).
 
+## Variants
+
+Each method family has its own page with key methods and open issues:
+
+- [Quantisation-aware training](quantisation-aware-training/index.md): learned step size and integer-only inference.
+- [Binary and ternary](binary-and-ternary/index.md): BinaryConnect, XNOR-Net and ternary weight networks.
+- [Mixed precision](mixed-precision/index.md): choosing bit-widths per layer with Hessian-based sensitivity.
+
 ## Trade-offs
 
 - **Bits versus quality.** Going from 8 to 4 bits roughly halves memory again, but quality loss grows and depends on the task. Reasoning and long-context tasks are often the first to degrade.
