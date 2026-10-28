@@ -38,6 +38,10 @@ At each sampling step the network is run twice, and the predictions are combined
 
 Equivalently, \(\tilde\epsilon = \epsilon_\theta(x_t,t) + (1+w)\big(\epsilon_\theta(x_t,t,c) - \epsilon_\theta(x_t,t)\big)\), which shows that the step moves from the unconditional prediction towards the conditional one. With \(w = 0\) this is the plain conditional model. The cost per step doubles, because two network evaluations are needed.
 
+![Animated classifier-free guidance extrapolation: a guided noise-prediction point moves beyond the conditional prediction as the guidance weight increases and returns as it decreases.](../../../../../assets/concept-animations/cfg-extrapolation-motion.svg)
+
+*Original looping vector-space teaching animation, CC BY-SA 4.0.* The unconditional and conditional noise predictions are fixed in this **schematic 2D projection** of high-dimensional prediction tensors. As the illustrative guidance weight increases from \(w=0\) to \(w=1.5\), the guided prediction follows \(\epsilon_{\text{cond}}+w(\epsilon_{\text{cond}}-\epsilon_{\text{uncond}})\), moving from the conditional point *beyond* it along the same direction. The point then returns as \(w\) decreases; it does **not** depict a full diffusion denoising trajectory or measured predictions. See [Ho & Salimans (2022)](https://arxiv.org/abs/2207.12598). The website provides a **Pause animation** control and a reduced-motion still frame.
+
 ## Results
 
 The paper evaluates on ImageNet at 64×64 and 128×128 only. FID and Inception score are both reported in its tables.

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+<title id="title">Classifier-free guidance: animated vector extrapolation</title>
+<desc id="desc">The unconditional and conditional noise predictions are fixed points in a schematic two-dimensional projection. As the guidance weight grows from zero to 1.5, the guided prediction moves beyond the conditional point along the difference direction, then returns.</desc>
+<defs><linearGradient id="paper" x2="0" y2="1"><stop stop-color="#f9fcff"/><stop offset="1" stop-color="#edf4fa"/></linearGradient><marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5 0 7" fill="none" stroke="#4c8eaa" stroke-width="1.4"/></marker></defs>
+<style>
+text{font-family:Inter,ui-sans-serif,system-ui,sans-serif;fill:#294659}.small{font-size:12px;font-weight:600;letter-spacing:1.2px;fill:#6b879a}.chip{fill:white;stroke:#d6e3ec;stroke-width:1.5}
+@media(prefers-reduced-motion:reduce){.guided-vector{d:path("M315 194L477 140")!important}.guided-point{cx:477px!important;cy:140px!important}.guide-progress{width:116px!important}}
+</style>
+<rect width="640" height="360" rx="18" fill="url(#paper)"/><text x="30" y="36" class="small">GUIDANCE EXTRAPOLATION</text>
+<g opacity=".55" stroke="#d7e4ec" stroke-width="1"><path d="M76 92V278M136 92V278M196 92V278M256 92V278M316 92V278M376 92V278M436 92V278M496 92V278M556 92V278"/><path d="M76 98H572M76 158H572M76 218H572M76 278H572"/></g>
+<path d="M97 284H577" stroke="#bccedc" stroke-width="2"/><path d="M97 284V85" stroke="#bccedc" stroke-width="2"/>
+<path d="M153 248L315 194" stroke="#468eae" stroke-width="5" fill="none" marker-end="url(#arr)"/>
+<path class="guided-vector" d="M315 194L315 194" stroke="#c98b43" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="8 6"><animate attributeName="d" values="M315 194L315 194;M315 194L396 167;M315 194L477 140;M315 194L396 167;M315 194L315 194" keyTimes="0;.25;.5;.75;1" dur="5.6s" repeatCount="indefinite"/></path>
+<circle cx="153" cy="248" r="15" fill="#d5eaf5" stroke="#468eae" stroke-width="3"/><circle cx="315" cy="194" r="15" fill="#468eae" stroke="white" stroke-width="3"/>
+<circle class="guided-point" cx="315" cy="194" r="12" fill="#d98b38" stroke="white" stroke-width="3"><animate attributeName="cx" values="315;396;477;396;315" keyTimes="0;.25;.5;.75;1" dur="5.6s" repeatCount="indefinite"/><animate attributeName="cy" values="194;167;140;167;194" keyTimes="0;.25;.5;.75;1" dur="5.6s" repeatCount="indefinite"/></circle>
+<rect class="chip" x="120" y="289" width="82" height="30" rx="10"/><text x="161" y="309" text-anchor="middle" font-size="13" font-weight="650">Uncond</text>
+<rect class="chip" x="272" y="224" width="85" height="30" rx="10"/><text x="314" y="244" text-anchor="middle" font-size="13" font-weight="650">Cond</text>
+<rect x="466" y="93" width="82" height="30" rx="10" fill="#fff3e4" stroke="#dfb783" stroke-width="1.5"/><text x="507" y="113" text-anchor="middle" font-size="13" font-weight="650">Guided</text>
+<path d="M446 122L477 140" stroke="#d4aa76" stroke-width="1.5" opacity=".6"/>
+<rect x="30" y="51" width="136" height="34" rx="11" fill="#fff" stroke="#d6e3ec"/><text x="98" y="73" font-size="14" font-weight="700" text-anchor="middle">w: 0 → 1.5</text>
+<rect x="475" y="315" width="116" height="6" rx="3" fill="#dbe8ee"/><rect class="guide-progress" x="475" y="315" width="0" height="6" rx="3" fill="#c98b43"><animate attributeName="width" values="0;58;116;58;0" keyTimes="0;.25;.5;.75;1" dur="5.6s" repeatCount="indefinite"/></rect>
+<text x="30" y="336" fill="#6a8396" font-size="12">Illustrative prediction space, not model measurements</text>
+</svg>
