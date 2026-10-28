@@ -77,6 +77,11 @@ In-memory designs are an alternative to the [GPU and TPU](../accelerators/index.
 - Ambrogio, S., et al. (2018). *Equivalent-accuracy accelerated neural-network training using analogue memory*. Nature 558, 60–67. https://doi.org/10.1038/s41586-018-0180-5 — Shows in-place neural-network training on analogue memory reaching software-level accuracy on MNIST and CIFAR benchmarks.
 - Wan, W., et al. (2022). *A compute-in-memory chip based on resistive random-access memory*. Nature 608. https://doi.org/10.1038/s41586-022-04992-8 — Reports an RRAM compute-in-memory chip with hardware-measured inference, close to software models with 4-bit weights.
 
+### Surveys and textbooks
+
+- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — Surveys the architectures and dataflows for efficient DNN processing, the design space in which in-memory designs sit.
+
 ### Articles and documentation
 
 - Rasch, M. J., et al. (2023). *Hardware-aware training for large-scale and diverse deep learning inference workloads using in-memory computing-based accelerators*. arXiv:2302.08469. https://arxiv.org/abs/2302.08469 — Shows that analogue in-memory inference is approximate and that retraining with a hardware model recovers iso-accuracy for CNNs, RNNs and transformers.
+- Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory bandwidth, not compute, is the primary bottleneck for AI serving, the pressure that in-memory designs respond to.
