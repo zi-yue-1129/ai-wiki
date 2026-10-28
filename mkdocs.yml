@@ -1084,7 +1084,7 @@ nav:
       - Interpretability:
           - society/interpretability/index.md
           - Mechanistic Interpretability and Circuits: society/interpretability/mechanistic-interpretability.md
-          - Feature Attribution: SHAP, LIME and Saliency: society/interpretability/feature-attribution.md
+          - "Feature Attribution: SHAP, LIME and Saliency": society/interpretability/feature-attribution.md
       - Ethics & Fairness:
           - society/ethics/index.md
           - Fairness Definitions and Impossibility Results: society/ethics/fairness-definitions.md
