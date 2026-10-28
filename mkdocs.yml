@@ -398,6 +398,10 @@ plugins:
             Real NVP: Real NVP
             Glow: Glow
             Flow Matching: 流匹配
+            Conditional Flow Matching: 條件流匹配
+            Rectified Flow: 修正流
+            Stochastic Interpolants: 隨機插值
+            Minibatch OT Flow Matching: 小批次最優傳輸流匹配
             Classifier-Free Guidance: 無分類器引導
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
@@ -839,7 +843,12 @@ nav:
                           - theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/index.md
                           - Real NVP: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/realnvp.md
                           - Glow: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/glow.md
-                      - Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/index.md
+                      - Flow Matching:
+                          - theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/index.md
+                          - Conditional Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/conditional-flow-matching.md
+                          - Rectified Flow: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/rectified-flow.md
+                          - Stochastic Interpolants: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/stochastic-interpolants.md
+                          - Minibatch OT Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/minibatch-ot-flow-matching.md
                   - Diffusion Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
                       - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
