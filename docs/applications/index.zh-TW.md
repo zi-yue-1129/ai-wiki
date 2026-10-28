@@ -23,6 +23,7 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | [資訊安全](cybersecurity/index.md) | 偵測、漏洞發現、AI 助長的攻擊、保護 AI |
 | [社會科學與人文學](social-science/index.md) | 計算社會科學、數位人文、社會模擬 |
 | [軟體開發](software/index.md) | 程式碼助理、程式碼代理人、測試、生產力證據 |
+| [語言學與機器翻譯](linguistics-translation/index.md) | 神經翻譯、低資源語言、語料庫語言學、譯者工具 |
 
 ## 各領域背後的方法
 
@@ -47,6 +48,7 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | 資訊安全 | [異常偵測](../theory/paradigms/unsupervised/anomaly-detection/index.md)、[安全與對齊](../society/safety-alignment/index.md) |
 | 社會科學與人文學 | [機率與貝氏方法](../theory/paradigms/probabilistic/index.md)、[倫理與公平](../society/ethics/index.md) |
 | 軟體開發 | [大型語言模型](../theory/models/llm/index.md)、[AI 代理人](../theory/models/agents/index.md)、[評估與基準](../engineering/evaluation/index.md) |
+| 語言學與機器翻譯 | [自然語言處理](../theory/models/nlp/index.md)、[Transformer](../theory/models/transformer/index.md)、[大腦與機器中的注意力](../brain-mind/attention-brain-machine/index.md) |
 
 ## 跨領域的模式
 

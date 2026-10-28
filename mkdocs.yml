@@ -541,6 +541,7 @@ plugins:
             Cybersecurity: 資訊安全
             Social Sciences & Humanities: 社會科學與人文
             Software Development: 軟體開發
+            Linguistics & Machine Translation: 語言學與機器翻譯
             Engineering: 工程實務
             Frameworks & Tools: 框架與工具
             Data: 資料工程
@@ -1136,6 +1137,7 @@ nav:
       - Cybersecurity: applications/cybersecurity/index.md
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md
+      - Linguistics & Machine Translation: applications/linguistics-translation/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools: engineering/frameworks/index.md
