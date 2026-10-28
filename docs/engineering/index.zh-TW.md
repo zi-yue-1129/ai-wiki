@@ -10,6 +10,7 @@ AI 系統實際上是如何被建構、調整、評估與運行的。
 | [提示工程](prompting/index.md) | 撰寫有效的提示、結構化輸出、脈絡工程 |
 | [檢索增強生成（RAG）](rag/index.md) | 讓 LLM 以你的文件為依據 |
 | [分散式訓練](distributed-training/index.md) | 資料、張量、管線與分片平行；ZeRO 與 FSDP |
+| [向量資料庫](vector-databases/index.md) | 嵌入、近似最近鄰搜尋、HNSW、FAISS、密集檢索 |
 | [評估與基準](evaluation/index.md) | 基準測試、LLM 作為評審、資料污染、人工評估 |
 | [推論最佳化](inference-optimization/index.md) | 批次處理、分頁式 KV 快取、推測式解碼、注意力變體 |
 | [MLOps 與部署](mlops/index.md) | 服務化、監控、量化、成本、LLMOps |
