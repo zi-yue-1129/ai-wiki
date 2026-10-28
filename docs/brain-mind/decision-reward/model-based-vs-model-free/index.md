@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - theory/paradigms/reinforcement-learning
@@ -42,7 +42,7 @@ In outline, the arbitration works as follows:
 
 1. Keep a model-free estimate of action values, learned from reward prediction errors.
 2. Keep a model-based estimate, obtained by planning over a learned model.
-3. Estimate the uncertainty of each controller from its recent accuracy.
+3. Estimate how uncertain each controller's value estimate is.
 4. Let the controller with lower uncertainty control the choice.
 
 The paper's exact formulation of the uncertainty and the arbitration is more detailed than this outline, and the abstract summary used here does not state its equations.
