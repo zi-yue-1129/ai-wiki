@@ -305,6 +305,7 @@ plugins:
             Prompt Engineering: 提示工程
             Retrieval-Augmented Generation: 檢索增強生成 RAG
             Evaluation & Benchmarks: 評估與基準
+            Inference Optimization: 推論最佳化
             MLOps & Deployment: MLOps 與部署
             AI Hardware: AI 硬體
             AI & Society: AI 與社會
