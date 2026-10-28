@@ -71,8 +71,9 @@ The abstract of Duchi et al. (2011) presents a family of subgradient methods tha
 ### Seminal papers
 
 - Duchi, J., Hazan, E. & Singer, Y. (2011). Adaptive Subgradient Methods for Online Learning and Stochastic Optimization. *Journal of Machine Learning Research*, 12, 2121–2159. https://jmlr.org/papers/v12/duchi11a.html — Introduces AdaGrad, which scales each coordinate by its accumulated squared gradients.
-- Tieleman, T. & Hinton, G. (2012). *Lecture 6.5 — RMSProp: Divide the gradient by a running average of its recent magnitude*. Coursera lecture notes, *Neural Networks for Machine Learning*. https://cir.nii.ac.jp/crid/1370017282431050757 — The exponential-average fix for AdaGrad's shrinking step size.
-- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. ICML. https://arxiv.org/abs/1802.09568 — Extends the per-coordinate AdaGrad idea to full matrix preconditioners.
+- McMahan, H. B. & Streeter, M. (2010). *Adaptive Bound Optimization for Online Convex Optimization*. arXiv. https://arxiv.org/abs/1002.4908 — An earlier analysis of per-coordinate adaptive step sizes for online convex optimisation, from the same line of work as AdaGrad.
+- Zeiler, M. D. (2012). *ADADELTA: An Adaptive Learning Rate Method*. arXiv. https://arxiv.org/abs/1212.5701 — Replaces AdaGrad's ever-growing sum with a decaying average and needs no manually tuned global learning rate.
+- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. arXiv. https://arxiv.org/abs/1802.09568 — Extends the per-coordinate AdaGrad idea to full matrix preconditioners.
 - Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — Combines the per-coordinate scaling with momentum and bias correction.
 
 ### Surveys and textbooks

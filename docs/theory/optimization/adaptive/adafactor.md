@@ -69,7 +69,7 @@ The abstract reports that combining the method with dropped momentum gives resul
 
 ### Seminal papers
 
-- Shazeer, N. & Stern, M. (2018). *Adafactor: Adaptive Learning Rates with Sublinear Memory Cost*. arXiv. https://arxiv.org/abs/1804.04235 — Factors the second-moment estimate of matrix parameters into row and column sums, reducing memory from linear to sublinear in the number of parameters.
+- Shazeer, N. & Stern, M. (2018). *Adafactor: Adaptive Learning Rates with Sublinear Memory Cost*. ICML 2018, PMLR 80, pp. 4596–4604. https://proceedings.mlr.press/v80/shazeer18a.html — Factors the second-moment estimate of matrix parameters into row and column sums, reducing memory from linear to sublinear in the number of parameters.
 - Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — The full second-moment method that Adafactor approximates in memory.
 - Chen, X., et al. (2023). *Symbolic Discovery of Optimization Algorithms*. arXiv. https://arxiv.org/abs/2302.06675 — Lion, another optimiser motivated by memory use, for comparison with Adafactor's saving.
 - Duchi, J., Hazan, E. & Singer, Y. (2011). Adaptive Subgradient Methods for Online Learning and Stochastic Optimization. *Journal of Machine Learning Research*, 12. https://jmlr.org/papers/v12/duchi11a.html — The cumulative per-coordinate accumulator that Adafactor's factored estimate generalises.
