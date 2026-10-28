@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - applications/robotics/navigation
@@ -50,14 +50,21 @@ On the action-space comparison, the authors evaluate on ten environments with a 
 | Raw waypoints | 0.42 | 0.26 |
 | Normalised waypoints | 1.00 | 0.95 |
 
-Across robots, GNM outperforms the best single-dataset policy that the paper compares against. The mean success rates reported in the paper's main table are 0.96 against 0.62 on the LoCoBot, 0.99 against 0.79 on the DJI Tello, 0.93 against 0.51 on the Vizbot, and 0.94 against 0.68 on the Clearpath Jackal. The main comparison is with single-dataset policies and ImageNet fine-tuning. The paper does not report a head-to-head comparison with ViNG.
+Table II compares GNM with GS and RECON, the single-robot baselines, on four robots: the LoCoBot, the DJI Tello, the Vizbot and the Clearpath Jackal (Shah et al., 2022, Table II). The values are mean success rates.
+
+| Method | LoCoBot | DJI Tello | Vizbot | Jackal |
+|---|---|---|---|---|
+| GS | 0.26 | 0.21 | 0.51 | 0.31 |
+| RECON | 0.62 | 0.79 | 0.26 | 0.68 |
+| GNM | 0.96 | 0.99 | 0.93 | 0.94 |
+
+The paper's caption states that the shared policy outperforms the best single-robot policy for each robot. The paper does not report a head-to-head comparison with ViNG.
 
 ## Limitations
 
-- Most of the training data comes from wheeled ground robots, so claims for aerial or legged platforms rest on a small number of deployments. The quadrotor was a DJI Tello, which the paper restricts to a plane about one metre above the ground.
 - The model is trained by imitation, and it inherits the limitations of behaviour cloning, including sensitivity to the distribution of the demonstrations.
 - The normalisation needs each robot's top speed, which must be known for every new platform.
-- The paper's stated size of the dataset differs between the text (about 60 hours) and its table (70 hours), so the figure should be taken from the paper's own table when it matters.
+- The text and Table I give different counts of datasets and hours of data, so take those figures from the paper's table when they matter.
 
 ## Connections
 
@@ -77,4 +84,3 @@ Across robots, GNM outperforms the best single-dataset policy that the paper com
 - Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N. & Levine, S. (2023). *ViNT: A Foundation Model for Visual Navigation*. arXiv. https://arxiv.org/abs/2306.14846 — A transformer successor that scales the same idea to more data and adds temporal-distance and waypoint outputs.
 - Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N. & Levine, S. (2021). *ViNG: Learning Open-World Navigation with Visual Goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — The single-robot predecessor that combines a learned policy with a topological graph.
 - Sridhar, A., Shah, D., Glossop, C. & Levine, S. (2023). *NoMaD: Goal Masked Diffusion Policies for Navigation and Exploration*. arXiv. https://arxiv.org/abs/2310.07896 — A diffusion-based successor for goal-conditioned navigation and exploration.
-- Hirose, N., Xia, F., Martín-Martín, R., Sadeghian, A. & Savarese, S. (2019). *Deep Visual MPC-Policy Learning for Navigation*. arXiv. https://arxiv.org/abs/1903.02749 — An earlier learned visual navigation policy that follows a visual trajectory and avoids unseen obstacles.

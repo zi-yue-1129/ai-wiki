@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - applications/robotics/navigation
@@ -24,17 +24,17 @@ Learned navigation policies are hard to redirect. A conventional planner can be 
 
 ## Problem
 
-A system that navigates to a visually indicated goal must answer two questions: which places in the environment are connected, and how to move from one to the next. Metric mapping answers both with geometry, and it is brittle when the environment is unstructured. Learning can capture navigational affordances, such as tall grass being passable and walls not being passable, but a single end-to-end policy is hard to redirect at test time.
+A system that navigates to a visually indicated goal must answer two questions: which places in the environment are connected, and how to move from one to the next. Metric mapping answers both with geometry, and it is brittle when the environment is unstructured. A single end-to-end policy, however, is hard to redirect at test time.
 
 ## Core idea
 
-Use a learned distance function to weight a graph of observations, and let graph search pick the route. A learned pose predictor and a conventional controller then drive the robot to the next waypoint on that route. Three insights make the approach work: proposing waypoints as the action space, pruning easily traversable edges from the graph, and mining negative pairs from different trajectories.
+Use a learned distance function to weight a graph of observations, and let graph search pick the route. A learned pose predictor and a conventional controller then drive the robot to the next waypoint on that route. The paper's ablations test three of its design choices: waypoints as outputs rather than direct actions, pruning of easily traversable edges, and training on positive pairs alone.
 
 ## Equation or algorithm
 
 The system has three components:
 
-1. **Temporal distance function.** It takes two observations, each 160 by 120 pixels, and estimates the number of time steps between them. A MobileNet encoder feeds three dense layers over 50 bins, trained with cross-entropy.
+1. **Temporal distance function.** It takes two observations, each a stack of two frames at 160 by 120 pixels, and estimates the number of time steps between them. A MobileNet encoder feeds three dense layers over 50 bins, trained with cross-entropy.
 2. **Relative pose predictor.** It uses the same encoder design and regresses the relative waypoint offset, horizontal and vertical, from odometry-derived poses, trained with an L2 loss.
 3. **Controller.** A proportional-derivative controller steers the robot toward the current waypoint, using the predicted offset. It outputs continuous linear and angular velocities, and it is not itself learned.
 
@@ -42,9 +42,9 @@ The graph is built from offline observations, with nodes as images and no geomet
 
 ## Results
 
-In real-world trials, the authors report a success rate of 86% on the most challenging tasks. ViNG is the only method in the paper that reaches goals more than 40 metres away. The baselines are SPTM, an off-SoRB variant, a state estimator using GPS ground truth, and a random policy (Shah et al., 2021, Fig. 3).
+In real-world trials, the authors report a success rate of 86% on the most challenging tasks. ViNG is the only method in the paper that reaches goals more than 40 metres away. The baselines for these trials are shown in Fig. 3 of the paper (Shah et al., 2021).
 
-Ablations are reported at a goal distance of 50 metres (Table II). The temporal-difference variant of the waypoint method scores 0.87, and the base waypoint method scores 0.81. Discrete actions score 0.70, and removing graph pruning drops the score to 0.52. Training on positive pairs only scores 0.43, and predicting actions directly scores 0.40.
+Ablations are reported at a goal distance of 50 metres (Table II). The temporal-difference variant of the waypoint method scores 0.87, and the base waypoint method scores 0.81. The waypoint method with discrete outputs scores 0.70. Predicting actions directly scores 0.40, and its discrete version scores 0.45. Removing graph pruning drops the score to 0.52, and training on positive pairs only scores 0.43.
 
 On four new outdoor sites (barracks, industrial, park and tall grass), fine-tuned ViNG scores 0.96, 0.84, 0.82 and 0.79. Fine-tuned SPTM scores 0.74, 0.68, 0.71 and 0.56 on the same sites.
 
@@ -67,7 +67,7 @@ On four new outdoor sites (barracks, industrial, park and tall grass), fine-tune
 
 ## References
 
-- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N. & Levine, S. (2021). *ViNG: Learning Open-World Navigation with Visual Goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — The source of the distance function, the graph method, the ablations and the real-world results.
+- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N. & Levine, S. (2021). *ViNG: Learning Open-World Navigation with Visual Goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936; arXiv preprint https://arxiv.org/abs/2012.09812 — The source of the distance function, the graph method, the ablations and the real-world results.
 - Savinov, N., Dosovitskiy, A. & Koltun, V. (2018). *Semi-parametric Topological Memory for Navigation*. arXiv. https://arxiv.org/abs/1803.00653 — The topological memory that ViNG extends, and the baseline compared in the real-world trials.
 - Shah, D., Sridhar, A., Bhorkar, A., Hirose, N. & Levine, S. (2022). *GNM: A General Navigation Model to Drive Any Robot*. arXiv. https://arxiv.org/abs/2210.03370 — A later model that trains one shared policy across robots, with waypoint outputs.
 - Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N. & Levine, S. (2023). *ViNT: A Foundation Model for Visual Navigation*. arXiv. https://arxiv.org/abs/2306.14846 — A transformer successor that uses a graph for subgoal selection.
