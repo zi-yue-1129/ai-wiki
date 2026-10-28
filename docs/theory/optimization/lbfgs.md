@@ -39,7 +39,7 @@ The memory parameter $m$ is typically small, and it trades approximation quality
 
 ## Results
 
-Liu and Nocedal report numerical experiments on large-scale problems. The tables and figures of that paper were not checked for this page, so no figures are quoted here. Readers should consult the paper for the test problems and timings.
+Liu and Nocedal report numerical experiments on large-scale test problems. This page does not quote their figures or timings, because the full text of the paper was not checked here. Readers should consult the paper for the test problems and timings.
 
 ## Limitations
 
@@ -50,7 +50,7 @@ Liu and Nocedal report numerical experiments on large-scale problems. The tables
 ## Connections
 
 - [Second-Order and Quasi-Newton Methods](second-order.md) is the overview, where L-BFGS sits beside K-FAC and Shampoo.
-- [Kronecker-factored curvature (K-FAC)](kfac.md) is the stochastic, neural-network-specific alternative.
+- [Kronecker-factored curvature (K-FAC)](kfac/index.md) is the stochastic, neural-network-specific alternative.
 - [SGD and momentum](sgd-and-momentum/index.md) is the first-order method that L-BFGS is typically compared with on the same problems.
 - [Mathematics](../math/index.md) covers the Wolfe conditions and the Hessian used in the derivation.
 
@@ -75,4 +75,5 @@ Liu and Nocedal report numerical experiments on large-scale problems. The tables
 ### Surveys and textbooks
 
 - Nocedal, J. & Wright, S. J. (2006). *Numerical Optimization*. 2nd ed. Springer. https://doi.org/10.1007/978-0-387-40065-5 — Textbook treatment of quasi-Newton methods, including limited-memory updates and the Wolfe line search.
-- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. SIAM Review. https://arxiv.org/abs/1606.04838 — Survey that discusses quasi-Newton methods and their use with stochastic gradients.
+- Nocedal, J. & Wright, S. J. (2006). *Numerical Optimization*, Chapter 7: Large-Scale Unconstrained Optimization. Springer. https://doi.org/10.1007/978-0-387-40065-5_7 — The textbook chapter on large-scale unconstrained optimisation, the setting in which limited-memory methods are usually presented.
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. arXiv:1606.04838. https://arxiv.org/abs/1606.04838 — Survey that discusses quasi-Newton methods and their use with stochastic gradients.

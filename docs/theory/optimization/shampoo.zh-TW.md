@@ -47,7 +47,7 @@ $$
 ## 關鍵方法
 
 - [自適應方法](adaptive/index.md)是 Shampoo 所推廣的對角預條件子家族，其中 [Adam](adaptive/adam.md) 是主要代表。
-- [K-FAC](kfac.md)是相關的結構化預條件子，它由費雪矩陣而非梯度統計量建構。
+- [K-FAC](kfac/index.md)是相關的結構化預條件子，它由費雪矩陣而非梯度統計量建構。
 - [L-BFGS](lbfgs.md)是擬牛頓法，它由短歷史中的梯度差建構曲率。
 
 ## 關聯

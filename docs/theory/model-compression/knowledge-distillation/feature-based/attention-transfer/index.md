@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -41,7 +41,17 @@ Here $Q^j$ is the vectorised attention map for layer $j$, $\mathcal{I}$ the set 
 
 ## Results
 
-The paper reports consistent improvements across several datasets and CNN architectures, including residual and non-residual networks, and for classification tasks of different kinds. It also reports that the activation-based transfer gives better improvements than matching full activations, and that the attention penalty can be combined with the standard distillation loss. The numerical tables are in the paper.
+On CIFAR-10, Table 1 of the paper reports median test error over five runs. Attention transfer lowers the error of every student-teacher pair in the table, including pairs where the teacher is deeper than the student. Three of the pairs are shown below.
+
+| Student (teacher) | Student alone (%) | With attention transfer (%) | Teacher (%) |
+|---|---|---|---|
+| WRN-16-1 (WRN-16-2) | 8.77 | 7.93 | 6.31 |
+| WRN-16-1 (WRN-40-1) | 8.77 | 8.25 | 6.58 |
+| WRN-16-2 (WRN-40-2) | 6.31 | 5.85 | 5.23 |
+
+The paper also reports that activation-based transfer beats matching full activations in every pair, and that combining it with the standard distillation loss gives further gains.
+
+On ImageNet, a ResNet-18 student trained with attention transfer from a ResNet-34 teacher reaches 29.3% top-1 validation error, against 30.4% without transfer. The teacher reaches 26.1%. In transfer learning, Table 4 of the paper reports that attention transfer lowers the error of an ImageNet-pretrained ResNet-18 from 28.5% to 27.0% on CUB birds, and from 28.2% to 27.1% on MIT Scenes. On Scenes it does about as well as knowledge distillation, while on CUB it does better. The paper notes that its ImageNet attention losses were applied to only two groups of residual blocks, and that the hyperparameters were not tuned.
 
 ## Limitations
 

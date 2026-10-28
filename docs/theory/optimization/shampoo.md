@@ -57,7 +57,7 @@ The abstract reports that the per-step runtime of Shampoo is "comparable to that
 ## Key methods
 
 - [Adaptive methods](adaptive/index.md) is the family of diagonal preconditioners that Shampoo generalises. [Adam](adaptive/adam.md) is its main representative.
-- [K-FAC](kfac.md) is a related structured preconditioner, built from the Fisher matrix rather than gradient statistics.
+- [K-FAC](kfac/index.md) is a related structured preconditioner, built from the Fisher matrix rather than gradient statistics.
 - [L-BFGS](lbfgs.md) is the quasi-Newton method that builds curvature from gradient differences over a short history.
 
 ## Connections
