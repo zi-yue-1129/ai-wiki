@@ -32,6 +32,7 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | [保險與精算科學](insurance/index.md) | 定價、理賠分流、詐欺偵測、定價公平性 |
 | [運動分析](sports/index.md) | 追蹤資料、動作價值、姿態估計、裁判技術 |
 | [AI 用於 AI 研究](ai-research/index.md) | 研究代理人、研究能力基準、遞迴式改進的爭論 |
+| [語言學與機器翻譯](linguistics-translation/index.md) | 神經翻譯、低資源語言、語料庫語言學、譯者工具 |
 
 ## 各領域背後的方法
 
@@ -65,6 +66,7 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | 保險與精算科學 | [決策樹與集成方法](../theory/paradigms/supervised/trees-and-ensembles/index.md)、[異常偵測](../theory/paradigms/unsupervised/anomaly-detection/index.md)、[機率與貝氏方法](../theory/paradigms/probabilistic/index.md) |
 | 運動分析 | [電腦視覺](../theory/models/computer-vision/index.md)、[強化學習](../theory/paradigms/reinforcement-learning/index.md)、[機率與貝氏方法](../theory/paradigms/probabilistic/index.md) |
 | AI 用於 AI 研究 | [AI 代理人](../theory/models/agents/index.md)、[思維鏈推理](../theory/models/reasoning/chain-of-thought.md)、[評估與基準](../engineering/evaluation/index.md) |
+| 語言學與機器翻譯 | [自然語言處理](../theory/models/nlp/index.md)、[Transformer](../theory/models/transformer/index.md)、[大腦與機器中的注意力](../brain-mind/attention-brain-machine/index.md) |
 
 ## 跨領域的模式
 

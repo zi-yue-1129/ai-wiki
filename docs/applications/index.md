@@ -32,6 +32,7 @@ Each page follows the same structure: **landscape** (main use cases), **landmark
 | [Insurance & Actuarial Science](insurance/index.md) | Pricing, claims triage, fraud detection, fairness in pricing |
 | [Sports Analytics](sports/index.md) | Tracking data, action valuation, pose estimation, officiating |
 | [AI for AI Research](ai-research/index.md) | Research agents, research-ability benchmarks, the recursive-improvement debate |
+| [Linguistics & Machine Translation](linguistics-translation/index.md) | Neural translation, low-resource languages, corpus linguistics, translator tools |
 
 ## Methods behind each field
 
@@ -65,6 +66,7 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Insurance & Actuarial Science | [Trees & Ensembles](../theory/paradigms/supervised/trees-and-ensembles/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md) |
 | Sports Analytics | [Computer Vision](../theory/models/computer-vision/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md) |
 | AI for AI Research | [AI Agents](../theory/models/agents/index.md), [Chain-of-thought reasoning](../theory/models/reasoning/chain-of-thought.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
+| Linguistics & Machine Translation | [Natural Language Processing](../theory/models/nlp/index.md), [Transformer](../theory/models/transformer/index.md), [Attention in Brains & Machines](../brain-mind/attention-brain-machine/index.md) |
 
 ## Cross-cutting patterns
 
