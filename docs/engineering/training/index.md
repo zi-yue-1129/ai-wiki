@@ -32,6 +32,8 @@ Rough compute estimate for dense Transformers: **training FLOPs ≈ 6 × paramet
 | Adapters, prefix/prompt tuning | Small inserted modules or learned prompts | Very low | Many tasks on one base |
 | Continued pre-training | All weights on domain text | High | New domain or language |
 
+For LoRA, QLoRA, DoRA, adapters and prefix and prompt tuning in detail, see [LoRA, QLoRA and parameter-efficient fine-tuning](peft-lora.md).
+
 ## Post-training for LLMs
 
 1. **Supervised fine-tuning (SFT)** on instruction–response pairs (quality > quantity)
