@@ -69,4 +69,4 @@ The delta rule that trains a single linear unit is the same equation as the Resc
 
 ## Further reading
 
-- McCullagh & Nelder, *Generalized Linear Models*, 2nd ed. (1989). No free link checked.
+- McCullagh & Nelder, *Generalized Linear Models*, 2nd ed. (1989). https://doi.org/10.1201/9780203753736 — The standard text on GLMs. The DOI is for the Routledge reprint (2019).

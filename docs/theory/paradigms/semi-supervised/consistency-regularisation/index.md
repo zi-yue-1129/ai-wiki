@@ -59,4 +59,4 @@ Results depend heavily on the augmentations and on how many labels there are, an
 
 ## Further reading
 
-- Chapelle, Schölkopf & Zien (eds.), *Semi-Supervised Learning*, MIT Press (2006). No free link checked.
+- Chapelle, Schölkopf & Zien (eds.), *Semi-Supervised Learning*, MIT Press (2006). https://doi.org/10.7551/mitpress/9780262033589.001.0001 — The standard volume on semi-supervised learning.

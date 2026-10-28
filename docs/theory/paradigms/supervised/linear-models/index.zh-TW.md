@@ -69,4 +69,4 @@ tags:
 
 ## 延伸閱讀
 
-- McCullagh & Nelder，*Generalized Linear Models*，第二版（1989）。未查核連結。
+- McCullagh & Nelder，*Generalized Linear Models*，第二版（1989）。https://doi.org/10.1201/9780203753736 — 廣義線性模型的標準教科書。此 DOI 為 Routledge 重印版（2019）。
