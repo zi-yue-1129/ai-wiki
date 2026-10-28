@@ -691,6 +691,24 @@ plugins:
             MYCIN and Certainty Factors: MYCIN 與確定性因子
             Backpropagation and the Connectionist Revival: 反向傳播與連結主義的復興
             Statistical Language Processing: 統計語言處理
+            Normalising Flows: 正規化流
+            Masked Autoregressive Flow: 遮罩自回歸流
+            Autoregressive Generative Models: 自回歸生成模型
+            3D Vision and Neural Rendering: 三維視覺與神經渲染
+            Neural Radiance Fields (NeRF): 神經輻射場（NeRF）
+            3D Gaussian Splatting: 3D 高斯濺射
+            Probability and Statistics for AI: AI 的機率與統計
+            Maximum Likelihood: 最大概似估計
+            Expectation-Maximisation: 期望最大化演算法
+            Bootstrap: 自助法
+            Neuro-Symbolic AI: 神經符號 AI
+            Neural Theorem Prover: 神經定理證明器
+            Out-of-Distribution Detection and Distribution Shift: 分布外偵測與分布偏移
+            Maximum Softmax Probability: 最大 softmax 機率
+            Mahalanobis Distance Detector: 馬氏距離偵測器
+            Energy Score: 能量分數
+            Watermarking Model Output: 模型輸出浮水印
+            How to Read an AI Paper: 如何閱讀 AI 論文
 
 markdown_extensions:
   - abbr
@@ -771,6 +789,11 @@ nav:
               - Gradient Descent: theory/math/calculus/gradient-descent/index.md
               - "Newton's Method": theory/math/calculus/newton-method/index.md
               - Lagrange Multipliers and KKT: theory/math/calculus/lagrange-multipliers/index.md
+          - Probability and Statistics for AI:
+              - theory/math/probability-statistics/index.md
+              - Maximum Likelihood: theory/math/probability-statistics/maximum-likelihood/index.md
+              - Expectation-Maximisation: theory/math/probability-statistics/expectation-maximisation/index.md
+              - Bootstrap: theory/math/probability-statistics/bootstrap/index.md
       - Information Theory: theory/information-theory/index.md
       - Machine Learning:
           - theory/machine-learning/index.md
@@ -785,6 +808,11 @@ nav:
               - Fast Gradient Sign Method: theory/machine-learning/adversarial-robustness/fgsm/index.md
               - PGD and Adversarial Training: theory/machine-learning/adversarial-robustness/pgd-adversarial-training/index.md
               - Randomized Smoothing: theory/machine-learning/adversarial-robustness/randomized-smoothing/index.md
+          - Out-of-Distribution Detection and Distribution Shift:
+              - theory/machine-learning/ood-detection/index.md
+              - Maximum Softmax Probability: theory/machine-learning/ood-detection/max-softmax-probability/index.md
+              - Mahalanobis Distance Detector: theory/machine-learning/ood-detection/mahalanobis-distance/index.md
+              - Energy Score: theory/machine-learning/ood-detection/energy-score/index.md
       - Deep Learning:
           - theory/deep-learning/index.md
           - Normalisation Layers:
@@ -971,6 +999,11 @@ nav:
               - STRIPS: theory/symbolic-ai/planning/strips/index.md
               - SHOP2: theory/symbolic-ai/planning/shop2/index.md
               - SayCan: theory/symbolic-ai/planning/saycan/index.md
+          - Neuro-Symbolic AI:
+              - theory/symbolic-ai/neuro-symbolic/index.md
+              - ∂ILP: theory/symbolic-ai/neuro-symbolic/differentiable-ilp/index.md
+              - DreamCoder: theory/symbolic-ai/neuro-symbolic/dreamcoder/index.md
+              - Neural Theorem Prover: theory/symbolic-ai/neuro-symbolic/neural-theorem-prover/index.md
       - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
       - Generative Models:
           - theory/generative/index.md
@@ -996,6 +1029,17 @@ nav:
               - Conditional Flow Matching: theory/generative/flow-matching/conditional-flow-matching/index.md
               - Rectified Flow: theory/generative/flow-matching/rectified-flow/index.md
               - OT-CFM: theory/generative/flow-matching/ot-cfm/index.md
+          - Normalising Flows:
+              - theory/generative/normalising-flows/index.md
+              - RealNVP: theory/generative/normalising-flows/realnvp/index.md
+              - Glow: theory/generative/normalising-flows/glow/index.md
+              - Masked Autoregressive Flow: theory/generative/normalising-flows/masked-autoregressive-flow/index.md
+              - FFJORD: theory/generative/normalising-flows/ffjord/index.md
+          - Autoregressive Generative Models:
+              - theory/generative/autoregressive/index.md
+              - PixelCNN: theory/generative/autoregressive/pixelcnn/index.md
+              - WaveNet: theory/generative/autoregressive/wavenet/index.md
+              - Image GPT: theory/generative/autoregressive/image-gpt/index.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation:
@@ -1162,6 +1206,10 @@ nav:
                   - U-Net: theory/models/computer-vision/segmentation/unet/index.md
                   - Mask R-CNN: theory/models/computer-vision/segmentation/mask-rcnn/index.md
                   - Segment Anything: theory/models/computer-vision/segmentation/sam/index.md
+              - 3D Vision and Neural Rendering:
+                  - theory/models/computer-vision/3d-and-neural-rendering/index.md
+                  - Neural Radiance Fields (NeRF): theory/models/computer-vision/3d-and-neural-rendering/nerf/index.md
+                  - 3D Gaussian Splatting: theory/models/computer-vision/3d-and-neural-rendering/gaussian-splatting/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
@@ -1343,6 +1391,7 @@ nav:
           - Guardrails and Output Filtering: engineering/llm-security/guardrails.md
           - Data Poisoning and Backdoors: engineering/llm-security/data-poisoning-and-backdoors.md
           - Model Extraction and Theft: engineering/llm-security/model-extraction.md
+          - Watermarking Model Output: engineering/llm-security/watermarking.md
       - Synthetic Data:
           - engineering/synthetic-data/index.md
           - Self-Instruct: engineering/synthetic-data/self-instruct.md
@@ -1478,3 +1527,4 @@ nav:
       - Style Guide: reference/style-guide/index.md
       - "Conferences & Journals": reference/venues/index.md
       - Model Catalogue: reference/model-catalogue/index.md
+      - How to Read an AI Paper: reference/how-to-read-a-paper/index.md
