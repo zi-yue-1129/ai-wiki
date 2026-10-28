@@ -501,6 +501,8 @@ plugins:
             Cross-Validation: 交叉驗證
             Paired Bootstrap: 配對自助法
             LLM as Judge: LLM 作為評審
+            MT-Bench: MT-Bench
+            Length-Controlled AlpacaEval: 長度控制 AlpacaEval
             Human Evaluation: 人工評估
             Elo Rating and Arenas: Elo 評分與競技場
             Contamination Detection: 污染偵測
@@ -1332,6 +1334,8 @@ nav:
               - Cross-Validation: theory/evaluation/protocols/methods/cross-validation.md
               - Paired Bootstrap: theory/evaluation/protocols/methods/paired-bootstrap.md
               - LLM as Judge: theory/evaluation/protocols/methods/llm-as-judge.md
+              - MT-Bench: theory/evaluation/protocols/methods/mt-bench.md
+              - Length-Controlled AlpacaEval: theory/evaluation/protocols/methods/length-controlled-alpacaeval.md
               - Human Evaluation: theory/evaluation/protocols/methods/human-evaluation.md
               - Elo Rating and Arenas: theory/evaluation/protocols/methods/elo-rating.md
               - Contamination Detection: theory/evaluation/protocols/methods/contamination-detection.md
