@@ -1,0 +1,28 @@
+# 工程
+
+AI 系統實際上是如何被建構、調整、評估與運行的。
+
+| 頁面 | 重點 |
+|---|---|
+| [框架與工具](frameworks/index.md) | PyTorch、JAX、Hugging Face、推論引擎、代理人框架 |
+| [資料](data/index.md) | 蒐集、標註、清理、合成資料、資料治理 |
+| [訓練與微調](training/index.md) | 大規模預訓練、SFT、LoRA／QLoRA、偏好最佳化、蒸餾 |
+| [提示工程](prompting/index.md) | 撰寫有效的提示、結構化輸出、脈絡工程 |
+| [檢索增強生成（RAG）](rag/index.md) | 讓 LLM 以你的文件為依據 |
+| [評估與基準](evaluation/index.md) | 基準測試、LLM 作為評審、資料污染、人工評估 |
+| [MLOps 與部署](mlops/index.md) | 服務化、監控、量化、成本、LLMOps |
+| [AI 硬體](hardware/index.md) | GPU、TPU、NPU、記憶體頻寬、互連、神經形態晶片 |
+
+## 為 LLM 應用選擇方法
+
+```mermaid
+flowchart TD
+  A[任務] --> B{好的提示能解決嗎？}
+  B -->|能| P[提示工程加評估]
+  B -->|需要私有或最新的知識| R[RAG／工具]
+  B -->|需要一致的風格、格式或技能| F[微調，常用 LoRA]
+  B -->|需要多步驟的動作| G[代理人／工作流程]
+  P & R & F & G --> E[評估集 → 反覆改進]
+```
+
+從簡單開始：用強大的模型搭配清楚的提示與評估集。需要知識時再加入檢索，需要改變行為時再微調，只有在步驟無法事先固定時才使用代理人。
