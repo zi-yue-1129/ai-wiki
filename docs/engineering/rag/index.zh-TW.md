@@ -58,3 +58,20 @@ RAG 類似[互補學習系統](../../brain-mind/memory-learning/index.md)中海�
 - Gao et al. (2024), "Retrieval-Augmented Generation for Large Language Models: A Survey"
 - Anthropic (2024), "Introducing Contextual Retrieval"
 - LlamaIndex 與 LangChain 的 RAG 教學
+
+
+## 參考文獻
+
+### 開創性論文
+
+- Lewis, P., et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*. NeurIPS. https://arxiv.org/abs/2005.11401 — 介紹如何結合語言模型與外部文件索引，進行檢索增強的文字生成。
+- Karpukhin, V., et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. EMNLP. https://arxiv.org/abs/2004.04906 — 使用雙編碼器建立密集檢索器，找出有助於回答問題的相關段落。
+- Izacard, G. & Grave, E. (2020). *Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering*. arXiv. https://arxiv.org/abs/2007.01282 — 研究生成模型如何整合多個檢索段落中的證據。
+
+### 綜述
+
+- Gao, Y., et al. (2023). *Retrieval-Augmented Generation for Large Language Models: A Survey*. arXiv. https://arxiv.org/abs/2312.10997 — 整理 RAG 架構、檢索與增強技術、評估方法及尚待解決的問題。
+
+### 評估研究
+
+- Es, S., et al. (2023). *RAGAS: Automated Evaluation of Retrieval Augmented Generation*. arXiv. https://arxiv.org/abs/2309.15217 — 提出不需要標準答案的 RAG 評估方法，涵蓋檢索、忠實度與生成品質。
