@@ -41,6 +41,8 @@ Most AI ethics frameworks (OECD AI Principles, UNESCO Recommendation on the Ethi
 
 The formal definitions, the impossibility proofs and how to choose between them are in [Fairness Definitions and Impossibility Results](fairness-definitions.md).
 
+Concrete cases, from COMPAS to language models, and what each one taught are in [Case Studies in Algorithmic Bias](bias-case-studies.md).
+
 ### Mitigation
 
 Pre-processing (reweighting, resampling), in-processing (fairness constraints), post-processing (group-specific thresholds), plus — most importantly — better problem formulation, data and stakeholder involvement. Tools: Fairlearn, AIF360.
