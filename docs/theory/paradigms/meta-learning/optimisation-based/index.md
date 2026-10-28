@@ -17,7 +17,7 @@ The standard formulation is bi-level. An inner loop adapts the parameters to one
 
 ## Main methods
 
-- **MAML**: optimise the initialisation so that a few gradient steps give good performance on each new task.
+- **[MAML](maml.md)**: optimise the initialisation so that a few gradient steps give good performance on each new task.
 - **Reptile**: a first-order method that moves the initialisation toward the parameters adapted on each task, avoiding second derivatives.
 - **Latent embedding optimisation**: performs the adaptation in a low-dimensional latent space, which scales MAML-style learning to large networks.
 - **Probabilistic MAML**: treats the initialisation as a distribution, so that the adapted model can express uncertainty about new tasks.

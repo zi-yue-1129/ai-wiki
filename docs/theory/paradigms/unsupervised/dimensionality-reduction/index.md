@@ -15,14 +15,14 @@ Real data often lies near a low-dimensional subspace or manifold. Dimensionality
 
 ## Linear methods
 
-- **Principal component analysis (PCA)** finds orthogonal directions of maximal variance. Equivalently, it gives the best rank-$k$ linear reconstruction in squared error, computed from the eigenvectors of the covariance matrix or the singular value decomposition.
+- **[Principal component analysis (PCA)](pca.md)** finds orthogonal directions of maximal variance. Equivalently, it gives the best rank-$k$ linear reconstruction in squared error, computed from the eigenvectors of the covariance matrix or the singular value decomposition.
 - **Independent component analysis (ICA)** finds sources that are statistically independent, not merely uncorrelated. It solves the "cocktail party" problem, and it is used to remove eye-blink and muscle artefacts from EEG recordings.
 - **Non-negative matrix factorisation (NMF)** writes a non-negative data matrix as the product of two non-negative factors. The parts are often easier to interpret, which is why it is used for topics and images.
 
 ## Nonlinear methods
 
-- **t-SNE** converts distances into neighbour probabilities and matches the low-dimensional map to them, preserving local neighbourhoods well.
-- **UMAP** builds a weighted neighbour graph and optimises a low-dimensional layout, usually faster than t-SNE and better at keeping some global structure.
+- **[t-SNE](t-sne.md)** converts distances into neighbour probabilities and matches the low-dimensional map to them, preserving local neighbourhoods well.
+- **[UMAP](umap.md)** builds a weighted neighbour graph and optimises a low-dimensional layout, usually faster than t-SNE and better at keeping some global structure.
 - **Autoencoders** learn nonlinear encoders and decoders through a bottleneck; see [autoencoders and representations](../autoencoders-and-representations/index.md).
 
 !!! warning "Reading maps"

@@ -1,5 +1,6 @@
 ---
 translation_reviewed: 2026-10-28
+related:
 tags:
   - world models
   - latent actions
@@ -10,65 +11,78 @@ aliases:
   - 無動作標籤的潛在動作學習
 ---
 
-# LAPO（Learning to Act without Actions）
+# LAPO：Learning to Act without Actions
 
-LAPO 是一種從沒有動作標籤的影片中學習潛在動作的方法。它訓練一個逆動力學模型，從連續幀推斷潛在動作；並訓練一個前向模型，依據目前的幀與該潛在動作預測下一幀。量化瓶頸讓潛在動作無法直接複製下一幀。
+LAPO 從沒有動作標籤的影片中學習潛在動作。逆動力學模型依據連續的觀測推斷潛在動作，前向模型則依據目前的觀測與該潛在動作預測下一個觀測。向量量化瓶頸能阻止潛在動作直接複製下一個觀測。家族層級的整體說明見[世界模型與具身智慧](index.md)頁面。
 
-## 問題
+## 概述
 
-有動作標籤的機器人與遊戲資料收集成本高，而人在做事的影片很多。LAPO 探討：能否只從畫面還原影片背後的動作，以及還原出的動作是否足以訓練策略、世界模型或逆動力學模型。
+Schmidt 與 Jiang（2024）探討：只靠畫面，能否還原影片背後的動作。他們在摘要中指出，LAPO 僅從影片就能還原潛在動作資訊，而這些資訊可支持潛在動作策略、世界模型與逆動力學模型。論文發表於 ICLR 2024，為 spotlight 論文。實驗使用 Procgen 基準，共 16 個遊戲。
 
-## 核心想法
+兩個相近的方法以不同角度看待同一問題。[Genie](genie.md) 在沒有動作標籤的情況下學習潛在動作模型，目的是生成可互動的世界。[DINO-WM](dino-wm.md) 則假設動作已知。
 
-同時訓練兩個模型。逆模型看到整段觀測序列，為每次轉變預測一個潛在動作。前向模型依據目前的觀測與該潛在動作預測下一個觀測。由於逆模型能看到下一幀，它有一條捷徑：直接把下一幀編碼進去。作者在潛在動作送入前向模型前加入向量量化，以阻止這條捷徑。Schmidt 與 Jiang（2024）指出，若沒有量化，逆模型「很可能會學到直接複製」下一個觀測。
+## 關鍵概念
+
+- **潛在動作** \(z_t\)：描述從觀測 \(o_t\) 到 \(o_{t+1}\) 之轉變的學習得到的編碼。它沒有標籤，也不是真實的控制指令。
+- **逆動力學模型（IDM）**：讀取觀測（包括 \(o_{t+1}\)），輸出 \(z_t\)。論文中它使用目前的觀測與下一個觀測（一步的上下文）。
+- **前向動力學模型（FDM）**：依據過去的觀測與量化後的潛在動作，預測 \(o_{t+1}\)。它看不到 \(o_{t+1}\)。
+- **向量量化（VQ）**：把每個潛在向量換成學習得到的碼本中的一個項目，限制傳給前向模型的資訊量。
+- **潛在動作策略** \(\pi\)：把觀測映射到潛在動作。之後，一個小型解碼器把潛在動作映射為真實動作。
 
 ## 運作方式
 
-1. 觀察未含動作的影片中的連續幀。
-2. 逆動力學模型讀取完整的觀測序列，為每次轉變輸出一個潛在動作。
-3. 對潛在動作做向量量化，限制其資訊量。
-4. 前向動力學模型依據目前的觀測與量化後的潛在動作，預測下一個觀測。
-5. 以預測損失端對端訓練兩個模型。之後，一個小型解碼器可以把少量有標籤的轉變對應到真實動作，這就是潛在動作策略的使用方式。
+對於未含動作的影片中的每一次轉變，IDM 與 FDM 計算
 
-摘要指出，學到的潛在動作可支持潛在動作策略、世界模型與逆動力學模型。確切的損失函數與解碼步驟見論文。
+\[
+z_t = \mathrm{IDM}(o_t, o_{t+1}), \qquad \hat o_{t+1} = \mathrm{FDM}\big(o_t,\ \mathrm{VQ}(z_t)\big)
+\]
+
+兩個模型以梯度下降共同訓練，目標是最小化下一個狀態的誤差 \(\lVert \hat o_{t+1} - o_{t+1}\rVert^2\)。梯度透過量化器時使用直通估計器（straight-through estimator）。
+
+論文的表 1 列出瓶頸的設定：128 維的連續潛在動作，以 2 個碼本量化，每個碼本有 4 個離散潛在變數，嵌入維度為 16，承諾成本（commitment cost）為 0.05。
+
+IDM 訓練完成後，流程接著進行三個步驟：
+
+1. 潛在策略 \(\pi(o_t)\) 以迴歸方式學習 IDM 給出的潛在動作標籤，損失為 \(\lVert \pi(o_t) - z_t\rVert^2\)。
+2. 以一小組有動作標籤的轉變訓練解碼器 \(d\)，把潛在動作映射為真實動作。
+3. 部署組合後的策略 \(d \circ \pi\)。論文另外還有一個以 PPO 進行的線上微調階段。
 
 ## 關鍵方法
 
-- 相對於 [Genie](genie.md)，後者同樣使用這類潛在動作來生成可互動的世界；LAPO 則著重於從影片訓練策略與模型。
-- 相對於 [DINO-WM](dino-wm.md)，後者假設動作已知；LAPO 則從影片還原動作，因此瓶頸的設計很重要。
+### Learning to Act without Actions（Schmidt & Jiang, 2024）
 
-## 結果
-
-摘要指出，LAPO 僅從影片就能還原潛在動作資訊，且這些資訊可支持上述下游模型。基準測試的結果應直接從論文抄錄。
-
-## 限制
-
-- 量化瓶頸是一種設計選擇，用資訊換取阻止捷徑。容量太小會失去動作細節，太大則會重新啟用複製捷徑。
-- 以這種方式學到的潛在動作，不保證與真實機器人指令的意義相符。需要少量有標籤的資料，才能把它對應到真實動作。
-- 當環境中有干擾項時，潛在動作是否仍依賴於動作本身，是可控性的問題，見[動作可控性](action-controllability.md)。
+- **問題：** 多數策略與世界模型需要動作標籤，但大量影片沒有動作標籤。問題在於，從畫面還原出的潛在動作能否取代它們。
+- **核心想法：** 共同訓練一個能看到下一個觀測的 IDM，與一個預測下一個觀測的 FDM，兩者之間加入向量量化瓶頸。瓶頸的目的，是阻止 IDM 把 \(o_{t+1}\) 複製進潛在動作。作者寫道，若沒有瓶頸，IDM「很可能會學到直接複製」下一個觀測。
+- **方程式或演算法：** 上述 IDM/FDM 組合、潛在策略的迴歸損失，以及解碼器步驟。碼本設定見表 1。
+- **結果：** 在 Procgen 上，第 6.1 節指出，LAPO 在 4M 幀內於 16 個任務中的 9 個超越專家。同樣的預算下，從頭以 PPO 訓練的策略只達到專家表現的 44%。引言指出，約 200 筆有標籤的轉變，就足以超越 4M 步的 PPO。第 6.2 節指出，以少於 256 筆有標籤轉變訓練的解碼器，可與從頭訓練的策略相當。
+- **限制：** 本頁引用的實驗皆在 Procgen 上進行，因此並未展示能否轉移到機器人或真實世界影片。解碼器仍需要有標籤的轉變，而訓練目標本身無法決定哪個潛在值對應哪個真實動作。瓶頸是以資訊換取阻止捷徑的權衡：容量太小會失去動作細節，表 1 只給出一組所選設定，而非完整的掃描比較。
 
 ## 與其他主題的連結
 
-LAPO 是[動作可控性](action-controllability.md)中所述複製捷徑的代表方法。它也與模仿學習相關，潛在動作可以作為策略的輸出空間，見[模仿學習](../../paradigms/imitation/index.md)。上層總覽在[世界模型與具身智慧](index.md)。
-
-## 應用
-
-從未標註的遊戲或機器人影片訓練潛在動作策略，以及在加入少量有標籤動作之前，先從影片初始化世界模型。
+- LAPO 瓶頸所阻止的複製捷徑，是[動作可控性](action-controllability.md)中的核心失效模式。
+- Genie 與 LAPO 都從未標註的影片學習動作，但 Genie 用潛在動作來生成世界，LAPO 則用它們訓練策略並在遊戲任務上檢驗。
+- DINO-WM 假設動作有標籤，因此不會遇到 LAPO 所要回答的問題。
+- 潛在策略屬於行為複製問題，見[行為複製](../../paradigms/imitation/behavioural-cloning/index.md)。
 
 ## 開放問題
 
-- 要把潛在動作可靠地對應到真實動作，需要多少有標籤的資料。
-- 瓶頸的設計能否轉移到不同的機器人本體與視覺領域。
+- 要在不同遊戲與機器人本體上可靠地解碼潛在動作，需要多少有標籤的轉變。
+- 瓶頸的設計能否轉移到 Procgen 式以外的視覺領域。
+- 當影片含有干擾項時，潛在動作是否仍依賴代理人的動作。這是可控性的問題，見[動作可控性](action-controllability.md)。
 
 ## 參考文獻
 
 ### 奠基性論文
 
-- Schmidt, D. & Jiang, M. (2024). *Learning to Act without Actions*. ICLR 2024（spotlight）. https://arxiv.org/abs/2312.10812 — 提出 LAPO，從無動作的影片中學習潛在動作，並以向量量化阻止逆模型複製下一個觀測。
+- Schmidt, D. & Jiang, M. (2024). *Learning to Act without Actions*. ICLR 2024（spotlight）. https://arxiv.org/abs/2312.10812 — 提出 LAPO，從無動作的影片中還原潛在動作，並以向量量化瓶頸阻止逆模型複製下一個觀測。
+
+### 相關方法
+
+- Bruce, J. 等人 (2024). *Genie: Generative Interactive Environments*. ICML 2024（PMLR 235）. https://proceedings.mlr.press/v235/bruce24a.html — 在沒有動作標籤的情況下學習潛在動作模型，用於生成可互動的環境。
+- Zhou, G.、Pan, H.、LeCun, Y. 與 Pinto, L. (2025). *DINO-WM: World Models on Pre-trained Visual Features enable Zero-shot Planning*. ICML 2025（PMLR 267）. https://proceedings.mlr.press/v267/zhou25t.html — 以凍結的 DINOv2 特徵為基礎的動作條件世界模型，動作視為已知輸入。
+- Rudolph, M.、Chuck, C.、Black, K.、Lvovsky, M.、Niekum, S. 與 Zhang, A. (2024). *Learning Action-based Representations Using Invariance*. Reinforcement Learning Journal, vol. 1（發表於 RLC 2024）. https://rlj.cs.umass.edu/2024/papers/Paper39.html — 分析逆動力學在有限時程內如何捕捉可控性，並提出動作雙模擬。
 
 ### 文章與預印本
 
-- Bruce, J. 等人 (2024). *Genie: Generative Interactive Environments*. ICML 2024. https://proceedings.mlr.press/v235/bruce24a.html — 在生成式設定中，使用從未標註影片學到的潛在動作模型，是相近的方法。
-- Rudolph, M. 等人 (2024). *Learning Action-based Representations Using Invariance*. Reinforcement Learning Conference 2024. https://arxiv.org/abs/2403.16369 — 分析 LAPO 瓶頸所要阻止的單步逆動力學捷徑。
-- Zhang, Z. 等人 (2026). *Delta-JEPA: Learning Action-Sensitive World Models via Latent Difference Decoding*. arXiv 預印本. https://arxiv.org/abs/2606.31232 — 針對同一洩漏問題的較新工作，從潛在差值解碼動作。預印本，尚未經同儕審查。
-- Shi, Y. 等人 (2026). *Overcoming Statistical Bias in Action-Controllable World Models*. arXiv 預印本. https://arxiv.org/abs/2608.04653 — 以反事實一致性規範作為另一種補救方法。預印本，尚未經同儕審查。
+- Zhang, Z. 等人 (2026). *Delta-JEPA: Learning Action-Sensitive World Models via Latent Difference Decoding*. arXiv 預印本 2606.31232. https://arxiv.org/abs/2606.31232 — 從觀測間的潛在位移解碼動作，而非從串接的端點嵌入解碼。預印本，尚未經同儕審查。
+- Shi, Y. 等人 (2026). *Overcoming Statistical Bias in Action-Controllable World Models*. arXiv 預印本 2608.04653. https://arxiv.org/abs/2608.04653 — 提出 CoCo，以反事實一致性框架作為另一種補救方法。預印本，尚未經同儕審查。

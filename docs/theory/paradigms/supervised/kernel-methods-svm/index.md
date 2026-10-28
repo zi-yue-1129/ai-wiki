@@ -40,6 +40,12 @@ Kernel ridge regression, kernel PCA, [Gaussian processes](../instance-based-and-
 
 Training scales between $O(n^2)$ and $O(n^3)$ in the number of examples, which is why deep learning displaced SVMs on large data. Random Fourier features and Nyström approximations scale kernels up. The **neural tangent kernel** (Jacot et al., 2018) shows that infinitely wide networks trained by gradient descent behave like a kernel machine, linking the two fields.
 
+## Key methods
+
+Each named method has its own page with the problem, core idea, equations, results and limitations.
+
+- [Support vector machines](svm.md) (Boser, Guyon & Vapnik, 1992; Cortes & Vapnik, 1995): the maximum-margin classifier, its kernel form, and the soft-margin extension to non-separable data.
+
 ## References
 
 ### Seminal papers
