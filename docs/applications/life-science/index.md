@@ -24,9 +24,9 @@ aliases:
 
 | Tool | Approach |
 |---|---|
-| RFdiffusion | Diffusion model generating new protein backbones for binders, enzymes, symmetric assemblies |
+| [RFdiffusion](rfdiffusion/index.md) | Diffusion model generating new protein backbones for binders, enzymes, symmetric assemblies |
 | ProteinMPNN | Designs sequences that fold into a given backbone |
-| ESM-family protein language models | Learn evolutionary constraints from millions of sequences; ESM3 generated a novel fluorescent protein |
+| [ESM-2 and ESMFold](esm/index.md), ESM-family protein language models | Learn evolutionary constraints from millions of sequences; ESM3 generated a novel fluorescent protein |
 | Inverse folding, binder design pipelines | Combined with high-throughput lab testing |
 
 ## Genomics and molecular biology

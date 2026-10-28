@@ -333,6 +333,9 @@ plugins:
             False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
             Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
             AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
+            RFdiffusion: RFdiffusion（蛋白質骨架設計）
+            ESM-2 and ESMFold: ESM-2 與 ESMFold
+            OpenAI Five: OpenAI Five（Dota 2）
             End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
             Exploration: 探索
@@ -355,6 +358,12 @@ plugins:
             Switch Transformer: Switch Transformer
             Mixtral: Mixtral 8x7B
             Density Estimation & Generative Models: 密度估計與生成模型
+            U-Net: U-Net
+            Variational Autoencoders: 變分自編碼器
+            GANs: 生成對抗網路
+            Flow-Based Models: 流模型
+            Normalising Flows: 正規化流
+            Flow Matching: 流匹配
             Classifier-Free Guidance: 無分類器引導
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
@@ -718,6 +727,12 @@ nav:
               - Density Estimation & Generative Models:
                   - theory/paradigms/unsupervised/density-and-generative-models/index.md
                   - Generative Models: theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md
+                  - Variational Autoencoders: theory/paradigms/unsupervised/density-and-generative-models/vae/index.md
+                  - GANs: theory/paradigms/unsupervised/density-and-generative-models/gan/index.md
+                  - Flow-Based Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/flow/index.md
+                      - Normalising Flows: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/index.md
+                      - Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/index.md
                   - Diffusion Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
                       - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
@@ -889,6 +904,7 @@ nav:
               - Layer Normalisation: theory/models/mlp/layer-normalisation/index.md
           - Convolutional Networks:
               - theory/models/cnn/index.md
+              - U-Net: theory/models/cnn/unet/index.md
               - Convolution Variants:
                   - theory/models/cnn/convolution-variants/index.md
                   - Dilated Convolution: theory/models/cnn/convolution-variants/dilated-convolution/index.md
@@ -1050,6 +1066,8 @@ nav:
       - Life Sciences & Drug Discovery:
           - applications/life-science/index.md
           - AlphaFold 2 (Jumper et al. 2021): applications/life-science/alphafold-2.md
+          - RFdiffusion: applications/life-science/rfdiffusion/index.md
+          - ESM-2 and ESMFold: applications/life-science/esm/index.md
       - Scientific Discovery: applications/science/index.md
       - Mental Health: applications/mental-health/index.md
       - Education: applications/education/index.md
@@ -1065,7 +1083,9 @@ nav:
       - Agriculture & Food: applications/agriculture/index.md
       - Climate & Energy: applications/climate-energy/index.md
       - Art, Media & Creativity: applications/creative/index.md
-      - Games: applications/games/index.md
+      - Games:
+          - applications/games/index.md
+          - OpenAI Five: applications/games/openai-five/index.md
       - Cybersecurity: applications/cybersecurity/index.md
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md

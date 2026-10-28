@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - 成員推論
@@ -29,7 +29,7 @@ Train the attacker to recognise the difference in how the model responds to memb
 3. **Train the attack model.** Learn a classifier that takes an output vector and predicts "member" or "non-member".
 4. **Apply to the target.** Query the target model for the record in question and apply the attack model.
 
-Shokri et al. (2017) describe this black-box setting. Yeom et al. (2018) show that overfitting is sufficient for such an attack, and that it is not the only factor. Carlini et al. (2022) argue that the usual evaluation, which reports average accuracy, can hide an attack's real power, and they propose evaluating at very low false-positive rates.
+Shokri et al. (2017) describe this black-box setting. Yeom et al. (2018) show that overfitting is sufficient for such an attack. Carlini et al. (2022) argue that the usual evaluation, which reports average accuracy, can hide an attack's real power, and they propose evaluating at very low false-positive rates.
 
 ## Results
 
@@ -58,7 +58,7 @@ The abstract of Shokri et al. (2017) reports that models from commercial machine
 ### Seminal papers
 
 - Shokri, R., Stronati, M., Song, C. & Shmatikov, V. (2017). Membership inference attacks against machine learning models. *IEEE Symposium on Security and Privacy*. https://arxiv.org/abs/1610.05820 — Introduces the shadow-model attack and shows it against commercial machine-learning services.
-- Yeom, S., Giacomelli, I., Fredrikson, M. & Jha, S. (2018). Privacy risk in machine learning: Analyzing the connection to overfitting. arXiv:1709.01604. https://arxiv.org/abs/1709.01604 — Shows that overfitting is sufficient for membership inference, and that it is not required.
+- Yeom, S., Giacomelli, I., Fredrikson, M. & Jha, S. (2018). Privacy risk in machine learning: Analyzing the connection to overfitting. arXiv:1709.01604. https://arxiv.org/abs/1709.01604 — Shows that overfitting is sufficient for membership inference.
 - Carlini, N. et al. (2022). Membership inference attacks from first principles. arXiv:2112.03570. https://arxiv.org/abs/2112.03570 — Argues for evaluation at low false-positive rates and proposes the LiRA attack.
 - Carlini, N. et al. (2022). Quantifying memorization across neural language models. arXiv:2202.07646. https://arxiv.org/abs/2202.07646 — Shows that memorisation grows with model size, duplication and prompt context.
 - Carlini, N. et al. (2021). Extracting training data from large language models. *USENIX Security Symposium*. https://arxiv.org/abs/2012.07805 — Shows that memorised training text can be extracted, a stronger leak than membership alone.
