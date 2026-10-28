@@ -1,6 +1,11 @@
 ---
 related:
 - engineering/hardware
+aliases:
+  - SNN
+  - 脈衝神經網路
+  - 神經形態運算
+  - Neuromorphic computing
 ---
 
 # Spiking Neural Networks & Neuromorphic Computing
@@ -75,6 +80,29 @@ Related: **in-memory computing** with memristors and phase-change memory, which 
 
 **Dynamic vision sensors** (event cameras) output per-pixel brightness changes asynchronously with microsecond latency and high dynamic range — inspired by the retina. Natural partners for SNNs in drones, robotics and high-speed tracking.
 
+## Key methods
+
+### Surrogate gradients (Neftci, Mostafa & Zenke, 2019)
+
+- **Problem:** a spike is a step function, so its derivative is zero almost everywhere and backpropagation cannot train a spiking network directly.
+- **Core idea:** keep the hard threshold in the forward pass, and in the backward pass replace the threshold's derivative with a smooth surrogate. Then apply backpropagation through time.
+- **Equation:** in the forward pass a neuron emits a spike when its membrane potential crosses the threshold, and in the backward pass its derivative is replaced by a surrogate \(\sigma'\), a smooth function centred on the threshold.
+- **Results:** the paper presents surrogate gradients as a flexible and efficient way to train spiking networks, rather than as a single benchmark result.
+- **Limitations:** the choice of surrogate is a heuristic. Backpropagation through time stores the network's history, so memory cost grows with sequence length.
+
+### Online learning with local updates: e-prop (Bellec et al., 2020)
+
+- **Problem:** backpropagation through time needs the whole history and is hard to reconcile with biology. Can recurrent spiking networks learn online with information that is available locally?
+- **Core idea:** approximate the gradient with an eligibility trace for each synapse, which is computed forward in time, and combine it with a learning signal that reaches the neuron from outside. Updates can then happen at every time step.
+- **Equation:** the weight update sums, over time, the learning signal multiplied by the eligibility trace,
+
+\[
+\Delta W_{ji} = \sum_t L_j(t)\, e_{ji}(t)
+\]
+
+- **Results:** the authors report that the online rule performs close to backpropagation through time on the tasks they test.
+- **Limitations:** the rule drops some gradient terms, so it is an approximation. The reported results cover the tasks the authors chose.
+
 ## Resources
 
 - Eshraghian et al. (2023), "Training Spiking Neural Networks Using Lessons From Deep Learning", *Proceedings of the IEEE*, with the [snnTorch](https://snntorch.readthedocs.io/) tutorials
@@ -83,3 +111,16 @@ Related: **in-memory computing** with memristors and phase-change memory, which 
 - Gerstner et al., *Neuronal Dynamics* (free online)
 - [Open Neuromorphic](https://open-neuromorphic.org/) community
 - Frameworks: [snnTorch](https://github.com/jeshraghian/snntorch), [SpikingJelly](https://github.com/fangwei123456/spikingjelly), [Norse](https://github.com/norse/norse), [Lava](https://github.com/lava-nc/lava), [Brian2](https://briansimulator.org/)
+
+## References
+
+### Seminal papers
+
+- Neftci, E. O., Mostafa, H. & Zenke, F. (2019). Surrogate Gradient Learning in Spiking Neural Networks. *IEEE Signal Processing Magazine*. https://doi.org/10.1109/MSP.2019.2931595 — Introduces surrogate gradients, which let spiking networks be trained with backpropagation through time.
+- Bellec, G., et al. (2020). A solution to the learning dilemma for recurrent networks of spiking neurons. *Nature Communications*. https://doi.org/10.1038/s41467-020-17236-y — The e-prop learning rule, an online approximation to backpropagation through time for spiking networks.
+
+### Surveys and textbooks
+
+- Eshraghian, J. K., et al. (2023). Training Spiking Neural Networks Using Lessons From Deep Learning. *Proceedings of the IEEE*. https://doi.org/10.1109/JPROC.2023.3308088 — A tutorial on training spiking networks with deep-learning tools, with the snnTorch examples.
+- Roy, K., Jaiswal, A. & Panda, P. (2019). Towards spike-based machine intelligence with neuromorphic computing. *Nature*. https://doi.org/10.1038/s41586-019-1677-2 — A review of spike-based computation and neuromorphic hardware.
+- Gerstner, W., Kistler, W. M., Naud, R. & Paninski, L. (2014). *Neuronal Dynamics*. Cambridge University Press. https://neuronaldynamics.epfl.ch/ — Free online textbook on spiking neuron models and networks.

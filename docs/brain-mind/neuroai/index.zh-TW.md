@@ -1,3 +1,7 @@
+---
+translation_reviewed: 2026-10-28
+---
+
 # NeuroAI：大腦與 AI 的雙向啟發
 
 **NeuroAI** 是神經科學與 AI 之間的雙向交流：用大腦啟發更好的 AI，也用 AI 模型理解大腦。Zador et al.（2023, *Nature Communications*）〈Catalyzing next-generation AI through NeuroAI〉提出「具身圖靈測試」——讓 AI 達到動物的感覺運動能力——作為這個領域的大挑戰。
@@ -84,6 +88,25 @@ Lillicrap et al.（2020, *Nature Reviews Neuroscience*）〈Backpropagation and 
 | 對雜訊與對抗擾動穩健 | 在特定方面很脆弱 |
 | 內在動機、恆定、情緒 | 外部指定的目標 |
 
+## 關鍵方法
+
+### 以效能最佳化的網路預測視覺皮質（Yamins 等人，2014）
+
+- **問題：** 哪一種計算模型最能預測腹側視覺路徑高階皮質的神經反應？
+- **核心想法：** 將深度卷積網路針對物件辨識做最佳化，再測試其特徵對 V4 與 IT 記錄到的反應有多少預測力。步驟與上方的任務最佳化範式相同。
+- **結果：** 論文指出，各模型的物件辨識表現與其預測 IT 反應的能力相符；表現最好的模型，預測也比較早期、未最佳化的模型更好。
+- **限制：** 預測分數不等於機制。測試使用固定的刺激與記錄位置，上方的警語同樣適用。
+
+### 導航網路中的格狀單元（Banino 等人，2018）
+
+- **問題：** 大腦用來表示位置的格狀表徵，是否會在網路只被訓練去導航時自然出現？
+- **核心想法：** 以強化學習訓練一個遞迴式代理在虛擬環境中導航到目標，輸入為速度與視覺。論文指出，格狀單元會在代理的隱藏層中自然出現，而非預先設定，且有助於以向量方式導航。
+- **演算法：**
+    1. 給代理速度與視覺輸入。
+    2. 以強化學習訓練它抵達目標。
+    3. 檢查其隱藏單元是否出現六角形的放電型態。
+- **限制：** 代理與環境都很簡單且是人工的。上表中關於設計選擇的警語也適用於此結果。
+
 ## 延伸
 
 - [脈衝神經網路與神經形態運算](../snn-neuromorphic/index.md)
@@ -98,3 +121,16 @@ Lillicrap et al.（2020, *Nature Reviews Neuroscience*）〈Backpropagation and 
 - Yamins & DiCarlo (2016), *Nature Neuroscience*
 - Lindsay,《Models of the Mind》（科普好書）
 - Doerig et al. (2023), "The neuroconnectionist research programme", *Nature Reviews Neuroscience*
+
+## 參考文獻
+
+### 開創性論文
+
+- Yamins, D. L. K., 等人（2014）。Performance-optimized hierarchical models predict neural responses in higher visual cortex. *PNAS*. https://doi.org/10.1073/pnas.1403112111 — 顯示針對物件辨識訓練的深度網路能預測高階視覺皮質的神經反應。
+- Banino, A., 等人（2018）。Vector-based navigation using grid-like representations in artificial agents. *Nature*. https://doi.org/10.1038/s41586-018-0102-6 — 顯示在訓練導航的遞迴代理中會出現格狀單元。
+- Hassabis, D., Kumaran, D., Summerfield, C. & Botvinick, M.（2017）。Neuroscience-Inspired Artificial Intelligence. *Neuron*. https://doi.org/10.1016/j.neuron.2017.06.011 — 關於神經科學如何啟發 AI、以及 AI 如何檢驗大腦假說的經典綜述。
+- Richards, B. A., 等人（2019）。A deep learning framework for neuroscience. *Nature Neuroscience*. https://doi.org/10.1038/s41593-019-0520-2 — 主張以目標函數、學習規則與架構來研究大腦。
+
+### 綜述與教科書
+
+- Schrimpf, M., 等人（2021）。The neural architecture of language: Integrative modeling converges on predictive processing. *PNAS*. https://doi.org/10.1073/pnas.2105646118 — 顯示預測下一個詞的語言模型能預測語言網路的大腦反應，且預測越好，與大腦越吻合。
