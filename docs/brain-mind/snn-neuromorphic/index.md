@@ -82,26 +82,19 @@ Related: **in-memory computing** with memristors and phase-change memory, which 
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### Surrogate gradients (Neftci, Mostafa & Zenke, 2019)
 
-- **Problem:** a spike is a step function, so its derivative is zero almost everywhere and backpropagation cannot train a spiking network directly.
-- **Core idea:** keep the hard threshold in the forward pass, and in the backward pass replace the threshold's derivative with a smooth surrogate. Then apply backpropagation through time.
-- **Equation:** in the forward pass a neuron emits a spike when its membrane potential crosses the threshold, and in the backward pass its derivative is replaced by a surrogate \(\sigma'\), a smooth function centred on the threshold.
-- **Results:** the paper presents surrogate gradients as a flexible and efficient way to train spiking networks, rather than as a single benchmark result.
-- **Limitations:** the choice of surrogate is a heuristic. Backpropagation through time stores the network's history, so memory cost grows with sequence length.
+- **Overview:** Spiking networks are trained with backpropagation by replacing the threshold's derivative with a smooth surrogate.
+- **Comparison:** The practical route to deep-style training of spiking networks. E-prop below is a local, more biologically plausible alternative.
+- **Full write-up:** [Surrogate Gradients](surrogate-gradients/index.md)
 
 ### Online learning with local updates: e-prop (Bellec et al., 2020)
 
-- **Problem:** backpropagation through time needs the whole history and is hard to reconcile with biology. Can recurrent spiking networks learn online with information that is available locally?
-- **Core idea:** approximate the gradient with an eligibility trace for each synapse, which is computed forward in time, and combine it with a learning signal that reaches the neuron from outside. Updates can then happen at every time step.
-- **Equation:** the weight update sums, over time, the learning signal multiplied by the eligibility trace,
-
-\[
-\Delta W_{ji} = \sum_t L_j(t)\, e_{ji}(t)
-\]
-
-- **Results:** the authors report that the online rule performs close to backpropagation through time on the tasks they test.
-- **Limitations:** the rule drops some gradient terms, so it is an approximation. The reported results cover the tasks the authors chose.
+- **Overview:** Learning uses local eligibility traces and a learning signal, instead of backpropagation through time.
+- **Comparison:** Trades some gradient accuracy for locality and online updates. Surrogate gradients above use backpropagation through time.
+- **Full write-up:** [Online Learning with Local Updates (e-prop)](eprop/index.md)
 
 ## Resources
 

@@ -77,36 +77,19 @@ Derive what the brain *should* do by optimising an objective, then compare with 
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### Hodgkin–Huxley model (Hodgkin & Huxley, 1952)
 
-- **Problem:** how the action potential arises from ion movements across the membrane of the squid giant axon.
-- **Core idea:** the membrane is a capacitor in parallel with voltage-gated sodium and potassium conductances and a leak. Three gating variables (m, h, n) each relax toward a voltage-dependent value, and they control the conductances.
-- **Equations** (modern sign convention):
-
-\[
-C\frac{dV}{dt} = I - g_{Na}\,m^3 h\,(V - E_{Na}) - g_K\,n^4\,(V - E_K) - g_L\,(V - E_L)
-\]
-
-\[
-\frac{dx}{dt} = \alpha_x(V)\,(1 - x) - \beta_x(V)\,x, \qquad x \in \{m, h, n\}
-\]
-
-- **Results:** the simulated action potential matches the shape of recordings from the squid axon, and the model reproduces how the spike propagates along the axon.
-- **Limitations:** fitted to one preparation at one temperature, with no dendritic structure. Four coupled equations per compartment are costly for large networks, which is why the simpler leaky integrate-and-fire and Izhikevich models in the table above are so common.
+- **Overview:** A conductance-based model of the neuron's membrane voltage, built from ion channels and gating variables.
+- **Comparison:** The most detailed biophysical neuron model. Simpler spiking models such as Izhikevich's trade biophysical detail for speed.
+- **Full write-up:** [Hodgkin–Huxley Model](hodgkin-huxley/index.md)
 
 ### Sparse coding (Olshausen & Field, 1996)
 
-- **Problem:** why neurons in primary visual cortex (V1) respond to oriented edges at particular positions.
-- **Core idea:** a natural image patch is described as a weighted sum of a few basis functions with sparse coefficients. The basis functions are learned from unlabelled images.
-- **Equation:** for each patch, find coefficients \(a_i\) and basis functions \(\phi_i\) that minimise
-
-\[
-E = \Big\| I - \sum_i a_i \phi_i \Big\|^2 + \lambda \sum_i S(a_i)
-\]
-
-  where \(S\) is a sparseness penalty that favours few active coefficients.
-- **Results:** the learned basis functions are localised, oriented and band-pass, resembling the simple-cell receptive fields of V1.
-- **Limitations:** a linear generative model that leaves out complex cells, temporal dynamics and top-down influences. Sparse coding is one normative account among several, not a full model of V1.
+- **Overview:** Natural image patches are described as sparse combinations of learned basis functions.
+- **Comparison:** The same idea reappears in the early layers of deep vision networks, so it links this page to the neuroAI page.
+- **Full write-up:** [Sparse Coding](sparse-coding/index.md)
 
 ## Tools and data
 

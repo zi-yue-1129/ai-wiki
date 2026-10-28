@@ -97,22 +97,19 @@ Lillicrap et al. (2020, *Nature Reviews Neuroscience*), "Backpropagation and the
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### Performance-optimised networks predict visual cortex (Yamins et al., 2014)
 
-- **Problem:** which computational models of the ventral visual stream best predict neural responses in higher visual cortex?
-- **Core idea:** optimise deep convolutional networks for object recognition, then test how well their features predict recorded responses in V4 and IT. The steps are those of the task-optimised paradigm above.
-- **Results:** the paper reports that object-recognition performance across the tested models tracks how well they predict IT responses, and that the best-performing models predict better than earlier, less optimised ones.
-- **Limitations:** a prediction score is not a mechanism. The test used a fixed set of stimuli and recording sites, and the caveats above apply.
+- **Overview:** Networks optimised for object recognition predict neural responses in visual cortex.
+- **Comparison:** Shows structural similarity between networks and cortex. The grid-cell result below is a different kind of match.
+- **Full write-up:** [Performance-Optimised Networks Predict Visual Cortex](performance-optimised-networks/index.md)
 
 ### Grid-like units in a navigating network (Banino et al., 2018)
 
-- **Problem:** do grid-like representations, which the brain uses for location, arise when a network is trained only to navigate?
-- **Core idea:** train a recurrent agent to navigate virtual environments to goal locations, using velocity and visual inputs, with reinforcement learning. The paper reports that grid-like units emerge in the agent's hidden layer, without being built in, and that they help the agent navigate by vectors.
-- **Algorithm:**
-    1. Give the agent velocity and visual input.
-    2. Train it with reinforcement learning to reach goals.
-    3. Inspect its hidden units for hexagonal firing patterns.
-- **Limitations:** the agent and its environments are simple and artificial. The design-choice caveats in the table above apply to this result.
+- **Overview:** A recurrent agent trained to navigate develops grid-like units.
+- **Comparison:** An emergent representation that was not built in, rather than a fitted model.
+- **Full write-up:** [Grid-Like Units in Navigating Networks](grid-like-units/index.md)
 
 ## Where to go next
 

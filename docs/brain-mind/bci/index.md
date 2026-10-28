@@ -74,27 +74,19 @@ A **brain-computer interface (BCI)** records brain activity, decodes it, and use
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### Reach and grasp with a neurally controlled arm (Hochberg et al., 2012)
 
-- **Problem:** can a person with tetraplegia use a robotic arm to reach and grasp objects, using signals from their own motor cortex?
-- **Core idea:** intracortical microelectrode arrays record spiking activity from motor cortex. A decoder maps that activity to the arm's movement, and the participant corrects the movement from visual feedback in a closed loop.
-- **Algorithm:**
-    1. Record spiking activity of motor cortex neurons while the participant attempts movements.
-    2. Fit a decoder from that activity to the arm's velocity or position.
-    3. Run the decoder in closed loop, so the participant can correct the arm from what they see.
-- **Results:** participants with tetraplegia reached for and grasped objects with the robotic arm, showing that decoded neural signals can control a multi-joint limb.
-- **Limitations:** the study involved a small number of participants. The arm moved more slowly than a natural limb, and the stability of the implants over years and the need for recalibration remain open problems.
+- **Overview:** A decoder turns motor-cortex spiking activity into movements of a robotic arm.
+- **Comparison:** Decodes movement. The speech neuroprosthesis below decodes language, a harder problem.
+- **Full write-up:** [Neural Reach and Grasp](neural-reach-and-grasp/index.md)
 
 ### Speech neuroprosthesis (Willett et al., 2023)
 
-- **Problem:** can a person who cannot speak communicate quickly by decoding the neural activity that goes with speech?
-- **Core idea:** an intracortical array records speech motor cortex. A recurrent neural network decodes phoneme probabilities from the activity in each time window, and a language model turns those probabilities into the most likely word sequence.
-- **Algorithm:**
-    1. Record neural activity while the participant attempts to speak.
-    2. Decode phoneme probabilities with a recurrent network.
-    3. Use a language model to choose the most likely word sequence.
-- **Results:** the paper reports decoding attempted speech at rates of tens of words per minute, with large vocabularies.
-- **Limitations:** the results come from a small number of participants and need replication over longer periods. The decoder is trained on each participant's recordings.
+- **Overview:** A recurrent network decodes phoneme probabilities from speech motor cortex to produce text.
+- **Comparison:** A later, language-level decoder that builds on the motor decoding of the reach-and-grasp work.
+- **Full write-up:** [Speech Neuroprosthesis](speech-neuroprosthesis/index.md)
 
 ## Resources
 
