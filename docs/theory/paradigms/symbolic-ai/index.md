@@ -63,13 +63,13 @@ A* uses \( f(n) = g(n) + h(n) \); with an admissible heuristic \(h\) (never over
 Combine neural networks' perception and learning with symbolic reasoning and interpretability:
 
 - **Neural networks + search**: AlphaGo, AlphaZero
-- **LLMs + tools**: LLMs write code or call solvers, calculators, databases (see [AI Agents](../models/agents/index.md))
+- **LLMs + tools**: LLMs write code or call solvers, calculators, databases (see [AI Agents](../../models/agents/index.md))
 - **LLMs + formal verification**: generating Lean proofs; program synthesis checked by tests
 - **Differentiable logic**: logic tensor networks, ∂ILP
 - **Program induction**: DreamCoder learns reusable program libraries from examples
 - **Knowledge graphs + LLMs**: GraphRAG
 
-The cognitive-science counterpart is **dual-process theory**: fast, intuitive "System 1" resembles neural networks; slow, deliberate "System 2" resembles symbolic reasoning (see [Psychology & AI](../../brain-mind/psychology/index.md)). Some theorists argue human thought relies on a symbolic "language of thought" (Fodor).
+The cognitive-science counterpart is **dual-process theory**: fast, intuitive "System 1" resembles neural networks; slow, deliberate "System 2" resembles symbolic reasoning (see [Psychology & AI](../../../brain-mind/psychology/index.md)). Some theorists argue human thought relies on a symbolic "language of thought" (Fodor).
 
 ## Resources
 

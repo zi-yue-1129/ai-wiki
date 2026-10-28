@@ -19,6 +19,9 @@ A **learning paradigm** describes *what kind of signal* a system learns from and
 | [Online & bandits](online/index.md) | Feedback after each prediction or action | One sample at a time | Recommendation, ad selection, clinical trials |
 | [Federated & private](federated/index.md) | Any of the above, but data stays distributed or protected | Across devices / institutions | Keyboard prediction, multi-hospital models |
 | [Other paradigms](other/index.md) | Multi-task, curriculum, multiple-instance, PU learning, in-context learning, … | Varies | — |
+| [Probabilistic & Bayesian](probabilistic/index.md) | Prior beliefs, updated by evidence through Bayes' rule | Any data, with explicit uncertainty | Gaussian processes, topic models, probabilistic programming |
+| [Symbolic AI, search & planning](symbolic-ai/index.md) | Hand-written rules and knowledge, plus search over states | A problem specification and a knowledge base | Expert systems, theorem proving, classical planning |
+| [Evolutionary & swarm](evolutionary/index.md) | Fitness scores for a population of candidate solutions | Successive generations of candidates | Genetic algorithms, neuroevolution, particle swarm optimisation |
 
 ## How they relate
 

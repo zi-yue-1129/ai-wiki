@@ -50,11 +50,11 @@ Learn from comparisons ("A is better than B") rather than labels or numeric rewa
 
 ## Causal and invariant learning
 
-Learn relationships that stay stable across environments rather than spurious correlations: invariant risk minimisation (IRM), causal representation learning. See [Probabilistic & Bayesian Methods](../../probabilistic/index.md).
+Learn relationships that stay stable across environments rather than spurious correlations: invariant risk minimisation (IRM), causal representation learning. See [Probabilistic & Bayesian Methods](../probabilistic/index.md).
 
 ## Evolutionary and developmental learning
 
-Optimise by population-based search rather than gradients. See [Evolutionary & Swarm Intelligence](../../evolutionary/index.md). Developmental robotics studies how robots can learn through staged, child-like development.
+Optimise by population-based search rather than gradients. See [Evolutionary & Swarm Intelligence](../evolutionary/index.md). Developmental robotics studies how robots can learn through staged, child-like development.
 
 ## Hebbian and local learning rules
 

@@ -19,7 +19,7 @@ Information theory, founded by Claude Shannon in 1948, gives a precise measure o
 
 Shannon asked a practical question: how many bits are needed to send a message reliably over a noisy channel? His answer separated two limits. Lossless compression cannot go below the entropy of the source, and reliable transmission cannot exceed the capacity of the channel, which is itself defined as a maximum of mutual information.
 
-The same definitions matter far beyond telephone lines. A model that predicts data well is, in effect, a compressor, and a learner must decide which information to keep and which to discard. Information theory gives both of these ideas a common language. For the probability background these definitions rely on, see [Mathematics](../math/index.md) and [Probabilistic & Bayesian Methods](../probabilistic/index.md).
+The same definitions matter far beyond telephone lines. A model that predicts data well is, in effect, a compressor, and a learner must decide which information to keep and which to discard. Information theory gives both of these ideas a common language. For the probability background these definitions rely on, see [Mathematics](../math/index.md) and [Probabilistic & Bayesian Methods](../paradigms/probabilistic/index.md).
 
 ## Key concepts
 

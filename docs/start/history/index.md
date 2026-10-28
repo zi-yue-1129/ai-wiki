@@ -48,7 +48,7 @@
 ## Three schools of thought
 
 ### Symbolism
-Intelligence = manipulating symbols. Logic, expert systems, knowledge graphs, planning. Strengths: interpretable and verifiable. Weaknesses: knowledge-acquisition bottleneck, poor handling of uncertainty and perception. See [Symbolic AI](../../theory/symbolic-ai/index.md).
+Intelligence = manipulating symbols. Logic, expert systems, knowledge graphs, planning. Strengths: interpretable and verifiable. Weaknesses: knowledge-acquisition bottleneck, poor handling of uncertainty and perception. See [Symbolic AI](../../theory/paradigms/symbolic-ai/index.md).
 
 ### Connectionism
 Intelligence emerges from many simple connected units. Neural networks and deep learning, directly inspired by neuroscience. See [NeuroAI](../../brain-mind/neuroai/index.md).

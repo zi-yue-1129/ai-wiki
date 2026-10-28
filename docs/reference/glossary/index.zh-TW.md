@@ -20,7 +20,7 @@ references: not-required  # lists and meta pages cite through their entries
 | Backpropagation | 反向傳播 | 以鏈式法則計算梯度 |
 | Bandit | 多臂吃角子老虎問題 | 平衡探索與利用的單步決策問題（[線上學習](../../theory/paradigms/online/index.md)） |
 | Batch normalisation | 批次正規化 | 在一個小批次內正規化激活值 |
-| Bayesian inference | 貝氏推論 | 以貝氏定理更新信念（[機率方法](../../theory/probabilistic/index.md)） |
+| Bayesian inference | 貝氏推論 | 以貝氏定理更新信念（[機率方法](../../theory/paradigms/probabilistic/index.md)） |
 | Benchmark | 基準測試 | 用來比較模型的標準任務（[評估](../../engineering/evaluation/index.md)） |
 | Bias–variance trade-off | 偏差—變異權衡 | 欠擬合與過擬合之間的張力 |
 | Brain-computer interface (BCI) | 腦機介面 | 解碼腦訊號以控制裝置（[BCI](../../brain-mind/bci/index.md)） |

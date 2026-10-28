@@ -64,10 +64,10 @@ A major idea in cognitive science and neuroscience: **the brain performs (approx
 - **Multisensory integration**: humans weight vision and touch by their reliability, close to the statistical optimum (Ernst & Banks, 2002).
 - **Motor control**: people integrate priors with sensory feedback in a Bayesian way (Körding & Wolpert, 2004).
 - **Cognitive development**: how children learn causal structure and word meanings from sparse data (Gopnik, Tenenbaum).
-- **Predictive coding and the free-energy principle**: see [Cognitive Science](../../brain-mind/cognitive-science/index.md).
-- **Computational psychiatry**: schizophrenia and autism have been modelled as imbalances in the weighting of priors and sensory evidence (see [Mental Health](../../applications/mental-health/index.md)).
+- **Predictive coding and the free-energy principle**: see [Cognitive Science](../../../brain-mind/cognitive-science/index.md).
+- **Computational psychiatry**: schizophrenia and autism have been modelled as imbalances in the weighting of priors and sensory evidence (see [Mental Health](../../../applications/mental-health/index.md)).
 
-Critiques: "Bayesian" models can be flexible enough to fit almost anything; humans also show systematic departures from optimal inference (see [Psychology & AI](../../brain-mind/psychology/index.md)). **Resource-rational** analysis (Lieder & Griffiths, 2020) reconciles the two: people approximate Bayesian inference under limited time and computation.
+Critiques: "Bayesian" models can be flexible enough to fit almost anything; humans also show systematic departures from optimal inference (see [Psychology & AI](../../../brain-mind/psychology/index.md)). **Resource-rational** analysis (Lieder & Griffiths, 2020) reconciles the two: people approximate Bayesian inference under limited time and computation.
 
 ## Probabilistic programming
 

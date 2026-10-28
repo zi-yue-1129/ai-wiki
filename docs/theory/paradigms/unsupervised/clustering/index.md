@@ -38,7 +38,7 @@ Without labels, quality is judged indirectly: internal scores such as the silhou
 
 ## Connections
 
-Clusters can be seen as discrete latent variables in a mixture model, linking clustering to [probabilistic methods](../../../probabilistic/index.md). Dimensionality reduction is often applied first to make distances meaningful, see [dimensionality reduction](../dimensionality-reduction/index.md). Topic models such as latent Dirichlet allocation cluster words and documents jointly.
+Clusters can be seen as discrete latent variables in a mixture model, linking clustering to [probabilistic methods](../../probabilistic/index.md). Dimensionality reduction is often applied first to make distances meaningful, see [dimensionality reduction](../dimensionality-reduction/index.md). Topic models such as latent Dirichlet allocation cluster words and documents jointly.
 
 ## Applications
 

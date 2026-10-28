@@ -9,7 +9,7 @@ related:
 !!! info "Work in progress"
     This page is being written.
 
-Optimisers that use only function values: finite-difference estimates, random search, evolution strategies, and their use when gradients are unavailable or unreliable. Compare [Evolutionary & Swarm Intelligence](../evolutionary/index.md).
+Optimisers that use only function values: finite-difference estimates, random search, evolution strategies, and their use when gradients are unavailable or unreliable. Compare [Evolutionary & Swarm Intelligence](../paradigms/evolutionary/index.md).
 
 ## Overview
 

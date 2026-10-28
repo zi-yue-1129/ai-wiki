@@ -8,11 +8,8 @@
 | [機器學習](machine-learning/index.md) | 如何從資料中學習？如何判斷學得好不好？ |
 | [深度學習](deep-learning/index.md) | 為什麼多層神經網路這麼有效？怎麼訓練？ |
 | [最佳化](optimization/index.md) | 梯度下降如何找到好的參數？Adam 與 AdamW 為什麼有效？ |
-| [學習範式](paradigms/index.md) | 監督、非監督、半監督／弱監督、自監督、強化、模仿、遷移、元學習、持續、主動、線上、聯邦學習：學習訊號是什麼？資料怎麼來？ |
+| [學習範式](paradigms/index.md) | 監督、非監督、半監督／弱監督、自監督、強化、模仿、遷移、元學習、持續、主動、線上、聯邦學習，以及機率、符號與演化方法：學習訊號是什麼？資料怎麼來？ |
 | [強化學習](paradigms/reinforcement-learning/index.md) | 如何從試誤與獎勵中學習行為？和大腦的多巴胺有什麼關係？ |
-| [機率圖模型與貝氏方法](probabilistic/index.md) | 如何表達與推論不確定性？大腦是貝氏推論機器嗎？ |
-| [符號 AI、搜尋與規劃](symbolic-ai/index.md) | 邏輯、知識表示、搜尋與規劃如何運作？在 LLM 時代還重要嗎？ |
-| [演化計算與群體智慧](evolutionary/index.md) | 如何借用演化與群體行為來最佳化？ |
 | [資訊理論](information-theory/index.md) | 熵、KL 散度與互資訊如何量化學習？ |
 | [生成模型](generative/index.md) | 模型如何學習一個分布，並從中抽樣產生新資料？ |
 | [模型壓縮](model-compression/index.md) | 剪枝、量化與蒸餾如何在不損失能力的前提下縮小模型？ |

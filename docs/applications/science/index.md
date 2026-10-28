@@ -1,7 +1,7 @@
 ---
 related:
 - theory/models/agents
-- theory/symbolic-ai
+- theory/paradigms/symbolic-ai
 - theory/paradigms/active
 - applications/climate-energy
 ---

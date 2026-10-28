@@ -20,7 +20,7 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 | Backpropagation | 反向傳播 | Computing gradients with the chain rule |
 | Bandit | 多臂吃角子老虎問題 | One-step decision problem balancing exploration and exploitation ([Online Learning](../../theory/paradigms/online/index.md)) |
 | Batch normalisation | 批次正規化 | Normalising activations across a mini-batch |
-| Bayesian inference | 貝氏推論 | Updating beliefs with Bayes' rule ([Probabilistic Methods](../../theory/probabilistic/index.md)) |
+| Bayesian inference | 貝氏推論 | Updating beliefs with Bayes' rule ([Probabilistic Methods](../../theory/paradigms/probabilistic/index.md)) |
 | Benchmark | 基準測試 | Standard task for comparing models ([Evaluation](../../engineering/evaluation/index.md)) |
 | Bias–variance trade-off | 偏差—變異權衡 | Tension between underfitting and overfitting |
 | Brain-computer interface (BCI) | 腦機介面 | Decoding brain signals to control devices ([BCI](../../brain-mind/bci/index.md)) |
