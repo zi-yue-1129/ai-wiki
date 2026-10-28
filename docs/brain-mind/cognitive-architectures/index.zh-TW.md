@@ -1,3 +1,7 @@
+---
+translation_reviewed: 2026-10-28
+---
+
 # 認知架構
 
 **認知架構**是關於心智固定結構（記憶、處理模組、控制）的理論，並以軟體實作，能執行認知任務。它的目標是「統一的認知理論」（Newell, 1990），而不是單一任務的模型。
@@ -61,6 +65,27 @@ LLM 代理人隱含地重現了認知架構的概念（見 [AI 代理人](../../
 - **應用**：智慧教學（Carnegie Learning 的認知導師源自 ACT-R）、航空與國防的人類表現建模、人機互動中的使用者建模
 - **可解釋性**：明確的模組與軌跡比單一的大型網路更容易檢視
 
+## 關鍵方法
+
+### ACT-R：心智的模組化架構（Anderson 等人，2004）
+
+- **問題：** 檢索、決策與運動控制等認知過程，如何從同一個系統中湧現，並與人類的時間表現相符？
+- **核心想法：** 分離的模組（視覺、運動、陳述性記憶、目標）透過緩衝區交換資訊，由產生式規則決定下一步動作。每個模組的處理時間都依人類資料設定。
+- **演算法：**
+    1. 每個模組把目前的結果放入其緩衝區。
+    2. 產生式規則比對各緩衝區的內容。
+    3. 符合的規則被觸發，改變緩衝區，進而決定下一步。
+- **結果：** 論文報告，同一個架構能解釋多種任務的人類資料，且模組的時間與腦區相連。
+- **限制：** 此架構是大量人工設計的元件，擬合資料時需要許多建模選擇。上方的記憶方程式即是其中被擬合的部分。
+
+### CoALA：語言代理人的認知架構（Sumers 等人，2023）
+
+- **問題：** 以大型語言模型為基礎的語言代理人已展現強勁的結果，但缺少系統性的框架來組織它們。
+- **核心想法：** 將代理人描述為包含模組化記憶（工作、情節、語意與程序記憶）、一組內部行動（檢索、推理、學習）與外部行動（與環境互動的落地），以及用來選擇行動的決策循環。
+- **方法：** 概念框架。論文用它來分類既有代理人，並提出建造新代理人的方向。
+- **結果：** 論文沒有提出新系統或基準測試，貢獻在於分類與設計語彙。
+- **限制：** 框架本身並非經過評估的系統，而且真實代理人不一定能整齊地歸入這些類別。
+
 ## 學習資源
 
 - Newell,《Unified Theories of Cognition》（1990）
@@ -69,3 +94,16 @@ LLM 代理人隱含地重現了認知架構的概念（見 [AI 代理人](../../
 - Kotseruba & Tsotsos (2020), "40 years of cognitive architectures", *Artificial Intelligence Review*
 - [ACT-R 網站](http://act-r.psy.cmu.edu/)、[Soar 網站](https://soar.eecs.umich.edu/)
 - Eliasmith,《How to Build a Brain》（Spaun）
+
+## 參考文獻
+
+### 開創性論文
+
+- Anderson, J. R., 等人（2004）。An Integrated Theory of the Mind. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.4.1036 — ACT-R，在單一系統中模擬記憶、目標與學習的認知架構。
+- Laird, J. E., Lebiere, C. & Rosenbloom, P. S.（2017）。A Standard Model of the Mind: Toward a Common Computational Framework. *AI Magazine*. https://doi.org/10.1609/aimag.v38i4.2744 — 提出 Soar、ACT-R 與 Sigma 共通元件的社群共識。
+- Lake, B. M., 等人（2017）。Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — 主張類人學習需要因果模型、直覺理論與組合性。
+
+### 綜述與教科書
+
+- Kotseruba, I. & Tsotsos, J. K.（2020）。40 years of cognitive architectures: core cognitive abilities and practical applications. *Artificial Intelligence Review*. https://doi.org/10.1007/s10462-018-9646-y — 依涵蓋的認知能力與實際應用，綜述各種認知架構。
+- Sumers, T. R., Yao, S., Narasimhan, K. & Griffiths, T. L.（2023）。Cognitive Architectures for Language Agents. arXiv. https://arxiv.org/abs/2309.02427 — 提出 CoALA，以記憶、行動與決策來組織語言代理人的框架。
