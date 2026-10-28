@@ -364,6 +364,9 @@ plugins:
             U-Net: U-Net
             Variational Autoencoders: 變分自編碼器
             GANs: 生成對抗網路
+            DCGAN: DCGAN
+            WGAN: WGAN
+            WGAN-GP: WGAN-GP
             Flow-Based Models: 流模型
             Normalising Flows: 正規化流
             Flow Matching: 流匹配
@@ -750,6 +753,9 @@ nav:
                   - Generative Models: theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md
                   - Variational Autoencoders: theory/paradigms/unsupervised/density-and-generative-models/vae/index.md
                   - GANs: theory/paradigms/unsupervised/density-and-generative-models/gan/index.md
+                  - DCGAN: theory/paradigms/unsupervised/density-and-generative-models/gan/dcgan.md
+                  - WGAN: theory/paradigms/unsupervised/density-and-generative-models/gan/wgan.md
+                  - WGAN-GP: theory/paradigms/unsupervised/density-and-generative-models/gan/wgan-gp.md
                   - Flow-Based Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/flow/index.md
                       - Normalising Flows: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/index.md

@@ -44,11 +44,12 @@ Training alternates a few discriminator updates on minibatches of real and gener
 
 ## Key methods
 
-Each named variant addresses training stability or architecture. The brief comparison below links only to the method page that exists so far; the others are to be written.
+Each named variant addresses training stability or architecture. The brief comparison below links to each method's own page.
 
 - **Generative Adversarial Networks (Goodfellow et al., 2014)**: the original minimax framework, described in full below.
-- **DCGAN (Radford et al., 2015)**: convolutional generator and discriminator with architectural rules that make training stable on images. A method page is still to be written.
-- **WGAN and WGAN-GP (Arjovsky et al., 2017; Gulrajani et al., 2017)**: replace the Jensen–Shannon objective with a Wasserstein distance, with weight clipping or a gradient penalty to enforce the Lipschitz constraint. Method pages are still to be written.
+- **[DCGAN (Radford et al., 2015)](dcgan.md)**: convolutional generator and discriminator with architectural rules that make training stable on images.
+- **[WGAN (Arjovsky et al., 2017)](wgan.md)**: replaces the Jensen–Shannon objective with a Wasserstein distance, with weight clipping to enforce the Lipschitz constraint.
+- **[WGAN-GP (Gulrajani et al., 2017)](wgan-gp.md)**: replaces weight clipping with a gradient penalty on interpolated samples.
 
 ### Generative Adversarial Networks (Goodfellow et al., 2014)
 
