@@ -26,6 +26,15 @@ translation_reviewed: 2026-10-28
 - [卷積變體](convolution-variants/index.md)：標準、空洞、深度可分離、轉置與可變形卷積，以及各自的取捨。
 - [骨幹與縮放](backbones-and-scaling/index.md)：殘差連接、從 AlexNet 到 ConvNeXt 的演進，以及複合縮放。
 
+## 關鍵方法
+
+| 方法 | 年份 | 核心想法 | 頁面 |
+|---|---|---|---|
+| 深度殘差學習（ResNet） | 2015 | 捷徑連接使極深的網路能夠訓練 | [ResNet](backbones-and-scaling/resnet/index.md) |
+| 複合縮放（EfficientNet） | 2019 | 以單一係數同時縮放深度、寬度與解析度 | [EfficientNet](backbones-and-scaling/efficientnet/index.md) |
+
+ResNet 讓極深的骨幹可以訓練，EfficientNet 則同時選擇深度、寬度與解析度，而不是逐一調整。
+
 ## 取捨
 
 - **歸納偏置。** 局部性與權重共用使 CNN 在影像上資料效率高，但除非擴大感受野，否則會限制長程依賴的建模。

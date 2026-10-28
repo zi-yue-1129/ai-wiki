@@ -18,6 +18,16 @@ h_v^{(k+1)} = \text{UPDATE}\Big(h_v^{(k)},\; \text{AGG}_{u\in\mathcal{N}(v)}\, \
 
 訊息如何形成與聚合，以及網路在節點特徵變得模糊之前能有多深，這些在[訊息傳遞](message-passing/index.md)頁面中介紹。該頁比較了正規化卷積、鄰居採樣、注意力，以及基於求和聚合的表達能力。
 
+## 關鍵方法
+
+| 方法 | 年份 | 核心想法 | 頁面 |
+|---|---|---|---|
+| 圖卷積網路（GCN） | 2016 | 依度數正規化的鄰居平均，是頻譜濾波的一階近似 | [GCN](message-passing/gcn/index.md) |
+| 圖注意力網路（GAT） | 2017 | 對鄰居學習注意力權重 | [GAT](message-passing/gat/index.md) |
+| 圖同構網路（GIN） | 2018 | 求和聚合加上 MLP 更新，表達力等同 WL 檢驗 | [GIN](message-passing/gin/index.md) |
+
+三種方法的差別在於如何為鄰居加權：GCN 使用依度數而定的固定權重，GAT 學習注意力權重，GIN 則以 MLP 更新對鄰居求和。
+
 ## 代表模型
 
 | 模型 | 特點 |

@@ -10,12 +10,12 @@ The architecture families of contemporary AI, and the systems built from them. A
 
 | Family | Core idea | Components and variants |
 |---|---|---|
-| [Multilayer Perceptrons](mlp/index.md) | Stacked affine maps and nonlinearities, with no assumed structure | Activations, normalisation, residual connections |
-| [Convolutional Networks](cnn/index.md) | A shared local filter applied at every position | [Convolution variants](cnn/convolution-variants/index.md), [backbones and scaling](cnn/backbones-and-scaling/index.md) |
-| [Recurrent Networks](rnn/index.md) | A hidden state carried step by step through a sequence | [Gated cells](rnn/gated-cells/index.md), [sequence modes](rnn/sequence-modes/index.md) |
+| [Multilayer Perceptrons](mlp/index.md) | Stacked affine maps and nonlinearities, with no assumed structure | [GELU](mlp/gelu/index.md), [layer normalisation](mlp/layer-normalisation/index.md) |
+| [Convolutional Networks](cnn/index.md) | A shared local filter applied at every position | [Convolution variants](cnn/convolution-variants/index.md), [backbones and scaling](cnn/backbones-and-scaling/index.md), with [ResNet](cnn/backbones-and-scaling/resnet/index.md) and [EfficientNet](cnn/backbones-and-scaling/efficientnet/index.md) |
+| [Recurrent Networks](rnn/index.md) | A hidden state carried step by step through a sequence | [Gated cells](rnn/gated-cells/index.md) with [LSTM](rnn/gated-cells/lstm/index.md), [sequence modes](rnn/sequence-modes/index.md) with [sequence to sequence](rnn/sequence-modes/sequence-to-sequence/index.md) |
 | [Transformers & Attention](transformer/index.md) | Content-based routing of information with attention | [Attention variants](transformer/attention-variants/index.md), [positional encodings](transformer/positional-encodings/index.md), [KV cache](transformer/kv-cache/index.md) |
-| [State-Space Models](ssm/index.md) | A linear state updated over time, with long-range memory | [Structured state spaces](ssm/structured-state-spaces/index.md), [selective state spaces](ssm/selective-state-spaces/index.md) |
-| [Graph Neural Networks](gnn/index.md) | Message passing over the edges of a graph | [Message passing](gnn/message-passing/index.md) |
+| [State-Space Models](ssm/index.md) | A linear state updated over time, with long-range memory | [Structured state spaces](ssm/structured-state-spaces/index.md) with [S4](ssm/structured-state-spaces/s4/index.md), [selective state spaces](ssm/selective-state-spaces/index.md) with [Mamba](ssm/selective-state-spaces/mamba/index.md) |
+| [Graph Neural Networks](gnn/index.md) | Message passing over the edges of a graph | [Message passing](gnn/message-passing/index.md) with [GCN](gnn/message-passing/gcn/index.md), [GAT](gnn/message-passing/gat/index.md) and [GIN](gnn/message-passing/gin/index.md) |
 
 ## Applications and systems
 

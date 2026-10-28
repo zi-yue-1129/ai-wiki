@@ -276,6 +276,17 @@ plugins:
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
             Message Passing: 訊息傳遞
+            GCN: 圖卷積網路
+            GAT: 圖注意力網路
+            GIN: 圖同構網路
+            GELU: 高斯誤差線性單元
+            Layer Normalisation: 層正規化
+            LSTM: 長短期記憶
+            Sequence to Sequence: 序列到序列學習
+            ResNet: 殘差網路
+            EfficientNet: EfficientNet 與複合縮放
+            S4: S4 結構化狀態空間
+            Mamba: Mamba
             Large Language Models: 大型語言模型
             Generative Models: 生成模型
             Model Compression: 模型壓縮
@@ -538,15 +549,25 @@ nav:
           - Knowledge Distillation: theory/model-compression/knowledge-distillation/index.md
       - Models:
           - theory/models/index.md
-          - Multilayer Perceptrons: theory/models/mlp/index.md
+          - Multilayer Perceptrons:
+              - theory/models/mlp/index.md
+              - GELU: theory/models/mlp/gelu/index.md
+              - Layer Normalisation: theory/models/mlp/layer-normalisation/index.md
           - Convolutional Networks:
               - theory/models/cnn/index.md
               - Convolution Variants: theory/models/cnn/convolution-variants/index.md
-              - Backbones & Scaling: theory/models/cnn/backbones-and-scaling/index.md
+              - Backbones & Scaling:
+                  - theory/models/cnn/backbones-and-scaling/index.md
+                  - ResNet: theory/models/cnn/backbones-and-scaling/resnet/index.md
+                  - EfficientNet: theory/models/cnn/backbones-and-scaling/efficientnet/index.md
           - Recurrent Networks:
               - theory/models/rnn/index.md
-              - Gated Cells: theory/models/rnn/gated-cells/index.md
-              - Sequence Modes: theory/models/rnn/sequence-modes/index.md
+              - Gated Cells:
+                  - theory/models/rnn/gated-cells/index.md
+                  - LSTM: theory/models/rnn/gated-cells/lstm/index.md
+              - Sequence Modes:
+                  - theory/models/rnn/sequence-modes/index.md
+                  - Sequence to Sequence: theory/models/rnn/sequence-modes/sequence-to-sequence/index.md
           - Transformers & Attention:
               - theory/models/transformer/index.md
               - Attention Variants: theory/models/transformer/attention-variants/index.md
@@ -554,8 +575,12 @@ nav:
               - KV Cache: theory/models/transformer/kv-cache/index.md
           - State-Space Models:
               - theory/models/ssm/index.md
-              - Structured State Spaces: theory/models/ssm/structured-state-spaces/index.md
-              - Selective State Spaces: theory/models/ssm/selective-state-spaces/index.md
+              - Structured State Spaces:
+                  - theory/models/ssm/structured-state-spaces/index.md
+                  - S4: theory/models/ssm/structured-state-spaces/s4/index.md
+              - Selective State Spaces:
+                  - theory/models/ssm/selective-state-spaces/index.md
+                  - Mamba: theory/models/ssm/selective-state-spaces/mamba/index.md
           - Large Language Models:
               - theory/models/llm/index.md
               - Imitation in Foundation Models: theory/models/llm/imitation-in-foundation-models/index.md
@@ -565,7 +590,11 @@ nav:
           - Multimodal Models: theory/models/multimodal/index.md
           - Graph Neural Networks:
               - theory/models/gnn/index.md
-              - Message Passing: theory/models/gnn/message-passing/index.md
+              - Message Passing:
+                  - theory/models/gnn/message-passing/index.md
+                  - GCN: theory/models/gnn/message-passing/gcn/index.md
+                  - GAT: theory/models/gnn/message-passing/gat/index.md
+                  - GIN: theory/models/gnn/message-passing/gin/index.md
           - AI Agents: theory/models/agents/index.md
           - World Models & Embodied AI: theory/models/world-models/index.md
   - Brain & Mind:

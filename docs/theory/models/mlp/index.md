@@ -29,6 +29,15 @@ A layer computes \(h = \sigma(Wx + b)\), where \(\sigma\) is a nonlinear activat
 - **Residual connections.** Adding the input back to a block's output makes deep stacks trainable, a design introduced for CNNs and now used across families (He et al., 2015).
 - **Width and depth.** A wide shallow MLP and a narrow deep one can represent similar functions, but deeper networks often do so with far fewer parameters.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| Gaussian error linear units (GELU) | 2016 | A smooth activation that weights each input by the Gaussian CDF | [GELU](gelu/index.md) |
+| Layer normalisation | 2016 | Normalises each example over its features, not over the batch | [Layer normalisation](layer-normalisation/index.md) |
+
+GELU is a smooth alternative to ReLU. Layer normalisation does not depend on batch statistics, which suits sequence models.
+
 ## Trade-offs
 
 - **Generality versus structure.** An MLP makes no assumption about the input's structure, so it needs more data than a CNN or a graph network for structured inputs.

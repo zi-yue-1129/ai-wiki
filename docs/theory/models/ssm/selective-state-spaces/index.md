@@ -35,6 +35,12 @@ Dao and Gu (2024) showed that a restricted form of selective SSM, with a scalar 
 
 Several language models interleave selective SSM blocks with attention blocks, keeping a few attention layers for exact recall while using SSM layers for most of the depth. The mixture of layer types is chosen empirically, and the best ratio depends on the task.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| Mamba | 2023 | Input-dependent parameters with a hardware-aware parallel scan | [Mamba](mamba/index.md) |
+
 ## Trade-offs
 
 - **Selection versus simplicity.** Input-dependent dynamics are more expressive, but they need the more complex parallel scan and cannot use the simple convolution.

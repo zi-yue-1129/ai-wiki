@@ -40,6 +40,12 @@ S4 represents the state matrix as a diagonal plus low-rank matrix, which it can 
 
 Later work showed that a diagonal state matrix, with complex entries, captures most of the benefit with a simpler implementation. S5 uses a diagonal form with a parallel scan, and linear recurrent units use careful initialisation of a diagonal recurrence. These variants made the family easier to implement and extend.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| S4 | 2021 | A structured state matrix whose convolution kernel can be computed quickly | [S4](s4/index.md) |
+
 ## Trade-offs
 
 - **Fixed dynamics.** Because the matrix does not depend on the input, the model cannot decide what to keep, which limits content-based recall. The selective variants address this.

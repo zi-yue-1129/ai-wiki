@@ -43,6 +43,14 @@ GraphSAGE samples a fixed number of neighbours and aggregates them with a learne
 
 Xu et al. (2018) asked which aggregation functions can distinguish graphs as well as the Weisfeiler–Leman test does. They showed that sum aggregation with an MLP update is as powerful as that test, while mean and max aggregation are not. This result explains why sum-based designs are often preferred for graph classification.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| Graph convolutional networks (GCN) | 2016 | Degree-normalised neighbour averaging, a first-order spectral filter | [GCN](gcn/index.md) |
+| Graph attention networks (GAT) | 2017 | Learned attention weights over neighbours | [GAT](gat/index.md) |
+| Graph isomorphism networks (GIN) | 2018 | Sum aggregation with an MLP update, as expressive as the WL test | [GIN](gin/index.md) |
+
 ## Trade-offs
 
 - **Expressivity versus cost.** Richer messages and attention cost more memory per edge, while simple normalised sums are cheap but less expressive.
