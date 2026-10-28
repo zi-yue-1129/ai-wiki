@@ -45,7 +45,7 @@ body:
     id: sources
     attributes:
       label: Good sources to start from
-      description: Papers, textbooks, courses or surveys.
+      description: Papers, textbooks, courses or surveys, with links. Blogs and videos are welcome too, as further learning.
   - type: checkboxes
     id: help
     attributes:

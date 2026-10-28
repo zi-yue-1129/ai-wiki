@@ -47,3 +47,7 @@ The encoder and decoder are still recurrent, so training remains sequential. The
 ### Articles and documentation
 
 - Harvard NLP. *The Annotated Transformer*. https://nlp.seas.harvard.edu/annotated-transformer/ — Paper-by-paper PyTorch implementation with commentary alongside the original text.
+
+## Further learning
+
+- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — Live coding of a small GPT from an empty file, explaining each part of the Transformer as it is written.

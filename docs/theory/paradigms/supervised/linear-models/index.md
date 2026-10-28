@@ -63,6 +63,10 @@ The delta rule that trains a single linear unit is the same equation as the Resc
 
 - Andrew Ng, Stanford CS229 lecture notes. https://cs229.stanford.edu/main_notes.pdf — Derivations of linear and logistic regression and the generalised linear model framework.
 
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on logistic regression and regularisation, YouTube. https://www.youtube.com/@statquest — Short visual explanations of logistic regression, ridge and lasso for beginners.
+
 ## Further reading
 
 - McCullagh & Nelder, *Generalized Linear Models*, 2nd ed. (1989). No free link checked.

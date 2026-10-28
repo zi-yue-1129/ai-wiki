@@ -60,6 +60,10 @@ tags:
 
 - Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, arXiv:2207.08815 — 基準測試與分析，說明為什麼在表格資料上樹的集成常勝過神經網路。
 
+## 延伸學習
+
+- StatQuest with Josh Starmer，關於隨機森林與梯度提升的單元，YouTube。https://www.youtube.com/@statquest — 以動畫逐步說明樹如何建立與組合。
+
 ## 延伸閱讀
 
 - Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD。未查核連結。

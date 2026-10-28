@@ -59,6 +59,10 @@ GP 在資料點很少時仍能給出校準良好的不確定性，也驅動貝�
 
 （除上列項目外，無其他參考。）
 
+## 延伸學習
+
+- StatQuest with Josh Starmer，關於單純貝氏的單元，YouTube。https://www.youtube.com/@statquest — 以視覺化、逐步的方式說明單純貝氏如何計算類別機率。
+
 ## 延伸閱讀
 
 - Murphy，*Probabilistic Machine Learning: An Introduction*，MIT Press（2022）。未查核免費連結。

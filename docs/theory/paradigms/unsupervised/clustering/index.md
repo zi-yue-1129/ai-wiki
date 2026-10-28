@@ -69,6 +69,10 @@ How many clusters are there? Is a "true" clustering even defined? Clustering in 
 
 (none beyond the entries above)
 
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on k-means clustering and hierarchical clustering, YouTube. https://www.youtube.com/@statquest — Visual, step-by-step walkthroughs of how k-means and hierarchical methods build clusters.
+
 ## Further reading
 
 - Jain (2010), "Data clustering: 50 years beyond k-means", *Pattern Recognition Letters*. No link checked.

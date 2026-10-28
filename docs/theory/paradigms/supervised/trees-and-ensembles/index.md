@@ -60,6 +60,10 @@ Why do trees beat deep networks on many tabular tasks? Grinsztajn et al. (2022) 
 
 - Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, arXiv:2207.08815 — Benchmark and analysis explaining why tree ensembles often beat neural networks on tabular data.
 
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on random forests and gradient boosting, YouTube. https://www.youtube.com/@statquest — Step-by-step animated walkthroughs of how trees are built and combined.
+
 ## Further reading
 
 - Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD. No link checked.

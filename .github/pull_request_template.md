@@ -7,6 +7,7 @@ Closes #
 ## Checklist
 
 - [ ] Follows the [Style Guide](https://zi-yue-1129.github.io/ai-wiki/reference/style-guide/) (own words, sources cited, no cross-page heading anchors)
+- [ ] Every external resource has a link; formal sources (papers, reports, standards, books) are in References, and blogs or videos only under Further learning
 - [ ] New pages are in `nav` in `mkdocs.yml` (with a `nav_translations` entry for zh-TW)
 - [ ] Pages that also belong to other categories are linked with `related` (and `tags`) in front matter
 - [ ] Ticked the topic on the Roadmap's missing-topics list, if it was there

@@ -119,3 +119,6 @@ Each named method has its own page with the problem, core idea, equations, resul
 
 ### Articles and documentation
 
+## Further learning
+
+- Rogge, N. & Rasul, K., *The Annotated Diffusion Model*. Hugging Face blog. https://huggingface.co/blog/annotated-diffusion — Step-by-step code walk-through of DDPM, useful for checking the equations in this page.
