@@ -8,7 +8,7 @@ L-BFGS 是一種有限記憶的擬牛頓法。它由最近幾對參數差與梯�
 
 ## 概述
 
-BFGS 方法依據觀察到的梯度變化，建構 Hessian 逆的近似。完整的 BFGS 需要儲存 \(d\times d\) 的矩陣，每步需要 \(O(d^2)\) 的記憶體與時間，當 \(d\) 達到數百萬時就太大了。L-BFGS 只保留最近 \(m\) 對 \((s_k, y_k)\)，其中 \(s_k = \theta_{k+1}-\theta_k\)，\(y_k = \nabla L_{k+1}-\nabla L_k\)。近似逆與梯度的乘積，可以用兩迴圈遞迴在 \(O(md)\) 時間內算出。
+BFGS 方法依據觀察到的梯度變化，建構 Hessian 逆的近似。完整的 BFGS 需要儲存 $d\times d$ 的矩陣，每步需要 $O(d^2)$ 的記憶體與時間，當 $d$ 達到數百萬時就太大了。L-BFGS 只保留最近 $m$ 對 $(s_k, y_k)$，其中 $s_k = \theta_{k+1} - \theta_k$，$y_k = \nabla L_{k+1} - \nabla L_k$。近似逆與梯度的乘積，可以用兩迴圈遞迴在 $O(md)$ 時間內算出。
 
 ## 問題
 
@@ -16,26 +16,26 @@ BFGS 方法依據觀察到的梯度變化，建構 Hessian 逆的近似。完整
 
 ## 核心想法
 
-保留一段短的 \((s_k, y_k)\) 歷史，並用它定義隱含的 Hessian 逆近似。這個近似從不以矩陣的形式算出。每一步的搜尋方向，是把遞迴套用到目前的梯度上而得到；接著以線搜尋選擇步長。
+保留一段短的 $(s_k, y_k)$ 歷史，並用它定義隱含的 Hessian 逆近似。這個近似從不以矩陣的形式算出。每一步的搜尋方向，是把遞迴套用到目前的梯度上而得到；接著以線搜尋選擇步長。
 
 ## 演算法
 
-1. 在目前點計算梯度 \(g_k\)。
-2. 使用儲存的各對，以兩迴圈遞迴算出方向 \(d_k = -H_k g_k\)，其中 \(H_k\) 為隱含的 Hessian 逆近似。
-3. 以滿足 Wolfe 條件的線搜尋，選擇步長 \(\alpha_k\)。
-4. 令 \(\theta_{k+1} = \theta_k + \alpha_k d_k\)，計算 \(s_k\) 與 \(y_k\)，並只保留最近的 \(m\) 對。
+1. 在目前點計算梯度 $g_k$。
+2. 使用儲存的各對，以兩迴圈遞迴算出方向 $d_k = -H_k g_k$，其中 $H_k$ 為隱含的 Hessian 逆近似。
+3. 以滿足 Wolfe 條件的線搜尋，選擇步長 $\alpha_k$。
+4. 令 $\theta_{k+1} = \theta_k + \alpha_k d_k$，計算 $s_k$ 與 $y_k$，並只保留最近的 $m$ 對。
 
-記憶參數 \(m\) 通常很小，它在近似品質與儲存空間之間做取捨。
+記憶參數 $m$ 通常很小，它在近似品質與儲存空間之間做取捨。
 
 ## 結果
 
-Liu 與 Nocedal 研究此方法在大型問題上的數值表現，並將其與其他有限記憶方法比較。摘要未給出具體數字，因此本頁不引用數值。測試問題與計時結果應參考原論文。
+Liu 與 Nocedal 報告了大型問題上的數值實驗。本頁未核對該論文的表格與圖，因此不引用具體數字。測試問題與計時結果應參考原論文。
 
 ## 限制
 
-- 此方法假設目標函數是確定性的，梯度是精確的。當梯度來自小批次時，曲率對 \((s_k, y_k)\) 會變得不可靠，這也是 L-BFGS 多用於全批次設定的原因。
+- 此方法假設目標函數是確定性的，梯度是精確的。當梯度來自小批次時，曲率對 $(s_k, y_k)$ 會變得不可靠，這也是 L-BFGS 多用於全批次設定的原因。
 - 每一步都需要線搜尋，每個試探點都需要一次梯度計算。
-- 記憶體 \(m\) 限制了保留的曲率歷史。曲率變化快速的問題可能需要較大的 \(m\)，或需要重新啟動。
+- 記憶體 $m$ 限制了保留的曲率歷史。曲率變化快速的問題可能需要較大的 $m$，或需要重新啟動。
 
 ## 關聯
 
@@ -52,17 +52,17 @@ Liu 與 Nocedal 研究此方法在大型問題上的數值表現，並將其與�
 ## 開放問題
 
 - 在梯度有雜訊時，應如何建構曲率對，才能讓 L-BFGS 用於隨機訓練？
-- 對某一類問題，\(m\) 的最佳選擇是什麼？
+- 對某一類問題，$m$ 的最佳選擇是什麼？
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Liu, D. C. & Nocedal, J. (1989). *On the Limited Memory BFGS Method for Large Scale Optimization*. Mathematical Programming, 45, 503–528. https://doi.org/10.1007/BF01589116 — 提出 L-BFGS，並研究其在大型問題上的數值表現。
+- Liu, D. C. & Nocedal, J. (1989). *On the Limited Memory BFGS Method for Large Scale Optimization*. Mathematical Programming, 45, 503–528. https://doi.org/10.1007/BF01589116 — 提出 L-BFGS，並報告其在大型問題上的數值表現。
 - Martens, J. & Grosse, R. (2015). *Optimizing Neural Networks with Kronecker-factored Approximate Curvature*. ICML. https://arxiv.org/abs/1503.05671 — 針對神經網路的隨機曲率方法，與全批次的擬牛頓法形成對比。
-- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. ICML. https://arxiv.org/abs/1802.09568 — 用於隨機訓練的矩陣結構預條件子，是取得曲率資訊的另一途徑。
 - Amari, S. (1998). *Natural Gradient Works Efficiently in Learning*. Neural Computation, 10(2), 251–276. https://doi.org/10.1162/089976698300017746 — 自然梯度的想法，擬牛頓法以另一種方式近似它。
 
 ### 綜述與教科書
 
+- Nocedal, J. & Wright, S. J. (2006). *Numerical Optimization*. 第 2 版. Springer. https://doi.org/10.1007/978-0-387-40065-5 — 擬牛頓法的教科書式介紹，包括有限記憶更新與 Wolfe 線搜尋。
 - Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. SIAM Review. https://arxiv.org/abs/1606.04838 — 綜述擬牛頓法及其在隨機梯度下的使用。
