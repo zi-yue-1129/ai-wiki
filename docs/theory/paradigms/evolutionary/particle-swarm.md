@@ -71,6 +71,10 @@ This page does not quote results from Kennedy and Eberhart (1995), since the pap
 ### Seminal papers
 
 - Kennedy, J. & Eberhart, R. (1995). *Particle swarm optimization*. Proceedings of IEEE International Conference on Neural Networks. https://doi.org/10.1109/ICNN.1995.488968 — Introduces PSO, in which each particle moves toward its own best and the swarm's best position.
+- Eberhart, R. C. & Shi, Y. (2001). *Particle swarm optimization: developments, applications and resources*. Proceedings of the IEEE Congress on Evolutionary Computation. https://dblp.dagstuhl.de/rec/conf/cec/EberhartS01.html — Reviews early developments and applications of PSO.
+- Clerc, M. & Kennedy, J. (2002). *The particle swarm: explosion, stability, and convergence in a multidimensional complex space*. IEEE Transactions on Evolutionary Computation. https://particleswarm.info/IEEE_TEC_2002_MC_JK.htm — Analyses the particle dynamics and introduces a constriction coefficient for the velocity update.
+- Poli, R. (2008). *Analysis of the publications on the applications of particle swarm optimisation*. Journal of Artificial Evolution and Applications. https://doi.org/10.1155/2008/685175 — Surveys the published applications of PSO.
+- Bonyadi, M. R. & Michalewicz, Z. (2017). *Particle swarm optimization for single objective continuous space problems: a review*. Evolutionary Computation. https://digital.library.adelaide.edu.au/items/c223764a-761b-4ea0-a463-da7cf8a36176 — Reviews PSO variants for single-objective continuous problems.
 
 ### Surveys and textbooks
 

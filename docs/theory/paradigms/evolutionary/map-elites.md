@@ -43,7 +43,7 @@ Mouret and Clune (2015) apply the method to a simulated hexapod robot. It learns
 
 ## Limitations
 
-- The grid grows exponentially with the number of descriptor dimensions, so the method is practical only for a small number of descriptors.
+- The grid grows exponentially with the number of descriptor dimensions, so the method is practical only for a small number of descriptors. Vassiliades et al. (2018) use centroidal Voronoi tessellations to scale the archive to larger descriptor spaces.
 - Choosing the descriptors is a design decision that shapes the result. Poor descriptors give an archive that covers the grid without covering the useful behaviours.
 - Insertion is greedy within each cell, so a cell can keep a locally good solution that is far from the best achievable in that behaviour.
 
@@ -51,6 +51,7 @@ Mouret and Clune (2015) apply the method to a simulated hexapod robot. It learns
 
 - [Evolutionary & Swarm Intelligence](index.md) is the overview that places MAP-Elites next to genetic algorithms and evolution strategies.
 - Evolution strategies and CMA-ES ([zeroth-order and evolutionary](../../optimization/zeroth-order-and-evolutionary.md)) optimise a single search distribution, whereas MAP-Elites keeps a diverse archive.
+- Quality-diversity methods are surveyed in Pugh et al. (2016). Novelty search (Lehman & Stanley, 2011) is an earlier route to diversity that drops the objective altogether.
 
 ## Applications
 
@@ -67,6 +68,10 @@ Mouret and Clune (2015) apply the method to a simulated hexapod robot. It learns
 ### Seminal papers
 
 - Mouret, J.-B. & Clune, J. (2015). *Illuminating search spaces by mapping elites*. arXiv:1504.04909. https://arxiv.org/abs/1504.04909 — Introduces MAP-Elites, which keeps the best solution in each cell of a behaviour grid, and applies it to a damage-recovering hexapod robot.
+- Cully, A., Clune, J., Tarapore, D. & Mouret, J.-B. (2015). *Robots that can adapt like animals*. arXiv:1407.3501. https://arxiv.org/abs/1407.3501 — Uses a repertoire of behaviours of the kind MAP-Elites builds, so a damaged hexapod can recover by trying alternatives from the archive.
+- Vassiliades, V., Chatzilygeroudis, K. & Mouret, J.-B. (2018). *Using centroidal Voronoi tessellations to scale up the multi-dimensional archive of phenotypic elites algorithm*. arXiv:1610.05729. https://arxiv.org/abs/1610.05729 — Uses centroidal Voronoi tessellations to scale the archive to larger descriptor spaces.
+- Pugh, J. K., Soros, L. B. & Stanley, K. O. (2016). *Quality diversity: a new frontier for evolutionary computation*. Frontiers in Robotics and AI. https://doi.org/10.3389/frobt.2016.00040 — Surveys quality-diversity methods, the family that includes MAP-Elites.
+- Lehman, J. & Stanley, K. O. (2011). *Abandoning objectives: evolution through the search for novelty alone*. Evolutionary Computation. https://www.cs.swarthmore.edu/~meeden/cs81/f17/papers/lehman_ecj11.pdf — Argues for searching for novelty in place of an objective, an early route to diversity.
 
 ### Surveys and textbooks
 

@@ -42,7 +42,7 @@ Mouret 與 Clune（2015）將此方法應用於模擬的六足機器人。它學
 
 ## 限制
 
-- 格子數會隨描述子維度數呈指數成長，因此此方法只適用於描述子數量少的情況。
+- 格子數會隨描述子維度數呈指數成長，因此此方法只適用於描述子數量少的情況。Vassiliades et al.（2018）以中心 Voronoi 鑲嵌把檔案庫擴展到較大的描述子空間。
 - 描述子的選擇是一項設計決定，會影響結果。描述子不佳時，檔案庫雖然覆蓋了整個網格，卻沒有涵蓋有用的行為。
 - 每個格子內的插入是貪婪的，因此格子可能保留一個局部良好、但遠離該行為下可達最佳值的解。
 
@@ -50,6 +50,7 @@ Mouret 與 Clune（2015）將此方法應用於模擬的六足機器人。它學
 
 - [演化計算與群體智慧](index.zh-TW.md)是把 MAP-Elites 與遺傳演算法、演化策略並列的概述。
 - 演化策略與 CMA-ES（[零階與演化](../../optimization/zeroth-order-and-evolutionary.zh-TW.md)）最佳化單一搜尋分布，而 MAP-Elites 維護的是多樣的檔案庫。
+- 品質多樣性方法的綜述見 Pugh et al.（2016）。新穎性搜尋（Lehman & Stanley, 2011）是更早的多樣性途徑，它完全捨棄目標函數。
 
 ## 應用
 
@@ -66,6 +67,10 @@ Mouret 與 Clune（2015）將此方法應用於模擬的六足機器人。它學
 ### 開創性論文
 
 - Mouret, J.-B. & Clune, J. (2015). *Illuminating search spaces by mapping elites*. arXiv:1504.04909. https://arxiv.org/abs/1504.04909 — 提出 MAP-Elites，在行為網格的每個格子中保留最佳解，並應用於可從損壞中恢復的六足機器人。
+- Cully, A., Clune, J., Tarapore, D. & Mouret, J.-B. (2015). *Robots that can adapt like animals*. arXiv:1407.3501. https://arxiv.org/abs/1407.3501 — 利用類似 MAP-Elites 所建立的行為庫，讓受損的六足機器人能從檔案庫中嘗試替代方案而恢復。
+- Vassiliades, V., Chatzilygeroudis, K. & Mouret, J.-B. (2018). *Using centroidal Voronoi tessellations to scale up the multi-dimensional archive of phenotypic elites algorithm*. arXiv:1610.05729. https://arxiv.org/abs/1610.05729 — 以中心 Voronoi 鑲嵌把檔案庫擴展到較大的描述子空間。
+- Pugh, J. K., Soros, L. B. & Stanley, K. O. (2016). *Quality diversity: a new frontier for evolutionary computation*. Frontiers in Robotics and AI. https://doi.org/10.3389/frobt.2016.00040 — 綜述品質多樣性方法，MAP-Elites 屬於此類。
+- Lehman, J. & Stanley, K. O. (2011). *Abandoning objectives: evolution through the search for novelty alone*. Evolutionary Computation. https://www.cs.swarthmore.edu/~meeden/cs81/f17/papers/lehman_ecj11.pdf — 主張以搜尋新穎性取代目標函數，是較早的多樣性途徑。
 
 ### 綜述與教科書
 

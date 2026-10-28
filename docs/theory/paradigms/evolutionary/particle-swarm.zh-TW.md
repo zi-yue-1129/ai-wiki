@@ -70,6 +70,10 @@ v_i \leftarrow \omega\, v_i + c_1 r_1 (p_i - x_i) + c_2 r_2 (g - x_i), \qquad x_
 ### 開創性論文
 
 - Kennedy, J. & Eberhart, R. (1995). *Particle swarm optimization*. Proceedings of IEEE International Conference on Neural Networks. https://doi.org/10.1109/ICNN.1995.488968 — 提出 PSO，每個粒子朝向自身最佳位置與群體最佳位置移動。
+- Eberhart, R. C. & Shi, Y. (2001). *Particle swarm optimization: developments, applications and resources*. Proceedings of the IEEE Congress on Evolutionary Computation. https://dblp.dagstuhl.de/rec/conf/cec/EberhartS01.html — 回顧 PSO 的早期發展與應用。
+- Clerc, M. & Kennedy, J. (2002). *The particle swarm: explosion, stability, and convergence in a multidimensional complex space*. IEEE Transactions on Evolutionary Computation. https://particleswarm.info/IEEE_TEC_2002_MC_JK.htm — 分析粒子動態，並為速度更新引入收縮係數。
+- Poli, R. (2008). *Analysis of the publications on the applications of particle swarm optimisation*. Journal of Artificial Evolution and Applications. https://doi.org/10.1155/2008/685175 — 綜述已發表的 PSO 應用。
+- Bonyadi, M. R. & Michalewicz, Z. (2017). *Particle swarm optimization for single objective continuous space problems: a review*. Evolutionary Computation. https://digital.library.adelaide.edu.au/items/c223764a-761b-4ea0-a463-da7cf8a36176 — 綜述針對單目標連續問題的 PSO 變體。
 
 ### 綜述與教科書
 

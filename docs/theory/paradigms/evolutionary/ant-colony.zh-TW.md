@@ -46,13 +46,14 @@ p_{ij} = \frac{\tau_{ij}^{\alpha}\, \eta_{ij}^{\beta}}{\sum_{k \in \mathcal{N}_i
 ## 限制
 
 - 此方法為離散問題設計。連續變數需要離散化或其他方法。
-- 費洛蒙可能太快集中在單一路線上，因此變體會加入費洛蒙上下限或額外的探索機制。
+- 費洛蒙可能太快集中在單一路線上，因此變體會加入費洛蒙上下限或額外的探索機制，例如 MAX–MIN Ant System（Stützle & Hoos, 2000）。
 - 效能取決於啟發式的選擇，以及參數 \(\alpha\)、\(\beta\) 與 \(\rho\) 的設定。
 
 ## 關聯
 
 - [演化計算與群體智慧](index.zh-TW.md)把 ACO 放在族群方法之中。
 - [粒子群最佳化](particle-swarm.zh-TW.md)是連續空間的群體方法。
+- Ant Colony System（Dorigo & Gambardella, 1997）是較早的變體，加強了對最佳路線的偏好。
 
 ## 應用
 
@@ -68,6 +69,10 @@ p_{ij} = \frac{\tau_{ij}^{\alpha}\, \eta_{ij}^{\beta}}{\sum_{k \in \mathcal{N}_i
 ### 開創性論文
 
 - Dorigo, M., Maniezzo, V. & Colorni, A. (1996). *Ant system: optimization by a colony of cooperating agents*. IEEE Transactions on Systems, Man, and Cybernetics, Part B. https://doi.org/10.1109/3477.484436 — 提出 Ant System，人工螞蟻在費洛蒙與啟發值的引導下建構路線。
+- Dorigo, M. & Gambardella, L. M. (1997). *Ant colony system: a cooperative learning approach to the traveling salesman problem*. IEEE Transactions on Evolutionary Computation. https://iridia.ulb.ac.be/~leonardo/teaching/INFO-H-414/papers/DorigoGambardella97-ACS.pdf — 提出 Ant Colony System，採用局部費洛蒙更新，並更偏好最佳路線。
+- Stützle, T. & Hoos, H. H. (2000). *MAX–MIN Ant System*. Future Generation Computer Systems. https://iridia.ulb.ac.be/~leonardo/teaching/INFO-H-414/papers/StuetzleHoos00-MMAS.pdf — 提出 MAX–MIN Ant System，以費洛蒙上下限限制過早收斂。
+- Dorigo, M. & Blum, C. (2005). *Ant colony optimization theory: a survey*. Theoretical Computer Science. https://upcommons.upc.edu/entities/publication/9fdcd2c5-49f8-4745-a32b-6331a6616704 — 綜述 ACO 的理論結果。
+- Dorigo, M., Birattari, M. & Stützle, T. (2006). *Ant colony optimization: artificial ants as a computational intelligence technique*. IEEE Computational Intelligence Magazine. https://ieeexplore.ieee.org/document/4129846 — 以計算智慧技術的角度概述 ACO。
 
 ### 綜述與教科書
 
