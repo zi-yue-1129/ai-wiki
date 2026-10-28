@@ -49,10 +49,11 @@ Changing the number format changes the bytes term directly: storing weights in h
 
 ## Key methods
 
-Three landmark levers show the range of what co-design can change.
+Four landmark levers show the range of what co-design can change.
 
 - [FlashAttention](../../../theory/models/transformer/attention-variants/flash-attention/index.md) (Dao et al., 2022): a kernel-level change that keeps attention's intermediate results on chip, with the same exact output.
 - [Mixed-precision training](mixed-precision.md) (Micikevicius et al., 2017): a number-format change that reduces the memory used in training by nearly two times, with master weights and loss scaling.
+- [Gradient checkpointing](gradient-checkpointing.md) (Chen et al., 2016): a recomputation change that stores only segment-boundary activations and recomputes the rest, reducing feature-map memory to about O(√n) for about one extra forward pass.
 - [FP8 formats](fp8.md) (Micikevicius et al., 2022): an 8-bit format pair, E4M3 and E5M2, that the paper reports can train models up to 175 billion parameters at close to 16-bit quality.
 
 ## Results
