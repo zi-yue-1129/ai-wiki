@@ -1,42 +1,107 @@
 ---
-translation_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-10-28
 ---
 
 # 打造像人一樣學習與思考的機器（Lake 等人，2017）
 
-提出三個要素（因果模型、直覺理論與組合性）作為類人學習的途徑。
+Lake 等人主張，類人學習的機器需要世界的因果模型、物理與心理的直覺理論，以及組合式的學會學習能力，而不只是模式辨識。
+
+## 概覽
+
+以端到端方式訓練的深度神經網路，如今在物體辨識、電玩與棋類等任務上，已能達到甚至超越人類的表現。然而，它們的學習方式與人類不同。人通常能從單一範例學會一個新的手寫字符，以新的方式運用它，並說明它是什麼；典型的網路則需要多得多的標記範例，才能達到相近的程度。Lake、Ullman、Tenenbaum 與 Gershman（2017）回顧認知科學對這些差異的證據，並提出類人學習者所需的三個要素。
+
+本文是 *Behavioral and Brain Sciences* 的目標文章（target article），這種期刊格式會把論文與同儕評論一併刊出。它屬於立場論文：提出研究議程與一個實例，但沒有提出新的基準結果。
+
+## 關鍵概念
+
+- **因果模型（causal model）**：對事件如何產生的內在解釋，能支持超出既有資料模式的說明與預測。
+- **直覺理論（intuitive theory）**：對物體（直覺物理）與行動者（直覺心理學）的一組精簡期待，人們用它來理解新情境。
+- **組合性（compositionality）**：由已學會的部件組成新概念，並以新的方式重組。
+- **學會學習（learning to learn）**：從許多先前任務中獲得共享結構，使新任務需要的範例較少。這與[歸納偏誤](../../../reference/glossary/index.md)密切相關，即學習者在看到資料之前內建的假設。
+- **貝氏程式學習（Bayesian program learning）**：一種模型，把概念視為簡短的機率程式，而學習就是推論哪個程式最能解釋範例（Lake、Salakhutdinov 與 Tenenbaum，2015）。
 
 ## 問題
 
-為什麼深度網路需要的資料比人多得多？它們在學什麼、怎麼學的方面，與人有何不同？
+為什麼深度網路需要的資料比人多得多？它們在學習的內容與方式上，與人有何不同？作者把這個差距界定為學習目標與學習方法的差異。網路學習分類模式，人則建立解釋；網路起始時結構很少，人則在每個新問題上都帶著直覺理論。
 
 ## 核心想法
 
-提出三個要素：世界的因果模型；以物理與心理的直覺理論為基礎的學習；以及組合性與學習如何學習，使模型能快速泛化到新任務。
+作者提出三個要素，並認為它們是達到真正類人學習所必需的：
 
-## 方法
+1. **世界的因果模型。** 學習者應建立能支持解釋與理解的模型，而不只是解決模式辨識問題。
+2. **直覺理論。** 學習應以物理與心理的直覺理論為基礎，使這些理論支持並豐富所學的知識。
+3. **組合性與學會學習。** 概念應由可重複使用的部件組成，並利用先前的經驗，快速獲得並泛化新知識。
 
-這是附有公開評論的目標文章，主張上述三個要素。其證據是對既有模型與實驗的回顧，並以一個從單一範例學習手寫字符的模型作為實例。
+三個要素並非彼此獨立的提案。作者建議具體的途徑，結合近期神經網路的優勢（例如彈性的感知與大規模訓練），以及更具結構的認知模型。
+
+## 方程式或演算法
+
+本文沒有單一的支配方程式。其主要實例是 Lake、Salakhutdinov 與 Tenenbaum（2015）為手寫字符發展的貝氏程式學習（BPL）。預印本描述了其生成過程，也就是模型產生新字符的步驟：
+
+1. 從基元（primitive）庫中選出基本的筆畫動作。
+2. 把基元組合成子部件（sub-part）。
+3. 把子部件組合成部件（part）。
+4. 以空間關係（例如「在起點相連」）組合部件，形成物件範本。範本本身就是一段簡短的程式。
+5. 執行該程式，產生範例（exemplar），即同一概念的不同實例。
+6. 把每個實例繪製成二值影像。
+
+學習則是反向執行這個過程。給定一張影像，模型會考慮候選程式，並以貝氏定理為每個候選程式評分：
+
+$$P(\theta \mid D) \propto P(D \mid \theta)\, P(\theta)$$
+
+其中 $D$ 是觀察到的影像，$\theta$ 是候選程式，$P(\theta)$ 是編碼哪些程式較合理的先驗，$P(D \mid \theta)$ 則是該程式產生此影像的可能性。此式是貝氏定理的一般形式，也是更新信念的標準方法；它並非本文中印出的公式。
 
 ## 結果
 
-本文是立場論文，沒有報告新的基準結果。
+本文沒有報告新的基準結果。其支持來自對認知科學實驗的回顧，以及 BPL 的相關研究。文中所摘述的 2015 年《Science》論文報告，BPL 模型能對手寫字符進行分類、剖析與重建，並且在這項任務上學得比當時的深度學習演算法更好；其生成的字符也能通過類圖靈測試，與人類的輸出相比較。本頁所讀的文字未給出單次學習比較的準確率數字，因此這裡不引用數字。
 
 ## 限制
 
-各評論對機器需要多少內建結構的看法不一。2017 年後大型模型的進展，也改變了這套論點有多少仍然適用。
+作為立場論文，本文指出的是挑戰與途徑，而非在多種任務上加以檢驗。其論點建立在對既有實驗的回顧，以及一個套用於狹窄領域（簡單手繪字符）的結構化模型之上。本文提議結合神經網路與結構化模型，但並未展示這種結合在大規模上的成效。
+
+本文也未解決機器究竟需要多少內建結構。2017 年以來大型神經網路的進展，使這個問題成為活躍的研究議題，而本文並未定論。讀者應把三個要素視為有部分證據支持的研究計畫，而非已被證明的配方。
+
+## 關鍵方法
+
+以下簡要比較本文所對照的幾種方法：
+
+- [深度神經網路](../../../theory/deep-learning/index.md)：端到端地從大量標記資料中學習特徵。它們在感知上表現強勁，但本文認為它們需要的資料遠多於人，且缺乏明確的因果結構。
+- 貝氏程式學習（Lake 等人，2015）：把概念表示為簡短的機率程式，並能從單一範例學習。它只適用於狹窄領域，且是作者自己的實例，而非通用方法。
+- [ACT-R](../../cognitive-architectures/act-r/index.md)：一種認知架構，即心智結構的整合性理論。它把心智整體建模，而不是作為機器學習演算法。
+- [預測編碼](../../predictive-coding/index.md)：一種大腦理論，認為皮質傳遞預測誤差。它提供神經層面的推論解釋，可與因果模型的要素相比較。
 
 ## 連結
 
 - 母頁：[認知科學](../index.md)
-- 同一主題的另一方法：[啟發法與偏誤](../heuristics-and-biases/index.md)
+- 相關頁面：[啟發法與偏誤](../heuristics-and-biases/index.md)，描述人在不確定情況下使用快速捷思法的方式，這類行為也是類人機器需要解釋的。
+- [認知架構](../../cognitive-architectures/index.md)涵蓋本文觀點所比較的心智整合模型。
+- [預測編碼](../../predictive-coding/index.md)是大腦端的推論理論，接近因果模型的要素。
+- [心理學](../../psychology/index.md)提供直覺理論與推理的更廣泛實證背景。
+- 理論端：[機率方法](../../../theory/paradigms/probabilistic/index.md)說明實例中使用的貝氏推論，[深度學習](../../../theory/deep-learning/index.md)說明本文所批評的網路。
+
+## 應用
+
+- **從少量範例學習。** BPL 模型能從單一範例對手寫字符進行分類與生成（Lake 等人，2015）。相同的生成方式，即把部件組合成程式，可作為其他符號領域的範本。
+- **混合系統。** 本文建議的途徑是將神經感知與結構化模型結合，當系統需要解釋其答案或需要從少量資料學習時，這種設計相當實用。
+- **類人學習的基準。** 本文主張的測試應檢驗解釋與泛化能力，而不只是在大型資料集上的準確率。這類測試是其研究議程的實際應用。
+
+## 未解問題
+
+- 學習機器需要多少內建結構？其中哪些部分可以學得，而不必由人手工設計？
+- 機器應從哪些直覺理論（例如物理或他人目標的理論）出發，這些理論又如何獲得？
+- 神經網路能否在大規模下學會組合式、類程式的表徵？
+- 應如何衡量「類人」學習，使測試獎勵的是解釋與遷移，而非符合某個資料集？
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. *Psychological Review*. https://doi.org/10.1037/h0043158 — 工作記憶容量的經典論述，以及組塊如何擴展這個容量。
-- Anderson, J. R., et al. (2004). An Integrated Theory of the Mind. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.4.1036 — ACT-R，在單一系統中模擬記憶、目標與學習的認知架構。
-- Lake, B. M., et al. (2017). Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — 目標文章，主張類人學習需要直覺物理、直覺心理學與組合模型，並附有評論。
-- Clark, A. (2013). Whatever next? Predictive brains, situated agents, and the future of cognitive science. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X12000477 — 將預測處理視為感知、行動與認知統一框架的綜述。
-- Tversky, A. & Kahneman, D. (1974). Judgment under Uncertainty: Heuristics and Biases. *Science*. https://doi.org/10.1126/science.185.4157.1124 — 記錄可得性與代表性等捷思法，如何影響人在不確定情境下的判斷。
+- Lake, B. M., Ullman, T. D., Tenenbaum, J. B. & Gershman, S. J. (2017). Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — 目標文章，主張因果模型、直覺理論與組合性（連同學會學習）是類人學習的要素。
+- Lake, B. M., Salakhutdinov, R. & Tenenbaum, J. B. (2015). Human-level concept learning through probabilistic program induction. *Science*. https://doi.org/10.1126/science.aab3050 — 針對手寫字符的貝氏程式學習，能分類、剖析並生成新字符，並在此任務上勝過深度學習演算法。
+- Lake, B. M., Ullman, T. D., Tenenbaum, J. B. & Gershman, S. J. (2016). Building machines that learn and think like people. arXiv preprint. https://arxiv.org/abs/1604.00289 — 2017 年文章的預印本版本，內含描述字符模型生成步驟的圖式。
+
+### 綜述與教科書
+
+- Tenenbaum, J. B., Kemp, C., Griffiths, T. L. & Goodman, N. D. (2011). How to Grow a Mind: Statistics, Structure, and Abstraction. *Science*. https://doi.org/10.1126/science.1192788 — 回顧建立在結構化表徵上的機率模型，是本文所提議之觀點的基礎框架。
+- Hassabis, D., Kumaran, D., Summerfield, C. & Botvinick, M. (2017). Neuroscience-Inspired Artificial Intelligence. *Neuron*. https://doi.org/10.1016/j.neuron.2017.06.011 — 回顧神經科學如何啟發人工智慧，涵蓋注意力、情節記憶，以及想像與規劃。

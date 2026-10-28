@@ -268,6 +268,9 @@ plugins:
             Regularisation & Weight Decay: 正則化與權重衰減
             Sharp Minima: 尖銳極小值
             SGD Noise Scale: SGD 雜訊尺度
+            Weight-Norm Dynamics: 權重範數動態
+            Rotational Equilibrium: 旋轉平衡
+            AdamW Weight Decay Scaling: AdamW 的權重衰減縮放
             Gradient Clipping & Normalisation: 梯度裁剪與正規化
             Norm Clipping: 範數裁剪
             LARS: LARS
@@ -296,15 +299,23 @@ plugins:
             Probabilistic & Bayesian Methods: 機率圖模型與貝氏方法
             Symbolic AI, Search & Planning: 符號 AI、搜尋與規劃
             Evolutionary & Swarm Intelligence: 演化計算與群體智慧
+            MAP-Elites: MAP-Elites
+            Particle Swarm Optimisation: 粒子群最佳化
+            Ant Colony Optimisation: 螞蟻演算法
             Models: 模型與技術
             Transformers & Attention: Transformer 與注意力
             Attention Variants: 注意力變體
             FlashAttention: FlashAttention
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
+            QK-Normalisation: QK 正規化
+            σReparam: σReparam
             Attention Is All You Need: Attention Is All You Need 原始論文
             Additive Attention (Bahdanau): 加性注意力（Bahdanau）
             Deep Q-Networks: 深度 Q 網路
+            AlphaGo: 阿爾法圍棋
+            AlphaZero: 阿爾法零
+            MuZero: MuZero
             Proximal Policy Optimisation: 近端策略最佳化
             AlexNet: AlexNet
             GPT-3 Few-Shot Learning: GPT-3 少樣本學習
@@ -334,6 +345,13 @@ plugins:
             Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
             False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
             Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            Navigation with Visual Goals: 以視覺目標導航
+            Visual Teach-and-Repeat: 視覺教學與重播
+            SPTM: SPTM
+            ViNG: ViNG
+            GNM: GNM
+            ViNT: ViNT
+            NoMaD: NoMaD
             AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             RFdiffusion: RFdiffusion（蛋白質骨架設計）
             ESM-2 and ESMFold: ESM-2 與 ESMFold
@@ -356,6 +374,9 @@ plugins:
             DDIM: DDIM
             Latent Diffusion: 潛在擴散
             DiT: DiT 擴散 Transformer
+            Architecture Families: 架構家族
+            BERT: BERT
+            T5: T5
             Vision Transformer (ViT): 視覺 Transformer（ViT）
             DeiT: DeiT
             Swin Transformer: Swin Transformer
@@ -561,6 +582,8 @@ plugins:
             Healthcare: 醫療與健康
             Life Sciences & Drug Discovery: 生命科學與藥物開發
             Scientific Discovery: 科學研究
+            Weather Forecasting & Earth Observation: 天氣預報與地球觀測
+            Mathematics & Formal Proof: 數學與形式證明
             Mental Health: 心理健康
             Education: 教育
             Finance: 金融
@@ -575,6 +598,13 @@ plugins:
             Cybersecurity: 資訊安全
             Social Sciences & Humanities: 社會科學與人文
             Software Development: 軟體開發
+            Search & Information Retrieval: 搜尋與資訊檢索
+            Logistics & Supply Chain: 物流與供應鏈
+            Customer Service & Conversational Systems: 客戶服務與對話系統
+            HR & Recruiting: 人力資源與招募
+            Insurance & Actuarial Science: 保險與精算科學
+            Sports Analytics & Performance: 運動分析與表現
+            AI for AI Research: AI 用於 AI 研究
             Military & Defence: 軍事與國防
             Space & Astronomy: 太空與天文
             Architecture & Urban Planning: 建築與城市規劃
@@ -629,6 +659,7 @@ plugins:
             In-Memory and Analogue Computing: 記憶體內與類比運算
             Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
             Mixed-Precision Training: 混合精度訓練
+            Roofline Model: 屋頂線模型
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
             GPTQ: GPTQ
@@ -760,6 +791,10 @@ nav:
               - theory/optimization/regularisation-and-weight-decay.md
               - Sharp Minima: theory/optimization/sharp-minima.md
               - SGD Noise Scale: theory/optimization/sgd-noise-scale.md
+          - Weight-Norm Dynamics:
+              - theory/optimization/weight-norm-dynamics/index.md
+              - Rotational Equilibrium: theory/optimization/weight-norm-dynamics/rotational-equilibrium.md
+              - AdamW Weight Decay Scaling: theory/optimization/weight-norm-dynamics/adamw-weight-decay-scaling.md
           - Gradient Clipping & Normalisation:
               - theory/optimization/gradient-clipping-and-normalisation.md
               - Norm Clipping: theory/optimization/norm-clipping.md
@@ -839,10 +874,13 @@ nav:
           - Reinforcement Learning:
               - theory/paradigms/reinforcement-learning/index.md
               - Deep Q-Networks: theory/paradigms/reinforcement-learning/deep-q-networks/index.md
+              - AlphaGo: theory/paradigms/reinforcement-learning/alphago/index.md
+              - AlphaZero: theory/paradigms/reinforcement-learning/alphazero/index.md
               - Proximal Policy Optimisation: theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index.md
               - Value-Based Methods: theory/paradigms/reinforcement-learning/value-based-methods/index.md
               - Policy Gradient & Actor-Critic: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
               - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
+              - MuZero: theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md
               - Offline RL: theory/paradigms/reinforcement-learning/offline-rl/index.md
               - Learning from Human Feedback: theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
               - Experience Replay: theory/paradigms/reinforcement-learning/experience-replay/index.md
@@ -903,7 +941,11 @@ nav:
           - Other Paradigms: theory/paradigms/other/index.md
           - Probabilistic & Bayesian Methods: theory/paradigms/probabilistic/index.md
           - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
-          - Evolutionary & Swarm Intelligence: theory/paradigms/evolutionary/index.md
+          - Evolutionary & Swarm Intelligence:
+              - theory/paradigms/evolutionary/index.md
+              - MAP-Elites: theory/paradigms/evolutionary/map-elites.md
+              - Particle Swarm Optimisation: theory/paradigms/evolutionary/particle-swarm.md
+              - Ant Colony Optimisation: theory/paradigms/evolutionary/ant-colony.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation:
@@ -1045,6 +1087,10 @@ nav:
                   - Sequence to Sequence: theory/models/rnn/sequence-modes/sequence-to-sequence/index.md
           - Transformers & Attention:
               - theory/models/transformer/index.md
+              - Architecture Families:
+                  - theory/models/transformer/architecture-families/index.md
+                  - BERT: theory/models/transformer/architecture-families/bert/index.md
+                  - T5: theory/models/transformer/architecture-families/t5/index.md
               - Attention Is All You Need: theory/models/transformer/attention-is-all-you-need/index.md
               - Additive Attention (Bahdanau): theory/models/transformer/bahdanau-attention/index.md
               - Vision Transformer (ViT):
@@ -1062,6 +1108,8 @@ nav:
                   - FlashAttention: theory/models/transformer/attention-variants/flash-attention/index.md
               - Positional Encodings: theory/models/transformer/positional-encodings/index.md
               - KV Cache: theory/models/transformer/kv-cache/index.md
+              - QK-Normalisation: theory/models/transformer/qk-norm.md
+              - σReparam: theory/models/transformer/sigma-reparam.md
           - State-Space Models:
               - theory/models/ssm/index.md
               - Structured State Spaces:
@@ -1203,6 +1251,8 @@ nav:
           - ESM-2: applications/life-science/esm/esm-2.md
           - ESMFold: applications/life-science/esm/esmfold.md
       - Scientific Discovery: applications/science/index.md
+      - Weather Forecasting & Earth Observation: applications/weather-and-earth-observation/index.md
+      - Mathematics & Formal Proof: applications/mathematics/index.md
       - Mental Health: applications/mental-health/index.md
       - Education: applications/education/index.md
       - Finance: applications/finance/index.md
@@ -1210,6 +1260,14 @@ nav:
       - Robotics:
           - applications/robotics/index.md
           - Hand-Eye Coordination for Grasping: applications/robotics/hand-eye-grasping/index.md
+          - Navigation with Visual Goals:
+              - applications/robotics/navigation/index.md
+              - Visual Teach-and-Repeat: applications/robotics/navigation/visual-teach-and-repeat.md
+              - SPTM: applications/robotics/navigation/sptm.md
+              - ViNG: applications/robotics/navigation/ving.md
+              - GNM: applications/robotics/navigation/gnm.md
+              - ViNT: applications/robotics/navigation/vint.md
+              - NoMaD: applications/robotics/navigation/nomad.md
       - Autonomous Driving & Transport:
           - applications/autonomous-driving/index.md
           - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md
@@ -1223,6 +1281,13 @@ nav:
       - Cybersecurity: applications/cybersecurity/index.md
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md
+      - Search & Information Retrieval: applications/search-and-information-retrieval/index.md
+      - Logistics & Supply Chain: applications/logistics-supply-chain/index.md
+      - Customer Service & Conversational Systems: applications/customer-service/index.md
+      - HR & Recruiting: applications/hr-recruiting/index.md
+      - Insurance & Actuarial Science: applications/insurance/index.md
+      - Sports Analytics & Performance: applications/sports/index.md
+      - AI for AI Research: applications/ai-research/index.md
       - Military & Defence: applications/military/index.md
       - Space & Astronomy: applications/space-astronomy/index.md
       - Architecture & Urban Planning: applications/architecture-urban/index.md
@@ -1283,6 +1348,7 @@ nav:
               - TPU: engineering/hardware/accelerators/tpu/index.md
               - Eyeriss v2: engineering/hardware/accelerators/eyeriss-v2/index.md
           - Memory Hierarchy and Bandwidth: engineering/hardware/memory-hierarchy/index.md
+          - Roofline Model: engineering/hardware/memory-hierarchy/roofline.md
           - Interconnects and Scaling: engineering/hardware/interconnects/index.md
           - In-Memory and Analogue Computing: engineering/hardware/in-memory-computing/index.md
           - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md

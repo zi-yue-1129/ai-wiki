@@ -36,6 +36,12 @@ One landmark method anchors the learning discussion below. Its full write-up is 
 - **Comparison:** Learns from very large real-world data. The alternative of simulation-based training, which avoids collecting real data, is covered in the references on the method page. The abstract gives no grasp success rate.
 - **Full write-up:** [Hand-eye coordination for grasping](hand-eye-grasping/index.md)
 
+### Navigation with visual goals (Savinov et al., 2018; Shah et al., 2021–2023)
+
+- **Overview:** A robot reaches a goal shown as an image, using a graph of stored frames and a learned policy.
+- **Comparison:** Classical teach-and-repeat tracks a taught route with odometry. Learned methods such as ViNG, GNM, ViNT and NoMaD regress or sample continuous motion, and they differ in output and in how much data they use.
+- **Full write-up:** [Navigation with visual goals](navigation/index.md)
+
 ## Learning-based robotics
 
 | Approach | Examples |

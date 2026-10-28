@@ -61,6 +61,7 @@ Three entries, each with a page or a link. The first is a link to an existing pa
 - [Adaptive methods](adaptive/index.md) are where the two diverge, and [AdamW](adaptive/adamw.md) is the fix.
 - [Learning-rate schedules](learning-rate-schedules.md) interact with the decay, because the effective shrinkage depends on the current rate.
 - [Large-batch and distributed training](large-batch-and-distributed.md) is where the implicit-bias results matter most.
+- [Weight-norm dynamics](weight-norm-dynamics/index.md) covers how decay sets the equilibrium norm of normalised layers.
 
 ## Applications
 
