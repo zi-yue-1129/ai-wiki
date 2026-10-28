@@ -268,6 +268,9 @@ plugins:
             LAMB: LAMB
             Large-Batch & Distributed: 大批次與分散式
             Zeroth-Order & Evolutionary: 零階與演化
+            SPSA: SPSA
+            Evolution Strategies: 演化策略
+            CMA-ES: CMA-ES
             Theory & Landscapes: 理論與損失地形
             Reinforcement Learning: 強化學習
             Learning Paradigms: 學習範式
@@ -669,7 +672,11 @@ nav:
               - LARS: theory/optimization/lars.md
               - LAMB: theory/optimization/lamb.md
           - Large-Batch & Distributed: theory/optimization/large-batch-and-distributed.md
-          - Zeroth-Order & Evolutionary: theory/optimization/zeroth-order-and-evolutionary.md
+          - Zeroth-Order & Evolutionary:
+              - theory/optimization/zeroth-order-and-evolutionary.md
+              - SPSA: theory/optimization/spsa.md
+              - Evolution Strategies: theory/optimization/evolution-strategies.md
+              - CMA-ES: theory/optimization/cma-es.md
           - Theory & Landscapes: theory/optimization/theory-and-landscapes.md
       - Learning Paradigms:
           - theory/paradigms/index.md
