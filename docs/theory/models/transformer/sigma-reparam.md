@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/optimization/weight-norm-dynamics
@@ -16,7 +16,7 @@ aliases:
 
 # σReparam
 
-σReparam reparameterises every linear layer of a Transformer by its spectral norm, multiplied by a learnable scalar. Zhai et al. (2023) use it to prevent attention entropy collapse, which they connect to the spectral norm of the product of the query and key weights. The method removes the need for some of the usual stabilisers, such as pre-normalisation and learning-rate warm-up. The parent overview is [Transformers & Attention](index.md), and the norm analysis it relies on is on the [weight-norm dynamics](../../optimization/weight-norm-dynamics/index.md) page.
+σReparam reparameterises every linear layer of a Transformer by its spectral norm, multiplied by a learnable scalar. Zhai et al. (2023) use it to prevent attention entropy collapse, which they connect to the spectral norm of the attention logits. The paper reports competitive performance without warm-up, weight decay, layer normalisation or adaptive optimisers. The parent overview is [Transformers & Attention](index.md), and the norm analysis it relies on is on the [weight-norm dynamics](../../optimization/weight-norm-dynamics/index.md) page.
 
 ## Overview
 
@@ -24,11 +24,11 @@ A linear layer with weight \(W\) is replaced by \(\hat W = \dfrac{\gamma}{\sigma
 
 ## Problem
 
-Zhai et al. analyse attention in terms of the matrix \(W_K W_Q^\top\). They prove that the entropy of the attention distribution has a lower bound that falls exponentially as the spectral norm of this product grows. When the norm grows, attention becomes close to a single position, and the training instability coincides with the entropy falling towards zero. Their experiments show that doubling the learning rate drives the entropy close to zero.
+Zhai et al. show that the entropy of the attention distribution is bounded below by a quantity that falls exponentially fast as the spectral norm of the attention logits grows. When that norm grows, the attention distribution can collapse towards a single position, and training becomes unstable. The paper's remedy controls the spectral norm of the layers directly.
 
 ## Core idea
 
-Bound the spectral norm of every linear layer directly, rather than only the query and key projections or the output projection. With \(\hat W = (\gamma/\sigma(W))\,W\), the spectral norm of each layer is controlled by a single scalar that the optimiser can learn. The same parameterisation is applied to the query, key, value, output and feed-forward layers.
+Reparameterise every linear layer so that its spectral norm is set by one learned scalar, instead of letting the scale of the weight matrix grow freely. With \(\hat W = (\gamma/\sigma(W))\,W\), the spectral norm of each layer is controlled by a single scalar that the optimiser can learn. The same parameterisation is applied to the query, key, value, output and feed-forward layers.
 
 ## How it works
 
@@ -39,7 +39,7 @@ Bound the spectral norm of every linear layer directly, rather than only the que
 
 ## Results
 
-The paper reports that σReparam trains a ViT-B on ImageNet to accuracy comparable to DeiT without pre-normalisation, warm-up or weight decay, and that plain spectral normalisation and weight normalisation do worse in the authors' comparison. The exact numbers are in the paper's tables and should be checked there before use.
+The paper reports that σReparam gives competitive performance without warm-up, weight decay, layer normalisation or adaptive optimisers. The experiments, tasks and figures are in the paper and should be checked there before any number is reused.
 
 ## Limitations
 
@@ -62,6 +62,6 @@ The paper reports that σReparam trains a ViT-B on ImageNet to accuracy comparab
 
 - Zhai, S., Likhomanenko, T., Littwin, E., et al. (2023). *Stabilizing Transformer Training by Preventing Attention Entropy Collapse*. ICML 2023, PMLR 202:40770–40803. https://proceedings.mlr.press/v202/zhai23a.html — introduces σReparam and the attention-entropy bound.
 - Dehghani, M., Djolonga, J., Mustafa, B., et al. (2023). *Scaling Vision Transformers to 22 Billion Parameters*. ICML 2023, PMLR 202:7480–7512. https://proceedings.mlr.press/v202/dehghani23a.html — a different stabilising change for the same problem, query-key normalisation.
-- Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — tests attention-logit and output-logit instabilities at small scale.
+- Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — reproduces attention-logit and output-logit instabilities at small scale.
 - Noci, L., Anagnostidis, S., Biggio, L., et al. (2022). *Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse*. arXiv:2206.03126. https://arxiv.org/abs/2206.03126 — analyses rank collapse, a failure that bounding norms does not remove.
 - Xiong, R., Yang, Y., He, D., et al. (2020). *On Layer Normalization in the Transformer Architecture*. ICML 2020. https://arxiv.org/abs/2002.04745 — studies the placement of normalisation, which σReparam partly replaces.

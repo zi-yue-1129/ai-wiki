@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/optimization/weight-norm-dynamics
@@ -16,7 +16,7 @@ aliases:
 
 # QK-Normalisation
 
-QK-normalisation applies a layer normalisation to the queries and keys of each attention head before their dot product. It bounds the attention logits regardless of how large the query and key weights become. Dehghani et al. (2023) introduced it as a stability fix for training Vision Transformers at 22 billion parameters. The parent overview is [Transformers & Attention](index.md), and the broader norm-growth problem is on the [weight-norm dynamics](../../optimization/weight-norm-dynamics/index.md) page.
+QK-normalisation applies a layer normalisation to the queries and keys of each attention head before their dot product. It bounds the attention logits regardless of how large the query and key weights become. Dehghani et al. (2023) use it to prevent divergence from uncontrolled attention-logit growth when training ViT-22B, a 22-billion-parameter Vision Transformer. The parent overview is [Transformers & Attention](index.md), and the broader norm-growth problem is on the [weight-norm dynamics](../../optimization/weight-norm-dynamics/index.md) page.
 
 ## Overview
 
@@ -24,7 +24,7 @@ In standard scaled dot-product attention, the logits are \(QK^\top/\sqrt{d_k}\).
 
 ## Problem
 
-Dehghani et al. report that, when training very large Vision Transformers, the attention logits grew without control. The softmax then concentrated on a few positions, and training diverged. The paper's remedy is the normalisation described below.
+Growth of the attention logits is one source of training instability in large Transformers. Wortsman et al. (2023) list it as such, citing earlier reports at large scale (Dehghani et al., 2023). As the logits grow, the softmax concentrates on a few positions, and training can diverge.
 
 ## Core idea
 
@@ -41,12 +41,12 @@ The modification is local to attention, and the cost is one normalisation per he
 
 ## Results
 
-Wortsman et al. (2023) test the mechanism at small scale. They report that adding query-key layer normalisation makes the attention logits stay bounded, and that it raises the largest learning rate that trains stably. Their experiments separate attention-logit growth from output-logit divergence, and QK-normalisation addresses the first but not the second. The exact sweep figures should be taken from the paper.
+Wortsman et al. (2023) reproduce attention-logit growth at small scale and test query-key layer normalisation as a remedy. They report that it prevents divergence at the model sizes they tested, and that learning-rate sensitivity still increases with model scale. Output-logit divergence is a separate instability, which they address with z-loss rather than with this normalisation. The exact figures should be taken from the paper.
 
 ## Limitations
 
-- QK-normalisation bounds the attention logits, but it does not bound the norms of the output projection or the feed-forward layers. Those can keep growing, as the weight-norm analysis predicts.
-- The bound is on the logit scale, and the attention can still collapse in rank or entropy. Zhai et al. (2023) link collapse to the spectral norm of the query-key product, and Noci et al. (2022) to rank collapse of the token representations.
+- QK-normalisation bounds the attention logits, but it does not bound the norms of the output projection or the feed-forward layers. Wortsman et al. (2023) report that learning-rate sensitivity still grows with model size even with it, and the weight-norm analysis explains why other layers can keep growing.
+- The bound is on the logit scale, and the attention can still collapse in rank or entropy. Zhai et al. (2023) link entropy collapse to the spectral norm of the attention logits, and Noci et al. (2022) link rank collapse to the token representations.
 - The reported benefit is mainly training stability. Claims about final accuracy depend on the experiments in each paper and should be checked there.
 
 ## Connections
@@ -63,8 +63,8 @@ Wortsman et al. (2023) test the mechanism at small scale. They report that addin
 
 ## References
 
-- Dehghani, M., Djolonga, J., Mustafa, B., et al. (2023). *Scaling Vision Transformers to 22 Billion Parameters*. ICML 2023, PMLR 202:7480–7512. https://proceedings.mlr.press/v202/dehghani23a.html — introduces query-key layer normalisation for large Vision Transformers.
-- Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — tests query-key normalisation and other remedies at small scale.
-- Zhai, S., Likhomanenko, T., Littwin, E., et al. (2023). *Stabilizing Transformer Training by Preventing Attention Entropy Collapse*. ICML 2023, PMLR 202:40770–40803. https://proceedings.mlr.press/v202/zhai23a.html — links attention collapse to the spectral norm of the query-key product.
+- Dehghani, M., Djolonga, J., Mustafa, B., et al. (2023). *Scaling Vision Transformers to 22 Billion Parameters*. ICML 2023, PMLR 202:7480–7512. https://proceedings.mlr.press/v202/dehghani23a.html — applies query-key layer normalisation to prevent divergence from uncontrolled attention-logit growth when training ViT-22B, a 22-billion-parameter Vision Transformer.
+- Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — reproduces attention-logit and output-logit instabilities at small scale, and tests query-key layer normalisation and z-loss as remedies.
+- Zhai, S., Likhomanenko, T., Littwin, E., et al. (2023). *Stabilizing Transformer Training by Preventing Attention Entropy Collapse*. ICML 2023, PMLR 202:40770–40803. https://proceedings.mlr.press/v202/zhai23a.html — links attention entropy collapse to the spectral norm of the attention logits.
 - Noci, L., Anagnostidis, S., Biggio, L., et al. (2022). *Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse*. arXiv:2206.03126. https://arxiv.org/abs/2206.03126 — analyses rank collapse in stacked attention and its effect on gradients.
 - Xiong, R., Yang, Y., He, D., et al. (2020). *On Layer Normalization in the Transformer Architecture*. ICML 2020. https://arxiv.org/abs/2002.04745 — studies where normalisation should sit in the Transformer block.
