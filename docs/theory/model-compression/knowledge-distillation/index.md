@@ -36,7 +36,7 @@ The idea rests on the observation that a trained network's output distribution c
 
 ## How it works
 
-Hinton et al. combine two losses. The student is trained on the true labels with a standard cross-entropy term, and on the teacher's softened outputs with a KL divergence term. A weight \(\alpha\) balances the two:
+Hinton et al. combine two losses as a weighted average. The student is trained on the true labels with a standard cross-entropy term, and on the teacher's softened outputs with a term multiplied by \(T^2\), so that its gradients stay at a similar scale as \(T\) changes. The formula below writes the soft term as a KL divergence, which differs from the cross-entropy only by a constant. A weight \(\alpha\) balances the two:
 
 \[
 \mathcal{L} = (1-\alpha)\, \mathrm{CE}(y, \sigma(z_s)) + \alpha\, T^2\, \mathrm{KL}\!\left(\sigma(z_t/T)\,\Vert\,\sigma(z_s/T)\right)

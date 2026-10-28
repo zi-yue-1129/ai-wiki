@@ -22,7 +22,7 @@ translation_reviewed: 2026-10-28
 
 ## 運作方式
 
-Hinton 等人結合兩種損失。學生以真實標籤的交叉熵項訓練，並以教師軟化輸出的 KL 散度項訓練。權重 \(\alpha\) 平衡兩者：
+Hinton 等人以加權平均結合兩種損失。學生以真實標籤的交叉熵項訓練，並以教師軟化輸出的項訓練，該項乘以 \(T^2\)，使溫度改變時梯度的大小大致保持不變。下式把軟目標項寫成 KL 散度，它與交叉熵只相差一個常數。權重 \(\alpha\) 平衡兩者：
 
 \[
 \mathcal{L} = (1-\alpha)\, \mathrm{CE}(y, \sigma(z_s)) + \alpha\, T^2\, \mathrm{KL}\!\left(\sigma(z_t/T)\,\Vert\,\sigma(z_s/T)\right)
