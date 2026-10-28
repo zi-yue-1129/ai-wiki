@@ -59,6 +59,8 @@ Each named method has its own page, which gives the problem, the core idea, the 
 
 Kernel-level fusion, which cuts memory traffic inside a single layer, is covered in [Fused kernels](fused-kernels.md).
 
+Methods that shrink the cache after training, rather than by design, are compared on the [KV cache compression and eviction](kv-cache-compression.md) page: [H2O](h2o.md) and [StreamingLLM](streamingllm.md) drop tokens, while [KIVI](kivi.md) keeps every token at 2 bits.
+
 ## Connections
 
 - The KV cache itself is explained in [Transformer KV cache](../../theory/models/transformer/kv-cache/index.md); this page covers how serving systems manage it.
