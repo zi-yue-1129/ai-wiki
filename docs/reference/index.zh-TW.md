@@ -10,4 +10,4 @@
 | [資料集](datasets/index.md) | 各領域廣泛使用的資料集與基準 |
 | [貢獻指南](contributing/index.md) | 如何新增或改進頁面 |
 | [路線圖與涵蓋範圍](roadmap/index.md) | 已規劃的內容與尚缺的內容 |
-| [風格指南](style-guide/index.md) | 本維基的寫作慣例 |
+| [風格指南](style-guide/index.zh-TW.md) | 本維基的寫作慣例 |
