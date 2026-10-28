@@ -662,6 +662,9 @@ plugins:
             "Conferences & Journals": 會議與期刊
             Serving Mixture-of-Experts Models: 混合專家模型服務
             Mathematics and Formal Proof: 數學與形式證明
+            Consistency Models and Fast Samplers: 一致性模型與快速取樣器
+            Model Extraction and Theft: 模型萃取與竊取
+            Deceptive alignment and sleeper agents: 欺騙性對齊與潛伏代理人
 
 markdown_extensions:
   - abbr
@@ -919,6 +922,7 @@ nav:
               - Latent Diffusion: theory/generative/diffusion/latent-diffusion.md
               - DiT: theory/generative/diffusion/dit.md
               - Classifier-Free Guidance: theory/generative/diffusion/classifier-free-guidance.md
+              - Consistency Models and Fast Samplers: theory/generative/diffusion/consistency-models.md
           - Generative Adversarial Networks:
               - theory/generative/gan/index.md
               - Original GAN: theory/generative/gan/original-gan/index.md
@@ -1270,6 +1274,7 @@ nav:
           - Jailbreaks and Red-Teaming: engineering/llm-security/jailbreaks-and-red-teaming.md
           - Guardrails and Output Filtering: engineering/llm-security/guardrails.md
           - Data Poisoning and Backdoors: engineering/llm-security/data-poisoning-and-backdoors.md
+          - Model Extraction and Theft: engineering/llm-security/model-extraction.md
       - Synthetic Data:
           - engineering/synthetic-data/index.md
           - Self-Instruct: engineering/synthetic-data/self-instruct.md
@@ -1337,6 +1342,7 @@ nav:
           - Reward Hacking and Specification Gaming: society/safety-alignment/reward-hacking.md
           - Dangerous-Capability Evaluations and Frontier Safety Frameworks: society/safety-alignment/dangerous-capability-evals.md
           - Scalable Oversight: society/safety-alignment/scalable-oversight.md
+          - Deceptive alignment and sleeper agents: society/safety-alignment/deceptive-alignment.md
       - Interpretability:
           - society/interpretability/index.md
           - Mechanistic Interpretability and Circuits: society/interpretability/mechanistic-interpretability.md
