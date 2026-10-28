@@ -28,6 +28,8 @@ These examples are a starting catalogue, not a ranking of current models. Record
 | Human preference | Chatbot Arena | Rater population and presentation affect interpretation |
 | Safety | HarmBench, StrongREJECT, WMDP, dangerous-capability evals | See [Safety & Alignment](../../society/safety-alignment/index.md) |
 
+The general-knowledge, reasoning and coding suites above (MMLU, HELM, BIG-bench, GPQA, HumanEval, MATH) are compared in [Benchmark Suites](benchmark-suites.md), including saturation and how leaderboards are run.
+
 ## Designing an evaluation protocol
 
 ### Define the task and the decision

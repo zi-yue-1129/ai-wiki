@@ -20,6 +20,8 @@
 | 人類偏好 | Chatbot Arena | 評分者的組成與呈現方式會影響解讀 |
 | 安全性 | HarmBench、StrongREJECT、WMDP、危險能力評估 | 見[安全與對齊](../../society/safety-alignment/index.md) |
 
+上表中的一般知識、推理與程式碼基準（MMLU、HELM、BIG-bench、GPQA、HumanEval、MATH）已在[基準測試套件](benchmark-suites.md)中比較，包括飽和問題與排行榜的執行方式。
+
 ## 設計評估協定
 
 ### 定義任務與要做的決定
