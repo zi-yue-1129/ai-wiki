@@ -53,4 +53,4 @@ ESM-2 是以蛋白質序列訓練的 [transformer](../../../theory/models/transf
 - Lin et al. (2022). Evolutionary-scale prediction of atomic level protein structure with a language model. *bioRxiv*. https://doi.org/10.1101/2022.07.20.500902 — 結果段落所摘要的預印本。
 - Rives et al. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *PNAS*. https://doi.org/10.1073/pnas.2016239118 — 較早的 ESM 研究，顯示結構相關資訊會在序列的語言模型訓練中出現。
 - Jumper et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*. https://doi.org/10.1038/s41586-021-03819-2 — AlphaFold 2，參考用的結構預測器。
-- Vaswani et al. (2017). Attention Is All You Need. arXiv. https://arxiv.org/abs/1706.03762 — transformer 架構。
+- Vaswani et al. (2017). Attention Is All You Need. arXiv. https://arxiv.org/abs/1706.03762 — 引入 ESM-2 所用的 Transformer 架構。

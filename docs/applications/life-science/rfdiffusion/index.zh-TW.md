@@ -45,7 +45,7 @@ RFdiffusion 遵循[去噪擴散](../../../theory/paradigms/unsupervised/density-
 
 ### 開創性論文
 
-- Watson et al. (2023). De novo design of protein structure and function with RFdiffusion. *Nature*. https://doi.org/10.1038/s41586-023-06415-8 — 已發表的 RFdiffusion 論文。
+- Watson et al. (2023). De novo design of protein structure and function with RFdiffusion. *Nature*. https://doi.org/10.1038/s41586-023-06415-8 — 已發表的 RFdiffusion 論文，介紹此方法。
 - Watson et al. (2022). Broadly applicable and accurate protein design by integrating structure prediction networks and diffusion generative models. *bioRxiv*. https://doi.org/10.1101/2022.12.09.519842 — 結果段落所摘要的預印本。
 - Baek et al. (2021). Accurate prediction of protein structures and interactions using a three-track neural network. *Science*. https://doi.org/10.1126/science.abj8754 — RoseTTAFold，RFdiffusion 所微調的結構預測網路。
 - Jumper et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*. https://doi.org/10.1038/s41586-021-03819-2 — AlphaFold 2，RoseTTAFold 通常拿來比較的結構預測器。
