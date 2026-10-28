@@ -471,6 +471,24 @@ plugins:
             Evaluation: 評估
             Metrics: 指標
             Protocols: 評估協定
+            Benchmarks: 基準測試
+            Vision: 視覺
+            Language: 語言
+            Math and code: 數學與程式
+            Reasoning and agents: 推理與代理
+            Few-shot: 少樣本
+            ImageNet: ImageNet
+            COCO: COCO
+            GLUE: GLUE
+            SuperGLUE: SuperGLUE
+            MMLU: MMLU
+            GPQA: GPQA
+            Humanity's Last Exam: 人類的最後考試
+            GSM8K: GSM8K
+            MATH: MATH
+            SWE-bench: SWE-bench
+            ARC-AGI: ARC-AGI
+            miniImageNet: miniImageNet
             Classification: 分類
             Probabilistic: 機率
             Regression: 迴歸
@@ -1166,6 +1184,30 @@ nav:
                   - theory/evaluation/metrics/segmentation/index.md
                   - IoU: theory/evaluation/metrics/segmentation/iou.md
                   - Dice: theory/evaluation/metrics/segmentation/dice.md
+          - Benchmarks:
+              - theory/evaluation/benchmarks/index.md
+              - Vision:
+                  - theory/evaluation/benchmarks/vision/index.md
+                  - ImageNet: theory/evaluation/benchmarks/vision/imagenet.md
+                  - COCO: theory/evaluation/benchmarks/vision/coco.md
+              - Language:
+                  - theory/evaluation/benchmarks/language/index.md
+                  - GLUE: theory/evaluation/benchmarks/language/glue.md
+                  - SuperGLUE: theory/evaluation/benchmarks/language/superglue.md
+                  - MMLU: theory/evaluation/benchmarks/language/mmlu.md
+                  - GPQA: theory/evaluation/benchmarks/language/gpqa.md
+                  - Humanity's Last Exam: theory/evaluation/benchmarks/language/hle.md
+              - Math and code:
+                  - theory/evaluation/benchmarks/math-and-code/index.md
+                  - GSM8K: theory/evaluation/benchmarks/math-and-code/gsm8k.md
+                  - MATH: theory/evaluation/benchmarks/math-and-code/math.md
+                  - SWE-bench: theory/evaluation/benchmarks/math-and-code/swe-bench.md
+              - Reasoning and agents:
+                  - theory/evaluation/benchmarks/reasoning-agents/index.md
+                  - ARC-AGI: theory/evaluation/benchmarks/reasoning-agents/arc-agi.md
+              - Few-shot:
+                  - theory/evaluation/benchmarks/few-shot/index.md
+                  - miniImageNet: theory/evaluation/benchmarks/few-shot/mini-imagenet.md
           - Protocols: theory/evaluation/protocols/index.md
       - Models:
           - theory/models/index.md
