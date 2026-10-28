@@ -1,23 +1,27 @@
 """MkDocs hook: draw the knowledge map from the wiki's own pages.
 
-The map is generated at build time, so it always matches the current content:
-- a node is a topic page, grouped under its section (section overviews are not nodes);
-- a line joins two topics that link to each other, either through `related:` front
-  matter (see hooks/related.py) or through a link in the text;
-- a node's colour is its status, as decided by scripts/wiki_status.py.
+The map is built at site build time, so it always matches the current content. It opens on the
+sections and drills down on click, so no screen has to show every topic at once:
+- level 1: one circle per section, lines weighted by the links between sections;
+- level 2: the groups inside a section (the folder two levels down, e.g. theory/paradigms);
+- level 3: the topics of one group, pulled into clusters by their subfolder.
+
+A node's colour is its section, and a hollow circle marks a draft page. A line joins two topics that
+link to each other, either through `related:` front matter (see hooks/related.py) or through a link in
+the text. The layout is a small deterministic force-directed pass, so the same content always gives the
+same picture. The page carries the layout as JSON; docs/javascripts/knowledge-map.js adds zoom, pan,
+full screen, drill-down and search. Readers without JavaScript get the same links as a nested list.
 
 A page marks where a map belongs with one of these lines, on its own:
 
-    <!-- knowledge-map:overview -->   one node per section, lines weighted by link count
-    <!-- knowledge-map:full -->       every topic, then one map per section
-
-Layout is a small deterministic force-directed pass, so the same content always
-produces the same picture.
+    <!-- knowledge-map:overview -->   the explorer, as used on the home page
+    <!-- knowledge-map:full -->       the explorer, as used on the knowledge map page
 """
 
 from __future__ import annotations
 
 import html
+import json
 import math
 import posixpath
 import random
@@ -40,38 +44,66 @@ EXCLUDED_SECTIONS = {"start", "reference", "knowledge-map"}  # onboarding, meta 
 ITERATIONS = 320
 SEED = 7
 
-STATUS_FILL = {"complete": "#43a047", "draft": "#f9a825", "stub": "#9e9e9e"}
-STATUS_NAME = {
-    "en": {"complete": "complete", "draft": "draft", "stub": "stub"},
-    "zh-TW": {"complete": "完成", "draft": "草稿", "stub": "待撰寫"},
+SECTION_FILL = {  # in reading order; a section keeps its colour on every level of the map
+    "theory": "#5c6bc0",
+    "brain-mind": "#00897b",
+    "engineering": "#ef6c00",
+    "applications": "#8e24aa",
+    "society": "#6d4c41",
+}
+FALLBACK_FILL = "#607d8b"
+LABEL_WIDTH = {"en": 22, "zh-TW": 11}  # characters per label line; CJK text has no spaces to wrap at
+ICONS = {
+    "plus": '<path d="M12 5v14M5 12h14"/>',
+    "minus": '<path d="M5 12h14"/>',
+    "fit": '<circle cx="12" cy="12" r="6"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>',
+    "full": ('<path class="km-enter" d="M9 4H4v5M15 4h5v5M20 15v5h-5M9 20H4v-5"/>'
+             '<path class="km-exit" d="M4 9h5V4M15 4v5h5M15 20v-5h5M4 15h5v5"/>'),  # one button, two states
 }
 TEXT = {
     "en": {
-        "legend": "Lines join pages that link to each other, through a related topic or a link in the text.",
-        "colour": "Colour shows page status.",
-        "sections": "By section",
-        "links": "links",
+        "legend": "Click a circle to open it. Drag to pan, scroll or pinch to zoom. Lines join pages that link to each other.",
+        "colour": "Colour shows the section.",
+        "complete": "complete",
+        "draft": "draft",
+        "all": "All sections",
         "topics": "topics",
-        "section_map": "{title} ({count} topics)",
+        "links": "links",
+        "open": "Open page",
+        "clear": "Clear selection",
+        "search": "Search topics",
+        "no_match": "No matching topics",
+        "zoom_in": "Zoom in",
+        "zoom_out": "Zoom out",
+        "fit": "Fit to screen",
+        "full": "Full screen",
+        "exit": "Exit full screen",
+        "list": "Browse every topic as a list",
+        "crumbs": "Map location",
         "aria": "Knowledge map",
     },
     "zh-TW": {
-        "legend": "連線表示兩個頁面彼此連結，來自相關主題或內文中的連結。",
-        "colour": "顏色表示頁面狀態。",
-        "sections": "依領域分開檢視",
-        "links": "條連結",
+        "legend": "點選圓圈即可開啟。拖曳可平移，滾輪或雙指捏合可縮放。連線表示兩個頁面彼此連結。",
+        "colour": "顏色表示領域。",
+        "complete": "完成",
+        "draft": "草稿",
+        "all": "所有領域",
         "topics": "個主題",
-        "section_map": "{title}（{count} 個主題）",
+        "links": "條連結",
+        "open": "開啟頁面",
+        "clear": "取消選取",
+        "search": "搜尋主題",
+        "no_match": "沒有符合的主題",
+        "zoom_in": "放大",
+        "zoom_out": "縮小",
+        "fit": "符合畫面",
+        "full": "全螢幕",
+        "exit": "結束全螢幕",
+        "list": "以清單瀏覽所有主題",
+        "crumbs": "地圖位置",
         "aria": "知識地圖",
     },
 }
-SECTION_FILL = "#5c6bc0"
-SVG_STYLE = (
-    ".km-line{stroke:var(--md-default-fg-color--lighter);fill:none}"
-    ".km-node{stroke:var(--md-default-bg-color);stroke-width:2}"
-    ".km-label{fill:var(--md-default-fg-color);font:12px/1.3 var(--md-text-font-family,sans-serif);text-anchor:middle}"
-    ".km-section{fill:var(--md-default-fg-color--light);font:600 20px/1.2 var(--md-text-font-family,sans-serif);text-anchor:middle}"
-)
 
 
 @dataclass
@@ -82,6 +114,7 @@ class Graph:
 
 
 _graph: Graph | None = None
+_explorers: dict[str, Explorer] = {}
 
 
 def resolve_related(target: str) -> str:
@@ -116,7 +149,7 @@ def build_graph(docs: Path) -> Graph:
         if len(parts) == 2 and parts[1] == "index.md":
             graph.sections[parts[0]] = rel
         elif len(parts) > 2:
-            graph.topics[rel] = {"section": parts[0], "status": wiki_status.load_page(path).status}
+            graph.topics[rel] = {"status": wiki_status.load_page(path).status}
 
     for rel in graph.topics:
         meta, body = wiki_status.read(docs / rel)
@@ -124,6 +157,21 @@ def build_graph(docs: Path) -> Graph:
             if target in graph.topics:
                 graph.pairs.add(tuple(sorted((rel, target))))
     return graph
+
+
+def section_of(rel: str) -> str:
+    return rel.split("/")[0]
+
+
+def group_of(rel: str) -> str:
+    """The folder two levels down, which holds one group of topics (theory/paradigms)."""
+    return "/".join(rel.split("/")[:2])
+
+
+def sub_of(rel: str) -> str:
+    """The folder under a group that holds a topic, or "" when the topic sits directly in the group."""
+    parts = rel.split("/")
+    return "/".join(parts[:3]) if len(parts) > 3 else ""
 
 
 def title_in(docs: Path, rel: str, lang: str) -> str:
@@ -182,126 +230,207 @@ def circle(n: int, cx: float, cy: float, radius: float) -> list[tuple[float, flo
              cy + radius * math.sin(2 * math.pi * i / n - math.pi / 2)) for i in range(n)]
 
 
-def node(x: float, y: float, r: float, fill: str, title: str, lines: list[str], href: str | None) -> str:
-    labels = "".join(
-        f'<text class="km-label" x="{x:.1f}" y="{y + r + 15 + i * 15:.1f}">{html.escape(line)}</text>'
-        for i, line in enumerate(lines)
-    )
-    body = (f'<title>{html.escape(title)}</title>'
-            f'<circle class="km-node" cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="{fill}"/>{labels}')
-    if href:
-        body = f'<a href="{html.escape(href)}">{body}</a>'
-    return f"<g>{body}</g>"
+def canvas(count: int) -> float:
+    """Side of a view's square canvas. It grows with the node count, so the spacing stays even."""
+    return max(560.0, 260 + 46 * math.sqrt(count))
 
 
-def svg(width: int, height: int, body: str, label: str, style: str = "") -> str:
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" '
-            f'aria-label="{html.escape(label)}" style="{style}"><style>{SVG_STYLE}</style>{body}</svg>')
+def label_lines(title: str, width: int) -> list[str]:
+    lines = textwrap.wrap(title, width, break_long_words=True) or [title]
+    if len(lines) > 3:
+        lines = lines[:3]
+        lines[2] = lines[2][: width - 1] + "…"
+    return lines
 
 
-class Renderer:
-    """Turns the graph into HTML for one page, with links relative to that page."""
+class Explorer:
+    """Lays out every view of the map for one language. The layout does not depend on the page, so it is
+    worked out once per build; each page then adds its own links."""
 
-    def __init__(self, graph: Graph, docs: Path, lang: str, page_url: str, files):
-        self.graph, self.docs, self.lang, self.files = graph, docs, lang, files
-        self.here = page_url or "."
+    def __init__(self, graph: Graph, docs: Path, lang: str):
+        self.graph, self.docs, self.lang = graph, docs, lang
         self.text = TEXT[lang]
+        self.width = LABEL_WIDTH[lang]
+        self.sections = [s for s in SECTION_FILL if s in graph.sections]
+        self.sections += sorted(s for s in graph.sections if s not in SECTION_FILL)
+        self.members: dict[str, list[str]] = {}  # group -> its topics
+        for rel in sorted(graph.topics):
+            self.members.setdefault(group_of(rel), []).append(rel)
+        self.groups = {s: [g for g in self.members if section_of(g) == s] for s in self.sections}
+        self.views: dict[str, dict] = {"": self.root_view()}
+        for s in self.sections:
+            self.views[s] = self.section_view(s)
+            for g in self.groups[s]:
+                self.views[g] = self.group_view(g)
+        self.search = [
+            {"t": node["title"], "v": key, "i": i, "s": node["section"]}
+            for key, view in self.views.items()
+            for i, node in enumerate(view["nodes"])
+        ]
 
-    def href(self, rel: str) -> str | None:
-        file = self.files.get_file_from_path(rel)
+    def title(self, rel: str) -> str:
+        return title_in(self.docs, rel, self.lang)
+
+    def folder(self, folder: str) -> str:
+        """Title of a group or subfolder: its index page's title, or else its folder name."""
+        index = f"{folder}/index.md"
+        if index in self.graph.topics:
+            return self.title(index)
+        return folder.split("/")[-1].replace("-", " ").capitalize()
+
+    def page_of(self, folder: str) -> str | None:
+        index = f"{folder}/index.md"
+        return index if index in self.graph.topics else None
+
+    def pair_weights(self, key, scope=None) -> Counter:
+        """Links between two different keys (sections, groups or topics), counted once per topic pair."""
+        weights: Counter = Counter()
+        for a, b in sorted(self.graph.pairs):
+            ka, kb = key(a), key(b)
+            if ka != kb and (scope is None or (ka in scope and kb in scope)):
+                weights[tuple(sorted((ka, kb)))] += 1
+        return weights
+
+    def node(self, kind, key, title, xy, r, section, page, **extra) -> dict:
+        return {"kind": kind, "key": key, "title": title, "lines": label_lines(title, self.width),
+                "x": xy[0], "y": xy[1], "r": r, "fill": SECTION_FILL.get(section, FALLBACK_FILL),
+                "section": section, "page": page, **extra}
+
+    def root_view(self) -> dict:
+        counts = Counter(section_of(rel) for rel in self.graph.topics)
+        weights = self.pair_weights(section_of)
+        side = canvas(len(self.sections))
+        anchors = dict(zip(self.sections, circle(len(self.sections), side / 2, side / 2, side * 0.34)))
+        pos = layout(self.sections, {p: min(w, 4) / 4 for p, w in weights.items()}, anchors, side, side, 0.05)
+        nodes = [self.node("section", s, self.title(self.graph.sections[s]), pos[s],
+                           20 + 3 * math.sqrt(counts[s]), s, self.graph.sections[s], count=counts[s], view=s)
+                 for s in self.sections]
+        index = {s: i for i, s in enumerate(self.sections)}
+        return {"title": self.text["all"], "parent": None, "page": None, "w": side, "h": side,
+                "nodes": nodes, "edges": self.edges(weights, index), "clusters": []}
+
+    def section_view(self, section: str) -> dict:
+        groups = self.groups[section]
+        side = canvas(len(groups))
+        anchors = dict(zip(groups, circle(len(groups), side / 2, side / 2, side * 0.36)))
+        weights = self.pair_weights(group_of, scope=set(groups))
+        pos = layout(groups, {p: min(w, 3) / 3 for p, w in weights.items()}, anchors, side, side, 0.04, spread=1.1)
+        nodes = [self.node("group", g, self.folder(g), pos[g], 10 + 2.4 * math.sqrt(len(self.members[g])),
+                           section, self.page_of(g), count=len(self.members[g]), view=g)
+                 for g in groups]
+        index = {g: i for i, g in enumerate(groups)}
+        return {"title": self.title(self.graph.sections[section]), "parent": "",
+                "page": self.graph.sections[section], "w": side, "h": side,
+                "nodes": nodes, "edges": self.edges(weights, index), "clusters": []}
+
+    def group_view(self, group: str) -> dict:
+        topics = self.members[group]
+        section = section_of(group)
+        side = canvas(len(topics))
+        centre = side / 2
+        subs = sorted({sub_of(rel) for rel in topics} - {""})
+        ring = circle(len(subs), centre, centre, side * 0.2) if len(subs) > 1 else [(centre, centre)] * len(subs)
+        sub_at = dict(zip(subs, ring))
+        anchors = {rel: sub_at.get(sub_of(rel), (centre, centre)) for rel in topics}
+        weights = self.pair_weights(lambda rel: rel, scope=set(topics))
+        pos = layout(topics, {p: 1.0 for p in weights}, anchors, side, side, 0.16, spread=0.75)
+        nodes = [self.node("topic", rel, self.title(rel), pos[rel], 7.5, section, rel,
+                           status=self.graph.topics[rel]["status"])
+                 for rel in topics]
+        clusters = []
+        for sub in subs:
+            xs = [pos[rel] for rel in topics if sub_of(rel) == sub]
+            cx = sum(p[0] for p in xs) / len(xs)
+            cy = sum(p[1] for p in xs) / len(xs)
+            clusters.append({"x": cx, "y": cy, "text": self.folder(sub)})
+        index = {rel: i for i, rel in enumerate(topics)}
+        return {"title": self.folder(group), "parent": section, "page": self.page_of(group),
+                "w": side, "h": side, "nodes": nodes, "edges": self.edges(weights, index), "clusters": clusters}
+
+    @staticmethod
+    def edges(weights: Counter, index: dict) -> list[list]:
+        return [{"a": index[a], "b": index[b], "w": w} for (a, b), w in sorted(weights.items())]
+
+    def href(self, rel: str, here: str, files) -> str | None:
+        file = files.get_file_from_path(rel)
         if file is None:
             return None
-        return posixpath.relpath(file.url or ".", self.here) + "/"
+        return posixpath.relpath(file.url or ".", here) + "/"
 
-    def legend(self) -> str:
-        swatches = " ".join(
-            f'<span style="color:{STATUS_FILL[s]}">●</span> {STATUS_NAME[self.lang][s]}' for s in STATUS_FILL
+    def public_view(self, view: dict, here: str, files) -> dict:
+        """The view as the page's script reads it: positions rounded, page paths made relative to the page."""
+        nodes = [{
+            "kind": n["kind"], "title": n["title"], "lines": n["lines"], "section": n["section"],
+            "x": round(n["x"], 1), "y": round(n["y"], 1), "r": round(n["r"], 1), "fill": n["fill"],
+            "status": n.get("status"), "view": n.get("view"),
+            "href": self.href(n["page"], here, files) if n["page"] else None,
+        } for n in view["nodes"]]
+        clusters = [{"x": round(c["x"], 1), "y": round(c["y"], 1), "text": c["text"]} for c in view["clusters"]]
+        return {"title": view["title"], "parent": view["parent"], "w": view["w"], "h": view["h"],
+                "href": self.href(view["page"], here, files) if view["page"] else None,
+                "nodes": nodes, "edges": view["edges"], "clusters": clusters}
+
+    def markup(self, here: str, files) -> str:
+        """The whole explorer for one page, on a single line so Markdown leaves it alone."""
+        t = self.text
+        data = {
+            "text": t,
+            "titles": {s: self.title(self.graph.sections[s]) for s in self.sections},
+            "views": {key: self.public_view(view, here, files) for key, view in self.views.items()},
+            "search": self.search,
+        }
+        payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+        chips = "".join(
+            f'<span class="km-chip" style="--km-c:{SECTION_FILL.get(s, FALLBACK_FILL)}">'
+            f'{html.escape(self.title(self.graph.sections[s]))}</span>'
+            for s in self.sections
         )
-        return f'<p>{self.text["legend"]} {self.text["colour"]} {swatches}</p>'
+        legend = (f'<div class="km-legend"><p>{t["legend"]} {t["colour"]}</p>{chips}'
+                  f'<span class="km-chip km-solid">{t["complete"]}</span>'
+                  f'<span class="km-chip km-hollow">{t["draft"]}</span></div>')
+        buttons = [("km-zoom-out", "minus", t["zoom_out"]), ("km-zoom-in", "plus", t["zoom_in"]),
+                   ("km-fit", "fit", t["fit"]), ("km-full", "full", t["full"])]
+        toolbar = (f'<div class="km-toolbar"><nav class="km-crumbs km-js" aria-label="{t["crumbs"]}"></nav>'
+                   f'<div class="km-tools">'
+                   f'<div class="km-search km-js"><input type="search" class="km-search-input" '
+                   f'placeholder="{t["search"]}" aria-label="{t["search"]}" autocomplete="off">'
+                   f'<ul class="km-results" hidden></ul></div>'
+                   + "".join(
+                       f'<button type="button" class="km-icon km-js {cls}" aria-label="{label}" title="{label}">'
+                       f'<svg viewBox="0 0 24 24" aria-hidden="true">{ICONS[name]}</svg></button>'
+                       for cls, name, label in buttons)
+                   + '</div></div>')
+        stage = '<div class="km-stage km-js"></div>'
+        info = '<div class="km-info km-js" hidden></div>'
+        return (f'<div class="km-explorer" role="region" aria-label="{t["aria"]}">'
+                f'{toolbar}{stage}{info}{legend}'
+                f'<script type="application/json" class="km-data">{payload}</script>'
+                f'{self.listing(here, files)}</div>')
 
-    def overview(self) -> str:
-        width, height = 900, 540
-        counts = Counter(t["section"] for t in self.graph.topics.values())
-        sections = sorted(self.graph.sections)
-        anchors = dict(zip(sections, circle(len(sections), width / 2, height / 2 - 10, 190)))
-        weights: Counter = Counter()
-        for a, b in self.graph.pairs:
-            sa, sb = self.graph.topics[a]["section"], self.graph.topics[b]["section"]
-            if sa != sb:
-                weights[tuple(sorted((sa, sb)))] += 1
-        pos = layout(sections, {k: min(w, 4) / 4 for k, w in weights.items()}, anchors, width, height, 0.05)
+    def listing(self, here: str, files) -> str:
+        """Every topic as nested links, for readers without JavaScript and for search engines."""
+        def link(rel: str | None, text: str) -> str:
+            href = self.href(rel, here, files) if rel else None
+            text = html.escape(text)
+            return f'<a href="{html.escape(href)}">{text}</a>' if href else text
 
-        lines = []
-        for (sa, sb), w in weights.items():
-            (x1, y1), (x2, y2) = pos[sa], pos[sb]
-            tip = f"{self.title(sa)} ↔ {self.title(sb)}: {w} {self.text['links']}"
-            lines.append(f'<line class="km-line" x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" '
-                         f'stroke-width="{1 + 1.2 * w:.1f}"><title>{html.escape(tip)}</title></line>')
-        nodes = []
-        for s in sections:
-            r = 16 + 4 * math.sqrt(counts[s])
-            tip = f"{self.title(s)} ({counts[s]} {self.text['topics']})"
-            nodes.append(node(*pos[s], r, SECTION_FILL, tip, textwrap.wrap(self.title(s), 18)[:3],
-                              self.href(self.graph.sections[s])))
-        return svg(width, height, "".join(lines) + "".join(nodes), self.text["aria"], "width:100%;height:auto")
-
-    def full(self) -> str:
-        sections = sorted(self.graph.sections)
-        width, height = 1600, 1100
-        anchors_by_section = dict(zip(sections, circle(len(sections), width / 2, height / 2, 390)))
-        keys = list(self.graph.topics)
-        anchors = {k: anchors_by_section[self.graph.topics[k]["section"]] for k in keys}
-        pos = layout(keys, self.weights(keys), anchors, width, height, 0.04, spread=1.4)
-        body = self.lines(keys, pos)
-        for s in sections:
-            x, y = anchors_by_section[s]
-            body += f'<text class="km-section" x="{x:.1f}" y="{y:.1f}">{html.escape(self.title(s))}</text>'
-        body += "".join(self.topic_node(k, pos[k]) for k in keys)
-        out = [f'<div style="overflow-x:auto">{svg(width, height, body, self.text["aria"], "width:100%;min-width:1000px;height:auto")}</div>',
-               self.legend()]
-        out.extend(self.section_map(s) for s in sections)
-        return "".join(out)
-
-    def section_map(self, section: str) -> str:
-        width, height = 1000, 640
-        keys = [k for k, t in self.graph.topics.items() if t["section"] == section]
-        center = {k: (width / 2, height / 2) for k in keys}
-        pos = layout(keys, self.weights(keys), center, width, height, 0.02)
-        body = self.lines(keys, pos) + "".join(self.topic_node(k, pos[k]) for k in keys)
-        summary = self.text["section_map"].format(title=html.escape(self.title(section)), count=len(keys))
-        map_svg = svg(width, height, body, self.title(section), "width:100%;min-width:760px;height:auto")
-        return (f'<details><summary>{summary}</summary>'
-                f'<div style="overflow-x:auto">{map_svg}</div></details>')
-
-    def weights(self, keys: list[str]) -> dict[tuple[str, str], float]:
-        chosen = set(keys)
-        return {p: 1.0 for p in self.graph.pairs if p[0] in chosen and p[1] in chosen}
-
-    def lines(self, keys: list[str], pos: dict) -> str:
-        chosen = set(keys)
-        out = []
-        for a, b in sorted(self.graph.pairs):
-            if a in chosen and b in chosen:
-                (x1, y1), (x2, y2) = pos[a], pos[b]
-                out.append(f'<line class="km-line" x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke-width="1"/>')
-        return "".join(out)
-
-    def topic_node(self, key: str, xy) -> str:
-        info = self.graph.topics[key]
-        x, y = xy
-        title = self.title(key)
-        status = STATUS_NAME[self.lang][info["status"]]
-        lines = textwrap.wrap(title, 22)[:3]
-        return node(x, y, 9, STATUS_FILL[info["status"]], f"{title} ({status})", lines, self.href(key))
-
-    def title(self, key: str) -> str:
-        """Title of a topic page, or of a section given by its name."""
-        return title_in(self.docs, self.graph.sections.get(key, key), self.lang)
+        items = []
+        for s in self.sections:
+            groups = []
+            for g in self.groups[s]:
+                topics = [f"<li>{link(rel, self.title(rel))}</li>"
+                          for rel in self.members[g] if rel != self.page_of(g)]
+                groups.append(f"<li>{link(self.page_of(g), self.folder(g))}<ul>{''.join(topics)}</ul></li>")
+            items.append(f"<li>{link(self.graph.sections[s], self.title(self.graph.sections[s]))}"
+                         f"<ul>{''.join(groups)}</ul></li>")
+        return (f'<details class="km-list" open><summary>{self.text["list"]}</summary>'
+                f'<ul>{"".join(items)}</ul></details>')
 
 
 def on_config(config, **kwargs):
     global _graph
     _graph = None
+    _explorers.clear()
     return config
 
 
@@ -313,11 +442,7 @@ def on_page_markdown(markdown, page, config, files, **kwargs):
     if _graph is None:
         _graph = build_graph(docs)
     lang = "zh-TW" if config["theme"].get("language", "en").lower().startswith("zh") else "en"
-    renderer = Renderer(_graph, docs, lang, page.url, files)
-
-    def replace(match):
-        if match.group(1) == "overview":
-            return renderer.overview()
-        return renderer.full()
-
-    return MARKER.sub(lambda m: f"\n{replace(m)}\n", markdown)
+    if lang not in _explorers:
+        _explorers[lang] = Explorer(_graph, docs, lang)
+    explorer = _explorers[lang]
+    return MARKER.sub(lambda m: f"\n{explorer.markup(page.url or '.', files)}\n", markdown)
