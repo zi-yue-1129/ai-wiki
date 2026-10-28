@@ -1,6 +1,9 @@
 *[ML]: Machine Learning
 *[DL]: Deep Learning
 *[RL]: Reinforcement Learning
+*[NAS]: Neural Architecture Search
+*[AutoML]: Automated Machine Learning
+*[MARL]: Multi-Agent Reinforcement Learning
 *[LLM]: Large Language Model
 *[NLP]: Natural Language Processing
 *[CNN]: Convolutional Neural Network
@@ -74,3 +77,17 @@
 *[OWL]: Web Ontology Language
 *[FGSM]: Fast Gradient Sign Method
 *[PGD]: Projected Gradient Descent
+*[OOD]: Out-of-Distribution
+*[HMM]: Hidden Markov Model
+*[CRF]: Conditional Random Field
+*[MRF]: Markov Random Field
+*[PGM]: Probabilistic Graphical Model
+*[NeRF]: Neural Radiance Field
+*[NWP]: Numerical Weather Prediction
+*[SAT]: Boolean satisfiability problem
+*[SMT]: Satisfiability Modulo Theories
+*[CDCL]: Conflict-Driven Clause Learning
+*[ILP]: Inductive Logic Programming
+*[PFC]: Prefrontal Cortex
+*[GRU]: Gated Recurrent Unit
+*[PBWM]: Prefrontal cortex and Basal ganglia Working Memory

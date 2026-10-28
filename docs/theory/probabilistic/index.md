@@ -32,6 +32,8 @@ Graphs encode conditional dependencies so high-dimensional joint distributions b
 | Kalman filter | Linear-Gaussian state space | Tracking, navigation |
 | Topic model (LDA) | Hierarchical | Document topics |
 
+For the inference algorithms and the historical sequence models in more depth, see [Probabilistic Graphical Models](graphical-models/index.md).
+
 ## Inference
 
 - **Exact**: variable elimination, belief propagation (on trees)
