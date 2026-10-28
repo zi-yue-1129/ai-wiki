@@ -351,6 +351,8 @@ plugins:
             Language Models Predict Brain Responses (Schrimpf et al. 2021): 語言模型預測大腦對句子的反應（Schrimpf 等人，2021）
             Shared Computational Principles (Goldstein et al. 2022): 人類與深度語言模型的共享計算原則（Goldstein 等人，2022）
             Predictive Coding & Free Energy: 預測編碼與自由能
+            Predictive Coding in Visual Cortex (Rao & Ballard 1999): 視覺皮質的預測編碼（Rao 與 Ballard，1999）
+            Predictive Coding Approximates Backpropagation (Whittington & Bogacz 2017): 預測編碼近似反向傳播（Whittington 與 Bogacz，2017）
             Decision Making, Dopamine & Reward: 決策、多巴胺與獎勵
             Diffusion Decision Model: 擴散決策模型
             Model-Based vs Model-Free: 有模型與無模型控制
@@ -704,7 +706,10 @@ nav:
           - Dual-Stream Model (Hickok & Poeppel 2007): brain-mind/language-in-brain/hickok-poeppel-2007/index.md
           - Language Models Predict Brain Responses (Schrimpf et al. 2021): brain-mind/language-in-brain/schrimpf-2021/index.md
           - Shared Computational Principles (Goldstein et al. 2022): brain-mind/language-in-brain/goldstein-2022/index.md
-      - Predictive Coding & Free Energy: brain-mind/predictive-coding/index.md
+      - Predictive Coding & Free Energy:
+          - brain-mind/predictive-coding/index.md
+          - Predictive Coding in Visual Cortex (Rao & Ballard 1999): brain-mind/predictive-coding/rao-ballard-1999/index.md
+          - Predictive Coding Approximates Backpropagation (Whittington & Bogacz 2017): brain-mind/predictive-coding/whittington-bogacz-2017/index.md
       - Decision Making, Dopamine & Reward:
           - brain-mind/decision-reward/index.md
           - Diffusion Decision Model: brain-mind/decision-reward/diffusion-model/index.md

@@ -56,28 +56,12 @@ The same logic appears in reinforcement learning. Dopamine neurons respond to re
 
 ## Key methods
 
-### Predictive coding in visual cortex (Rao & Ballard, 1999)
+Each method has its own page. This table is only a comparison.
 
-- **Problem:** Why do neurons in visual cortex show extra-classical receptive-field effects, such as responses that depend on the wider surround of a stimulus, and what is the computational role of the feedback connections that carry them?
-- **Core idea:** Propose that feedback from a higher area carries predictions of lower-level activity, and feedforward connections carry the residual errors. A hierarchical network trained on natural images then learns its own feature detectors, and the error-carrying neurons show the surround effects.
-- **Equation or algorithm:**
-  1. Build a hierarchical network where each level holds an estimate of the input and sends a prediction to the level below.
-  2. Compute the residual error at each level, the difference between the level's input and its prediction.
-  3. Send the errors upward, and update each level's estimate so that its prediction reduces the error.
-  4. Train the connection weights on natural image patches, so that the network learns a set of features.
-- **Results:** The abstract reports that the trained network developed simple-cell-like receptive fields, and that a subset of the error-carrying neurons showed endstopping and other extra-classical receptive-field effects. The results are qualitative; the abstract gives no numerical measure of fit to the neural data.
-- **Limitations:** The model is a proof of principle, not a fit to recorded neurons. The paper suggests that surround effects may come from cortico-cortical feedback, and testing that required later experiments.
-
-### Predictive coding can approximate backpropagation (Whittington & Bogacz, 2017)
-
-- **Problem:** Backpropagation is an effective learning algorithm, but its weight updates depend on information from distant neurons, which a real synapse cannot access.
-- **Core idea:** Show that a predictive coding network, which has explicit prediction-error nodes, can learn supervised tasks using only local Hebbian plasticity, meaning each synaptic change depends only on the two neurons it connects.
-- **Equation or algorithm:**
-  1. Clamp the input and output layers, and let the hidden activity settle so that the prediction errors are minimised.
-  2. Update each synapse using only the activity of its two connected neurons and the local prediction error.
-  3. Repeat over training examples; for suitable parameter settings the weight changes match those of backpropagation.
-- **Results:** The authors show that with suitable parameters the weight updates converge to those of backpropagation, and that the network performs much like a standard network on MNIST digit recognition under those conditions.
-- **Limitations:** The match depends on parameter choices, and the authors argue that the brain probably does not implement backpropagation exactly, because real data has noise at several levels. The result is a mechanism that approximates the algorithm, not evidence that the cortex implements it.
+| Method | Question it answers | Page |
+|---|---|---|
+| Predictive coding in visual cortex (Rao & Ballard, 1999) | Can feedback carrying predictions and feedforward error signals explain extra-classical receptive-field effects? | [Rao & Ballard 1999](rao-ballard-1999/index.md) |
+| Backpropagation approximated by local learning (Whittington & Bogacz, 2017) | Can a predictive coding network with local Hebbian plasticity reach the weight updates of backpropagation? | [Whittington & Bogacz 2017](whittington-bogacz-2017/index.md) |
 
 ## Connections
 
