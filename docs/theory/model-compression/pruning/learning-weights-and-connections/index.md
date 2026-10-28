@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -25,7 +25,7 @@ Train the network to learn which connections matter, prune the weak ones, and re
 
 ## Equation or algorithm
 
-Weights whose magnitude is below a threshold are set to zero and held there with a mask. The network is then retrained on the remaining weights. The threshold is raised over several rounds, with retraining between them, until the target sparsity is reached.
+Weights whose magnitude is below a threshold are set to zero and held there with a mask. The network is then retrained on the remaining weights. The abstract describes three steps: learn which connections matter, prune the low-weight ones, and retrain the surviving connections.
 
 ## Results
 
@@ -51,7 +51,7 @@ The unstructured masks this method produces are a poor fit for dense hardware, w
 - Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — Shows that prune-and-retrain cuts AlexNet's parameters from 61 million to 6.7 million.
 - Han, S., Mao, H., Dally, W. J. (2016). *Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding*. ICLR. https://arxiv.org/abs/1510.00149 — Adds quantisation and coding to pruning, for a combined reduction of 35 to 49 times.
 - Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — Shows that the pruned subnetworks can be trained from their original initial weights.
-- Zhu, M., Gupta, S. (2017). *To prune, or not to prune: exploring the efficacy of pruning for model compression*. arXiv:1710.01878. https://arxiv.org/abs/1710.01878 — Compares pruned large networks with small dense networks at equal parameter counts.
+- Zhu, M., Gupta, S. (2017). *To prune, or not to prune: exploring the efficacy of pruning for model compression*. arXiv:1710.01878. https://arxiv.org/abs/1710.01878 — Compares large pruned networks with small dense networks at identical memory footprint.
 
 ### Surveys and textbooks
 

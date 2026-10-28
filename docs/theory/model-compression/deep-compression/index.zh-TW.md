@@ -46,7 +46,7 @@ Han 等人（2016）報告，此流程可把神經網路的儲存需求減少 35
 
 - Han, S., Mao, H., Dally, W. J. (2016). *Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding*. ICLR. https://arxiv.org/abs/1510.00149 — 結合剪枝、碼本量化與霍夫曼編碼，報告在不影響準確度下減少 35 至 49 倍的儲存空間。
 - Han, S., 等人 (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — 剪除連線並重新訓練保留的權重，在不損失準確度的情況下縮小 AlexNet 與 VGG-16。
-- Gong, Y., 等人 (2014). *Compressing Deep Convolutional Networks using Vector Quantization*. arXiv:1412.6115. https://arxiv.org/abs/1412.6115 — 顯示對密集層做向量量化，比矩陣分解更有效地壓縮大型 CNN。
+- Gong, Y., 等人 (2014). *Compressing Deep Convolutional Networks using Vector Quantization*. arXiv:1412.6115. https://arxiv.org/abs/1412.6115 — 報告向量量化相對矩陣分解有明顯優勢，可用來壓縮 CNN 中最佔儲存空間的密集層。
 
 ### 綜述與教科書
 
@@ -58,4 +58,4 @@ Han 等人（2016）報告，此流程可把神經網路的儲存需求減少 35
 
 ### 文章與文件
 
-- Gale, T., Elsen, E., Hooker, S. (2019). *The State of Sparsity in Deep Neural Networks*. arXiv:1902.09574. https://arxiv.org/abs/1902.09574 — 顯示在大型任務上，簡單的量值剪枝與較複雜的稀疏方法表現相當或更好。
+- Gale, T., Elsen, E., Hooker, S. (2019). *The State of Sparsity in Deep Neural Networks*. arXiv:1902.09574. https://arxiv.org/abs/1902.09574 — 報告簡單的量值剪枝可達到與較複雜稀疏方法相當或更好的結果，而後者的表現並不一致。

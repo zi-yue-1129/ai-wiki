@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/math
@@ -46,7 +46,7 @@ The trust ratio is defined in Equation 6 of the paper, and the momentum and weig
 ## Limitations
 
 - The method is designed for SGD-type updates with momentum. Its extension to adaptive optimisers is the subject of [LAMB](lamb.md).
-- The paper reports the trust ratio separately for biases and weights, and the two differ.
+- The paper notes that the weight-to-gradient norm ratio varies significantly between weights and biases, and it does not say how the trust ratio treats biases.
 - The benefit is reported for large batches. At small batches it may not improve on plain SGD.
 
 ## Connections

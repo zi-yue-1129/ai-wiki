@@ -16,8 +16,9 @@ Offline data come from some behaviour policy, and the learned policy may visit a
 ## Main approaches
 
 - **Batch-constrained Q-learning** (Fujimoto et al., 2019) restricts actions to those that resemble the data, which avoids bootstrapping from unseen actions.
-- **Conservative Q-learning** (Kumar et al., 2020) adds a penalty that lowers Q-values on out-of-distribution actions, so the learned values are pessimistic.
-- **Decision transformers** (Chen et al., 2021) treat offline RL as sequence modelling, predicting actions conditioned on desired returns, and avoid explicit value estimation.
+- **[Conservative Q-learning](cql/index.md)** (Kumar et al., 2020) adds a penalty that lowers Q-values on out-of-distribution actions, so the learned values are pessimistic.
+- **[Implicit Q-learning](iql/index.md)** (Kostrikov et al., 2021) fits values to an upper expectile over dataset actions and never queries unseen actions.
+- **[Decision transformers](decision-transformer/index.md)** (Chen et al., 2021) treat offline RL as sequence modelling, predicting actions conditioned on desired returns, and avoid explicit value estimation.
 - **Behaviour cloning** is the simplest baseline, and is often competitive when data are good, see [imitation learning](../../imitation/index.md).
 
 ## Evaluation

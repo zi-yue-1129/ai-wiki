@@ -34,6 +34,13 @@ Boosting builds trees sequentially, each one correcting the errors of the ensemb
 
 Stacking trains a meta-model on the predictions of diverse base models. Averaging several neural networks (deep ensembles) is also a strong baseline for uncertainty estimates.
 
+## Key methods
+
+Each named method has its own page with the problem, core idea, equations, results and limitations.
+
+- [Random forests](random-forests.md) (Breiman, 2001): bagged trees with random feature selection at each split.
+- [Gradient boosting](gradient-boosting.md) (Friedman, 2001): trees fitted in sequence to the negative gradient of the loss. The same page covers [XGBoost](gradient-boosting.md) (Chen & Guestrin, 2016), with brief notes on LightGBM and CatBoost.
+
 ## Connections
 
 Why do trees beat deep networks on many tabular tasks? Grinsztajn et al. (2022) point to irregular target functions and uninformative features, where trees are more robust. Tree ensembles are widely used in finance, healthcare risk scoring and recommender ranking; see [Applications](../../../../applications/index.md).

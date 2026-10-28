@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/math
@@ -42,13 +42,13 @@ The update is taken from the method description in the paper and was checked aga
 
 - The abstract reports training with very large batch sizes of 32,868 "without any degradation of performance".
 - It reports that BERT training time can be reduced "from 3 days to just 76 minutes", with the shorter time coming from raising the batch size to the memory limit of a TPUv3 Pod.
-- The abstract names BERT and ResNet-50 as tasks, and gives convergence analysis for LAMB and LARS in general nonconvex settings.
+- The abstract names BERT and ResNet-50 as training tasks, and it states a convergence analysis of LAMB and LARS.
 
 ## Limitations
 
 - The reported speed-up depends on a large hardware setup, and it is not a like-for-like comparison of algorithms on one machine.
 - The clipping function \(\phi\) adds bounds \(\gamma_l\) and \(\gamma_u\), which are further settings to choose.
-- The convergence analysis is stated for general nonconvex settings, so it does not promise a rate for a specific model.
+- The convergence analysis is a general result, and it does not replace an empirical check on the target model.
 
 ## Connections
 
@@ -70,7 +70,7 @@ The update is taken from the method description in the paper and was checked aga
 - You, Y., et al. (2019). *Large Batch Optimization for Deep Learning: Training BERT in 76 Minutes*. ICLR. https://arxiv.org/abs/1904.00962 — Introduces LAMB, an Adam-based layer-wise optimiser, for BERT pre-training with very large batches.
 - You, Y., Gitman, I. & Ginsburg, B. (2017). *Large Batch Training of Convolutional Networks*. arXiv. https://arxiv.org/abs/1708.03888 — The trust-ratio idea for SGD that LAMB extends to Adam.
 - Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — The per-coordinate update that LAMB rescales layer by layer.
-- Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — Decoupled weight decay, which the adaptive update uses alongside the trust ratio.
+- Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. arXiv:1711.05101 (ICLR 2019). https://arxiv.org/abs/1711.05101 — Decoupled weight decay, which the adaptive update uses alongside the trust ratio.
 
 ### Surveys and textbooks
 

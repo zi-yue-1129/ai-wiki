@@ -4,20 +4,21 @@ translation_reviewed: 2026-10-28
 
 # DDIM：去噪擴散隱式模型
 
-DDIM 是擴散模型的一種取樣器，它重用以 DDPM 目標訓練好的模型，但能以少得多的步數生成。它改變了反向過程，使其不再是馬可夫鏈，因此可以跳過某些步驟。家族層級的全貌見[擴散模型](index.md)頁，訓練目標見 [DDPM](ddpm.md)。
+DDIM（Song、Meng 與 Ermon，2021）是擴散模型的一種取樣器。它重用以 DDPM 目標訓練出的模型，但把反向過程改為非馬可夫，使得可以跳過某些步驟，因此只需少得多的步數就能生成。家族層級的概觀請見[擴散模型](index.md)頁面，訓練目標則在 [DDPM](ddpm.md) 中說明。
 
 ## 概述
 
-DDPM 透過模擬約一千步的馬可夫鏈來生成樣本。Song、Meng 與 Ermon（2021）觀察到，同一個訓練目標與一族非馬可夫前向過程都相容。這一族中的每個成員給出相同的雜訊預測器，但取樣規則不同。其中一個成員是確定性取樣器，且可以使用任意步數。
+DDPM 生成影像時，要模擬約一千個去噪步驟構成的馬可夫鏈。Song、Meng 與 Ermon 發現，DDPM 的目標只依賴邊際分布 \(q(x_t \mid x_0)\)，而不依賴整條鏈的聯合分布。許多不同的前向過程共享同樣的邊際分布，每一種都會給出不同的取樣器。其中一種選擇給出確定性的取樣器，它可以使用任意數量的步數。
 
-## 核心概念
+## 問題
 
-- **非馬可夫前向過程**：每個帶噪樣本 \(x_t\) 依賴於乾淨影像 \(x_0\)，而不只是 \(x_{t-1}\)。訓練損失不變。
-- **確定性取樣**：每一步不加入新的雜訊，因此相同的起始雜訊總會產生相同的影像。
-- **步數子序列**：取樣可以使用訓練時間步中遞增的子集 \(\tau_1 < \dots < \tau_S\)，因此步數 \(S\) 是可自由選擇的參數。
-- **隨機性 \(\sigma\)**：每一步可調的參數。取 DDPM 的值即還原祖先取樣，\(\sigma = 0\) 則得到 DDIM。
+從 DDPM 取樣時，每個訓練步驟都要做一次網路評估，因此一個樣本通常需要約 1000 次評估。反向過程是馬可夫鏈，若不改變模型的假設，就無法跳過步驟。問題在於：以 DDPM 目標訓練出的模型，能否在不重新訓練的情況下，用少得多的步數取樣？
 
-## 運作方式
+## 核心想法
+
+論文定義了一族推論過程 \(q_\sigma(x_{1:T} \mid x_0)\)，由隨機性參數 \(\sigma\) 索引。每個成員都與 DDPM 具有相同的邊際分布，因此同一個已訓練的網路對每個 \(\sigma\) 都有效。接著，生成過程只在訓練步驟中長度為 \(S\) 的遞增子序列上進行，\(S\) 可以遠小於 \(T\)。令 \(\sigma = 0\) 得到確定性取樣器，同一個起始雜訊總會產生同一張影像。選擇 DDPM 的 \(\sigma\) 值則會還原祖先取樣，因此 DDPM 是 DDIM 的特例。
+
+## 演算法
 
 給定網路的雜訊預測 \(\epsilon_\theta(x_t, t)\)，預測的乾淨影像為
 
@@ -25,49 +26,57 @@ DDPM 透過模擬約一千步的馬可夫鏈來生成樣本。Song、Meng 與 Er
 \hat x_0 = \frac{x_t - \sqrt{1-\bar\alpha_t}\,\epsilon_\theta(x_t,t)}{\sqrt{\bar\alpha_t}}
 \]
 
-下一個雜訊較少的樣本為
+下一個雜訊較少的樣本則為
 
 \[
-x_{t_{\text{prev}}} = \sqrt{\bar\alpha_{t_{\text{prev}}}}\,\hat x_0 + \sqrt{1-\bar\alpha_{t_{\text{prev}}}-\sigma^2}\,\epsilon_\theta(x_t,t) + \sigma\,z
+x_{t_{\text{prev}}} = \sqrt{\bar\alpha_{t_{\text{prev}}}}\,\hat x_0 + \sqrt{1-\bar\alpha_{t_{\text{prev}}}-\sigma^2}\,\epsilon_\theta(x_t,t) + \sigma\,z, \qquad z \sim \mathcal N(0, I)
 \]
 
-其中 \(z\sim\mathcal N(0,I)\) 是新的雜訊，\(\sigma\) 控制隨機性。令 \(\sigma = 0\) 即得確定性取樣器。當 \(\sigma\) 取 DDPM 的值時，更新式會還原為祖先取樣，因此 DDIM 包含 DDPM 作為特例。任何 \(\sigma\) 的選擇都重用同一個訓練好的模型。
+其中 \(t_{\text{prev}}\) 是子序列中的前一步。論文的記號中，\(\alpha_t\) 表示累積乘積，因此這裡的 \(\alpha_t\) 就是上面的 \(\bar\alpha_t\)。當 \(\sigma = 0\) 時，更新是確定性的。論文指出，這個更新類似常微分方程的歐拉積分一步，這也是它與神經 ODE 相關的基礎。
 
-## 關鍵方法
+## 結果
 
-### Denoising Diffusion Implicit Models（Song、Meng 與 Ermon，2021）
+論文的表 1 報告無條件 CIFAR-10 上，FID 隨步數 \(S\) 的變化。這裡的 \(\eta\) 是論文對 \(\sigma\) 的命名：\(\eta = 0\) 為 DDIM，\(\eta = 1\) 為 DDPM。
 
-- **問題：** DDPM 取樣需要很多次網路評估，而其馬可夫反向鏈無法跳步。
-- **核心想法：** 保留 DDPM 的訓練目標，但使用非馬可夫前向過程，使反向更新可以套用在較短的步數子序列上。
-- **公式或演算法：** 上述更新式，確定性取樣時 \(\sigma = 0\)。論文的式 12 即是以 \(\alpha_t\) 表示累積乘積的同一更新式。
-- **結果：** 摘要報告 DDIM 產生高品質樣本的速度，以實際時間計，比 DDPM 快 10 到 50 倍。在無條件 CIFAR-10 上（論文表 1），DDIM 以 50 步得到 FID 4.67，100 步為 4.16，1000 步為 4.04。DDPM 同樣步數分別為 8.01、5.78 與 4.73。步數為 10 時差距最大：DDIM 為 13.36，DDPM 為 41.07。
-- **限制：** 步數非常少時品質仍會下降，如 10 步的結果所示。加速是以論文設定中的實際時間衡量，而論文本身在不同段落分別引用了 10 到 50 倍與 10 到 100 倍兩種說法。確定性取樣器對每個起始雜訊只給出一個輸出，因此無法取得 DDPM 那樣的隨機多樣性。
+| 步數 \(S\) | 10 | 20 | 50 | 100 | 1000 |
+|---|---|---|---|---|---|
+| DDIM（\(\eta = 0\)） | 13.36 | 6.84 | 4.67 | 4.16 | 4.04 |
+| DDPM（\(\eta = 1\)） | 41.07 | 18.36 | 8.01 | 5.78 | 4.73 |
+
+在 CelebA（64×64）上，20 步的 DDIM（FID 13.73）與 100 步的 DDPM（FID 13.93）大致相當。論文報告，DDIM 在 20 到 100 步內即可達到與 1000 步模型相當的品質，即加速 10 至 50 倍。引言中也提到 10 至 100 倍。論文顯示取樣時間與步數成線性關係，加速是以取樣時間衡量的。
+
+## 限制
+
+- **步數極少時品質仍會下降。**在 10 步時 FID 為 13.36，1000 步時為 4.04，加速是有品質代價的。
+- **結果來自特定設定。**論文的實驗使用 CIFAR-10 與 CelebA，模型也是作者自行訓練的。
+- **每個雜訊對應的多樣性較低。**確定性取樣器把每個起始雜訊對應到一張影像，因此不像祖先取樣那樣探索隨機性所帶來的多樣性。
+- **速度取決於設計選擇。**Karras 等人（2022）指出，時間排程與求解器對品質有很大影響，因此取樣器需要調校。
 
 ## 關聯
 
-- 訓練目標來自 [DDPM](ddpm.md)。
-- 其他取樣與蒸餾構想整理在[擴散模型](index.md)頁的較快取樣段落。
-- [潛在擴散](latent-diffusion.md)中的潛在空間取樣可以使用 DDIM 式的更新。
-- 確定性取樣器的機率流常微分方程觀點，見下方參考文獻中的 Song 等人（2021）。
+- 訓練目標來自 [DDPM](ddpm.md)，DDIM 使用同一個網路而不需重新訓練。
+- [潛在擴散](latent-diffusion.md)在實驗中使用 DDIM 步驟取樣，因此這個方法也適用於潛在模型。
+- 確定性取樣器的連續時間觀點，即機率流常微分方程，見下方引用的 Song 等人（2021）。
+- 其他取樣與蒸餾的想法，整理在[擴散模型](index.md)頁面的加速取樣一節。
 
-## 開放問題
+## 未解問題
 
-- 確定性取樣器在多少步時品質會崩潰，這是否取決於影像領域？
-- 對於特定的多樣性與速度取捨，哪一種取樣器最好？
+- 確定性取樣器在品質崩潰之前最少能用多少步？這是否取決於影像領域？
+- 在多樣性與速度之間的取捨中，哪一種取樣器最適合特定用途？
+- 確定性取樣器失去多樣性，對影像編輯等任務有多重要？
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Song, J., Meng, C. & Ermon, S. (2021). Denoising Diffusion Implicit Models. ICLR. https://arxiv.org/abs/2010.02502 — 提出非馬可夫取樣器，並在表 1 中給出 CIFAR-10 的 FID 與步數。
+- Song, J., Meng, C. & Ermon, S. (2021). Denoising Diffusion Implicit Models. ICLR. https://arxiv.org/abs/2010.02502 — 提出非馬可夫取樣器，表 1 列出 FID 隨步數的變化。
 - Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. NeurIPS. https://arxiv.org/abs/2006.11239 — DDIM 所加速的訓練目標與馬可夫取樣器。
+- Sohl-Dickstein, J., Weiss, E. A., Maheswaranathan, N. & Ganguli, S. (2015). Deep Unsupervised Learning using Nonequilibrium Thermodynamics. ICML. https://arxiv.org/abs/1503.03585 — DDIM 所推廣的原始馬可夫鏈擴散模型。
+- Rombach, R. 等人（2022）。High-Resolution Image Synthesis with Latent Diffusion Models. CVPR. https://arxiv.org/abs/2112.10752 — 實驗中使用 100 至 200 步的 DDIM 取樣。
 
 ### 綜述與教科書
 
-- Song, Y. 等人 (2021). Score-Based Generative Modeling through Stochastic Differential Equations. ICLR. https://arxiv.org/abs/2011.13456 — 將確定性取樣器表示為機率流常微分方程。
-- Karras, T., Aittala, M., Aila, T. & Laine, S. (2022). Elucidating the Design Space of Diffusion-Based Generative Models. NeurIPS. https://arxiv.org/abs/2206.00364 — 比較各擴散模型的取樣排程與求解器。
-- Sohl-Dickstein, J., Weiss, E. A., Maheswaranathan, N. & Ganguli, S. (2015). Deep Unsupervised Learning using Nonequilibrium Thermodynamics. ICML. https://arxiv.org/abs/1503.03585 — DDIM 所推廣的原始馬可夫鏈取樣器。
+- Song, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S. & Poole, B. (2021). Score-Based Generative Modeling through Stochastic Differential Equations. ICLR. https://arxiv.org/abs/2011.13456 — 定義了與確定性取樣器相對應的機率流常微分方程。
+- Karras, T., Aittala, M., Aila, T. & Laine, S. (2022). Elucidating the Design Space of Diffusion-Based Generative Models. NeurIPS. https://arxiv.org/abs/2206.00364 — 把擴散取樣器的設計選擇分開討論，包括步數排程與求解器。
 
-## 延伸學習
 
-- Rogge, N. & Rasul, K., *The Annotated Diffusion Model*。Hugging Face 部落格。https://huggingface.co/blog/annotated-diffusion — 導讀 DDIM 所推廣的 DDPM 取樣器。

@@ -20,6 +20,7 @@ Single-agent reinforcement learning assumes a fixed environment. When other agen
 - **Non-stationarity.** Each agent's policy changes during training, so the transition dynamics it sees change too. Lowe et al. (2017) name this as the reason experience replay cannot be applied naively.
 - **Centralised training, decentralised execution.** Agents can use extra information during training, such as the other agents' actions, and act from their own observations at test time.
 - **Credit assignment.** When a team receives one reward, it is hard to tell which agent's action caused it.
+- **Communication.** Agents can learn what to send each other when no channel is designed in advance, see [emergent communication](emergent-communication/index.md).
 
 ## Training schemes
 
@@ -30,7 +31,7 @@ Single-agent reinforcement learning assumes a fixed environment. When other agen
 
 ## Population-based training and self-play
 
-Competitive and mixed settings often train agents against a population of past or rival policies. In OpenAI et al. (2019), the Dota 2 team trains with self-play: rollouts play the latest policy in 80% of games and older policies in 20%. The OpenAI Five team won 99.4% of over 7,000 games in a public arena. Vinyals et al. (2019) report grandmaster-level play in StarCraft II with multi-agent reinforcement learning.
+Competitive and mixed settings often train agents against a population of past or rival policies, as described in [population-based training](population-based-training/index.md). In OpenAI et al. (2019), the Dota 2 team trains with self-play: rollouts play the latest policy in 80% of games and older policies in 20%. The OpenAI Five team won 99.4% of over 7,000 games in a public arena. Vinyals et al. (2019) report grandmaster-level play in StarCraft II with multi-agent reinforcement learning.
 
 ## Applications
 

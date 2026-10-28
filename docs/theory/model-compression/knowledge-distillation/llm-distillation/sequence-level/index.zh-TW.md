@@ -35,7 +35,7 @@ translation_reviewed: 2026-10-28
 ## 開放問題與相關變體
 
 - **多樣性。** 只訓練單一眾數會捨棄教師的其他選項。每個輸入抽樣多個輸出，能否找回這些選項，仍是開放問題。
-- **相關：** [MiniLLM](../minillm/index.zh-TW.md)改在學生自己的樣本上訓練，而不是教師的輸出，從而消除了 MiniLLM 所處理的不一致。
+- **相關：** [MiniLLM](../minillm/index.zh-TW.md)改在學生自己的樣本上訓練，而不是教師的輸出，從而消除訓練與生成之間的不一致。
 - **相關：** [DeepSeek-R1 蒸餾](../deepseek-r1/index.zh-TW.md)把相同的做法應用到很長的推理軌跡上。
 
 ## 相關連結
@@ -52,7 +52,7 @@ translation_reviewed: 2026-10-28
 
 ### 綜述與教科書
 
-- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — 綜述蒸餾方法，包括序列層級的設定。
+- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — 依知識類型與訓練方式綜述蒸餾方法。
 
 ### 講座與影片
 
@@ -60,4 +60,4 @@ translation_reviewed: 2026-10-28
 
 ### 文章與文件
 
-- Sanh, V., et al. (2019). *DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter*. arXiv:1910.01108. https://arxiv.org/abs/1910.01108 — 在教師標註的資料上訓練的蒸餾語言模型，與序列蒸餾作對照。
+- Sanh, V., et al. (2019). *DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter*. arXiv:1910.01108. https://arxiv.org/abs/1910.01108 — 以教師的詞層級軟目標訓練的蒸餾語言模型，與序列蒸餾作對照。
