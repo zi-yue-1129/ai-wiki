@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - theory/paradigms/meta-learning
@@ -58,7 +58,7 @@ In Doya's mapping, $\delta_t$ corresponds to dopamine, $\gamma$ to serotonin, $\
 
 ## Results
 
-The paper is a theoretical proposal and does not report a new experimental dataset. It bases the mapping on reviews of experimental data and on theoretical models. Its abstract says that the possible interactions between neuromodulators and the environment are predicted from a computational theory of metalearning. This page does not summarise individual experiments, so readers who want the evidence for each assignment should consult the paper.
+The paper is a theoretical proposal and does not report a new experimental dataset. It states the mapping as a hypothesis: serotonin for the discount factor γ, noradrenaline for the inverse temperature β and acetylcholine for the learning rate α. This page does not summarise further experimental results from the paper.
 
 ## Limitations
 

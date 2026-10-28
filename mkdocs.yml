@@ -470,6 +470,7 @@ plugins:
             WGAN: WGAN
             WGAN-GP: WGAN-GP
             Flow-Based Models: 流模型
+            Autoregressive Models: 自迴歸模型
             Normalising Flows: 正規化流
             Real NVP: Real NVP
             Glow: Glow
@@ -664,6 +665,7 @@ plugins:
             Multimodal Models: 多模態模型
             Embeddings: 嵌入表示
             Time-Series Forecasting: 時間序列預測
+            Recommender Systems: 推薦系統
             Graph Neural Networks: 圖神經網路
             AI Agents: AI 代理人
             World Models & Embodied AI: 世界模型與具身智慧
@@ -1071,6 +1073,8 @@ nav:
                           - Rectified Flow: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/rectified-flow.md
                           - Stochastic Interpolants: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/stochastic-interpolants.md
                           - Minibatch OT Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/minibatch-ot-flow-matching.md
+                  - Autoregressive Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index.md
                   - Diffusion Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
                       - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
@@ -1504,6 +1508,7 @@ nav:
           - Multimodal Models: theory/models/multimodal/index.md
           - Embeddings: theory/models/embeddings/index.md
           - Time-Series Forecasting: theory/models/time-series/index.md
+          - Recommender Systems: theory/models/recommender/index.md
           - Graph Neural Networks:
               - theory/models/gnn/index.md
               - Message Passing:

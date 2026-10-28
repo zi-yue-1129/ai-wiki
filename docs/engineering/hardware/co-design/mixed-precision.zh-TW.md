@@ -16,6 +16,18 @@ translation_reviewed: 2026-10-28
 - **主權重：** 一份單精度的權重副本，在每次最佳化器步驟後累積梯度更新，使微小的更新不會因捨入而消失。
 - **損失縮放：** 在反向傳播前把損失乘上一個常數，使微小的梯度在半精度中不會下溢；更新權重前再把梯度除以同一個常數。
 
+## 關鍵方法
+
+### 混合精度訓練（Micikevicius 等人，2017）
+
+- **問題：** 32 位元儲存使一個訓練步驟所需的記憶體與頻寬加倍，但 16 位元數值會失去小梯度所依賴的範圍與精度。
+- **核心想法：** 保留一份 FP32 的主權重，前向與反向傳播以 FP16 進行，並在反向傳播前把損失乘上一個常數。
+- **公式：** 最佳化器收到 \(g = \tfrac{1}{S}\nabla_\theta(S \cdot L)\)，並更新 FP32 的主權重 \(\theta \leftarrow \theta - \eta\, g\)。縮放因子 \(S\) 會相互抵消，因此在沒有數值溢位或下溢時，更新與全精度訓練一致。
+- **結果：** 論文報告，在卷積網路、循環網路與生成對抗網路上，記憶體用量減少近 2 倍。
+- **限制：** 主權重與最佳化器狀態仍保持全精度，因此節省不到一半。縮放倍數必須調整，以避免溢位。
+
+8 位元的延伸是 [FP8](fp8.zh-TW.md)。結果與限制見下文。
+
 ## 運作方式
 
 每個訓練步驟依序進行以下階段：
@@ -55,9 +67,9 @@ Micikevicius 等人（2022）把這個想法延伸到[8 位元浮點格式](fp8.
 
 ### 綜述與教科書
 
-- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — 綜述資料流與數值格式的選擇如何影響 DNN 硬體的效率。
+- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — 綜述 DNN 硬體的能量效率與吞吐量，並涵蓋硬體與演算法的共同設計。
 
 ### 文章與文件
 
 - Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — 推論端的對應做法：逐通道的 8 位元量化能讓許多 CNN 維持在浮點數 2% 以內的準確度。
-- Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張 AI 服務的主要瓶頸是記憶體頻寬而非運算，這正是此方法所紓解的壓力。
+- Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張記憶體而非運算已成為 AI 應用（尤其是服務）的主要瓶頸，這正是此方法所紓解的壓力。
