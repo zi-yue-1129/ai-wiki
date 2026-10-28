@@ -65,7 +65,7 @@ Transformer（Vaswani et al., 2017，"Attention Is All You Need"）完全以注�
 | 多頭潛在注意力（MLA） | 把 K／V 壓縮成低維的潛在表示（DeepSeek-V2 起採用） |
 | 稀疏／滑動視窗注意力 | 只關注部分位置（Longformer、Mistral） |
 | 線性注意力 | 以核函數近似，把成本降到 \(O(n)\) |
-| 混合專家（MoE） | 以許多專家取代前饋網路，並把每個 token 路由到少數幾個專家——參數很多，但運算量適中 |
+| [混合專家（MoE）](../mixture-of-experts/index.zh-TW.md) | 以許多專家取代前饋網路，並把每個 token 路由到少數幾個專家——參數很多，但運算量適中 |
 
 ## 關鍵方法
 

@@ -25,7 +25,7 @@
 - **互連**：NVLink／NVSwitch、InfiniBand、乙太網路（Ultra Ethernet）、TPU ICI——擴展到數萬個晶片
 - **脈動陣列**與張量核心加速矩陣乘法
 - **核心軟體**：CUDA、cuDNN、Triton（OpenAI）、ROCm、XLA，以及像 FlashAttention 這類自訂核心
-- **考量硬體的模型設計**：例如為 NPU 設計的 Softmax 與注意力近似、為記憶體考量的 MoE 路由、適合量化的架構
+- **考量硬體的模型設計**：例如為 NPU 設計的 Softmax 與注意力近似、為記憶體考量的 [MoE](../../theory/models/mixture-of-experts/index.zh-TW.md) 路由、適合量化的架構
 
 ## 子章節
 

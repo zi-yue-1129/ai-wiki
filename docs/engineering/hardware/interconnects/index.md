@@ -66,7 +66,7 @@ Bandwidth figures differ across generations and vendors, and they are often quot
 ## Open issues and related variants
 
 - **How far a fast domain can grow.** The point at which a tightly coupled group should be split across slower links depends on the workload. Optical switching, as in TPU v4, is one answer to making larger domains cheap.
-- **Expert routing.** All-to-all traffic from mixture-of-experts routing is hard to overlap with computation, so it often limits the scaling of such models.
+- **Expert routing.** All-to-all traffic from [mixture-of-experts](../../../theory/models/mixture-of-experts/index.md) routing is hard to overlap with computation, so it often limits the scaling of such models.
 - **Smaller messages.** Lower-precision gradients and activations reduce traffic; see [quantisation](../../../theory/model-compression/quantisation/index.md).
 - **Related:** the [memory hierarchy](../memory-hierarchy/index.md) follows the same logic inside a chip, where bandwidth between levels decides speed.
 

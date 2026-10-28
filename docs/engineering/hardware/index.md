@@ -33,7 +33,7 @@ Deep learning's rise was enabled by GPUs; today compute is a strategic resource 
 - **Interconnect**: NVLink/NVSwitch, InfiniBand, Ethernet (Ultra Ethernet), TPU ICI — scaling to tens of thousands of chips
 - **Systolic arrays** and tensor cores accelerate matrix multiplication
 - **Kernel software**: CUDA, cuDNN, Triton (OpenAI), ROCm, XLA, custom kernels such as FlashAttention
-- **Hardware-aware model design**: e.g. Softmax and attention approximations designed for NPUs, MoE routing for memory, quantisation-friendly architectures
+- **Hardware-aware model design**: e.g. Softmax and attention approximations designed for NPUs, [MoE](../../theory/models/mixture-of-experts/index.md) routing for memory, quantisation-friendly architectures
 
 ## Subchapters
 

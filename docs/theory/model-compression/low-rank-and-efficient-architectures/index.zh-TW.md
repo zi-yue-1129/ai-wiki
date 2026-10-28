@@ -27,7 +27,7 @@ translation_reviewed: 2026-10-28
 
 - **深度可分離卷積**被 MobileNet 採用，它以逐通道的濾波器加上一個 \(1 \times 1\) 的混合步驟，取代標準卷積。見[深度可分離卷積](../../models/cnn/convolution-variants/depthwise-separable-convolution/index.zh-TW.md)。
 - **共享的鍵與值**出現在多查詢與分組查詢注意力中，在解碼時縮小鍵值快取。見[注意力變體](../../models/transformer/attention-variants/index.zh-TW.md)與[KV 快取](../../models/transformer/kv-cache/index.zh-TW.md)。分組查詢注意力有獨立的方法頁面，見[推論最佳化](../../../engineering/inference-optimization/grouped-query-attention.zh-TW.md)。
-- **專家混合**讓總參數量維持很大，同時每個 token 只啟用少數專家。見 [Transformer](../../models/transformer/index.zh-TW.md) 頁面中對該層的說明。
+- **專家混合**讓總參數量維持很大，同時每個 token 只啟用少數專家。層與其路由見[混合專家](../../models/mixture-of-experts/index.zh-TW.md)頁面，其在模型中的位置見 [Transformer](../../models/transformer/index.zh-TW.md) 頁面。
 
 ## 取捨
 
