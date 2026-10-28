@@ -48,7 +48,7 @@ The paper sets \(w_0 = 10\) and \(\sigma \approx 5\) pixels. It uses stochastic 
 U-Net is the landmark architecture here. The main variant changes the design from two-dimensional to volumetric images, and it gets its own page as a follow-up.
 
 - **U-Net (Ronneberger et al., 2015)**: the architecture described above, with skip connections for dense prediction.
-- **3D U-Net (Çiçek et al., 2016)**: the same encoder–decoder design for volumetric images, trained from sparse annotations. Its own page is a follow-up.
+- **3D U-Net (Çiçek et al., 2016)**: the same encoder–decoder design for volumetric images, trained from sparse annotations. Its own page is [3D U-Net](3d-unet.md).
 
 ### U-Net: Convolutional Networks for Biomedical Image Segmentation (Ronneberger et al., 2015)
 

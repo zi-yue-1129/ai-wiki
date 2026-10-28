@@ -445,6 +445,8 @@ plugins:
             Mixtral: Mixtral 8x7B
             Density Estimation & Generative Models: 密度估計與生成模型
             U-Net: U-Net
+            3D U-Net: 3D U-Net
+            MLP-Mixer: MLP 混合器
             Variational Autoencoders: 變分自編碼器
             VQ-VAE: VQ-VAE
             GANs: 生成對抗網路
@@ -1361,9 +1363,11 @@ nav:
               - theory/models/mlp/index.md
               - GELU: theory/models/mlp/gelu/index.md
               - Layer Normalisation: theory/models/mlp/layer-normalisation/index.md
+              - MLP-Mixer: theory/models/mlp/mlp-mixer.md
           - Convolutional Networks:
               - theory/models/cnn/index.md
               - U-Net: theory/models/cnn/unet/index.md
+              - 3D U-Net: theory/models/cnn/unet/3d-unet.md
               - Convolution Variants:
                   - theory/models/cnn/convolution-variants/index.md
                   - Dilated Convolution: theory/models/cnn/convolution-variants/dilated-convolution/index.md

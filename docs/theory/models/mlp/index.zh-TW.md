@@ -35,6 +35,7 @@ translation_reviewed: 2026-10-28
 |---|---|---|---|
 | 高斯誤差線性單元（GELU） | 2016 | 以高斯累積分布函數加權輸入的平滑激活函數 | [GELU](gelu/index.md) |
 | 層正規化 | 2016 | 對每個樣本的特徵做正規化，不依賴批次統計 | [層正規化](layer-normalisation/index.md) |
+| MLP 混合器 | 2021 | 只用 MLP 的視覺模型，一組跨小塊、一組跨通道 | [MLP 混合器](mlp-mixer.md) |
 
 GELU 是 ReLU 的平滑替代方案。層正規化不依賴批次統計，因此適合序列模型。
 
