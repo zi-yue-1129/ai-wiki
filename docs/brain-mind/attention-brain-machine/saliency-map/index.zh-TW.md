@@ -62,10 +62,10 @@ Itti、Koch 與 Niebur（1998）建立了一個由下而上注意力的模型，
 ### 開創性論文
 
 - Itti, L., Koch, C. & Niebur, E.（1998）。A model of saliency-based visual attention for rapid scene analysis. *IEEE Transactions on Pattern Analysis and Machine Intelligence*。https://doi.org/10.1109/34.730558 — 以中心-周邊特徵對比建立的由下而上注意力顯著性圖模型。
-- Desimone, R. & Duncan, J.（1995）。Neural mechanisms of selective visual attention. *Annual Review of Neuroscience*。https://doi.org/10.1146/annurev.ne.18.030195.001205 — 本顯著性模型所補足的由上而下偏向競爭解釋。
+- Desimone, R. & Duncan, J.（1995）。Neural mechanisms of selective visual attention. *Annual Review of Neuroscience*。https://www.mrc-cbu.cam.ac.uk/bibliography/articles/3148 — 本顯著性模型所補足的由上而下偏向競爭解釋。
 - Mnih, V., Heess, N., 等人（2014）。Recurrent Models of Visual Attention. *NeurIPS*。https://arxiv.org/abs/1406.6247 — 學習而得的注視點選取模型，是目標導向選擇的機器版本。
 - Bahdanau, D., Cho, K. & Bengio, Y.（2014）。Neural Machine Translation by Jointly Learning to Align and Translate. arXiv 預印本。https://arxiv.org/abs/1409.0473 — 提出學習式對齊，是神經網路中注意力的早期形式。
 
 ### 綜述與回顧
 
-- Corbetta, M. & Shulman, G. L.（2002）。Control of goal-directed and stimulus-driven attention in the brain. *Nature Reviews Neuroscience*。https://doi.org/10.1038/nrn755 — 負責由下而上的刺激驅動注意力的腹側網路，正是顯著性解釋所建模的對象。
+- Corbetta, M. & Shulman, G. L.（2002）。Control of goal-directed and stimulus-driven attention in the brain. *Nature Reviews Neuroscience*。https://pubmed.ncbi.nlm.nih.gov/11994752/ — 負責由下而上的刺激驅動注意力的腹側網路，正是顯著性解釋所建模的對象。

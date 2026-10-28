@@ -62,13 +62,13 @@ The review reports that, when two stimuli are in a receptive field, the response
 
 ### Seminal papers
 
-- Desimone, R. & Duncan, J. (1995). Neural mechanisms of selective visual attention. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.ne.18.030195.001205 — Proposes biased competition, in which top-down signals resolve competition between stimuli in the same receptive field.
+- Desimone, R. & Duncan, J. (1995). Neural mechanisms of selective visual attention. *Annual Review of Neuroscience*. https://www.mrc-cbu.cam.ac.uk/bibliography/articles/3148 — Proposes biased competition, in which top-down signals resolve competition between stimuli in the same receptive field.
 - Itti, L., Koch, C. & Niebur, E. (1998). A model of saliency-based visual attention for rapid scene analysis. *IEEE Transactions on Pattern Analysis and Machine Intelligence*. https://doi.org/10.1109/34.730558 — The bottom-up counterpart to biased competition, based on feature contrast.
-- Mnih, V., Heess, N., et al. (2014). Recurrent Models of Visual Attention. *NeurIPS*. https://arxiv.org/abs/1406.6247 — A learned, top-down glimpse-selection model, a machine version of goal-directed selection.
+- Mnih, V., Heess, N., Graves, A. & Kavukcuoglu, K. (2014). Recurrent Models of Visual Attention. *NeurIPS*. https://arxiv.org/abs/1406.6247 — A learned, top-down glimpse-selection model, a machine version of goal-directed selection.
 
 ### Surveys and reviews
 
-- Corbetta, M. & Shulman, G. L. (2002). Control of goal-directed and stimulus-driven attention in the brain. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn755 — The dorsal and ventral attention networks that supply the top-down and bottom-up signals.
+- Corbetta, M. & Shulman, G. L. (2002). Control of goal-directed and stimulus-driven attention in the brain. *Nature Reviews Neuroscience*. https://pubmed.ncbi.nlm.nih.gov/11994752/ — The dorsal and ventral attention networks that supply the top-down and bottom-up signals.
 
 ### Articles and primary research
 

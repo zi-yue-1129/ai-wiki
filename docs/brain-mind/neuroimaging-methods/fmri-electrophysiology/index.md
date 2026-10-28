@@ -64,7 +64,7 @@ The summary reports that the BOLD signal tracks local field potentials more clos
 
 - Logothetis, N. K., Pauls, J., Augath, M., Trinath, T. & Oeltermann, A. (2001). Neurophysiological investigation of the basis of the fMRI signal. *Nature*. https://doi.org/10.1038/35084005 — Relates the BOLD signal to local field potentials and spiking recorded in the same animals.
 - Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W. (1990). Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*. https://pmc.ncbi.nlm.nih.gov/articles/PMC55275 — The blood-oxygenation contrast that the BOLD signal measures.
-- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1962.sp006837 — The single-neuron recording tradition on which the spiking measure rests. (Reference reused from the Neuroscience Basics page; not re-checked for this page.)
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://pubmed.ncbi.nlm.nih.gov/14449617/ — The single-neuron recording tradition on which the spiking measure rests.
 
 ### Articles and primary research
 
