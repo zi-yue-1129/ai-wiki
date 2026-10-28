@@ -17,6 +17,7 @@ AI 系統實際上是如何被建構、調整、評估與運行的。
 | [推論最佳化](inference-optimization/index.md) | 批次處理、分頁式 KV 快取、推測式解碼、注意力變體 |
 | [MLOps 與部署](mlops/index.md) | 服務化、監控、量化、成本、LLMOps |
 | [AI 硬體](hardware/index.md) | GPU、TPU、NPU、記憶體頻寬、互連、神經形態晶片 |
+| [裝置端與邊緣 AI](on-device-edge/index.zh-TW.md) | 壓縮、量化、蒸餾、NPU、TinyML |
 
 ## 為 LLM 應用選擇方法
 
