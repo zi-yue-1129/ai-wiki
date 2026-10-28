@@ -33,16 +33,13 @@ aliases:
 
 ## Key methods
 
+One landmark method anchors the driving discussion below. Its full write-up is on its own page.
+
 ### End-to-end steering from pixels (Bojarski et al. 2016)
 
-- **Problem:** Self-driving systems have usually been built from separate perception, planning and control modules, each designed by hand. Can one network learn to drive directly from raw camera pixels, using recordings of human driving as its only supervision?
-- **Core idea:** A convolutional network takes the image from one front-facing camera and outputs a steering command. It is trained on recordings of a human driver, so the link between the scene and the steering is learned rather than programmed.
-- **Equation or algorithm:**
-  1. Record front-camera images together with the steering angle the human driver used.
-  2. Train a convolutional network to predict the steering command from each image.
-  3. Run the trained network in the car, setting steering from the live camera feed.
-- **Results:** The abstract reports that the system learns to drive on local roads with or without lane markings, on highways, in parking lots and on unpaved roads, and that it operates at 30 frames per second. It gives no safety or error-rate figures, so those need the full paper.
-- **Limitations:** The abstract does not explain why the network chooses a given steering command, which limits how it can be checked. Learning from human driving also means the system can copy human errors. The later papers in the references below address route commands, reinforcement learning and simulated testing.
+- **Overview:** One convolutional network maps a front-camera image to a steering command, trained on human driving data.
+- **Comparison:** Replaces the usual separate perception, planning and control modules with one learned mapping. Later work adds route commands, reinforcement learning and simulated testing, listed on the method page.
+- **Full write-up:** [End-to-end steering from pixels](end-to-end-steering/index.md)
 
 ## Technical approaches
 
