@@ -306,6 +306,7 @@ plugins:
             Frameworks & Tools: 框架與工具
             Data: 資料工程
             Training & Fine-tuning: 訓練與微調
+            Distributed Training: 分散式訓練
             Prompt Engineering: 提示工程
             Retrieval-Augmented Generation: 檢索增強生成 RAG
             Evaluation & Benchmarks: 評估與基準
@@ -553,6 +554,7 @@ nav:
       - Frameworks & Tools: engineering/frameworks/index.md
       - Data: engineering/data/index.md
       - Training & Fine-tuning: engineering/training/index.md
+      - Distributed Training: engineering/distributed-training/index.md
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
