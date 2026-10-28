@@ -44,7 +44,7 @@ The agent runs the standard loop of observation and action:
 
 ## Results
 
-The abstract reports a pass@1 rate of 12.5% on SWE-bench and 87.7% on HumanEvalFix, which the authors describe as state of the art on both at the time. The 12.5% is on the full 2,294-task SWE-bench test set. The previous best non-interactive, retrieval-augmented system reached 3.8% on that benchmark, and the custom interface gives a 64% relative increase over the shell-only baseline with GPT-4 Turbo.
+The abstract reports a pass@1 rate of 12.5% on SWE-bench and 87.7% on HumanEvalFix, which the authors describe as state of the art on both at the time. The 12.5% is on the full 2,294-task SWE-bench test set. The previous best non-interactive, retrieval-augmented system reached 3.8% on that benchmark, and on SWE-bench Lite the custom interface gives a 64% relative increase over the shell-only baseline with GPT-4 Turbo (11.00% to 18.00%).
 
 ## Limitations
 
