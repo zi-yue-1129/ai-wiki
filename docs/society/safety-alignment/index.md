@@ -45,7 +45,7 @@ Frontier developers and government institutes evaluate models before release for
 - Autonomous replication and AI R&D acceleration
 - Persuasion and manipulation
 
-These evaluations feed **frontier safety frameworks** (Anthropic's Responsible Scaling Policy with AI Safety Levels, OpenAI's Preparedness Framework, Google DeepMind's Frontier Safety Framework) that tie capability thresholds to required safeguards. Government bodies include the UK AI Security Institute and the US Center for AI Standards and Innovation.
+These evaluations feed **frontier safety frameworks** (Anthropic's Responsible Scaling Policy with AI Safety Levels, OpenAI's Preparedness Framework, Google DeepMind's Frontier Safety Framework) that tie capability thresholds to required safeguards. Government bodies include the UK AI Security Institute and the US Center for AI Standards and Innovation. The evaluations and frameworks are compared in [Dangerous-capability evaluations and frontier safety frameworks](dangerous-capability-evals.md).
 
 ## Perspectives and debate
 

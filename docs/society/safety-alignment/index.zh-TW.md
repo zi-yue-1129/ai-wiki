@@ -36,7 +36,7 @@
 - 自主複製與加速 AI 研發
 - 說服與操縱
 
-這些評估會餵入**前沿安全框架**（例如 Anthropic 的負責任擴展政策與 AI 安全等級、OpenAI 的準備度框架、Google DeepMind 的前沿安全框架），把能力門檻與必要的防護措施連結起來。政府單位包括英國 AI 安全研究所與美國的 AI 標準與創新中心（Center for AI Standards and Innovation）。
+這些評估會餵入**前沿安全框架**（例如 Anthropic 的負責任擴展政策與 AI 安全等級、OpenAI 的準備度框架、Google DeepMind 的前沿安全框架），把能力門檻與必要的防護措施連結起來。政府單位包括英國 AI 安全研究所與美國的 AI 標準與創新中心（Center for AI Standards and Innovation）。評估與框架的比較見[危險能力評估與前沿安全框架](dangerous-capability-evals.md)。
 
 ## 觀點與辯論
 
