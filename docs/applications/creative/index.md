@@ -5,6 +5,9 @@ related:
 - theory/models/speech
 - society/governance
 - society/economics
+aliases:
+  - 藝術
+  - 創意
 ---
 
 # Art, Media & Creativity
@@ -23,17 +26,13 @@ related:
 
 ## Creativity research
 
-- **Is AI creative?** Boden distinguishes combinational, exploratory and transformational creativity; most generative AI excels at the first two
+- **Is AI creative?** Boden distinguishes combinational, exploratory and transformational creativity (Boden, 2009); most generative AI excels at the first two
 - **Human–AI co-creation**: studies find AI ideas can raise individual creativity ratings while reducing the **diversity** of outputs across people (Doshi & Hauser, 2024, *Science Advances*)
-- **Divergent-thinking tests**: LLMs score highly on standard tests (e.g. Alternate Uses), though such tests may not capture real creative achievement
 - **Computational creativity** is a long-standing research field (AARON, EMI/David Cope)
 
 ## Copyright and ownership
 
-- **Training data**: many lawsuits (authors, artists, news organisations, music labels v. AI companies). In the US, *Bartz v. Anthropic* (2025) held training on lawfully acquired books to be fair use while finding liability for pirated copies, followed by a large settlement; *Thomson Reuters v. Ross* (2025) rejected fair use for a non-generative competitor; other cases remain ongoing
-- **Outputs**: the US Copyright Office holds that purely AI-generated material lacks human authorship and is not copyrightable, while human selection, arrangement and modification can be (*Thaler v. Perlmutter*, 2025, affirmed)
-- **Opt-outs and licensing**: robots.txt and opt-out registries; licensing deals between AI firms and publishers or stock libraries; the EU AI Act requires training-data summaries and copyright policies for general-purpose models
-- **Style and likeness**: voice and likeness rights (e.g. Tennessee's ELVIS Act, 2024); actors' and writers' union agreements (SAG-AFTRA, WGA, 2023) set rules on AI use
+Training data and the ownership of AI outputs are being contested in courts and legislatures in several countries, and the rules are still unsettled. Check current rulings and official guidance before relying on any specific position.
 
 ## Provenance and misinformation
 
@@ -43,11 +42,27 @@ related:
 
 ## Economic impact on creative work
 
-Demand for some freelance writing and illustration work fell after generative AI releases (Hui, Reshef & Zhou, 2024), while other creators use AI to expand output. See [Economics & Work](../../society/economics/index.md).
+Demand for some freelance writing and illustration work fell after generative AI releases (Hui et al., 2024), while other creators use AI to expand output. See [Economics & Work](../../society/economics/index.md).
 
-## Resources
+## Key methods
 
-- Boden, *The Creative Mind*
-- [C2PA specification](https://c2pa.org/)
-- US Copyright Office reports on copyright and AI (2024–2025)
-- Epstein et al. (2023), "Art and the science of generative AI", *Science*
+Three methods underlie most image and video generators. Each links to the page that explains it.
+
+- [Denoising diffusion](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md): a model learns to reverse a gradual noising process (Ho et al., 2020).
+- [Latent diffusion](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md): runs diffusion in a compressed latent space, which makes high-resolution image generation practical (Rombach et al., 2022).
+- [Classifier-free guidance](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md): steers samples toward a text prompt without a separate classifier (Ho & Salimans, 2022).
+
+## References
+
+### Seminal papers
+
+- Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. NeurIPS. https://arxiv.org/abs/2006.11239 — The DDPM paper behind the diffusion method page linked above.
+- Rombach et al. (2022). High-Resolution Image Synthesis with Latent Diffusion Models. arXiv. https://arxiv.org/abs/2112.10752 — Latent diffusion, which runs diffusion in a compressed space.
+- Ho & Salimans (2022). Classifier-Free Diffusion Guidance. arXiv. https://arxiv.org/abs/2207.12598 — Steers diffusion samples toward a prompt without a separate classifier.
+- Doshi & Hauser (2024). Generative AI enhances individual creativity but reduces the collective diversity of novel content. *Science Advances*. https://doi.org/10.1126/sciadv.adn5290 — Finds AI ideas raise individual creativity but reduce diversity across writers.
+- Boden (2009). Computer Models of Creativity. *AI Magazine*. https://doi.org/10.1609/aimag.v30i3.2254 — Review of computational creativity, including the three kinds of creativity.
+- Epstein et al. (2023). Art and the science of generative AI. *Science*. https://doi.org/10.1126/science.adh4451 — Overview of generative AI in art and what it changes for creators.
+
+### Articles and documentation
+
+- Hui et al. (2024). The Short-Term Effects of Generative Artificial Intelligence on Employment: Evidence from an Online Labor Market. *Organization Science*. https://doi.org/10.1287/orsc.2023.18441 — Online labour market study of how generative AI affected freelance demand.
