@@ -24,6 +24,7 @@ AI 用到的數學主要有五塊。這頁說明每塊「用在哪裡」與「�
 - 連鎖律（反向傳播就是系統性地套用連鎖律）
 - 雅可比矩陣與海森矩陣的概念
 - 泰勒展開（理解最佳化器與曲率）
+- [自動微分](automatic-differentiation/index.md)：軟體如何對每個運算套用連鎖律，精確計算程式的導數
 
 \[
 \frac{\partial L}{\partial w} = \frac{\partial L}{\partial y}\cdot\frac{\partial y}{\partial z}\cdot\frac{\partial z}{\partial w}

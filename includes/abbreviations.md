@@ -35,3 +35,9 @@
 *[MCP]: Model Context Protocol
 *[DP]: Differential Privacy
 *[GDPR]: General Data Protection Regulation
+*[BPE]: Byte-Pair Encoding
+*[JVP]: Jacobian-Vector Product
+*[VJP]: Vector-Jacobian Product
+*[LIME]: Local Interpretable Model-agnostic Explanations
+*[SHAP]: SHapley Additive exPlanations
+*[Grad-CAM]: Gradient-weighted Class Activation Mapping
