@@ -568,6 +568,7 @@ plugins:
             Interconnects and Scaling: 互連與擴展
             In-Memory and Analogue Computing: 記憶體內與類比運算
             Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
+            Mixed-Precision Training: 混合精度訓練
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
             GPTQ: GPTQ
@@ -1150,6 +1151,7 @@ nav:
           - Interconnects and Scaling: engineering/hardware/interconnects/index.md
           - In-Memory and Analogue Computing: engineering/hardware/in-memory-computing/index.md
           - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md
+          - Mixed-Precision Training: engineering/hardware/co-design/mixed-precision.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
