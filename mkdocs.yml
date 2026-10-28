@@ -430,6 +430,11 @@ plugins:
             Copyright & IP: 著作權與智慧財產權
             Data replication in diffusion models: 擴散模型中的資料重現
             Extracting training data from diffusion models: 從擴散模型萃取訓練資料
+            Environmental Impact of AI: AI 的環境影響
+            Training energy cost: 訓練能源成本
+            Emissions calculator: 排放計算器
+            Energy-efficient training: 節能訓練
+            BLOOM life-cycle estimate: BLOOM 全生命週期估算
             Law, Policy & Governance: 法規與治理
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
@@ -829,6 +834,12 @@ nav:
           - society/copyright/index.md
           - Data replication in diffusion models: society/copyright/data-replication.md
           - Extracting training data from diffusion models: society/copyright/diffusion-extraction.md
+      - Environmental Impact of AI:
+          - society/environment/index.md
+          - Training energy cost: society/environment/training-energy-cost.md
+          - Emissions calculator: society/environment/emissions-calculator.md
+          - Energy-efficient training: society/environment/energy-efficient-training.md
+          - BLOOM life-cycle estimate: society/environment/life-cycle-estimate.md
       - Law, Policy & Governance: society/governance/index.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md

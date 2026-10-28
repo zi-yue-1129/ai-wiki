@@ -10,6 +10,7 @@ AI's technical progress raises questions that technology alone cannot answer.
 | [Misinformation & Deepfakes](misinformation/index.md) | How false content spreads, synthetic media and detection, provenance standards, the liar's dividend, DSA and AI Act duties |
 | [Copyright & IP](copyright/index.md) | Training on copyrighted works, memorisation and replication, text and data mining exceptions, authorship of generated output |
 | [Privacy & Data Protection](privacy/index.md) | Memorisation and leakage from trained models, membership inference, differential privacy, GDPR and the EU AI Act |
+| [Environmental Impact](environment/index.md) | Energy and emissions of training and serving models, carbon estimates and their system boundaries, efficiency |
 | [Law, Policy & Governance](governance/index.md) | EU AI Act, US and Chinese approaches, international efforts, standards |
 | [Economics & Work](economics/index.md) | Productivity, jobs, inequality, concentration |
 | [Philosophy of AI](philosophy/index.md) | Intelligence, understanding, meaning, agency, moral status |
