@@ -23,6 +23,12 @@ Stochastic gradient descent (SGD) and its momentum variants are the simplest opt
 
 Gradient descent moves the parameters against the gradient of the training loss, \(\theta \leftarrow \theta - \eta\, \nabla L(\theta)\). Computing the gradient on the full dataset is expensive, so practical training uses a mini-batch \(B\) and the gradient \(g_t = \nabla_\theta \frac{1}{|B|}\sum_{i\in B} \ell_i(\theta)\). The step is cheap and its direction is noisy, but on average it points the right way.
 
+![A point moves along a quadratic loss curve in eight mini-batch gradient steps.](../../../assets/concept-animations/sgd-minibatch-updates.gif)
+
+*Original animation by AI Wiki, CC BY-SA 4.0.*
+
+Each orange segment joins successive parameter values; the blue dot moves between updates. For this one-dimensional toy example the displayed full-data loss is \(L(\theta)=\theta^2/2\), while each update uses a batch gradient \(g_t=\theta_t+\epsilon_t\) and fixed learning rate 0.35. The fixed illustrative noise sequence can make a step differ from the full gradient; it does not establish unbiasedness or typical training behaviour. The curved trace shows the loss at each interpolated parameter, not a continuous training trajectory. Values and timings are schematic, not measurements of a model. The loop resets to the initial point.
+
 ## Key concepts
 
 - **Mini-batch**: a random subset of the data used to estimate the gradient at one step.
