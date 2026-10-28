@@ -479,6 +479,7 @@ plugins:
             Stochastic Interpolants: 隨機插值
             Minibatch OT Flow Matching: 小批次最優傳輸流匹配
             Classifier-Free Guidance: 無分類器引導
+            Consistency Models and Fast Samplers: 一致性模型與快速取樣器
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
             Message Passing: 訊息傳遞
@@ -1077,6 +1078,7 @@ nav:
                       - DDIM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md
                       - Latent Diffusion: theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md
                       - Classifier-Free Guidance: theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md
+                      - Consistency Models and Fast Samplers: theory/paradigms/unsupervised/density-and-generative-models/diffusion/consistency-models.md
               - Autoencoders & Representations: theory/paradigms/unsupervised/autoencoders-and-representations/index.md
               - Anomaly Detection: theory/paradigms/unsupervised/anomaly-detection/index.md
           - Semi- & Weakly Supervised Learning:

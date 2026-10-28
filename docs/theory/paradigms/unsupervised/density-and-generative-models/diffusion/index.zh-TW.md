@@ -55,6 +55,7 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 
 - [DDPM](ddpm.md)（Ho、Jain 與 Abbeel，2020）：雜訊預測目標，以及讓擴散模型在影像上變得實用的取樣器。
 - [DDIM](ddim.md)（Song、Meng 與 Ermon，2021）：非馬可夫取樣器，重用 DDPM 模型，以少得多的步數取樣。
+- [一致性模型與快速取樣器](consistency-models.md)（Song 等人，2023）：把軌跡上的任一點映射到其輸出，支援一步生成。
 - [潛在擴散](latent-diffusion.md)（Rombach 等人，2022）：在自編碼器的潛在空間中進行擴散，並以交叉注意力做條件化。
 - [DiT](../../../../models/transformer/dit/index.md)（Peebles 與 Xie，2023）：以 Transformer 取代 U-Net 的去噪器，且隨計算量擴展。
 - [無分類器引導](classifier-free-guidance.md)（Ho 與 Salimans，2022）：不需要另外分類器的條件控制方法。
