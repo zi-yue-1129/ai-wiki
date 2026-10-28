@@ -623,6 +623,13 @@ plugins:
             Compute Governance and Export Controls: 運算治理與出口管制
             Variational Autoencoders: 變分自編碼器
             Search Engines and Information Retrieval: 搜尋引擎與資訊檢索
+            Disaggregated Prefill and Decode: 預填充與解碼分離
+            Data Poisoning and Backdoors: 資料投毒與後門
+            Benchmark Contamination: 基準測試污染
+            Scalable Oversight: 可擴展的監督
+            "Surveillance & Facial Recognition": 監控與人臉辨識
+            Runaway Feedback Loops: 失控回饋迴圈
+            Knowledge Graphs: 知識圖譜
 
 markdown_extensions:
   - abbr
@@ -845,6 +852,10 @@ nav:
               - "A* Search": theory/symbolic-ai/search/a-star/index.md
               - Minimax with Alpha-Beta Pruning: theory/symbolic-ai/search/alpha-beta/index.md
               - Tree of Thoughts: theory/symbolic-ai/search/tree-of-thoughts/index.md
+          - Knowledge Graphs:
+              - theory/symbolic-ai/knowledge-graphs/index.md
+              - RotatE: theory/symbolic-ai/knowledge-graphs/rotate/index.md
+              - GraphRAG: theory/symbolic-ai/knowledge-graphs/graphrag/index.md
       - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
       - Generative Models:
           - theory/generative/index.md
@@ -1184,6 +1195,7 @@ nav:
           - Universal Adversarial Suffixes: engineering/llm-security/universal-adversarial-suffixes.md
           - Jailbreaks and Red-Teaming: engineering/llm-security/jailbreaks-and-red-teaming.md
           - Guardrails and Output Filtering: engineering/llm-security/guardrails.md
+          - Data Poisoning and Backdoors: engineering/llm-security/data-poisoning-and-backdoors.md
       - Synthetic Data:
           - engineering/synthetic-data/index.md
           - Self-Instruct: engineering/synthetic-data/self-instruct.md
@@ -1196,6 +1208,7 @@ nav:
           - engineering/evaluation/index.md
           - Benchmark Suites: engineering/evaluation/benchmark-suites.md
           - LLM-as-judge and Pairwise Evaluation: engineering/evaluation/llm-as-judge.md
+          - Benchmark Contamination: engineering/evaluation/contamination.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md
           - Orca: engineering/inference-optimization/orca.md
@@ -1204,6 +1217,7 @@ nav:
           - Multi-Query Attention: engineering/inference-optimization/multi-query-attention.md
           - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
           - KV Cache Compression and Eviction: engineering/inference-optimization/kv-cache-compression.md
+          - Disaggregated Prefill and Decode: engineering/inference-optimization/disaggregated-serving.md
       - MLOps & Deployment: engineering/mlops/index.md
       - AI Coding Assistants: engineering/coding-assistants/index.md
       - AI Hardware: engineering/hardware/index.md
@@ -1247,6 +1261,7 @@ nav:
           - Constitutional AI and RLAIF: society/safety-alignment/constitutional-ai.md
           - Reward Hacking and Specification Gaming: society/safety-alignment/reward-hacking.md
           - Dangerous-Capability Evaluations and Frontier Safety Frameworks: society/safety-alignment/dangerous-capability-evals.md
+          - Scalable Oversight: society/safety-alignment/scalable-oversight.md
       - Interpretability:
           - society/interpretability/index.md
           - Mechanistic Interpretability and Circuits: society/interpretability/mechanistic-interpretability.md
@@ -1290,6 +1305,11 @@ nav:
           - AI Literacy and Public Understanding: society/human-ai-interaction/ai-literacy.md
           - AI Companionship and Parasocial Relationships: society/human-ai-interaction/ai-companionship.md
           - Automation Bias and Overreliance: society/human-ai-interaction/automation-bias.md
+      - "Surveillance & Facial Recognition":
+          - society/surveillance/index.md
+          - Gender Shades: society/surveillance/gender-shades/index.md
+          - ArcFace: society/surveillance/arcface/index.md
+          - Runaway Feedback Loops: society/surveillance/runaway-feedback-loops/index.md
   - Reference:
       - reference/index.md
       - Glossary: reference/glossary/index.md
