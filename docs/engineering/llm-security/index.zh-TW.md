@@ -93,7 +93,7 @@ OWASP 的《大型語言模型應用程式十大安全風險》列出常見類�
 
 ### 奠基性論文
 
-- Greshake, K. et al. (2023). *Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection*. AISec 2023. https://arxiv.org/abs/2302.12173 — 提出間接提示注入，並展示對真實 LLM 整合應用程式的攻擊。
+- Greshake, K. et al. (2023). *Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection*. https://arxiv.org/abs/2302.12173 — 提出間接提示注入，並展示對真實 LLM 整合應用程式的攻擊。
 - Zou, A. et al. (2023). *Universal and Transferable Adversarial Attacks on Aligned Language Models*. https://arxiv.org/abs/2307.15043 — 以梯度搜尋找出對抗後綴，這些後綴能跨提示遷移，也能遷移到閉源模型。
 - Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. USENIX Security 2021. https://arxiv.org/abs/2012.07805 — 透過取樣與排序，從語言模型還原被記憶的訓練序列，包括個人資訊。
 - Perez, F. & Ribeiro, I. (2022). *Ignore Previous Prompt: Attack Techniques For Language Models*. NeurIPS 2022 ML Safety Workshop. https://arxiv.org/abs/2211.09527 — 整理針對提示式應用程式的目標劫持與提示洩露攻擊。

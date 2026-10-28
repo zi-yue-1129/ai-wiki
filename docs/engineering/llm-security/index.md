@@ -102,7 +102,7 @@ The OWASP Top 10 for Large Language Model Applications lists the common categori
 
 ### Seminal papers
 
-- Greshake, K. et al. (2023). *Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection*. AISec 2023. https://arxiv.org/abs/2302.12173 — Introduces indirect prompt injection and shows attacks against real LLM-integrated applications.
+- Greshake, K. et al. (2023). *Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection*. https://arxiv.org/abs/2302.12173 — Introduces indirect prompt injection and shows attacks against real LLM-integrated applications.
 - Zou, A. et al. (2023). *Universal and Transferable Adversarial Attacks on Aligned Language Models*. https://arxiv.org/abs/2307.15043 — Finds adversarial suffixes by gradient search that transfer across prompts and to closed models.
 - Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. USENIX Security 2021. https://arxiv.org/abs/2012.07805 — Recovers memorised training sequences, including personal information, from a language model by sampling and ranking.
 - Perez, F. & Ribeiro, I. (2022). *Ignore Previous Prompt: Attack Techniques For Language Models*. NeurIPS 2022 ML Safety Workshop. https://arxiv.org/abs/2211.09527 — Catalogues goal hijacking and prompt leaking attacks on prompt-based applications.
