@@ -470,6 +470,7 @@ plugins:
             WGAN: WGAN
             WGAN-GP: WGAN-GP
             Flow-Based Models: 流模型
+            Autoregressive Models: 自迴歸模型
             Normalising Flows: 正規化流
             Real NVP: Real NVP
             Glow: Glow
@@ -1071,6 +1072,8 @@ nav:
                           - Rectified Flow: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/rectified-flow.md
                           - Stochastic Interpolants: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/stochastic-interpolants.md
                           - Minibatch OT Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/minibatch-ot-flow-matching.md
+                  - Autoregressive Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index.md
                   - Diffusion Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
                       - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md

@@ -21,6 +21,7 @@ Generative modelling is an **approach**, not an architecture. Any family in [Mod
 | Normalising flows | Invertible transforms | Exact likelihood | Architectural constraints | RealNVP, Glow |
 | Diffusion | Learn to denoise step by step | High quality, stable, diverse | Many sampling steps (much improved) | DDPM, Stable Diffusion, Imagen |
 | Flow matching | Learn a velocity field from noise to data | Simple training, fast sampling | — | Stable Diffusion 3, Flux |
+| Autoregressive | Predict each element from those before it | Exact likelihood | Slow sequential sampling | PixelRNN, WaveNet, Image GPT |
 | Energy-based | Learn an energy \(E(x)\) | Flexible | Sampling is hard | Hopfield nets, EBMs |
 
 Method pages for the other families: [VAE](../vae/index.md), [GAN](../gan/index.md) and [flow-based models](../flow/index.md).

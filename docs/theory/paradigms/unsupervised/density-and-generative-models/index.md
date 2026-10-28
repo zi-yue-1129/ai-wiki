@@ -34,6 +34,7 @@ Density methods differ in three properties: whether they give an exact likelihoo
 - [Variational autoencoders](vae/index.md): a latent-variable model trained with a reparameterised bound.
 - [GANs](gan/index.md): a generator and a discriminator trained in a minimax game.
 - [Flow-based models](flow/index.md): invertible maps with exact likelihoods, in [normalising flows](flow/normalising-flows/index.md) and [flow matching](flow/flow-matching/index.md).
+- [Autoregressive models](autoregressive/index.md): the chain rule applied to pixels, audio or tokens, with exact likelihoods and sequential sampling.
 
 ## Connections
 
