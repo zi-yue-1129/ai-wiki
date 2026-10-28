@@ -24,6 +24,10 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | [社會科學與人文學](social-science/index.md) | 計算社會科學、數位人文、社會模擬 |
 | [軟體開發](software/index.md) | 程式碼助理、程式碼代理人、測試、生產力證據 |
 | [語言學與機器翻譯](linguistics-translation/index.md) | 神經翻譯、低資源語言、語料庫語言學、譯者工具 |
+| [政府與公共服務](government/index.md) | 福利、風險評分、稅務執法、公共資訊服務 |
+| [零售、行銷與電子商務](retail-marketing/index.md) | 推薦、需求預測、定價、顧客流失預測 |
+| [新聞與資訊生態](journalism/index.md) | 自動化報導、查核、錯誤資訊 |
+| [無障礙與輔助科技](accessibility/index.md) | 影像描述、字幕、為身心障礙使用者提供的替代文字 |
 
 ## 各領域背後的方法
 
@@ -49,6 +53,10 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | 社會科學與人文學 | [機率與貝氏方法](../theory/paradigms/probabilistic/index.md)、[倫理與公平](../society/ethics/index.md) |
 | 軟體開發 | [大型語言模型](../theory/models/llm/index.md)、[AI 代理人](../theory/models/agents/index.md)、[評估與基準](../engineering/evaluation/index.md) |
 | 語言學與機器翻譯 | [自然語言處理](../theory/models/nlp/index.md)、[Transformer](../theory/models/transformer/index.md)、[大腦與機器中的注意力](../brain-mind/attention-brain-machine/index.md) |
+| 政府與公共服務 | [決策樹與集成方法](../theory/paradigms/supervised/trees-and-ensembles/index.md)、[評估與驗證](../theory/paradigms/supervised/evaluation-and-validation/index.md)、[倫理與公平性](../society/ethics/index.md) |
+| 零售、行銷與電子商務 | [情境式強盜](../theory/paradigms/online/contextual-bandits/index.md)、[決策樹與集成方法](../theory/paradigms/supervised/trees-and-ensembles/index.md) |
+| 新聞與資訊生態 | [大型語言模型](../theory/models/llm/index.md)、[RAG](../engineering/rag/index.md)、[安全與對齊](../society/safety-alignment/index.md) |
+| 無障礙與輔助科技 | [電腦視覺](../theory/models/computer-vision/index.md)、[多模態模型](../theory/models/multimodal/index.md) |
 
 ## 跨領域的模式
 
