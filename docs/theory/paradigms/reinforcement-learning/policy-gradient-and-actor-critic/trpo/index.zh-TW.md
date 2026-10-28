@@ -49,7 +49,7 @@ TRPO 最佳化期望回報的局部替代目標，它使用舊策略的狀態訪
 
 ## 關聯
 
-- 上層主題：[策略梯度與演員–評論家](../index.zh-TW.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
+- 上層主題：[策略梯度與演員–評論家](../index.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
 - 它使用的優勢估計與 [A3C](../a3c/index.zh-TW.md) 中的相同。
 - 後繼方法是 [PPO](../../proximal-policy-optimisation/index.zh-TW.md)；在 Atari 上與之比較的基於價值方法是[深度 Q 網路](../../deep-q-networks/index.zh-TW.md)。
 

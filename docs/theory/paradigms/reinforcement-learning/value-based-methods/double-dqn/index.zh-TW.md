@@ -53,7 +53,7 @@ Y_t^{\text{DoubleDQN}} = R_{t+1} + \gamma\, Q\big(S_{t+1}, \arg\max_a Q(S_{t+1},
 
 ## 關聯
 
-- 上層主題：[基於價值的方法](../index.zh-TW.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
+- 上層主題：[基於價值的方法](../index.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
 - 它修改了[深度 Q 網路](../../deep-q-networks/index.zh-TW.md)的目標；它所處理的表格式高估問題，在[Q 學習](../q-learning/index.zh-TW.md)中有討論。
 - 它是 [Rainbow](../rainbow/index.zh-TW.md) 所結合的六個組件之一。
 

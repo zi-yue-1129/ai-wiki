@@ -47,7 +47,7 @@ y_i = r_i + \gamma\, Q'\big(s_{i+1}, \mu'(s_{i+1} \mid \theta^{\mu'}) \mid \thet
 
 ## 關聯
 
-- 上層主題：[策略梯度與演員–評論家](../index.zh-TW.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
+- 上層主題：[策略梯度與演員–評論家](../index.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
 - DDPG 是[深度 Q 網路](../../deep-q-networks/index.zh-TW.md)在連續動作上的對應方法，使用相同的回放與目標網路概念。
 - 它的後繼方法包括修正高估問題的 [TD3](../td3/index.zh-TW.md)，以及使用帶熵正則化的隨機演員的 [SAC](../sac/index.zh-TW.md)。
 

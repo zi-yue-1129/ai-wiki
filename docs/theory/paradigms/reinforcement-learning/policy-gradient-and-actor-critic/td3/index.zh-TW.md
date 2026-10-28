@@ -62,7 +62,7 @@ y = r + \gamma \min_{i=1,2} Q_{\theta'_i}\big(s', \pi_{\phi'}(s') + \epsilon\big
 
 ## 關聯
 
-- 上層主題：[策略梯度與演員–評論家](../index.zh-TW.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
+- 上層主題：[策略梯度與演員–評論家](../index.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
 - TD3 建立在 [DDPG](../ddpg/index.zh-TW.md) 之上，其雙 Q 的想法呼應了離散動作中用來修正高估的 [Double DQN](../../value-based-methods/double-dqn/index.zh-TW.md)。
 - 同樣處理高估問題的隨機替代方法是 [SAC](../sac/index.zh-TW.md)。
 

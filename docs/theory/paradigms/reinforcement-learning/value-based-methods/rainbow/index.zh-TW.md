@@ -50,7 +50,7 @@ Rainbow 保留 DQN 的回放、目標網路與小批次更新的結構，只改�
 
 ## 關聯
 
-- 上層主題：[基於價值的方法](../index.zh-TW.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
+- 上層主題：[基於價值的方法](../index.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
 - 它把 [Double DQN](../double-dqn/index.zh-TW.md) 與[深度 Q 網路](../../deep-q-networks/index.zh-TW.md)基礎智能體結合。
 - 優先回放在[經驗回放](../../experience-replay/index.zh-TW.md)頁面中說明。
 - 以雜訊網路進行探索，與[探索](../../exploration/index.zh-TW.md)頁面「促使智能體嘗試新動作」的主題相關。

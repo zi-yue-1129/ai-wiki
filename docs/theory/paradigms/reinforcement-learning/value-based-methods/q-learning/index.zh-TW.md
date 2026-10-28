@@ -50,7 +50,7 @@ Watkins 與 Dayan 的貢獻是收斂定理，而非實證基準。它的實際�
 
 ## 關聯
 
-- 上層主題：[基於價值的方法](../index.zh-TW.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
+- 上層主題：[基於價值的方法](../index.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
 - 其深度版本是[深度 Q 網路](../../deep-q-networks/index.zh-TW.md)。高估的修正方法是 [Double DQN](../double-dqn/index.zh-TW.md)。
 - 同策略的對應方法是 [SARSA](../sarsa/index.zh-TW.md)，它學習的是實際所遵循策略的價值。
 - 更新中使用的時序差分誤差，是上層頁面中與多巴胺相關的訊號。

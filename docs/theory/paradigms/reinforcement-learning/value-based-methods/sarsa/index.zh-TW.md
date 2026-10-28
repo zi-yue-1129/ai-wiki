@@ -48,9 +48,9 @@ SARSA 沒有單一的代表性基準。Rummery 與 Niranjan（1994）研究了�
 
 ## 關聯
 
-- 上層主題：[基於價值的方法](../index.zh-TW.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
+- 上層主題：[基於價值的方法](../index.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
 - 離策略的對應方法：[Q 學習](../q-learning/index.zh-TW.md)。
-- 同策略的想法在策略梯度方法中再次出現。[近端策略最佳化](../../proximal-policy-optimisation/index.zh-TW.md)同樣從當前策略收集的資料中學習，而[策略梯度與演員–評論家](../../policy-gradient-and-actor-critic/index.zh-TW.md)概觀則涵蓋使用時序差分目標的評論家。
+- 同策略的想法在策略梯度方法中再次出現。[近端策略最佳化](../../proximal-policy-optimisation/index.zh-TW.md)同樣從當前策略收集的資料中學習，而[策略梯度與演員–評論家](../../policy-gradient-and-actor-critic/index.md)概觀則涵蓋使用時序差分目標的評論家。
 
 ## 應用
 

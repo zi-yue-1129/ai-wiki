@@ -47,7 +47,7 @@ Williams 的論文提供的是推導與定理，而非基準測試。它的貢�
 
 ## 關聯
 
-- 上層主題：[策略梯度與演員–評論家](../index.zh-TW.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
+- 上層主題：[策略梯度與演員–評論家](../index.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
 - 其帶優勢的形式是 [A3C](../a3c/index.zh-TW.md)、[TRPO](../trpo/index.zh-TW.md) 與[近端策略最佳化](../../proximal-policy-optimisation/index.zh-TW.md)的出發點。
 - [GRPO](../grpo/index.zh-TW.md) 保留 REINFORCE 式的更新，但其基線取自一組被取樣輸出的平均獎勵。
 

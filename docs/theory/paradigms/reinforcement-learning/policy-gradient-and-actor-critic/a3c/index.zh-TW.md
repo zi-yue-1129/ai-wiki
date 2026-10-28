@@ -51,7 +51,7 @@ Atari 實驗使用 \(t_{\max} = 5\)，熵權重 \(\beta = 0.01\)。
 
 ## 關聯
 
-- 上層主題：[策略梯度與演員–評論家](../index.zh-TW.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
+- 上層主題：[策略梯度與演員–評論家](../index.md)，以及更廣的[強化學習](../../index.zh-TW.md)概觀。
 - 優勢概念承接自[REINFORCE](../reinforce/index.zh-TW.md)並加上學習得到的基線。[近端策略最佳化](../../proximal-policy-optimisation/index.zh-TW.md)是較晚出現、建立在相同優勢概念上的策略梯度方法。
 - 以回放為基礎的替代方案是[深度 Q 網路](../../deep-q-networks/index.zh-TW.md)。
 
