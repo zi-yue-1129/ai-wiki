@@ -14,7 +14,7 @@ related:
 |---|---|---|
 | Image classification | Class | ResNet, EfficientNet, ViT, ConvNeXt |
 | [Object detection](object-detection/index.md) | Boxes + classes | Faster R-CNN, YOLO family, DETR, RT-DETR |
-| Semantic / instance / panoptic segmentation | Per-pixel labels | U-Net, Mask R-CNN, Mask2Former |
+| [Semantic / instance / panoptic segmentation](segmentation/index.md) | Per-pixel labels | U-Net, Mask R-CNN, Mask2Former |
 | Promptable segmentation | Masks for any object | SAM, SAM 2 (video) |
 | Open-vocabulary detection | Find objects described in text | Grounding DINO, OWL-ViT |
 | Pose estimation | Keypoints | OpenPose, ViTPose |
