@@ -101,3 +101,16 @@ flowchart LR
 - Purves 等人，《Neuroscience》
 - [Neuromatch Academy](https://compneuro.neuromatch.io/)（計算方向）
 - Crash Course《Psychology》與《Neuroscience》影片
+
+## 參考文獻
+
+### 開創性論文
+
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1962.sp006837 — 發現具方向選擇性的簡單細胞與複雜細胞，是階層式視覺模型的生物學靈感來源。
+- Schultz, W., Dayan, P. & Montague, P. R. (1997). A Neural Substrate of Prediction and Reward. *Science*. https://doi.org/10.1126/science.275.5306.1593 — 顯示多巴胺神經元發出的是獎賞預測誤差訊號，將強化學習與大腦連結起來。
+- Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2787 — 提出大腦會最小化預測誤差，為感知、行動與學習提供統一框架。
+- Yamins, D. L. K., et al. (2014). Performance-optimized hierarchical models predict neural responses in higher visual cortex. *PNAS*. https://doi.org/10.1073/pnas.1403112111 — 顯示為物件辨識訓練的深度網路，能預測高階視覺皮質的神經反應。
+
+### 綜述與教科書
+
+- Neuroscience Online: An Electronic Textbook for the Neurosciences. Department of Neurobiology and Anatomy, UTHealth McGovern Medical School. https://nba.uth.tmc.edu/neuroscience/ — 免費、開放取用的神經科學電子教科書。

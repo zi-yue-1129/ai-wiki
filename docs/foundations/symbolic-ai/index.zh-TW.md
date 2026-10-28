@@ -69,3 +69,22 @@ A* 的評估函數：\( f(n) = g(n) + h(n) \)，若 \(h\) 不高估（可容許�
 - [aima-python](https://github.com/aimacode/aima-python)（MIT）
 - Microsoft AI-For-Beginners 第 2 課（符號 AI）
 - Marcus & Davis《Rebooting AI》（神經符號觀點）
+
+## 參考文獻
+
+### 開創性論文
+
+- Garcez, A. d'Avila, & Lamb, L. C. (2020). *Neurosymbolic AI: The 3rd Wave*. arXiv. https://arxiv.org/abs/2012.05876 — 綜述文章，主張結合學習表示與符號推理是 AI 的下一個主要階段。
+- Lake, B. M., et al. (2016). *Building Machines That Learn and Think Like People*. arXiv. https://arxiv.org/abs/1604.00289 — 主張類人學習需要直覺理論、組合性與因果模型，並指出模式比對系統的不足之處。
+
+### 綜述與教科書
+
+- Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — AI 標準教科書，涵蓋搜尋、邏輯、規劃與學習；配套網站提供免費投影片與程式碼。
+
+### 課程與影片
+
+- Winston, P. H. *6.034 Artificial Intelligence*. MIT OpenCourseWare, Fall 2010. https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/ — MIT 錄製的課程，涵蓋知識表示、搜尋與規則式系統，是古典符號 AI 的核心。
+
+### 文章與文件
+
+- Marcus, G. (2020). *The Next Decade in AI: Four Steps Towards Robust Artificial Intelligence*. arXiv. https://arxiv.org/abs/2002.06177 — 批判純統計式 AI，並提出包含結構化知識的混合系統。
