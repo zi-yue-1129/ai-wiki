@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - Decision Transformer
@@ -22,13 +22,13 @@ Because the desired return acts as a prompt for generation, the same trained mod
 
 ## Equation or algorithm
 
-The model is trained to maximise the likelihood of the logged actions given the previous tokens,
+The model is trained to maximise the likelihood of the logged actions, each conditioned on the last \(K\) timesteps of return-to-go, states and actions,
 
 \[
-\mathcal{L} = -\mathbb{E}_{\tau \sim \mathcal{D}}\left[\sum_t \log \pi_\theta(a_t \mid \hat{R}_t, s_t, \hat{R}_{t-1}, \ldots, s_1)\right],
+\mathcal{L}(\theta) = -\mathbb{E}_{\tau \sim \mathcal{D}}\left[\sum_t \log \pi_\theta\big(a_t \mid \hat{R}_{t-K+1:t},\, s_{t-K+1:t},\, a_{t-K+1:t-1}\big)\right],
 \]
 
-where \(\hat{R}_t = \sum_{t' \ge t} r_{t'}\) is the return-to-go of the logged trajectory. At evaluation, \(\hat{R}_1\) is set to the desired return, and the return-to-go is updated by subtracting each observed reward.
+where \(\hat{R}_t = \sum_{t' \ge t} r_{t'}\) is the return-to-go of the logged trajectory and \(K\) is the context length. At evaluation, the first return-to-go is set to the desired return, and it is reduced by each observed reward.
 
 ## Results
 
@@ -36,14 +36,14 @@ The abstract reports that Decision Transformer "matches or exceeds the performan
 
 ## Limitations
 
-- **Conditioning on returns.** The desired return must be chosen. The paper scales return-to-go by a multiple of the maximum return in the dataset, and it notes that more principled conditioning is possible.
+- **Conditioning on returns.** The desired return is an input chosen at test time, and the generated behaviour depends on that choice.
 - **Context length.** The Transformer sees a fixed window of past tokens, which limits the history it can use.
 
 ## Connections
 
 - Parent topic: [Offline RL](../index.md).
 - It is a sequence-model alternative to value-based offline methods such as [CQL](../cql/index.md) and [IQL](../iql/index.md).
-- The sequence-model idea links to the Transformer architecture in [the Transformer model family](../../../../models/transformer/index.md), and to [imitation learning](../../../imitation/index.md), since it is trained by supervised prediction on demonstrations.
+- The sequence-model idea links to the Transformer architecture in [the Transformer model family](../../../../models/transformer/index.md), and to [imitation learning](../../../imitation/index.md), since it is trained by supervised prediction on logged trajectories.
 
 ## Applications
 

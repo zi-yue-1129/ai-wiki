@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - CQL
@@ -32,7 +32,7 @@ where \(\alpha\) controls the strength of the penalty, \(\hat{\pi}_\beta\) is th
 
 ## Results
 
-The paper reports results on offline benchmarks with both discrete and continuous actions. It states that CQL "learns a conservative Q-function such that the expected value of a policy under this Q-function lower-bounds its true value". Its experiments compare it with off-policy methods, which can fail on offline data because of the overestimation problem.
+The paper evaluates CQL on offline benchmarks with both discrete and continuous actions, and compares it with off-policy methods, which can fail on offline data because of overestimation. The abstract reports that CQL often learns policies that attain two to five times higher final return than prior offline methods, especially when the data come from complex, multi-modal distributions.
 
 ## Limitations
 
@@ -49,6 +49,7 @@ The paper reports results on offline benchmarks with both discrete and continuou
 
 ## Applications
 
+- **Offline benchmarks** such as D4RL, where the dataset is fixed and the agent cannot explore.
 - **Robotics** from logged data, where new exploration is costly.
 
 ## Open questions

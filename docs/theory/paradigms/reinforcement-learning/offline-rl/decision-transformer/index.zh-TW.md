@@ -1,4 +1,6 @@
 ---
+status: complete
+last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 ---
 
@@ -18,13 +20,13 @@ translation_reviewed: 2026-10-28
 
 ## 方程式或演算法
 
-模型被訓練以最大化記錄動作在前面 token 條件下的似然：
+模型被訓練以最大化記錄動作的似然，每個動作以最後 \(K\) 個時間步的回報至終、狀態與動作為條件：
 
 \[
-\mathcal{L} = -\mathbb{E}_{\tau \sim \mathcal{D}}\left[\sum_t \log \pi_\theta(a_t \mid \hat{R}_t, s_t, \hat{R}_{t-1}, \ldots, s_1)\right],
+\mathcal{L}(\theta) = -\mathbb{E}_{\tau \sim \mathcal{D}}\left[\sum_t \log \pi_\theta\big(a_t \mid \hat{R}_{t-K+1:t},\, s_{t-K+1:t},\, a_{t-K+1:t-1}\big)\right],
 \]
 
-其中 \(\hat{R}_t = \sum_{t' \ge t} r_{t'}\) 是記錄軌跡的回報至終。評估時，\(\hat{R}_1\) 設為期望回報，並隨每個觀測到的獎勵遞減回報至終。
+其中 \(\hat{R}_t = \sum_{t' \ge t} r_{t'}\) 是記錄軌跡的回報至終，\(K\) 是上下文長度。評估時，第一個回報至終設為期望回報，並隨每個觀測到的獎勵遞減。
 
 ## 結果
 
@@ -32,14 +34,14 @@ translation_reviewed: 2026-10-28
 
 ## 限制
 
-- **以回報為條件。** 必須選擇期望回報。論文以資料集中最大回報的倍數來縮放回報至終，並指出還有更有原則的條件設定方式。
+- **以回報為條件。** 測試時的期望回報是一個輸入，生成的行為取決於這個選擇。
 - **上下文長度。** Transformer 只看見固定窗口的過去 token，限制了它能使用的歷史長度。
 
 ## 關聯
 
 - 上層主題：[離線強化學習](../index.md)。
 - 它是以價值為基礎的離線方法（如 [CQL](../cql/index.md) 與 [IQL](../iql/index.md)）的序列模型替代方案。
-- 序列模型的想法與 Transformer 架構相關，見 [Transformer 模型家族](../../../../models/transformer/index.md)；它也與[模仿學習](../../../imitation/index.md)相關，因為它以示範上的監督式預測來訓練。
+- 序列模型的想法與 Transformer 架構相關，見 [Transformer 模型家族](../../../../models/transformer/index.md)；它也與[模仿學習](../../../imitation/index.md)相關，因為它以記錄軌跡上的監督式預測來訓練。
 
 ## 應用
 
@@ -55,8 +57,8 @@ translation_reviewed: 2026-10-28
 
 ### 奠基性論文
 
-- Chen 等人（2021），"Decision Transformer: Reinforcement learning via sequence modeling"，[arXiv:2106.01345](https://arxiv.org/abs/2106.01345)——Decision Transformer 論文，包含以回報為條件的序列模型，以及 Atari、Gym 與 Key-to-Door 結果。
-- Kumar, Zhou, Tucker & Levine（2020），"Conservative Q-learning for offline reinforcement learning"，[arXiv:2006.04779](https://arxiv.org/abs/2006.04779)——以價值為基礎的離線方法，與序列建模比較。
-- Kostrikov, Nair & Levine（2021），"Offline reinforcement learning with implicit Q-learning"，[arXiv:2110.06169](https://arxiv.org/abs/2110.06169)——避免查詢未見動作的以價值為基礎離線方法。
-- Fu, Kumar, Nachum, Tucker & Levine（2020），"D4RL: Datasets for deep data-driven reinforcement learning"，[arXiv:2004.07219](https://arxiv.org/abs/2004.07219)——用於比較離線方法的離線基準套件。
-- Fujimoto, Meger & Precup（2019），"Off-policy deep reinforcement learning without exploration"，[arXiv:1812.02900](https://arxiv.org/abs/1812.02900)——批次約束 Q 學習，作為離線基準。
+- Chen 等人（2021），"Decision Transformer: Reinforcement learning via sequence modeling"，[arXiv:2106.01345](https://arxiv.org/abs/2106.01345) — Decision Transformer 論文，包含以回報為條件的序列模型，以及 Atari、Gym 與 Key-to-Door 結果。
+- Kumar, Zhou, Tucker & Levine（2020），"Conservative Q-learning for offline reinforcement learning"，[arXiv:2006.04779](https://arxiv.org/abs/2006.04779) — 以價值為基礎的離線方法，與序列建模比較。
+- Kostrikov, Nair & Levine（2021），"Offline reinforcement learning with implicit Q-learning"，[arXiv:2110.06169](https://arxiv.org/abs/2110.06169) — 避免查詢未見動作的以價值為基礎離線方法。
+- Fu, Kumar, Nachum, Tucker & Levine（2020），"D4RL: Datasets for deep data-driven reinforcement learning"，[arXiv:2004.07219](https://arxiv.org/abs/2004.07219) — 用於比較離線方法的離線基準套件。
+- Fujimoto, Meger & Precup（2019），"Off-policy deep reinforcement learning without exploration"，[arXiv:1812.02900](https://arxiv.org/abs/1812.02900) — 批次約束 Q 學習，作為離線基準。

@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - Reward modelling
@@ -21,7 +21,7 @@ A reward model \(r_\theta\) scores each observation and action. The probability 
 
 ## Equation or algorithm
 
-For two segments, the preference probability is a softmax over their summed predicted rewards (Christiano et al., Equation 1). The reward model is trained with cross-entropy against the human labels. The procedure:
+For two segments, the preference probability is a softmax over their summed predicted rewards. The reward model is trained with cross-entropy against the human labels. The procedure:
 
 1. Sample pairs of behaviours from the current policy.
 2. Ask a person which of each pair is better.
@@ -34,13 +34,13 @@ In the text setting, the policy is also penalised for a KL divergence from the s
 ## Results
 
 - **Atari.** Christiano et al. use 5,500 comparisons across seven games. They report that their method has more difficulty than reinforcement learning with the true reward in these environments, although it matches or exceeds it on some.
-- **MuJoCo.** With 700 labels the method nearly matches reinforcement learning on all eight tasks. With 1,400 labels it performs slightly better than when given the true reward.
+- **MuJoCo.** With 700 human labels the method nearly matches reinforcement learning on all eight simulated robotics tasks. With 1,400 labels from a synthetic oracle, the paper reports slightly better performance than training on the true reward.
 - **Novel behaviours.** A simulated Hopper learns to backflip from 900 queries, in under an hour.
 - **Summarisation.** Stiennon et al. collect 64,832 summary comparisons on the TL;DR dataset. Their 1.3B human-feedback model reaches a raw preference of 61% against the reference summaries, against 43% for a supervised model ten times its size.
 
 ## Limitations
 
-- **Over-optimisation.** As the policy is optimised further against the reward model, true human preferences fall relative to the prediction, and the paper reports that the reward model eventually becomes anti-correlated with human preferences.
+- **Over-optimisation.** As the policy is optimised further against the reward model, true human preferences fall relative to the prediction. Stiennon et al. (2020) report that the reward model eventually becomes anti-correlated with human preferences. Christiano et al. (2017) describe a related risk, that a reward learned offline can be exploited, and propose online feedback as the remedy.
 - **Label cost.** Each comparison requires a person, so the number of labels limits what can be learned.
 - **Coverage.** The reward model is only accurate on behaviours that were compared, which is why new comparisons are gathered from the improved policy.
 
@@ -69,5 +69,5 @@ In the text setting, the policy is also penalised for a KL divergence from the s
 - Christiano et al. (2017), "Deep reinforcement learning from human preferences", [arXiv:1706.03741](https://arxiv.org/abs/1706.03741) — Learns a reward predictor from human comparisons and trains reinforcement learning on it, with the Atari and MuJoCo results above.
 - Stiennon et al. (2020), "Learning to summarize from human feedback", NeurIPS 2020, [arXiv:2009.01325](https://arxiv.org/abs/2009.01325) — Applies reward modelling and PPO to summarisation, and reports the over-optimisation result.
 - Ouyang et al. (2022), "Training language models to follow instructions with human feedback", [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — InstructGPT, which uses a reward model trained on labeller rankings.
-- Bradley & Terry (1952), "Rank analysis of incomplete block designs: I. The method of paired comparisons", *Biometrika* 39(3/4), 324. https://doi.org/10.2307/2334029 — The paired-comparison model behind the preference probability.
+- Bradley & Terry (1952), "Rank analysis of incomplete block designs: I. The method of paired comparisons", *Biometrika* 39(3/4), starting on p. 324. https://doi.org/10.2307/2334029 — The paired-comparison model behind the preference probability.
 - Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The policy-optimisation step used against the learned reward.
