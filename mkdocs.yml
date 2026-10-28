@@ -280,6 +280,7 @@ plugins:
             Psychology & AI: 心理學與 AI
             Consciousness & Philosophy of Mind: 意識與心靈哲學
             Brain-Computer Interfaces: 腦機介面與神經解碼
+            Perception & the Visual System: 知覺與視覺系統
             Applications: 領域應用
             Healthcare: 醫療與健康
             Life Sciences & Drug Discovery: 生命科學與藥物開發
@@ -518,6 +519,7 @@ nav:
       - Psychology & AI: brain-mind/psychology/index.md
       - Consciousness & Philosophy of Mind: brain-mind/consciousness/index.md
       - Brain-Computer Interfaces: brain-mind/bci/index.md
+      - Perception & the Visual System: brain-mind/visual-perception/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
