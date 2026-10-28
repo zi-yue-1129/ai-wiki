@@ -50,7 +50,7 @@ The optimisers below are grouped by what information they use. Each subpage give
 | Regularisation and weight decay | Penalties that the optimiser must respect | [Regularisation and weight decay](regularisation-and-weight-decay.md), with pages on [sharp minima](sharp-minima.md) and the [SGD noise scale](sgd-noise-scale.md); decoupled decay is on the [AdamW](adaptive/adamw.md) page | Draft |
 | Gradient clipping and normalisation | Limits on gradient size | [Gradient clipping and normalisation](gradient-clipping-and-normalisation.md), with pages on [norm clipping](norm-clipping.md), [LARS](lars.md) and [LAMB](lamb.md) | Draft |
 | Large-batch and distributed | Training across many devices | [Large-batch and distributed](large-batch-and-distributed.md) | Draft |
-| Zeroth-order and evolutionary | No gradient at all | [Zeroth-order and evolutionary](zeroth-order-and-evolutionary.md) | Planned |
+| Zeroth-order and evolutionary | No gradient at all | [Zeroth-order and evolutionary](zeroth-order-and-evolutionary.md), with pages on [SPSA](spsa.md), [evolution strategies](evolution-strategies.md) and [CMA-ES](cma-es.md) | Draft |
 | Theory | Convergence, landscapes, sharpness | [Theory and landscapes](theory-and-landscapes.md), with a page on [sharpness-aware minimisation](sharpness-aware-minimisation.md) | Draft |
 
 ## How it works

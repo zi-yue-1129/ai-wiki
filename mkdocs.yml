@@ -268,6 +268,9 @@ plugins:
             LAMB: LAMB
             Large-Batch & Distributed: 大批次與分散式
             Zeroth-Order & Evolutionary: 零階與演化
+            SPSA: SPSA
+            Evolution Strategies: 演化策略
+            CMA-ES: CMA-ES
             Theory & Landscapes: 理論與損失地形
             Sharpness-Aware Minimisation: 銳度感知最小化
             Reinforcement Learning: 強化學習
@@ -579,6 +582,7 @@ plugins:
             Landmark Papers: 經典論文
             Courses & Books: 課程與書籍
             Datasets: 資料集
+            Timeline of Models and Releases: 模型與發表時間軸
             Tags: 標籤
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
@@ -671,7 +675,11 @@ nav:
               - LARS: theory/optimization/lars.md
               - LAMB: theory/optimization/lamb.md
           - Large-Batch & Distributed: theory/optimization/large-batch-and-distributed.md
-          - Zeroth-Order & Evolutionary: theory/optimization/zeroth-order-and-evolutionary.md
+          - Zeroth-Order & Evolutionary:
+              - theory/optimization/zeroth-order-and-evolutionary.md
+              - SPSA: theory/optimization/spsa.md
+              - Evolution Strategies: theory/optimization/evolution-strategies.md
+              - CMA-ES: theory/optimization/cma-es.md
           - Theory & Landscapes:
               - theory/optimization/theory-and-landscapes.md
               - Sharpness-Aware Minimisation: theory/optimization/sharpness-aware-minimisation.md
@@ -1134,6 +1142,7 @@ nav:
       - Landmark Papers: reference/papers/index.md
       - Courses & Books: reference/courses-books/index.md
       - Datasets: reference/datasets/index.md
+      - Timeline of Models and Releases: reference/timeline/index.md
       - Tags: reference/tags/index.md
       - Contributing: reference/contributing/index.md
       - Roadmap & Coverage: reference/roadmap/index.md
