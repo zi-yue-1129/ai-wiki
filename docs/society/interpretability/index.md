@@ -32,7 +32,11 @@ Understanding *why* a model produces its outputs — for debugging, trust, scien
 
 Caution: attribution maps can be unfaithful or fail sanity checks (Adebayo et al., 2018), and explanations can increase over-trust.
 
+Full treatment of the attribution methods, with sanity checks and attribution for Transformers: [Feature attribution: SHAP, LIME and saliency](feature-attribution.md).
+
 ## Mechanistic interpretability
+
+Full treatment, with the methods compared and the open questions: [Mechanistic interpretability and circuits](mechanistic-interpretability.md).
 
 - **Circuits**: small subnetworks implementing identifiable algorithms — curve detectors in vision models, induction heads in Transformers, indirect-object identification circuits
 - **Superposition**: networks represent more features than they have neurons by using overlapping directions (Elhage et al., 2022), making single neurons polysemantic

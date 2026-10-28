@@ -24,7 +24,11 @@
 
 提醒：歸因圖可能不忠實，或無法通過合理性檢查（Adebayo et al., 2018）；而解釋本身也可能增加過度信任。
 
+歸因方法的完整內容，包括合理性檢查與 Transformer 的歸因，見[特徵歸因：SHAP、LIME 與顯著性](feature-attribution.md)。
+
 ## 機械式可解釋性
+
+完整內容（包括各方法的比較與開放問題）見[機械式可解釋性與電路](mechanistic-interpretability.md)。
 
 - **電路**：實現可辨識演算法的小型子網路——視覺模型中的曲線偵測器、Transformer 中的歸納頭（induction heads）、間接賓語辨識電路
 - **疊加（superposition）**：網路透過重疊的方向，表示比神經元數量更多的特徵（Elhage et al., 2022），使單一神經元呈現多義性（polysemantic）
