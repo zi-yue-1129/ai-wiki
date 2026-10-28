@@ -13,7 +13,7 @@ aliases:
 ## 深度學習的基礎
 
 - **Yoshua Bengio、Geoffrey Hinton 與 Yann LeCun** 共同獲得 2018 年 ACM A.M. Turing 獎（2019 年公布），表彰其「概念與工程上的突破，使深度神經網路成為運算中的關鍵元件」（[ACM SIGAI](https://sigai.acm.org/aimatters/blog/2019/04/01/472/)）。他們所發展的方法見[深度學習](../../theory/deep-learning/index.zh-TW.md)。
-- **John Hopfield 與 Geoffrey Hinton** 共同獲得 2024 年諾貝爾物理學獎，表彰其使用人工神經網路進行機器學習的基礎性工作（[Lindau Nobel Laureate Meetings](https://www.lindau-nobel.org/news-nobel-prize-in-physics-2024/)）。這項工作中與大腦相關的部分，見[腦與心智](../../brain-mind/index.zh-TW.md)。
+- **John Hopfield 與 Geoffrey Hinton** 共同獲得 2024 年諾貝爾物理學獎，表彰其使用人工神經網路進行機器學習的基礎性工作（[Hopfield](https://www.nobelprize.org/prizes/physics/2024/hopfield/facts/) 與 [Hinton](https://www.nobelprize.org/prizes/physics/2024/hinton/facts/)，nobelprize.org）。這項工作中與大腦相關的部分，見[腦與心智](../../brain-mind/index.zh-TW.md)。
 
 ## 視覺與資料
 

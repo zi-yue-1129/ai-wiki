@@ -14,7 +14,7 @@
 | 2016 | 圍棋 | AlphaGo | 策略與價值網路加 MCTS |
 | 2017 | 西洋棋、將棋、圍棋 | AlphaZero | 從零開始的自我對弈 |
 | 2017–2019 | 一對一與六人德州撲克 | Libratus、Pluribus | 反事實遺憾最小化，處理不完全資訊 |
-| 2019 | Dota 2 | OpenAI Five | 大規模 PPO 自我對弈 |
+| 2019 | Dota 2 | [OpenAI Five](openai-five/index.md) | 大規模 PPO 自我對弈 |
 | 2019 | 星海爭霸 II | AlphaStar | 聯賽式訓練，結合模仿與強化學習 |
 | 2020 | Atari、圍棋、西洋棋（不給規則） | MuZero | 學習出的模型加規劃 |
 | 2022 | 外交（Diplomacy） | Cicero | 語言模型加策略規劃，與人類談判 |

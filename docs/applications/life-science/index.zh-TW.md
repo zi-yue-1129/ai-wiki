@@ -2,19 +2,20 @@
 
 ## 蛋白質結構：AlphaFold 時刻
 
+- **方法頁面**：[AlphaFold 2](alphafold-2.md)（Jumper 等人，2021），包含其演算法、信心分數與限制
 - **CASP14（2020）**：AlphaFold 2 對多數目標預測的蛋白質結構，精確度已可與實驗結果並駕齊驅，解決了困擾業界 50 年的重大挑戰
-- **AlphaFold 蛋白質結構資料庫**：收錄超過 2 億筆預測結構，免費開放
+- **AlphaFold 蛋白質結構資料庫**：收錄超過 2.14 億筆預測結構，免費開放（[Varadi 等人，2024](https://doi.org/10.1093/nar/gkad1011)）
 - **AlphaFold 3（2024）**：可預測蛋白質與 DNA、RNA、配體及離子所形成的複合物
 - **2024 年諾貝爾化學獎**：David Baker（計算蛋白質設計），以及 Demis Hassabis 與 John Jumper（蛋白質結構預測）
-- 開放的替代方案：RoseTTAFold、OpenFold、ESMFold（源自蛋白質語言模型）、Boltz、Chai
+- 開放的替代方案：RoseTTAFold、OpenFold、[ESMFold](esm/esmfold.md)（源自蛋白質語言模型）、Boltz、Chai
 
 ## 蛋白質設計
 
 | 工具 | 方法 |
 |---|---|
-| RFdiffusion | 擴散模型，生成新的蛋白質骨架，用於結合子、酵素與對稱組裝體 |
+| [RFdiffusion](rfdiffusion/index.md) | 擴散模型，生成新的蛋白質骨架，用於結合子、酵素與對稱組裝體 |
 | ProteinMPNN | 設計能摺疊成指定骨架的胺基酸序列 |
-| ESM 系列蛋白質語言模型 | 從數百萬條序列中學習演化限制；ESM3 生成了一種新的螢光蛋白 |
+| [ESM 家族](esm/index.md)：[ESM-2](esm/esm-2.md) 與 [ESMFold](esm/esmfold.md)，蛋白質語言模型 | 從數百萬條序列中學習演化限制；ESM3 生成了一種新的螢光蛋白 |
 | 反向摺疊、結合子設計流程 | 與高通量的實驗室測試結合使用 |
 
 ## 基因組學與分子生物學

@@ -59,7 +59,7 @@ flowchart LR
 
 ## 機器中的注意力
 
-神經網路用注意力一詞，指對輸入學到的加權，而 Transformer 模型大量依賴它。這個機制見 [Transformer](../../theory/models/transformer/index.md) 頁面，其變體見[注意力變體](../../theory/models/transformer/attention-variants/index.md)。與生物的類比只是鬆散的：Transformer 以學到的分數為每個詞元加權，而大腦則在有限容量下，從互相競爭的訊號中做選擇。從影像中選取注視點的模型，例如循環式視覺注意力網路，與神經的情形較為接近，見下方參考文獻。
+神經網路用注意力一詞，指對輸入學到的加權，而 Transformer 模型大量依賴它。這個機制見 [Transformer](../../theory/models/transformer/index.md) 頁面，其變體見[注意力變體](../../theory/models/transformer/attention-variants/index.md)。與生物的類比只是鬆散的：Transformer 以學到的分數為每個詞元加權，而大腦則在有限容量下，從互相競爭的訊號中做選擇。從影像中選取注視點的模型，例如循環式視覺注意力網路，與神經的情形較為接近。循環式視覺注意力模型有自己的頁面：[循環視覺注意力模型](recurrent-visual-attention/index.md)，並列於下方參考文獻。
 
 ## 與其他主題的關聯
 

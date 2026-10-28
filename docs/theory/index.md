@@ -12,6 +12,7 @@ The core theory behind every AI technique.
 | [Reinforcement Learning](paradigms/reinforcement-learning/index.md) | How do agents learn behaviour from trial, error and reward — and what does dopamine have to do with it? |
 | [Information Theory](information-theory/index.md) | How do entropy, KL divergence and mutual information quantify learning? |
 | [Model Compression](model-compression/index.md) | How do pruning, quantisation and distillation shrink a model without losing its skill? |
+| [Evaluation](evaluation/index.md) | How do we measure whether a model is good, and how far can a benchmark score be trusted? |
 
 ## Theory or models?
 

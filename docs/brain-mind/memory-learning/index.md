@@ -44,6 +44,10 @@ After bilateral removal of medial temporal lobes in 1953 to treat epilepsy, Henr
 
 ## Consolidation and replay
 
+![Memory consolidation animation: episodic patterns are rapidly encoded in a hippocampal system, replayed and gradually integrated by distributed neocortical networks.](../../assets/concept-animations/memory-consolidation.gif)
+
+*Original conceptual illustration of complementary learning systems, CC BY-SA 4.0.* The animation contrasts **fast episodic encoding** with **slower distributed learning**, showing how replay can support the integration of experience over time. It is a **conceptual analogy**, not a literal transfer of a stored memory or a recording of brain activity; consolidation has multiple mechanisms and is not restricted to sleep. See [McClelland, McNaughton & O'Reilly (1995)](https://doi.org/10.1037/0033-295X.102.3.419).
+
 - **Systems consolidation**: memories initially depend on the hippocampus and gradually become cortical
 - **Sharp-wave ripples**: during rest and slow-wave sleep, hippocampal place cells **replay** recent experiences in compressed time, sometimes in reverse and sometimes as novel trajectories (Wilson & McNaughton, 1994; Foster & Wilson, 2006)
 - Disrupting ripples impairs learning; enhancing them can improve it

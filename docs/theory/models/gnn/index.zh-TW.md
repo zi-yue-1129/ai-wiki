@@ -1,3 +1,7 @@
+---
+translation_reviewed: 2026-10-28
+---
+
 # 圖神經網路（GNN）
 
 ## 為什麼需要圖？
@@ -13,6 +17,10 @@ h_v^{(k+1)} = \text{UPDATE}\Big(h_v^{(k)},\; \text{AGG}_{u\in\mathcal{N}(v)}\, \
 \]
 
 聚合函數必須**置換不變**（sum、mean、max、attention）。
+
+![圖神經網路訊息傳遞動畫：相鄰節點沿圖邊傳送訊息，目標節點聚合後更新表徵。](../../../assets/concept-animations/gnn-message-passing.gif)
+
+*原創訊息傳遞示意動畫，CC BY-SA 4.0。* 每個節點沿著**圖中現有的邊**接收鄰居訊息，以置換不變的運算聚合資訊，再更新節點表徵。動畫的顏色及脈衝僅供概念說明，不是實際計算的節點特徵。堆疊多層後，訊息能逐層傳到更遠的鄰居。參見 [Gilmer 等人（2017）](https://arxiv.org/abs/1704.01212)。
 
 ## 組件與變體
 

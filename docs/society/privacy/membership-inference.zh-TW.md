@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 aliases:
@@ -30,7 +30,7 @@ aliases:
 3. **訓練攻擊模型。** 學習一個分類器，輸入為輸出向量，預測「成員」或「非成員」。
 4. **套用到目標。** 查詢目標模型中的該筆紀錄，並套用攻擊模型。
 
-Shokri 等人（2017）描述了這種黑箱設定。Yeom 等人（2018）顯示過擬合足以支持這種攻擊，但並非唯一因素。Carlini 等人（2022）主張，常用的平均準確度評估可能掩蓋攻擊的真實威力，因此提議在極低的偽陽性率下評估。
+Shokri 等人（2017）描述了這種黑箱設定。Yeom 等人（2018）顯示過擬合足以支持這種攻擊。Carlini 等人（2022）主張，常用的平均準確度評估可能掩蓋攻擊的真實威力，因此提議在極低的偽陽性率下評估。
 
 ## 結果
 
@@ -59,7 +59,7 @@ Shokri 等人（2017）的摘要指出，商業機器學習服務所提供的模
 ### 開創性論文
 
 - Shokri, R., Stronati, M., Song, C. & Shmatikov, V. (2017). Membership inference attacks against machine learning models. *IEEE Symposium on Security and Privacy*. https://arxiv.org/abs/1610.05820 — 提出影子模型攻擊，並展示其對商業機器學習服務的效果。
-- Yeom, S., Giacomelli, I., Fredrikson, M. & Jha, S. (2018). Privacy risk in machine learning: Analyzing the connection to overfitting. arXiv:1709.01604. https://arxiv.org/abs/1709.01604 — 顯示過擬合足以進行成員推論，且並非必要條件。
+- Yeom, S., Giacomelli, I., Fredrikson, M. & Jha, S. (2018). Privacy risk in machine learning: Analyzing the connection to overfitting. arXiv:1709.01604. https://arxiv.org/abs/1709.01604 — 顯示過擬合足以進行成員推論。
 - Carlini, N. et al. (2022). Membership inference attacks from first principles. arXiv:2112.03570. https://arxiv.org/abs/2112.03570 — 主張在低偽陽性率下進行評估，並提出 LiRA 攻擊。
 - Carlini, N. et al. (2022). Quantifying memorization across neural language models. arXiv:2202.07646. https://arxiv.org/abs/2202.07646 — 顯示記憶化隨模型大小、資料重複與提示脈絡而增加。
 - Carlini, N. et al. (2021). Extracting training data from large language models. *USENIX Security Symposium*. https://arxiv.org/abs/2012.07805 — 顯示被記住的訓練文字可以被萃取，這比成員身分本身是更強的洩露。

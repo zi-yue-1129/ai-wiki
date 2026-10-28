@@ -9,6 +9,7 @@
 | [Courses & Books](courses-books/index.md) | Free and open learning resources by topic |
 | [Datasets](datasets/index.md) | Widely used datasets and benchmarks across fields |
 | [Timeline](timeline/index.md) | Dated milestones in AI, from the perceptron to recent large models |
+| [Conferences & Journals](venues/index.md) | Where AI and neuroscience research is published, and how the main venues differ |
 | [Contributing](contributing/index.md) | How to add or improve pages |
 | [Roadmap & Coverage](roadmap/index.md) | What is planned and what is missing |
 | [Style Guide](style-guide/index.md) | Writing conventions for this wiki |

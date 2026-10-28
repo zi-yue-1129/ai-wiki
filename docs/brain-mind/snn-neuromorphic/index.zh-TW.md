@@ -17,7 +17,7 @@ translation_reviewed: 2026-10-28
 
 | 模型 | 說明 |
 |---|---|
-| 漏電整合放電（LIF） | 主力模型；見 [計算神經科學](../computational-neuroscience/index.md) |
+| 漏電整合放電（LIF） | 主力模型；見 [漏電積分發放模型](../computational-neuroscience/lif/index.md) |
 | 適應性 LIF／ALIF | 加入放電頻率適應，改善時間任務（Bellec et al., 2018） |
 | Izhikevich | 低成本產生豐富的放電型態 |
 | 共振放電 | 振盪動態 |
@@ -47,7 +47,7 @@ translation_reviewed: 2026-10-28
 
 ### 脈衝時序依賴可塑性（STDP）
 
-突觸前脈衝比突觸後脈衝早 Δt > 0 到達，突觸增強；晚到則減弱——通常是數十毫秒的指數視窗（Bi & Poo, 1998）。單靠 STDP 就能做非監督特徵學習；加上獎勵訊號（獎勵調節 STDP）則支援強化學習。
+突觸前脈衝比突觸後脈衝早 Δt > 0 到達，突觸增強；晚到則減弱——通常是數十毫秒的指數視窗（Bi & Poo, 1998）。單靠 STDP 就能做非監督特徵學習；加上獎勵訊號（獎勵調節 STDP）則支援強化學習。完整內容見 [STDP](stdp/index.md)。
 
 ## 神經形態硬體
 

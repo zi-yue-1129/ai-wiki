@@ -16,6 +16,8 @@
 | 流匹配（Flow matching） | 學習從雜訊到資料的速度場 | 訓練簡單，採樣快 | — | Stable Diffusion 3、Flux |
 | 能量基模型 | 學習能量函數 \(E(x)\) | 彈性高 | 採樣困難 | Hopfield 網路、EBM |
 
+其他家族的方法頁：[VAE](../vae/index.md)、[GAN](../gan/index.md) 與[流模型](../flow/index.md)。
+
 ## 擴散模型
 
 完整說明包含比較表，以及每個方法各自的頁面（DDPM、DDIM、潛在擴散、無分類器引導；DiT 去噪器則是 [Transformer](../../../../models/transformer/dit/index.md) 的方法），見[擴散模型](../diffusion/index.md)。

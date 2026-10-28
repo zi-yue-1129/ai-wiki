@@ -23,7 +23,7 @@ Biological neurons communicate with brief, discrete **spikes**. Spiking neural n
 
 | Model | Notes |
 |---|---|
-| Leaky integrate-and-fire (LIF) | The workhorse; see [Computational Neuroscience](../computational-neuroscience/index.md) |
+| Leaky integrate-and-fire (LIF) | The workhorse; see [Leaky integrate-and-fire](../computational-neuroscience/lif/index.md) |
 | Adaptive LIF / ALIF | Adds spike-frequency adaptation; improves temporal tasks (Bellec et al., 2018) |
 | Izhikevich | Rich firing patterns at low cost |
 | Resonate-and-fire | Oscillatory dynamics |
@@ -53,7 +53,7 @@ The spike is a step function, so its derivative is zero almost everywhere — ba
 
 ### Spike-timing-dependent plasticity (STDP)
 
-If a presynaptic spike precedes a postsynaptic spike by Δt > 0, the synapse strengthens; if it follows, it weakens — typically with an exponential window of tens of milliseconds (Bi & Poo, 1998). STDP alone performs unsupervised feature learning; combined with a reward signal (reward-modulated STDP) it supports reinforcement learning.
+If a presynaptic spike precedes a postsynaptic spike by Δt > 0, the synapse strengthens; if it follows, it weakens — typically with an exponential window of tens of milliseconds (Bi & Poo, 1998). STDP alone performs unsupervised feature learning; combined with a reward signal (reward-modulated STDP) it supports reinforcement learning. Full write-up: [STDP](stdp/index.md).
 
 ## Neuromorphic hardware
 

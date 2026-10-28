@@ -21,6 +21,10 @@ A selective state-space model lets its parameters depend on the current input, s
 
 In a selective model, the discretisation step and the projections that read and write the state are computed from the input at each position. A large step size resets the state towards the current token, while a small one keeps the old state. The model can therefore learn to ignore filler and retain the tokens that matter, a behaviour that attention achieves by comparing keys and queries.
 
+![Selective state-space animation: a sequence of relevant and filler inputs controls whether a compact recurrent state is updated or retained.](../../../../assets/concept-animations/mamba-selective-state.gif)
+
+*Original animated schematic, CC BY-SA 4.0.* Relevant inputs are shown updating a **fixed-size recurrent state**, while filler inputs leave the illustrated state approximately unchanged. The **WRITE / KEEP** labels simplify Mamba's continuous, input-dependent state-space update: the discretisation step and input/output projections are functions of each token, not literal binary gates. The coloured state slots and token sequence are **illustrative, not measured activations**. See [Gu & Dao (2023)](https://arxiv.org/abs/2312.00752).
+
 ## Approaches
 
 ### Mamba

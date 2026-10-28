@@ -21,6 +21,10 @@ h_v^{(k+1)} = \text{UPDATE}\Big(h_v^{(k)},\; \text{AGG}_{u\in\mathcal{N}(v)}\, \
 
 The aggregation must be **permutation-invariant** (sum, mean, max, attention).
 
+![Graph neural network message-passing animation: neighbouring nodes send messages, a target node aggregates them and updates its representation.](../../../assets/concept-animations/gnn-message-passing.gif)
+
+*Original message-passing schematic, CC BY-SA 4.0.* A node receives messages **along existing graph edges**, aggregates the incoming information using a permutation-invariant operation, and computes an updated embedding. The colours and pulses are schematic, not computed node features. Multiple layers let information propagate across progressively larger neighbourhoods. See [Gilmer et al. (2017)](https://arxiv.org/abs/1704.01212).
+
 ## Components and variants
 
 How messages are formed and aggregated, and how deep the network can go before its node features blur together, are covered on the [message-passing](message-passing/index.md) page. It compares normalised convolution, neighbour sampling, attention, and the expressivity of sum-based aggregation.

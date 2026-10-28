@@ -314,6 +314,7 @@ plugins:
             Compute-Optimal Training: 運算最佳化訓練
             InstructGPT and RLHF: InstructGPT 與 RLHF
             Hodgkin–Huxley Model: Hodgkin–Huxley 模型
+            Leaky Integrate-and-Fire (LIF): 漏電積分發放（LIF）
             Sparse Coding: 稀疏編碼
             Medial Temporal Lobe Lesions: 內側顳葉損傷
             Long-Term Potentiation: 長期增益
@@ -325,6 +326,7 @@ plugins:
             Performance-Optimised Networks Predict Visual Cortex: 以效能最佳化的網路預測視覺皮質
             Grid-Like Units in Navigating Networks: 導航網路中的格狀單元
             Surrogate Gradients: 替代梯度
+            Spike-Timing-Dependent Plasticity (STDP): 脈衝時序依賴可塑性（STDP）
             Online Learning with Local Updates (e-prop): 具局部更新的線上學習（e-prop）
             Integrated Information Theory: 整合資訊理論
             Global Workspace: 全域工作空間
@@ -335,6 +337,12 @@ plugins:
             Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
             False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
             Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
+            RFdiffusion: RFdiffusion（蛋白質骨架設計）
+            ESM-2 and ESMFold: ESM-2 與 ESMFold
+            ESM-2: ESM-2
+            ESMFold: ESMFold
+            OpenAI Five: OpenAI Five（Dota 2）
             End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
             Exploration: 探索
@@ -351,12 +359,24 @@ plugins:
             DDIM: DDIM
             Latent Diffusion: 潛在擴散
             DiT: DiT 擴散 Transformer
+            Vision Transformer (ViT): 視覺 Transformer（ViT）
+            DeiT: DeiT
+            Swin Transformer: Swin Transformer
             Diffusion Transformer (DiT): 擴散 Transformer（DiT）
             Mixture of Experts: 混合專家
             Sparsely-Gated MoE: 稀疏閘控混合專家
             Switch Transformer: Switch Transformer
             Mixtral: Mixtral 8x7B
             Density Estimation & Generative Models: 密度估計與生成模型
+            U-Net: U-Net
+            Variational Autoencoders: 變分自編碼器
+            GANs: 生成對抗網路
+            DCGAN: DCGAN
+            WGAN: WGAN
+            WGAN-GP: WGAN-GP
+            Flow-Based Models: 流模型
+            Normalising Flows: 正規化流
+            Flow Matching: 流匹配
             Classifier-Free Guidance: 無分類器引導
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
@@ -392,6 +412,30 @@ plugins:
             Test-Time Compute Scaling: 測試時運算擴展
             Generative Models: 生成模型
             Model Compression: 模型壓縮
+            Evaluation: 評估
+            Metrics: 指標
+            Protocols: 評估協定
+            Classification: 分類
+            Probabilistic: 機率
+            Regression: 迴歸
+            Ranking: 排序
+            Segmentation: 分割
+            Accuracy: 準確率
+            Precision: 精確率
+            Recall: 召回率
+            F1 Score: F1 分數
+            ROC-AUC: ROC-AUC
+            PR-AUC: PR-AUC
+            Log-Loss: 對數損失
+            Brier Score: Brier 分數
+            Calibration Error: 校準誤差
+            MAE: MAE
+            RMSE: RMSE
+            R²: R²
+            NDCG: NDCG
+            Mean Average Precision: 平均精確率均值
+            IoU: 交併比
+            Dice: Dice 係數
             Quantisation: 量化
             Pruning: 剪枝
             Knowledge Distillation: 知識蒸餾
@@ -457,6 +501,17 @@ plugins:
             Graph Neural Networks: 圖神經網路
             AI Agents: AI 代理人
             World Models & Embodied AI: 世界模型與具身智慧
+            Action Controllability: 動作可控性
+            Dreamer: Dreamer
+            DINO-WM: DINO-WM
+            V-JEPA 2: V-JEPA 2
+            Genie: Genie
+            LAPO: LAPO
+            Class-Balanced Loss: 類別平衡損失
+            Logit Adjustment: 邏輯調整
+            Causal Confusion: 因果混淆
+            DAgger: DAgger
+            DART: DART
             Brain & Mind: 腦與心智
             Neuroscience Basics: 神經科學基礎
             Computational Neuroscience: 計算神經科學
@@ -481,6 +536,8 @@ plugins:
             Perception & the Visual System: 知覺與視覺系統
             Attention in Brains & Machines: 大腦與機器中的注意力
             Biased Competition (Desimone & Duncan 1995): 偏向競爭（Desimone 與 Duncan，1995）
+            Recurrent Models of Visual Attention (Mnih et al. 2014): 循環視覺注意力模型（Mnih 等人，2014）
+            Reconstructing Viewed Images from fMRI (Takagi & Nishimoto 2023): 從 fMRI 重建所見影像（Takagi 與 Nishimoto，2023）
             Saliency-Based Visual Attention (Itti et al. 1998): 基於顯著性的視覺注意力（Itti 等人，1998）
             Emotion & Affective Computing: 情緒與情感運算
             Circumplex Model of Affect (Russell 1980): 情感的環狀模型（Russell，1980）
@@ -514,6 +571,15 @@ plugins:
             Cybersecurity: 資訊安全
             Social Sciences & Humanities: 社會科學與人文
             Software Development: 軟體開發
+            Military & Defence: 軍事與國防
+            Space & Astronomy: 太空與天文
+            Architecture & Urban Planning: 建築與城市規劃
+            Telecommunications: 電信
+            Linguistics & Machine Translation: 語言學與機器翻譯
+            Government & Public Services: 政府與公共服務
+            Retail, Marketing & E-commerce: 零售、行銷與電子商務
+            Journalism & Information Ecosystems: 新聞與資訊生態
+            Accessibility & Assistive Technology: 無障礙與輔助科技
             Engineering: 工程實務
             Frameworks & Tools: 框架與工具
             Data: 資料工程
@@ -558,6 +624,7 @@ plugins:
             Interconnects and Scaling: 互連與擴展
             In-Memory and Analogue Computing: 記憶體內與類比運算
             Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
+            Mixed-Precision Training: 混合精度訓練
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
             GPTQ: GPTQ
@@ -596,6 +663,7 @@ plugins:
             Courses & Books: 課程與書籍
             Datasets: 資料集
             Timeline of Models and Releases: 模型與發表時間軸
+            Conferences and Journals: 會議與期刊
             Tags: 標籤
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
@@ -710,7 +778,10 @@ nav:
               - Trees & Ensembles: theory/paradigms/supervised/trees-and-ensembles/index.md
               - Kernels & SVMs: theory/paradigms/supervised/kernel-methods-svm/index.md
               - kNN, Naive Bayes & Gaussian Processes: theory/paradigms/supervised/instance-based-and-probabilistic/index.md
-              - Loss Functions & Optimisation: theory/paradigms/supervised/loss-functions-and-optimization/index.md
+              - Loss Functions & Optimisation:
+                  - theory/paradigms/supervised/loss-functions-and-optimization/index.md
+                  - Class-Balanced Loss: theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss.md
+                  - Logit Adjustment: theory/paradigms/supervised/loss-functions-and-optimization/logit-adjustment.md
               - Generalisation Theory: theory/paradigms/supervised/generalization-theory/index.md
               - Evaluation & Validation: theory/paradigms/supervised/evaluation-and-validation/index.md
           - Unsupervised Learning:
@@ -720,6 +791,15 @@ nav:
               - Density Estimation & Generative Models:
                   - theory/paradigms/unsupervised/density-and-generative-models/index.md
                   - Generative Models: theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md
+                  - Variational Autoencoders: theory/paradigms/unsupervised/density-and-generative-models/vae/index.md
+                  - GANs: theory/paradigms/unsupervised/density-and-generative-models/gan/index.md
+                  - DCGAN: theory/paradigms/unsupervised/density-and-generative-models/gan/dcgan.md
+                  - WGAN: theory/paradigms/unsupervised/density-and-generative-models/gan/wgan.md
+                  - WGAN-GP: theory/paradigms/unsupervised/density-and-generative-models/gan/wgan-gp.md
+                  - Flow-Based Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/flow/index.md
+                      - Normalising Flows: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/index.md
+                      - Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/index.md
                   - Diffusion Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
                       - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
@@ -755,8 +835,13 @@ nav:
               - Exploration: theory/paradigms/reinforcement-learning/exploration/index.md
           - Imitation Learning:
               - theory/paradigms/imitation/index.md
-              - Behavioural Cloning: theory/paradigms/imitation/behavioural-cloning/index.md
-              - Interactive Imitation: theory/paradigms/imitation/interactive-imitation/index.md
+              - Behavioural Cloning:
+                  - theory/paradigms/imitation/behavioural-cloning/index.md
+                  - Causal Confusion: theory/paradigms/imitation/behavioural-cloning/causal-confusion.md
+              - Interactive Imitation:
+                  - theory/paradigms/imitation/interactive-imitation/index.md
+                  - DAgger: theory/paradigms/imitation/interactive-imitation/dagger.md
+                  - DART: theory/paradigms/imitation/interactive-imitation/dart.md
               - Inverse Reinforcement Learning: theory/paradigms/imitation/inverse-reinforcement-learning/index.md
               - Adversarial Imitation: theory/paradigms/imitation/adversarial-imitation/index.md
           - Transfer Learning & Domain Adaptation:
@@ -887,6 +972,37 @@ nav:
               - Truncated SVD: theory/model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md
               - Low-Rank Filter Expansion: theory/model-compression/low-rank-and-efficient-architectures/low-rank-filter-expansion/index.md
               - LoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
+      - Evaluation:
+          - theory/evaluation/index.md
+          - Metrics:
+              - theory/evaluation/metrics/index.md
+              - Classification:
+                  - theory/evaluation/metrics/classification/index.md
+                  - Accuracy: theory/evaluation/metrics/classification/accuracy.md
+                  - Precision: theory/evaluation/metrics/classification/precision.md
+                  - Recall: theory/evaluation/metrics/classification/recall.md
+                  - F1 Score: theory/evaluation/metrics/classification/f1.md
+                  - ROC-AUC: theory/evaluation/metrics/classification/roc-auc.md
+                  - PR-AUC: theory/evaluation/metrics/classification/pr-auc.md
+              - Probabilistic:
+                  - theory/evaluation/metrics/probabilistic/index.md
+                  - Log-Loss: theory/evaluation/metrics/probabilistic/log-loss.md
+                  - Brier Score: theory/evaluation/metrics/probabilistic/brier-score.md
+                  - Calibration Error: theory/evaluation/metrics/probabilistic/calibration-error.md
+              - Regression:
+                  - theory/evaluation/metrics/regression/index.md
+                  - MAE: theory/evaluation/metrics/regression/mae.md
+                  - RMSE: theory/evaluation/metrics/regression/rmse.md
+                  - R²: theory/evaluation/metrics/regression/r-squared.md
+              - Ranking:
+                  - theory/evaluation/metrics/ranking/index.md
+                  - NDCG: theory/evaluation/metrics/ranking/ndcg.md
+                  - Mean Average Precision: theory/evaluation/metrics/ranking/map.md
+              - Segmentation:
+                  - theory/evaluation/metrics/segmentation/index.md
+                  - IoU: theory/evaluation/metrics/segmentation/iou.md
+                  - Dice: theory/evaluation/metrics/segmentation/dice.md
+          - Protocols: theory/evaluation/protocols/index.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons:
@@ -895,6 +1011,7 @@ nav:
               - Layer Normalisation: theory/models/mlp/layer-normalisation/index.md
           - Convolutional Networks:
               - theory/models/cnn/index.md
+              - U-Net: theory/models/cnn/unet/index.md
               - Convolution Variants:
                   - theory/models/cnn/convolution-variants/index.md
                   - Dilated Convolution: theory/models/cnn/convolution-variants/dilated-convolution/index.md
@@ -920,6 +1037,10 @@ nav:
               - theory/models/transformer/index.md
               - Attention Is All You Need: theory/models/transformer/attention-is-all-you-need/index.md
               - Additive Attention (Bahdanau): theory/models/transformer/bahdanau-attention/index.md
+              - Vision Transformer (ViT):
+                  - theory/models/transformer/vision-transformer/index.md
+                  - DeiT: theory/models/transformer/vision-transformer/deit/index.md
+                  - Swin Transformer: theory/models/transformer/vision-transformer/swin/index.md
               - Diffusion Transformer (DiT): theory/models/transformer/dit/index.md
               - Mixture of Experts:
                   - theory/models/mixture-of-experts/index.md
@@ -969,7 +1090,14 @@ nav:
                   - GAT: theory/models/gnn/message-passing/gat/index.md
                   - GIN: theory/models/gnn/message-passing/gin/index.md
           - AI Agents: theory/models/agents/index.md
-          - World Models & Embodied AI: theory/models/world-models/index.md
+          - World Models & Embodied AI:
+              - theory/models/world-models/index.md
+              - Action Controllability: theory/models/world-models/action-controllability.md
+              - Dreamer: theory/models/world-models/dreamer.md
+              - DINO-WM: theory/models/world-models/dino-wm.md
+              - V-JEPA 2: theory/models/world-models/v-jepa-2.md
+              - Genie: theory/models/world-models/genie.md
+              - LAPO: theory/models/world-models/lapo.md
   - Brain & Mind:
       - brain-mind/index.md
       - Neuroscience Basics:
@@ -979,6 +1107,7 @@ nav:
       - Computational Neuroscience:
           - brain-mind/computational-neuroscience/index.md
           - Hodgkin–Huxley Model: brain-mind/computational-neuroscience/hodgkin-huxley/index.md
+          - Leaky Integrate-and-Fire (LIF): brain-mind/computational-neuroscience/lif/index.md
           - Sparse Coding: brain-mind/computational-neuroscience/sparse-coding/index.md
       - NeuroAI:
           - brain-mind/neuroai/index.md
@@ -988,6 +1117,7 @@ nav:
           - brain-mind/snn-neuromorphic/index.md
           - Surrogate Gradients: brain-mind/snn-neuromorphic/surrogate-gradients/index.md
           - Online Learning with Local Updates (e-prop): brain-mind/snn-neuromorphic/eprop/index.md
+          - Spike-Timing-Dependent Plasticity (STDP): brain-mind/snn-neuromorphic/stdp/index.md
       - Memory & Learning in the Brain:
           - brain-mind/memory-learning/index.md
           - Medial Temporal Lobe Lesions: brain-mind/memory-learning/medial-temporal-lesions/index.md
@@ -1013,6 +1143,7 @@ nav:
           - brain-mind/bci/index.md
           - Neural Reach and Grasp: brain-mind/bci/neural-reach-and-grasp/index.md
           - Speech Neuroprosthesis: brain-mind/bci/speech-neuroprosthesis/index.md
+          - Reconstructing Viewed Images from fMRI (Takagi & Nishimoto 2023): brain-mind/bci/fmri-image-reconstruction/index.md
       - Language in the Brain:
           - brain-mind/language-in-brain/index.md
           - Dual-Stream Model (Hickok & Poeppel 2007): brain-mind/language-in-brain/hickok-poeppel-2007/index.md
@@ -1030,6 +1161,7 @@ nav:
           - brain-mind/attention-brain-machine/index.md
           - Biased Competition (Desimone & Duncan 1995): brain-mind/attention-brain-machine/biased-competition/index.md
           - Saliency-Based Visual Attention (Itti et al. 1998): brain-mind/attention-brain-machine/saliency-map/index.md
+          - Recurrent Models of Visual Attention (Mnih et al. 2014): brain-mind/attention-brain-machine/recurrent-visual-attention/index.md
       - Predictive Coding & Free Energy:
           - brain-mind/predictive-coding/index.md
           - Predictive Coding in Visual Cortex (Rao & Ballard 1999): brain-mind/predictive-coding/rao-ballard-1999/index.md
@@ -1053,7 +1185,13 @@ nav:
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
-      - Life Sciences & Drug Discovery: applications/life-science/index.md
+      - Life Sciences & Drug Discovery:
+          - applications/life-science/index.md
+          - AlphaFold 2 (Jumper et al. 2021): applications/life-science/alphafold-2.md
+          - RFdiffusion: applications/life-science/rfdiffusion/index.md
+          - ESM-2 and ESMFold: applications/life-science/esm/index.md
+          - ESM-2: applications/life-science/esm/esm-2.md
+          - ESMFold: applications/life-science/esm/esmfold.md
       - Scientific Discovery: applications/science/index.md
       - Mental Health: applications/mental-health/index.md
       - Education: applications/education/index.md
@@ -1069,10 +1207,21 @@ nav:
       - Agriculture & Food: applications/agriculture/index.md
       - Climate & Energy: applications/climate-energy/index.md
       - Art, Media & Creativity: applications/creative/index.md
-      - Games: applications/games/index.md
+      - Games:
+          - applications/games/index.md
+          - OpenAI Five: applications/games/openai-five/index.md
       - Cybersecurity: applications/cybersecurity/index.md
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md
+      - Military & Defence: applications/military/index.md
+      - Space & Astronomy: applications/space-astronomy/index.md
+      - Architecture & Urban Planning: applications/architecture-urban/index.md
+      - Telecommunications: applications/telecommunications/index.md
+      - Linguistics & Machine Translation: applications/linguistics-translation/index.md
+      - Government & Public Services: applications/government/index.md
+      - Retail, Marketing & E-commerce: applications/retail-marketing/index.md
+      - Journalism & Information Ecosystems: applications/journalism/index.md
+      - Accessibility & Assistive Technology: applications/accessibility/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools: engineering/frameworks/index.md
@@ -1127,6 +1276,7 @@ nav:
           - Interconnects and Scaling: engineering/hardware/interconnects/index.md
           - In-Memory and Analogue Computing: engineering/hardware/in-memory-computing/index.md
           - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md
+          - Mixed-Precision Training: engineering/hardware/co-design/mixed-precision.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
@@ -1171,6 +1321,7 @@ nav:
       - Courses & Books: reference/courses-books/index.md
       - Datasets: reference/datasets/index.md
       - Timeline of Models and Releases: reference/timeline/index.md
+      - Conferences and Journals: reference/venues/index.md
       - Tags: reference/tags/index.md
       - Contributing: reference/contributing/index.md
       - Roadmap & Coverage: reference/roadmap/index.md
