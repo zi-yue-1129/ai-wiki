@@ -39,6 +39,7 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Decision Making, Dopamine & Reward](decision-reward/index.md) | Evidence accumulation, model-based vs model-free control, reward prediction error |
 | [Perception & the Visual System](visual-perception/index.md) | Receptive fields, the ventral stream, CNNs as models of vision |
 | [Attention in Brains & Machines](attention-brain-machine/index.md) | Biased competition, saliency maps, top-down control, attention in neural networks |
+| [Emotion & Affective Computing](emotion/index.md) | Valence and arousal, threat circuits, basic emotions, affective computing |
 
 ## Two-way influence at a glance
 
