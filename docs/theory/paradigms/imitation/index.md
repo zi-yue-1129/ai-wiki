@@ -17,7 +17,7 @@ Learn a behaviour by **watching an expert** instead of from a reward signal. Use
 | Approach | How it works | Strengths | Weaknesses |
 |---|---|---|---|
 | Behavioural cloning (BC) | Supervised learning from state → expert action | Simple, scalable | Compounding errors: small mistakes lead to unfamiliar states (covariate shift) |
-| DAgger (Ross et al., 2011) | Run the learner, ask the expert to label the states it visits, aggregate | Fixes covariate shift with theoretical guarantees | Needs an interactive expert |
+| [DAgger](interactive-imitation/dagger.md) (Ross et al., 2011) | Run the learner, ask the expert to label the states it visits, aggregate | Fixes covariate shift with theoretical guarantees | Needs an interactive expert |
 | Inverse reinforcement learning (IRL) | Infer the reward the expert is optimising, then do RL | Generalises beyond demonstrations; interpretable intent | Ill-posed (many rewards explain the same behaviour); expensive |
 | Maximum-entropy IRL | Prefer the least-committed reward consistent with demonstrations | Handles sub-optimal, noisy experts | Still costly |
 | Adversarial imitation (GAIL, AIRL) | A discriminator distinguishes expert from learner trajectories; the learner tries to fool it | No explicit reward engineering | GAN-style instability |

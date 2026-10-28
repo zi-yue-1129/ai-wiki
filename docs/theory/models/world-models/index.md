@@ -23,6 +23,19 @@ The idea comes from psychology: Craik (1943) proposed the mind builds "small-sca
 | Driving world models | GAIA and others | Generate driving scenarios for training and testing |
 | LLMs as implicit world models | Othello-GPT | A model trained only on move sequences developed an internal board-state representation (Li et al., 2023) |
 
+## Key methods and sub-topics
+
+Each method has its own page with the detail. This overview only compares them.
+
+| Page | What separates it |
+|---|---|
+| [Action controllability](action-controllability.md) | Why models can ignore the action input, the shortcuts behind it, and the remedies |
+| [Dreamer](dreamer.md) | Reinforcement learning by imagining trajectories inside a latent model, from DreamerV1 to DreamerV3 |
+| [DINO-WM](dino-wm.md) | A predictor on frozen DINOv2 patch features, used for zero-shot planning |
+| [V-JEPA 2](v-jepa-2.md) | Video pre-training in representation space, then action post-training on robot video |
+| [Genie](genie.md) | A generative world that the user controls through latent actions learned without labels |
+| [LAPO](lapo.md) | Latent actions learned from action-free video, with a quantised bottleneck against copying |
+
 ## Embodied AI
 
 Intelligence arises not only in a brain but in **the interaction of body and environment**.
@@ -63,3 +76,22 @@ See [Robotics](../../../applications/robotics/index.md).
 - LeCun (2022), "A Path Towards Autonomous Machine Intelligence"
 - Hafner et al., DreamerV3
 - Pfeifer & Bongard, *How the Body Shapes the Way We Think*
+
+## References
+
+### Seminal papers
+
+- Ha, D. & Schmidhuber, J. (2018). *World Models*. arXiv preprint. https://arxiv.org/abs/1803.10122 — Early latent world model in which a policy is trained inside the model's own simulated environment.
+- Hafner, D. et al. (2019). *Dream to Control: Learning Behaviors by Latent Imagination*. arXiv preprint. https://arxiv.org/abs/1912.01603 — Introduces Dreamer, which learns behaviour by backpropagating through imagined latent trajectories.
+- Zhou, G. et al. (2025). *DINO-WM: World Models on Pre-trained Visual Features enable Zero-shot Planning*. ICML 2025. https://proceedings.mlr.press/v267/zhou25t.html — Action-conditioned predictor on frozen DINOv2 features, used for zero-shot planning.
+- Bruce, J. et al. (2024). *Genie: Generative Interactive Environments*. ICML 2024. https://proceedings.mlr.press/v235/bruce24a.html — Generative interactive environments with latent actions learned from unlabelled video.
+
+### Surveys and textbooks
+
+- Moerland, T. M. et al. (2020). *Model-based Reinforcement Learning: A Survey*. arXiv preprint. https://arxiv.org/abs/2006.16712 — Survey of learned dynamics models and their use in planning and policy learning.
+
+### Articles and preprints
+
+- Hafner, D. et al. (2025). *Mastering diverse control tasks through world models*. Nature 640. https://doi.org/10.1038/s41586-025-08744-2 — DreamerV3, one configuration across more than 150 tasks.
+- Assran, M. et al. (2025). *V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning*. arXiv preprint. https://arxiv.org/abs/2506.09985 — Video model post-trained on robot video for action-conditioned planning.
+- Schmidt, D. & Jiang, M. (2024). *Learning to Act without Actions*. ICLR 2024 (spotlight). https://arxiv.org/abs/2312.10812 — Latent actions from action-free video with a quantised bottleneck (LAPO).

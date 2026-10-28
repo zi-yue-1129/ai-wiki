@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/models/transformer
@@ -63,7 +63,7 @@ Training uses the same noise-prediction loss as [DDPM](../../../paradigms/unsupe
 
 ### Seminal papers
 
-- Peebles, W. & Xie, S. (2023). Scalable Diffusion Models with Transformers. ICCV. https://arxiv.org/abs/2212.09748 — Introduces DiT and reports FID improving with Gflops.
+- Peebles, W. & Xie, S. (2023). Scalable Diffusion Models with Transformers. ICCV 2023. [DOI 10.1109/ICCV51070.2023.00387](https://doi.org/10.1109/ICCV51070.2023.00387). Also [arXiv:2212.09748](https://arxiv.org/abs/2212.09748) — Introduces DiT and reports FID improving with Gflops.
 - Rombach, R. et al. (2022). High-Resolution Image Synthesis with Latent Diffusion Models. CVPR. https://arxiv.org/abs/2112.10752 — The latent diffusion setting in which DiT replaces the U-Net.
 - Vaswani, A. et al. (2017). Attention Is All You Need. NeurIPS. https://arxiv.org/abs/1706.03762 — The Transformer architecture that DiT reuses as its denoiser.
 

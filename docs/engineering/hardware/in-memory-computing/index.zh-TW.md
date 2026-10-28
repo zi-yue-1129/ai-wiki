@@ -26,26 +26,25 @@ I_j = \sum_i V_i \, G_{ij}
 
 一層的輸出就是欄電流組成的向量，之後再轉成數位。權重通常以正負兩組電導，或以成對的元件，來表示帶正負號的數值。每次運算都需要把輸入從數位轉成類比，並把輸出從類比轉回數位，而這些轉換器往往主導了設計的能量與面積。
 
-訓練比推論困難。更新一個權重，意味著要重新程式化一個元件，這可能很慢、可能磨損元件，而且電導變化的幅度也未必正好是所需的量。Ambrogio 等人的做法，是在類比元件上原地執行權重更新，同時保有軟體訓練的準確度。
+訓練比推論困難。更新一個權重，意味著要重新程式化一個元件，這可能很慢、可能磨損元件，而且電導變化的幅度也未必正好是所需的量。Ambrogio 等人採用混合的軟硬體方法，在類比記憶體上進行權重更新，同時保有軟體訓練的準確度。
 
 ## 結果
 
-Ambrogio 等人（2018）報告，在類比記憶體硬體上原地訓練神經網路，在 MNIST、CIFAR-10 與 CIFAR-100 等常見基準上，能達到與軟體訓練相同的準確度；在該論文的比較中，它也比當時的 GPU 更節能、更快。
+Ambrogio 等人（2018）報告，在類比記憶體上訓練神經網路，在 MNIST、MNIST-backrand、CIFAR-10 與 CIFAR-100 上，能達到與軟體訓練相當的泛化準確度。他們的效率與吞吐量數字，是作者針對其實作所做的計算，並非實測結果；作者表示這些數字比當時的 GPU 高出兩個數量級。
 
-Wan 等人（2022）報告一顆以 RRAM 建構的記憶體內運算晶片，其推論完全在硬體上量測，涵蓋數個邊緣 AI 任務。它的準確度接近使用 4 位元權重的軟體模型，而且其能量延遲乘積低於先前的 RRAM 記憶體內運算晶片。
+Wan 等人（2022）報告一顆以 RRAM 建構的記憶體內運算晶片，其推論在硬體上實測，涵蓋 CIFAR-10、MNIST 與 Google 語音指令等數個任務。它的準確度接近使用 4 位元權重的軟體模型，唯一的例外是 CIFAR-10 上的 ResNet-20：晶片上為 83.67%，4 位元軟體模型為 87.03%。論文報告其能量延遲乘積，比先前的 RRAM 記憶體內運算晶片低 1.6 至 2.3 倍。
 
-Rasch 等人（2023）顯示，類比記憶體內推論會引入近似誤差而降低準確度；若以更貼近實際硬體的模型重新訓練，大型 CNN、RNN 與 Transformer 的準確度可以恢復到接近浮點數的水準。
+Rasch 等人（2023）顯示，類比記憶體內運算只是近似地執行矩陣與向量的乘法，裝置的不完美會降低準確度。他們報告，包括 CNN、RNN 與 Transformer 在內的許多大型深度神經網路，都可以在這類硬體上重新訓練，達到等準確度（iso-accuracy）。
 
 ## 限制
 
-類比結果取決於元件的變異、隨時間的漂移、轉換器的有限精度，以及讀出電路的雜訊。模型必須針對硬體進行訓練或調整，而其準確度因此只適用於特定的裝置與晶片。元件的耐久度與程式化速度，限制了權重可以更動的頻率，因此這種方法較適合固定權重的推論，而非訓練。許多基準只報告陣列本身的能量，排除了轉換器與陣列邊緣的資料搬移。
+類比結果取決於元件的變異、隨時間的漂移、轉換器的有限精度，以及讀出電路的雜訊。模型必須針對硬體進行訓練或調整，而其準確度因此只適用於特定的裝置與晶片。元件的耐久度與程式化速度，限制了權重可以更動的頻率，因此這種方法較適合固定權重的推論，而非訓練。許多效率數字只涵蓋陣列本身，轉換器與陣列邊緣的資料搬移可能不計入，因此比較時應先確認每個數字量測的範圍。
 
-## 開放問題與相關變體
+## 開放問題
 
 - **大型語言模型。** LLM 的權重遠大於單一交叉陣列，因此模型必須切分到許多陣列上，而陣列之間的通訊成本尚未得到充分描述。
 - **動態矩陣。** 注意力會乘上在執行時才產生的矩陣，例如 KV 快取，這意味著每個 token 都要寫入陣列。這與固定權重的優勢相衝，是尚待解決的設計問題。
 - **數位與類比的比較。** 數位的記憶體內設計以部分效率換取精確的算術與較簡單的程式設計。哪一種方法在實務上較佳，取決於精度需求與轉換器的成本。
-- **綜述。** Sebastian 等人綜述了記憶體內運算所需的記憶體元件與應用，這提供了上述結果所依賴的元件背景。
 - **相關：** [量化](../../../theory/model-compression/quantisation/index.zh-TW.md)降低了類比陣列需要表示的精度，而[記憶體階層](../memory-hierarchy/index.zh-TW.md)頁說明了記憶體內設計試圖避免的資料搬移成本。
 
 ## 相關連結
@@ -56,18 +55,9 @@ Rasch 等人（2023）顯示，類比記憶體內推論會引入近似誤差而�
 
 ### 開創性論文
 
-- Ambrogio, S., 等人 (2018). *Equivalent-accuracy accelerated neural-network training using analogue memory*. Nature 558. https://doi.org/10.1038/s41586-018-0180-5 — 顯示在類比記憶體上原地訓練神經網路，能達到常見基準上軟體訓練的準確度。
-- Wan, W., 等人 (2022). *A compute-in-memory chip based on resistive random-access memory*. Nature 608. https://doi.org/10.1038/s41586-022-04992-8 — 報告一顆基於 RRAM 的記憶體內運算晶片，其推論準確度接近使用 4 位元權重的軟體模型。
-- Yao, P., 等人 (2020). *Fully hardware-implemented memristor convolutional neural network*. Nature 577. https://doi.org/10.1038/s41586-020-1942-4 — 以憶阻器陣列實作完整的卷積神經網路，每一層都在硬體上計算。
-
-### 綜述與教科書
-
-- Sebastian, A., 等人 (2020). *Memory devices and applications for in-memory computing*. Nature Nanotechnology. https://doi.org/10.1038/s41565-020-0655-z — 綜述記憶體內運算所依賴的記憶體元件與應用。
-
-### 講座與影片
-
-（本頁尚未查核任何項目）
+- Ambrogio, S., 等人 (2018). *Equivalent-accuracy accelerated neural-network training using analogue memory*. Nature 558, 60–67. https://doi.org/10.1038/s41586-018-0180-5 — 顯示在類比記憶體上原地訓練神經網路，能在 MNIST 與 CIFAR 基準上達到軟體訓練的準確度。
+- Wan, W., 等人 (2022). *A compute-in-memory chip based on resistive random-access memory*. Nature 608. https://doi.org/10.1038/s41586-022-04992-8 — 報告一顆基於 RRAM 的記憶體內運算晶片，其硬體實測推論接近使用 4 位元權重的軟體模型。
 
 ### 文章與文件
 
-- Rasch, M. J., 等人 (2023). *Hardware-aware training for large-scale and diverse deep learning inference workloads using in-memory computing-based accelerators*. arXiv:2302.08469. https://arxiv.org/abs/2302.08469 — 顯示以貼近實際硬體的模型重新訓練，可讓大型 CNN、RNN 與 Transformer 恢復接近浮點數的準確度。
+- Rasch, M. J., 等人 (2023). *Hardware-aware training for large-scale and diverse deep learning inference workloads using in-memory computing-based accelerators*. arXiv:2302.08469. https://arxiv.org/abs/2302.08469 — 顯示類比記憶體內推論是近似的，以硬體模型重新訓練，可讓 CNN、RNN 與 Transformer 達到等準確度。
