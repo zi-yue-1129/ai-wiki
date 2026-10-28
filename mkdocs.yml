@@ -1026,7 +1026,6 @@ nav:
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
-          - GPTQ: engineering/on-device-edge/gptq.md
   - AI & Society:
       - society/index.md
       - Safety & Alignment: society/safety-alignment/index.md

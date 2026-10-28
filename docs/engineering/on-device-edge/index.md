@@ -41,12 +41,12 @@ flowchart LR
 
 ## Key methods
 
-Each named method has its own page. The table compares the two methods on this page, and the rest of the page covers the surrounding choices.
+The method pages live in the theory chapter, so this section compares the two methods used here and links to them. The engineering page for distillation keeps the deployment notes.
 
 | Method | Problem it solves | Core idea | Main trade-off | Page |
 |---|---|---|---|---|
-| Knowledge distillation | A small model must reach the quality of a large one | Train the small student to match the soft outputs of a large teacher | Needs a teacher and training compute | [Knowledge Distillation](knowledge-distillation.md) |
-| GPTQ | A large model's weights must shrink after training, without retraining | Post-training quantisation that rounds weights layer by layer while correcting the error | Quality depends on calibration data and bit width | [GPTQ](gptq.md) |
+| Knowledge distillation | A small model must reach the quality of a large one | Train the small student to match the soft outputs of a large teacher | Needs a teacher and training compute | [Knowledge Distillation](knowledge-distillation.md) (engineering notes); [theory page](../../theory/model-compression/knowledge-distillation/index.md) |
+| GPTQ | A large model's weights must shrink after training, without retraining | Post-training quantisation that rounds weights layer by layer while correcting the error | Quality depends on calibration data and bit width | [GPTQ](../../theory/model-compression/quantisation/post-training/gptq/index.md) |
 
 Other compression approaches, such as quantisation-aware training and structured pruning, are not given separate pages here yet. The pruning and quantisation work in the references below is the starting point for them.
 
