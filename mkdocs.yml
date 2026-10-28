@@ -774,6 +774,12 @@ plugins:
             Indirect Prompt Injection: 間接提示注入
             Universal Adversarial Suffixes: 通用對抗後綴
             LLM Application Security: LLM 應用安全
+            Agent Engineering: 代理工程
+            Tool Calling & MCP: 工具呼叫與 MCP
+            Sandboxing & Computer Use: 沙箱與電腦操作代理
+            Multi-Agent Orchestration: 多代理編排
+            Agent Evaluation: 代理評估
+            Agent Observability: 代理可觀測性
             Synthetic Data: 合成資料
             Self-Instruct: Self-Instruct
             Textbook-quality data: 教科書品質的合成資料
@@ -1658,6 +1664,13 @@ nav:
           - Model Collapse: engineering/synthetic-data/model-collapse.md
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
+      - Agent Engineering:
+          - engineering/agents/index.md
+          - Tool Calling & MCP: engineering/agents/tool-calling-and-mcp.md
+          - Sandboxing & Computer Use: engineering/agents/sandboxing-and-computer-use.md
+          - Multi-Agent Orchestration: engineering/agents/multi-agent-orchestration.md
+          - Agent Evaluation: engineering/agents/agent-evaluation.md
+          - Agent Observability: engineering/agents/agent-observability.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md
