@@ -30,8 +30,9 @@ tags:
 |---|---|
 | [指標](metrics/index.md) | 哪個數字符合要做的決定：準確率、排序品質、校準，還是誤差大小？ |
 | [評估協定](protocols/index.md) | 如何切分資料、比較方法並報告不確定性，而不自欺？ |
+| [基準測試](benchmarks/index.md) | 哪個具名測試衡量什麼，而它的分數能說明什麼？ |
 
-依任務分組、每個基準家族一頁的內容，規劃在之後的階段。在那之前，主要語言模型基準請見[評估與基準](../../engineering/evaluation/index.md)。
+具名基準依任務分組，每個基準一頁，見[基準測試](benchmarks/index.md)。語言模型基準的實務指引，請見[評估與基準](../../engineering/evaluation/index.md)。
 
 ## 這個主題已在其他地方出現
 
