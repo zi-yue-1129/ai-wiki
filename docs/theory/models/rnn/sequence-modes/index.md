@@ -71,9 +71,9 @@ The encoder–decoder pattern was the setting in which attention was first added
 
 ### Seminal papers
 
-- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. arXiv:1409.3215 — Encoder–decoder recurrent networks for machine translation, end to end.
-- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — The RNN encoder–decoder with gated units for translation.
-- Bahdanau, D., Cho, K. & Bengio, Y. (2014). "Neural Machine Translation by Jointly Learning to Align and Translate". arXiv:1409.0473 — Adds attention so the decoder can look back over the whole input.
+- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. [arXiv:1409.3215](https://arxiv.org/abs/1409.3215) — Encoder–decoder recurrent networks for machine translation, end to end.
+- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". [arXiv:1406.1078](https://arxiv.org/abs/1406.1078) — The RNN encoder–decoder with gated units for translation.
+- Bahdanau, D., Cho, K. & Bengio, Y. (2014). "Neural Machine Translation by Jointly Learning to Align and Translate". [arXiv:1409.0473](https://arxiv.org/abs/1409.0473) — Adds attention so the decoder can look back over the whole input.
 
 ### Surveys and textbooks
 
@@ -85,4 +85,4 @@ The encoder–decoder pattern was the setting in which attention was first added
 
 ### Articles and documentation
 
-- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". arXiv:1211.5063 — Analyses the gradient problems that make long-sequence training hard.
+- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". [arXiv:1211.5063](https://arxiv.org/abs/1211.5063) — Analyses the gradient problems that make long-sequence training hard.

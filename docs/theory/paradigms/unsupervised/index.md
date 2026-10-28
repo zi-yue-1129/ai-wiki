@@ -67,4 +67,4 @@ There is no ground truth, so evaluation is hard:
 - Hinton & Salakhutdinov (2006), "Reducing the dimensionality of data with neural networks", *Science* 313. https://doi.org/10.1126/science.1127647 — Deep autoencoders that outperform PCA for compressing image data.
 - Jolliffe, *Principal Component Analysis*, Springer (2002). https://link.springer.com/doi/10.1007/b98835 — The standard reference for PCA, the most widely used unsupervised method.
 - Chandola, Banerjee & Kumar (2009), "Anomaly detection: a survey", *ACM Computing Surveys* 41(3). https://doi.org/10.1145/1541880.1541882 — Classic survey organising anomaly detection by data type and method.
-- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), arXiv:1206.5538 — Survey of what makes learned representations useful.
+- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), [arXiv:1206.5538](https://arxiv.org/abs/1206.5538) — Survey of what makes learned representations useful.

@@ -37,14 +37,14 @@ Computing joint informativeness is expensive for large models and large batches.
 
 ### Seminal papers
 
-- Sener & Savarese (2018), "Active learning for convolutional neural networks: a core-set approach", ICLR, arXiv:1708.00489 — Selects a batch that covers the unlabelled pool, which gives a strong diversity baseline for deep networks.
-- Ash, Zhang, Krishnamurthy, Langford & Agarwal (2020), "Deep batch active learning by diverse, uncertain gradient lower bounds", ICLR, arXiv:1906.03671 — BADGE, which picks a batch of gradient embeddings that is both uncertain and diverse.
-- Kirsch, van Amersfoort & Gal (2019), "BatchBALD: efficient and diverse batch acquisition for deep Bayesian active learning", NeurIPS, arXiv:1906.08158 — Scores batches by their joint mutual information, which discourages redundant examples.
+- Sener & Savarese (2018), "Active learning for convolutional neural networks: a core-set approach", ICLR, [arXiv:1708.00489](https://arxiv.org/abs/1708.00489) — Selects a batch that covers the unlabelled pool, which gives a strong diversity baseline for deep networks.
+- Ash, Zhang, Krishnamurthy, Langford & Agarwal (2020), "Deep batch active learning by diverse, uncertain gradient lower bounds", ICLR, [arXiv:1906.03671](https://arxiv.org/abs/1906.03671) — BADGE, which picks a batch of gradient embeddings that is both uncertain and diverse.
+- Kirsch, van Amersfoort & Gal (2019), "BatchBALD: efficient and diverse batch acquisition for deep Bayesian active learning", NeurIPS, [arXiv:1906.08158](https://arxiv.org/abs/1906.08158) — Scores batches by their joint mutual information, which discourages redundant examples.
 
 ### Surveys and textbooks
 
 - Settles (2009), "Active learning literature survey", Computer Sciences Technical Report 1648, University of Wisconsin-Madison. https://research.cs.wisc.edu/techreports/2009/TR1648.pdf — Survey covering batch and diversity-based query strategies.
-- Ren et al. (2020), "A survey of deep active learning", arXiv:2009.00236 — Survey that discusses batch and diversity strategies for deep networks.
+- Ren et al. (2020), "A survey of deep active learning", [arXiv:2009.00236](https://arxiv.org/abs/2009.00236) — Survey that discusses batch and diversity strategies for deep networks.
 
 ### Lectures and videos
 

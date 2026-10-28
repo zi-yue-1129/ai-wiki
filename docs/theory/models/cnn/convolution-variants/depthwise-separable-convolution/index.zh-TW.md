@@ -59,9 +59,9 @@ Xception 論文把深度可分離卷積描述為「對輸入的每個通道獨�
 
 ### 開創性論文
 
-- Chollet, F. (2016). "Xception: Deep Learning with Depthwise Separable Convolutions". arXiv:1610.02357 — 顯示把空間與通道混合分解後，能以較低成本超越 Inception 式設計。
-- Howard, A. G., et al. (2017). "MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications". arXiv:1704.04861 — 深度可分離卷積，作為高效裝置端視覺的建構單元。
-- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". arXiv:1905.11946 — 同時縮放深度、寬度與輸入解析度。
+- Chollet, F. (2016). "Xception: Deep Learning with Depthwise Separable Convolutions". [arXiv:1610.02357](https://arxiv.org/abs/1610.02357) — 顯示把空間與通道混合分解後，能以較低成本超越 Inception 式設計。
+- Howard, A. G., et al. (2017). "MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications". [arXiv:1704.04861](https://arxiv.org/abs/1704.04861) — 深度可分離卷積，作為高效裝置端視覺的建構單元。
+- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". [arXiv:1905.11946](https://arxiv.org/abs/1905.11946) — 同時縮放深度、寬度與輸入解析度。
 
 ### 綜述與教科書
 
@@ -73,4 +73,4 @@ Xception 論文把深度可分離卷積描述為「對輸入的每個通道獨�
 
 ### 文章與文件
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt，一個現代化的純 CNN，與 Transformer 基線相當。
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt，一個現代化的純 CNN，與 Transformer 基線相當。

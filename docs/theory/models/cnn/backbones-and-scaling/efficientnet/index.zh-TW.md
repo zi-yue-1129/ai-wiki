@@ -62,8 +62,8 @@ d = \alpha^{\phi}, \qquad w = \beta^{\phi}, \qquad r = \gamma^{\phi}
 
 ### 開創性論文
 
-- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". arXiv:1905.11946 — 同時縮放深度、寬度與輸入解析度。
-- Howard, A. G., et al. (2017). "MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications". arXiv:1704.04861 — 深度可分離卷積，作為高效裝置端視覺的建構單元。
+- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". [arXiv:1905.11946](https://arxiv.org/abs/1905.11946) — 同時縮放深度、寬度與輸入解析度。
+- Howard, A. G., et al. (2017). "MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications". [arXiv:1704.04861](https://arxiv.org/abs/1704.04861) — 深度可分離卷積，作為高效裝置端視覺的建構單元。
 
 ### 綜述與教科書
 
@@ -75,5 +75,5 @@ d = \alpha^{\phi}, \qquad w = \beta^{\phi}, \qquad r = \gamma^{\phi}
 
 ### 文章與文件
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt，一個現代化的純 CNN，與 Transformer 基線相當。
-- Tan, M. & Le, Q. V. (2021). "EfficientNetV2: Smaller Models and Faster Training". arXiv:2104.00298 — 同一作者的後續研究，搜尋既更小又訓練更快的模型。
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt，一個現代化的純 CNN，與 Transformer 基線相當。
+- Tan, M. & Le, Q. V. (2021). "EfficientNetV2: Smaller Models and Faster Training". [arXiv:2104.00298](https://arxiv.org/abs/2104.00298) — 同一作者的後續研究，搜尋既更小又訓練更快的模型。

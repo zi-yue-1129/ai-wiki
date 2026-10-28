@@ -46,7 +46,7 @@ Training scales between $O(n^2)$ and $O(n^3)$ in the number of examples, which i
 
 - Boser, B. E., Guyon, I. M. & Vapnik, V. N. (1992). A training algorithm for optimal margin classifiers. *COLT*. https://doi.org/10.1145/130385.130401 — The first kernel SVM paper, combining maximum margins with the kernel trick.
 - Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — Introduces the soft-margin SVM, which allows some training errors.
-- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572 — Shows that infinitely wide networks trained by gradient descent behave like a kernel machine.
+- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, [arXiv:1806.07572](https://arxiv.org/abs/1806.07572) — Shows that infinitely wide networks trained by gradient descent behave like a kernel machine.
 - Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://doi.org/10.1145/1102351.1102430 — Compares how well classifiers including SVMs produce calibrated probabilities.
 
 ### Surveys and textbooks
@@ -59,7 +59,7 @@ Training scales between $O(n^2)$ and $O(n^3)$ in the number of examples, which i
 
 ### Articles and documentation
 
-- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, arXiv:1812.11118 — Explains how kernel and neural models can interpolate training data and still generalise.
+- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, [arXiv:1812.11118](https://arxiv.org/abs/1812.11118) — Explains how kernel and neural models can interpolate training data and still generalise.
 
 ## Further reading
 

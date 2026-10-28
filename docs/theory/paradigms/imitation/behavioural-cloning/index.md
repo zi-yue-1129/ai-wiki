@@ -43,12 +43,12 @@ Covariate shift is only partly solved by better data and models. Learning from d
 
 - Pomerleau (1989), "ALVINN: an autonomous land vehicle in a neural network", NeurIPS 1988 proceedings. https://papers.nips.cc/paper/1988/hash/812b4ba287f5ee0bc9d43bbf5bbe87fb-Abstract.html — One of the first systems to learn driving by copying a human driver's steering.
 - Ross & Bagnell (2010), "Efficient reductions for imitation learning", AISTATS. https://proceedings.mlr.press/v9/ross10a.html — Analyses how the errors of a cloned policy compound over the horizon.
-- Ross, Gordon & Bagnell (2011), "A reduction of imitation learning and structured prediction to no-regret online learning", AISTATS, arXiv:1011.0686 — Shows how covariate shift makes behavioural cloning fail and introduces DAgger.
-- Zhao, Kumar, Levine & Finn (2023), "Learning fine-grained bimanual manipulation with low-cost hardware", RSS, arXiv:2304.13705 — ACT, a transformer policy that predicts action chunks to model coherent multi-step behaviour.
+- Ross, Gordon & Bagnell (2011), "A reduction of imitation learning and structured prediction to no-regret online learning", AISTATS, [arXiv:1011.0686](https://arxiv.org/abs/1011.0686) — Shows how covariate shift makes behavioural cloning fail and introduces DAgger.
+- Zhao, Kumar, Levine & Finn (2023), "Learning fine-grained bimanual manipulation with low-cost hardware", RSS, [arXiv:2304.13705](https://arxiv.org/abs/2304.13705) — ACT, a transformer policy that predicts action chunks to model coherent multi-step behaviour.
 
 ### Surveys and textbooks
 
-- Osa et al. (2018), "An algorithmic perspective on imitation learning", arXiv:1811.06711 — Survey of imitation learning algorithms, from behavioural cloning to inverse reinforcement learning.
+- Osa et al. (2018), "An algorithmic perspective on imitation learning", [arXiv:1811.06711](https://arxiv.org/abs/1811.06711) — Survey of imitation learning algorithms, from behavioural cloning to inverse reinforcement learning.
 
 ### Lectures and videos
 

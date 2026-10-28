@@ -51,7 +51,7 @@ Preserving local structure is easy, but reliably preserving global geometry is n
 - Hyvärinen & Oja (2000), "Independent component analysis: algorithms and applications", *Neural Networks* 13(4–5). https://itb.biologie.hu-berlin.de/%7Ekempter/Teaching/2004_SS/hyvarinen_oja_2000.pdf — The standard tutorial on ICA, its assumptions and its fast algorithms.
 - Lee & Seung (1999), "Learning the parts of objects by non-negative matrix factorization", *Nature* 401. https://doi.org/10.1038/44565 — Shows that non-negativity yields parts-based representations of images.
 - van der Maaten & Hinton (2008), "Visualizing data using t-SNE", *JMLR* 9. https://jmlr.org/papers/v9/vandermaaten08a.html — Introduces t-SNE, the most widely used method for two-dimensional visualisation.
-- McInnes, Healy & Melville (2018), "UMAP: Uniform Manifold Approximation and Projection for dimension reduction", arXiv:1802.03426 — Introduces UMAP, a faster neighbour-graph method that also keeps more global structure.
+- McInnes, Healy & Melville (2018), "UMAP: Uniform Manifold Approximation and Projection for dimension reduction", [arXiv:1802.03426](https://arxiv.org/abs/1802.03426) — Introduces UMAP, a faster neighbour-graph method that also keeps more global structure.
 
 ### Surveys and textbooks
 

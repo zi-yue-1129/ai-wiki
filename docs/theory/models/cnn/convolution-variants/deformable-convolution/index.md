@@ -63,10 +63,10 @@ The [convolution variants](../index.md) page lists deformable convolution as the
 
 ### Seminal papers
 
-- Dai, J., et al. (2017). "Deformable Convolutional Networks". arXiv:1703.06211 — Learns sampling offsets so the convolution adapts to object shape.
-- Yu, F. & Koltun, V. (2015). "Multi-Scale Context Aggregation by Dilated Convolutions". arXiv:1511.07122 — Dilated convolutions for dense prediction with exponentially growing receptive fields.
-- Chen, L.-C., et al. (2016). "DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs". arXiv:1606.00915 — Atrous convolution with fully connected CRFs for dense segmentation.
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — Residual connections that allow very deep CNNs to train.
+- Dai, J., et al. (2017). "Deformable Convolutional Networks". [arXiv:1703.06211](https://arxiv.org/abs/1703.06211) — Learns sampling offsets so the convolution adapts to object shape.
+- Yu, F. & Koltun, V. (2015). "Multi-Scale Context Aggregation by Dilated Convolutions". [arXiv:1511.07122](https://arxiv.org/abs/1511.07122) — Dilated convolutions for dense prediction with exponentially growing receptive fields.
+- Chen, L.-C., et al. (2016). "DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs". [arXiv:1606.00915](https://arxiv.org/abs/1606.00915) — Atrous convolution with fully connected CRFs for dense segmentation.
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — Residual connections that allow very deep CNNs to train.
 
 ### Surveys and textbooks
 

@@ -45,7 +45,7 @@ GP 在資料點很少時仍能給出校準良好的不確定性，也驅動貝�
 - Ng & Jordan (2001), "On discriminative vs. generative classifiers: a comparison of logistic regression and naive Bayes", NeurIPS. https://papers.nips.cc/paper/2001/hash/7b7a53e239400a13bd6be6c91c4f6c4e-Abstract.html — 比較各分類器需要多少資料，以及各自何時勝出。
 - Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), 138–156. https://doi.org/10.1198/016214505000000907 — 說明哪些凸替代損失仍能得到良好的分類器。
 - Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://doi.org/10.1145/1102351.1102430 — 對常見分類器的機率校準做實證比較。
-- Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599 — 顯示預測的機率可能校準不良，並提出以溫度縮放作為修正。
+- Guo et al. (2017), "On calibration of modern neural networks", ICML, [arXiv:1706.04599](https://arxiv.org/abs/1706.04599) — 顯示預測的機率可能校準不良，並提出以溫度縮放作為修正。
 
 ### 綜述與教科書
 

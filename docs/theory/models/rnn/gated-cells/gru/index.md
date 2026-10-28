@@ -96,7 +96,7 @@ The GRU is the two-gate member of the [gated cells](../index.md) family, next to
 
 ### Seminal papers
 
-- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — Introduces the GRU and the encoder–decoder setup for sequence-to-sequence tasks.
+- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". [arXiv:1406.1078](https://arxiv.org/abs/1406.1078) — Introduces the GRU and the encoder–decoder setup for sequence-to-sequence tasks.
 - Hochreiter, S. & Schmidhuber, J. (1997). "Long Short-Term Memory". *Neural Computation* 9(8). https://doi.org/10.1162/neco.1997.9.8.1735 — The LSTM, with gated memory cells that address the vanishing gradient problem.
 - Bengio, Y., Simard, P. & Frasconi, P. (1994). "Learning long-term dependencies with gradient descent is difficult". *IEEE Transactions on Neural Networks* 5(2). https://doi.org/10.1109/72.279181 — Shows why gradient descent struggles to learn long-range dependencies in recurrent networks.
 
@@ -110,6 +110,6 @@ The GRU is the two-gate member of the [gated cells](../index.md) family, next to
 
 ### Articles and documentation
 
-- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". arXiv:1412.3555 — Compares LSTM and GRU with the plain recurrent cell on several sequence tasks.
-- Greff, K., et al. (2017). "LSTM: A Search Space Odyssey". arXiv:1503.04069 — Benchmarks several LSTM variants and finds that the vanilla design is hard to beat.
-- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". arXiv:1211.5063 — Analyses exploding and vanishing gradients and proposes gradient norm clipping.
+- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". [arXiv:1412.3555](https://arxiv.org/abs/1412.3555) — Compares LSTM and GRU with the plain recurrent cell on several sequence tasks.
+- Greff, K., et al. (2017). "LSTM: A Search Space Odyssey". [arXiv:1503.04069](https://arxiv.org/abs/1503.04069) — Benchmarks several LSTM variants and finds that the vanilla design is hard to beat.
+- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". [arXiv:1211.5063](https://arxiv.org/abs/1211.5063) — Analyses exploding and vanishing gradients and proposes gradient norm clipping.

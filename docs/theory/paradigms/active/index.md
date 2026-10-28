@@ -71,10 +71,10 @@ Active learning is the machine counterpart of **curiosity**:
 
 - Lewis & Gale (1994), "A sequential algorithm for training text classifiers", SIGIR, https://arxiv.org/abs/cmp-lg/9407020 — Introduces uncertainty sampling, the basic query strategy.
 - Dasgupta (2005), "Coarse sample complexity bounds for active learning", NeurIPS. https://proceedings.neurips.cc/paper/2005/hash/6e82873a32b95af115de1c414a1849cb-Abstract.html — Early theory on when active learning reduces the number of labels.
-- Gal, Islam & Ghahramani (2017), "Deep Bayesian active learning with image data", ICML, arXiv:1703.02910 — Makes uncertainty-based active learning work with deep networks.
-- Sener & Savarese (2018), "Active learning for convolutional neural networks: a core-set approach", ICLR, arXiv:1708.00489 — Core-set selection, a strong deep baseline.
+- Gal, Islam & Ghahramani (2017), "Deep Bayesian active learning with image data", ICML, [arXiv:1703.02910](https://arxiv.org/abs/1703.02910) — Makes uncertainty-based active learning work with deep networks.
+- Sener & Savarese (2018), "Active learning for convolutional neural networks: a core-set approach", ICLR, [arXiv:1708.00489](https://arxiv.org/abs/1708.00489) — Core-set selection, a strong deep baseline.
 
 ### Surveys and textbooks
 
 - Settles (2009), "Active learning literature survey", Computer Sciences Technical Report 1648, University of Wisconsin-Madison. https://research.cs.wisc.edu/techreports/2009/TR1648.pdf — The standard survey of query strategies and their settings.
-- Ren et al. (2020), "A survey of deep active learning", arXiv:2009.00236 — Survey of active learning methods for deep networks.
+- Ren et al. (2020), "A survey of deep active learning", [arXiv:2009.00236](https://arxiv.org/abs/2009.00236) — Survey of active learning methods for deep networks.

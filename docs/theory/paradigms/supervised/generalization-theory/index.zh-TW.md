@@ -50,7 +50,7 @@ tags:
 
 - Valiant, L. G. (1984). A theory of the learnable. *Communications of the ACM*, 27(11), 1134–1142. https://doi.org/10.1145/1968.1972 — 提出 PAC 學習，即從樣本中能學到什麼的形式化模型。
 - Zhang, C. et al. (2017). Understanding deep learning requires rethinking generalization. ICLR. arXiv:1611.03530. https://arxiv.org/abs/1611.03530 — 顯示大型網路可以擬合隨機標籤，這打破了古典的容量界限。
-- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572 — 把極寬網路的泛化與核迴歸連結起來。
+- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, [arXiv:1806.07572](https://arxiv.org/abs/1806.07572) — 把極寬網路的泛化與核迴歸連結起來。
 
 ### 綜述與教科書
 
@@ -63,5 +63,5 @@ tags:
 
 ### 文章與文件
 
-- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, arXiv:1812.11118 — 說明雙下降：模型能擬合訓練集之後，測試誤差會再次下降。
-- Kaplan et al. (2020), "Scaling laws for neural language models", arXiv:2001.08361 — 以經驗上的冪次定律，把語言模型的損失與模型大小、資料與運算量連結起來。
+- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, [arXiv:1812.11118](https://arxiv.org/abs/1812.11118) — 說明雙下降：模型能擬合訓練集之後，測試誤差會再次下降。
+- Kaplan et al. (2020), "Scaling laws for neural language models", [arXiv:2001.08361](https://arxiv.org/abs/2001.08361) — 以經驗上的冪次定律，把語言模型的損失與模型大小、資料與運算量連結起來。

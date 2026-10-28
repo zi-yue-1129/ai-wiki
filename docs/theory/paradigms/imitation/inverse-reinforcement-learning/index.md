@@ -46,11 +46,11 @@ Reward ambiguity remains the central difficulty, and recovered rewards are often
 - Ng & Russell (2000), "Algorithms for inverse reinforcement learning", ICML. https://aima.eecs.berkeley.edu/~russell/papers/ml00-irl.pdf — Early formal treatment of recovering rewards from optimal behaviour, including the ambiguity problem.
 - Abbeel & Ng (2004), "Apprenticeship learning via inverse reinforcement learning", ICML. https://icml.cc/Conferences/2004/proceedings/abstracts/335.htm — Feature-matching apprenticeship learning with guarantees on performance relative to the expert.
 - Ziebart, Maas, Bagnell & Dey (2008), "Maximum entropy inverse reinforcement learning", AAAI. https://www.cs.cmu.edu/~bziebart/publications/maximum-entropy-inverse-reinforcement-learning.html — Probabilistic IRL that picks the highest-entropy distribution consistent with demonstrations.
-- Finn, Levine & Abbeel (2016), "Guided cost learning: deep inverse optimal control via policy optimization", ICML, arXiv:1603.00448 — Scales maximum-entropy IRL to high-dimensional inputs with learned costs and a sampling-based partition function.
+- Finn, Levine & Abbeel (2016), "Guided cost learning: deep inverse optimal control via policy optimization", ICML, [arXiv:1603.00448](https://arxiv.org/abs/1603.00448) — Scales maximum-entropy IRL to high-dimensional inputs with learned costs and a sampling-based partition function.
 
 ### Surveys and textbooks
 
-- Osa et al. (2018), "An algorithmic perspective on imitation learning", arXiv:1811.06711 — Survey covering reward-recovery methods alongside behavioural cloning.
+- Osa et al. (2018), "An algorithmic perspective on imitation learning", [arXiv:1811.06711](https://arxiv.org/abs/1811.06711) — Survey covering reward-recovery methods alongside behavioural cloning.
 
 ### Lectures and videos
 
@@ -62,4 +62,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Fu, Luo & Levine (2018), "Learning robust rewards with adversarial inverse reinforcement learning", ICLR, arXiv:1710.11248 — Adversarial IRL that yields rewards which transfer across dynamics.
+- Fu, Luo & Levine (2018), "Learning robust rewards with adversarial inverse reinforcement learning", ICLR, [arXiv:1710.11248](https://arxiv.org/abs/1710.11248) — Adversarial IRL that yields rewards which transfer across dynamics.

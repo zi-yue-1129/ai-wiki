@@ -58,9 +58,9 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". arXiv:1607.06450 — 在特徵上而非批次上做正規化。
-- Ioffe, S. & Szegedy, C. (2015). "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift". arXiv:1502.03167 — 對每個小批次的激活值做正規化，層正規化即是為了替代它而提出的方法。
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — 殘差連接，使深層網路能夠訓練。
+- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". [arXiv:1607.06450](https://arxiv.org/abs/1607.06450) — 在特徵上而非批次上做正規化。
+- Ioffe, S. & Szegedy, C. (2015). "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift". [arXiv:1502.03167](https://arxiv.org/abs/1502.03167) — 對每個小批次的激活值做正規化，層正規化即是為了替代它而提出的方法。
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — 殘差連接，使深層網路能夠訓練。
 
 ### 綜述與教科書
 
@@ -72,4 +72,4 @@ translation_reviewed: 2026-10-28
 
 ### 文章與文件
 
-- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". arXiv:1606.08415 — GELU 激活函數，被許多 Transformer 模型採用。
+- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". [arXiv:1606.08415](https://arxiv.org/abs/1606.08415) — GELU 激活函數，被許多 Transformer 模型採用。

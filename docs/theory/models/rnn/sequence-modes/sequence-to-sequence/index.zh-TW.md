@@ -57,9 +57,9 @@ p(y_1,\dots,y_{T'} \mid x_1,\dots,x_T) = \prod_{t} p(y_t \mid v,\, y_1,\dots,y_{
 
 ### 開創性論文
 
-- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. arXiv:1409.3215 — Encoder–decoder LSTMs for machine translation, trained end to end.
-- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — 提出 GRU，以及用於序列到序列任務的編碼器–解碼器架構。
-- Bahdanau, D., Cho, K. & Bengio, Y. (2014). "Neural Machine Translation by Jointly Learning to Align and Translate". arXiv:1409.0473 — 加入注意力，使解碼器能回看整個輸入。
+- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. [arXiv:1409.3215](https://arxiv.org/abs/1409.3215) — Encoder–decoder LSTMs for machine translation, trained end to end.
+- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". [arXiv:1406.1078](https://arxiv.org/abs/1406.1078) — 提出 GRU，以及用於序列到序列任務的編碼器–解碼器架構。
+- Bahdanau, D., Cho, K. & Bengio, Y. (2014). "Neural Machine Translation by Jointly Learning to Align and Translate". [arXiv:1409.0473](https://arxiv.org/abs/1409.0473) — 加入注意力，使解碼器能回看整個輸入。
 
 ### 綜述與教科書
 
@@ -71,4 +71,4 @@ p(y_1,\dots,y_{T'} \mid x_1,\dots,x_T) = \prod_{t} p(y_t \mid v,\, y_1,\dots,y_{
 
 ### 文章與文件
 
-- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". arXiv:1412.3555 — 在多個序列任務上比較 LSTM、GRU 與原始循環單元。
+- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". [arXiv:1412.3555](https://arxiv.org/abs/1412.3555) — 在多個序列任務上比較 LSTM、GRU 與原始循環單元。

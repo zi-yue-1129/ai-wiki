@@ -38,14 +38,14 @@ Models grow over time, which raises memory and inference costs. Task identity is
 
 ### Seminal papers
 
-- Rusu et al. (2016), "Progressive neural networks", arXiv:1606.04671 — Adds a new column for each task with lateral connections to frozen earlier columns.
-- Mallya & Lazebnik (2018), "PackNet: adding multiple tasks to a single network by iterative pruning", CVPR, arXiv:1711.05769 — Prunes and freezes weights per task, so that many tasks share one network.
-- Yoon, Yang, Lee & Hwang (2018), "Lifelong learning with dynamically expandable networks", ICLR, arXiv:1708.01547 — Adds neurons only when the current capacity is insufficient for a new task.
+- Rusu et al. (2016), "Progressive neural networks", [arXiv:1606.04671](https://arxiv.org/abs/1606.04671) — Adds a new column for each task with lateral connections to frozen earlier columns.
+- Mallya & Lazebnik (2018), "PackNet: adding multiple tasks to a single network by iterative pruning", CVPR, [arXiv:1711.05769](https://arxiv.org/abs/1711.05769) — Prunes and freezes weights per task, so that many tasks share one network.
+- Yoon, Yang, Lee & Hwang (2018), "Lifelong learning with dynamically expandable networks", ICLR, [arXiv:1708.01547](https://arxiv.org/abs/1708.01547) — Adds neurons only when the current capacity is insufficient for a new task.
 
 ### Surveys and textbooks
 
-- Parisi, Kemker, Part, Kanan & Wermter (2019), "Continual lifelong learning with neural networks: a review", Neural Networks, arXiv:1802.07569 — Review that groups architecture-based methods with the other families.
-- De Lange et al. (2021), "A continual learning survey: defying forgetting in classification tasks", IEEE TPAMI, arXiv:1909.08383 — Survey that compares architecture-based methods under a common protocol.
+- Parisi, Kemker, Part, Kanan & Wermter (2019), "Continual lifelong learning with neural networks: a review", Neural Networks, [arXiv:1802.07569](https://arxiv.org/abs/1802.07569) — Review that groups architecture-based methods with the other families.
+- De Lange et al. (2021), "A continual learning survey: defying forgetting in classification tasks", IEEE TPAMI, [arXiv:1909.08383](https://arxiv.org/abs/1909.08383) — Survey that compares architecture-based methods under a common protocol.
 
 ### Lectures and videos
 

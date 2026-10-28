@@ -40,10 +40,10 @@ Reliable off-policy evaluation without strong overlap assumptions is unsolved. C
 
 ### Seminal papers
 
-- Fujimoto, Meger & Precup (2019), "Off-policy deep reinforcement learning without exploration", ICML, arXiv:1812.02900 — Batch-constrained Q-learning, which keeps the policy within the support of the data.
-- Kumar, Zhou, Tucker & Levine (2020), "Conservative Q-learning for offline reinforcement learning", NeurIPS, arXiv:2006.04779 — Pessimistic Q-values that prevent overestimating unseen actions.
-- Wu, Tucker & Nachum (2019), "Behavior regularized offline reinforcement learning", arXiv:1911.11361 — Regularises the policy toward the behaviour data, a simple and strong offline baseline.
-- Chen et al. (2021), "Decision transformer: reinforcement learning via sequence modeling", NeurIPS, arXiv:2106.01345 — Frames offline RL as conditional sequence prediction over returns.
+- Fujimoto, Meger & Precup (2019), "Off-policy deep reinforcement learning without exploration", ICML, [arXiv:1812.02900](https://arxiv.org/abs/1812.02900) — Batch-constrained Q-learning, which keeps the policy within the support of the data.
+- Kumar, Zhou, Tucker & Levine (2020), "Conservative Q-learning for offline reinforcement learning", NeurIPS, [arXiv:2006.04779](https://arxiv.org/abs/2006.04779) — Pessimistic Q-values that prevent overestimating unseen actions.
+- Wu, Tucker & Nachum (2019), "Behavior regularized offline reinforcement learning", [arXiv:1911.11361](https://arxiv.org/abs/1911.11361) — Regularises the policy toward the behaviour data, a simple and strong offline baseline.
+- Chen et al. (2021), "Decision transformer: reinforcement learning via sequence modeling", NeurIPS, [arXiv:2106.01345](https://arxiv.org/abs/2106.01345) — Frames offline RL as conditional sequence prediction over returns.
 
 ### Surveys and textbooks
 
@@ -55,7 +55,7 @@ Reliable off-policy evaluation without strong overlap assumptions is unsolved. C
 
 ### Articles and documentation
 
-- Levine, Kumar, Tucker & Fu (2020), "Offline reinforcement learning: tutorial, review, and perspectives on open problems", arXiv:2005.01643 — Tutorial and review of the field, including its open problems.
+- Levine, Kumar, Tucker & Fu (2020), "Offline reinforcement learning: tutorial, review, and perspectives on open problems", [arXiv:2005.01643](https://arxiv.org/abs/2005.01643) — Tutorial and review of the field, including its open problems.
 
 ## Further reading
 

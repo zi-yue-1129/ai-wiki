@@ -39,14 +39,14 @@ Averaging can slow or prevent convergence when client data is very different. Co
 
 ### Seminal papers
 
-- McMahan, Moore, Ramage, Hampson & Agüera y Arcas (2017), "Communication-efficient learning of deep networks from decentralized data", AISTATS, arXiv:1602.05629 — Introduces federated averaging and shows that it trains deep networks with far less communication.
-- Konečný, McMahan, Yu, Richtárik, Suresh & Bacon (2016), "Federated learning: strategies for improving communication efficiency", arXiv:1610.05492 — Early paper that proposes structured and sketched updates to reduce communication.
-- Li, Sahu, Zaheer, Sanjabi, Talwalkar & Smith (2020), "Federated optimization in heterogeneous networks", MLSys, arXiv:1812.06127 — FedProx, a proximal extension of federated averaging for heterogeneous clients.
+- McMahan, Moore, Ramage, Hampson & Agüera y Arcas (2017), "Communication-efficient learning of deep networks from decentralized data", AISTATS, [arXiv:1602.05629](https://arxiv.org/abs/1602.05629) — Introduces federated averaging and shows that it trains deep networks with far less communication.
+- Konečný, McMahan, Yu, Richtárik, Suresh & Bacon (2016), "Federated learning: strategies for improving communication efficiency", [arXiv:1610.05492](https://arxiv.org/abs/1610.05492) — Early paper that proposes structured and sketched updates to reduce communication.
+- Li, Sahu, Zaheer, Sanjabi, Talwalkar & Smith (2020), "Federated optimization in heterogeneous networks", MLSys, [arXiv:1812.06127](https://arxiv.org/abs/1812.06127) — FedProx, a proximal extension of federated averaging for heterogeneous clients.
 
 ### Surveys and textbooks
 
-- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, arXiv:1912.04977 — Broad survey of federated learning with a list of open problems.
-- Yang, Liu, Chen & Tong (2019), "Federated machine learning: concept and applications", ACM Transactions on Intelligent Systems and Technology, arXiv:1902.04885 — Introduces the taxonomy of horizontal and vertical federated learning.
+- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, [arXiv:1912.04977](https://arxiv.org/abs/1912.04977) — Broad survey of federated learning with a list of open problems.
+- Yang, Liu, Chen & Tong (2019), "Federated machine learning: concept and applications", ACM Transactions on Intelligent Systems and Technology, [arXiv:1902.04885](https://arxiv.org/abs/1902.04885) — Introduces the taxonomy of horizontal and vertical federated learning.
 
 ### Lectures and videos
 

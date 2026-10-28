@@ -61,7 +61,7 @@ How to bound the expert's labelling effort when the learner's state distribution
 
 ### Seminal papers
 
-- Ross, S., Gordon, G. J. & Bagnell, J. A. (2011). *A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning*. AISTATS 2011, PMLR 15:627–635. https://proceedings.mlr.press/v15/ross11a.html — Introduces DAgger and proves its bound on the expected cost of the learned policy. The arXiv version is arXiv:1011.0686.
+- Ross, S., Gordon, G. J. & Bagnell, J. A. (2011). *A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning*. AISTATS 2011, PMLR 15:627–635. https://proceedings.mlr.press/v15/ross11a.html — Introduces DAgger and proves its bound on the expected cost of the learned policy. The arXiv version is [arXiv:1011.0686](https://arxiv.org/abs/1011.0686).
 - Ross, S. & Bagnell, J. A. (2010). *Efficient Reductions for Imitation Learning*. AISTATS 2010, PMLR 9:661–668. https://proceedings.mlr.press/v9/ross10a.html — Analyses how the errors of a cloned policy compound over the horizon, the problem DAgger addresses.
 
 ### Articles and preprints

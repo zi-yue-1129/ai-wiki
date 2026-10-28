@@ -43,11 +43,11 @@ Most methods assume covariate shift, and their guarantees break under label or c
 
 ### Seminal papers
 
-- Ganin et al. (2016), "Domain-adversarial training of neural networks", JMLR, arXiv:1505.07818 — DANN, which learns features that a domain classifier cannot use to tell source from target.
+- Ganin et al. (2016), "Domain-adversarial training of neural networks", JMLR, [arXiv:1505.07818](https://arxiv.org/abs/1505.07818) — DANN, which learns features that a domain classifier cannot use to tell source from target.
 - Long, Cao, Wang & Jordan (2015), "Learning transferable features with deep adaptation networks", ICML. https://people.eecs.berkeley.edu/~jordan/papers/long-etal-icml2015.pdf — Aligns source and target features across several layers with multi-kernel maximum mean discrepancy.
-- Sun & Saenko (2016), "Deep CORAL: correlation alignment for deep domain adaptation", ECCV workshops, arXiv:1607.01719 — Matches the covariance of source and target features with a simple differentiable loss.
-- Wang, Shelhamer, Liu, Olshausen & Darrell (2021), "Tent: fully test-time adaptation by entropy minimization", ICLR, arXiv:2006.10726 — Adapts a model at test time using only unlabelled target inputs.
-- Koh et al. (2021), "WILDS: a benchmark of in-the-wild distribution shifts", ICML, arXiv:2012.07421 — Benchmark of natural distribution shifts across medicine, satellite imagery and web data.
+- Sun & Saenko (2016), "Deep CORAL: correlation alignment for deep domain adaptation", ECCV workshops, [arXiv:1607.01719](https://arxiv.org/abs/1607.01719) — Matches the covariance of source and target features with a simple differentiable loss.
+- Wang, Shelhamer, Liu, Olshausen & Darrell (2021), "Tent: fully test-time adaptation by entropy minimization", ICLR, [arXiv:2006.10726](https://arxiv.org/abs/2006.10726) — Adapts a model at test time using only unlabelled target inputs.
+- Koh et al. (2021), "WILDS: a benchmark of in-the-wild distribution shifts", ICML, [arXiv:2012.07421](https://arxiv.org/abs/2012.07421) — Benchmark of natural distribution shifts across medicine, satellite imagery and web data.
 
 ### Surveys and textbooks
 

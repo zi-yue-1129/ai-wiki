@@ -21,16 +21,16 @@ aliases:
 
 ## 概觀
 
-本頁是[範式](../index.zh-TW.md)章節的一部分。每個方法各有獨立頁面，本頁負責比較。以梯度估計方式從函數值估計搜尋方向的零階方法（演化策略與 CMA-ES），見[零階與演化最佳化](../../optimization/zeroth-order-and-evolutionary.md)，本頁僅作摘要。
+本頁是[範式](../index.zh-TW.md)章節的一部分。每個方法各有獨立頁面，本頁負責比較。以梯度估計方式從函數值估計搜尋方向的零階方法（演化策略與 CMA-ES），見[零階與演化最佳化](../../optimization/zeroth-order-and-evolutionary.zh-TW.md)，本頁僅作摘要。
 
 ## 關鍵方法
 
 | 方法 | 族群更新方式 | 典型應用 | 頁面 |
 |---|---|---|---|
-| 遺傳演算法 | 在位元串或向量上做選擇、交叉與突變 | 排程、設計 | 規劃中 |
-| 遺傳規劃 | 在程式樹上做交叉與突變 | 符號迴歸 | 規劃中 |
-| 演化策略與 CMA-ES | 抽取高斯樣本，並把其均值與共變異數移向好的樣本 | 連續黑箱最佳化 | [零階與演化](../../optimization/zeroth-order-and-evolutionary.md) |
-| NEAT | 同時演化權重與拓撲，並使用創新編號 | 神經演化、控制 | 規劃中 |
+| 遺傳演算法 | 在位元串或向量上做選擇、交叉與突變 | 排程、設計 | [遺傳演算法](genetic-algorithms.zh-TW.md) |
+| 遺傳規劃 | 在程式樹上做交叉與突變 | 符號迴歸 | [遺傳規劃](genetic-programming.zh-TW.md) |
+| 演化策略與 CMA-ES | 抽取高斯樣本，並把其均值與共變異數移向好的樣本 | 連續黑箱最佳化 | [零階與演化](../../optimization/zeroth-order-and-evolutionary.zh-TW.md) |
+| NEAT | 同時演化權重與拓撲，並使用創新編號 | 神經演化、控制 | [NEAT](neat.zh-TW.md) |
 | MAP-Elites | 在行為網格的每個格子中保留最佳解 | 多樣的解、機器人動作庫 | [MAP-Elites](map-elites.zh-TW.md) |
 | 粒子群最佳化 | 每個粒子依自身與鄰居的最佳位置移動 | 連續最佳化 | [粒子群最佳化](particle-swarm.zh-TW.md) |
 | 螞蟻演算法 | 螞蟻在好的路徑上留下費洛蒙，依比例抽樣路徑 | 組合式路徑問題 | [螞蟻演算法](ant-colony.zh-TW.md) |

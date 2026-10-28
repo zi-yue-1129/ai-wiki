@@ -65,7 +65,7 @@ Unrolled, the step is a weighted sum of all past gradients with weights that dec
 
 ### Seminal papers
 
-- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:10.1016/0041-5553(64)90137-5 — Introduces heavy-ball momentum and analyses its acceleration on quadratic problems.
+- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:[10.1016/0041-5553(64)90137-5](https://doi.org/10.1016/0041-5553(64)90137-5) — Introduces heavy-ball momentum and analyses its acceleration on quadratic problems.
 - Sutskever, I., Martens, J., Dahl, G. & Hinton, G. (2013). On the importance of initialization and momentum in deep learning. ICML. https://proceedings.mlr.press/v28/sutskever13.html — Shows that momentum with careful initialisation trains deep and recurrent networks.
 
 ### Surveys and textbooks

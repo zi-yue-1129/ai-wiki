@@ -44,7 +44,7 @@ Adversarial guarantees can be pessimistic for real data, and adaptive algorithms
 
 ### Surveys and textbooks
 
-- Bubeck & Cesa-Bianchi (2012), "Regret analysis of stochastic and nonstochastic multi-armed bandit problems", Foundations and Trends in Machine Learning, arXiv:1204.5721 — Survey that covers the adversarial bandit results alongside the stochastic ones.
+- Bubeck & Cesa-Bianchi (2012), "Regret analysis of stochastic and nonstochastic multi-armed bandit problems", Foundations and Trends in Machine Learning, [arXiv:1204.5721](https://arxiv.org/abs/1204.5721) — Survey that covers the adversarial bandit results alongside the stochastic ones.
 - Shalev-Shwartz (2012), "Online learning and online convex optimization", Foundations and Trends in Machine Learning. https://www.cs.huji.ac.il/~shais/papers/OLsurvey.pdf — Survey that places expert advice within the wider online learning framework.
 
 ### Lectures and videos

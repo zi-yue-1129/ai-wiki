@@ -60,8 +60,8 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. doi:10.1214/aoms/1177729586 — 提出使用遞減步長的隨機逼近，是隨機梯度下降的基礎。
-- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:10.1016/0041-5553(64)90137-5 — 提出重球動量，並分析其在二次問題上的加速效果。
+- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. doi:[10.1214/aoms/1177729586](https://doi.org/10.1214/aoms/1177729586) — 提出使用遞減步長的隨機逼近，是隨機梯度下降的基礎。
+- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:[10.1016/0041-5553(64)90137-5](https://doi.org/10.1016/0041-5553(64)90137-5) — 提出重球動量，並分析其在二次問題上的加速效果。
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR. https://arxiv.org/abs/1412.6980 — 提出 Adam，一種利用梯度偏差校正矩估計的自適應方法。
 
 ### 綜述與教科書

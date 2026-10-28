@@ -15,7 +15,7 @@ translation_reviewed: 2026-10-28
 
 # VGG
 
-VGG 是一族深層卷積網路，由 Simonyan 與 Zisserman 在 2015 年的論文《Very Deep Convolutional Networks for Large-Scale Image Recognition》（arXiv:1409.1556）中提出。論文顯示，以 3×3 卷積組成的簡單、統一堆疊，配合 11 到 19 層的權重層，就能在 ImageNet 上達到很強的準確率，並把深度變成主要的研究變數。
+VGG 是一族深層卷積網路，由 Simonyan 與 Zisserman 在 2015 年的論文《Very Deep Convolutional Networks for Large-Scale Image Recognition》（[arXiv:1409.1556](https://arxiv.org/abs/1409.1556)）中提出。論文顯示，以 3×3 卷積組成的簡單、統一堆疊，配合 11 到 19 層的權重層，就能在 ImageNet 上達到很強的準確率，並把深度變成主要的研究變數。
 
 ## 問題
 
@@ -81,9 +81,9 @@ flatten, then
 
 ### 開創性論文
 
-- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". arXiv:1409.1556 — 堆疊小型 3×3 卷積的普通深層設計，即 VGG 的基礎。
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — 殘差連接，使極深的 CNN 能夠訓練。
-- Huang, G., et al. (2017). "Densely Connected Convolutional Networks". arXiv:1608.06993 — 每一層都與其後所有層相連，重用特徵並改善梯度流。
+- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". [arXiv:1409.1556](https://arxiv.org/abs/1409.1556) — 堆疊小型 3×3 卷積的普通深層設計，即 VGG 的基礎。
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — 殘差連接，使極深的 CNN 能夠訓練。
+- Huang, G., et al. (2017). "Densely Connected Convolutional Networks". [arXiv:1608.06993](https://arxiv.org/abs/1608.06993) — 每一層都與其後所有層相連，重用特徵並改善梯度流。
 
 ### 綜述與教科書
 
@@ -95,4 +95,4 @@ flatten, then
 
 ### 文章與文件
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt，一個現代化的純 CNN，與 Transformer 基線相當。
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt，一個現代化的純 CNN，與 Transformer 基線相當。
