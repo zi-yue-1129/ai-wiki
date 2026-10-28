@@ -12,4 +12,3 @@ The map is generated when the site is built, so it updates whenever a page is ad
 - **Full screen**: the button in the toolbar fills the screen with the map. Press Esc to leave.
 - **Find a topic**: type in the search box. Choosing a result opens its group and centres the topic.
 - **Labels**: names appear when you zoom in or point at a circle. Selecting a circle highlights the topics it links to.
-- **List**: the list under the map gives the same topics as plain links, for reading or searching on a phone.

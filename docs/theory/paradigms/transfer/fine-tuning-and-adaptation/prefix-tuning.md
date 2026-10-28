@@ -18,7 +18,7 @@ aliases:
 
 # Prefix Tuning
 
-Prefix tuning adapts a frozen language model by learning a short sequence of continuous vectors, called the prefix, that conditions the model on the task. The model's own weights are never changed. Li and Liang (2021) report that it trains about 0.1% of the parameters and reaches performance comparable to full fine-tuning on table-to-text and summarisation, with better results than fine-tuning in low-data settings. It is a parameter-efficient method within [fine-tuning and adaptation](index.md) that changes what the model attends to rather than adding layers, and it is the direct predecessor of [prompt tuning](prompt-tuning.md).
+Prefix tuning adapts a frozen language model by learning a short sequence of continuous vectors, the prefix, that every Transformer layer attends to as if it were extra context. The model's own weights are never changed. Li and Liang (2021) report that the method trains about 0.1% of the parameters, that on table-to-text it is roughly on par with full fine-tuning, that it is slightly behind on summarisation, and that it beats fine-tuning when data is scarce. It sits within [fine-tuning and adaptation](index.md) as a prompt-based method, and [prompt tuning](prompt-tuning.md) later simplified it.
 
 ## Problem
 
@@ -26,27 +26,29 @@ Full fine-tuning updates every parameter of a generation model, and it stores a 
 
 ## Key concepts
 
-- **Prefix:** a sequence of continuous vectors, learned for one task, that the frozen model reads before or alongside its input.
+- **Prefix:** a sequence of learned continuous vectors placed before the input. At every layer, the prefix positions supply key and value activations that the input tokens attend to, so the prefix acts as virtual tokens.
+- **Reparameterisation:** the paper found that optimising the prefix directly was unstable and sensitive to the learning rate and initialisation. Training instead uses a smaller matrix passed through a feed-forward network to produce the prefix. Only the resulting prefix is kept after training.
 - **Frozen model:** the pre-trained language model whose weights are not changed during adaptation.
-- **Trained fraction:** the share of parameters that are trained, which the paper puts at about 0.1%.
 
 ## How it works
 
-For a task, a set of prefix vectors is initialised and optimised by gradient descent on the task's objective, while the language model's parameters stay fixed. The prefix is then stored for that task, and one frozen model serves all tasks by swapping in the matching prefix. Because the model itself is not modified, many tasks can share one copy of it.
+For each task, a prefix is trained by gradient descent on the task's objective while the language model's parameters stay fixed. The paper's main table-to-text setup uses a prefix length of 10. After training, the prefix is stored for the task, and one frozen model serves all tasks by swapping in the matching prefix. Tuning only the input embedding layer performs notably worse than tuning the prefix at every layer.
 
 ## Results
 
-The abstract reports that, with GPT-2 on table-to-text and BART on summarisation, prefix tuning reaches performance comparable to fine-tuning when all the data is available. It outperforms fine-tuning in low-data settings, and it extrapolates better to examples whose topics were not seen in training. It trains about 0.1% of the parameters.
+On table-to-text with GPT-2, prefix tuning trains about 0.1% of the parameters and is roughly on par with full fine-tuning across E2E, WebNLG and DART; on E2E with GPT-2 Medium it scores slightly higher on BLEU (69.7 against 68.2). On summarisation with BART-Large, full fine-tuning reaches ROUGE-L 37.25, while prefix tuning reaches 36.05 with 2% of the parameters and 35.05 with 0.1%, so it is slightly worse there.
+
+With 50 to 500 training examples, prefix tuning outperforms fine-tuning on average, by about 2.9 BLEU on table-to-text, and the gap shrinks as data grows. It also generalises better than fine-tuning to unseen WebNLG categories and to held-out XSUM splits.
 
 ## Limitations
 
-- **Narrow task set.** The paper's main tasks are table-to-text and summarisation, so the comparison on other tasks is not shown by it.
-- **Sensitivity to design choices.** The prefix length and its initialisation affect results, and they are usually chosen by experiment.
-- **Context budget.** The prefix takes positions in the model's input or attention context, which reduces the room left for the actual input.
+- **Narrow task set.** The main tasks are table-to-text and summarisation, so the paper does not show the method's behaviour on other tasks.
+- **Sensitivity to design choices.** The prefix length and the reparameterisation matter, and the paper's own summarisation results depend on the prefix length.
+- **Context budget.** The prefix occupies positions in the model's attention context, which reduces the room left for the actual input.
 
 ## Open questions
 
-- **Where the prefix helps most.** Why conditioning with a prefix generalises better in low-data settings is not explained in the abstract, and it is a question for further study.
+- **Why the prefix generalises.** The paper reports better extrapolation to unseen topics. What causes it is an open question for further study.
 - **Versus adapters.** How prefix tuning compares with adapters across model sizes and tasks depends on the setting, and the two are hard to compare on equal footing.
 
 ## Connections

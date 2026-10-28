@@ -78,7 +78,7 @@ body.km-lock { overflow: hidden; }
 .km-stage svg:active { cursor: grabbing; }
 .km-explorer.km-fullscreen .km-stage { flex: 1; }
 .km-explorer.km-fullscreen .km-stage svg { height: 100%; }
-.km-explorer.km-fullscreen .km-legend p, .km-explorer.km-fullscreen .km-list { display: none; }
+.km-explorer.km-fullscreen .km-legend p { display: none; }
 .km-exit { display: none; }
 .km-fullscreen .km-enter { display: none; }
 .km-fullscreen .km-exit { display: inline; }
@@ -133,9 +133,6 @@ body.km-lock { overflow: hidden; }
 }
 .km-chip.km-hollow::before { background: none; border: 2px solid var(--md-default-fg-color--light); box-sizing: border-box; }
 
-.km-list { margin-top: 1rem; font-size: .85rem; }
-.km-list ul { margin: .15rem 0 .15rem 1.1rem; }
-.km-list > ul { margin-left: .2rem; }
 
 @media (max-width: 600px) {
   .km-search-input { width: 8.5rem; }

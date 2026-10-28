@@ -10,7 +10,7 @@ A node's colour is its section, and a hollow circle marks a draft page. A line j
 link to each other, either through `related:` front matter (see hooks/related.py) or through a link in
 the text. The layout is a small deterministic force-directed pass, so the same content always gives the
 same picture. The page carries the layout as JSON; docs/javascripts/knowledge-map.js adds zoom, pan,
-full screen, drill-down and search. Readers without JavaScript get the same links as a nested list.
+full screen, drill-down and search.
 
 A page marks where a map belongs with one of these lines, on its own:
 
@@ -78,7 +78,6 @@ TEXT = {
         "fit": "Fit to screen",
         "full": "Full screen",
         "exit": "Exit full screen",
-        "list": "Browse every topic as a list",
         "crumbs": "Map location",
         "aria": "Knowledge map",
     },
@@ -99,7 +98,6 @@ TEXT = {
         "fit": "符合畫面",
         "full": "全螢幕",
         "exit": "結束全螢幕",
-        "list": "以清單瀏覽所有主題",
         "crumbs": "地圖位置",
         "aria": "知識地圖",
     },
@@ -405,26 +403,7 @@ class Explorer:
         return (f'<div class="km-explorer" role="region" aria-label="{t["aria"]}">'
                 f'{toolbar}{stage}{info}{legend}'
                 f'<script type="application/json" class="km-data">{payload}</script>'
-                f'{self.listing(here, files)}</div>')
-
-    def listing(self, here: str, files) -> str:
-        """Every topic as nested links, for readers without JavaScript and for search engines."""
-        def link(rel: str | None, text: str) -> str:
-            href = self.href(rel, here, files) if rel else None
-            text = html.escape(text)
-            return f'<a href="{html.escape(href)}">{text}</a>' if href else text
-
-        items = []
-        for s in self.sections:
-            groups = []
-            for g in self.groups[s]:
-                topics = [f"<li>{link(rel, self.title(rel))}</li>"
-                          for rel in self.members[g] if rel != self.page_of(g)]
-                groups.append(f"<li>{link(self.page_of(g), self.folder(g))}<ul>{''.join(topics)}</ul></li>")
-            items.append(f"<li>{link(self.graph.sections[s], self.title(self.graph.sections[s]))}"
-                         f"<ul>{''.join(groups)}</ul></li>")
-        return (f'<details class="km-list" open><summary>{self.text["list"]}</summary>'
-                f'<ul>{"".join(items)}</ul></details>')
+                '</div>')
 
 
 def on_config(config, **kwargs):

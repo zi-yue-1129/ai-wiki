@@ -18,7 +18,7 @@ aliases:
 
 # (IA)³ Fine-Tuning
 
-(IA)³ is a parameter-efficient fine-tuning method that adapts a frozen language model by multiplying its internal activations by learned vectors. The paper introducing it, by Liu et al. (2022), argues that parameter-efficient fine-tuning is both more accurate and far cheaper than few-shot in-context learning, which must process all the examples again for every prediction. It is one of the methods in [fine-tuning and adaptation](index.md) that add very few parameters and leave the model's structure unchanged.
+(IA)³ is a parameter-efficient fine-tuning method that adapts a frozen language model by rescaling its internal activations with learned vectors. Liu et al. (2022) argue that parameter-efficient fine-tuning is both more accurate and far cheaper than few-shot in-context learning, which must process all the examples again for every prediction. They combine the method with a training recipe, T-Few, that reaches super-human performance on the RAFT benchmark. It sits within [fine-tuning and adaptation](index.md) as a method that adds very few parameters and leaves the model's structure unchanged.
 
 ## Problem
 
@@ -26,38 +26,41 @@ In-context learning adapts a model by putting a few labelled examples in its inp
 
 ## Key concepts
 
-- **Activation scaling:** multiplying a layer's activations element-wise by a learned vector. Each vector has the size of the activation it scales, so the added parameters are few.
+- **Activation scaling:** multiplying an activation element-wise by a learned vector. The vectors start at ones, so the model's behaviour is unchanged at initialisation.
+- **Where it scales:** the keys and values in self-attention and encoder-decoder attention, and the intermediate activations of the feed-forward networks, in every Transformer block.
 - **Frozen model:** the pre-trained weights stay fixed, and only the scaling vectors are trained.
-- **In-context learning:** adaptation by examples in the input, the baseline the paper compares against.
 
 ## How it works
 
-For each task, a small set of scaling vectors is trained on the task's labelled examples while the model's weights stay fixed. At inference, the activations are scaled by these vectors. Because the change is a per-element scaling, it adds very little computation, and it can be stored as a small set of vectors per task.
+For each task, the scaling vectors are trained on the task's labelled examples while the model's weights stay fixed. At inference, the activations are multiplied by these vectors. Because the change is an element-wise scaling, it adds little computation, and a task is stored as a small set of vectors.
+
+T-Few is the recipe built around the method. It uses the T0 model as the backbone, pre-trains the (IA)³ vectors on T0's multitask mixture, and sums three losses: standard language modelling, unlikelihood, and length-normalised. In the paper's ablation, length normalisation raises accuracy from 60.7% to 62.7%, and adding the unlikelihood loss brings it to 63.3%.
 
 ## Results
 
-The abstract reports that parameter-efficient fine-tuning gives better accuracy and much lower computational cost than few-shot in-context learning. The paper also proposes T-Few, a recipe built on the T0 model that can be applied to new tasks without task-specific tuning. Applied to the RAFT benchmark of unseen tasks, T-Few is reported to reach super-human performance for the first time and to outperform the previous state of the art by 6 points. The authors state that all code used in the experiments is public.
+The paper says (IA)³ updates up to 10,000 times fewer parameters than full fine-tuning, and its table lists about 540K added parameters for T0-3B. On RAFT, a benchmark of unseen tasks, T-Few reaches 75.8% against a human baseline of 73.5%, which the paper calls super-human performance for the first time, and it outperforms the previous state of the art by 6% absolute. The next-best entry in its table, PET, scores 69.6%. The authors state that the code used in the experiments is public.
 
 ## Limitations
 
-- **Task family.** The headline results are for T-Few, which is built on the T0 model, so they describe that setting and carry over to other model families only with new checks.
-- **Compared with full tuning.** The abstract does not state a direct comparison with full fine-tuning, so the paper alone does not establish how far (IA)³ falls short of it.
-- **Recipe dependence.** The reported results are for T-Few as a whole, so the effect of the activation scaling alone needs its own ablation.
+- **Classification only.** The authors say all their experiments are on classification tasks, and they leave generative tasks such as summarisation and question answering to future work.
+- **FLOPs as a proxy.** The cost comparison uses FLOPs, which are hardware-independent, so it does not measure real latency or power use.
+- **Copied baselines.** The GPT-3 numbers were copied from Brown et al. rather than re-run.
+- **Recipe effects.** The reported RAFT results are for T-Few as a whole, which combines the method with pre-training and extra losses, so the effect of the scaling alone needs its own ablation.
 
 ## Open questions
 
-- **Where to scale.** Which activations to scale, and whether one set of vectors works across tasks, are design choices the paper leaves open for further study.
+- **Generative tasks.** Whether the same gains hold for generation, which the paper leaves to future work, is an open question.
 - **Versus low-rank updates.** How activation scaling compares with [LoRA](../../../../theory/model-compression/low-rank-and-efficient-architectures/lora/index.md) in accuracy and inference cost on the same tasks is an open practical question.
 
 ## Connections
 
-(IA)³ is a parameter-efficient method alongside [adapters](adapters.md), which add small layers, and [LoRA](../../../../theory/model-compression/low-rank-and-efficient-architectures/lora/index.md), which adds low-rank updates. The comparison with in-context learning is the reason the paper matters for [training and fine-tuning](../../../../engineering/training/index.md) practice, where few-shot prompting is the usual alternative.
+(IA)³ is a parameter-efficient method alongside [adapters](adapters.md), which add small layers, and [LoRA](../../../../theory/model-compression/low-rank-and-efficient-architectures/lora/index.md), which adds low-rank updates. The comparison with in-context learning matters for [training and fine-tuning](../../../../engineering/training/index.md) practice, where few-shot prompting is the usual alternative.
 
 ## References
 
 ### Seminal papers
 
-- Liu, H., et al. (2022). *Few-Shot Parameter-Efficient Fine-Tuning is Better and Cheaper than In-Context Learning*. arXiv:2205.05638. https://arxiv.org/abs/2205.05638 — Introduces (IA)³ and shows that parameter-efficient fine-tuning beats few-shot in-context learning on accuracy and cost.
+- Liu, H., et al. (2022). *Few-Shot Parameter-Efficient Fine-Tuning is Better and Cheaper than In-Context Learning*. arXiv:2205.05638. https://arxiv.org/abs/2205.05638 — Introduces (IA)³ and the T-Few recipe, and shows that parameter-efficient fine-tuning beats few-shot in-context learning on accuracy and cost.
 - Houlsby, N., et al. (2019). *Parameter-Efficient Transfer Learning for NLP*. arXiv:1902.00751. https://arxiv.org/abs/1902.00751 — Introduces adapters, the layer-adding parameter-efficient method in the same family.
 - Hu, E. J., et al. (2021). *LoRA: Low-Rank Adaptation of Large Language Models*. arXiv:2106.09685. https://arxiv.org/abs/2106.09685 — Learns low-rank updates on frozen weights, another parameter-efficient method that adds no inference latency once merged.
 - Li, X. L., Liang, P. (2021). *Prefix-Tuning: Optimizing Continuous Prompts for Generation*. arXiv:2101.00190. https://arxiv.org/abs/2101.00190 — Trains a continuous prefix with the language model frozen, a prompt-based route to the same goal.
