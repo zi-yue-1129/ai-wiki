@@ -31,6 +31,7 @@
 
 - [AI 加速器](accelerators/index.zh-TW.md)：GPU、TPU 與 ASIC 的設計原則，並附 [TPU](accelerators/tpu/index.zh-TW.md) 與 [Eyeriss v2](accelerators/eyeriss-v2/index.zh-TW.md) 頁面。
 - [記憶體階層與頻寬](memory-hierarchy/index.zh-TW.md)：暫存器、晶片上的 SRAM 與 HBM、算術強度、屋頂線模型，以及為何 LLM 解碼受頻寬限制。
+- [互連與擴展](interconnects/index.zh-TW.md)：NVLink、InfiniBand 與 TPU 晶片間連線、集體通訊操作，以及平行化策略如何使用它們。
 
 ## 供應鏈與政策
 
