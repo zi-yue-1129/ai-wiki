@@ -44,6 +44,14 @@ The section has five pages, each covering one part of the work. Each compares a 
 - [Agent evaluation](agent-evaluation.md): benchmarks that check end states and the reliability and cost measures used alongside them.
 - [Agent observability and tracing](agent-observability.md): recording spans and traces so that runs can be debugged, monitored and audited.
 
+### Named methods
+
+- [ReAct](react.md): reasoning and acting in one interleaved sequence.
+- [Reflexion](reflexion.md): verbal reflection across attempts, stored in memory.
+- [Toolformer](toolformer.md): tool calls learned from the model's own text.
+- [Voyager](voyager.md): an agent that builds a library of executable skills while exploring Minecraft.
+- [SWE-agent](swe-agent.md): an agent-computer interface for resolving software issues.
+
 ## Connections
 
 - The theory of agents, including planning and memory, is on [AI Agents](../../theory/models/agents/index.md).

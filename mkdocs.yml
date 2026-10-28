@@ -805,6 +805,11 @@ plugins:
             Multi-Agent Orchestration: 多代理編排
             Agent Evaluation: 代理評估
             Agent Observability: 代理可觀測性
+            ReAct (Yao et al. 2022): ReAct（Yao 等人，2022）
+            Reflexion (Shinn et al. 2023): Reflexion（Shinn 等人，2023）
+            Toolformer (Schick et al. 2023): Toolformer（Schick 等人，2023）
+            Voyager (Wang et al. 2023): Voyager（Wang 等人，2023）
+            SWE-agent (Yang et al. 2024): SWE-agent（Yang 等人，2024）
             Synthetic Data: 合成資料
             Self-Instruct: Self-Instruct
             Textbook-quality data: 教科書品質的合成資料
@@ -1735,6 +1740,11 @@ nav:
           - Multi-Agent Orchestration: engineering/agents/multi-agent-orchestration.md
           - Agent Evaluation: engineering/agents/agent-evaluation.md
           - Agent Observability: engineering/agents/agent-observability.md
+          - ReAct (Yao et al. 2022): engineering/agents/react.md
+          - Reflexion (Shinn et al. 2023): engineering/agents/reflexion.md
+          - Toolformer (Schick et al. 2023): engineering/agents/toolformer.md
+          - Voyager (Wang et al. 2023): engineering/agents/voyager.md
+          - SWE-agent (Yang et al. 2024): engineering/agents/swe-agent.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md
