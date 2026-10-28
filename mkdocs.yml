@@ -654,6 +654,8 @@ plugins:
             Data-Free: 無資料
             LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
+            Object Detection: 物件偵測
+            Image Segmentation: 影像分割
             Natural Language Processing: 自然語言處理
             Speech & Audio: 語音與音訊
             Multimodal Models: 多模態模型
@@ -1480,7 +1482,10 @@ nav:
                   - DeepSeek-R1: theory/models/reasoning/deepseek-r1.md
                   - Test-Time Compute Scaling: theory/models/reasoning/test-time-scaling.md
                   - Process Reward Models: theory/models/reasoning/process-reward-models.md
-          - Computer Vision: theory/models/computer-vision/index.md
+          - Computer Vision:
+              - theory/models/computer-vision/index.md
+              - Object Detection: theory/models/computer-vision/object-detection/index.md
+              - Image Segmentation: theory/models/computer-vision/segmentation/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
