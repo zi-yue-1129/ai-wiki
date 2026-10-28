@@ -43,7 +43,7 @@ translation_reviewed: 2026-10-28
 
 ## 非侵入式的感知與思維解碼
 
-- **fMRI 解碼影像**：以大腦活動為條件的 Stable Diffusion 可重建觀看的影像（Takagi & Nishimoto, 2023）；MindEye 及後續研究利用 Natural Scenes Dataset 提升了保真度
+- **fMRI 解碼影像**：以大腦活動為條件的 Stable Diffusion 可重建觀看的影像（Takagi & Nishimoto, 2023；方法頁見[從 fMRI 重建所見影像](fmri-image-reconstruction/index.md)）；MindEye 及後續研究利用 Natural Scenes Dataset 提升了保真度
 - **fMRI 解碼語言**：語意解碼器重建人聽到或想像的故事大意（Tang, LeBel, Jain & Huth, 2023, *Nature Neuroscience*）——它需要受試者配合，且需要大量個人化的訓練資料
 - **MEG 即時解碼**影像與語音（Meta AI, 2023）
 

@@ -49,7 +49,7 @@ A **brain-computer interface (BCI)** records brain activity, decodes it, and use
 
 ## Decoding perception and thought (non-invasive)
 
-- **Images from fMRI**: Stable Diffusion conditioned on brain activity reconstructs viewed images (Takagi & Nishimoto, 2023); MindEye and successors improved fidelity using the Natural Scenes Dataset
+- **Images from fMRI**: Stable Diffusion conditioned on brain activity reconstructs viewed images (Takagi & Nishimoto, 2023; method page: [Reconstructing viewed images from fMRI](fmri-image-reconstruction/index.md)); MindEye and successors improved fidelity using the Natural Scenes Dataset
 - **Language from fMRI**: semantic decoders reconstruct the gist of heard or imagined stories (Tang, LeBel, Jain & Huth, 2023, *Nature Neuroscience*) — they required the participant's cooperation and extensive per-person training data
 - **MEG decoding** of images and speech in real time (Meta AI, 2023)
 
