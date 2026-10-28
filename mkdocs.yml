@@ -435,6 +435,8 @@ plugins:
             Emissions calculator: 排放計算器
             Energy-efficient training: 節能訓練
             BLOOM life-cycle estimate: BLOOM 全生命週期估算
+            Green AI: 綠色 AI
+            Reporting energy and carbon: 能源與排放的報告
             Law, Policy & Governance: 法規與治理
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
@@ -840,6 +842,8 @@ nav:
           - Emissions calculator: society/environment/emissions-calculator.md
           - Energy-efficient training: society/environment/energy-efficient-training.md
           - BLOOM life-cycle estimate: society/environment/life-cycle-estimate.md
+          - Green AI: society/environment/green-ai.md
+          - Reporting energy and carbon: society/environment/reporting-framework.md
       - Law, Policy & Governance: society/governance/index.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
