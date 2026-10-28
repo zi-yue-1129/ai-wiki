@@ -259,6 +259,28 @@ plugins:
             Metropolis–Hastings: Metropolis–Hastings
             Gibbs Sampling: 吉布斯抽樣
             Hamiltonian Monte Carlo: 哈密頓蒙地卡羅
+            Graphical Models: 機率圖模型
+            Belief Propagation: 信念傳播
+            Hidden Markov Models: 隱馬可夫模型
+            Search Algorithms: 搜尋演算法
+            A* Search: A* 搜尋
+            Alpha–Beta Pruning: α–β 剪枝
+            Monte Carlo Tree Search: 蒙地卡羅樹搜尋
+            Automated Planning: 自動規劃
+            STRIPS: STRIPS
+            GraphPlan: GraphPlan
+            Knowledge Graphs: 知識圖譜
+            TransE: TransE
+            Neuro-Symbolic AI: 神經符號 AI
+            Markov Logic Networks: 馬可夫邏輯網路
+            Theorem Proving: 自動定理證明
+            Resolution: 歸結
+            DPLL: DPLL
+            Uncertainty Quantification and Calibration: 不確定性量化與校準
+            Conformal Prediction: 共形預測
+            Temperature Scaling: 溫度縮放
+            Deep Ensembles: 深度集成
+            Expected Calibration Error: 期望校準誤差
             Information Theory: 資訊理論
             Causal Inference: 因果推論
             Machine Learning: 機器學習
@@ -1212,6 +1234,10 @@ nav:
           - Other Paradigms: theory/paradigms/other/index.md
           - Probabilistic & Bayesian Methods:
               - theory/paradigms/probabilistic/index.md
+              - Graphical Models:
+                  - theory/paradigms/probabilistic/graphical-models/index.md
+                  - Belief Propagation: theory/paradigms/probabilistic/graphical-models/belief-propagation.md
+                  - Hidden Markov Models: theory/paradigms/probabilistic/graphical-models/hidden-markov-models.md
               - Variational Inference:
                   - theory/paradigms/probabilistic/variational-inference/index.md
                   - Mean-Field Variational Inference: theory/paradigms/probabilistic/variational-inference/mean-field.md
@@ -1221,7 +1247,33 @@ nav:
                   - Metropolis–Hastings: theory/paradigms/probabilistic/mcmc/metropolis-hastings.md
                   - Gibbs Sampling: theory/paradigms/probabilistic/mcmc/gibbs-sampling.md
                   - Hamiltonian Monte Carlo: theory/paradigms/probabilistic/mcmc/hamiltonian-monte-carlo.md
-          - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
+              - Uncertainty Quantification and Calibration:
+                  - theory/paradigms/probabilistic/uncertainty-calibration/index.md
+                  - Conformal Prediction: theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction.md
+                  - Temperature Scaling: theory/paradigms/probabilistic/uncertainty-calibration/temperature-scaling.md
+                  - Deep Ensembles: theory/paradigms/probabilistic/uncertainty-calibration/deep-ensembles.md
+                  - Expected Calibration Error: theory/paradigms/probabilistic/uncertainty-calibration/expected-calibration-error.md
+          - Symbolic AI, Search & Planning:
+              - theory/paradigms/symbolic-ai/index.md
+              - Search Algorithms:
+                  - theory/paradigms/symbolic-ai/search/index.md
+                  - A* Search: theory/paradigms/symbolic-ai/search/a-star.md
+                  - Alpha–Beta Pruning: theory/paradigms/symbolic-ai/search/alpha-beta-pruning.md
+                  - Monte Carlo Tree Search: theory/paradigms/symbolic-ai/search/monte-carlo-tree-search.md
+              - Automated Planning:
+                  - theory/paradigms/symbolic-ai/planning/index.md
+                  - STRIPS: theory/paradigms/symbolic-ai/planning/strips.md
+                  - GraphPlan: theory/paradigms/symbolic-ai/planning/graphplan.md
+              - Theorem Proving:
+                  - theory/paradigms/symbolic-ai/theorem-proving/index.md
+                  - Resolution: theory/paradigms/symbolic-ai/theorem-proving/resolution.md
+                  - DPLL: theory/paradigms/symbolic-ai/theorem-proving/dpll.md
+              - Knowledge Graphs:
+                  - theory/paradigms/symbolic-ai/knowledge-graphs/index.md
+                  - TransE: theory/paradigms/symbolic-ai/knowledge-graphs/transe.md
+              - Neuro-Symbolic AI:
+                  - theory/paradigms/symbolic-ai/neuro-symbolic/index.md
+                  - Markov Logic Networks: theory/paradigms/symbolic-ai/neuro-symbolic/markov-logic-networks.md
           - Evolutionary & Swarm Intelligence:
               - theory/paradigms/evolutionary/index.md
               - Genetic Algorithms: theory/paradigms/evolutionary/genetic-algorithms.md
