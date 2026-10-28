@@ -382,6 +382,10 @@ plugins:
             Data: 資料工程
             Training & Fine-tuning: 訓練與微調
             Distributed Training: 分散式訓練
+            Megatron-LM Tensor Parallelism: Megatron-LM 張量平行
+            ZeRO: ZeRO
+            GPipe: GPipe 管線平行
+            PyTorch FSDP: PyTorch FSDP
             Vector Databases and Semantic Search: 向量資料庫與語意搜尋
             LLM Application Security: LLM 應用安全
             Synthetic Data: 合成資料
@@ -746,7 +750,12 @@ nav:
       - Frameworks & Tools: engineering/frameworks/index.md
       - Data: engineering/data/index.md
       - Training & Fine-tuning: engineering/training/index.md
-      - Distributed Training: engineering/distributed-training/index.md
+      - Distributed Training:
+          - engineering/distributed-training/index.md
+          - Megatron-LM Tensor Parallelism: engineering/distributed-training/megatron-tensor-parallelism.md
+          - ZeRO: engineering/distributed-training/zero.md
+          - GPipe: engineering/distributed-training/gpipe.md
+          - PyTorch FSDP: engineering/distributed-training/fsdp.md
       - Vector Databases: engineering/vector-databases/index.md
       - LLM Application Security: engineering/llm-security/index.md
       - Synthetic Data:
