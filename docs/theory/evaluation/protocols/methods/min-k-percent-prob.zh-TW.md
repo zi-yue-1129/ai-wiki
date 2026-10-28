@@ -66,3 +66,4 @@ Shi et al. (2024) 的摘要報告，Min-K% Prob 在 WikiMIA 上比先前方法�
 - Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. arXiv. https://arxiv.org/abs/2012.07805 — 顯示被記住的訓練文本可以因其高似然度而被辨識，這是似然度偵測的基礎。
 - Shokri, R., Stronati, M., Song, C. & Shmatikov, V. (2017). *Membership Inference Attacks Against Machine Learning Models*. IEEE Symposium on Security and Privacy. https://arxiv.org/abs/1610.05820 — 提出成員推論，似然度偵測即屬於此類攻擊。
 - Oren, Y. et al. (2023). *Proving Test Set Contamination in Black Box Language Models*. arXiv. https://arxiv.org/abs/2310.17623 — 提出黑箱的污染統計檢定，同樣只使用模型輸出。
+- Dodge, J. et al. (2021). *Documenting Large Webtext Corpora: A Case Study on the Colossal Clean Crawled Corpus*. arXiv. https://arxiv.org/abs/2104.08758 — 在 C4 網路語料中發現基準評估範例，顯示預訓練文本可能含有測試資料。

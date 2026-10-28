@@ -68,3 +68,4 @@ White et al. (2024) 的摘要描述了設計與目標；它沒有報告任何模
 - Srivastava, A. et al. (2022). *Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models*. arXiv. https://arxiv.org/abs/2206.04615 — 大型靜態基準，其任務檔案內含防止網路爬取的金絲雀字串，是解決同一問題的另一種做法。
 - Dodge, J. et al. (2021). *Documenting Large Webtext Corpora: A Case Study on the Colossal Clean Crawled Corpus*. arXiv. https://arxiv.org/abs/2104.08758 — 顯示基準範例可能出現在網路語料中，這也是持續更新基準存在的原因。
 - Brown, T. B. et al. (2020). *Language Models are Few-Shot Learners*. arXiv. https://arxiv.org/abs/2005.14165 — 報告 13-gram 重疊分析，推動了對基準的仔細清理。
+- Shi, W. et al. (2024). *Detecting Pretraining Data from Large Language Models*. arXiv. https://arxiv.org/abs/2310.16789 — 提出偵測文本是否屬於預訓練資料的方法，是檢查靜態基準的另一種選擇。
