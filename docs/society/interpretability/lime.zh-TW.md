@@ -52,7 +52,7 @@ $$
 
 ## 相關連結
 
-LIME 是[特徵歸因](feature-attribution.md)中的替代模型方法之一。[SHAP](shap.md) 建立在相同的加性形式上，但它以 Shapley 值決定權重，而非以接近度核函數。LIME 與模型無關，適用於黑箱分類器；而[顯著性圖](saliency-maps.md)與[積分梯度](integrated-gradients.md)則需要梯度。關於如何信任各種解釋的一般問題，見[可解釋性總覽](index.md)。
+LIME 是[特徵歸因](feature-attribution.md)中的替代模型方法之一。[SHAP](shap.md) 建立在相同的加性形式上，但其 Kernel SHAP 變體以 Shapley 核函數為樣本加權，選擇此核函數是為了使擬合係數恢復 Shapley 值，而非以接近度核函數加權。LIME 與模型無關，適用於黑箱分類器；而[顯著性圖](saliency-maps.md)與[積分梯度](integrated-gradients.md)則需要梯度。關於如何信任各種解釋的一般問題，見[可解釋性總覽](index.md)。
 
 ## 應用
 

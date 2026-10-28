@@ -51,7 +51,7 @@ The paper reports simulated user experiments and human-subject experiments. The 
 
 ## Connections
 
-LIME is one of the surrogate-model methods in [feature attribution](feature-attribution.md). [SHAP](shap.md) builds on the same additive form, but it fixes the weights with Shapley values rather than a proximity kernel. LIME is model-agnostic, which makes it useful for black-box classifiers, whereas [saliency maps](saliency-maps.md) and [integrated gradients](integrated-gradients.md) need gradients. For the general question of which explanations to trust, see the [interpretability overview](index.md).
+LIME is one of the surrogate-model methods in [feature attribution](feature-attribution.md). [SHAP](shap.md) builds on the same additive form, but its Kernel SHAP variant weights samples with the Shapley kernel, chosen so that the fitted coefficients recover Shapley values, rather than with a proximity kernel. LIME is model-agnostic, which makes it useful for black-box classifiers, whereas [saliency maps](saliency-maps.md) and [integrated gradients](integrated-gradients.md) need gradients. For the general question of which explanations to trust, see the [interpretability overview](index.md).
 
 ## Applications
 

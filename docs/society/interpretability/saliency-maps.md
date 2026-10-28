@@ -35,7 +35,7 @@ $$
 
 ## Results
 
-The paper presents saliency maps as visualisations of individual images, computed from one backward pass per image. It does not present them as a quantitative benchmark. Whether the maps are faithful to the model is a separate question, which later work tests directly (see Limitations).
+The paper presents saliency maps as visualisations of individual images, computed from one backward pass per image. It also evaluates a saliency-based weakly supervised object-localisation pipeline on ILSVRC 2013, which measures localisation performance. That is separate from explanation faithfulness: whether the maps reflect the model's computation is a different question, which later work tests directly (see Limitations).
 
 ## Limitations
 
@@ -45,7 +45,7 @@ The paper presents saliency maps as visualisations of individual images, compute
 
 ## Connections
 
-Saliency maps are the simplest gradient-based member of [feature attribution](feature-attribution.md). [Integrated gradients](integrated-gradients.md) accumulates gradients along a path to fix the local-slope problem, and DeepLIFT (Shrikumar et al., 2017) replaces gradients with differences from a reference activation. Gradient methods need access to the model's internals, which separates them from the model-agnostic [LIME](lime.md) and from the [SHAP](shap.md) family. For the convolutional architectures on which these maps were first shown, see the [interpretability overview](index.md).
+Saliency maps are the simplest gradient-based member of [feature attribution](feature-attribution.md). [Integrated gradients](integrated-gradients.md) accumulates gradients along a path to fix the local-slope problem, and DeepLIFT (Shrikumar et al., 2017) replaces gradients with differences from a reference activation. Gradient methods need access to the model's internals, which separates them from the model-agnostic [LIME](lime.md) and from Kernel SHAP, which needs only predictions. For the convolutional architectures on which these maps were first shown, see the [interpretability overview](index.md).
 
 ## Applications
 
