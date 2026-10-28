@@ -901,6 +901,10 @@ plugins:
             Roofline Model: 屋頂線模型
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
+            TinyML and Mobile Runtimes: TinyML 與行動執行環境
+            MCUNet: MCUNet
+            LiteRT: LiteRT
+            ExecuTorch: ExecuTorch
             GPTQ: GPTQ
             AI & Society: AI 與社會
             Safety & Alignment: AI 安全與對齊
@@ -1930,6 +1934,11 @@ nav:
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
+          - TinyML and Mobile Runtimes:
+              - engineering/on-device-edge/tinyml-and-mobile-runtimes/index.md
+              - MCUNet: engineering/on-device-edge/tinyml-and-mobile-runtimes/mcunet.md
+              - LiteRT: engineering/on-device-edge/tinyml-and-mobile-runtimes/litert.md
+              - ExecuTorch: engineering/on-device-edge/tinyml-and-mobile-runtimes/executorch.md
   - AI & Society:
       - society/index.md
       - Safety & Alignment:
