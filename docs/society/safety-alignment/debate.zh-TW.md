@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 related:
@@ -41,8 +41,8 @@ Irving et al.（2018）包含影像分類上的小型實驗。論文是包含理
 
 兩項較晚的研究以語言模型與人類評審檢驗這個想法：
 
-- Khan et al.（2024）測試以非專家人類評審進行的辯論。摘要報告，當專家辯者被最佳化為更有說服力（而不使用真實標籤）時，非專家評審更常辨識出正確答案。換句話說，辯者的說服力幫助評審接近真相。
-- Michael et al.（2023）測試兩位不可靠的專家辯者之間的辯論，並與由單一專家進行的諮詢基準比較。摘要報告，辯論幫助非專家人類評審更準確地回答困難的閱讀理解問題，評審準確率為 84%，諮詢基準為 74%。
+- Khan et al.（2024）測試以非專家人類評審進行的辯論。摘要報告，當專家辯者被最佳化為更有說服力（而不使用真實標籤）時，非專家評審更常辨識出正確答案。換句話說，辯者的說服力幫助評審接近真相。在 QuALITY 困難題上，非專家人類評審在沒有專家輸入時為 60%、諮詢時為 78%、辯論時為 88%；LLM 評審則分別為 48%、54% 與 76%。
+- Michael et al.（2023）測試兩位不可靠的專家辯者之間的辯論，並與由單一專家進行的諮詢基準比較。摘要報告，辯論幫助非專家人類評審更準確地回答困難的閱讀理解問題。人類評審在辯論下的準確率為 84%，在諮詢基準下為 74%。
 
 這些結果來自特定的任務與評審群體，不應被解讀為辯論適用於所有問題的證據。
 
@@ -80,5 +80,5 @@ Irving et al.（2018）包含影像分類上的小型實驗。論文是包含理
 
 ### 綜述與教科書
 
-- Bowman, S. R. et al. (2022). *Measuring Progress on Scalable Oversight for Large Language Models*. arXiv:2211.03540. https://arxiv.org/abs/2211.03540 — Builds a benchmark for whether model assistance helps non-expert judges, including debate-style setups.
+- Bowman, S. R. et al. (2022). *Measuring Progress on Scalable Oversight for Large Language Models*. arXiv:2211.03540. https://arxiv.org/abs/2211.03540 — Proposes “sandwiching”, a test of oversight methods in which non-expert humans, helped by a chat assistant, answer questions that experts can check; debate is discussed but not tested.
 - Christiano, P., Shlegeris, B. & Amodei, D. (2018). *Supervising strong learners by amplifying weak experts*. arXiv:1810.08575. https://arxiv.org/abs/1810.08575 — Introduces iterated amplification, an alternative decomposition-based approach to supervising stronger models.

@@ -40,11 +40,11 @@ These differ in what the judge sees. Debate and amplification change how the jud
 
 ## Debate
 
-The detailed page is [AI debate](debate.md).
+The detailed pages are [AI debate](debate.md) and [debate cross-examination](debate-cross-examination.md).
 
 In the debate proposal, two copies of a model are shown a question and each argues for a different answer, possibly citing evidence. A human judge reads the exchange and picks a winner. Irving, Christiano and Amodei (2018) argue that, under certain assumptions, the honest side can win because a lie that is hard to defend can be exposed by its opponent, so the judge needs to evaluate only short, checkable claims. The paper is a proposal with a theoretical argument and small-scale demonstrations, not a deployed system.
 
-Later empirical work measures whether debate actually helps humans judge correctness. Bowman et al. (2022) build a benchmark of tasks where a non-expert judge can be compared against an expert, and report that the value of assistance from models depends strongly on the task.
+Later empirical work measures whether debate actually helps humans judge correctness. Bowman et al. (2022) propose “sandwiching”, an experimental setup in which non-expert humans, helped by a chat assistant, answer multiple-choice questions that experts can check. Their proof-of-concept study uses MMLU and time-limited QuALITY, and it discusses debate as a candidate technique without testing it.
 
 ## Process supervision
 
@@ -82,7 +82,7 @@ Human oversight of experts has a long history in professional life. Medicine, la
 
 ### Surveys and textbooks
 
-- Bowman, S. R. et al. (2022). *Measuring Progress on Scalable Oversight for Large Language Models*. arXiv:2211.03540. https://arxiv.org/abs/2211.03540 — Builds a benchmark for whether model assistance helps non-expert judges, and reports how much this depends on the task.
+- Bowman, S. R. et al. (2022). *Measuring Progress on Scalable Oversight for Large Language Models*. arXiv:2211.03540. https://arxiv.org/abs/2211.03540 — Proposes “sandwiching”, an experimental setup for testing whether non-expert humans can use a model's help to answer questions beyond their expertise.
 
 ### Articles and documentation
 
