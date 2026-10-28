@@ -608,6 +608,14 @@ plugins:
             Guardrails and Output Filtering: 護欄與輸出過濾
             Agent Evaluation: 代理人評估
             KV Cache Compression and Eviction: KV 快取壓縮與淘汰
+            Dangerous-Capability Evaluations and Frontier Safety Frameworks: 危險能力評估與前沿安全框架
+            Mixed-Precision Training and Gradient Checkpointing: 混合精度訓練與梯度檢查點
+            Probing Classifiers and Representation Analysis: 探測分類器與表徵分析
+            Motor Control and the Cerebellum: 運動控制與小腦
+            Cerebellar Supervised Learning: 小腦監督學習
+            Optimal Feedback Control: 最優回饋控制
+            Motor Cortex Population Dynamics: 運動皮質群體動態
+            Case Studies in Algorithmic Bias: 演算法偏見案例研究
 
 markdown_extensions:
   - abbr
@@ -1098,6 +1106,11 @@ nav:
           - brain-mind/animal-cognition/index.md
           - Mirror Self-Recognition (Gallup 1970): brain-mind/animal-cognition/mirror-self-recognition/index.md
           - Tool Use in New Caledonian Crows (Weir et al. 2002): brain-mind/animal-cognition/tool-use-crows/index.md
+      - Motor Control and the Cerebellum:
+          - brain-mind/motor-control/index.md
+          - Cerebellar Supervised Learning: brain-mind/motor-control/marr-albus-ito/index.md
+          - Optimal Feedback Control: brain-mind/motor-control/todorov-jordan-2002/index.md
+          - Motor Cortex Population Dynamics: brain-mind/motor-control/churchland-2012/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
@@ -1135,6 +1148,7 @@ nav:
           - engineering/training/index.md
           - Parameter-Efficient Fine-Tuning: engineering/training/peft-lora.md
           - "Preference Optimisation: DPO and Its Successors": engineering/training/preference-optimisation.md
+          - Mixed-Precision Training and Gradient Checkpointing: engineering/training/mixed-precision-and-checkpointing.md
       - Distributed Training:
           - engineering/distributed-training/index.md
           - Megatron-LM Tensor Parallelism: engineering/distributed-training/megatron-tensor-parallelism.md
@@ -1210,13 +1224,16 @@ nav:
           - society/safety-alignment/index.md
           - Constitutional AI and RLAIF: society/safety-alignment/constitutional-ai.md
           - Reward Hacking and Specification Gaming: society/safety-alignment/reward-hacking.md
+          - Dangerous-Capability Evaluations and Frontier Safety Frameworks: society/safety-alignment/dangerous-capability-evals.md
       - Interpretability:
           - society/interpretability/index.md
           - Mechanistic Interpretability and Circuits: society/interpretability/mechanistic-interpretability.md
           - "Feature Attribution: SHAP, LIME and Saliency": society/interpretability/feature-attribution.md
+          - Probing Classifiers and Representation Analysis: society/interpretability/probing.md
       - Ethics & Fairness:
           - society/ethics/index.md
           - Fairness Definitions and Impossibility Results: society/ethics/fairness-definitions.md
+          - Case Studies in Algorithmic Bias: society/ethics/bias-case-studies.md
       - Privacy & Data Protection:
           - society/privacy/index.md
           - Differential privacy: society/privacy/differential-privacy.md
