@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+<title id="title">Sparse Mixture-of-Experts: alternating top-two routes</title>
+<desc id="desc">A blue token and an amber token take turns entering a router. For each token, exactly two of four experts activate, and their outputs return to the weighted combination node. The chosen pair changes between tokens.</desc>
+<defs>
+  <linearGradient id="paper" x2="0" y2="1"><stop stop-color="#f8fbfe"/><stop offset="1" stop-color="#edf4fa"/></linearGradient>
+  <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5 0 7" fill="none" stroke="#7396aa" stroke-width="1.4"/></marker>
+</defs>
+<style>
+text{font-family:Inter,ui-sans-serif,system-ui,sans-serif;fill:#29455a} .muted{fill:#71889b;font-size:12px;font-weight:600;letter-spacing:1.5px}.expert{fill:#fff;stroke:#cddce8;stroke-width:1.7}.edge{fill:none;stroke:#cad9e5;stroke-width:2;stroke-linecap:round}.activeA{stroke:#138d97;stroke-width:4;stroke-linecap:round;fill:none}.activeB{stroke:#d18c38;stroke-width:4;stroke-linecap:round;fill:none}
+@media(prefers-reduced-motion:reduce){.selectionA,.tokenA{opacity:1!important}.selectionB,.tokenB{opacity:0!important}.travel{display:none!important}.progress{width:66px!important}}
+</style>
+<rect width="640" height="360" rx="18" fill="url(#paper)"/>
+<text x="31" y="37" class="muted">TOP-2 ROUTING</text>
+<text x="256" y="65" text-anchor="middle" class="muted">ROUTER</text><text x="438" y="65" text-anchor="middle" class="muted">EXPERTS</text>
+<path d="M126 190H217" class="edge" marker-end="url(#arrow)"/>
+<g><circle cx="86" cy="190" r="32" fill="#fff" stroke="#cfdce8" stroke-width="2"/><circle cx="86" cy="190" r="18" fill="#d5eaf3"/><text x="86" y="195" font-size="15" font-weight="700" text-anchor="middle">x</text></g>
+<rect x="217" y="151" width="77" height="78" rx="19" fill="#fff" stroke="#b4cbdc" stroke-width="2"/>
+<path d="M235 172H274M235 189H264M235 205H274" stroke="#aac4d3" stroke-width="5" stroke-linecap="round"/>
+<path d="M294 190C337 190 332 102 397 102M294 190C339 190 344 157 397 157M294 190C339 190 344 223 397 223M294 190C337 190 332 278 397 278" class="edge"/>
+<path d="M477 102C521 102 506 178 540 190M477 157C515 157 513 184 540 190M477 223C515 223 513 196 540 190M477 278C521 278 506 203 540 190" class="edge"/>
+<rect class="expert" x="397" y="82" width="80" height="40" rx="12"/><rect class="expert" x="397" y="137" width="80" height="40" rx="12"/><rect class="expert" x="397" y="203" width="80" height="40" rx="12"/><rect class="expert" x="397" y="258" width="80" height="40" rx="12"/>
+<g font-size="15" font-weight="700" text-anchor="middle"><text x="437" y="107">E1</text><text x="437" y="162">E2</text><text x="437" y="228">E3</text><text x="437" y="283">E4</text></g>
+<circle cx="559" cy="190" r="29" fill="#fff" stroke="#a9bfcd" stroke-width="2"/><path d="M546 190H572M559 177V203" stroke="#52798b" stroke-width="2.7" stroke-linecap="round"/><text x="559" y="241" class="muted" text-anchor="middle">MERGE</text>
+<g class="selectionA" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.10;.19;.44;.50;1" dur="6s" repeatCount="indefinite"/>
+<path d="M294 190C337 190 332 102 397 102M294 190C339 190 344 223 397 223" class="activeA"/>
+<path d="M477 102C521 102 506 178 540 190M477 223C515 223 513 196 540 190" class="activeA"/>
+<rect x="397" y="82" width="80" height="40" rx="12" fill="#d8f3ef" stroke="#138d97" stroke-width="2"/><rect x="397" y="203" width="80" height="40" rx="12" fill="#d8f3ef" stroke="#138d97" stroke-width="2"/>
+<text x="437" y="107" font-size="15" font-weight="700" text-anchor="middle">E1</text><text x="437" y="228" font-size="15" font-weight="700" text-anchor="middle">E3</text>
+<circle class="travel" r="6" fill="#138d97"><animateMotion path="M294 190C337 190 332 102 397 102" dur="6s" repeatCount="indefinite" calcMode="linear" keyTimes="0;.2083;.3417;1" keyPoints="0;0;1;1"/></circle>
+<circle class="travel" r="6" fill="#138d97"><animateMotion path="M294 190C339 190 344 223 397 223" dur="6s" repeatCount="indefinite" calcMode="linear" keyTimes="0;.2083;.3417;1" keyPoints="0;0;1;1"/></circle>
+</g>
+<g class="selectionB" opacity="0"><animate attributeName="opacity" values="0;0;0;1;1;0" keyTimes="0;.5;.56;.65;.91;1" dur="6s" repeatCount="indefinite"/>
+<path d="M294 190C339 190 344 157 397 157M294 190C337 190 332 278 397 278" class="activeB"/>
+<path d="M477 157C515 157 513 184 540 190M477 278C521 278 506 203 540 190" class="activeB"/>
+<rect x="397" y="137" width="80" height="40" rx="12" fill="#fff0da" stroke="#d18c38" stroke-width="2"/><rect x="397" y="258" width="80" height="40" rx="12" fill="#fff0da" stroke="#d18c38" stroke-width="2"/>
+<text x="437" y="162" font-size="15" font-weight="700" text-anchor="middle">E2</text><text x="437" y="283" font-size="15" font-weight="700" text-anchor="middle">E4</text>
+<circle class="travel" r="6" fill="#d18c38"><animateMotion path="M294 190C339 190 344 157 397 157" dur="6s" repeatCount="indefinite" calcMode="linear" keyTimes="0;.6333;.7667;1" keyPoints="0;0;1;1"/></circle>
+<circle class="travel" r="6" fill="#d18c38"><animateMotion path="M294 190C337 190 332 278 397 278" dur="6s" repeatCount="indefinite" calcMode="linear" keyTimes="0;.6333;.7667;1" keyPoints="0;0;1;1"/></circle>
+</g>
+<circle class="tokenA" cx="86" cy="190" r="18" fill="#138d97" opacity="0"><animate attributeName="opacity" values="1;1;0;0;0;1" keyTimes="0;.12;.23;.47;.90;1" dur="6s" repeatCount="indefinite"/></circle>
+<circle class="tokenB" cx="86" cy="190" r="18" fill="#d18c38" opacity="0"><animate attributeName="opacity" values="0;0;0;1;1;0" keyTimes="0;.47;.50;.59;.91;1" dur="6s" repeatCount="indefinite"/></circle>
+<text x="33" y="333" font-size="12" fill="#7a91a2">Different tokens can activate different experts</text>
+<rect x="478" y="318" width="132" height="6" rx="3" fill="#dce8ef"/><rect class="progress" x="478" y="318" width="66" height="6" rx="3" fill="#138d97"><animate attributeName="width" values="0;66;66;0;0;0" keyTimes="0;.2;.45;.5;.9;1" dur="6s" repeatCount="indefinite"/></rect>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+<title id="title">Gradient norm clipping: static clipping example</title>
+<desc id="desc">The grey raw gradient length grows beyond a dashed L2-norm threshold circle, while the teal clipped gradient stops at that boundary. When the raw gradient falls below the threshold, the two vectors have equal length.</desc>
+<defs><linearGradient id="paper" x2="0" y2="1"><stop stop-color="#f9fcff"/><stop offset="1" stop-color="#eef5fa"/></linearGradient><marker id="grey" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5 0 7" fill="none" stroke="#8ea4b5" stroke-width="1.4"/></marker><marker id="teal" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5 0 7" fill="none" stroke="#148e8a" stroke-width="1.4"/></marker></defs>
+<style>text{font-family:Inter,ui-sans-serif,system-ui,sans-serif;fill:#294659}.small{font-size:12px;font-weight:600;letter-spacing:1.5px;fill:#70899c}.panel{fill:#fff;stroke:#d3e0eb;stroke-width:1.5}@media(prefers-reduced-motion:reduce){.raw-vector{d:path("M206 228L401 115")!important}.clipped-vector{d:path("M206 228L303 172")!important}.raw-bar{width:133px!important}.clipped-bar{width:68px!important}}</style>
+<rect width="640" height="360" rx="18" fill="url(#paper)"/><text x="30" y="37" class="small">GRADIENT NORM CLIPPING</text>
+<path d="M55 228H394M206 341V82" stroke="#bfd0dc" stroke-width="2" stroke-linecap="round"/>
+<circle cx="206" cy="228" r="112" fill="#def1ed" fill-opacity=".6" stroke="#44a39b" stroke-width="2.5" stroke-dasharray="6 7"/>
+<path d="M206 228L303 172" stroke="#b5c4ce" stroke-width="2" stroke-dasharray="3 6"/>
+<path class="raw-vector" d="M206 228L401 115" stroke="#92a8b7" stroke-width="5" fill="none" stroke-linecap="round" marker-end="url(#grey)"></path>
+<path class="clipped-vector" d="M206 228L303 172" stroke="#138e8a" stroke-width="6" fill="none" stroke-linecap="round" marker-end="url(#teal)"></path>
+<circle cx="206" cy="228" r="5" fill="#29465b"/>
+<path d="M319 228H352" stroke="#44a39b" stroke-width="2"/><text x="355" y="232" font-size="16" font-weight="700" fill="#257e77">τ</text>
+<rect class="panel" x="432" y="81" width="175" height="198" rx="17"/>
+<circle cx="454" cy="113" r="6" fill="#9aaebd"/><text x="472" y="117" font-size="15" font-weight="600">Raw</text>
+<rect x="451" y="139" width="133" height="13" rx="6" fill="#eff3f6"/>
+<rect class="raw-bar" x="451" y="139" width="133" height="13" rx="6" fill="#9aaebd"></rect>
+<circle cx="454" cy="186" r="6" fill="#138e8a"/><text x="472" y="191" font-size="15" font-weight="600">Clipped</text>
+<rect x="451" y="212" width="133" height="13" rx="6" fill="#eff3f6"/><rect class="clipped-bar" x="451" y="212" width="68" height="13" rx="6" fill="#138e8a"></rect>
+<path d="M519 129V157M519 206V232" stroke="#44a39b" stroke-width="1.8" stroke-dasharray="4 5"/><text x="526" y="249" font-size="12" fill="#357e75">τ</text>
+<text x="30" y="64" font-size="12" fill="#70899c">Direction preserved; magnitude bounded before the update</text>
+</svg>
