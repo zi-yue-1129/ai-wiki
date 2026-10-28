@@ -64,4 +64,4 @@ $$
 ## 延伸閱讀
 
 - Schölkopf & Smola，*Learning with Kernels*，MIT Press（2002）。https://is.mpg.de/publications/973 — 核方法與支持向量機的標準參考書，涵蓋理論與演算法。
-- Platt (1999), "Probabilistic outputs for support vector machines", in *Advances in Large Margin Classifiers*。未查核免費連結。
+- Platt（2000），"Probabilities for SV Machines"，收於 *Advances in Large-Margin Classifiers*，MIT Press。https://doi.org/10.7551/mitpress/1113.003.0008 — 以 sigmoid 函數把 SVM 分數轉換為校準後的機率。

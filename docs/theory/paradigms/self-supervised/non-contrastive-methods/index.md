@@ -59,4 +59,4 @@ Which mechanism best prevents collapse at scale, and whether the learned feature
 
 ## Further reading
 
-- Lilian Weng's blog post on self-supervised representation learning. No link checked.
+- Weng, L. (2019), "Self-supervised representation learning", *Lil'Log* blog. https://lilianweng.github.io/posts/2019-11-10-self-supervised/ — A blog survey of self-supervised representation learning methods.

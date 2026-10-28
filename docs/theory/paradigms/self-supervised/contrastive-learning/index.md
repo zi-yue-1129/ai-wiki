@@ -70,4 +70,4 @@ Why contrastive pre-training transfers so well is only partly understood. Choosi
 
 ## Further reading
 
-- Lilian Weng's blog post on contrastive representation learning. No link checked.
+- Weng, L. (2021), "Contrastive representation learning", *Lil'Log* blog. https://lilianweng.github.io/posts/2021-05-31-contrastive/ — A blog survey of contrastive learning methods and their losses.

@@ -60,4 +60,4 @@ Scaling graph construction and propagation to millions of points, learning the s
 
 ## Further reading
 
-- Chapelle, Schölkopf & Zien (eds.), *Semi-Supervised Learning*, MIT Press (2006), chapter on graph methods. No free link checked.
+- Chapelle, Schölkopf & Zien (eds.), *Semi-Supervised Learning*, MIT Press (2006), chapter on graph methods. https://doi.org/10.7551/mitpress/9780262033589.001.0001 — The standard volume; this link is to the whole book, not to the chapter.

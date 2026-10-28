@@ -75,5 +75,5 @@ How many clusters are there? Is a "true" clustering even defined? Clustering in 
 
 ## Further reading
 
-- Jain (2010), "Data clustering: 50 years beyond k-means", *Pattern Recognition Letters*. No link checked.
+- Jain (2010), "Data clustering: 50 years beyond k-means", *Pattern Recognition Letters* 31. https://doi.org/10.1016/j.patrec.2009.09.011 — A survey of clustering methods from k-means onward.
 - Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, chapter 14. https://doi.org/10.1007/978-0-387-84858-7

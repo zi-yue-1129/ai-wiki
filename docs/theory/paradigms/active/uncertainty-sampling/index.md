@@ -57,4 +57,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Seung, Opper & Sompolinsky (1992), "Query by committee", COLT. No link checked.
+- Seung, Opper & Sompolinsky (1992), "Query by committee", *Proceedings of the Fifth Annual Workshop on Computational Learning Theory* (COLT), ACM. https://doi.org/10.1145/130385.130417 — Proposes query by committee, which asks for labels of the examples on which a committee of models disagrees most.
