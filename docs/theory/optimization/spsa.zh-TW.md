@@ -54,7 +54,7 @@ Spall（1992）給出增益與擾動序列的條件，使迭代點在隨機逼�
 ## 應用
 
 - 調整只能取得帶雜訊之效能量測的系統參數。
-- 如 MeZO（Malladi 等人，2023）所示，只用前向傳播微調語言模型，這是把 SPSA 式估計用於大型模型。
+- 如 MeZO（Malladi 等人，2023）所示，以前向傳播微調語言模型；它執行的零階 SGD 方法只用兩次前向傳播估計梯度，與 SPSA 同屬一類。
 
 ## 開放問題
 
@@ -72,4 +72,4 @@ Spall（1992）給出增益與擾動序列的條件，使迭代點在隨機逼�
 ### 綜述與教科書
 
 - Hansen, N.（2016）。*The CMA Evolution Strategy: A Tutorial*。arXiv。https://arxiv.org/abs/1604.00772 — 另一種無梯度方法的教學文件，用於與 SPSA 比較。
-- Bottou, L., Curtis, F. E. & Nocedal, J.（2018）。*Optimization Methods for Large-Scale Machine Learning*。SIAM Review。https://arxiv.org/abs/1606.04838 — 基於梯度的隨機方法綜述，SPSA 的更新規則屬於這一類。
+- Bottou, L., Curtis, F. E. & Nocedal, J.（2018）。*Optimization Methods for Large-Scale Machine Learning*。*SIAM Review*, 60(2), 223–311。https://doi.org/10.1137/16M1080173 — 基於梯度的隨機方法綜述，SPSA 的更新規則屬於這一類。

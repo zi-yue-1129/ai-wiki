@@ -70,7 +70,7 @@ Miller and Cohen (2001) proposed that the prefrontal cortex does executive work 
 
 - **Gated memory in neural networks.** The LSTM (Hochreiter & Schmidhuber, 1997) uses multiplicative gates to protect a memory cell across long time lags, and it is widely used in sequence modelling.
 - **Interpreting executive-control experiments.** Miller and Cohen (2001) review neurophysiological, neuroimaging and computational studies that support the view of the PFC as a source of control.
-- **Testing memory maintenance.** Wolff et al. (2017) used a brief EEG perturbation pulse to detect item-specific memory during the delay.
+- **Testing memory maintenance.** Wolff et al. (2017) report evidence for hidden states in working-memory-guided behaviour.
 
 ## Open questions
 

@@ -64,8 +64,8 @@ The abstract reports that the sparse models reach up to trillion-parameter scale
 
 ### Seminal papers
 
-- Fedus, W., Zoph, B. & Shazeer, N. (2021). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. arXiv. https://arxiv.org/abs/2101.03961 — Routes each token to a single expert and reports up to 7× pre-training speed-up at constant compute per token.
-- Shazeer, N., et al. (2017). *Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*. arXiv. https://arxiv.org/abs/1701.06538 — The top-k sparse gate that this paper simplifies.
+- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. JMLR 23. https://www.jmlr.org/papers/v23/21-0998.html — Routes each token to a single expert and reports up to 7× pre-training speed-up at constant compute per token.
+- Shazeer, N., et al. (2017). *Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*. ICLR 2017. https://arxiv.org/abs/1701.06538 — The top-k sparse gate that this paper simplifies.
 - Jacobs, R. A., Jordan, M. I., Nowlan, S. J. & Hinton, G. E. (1991). Adaptive Mixtures of Local Experts. *Neural Computation*, 3(1), 79–87. https://doi.org/10.1162/neco.1991.3.1.79 — The original mixture of experts, with a dense gating network.
 - Lepikhin, D., et al. (2020). *GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding*. arXiv. https://arxiv.org/abs/2006.16668 — Sparse experts at Transformer scale with automatic sharding, a setting that Switch's simpler routing also targets.
 - Jiang, A. Q., et al. (2024). *Mixtral of Experts*. arXiv. https://arxiv.org/abs/2401.04088 — A later sparse Transformer that uses top-2 routing, for comparison.

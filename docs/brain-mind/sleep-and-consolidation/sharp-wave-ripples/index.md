@@ -16,7 +16,7 @@ aliases:
 
 # Sharp-wave ripples (Buzsáki et al., 1992)
 
-Sharp-wave ripples are brief, highly synchronous events in the hippocampus. A sharp wave is a large negative deflection of the local field potential lasting tens of milliseconds, and the ripple is a fast oscillation that rides on it. The oscillation was described near 200 Hz in CA1 (Buzsáki et al., 1992), and in rodents they typically span 110 to 200 Hz (Buzsáki, 2015). These events carry hippocampal replay to distributed circuits.
+Sharp-wave ripples are brief, highly synchronous events in the hippocampus. A sharp wave is a large negative deflection of the local field potential lasting tens of milliseconds, and the ripple is a fast oscillation that rides on it. The oscillation was described near 200 Hz in CA1 (Buzsáki et al., 1992). These events carry hippocampal replay to distributed circuits.
 
 This page is part of [Sleep, Replay and Memory Consolidation](../index.md). The sequences these events carry are covered on [Hippocampal replay](../hippocampal-replay/index.md).
 

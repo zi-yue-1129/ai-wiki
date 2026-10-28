@@ -78,6 +78,6 @@ C = \sum_{i\ne j}\Big[v_{ij}\log\frac{v_{ij}}{w_{ij}} + (1-v_{ij})\log\frac{1-v_
 
 ### 應用與比較
 
-- Becht, E. 等人 (2019). Dimensionality reduction for visualizing single-cell data using UMAP. *Nature Biotechnology*。https://link.springer.com/article/10.1038/nbt.4314 — 將 UMAP 應用於單細胞資料的視覺化。
+- Becht, E. 等人 (2019). Dimensionality reduction for visualizing single-cell data using UMAP. *Nature Biotechnology*, 37, 38–44。https://doi.org/10.1038/nbt.4314 — 將 UMAP 應用於單細胞資料的視覺化。
 - Kobak, D. & Linderman, G. C. (2021). Initialization is critical for preserving global data structure in both t-SNE and UMAP. *Nature Biotechnology*。https://doi.org/10.1038/s41587-020-00809-z — 依其標題主張，初始化對 t-SNE 與 UMAP 的全域資料結構保留至關重要。
 - Sainburg, T., McInnes, L. & Gentner, T. Q. (2021). Parametric UMAP embeddings for representation and semisupervised learning. *Neural Computation*。https://pmc.ncbi.nlm.nih.gov/articles/PMC8516496 — 依其標題，為表示學習與半監督學習而設計的參數化 UMAP 版本。

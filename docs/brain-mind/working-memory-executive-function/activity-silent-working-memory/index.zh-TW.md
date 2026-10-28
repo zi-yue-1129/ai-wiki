@@ -39,7 +39,7 @@ aliases:
 這個觀點包含兩個相互連結的想法。
 
 1. **突觸儲存。** Mongillo 等人（2008）提出，工作記憶是由新皮質網路遞迴連結中、鈣介導的突觸易化所維持。突觸前的殘餘鈣作為緩衝。放電會裝載、刷新並讀出這個緩衝。由於鈣的衰減很慢，刷新可以不頻繁，因此此機制兼具代謝效率與穩健性。
-2. **動態隱藏狀態。** Stokes（2015）回顧活動靜默神經狀態的證據，並提出動態編碼框架，認為記憶編碼於連結模式之中。Wolff 等人（2017）以延遲期間的擾動脈衝支持隱藏狀態的觀點，使項目特定的記憶得以在 EEG 中被偵測到，即使沒有持續的延遲活動。
+2. **動態隱藏狀態。** Stokes（2015）回顧活動靜默神經狀態的證據，並提出動態編碼框架，認為記憶編碼於連結模式之中。Wolff 等人（2017）報告了工作記憶引導行為中隱藏狀態的證據。
 
 ## 方程式或演算法
 
@@ -55,7 +55,6 @@ aliases:
 ## 結果
 
 - **突觸模型。** Mongillo 等人（2008）提出，突觸記憶可以在低刷新率下維持，且其持續時間可由背景活動控制。作者將此機制描述為穩健且代謝有效率。
-- **脈衝式證據。** Wolff 等人（2017）在保持期間使用 EEG 與擾動脈衝。針對某項目的遺忘提示會抹除該項目的痕跡，而僅僅未被注意的項目則仍被編碼。這種隱藏狀態編碼的強度可預測記憶引導反應的正確率與精確度。
 
 ## 限制
 
@@ -73,7 +72,7 @@ aliases:
 
 ## 應用
 
-- **實驗設計。** 擾動與解碼方法，例如 Wolff 等人（2017）的脈衝設計，被用來在持續活動無法顯示記憶時讀出記憶。
+- **實驗設計。** 擾動與解碼方法被用來在持續活動無法顯示記憶時讀出記憶。
 - **維持的模型。** 工作記憶的突觸模型，啟發了以連結強度而非持續放電來保存記憶的網路模型（Mongillo 等人，2008）。
 
 ## 未解問題
@@ -87,7 +86,7 @@ aliases:
 ### 開創性論文
 
 - Mongillo, G., Barak, O. & Tsodyks, M. (2008). Synaptic theory of working memory. *Science*. https://doi.org/10.1126/science.1150769 — 提出工作記憶由鈣介導的突觸易化維持，並由放電刷新。
-- Wolff, M. J., Jochim, J., Akyürek, E. G. & Stokes, M. G. (2017). Dynamic hidden states underlying working-memory-guided behavior. *Nature Neuroscience*. https://doi.org/10.1038/nn.4546 — 以 EEG 與擾動脈衝偵測延遲期間的項目特定記憶；此訊號的強度可預測記憶引導的行為。
+- Wolff, M. J., Jochim, J., Akyürek, E. G. & Stokes, M. G. (2017). Dynamic hidden states underlying working-memory-guided behavior. *Nature Neuroscience*. https://doi.org/10.1038/nn.4546 — 報告工作記憶引導行為中隱藏狀態的證據。
 - Compte, A. et al. (2000). Synaptic mechanisms and network dynamics underlying spatial working memory in a cortical network model. *Cerebral Cortex*. https://doi.org/10.1093/cercor/10.9.910 — 以持續活動維持空間工作記憶的皮質網路模型。
 
 ### 綜述與教科書

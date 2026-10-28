@@ -67,8 +67,8 @@ w_1 = \arg\max_{\|w\|=1}\ w^\top S\, w,
 
 ### 開創性論文
 
-- Pearson, K. (1901). On lines and planes of closest fit to systems of points in space. *Philosophical Magazine*。https://zenodo.org/records/1430636/files/article.pdf — 「最佳擬合子空間」這一 PCA 觀點的歷史起源。連結為該文的數位化副本；期刊出處依文章標題與數位化紀錄判定。
-- Hotelling, H. (1933). Analysis of a complex of statistical variables into principal components. *Journal of Educational Psychology*, 24。https://www.bohrium.com/paper-details/analysis-of-a-complex-of-statistical-variables-into-principal-components/812082556450111489-11152 — 以主成分之名提出此方法的論文。期刊與年份已由搜尋確認；連結為索引頁，而非出版社紀錄。
+- Pearson, K. (1901). On lines and planes of closest fit to systems of points in space. *The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science*, 2, 559–572。https://doi.org/10.1080/14786440109462720 — 「最佳擬合子空間」這一 PCA 觀點的歷史起源。
+- Hotelling, H. (1933). Analysis of a complex of statistical variables into principal components. *Journal of Educational Psychology*, 24, 417–441。https://doi.org/10.1037/h0071325 — 以主成分之名提出此方法的論文。
 - Tipping, M. E. & Bishop, C. M. (1999). Probabilistic principal component analysis. *Journal of the Royal Statistical Society: Series B*, 61(3), 611–622. https://doi.org/10.1111/1467-9868.00196 — 將 PCA 表述為潛在變數模型上的最大概似，並提出估計主子空間的 EM 演算法。
 - Eckart, C. & Young, G. (1936). The approximation of one matrix by another of lower rank. *Psychometrika*, 1(3), 211–218. https://doi.org/10.1007/BF02288367 — 上述奇異值分解表述所用的最佳低秩近似定理。
 

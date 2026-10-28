@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/evolutionary
@@ -42,7 +42,7 @@ where \(\tau_{ij}\) is the pheromone on the edge, \(\eta_{ij}\) is the heuristic
 
 ## Key results
 
-Dorigo et al. (1996) introduce the Ant System for the travelling salesman problem. This page does not quote any results from the paper, since the abstract was not checked against the full text.
+Dorigo et al. (1996) introduce the Ant System, applied to the travelling salesman problem. This page does not quote numerical results from the paper.
 
 ## Limitations
 
@@ -69,23 +69,11 @@ Dorigo et al. (1996) introduce the Ant System for the travelling salesman proble
 
 ### Seminal papers
 
-- Dorigo, M., Maniezzo, V. & Colorni, A. (1996). *Ant system: optimization by a colony of cooperating agents*. IEEE Transactions on Systems, Man, and Cybernetics, Part B. https://doi.org/10.1109/3477.484436 — Introduces the Ant System, in which artificial ants build tours guided by pheromone and heuristic values.
-- Dorigo, M. & Gambardella, L. M. (1997). *Ant colony system: a cooperative learning approach to the traveling salesman problem*. IEEE Transactions on Evolutionary Computation. https://iridia.ulb.ac.be/~leonardo/teaching/INFO-H-414/papers/DorigoGambardella97-ACS.pdf — Introduces Ant Colony System, a variant with local pheromone updates and a stronger preference for the best tour.
-- Stützle, T. & Hoos, H. H. (2000). *MAX–MIN Ant System*. Future Generation Computer Systems. https://iridia.ulb.ac.be/~leonardo/teaching/INFO-H-414/papers/StuetzleHoos00-MMAS.pdf — Introduces MAX–MIN Ant System, which bounds pheromone levels to limit premature convergence.
-- Dorigo, M. & Blum, C. (2005). *Ant colony optimization theory: a survey*. Theoretical Computer Science. https://upcommons.upc.edu/entities/publication/9fdcd2c5-49f8-4745-a32b-6331a6616704 — Surveys the theoretical results for ACO.
-- Dorigo, M., Birattari, M. & Stützle, T. (2006). *Ant colony optimization: artificial ants as a computational intelligence technique*. IEEE Computational Intelligence Magazine. https://ieeexplore.ieee.org/document/4129846 — Overviews ACO as a computational intelligence technique.
-
-### Surveys and textbooks
-
-(none checked for this page)
-
-### Lectures and videos
-
-(none checked for this page)
-
-### Articles and documentation
-
-(none checked for this page)
+- Dorigo, M., Maniezzo, V. & Colorni, A. (1996). *Ant system: optimization by a colony of cooperating agents*. IEEE Transactions on Systems, Man, and Cybernetics, Part B, 26, 29–41. https://doi.org/10.1109/3477.484436 — Introduces the Ant System, in which artificial ants build tours guided by pheromone and heuristic values.
+- Dorigo, M. & Gambardella, L. M. (1997). *Ant colony system: a cooperative learning approach to the traveling salesman problem*. IEEE Transactions on Evolutionary Computation, 1, 53–66. https://doi.org/10.1109/4235.585892 — Introduces Ant Colony System, a variant with local pheromone updates and a stronger preference for the best tour.
+- Stützle, T. & Hoos, H. H. (2000). *MAX–MIN Ant System*. Future Generation Computer Systems, 16, 889–914. https://doi.org/10.1016/S0167-739X(00)00043-1 — Introduces MAX–MIN Ant System, which bounds pheromone levels to limit premature convergence.
+- Dorigo, M. & Blum, C. (2005). *Ant colony optimization theory: a survey*. Theoretical Computer Science, 344, 243–278. https://doi.org/10.1016/j.tcs.2005.05.020 — Surveys the theoretical results for ACO.
+- Dorigo, M., Birattari, M. & Stützle, T. (2006). *Ant colony optimization: artificial ants as a computational intelligence technique*. IEEE Computational Intelligence Magazine, 1, 28–39. https://doi.org/10.1109/MCI.2006.329691 — Overviews ACO as a computational intelligence technique.
 
 ## Further learning
 

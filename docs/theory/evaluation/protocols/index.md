@@ -21,6 +21,8 @@ Each method has its own page.
 | [Cross-validation](methods/cross-validation.md) | Estimating generalisation from several splits |
 | [Paired bootstrap](methods/paired-bootstrap.md) | Intervals for the difference between two methods |
 | [LLM as judge](methods/llm-as-judge.md) | Scoring open-ended outputs with a model |
+| [MT-Bench](methods/mt-bench.md) | Pairwise judging with swapped order, and its agreement with human experts |
+| [Length-controlled AlpacaEval](methods/length-controlled-alpacaeval.md) | Correcting an automatic judge's preference for longer answers |
 | [Human evaluation](methods/human-evaluation.md) | Judging outputs with people, with agreement reported |
 | [Elo rating and arenas](methods/elo-rating.md) | Ranking systems from pairwise outcomes |
 | [Contamination detection](methods/contamination-detection.md) | Checking whether benchmark items were in training data |

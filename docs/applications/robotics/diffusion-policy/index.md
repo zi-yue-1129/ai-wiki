@@ -29,7 +29,7 @@ The paper models the visuomotor policy as a conditional denoising diffusion proc
 
 ## Results
 
-The paper reports an average improvement of 46.9% over prior state-of-the-art methods. The abstract describes 15 tasks from four manipulation benchmarks, and the main comparison table lists 12 of them (8 simulated and 4 real-world). Real-robot experiments are also reported. The per-task figures need the full paper.
+The paper reports an average improvement of 46.9% over prior state-of-the-art methods. The abstract describes 15 tasks from four manipulation benchmarks, covering simulated and real-world environments. The per-task figures are in the paper's tables.
 
 ## Limitations
 

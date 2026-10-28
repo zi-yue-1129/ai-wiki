@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/unsupervised/dimensionality-reduction
@@ -76,8 +76,8 @@ Equivalently, take the singular value decomposition \(X = U\Sigma V^\top\). The 
 
 ### Seminal papers
 
-- Pearson, K. (1901). On lines and planes of closest fit to systems of points in space. *Philosophical Magazine*. https://zenodo.org/records/1430636/files/article.pdf — The historical origin of the best-fitting subspace view of PCA. Link is a digitised copy of the article; venue from the article's title and the digitisation record.
-- Hotelling, H. (1933). Analysis of a complex of statistical variables into principal components. *Journal of Educational Psychology*, 24. https://www.bohrium.com/paper-details/analysis-of-a-complex-of-statistical-variables-into-principal-components/812082556450111489-11152 — The paper that introduces principal components under that name. Venue and year confirmed by search; the link is an index page, not the publisher's record.
+- Pearson, K. (1901). On lines and planes of closest fit to systems of points in space. *The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science*, 2, 559–572. https://doi.org/10.1080/14786440109462720 — The historical origin of the best-fitting subspace view of PCA.
+- Hotelling, H. (1933). Analysis of a complex of statistical variables into principal components. *Journal of Educational Psychology*, 24, 417–441. https://doi.org/10.1037/h0071325 — The paper that introduces principal components under that name.
 - Tipping, M. E. & Bishop, C. M. (1999). Probabilistic principal component analysis. *Journal of the Royal Statistical Society: Series B*, 61(3), 611–622. https://doi.org/10.1111/1467-9868.00196 — Presents PCA as maximum likelihood in a latent-variable model, with an EM algorithm for the principal subspace.
 - Eckart, C. & Young, G. (1936). The approximation of one matrix by another of lower rank. *Psychometrika*, 1(3), 211–218. https://doi.org/10.1007/BF02288367 — The best low-rank approximation theorem used in the SVD formulation above.
 

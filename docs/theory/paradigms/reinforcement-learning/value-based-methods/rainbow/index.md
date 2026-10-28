@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - Rainbow
@@ -18,8 +18,8 @@ By 2018 many extensions to DQN each fixed one weakness: overestimation, uniform 
 
 Rainbow takes the DQN agent and integrates six components, one from each family:
 
-- **Double Q-learning** decouples action selection from evaluation to reduce overestimation (van Hasselt et al., 2016).
-- **Prioritised replay** samples transitions with high learning potential more often (Schaul et al., 2016).
+- **Double Q-learning** decouples action selection from evaluation to reduce overestimation (van Hasselt et al., 2016; see [Double DQN](../double-dqn/index.md)).
+- **Prioritised replay** samples transitions with high learning potential more often.
 - **Dueling networks** split the network into a value stream and an advantage stream that share an encoder.
 - **Multi-step learning** bootstraps from n-step returns rather than one-step targets.
 - **Distributional RL** models the full distribution of returns, using 51 atoms, rather than only its mean.
@@ -68,8 +68,7 @@ The ablation study finds that prioritised replay and multi-step learning are the
 ### Seminal papers
 
 - Hessel et al. (2018), "Rainbow: Combining improvements in deep reinforcement learning", [arXiv:1710.02298](https://arxiv.org/abs/1710.02298) — The Rainbow paper, with its six-component ablation and the reported Atari results.
-- van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", [arXiv:1509.06461](https://arxiv.org/abs/1509.06461) — The double Q-learning component, which reduces overestimation.
-- Schaul, Quan, Antonoglou & Silver (2016), "Prioritized experience replay", [arXiv:1511.05952](https://arxiv.org/abs/1511.05952) — The prioritised replay component, reported to beat uniform replay on 41 of 49 games.
+- van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", [arXiv:1509.06461](https://arxiv.org/abs/1509.06461) (submitted 2015) — The double Q-learning component, which reduces overestimation.
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The base DQN agent that Rainbow extends.
 - Mnih et al. (2013), "Playing Atari with deep reinforcement learning", [arXiv:1312.5602](https://arxiv.org/abs/1312.5602) — The early preprint that introduced the Atari setting used throughout.
 

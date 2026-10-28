@@ -53,8 +53,8 @@ k 為二或更大的 top-k 路由，會使每個詞元的運算量倍增，並�
 
 ### 開創性論文
 
-- Fedus, W., Zoph, B. & Shazeer, N.（2021）。*Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*。arXiv。https://arxiv.org/abs/2101.03961 — 把每個詞元路由到單一專家，並報告在每個詞元運算量固定時，預訓練速度最多提升 7 倍。
-- Shazeer, N., 等人（2017）。*Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*。arXiv。https://arxiv.org/abs/1701.06538 — 本論文所簡化的 top-k 稀疏閘控。
+- Fedus, W., Zoph, B. & Shazeer, N.（2022）。*Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*。JMLR 23。https://www.jmlr.org/papers/v23/21-0998.html — 把每個詞元路由到單一專家，並報告在每個詞元運算量固定時，預訓練速度最多提升 7 倍。
+- Shazeer, N., 等人（2017）。*Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*。ICLR 2017。https://arxiv.org/abs/1701.06538 — 本論文所簡化的 top-k 稀疏閘控。
 - Jacobs, R. A., Jordan, M. I., Nowlan, S. J. & Hinton, G. E.（1991）。Adaptive Mixtures of Local Experts。*Neural Computation*，3(1)，79–87。https://doi.org/10.1162/neco.1991.3.1.79 — 原始的混合專家模型，具稠密閘控網路。
 - Lepikhin, D., 等人（2020）。*GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding*。arXiv。https://arxiv.org/abs/2006.16668 — 在 Transformer 規模下的稀疏專家與自動分片，Switch 較簡單的路由也以此設定為目標。
 - Jiang, A. Q., 等人（2024）。*Mixtral of Experts*。arXiv。https://arxiv.org/abs/2401.04088 — 之後使用 top-2 路由的稀疏 Transformer，用於比較。

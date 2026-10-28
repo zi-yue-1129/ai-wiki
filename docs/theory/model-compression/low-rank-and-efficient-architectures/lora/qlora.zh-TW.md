@@ -4,7 +4,7 @@ translation_reviewed: 2026-10-28
 
 # QLoRA
 
-QLoRA 在一個凍結權重以 4 位元儲存的基底模型上訓練 LoRA 適配器，以微調大型模型。Dettmers 等人（2023）報告，這使微調 650 億參數模型所需的記憶體降到 48 GB 以下，因此能放進單張 GPU，同時在其測試的基準上與 16 位元全參數微調相當。它是 [LoRA](index.zh-TW.md) 的一種變體，依賴對基底模型進行[量化](../../quantisation/index.zh-TW.md)。
+QLoRA 在一個凍結權重以 4 位元儲存的基底模型上訓練 LoRA 適配器，以微調大型模型。Dettmers 等人（2023）報告，這使微調 650 億參數模型所需的記憶體降到 48 GB 以下，因此能放進單張 GPU，同時在其測試的較小模型基準上與 16 位元全參數微調相當。它是 [LoRA](index.zh-TW.md) 的一種變體，依賴對基底模型進行[量化](../../quantisation/index.zh-TW.md)。
 
 ## 問題
 
@@ -57,5 +57,5 @@ QLoRA 是把 LoRA 應用於量化後的基底，因此 [LoRA](index.zh-TW.md) �
 
 ### 文章與文件
 
-- Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — 顯示逐通道的 8 位元量化能讓許多 CNN 維持接近浮點數的準確度，是把基底以低位元儲存的訓練後對應做法。
+- Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — 報告每通道 8 位元量化能讓多種 CNN 架構的分類準確度與浮點網路相差在 2% 以內，是基底以低位元儲存的後訓練對應做法。
 - Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張對 AI 服務而言，主要瓶頸是記憶體頻寬而非運算，而把基底儲存為 4 位元正能緩解這項壓力。

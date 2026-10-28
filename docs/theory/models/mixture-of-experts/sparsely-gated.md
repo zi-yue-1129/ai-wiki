@@ -69,10 +69,10 @@ The abstract reports a mixture of experts with up to 137 billion parameters appl
 
 ### Seminal papers
 
-- Shazeer, N., Mirhoseini, A., Maziarz, K., Davis, A., Le, Q., Hinton, G. & Dean, J. (2017). *Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*. arXiv. https://arxiv.org/abs/1701.06538 — Introduces a sparsely gated mixture of experts with up to 137 billion parameters, raising capacity with modest efficiency loss.
+- Shazeer, N., Mirhoseini, A., Maziarz, K., Davis, A., Le, Q., Hinton, G. & Dean, J. (2017). *Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*. ICLR 2017. https://arxiv.org/abs/1701.06538 — Introduces a sparsely gated mixture of experts with up to 137 billion parameters, raising capacity with modest efficiency loss.
 - Jacobs, R. A., Jordan, M. I., Nowlan, S. J. & Hinton, G. E. (1991). Adaptive Mixtures of Local Experts. *Neural Computation*, 3(1), 79–87. https://doi.org/10.1162/neco.1991.3.1.79 — The dense gated mixture that this layer makes sparse.
 - Lepikhin, D., et al. (2020). *GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding*. arXiv. https://arxiv.org/abs/2006.16668 — Applies sparsely gated experts to Transformer translation at more than 600 billion parameters.
-- Fedus, W., Zoph, B. & Shazeer, N. (2021). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. arXiv. https://arxiv.org/abs/2101.03961 — Simplifies the top-k gate to a single expert per token.
+- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. JMLR 23. https://www.jmlr.org/papers/v23/21-0998.html — Simplifies the top-k gate to a single expert per token.
 - Jiang, A. Q., et al. (2024). *Mixtral of Experts*. arXiv. https://arxiv.org/abs/2401.04088 — An open-weight sparse Transformer with eight experts, two active per token.
 
 ### Surveys and textbooks
