@@ -324,6 +324,9 @@ plugins:
             Consciousness & Philosophy of Mind: 意識與心靈哲學
             Brain-Computer Interfaces: 腦機介面與神經解碼
             Language in the Brain: 大腦中的語言
+            Dual-Stream Model (Hickok & Poeppel 2007): 語音處理的雙路徑模型（Hickok 與 Poeppel，2007）
+            Language Models Predict Brain Responses (Schrimpf et al. 2021): 語言模型預測大腦對句子的反應（Schrimpf 等人，2021）
+            Shared Computational Principles (Goldstein et al. 2022): 人類與深度語言模型的共享計算原則（Goldstein 等人，2022）
             Predictive Coding & Free Energy: 預測編碼與自由能
             Decision Making, Dopamine & Reward: 決策、多巴胺與獎勵
             Diffusion Decision Model: 擴散決策模型
@@ -634,7 +637,11 @@ nav:
           - brain-mind/bci/index.md
           - Neural Reach and Grasp: brain-mind/bci/neural-reach-and-grasp/index.md
           - Speech Neuroprosthesis: brain-mind/bci/speech-neuroprosthesis/index.md
-      - Language in the Brain: brain-mind/language-in-brain/index.md
+      - Language in the Brain:
+          - brain-mind/language-in-brain/index.md
+          - Dual-Stream Model (Hickok & Poeppel 2007): brain-mind/language-in-brain/hickok-poeppel-2007/index.md
+          - Language Models Predict Brain Responses (Schrimpf et al. 2021): brain-mind/language-in-brain/schrimpf-2021/index.md
+          - Shared Computational Principles (Goldstein et al. 2022): brain-mind/language-in-brain/goldstein-2022/index.md
       - Predictive Coding & Free Energy: brain-mind/predictive-coding/index.md
       - Decision Making, Dopamine & Reward:
           - brain-mind/decision-reward/index.md
