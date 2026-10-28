@@ -603,6 +603,7 @@ plugins:
             Randomized SVD: 隨機化 SVD
             Object Detection: 物件偵測
             RetinaNet and Focal Loss: RetinaNet 與焦點損失
+            ML Compilers and Kernel Languages: 機器學習編譯器與核函式語言
 
 markdown_extensions:
   - abbr
@@ -1118,7 +1119,9 @@ nav:
       - Software Development: applications/software/index.md
   - Engineering:
       - engineering/index.md
-      - Frameworks & Tools: engineering/frameworks/index.md
+      - Frameworks & Tools:
+          - engineering/frameworks/index.md
+          - ML Compilers and Kernel Languages: engineering/frameworks/compilers-and-kernels.md
       - Data:
           - engineering/data/index.md
           - MinHash Deduplication: engineering/data/minhash-deduplication.md
