@@ -257,6 +257,11 @@ plugins:
             Attention Variants: 注意力變體
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
+            AlexNet: AlexNet
+            Residual Networks: 殘差網路
+            GPT-3 Few-Shot Learning: GPT-3 少樣本學習
+            Compute-Optimal Training: 運算最佳化訓練
+            InstructGPT and RLHF: InstructGPT 與 RLHF
             Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
             False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
             Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
@@ -421,7 +426,10 @@ nav:
       - Mathematics: theory/math/index.md
       - Information Theory: theory/information-theory/index.md
       - Machine Learning: theory/machine-learning/index.md
-      - Deep Learning: theory/deep-learning/index.md
+      - Deep Learning:
+          - theory/deep-learning/index.md
+          - AlexNet: theory/deep-learning/alexnet/index.md
+          - Residual Networks: theory/deep-learning/residual-networks/index.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum: theory/optimization/sgd-and-momentum.md
@@ -562,6 +570,9 @@ nav:
               - Selective State Spaces: theory/models/ssm/selective-state-spaces/index.md
           - Large Language Models:
               - theory/models/llm/index.md
+              - GPT-3 Few-Shot Learning: theory/models/llm/gpt-3-few-shot/index.md
+              - Compute-Optimal Training: theory/models/llm/compute-optimal-training/index.md
+              - InstructGPT and RLHF: theory/models/llm/instructgpt-rlhf/index.md
               - Imitation in Foundation Models: theory/models/llm/imitation-in-foundation-models/index.md
           - Computer Vision: theory/models/computer-vision/index.md
           - Natural Language Processing: theory/models/nlp/index.md
