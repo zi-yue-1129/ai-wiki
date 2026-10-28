@@ -59,4 +59,4 @@ Reliable off-policy evaluation without strong overlap assumptions is unsolved. C
 
 ## Further reading
 
-- Lange, Gabel & Riedmiller (2012), "Batch reinforcement learning", in *Reinforcement Learning: State of the Art*. No link checked.
+- Lange, Gabel & Riedmiller (2012), "Batch reinforcement learning", in *Reinforcement Learning: State of the Art*. https://doi.org/10.1007/978-3-642-27645-3_2 — Reviews batch RL, where a policy is learned from a fixed set of past transitions.

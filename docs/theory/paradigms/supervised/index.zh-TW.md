@@ -55,9 +55,9 @@
 
 ## 延伸閱讀
 
-- Hastie、Tibshirani 與 Friedman，《The Elements of Statistical Learning》（免費 PDF）
+- Hastie、Tibshirani 與 Friedman，《The Elements of Statistical Learning》，Springer（2009）。https://doi.org/10.1007/978-0-387-84858-7
 - [scikit-learn 監督式學習指南](https://scikit-learn.org/stable/supervised_learning.html)
-- Geirhos et al. (2020), "Shortcut learning in deep neural networks", *Nature Machine Intelligence*
+- Geirhos et al. (2020)，《Shortcut learning in deep neural networks》，*Nature Machine Intelligence*。https://arxiv.org/abs/2004.07780
 
 ## 子主題
 

@@ -58,4 +58,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Thrun & Pratt (1998), *Learning to Learn*, Springer. No link checked.
+- Thrun & Pratt (1998), *Learning to Learn*, Springer. https://link.springer.com/doi/10.1007/978-1-4615-5529-2 — Edited volume that sets out the foundations of learning to learn and inductive transfer.

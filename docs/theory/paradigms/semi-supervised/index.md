@@ -65,9 +65,8 @@ Children receive very few explicit labels ("that's a dog") relative to the vast 
 
 ## Further reading
 
-- van Engelen & Hoos (2020), "A survey on semi-supervised learning", *Machine Learning*
-- Zhou (2018), "A brief introduction to weakly supervised learning", *National Science Review*
-- Ratner et al. (2017), "Snorkel: rapid training data creation with weak supervision"
+- van Engelen & Hoos (2020), "A survey on semi-supervised learning", *Machine Learning*. https://doi.org/10.1007/s10994-019-05855-6
+- Zhou (2018), "A brief introduction to weakly supervised learning", *National Science Review*. https://doi.org/10.1093/nsr/nwx106
 
 ## References
 

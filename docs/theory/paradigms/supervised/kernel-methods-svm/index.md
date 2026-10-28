@@ -63,5 +63,5 @@ Training scales between $O(n^2)$ and $O(n^3)$ in the number of examples, which i
 
 ## Further reading
 
-- Schölkopf & Smola, *Learning with Kernels*, MIT Press (2002). No free link checked.
+- Schölkopf & Smola, *Learning with Kernels*, MIT Press (2002). https://is.mpg.de/publications/973 — The reference text on kernel methods and support vector machines, covering theory and algorithms.
 - Platt (1999), "Probabilistic outputs for support vector machines", in *Advances in Large Margin Classifiers*. No free link checked.

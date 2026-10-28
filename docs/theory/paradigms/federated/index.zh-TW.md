@@ -56,6 +56,6 @@ flowchart TB
 
 ## 延伸閱讀
 
-- Kairouz et al. (2021), "Advances and Open Problems in Federated Learning"
-- Dwork & Roth,《The Algorithmic Foundations of Differential Privacy》（免費）
+- Kairouz et al. (2021)，《Advances and Open Problems in Federated Learning》，*Foundations and Trends in Machine Learning*。https://arxiv.org/abs/1912.04977
+- Dwork & Roth，《The Algorithmic Foundations of Differential Privacy》，Foundations and Trends in Theoretical Computer Science, 9(3–4)。https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf
 - [Flower](https://flower.ai/)、[TensorFlow Federated](https://www.tensorflow.org/federated)、[Opacus](https://opacus.ai/)（PyTorch 的 DP）

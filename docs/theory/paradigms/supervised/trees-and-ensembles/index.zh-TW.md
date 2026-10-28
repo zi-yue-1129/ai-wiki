@@ -66,4 +66,4 @@ tags:
 
 ## 延伸閱讀
 
-- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD。未查核連結。
+- Chen & Guestrin (2016)，"XGBoost: a scalable tree boosting system"，KDD。https://arxiv.org/abs/1603.02754 — XGBoost 系統：為速度與規模設計的正則化梯度提升樹。

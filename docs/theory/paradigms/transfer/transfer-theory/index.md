@@ -57,4 +57,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Redko, Morvant, Habrard, Sebban & Bennani (2019), *Advances in Domain Adaptation Theory*, Elsevier. No link checked.
+- Redko, Morvant, Habrard, Sebban & Bennani (2019), *Advances in Domain Adaptation Theory*, Elsevier. https://tienda.elsevier.com/books/advances-in-domain-adaptation-theory/redko/978-1-78548-236-6 — Theoretical bounds on how well a model trained in one domain transfers to another.

@@ -47,6 +47,8 @@ L = -\log \frac{\exp(s(z_i, z_i^+)/\tau)}{\sum_j \exp(s(z_i, z_j)/\tau)}
 
 ## 延伸閱讀
 
-- Balestriero et al. (2023), "A Cookbook of Self-Supervised Learning"
+- Balestriero et al. (2023)，《A Cookbook of Self-Supervised Learning》。https://arxiv.org/abs/2304.12210
 - LeCun & Misra〈Self-supervised learning: the dark matter of intelligence〉（Meta AI 部落格, 2021）
-- Chen et al. (2020) SimCLR；He et al. (2022) MAE；Radford et al. (2021) CLIP
+- Chen et al. (2020) SimCLR。https://arxiv.org/abs/2002.05709
+- He et al. (2022) MAE。https://arxiv.org/abs/2111.06377
+- Radford et al. (2021) CLIP。https://arxiv.org/abs/2103.00020
