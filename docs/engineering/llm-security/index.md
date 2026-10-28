@@ -48,8 +48,9 @@ Each method has its own page. This section compares them and points to the detai
 | Indirect prompt injection | Instructions hidden in content the application retrieves | Filters are incomplete, so structural controls are needed | [Indirect prompt injection](indirect-prompt-injection.md) |
 | Universal and transferable adversarial suffixes | Refusals in aligned models, found by automated search | Needs gradient access to an open model; unusual text | [Universal adversarial suffixes](universal-adversarial-suffixes.md) |
 | Training-data extraction | Memorised training text that a model reproduces | Depends on how often a sequence appears in training data | [Training-data extraction](../../society/privacy/training-data-extraction.md) |
+| Jailbreaks and red-teaming | Refusal training in aligned models, probed by hand or by automated search | Measured success depends on the judge and the attempt budget | [Jailbreaks and red-teaming](jailbreaks-and-red-teaming.md) |
 
-The first two are injection and jailbreak methods that matter for applications built on tools and retrieval. The third is a privacy risk of the model itself, and its detailed page sits under society because the same method applies to any language model.
+The first two are injection and jailbreak methods that matter for applications built on tools and retrieval. The third is a privacy risk of the model itself, and its detailed page sits under society because the same method applies to any language model. The jailbreak row covers the attack families behind the first two and how refusal robustness is measured.
 
 ## Defences
 
