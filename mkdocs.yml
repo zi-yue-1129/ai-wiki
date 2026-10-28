@@ -418,6 +418,7 @@ plugins:
             Multi-Query Attention: 多查詢注意力
             Grouped-Query Attention: 分組查詢注意力
             MLOps & Deployment: MLOps 與部署
+            AI Coding Assistants: AI 程式助手
             AI Hardware: AI 硬體
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
@@ -825,6 +826,7 @@ nav:
           - Multi-Query Attention: engineering/inference-optimization/multi-query-attention.md
           - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
       - MLOps & Deployment: engineering/mlops/index.md
+      - AI Coding Assistants: engineering/coding-assistants/index.md
       - AI Hardware: engineering/hardware/index.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
