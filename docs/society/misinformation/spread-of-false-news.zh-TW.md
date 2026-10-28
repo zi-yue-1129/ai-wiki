@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 aliases:
@@ -12,7 +12,17 @@ aliases:
 !!! info "屬於不實資訊與深偽"
     本方法頁隸屬於[不實資訊與深偽](index.md)。它詳細說明一項研究；上層頁面則將它與其他研究並列比較。
 
-Vosoughi、Roy 與 Aral（2018）以大量經事實查核判定過的謠言轉推串，衡量真實與虛假故事在 Twitter 上的傳播方式。他們的主要發現是：假新聞比真新聞傳播得更遠、更快、更深、更廣，而造成差異的主因是人類而非自動化帳號。
+Vosoughi、Roy 與 Aral（2018）以大量經事實查核判定過的謠言轉推串，衡量真實與虛假故事在 Twitter 上的傳播方式。他們的主要發現是：假新聞比真新聞傳播得更遠、更快、更深、更廣。他們也報告，機器人加速真假新聞傳播的速度相同，因此把差異歸因於人類的分享。
+
+## 概述
+
+不實資訊常被歸咎於機器人或排序內容的演算法。如果這是對的，介入措施就應該針對機器。本研究以同一平台上真假故事的傳播比較，並量測自動化帳號的影響，來檢驗這個看法。
+
+## 關鍵概念
+
+- **轉推串（cascade）**：一則故事從第一次分享開始，所形成的轉推樹狀結構。
+- **觸及、深度、廣度與速度**：衡量轉推串傳播的四項指標，分別是觸及多少人、轉傳鏈有多長、擴散到多少不同社群，以及傳播多快。
+- **事實查核判定**：獨立的事實查核機構為每則故事標示的真或假結論。
 
 ## 問題
 
@@ -27,26 +37,40 @@ Vosoughi、Roy 與 Aral（2018）以大量經事實查核判定過的謠言轉�
 1. **收集並標示。** 收集經事實查核機構查核的謠言故事，並依判定結果標示為真或假。
 2. **重建轉推串。** 對每則故事，追蹤轉推，建立傳遞該故事的人所構成的轉推串。
 3. **依四項指標比較。** 比較真假轉推串的觸及、深度、廣度與速度。
-4. **區分人類與機器人。** 量測自動化帳號的影響，並比較它們如何傳播真假故事。
+4. **區分人類與機器人。** 量測自動化帳號對真假故事傳播的影響。
 
 此方法屬於觀察性研究。它記錄平台上實際發生的事，並未對使用者進行受控實驗。
 
+## 核心方法
+
+本研究是一項量測，而非模型，因此它的方法就是上述的轉推串比較。它所對照的替代解釋，是歸咎於自動化帳號的說法，以及某些不實資訊論述所歸咎的排序演算法。
+
 ## 結果
 
-摘要指出，約 12.6 萬則故事，由約 300 萬人轉推了逾 450 萬次，結果顯示假新聞在所有資訊類別中都比真新聞傳播得更遠、更快、更深、更廣。政治類假新聞的效應最為明顯。機器人加速真假新聞傳播的速度相同，因此作者的結論是：假新聞傳播得更多，是因為人類比較可能分享它。
+摘要指出，資料包含約 12.6 萬則故事，由約 300 萬人發文，總計逾 450 萬次。摘要指出，假消息的擴散明顯比真消息更遠、更快、更深、更廣，且政治類的效應更為明顯。摘要也指出，機器人加速真假新聞傳播的速度相同，因此作者的結論是：假新聞傳播得更多，是因為人類比較可能分享它。
 
 ## 限制
 
-- **單一平台與單一時期。** 結果來自 Twitter 與資料所涵蓋的年份，未必適用於其他平台或之後的時期。
+- **單一平台與單一時期。** 結果來自 Twitter，涵蓋 2006 至 2017 年，未必適用於其他平台或之後的時期。
 - **觀察性資料。** 研究顯示人們分享了什麼，但無法說明他們為何分享，因此無法確立動機。
 - **依賴事實查核。** 標籤來自事實查核的判定，因此研究的品質受限於那些判定與所涵蓋的故事。
-- **類別範圍。** 摘要指出政治類新聞的效應最強，這使結果較難推廣到其他主題。
+- **排序機制未被分離。** 觀察到的傳播反映了 Twitter 自身的排序與分享功能，而研究並未把這些與人類行為分開。
 
-## 與其他主題的連結
+## 變體與更多變體
+
+- **機器人效應分析**：即方法第 4 步的比較，用來檢驗自動化帳號是否能解釋差異。
+- **合成媒體的傳播**：對看起來逼真的假貨提出相同的問題，後續研究有所探討。
+
+## 關聯
 
 - 同樣的傳播問題也適用於合成媒體，其內容可能是假的卻很逼真。偵測的一面見[FaceForensics++](facial-manipulation-detection.md)。
 - 懷疑所造成的共同證據受損，見[不實資訊與深偽](index.md)概述中的說謊者紅利一節。
 - 關於錯誤說法為何持續存在的心理學研究，見[心理學與 AI](../../brain-mind/psychology/index.md)。
+
+## 應用
+
+- 設計關於分享與標示的介入措施，此研究顯示人類的分享決定與機器同樣重要。
+- 事實查核的優先順序排定：傳播快且深的故事，值得及早關注。
 
 ## 開放問題
 
@@ -58,11 +82,11 @@ Vosoughi、Roy 與 Aral（2018）以大量經事實查核判定過的謠言轉�
 
 ### 開創性論文
 
-- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://doi.org/10.1126/science.aap9559 — 本頁所述的研究，比較真假故事在 Twitter 上的傳播。
-- Chesney, B. & Citron, D. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. *California Law Review*, 107. https://www.californialawreview.org/print/deep-fakes-a-looming-challenge-for-privacy-democracy-and-national-security — 深偽危害的法律分析，包括說謊者紅利，而此紅利取決於懷疑在假貨變普遍時的擴散。
-- Rössler, A. et al. (2019). FaceForensics++: Learning to detect manipulated facial images. *ICCV*. https://arxiv.org/abs/1901.08971 — 人臉操縱的偵測基準，另有獨立頁面說明。
+- Vosoughi, S., Roy, D. & Aral, S.（2018）。The spread of true and false news online. *Science*, 359, 1146–1151. https://doi.org/10.1126/science.aap9559 — 本頁所述的研究，比較 2006 至 2017 年真假故事在 Twitter 上的傳播。
+- Chesney, B. & Citron, D.（2019）。Deep fakes: A looming challenge for privacy, democracy, and national security. *California Law Review*, 107. https://www.californialawreview.org/print/deep-fakes-a-looming-challenge-for-privacy-democracy-and-national-security — 深偽危害的法律分析，包括說謊者紅利，而此紅利取決於懷疑在假貨變普遍時的擴散。
+- Rössler, A. et al.（2019）。FaceForensics++: Learning to Detect Manipulated Facial Images. arXiv. https://arxiv.org/abs/1901.08971 — 人臉操縱的偵測基準，另有獨立頁面說明。
 
 ### 文章與官方文件
 
-- C2PA. *Content Credentials: C2PA Technical Specification*, version 2.0. https://c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html — 有簽章的來源標準，是事後偵測假貨的替代做法。
-- EUR-Lex. *Regulation (EU) 2022/2065 (Digital Services Act)*. https://eur-lex.europa.eu/eli/reg/2022/2065/oj/eng — 《數位服務法》的官方條文。前言第 82 與第 84 點提及對公民討論的負面影響，以及不實資訊的散布。
+- C2PA. *Content Credentials: C2PA Technical Specification*. https://spec.c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html — 有簽章來源紀錄的技術規格，是事後偵測假貨的替代做法。
+- EUR-Lex. *Regulation (EU) 2022/2065 (Digital Services Act)*. https://eur-lex.europa.eu/eli/reg/2022/2065/oj/eng — 《數位服務法》的官方條文，規範歐盟的線上中介服務。
