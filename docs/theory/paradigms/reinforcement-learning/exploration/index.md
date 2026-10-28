@@ -36,8 +36,8 @@ Exploration methods differ in what signal they add to the reward:
 |---|---|---|
 | Random action noise | ε-greedy or softmax action selection | Sutton & Barto (2018) |
 | Pseudo-count bonus | Estimate state visitation with a density model and add a bonus that falls with visits | Bellemare et al. (2016), [arXiv:1606.01868](https://arxiv.org/abs/1606.01868) |
-| Intrinsic Curiosity Module | Bonus is the error of a forward model in a learned feature space | Pathak et al. (2017), [arXiv:1705.05363](https://arxiv.org/abs/1705.05363) |
-| Random network distillation | Bonus is the error of a predictor that imitates a fixed random network | Burda et al. (2018), [arXiv:1810.12894](https://arxiv.org/abs/1810.12894) |
+| [Intrinsic Curiosity Module](icm/index.md) | Bonus is the error of a forward model in a learned feature space | Pathak et al. (2017), [arXiv:1705.05363](https://arxiv.org/abs/1705.05363) |
+| [Random network distillation](rnd/index.md) | Bonus is the error of a predictor that imitates a fixed random network | Burda et al. (2018), [arXiv:1810.12894](https://arxiv.org/abs/1810.12894) |
 | Noisy networks | Learn the scale of noise on network weights, so exploration adapts during training | Fortunato et al. (2017), [arXiv:1706.10295](https://arxiv.org/abs/1706.10295) |
 | Bootstrapped DQN | Several value heads on a shared network; a sampled head guides each episode | Osband et al. (2016), [arXiv:1602.04621](https://arxiv.org/abs/1602.04621) |
 | Go-Explore | Keep an archive of visited states, return to promising ones, then explore from them | Ecoffet et al. (2019), [arXiv:1901.10995](https://arxiv.org/abs/1901.10995) |
