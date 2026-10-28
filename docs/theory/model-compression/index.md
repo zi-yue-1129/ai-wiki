@@ -59,15 +59,9 @@ Low-rank compression works only when the matrix is close to low rank. Many train
 
 Some models are designed to be small from the start. MobileNet replaced standard convolutions with depthwise-separable ones. Multi-query and grouped-query attention share keys and values across heads to shrink the [KV cache](../../theory/models/transformer/kv-cache/index.md). Mixture-of-experts layers keep total parameters large while activating only a few per token. These are architectural choices, so they belong with the model families under [Models](../models/index.md).
 
-## Key methods
+## Composed pipelines
 
-### Deep Compression (Han, Mao and Dally, 2016)
-
-- **Problem:** Trained networks are too large to store and run on embedded hardware, and the usual single technique does not reach the required size.
-- **Core idea:** Prune small-magnitude connections and retrain, then quantise the remaining weights with a shared codebook, then apply Huffman coding to the result. Each stage is independent and the stages are applied in sequence.
-- **Equation or algorithm:** Pruning keeps weights whose magnitude exceeds a threshold, and retraining restores the accuracy. Quantisation clusters the remaining weights into a small number of shared values, and Huffman coding compresses the indices.
-- **Results:** The abstract reports that the pipeline reduces neural network storage by 35 to 49 times without affecting accuracy.
-- **Limitations:** The gains are mainly in storage. Sparse and codebook-based models need special hardware or software to run faster, and the pipeline is expensive to apply to very large models.
+Methods are often combined in one pipeline. [Deep Compression](deep-compression/index.md) chains pruning, codebook quantisation and Huffman coding, and its page sets out the stages, the storage results and their limits.
 
 ## Connections
 
