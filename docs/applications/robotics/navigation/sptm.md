@@ -3,65 +3,69 @@ status: draft
 last_reviewed: 2026-10-28
 related:
   - applications/robotics/navigation
+  - theory/models/world-models
 tags:
   - robotics
   - navigation
-  - topological memory
+  - topological map
 aliases:
   - SPTM
-  - Semi-parametric topological memory
+  - Semi-parametric Topological Memory
   - 半參數拓撲記憶
 ---
 
-# Semi-Parametric Topological Memory (SPTM)
+# SPTM: Semi-Parametric Topological Memory
 
-SPTM, introduced by Savinov, Dosovitskiy and Koltun (2018), navigates with a graph of stored images. A learned network chooses the next action from the current image and the next waypoint image in the graph. The method is trained on a short video of the environment, and it does not need a metric map. The parent subtopic is [Navigation with Visual Goals](index.md).
+SPTM, introduced by Savinov, Dosovitskiy and Koltun (arXiv 2018), is a memory architecture for navigation in unseen environments. It stores the environment as a graph whose nodes are observations and whose edges record which observations are connected, with no metric information, and it uses a learned network to decide which stored node matches the current view. The parent subtopic is [Navigation with Visual Goals](index.md).
 
 ## Overview
 
-SPTM has three parts: a memory of images organised as a topological graph, a retrieval step that localises the current view in the graph, and a locomotion network that outputs a discrete action. The graph is built from a single traversal, and each node is a frame. The name reflects that the memory is stored non-parametrically as images, while the localisation and locomotion are learned.
+The architecture was inspired by landmark-based navigation in animals. Its authors split the memory into two parts. The first is a non-parametric graph, which is simply a set of places and their connections. The second is a parametric deep network, which takes an observation and retrieves the matching node. Because the graph holds no distances or coordinates, the agent navigates by moving between places it has seen, not by following a metric map (Savinov et al., 2018).
+
+The paper's headline result is that, given only five minutes of footage of a previously unseen maze, the agent builds a topological map and reaches goals across test environments with an average success rate about three times that of the best baseline.
 
 ## Problem
 
-Goal-directed navigation from images needs to know where the robot is in a map, and it needs to choose actions that move it toward the goal. Earlier topological methods had to localise from scratch on each frame, which is unreliable in repetitive environments, and they relied on hand-designed action rules. The paper asks whether a learned locomotion model, trained with self-supervision on the stored video, can replace both.
+Metric navigation needs accurate mapping, localisation and planning, and it is sensitive to small changes in the environment. A method that needs only the connectivity between places can be built quickly from a video of the environment and can tolerate imprecise positions. The question is whether a learned retrieval network can identify places reliably enough for this to work.
 
 ## Core idea
 
-Pick a waypoint from the graph that is ahead of the robot and reachable with high confidence. Then train a locomotion network to predict the action that moves the agent from its current view toward that waypoint view. The waypoint is chosen by a reachability estimate, so the lookahead adapts to how far the robot can go with confidence.
+Build the graph from a walkthrough, adding an edge between consecutive frames and between frames that a learned network judges to be visual shortcuts. To navigate, localise the current view and the goal in the graph, find the shortest path between them, and move toward the furthest node on that path that still looks similar to the current view.
 
-## How it works
+## Equation or algorithm
 
-1. Build the graph from a video of the environment by linking frames that are close in time.
-2. Localise the current observation in the graph. Search near the previous location, and fall back to a global search only when that fails.
-3. Pick the furthest waypoint whose predicted reachability exceeds a threshold, within a bounded window of graph steps.
-4. Feed the current image and the waypoint image into the locomotion network, and execute the predicted discrete action.
+The method has three learned or computed parts:
+
+1. **Memory graph.** Each node stores an observation, two consecutive RGB frames at 160 by 120 pixels. The walkthrough is subsampled by a factor of four. Consecutive nodes are connected. Visual shortcuts are added where the retrieval network reports that two observations are far apart in time but look similar, with a threshold chosen so that about 2,000 shortcuts are created.
+2. **Retrieval network.** A Siamese network with ResNet-18 encoders produces a 512-dimensional embedding for each observation. The two embeddings are concatenated and passed through fully connected layers, and a two-way softmax predicts whether the observations are temporally close. It is trained self-supervised with cross-entropy. Positive pairs are at most 20 steps apart, and negative pairs are at least 100 steps apart.
+3. **Locomotion network and planning.** A second network takes the current observation and the next waypoint observation and outputs a softmax over seven discrete actions: no-op, forward, backward, strafe left, strafe right, turn left and turn right. The agent localises itself in the graph, finds the shortest path with Dijkstra's algorithm, and chooses as its waypoint the furthest node on the path, within a short window of steps, whose similarity to the current view exceeds a threshold.
 
 ## Results
 
-The authors report that SPTM achieved about three times the success of the best baseline in their maze experiments with about five minutes of video. The ablations show that temporally consistent localisation beats localising each frame independently. The experiments are in simulation, in mazes built on the DOOM engine, so their transfer to real robots is not shown in the original paper.
+The paper evaluates the agent on seven test mazes, with success counted as reaching the goal within 5,000 steps (Savinov et al., 2018, Table 1). SPTM reaches the goal in all trials on each test, a mean of 100%. The best baseline, a goal-agnostic LSTM, reaches a mean of 33.9%. The ratio of 100 to 33.9 is about 2.95, which the paper describes as the SPTM rate being three times higher.
 
 ## Limitations
 
-- The action space is discrete, so the robot can only turn or move in fixed steps. Later methods show that continuous outputs handle sharp turns better.
-- Localisation depends on the graph covering the environment well, and places that look similar can confuse the retrieval step.
-- The original evaluation is in simulation, so the paper does not show behaviour on a real robot.
+- **Discrete actions.** The locomotion network chooses from seven fixed moves, so the agent cannot produce smooth velocities, and this limits how it can respond to dynamics.
+- **Prior exploration.** The graph must be built from a walkthrough of the environment before the agent can navigate in it.
+- **No metric information.** The graph stores connectivity only, so the agent does not know how far away a goal is, and it cannot plan around distances.
+- **Controlled environments.** The reported experiments are in mazes. Results in larger, changing outdoor scenes are not part of the paper's evaluation.
 
 ## Connections
 
-- [Navigation with Visual Goals](index.md) puts SPTM in context with later learned methods.
-- [ViNG](ving.md) keeps the topological graph but learns temporal distance and continuous relative pose.
-- [Visual teach-and-repeat](visual-teach-and-repeat.md) is the classical approach to the same route-following problem.
-- [Meng et al. (2020)](https://arxiv.org/abs/1909.12329) scale local control to large topological maps by regressing waypoints.
+- [ViNG](ving.md) builds on this idea. It replaces the retrieval network with a learned temporal-distance function, and it adds a learned pose predictor that drives a controller.
+- [Visual teach-and-repeat](visual-teach-and-repeat.md) is the classical alternative. It also stores a route, but it tracks the route with odometry rather than with a learned retrieval network.
+- [World models](../../../theory/models/world-models/index.md) cover predictive models of the environment, which are an alternative to a stored graph.
 
 ## Open questions
 
-- How to choose the reachability threshold and the lookahead window for real environments with long corridors and open spaces.
-- Whether discrete action policies can be made to cope with sharp turns without losing their simplicity.
+- Whether learned retrieval stays reliable when the environment changes between the walkthrough and the navigation run.
+- How to add metric information to the graph without losing its robustness to imprecise positions.
 
 ## References
 
-- Savinov, N., Dosovitskiy, A., & Koltun, V. (2018). *Semi-parametric topological memory for navigation*. ICLR 2018. arXiv:1803.00653. https://arxiv.org/abs/1803.00653 — the original method and its ablations.
-- Meng, X., Ratliff, N., Xiang, Y., & Fox, D. (2020). *Scaling local control to large-scale topological navigation*. ICRA 2020. arXiv:1909.12329. https://arxiv.org/abs/1909.12329 — compares direct control regression with waypoint regression on topological maps.
-- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N., & Levine, S. (2021). *ViNG: Learning open-world navigation with visual goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — the continuous successor that learns temporal distance and relative pose.
-- Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N., & Levine, S. (2023). *ViNT: A foundation model for visual navigation*. CoRL 2023. arXiv:2306.14846. https://arxiv.org/abs/2306.14846 — a large-scale successor that keeps the topological graph.
-- Hirose, N., Xia, F., Martín-Martín, R., Sadeghian, A., & Savarese, S. (2019). *Deep visual MPC-policy learning for navigation*. IEEE Robotics and Automation Letters, 4(4), 3184–3191. arXiv:1903.02749. https://arxiv.org/abs/1903.02749 — image-subgoal navigation with a learned policy.
+- Savinov, N., Dosovitskiy, A. & Koltun, V. (2018). *Semi-parametric Topological Memory for Navigation*. arXiv. https://arxiv.org/abs/1803.00653 — Introduces the topological memory, the retrieval network and the planning method, with the maze results quoted above.
+- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N. & Levine, S. (2021). *ViNG: Learning Open-World Navigation with Visual Goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — Extends the topological graph with learned temporal distance and a learned controller.
+- Furgale, P. & Barfoot, T. D. (2010). *Visual teach and repeat for long-range rover autonomy*. Journal of Field Robotics, 27(5), 534–560. https://doi.org/10.1002/rob.20342 — The classical teach-and-repeat system that stores a route and tracks it with odometry.
+- Krajník, T., Majer, F., Halodová, L. & Vintr, T. (2017). *Navigation without localisation: reliable teach and repeat based on the convergence theorem*. arXiv. https://arxiv.org/abs/1711.05348 — Replays a taught motion and uses the camera only to correct heading.
+- Dall'Osto, D., Fischer, T. & Milford, M. (2020). *Fast and Robust Bio-inspired Teach and Repeat Navigation*. arXiv. https://arxiv.org/abs/2010.11326 — An asynchronous teach-and-repeat formulation that fully uses odometry.

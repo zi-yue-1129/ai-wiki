@@ -1,64 +1,70 @@
 ---
 translation_reviewed: 2026-10-28
+related:
+  - applications/robotics/navigation
+  - theory/models/world-models
 tags:
   - robotics
   - navigation
-  - topological memory
+  - topological map
 aliases:
   - SPTM
-  - Semi-parametric topological memory
+  - Semi-parametric Topological Memory
   - 半參數拓撲記憶
 ---
 
-# 半參數拓撲記憶（SPTM）
+# SPTM：半參數拓撲記憶
 
-SPTM 由 Savinov、Dosovitskiy 與 Koltun（2018）提出，它以一張儲存影像的圖來導航。學習得到的網路根據目前影像與圖上下一個路標影像，選出下一個動作。此方法在環境的一段短影片上訓練，不需要度量地圖。上層子主題是[以視覺目標導航](index.md)。
+SPTM 由 Savinov、Dosovitskiy 與 Koltun（arXiv 2018）提出，是一種用於未見過環境導航的記憶架構。它把環境儲存為一張圖：節點是觀測，邊記錄哪些觀測相連，圖中不含度量資訊；另外使用一個學習得到的網路，判斷目前的視野與哪個已儲存的節點相符。所屬的子主題是 [以視覺目標導航](index.md)。
 
 ## 概述
 
-SPTM 由三部分組成：以拓撲圖組織的影像記憶、把目前畫面定位到圖上的檢索步驟，以及輸出離散動作的行進網路。圖由單次行走建立，每個節點是一個影格。名稱的意思是：記憶以影像的形式非參數地儲存，而定位與行進則是學習得到的。
+此架構的靈感來自動物以地標導航。作者把記憶分成兩部分：第一部分是非參數的圖，也就是一組地點與它們之間的連接；第二部分是參數化的深度網路，輸入一個觀測並檢索對應的節點。由於圖中沒有距離或座標，代理是沿著已見過的地點移動，而不是跟隨度量地圖（Savinov et al., 2018）。
+
+論文的主要結果是：只給五分鐘、未見過的迷宮影片，代理就能建立拓撲地圖，並在測試環境中抵達目標，平均成功率約為最佳基線的三倍。
 
 ## 問題
 
-從影像進行目標導向的導航，需要知道機器人在地圖上的位置，並選出能把它帶向目標的動作。早期的拓撲方法必須對每一幀從頭定位，在重複性高的環境中並不可靠，而且依賴人工設計的動作規則。論文探討：能否以自監督方式在儲存的影片上訓練行進模型，同時取代這兩者。
+度量導航需要精確的建圖、定位與規劃，而且對環境中的小變化很敏感。只需要地點之間連接關係的方法，可以從環境的一段影片快速建立，並且能容忍不精確的位置。問題在於，學習得到的檢索網路能否可靠地辨識地點，使這種方法可行。
 
 ## 核心想法
 
-從圖上選一個在機器人前方、且有高把握可達的路標。接著訓練行進網路，預測能把代理人從目前畫面帶向該路標畫面的動作。路標由可達性估計選出，因此前瞻的距離會依機器人有把握能走多遠而調整。
+從一段走訪建立圖：在連續的幀之間加邊，並在學習網路判定為視覺捷徑的幀之間加邊。導航時，在圖中定位目前的視野與目標，找出兩者之間的最短路徑，然後朝路徑上仍與目前視野相似、且最遠的那個節點移動。
 
-## 運作方式
+## 方程式或演算法
 
-1. 從環境的影片建立圖，把時間上相近的影格相連。
-2. 把目前的觀測定位到圖上。先在上一個位置附近搜尋，只有失敗時才做全域搜尋。
-3. 在有限的圖步數範圍內，選出可達性預測超過門檻、且最遠的路標。
-4. 把目前影像與路標影像輸入行進網路，執行預測出的離散動作。
+方法包含三個學習或計算的部分：
+
+1. **記憶圖。** 每個節點儲存一個觀測，即兩張連續的 RGB 影像，解析度為 160 × 120 像素。走訪影片以四倍的間隔抽樣。連續的節點相連。當檢索網路判斷兩個觀測在時間上相距很遠但外觀相似時，就加入視覺捷徑，門檻的選擇使約產生 2,000 條捷徑。
+2. **檢索網路。** 一個 Siamese 網路，以 ResNet-18 編碼器為每個觀測產生 512 維的嵌入。兩個嵌入串接後通過全連接層，並由二路 softmax 預測兩個觀測在時間上是否接近。它以自監督方式使用交叉熵訓練。正例配對至多相距 20 步，負例配對至少相距 100 步。
+3. **移動網路與規劃。** 第二個網路以目前的觀測與下一個路點的觀測為輸入，對七個離散動作輸出 softmax：無動作、前進、後退、向左平移、向右平移、左轉與右轉。代理在圖中定位自己，以 Dijkstra 演算法找出最短路徑，並選擇路徑上最遠、且在一段短的步數窗口內與目前視野相似度超過門檻的節點作為路點。
 
 ## 結果
 
-作者報告，在使用約五分鐘影片的迷宮實驗中，SPTM 的成功率約為最佳基線的三倍。消融實驗顯示，時間上一致的定位優於逐幀獨立定位。實驗在以 DOOM 引擎建構的迷宮模擬中進行，因此原論文並未顯示真實機器人上的表現。
+論文在七個測試迷宮中評估代理，成功的定義是在 5,000 步內抵達目標（Savinov et al., 2018, Table 1）。SPTM 在每個測試中都抵達目標，平均為 100%。最佳基線是不以目標為條件的 LSTM，平均為 33.9%。100 與 33.9 的比值約為 2.95，論文將其描述為 SPTM 的成功率高出三倍。
 
 ## 限制
 
-- 動作空間是離散的，機器人只能以固定步幅轉向或前進。後續的方法顯示，連續輸出能更好地處理急轉彎。
-- 定位取決於圖是否充分涵蓋環境，外觀相似的地點可能混淆檢索步驟。
-- 原論文的評估是在模擬中進行，因此該論文沒有顯示真實機器人的行為。
+- **離散動作。** 移動網路從七個固定動作中選擇，因此代理無法產生平滑的速度，這限制了它對動力學的反應。
+- **事先探索。** 在導航之前，必須先由環境的一段走訪建立圖。
+- **沒有度量資訊。** 圖只儲存連接關係，因此代理不知道目標有多遠，也無法依距離規劃。
+- **受控環境。** 報告的實驗是在迷宮中進行的。在較大、會改變的戶外場景中的結果不在論文的評估範圍內。
 
-## 相關主題
+## 相關連結
 
-- [以視覺目標導航](index.md) 把 SPTM 放在後來的學習方法之中做比較。
-- [ViNG](ving.md) 保留拓撲圖，但學習的是時間距離與連續的相對位姿。
-- [視覺教學與重播](visual-teach-and-repeat.md) 是解決同一路線跟隨問題的經典方法。
-- [Meng 等人（2020）](https://arxiv.org/abs/1909.12329) 透過回歸路標，把局部控制擴展到大型拓撲地圖。
+- [ViNG](ving.md) 延續這個想法。它以學習得到的時間距離函數取代檢索網路，並加入一個學習得到的位姿預測器，驅動控制器。
+- [視覺教導與重播](visual-teach-and-repeat.md) 是經典的替代方法。它同樣儲存路線，但以里程計而非學習得到的檢索網路來追蹤路線。
+- [世界模型](../../../theory/models/world-models/index.md) 涵蓋環境的預測模型，是儲存圖以外的另一種選擇。
 
 ## 開放問題
 
-- 在長走廊與開放空間並存的真實環境中，如何選擇可達性門檻與前瞻視窗。
-- 離散動作的策略能否在急轉彎時表現良好，同時保留其簡單性。
+- 當環境在走訪與導航執行之間發生改變時，學習得到的檢索是否仍然可靠。
+- 如何在不失去對不精確位置之穩健性的前提下，為圖加入度量資訊。
 
 ## 參考文獻
 
-- Savinov, N., Dosovitskiy, A., & Koltun, V. (2018). *Semi-parametric topological memory for navigation*. ICLR 2018. arXiv:1803.00653. https://arxiv.org/abs/1803.00653 — 原始方法與其消融實驗。
-- Meng, X., Ratliff, N., Xiang, Y., & Fox, D. (2020). *Scaling local control to large-scale topological navigation*. ICRA 2020. arXiv:1909.12329. https://arxiv.org/abs/1909.12329 — 比較拓撲地圖上直接控制回歸與路標回歸。
-- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N., & Levine, S. (2021). *ViNG: Learning open-world navigation with visual goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — 學習時間距離與連續相對位姿的後繼方法。
-- Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N., & Levine, S. (2023). *ViNT: A foundation model for visual navigation*. CoRL 2023. arXiv:2306.14846. https://arxiv.org/abs/2306.14846 — 保留拓撲圖的大規模後繼方法。
-- Hirose, N., Xia, F., Martín-Martín, R., Sadeghian, A., & Savarese, S. (2019). *Deep visual MPC-policy learning for navigation*. IEEE Robotics and Automation Letters, 4(4), 3184–3191. arXiv:1903.02749. https://arxiv.org/abs/1903.02749 — 以影像子目標為對象的學習導航策略。
+- Savinov, N., Dosovitskiy, A. & Koltun, V. (2018). *Semi-parametric Topological Memory for Navigation*. arXiv. https://arxiv.org/abs/1803.00653 — 介紹拓撲記憶、檢索網路與規劃方法，並包含上文引用的迷宮結果。
+- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N. & Levine, S. (2021). *ViNG: Learning Open-World Navigation with Visual Goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — 以學習得到的時間距離與學習得到的控制器擴充拓撲圖。
+- Furgale, P. & Barfoot, T. D. (2010). *Visual teach and repeat for long-range rover autonomy*. Journal of Field Robotics, 27(5), 534–560. https://doi.org/10.1002/rob.20342 — 經典的教導與重播系統，儲存路線並以里程計追蹤。
+- Krajník, T., Majer, F., Halodová, L. & Vintr, T. (2017). *Navigation without localisation: reliable teach and repeat based on the convergence theorem*. arXiv. https://arxiv.org/abs/1711.05348 — 重播教導時的運動，並只用相機修正航向。
+- Dall'Osto, D., Fischer, T. & Milford, M. (2020). *Fast and Robust Bio-inspired Teach and Repeat Navigation*. arXiv. https://arxiv.org/abs/2010.11326 — 一種充分利用里程計的非同步教導與重播方法。

@@ -9,6 +9,9 @@
 | [Courses & Books](courses-books/index.md) | Free and open learning resources by topic |
 | [Datasets](datasets/index.md) | Widely used datasets and benchmarks across fields |
 | [Timeline](timeline/index.md) | Dated milestones in AI, from the perceptron to recent large models |
+| [Model Catalogue](model-catalogue/index.md) | Major model families, with the report date and the size each report states |
+| [Notation](notation/index.md) | Symbols used across the wiki, from vectors and losses to reinforcement learning |
+| [How to Read an AI Paper](how-to-read-a-paper/index.md) | A reading order, the questions to ask of baselines, and reproducibility signals |
 | [Conferences & Journals](venues/index.md) | Where AI and neuroscience research is published, and how the main venues differ |
 | [Contributing](contributing/index.md) | How to add or improve pages |
 | [Roadmap & Coverage](roadmap/index.md) | What is planned and what is missing |

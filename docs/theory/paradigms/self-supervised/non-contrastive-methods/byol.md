@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/self-supervised
@@ -21,7 +21,7 @@ BYOL learns image representations without negative pairs. One network predicts t
 
 ## Overview
 
-Grill et al. (2020) argue that negative pairs are not essential for strong image representations. The abstract says that state-of-the-art methods of the time relied on negative pairs, and that BYOL achieves a new state of the art without them. Under linear evaluation on ImageNet, the abstract reports 74.3% top-1 accuracy with a ResNet-50 and 79.6% with a larger ResNet. It also states that BYOL performs on par with or better than the best methods on transfer and semi-supervised benchmarks, without giving those numbers in the abstract.
+Grill et al. (2020) argue that negative pairs are not essential for strong image representations. The abstract says that state-of-the-art methods of the time relied on negative pairs, and that BYOL achieves a new state of the art without them. Under linear evaluation on ImageNet, the abstract reports 74.3% top-1 accuracy with a ResNet-50 and 79.6% with a ResNet-200 (2×).
 
 ## Key concepts
 
@@ -54,7 +54,7 @@ The decay \(\tau\) starts at \(\tau_{\text{base}} = 0.996\) and rises towards 1 
 
 where \(k\) is the current step and \(K\) is the total number of steps.
 
-The projector is a linear layer with 4096 outputs, batch normalisation, a ReLU, and a linear layer with 256 outputs. The predictor has the same architecture. Training uses the LARS optimizer with a cosine-decayed learning rate and a 10-epoch warm-up. The base learning rate is 0.2, scaled linearly with batch size divided by 256. The paper's setup uses batch size 4096 across 512 TPU v3 cores, for 1000 epochs.
+The projector is a linear layer with 4096 outputs, batch normalisation, a ReLU, and a linear layer with 256 outputs. The predictor has the same architecture. Training runs for 1000 epochs, with a 10-epoch warm-up.
 
 ## Key methods
 
@@ -63,8 +63,8 @@ The projector is a linear layer with 4096 outputs, batch normalisation, a ReLU, 
 - **Problem:** contrastive methods avoid collapse by using negatives, which require large batches or memory banks. The paper sets out to remove that reliance.
 - **Core idea:** train an online network to predict a target network's representation of another view. The target is an exponential moving average of the online network, and no negatives are used.
 - **Equation or algorithm:** the normalised squared loss, the moving-average update with \(\tau\) rising from 0.996 towards 1, and the projector and predictor design, as described in How it works.
-- **Results:** ImageNet linear evaluation with ResNet-50 gives 74.3% top-1 and 91.6% top-5. ResNet-200 (2×) gives 79.6% top-1 and 94.8% top-5. In semi-supervised training with ResNet-50, using 1% of the labels gives 53.2% top-1 and 78.4% top-5, and using 10% gives 68.8% top-1 and 89.0% top-5.
-- **Limitations:** the training recipe is expensive: 1000 epochs, batch size 4096, and 512 TPU cores. The abstract does not explain why training avoids collapse, and it gives no numbers for the transfer results. A follow-up paper (Richemond et al., 2020) shows that BYOL can work without batch statistics, which means the role of batch normalisation needed separate study.
+- **Results:** ImageNet linear evaluation with ResNet-50 gives 74.3% top-1 accuracy. A ResNet-200 (2×) gives 79.6% top-1.
+- **Limitations:** the main setting trains for 1000 epochs, which is a long schedule. The abstract does not explain why training avoids collapse, so the mechanism is left open.
 
 ## Connections
 
@@ -76,18 +76,17 @@ The projector is a linear layer with 4096 outputs, batch normalisation, a ReLU, 
 
 ## Open questions
 
-- Why does the online-target setup avoid collapse without negatives? The role of batch normalisation is one part of this question, and follow-up work examines it.
+- Why does the online-target setup avoid collapse without negatives? Batch normalisation is one suspect, and it is not clear whether the method needs it.
 - Which parts of the setup (the predictor, the moving-average schedule, the normalisation) are necessary, and which mainly help with speed or stability?
 
 ## References
 
 ### Seminal papers
 
-- Grill, J.-B. et al. (2020). Bootstrap your own latent: A new approach to self-supervised learning. NeurIPS. https://arxiv.org/abs/2006.07733 — The paper described on this page.
+- Grill, J.-B. et al. (2020). Bootstrap your own latent: A new approach to self-supervised learning. arXiv:2006.07733. https://arxiv.org/abs/2006.07733 — The paper described on this page.
 - Chen, X. & He, K. (2021). Exploring Simple Siamese Representation Learning. CVPR. https://arxiv.org/abs/2011.10566 — SimSiam, which drops the momentum target and shows that a stop-gradient and a predictor can prevent collapse.
 - Chen, T., Kornblith, S., Norouzi, M. & Hinton, G. (2020). A Simple Framework for Contrastive Learning of Visual Representations. ICML (PMLR 119). https://arxiv.org/abs/2002.05709 — The contrastive method that BYOL is compared against.
 - He, K., Fan, H., Wu, Y., Xie, S. & Girshick, R. (2020). Momentum Contrast for Unsupervised Visual Representation Learning. CVPR. https://arxiv.org/abs/1911.05722 — The momentum encoder that BYOL's target network builds on.
-- Richemond, P. H. et al. (2020). BYOL works even without batch statistics. arXiv:2010.10241. https://arxiv.org/abs/2010.10241 — Shows that BYOL can work without batch statistics, which tests whether batch normalisation is essential.
 
 ### Surveys and textbooks
 

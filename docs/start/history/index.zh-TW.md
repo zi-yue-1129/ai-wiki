@@ -1,5 +1,11 @@
 # AI 發展史
 
+## 章節
+
+- [達特茅斯與符號時代（1956–1974）](symbolic-era/index.md)：1955 年的提案、早期程式、感知器，以及隨後的批評。
+- [專家系統與 AI 寒冬（1974–2006）](expert-systems-and-winters/index.md)：Lighthill 報告、專家系統、反向傳播的回歸，以及為深度學習時代準備的資料。
+- [深度學習革命（2006 至今）](deep-learning-revolution/index.md)：深度信念網路、AlexNet、注意力機制、AlphaGo、Transformer 與大型語言模型。
+
 ## 時間軸總覽
 
 | 年份 | 事件 | 意義 |
