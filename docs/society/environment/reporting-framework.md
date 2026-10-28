@@ -12,7 +12,7 @@ aliases:
 !!! info "Part of Environmental Impact of AI"
     This method page belongs to [Environmental Impact of AI](index.md). It explains one framework in detail; the parent page compares it with others.
 
-Henderson, Hu, Romoff, Brunskill, Jurafsky and Pineau (2020) present a framework for tracking the energy use and carbon emissions of machine-learning experiments while they run, and for publishing the results in a standard form. They use it to build a leaderboard for energy-efficient reinforcement learning, and they offer it as a model for other fields.
+Henderson, Hu, Romoff, Brunskill, Jurafsky and Pineau (2020) present a framework for tracking the energy use and carbon emissions of machine-learning experiments while they run, and for publishing the results in a standard form. The tool is called the Experiment Impact Tracker. They use the collected results to build a leaderboard for energy-efficient reinforcement learning.
 
 ## Problem
 
@@ -20,26 +20,28 @@ Accurate reporting of energy and carbon use is needed to understand the climate 
 
 ## Core idea
 
-Measure energy and estimate emissions during the experiment, not afterwards, and publish the figures in a standardised online appendix. The same format for every experiment makes results comparable, and collecting them in one place makes it possible to build a leaderboard.
+Measure energy and estimate emissions during the experiment, not afterwards, and publish the figures in a standard form. The same format for every experiment makes results comparable, and collecting them in one place makes it possible to rank methods on energy as well as performance.
 
 ## How the framework works
 
-1. **Track while running.** Record the energy used and estimate the carbon emitted as the experiment executes.
-2. **Standardise the output.** Publish the figures in a standard online appendix, so that the reporting format is the same across papers.
-3. **Collect the results.** Gather the reports into a leaderboard, which lets readers compare methods on energy as well as performance.
-4. **Learn from case studies.** Use case studies to suggest ways of reducing energy use and emissions.
+1. **Track while running.** The tracker needs only a short code change. It logs the hardware, the process start and end times, the power drawn by CPU and GPU, and the grid region of the machine.
+2. **Estimate carbon.** Each region's average carbon intensity is used to convert energy into emissions. Real-time intensity is supported only for California.
+3. **Standardise the output.** Publish the figures in a standard online appendix and a Carbon Impact Statement, expressed in CO2 equivalent.
+4. **Collect and rank.** The Deep RL Energy Leaderboard ranks reinforcement-learning methods by average return per kWh, on Pong and Breakout, with PPO, A2C, A2C with V-trace and DQN.
 
-The abstract describes the tracking, the standardised appendices and the leaderboard. The details of how energy is measured and converted to emissions are in the paper.
+The paper's headline example is a class of 235 students who each run Pong five times. Using PPO instead of DQN would save 888 kWh. The authors also recommend that cloud jobs use low-carbon regions where possible.
 
 ## Results
 
-The abstract reports the framework, the leaderboard for energy-efficient reinforcement learning, and case studies that suggest reductions. It is a reporting framework, so its results are the practice it sets up rather than a single number that can be compared with the estimates on other pages.
+The framework itself is the result. The paper reports the tracking tool, the leaderboard and the case studies that suggest ways to reduce energy and emissions. Its leaderboard shows that no single algorithm wins on both games: A2C with V-trace ranks first on Pong, and PPO ranks first on Breakout.
 
 ## Limitations
 
-- **Depends on measurement.** Energy readings depend on the hardware and tools available, and carbon figures depend on estimates of local grid intensity.
-- **Narrow first case.** The leaderboard was built for reinforcement learning. Other fields may need different measures and different formats.
-- **Adoption.** A standard appendix is only useful if researchers fill it in, and the figures can only be checked as far as the reporting allows.
+- **Depends on drivers.** Power readings need hardware and driver support. Not every chipset supports the Intel RAPL interface, and per-process GPU readings inside Docker containers are not supported. Only Intel RAPL or PowerGadget systems on macOS and Linux are covered.
+- **Regional averages.** Carbon figures are regional supply averages. Clean-energy purchases by cloud providers may not appear in them, and the authors found no real-time energy-mix data for such cases.
+- **Closed data source.** The regional intensity fallback comes from a closed-source system, which limits how far the figures can be verified.
+- **Narrow first case.** The leaderboard covers reinforcement learning on two Atari games. Other fields may need different measures and formats.
+- **Adoption.** A standard appendix is useful only if researchers fill it in.
 
 ## Connections
 
@@ -57,8 +59,8 @@ The abstract reports the framework, the leaderboard for energy-efficient reinfor
 
 ### Seminal papers
 
-- Henderson, P., Hu, J., Romoff, J., Brunskill, E., Jurafsky, D. & Pineau, J. (2020). Towards the systematic reporting of the energy and carbon footprints of machine learning. *Journal of Machine Learning Research*. https://arxiv.org/abs/2002.05651 — The framework described on this page, for tracking and standardised reporting of energy and carbon.
-- Schwartz, R., Dodge, J., Smith, N. A. & Etzioni, O. (2019). Green AI. arXiv:1907.10597. https://arxiv.org/abs/1907.10597 — Argues that the cost of research should be reported and treated as a criterion, which this framework makes practical.
-- Lacoste, A., Luccioni, A., Schmidt, V. & Dandres, T. (2019). Quantifying the carbon emissions of machine learning. arXiv:1910.09700. https://arxiv.org/abs/1910.09700 — Estimates emissions from three inputs, without tracking the run during training.
-- Strubell, E., Ganesh, A. & McCallum, A. (2019). Energy and policy considerations for deep learning in NLP. arXiv:1906.02243. https://arxiv.org/abs/1906.02243 — An earlier cost estimate made after the fact, which shows why in-run measurement matters.
-- Patterson, D. et al. (2021). Carbon emissions and large neural network training. arXiv:2104.10350. https://arxiv.org/abs/2104.10350 — Shows how much the factors that such reports record can change the footprint.
+- Henderson, P., Hu, J., Romoff, J., Brunskill, E., Jurafsky, D. & Pineau, J. (2020). *Towards the Systematic Reporting of the Energy and Carbon Footprints of Machine Learning*. JMLR 21(248), 1–43. https://www.jmlr.org/papers/v21/20-312.html — The framework, the Experiment Impact Tracker and the leaderboard described on this page. Preprint: https://arxiv.org/abs/2002.05651
+- Schwartz, R., Dodge, J., Smith, N. A. & Etzioni, O. (2020). Green AI. *Communications of the ACM*, 63(12), 54–63. doi:[10.1145/3381831](https://doi.org/10.1145/3381831) — Argues that the cost of research should be reported and treated as a criterion, which this framework makes practical.
+- Lacoste, A., Luccioni, A., Schmidt, V. & Dandres, T. (2019). *Quantifying the Carbon Emissions of Machine Learning*. arXiv preprint. https://arxiv.org/abs/1910.09700 — Estimates emissions from three inputs, without tracking the run during training.
+- Strubell, E., Ganesh, A. & McCallum, A. (2019). *Energy and Policy Considerations for Deep Learning in NLP*. ACL 2019, pp. 3645–3650. doi:[10.18653/v1/P19-1355](https://doi.org/10.18653/v1/P19-1355) — An earlier cost estimate made after the fact, which shows why in-run measurement matters.
+- Patterson, D., et al. (2021). *Carbon Emissions and Large Neural Network Training*. arXiv preprint. https://arxiv.org/abs/2104.10350 — Shows how much the factors that such reports record can change the footprint.
