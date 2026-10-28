@@ -526,6 +526,9 @@ plugins:
             Human Evaluation: 人工評估
             Elo Rating and Arenas: Elo 評分與競技場
             Contamination Detection: 污染偵測
+            N-gram Overlap Decontamination: N-gram 重疊去污染
+            Min-K% Prob: Min-K% Prob
+            LiveBench: LiveBench
             Benchmarks: 基準測試
             Vision: 視覺
             Language: 語言
@@ -1404,6 +1407,9 @@ nav:
               - Human Evaluation: theory/evaluation/protocols/methods/human-evaluation.md
               - Elo Rating and Arenas: theory/evaluation/protocols/methods/elo-rating.md
               - Contamination Detection: theory/evaluation/protocols/methods/contamination-detection.md
+              - N-gram Overlap Decontamination: theory/evaluation/protocols/methods/ngram-overlap-decontamination.md
+              - Min-K% Prob: theory/evaluation/protocols/methods/min-k-percent-prob.md
+              - LiveBench: theory/evaluation/protocols/methods/livebench.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons:
