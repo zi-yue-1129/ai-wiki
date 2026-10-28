@@ -84,6 +84,8 @@ L1 (sparsity), L2 (weight decay), early stopping, data augmentation, dropout, en
 | MAE, RMSE, R² | Regression |
 | Calibration (ECE) | When probabilities must be trustworthy (medicine, finance) |
 
+For how models express doubt, and how to make their probabilities match observed frequencies, see [Uncertainty Quantification and Calibration](uncertainty-and-calibration/index.md).
+
 ## Learning theory in brief
 
 - **PAC learning**: how many samples are needed to learn an approximately correct hypothesis with high probability.
