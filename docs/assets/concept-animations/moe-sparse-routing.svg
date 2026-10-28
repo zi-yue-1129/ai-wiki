@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+<title id="title">Sparse mixture-of-experts routing</title><desc id="desc">A token is scored by a router, sent only to the top two experts, then their outputs are combined.</desc>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 7 3.5 0 7" fill="none" stroke="#517e95" stroke-width="1.4"/></marker></defs>
+<style>text{font:500 15px system-ui,sans-serif;fill:#274358}.muted{font-size:12px;fill:#657e90}.card{fill:#fff;stroke:#cfdee8;stroke-width:1.5}.flow{fill:none;stroke-linecap:round;stroke-linejoin:round}.active{stroke-dasharray:8 5;animation:flow 2s linear infinite}@keyframes flow{to{stroke-dashoffset:-26}}@media(prefers-reduced-motion:reduce){.active{animation:none;stroke-dasharray:none}}</style>
+<rect width="640" height="360" rx="18" fill="#f8fbfe"/>
+<text class="muted" x="30" y="35">SPARSE ROUTING</text>
+<rect class="card" x="30" y="144" width="99" height="80" rx="15"/><rect x="51" y="166" width="56" height="11" rx="5" fill="#79afc9"/><rect x="64" y="185" width="30" height="11" rx="5" fill="#d4e8f1"/><text x="79" y="248" text-anchor="middle">Token</text>
+<path class="flow" d="M129 183H207" stroke="#468caf" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="211" y="145" width="116" height="78" rx="15" fill="#eaf3f9" stroke="#9bbbd0" stroke-width="2"/><path d="M230 168H304M230 184H286M230 200H298" stroke="#a1c5d8" stroke-width="5" stroke-linecap="round"/><text x="269" y="249" text-anchor="middle">Router</text>
+<text class="muted" x="342" y="34">TOP-2</text>
+<path class="flow" d="M327 184Q365 112 422 119" stroke="#168b7c" stroke-width="4" marker-end="url(#arrow)"/>
+<path class="flow" d="M327 184Q365 250 422 239" stroke="#c98532" stroke-width="4" marker-end="url(#arrow)"/>
+<path class="flow" d="M327 184Q360 64 422 66M327 184Q365 291 422 293" stroke="#cbd8e1" stroke-width="2" stroke-dasharray="5 7"/>
+<rect class="card" x="425" y="44" width="87" height="44" rx="10"/><text x="468" y="71" text-anchor="middle">E1</text>
+<rect x="425" y="98" width="87" height="44" rx="10" fill="#e6f5f0" stroke="#68b6a3" stroke-width="2"/><circle cx="442" cy="120" r="5" fill="#168b7c"/><text x="473" y="126" text-anchor="middle">E2</text>
+<rect x="425" y="217" width="87" height="44" rx="10" fill="#fff1e1" stroke="#e2ad6f" stroke-width="2"/><circle cx="442" cy="239" r="5" fill="#c98532"/><text x="473" y="245" text-anchor="middle">E3</text>
+<rect class="card" x="425" y="273" width="87" height="44" rx="10"/><text x="468" y="301" text-anchor="middle">E4</text>
+<path class="flow active" d="M512 120Q540 120 557 173" stroke="#168b7c" stroke-width="3" marker-end="url(#arrow)"/>
+<path class="flow active" d="M512 239Q540 238 557 195" stroke="#c98532" stroke-width="3" marker-end="url(#arrow)"/>
+<circle cx="580" cy="184" r="25" fill="#eef4f9" stroke="#94aebf" stroke-width="2"/><path d="M568 184H592M580 172V196" stroke="#466a80" stroke-width="2"/><text x="580" y="231" text-anchor="middle">Sum</text>
+<text class="muted" x="30" y="334">One token · four experts · two active</text>
+</svg>
