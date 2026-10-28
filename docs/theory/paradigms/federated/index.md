@@ -80,7 +80,7 @@ Differential privacy definition: a mechanism \(M\) is (ε, δ)-DP if for neighbo
 
 - McMahan et al. (2017), "Communication-efficient learning of deep networks from decentralized data", AISTATS, arXiv:1602.05629 — Introduces federated averaging, the basic algorithm for training on decentralised data.
 - Li et al. (2020), "Federated optimization in heterogeneous networks", MLSys, arXiv:1812.06127 — FedProx, a proximal extension of federated averaging for heterogeneous clients.
-- Bonawitz et al. (2017), "Practical secure aggregation for privacy-preserving machine learning", CCS, arXiv:1611.04482 — Secure aggregation protocol that lets the server learn only the sum of client updates.
+- Bonawitz et al. (2017), "Practical secure aggregation for privacy-preserving machine learning", CCS. https://doi.org/10.1145/3133956.3133982 — Secure aggregation protocol that lets the server learn only the sum of client updates.
 - Abadi et al. (2016), "Deep learning with differential privacy", CCS, arXiv:1607.00133 — Differentially private SGD, which clips and noises gradients to give a formal privacy guarantee.
 
 ### Surveys and textbooks

@@ -52,7 +52,7 @@ How many clusters are there? Is a "true" clustering even defined? Clustering in 
 
 ### Seminal papers
 
-- Lloyd (1982), "Least squares quantization in PCM", *IEEE Transactions on Information Theory* 28(2). https://www.stat.cmu.edu/~rnugent/PCMI2016/papers/LloydKMeans.pdf — The original least-squares quantisation paper behind the k-means algorithm.
+- Lloyd (1982), "Least squares quantization in PCM", *IEEE Transactions on Information Theory* 28(2). https://doi.org/10.1109/TIT.1982.1056489 — The original least-squares quantisation paper behind the k-means algorithm.
 - Fraley & Raftery (2002), "Model-based clustering, discriminant analysis, and density estimation", *JASA* 97(458). https://sites.stat.washington.edu/raftery/Research/PDF/fraley2002.pdf — Defines Gaussian mixture clustering and the model-selection criterion used in the mclust software.
 - Ester, Kriegel, Sander & Xu (1996), "A density-based algorithm for discovering clusters in large spatial databases with noise", KDD. https://webdocs.cs.ualberta.ca/~zaiane/courses/cmput695-00/papers/00153.pdf — Introduces DBSCAN, which finds arbitrarily shaped clusters and marks noise.
 - Ng, Jordan & Weiss (2001), "On spectral clustering: analysis and an algorithm", NeurIPS. https://papers.nips.cc/paper/2092-on-spectral-clustering-analysis-and-an-algorithm — Gives the standard spectral clustering algorithm and its analysis.
@@ -63,7 +63,7 @@ How many clusters are there? Is a "true" clustering even defined? Clustering in 
 
 ### Lectures and videos
 
-- Lloyd, S. P. (1982). Least squares quantization in PCM. *IEEE Transactions on Information Theory*, 28(2), 129–137. https://www.stat.cmu.edu/~rnugent/PCMI2016/papers/LloydKMeans.pdf — Presents the iterative least-squares quantisation method that underlies the k-means algorithm.
+- Lloyd, S. P. (1982). Least squares quantization in PCM. *IEEE Transactions on Information Theory*, 28(2), 129–137. https://doi.org/10.1109/TIT.1982.1056489 — Presents the iterative least-squares quantisation method that underlies the k-means algorithm.
 
 ### Articles and documentation
 
