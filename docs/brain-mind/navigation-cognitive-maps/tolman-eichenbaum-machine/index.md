@@ -51,7 +51,13 @@ The full architecture and training details are in the paper. This page gives the
 
 ## Results
 
-The full results are in the published Cell article (Whittington et al., 2020). This page does not summarise them yet, because the article's abstract could not be checked when the page was written. A later revision should add them from the paper. The grid-like part of the model is discussed on the [grid-like units page](../../neuroai/grid-like-units/index.md).
+The results below are from the abstract of the earlier bioRxiv preprint of the same work (Whittington et al., 2019). The published Cell article extends the preprint, so its claims should be checked against that version.
+
+- The model proposes that medial entorhinal cells form a basis describing structural knowledge, and that hippocampal cells link this basis to sensory representations.
+- After learning, its entorhinal-like units include grid, band, border and object-vector cells. The grid-like part of this is discussed on the [grid-like units page](../../neuroai/grid-like-units/index.md).
+- Its hippocampal-like units include place and landmark cells, which remap between environments.
+- The model predicts that remapping is not random: structural knowledge is preserved across environments. The authors confirm this in simultaneously recorded place and grid cells.
+- The model also predicts empirically recorded representations in complex non-spatial tasks.
 
 ## Limitations
 
@@ -82,6 +88,7 @@ The full results are in the published Cell article (Whittington et al., 2020). T
 ### Seminal papers
 
 - Whittington, J. C. R. et al. (2020). The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation. *Cell*. https://doi.org/10.1016/j.cell.2020.10.024 — Proposes the TEM and its account of how one structure supports spatial and relational memory and generalisation.
+- Whittington, J. C. R., Muller, T., Mark, S., Chen, G., Barry, C. & Burgess, N. (2019). The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation. *bioRxiv* (preprint). https://doi.org/10.1101/770495 — The earlier preprint of the same work. Its abstract is the source for the Results section.
 - Hafting, T. et al. (2005). Microstructure of a spatial map in the entorhinal cortex. *Nature*. https://doi.org/10.1038/nature03721 — Describes grid cells in the entorhinal cortex, the cell type TEM reproduces.
 
 ### Surveys and textbooks
