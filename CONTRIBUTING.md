@@ -11,4 +11,4 @@ The full guide is on the site: **[Contributing](https://zi-yue-1129.github.io/ai
 - Before opening a PR, run `mkdocs build --strict` and `python scripts/wiki_status.py --check`.
 - Search is built by Pagefind after MkDocs: run `npx pagefind --site site` on the built site to test the search box locally. Without that step the search box reports that the index is not built.
 
-Content is licensed CC BY-SA 4.0; write in your own words and cite your sources.
+Content is licensed CC BY-SA 4.0; write in your own words and cite your sources. Every external resource needs a link. Formal sources (papers, official reports, standards, books) go in References; blogs and videos go only under Further learning.

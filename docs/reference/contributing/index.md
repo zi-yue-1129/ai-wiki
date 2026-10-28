@@ -50,8 +50,8 @@ This wiki aims to cover everything about AI, from the mathematics to the neurosc
 
 These run on GitHub Actions so problems don't pile up unnoticed:
 
-- **Every pull request**: strict site build (catches broken internal links) and a structure check (every page in the nav, every translation has an English page, valid front matter). Pages changed in the PR must have a complete References section; existing pages are checked once they are edited.
-- **Every week**: a *Wiki health report* issue lists stubs, drafts, pages not reviewed for a year, outdated or missing translations, and broken external links.
+- **Every pull request**: strict site build (catches broken internal links) and a structure check (every page in the nav, every translation has an English page, valid front matter). Pages changed in the PR must have a complete References section, with formal sources only (no blogs, videos or aggregators), and every Further reading or Further learning entry needs a link. Existing pages are checked once they are edited.
+- **Every week**: a *Wiki health report* issue lists stubs, drafts, pages not reviewed for a year, outdated or missing translations, broken external links, and every source entry that needs a link or a move to Further learning.
 
 ## License
 

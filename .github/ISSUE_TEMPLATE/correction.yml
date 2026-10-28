@@ -25,4 +25,4 @@ body:
     id: sources
     attributes:
       label: Sources
-      description: Links that support the correction.
+      description: Links that support the correction. Papers, official reports and standards are preferred over blogs and videos.

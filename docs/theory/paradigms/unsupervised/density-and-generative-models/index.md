@@ -62,6 +62,10 @@ Likelihood is not the same as sample quality. A model can assign high likelihood
 
 (none beyond the entries above)
 
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on Gaussian distributions and mixture models, YouTube. https://www.youtube.com/@statquest — Animated introduction to the Gaussian building blocks behind mixture density models.
+
 ## Further reading
 
 - Murphy, *Probabilistic Machine Learning: Advanced Topics* (2023), chapters on normalising flows and generative models. No link checked.

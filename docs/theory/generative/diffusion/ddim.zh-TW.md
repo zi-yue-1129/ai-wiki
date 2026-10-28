@@ -69,3 +69,6 @@ x_{t_{\text{prev}}} = \sqrt{\bar\alpha_{t_{\text{prev}}}}\,\hat x_0 + \sqrt{1-\b
 
 ### 文章與文件
 
+## 延伸學習
+
+- Rogge, N. & Rasul, K., *The Annotated Diffusion Model*。Hugging Face 部落格。https://huggingface.co/blog/annotated-diffusion — 導讀 DDIM 所推廣的 DDPM 取樣器。

@@ -59,6 +59,10 @@ The Bayesian view links to [Probabilistic & Bayesian Methods](../../../probabili
 
 (none beyond the entries above)
 
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on Naive Bayes, YouTube. https://www.youtube.com/@statquest — Visual, step-by-step explanation of how Naive Bayes computes class probabilities.
+
 ## Further reading
 
 - Murphy, *Probabilistic Machine Learning: An Introduction*, MIT Press (2022). No free link checked.

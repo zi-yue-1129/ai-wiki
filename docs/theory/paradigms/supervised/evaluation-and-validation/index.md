@@ -62,3 +62,7 @@ LLM evaluation adds benchmark contamination and judge-model bias; see [Large Lan
 ### Articles and documentation
 
 - Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", arXiv:2207.08815 — Careful benchmark design, useful as a model for fair comparisons between methods.
+
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on ROC curves and AUC, YouTube. https://www.youtube.com/@statquest — Visual explanation of how ROC curves and AUC are built and what they measure.

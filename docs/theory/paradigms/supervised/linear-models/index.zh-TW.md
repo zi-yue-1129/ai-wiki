@@ -63,6 +63,10 @@ tags:
 
 - Andrew Ng，Stanford CS229 講義。https://cs229.stanford.edu/main_notes.pdf — 線性迴歸、邏輯迴歸的推導，以及廣義線性模型的框架。
 
+## 延伸學習
+
+- StatQuest with Josh Starmer，關於邏輯迴歸與正規化的單元，YouTube。https://www.youtube.com/@statquest — 為初學者提供邏輯迴歸、ridge 與 lasso 的簡短視覺化解說。
+
 ## 延伸閱讀
 
 - McCullagh & Nelder，*Generalized Linear Models*，第二版（1989）。未查核連結。

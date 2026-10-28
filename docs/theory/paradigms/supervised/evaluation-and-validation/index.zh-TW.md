@@ -62,3 +62,7 @@ LLM 的評估會加入基準污染與評審模型偏誤的問題；見[大型語
 ### 文章與文件
 
 - Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", arXiv:2207.08815 — 嚴謹的基準設計，可作為公平比較方法的範本。
+
+## 延伸學習
+
+- StatQuest with Josh Starmer，關於 ROC 曲線與 AUC 的單元，YouTube。https://www.youtube.com/@statquest — 以視覺化的方式說明 ROC 曲線與 AUC 如何建構，以及它們衡量的是什麼。

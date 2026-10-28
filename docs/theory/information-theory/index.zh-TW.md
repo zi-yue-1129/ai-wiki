@@ -88,3 +88,7 @@ H(p,q) = H(p) + D_{\mathrm{KL}}(p\,\|\,q)
 ### 文章與文件
 
 - Shannon, C. E. (1948). A Mathematical Theory of Communication. *Bell System Technical Journal*, 27(3), 379–423. https://mlanthology.org/misc/1948/shannon1948misc-mathematical — 定義通訊中的熵與互資訊，是本頁各種資訊量度量的基礎。
+
+## 延伸學習
+
+- *Visual Information Theory*. colah's blog (2015). https://colah.github.io/posts/2015-09-Visual-Information/ — 以圖解方式介紹熵、交叉熵、KL 散度與互資訊。
