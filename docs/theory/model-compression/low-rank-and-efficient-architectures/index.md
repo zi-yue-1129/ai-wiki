@@ -39,7 +39,7 @@ The first two methods compress a trained model, so their results depend on how c
 Efficient architectures are covered on the Models pages, which describe how they work. This page links to them rather than repeating the material.
 
 - **Depthwise-separable convolutions**, used by MobileNet, replace a standard convolution with a per-channel filter and a \(1 \times 1\) mixing step. See [depthwise-separable convolution](../../models/cnn/convolution-variants/depthwise-separable-convolution/index.md).
-- **Shared keys and values**, in multi-query and grouped-query attention, reduce the key–value cache during decoding. See [attention variants](../../models/transformer/attention-variants/index.md) and [the KV cache](../../models/transformer/kv-cache/index.md).
+- **Shared keys and values**, in multi-query and grouped-query attention, reduce the key–value cache during decoding. See [attention variants](../../models/transformer/attention-variants/index.md) and [the KV cache](../../models/transformer/kv-cache/index.md). Grouped-query attention has its own method page in [inference optimisation](../../../engineering/inference-optimization/grouped-query-attention.md).
 - **Mixture of experts** keeps the total number of parameters large while activating only a few experts for each token. See the [Transformer](../../models/transformer/index.md) page, where the layer is described.
 
 ## Trade-offs
