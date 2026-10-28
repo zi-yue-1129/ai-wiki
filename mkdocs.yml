@@ -317,6 +317,10 @@ plugins:
             AlphaZero: 阿爾法零
             MuZero: MuZero
             Proximal Policy Optimisation: 近端策略最佳化
+            Multi-Agent RL: 多智能體強化學習
+            MADDPG: 多智能體深度確定性策略梯度
+            QMIX: QMIX：單調值函數分解
+            Multi-Agent PPO: 多智能體 PPO
             Learning from Human Feedback: 從人類回饋學習
             Reward Modelling: 獎勵建模
             Direct Preference Optimisation: 直接偏好最佳化
@@ -923,6 +927,12 @@ nav:
               - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
               - MuZero: theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md
               - Offline RL: theory/paradigms/reinforcement-learning/offline-rl/index.md
+              - Multi-Agent RL:
+                  - theory/paradigms/reinforcement-learning/multi-agent-rl/index.md
+                  - MADDPG: theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md
+                  - QMIX: theory/paradigms/reinforcement-learning/multi-agent-rl/qmix/index.md
+                  - Multi-Agent PPO: theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md
+              - Learning from Human Feedback: theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
               - Learning from Human Feedback:
                   - theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
                   - Reward Modelling: theory/paradigms/reinforcement-learning/learning-from-human-feedback/reward-modelling/index.md
