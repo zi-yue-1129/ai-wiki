@@ -32,7 +32,7 @@ translation_reviewed: 2026-10-28
 
 - **可預測不等於機制**：許多不同模型對神經資料的預測一樣好；高分可能來自通用特徵
 - **行為差異**：網路易受對抗樣本影響、比人類更依賴紋理（Bowers et al., 2023〈Deep problems with neural network models of human vision〉）
-- **生物不合理性**：反向傳播、權重共享、海量標註資料都沒有明顯的生物對應——[自監督](../../foundations/paradigms/self-supervised/index.md)模型能和監督模型一樣吻合腹側視覺流（Zhuang et al., 2021），部分回應了這點
+- **生物不合理性**：反向傳播、權重共享、海量標註資料都沒有明顯的生物對應——[自監督](../../theory/paradigms/self-supervised/index.md)模型能和監督模型一樣吻合腹側視覺流（Zhuang et al., 2021），部分回應了這點
 
 ## 方向二：大腦啟發 AI
 

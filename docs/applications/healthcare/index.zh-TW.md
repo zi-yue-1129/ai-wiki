@@ -33,7 +33,7 @@
 - 影像：CNN 與 ViT、在未標註掃描上的自監督預訓練、病理與放射學的基礎模型（例如 UNI、Virchow、Prov-GigaPath）
 - 電子病歷：對就診紀錄做序列模型、對臨床筆記使用 LLM
 - 多模態：結合影像、病歷筆記、檢驗數值與基因組資料
-- 保護隱私的訓練：[聯邦式學習](../../foundations/paradigms/federated/index.md)
+- 保護隱私的訓練：[聯邦式學習](../../theory/paradigms/federated/index.md)
 - 資料集：MIMIC（加護病房紀錄）、CheXpert 與 MIMIC-CXR、UK Biobank、The Cancer Genome Atlas、PhysioNet
 
 ## 真正重要的評估方式

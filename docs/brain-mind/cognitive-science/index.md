@@ -45,7 +45,7 @@ Cognitive science studies the mind as an information-processing system, combinin
 - **Usage-based and statistical learning** views (Tomasello; Saffran)
 - Processing: incremental, predictive, sensitive to surprisal; ERP components N400 (semantics) and P600 (syntax)
 - **The language network** (Fedorenko) is selective for language and dissociable from reasoning, math and social cognition — relevant to interpreting LLM abilities
-- LLMs have revived debates about learnability, compositionality and meaning; see [NLP](../../models/nlp/index.md) and [LLMs](../../models/llm/index.md)
+- LLMs have revived debates about learnability, compositionality and meaning; see [NLP](../../theory/models/nlp/index.md) and [LLMs](../../theory/models/llm/index.md)
 
 ## Concepts and categories
 

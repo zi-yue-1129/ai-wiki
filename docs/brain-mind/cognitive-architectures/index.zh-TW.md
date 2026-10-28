@@ -40,7 +40,7 @@ Baars（1988）提出，許多專門化的無意識處理器會競爭進入容�
 
 ## LLM 代理人作為認知架構
 
-LLM 代理人隱含地重現了認知架構的概念（見 [AI 代理人](../../models/agents/index.md)）。
+LLM 代理人隱含地重現了認知架構的概念（見 [AI 代理人](../../theory/models/agents/index.md)）。
 
 | 經典元件 | LLM 代理人版本 |
 |---|---|

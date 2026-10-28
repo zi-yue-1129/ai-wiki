@@ -53,7 +53,7 @@ Stereotypes in generated text and images, dialect bias (e.g. covert prejudice ag
 - Inference of sensitive attributes from innocuous data
 - Surveillance: facial recognition in public spaces (restricted under the EU AI Act)
 - Rights: GDPR access, erasure and objection; the difficulty of "unlearning" from trained models
-- Techniques: [federated learning, differential privacy](../../foundations/paradigms/federated/index.md)
+- Techniques: [federated learning, differential privacy](../../theory/paradigms/federated/index.md)
 
 ## Accountability and transparency
 

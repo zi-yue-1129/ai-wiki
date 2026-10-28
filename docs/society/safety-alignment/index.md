@@ -1,9 +1,9 @@
 ---
 related:
 - society/interpretability
-- models/llm
-- models/agents
-- foundations/paradigms/reinforcement-learning
+- theory/models/llm
+- theory/models/agents
+- theory/paradigms/reinforcement-learning
 - society/governance
 ---
 
@@ -55,7 +55,7 @@ These evaluations feed **frontier safety frameworks** (Anthropic's Responsible S
 
 ## Cognitive-science links
 
-- **Value learning** relates to how humans infer others' preferences (inverse planning, see [Imitation Learning](../../foundations/paradigms/imitation/index.md))
+- **Value learning** relates to how humans infer others' preferences (inverse planning, see [Imitation Learning](../../theory/paradigms/imitation/index.md))
 - **Moral psychology** (Haidt's moral foundations, trolley-problem studies) informs what "human values" even are — and how much they vary across cultures (Moral Machine experiment, Awad et al., 2018)
 - **Corrigibility** echoes debates about autonomy and deference in human institutions
 

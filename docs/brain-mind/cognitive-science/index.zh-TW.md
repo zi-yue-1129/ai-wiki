@@ -38,7 +38,7 @@ translation_reviewed: 2026-10-28
 - **基於使用與統計學習**的觀點（Tomasello；Saffran）
 - 處理：漸進、預測性、對驚訝度敏感；ERP 成分 N400（語意）與 P600（句法）
 - **語言網路**（Fedorenko）對語言有選擇性，可與推理、數學、社會認知分離——對解讀 LLM 能力很重要
-- LLM 重新點燃了可學性、組合性與意義的辯論；見 [NLP](../../models/nlp/index.md) 與 [LLM](../../models/llm/index.md)
+- LLM 重新點燃了可學性、組合性與意義的辯論；見 [NLP](../../theory/models/nlp/index.md) 與 [LLM](../../theory/models/llm/index.md)
 
 ## 概念與類別
 

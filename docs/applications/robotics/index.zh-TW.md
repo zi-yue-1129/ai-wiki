@@ -18,7 +18,7 @@ flowchart LR
 | 方法 | 例子 |
 |---|---|
 | 模擬中的強化學習與模擬到真實（sim-to-real） | 足式移動（ANYmal、Unitree）、靈巧的手中操作（OpenAI 2019 年的魔術方塊）、無人機競速在 2023 年擊敗人類冠軍（Kaufmann et al.） |
-| 從遙操作進行模仿學習 | ALOHA、Diffusion Policy、ACT——見[模仿學習](../../foundations/paradigms/imitation/index.md) |
+| 從遙操作進行模仿學習 | ALOHA、Diffusion Policy、ACT——見[模仿學習](../../theory/paradigms/imitation/index.md) |
 | 視覺—語言—動作模型 | RT-2、OpenVLA、π0／π0.5、Gemini Robotics、GR00T |
 | 以 LLM 作為規劃器 | SayCan、Code as Policies——由語言模型選擇並排序技能 |
 | 世界模型 | 用於規劃的學習式動力學（Dreamer、影片世界模型） |

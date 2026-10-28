@@ -7,7 +7,7 @@ Instructions for the scheduled Claude routine that drafts one page per day as a 
 1. Start from the latest `main`. Create a branch `auto/<yyyy-mm-dd>-<topic-slug>`.
 2. Pick **one** topic, in this order of preference:
     1. An open issue labelled `topic-request` that nobody has claimed.
-    2. A stub listed by `python scripts/wiki_status.py --format issue`, preferring core pages (section foundations, models, brain-mind) and section index pages last.
+    2. A stub listed by `python scripts/wiki_status.py --format issue`, preferring core pages (sections theory, brain-mind) and section index pages last.
     3. An unticked ★★★ item, then ★★, from "Missing topics" in `docs/reference/roadmap/index.md`.
 
     Skip any topic that already has an open pull request (check branch names starting `auto/` and PR titles), and skip pages changed on `main` in the last 2 days, since someone may be writing them.

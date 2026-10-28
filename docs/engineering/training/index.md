@@ -1,8 +1,8 @@
 ---
 related:
-- models/llm
-- foundations/paradigms/transfer
-- foundations/deep-learning
+- theory/models/llm
+- theory/paradigms/transfer
+- theory/deep-learning
 - engineering/hardware
 ---
 

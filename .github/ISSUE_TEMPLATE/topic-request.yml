@@ -16,8 +16,8 @@ body:
       label: Section
       options:
         - Getting Started
-        - Foundations
-        - Models & Techniques
+        - Theory
+        - Models
         - Brain & Mind
         - Applications
         - Engineering

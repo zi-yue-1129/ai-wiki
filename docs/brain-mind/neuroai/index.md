@@ -2,7 +2,7 @@
 related:
 - brain-mind/snn-neuromorphic
 - brain-mind/memory-learning
-- models/computer-vision
+- theory/models/computer-vision
 aliases:
   - NeuroAI
   - 神經AI
@@ -39,7 +39,7 @@ aliases:
 
 - **Predictivity is not mechanism**: many different models predict neural data similarly well; high scores can come from generic features.
 - **Behavioural mismatches**: networks are vulnerable to adversarial examples and rely on texture more than humans (Bowers et al., 2023, "Deep problems with neural network models of human vision").
-- **Biological implausibility**: backprop, weight sharing, and massive labelled data have no obvious biological counterpart — partly addressed by [self-supervised](../../foundations/paradigms/self-supervised/index.md) models that match the ventral stream about as well as supervised ones (Zhuang et al., 2021).
+- **Biological implausibility**: backprop, weight sharing, and massive labelled data have no obvious biological counterpart — partly addressed by [self-supervised](../../theory/paradigms/self-supervised/index.md) models that match the ventral stream about as well as supervised ones (Zhuang et al., 2021).
 
 ## Direction 2: the brain as inspiration for AI
 

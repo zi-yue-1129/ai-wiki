@@ -49,7 +49,7 @@ flowchart LR
 
 ## 實驗室自動化與代理人
 
-- 自動駕駛實驗室結合機器人、貝氏最佳化與[主動學習](../../foundations/paradigms/active/index.md)
+- 自動駕駛實驗室結合機器人、貝氏最佳化與[主動學習](../../theory/paradigms/active/index.md)
 - LLM 代理人規劃實驗、撰寫實驗室流程並分析資料（見[科學發現](../science/index.md)）
 
 ## 生物安全

@@ -1,7 +1,7 @@
 ---
 related:
-- models/agents
-- models/llm
+- theory/models/agents
+- theory/models/llm
 - applications/cybersecurity
 - engineering/evaluation
 ---
