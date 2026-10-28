@@ -70,6 +70,8 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 | Autoencoder / VAE | Bottleneck compression | Representation learning, generation | [Generative Models](../generative/index.md) |
 | Diffusion model | Iterative denoising | Images, video, molecules | [Generative Models](../generative/index.md) |
 
+Architectures are usually designed by hand. [Neural architecture search and AutoML](nas-automl/index.md) automate that choice by searching a space of candidate networks for those that score well.
+
 ## Tricks that make deep networks trainable
 
 - **Initialisation**: [Xavier/Glorot, He and muP](initialisation/index.md)

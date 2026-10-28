@@ -62,6 +62,8 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 | 自編碼器／VAE | 瓶頸式壓縮 | 表徵學習、生成 | [生成模型](../generative/index.md) |
 | 擴散模型 | 迭代去噪 | 影像、影片、分子 | [生成模型](../generative/index.md) |
 
+架構通常由人工設計。[神經架構搜尋與 AutoML](nas-automl/index.md) 將這個選擇自動化，在候選網路的空間中搜尋表現良好的架構。
+
 ## 讓深度網路能被訓練的技巧
 
 - **初始化**：[Xavier／Glorot、He 與 muP](initialisation/index.md)
