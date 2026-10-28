@@ -490,6 +490,12 @@ plugins:
             Evaluation: 評估
             Metrics: 指標
             Protocols: 評估協定
+            Cross-Validation: 交叉驗證
+            Paired Bootstrap: 配對自助法
+            LLM as Judge: LLM 作為評審
+            Human Evaluation: 人工評估
+            Elo Rating and Arenas: Elo 評分與競技場
+            Contamination Detection: 污染偵測
             Benchmarks: 基準測試
             Vision: 視覺
             Language: 語言
@@ -1310,7 +1316,14 @@ nav:
                   - theory/evaluation/benchmarks/few-shot/index.md
                   - miniImageNet: theory/evaluation/benchmarks/few-shot/mini-imagenet.md
                   - Omniglot: theory/evaluation/benchmarks/few-shot/omniglot.md
-          - Protocols: theory/evaluation/protocols/index.md
+          - Protocols:
+              - theory/evaluation/protocols/index.md
+              - Cross-Validation: theory/evaluation/protocols/methods/cross-validation.md
+              - Paired Bootstrap: theory/evaluation/protocols/methods/paired-bootstrap.md
+              - LLM as Judge: theory/evaluation/protocols/methods/llm-as-judge.md
+              - Human Evaluation: theory/evaluation/protocols/methods/human-evaluation.md
+              - Elo Rating and Arenas: theory/evaluation/protocols/methods/elo-rating.md
+              - Contamination Detection: theory/evaluation/protocols/methods/contamination-detection.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons:

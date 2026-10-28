@@ -12,6 +12,19 @@ tags:
 
 協定定義資料如何切分、進行哪些比較，以及如何報告不確定性。協定上的錯誤，常常比指標的選擇更能改變結論。
 
+## 方法
+
+每個方法都有自己的頁面。
+
+| 方法 | 用途 |
+|---|---|
+| [交叉驗證](methods/cross-validation.md) | 以多種切分估計泛化能力 |
+| [配對自助法](methods/paired-bootstrap.md) | 兩個方法差異的區間 |
+| [LLM 作為評審](methods/llm-as-judge.md) | 以模型為開放式輸出打分 |
+| [人工評估](methods/human-evaluation.md) | 由人判斷輸出，並報告一致性 |
+| [Elo 評分與競技場](methods/elo-rating.md) | 從成對結果為系統排名 |
+| [污染偵測](methods/contamination-detection.md) | 檢查基準項目是否在訓練資料中 |
+
 ## 切分資料
 
 - **訓練、驗證與測試。** 在驗證集上調校，測試集只報告一次。
