@@ -244,6 +244,9 @@ plugins:
             Sharp Minima: 尖銳極小值
             SGD Noise Scale: SGD 雜訊尺度
             Gradient Clipping & Normalisation: 梯度裁剪與正規化
+            Norm Clipping: 範數裁剪
+            LARS: LARS
+            LAMB: LAMB
             Large-Batch & Distributed: 大批次與分散式
             Zeroth-Order & Evolutionary: 零階與演化
             Theory & Landscapes: 理論與損失地形
@@ -638,7 +641,11 @@ nav:
               - theory/optimization/regularisation-and-weight-decay.md
               - Sharp Minima: theory/optimization/sharp-minima.md
               - SGD Noise Scale: theory/optimization/sgd-noise-scale.md
-          - Gradient Clipping & Normalisation: theory/optimization/gradient-clipping-and-normalisation.md
+          - Gradient Clipping & Normalisation:
+              - theory/optimization/gradient-clipping-and-normalisation.md
+              - Norm Clipping: theory/optimization/norm-clipping.md
+              - LARS: theory/optimization/lars.md
+              - LAMB: theory/optimization/lamb.md
           - Large-Batch & Distributed: theory/optimization/large-batch-and-distributed.md
           - Zeroth-Order & Evolutionary: theory/optimization/zeroth-order-and-evolutionary.md
           - Theory & Landscapes: theory/optimization/theory-and-landscapes.md
