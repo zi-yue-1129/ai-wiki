@@ -72,3 +72,5 @@
 *[KG]: Knowledge Graph
 *[RDF]: Resource Description Framework
 *[OWL]: Web Ontology Language
+*[FGSM]: Fast Gradient Sign Method
+*[PGD]: Projected Gradient Descent

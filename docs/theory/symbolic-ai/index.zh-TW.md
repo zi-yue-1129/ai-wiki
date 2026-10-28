@@ -15,6 +15,8 @@
 | 知識圖譜 | (實體, 關係, 實體) 三元組 | Wikidata、Google Knowledge Graph |
 | 常識知識庫 | 日常常識 | Cyc、ConceptNet、ATOMIC |
 
+知識圖譜的完整說明（包括本體論、RDF 與 OWL、圖嵌入與 GraphRAG）見[知識圖譜與知識表示](knowledge-graphs/index.md)，其中包含 [RotatE](knowledge-graphs/rotate/index.md) 與 [GraphRAG](knowledge-graphs/graphrag/index.md) 等專頁。
+
 ## 搜尋
 
 | 類型 | 演算法 | 用途 |

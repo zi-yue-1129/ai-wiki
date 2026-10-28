@@ -23,6 +23,8 @@ related:
 | Knowledge graphs | (entity, relation, entity) triples | Wikidata, Google Knowledge Graph |
 | Commonsense knowledge bases | Everyday knowledge | Cyc, ConceptNet, ATOMIC |
 
+For knowledge graphs in depth, including ontologies, RDF and OWL, graph embeddings and GraphRAG, see [Knowledge Graphs and Knowledge Representation](knowledge-graphs/index.md), with pages on [RotatE](knowledge-graphs/rotate/index.md) and [GraphRAG](knowledge-graphs/graphrag/index.md).
+
 ## Search
 
 | Kind | Algorithms | Use |
