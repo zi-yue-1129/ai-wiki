@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
@@ -34,11 +34,11 @@ In-context learning adapts a model by putting a few labelled examples in its inp
 
 For each task, the scaling vectors are trained on the task's labelled examples while the model's weights stay fixed. At inference, the activations are multiplied by these vectors. Because the change is an element-wise scaling, it adds little computation, and a task is stored as a small set of vectors.
 
-T-Few is the recipe built around the method. It uses the T0 model as the backbone, pre-trains the (IA)³ vectors on T0's multitask mixture, and sums three losses: standard language modelling, unlikelihood, and length-normalised. In the paper's ablation, length normalisation raises accuracy from 60.7% to 62.7%, and adding the unlikelihood loss brings it to 63.3%.
+T-Few is the recipe built around the method. It uses the T0 model as the backbone and sums three losses: standard language modelling, unlikelihood, and length-normalised. In the paper's design experiments on T0-3B, length normalisation raises accuracy from 60.7% to 62.7%, and adding the unlikelihood loss brings it to 63.3%.
 
 ## Results
 
-The paper says (IA)³ updates up to 10,000 times fewer parameters than full fine-tuning, and its table lists about 540K added parameters for T0-3B. On RAFT, a benchmark of unseen tasks, T-Few reaches 75.8% against a human baseline of 73.5%, which the paper calls super-human performance for the first time, and it outperforms the previous state of the art by 6% absolute. The next-best entry in its table, PET, scores 69.6%. The authors state that the code used in the experiments is public.
+The paper says (IA)³ updates up to 10,000 times fewer parameters than full fine-tuning, and its table lists about 540K added parameters for T0-3B. On RAFT, a benchmark of unseen tasks, T-Few reaches 75.8% against a human baseline of 73.5%, which the paper calls super-human performance for the first time. The next-best entry in its table, PET, scores 69.6%.
 
 ## Limitations
 

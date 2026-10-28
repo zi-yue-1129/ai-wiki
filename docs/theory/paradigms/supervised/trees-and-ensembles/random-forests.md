@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/supervised/trees-and-ensembles
@@ -55,7 +55,7 @@ Breiman's paper argues that adding trees does not make the forest overfit. Becau
 - **Problem:** Single trees have high variance, and bagged trees often remain correlated because the same strong feature drives many of their splits. The ensemble needs trees that are both accurate and different from one another.
 - **Core idea:** At each node, split using only a random subset of features. The smaller the subset, the less correlated the trees become, at some cost in each tree's strength. The paper states the goal directly: the randomness should aim for low correlation while keeping reasonable strength.
 - **Equation or algorithm:** the bootstrap-and-vote procedure and the averaging rule above. The out-of-bag error for a training point \(i\) is the error of the average over only those trees whose bootstrap sample excludes \(i\).
-- **Results:** On the synthetic data of Section 9, with 1,000 binary inputs and a Bayes error of 1.0%, the forest with F = 25 reached 2.8% test error. With F = 1 it reached 10.7%. On the breast cancer data in Table 2, the random-feature forest reached 2.7% test error against 3.2% for AdaBoost. The paper reports these as published values from its experiments.
+- **Results:** On the synthetic data of Section 9, with 1,000 binary inputs and a Bayes error of 1.0%, the forest with F = 25 reached 2.8% test error. With F = 1 it reached 10.7%. On the breast cancer data in Table 2, the forest that splits on a single random feature (F = 1) reached 2.7% test error against 3.2% for AdaBoost. The paper reports these as published values from its experiments.
 - **Limitations:** A forest is harder to interpret than one tree. Averaging piecewise-constant trees cannot extrapolate beyond the range of the training targets. Memory and prediction time grow with the number of trees. Correlated input features spread importance across many variables, which weakens variable-importance measures.
 
 ## Connections
@@ -77,7 +77,7 @@ Breiman's paper argues that adding trees does not make the forest overfit. Becau
 - Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324 — Introduces random feature selection at each split, the out-of-bag error estimate and the strength and correlation analysis.
 - Breiman, L. (1996). Bagging predictors. *Machine Learning*, 24, 123–140. https://doi.org/10.1007/BF00058655 — Introduces bootstrap aggregation, the averaging idea that random forests build on. The paper argues that the instability of the prediction method is the vital element.
 - Ho, T. K. (1995). Random decision forests. *Proceedings of the Third International Conference on Document Analysis and Recognition (ICDAR 1995)*. https://doi.org/10.1109/ICDAR.1995.598994 — An early proposal for tree ensembles grown on random feature subsets.
-- Amit, Y. & Geman, D. (1997). Shape quantization and recognition with randomized trees. *Neural Computation*. https://mlanthology.org/neco/1997/amit1997neco-shape — Uses randomised trees for shape recognition, an early source of the random-feature idea.
+- Amit, Y. & Geman, D. (1997). Shape quantization and recognition with randomized trees. *Neural Computation*, 9(7), 1545–1588. https://doi.org/10.1162/neco.1997.9.7.1545 — Uses randomised trees for shape recognition, an early source of the random-feature idea.
 
 ### Surveys and textbooks
 

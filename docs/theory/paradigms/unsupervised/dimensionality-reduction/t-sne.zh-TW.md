@@ -59,7 +59,7 @@ C = \mathrm{KL}(P\,\|\,Q) = \sum_i\sum_{j} p_{ij}\log\frac{p_{ij}}{q_{ij}},
 - **問題：** 包括 SNE 在內的既有嵌入方法在最佳化與擁擠問題上有困難，圖上的群集常常重疊。
 - **核心想法：** 在原始空間保留高斯親和度，在圖上使用自由度為一的 Student-t 核，並最小化兩者之間的 KL 散度。
 - **公式或演算法：** 上節的親和度、困惑度、KL 與梯度公式，以及最佳化排程。
-- **結果：** 在論文的隨機漫步變體中，親和度由全部 60,000 個 MNIST 數字計算，圖則由其中 6,000 個數字建構。以 10 折交叉驗證計，1-最近鄰錯誤率在原始 784 維資料上為 5.75%，在二維圖上為 5.13%。
+- **結果：** 以 10 折交叉驗證計，MNIST 的 1-最近鄰錯誤率在原始 784 維資料上為 5.75%。論文隨機漫步變體所建的二維圖（以 6,000 個數字建構，親和度由全部 60,000 個計算）達到 5.13%。
 - **限制：** 論文指出成本函數非凸，因此不同執行可能停在不同的局部極小值。論文把 t-SNE 描述為非參數方法，並把參數化版本列為未來工作，以便推廣到留出的資料。
 
 ## 關聯
@@ -87,5 +87,5 @@ C = \mathrm{KL}(P\,\|\,Q) = \sum_i\sum_{j} p_{ij}\log\frac{p_{ij}}{q_{ij}},
 
 ### 應用
 
-- Kobak, D. & Berens, P. (2019). The art of using t-SNE for single-cell transcriptomics. *Nature Communications*. https://pmc.ncbi.nlm.nih.gov/articles/PMC6882829 — 在單細胞轉錄體資料上使用 t-SNE 的實務指引。
-- Becht, E. 等人 (2019). Dimensionality reduction for visualizing single-cell data using UMAP. *Nature Biotechnology*. https://link.springer.com/article/10.1038/nbt.4314 — 將 UMAP 應用於單細胞資料的視覺化。
+- Kobak, D. & Berens, P. (2019). The art of using t-SNE for single-cell transcriptomics. *Nature Communications*, 10, 5416. https://doi.org/10.1038/s41467-019-13056-x — 在單細胞轉錄體資料上使用 t-SNE 的實務指引。
+- Becht, E. 等人 (2019). Dimensionality reduction for visualizing single-cell data using UMAP. *Nature Biotechnology*, 37, 38–44. https://doi.org/10.1038/nbt.4314 — 將 UMAP 應用於單細胞資料的視覺化。
