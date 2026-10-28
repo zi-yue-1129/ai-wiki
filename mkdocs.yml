@@ -262,6 +262,9 @@ plugins:
             Second-Order Methods: 二階方法
             L-BFGS: L-BFGS
             K-FAC: K-FAC
+            K-FAC for Convolutions (KFC): 卷積的 K-FAC（KFC）
+            EKFAC: EKFAC
+            Distributed K-FAC: 分散式 K-FAC
             Shampoo: Shampoo
             Learning-Rate Schedules: 學習率排程
             Gradual Warm-up: 漸進式預熱
