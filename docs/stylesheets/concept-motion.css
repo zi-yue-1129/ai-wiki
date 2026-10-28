@@ -1,0 +1,7 @@
+/* Shared accessible player for looped teaching diagrams. */
+.concept-motion-player { display: block; max-width: 640px; margin: .5rem auto 1rem; }
+.concept-motion-player img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: .55rem; }
+.concept-motion-toggle { margin-top: .35rem; padding: .32rem .72rem; border: 1px solid var(--md-default-fg-color--lighter, #9cafbe); border-radius: .45rem; font: inherit; font-size: .72rem; line-height: 1.5; color: var(--md-default-fg-color, #24394c); background: var(--md-default-bg-color, #fff); cursor: pointer; }
+.concept-motion-toggle:hover { border-color: var(--md-accent-fg-color, #387e99); }
+.concept-motion-toggle:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .concept-motion-toggle { transition: none !important; } }
