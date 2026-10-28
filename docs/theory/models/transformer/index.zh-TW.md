@@ -97,6 +97,18 @@ Transformer（Vaswani et al., 2017，"Attention Is All You Need"）完全以注�
 - **比較：** 與上述相同的注意力區塊，但用於影像而非文字。它的歸納偏置較弱，因此需要比 CNN 更多的資料；與卷積骨幹的比較見[卷積骨幹與縮放](../cnn/backbones-and-scaling/index.md)。
 - **完整介紹：** [視覺 Transformer（ViT）](vision-transformer/index.md)
 
+### QK 正規化（Dehghani 等人，2023）
+
+- **概要：** 在內積之前對查詢與鍵做層正規化，使注意力 logit 不再隨權重範數增長。
+- **比較：** 注意力內部的修改。它限制了 logit，但不限制其他層的範數增長。
+- **完整介紹：** [QK 正規化](qk-norm.md)
+
+### σReparam（Zhai 等人，2023）
+
+- **概要：** 以譜範數與可學習純量對每個線性層做重參數化，以防止注意力熵崩潰。
+- **比較：** 與 QK 正規化相對的方案，作用於每個線性層，而不只是查詢與鍵。
+- **完整介紹：** [σReparam](sigma-reparam.md)
+
 ## 組件與變體
 
 Transformer 的每個部分都有自己的變體家族，各有取捨與未解問題：

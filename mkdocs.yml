@@ -268,6 +268,9 @@ plugins:
             Regularisation & Weight Decay: 正則化與權重衰減
             Sharp Minima: 尖銳極小值
             SGD Noise Scale: SGD 雜訊尺度
+            Weight-Norm Dynamics: 權重範數動態
+            Rotational Equilibrium: 旋轉平衡
+            AdamW Weight Decay Scaling: AdamW 的權重衰減縮放
             Gradient Clipping & Normalisation: 梯度裁剪與正規化
             Norm Clipping: 範數裁剪
             LARS: LARS
@@ -302,6 +305,8 @@ plugins:
             FlashAttention: FlashAttention
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
+            QK-Normalisation: QK 正規化
+            σReparam: σReparam
             Attention Is All You Need: Attention Is All You Need 原始論文
             Additive Attention (Bahdanau): 加性注意力（Bahdanau）
             Deep Q-Networks: 深度 Q 網路
@@ -759,6 +764,10 @@ nav:
               - theory/optimization/regularisation-and-weight-decay.md
               - Sharp Minima: theory/optimization/sharp-minima.md
               - SGD Noise Scale: theory/optimization/sgd-noise-scale.md
+          - Weight-Norm Dynamics:
+              - theory/optimization/weight-norm-dynamics/index.md
+              - Rotational Equilibrium: theory/optimization/weight-norm-dynamics/rotational-equilibrium.md
+              - AdamW Weight Decay Scaling: theory/optimization/weight-norm-dynamics/adamw-weight-decay-scaling.md
           - Gradient Clipping & Normalisation:
               - theory/optimization/gradient-clipping-and-normalisation.md
               - Norm Clipping: theory/optimization/norm-clipping.md
@@ -1060,6 +1069,8 @@ nav:
                   - FlashAttention: theory/models/transformer/attention-variants/flash-attention/index.md
               - Positional Encodings: theory/models/transformer/positional-encodings/index.md
               - KV Cache: theory/models/transformer/kv-cache/index.md
+              - QK-Normalisation: theory/models/transformer/qk-norm.md
+              - σReparam: theory/models/transformer/sigma-reparam.md
           - State-Space Models:
               - theory/models/ssm/index.md
               - Structured State Spaces:

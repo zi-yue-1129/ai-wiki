@@ -49,6 +49,7 @@ translation_reviewed: 2026-10-28
 - [自適應方法](adaptive/index.md)是兩者分歧之處，而 [AdamW](adaptive/adamw.md) 是其修正。
 - [學習率排程](learning-rate-schedules.md)與衰減互相影響，因為有效的收縮量取決於當前的學習率。
 - [大批次與分散式訓練](large-batch-and-distributed.md)是隱含偏好結果最重要的場景。
+- [權重範數動態](weight-norm-dynamics/index.md) 說明在正規化層中，衰減如何設定平衡範數。
 
 ## 應用
 
