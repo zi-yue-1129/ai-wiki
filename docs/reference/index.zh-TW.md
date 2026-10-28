@@ -7,6 +7,7 @@
 | [常見問題](faq/index.md) | 關於本站的常見問題，以及初學 AI 的起點 |
 | [里程碑論文](papers/index.md) | 塑造 AI、受神經科學啟發的 AI 與認知科學的論文 |
 | [課程與書籍](courses-books/index.md) | 依主題分類的免費與開放學習資源 |
+| [會議與期刊](venues/index.md) | AI 與神經科學研究的發表場域、審查方式，以及如何解讀場域聲望 |
 | [資料集](datasets/index.md) | 各領域廣泛使用的資料集與基準 |
 | [貢獻指南](contributing/index.md) | 如何新增或改進頁面 |
 | [路線圖與涵蓋範圍](roadmap/index.md) | 已規劃的內容與尚缺的內容 |

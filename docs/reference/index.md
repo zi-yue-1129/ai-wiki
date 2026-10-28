@@ -7,6 +7,7 @@
 | [FAQ](faq/index.md) | Common questions about the wiki and where to start learning AI |
 | [Landmark Papers](papers/index.md) | The papers that shaped AI, neuroscience-inspired AI and cognitive science |
 | [Courses & Books](courses-books/index.md) | Free and open learning resources by topic |
+| [Conferences & Journals](venues/index.md) | Where AI and neuroscience research is published, how review works, and how to read venue prestige |
 | [Datasets](datasets/index.md) | Widely used datasets and benchmarks across fields |
 | [Contributing](contributing/index.md) | How to add or improve pages |
 | [Roadmap & Coverage](roadmap/index.md) | What is planned and what is missing |
