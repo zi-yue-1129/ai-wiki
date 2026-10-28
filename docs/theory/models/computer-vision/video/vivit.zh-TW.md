@@ -69,4 +69,4 @@ ViViT 把[Transformer](../../transformer/index.zh-TW.md)所述的架構套用到
 - Vaswani 等人，*Attention Is All You Need*（2017）。https://arxiv.org/abs/1706.03762 — 提出 ViViT 所依據的 Transformer 架構。
 - Dosovitskiy 等人，*An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*（2020）。https://arxiv.org/abs/2010.11929 — 提出視覺 Transformer，ViViT 將其延伸至影片。
 - Bertasius、Wang 與 Torresani，*Is Space-Time Attention All You Need for Video Understanding?*（2021）。https://arxiv.org/abs/2102.05095 — 不使用卷積的時空注意力影片理解模型。
-- Tong、Song、Wang 與 Wang，*VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training*（2022）。https://arxiv.org/abs/2203.12602 — 針對影片的遮蔽自編碼器預訓練。
+- Tong、Song、Wang 與 Wang，*VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training*（2022）。https://arxiv.org/abs/2203.12602 — 針對影片的遮蔽自編碼器預訓練，從未標註的片段學習表徵。

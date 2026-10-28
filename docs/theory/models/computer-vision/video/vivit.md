@@ -68,4 +68,4 @@ Video classification and action recognition on the benchmarks listed in the abst
 - Vaswani et al., *Attention Is All You Need* (2017). https://arxiv.org/abs/1706.03762 — Introduces the Transformer architecture that ViViT builds on.
 - Dosovitskiy et al., *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale* (2020). https://arxiv.org/abs/2010.11929 — Introduces the Vision Transformer, which ViViT extends to video.
 - Bertasius, Wang and Torresani, *Is Space-Time Attention All You Need for Video Understanding?* (2021). https://arxiv.org/abs/2102.05095 — A convolution-free space-time attention model for video understanding.
-- Tong, Song, Wang and Wang, *VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training* (2022). https://arxiv.org/abs/2203.12602 — Masked autoencoder pretraining for video.
+- Tong, Song, Wang and Wang, *VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training* (2022). https://arxiv.org/abs/2203.12602 — Masked autoencoder pretraining that learns video representations from unlabelled clips.
