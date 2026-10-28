@@ -13,7 +13,7 @@ This wiki aims to cover everything about AI, from the mathematics to the neurosc
 | Fix a typo or small error | Click the ✏️ edit button at the top of any page, edit on GitHub, and open a pull request |
 | Report a factual error | Open a [correction issue](https://github.com/zi-yue-1129/ai-wiki/issues/new?template=correction.yml) |
 | Suggest a missing topic | Open a [topic request](https://github.com/zi-yue-1129/ai-wiki/issues/new?template=topic-request.yml) |
-| Write a page | Pick a stub or a missing topic from the [Roadmap](../roadmap/index.md) and follow the steps below |
+| Write a page | Pick an open [chapter issue](https://github.com/zi-yue-1129/ai-wiki/issues?q=is%3Aissue+is%3Aopen+label%3Achapter) and follow the steps below |
 | Translate | Pick a page without a 繁體中文 translation from the [Roadmap](../roadmap/index.md) status list, or open a [translation request](https://github.com/zi-yue-1129/ai-wiki/issues/new?template=translation.yml) |
 | Review | Check an older page against current knowledge and set its `last_reviewed` date |
 
@@ -37,7 +37,7 @@ This wiki aims to cover everything about AI, from the mathematics to the neurosc
     ```
 
 6. If the topic also belongs to other categories, link them with `related` in the front matter (see the [Style Guide](../style-guide/index.md)).
-7. Open a pull request. If the page was on the roadmap's missing-topics list, tick its box in the same PR.
+7. Open a pull request. If the page has a chapter issue, add `Closes #<issue number>` to the description so the issue closes when the PR is merged.
 
 ## Translating a page
 

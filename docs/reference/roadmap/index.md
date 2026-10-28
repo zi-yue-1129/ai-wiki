@@ -7,7 +7,7 @@ references: not-required  # lists and meta pages cite through their entries
 The goal of this wiki is **complete coverage of artificial intelligence**: how it works, how it relates to the brain and mind, and how every field uses it. This page tracks how far we are and what is still missing.
 
 - **Coverage status** below is generated automatically from the pages themselves on every deploy.
-- **Missing topics** is a hand-curated backlog. Anyone can propose a topic with a [topic request](https://github.com/zi-yue-1129/ai-wiki/issues/new?template=topic-request.yml); accepted requests are added here.
+- **Open chapters** are tracked as GitHub issues with the `chapter` label. Each missing topic and each unfinished page has one issue. Anyone can propose a topic with a [topic request](https://github.com/zi-yue-1129/ai-wiki/issues/new?template=topic-request.yml); accepted requests become chapter issues.
 
 To pick something up, see [Contributing](../contributing/index.md).
 
@@ -15,89 +15,23 @@ To pick something up, see [Contributing](../contributing/index.md).
 
 --8<-- "includes/status.md"
 
-## Missing topics
+## Open chapters
 
-Topics that do not have a page yet. Tick a box (in the same PR) when its page is merged. Rough priority: ★★★ core, ★★ important, ★ nice to have.
+The issues are the list, so this page does not repeat them. A pull request that says `Closes #n` in its description closes the chapter when it is merged.
 
-### Theory
-
-- [ ] ★★★ Optimization (gradient descent variants, convexity, loss landscapes)
-- [x] ★★★ Information theory for ML (entropy, KL divergence, mutual information)
-- [ ] ★★ Statistical learning theory (bias–variance, VC dimension, generalization)
-- [ ] ★★ Causal inference and causal ML
-- [ ] ★★ Kernel methods and support vector machines
-- [ ] ★★ Self-supervised and contrastive learning
-- [ ] ★★ Continual, meta- and transfer learning
-- [ ] ★ Federated and privacy-preserving learning
-
-### Models
-
-- [ ] ★★★ Convolutional neural networks
-- [ ] ★★★ Recurrent networks and LSTMs
-- [ ] ★★★ Diffusion models
-- [ ] ★★ Reasoning models and test-time compute
-- [ ] ★★ Mixture of experts
-- [ ] ★★ State-space models (S4, Mamba) and alternatives to attention
-- [ ] ★★ Embeddings and representation learning
-- [ ] ★★ Recommender systems
-- [ ] ★★ Time-series forecasting
-- [ ] ★ Small and efficient models (distillation, pruning)
-
-### Brain & Mind
-
-- [ ] ★★★ Perception and the visual system
-- [ ] ★★★ Language in the brain
-- [ ] ★★ Predictive coding and the free-energy principle
-- [ ] ★★ Decision making, dopamine and reward
-- [ ] ★★ Attention in brains and machines
-- [ ] ★★ Emotion and affective computing
-- [ ] ★★ Neuroimaging and recording methods (EEG, fMRI, electrophysiology)
-- [ ] ★ Developmental cognition and how children learn
-- [ ] ★ Animal cognition and comparative intelligence
-
-### Applications
-
-- [ ] ★★ Government and public services
-- [ ] ★★ Retail, marketing and e-commerce
-- [ ] ★★ Journalism and information ecosystems
-- [ ] ★★ Accessibility and assistive technology
-- [ ] ★★ Linguistics and machine translation
-- [ ] ★ Military and defense
-- [ ] ★ Space and astronomy
-- [ ] ★ Architecture, construction and urban planning
-- [ ] ★ Telecommunications
-
-### Engineering
-
-- [ ] ★★★ Inference optimization (quantization, batching, KV caching)
-- [ ] ★★ Distributed training
-- [ ] ★★ Vector databases and semantic search
-- [ ] ★★ LLM application security (prompt injection, data leakage)
-- [ ] ★★ Synthetic data
-- [ ] ★ On-device and edge AI
-- [ ] ★ AI coding assistants in practice
-
-### AI & Society
-
-- [ ] ★★★ Privacy and data protection
-- [ ] ★★ Copyright and intellectual property
-- [ ] ★★ Misinformation and deepfakes
-- [ ] ★★ Environmental impact of AI
-- [ ] ★★ Open versus closed models
-- [ ] ★ AI in Taiwan: policy, industry and research
-- [ ] ★ Children, education policy and AI
-
-### Reference
-
-- [ ] ★★ People and research labs
-- [ ] ★★ Frequently asked questions
-- [ ] ★ Timeline of models and releases
+| Priority | Open chapter issues |
+|---|---|
+| ★★★ core | [Core chapters](https://github.com/zi-yue-1129/ai-wiki/issues?q=is%3Aissue+is%3Aopen+label%3Achapter+label%3Apriority%3Acore) |
+| ★★ important | [Important chapters](https://github.com/zi-yue-1129/ai-wiki/issues?q=is%3Aissue+is%3Aopen+label%3Achapter+label%3Apriority%3Aimportant) |
+| ★ nice to have | [Nice-to-have chapters](https://github.com/zi-yue-1129/ai-wiki/issues?q=is%3Aissue+is%3Aopen+label%3Achapter+label%3Apriority%3Anice) |
+| Unranked: drafts and stubs to finish | [Drafts and stubs](https://github.com/zi-yue-1129/ai-wiki/issues?q=is%3Aissue+is%3Aopen+label%3Achapter+-label%3Apriority%3Acore+-label%3Apriority%3Aimportant+-label%3Apriority%3Anice) |
+| Finished | [Closed chapters](https://github.com/zi-yue-1129/ai-wiki/issues?q=is%3Aissue+is%3Aclosed+label%3Achapter) |
 
 ## How the wiki is maintained
 
 | What | How | Where |
 |---|---|---|
-| New topics | Topic request issue → added to the backlog above → page written in a PR | [Issues](https://github.com/zi-yue-1129/ai-wiki/issues) |
+| New topics | Topic request issue → chapter issue → page written in a PR that says `Closes #n` | [Issues](https://github.com/zi-yue-1129/ai-wiki/issues) |
 | Corrections | Correction issue, or an edit PR via the ✏️ button on any page | [Issues](https://github.com/zi-yue-1129/ai-wiki/issues) |
 | Build and internal links | `mkdocs build --strict` and `scripts/wiki_status.py --check` on every PR | GitHub Actions |
 | External links | Weekly link check | Weekly health report issue |
