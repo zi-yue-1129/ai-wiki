@@ -44,6 +44,8 @@ Transformer（Vaswani et al., 2017，"Attention Is All You Need"）完全以注�
 | 編碼器—解碼器 | 雙向編碼器加交叉注意力 | 原始 Transformer、T5、Whisper | 翻譯、摘要、語音辨識 |
 | 僅解碼器 | 因果式（只看過去） | GPT、Llama、Claude、Gemini 等 | 生成、通用 LLM |
 
+[架構家族](architecture-families/index.md)頁面說明這個表格背後的遮罩方式、預訓練目標與發展脈絡，並分別介紹 [BERT](architecture-families/bert/index.md) 與 [T5](architecture-families/t5/index.md)。
+
 ## 位置資訊
 
 注意力本身與順序無關，因此必須注入位置資訊：
