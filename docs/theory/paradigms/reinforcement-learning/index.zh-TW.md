@@ -94,7 +94,7 @@ Schultz、Dayan 與 Montague（1997）發現：中腦多巴胺神經元的放電
 
 - **TD-Gammon**（1992）
 - **DQN**（2013/2015）：從像素學會玩 Atari
-- **AlphaGo / AlphaZero / MuZero**（2016–2019）：自我對弈＋蒙地卡羅樹搜尋
+- **AlphaGo / AlphaZero / MuZero**（2016–2019）：自我對弈＋蒙地卡羅樹搜尋，見[蒙地卡羅樹搜尋與自我對弈](mcts-and-self-play/index.md)
 - **OpenAI Five、AlphaStar**（2019）：Dota 2、星海爭霸 II
 - **RLHF**（2017 起，2022 ChatGPT 普及）：用人類偏好訓練獎勵模型再以 PPO 微調 LLM
 - **推理模型的 RL**（2024–2025）：以可驗證獎勵（數學答案、程式測試）訓練長思維鏈，例如 DeepSeek-R1 使用的 GRPO

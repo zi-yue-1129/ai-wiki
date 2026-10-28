@@ -105,7 +105,7 @@ Each method has its own page. The overview and comparison here are brief.
 
 - **TD-Gammon** (1992)
 - **DQN** (2013/2015): Atari from pixels
-- **AlphaGo / AlphaZero / MuZero** (2016–2019): self-play + Monte Carlo tree search
+- **AlphaGo / AlphaZero / MuZero** (2016–2019): self-play + Monte Carlo tree search, see [MCTS and self-play](mcts-and-self-play/index.md)
 - **OpenAI Five, AlphaStar** (2019): Dota 2, StarCraft II
 - **RLHF** (2017 onward, mainstream with ChatGPT in 2022): train a reward model on human preferences, then optimise the LLM with PPO
 - **RL for reasoning** (2024–2025): training long chains of thought with verifiable rewards (math answers, unit tests), e.g. GRPO as used for DeepSeek-R1
@@ -124,6 +124,7 @@ Each method has its own page. The overview and comparison here are brief.
 - [Value-based methods](value-based-methods/index.md): Q-learning, DQN and planning with learned values.
 - [Policy gradient and actor-critic](policy-gradient-and-actor-critic/index.md): REINFORCE, A3C and PPO.
 - [Model-based RL](model-based-rl/index.md): world models, MuZero and Dreamer.
+- [Monte Carlo tree search and self-play](mcts-and-self-play/index.md): tree search guided by learned networks, from AlphaGo and AlphaZero to MuZero and LLM reasoning.
 - [Offline RL](offline-rl/index.md): learning from fixed datasets with conservative value estimates.
 - [Learning from human feedback](learning-from-human-feedback/index.md): reward models and RLHF.
 - [Experience replay](experience-replay/index.md): reusing past transitions to learn more from each one.
