@@ -43,7 +43,7 @@ Collective operations describe the common communication patterns. All-reduce sum
 
 ## Equation or algorithm
 
-A ring all-reduce arranges the chips in a cycle. It runs as a reduce-scatter followed by an all-gather, and each chip sends and receives a fraction of the data in every step. Patarasuk and Yuan show that this is bandwidth-optimal, and the per-chip bandwidth cost is then
+A ring all-reduce arranges the chips in a cycle. It runs as a reduce-scatter followed by an all-gather, and each chip sends and receives a fraction of the data in every step. In the standard cost model for this algorithm, the per-chip bandwidth cost is
 
 \[
 T \approx \frac{2(N-1)}{N} \cdot \frac{S}{B}
@@ -83,4 +83,3 @@ The training side of this topic is covered in [distributed training](../../distr
 - Rajbhandari, S., et al. (2019). *ZeRO: Memory Optimizations Toward Training Trillion Parameter Models*. arXiv:1910.02054. https://arxiv.org/abs/1910.02054 — Eliminates memory redundancy in data- and model-parallel training while keeping communication volume low.
 - Narayanan, D., et al. (2021). *Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM*. arXiv:2104.04473. https://arxiv.org/abs/2104.04473 — Combines tensor, pipeline and data parallelism for one-trillion-parameter training and discusses the cost of cross-node transfer.
 - Sergeev, A. and Del Balso, M. (2018). *Horovod: fast and easy distributed deep learning in TensorFlow*. arXiv:1802.05799. https://arxiv.org/abs/1802.05799 — Uses ring reduction for efficient inter-GPU communication in data-parallel training.
-- Patarasuk, P. and Yuan, X. (2009). *Bandwidth optimal all-reduce algorithms for clusters of workstations*. Journal of Parallel and Distributed Computing 69, 117–124. https://doi.org/10.1016/j.jpdc.2008.09.002 — Shows that the ring all-reduce is bandwidth-optimal, the basis of the cost formula above.
