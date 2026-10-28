@@ -43,8 +43,8 @@ The Bayesian view links to [Probabilistic & Bayesian Methods](../../probabilisti
 
 - Cover, T. M. & Hart, P. E. (1967). Nearest neighbor pattern classification. *IEEE Transactions on Information Theory*, 13(1), 21–27. https://doi.org/10.1109/TIT.1967.1053964 — Proves the asymptotic error bound for the nearest-neighbour rule.
 - Ng & Jordan (2001), "On discriminative vs. generative classifiers: a comparison of logistic regression and naive Bayes", NeurIPS. https://papers.nips.cc/paper/2001/hash/7b7a53e239400a13bd6be6c91c4f6c4e-Abstract.html — Compares how much data each classifier needs and when each wins.
-- Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), arXiv:math/0612821. https://arxiv.org/abs/math/0612821 — Shows which convex surrogate losses still yield good classifiers.
-- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting — Empirical comparison of probability calibration across standard classifiers.
+- Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), 138–156. https://doi.org/10.1198/016214505000000907 — Shows which convex surrogate losses still yield good classifiers.
+- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://doi.org/10.1145/1102351.1102430 — Empirical comparison of probability calibration across standard classifiers.
 - Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599 — Shows that predicted probabilities can be miscalibrated and proposes temperature scaling as a fix.
 
 ### Surveys and textbooks

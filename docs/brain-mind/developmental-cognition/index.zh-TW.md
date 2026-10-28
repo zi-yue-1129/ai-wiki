@@ -75,7 +75,7 @@ flowchart LR
 
 ### 開創性論文
 
-- Baillargeon, R., Spelke, E. S. & Wasserman, S.（1985）。Object permanence in five-month-old infants. *Cognition*。https://doi.org/10.1016/0010-0277(85)90024-9 — 以注視時間顯示，年幼的嬰兒預期被遮住的物體會繼續存在。
+- Baillargeon, R., Spelke, E. S. & Wasserman, S.（1985）。Object permanence in five-month-old infants. *Cognition*。https://doi.org/10.1016/0010-0277(85)90008-3 — 以注視時間顯示，年幼的嬰兒預期被遮住的物體會繼續存在。
 - Saffran, J. R., Aslin, R. N. & Newport, E. L.（1996）。Statistical learning by 8-month-old infants. *Science*。https://pubmed.ncbi.nlm.nih.gov/8943209/ — 顯示嬰兒能從連續音節流的轉移機率中抽取類詞單位。
 
 ### 綜述與教科書

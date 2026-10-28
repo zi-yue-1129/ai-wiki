@@ -63,7 +63,7 @@ There is no ground truth, so evaluation is hard:
 
 ## References
 
-- Lloyd (1982), "Least squares quantization in PCM", *IEEE Transactions on Information Theory* 28(2). https://www.stat.cmu.edu/~rnugent/PCMI2016/papers/LloydKMeans.pdf — The original least-squares quantisation paper behind k-means.
+- Lloyd (1982), "Least squares quantization in PCM", *IEEE Transactions on Information Theory* 28(2). https://doi.org/10.1109/TIT.1982.1056489 — The original least-squares quantisation paper behind k-means.
 - Hinton & Salakhutdinov (2006), "Reducing the dimensionality of data with neural networks", *Science* 313. https://pubmed.ncbi.nlm.nih.gov/16873662/ — Deep autoencoders that outperform PCA for compressing image data.
 - Jolliffe, *Principal Component Analysis*, Springer (2002). https://link.springer.com/doi/10.1007/b98835 — The standard reference for PCA, the most widely used unsupervised method.
 - Chandola, Banerjee & Kumar (2009), "Anomaly detection: a survey", *ACM Computing Surveys* 41(3). https://doi.org/10.1145/1541880.1541882 — Classic survey organising anomaly detection by data type and method.

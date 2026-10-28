@@ -44,7 +44,7 @@ The same objective underlies [self-supervised](../../self-supervised/index.md) p
 
 ### Seminal papers
 
-- Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), arXiv:math/0612821. https://arxiv.org/abs/math/0612821 — Shows which convex surrogate losses still give good classifiers.
+- Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), 138–156. https://doi.org/10.1198/016214505000000907 — Shows which convex surrogate losses still give good classifiers.
 - Lin et al. (2017), "Focal loss for dense object detection", ICCV, arXiv:1708.02002 — Down-weights easy examples in cross-entropy, which helps with class imbalance.
 - Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980 — The Adam optimiser with adaptive per-parameter step sizes.
 - Loshchilov & Hutter (2019), "Decoupled weight decay regularization", ICLR, arXiv:1711.05101 — Introduces AdamW, which applies weight decay separately from the gradient update.

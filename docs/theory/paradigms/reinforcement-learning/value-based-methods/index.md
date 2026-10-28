@@ -63,4 +63,4 @@ Stable value learning with function approximation and off-policy data is not ful
 
 ## Further reading
 
-- Sutton & Barto, *Reinforcement Learning: An Introduction*, 2nd ed., MIT Press (2018). No free link checked.
+- Sutton & Barto, *Reinforcement Learning: An Introduction*, 2nd ed., MIT Press (2018). http://incompleteideas.net/book/the-book-2nd.html

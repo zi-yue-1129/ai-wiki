@@ -64,7 +64,7 @@ The paper reports that after a few minutes of exposure, the eight-month-old infa
 ### Seminal papers
 
 - Saffran, J. R., Aslin, R. N. & Newport, E. L. (1996). Statistical learning by 8-month-old infants. *Science*. https://pubmed.ncbi.nlm.nih.gov/8943209/ — Shows that infants detect word-like units from transition probabilities in a continuous syllable stream.
-- Baillargeon, R., Spelke, E. S. & Wasserman, S. (1985). Object permanence in five-month-old infants. *Cognition*. https://doi.org/10.1016/0010-0277(85)90024-9 — Another looking-time study, of infant expectations about objects.
+- Baillargeon, R., Spelke, E. S. & Wasserman, S. (1985). Object permanence in five-month-old infants. *Cognition*. https://doi.org/10.1016/0010-0277(85)90008-3 — Another looking-time study, of infant expectations about objects.
 
 ### Surveys and reviews
 

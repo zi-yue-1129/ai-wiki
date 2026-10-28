@@ -69,5 +69,5 @@ Weir 與同事報告，烏鴉把鐵絲彎成鉤子並用來取得食物。後來
 
 ### 綜述與回顧
 
-- Hunt, G. R. & Gray, R. D.（2003）。Diversification and cumulative evolution in New Caledonian crow tool manufacture. *Proceedings of the Royal Society B*, 270, 867–874。https://doi.org/10.1098/rspb.2002.2299 — 記錄野生烏鴉族群間工具設計的差異，並討論工具設計如何隨時間改變。
+- Hunt, G. R. & Gray, R. D.（2003）。Diversification and cumulative evolution in New Caledonian crow tool manufacture. *Proceedings of the Royal Society B*, 270, 867–874。https://doi.org/10.1098/rspb.2002.2302 — 記錄野生烏鴉族群間工具設計的差異，並討論工具設計如何隨時間改變。
 - Emery, N. J. & Clayton, N. S.（2004）。The mentality of crows: convergent evolution of intelligence in corvids and apes. *Science*, 306, 1903–1907。https://doi.org/10.1126/science.1098410 — 把烏鴉的工具使用與因果推理，放在與猿類比較的脈絡中。

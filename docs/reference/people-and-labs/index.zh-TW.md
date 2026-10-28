@@ -17,7 +17,7 @@ aliases:
 
 ## 視覺與資料
 
-- **李飛飛** 是 2009 年 CVPR 論文的六位作者中的最後一位，其他作者為 Jia Deng、Wei Dong、Richard Socher、Li-Jia Li 與 Kai Li。該論文介紹了 ImageNet，即一個大規模的階層式影像資料庫（[CVPR 2009, mlanthology](https://mlanthology.org/cvpr/2009/deng2009cvpr-imagenet)）。見[電腦視覺](../../theory/models/computer-vision/index.zh-TW.md)與[資料集](../datasets/index.zh-TW.md)。
+- **李飛飛** 是 2009 年 CVPR 論文的六位作者中的最後一位，其他作者為 Jia Deng、Wei Dong、Richard Socher、Li-Jia Li 與 Kai Li。該論文介紹了 ImageNet，即一個大規模的階層式影像資料庫（[CVPR 2009, DOI](https://doi.org/10.1109/CVPR.2009.5206848)）。見[電腦視覺](../../theory/models/computer-vision/index.zh-TW.md)與[資料集](../datasets/index.zh-TW.md)。
 
 ## 研究實驗室與研究院
 
