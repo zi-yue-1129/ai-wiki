@@ -26,7 +26,7 @@ translation_reviewed: 2026-10-28
 
 多數方法重複同一個迴圈：提出一個設定，以某個預算訓練它，記錄驗證分數，並用新分數決定下一次的提案。方法之間的差別，在於如何產生提案，以及保留每次執行的多少部分。
 
-- **無模型取樣**隨機或在格點上抽取設定。隨機搜尋是標準基準。
+- **無模型取樣**隨機或在格點上抽取設定。[隨機搜尋](random-search.md)是標準基準。
 - **以模型為基礎的搜尋**把代理模型擬合到觀察到的分數，並提出預期增益最佳的設定。[貝氏最佳化](bayesian-optimisation.md)頁面涵蓋此類方法。
 - **多臂老虎機與提早停止方法**把預算視為資源。先啟動許多設定，及早捨棄表現差的。[Hyperband](hyperband.md)頁面涵蓋此類方法。
 - **基於族群的訓練**並行執行多組設定，並在訓練中把表現好的執行的權重與設定複製到較弱的執行中。見[基於族群的訓練](../../paradigms/reinforcement-learning/multi-agent-rl/population-based-training/index.md)。
@@ -36,6 +36,8 @@ translation_reviewed: 2026-10-28
 
 本節提供比較並連結至下層頁面。每種方法都有自己的頁面。
 
+- [隨機搜尋](random-search.md)：從搜尋空間的分布獨立取樣，保留最好的試驗。它是標準基準。
+- [格點搜尋](grid-search.md)：候選值的完整格點。簡單且可重現，但成本隨超參數數目呈指數成長。
 - [貝氏最佳化](bayesian-optimisation.md)：高斯過程代理模型與獲取函數選出每個下一個設定。適用於執行成本高、搜尋空間小的情況。
 - [Hyperband](hyperband.md)：跨多種預算的連續減半，先啟動許多設定，只把更多預算給表現最好的。適用於早期分數能預測最終分數的情況。
 - [基於族群的訓練](../../paradigms/reinforcement-learning/multi-agent-rl/population-based-training/index.md)：族群在單次訓練中調整設定。

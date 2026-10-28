@@ -283,6 +283,11 @@ plugins:
             Hyperparameter Optimisation: 超參數最佳化
             Bayesian Optimisation: 貝氏最佳化
             Hyperband: Hyperband
+            Random Search: 隨機搜尋
+            Grid Search: 格點搜尋
+            Regularized Evolution: 正則化演化
+            Large-Scale Evolution: 大規模演化
+            MnasNet: MnasNet
             Search Algorithms: 搜尋演算法
             A* Search: A* 搜尋
             Alpha–Beta Pruning: α–β 剪枝
@@ -1119,6 +1124,9 @@ nav:
               - theory/deep-learning/nas-automl/index.md
               - DARTS: theory/deep-learning/nas-automl/darts.md
               - Efficient Neural Architecture Search: theory/deep-learning/nas-automl/efficient-neural-architecture-search.md
+              - Regularized Evolution: theory/deep-learning/nas-automl/regularized-evolution.md
+              - Large-Scale Evolution: theory/deep-learning/nas-automl/large-scale-evolution.md
+              - MnasNet: theory/deep-learning/nas-automl/mnasnet.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum:
@@ -1174,6 +1182,8 @@ nav:
               - ASAM: theory/optimization/asam.md
           - Hyperparameter Optimisation:
               - theory/optimization/hyperparameter-optimisation/index.md
+              - Random Search: theory/optimization/hyperparameter-optimisation/random-search.md
+              - Grid Search: theory/optimization/hyperparameter-optimisation/grid-search.md
               - Bayesian Optimisation: theory/optimization/hyperparameter-optimisation/bayesian-optimisation.md
               - Hyperband: theory/optimization/hyperparameter-optimisation/hyperband.md
       - Learning Paradigms:
