@@ -26,6 +26,9 @@ Each method has its own page.
 | [Human evaluation](methods/human-evaluation.md) | Judging outputs with people, with agreement reported |
 | [Elo rating and arenas](methods/elo-rating.md) | Ranking systems from pairwise outcomes |
 | [Contamination detection](methods/contamination-detection.md) | Checking whether benchmark items were in training data |
+| [N-gram overlap decontamination](methods/ngram-overlap-decontamination.md) | Removing benchmark items that share long word sequences with the corpus |
+| [Min-K% Prob](methods/min-k-percent-prob.md) | Detecting pretraining data from the model's token probabilities alone |
+| [LiveBench](methods/livebench.md) | Refreshing benchmark questions so they postdate training data |
 
 ## Splitting the data
 
