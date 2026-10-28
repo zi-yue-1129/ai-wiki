@@ -335,6 +335,8 @@ plugins:
             AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             RFdiffusion: RFdiffusion（蛋白質骨架設計）
             ESM-2 and ESMFold: ESM-2 與 ESMFold
+            ESM-2: ESM-2
+            ESMFold: ESMFold
             OpenAI Five: OpenAI Five（Dota 2）
             End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
@@ -408,6 +410,27 @@ plugins:
             Evaluation: 評估
             Metrics: 指標
             Protocols: 評估協定
+            Classification: 分類
+            Probabilistic: 機率
+            Regression: 迴歸
+            Ranking: 排序
+            Segmentation: 分割
+            Accuracy: 準確率
+            Precision: 精確率
+            Recall: 召回率
+            F1 Score: F1 分數
+            ROC-AUC: ROC-AUC
+            PR-AUC: PR-AUC
+            Log-Loss: 對數損失
+            Brier Score: Brier 分數
+            Calibration Error: 校準誤差
+            MAE: MAE
+            RMSE: RMSE
+            R²: R²
+            NDCG: NDCG
+            Mean Average Precision: 平均精確率均值
+            IoU: 交併比
+            Dice: Dice 係數
             Quantisation: 量化
             Pruning: 剪枝
             Knowledge Distillation: 知識蒸餾
@@ -550,7 +573,15 @@ plugins:
             Insurance & Actuarial Science: 保險與精算科學
             Sports Analytics & Performance: 運動分析與表現
             AI for AI Research: AI 用於 AI 研究
+            Military & Defence: 軍事與國防
+            Space & Astronomy: 太空與天文
+            Architecture & Urban Planning: 建築與城市規劃
+            Telecommunications: 電信
             Linguistics & Machine Translation: 語言學與機器翻譯
+            Government & Public Services: 政府與公共服務
+            Retail, Marketing & E-commerce: 零售、行銷與電子商務
+            Journalism & Information Ecosystems: 新聞與資訊生態
+            Accessibility & Assistive Technology: 無障礙與輔助科技
             Engineering: 工程實務
             Frameworks & Tools: 框架與工具
             Data: 資料工程
@@ -941,7 +972,34 @@ nav:
               - LoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
       - Evaluation:
           - theory/evaluation/index.md
-          - Metrics: theory/evaluation/metrics/index.md
+          - Metrics:
+              - theory/evaluation/metrics/index.md
+              - Classification:
+                  - theory/evaluation/metrics/classification/index.md
+                  - Accuracy: theory/evaluation/metrics/classification/accuracy.md
+                  - Precision: theory/evaluation/metrics/classification/precision.md
+                  - Recall: theory/evaluation/metrics/classification/recall.md
+                  - F1 Score: theory/evaluation/metrics/classification/f1.md
+                  - ROC-AUC: theory/evaluation/metrics/classification/roc-auc.md
+                  - PR-AUC: theory/evaluation/metrics/classification/pr-auc.md
+              - Probabilistic:
+                  - theory/evaluation/metrics/probabilistic/index.md
+                  - Log-Loss: theory/evaluation/metrics/probabilistic/log-loss.md
+                  - Brier Score: theory/evaluation/metrics/probabilistic/brier-score.md
+                  - Calibration Error: theory/evaluation/metrics/probabilistic/calibration-error.md
+              - Regression:
+                  - theory/evaluation/metrics/regression/index.md
+                  - MAE: theory/evaluation/metrics/regression/mae.md
+                  - RMSE: theory/evaluation/metrics/regression/rmse.md
+                  - R²: theory/evaluation/metrics/regression/r-squared.md
+              - Ranking:
+                  - theory/evaluation/metrics/ranking/index.md
+                  - NDCG: theory/evaluation/metrics/ranking/ndcg.md
+                  - Mean Average Precision: theory/evaluation/metrics/ranking/map.md
+              - Segmentation:
+                  - theory/evaluation/metrics/segmentation/index.md
+                  - IoU: theory/evaluation/metrics/segmentation/iou.md
+                  - Dice: theory/evaluation/metrics/segmentation/dice.md
           - Protocols: theory/evaluation/protocols/index.md
       - Models:
           - theory/models/index.md
@@ -1126,6 +1184,8 @@ nav:
           - AlphaFold 2 (Jumper et al. 2021): applications/life-science/alphafold-2.md
           - RFdiffusion: applications/life-science/rfdiffusion/index.md
           - ESM-2 and ESMFold: applications/life-science/esm/index.md
+          - ESM-2: applications/life-science/esm/esm-2.md
+          - ESMFold: applications/life-science/esm/esmfold.md
       - Scientific Discovery: applications/science/index.md
       - Weather Forecasting & Earth Observation: applications/weather-and-earth-observation/index.md
       - Mathematics & Formal Proof: applications/mathematics/index.md
@@ -1156,7 +1216,15 @@ nav:
       - Insurance & Actuarial Science: applications/insurance/index.md
       - Sports Analytics & Performance: applications/sports/index.md
       - AI for AI Research: applications/ai-research/index.md
+      - Military & Defence: applications/military/index.md
+      - Space & Astronomy: applications/space-astronomy/index.md
+      - Architecture & Urban Planning: applications/architecture-urban/index.md
+      - Telecommunications: applications/telecommunications/index.md
       - Linguistics & Machine Translation: applications/linguistics-translation/index.md
+      - Government & Public Services: applications/government/index.md
+      - Retail, Marketing & E-commerce: applications/retail-marketing/index.md
+      - Journalism & Information Ecosystems: applications/journalism/index.md
+      - Accessibility & Assistive Technology: applications/accessibility/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools: engineering/frameworks/index.md

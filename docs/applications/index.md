@@ -32,7 +32,15 @@ Each page follows the same structure: **landscape** (main use cases), **landmark
 | [Insurance & Actuarial Science](insurance/index.md) | Pricing, claims triage, fraud detection, fairness in pricing |
 | [Sports Analytics](sports/index.md) | Tracking data, action valuation, pose estimation, officiating |
 | [AI for AI Research](ai-research/index.md) | Research agents, research-ability benchmarks, the recursive-improvement debate |
+| [Military & Defence](military/index.md) | Surveillance and reconnaissance, logistics, autonomy and the policy debate |
+| [Space & Astronomy](space-astronomy/index.md) | Survey classification, exoplanets, gravitational waves, anomaly search |
+| [Architecture & Urban Planning](architecture-urban/index.md) | Building energy, structural inspection, urban mobility, generative design |
+| [Telecommunications](telecommunications/index.md) | Learned radio, network operations, traffic prediction, network LLMs |
 | [Linguistics & Machine Translation](linguistics-translation/index.md) | Neural translation, low-resource languages, corpus linguistics, translator tools |
+| [Government & Public Services](government/index.md) | Benefits, risk scoring, tax enforcement, public information services |
+| [Retail, Marketing & E-commerce](retail-marketing/index.md) | Recommendations, demand forecasting, pricing, churn prediction |
+| [Journalism & Information Ecosystems](journalism/index.md) | Automated reporting, verification, misinformation |
+| [Accessibility & Assistive Technology](accessibility/index.md) | Image description, captions, alternative text for disabled users |
 
 ## Methods behind each field
 
@@ -66,7 +74,15 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Insurance & Actuarial Science | [Trees & Ensembles](../theory/paradigms/supervised/trees-and-ensembles/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md) |
 | Sports Analytics | [Computer Vision](../theory/models/computer-vision/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md) |
 | AI for AI Research | [AI Agents](../theory/models/agents/index.md), [Chain-of-thought reasoning](../theory/models/reasoning/chain-of-thought.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
+| Military & Defence | [Computer Vision](../theory/models/computer-vision/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
+| Space & Astronomy | [Convolutional Neural Networks](../theory/models/cnn/index.md), [Active Learning](../theory/paradigms/active/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
+| Architecture & Urban Planning | [Computer Vision](../theory/models/computer-vision/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md), [Graph Neural Networks](../theory/models/gnn/index.md), [Generative Models](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
+| Telecommunications | [Autoencoders & Representations](../theory/paradigms/unsupervised/autoencoders-and-representations/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Federated Learning](../theory/paradigms/federated/index.md), [Large Language Models](../theory/models/llm/index.md) |
 | Linguistics & Machine Translation | [Natural Language Processing](../theory/models/nlp/index.md), [Transformer](../theory/models/transformer/index.md), [Attention in Brains & Machines](../brain-mind/attention-brain-machine/index.md) |
+| Government & Public Services | [Trees and ensembles](../theory/paradigms/supervised/trees-and-ensembles/index.md), [Evaluation & Validation](../theory/paradigms/supervised/evaluation-and-validation/index.md), [Ethics & Fairness](../society/ethics/index.md) |
+| Retail, Marketing & E-commerce | [Contextual Bandits](../theory/paradigms/online/contextual-bandits/index.md), [Trees and ensembles](../theory/paradigms/supervised/trees-and-ensembles/index.md) |
+| Journalism & Information Ecosystems | [Large Language Models](../theory/models/llm/index.md), [RAG](../engineering/rag/index.md), [Safety & Alignment](../society/safety-alignment/index.md) |
+| Accessibility & Assistive Technology | [Computer Vision](../theory/models/computer-vision/index.md), [Multimodal Models](../theory/models/multimodal/index.md) |
 
 ## Cross-cutting patterns
 
