@@ -21,7 +21,7 @@ related:
 
 Rough compute estimate for dense Transformers: **training FLOPs ≈ 6 × parameters × tokens**.
 
-The number formats behind the Precision row, and how gradient checkpointing trades recomputation for activation memory, are covered in [Mixed-precision training and gradient checkpointing](mixed-precision-and-checkpointing.md).
+The number formats behind the Precision row, and how gradient checkpointing trades recomputation for activation memory, are covered in [Mixed-precision training and gradient checkpointing](mixed-precision-and-checkpointing.md). The attention kernel that dominates much of long-context training memory and time, and the fused kernels around it, are covered in [FlashAttention and fused kernels](flash-attention.md).
 
 ## Fine-tuning methods
 

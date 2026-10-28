@@ -13,7 +13,7 @@
 
 對稠密 Transformer 的粗略運算估計：**訓練 FLOPs ≈ 6 × 參數量 × token 數**。
 
-精度一列所涉及的數值格式，以及梯度檢查點如何以重新計算換取激活值記憶體，請見[混合精度訓練與梯度檢查點](mixed-precision-and-checkpointing.zh-TW.md)。
+精度一列所涉及的數值格式，以及梯度檢查點如何以重新計算換取激活值記憶體，請見[混合精度訓練與梯度檢查點](mixed-precision-and-checkpointing.zh-TW.md)。主導長上下文訓練大部分記憶體與時間的注意力核函式，以及其周圍的融合核函式，則見[快閃注意力與融合核函式](flash-attention.zh-TW.md)。
 
 ## 微調方法
 
