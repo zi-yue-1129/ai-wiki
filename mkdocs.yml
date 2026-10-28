@@ -272,6 +272,7 @@ plugins:
             Evolution Strategies: 演化策略
             CMA-ES: CMA-ES
             Theory & Landscapes: 理論與損失地形
+            Sharpness-Aware Minimisation: 銳度感知最小化
             Reinforcement Learning: 強化學習
             Learning Paradigms: 學習範式
             Supervised Learning: 監督式學習
@@ -679,7 +680,9 @@ nav:
               - SPSA: theory/optimization/spsa.md
               - Evolution Strategies: theory/optimization/evolution-strategies.md
               - CMA-ES: theory/optimization/cma-es.md
-          - Theory & Landscapes: theory/optimization/theory-and-landscapes.md
+          - Theory & Landscapes:
+              - theory/optimization/theory-and-landscapes.md
+              - Sharpness-Aware Minimisation: theory/optimization/sharpness-aware-minimisation.md
       - Learning Paradigms:
           - theory/paradigms/index.md
           - Supervised Learning:
