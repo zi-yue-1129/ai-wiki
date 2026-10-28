@@ -37,6 +37,10 @@ For an input \(x\), the router computes a score for each expert, keeps the top \
 
 Sparse routing makes the layer hard to scale in practice. Experts must be placed on different accelerators, and each step must send tokens to the right expert and back, an all-to-all communication pattern. The cost of MoE is therefore paid partly in memory and communication rather than in arithmetic, which is why hardware and interconnect design matter for it.
 
+![Animated top-two expert routing: successive tokens activate different pairs of experts and return their outputs to a weighted merge node.](../../../assets/concept-animations/moe-top2-routing-motion.svg)
+
+*Original looping instructional animation, CC BY-SA 4.0.* The teal token selects E1 and E3; the amber token selects E2 and E4. Only the selected experts run for each token, then their outputs are combined using router-derived weights (the merge symbol is **not** an unweighted sum). This simplified four-expert illustration omits capacity limits, weight magnitudes and inter-device communications. The paths and colours are **schematic, not measured routing scores or model activations**. The [Mixtral paper](https://arxiv.org/abs/2401.04088) describes per-token top-two routing. On the wiki website, use **Pause animation** to inspect either state; a still version is displayed automatically when reduced motion is preferred.
+
 ## Key methods
 
 | Method | Contribution | Routing | Page |
