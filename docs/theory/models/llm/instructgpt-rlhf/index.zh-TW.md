@@ -73,12 +73,12 @@ PPO-ptx 的目標把獎勵與對監督模型的 KL 懲罰結合，並加上預�
 
 ### 開創性論文
 
-- Brown, T. B., et al. (2020), *Language Models are Few-Shot Learners*, arXiv:2005.14165 — The GPT-3 paper, the base model that InstructGPT fine-tunes.
-- Ouyang, L., et al. (2022), *Training language models to follow instructions with human feedback*, arXiv:2203.02155 — The InstructGPT paper, with the three-stage pipeline and the results above.
-- Christiano, P., et al. (2017), "Deep reinforcement learning from human preferences", arXiv:1706.03741 — The original method for learning a reward function from human comparisons.
-- Stiennon, N., et al. (2020), "Learning to summarize from human feedback", NeurIPS 2020, arXiv:2009.01325 — Applies the same pipeline to summarisation, with a reward model and PPO.
-- Schulman, J., et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — The PPO algorithm used for the policy step.
-- Rafailov, R., et al. (2023), "Direct preference optimization: your language model is secretly a reward model", NeurIPS 2023, arXiv:2305.18290 — Fits the policy to preference pairs directly, without a separate reward model.
+- Brown, T. B., et al. (2020), *Language Models are Few-Shot Learners*, [arXiv:2005.14165](https://arxiv.org/abs/2005.14165) — The GPT-3 paper, the base model that InstructGPT fine-tunes.
+- Ouyang, L., et al. (2022), *Training language models to follow instructions with human feedback*, [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — The InstructGPT paper, with the three-stage pipeline and the results above.
+- Christiano, P., et al. (2017), "Deep reinforcement learning from human preferences", [arXiv:1706.03741](https://arxiv.org/abs/1706.03741) — The original method for learning a reward function from human comparisons.
+- Stiennon, N., et al. (2020), "Learning to summarize from human feedback", NeurIPS 2020, [arXiv:2009.01325](https://arxiv.org/abs/2009.01325) — Applies the same pipeline to summarisation, with a reward model and PPO.
+- Schulman, J., et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The PPO algorithm used for the policy step.
+- Rafailov, R., et al. (2023), "Direct preference optimization: your language model is secretly a reward model", NeurIPS 2023, [arXiv:2305.18290](https://arxiv.org/abs/2305.18290) — Fits the policy to preference pairs directly, without a separate reward model.
 - Bradley, R. A. & Terry, M. E. (1952), "Rank analysis of incomplete block designs: I. The method of paired comparisons", *Biometrika* 39(3/4), 324. https://doi.org/10.2307/2334029 — The paired-comparison model that the reward model follows.
 
 ### 延伸學習

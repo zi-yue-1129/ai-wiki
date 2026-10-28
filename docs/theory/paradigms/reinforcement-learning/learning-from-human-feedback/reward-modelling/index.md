@@ -66,8 +66,8 @@ In the text setting, the policy is also penalised for a KL divergence from the s
 
 ### Seminal papers
 
-- Christiano et al. (2017), "Deep reinforcement learning from human preferences", arXiv:1706.03741 — Learns a reward predictor from human comparisons and trains reinforcement learning on it, with the Atari and MuJoCo results above.
-- Stiennon et al. (2020), "Learning to summarize from human feedback", NeurIPS 2020, arXiv:2009.01325 — Applies reward modelling and PPO to summarisation, and reports the over-optimisation result.
-- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", arXiv:2203.02155 — InstructGPT, which uses a reward model trained on labeller rankings.
+- Christiano et al. (2017), "Deep reinforcement learning from human preferences", [arXiv:1706.03741](https://arxiv.org/abs/1706.03741) — Learns a reward predictor from human comparisons and trains reinforcement learning on it, with the Atari and MuJoCo results above.
+- Stiennon et al. (2020), "Learning to summarize from human feedback", NeurIPS 2020, [arXiv:2009.01325](https://arxiv.org/abs/2009.01325) — Applies reward modelling and PPO to summarisation, and reports the over-optimisation result.
+- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — InstructGPT, which uses a reward model trained on labeller rankings.
 - Bradley & Terry (1952), "Rank analysis of incomplete block designs: I. The method of paired comparisons", *Biometrika* 39(3/4), 324. https://doi.org/10.2307/2334029 — The paired-comparison model behind the preference probability.
-- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — The policy-optimisation step used against the learned reward.
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The policy-optimisation step used against the learned reward.

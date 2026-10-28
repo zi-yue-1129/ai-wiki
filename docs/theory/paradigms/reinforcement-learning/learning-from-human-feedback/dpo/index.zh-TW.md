@@ -65,8 +65,8 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Rafailov et al. (2023), "Direct preference optimization: your language model is secretly a reward model", NeurIPS 2023, arXiv:2305.18290 — The DPO paper, with the loss, the closed-form derivation and the results above.
-- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", arXiv:2203.02155 — InstructGPT, the RLHF pipeline that DPO simplifies.
-- Christiano et al. (2017), "Deep reinforcement learning from human preferences", arXiv:1706.03741 — Learns reward functions from human comparisons, the basis of the reward model that DPO avoids.
-- Stiennon et al. (2020), "Learning to summarize from human feedback", NeurIPS 2020, arXiv:2009.01325 — Summarisation with a reward model and PPO, one of the baselines DPO is compared against.
+- Rafailov et al. (2023), "Direct preference optimization: your language model is secretly a reward model", NeurIPS 2023, [arXiv:2305.18290](https://arxiv.org/abs/2305.18290) — The DPO paper, with the loss, the closed-form derivation and the results above.
+- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — InstructGPT, the RLHF pipeline that DPO simplifies.
+- Christiano et al. (2017), "Deep reinforcement learning from human preferences", [arXiv:1706.03741](https://arxiv.org/abs/1706.03741) — Learns reward functions from human comparisons, the basis of the reward model that DPO avoids.
+- Stiennon et al. (2020), "Learning to summarize from human feedback", NeurIPS 2020, [arXiv:2009.01325](https://arxiv.org/abs/2009.01325) — Summarisation with a reward model and PPO, one of the baselines DPO is compared against.
 - Bradley & Terry (1952), "Rank analysis of incomplete block designs: I. The method of paired comparisons", *Biometrika* 39(3/4), 324. https://doi.org/10.2307/2334029 — The paired-comparison model used to derive the DPO loss.
