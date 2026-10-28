@@ -30,7 +30,7 @@ The LSTM replaces the plain recurrent unit with a memory cell built around a sel
 
 ![Original LSTM cell animation: an input gate writes a candidate to recurrent memory, the cell retains its state, and an output gate reads it.](../../../../../assets/concept-animations/lstm-write-retain-read.svg)
 
-*Original CC BY-SA 4.0 teaching animation of the **1997 two-gate LSTM**, without a later forget gate (Hochreiter & Schmidhuber, 1997; see References). Write, retain and read are separated to make their roles visible; in an actual cell the input and output gates can operate in the same time step. The state blocks are schematic, not measured activations. [Open the full-size animation](../../../../../assets/concept-animations/lstm-write-retain-read.svg); in the standalone SVG, hover or focus with the keyboard to pause. Reduced-motion settings disable the animation. GitHub may show a static fallback frame.*
+*Original CC BY-SA 4.0 teaching animation of the **1997 two-gate LSTM**, without a later forget gate (Hochreiter & Schmidhuber, 1997; see References). Write, retain and read are separated to make their roles visible; in an actual cell the input and output gates can operate in the same time step. The state blocks are schematic, not measured activations. [Open the full-size animation](../../../../../assets/concept-animations/lstm-write-retain-read.svg); in the standalone SVG, hover or focus with the keyboard to pause. On MkDocs, the keyboard-accessible **Play/Pause** control switches to the [static overview](../../../../../assets/concept-animations/lstm-write-retain-read-still.svg); reduced-motion settings show this overview initially. GitHub readers can open the same still image even if SVG motion is suppressed.*
 
 
 ## Equation or algorithm

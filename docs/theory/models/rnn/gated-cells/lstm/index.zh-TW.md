@@ -30,7 +30,7 @@ LSTM 以一個記憶單元取代原始的循環單元，這個記憶單元圍繞
 
 ![原始 LSTM 記憶單元動畫：輸入閘門寫入候選資訊，記憶狀態沿循環連線保留，輸出閘門再讀取資訊。](../../../../../assets/concept-animations/lstm-write-retain-read.svg)
 
-*原創教學動畫，採 CC BY-SA 4.0 授權。此圖對應 **1997 年的雙閘門 LSTM**，不包含後續變體才加入的遺忘閘門（Hochreiter 與 Schmidhuber，1997；參見參考文獻）。動畫為了教學而分開呈現寫入、保留與讀取；實際單元的輸入與輸出閘門可以在同一時間步運作。狀態方塊僅供示意，並非實測活化值。可[開啟原尺寸動畫](../../../../../assets/concept-animations/lstm-write-retain-read.svg)；獨立開啟 SVG 後，可用滑鼠停留或鍵盤聚焦暫停。系統偏好減少動態效果時，動畫會停止。GitHub 可能只顯示靜態回退畫面。*
+*原創教學動畫，採 CC BY-SA 4.0 授權。此圖對應 **1997 年的雙閘門 LSTM**，不包含後續變體才加入的遺忘閘門（Hochreiter 與 Schmidhuber，1997；參見參考文獻）。動畫為了教學而分開呈現寫入、保留與讀取；實際單元的輸入與輸出閘門可以在同一時間步運作。狀態方塊僅供示意，並非實測活化值。可[開啟原尺寸動畫](../../../../../assets/concept-animations/lstm-write-retain-read.svg)；獨立開啟 SVG 後，可用滑鼠停留或鍵盤聚焦暫停。MkDocs 提供可用鍵盤操作的**播放／暫停**控制，暫停時會顯示[靜態概覽](../../../../../assets/concept-animations/lstm-write-retain-read-still.svg)；啟用減少動態效果時預設顯示靜態概覽。即使 GitHub 不播放 SVG 動畫，也可直接查看此圖。*
 
 
 ## 方程式或演算法

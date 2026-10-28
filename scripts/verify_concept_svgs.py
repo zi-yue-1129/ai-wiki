@@ -50,12 +50,28 @@ def validate(name: str, page_stem: str) -> list[str]:
         problems.append(f"{name}: missing motion or reduced-motion fallback")
     if "animation-play-state:paused" not in data:
         problems.append(f"{name}: missing pause on keyboard focus / hover")
+    still_name = name.removesuffix('.svg') + '-still.svg'
+    still_path = ASSETS / still_name
+    if not still_path.is_file():
+        problems.append(f"{name}: missing GitHub-readable static overview {still_name}")
+    else:
+        try:
+            still_data = still_path.read_text(encoding='utf-8')
+            still_svg = ET.fromstring(still_data)
+            if still_svg.tag != SVG_NS + 'svg' or still_svg.find(SVG_NS + 'title') is None:
+                problems.append(f"{still_name}: invalid SVG or missing title")
+            if '@keyframes' in still_data or 'animation:' in still_data or '<script' in still_data:
+                problems.append(f"{still_name}: static fallback must not animate or execute scripts")
+        except (OSError, ET.ParseError) as exc:
+            problems.append(f"{still_name}: invalid static SVG: {exc}")
     for suffix in (".md", ".zh-TW.md"):
         page = ROOT / "docs" / (page_stem + suffix)
         if not page.is_file():
             problems.append(f"{name}: missing page {page}")
             continue
         content = page.read_text(encoding="utf-8")
+        if still_name not in content:
+            problems.append(f"{name}: missing static fallback link in {page}")
         link = "../../../../../assets/concept-animations/" + name
         if not re.search(r"!\[[^\]]+\]\(" + re.escape(link) + r"\)", content):
             problems.append(f"{name}: missing bilingual image in {page}")
