@@ -27,6 +27,15 @@ A continuous linear system \(x'(t)=Ax(t)+Bu(t)\), \(y(t)=Cx(t)\) is discretised 
 - [Structured state spaces](structured-state-spaces/index.md): how \(A\) is initialised and structured (HiPPO, diagonal forms) so that long-range memory is possible, as in S4, S5 and linear recurrent units.
 - [Selective state spaces](selective-state-spaces/index.md): input-dependent parameters that let the model decide what to keep, as in Mamba and Mamba-2.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| S4 | 2021 | A structured state matrix whose convolution kernel can be computed quickly | [S4](structured-state-spaces/s4/index.md) |
+| Mamba | 2023 | Input-dependent parameters with a hardware-aware parallel scan | [Mamba](selective-state-spaces/mamba/index.md) |
+
+S4 gives a long-memory state that trains as fast as a convolution. Mamba makes the parameters depend on the input, so the model can choose what to keep.
+
 ## Trade-offs
 
 - **Cost.** Recurrent inference needs constant memory per token, with no key–value cache, while attention grows with context length.

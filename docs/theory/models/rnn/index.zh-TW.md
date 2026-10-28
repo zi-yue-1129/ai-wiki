@@ -28,6 +28,15 @@ translation_reviewed: 2026-10-28
 - [門控單元](gated-cells/index.md)：原始單元、LSTM 與 GRU，以及它們的閘門如何控制記憶。
 - [序列模式](sequence-modes/index.md)：雙向處理、編碼器–解碼器配對、堆疊，以及訓練如何處理長序列。
 
+## 關鍵方法
+
+| 方法 | 年份 | 核心想法 | 頁面 |
+|---|---|---|---|
+| 長短期記憶（LSTM） | 1997 | 以加法更新的記憶單元，配合閘門控制寫入與讀取 | [LSTM](gated-cells/lstm/index.md) |
+| 序列到序列學習 | 2014 | 以編碼器 LSTM 與解碼器 LSTM 端到端地翻譯 | [序列到序列](sequence-modes/sequence-to-sequence/index.md) |
+
+LSTM 以門控記憶讓長程依賴變得可以學習。序列到序列模型則顯示，單一循環編碼器–解碼器可以端到端地翻譯。
+
 ## 取捨
 
 - **記憶體與串流。** 循環狀態的大小固定，因此 RNN 處理串流成本低，也不需要鍵值快取。
@@ -55,6 +64,7 @@ translation_reviewed: 2026-10-28
 - Hochreiter, S. & Schmidhuber, J. (1997). "Long Short-Term Memory". *Neural Computation* 9(8). https://doi.org/10.1162/neco.1997.9.8.1735 — LSTM，以加法更新的記憶單元解決梯度消失問題。
 - Bengio, Y., Simard, P. & Frasconi, P. (1994). "Learning long-term dependencies with gradient descent is difficult". *IEEE Transactions on Neural Networks* 5(2). https://doi.org/10.1109/72.279181 — 說明為何以梯度下降學習循環網路中的長程依賴很困難。
 - Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — 提出 GRU，以及用於序列到序列任務的編碼器–解碼器架構。
+- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. arXiv:1409.3215 — 以端到端的編碼器–解碼器 LSTM 進行機器翻譯。
 
 ### 綜述與教科書
 

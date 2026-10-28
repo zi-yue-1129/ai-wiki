@@ -25,6 +25,16 @@ The aggregation must be **permutation-invariant** (sum, mean, max, attention).
 
 How messages are formed and aggregated, and how deep the network can go before its node features blur together, are covered on the [message-passing](message-passing/index.md) page. It compares normalised convolution, neighbour sampling, attention, and the expressivity of sum-based aggregation.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| Graph convolutional networks (GCN) | 2016 | Degree-normalised neighbour averaging, a first-order spectral filter | [GCN](message-passing/gcn/index.md) |
+| Graph attention networks (GAT) | 2017 | Learned attention weights over neighbours | [GAT](message-passing/gat/index.md) |
+| Graph isomorphism networks (GIN) | 2018 | Sum aggregation with an MLP update, as expressive as the WL test | [GIN](message-passing/gin/index.md) |
+
+The three methods differ in how they weight neighbours: GCN uses fixed degree-based weights, GAT learns attention weights, and GIN sums neighbours with an MLP update.
+
 ## Representative models
 
 | Model | Character |
