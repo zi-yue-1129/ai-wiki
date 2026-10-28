@@ -57,6 +57,7 @@ flowchart TD
 - [工具呼叫與 Model Context Protocol](tool-calling-and-mcp/index.md)：工具定義與 JSON 結構描述、結構化輸出、Model Context Protocol，以及工具結果的處理與錯誤復原。
 - [沙箱與電腦操作代理人](sandboxing-and-computer-use/index.md)：程式執行沙箱、瀏覽器與 GUI 代理人、以螢幕截圖為基礎的電腦操作、權限模型，以及隔離副作用。
 - [多代理人編排](multi-agent-orchestration/index.md)：規劃者－工作者、辯論、角色式團隊與階層式委派，以及何時多個代理人勝過單一代理人。
+- [代理人評估](agent-evaluation/index.md)：SWE-bench、τ-bench 與 WebArena 等基準、作為可靠度指標的 pass@k 與 pass^k、成本調整後的回報，以及代理人基準的可重現性問題。
 
 ## 相關連結
 
