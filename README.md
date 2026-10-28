@@ -4,7 +4,7 @@
 
 **An open, comprehensive wiki of artificial intelligence.**
 
-Foundations · Models · Brain & Cognition · Applications · Engineering · Society
+Theory · Models · Brain & Cognition · Applications · Engineering · Society
 
 [![Deploy site](https://github.com/zi-yue-1129/ai-wiki/actions/workflows/deploy.yml/badge.svg)](https://github.com/zi-yue-1129/ai-wiki/actions/workflows/deploy.yml)
 [![Maintenance](https://github.com/zi-yue-1129/ai-wiki/actions/workflows/maintenance.yml/badge.svg)](https://github.com/zi-yue-1129/ai-wiki/actions/workflows/maintenance.yml)
@@ -31,8 +31,8 @@ The wiki is written in English and includes Traditional Chinese (繁體中文) t
 | | Section | What it covers |
 |:-:|---|---|
 | 🧭 | [**Start**](docs/start/index.md) | Learning paths, open-source resource survey, history of AI |
-| 📐 | [**Foundations**](docs/foundations/index.md) | Mathematics, machine learning, deep learning, reinforcement learning, probabilistic, symbolic, and evolutionary approaches |
-| 🤖 | [**Models**](docs/models/index.md) | Transformers, large language models, generative models, vision, NLP, speech, multimodal, graph neural networks, agents, world models |
+| 📐 | [**Theory**](docs/theory/index.md) | Mathematics, machine learning, deep learning, reinforcement learning, probabilistic, symbolic, and evolutionary approaches |
+| 🤖 | [**Models**](docs/theory/models/index.md) | Transformers, large language models, generative models, vision, NLP, speech, multimodal, graph neural networks, agents, world models |
 | 🧠 | [**Brain & Mind**](docs/brain-mind/index.md) | Neuroscience, computational neuroscience, NeuroAI, spiking neural networks, memory, cognitive science, psychology, consciousness, brain-computer interfaces |
 | 🏥 | [**Applications**](docs/applications/index.md) | AI in healthcare, science, education, finance, law, robotics, cybersecurity, agriculture, and more |
 | 🛠️ | [**Engineering**](docs/engineering/index.md) | Frameworks, data, training, prompting, RAG, evaluation, MLOps, hardware |

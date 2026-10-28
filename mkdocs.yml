@@ -53,6 +53,143 @@ plugins:
   # (overrides/partials/search.html, built by .github/workflows/deploy.yml).
   - material/search
   - tags
+  - redirects:
+      redirect_maps:
+        'foundations/deep-learning/index.md': 'theory/deep-learning/index.md'
+        'foundations/deep-learning/index.zh-TW.md': 'theory/deep-learning/index.zh-TW.md'
+        'foundations/evolutionary/index.md': 'theory/evolutionary/index.md'
+        'foundations/evolutionary/index.zh-TW.md': 'theory/evolutionary/index.zh-TW.md'
+        'foundations/index.md': 'theory/index.md'
+        'foundations/index.zh-TW.md': 'theory/index.zh-TW.md'
+        'foundations/information-theory/index.md': 'theory/information-theory/index.md'
+        'foundations/information-theory/index.zh-TW.md': 'theory/information-theory/index.zh-TW.md'
+        'foundations/machine-learning/index.md': 'theory/machine-learning/index.md'
+        'foundations/machine-learning/index.zh-TW.md': 'theory/machine-learning/index.zh-TW.md'
+        'foundations/math/index.md': 'theory/math/index.md'
+        'foundations/math/index.zh-TW.md': 'theory/math/index.zh-TW.md'
+        'foundations/paradigms/active/batch-and-diversity/index.md': 'theory/paradigms/active/batch-and-diversity/index.md'
+        'foundations/paradigms/active/deep-active-learning/index.md': 'theory/paradigms/active/deep-active-learning/index.md'
+        'foundations/paradigms/active/index.md': 'theory/paradigms/active/index.md'
+        'foundations/paradigms/active/index.zh-TW.md': 'theory/paradigms/active/index.zh-TW.md'
+        'foundations/paradigms/active/practice-and-labelling-cost/index.md': 'theory/paradigms/active/practice-and-labelling-cost/index.md'
+        'foundations/paradigms/active/theory-and-sample-complexity/index.md': 'theory/paradigms/active/theory-and-sample-complexity/index.md'
+        'foundations/paradigms/active/uncertainty-sampling/index.md': 'theory/paradigms/active/uncertainty-sampling/index.md'
+        'foundations/paradigms/continual/architecture-based/index.md': 'theory/paradigms/continual/architecture-based/index.md'
+        'foundations/paradigms/continual/evaluation-and-scenarios/index.md': 'theory/paradigms/continual/evaluation-and-scenarios/index.md'
+        'foundations/paradigms/continual/index.md': 'theory/paradigms/continual/index.md'
+        'foundations/paradigms/continual/index.zh-TW.md': 'theory/paradigms/continual/index.zh-TW.md'
+        'foundations/paradigms/continual/neuroscience-and-continual-learning/index.md': 'theory/paradigms/continual/neuroscience-and-continual-learning/index.md'
+        'foundations/paradigms/continual/regularisation-based/index.md': 'theory/paradigms/continual/regularisation-based/index.md'
+        'foundations/paradigms/continual/replay-and-memory/index.md': 'theory/paradigms/continual/replay-and-memory/index.md'
+        'foundations/paradigms/federated/communication-efficiency/index.md': 'theory/paradigms/federated/communication-efficiency/index.md'
+        'foundations/paradigms/federated/federated-averaging/index.md': 'theory/paradigms/federated/federated-averaging/index.md'
+        'foundations/paradigms/federated/heterogeneity-and-personalisation/index.md': 'theory/paradigms/federated/heterogeneity-and-personalisation/index.md'
+        'foundations/paradigms/federated/index.md': 'theory/paradigms/federated/index.md'
+        'foundations/paradigms/federated/index.zh-TW.md': 'theory/paradigms/federated/index.zh-TW.md'
+        'foundations/paradigms/federated/privacy-and-secure-aggregation/index.md': 'theory/paradigms/federated/privacy-and-secure-aggregation/index.md'
+        'foundations/paradigms/federated/vertical-and-cross-silo/index.md': 'theory/paradigms/federated/vertical-and-cross-silo/index.md'
+        'foundations/paradigms/imitation/adversarial-imitation/index.md': 'theory/paradigms/imitation/adversarial-imitation/index.md'
+        'foundations/paradigms/imitation/behavioural-cloning/index.md': 'theory/paradigms/imitation/behavioural-cloning/index.md'
+        'foundations/paradigms/imitation/index.md': 'theory/paradigms/imitation/index.md'
+        'foundations/paradigms/imitation/index.zh-TW.md': 'theory/paradigms/imitation/index.zh-TW.md'
+        'foundations/paradigms/imitation/interactive-imitation/index.md': 'theory/paradigms/imitation/interactive-imitation/index.md'
+        'foundations/paradigms/imitation/inverse-reinforcement-learning/index.md': 'theory/paradigms/imitation/inverse-reinforcement-learning/index.md'
+        'foundations/paradigms/index.md': 'theory/paradigms/index.md'
+        'foundations/paradigms/index.zh-TW.md': 'theory/paradigms/index.zh-TW.md'
+        'foundations/paradigms/meta-learning/benchmarks-and-foundation-models/index.md': 'theory/paradigms/meta-learning/benchmarks-and-foundation-models/index.md'
+        'foundations/paradigms/meta-learning/index.md': 'theory/paradigms/meta-learning/index.md'
+        'foundations/paradigms/meta-learning/index.zh-TW.md': 'theory/paradigms/meta-learning/index.zh-TW.md'
+        'foundations/paradigms/meta-learning/memory-and-model-based/index.md': 'theory/paradigms/meta-learning/memory-and-model-based/index.md'
+        'foundations/paradigms/meta-learning/meta-learning-theory/index.md': 'theory/paradigms/meta-learning/meta-learning-theory/index.md'
+        'foundations/paradigms/meta-learning/metric-based/index.md': 'theory/paradigms/meta-learning/metric-based/index.md'
+        'foundations/paradigms/meta-learning/optimisation-based/index.md': 'theory/paradigms/meta-learning/optimisation-based/index.md'
+        'foundations/paradigms/online/adversarial-and-experts/index.md': 'theory/paradigms/online/adversarial-and-experts/index.md'
+        'foundations/paradigms/online/contextual-bandits/index.md': 'theory/paradigms/online/contextual-bandits/index.md'
+        'foundations/paradigms/online/index.md': 'theory/paradigms/online/index.md'
+        'foundations/paradigms/online/index.zh-TW.md': 'theory/paradigms/online/index.zh-TW.md'
+        'foundations/paradigms/online/online-convex-optimisation/index.md': 'theory/paradigms/online/online-convex-optimisation/index.md'
+        'foundations/paradigms/online/stochastic-bandits/index.md': 'theory/paradigms/online/stochastic-bandits/index.md'
+        'foundations/paradigms/online/streaming-and-concept-drift/index.md': 'theory/paradigms/online/streaming-and-concept-drift/index.md'
+        'foundations/paradigms/other/index.md': 'theory/paradigms/other/index.md'
+        'foundations/paradigms/other/index.zh-TW.md': 'theory/paradigms/other/index.zh-TW.md'
+        'foundations/paradigms/reinforcement-learning/index.md': 'theory/paradigms/reinforcement-learning/index.md'
+        'foundations/paradigms/reinforcement-learning/index.zh-TW.md': 'theory/paradigms/reinforcement-learning/index.zh-TW.md'
+        'foundations/paradigms/reinforcement-learning/learning-from-human-feedback/index.md': 'theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md'
+        'foundations/paradigms/reinforcement-learning/model-based-rl/index.md': 'theory/paradigms/reinforcement-learning/model-based-rl/index.md'
+        'foundations/paradigms/reinforcement-learning/offline-rl/index.md': 'theory/paradigms/reinforcement-learning/offline-rl/index.md'
+        'foundations/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md': 'theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md'
+        'foundations/paradigms/reinforcement-learning/value-based-methods/index.md': 'theory/paradigms/reinforcement-learning/value-based-methods/index.md'
+        'foundations/paradigms/self-supervised/contrastive-learning/index.md': 'theory/paradigms/self-supervised/contrastive-learning/index.md'
+        'foundations/paradigms/self-supervised/index.md': 'theory/paradigms/self-supervised/index.md'
+        'foundations/paradigms/self-supervised/index.zh-TW.md': 'theory/paradigms/self-supervised/index.zh-TW.md'
+        'foundations/paradigms/self-supervised/masked-prediction/index.md': 'theory/paradigms/self-supervised/masked-prediction/index.md'
+        'foundations/paradigms/self-supervised/non-contrastive-methods/index.md': 'theory/paradigms/self-supervised/non-contrastive-methods/index.md'
+        'foundations/paradigms/self-supervised/pretext-tasks/index.md': 'theory/paradigms/self-supervised/pretext-tasks/index.md'
+        'foundations/paradigms/self-supervised/theory-and-evaluation/index.md': 'theory/paradigms/self-supervised/theory-and-evaluation/index.md'
+        'foundations/paradigms/semi-supervised/consistency-regularisation/index.md': 'theory/paradigms/semi-supervised/consistency-regularisation/index.md'
+        'foundations/paradigms/semi-supervised/graph-based-methods/index.md': 'theory/paradigms/semi-supervised/graph-based-methods/index.md'
+        'foundations/paradigms/semi-supervised/index.md': 'theory/paradigms/semi-supervised/index.md'
+        'foundations/paradigms/semi-supervised/index.zh-TW.md': 'theory/paradigms/semi-supervised/index.zh-TW.md'
+        'foundations/paradigms/semi-supervised/pseudo-labelling-and-self-training/index.md': 'theory/paradigms/semi-supervised/pseudo-labelling-and-self-training/index.md'
+        'foundations/paradigms/semi-supervised/theory-and-assumptions/index.md': 'theory/paradigms/semi-supervised/theory-and-assumptions/index.md'
+        'foundations/paradigms/semi-supervised/weak-and-programmatic-supervision/index.md': 'theory/paradigms/semi-supervised/weak-and-programmatic-supervision/index.md'
+        'foundations/paradigms/supervised/evaluation-and-validation/index.md': 'theory/paradigms/supervised/evaluation-and-validation/index.md'
+        'foundations/paradigms/supervised/evaluation-and-validation/index.zh-TW.md': 'theory/paradigms/supervised/evaluation-and-validation/index.zh-TW.md'
+        'foundations/paradigms/supervised/generalization-theory/index.md': 'theory/paradigms/supervised/generalization-theory/index.md'
+        'foundations/paradigms/supervised/generalization-theory/index.zh-TW.md': 'theory/paradigms/supervised/generalization-theory/index.zh-TW.md'
+        'foundations/paradigms/supervised/index.md': 'theory/paradigms/supervised/index.md'
+        'foundations/paradigms/supervised/index.zh-TW.md': 'theory/paradigms/supervised/index.zh-TW.md'
+        'foundations/paradigms/supervised/instance-based-and-probabilistic/index.md': 'theory/paradigms/supervised/instance-based-and-probabilistic/index.md'
+        'foundations/paradigms/supervised/instance-based-and-probabilistic/index.zh-TW.md': 'theory/paradigms/supervised/instance-based-and-probabilistic/index.zh-TW.md'
+        'foundations/paradigms/supervised/kernel-methods-svm/index.md': 'theory/paradigms/supervised/kernel-methods-svm/index.md'
+        'foundations/paradigms/supervised/kernel-methods-svm/index.zh-TW.md': 'theory/paradigms/supervised/kernel-methods-svm/index.zh-TW.md'
+        'foundations/paradigms/supervised/linear-models/index.md': 'theory/paradigms/supervised/linear-models/index.md'
+        'foundations/paradigms/supervised/linear-models/index.zh-TW.md': 'theory/paradigms/supervised/linear-models/index.zh-TW.md'
+        'foundations/paradigms/supervised/loss-functions-and-optimization/index.md': 'theory/paradigms/supervised/loss-functions-and-optimization/index.md'
+        'foundations/paradigms/supervised/loss-functions-and-optimization/index.zh-TW.md': 'theory/paradigms/supervised/loss-functions-and-optimization/index.zh-TW.md'
+        'foundations/paradigms/supervised/trees-and-ensembles/index.md': 'theory/paradigms/supervised/trees-and-ensembles/index.md'
+        'foundations/paradigms/supervised/trees-and-ensembles/index.zh-TW.md': 'theory/paradigms/supervised/trees-and-ensembles/index.zh-TW.md'
+        'foundations/paradigms/transfer/domain-adaptation/index.md': 'theory/paradigms/transfer/domain-adaptation/index.md'
+        'foundations/paradigms/transfer/fine-tuning-and-adaptation/index.md': 'theory/paradigms/transfer/fine-tuning-and-adaptation/index.md'
+        'foundations/paradigms/transfer/index.md': 'theory/paradigms/transfer/index.md'
+        'foundations/paradigms/transfer/index.zh-TW.md': 'theory/paradigms/transfer/index.zh-TW.md'
+        'foundations/paradigms/transfer/multi-task-learning/index.md': 'theory/paradigms/transfer/multi-task-learning/index.md'
+        'foundations/paradigms/transfer/sim-to-real/index.md': 'theory/paradigms/transfer/sim-to-real/index.md'
+        'foundations/paradigms/transfer/transfer-theory/index.md': 'theory/paradigms/transfer/transfer-theory/index.md'
+        'foundations/paradigms/unsupervised/anomaly-detection/index.md': 'theory/paradigms/unsupervised/anomaly-detection/index.md'
+        'foundations/paradigms/unsupervised/autoencoders-and-representations/index.md': 'theory/paradigms/unsupervised/autoencoders-and-representations/index.md'
+        'foundations/paradigms/unsupervised/clustering/index.md': 'theory/paradigms/unsupervised/clustering/index.md'
+        'foundations/paradigms/unsupervised/density-and-generative-models/index.md': 'theory/paradigms/unsupervised/density-and-generative-models/index.md'
+        'foundations/paradigms/unsupervised/dimensionality-reduction/index.md': 'theory/paradigms/unsupervised/dimensionality-reduction/index.md'
+        'foundations/paradigms/unsupervised/index.md': 'theory/paradigms/unsupervised/index.md'
+        'foundations/paradigms/unsupervised/index.zh-TW.md': 'theory/paradigms/unsupervised/index.zh-TW.md'
+        'foundations/probabilistic/index.md': 'theory/probabilistic/index.md'
+        'foundations/probabilistic/index.zh-TW.md': 'theory/probabilistic/index.zh-TW.md'
+        'foundations/symbolic-ai/index.md': 'theory/symbolic-ai/index.md'
+        'foundations/symbolic-ai/index.zh-TW.md': 'theory/symbolic-ai/index.zh-TW.md'
+        'models/agents/index.md': 'theory/models/agents/index.md'
+        'models/agents/index.zh-TW.md': 'theory/models/agents/index.zh-TW.md'
+        'models/computer-vision/index.md': 'theory/models/computer-vision/index.md'
+        'models/computer-vision/index.zh-TW.md': 'theory/models/computer-vision/index.zh-TW.md'
+        'models/generative/index.md': 'theory/models/generative/index.md'
+        'models/generative/index.zh-TW.md': 'theory/models/generative/index.zh-TW.md'
+        'models/gnn/index.md': 'theory/models/gnn/index.md'
+        'models/gnn/index.zh-TW.md': 'theory/models/gnn/index.zh-TW.md'
+        'models/index.md': 'theory/models/index.md'
+        'models/index.zh-TW.md': 'theory/models/index.zh-TW.md'
+        'models/llm/imitation-in-foundation-models/index.md': 'theory/models/llm/imitation-in-foundation-models/index.md'
+        'models/llm/index.md': 'theory/models/llm/index.md'
+        'models/llm/index.zh-TW.md': 'theory/models/llm/index.zh-TW.md'
+        'models/multimodal/index.md': 'theory/models/multimodal/index.md'
+        'models/multimodal/index.zh-TW.md': 'theory/models/multimodal/index.zh-TW.md'
+        'models/nlp/index.md': 'theory/models/nlp/index.md'
+        'models/nlp/index.zh-TW.md': 'theory/models/nlp/index.zh-TW.md'
+        'models/speech/index.md': 'theory/models/speech/index.md'
+        'models/speech/index.zh-TW.md': 'theory/models/speech/index.zh-TW.md'
+        'models/transformer/index.md': 'theory/models/transformer/index.md'
+        'models/transformer/index.zh-TW.md': 'theory/models/transformer/index.zh-TW.md'
+        'models/world-models/index.md': 'theory/models/world-models/index.md'
+        'models/world-models/index.zh-TW.md': 'theory/models/world-models/index.zh-TW.md'
   - i18n:
       docs_structure: suffix
       fallback_to_default: true
@@ -73,7 +210,7 @@ plugins:
             Learning Paths: 學習路線
             Open-Source Resource Survey: 開源資源調查
             History of AI: AI 發展史
-            Foundations: 基礎理論
+            Theory: 理論
             Mathematics: 數學基礎
             Information Theory: 資訊理論
             Machine Learning: 機器學習
@@ -211,117 +348,117 @@ nav:
       - Learning Paths: start/learning-paths/index.md
       - Open-Source Resource Survey: start/open-source-survey/index.md
       - History of AI: start/history/index.md
-  - Foundations:
-      - foundations/index.md
-      - Mathematics: foundations/math/index.md
-      - Information Theory: foundations/information-theory/index.md
-      - Machine Learning: foundations/machine-learning/index.md
-      - Deep Learning: foundations/deep-learning/index.md
+  - Theory:
+      - theory/index.md
+      - Mathematics: theory/math/index.md
+      - Information Theory: theory/information-theory/index.md
+      - Machine Learning: theory/machine-learning/index.md
+      - Deep Learning: theory/deep-learning/index.md
       - Learning Paradigms:
-          - foundations/paradigms/index.md
+          - theory/paradigms/index.md
           - Supervised Learning:
-              - foundations/paradigms/supervised/index.md
-              - Linear Models & GLMs: foundations/paradigms/supervised/linear-models/index.md
-              - Trees & Ensembles: foundations/paradigms/supervised/trees-and-ensembles/index.md
-              - Kernels & SVMs: foundations/paradigms/supervised/kernel-methods-svm/index.md
-              - kNN, Naive Bayes & Gaussian Processes: foundations/paradigms/supervised/instance-based-and-probabilistic/index.md
-              - Loss Functions & Optimisation: foundations/paradigms/supervised/loss-functions-and-optimization/index.md
-              - Generalisation Theory: foundations/paradigms/supervised/generalization-theory/index.md
-              - Evaluation & Validation: foundations/paradigms/supervised/evaluation-and-validation/index.md
+              - theory/paradigms/supervised/index.md
+              - Linear Models & GLMs: theory/paradigms/supervised/linear-models/index.md
+              - Trees & Ensembles: theory/paradigms/supervised/trees-and-ensembles/index.md
+              - Kernels & SVMs: theory/paradigms/supervised/kernel-methods-svm/index.md
+              - kNN, Naive Bayes & Gaussian Processes: theory/paradigms/supervised/instance-based-and-probabilistic/index.md
+              - Loss Functions & Optimisation: theory/paradigms/supervised/loss-functions-and-optimization/index.md
+              - Generalisation Theory: theory/paradigms/supervised/generalization-theory/index.md
+              - Evaluation & Validation: theory/paradigms/supervised/evaluation-and-validation/index.md
           - Unsupervised Learning:
-              - foundations/paradigms/unsupervised/index.md
-              - Clustering: foundations/paradigms/unsupervised/clustering/index.md
-              - Dimensionality Reduction: foundations/paradigms/unsupervised/dimensionality-reduction/index.md
-              - Density Estimation & Generative Models: foundations/paradigms/unsupervised/density-and-generative-models/index.md
-              - Autoencoders & Representations: foundations/paradigms/unsupervised/autoencoders-and-representations/index.md
-              - Anomaly Detection: foundations/paradigms/unsupervised/anomaly-detection/index.md
+              - theory/paradigms/unsupervised/index.md
+              - Clustering: theory/paradigms/unsupervised/clustering/index.md
+              - Dimensionality Reduction: theory/paradigms/unsupervised/dimensionality-reduction/index.md
+              - Density Estimation & Generative Models: theory/paradigms/unsupervised/density-and-generative-models/index.md
+              - Autoencoders & Representations: theory/paradigms/unsupervised/autoencoders-and-representations/index.md
+              - Anomaly Detection: theory/paradigms/unsupervised/anomaly-detection/index.md
           - Semi- & Weakly Supervised Learning:
-              - foundations/paradigms/semi-supervised/index.md
-              - Consistency Regularisation: foundations/paradigms/semi-supervised/consistency-regularisation/index.md
-              - Pseudo-Labelling & Self-Training: foundations/paradigms/semi-supervised/pseudo-labelling-and-self-training/index.md
-              - Graph-Based Methods: foundations/paradigms/semi-supervised/graph-based-methods/index.md
-              - Weak & Programmatic Supervision: foundations/paradigms/semi-supervised/weak-and-programmatic-supervision/index.md
-              - Theory & Assumptions: foundations/paradigms/semi-supervised/theory-and-assumptions/index.md
+              - theory/paradigms/semi-supervised/index.md
+              - Consistency Regularisation: theory/paradigms/semi-supervised/consistency-regularisation/index.md
+              - Pseudo-Labelling & Self-Training: theory/paradigms/semi-supervised/pseudo-labelling-and-self-training/index.md
+              - Graph-Based Methods: theory/paradigms/semi-supervised/graph-based-methods/index.md
+              - Weak & Programmatic Supervision: theory/paradigms/semi-supervised/weak-and-programmatic-supervision/index.md
+              - Theory & Assumptions: theory/paradigms/semi-supervised/theory-and-assumptions/index.md
           - Self-Supervised Learning:
-              - foundations/paradigms/self-supervised/index.md
-              - Contrastive Learning: foundations/paradigms/self-supervised/contrastive-learning/index.md
-              - Masked Prediction: foundations/paradigms/self-supervised/masked-prediction/index.md
-              - Non-Contrastive Methods: foundations/paradigms/self-supervised/non-contrastive-methods/index.md
-              - Pretext Tasks: foundations/paradigms/self-supervised/pretext-tasks/index.md
-              - Theory & Evaluation: foundations/paradigms/self-supervised/theory-and-evaluation/index.md
+              - theory/paradigms/self-supervised/index.md
+              - Contrastive Learning: theory/paradigms/self-supervised/contrastive-learning/index.md
+              - Masked Prediction: theory/paradigms/self-supervised/masked-prediction/index.md
+              - Non-Contrastive Methods: theory/paradigms/self-supervised/non-contrastive-methods/index.md
+              - Pretext Tasks: theory/paradigms/self-supervised/pretext-tasks/index.md
+              - Theory & Evaluation: theory/paradigms/self-supervised/theory-and-evaluation/index.md
           - Reinforcement Learning:
-              - foundations/paradigms/reinforcement-learning/index.md
-              - Value-Based Methods: foundations/paradigms/reinforcement-learning/value-based-methods/index.md
-              - Policy Gradient & Actor-Critic: foundations/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
-              - Model-Based RL: foundations/paradigms/reinforcement-learning/model-based-rl/index.md
-              - Offline RL: foundations/paradigms/reinforcement-learning/offline-rl/index.md
-              - Learning from Human Feedback: foundations/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
+              - theory/paradigms/reinforcement-learning/index.md
+              - Value-Based Methods: theory/paradigms/reinforcement-learning/value-based-methods/index.md
+              - Policy Gradient & Actor-Critic: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
+              - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
+              - Offline RL: theory/paradigms/reinforcement-learning/offline-rl/index.md
+              - Learning from Human Feedback: theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
           - Imitation Learning:
-              - foundations/paradigms/imitation/index.md
-              - Behavioural Cloning: foundations/paradigms/imitation/behavioural-cloning/index.md
-              - Interactive Imitation: foundations/paradigms/imitation/interactive-imitation/index.md
-              - Inverse Reinforcement Learning: foundations/paradigms/imitation/inverse-reinforcement-learning/index.md
-              - Adversarial Imitation: foundations/paradigms/imitation/adversarial-imitation/index.md
+              - theory/paradigms/imitation/index.md
+              - Behavioural Cloning: theory/paradigms/imitation/behavioural-cloning/index.md
+              - Interactive Imitation: theory/paradigms/imitation/interactive-imitation/index.md
+              - Inverse Reinforcement Learning: theory/paradigms/imitation/inverse-reinforcement-learning/index.md
+              - Adversarial Imitation: theory/paradigms/imitation/adversarial-imitation/index.md
           - Transfer Learning & Domain Adaptation:
-              - foundations/paradigms/transfer/index.md
-              - Fine-tuning & Adaptation: foundations/paradigms/transfer/fine-tuning-and-adaptation/index.md
-              - Domain Adaptation: foundations/paradigms/transfer/domain-adaptation/index.md
-              - Multi-task Learning: foundations/paradigms/transfer/multi-task-learning/index.md
-              - Sim-to-Real Transfer: foundations/paradigms/transfer/sim-to-real/index.md
-              - Transfer Theory: foundations/paradigms/transfer/transfer-theory/index.md
+              - theory/paradigms/transfer/index.md
+              - Fine-tuning & Adaptation: theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
+              - Domain Adaptation: theory/paradigms/transfer/domain-adaptation/index.md
+              - Multi-task Learning: theory/paradigms/transfer/multi-task-learning/index.md
+              - Sim-to-Real Transfer: theory/paradigms/transfer/sim-to-real/index.md
+              - Transfer Theory: theory/paradigms/transfer/transfer-theory/index.md
           - Meta-Learning & Few-Shot Learning:
-              - foundations/paradigms/meta-learning/index.md
-              - Optimisation-based: foundations/paradigms/meta-learning/optimisation-based/index.md
-              - Metric-based Few-shot: foundations/paradigms/meta-learning/metric-based/index.md
-              - Memory & Model-based: foundations/paradigms/meta-learning/memory-and-model-based/index.md
-              - Meta-learning Theory: foundations/paradigms/meta-learning/meta-learning-theory/index.md
-              - Benchmarks & Foundation Models: foundations/paradigms/meta-learning/benchmarks-and-foundation-models/index.md
+              - theory/paradigms/meta-learning/index.md
+              - Optimisation-based: theory/paradigms/meta-learning/optimisation-based/index.md
+              - Metric-based Few-shot: theory/paradigms/meta-learning/metric-based/index.md
+              - Memory & Model-based: theory/paradigms/meta-learning/memory-and-model-based/index.md
+              - Meta-learning Theory: theory/paradigms/meta-learning/meta-learning-theory/index.md
+              - Benchmarks & Foundation Models: theory/paradigms/meta-learning/benchmarks-and-foundation-models/index.md
           - Continual Learning:
-              - foundations/paradigms/continual/index.md
-              - Regularisation-based: foundations/paradigms/continual/regularisation-based/index.md
-              - Replay & Memory: foundations/paradigms/continual/replay-and-memory/index.md
-              - Architecture-based: foundations/paradigms/continual/architecture-based/index.md
-              - Evaluation & Scenarios: foundations/paradigms/continual/evaluation-and-scenarios/index.md
-              - Neuroscience & Continual Learning: foundations/paradigms/continual/neuroscience-and-continual-learning/index.md
+              - theory/paradigms/continual/index.md
+              - Regularisation-based: theory/paradigms/continual/regularisation-based/index.md
+              - Replay & Memory: theory/paradigms/continual/replay-and-memory/index.md
+              - Architecture-based: theory/paradigms/continual/architecture-based/index.md
+              - Evaluation & Scenarios: theory/paradigms/continual/evaluation-and-scenarios/index.md
+              - Neuroscience & Continual Learning: theory/paradigms/continual/neuroscience-and-continual-learning/index.md
           - Active Learning:
-              - foundations/paradigms/active/index.md
-              - Uncertainty Sampling: foundations/paradigms/active/uncertainty-sampling/index.md
-              - Batch & Diversity: foundations/paradigms/active/batch-and-diversity/index.md
-              - Theory & Sample Complexity: foundations/paradigms/active/theory-and-sample-complexity/index.md
-              - Deep Active Learning: foundations/paradigms/active/deep-active-learning/index.md
-              - Practice & Labelling Cost: foundations/paradigms/active/practice-and-labelling-cost/index.md
+              - theory/paradigms/active/index.md
+              - Uncertainty Sampling: theory/paradigms/active/uncertainty-sampling/index.md
+              - Batch & Diversity: theory/paradigms/active/batch-and-diversity/index.md
+              - Theory & Sample Complexity: theory/paradigms/active/theory-and-sample-complexity/index.md
+              - Deep Active Learning: theory/paradigms/active/deep-active-learning/index.md
+              - Practice & Labelling Cost: theory/paradigms/active/practice-and-labelling-cost/index.md
           - Online Learning & Bandits:
-              - foundations/paradigms/online/index.md
-              - Online Convex Optimisation: foundations/paradigms/online/online-convex-optimisation/index.md
-              - Stochastic Bandits: foundations/paradigms/online/stochastic-bandits/index.md
-              - Contextual Bandits: foundations/paradigms/online/contextual-bandits/index.md
-              - Adversarial & Expert Advice: foundations/paradigms/online/adversarial-and-experts/index.md
-              - Streaming & Concept Drift: foundations/paradigms/online/streaming-and-concept-drift/index.md
+              - theory/paradigms/online/index.md
+              - Online Convex Optimisation: theory/paradigms/online/online-convex-optimisation/index.md
+              - Stochastic Bandits: theory/paradigms/online/stochastic-bandits/index.md
+              - Contextual Bandits: theory/paradigms/online/contextual-bandits/index.md
+              - Adversarial & Expert Advice: theory/paradigms/online/adversarial-and-experts/index.md
+              - Streaming & Concept Drift: theory/paradigms/online/streaming-and-concept-drift/index.md
           - Federated & Privacy-Preserving Learning:
-              - foundations/paradigms/federated/index.md
-              - Federated Averaging: foundations/paradigms/federated/federated-averaging/index.md
-              - Heterogeneity & Personalisation: foundations/paradigms/federated/heterogeneity-and-personalisation/index.md
-              - Privacy & Secure Aggregation: foundations/paradigms/federated/privacy-and-secure-aggregation/index.md
-              - Communication Efficiency: foundations/paradigms/federated/communication-efficiency/index.md
-              - Vertical & Cross-silo: foundations/paradigms/federated/vertical-and-cross-silo/index.md
-          - Other Paradigms: foundations/paradigms/other/index.md
-      - Probabilistic & Bayesian Methods: foundations/probabilistic/index.md
-      - Symbolic AI, Search & Planning: foundations/symbolic-ai/index.md
-      - Evolutionary & Swarm Intelligence: foundations/evolutionary/index.md
-  - Models:
-      - models/index.md
-      - Transformers & Attention: models/transformer/index.md
-      - Large Language Models:
-          - models/llm/index.md
-          - Imitation in Foundation Models: models/llm/imitation-in-foundation-models/index.md
-      - Generative Models: models/generative/index.md
-      - Computer Vision: models/computer-vision/index.md
-      - Natural Language Processing: models/nlp/index.md
-      - Speech & Audio: models/speech/index.md
-      - Multimodal Models: models/multimodal/index.md
-      - Graph Neural Networks: models/gnn/index.md
-      - AI Agents: models/agents/index.md
-      - World Models & Embodied AI: models/world-models/index.md
+              - theory/paradigms/federated/index.md
+              - Federated Averaging: theory/paradigms/federated/federated-averaging/index.md
+              - Heterogeneity & Personalisation: theory/paradigms/federated/heterogeneity-and-personalisation/index.md
+              - Privacy & Secure Aggregation: theory/paradigms/federated/privacy-and-secure-aggregation/index.md
+              - Communication Efficiency: theory/paradigms/federated/communication-efficiency/index.md
+              - Vertical & Cross-silo: theory/paradigms/federated/vertical-and-cross-silo/index.md
+          - Other Paradigms: theory/paradigms/other/index.md
+      - Probabilistic & Bayesian Methods: theory/probabilistic/index.md
+      - Symbolic AI, Search & Planning: theory/symbolic-ai/index.md
+      - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
+      - Models:
+          - theory/models/index.md
+          - Transformers & Attention: theory/models/transformer/index.md
+          - Large Language Models:
+              - theory/models/llm/index.md
+              - Imitation in Foundation Models: theory/models/llm/imitation-in-foundation-models/index.md
+          - Generative Models: theory/models/generative/index.md
+          - Computer Vision: theory/models/computer-vision/index.md
+          - Natural Language Processing: theory/models/nlp/index.md
+          - Speech & Audio: theory/models/speech/index.md
+          - Multimodal Models: theory/models/multimodal/index.md
+          - Graph Neural Networks: theory/models/gnn/index.md
+          - AI Agents: theory/models/agents/index.md
+          - World Models & Embodied AI: theory/models/world-models/index.md
   - Brain & Mind:
       - brain-mind/index.md
       - Neuroscience Basics: brain-mind/neuroscience/index.md

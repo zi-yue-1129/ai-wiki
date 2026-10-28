@@ -24,12 +24,12 @@ Each box is a section. A line joins two sections whose pages link to each other,
 
 <div class="grid cards" markdown>
 
--   :material-sigma: **[Foundations](foundations/index.md)**
+-   :material-sigma: **[Theory](theory/index.md)**
 
     ---
     Mathematics, machine learning, deep learning, reinforcement learning, probabilistic models, symbolic AI, evolutionary computation.
 
--   :material-cube-outline: **[Models](models/index.md)**
+-   :material-cube-outline: **[Models](theory/models/index.md)**
 
     ---
     Transformers, LLMs, diffusion, computer vision, NLP, speech, multimodal models, GNNs, agents, world models.

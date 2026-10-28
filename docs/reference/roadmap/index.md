@@ -19,7 +19,7 @@ To pick something up, see [Contributing](../contributing/index.md).
 
 Topics that do not have a page yet. Tick a box (in the same PR) when its page is merged. Rough priority: ★★★ core, ★★ important, ★ nice to have.
 
-### Foundations
+### Theory
 
 - [ ] ★★★ Optimization (gradient descent variants, convexity, loss landscapes)
 - [x] ★★★ Information theory for ML (entropy, KL divergence, mutual information)
@@ -30,7 +30,7 @@ Topics that do not have a page yet. Tick a box (in the same PR) when its page is
 - [ ] ★★ Continual, meta- and transfer learning
 - [ ] ★ Federated and privacy-preserving learning
 
-### Models & Techniques
+### Models
 
 - [ ] ★★★ Convolutional neural networks
 - [ ] ★★★ Recurrent networks and LSTMs

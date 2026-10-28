@@ -3,7 +3,7 @@ related:
 - brain-mind/psychology
 - brain-mind/cognitive-architectures
 - brain-mind/memory-learning
-- models/llm
+- theory/models/llm
 ---
 
 # Education

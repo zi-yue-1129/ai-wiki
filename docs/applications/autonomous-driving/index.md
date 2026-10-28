@@ -1,8 +1,8 @@
 ---
 related:
-- models/computer-vision
-- models/world-models
-- foundations/paradigms/imitation
+- theory/models/computer-vision
+- theory/models/world-models
+- theory/paradigms/imitation
 - applications/robotics
 ---
 

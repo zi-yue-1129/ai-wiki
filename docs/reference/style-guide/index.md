@@ -19,7 +19,7 @@ Pages are organised as a tree of folders that can grow as deep as a topic needs:
 
 ```text
 docs/
-  <section>/                 e.g. models/
+  <section>/                 e.g. theory/
     index.md                 section overview
     <topic>/                 e.g. llm/
       index.md               topic overview
@@ -30,18 +30,19 @@ docs/
 ```
 
 - Every topic gets its own folder with an `index.md` overview (and `index.zh-TW.md`), even before it has sub-pages. The overview links to its children.
-- Some sections group topics one level deeper, e.g. `foundations/paradigms/<paradigm>/index.md`.
+- Some sections group topics one level deeper, e.g. `theory/paradigms/<paradigm>/index.md`.
 - When a page grows sub-pages, turn `<subtopic>.md` into `<subtopic>/index.md` and move its translation along with it.
 - File and folder names are lowercase English with hyphens.
+- When you move or rename a page, add its old and new paths to `redirect_maps` in `mkdocs.yml`, so existing links keep working.
 
-## Foundations or Models?
+## Theory or models?
 
-Both sections touch the same techniques, so decide by what the page is about:
+Models is a subsection of Theory, so both kinds of page live under `docs/theory/`. Decide by what the page is about:
 
-- **Foundations** explains *how* something works in general: mathematics, learning signals, learning theory, inference. A foundations page should still make sense if its network were swapped for another one.
-- **Models** explains *what* a concrete model or system is and where it is used: a named family such as transformers or diffusion models, or a system built from them such as an LLM or an agent.
+- **Theory** (`theory/<topic>/`) explains *how* something works in general: mathematics, learning signals, learning theory, inference. A theory page should still make sense if its network were swapped for another one.
+- **Models** (`theory/models/<topic>/`) explains *what* a concrete model or system is and where it is used: a named family such as transformers or diffusion models, or a system built from them such as an LLM or an agent.
 
-When a technique belongs to both, put the theory in Foundations and the model-specific application in Models, and link the two with `related:`. Don't repeat the same material in both sections.
+When a technique belongs to both, put the theory in Theory and the model-specific application in Models, and link the two with `related:`. Don't repeat the same material in both sections.
 
 ## Audience and tone
 

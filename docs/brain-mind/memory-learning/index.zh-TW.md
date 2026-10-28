@@ -54,7 +54,7 @@ McClelland、McNaughton 與 O'Reilly（1995）解釋了*為什麼*需要兩個�
 - **新皮質**用重疊、分散的編碼緩慢學習，萃取統計結構
 - 若皮質學得太快，會產生**災難性干擾**；因此由海馬迴**交錯重播**新舊記憶來訓練皮質
 
-這是深度強化學習中**經驗重播**、以及重播式[持續學習](../../foundations/paradigms/continual/index.md)的概念根源。Kumaran、Hassabis 與 McClelland（2016）為深度學習時代更新了這個理論。
+這是深度強化學習中**經驗重播**、以及重播式[持續學習](../../theory/paradigms/continual/index.md)的概念根源。Kumaran、Hassabis 與 McClelland（2016）為深度學習時代更新了這個理論。
 
 ## 遺忘是一種功能
 
@@ -67,7 +67,7 @@ McClelland、McNaughton 與 O'Reilly（1995）解釋了*為什麼*需要兩個�
 
 - **齒狀回**做模式分離（讓相似的輸入變得不同）
 - **CA3** 的遞迴側枝做模式完成（從線索取回完整記憶）——類 Hopfield 的**自聯想記憶**
-- 現代 Hopfield 網路把這點和 Transformer 的注意力連在一起（見 [Transformer](../../models/transformer/index.md)）
+- 現代 Hopfield 網路把這點和 Transformer 的注意力連在一起（見 [Transformer](../../theory/models/transformer/index.md)）
 
 ## 給 AI 系統的記憶設計啟示
 

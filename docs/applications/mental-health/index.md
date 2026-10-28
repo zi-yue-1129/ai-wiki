@@ -1,7 +1,7 @@
 ---
 related:
 - brain-mind/psychology
-- foundations/probabilistic
+- theory/probabilistic
 - applications/healthcare
 - society/ethics
 ---
@@ -22,7 +22,7 @@ related:
 
 ## Computational psychiatry
 
-Uses the models of [reinforcement learning](../../foundations/paradigms/reinforcement-learning/index.md) and [Bayesian inference](../../foundations/probabilistic/index.md) to describe how cognition goes awry:
+Uses the models of [reinforcement learning](../../theory/paradigms/reinforcement-learning/index.md) and [Bayesian inference](../../theory/probabilistic/index.md) to describe how cognition goes awry:
 
 - **Depression**: reduced reward sensitivity or learning rate; pessimistic priors; altered exploration
 - **Anxiety**: overestimating threat probability; intolerance of uncertainty

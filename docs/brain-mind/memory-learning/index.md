@@ -57,7 +57,7 @@ McClelland, McNaughton & O'Reilly (1995) explained *why* two systems exist:
 - The **neocortex** learns slowly with overlapping, distributed codes, extracting statistical structure
 - Fast learning in the cortex would cause **catastrophic interference**; instead, the hippocampus **interleaves** replay of old and new memories to train the cortex
 
-This is the conceptual root of **experience replay** in deep RL and of replay-based [continual learning](../../foundations/paradigms/continual/index.md). Kumaran, Hassabis & McClelland (2016) updated the theory for the deep-learning era.
+This is the conceptual root of **experience replay** in deep RL and of replay-based [continual learning](../../theory/paradigms/continual/index.md). Kumaran, Hassabis & McClelland (2016) updated the theory for the deep-learning era.
 
 ## Forgetting is a feature
 
@@ -70,7 +70,7 @@ This is the conceptual root of **experience replay** in deep RL and of replay-ba
 
 - **Dentate gyrus** performs pattern separation (making similar inputs distinct)
 - **CA3** recurrent collaterals perform pattern completion (retrieving a whole memory from a cue) — a Hopfield-like **autoassociative memory**
-- Modern Hopfield networks connect this to Transformer attention (see [Transformers](../../models/transformer/index.md))
+- Modern Hopfield networks connect this to Transformer attention (see [Transformers](../../theory/models/transformer/index.md))
 
 ## Memory in AI systems: design lessons
 

@@ -1,6 +1,6 @@
 ---
 related:
-- models/llm
+- theory/models/llm
 - brain-mind/memory-learning
 - applications/law
 - engineering/evaluation

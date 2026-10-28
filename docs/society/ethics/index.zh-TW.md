@@ -44,7 +44,7 @@
 - 從看似無害的資料推斷敏感屬性
 - 監控：公共場所的臉部辨識（歐盟 AI 法有所限制）
 - 權利：GDPR 的查閱、刪除與拒絕權；從已訓練模型中「遺忘」的困難
-- 技術：[聯邦式學習、差分隱私](../../foundations/paradigms/federated/index.md)
+- 技術：[聯邦式學習、差分隱私](../../theory/paradigms/federated/index.md)
 
 ## 問責與透明
 

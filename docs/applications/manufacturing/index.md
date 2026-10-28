@@ -1,6 +1,6 @@
 ---
 related:
-- models/computer-vision
+- theory/models/computer-vision
 - applications/robotics
 - engineering/hardware
 - brain-mind/snn-neuromorphic

@@ -3,7 +3,7 @@ related:
 - brain-mind/psychology
 - society/economics
 - society/ethics
-- models/agents
+- theory/models/agents
 ---
 
 # Social Sciences & Humanities

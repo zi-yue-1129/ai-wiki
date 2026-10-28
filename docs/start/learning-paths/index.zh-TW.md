@@ -5,9 +5,9 @@
 ## 路線 A：零基礎、想全面理解 AI
 
 1. [什麼是 AI](../index.md) → [AI 發展史](../history/index.md)
-2. [機器學習](../../foundations/machine-learning/index.md)（先讀直覺部分，跳過公式）
-3. [深度學習](../../foundations/deep-learning/index.md)
-4. [大型語言模型](../../models/llm/index.md) → [提示工程](../../engineering/prompting/index.md)
+2. [機器學習](../../theory/machine-learning/index.md)（先讀直覺部分，跳過公式）
+3. [深度學習](../../theory/deep-learning/index.md)
+4. [大型語言模型](../../theory/models/llm/index.md) → [提示工程](../../engineering/prompting/index.md)
 5. 挑兩個你有興趣的 [領域應用](../../applications/index.md)
 6. [AI 安全與對齊](../../society/safety-alignment/index.md)、[倫理與公平](../../society/ethics/index.md)
 
@@ -15,31 +15,31 @@
 
 ## 路線 B：軟體工程師 → AI 工程師
 
-1. [數學基礎](../../foundations/math/index.md)（線性代數、機率、最佳化即可）
-2. [機器學習](../../foundations/machine-learning/index.md) → [深度學習](../../foundations/deep-learning/index.md)
-3. [Transformer](../../models/transformer/index.md) → [大型語言模型](../../models/llm/index.md)
+1. [數學基礎](../../theory/math/index.md)（線性代數、機率、最佳化即可）
+2. [機器學習](../../theory/machine-learning/index.md) → [深度學習](../../theory/deep-learning/index.md)
+3. [Transformer](../../theory/models/transformer/index.md) → [大型語言模型](../../theory/models/llm/index.md)
 4. [框架與工具](../../engineering/frameworks/index.md) → [訓練與微調](../../engineering/training/index.md)
-5. [RAG](../../engineering/rag/index.md) → [AI 代理人](../../models/agents/index.md)
+5. [RAG](../../engineering/rag/index.md) → [AI 代理人](../../theory/models/agents/index.md)
 6. [評估與基準](../../engineering/evaluation/index.md) → [MLOps 與部署](../../engineering/mlops/index.md)
 
 **實作里程碑**：用 PyTorch 從零訓練 MNIST → 用 nanoGPT 訓練小型語言模型 → 用 LoRA 微調開源 LLM → 做一個有工具呼叫的 RAG 代理人並建立評估集。
 
 ## 路線 C：研究者（ML 理論與前沿）
 
-1. [數學基礎](../../foundations/math/index.md)（含資訊理論、凸最佳化）
-2. [機率圖模型與貝氏方法](../../foundations/probabilistic/index.md)
-3. [深度學習](../../foundations/deep-learning/index.md) 的理論段落（泛化、雙下降、縮放定律）
-4. [生成模型](../../models/generative/index.md)（擴散、流匹配）
-5. [強化學習](../../foundations/paradigms/reinforcement-learning/index.md) → [世界模型](../../models/world-models/index.md)
+1. [數學基礎](../../theory/math/index.md)（含資訊理論、凸最佳化）
+2. [機率圖模型與貝氏方法](../../theory/probabilistic/index.md)
+3. [深度學習](../../theory/deep-learning/index.md) 的理論段落（泛化、雙下降、縮放定律）
+4. [生成模型](../../theory/models/generative/index.md)（擴散、流匹配）
+5. [強化學習](../../theory/paradigms/reinforcement-learning/index.md) → [世界模型](../../theory/models/world-models/index.md)
 6. [可解釋性](../../society/interpretability/index.md) → [AI 安全與對齊](../../society/safety-alignment/index.md)
 7. [經典論文](../../reference/papers/index.md)
 
 ## 路線 D：腦科學、神經科學、心理學背景 → AI
 
-1. [機器學習](../../foundations/machine-learning/index.md) 與 [深度學習](../../foundations/deep-learning/index.md)：把神經網路當作「極度簡化的神經元模型」理解
+1. [機器學習](../../theory/machine-learning/index.md) 與 [深度學習](../../theory/deep-learning/index.md)：把神經網路當作「極度簡化的神經元模型」理解
 2. [計算神經科學](../../brain-mind/computational-neuroscience/index.md)：你熟悉的領域如何形式化
 3. [NeuroAI](../../brain-mind/neuroai/index.md)：深度網路作為大腦模型、大腦作為 AI 靈感
-4. [強化學習](../../foundations/paradigms/reinforcement-learning/index.md)：多巴胺與時序差分學習
+4. [強化學習](../../theory/paradigms/reinforcement-learning/index.md)：多巴胺與時序差分學習
 5. [脈衝神經網路與神經形態運算](../../brain-mind/snn-neuromorphic/index.md)
 6. [認知架構](../../brain-mind/cognitive-architectures/index.md)、[心理學與 AI](../../brain-mind/psychology/index.md)
 7. [腦機介面與神經解碼](../../brain-mind/bci/index.md)
@@ -55,7 +55,7 @@
 
 ## 路線 F：各產業從業者
 
-1. [什麼是 AI](../index.md) → [大型語言模型](../../models/llm/index.md) → [提示工程](../../engineering/prompting/index.md)
+1. [什麼是 AI](../index.md) → [大型語言模型](../../theory/models/llm/index.md) → [提示工程](../../engineering/prompting/index.md)
 2. 你所在的 [領域應用](../../applications/index.md) 頁面
 3. [RAG](../../engineering/rag/index.md)（把企業知識接上 LLM）
 4. [法規與治理](../../society/governance/index.md)、[倫理與公平](../../society/ethics/index.md)
