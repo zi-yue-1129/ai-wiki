@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # L-BFGS
@@ -26,6 +26,11 @@ BFGS 方法依據觀察到的梯度變化，建構 Hessian 逆的近似。完整
 4. 令 $\theta_{k+1} = \theta_k + \alpha_k d_k$，計算 $s_k$ 與 $y_k$，並只保留最近的 $m$ 對。
 
 記憶參數 $m$ 通常很小，它在近似品質與儲存空間之間做取捨。
+
+![L-BFGS 雙迴圈遞迴動畫：保存近期曲率對、由新到舊反向掃描、以 H-zero 縮放，再由舊到新正向掃描。](../../assets/concept-animations/lbfgs-two-loop-motion.svg)
+
+*原創四階段教學動畫，CC BY-SA 4.0。* 三組 \((s_i,y_i)\) 卡片是**有限記憶歷史的示意**，不是最佳化過程的實測數值。第一個迴圈由新到舊使用曲率對轉換 \(q\)，接著以初始逆 Hessian 縮放 \(H_0\) 取得 \(r\)，第二個迴圈再由舊到新掃描，最後得到供線搜尋使用的下降方向 \(d=-r\)。圖中刻意省略實際遞迴必需的係數 \(\alpha_i,\beta_i\)；這是運算順序示意，**不是**完整數值演算法。MkDocs 支援播放／暫停及減少動態效果回退；GitHub 可檢視[四階段靜態概覽](../../assets/concept-animations/lbfgs-two-loop-still.svg)。
+
 
 ## 結果
 

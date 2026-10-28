@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # 銳度感知最小化（SAM）
@@ -41,6 +41,11 @@ g = \nabla_w L_B\big(w + \hat\varepsilon(w)\big).
 以 SGD 為基礎最佳化器時，更新式為 \(w_{t+1} = w_t - \eta\, g\)，其中 \(g\) 在小批次 \(B\) 上計算。因此每一步需要兩次梯度評估，一次在 \(w\)，一次在 \(w + \hat\varepsilon(w)\)。
 
 論文建議預設值 \(\rho = 0.05\)，論文稱之為「相當好的預設值」，並在所有 ImageNet 實驗中採用。
+
+![SAM 四階段動畫：先在原始權重求梯度，沿上升方向擾動，在擾動點重新求梯度，再從原始權重更新。](../../assets/concept-animations/sam-two-gradient-motion.svg)
+
+*原創四階段教學動畫，CC BY-SA 4.0。* 藍點代表原始參數 \(w\)，橘點代表一階近似的上升擾動 \(w+\hat\varepsilon\)。第二次梯度計算發生在**擾動後的參數點**，但基礎最佳化器仍然**從原始 \(w\) 更新**，而非從擾動點更新。等高線、箭頭方向及長度皆為教學示意，並非實測訓練資料，也不代表擾動點就是內層最大化的精確解。MkDocs 網站提供播放／暫停與減少動態效果回退；GitHub 可檢視[四階段靜態概覽](../../assets/concept-animations/sam-two-gradient-still.svg)。
+
 
 ## 關鍵方法
 
