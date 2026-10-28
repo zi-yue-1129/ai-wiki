@@ -824,6 +824,11 @@ plugins:
             ColBERT: ColBERT
             Indirect Prompt Injection: 間接提示注入
             Universal Adversarial Suffixes: 通用對抗後綴
+            Jailbreaks & Red-Teaming: 越獄與紅隊測試
+            Guardrails: 護欄與輸出過濾
+            Data Poisoning: 資料投毒
+            Model Extraction: 模型萃取
+            Watermarking: 模型輸出浮水印
             LLM Application Security: LLM 應用安全
             Agent Engineering: 代理工程
             Tool Calling & MCP: 工具呼叫與 MCP
@@ -843,12 +848,15 @@ plugins:
             Prompt Engineering: 提示工程
             Retrieval-Augmented Generation: 檢索增強生成 RAG
             Evaluation & Benchmarks: 評估與基準
+            Benchmark Suites: 基準套件
+            HELM (Liang et al. 2022): HELM（Liang 等人，2022）
             Inference Optimization: 推論最佳化
             Orca: Orca
             PagedAttention and vLLM: PagedAttention 與 vLLM
             Speculative Decoding: 推測式解碼
             Multi-Query Attention: 多查詢注意力
             Grouped-Query Attention: 分組查詢注意力
+            Fused Kernels: 融合核心
             MLOps & Deployment: MLOps 與部署
             AI Coding Assistants: AI 程式助手
             AI Hardware: AI 硬體
@@ -1792,6 +1800,11 @@ nav:
           - engineering/llm-security/index.md
           - Indirect Prompt Injection: engineering/llm-security/indirect-prompt-injection.md
           - Universal Adversarial Suffixes: engineering/llm-security/universal-adversarial-suffixes.md
+          - Jailbreaks & Red-Teaming: engineering/llm-security/jailbreaks-and-red-teaming.md
+          - Guardrails: engineering/llm-security/guardrails.md
+          - Data Poisoning: engineering/llm-security/data-poisoning.md
+          - Model Extraction: engineering/llm-security/model-extraction.md
+          - Watermarking: engineering/llm-security/watermarking.md
       - Synthetic Data:
           - engineering/synthetic-data/index.md
           - Self-Instruct: engineering/synthetic-data/self-instruct.md
@@ -1812,7 +1825,10 @@ nav:
           - Toolformer (Schick et al. 2023): engineering/agents/toolformer.md
           - Voyager (Wang et al. 2023): engineering/agents/voyager.md
           - SWE-agent (Yang et al. 2024): engineering/agents/swe-agent.md
-      - Evaluation & Benchmarks: engineering/evaluation/index.md
+      - Evaluation & Benchmarks:
+          - engineering/evaluation/index.md
+          - Benchmark Suites: engineering/evaluation/benchmark-suites.md
+          - HELM (Liang et al. 2022): engineering/evaluation/helm.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md
           - Orca: engineering/inference-optimization/orca.md
@@ -1820,6 +1836,7 @@ nav:
           - Speculative Decoding: engineering/inference-optimization/speculative-decoding.md
           - Multi-Query Attention: engineering/inference-optimization/multi-query-attention.md
           - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
+          - Fused Kernels: engineering/inference-optimization/fused-kernels.md
       - MLOps & Deployment: engineering/mlops/index.md
       - AI Coding Assistants: engineering/coding-assistants/index.md
       - AI Hardware:

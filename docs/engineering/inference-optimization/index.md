@@ -57,6 +57,8 @@ Each named method has its own page, which gives the problem, the core idea, the 
 | Multi-query attention | Each head keeps its own large KV cache | One shared key and value head for all queries | Some loss of quality | [Multi-query attention](multi-query-attention.md) |
 | Grouped-query attention | Multi-query attention can lose too much quality | Groups of query heads share one key-value head | Cache is larger than multi-query | [Grouped-query attention](grouped-query-attention.md) |
 
+Kernel-level fusion, which cuts memory traffic inside a single layer, is covered in [Fused kernels](fused-kernels.md).
+
 ## Connections
 
 - The KV cache itself is explained in [Transformer KV cache](../../theory/models/transformer/kv-cache/index.md); this page covers how serving systems manage it.

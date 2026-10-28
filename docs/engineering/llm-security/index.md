@@ -51,6 +51,8 @@ Each method has its own page. This section compares them and points to the detai
 
 The first two are injection and jailbreak methods that matter for applications built on tools and retrieval. The third is a privacy risk of the model itself, and its detailed page sits under society because the same method applies to any language model.
 
+Other topics in this section each have their own page: [Jailbreaks and red-teaming](jailbreaks-and-red-teaming.md) covers attacks and the testing that finds them, [Guardrails](guardrails.md) covers classifier and policy layers, [Data poisoning](data-poisoning.md) covers attacks on training data, [Model extraction](model-extraction.md) covers copying a model through its API, and [Watermarking](watermarking.md) covers tracing generated text.
+
 ## Defences
 
 No single defence is sufficient. A layered design includes:

@@ -22,6 +22,8 @@
 | 人類偏好 | Chatbot Arena | 評分者的組成與呈現方式會影響解讀 |
 | 安全性 | HarmBench、StrongREJECT、WMDP、危險能力評估 | 見[安全與對齊](../../society/safety-alignment/index.md) |
 
+套件層級的比較見[基準套件](benchmark-suites.zh-TW.md)，每個情境報告多項指標的整體框架見 [HELM](helm.zh-TW.md)。
+
 ## 設計評估協定
 
 ### 定義任務與要做的決定

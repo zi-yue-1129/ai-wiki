@@ -42,6 +42,8 @@ flowchart LR
 
 前兩者是與工具和檢索有關的注入與越獄方法，對以工具與檢索建構的應用程式很重要。第三者則是模型本身的隱私風險，它的詳細頁面放在社會章節下，因為同樣的方法適用於任何語言模型。
 
+本節的其他主題各有自己的頁面：[越獄與紅隊測試](jailbreaks-and-red-teaming.zh-TW.md)涵蓋攻擊與找出攻擊的測試，[護欄與輸出過濾](guardrails.zh-TW.md)涵蓋分類器與政策層，[資料投毒](data-poisoning.zh-TW.md)涵蓋對訓練資料的攻擊，[模型萃取](model-extraction.zh-TW.md)涵蓋透過 API 複製模型，[模型輸出浮水印](watermarking.zh-TW.md)涵蓋追蹤生成的文字。
+
 ## 防護
 
 沒有單一防護就足夠。分層設計包括：
