@@ -17,6 +17,7 @@ How AI systems are actually built, adapted, evaluated and run.
 | [Inference Optimization](inference-optimization/index.md) | Batching, paged KV caches, speculative decoding, attention variants |
 | [MLOps & Deployment](mlops/index.md) | Serving, monitoring, quantisation, cost, LLMOps |
 | [AI Hardware](hardware/index.md) | GPUs, TPUs, NPUs, memory bandwidth, interconnects, neuromorphic chips |
+| [On-device and Edge AI](on-device-edge/index.md) | Compression, quantisation, distillation, NPUs, TinyML |
 
 ## Choosing an approach for an LLM application
 
