@@ -479,6 +479,7 @@ plugins:
             Philosophy of AI: AI 哲學
             Reference: 參考
             Glossary: 名詞對照表
+            People and Research Labs: 人物與研究室
             FAQ: 常見問題
             Landmark Papers: 經典論文
             Courses & Books: 課程與書籍
@@ -935,6 +936,7 @@ nav:
   - Reference:
       - reference/index.md
       - Glossary: reference/glossary/index.md
+      - People and Research Labs: reference/people-and-labs/index.md
       - FAQ: reference/faq/index.md
       - Landmark Papers: reference/papers/index.md
       - Courses & Books: reference/courses-books/index.md
