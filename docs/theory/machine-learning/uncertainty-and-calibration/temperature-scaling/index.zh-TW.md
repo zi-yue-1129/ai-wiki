@@ -53,7 +53,7 @@ Guo 等人（2017）的摘要指出，在所使用的多數影像與文件分類
 
 ## 相關連結
 
-溫度縮放是貝氏方法在訓練後的對應做法。[機率方法](../../../probabilistic/index.md)頁面描述了原則性的替代方案，其中不確定性來自參數上的分布。信心應與可靠度相符，這個想法也是人類後設認知研究的對象，如 Fleming 與 Lau（2014）所回顧；見[認知科學](../../../../brain-mind/cognitive-science/index.md)。驗證的實務面，見[評估](../../../../engineering/evaluation/index.md)。
+溫度縮放是貝氏方法在訓練後的對應做法。[機率方法](../../../paradigms/probabilistic/index.md)頁面描述了原則性的替代方案，其中不確定性來自參數上的分布。信心應與可靠度相符，這個想法也是人類後設認知研究的對象，如 Fleming 與 Lau（2014）所回顧；見[認知科學](../../../../brain-mind/cognitive-science/index.md)。驗證的實務面，見[評估](../../../../engineering/evaluation/index.md)。
 
 ## 參考文獻
 

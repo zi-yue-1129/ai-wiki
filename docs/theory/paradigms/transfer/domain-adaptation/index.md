@@ -63,4 +63,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Quiñonero-Candela, Sugiyama, Schwaighofer & Lawrence (2009), *Dataset Shift in Machine Learning*, MIT Press. No link checked.
+- Quiñonero-Candela, Sugiyama, Schwaighofer & Lawrence (2008), *Dataset Shift in Machine Learning*, MIT Press. https://doi.org/10.7551/mitpress/9780262170055.001.0001 — The standard volume on how the data distribution changes between training and deployment.

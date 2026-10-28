@@ -76,7 +76,7 @@ flowchart LR
 
 - **正規化。** 批次正規化透過小批次統計量帶來正則化效果。原論文認為它可以減少對丟棄法的需要。見[正規化層](../normalisation/index.md)。
 - **架構。** 丟棄法用於 [Transformer](../../models/transformer/index.md)，Vaswani 等人（2017）把它套用在每個子層的輸出上。隨機深度則是為[殘差網路](../../models/cnn/backbones-and-scaling/resnet/index.md)而設計。
-- **不確定性與主動學習。** 丟棄法產生的不確定性估計可用於[深度主動學習](../../paradigms/active/deep-active-learning/index.md)，更廣泛地也與[機率方法](../../probabilistic/index.md)概述相關。
+- **不確定性與主動學習。** 丟棄法產生的不確定性估計可用於[深度主動學習](../../paradigms/active/deep-active-learning/index.md)，更廣泛地也與[機率方法](../../paradigms/probabilistic/index.md)概述相關。
 - **大腦與心智。** 神經元是有雜訊的，突觸傳遞也是機率性的：一個突觸只會在部分突觸前事件上釋放神經傳導物質，而且不同突觸之間的釋放機率差異很大（Branco 與 Staras，2009）。因此，神經組織並非不存在丟棄法所使用的那種隨機性。大腦是否利用這種雜訊來避免過擬合，或是否有類似的正則化機制，目前尚不清楚。見[計算神經科學](../../../brain-mind/computational-neuroscience/index.md)與 [NeuroAI](../../../brain-mind/neuroai/index.md)。
 
 ## 應用

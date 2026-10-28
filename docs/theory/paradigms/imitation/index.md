@@ -54,10 +54,6 @@ If a policy makes an error with probability ε per step, errors compound so expe
 
 ## Further reading
 
-- Osa et al. (2018), "An Algorithmic Perspective on Imitation Learning"
-- Ross, Gordon & Bagnell (2011), DAgger
-- Ho & Ermon (2016), GAIL
-- Chi et al. (2023), Diffusion Policy
 
 ## References
 

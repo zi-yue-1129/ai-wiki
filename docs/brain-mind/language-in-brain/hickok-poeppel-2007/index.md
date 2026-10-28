@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - brain-mind/cognitive-science
@@ -48,7 +48,7 @@ The paper reports no new numbers. Its claim is that the two streams organise the
 
 ## Connections
 
-- **Language network**: the individual-level method that later work uses to find language regions is in [Fedorenko et al. 2010](https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923). The broader case for separating language from thought is in [Fedorenko and Varley 2016](https://discovery.ucl.ac.uk/id/eprint/1489434/).
+- **Language network**: the individual-level method that later work uses to find language regions is in [Fedorenko et al. 2010](https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923). The broader case for separating language from thought is in [Fedorenko and Varley 2016](https://doi.org/10.1111/nyas.13046).
 - **Language models**: the comparison of brain responses with transformer models that followed is on [Schrimpf et al. 2021](../schrimpf-2021/index.md) and [Goldstein et al. 2022](../goldstein-2022/index.md).
 - **Cognitive science**: the psychology of language that this model sits beside is in [Cognitive Science](../../cognitive-science/index.md).
 - **Neuroscience background**: the cortical regions and recording methods are in [Neuroscience Basics](../../neuroscience/index.md).
@@ -67,7 +67,7 @@ The paper reports no new numbers. Its claim is that the two streams organise the
 
 ### Surveys and reviews
 
-- Fedorenko, E. & Varley, R. (2016). Language and thought are not the same thing: evidence from neuroimaging and neurological patients. *Annals of the New York Academy of Sciences*. https://discovery.ucl.ac.uk/id/eprint/1489434/ — Reviews neuroimaging and patient evidence that language and thought are separable.
+- Fedorenko, E. & Varley, R. (2016). Language and thought are not the same thing: evidence from neuroimaging and neurological patients. *Annals of the New York Academy of Sciences*. https://doi.org/10.1111/nyas.13046 — Reviews neuroimaging and patient evidence that language and thought are separable.
 
 ### Articles and primary research
 

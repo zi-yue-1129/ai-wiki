@@ -12,8 +12,8 @@ Instructions for the scheduled Claude routine that drafts one page per day as a 
     Skip any topic that already has an open pull request (check branch names starting `auto/` and PR titles), and skip pages changed on `main` in the last 2 days, since someone may be writing them.
 3. Write the English page following `docs/reference/style-guide/index.md` and `templates/page-template.md`:
     - Original prose, encyclopedic tone, 800 to 2000 words.
-    - End the page with a `## References` section that follows the Citations rules in the style guide: at least 5 entries across seminal papers, surveys and textbooks, lectures and videos, and articles and documentation. Every entry needs a DOI, arXiv id or URL, and a short note after " — " saying what the source covers, so readers can decide whether to open it.
-    - Open every link and check its title, authors, year and content before adding it. Prefer the original paper and official course or channel pages for videos. Never invent a citation, DOI or URL; if you can't verify an entry, leave it out.
+    - End the page with a `## References` section that follows the Citations rules in the style guide: at least 5 entries across seminal papers, surveys and textbooks, lectures, and articles and documentation. Every entry needs a DOI, arXiv id or URL, and a short note after " — " saying what the source covers, so readers can decide whether to open it.
+    - Open every link and check its title, authors, year and content before adding it. Cite the original paper, official report or standard, never a blog, YouTube video or aggregator site in References. A blog or video that helps readers go further may go under a `## Further learning` section after References, never as a reference. Check every DOI against a source that shows it; never write a DOI from memory. Never invent a citation, DOI or URL; if you can't verify an entry, leave it out.
     - In the PR body, list each reference with the check you made (for example "opened, abstract matches").
     - Include the brain and mind connection where one genuinely exists.
     - Add a `## Key methods` section after "How it works" (pattern in `templates/page-template.md`): a brief comparison of two to four landmark methods, one line each, linking to each method's own page. Write each method as its own detailed page in the topic folder, with problem, core idea, equation or algorithm, results and limitations, in the same PR. Every paper named there must also appear in References, and its results must come from the paper itself, never from memory.
@@ -23,7 +23,7 @@ Instructions for the scheduled Claude routine that drafts one page per day as a 
     - Remove the "Work in progress" admonition. Set `status: draft` and `last_reviewed:` to today in the front matter.
     - New pages go in the folder tree described under "Where pages live" in the style guide (a new sub-topic of an existing topic goes inside that topic's folder). Add them to `nav` in `mkdocs.yml` with a `nav_translations` entry, and link them from the parent folder's `index.md`.
 4. Also write the Traditional Chinese translation (`<page>.zh-TW.md` next to the English file) with `translation_reviewed:` set to today, using glossary terms.
-5. Run `mkdocs build --strict` and `python scripts/wiki_status.py --check`; fix anything they report.
+5. Run `mkdocs build --strict`, `python scripts/wiki_status.py --check`, and `python scripts/wiki_status.py --unlinked`; fix anything they report. Every external resource on the page, in any section, needs a link.
 6. Open a pull request to `main` titled `Draft: <Page title>`. If the page has a chapter issue, end the description with `Closes #<issue number>` so the issue closes on merge. List the sources used, and point out any claims the reviewer should double-check. Request review from the repository owner. Do not merge.
 
 ## Limits

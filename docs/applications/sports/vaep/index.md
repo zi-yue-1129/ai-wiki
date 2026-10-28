@@ -2,7 +2,7 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/probabilistic
+  - theory/paradigms/probabilistic
 tags:
   - evaluation
   - sequence modelling

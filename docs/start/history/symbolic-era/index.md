@@ -2,7 +2,7 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/symbolic-ai
+  - theory/paradigms/symbolic-ai
   - brain-mind/cognitive-architectures
   - brain-mind/neuroai
 tags:
@@ -39,7 +39,7 @@ The period closed with two critiques. In 1969 Minsky and Papert analysed the lim
 ## Key concepts
 
 - **Physical symbol system**: a system that manipulates symbols by rules, where the symbols stand for things in the world. Newell and Simon argued that such a system is both necessary and sufficient for intelligent action (Newell and Simon, 1976).
-- **Heuristic search**: exploring a space of possible states, ordering them by rules of thumb that estimate how promising they are. Modern versions are described in [A\* search](../../../theory/symbolic-ai/search/a-star/index.md).
+- **Heuristic search**: exploring a space of possible states, ordering them by rules of thumb that estimate how promising they are. Modern versions are described in [A\* search](../../../theory/paradigms/symbolic-ai/search/a-star/index.md).
 - **Means–ends analysis**: comparing the current state with the goal, finding a difference between them, and choosing an operator that reduces it. It is the central method of the General Problem Solver.
 - **Microworld**: a restricted domain, such as a table of coloured blocks, in which language and perception can be studied without the full complexity of the world.
 - **Threshold unit**: a neuron-like element that weighs its inputs, sums them and outputs 1 if the sum passes a threshold. The perceptron is a network of such units with a learning rule.
@@ -74,12 +74,12 @@ Three landmark methods, each with its own page:
 
 The period sits at the centre of this wiki's brain-and-mind question: how far a machine's computation resembles the brain's. McCulloch and Pitts had already modelled neurons as logic units in 1943 (McCulloch and Pitts, 1943). The perceptron was a direct attempt to turn that model into something that learns. The symbolic programmers looked instead to human reasoning, and their search programs were presented as theories of human thinking. Their ideas were later built into [cognitive architectures](../../../brain-mind/cognitive-architectures/index.md) such as [ACT-R](../../../brain-mind/cognitive-architectures/act-r/index.md).
 
-The two strands did not stay apart. The search methods became the [symbolic AI](../../../theory/symbolic-ai/index.md) toolkit for search, planning and knowledge representation, and the perceptron is the ancestor of the multi-layer [deep learning](../../../theory/deep-learning/index.md) networks that replaced it. For the biological side of the neural line, see [NeuroAI](../../../brain-mind/neuroai/index.md).
+The two strands did not stay apart. The search methods became the [symbolic AI](../../../theory/paradigms/symbolic-ai/index.md) toolkit for search, planning and knowledge representation, and the perceptron is the ancestor of the multi-layer [deep learning](../../../theory/deep-learning/index.md) networks that replaced it. For the biological side of the neural line, see [NeuroAI](../../../brain-mind/neuroai/index.md).
 
 ## Applications
 
-- **Game playing.** Samuel's checkers program searched ahead and scored positions with a learned evaluation function (Samuel, 1959). The chess-search work of the period used the same pattern, which the [alpha-beta pruning](../../../theory/symbolic-ai/search/alpha-beta/index.md) page describes in its later, more efficient form.
-- **Automated reasoning.** Proof search of the kind the Logic Theorist introduced now runs inside SAT and SMT solvers, which verify hardware and software (see the [symbolic AI overview](../../../theory/symbolic-ai/index.md)).
+- **Game playing.** Samuel's checkers program searched ahead and scored positions with a learned evaluation function (Samuel, 1959). The chess-search work of the period used the same pattern, which the [alpha-beta pruning](../../../theory/paradigms/symbolic-ai/search/alpha-beta/index.md) page describes in its later, more efficient form.
+- **Automated reasoning.** Proof search of the kind the Logic Theorist introduced now runs inside SAT and SMT solvers, which verify hardware and software (see the [symbolic AI overview](../../../theory/paradigms/symbolic-ai/index.md)).
 - **Conversational interfaces.** Scripted chatbots that match keywords to canned replies follow the design of ELIZA. Modern [language models](../../../theory/models/llm/index.md) are far more capable but raise the same question ELIZA did.
 
 ## Open questions
@@ -87,7 +87,7 @@ The two strands did not stay apart. The search methods became the [symbolic AI](
 - Was the 1969 critique a mathematical refutation of neural networks or a shift in research priorities? The historical debate is still open.
 - Can the hand-written heuristics of this era be learned automatically, and does that keep the guarantees that made search trustworthy?
 - What did the period's microworlds and demonstrations show about real-world performance? The lesson that demonstrations are not deployments still applies (see [evaluation](../../../engineering/evaluation/index.md)).
-- How closely do symbolic search and human problem solving match? Modern work on [search with language models](../../../theory/symbolic-ai/search/tree-of-thoughts/index.md) revives the comparison.
+- How closely do symbolic search and human problem solving match? Modern work on [search with language models](../../../theory/paradigms/symbolic-ai/search/tree-of-thoughts/index.md) revives the comparison.
 
 ## References
 

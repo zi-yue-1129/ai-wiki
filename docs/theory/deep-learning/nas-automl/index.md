@@ -2,7 +2,7 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/evolutionary
+  - theory/paradigms/evolutionary
   - theory/paradigms/reinforcement-learning
   - theory/models/cnn/backbones-and-scaling
   - theory/paradigms/meta-learning
@@ -83,7 +83,7 @@ The most successful product of this line of work in image classification is the 
 ## Connections
 
 - **Architecture families.** Most search spaces are built from familiar blocks, such as residual and depthwise separable convolutions, in the [CNN backbone](../../models/cnn/backbones-and-scaling/index.md) pages. The search decides how the blocks are combined and sized.
-- **Reinforcement learning and evolution.** NAS borrows its strategies from two older fields. Policy gradients come from [reinforcement learning](../../paradigms/reinforcement-learning/index.md), and population-based search comes from [evolutionary computation](../../evolutionary/index.md), where neuroevolution of network topologies predates NAS.
+- **Reinforcement learning and evolution.** NAS borrows its strategies from two older fields. Policy gradients come from [reinforcement learning](../../paradigms/reinforcement-learning/index.md), and population-based search comes from [evolutionary computation](../../paradigms/evolutionary/index.md), where neuroevolution of network topologies predates NAS.
 - **Meta-learning.** [Meta-learning](../../paradigms/meta-learning/index.md) learns how to adapt quickly to new tasks, while NAS learns the structure of the model. Both automate choices that were once made by people, but they are different problems.
 - **Brain and mind.** Yamins et al. (2014) used computational techniques to find a hierarchical network that matches human performance on object categorisation. Without being fitted to neural data, the network predicted responses in V4 and inferior temporal cortex. See [performance-optimised networks](../../../brain-mind/neuroai/performance-optimised-networks/index.md) in NeuroAI. This is an example of letting a computational search choose a model that then fits brain data.
 - **Evolution as an analogy.** NAS and Darwinian evolution share the logic of variation and selection. The analogy is loose. Brain wiring is shaped by development and by many factors that no search space captures, and NAS does not claim to model that process.

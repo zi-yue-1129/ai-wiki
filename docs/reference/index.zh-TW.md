@@ -12,6 +12,6 @@
 | [如何閱讀 AI 論文](how-to-read-a-paper/index.md) | 機器學習論文的版面與閱讀方式，以及如何檢查其主張、基線、資料污染與程式碼 |
 | [資料集](datasets/index.md) | 各領域廣泛使用的資料集與基準 |
 | [主要模型目錄](model-catalogue/index.md) | 依廠商分組的主要模型家族，含發布時間、規模級別與開放程度 |
-| [貢獻指南](contributing/index.md) | 如何新增或改進頁面 |
+| [貢獻指南](contributing/index.zh-TW.md) | 如何新增或改進頁面 |
 | [路線圖與涵蓋範圍](roadmap/index.md) | 已規劃的內容與尚缺的內容 |
-| [風格指南](style-guide/index.md) | 本維基的寫作慣例 |
+| [風格指南](style-guide/index.zh-TW.md) | 本維基的寫作慣例 |

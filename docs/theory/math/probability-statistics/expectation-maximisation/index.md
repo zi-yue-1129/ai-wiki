@@ -2,7 +2,7 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/probabilistic
+  - theory/paradigms/probabilistic
 tags:
   - density estimation
   - unsupervised learning
@@ -57,7 +57,7 @@ $$
 \log p(x\mid\theta)\ \ge\ \mathbb{E}_{q}\big[\log p(x,z\mid\theta)\big]-\mathbb{E}_{q}\big[\log q(z)\big].
 $$
 
-The right-hand side equals the likelihood when $q(z)=p(z\mid x,\theta)$. Neal and Hinton (1998) use this view to show that the E-step sets $q$ to the posterior and the M-step maximises the bound over $\theta$. The bound is the evidence lower bound (ELBO) of [variational inference](../../../probabilistic/variational-inference/index.md), so EM is coordinate ascent on it.
+The right-hand side equals the likelihood when $q(z)=p(z\mid x,\theta)$. Neal and Hinton (1998) use this view to show that the E-step sets $q$ to the posterior and the M-step maximises the bound over $\theta$. The bound is the evidence lower bound (ELBO) of [variational inference](../../../paradigms/probabilistic/variational-inference/index.md), so EM is coordinate ascent on it.
 
 ```mermaid
 flowchart LR
@@ -87,7 +87,7 @@ Dempster, Laird and Rubin (1977) illustrate the method on missing, censored and 
 ## Connections
 
 - **Maximum likelihood.** EM is the maximum likelihood method for incomplete data; see the [maximum likelihood](../maximum-likelihood/index.md) page.
-- **Variational inference.** EM is a special case of coordinate ascent on the ELBO. The [variational inference](../../../probabilistic/variational-inference/index.md) folder develops the general case.
+- **Variational inference.** EM is a special case of coordinate ascent on the ELBO. The [variational inference](../../../paradigms/probabilistic/variational-inference/index.md) folder develops the general case.
 - **Brain and mind.** No direct link between EM and neural computation is established. The Bayesian-brain framing on the [parent page](../index.md) is the nearest idea.
 
 ## Applications

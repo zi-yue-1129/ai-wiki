@@ -25,7 +25,7 @@ $$
 \hat\theta_{\mathrm{MAP}}=\arg\max_\theta\Big[\sum_{i=1}^n\log p(x_i\mid\theta)+\log p(\theta)\Big].
 $$
 
-MAP 與 ML 的差別只在對數先驗。若雜訊為變異數 $\sigma^2$ 的高斯分布，權重先驗為 $\mathcal N(0,\tau^2 I)$，則線性迴歸的 MAP 估計就是脊迴歸，懲罰係數 $\lambda=\sigma^2/\tau^2$。拉普拉斯先驗則給出套索的 $L_1$ 懲罰。MAP 回傳的是後驗的眾數，而非其分散程度，因此當不確定性很重要時，會改用 [MCMC](../../../probabilistic/mcmc/index.md) 與[變分推論](../../../probabilistic/variational-inference/index.md)。
+MAP 與 ML 的差別只在對數先驗。若雜訊為變異數 $\sigma^2$ 的高斯分布，權重先驗為 $\mathcal N(0,\tau^2 I)$，則線性迴歸的 MAP 估計就是脊迴歸，懲罰係數 $\lambda=\sigma^2/\tau^2$。拉普拉斯先驗則給出套索的 $L_1$ 懲罰。MAP 回傳的是後驗的眾數，而非其分散程度，因此當不確定性很重要時，會改用 [MCMC](../../../paradigms/probabilistic/mcmc/index.md) 與[變分推論](../../../paradigms/probabilistic/variational-inference/index.md)。
 
 **損失的觀點。** 對假設的雜訊模型取負對數概似，就得到損失。高斯雜訊給出平方誤差；類別輸出給出交叉熵 $-\sum_k y_k\log\hat p_k$。因此，以交叉熵訓練分類器，就是對其 softmax 參數做最大概似估計。Gneiting 與 Raftery（2007）把對數分數歸類為嚴格適當評分規則。
 

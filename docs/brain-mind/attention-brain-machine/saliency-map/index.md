@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - brain-mind/neuroscience
@@ -63,10 +63,10 @@ The paper reports that the model's selections on synthetic and natural images qu
 ### Seminal papers
 
 - Itti, L., Koch, C. & Niebur, E. (1998). A model of saliency-based visual attention for rapid scene analysis. *IEEE Transactions on Pattern Analysis and Machine Intelligence*. https://doi.org/10.1109/34.730558 — A saliency-map model of bottom-up attention built from centre-surround feature contrasts.
-- Desimone, R. & Duncan, J. (1995). Neural mechanisms of selective visual attention. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.ne.18.030195.001205 — The top-down biased-competition account that the saliency model complements.
-- Mnih, V., Heess, N., et al. (2014). Recurrent Models of Visual Attention. *NeurIPS*. https://arxiv.org/abs/1406.6247 — A learned glimpse-selection model, a machine version of goal-directed selection.
+- Desimone, R. & Duncan, J. (1995). Neural mechanisms of selective visual attention. *Annual Review of Neuroscience*. https://www.mrc-cbu.cam.ac.uk/bibliography/articles/3148 — The top-down biased-competition account that the saliency model complements.
+- Mnih, V., Heess, N., Graves, A. & Kavukcuoglu, K. (2014). Recurrent Models of Visual Attention. *NeurIPS*. https://arxiv.org/abs/1406.6247 — A learned glimpse-selection model, a machine version of goal-directed selection.
 - Bahdanau, D., Cho, K. & Bengio, Y. (2014). Neural Machine Translation by Jointly Learning to Align and Translate. arXiv preprint. https://arxiv.org/abs/1409.0473 — Introduces learned alignment, an early form of attention in neural networks.
 
 ### Surveys and reviews
 
-- Corbetta, M. & Shulman, G. L. (2002). Control of goal-directed and stimulus-driven attention in the brain. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn755 — The ventral network for stimulus-driven attention, which the saliency account models.
+- Corbetta, M. & Shulman, G. L. (2002). Control of goal-directed and stimulus-driven attention in the brain. *Nature Reviews Neuroscience*. https://pubmed.ncbi.nlm.nih.gov/11994752/ — The ventral network for stimulus-driven attention, which the saliency account models.

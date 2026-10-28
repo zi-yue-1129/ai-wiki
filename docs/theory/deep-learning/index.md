@@ -67,8 +67,8 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 | Transformer | Global attention, permutation equivariance (+ positions) | Almost every modality | [Transformers](../models/transformer/index.md) |
 | State-space models (S4, Mamba) | Linear recurrence, efficient long sequences | Long sequences, audio, genomics | [Transformers](../models/transformer/index.md) |
 | Graph neural network | Graph structure, permutation invariance | Molecules, social networks | [GNNs](../models/gnn/index.md) |
-| Autoencoder / VAE | Bottleneck compression | Representation learning, generation | [Generative Models](../generative/index.md) |
-| Diffusion model | Iterative denoising | Images, video, molecules | [Generative Models](../generative/index.md) |
+| Autoencoder / VAE | Bottleneck compression | Representation learning, generation | [Generative Models](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
+| Diffusion model | Iterative denoising | Images, video, molecules | [Generative Models](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 
 Architectures are usually designed by hand. [Neural architecture search and AutoML](nas-automl/index.md) automate that choice by searching a space of candidate networks for those that score well.
 

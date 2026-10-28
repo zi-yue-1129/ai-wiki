@@ -48,8 +48,8 @@ Distribution shift breaks the i.i.d. assumption; see [transfer theory](../../tra
 
 ### Seminal papers
 
-- Valiant (1984), "A theory of the learnable", *Communications of the ACM* 27(11). https://mlanthology.org/misc/1984/valiant1984misc-theory — Introduces PAC learning, the formal model of what can be learned from samples.
-- Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. https://mlanthology.org/iclr/2017/zhang2017iclr-understanding — Shows that large networks can fit random labels, which breaks classical capacity bounds.
+- Valiant, L. G. (1984). A theory of the learnable. *Communications of the ACM*, 27(11), 1134–1142. https://doi.org/10.1145/1968.1972 — Introduces PAC learning, the formal model of what can be learned from samples.
+- Zhang, C. et al. (2017). Understanding deep learning requires rethinking generalization. ICLR. arXiv:1611.03530. https://arxiv.org/abs/1611.03530 — Shows that large networks can fit random labels, which breaks classical capacity bounds.
 - Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572 — Links the generalisation of very wide networks to kernel regression.
 
 ### Surveys and textbooks

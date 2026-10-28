@@ -59,8 +59,8 @@ For the cap set problem, FunSearch found large cap sets beyond the best known on
 
 ## Connections
 
-- The evolutionary structure belongs to the [evolutionary methods](../../../theory/evolutionary/index.md) family of optimisation.
-- Search over candidate objects is the classical theme of [symbolic AI search](../../../theory/symbolic-ai/index.md), here guided by a language model rather than a hand-written heuristic.
+- The evolutionary structure belongs to the [evolutionary methods](../../../theory/paradigms/evolutionary/index.md) family of optimisation.
+- Search over candidate objects is the classical theme of [symbolic AI search](../../../theory/paradigms/symbolic-ai/index.md), here guided by a language model rather than a hand-written heuristic.
 - Davies et al. (2021) take a complementary route: machine learning suggests patterns that mathematicians then turn into conjectures. In FunSearch, the program search itself produces the candidate.
 - Yang et al. (2024) argue that formal, machine-checkable reasoning is indispensable for AI mathematics, the principle FunSearch applies through its evaluator.
 

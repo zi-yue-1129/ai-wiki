@@ -33,7 +33,6 @@ theme:
   features:
     - navigation.tabs
     - navigation.tabs.sticky
-    - navigation.sections
     - navigation.indexes
     - navigation.top
     - navigation.footer
@@ -57,8 +56,8 @@ plugins:
       redirect_maps:
         'foundations/deep-learning/index.md': 'theory/deep-learning/index.md'
         'foundations/deep-learning/index.zh-TW.md': 'theory/deep-learning/index.zh-TW.md'
-        'foundations/evolutionary/index.md': 'theory/evolutionary/index.md'
-        'foundations/evolutionary/index.zh-TW.md': 'theory/evolutionary/index.zh-TW.md'
+        'foundations/evolutionary/index.md': 'theory/paradigms/evolutionary/index.md'
+        'foundations/evolutionary/index.zh-TW.md': 'theory/paradigms/evolutionary/index.zh-TW.md'
         'foundations/index.md': 'theory/index.md'
         'foundations/index.zh-TW.md': 'theory/index.zh-TW.md'
         'foundations/information-theory/index.md': 'theory/information-theory/index.md'
@@ -167,16 +166,36 @@ plugins:
         'foundations/paradigms/unsupervised/dimensionality-reduction/index.md': 'theory/paradigms/unsupervised/dimensionality-reduction/index.md'
         'foundations/paradigms/unsupervised/index.md': 'theory/paradigms/unsupervised/index.md'
         'foundations/paradigms/unsupervised/index.zh-TW.md': 'theory/paradigms/unsupervised/index.zh-TW.md'
-        'foundations/probabilistic/index.md': 'theory/probabilistic/index.md'
-        'foundations/probabilistic/index.zh-TW.md': 'theory/probabilistic/index.zh-TW.md'
-        'foundations/symbolic-ai/index.md': 'theory/symbolic-ai/index.md'
-        'foundations/symbolic-ai/index.zh-TW.md': 'theory/symbolic-ai/index.zh-TW.md'
+        'foundations/probabilistic/index.md': 'theory/paradigms/probabilistic/index.md'
+        'foundations/probabilistic/index.zh-TW.md': 'theory/paradigms/probabilistic/index.zh-TW.md'
+        'foundations/symbolic-ai/index.md': 'theory/paradigms/symbolic-ai/index.md'
+        'foundations/symbolic-ai/index.zh-TW.md': 'theory/paradigms/symbolic-ai/index.zh-TW.md'
+        'theory/probabilistic/index.md': 'theory/paradigms/probabilistic/index.md'
+        'theory/probabilistic/index.zh-TW.md': 'theory/paradigms/probabilistic/index.zh-TW.md'
+        'theory/symbolic-ai/index.md': 'theory/paradigms/symbolic-ai/index.md'
+        'theory/symbolic-ai/index.zh-TW.md': 'theory/paradigms/symbolic-ai/index.zh-TW.md'
+        'theory/evolutionary/index.md': 'theory/paradigms/evolutionary/index.md'
+        'theory/evolutionary/index.zh-TW.md': 'theory/paradigms/evolutionary/index.zh-TW.md'
+        'theory/generative/index.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md'
+        'theory/generative/index.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.zh-TW.md'
+        'theory/generative/diffusion/index.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md'
+        'theory/generative/diffusion/index.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.zh-TW.md'
+        'theory/generative/diffusion/ddpm.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md'
+        'theory/generative/diffusion/ddpm.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.zh-TW.md'
+        'theory/generative/diffusion/ddim.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md'
+        'theory/generative/diffusion/ddim.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.zh-TW.md'
+        'theory/generative/diffusion/latent-diffusion.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md'
+        'theory/generative/diffusion/latent-diffusion.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.zh-TW.md'
+        'theory/generative/diffusion/classifier-free-guidance.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md'
+        'theory/generative/diffusion/classifier-free-guidance.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.zh-TW.md'
+        'theory/generative/diffusion/dit.md': 'theory/models/transformer/dit/index.md'
+        'theory/generative/diffusion/dit.zh-TW.md': 'theory/models/transformer/dit/index.zh-TW.md'
         'models/agents/index.md': 'theory/models/agents/index.md'
         'models/agents/index.zh-TW.md': 'theory/models/agents/index.zh-TW.md'
         'models/computer-vision/index.md': 'theory/models/computer-vision/index.md'
         'models/computer-vision/index.zh-TW.md': 'theory/models/computer-vision/index.zh-TW.md'
-        'models/generative/index.md': 'theory/generative/index.md'
-        'models/generative/index.zh-TW.md': 'theory/generative/index.zh-TW.md'
+        'models/generative/index.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md'
+        'models/generative/index.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.zh-TW.md'
         'models/gnn/index.md': 'theory/models/gnn/index.md'
         'models/gnn/index.zh-TW.md': 'theory/models/gnn/index.zh-TW.md'
         'models/index.md': 'theory/models/index.md'
@@ -241,7 +260,12 @@ plugins:
             Cosine Annealing with Warm Restarts: 附暖重啟的餘弦退火
             Cyclical Learning Rates: 循環學習率
             Regularisation & Weight Decay: 正則化與權重衰減
+            Sharp Minima: 尖銳極小值
+            SGD Noise Scale: SGD 雜訊尺度
             Gradient Clipping & Normalisation: 梯度裁剪與正規化
+            Norm Clipping: 範數裁剪
+            LARS: LARS
+            LAMB: LAMB
             Large-Batch & Distributed: 大批次與分散式
             Zeroth-Order & Evolutionary: 零階與演化
             Theory & Landscapes: 理論與損失地形
@@ -265,6 +289,7 @@ plugins:
             Models: 模型與技術
             Transformers & Attention: Transformer 與注意力
             Attention Variants: 注意力變體
+            FlashAttention: FlashAttention
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
             Attention Is All You Need: Attention Is All You Need 原始論文
@@ -313,6 +338,8 @@ plugins:
             DDIM: DDIM
             Latent Diffusion: 潛在擴散
             DiT: DiT 擴散 Transformer
+            Diffusion Transformer (DiT): 擴散 Transformer（DiT）
+            Density Estimation & Generative Models: 密度估計與生成模型
             Classifier-Free Guidance: 無分類器引導
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
@@ -365,6 +392,7 @@ plugins:
             Ternary Weight Networks: 三值權重網路
             Mixed Precision: 混合精度
             HAWQ: HAWQ
+            Deep Compression: 深度壓縮
             Learning Weights and Connections: 學習權重與連接
             Magnitude Pruning: 量值剪枝
             Gradual Pruning: 漸進式剪枝
@@ -399,6 +427,10 @@ plugins:
             Sequence-Level KD: 序列層級蒸餾
             MiniLLM: MiniLLM
             DeepSeek-R1 Distillation: DeepSeek-R1 蒸餾
+            Low-Rank & Efficient Architectures: 低秩與高效架構
+            Truncated SVD: 截斷 SVD
+            Low-Rank Filter Expansion: 低秩濾波器展開
+            LoRA: LoRA
             Data-Free: 無資料
             LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
@@ -502,6 +534,13 @@ plugins:
             MLOps & Deployment: MLOps 與部署
             AI Coding Assistants: AI 程式助手
             AI Hardware: AI 硬體
+            AI Accelerators: AI 加速器
+            TPU: TPU
+            Eyeriss v2: Eyeriss v2
+            Memory Hierarchy and Bandwidth: 記憶體階層與頻寬
+            Interconnects and Scaling: 互連與擴展
+            In-Memory and Analogue Computing: 記憶體內與類比運算
+            Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
             GPTQ: GPTQ
@@ -527,6 +566,8 @@ plugins:
             Green AI: 綠色 AI
             Reporting energy and carbon: 能源與排放的報告
             Open versus Closed Models: 開放與封閉模型
+            AI in Taiwan: 台灣的 AI
+            Children, Education Policy & AI: 兒童、教育政策與 AI
             Law, Policy & Governance: 法規與治理
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
@@ -541,180 +582,179 @@ plugins:
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
             Style Guide: 寫作風格指南
-            Human-AI Interaction and Trust: 人機互動與信任
-            Trust in automation: 自動化中的信任
-            Cognitive forcing functions: 認知強制功能
-            Mechanistic Interpretability and Circuits: 機械式可解釋性與電路
-            Benchmark Suites: 基準測試套件
+            Generative Adversarial Networks: 生成對抗網路
+            Original GAN: 原始 GAN
+            Variational Autoencoders: 變分自編碼器
+            Normalising Flows: 正規化流
+            Masked Autoregressive Flow: 遮罩自回歸流
+            Autoregressive Generative Models: 自回歸生成模型
+            Flow Matching and Rectified Flow: 流匹配與整流流
+            Conditional Flow Matching: 條件流匹配
+            Rectified Flow: 整流流
+            Consistency Models and Fast Samplers: 一致性模型與快速取樣器
+            Architecture Families: 架構家族
+            Vision Transformer: 視覺 Transformer
+            Object Detection: 物件偵測
+            RetinaNet and Focal Loss: RetinaNet 與焦點損失
+            Image Segmentation: 圖像分割
+            Fully Convolutional Networks: 全卷積網路
+            3D Vision and Neural Rendering: 三維視覺與神經渲染
+            Neural Radiance Fields (NeRF): 神經輻射場（NeRF）
+            3D Gaussian Splatting: 3D 高斯濺射
+            Video Understanding and Generation: 影片理解與生成
+            Video Diffusion Models: 影片擴散模型
             Normalisation Layers: 正規化層
             Batch Normalisation: 批次正規化
             Group Normalisation: 群組正規化
-            Parameter-Efficient Fine-Tuning: 參數高效微調
-            Constitutional AI and RLAIF: 憲法式 AI 與 RLAIF
-            Jailbreaks and Red-Teaming: 越獄與紅隊測試
-            Automatic Differentiation: 自動微分
-            Forward-Mode AD: 前向模式 AD
-            Reverse-Mode AD: 反向模式 AD
-            Tokenisation: 分詞
-            Byte-Pair Encoding: 位元組對編碼
-            SentencePiece and the Unigram Model: SentencePiece 與 Unigram 模型
-            Architecture Families: 架構家族
-            Agent Engineering: 代理人工程
-            Fairness Definitions and Impossibility Results: 公平性定義與不可能性結果
-            AI Literacy and Public Understanding: AI 素養與大眾理解
-            "Feature Attribution: SHAP, LIME and Saliency": 特徵歸因：SHAP、LIME 與顯著性
-            AI Companionship and Parasocial Relationships: AI 陪伴與準社會關係
-            Automation Bias and Overreliance: 自動化偏誤與過度依賴
-            Generative Adversarial Networks: 生成對抗網路
-            Original GAN: 原始 GAN
-            Reward Hacking and Specification Gaming: 獎勵駭客與規格博弈
-            "Preference Optimisation: DPO and Its Successors": 偏好最佳化：DPO 及其後續方法
-            Scaling Laws and Emergent Abilities: 縮放定律與湧現能力
-            Kaplan Scaling Laws: Kaplan 縮放定律
-            Emergent Abilities: 湧現能力
-            Emergence as a Mirage: 湧現是海市蜃樓
-            Monte Carlo Tree Search and Self-Play: 蒙地卡羅樹搜尋與自我對弈
-            Monte Carlo Tree Search: 蒙地卡羅樹搜尋
-            Sandboxing and Computer-Use Agents: 沙箱與電腦操作代理人
             Dropout and Stochastic Regularisation: 丟棄法與隨機正則化
             Stochastic Depth: 隨機深度
             Mixup and CutMix: Mixup 與 CutMix
             Label Smoothing: 標籤平滑
-            Uncertainty Quantification and Calibration: 不確定性量化與校準
-            Temperature Scaling: 溫度縮放
-            Deep Ensembles: 深度集成
-            MC Dropout: MC 丟棄法
-            Conformal Prediction: 保形預測
-            Vision Transformer: 視覺 Transformer
-            Search Algorithms: 搜尋演算法
-            "A* Search": A* 搜尋
-            Minimax with Alpha-Beta Pruning: 極小化極大與 α-β 剪枝
-            Tree of Thoughts: 思維樹（Tree of Thoughts）
-            Variational Inference: 變分推論
-            Variational Autoencoder: 變分自編碼器
-            Black-Box Variational Inference: 黑箱變分推論
-            Normalising Flow Posteriors: 正規化流後驗
-            Tool Calling and the Model Context Protocol: 工具呼叫與 Model Context Protocol
-            Multi-Agent Orchestration: 多代理人編排
-            Multi-Agent Debate: 多代理人辯論
-            Linear Algebra for AI: AI 的線性代數
-            Truncated SVD: 截斷 SVD
-            Principal Component Analysis: 主成分分析
-            Randomized SVD: 隨機化 SVD
-            Object Detection: 物件偵測
-            RetinaNet and Focal Loss: RetinaNet 與焦點損失
-            ML Compilers and Kernel Languages: 機器學習編譯器與核函式語言
-            LLM-as-judge and Pairwise Evaluation: LLM 作為評審與成對評估
-            Guardrails and Output Filtering: 護欄與輸出過濾
-            Agent Evaluation: 代理人評估
-            KV Cache Compression and Eviction: KV 快取壓縮與淘汰
-            Dangerous-Capability Evaluations and Frontier Safety Frameworks: 危險能力評估與前沿安全框架
-            Mixed-Precision Training and Gradient Checkpointing: 混合精度訓練與梯度檢查點
-            Probing Classifiers and Representation Analysis: 探測分類器與表徵分析
-            Motor Control and the Cerebellum: 運動控制與小腦
-            Cerebellar Supervised Learning: 小腦監督學習
-            Optimal Feedback Control: 最優回饋控制
-            Motor Cortex Population Dynamics: 運動皮質群體動態
-            Case Studies in Algorithmic Bias: 演算法偏見案例研究
-            Agent Observability and Tracing: 代理人可觀測性與追蹤
-            MAST Failure Taxonomy: MAST 失敗分類法
-            AgentOps Taxonomy: AgentOps 分類法
-            TinyML and Mobile Runtimes: TinyML 與行動端執行環境
-            Compute Governance and Export Controls: 運算治理與出口管制
-            Variational Autoencoders: 變分自編碼器
-            Search Engines and Information Retrieval: 搜尋引擎與資訊檢索
-            Disaggregated Prefill and Decode: 預填充與解碼分離
-            Data Poisoning and Backdoors: 資料投毒與後門
-            Benchmark Contamination: 基準測試污染
-            Scalable Oversight: 可擴展的監督
-            "Surveillance & Facial Recognition": 監控與人臉辨識
-            Runaway Feedback Loops: 失控回饋迴圈
-            Knowledge Graphs: 知識圖譜
-            Flow Matching and Rectified Flow: 流匹配與整流流
-            Conditional Flow Matching: 條件流匹配
-            Rectified Flow: 整流流
-            Image Segmentation: 圖像分割
-            Fully Convolutional Networks: 全卷積網路
             Weight Initialisation and Signal Propagation: 權重初始化與信號傳播
             Xavier (Glorot) Initialisation: Xavier（Glorot）初始化
             He Initialisation: He 初始化
             Maximal Update Parametrisation (muP): 最大更新參數化（muP）
+            Automatic Differentiation: 自動微分
+            Forward-Mode AD: 前向模式 AD
+            Reverse-Mode AD: 反向模式 AD
+            Linear Algebra for AI: AI 的線性代數
+            Principal Component Analysis: 主成分分析
+            Randomized SVD: 隨機化 SVD
+            Probability and Statistics for AI: AI 的機率與統計
+            Maximum Likelihood: 最大概似估計
+            Expectation-Maximisation: 期望最大化演算法
+            Bootstrap: 自助法
+            Calculus and Optimisation Foundations: 微積分與最佳化基礎
+            Gradient Descent: 梯度下降
+            "Newton's Method": 牛頓法
+            Lagrange Multipliers and KKT: 拉格朗日乘數與 KKT
+            Variational Inference: 變分推論
+            Variational Autoencoder: 變分自編碼器
+            Black-Box Variational Inference: 黑箱變分推論
+            Normalising Flow Posteriors: 正規化流後驗
             Markov Chain Monte Carlo: 馬可夫鏈蒙地卡羅
             Metropolis–Hastings: Metropolis–Hastings 演算法
             Gibbs Sampling: 吉布斯取樣
             Hamiltonian Monte Carlo and NUTS: 哈密頓蒙地卡羅與 NUTS
             Langevin Dynamics: 朗之萬動力學
-            Adversarial Examples and Robustness: 對抗樣本與穩健性
-            Fast Gradient Sign Method: 快速梯度符號法
-            PGD and Adversarial Training: PGD 與對抗訓練
-            Randomized Smoothing: 隨機平滑
-            FlashAttention and Fused Kernels: 快閃注意力與融合核函式
-            Sparse Autoencoders and Feature Dictionaries: 稀疏自編碼器與特徵字典
-            Algorithmic Auditing and Impact Assessment: 演算法稽核與影響評估
-            "AI, Elections and Democracy": AI、選舉與民主
-            Calculus and Optimisation Foundations: 微積分與最佳化基礎
-            Gradient Descent: 梯度下降
-            "Newton's Method": 牛頓法
-            Lagrange Multipliers and KKT: 拉格朗日乘數與 KKT
-            "Sleep, Replay and Memory Consolidation": 睡眠、重播與記憶鞏固
-            Hippocampal Replay: 海馬迴重播
-            Targeted Memory Reactivation: 目標式記憶再活化
-            "Conferences & Journals": 會議與期刊
-            Serving Mixture-of-Experts Models: 混合專家模型服務
-            Mathematics and Formal Proof: 數學與形式證明
-            Consistency Models and Fast Samplers: 一致性模型與快速取樣器
-            Model Extraction and Theft: 模型萃取與竊取
-            Deceptive alignment and sleeper agents: 欺騙性對齊與潛伏代理人
-            Automated Planning: 自動規劃
-            AI Incident Databases and Case Studies: AI 事故資料庫與案例研究
-            Dartmouth and the Symbolic Era: 達特茅斯會議與符號時代（1956–1974）
-            Logic Theorist and General Problem Solver: Logic Theorist 與通用問題求解器
-            Perceptron and the Minsky–Papert Critique: 感知器與 Minsky–Papert 批判
             Probabilistic Graphical Models: 機率圖模型
             Hidden Markov Model: 隱馬可夫模型
             Conditional Random Field: 條件隨機場
             Belief Propagation: 信念傳播
-            Neural Architecture Search and AutoML: 神經架構搜尋與 AutoML
-            NAS with Reinforcement Learning: 以強化學習進行 NAS
-            Regularized Evolution: 正則化演化
-            Hyperparameter Optimisation: 超參數最佳化
-            Multi-Agent Reinforcement Learning: 多代理人強化學習
-            Population-Based Training: 基於族群的訓練
-            Model Specifications and Behaviour Policies: 模型規範與行為政策
-            Weather Forecasting and Earth Observation: 天氣預報與地球觀測
-            Spatial Navigation and Cognitive Maps: 空間導航與認知地圖
-            Place Cells: 位置細胞
-            Grid Cells: 網格細胞
-            Tolman–Eichenbaum Machine: Tolman–Eichenbaum 機器
-            Model Catalogue: 主要模型目錄
-            Expert Systems and the AI Winters: 專家系統與 AI 寒冬（1974–2006）
-            MYCIN and Certainty Factors: MYCIN 與確定性因子
-            Backpropagation and the Connectionist Revival: 反向傳播與連結主義的復興
-            Statistical Language Processing: 統計語言處理
-            Normalising Flows: 正規化流
-            Masked Autoregressive Flow: 遮罩自回歸流
-            Autoregressive Generative Models: 自回歸生成模型
-            3D Vision and Neural Rendering: 三維視覺與神經渲染
-            Neural Radiance Fields (NeRF): 神經輻射場（NeRF）
-            3D Gaussian Splatting: 3D 高斯濺射
-            Probability and Statistics for AI: AI 的機率與統計
-            Maximum Likelihood: 最大概似估計
-            Expectation-Maximisation: 期望最大化演算法
-            Bootstrap: 自助法
+            Search Algorithms: 搜尋演算法
+            "A* Search": A* 搜尋
+            Minimax with Alpha-Beta Pruning: 極小化極大與 α-β 剪枝
+            Tree of Thoughts: 思維樹（Tree of Thoughts）
+            Automated Planning: 自動規劃
+            Knowledge Graphs: 知識圖譜
             Neuro-Symbolic AI: 神經符號 AI
             Neural Theorem Prover: 神經定理證明器
+            Automated Theorem Proving: 自動定理證明
+            Resolution: 歸結
+            Conflict-Driven Clause Learning: 衝突驅動子句學習
+            Uncertainty Quantification and Calibration: 不確定性量化與校準
+            Temperature Scaling: 溫度縮放
+            Deep Ensembles: 深度集成
+            MC Dropout: MC 丟棄法
+            Conformal Prediction: 保形預測
+            Adversarial Examples and Robustness: 對抗樣本與穩健性
+            Fast Gradient Sign Method: 快速梯度符號法
+            PGD and Adversarial Training: PGD 與對抗訓練
+            Randomized Smoothing: 隨機平滑
             Out-of-Distribution Detection and Distribution Shift: 分布外偵測與分布偏移
             Maximum Softmax Probability: 最大 softmax 機率
             Mahalanobis Distance Detector: 馬氏距離偵測器
             Energy Score: 能量分數
+            Tokenisation: 分詞
+            Byte-Pair Encoding: 位元組對編碼
+            SentencePiece and the Unigram Model: SentencePiece 與 Unigram 模型
+            Scaling Laws and Emergent Abilities: 縮放定律與湧現能力
+            Kaplan Scaling Laws: Kaplan 縮放定律
+            Emergent Abilities: 湧現能力
+            Emergence as a Mirage: 湧現是海市蜃樓
+            Neural Architecture Search and AutoML: 神經架構搜尋與 AutoML
+            NAS with Reinforcement Learning: 以強化學習進行 NAS
+            Regularized Evolution: 正則化演化
+            Hyperparameter Optimisation: 超參數最佳化
+            Monte Carlo Tree Search and Self-Play: 蒙地卡羅樹搜尋與自我對弈
+            Monte Carlo Tree Search: 蒙地卡羅樹搜尋
+            Multi-Agent Reinforcement Learning: 多代理人強化學習
+            Population-Based Training: 基於族群的訓練
+            Agent Engineering: 代理人工程
+            Tool Calling and the Model Context Protocol: 工具呼叫與 Model Context Protocol
+            Sandboxing and Computer-Use Agents: 沙箱與電腦操作代理人
+            Multi-Agent Orchestration: 多代理人編排
+            Multi-Agent Debate: 多代理人辯論
+            Agent Evaluation: 代理人評估
+            Agent Observability and Tracing: 代理人可觀測性與追蹤
+            MAST Failure Taxonomy: MAST 失敗分類法
+            AgentOps Taxonomy: AgentOps 分類法
+            Parameter-Efficient Fine-Tuning: 參數高效微調
+            "Preference Optimisation: DPO and Its Successors": 偏好最佳化：DPO 及其後續方法
+            Mixed-Precision Training and Gradient Checkpointing: 混合精度訓練與梯度檢查點
+            FlashAttention and Fused Kernels: 快閃注意力與融合核函式
+            Jailbreaks and Red-Teaming: 越獄與紅隊測試
+            Guardrails and Output Filtering: 護欄與輸出過濾
+            Data Poisoning and Backdoors: 資料投毒與後門
+            Model Extraction and Theft: 模型萃取與竊取
             Watermarking Model Output: 模型輸出浮水印
-            How to Read an AI Paper: 如何閱讀 AI 論文
+            Benchmark Suites: 基準測試套件
+            LLM-as-judge and Pairwise Evaluation: LLM 作為評審與成對評估
+            Benchmark Contamination: 基準測試污染
+            ML Compilers and Kernel Languages: 機器學習編譯器與核函式語言
+            TinyML and Mobile Runtimes: TinyML 與行動端執行環境
+            KV Cache Compression and Eviction: KV 快取壓縮與淘汰
+            Disaggregated Prefill and Decode: 預填充與解碼分離
+            Serving Mixture-of-Experts Models: 混合專家模型服務
+            Constitutional AI and RLAIF: 憲法式 AI 與 RLAIF
+            Scalable Oversight: 可擴展的監督
+            Reward Hacking and Specification Gaming: 獎勵駭客與規格博弈
+            Deceptive alignment and sleeper agents: 欺騙性對齊與潛伏代理人
+            Dangerous-Capability Evaluations and Frontier Safety Frameworks: 危險能力評估與前沿安全框架
+            Model Specifications and Behaviour Policies: 模型規範與行為政策
+            Mechanistic Interpretability and Circuits: 機械式可解釋性與電路
+            Sparse Autoencoders and Feature Dictionaries: 稀疏自編碼器與特徵字典
+            Probing Classifiers and Representation Analysis: 探測分類器與表徵分析
+            "Feature Attribution: SHAP, LIME and Saliency": 特徵歸因：SHAP、LIME 與顯著性
+            Fairness Definitions and Impossibility Results: 公平性定義與不可能性結果
+            Case Studies in Algorithmic Bias: 演算法偏見案例研究
+            Algorithmic Auditing and Impact Assessment: 演算法稽核與影響評估
+            Human-AI Interaction and Trust: 人機互動與信任
+            Trust in automation: 自動化中的信任
+            Cognitive forcing functions: 認知強制功能
+            Automation Bias and Overreliance: 自動化偏誤與過度依賴
+            AI Companionship and Parasocial Relationships: AI 陪伴與準社會關係
+            AI Literacy and Public Understanding: AI 素養與大眾理解
+            "Surveillance & Facial Recognition": 監控與人臉辨識
+            Runaway Feedback Loops: 失控回饋迴圈
+            Compute Governance and Export Controls: 運算治理與出口管制
+            "AI, Elections and Democracy": AI、選舉與民主
+            AI Incident Databases and Case Studies: AI 事故資料庫與案例研究
+            Search Engines and Information Retrieval: 搜尋引擎與資訊檢索
+            Mathematics and Formal Proof: 數學與形式證明
+            Weather Forecasting and Earth Observation: 天氣預報與地球觀測
             "Logistics & Supply Chain": 物流與供應鏈
             Attention Model for Routing: 用於路線規劃的注意力模型
+            Customer Service and Conversational Systems: 客戶服務與對話系統
+            Joint Intent Detection and Slot Filling: 聯合意圖偵測與槽位填充
             Human Resources and Recruiting: 人力資源與招募
             Person-Job Fit: 人職適配
             Automated Interview Analysis: 自動化面試分析
+            Insurance and Actuarial Science: 保險與精算科學
+            Generalised Linear Models: 廣義線性模型
             "Sports Analytics & Performance": 運動分析與表現
+            AI for AI Research: AI 用於 AI 研究
+            Motor Control and the Cerebellum: 運動控制與小腦
+            Cerebellar Supervised Learning: 小腦監督學習
+            Optimal Feedback Control: 最優回饋控制
+            Motor Cortex Population Dynamics: 運動皮質群體動態
+            "Sleep, Replay and Memory Consolidation": 睡眠、重播與記憶鞏固
+            Hippocampal Replay: 海馬迴重播
+            Targeted Memory Reactivation: 目標式記憶再活化
+            Spatial Navigation and Cognitive Maps: 空間導航與認知地圖
+            Place Cells: 位置細胞
+            Grid Cells: 網格細胞
+            Tolman–Eichenbaum Machine: Tolman–Eichenbaum 機器
             Working Memory and Executive Function: 工作記憶與執行功能
             Persistent Activity (Funahashi et al. 1989): 持續活動（Funahashi 等人 1989）
             Activity-Silent Memory (Mongillo et al. 2008): 活動靜默記憶（Mongillo 等人 2008）
@@ -722,14 +762,6 @@ plugins:
             Neuromodulation Beyond Dopamine: 多巴胺之外的神經調節
             Yu and Dayan 2005: Yu 與 Dayan 2005
             Aston-Jones and Cohen 2005: Aston-Jones 與 Cohen 2005
-            Notation and Symbols: 符號與記號
-            Video Understanding and Generation: 影片理解與生成
-            Video Diffusion Models: 影片擴散模型
-            Automated Theorem Proving: 自動定理證明
-            Resolution: 歸結
-            Conflict-Driven Clause Learning: 衝突驅動子句學習
-            Customer Service and Conversational Systems: 客戶服務與對話系統
-            Joint Intent Detection and Slot Filling: 聯合意圖偵測與槽位填充
             Hearing and the Auditory System: 聽覺與聽覺系統
             Tonotopic Maps from fMRI (Formisano et al. 2003): 以 fMRI 描繪音調拓撲圖（Formisano 等人 2003）
             "Attended-Speaker Decoding (Mesgarani & Chang 2012)": 從皮質解碼被注意的說話者（Mesgarani 與 Chang 2012）
@@ -739,12 +771,20 @@ plugins:
             Phase-Amplitude Coupling: 相位-振幅耦合
             Coupled Oscillatory RNN: 耦合振盪 RNN
             Computational Psychiatry: 計算精神醫學
+            "Conferences & Journals": 會議與期刊
+            Model Catalogue: 主要模型目錄
+            Notation and Symbols: 符號與記號
+            How to Read an AI Paper: 如何閱讀 AI 論文
+            Dartmouth and the Symbolic Era: 達特茅斯會議與符號時代（1956–1974）
+            Logic Theorist and General Problem Solver: Logic Theorist 與通用問題求解器
+            Perceptron and the Minsky–Papert Critique: 感知器與 Minsky–Papert 批判
+            Expert Systems and the AI Winters: 專家系統與 AI 寒冬（1974–2006）
+            MYCIN and Certainty Factors: MYCIN 與確定性因子
+            Backpropagation and the Connectionist Revival: 反向傳播與連結主義的復興
+            Statistical Language Processing: 統計語言處理
             Deep Learning Revolution: 深度學習革命（2006 年至今）
             Deep Belief Networks: 深度信念網路
             ImageNet and ILSVRC: ImageNet 與 ILSVRC
-            Insurance and Actuarial Science: 保險與精算科學
-            Generalised Linear Models: 廣義線性模型
-            AI for AI Research: AI 用於 AI 研究
 
 markdown_extensions:
   - abbr
@@ -824,16 +864,16 @@ nav:
               - Truncated SVD: theory/math/linear-algebra/truncated-svd/index.md
               - Principal Component Analysis: theory/math/linear-algebra/pca/index.md
               - Randomized SVD: theory/math/linear-algebra/randomized-svd/index.md
-          - Calculus and Optimisation Foundations:
-              - theory/math/calculus/index.md
-              - Gradient Descent: theory/math/calculus/gradient-descent/index.md
-              - "Newton's Method": theory/math/calculus/newton-method/index.md
-              - Lagrange Multipliers and KKT: theory/math/calculus/lagrange-multipliers/index.md
           - Probability and Statistics for AI:
               - theory/math/probability-statistics/index.md
               - Maximum Likelihood: theory/math/probability-statistics/maximum-likelihood/index.md
               - Expectation-Maximisation: theory/math/probability-statistics/expectation-maximisation/index.md
               - Bootstrap: theory/math/probability-statistics/bootstrap/index.md
+          - Calculus and Optimisation Foundations:
+              - theory/math/calculus/index.md
+              - Gradient Descent: theory/math/calculus/gradient-descent/index.md
+              - "Newton's Method": theory/math/calculus/newton-method/index.md
+              - Lagrange Multipliers and KKT: theory/math/calculus/lagrange-multipliers/index.md
       - Information Theory: theory/information-theory/index.md
       - Machine Learning:
           - theory/machine-learning/index.md
@@ -896,8 +936,15 @@ nav:
               - Gradual Warm-up: theory/optimization/gradual-warm-up.md
               - Cosine Annealing with Warm Restarts: theory/optimization/cosine-annealing-warm-restarts.md
               - Cyclical Learning Rates: theory/optimization/cyclical-learning-rates.md
-          - Regularisation & Weight Decay: theory/optimization/regularisation-and-weight-decay.md
-          - Gradient Clipping & Normalisation: theory/optimization/gradient-clipping-and-normalisation.md
+          - Regularisation & Weight Decay:
+              - theory/optimization/regularisation-and-weight-decay.md
+              - Sharp Minima: theory/optimization/sharp-minima.md
+              - SGD Noise Scale: theory/optimization/sgd-noise-scale.md
+          - Gradient Clipping & Normalisation:
+              - theory/optimization/gradient-clipping-and-normalisation.md
+              - Norm Clipping: theory/optimization/norm-clipping.md
+              - LARS: theory/optimization/lars.md
+              - LAMB: theory/optimization/lamb.md
           - Large-Batch & Distributed: theory/optimization/large-batch-and-distributed.md
           - Zeroth-Order & Evolutionary: theory/optimization/zeroth-order-and-evolutionary.md
           - Theory & Landscapes: theory/optimization/theory-and-landscapes.md
@@ -917,7 +964,42 @@ nav:
               - theory/paradigms/unsupervised/index.md
               - Clustering: theory/paradigms/unsupervised/clustering/index.md
               - Dimensionality Reduction: theory/paradigms/unsupervised/dimensionality-reduction/index.md
-              - Density Estimation & Generative Models: theory/paradigms/unsupervised/density-and-generative-models/index.md
+              - Density Estimation & Generative Models:
+                  - theory/paradigms/unsupervised/density-and-generative-models/index.md
+                  - Generative Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md
+                      - Generative Adversarial Networks:
+                          - theory/paradigms/unsupervised/density-and-generative-models/gan/index.md
+                          - Original GAN: theory/paradigms/unsupervised/density-and-generative-models/gan/original-gan/index.md
+                          - DCGAN: theory/paradigms/unsupervised/density-and-generative-models/gan/dcgan/index.md
+                          - Wasserstein GAN: theory/paradigms/unsupervised/density-and-generative-models/gan/wgan/index.md
+                      - Variational Autoencoders:
+                          - theory/paradigms/unsupervised/density-and-generative-models/vae/index.md
+                          - β-VAE: theory/paradigms/unsupervised/density-and-generative-models/vae/beta-vae/index.md
+                          - VQ-VAE: theory/paradigms/unsupervised/density-and-generative-models/vae/vq-vae/index.md
+                      - Normalising Flows:
+                          - theory/paradigms/unsupervised/density-and-generative-models/normalising-flows/index.md
+                          - RealNVP: theory/paradigms/unsupervised/density-and-generative-models/normalising-flows/realnvp/index.md
+                          - Glow: theory/paradigms/unsupervised/density-and-generative-models/normalising-flows/glow/index.md
+                          - Masked Autoregressive Flow: theory/paradigms/unsupervised/density-and-generative-models/normalising-flows/masked-autoregressive-flow/index.md
+                          - FFJORD: theory/paradigms/unsupervised/density-and-generative-models/normalising-flows/ffjord/index.md
+                      - Autoregressive Generative Models:
+                          - theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index.md
+                          - PixelCNN: theory/paradigms/unsupervised/density-and-generative-models/autoregressive/pixelcnn/index.md
+                          - WaveNet: theory/paradigms/unsupervised/density-and-generative-models/autoregressive/wavenet/index.md
+                          - Image GPT: theory/paradigms/unsupervised/density-and-generative-models/autoregressive/image-gpt/index.md
+                      - Flow Matching and Rectified Flow:
+                          - theory/paradigms/unsupervised/density-and-generative-models/flow-matching/index.md
+                          - Conditional Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow-matching/conditional-flow-matching/index.md
+                          - Rectified Flow: theory/paradigms/unsupervised/density-and-generative-models/flow-matching/rectified-flow/index.md
+                          - OT-CFM: theory/paradigms/unsupervised/density-and-generative-models/flow-matching/ot-cfm/index.md
+                  - Diffusion Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
+                      - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
+                      - DDIM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md
+                      - Latent Diffusion: theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md
+                      - Classifier-Free Guidance: theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md
+                      - Consistency Models and Fast Samplers: theory/paradigms/unsupervised/density-and-generative-models/diffusion/consistency-models.md
               - Autoencoders & Representations: theory/paradigms/unsupervised/autoencoders-and-representations/index.md
               - Anomaly Detection: theory/paradigms/unsupervised/anomaly-detection/index.md
           - Semi- & Weakly Supervised Learning:
@@ -1005,86 +1087,51 @@ nav:
               - Communication Efficiency: theory/paradigms/federated/communication-efficiency/index.md
               - Vertical & Cross-silo: theory/paradigms/federated/vertical-and-cross-silo/index.md
           - Other Paradigms: theory/paradigms/other/index.md
-      - Probabilistic & Bayesian Methods:
-          - theory/probabilistic/index.md
-          - Variational Inference:
-              - theory/probabilistic/variational-inference/index.md
-              - Variational Autoencoder: theory/probabilistic/variational-inference/variational-autoencoder/index.md
-              - Black-Box Variational Inference: theory/probabilistic/variational-inference/black-box-variational-inference/index.md
-              - Normalising Flow Posteriors: theory/probabilistic/variational-inference/normalising-flow-posteriors/index.md
-          - Markov Chain Monte Carlo:
-              - theory/probabilistic/mcmc/index.md
-              - Metropolis–Hastings: theory/probabilistic/mcmc/metropolis-hastings/index.md
-              - Gibbs Sampling: theory/probabilistic/mcmc/gibbs-sampling/index.md
-              - Hamiltonian Monte Carlo and NUTS: theory/probabilistic/mcmc/hamiltonian-monte-carlo/index.md
-              - Langevin Dynamics: theory/probabilistic/mcmc/langevin-dynamics/index.md
-          - Probabilistic Graphical Models:
-              - theory/probabilistic/graphical-models/index.md
-              - Hidden Markov Model: theory/probabilistic/graphical-models/hidden-markov-model/index.md
-              - Conditional Random Field: theory/probabilistic/graphical-models/conditional-random-field/index.md
-              - Belief Propagation: theory/probabilistic/graphical-models/belief-propagation/index.md
-      - Symbolic AI, Search & Planning:
-          - theory/symbolic-ai/index.md
-          - Search Algorithms:
-              - theory/symbolic-ai/search/index.md
-              - "A* Search": theory/symbolic-ai/search/a-star/index.md
-              - Minimax with Alpha-Beta Pruning: theory/symbolic-ai/search/alpha-beta/index.md
-              - Tree of Thoughts: theory/symbolic-ai/search/tree-of-thoughts/index.md
-          - Knowledge Graphs:
-              - theory/symbolic-ai/knowledge-graphs/index.md
-              - RotatE: theory/symbolic-ai/knowledge-graphs/rotate/index.md
-              - GraphRAG: theory/symbolic-ai/knowledge-graphs/graphrag/index.md
-          - Automated Planning:
-              - theory/symbolic-ai/planning/index.md
-              - STRIPS: theory/symbolic-ai/planning/strips/index.md
-              - SHOP2: theory/symbolic-ai/planning/shop2/index.md
-              - SayCan: theory/symbolic-ai/planning/saycan/index.md
-          - Neuro-Symbolic AI:
-              - theory/symbolic-ai/neuro-symbolic/index.md
-              - ∂ILP: theory/symbolic-ai/neuro-symbolic/differentiable-ilp/index.md
-              - DreamCoder: theory/symbolic-ai/neuro-symbolic/dreamcoder/index.md
-              - Neural Theorem Prover: theory/symbolic-ai/neuro-symbolic/neural-theorem-prover/index.md
-          - Automated Theorem Proving:
-              - theory/symbolic-ai/theorem-proving/index.md
-              - Resolution: theory/symbolic-ai/theorem-proving/resolution/index.md
-              - Conflict-Driven Clause Learning: theory/symbolic-ai/theorem-proving/cdcl-sat/index.md
-              - GPT-f: theory/symbolic-ai/theorem-proving/gpt-f/index.md
-      - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
-      - Generative Models:
-          - theory/generative/index.md
-          - Diffusion Models:
-              - theory/generative/diffusion/index.md
-              - DDPM: theory/generative/diffusion/ddpm.md
-              - DDIM: theory/generative/diffusion/ddim.md
-              - Latent Diffusion: theory/generative/diffusion/latent-diffusion.md
-              - DiT: theory/generative/diffusion/dit.md
-              - Classifier-Free Guidance: theory/generative/diffusion/classifier-free-guidance.md
-              - Consistency Models and Fast Samplers: theory/generative/diffusion/consistency-models.md
-          - Generative Adversarial Networks:
-              - theory/generative/gan/index.md
-              - Original GAN: theory/generative/gan/original-gan/index.md
-              - DCGAN: theory/generative/gan/dcgan/index.md
-              - Wasserstein GAN: theory/generative/gan/wgan/index.md
-          - Variational Autoencoders:
-              - theory/generative/vae/index.md
-              - β-VAE: theory/generative/vae/beta-vae/index.md
-              - VQ-VAE: theory/generative/vae/vq-vae/index.md
-          - Flow Matching and Rectified Flow:
-              - theory/generative/flow-matching/index.md
-              - Conditional Flow Matching: theory/generative/flow-matching/conditional-flow-matching/index.md
-              - Rectified Flow: theory/generative/flow-matching/rectified-flow/index.md
-              - OT-CFM: theory/generative/flow-matching/ot-cfm/index.md
-          - Normalising Flows:
-              - theory/generative/normalising-flows/index.md
-              - RealNVP: theory/generative/normalising-flows/realnvp/index.md
-              - Glow: theory/generative/normalising-flows/glow/index.md
-              - Masked Autoregressive Flow: theory/generative/normalising-flows/masked-autoregressive-flow/index.md
-              - FFJORD: theory/generative/normalising-flows/ffjord/index.md
-          - Autoregressive Generative Models:
-              - theory/generative/autoregressive/index.md
-              - PixelCNN: theory/generative/autoregressive/pixelcnn/index.md
-              - WaveNet: theory/generative/autoregressive/wavenet/index.md
-              - Image GPT: theory/generative/autoregressive/image-gpt/index.md
+          - Probabilistic & Bayesian Methods:
+              - theory/paradigms/probabilistic/index.md
+              - Variational Inference:
+                  - theory/paradigms/probabilistic/variational-inference/index.md
+                  - Variational Autoencoder: theory/paradigms/probabilistic/variational-inference/variational-autoencoder/index.md
+                  - Black-Box Variational Inference: theory/paradigms/probabilistic/variational-inference/black-box-variational-inference/index.md
+                  - Normalising Flow Posteriors: theory/paradigms/probabilistic/variational-inference/normalising-flow-posteriors/index.md
+              - Markov Chain Monte Carlo:
+                  - theory/paradigms/probabilistic/mcmc/index.md
+                  - Metropolis–Hastings: theory/paradigms/probabilistic/mcmc/metropolis-hastings/index.md
+                  - Gibbs Sampling: theory/paradigms/probabilistic/mcmc/gibbs-sampling/index.md
+                  - Hamiltonian Monte Carlo and NUTS: theory/paradigms/probabilistic/mcmc/hamiltonian-monte-carlo/index.md
+                  - Langevin Dynamics: theory/paradigms/probabilistic/mcmc/langevin-dynamics/index.md
+              - Probabilistic Graphical Models:
+                  - theory/paradigms/probabilistic/graphical-models/index.md
+                  - Hidden Markov Model: theory/paradigms/probabilistic/graphical-models/hidden-markov-model/index.md
+                  - Conditional Random Field: theory/paradigms/probabilistic/graphical-models/conditional-random-field/index.md
+                  - Belief Propagation: theory/paradigms/probabilistic/graphical-models/belief-propagation/index.md
+          - Symbolic AI, Search & Planning:
+              - theory/paradigms/symbolic-ai/index.md
+              - Search Algorithms:
+                  - theory/paradigms/symbolic-ai/search/index.md
+                  - "A* Search": theory/paradigms/symbolic-ai/search/a-star/index.md
+                  - Minimax with Alpha-Beta Pruning: theory/paradigms/symbolic-ai/search/alpha-beta/index.md
+                  - Tree of Thoughts: theory/paradigms/symbolic-ai/search/tree-of-thoughts/index.md
+              - Automated Planning:
+                  - theory/paradigms/symbolic-ai/planning/index.md
+                  - STRIPS: theory/paradigms/symbolic-ai/planning/strips/index.md
+                  - SHOP2: theory/paradigms/symbolic-ai/planning/shop2/index.md
+                  - SayCan: theory/paradigms/symbolic-ai/planning/saycan/index.md
+              - Knowledge Graphs:
+                  - theory/paradigms/symbolic-ai/knowledge-graphs/index.md
+                  - RotatE: theory/paradigms/symbolic-ai/knowledge-graphs/rotate/index.md
+                  - GraphRAG: theory/paradigms/symbolic-ai/knowledge-graphs/graphrag/index.md
+              - Neuro-Symbolic AI:
+                  - theory/paradigms/symbolic-ai/neuro-symbolic/index.md
+                  - ∂ILP: theory/paradigms/symbolic-ai/neuro-symbolic/differentiable-ilp/index.md
+                  - DreamCoder: theory/paradigms/symbolic-ai/neuro-symbolic/dreamcoder/index.md
+                  - Neural Theorem Prover: theory/paradigms/symbolic-ai/neuro-symbolic/neural-theorem-prover/index.md
+              - Automated Theorem Proving:
+                  - theory/paradigms/symbolic-ai/theorem-proving/index.md
+                  - Resolution: theory/paradigms/symbolic-ai/theorem-proving/resolution/index.md
+                  - Conflict-Driven Clause Learning: theory/paradigms/symbolic-ai/theorem-proving/cdcl-sat/index.md
+                  - GPT-f: theory/paradigms/symbolic-ai/theorem-proving/gpt-f/index.md
+          - Evolutionary & Swarm Intelligence: theory/paradigms/evolutionary/index.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation:
@@ -1130,6 +1177,7 @@ nav:
                   - theory/model-compression/pruning/one-shot-llm-pruning/index.md
                   - SparseGPT: theory/model-compression/pruning/one-shot-llm-pruning/sparsegpt/index.md
                   - Wanda: theory/model-compression/pruning/one-shot-llm-pruning/wanda/index.md
+          - Deep Compression: theory/model-compression/deep-compression/index.md
           - Knowledge Distillation:
               - theory/model-compression/knowledge-distillation/index.md
               - Response-Based:
@@ -1157,6 +1205,11 @@ nav:
                   - Sequence-Level KD: theory/model-compression/knowledge-distillation/llm-distillation/sequence-level/index.md
                   - MiniLLM: theory/model-compression/knowledge-distillation/llm-distillation/minillm/index.md
                   - DeepSeek-R1 Distillation: theory/model-compression/knowledge-distillation/llm-distillation/deepseek-r1/index.md
+          - Low-Rank & Efficient Architectures:
+              - theory/model-compression/low-rank-and-efficient-architectures/index.md
+              - Truncated SVD: theory/model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md
+              - Low-Rank Filter Expansion: theory/model-compression/low-rank-and-efficient-architectures/low-rank-filter-expansion/index.md
+              - LoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons:
@@ -1190,7 +1243,10 @@ nav:
               - theory/models/transformer/index.md
               - Attention Is All You Need: theory/models/transformer/attention-is-all-you-need/index.md
               - Additive Attention (Bahdanau): theory/models/transformer/bahdanau-attention/index.md
-              - Attention Variants: theory/models/transformer/attention-variants/index.md
+              - Diffusion Transformer (DiT): theory/models/transformer/dit/index.md
+              - Attention Variants:
+                  - theory/models/transformer/attention-variants/index.md
+                  - FlashAttention: theory/models/transformer/attention-variants/flash-attention/index.md
               - Positional Encodings: theory/models/transformer/positional-encodings/index.md
               - KV Cache: theory/models/transformer/kv-cache/index.md
               - Architecture Families:
@@ -1434,23 +1490,23 @@ nav:
           - DeepAR: applications/logistics-supply-chain/deepar/index.md
           - Attention Model for Routing: applications/logistics-supply-chain/attention-model-routing/index.md
           - PRIMAL: applications/logistics-supply-chain/primal/index.md
-      - Human Resources and Recruiting:
-          - applications/hr-recruiting/index.md
-          - Person-Job Fit: applications/hr-recruiting/person-job-fit/index.md
-          - Automated Interview Analysis: applications/hr-recruiting/interview-analysis/index.md
-      - "Sports Analytics & Performance":
-          - applications/sports/index.md
-          - OpenPose: applications/sports/openpose/index.md
-          - VAEP: applications/sports/vaep/index.md
       - Customer Service and Conversational Systems:
           - applications/customer-service/index.md
           - Joint Intent Detection and Slot Filling: applications/customer-service/joint-intent-slot-filling/index.md
           - SimpleTOD: applications/customer-service/simpletod/index.md
+      - Human Resources and Recruiting:
+          - applications/hr-recruiting/index.md
+          - Person-Job Fit: applications/hr-recruiting/person-job-fit/index.md
+          - Automated Interview Analysis: applications/hr-recruiting/interview-analysis/index.md
       - Insurance and Actuarial Science:
           - applications/insurance/index.md
           - Generalised Linear Models: applications/insurance/glm-pricing/index.md
           - LocalGLMnet: applications/insurance/localglmnet/index.md
           - CARE-GNN: applications/insurance/care-gnn/index.md
+      - "Sports Analytics & Performance":
+          - applications/sports/index.md
+          - OpenPose: applications/sports/openpose/index.md
+          - VAEP: applications/sports/vaep/index.md
       - AI for AI Research:
           - applications/ai-research/index.md
           - The AI Scientist: applications/ai-research/ai-scientist/index.md
@@ -1519,7 +1575,16 @@ nav:
           - Serving Mixture-of-Experts Models: engineering/inference-optimization/moe-serving.md
       - MLOps & Deployment: engineering/mlops/index.md
       - AI Coding Assistants: engineering/coding-assistants/index.md
-      - AI Hardware: engineering/hardware/index.md
+      - AI Hardware:
+          - engineering/hardware/index.md
+          - AI Accelerators:
+              - engineering/hardware/accelerators/index.md
+              - TPU: engineering/hardware/accelerators/tpu/index.md
+              - Eyeriss v2: engineering/hardware/accelerators/eyeriss-v2/index.md
+          - Memory Hierarchy and Bandwidth: engineering/hardware/memory-hierarchy/index.md
+          - Interconnects and Scaling: engineering/hardware/interconnects/index.md
+          - In-Memory and Analogue Computing: engineering/hardware/in-memory-computing/index.md
+          - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
@@ -1528,16 +1593,16 @@ nav:
           - engineering/agents/index.md
           - ReAct: engineering/agents/react/index.md
           - Reflexion: engineering/agents/reflexion/index.md
-          - Sandboxing and Computer-Use Agents:
-              - engineering/agents/sandboxing-and-computer-use/index.md
-              - CodeAct: engineering/agents/sandboxing-and-computer-use/codeact/index.md
-              - OSWorld: engineering/agents/sandboxing-and-computer-use/osworld/index.md
-              - CaMeL: engineering/agents/sandboxing-and-computer-use/camel/index.md
           - Tool Calling and the Model Context Protocol:
               - engineering/agents/tool-calling-and-mcp/index.md
               - Toolformer: engineering/agents/tool-calling-and-mcp/toolformer/index.md
               - Gorilla: engineering/agents/tool-calling-and-mcp/gorilla/index.md
               - ToolLLM: engineering/agents/tool-calling-and-mcp/toolllm/index.md
+          - Sandboxing and Computer-Use Agents:
+              - engineering/agents/sandboxing-and-computer-use/index.md
+              - CodeAct: engineering/agents/sandboxing-and-computer-use/codeact/index.md
+              - OSWorld: engineering/agents/sandboxing-and-computer-use/osworld/index.md
+              - CaMeL: engineering/agents/sandboxing-and-computer-use/camel/index.md
           - Multi-Agent Orchestration:
               - engineering/agents/multi-agent-orchestration/index.md
               - Multi-Agent Debate: engineering/agents/multi-agent-orchestration/debate/index.md
@@ -1558,17 +1623,17 @@ nav:
       - Safety & Alignment:
           - society/safety-alignment/index.md
           - Constitutional AI and RLAIF: society/safety-alignment/constitutional-ai.md
-          - Reward Hacking and Specification Gaming: society/safety-alignment/reward-hacking.md
-          - Dangerous-Capability Evaluations and Frontier Safety Frameworks: society/safety-alignment/dangerous-capability-evals.md
           - Scalable Oversight: society/safety-alignment/scalable-oversight.md
+          - Reward Hacking and Specification Gaming: society/safety-alignment/reward-hacking.md
           - Deceptive alignment and sleeper agents: society/safety-alignment/deceptive-alignment.md
+          - Dangerous-Capability Evaluations and Frontier Safety Frameworks: society/safety-alignment/dangerous-capability-evals.md
           - Model Specifications and Behaviour Policies: society/safety-alignment/model-specs.md
       - Interpretability:
           - society/interpretability/index.md
           - Mechanistic Interpretability and Circuits: society/interpretability/mechanistic-interpretability.md
-          - "Feature Attribution: SHAP, LIME and Saliency": society/interpretability/feature-attribution.md
-          - Probing Classifiers and Representation Analysis: society/interpretability/probing.md
           - Sparse Autoencoders and Feature Dictionaries: society/interpretability/sparse-autoencoders.md
+          - Probing Classifiers and Representation Analysis: society/interpretability/probing.md
+          - "Feature Attribution: SHAP, LIME and Saliency": society/interpretability/feature-attribution.md
       - Ethics & Fairness:
           - society/ethics/index.md
           - Fairness Definitions and Impossibility Results: society/ethics/fairness-definitions.md
@@ -1596,6 +1661,8 @@ nav:
           - Green AI: society/environment/green-ai.md
           - Reporting energy and carbon: society/environment/reporting-framework.md
       - Open versus Closed Models: society/open-vs-closed/index.md
+      - AI in Taiwan: society/ai-in-taiwan/index.md
+      - Children, Education Policy & AI: society/children-education-policy/index.md
       - Law, Policy & Governance:
           - society/governance/index.md
           - Compute Governance and Export Controls: society/governance/compute-governance.md
@@ -1607,9 +1674,9 @@ nav:
           - society/human-ai-interaction/index.md
           - Trust in automation: society/human-ai-interaction/trust-in-automation/index.md
           - Cognitive forcing functions: society/human-ai-interaction/cognitive-forcing/index.md
-          - AI Literacy and Public Understanding: society/human-ai-interaction/ai-literacy.md
-          - AI Companionship and Parasocial Relationships: society/human-ai-interaction/ai-companionship.md
           - Automation Bias and Overreliance: society/human-ai-interaction/automation-bias.md
+          - AI Companionship and Parasocial Relationships: society/human-ai-interaction/ai-companionship.md
+          - AI Literacy and Public Understanding: society/human-ai-interaction/ai-literacy.md
       - "Surveillance & Facial Recognition":
           - society/surveillance/index.md
           - Gender Shades: society/surveillance/gender-shades/index.md
@@ -1629,5 +1696,5 @@ nav:
       - Style Guide: reference/style-guide/index.md
       - "Conferences & Journals": reference/venues/index.md
       - Model Catalogue: reference/model-catalogue/index.md
-      - How to Read an AI Paper: reference/how-to-read-a-paper/index.md
       - Notation and Symbols: reference/notation/index.md
+      - How to Read an AI Paper: reference/how-to-read-a-paper/index.md

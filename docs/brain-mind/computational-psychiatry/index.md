@@ -4,7 +4,7 @@ last_reviewed: 2026-10-28
 related:
 - applications/mental-health
 - theory/paradigms/reinforcement-learning
-- theory/probabilistic
+- theory/paradigms/probabilistic
 tags:
 - neuroscience
 - psychology
@@ -78,7 +78,7 @@ Each method has its own page. This table is only a comparison.
 - **Reinforcement learning and dopamine**: the models in this field come largely from reinforcement learning. The reward prediction error recorded from dopamine neurons, described in [Dopamine Reward Prediction Error](../neuroscience/dopamine-reward-prediction-error/index.md), is the best-known link between a computational variable and a neural signal, and it is the starting point for many accounts of learning in psychiatric disorders.
 - **Decision making**: the split between goal-directed and habitual control, covered in [Model-Based vs Model-Free Control](../decision-reward/model-based-vs-model-free/index.md), gives the best-studied candidate for a compulsion-related phenotype. The wider picture of how evidence and value combine is in [Decision Making, Dopamine & Reward](../decision-reward/index.md).
 - **Predictive processing**: the account of psychosis rests on the prediction-error view of perception described in [Predictive Coding & Free Energy](../predictive-coding/index.md).
-- **Formal foundations**: the Bayesian models behind the predictive-processing accounts are covered in [Probabilistic & Bayesian Methods](../../theory/probabilistic/index.md), and the reinforcement learning algorithms in [Reinforcement Learning](../../theory/paradigms/reinforcement-learning/index.md).
+- **Formal foundations**: the Bayesian models behind the predictive-processing accounts are covered in [Probabilistic & Bayesian Methods](../../theory/paradigms/probabilistic/index.md), and the reinforcement learning algorithms in [Reinforcement Learning](../../theory/paradigms/reinforcement-learning/index.md).
 
 ## Applications
 

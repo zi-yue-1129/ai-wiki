@@ -16,7 +16,7 @@ aliases:
 
 # Logic Theorist and General Problem Solver
 
-The Logic Theorist, written by Allen Newell, J. C. Shaw and Herbert Simon in 1956, proves theorems of symbolic logic by heuristic search. Its successor, the General Problem Solver, applied a similar idea of goal-directed search to problems in general. Both are landmark methods of the [symbolic era](../index.md) and of the wider [symbolic AI](../../../../theory/symbolic-ai/index.md) tradition.
+The Logic Theorist, written by Allen Newell, J. C. Shaw and Herbert Simon in 1956, proves theorems of symbolic logic by heuristic search. Its successor, the General Problem Solver, applied a similar idea of goal-directed search to problems in general. Both are landmark methods of the [symbolic era](../index.md) and of the wider [symbolic AI](../../../../theory/paradigms/symbolic-ai/index.md) tradition.
 
 ## Overview
 
@@ -61,9 +61,9 @@ For the General Problem Solver, the 1958 paper argues for the theory mainly thro
 
 ## Open questions
 
-- Can the heuristics that guided these programs be learned from data while keeping the properties that made search reliable? The [A\* search](../../../../theory/symbolic-ai/search/a-star/index.md) page discusses that tension for admissible heuristics.
+- Can the heuristics that guided these programs be learned from data while keeping the properties that made search reliable? The [A\* search](../../../../theory/paradigms/symbolic-ai/search/a-star/index.md) page discusses that tension for admissible heuristics.
 - How much of human problem solving is means–ends search, and how much relies on recognition or stored experience? The [cognitive architectures](../../../../brain-mind/cognitive-architectures/index.md) pages discuss this.
-- Systems that search over language-model outputs, such as [Tree of Thoughts](../../../../theory/symbolic-ai/search/tree-of-thoughts/index.md), revive the question of how a generator and a search procedure should be combined.
+- Systems that search over language-model outputs, such as [Tree of Thoughts](../../../../theory/paradigms/symbolic-ai/search/tree-of-thoughts/index.md), revive the question of how a generator and a search procedure should be combined.
 
 ## References
 

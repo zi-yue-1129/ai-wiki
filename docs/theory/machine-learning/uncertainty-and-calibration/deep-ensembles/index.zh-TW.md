@@ -59,7 +59,7 @@ p(y \mid x) = \frac{1}{M}\sum_{m=1}^{M} p_m(y \mid x).
 
 ## 相關連結
 
-此方法延伸了古典學習中熟悉的想法。[樹與集成](../../../paradigms/supervised/trees-and-ensembles/index.md)結合許多弱模型以降低變異，而深度集成把同樣的平均套用到輸出同時帶有不確定性的網路上。[機率方法](../../../probabilistic/index.md)頁面描述了集成所近似的貝氏觀點，而 [MC 丟棄法](../mc-dropout/index.md)則是只使用單一網路的較便宜近似。大腦與心智的連結只是類比：人們依可靠度權衡多個有雜訊的線索（Ernst 與 Banks，2002），但這並不能證明大腦運行的是集成。
+此方法延伸了古典學習中熟悉的想法。[樹與集成](../../../paradigms/supervised/trees-and-ensembles/index.md)結合許多弱模型以降低變異，而深度集成把同樣的平均套用到輸出同時帶有不確定性的網路上。[機率方法](../../../paradigms/probabilistic/index.md)頁面描述了集成所近似的貝氏觀點，而 [MC 丟棄法](../mc-dropout/index.md)則是只使用單一網路的較便宜近似。大腦與心智的連結只是類比：人們依可靠度權衡多個有雜訊的線索（Ernst 與 Banks，2002），但這並不能證明大腦運行的是集成。
 
 ## 參考文獻
 

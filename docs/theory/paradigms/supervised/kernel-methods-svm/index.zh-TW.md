@@ -44,10 +44,10 @@ $$
 
 ### 開創性論文
 
-- Boser, Guyon & Vapnik (1992), "A training algorithm for optimal margin classifiers", COLT. https://mlanthology.org/colt/1992/boser1992colt-training — 第一篇核 SVM 論文，結合最大間隔與核技巧。
+- Boser, B. E., Guyon, I. M. & Vapnik, V. N. (1992). A training algorithm for optimal margin classifiers. *COLT*. https://doi.org/10.1145/130385.130401 — 第一篇核 SVM 論文，結合最大間隔與核技巧。
 - Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — 提出軟間隔 SVM，允許部分訓練錯誤。
 - Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572 — 顯示以梯度下降訓練的無限寬網路，行為就像一台核機器。
-- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting — 比較包括 SVM 在內的各種分類器，產生校準機率的能力。
+- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://doi.org/10.1145/1102351.1102430 — 比較包括 SVM 在內的各種分類器，產生校準機率的能力。
 
 ### 綜述與教科書
 
@@ -63,5 +63,5 @@ $$
 
 ## 延伸閱讀
 
-- Schölkopf & Smola，*Learning with Kernels*，MIT Press（2002）。未查核免費連結。
-- Platt (1999), "Probabilistic outputs for support vector machines", in *Advances in Large Margin Classifiers*。未查核免費連結。
+- Schölkopf & Smola，*Learning with Kernels*，MIT Press（2002）。https://is.mpg.de/publications/973 — 核方法與支持向量機的標準參考書，涵蓋理論與演算法。
+- Platt（2000），"Probabilities for SV Machines"，收於 *Advances in Large-Margin Classifiers*，MIT Press。https://doi.org/10.7551/mitpress/1113.003.0008 — 以 sigmoid 函數把 SVM 分數轉換為校準後的機率。

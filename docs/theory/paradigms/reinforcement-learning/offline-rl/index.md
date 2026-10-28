@@ -26,7 +26,7 @@ Offline policies cannot be evaluated by running them safely, so off-policy evalu
 
 ## Connections
 
-Offline RL is closely tied to [imitation learning](../../imitation/index.md), since the data are often demonstrations, and to [value-based methods](../value-based-methods/index.md). The distribution-shift problem is the same one studied in [transfer learning](../../transfer/index.md). Reasoning about logged data under confounding draws on [probabilistic methods](../../../probabilistic/index.md).
+Offline RL is closely tied to [imitation learning](../../imitation/index.md), since the data are often demonstrations, and to [value-based methods](../value-based-methods/index.md). The distribution-shift problem is the same one studied in [transfer learning](../../transfer/index.md). Reasoning about logged data under confounding draws on [probabilistic methods](../../probabilistic/index.md).
 
 ## Applications
 
@@ -59,4 +59,4 @@ Reliable off-policy evaluation without strong overlap assumptions is unsolved. C
 
 ## Further reading
 
-- Lange, Gabel & Riedmiller (2012), "Batch reinforcement learning", in *Reinforcement Learning: State of the Art*. No link checked.
+- Lange, Gabel & Riedmiller (2012), "Batch reinforcement learning", in *Reinforcement Learning: State of the Art*. https://doi.org/10.1007/978-3-642-27645-3_2 — Reviews batch RL, where a policy is learned from a fixed set of past transitions.

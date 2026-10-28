@@ -56,7 +56,7 @@ Because every coordinate is scaled, the update size is bounded by roughly \(\eta
 | RMSProp | Exponential average of squared gradients instead of a sum | Planned |
 | Adam | Momentum plus adaptive scale, with bias correction | [Adam](adam.md) |
 | AdamW | Adam with decoupled weight decay | [AdamW](adamw.md) |
-| LARS, LAMB | Layer-wise scaling of the step by the weight norm, for very large batches | Planned |
+| LARS, LAMB | Layer-wise scaling of the step by the weight norm, for very large batches | [LARS](../lars.md) and [LAMB](../lamb.md) have their own pages |
 | Adafactor | Factorised second-moment estimate to save memory | Planned |
 | Lion | Sign-based update from momentum; less memory than Adam | Planned |
 | Shampoo, SOAP | Preconditioners built from matrix statistics of the gradient | [Shampoo](../shampoo.md) has its own page; SOAP is planned, see [Second-order methods](../second-order.md) |

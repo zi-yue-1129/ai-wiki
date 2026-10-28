@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-28
 related:
   - applications/healthcare
-  - theory/generative/diffusion
+  - theory/paradigms/unsupervised/density-and-generative-models/diffusion
 tags:
   - computer vision
   - convolutional networks

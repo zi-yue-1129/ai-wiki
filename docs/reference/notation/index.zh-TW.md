@@ -20,7 +20,7 @@ translation_reviewed: 2026-10-28
 - **下標與上標**：下標通常標示會變動的對象，例如時間 $t$ 或第 $i$ 個單元。上標通常標示某種變體，例如 $Q^\pi$ 中的策略，或 $A^\top$ 中的轉置。
 - **條件與取樣**：$p(x \mid \theta)$ 表示在給定 $\theta$ 的條件下 $x$ 的機率，$x \sim p$ 表示 $x$ 是從分布 $p$ 抽取的。
 - **符號過載**：同一個字母有兩種或更多意義。這在數學中很常見，也是跨頁面混淆的主要來源，因此最後一張表列出本維基中的各種情況。
-- **對數**：除非頁面另有說明，不寫底數的 $\log$ 指自然對數。若頁面報告位元數，會明確說明底數為 2，例如 [PixelCNN](../../theory/generative/autoregressive/pixelcnn/index.md) 頁面。
+- **對數**：除非頁面另有說明，不寫底數的 $\log$ 指自然對數。若頁面報告位元數，會明確說明底數為 2，例如 [PixelCNN](../../theory/paradigms/unsupervised/density-and-generative-models/autoregressive/pixelcnn/index.md) 頁面。
 
 ## 向量、矩陣與張量
 
@@ -40,9 +40,9 @@ translation_reviewed: 2026-10-28
 
 | 量 | 慣例 | 範例 | 出現位置 |
 |---|---|---|---|
-| 密度或質量 | $p(\cdot)$ 表示資料或模型分布；$p_\theta$ 表示參數為 $\theta$ 的模型；$q$ 表示近似分布 | $p_\theta(x)$ | [機率方法](../../theory/probabilistic/index.md) |
+| 密度或質量 | $p(\cdot)$ 表示資料或模型分布；$p_\theta$ 表示參數為 $\theta$ 的模型；$q$ 表示近似分布 | $p_\theta(x)$ | [機率方法](../../theory/paradigms/probabilistic/index.md) |
 | 條件 | 以 `\mid` 書寫的直線，並保留間距 | $p(x \mid \theta)$ | [最大似然](../../theory/math/probability-statistics/maximum-likelihood/index.md) |
-| 取樣 | $x \sim p$；高斯分布寫為 $\mathcal{N}(\mu, \sigma^2)$ | $\varepsilon \sim \mathcal{N}(0, I)$ | [VAE](../../theory/generative/vae/index.md) |
+| 取樣 | $x \sim p$；高斯分布寫為 $\mathcal{N}(\mu, \sigma^2)$ | $\varepsilon \sim \mathcal{N}(0, I)$ | [VAE](../../theory/paradigms/unsupervised/density-and-generative-models/vae/index.md) |
 | 期望值 | $\mathbb{E}_{x\sim p}[f(x)]$。下標標示分布，若意義明確則省略 | $\mathbb{E}_\pi[G_t \mid s_t = s]$ | [機率與統計](../../theory/math/probability-statistics/index.md) |
 | 變異數 | $\mathrm{Var}(X)$；共變異數矩陣寫為 $C$ 或 $\Sigma$，見過載表 | $\mathrm{Var}(X)$ | [機率與統計](../../theory/math/probability-statistics/index.md) |
 | 似然 | $L(\theta)$ 表示似然，$\ell(\theta)$ 表示對數似然，$\arg\max$ 表示使其最大的參數 | $\ell(\theta) = \sum_i \log p(x_i \mid \theta)$ | [最大似然](../../theory/math/probability-statistics/maximum-likelihood/index.md) |
@@ -83,11 +83,11 @@ translation_reviewed: 2026-10-28
 
 | 量 | 慣例 | 範例 | 出現位置 |
 |---|---|---|---|
-| 資料與潛在變數 | $x$ 表示資料；$z$ 表示潛在變數，$p(z)$ 為其先驗 | $p_\theta(x \mid z)$ | [VAE](../../theory/generative/vae/index.md) |
-| 編碼器與解碼器 | $q_\phi(z \mid x)$ 表示編碼器；$p_\theta(x \mid z)$ 表示解碼器 | $\mathcal{L}(\theta, \phi; x)$ 表示證據下界 | [VAE](../../theory/generative/vae/index.md) |
-| 雜訊排程 | $\beta_t$ 表示第 $t$ 步加入的變異數；$\alpha_t = 1 - \beta_t$；$\bar\alpha_t = \prod_{s \le t} \alpha_s$ | $x_t = \sqrt{\bar\alpha_t}\, x_0 + \sqrt{1 - \bar\alpha_t}\, \epsilon$ | [DDPM](../../theory/generative/diffusion/ddpm.md) |
-| 去噪器 | $\epsilon_\theta(x_t, t)$ 預測加入 $x_t$ 的雜訊 | $\hat{x}_0 = \dfrac{x_t - \sqrt{1-\bar\alpha_t}\,\epsilon_\theta(x_t, t)}{\sqrt{\bar\alpha_t}}$ | [DDIM](../../theory/generative/diffusion/ddim.md) |
-| 流匹配 | $x_0$ 表示雜訊樣本；$x_1$ 表示資料樣本；$t$ 表示時間，取自 $[0,1]$；$v_\theta$ 表示學到的速度場 | $x_t = (1-t)\,x_0 + t\,x_1$ | [流匹配](../../theory/generative/flow-matching/index.md) |
+| 資料與潛在變數 | $x$ 表示資料；$z$ 表示潛在變數，$p(z)$ 為其先驗 | $p_\theta(x \mid z)$ | [VAE](../../theory/paradigms/unsupervised/density-and-generative-models/vae/index.md) |
+| 編碼器與解碼器 | $q_\phi(z \mid x)$ 表示編碼器；$p_\theta(x \mid z)$ 表示解碼器 | $\mathcal{L}(\theta, \phi; x)$ 表示證據下界 | [VAE](../../theory/paradigms/unsupervised/density-and-generative-models/vae/index.md) |
+| 雜訊排程 | $\beta_t$ 表示第 $t$ 步加入的變異數；$\alpha_t = 1 - \beta_t$；$\bar\alpha_t = \prod_{s \le t} \alpha_s$ | $x_t = \sqrt{\bar\alpha_t}\, x_0 + \sqrt{1 - \bar\alpha_t}\, \epsilon$ | [DDPM](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md) |
+| 去噪器 | $\epsilon_\theta(x_t, t)$ 預測加入 $x_t$ 的雜訊 | $\hat{x}_0 = \dfrac{x_t - \sqrt{1-\bar\alpha_t}\,\epsilon_\theta(x_t, t)}{\sqrt{\bar\alpha_t}}$ | [DDIM](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md) |
+| 流匹配 | $x_0$ 表示雜訊樣本；$x_1$ 表示資料樣本；$t$ 表示時間，取自 $[0,1]$；$v_\theta$ 表示學到的速度場 | $x_t = (1-t)\,x_0 + t\,x_1$ | [流匹配](../../theory/paradigms/unsupervised/density-and-generative-models/flow-matching/index.md) |
 
 ## 同一符號的多種意義
 
@@ -96,17 +96,17 @@ translation_reviewed: 2026-10-28
 | 符號 | 本維基中的意義 | 出現位置 |
 |---|---|---|
 | $\sigma$ | 激活函數；標準差或變異數（$\sigma^2$）；雜訊水準；知識蒸餾中的 softmax；NeRF 中的密度；SVD 中的奇異值 | [深度學習](../../theory/deep-learning/index.md)、[知識蒸餾](../../theory/model-compression/knowledge-distillation/index.md)、[NeRF](../../theory/models/computer-vision/3d-and-neural-rendering/nerf/index.md)、[截斷奇異值分解](../../theory/math/linear-algebra/truncated-svd/index.md) |
-| $\pi$ | 強化學習中的策略；EM 中的混合權重 $\pi_k$；最佳傳輸流匹配中的運輸計畫；MCMC 中的目標分布；餘弦排程中的圓周率 3.14 | [強化學習](../../theory/paradigms/reinforcement-learning/index.md)、[EM](../../theory/math/probability-statistics/expectation-maximisation/index.md)、[OT-CFM](../../theory/generative/flow-matching/ot-cfm/index.md)、[MCMC](../../theory/probabilistic/mcmc/index.md) |
+| $\pi$ | 強化學習中的策略；EM 中的混合權重 $\pi_k$；最佳傳輸流匹配中的運輸計畫；MCMC 中的目標分布；餘弦排程中的圓周率 3.14 | [強化學習](../../theory/paradigms/reinforcement-learning/index.md)、[EM](../../theory/math/probability-statistics/expectation-maximisation/index.md)、[OT-CFM](../../theory/paradigms/unsupervised/density-and-generative-models/flow-matching/ot-cfm/index.md)、[MCMC](../../theory/paradigms/probabilistic/mcmc/index.md) |
 | $\lambda$ | 特徵值；正規化或權重衰減的強度；泛指的超參數 | [線性代數](../../theory/math/linear-algebra/index.md)、[AdamW](../../theory/optimization/adaptive/adamw.md)、[超參數最佳化](../../theory/optimization/hyperparameter-optimisation.md) |
 | $\tau$ | 對比學習中的 softmax 溫度；QMIX 中的聯合歷史；嶺迴歸中作為 MAP 的先驗尺度；連續時間發放率模型中的時間常數 | [對比學習](../../theory/paradigms/self-supervised/contrastive-learning/index.md)、[QMIX](../../theory/paradigms/reinforcement-learning/multi-agent-rl/qmix/index.md)、[最大似然](../../theory/math/probability-statistics/maximum-likelihood/index.md)、[工作記憶](../../brain-mind/working-memory-executive-function/funahashi-1989/index.md) |
-| $\epsilon$ 與 $\varepsilon$ | Adam 中的小常數 $\epsilon$；擴散模型中的雜訊 $\epsilon$；VAE 與 FFJORD 中的雜訊 $\varepsilon$；前向模式微分中的對偶數單位 $\varepsilon$ | [Adam](../../theory/optimization/adaptive/adam.md)、[DDPM](../../theory/generative/diffusion/ddpm.md)、[VAE](../../theory/generative/vae/index.md)、[前向模式](../../theory/math/automatic-differentiation/forward-mode/index.md) |
+| $\epsilon$ 與 $\varepsilon$ | Adam 中的小常數 $\epsilon$；擴散模型中的雜訊 $\epsilon$；VAE 與 FFJORD 中的雜訊 $\varepsilon$；前向模式微分中的對偶數單位 $\varepsilon$ | [Adam](../../theory/optimization/adaptive/adam.md)、[DDPM](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md)、[VAE](../../theory/paradigms/unsupervised/density-and-generative-models/vae/index.md)、[前向模式](../../theory/math/automatic-differentiation/forward-mode/index.md) |
 | $\Sigma$ 與 $C$ | SVD 中由奇異值構成的對角矩陣 $\Sigma$；EM 中某高斯成分的共變異數 $\Sigma_k$；PCA 中的資料共變異數 $C$ | [截斷奇異值分解](../../theory/math/linear-algebra/truncated-svd/index.md)、[EM](../../theory/math/probability-statistics/expectation-maximisation/index.md)、[PCA](../../theory/math/linear-algebra/pca/index.md) |
 | $G_t$ | 強化學習中的折扣回報；Shampoo 中第 $t$ 步的梯度 | [強化學習](../../theory/paradigms/reinforcement-learning/index.md)、[Shampoo](../../theory/optimization/shampoo.md) |
-| $\mathcal{L}$ | 損失，要被最小化；在 VAE 與變分推論中是要被最大化的證據下界 | [機器學習](../../theory/machine-learning/index.md)、[VAE](../../theory/generative/vae/index.md)、[變分推論](../../theory/probabilistic/variational-inference/index.md) |
+| $\mathcal{L}$ | 損失，要被最小化；在 VAE 與變分推論中是要被最大化的證據下界 | [機器學習](../../theory/machine-learning/index.md)、[VAE](../../theory/paradigms/unsupervised/density-and-generative-models/vae/index.md)、[變分推論](../../theory/paradigms/probabilistic/variational-inference/index.md) |
 | $D$ 與 $\mathcal{D}$ | 資料集；在 DSSM 檢索模型中，$D$ 為文件，$\mathcal{D}$ 為候選集合 | [最大似然](../../theory/math/probability-statistics/maximum-likelihood/index.md)、[DSSM](../../applications/search-and-information-retrieval/dssm/index.md) |
 | $\theta$ | 模型參數；餘弦公式中的角度 | [線性代數](../../theory/math/linear-algebra/index.md) |
 | $a$ 與 $\mathbf{a}$ | 單一智能體的動作；所有智能體的聯合動作 | [多智能體強化學習](../../theory/paradigms/reinforcement-learning/multi-agent-rl/index.md) |
-| $T$ | 步數（DDPM 中為 1000）；知識蒸餾與 [Glow](../../theory/generative/normalising-flows/glow/index.md) 中的溫度 | [DDPM](../../theory/generative/diffusion/ddpm.md)、[知識蒸餾](../../theory/model-compression/knowledge-distillation/index.md) |
+| $T$ | 步數（DDPM 中為 1000）；知識蒸餾與 [Glow](../../theory/paradigms/unsupervised/density-and-generative-models/normalising-flows/glow/index.md) 中的溫度 | [DDPM](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md)、[知識蒸餾](../../theory/model-compression/knowledge-distillation/index.md) |
 | $\mu$ | 正規化層中的平均值；MADDPG 中的確定性策略 | [正規化](../../theory/deep-learning/normalisation/index.md)、[MADDPG](../../theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md) |
 
 上表中有些慣例彼此也不一致。強化學習概覽中的獎勵索引為 $r_{t+1}$，但多巴胺頁面中的 TD 誤差寫作 $r_t$；雜訊符號在部分生成模型頁面為 $\epsilon$，在另一些頁面則為 $\varepsilon$。當某頁面偏離常見慣例時，值得確認該頁面定義的是哪一種。

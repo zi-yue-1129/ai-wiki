@@ -60,7 +60,7 @@ flowchart LR
 - **大腦與心智。** 分割所問的是：視覺系統如何判定哪些區域構成物件、哪些構成背景。已有研究在猴子視覺皮質中發現編碼「邊界歸屬」的神經元，即邊緣的哪一側屬於前景。[^6] 分割模型必須僅從像素出發，解決這個圖與底（figure–ground）問題的一個版本。兩者相似之處在於問題本身，而非機制。見[知覺與視覺系統](../../../../brain-mind/visual-perception/index.md)。
 - **偵測。** 偵測與分割共享骨幹與提議的概念。Mask R-CNN 就是一個加上遮罩頭的偵測器。見[物件偵測](../object-detection/index.md)。
 - **Transformer。** 較新的模型使用注意力機制。Mask2Former 以查詢解碼遮罩，而 Segment Anything 的影像編碼器是以遮罩自編碼預訓練的 Transformer。[^7] 見[視覺 Transformer](../../transformer/vision-transformer/index.md)。
-- **擴散模型。** 像素空間擴散模型的去噪器可以是帶有時間步條件的 U-Net。[^8] 潛在擴散加入交叉注意力，使模型能以文字或方框為條件。[^9] 之後，部分模型已以 Transformer 去噪器取代 U-Net。見[擴散模型](../../../generative/diffusion/index.md)。
+- **擴散模型。** 像素空間擴散模型的去噪器可以是帶有時間步條件的 U-Net。[^8] 潛在擴散加入交叉注意力，使模型能以文字或方框為條件。[^9] 之後，部分模型已以 Transformer 去噪器取代 U-Net。見[擴散模型](../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md)。
 
 ## 應用
 

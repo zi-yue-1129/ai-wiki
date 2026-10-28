@@ -2,7 +2,7 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/probabilistic
+  - theory/paradigms/probabilistic
   - theory/paradigms/active
   - brain-mind/cognitive-science
   - engineering/evaluation
@@ -26,7 +26,7 @@ Uncertainty quantification attaches a measure of doubt to a model's predictions.
 
 A prediction is hard to use without a sense of how reliable it is. A classifier that says "malignant" is useful, but a clinician needs to know whether that label is a near-certainty or a near coin toss. A driving system needs to know when its perception is unreliable. Two problems are often mixed up here. The first is **calibration**: whether a model's confidence numbers match how often it is right. The second is **uncertainty quantification** in the wider sense: separating what the data cannot tell us from what the model has not yet learned, and returning answers with a measure of doubt or a guarantee.
 
-Guo et al. (2017) reported that modern neural networks, unlike those from a decade earlier, are poorly calibrated, and that depth, width, weight decay and batch normalisation all influence how wrong their confidence tends to be. A network can be highly accurate and still systematically overconfident. The topic rests on [probabilistic and Bayesian methods](../../probabilistic/index.md), which give a principled language for uncertainty, and it depends on [evaluation](../../paradigms/supervised/evaluation-and-validation/index.md) to decide whether a model's stated doubt is actually useful.
+Guo et al. (2017) reported that modern neural networks, unlike those from a decade earlier, are poorly calibrated, and that depth, width, weight decay and batch normalisation all influence how wrong their confidence tends to be. A network can be highly accurate and still systematically overconfident. The topic rests on [probabilistic and Bayesian methods](../../paradigms/probabilistic/index.md), which give a principled language for uncertainty, and it depends on [evaluation](../../paradigms/supervised/evaluation-and-validation/index.md) to decide whether a model's stated doubt is actually useful.
 
 ## Key concepts
 
@@ -92,7 +92,7 @@ Temperature scaling is the cheapest and is applied after training. Ensembles are
 
 ## Connections
 
-[Probabilistic methods](../../probabilistic/index.md) hold the Bayesian foundations, and their section on Bayesian deep learning overlaps with this page. [Active learning](../../paradigms/active/index.md) uses uncertainty to choose which examples to label. [Uncertainty sampling](../../paradigms/active/uncertainty-sampling/index.md) is only as good as the uncertainty it reads, so miscalibration directly degrades the choice of labels.
+[Probabilistic methods](../../paradigms/probabilistic/index.md) hold the Bayesian foundations, and their section on Bayesian deep learning overlaps with this page. [Active learning](../../paradigms/active/index.md) uses uncertainty to choose which examples to label. [Uncertainty sampling](../../paradigms/active/uncertainty-sampling/index.md) is only as good as the uncertainty it reads, so miscalibration directly degrades the choice of labels.
 
 The brain also has to act under uncertainty. Knill and Pouget (2004) argue that neural coding and computation represent uncertainty explicitly, and that much of perception can be described as approximate Bayesian inference. Ernst and Banks (2002) found that people combine visual and haptic cues in proportion to their reliability, close to the statistically optimal weighting. Fleming and Lau (2014) review how to measure metacognition, meaning how well a person's confidence tracks their own accuracy, which is essentially the calibration question asked of a model. For the human side, see [cognitive science](../../../brain-mind/cognitive-science/index.md), [predictive coding](../../../brain-mind/predictive-coding/index.md) and [heuristics and biases](../../../brain-mind/cognitive-science/heuristics-and-biases/index.md).
 

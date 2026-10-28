@@ -56,7 +56,7 @@ flowchart LR
 ## 相關連結
 
 - **電腦視覺。** 偵測、追蹤與姿態估計是[電腦視覺](../../theory/models/computer-vision/index.md)的標準問題，而[影片模型](../../theory/models/computer-vision/video/index.md)則把同樣的工具延伸到隨時間變化的畫面。在轉播影片中，球員體積小、彼此遮擋且移動迅速，使運動成為一項困難的測試（Thomas 等人，2017）。
-- **機率與校準。** 期望進球與傷病風險都是機率。它們的價值取決於是否經過校準，這在[機率與貝氏方法](../../theory/probabilistic/index.md)以及[不確定性與校準](../../theory/machine-learning/uncertainty-and-calibration/index.md)中有所討論。
+- **機率與校準。** 期望進球與傷病風險都是機率。它們的價值取決於是否經過校準，這在[機率與貝氏方法](../../theory/paradigms/probabilistic/index.md)以及[不確定性與校準](../../theory/machine-learning/uncertainty-and-calibration/index.md)中有所討論。
 - **評估。** 動作的真實價值從來不會被觀測到，因此球員價值模型很難檢驗；參見[評估與驗證](../../theory/paradigms/supervised/evaluation-and-validation/index.md)。
 - **大腦與心智。** 人類非常擅長讀取他人的動作。Johansson（1973）顯示，觀察者只需看見關節上幾個發光點，就能辨識人的動作；Blake 與 Shiffrar（2007）則回顧了這種知覺如何支撐我們對他人行動的理解。姿態估計試圖讓機器具備類似的能力。運動技能，也就是運動員如何學會協調身體，在[運動控制](../../brain-mind/motor-control/index.md)中有所說明。以預期結果來評估一個動作，類似於[決策與獎賞](../../brain-mind/decision-reward/index.md)中的獎賞預測理論，不過這個類比只是粗略的。
 - **其他應用。** 同樣的追蹤方法也出現在[自動駕駛](../autonomous-driving/index.md)與[機器人](../robotics/index.md)中，而罕見故障的預測則與[製造](../manufacturing/index.md)的維護相似。

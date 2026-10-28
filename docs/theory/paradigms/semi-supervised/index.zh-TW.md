@@ -52,6 +52,6 @@ Noisy Student（Xie et al., 2020）顯示，用更大且加入雜訊的學生模
 
 ## 延伸閱讀
 
-- van Engelen & Hoos (2020), "A survey on semi-supervised learning", *Machine Learning*
-- Zhou (2018), "A brief introduction to weakly supervised learning", *National Science Review*
-- Ratner et al. (2017), "Snorkel: rapid training data creation with weak supervision"
+- van Engelen & Hoos (2020)，《A survey on semi-supervised learning》，*Machine Learning*。https://doi.org/10.1007/s10994-019-05855-6
+- Zhou (2018)，《A brief introduction to weakly supervised learning》，*National Science Review*。https://doi.org/10.1093/nsr/nwx106
+- Ratner et al. (2017)，《Snorkel: rapid training data creation with weak supervision》。https://arxiv.org/abs/1711.10160

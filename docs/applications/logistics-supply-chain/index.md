@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/reinforcement-learning
-  - theory/symbolic-ai/planning
+  - theory/paradigms/symbolic-ai/planning
   - theory/paradigms/online/streaming-and-concept-drift
 tags:
   - optimization
@@ -77,7 +77,7 @@ The three address different decisions. DeepAR estimates what will be needed, the
 
 ## Connections
 
-- **Reinforcement learning and planning.** Routing and multi-robot path finding are sequential decision problems. The [reinforcement learning](../../theory/paradigms/reinforcement-learning/index.md) page covers the policy-gradient methods used by the learned routers. The classical alternative, which searches over explicit models of the problem, is described in [automated planning](../../theory/symbolic-ai/planning/index.md) and [A* search](../../theory/symbolic-ai/search/a-star/index.md).
+- **Reinforcement learning and planning.** Routing and multi-robot path finding are sequential decision problems. The [reinforcement learning](../../theory/paradigms/reinforcement-learning/index.md) page covers the policy-gradient methods used by the learned routers. The classical alternative, which searches over explicit models of the problem, is described in [automated planning](../../theory/paradigms/symbolic-ai/planning/index.md) and [A* search](../../theory/paradigms/symbolic-ai/search/a-star/index.md).
 - **Changing data.** Demand shifts with seasons, trends and new products. That is the setting of [streaming and concept drift](../../theory/paradigms/online/streaming-and-concept-drift/index.md).
 - **Calibrated uncertainty.** Forecast intervals and shortage alarms are only useful if their stated probabilities are reliable, a problem treated in [conformal prediction](../../theory/machine-learning/uncertainty-and-calibration/conformal-prediction/index.md).
 - **Robots and simulation.** Warehouse policies are often trained in simulators, which raises the [sim-to-real transfer](../../theory/paradigms/transfer/sim-to-real/index.md) problem when they are deployed on physical robots.

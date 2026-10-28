@@ -62,4 +62,4 @@ No further entries for this page.
 
 ## Further reading
 
-- McCloskey & Cohen (1989), "Catastrophic interference in connectionist networks: the sequential learning problem", *Psychology of Learning and Motivation*. No link checked.
+- McCloskey & Cohen (1989), "Catastrophic interference in connectionist networks: the sequential learning problem", *Psychology of Learning and Motivation*. https://doi.org/10.1016/s0079-7421(08)60536-8 — The paper that names catastrophic interference: learning new items can overwrite what a network learned before.

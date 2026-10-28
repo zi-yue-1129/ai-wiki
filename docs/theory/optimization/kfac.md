@@ -39,7 +39,7 @@ For each layer \(\ell\):
 3. Precondition the layer's gradient: \(\Delta W_\ell = G_\ell^{-1}\,\nabla W_\ell\,A_\ell^{-1}\), with the factors damped as above.
 4. Apply the update with a learning rate, and refresh the factors and their inverses at fixed intervals to save computation.
 
-The inverses are updated less often than the gradients, because the statistics change slowly compared with the parameters.
+The inverses are updated less often than the gradients. In the paper's experiments the factors are inverted every \(T_3 = 20\) iterations, while the gradient is used at every step.
 
 ## Results
 

@@ -64,7 +64,7 @@ flowchart LR
 - **強化學習與多巴胺**：這個領域的模型大多來自強化學習。在多巴胺神經元中記錄到的獎勵預測誤差，見於[多巴胺的獎勵預測誤差](../neuroscience/dopamine-reward-prediction-error/index.md)，是計算變數與神經訊號之間最著名的連結，也是許多精神疾病學習解釋的起點。
 - **決策**：在[有模型與無模型控制](../decision-reward/model-based-vs-model-free/index.md)中討論的目標導向與習慣控制之分，為與強迫相關的表型提供了研究最充分的候選。證據與價值如何結合的較廣圖景，見於[決策、多巴胺與獎勵](../decision-reward/index.md)。
 - **預測處理**：精神病的解釋建立在[預測編碼與自由能原理](../predictive-coding/index.md)所述的預測誤差知覺觀之上。
-- **形式基礎**：預測處理解釋背後的貝氏模型，見於[機率圖模型與貝氏方法](../../theory/probabilistic/index.md)；強化學習的演算法見於[強化學習](../../theory/paradigms/reinforcement-learning/index.md)。
+- **形式基礎**：預測處理解釋背後的貝氏模型，見於[機率圖模型與貝氏方法](../../theory/paradigms/probabilistic/index.md)；強化學習的演算法見於[強化學習](../../theory/paradigms/reinforcement-learning/index.md)。
 
 ## 應用
 

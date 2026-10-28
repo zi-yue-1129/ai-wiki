@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-28
 related:
   - engineering/agents
-  - theory/evolutionary
+  - theory/paradigms/evolutionary
 tags:
   - agents
   - search
@@ -22,7 +22,7 @@ The Darwin Gödel Machine (DGM) is a coding agent that modifies its own code, te
 
 The idea of a self-improving AI is old. Schmidhuber (2003) described a Gödel machine that rewrites any part of its own code once it has found a proof that the rewrite is useful. Zhang et al. (2025) point out that proving most changes beneficial is impossible in practice. The DGM replaces the proof with empirical validation: each change is judged by running coding benchmarks.
 
-Its design draws on Darwinian evolution and open-endedness research. Instead of keeping only the best agent, it keeps a diverse archive, so that many different paths through the search space can be explored in parallel. Related work includes ADAS (Hu et al., 2024), which searches over agent designs written in code, and the evolutionary coding agent AlphaEvolve (Novikov et al., 2025). An earlier self-improving system, STOP (Zelikman et al., 2023), improved the code that calls a language model but did not change the model itself. [Evolutionary methods](../../../theory/evolutionary/index.md) in general are the background for this search strategy.
+Its design draws on Darwinian evolution and open-endedness research. Instead of keeping only the best agent, it keeps a diverse archive, so that many different paths through the search space can be explored in parallel. Related work includes ADAS (Hu et al., 2024), which searches over agent designs written in code, and the evolutionary coding agent AlphaEvolve (Novikov et al., 2025). An earlier self-improving system, STOP (Zelikman et al., 2023), improved the code that calls a language model but did not change the model itself. [Evolutionary methods](../../../theory/paradigms/evolutionary/index.md) in general are the background for this search strategy.
 
 ## Key concepts
 

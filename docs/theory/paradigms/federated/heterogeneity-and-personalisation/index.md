@@ -58,4 +58,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Tan et al. (2022), "Towards personalized federated learning", IEEE Transactions on Neural Networks and Learning Systems. No link checked.
+- Tan et al. (2022), "Towards personalized federated learning", IEEE Transactions on Neural Networks and Learning Systems. arXiv preprint: https://arxiv.org/abs/2103.00710 — Surveys how a federated model can be adapted to each client's own data distribution.

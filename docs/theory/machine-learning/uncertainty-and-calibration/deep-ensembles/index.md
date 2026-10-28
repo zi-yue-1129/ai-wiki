@@ -69,7 +69,7 @@ The abstract reports that the method produces well-calibrated uncertainty estima
 
 ## Connections
 
-The method extends a familiar idea from classical learning. [Trees and ensembles](../../../paradigms/supervised/trees-and-ensembles/index.md) combine many weak models to reduce variance, and deep ensembles apply the same averaging to networks whose outputs also carry uncertainty. The [probabilistic methods](../../../probabilistic/index.md) page describes the Bayesian view that the ensemble approximates, and [MC dropout](../mc-dropout/index.md) is the cheaper approximation that uses a single network. The brain-mind link is only an analogy: people weight several noisy cues by reliability (Ernst and Banks, 2002), but that does not show the brain runs an ensemble.
+The method extends a familiar idea from classical learning. [Trees and ensembles](../../../paradigms/supervised/trees-and-ensembles/index.md) combine many weak models to reduce variance, and deep ensembles apply the same averaging to networks whose outputs also carry uncertainty. The [probabilistic methods](../../../paradigms/probabilistic/index.md) page describes the Bayesian view that the ensemble approximates, and [MC dropout](../mc-dropout/index.md) is the cheaper approximation that uses a single network. The brain-mind link is only an analogy: people weight several noisy cues by reliability (Ernst and Banks, 2002), but that does not show the brain runs an ensemble.
 
 ## References
 

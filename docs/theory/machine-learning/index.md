@@ -2,7 +2,7 @@
 related:
 - theory/paradigms
 - theory/paradigms/supervised
-- theory/probabilistic
+- theory/paradigms/probabilistic
 - engineering/evaluation
 ---
 

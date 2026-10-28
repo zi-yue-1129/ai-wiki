@@ -47,13 +47,13 @@ The main evidence is the system's design and the consultations described in Shor
 ## Limitations
 
 - **Hand-built knowledge.** Each rule had to be elicited from an expert and written down. This is the knowledge acquisition bottleneck, and the cost of building a new rule base was a main reason the expert-system market later contracted (Cullen and Bryman, 1988).
-- **Certainty factors are not probabilities.** They were designed to be easy to elicit and combine, and they lack the justification of probability theory. Later systems used probabilistic models such as [graphical models](../../../../theory/probabilistic/graphical-models/index.md) instead.
+- **Certainty factors are not probabilities.** They were designed to be easy to elicit and combine, and they lack the justification of probability theory. Later systems used probabilistic models such as [graphical models](../../../../theory/paradigms/probabilistic/graphical-models/index.md) instead.
 - **Explanations describe rules, not reasons.** Clancey (1983) argued that a trace of the rules that fired shows what the program did, but not the strategic reasons behind its questions and conclusions.
 - **Narrow scope.** Knowledge built for one domain did not carry over to another. Attempts to cover common-sense knowledge by hand took a person-century of effort and stayed incomplete (Lenat, 1995).
 
 ## Connections
 
-MYCIN extends the symbolic approach rather than abandoning it. Its rule format resembles the production systems used as models of human cognition. [ACT-R](../../../../brain-mind/cognitive-architectures/act-r/index.md) is the best-known example. MYCIN's rules were written to match expert judgement, while ACT-R's are tested against human behaviour. See also the [symbolic AI](../../../../theory/symbolic-ai/index.md) pages.
+MYCIN extends the symbolic approach rather than abandoning it. Its rule format resembles the production systems used as models of human cognition. [ACT-R](../../../../brain-mind/cognitive-architectures/act-r/index.md) is the best-known example. MYCIN's rules were written to match expert judgement, while ACT-R's are tested against human behaviour. See also the [symbolic AI](../../../../theory/paradigms/symbolic-ai/index.md) pages.
 
 ## Open questions
 

@@ -59,7 +59,7 @@ On 30 recent olympiad-level geometry problems, AlphaGeometry solved 25, against 
 
 ## Connections
 
-- The deduction engine is a classical [symbolic AI](../../../theory/symbolic-ai/index.md) component, combined here with a learned proposal model, a pattern that recurs across this field.
+- The deduction engine is a classical [symbolic AI](../../../theory/paradigms/symbolic-ai/index.md) component, combined here with a learned proposal model, a pattern that recurs across this field.
 - AlphaGeometry 2 was combined with AlphaProof to reach silver-medal standard at IMO 2024 (Hubert et al., 2025).
 - Human geometers draw auxiliary lines by eye, linking the task to spatial vision, covered on the [visual perception](../../../brain-mind/visual-perception/index.md) page.
 

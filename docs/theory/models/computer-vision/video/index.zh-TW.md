@@ -25,7 +25,7 @@ translation_reviewed: 2026-10-28
 
 影片理解的管線依循三類架構。雙流網路結合 RGB 網路與光流網路。[^4] 三維卷積網路，例如 C3D，直接學習時空濾波器，而 [I3D](i3d/index.md) 透過把影像濾波器膨脹為三維，使其可被訓練。[^5] 影片 Transformer，例如 TimeSformer，在時空圖塊上套用注意力，而 [VideoMAE](videomae/index.md) 等自監督目標使它們能只從影片中學習。[^6][^7] SlowFast 採用兩條不同影格率的路徑，一條負責語意，一條負責運動。[^8]
 
-生成管線以擴散為基礎，如[擴散模型](../../../generative/diffusion/index.md)頁所述。一個在空間與時間上運作的去噪器，從片段中去除雜訊。影片擴散模型可為影像模型加入時間層，或從頭訓練時空網路，並常先把影片壓縮到潛在空間。[影片擴散模型](video-diffusion/index.md)一頁介紹了其基本做法。[^3]
+生成管線以擴散為基礎，如[擴散模型](../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md)頁所述。一個在空間與時間上運作的去噪器，從片段中去除雜訊。影片擴散模型可為影像模型加入時間層，或從頭訓練時空網路，並常先把影片壓縮到潛在空間。[影片擴散模型](video-diffusion/index.md)一頁介紹了其基本做法。[^3]
 
 ```mermaid
 flowchart LR
@@ -55,7 +55,7 @@ SlowFast 與 TimeSformer 是上文提及的另外兩個代表。[視覺 Transfor
 - **腦與心智。** 雙流網路與雙流假說有關，該假說主張背側路徑處理運動，腹側路徑處理物體。[^4][^9] 這種相似只存在於組織方式上，並非共享機制的證據。參見[知覺與視覺系統](../../../../brain-mind/visual-perception/index.md)。
 - **世界模型。** Sora 被描述為「世界模擬器」，Sora 綜述詳細檢視了這種說法。[^10] [世界模型](../../world-models/index.md)頁介紹了這條路線，即模型預測場景在動作之下如何演變。另一條路線則預測未來影片的特徵而非像素，例如 [V-JEPA](https://arxiv.org/abs/2404.08471)。[^11]
 - **預測編碼。** 預測接下來的影格，類似於預測編碼對知覺的解釋，即大腦將其預測與輸入相比較。這個類比只是鬆散的，[預測編碼](../../../../brain-mind/predictive-coding/index.md)頁則闡述了該理論本身。
-- **擴散與 Transformer。** 影片生成沿用[擴散](../../../generative/diffusion/index.md)的訓練目標，影片理解則沿用[卷積神經網路](../../cnn/index.md)與 Transformer 的家族。
+- **擴散與 Transformer。** 影片生成沿用[擴散](../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md)的訓練目標，影片理解則沿用[卷積神經網路](../../cnn/index.md)與 Transformer 的家族。
 
 ## 應用
 

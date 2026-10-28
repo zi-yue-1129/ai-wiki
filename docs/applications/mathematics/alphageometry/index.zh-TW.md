@@ -51,7 +51,7 @@ AlphaGeometry 避開了對人類示範的依賴。它生成數百萬個合成定
 
 ## 相關連結
 
-- 推導引擎是經典的[符號 AI](../../../theory/symbolic-ai/index.md)元件，這裡與學習得到的提案模型結合，是該領域反覆出現的模式。
+- 推導引擎是經典的[符號 AI](../../../theory/paradigms/symbolic-ai/index.md)元件，這裡與學習得到的提案模型結合，是該領域反覆出現的模式。
 - AlphaGeometry 2 與 AlphaProof 結合，在 2024 年 IMO 達到銀牌水準（Hubert 等人，2025）。
 - 人類幾何學家是憑眼睛畫出輔助線的，這使該任務與空間視覺相關，相關內容見[視覺感知](../../../brain-mind/visual-perception/index.md)頁面。
 

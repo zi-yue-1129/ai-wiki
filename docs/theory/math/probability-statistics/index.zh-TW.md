@@ -10,7 +10,7 @@ translation_reviewed: 2026-10-28
 
 學習系統看到的只是有限的資料樣本，之後卻必須對產生這些資料的過程做出判斷。機率提供精確描述這個過程的方式：隨機變數把數值指派給各種結果，分布則說明每個數值出現的可能性有多大。統計問的則是反方向的問題：給定已觀察到的資料，哪個分布最合理？估計值應有多可信？對於尚未見過的資料，我們能預期什麼？
 
-[AI 的數學基礎](../index.md)中與不確定性有關的數學，大多以本頁為基礎。[機率方法](../../probabilistic/index.md)章節用這些基礎在複雜模型中進行推論，而[資訊理論](../../information-theory/index.md)則用同樣的分布來衡量資訊量。本頁介紹共通的詞彙，以及大多數 AI 系統都會以某種形式使用的三種估計工具。
+[AI 的數學基礎](../index.md)中與不確定性有關的數學，大多以本頁為基礎。[機率方法](../../paradigms/probabilistic/index.md)章節用這些基礎在複雜模型中進行推論，而[資訊理論](../../information-theory/index.md)則用同樣的分布來衡量資訊量。本頁介紹共通的詞彙，以及大多數 AI 系統都會以某種形式使用的三種估計工具。
 
 ## 核心概念
 
@@ -29,7 +29,7 @@ $$
 p(\theta\mid D)=\frac{p(D\mid\theta)\,p(\theta)}{p(D)},\qquad p(D)=\int p(D\mid\theta)\,p(\theta)\,d\theta .
 $$
 
-此式直接來自機率的乘法律。托馬斯·貝氏（Thomas Bayes）在 1763 年的遺稿中處理了由結果反推原因的逆機率問題，這條定理因此以他為名。分母 $p(D)$ 是對所有參數值的積分，對於神經網路通常無法算出，因此才需要[機率方法](../../probabilistic/index.md)章節中的近似方法，也就是 [MCMC](../../probabilistic/mcmc/index.md) 與[變分推論](../../probabilistic/variational-inference/index.md)。
+此式直接來自機率的乘法律。托馬斯·貝氏（Thomas Bayes）在 1763 年的遺稿中處理了由結果反推原因的逆機率問題，這條定理因此以他為名。分母 $p(D)$ 是對所有參數值的積分，對於神經網路通常無法算出，因此才需要[機率方法](../../paradigms/probabilistic/index.md)章節中的近似方法，也就是 [MCMC](../../paradigms/probabilistic/mcmc/index.md) 與[變分推論](../../paradigms/probabilistic/variational-inference/index.md)。
 
 **最大概似與 MAP。** 獨立同分布資料的概似為 $\prod_i p(x_i\mid\theta)$。最大概似（ML）估計選出使資料最可能出現的參數。最大後驗（MAP）估計再加上先驗：
 
@@ -73,11 +73,11 @@ flowchart TD
 | [期望最大化演算法](expectation-maximisation/index.md) | 某些變數未被觀察到時，如何最大化概似？ | 潛在變數模型，且完整資料的概似可以計算 | Dempster, Laird & Rubin (1977) |
 | [自助法](bootstrap/index.md) | 沒有公式時，估計值有多不確定？ | 樣本能合理代表母體 | Efron (1979) |
 
-表中未涵蓋的貝氏後驗推論，則由[機率方法](../../probabilistic/index.md)章節處理。
+表中未涵蓋的貝氏後驗推論，則由[機率方法](../../paradigms/probabilistic/index.md)章節處理。
 
 ## 關聯
 
-- **機率方法。** 貝氏定理、後驗分布，以及透過 [MCMC](../../probabilistic/mcmc/index.md) 與[變分推論](../../probabilistic/variational-inference/index.md)所做的近似，都是本頁內容的延伸。變分推論所用的 ELBO 本身就是一個以概似為基礎的下界。
+- **機率方法。** 貝氏定理、後驗分布，以及透過 [MCMC](../../paradigms/probabilistic/mcmc/index.md) 與[變分推論](../../paradigms/probabilistic/variational-inference/index.md)所做的近似，都是本頁內容的延伸。變分推論所用的 ELBO 本身就是一個以概似為基礎的下界。
 - **資訊理論。** 交叉熵就是類別模型的負對數概似。在某個模型族中最小化交叉熵，等同於最小化模型與資料分布之間的 KL 散度，因為資料的熵與模型無關。參見[資訊理論](../../information-theory/index.md)。
 - **微積分與最佳化。** 最大概似估計是一個最佳化問題。其梯度就是分數函數（score），而深度模型是以[梯度下降](../calculus/gradient-descent/index.md)來求得它。
 - **不確定性與校準。** 機率模型只有在它宣稱的機率與觀察到的頻率一致時才有用。現代神經網路常常無法通過這項檢驗。參見[不確定性與校準](../../machine-learning/uncertainty-and-calibration/index.md)。

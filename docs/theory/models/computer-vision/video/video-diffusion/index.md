@@ -2,7 +2,7 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/generative/diffusion
+  - theory/paradigms/unsupervised/density-and-generative-models/diffusion
 tags:
   - diffusion models
   - generative models
@@ -20,7 +20,7 @@ A video diffusion model generates a clip by reversing a noising process over all
 
 ## Overview
 
-The [diffusion model](../../../../generative/diffusion/index.md) recipe needs little change for video. A clip is one tensor, and the network learns to remove noise from it. The main difficulties are memory, since every frame passes through the network together, and coherence across frames. The paper argues that a natural extension of image architectures handles both.[^1]
+The [diffusion model](../../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md) recipe needs little change for video. A clip is one tensor, and the network learns to remove noise from it. The main difficulties are memory, since every frame passes through the network together, and coherence across frames. The paper argues that a natural extension of image architectures handles both.[^1]
 
 ## Key concepts
 

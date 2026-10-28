@@ -62,7 +62,7 @@ Snoek 等人（2012）把調參描述為常常是需要專家判斷或暴力搜�
 
 - **縮放與規劃。** 大型訓練的成本過高，無法直接調參，因此團隊會在小規模實驗上擬合趨勢再外推，如[縮放定律](../models/llm/scaling-laws/index.md)所述。[運算最佳化訓練](../models/llm/compute-optimal-training/index.md)則以類似的推理，在固定預算下決定模型大小與資料量。
 - **多臂賭博機。** 連續減半屬於賭博機方法，必須在探索新選項與利用已知的好選項之間取得平衡。[隨機賭博機](../paradigms/online/stochastic-bandits/index.md)頁面涵蓋隨機設定，它與 Hyperband 分析所用的非隨機設定不同。
-- **演化。** PBT 類似演化搜尋，都有族群與選擇。見[演化計算與群體智慧](../../evolutionary/index.md)。
+- **演化。** PBT 類似演化搜尋，都有族群與選擇。見[演化計算與群體智慧](../paradigms/evolutionary/index.md)。
 - **腦與心智。** 基於賭博機的 HPO 所形式化的探索與利用權衡，在人與動物的[決策與獎勵](../../brain-mind/decision-reward/index.md)研究中同樣是核心。兩者的相似之處在於結構。沒有證據顯示大腦會對自身的設定運行高斯過程，因此這只是類比，而非機制。
 
 ## 應用

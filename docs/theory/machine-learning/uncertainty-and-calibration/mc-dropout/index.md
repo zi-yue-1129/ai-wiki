@@ -2,7 +2,7 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/probabilistic
+  - theory/paradigms/probabilistic
 tags:
   - uncertainty
   - deep learning
@@ -62,7 +62,7 @@ The abstract reports a considerable improvement in predictive log-likelihood and
 
 ## Connections
 
-MC dropout is a practical instance of the variational approach described on the [probabilistic methods](../../../probabilistic/index.md) page, and it is the single-network counterpart of [deep ensembles](../deep-ensembles/index.md). Knill and Pouget (2004) argue that the brain can be described as performing approximate Bayesian inference. Sampling-based views of inference are one way that idea can be modelled, but MC dropout is an engineering approximation and not a model of neural noise.
+MC dropout is a practical instance of the variational approach described on the [probabilistic methods](../../../paradigms/probabilistic/index.md) page, and it is the single-network counterpart of [deep ensembles](../deep-ensembles/index.md). Knill and Pouget (2004) argue that the brain can be described as performing approximate Bayesian inference. Sampling-based views of inference are one way that idea can be modelled, but MC dropout is an engineering approximation and not a model of neural noise.
 
 ## References
 

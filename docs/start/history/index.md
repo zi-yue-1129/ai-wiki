@@ -54,7 +54,7 @@
 ## Three schools of thought
 
 ### Symbolism
-Intelligence = manipulating symbols. Logic, expert systems, knowledge graphs, planning. Strengths: interpretable and verifiable. Weaknesses: knowledge-acquisition bottleneck, poor handling of uncertainty and perception. See [Symbolic AI](../../theory/symbolic-ai/index.md).
+Intelligence = manipulating symbols. Logic, expert systems, knowledge graphs, planning. Strengths: interpretable and verifiable. Weaknesses: knowledge-acquisition bottleneck, poor handling of uncertainty and perception. See [Symbolic AI](../../theory/paradigms/symbolic-ai/index.md).
 
 ### Connectionism
 Intelligence emerges from many simple connected units. Neural networks and deep learning, directly inspired by neuroscience. See [NeuroAI](../../brain-mind/neuroai/index.md).
@@ -71,20 +71,21 @@ The modern trend is **integration**: neural networks for perception and intuitio
 3. **Not enough data or compute**: the core neural-net ideas existed in the 1980s; they took off only with GPUs and web-scale data in the 2010s.
 4. **Takeaway**: keep benchmarks and real-world capability separate; a benchmark score is not deployment reliability (see [Evaluation](../../engineering/evaluation/index.md)).
 
-## Further reading
-
-- Nilsson, *The Quest for Artificial Intelligence* (free PDF on the author's site)
-- Mitchell, *Artificial Intelligence: A Guide for Thinking Humans*
-- Sejnowski, *The Deep Learning Revolution* (a neuroscientist's history of deep learning)
-- [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence)
-
 ## References
 
-Seminal works for this overview, drawn from the sub-pages linked above, where each is discussed in detail.
-
+- McCulloch & Pitts (1943). A logical calculus of the ideas immanent in nervous activity. *Bulletin of Mathematical Biophysics* 5. https://doi.org/10.1007/bf02478259 — The first mathematical model of a neuron as a logic unit.
+- Turing (1950). Computing Machinery and Intelligence. *Mind* 59. https://doi.org/10.1093/mind/lix.236.433 — Proposes the imitation game, later called the Turing test.
+- Rumelhart, Hinton & Williams (1986). Learning representations by back-propagating errors. *Nature* 323. https://doi.org/10.1038/323533a0 — Popularises backpropagation for training multi-layer networks.
+- LeCun, Bengio & Hinton (2015). Deep learning. *Nature* 521. https://doi.org/10.1038/nature14539 — A review of deep learning: representation learning with several processing layers.
+- Nilsson, N. J. (2009). *The Quest for Artificial Intelligence*. Cambridge University Press. https://doi.org/10.1017/cbo9780511819346 — A history of AI's ideas and achievements, written by a Stanford AI researcher.
+- Mitchell, M. (2019). *Artificial Intelligence: A Guide for Thinking Humans*. Farrar, Straus and Giroux. https://melaniemitchell.me/aibook/ — An accessible tour of what current AI can and cannot do, with its history.
+- Sejnowski, T. J. (2018). *The Deep Learning Revolution*. MIT Press. https://doi.org/10.7551/mitpress/11474.001.0001 — A neuroscientist's history of deep learning and its links to the brain.
 - Newell, A. & Simon, H. A. (1956). The logic theory machine: A complex information processing system. *IEEE Transactions on Information Theory*. https://doi.org/10.1109/TIT.1956.1056797 — Describes the Logic Theorist, an early program that searches for proofs of logic theorems using heuristics rather than exhaustive enumeration.
 - Newell, A., Shaw, J. C. & Simon, H. A. (1958). Elements of a theory of human problem solving. *Psychological Review*. https://doi.org/10.1037/h0048495 — Proposes a general theory of human problem solving as heuristic search, drawing on the Logic Theorist and the means–ends method behind the General Problem Solver.
 - Shortliffe, E. H. & Buchanan, B. G. (1975). A model of inexact reasoning in medicine. *Mathematical Biosciences*. https://doi.org/10.1016/0025-5564(75)90047-4 — Presents the certainty-factor model for combining uncertain evidence, developed for the MYCIN consultation system.
-- Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). Learning representations by back-propagating errors. *Nature*. https://doi.org/10.1038/323533a0 — Shows how error can be propagated backwards to adjust hidden units, so that a network learns its own internal features.
 - Hinton, G. E., Osindero, S. & Teh, Y.-W. (2006). A fast learning algorithm for deep belief nets. *Neural Computation*. https://doi.org/10.1162/neco.2006.18.7.1527 — Introduces greedy layer-wise training of deep belief networks, the start of the revival.
 - Deng, J. et al. (2009). ImageNet: A large-scale hierarchical image database. *CVPR 2009*. https://doi.org/10.1109/CVPR.2009.5206848 — Introduces the ImageNet database on which the yearly challenge is built.
+
+## Further learning
+
+- [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence) — An encyclopedia overview to read alongside the books above.

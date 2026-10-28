@@ -23,7 +23,7 @@ translation_reviewed: 2026-10-28
 - **GUI 定位（GUI grounding）**：把「儲存按鈕」之類的描述對應到該元素在螢幕上的像素座標。這是電腦操作代理人常見的失敗點。
 - **權限模型（permission model）**：決定代理人可以使用哪些工具、資料與行動，以及何時必須由人核准的規則。
 - **副作用（side effect）**：發生在模型之外的改變，例如寫入檔案、送出訊息或完成購買。
-- **注入指令（injected instructions）**：隱藏在代理人所讀取內容（例如網頁）中、試圖改變其行動的文字。參見[間接提示注入](../llm-security/indirect-prompt-injection.md)。
+- **注入指令（injected instructions）**：隱藏在代理人所讀取內容（例如網頁）中、試圖改變其行動的文字。參見[間接提示注入](../../llm-security/indirect-prompt-injection.md)。
 
 ## 運作方式
 
@@ -57,13 +57,13 @@ flowchart TD
 
 ## 相關連結
 
-- **代理人基礎。** 這些系統所依賴的迴圈與工具，定義於 [AI 代理人](../../theory/models/agents/index.md)。
-- **安全。** 讀取不受信任內容並持有工具的代理人，會暴露於注入指令與過度代理的風險。相關威脅與控制措施見 [LLM 應用安全](../llm-security/index.md)，而 CaMeL 的設計也採用相同的原則。
-- **感知。** 讀取螢幕需要結合視覺與文字的模型。參見[多模態模型](../../theory/models/multimodal/index.md)與[電腦視覺](../../theory/models/computer-vision/index.md)。
-- **評估。** 會改變狀態的代理人，需要能檢查環境最終狀態的評估器。參見[評估與基準](../evaluation/index.md)。
-- **大腦與心智。** 人透過視覺與運動控制在螢幕上行動，並且一次只注意一個區域。螢幕截圖代理人接收的是同類影像，卻沒有眼球運動與注意力，這或許有助於解釋部分定位失敗。參見[視覺感知](../../brain-mind/visual-perception/index.md)。
-- **網路安全。** 最小權限、隔離與監控源自傳統安全實務。參見[網路安全](../../applications/cybersecurity/index.md)。
-- **安全性與對齊。** 應該給予一個會在現實世界中行動的系統多少自主權，已在[安全與對齊](../../society/safety-alignment/index.md)中討論。
+- **代理人基礎。** 這些系統所依賴的迴圈與工具，定義於 [AI 代理人](../../../theory/models/agents/index.md)。
+- **安全。** 讀取不受信任內容並持有工具的代理人，會暴露於注入指令與過度代理的風險。相關威脅與控制措施見 [LLM 應用安全](../../llm-security/index.md)，而 CaMeL 的設計也採用相同的原則。
+- **感知。** 讀取螢幕需要結合視覺與文字的模型。參見[多模態模型](../../../theory/models/multimodal/index.md)與[電腦視覺](../../../theory/models/computer-vision/index.md)。
+- **評估。** 會改變狀態的代理人，需要能檢查環境最終狀態的評估器。參見[評估與基準](../../evaluation/index.md)。
+- **大腦與心智。** 人透過視覺與運動控制在螢幕上行動，並且一次只注意一個區域。螢幕截圖代理人接收的是同類影像，卻沒有眼球運動與注意力，這或許有助於解釋部分定位失敗。參見[視覺感知](../../../brain-mind/visual-perception/index.md)。
+- **網路安全。** 最小權限、隔離與監控源自傳統安全實務。參見[網路安全](../../../applications/cybersecurity/index.md)。
+- **安全性與對齊。** 應該給予一個會在現實世界中行動的系統多少自主權，已在[安全與對齊](../../../society/safety-alignment/index.md)中討論。
 
 ## 應用
 

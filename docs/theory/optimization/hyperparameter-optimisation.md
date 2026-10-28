@@ -5,7 +5,7 @@ related:
   - theory/models/llm/scaling-laws
   - theory/deep-learning/initialisation/mup/index.md
   - theory/paradigms/online/stochastic-bandits
-  - theory/evolutionary
+  - theory/paradigms/evolutionary
 tags:
   - optimization
   - hyperparameters
@@ -83,7 +83,7 @@ Five families cover most practice. The table compares them, and the paragraphs b
 
 - **Scaling and planning.** Large runs are too expensive to tune directly, so teams fit trends on small runs and extrapolate, as in [scaling laws](../models/llm/scaling-laws/index.md). [Compute-optimal training](../models/llm/compute-optimal-training/index.md) applies similar reasoning to choose model size and data for a fixed budget.
 - **Bandits.** Successive halving is a bandit method, in which exploring new options must be balanced against exploiting known good ones. The [stochastic bandits](../paradigms/online/stochastic-bandits/index.md) page covers the stochastic setting, which differs from the non-stochastic one in the Hyperband analysis.
-- **Evolution.** PBT resembles evolutionary search, with its population and selection. See [Evolutionary computation and swarm intelligence](../../evolutionary/index.md).
+- **Evolution.** PBT resembles evolutionary search, with its population and selection. See [Evolutionary computation and swarm intelligence](../paradigms/evolutionary/index.md).
 - **Brain and mind.** The explore-exploit trade-off that bandit-based HPO formalises is also central to [decision and reward](../../brain-mind/decision-reward/index.md) research on people and animals. The parallel is one of structure. Nothing shows that the brain runs a Gaussian process over its own settings, so it is an analogy, not a mechanism.
 
 ## Applications

@@ -48,7 +48,7 @@ AlphaProof 是一個代理人，它以 AlphaZero 式的強化學習，學習在 
 
 ## 相關連結
 
-- AlphaProof 屬於[數學與形式證明](../index.md)的形式路線，也屬於符號 AI 中[自動推理與定理證明](../../../theory/symbolic-ai/index.md)的理論範疇。
+- AlphaProof 屬於[數學與形式證明](../index.md)的形式路線，也屬於符號 AI 中[自動推理與定理證明](../../../theory/paradigms/symbolic-ai/index.md)的理論範疇。
 - 其訓練方法屬於 [AlphaZero](../../../theory/paradigms/reinforcement-learning/mcts-and-self-play/alphazero/index.md)頁面所述的自我對弈家族，而其測試時調適則與[推理模型](../../../theory/models/reasoning/index.md)相關。
 
 ## 應用

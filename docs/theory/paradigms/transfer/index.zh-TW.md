@@ -47,7 +47,7 @@
 
 ## 延伸閱讀
 
-- Pan & Yang (2010), "A Survey on Transfer Learning"
-- Howard & Ruder (2018), ULMFiT
-- Ganin et al. (2016), "Domain-Adversarial Training of Neural Networks"
-- Koh et al. (2021), WILDS 真實世界分布偏移基準
+- Pan & Yang (2010)，"A Survey on Transfer Learning"，*IEEE TKDE*。https://www.cse.ust.hk/~qyang/Docs/2009/tkde_transfer_learning.pdf
+- Howard & Ruder (2018)，ULMFiT。https://arxiv.org/abs/1801.06146
+- Ganin et al. (2016)，"Domain-Adversarial Training of Neural Networks"，*JMLR*。https://www.jmlr.org/papers/v17/15-239.html
+- Koh et al. (2021)，WILDS 真實世界分布偏移基準。https://proceedings.mlr.press/v139/koh21a.html

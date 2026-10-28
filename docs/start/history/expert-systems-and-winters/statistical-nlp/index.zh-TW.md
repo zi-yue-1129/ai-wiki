@@ -49,7 +49,7 @@ $$
 
 ## 連結
 
-統計語言處理是今日語言模型的直接前身。它的機率框架延續到[語言模型](../../../../theory/models/nlp/index.md)，以及之後的[大型語言模型](../../../../theory/models/llm/index.md)，後者從規模大得多的語料庫估計詞元的機率。隱馬可夫模型屬於更廣的[機率圖模型](../../../../theory/probabilistic/graphical-models/index.md)家族。
+統計語言處理是今日語言模型的直接前身。它的機率框架延續到[語言模型](../../../../theory/models/nlp/index.md)，以及之後的[大型語言模型](../../../../theory/models/llm/index.md)，後者從規模大得多的語料庫估計詞元的機率。隱馬可夫模型屬於更廣的[機率圖模型](../../../../theory/paradigms/probabilistic/graphical-models/index.md)家族。
 
 這個方法也與心智與大腦的問題有交會。嬰兒在還不知道詞義之前，就能從音節的統計規律中，在連續語音裡找出類似詞的單位。這項發現在[嬰兒的統計學習](../../../../brain-mind/developmental-cognition/statistical-learning/index.md)頁面中討論。
 

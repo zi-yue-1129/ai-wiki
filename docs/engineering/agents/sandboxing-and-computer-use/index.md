@@ -40,7 +40,7 @@ The containment problem is old. Lampson described the confinement problem in 197
 - **GUI grounding**: mapping a description such as "the Save button" to the pixel coordinates where that element appears. It is a frequent point of failure for computer-use agents.
 - **Permission model**: the rules that decide which tools, data and actions an agent may use, and when a person must approve them.
 - **Side effect**: a change made outside the model, such as a file write, a sent message or a purchase.
-- **Injected instructions**: text hidden in content the agent reads, such as a web page, that tries to redirect its actions. See [indirect prompt injection](../llm-security/indirect-prompt-injection.md).
+- **Injected instructions**: text hidden in content the agent reads, such as a web page, that tries to redirect its actions. See [indirect prompt injection](../../llm-security/indirect-prompt-injection.md).
 
 ## How it works
 
@@ -74,13 +74,13 @@ Three landmark works represent the main approaches. Each has its own page.
 
 ## Connections
 
-- **Agent foundations.** The loop and tools these systems rely on are defined in [AI Agents](../../theory/models/agents/index.md).
-- **Security.** An agent that reads untrusted content and holds tools is exposed to injected instructions and excessive agency. The threats and controls are set out in [LLM Application Security](../llm-security/index.md), and the design of CaMeL draws on the same principles.
-- **Perception.** Reading a screen requires a model that combines vision and text. See [Multimodal Models](../../theory/models/multimodal/index.md) and [Computer Vision](../../theory/models/computer-vision/index.md).
-- **Evaluation.** Agents that change state need evaluators that inspect the final state of an environment. See [Evaluation & Benchmarks](../evaluation/index.md).
-- **Brain and mind.** People act on screens through vision and motor control, and they attend to one region at a time. A screenshot agent receives the same kind of image without eye movements or attention, which may help explain some grounding failures. See [Visual Perception](../../brain-mind/visual-perception/index.md).
-- **Cybersecurity.** Least privilege, isolation and monitoring come from classical security practice. See [Cybersecurity](../../applications/cybersecurity/index.md).
-- **Safety.** How much autonomy to grant a system that acts in the world is discussed in [Safety & Alignment](../../society/safety-alignment/index.md).
+- **Agent foundations.** The loop and tools these systems rely on are defined in [AI Agents](../../../theory/models/agents/index.md).
+- **Security.** An agent that reads untrusted content and holds tools is exposed to injected instructions and excessive agency. The threats and controls are set out in [LLM Application Security](../../llm-security/index.md), and the design of CaMeL draws on the same principles.
+- **Perception.** Reading a screen requires a model that combines vision and text. See [Multimodal Models](../../../theory/models/multimodal/index.md) and [Computer Vision](../../../theory/models/computer-vision/index.md).
+- **Evaluation.** Agents that change state need evaluators that inspect the final state of an environment. See [Evaluation & Benchmarks](../../evaluation/index.md).
+- **Brain and mind.** People act on screens through vision and motor control, and they attend to one region at a time. A screenshot agent receives the same kind of image without eye movements or attention, which may help explain some grounding failures. See [Visual Perception](../../../brain-mind/visual-perception/index.md).
+- **Cybersecurity.** Least privilege, isolation and monitoring come from classical security practice. See [Cybersecurity](../../../applications/cybersecurity/index.md).
+- **Safety.** How much autonomy to grant a system that acts in the world is discussed in [Safety & Alignment](../../../society/safety-alignment/index.md).
 
 ## Applications
 

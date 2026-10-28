@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - brain-mind/neuroai
@@ -62,11 +62,11 @@ The abstract reports that the trained network developed simple-cell-like recepti
 
 ### Seminal papers
 
-- Rao, R. P. N. & Ballard, D. H. (1999). Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects. *Nature Neuroscience*. https://doi.org/10.1038/4580 — Proposes that feedback carries predictions and feedforward connections carry errors, and that a hierarchical network trained on natural images reproduces several surround effects.
-- Whittington, J. C. R. & Bogacz, R. (2017). An Approximation of the Error Backpropagation Algorithm in a Predictive Coding Network with Local Hebbian Synaptic Plasticity. *Neural Computation*. https://doi.org/10.1162/NECO_a_00949 — Shows that predictive coding with local plasticity can approximate backpropagation under suitable parameters.
-- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1962.sp006837 — The receptive-field work that defines the classical receptive field the paper builds on. (Reference reused from the Neuroscience Basics page; not re-checked for this page.)
+- Rao, R. P. N. & Ballard, D. H. (1999). Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects. *Nature Neuroscience*. https://pubmed.ncbi.nlm.nih.gov/10195184/ — Proposes that feedback carries predictions and feedforward connections carry errors, and that a hierarchical network trained on natural images reproduces several surround effects.
+- Whittington, J. C. R. & Bogacz, R. (2017). An Approximation of the Error Backpropagation Algorithm in a Predictive Coding Network with Local Hebbian Synaptic Plasticity. *Neural Computation*. https://pmc.ncbi.nlm.nih.gov/articles/PMC5467749/ — Shows that predictive coding with local plasticity can approximate backpropagation under suitable parameters.
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://pubmed.ncbi.nlm.nih.gov/14449617/ — The receptive-field work that defines the classical receptive field the paper builds on.
 
 ### Surveys and reviews
 
-- Keller, G. B. & Mrsic-Flogel, T. D. (2018). Predictive Processing: A Canonical Cortical Computation. *Neuron*. https://doi.org/10.1016/j.neuron.2018.10.003 — A review arguing that predictive processing is a repeated circuit-level computation across cortex, and discussing how it could be tested.
-- Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2787 — Proposes that brains minimise prediction error, a unifying framework for perception, action and learning. (Reference reused from the parent page; not re-checked for this page.)
+- Keller, G. B. & Mrsic-Flogel, T. D. (2018). Predictive Processing: A Canonical Cortical Computation. *Neuron*. https://pmc.ncbi.nlm.nih.gov/articles/PMC6400266 — A review arguing that predictive processing is a repeated circuit-level computation across cortex, and discussing how it could be tested.
+- Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*. https://pubmed.ncbi.nlm.nih.gov/20068583/ — Proposes that brains minimise prediction error, a unifying framework for perception, action and learning.

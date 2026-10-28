@@ -50,8 +50,8 @@ FunSearch 是一種演化程序，它把預訓練的大型語言模型與自動�
 
 ## 相關連結
 
-- 演化結構屬於最佳化中的[演化方法](../../../theory/evolutionary/index.md)家族。
-- 對候選對象的搜尋，是[符號 AI 搜尋](../../../theory/symbolic-ai/index.md)的經典主題，這裡則由語言模型而非手寫的啟發式來引導。
+- 演化結構屬於最佳化中的[演化方法](../../../theory/paradigms/evolutionary/index.md)家族。
+- 對候選對象的搜尋，是[符號 AI 搜尋](../../../theory/paradigms/symbolic-ai/index.md)的經典主題，這裡則由語言模型而非手寫的啟發式來引導。
 - Davies 等人（2021）採取互補的路線：機器學習提出模式，數學家再把它們轉化為猜想。在 FunSearch 中，程式搜尋本身就產生候選。
 - Yang 等人（2024）主張，形式、可機器檢查的推理對 AI 數學不可或缺，這正是 FunSearch 透過其評估器所實踐的原則。
 

@@ -20,7 +20,7 @@ references: not-required  # lists and meta pages cite through their entries
 | Backpropagation | 反向傳播 | 以鏈式法則計算梯度 |
 | Bandit | 多臂吃角子老虎問題 | 平衡探索與利用的單步決策問題（[線上學習](../../theory/paradigms/online/index.md)） |
 | Batch normalisation | 批次正規化 | 在一個小批次內正規化激活值 |
-| Bayesian inference | 貝氏推論 | 以貝氏定理更新信念（[機率方法](../../theory/probabilistic/index.md)） |
+| Bayesian inference | 貝氏推論 | 以貝氏定理更新信念（[機率方法](../../theory/paradigms/probabilistic/index.md)） |
 | Benchmark | 基準測試 | 用來比較模型的標準任務（[評估](../../engineering/evaluation/index.md)） |
 | Bias–variance trade-off | 偏差—變異權衡 | 欠擬合與過擬合之間的張力 |
 | Brain-computer interface (BCI) | 腦機介面 | 解碼腦訊號以控制裝置（[BCI](../../brain-mind/bci/index.md)） |
@@ -40,7 +40,7 @@ references: not-required  # lists and meta pages cite through their entries
 |---|---|---|
 | Data augmentation | 資料增強 | 產生訓練資料的修改版本 |
 | Differential privacy | 差分隱私 | 單一個人的資料幾乎不改變輸出的形式化保證（[隱私與資料保護](../../society/privacy/index.md)） |
-| Diffusion model | 擴散模型 | 學習去除雜訊的生成模型（[生成模型](../../theory/generative/index.md)） |
+| Diffusion model | 擴散模型 | 學習去除雜訊的生成模型（[生成模型](../../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md)） |
 | Distillation | 知識蒸餾 | 訓練小模型模仿大模型 |
 | Distribution shift | 分布偏移 | 測試資料與訓練資料不同 |
 | Dopamine | 多巴胺 | 傳遞獎勵預測誤差的神經調節物質 |

@@ -57,7 +57,7 @@ flowchart LR
 
 - **大腦與心智。** Clark（2013）總結了一種觀點：大腦是一台預測機器，會把感官輸入與自上而下的期待相比對，並以預測誤差來修正不一致之處。天氣預報是「從不完美的狀態估計來預測動力系統」的正式範例。這種共通的數學並不表示大腦使用類似天氣的模型，所以它是共同的問題，而非共同的機制。見[預測編碼](../../brain-mind/predictive-coding/index.md)。
 - **架構。** GraphCast 依賴圖上的訊息傳遞（[圖神經網路](../../theory/models/gnn/index.md)）。Pangu-Weather 改編了視覺 Transformer，採用窗口式注意力（[視覺 Transformer](../../theory/models/transformer/vision-transformer/index.md)）。衛星模型則借用[電腦視覺](../../theory/models/computer-vision/index.md)的方法。
-- **不確定性。** 描述多種結果範圍的預報，與[生成模型](../../theory/generative/index.md)及[不確定性量化與校準](../../theory/machine-learning/uncertainty-and-calibration/index.md)相關。
+- **不確定性。** 描述多種結果範圍的預報，與[生成模型](../../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md)及[不確定性量化與校準](../../theory/machine-learning/uncertainty-and-calibration/index.md)相關。
 - **分布偏移。** 在某一時期訓練的模型，可能在另一種氣候型態下失效；衛星感測器也會隨任務與季節而改變。見[領域適應](../../theory/paradigms/transfer/domain-adaptation/index.md)。
 - **科學與氣候。** 預報模型可作為昂貴模擬的快速代理；見[科學發現](../science/index.md)。排放與減緩見[氣候與能源](../climate-energy/index.md)頁面，作物製圖見[農業與食品](../agriculture/index.md)頁面。
 

@@ -56,10 +56,10 @@ The abstract reports a database of more than 1.8 million manipulated images, whi
 ### Seminal papers
 
 - Rössler, A., Cozzolino, D., Verdoliva, L., Riess, C., Thies, J. & Nießner, M. (2019). FaceForensics++: Learning to detect manipulated facial images. *ICCV*. https://arxiv.org/abs/1901.08971 — The benchmark described on this page, with four manipulation methods and a hidden test set.
-- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://politics.media.mit.edu/papers/Vosoughi_Science.pdf — Shows that false content spreads widely through human sharing, which detection alone does not stop.
+- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://www.media.mit.edu/publications/the-spread-of-true-and-false-news-online/ — Shows that false content spreads widely through human sharing, which detection alone does not stop.
 - Chesney, B. & Citron, D. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. *California Law Review*, 107. https://www.californialawreview.org/print/deep-fakes-a-looming-challenge-for-privacy-democracy-and-national-security — Legal analysis of deepfake harms, including the case for going beyond detection.
 
 ### Articles and documentation
 
-- C2PA. *Content Credentials specification*. https://c2pa.org/ — A signed provenance standard, an alternative to detection after publication.
+- C2PA. *Content Credentials: C2PA Technical Specification*, version 2.0. https://c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html — A signed provenance standard, an alternative to detection after publication.
 - EUR-Lex. *Regulation (EU) 2024/1689 (Artificial Intelligence Act)*. https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng — The official text of the AI Act. This page does not summarise its transparency rules for synthetic content.

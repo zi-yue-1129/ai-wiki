@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-28
 related:
   - theory/models/computer-vision
-  - theory/probabilistic
+  - theory/paradigms/probabilistic
   - brain-mind/motor-control
 tags:
   - computer vision
@@ -74,7 +74,7 @@ Pose estimation answers the question of where each body part of each athlete is.
 ## Connections
 
 - **Computer vision.** Detection, tracking and pose estimation are standard problems of [computer vision](../../theory/models/computer-vision/index.md), and [video models](../../theory/models/computer-vision/video/index.md) carry the same tools to frames over time. Players are small in broadcast video, occlude one another and move quickly, which makes sport a demanding test (Thomas et al., 2017).
-- **Probability and calibration.** Expected goals and injury risks are probabilities. Their value depends on being calibrated, which is discussed in [probabilistic and Bayesian methods](../../theory/probabilistic/index.md) and in [uncertainty and calibration](../../theory/machine-learning/uncertainty-and-calibration/index.md).
+- **Probability and calibration.** Expected goals and injury risks are probabilities. Their value depends on being calibrated, which is discussed in [probabilistic and Bayesian methods](../../theory/paradigms/probabilistic/index.md) and in [uncertainty and calibration](../../theory/machine-learning/uncertainty-and-calibration/index.md).
 - **Evaluation.** The true value of an action is never observed, so player-value models are hard to check; see [evaluation and validation](../../theory/paradigms/supervised/evaluation-and-validation/index.md).
 - **Brain and mind.** People are very good at reading other people's motion. Johansson (1973) showed that observers recognise human movement from a few points of light placed on the joints, and Blake and Shiffrar (2007) review how that perception supports the understanding of others' actions. Pose estimation attempts to give machines a similar ability. Motor skill, the way athletes learn to coordinate their bodies, is covered in [motor control](../../brain-mind/motor-control/index.md). Valuing an action by its expected outcome resembles the reward-prediction account in [decision and reward](../../brain-mind/decision-reward/index.md), although the analogy is loose.
 - **Other applications.** The same tracking methods appear in [autonomous driving](../autonomous-driving/index.md) and [robotics](../robotics/index.md), and rare-failure prediction resembles [manufacturing](../manufacturing/index.md) maintenance.

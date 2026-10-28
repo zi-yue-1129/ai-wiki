@@ -2,7 +2,7 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/symbolic-ai
+  - theory/paradigms/symbolic-ai
   - theory/models/reasoning
   - theory/math
 tags:
@@ -19,7 +19,7 @@ aliases:
 
 # Mathematics and Formal Proof
 
-AI systems now take part in mathematics in three ways: they answer competition problems, they search for new mathematical objects and constructions, and they write proofs that a computer checks line by line in a formal language such as Lean. This page covers the applied side: benchmark results, the systems that reached olympiad level, and how working mathematicians use these tools. The theory of automated proof is covered under [Symbolic AI](../../theory/symbolic-ai/index.md).
+AI systems now take part in mathematics in three ways: they answer competition problems, they search for new mathematical objects and constructions, and they write proofs that a computer checks line by line in a formal language such as Lean. This page covers the applied side: benchmark results, the systems that reached olympiad level, and how working mathematicians use these tools. The theory of automated proof is covered under [Symbolic AI](../../theory/paradigms/symbolic-ai/index.md).
 
 ## Overview
 
@@ -68,7 +68,7 @@ AlphaGeometry and AlphaProof are provers: each produces a proof of a stated resu
 
 ## Connections
 
-- **Symbolic AI.** Interactive theorem proving, SAT solvers and proof search are classical symbolic methods. The formal strand of this page is the meeting point of those methods with learned models. See [Symbolic AI, Search & Planning](../../theory/symbolic-ai/index.md).
+- **Symbolic AI.** Interactive theorem proving, SAT solvers and proof search are classical symbolic methods. The formal strand of this page is the meeting point of those methods with learned models. See [Symbolic AI, Search & Planning](../../theory/paradigms/symbolic-ai/index.md).
 - **Reasoning models.** Competition mathematics is the standard test bed for [reasoning models and test-time compute](../../theory/models/reasoning/index.md), because answers and proofs can be checked automatically.
 - **Mathematics for AI.** The [mathematics that underpins machine learning](../../theory/math/index.md) is a different subject: there, mathematics explains models; here, models do mathematics.
 - **Evaluation.** Competition benchmarks are useful only if they measure reasoning rather than recall. See [evaluation and benchmarks](../../engineering/evaluation/index.md).

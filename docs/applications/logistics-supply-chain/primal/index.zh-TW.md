@@ -8,7 +8,7 @@ PRIMAL 是一種用於多智能體路徑規劃的去中心化策略，每台機�
 
 ## 概述
 
-多智能體路徑規劃（multi-agent path finding, MAPF）要求為共用同一張地圖的許多機器人找出無碰撞的路徑。集中式規劃器，例如衝突導向搜尋（Sharon 等人，2015），是一種與 [A* 搜尋](../../../theory/symbolic-ai/search/a-star/index.md)相關的搜尋方法，它們能找出高品質的規劃，但必須聯合考量所有機器人，因此成本隨團隊規模迅速上升。完全反應式的方法，例如以速度為基礎的 ORCA 模型（van den Berg 等人，2011），能線上避免碰撞，但可能陷入僵局。論文指出，多數最先進的規劃器在超過數百個智能體後擴展性不佳，因此其目標是設計一個能線上執行、並隱性協調智能體的規劃器。PRIMAL 屬於[多智能體強化學習](../../../theory/paradigms/reinforcement-learning/multi-agent-rl/index.md)方法，而其專家示範使它也是[模仿學習](../../../theory/paradigms/imitation/index.md)的一個案例。
+多智能體路徑規劃（multi-agent path finding, MAPF）要求為共用同一張地圖的許多機器人找出無碰撞的路徑。集中式規劃器，例如衝突導向搜尋（Sharon 等人，2015），是一種與 [A* 搜尋](../../../theory/paradigms/symbolic-ai/search/a-star/index.md)相關的搜尋方法，它們能找出高品質的規劃，但必須聯合考量所有機器人，因此成本隨團隊規模迅速上升。完全反應式的方法，例如以速度為基礎的 ORCA 模型（van den Berg 等人，2011），能線上避免碰撞，但可能陷入僵局。論文指出，多數最先進的規劃器在超過數百個智能體後擴展性不佳，因此其目標是設計一個能線上執行、並隱性協調智能體的規劃器。PRIMAL 屬於[多智能體強化學習](../../../theory/paradigms/reinforcement-learning/multi-agent-rl/index.md)方法，而其專家示範使它也是[模仿學習](../../../theory/paradigms/imitation/index.md)的一個案例。
 
 ## 關鍵概念
 

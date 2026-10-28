@@ -37,13 +37,13 @@ $$
 ## 限制
 
 - **手工建構的知識。** 每條規則都必須從專家身上引出並寫下來。這就是知識獲取瓶頸，而建立新規則庫的成本，是專家系統市場後來萎縮的主要原因之一（Cullen and Bryman, 1988）。
-- **確定性因子不是機率。** 它們的設計目標是容易引出與組合，並不具備機率理論的完整論證。後來的系統改用[機率圖模型](../../../../theory/probabilistic/graphical-models/index.md)等機率模型。
+- **確定性因子不是機率。** 它們的設計目標是容易引出與組合，並不具備機率理論的完整論證。後來的系統改用[機率圖模型](../../../../theory/paradigms/probabilistic/graphical-models/index.md)等機率模型。
 - **解釋描述的是規則，不是理由。** Clancey（1983）主張，被觸發規則的追蹤記錄可以說明程式做了什麼，但無法說明其提問與結論背後的策略性理由。
 - **範圍狹窄。** 針對一個領域建立的知識無法轉移到另一個領域。以人工方式涵蓋常識知識的嘗試，花費了一個人世紀的努力，仍然不完整（Lenat, 1995）。
 
 ## 連結
 
-MYCIN 是擴展符號方法，而非放棄它。它的規則格式類似於被用來模擬人類認知的產生式系統。[ACT-R](../../../../brain-mind/cognitive-architectures/act-r/index.md) 是最著名的例子。MYCIN 的規則是為了符合專家判斷而寫，ACT-R 的規則則要對照人類行為來檢驗。另見[符號 AI](../../../../theory/symbolic-ai/index.md)的相關頁面。
+MYCIN 是擴展符號方法，而非放棄它。它的規則格式類似於被用來模擬人類認知的產生式系統。[ACT-R](../../../../brain-mind/cognitive-architectures/act-r/index.md) 是最著名的例子。MYCIN 的規則是為了符合專家判斷而寫，ACT-R 的規則則要對照人類行為來檢驗。另見[符號 AI](../../../../theory/paradigms/symbolic-ai/index.md)的相關頁面。
 
 ## 開放問題
 

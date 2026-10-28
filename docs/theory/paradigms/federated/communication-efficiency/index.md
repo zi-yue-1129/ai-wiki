@@ -58,4 +58,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Bernstein, Wang, Azizzadenesheli & Anandkumar (2018), "signSGD: compressed optimisation for non-convex problems", ICML. No link checked.
+- Bernstein, Wang, Azizzadenesheli & Anandkumar (2018), "signSGD: compressed optimisation for non-convex problems", ICML. https://arxiv.org/abs/1802.04434 — Sends only the sign of each gradient coordinate, cutting communication while keeping convergence guarantees.

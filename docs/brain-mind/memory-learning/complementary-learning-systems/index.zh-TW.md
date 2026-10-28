@@ -38,7 +38,7 @@ translation_reviewed: 2026-10-28
 
 - Scoville, W. B. & Milner, B. (1957). Loss of recent memory after bilateral hippocampal lesions. *Journal of Neurology, Neurosurgery & Psychiatry*. https://doi.org/10.1136/jnnp.20.1.11 — 報告包括 H.M. 在內、雙側內側顳葉損傷的病人，確立這些結構對新記憶的作用。
 - Bliss, T. V. P. & Lømo, T. (1973). Long-lasting potentiation of synaptic transmission in the dentate area of the anaesthetized rabbit following stimulation of the perforant path. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1973.sp010273 — 長期增益的首次報告，許多記憶模型的突觸基礎。
-- McClelland, J. L., McNaughton, B. L. & O'Reilly, R. C. (1995). Why there are complementary learning systems in the hippocampus and neocortex. *Psychological Review*. https://doi.org/10.1037/0033-295X.102.3.419 — 互補學習系統理論的原始版本，包含干擾與交錯學習的模擬。
+- McClelland, J. L., McNaughton, B. L. & O'Reilly, R. C. (1995). Why there are complementary learning systems in the hippocampus and neocortex: Insights from the successes and failures of connectionist models of learning and memory. *Psychological Review*. https://doi.org/10.1037/0033-295X.102.3.419 — 互補學習系統理論的原始版本，包含干擾與交錯學習的模擬。
 
 ### 綜述與教科書
 

@@ -4,7 +4,7 @@ translation_reviewed: 2026-10-28
 
 # Logic Theorist 與通用問題求解器
 
-Logic Theorist 由 Allen Newell、J. C. Shaw 與 Herbert Simon 於 1956 年撰寫，它以啟發式搜尋來證明符號邏輯的定理。它的後繼者通用問題求解器（General Problem Solver）則把類似的目標導向搜尋思路套用到一般問題上。兩者都是[符號時代](../index.md)以及更廣泛的[符號 AI](../../../../theory/symbolic-ai/index.md)傳統中的里程碑方法。
+Logic Theorist 由 Allen Newell、J. C. Shaw 與 Herbert Simon 於 1956 年撰寫，它以啟發式搜尋來證明符號邏輯的定理。它的後繼者通用問題求解器（General Problem Solver）則把類似的目標導向搜尋思路套用到一般問題上。兩者都是[符號時代](../index.md)以及更廣泛的[符號 AI](../../../../theory/paradigms/symbolic-ai/index.md)傳統中的里程碑方法。
 
 ## 概述
 
@@ -49,9 +49,9 @@ Logic Theorist 處理命題邏輯的運算式。它從公理與已建立的定�
 
 ## 開放問題
 
-- 能否從資料學習過去引導這些程式的啟發式，同時保留讓搜尋可靠的性質？[A\* 搜尋](../../../../theory/symbolic-ai/search/a-star/index.md)頁面討論了可容許啟發式的這項張力。
+- 能否從資料學習過去引導這些程式的啟發式，同時保留讓搜尋可靠的性質？[A\* 搜尋](../../../../theory/paradigms/symbolic-ai/search/a-star/index.md)頁面討論了可容許啟發式的這項張力。
 - 人類解題中有多少是手段－目的搜尋，又有多少依賴辨識或既有經驗？[認知架構](../../../../brain-mind/cognitive-architectures/index.md)頁面對此有所討論。
-- 像 [Tree of Thoughts](../../../../theory/symbolic-ai/search/tree-of-thoughts/index.md) 這樣在語言模型輸出上進行搜尋的系統，重新提出了生成器與搜尋程序該如何結合的問題。
+- 像 [Tree of Thoughts](../../../../theory/paradigms/symbolic-ai/search/tree-of-thoughts/index.md) 這樣在語言模型輸出上進行搜尋的系統，重新提出了生成器與搜尋程序該如何結合的問題。
 
 ## 參考文獻
 

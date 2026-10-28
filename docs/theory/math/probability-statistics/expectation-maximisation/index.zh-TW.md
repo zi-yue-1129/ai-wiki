@@ -44,7 +44,7 @@ $$
 \log p(x\mid\theta)\ \ge\ \mathbb{E}_{q}\big[\log p(x,z\mid\theta)\big]-\mathbb{E}_{q}\big[\log q(z)\big].
 $$
 
-當 $q(z)=p(z\mid x,\theta)$ 時，右側等於概似。Neal 與 Hinton（1998）以此觀點說明：E 步把 $q$ 設為後驗，M 步則對 $\theta$ 最大化此下界。這個下界就是[變分推論](../../../probabilistic/variational-inference/index.md)中的證據下界（ELBO），因此 EM 是對它做座標上升。
+當 $q(z)=p(z\mid x,\theta)$ 時，右側等於概似。Neal 與 Hinton（1998）以此觀點說明：E 步把 $q$ 設為後驗，M 步則對 $\theta$ 最大化此下界。這個下界就是[變分推論](../../../paradigms/probabilistic/variational-inference/index.md)中的證據下界（ELBO），因此 EM 是對它做座標上升。
 
 ```mermaid
 flowchart LR
@@ -74,7 +74,7 @@ Dempster、Laird 與 Rubin（1977）在缺失、設限與混合模型資料上�
 ## 關聯
 
 - **最大概似估計。** EM 是資料不完整時的最大概似方法；參見[最大概似估計](../maximum-likelihood/index.md)一頁。
-- **變分推論。** EM 是對 ELBO 做座標上升的特例。[變分推論](../../../probabilistic/variational-inference/index.md)章節發展了一般情形。
+- **變分推論。** EM 是對 ELBO 做座標上升的特例。[變分推論](../../../paradigms/probabilistic/variational-inference/index.md)章節發展了一般情形。
 - **大腦與心智。** 目前尚未建立 EM 與神經計算之間的直接關聯。[上層頁面](../index.md)中的「貝氏大腦」觀點是最接近的想法。
 
 ## 應用

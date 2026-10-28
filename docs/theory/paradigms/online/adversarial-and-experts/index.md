@@ -57,4 +57,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Cesa-Bianchi & Lugosi (2006), *Prediction, Learning, and Games*, Cambridge University Press. No link checked.
+- Cesa-Bianchi & Lugosi (2006), *Prediction, Learning, and Games*, Cambridge University Press. https://www.cambridge.org/core/books/abs/prediction-learning-and-games/preface/57367F57F5C14A8E04EC732E20711EA1 — Covers online prediction with expert advice and games in depth.

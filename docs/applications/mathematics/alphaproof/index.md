@@ -56,7 +56,7 @@ At the 2024 International Mathematical Olympiad, AlphaProof solved three of the 
 
 ## Connections
 
-- AlphaProof belongs to the formal strand of [Mathematics and Formal Proof](../index.md) and to the theory of [automated reasoning and theorem proving](../../../theory/symbolic-ai/index.md) in symbolic AI.
+- AlphaProof belongs to the formal strand of [Mathematics and Formal Proof](../index.md) and to the theory of [automated reasoning and theorem proving](../../../theory/paradigms/symbolic-ai/index.md) in symbolic AI.
 - Its training method belongs to the self-play family described on the [AlphaZero](../../../theory/paradigms/reinforcement-learning/mcts-and-self-play/alphazero/index.md) page, and its test-time adaptation links to [reasoning models](../../../theory/models/reasoning/index.md).
 
 ## Applications

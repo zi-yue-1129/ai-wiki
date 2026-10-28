@@ -30,7 +30,7 @@ A trained network is usually over-parameterised. Many weights contribute little 
 | Quantisation | Bits per number (weights, activations, cache) | Rounding error; needs calibration | [Quantisation](quantisation/index.md) |
 | Pruning | Number of weights, channels or heads | Accuracy loss at high sparsity; speed-up depends on hardware | [Pruning](pruning/index.md) |
 | Knowledge distillation | Size of the model itself | Student quality bounded by teacher and data | [Knowledge distillation](knowledge-distillation/index.md) |
-| Low-rank factorisation | Parameters in large matrices | Loss when weight matrices have high effective rank | This page, below |
+| Low-rank factorisation | Parameters in large matrices | Loss when weight matrices have high effective rank | [Low-rank factorisation and efficient architectures](low-rank-and-efficient-architectures/index.md) |
 
 Compression is usually applied **after** training, which is called post-training compression. Training-aware methods, such as quantisation-aware training or distillation, change the training run itself and usually recover more quality at the same size. Efficient architecture design, such as depthwise-separable convolutions or grouped-query attention, is a related but different strategy: it chooses a small model before training rather than shrinking a large one.
 
@@ -49,6 +49,8 @@ Most methods share a loop: score the importance of each part of the model, remov
 
 ### Low-rank factorisation
 
+The method pages for this family, covering truncated SVD, low-rank filter expansion and LoRA, are under [low-rank factorisation and efficient architectures](low-rank-and-efficient-architectures/index.md).
+
 A weight matrix \(W \in \mathbb{R}^{m \times n}\) can be approximated by the product of two thinner matrices, \(W \approx UV\) with \(U \in \mathbb{R}^{m \times r}\) and \(V \in \mathbb{R}^{r \times n}\). The truncated singular value decomposition gives the best rank-\(r\) approximation in the Frobenius norm. The parameter count falls from \(mn\) to \(r(m+n)\), which is a saving whenever \(r\) is small relative to the dimensions.
 
 Low-rank compression works only when the matrix is close to low rank. Many trained layers are, but the approximation error can grow quickly for the layers that matter most. Low-rank adaptation (LoRA) uses the same mathematics during fine-tuning, to learn a small update \(BA\) on top of frozen weights. LoRA does not compress the base model, and it is covered under [training and fine-tuning](../../engineering/training/index.md).
@@ -57,15 +59,9 @@ Low-rank compression works only when the matrix is close to low rank. Many train
 
 Some models are designed to be small from the start. MobileNet replaced standard convolutions with depthwise-separable ones. Multi-query and grouped-query attention share keys and values across heads to shrink the [KV cache](../../theory/models/transformer/kv-cache/index.md). Mixture-of-experts layers keep total parameters large while activating only a few per token. These are architectural choices, so they belong with the model families under [Models](../models/index.md).
 
-## Key methods
+## Composed pipelines
 
-### Deep Compression (Han, Mao and Dally, 2016)
-
-- **Problem:** Trained networks are too large to store and run on embedded hardware, and the usual single technique does not reach the required size.
-- **Core idea:** Prune small-magnitude connections and retrain, then quantise the remaining weights with a shared codebook, then apply Huffman coding to the result. Each stage is independent and the stages are applied in sequence.
-- **Equation or algorithm:** Pruning keeps weights whose magnitude exceeds a threshold, and retraining restores the accuracy. Quantisation clusters the remaining weights into a small number of shared values, and Huffman coding compresses the indices.
-- **Results:** The abstract reports that the pipeline reduces neural network storage by 35 to 49 times without affecting accuracy.
-- **Limitations:** The gains are mainly in storage. Sparse and codebook-based models need special hardware or software to run faster, and the pipeline is expensive to apply to very large models.
+Methods are often combined in one pipeline. [Deep Compression](deep-compression/index.md) chains pruning, codebook quantisation and Huffman coding, and its page sets out the stages, the storage results and their limits.
 
 ## Connections
 

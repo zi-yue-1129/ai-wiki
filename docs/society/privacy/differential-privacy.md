@@ -68,4 +68,4 @@ Dwork et al. (2006) give a formal guarantee and a method for calibrating noise, 
 
 ### Surveys and textbooks
 
-- Dwork, C. & Roth, A. (2014). *The Algorithmic Foundations of Differential Privacy*. Foundations and Trends in Theoretical Computer Science, 9(3–4). https://doi.org/10.1561/0400000042 — The standard textbook, with the mechanisms and proofs in full.
+- Dwork, C. & Roth, A. (2014). *The Algorithmic Foundations of Differential Privacy*. Foundations and Trends in Theoretical Computer Science, 9(3–4). https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf — The standard textbook, with the mechanisms and proofs in full.

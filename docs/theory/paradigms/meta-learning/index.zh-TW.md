@@ -41,7 +41,8 @@
 
 ## 延伸閱讀
 
-- Hospedales et al. (2021), "Meta-Learning in Neural Networks: A Survey"
-- Finn et al. (2017) MAML；Snell et al. (2017) Prototypical Networks
-- Lake et al. (2017), "Building machines that learn and think like people", *Behavioral and Brain Sciences*
-- Stanford CS330《Deep Multi-Task and Meta Learning》
+- Hospedales et al. (2021)，《Meta-Learning in Neural Networks: A Survey》。https://arxiv.org/abs/2004.05439
+- Finn et al. (2017) MAML。https://arxiv.org/abs/1703.03400
+- Snell et al. (2017) Prototypical Networks。https://arxiv.org/abs/1703.05175
+- Lake et al. (2017)，《Building machines that learn and think like people》，*Behavioral and Brain Sciences*。https://arxiv.org/abs/1604.00289
+- Stanford CS330《Deep Multi-Task and Meta Learning》。https://cs330.stanford.edu

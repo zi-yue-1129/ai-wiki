@@ -41,7 +41,7 @@ $$
 \hat\theta_{\mathrm{MAP}}=\arg\max_\theta\Big[\sum_{i=1}^n\log p(x_i\mid\theta)+\log p(\theta)\Big].
 $$
 
-MAP differs from ML only by the log-prior. For linear regression with Gaussian noise of variance $\sigma^2$ and a Gaussian prior $\mathcal N(0,\tau^2 I)$ on the weights, the MAP estimate is ridge regression with penalty $\lambda=\sigma^2/\tau^2$. A Laplace prior gives the $L_1$ penalty of the lasso. MAP returns the posterior mode and not its spread, which is why [MCMC](../../../probabilistic/mcmc/index.md) and [variational inference](../../../probabilistic/variational-inference/index.md) are used when uncertainty matters.
+MAP differs from ML only by the log-prior. For linear regression with Gaussian noise of variance $\sigma^2$ and a Gaussian prior $\mathcal N(0,\tau^2 I)$ on the weights, the MAP estimate is ridge regression with penalty $\lambda=\sigma^2/\tau^2$. A Laplace prior gives the $L_1$ penalty of the lasso. MAP returns the posterior mode and not its spread, which is why [MCMC](../../../paradigms/probabilistic/mcmc/index.md) and [variational inference](../../../paradigms/probabilistic/variational-inference/index.md) are used when uncertainty matters.
 
 **The loss view.** The negative log-likelihood of an assumed noise model is a loss. Gaussian noise gives squared error, and a categorical output gives cross-entropy, $-\sum_k y_k\log\hat p_k$. Training a classifier by cross-entropy is therefore maximum likelihood for its softmax parameters. Gneiting and Raftery (2007) classify the log score as a proper scoring rule.
 

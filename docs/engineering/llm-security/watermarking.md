@@ -4,7 +4,7 @@ last_reviewed: 2026-10-28
 related:
   - society/misinformation
   - theory/models/llm
-  - theory/generative/diffusion
+  - theory/paradigms/unsupervised/density-and-generative-models/diffusion
 tags:
   - security
   - misinformation

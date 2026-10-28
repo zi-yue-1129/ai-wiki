@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-28
 related:
   - brain-mind/visual-perception
-  - theory/generative/diffusion
+  - theory/paradigms/unsupervised/density-and-generative-models/diffusion
   - applications/creative
   - applications/autonomous-driving
 tags:
@@ -29,7 +29,7 @@ A photograph discards depth. Points at different distances can produce the same 
 
 Classical systems used explicit geometry such as meshes and voxel grids. From about 2020 the scene was stored in the weights of a neural network fitted to photographs. In 2023 explicit Gaussian primitives restored real-time display rates.[^1]
 
-This page covers depth estimation, point clouds, radiance fields and generative 3D. Two-dimensional image generation is covered in [Generative Models](../../../generative/index.md).
+This page covers depth estimation, point clouds, radiance fields and generative 3D. Two-dimensional image generation is covered in [Generative Models](../../../paradigms/unsupervised/density-and-generative-models/generative-models/index.md).
 
 ## Key concepts
 
@@ -76,7 +76,7 @@ Two landmark methods are compared below. Each links to its own page, which gives
 
 - **Brain and mind.** Binocular disparity, the small difference between the two eyes' images, is a strong cue to depth. Marr and Poggio (1979) proposed how the visual system matches the two images to recover depth.[^13] Hubel and Wiesel (1962) described neurons in cat visual cortex that respond to input from both eyes.[^14] See [Perception and the Visual System](../../../../brain-mind/visual-perception/index.md) and [Receptive Fields in Visual Cortex](../../../../brain-mind/neuroscience/receptive-fields-hubel-wiesel/index.md). Whether the brain stores scenes in a form comparable to a radiance field is not known.
 - **Transformers.** DUSt3R uses Transformer encoders and decoders. See [Vision Transformer](../../transformer/vision-transformer/index.md).
-- **Diffusion.** Score distillation and viewpoint-conditioned generation depend on [Diffusion Models](../../../generative/diffusion/index.md).
+- **Diffusion.** Score distillation and viewpoint-conditioned generation depend on [Diffusion Models](../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md).
 - **Self-supervision.** Depth Anything learns from large pools of unlabelled images, as in [Self-Supervised Learning](../../../paradigms/self-supervised/index.md).
 
 ## Applications

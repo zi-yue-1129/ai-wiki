@@ -59,8 +59,11 @@ Preserving local structure is easy, but reliably preserving global geometry is n
 
 ### Lectures and videos
 
-- StatQuest with Josh Starmer, episodes on principal component analysis, YouTube. https://www.youtube.com/@statquest — Animated explanation of PCA, with the variance and loading ideas made concrete.
 
 ### Articles and documentation
 
 (none beyond the entries above)
+
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on principal component analysis, YouTube. https://www.youtube.com/@statquest — Animated explanation of PCA, with the variance and loading ideas made concrete.

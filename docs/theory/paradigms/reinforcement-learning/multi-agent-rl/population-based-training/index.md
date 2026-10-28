@@ -56,7 +56,7 @@ The PBT paper reports hyperparameter schedules found within a fixed budget on de
 
 ## Open questions
 
-What population structure best prevents cycling, and how should progress be measured when strength is not transitive? Lanctot et al. (2017) relate population training to game-theoretic best responses. Exploit-and-explore also resembles [evolutionary search](../../../../evolutionary/index.md), and it is unclear how far that analogy carries to learned policies.
+What population structure best prevents cycling, and how should progress be measured when strength is not transitive? Lanctot et al. (2017) relate population training to game-theoretic best responses. Exploit-and-explore also resembles [evolutionary search](../../../evolutionary/index.md), and it is unclear how far that analogy carries to learned policies.
 
 ## References
 

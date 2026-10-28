@@ -74,7 +74,7 @@ Lei et al. (2016) develop split and full conformal inference for regression. The
 
 ## Connections
 
-[Temperature scaling](../temperature-scaling/index.md) fixes probabilities after training, and conformal prediction fixes the sets. Both use a held-out split, and the Platt scaling baseline in the Angelopoulos et al. (2020) comparison shows how the two relate. The [probabilistic methods](../../../probabilistic/index.md) page covers the Bayesian route to intervals, which depends on the model and prior being specified correctly. Conformal prediction avoids that dependence by making a distribution-free claim instead. It has no direct brain-mind link; it is a statistical guarantee, not a model of cognition.
+[Temperature scaling](../temperature-scaling/index.md) fixes probabilities after training, and conformal prediction fixes the sets. Both use a held-out split, and the Platt scaling baseline in the Angelopoulos et al. (2020) comparison shows how the two relate. The [probabilistic methods](../../../paradigms/probabilistic/index.md) page covers the Bayesian route to intervals, which depends on the model and prior being specified correctly. Conformal prediction avoids that dependence by making a distribution-free claim instead. It has no direct brain-mind link; it is a statistical guarantee, not a model of cognition.
 
 [^1]: From the abstract of Angelopoulos et al. (2020), which reports it on ImageNet and ImageNet-V2.
 

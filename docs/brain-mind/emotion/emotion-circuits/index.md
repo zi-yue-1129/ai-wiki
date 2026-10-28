@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - brain-mind/neuroscience
@@ -69,4 +69,4 @@ The review reports that the amygdala is necessary for conditioned fear, and that
 - Lindquist, K. A., Wager, T. D., Kober, H., Bliss-Moreau, E. & Barrett, L. F. (2012). The brain basis of emotion: a meta-analytic review. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X11000446 — A meta-analysis that questions whether each emotion has a dedicated circuit.
 - Russell, J. A. (1980). A circumplex model of affect. *Journal of Personality and Social Psychology*. https://doi.org/10.1037/h0077714 — The dimensional model of affect that the threat signal maps onto.
 - Ekman, P. (1992). An argument for basic emotions. *Cognition and Emotion*. https://doi.org/10.1080/02699939208411068 — The basic-emotion view, which the circuit account tests for fear.
-- Picard, R. W. (1997). *Affective Computing*. MIT Press. https://www.schweitzer-online.de/en/buch/Picard/Affective-Computing/9780262161701/A39598287/ — Sets out the field of machines that recognise emotion, which does not depend on the detail of these circuits.
+- Picard, R. W. (1997). *Affective Computing*. MIT Press. https://www.computerhistory.org/collections/catalog/102628597 — Sets out the field of machines that recognise emotion, which does not depend on the detail of these circuits.

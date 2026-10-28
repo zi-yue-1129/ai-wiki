@@ -59,7 +59,7 @@ flowchart LR
 
 ## 相關連結
 
-- **強化學習與規劃。**路線規劃與多機器人路徑規劃都是序列決策問題。[強化學習](../../theory/paradigms/reinforcement-learning/index.md)頁面涵蓋學習型路線規劃器所用的策略梯度方法。傳統的替代方案則是在問題的明確模型上進行搜尋，相關內容見[自動規劃](../../theory/symbolic-ai/planning/index.md)與 [A* 搜尋](../../theory/symbolic-ai/search/a-star/index.md)。
+- **強化學習與規劃。**路線規劃與多機器人路徑規劃都是序列決策問題。[強化學習](../../theory/paradigms/reinforcement-learning/index.md)頁面涵蓋學習型路線規劃器所用的策略梯度方法。傳統的替代方案則是在問題的明確模型上進行搜尋，相關內容見[自動規劃](../../theory/paradigms/symbolic-ai/planning/index.md)與 [A* 搜尋](../../theory/paradigms/symbolic-ai/search/a-star/index.md)。
 - **變動的資料。**需求會隨季節、趨勢與新產品而改變，這正是[串流與概念漂移](../../theory/paradigms/online/streaming-and-concept-drift/index.md)所處理的情境。
 - **校準的不確定性。**預測區間與短缺警報只有在其宣稱的機率可靠時才有用，這個問題在[共形預測](../../theory/machine-learning/uncertainty-and-calibration/conformal-prediction/index.md)中討論。
 - **機器人與模擬。**倉儲政策常在模擬器中訓練，部署到實體機器人時便產生[模擬到真實遷移](../../theory/paradigms/transfer/sim-to-real/index.md)的問題。

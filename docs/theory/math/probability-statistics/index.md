@@ -2,7 +2,7 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/probabilistic
+  - theory/paradigms/probabilistic
   - theory/information-theory
   - brain-mind/neuroai
 tags:
@@ -32,7 +32,7 @@ Probability is the language in which AI systems represent uncertainty, and stati
 
 A learning system sees a finite sample of data and must then say something about the process that produced it. Probability gives a precise way to describe that process. A random variable assigns numbers to outcomes, and a distribution says how likely each value is. Statistics asks the reverse question. Given the data that were observed, which distribution is most plausible, how much should the estimate be trusted, and what can be expected on data not yet seen?
 
-Most of the uncertainty mathematics in [mathematics for AI](../index.md) rests on this page. The [probabilistic methods](../../probabilistic/index.md) folder uses these foundations to perform inference in complex models, and [information theory](../../information-theory/index.md) measures the information carried by the same distributions. This page introduces the shared vocabulary and the three estimation tools that most AI systems use in some form.
+Most of the uncertainty mathematics in [mathematics for AI](../index.md) rests on this page. The [probabilistic methods](../../paradigms/probabilistic/index.md) folder uses these foundations to perform inference in complex models, and [information theory](../../information-theory/index.md) measures the information carried by the same distributions. This page introduces the shared vocabulary and the three estimation tools that most AI systems use in some form.
 
 ## Key concepts
 
@@ -50,7 +50,7 @@ $$
 p(\theta\mid D)=\frac{p(D\mid\theta)\,p(\theta)}{p(D)},\qquad p(D)=\int p(D\mid\theta)\,p(\theta)\,d\theta .
 $$
 
-The rule follows directly from the product rule of probability. Thomas Bayes' posthumous essay of 1763 treated the inverse problem of inferring causes from observed effects, which is why the rule carries his name. The denominator $p(D)$ is an integral over all parameter values and is usually intractable for a neural network. That single difficulty is the reason for the approximate methods in the [probabilistic methods](../../probabilistic/index.md) folder, namely [MCMC](../../probabilistic/mcmc/index.md) and [variational inference](../../probabilistic/variational-inference/index.md).
+The rule follows directly from the product rule of probability. Thomas Bayes' posthumous essay of 1763 treated the inverse problem of inferring causes from observed effects, which is why the rule carries his name. The denominator $p(D)$ is an integral over all parameter values and is usually intractable for a neural network. That single difficulty is the reason for the approximate methods in the [probabilistic methods](../../paradigms/probabilistic/index.md) folder, namely [MCMC](../../paradigms/probabilistic/mcmc/index.md) and [variational inference](../../paradigms/probabilistic/variational-inference/index.md).
 
 **Maximum likelihood and MAP.** The likelihood of i.i.d. data is $\prod_i p(x_i\mid\theta)$. Maximum likelihood (ML) picks the parameter that makes the data most probable. Maximum a posteriori (MAP) estimation adds the prior:
 
@@ -94,11 +94,11 @@ Three landmark methods carry this material into practice. Each has its own page.
 | [Expectation–maximisation](expectation-maximisation/index.md) | How to maximise a likelihood when some variables are hidden? | A latent-variable model whose complete-data likelihood is tractable | Dempster, Laird & Rubin (1977) |
 | [Bootstrap](bootstrap/index.md) | How uncertain is an estimate when no formula exists? | The sample is a reasonable stand-in for the population | Efron (1979) |
 
-Bayesian posterior inference, which the table does not cover, is treated in the [probabilistic methods](../../probabilistic/index.md) folder.
+Bayesian posterior inference, which the table does not cover, is treated in the [probabilistic methods](../../paradigms/probabilistic/index.md) folder.
 
 ## Connections
 
-- **Probabilistic methods.** Bayes' rule, the posterior and its approximation by [MCMC](../../probabilistic/mcmc/index.md) and [variational inference](../../probabilistic/variational-inference/index.md) extend the material here. The ELBO used in variational inference is itself a likelihood-based bound.
+- **Probabilistic methods.** Bayes' rule, the posterior and its approximation by [MCMC](../../paradigms/probabilistic/mcmc/index.md) and [variational inference](../../paradigms/probabilistic/variational-inference/index.md) extend the material here. The ELBO used in variational inference is itself a likelihood-based bound.
 - **Information theory.** Cross-entropy is the negative log-likelihood of a categorical model. Minimising it over a model family is equivalent to minimising the KL divergence from the data distribution, because the data entropy does not depend on the model. See [information theory](../../information-theory/index.md).
 - **Calculus and optimisation.** Maximum likelihood is an optimisation problem. Its gradient is the score, and deep models find it by [gradient descent](../calculus/gradient-descent/index.md).
 - **Uncertainty and calibration.** A probabilistic model is useful only if its stated probabilities match observed frequencies. Modern networks often fail this check. See [uncertainty and calibration](../../machine-learning/uncertainty-and-calibration/index.md).

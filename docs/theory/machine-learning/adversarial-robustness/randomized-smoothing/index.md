@@ -71,7 +71,7 @@ Cohen et al. (2019) report, in their abstract, an ImageNet classifier with a cer
 
 ## Connections
 
-Smoothing is an average over perturbed inputs, a close relative of the averaging used in [MC dropout](../../uncertainty-and-calibration/mc-dropout/index.md) and of the abstention that [uncertainty and calibration](../../uncertainty-and-calibration/index.md) studies. The probabilistic certificate relies on confidence intervals, described in [probabilistic methods](../../../probabilistic/index.md). Lécuyer et al. (2018) connected the same kind of noise-based guarantee to differential privacy, a link to the [privacy](../../../../society/privacy/index.md) literature.
+Smoothing is an average over perturbed inputs, a close relative of the averaging used in [MC dropout](../../uncertainty-and-calibration/mc-dropout/index.md) and of the abstention that [uncertainty and calibration](../../uncertainty-and-calibration/index.md) studies. The probabilistic certificate relies on confidence intervals, described in [probabilistic methods](../../../paradigms/probabilistic/index.md). Lécuyer et al. (2018) connected the same kind of noise-based guarantee to differential privacy, a link to the [privacy](../../../../society/privacy/index.md) literature.
 
 ## Applications
 

@@ -23,7 +23,7 @@ translation_reviewed: 2026-10-28
 ## 關鍵概念
 
 - **物理符號系統（physical symbol system）**：依規則操作符號的系統，符號代表世界中的事物。Newell 與 Simon 主張，這樣的系統對於智慧行為而言既必要又充分（Newell and Simon, 1976）。
-- **啟發式搜尋（heuristic search）**：在可能狀態的空間中探索，並依據估計前景的經驗法則排序。現代版本見 [A\* 搜尋](../../../theory/symbolic-ai/search/a-star/index.md)。
+- **啟發式搜尋（heuristic search）**：在可能狀態的空間中探索，並依據估計前景的經驗法則排序。現代版本見 [A\* 搜尋](../../../theory/paradigms/symbolic-ai/search/a-star/index.md)。
 - **手段－目的分析（means–ends analysis）**：比較目前狀態與目標，找出兩者之間的差異，並選擇能縮小該差異的運算子。它是通用問題求解器的核心方法。
 - **微世界（microworld）**：一個受限的領域，例如一張擺著彩色積木的桌面。在其中，語言與感知可以在不必面對完整世界複雜度的情況下進行研究。
 - **閾值單元（threshold unit）**：一種類神經元的元件，會對輸入加權並求和，若和超過閾值就輸出 1。感知器就是由這類單元加上學習規則所組成的網路。
@@ -58,12 +58,12 @@ flowchart LR
 
 這段時期位於本維基強調的腦與心智問題的核心：機器的運算在多大程度上類似大腦。McCulloch 與 Pitts 早在 1943 年就把神經元建模為邏輯單元（McCulloch and Pitts, 1943）。感知器則是直接嘗試把那個模型變成會學習的東西。符號派的程式設計者轉而借鏡人類推理，他們的搜尋程式被當作人類思考的理論來提出。這些想法後來被納入 [認知架構](../../../brain-mind/cognitive-architectures/index.md)，例如 [ACT-R](../../../brain-mind/cognitive-architectures/act-r/index.md)。
 
-兩條主線並未就此分開。搜尋方法成為[符號 AI](../../../theory/symbolic-ai/index.md) 在搜尋、規劃與知識表示方面的工具箱；感知器則是後來取代它的多層[深度學習](../../../theory/deep-learning/index.md)網路的祖先。至於神經線的生物面向，見 [NeuroAI](../../../brain-mind/neuroai/index.md)。
+兩條主線並未就此分開。搜尋方法成為[符號 AI](../../../theory/paradigms/symbolic-ai/index.md) 在搜尋、規劃與知識表示方面的工具箱；感知器則是後來取代它的多層[深度學習](../../../theory/deep-learning/index.md)網路的祖先。至於神經線的生物面向，見 [NeuroAI](../../../brain-mind/neuroai/index.md)。
 
 ## 應用
 
-- **遊戲博弈。** Samuel 的西洋跳棋程式會向前搜尋，並以學到的評估函數為局面評分（Samuel, 1959）。這個時期的西洋棋搜尋也使用同樣的模式，[α-β 剪枝](../../../theory/symbolic-ai/search/alpha-beta/index.md)頁面介紹了它後來較有效率的形式。
-- **自動推理。** Logic Theorist 引入的證明搜尋，如今運作於 SAT 與 SMT 求解器之中，用來驗證硬體與軟體（見[符號 AI 概述](../../../theory/symbolic-ai/index.md)）。
+- **遊戲博弈。** Samuel 的西洋跳棋程式會向前搜尋，並以學到的評估函數為局面評分（Samuel, 1959）。這個時期的西洋棋搜尋也使用同樣的模式，[α-β 剪枝](../../../theory/paradigms/symbolic-ai/search/alpha-beta/index.md)頁面介紹了它後來較有效率的形式。
+- **自動推理。** Logic Theorist 引入的證明搜尋，如今運作於 SAT 與 SMT 求解器之中，用來驗證硬體與軟體（見[符號 AI 概述](../../../theory/paradigms/symbolic-ai/index.md)）。
 - **對話介面。** 以關鍵字對應固定回覆的腳本式聊天機器人，沿用了 ELIZA 的設計。現代的[大型語言模型](../../../theory/models/llm/index.md)能力強得多，但提出的仍是 ELIZA 當年提出的問題。
 
 ## 開放問題
@@ -71,7 +71,7 @@ flowchart LR
 - 1969 年的批判究竟是對神經網路的數學反駁，還是研究優先順序的轉移？歷史上的爭論至今仍未定論。
 - 這個時期手工寫成的啟發式能否自動學習，而這樣做是否會保留讓搜尋可靠的保證？
 - 這個時期的微世界與示範，能說明真實世界中的表現嗎？「示範不等於部署」的教訓至今仍然適用（見[評估](../../../engineering/evaluation/index.md)）。
-- 符號搜尋與人類解題究竟有多相近？近來[以語言模型進行搜尋](../../../theory/symbolic-ai/search/tree-of-thoughts/index.md)的研究，又讓這個比較重新受到關注。
+- 符號搜尋與人類解題究竟有多相近？近來[以語言模型進行搜尋](../../../theory/paradigms/symbolic-ai/search/tree-of-thoughts/index.md)的研究，又讓這個比較重新受到關注。
 
 ## 參考文獻
 

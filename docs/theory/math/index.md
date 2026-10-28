@@ -1,6 +1,6 @@
 ---
 related:
-- theory/probabilistic
+- theory/paradigms/probabilistic
 - theory/machine-learning
 ---
 

@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-28
 related:
   - brain-mind/computational-neuroscience
-  - theory/probabilistic
+  - theory/paradigms/probabilistic
   - theory/models/cnn
 tags:
   - regularisation
@@ -90,7 +90,7 @@ Years in this table follow the arXiv record of each paper.
 
 - **Normalisation.** Batch normalisation adds a regularising effect through its mini-batch statistics. The original paper suggested that it can reduce the need for dropout. See [normalisation layers](../normalisation/index.md).
 - **Architectures.** Dropout is used in [Transformers](../../models/transformer/index.md), where Vaswani et al. (2017) apply it to the output of each sub-layer. Stochastic depth is designed for [residual networks](../../models/cnn/backbones-and-scaling/resnet/index.md).
-- **Uncertainty and active learning.** Uncertainty estimates from dropout feed into [deep active learning](../../paradigms/active/deep-active-learning/index.md), and more broadly into the [probabilistic methods](../../probabilistic/index.md) overview.
+- **Uncertainty and active learning.** Uncertainty estimates from dropout feed into [deep active learning](../../paradigms/active/deep-active-learning/index.md), and more broadly into the [probabilistic methods](../../paradigms/probabilistic/index.md) overview.
 - **Brain and mind.** Neurons are noisy, and synaptic transmission is probabilistic: a synapse releases transmitter on only some of its presynaptic events, and release probability varies widely between synapses (Branco and Staras, 2009). Neural tissue is therefore not free of the kind of randomness used in dropout. Whether the brain uses such noise to avoid overfitting, or has any analogous regulariser, is not known. See [computational neuroscience](../../../brain-mind/computational-neuroscience/index.md) and [NeuroAI](../../../brain-mind/neuroai/index.md).
 
 ## Applications

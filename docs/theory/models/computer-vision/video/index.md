@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-28
 related:
   - brain-mind/visual-perception
-  - theory/generative/diffusion
+  - theory/paradigms/unsupervised/density-and-generative-models/diffusion
   - theory/models/world-models
   - applications/creative
 tags:
@@ -43,7 +43,7 @@ The tasks split into two families. In **understanding**, the output is a label, 
 
 Understanding pipelines follow three families of architecture. Two-stream networks combine an RGB network with an optical-flow network.[^4] 3D convolutional networks such as C3D learn spatio-temporal filters directly, and [I3D](i3d/index.md) makes them trainable by inflating image filters into three dimensions.[^5] Video Transformers, such as TimeSformer, apply attention over space-time patches, and self-supervised objectives such as [VideoMAE](videomae/index.md) let them learn from video alone.[^6][^7] SlowFast uses two pathways at different frame rates, one for semantics and one for motion.[^8]
 
-Generation pipelines are built on diffusion, as described on the [Diffusion Models](../../../generative/diffusion/index.md) page. A denoiser that works over space and time removes noise from a clip. Video diffusion models add temporal layers to an image model or train a space-time network from the start, and they often compress video into a latent space first. [Video diffusion models](video-diffusion/index.md) show the basic recipe.[^3]
+Generation pipelines are built on diffusion, as described on the [Diffusion Models](../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md) page. A denoiser that works over space and time removes noise from a clip. Video diffusion models add temporal layers to an image model or train a space-time network from the start, and they often compress video into a latent space first. [Video diffusion models](video-diffusion/index.md) show the basic recipe.[^3]
 
 ```mermaid
 flowchart LR
@@ -73,7 +73,7 @@ SlowFast and TimeSformer are the other landmarks named above, and the [Vision Tr
 - **Brain and mind.** The two-stream networks are related to the two-streams hypothesis, in which a dorsal pathway handles motion and a ventral pathway handles objects.[^4][^9] The resemblance is one of organisation, not evidence of a shared mechanism. See [Perception and the Visual System](../../../../brain-mind/visual-perception/index.md).
 - **World models.** Sora was described as a "world simulator", a framing the Sora review examines in detail.[^10] The [World Models](../../world-models/index.md) page covers this route, in which a model predicts how a scene evolves under actions. A related route predicts future video features rather than pixels, as in [V-JEPA](https://arxiv.org/abs/2404.08471).[^11]
 - **Predictive coding.** Predicting upcoming frames resembles the predictive-coding account of perception, in which the brain compares its predictions with input. The analogy is loose, and the [Predictive coding](../../../../brain-mind/predictive-coding/index.md) page sets out the account itself.
-- **Diffusion and Transformers.** Video generation reuses the [diffusion](../../../generative/diffusion/index.md) training objective, and video understanding reuses the [CNN](../../cnn/index.md) and Transformer families.
+- **Diffusion and Transformers.** Video generation reuses the [diffusion](../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md) training objective, and video understanding reuses the [CNN](../../cnn/index.md) and Transformer families.
 
 ## Applications
 

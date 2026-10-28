@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - brain-mind/neuroai
@@ -61,11 +61,11 @@ The authors show that, with suitable parameters, the weight updates converge to 
 
 ### Seminal papers
 
-- Whittington, J. C. R. & Bogacz, R. (2017). An Approximation of the Error Backpropagation Algorithm in a Predictive Coding Network with Local Hebbian Synaptic Plasticity. *Neural Computation*. https://doi.org/10.1162/NECO_a_00949 — Shows that predictive coding with local plasticity can approximate backpropagation under suitable parameters.
-- Rao, R. P. N. & Ballard, D. H. (1999). Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects. *Nature Neuroscience*. https://doi.org/10.1038/4580 — The hierarchical predictive coding model that this network extends, with feedback carrying predictions and feedforward connections carrying errors.
+- Whittington, J. C. R. & Bogacz, R. (2017). An Approximation of the Error Backpropagation Algorithm in a Predictive Coding Network with Local Hebbian Synaptic Plasticity. *Neural Computation*. https://pmc.ncbi.nlm.nih.gov/articles/PMC5467749/ — Shows that predictive coding with local plasticity can approximate backpropagation under suitable parameters.
+- Rao, R. P. N. & Ballard, D. H. (1999). Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects. *Nature Neuroscience*. https://pubmed.ncbi.nlm.nih.gov/10195184/ — The hierarchical predictive coding model that this network extends, with feedback carrying predictions and feedforward connections carrying errors.
 
 ### Surveys and reviews
 
-- Keller, G. B. & Mrsic-Flogel, T. D. (2018). Predictive Processing: A Canonical Cortical Computation. *Neuron*. https://doi.org/10.1016/j.neuron.2018.10.003 — A review arguing that predictive processing is a repeated circuit-level computation across cortex, and discussing how it could be tested.
-- Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2787 — Proposes that brains minimise prediction error, a unifying framework for perception, action and learning. (Reference reused from the parent page; not re-checked for this page.)
-- Clark, A. (2013). Whatever next? Predictive brains, situated agents, and the future of cognitive science. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X12000477 — A review of predictive processing as a unifying framework for perception, action and cognition. (Reference reused from the parent page; not re-checked for this page.)
+- Keller, G. B. & Mrsic-Flogel, T. D. (2018). Predictive Processing: A Canonical Cortical Computation. *Neuron*. https://pmc.ncbi.nlm.nih.gov/articles/PMC6400266 — A review arguing that predictive processing is a repeated circuit-level computation across cortex, and discussing how it could be tested.
+- Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*. https://pubmed.ncbi.nlm.nih.gov/20068583/ — Proposes that brains minimise prediction error, a unifying framework for perception, action and learning.
+- Clark, A. (2013). Whatever next? Predictive brains, situated agents, and the future of cognitive science. *Behavioral and Brain Sciences*. https://pubmed.ncbi.nlm.nih.gov/23663408/ — A review of predictive processing as a unifying framework for perception, action and cognition.

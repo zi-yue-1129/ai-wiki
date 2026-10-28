@@ -61,7 +61,7 @@ Cohen et al.（2019）在摘要中回報，一個 ImageNet 分類器在 \(\ell_2
 
 ## 連結
 
-平滑是對擾動後輸入取平均，與 [MC dropout](../../uncertainty-and-calibration/mc-dropout/index.md) 所用的平均是近親，也與[不確定性與校準](../../uncertainty-and-calibration/index.md)所研究的棄權相關。機率性認證依賴信賴區間，相關內容見[機率方法](../../../probabilistic/index.md)。Lécuyer et al.（2018）把同類以雜訊為基礎的保證與差分隱私連結起來，這也連到[隱私](../../../../society/privacy/index.md)的文獻。
+平滑是對擾動後輸入取平均，與 [MC dropout](../../uncertainty-and-calibration/mc-dropout/index.md) 所用的平均是近親，也與[不確定性與校準](../../uncertainty-and-calibration/index.md)所研究的棄權相關。機率性認證依賴信賴區間，相關內容見[機率方法](../../../paradigms/probabilistic/index.md)。Lécuyer et al.（2018）把同類以雜訊為基礎的保證與差分隱私連結起來，這也連到[隱私](../../../../society/privacy/index.md)的文獻。
 
 ## 應用
 

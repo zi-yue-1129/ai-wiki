@@ -36,7 +36,7 @@ translation_reviewed: 2026-10-28
 ### 開創性論文
 
 - Anderson, J. R., 等人（2004）。An Integrated Theory of the Mind. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.4.1036 — ACT-R，在單一系統中模擬記憶、目標與學習的認知架構。
-- Laird, J. E., Lebiere, C. & Rosenbloom, P. S.（2017）。A Standard Model of the Mind: Toward a Common Computational Framework. *AI Magazine*. https://doi.org/10.1609/aimag.v38i4.2744 — 提出 Soar、ACT-R 與 Sigma 共通元件的社群共識。
+- Laird, J. E., Lebiere, C. & Rosenbloom, P. S.（2017）。A Standard Model of the Mind: Toward a Common Computational Framework across Artificial Intelligence, Cognitive Science, Neuroscience, and Robotics. *AI Magazine*. https://doi.org/10.1609/aimag.v38i4.2744 — 提出 Soar、ACT-R 與 Sigma 共通元件的社群共識。
 - Lake, B. M., 等人（2017）。Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — 主張類人學習需要因果模型、直覺理論與組合性。
 
 ### 綜述與教科書

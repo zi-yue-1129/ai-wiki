@@ -63,7 +63,7 @@ The results of the period are measured against annotated data. Tagging accuracy,
 
 ## Connections
 
-Statistical language processing is the immediate ancestor of today's language models. Its probabilistic framing carried into [language models](../../../../theory/models/nlp/index.md) and later [large language models](../../../../theory/models/llm/index.md), which estimate token probabilities from much larger corpora. Hidden Markov models belong to the wider family of [graphical models](../../../../theory/probabilistic/graphical-models/index.md).
+Statistical language processing is the immediate ancestor of today's language models. Its probabilistic framing carried into [language models](../../../../theory/models/nlp/index.md) and later [large language models](../../../../theory/models/llm/index.md), which estimate token probabilities from much larger corpora. Hidden Markov models belong to the wider family of [graphical models](../../../../theory/paradigms/probabilistic/graphical-models/index.md).
 
 The approach also meets the brain-and-mind question. Infants can find word-like units in continuous speech from the statistics of the syllables before they know what the words mean, a finding that the [statistical learning](../../../../brain-mind/developmental-cognition/statistical-learning/index.md) page discusses.
 

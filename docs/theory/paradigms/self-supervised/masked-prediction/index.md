@@ -59,4 +59,4 @@ Masked objectives learn features that are good for prediction but may not be bes
 
 ## Further reading
 
-- Devlin et al.'s BERT GitHub repository for the original training code. No link checked here.
+- Devlin et al., *google-research/bert*, GitHub repository. https://github.com/google-research/bert — The original TensorFlow code and pre-trained models for BERT; the repository is archived and read-only.

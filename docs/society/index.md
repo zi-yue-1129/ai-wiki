@@ -13,6 +13,8 @@ AI's technical progress raises questions that technology alone cannot answer.
 | [Surveillance & Facial Recognition](surveillance/index.md) | Facial recognition accuracy and bias, predictive policing, mass surveillance, bans and moratoria, the EU AI Act's prohibited practices |
 | [Environmental Impact](environment/index.md) | Energy and emissions of training and serving models, carbon estimates and their system boundaries, efficiency |
 | [Open versus Closed Models](open-vs-closed/index.md) | Release choices for AI models: closed, open-weight and open-source; the arguments on each side and what the open-source definitions require |
+| [AI in Taiwan](ai-in-taiwan/index.md) | Taiwan's AI Action Plan 2.0, the AI Basic Act passed in December 2025, and the agencies that carry them out |
+| [Children, Education Policy & AI](children-education-policy/index.md) | Child rights, age limits and parental consent, data protection for children, and how tool design affects learning |
 | [Law, Policy & Governance](governance/index.md) | EU AI Act, US and Chinese approaches, international efforts, standards |
 | [Economics & Work](economics/index.md) | Productivity, jobs, inequality, concentration |
 | [Human-AI Interaction & Trust](human-ai-interaction/index.md) | How people use, trust, over-trust and are changed by AI; automation bias, companionship, AI literacy, explanation design, deskilling |

@@ -58,4 +58,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Ruder (2019), "Neural transfer learning for natural language processing", PhD thesis, NUI Galway. No link checked.
+- Ruder (2019), "Neural transfer learning for natural language processing", PhD thesis, NUI Galway. https://www.ruder.io/thesis/ — Surveys how pretrained language models are transferred to new NLP tasks.

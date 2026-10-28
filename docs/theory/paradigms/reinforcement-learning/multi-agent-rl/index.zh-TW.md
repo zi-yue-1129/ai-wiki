@@ -73,7 +73,7 @@ flowchart LR
 
 ## 關聯
 
-多代理人強化學習直接建立在本節的單一代理人方法之上：[價值基礎方法](../value-based-methods/index.md)的價值函數、[策略梯度與 Actor-Critic](../policy-gradient-and-actor-critic/index.md)的演員與評論家，以及[經驗回放](../experience-replay/index.md)所面對的重播問題。族群方法也與[演化計算與群體智慧](../../../evolutionary/index.md)相關，且公開最成功的案例大多出現在[遊戲](../../../../applications/games/index.md)領域。
+多代理人強化學習直接建立在本節的單一代理人方法之上：[價值基礎方法](../value-based-methods/index.md)的價值函數、[策略梯度與 Actor-Critic](../policy-gradient-and-actor-critic/index.md)的演員與評論家，以及[經驗回放](../experience-replay/index.md)所面對的重播問題。族群方法也與[演化計算與群體智慧](../../evolutionary/index.md)相關，且公開最成功的案例大多出現在[遊戲](../../../../applications/games/index.md)領域。
 
 腦科學與心智的連結停留在問題層次，而非已確立的機制。一個代理人必須對其夥伴建立怎樣的模型，正是[心智理論](../../../../brain-mind/psychology/index.md)研究對人類提出的問題；而[動物認知](../../../../brain-mind/animal-cognition/index.md)中討論的動物社會學習，則是湧現溝通的自然對照。目前還沒有任何多代理人強化學習系統被證明與大腦共享機制，因此這些比較仍只是假說。
 

@@ -61,7 +61,7 @@ Piaget 曾主張，物體恆存在嬰兒期後段（約第二年）才發展出�
 
 ### 開創性論文
 
-- Baillargeon, R., Spelke, E. S. & Wasserman, S.（1985）。Object permanence in five-month-old infants. *Cognition*。https://doi.org/10.1016/0010-0277(85)90024-9 — 以注視時間顯示，年幼的嬰兒預期被遮住的物體會繼續存在。
+- Baillargeon, R., Spelke, E. S. & Wasserman, S.（1985）。Object permanence in five-month-old infants. *Cognition*。https://doi.org/10.1016/0010-0277(85)90008-3 — 以注視時間顯示，年幼的嬰兒預期被遮住的物體會繼續存在。
 - Saffran, J. R., Aslin, R. N. & Newport, E. L.（1996）。Statistical learning by 8-month-old infants. *Science*。https://pubmed.ncbi.nlm.nih.gov/8943209/ — 另一種注視時間範式，應用於語音切分。
 
 ### 綜述與教科書

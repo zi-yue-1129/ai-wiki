@@ -88,7 +88,7 @@ Three landmark approaches have their own pages.
 
 ## Connections
 
-MARL builds on the single-agent methods in this section: the value functions of [value-based methods](../value-based-methods/index.md), the actors and critics of [policy gradient and actor-critic](../policy-gradient-and-actor-critic/index.md), and the replay problems of [experience replay](../experience-replay/index.md). Population methods also link to [evolutionary and swarm intelligence](../../../evolutionary/index.md), and most public successes have come in [games](../../../../applications/games/index.md).
+MARL builds on the single-agent methods in this section: the value functions of [value-based methods](../value-based-methods/index.md), the actors and critics of [policy gradient and actor-critic](../policy-gradient-and-actor-critic/index.md), and the replay problems of [experience replay](../experience-replay/index.md). Population methods also link to [evolutionary and swarm intelligence](../../evolutionary/index.md), and most public successes have come in [games](../../../../applications/games/index.md).
 
 The brain and mind connection is at the level of questions rather than established mechanisms. What an agent must model about its partners is the question that [theory of mind](../../../../brain-mind/psychology/index.md) research asks about people. Social learning in animals, discussed in [animal cognition](../../../../brain-mind/animal-cognition/index.md), is a natural comparison for emergent communication. No MARL system has been shown to share the brain's mechanisms, so these comparisons remain hypotheses.
 

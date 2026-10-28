@@ -13,6 +13,8 @@ AI 的技術進步引出了一些單靠技術無法回答的問題。
 | [監控與人臉辨識](surveillance/index.md) | 人臉辨識的準確度與偏誤、預測性警務、大規模監控、禁令與暫停使用、歐盟 AI 法的禁止條款 |
 | [環境影響](environment/index.md) | 訓練與提供模型服務的能源與排放、碳估算與其系統範圍、效率 |
 | [開放與封閉模型](open-vs-closed/index.md) | AI 模型的釋出選擇：封閉、開放權重與開源；各方的論點，以及開源定義的要求 |
+| [台灣的 AI](ai-in-taiwan/index.md) | 台灣的 AI 行動方案 2.0、2025 年 12 月通過的 AI 基本法，以及負責執行的主管機關 |
+| [兒童、教育政策與 AI](children-education-policy/index.md) | 兒童權利、年齡限制與家長同意、兒童資料保護，以及工具設計如何影響學習 |
 | [法律、政策與治理](governance/index.md) | 歐盟 AI 法、美國與中國的做法、國際努力、標準 |
 | [經濟與就業](economics/index.md) | 生產力、工作、不平等、集中 |
 | [人機互動與信任](human-ai-interaction/index.md) | 人如何使用、信任、過度信任 AI，以及 AI 如何改變人；自動化偏誤、AI 陪伴、AI 素養、解釋設計與去技能化 |

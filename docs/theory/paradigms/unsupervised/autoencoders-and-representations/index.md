@@ -63,4 +63,4 @@ Reconstruction does not guarantee that the representation is useful, since the m
 
 ## Further reading
 
-- Goodfellow, Bengio & Courville, *Deep Learning* (2016), chapter 14 on autoencoders. No free link checked here.
+- Goodfellow, Bengio & Courville, *Deep Learning* (2016), chapter 14 on autoencoders. Free online: https://www.deeplearningbook.org/

@@ -2,7 +2,7 @@
 status: draft
 last_reviewed: 2026-10-28
 related:
-  - theory/symbolic-ai
+  - theory/paradigms/symbolic-ai
   - theory/models/nlp
   - brain-mind/neuroai
 tags:

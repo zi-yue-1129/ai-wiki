@@ -24,7 +24,7 @@ The idea is now used across tasks. Müller, Kornblith and Hinton (2019) list ima
 
 - **One-hot target.** A target vector with a 1 for the correct class and 0 elsewhere.
 - **Smoothing parameter.** The amount \(\varepsilon\) of probability moved from the correct class to the uniform distribution.
-- **Calibration.** The agreement between a model's stated confidence and how often it is correct. Overconfident networks are poorly calibrated. See the [probabilistic methods](../../../probabilistic/index.md) overview for the wider context.
+- **Calibration.** The agreement between a model's stated confidence and how often it is correct. Overconfident networks are poorly calibrated. See the [probabilistic methods](../../../paradigms/probabilistic/index.md) overview for the wider context.
 - **Teacher and student.** In knowledge distillation, a teacher network produces soft outputs that a student network is trained to match.
 
 ## How it works
@@ -63,7 +63,7 @@ Müller et al. (2019) report, from their abstract, that soft targets of this kin
 
 ## Connections
 
-Label smoothing is closely related to [mixup](../mixup/index.md), which also trains on soft targets. Its link to distillation connects it to the [knowledge distillation](../../../model-compression/knowledge-distillation/index.md) page, since both use soft outputs as training targets. Calibration is a probabilistic property, so the topic connects to the [probabilistic methods](../../../probabilistic/index.md) overview. For the brain, the link is indirect: the question of how much confidence a system should express is common to perception and to machine learning, but this page does not claim a biological mechanism. See the [parent topic](../index.md).
+Label smoothing is closely related to [mixup](../mixup/index.md), which also trains on soft targets. Its link to distillation connects it to the [knowledge distillation](../../../model-compression/knowledge-distillation/index.md) page, since both use soft outputs as training targets. Calibration is a probabilistic property, so the topic connects to the [probabilistic methods](../../../paradigms/probabilistic/index.md) overview. For the brain, the link is indirect: the question of how much confidence a system should express is common to perception and to machine learning, but this page does not claim a biological mechanism. See the [parent topic](../index.md).
 
 ## Applications
 

@@ -67,7 +67,7 @@ a^{*} = \arg\max_{a \in \mathcal{A}} \; \mathrm{Acc}_{\mathrm{val}}\big(w^{*}(a)
 ## 連結
 
 - **架構家族。** 多數搜尋空間由熟悉的區塊組成，例如殘差與深度可分離卷積，這些在 [CNN 骨幹](../../models/cnn/backbones-and-scaling/index.md)的頁面中有介紹。搜尋決定的是這些區塊如何組合與調整大小。
-- **強化學習與演化。** NAS 的策略借自兩個較早的領域。策略梯度來自[強化學習](../../paradigms/reinforcement-learning/index.md)，族群式搜尋則來自[演化計算](../../evolutionary/index.md)，其中網路拓撲的神經演化早於 NAS。
+- **強化學習與演化。** NAS 的策略借自兩個較早的領域。策略梯度來自[強化學習](../../paradigms/reinforcement-learning/index.md)，族群式搜尋則來自[演化計算](../../paradigms/evolutionary/index.md)，其中網路拓撲的神經演化早於 NAS。
 - **元學習。** [元學習](../../paradigms/meta-learning/index.md)學習如何快速適應新任務，而 NAS 學習的是模型的結構。兩者都自動化了過去由人決定的選擇，但它們是不同的問題。
 - **大腦與心智。** Yamins et al.（2014）以計算方法找到一個階層式網路，能在物件分類上達到人類的表現。這個網路並未針對神經資料擬合，卻能預測 V4 與下顳葉皮質的反應。詳見 NeuroAI 中的[效能最佳化網路](../../../brain-mind/neuroai/performance-optimised-networks/index.md)。這是讓計算搜尋選出模型、再去擬合腦部資料的一個例子。
 - **作為類比的演化。** NAS 與達爾文式演化都依循變異與選擇的邏輯。這個類比只是粗略的。大腦的連線是由發育以及許多搜尋空間無法涵蓋的因素所塑造，而 NAS 並不主張它在模擬那個過程。

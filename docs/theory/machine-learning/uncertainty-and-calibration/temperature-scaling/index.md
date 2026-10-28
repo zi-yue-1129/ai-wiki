@@ -64,7 +64,7 @@ The abstract of Guo et al. (2017) states that, on most of the image and document
 
 ## Connections
 
-Temperature scaling is the post-hoc counterpart of the Bayesian approach. The [probabilistic methods](../../../probabilistic/index.md) page describes the principled alternative, in which uncertainty comes from a distribution over the parameters. The idea that confidence should match reliability is also the one studied in human metacognition, as reviewed by Fleming and Lau (2014); see [cognitive science](../../../../brain-mind/cognitive-science/index.md). For the practical side of validation, see [evaluation](../../../../engineering/evaluation/index.md).
+Temperature scaling is the post-hoc counterpart of the Bayesian approach. The [probabilistic methods](../../../paradigms/probabilistic/index.md) page describes the principled alternative, in which uncertainty comes from a distribution over the parameters. The idea that confidence should match reliability is also the one studied in human metacognition, as reviewed by Fleming and Lau (2014); see [cognitive science](../../../../brain-mind/cognitive-science/index.md). For the practical side of validation, see [evaluation](../../../../engineering/evaluation/index.md).
 
 ## References
 

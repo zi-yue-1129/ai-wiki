@@ -5,7 +5,7 @@ related:
   - brain-mind/visual-perception
   - applications/healthcare
   - applications/autonomous-driving
-  - theory/generative/diffusion
+  - theory/paradigms/unsupervised/density-and-generative-models/diffusion
 tags:
   - computer vision
   - architecture
@@ -77,7 +77,7 @@ Four landmark methods are compared below. Each links to its own page, which hold
 - **Brain and mind.** Segmentation asks how the visual system decides which regions form an object and which form the background. Neurons in monkey visual cortex have been found to code border ownership, meaning which side of an edge the figure lies on.[^6] A segmentation model solves a version of this figure–ground problem from pixels alone. The resemblance is one of problem, not of mechanism. See [Perception and the Visual System](../../../../brain-mind/visual-perception/index.md).
 - **Detection.** Detection and segmentation share backbones and proposal ideas. Mask R-CNN is a detector with a mask head. See [Object Detection](../object-detection/index.md).
 - **Transformers.** Newer models use attention. Mask2Former decodes masks with queries, and the Segment Anything image encoder is a Transformer pre-trained with masked autoencoding.[^7] See [Vision Transformer](../../transformer/vision-transformer/index.md).
-- **Diffusion.** The denoiser of a pixel-space diffusion model can be a U-Net with time-step conditioning.[^8] Latent diffusion adds cross-attention so that the model can be conditioned on text or boxes.[^9] Transformer denoisers have since replaced the U-Net in some models. See [Diffusion Models](../../../generative/diffusion/index.md).
+- **Diffusion.** The denoiser of a pixel-space diffusion model can be a U-Net with time-step conditioning.[^8] Latent diffusion adds cross-attention so that the model can be conditioned on text or boxes.[^9] Transformer denoisers have since replaced the U-Net in some models. See [Diffusion Models](../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md).
 
 ## Applications
 

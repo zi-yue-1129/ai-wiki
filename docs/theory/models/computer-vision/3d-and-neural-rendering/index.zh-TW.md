@@ -12,7 +12,7 @@ translation_reviewed: 2026-10-28
 
 傳統系統使用顯式的幾何，例如網格與體素格。從約 2020 年起，場景改以神經網路的權重來儲存，並以照片擬合。2023 年，顯式的高斯基元讓即時顯示的速率重新達成。[^1]
 
-本頁涵蓋深度估計、點雲、輻射場與生成式三維。二維影像生成則見[生成模型](../../../generative/index.md)。
+本頁涵蓋深度估計、點雲、輻射場與生成式三維。二維影像生成則見[生成模型](../../../paradigms/unsupervised/density-and-generative-models/generative-models/index.md)。
 
 ## 關鍵概念
 
@@ -59,7 +59,7 @@ flowchart LR
 
 - **大腦與心智。** 雙眼視差，也就是兩眼影像之間的微小差異，是深度的強線索。Marr 與 Poggio（1979）提出視覺系統如何配對兩張影像以還原深度的理論。[^13] Hubel 與 Wiesel（1962）描述了貓視覺皮質中，會回應來自雙眼輸入的神經元。[^14] 另見[知覺與視覺系統](../../../../brain-mind/visual-perception/index.md)與[視覺皮質的感受野](../../../../brain-mind/neuroscience/receptive-fields-hubel-wiesel/index.md)。大腦是否以與輻射場相似的形式儲存場景，目前尚不清楚。
 - **Transformer。** DUSt3R 使用 Transformer 編碼器與解碼器。見[視覺 Transformer](../../transformer/vision-transformer/index.md)。
-- **擴散模型。** 分數蒸餾與以視角為條件的生成，都依賴[擴散模型](../../../generative/diffusion/index.md)。
+- **擴散模型。** 分數蒸餾與以視角為條件的生成，都依賴[擴散模型](../../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md)。
 - **自監督。** Depth Anything 從大量無標籤影像中學習，這與[自監督學習](../../../paradigms/self-supervised/index.md)所探討的設定相同。
 
 ## 應用

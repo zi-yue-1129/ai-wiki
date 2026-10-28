@@ -28,7 +28,7 @@ Automation bias is the tendency to accept an automated aid's suggestion in place
 
 When a system is usually right, checking each output can look like wasted effort, and the people who stop checking also stop noticing when it is wrong. Early work on cockpit automation described this pattern. Later studies found it with clinical advisers and with generative AI, whose fluent answers are available for almost any task.
 
-The topic belongs to [Human-AI Interaction and Trust](../index.md). It is close to [trust in automation](../trust-in-automation/index.md), which asks how trust should match a system's reliability. Automation bias covers the case where that match fails and the output is accepted anyway.
+The topic belongs to [Human-AI Interaction and Trust](../index.md). It is close to [trust in automation](trust-in-automation/index.md), which asks how trust should match a system's reliability. Automation bias covers the case where that match fails and the output is accepted anyway.
 
 ## Key concepts
 
@@ -64,14 +64,14 @@ Three designs have been tested for reducing overreliance without removing the ai
 |---|---|---|
 | Confidence displays and uncertainty expression | Shows how sure the system is, in a number, colour or words | In a pre-registered experiment with 404 participants, Kim et al. (2024) found that first-person phrases such as "I'm not sure, but..." reduced agreement with the system and raised accuracy, mainly by reducing overreliance on wrong answers. Spatharioti et al. (2023) found that colour-coded highlighting helped people catch errors. |
 | Explanations | Shows why the system gave an output | Buçinca et al. (2021) note that explanations do not appear to reduce overreliance, and that some studies suggest they may increase it. Steyvers et al. (2025) found that longer LLM explanations raised confidence without raising accuracy. |
-| Cognitive forcing | Requires the person to think before accepting | Buçinca et al. (2021) found that these designs significantly reduced overreliance, but participants rated them least favourably. See [cognitive forcing functions](../cognitive-forcing/index.md). |
+| Cognitive forcing | Requires the person to think before accepting | Buçinca et al. (2021) found that these designs significantly reduced overreliance, but participants rated them least favourably. See [cognitive forcing functions](cognitive-forcing/index.md). |
 
 A signal helps only when it changes what the person does. A confident-sounding explanation can raise trust without raising accuracy.
 
 ## Connections
 
 - **Brain and mind.** Automation bias is fast, pattern-based judgement winning over slower checking. See the [psychology](../../brain-mind/psychology/index.md) overview.
-- **Parent topics.** The [trust in automation](../trust-in-automation/index.md) page covers calibration, and the [human-AI interaction](../index.md) overview compares the landmark works.
+- **Parent topics.** The [trust in automation](trust-in-automation/index.md) page covers calibration, and the [human-AI interaction](../index.md) overview compares the landmark works.
 - **Interpretability and safety.** Explanations for people are a design problem as well as a technical one ([Interpretability](../interpretability/index.md)). Human oversight protects only when the overseer can see errors ([Safety & Alignment](../safety-alignment/index.md)).
 - **Ethics, work and learning.** Responsibility for a wrong recommendation is shared ([Ethics & Fairness](../ethics/index.md)). Skill effects are discussed in [Economics & Work](../economics/index.md) and [Education](../../applications/education/index.md).
 

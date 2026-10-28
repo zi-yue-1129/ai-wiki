@@ -10,7 +10,7 @@ translation_reviewed: 2026-10-28
 
 預測若沒有可靠度的概念，就很難使用。判定為「惡性」的分類器是有用的，但臨床醫師需要知道這個標籤是近乎確定，還是接近擲硬幣。自駕系統也需要知道何時它的感知不可靠。這裡常有兩個問題被混在一起。第一是**校準**：模型的信心數字是否符合它實際答對的頻率。第二是較廣義的**不確定性量化**：區分資料無法告訴我們的事，與模型尚未學到的事，並回傳附有疑慮程度或保證的答案。
 
-Guo 等人（2017）回報，現代神經網路與十年前的網路不同，校準得很差；深度、寬度、權重衰減與批次正規化都會影響其信心偏離正確的程度。網路可以非常準確，卻仍然系統性地過度自信。本主題以[機率與貝氏方法](../../probabilistic/index.md)為基礎，後者提供不確定性的原則性語言；同時也仰賴[評估與驗證](../../paradigms/supervised/evaluation-and-validation/index.md)，來判斷模型所宣稱的疑慮是否真的有用。
+Guo 等人（2017）回報，現代神經網路與十年前的網路不同，校準得很差；深度、寬度、權重衰減與批次正規化都會影響其信心偏離正確的程度。網路可以非常準確，卻仍然系統性地過度自信。本主題以[機率與貝氏方法](../../paradigms/probabilistic/index.md)為基礎，後者提供不確定性的原則性語言；同時也仰賴[評估與驗證](../../paradigms/supervised/evaluation-and-validation/index.md)，來判斷模型所宣稱的疑慮是否真的有用。
 
 ## 關鍵概念
 
@@ -76,7 +76,7 @@ p(y \mid x, \mathcal{D}) = \int p(y \mid x, \theta)\, p(\theta \mid \mathcal{D})
 
 ## 相關連結
 
-[機率方法](../../probabilistic/index.md)保有貝氏基礎，其中有關貝氏深度學習的一節與本頁有重疊。[主動學習](../../paradigms/active/index.md)利用不確定性來選擇要標註的範例；[不確定性抽樣](../../paradigms/active/uncertainty-sampling/index.md)的效果取決於它所讀取的不確定性，因此校準不良會直接削弱標籤的選擇。
+[機率方法](../../paradigms/probabilistic/index.md)保有貝氏基礎，其中有關貝氏深度學習的一節與本頁有重疊。[主動學習](../../paradigms/active/index.md)利用不確定性來選擇要標註的範例；[不確定性抽樣](../../paradigms/active/uncertainty-sampling/index.md)的效果取決於它所讀取的不確定性，因此校準不良會直接削弱標籤的選擇。
 
 大腦同樣必須在不確定下行動。Knill 與 Pouget（2004）主張神經編碼與計算會明確地表徵不確定性，而許多知覺可以描述為近似的貝氏推論。Ernst 與 Banks（2002）發現，人們會依可靠度比例地結合視覺與觸覺線索，接近統計上最優的權重。Fleming 與 Lau（2014）回顧了如何測量後設認知，也就是一個人的信心與其自身準確率的吻合程度，這本質上正是對模型提出的校準問題。人類面向請見[認知科學](../../../brain-mind/cognitive-science/index.md)、[預測編碼](../../../brain-mind/predictive-coding/index.md)與[啟發法與偏誤](../../../brain-mind/cognitive-science/heuristics-and-biases/index.md)。
 

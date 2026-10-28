@@ -65,7 +65,7 @@ flowchart LR
 
 **Choosing a tool.** The model chooses by reading descriptions, so overlapping or vague descriptions produce wrong calls. Anthropic's guidance for tool design recommends a small number of tools that match real workflows, clear names, namespacing by service or resource, and evaluation on realistic tasks (Anthropic, 2025a). Research on tool learning describes four stages: planning, tool selection, tool calling and response generation (Qu et al., 2024).
 
-**Protocols.** MCP separates the application from the tool provider. A host application contains MCP clients, and each client connects to an MCP server that wraps a database, a file system or a software-as-a-service API. Because the interface is shared, a server written once can serve any compatible client. The launch shipped pre-built servers for systems such as Google Drive, Slack, GitHub and Postgres (Anthropic, 2024). Other protocols, such as those for agent-to-agent messaging, are surveyed in [Frameworks & Tools](../frameworks/index.md).
+**Protocols.** MCP separates the application from the tool provider. A host application contains MCP clients, and each client connects to an MCP server that wraps a database, a file system or a software-as-a-service API. Because the interface is shared, a server written once can serve any compatible client. The launch shipped pre-built servers for systems such as Google Drive, Slack, GitHub and Postgres (Anthropic, 2024). Other protocols, such as those for agent-to-agent messaging, are surveyed in [Frameworks & Tools](../../frameworks/index.md).
 
 **Results and errors.** Result handling is the least glamorous part of the stack and often decides reliability. Three practices recur in the guidance. A result should carry the information the model needs rather than every field the API returns. Long results should be paginated, filtered or truncated. Errors should say what went wrong and how to correct it, so the model can recover rather than repeat the same call (Anthropic, 2025a). Without this, a failing call can trap the model in a loop. The authors of ToolLLM describe this as error propagation and use it to motivate their search method (Qin et al., 2023).
 
@@ -83,12 +83,12 @@ Three landmark methods, each with its own page, illustrate the main approaches t
 
 ## Connections
 
-- **Agent foundations**: tool use is one of the defining capacities of an agent, as set out in [AI Agents](../../theory/models/agents/index.md).
-- **Prompting**: a tool description is itself a prompt, and [Prompt Engineering](../prompting/index.md) covers how to write one.
-- **Security**: tool access is the route by which injected text becomes an action. See [Indirect prompt injection](../llm-security/indirect-prompt-injection.md) and [LLM Application Security](../llm-security/index.md). Each MCP server adds privileges, and a 2026 audit tool searches servers for over-privileged capabilities (Huang et al., 2026).
-- **Coding assistants**: [AI Coding Assistants](../coding-assistants/index.md) rely on tool calls to edit files and run commands.
-- **Evaluation**: success often depends on the state of an environment, not on the text of the reply. See [Evaluation & Benchmarks](../evaluation/index.md).
-- **Brain and mind**: tool use is not peculiar to machines. The New Caledonian crow shapes a wire into a hook to reach food, and [Tool Use in New Caledonian Crows](../../brain-mind/animal-cognition/tool-use-crows/index.md) describes that case. Qin et al. (2023) relate tool learning in models to the cognitive origins of human tool use. The parallel is suggestive, not evidence of shared mechanisms.
+- **Agent foundations**: tool use is one of the defining capacities of an agent, as set out in [AI Agents](../../../theory/models/agents/index.md).
+- **Prompting**: a tool description is itself a prompt, and [Prompt Engineering](../../prompting/index.md) covers how to write one.
+- **Security**: tool access is the route by which injected text becomes an action. See [Indirect prompt injection](../../llm-security/indirect-prompt-injection.md) and [LLM Application Security](../../llm-security/index.md). Each MCP server adds privileges, and a 2026 audit tool searches servers for over-privileged capabilities (Huang et al., 2026).
+- **Coding assistants**: [AI Coding Assistants](../../coding-assistants/index.md) rely on tool calls to edit files and run commands.
+- **Evaluation**: success often depends on the state of an environment, not on the text of the reply. See [Evaluation & Benchmarks](../../evaluation/index.md).
+- **Brain and mind**: tool use is not peculiar to machines. The New Caledonian crow shapes a wire into a hook to reach food, and [Tool Use in New Caledonian Crows](../../../brain-mind/animal-cognition/tool-use-crows/index.md) describes that case. Qin et al. (2023) relate tool learning in models to the cognitive origins of human tool use. The parallel is suggestive, not evidence of shared mechanisms.
 
 ## Applications
 

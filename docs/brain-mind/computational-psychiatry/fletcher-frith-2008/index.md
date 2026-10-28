@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-28
 related:
 - applications/mental-health
-- theory/probabilistic
+- theory/paradigms/probabilistic
 tags:
 - neuroscience
 - psychology
