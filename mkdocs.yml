@@ -352,6 +352,10 @@ plugins:
             GNM: GNM
             ViNT: ViNT
             NoMaD: NoMaD
+            Visual Localisation: 視覺定位
+            AnyLoc: AnyLoc
+            EigenPlaces: EigenPlaces
+            DINOv2: DINOv2
             AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             RFdiffusion: RFdiffusion（蛋白質骨架設計）
             ESM-2 and ESMFold: ESM-2 與 ESMFold
@@ -859,7 +863,9 @@ nav:
               - theory/paradigms/self-supervised/index.md
               - Contrastive Learning: theory/paradigms/self-supervised/contrastive-learning/index.md
               - Masked Prediction: theory/paradigms/self-supervised/masked-prediction/index.md
-              - Non-Contrastive Methods: theory/paradigms/self-supervised/non-contrastive-methods/index.md
+              - Non-Contrastive Methods:
+                  - theory/paradigms/self-supervised/non-contrastive-methods/index.md
+                  - DINOv2: theory/paradigms/self-supervised/non-contrastive-methods/dinov2.md
               - Pretext Tasks: theory/paradigms/self-supervised/pretext-tasks/index.md
               - Theory & Evaluation: theory/paradigms/self-supervised/theory-and-evaluation/index.md
           - Reinforcement Learning:
@@ -1259,6 +1265,10 @@ nav:
               - GNM: applications/robotics/navigation/gnm.md
               - ViNT: applications/robotics/navigation/vint.md
               - NoMaD: applications/robotics/navigation/nomad.md
+          - Visual Localisation:
+              - applications/robotics/visual-localisation/index.md
+              - AnyLoc: applications/robotics/visual-localisation/anyloc.md
+              - EigenPlaces: applications/robotics/visual-localisation/eigenplaces.md
       - Autonomous Driving & Transport:
           - applications/autonomous-driving/index.md
           - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md
