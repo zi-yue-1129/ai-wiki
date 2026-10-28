@@ -21,6 +21,8 @@ tags:
 | [交叉驗證](methods/cross-validation.md) | 以多種切分估計泛化能力 |
 | [配對自助法](methods/paired-bootstrap.md) | 兩個方法差異的區間 |
 | [LLM 作為評審](methods/llm-as-judge.md) | 以模型為開放式輸出打分 |
+| [MT-Bench](methods/mt-bench.md) | 交換順序的成對評審，以及它與人類專家的一致性 |
+| [長度控制 AlpacaEval](methods/length-controlled-alpacaeval.md) | 修正自動評審偏好較長答案的傾向 |
 | [人工評估](methods/human-evaluation.md) | 由人判斷輸出，並報告一致性 |
 | [Elo 評分與競技場](methods/elo-rating.md) | 從成對結果為系統排名 |
 | [污染偵測](methods/contamination-detection.md) | 檢查基準項目是否在訓練資料中 |
