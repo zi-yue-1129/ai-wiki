@@ -67,6 +67,7 @@ Fines reach up to 7% of global turnover for prohibited practices. In late 2025 t
 - Preemption of state laws (US)
 - Global South participation and digital sovereignty
 - Elections, political persuasion and deepfakes; see [AI, Elections and Democracy](elections-and-democracy.md)
+- Incident reporting and failure records; see [AI Incident Databases and Case Studies](incidents.md)
 
 ## Resources
 

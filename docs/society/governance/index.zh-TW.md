@@ -59,6 +59,7 @@
 - 美國各州法律的優先適用（preemption）
 - 全球南方的參與與數位主權
 - 選舉、政治說服與深偽（見[AI、選舉與民主](elections-and-democracy.md)）
+- 事故通報與失敗紀錄（見[AI 事故資料庫與案例研究](incidents.md)）
 
 ## 學習資源
 
