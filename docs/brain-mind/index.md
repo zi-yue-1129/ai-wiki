@@ -36,6 +36,7 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Brain-Computer Interfaces](bci/index.md) | Invasive and non-invasive BCIs, decoding language and images from brain activity |
 | [Language in the Brain](language-in-brain/index.md) | Dual-stream speech processing, the language network, language models predicting brain responses |
 | [Predictive Coding & Free Energy](predictive-coding/index.md) | Prediction error, hierarchical models, backprop-like learning, the free-energy principle |
+| [Decision Making, Dopamine & Reward](decision-reward/index.md) | Evidence accumulation, model-based vs model-free control, reward prediction error |
 | [Perception & the Visual System](visual-perception/index.md) | Receptive fields, the ventral stream, CNNs as models of vision |
 
 ## Two-way influence at a glance

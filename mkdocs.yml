@@ -296,6 +296,7 @@ plugins:
             Brain-Computer Interfaces: 腦機介面與神經解碼
             Language in the Brain: 大腦中的語言
             Predictive Coding & Free Energy: 預測編碼與自由能
+            Decision Making, Dopamine & Reward: 決策、多巴胺與獎勵
             Perception & the Visual System: 知覺與視覺系統
             Applications: 領域應用
             Healthcare: 醫療與健康
@@ -558,6 +559,7 @@ nav:
       - Brain-Computer Interfaces: brain-mind/bci/index.md
       - Language in the Brain: brain-mind/language-in-brain/index.md
       - Predictive Coding & Free Energy: brain-mind/predictive-coding/index.md
+      - Decision Making, Dopamine & Reward: brain-mind/decision-reward/index.md
       - Perception & the Visual System: brain-mind/visual-perception/index.md
   - Applications:
       - applications/index.md
