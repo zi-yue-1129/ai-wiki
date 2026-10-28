@@ -542,6 +542,7 @@ plugins:
             Green AI: 綠色 AI
             Reporting energy and carbon: 能源與排放的報告
             Open versus Closed Models: 開放與封閉模型
+            AI in Taiwan: 台灣的 AI
             Law, Policy & Governance: 法規與治理
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
@@ -1088,6 +1089,7 @@ nav:
           - Green AI: society/environment/green-ai.md
           - Reporting energy and carbon: society/environment/reporting-framework.md
       - Open versus Closed Models: society/open-vs-closed/index.md
+      - AI in Taiwan: society/ai-in-taiwan/index.md
       - Law, Policy & Governance: society/governance/index.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
