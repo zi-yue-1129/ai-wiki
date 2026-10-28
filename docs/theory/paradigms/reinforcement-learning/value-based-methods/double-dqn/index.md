@@ -71,6 +71,7 @@ The paper also measures value estimates over evaluation phases of 125,000 steps 
 
 - van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", [arXiv:1509.06461](https://arxiv.org/abs/1509.06461) (submitted 2015) — The Double DQN paper, showing DQN's overestimation and the decoupled target.
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The DQN paper whose target Double DQN modifies.
+- Mnih et al. (2013), "Playing Atari with deep reinforcement learning", [arXiv:1312.5602](https://arxiv.org/abs/1312.5602) — The early preprint that introduced the Atari benchmark used in the Double DQN experiments.
 - Hessel et al. (2018), "Rainbow: Combining improvements in deep reinforcement learning", [arXiv:1710.02298](https://arxiv.org/abs/1710.02298) — Examines six DQN extensions, Double DQN among them, and combines them.
 
 ### Surveys and textbooks

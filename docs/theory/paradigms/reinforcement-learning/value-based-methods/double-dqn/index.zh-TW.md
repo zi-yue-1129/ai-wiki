@@ -72,6 +72,7 @@ Y_t^{\text{DoubleDQN}} = R_{t+1} + \gamma\, Q\big(S_{t+1}, \arg\max_a Q(S_{t+1},
 
 - van Hasselt、Guez 與 Silver（2016），"Deep reinforcement learning with double Q-learning"，[arXiv:1509.06461](https://arxiv.org/abs/1509.06461)（2015 年提交至 arXiv）— Double DQN 原始論文，說明 DQN 的高估問題與解耦的目標。
 - Mnih 等人（2015），"Human-level control through deep reinforcement learning"，*Nature* 518, 529–533。https://doi.org/10.1038/nature14236 — Double DQN 所修改之目標所屬的 DQN 論文。
+- Mnih 等人（2013），"Playing Atari with deep reinforcement learning"，[arXiv:1312.5602](https://arxiv.org/abs/1312.5602) — 早期預印本，引入 Double DQN 實驗所用的 Atari 基準。
 - Hessel 等人（2018），"Rainbow: Combining improvements in deep reinforcement learning"，[arXiv:1710.02298](https://arxiv.org/abs/1710.02298) — 檢視六項 DQN 擴充（其中包括 Double DQN）並加以結合。
 
 ### 綜述與教科書
