@@ -55,8 +55,24 @@ Whole-slide pathology images are a canonical case: gigapixel slides with only a 
 
 Children receive very few explicit labels ("that's a dog") relative to the vast unlabelled experience they absorb. Studies of semi-supervised category learning (e.g. Zhu et al., 2007, "Humans perform semi-supervised classification too") show that unlabelled examples shift human category boundaries in the same direction predicted by the cluster assumption.
 
+## Subtopics
+
+- [Consistency regularisation](consistency-regularisation/index.md): Mean Teacher, MixMatch and FixMatch.
+- [Pseudo-labelling and self-training](pseudo-labelling-and-self-training/index.md): confident predictions as training targets.
+- [Graph-based methods](graph-based-methods/index.md): label propagation, manifold regularisation and graph networks.
+- [Weak and programmatic supervision](weak-and-programmatic-supervision/index.md): labelling functions, data programming and Snorkel.
+- [Theory and assumptions](theory-and-assumptions/index.md): smoothness, cluster and manifold assumptions.
+
 ## Further reading
 
 - van Engelen & Hoos (2020), "A survey on semi-supervised learning", *Machine Learning*
 - Zhou (2018), "A brief introduction to weakly supervised learning", *National Science Review*
 - Ratner et al. (2017), "Snorkel: rapid training data creation with weak supervision"
+
+## References
+
+- Laine & Aila (2017), "Temporal ensembling for semi-supervised learning", ICLR, arXiv:1610.02242 — Early consistency method that uses averaged predictions as targets.
+- Sohn et al. (2020), "FixMatch: simplifying semi-supervised learning with consistency and confidence", NeurIPS, arXiv:2001.07685 — A simple, strong method combining pseudo-labels and consistency.
+- Zhu, Ghahramani & Lafferty (2003), "Semi-supervised learning using Gaussian fields and harmonic functions", ICML. https://mlanthology.org/icml/2003/zhu2003icml-semi/ — Label propagation over graphs, a foundational graph method.
+- Ratner et al. (2017), "Snorkel: rapid training data creation with weak supervision", arXiv:1711.10160 — Turns labelling functions into training data quickly.
+- Oliver et al. (2018), "Realistic evaluation of deep semi-supervised learning algorithms", NeurIPS, arXiv:1804.09170 — Shows that fair evaluation changes many reported conclusions.

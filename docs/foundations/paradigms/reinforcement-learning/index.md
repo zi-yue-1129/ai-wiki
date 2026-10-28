@@ -102,6 +102,14 @@ Psychological roots: Thorndike's law of effect, Skinner's operant conditioning, 
 - Unstable training, hyperparameter sensitivity
 - The sim-to-real gap
 
+## Subtopics
+
+- [Value-based methods](value-based-methods/index.md): Q-learning, DQN and planning with learned values.
+- [Policy gradient and actor-critic](policy-gradient-and-actor-critic/index.md): REINFORCE, A3C and PPO.
+- [Model-based RL](model-based-rl/index.md): world models, MuZero and Dreamer.
+- [Offline RL](offline-rl/index.md): learning from fixed datasets with conservative value estimates.
+- [Learning from human feedback](learning-from-human-feedback/index.md): reward models and RLHF.
+
 ## Resources
 
 - Sutton & Barto, *Reinforcement Learning: An Introduction*, 2nd ed. (free PDF)
@@ -110,3 +118,12 @@ Psychological roots: Thorndike's law of effect, Skinner's operant conditioning, 
 - Hugging Face Deep RL Course
 - [Gymnasium](https://gymnasium.farama.org/), [Stable-Baselines3](https://stable-baselines3.readthedocs.io/)
 - Niv (2009), "Reinforcement learning in the brain" (neuroscience review)
+
+## References
+
+- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518. https://klab.tch.harvard.edu/academia/classes/Neuro230/ReadingAssignments/MnihEtAlHassibis15NatureControlDeepRL.pdf — The DQN paper, the start of deep reinforcement learning at scale.
+- Silver et al. (2016), "Mastering the game of Go with deep neural networks and tree search", *Nature* 529. https://research.google/pubs/mastering-the-game-of-go-with-deep-neural-networks-and-tree-search/ — AlphaGo, combining learned networks with search.
+- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — PPO, the policy-gradient method most used in practice.
+- Christiano et al. (2017), "Deep reinforcement learning from human preferences", NeurIPS, arXiv:1706.03741 — Learns reward functions from human comparisons.
+- Levine, Kumar, Tucker & Fu (2020), "Offline reinforcement learning: tutorial, review, and perspectives on open problems", arXiv:2005.01643 — Tutorial on learning from fixed datasets.
+

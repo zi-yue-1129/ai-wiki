@@ -61,8 +61,30 @@ Differential privacy definition: a mechanism \(M\) is (ε, δ)-DP if for neighbo
 - Financial fraud detection across banks
 - Neuroscience: federated analysis of brain-imaging data across consortia (e.g. ENIGMA-style collaborations) where raw scans cannot be shared
 
+## Subtopics
+
+- [Federated averaging](federated-averaging/index.md): local updates and weighted averaging of client models.
+- [Heterogeneity and personalisation](heterogeneity-and-personalisation/index.md): non-IID data, FedProx and SCAFFOLD.
+- [Privacy and secure aggregation](privacy-and-secure-aggregation/index.md): secure sums of updates and differentially private training.
+- [Communication efficiency](communication-efficiency/index.md): quantisation, sparsification and fewer rounds.
+- [Vertical and cross-silo learning](vertical-and-cross-silo/index.md): training across organisations that hold different features.
+
 ## Further reading
 
 - Kairouz et al. (2021), "Advances and Open Problems in Federated Learning"
 - Dwork & Roth, *The Algorithmic Foundations of Differential Privacy* (free)
 - [Flower](https://flower.ai/), [TensorFlow Federated](https://www.tensorflow.org/federated), [Opacus](https://opacus.ai/) (DP for PyTorch)
+
+## References
+
+### Seminal papers
+
+- McMahan et al. (2017), "Communication-efficient learning of deep networks from decentralized data", AISTATS, arXiv:1602.05629 — Introduces federated averaging.
+- Li et al. (2020), "Federated optimization in heterogeneous networks", MLSys, arXiv:1812.06127 — FedProx, for heterogeneous clients.
+- Bonawitz et al. (2017), "Practical secure aggregation for privacy-preserving machine learning", CCS, arXiv:1611.04482 — Secure aggregation of client updates.
+- Abadi et al. (2016), "Deep learning with differential privacy", CCS, arXiv:1607.00133 — Differentially private SGD, the basis of private training.
+
+### Surveys and textbooks
+
+- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, arXiv:1912.04977 — Broad survey with a list of open problems.
+- Yang, Liu, Chen & Tong (2019), "Federated machine learning: concept and applications", ACM Transactions on Intelligent Systems and Technology, arXiv:1902.04885 — Introduces the horizontal, vertical and transfer categories.
