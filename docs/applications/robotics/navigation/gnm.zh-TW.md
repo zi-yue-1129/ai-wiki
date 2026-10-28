@@ -83,3 +83,4 @@ GNM 由 Shah、Sridhar、Bhorkar、Hirose 與 Levine（2022）提出，是一個
 - Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N. & Levine, S. (2023). *ViNT: A Foundation Model for Visual Navigation*. arXiv. https://arxiv.org/abs/2306.14846 — 將相同想法擴展到更多資料，並加入時間距離與路點輸出的 Transformer 後繼模型。
 - Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N. & Levine, S. (2021). *ViNG: Learning Open-World Navigation with Visual Goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — 較早的單一機器人方法，結合學習的策略與拓撲圖。
 - Sridhar, A., Shah, D., Glossop, C. & Levine, S. (2023). *NoMaD: Goal Masked Diffusion Policies for Navigation and Exploration*. arXiv. https://arxiv.org/abs/2310.07896 — 基於擴散的後繼模型，用於以目標為條件的導航與探索。
+- Savinov, N., Dosovitskiy, A. & Koltun, V. (2018). *Semi-parametric Topological Memory for Navigation*. arXiv. https://arxiv.org/abs/1803.00653 — 後續學習式方法所依據的拓撲記憶。
