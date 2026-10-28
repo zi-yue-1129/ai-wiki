@@ -31,11 +31,11 @@ Yang and colleagues study the infinite-width limit and identify a parametrisatio
 
 ## Equation
 
-The standard scaling multiplies each hidden layer's weights by $1/\sqrt{n}$, where $n$ is the width. In muP, the output layer and the learning rates are scaled with width so that the feature updates have a width-independent size. In simplified form for Adam-style updates, the learning rate of a hidden weight matrix is set proportional to $1/n$, and the output layer's multiplier is set to $1/n$ as well. The exact rules depend on the optimiser and are given in the paper.
+The standard scaling multiplies each hidden layer's weights by $1/\sqrt{n}$, where $n$ is the width. In muP, the output layer and the learning rates are scaled with width so that the feature updates have a width-independent size. The rules differ by layer type and by optimiser. The paper gives the initialisation, multiplier and learning-rate rules for SGD and Adam in its tables. This page does not restate them, so check the paper before using them.
 
 ## Results
 
-The paper reports that under muP, the optimal hyperparameters found on a small model transfer to much larger models, and that this holds for the models it tests. Specific numbers are in its results tables.
+The abstract reports that hyperparameters tuned on a small model can be used on a much larger one without tuning the large model, and that this is verified on Transformer and ResNet models. Specific numbers are in the paper's results.
 
 ## Limitations
 

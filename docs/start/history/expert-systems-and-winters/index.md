@@ -21,7 +21,7 @@ After the first wave of optimism, AI entered a period of expert systems, large p
 
 ## Overview
 
-The early symbolic programmes had promised general intelligence, and they struggled when problems grew beyond toy domains. In 1973, Lighthill's survey for the UK Science Research Council argued that AI had failed to deliver on its broad aims, and identified the combinatorial explosion as a central obstacle [(Lighthill, 1973)](https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm). Funding for basic research in the UK was cut sharply after the report, which is usually taken as the start of the first winter.
+The early symbolic programmes had promised general intelligence, and they struggled when problems grew beyond toy domains. In 1972, Lighthill's survey for the UK Science Research Council argued that AI had failed to deliver on its broad aims, and identified the combinatorial explosion as a central obstacle [(Lighthill, 1972)](https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm). Funding for basic research in the UK was cut sharply after the report, which is usually taken as the start of the first winter.
 
 ## Key concepts
 
@@ -65,7 +65,7 @@ Expert systems were used in medicine, finance, configuration of computer systems
 
 ### Surveys and textbooks
 
-- Lighthill, *Artificial Intelligence: A General Survey*, Science Research Council (1973). https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm — A critical survey whose conclusions led to cuts in UK AI research funding.
+- Lighthill, *Artificial Intelligence: A General Survey*, Science Research Council (1972). https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm — A critical survey whose conclusions led to cuts in UK AI research funding.
 
 ### Articles and documentation
 

@@ -38,7 +38,7 @@ where $\ell$ is the usual classification loss, with one-hot labels $y_i$ and $y_
 
 ## Results
 
-The paper reports improved generalisation on image classification benchmarks, and more robustness to some kinds of corrupted labels and adversarial examples. The exact figures are in its experiments section.
+The abstract reports improved generalisation on ImageNet-2012, CIFAR-10, CIFAR-100, Google commands and UCI datasets. It also reports that mixup reduces memorisation of corrupt labels, increases robustness to adversarial examples, and stabilises GAN training. The figures are in the paper's experiments.
 
 ## Limitations
 
