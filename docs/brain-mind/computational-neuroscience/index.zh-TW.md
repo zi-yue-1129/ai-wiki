@@ -31,6 +31,11 @@ Richards et al.（2019, *Nature Neuroscience*）〈A deep learning framework for
 
 LIF 動力學：
 
+![漏電整合放電動畫：輸入脈衝推高膜電位，達到閾值後放電並重置。](../../assets/concept-animations/lif-neuron.gif)
+
+*漏電整合放電（LIF）神經元的概念動畫（原創，CC BY-SA 4.0）。* 輸入事件提高膜電位，事件間電位逐漸衰減；達到閾值就產生脈衝並重置電位。這是簡化的離散時間示意，**並非真實神經元的量測結果**。
+
+
 \[
 \tau_m \frac{dV}{dt} = -(V - V_{rest}) + R\,I(t), \quad V \geq V_{th} \Rightarrow \text{發放脈衝}, \; V \leftarrow V_{reset}
 \]

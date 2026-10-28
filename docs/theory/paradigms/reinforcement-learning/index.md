@@ -19,11 +19,9 @@ aliases:
 
 An **agent** acts in an **environment**, receives **rewards**, and tries to learn a policy that maximises **long-term cumulative reward**. Nobody tells it the right answer; it learns by trial and error. This maps deeply onto animal learning (operant conditioning) and the brain's dopamine system.
 
-```mermaid
-flowchart LR
-  A[Agent] -- action a_t --> E[Environment]
-  E -- state s_t+1, reward r_t+1 --> A
-```
+![Animated agent–environment loop: the agent observes, acts, gets feedback, and improves a policy.](../../../assets/concept-animations/agent-environment.gif)
+
+*Agent–environment interaction (original schematic, CC BY-SA 4.0).* The agent receives an observation, selects an action, and gets a subsequent observation and reward. The grid shows one illustrative trajectory toward a goal. **Reward is feedback, not a label identifying the correct action.** The actual policy update depends on the learning algorithm.
 
 ## Formalism: Markov decision processes
 

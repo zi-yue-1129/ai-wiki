@@ -37,6 +37,11 @@ Richards et al. (2019, *Nature Neuroscience*), "A deep learning framework for ne
 
 LIF dynamics:
 
+![Animated leaky integrate-and-fire neuron: discrete input spikes integrate into membrane voltage, trigger threshold crossing and reset, producing output spikes.](../../assets/concept-animations/lif-neuron.gif)
+
+*Leaky integrate-and-fire (LIF) illustration (original schematic, CC BY-SA 4.0).* Input events increment the membrane voltage, which leaks down between events. When it reaches the threshold the neuron emits a spike and the voltage resets. This simplified discrete-time simulation illustrates the mechanism; it is not a biological recording.
+
+
 \[
 \tau_m \frac{dV}{dt} = -(V - V_{rest}) + R\,I(t), \quad V \geq V_{th} \Rightarrow \text{spike}, \; V \leftarrow V_{reset}
 \]

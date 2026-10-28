@@ -50,6 +50,10 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 3. **Backward pass**: apply the chain rule from output to input to get every parameter's gradient.
 4. **Update**: an optimiser (SGD, AdamW) moves parameters against the gradient.
 
+![Animated neural-network training cycle: activations propagate forward, the loss is measured, gradients propagate backward, and parameters are updated.](../../assets/concept-animations/backpropagation.gif)
+
+*Animated training loop (original schematic, CC BY-SA 4.0).* The four stages are **forward**, **loss**, **backward**, and **update**. Blue pulses represent forward activations; red pulses indicate gradient information moving backward; teal marks indicate parameter updates. These are instructional signals, not measured values, and the network topology is intentionally simplified.
+
 !!! question "Does the brain do backpropagation?"
     Exact backprop needs symmetric feedback weights and separate forward/backward phases — biologically implausible. Candidate alternatives: feedback alignment, predictive-coding networks, equilibrium propagation, dendritic error computation, burst-dependent plasticity, and the forward-forward algorithm. See [NeuroAI](../../brain-mind/neuroai/index.md).
 
