@@ -723,6 +723,25 @@ plugins:
             Yu and Dayan 2005: Yu 與 Dayan 2005
             Aston-Jones and Cohen 2005: Aston-Jones 與 Cohen 2005
             Notation and Symbols: 符號與記號
+            Video Understanding and Generation: 影片理解與生成
+            Video Diffusion Models: 影片擴散模型
+            Automated Theorem Proving: 自動定理證明
+            Resolution: 歸結
+            Conflict-Driven Clause Learning: 衝突驅動子句學習
+            Customer Service and Conversational Systems: 客戶服務與對話系統
+            Joint Intent Detection and Slot Filling: 聯合意圖偵測與槽位填充
+            Hearing and the Auditory System: 聽覺與聽覺系統
+            Tonotopic Maps from fMRI (Formisano et al. 2003): 以 fMRI 描繪音調拓撲圖（Formisano 等人 2003）
+            "Attended-Speaker Decoding (Mesgarani & Chang 2012)": 從皮質解碼被注意的說話者（Mesgarani 與 Chang 2012）
+            Task-Optimised Networks for Hearing (Kell et al. 2018): 面向聽覺的任務最佳化深度網路（Kell 等人 2018）
+            Neural Oscillations and Synchrony: 神經振盪與同步
+            Communication Through Coherence: 透過相干性的通訊
+            Phase-Amplitude Coupling: 相位-振幅耦合
+            Coupled Oscillatory RNN: 耦合振盪 RNN
+            Computational Psychiatry: 計算精神醫學
+            Deep Learning Revolution: 深度學習革命（2006 年至今）
+            Deep Belief Networks: 深度信念網路
+            ImageNet and ILSVRC: ImageNet 與 ILSVRC
 
 markdown_extensions:
   - abbr
@@ -785,6 +804,10 @@ nav:
               - MYCIN and Certainty Factors: start/history/expert-systems-and-winters/mycin/index.md
               - Backpropagation and the Connectionist Revival: start/history/expert-systems-and-winters/backpropagation-revival/index.md
               - Statistical Language Processing: start/history/expert-systems-and-winters/statistical-nlp/index.md
+          - Deep Learning Revolution:
+              - start/history/deep-learning-revolution/index.md
+              - Deep Belief Networks: start/history/deep-learning-revolution/deep-belief-networks/index.md
+              - ImageNet and ILSVRC: start/history/deep-learning-revolution/imagenet/index.md
   - Theory:
       - theory/index.md
       - Mathematics:
@@ -1018,6 +1041,11 @@ nav:
               - ∂ILP: theory/symbolic-ai/neuro-symbolic/differentiable-ilp/index.md
               - DreamCoder: theory/symbolic-ai/neuro-symbolic/dreamcoder/index.md
               - Neural Theorem Prover: theory/symbolic-ai/neuro-symbolic/neural-theorem-prover/index.md
+          - Automated Theorem Proving:
+              - theory/symbolic-ai/theorem-proving/index.md
+              - Resolution: theory/symbolic-ai/theorem-proving/resolution/index.md
+              - Conflict-Driven Clause Learning: theory/symbolic-ai/theorem-proving/cdcl-sat/index.md
+              - GPT-f: theory/symbolic-ai/theorem-proving/gpt-f/index.md
       - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
       - Generative Models:
           - theory/generative/index.md
@@ -1224,6 +1252,11 @@ nav:
                   - theory/models/computer-vision/3d-and-neural-rendering/index.md
                   - Neural Radiance Fields (NeRF): theory/models/computer-vision/3d-and-neural-rendering/nerf/index.md
                   - 3D Gaussian Splatting: theory/models/computer-vision/3d-and-neural-rendering/gaussian-splatting/index.md
+              - Video Understanding and Generation:
+                  - theory/models/computer-vision/video/index.md
+                  - I3D: theory/models/computer-vision/video/i3d/index.md
+                  - VideoMAE: theory/models/computer-vision/video/videomae/index.md
+                  - Video Diffusion Models: theory/models/computer-vision/video/video-diffusion/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
@@ -1341,6 +1374,21 @@ nav:
           - Doya 2002: brain-mind/neuromodulation/doya-2002/index.md
           - Yu and Dayan 2005: brain-mind/neuromodulation/yu-dayan-2005/index.md
           - Aston-Jones and Cohen 2005: brain-mind/neuromodulation/aston-jones-cohen-2005/index.md
+      - Hearing and the Auditory System:
+          - brain-mind/auditory-system/index.md
+          - Tonotopic Maps from fMRI (Formisano et al. 2003): brain-mind/auditory-system/formisano-2003/index.md
+          - "Attended-Speaker Decoding (Mesgarani & Chang 2012)": brain-mind/auditory-system/mesgarani-chang-2012/index.md
+          - Task-Optimised Networks for Hearing (Kell et al. 2018): brain-mind/auditory-system/kell-2018/index.md
+      - Neural Oscillations and Synchrony:
+          - brain-mind/oscillations/index.md
+          - Communication Through Coherence: brain-mind/oscillations/communication-through-coherence/index.md
+          - Phase-Amplitude Coupling: brain-mind/oscillations/phase-amplitude-coupling/index.md
+          - Coupled Oscillatory RNN: brain-mind/oscillations/coupled-oscillatory-rnn/index.md
+      - Computational Psychiatry:
+          - brain-mind/computational-psychiatry/index.md
+          - Gillan et al. 2016: brain-mind/computational-psychiatry/gillan-2016/index.md
+          - Fletcher and Frith 2008: brain-mind/computational-psychiatry/fletcher-frith-2008/index.md
+          - Chekroud et al. 2016: brain-mind/computational-psychiatry/chekroud-2016/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
@@ -1391,6 +1439,10 @@ nav:
           - applications/sports/index.md
           - OpenPose: applications/sports/openpose/index.md
           - VAEP: applications/sports/vaep/index.md
+      - Customer Service and Conversational Systems:
+          - applications/customer-service/index.md
+          - Joint Intent Detection and Slot Filling: applications/customer-service/joint-intent-slot-filling/index.md
+          - SimpleTOD: applications/customer-service/simpletod/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools:
