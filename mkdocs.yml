@@ -709,6 +709,20 @@ plugins:
             Energy Score: 能量分數
             Watermarking Model Output: 模型輸出浮水印
             How to Read an AI Paper: 如何閱讀 AI 論文
+            "Logistics & Supply Chain": 物流與供應鏈
+            Attention Model for Routing: 用於路線規劃的注意力模型
+            Human Resources and Recruiting: 人力資源與招募
+            Person-Job Fit: 人職適配
+            Automated Interview Analysis: 自動化面試分析
+            "Sports Analytics & Performance": 運動分析與表現
+            Working Memory and Executive Function: 工作記憶與執行功能
+            Persistent Activity (Funahashi et al. 1989): 持續活動（Funahashi 等人 1989）
+            Activity-Silent Memory (Mongillo et al. 2008): 活動靜默記憶（Mongillo 等人 2008）
+            "Gated Working Memory (O'Reilly & Frank 2006)": 門控工作記憶（O'Reilly 與 Frank 2006）
+            Neuromodulation Beyond Dopamine: 多巴胺之外的神經調節
+            Yu and Dayan 2005: Yu 與 Dayan 2005
+            Aston-Jones and Cohen 2005: Aston-Jones 與 Cohen 2005
+            Notation and Symbols: 符號與記號
 
 markdown_extensions:
   - abbr
@@ -1317,6 +1331,16 @@ nav:
           - Place Cells: brain-mind/navigation-cognitive-maps/place-cells/index.md
           - Grid Cells: brain-mind/navigation-cognitive-maps/grid-cells/index.md
           - Tolman–Eichenbaum Machine: brain-mind/navigation-cognitive-maps/tolman-eichenbaum-machine/index.md
+      - Working Memory and Executive Function:
+          - brain-mind/working-memory-executive-function/index.md
+          - Persistent Activity (Funahashi et al. 1989): brain-mind/working-memory-executive-function/funahashi-1989/index.md
+          - Activity-Silent Memory (Mongillo et al. 2008): brain-mind/working-memory-executive-function/mongillo-2008/index.md
+          - "Gated Working Memory (O'Reilly & Frank 2006)": brain-mind/working-memory-executive-function/oreilly-frank-2006/index.md
+      - Neuromodulation Beyond Dopamine:
+          - brain-mind/neuromodulation/index.md
+          - Doya 2002: brain-mind/neuromodulation/doya-2002/index.md
+          - Yu and Dayan 2005: brain-mind/neuromodulation/yu-dayan-2005/index.md
+          - Aston-Jones and Cohen 2005: brain-mind/neuromodulation/aston-jones-cohen-2005/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
@@ -1354,6 +1378,19 @@ nav:
           - applications/weather-and-earth-observation/index.md
           - GraphCast: applications/weather-and-earth-observation/graphcast/index.md
           - Pangu-Weather: applications/weather-and-earth-observation/pangu-weather/index.md
+      - "Logistics & Supply Chain":
+          - applications/logistics-supply-chain/index.md
+          - DeepAR: applications/logistics-supply-chain/deepar/index.md
+          - Attention Model for Routing: applications/logistics-supply-chain/attention-model-routing/index.md
+          - PRIMAL: applications/logistics-supply-chain/primal/index.md
+      - Human Resources and Recruiting:
+          - applications/hr-recruiting/index.md
+          - Person-Job Fit: applications/hr-recruiting/person-job-fit/index.md
+          - Automated Interview Analysis: applications/hr-recruiting/interview-analysis/index.md
+      - "Sports Analytics & Performance":
+          - applications/sports/index.md
+          - OpenPose: applications/sports/openpose/index.md
+          - VAEP: applications/sports/vaep/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools:
@@ -1528,3 +1565,4 @@ nav:
       - "Conferences & Journals": reference/venues/index.md
       - Model Catalogue: reference/model-catalogue/index.md
       - How to Read an AI Paper: reference/how-to-read-a-paper/index.md
+      - Notation and Symbols: reference/notation/index.md
