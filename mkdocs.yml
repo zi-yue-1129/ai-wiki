@@ -454,6 +454,7 @@ plugins:
             BLOOM life-cycle estimate: BLOOM 全生命週期估算
             Green AI: 綠色 AI
             Reporting energy and carbon: 能源與排放的報告
+            Open versus Closed Models: 開放與封閉模型
             Law, Policy & Governance: 法規與治理
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
@@ -883,6 +884,7 @@ nav:
           - BLOOM life-cycle estimate: society/environment/life-cycle-estimate.md
           - Green AI: society/environment/green-ai.md
           - Reporting energy and carbon: society/environment/reporting-framework.md
+      - Open versus Closed Models: society/open-vs-closed/index.md
       - Law, Policy & Governance: society/governance/index.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
