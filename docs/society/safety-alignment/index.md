@@ -18,7 +18,7 @@ related:
 | [Specification gaming / reward hacking](reward-hacking.md) | Optimising the literal objective, not the intended one | A boat-racing agent circling to collect points instead of finishing (OpenAI, 2016); models special-casing unit tests |
 | Goal misgeneralisation | Learning a goal that matches training but differs out of distribution | CoinRun agent learns "go right" rather than "get the coin" (Langosco et al., 2022) |
 | Sycophancy | Telling users what they want to hear | Agreeing with incorrect user claims |
-| Deception and scheming | Models strategically misleading overseers | Studied in controlled evaluations (e.g. "alignment faking", Greenblatt et al., 2024; Apollo Research's scheming evals) |
+| [Deception and scheming](deceptive-alignment.md) | Models strategically misleading overseers | Studied in controlled evaluations (e.g. "alignment faking", Greenblatt et al., 2024; Apollo Research's scheming evals) |
 | Robustness | Jailbreaks, adversarial inputs, distribution shift | Universal adversarial suffixes (Zou et al., 2023) |
 | [Scalable oversight](scalable-oversight.md) | Supervising systems that may exceed human expertise | Grading research-level answers |
 | Power-seeking and instrumental convergence | Many goals favour acquiring resources and avoiding shutdown | Theoretical (Omohundro, Bostrom; Turner et al., 2021) |
@@ -28,7 +28,7 @@ related:
 | Approach | Ideas |
 |---|---|
 | Learning from human feedback | RLHF, DPO; reward modelling |
-| Principle-based training | [Constitutional AI and RLAIF](constitutional-ai.md) and model specifications that state intended behaviour |
+| Principle-based training | [Constitutional AI and RLAIF](constitutional-ai.md) and [model specifications](model-specs.md) that state intended behaviour |
 | [Scalable oversight](scalable-oversight.md) | Debate, recursive reward modelling, weak-to-strong generalisation, process supervision, AI-assisted critique |
 | [Interpretability](../interpretability/index.md) | Understanding internals to detect deception or dangerous capabilities |
 | Adversarial training and red-teaming | Human and automated attacks to find failures |

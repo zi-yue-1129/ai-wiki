@@ -9,7 +9,7 @@
 | [規格博弈／獎勵駭客](reward-hacking.md) | 最佳化字面上的目標，而不是真正想要的目標 | 賽船代理人繞圈收集分數，而不是完成比賽（OpenAI, 2016）；模型針對單元測試做特判 |
 | 目標錯誤泛化 | 學到的目標在訓練時看似吻合，但在分布之外卻不同 | CoinRun 代理人學會「往右走」，而不是「拿到金幣」（Langosco et al., 2022） |
 | 諂媚 | 告訴使用者他們想聽的話 | 附和使用者不正確的說法 |
-| 欺騙與策劃 | 模型策略性地誤導監督者 | 在受控的評估中研究（例如「對齊偽裝」，Greenblatt et al., 2024；Apollo Research 的策劃評估） |
+| [欺騙與策劃](deceptive-alignment.md) | 模型策略性地誤導監督者 | 在受控的評估中研究（例如「對齊偽裝」，Greenblatt et al., 2024；Apollo Research 的策劃評估） |
 | 穩健性 | 越獄、對抗性輸入、分布偏移 | 通用對抗後綴（Zou et al., 2023） |
 | [可擴展的監督](scalable-oversight.md) | 監督可能超越人類專業能力的系統 | 評分研究等級的答案 |
 | 追求權力與工具性趨同 | 許多目標都會促使系統取得資源並避免被關閉 | 理論上的論證（Omohundro、Bostrom；Turner et al., 2021） |
@@ -19,7 +19,7 @@
 | 方法 | 想法 |
 |---|---|
 | 從人類回饋中學習 | RLHF、DPO；獎勵建模 |
-| 以原則為基礎的訓練 | [憲法式 AI 與 RLAIF](constitutional-ai.md)，以及說明預期行為的模型規範 |
+| 以原則為基礎的訓練 | [憲法式 AI 與 RLAIF](constitutional-ai.md)，以及[說明預期行為的模型規範](model-specs.md) |
 | [可擴展的監督](scalable-oversight.md) | 辯論、遞迴式獎勵建模、由弱到強的泛化、過程監督、AI 輔助的批判 |
 | [可解釋性](../interpretability/index.md) | 理解內部運作，以偵測欺騙或危險能力 |
 | 對抗式訓練與紅隊測試 | 以人工與自動化的攻擊找出失效之處 |
