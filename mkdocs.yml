@@ -317,6 +317,10 @@ plugins:
             AlphaZero: 阿爾法零
             MuZero: MuZero
             Proximal Policy Optimisation: 近端策略最佳化
+            Multi-Agent RL: 多智能體強化學習
+            MADDPG: 多智能體深度確定性策略梯度
+            QMIX: QMIX：單調值函數分解
+            Multi-Agent PPO: 多智能體 PPO
             Value-Based Methods: 值函數方法
             Q-Learning: Q 學習
             SARSA: SARSA
@@ -909,6 +913,11 @@ nav:
               - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
               - MuZero: theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md
               - Offline RL: theory/paradigms/reinforcement-learning/offline-rl/index.md
+              - Multi-Agent RL:
+                  - theory/paradigms/reinforcement-learning/multi-agent-rl/index.md
+                  - MADDPG: theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md
+                  - QMIX: theory/paradigms/reinforcement-learning/multi-agent-rl/qmix/index.md
+                  - Multi-Agent PPO: theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md
               - Learning from Human Feedback: theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
               - Experience Replay: theory/paradigms/reinforcement-learning/experience-replay/index.md
               - Exploration: theory/paradigms/reinforcement-learning/exploration/index.md
