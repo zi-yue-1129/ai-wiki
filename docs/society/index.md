@@ -8,6 +8,7 @@ AI's technical progress raises questions that technology alone cannot answer.
 | [Interpretability](interpretability/index.md) | Understanding what happens inside models |
 | [Ethics & Fairness](ethics/index.md) | Bias, fairness definitions, privacy, accountability, labour behind AI |
 | [Misinformation & Deepfakes](misinformation/index.md) | How false content spreads, synthetic media and detection, provenance standards, the liar's dividend, DSA and AI Act duties |
+| [Copyright & IP](copyright/index.md) | Training on copyrighted works, memorisation and replication, text and data mining exceptions, authorship of generated output |
 | [Privacy & Data Protection](privacy/index.md) | Memorisation and leakage from trained models, membership inference, differential privacy, GDPR and the EU AI Act |
 | [Law, Policy & Governance](governance/index.md) | EU AI Act, US and Chinese approaches, international efforts, standards |
 | [Economics & Work](economics/index.md) | Productivity, jobs, inequality, concentration |
