@@ -52,6 +52,7 @@ Each method has its own page. This section compares them and points to the detai
 | Guardrails and output filtering | Unsafe inputs and outputs, caught by classifiers, rules or constrained decoding | Each check trades false positives against bypasses | [Guardrails and output filtering](guardrails.md) |
 | Data poisoning and backdoors | Behaviour planted in training or tuning data, activated by a trigger | Needs write access to a data source; triggers are hard to find | [Data poisoning and backdoors](data-poisoning-and-backdoors.md) |
 | Model extraction and theft | Behaviour or weights of a deployed model, copied through its API | Needs query access and a query budget; copies are approximate | [Model extraction and theft](model-extraction.md) |
+| Watermarking model output | Statistical or learned signals that mark generated text and images, found with a secret key | Paraphrase, regeneration and spoofing weaken or abuse the signal | [Watermarking model output](watermarking.md) |
 
 The first two are injection and jailbreak methods that matter for applications built on tools and retrieval. The third is a privacy risk of the model itself, and its detailed page sits under society because the same method applies to any language model. The jailbreak row covers the attack families behind the first two and how refusal robustness is measured.
 
