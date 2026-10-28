@@ -41,7 +41,7 @@ Two conditions on the sets keep the search well-defined. Closure requires every 
 
 ## Key results
 
-Koza (1992) and the follow-up paper (Koza, 1994) demonstrate that the method can evolve programs for a range of problems defined by test cases. This page does not quote numerical results. Check the papers for the specific problems and figures before citing a performance claim.
+Koza (1992) and Koza (1994) describe the method and its application to problems defined by test cases. The full texts were not retrieved in this check, so this page quotes no results, and the examples in the algorithm section still need checking against the books. Check the papers before citing a performance claim.
 
 ## Limitations
 

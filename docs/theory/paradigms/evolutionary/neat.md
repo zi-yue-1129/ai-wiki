@@ -43,7 +43,7 @@ where \(E\) and \(D\) count excess and disjoint genes, \(\bar W\) is the mean we
 
 ## Key results
 
-The paper reports that NEAT solves the double pole balancing benchmark faster than the fixed-topology neuroevolution methods it is compared against. It also shows that networks grow gradually from a minimal start rather than being fixed in size. This page does not quote numerical results, so check the paper's experiment section for the exact figures.
+The full text was not retrieved in this check, because the publisher page and the author's site refused access. This page therefore quotes no results. Its statements about the experiments, namely double pole balancing and growth from minimal networks, still need checking against the paper's experiment section.
 
 ## Limitations
 
