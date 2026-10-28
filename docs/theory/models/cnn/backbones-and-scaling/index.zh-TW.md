@@ -46,6 +46,7 @@ Liu 等人（2022）從 ResNet 出發，逐步修改其設計，借用 Transform
 
 | 方法 | 年份 | 核心想法 | 頁面 |
 |---|---|---|---|
+| AlexNet | 2012 | 在 GPU 上訓練的大型深度卷積網路 | [AlexNet](alexnet/index.md) |
 | 深度殘差學習（ResNet） | 2015 | 捷徑連接使極深的網路能夠訓練 | [ResNet](resnet/index.md) |
 | 複合縮放（EfficientNet） | 2019 | 以單一係數同時縮放深度、寬度與解析度 | [EfficientNet](efficientnet/index.md) |
 | VGG | 2015 | 以小型 3×3 卷積堆疊的普通深層設計 | [VGG](vgg/index.md) |

@@ -46,6 +46,7 @@ Liu et al. (2022) started from a ResNet and changed its design step by step, bor
 
 | Method | Year | Core idea | Page |
 |---|---|---|---|
+| AlexNet | 2012 | A large deep convolutional network trained on GPUs | [AlexNet](alexnet/index.md) |
 | Deep residual learning (ResNet) | 2015 | Shortcut connections make very deep networks trainable | [ResNet](resnet/index.md) |
 | Compound scaling (EfficientNet) | 2019 | One coefficient scales depth, width and resolution together | [EfficientNet](efficientnet/index.md) |
 | VGG | 2015 | A plain deep design built from stacks of small 3×3 convolutions | [VGG](vgg/index.md) |

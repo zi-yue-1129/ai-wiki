@@ -30,6 +30,7 @@ A convolutional layer slides a learned kernel over its input, producing one outp
 
 | Method | Year | Core idea | Page |
 |---|---|---|---|
+| AlexNet | 2012 | A large deep convolutional network trained on GPUs | [AlexNet](backbones-and-scaling/alexnet/index.md) |
 | Deep residual learning (ResNet) | 2015 | Shortcut connections make very deep networks trainable | [ResNet](backbones-and-scaling/resnet/index.md) |
 | Compound scaling (EfficientNet) | 2019 | One coefficient scales depth, width and resolution together | [EfficientNet](backbones-and-scaling/efficientnet/index.md) |
 

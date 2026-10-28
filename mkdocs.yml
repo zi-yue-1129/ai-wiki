@@ -261,6 +261,10 @@ plugins:
             Attention Variants: 注意力變體
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
+            AlexNet: AlexNet
+            GPT-3 Few-Shot Learning: GPT-3 少樣本學習
+            Compute-Optimal Training: 運算最佳化訓練
+            InstructGPT and RLHF: InstructGPT 與 RLHF
             Hodgkin–Huxley Model: Hodgkin–Huxley 模型
             Sparse Coding: 稀疏編碼
             Medial Temporal Lobe Lesions: 內側顳葉損傷
@@ -489,7 +493,8 @@ nav:
       - Mathematics: theory/math/index.md
       - Information Theory: theory/information-theory/index.md
       - Machine Learning: theory/machine-learning/index.md
-      - Deep Learning: theory/deep-learning/index.md
+      - Deep Learning:
+          - theory/deep-learning/index.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum:
@@ -629,6 +634,7 @@ nav:
                   - Deformable Convolution: theory/models/cnn/convolution-variants/deformable-convolution/index.md
               - Backbones & Scaling:
                   - theory/models/cnn/backbones-and-scaling/index.md
+                  - AlexNet: theory/models/cnn/backbones-and-scaling/alexnet/index.md
                   - VGG: theory/models/cnn/backbones-and-scaling/vgg/index.md
                   - ResNet: theory/models/cnn/backbones-and-scaling/resnet/index.md
                   - EfficientNet: theory/models/cnn/backbones-and-scaling/efficientnet/index.md
@@ -662,6 +668,9 @@ nav:
                   - Mamba-2: theory/models/ssm/selective-state-spaces/mamba-2/index.md
           - Large Language Models:
               - theory/models/llm/index.md
+              - GPT-3 Few-Shot Learning: theory/models/llm/gpt-3-few-shot/index.md
+              - Compute-Optimal Training: theory/models/llm/compute-optimal-training/index.md
+              - InstructGPT and RLHF: theory/models/llm/instructgpt-rlhf/index.md
               - Imitation in Foundation Models: theory/models/llm/imitation-in-foundation-models/index.md
           - Computer Vision: theory/models/computer-vision/index.md
           - Natural Language Processing: theory/models/nlp/index.md

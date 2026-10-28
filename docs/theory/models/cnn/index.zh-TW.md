@@ -30,6 +30,7 @@ translation_reviewed: 2026-10-28
 
 | 方法 | 年份 | 核心想法 | 頁面 |
 |---|---|---|---|
+| AlexNet | 2012 | 在 GPU 上訓練的大型深度卷積網路 | [AlexNet](backbones-and-scaling/alexnet/index.md) |
 | 深度殘差學習（ResNet） | 2015 | 捷徑連接使極深的網路能夠訓練 | [ResNet](backbones-and-scaling/resnet/index.md) |
 | 複合縮放（EfficientNet） | 2019 | 以單一係數同時縮放深度、寬度與解析度 | [EfficientNet](backbones-and-scaling/efficientnet/index.md) |
 
