@@ -3,7 +3,7 @@ related:
 - brain-mind/consciousness
 - brain-mind/cognitive-science
 - society/ethics
-- models/llm
+- theory/models/llm
 ---
 
 # Philosophy of AI

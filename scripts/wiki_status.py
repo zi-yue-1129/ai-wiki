@@ -16,7 +16,7 @@ least REFERENCE_MIN entries, each carrying a DOI, arXiv id or URL and a note of
 at least ANNOTATION_MIN_WORDS words after " — " saying what the source covers. Pages marked
 `references: not-required` in front matter (meta pages such as the roadmap) are
 exempt, as are section overviews (docs/<section>/index.md). --check enforces this only on pages the current branch changes relative
-to the base branch, so the existing backlog does not fail every PR. The full
+to the base branch, so the existing backlog does not fail every PR. Pages that were only moved (at least 90% similar) do not count as changed. The full
 backlog is listed as a count.
 
 A page is stale when its last review (`last_reviewed:` front matter, falling back
@@ -271,18 +271,50 @@ def reference_problems(path: Path) -> list[str]:
     return problems
 
 
+LINK_TARGET = re.compile(r"\[[^\]\n]*\]\([^)\n]*\)")
+RELATED_ITEM = re.compile(r"(?m)^(\s*-\s+)(theory|foundations|models)/\S*$")
+
+
+def normalise_links(text: str) -> str:
+    """Blank out link targets and related: entries, which are the only things a move rewrites."""
+    return RELATED_ITEM.sub(r"\1X", LINK_TARGET.sub("[]()", text))
+
+
 def changed_pages() -> set[str] | None:
     """Pages changed relative to the PR's base branch, or None outside a PR."""
     base = os.environ.get("GITHUB_BASE_REF")
     if not base:
         return None
+    # Pages that were only moved (at least 90% similar to their old version) are
+    # not edits, so they are skipped; the status column starts with "R" for them.
     out = subprocess.run(
-        ["git", "diff", "--name-only", f"origin/{base}...HEAD", "--", "docs"],
+        ["git", "diff", "--name-status", "-M90%", f"origin/{base}...HEAD", "--", "docs"],
         cwd=ROOT, capture_output=True, text=True,
     )
     if out.returncode != 0:
         return None
-    return {Path(l).relative_to("docs").as_posix() for l in out.stdout.splitlines() if l.endswith(".md") and not is_translation(Path(l))}
+    changed = set()
+    for line in out.stdout.splitlines():
+        fields = line.split("\t")
+        if fields[0].startswith("R"):
+            continue
+        path = Path(fields[-1])
+        if path.suffix == ".md" and not is_translation(path) and not only_links_changed(base, fields[0], path):
+            changed.add(path.relative_to("docs").as_posix())
+    return changed
+
+
+def only_links_changed(base: str, status: str, path: Path) -> bool:
+    """True when a modified page differs from the base only in link targets, e.g. after a move."""
+    if status != "M":
+        return False
+    old = subprocess.run(
+        ["git", "show", f"origin/{base}:{path.as_posix()}"],
+        cwd=ROOT, capture_output=True, text=True,
+    )
+    if old.returncode != 0:
+        return False
+    return normalise_links(old.stdout) == normalise_links((ROOT / path).read_text(encoding="utf-8"))
 
 
 def check(pages: list[Page]) -> int:

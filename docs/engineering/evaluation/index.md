@@ -1,6 +1,6 @@
 ---
 related:
-- foundations/machine-learning
+- theory/machine-learning
 - brain-mind/psychology
 - society/safety-alignment
 - applications/software
@@ -34,7 +34,7 @@ These examples are a starting catalogue, not a ranking of current models. Record
 
 Write the intended use, target population and failure costs before selecting a metric. A document assistant might need correct answers, supporting evidence and appropriate abstention when evidence is missing. A single preference score does not test all three. HELM illustrates evaluation across multiple scenarios and dimensions, including accuracy, robustness and efficiency.[^helm]
 
-For supervised metrics and validation methods, see [Evaluation and Validation](../../foundations/paradigms/supervised/evaluation-and-validation/index.md). Here the focus is the surrounding system: prompts, retrieval, tools, graders and reporting.
+For supervised metrics and validation methods, see [Evaluation and Validation](../../theory/paradigms/supervised/evaluation-and-validation/index.md). Here the focus is the surrounding system: prompts, retrieval, tools, graders and reporting.
 
 ### Separate development from final testing
 

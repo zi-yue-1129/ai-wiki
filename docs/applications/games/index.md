@@ -1,8 +1,8 @@
 ---
 related:
-- foundations/paradigms/reinforcement-learning
-- foundations/symbolic-ai
-- models/agents
+- theory/paradigms/reinforcement-learning
+- theory/symbolic-ai
+- theory/models/agents
 - applications/creative
 ---
 

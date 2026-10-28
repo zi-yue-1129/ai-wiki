@@ -46,7 +46,7 @@ Baars (1988) proposed that many specialised unconscious processors compete for a
 
 ## LLM agents as cognitive architectures
 
-LLM agents implicitly re-create cognitive architectures — see [AI Agents](../../models/agents/index.md).
+LLM agents implicitly re-create cognitive architectures — see [AI Agents](../../theory/models/agents/index.md).
 
 | Classic component | LLM-agent version |
 |---|---|

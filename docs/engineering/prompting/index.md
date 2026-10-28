@@ -1,8 +1,8 @@
 ---
 related:
-- models/llm
+- theory/models/llm
 - engineering/rag
-- models/agents
+- theory/models/agents
 - applications/cybersecurity
 ---
 

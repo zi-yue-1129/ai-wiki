@@ -1,8 +1,8 @@
 ---
 related:
-- models/world-models
-- foundations/paradigms/imitation
-- foundations/paradigms/reinforcement-learning
+- theory/models/world-models
+- theory/paradigms/imitation
+- theory/paradigms/reinforcement-learning
 - applications/manufacturing
 - applications/autonomous-driving
 ---
@@ -27,7 +27,7 @@ Classical robotics uses explicit models: kinematics, dynamics, SLAM, sampling-ba
 | Approach | Examples |
 |---|---|
 | Reinforcement learning in simulation + sim-to-real | Legged locomotion (ANYmal, Unitree), dexterous in-hand manipulation (OpenAI's Rubik's cube, 2019), drone racing beating human champions (Kaufmann et al., 2023) |
-| Imitation learning from teleoperation | ALOHA, Diffusion Policy, ACT — see [Imitation Learning](../../foundations/paradigms/imitation/index.md) |
+| Imitation learning from teleoperation | ALOHA, Diffusion Policy, ACT — see [Imitation Learning](../../theory/paradigms/imitation/index.md) |
 | Vision-language-action models | RT-2, OpenVLA, π0/π0.5, Gemini Robotics, GR00T |
 | LLMs as planners | SayCan, Code as Policies — language models choose and sequence skills |
 | World models | Learned dynamics for planning (Dreamer, video world models) |

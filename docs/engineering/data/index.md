@@ -1,7 +1,7 @@
 ---
 related:
-- foundations/paradigms/semi-supervised
-- foundations/paradigms/active
+- theory/paradigms/semi-supervised
+- theory/paradigms/active
 - society/ethics
 - engineering/evaluation
 ---
@@ -31,7 +31,7 @@ flowchart LR
 | Expert annotation | Gold standard in medicine, law, science; expensive |
 | Crowdsourcing | Scale; needs quality control (redundancy, gold questions, agreement metrics) |
 | Weak / programmatic supervision | Labelling functions (Snorkel) |
-| Active learning | Label only informative samples ([Active Learning](../../foundations/paradigms/active/index.md)) |
+| Active learning | Label only informative samples ([Active Learning](../../theory/paradigms/active/index.md)) |
 | Model-assisted / LLM labelling | Fast; validate against human labels and watch for systematic bias |
 | Preference data | Pairwise comparisons for RLHF/DPO |
 

@@ -1,6 +1,6 @@
 ---
 related:
-- models/transformer
+- theory/models/transformer
 - brain-mind/neuroai
 - brain-mind/computational-neuroscience
 - society/safety-alignment

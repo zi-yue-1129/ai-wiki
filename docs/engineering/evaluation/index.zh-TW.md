@@ -26,7 +26,7 @@
 
 在選擇指標之前，先寫下預期用途、目標族群與失敗的代價。文件助理可能同時需要正確的答案、支持的證據，以及在缺乏證據時適當地拒答。單一的偏好分數無法同時測試這三者。HELM 示範了跨越多種情境與面向的評估，包括準確度、穩健性與效率。[^helm]
 
-關於監督式學習的指標與驗證方法，見[評估與驗證](../../foundations/paradigms/supervised/evaluation-and-validation/index.md)。這裡的重點是周邊的系統：提示、檢索、工具、評分者與報告方式。
+關於監督式學習的指標與驗證方法，見[評估與驗證](../../theory/paradigms/supervised/evaluation-and-validation/index.md)。這裡的重點是周邊的系統：提示、檢索、工具、評分者與報告方式。
 
 ### 區分開發與最終測試
 

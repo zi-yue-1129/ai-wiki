@@ -1,7 +1,7 @@
 ---
 related:
 - society/safety-alignment
-- models/agents
+- theory/models/agents
 - applications/software
 - applications/finance
 ---

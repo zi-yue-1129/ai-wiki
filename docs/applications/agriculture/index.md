@@ -1,6 +1,6 @@
 ---
 related:
-- models/computer-vision
+- theory/models/computer-vision
 - applications/climate-energy
 - applications/robotics
 ---

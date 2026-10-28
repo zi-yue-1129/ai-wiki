@@ -6,7 +6,7 @@ references: not-required  # lists and meta pages cite through their entries
 
 A curated reading list. Each entry: authors (year), title — why it matters.
 
-## Foundations
+## Theory
 
 - McCulloch & Pitts (1943), "A Logical Calculus of the Ideas Immanent in Nervous Activity" — the first formal neuron
 - Turing (1950), "Computing Machinery and Intelligence" — the imitation game

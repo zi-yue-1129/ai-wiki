@@ -5,7 +5,7 @@ topic folder or as a page path:
 
     related:
       - brain-mind/neuroai                  # = brain-mind/neuroai/index.md
-      - models/llm/tokenization.md
+      - theory/models/llm/tokenization.md
 
 Links are made reciprocal automatically: the listed pages also link back, so
 each relationship only needs to be declared once, on either page. A "Related

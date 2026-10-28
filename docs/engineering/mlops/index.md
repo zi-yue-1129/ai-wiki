@@ -2,7 +2,7 @@
 related:
 - engineering/frameworks
 - engineering/hardware
-- foundations/paradigms/continual
+- theory/paradigms/continual
 - engineering/evaluation
 ---
 
