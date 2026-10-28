@@ -47,7 +47,7 @@ The optimisers below are grouped by what information they use. Each subpage give
 | Adaptive methods | Per-parameter scale from squared gradients | [Adaptive methods](adaptive/index.md) | Draft (Adam and AdamW have their own pages) |
 | Second-order and quasi-Newton | Curvature (Hessian or its approximation) | [Second-order methods](second-order.md), with pages on [L-BFGS](lbfgs.md), [K-FAC](kfac.md) and [Shampoo](shampoo.md) | Draft |
 | Learning-rate schedules and warm-up | How \(\eta\) changes over time | [Learning-rate schedules](learning-rate-schedules.md), with pages on [gradual warm-up](gradual-warm-up.md), [cosine annealing with warm restarts](cosine-annealing-warm-restarts.md) and [cyclical learning rates](cyclical-learning-rates.md) | Draft |
-| Regularisation and weight decay | Penalties that the optimiser must respect | [Regularisation and weight decay](regularisation-and-weight-decay.md) | Planned |
+| Regularisation and weight decay | Penalties that the optimiser must respect | [Regularisation and weight decay](regularisation-and-weight-decay.md), with pages on [sharp minima](sharp-minima.md) and the [SGD noise scale](sgd-noise-scale.md); decoupled decay is on the [AdamW](adaptive/adamw.md) page | Draft |
 | Gradient clipping and normalisation | Limits on gradient size | [Gradient clipping and normalisation](gradient-clipping-and-normalisation.md) | Planned |
 | Large-batch and distributed | Training across many devices | [Large-batch and distributed](large-batch-and-distributed.md) | Planned |
 | Zeroth-order and evolutionary | No gradient at all | [Zeroth-order and evolutionary](zeroth-order-and-evolutionary.md) | Planned |
