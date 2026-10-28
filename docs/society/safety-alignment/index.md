@@ -54,6 +54,7 @@ These evaluations feed **frontier safety frameworks** (Anthropic's Responsible S
 - [Reward hacking and specification gaming](reward-hacking.md): optimising a proxy reward until it diverges from the goal.
 - [Scalable oversight](scalable-oversight.md): debate, decomposition and weak-to-strong generalisation.
 - [AI debate](debate.md): two debaters argue opposing answers while a judge decides, and the evidence from human-judge studies.
+- [Debate cross-examination](debate-cross-examination.md): questioning saved copies of debaters to stop ambiguous claims from shifting.
 - [Constitutional AI and RLAIF](constitutional-ai.md): principle-guided self-critique and AI preference labels.
 - [RLAIF](rlaif.md): training a reward model on preference labels from a language model, compared with RLHF.
 - [Model specifications](model-specs.md): written statements of intended behaviour, instruction hierarchies and auditing.

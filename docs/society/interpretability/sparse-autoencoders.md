@@ -28,7 +28,7 @@ Sparse dictionary learning is the classic tool for this. Olshausen and Field (19
 
 - **Encoder and decoder**: the encoder maps an activation to a sparse code, and the decoder maps the code back to an approximation of the activation.
 - **Dictionary**: the decoder's columns, one per feature.
-- **Sparsity**: the fraction of features active at once. Sparsity is enforced by an L1 penalty or by an explicit top-k rule, described in [k-sparse autoencoders](k-sparse-autoencoders.md).
+- **Sparsity**: the fraction of features active at once. Sparsity is enforced by an L1 penalty or by an explicit top-k rule, described in [k-sparse autoencoders](k-sparse-autoencoders.md). A gated design separates feature detection from magnitude estimation to reduce shrinkage ([gated sparse autoencoders](gated-sae.md)), and JumpReLU uses per-feature thresholds ([JumpReLU sparse autoencoders](jumprelu-sae.md)).
 - **Monosemantic feature**: a feature that responds to one concept in a human-recognisable way.
 
 ## How it works

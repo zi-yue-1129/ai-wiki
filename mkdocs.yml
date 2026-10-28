@@ -926,9 +926,11 @@ plugins:
             Constitutional AI and RLAIF: 憲法式 AI 與 RLAIF
             RLAIF: 基於 AI 回饋的強化學習
             AI debate: AI 辯論
+            Debate cross-examination: 辯論交叉詰問
             Sleeper agents: 潛伏代理
             k-sparse autoencoders: k-稀疏自編碼器
             JumpReLU sparse autoencoders: JumpReLU 稀疏自編碼器
+            Gated sparse autoencoders: 門控稀疏自編碼器
             Model specifications: 模型規範
             Deceptive alignment and sleeper agents: 欺騙性對齊與潛伏代理
             Dangerous-capability evaluations: 危險能力評估
@@ -1985,6 +1987,7 @@ nav:
           - Reward hacking and specification gaming: society/safety-alignment/reward-hacking.md
           - Scalable oversight: society/safety-alignment/scalable-oversight.md
           - AI debate: society/safety-alignment/debate.md
+          - Debate cross-examination: society/safety-alignment/debate-cross-examination.md
           - Constitutional AI and RLAIF: society/safety-alignment/constitutional-ai.md
           - RLAIF: society/safety-alignment/rlaif.md
           - Model specifications: society/safety-alignment/model-specs.md
@@ -1997,6 +2000,7 @@ nav:
           - Sparse autoencoders and feature dictionaries: society/interpretability/sparse-autoencoders.md
           - k-sparse autoencoders: society/interpretability/k-sparse-autoencoders.md
           - JumpReLU sparse autoencoders: society/interpretability/jumprelu-sae.md
+          - Gated sparse autoencoders: society/interpretability/gated-sae.md
           - Feature Attribution: society/interpretability/feature-attribution.md
           - Probing Classifiers: society/interpretability/probing.md
       - Ethics & Fairness:
