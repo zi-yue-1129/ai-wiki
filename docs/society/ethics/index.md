@@ -39,6 +39,8 @@ Most AI ethics frameworks (OECD AI Principles, UNESCO Recommendation on the Ethi
 
 **Impossibility results**: when base rates differ, calibration and equal error rates cannot generally hold together (Kleinberg, Mullainathan & Raghavan, 2016; Chouldechova, 2017) — the heart of the COMPAS debate. Choosing a criterion is a value judgement, not a technical one.
 
+The formal definitions, the impossibility proofs and how to choose between them are in [Fairness Definitions and Impossibility Results](fairness-definitions.md).
+
 ### Mitigation
 
 Pre-processing (reweighting, resampling), in-processing (fairness constraints), post-processing (group-specific thresholds), plus — most importantly — better problem formulation, data and stakeholder involvement. Tools: Fairlearn, AIF360.
