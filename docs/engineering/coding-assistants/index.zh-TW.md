@@ -112,6 +112,6 @@ flowchart LR
 - Sarkar, A. 等人（2022）。*What is it like to program with artificial intelligence?* PPIG 2022。arXiv:2208.06213。https://arxiv.org/abs/2208.06213 — 對使用 AI 程式碼生成器寫程式的質性描述。
 - Barke, S.、James, M. B. 與 Polikarpova, N.（2022）。*Grounded Copilot: How Programmers Interact with Code-Generating Models*。arXiv:2206.15000。https://arxiv.org/abs/2206.15000 — 觀察程式設計師如何與程式碼生成模型的建議互動。
 - Pearce, H. 等人（2021）。*Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions*。IEEE S&P 2022。arXiv:2108.09293。https://arxiv.org/abs/2108.09293 — 衡量 Copilot 生成的程式在 89 個情境中含有已知漏洞的比例。
-- Perry, N. 等人（2022）。*Do Users Write More Insecure Code with AI Assistants?* arXiv:2211.03622。DOI 10.1145/3576915.3623157。https://arxiv.org/abs/2211.03622 — 使用者研究發現，有 AI 助手的參與者寫出的程式碼安全性較低。
+- Perry, N. 等人（2022）。*Do Users Write More Insecure Code with AI Assistants?* arXiv:2211.03622。DOI [10.1145/3576915.3623157](https://doi.org/10.1145/3576915.3623157)。https://arxiv.org/abs/2211.03622 — 使用者研究發現，有 AI 助手的參與者寫出的程式碼安全性較低。
 - Yang, J. 等人（2024）。*SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering*。arXiv:2405.15793。https://arxiv.org/abs/2405.15793 — 研究代理人與電腦之間的介面如何影響軟體工程代理人的表現。
 - Becker, J. 等人（2025）。*Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity*。arXiv:2507.09089。https://arxiv.org/abs/2507.09089 — 研究發現，允許使用 AI 工具時，成熟儲存庫中的資深開發者完成任務的時間變長。

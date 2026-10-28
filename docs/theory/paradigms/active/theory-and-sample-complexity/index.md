@@ -39,7 +39,7 @@ Theory often assumes a realisable or simple noise model, while labels in practic
 ### Seminal papers
 
 - Dasgupta (2005), "Coarse sample complexity bounds for active learning", NeurIPS. https://proceedings.neurips.cc/paper/2005/hash/6e82873a32b95af115de1c414a1849cb-Abstract.html — Early bounds showing when active learning can reduce the number of labels needed.
-- Balcan, Beygelzimer & Langford (2009), "Importance weighted active learning", ICML, arXiv:0812.4952 — Importance-weighted sampling that gives active learning guarantees under label noise.
+- Balcan, Beygelzimer & Langford (2009), "Importance weighted active learning", ICML, [arXiv:0812.4952](https://arxiv.org/abs/0812.4952) — Importance-weighted sampling that gives active learning guarantees under label noise.
 - Balcan, Hanneke & Vaughan (2010), "The true sample complexity of active learning", Machine Learning. https://doi.org/10.1007/s10994-010-5174-y — Gives sample-complexity bounds that depend on the true difficulty of the problem.
 
 ### Surveys and textbooks

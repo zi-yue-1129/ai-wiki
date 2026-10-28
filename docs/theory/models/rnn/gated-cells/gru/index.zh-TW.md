@@ -96,7 +96,7 @@ GRU 是[門控單元](../index.md)家族中兩個閘門的成員，與保有獨�
 
 ### 開創性論文
 
-- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — 提出 GRU，以及用於序列到序列任務的編碼器–解碼器架構。
+- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". [arXiv:1406.1078](https://arxiv.org/abs/1406.1078) — 提出 GRU，以及用於序列到序列任務的編碼器–解碼器架構。
 - Hochreiter, S. & Schmidhuber, J. (1997). "Long Short-Term Memory". *Neural Computation* 9(8). https://doi.org/10.1162/neco.1997.9.8.1735 — LSTM，以加法更新的記憶單元解決梯度消失問題。
 - Bengio, Y., Simard, P. & Frasconi, P. (1994). "Learning long-term dependencies with gradient descent is difficult". *IEEE Transactions on Neural Networks* 5(2). https://doi.org/10.1109/72.279181 — 說明為何以梯度下降學習循環網路中的長程依賴很困難。
 
@@ -110,6 +110,6 @@ GRU 是[門控單元](../index.md)家族中兩個閘門的成員，與保有獨�
 
 ### 文章與文件
 
-- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". arXiv:1412.3555 — 在多個序列任務上比較 LSTM、GRU 與原始循環單元。
-- Greff, K., et al. (2017). "LSTM: A Search Space Odyssey". arXiv:1503.04069 — 比較多種 LSTM 變體，發現原始設計難以超越。
-- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". arXiv:1211.5063 — 分析梯度爆炸與消失，並提出梯度範數裁剪。
+- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". [arXiv:1412.3555](https://arxiv.org/abs/1412.3555) — 在多個序列任務上比較 LSTM、GRU 與原始循環單元。
+- Greff, K., et al. (2017). "LSTM: A Search Space Odyssey". [arXiv:1503.04069](https://arxiv.org/abs/1503.04069) — 比較多種 LSTM 變體，發現原始設計難以超越。
+- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". [arXiv:1211.5063](https://arxiv.org/abs/1211.5063) — 分析梯度爆炸與消失，並提出梯度範數裁剪。

@@ -35,12 +35,12 @@ translation_reviewed: 2026-10-28
 | 家族 | 想法 | 關鍵論文 |
 |---|---|---|
 | 隨機動作雜訊 | ε-greedy 或 softmax 動作選擇 | Sutton & Barto (2018) |
-| 偽計數獎勵 | 用密度模型估計狀態造訪，並加上隨造訪次數遞減的獎勵 | Bellemare et al. (2016), arXiv:1606.01868 |
-| 好奇心模組（ICM） | 獎勵是前向模型在學到的特徵空間中的誤差 | Pathak et al. (2017), arXiv:1705.05363 |
-| 隨機網路蒸餾 | 獎勵是一個預測器模仿固定隨機網路時的誤差 | Burda et al. (2018), arXiv:1810.12894 |
-| 雜訊網路 | 學習網路權重上雜訊的尺度，讓探索在訓練中自我調整 | Fortunato et al. (2017), arXiv:1706.10295 |
-| Bootstrapped DQN | 共用網路上有多個價值頭；每回合由抽中的一個頭引導行動 | Osband et al. (2016), arXiv:1602.04621 |
-| Go-Explore | 保存已造訪狀態的歸檔，回到有潛力的狀態，再從那裡探索 | Ecoffet et al. (2019), arXiv:1901.10995 |
+| 偽計數獎勵 | 用密度模型估計狀態造訪，並加上隨造訪次數遞減的獎勵 | Bellemare et al. (2016), [arXiv:1606.01868](https://arxiv.org/abs/1606.01868) |
+| 好奇心模組（ICM） | 獎勵是前向模型在學到的特徵空間中的誤差 | Pathak et al. (2017), [arXiv:1705.05363](https://arxiv.org/abs/1705.05363) |
+| 隨機網路蒸餾 | 獎勵是一個預測器模仿固定隨機網路時的誤差 | Burda et al. (2018), [arXiv:1810.12894](https://arxiv.org/abs/1810.12894) |
+| 雜訊網路 | 學習網路權重上雜訊的尺度，讓探索在訓練中自我調整 | Fortunato et al. (2017), [arXiv:1706.10295](https://arxiv.org/abs/1706.10295) |
+| Bootstrapped DQN | 共用網路上有多個價值頭；每回合由抽中的一個頭引導行動 | Osband et al. (2016), [arXiv:1602.04621](https://arxiv.org/abs/1602.04621) |
+| Go-Explore | 保存已造訪狀態的歸檔，回到有潛力的狀態，再從那裡探索 | Ecoffet et al. (2019), [arXiv:1901.10995](https://arxiv.org/abs/1901.10995) |
 
 ### 計數與預測式獎勵
 
@@ -80,11 +80,11 @@ Go-Explore 把問題拆成兩部分：回到先前找過的狀態，然後從那
 
 ### 開創性論文
 
-- Bellemare, M. G., et al. (2016). "Unifying Count-Based Exploration and Intrinsic Motivation". arXiv:1606.01868 — 從密度模型的偽計數推導出計數式獎勵加成。
-- Pathak, D., et al. (2017). "Curiosity-driven Exploration by Self-supervised Prediction". arXiv:1705.05363 — 以學到的特徵空間中的前向模型預測誤差作為獎勵加成。
-- Burda, Y., et al. (2018). "Exploration by Random Network Distillation". arXiv:1810.12894 — 以模仿固定隨機網路的預測器誤差作為新奇獎勵。
-- Osband, I., et al. (2016). "Deep Exploration via Bootstrapped DQN". arXiv:1602.04621 — 以價值頭的集成達成一致、深入的探索。
-- Ecoffet, A., et al. (2019). "Go-Explore: a New Approach for Hard-Exploration Problems". arXiv:1901.10995 — 歸檔有潛力的狀態，探索前先回到這些狀態。
+- Bellemare, M. G., et al. (2016). "Unifying Count-Based Exploration and Intrinsic Motivation". [arXiv:1606.01868](https://arxiv.org/abs/1606.01868) — 從密度模型的偽計數推導出計數式獎勵加成。
+- Pathak, D., et al. (2017). "Curiosity-driven Exploration by Self-supervised Prediction". [arXiv:1705.05363](https://arxiv.org/abs/1705.05363) — 以學到的特徵空間中的前向模型預測誤差作為獎勵加成。
+- Burda, Y., et al. (2018). "Exploration by Random Network Distillation". [arXiv:1810.12894](https://arxiv.org/abs/1810.12894) — 以模仿固定隨機網路的預測器誤差作為新奇獎勵。
+- Osband, I., et al. (2016). "Deep Exploration via Bootstrapped DQN". [arXiv:1602.04621](https://arxiv.org/abs/1602.04621) — 以價值頭的集成達成一致、深入的探索。
+- Ecoffet, A., et al. (2019). "Go-Explore: a New Approach for Hard-Exploration Problems". [arXiv:1901.10995](https://arxiv.org/abs/1901.10995) — 歸檔有潛力的狀態，探索前先回到這些狀態。
 
 ### 綜述與教科書
 
@@ -97,4 +97,4 @@ Go-Explore 把問題拆成兩部分：回到先前找過的狀態，然後從那
 ### 文章與文件
 
 - Wilson, R. C., et al. (2014). "Humans use directed and random exploration to solve the explore–exploit dilemma". *Journal of Experimental Psychology: General* 143(6). https://doi.org/10.1037/a0038199 — 行為證據顯示人們同時使用依不確定性導向的探索與隨機探索。
-- Fortunato, M., et al. (2017). "Noisy Networks for Exploration". arXiv:1706.10295 — 學習網路權重雜訊的尺度，讓代理人在有把握之處減少探索。
+- Fortunato, M., et al. (2017). "Noisy Networks for Exploration". [arXiv:1706.10295](https://arxiv.org/abs/1706.10295) — 學習網路權重雜訊的尺度，讓代理人在有把握之處減少探索。

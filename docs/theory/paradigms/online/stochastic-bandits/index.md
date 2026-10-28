@@ -39,11 +39,11 @@ Heavy-tailed rewards, delayed feedback and non-stationary arms break the standar
 
 - Lai & Robbins (1985), "Asymptotically efficient adaptive allocation rules", Advances in Applied Mathematics. https://doi.org/10.1016/0196-8858(85)90002-8 — Proves the logarithmic lower bound on regret that good bandit algorithms must match.
 - Auer, Cesa-Bianchi & Fischer (2002), "Finite-time analysis of the multiarmed bandit problem", Machine Learning. https://homes.di.unimi.it/~cesabian/Pubblicazioni/ml-02.pdf — UCB1, with finite-time regret bounds that are simple to apply.
-- Agrawal & Goyal (2012), "Analysis of Thompson sampling for the multi-armed bandit problem", COLT, arXiv:1111.1797 — The first regret analysis of Thompson sampling, showing that it matches the logarithmic lower bound.
+- Agrawal & Goyal (2012), "Analysis of Thompson sampling for the multi-armed bandit problem", COLT, [arXiv:1111.1797](https://arxiv.org/abs/1111.1797) — The first regret analysis of Thompson sampling, showing that it matches the logarithmic lower bound.
 
 ### Surveys and textbooks
 
-- Bubeck & Cesa-Bianchi (2012), "Regret analysis of stochastic and nonstochastic multi-armed bandit problems", Foundations and Trends in Machine Learning, arXiv:1204.5721 — Survey that treats stochastic and adversarial bandits side by side.
+- Bubeck & Cesa-Bianchi (2012), "Regret analysis of stochastic and nonstochastic multi-armed bandit problems", Foundations and Trends in Machine Learning, [arXiv:1204.5721](https://arxiv.org/abs/1204.5721) — Survey that treats stochastic and adversarial bandits side by side.
 - Lattimore & Szepesvári (2020), *Bandit Algorithms*, Cambridge University Press. https://cambridge.org/core/books/bandit-algorithms/introduction/022B0BDCFDC5B66E5EF2C2690467D928 — Comprehensive textbook covering UCB, Thompson sampling and lower bounds.
 
 ### Lectures and videos
@@ -56,4 +56,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Slivkins (2019), "Introduction to multi-armed bandits", arXiv:1904.07272 — Accessible introduction to the bandit literature, including Bayesian and contextual settings.
+- Slivkins (2019), "Introduction to multi-armed bandits", [arXiv:1904.07272](https://arxiv.org/abs/1904.07272) — Accessible introduction to the bandit literature, including Bayesian and contextual settings.

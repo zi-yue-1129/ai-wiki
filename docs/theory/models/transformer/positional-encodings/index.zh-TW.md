@@ -30,12 +30,12 @@ translation_reviewed: 2026-10-28
 
 | 方法 | 位置在哪裡進入 | 關鍵論文 |
 |---|---|---|
-| 正弦編碼 | 加到 token 嵌入上，是索引的固定函數 | Vaswani et al. (2017), arXiv:1706.03762 |
-| 相對位置表示 | 對截斷後的距離學習向量，加到鍵與值上 | Shaw et al. (2018), arXiv:1803.02155 |
-| 旋轉式（RoPE） | 查詢與鍵依與位置成正比的角度旋轉 | Su et al. (2021), arXiv:2104.09864 |
-| ALiBi | 對分數加上與距離成正比的線性懲罰 | Press et al. (2021), arXiv:2108.12409 |
-| 位置內插 | 把位置索引縮放到訓練範圍內，再短暫微調 | Chen et al. (2023), arXiv:2306.15595 |
-| YaRN | 依頻率的內插，加上注意力的溫度調整 | Peng et al. (2023), arXiv:2309.00071 |
+| 正弦編碼 | 加到 token 嵌入上，是索引的固定函數 | Vaswani et al. (2017), [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) |
+| 相對位置表示 | 對截斷後的距離學習向量，加到鍵與值上 | Shaw et al. (2018), [arXiv:1803.02155](https://arxiv.org/abs/1803.02155) |
+| 旋轉式（RoPE） | 查詢與鍵依與位置成正比的角度旋轉 | Su et al. (2021), [arXiv:2104.09864](https://arxiv.org/abs/2104.09864) |
+| ALiBi | 對分數加上與距離成正比的線性懲罰 | Press et al. (2021), [arXiv:2108.12409](https://arxiv.org/abs/2108.12409) |
+| 位置內插 | 把位置索引縮放到訓練範圍內，再短暫微調 | Chen et al. (2023), [arXiv:2306.15595](https://arxiv.org/abs/2306.15595) |
+| YaRN | 依頻率的內插，加上注意力的溫度調整 | Peng et al. (2023), [arXiv:2309.00071](https://arxiv.org/abs/2309.00071) |
 
 ### 相對與旋轉式編碼
 
@@ -76,10 +76,10 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 
 ### 開創性論文
 
-- Vaswani, A., et al. (2017). *Attention Is All You Need*. arXiv:1706.03762 — 引入加在嵌入上的正弦位置編碼。
-- Shaw, P., Uszkoreit, J. & Vaswani, A. (2018). "Self-Attention with Relative Position Representations". NAACL 2018. arXiv:1803.02155 — 在自注意力中，對截斷後的距離使用相對位置向量。
-- Su, J., et al. (2021). "RoFormer: Enhanced Transformer with Rotary Position Embedding". arXiv:2104.09864 — 旋轉式位置嵌入，使內積只取決於相對位置。
-- Press, O., Smith, N. A. & Lewis, M. (2021). "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation". arXiv:2108.12409 — ALiBi，對注意力分數加上距離懲罰，可外推到更長的輸入。
+- Vaswani, A., et al. (2017). *Attention Is All You Need*. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — 引入加在嵌入上的正弦位置編碼。
+- Shaw, P., Uszkoreit, J. & Vaswani, A. (2018). "Self-Attention with Relative Position Representations". NAACL 2018. [arXiv:1803.02155](https://arxiv.org/abs/1803.02155) — 在自注意力中，對截斷後的距離使用相對位置向量。
+- Su, J., et al. (2021). "RoFormer: Enhanced Transformer with Rotary Position Embedding". [arXiv:2104.09864](https://arxiv.org/abs/2104.09864) — 旋轉式位置嵌入，使內積只取決於相對位置。
+- Press, O., Smith, N. A. & Lewis, M. (2021). "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation". [arXiv:2108.12409](https://arxiv.org/abs/2108.12409) — ALiBi，對注意力分數加上距離懲罰，可外推到更長的輸入。
 
 ### 綜述與教科書
 
@@ -91,6 +91,6 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 
 ### 文章與文件
 
-- Chen, S., et al. (2023). "Extending Context Window of Large Language Models via Positional Interpolation". arXiv:2306.15595 — 把位置索引縮放到訓練範圍內，並短暫微調，以容納更長的上下文。
-- Peng, B., et al. (2023). "YaRN: Efficient Context Window Extension of Large Language Models". arXiv:2309.00071 — 依頻率的內插與注意力縮放，用於延伸上下文。
-- Kazemnejad, A., et al. (2023). "The Impact of Positional Encoding on Length Generalization in Transformers". NeurIPS 2023. arXiv:2305.19466 — 比較各種位置編碼的長度泛化能力，包括不使用明確編碼的情況。
+- Chen, S., et al. (2023). "Extending Context Window of Large Language Models via Positional Interpolation". [arXiv:2306.15595](https://arxiv.org/abs/2306.15595) — 把位置索引縮放到訓練範圍內，並短暫微調，以容納更長的上下文。
+- Peng, B., et al. (2023). "YaRN: Efficient Context Window Extension of Large Language Models". [arXiv:2309.00071](https://arxiv.org/abs/2309.00071) — 依頻率的內插與注意力縮放，用於延伸上下文。
+- Kazemnejad, A., et al. (2023). "The Impact of Positional Encoding on Length Generalization in Transformers". NeurIPS 2023. [arXiv:2305.19466](https://arxiv.org/abs/2305.19466) — 比較各種位置編碼的長度泛化能力，包括不使用明確編碼的情況。

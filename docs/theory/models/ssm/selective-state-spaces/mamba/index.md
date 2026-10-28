@@ -57,9 +57,9 @@ Mamba is the input-dependent member of the [selective state spaces](../index.md)
 
 ### Seminal papers
 
-- Gu, A. & Dao, T. (2023). "Mamba: Linear-Time Sequence Modeling with Selective State Spaces". arXiv:2312.00752 — Input-dependent state-space parameters with a hardware-aware scan.
-- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". arXiv:2111.00396 — S4, a structured state-space model that handles very long sequences efficiently.
-- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". arXiv:2008.07669 — The HiPPO framework that gives the state matrix its long-range memory.
+- Gu, A. & Dao, T. (2023). "Mamba: Linear-Time Sequence Modeling with Selective State Spaces". [arXiv:2312.00752](https://arxiv.org/abs/2312.00752) — Input-dependent state-space parameters with a hardware-aware scan.
+- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". [arXiv:2111.00396](https://arxiv.org/abs/2111.00396) — S4, a structured state-space model that handles very long sequences efficiently.
+- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". [arXiv:2008.07669](https://arxiv.org/abs/2008.07669) — The HiPPO framework that gives the state matrix its long-range memory.
 
 ### Surveys and textbooks
 
@@ -71,5 +71,5 @@ Mamba is the input-dependent member of the [selective state spaces](../index.md)
 
 ### Articles and documentation
 
-- Dao, T. & Gu, A. (2024). "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality". arXiv:2405.21060 — Mamba-2, which links selective SSMs to attention through a structured matrix duality.
-- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". arXiv:2303.06349 — Shows that carefully designed linear recurrent units can match SSMs on long-sequence benchmarks.
+- Dao, T. & Gu, A. (2024). "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality". [arXiv:2405.21060](https://arxiv.org/abs/2405.21060) — Mamba-2, which links selective SSMs to attention through a structured matrix duality.
+- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". [arXiv:2303.06349](https://arxiv.org/abs/2303.06349) — Shows that carefully designed linear recurrent units can match SSMs on long-sequence benchmarks.

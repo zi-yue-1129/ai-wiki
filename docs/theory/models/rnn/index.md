@@ -63,8 +63,8 @@ The [state-space](../ssm/index.md) family returns to the recurrent view with bet
 
 - Hochreiter, S. & Schmidhuber, J. (1997). "Long Short-Term Memory". *Neural Computation* 9(8). https://doi.org/10.1162/neco.1997.9.8.1735 — The LSTM, with gated memory cells that address the vanishing gradient problem.
 - Bengio, Y., Simard, P. & Frasconi, P. (1994). "Learning long-term dependencies with gradient descent is difficult". *IEEE Transactions on Neural Networks* 5(2). https://doi.org/10.1109/72.279181 — Shows why gradient descent struggles to learn long-range dependencies in recurrent networks.
-- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. arXiv:1409.3215 — Encoder–decoder LSTMs for machine translation, trained end to end.
-- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — Introduces the GRU and the encoder–decoder setup for sequence-to-sequence tasks.
+- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. [arXiv:1409.3215](https://arxiv.org/abs/1409.3215) — Encoder–decoder LSTMs for machine translation, trained end to end.
+- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". [arXiv:1406.1078](https://arxiv.org/abs/1406.1078) — Introduces the GRU and the encoder–decoder setup for sequence-to-sequence tasks.
 
 ### Surveys and textbooks
 
@@ -76,4 +76,4 @@ The [state-space](../ssm/index.md) family returns to the recurrent view with bet
 
 ### Articles and documentation
 
-- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". arXiv:1211.5063 — Analyses exploding and vanishing gradients and proposes gradient norm clipping.
+- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". [arXiv:1211.5063](https://arxiv.org/abs/1211.5063) — Analyses exploding and vanishing gradients and proposes gradient norm clipping.

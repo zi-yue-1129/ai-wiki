@@ -60,13 +60,13 @@ If a policy makes an error with probability ε per step, errors compound so expe
 ### Seminal papers
 
 - Pomerleau (1989), "ALVINN: an autonomous land vehicle in a neural network", NeurIPS 1988 proceedings. https://papers.nips.cc/paper/1988/hash/812b4ba287f5ee0bc9d43bbf5bbe87fb-Abstract.html — One of the first systems to learn driving by copying a human driver's steering.
-- Ross, Gordon & Bagnell (2011), "A reduction of imitation learning and structured prediction to no-regret online learning", AISTATS, arXiv:1011.0686 — Introduces DAgger, which fixes the covariate shift that breaks behavioural cloning.
+- Ross, Gordon & Bagnell (2011), "A reduction of imitation learning and structured prediction to no-regret online learning", AISTATS, [arXiv:1011.0686](https://arxiv.org/abs/1011.0686) — Introduces DAgger, which fixes the covariate shift that breaks behavioural cloning.
 - Ng & Russell (2000), "Algorithms for inverse reinforcement learning", ICML. https://aima.eecs.berkeley.edu/~russell/papers/ml00-irl.pdf — Early formal treatment of recovering rewards from observed behaviour.
-- Ho & Ermon (2016), "Generative adversarial imitation learning", NeurIPS, arXiv:1606.03476 — GAIL, which matches expert trajectories with a discriminator and policy-gradient RL.
-- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", NeurIPS, arXiv:2203.02155 — InstructGPT, which pairs demonstration-based fine-tuning with reward-model RL.
-- Brohan et al. (2023), "RT-2: vision-language-action models transfer web knowledge to robotic control", arXiv:2307.15818 — Turns a vision-language model into a robot policy trained on demonstrations.
-- Chi et al. (2023), "Diffusion Policy: visuomotor policy learning via action diffusion", RSS, arXiv:2303.04137 — Models multi-modal demonstrated actions with diffusion for visuomotor control.
+- Ho & Ermon (2016), "Generative adversarial imitation learning", NeurIPS, [arXiv:1606.03476](https://arxiv.org/abs/1606.03476) — GAIL, which matches expert trajectories with a discriminator and policy-gradient RL.
+- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", NeurIPS, [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — InstructGPT, which pairs demonstration-based fine-tuning with reward-model RL.
+- Brohan et al. (2023), "RT-2: vision-language-action models transfer web knowledge to robotic control", [arXiv:2307.15818](https://arxiv.org/abs/2307.15818) — Turns a vision-language model into a robot policy trained on demonstrations.
+- Chi et al. (2023), "Diffusion Policy: visuomotor policy learning via action diffusion", RSS, [arXiv:2303.04137](https://arxiv.org/abs/2303.04137) — Models multi-modal demonstrated actions with diffusion for visuomotor control.
 
 ### Surveys and textbooks
 
-- Osa et al. (2018), "An algorithmic perspective on imitation learning", arXiv:1811.06711 — Survey that covers the full range of imitation methods on this page.
+- Osa et al. (2018), "An algorithmic perspective on imitation learning", [arXiv:1811.06711](https://arxiv.org/abs/1811.06711) — Survey that covers the full range of imitation methods on this page.

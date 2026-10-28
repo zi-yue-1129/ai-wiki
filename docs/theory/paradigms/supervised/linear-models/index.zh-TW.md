@@ -48,8 +48,8 @@ tags:
 ### 開創性論文
 
 - Tibshirani (1996), "Regression shrinkage and selection via the lasso", *JRSS B*. https://doi.org/10.1111/j.2517-6161.1996.tb02080.x — 提出 lasso，即讓部分係數精確為零的 L1 懲罰。
-- Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980 — Adam 最佳化器，是以梯度下降訓練邏輯模型與神經模型的預設選擇。
-- Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599 — 顯示預測的機率可能校準不良，並提出以溫度縮放作為修正方法。
+- Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, [arXiv:1412.6980](https://arxiv.org/abs/1412.6980) — Adam 最佳化器，是以梯度下降訓練邏輯模型與神經模型的預設選擇。
+- Guo et al. (2017), "On calibration of modern neural networks", ICML, [arXiv:1706.04599](https://arxiv.org/abs/1706.04599) — 顯示預測的機率可能校準不良，並提出以溫度縮放作為修正方法。
 
 ### 綜述與教科書
 

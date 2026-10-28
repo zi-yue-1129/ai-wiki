@@ -40,10 +40,10 @@ Which mechanism best prevents collapse at scale, and whether the learned feature
 
 ### Seminal papers
 
-- Grill et al. (2020), "Bootstrap your own latent: a new approach to self-supervised learning", NeurIPS, arXiv:2006.07733 — BYOL, which learns from a moving-average target network and no negatives.
-- Chen & He (2021), "Exploring simple Siamese representation learning", CVPR, arXiv:2011.10566 — SimSiam, showing that a stop-gradient alone can prevent collapse.
-- Bardes, Ponce & LeCun (2022), "VICReg: variance–invariance–covariance regularization for self-supervised learning", ICLR, arXiv:2105.04906 — Explicit variance and covariance terms that prevent collapse.
-- Caron et al. (2021), "Emerging properties in self-supervised vision transformers", ICCV, arXiv:2104.14294 — DINO, where self-distillation produces attention maps that segment objects.
+- Grill et al. (2020), "Bootstrap your own latent: a new approach to self-supervised learning", NeurIPS, [arXiv:2006.07733](https://arxiv.org/abs/2006.07733) — BYOL, which learns from a moving-average target network and no negatives.
+- Chen & He (2021), "Exploring simple Siamese representation learning", CVPR, [arXiv:2011.10566](https://arxiv.org/abs/2011.10566) — SimSiam, showing that a stop-gradient alone can prevent collapse.
+- Bardes, Ponce & LeCun (2022), "VICReg: variance–invariance–covariance regularization for self-supervised learning", ICLR, [arXiv:2105.04906](https://arxiv.org/abs/2105.04906) — Explicit variance and covariance terms that prevent collapse.
+- Caron et al. (2021), "Emerging properties in self-supervised vision transformers", ICCV, [arXiv:2104.14294](https://arxiv.org/abs/2104.14294) — DINO, where self-distillation produces attention maps that segment objects.
 
 ### Surveys and textbooks
 
@@ -55,7 +55,7 @@ Which mechanism best prevents collapse at scale, and whether the learned feature
 
 ### Articles and documentation
 
-- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), arXiv:1206.5538 — Background on the representation-learning objectives these methods build on.
+- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), [arXiv:1206.5538](https://arxiv.org/abs/1206.5538) — Background on the representation-learning objectives these methods build on.
 
 ## Further reading
 

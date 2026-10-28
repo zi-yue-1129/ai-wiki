@@ -46,15 +46,15 @@ Scaling demonstration data is expensive, and it is unclear how far imitation can
 
 ### Seminal papers
 
-- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", NeurIPS, arXiv:2203.02155 — InstructGPT, which combines supervised fine-tuning on demonstrations with reward-model reinforcement learning.
-- Stiennon et al. (2020), "Learning to summarize from human feedback", NeurIPS, arXiv:2009.01325 — Shows that learning from human comparisons outperforms learning from demonstrations alone for summarisation.
-- Brohan et al. (2023), "RT-2: vision-language-action models transfer web knowledge to robotic control", arXiv:2307.15818 — Co-fine-tunes a vision-language model on robot demonstrations to produce robot actions.
-- Brohan et al. (2022), "RT-1: robotics transformer for real-world control at scale", arXiv:2212.06817 — A transformer trained on large-scale demonstrations for hundreds of real-world tasks.
-- Zhao, Kumar, Levine & Finn (2023), "Learning fine-grained bimanual manipulation with low-cost hardware", RSS, arXiv:2304.13705 — ACT, which predicts action chunks from demonstrations.
+- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", NeurIPS, [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — InstructGPT, which combines supervised fine-tuning on demonstrations with reward-model reinforcement learning.
+- Stiennon et al. (2020), "Learning to summarize from human feedback", NeurIPS, [arXiv:2009.01325](https://arxiv.org/abs/2009.01325) — Shows that learning from human comparisons outperforms learning from demonstrations alone for summarisation.
+- Brohan et al. (2023), "RT-2: vision-language-action models transfer web knowledge to robotic control", [arXiv:2307.15818](https://arxiv.org/abs/2307.15818) — Co-fine-tunes a vision-language model on robot demonstrations to produce robot actions.
+- Brohan et al. (2022), "RT-1: robotics transformer for real-world control at scale", [arXiv:2212.06817](https://arxiv.org/abs/2212.06817) — A transformer trained on large-scale demonstrations for hundreds of real-world tasks.
+- Zhao, Kumar, Levine & Finn (2023), "Learning fine-grained bimanual manipulation with low-cost hardware", RSS, [arXiv:2304.13705](https://arxiv.org/abs/2304.13705) — ACT, which predicts action chunks from demonstrations.
 
 ### Surveys and textbooks
 
-- Osa et al. (2018), "An algorithmic perspective on imitation learning", arXiv:1811.06711 — Survey of imitation methods that the foundation-model approaches build on.
+- Osa et al. (2018), "An algorithmic perspective on imitation learning", [arXiv:1811.06711](https://arxiv.org/abs/1811.06711) — Survey of imitation methods that the foundation-model approaches build on.
 
 ### Lectures and videos
 
@@ -66,4 +66,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Chi et al. (2023), "Diffusion Policy: visuomotor policy learning via action diffusion", RSS, arXiv:2303.04137 — Diffusion-based action generation for visuomotor imitation.
+- Chi et al. (2023), "Diffusion Policy: visuomotor policy learning via action diffusion", RSS, [arXiv:2303.04137](https://arxiv.org/abs/2303.04137) — Diffusion-based action generation for visuomotor imitation.

@@ -15,7 +15,7 @@ translation_reviewed: 2026-10-28
 
 # GraphSAGE
 
-GraphSAGE 是一種歸納式（inductive）的節點嵌入方法，由 Hamilton、Ying 與 Leskovec 在 2017 年的論文 "Inductive Representation Learning on Large Graphs"（arXiv:1706.02216）中提出。它不為每個節點學習一個嵌入向量，而是學習一組函數：透過對局部鄰域進行採樣並聚合其特徵，來建構節點的表示。因此，同一組函數也能為訓練時未出現的節點產生嵌入。
+GraphSAGE 是一種歸納式（inductive）的節點嵌入方法，由 Hamilton、Ying 與 Leskovec 在 2017 年的論文 "Inductive Representation Learning on Large Graphs"（[arXiv:1706.02216](https://arxiv.org/abs/1706.02216)）中提出。它不為每個節點學習一個嵌入向量，而是學習一組函數：透過對局部鄰域進行採樣並聚合其特徵，來建構節點的表示。因此，同一組函數也能為訓練時未出現的節點產生嵌入。
 
 ## 問題
 
@@ -72,10 +72,10 @@ GraphSAGE 是[訊息傳遞](../index.md)框架中採用採樣與學習型聚合�
 
 ### 開創性論文
 
-- Hamilton, W., Ying, Z. & Leskovec, J. (2017). "Inductive Representation Learning on Large Graphs". arXiv:1706.02216 — GraphSAGE，對採樣鄰域做聚合，可用於未見過的節點。
-- Kipf, T. N. & Welling, M. (2016). "Semi-Supervised Classification with Graph Convolutional Networks". arXiv:1609.02907 — 依對稱度數正規化的 GCN 層。
-- Veličković, P., et al. (2017). "Graph Attention Networks". arXiv:1710.10903 — 對鄰居學習注意力權重，權重由兩端點的特徵計算。
-- Gilmer, J., et al. (2017). "Neural Message Passing for Quantum Chemistry". arXiv:1704.01212 — 提出訊息傳遞框架，並說明多種圖模型都符合它。
+- Hamilton, W., Ying, Z. & Leskovec, J. (2017). "Inductive Representation Learning on Large Graphs". [arXiv:1706.02216](https://arxiv.org/abs/1706.02216) — GraphSAGE，對採樣鄰域做聚合，可用於未見過的節點。
+- Kipf, T. N. & Welling, M. (2016). "Semi-Supervised Classification with Graph Convolutional Networks". [arXiv:1609.02907](https://arxiv.org/abs/1609.02907) — 依對稱度數正規化的 GCN 層。
+- Veličković, P., et al. (2017). "Graph Attention Networks". [arXiv:1710.10903](https://arxiv.org/abs/1710.10903) — 對鄰居學習注意力權重，權重由兩端點的特徵計算。
+- Gilmer, J., et al. (2017). "Neural Message Passing for Quantum Chemistry". [arXiv:1704.01212](https://arxiv.org/abs/1704.01212) — 提出訊息傳遞框架，並說明多種圖模型都符合它。
 
 ### 綜述與教科書
 
@@ -87,4 +87,4 @@ GraphSAGE 是[訊息傳遞](../index.md)框架中採用採樣與學習型聚合�
 
 ### 文章與文件
 
-- Xu, K., et al. (2018). "How Powerful are Graph Neural Networks?". arXiv:1810.00826 — 顯示聚合函數的表達力限制，並提出基於求和的 GIN。
+- Xu, K., et al. (2018). "How Powerful are Graph Neural Networks?". [arXiv:1810.00826](https://arxiv.org/abs/1810.00826) — 顯示聚合函數的表達力限制，並提出基於求和的 GIN。

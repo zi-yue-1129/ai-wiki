@@ -39,14 +39,14 @@ Entity alignment leaks information, and encrypted training is slow for large mod
 
 ### Seminal papers
 
-- Hardy et al. (2017), "Private federated learning on vertically partitioned data via entity resolution and additively homomorphic encryption", arXiv:1711.10677 — Trains a vertical logistic regression with entity resolution and homomorphic encryption.
+- Hardy et al. (2017), "Private federated learning on vertically partitioned data via entity resolution and additively homomorphic encryption", [arXiv:1711.10677](https://arxiv.org/abs/1711.10677) — Trains a vertical logistic regression with entity resolution and homomorphic encryption.
 - Shokri & Shmatikov (2015), "Privacy-preserving deep learning", CCS. https://www.comp.nus.edu.sg/~reza/files/Shokri-CCS2015.pdf — Early collaborative training in which parties share selected parameters rather than data.
 - Bonawitz et al. (2017), "Practical secure aggregation for privacy-preserving machine learning", CCS. https://doi.org/10.1145/3133956.3133982 — Secure aggregation protocol that applies to cross-party gradient sums.
 
 ### Surveys and textbooks
 
-- Yang, Liu, Chen & Tong (2019), "Federated machine learning: concept and applications", ACM Transactions on Intelligent Systems and Technology, arXiv:1902.04885 — Introduces the horizontal, vertical and transfer categories of federated learning.
-- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, arXiv:1912.04977 — Survey that covers cross-silo settings and their open problems.
+- Yang, Liu, Chen & Tong (2019), "Federated machine learning: concept and applications", ACM Transactions on Intelligent Systems and Technology, [arXiv:1902.04885](https://arxiv.org/abs/1902.04885) — Introduces the horizontal, vertical and transfer categories of federated learning.
+- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, [arXiv:1912.04977](https://arxiv.org/abs/1912.04977) — Survey that covers cross-silo settings and their open problems.
 
 ### Lectures and videos
 

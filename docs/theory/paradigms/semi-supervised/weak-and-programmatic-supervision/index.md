@@ -40,11 +40,11 @@ Estimating the accuracy of labelling functions without any gold labels is not al
 
 ### Seminal papers
 
-- Ratner, De Sa, Wu, Selsam & Ré (2016), "Data programming: creating large training sets, quickly", NIPS, arXiv:1605.07723 — Models noisy labelling functions as a generative process to produce training labels.
-- Ratner, Bach, Ehrenberg, Fries, Wu & Ré (2017), "Snorkel: rapid training data creation with weak supervision", arXiv:1711.10160 — The Snorkel system, which turns labelling functions into training sets quickly.
-- Ratner, Hancock, Dunnmon, Sala, Pandey & Ré (2019), "Training complex models with multi-task weak supervision", AAAI, arXiv:1810.02840 — Extends weak supervision to several tasks sharing the same labelling functions.
+- Ratner, De Sa, Wu, Selsam & Ré (2016), "Data programming: creating large training sets, quickly", NIPS, [arXiv:1605.07723](https://arxiv.org/abs/1605.07723) — Models noisy labelling functions as a generative process to produce training labels.
+- Ratner, Bach, Ehrenberg, Fries, Wu & Ré (2017), "Snorkel: rapid training data creation with weak supervision", [arXiv:1711.10160](https://arxiv.org/abs/1711.10160) — The Snorkel system, which turns labelling functions into training sets quickly.
+- Ratner, Hancock, Dunnmon, Sala, Pandey & Ré (2019), "Training complex models with multi-task weak supervision", AAAI, [arXiv:1810.02840](https://arxiv.org/abs/1810.02840) — Extends weak supervision to several tasks sharing the same labelling functions.
 - Mintz, Bills, Snow & Jurafsky (2009), "Distant supervision for relation extraction without labeled data", ACL. https://aclanthology.org/P09-1113/ — Labels text by aligning it with a knowledge base, an early form of weak supervision.
-- Dehghani, Mehrjou, Gouws, Kamps & Schölkopf (2018), "Fidelity-weighted learning", ICLR, arXiv:1711.02799 — Weights noisy labels by an estimate of how reliable they are.
+- Dehghani, Mehrjou, Gouws, Kamps & Schölkopf (2018), "Fidelity-weighted learning", ICLR, [arXiv:1711.02799](https://arxiv.org/abs/1711.02799) — Weights noisy labels by an estimate of how reliable they are.
 
 ### Surveys and textbooks
 

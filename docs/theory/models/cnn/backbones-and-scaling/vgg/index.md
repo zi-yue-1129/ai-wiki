@@ -15,7 +15,7 @@ last_reviewed: 2026-10-28
 
 # VGG
 
-VGG is a family of deep convolutional networks introduced by Simonyan and Zisserman in their 2015 paper "Very Deep Convolutional Networks for Large-Scale Image Recognition" (arXiv:1409.1556). The paper shows that a simple, uniform stack of 3×3 convolutions, with 11 to 19 weight layers, reaches strong ImageNet accuracy, and it makes depth the main variable under study.
+VGG is a family of deep convolutional networks introduced by Simonyan and Zisserman in their 2015 paper "Very Deep Convolutional Networks for Large-Scale Image Recognition" ([arXiv:1409.1556](https://arxiv.org/abs/1409.1556)). The paper shows that a simple, uniform stack of 3×3 convolutions, with 11 to 19 weight layers, reaches strong ImageNet accuracy, and it makes depth the main variable under study.
 
 ## Problem
 
@@ -81,9 +81,9 @@ All figures are ILSVRC (ImageNet) error rates from the paper.
 
 ### Seminal papers
 
-- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". arXiv:1409.1556 — Stacks of small 3×3 convolutions, the plain deep design behind VGG.
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — Residual connections that allow very deep CNNs to train.
-- Huang, G., et al. (2017). "Densely Connected Convolutional Networks". arXiv:1608.06993 — Connects each layer to all later layers, reusing features and easing gradient flow.
+- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". [arXiv:1409.1556](https://arxiv.org/abs/1409.1556) — Stacks of small 3×3 convolutions, the plain deep design behind VGG.
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — Residual connections that allow very deep CNNs to train.
+- Huang, G., et al. (2017). "Densely Connected Convolutional Networks". [arXiv:1608.06993](https://arxiv.org/abs/1608.06993) — Connects each layer to all later layers, reusing features and easing gradient flow.
 
 ### Surveys and textbooks
 
@@ -95,4 +95,4 @@ All figures are ILSVRC (ImageNet) error rates from the paper.
 
 ### Articles and documentation
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt, a modernised pure CNN that matches Transformer baselines.
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt, a modernised pure CNN that matches Transformer baselines.

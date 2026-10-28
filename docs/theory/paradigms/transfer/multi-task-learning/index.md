@@ -40,14 +40,14 @@ Negative transfer between tasks is common, and it is hard to tell in advance whi
 ### Seminal papers
 
 - Caruana (1997), "Multitask learning", Machine Learning. https://www.doi.org/10.1023/A:1007379606734 — Establishes shared representations as a way to improve generalisation across related tasks.
-- Misra, Shrivastava, Gupta & Hebert (2016), "Cross-stitch networks for multi-task learning", CVPR, arXiv:1604.03539 — Learns how much each task network shares features with the others, using cross-stitch units.
-- Kendall, Gal & Cipolla (2018), "Multi-task learning using uncertainty to weigh losses for scene geometry and semantics", CVPR, arXiv:1705.07115 — Weighs task losses by learned homoscedastic uncertainty, so the balance is set automatically.
-- Standley, Zamir, Chen, Guibas, Malik & Savarese (2020), "Which tasks should be learned together in multi-task learning?", ICML, arXiv:1905.07553 — Measures which task pairs help each other and which hurt, to guide task grouping.
+- Misra, Shrivastava, Gupta & Hebert (2016), "Cross-stitch networks for multi-task learning", CVPR, [arXiv:1604.03539](https://arxiv.org/abs/1604.03539) — Learns how much each task network shares features with the others, using cross-stitch units.
+- Kendall, Gal & Cipolla (2018), "Multi-task learning using uncertainty to weigh losses for scene geometry and semantics", CVPR, [arXiv:1705.07115](https://arxiv.org/abs/1705.07115) — Weighs task losses by learned homoscedastic uncertainty, so the balance is set automatically.
+- Standley, Zamir, Chen, Guibas, Malik & Savarese (2020), "Which tasks should be learned together in multi-task learning?", ICML, [arXiv:1905.07553](https://arxiv.org/abs/1905.07553) — Measures which task pairs help each other and which hurt, to guide task grouping.
 
 ### Surveys and textbooks
 
-- Ruder (2017), "An overview of multi-task learning in deep neural networks", arXiv:1706.05098 — Survey of hard and soft parameter sharing in deep networks, with practical guidance.
-- Zhang & Yang (2017), "A survey on multi-task learning", arXiv:1707.08114 — Broad survey of multi-task formulations, including relationship learning and task grouping.
+- Ruder (2017), "An overview of multi-task learning in deep neural networks", [arXiv:1706.05098](https://arxiv.org/abs/1706.05098) — Survey of hard and soft parameter sharing in deep networks, with practical guidance.
+- Zhang & Yang (2017), "A survey on multi-task learning", [arXiv:1707.08114](https://arxiv.org/abs/1707.08114) — Broad survey of multi-task formulations, including relationship learning and task grouping.
 
 ### Lectures and videos
 

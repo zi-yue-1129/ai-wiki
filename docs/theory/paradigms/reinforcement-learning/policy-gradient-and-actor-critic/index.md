@@ -42,9 +42,9 @@ Sample efficiency and reproducibility remain serious issues, since results depen
 
 ### Seminal papers
 
-- Mnih et al. (2016), "Asynchronous methods for deep reinforcement learning", ICML, arXiv:1602.01783 — A3C, parallel actor-critic training without a replay buffer.
-- Schulman, Wolski, Dhariwal, Radford & Klimov (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — PPO, a clipped objective that makes policy updates stable and simple.
-- Christiano et al. (2017), "Deep reinforcement learning from human preferences", NeurIPS, arXiv:1706.03741 — Trains a reward model from human comparisons and optimises it with policy gradients.
+- Mnih et al. (2016), "Asynchronous methods for deep reinforcement learning", ICML, [arXiv:1602.01783](https://arxiv.org/abs/1602.01783) — A3C, parallel actor-critic training without a replay buffer.
+- Schulman, Wolski, Dhariwal, Radford & Klimov (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — PPO, a clipped objective that makes policy updates stable and simple.
+- Christiano et al. (2017), "Deep reinforcement learning from human preferences", NeurIPS, [arXiv:1706.03741](https://arxiv.org/abs/1706.03741) — Trains a reward model from human comparisons and optimises it with policy gradients.
 - Silver et al. (2016), "Mastering the game of Go with deep neural networks and tree search", *Nature* 529. https://research.google/pubs/mastering-the-game-of-go-with-deep-neural-networks-and-tree-search/ — Policy networks trained with policy gradients, combined with search.
 
 ### Surveys and textbooks
@@ -57,7 +57,7 @@ Sample efficiency and reproducibility remain serious issues, since results depen
 
 ### Articles and documentation
 
-- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", arXiv:2203.02155 — InstructGPT, which fine-tunes a language model with PPO against a learned reward model.
+- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — InstructGPT, which fine-tunes a language model with PPO against a learned reward model.
 
 ## Further reading
 

@@ -114,6 +114,7 @@ tags:
 - 連結到其他頁面時，使用指向 `.md` 檔案的相對路徑：`[Transformers](../transformer/index.md)`。
 - 不要連結到其他頁面的標題（`page.md#heading`）：各語言的標題不同，會導致建置失敗。
 - 外部連結優先使用穩定的來源（DOI、arXiv 摘要頁、官方文件），而非部落格的轉載。
+- 外部連結都要可以點擊：使用 Markdown 連結 `[文字](https://...)`，或直接貼上完整的 `https://` 網址。單獨的 DOI（`doi:10.…`）或 arXiv 編號（`arXiv:2005.11401`）無法點擊，因此也要附上其 `https://` 網址。
 
 ## 來源與授權
 
@@ -126,7 +127,7 @@ tags:
 
 好的參考資料讓頁面值得信賴，也能幫助學習。每個主題頁面都以 `## References` 區段結尾（zh-TW 頁面使用「參考資料」）。
 
-**數量：** 至少 5 筆條目，越多越好。盡量涵蓋以下四種類型。建置會檢查條目（`--check`）：每一筆都需要 DOI、arXiv 編號或 URL。
+**數量：** 至少 5 筆條目，越多越好。盡量涵蓋以下四種類型。建置會檢查條目（`--check`）：每一筆都需要可以點擊的連結（完整的 `https://` 網址；單獨的 DOI 或 arXiv 編號不算）。
 
 **應包含的內容**
 
@@ -145,7 +146,7 @@ tags:
 ### Seminal papers
 
 - Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — Introduces the Transformer, replacing recurrence with multi-head self-attention.
-- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *J. Physiology*. doi:10.1113/jphysiol.1962.sp006837 — The original receptive-field study of cat visual cortex, the root of later convolutional vision models.
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *J. Physiology*. doi:[10.1113/jphysiol.1962.sp006837](https://doi.org/10.1113/jphysiol.1962.sp006837) — The original receptive-field study of cat visual cortex, the root of later convolutional vision models.
 
 ### Surveys and textbooks
 
@@ -173,7 +174,7 @@ tags:
 7. 純清單或後設頁面（路線圖、詞彙表、參考清單）在前言中設定 `references: not-required`。區段總覽會自動免除。
 8. **只用一手來源。** 部落格、電子報、YouTube 與其他影片頻道、書商頁面，以及書目彙整網站（Semantic Scholar 鏡像、scilit、researchr、RePEc 等類似網站）都不是參考資料。請引用論文本身、官方報告、標準或法規。若只能確認到彙整網站的頁面，請在 PR 說明中註明，而不要把該條目加入。
 
-**每個外部資源都要有連結，正式與非正式來源分開。** 每個條目（無論位於哪個區段）都要以 DOI、arXiv 編號或 URL 連結到來源。正式來源（論文、官方報告、標準、法規、書籍）放在參考資料中。部落格、影片與彙整網站絕不放在參考資料中，可依下文所述列在「延伸學習」之下。CI 會對變更的頁面執行這兩項規則（`wiki_status.py --check`），`wiki_status.py --unlinked` 則會列出全站其餘的條目。
+**每個外部資源都要有連結，正式與非正式來源分開。** 每個條目（無論位於哪個區段）都要以可以點擊的 `https://` 連結指向來源。正式來源（論文、官方報告、標準、法規、書籍）放在參考資料中。部落格、影片與彙整網站絕不放在參考資料中，可依下文所述列在「延伸學習」之下。CI 會對變更的頁面執行這兩項規則（`wiki_status.py --check`），`wiki_status.py --unlinked` 則會列出全站其餘的條目。
 
 **延伸學習**
 

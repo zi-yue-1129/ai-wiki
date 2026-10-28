@@ -67,9 +67,9 @@ HiPPO-LegS is the starting matrix for the [structured state spaces](../index.md)
 
 ### Seminal papers
 
-- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". arXiv:2008.07669 — The HiPPO framework that gives the state matrix its long-range memory.
-- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". arXiv:2111.00396 — S4, a structured state-space model that handles very long sequences efficiently.
-- Gu, A., Gupta, A., Goel, K. & Ré, C. (2022). "On the Parameterization and Initialization of Diagonal State Space Models". arXiv:2206.11893 — Diagonal complex state matrices, carefully initialised, that match S4 with a simpler implementation.
+- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". [arXiv:2008.07669](https://arxiv.org/abs/2008.07669) — The HiPPO framework that gives the state matrix its long-range memory.
+- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". [arXiv:2111.00396](https://arxiv.org/abs/2111.00396) — S4, a structured state-space model that handles very long sequences efficiently.
+- Gu, A., Gupta, A., Goel, K. & Ré, C. (2022). "On the Parameterization and Initialization of Diagonal State Space Models". [arXiv:2206.11893](https://arxiv.org/abs/2206.11893) — Diagonal complex state matrices, carefully initialised, that match S4 with a simpler implementation.
 
 ### Surveys and textbooks
 
@@ -81,5 +81,5 @@ HiPPO-LegS is the starting matrix for the [structured state spaces](../index.md)
 
 ### Articles and documentation
 
-- Smith, J. T. H., Warrington, A. & Linderman, S. W. (2022). "Simplified State Space Layers for Sequence Modeling". arXiv:2208.04933 — S5, a diagonal state-space layer with a parallel scan.
-- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". arXiv:2303.06349 — Shows that carefully designed linear recurrent units can match SSMs on long-sequence benchmarks.
+- Smith, J. T. H., Warrington, A. & Linderman, S. W. (2022). "Simplified State Space Layers for Sequence Modeling". [arXiv:2208.04933](https://arxiv.org/abs/2208.04933) — S5, a diagonal state-space layer with a parallel scan.
+- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". [arXiv:2303.06349](https://arxiv.org/abs/2303.06349) — Shows that carefully designed linear recurrent units can match SSMs on long-sequence benchmarks.
