@@ -52,27 +52,14 @@ The loop in the diagram is a common shape for these theories. Learned values bia
 
 ## Key methods
 
-### Diffusion decision model (Ratcliff & McKoon, 2008)
+Each method has its own page. This table is only a comparison.
 
-- **Problem:** Accuracy and response-time data for two-choice tasks are rich, but it has been hard to say which mechanism changes when a manipulation alters behaviour. Does difficulty change the quality of information, or does a speed-accuracy instruction change how much information is required?
-- **Core idea:** Treat each decision as the accumulation of noisy evidence toward one of two boundaries. The model's parameters map onto separate processes: the drift rate (the quality of evidence), the boundary separation (how cautious the decision is), and the starting point (any bias toward one option). Fitting these parameters to the full response-time distribution separates the processes.
-- **Equation or algorithm:** In standard notation, evidence x follows dx = v dt + s dW, starting at a point z between boundaries at 0 and a, where v is the drift rate, s the noise and dW a Wiener increment. The decision is made when x reaches 0 or a, and the response time is the time taken to reach it, plus a non-decision time for perception and motor processes. The paper's own parameterisation may differ in detail.
-- **Results:** The paper reviews three experiments showing that stimulus difficulty changes the quality of information, that speed-accuracy instructions change how much information is needed before responding, and that stimulus proportions bias the drift rate and starting point. The abstract reports these results qualitatively.
-- **Limitations:** The model assumes a particular form of noise and boundary, and fits can trade off between parameters. Its neural correspondence, for example to specific cortical populations, is an open research question rather than a settled result.
+| Method | Question it answers | Page |
+|---|---|---|
+| Diffusion decision model (Ratcliff & McKoon, 2008) | Which process changes when difficulty or instructions change: information quality, caution, or bias? | [Diffusion Decision Model](diffusion-model/index.md) |
+| Model-based vs model-free arbitration (Daw, Niv & Dayan, 2005) | When the two controllers disagree, which one should control choice? | [Model-Based vs Model-Free Control](model-based-vs-model-free/index.md) |
 
-### Arbitrating between model-based and model-free control (Daw, Niv & Dayan, 2005)
-
-- **Problem:** The brain seems to have several controllers for choosing actions, including one linked to prefrontal cortex and one to dorsolateral striatum. When they disagree, which should win?
-- **Core idea:** Model-free and model-based controllers trade off simplicity against flexibility and statistical efficiency. The authors propose an uncertainty-based arbitration rule in which whichever controller is more reliable at a given moment takes control.
-- **Equation or algorithm:**
-  1. Maintain a model-free estimate of action values, learned from reward prediction errors.
-  2. Maintain a model-based estimate, obtained by planning over a learned model of transitions and rewards.
-  3. Estimate the uncertainty of each controller from its recent accuracy.
-  4. Give control to the controller with lower uncertainty, so that the more reliable system dominates the choice.
-- **Results:** The paper argues that this rule explains a range of experimental findings about which system dominates. The abstract reports these results qualitatively and gives no numerical fits.
-- **Limitations:** The proposal is a theory of arbitration, and the evidence it accounts for comes from a limited set of experimental paradigms. How the arbitration maps onto specific brain regions is an active question, and the abstract does not settle it.
-
-The third landmark is the dopamine reward prediction error (Schultz, Dayan & Montague, 1997), which is covered with its own key-method block on [Neuroscience Basics](../neuroscience/index.md) and is not repeated here.
+The dopamine reward prediction error (Schultz, Dayan & Montague, 1997), the third landmark, is covered on [Neuroscience Basics](../neuroscience/index.md) and is not repeated here.
 
 ## Connections
 
@@ -101,7 +88,10 @@ The third landmark is the dopamine reward prediction error (Schultz, Dayan & Mon
 
 - Ratcliff, R. & McKoon, G. (2008). The Diffusion Decision Model: Theory and Data for Two-Choice Decision Tasks. *Neural Computation*. https://doi.org/10.1162/neco.2008.12-06-420 — Reviews the diffusion model and shows how its parameters separate the effects of difficulty, speed-accuracy instructions and bias.
 - Daw, N. D., Niv, Y. & Dayan, P. (2005). Uncertainty-based competition between prefrontal and dorsolateral striatal systems for behavioral control. *Nature Neuroscience*. https://doi.org/10.1038/NN1560 — Proposes uncertainty-based arbitration between model-based and model-free controllers.
+- Schultz, W., Dayan, P. & Montague, P. R. (1997). A Neural Substrate of Prediction and Reward. *Science*. https://doi.org/10.1126/science.275.5306.1593 — Shows that dopamine neurons signal reward prediction errors, linking reinforcement learning to the brain.
 
 ### Surveys and reviews
 
 - Gold, J. I. & Shadlen, M. N. (2007). The neural basis of decision making. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.29.051605.113038 — A review of how neurons accumulate evidence toward a decision, the framework behind the diffusion models.
+- Dayan, P. & Daw, N. D. (2008). Decision theory, reinforcement learning, and the brain. *Cognitive, Affective, & Behavioral Neuroscience*. https://doi.org/10.3758/CABN.8.4.429 — Reviews how decision theory and reinforcement learning models relate to choice in the brain.
+- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — The standard textbook on value learning, temporal-difference methods and planning with models.

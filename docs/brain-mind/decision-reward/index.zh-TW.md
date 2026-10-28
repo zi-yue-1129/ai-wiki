@@ -51,27 +51,14 @@ flowchart LR
 
 ## 關鍵方法
 
-### 擴散決策模型（Ratcliff 與 McKoon，2008）
+每個方法都有自己的頁面，此表僅作比較。
 
-- **問題：** 二選一任務的準確度與反應時間資料很豐富，但很難說明某項操作改變了行為時，究竟是哪個機制在變。難度改變的是資訊品質，還是速度與準確度的指示改變了需要多少資訊才能回應？
-- **核心想法：** 把每個決策視為有雜訊的證據朝兩個邊界之一累積。模型參數對應到不同的過程：漂移率（證據品質）、邊界間距（決定的謹慎程度），以及起始點（對某一選項的任何偏好）。把這些參數擬合到完整的反應時間分布上，便能把各個過程分開。
-- **方程式或演算法：** 以標準記號表示，證據 x 遵循 dx = v dt + s dW，從位於 0 與 a 兩邊界之間的點 z 開始，其中 v 為漂移率，s 為雜訊，dW 為 Wiener 增量。當 x 到達 0 或 a 時做出決定，反應時間為到達所需時間，再加上知覺與運動過程的非決策時間。論文自身的參數化可能在細節上不同。
-- **結果：** 論文回顧三項實驗，顯示刺激難度改變資訊品質、速度與準確度指示改變回應前所需的資訊量，而刺激比例會使漂移率與起始點產生偏誤。摘要以定性方式報告這些結果。
-- **限制：** 模型假設了特定形式的雜訊與邊界，而擬合結果可能在參數之間互相抵換。它與神經的對應，例如與特定皮質群體的對應，仍是開放的研究問題，並非定論。
+| 方法 | 它回答的問題 | 頁面 |
+|---|---|---|
+| 擴散決策模型（Ratcliff 與 McKoon，2008） | 難度或指示改變時，哪個過程在變：資訊品質、謹慎程度，還是偏誤？ | [擴散決策模型](diffusion-model/index.md) |
+| 有模型與無模型仲裁（Daw、Niv 與 Dayan，2005） | 兩個控制器意見不合時，應由哪一個控制選擇？ | [有模型與無模型控制](model-based-vs-model-free/index.md) |
 
-### 在有模型與無模型控制之間仲裁（Daw、Niv 與 Dayan，2005）
-
-- **問題：** 大腦似乎有數個選擇行動的控制器，包括與前額葉皮質相關的一個，以及與背外側紋狀體相關的一個。當它們意見不合時，應該聽哪一個？
-- **核心想法：** 有模型與無模型控制器在簡單性與彈性及統計效率之間做取捨。作者提出一個以不確定性為基礎的仲裁規則：在某一時刻，哪個控制器的可靠度較高，就由它接管。
-- **方程式或演算法：**
-  1. 維持一個由獎勵預測誤差學得的無模型行動價值估計。
-  2. 維持一個有模型的估計，方法是在學得的轉移與獎勵模型上做規劃。
-  3. 從各控制器近期的準確度估計其不確定性。
-  4. 把控制權交給不確定性較低的控制器，使較可靠的系統主導選擇。
-- **結果：** 論文主張這個規則能解釋一系列關於哪個系統佔主導的實驗發現。摘要以定性方式報告這些結果，並未給出數值擬合。
-- **限制：** 這項提案是關於仲裁的理論，其所解釋的證據來自有限的實驗範式。仲裁如何對應到特定腦區，仍是活躍的問題，摘要並未解決它。
-
-第三個里程碑是多巴胺的獎勵預測誤差（Schultz、Dayan 與 Montague，1997），其關鍵方法段落列於[神經科學基礎](../neuroscience/index.md)，此處不重複。
+多巴胺的獎勵預測誤差（Schultz、Dayan 與 Montague，1997）是第三個里程碑，列於[神經科學基礎](../neuroscience/index.md)，此處不重複。
 
 ## 與其他主題的關聯
 
@@ -100,7 +87,10 @@ flowchart LR
 
 - Ratcliff, R. & McKoon, G.（2008）。The Diffusion Decision Model: Theory and Data for Two-Choice Decision Tasks. *Neural Computation*。https://doi.org/10.1162/neco.2008.12-06-420 — 回顧擴散模型，並顯示其參數如何分開難度、速度與準確度指示及偏誤的效果。
 - Daw, N. D., Niv, Y. & Dayan, P.（2005）。Uncertainty-based competition between prefrontal and dorsolateral striatal systems for behavioral control. *Nature Neuroscience*。https://doi.org/10.1038/NN1560 — 提出有模型與無模型控制器之間以不確定性為基礎的仲裁。
+- Schultz, W., Dayan, P. & Montague, P. R.（1997）。A Neural Substrate of Prediction and Reward. *Science*。https://doi.org/10.1126/science.275.5306.1593 — 顯示多巴胺神經元發出獎勵預測誤差，把強化學習與大腦連結起來。
 
 ### 綜述與回顧
 
 - Gold, J. I. & Shadlen, M. N.（2007）。The neural basis of decision making. *Annual Review of Neuroscience*。https://doi.org/10.1146/annurev.neuro.29.051605.113038 — 回顧神經元如何把證據累積至決策，這是擴散模型背後的框架。
+- Dayan, P. & Daw, N. D.（2008）。Decision theory, reinforcement learning, and the brain. *Cognitive, Affective, & Behavioral Neuroscience*。https://doi.org/10.3758/CABN.8.4.429 — 回顧決策理論與強化學習模型如何與大腦中的選擇相關。
+- Sutton, R. S. & Barto, A. G.（2018）。*Reinforcement Learning: An Introduction*，第二版。MIT Press。http://incompleteideas.net/book/the-book-2nd.html — 關於價值學習、時序差分方法與以模型規劃的標準教科書。
