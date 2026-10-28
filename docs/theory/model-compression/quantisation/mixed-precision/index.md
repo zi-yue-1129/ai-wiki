@@ -24,17 +24,16 @@ A uniform scheme uses the same width everywhere, which wastes bits on insensitiv
 - **Bit allocation.** Assigning a width to each layer, often from a small set such as 4, 8 and 16 bits.
 - **Sensitivity.** How much the loss changes when a layer is rounded. Sensitivity depends on the layer and on the bit-width.
 - **Budget.** A target size or latency, which turns bit allocation into a constrained optimisation problem.
-- **Mixed-precision decomposition.** Within one matrix multiplication, separating outlier dimensions that keep high precision, as in [LLM.int8()](../index.md).
+- **Mixed-precision decomposition.** Within one matrix multiplication, separating outlier dimensions that keep high precision, as in [LLM.int8()](../post-training/llm-int8/index.md).
 
-## Key methods
+## Comparison of approaches
 
-### HAWQ (Dong et al., 2019)
+| Approach | Unit of allocation | Sensitivity measure | Page |
+| --- | --- | --- | --- |
+| Hessian-based layer allocation | Whole layers | Top Hessian eigenvalue per layer | [HAWQ](hawq/index.md) |
+| Outlier decomposition | Dimensions within a matrix multiplication | Magnitude of activation outliers | [LLM.int8()](../post-training/llm-int8/index.md) |
 
-- **Problem:** Choosing bit-widths by hand or by exhaustive search is slow, and simple size-based rules do not reflect how sensitive each layer is to rounding.
-- **Core idea:** Use the Hessian spectrum of each layer, which measures how sharply the loss curves in that layer's directions, to rank layers by sensitivity. Layers with a large top eigenvalue get more bits.
-- **Equation or algorithm:** Each layer's sensitivity is estimated from the Hessian of the loss with respect to its weights, computed with power iteration on Hessian-vector products. Bit-widths are then assigned to satisfy the budget.
-- **Results:** The abstract states that HAWQ allows automatic selection of the relative quantisation precision of each layer, based on the Hessian spectrum. The paper's figures are the place to check specific accuracy results.
-- **Limitations:** Hessian estimates are noisy and cost extra computation. The method was developed for convolutional networks, and its extension to very large transformers needs more study.
+Layer-level allocation suits convolutional networks, where layers differ a lot in sensitivity. Outlier decomposition suits large transformers, where a few dimensions dominate the error.
 
 ## Trade-offs
 
@@ -50,7 +49,7 @@ A uniform scheme uses the same width everywhere, which wastes bits on insensitiv
 
 ## Connections
 
-Mixed precision is a direct response to the outlier problem discussed in the parent [quantisation](../index.md) page, and it uses the same curvature ideas that [GPTQ](../index.md) uses to compensate rounding errors. The memory budgets it targets are set by the [memory hierarchy](../../../../engineering/hardware/index.md) of the target device.
+Mixed precision is a direct response to the outlier problem discussed in the parent [quantisation](../index.md) page, and it uses the same curvature ideas that [GPTQ](../post-training/gptq/index.md) uses to compensate rounding errors. The memory budgets it targets are set by the [memory hierarchy](../../../../engineering/hardware/index.md) of the target device.
 
 ## References
 

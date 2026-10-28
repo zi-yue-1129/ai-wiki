@@ -39,49 +39,23 @@ where \(s\) is a scale and \(z\) a zero point. Choosing \(s\) from the range of 
 - **Outliers.** A small number of channels in large transformers carry values much larger than the rest. Handling them is the central difficulty of low-bit quantisation.
 - **Number formats.** INT8 and INT4 use integer arithmetic. FP8 and FP4 keep a floating-point exponent, which handles a wide range of values better and is supported by recent accelerators; see [AI hardware](../../../engineering/hardware/index.md).
 
-## How it works
+## Comparison of families
 
-Quantising a single layer with weights \(W\) and calibration inputs \(X\) means choosing quantised weights \(\hat{W}\) that minimise the output error \(\lVert WX - \hat{W}X \rVert^2\), not the weight error. Modern PTQ methods exploit this. Three approaches are shown below, each with its own key idea.
+| Family | Training run needed | Typical bit-width | Best suited to | Page |
+| --- | --- | --- | --- | --- |
+| Post-training (PTQ) | No, a calibration set only | 8 bits, 4 bits for weight-only | Large language models | [Post-training](post-training/index.md) |
+| Quantisation-aware training | Yes | 2 to 8 bits | Smaller models and deployment targets with strict limits | [Quantisation-aware training](quantisation-aware-training/index.md) |
+| Binary and ternary | Yes | 1 to 2 bits | Convolutional networks on specialised hardware | [Binary and ternary](binary-and-ternary/index.md) |
+| Mixed precision | Depends on the method | Varies by layer | Budgets that a uniform width cannot meet | [Mixed precision](mixed-precision/index.md) |
 
-## Key methods
+PTQ is the default for large language models, because a training run is too expensive at that scale. QAT and the training-based families recover more accuracy at low bit-widths when a training run is affordable.
 
-### LLM.int8() (Dettmers et al., 2022)
+## Post-training methods at a glance
 
-- **Problem:** Large transformers develop a few hidden-state dimensions with very large magnitudes. Quantising everything to 8 bits degrades quality sharply once a model is large enough, so the model does not fit in memory at full quality.
-- **Core idea:** Split each matrix multiplication. The few outlier dimensions are computed in 16-bit precision, and the rest in 8-bit integers with vector-wise scales. The method is called mixed-precision decomposition.
-- **Equation or algorithm:** The product of the input \(X\) and weights \(W\) is written as a sum over normal dimensions, quantised to int8, plus a sum over outlier dimensions computed in fp16. Each row of \(X\) and column of \(W\) has its own scale.
-- **Results:** The abstract reports that the method cuts the memory needed for inference by half while keeping full-precision performance.
-- **Limitations:** Mixed-precision decomposition adds overhead for the outlier path, and the method targets 8-bit precision. Lower-bit inference needs other methods.
-
-### GPTQ (Frantar et al., 2022)
-
-- **Problem:** Rounding each weight to the nearest grid value, as in round-to-nearest quantisation, ignores the effect of the rounding on the other weights. At 3 or 4 bits the error accumulates and quality drops.
-- **Core idea:** Quantise the weights of one layer one column at a time. After each column is rounded, the rounding error is compensated by updating the not-yet-quantised columns, using approximate second-order information from the calibration inputs.
-- **Equation or algorithm:** The method follows the optimal brain quantisation framework, which uses the inverse Hessian \(H^{-1}\) of the layer's squared error to decide which weight to round and how to update the rest. GPTQ makes this efficient for models with billions of parameters by processing columns in blocks and using a Cholesky decomposition.
-- **Results:** The abstract reports that GPTQ can quantise GPT models with 175 billion parameters in about four GPU hours, reducing the weights to 3 or 4 bits.
-- **Limitations:** Calibration uses a small dataset, so the result depends on how well it matches the target domain. Speed-ups during inference require kernels that support the packed format.
-
-### AWQ (Lin et al., 2023)
-
-- **Problem:** Weights that matter most are not the largest in magnitude. Quantising all weights uniformly loses accuracy on the few channels that carry large activations.
-- **Core idea:** Identify salient channels from activation statistics, not weight magnitude. Scale those channels up before quantisation, so that their relative rounding error falls. The inverse scale is absorbed into the previous operation, so the network is mathematically unchanged in full precision.
-- **Equation or algorithm:** For a channel with scale \(s\), the layer computes \((W\,\mathrm{diag}(s)) \cdot (\mathrm{diag}(s)^{-1}X)\). The scales are chosen by a grid search that minimises the output error on calibration data.
-- **Results:** The authors report that protecting only about 1% of salient weights greatly reduces quantisation error. The paper received the best paper award at MLSys 2024.
-- **Limitations:** The search for scales costs calibration time. Like other PTQ methods, it targets weight-only quantisation, so activations stay at higher precision.
-
-## Related methods
-
-- **Integer-only inference** (Jacob et al., 2017): quantisation-aware training that makes every operation in a convolutional network integer-valued. It is the basis of many mobile deployment toolchains.
-- **SmoothQuant** (Xiao et al., 2022): moves the difficulty of activation outliers into the weights by a per-channel scaling, so that both weights and activations can be quantised to 8 bits. The abstract reports up to 1.56 times speed-up and 2 times memory reduction for large language models with negligible accuracy loss.
-- **KV-cache quantisation**: stores the attention cache in fewer bits. See [KV cache management](../../../theory/models/transformer/kv-cache/index.md).
-
-## Variants
-
-Each method family has its own page with key methods and open issues:
-
-- [Quantisation-aware training](quantisation-aware-training/index.md): learned step size and integer-only inference.
-- [Binary and ternary](binary-and-ternary/index.md): BinaryConnect, XNOR-Net and ternary weight networks.
-- [Mixed precision](mixed-precision/index.md): choosing bit-widths per layer with Hessian-based sensitivity.
+- [LLM.int8()](post-training/llm-int8/index.md): keeps outlier dimensions in 16 bits and runs the rest in 8 bits.
+- [GPTQ](post-training/gptq/index.md): second-order rounding with error compensation, at 3 and 4 bits.
+- [AWQ](post-training/awq/index.md): protects salient channels by scaling them according to activation statistics.
+- [SmoothQuant](post-training/smoothquant/index.md): moves activation outliers into the weights, enabling 8-bit weights and activations.
 
 ## Trade-offs
 

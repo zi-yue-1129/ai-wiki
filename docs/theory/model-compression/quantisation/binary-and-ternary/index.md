@@ -26,31 +26,15 @@ A binary weight network uses \(W_b = \alpha \cdot \operatorname{sign}(W)\), wher
 - **Zero in ternary networks.** The zero value lets a ternary network prune weights as it quantises them, so it sits between binary networks and [pruning](../../pruning/index.md).
 - **Binary activations.** Quantising activations as well as weights removes most multiplications, but it discards more information and is harder to train.
 
-## Key methods
+## Comparison of methods
 
-### BinaryConnect (Courbariaux et al., 2015)
+| Method | Weight values | Scale | Activations binarised | Page |
+| --- | --- | --- | --- | --- |
+| BinaryConnect | \(\pm 1\) | None | No | [BinaryConnect](binaryconnect/index.md) |
+| XNOR-Net | \(\pm \alpha\) per filter | Per filter, from the mean magnitude | Yes, in the full variant | [XNOR-Net](xnor-net/index.md) |
+| Ternary weight networks | \(\{-\alpha, 0, +\alpha\}\) | Per filter, with a magnitude threshold | No | [Ternary weight networks](ternary-weight-networks/index.md) |
 
-- **Problem:** Training networks with binary weights during propagation seemed to require binary updates, which do not work with gradient descent.
-- **Core idea:** Keep full-precision weights for the parameter updates and binarise them only when computing the forward and backward passes. The binarisation acts as a regulariser.
-- **Equation or algorithm:** Forward pass with \(\operatorname{sign}(W)\), gradients computed at the binary weights, updates applied to the real-valued \(W\), and clipping of \(W\) to a bounded range.
-- **Results:** The authors report near state-of-the-art results on permutation-invariant MNIST, CIFAR-10 and SVHN, and say binarisation acts as a regulariser.
-- **Limitations:** The method was shown on small networks and datasets of its time. It does not include the per-layer scale factor that later methods found important.
-
-### XNOR-Net (Rastegari et al., 2016)
-
-- **Problem:** Binary networks lose much accuracy on ImageNet, because the magnitudes of the weights and activations are discarded.
-- **Core idea:** Approximate each real-valued filter by a binary filter times a scale factor computed from the mean absolute value of the filter, so that the output magnitude is preserved. The convolution is then computed with XNOR operations and popcount.
-- **Equation or algorithm:** \(W \approx \alpha \cdot B\) with \(B = \operatorname{sign}(W)\) and \(\alpha = \lVert W \rVert_1 / n\), with a similar binarisation of activations in the full XNOR-Net variant.
-- **Results:** The abstract reports that the binary-weight version of AlexNet is only 2.9% less accurate than the full-precision AlexNet in top-1 accuracy.
-- **Limitations:** The binarised activation version loses more accuracy. The method needs hardware with fast bit operations to realise its speed-up.
-
-### Ternary Weight Networks (Li et al., 2016)
-
-- **Problem:** Binary weights remove too much information. A three-value code keeps a zero, which is cheap and expressive.
-- **Core idea:** Quantise each weight to one of three values, with a threshold on the magnitude below which the weight is zero and a scale for the non-zero values.
-- **Equation or algorithm:** The threshold and scale are chosen to minimise the expected squared error between the ternary and full-precision weights, approximated per filter.
-- **Results:** The abstract reports up to 16 times model compression. The accuracy gap to full precision is given in the paper's tables, and should be read there rather than compared across papers.
-- **Limitations:** Ternary arithmetic needs support in hardware. Compression ratios assume the ternary code is stored efficiently.
+BinaryConnect shows that training with binary weights is possible. XNOR-Net adds the scale that keeps the output magnitude, and ternary weight networks add a zero that keeps near-zero weights exact.
 
 ## Trade-offs
 

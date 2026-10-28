@@ -276,9 +276,20 @@ plugins:
             Quantisation: 量化
             Pruning: 剪枝
             Knowledge Distillation: 知識蒸餾
+            Post-Training Quantisation: 訓練後量化
+            LLM.int8(): LLM.int8()
+            GPTQ: GPTQ
+            AWQ: AWQ
+            SmoothQuant: SmoothQuant
             Quantisation-Aware Training: 量化感知訓練
+            LSQ: 學習步長量化
+            Integer-Only Inference: 純整數推論
             Binary & Ternary: 二值與三值
+            BinaryConnect: BinaryConnect
+            XNOR-Net: XNOR-Net
+            Ternary Weight Networks: 三值權重網路
             Mixed Precision: 混合精度
+            HAWQ: HAWQ
             Magnitude Pruning: 量值剪枝
             Lottery Ticket Hypothesis: 彩票假說
             Structured & Channel Pruning: 結構化與通道剪枝
@@ -522,9 +533,24 @@ nav:
           - theory/model-compression/index.md
           - Quantisation:
               - theory/model-compression/quantisation/index.md
-              - Quantisation-Aware Training: theory/model-compression/quantisation/quantisation-aware-training/index.md
-              - Binary & Ternary: theory/model-compression/quantisation/binary-and-ternary/index.md
-              - Mixed Precision: theory/model-compression/quantisation/mixed-precision/index.md
+              - Post-Training Quantisation:
+                  - theory/model-compression/quantisation/post-training/index.md
+                  - LLM.int8(): theory/model-compression/quantisation/post-training/llm-int8/index.md
+                  - GPTQ: theory/model-compression/quantisation/post-training/gptq/index.md
+                  - AWQ: theory/model-compression/quantisation/post-training/awq/index.md
+                  - SmoothQuant: theory/model-compression/quantisation/post-training/smoothquant/index.md
+              - Quantisation-Aware Training:
+                  - theory/model-compression/quantisation/quantisation-aware-training/index.md
+                  - LSQ: theory/model-compression/quantisation/quantisation-aware-training/lsq/index.md
+                  - Integer-Only Inference: theory/model-compression/quantisation/quantisation-aware-training/integer-only-inference/index.md
+              - Binary & Ternary:
+                  - theory/model-compression/quantisation/binary-and-ternary/index.md
+                  - BinaryConnect: theory/model-compression/quantisation/binary-and-ternary/binaryconnect/index.md
+                  - XNOR-Net: theory/model-compression/quantisation/binary-and-ternary/xnor-net/index.md
+                  - Ternary Weight Networks: theory/model-compression/quantisation/binary-and-ternary/ternary-weight-networks/index.md
+              - Mixed Precision:
+                  - theory/model-compression/quantisation/mixed-precision/index.md
+                  - HAWQ: theory/model-compression/quantisation/mixed-precision/hawq/index.md
           - Pruning:
               - theory/model-compression/pruning/index.md
               - Magnitude Pruning: theory/model-compression/pruning/magnitude-pruning/index.md
