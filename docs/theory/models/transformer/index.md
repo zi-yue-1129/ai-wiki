@@ -96,6 +96,12 @@ Each method has its own page. The overview and comparison here are brief.
 - **Comparison:** The same attention block as above, used as a denoiser rather than a language model. The generative algorithm it plugs into is in [Diffusion Models](../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md).
 - **Full write-up:** [Diffusion Transformer (DiT)](dit/index.md)
 
+### An Image is Worth 16x16 Words (Dosovitskiy et al., 2021)
+
+- **Overview:** Splits an image into fixed-size patches, embeds each as a token, and runs an unmodified Transformer encoder over the sequence, with no convolutional layers.
+- **Comparison:** The same attention block as above, applied to images instead of text. Its weaker inductive bias needs more data than a CNN, and it is compared with convolutional backbones on the [CNN backbones page](../cnn/backbones-and-scaling/index.md).
+- **Full write-up:** [Vision Transformer (ViT)](vision-transformer/index.md)
+
 ## Components and variants
 
 Each part of the Transformer has its own family of variants, with its own trade-offs and open questions:
