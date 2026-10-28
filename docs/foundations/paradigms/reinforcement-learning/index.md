@@ -8,9 +8,6 @@ related:
 - society/safety-alignment
 - foundations/paradigms/online
 - foundations/paradigms/imitation
-aliases:
-  - RL
-  - 增強學習
 ---
 
 # Reinforcement Learning
