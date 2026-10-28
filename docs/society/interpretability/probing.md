@@ -46,10 +46,10 @@ Comparing layers shows where information appears and where it disappears. Alain 
 
 ## Key methods
 
-- **Linear probes (Alain & Bengio, 2016).** Train one linear classifier per layer to show how class information develops through depth. The method is simple and fast; its weakness is that it reports decodability, not use.
+- **[Linear probes](linear-probes.md) (Alain & Bengio, 2016).** Train one linear classifier per layer to show how class information develops through depth. The method is simple and fast; its weakness is that it reports decodability, not use.
 - **Structural probes (Hewitt & Manning, 2019).** Learn a linear transformation of word representations under which squared distances approximate distances in the syntax tree. The probe recovers tree structure from contextual embeddings, which a label-classification probe would not show.
-- **Control tasks (Hewitt & Liang, 2019).** Report selectivity, the gap between real-task and random-label accuracy, so that a high score means the representation encodes the property and the probe is not simply memorising.
-- **Representational similarity analysis (Kriegeskorte et al., 2008).** Compare two systems through the matrices of pairwise dissimilarities between their responses, which allows comparisons between a network layer and a brain region on the same stimuli.
+- **[Control tasks](control-tasks.md) (Hewitt & Liang, 2019).** Report selectivity, the gap between real-task and random-label accuracy, so that a high score means the representation encodes the property and the probe is not simply memorising.
+- **[Representational similarity analysis](representational-similarity-analysis.md) (Kriegeskorte et al., 2008).** Compare two systems through the matrices of pairwise dissimilarities between their responses, which allows comparisons between a network layer and a brain region on the same stimuli.
 - **Probes with causal interventions (Li et al., 2023).** Train a sequence model on Othello move sequences, probe its internal board state, and intervene on that representation to test whether the model's output changes. The intervention tests use, not just presence.
 
 ## Results
