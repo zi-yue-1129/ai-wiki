@@ -75,7 +75,7 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 - **Initialisation**: Xavier/Glorot, He
 - **Normalisation**: [BatchNorm, LayerNorm, RMSNorm](normalisation/index.md)
 - **Residual connections** (ResNet): gradients flow through hundreds of layers
-- **Dropout**, weight decay, data augmentation
+- [**Dropout** and stochastic regularisation](dropout/index.md), weight decay, data augmentation
 - **Optimisation**: AdamW, warmup + cosine decay, gradient clipping
 - **Mixed precision**: BF16/FP16/FP8
 - **Distributed training**: data, tensor and pipeline parallelism; ZeRO/FSDP

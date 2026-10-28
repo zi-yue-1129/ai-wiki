@@ -67,7 +67,7 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 - **初始化**：Xavier／Glorot、He
 - **正規化**：[BatchNorm、LayerNorm、RMSNorm](normalisation/index.md)
 - **殘差連接**（ResNet）：讓梯度能流經數百層
-- **Dropout**、權重衰減、資料增強
+- [**Dropout**與隨機正則化](dropout/index.md)、權重衰減、資料增強
 - **最佳化**：AdamW、預熱加餘弦衰減、梯度裁剪
 - **混合精度**：BF16／FP16／FP8
 - **分散式訓練**：資料、張量與管線平行；ZeRO／FSDP
