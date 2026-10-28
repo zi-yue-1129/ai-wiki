@@ -49,6 +49,7 @@ Each method has its own page. This section compares them and points to the detai
 | Universal and transferable adversarial suffixes | Refusals in aligned models, found by automated search | Needs gradient access to an open model; unusual text | [Universal adversarial suffixes](universal-adversarial-suffixes.md) |
 | Training-data extraction | Memorised training text that a model reproduces | Depends on how often a sequence appears in training data | [Training-data extraction](../../society/privacy/training-data-extraction.md) |
 | Jailbreaks and red-teaming | Refusal training in aligned models, probed by hand or by automated search | Measured success depends on the judge and the attempt budget | [Jailbreaks and red-teaming](jailbreaks-and-red-teaming.md) |
+| Guardrails and output filtering | Unsafe inputs and outputs, caught by classifiers, rules or constrained decoding | Each check trades false positives against bypasses | [Guardrails and output filtering](guardrails.md) |
 
 The first two are injection and jailbreak methods that matter for applications built on tools and retrieval. The third is a privacy risk of the model itself, and its detailed page sits under society because the same method applies to any language model. The jailbreak row covers the attack families behind the first two and how refusal robustness is measured.
 
@@ -60,7 +61,7 @@ No single defence is sufficient. A layered design includes:
 - **Separate trust levels**: treat retrieved or user-supplied text as data, and do not let it change tool permissions or system instructions.
 - **Validate outputs**: treat model output as untrusted input to any interpreter, query or renderer. Escape HTML, parameterise SQL and allow-list URLs.
 - **Monitor and limit**: log tool calls, rate-limit actions, and keep humans in the loop for high-impact steps.
-- **Filter and classify**: guard models can flag injected instructions, but they miss some attacks, so they complement rather than replace the design controls above.
+- **Filter and classify**: guard models can flag injected instructions, but they miss some attacks, so they complement rather than replace the design controls above. See [Guardrails and output filtering](guardrails.md).
 
 The OWASP Top 10 for Large Language Model Applications lists the common categories, including prompt injection, insecure output handling, sensitive information disclosure and excessive agency, and gives a checklist for each.
 
