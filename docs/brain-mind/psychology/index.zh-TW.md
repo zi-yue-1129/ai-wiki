@@ -78,3 +78,13 @@ Binz & Schulz（2023, *PNAS*）用經典認知心理學任務研究 GPT-3——�
 - Hagendorff (2023), "Machine Psychology"
 - Frank (2023), "Baby steps in evaluating the capacities of large language models", *Nature Reviews Psychology*
 - Shiffrin & Mitchell (2023), "Probing the psychology of AI models", *PNAS*
+
+## 參考文獻
+
+### 開創性論文
+
+- Tversky, A. & Kahneman, D. (1974). Judgment under Uncertainty: Heuristics and Biases. *Science*. https://doi.org/10.1126/science.185.4157.1124 — 記錄可得性與代表性等捷思法，如何影響人在不確定情境下的判斷。
+- Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. *Psychological Review*. https://doi.org/10.1037/h0043158 — 工作記憶容量的經典論述，以及組塊如何擴展這個容量。
+- Anderson, J. R., et al. (2004). An Integrated Theory of the Mind. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.4.1036 — ACT-R，在單一系統中模擬記憶、目標與學習的認知架構。
+- Lake, B. M., et al. (2017). Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — 目標文章，主張類人學習需要直覺物理、直覺心理學與組合模型，並附有評論。
+- Clark, A. (2013). Whatever next? Predictive brains, situated agents, and the future of cognitive science. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X12000477 — 將預測處理視為感知、行動與認知統一框架的綜述。

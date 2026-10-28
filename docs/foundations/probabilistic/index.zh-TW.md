@@ -78,3 +78,20 @@
 - McElreath《Statistical Rethinking》（影片免費）
 - Pearl & Mackenzie《The Book of Why》
 - Griffiths, Chater & Tenenbaum《Bayesian Models of Cognition》（2024）
+
+## 參考文獻
+
+### 開創性論文
+
+- Hoffman, M. D., et al. (2013). *Stochastic Variational Inference*. arXiv. https://arxiv.org/abs/1206.7051 — 以隨機梯度最佳化變分目標，讓變分推論能擴展到大型資料集。
+- Neal, R. M. (2012). *MCMC using Hamiltonian dynamics*. arXiv. https://arxiv.org/abs/1206.1901 — 哈密頓蒙地卡羅法的教學文章，是現代機率程式設計系統背後的取樣器。
+- Blei, D. M., et al. (2016). *Variational Inference: A Review for Statisticians*. arXiv. https://arxiv.org/abs/1601.00670 — 為統計學家寫的清楚入門，以最佳化近似難解的後驗分布，並附有實例。
+
+### 綜述與教科書
+
+- Deisenroth, M. P., Faisal, A. A. & Ong, C. S. *Mathematics for Machine Learning*. https://mml-book.github.io/ — 涵蓋機器學習背後的機率與統計，作者提供免費 PDF。
+
+### 文章與文件
+
+- Bingham, E., et al. (2018). *Pyro: Deep Universal Probabilistic Programming*. arXiv. https://arxiv.org/abs/1810.09538 — 介紹建立在 PyTorch 上的機率程式語言，結合深度網路與貝氏模型。
+- Carpenter, B., et al. (2015). *The Stan Math Library: Reverse-Mode Automatic Differentiation in C++*. arXiv. https://arxiv.org/abs/1509.07164 — Stan 所用的自動微分引擎，Stan 是廣泛使用的貝氏推論系統。

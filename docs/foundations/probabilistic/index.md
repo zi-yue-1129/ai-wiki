@@ -81,3 +81,20 @@ Write a generative model as a program; the system performs inference: [PyMC](htt
 - McElreath, *Statistical Rethinking* (lectures free online)
 - Pearl & Mackenzie, *The Book of Why*
 - Griffiths, Chater & Tenenbaum, *Bayesian Models of Cognition* (2024)
+
+## References
+
+### Seminal papers
+
+- Hoffman, M. D., et al. (2013). *Stochastic Variational Inference*. arXiv. https://arxiv.org/abs/1206.7051 — Scales variational inference to large datasets by optimising the variational objective with stochastic gradients.
+- Neal, R. M. (2012). *MCMC using Hamiltonian dynamics*. arXiv. https://arxiv.org/abs/1206.1901 — A tutorial on Hamiltonian Monte Carlo, the sampler behind modern probabilistic programming systems.
+- Blei, D. M., et al. (2016). *Variational Inference: A Review for Statisticians*. arXiv. https://arxiv.org/abs/1601.00670 — A clear tutorial on approximating hard posterior distributions by optimisation, with worked examples.
+
+### Surveys and textbooks
+
+- Deisenroth, M. P., Faisal, A. A. & Ong, C. S. *Mathematics for Machine Learning*. https://mml-book.github.io/ — Covers the probability and statistics behind machine learning, with a free PDF from the authors.
+
+### Articles and documentation
+
+- Bingham, E., et al. (2018). *Pyro: Deep Universal Probabilistic Programming*. arXiv. https://arxiv.org/abs/1810.09538 — Describes a probabilistic programming language built on PyTorch, combining deep networks with Bayesian models.
+- Carpenter, B., et al. (2015). *The Stan Math Library: Reverse-Mode Automatic Differentiation in C++*. arXiv. https://arxiv.org/abs/1509.07164 — The automatic-differentiation engine that powers Stan, the widely used Bayesian inference system.
