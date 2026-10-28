@@ -71,6 +71,8 @@ The paper's own experiments are small image synthesis tasks. DCGAN-style generat
 - Ioffe, S. & Szegedy, C. (2015). *Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift*. arXiv. https://arxiv.org/abs/1502.03167 — Introduces batch normalisation, one of the layers DCGAN relies on for stable training.
 - Salimans, T., et al. (2016). *Improved Techniques for Training GANs*. arXiv. https://arxiv.org/abs/1606.03498 — Collects training techniques for GANs, including feature matching and minibatch discrimination, that address the same stability problems.
 - Zhu, J.-Y., et al. (2017). *Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks*. arXiv. https://arxiv.org/abs/1703.10593 — Uses DCGAN-style convolutional generators in an image-to-image translation setting.
+- Odena, A., Olah, C. & Shlens, J. (2017). *Conditional Image Synthesis With Auxiliary Classifier GANs*. arXiv. https://arxiv.org/abs/1610.09585 — Adds class conditioning to a DCGAN-style generator, a common extension of the architecture on this page.
+- Karras, T., Laine, S. & Aila, T. (2019). *A Style-Based Generator Architecture for Generative Adversarial Networks*. arXiv. https://arxiv.org/abs/1812.04948 — A later generator design built on convolutional GAN generators of the DCGAN kind, with style-based control of features.
 
 ## Further learning
 

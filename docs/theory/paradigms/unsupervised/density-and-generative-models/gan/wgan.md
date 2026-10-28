@@ -85,6 +85,8 @@ WGAN is used as a stable training objective for image synthesis experiments, and
 - Goodfellow, I. J., et al. (2014). *Generative Adversarial Networks*. NeurIPS (arXiv). https://arxiv.org/abs/1406.2661 — Introduces the Jensen–Shannon GAN objective that WGAN replaces.
 - Miyato, T., et al. (2018). *Spectral Normalization for Generative Adversarial Networks*. arXiv. https://arxiv.org/abs/1802.05957 — Enforces a Lipschitz constraint on the discriminator by normalising its weight matrices.
 - Mescheder, L., Geiger, A. & Nowozin, S. (2018). *Which Training Methods for GANs do actually Converge?* arXiv. https://arxiv.org/abs/1801.04406 — Analyses when gradient-based GAN training converges, including the role of the discriminator's regularity.
+- Arjovsky, M. & Bottou, L. (2017). *Towards Principled Methods for Training Generative Adversarial Networks*. arXiv. https://arxiv.org/abs/1701.04862 — Analyses why the original GAN gradients fail when the two distributions have disjoint supports, the argument behind the Wasserstein objective.
+- Heusel, M., et al. (2017). *GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium*. arXiv. https://arxiv.org/abs/1706.08500 — Introduces the Fréchet Inception Distance, an evaluation measure commonly used to compare GAN training methods such as WGAN.
 
 ## Further learning
 

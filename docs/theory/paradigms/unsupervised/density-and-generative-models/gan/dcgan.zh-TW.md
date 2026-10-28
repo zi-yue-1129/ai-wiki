@@ -70,6 +70,8 @@ DCGAN 是卷積 GAN 的配方，而不是獨立的訓練目標。它在 [GAN 概
 - Ioffe, S. & Szegedy, C. (2015). *Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift*. arXiv. https://arxiv.org/abs/1502.03167 — 提出批次正規化，這是 DCGAN 為了穩定訓練而依賴的層之一。
 - Salimans, T., et al. (2016). *Improved Techniques for Training GANs*. arXiv. https://arxiv.org/abs/1606.03498 — 彙整 GAN 的訓練技巧，包括特徵匹配與小批次判別，用來處理同樣的穩定性問題。
 - Zhu, J.-Y., et al. (2017). *Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks*. arXiv. https://arxiv.org/abs/1703.10593 — 在影像到影像的轉換中使用 DCGAN 式的卷積生成器。
+- Odena, A., Olah, C. & Shlens, J. (2017). *Conditional Image Synthesis With Auxiliary Classifier GANs*. arXiv. https://arxiv.org/abs/1610.09585 — 在 DCGAN 式的生成器上加入類別條件，是此架構的常見延伸。
+- Karras, T., Laine, S. & Aila, T. (2019). *A Style-Based Generator Architecture for Generative Adversarial Networks*. arXiv. https://arxiv.org/abs/1812.04948 — 在 DCGAN 所規範的卷積生成器之上發展的後續設計，加入以風格為基礎的特徵控制。
 
 ## 延伸學習
 

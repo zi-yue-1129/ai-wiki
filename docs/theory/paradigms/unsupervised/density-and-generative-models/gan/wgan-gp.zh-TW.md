@@ -76,6 +76,8 @@ WGAN-GP 被用作影像與序列 GAN 中穩定的訓練目標，也常作為 GAN
 - Goodfellow, I. J., et al. (2014). *Generative Adversarial Networks*. NeurIPS（arXiv）. https://arxiv.org/abs/1406.2661 — 提出 Wasserstein 變體所修改的對抗框架。
 - Miyato, T., et al. (2018). *Spectral Normalization for Generative Adversarial Networks*. arXiv. https://arxiv.org/abs/1802.05957 — 透過正規化判別器的權重來實施 Lipschitz 限制，作為梯度懲罰的替代方案。
 - Mescheder, L., Geiger, A. & Nowozin, S. (2018). *Which Training Methods for GANs do actually Converge?* arXiv. https://arxiv.org/abs/1801.04406 — 分析 GAN 訓練的收斂性，包括對判別器的梯度懲罰。
+- Arjovsky, M. & Bottou, L. (2017). *Towards Principled Methods for Training Generative Adversarial Networks*. arXiv. https://arxiv.org/abs/1701.04862 — 分析當兩個分布的支撐集不相交時，原始 GAN 的梯度為何失效，是評論家懲罰的動機。
+- Heusel, M., et al. (2017). *GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium*. arXiv. https://arxiv.org/abs/1706.08500 — 提出 Fréchet Inception Distance，是比較 WGAN-GP 等 GAN 訓練方法常用的評估指標。
 
 ## 延伸學習
 
