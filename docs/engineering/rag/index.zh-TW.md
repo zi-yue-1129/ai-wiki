@@ -59,19 +59,19 @@ RAG 類似[互補學習系統](../../brain-mind/memory-learning/index.md)中海�
 - Anthropic (2024), "Introducing Contextual Retrieval"
 - LlamaIndex 與 LangChain 的 RAG 教學
 
-
 ## 參考文獻
 
 ### 開創性論文
 
-- Lewis, P., et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*. NeurIPS. https://arxiv.org/abs/2005.11401 — 介紹如何結合語言模型與外部文件索引，進行檢索增強的文字生成。
-- Karpukhin, V., et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. EMNLP. https://arxiv.org/abs/2004.04906 — 使用雙編碼器建立密集檢索器，找出有助於回答問題的相關段落。
-- Izacard, G. & Grave, E. (2020). *Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering*. arXiv. https://arxiv.org/abs/2007.01282 — 研究生成模型如何整合多個檢索段落中的證據。
+- Lewis, P., et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*. arXiv:2005.11401 — 提出 RAG：生成器以檢索到的段落為條件，也就是本頁描述的架構。
+- Karpukhin, V., et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. arXiv:2004.04906 — 訓練雙編碼器進行段落檢索，是多數 RAG 系統依賴的稠密檢索階段。
+- Izacard, G. & Grave, E. (2020). *Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering*. arXiv:2007.01282 — Fusion-in-Decoder 會一起閱讀多個檢索段落，提升回答品質。
+- Asai, A., et al. (2023). *Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection*. arXiv:2310.11511 — 訓練模型判斷何時該檢索，並批判性地檢視自己的回答。
 
-### 綜述
+### 綜述與教科書
 
-- Gao, Y., et al. (2023). *Retrieval-Augmented Generation for Large Language Models: A Survey*. arXiv. https://arxiv.org/abs/2312.10997 — 整理 RAG 架構、檢索與增強技術、評估方法及尚待解決的問題。
+- Gao, Y., et al. (2023). *Retrieval-Augmented Generation for Large Language Models: A Survey*. arXiv:2312.10997 — 綜述，整理 naive、advanced 與 modular 三種 RAG 設計及其評估方式。
 
-### 評估研究
+### 文章與文件
 
-- Es, S., et al. (2023). *RAGAS: Automated Evaluation of Retrieval Augmented Generation*. arXiv. https://arxiv.org/abs/2309.15217 — 提出不需要標準答案的 RAG 評估方法，涵蓋檢索、忠實度與生成品質。
+- Es, S., et al. (2023). *RAGAS: Automated Evaluation of Retrieval Augmented Generation*. arXiv:2309.15217 — 不需大量標準答案的指標，用於衡量忠實度、回答相關性與上下文品質，對應本頁的評估章節。

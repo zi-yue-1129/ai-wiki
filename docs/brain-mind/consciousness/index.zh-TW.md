@@ -64,3 +64,13 @@ Butlin、Long 等人（2023）〈Consciousness in Artificial Intelligence: Insig
 - Koch,《The Feeling of Life Itself》
 - [Stanford Encyclopedia of Philosophy：Consciousness](https://plato.stanford.edu/entries/consciousness/)、[The Chinese Room Argument](https://plato.stanford.edu/entries/chinese-room/)
 - Butlin, Long et al. (2023), arXiv:2308.08708
+
+## 參考文獻
+
+### 開創性論文
+
+- Nagel, T. (1974). What Is It Like to Be a Bat? *The Philosophical Review*. https://doi.org/10.2307/2183914 — 經典論證：主觀經驗無法完全由客觀描述捕捉。
+- Dehaene, S. & Naccache, L. (2001). Towards a cognitive neuroscience of consciousness: basic evidence and a workspace framework. *Cognition*. https://doi.org/10.1016/S0010-0277(00)00123-2 — 意識存取的全域工作空間理論，以及其背後的實驗證據。
+- Tononi, G. (2004). An information integration theory of consciousness. *BMC Neuroscience*. https://doi.org/10.1186/1471-2202-5-42 — 整合資訊理論，將意識與系統的整合資訊連結起來。
+- Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2787 — 提出大腦會最小化預測誤差，為感知、行動與學習提供統一框架。
+- Clark, A. (2013). Whatever next? Predictive brains, situated agents, and the future of cognitive science. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X12000477 — 將預測處理視為感知、行動與認知統一框架的綜述。

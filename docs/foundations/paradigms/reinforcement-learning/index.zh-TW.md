@@ -98,3 +98,17 @@ Schultz、Dayan 與 Montague（1997）發現：中腦多巴胺神經元的放電
 - Hugging Face Deep RL Course
 - [Gymnasium](https://gymnasium.farama.org/)、[Stable-Baselines3](https://stable-baselines3.readthedocs.io/)
 - Niv (2009) "Reinforcement learning in the brain"（神經科學觀點綜述）
+
+## 參考文獻
+
+### 開創性論文
+
+- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518. https://klab.tch.harvard.edu/academia/classes/Neuro230/ReadingAssignments/MnihEtAlHassibis15NatureControlDeepRL.pdf — DQN 論文，開啟了大規模深度強化學習的起點。
+- Silver et al. (2016), "Mastering the game of Go with deep neural networks and tree search", *Nature* 529. https://research.google/pubs/mastering-the-game-of-go-with-deep-neural-networks-and-tree-search/ — AlphaGo，結合學習得到的網路與搜尋。
+- Christiano et al. (2017), "Deep reinforcement learning from human preferences", NeurIPS, arXiv:1706.03741 — 從人類的成對比較中學習獎勵函數，是 RLHF 的基礎。
+- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — PPO，實務上最常用的策略梯度方法。
+
+### 綜述與教科書
+
+- Sutton, R. S. & Barto, A. G. *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press, 2018. http://incompleteideas.net/book/the-book-2nd.html — 標準強化學習教科書，提供免費線上草稿，涵蓋上方表格中的演算法家族。
+- Levine, S., Kumar, A., Tucker, G. & Fu, J. (2020), "Offline reinforcement learning: tutorial, review, and perspectives on open problems", arXiv:2005.01643 — 從固定資料集學習的教學與綜述。

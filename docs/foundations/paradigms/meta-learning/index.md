@@ -45,9 +45,31 @@ Large language models, trained only on next-token prediction, can learn tasks fr
 - **Inductive biases from evolution**: evolution is the outer loop and lifetime learning the inner loop — a meta-learning perspective on innate structure.
 - **Hippocampus** supports rapid one-shot episodic learning; see [Memory & Learning](../../../brain-mind/memory-learning/index.md).
 
+## Subtopics
+
+- [Optimisation-based meta-learning](optimisation-based/index.md): MAML, Reptile and latent-space adaptation.
+- [Metric-based few-shot learning](metric-based/index.md): matching and prototypical networks, relation networks.
+- [Memory- and model-based meta-learning](memory-and-model-based/index.md): memory-augmented, attentive and hypernetwork learners.
+- [Meta-learning theory](meta-learning-theory/index.md): why learning across tasks reduces the data needed per task.
+- [Benchmarks and foundation models](benchmarks-and-foundation-models/index.md): few-shot benchmarks and in-context learning in large models.
+
 ## Further reading
 
 - Hospedales et al. (2021), "Meta-Learning in Neural Networks: A Survey"
 - Finn et al. (2017), MAML; Snell et al. (2017), Prototypical Networks
 - Lake et al. (2017), "Building machines that learn and think like people", *Behavioral and Brain Sciences*
 - Stanford CS330, *Deep Multi-Task and Meta Learning*
+
+## References
+
+### Seminal papers
+
+- Finn, Abbeel & Levine (2017), "Model-agnostic meta-learning for fast adaptation of deep networks", ICML, arXiv:1703.03400 — MAML, the foundational gradient-based meta-learning method.
+- Snell, Swersky & Zemel (2017), "Prototypical networks for few-shot learning", NeurIPS, arXiv:1703.05175 — Classifies by distance to class prototypes computed from a few examples.
+- Vinyals et al. (2016), "Matching networks for one shot learning", NeurIPS, arXiv:1606.04080 — Introduces episodic training with attention over a labelled support set.
+- Santoro et al. (2016), "Meta-learning with memory-augmented neural networks", ICML. https://proceedings.mlr.press/v48/santoro16.html — Uses an external memory to learn fast, one-shot adaptation.
+- Baxter (2000), "A model of inductive bias learning", Journal of Artificial Intelligence Research. https://jair.org/index.php/jair/article/download/10253/24418 — Formal model of learning the inductive bias from a family of tasks.
+
+### Surveys and textbooks
+
+- Hospedales, Antoniou, Micaelli & Storkey (2021), "Meta-learning in neural networks: a survey", IEEE TPAMI, arXiv:2004.05439 — Broad survey of meta-learning, covering all the families on this page.

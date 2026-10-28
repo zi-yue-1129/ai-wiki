@@ -2,6 +2,9 @@
 related:
 - brain-mind/computational-neuroscience
 - brain-mind/bci
+aliases:
+  - 神經科學
+  - 腦科學
 ---
 
 # Neuroscience Basics
@@ -100,6 +103,29 @@ flowchart LR
 | Learning | Continual, local, few-shot | Mostly offline batches with global backprop |
 | Fault tolerance | High | Low |
 
+## Key methods
+
+### Single-neuron recording in visual cortex (Hubel & Wiesel, 1962)
+
+- **Problem:** how the visual cortex builds representations of edges and shapes from light falling on the retina.
+- **Core idea:** record single neurons in the visual cortex of anaesthetised cats while presenting spots and bars of light at different positions and orientations. Neurons were sorted into simple cells, with separate on and off subregions that respond to edges at a preferred orientation, and complex cells, which respond to such an edge anywhere in a larger region.
+- **Algorithm:**
+    1. Present a stimulus at a given position and orientation.
+    2. Record the spikes of the neuron.
+    3. Map the receptive field from the responses.
+    4. Classify the cell by its response pattern.
+- **Results:** complex cells appear to pool the outputs of simple cells, a hierarchy that inspired hierarchical convolutional vision models.
+- **Limitations:** the experiments used anaesthetised cats, and the hierarchy is a model that later work found more varied than the two cell types suggest.
+
+### Dopamine reward prediction error (Schultz, Dayan & Montague, 1997)
+
+- **Problem:** what do midbrain dopamine neurons signal while an animal learns about rewards?
+- **Core idea:** dopamine neurons respond to unexpected rewards, and as learning proceeds the response moves to the earliest predictive cue. The pattern matches a temporal-difference error, the difference between the reward received and the reward predicted.
+- **Equation:** in modern notation, \(\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)\).
+
+- **Results:** in monkeys, dopamine firing rose to unexpected rewards, shifted to the predictive cue after learning, and dipped when an expected reward was omitted.
+- **Limitations:** recordings came from a limited number of monkeys and tasks. Later work debated whether dopamine signals only prediction error or also salience and other information.
+
 ## Resources
 
 - Kandel et al., *Principles of Neural Science*
@@ -107,3 +133,16 @@ flowchart LR
 - Purves et al., *Neuroscience*
 - [Neuromatch Academy](https://compneuro.neuromatch.io/) (computational)
 - Crash Course *Psychology* and *Neuroscience* videos
+
+## References
+
+### Seminal papers
+
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1962.sp006837 — Discovers orientation-selective simple and complex cells, the biological inspiration for hierarchical vision models.
+- Schultz, W., Dayan, P. & Montague, P. R. (1997). A Neural Substrate of Prediction and Reward. *Science*. https://doi.org/10.1126/science.275.5306.1593 — Shows that dopamine neurons signal reward prediction errors, linking reinforcement learning to the brain.
+- Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2787 — Proposes that brains minimise prediction error, a unifying framework for perception, action and learning.
+- Yamins, D. L. K., et al. (2014). Performance-optimized hierarchical models predict neural responses in higher visual cortex. *PNAS*. https://doi.org/10.1073/pnas.1403112111 — Shows that deep networks trained for object recognition predict neural responses in higher visual cortex.
+
+### Surveys and textbooks
+
+- Neuroscience Online: An Electronic Textbook for the Neurosciences. Department of Neurobiology and Anatomy, UTHealth McGovern Medical School. https://nba.uth.tmc.edu/neuroscience/ — A free, open-access electronic textbook for the neurosciences.

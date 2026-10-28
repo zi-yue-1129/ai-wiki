@@ -4,6 +4,9 @@ related:
 - brain-mind/memory-learning
 - applications/law
 - engineering/evaluation
+aliases:
+  - RAG
+  - 檢索增強
 ---
 
 # Retrieval-Augmented Generation
@@ -67,19 +70,19 @@ RAG resembles the hippocampus–neocortex division in [complementary learning sy
 - Anthropic (2024), "Introducing Contextual Retrieval"
 - LlamaIndex and LangChain RAG tutorials
 
-
 ## References
 
 ### Seminal papers
 
-- Lewis, P., et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*. NeurIPS. https://arxiv.org/abs/2005.11401 — Introduces retrieval-augmented text generation by combining a parametric language model with an external document index.
-- Karpukhin, V., et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. EMNLP. https://arxiv.org/abs/2004.04906 — Describes a dual-encoder dense retriever for finding relevant passages before answering questions.
-- Izacard, G. & Grave, E. (2020). *Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering*. arXiv. https://arxiv.org/abs/2007.01282 — Studies how a generative reader combines evidence from multiple retrieved passages.
+- Lewis, P., et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*. arXiv:2005.11401 — Introduces RAG as a generator conditioned on retrieved passages, the setup this page describes.
+- Karpukhin, V., et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. arXiv:2004.04906 — Trains dual encoders for passage retrieval, the dense stage most RAG systems rely on.
+- Izacard, G. & Grave, E. (2020). *Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering*. arXiv:2007.01282 — Fusion-in-Decoder reads many retrieved passages together and improves answer quality.
+- Asai, A., et al. (2023). *Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection*. arXiv:2310.11511 — Trains a model to decide when to retrieve and to critique its own answers.
 
 ### Surveys and textbooks
 
-- Gao, Y., et al. (2023). *Retrieval-Augmented Generation for Large Language Models: A Survey*. arXiv. https://arxiv.org/abs/2312.10997 — Surveys RAG architectures, retrieval and augmentation approaches, evaluation methods, and open challenges.
+- Gao, Y., et al. (2023). *Retrieval-Augmented Generation for Large Language Models: A Survey*. arXiv:2312.10997 — Survey organising naive, advanced and modular RAG designs and how to evaluate them.
 
-### Evaluation research
+### Articles and documentation
 
-- Es, S., et al. (2023). *RAGAS: Automated Evaluation of Retrieval Augmented Generation*. arXiv. https://arxiv.org/abs/2309.15217 — Introduces reference-free metrics for assessing retrieval relevance, answer faithfulness, and generation quality.
+- Es, S., et al. (2023). *RAGAS: Automated Evaluation of Retrieval Augmented Generation*. arXiv:2309.15217 — Reference-light metrics for faithfulness, answer relevance and context quality, used in the evaluation section.

@@ -1,3 +1,7 @@
+---
+translation_reviewed: 2026-10-28
+---
+
 # 計算神經科學
 
 用數學模型、模擬與資料分析，理解神經系統**如何計算**。
@@ -60,6 +64,39 @@ LIF 動力學：
 
 先推導大腦「應該」做什麼（透過最佳化某個目標），再與資料比較：高效編碼、貝氏觀察者、最佳控制、強化學習、資源理性。
 
+## 關鍵方法
+
+### Hodgkin–Huxley 模型（Hodgkin & Huxley, 1952）
+
+- **問題：** 動作電位如何由跨越烏賊巨大軸突細胞膜的離子流動產生？
+- **核心想法：** 細胞膜被視為一個電容，與電壓門控的鈉、鉀電導以及漏電流並聯。三個閘控變數（m、h、n）各自朝向依電壓而定的數值鬆弛，並控制電導。
+- **方程式：**（採用現代的符號慣例）
+
+\[
+C\frac{dV}{dt} = I - g_{Na}\,m^3 h\,(V - E_{Na}) - g_K\,n^4\,(V - E_K) - g_L\,(V - E_L)
+\]
+
+\[
+\frac{dx}{dt} = \alpha_x(V)\,(1 - x) - \beta_x(V)\,x, \qquad x \in \{m, h, n\}
+\]
+
+- **結果：** 模擬出的動作電位形狀與烏賊軸突的記錄相符，並重現了動作電位沿軸突傳播的情形。
+- **限制：** 只根據單一標本、單一溫度擬合，沒有樹突結構。每個區室四個耦合方程，對大型網路計算成本高，因此上表中較簡單的 LIF 與 Izhikevich 模型才這麼常見。
+
+### 稀疏編碼（Olshausen & Field, 1996）
+
+- **問題：** 初級視覺皮質（V1）的神經元為何對特定位置的定向邊緣有反應？
+- **核心想法：** 將自然影像小塊表示為少數基底函數的加權和，且係數稀疏。基底函數由無標籤的影像學得。
+- **方程式：** 對每個影像小塊，求係數 \(a_i\) 與基底函數 \(\phi_i\)，使下式最小化：
+
+\[
+E = \Big\| I - \sum_i a_i \phi_i \Big\|^2 + \lambda \sum_i S(a_i)
+\]
+
+  其中 \(S\) 是稀疏性懲罰項，偏好只有少數係數為非零。
+- **結果：** 學到的基底函數具有局部性、方向性與帶通特性，類似 V1 簡單細胞的感受野。
+- **限制：** 這是線性生成模型，未涵蓋複雜細胞、時間動態與高層回饋。稀疏編碼是多種規範性解釋之一，並非 V1 的完整模型。
+
 ## 工具與資料
 
 - 模擬器：[NEURON](https://neuron.yale.edu/)、[NEST](https://www.nest-simulator.org/)、[Brian2](https://briansimulator.org/)
@@ -73,3 +110,16 @@ LIF 動力學：
 - [Neuromatch Academy 計算神經科學課程](https://compneuro.neuromatch.io/)（CC BY 4.0，強烈推薦）
 - Marr，《Vision》
 - Artem Kirsanov 的 YouTube 頻道（計算神經科學的視覺化講解）
+
+## 參考文獻
+
+### 開創性論文
+
+- Hodgkin, A. L. & Huxley, A. F. (1952). A quantitative description of membrane current and its application to conduction and excitation in nerve. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1952.sp004764 — 推導動作電位的四變數電導模型，是多數生物物理神經元模型的基礎。
+- Izhikevich, E. M. (2003). Simple model of spiking neurons. *IEEE Transactions on Neural Networks*. https://doi.org/10.1109/TNN.2003.820440 — 雙變數模型，以低計算成本重現多種皮質發放型態。
+- Olshausen, B. A. & Field, D. J. (1996). Emergence of simple-cell receptive field properties by learning a sparse code for natural images. *Nature*. https://doi.org/10.1038/381607a0 — 顯示自然影像的稀疏編碼會產生類似 V1 簡單細胞的定向局部濾波器。
+- Richards, B. A. et al. (2019). A deep learning framework for neuroscience. *Nature Neuroscience*. https://doi.org/10.1038/s41593-019-0520-2 — 主張以目標函數、學習規則與架構來研究大腦。
+
+### 綜述與教科書
+
+- Gerstner, W., Kistler, W. M., Naud, R. & Paninski, L. (2014). *Neuronal Dynamics*. Cambridge University Press. https://neuronaldynamics.epfl.ch/ — 免費線上教科書，從單一神經元模型到網路與學習規則。

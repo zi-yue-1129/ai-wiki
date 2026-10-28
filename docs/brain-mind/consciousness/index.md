@@ -70,3 +70,13 @@ If AI systems could have experiences or interests, they might deserve moral cons
 - Koch, *The Feeling of Life Itself*
 - [Stanford Encyclopedia of Philosophy: Consciousness](https://plato.stanford.edu/entries/consciousness/), [The Chinese Room Argument](https://plato.stanford.edu/entries/chinese-room/)
 - Butlin, Long et al. (2023), arXiv:2308.08708
+
+## References
+
+### Seminal papers
+
+- Nagel, T. (1974). What Is It Like to Be a Bat? *The Philosophical Review*. https://doi.org/10.2307/2183914 — The classic argument that subjective experience cannot be fully captured by objective description.
+- Dehaene, S. & Naccache, L. (2001). Towards a cognitive neuroscience of consciousness: basic evidence and a workspace framework. *Cognition*. https://doi.org/10.1016/S0010-0277(00)00123-2 — The global-workspace account of conscious access, with the experimental evidence behind it.
+- Tononi, G. (2004). An information integration theory of consciousness. *BMC Neuroscience*. https://doi.org/10.1186/1471-2202-5-42 — Integrated Information Theory, which links consciousness to a system's integrated information.
+- Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2787 — Proposes that brains minimise prediction error, a unifying framework for perception, action and learning.
+- Clark, A. (2013). Whatever next? Predictive brains, situated agents, and the future of cognitive science. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X12000477 — A review of predictive processing as a unifying framework for perception, action and cognition.

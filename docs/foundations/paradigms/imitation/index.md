@@ -44,9 +44,33 @@ If a policy makes an error with probability ε per step, errors compound so expe
 - **Cultural evolution**: imitation plus selective copying is how humans accumulate knowledge across generations — some argue LLMs are a new channel of cultural transmission.
 - **Inverse planning**: humans infer others' goals from actions in a way well described by Bayesian inverse planning (Baker, Saxe & Tenenbaum, 2009) — the cognitive analogue of IRL and a basis of [theory of mind](../../../brain-mind/psychology/index.md).
 
+## Subtopics
+
+- [Behavioural cloning](behavioural-cloning/index.md): supervised learning from expert state–action pairs and why errors compound.
+- [Interactive imitation](interactive-imitation/index.md): DAgger, human-in-the-loop and noise-injection methods.
+- [Inverse reinforcement learning](inverse-reinforcement-learning/index.md): recovering the reward behind demonstrations.
+- [Adversarial imitation](adversarial-imitation/index.md): GAIL and AIRL, matching trajectories with a discriminator.
+- [Imitation in foundation models](../../../models/llm/imitation-in-foundation-models/index.md): instruction tuning, robot foundation models and action chunking.
+
 ## Further reading
 
 - Osa et al. (2018), "An Algorithmic Perspective on Imitation Learning"
 - Ross, Gordon & Bagnell (2011), DAgger
 - Ho & Ermon (2016), GAIL
 - Chi et al. (2023), Diffusion Policy
+
+## References
+
+### Seminal papers
+
+- Pomerleau (1989), "ALVINN: an autonomous land vehicle in a neural network", NeurIPS 1988 proceedings. https://papers.nips.cc/paper/1988/hash/812b4ba287f5ee0bc9d43bbf5bbe87fb-Abstract.html — One of the first systems to learn driving by copying a human driver's steering.
+- Ross, Gordon & Bagnell (2011), "A reduction of imitation learning and structured prediction to no-regret online learning", AISTATS, arXiv:1011.0686 — Introduces DAgger, which fixes the covariate shift that breaks behavioural cloning.
+- Ng & Russell (2000), "Algorithms for inverse reinforcement learning", ICML. https://aima.eecs.berkeley.edu/~russell/papers/ml00-irl.pdf — Early formal treatment of recovering rewards from observed behaviour.
+- Ho & Ermon (2016), "Generative adversarial imitation learning", NeurIPS, arXiv:1606.03476 — GAIL, which matches expert trajectories with a discriminator and policy-gradient RL.
+- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", NeurIPS, arXiv:2203.02155 — InstructGPT, which pairs demonstration-based fine-tuning with reward-model RL.
+- Brohan et al. (2023), "RT-2: vision-language-action models transfer web knowledge to robotic control", arXiv:2307.15818 — Turns a vision-language model into a robot policy trained on demonstrations.
+- Chi et al. (2023), "Diffusion Policy: visuomotor policy learning via action diffusion", RSS, arXiv:2303.04137 — Models multi-modal demonstrated actions with diffusion for visuomotor control.
+
+### Surveys and textbooks
+
+- Osa et al. (2018), "An algorithmic perspective on imitation learning", arXiv:1811.06711 — Survey that covers the full range of imitation methods on this page.

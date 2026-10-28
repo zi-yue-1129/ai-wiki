@@ -7,6 +7,9 @@ related:
 - engineering/training
 - brain-mind/psychology
 - society/safety-alignment
+aliases:
+  - LLM
+  - 大語言模型
 ---
 
 # Large Language Models
@@ -86,6 +89,38 @@ Data: filtered web crawls (Common Crawl), books, papers, code, multilingual corp
 - **Data efficiency**: children hear on the order of tens of millions of words by adolescence (well under 100 million); LLMs see trillions of tokens. The BabyLM challenge studies learning from child-scale data
 - **Theory-of-mind tests**: LLMs pass many false-belief tasks but are sensitive to perturbations; whether they "have" theory of mind is contested (Kosinski, 2023 vs Ullman, 2023; Strachan et al., 2024)
 - See [Psychology & AI](../../brain-mind/psychology/index.md) and [NeuroAI](../../brain-mind/neuroai/index.md)
+
+## Key methods
+
+### GPT-3: few-shot learning from the prompt (Brown et al., 2020)
+
+- **Problem:** can a language model learn a new task from a few examples in its prompt, without any gradient update?
+- **Core idea:** scale an autoregressive Transformer to 175 billion parameters and test it with zero, one or a few worked examples in the prompt. The model is not fine-tuned on the task.
+- **Algorithm:**
+    1. Write a task description and a few input–output examples into the prompt.
+    2. Append the new input.
+    3. Let the model generate the output token by token. No weights change.
+- **Results:** strong performance on translation, question answering and cloze tasks, and on 3-digit arithmetic, which the abstract names among its on-the-fly reasoning tasks.
+- **Limitations:** the paper reports that few-shot performance still lags behind models fine-tuned on task-specific data on some tasks.
+
+### Compute-optimal training (Hoffmann et al., 2022)
+
+- **Problem:** for a fixed compute budget, how should model size and the number of training tokens be balanced?
+- **Core idea:** train more than 400 language models, from 70 million to over 16 billion parameters, on 5 to 500 billion tokens, then find the best size for each budget. Model size and data should grow together.
+- **Rule:** for every doubling of model size, double the number of training tokens.
+- **Results:** Chinchilla, with 70 billion parameters and four times more data, used the same compute as Gopher (280 billion parameters) and outperformed Gopher, GPT-3 and others on a wide range of downstream tasks. It reached 67.5% average accuracy on MMLU.
+- **Limitations:** the rule was fitted on the range the authors trained. Many later models train well beyond this ratio, because a smaller model is cheaper to serve.
+
+### InstructGPT: reinforcement learning from human feedback (Ouyang et al., 2022)
+
+- **Problem:** a larger model is not automatically better at following user intent. It can still be untruthful, toxic or unhelpful.
+- **Core idea:** fine-tune GPT-3 in three stages: supervised learning on human demonstrations, a reward model trained on rankings of model outputs, and reinforcement learning against that reward.
+- **Algorithm:**
+    1. Collect labeller demonstrations and fine-tune with supervised learning.
+    2. Collect rankings of model outputs and train a reward model on them.
+    3. Optimise the policy with reinforcement learning (PPO) against the reward model.
+- **Results:** human raters preferred outputs from the 1.3-billion-parameter InstructGPT over those from the 175-billion-parameter GPT-3. The models were more truthful and produced less toxic output, with minimal regressions on public NLP datasets.
+- **Limitations:** the authors note that InstructGPT still makes simple mistakes. The reward reflects the preferences of a small group of labellers, not a universal standard.
 
 ## Resources
 

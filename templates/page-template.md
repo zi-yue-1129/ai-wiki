@@ -6,6 +6,8 @@ related:                 # topics in other categories this one also belongs to (
   - brain-mind/neuroai
 tags:                    # cross-cutting themes, listed on the Tags page
   - neuroscience
+aliases:                 # other names readers search for, in other languages or abbreviations (used by search)
+  - 神經科學
 ---
 
 # Page Title
@@ -24,6 +26,18 @@ The core idea in plain language. Assume a curious reader with no background in t
 ## How it works
 
 The mechanism, with a diagram, formula or worked example where it helps.
+
+## Key methods
+
+Summarise the two to four landmark papers behind the topic, one block each. Read the paper (or at least its abstract and method section) before writing the block, and cite it in References.
+
+### Method name (First author Year)
+
+- **Problem:** the gap or question the paper addresses.
+- **Core idea:** the method in two or three sentences, in your own words.
+- **Equation or algorithm:** the key equation, or the numbered steps of the procedure.
+- **Results:** the main evidence, naming the benchmark or experiment. Copy numbers only from the paper.
+- **Limitations:** what the paper does not show, and what later work changed.
 
 ## Connections
 

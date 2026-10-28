@@ -77,3 +77,22 @@ The cognitive-science counterpart is **dual-process theory**: fast, intuitive "S
 - [aima-python](https://github.com/aimacode/aima-python) (MIT)
 - Microsoft AI-For-Beginners, lesson 2 (symbolic AI)
 - Marcus & Davis, *Rebooting AI* (neuro-symbolic perspective)
+
+## References
+
+### Seminal papers
+
+- Garcez, A. d'Avila, & Lamb, L. C. (2020). *Neurosymbolic AI: The 3rd Wave*. arXiv. https://arxiv.org/abs/2012.05876 — An overview arguing that combining learned representations with symbolic reasoning is the next major phase of AI.
+- Lake, B. M., et al. (2016). *Building Machines That Learn and Think Like People*. arXiv. https://arxiv.org/abs/1604.00289 — Argues that human-like learning needs intuitive theories, compositionality and causal models, and shows where pattern-matching systems fall short.
+
+### Surveys and textbooks
+
+- Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — The standard AI textbook, covering search, logic, planning and learning; the companion site offers free slides and code.
+
+### Lectures and videos
+
+- Winston, P. H. *6.034 Artificial Intelligence*. MIT OpenCourseWare, Fall 2010. https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/ — Recorded MIT lectures on knowledge representation, search and rule-based systems, the core of classical symbolic AI.
+
+### Articles and documentation
+
+- Marcus, G. (2020). *The Next Decade in AI: Four Steps Towards Robust Artificial Intelligence*. arXiv. https://arxiv.org/abs/2002.06177 — A critique of purely statistical AI and a proposal for hybrid systems that include structured knowledge.

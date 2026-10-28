@@ -51,9 +51,31 @@ Active learning is the machine counterpart of **curiosity**:
 - **Active sensing**: eye movements are chosen to maximise information about a scene (Yang, Lengyel & Wolpert, 2016).
 - In RL, **intrinsic motivation** rewards (novelty, prediction error, information gain) play the same role; see [Reinforcement Learning](../reinforcement-learning/index.md).
 
+## Subtopics
+
+- [Uncertainty sampling and query strategies](uncertainty-sampling/index.md): least confidence, query by committee and information gain.
+- [Batch and diversity](batch-and-diversity/index.md): core-sets, gradient embeddings and BatchBALD.
+- [Theory and sample complexity](theory-and-sample-complexity/index.md): when active learning provably saves labels.
+- [Deep active learning](deep-active-learning/index.md): uncertainty for neural networks and loss prediction.
+- [Practice and labelling cost](practice-and-labelling-cost/index.md): cold start, stopping rules and annotation cost.
+
 ## Further reading
 
 - Settles (2009), "Active Learning Literature Survey"
 - Ren et al. (2021), "A Survey of Deep Active Learning"
 - Garnett, *Bayesian Optimization* (2023, free online)
 - [modAL](https://modal-python.readthedocs.io/) library
+
+## References
+
+### Seminal papers
+
+- Lewis & Gale (1994), "A sequential algorithm for training text classifiers", SIGIR, https://arxiv.org/abs/cmp-lg/9407020 — Introduces uncertainty sampling, the basic query strategy.
+- Dasgupta (2005), "Coarse sample complexity bounds for active learning", NeurIPS. https://proceedings.neurips.cc/paper/2005/hash/6e82873a32b95af115de1c414a1849cb-Abstract.html — Early theory on when active learning reduces the number of labels.
+- Gal, Islam & Ghahramani (2017), "Deep Bayesian active learning with image data", ICML, arXiv:1703.02910 — Makes uncertainty-based active learning work with deep networks.
+- Sener & Savarese (2018), "Active learning for convolutional neural networks: a core-set approach", ICLR, arXiv:1708.00489 — Core-set selection, a strong deep baseline.
+
+### Surveys and textbooks
+
+- Settles (2009), "Active learning literature survey", Computer Sciences Technical Report 1648, University of Wisconsin-Madison. https://research.cs.wisc.edu/techreports/2009/TR1648.pdf — The standard survey of query strategies and their settings.
+- Ren et al. (2020), "A survey of deep active learning", arXiv:2009.00236 — Survey of active learning methods for deep networks.

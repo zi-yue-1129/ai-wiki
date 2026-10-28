@@ -10,6 +10,7 @@ copyright: Content licensed under <a href="https://creativecommons.org/licenses/
 theme:
   name: material
   language: en
+  custom_dir: overrides
   icon:
     logo: material/brain
     repo: fontawesome/brands/github
@@ -38,9 +39,6 @@ theme:
     - navigation.footer
     - navigation.tracking
     - toc.follow
-    - search.suggest
-    - search.highlight
-    - search.share
     - content.code.copy
     - content.action.edit
     - content.tooltips
@@ -48,19 +46,17 @@ theme:
 hooks:
   - hooks/related.py
   - hooks/knowledge_map.py
+  - hooks/search_aliases.py
 
 plugins:
-  - search:
-      lang:
-        - zh
-        - en
-      separator: '[\s​\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  # Keeps Material's header search button. The dialog itself is Pagefind
+  # (overrides/partials/search.html, built by .github/workflows/deploy.yml).
+  - material/search
   - tags
   - i18n:
       docs_structure: suffix
       fallback_to_default: true
       reconfigure_material: true
-      reconfigure_search: true
       languages:
         - locale: en
           default: true
@@ -101,6 +97,11 @@ plugins:
             Evolutionary & Swarm Intelligence: 演化計算與群體智慧
             Models: 模型與技術
             Transformers & Attention: Transformer 與注意力
+            Attention Variants: 注意力變體
+            Positional Encodings: 位置編碼
+            KV Cache: KV 快取
+            Experience Replay: 經驗回放
+            Exploration: 探索
             Large Language Models: 大型語言模型
             Generative Models: 生成模型
             Computer Vision: 電腦視覺
@@ -160,6 +161,7 @@ plugins:
             Landmark Papers: 經典論文
             Courses & Books: 課程與書籍
             Datasets: 資料集
+            Tags: 標籤
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
             Style Guide: 寫作風格指南
@@ -231,25 +233,98 @@ nav:
               - Loss Functions & Optimisation: foundations/paradigms/supervised/loss-functions-and-optimization/index.md
               - Generalisation Theory: foundations/paradigms/supervised/generalization-theory/index.md
               - Evaluation & Validation: foundations/paradigms/supervised/evaluation-and-validation/index.md
-          - Unsupervised Learning: foundations/paradigms/unsupervised/index.md
-          - Semi- & Weakly Supervised Learning: foundations/paradigms/semi-supervised/index.md
-          - Self-Supervised Learning: foundations/paradigms/self-supervised/index.md
-          - Reinforcement Learning: foundations/paradigms/reinforcement-learning/index.md
-          - Imitation Learning: foundations/paradigms/imitation/index.md
-          - Transfer Learning & Domain Adaptation: foundations/paradigms/transfer/index.md
-          - Meta-Learning & Few-Shot Learning: foundations/paradigms/meta-learning/index.md
-          - Continual Learning: foundations/paradigms/continual/index.md
-          - Active Learning: foundations/paradigms/active/index.md
-          - Online Learning & Bandits: foundations/paradigms/online/index.md
-          - Federated & Privacy-Preserving Learning: foundations/paradigms/federated/index.md
+          - Unsupervised Learning:
+              - foundations/paradigms/unsupervised/index.md
+              - Clustering: foundations/paradigms/unsupervised/clustering/index.md
+              - Dimensionality Reduction: foundations/paradigms/unsupervised/dimensionality-reduction/index.md
+              - Density Estimation & Generative Models: foundations/paradigms/unsupervised/density-and-generative-models/index.md
+              - Autoencoders & Representations: foundations/paradigms/unsupervised/autoencoders-and-representations/index.md
+              - Anomaly Detection: foundations/paradigms/unsupervised/anomaly-detection/index.md
+          - Semi- & Weakly Supervised Learning:
+              - foundations/paradigms/semi-supervised/index.md
+              - Consistency Regularisation: foundations/paradigms/semi-supervised/consistency-regularisation/index.md
+              - Pseudo-Labelling & Self-Training: foundations/paradigms/semi-supervised/pseudo-labelling-and-self-training/index.md
+              - Graph-Based Methods: foundations/paradigms/semi-supervised/graph-based-methods/index.md
+              - Weak & Programmatic Supervision: foundations/paradigms/semi-supervised/weak-and-programmatic-supervision/index.md
+              - Theory & Assumptions: foundations/paradigms/semi-supervised/theory-and-assumptions/index.md
+          - Self-Supervised Learning:
+              - foundations/paradigms/self-supervised/index.md
+              - Contrastive Learning: foundations/paradigms/self-supervised/contrastive-learning/index.md
+              - Masked Prediction: foundations/paradigms/self-supervised/masked-prediction/index.md
+              - Non-Contrastive Methods: foundations/paradigms/self-supervised/non-contrastive-methods/index.md
+              - Pretext Tasks: foundations/paradigms/self-supervised/pretext-tasks/index.md
+              - Theory & Evaluation: foundations/paradigms/self-supervised/theory-and-evaluation/index.md
+          - Reinforcement Learning:
+              - foundations/paradigms/reinforcement-learning/index.md
+              - Value-Based Methods: foundations/paradigms/reinforcement-learning/value-based-methods/index.md
+              - Policy Gradient & Actor-Critic: foundations/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
+              - Model-Based RL: foundations/paradigms/reinforcement-learning/model-based-rl/index.md
+              - Offline RL: foundations/paradigms/reinforcement-learning/offline-rl/index.md
+              - Learning from Human Feedback: foundations/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
+              - Experience Replay: foundations/paradigms/reinforcement-learning/experience-replay/index.md
+              - Exploration: foundations/paradigms/reinforcement-learning/exploration/index.md
+          - Imitation Learning:
+              - foundations/paradigms/imitation/index.md
+              - Behavioural Cloning: foundations/paradigms/imitation/behavioural-cloning/index.md
+              - Interactive Imitation: foundations/paradigms/imitation/interactive-imitation/index.md
+              - Inverse Reinforcement Learning: foundations/paradigms/imitation/inverse-reinforcement-learning/index.md
+              - Adversarial Imitation: foundations/paradigms/imitation/adversarial-imitation/index.md
+          - Transfer Learning & Domain Adaptation:
+              - foundations/paradigms/transfer/index.md
+              - Fine-tuning & Adaptation: foundations/paradigms/transfer/fine-tuning-and-adaptation/index.md
+              - Domain Adaptation: foundations/paradigms/transfer/domain-adaptation/index.md
+              - Multi-task Learning: foundations/paradigms/transfer/multi-task-learning/index.md
+              - Sim-to-Real Transfer: foundations/paradigms/transfer/sim-to-real/index.md
+              - Transfer Theory: foundations/paradigms/transfer/transfer-theory/index.md
+          - Meta-Learning & Few-Shot Learning:
+              - foundations/paradigms/meta-learning/index.md
+              - Optimisation-based: foundations/paradigms/meta-learning/optimisation-based/index.md
+              - Metric-based Few-shot: foundations/paradigms/meta-learning/metric-based/index.md
+              - Memory & Model-based: foundations/paradigms/meta-learning/memory-and-model-based/index.md
+              - Meta-learning Theory: foundations/paradigms/meta-learning/meta-learning-theory/index.md
+              - Benchmarks & Foundation Models: foundations/paradigms/meta-learning/benchmarks-and-foundation-models/index.md
+          - Continual Learning:
+              - foundations/paradigms/continual/index.md
+              - Regularisation-based: foundations/paradigms/continual/regularisation-based/index.md
+              - Replay & Memory: foundations/paradigms/continual/replay-and-memory/index.md
+              - Architecture-based: foundations/paradigms/continual/architecture-based/index.md
+              - Evaluation & Scenarios: foundations/paradigms/continual/evaluation-and-scenarios/index.md
+              - Neuroscience & Continual Learning: foundations/paradigms/continual/neuroscience-and-continual-learning/index.md
+          - Active Learning:
+              - foundations/paradigms/active/index.md
+              - Uncertainty Sampling: foundations/paradigms/active/uncertainty-sampling/index.md
+              - Batch & Diversity: foundations/paradigms/active/batch-and-diversity/index.md
+              - Theory & Sample Complexity: foundations/paradigms/active/theory-and-sample-complexity/index.md
+              - Deep Active Learning: foundations/paradigms/active/deep-active-learning/index.md
+              - Practice & Labelling Cost: foundations/paradigms/active/practice-and-labelling-cost/index.md
+          - Online Learning & Bandits:
+              - foundations/paradigms/online/index.md
+              - Online Convex Optimisation: foundations/paradigms/online/online-convex-optimisation/index.md
+              - Stochastic Bandits: foundations/paradigms/online/stochastic-bandits/index.md
+              - Contextual Bandits: foundations/paradigms/online/contextual-bandits/index.md
+              - Adversarial & Expert Advice: foundations/paradigms/online/adversarial-and-experts/index.md
+              - Streaming & Concept Drift: foundations/paradigms/online/streaming-and-concept-drift/index.md
+          - Federated & Privacy-Preserving Learning:
+              - foundations/paradigms/federated/index.md
+              - Federated Averaging: foundations/paradigms/federated/federated-averaging/index.md
+              - Heterogeneity & Personalisation: foundations/paradigms/federated/heterogeneity-and-personalisation/index.md
+              - Privacy & Secure Aggregation: foundations/paradigms/federated/privacy-and-secure-aggregation/index.md
+              - Communication Efficiency: foundations/paradigms/federated/communication-efficiency/index.md
+              - Vertical & Cross-silo: foundations/paradigms/federated/vertical-and-cross-silo/index.md
           - Other Paradigms: foundations/paradigms/other/index.md
       - Probabilistic & Bayesian Methods: foundations/probabilistic/index.md
       - Symbolic AI, Search & Planning: foundations/symbolic-ai/index.md
       - Evolutionary & Swarm Intelligence: foundations/evolutionary/index.md
   - Models:
       - models/index.md
-      - Transformers & Attention: models/transformer/index.md
-      - Large Language Models: models/llm/index.md
+      - Transformers & Attention:
+          - models/transformer/index.md
+          - Attention Variants: models/transformer/attention-variants/index.md
+          - Positional Encodings: models/transformer/positional-encodings/index.md
+          - KV Cache: models/transformer/kv-cache/index.md
+      - Large Language Models:
+          - models/llm/index.md
+          - Imitation in Foundation Models: models/llm/imitation-in-foundation-models/index.md
       - Generative Models: models/generative/index.md
       - Computer Vision: models/computer-vision/index.md
       - Natural Language Processing: models/nlp/index.md
@@ -313,6 +388,7 @@ nav:
       - Landmark Papers: reference/papers/index.md
       - Courses & Books: reference/courses-books/index.md
       - Datasets: reference/datasets/index.md
+      - Tags: reference/tags/index.md
       - Contributing: reference/contributing/index.md
       - Roadmap & Coverage: reference/roadmap/index.md
       - Style Guide: reference/style-guide/index.md
