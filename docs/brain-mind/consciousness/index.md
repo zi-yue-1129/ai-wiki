@@ -2,6 +2,10 @@
 related:
 - society/philosophy
 - society/ethics
+aliases:
+  - 意識
+  - 心靈哲學
+  - Consciousness
 ---
 
 # Consciousness & Philosophy of Mind
@@ -46,6 +50,24 @@ related:
 **Adversarial collaborations**: the Templeton-funded collaboration testing GNW against IIT reported mixed results for both (Cogitate Consortium, 2025, *Nature*), and controversy followed when over 100 researchers labelled IIT "pseudoscience" in an open letter (2023), which others strongly disputed.
 
 **Neural correlates of consciousness (NCC)**: posterior "hot zone" vs prefrontal involvement remains debated; methods include binocular rivalry, masking, no-report paradigms and the perturbational complexity index (TMS-EEG) used to assess consciousness in unresponsive patients.
+
+## Key methods
+
+### Integrated information theory (Tononi, 2004)
+
+- **Problem:** what makes some physical systems conscious and others not, when we cannot ask them directly?
+- **Core idea:** start from the properties every experience has (for example, that it exists, is unified, is specific and cannot be split into independent parts). Then ask what a physical system must be like to have those properties. The proposed quantity is integrated information, written Φ, which measures how much a system's causal structure is more than the sum of its parts.
+- **Method:** a theoretical framework, not an experiment. The 2004 article states the framework in words, and later versions give formal definitions of Φ.
+- **Results:** the article argues that the theory accounts for basic features of experience. It reports no experimental result of its own.
+- **Limitations:** Φ is very hard to compute for realistic systems. The theory's claims about non-brain systems follow from its axioms and are contested; see the adversarial collaboration above.
+
+### Global workspace (Dehaene & Naccache, 2001)
+
+- **Problem:** what distinguishes information that reaches awareness from information that is processed without it?
+- **Core idea:** a stimulus becomes conscious when it is amplified and broadcast across a network of distributed neurons, a global workspace. The broadcast makes the content available for report, memory and action. Unconscious processing stays local to specialised modules.
+- **Method:** a review of experimental evidence, including paradigms that separate seen from unseen stimuli, used to argue that conscious access is an all-or-none transition.
+- **Results:** the review argues that the evidence fits a model in which conscious access is an all-or-none, globally broadcast state.
+- **Limitations:** the framework describes access to information, which is not the same as phenomenal experience. The evidence comes from laboratory tasks, and rival theories such as recurrent processing make different predictions, as the table above shows.
 
 ## Could AI be conscious?
 
