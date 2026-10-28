@@ -416,6 +416,8 @@ plugins:
             Membership inference: 成員推論
             Training data extraction: 訓練資料萃取
             Misinformation & Deepfakes: 不實資訊與深偽
+            How false news spreads: 假新聞如何傳播
+            FaceForensics++: FaceForensics++
             Copyright & IP: 著作權與智慧財產權
             Data replication in diffusion models: 擴散模型中的資料重現
             Extracting training data from diffusion models: 從擴散模型萃取訓練資料
@@ -799,7 +801,10 @@ nav:
           - Differential privacy: society/privacy/differential-privacy.md
           - Membership inference: society/privacy/membership-inference.md
           - Training data extraction: society/privacy/training-data-extraction.md
-      - Misinformation & Deepfakes: society/misinformation/index.md
+      - Misinformation & Deepfakes:
+          - society/misinformation/index.md
+          - How false news spreads: society/misinformation/spread-of-false-news.md
+          - FaceForensics++: society/misinformation/facial-manipulation-detection.md
       - Copyright & IP:
           - society/copyright/index.md
           - Data replication in diffusion models: society/copyright/data-replication.md

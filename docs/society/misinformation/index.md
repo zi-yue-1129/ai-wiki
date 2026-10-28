@@ -47,21 +47,12 @@ Detection is one line of defence. Detectors look for artefacts left by generator
 
 ## Key methods
 
-### Vosoughi, Roy & Aral (2018), how false news spreads
+Each method has its own page with the problem, method, results and limitations. The table compares them briefly.
 
-- **Problem:** do true and false news spread differently online, and if so, why?
-- **Core idea:** reconstruct the retweet cascades of verified rumours on Twitter and compare true and false stories on reach, depth, breadth and speed of spread. Also measure the contribution of automated accounts.
-- **Equation or algorithm:** cascade-level comparison of the same metrics for true and false stories, using fact-checking verdicts to label each story.
-- **Results:** the abstract reports that about 126,000 stories, tweeted by about 3 million people more than 4.5 million times, show that false news spread farther, faster, deeper and more broadly than true news. Robots accelerated true and false news at the same rate, and the authors conclude that humans are more likely to spread false news.
-- **Limitations:** the data come from one platform and one period, and the study is observational, so it cannot establish why people share false news. The effects were strongest for political news.
-
-### Rössler et al. (2019), FaceForensics++
-
-- **Problem:** how can manipulated facial video be detected reliably at scale?
-- **Core idea:** build a large benchmark of facial manipulations made with four methods (DeepFakes, Face2Face, FaceSwap and NeuralTextures), with varied compression levels and a hidden test set, then train and compare detectors on it.
-- **Equation or algorithm:** supervised binary classification of frames or videos as real or manipulated, with the benchmark as the training and evaluation data.
-- **Results:** the abstract reports a database of more than 1.8 million manipulated images, and says that a detector using domain-specific knowledge reaches high accuracy and clearly outperforms human observers. It gives no numeric detection accuracy.
-- **Limitations:** the benchmark covers four manipulation methods. Detectors trained on it may not transfer to newer generators, and the paper's public benchmark does not settle the arms race.
+| Method | Question | Main result (per abstract) | Read more |
+|---|---|---|---|
+| Spread of true and false news (Vosoughi et al., 2018) | Do true and false stories spread differently, and do bots explain the difference? | False news spread farther, faster, deeper and more broadly; humans, not robots, drive the difference | [How False News Spreads](spread-of-false-news.md) |
+| Facial manipulation detection (Rössler et al., 2019) | Can manipulated faces be detected reliably at scale? | A benchmark of over 1.8 million manipulated images; no numeric accuracy in the abstract | [FaceForensics++](facial-manipulation-detection.md) |
 
 ## Responses
 
