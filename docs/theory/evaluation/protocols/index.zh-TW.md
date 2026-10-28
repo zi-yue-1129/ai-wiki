@@ -12,6 +12,24 @@ tags:
 
 協定定義資料如何切分、進行哪些比較，以及如何報告不確定性。協定上的錯誤，常常比指標的選擇更能改變結論。
 
+## 方法
+
+每個方法都有自己的頁面。
+
+| 方法 | 用途 |
+|---|---|
+| [交叉驗證](methods/cross-validation.md) | 以多種切分估計泛化能力 |
+| [配對自助法](methods/paired-bootstrap.md) | 兩個方法差異的區間 |
+| [LLM 作為評審](methods/llm-as-judge.md) | 以模型為開放式輸出打分 |
+| [MT-Bench](methods/mt-bench.md) | 交換順序的成對評審，以及它與人類專家的一致性 |
+| [長度控制 AlpacaEval](methods/length-controlled-alpacaeval.md) | 修正自動評審偏好較長答案的傾向 |
+| [人工評估](methods/human-evaluation.md) | 由人判斷輸出，並報告一致性 |
+| [Elo 評分與競技場](methods/elo-rating.md) | 從成對結果為系統排名 |
+| [污染偵測](methods/contamination-detection.md) | 檢查基準項目是否在訓練資料中 |
+| [N-gram 重疊去污染](methods/ngram-overlap-decontamination.md) | 移除與語料共享長詞序列的基準項目 |
+| [Min-K% Prob](methods/min-k-percent-prob.md) | 只用模型的 token 機率偵測預訓練資料 |
+| [LiveBench](methods/livebench.md) | 更新基準題目，使其晚於訓練資料 |
+
 ## 切分資料
 
 - **訓練、驗證與測試。** 在驗證集上調校，測試集只報告一次。

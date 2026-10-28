@@ -42,4 +42,4 @@ ESM-2 與 ESMFold 是一個蛋白質語言模型，以及建立在它之上的�
 - Lin et al. (2022). Evolutionary-scale prediction of atomic level protein structure with a language model. *bioRxiv*. https://doi.org/10.1101/2022.07.20.500902 — 本頁摘要所依據的預印本。
 - Rives et al. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *PNAS*. https://doi.org/10.1073/pnas.2016239118 — 較早的 ESM 工作，顯示以序列進行語言模型訓練會浮現與結構相關的資訊。
 - Jumper et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*. https://doi.org/10.1038/s41586-021-03819-2 — AlphaFold 2，參照用的結構預測器。
-- Vaswani et al. (2017). Attention Is All You Need. arXiv. https://arxiv.org/abs/1706.03762 — 提出 ESM-2 所建立於其上的 Transformer 架構。
+- Vaswani et al. (2017). Attention Is All You Need. NeurIPS 2017. https://proceedings.neurips.cc/paper/7181-attention-is-all-you-need — 提出 ESM-2 所建立於其上的 Transformer 架構。

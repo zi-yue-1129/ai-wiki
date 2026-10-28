@@ -38,14 +38,14 @@ Metric methods assume that the embedding separates classes well after training o
 
 ### Seminal papers
 
-- Vinyals, Blundell, Lillicrap, Kavukcuoglu & Wierstra (2016), "Matching networks for one shot learning", NeurIPS, arXiv:1606.04080 — Introduces attention over a labelled support set, trained on episodes that mimic test conditions.
-- Snell, Swersky & Zemel (2017), "Prototypical networks for few-shot learning", NeurIPS, arXiv:1703.05175 — Represents each class by the mean of its embeddings, a simple method that works well in practice.
-- Sung et al. (2018), "Learning to compare: relation network for few-shot learning", CVPR, arXiv:1711.06025 — Learns the similarity function itself with a small network applied to pairs of embeddings.
-- Garcia & Bruna (2018), "Few-shot learning with graph neural networks", ICLR, arXiv:1711.04043 — Propagates labels through a graph built over support and query examples.
+- Vinyals, Blundell, Lillicrap, Kavukcuoglu & Wierstra (2016), "Matching networks for one shot learning", NeurIPS, [arXiv:1606.04080](https://arxiv.org/abs/1606.04080) — Introduces attention over a labelled support set, trained on episodes that mimic test conditions.
+- Snell, Swersky & Zemel (2017), "Prototypical networks for few-shot learning", NeurIPS, [arXiv:1703.05175](https://arxiv.org/abs/1703.05175) — Represents each class by the mean of its embeddings, a simple method that works well in practice.
+- Sung et al. (2018), "Learning to compare: relation network for few-shot learning", CVPR, [arXiv:1711.06025](https://arxiv.org/abs/1711.06025) — Learns the similarity function itself with a small network applied to pairs of embeddings.
+- Garcia & Bruna (2018), "Few-shot learning with graph neural networks", ICLR, [arXiv:1711.04043](https://arxiv.org/abs/1711.04043) — Propagates labels through a graph built over support and query examples.
 
 ### Surveys and textbooks
 
-- Hospedales, Antoniou, Micaelli & Storkey (2021), "Meta-learning in neural networks: a survey", IEEE TPAMI, arXiv:2004.05439 — Survey that compares metric-based methods with the other meta-learning families.
+- Hospedales, Antoniou, Micaelli & Storkey (2021), "Meta-learning in neural networks: a survey", IEEE TPAMI, [arXiv:2004.05439](https://arxiv.org/abs/2004.05439) — Survey that compares metric-based methods with the other meta-learning families.
 
 ### Lectures and videos
 

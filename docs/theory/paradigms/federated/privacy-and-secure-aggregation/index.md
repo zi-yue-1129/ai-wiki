@@ -41,13 +41,13 @@ Formal privacy guarantees often reduce accuracy noticeably, and the guarantees a
 ### Seminal papers
 
 - Bonawitz et al. (2017), "Practical secure aggregation for privacy-preserving machine learning", CCS. https://doi.org/10.1145/3133956.3133982 — Protocol that lets the server learn only the sum of client updates, even when clients drop out.
-- Abadi et al. (2016), "Deep learning with differential privacy", CCS, arXiv:1607.00133 — Differentially private SGD, which clips and adds noise to gradients to give a formal guarantee.
-- Geyer, Klein & Nabi (2017), "Differentially private federated learning: a client level perspective", arXiv:1712.07557 — Applies differential privacy to whole client updates, which suits federated settings.
+- Abadi et al. (2016), "Deep learning with differential privacy", CCS, [arXiv:1607.00133](https://arxiv.org/abs/1607.00133) — Differentially private SGD, which clips and adds noise to gradients to give a formal guarantee.
+- Geyer, Klein & Nabi (2017), "Differentially private federated learning: a client level perspective", [arXiv:1712.07557](https://arxiv.org/abs/1712.07557) — Applies differential privacy to whole client updates, which suits federated settings.
 - Shokri & Shmatikov (2015), "Privacy-preserving deep learning", CCS. https://www.comp.nus.edu.sg/~reza/files/Shokri-CCS2015.pdf — Collaborative training in which parties share selected parameter updates instead of data.
 
 ### Surveys and textbooks
 
-- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, arXiv:1912.04977 — Survey with sections on privacy, secure aggregation and differential privacy.
+- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, [arXiv:1912.04977](https://arxiv.org/abs/1912.04977) — Survey with sections on privacy, secure aggregation and differential privacy.
 
 ### Lectures and videos
 

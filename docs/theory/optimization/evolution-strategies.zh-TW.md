@@ -40,7 +40,7 @@ g = \frac{1}{n\sigma}\sum_{i=1}^{n} F_i\,\varepsilon_i.
 
 ## 主要結果
 
-摘要報告，ES 能擴展到超過一千個平行工作者，只需傳送純量，並在 10 分鐘內解決三維人形機器人行走的問題。它也報告在 Atari 大多數遊戲上，訓練一小時後能取得有競爭力的結果。摘要未給出各遊戲的分數，因此本頁不引用。
+摘要指出，ES 能擴展到超過一千個平行工作者，且只需傳送純量。論文正文報告，使用 1,440 個工作者可在 10 分鐘內解決三維人形機器人的任務；在 720 個 CPU 上訓練一小時後，ES 在 Atari 大多數遊戲上取得有競爭力的結果，與 A3C 發表的一天結果相比。論文的逐遊戲比較中，ES 在 23 個遊戲較佳、28 個較差，因此本頁不引用逐遊戲分數。
 
 ## 限制
 
@@ -77,4 +77,4 @@ g = \frac{1}{n\sigma}\sum_{i=1}^{n} F_i\,\varepsilon_i.
 ### 綜述與教科書
 
 - Hansen, N.（2016）。*The CMA Evolution Strategy: A Tutorial*。arXiv。https://arxiv.org/abs/1604.00772 — 演化策略家族中調整協方差之成員的教學文件。
-- Bottou, L., Curtis, F. E. & Nocedal, J.（2018）。*Optimization Methods for Large-Scale Machine Learning*。SIAM Review。https://arxiv.org/abs/1606.04838 — 基於梯度的隨機方法綜述，是 ES 比較時的基準。
+- Bottou, L., Curtis, F. E. & Nocedal, J.（2018）。*Optimization Methods for Large-Scale Machine Learning*。*SIAM Review*, 60(2), 223–311。https://doi.org/10.1137/16M1080173 — 基於梯度的隨機方法綜述，是 ES 比較時的基準。

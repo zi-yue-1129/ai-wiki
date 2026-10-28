@@ -32,7 +32,7 @@ translation_reviewed: 2026-10-28
 T \approx \frac{2(N-1)}{N} \cdot \frac{S}{B}
 \]
 
-其中 \(N\) 是晶片數，\(S\) 是每顆晶片上的資料量，\(B\) 是連線的頻寬。係數 \(2(N-1)/N\) 隨 \(N\) 增加而趨近於二，因此叢集擴大時，每顆晶片的流量幾乎不變。這裡忽略了延遲，而延遲對小訊息很重要。若通訊與計算完全重疊，步驟時間是兩者中較大的那一個，而不是兩者相加。
+其中 \(N\) 是晶片數，\(S\) 是每顆晶片上的資料量，\(B\) 是連線的頻寬。Patarasuk 與 Yuan（2009）研究叢集上的頻寬最佳全歸約演算法，本頁的環狀成本模型取自這一脈絡。由於本環境無法讀取該論文全文，上方的算式尚未逐行對照原文。係數 \(2(N-1)/N\) 隨 \(N\) 增加而趨近於二，因此叢集擴大時，每顆晶片的流量幾乎不變。這裡忽略了延遲，而延遲對小訊息很重要。若通訊與計算完全重疊，步驟時間是兩者中較大的那一個，而不是兩者相加。
 
 不同的平行化策略傳送的內容不同。資料平行每個步驟對梯度做一次全歸約。張量平行在每一層內對激活值做全歸約，頻率高，需要快速連線。流水線平行只在相鄰的階段之間傳送激活值，資料量少得多。如 ZeRO 與 FSDP 的分片資料平行，則在使用前做參數的全收集，在使用後做梯度的歸約分散。
 
@@ -65,4 +65,5 @@ Shoeybi 等人（2019）把每一層切分到多顆 GPU 上，在 512 顆 GPU �
 - Shoeybi, M., 等人 (2019). *Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism*. arXiv:1909.08053. https://arxiv.org/abs/1909.08053 — 顯示層內模型平行可在 512 顆 GPU 上訓練 83 億參數的 Transformer，擴展效率為 76%。
 - Rajbhandari, S., 等人 (2019). *ZeRO: Memory Optimizations Toward Training Trillion Parameter Models*. arXiv:1910.02054. https://arxiv.org/abs/1910.02054 — 在資料平行與模型平行訓練中消除記憶體冗餘，同時保持通訊量低。
 - Narayanan, D., 等人 (2021). *Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM*. arXiv:2104.04473. https://arxiv.org/abs/2104.04473 — 結合張量、流水線與資料平行來訓練一兆參數的模型，並討論跨節點傳輸的成本。
+- Patarasuk, P. 與 Yuan, X. (2009). Bandwidth optimal all-reduce algorithms for clusters of workstations. *Journal of Parallel and Distributed Computing*, 69, 117–124. https://doi.org/10.1016/j.jpdc.2008.09.002 — 研究叢集上頻寬最佳的全歸約演算法，是本頁環狀成本模型的來源。本版未閱讀全文。
 - Sergeev, A. 與 Del Balso, M. (2018). *Horovod: fast and easy distributed deep learning in TensorFlow*. arXiv:1802.05799. https://arxiv.org/abs/1802.05799 — 以環狀歸約讓資料平行訓練中 GPU 之間的通訊更有效率。

@@ -70,5 +70,5 @@ The [gated cells](../index.md) page compares the LSTM with the plain cell and wi
 
 ### Articles and documentation
 
-- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". arXiv:1211.5063 — Analyses exploding and vanishing gradients and proposes gradient norm clipping.
-- Greff, K., et al. (2017). "LSTM: A Search Space Odyssey". arXiv:1503.04069 — Benchmarks several LSTM variants and finds that the vanilla design is hard to beat.
+- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". [arXiv:1211.5063](https://arxiv.org/abs/1211.5063) — Analyses exploding and vanishing gradients and proposes gradient norm clipping.
+- Greff, K., et al. (2017). "LSTM: A Search Space Odyssey". [arXiv:1503.04069](https://arxiv.org/abs/1503.04069) — Benchmarks several LSTM variants and finds that the vanilla design is hard to beat.

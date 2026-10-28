@@ -65,10 +65,10 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Yu, F. & Koltun, V. (2015). "Multi-Scale Context Aggregation by Dilated Convolutions". arXiv:1511.07122 — 用於密集預測的空洞卷積，感受野隨深度指數成長。
-- Dai, J., et al. (2017). "Deformable Convolutional Networks". arXiv:1703.06211 — 學習取樣偏移量，使卷積能適應物件形狀。
-- Chollet, F. (2016). "Xception: Deep Learning with Depthwise Separable Convolutions". arXiv:1610.02357 — 顯示把空間與通道混合分解後，能以較低成本超越 Inception 式設計。
-- Chen, L.-C., et al. (2016). "DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs". arXiv:1606.00915 — 空洞卷積搭配全連接條件隨機場，用於密集分割。
+- Yu, F. & Koltun, V. (2015). "Multi-Scale Context Aggregation by Dilated Convolutions". [arXiv:1511.07122](https://arxiv.org/abs/1511.07122) — 用於密集預測的空洞卷積，感受野隨深度指數成長。
+- Dai, J., et al. (2017). "Deformable Convolutional Networks". [arXiv:1703.06211](https://arxiv.org/abs/1703.06211) — 學習取樣偏移量，使卷積能適應物件形狀。
+- Chollet, F. (2016). "Xception: Deep Learning with Depthwise Separable Convolutions". [arXiv:1610.02357](https://arxiv.org/abs/1610.02357) — 顯示把空間與通道混合分解後，能以較低成本超越 Inception 式設計。
+- Chen, L.-C., et al. (2016). "DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs". [arXiv:1606.00915](https://arxiv.org/abs/1606.00915) — 空洞卷積搭配全連接條件隨機場，用於密集分割。
 
 ### 綜述與教科書
 

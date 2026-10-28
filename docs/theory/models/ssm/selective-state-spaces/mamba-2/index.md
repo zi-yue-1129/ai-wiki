@@ -17,7 +17,7 @@ last_reviewed: 2026-10-28
 
 # Mamba-2
 
-Mamba-2 is a selective state-space architecture introduced by Dao and Gu in the 2024 paper "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality" (arXiv:2405.21060, ICML 2024). It restricts the state transition of each head to a scalar multiple of the identity, which makes the layer a form of structured masked attention and lets most of its computation run as matrix multiplications.
+Mamba-2 is a selective state-space architecture introduced by Dao and Gu in the 2024 paper "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality" ([arXiv:2405.21060](https://arxiv.org/abs/2405.21060), ICML 2024). It restricts the state transition of each head to a scalar multiple of the identity, which makes the layer a form of structured masked attention and lets most of its computation run as matrix multiplications.
 
 ## Problem
 
@@ -65,10 +65,10 @@ Mamba-2 refines the selective SSM of [Mamba](../mamba/index.md): it keeps input-
 
 ### Seminal papers
 
-- Dao, T. & Gu, A. (2024). "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality". arXiv:2405.21060 — Mamba-2, which links selective SSMs to attention through a structured matrix duality.
-- Gu, A. & Dao, T. (2023). "Mamba: Linear-Time Sequence Modeling with Selective State Spaces". arXiv:2312.00752 — Input-dependent state-space parameters with a hardware-aware scan.
-- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". arXiv:2111.00396 — S4, a structured state-space model that handles very long sequences efficiently.
-- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". arXiv:2008.07669 — The HiPPO framework that gives the state matrix its long-range memory.
+- Dao, T. & Gu, A. (2024). "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality". [arXiv:2405.21060](https://arxiv.org/abs/2405.21060) — Mamba-2, which links selective SSMs to attention through a structured matrix duality.
+- Gu, A. & Dao, T. (2023). "Mamba: Linear-Time Sequence Modeling with Selective State Spaces". [arXiv:2312.00752](https://arxiv.org/abs/2312.00752) — Input-dependent state-space parameters with a hardware-aware scan.
+- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". [arXiv:2111.00396](https://arxiv.org/abs/2111.00396) — S4, a structured state-space model that handles very long sequences efficiently.
+- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". [arXiv:2008.07669](https://arxiv.org/abs/2008.07669) — The HiPPO framework that gives the state matrix its long-range memory.
 
 ### Surveys and textbooks
 
@@ -80,4 +80,4 @@ Mamba-2 refines the selective SSM of [Mamba](../mamba/index.md): it keeps input-
 
 ### Articles and documentation
 
-- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". arXiv:2303.06349 — Shows that carefully designed linear recurrent units can match SSMs on long-sequence benchmarks.
+- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". [arXiv:2303.06349](https://arxiv.org/abs/2303.06349) — Shows that carefully designed linear recurrent units can match SSMs on long-sequence benchmarks.

@@ -59,7 +59,7 @@ Kosson、Messmer 與 Jaggi（2023）研究權重衰減如何影響個別神經�
 ## 參考文獻
 
 - Kosson, A., Messmer, B., & Jaggi, M. (2023). *Rotational Equilibrium: How Weight Decay Balances Learning Across Neural Networks*. arXiv:2305.17212. https://arxiv.org/abs/2305.17212 — 平衡範數、旋轉與時間尺度結果的來源。
-- Loshchilov, I., & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. arXiv:1711.05101. https://arxiv.org/abs/1711.05101 — 提出分析所用的解耦權重衰減。
+- Loshchilov, I., & Hutter, F. (2019). *Decoupled Weight Decay Regularization*. ICLR 2019. https://arxiv.org/abs/1711.05101 — 提出分析所用的解耦權重衰減。
 - Wan, R., Zhu, Z., Zhang, X., & Sun, J. (2020). *Spherical Motion Dynamics: Learning Dynamics of Neural Network with Normalization, Weight Decay, and SGD*. arXiv:2006.08419. https://arxiv.org/abs/2006.08419 — 較早分析 SGD 加衰減時的範數動態。
-- Li, Z., & Arora, S. (2019). *An Exponential Learning Rate Schedule for Deep Learning*. arXiv:1910.07454. https://arxiv.org/abs/1910.07454 — 說明衰減與正規化共同作用時，像是一個增長的學習率。
+- Li, Z., & Arora, S. (2019). *An Exponential Learning Rate Schedule for Deep Learning*. ICLR 2020. https://arxiv.org/abs/1910.07454 — 說明衰減與正規化共同作用時，像是一個增長的學習率。
 - Wang, X., & Aitchison, L. (2024). *How to Set AdamW's Weight Decay as You Scale Model and Dataset Size*. arXiv:2405.13698. https://arxiv.org/abs/2405.13698 — 以相同的時間尺度觀點，為不同規模選擇衰減。

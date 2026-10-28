@@ -36,14 +36,14 @@ AI is used in defence for intelligence analysis, logistics, planning, simulation
 
 The central policy question is how much human judgement must remain over the use of force. Two positions are widely cited:
 
-- The **International Committee of the Red Cross (ICRC)** calls for prohibiting weapons whose effects cannot be predicted or controlled, and for limits on autonomous systems used against people. Its position rests on International Humanitarian Law.
-- The **United States** does not ban autonomous weapons. Its 2023 directive requires that autonomous and semi-autonomous weapon systems allow "appropriate levels of human judgment over the use of force", and that new systems with autonomous functions go through senior review before they are fielded.
+- The **International Committee of the Red Cross (ICRC)** calls for expressly ruling out unpredictable autonomous weapon systems, whose effects cannot be sufficiently understood, predicted and explained, and for a prohibition on autonomous weapon systems designed or used to apply force against persons. Its position rests on International Humanitarian Law.
+- The **United States** does not ban autonomous weapons. Its 2023 directive (DoD Directive 3000.09, effective 25 January 2023) requires that autonomous and semi-autonomous weapon systems be designed to allow "appropriate levels of human judgment over the use of force", and that autonomous weapon systems receive senior review both before formal development and again before fielding. Some systems are exempt from that review.
 
 Civilian AI regulation often leaves military use out. The EU AI Act states that it does not apply to AI systems used exclusively for military, defence or national security purposes (Article 2(3)).
 
 ## Strategic competition
 
-Governments see AI as a source of military advantage, and that competition drives investment. Horowitz (2018) argues that AI could shift the balance of power, and that its effects depend on how widely the technology spreads. Races between states can reduce the time and care spent on testing, which is one reason arms-control proposals focus on verification and norms as well as on the technology itself.
+Governments see AI as a source of military advantage, and that competition drives investment. Horowitz (2018) argues that AI is a general-purpose, enabling technology. Its effect on military power depends less on the technology itself than on how militaries organise to adopt it, and spread through commercial research can narrow the gap between states. Races between states can reduce the time and care spent on testing, which is one reason arms-control proposals focus on verification and norms as well as on the technology itself.
 
 ## Key methods
 
@@ -75,11 +75,11 @@ The civilian counterparts of these systems are described in [Autonomous Driving 
 
 ### Seminal papers
 
-- Horowitz, M. C. (2018). Artificial Intelligence, International Competition, and the Balance of Power. *Texas National Security Review*, 1(3). https://tnsr.org/2018/05/artificial-intelligence-international-competition-and-the-balance-of-power/ — Argues that military AI could shift power between states and considers how quickly the technology spreads.
+- Horowitz, M. C. (2018). Artificial Intelligence, International Competition, and the Balance of Power. *Texas National Security Review*, 1(3). https://tnsr.org/2018/05/artificial-intelligence-international-competition-and-the-balance-of-power/ — Argues that AI is an enabling technology whose effect on military power depends on how militaries adopt it, and considers how commercial research spreads it.
 
 ### Articles and documentation
 
 - Boulanin, V. & Verbruggen, M. (2017). *Mapping the Development of Autonomy in Weapon Systems*. SIPRI. https://www.sipri.org/publications/2017/other-publications/mapping-development-autonomy-weapon-systems — An independent study of how autonomy is developing in weapon systems and the policy issues it raises.
 - International Committee of the Red Cross (2021). *ICRC position on autonomous weapon systems*. https://www.icrc.org/en/document/icrc-position-autonomous-weapon-systems — The ICRC's position on the legal limits needed for autonomous weapons under International Humanitarian Law.
-- U.S. Department of Defense (2023). *DoD Directive 3000.09, Autonomy in Weapon Systems*. https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/300009p.PDF — The current U.S. policy on human judgement over the use of force and the senior review required before fielding.
+- U.S. Department of Defense (2023). *DoD Directive 3000.09, Autonomy in Weapon Systems*. https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/300009p.PDF — The current U.S. policy on human judgement over the use of force, and the senior review required before formal development and again before fielding.
 - European Union (2024). *Regulation (EU) 2024/1689 (Artificial Intelligence Act)*, Article 2(3). https://eur-lex.europa.eu/eli/reg/2024/1689/oj — The legal text that excludes AI systems used exclusively for military, defence or national security purposes.

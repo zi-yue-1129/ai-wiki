@@ -31,11 +31,11 @@ translation_reviewed: 2026-10-28
 | 變體 | 想法 | 關鍵論文 |
 |---|---|---|
 | 均勻回放 | 從固定大小的先進先出緩衝區均勻取樣 | Mnih et al. (2015) |
-| 優先回放 | 取樣機率隨 TD 誤差增加，並以重要性權重修正偏差 | Schaul et al. (2015), arXiv:1511.05952 |
-| 後見經驗回放（HER） | 在目標導向任務中，把失敗的轉移重新標記為實際達到的目標 | Andrychowicz et al. (2017), arXiv:1707.01495 |
+| 優先回放 | 取樣機率隨 TD 誤差增加，並以重要性權重修正偏差 | Schaul et al. (2015), [arXiv:1511.05952](https://arxiv.org/abs/1511.05952) |
+| 後見經驗回放（HER） | 在目標導向任務中，把失敗的轉移重新標記為實際達到的目標 | Andrychowicz et al. (2017), [arXiv:1707.01495](https://arxiv.org/abs/1707.01495) |
 | 序列回放 | 存下固定長度的序列與序列起點的循環狀態，並用 burn-in 前綴重建該狀態 | Kapturowski et al. (2019), ICLR |
-| 分散式回放 | 多個 actor 把經驗寫入同一個有優先度的緩衝區，由單一 learner 取樣 | Horgan et al. (2018), arXiv:1803.00933 |
-| 容量與比例研究 | 量測緩衝區大小與每筆新資料的更新次數如何影響學習 | Fedus et al. (2020), arXiv:2007.06700 |
+| 分散式回放 | 多個 actor 把經驗寫入同一個有優先度的緩衝區，由單一 learner 取樣 | Horgan et al. (2018), [arXiv:1803.00933](https://arxiv.org/abs/1803.00933) |
+| 容量與比例研究 | 量測緩衝區大小與每筆新資料的更新次數如何影響學習 | Fedus et al. (2020), [arXiv:2007.06700](https://arxiv.org/abs/2007.06700) |
 
 ### 均勻回放
 
@@ -80,14 +80,14 @@ translation_reviewed: 2026-10-28
 ### 開創性論文
 
 - Mnih, V., et al. (2015). "Human-level control through deep reinforcement learning". *Nature* 518. https://doi.org/10.1038/nature14236 — 深度 Q 網路，推廣了均勻回放與目標網路。
-- Schaul, T., et al. (2015). "Prioritized Experience Replay". arXiv:1511.05952 — 依 TD 誤差取樣轉移，並以重要性權重修正偏差。
-- Andrychowicz, M., et al. (2017). "Hindsight Experience Replay". arXiv:1707.01495 — 把失敗的目標導向回合，以實際達到的目標重新標記。
-- Horgan, D., et al. (2018). "Distributed Prioritized Experience Replay". arXiv:1803.00933 — 多個 actor 共用一個有優先度的緩衝區，把回放擴大到大量環境。
+- Schaul, T., et al. (2015). "Prioritized Experience Replay". [arXiv:1511.05952](https://arxiv.org/abs/1511.05952) — 依 TD 誤差取樣轉移，並以重要性權重修正偏差。
+- Andrychowicz, M., et al. (2017). "Hindsight Experience Replay". [arXiv:1707.01495](https://arxiv.org/abs/1707.01495) — 把失敗的目標導向回合，以實際達到的目標重新標記。
+- Horgan, D., et al. (2018). "Distributed Prioritized Experience Replay". [arXiv:1803.00933](https://arxiv.org/abs/1803.00933) — 多個 actor 共用一個有優先度的緩衝區，把回放擴大到大量環境。
 - Kapturowski, S., et al. (2019). "Recurrent Experience Replay in Distributed Reinforcement Learning". ICLR. https://iclr.cc/virtual/2019/poster/648 — 以循環隱藏狀態與 burn-in 儲存序列。
 
 ### 綜述與教科書
 
-- Fedus, W., et al. (2020). "Revisiting Fundamentals of Experience Replay". arXiv:2007.06700 — 研究緩衝區容量與回放比例如何改變價值導向代理人的結果。
+- Fedus, W., et al. (2020). "Revisiting Fundamentals of Experience Replay". [arXiv:2007.06700](https://arxiv.org/abs/2007.06700) — 研究緩衝區容量與回放比例如何改變價值導向代理人的結果。
 
 ### 講座與影片
 

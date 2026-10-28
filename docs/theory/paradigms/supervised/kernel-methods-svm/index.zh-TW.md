@@ -40,13 +40,19 @@ $$
 
 訓練的成本隨範例數介於 $O(n^2)$ 與 $O(n^3)$ 之間成長，這是深度學習在大資料上取代 SVM 的原因。隨機傅立葉特徵與 Nyström 近似可以把核方法擴展到更大的規模。**神經正切核**（Jacot et al., 2018）顯示，以梯度下降訓練的無限寬網路，其行為就像一台核機器，從而連結了兩個領域。
 
+## 主要方法
+
+每個有名稱的方法都有自己的頁面，內容包括問題、核心想法、公式、結果與限制。
+
+- [支援向量機](svm.md)（Boser、Guyon 與 Vapnik，1992；Cortes 與 Vapnik，1995）：最大間隔分類器、其核形式，以及推廣到非可分資料的軟間隔版本。
+
 ## 參考文獻
 
 ### 開創性論文
 
 - Boser, B. E., Guyon, I. M. & Vapnik, V. N. (1992). A training algorithm for optimal margin classifiers. *COLT*. https://doi.org/10.1145/130385.130401 — 第一篇核 SVM 論文，結合最大間隔與核技巧。
 - Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — 提出軟間隔 SVM，允許部分訓練錯誤。
-- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572 — 顯示以梯度下降訓練的無限寬網路，行為就像一台核機器。
+- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, [arXiv:1806.07572](https://arxiv.org/abs/1806.07572) — 顯示以梯度下降訓練的無限寬網路，行為就像一台核機器。
 - Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://doi.org/10.1145/1102351.1102430 — 比較包括 SVM 在內的各種分類器，產生校準機率的能力。
 
 ### 綜述與教科書
@@ -59,7 +65,7 @@ $$
 
 ### 文章與文件
 
-- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, arXiv:1812.11118 — 說明核模型與神經模型如何內插訓練資料，同時仍能泛化。
+- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, [arXiv:1812.11118](https://arxiv.org/abs/1812.11118) — 說明核模型與神經模型如何內插訓練資料，同時仍能泛化。
 
 ## 延伸閱讀
 

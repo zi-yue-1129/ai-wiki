@@ -34,6 +34,13 @@ tags:
 
 堆疊法在多個異質的基礎模型之預測上訓練一個元模型。平均多個神經網路（深度集成）也是估計不確定性的強大基準。
 
+## 主要方法
+
+每個有名稱的方法都有自己的頁面，內容包括問題、核心想法、公式、結果與限制。
+
+- [隨機森林](random-forests.md)（Breiman，2001）：在每次分裂時隨機選取特徵的裝袋樹。
+- [梯度提升](gradient-boosting.md)（Friedman，2001）：依序擬合損失負梯度的樹。同一頁也涵蓋 [XGBoost](gradient-boosting.md)（Chen 與 Guestrin，2016），並簡要介紹 LightGBM 與 CatBoost。
+
 ## 與其他概念的連結
 
 為什麼在許多表格任務上，樹模型能勝過深度網路？Grinsztajn et al.（2022）指出，原因在於目標函數不規則、特徵資訊量低的情況下，樹模型較為穩健。樹的集成在金融、醫療風險評分與推薦排序中被廣泛使用；見[應用領域](../../../../applications/index.md)。
@@ -58,7 +65,7 @@ tags:
 
 ### 文章與文件
 
-- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, arXiv:2207.08815 — 基準測試與分析，說明為什麼在表格資料上樹的集成常勝過神經網路。
+- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, [arXiv:2207.08815](https://arxiv.org/abs/2207.08815) — 基準測試與分析，說明為什麼在表格資料上樹的集成常勝過神經網路。
 
 ## 延伸學習
 

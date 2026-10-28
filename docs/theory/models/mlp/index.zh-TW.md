@@ -35,6 +35,7 @@ translation_reviewed: 2026-10-28
 |---|---|---|---|
 | 高斯誤差線性單元（GELU） | 2016 | 以高斯累積分布函數加權輸入的平滑激活函數 | [GELU](gelu/index.md) |
 | 層正規化 | 2016 | 對每個樣本的特徵做正規化，不依賴批次統計 | [層正規化](layer-normalisation/index.md) |
+| MLP 混合器 | 2021 | 只用 MLP 的視覺模型，一組跨小塊、一組跨通道 | [MLP 混合器](mlp-mixer.md) |
 
 GELU 是 ReLU 的平滑替代方案。層正規化不依賴批次統計，因此適合序列模型。
 
@@ -63,8 +64,8 @@ MLP 區塊出現在 [CNN](../cnn/index.md)、[RNN](../rnn/index.md) 與 [Transfo
 ### 開創性論文
 
 - Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). "Learning representations by back-propagating errors". *Nature* 323: 533–536. https://doi.org/10.1038/323533a0 — 推廣了以反向傳播訓練具隱藏層的多層網路。
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — 殘差連接，使深層網路能夠訓練。
-- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". arXiv:1607.06450 — 在特徵上而非批次上做正規化。
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — 殘差連接，使深層網路能夠訓練。
+- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". [arXiv:1607.06450](https://arxiv.org/abs/1607.06450) — 在特徵上而非批次上做正規化。
 
 ### 綜述與教科書
 
@@ -76,4 +77,4 @@ MLP 區塊出現在 [CNN](../cnn/index.md)、[RNN](../rnn/index.md) 與 [Transfo
 
 ### 文章與文件
 
-- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". arXiv:1606.08415 — GELU 激活函數，被許多 Transformer 模型採用。
+- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". [arXiv:1606.08415](https://arxiv.org/abs/1606.08415) — GELU 激活函數，被許多 Transformer 模型採用。

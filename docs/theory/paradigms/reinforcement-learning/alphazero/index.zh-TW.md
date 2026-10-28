@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 related:
@@ -46,7 +46,10 @@ AlphaZero 之前，強大的棋類程式各自針對一種遊戲設計，使用�
 
 ## 結果
 
-《Science》摘要指出，AlphaZero 在其訓練的每種遊戲中都擊敗了最先進的程式。同一工作的 arXiv 預印本報告指出，AlphaZero 在訓練 24 小時內達到超人水準，並且在每種情況下都擊敗了世界冠軍級程式。比分與逐項比較見論文，這裡不再重述。
+- **西洋棋**：對戰二〇一六年 TCEC 冠軍 Stockfish 時，論文文字記載 AlphaZero 在其比賽中沒有輸掉任何一局。
+- **將棋**：對戰二〇一七年 CSA 冠軍 Elmo 時，論文文字記載 AlphaZero 在其比賽中輸了八局。
+- **圍棋**：論文報告了與 AlphaGo Zero（三天版本）及 AlphaGo Lee 的比賽，勝負數字見其表格。
+- **訓練時間**：摘要指出 AlphaZero 在「24 小時內」達到超人水準。論文的補充表格列出西洋棋約 9 小時、將棋約 12 小時、圍棋約 34 小時，因此 24 小時的說法不適用於圍棋。
 
 ## 限制
 

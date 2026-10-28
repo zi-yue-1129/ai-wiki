@@ -74,8 +74,8 @@ Minimising it maximises a lower bound on the mutual information between views.
 
 ## References
 
-- Chen, Kornblith, Norouzi & Hinton (2020), "A simple framework for contrastive learning of visual representations", ICML, arXiv:2002.05709 — SimCLR, the reference contrastive framework for images.
-- Devlin et al. (2019), "BERT: pre-training of deep bidirectional transformers for language understanding", NAACL, arXiv:1810.04805 — The masked-language pre-training method that made self-supervision standard in NLP.
-- Grill et al. (2020), "Bootstrap your own latent", NeurIPS, arXiv:2006.07733 — BYOL, self-supervised learning without negative pairs.
-- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), arXiv:1206.5538 — Survey that frames self-supervised learning among representation-learning methods.
-- Radford et al. (2021), "Learning transferable visual models from natural language supervision", ICML, arXiv:2103.00020 — CLIP, self-supervision from image–text pairs at web scale.
+- Chen, Kornblith, Norouzi & Hinton (2020), "A simple framework for contrastive learning of visual representations", ICML, [arXiv:2002.05709](https://arxiv.org/abs/2002.05709) — SimCLR, the reference contrastive framework for images.
+- Devlin et al. (2019), "BERT: pre-training of deep bidirectional transformers for language understanding", NAACL, [arXiv:1810.04805](https://arxiv.org/abs/1810.04805) — The masked-language pre-training method that made self-supervision standard in NLP.
+- Grill et al. (2020), "Bootstrap your own latent", NeurIPS, [arXiv:2006.07733](https://arxiv.org/abs/2006.07733) — BYOL, self-supervised learning without negative pairs.
+- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), [arXiv:1206.5538](https://arxiv.org/abs/1206.5538) — Survey that frames self-supervised learning among representation-learning methods.
+- Radford et al. (2021), "Learning transferable visual models from natural language supervision", ICML, [arXiv:2103.00020](https://arxiv.org/abs/2103.00020) — CLIP, self-supervision from image–text pairs at web scale.

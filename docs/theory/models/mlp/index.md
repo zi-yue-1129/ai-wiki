@@ -35,6 +35,7 @@ A layer computes \(h = \sigma(Wx + b)\), where \(\sigma\) is a nonlinear activat
 |---|---|---|---|
 | Gaussian error linear units (GELU) | 2016 | A smooth activation that weights each input by the Gaussian CDF | [GELU](gelu/index.md) |
 | Layer normalisation | 2016 | Normalises each example over its features, not over the batch | [Layer normalisation](layer-normalisation/index.md) |
+| MLP-Mixer | 2021 | Vision model using only MLPs, one across patches and one across channels | [MLP-Mixer](mlp-mixer.md) |
 
 GELU is a smooth alternative to ReLU. Layer normalisation does not depend on batch statistics, which suits sequence models.
 
@@ -63,8 +64,8 @@ MLP blocks appear inside the [CNN](../cnn/index.md), [RNN](../rnn/index.md) and 
 ### Seminal papers
 
 - Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). "Learning representations by back-propagating errors". *Nature* 323: 533–536. https://doi.org/10.1038/323533a0 — Popularised backpropagation for training multilayer networks with hidden units.
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — Residual connections that make deep networks trainable.
-- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". arXiv:1607.06450 — Normalises over features rather than over the batch.
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — Residual connections that make deep networks trainable.
+- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". [arXiv:1607.06450](https://arxiv.org/abs/1607.06450) — Normalises over features rather than over the batch.
 
 ### Surveys and textbooks
 
@@ -76,4 +77,4 @@ MLP blocks appear inside the [CNN](../cnn/index.md), [RNN](../rnn/index.md) and 
 
 ### Articles and documentation
 
-- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". arXiv:1606.08415 — The GELU activation, used in many Transformer models.
+- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". [arXiv:1606.08415](https://arxiv.org/abs/1606.08415) — The GELU activation, used in many Transformer models.

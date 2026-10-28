@@ -57,9 +57,9 @@ Mamba 是[選擇性狀態空間](../index.md)家族中依輸入而變的成員�
 
 ### 開創性論文
 
-- Gu, A. & Dao, T. (2023). "Mamba: Linear-Time Sequence Modeling with Selective State Spaces". arXiv:2312.00752 — 依輸入而變的狀態空間參數，以硬體感知的平行掃描計算。
-- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". arXiv:2111.00396 — S4，具結構化狀態空間，能高效處理很長的序列。
-- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". arXiv:2008.07669 — 為狀態矩陣提供長程記憶的 HiPPO 框架。
+- Gu, A. & Dao, T. (2023). "Mamba: Linear-Time Sequence Modeling with Selective State Spaces". [arXiv:2312.00752](https://arxiv.org/abs/2312.00752) — 依輸入而變的狀態空間參數，以硬體感知的平行掃描計算。
+- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". [arXiv:2111.00396](https://arxiv.org/abs/2111.00396) — S4，具結構化狀態空間，能高效處理很長的序列。
+- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". [arXiv:2008.07669](https://arxiv.org/abs/2008.07669) — 為狀態矩陣提供長程記憶的 HiPPO 框架。
 
 ### 綜述與教科書
 
@@ -71,5 +71,5 @@ Mamba 是[選擇性狀態空間](../index.md)家族中依輸入而變的成員�
 
 ### 文章與文件
 
-- Dao, T. & Gu, A. (2024). "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality". arXiv:2405.21060 — Mamba-2，以及選擇性 SSM 與結構化注意力之間的對偶關係。
-- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". arXiv:2303.06349 — 仔細設計的線性循環單元，在長序列基準上能與 SSM 匹敵。
+- Dao, T. & Gu, A. (2024). "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality". [arXiv:2405.21060](https://arxiv.org/abs/2405.21060) — Mamba-2，以及選擇性 SSM 與結構化注意力之間的對偶關係。
+- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". [arXiv:2303.06349](https://arxiv.org/abs/2303.06349) — 仔細設計的線性循環單元，在長序列基準上能與 SSM 匹敵。

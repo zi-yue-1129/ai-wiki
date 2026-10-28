@@ -36,6 +36,26 @@ One landmark method anchors the learning discussion below. Its full write-up is 
 - **Comparison:** Learns from very large real-world data. The alternative of simulation-based training, which avoids collecting real data, is covered in the references on the method page. The abstract gives no grasp success rate.
 - **Full write-up:** [Hand-eye coordination for grasping](hand-eye-grasping/index.md)
 
+### Learned policies and foundation models
+
+- [ALOHA and ACT (Zhao et al. 2023)](aloha/index.md): low-cost bimanual hardware and a transformer policy that predicts chunks of actions from demonstrations.
+- [Diffusion Policy (Chi et al. 2023)](diffusion-policy/index.md): generates robot actions with a conditional denoising diffusion model.
+- [RT-2 (Brohan et al. 2023)](rt-2/index.md): writes robot actions as text tokens inside a vision-language model.
+- [OpenVLA (Kim et al. 2024)](openvla/index.md): an open 7-billion-parameter vision-language-action model.
+- [SayCan (Ahn et al. 2022)](saycan/index.md): a language model proposes steps, and learned value functions check which steps the robot can carry out.
+
+### Navigation with visual goals (Savinov et al., 2018; Shah et al., 2021–2023)
+
+- **Overview:** A robot reaches a goal shown as an image, using a graph of stored frames and a learned policy.
+- **Comparison:** Classical teach-and-repeat tracks a taught route with odometry. Learned methods such as ViNG, GNM, ViNT and NoMaD regress or sample continuous motion, and they differ in output and in how much data they use.
+- **Full write-up:** [Navigation with visual goals](navigation/index.md)
+
+### Visual localisation (Zaffar et al., 2021; Keetha et al., 2023; Berton et al., 2023)
+
+- **Overview:** A robot recovers where it is by retrieving matching images from a database. The methods differ in whether the encoder is a frozen foundation model or one trained for viewpoint robustness.
+- **Comparison:** AnyLoc uses frozen DINOv2 features with no encoder training. EigenPlaces trains on several views of each place. Zaffar et al. give a benchmark that separates viewpoint from appearance change.
+- **Full write-up:** [Visual localisation](visual-localisation/index.md)
+
 ## Learning-based robotics
 
 | Approach | Examples |

@@ -48,9 +48,9 @@ A complete theory of why self-supervised features transfer is missing. Good benc
 
 ### Seminal papers
 
-- Wang & Isola (2020), "Understanding contrastive representation learning through alignment and uniformity on the hypersphere", ICML, arXiv:2005.10242 — Defines alignment and uniformity as the two properties that contrastive losses optimise.
-- Oord, Li & Vinyals (2018), "Representation learning with contrastive predictive coding", arXiv:1807.03748 — Connects the InfoNCE loss to mutual information estimation.
-- Saunshi, Plevrakis, Arora, Khodak & Khandeparkar (2019), "A theoretical analysis of contrastive unsupervised representation learning", ICML, arXiv:1902.09229 — Gives guarantees that contrastive features support linear classification on latent classes.
+- Wang & Isola (2020), "Understanding contrastive representation learning through alignment and uniformity on the hypersphere", ICML, [arXiv:2005.10242](https://arxiv.org/abs/2005.10242) — Defines alignment and uniformity as the two properties that contrastive losses optimise.
+- Oord, Li & Vinyals (2018), "Representation learning with contrastive predictive coding", [arXiv:1807.03748](https://arxiv.org/abs/1807.03748) — Connects the InfoNCE loss to mutual information estimation.
+- Saunshi, Plevrakis, Arora, Khodak & Khandeparkar (2019), "A theoretical analysis of contrastive unsupervised representation learning", ICML, [arXiv:1902.09229](https://arxiv.org/abs/1902.09229) — Gives guarantees that contrastive features support linear classification on latent classes.
 
 ### Surveys and textbooks
 
@@ -62,5 +62,5 @@ A complete theory of why self-supervised features transfer is missing. Good benc
 
 ### Articles and documentation
 
-- Kolesnikov, Zhai & Beyer (2019), "Revisiting self-supervised visual representation learning", CVPR, arXiv:1901.09005 — Shows that method rankings depend on architecture and budget, so comparisons must be matched.
-- Chen, Kornblith, Norouzi & Hinton (2020), "A simple framework for contrastive learning of visual representations", ICML, arXiv:2002.05709 — Includes an extensive linear-probing evaluation protocol that many later papers reuse.
+- Kolesnikov, Zhai & Beyer (2019), "Revisiting self-supervised visual representation learning", CVPR, [arXiv:1901.09005](https://arxiv.org/abs/1901.09005) — Shows that method rankings depend on architecture and budget, so comparisons must be matched.
+- Chen, Kornblith, Norouzi & Hinton (2020), "A simple framework for contrastive learning of visual representations", ICML, [arXiv:2002.05709](https://arxiv.org/abs/2002.05709) — Includes an extensive linear-probing evaluation protocol that many later papers reuse.

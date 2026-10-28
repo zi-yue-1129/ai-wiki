@@ -1,0 +1,102 @@
+---
+translation_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-10-28
+tags:
+- neuroscience
+- navigation
+- memory
+- representation learning
+aliases:
+  - Tolman-Eichenbaum 機器
+  - Tolman–Eichenbaum Machine
+  - TEM
+---
+
+# Tolman–Eichenbaum 機器（Whittington 等人，2020）
+
+Tolman–Eichenbaum 機器（TEM）是一個海馬迴—內嗅系統的模型，把空間導航與關係記憶視為同一個問題。它的主要主張是，單一的結構化表徵同時支持兩者，而且類似格狀與位置的單元，是學習這個表徵時自然出現的。
+
+本頁屬於[空間導航與認知地圖](../index.md)。它詳細說明一種方法；認知地圖的更廣概念見該頁。
+
+## 概述
+
+動物既記得地點，也記得事物如何相關：哪個項目接在哪個之後，或哪些物件屬於同一脈絡。這兩類記憶通常分開研究。TEM 主張它們依賴同一個可泛化的結構。這個結構學成之後，可以在新環境中重複使用，動物不必重新學習整個佈局。
+
+## 關鍵概念
+
+- **關係記憶**：對項目、地點或事件如何相連的知識，而不只是每個項目的內容。
+- **結構知識**：對關係形狀的編碼，且在各環境之間成立。在 TEM 中，它主要位於內嗅成分。
+- **泛化**：把學到的結構應用到新的環境或任務。
+- **重映射**：環境改變時，位置細胞的編碼及其放電位置的改變。
+
+## 問題
+
+海馬迴—內嗅系統對空間記憶與關係記憶任務都很重要。核心問題是：是什麼計算連結這兩種功能，而系統又如何在環境之間泛化，而不必重新學習一切？若沒有共同的計算，這兩種功能看起來就只是同一腦區的兩種無關功能。
+
+## 核心想法
+
+TEM 主張，內嗅細胞形成一組描述結構知識的基底，而海馬迴細胞把這組基底連到感官表徵。結構在各環境之間保持固定。對每個新環境，模型學習感官輸入如何對應到這個共用結構。作者把這視為海馬迴支持泛化的機制性解釋。
+
+## 方程式或演算法
+
+TEM 是以預測來訓練的神經網路，無法用單一方程式概括。以下的流程概括模型的主要步驟；論文的方法部分提供細節：
+
+1. 讓模型接收某環境中一串觀察與移動。
+2. 內嗅式成分為這串事件中的關係建立結構編碼。
+3. 海馬迴式成分把該編碼與當前感官輸入綁定，形成對事件的記憶。
+4. 訓練網路根據這些記憶預測接下來的觀察。結構編碼在各環境之間保留。
+5. 訓練後檢視單元，檢查出現哪些細胞類型，並在新情境中測試重映射與泛化。
+
+完整的架構與訓練細節在論文中。本頁只給出大綱。
+
+## 結果
+
+以下結果取自同一研究較早的 bioRxiv 預印本的引言與結果部分（Whittington 等人，2019）。正式發表的 Cell 文章有所擴充，相關主張應以該版本為準。
+
+- 模型提出內嗅皮層的內側細胞形成描述結構知識的基底，海馬迴細胞則把此基底與感覺表徵連結起來。
+- 學習後，其類內嗅皮層的單元包括格狀、帶狀、邊界與物件向量細胞。格狀部分見[格狀單元頁面](../../neuroai/grid-like-units/index.md)。
+- 其類海馬迴的單元包括位置與地標細胞，並會在不同環境間重新映射。
+- 模型預測重新映射並非隨機：結構知識會跨環境保留。作者在同時記錄的位置細胞與格狀細胞中確認了這一點。
+- 模型也預測複雜非空間任務中的經驗記錄表徵。
+
+## 限制
+
+- **模型，不是測量。** 模型的單元與真實細胞類型相似，但相似不代表大腦中發生的是同樣的計算。
+- **設計選擇。** 結果取決於作者選擇的架構與訓練方式。[NeuroAI 頁面](../../neuroai/index.md)提到，類似的格狀結果可能依賴設計選擇。
+- **範圍。** 模型建立在作者測試過的任務類型上。記憶與導航的許多面向超出它的範圍。
+
+## 關聯
+
+- **認知地圖**：TEM 為認知地圖的想法提供一個具體的解釋。見[空間導航與認知地圖](../index.md)。
+- **記憶**：海馬迴與內嗅在記憶中的角色見[記憶與學習的神經機制](../../memory-learning/index.md)。TEM 把其中的空間與關係部分連在一起。在概念性（非空間）知識上，人類也曾報告格狀式的編碼（Constantinescu 等人，2016）。
+- **位置細胞**：模型的海馬迴部分就是[位置細胞與認知地圖假說](../place-cells/index.md)中的位置細胞故事。
+- **AI**：能轉移到新環境的共用結構，是[世界模型與具身智慧](../../../theory/models/world-models/index.md)中討論的想法。
+
+## 應用
+
+- **產生假說**：TEM 產生可與記錄比對的預測，例如海馬迴的重映射是否在各環境之間保留結構知識。
+- **AI 中的結構化泛化**：學到的結構應能跨環境重用，這個想法把 TEM 與世界模型的研究連在一起。見[世界模型頁面](../../../theory/models/world-models/index.md)。
+
+## 未解問題
+
+- **這個結構與大腦的相同嗎？** TEM 主張內嗅細胞編碼結構。它們是否以模型所假設的方式這樣做，仍在檢驗中。
+- **結構如何學習並保持固定？** 模型在各環境之間的穩定性取決於學習中的細節，這些細節仍有爭議。
+- **這個解釋能走多遠？** Behrens 等人（2018）把認知地圖視為組織知識的一般方式。TEM 能延伸到空間之外多遠，仍是開放問題。
+
+## 參考文獻
+
+### 開創性論文
+
+- Whittington, J. C. R. 等人（2020）。The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation。*Cell*。https://doi.org/10.1016/j.cell.2020.10.024 — 提出 TEM，以及一個結構如何同時支持空間與關係記憶與泛化的解釋。
+- Whittington, J. C. R.、Muller, T.、Mark, S.、Chen, G.、Barry, C. 與 Burgess, N.（2019）。The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation。*bioRxiv*（預印本）。https://doi.org/10.1101/770495 — 同一研究較早的預印本；結果段落取自其引言與結果部分。
+- Hafting, T. 等人（2005）。Microstructure of a spatial map in the entorhinal cortex。*Nature*。https://doi.org/10.1038/nature03721 — 描述內嗅皮質中的格狀細胞，也就是 TEM 重現的細胞類型。
+
+### 綜述與教科書
+
+- Behrens, T. E. J. 等人（2018）。What Is a Cognitive Map? Organizing Knowledge for Flexible Behavior。*Neuron*。https://doi.org/10.1016/j.neuron.2018.10.002 — 回顧認知地圖，以及它延伸至抽象知識的部分，這是 TEM 所依據的框架。
+- Moser, E. I.、Kropff, E. 與 Moser, M.-B.（2008）。Place Cells, Grid Cells, and the Brain's Spatial Representation System。*Annual Review of Neuroscience*。https://doi.org/10.1146/annurev.neuro.31.061307.090723 — 回顧位置細胞與格狀細胞作為同一迴路的一部分，如何在行為與記憶中表徵地點與路線。
+
+### 文章與文件
+
+- Constantinescu, A. O.、O'Reilly, J. X. 與 Behrens, T. E. J.（2016）。Organizing conceptual knowledge in humans with a gridlike code。*Science*, 352(6292), 1464–1468。https://doi.org/10.1126/science.aaf0941 — 報告人類中對概念知識的格狀編碼。

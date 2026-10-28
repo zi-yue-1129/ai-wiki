@@ -10,6 +10,9 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 
 ## 1. Linear algebra
 
+> Detailed page: [Linear algebra for AI](linear-algebra/index.md), with [singular value decomposition](linear-algebra/svd.md) and [eigendecomposition](linear-algebra/eigendecomposition.md).
+
+
 **Where it's used:** data are vectors and matrices; each neural-network layer is a matrix multiply plus a nonlinearity; embeddings are points in vector space; attention is built from dot products.
 
 **Minimum to know:**
@@ -21,6 +24,9 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 - Norms (L1, L2): regularisation
 
 ## 2. Calculus
+
+> Detailed page: [Calculus and optimisation foundations](calculus/index.md), with [Newton's method](calculus/newtons-method.md) and [Lagrange multipliers](calculus/lagrange-multipliers.md).
+
 
 **Where it's used:** training = minimising a loss, which needs gradients.
 
@@ -34,6 +40,9 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 \]
 
 ## 3. Probability and statistics
+
+> Detailed page: [Probability and statistics for AI](probability-statistics/index.md), with [maximum likelihood](probability-statistics/maximum-likelihood.md) and [maximum a posteriori estimation](probability-statistics/maximum-a-posteriori.md).
+
 
 **Where it's used:** models output probability distributions; a language model *is* \( p(x_t \mid x_{<t}) \); uncertainty estimation; confidence intervals and significance tests in evaluation.
 
@@ -76,9 +85,14 @@ Information theory is also central in neuroscience: the **efficient coding hypot
 - **Game theory**: GANs, multi-agent systems, mechanism design
 - **Numerics**: floating-point formats (FP32/BF16/FP8), numerical stability (log-sum-exp)
 
-## Resources
+## References
 
-- [Mathematics for Machine Learning](https://mml-book.github.io/) (free PDF)
-- 3Blue1Brown, *Essence of Linear Algebra*, *Essence of Calculus*, *Neural Networks*
-- [d2l appendix: Mathematics for Deep Learning](https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/index.html)
-- MIT 18.06 Linear Algebra (Gilbert Strang)
+- Deisenroth, M. P., Faisal, A. A. & Ong, C. S. (2020). *Mathematics for Machine Learning*. Cambridge University Press. https://mml-book.github.io/ — Textbook linking linear algebra, analytic geometry, matrix decompositions, vector calculus, probability and optimisation to machine learning.
+- Cover, T. M. & Thomas, J. A. (2006). *Elements of Information Theory* (2nd ed.). Wiley. https://doi.org/10.1002/047174882X — Standard reference for entropy, mutual information and channel-coding results used in the information-theory section.
+- Boyd, S. & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press. https://doi.org/10.1017/CBO9780511804441 — Textbook on convex sets, duality and the algorithms behind the optimisation section.
+- Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*. MIT Press. https://www.deeplearningbook.org/ — Chapters 2 to 4 cover the linear algebra, probability and information theory this page introduces.
+- Hastie, T., Tibshirani, R. & Friedman, J. (2009). *The Elements of Statistical Learning* (2nd ed.). Springer. https://doi.org/10.1007/978-0-387-84858-7 — Statistical foundations for probability, regression and model selection in machine learning.
+
+## Further learning
+
+- [d2l appendix: Mathematics for Deep Learning](https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/index.html) — free interactive appendix with code.

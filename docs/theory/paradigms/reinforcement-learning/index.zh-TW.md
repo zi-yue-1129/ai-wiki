@@ -95,6 +95,7 @@ Schultz、Dayan 與 Montague（1997）發現：中腦多巴胺神經元的放電
 - **概況：** 以學習得到的網路進行搜尋。AlphaGo 結合策略網路與價值網路及蒙地卡羅樹搜尋，並以人類棋譜起步。AlphaZero 僅靠自我對弈學習，只依各遊戲的規則。
 - **比較：** 以搜尋為基礎的對弈路線。兩者都列於圍棋與棋類遊戲的里程碑中，而 [MuZero](model-based-rl/muzero/index.md) 把同一套搜尋延伸到規則不交給規劃器的遊戲。
 - **完整內容：** [AlphaGo](alphago/index.md)、[AlphaZero](alphazero/index.md)
+- **搜尋方法：** [蒙地卡羅樹搜尋與自我對弈](mcts-and-self-play/index.md)，這些系統共用的 UCT 選擇規則與自我對弈循環。
 
 ## 里程碑
 
@@ -129,10 +130,10 @@ Schultz、Dayan 與 Montague（1997）發現：中腦多巴胺神經元的放電
 
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518. https://doi.org/10.1038/nature14236 — DQN 論文，開啟了大規模深度強化學習的起點。
 - Silver et al. (2016), "Mastering the game of Go with deep neural networks and tree search", *Nature* 529. https://research.google/pubs/mastering-the-game-of-go-with-deep-neural-networks-and-tree-search/ — AlphaGo，結合學習得到的網路與搜尋。
-- Christiano et al. (2017), "Deep reinforcement learning from human preferences", NeurIPS, arXiv:1706.03741 — 從人類的成對比較中學習獎勵函數，是 RLHF 的基礎。
-- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — PPO，實務上最常用的策略梯度方法。
+- Christiano et al. (2017), "Deep reinforcement learning from human preferences", NeurIPS, [arXiv:1706.03741](https://arxiv.org/abs/1706.03741) — 從人類的成對比較中學習獎勵函數，是 RLHF 的基礎。
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — PPO，實務上最常用的策略梯度方法。
 
 ### 綜述與教科書
 
 - Sutton, R. S. & Barto, A. G. *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press, 2018. http://incompleteideas.net/book/the-book-2nd.html — 標準強化學習教科書，提供免費線上草稿，涵蓋上方表格中的演算法家族。
-- Levine, S., Kumar, A., Tucker, G. & Fu, J. (2020), "Offline reinforcement learning: tutorial, review, and perspectives on open problems", arXiv:2005.01643 — 從固定資料集學習的教學與綜述。
+- Levine, S., Kumar, A., Tucker, G. & Fu, J. (2020), "Offline reinforcement learning: tutorial, review, and perspectives on open problems", [arXiv:2005.01643](https://arxiv.org/abs/2005.01643) — 從固定資料集學習的教學與綜述。

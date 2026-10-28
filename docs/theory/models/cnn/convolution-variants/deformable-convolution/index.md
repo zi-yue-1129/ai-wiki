@@ -25,6 +25,10 @@ A regular convolution samples a fixed grid around each output position, so its r
 
 Each sampling point of the regular grid receives an extra learned offset, predicted by a separate offset layer that reads the same input feature map. The offset layers start with zero weights, so the operation begins as a regular convolution. Because offsets are generally fractional, the input is sampled by bilinear interpolation, which keeps the operation differentiable. The same offset idea is applied to RoI pooling, so that the pooling bins can move with the object.
 
+![Nine deformable convolution sampling locations move between a fixed lattice and illustrative learned offsets.](../../../../../assets/concept-animations/deformable-sampling-motion.svg)
+
+*Original schematic (CC BY-SA 4.0).* The left kernel samples a fixed 3×3 lattice. On the right, each orange point moves independently from its grey reference position to an offset sampling location; the translucent region is only a shape cue. The offsets are **illustrative, not learned or measured values**. Actual fractional samples use bilinear interpolation, not nearest-grid snapping. On MkDocs, **Play/Pause** controls the loop, and reduced-motion settings show the [static offset state](../../../../../assets/concept-animations/deformable-sampling-still.svg); the link also works in GitHub Markdown.
+
 ## Equation or algorithm
 
 For a standard convolution over a regular grid \(\mathcal{R}\), the paper writes
@@ -63,10 +67,10 @@ The [convolution variants](../index.md) page lists deformable convolution as the
 
 ### Seminal papers
 
-- Dai, J., et al. (2017). "Deformable Convolutional Networks". arXiv:1703.06211 — Learns sampling offsets so the convolution adapts to object shape.
-- Yu, F. & Koltun, V. (2015). "Multi-Scale Context Aggregation by Dilated Convolutions". arXiv:1511.07122 — Dilated convolutions for dense prediction with exponentially growing receptive fields.
-- Chen, L.-C., et al. (2016). "DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs". arXiv:1606.00915 — Atrous convolution with fully connected CRFs for dense segmentation.
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — Residual connections that allow very deep CNNs to train.
+- Dai, J., et al. (2017). "Deformable Convolutional Networks". [arXiv:1703.06211](https://arxiv.org/abs/1703.06211) — Learns sampling offsets so the convolution adapts to object shape.
+- Yu, F. & Koltun, V. (2015). "Multi-Scale Context Aggregation by Dilated Convolutions". [arXiv:1511.07122](https://arxiv.org/abs/1511.07122) — Dilated convolutions for dense prediction with exponentially growing receptive fields.
+- Chen, L.-C., et al. (2016). "DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs". [arXiv:1606.00915](https://arxiv.org/abs/1606.00915) — Atrous convolution with fully connected CRFs for dense segmentation.
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — Residual connections that allow very deep CNNs to train.
 
 ### Surveys and textbooks
 

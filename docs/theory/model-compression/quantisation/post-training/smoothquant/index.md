@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -24,11 +24,11 @@ Scale each input channel down in the activations and up in the corresponding wei
 
 ![Animated SmoothQuant schematic: a large activation-channel outlier is reduced while the corresponding weight channel is rescaled upward before W8A8 quantisation.](../../../../../assets/concept-animations/smoothquant-rescaling.gif)
 
-*Original animated schematic, CC BY-SA 4.0.* A positive **per-input-channel** scale \(s\) redistributes dynamic range: \(X' = X\operatorname{diag}(s)^{-1}\), \(W'=\operatorname{diag}(s)W\), and therefore \(X'W'=XW\) **before quantisation**. The highlighted activation outlier becomes smaller as the matching weight channel grows. The bars are illustrative—not calibrated values, measured quantisation error or actual model activations. Subsequent INT8 rounding is **not** mathematically lossless. [Xiao et al. (2022/2023)](https://arxiv.org/abs/2211.10438).
+*Original animated schematic, CC BY-SA 4.0.* A positive **per-input-channel** scale \(s\) redistributes dynamic range: \(X' = X\operatorname{diag}(s)^{-1}\), \(W'=\operatorname{diag}(s)W\), and therefore \(X'W'=XW\) **before quantisation**. The highlighted activation outlier becomes smaller as the matching weight channel grows. The bars are illustrative—not calibrated values, measured quantisation error or actual model activations. Subsequent INT8 rounding is **not** mathematically lossless. [Xiao et al. (2023)](https://arxiv.org/abs/2211.10438).
 
 ## Equation or algorithm
 
-For a linear layer \(Y = XW\), the method computes \(Y = (X\,\mathrm{diag}(s)^{-1})(\mathrm{diag}(s)\,W)\) with scales \(s\) chosen from activation and weight statistics. The rescaled activations and weights are then quantised to 8 bits.
+For a linear layer \(Y = XW\), the method computes \(Y = (X\,\mathrm{diag}(s)^{-1})(\mathrm{diag}(s)\,W)\). The scale for input channel \(j\) is \(s_j = \max|X_j|^{\alpha} / \max|W_j|^{1-\alpha}\), where the maxima are taken over calibration data and \(\alpha\) is a migration strength. The paper reports \(\alpha = 0.5\) as a good default for OPT and BLOOM models. The rescaled activations and weights are then quantised to 8 bits.
 
 ## Results
 
@@ -45,13 +45,13 @@ The scales are chosen from calibration data, and a poor choice moves the outlier
 
 ## Connections
 
-SmoothQuant is the activation-side counterpart of [AWQ](../awq/index.md). It makes integer matrix multiplication practical, which is the arithmetic that [hardware](../../../../../engineering/hardware/index.md) with 8-bit tensor units runs fastest.
+SmoothQuant uses the same per-channel rescaling idea as [AWQ](../awq/index.md), but applies it to activations as well as weights, so both operands can be quantised to 8 bits. AWQ is weight-only. This makes integer matrix multiplication practical, which is the arithmetic that [hardware](../../../../../engineering/hardware/index.md) with 8-bit tensor units runs fastest.
 
 ## References
 
 ### Seminal papers
 
-- Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., Han, S. (2022). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — Moves activation outliers into the weights for 8-bit inference, with up to 1.56 times speed-up.
+- Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., Han, S. (2023). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. ICML 2023. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — Moves activation outliers into the weights for 8-bit inference, with up to 1.56 times speed-up.
 - Dettmers, T., et al. (2022). *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*. arXiv:2208.07339. https://arxiv.org/abs/2208.07339 — Keeps outliers in 16 bits instead of moving them.
 - Lin, J., et al. (2023). *AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration*. arXiv:2306.00978. https://arxiv.org/abs/2306.00978 — Chooses per-channel scales from activation statistics for weight-only quantisation.
 

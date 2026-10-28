@@ -15,7 +15,7 @@ AdamW 是帶有解耦權重衰減的 Adam。它把權重衰減懲罰直接作用
 - **L2 正則化**：加在損失上的懲罰，其梯度會被最佳化器縮放。
 - **權重衰減**：每步對參數的收縮，施加在梯度之外。
 - **解耦**：以自己的係數 \(\lambda\) 施加衰減，與自適應分母無關。
-- **學習率與衰減的交互作用**：論文的實驗顯示兩個係數應該一起調校。
+- **學習率獨立性**：論文指出，採用解耦衰減後，最佳的衰減係數大致與學習率無關，因此兩者可以分開調校。
 
 ## 運作方式
 
@@ -35,7 +35,7 @@ AdamW 是帶有解耦權重衰減的 Adam。它把權重衰減懲罰直接作用
 - **核心想法：** 把權重衰減直接作用在參數上，置於自適應步驟之外，使衰減係數與梯度縮放脫鉤。
 - **公式或演算法：** 上述更新式，其中 \(\lambda\) 為衰減係數。
 - **結果：** 摘要指出，脫鉤後的衰減能大幅改善 Adam 的泛化能力，使其在影像分類上能與帶動量的 SGD 競爭。摘要中未給出具體數字。
-- **限制：** 衰減係數與學習率仍會互相影響，且此效益主要是在影像分類上回報的。AdamW 常用於 Transformer 模型，但在其他任務上的優勢仍取決於調校。
+- **限制：** 論文的證據主要來自影像分類，在其他任務上的優勢仍取決於調校。AdamW 廣泛用於 Transformer 模型，其相對於帶 L2 正則化的 Adam 的增益，取決於設定。
 
 ## 關聯
 
@@ -59,12 +59,9 @@ AdamW 是帶有解耦權重衰減的 Adam。它把權重衰減懲罰直接作用
 
 - Loshchilov, I. & Hutter, F. (2019). Decoupled Weight Decay Regularization. ICLR. https://arxiv.org/abs/1711.05101 — 指出在自適應方法下，L2 正則化與權重衰減不同，並提出 AdamW。
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR. https://arxiv.org/abs/1412.6980 — AdamW 所修改的基礎最佳化器。
+- Wilson, A. C., Roelofs, R., Stern, M., Srebro, N. & Recht, B. (2017). The Marginal Value of Adaptive Gradient Methods in Machine Learning. NeurIPS. https://proceedings.neurips.cc/paper_files/paper/2017/hash/81b3833e2504647f9d794f7d7b9bf341-Abstract.html — 顯示自適應方法可能找到泛化劣於 SGD 的解，正是解耦衰減所要處理的差距。
 
 ### 綜述與教科書
 
 - Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization Methods for Large-Scale Machine Learning. *SIAM Review*. https://arxiv.org/abs/1606.04838 — 隨機梯度方法綜述，包含自適應變體及其取捨。
 - Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*，第 7 章正則化。MIT Press。https://www.deeplearningbook.org/ — 將權重衰減作為正則化項的教科書說明，可線上免費閱讀。
-
-### 文章與文件
-
-- PyTorch 文件，*torch.optim.AdamW*。https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html — 含解耦權重衰減與其預設係數的參考實作。

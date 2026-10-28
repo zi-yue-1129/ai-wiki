@@ -61,4 +61,4 @@ Zhai 等人以矩陣 \(W_K W_Q^\top\) 分析注意力。他們證明，注意力
 - Dehghani, M., Djolonga, J., Mustafa, B., et al. (2023). *Scaling Vision Transformers to 22 Billion Parameters*. ICML 2023, PMLR 202:7480–7512. https://proceedings.mlr.press/v202/dehghani23a.html — 針對同一問題的另一種穩定化修改，即查詢鍵正規化。
 - Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — 在小規模上測試注意力 logit 與輸出 logit 的不穩定。
 - Noci, L., Anagnostidis, S., Biggio, L., et al. (2022). *Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse*. arXiv:2206.03126. https://arxiv.org/abs/2206.03126 — 分析秩崩潰，這是限制範數無法移除的失敗。
-- Xiong, R., Yang, Y., He, D., et al. (2020). *On Layer Normalization in the Transformer Architecture*. arXiv:2002.04745. https://arxiv.org/abs/2002.04745 — 研究正規化的位置，σReparam 部分地取代了它。
+- Xiong, R., Yang, Y., He, D., et al. (2020). *On Layer Normalization in the Transformer Architecture*. ICML 2020. https://arxiv.org/abs/2002.04745 — 研究正規化的位置，σReparam 部分地取代了它。

@@ -1,50 +1,93 @@
+---
+status: draft
+last_reviewed: 2026-10-28
+related:
+  - theory/paradigms/meta-learning
+  - theory/optimization/zeroth-order-and-evolutionary
+  - applications/science
+tags:
+  - evolutionary
+  - swarm
+  - population-based
+aliases:
+  - 演化計算
+  - 群體智慧
+  - 族群搜尋
+---
+
 # 演化計算與群體智慧
 
-## 演化計算
+有些搜尋問題沒有梯度可以跟隨：目標是離散、多峰的，或只能透過執行模擬器取得。演化與群體方法的處理方式，是維護一個**族群**的候選解、為每個候選打分，再從最好的候選建立下一代。搜尋是靠整個族群進行，而不是靠單一點。
 
-借用達爾文演化：**族群**中的個體經過**選擇、交配（交叉）、突變**，一代代朝更高**適應度**演化。不需要梯度，適合不可微、離散、多峰的問題。
+## 概觀
 
-| 方法 | 特點 | 應用 |
-|---|---|---|
-| 遺傳演算法 GA | 位元串編碼、交叉＋突變 | 排程、設計最佳化 |
-| 遺傳規劃 GP | 演化樹狀程式 | 符號迴歸、自動程式設計 |
-| 演化策略 ES / CMA-ES | 連續參數、自適應共變異數 | 連續最佳化、RL 策略搜尋 |
-| 神經演化（NEAT 等） | 同時演化權重與網路拓撲 | 遊戲控制、早期 NAS |
-| 品質多樣性（MAP-Elites） | 不只找最好，還要找多樣的好解 | 機器人步態、創意生成 |
-| 開放式演化（open-endedness） | 持續產生新奇且複雜的解 | POET、人工生命 |
+本頁是[範式](../index.zh-TW.md)章節的一部分。每個方法各有獨立頁面，本頁負責比較。以梯度估計方式從函數值估計搜尋方向的零階方法（演化策略與 CMA-ES），見[零階與演化最佳化](../../optimization/zeroth-order-and-evolutionary.zh-TW.md)，本頁僅作摘要。
 
-### 和深度學習的結合
+## 關鍵方法
 
-- **神經架構搜尋（NAS）**：用演化或 RL 搜尋網路結構
-- **演化策略作為 RL 替代**（Salimans et al., 2017）：高度可平行
-- **LLM 驅動的演化**：用 LLM 當作「突變運算子」產生程式變體，再以自動評估篩選，例如 FunSearch（2023）在組合數學問題找到新構造、AlphaEvolve（2025）改進演算法與資料中心排程
-- **模型合併的演化**：演化搜尋多個模型權重的組合方式
+| 方法 | 族群更新方式 | 典型應用 | 頁面 |
+|---|---|---|---|
+| 遺傳演算法 | 在位元串或向量上做選擇、交叉與突變 | 排程、設計 | [遺傳演算法](genetic-algorithms.zh-TW.md) |
+| 遺傳規劃 | 在程式樹上做交叉與突變 | 符號迴歸 | [遺傳規劃](genetic-programming.zh-TW.md) |
+| 演化策略與 CMA-ES | 抽取高斯樣本，並把其均值與共變異數移向好的樣本 | 連續黑箱最佳化 | [零階與演化](../../optimization/zeroth-order-and-evolutionary.zh-TW.md) |
+| NEAT | 同時演化權重與拓撲，並使用創新編號 | 神經演化、控制 | [NEAT](neat.zh-TW.md) |
+| MAP-Elites | 在行為網格的每個格子中保留最佳解 | 多樣的解、機器人動作庫 | [MAP-Elites](map-elites.zh-TW.md) |
+| 粒子群最佳化 | 每個粒子依自身與鄰居的最佳位置移動 | 連續最佳化 | [粒子群最佳化](particle-swarm.zh-TW.md) |
+| 螞蟻演算法 | 螞蟻在好的路徑上留下費洛蒙，依比例抽樣路徑 | 組合式路徑問題 | [螞蟻演算法](ant-colony.zh-TW.md) |
+
+## 關鍵概念
+
+- **適應度**：每個候選解的分數，透過執行目標函數取得，不需要微分。
+- **變異**：新候選由既有候選重組或擾動而來。交叉混合兩個親代，突變加入雜訊。
+- **選擇壓力**：最好的候選被偏好的程度。壓力太大會失去多樣性，太小則搜尋會漫無方向。
+- **多樣性**：族群收斂到一點後就無法再探索。小生境、物種分化與品質多樣性方法讓多個解同時存活。
+
+## 與深度學習的結合
+
+- **神經架構搜尋**：演化一群網路設計，並以訓練每個設計來打分。成本很高，因此後續研究會讓候選之間共享權重。
+- **演化策略作為強化學習的替代**：Salimans et al.（2017）顯示，簡單的演化策略估計器能在許多平行工作節點上大規模訓練策略，不必透過環境反向傳播。
+- **以 LLM 驅動的搜尋**：語言模型提出新候選，自動評估器為其打分。FunSearch（Romera-Paredes et al., 2023）以此搜尋可構造新數學物件的程式。AlphaEvolve（Novikov et al., 2025）把相同模式用於演算法發現。
 
 ## 群體智慧
 
-簡單個體透過局部互動湧現出集體智慧。
+群體方法使用簡單的代理，彼此在局部互動，產生有用的集體結果。本章中有獨立頁面的是粒子群最佳化與螞蟻演算法。Boids 是電腦圖學中的群飛模型，也是同一原則的早期例子，這裡不再深入。
 
-| 演算法 | 靈感 | 應用 |
-|---|---|---|
-| 蟻群最佳化 ACO | 螞蟻以費洛蒙標記路徑 | 路徑規劃、旅行推銷員問題 |
-| 粒子群最佳化 PSO | 鳥群、魚群 | 連續最佳化 |
-| 人工蜂群 ABC | 蜜蜂覓食 | 最佳化 |
-| Boids | 鳥群三規則（分離、對齊、聚合） | 動畫、無人機編隊 |
+## 與大腦的關係
 
-## 人工生命與複雜系統
+演化塑造先天結構，學習則加以調整。Zador（2019）主張，許多動物行為來自基因指定的接線，而不是從零開始學習。這個觀點推動了元學習與學習者起始時歸納偏置的研究。見[元學習](../meta-learning/index.zh-TW.md)。
 
-- 細胞自動機（康威生命遊戲）、Lenia、神經細胞自動機（Neural CA）
-- 自組織、湧現、自我複製
-- 與生物學的關聯：形態發生、發育生物學（Michael Levin 的「基礎認知」研究）
+## 限制
 
-## 和腦科學的關係
+- 評估成本高。每個候選通常需要完整執行一次目標，因此在平滑問題上，族群方法所需的評估次數遠多於梯度方法。
+- 結果取決於編碼與運算子。同一個問題，依表示方式不同可能很容易，也可能很難。
+- 大多數這類方法的收斂保證很弱，其成效通常以實驗展示。
 
-- 大腦本身是演化的產物：演化提供先天結構（歸納偏誤），學習在其上微調。Zador（2019）〈A critique of pure learning〉主張動物大量行為來自基因編碼的連線，而非從頭學習，這啟發了「基因組瓶頸」與元學習研究。
-- **神經達爾文主義**（Edelman）：神經群體之間的選擇過程。
-- **Baldwin 效應**：學習能力如何影響演化方向。
+## 未解問題
 
-## 學習資源
+- **以學習得到的變異運算子擴展。** LLM 驅動的運算子讓突變步驟豐富許多，但評估器必須便宜且可靠。
+- **開放式演化。** 搜尋能否在沒有固定目標的情況下，持續產生新穎且日益複雜的解，仍未解決。
 
-- Eiben & Smith《Introduction to Evolutionary Computing》
-- Stanley & Lehman《Why Greatness Cannot Be Planned》（開放式探索）
-- [DEAP](https://github.com/DEAP/deap)、[EvoTorch](https://github.com/nnaisense/evotorch)、[pyribs](https://pyribs.org/)（品質多樣性）
+## 參考文獻
+
+### 開創性論文
+
+- Salimans, T., Ho, J., Chen, X., Sidor, S. & Sutskever, I. (2017). *Evolution Strategies as a Scalable Alternative to Reinforcement Learning*. arXiv:1703.03864. https://arxiv.org/abs/1703.03864 — 顯示演化策略估計器能在許多平行工作節點上大規模訓練策略。
+- Romera-Paredes, B., et al. (2023). *Mathematical discoveries from program search with large language models*. Nature. https://doi.org/10.1038/s41586-023-06924-6 — 以語言模型搭配自動評估器，搜尋可構造新數學物件的程式。
+- Mouret, J.-B. & Clune, J. (2015). *Illuminating search spaces by mapping elites*. arXiv:1504.04909. https://arxiv.org/abs/1504.04909 — 提出 MAP-Elites，在行為網格的每個格子中保留最佳解。
+
+### 綜述與教科書
+
+（本頁尚未查核任何項目）
+
+### 講座與影片
+
+（本頁尚未查核任何項目）
+
+### 文章與文件
+
+- Novikov, A., et al. (2025). *AlphaEvolve: A coding agent for scientific and algorithmic discovery*. arXiv:2506.13131. https://arxiv.org/abs/2506.13131 — 以語言模型的程式碼代理，搭配自動評估器演化程式，用於科學與演算法問題。
+- Zador, A. M. (2019). *A critique of pure learning and what artificial neural networks can learn from animal brains*. Nature Communications. https://pmc.ncbi.nlm.nih.gov/articles/PMC6704116 — 主張許多動物行為來自基因編碼的結構，而非從零開始學習。
+
+## 延伸學習
+
+- [DEAP](https://github.com/DEAP/deap)、[EvoTorch](https://github.com/nnaisense/evotorch) 與 [pyribs](https://pyribs.org/) 是演化與品質多樣性搜尋的開源函式庫。

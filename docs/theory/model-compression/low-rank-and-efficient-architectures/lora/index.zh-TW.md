@@ -34,7 +34,8 @@ LoRA 減少的是訓練與儲存任務專屬權重的成本，而不是必須服
 
 - **秩的選擇。** 秩應如何依任務與層而變，尚無定論，通常靠實驗調整。
 - **相關：** [截斷 SVD](../truncated-svd/index.zh-TW.md)使用相同的低秩結構來壓縮已訓練的矩陣，而不是用來適應。
-- **組合。** LoRA 更新能否與量化的基礎模型結合而不損失準確度，是活躍的實務問題。
+- **組合。** LoRA 更新能否與量化的基礎模型結合而不損失準確度，是活躍的實務問題。[QLoRA](qlora.zh-TW.md) 針對 4 位元基底回答了這個問題，並報告在其測試的基準上與 16 位元 LoRA 相當。
+- **變體。** [DoRA](dora.zh-TW.md) 把每個權重分解為大小與方向，只把低秩更新套用在方向上，並報告在多項任務上優於 LoRA。
 
 ## 相關連結
 
@@ -58,4 +59,4 @@ LoRA 是一種訓練方法，因此與[訓練](../../../../engineering/training/
 
 ### 文章與文件
 
-- Ainslie, J., 等人 (2023). *GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints*. arXiv:2305.13245. https://arxiv.org/abs/2305.13245 — 一種同樣會改變推論成本的高效注意力設計。
+- Ainslie, J., 等人 (2023). *GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints*. arXiv:2305.13245. https://arxiv.org/abs/2305.13245 — 縮小推論時的鍵值快取，這是 LoRA 未處理的成本。

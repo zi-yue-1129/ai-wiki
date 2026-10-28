@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/models/llm
@@ -19,7 +19,14 @@ Self-consistency replaces the single greedy chain of thought with many sampled c
 
 ## Overview
 
-Chain-of-thought prompting usually decodes one reasoning path, the most likely one at each step. That path can contain an error that the model would not repeat on another attempt. The method rests on an intuition from Wang et al. (2022): a question usually admits several valid reasoning routes to the same answer, while errors tend to scatter across different answers. Sampling diverse paths and voting then favours the consistent answer.
+Chain-of-thought prompting usually decodes one reasoning path, the most likely one at each step. That path can contain an error that the model would not repeat on another attempt. The method rests on an intuition from Wang et al. (2023): a question usually admits several valid reasoning routes to the same answer, while errors tend to scatter across different answers. Sampling diverse paths and voting then favours the consistent answer.
+
+## Key concepts
+
+- **Greedy decoding**: picking the most likely token at each step, which gives one fixed reasoning path.
+- **Sampling temperature**: a setting that controls how random the sampled text is. Above zero, repeated runs give different paths.
+- **Marginalisation over paths**: summing the probability of each final answer across all the paths that reach it, so the answer with the most support wins.
+- **Majority vote**: the simplest way to combine answers, choosing the one that most paths reach.
 
 ## Problem
 
@@ -38,9 +45,13 @@ Sample a diverse set of reasoning paths instead of taking only the greedy one. T
 
 The method needs an answer that can be compared across paths. Aggregating free-form text is harder and is not covered by the abstract.
 
+## Key methods
+
+Self-consistency has one method of its own, a sample-and-vote procedure on top of a fixed prompt. Its alternatives appear under [test-time scaling](test-time-scaling.md) (verifier-scored search) and in [DeepSeek-R1](deepseek-r1.md) (training on sampled solutions).
+
 ## Results
 
-Wang et al. (2022) report gains over greedy chain-of-thought decoding on arithmetic and commonsense benchmarks. The abstract lists these improvements in accuracy:
+Wang et al. (2023) report gains over greedy chain-of-thought decoding on arithmetic and commonsense benchmarks. The abstract lists these improvements in accuracy:
 
 - GSM8K: +17.9%
 - SVAMP: +11.0%
@@ -57,11 +68,22 @@ The abstract does not state how many samples \(k\) were drawn, so that setting s
 - Majority voting can agree on a wrong answer when the model is systematically wrong. Sampling does not fix a missing skill.
 - The paper's gains are reported on benchmarks with short answers. Their size on long-form tasks is not shown.
 
+## Variants and more variants
+
+- **Weighted voting**: weights each path by a score, such as its probability or a verifier's rating, instead of counting every path equally.
+- **Verifier-guided selection**: scores each candidate with a learned model and keeps the best, as in [test-time scaling](test-time-scaling.md).
+- **Step-level verification**: checks each reasoning step, as in [Let's Verify Step by Step](https://arxiv.org/abs/2305.20050), rather than only the final answer.
+
 ## Connections
 
 - [Chain of thought](chain-of-thought.md) is the prompting method that self-consistency decodes many times.
 - [Test-time compute scaling](test-time-scaling.md) generalises the idea: spend extra samples or search steps, and choose which ones to keep with a verifier rather than a vote.
 - [DeepSeek-R1](deepseek-r1.md) uses a related idea when it samples many candidate solutions to create training data.
+
+## Applications
+
+- Arithmetic and word-problem solving, where the final answer is a short number that is easy to compare.
+- Multiple-choice question answering, where the answer options give a fixed set of labels to vote over.
 
 ## Open questions
 
@@ -72,9 +94,9 @@ The abstract does not state how many samples \(k\) were drawn, so that setting s
 
 ### Seminal papers
 
-- Wang, X., et al. (2022). *Self-Consistency Improves Chain of Thought Reasoning in Language Models*. arXiv. https://arxiv.org/abs/2203.11171 — The original method: sample diverse reasoning paths and keep the most consistent final answer.
+- Wang, X., et al. (2023). *Self-Consistency Improves Chain of Thought Reasoning in Language Models*. ICLR. https://arxiv.org/abs/2203.11171 — The original method: sample diverse reasoning paths and keep the most consistent final answer.
 - Wei, J., et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — The greedy chain-of-thought baseline that self-consistency replaces.
-- Snell, C., Lee, J., Xu, K. & Kumar, A. (2024). *Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters*. arXiv. https://arxiv.org/abs/2408.03314 — Studies how spending more inference compute, including sampling, can rival a larger model.
+- Snell, C., Lee, J., Xu, K. & Kumar, A. (2024). *Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters*. arXiv. https://arxiv.org/abs/2408.03314 — Studies how spending more inference compute, including sampling, can rival a larger model. The abstract reports a more-than-4× efficiency gain over a best-of-N baseline.
 - Lightman, H., et al. (2023). *Let's Verify Step by Step*. arXiv. https://arxiv.org/abs/2305.20050 — Uses a step-level verifier to rank candidate solutions, an alternative to voting.
 
 ### Surveys and textbooks

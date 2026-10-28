@@ -45,14 +45,14 @@ The optimisers below are grouped by what information they use. Each subpage give
 |---|---|---|---|
 | First-order, SGD family | Gradient and momentum | [SGD and momentum](sgd-and-momentum/index.md) | Draft |
 | Adaptive methods | Per-parameter scale from squared gradients | [Adaptive methods](adaptive/index.md) | Draft (Adam and AdamW have their own pages) |
-| Second-order and quasi-Newton | Curvature (Hessian or its approximation) | [Second-order methods](second-order.md), with pages on [L-BFGS](lbfgs.md), [K-FAC](kfac.md) and [Shampoo](shampoo.md) | Draft |
+| Second-order and quasi-Newton | Curvature (Hessian or its approximation) | [Second-order methods](second-order.md), with pages on [L-BFGS](lbfgs.md), [K-FAC](kfac/index.md) and [Shampoo](shampoo.md) | Draft |
 | Learning-rate schedules and warm-up | How \(\eta\) changes over time | [Learning-rate schedules](learning-rate-schedules.md), with pages on [gradual warm-up](gradual-warm-up.md), [cosine annealing with warm restarts](cosine-annealing-warm-restarts.md) and [cyclical learning rates](cyclical-learning-rates.md) | Draft |
 | Regularisation and weight decay | Penalties that the optimiser must respect | [Regularisation and weight decay](regularisation-and-weight-decay.md), with pages on [sharp minima](sharp-minima.md) and the [SGD noise scale](sgd-noise-scale.md); decoupled decay is on the [AdamW](adaptive/adamw.md) page | Draft |
 | Weight-norm dynamics | Norm growth under normalisation, and the equilibrium that decay sets | [Weight-norm dynamics](weight-norm-dynamics/index.md), with pages on [rotational equilibrium](weight-norm-dynamics/rotational-equilibrium.md) and [weight decay scaling for AdamW](weight-norm-dynamics/adamw-weight-decay-scaling.md) | Draft |
 | Gradient clipping and normalisation | Limits on gradient size | [Gradient clipping and normalisation](gradient-clipping-and-normalisation.md), with pages on [norm clipping](norm-clipping.md), [LARS](lars.md) and [LAMB](lamb.md) | Draft |
 | Large-batch and distributed | Training across many devices | [Large-batch and distributed](large-batch-and-distributed.md) | Draft |
 | Zeroth-order and evolutionary | No gradient at all | [Zeroth-order and evolutionary](zeroth-order-and-evolutionary.md), with pages on [SPSA](spsa.md), [evolution strategies](evolution-strategies.md) and [CMA-ES](cma-es.md) | Draft |
-| Theory | Convergence, landscapes, sharpness | [Theory and landscapes](theory-and-landscapes.md), with a page on [sharpness-aware minimisation](sharpness-aware-minimisation.md) | Draft |
+| Theory | Convergence, landscapes, sharpness | [Theory and landscapes](theory-and-landscapes.md), with pages on [sharpness-aware minimisation](sharpness-aware-minimisation.md) and [ASAM](asam.md) | Draft |
 
 ## How it works
 
@@ -76,8 +76,8 @@ Gradient descent on a convex, \(L\)-smooth loss with step \(\eta = 1/L\) reduces
 
 ### Seminal papers
 
-- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. doi:10.1214/aoms/1177729586 — Introduces stochastic approximation with decreasing step sizes, the foundation of stochastic gradient descent.
-- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:10.1016/0041-5553(64)90137-5 — Introduces heavy-ball momentum and analyses its acceleration on quadratic problems.
+- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. doi:[10.1214/aoms/1177729586](https://doi.org/10.1214/aoms/1177729586) — Introduces stochastic approximation with decreasing step sizes, the foundation of stochastic gradient descent.
+- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:[10.1016/0041-5553(64)90137-5](https://doi.org/10.1016/0041-5553(64)90137-5) — Introduces heavy-ball momentum and analyses its acceleration on quadratic problems.
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR. https://arxiv.org/abs/1412.6980 — Proposes Adam, an adaptive method with bias-corrected moment estimates of the gradient.
 
 ### Surveys and textbooks

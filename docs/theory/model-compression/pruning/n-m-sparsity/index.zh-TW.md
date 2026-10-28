@@ -33,7 +33,7 @@ N:M 稀疏在每 \(M\) 個連續權重的區塊中，最多保留 \(N\) 個非�
 ## 取捨
 
 - **速度與彈性**：2:4 模式提供固定的 50% 稀疏度，並有硬體支援，但在高稀疏度下不如非結構化稀疏靈活。
-- **準確度**：在有支援的硬體上，細緻模式在相同速度下比通道剪枝保留更多準確度。
+- **準確度**：Zhou 等人主張，粗粒度稀疏無法同時兼顧 GPU 加速與良好準確度，而 N:M 細粒度模式可以。
 - **硬體綁定**：這個模式只在有支援的地方才快，因此選擇取決於可用的[加速器](../../../../engineering/hardware/index.zh-TW.md)。
 
 ## 更多變體與開放問題
@@ -50,7 +50,7 @@ N:M 稀疏是硬體設計塑造壓縮方法的最清楚例子。裝置的[記憶
 
 ### 開創性論文
 
-- Zhou, A., 等人 (2021). *Learning N:M Fine-grained Structured Sparse Neural Networks From Scratch*. arXiv:2102.04010. https://arxiv.org/abs/2102.04010 — 從頭以 2:4 模式訓練網路，在 A100 GPU 上報告 2 倍加速且沒有準確度損失。
+- Zhou, A., 等人 (2021). *Learning N:M Fine-grained Structured Sparse Neural Networks From Scratch*. arXiv:2102.04010. https://arxiv.org/abs/2102.04010 — 以稀疏精修的直通估計器（SR-STE）從頭訓練 N:M 細粒度稀疏網路，並量測訓練中稀疏拓樸的變化。
 - Mishra, A., 等人 (2021). *Accelerating Sparse Deep Neural Networks*. arXiv:2104.08378. https://arxiv.org/abs/2104.08378 — 說明稀疏張量核心執行的 2:4 模式，數學吞吐量為兩倍。
 - Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — 非結構化剪枝，是 N:M 稀疏所權衡的對象。
 

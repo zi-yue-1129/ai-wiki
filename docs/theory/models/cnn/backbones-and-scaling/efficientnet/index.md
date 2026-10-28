@@ -62,8 +62,8 @@ Here d, w and r scale depth, width and input resolution. The constants satisfy \
 
 ### Seminal papers
 
-- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". arXiv:1905.11946 — Compound scaling of depth, width and resolution.
-- Howard, A. G., et al. (2017). "MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications". arXiv:1704.04861 — Depthwise separable convolutions as building blocks for efficient on-device vision.
+- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". [arXiv:1905.11946](https://arxiv.org/abs/1905.11946) — Compound scaling of depth, width and resolution.
+- Howard, A. G., et al. (2017). "MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications". [arXiv:1704.04861](https://arxiv.org/abs/1704.04861) — Depthwise separable convolutions as building blocks for efficient on-device vision.
 
 ### Surveys and textbooks
 
@@ -75,5 +75,5 @@ Here d, w and r scale depth, width and input resolution. The constants satisfy \
 
 ### Articles and documentation
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt, a modernised pure CNN that matches Transformer baselines.
-- Tan, M. & Le, Q. V. (2021). "EfficientNetV2: Smaller Models and Faster Training". arXiv:2104.00298 — A follow-up from the same authors that searches for models that train faster as well as being smaller.
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt, a modernised pure CNN that matches Transformer baselines.
+- Tan, M. & Le, Q. V. (2021). "EfficientNetV2: Smaller Models and Faster Training". [arXiv:2104.00298](https://arxiv.org/abs/2104.00298) — A follow-up from the same authors that searches for models that train faster as well as being smaller.

@@ -12,6 +12,24 @@ tags:
 
 A protocol defines how the data is divided, which comparisons are made, and how uncertainty is reported. Protocol mistakes often change a conclusion more than the choice of metric does.
 
+## Methods
+
+Each method has its own page.
+
+| Method | Used for |
+|---|---|
+| [Cross-validation](methods/cross-validation.md) | Estimating generalisation from several splits |
+| [Paired bootstrap](methods/paired-bootstrap.md) | Intervals for the difference between two methods |
+| [LLM as judge](methods/llm-as-judge.md) | Scoring open-ended outputs with a model |
+| [MT-Bench](methods/mt-bench.md) | Pairwise judging with swapped order, and its agreement with human experts |
+| [Length-controlled AlpacaEval](methods/length-controlled-alpacaeval.md) | Correcting an automatic judge's preference for longer answers |
+| [Human evaluation](methods/human-evaluation.md) | Judging outputs with people, with agreement reported |
+| [Elo rating and arenas](methods/elo-rating.md) | Ranking systems from pairwise outcomes |
+| [Contamination detection](methods/contamination-detection.md) | Checking whether benchmark items were in training data |
+| [N-gram overlap decontamination](methods/ngram-overlap-decontamination.md) | Removing benchmark items that share long word sequences with the corpus |
+| [Min-K% Prob](methods/min-k-percent-prob.md) | Detecting pretraining data from the model's token probabilities alone |
+| [LiveBench](methods/livebench.md) | Refreshing benchmark questions so they postdate training data |
+
 ## Splitting the data
 
 - **Train, validation and test.** Tune on validation and report on test once.

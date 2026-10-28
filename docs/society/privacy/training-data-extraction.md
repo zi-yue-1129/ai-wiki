@@ -37,7 +37,7 @@ The abstract of Carlini et al. (2021) reports that the attack extracts hundreds 
 
 ## Limitations
 
-- **One model family.** The 2021 study targets GPT-2. Its authors also report that larger models were more vulnerable, but results do not transfer automatically to other families.
+- **One model family.** The 2021 study targets GPT-2. The 2021 abstract also reports that larger models are more vulnerable than smaller ones, but results do not transfer automatically to other families.
 - **Sampling cost.** The attack depends on how many samples an attacker can afford, so success is a matter of resources.
 - **Verification.** Confirming that a sequence is memorised text, and not a common phrase, requires a reliable check against the source data.
 - **Mitigations change the picture.** Deduplication and differentially private training reduce extraction, but the 2022 abstract warns that memorisation is likely to increase with scale without active mitigations.

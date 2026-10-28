@@ -65,9 +65,9 @@ S4D is the diagonal case of the [S4](../s4/index.md) layer, and it sits within t
 
 ### Seminal papers
 
-- Gu, A., Gupta, A., Goel, K. & Ré, C. (2022). "On the Parameterization and Initialization of Diagonal State Space Models". arXiv:2206.11893 — Diagonal complex state matrices, carefully initialised, that match S4 with a simpler implementation.
-- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". arXiv:2008.07669 — Derives the HiPPO state matrices that let a recurrence remember a history through polynomial projections.
-- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". arXiv:2111.00396 — S4, with the normal-plus-low-rank structure and fast convolution kernel.
+- Gu, A., Gupta, A., Goel, K. & Ré, C. (2022). "On the Parameterization and Initialization of Diagonal State Space Models". [arXiv:2206.11893](https://arxiv.org/abs/2206.11893) — Diagonal complex state matrices, carefully initialised, that match S4 with a simpler implementation.
+- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". [arXiv:2008.07669](https://arxiv.org/abs/2008.07669) — Derives the HiPPO state matrices that let a recurrence remember a history through polynomial projections.
+- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". [arXiv:2111.00396](https://arxiv.org/abs/2111.00396) — S4, with the normal-plus-low-rank structure and fast convolution kernel.
 
 ### Surveys and textbooks
 
@@ -79,5 +79,5 @@ S4D is the diagonal case of the [S4](../s4/index.md) layer, and it sits within t
 
 ### Articles and documentation
 
-- Smith, J. T. H., Warrington, A. & Linderman, S. W. (2022). "Simplified State Space Layers for Sequence Modeling". arXiv:2208.04933 — S5, a diagonal state-space layer with a parallel scan.
-- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". arXiv:2303.06349 — Careful initialisation of diagonal linear recurrences that matches S4 on long-range benchmarks.
+- Smith, J. T. H., Warrington, A. & Linderman, S. W. (2022). "Simplified State Space Layers for Sequence Modeling". [arXiv:2208.04933](https://arxiv.org/abs/2208.04933) — S5, a diagonal state-space layer with a parallel scan.
+- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". [arXiv:2303.06349](https://arxiv.org/abs/2303.06349) — Careful initialisation of diagonal linear recurrences that matches S4 on long-range benchmarks.

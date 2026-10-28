@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/math
@@ -18,7 +18,7 @@ Shampoo is a preconditioned stochastic optimiser for tensor-valued parameters. I
 
 ## Overview
 
-Adaptive methods rescale each coordinate separately, which ignores correlations between parameters. Full-matrix AdaGrad uses a matrix preconditioner that captures correlations, but for a parameter with \(d\) entries it needs a \(d\times d\) matrix, which is too large for a neural network. Shampoo treats a matrix or tensor parameter as a tensor with one index per dimension and keeps a small preconditioner per dimension. For a matrix parameter \(W\in\mathbb{R}^{m\times n}\) it keeps an \(m\times m\) and an \(n\times n\) matrix, which are much smaller than the full preconditioner.
+Adaptive methods rescale each coordinate separately, which ignores correlations between parameters. Full-matrix AdaGrad uses a matrix preconditioner that captures correlations, but for a parameter with $d$ entries it needs a $d \times d$ matrix, which is too large for a neural network. Shampoo treats a matrix or tensor parameter as a tensor with one index per dimension and keeps a small preconditioner per dimension. For a matrix parameter $W \in \mathbb{R}^{m \times n}$ it keeps an $m \times m$ and an $n \times n$ matrix, which are much smaller than the full preconditioner.
 
 ## Problem
 
@@ -26,23 +26,23 @@ Full-matrix adaptive methods can adapt to correlations in the gradient, but thei
 
 ## Core idea
 
-For each dimension \(j\) of the parameter tensor, accumulate a statistic built from the gradient unfolded along that dimension. Use the inverse fourth roots of these statistics as the preconditioners on each side. The update is the gradient multiplied by the preconditioner for each dimension.
+For each dimension of the parameter tensor, accumulate a statistic built from the gradient unfolded along that dimension. Use the inverse fourth roots of these statistics as the preconditioners on each side. The update is the gradient multiplied by the preconditioner for each dimension.
 
 ## Algorithm
 
-For a matrix parameter \(W\) with gradient \(G_t\), keep two accumulators:
+For a matrix parameter $W$ with gradient $G_t$, keep two accumulators:
 
-\[
+$$
 L_t = L_{t-1} + G_t G_t^\top, \qquad R_t = R_{t-1} + G_t^\top G_t
-\]
+$$
 
 Then update the parameters with
 
-\[
+$$
 W_{t+1} = W_t - \eta\, L_t^{-1/4}\, G_t\, R_t^{-1/4}
-\]
+$$
 
-The paper uses a delayed update: it recomputes the roots only once every 20 to 100 steps, and reports that this had almost no impact on accuracy while lowering the amortised cost per step. The preconditioners are initialised as \(\epsilon I\), so a small constant acts as damping before inverting. The rule generalises to tensors by applying one such matrix to each dimension.
+The paper uses a delayed update: it recomputes the inverse roots once every 20 to 100 steps, and reports that this had almost no impact on accuracy while lowering the amortised cost per step. The rule generalises to tensors by applying one such matrix to each dimension.
 
 ## Results
 
@@ -50,15 +50,19 @@ The abstract reports that the per-step runtime of Shampoo is "comparable to that
 
 ## Limitations
 
-- Computing the inverse roots is expensive, so the paper recomputes them on a delayed schedule. The refresh interval and the damping constant are extra hyperparameters.
+- Computing the inverse roots is expensive, so the paper recomputes them on a delayed schedule. The refresh interval is an extra hyperparameter, and the paper's finding that it barely affects accuracy is for its own experiments.
 - The method is most natural for matrix and tensor parameters. For vectors such as biases, it reduces to a diagonal method.
-- The abstract's convergence comparison is an empirical claim. Its advantage over Adam depends on how well the preconditioners are tuned.
+- The convergence comparison is an empirical claim. Its advantage over Adam depends on how well the preconditioners are tuned.
+
+## Key methods
+
+- [Adaptive methods](adaptive/index.md) is the family of diagonal preconditioners that Shampoo generalises. [Adam](adaptive/adam.md) is its main representative.
+- [K-FAC](kfac/index.md) is a related structured preconditioner, built from the Fisher matrix rather than gradient statistics.
+- [L-BFGS](lbfgs.md) is the quasi-Newton method that builds curvature from gradient differences over a short history.
 
 ## Connections
 
-- [Adaptive methods](adaptive/index.md) is the family of diagonal preconditioners that Shampoo generalises, with [Adam](adaptive/adam.md) as its main representative.
 - [Second-Order and Quasi-Newton Methods](second-order.md) is the overview where Shampoo sits beside L-BFGS and K-FAC.
-- [K-FAC](kfac.md) is a related structured preconditioner built from the Fisher matrix rather than gradient statistics.
 - [Mathematics](../math/index.md) covers the matrix square roots and Kronecker structure used in the update.
 
 ## Applications
@@ -75,7 +79,7 @@ The abstract reports that the per-step runtime of Shampoo is "comparable to that
 
 ### Seminal papers
 
-- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. ICML. https://arxiv.org/abs/1802.09568 — Introduces Shampoo, a per-dimension matrix preconditioner for tensor parameters with runtime comparable to first-order methods.
+- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. ICML. https://arxiv.org/abs/1802.09568 — Introduces Shampoo, a per-dimension matrix preconditioner for tensor parameters, with per-step runtime comparable to first-order methods.
 - Martens, J. & Grosse, R. (2015). *Optimizing Neural Networks with Kronecker-factored Approximate Curvature*. ICML. https://arxiv.org/abs/1503.05671 — A different structured preconditioner for neural networks, built from the Fisher matrix.
 - Liu, D. C. & Nocedal, J. (1989). *On the Limited Memory BFGS Method for Large Scale Optimization*. Mathematical Programming, 45, 503–528. https://doi.org/10.1007/BF01589116 — The quasi-Newton method for large problems that uses curvature without storing a matrix.
 - Amari, S. (1998). *Natural Gradient Works Efficiently in Learning*. Neural Computation, 10(2), 251–276. https://doi.org/10.1162/089976698300017746 — The natural gradient, which structured preconditioners aim to approximate.

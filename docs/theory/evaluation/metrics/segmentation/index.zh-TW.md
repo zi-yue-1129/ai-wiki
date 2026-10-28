@@ -35,5 +35,5 @@ IoU 與 Dice 都是重疊指標，對單一區域而言排序結果相同，但�
 ### 補充來源
 
 - Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — 提供免費線上草稿的機率機器學習教科書。
-- Sudre, C. H. et al. (2017). Generalised Dice overlap as a deep learning loss function for highly unbalanced segmentations. DLMIA 2017. https://arxiv.org/abs/1707.03237 — 提出廣義 Dice 重疊度，依類別大小加權，適用於高度不平衡的分割任務。
-- Cordts, M. et al. (2016). The Cityscapes dataset for semantic urban scene understanding. CVPR 2016. https://arxiv.org/abs/1604.01685 — 基準資料集，其評估以各類別的交集除以聯集報告結果。
+- Sudre, C. H. et al. (2017). Generalised Dice overlap as a deep learning loss function for highly unbalanced segmentations. arXiv. https://arxiv.org/abs/1707.03237 — 提出廣義 Dice 重疊度，依類別大小加權，適用於高度不平衡的分割任務。
+- Cordts, M. et al. (2016). The Cityscapes dataset for semantic urban scene understanding. CVPR 2016. https://openaccess.thecvf.com/content_cvpr_2016/html/Cordts_The_Cityscapes_Dataset_CVPR_2016_paper.html — 基準資料集，其評估以各類別的交集除以聯集報告結果。

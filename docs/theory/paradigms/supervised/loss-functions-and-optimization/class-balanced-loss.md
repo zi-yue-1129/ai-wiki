@@ -62,11 +62,11 @@ How to choose the effective-number parameter without tuning on the test distribu
 
 ### Seminal papers
 
-- Cui, Y., Jia, M., Lin, T.-Y., Song, Y. & Belongie, S. (2019). *Class-Balanced Loss Based on Effective Number of Samples*. CVPR 2019. https://openaccess.thecvf.com/content_CVPR_2019/html/Cui_Class-Balanced_Loss_Based_on_Effective_Number_of_Samples_CVPR_2019_paper.html — Introduces the effective-number weighting and the class-balanced loss. The arXiv version is arXiv:1901.05555.
-- Cao, K., Wei, C., Gaidon, A., Arechiga, N. & Ma, T. (2019). *Learning Imbalanced Datasets with Label-Distribution-Aware Margin Loss*. arXiv:1906.07413. https://arxiv.org/abs/1906.07413 — Shows that reweighting from the start can hurt tail classes, and proposes margins plus deferred reweighting.
+- Cui, Y., Jia, M., Lin, T.-Y., Song, Y. & Belongie, S. (2019). *Class-Balanced Loss Based on Effective Number of Samples*. CVPR 2019. https://openaccess.thecvf.com/content_CVPR_2019/html/Cui_Class-Balanced_Loss_Based_on_Effective_Number_of_Samples_CVPR_2019_paper.html — Introduces the effective-number weighting and the class-balanced loss. The arXiv version is [arXiv:1901.05555](https://arxiv.org/abs/1901.05555).
+- Cao, K., Wei, C., Gaidon, A., Arechiga, N. & Ma, T. (2019). *Learning Imbalanced Datasets with Label-Distribution-Aware Margin Loss*. NeurIPS 2019. https://proceedings.neurips.cc/paper/2019/hash/621461af90cadfdaf0e8d4cc25129f91-Abstract.html — Shows that reweighting from the start can hurt tail classes, and proposes margins plus deferred reweighting.
 
 ### Articles and preprints
 
 - Menon, A. K. et al. (2021). *Long-tail Learning via Logit Adjustment*. ICLR 2021. https://arxiv.org/abs/2007.07314 — Shows that a post-hoc adjustment of logits by class frequency can be a consistent alternative to reweighting.
-- Kang, B. et al. (2020). *Decoupling Representation and Classifier for Long-Tailed Recognition*. arXiv:1910.09217. https://arxiv.org/abs/1910.09217 — Finds that instance-balanced sampling learns better representations and that rebalancing the classifier alone is enough.
-- Ren, J. et al. (2022). *Balanced MSE for Imbalanced Visual Regression*. arXiv:2203.16427. https://arxiv.org/abs/2203.16427 — Extends the balancing idea to regression with a likelihood-based correction.
+- Kang, B. et al. (2020). *Decoupling Representation and Classifier for Long-Tailed Recognition*. ICLR 2020. https://arxiv.org/abs/1910.09217 — Finds that instance-balanced sampling learns better representations and that rebalancing the classifier alone is enough.
+- Ren, J. et al. (2022). *Balanced MSE for Imbalanced Visual Regression*. CVPR 2022. https://openaccess.thecvf.com/content/CVPR2022/html/Ren_Balanced_MSE_for_Imbalanced_Visual_Regression_CVPR_2022_paper.html — Extends the balancing idea to regression with a likelihood-based correction.

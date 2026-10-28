@@ -1,0 +1,84 @@
+---
+translation_reviewed: 2026-10-28
+related:
+  - theory/paradigms/self-supervised
+  - theory/paradigms/self-supervised/contrastive-learning
+  - theory/models/cnn
+---
+
+# BYOL：自我引導的潛在表徵
+
+BYOL 在沒有負樣本對的情況下學習影像表徵。一個網路預測第二個緩慢移動之副本的輸出，而該副本處理同一張影像的另一個增強視角。論文透過緩慢更新的目標網路與線上分支上的預測器來維持訓練穩定，而不是透過與其他影像對比。家族層級的概觀見[非對比方法](index.md)頁面。
+
+## 概述
+
+Grill 等人（2020）主張，負樣本對對於強大的影像表徵並非必要。摘要指出，當時最先進的方法都依賴負樣本對，而 BYOL 在沒有負樣本的情況下達到新的最先進水準。在 ImageNet 的線性評估下，摘要報告使用 ResNet-50 為 74.3% top-1 準確率，使用 ResNet-200（2×）為 79.6%。
+
+## 核心概念
+
+- **線上網路**：編碼器 \(f_\theta\) 與投影器 \(g_\theta\)，後接預測器 \(q_\theta\)。它是唯一以梯度下降訓練的部分。
+- **目標網路**：與線上網路架構相同的編碼器 \(f_\xi\) 與投影器 \(g_\xi\)，但權重 \(\xi\) 不接收梯度。其權重是線上權重的移動平均。
+- **預測器** \(q_\theta\)：只存在於線上分支的小型 MLP，架構與投影器相同。
+- **停止梯度**：梯度不回傳到目標分支。
+
+## 運作方式
+
+對一張影像產生兩個增強視角。線上網路處理其中一個視角，並預測目標網路對另一視角的投影。損失是經 \(\ell_2\) 正規化向量之間的平方距離：
+
+\[
+\mathcal{L}_{\theta,\xi} = \big\|\bar q_\theta(z_\theta) - \bar z'_\xi\big\|_2^2 = 2 - 2\cdot\frac{\langle q_\theta(z_\theta), z'_\xi\rangle}{\|q_\theta(z_\theta)\|_2\,\|z'_\xi\|_2}
+\]
+
+這裡 \(z_\theta\) 與 \(z'_\xi\) 是兩個投影，橫線代表 \(\ell_2\) 正規化。論文透過交換兩個視角使損失對稱，總損失為兩項之和。只有 \(\theta\) 接收梯度。
+
+目標網路以線上權重的指數移動平均更新：
+
+\[
+\xi \leftarrow \tau\,\xi + (1-\tau)\,\theta
+\]
+
+衰減係數 \(\tau\) 從 \(\tau_{\text{base}} = 0.996\) 開始，訓練期間逐步升至 1，依循
+
+\[
+\tau = 1 - (1-\tau_{\text{base}})\cdot\frac{\cos(\pi k/K)+1}{2}
+\]
+
+其中 \(k\) 是目前的步數，\(K\) 是總步數。
+
+投影器是一個輸出 4096 維的線性層、批次正規化、ReLU，再接一個輸出 256 維的線性層。預測器的架構相同。訓練進行 1000 個 epoch，並有 10 個 epoch 的暖身。
+
+## 關鍵方法
+
+### Bootstrap Your Own Latent：自監督學習的新方法（Grill 等人，2020）
+
+- **問題：**對比方法靠負樣本避免崩潰，而負樣本需要大批次或記憶庫。論文試圖移除這種依賴。
+- **核心想法：**訓練線上網路去預測目標網路對另一視角的表徵。目標是線上網路的指數移動平均，且不使用負樣本。
+- **方程式或演算法：**正規化平方損失、\(\tau\) 從 0.996 逐步升向 1 的移動平均更新，以及投影器與預測器的設計，如「運作方式」所述。
+- **結果：**使用 ResNet-50 的 ImageNet 線性評估達到 74.3% top-1 準確率。ResNet-200（2×）達到 79.6% top-1。
+- **限制：**主要設定訓練 1000 個 epoch，排程很長。摘要沒有解釋訓練為何能避免崩潰，因此這個機制仍未明確。
+
+## 關聯
+
+- [SimCLR](../contrastive-learning/simclr.md) 與 [MoCo](../contrastive-learning/moco.md) 依賴負樣本。BYOL 是不依賴負樣本之方法的主要比較對象。
+- 目標動量網路與 [MoCo](../contrastive-learning/moco.md) 的動量編碼器想法相同，但沒有佇列。
+- [遮罩預測](../masked-prediction/index.md)是另一條自監督途徑：它預測遺失的內容，而不是配對視角。
+- ResNet 骨幹在[CNN 模型](../../../models/cnn/index.md)中說明。
+- 上述所用的評估協定，在[理論與評估](../theory-and-evaluation/index.md)中討論。
+
+## 開放問題
+
+- 為什麼線上與目標的設定在沒有負樣本時仍能避免崩潰？批次正規化是其中一個懷疑對象，目前不清楚此方法是否需要它。
+- 設定中的哪些部分（預測器、移動平均排程、正規化）是必要的，哪些主要有助於速度或穩定性？
+
+## 參考文獻
+
+### 代表性論文
+
+- Grill, J.-B. et al. (2020). Bootstrap your own latent: A new approach to self-supervised learning. arXiv:2006.07733. https://arxiv.org/abs/2006.07733 — 本頁所述的論文。
+- Chen, X. & He, K. (2021). Exploring Simple Siamese Representation Learning. CVPR. https://arxiv.org/abs/2011.10566 — SimSiam 移除動量目標網路，並顯示停止梯度與預測器即可防止崩潰。
+- Chen, T., Kornblith, S., Norouzi, M. & Hinton, G. (2020). A Simple Framework for Contrastive Learning of Visual Representations. ICML (PMLR 119). https://arxiv.org/abs/2002.05709 — BYOL 所比較的對比式方法。
+- He, K., Fan, H., Wu, Y., Xie, S. & Girshick, R. (2020). Momentum Contrast for Unsupervised Visual Representation Learning. CVPR. https://arxiv.org/abs/1911.05722 — BYOL 目標網路所依據的動量編碼器。
+
+### 綜述與教科書
+
+- Balestriero, R. et al. (2023). A Cookbook of Self-Supervised Learning. arXiv:2304.12210. https://arxiv.org/abs/2304.12210 — 自監督學習設計選擇的實務綜述，包含預測器頭與目標網路。

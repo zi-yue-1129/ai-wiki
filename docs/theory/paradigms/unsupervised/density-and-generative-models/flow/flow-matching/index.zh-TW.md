@@ -21,6 +21,8 @@ aliases:
 
 Lipman 等人（2023）提出流匹配來訓練連續正規化流。關鍵觀察是：速度場可以透過回歸每個資料點的條件路徑速度來學習，之後便能恢復邊際速度場。作者指出，擴散模型使用的擴散路徑也是此類路徑的一個家族，因此流匹配推廣了擴散的訓練方式。他們也強調最優傳輸路徑，在其實驗中它給出較直的軌跡與較快的抽樣。
 
+後續工作保留相同的回歸想法，但改變三者之一：雜訊與資料之間的插值、雜訊與資料點的配對方式，或拉直軌跡的方式。
+
 ## 關鍵概念
 
 - **機率路徑** \(p_t\)：一族分布，在 \(t=0\) 時為簡單的雜訊分布，在 \(t=1\) 時為資料分布。
@@ -40,13 +42,10 @@ Lipman 等人（2023）提出流匹配來訓練連續正規化流。關鍵觀察
 
 ## 關鍵方法
 
-### 以流匹配做生成模型（Lipman 等人，2023）
-
-- **問題：** 連續正規化流能給出精確似然，但訓練昂貴，因為每個梯度步驟都要解一次 ODE。擴散模型訓練便宜，但使用固定的隨機過程。
-- **核心想法：** 把速度場回歸到所選機率路徑的條件速度上，無需模擬即可得到邊際場的無偏目標。擴散路徑與最優傳輸路徑都可使用。
-- **公式或演算法：** 上述條件流匹配損失，搭配最優傳輸路徑。每一步：抽取時間、雜訊點與資料點，形成 \(x_t\)，並把 \(v_\theta(x_t, t)\) 回歸到 \(x_1 - x_0\)。抽樣以 ODE 積分進行。
-- **結果：** 摘要報告在 ImageNet 上，其似然與樣本品質優於以擴散為基礎的替代方法；最優傳輸路徑的訓練與抽樣更快；以流匹配訓練擴散路徑時，訓練穩定而可靠。摘要未給出具體數字，引用時請以論文的表格為準。
-- **限制：** 抽樣仍需數個 ODE 步驟，因此生成比單次 GAN 前向傳遞慢，儘管論文認為這些軌跡較容易積分。精確似然需要額外解一個 ODE。路徑的選擇會影響品質，而論文並未一般性地確定哪種路徑最好。
+- [條件流匹配（Lipman 等人，2023）](conditional-flow-matching.md)：以高斯最優傳輸路徑為基礎的回歸目標，是基礎方法，並把擴散路徑涵蓋為特例。
+- [修正流（Liu 等人，2022）](rectified-flow.md)：回歸到直線內插，並以修正程序拉直軌跡，供少步數抽樣使用。
+- [隨機插值（Albergo 與 Vanden-Eijnden，2023）](stochastic-interpolants.md)：統一流與擴散的通用插值框架，插值的選擇保持開放。
+- [小批次最優傳輸流匹配（Tong 等人，2024）](minibatch-ot-flow-matching.md)：依每個小批次上計算的最優傳輸計畫來配對雜訊與資料點。
 
 ## 關聯
 
@@ -68,9 +67,9 @@ Lipman 等人（2023）提出流匹配來訓練連續正規化流。關鍵觀察
 
 ### 開創性論文
 
-- Lipman, Y., et al. (2023). *Flow Matching for Generative Modeling*. ICLR（arXiv）. https://arxiv.org/abs/2210.02747 — 提出條件流匹配，無需模擬即可訓練連續正規化流。
+- Lipman, Y., et al. (2023). *Flow Matching for Generative Modeling*. ICLR. https://arxiv.org/abs/2210.02747 — 提出條件流匹配，無需模擬即可訓練連續正規化流。
 - Liu, X., Gong, C. & Liu, Q. (2022). *Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow*. arXiv. https://arxiv.org/abs/2209.03003 — 學習沿較直路徑的速度場，使抽樣所需的步數更少。
-- Albergo, M. S. & Vanden-Eijnden, E. (2022). *Building Normalizing Flows with Stochastic Interpolants*. arXiv. https://arxiv.org/abs/2209.15571 — 以隨機內插橋接流與擴散，並給出速度的回歸目標。
+- Albergo, M. S. & Vanden-Eijnden, E. (2023). *Building Normalizing Flows with Stochastic Interpolants*. ICLR. https://arxiv.org/abs/2209.15571 — 以隨機內插橋接流與擴散，並給出速度的回歸目標。
 - Tong, A., et al. (2024). *Improving and Generalizing Flow-Based Generative Models with Minibatch Optimal Transport*. TMLR. https://arxiv.org/abs/2302.00482 — 以小批次最優傳輸配對雜訊與資料，使條件流匹配的路徑更直。
 
 ### 綜述與教科書

@@ -4,11 +4,19 @@ translation_reviewed: 2026-10-28
 
 # DeepSeek-R1
 
-DeepSeek-R1 是 DeepSeek 推出的一系列推理模型，見於 2025 年的報告。其核心發現是：以規則式獎勵進行強化學習，就能教會基礎語言模型產生很長、會自我檢查的推理，而不必先用人類撰寫的推理軌跡進行訓練。概述見[推理模型](index.md)頁，該頁並將此方法與思維鏈、自洽性與測試時運算擴展一同比較。
+DeepSeek-R1 是 DeepSeek 推出的一系列推理模型，報告於 2025 年發表在《Nature》。其核心發現是：以規則式獎勵進行強化學習，就能教會基礎語言模型產生很長、會自我檢查的推理，而不必先用人類撰寫的推理軌跡進行訓練。概述見[推理模型](index.md)頁，該頁並將此方法與思維鏈、自洽性與測試時運算擴展一同比較。
 
 ## 概述
 
 過去的推理模型通常在大量逐步示範上微調，這些示範可能由人撰寫，也可能由另一個模型產生。DeepSeek-R1 測試這種監督是否必要。其第一個模型 DeepSeek-R1-Zero 直接從基礎模型開始進行強化學習訓練。主要模型 DeepSeek-R1 則加入一段簡短的監督式起始階段與後續幾個階段，以改善可讀性與一般行為。
+
+## 關鍵概念
+
+- **可驗證獎勵（verifiable reward）**：由規則計算的獎勵，例如把最終答案與已知結果比對，或檢查輸出是否符合要求的格式。
+- **策略（policy）**：正在訓練的語言模型，負責產生推理與答案。
+- **群組相對策略最佳化（GRPO）**：此處使用的強化學習演算法。它把每個取樣答案與其所在群組的平均值比較，因此不需要另外的價值模型。
+- **冷啟動（cold start）**：在主要模型的強化學習之前，以可讀性高的長推理範例進行的一段簡短監督式訓練。
+- **蒸餾（distillation）**：以較大推理模型的輸出訓練較小的模型。報告以此把推理行為轉移到小模型上。
 
 ## 問題
 
@@ -20,7 +28,7 @@ DeepSeek-R1 是 DeepSeek 推出的一系列推理模型，見於 2025 年的報�
 
 ## 演算法
 
-此論文以群組相對策略最佳化（GRPO）訓練，該方法由 DeepSeekMath（Shao 等人，2024）提出。對每個問題，策略會取樣一組 \(G\) 個輸出，每個輸出各得一個獎勵 \(r_i\)。每個輸出的優勢是它相對於群組的獎勵，因此不需要另外的價值網路：
+此論文以群組相對策略最佳化（GRPO）訓練，該方法由 DeepSeekMath（Shao 等人，2024）提出。報告第 2.1 節如此描述：對每個問題，策略會取樣一組 \(G\) 個輸出，每個輸出各得一個獎勵 \(r_i\)。每個輸出的優勢，是它相對於群組平均值與標準差的位置。基準值來自群組本身，因此不需要另外的價值網路：
 
 \[
 A_i = \frac{r_i - \mathrm{mean}(r_1,\dots,r_G)}{\mathrm{std}(r_1,\dots,r_G)}
@@ -35,41 +43,64 @@ A_i = \frac{r_i - \mathrm{mean}(r_1,\dots,r_G)}{\mathrm{std}(r_1,\dots,r_G)}
 
 DeepSeek-R1-Zero 略過第 1 與第 3 階段。其獎勵包括準確率獎勵與格式獎勵，後者要求推理內容出現在 think 標籤之內。
 
+## 核心方法
+
+- **DeepSeek-R1-Zero**：從基礎模型開始的純強化學習，使用準確率與格式獎勵。它單獨展示了強化學習的效果，但輸出會混用語言，可讀性也差。
+- **DeepSeek-R1**：即上述的冷啟動、推理強化學習、拒絕採樣與全場景強化學習流程，也是此系列所命名的模型。
+- **蒸餾模型**：以 R1 的樣本訓練的較小型稠密模型，報告以此說明如何把推理模式帶入較小的模型。
+
 ## 結果
 
-- **AIME 2024，pass@1（DeepSeek-R1-Zero）：** 論文報告在強化學習訓練期間，分數從 15.6% 上升到 77.9%，表 3 亦列 R1-Zero 為 77.9%。
+- **AIME 2024，pass@1（DeepSeek-R1-Zero）：** 報告指出，在強化學習訓練期間，平均分數從 15.6% 上升到 77.9%，表 3 亦列 R1-Zero 為 77.9%。報告也指出，對多個樣本做多數決還能進一步提高此分數。
 - **AIME 2024，pass@1（DeepSeek-R1）：** 79.8%。
 - **MATH-500，pass@1（DeepSeek-R1）：** 97.3%。
-- 摘要也指出，大型模型的推理模式可用來改善較小的模型。
+- 摘要指出，大型模型的推理模式可以系統性地用來引導並增強小型模型的推理能力。
 
 ## 限制
 
-- **可讀性：** R1-Zero 的輸出可能混用語言，格式也不佳。冷啟動階段便是為了解決這個問題而加入的。
-- **語言：** R1 針對中文與英文調校，遇到其他語言的問題時，可能改以英文推理。
-- **提示方式：** 少樣本提示會持續降低其表現，作者建議直接描述問題與輸出格式。
-- **軟體工程：** 評估時間很長，限制了這類任務上的大規模強化學習，因此 R1 在這些任務上相對 DeepSeek-V3 的進步不大。
-- **一般能力：** R1 在函式呼叫、多輪對話、複雜角色扮演與 JSON 輸出上，表現不如 DeepSeek-V3。
+報告第 6 節列出下列限制，前面各節則說明了相應的修正方法。
+
+- **可讀性：** R1-Zero 的可讀性差，並有混用語言的情形。冷啟動階段與語言一致性獎勵便是為了解決這個問題而加入的。
+- **語言：** R1 針對中文與英文調校，遇到其他語言的問題時，可能改以英文推理與回答。
+- **提示方式：** 少樣本提示會持續降低其表現，作者建議在零樣本設定中直接描述問題與輸出格式。
+- **軟體工程：** 評估時間很長，拖慢了這類任務的強化學習，而且 R1 在軟體工程基準上相對 DeepSeek-V3 並無大幅進步。
+- **結構化輸出與工具：** 報告指出，其結構化輸出能力仍弱於現有模型，而且 R1 無法使用搜尋引擎、計算器等工具。
+- **對話：** 訓練資料以單輪為主，報告指出這可能限制其多輪對話的能力。
+
+## 變體與更多變體
+
+- **R1-Zero**：沒有監督式起始階段，最能單獨檢驗強化學習的效果，但可讀性較差。
+- **R1**：完整流程，也是主要的公開模型。
+- **蒸餾的稠密模型**：以 R1 輸出訓練的較小模型，報告用它比較推理的轉移與直接以強化學習訓練小模型的效果。
 
 ## 關聯
 
 - [思維鏈](chain-of-thought.md)描述了 R1 以訓練所得行為取代的提示方法。
 - [自洽性](self-consistency.md)與[測試時運算擴展](test-time-scaling.md)在推論時花費額外運算。R1 則在訓練與生成時花費運算。
 - [大型語言模型](../llm/index.md)把此訓練階段放在監督式微調與偏好對齊之後。
-- [強化學習](../../paradigms/reinforcement-learning/index.md)提供本頁所用策略梯度方法的一般框架。
+- [強化學習](../../paradigms/reinforcement-learning/index.md)提供一般框架。本頁所用的策略梯度方法是 [GRPO](../../paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index.md)。
+
+## 應用
+
+- 競賽數學，答案可以與已知結果比對。
+- 具自動檢查的程式與邏輯任務，報告便是以此設計其規則式獎勵。
+- 蒸餾模型作為較小的推理模型，適用於完整模型執行成本過高的場景。
 
 ## 開放問題
 
 - R1 的行為有多少取決於基礎模型本身已是相當強的模型？
 - 規則式獎勵在數學、程式與邏輯之外是否足夠，還是通用階段總需要學習型的獎勵模型？
+- 蒸餾的小模型從 R1 軌跡中獲益多少，與直接以強化學習訓練同一小模型相比如何？
 
 ## 參考文獻
 
 ### 開創性論文
 
-- DeepSeek-AI（2025）。*DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning*. arXiv. https://arxiv.org/abs/2501.12948 — 描述 R1-Zero、R1、訓練流程與蒸餾模型的報告。
-- Shao, Z., et al.（2024）。*DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models*. arXiv. https://arxiv.org/abs/2402.03300 — 提出 GRPO，這是一種省略價值網路的 PPO 變體，用於訓練 R1。
-- Wei, J., et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — R1 所學會產生、原本靠提示引出的推理方式。
-- Lightman, H., et al.（2023）。*Let's Verify Step by Step*. arXiv. https://arxiv.org/abs/2305.20050 — 步驟層級的驗證，R1 的規則式推理獎勵並不依賴這種獎勵方式。
+- DeepSeek-AI（2025）。*DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning*. Nature, 645, 633–638. https://doi.org/10.1038/s41586-025-09422-z — 已發表版本的報告，描述 R1-Zero、R1、訓練流程與蒸餾模型。
+- DeepSeek-AI（2025）。*DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning*. arXiv. https://arxiv.org/abs/2501.12948 — 同一報告的預印本版本，含訓練細節與附錄。
+- Shao, Z., et al.（2024）。*DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models*. arXiv. https://arxiv.org/abs/2402.03300 — 提出 GRPO，這是一種省略價值網路、以群組平均獎勵作為基準的 PPO 變體，用於訓練 R1。
+- Wei, J., et al.（2022）。*Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — R1 所學會產生、原本靠提示引出的推理方式。
+- Lightman, H., et al.（2023）。*Let's Verify Step by Step*. arXiv. https://arxiv.org/abs/2305.20050 — 步驟層級的驗證，在 MATH 資料集上被證明優於結果監督。R1 的規則式推理獎勵並不依賴這種方法。
 
 ### 綜述與教科書
 

@@ -21,8 +21,8 @@ where $\tau$ is a temperature. Minimising this loss maximises a lower bound on t
 
 ## Key methods
 
-- **SimCLR** uses strong augmentations (random crops, colour jitter, blur) and a large batch, plus a small projection head that is discarded after training.
-- **MoCo** keeps a queue of past embeddings and a slowly updated key encoder, so the number of negatives does not depend on the batch size.
+- **[SimCLR](simclr.md)** uses strong augmentations (random crops, colour jitter, blur) and a large batch, plus a small projection head that is discarded after training.
+- **[MoCo](moco.md)** keeps a queue of past embeddings and a slowly updated key encoder, so the number of negatives does not depend on the batch size.
 - **CPC** applies the same loss to predict future latent states of a sequence, and works for speech, images and text.
 - **CLIP** contrasts image and text embeddings across a large dataset of web image–caption pairs, giving zero-shot classification by comparing an image with text prompts.
 
@@ -50,11 +50,11 @@ Why contrastive pre-training transfers so well is only partly understood. Choosi
 
 ### Seminal papers
 
-- Chen, Kornblith, Norouzi & Hinton (2020), "A simple framework for contrastive learning of visual representations", ICML, arXiv:2002.05709 — SimCLR, showing that augmentation, large batches and a projection head are the key ingredients.
-- He, Fan, Wu, Xie & Girshick (2020), "Momentum contrast for unsupervised visual representation learning", CVPR, arXiv:1911.05722 — MoCo, which uses a momentum encoder and a queue for many negatives.
-- Oord, Li & Vinyals (2018), "Representation learning with contrastive predictive coding", arXiv:1807.03748 — Introduces the InfoNCE loss and CPC for sequential data.
-- Radford et al. (2021), "Learning transferable visual models from natural language supervision", ICML, arXiv:2103.00020 — CLIP, contrastive image–text pre-training that enables zero-shot recognition.
-- Wang & Isola (2020), "Understanding contrastive representation learning through alignment and uniformity on the hypersphere", ICML, arXiv:2005.10242 — Explains contrastive loss through alignment and uniformity.
+- Chen, Kornblith, Norouzi & Hinton (2020), "A simple framework for contrastive learning of visual representations", ICML, [arXiv:2002.05709](https://arxiv.org/abs/2002.05709) — SimCLR, showing that augmentation, large batches and a projection head are the key ingredients.
+- He, Fan, Wu, Xie & Girshick (2020), "Momentum contrast for unsupervised visual representation learning", CVPR, [arXiv:1911.05722](https://arxiv.org/abs/1911.05722) — MoCo, which uses a momentum encoder and a queue for many negatives.
+- Oord, Li & Vinyals (2018), "Representation learning with contrastive predictive coding", [arXiv:1807.03748](https://arxiv.org/abs/1807.03748) — Introduces the InfoNCE loss and CPC for sequential data.
+- Radford et al. (2021), "Learning transferable visual models from natural language supervision", ICML, [arXiv:2103.00020](https://arxiv.org/abs/2103.00020) — CLIP, contrastive image–text pre-training that enables zero-shot recognition.
+- Wang & Isola (2020), "Understanding contrastive representation learning through alignment and uniformity on the hypersphere", ICML, [arXiv:2005.10242](https://arxiv.org/abs/2005.10242) — Explains contrastive loss through alignment and uniformity.
 
 ### Surveys and textbooks
 

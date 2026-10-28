@@ -61,6 +61,6 @@ Menon 等人在長尾基準（包括 CIFAR 與 iNaturalist 切分）上評估此
 
 ### 文章與預印本
 
-- Cao, K. 等人（2019）. *Learning Imbalanced Datasets with Label-Distribution-Aware Margin Loss*. arXiv:1906.07413. https://arxiv.org/abs/1906.07413 — 使用依類別頻率而定的邊界，是另一種同樣改變決策邊界的方法。
-- Kang, B. 等人（2020）. *Decoupling Representation and Classifier for Long-Tailed Recognition*. arXiv:1910.09217. https://arxiv.org/abs/1910.09217 — 分離表徵學習與分類器學習，並說明在分類器端的重新平衡很有效。
-- Ren, J. 等人（2022）. *Balanced MSE for Imbalanced Visual Regression*. arXiv:2203.16427. https://arxiv.org/abs/2203.16427 — 平衡概念在回歸上的對應，以修正 MSE 損失。
+- Cao, K. 等人（2019）. *Learning Imbalanced Datasets with Label-Distribution-Aware Margin Loss*. NeurIPS 2019. https://proceedings.neurips.cc/paper/2019/hash/621461af90cadfdaf0e8d4cc25129f91-Abstract.html — 使用依類別頻率而定的邊界，是另一種同樣改變決策邊界的方法。
+- Kang, B. 等人（2020）. *Decoupling Representation and Classifier for Long-Tailed Recognition*. ICLR 2020. https://arxiv.org/abs/1910.09217 — 分離表徵學習與分類器學習，並說明在分類器端的重新平衡很有效。
+- Ren, J. 等人（2022）. *Balanced MSE for Imbalanced Visual Regression*. CVPR 2022. https://openaccess.thecvf.com/content/CVPR2022/html/Ren_Balanced_MSE_for_Imbalanced_Visual_Regression_CVPR_2022_paper.html — 平衡概念在回歸上的對應，以修正 MSE 損失。

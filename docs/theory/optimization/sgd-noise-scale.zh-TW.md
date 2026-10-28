@@ -57,7 +57,7 @@ SGD 雜訊尺度是一個量 \(g = \epsilon\,(N/B - 1) \approx \epsilon N/B\)，
 - Smith, S. L. & Le, Q. V. (2018). *A Bayesian Perspective on Generalization and Stochastic Gradient Descent*. ICLR. https://arxiv.org/abs/1710.06451 — 提出 SGD 雜訊尺度 \(\epsilon N/B\)，並主張最佳批次大小隨學習率與訓練集大小而變。
 - Keskar, N. S., et al. (2017). *On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima*. ICLR. https://arxiv.org/abs/1609.04836 — 雜訊尺度論述所要解釋的經驗性批次大小效應。
 - Goyal, P., et al. (2017). *Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour*. arXiv. https://arxiv.org/abs/1706.02677 — 學習率依批次大小線性縮放，使雜訊尺度大致不變。
-- Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — 顯示自適應最佳化器會改變有效學習率，而雜訊尺度規則並未考慮這一點。
+- Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — 逐參數的自適應步長，因此針對普通 SGD 的雜訊尺度規則無法直接套用。
 
 ### 綜述與教科書
 

@@ -44,7 +44,7 @@ The arithmetic and the stored activations run at the lower width, which is where
 
 Micikevicius et al. (2017) report that using this approach reduces the memory consumption of deep learning models by nearly two times. They recommend keeping a single-precision copy of the weights that accumulates the gradients after each optimiser step, and scaling the loss to handle the loss of information in half-precision gradients. They tested convolutional, recurrent and generative adversarial networks.
 
-Micikevicius et al. (2022) extend the idea to 8-bit floating-point formats, E4M3 and E5M2. They report that on models up to 175 billion parameters, training with these formats effectively matches the result quality of 16-bit training, with the hyperparameters left unchanged. That result is for training; the lower-precision inference methods covered in [quantisation](../../../theory/model-compression/quantisation/index.md) are a separate line of work.
+Micikevicius et al. (2022) extend the idea to [8-bit floating-point formats](fp8.md), E4M3 and E5M2. They report that on models up to 175 billion parameters, training with these formats effectively matches the result quality of 16-bit training, with the hyperparameters left unchanged. That result is for training; the lower-precision inference methods covered in [quantisation](../../../theory/model-compression/quantisation/index.md) are a separate line of work.
 
 ## Limitations
 

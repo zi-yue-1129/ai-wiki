@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -30,7 +30,7 @@ A real value \(r\) is represented as \(r = s\,(q - z)\), where \(q\) is an 8-bit
 
 ## Results
 
-The abstract reports significant improvements in accuracy for integer-only inference, including on MobileNets, a family already designed for efficient inference. It does not give a single headline figure, so the tables in the paper should be used for specific numbers.
+The abstract states that the scheme improves the trade-off between accuracy and on-device latency, and that the improvements are significant even on MobileNets, a model family known for run-time efficiency. It does not give a single headline figure, so the tables in the paper should be used for specific numbers.
 
 ## Limitations
 

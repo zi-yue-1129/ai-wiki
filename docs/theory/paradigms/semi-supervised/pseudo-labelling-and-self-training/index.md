@@ -42,10 +42,10 @@ Choosing thresholds without validation labels, detecting when self-training is m
 
 ### Seminal papers
 
-- Xie et al. (2020), "Unsupervised data augmentation for consistency training", NeurIPS, arXiv:1904.12848 — Trains on predictions from clean inputs with strong augmented inputs, with large gains on text and image benchmarks.
-- Sohn et al. (2020), "FixMatch: simplifying semi-supervised learning with consistency and confidence", NeurIPS, arXiv:2001.07685 — Uses confident pseudo-labels with a simple threshold, a strong and simple baseline.
-- Berthelot et al. (2019), "MixMatch: a holistic approach to semi-supervised learning", NeurIPS, arXiv:1905.02249 — Sharpens averaged predictions to produce targets for unlabelled data.
-- Laine & Aila (2017), "Temporal ensembling for semi-supervised learning", ICLR, arXiv:1610.02242 — Uses averaged past predictions as smoother targets for unlabelled examples.
+- Xie et al. (2020), "Unsupervised data augmentation for consistency training", NeurIPS, [arXiv:1904.12848](https://arxiv.org/abs/1904.12848) — Trains on predictions from clean inputs with strong augmented inputs, with large gains on text and image benchmarks.
+- Sohn et al. (2020), "FixMatch: simplifying semi-supervised learning with consistency and confidence", NeurIPS, [arXiv:2001.07685](https://arxiv.org/abs/2001.07685) — Uses confident pseudo-labels with a simple threshold, a strong and simple baseline.
+- Berthelot et al. (2019), "MixMatch: a holistic approach to semi-supervised learning", NeurIPS, [arXiv:1905.02249](https://arxiv.org/abs/1905.02249) — Sharpens averaged predictions to produce targets for unlabelled data.
+- Laine & Aila (2017), "Temporal ensembling for semi-supervised learning", ICLR, [arXiv:1610.02242](https://arxiv.org/abs/1610.02242) — Uses averaged past predictions as smoother targets for unlabelled examples.
 
 ### Surveys and textbooks
 
@@ -57,7 +57,7 @@ Choosing thresholds without validation labels, detecting when self-training is m
 
 ### Articles and documentation
 
-- Oliver, Odena, Raffel, Cubuk & Goodfellow (2018), "Realistic evaluation of deep semi-supervised learning algorithms", NeurIPS, arXiv:1804.09170 — Shows how sensitive semi-supervised results are to the evaluation protocol.
+- Oliver, Odena, Raffel, Cubuk & Goodfellow (2018), "Realistic evaluation of deep semi-supervised learning algorithms", NeurIPS, [arXiv:1804.09170](https://arxiv.org/abs/1804.09170) — Shows how sensitive semi-supervised results are to the evaluation protocol.
 
 ## Further reading
 

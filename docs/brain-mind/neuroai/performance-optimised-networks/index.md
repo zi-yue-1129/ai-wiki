@@ -43,7 +43,7 @@ Optimise deep convolutional networks for object recognition, then test how well 
 1. Train a family of hierarchical convolutional networks to categorise objects in images.
 2. Select the models by their performance on the object-recognition task.
 3. Record responses from neurons in V4 and IT of macaque monkeys to a set of images.
-4. Map the model's features to the neural responses with a linear fit, and score how well the mapping predicts responses to images held out from the fit.
+4. Map the model's features to the neural responses, and score how well the mapping predicts responses to natural images. The abstract does not specify the mapping method.
 
 ## Results
 

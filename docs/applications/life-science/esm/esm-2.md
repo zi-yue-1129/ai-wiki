@@ -82,4 +82,4 @@ The preprint reports that scaling the model up gives representations good enough
 - Lin et al. (2022). Evolutionary-scale prediction of atomic level protein structure with a language model. *bioRxiv*. https://doi.org/10.1101/2022.07.20.500902 — The preprint behind the figures summarised on this page.
 - Rives et al. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *PNAS*. https://doi.org/10.1073/pnas.2016239118 — The earlier ESM work, which showed that structure-related information emerges from language-model training on sequences.
 - Jumper et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*. https://doi.org/10.1038/s41586-021-03819-2 — AlphaFold 2, the alignment-based structure predictor used for comparison.
-- Vaswani et al. (2017). Attention Is All You Need. arXiv. https://arxiv.org/abs/1706.03762 — Introduces the transformer architecture that ESM-2 is built on.
+- Vaswani et al. (2017). Attention Is All You Need. NeurIPS 2017. https://proceedings.neurips.cc/paper/7181-attention-is-all-you-need — Introduces the transformer architecture that ESM-2 is built on.

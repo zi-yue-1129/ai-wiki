@@ -15,7 +15,7 @@ last_reviewed: 2026-10-28
 
 # ConvNeXt
 
-ConvNeXt is a pure convolutional network introduced by Liu et al. in 2022 in "A ConvNet for the 2020s" (arXiv:2201.03545). The authors start from a ResNet and modernise its design one step at a time, borrowing choices from Transformers. The resulting network outperforms Swin Transformer baselines of similar size on ImageNet-1K, COCO detection and ADE20K segmentation.
+ConvNeXt is a pure convolutional network introduced by Liu et al. in 2022 in "A ConvNet for the 2020s" ([arXiv:2201.03545](https://arxiv.org/abs/2201.03545)). The authors start from a ResNet and modernise its design one step at a time, borrowing choices from Transformers. The resulting network outperforms Swin Transformer baselines of similar size on ImageNet-1K, COCO detection and ADE20K segmentation.
 
 ## Problem
 
@@ -77,10 +77,10 @@ All figures are from the paper's tables. Top-1 accuracy is on ImageNet-1K unless
 
 ### Seminal papers
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt, a modernised pure CNN that matches Transformer baselines.
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — Residual connections that allow very deep CNNs to train.
-- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". arXiv:1409.1556 — Stacks of small 3×3 convolutions, the plain deep design behind VGG.
-- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". arXiv:1905.11946 — Compound scaling of depth, width and input resolution.
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt, a modernised pure CNN that matches Transformer baselines.
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — Residual connections that allow very deep CNNs to train.
+- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". [arXiv:1409.1556](https://arxiv.org/abs/1409.1556) — Stacks of small 3×3 convolutions, the plain deep design behind VGG.
+- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". [arXiv:1905.11946](https://arxiv.org/abs/1905.11946) — Compound scaling of depth, width and input resolution.
 
 ### Surveys and textbooks
 

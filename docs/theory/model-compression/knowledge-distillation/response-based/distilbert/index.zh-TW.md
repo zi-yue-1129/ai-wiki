@@ -45,7 +45,7 @@ DistilBERT 是語言模型形式的蒸餾，也是今日[大型語言模型方�
 
 ### 綜述與教科書
 
-- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — 綜述蒸餾方法，包括應用於預訓練語言模型者。
+- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — 依知識類型與訓練方式綜述蒸餾方法。
 
 ### 講座與影片
 

@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - applications/games
@@ -38,11 +38,11 @@ Three learned functions cooperate. A representation function turns the observati
 
 ## Results
 
-The paper reports the following, in the comparisons it uses:
+The paper compares MuZero with model-free and model-based baselines on Atari, and with AlphaZero on board games. The figures below are the paper's reported numbers.
 
-- **Board games**: MuZero matched the superhuman performance of AlphaZero, which was given the game rules. In Go it slightly exceeded AlphaZero.
-- **Atari**: MuZero reached a new state of the art for both mean and median normalised score across 57 games, outperforming the model-free R2D2 method.
-- **Reanalyze variant**: the paper reports a 731% median normalised score for MuZero Reanalyze, compared with 192%, 231% and 431% for the methods it compares against.
+- **Board games**: MuZero matched the superhuman performance of AlphaZero, which was given the game rules. In Go it slightly exceeded AlphaZero while using less computation per search-tree node.
+- **Atari, large-data setting**: MuZero reached a median normalised score of 2041.1% and a mean of 4999.2%, above R2D2 with a median of 1920.6% and a mean of 4024.9%.
+- **Atari, 200 million frames per game**: the Reanalyze variant reached a median of 731.1%. In the same setting the paper compares it with IMPALA (191.8% median), Rainbow (231.1%) and LASER (431%).
 
 The full tables are in the paper.
 

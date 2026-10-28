@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - theory/model-compression
@@ -61,7 +61,7 @@ Deep Compression links the two largest families of the [model compression](../in
 
 - Han, S., Mao, H., Dally, W. J. (2016). *Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding*. ICLR. https://arxiv.org/abs/1510.00149 — Combines pruning, codebook quantisation and Huffman coding, reporting 35 to 49 times storage reduction without affecting accuracy.
 - Han, S., et al. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — Prunes connections and retrains the survivors, shrinking AlexNet and VGG-16 without loss of accuracy.
-- Gong, Y., et al. (2014). *Compressing Deep Convolutional Networks using Vector Quantization*. arXiv:1412.6115. https://arxiv.org/abs/1412.6115 — Shows that vector quantisation of dense layers compresses large CNNs more effectively than matrix factorisation.
+- Gong, Y., et al. (2014). *Compressing Deep Convolutional Networks using Vector Quantization*. arXiv:1412.6115. https://arxiv.org/abs/1412.6115 — Reports a clear gain of vector quantisation over matrix factorisation for compressing the most storage-demanding dense layers of CNNs.
 
 ### Surveys and textbooks
 
@@ -73,4 +73,4 @@ Deep Compression links the two largest families of the [model compression](../in
 
 ### Articles and documentation
 
-- Gale, T., Elsen, E., Hooker, S. (2019). *The State of Sparsity in Deep Neural Networks*. arXiv:1902.09574. https://arxiv.org/abs/1902.09574 — Shows that simple magnitude pruning matches or beats more complex sparsity methods on large tasks.
+- Gale, T., Elsen, E., Hooker, S. (2019). *The State of Sparsity in Deep Neural Networks*. arXiv:1902.09574. https://arxiv.org/abs/1902.09574 — Reports that simple magnitude pruning achieves comparable or better results than complex sparsity techniques, which perform inconsistently.

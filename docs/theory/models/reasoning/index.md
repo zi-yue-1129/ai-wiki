@@ -45,14 +45,16 @@ flowchart LR
 
 ## Key methods
 
-Four landmark methods, each with its own page. They are ordered roughly by when they appeared.
+Six landmark methods, each with its own page. They are ordered roughly by when they appeared.
 
 | Method | Year | What separates it |
 |---|---|---|
 | [Chain of thought](chain-of-thought.md) | 2022 | Prompt exemplars that include written steps. No training needed |
 | [Self-consistency](self-consistency.md) | 2022 | Samples many reasoning paths and keeps the most consistent answer, instead of one greedy path |
-| [DeepSeek-R1](deepseek-r1.md) | 2025 | Reinforcement learning with rule-based rewards that teaches long reasoning into the model weights |
+| [Zero-shot chain of thought](zero-shot-chain-of-thought.md) | 2022 | Appends "Let's think step by step" to the question, with no exemplars |
+| [Process reward models](process-reward-models.md) | 2023 | Scores each step of a solution, not only the final answer, to rank or guide search |
 | [Test-time compute scaling](test-time-scaling.md) | 2024 | Chooses how to spend test-time compute per prompt, through verifier-guided search or revision |
+| [DeepSeek-R1](deepseek-r1.md) | 2025 | Reinforcement learning with rule-based rewards that teaches long reasoning into the model weights |
 
 ## Connections
 

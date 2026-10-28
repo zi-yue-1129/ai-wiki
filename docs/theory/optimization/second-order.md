@@ -46,7 +46,7 @@ Three methods are covered on their own pages. They differ in what curvature they
 | Method | Curvature used | What separates it |
 |---|---|---|
 | [L-BFGS](lbfgs.md) (Liu & Nocedal, 1989) | Gradient differences from the last \(m\) steps | Limited-memory quasi-Newton. It stores \(m\) pairs of vectors instead of a matrix, and is designed for full-batch problems |
-| [K-FAC](kfac.md) (Martens & Grosse, 2015) | Fisher matrix, approximated layer by layer as a Kronecker product | Natural-gradient approximation that inverts small factors, and is used for neural-network training with minibatches |
+| [K-FAC](kfac/index.md) (Martens & Grosse, 2015) | Fisher matrix, approximated layer by layer as a Kronecker product | Natural-gradient approximation that inverts small factors, and is used for neural-network training with minibatches |
 | [Shampoo](shampoo.md) (Gupta et al., 2018) | One preconditioner matrix per tensor dimension, built from gradient statistics | Structure-aware preconditioning for tensors, with per-step cost comparable to first-order methods, according to its abstract |
 
 ## Connections

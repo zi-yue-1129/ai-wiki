@@ -1,45 +1,114 @@
 ---
-translation_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-10-28
 ---
 
 # CoALA：語言代理人的認知架構（Sumers 等人，2023）
 
-為語言模型設計的代理人，具有模組化記憶與一組內部動作。
+CoALA 是一個概念框架，用來描述以大型語言模型為基礎的語言代理人：依其模組化記憶、一組內部與外部行動，以及在這些行動之間反覆選擇的決策循環來加以刻畫。
+
+## 概覽
+
+**語言代理人**（language agent）是以大型語言模型作為核心元件、並對外部世界採取行動的系統。例如，它可以用搜尋回答問題、在文字遊戲中依指示行動，或是控制機器人。語言代理人已展現強勁的成果，但這個領域的許多系統都是一個一個分別建造的，各自有不同的記憶方式、行動集合與控制循環，因此難以比較。
+
+CoALA 由 Sumers、Yao、Narasimhan 與 Griffiths 提出，借鑑認知科學與符號人工智慧的歷史，為這些代理人提供共同的語彙。作者借用認知架構——長期存在、描述心智的計算模型——來說明代理人如何儲存資訊、能做什麼，以及如何做決定。接著，此框架被用來綜述並組織既有的代理人，並提出建造新代理人的方向。
+
+本頁是[認知架構](../index.md)主題的一部分，可視為經典架構 [ACT-R](../act-r/index.md) 的語言代理人對應版本。
+
+## 關鍵概念
+
+- **語言代理人**：由語言模型做決策的系統，可以呼叫外部工具或與環境互動。
+- **工作記憶**（working memory）：代理人目前的感知輸入、目標與中間推理結果的短期儲存區。
+- **長期記憶**（long-term memory）：CoALA 中的三種儲存：程序性記憶，保存決定行為的規則與技能；語意記憶，保存關於世界與代理人自身的事實；情節記憶，保存過去經驗的紀錄。
+- **落地**（grounding）：與環境互動的外部行動，例如控制機器人、瀏覽網站，或與人溝通。
+- **檢索、推理與學習**：三種內部行動。檢索是從長期記憶讀取到工作記憶；推理是在語言模型協助下更新工作記憶；學習則是把新內容寫入長期記憶。
+- **決策循環**（decision cycle）：代理人反覆執行的循環，先提出候選行動，再評估並選擇一個，然後執行。
 
 ## 問題
 
-以大型語言模型為基礎的語言代理人已展現強勁的結果，但缺少系統性的框架來組織它們。
+作者觀察到，以大型語言模型建造的語言代理人已取得相當可觀的實證成果，但缺少一個系統性的框架來組織它們並規劃未來的發展。沒有這樣的框架，就難以說明某個代理人記得什麼、能做什麼，以及它與其他代理人有何不同。
+
+CoALA 以三個面向來描述任何語言代理人：資訊儲存（記憶）、行動空間（內部與外部），以及決策程序，藉以處理這個缺口。摘要指出，該框架被用來綜述大量近期研究，並指出打造更強大代理人的可行方向。
 
 ## 核心想法
 
-將代理人描述為包含模組化記憶（工作、情節、語意與程序記憶）、一組內部行動（檢索、推理、學習）與外部行動（與環境互動的落地），以及用來選擇行動的決策循環。
+CoALA 把語言代理人描述為一個類似產生式系統的循環，包含四個部分。
 
-## 方法
+第一部分是**模組化記憶**。工作記憶保存代理人目前正在處理的內容。長期記憶分為三類：程序性記憶，保存可應用於工作記憶的規則；語意記憶，保存事實；情節記憶，保存過去的經驗。這些類別借自 Soar 等認知架構，其中的產生式儲存於長期記憶，並作用於工作記憶。
 
-概念框架。論文用它來分類既有代理人，並提出建造新代理人的方向。
+第二部分是**行動空間**。外部行動透過落地與環境互動。內部行動與記憶互動，分為三種：檢索、推理與學習。這項區分很重要，因為語言代理人可以在不接觸外部世界的情況下，改變自己的記憶與推理。
+
+第三部分是**決策循環**。在每個循環中，代理人可以運用推理與檢索來做規劃。規劃會提出、評估並選擇一個行動，接著執行選定的行動。執行可能是落地行動，例如呼叫外部 API；也可能是學習行動，例如把經驗寫入情節記憶。
+
+## 方程式或演算法
+
+CoALA 是框架，而非學習演算法，因此以下步驟描述的是論文所呈現的決策循環，而不是帶有方程式的程序。
+
+1. **觀察。** 從環境取得一個觀察，並寫入工作記憶。
+2. **檢索與推理。** 代理人把長期記憶中的相關項目讀入工作記憶，並以推理來解釋情境。推理與檢索可以彈性地應用，其子階段也可以交錯或反覆進行。
+3. **提出、評估與選擇。** 代理人產生一或多個候選行動，加以評估，並選出其中一個。論文把這些稱為規劃階段中的提出、評估與選擇子階段。
+4. **執行。** 套用選定的行動。它可能是外部的落地行動，例如 API 呼叫；也可能是內部的學習行動，例如寫入情節記憶。
+5. **重複。** 循環以下一個觀察繼續進行。
+
+論文也指出，這樣的循環是一種抽象。實際的代理人可能以多種方式實作某一步驟，有些步驟也可能合併。
 
 ## 結果
 
-論文沒有提出新系統或基準測試，貢獻在於分類與設計語彙。
+CoALA 沒有提出新的代理人，也沒有報告基準測試的結果。它的證據來自對既有研究的組織。在論文的表 2 中，作者把數個近期語言代理人納入此框架，並比較其內部機制。
+
+例如，SayCan 把語言模型落地於廚房中的機器人互動，它的長期記憶只有程序性記憶；其行動空間只有外部行動，且有固定的 551 種落地技能。ReAct 在 Wikipedia API 與文字遊戲等數位環境中，交錯進行推理與行動。它沒有語意或情節記憶，其決策循環只使用一次推理行動，沒有獨立的評估或選擇階段。Generative Agents 則依近期性、重要性與相關性來檢索情節記憶。以上是表 2 對這些方法的摘要。
+
+因此，這篇論文的貢獻是提供共同的語彙與比較代理人的方式，而不是衡量出的效能提升。
 
 ## 限制
 
-框架本身並非經過評估的系統，而且真實代理人不一定能整齊地歸入這些類別。
+- **描述性，未經評估。** 框架描述代理人，但並不測試哪種設計表現較好。論文的分類因此不是效能的證據。
+- **類別可能模糊。** 框架依組成元件來分類代理人。實際系統未必能乾淨地分開這些元件，因此分類可能需要判斷。
+- **規劃深度。** 決策循環是以高層次描述的。論文指出，樹狀搜尋等方法是應對自回歸生成所導致的短視問題的一種方式。
+- **論文中的未解問題。** 論文第 7 節列出了認知科學與人工智慧中，框架本身並未解決的未解問題。
+
+## 主要方法
+
+- [ACT-R](../act-r/index.md)：為模擬人類認知而建造的認知架構。CoALA 借用的是一般性的架構概念，而非 ACT-R 的機制。
+- Soar：產生式系統架構，其決策循環是 CoALA 作為認知架構主要範例所用的。產生式與工作記憶相比對，最相符者被執行。
+- ReAct（Yao 等人，2022）：把推理軌跡與行動交錯的語言代理人。CoALA 把它歸類為同時使用內部與外部行動的最簡單代理人。
+- Generative Agents（Park 等人，2023）：具有情節記憶的語言代理人，依近期性、重要性與相關性檢索記憶，並對自身經驗進行反思。
 
 ## 連結
 
 - 母頁：[認知架構](../index.md)
 - 同一主題的另一方法：[ACT-R](../act-r/index.md)
+- [AI 代理人](../../../theory/models/agents/index.md)：能感知並朝目標行動之系統的一般類別，CoALA 的語言代理人是其中一種。
+- [大型語言模型](../../../theory/models/llm/index.md)：CoALA 中每個代理人的核心語言模型。
+- [推理](../../../theory/models/reasoning/index.md)：決策循環所依賴的推理與規劃行動。
+- [記憶與學習](../../memory-learning/index.md)：CoALA 的工作記憶、情節記憶與語意記憶所借鑑的人類記憶分類。
+- [Building machines that learn and think like people](../../cognitive-science/building-machines-like-people/index.md)：Lake 等人主張，類人學習需要因果模型、直覺理論與組合性，這對語言代理人是很高的標準。
+
+大腦方面的連結，主要是借用的區分。CoALA 從認知科學借用工作記憶與情節、語意記憶的概念，並如同認知架構一樣，把行動選擇視為一個決策過程。
+
+## 應用
+
+- **機器人**：如論文所述，SayCan 把語言模型落地於機器人互動中，例如在廚房場景中從一組技能裡做選擇。
+- **遊戲與模擬世界**：Voyager 與 Generative Agents 在模擬環境中運用記憶與檢索。
+- **數位任務**：ReAct 與線上百科 API、文字遊戲互動，以完成同時需要推理與行動的任務。
+- **代理人設計**：論文第 6 節為未來語言代理人的建造提出步驟，並以其三個面向作為檢查清單。
+
+## 未解問題
+
+- **應採取哪些學習行動？** 論文指出，把經驗寫入記憶屬於學習的一種，但語言代理人應做哪些種類的學習、學習的頻率為何，目前尚不清楚。
+- **規劃應該多深？** 單步決策容易實作，但多步規劃的能力更強，而取得多步規劃的最佳方式尚無定論。
+- **落地止於何處？** 在框架中，內部推理與外部行動的界線比在實際系統中清楚。
+- **通用智慧。** 摘要把通往以語言為基礎之通用智慧的道路視為一個開放的方向，目前尚不清楚現有代理人能走多遠。
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Anderson, J. R., 等人（2004）。An Integrated Theory of the Mind. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.4.1036 — ACT-R，在單一系統中模擬記憶、目標與學習的認知架構。
-- Laird, J. E., Lebiere, C. & Rosenbloom, P. S.（2017）。A Standard Model of the Mind: Toward a Common Computational Framework across Artificial Intelligence, Cognitive Science, Neuroscience, and Robotics. *AI Magazine*. https://doi.org/10.1609/aimag.v38i4.2744 — 提出 Soar、ACT-R 與 Sigma 共通元件的社群共識。
-- Lake, B. M., 等人（2017）。Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — 主張類人學習需要因果模型、直覺理論與組合性。
+- Sumers, T. R.、Yao, S.、Narasimhan, K. 與 Griffiths, T. L.（2023）。Cognitive Architectures for Language Agents. arXiv. https://arxiv.org/abs/2309.02427 — 提出 CoALA，以模組化記憶、內部與外部行動，以及決策循環來描述語言代理人。
+- Yao, S.、Zhao, J.、Yu, D.、Du, N.、Shafran, I.、Narasimhan, K. 與 Cao, Y.（2022）。ReAct: Synergizing Reasoning and Acting in Language Models. arXiv. https://arxiv.org/abs/2210.03629 — 在語言模型中交錯推理軌跡與任務導向的行動，使兩者在互動任務中相互引導。
+- Park, J. S.、O'Brien, J. C.、Cai, C. J.、Morris, M. R.、Liang, P. 與 Bernstein, M. S.（2023）。Generative Agents: Interactive Simulacra of Human Behavior. arXiv. https://arxiv.org/abs/2304.03442 — 描述具有記憶流、反思與檢索機制的語言模型代理人，用於模擬可信的人類行為。
+- Laird, J. E.、Lebiere, C. 與 Rosenbloom, P. S.（2017）。A Standard Model of the Mind: Toward a Common Computational Framework Across Artificial Intelligence, Cognitive Science, Neuroscience, and Robotics. *AI Magazine*. https://doi.org/10.1609/aimag.v38i4.2744 — 提出由三個認知架構綜合而成的社群共識心智模型，CoALA 即借鑑這一傳統。
 
 ### 綜述與教科書
 
-- Kotseruba, I. & Tsotsos, J. K.（2020）。40 years of cognitive architectures: core cognitive abilities and practical applications. *Artificial Intelligence Review*. https://doi.org/10.1007/s10462-018-9646-y — 依涵蓋的認知能力與實際應用，綜述各種認知架構。
-- Sumers, T. R., Yao, S., Narasimhan, K. & Griffiths, T. L.（2023）。Cognitive Architectures for Language Agents. arXiv. https://arxiv.org/abs/2309.02427 — 提出 CoALA，以記憶、行動與決策來組織語言代理人的框架。
+- Ritter, F. E.、Tehranchi, F. 與 Oury, J. D.（2019）。ACT-R: A cognitive architecture for modeling cognition. *WIREs Cognitive Science*. https://doi.org/10.1002/wcs.1488 — 綜述最為人知的認知架構之一，包括其歷史、以程式實現的認知理論與應用。

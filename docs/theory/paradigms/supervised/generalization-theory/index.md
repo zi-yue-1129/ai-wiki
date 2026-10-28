@@ -50,7 +50,7 @@ Distribution shift breaks the i.i.d. assumption; see [transfer theory](../../tra
 
 - Valiant, L. G. (1984). A theory of the learnable. *Communications of the ACM*, 27(11), 1134–1142. https://doi.org/10.1145/1968.1972 — Introduces PAC learning, the formal model of what can be learned from samples.
 - Zhang, C. et al. (2017). Understanding deep learning requires rethinking generalization. ICLR. arXiv:1611.03530. https://arxiv.org/abs/1611.03530 — Shows that large networks can fit random labels, which breaks classical capacity bounds.
-- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572 — Links the generalisation of very wide networks to kernel regression.
+- Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, [arXiv:1806.07572](https://arxiv.org/abs/1806.07572) — Links the generalisation of very wide networks to kernel regression.
 
 ### Surveys and textbooks
 
@@ -63,5 +63,5 @@ Distribution shift breaks the i.i.d. assumption; see [transfer theory](../../tra
 
 ### Articles and documentation
 
-- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, arXiv:1812.11118 — Explains double descent, where test error falls again after the model can fit the training set.
-- Kaplan et al. (2020), "Scaling laws for neural language models", arXiv:2001.08361 — Empirical power laws relating language model loss to model size, data and compute.
+- Belkin, Hsu, Ma & Mandal (2019), "Reconciling modern machine-learning practice and the bias–variance trade-off", *PNAS*, [arXiv:1812.11118](https://arxiv.org/abs/1812.11118) — Explains double descent, where test error falls again after the model can fit the training set.
+- Kaplan et al. (2020), "Scaling laws for neural language models", [arXiv:2001.08361](https://arxiv.org/abs/2001.08361) — Empirical power laws relating language model loss to model size, data and compute.

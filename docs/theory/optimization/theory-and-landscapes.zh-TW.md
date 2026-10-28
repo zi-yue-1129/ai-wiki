@@ -33,6 +33,7 @@ translation_reviewed: 2026-10-28
 | 凸與平滑損失的收斂 | 損失下降的速率 | 本頁（Bottou 等人，2018） |
 | 鞍點 | 逃離高誤差平原 | Dauphin 等人（2014） |
 | 銳度感知最小化（Foret 等人，2021） | 朝向平坦鄰域訓練 | [SAM](sharpness-aware-minimisation.md) |
+| 自適應銳度感知最小化（Kwon 等人，2021） | 依權重大小縮放的鄰域，對重新縮放具不變性 | [ASAM](asam.md) |
 | 尖銳極小值與泛化 | 以平坦性預測泛化 | [尖銳極小值](sharp-minima.md) |
 
 ## 關聯

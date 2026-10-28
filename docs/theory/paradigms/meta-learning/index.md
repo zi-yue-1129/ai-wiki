@@ -65,12 +65,12 @@ Large language models, trained only on next-token prediction, can learn tasks fr
 
 ### Seminal papers
 
-- Finn, Abbeel & Levine (2017), "Model-agnostic meta-learning for fast adaptation of deep networks", ICML, arXiv:1703.03400 — MAML, the foundational gradient-based meta-learning method.
-- Snell, Swersky & Zemel (2017), "Prototypical networks for few-shot learning", NeurIPS, arXiv:1703.05175 — Classifies by distance to class prototypes computed from a few examples.
-- Vinyals et al. (2016), "Matching networks for one shot learning", NeurIPS, arXiv:1606.04080 — Introduces episodic training with attention over a labelled support set.
+- Finn, Abbeel & Levine (2017), "Model-agnostic meta-learning for fast adaptation of deep networks", ICML, [arXiv:1703.03400](https://arxiv.org/abs/1703.03400) — MAML, the foundational gradient-based meta-learning method.
+- Snell, Swersky & Zemel (2017), "Prototypical networks for few-shot learning", NeurIPS, [arXiv:1703.05175](https://arxiv.org/abs/1703.05175) — Classifies by distance to class prototypes computed from a few examples.
+- Vinyals et al. (2016), "Matching networks for one shot learning", NeurIPS, [arXiv:1606.04080](https://arxiv.org/abs/1606.04080) — Introduces episodic training with attention over a labelled support set.
 - Santoro et al. (2016), "Meta-learning with memory-augmented neural networks", ICML. https://proceedings.mlr.press/v48/santoro16.html — Uses an external memory to learn fast, one-shot adaptation.
 - Baxter (2000), "A model of inductive bias learning", Journal of Artificial Intelligence Research. https://jair.org/index.php/jair/article/download/10253/24418 — Formal model of learning the inductive bias from a family of tasks.
 
 ### Surveys and textbooks
 
-- Hospedales, Antoniou, Micaelli & Storkey (2021), "Meta-learning in neural networks: a survey", IEEE TPAMI, arXiv:2004.05439 — Broad survey of meta-learning, covering all the families on this page.
+- Hospedales, Antoniou, Micaelli & Storkey (2021), "Meta-learning in neural networks: a survey", IEEE TPAMI, [arXiv:2004.05439](https://arxiv.org/abs/2004.05439) — Broad survey of meta-learning, covering all the families on this page.

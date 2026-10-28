@@ -11,6 +11,7 @@ The core theory behind every AI technique.
 | [Learning Paradigms](paradigms/index.md) | Supervised, unsupervised, semi-/weakly supervised, self-supervised, reinforcement, imitation, transfer, meta, continual, active, online, federated learning, and the probabilistic, symbolic and evolutionary approaches — what signal, what setting? |
 | [Reinforcement Learning](paradigms/reinforcement-learning/index.md) | How do agents learn behaviour from trial, error and reward — and what does dopamine have to do with it? |
 | [Information Theory](information-theory/index.md) | How do entropy, KL divergence and mutual information quantify learning? |
+| [Causal Inference](causal-inference/index.md) | What would happen under an intervention, and when can it be estimated from data? |
 | [Model Compression](model-compression/index.md) | How do pruning, quantisation and distillation shrink a model without losing its skill? |
 | [Evaluation](evaluation/index.md) | How do we measure whether a model is good, and how far can a benchmark score be trusted? |
 

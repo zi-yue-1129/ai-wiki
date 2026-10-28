@@ -51,9 +51,9 @@ Likelihood is not the same as sample quality. A model can assign high likelihood
 
 ### Seminal papers
 
-- Dinh, Sohl-Dickstein & Bengio (2017), "Density estimation using Real NVP", ICLR, arXiv:1605.08803 — Coupling-layer normalising flows that give exact likelihoods for images.
-- Kingma & Welling (2014), "Auto-encoding variational Bayes", ICLR, arXiv:1312.6114 — The variational autoencoder, which combines a latent-variable model with amortised inference.
-- Goodfellow et al. (2014), "Generative adversarial networks", NeurIPS, arXiv:1406.2661 — Introduces adversarial training of a generator against a discriminator.
+- Dinh, Sohl-Dickstein & Bengio (2017), "Density estimation using Real NVP", ICLR, [arXiv:1605.08803](https://arxiv.org/abs/1605.08803) — Coupling-layer normalising flows that give exact likelihoods for images.
+- Kingma & Welling (2014), "Auto-encoding variational Bayes", ICLR, [arXiv:1312.6114](https://arxiv.org/abs/1312.6114) — The variational autoencoder, which combines a latent-variable model with amortised inference.
+- Goodfellow et al. (2014), "Generative adversarial networks", NeurIPS, [arXiv:1406.2661](https://arxiv.org/abs/1406.2661) — Introduces adversarial training of a generator against a discriminator.
 - Fraley & Raftery (2002), "Model-based clustering, discriminant analysis, and density estimation", *JASA* 97(458). https://sites.stat.washington.edu/raftery/Research/PDF/fraley2002.pdf — Defines Gaussian mixture density estimation and model selection.
 
 ### Surveys and textbooks
