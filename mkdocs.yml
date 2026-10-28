@@ -365,6 +365,7 @@ plugins:
             Ternary Weight Networks: 三值權重網路
             Mixed Precision: 混合精度
             HAWQ: HAWQ
+            Deep Compression: 深度壓縮
             Learning Weights and Connections: 學習權重與連接
             Magnitude Pruning: 量值剪枝
             Gradual Pruning: 漸進式剪枝
@@ -784,6 +785,7 @@ nav:
                   - theory/model-compression/pruning/one-shot-llm-pruning/index.md
                   - SparseGPT: theory/model-compression/pruning/one-shot-llm-pruning/sparsegpt/index.md
                   - Wanda: theory/model-compression/pruning/one-shot-llm-pruning/wanda/index.md
+          - Deep Compression: theory/model-compression/deep-compression/index.md
           - Knowledge Distillation:
               - theory/model-compression/knowledge-distillation/index.md
               - Response-Based:
