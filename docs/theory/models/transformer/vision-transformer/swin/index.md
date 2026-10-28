@@ -89,6 +89,7 @@ The cost comparison in the paper is \(\Omega(\text{MSA}) = 4hwC^2 + 2(hw)^2C\) f
 - Liu, Z., et al. (2021). *Swin Transformer: Hierarchical Vision Transformer using Shifted Windows*. ICCV 2021. [DOI 10.1109/ICCV48922.2021.00986](https://doi.org/10.1109/ICCV48922.2021.00986). Also [arXiv:2103.14030](https://arxiv.org/abs/2103.14030) — Introduces Swin, with shifted-window attention and a hierarchical design.
 - Dosovitskiy, A., et al. (2021). *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*. ICLR 2021. [arXiv:2010.11929](https://arxiv.org/abs/2010.11929) — The global-attention ViT that Swin modifies.
 - Liu, Z., et al. (2022). *A ConvNet for the 2020s*. CVPR 2022. [DOI 10.1109/CVPR52688.2022.01167](https://doi.org/10.1109/CVPR52688.2022.01167) — A convnet that compares directly with Swin on ImageNet, COCO and ADE20K.
+- Touvron, H., et al. (2021). *Training data-efficient image transformers & distillation through attention*. ICML 2021, PMLR 139. [arXiv:2012.12877](https://arxiv.org/abs/2012.12877) — DeiT, a ViT that keeps global attention and is trained on ImageNet alone, the contrast case for Swin's windowed design.
 
 ### Surveys and textbooks
 

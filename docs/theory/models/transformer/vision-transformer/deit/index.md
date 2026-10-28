@@ -76,6 +76,7 @@ Here \(\psi\) is the linear classifier and \(y_t = \arg\max_c Z_t(c)\) is the te
 - Touvron, H., et al. (2021). *Training data-efficient image transformers & distillation through attention*. ICML 2021, PMLR 139, pp. 10347–10357. [arXiv:2012.12877](https://arxiv.org/abs/2012.12877) — Introduces DeiT, which trains a ViT on ImageNet alone with a distillation token.
 - Dosovitskiy, A., et al. (2021). *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*. ICLR 2021. [arXiv:2010.11929](https://arxiv.org/abs/2010.11929) — The ViT architecture that DeiT keeps.
 - Hinton, G., Vinyals, O. & Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. [arXiv:1503.02531](https://arxiv.org/abs/1503.02531) — Introduces knowledge distillation, which the distillation token builds on.
+- Steiner, A., et al. (2022). *How to train your ViT? Data, Augmentation, and Regularization in Vision Transformers*. Transactions on Machine Learning Research. [arXiv:2106.10270](https://arxiv.org/abs/2106.10270) — Studies how augmentation and regularisation trade off against data for ViTs, the same recipe question that DeiT addresses.
 
 ### Surveys and textbooks
 

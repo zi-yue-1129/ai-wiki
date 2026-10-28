@@ -90,6 +90,7 @@ z^{l} = \mathrm{MLP}\big(\mathrm{LN}(\hat z^{l})\big) + \hat z^{l}
 - Liu, Z., et al. (2021). *Swin Transformer: Hierarchical Vision Transformer using Shifted Windows*. ICCV 2021. [DOI 10.1109/ICCV48922.2021.00986](https://doi.org/10.1109/ICCV48922.2021.00986)。另見 [arXiv:2103.14030](https://arxiv.org/abs/2103.14030) — 提出 Swin，包含移位視窗注意力與階層式設計。
 - Dosovitskiy, A., et al. (2021). *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*. ICLR 2021. [arXiv:2010.11929](https://arxiv.org/abs/2010.11929) — Swin 所修改的全域注意力 ViT。
 - Liu, Z., et al. (2022). *A ConvNet for the 2020s*. CVPR 2022. [DOI 10.1109/CVPR52688.2022.01167](https://doi.org/10.1109/CVPR52688.2022.01167) — 在 ImageNet、COCO 與 ADE20K 上與 Swin 直接比較的卷積網路。
+- Touvron, H., et al. (2021). *Training data-efficient image transformers & distillation through attention*. ICML 2021, PMLR 139. [arXiv:2012.12877](https://arxiv.org/abs/2012.12877) — DeiT，保留全域注意力並只用 ImageNet 訓練的 ViT，是 Swin 視窗式設計的對照。
 
 ### 綜述與教科書
 

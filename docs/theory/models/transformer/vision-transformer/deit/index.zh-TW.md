@@ -77,6 +77,7 @@ DeiT（Data-efficient image Transformer，資料高效影像 Transformer）只�
 - Touvron, H., et al. (2021). *Training data-efficient image transformers & distillation through attention*. ICML 2021, PMLR 139, pp. 10347–10357. [arXiv:2012.12877](https://arxiv.org/abs/2012.12877) — 提出 DeiT，以蒸餾 token 只用 ImageNet 訓練 ViT。
 - Dosovitskiy, A., et al. (2021). *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*. ICLR 2021. [arXiv:2010.11929](https://arxiv.org/abs/2010.11929) — DeiT 所保留的 ViT 架構。
 - Hinton, G., Vinyals, O. & Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. [arXiv:1503.02531](https://arxiv.org/abs/1503.02531) — 提出知識蒸餾，蒸餾 token 即建立於此。
+- Steiner, A., et al. (2022). *How to train your ViT? Data, Augmentation, and Regularization in Vision Transformers*. Transactions on Machine Learning Research. [arXiv:2106.10270](https://arxiv.org/abs/2106.10270) — 系統性研究 ViT 中資料增強與正則化和資料量之間的取捨，正是 DeiT 所處理的配方問題。
 
 ### 綜述與教科書
 
