@@ -73,7 +73,7 @@ Toolformer 是一種讓語言模型自行學會呼叫外部工具的方法。模
 
 ### 開創性論文
 
-- Schick, T. 等人（2023）。*Toolformer: Language Models Can Teach Themselves to Use Tools*。arXiv。https://arxiv.org/abs/2302.04761 — 提出 Toolformer，以自我監督方式、從每個工具的少量示範中學會呼叫 API。
+- Schick, T. 等人（2023）。*Toolformer: Language Models Can Teach Themselves to Use Tools*。NeurIPS。https://doi.org/10.52202/075280-2997 — 提出 Toolformer，以自我監督方式、從每個工具的少量示範中學會呼叫 API。
 - Yao, S. 等人（2023）。*ReAct: Synergizing Reasoning and Acting in Language Models*。ICLR。https://arxiv.org/abs/2210.03629 — 以提示為基礎的替代做法，把工具使用與推理交錯。
 - Parisi, A.、Zhao, Y. 與 Fiedel, N.（2022）。*TALM: Tool Augmented Language Models*。arXiv。https://arxiv.org/abs/2205.12255 — 較早的做法，以工具呼叫擴充語言模型。
 

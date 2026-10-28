@@ -74,8 +74,8 @@ Voyager 有三個元件。第一，自動課程（curriculum）提出下一項�
 
 - Wang, G. 等人（2023）。*Voyager: An Open-Ended Embodied Agent with Large Language Models*。arXiv。https://arxiv.org/abs/2305.16291 — 提出 Voyager，包括自動課程、可執行技能庫與 Minecraft 中的迭代提示。
 - Yao, S. 等人（2023）。*ReAct: Synergizing Reasoning and Acting in Language Models*。ICLR。https://arxiv.org/abs/2210.03629 — Voyager 代理行動迴圈所依據的推理與行動方法。
-- Shinn, N. 等人（2023）。*Reflexion: Language Agents with Verbal Reinforcement Learning*。arXiv。https://arxiv.org/abs/2303.11366 — 說明語言代理如何從語言回饋中跨次嘗試學習，與技能庫形成對照。
-- Park, J. S. 等人（2023）。*Generative Agents: Interactive Simulacra of Human Behavior*。arXiv。https://arxiv.org/abs/2304.03442 — 在共享環境中具有記憶的互動式代理，是對已儲存經驗的另一種運用。
+- Shinn, N. 等人（2023）。*Reflexion: Language Agents with Verbal Reinforcement Learning*。NeurIPS。https://doi.org/10.52202/075280-0377 — 說明語言代理如何從語言回饋中跨次嘗試學習，與技能庫形成對照。
+- Park, J. S. 等人（2023）。*Generative Agents: Interactive Simulacra of Human Behavior*。UIST。https://doi.org/10.1145/3586183.3606763 — 在共享環境中具有記憶的互動式代理，是對已儲存經驗的另一種運用。
 
 ### 調查與教科書
 

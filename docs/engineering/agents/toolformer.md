@@ -74,7 +74,7 @@ The paper fine-tunes GPT-J, a model with 6.7 billion parameters. The abstract re
 
 ### Seminal papers
 
-- Schick, T. et al. (2023). Toolformer: Language Models Can Teach Themselves to Use Tools. arXiv. https://arxiv.org/abs/2302.04761 — Introduces Toolformer, which learns to call APIs in a self-supervised way from a few demonstrations per tool.
+- Schick, T. et al. (2023). Toolformer: Language Models Can Teach Themselves to Use Tools. NeurIPS. https://doi.org/10.52202/075280-2997 — Introduces Toolformer, which learns to call APIs in a self-supervised way from a few demonstrations per tool.
 - Yao, S. et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR. https://arxiv.org/abs/2210.03629 — The prompt-based alternative, in which tool use is interleaved with reasoning.
 - Parisi, A., Zhao, Y. & Fiedel, N. (2022). TALM: Tool Augmented Language Models. arXiv. https://arxiv.org/abs/2205.12255 — An earlier approach that augments language models with tool calls.
 

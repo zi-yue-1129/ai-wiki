@@ -74,7 +74,7 @@ The abstract reports a pass@1 rate of 12.5% on SWE-bench and 87.7% on HumanEvalF
 
 ### Seminal papers
 
-- Yang, J. et al. (2024). SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering. arXiv. https://arxiv.org/abs/2405.15793 — Introduces SWE-agent and the agent-computer interface, and reports results on SWE-bench and HumanEvalFix.
+- Yang, J. et al. (2024). SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering. NeurIPS. https://doi.org/10.52202/079017-1601 — Introduces SWE-agent and the agent-computer interface, and reports results on SWE-bench and HumanEvalFix.
 - Jimenez, C. E. et al. (2024). SWE-bench: Can Language Models Resolve Real-World GitHub Issues? ICLR. https://arxiv.org/abs/2310.06770 — The benchmark of real GitHub issues used to evaluate the agent.
 - Chen, M. et al. (2021). Evaluating Large Language Models Trained on Code. arXiv. https://arxiv.org/abs/2107.03374 — Introduces HumanEval, the code benchmark on which HumanEvalFix builds.
 - Yao, S. et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR. https://arxiv.org/abs/2210.03629 — The reasoning-and-acting loop that interactive coding agents follow.

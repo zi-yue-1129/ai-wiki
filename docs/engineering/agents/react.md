@@ -74,9 +74,9 @@ The abstract reports that ReAct overcomes hallucination and error propagation on
 ### Seminal papers
 
 - Yao, S. et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR. https://arxiv.org/abs/2210.03629 — Introduces ReAct and reports results on HotpotQA, FEVER, ALFWorld and WebShop.
-- Wei, J. et al. (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. arXiv. https://arxiv.org/abs/2201.11903 — Shows that writing intermediate reasoning steps improves complex reasoning, the baseline ReAct extends.
-- Shridhar, M. et al. (2020). ALFWorld: Aligning Text and Embodied Environments for Interactive Learning. arXiv. https://arxiv.org/abs/2010.03768 — A text-based household environment in which agents act and observe, one of ReAct's test benches.
-- Yao, S. et al. (2022). WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents. arXiv. https://arxiv.org/abs/2207.01206 — A simulated online shopping environment for grounded language agents, the second ReAct test bench.
+- Wei, J. et al. (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. NeurIPS. https://doi.org/10.52202/068431-1800 — Shows that writing intermediate reasoning steps improves complex reasoning, the baseline ReAct extends.
+- Shridhar, M. et al. (2021). ALFWorld: Aligning Text and Embodied Environments for Interactive Learning. ICLR. https://iclr.cc/virtual/2021/poster/2973 — A text-based household environment in which agents act and observe, one of ReAct's test benches.
+- Yao, S. et al. (2022). WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents. NeurIPS. https://doi.org/10.52202/068431-1508 — A simulated online shopping environment for grounded language agents, the second ReAct test bench.
 
 ### Surveys and textbooks
 

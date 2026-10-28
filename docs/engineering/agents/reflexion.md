@@ -75,9 +75,9 @@ The abstract reports that Reflexion obtains significant improvements over a base
 
 ### Seminal papers
 
-- Shinn, N. et al. (2023). Reflexion: Language Agents with Verbal Reinforcement Learning. arXiv. https://arxiv.org/abs/2303.11366 — Introduces Reflexion, which stores verbal reflections in an episodic memory to improve later trials without weight updates.
+- Shinn, N. et al. (2023). Reflexion: Language Agents with Verbal Reinforcement Learning. NeurIPS. https://doi.org/10.52202/075280-0377 — Introduces Reflexion, which stores verbal reflections in an episodic memory to improve later trials without weight updates.
 - Yao, S. et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR. https://arxiv.org/abs/2210.03629 — The reasoning-and-acting loop that Reflexion extends.
-- Madaan, A. et al. (2023). Self-Refine: Iterative Refinement with Self-Feedback. arXiv. https://arxiv.org/abs/2303.17651 — Refines outputs through iterated self-feedback, a related idea without an episodic memory across tasks.
+- Madaan, A. et al. (2023). Self-Refine: Iterative Refinement with Self-Feedback. NeurIPS. https://doi.org/10.52202/075280-2019 — Refines outputs through iterated self-feedback, a related idea without an episodic memory across tasks.
 - Chen, M. et al. (2021). Evaluating Large Language Models Trained on Code. arXiv. https://arxiv.org/abs/2107.03374 — Introduces HumanEval and the pass@k measure used to score coding attempts.
 
 ### Surveys and textbooks

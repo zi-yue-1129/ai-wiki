@@ -73,7 +73,7 @@ ACI 給代理一組小而有文件的指令，這些指令是為語言模型而�
 
 ### 開創性論文
 
-- Yang, J. 等人（2024）。*SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering*。arXiv。https://arxiv.org/abs/2405.15793 — 提出 SWE-agent 與代理電腦介面，並報告在 SWE-bench 與 HumanEvalFix 上的結果。
+- Yang, J. 等人（2024）。*SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering*。NeurIPS。https://doi.org/10.52202/079017-1601 — 提出 SWE-agent 與代理電腦介面，並報告在 SWE-bench 與 HumanEvalFix 上的結果。
 - Jimenez, C. E. 等人（2024）。*SWE-bench: Can Language Models Resolve Real-World GitHub Issues?*。ICLR。https://arxiv.org/abs/2310.06770 — 用於評估代理的真實 GitHub 問題基準。
 - Chen, M. 等人（2021）。*Evaluating Large Language Models Trained on Code*。arXiv。https://arxiv.org/abs/2107.03374 — 提出 HumanEval，HumanEvalFix 即以此為基礎。
 - Yao, S. 等人（2023）。*ReAct: Synergizing Reasoning and Acting in Language Models*。ICLR。https://arxiv.org/abs/2210.03629 — 互動式程式代理所依循的推理與行動迴圈。

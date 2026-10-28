@@ -75,8 +75,8 @@ The abstract reports that Voyager obtains 3.3 times more unique items, travels 2
 
 - Wang, G. et al. (2023). Voyager: An Open-Ended Embodied Agent with Large Language Models. arXiv. https://arxiv.org/abs/2305.16291 — Introduces Voyager, with an automatic curriculum, an executable skill library and iterative prompting in Minecraft.
 - Yao, S. et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR. https://arxiv.org/abs/2210.03629 — The reasoning-and-acting approach on which the agent's action loop is built.
-- Shinn, N. et al. (2023). Reflexion: Language Agents with Verbal Reinforcement Learning. arXiv. https://arxiv.org/abs/2303.11366 — Shows how language agents learn across attempts from verbal feedback, a contrast to skill libraries.
-- Park, J. S. et al. (2023). Generative Agents: Interactive Simulacra of Human Behavior. arXiv. https://arxiv.org/abs/2304.03442 — Interactive agents with memory in a shared environment, a related use of stored experience.
+- Shinn, N. et al. (2023). Reflexion: Language Agents with Verbal Reinforcement Learning. NeurIPS. https://doi.org/10.52202/075280-0377 — Shows how language agents learn across attempts from verbal feedback, a contrast to skill libraries.
+- Park, J. S. et al. (2023). Generative Agents: Interactive Simulacra of Human Behavior. UIST. https://doi.org/10.1145/3586183.3606763 — Interactive agents with memory in a shared environment, a related use of stored experience.
 
 ### Surveys and textbooks
 
