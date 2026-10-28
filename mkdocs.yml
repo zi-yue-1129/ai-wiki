@@ -742,6 +742,9 @@ plugins:
             Deep Learning Revolution: 深度學習革命（2006 年至今）
             Deep Belief Networks: 深度信念網路
             ImageNet and ILSVRC: ImageNet 與 ILSVRC
+            Insurance and Actuarial Science: 保險與精算科學
+            Generalised Linear Models: 廣義線性模型
+            AI for AI Research: AI 用於 AI 研究
 
 markdown_extensions:
   - abbr
@@ -1443,6 +1446,16 @@ nav:
           - applications/customer-service/index.md
           - Joint Intent Detection and Slot Filling: applications/customer-service/joint-intent-slot-filling/index.md
           - SimpleTOD: applications/customer-service/simpletod/index.md
+      - Insurance and Actuarial Science:
+          - applications/insurance/index.md
+          - Generalised Linear Models: applications/insurance/glm-pricing/index.md
+          - LocalGLMnet: applications/insurance/localglmnet/index.md
+          - CARE-GNN: applications/insurance/care-gnn/index.md
+      - AI for AI Research:
+          - applications/ai-research/index.md
+          - The AI Scientist: applications/ai-research/ai-scientist/index.md
+          - OpenScholar: applications/ai-research/openscholar/index.md
+          - Darwin Gödel Machine: applications/ai-research/darwin-godel-machine/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools:
