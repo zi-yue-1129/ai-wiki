@@ -68,3 +68,4 @@ L_{\text{simple}} = \mathbb{E}_{t, x_0, \epsilon}\big[\|\epsilon - \epsilon_\the
 ### 文章與文件
 
 - Ho, J., *diffusion* 官方程式碼庫。https://github.com/hojonathanho/diffusion — 作者原始 TensorFlow 實作，包含論文實驗的程式。
+- Song, J., Meng, C. & Ermon, S. (2021). Denoising Diffusion Implicit Models. ICLR. https://arxiv.org/abs/2010.02502 — 說明 DDPM 訓練的模型可以用少很多的步數取樣。

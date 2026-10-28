@@ -75,6 +75,7 @@ where \(z\) is fresh noise and \(\sigma\) controls stochasticity. Setting \(\sig
 
 - Song, Y. et al. (2021). Score-Based Generative Modeling through Stochastic Differential Equations. ICLR. https://arxiv.org/abs/2011.13456 — Shows the deterministic sampler as a probability-flow ODE.
 - Karras, T., Aittala, M., Aila, T. & Laine, S. (2022). Elucidating the Design Space of Diffusion-Based Generative Models. NeurIPS. https://arxiv.org/abs/2206.00364 — Compares sampling schedules and solvers across diffusion models.
+- Sohl-Dickstein, J., Weiss, E. A., Maheswaranathan, N. & Ganguli, S. (2015). Deep Unsupervised Learning using Nonequilibrium Thermodynamics. ICML. https://arxiv.org/abs/1503.03585 — The original Markov-chain sampler that DDIM generalises to non-Markovian steps.
 
 ### Articles and documentation
 

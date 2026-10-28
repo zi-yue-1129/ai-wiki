@@ -69,6 +69,7 @@ With \(w = 1\) this is the plain conditional model. Larger \(w\) pushes the samp
 ### Surveys and textbooks
 
 - Karras, T., Aittala, M., Aila, T. & Laine, S. (2022). Elucidating the Design Space of Diffusion-Based Generative Models. NeurIPS. https://arxiv.org/abs/2206.00364 — Discusses guidance and sampling choices in a unified design framework.
+- Song, Y. et al. (2021). Score-Based Generative Modeling through Stochastic Differential Equations. ICLR. https://arxiv.org/abs/2011.13456 — Shows how conditional sampling can steer the score, the view that classifier-free guidance builds on.
 
 ### Articles and documentation
 

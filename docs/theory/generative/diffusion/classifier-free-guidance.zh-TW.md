@@ -59,6 +59,7 @@ Dhariwal 與 Nichol（2021）指出，用另外訓練的分類器的梯度來引
 ### 綜述與教科書
 
 - Karras, T., Aittala, M., Aila, T. & Laine, S. (2022). Elucidating the Design Space of Diffusion-Based Generative Models. NeurIPS. https://arxiv.org/abs/2206.00364 — 在統一的設計框架中討論引導與取樣選擇。
+- Song, Y. et al. (2021). Score-Based Generative Modeling through Stochastic Differential Equations. ICLR. https://arxiv.org/abs/2011.13456 — 說明條件取樣如何引導分數函數，是無分類器引導的理論背景。
 
 ### 文章與文件
 
