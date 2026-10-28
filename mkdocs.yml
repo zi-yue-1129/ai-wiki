@@ -650,6 +650,8 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
+  # Turns bare https:// URLs in plain text (reference and further-reading entries) into links.
+  - pymdownx.magiclink
   - pymdownx.snippets:
       auto_append:
         - includes/abbreviations.md

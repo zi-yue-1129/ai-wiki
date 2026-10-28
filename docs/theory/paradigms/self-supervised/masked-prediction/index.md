@@ -40,14 +40,14 @@ Masked objectives learn features that are good for prediction but may not be bes
 
 ### Seminal papers
 
-- Devlin, Chang, Lee & Toutanova (2019), "BERT: pre-training of deep bidirectional transformers for language understanding", NAACL, arXiv:1810.04805 — Masked language modelling with a bidirectional transformer, the start of modern language pre-training.
-- He, Chen, Xie, Li, Dollár & Girshick (2022), "Masked autoencoders are scalable vision learners", CVPR, arXiv:2111.06377 — Masks most image patches and reconstructs them with an asymmetric encoder–decoder.
+- Devlin, Chang, Lee & Toutanova (2019), "BERT: pre-training of deep bidirectional transformers for language understanding", NAACL, [arXiv:1810.04805](https://arxiv.org/abs/1810.04805) — Masked language modelling with a bidirectional transformer, the start of modern language pre-training.
+- He, Chen, Xie, Li, Dollár & Girshick (2022), "Masked autoencoders are scalable vision learners", CVPR, [arXiv:2111.06377](https://arxiv.org/abs/2111.06377) — Masks most image patches and reconstructs them with an asymmetric encoder–decoder.
 - Hinton & Salakhutdinov (2006), "Reducing the dimensionality of data with neural networks", *Science* 313. https://doi.org/10.1126/science.1127647 — Layer-wise pre-training by reconstruction, an early form of the same idea.
 - Vincent, Larochelle, Bengio & Manzagol (2008), "Extracting and composing robust features with denoising autoencoders", ICML. https://doi.org/10.1145/1390156.1390294 — The denoising objective that masked prediction generalises.
 
 ### Surveys and textbooks
 
-- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), arXiv:1206.5538 — Survey of learned representations, the background for pre-training objectives.
+- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), [arXiv:1206.5538](https://arxiv.org/abs/1206.5538) — Survey of learned representations, the background for pre-training objectives.
 
 ### Lectures and videos
 

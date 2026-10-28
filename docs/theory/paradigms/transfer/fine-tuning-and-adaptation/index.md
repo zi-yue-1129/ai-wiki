@@ -39,10 +39,10 @@ Fine-tuning can erase useful source knowledge, and it is hard to predict in adva
 
 ### Seminal papers
 
-- Yosinski, Clune, Bengio & Lipson (2014), "How transferable are features in deep neural networks?", NeurIPS, arXiv:1411.1792 — Measures how generic and task-specific features in each layer transfer between tasks.
-- Howard & Ruder (2018), "Universal language model fine-tuning for text classification", ACL, arXiv:1801.06146 — ULMFiT, which introduces discriminative learning rates and gradual unfreezing for language models.
-- Houlsby et al. (2019), "Parameter-efficient transfer learning for NLP", ICML, arXiv:1902.00751 — Adapter modules that match full fine-tuning while training only a small fraction of the parameters.
-- Hu et al. (2022), "LoRA: low-rank adaptation of large language models", ICLR, arXiv:2106.09685 — Low-rank updates to frozen weights, now a standard parameter-efficient method.
+- Yosinski, Clune, Bengio & Lipson (2014), "How transferable are features in deep neural networks?", NeurIPS, [arXiv:1411.1792](https://arxiv.org/abs/1411.1792) — Measures how generic and task-specific features in each layer transfer between tasks.
+- Howard & Ruder (2018), "Universal language model fine-tuning for text classification", ACL, [arXiv:1801.06146](https://arxiv.org/abs/1801.06146) — ULMFiT, which introduces discriminative learning rates and gradual unfreezing for language models.
+- Houlsby et al. (2019), "Parameter-efficient transfer learning for NLP", ICML, [arXiv:1902.00751](https://arxiv.org/abs/1902.00751) — Adapter modules that match full fine-tuning while training only a small fraction of the parameters.
+- Hu et al. (2022), "LoRA: low-rank adaptation of large language models", ICLR, [arXiv:2106.09685](https://arxiv.org/abs/2106.09685) — Low-rank updates to frozen weights, now a standard parameter-efficient method.
 
 ### Surveys and textbooks
 

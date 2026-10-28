@@ -66,10 +66,10 @@ Transfer can hurt when source and target are too dissimilar. Check against a fro
 
 ### Seminal papers
 
-- Yosinski, Clune, Bengio & Lipson (2014), "How transferable are features in deep neural networks?", NeurIPS, arXiv:1411.1792 — Measures how generic and task-specific features transfer between tasks in each layer.
-- Howard & Ruder (2018), "Universal language model fine-tuning for text classification", ACL, arXiv:1801.06146 — ULMFiT, a practical recipe for fine-tuning pre-trained language models.
-- Ganin et al. (2016), "Domain-adversarial training of neural networks", JMLR, arXiv:1505.07818 — DANN, which learns domain-invariant features for adaptation.
-- Tobin et al. (2017), "Domain randomization for transferring deep neural networks from simulation to the real world", IROS, arXiv:1703.06907 — Randomised simulation so that real-world data looks like one more sample.
+- Yosinski, Clune, Bengio & Lipson (2014), "How transferable are features in deep neural networks?", NeurIPS, [arXiv:1411.1792](https://arxiv.org/abs/1411.1792) — Measures how generic and task-specific features transfer between tasks in each layer.
+- Howard & Ruder (2018), "Universal language model fine-tuning for text classification", ACL, [arXiv:1801.06146](https://arxiv.org/abs/1801.06146) — ULMFiT, a practical recipe for fine-tuning pre-trained language models.
+- Ganin et al. (2016), "Domain-adversarial training of neural networks", JMLR, [arXiv:1505.07818](https://arxiv.org/abs/1505.07818) — DANN, which learns domain-invariant features for adaptation.
+- Tobin et al. (2017), "Domain randomization for transferring deep neural networks from simulation to the real world", IROS, [arXiv:1703.06907](https://arxiv.org/abs/1703.06907) — Randomised simulation so that real-world data looks like one more sample.
 - Ben-David, Blitzer, Crammer, Kulesza, Pereira & Vaughan (2010), "A theory of learning from different domains", Machine Learning. https://doi.org/10.1007/s10994-009-5152-4 — Bounds target error by source error plus a domain divergence.
 
 ### Surveys and textbooks

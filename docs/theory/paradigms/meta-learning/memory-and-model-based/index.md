@@ -39,13 +39,13 @@ The learned learning algorithms are hard to analyse, and they can fail on tasks 
 ### Seminal papers
 
 - Santoro, Bartunov, Botvinick, Wierstra & Lillicrap (2016), "Meta-learning with memory-augmented neural networks", ICML. https://proceedings.mlr.press/v48/santoro16.html — Uses an external memory with learned read and write operations for one-shot learning.
-- Mishra, Rohaninejad, Chen & Abbeel (2018), "A simple neural attentive meta-learner", ICLR, arXiv:1707.03141 — Combines temporal convolution and attention to learn a general-purpose learning procedure.
-- Munkhdalai & Yu (2017), "Meta networks", ICML, arXiv:1703.00837 — Uses fast weights generated from each example, so that the model adapts within a forward pass.
-- Ha, Dai & Le (2017), "HyperNetworks", ICLR, arXiv:1609.09106 — A network that generates the weights of another network, a general tool for task-specific parameters.
+- Mishra, Rohaninejad, Chen & Abbeel (2018), "A simple neural attentive meta-learner", ICLR, [arXiv:1707.03141](https://arxiv.org/abs/1707.03141) — Combines temporal convolution and attention to learn a general-purpose learning procedure.
+- Munkhdalai & Yu (2017), "Meta networks", ICML, [arXiv:1703.00837](https://arxiv.org/abs/1703.00837) — Uses fast weights generated from each example, so that the model adapts within a forward pass.
+- Ha, Dai & Le (2017), "HyperNetworks", ICLR, [arXiv:1609.09106](https://arxiv.org/abs/1609.09106) — A network that generates the weights of another network, a general tool for task-specific parameters.
 
 ### Surveys and textbooks
 
-- Hospedales, Antoniou, Micaelli & Storkey (2021), "Meta-learning in neural networks: a survey", IEEE TPAMI, arXiv:2004.05439 — Survey that describes memory-based and black-box approaches alongside gradient-based ones.
+- Hospedales, Antoniou, Micaelli & Storkey (2021), "Meta-learning in neural networks: a survey", IEEE TPAMI, [arXiv:2004.05439](https://arxiv.org/abs/2004.05439) — Survey that describes memory-based and black-box approaches alongside gradient-based ones.
 
 ### Lectures and videos
 
@@ -57,4 +57,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Graves, Wayne & Danihelka (2014), "Neural Turing machines", arXiv:1410.5401. No link checked.
+- Graves, Wayne & Danihelka (2014), "Neural Turing machines", [arXiv:1410.5401](https://arxiv.org/abs/1410.5401). No link checked.

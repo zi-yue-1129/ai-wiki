@@ -51,9 +51,9 @@ The [convolution variants](../index.md) page compares this factorisation with th
 
 ### Seminal papers
 
-- Chollet, F. (2016). "Xception: Deep Learning with Depthwise Separable Convolutions". arXiv:1610.02357 — Shows that factorising spatial and channel mixing can outperform standard Inception-style designs at lower cost.
-- Howard, A. G., et al. (2017). "MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications". arXiv:1704.04861 — Depthwise separable convolutions as building blocks for efficient on-device vision.
-- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". arXiv:1905.11946 — Compound scaling of depth, width and resolution.
+- Chollet, F. (2016). "Xception: Deep Learning with Depthwise Separable Convolutions". [arXiv:1610.02357](https://arxiv.org/abs/1610.02357) — Shows that factorising spatial and channel mixing can outperform standard Inception-style designs at lower cost.
+- Howard, A. G., et al. (2017). "MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications". [arXiv:1704.04861](https://arxiv.org/abs/1704.04861) — Depthwise separable convolutions as building blocks for efficient on-device vision.
+- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". [arXiv:1905.11946](https://arxiv.org/abs/1905.11946) — Compound scaling of depth, width and resolution.
 
 ### Surveys and textbooks
 
@@ -65,4 +65,4 @@ The [convolution variants](../index.md) page compares this factorisation with th
 
 ### Articles and documentation
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt, a modernised pure CNN that matches Transformer baselines.
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt, a modernised pure CNN that matches Transformer baselines.

@@ -68,7 +68,7 @@ GRU 把記憶狀態與隱藏狀態合併，只使用兩個閘門：更新閘門�
 ### 開創性論文
 
 - Hochreiter, S. & Schmidhuber, J. (1997). "Long Short-Term Memory". *Neural Computation* 9(8). https://doi.org/10.1162/neco.1997.9.8.1735 — 具有加法記憶更新與乘法閘門的 LSTM 單元。
-- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — 提出 GRU，這是一種有兩個閘門、沒有獨立記憶狀態的單元。
+- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". [arXiv:1406.1078](https://arxiv.org/abs/1406.1078) — 提出 GRU，這是一種有兩個閘門、沒有獨立記憶狀態的單元。
 
 ### 綜述與教科書
 
@@ -80,6 +80,6 @@ GRU 把記憶狀態與隱藏狀態合併，只使用兩個閘門：更新閘門�
 
 ### 文章與文件
 
-- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". arXiv:1412.3555 — 在多個序列任務上比較 LSTM、GRU 與原始循環單元。
+- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". [arXiv:1412.3555](https://arxiv.org/abs/1412.3555) — 在多個序列任務上比較 LSTM、GRU 與原始循環單元。
 - Bengio, Y., Simard, P. & Frasconi, P. (1994). "Learning long-term dependencies with gradient descent is difficult". *IEEE Transactions on Neural Networks* 5(2). https://doi.org/10.1109/72.279181 — 分析原始循環網路為何在長跨度上梯度失效。
-- Greff, K., et al. (2017). "LSTM: A Search Space Odyssey". arXiv:1503.04069 — 比較多種 LSTM 變體，發現原始設計難以超越。
+- Greff, K., et al. (2017). "LSTM: A Search Space Odyssey". [arXiv:1503.04069](https://arxiv.org/abs/1503.04069) — 比較多種 LSTM 變體，發現原始設計難以超越。

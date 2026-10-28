@@ -41,8 +41,8 @@ Models that generalise beyond their training distribution, and methods that give
 
 ### Seminal papers
 
-- Ha & Schmidhuber (2018), "World models", arXiv:1803.10122 — Learns a latent world model and trains a controller entirely inside its imagined rollouts.
-- Schrittwieser et al. (2020), "Mastering Atari, Go, Chess and Shogi by planning with a learned model", *Nature*, arXiv:1911.08265 — MuZero, which plans with a learned model that predicts only what planning needs.
+- Ha & Schmidhuber (2018), "World models", [arXiv:1803.10122](https://arxiv.org/abs/1803.10122) — Learns a latent world model and trains a controller entirely inside its imagined rollouts.
+- Schrittwieser et al. (2020), "Mastering Atari, Go, Chess and Shogi by planning with a learned model", *Nature*, [arXiv:1911.08265](https://arxiv.org/abs/1911.08265) — MuZero, which plans with a learned model that predicts only what planning needs.
 - Silver et al. (2016), "Mastering the game of Go with deep neural networks and tree search", *Nature* 529. https://research.google/pubs/mastering-the-game-of-go-with-deep-neural-networks-and-tree-search/ — Tree search over a model of the game, guided by learned networks.
 
 ### Surveys and textbooks
@@ -55,8 +55,8 @@ Models that generalise beyond their training distribution, and methods that give
 
 ### Articles and documentation
 
-- Hafner et al. (2023), "Mastering diverse domains through world models", arXiv:2301.04104 — DreamerV3, a single world-model agent that works across many domains.
-- Levine, Kumar, Tucker & Fu (2020), "Offline reinforcement learning: tutorial, review, and perspectives on open problems", arXiv:2005.01643 — Review that discusses model-based and model-free offline learning.
+- Hafner et al. (2023), "Mastering diverse domains through world models", [arXiv:2301.04104](https://arxiv.org/abs/2301.04104) — DreamerV3, a single world-model agent that works across many domains.
+- Levine, Kumar, Tucker & Fu (2020), "Offline reinforcement learning: tutorial, review, and perspectives on open problems", [arXiv:2005.01643](https://arxiv.org/abs/2005.01643) — Review that discusses model-based and model-free offline learning.
 
 ## Further reading
 

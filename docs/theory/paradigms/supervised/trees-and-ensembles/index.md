@@ -58,7 +58,7 @@ Why do trees beat deep networks on many tabular tasks? Grinsztajn et al. (2022) 
 
 ### Articles and documentation
 
-- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, arXiv:2207.08815 — Benchmark and analysis explaining why tree ensembles often beat neural networks on tabular data.
+- Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, [arXiv:2207.08815](https://arxiv.org/abs/2207.08815) — Benchmark and analysis explaining why tree ensembles often beat neural networks on tabular data.
 
 ## Further learning
 

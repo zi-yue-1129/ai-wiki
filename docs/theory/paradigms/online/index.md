@@ -79,5 +79,5 @@ Real streams drift. Tools: drift detectors (ADWIN, DDM, Page–Hinkley), sliding
 ### Surveys and textbooks
 
 - Gama et al. (2014), "A survey on concept drift adaptation", ACM Computing Surveys. https://doi.org/10.1145/2523813 — Survey of concept drift detection and adaptation in data streams.
-- Hoi, Sahoo, Lu & Zhao (2018), "Online learning: a comprehensive survey", arXiv:1802.02871 — Broad survey of online learning settings and algorithms.
+- Hoi, Sahoo, Lu & Zhao (2018), "Online learning: a comprehensive survey", [arXiv:1802.02871](https://arxiv.org/abs/1802.02871) — Broad survey of online learning settings and algorithms.
 - Lattimore & Szepesvári (2020), *Bandit Algorithms*, Cambridge University Press. https://cambridge.org/core/books/bandit-algorithms/introduction/022B0BDCFDC5B66E5EF2C2690467D928 — Textbook covering the bandit algorithms on this page.

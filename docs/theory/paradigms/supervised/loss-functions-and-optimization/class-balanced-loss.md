@@ -62,7 +62,7 @@ How to choose the effective-number parameter without tuning on the test distribu
 
 ### Seminal papers
 
-- Cui, Y., Jia, M., Lin, T.-Y., Song, Y. & Belongie, S. (2019). *Class-Balanced Loss Based on Effective Number of Samples*. CVPR 2019. https://openaccess.thecvf.com/content_CVPR_2019/html/Cui_Class-Balanced_Loss_Based_on_Effective_Number_of_Samples_CVPR_2019_paper.html — Introduces the effective-number weighting and the class-balanced loss. The arXiv version is arXiv:1901.05555.
+- Cui, Y., Jia, M., Lin, T.-Y., Song, Y. & Belongie, S. (2019). *Class-Balanced Loss Based on Effective Number of Samples*. CVPR 2019. https://openaccess.thecvf.com/content_CVPR_2019/html/Cui_Class-Balanced_Loss_Based_on_Effective_Number_of_Samples_CVPR_2019_paper.html — Introduces the effective-number weighting and the class-balanced loss. The arXiv version is [arXiv:1901.05555](https://arxiv.org/abs/1901.05555).
 - Cao, K., Wei, C., Gaidon, A., Arechiga, N. & Ma, T. (2019). *Learning Imbalanced Datasets with Label-Distribution-Aware Margin Loss*. arXiv:1906.07413. https://arxiv.org/abs/1906.07413 — Shows that reweighting from the start can hurt tail classes, and proposes margins plus deferred reweighting.
 
 ### Articles and preprints

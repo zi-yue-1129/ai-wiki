@@ -62,8 +62,8 @@ CNN 的感受野隨深度增長，這是[循環](../rnn/index.md)與[注意力](
 ### 開創性論文
 
 - LeCun, Y., Bottou, L., Bengio, Y. & Haffner, P. (1998). "Gradient-based learning applied to document recognition". *Proceedings of the IEEE* 86(11). https://doi.org/10.1109/5.726791 — 介紹以梯度下降訓練的 LeNet 系列卷積網路。
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — 殘差連接，使極深的 CNN 能夠訓練。
-- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". arXiv:1905.11946 — 同時縮放深度、寬度與輸入解析度。
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — 殘差連接，使極深的 CNN 能夠訓練。
+- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". [arXiv:1905.11946](https://arxiv.org/abs/1905.11946) — 同時縮放深度、寬度與輸入解析度。
 
 ### 綜述與教科書
 
@@ -75,4 +75,4 @@ CNN 的感受野隨深度增長，這是[循環](../rnn/index.md)與[注意力](
 
 ### 文章與文件
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt，一個現代化的純 CNN，與 Transformer 基線相當。
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt，一個現代化的純 CNN，與 Transformer 基線相當。

@@ -57,9 +57,9 @@ The [sequence modes](../index.md) page describes the encoder–decoder pattern a
 
 ### Seminal papers
 
-- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. arXiv:1409.3215 — Encoder–decoder LSTMs for machine translation, trained end to end.
-- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — Introduces the GRU and the encoder–decoder setup for sequence-to-sequence tasks.
-- Bahdanau, D., Cho, K. & Bengio, Y. (2014). "Neural Machine Translation by Jointly Learning to Align and Translate". arXiv:1409.0473 — Adds attention so the decoder can look back over the whole input.
+- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. [arXiv:1409.3215](https://arxiv.org/abs/1409.3215) — Encoder–decoder LSTMs for machine translation, trained end to end.
+- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". [arXiv:1406.1078](https://arxiv.org/abs/1406.1078) — Introduces the GRU and the encoder–decoder setup for sequence-to-sequence tasks.
+- Bahdanau, D., Cho, K. & Bengio, Y. (2014). "Neural Machine Translation by Jointly Learning to Align and Translate". [arXiv:1409.0473](https://arxiv.org/abs/1409.0473) — Adds attention so the decoder can look back over the whole input.
 
 ### Surveys and textbooks
 
@@ -71,4 +71,4 @@ The [sequence modes](../index.md) page describes the encoder–decoder pattern a
 
 ### Articles and documentation
 
-- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". arXiv:1412.3555 — Compares LSTM and GRU with the plain recurrent cell on several sequence tasks.
+- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". [arXiv:1412.3555](https://arxiv.org/abs/1412.3555) — Compares LSTM and GRU with the plain recurrent cell on several sequence tasks.

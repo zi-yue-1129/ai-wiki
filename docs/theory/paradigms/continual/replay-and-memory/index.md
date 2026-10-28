@@ -39,14 +39,14 @@ Storing real data raises privacy and storage concerns, and generative replay can
 
 ### Seminal papers
 
-- Rebuffi, Kolesnikov, Sperl & Lampert (2017), "iCaRL: incremental classifier and representation learning", CVPR, arXiv:1611.07725 — Exemplar replay combined with distillation for class-incremental learning.
-- Lopez-Paz & Ranzato (2017), "Gradient episodic memory for continual learning", NeurIPS, arXiv:1706.08840 — Uses stored examples to constrain updates so that past losses do not increase.
-- Chaudhry et al. (2019), "On tiny episodic memories in continual learning", ICLR, arXiv:1902.10486 — Shows that very small episodic memories with simple replay are strong baselines.
-- Shin, Lee, Kim & Kim (2017), "Continual learning with deep generative replay", NeurIPS, arXiv:1705.08690 — Generates pseudo-examples of earlier tasks with a generative model instead of storing data.
+- Rebuffi, Kolesnikov, Sperl & Lampert (2017), "iCaRL: incremental classifier and representation learning", CVPR, [arXiv:1611.07725](https://arxiv.org/abs/1611.07725) — Exemplar replay combined with distillation for class-incremental learning.
+- Lopez-Paz & Ranzato (2017), "Gradient episodic memory for continual learning", NeurIPS, [arXiv:1706.08840](https://arxiv.org/abs/1706.08840) — Uses stored examples to constrain updates so that past losses do not increase.
+- Chaudhry et al. (2019), "On tiny episodic memories in continual learning", ICLR, [arXiv:1902.10486](https://arxiv.org/abs/1902.10486) — Shows that very small episodic memories with simple replay are strong baselines.
+- Shin, Lee, Kim & Kim (2017), "Continual learning with deep generative replay", NeurIPS, [arXiv:1705.08690](https://arxiv.org/abs/1705.08690) — Generates pseudo-examples of earlier tasks with a generative model instead of storing data.
 
 ### Surveys and textbooks
 
-- De Lange et al. (2021), "A continual learning survey: defying forgetting in classification tasks", IEEE TPAMI, arXiv:1909.08383 — Survey and comparison that includes replay methods under a common protocol.
+- De Lange et al. (2021), "A continual learning survey: defying forgetting in classification tasks", IEEE TPAMI, [arXiv:1909.08383](https://arxiv.org/abs/1909.08383) — Survey and comparison that includes replay methods under a common protocol.
 
 ### Lectures and videos
 

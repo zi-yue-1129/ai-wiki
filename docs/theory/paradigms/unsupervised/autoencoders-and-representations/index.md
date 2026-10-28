@@ -46,12 +46,12 @@ Reconstruction does not guarantee that the representation is useful, since the m
 
 - Hinton & Salakhutdinov (2006), "Reducing the dimensionality of data with neural networks", *Science* 313. https://doi.org/10.1126/science.1127647 — Deep autoencoders pre-trained layer by layer, which outperform PCA on image data.
 - Vincent, Larochelle, Bengio & Manzagol (2008), "Extracting and composing robust features with denoising autoencoders", ICML. https://doi.org/10.1145/1390156.1390294 — Denoising autoencoders learn features that are robust to input corruption.
-- Kingma & Welling (2014), "Auto-encoding variational Bayes", ICLR, arXiv:1312.6114 — The variational autoencoder, a probabilistic version with a smooth latent space.
-- He et al. (2022), "Masked autoencoders are scalable vision learners", CVPR, arXiv:2111.06377 — Masking most image patches and reconstructing them gives strong pre-trained vision models.
+- Kingma & Welling (2014), "Auto-encoding variational Bayes", ICLR, [arXiv:1312.6114](https://arxiv.org/abs/1312.6114) — The variational autoencoder, a probabilistic version with a smooth latent space.
+- He et al. (2022), "Masked autoencoders are scalable vision learners", CVPR, [arXiv:2111.06377](https://arxiv.org/abs/2111.06377) — Masking most image patches and reconstructing them gives strong pre-trained vision models.
 
 ### Surveys and textbooks
 
-- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), arXiv:1206.5538 — Survey of what makes representations useful and how to learn them.
+- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), [arXiv:1206.5538](https://arxiv.org/abs/1206.5538) — Survey of what makes representations useful and how to learn them.
 
 ### Lectures and videos
 

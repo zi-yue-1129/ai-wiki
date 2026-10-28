@@ -63,9 +63,9 @@ GELU is common in [Transformer](../../transformer/index.md) feedforward blocks, 
 
 ### Seminal papers
 
-- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". arXiv:1606.08415 — The GELU activation, used in many Transformer models.
+- Hendrycks, D. & Gimpel, K. (2016). "Gaussian Error Linear Units (GELUs)". [arXiv:1606.08415](https://arxiv.org/abs/1606.08415) — The GELU activation, used in many Transformer models.
 - Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). "Learning representations by back-propagating errors". *Nature* 323: 533–536. https://doi.org/10.1038/323533a0 — Popularised backpropagation for training multilayer networks with hidden units.
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — Residual connections that make deep networks trainable.
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — Residual connections that make deep networks trainable.
 
 ### Surveys and textbooks
 
@@ -77,4 +77,4 @@ GELU is common in [Transformer](../../transformer/index.md) feedforward blocks, 
 
 ### Articles and documentation
 
-- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". arXiv:1607.06450 — Normalises over features rather than over the batch.
+- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). "Layer Normalization". [arXiv:1607.06450](https://arxiv.org/abs/1607.06450) — Normalises over features rather than over the batch.

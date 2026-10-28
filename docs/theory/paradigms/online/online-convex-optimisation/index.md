@@ -43,8 +43,8 @@ Regret bounds are worst case and can be pessimistic for benign data. Adapting st
 ### Surveys and textbooks
 
 - Shalev-Shwartz (2012), "Online learning and online convex optimization", Foundations and Trends in Machine Learning. https://www.cs.huji.ac.il/~shais/papers/OLsurvey.pdf — Survey that develops the regret framework and its main algorithms from first principles.
-- Hazan (2019), "Introduction to online convex optimization", arXiv:1909.05207 — Textbook introduction with proofs of the main regret bounds.
-- Hoi, Sahoo, Lu & Zhao (2018), "Online learning: a comprehensive survey", arXiv:1802.02871 — Survey covering online convex methods alongside other online learning settings.
+- Hazan (2019), "Introduction to online convex optimization", [arXiv:1909.05207](https://arxiv.org/abs/1909.05207) — Textbook introduction with proofs of the main regret bounds.
+- Hoi, Sahoo, Lu & Zhao (2018), "Online learning: a comprehensive survey", [arXiv:1802.02871](https://arxiv.org/abs/1802.02871) — Survey covering online convex methods alongside other online learning settings.
 
 ### Lectures and videos
 

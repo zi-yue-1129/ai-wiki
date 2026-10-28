@@ -89,7 +89,7 @@ If AI systems could have experiences or interests, they might deserve moral cons
 - Seth, *Being You*
 - Koch, *The Feeling of Life Itself*
 - [Stanford Encyclopedia of Philosophy: Consciousness](https://plato.stanford.edu/entries/consciousness/), [The Chinese Room Argument](https://plato.stanford.edu/entries/chinese-room/)
-- Butlin, Long et al. (2023), arXiv:2308.08708
+- Butlin, Long et al. (2023), [arXiv:2308.08708](https://arxiv.org/abs/2308.08708)
 
 ## References
 

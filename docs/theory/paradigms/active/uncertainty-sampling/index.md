@@ -40,12 +40,12 @@ Uncertainty estimates are often poorly calibrated for deep networks, which makes
 
 - Lewis & Gale (1994), "A sequential algorithm for training text classifiers", SIGIR, https://arxiv.org/abs/cmp-lg/9407020 — Introduces uncertainty sampling for text classification, labelling the examples the classifier is least sure about.
 - MacKay (1992), "Information-based objective functions for active data selection", Neural Computation. https://authors.library.caltech.edu/records/efefp-2j353 — Chooses data by expected information gain under a Bayesian model.
-- Gal, Islam & Ghahramani (2017), "Deep Bayesian active learning with image data", ICML, arXiv:1703.02910 — Estimates uncertainty for deep networks with dropout, so that standard acquisition functions work on image data.
+- Gal, Islam & Ghahramani (2017), "Deep Bayesian active learning with image data", ICML, [arXiv:1703.02910](https://arxiv.org/abs/1703.02910) — Estimates uncertainty for deep networks with dropout, so that standard acquisition functions work on image data.
 
 ### Surveys and textbooks
 
 - Settles (2009), "Active learning literature survey", Computer Sciences Technical Report 1648, University of Wisconsin-Madison. https://research.cs.wisc.edu/techreports/2009/TR1648.pdf — Broad survey of query strategies, the scenarios they apply to and their practical behaviour.
-- Ren et al. (2020), "A survey of deep active learning", arXiv:2009.00236 — Survey of active learning methods for deep networks, with a taxonomy of query strategies.
+- Ren et al. (2020), "A survey of deep active learning", [arXiv:2009.00236](https://arxiv.org/abs/2009.00236) — Survey of active learning methods for deep networks, with a taxonomy of query strategies.
 
 ### Lectures and videos
 

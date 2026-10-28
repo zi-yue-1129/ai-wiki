@@ -55,7 +55,7 @@ What is still debated or unsolved.
 
 ## References
 
-Aim for at least 5 entries in total; the Citations section of the style guide has the rules. Every entry needs a DOI, arXiv id or URL, and a note after " — " saying what it covers. Formal sources only here: blogs and videos go under Further learning below.
+Aim for at least 5 entries in total; the Citations section of the style guide has the rules. Every entry needs a clickable link (a full `https://` URL; a bare DOI or arXiv id does not count), and a note after " — " saying what it covers. Formal sources only here: blogs and videos go under Further learning below.
 
 ### Seminal papers
 

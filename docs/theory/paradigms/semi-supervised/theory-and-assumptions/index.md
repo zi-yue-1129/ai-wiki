@@ -57,7 +57,7 @@ Formal conditions under which unlabelled data provably help are still limited, a
 
 ### Articles and documentation
 
-- Oliver, Odena, Raffel, Cubuk & Goodfellow (2018), "Realistic evaluation of deep semi-supervised learning algorithms", NeurIPS, arXiv:1804.09170 — Shows how the gains from many methods depend on the evaluation protocol.
+- Oliver, Odena, Raffel, Cubuk & Goodfellow (2018), "Realistic evaluation of deep semi-supervised learning algorithms", NeurIPS, [arXiv:1804.09170](https://arxiv.org/abs/1804.09170) — Shows how the gains from many methods depend on the evaluation protocol.
 
 ## Further reading
 
