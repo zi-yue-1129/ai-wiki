@@ -21,6 +21,10 @@ flowchart TB
 | [scikit-learn](https://scikit-learn.org/) | 傳統機器學習 | 表格資料基準方法的預設選擇 |
 | XGBoost、LightGBM、CatBoost | 梯度提升 | 表格資料 |
 
+## 編譯器與核函式
+
+- [機器學習編譯器與核函式語言](compilers-and-kernels.zh-TW.md)：XLA、TorchInductor、Triton 與 TVM 把模型計算圖轉為各加速器上的融合核函式；手寫 CUDA 仍是取得最後一段效能的方式。
+
 ## Hugging Face 生態系
 
 - **Hub**：數十萬個模型與資料集

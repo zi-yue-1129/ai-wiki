@@ -32,6 +32,10 @@ flowchart TB
 | [scikit-learn](https://scikit-learn.org/) | Classical ML | The default for tabular baselines |
 | XGBoost, LightGBM, CatBoost | Gradient boosting | Tabular data |
 
+## Compilers and kernels
+
+- [ML Compilers and Kernel Languages](compilers-and-kernels.md): XLA, TorchInductor, Triton and TVM turn model graphs into fused kernels for each accelerator, while hand-written CUDA remains the way to the last factor of speed.
+
 ## The Hugging Face ecosystem
 
 - **Hub**: hundreds of thousands of models and datasets
