@@ -23,6 +23,15 @@ Each page follows the same structure: **landscape** (main use cases), **landmark
 | [Cybersecurity](cybersecurity/index.md) | Detection, vulnerability discovery, AI-enabled attacks, securing AI |
 | [Social Sciences & Humanities](social-science/index.md) | Computational social science, digital humanities, simulating societies |
 | [Software Development](software/index.md) | Code assistants, coding agents, testing, productivity evidence |
+| [Search & Information Retrieval](search-and-information-retrieval/index.md) | Learning to rank, neural retrieval, answer engines, citation accuracy |
+| [Mathematics & Formal Proof](mathematics/index.md) | AlphaProof, AlphaGeometry, FunSearch, Lean verification |
+| [Weather & Earth Observation](weather-and-earth-observation/index.md) | GraphCast, Pangu-Weather, satellite and remote-sensing mapping |
+| [Logistics & Supply Chain](logistics-supply-chain/index.md) | Demand forecasting, routing, warehouse robotics |
+| [Customer Service](customer-service/index.md) | From intent classifiers to tool-using agents, escalation, labour effects |
+| [HR & Recruiting](hr-recruiting/index.md) | CV screening, interview analysis, bias audits, high-risk rules |
+| [Insurance & Actuarial Science](insurance/index.md) | Pricing, claims triage, fraud detection, fairness in pricing |
+| [Sports Analytics](sports/index.md) | Tracking data, action valuation, pose estimation, officiating |
+| [AI for AI Research](ai-research/index.md) | Research agents, research-ability benchmarks, the recursive-improvement debate |
 | [Military & Defence](military/index.md) | Surveillance and reconnaissance, logistics, autonomy and the policy debate |
 | [Space & Astronomy](space-astronomy/index.md) | Survey classification, exoplanets, gravitational waves, anomaly search |
 | [Architecture & Urban Planning](architecture-urban/index.md) | Building energy, structural inspection, urban mobility, generative design |
@@ -56,6 +65,15 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Cybersecurity | [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Safety & Alignment](../society/safety-alignment/index.md) |
 | Social Sciences & Humanities | [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md), [Ethics & Fairness](../society/ethics/index.md) |
 | Software Development | [Large Language Models](../theory/models/llm/index.md), [AI Agents](../theory/models/agents/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
+| Search & Information Retrieval | [Vector Databases and Semantic Search](../engineering/vector-databases/index.md), [Retrieval-Augmented Generation](../engineering/rag/index.md), [Transformers](../theory/models/transformer/index.md) |
+| Mathematics & Formal Proof | [Symbolic AI, Search & Planning](../theory/paradigms/symbolic-ai/index.md), [Reasoning Models](../theory/models/reasoning/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md) |
+| Weather & Earth Observation | [Graph Neural Networks](../theory/models/gnn/index.md), [Computer Vision](../theory/models/computer-vision/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
+| Logistics & Supply Chain | [Optimisation](../theory/optimization/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Streaming & Concept Drift](../theory/paradigms/online/streaming-and-concept-drift/index.md) |
+| Customer Service | [AI Agents](../theory/models/agents/index.md), [Retrieval-Augmented Generation](../engineering/rag/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
+| HR & Recruiting | [Ethics & Fairness](../society/ethics/index.md), [Interpretability](../society/interpretability/index.md), [Evaluation & Validation](../theory/paradigms/supervised/evaluation-and-validation/index.md) |
+| Insurance & Actuarial Science | [Trees & Ensembles](../theory/paradigms/supervised/trees-and-ensembles/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md) |
+| Sports Analytics | [Computer Vision](../theory/models/computer-vision/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Probabilistic & Bayesian Methods](../theory/paradigms/probabilistic/index.md) |
+| AI for AI Research | [AI Agents](../theory/models/agents/index.md), [Chain-of-thought reasoning](../theory/models/reasoning/chain-of-thought.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
 | Military & Defence | [Computer Vision](../theory/models/computer-vision/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
 | Space & Astronomy | [Convolutional Neural Networks](../theory/models/cnn/index.md), [Active Learning](../theory/paradigms/active/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
 | Architecture & Urban Planning | [Computer Vision](../theory/models/computer-vision/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md), [Graph Neural Networks](../theory/models/gnn/index.md), [Generative Models](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |

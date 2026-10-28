@@ -565,6 +565,8 @@ plugins:
             Healthcare: 醫療與健康
             Life Sciences & Drug Discovery: 生命科學與藥物開發
             Scientific Discovery: 科學研究
+            Weather Forecasting & Earth Observation: 天氣預報與地球觀測
+            Mathematics & Formal Proof: 數學與形式證明
             Mental Health: 心理健康
             Education: 教育
             Finance: 金融
@@ -579,6 +581,13 @@ plugins:
             Cybersecurity: 資訊安全
             Social Sciences & Humanities: 社會科學與人文
             Software Development: 軟體開發
+            Search & Information Retrieval: 搜尋與資訊檢索
+            Logistics & Supply Chain: 物流與供應鏈
+            Customer Service & Conversational Systems: 客戶服務與對話系統
+            HR & Recruiting: 人力資源與招募
+            Insurance & Actuarial Science: 保險與精算科學
+            Sports Analytics & Performance: 運動分析與表現
+            AI for AI Research: AI 用於 AI 研究
             Military & Defence: 軍事與國防
             Space & Astronomy: 太空與天文
             Architecture & Urban Planning: 建築與城市規劃
@@ -633,6 +642,7 @@ plugins:
             In-Memory and Analogue Computing: 記憶體內與類比運算
             Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
             Mixed-Precision Training: 混合精度訓練
+            Roofline Model: 屋頂線模型
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
             GPTQ: GPTQ
@@ -1212,6 +1222,8 @@ nav:
           - ESM-2: applications/life-science/esm/esm-2.md
           - ESMFold: applications/life-science/esm/esmfold.md
       - Scientific Discovery: applications/science/index.md
+      - Weather Forecasting & Earth Observation: applications/weather-and-earth-observation/index.md
+      - Mathematics & Formal Proof: applications/mathematics/index.md
       - Mental Health: applications/mental-health/index.md
       - Education: applications/education/index.md
       - Finance: applications/finance/index.md
@@ -1232,6 +1244,13 @@ nav:
       - Cybersecurity: applications/cybersecurity/index.md
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md
+      - Search & Information Retrieval: applications/search-and-information-retrieval/index.md
+      - Logistics & Supply Chain: applications/logistics-supply-chain/index.md
+      - Customer Service & Conversational Systems: applications/customer-service/index.md
+      - HR & Recruiting: applications/hr-recruiting/index.md
+      - Insurance & Actuarial Science: applications/insurance/index.md
+      - Sports Analytics & Performance: applications/sports/index.md
+      - AI for AI Research: applications/ai-research/index.md
       - Military & Defence: applications/military/index.md
       - Space & Astronomy: applications/space-astronomy/index.md
       - Architecture & Urban Planning: applications/architecture-urban/index.md
@@ -1292,6 +1311,7 @@ nav:
               - TPU: engineering/hardware/accelerators/tpu/index.md
               - Eyeriss v2: engineering/hardware/accelerators/eyeriss-v2/index.md
           - Memory Hierarchy and Bandwidth: engineering/hardware/memory-hierarchy/index.md
+          - Roofline Model: engineering/hardware/memory-hierarchy/roofline.md
           - Interconnects and Scaling: engineering/hardware/interconnects/index.md
           - In-Memory and Analogue Computing: engineering/hardware/in-memory-computing/index.md
           - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md
