@@ -24,49 +24,23 @@ q = \operatorname{clip}\!\left(\operatorname{round}\!\left(\frac{x}{s}\right) + 
 - **離群值**：大型 Transformer 中有少數通道的數值遠大於其他通道。處理它們是低位元量化的核心難題。
 - **數字格式**：INT8 與 INT4 使用整數運算。FP8 與 FP4 保留浮點指數，能更好地處理寬廣的數值範圍，新一代加速器也支援；見 [AI 硬體](../../../engineering/hardware/index.zh-TW.md)。
 
-## 運作方式
+## 各家族比較
 
-對於權重為 \(W\)、校準輸入為 \(X\) 的單一層，量化的目標是選出使輸出誤差 \(\lVert WX - \hat{W}X \rVert^2\) 最小的量化權重 \(\hat{W}\)，而不是使權重誤差最小。現代的訓練後量化方法正是利用這一點。以下三種方法各有其關鍵想法。
+| 家族 | 是否需要訓練 | 典型位元數 | 最適合 | 頁面 |
+| --- | --- | --- | --- | --- |
+| 訓練後量化（PTQ） | 否，只需校準資料 | 8 位元，僅權重量化可到 4 位元 | 大型語言模型 | [訓練後量化](post-training/index.zh-TW.md) |
+| 量化感知訓練 | 是 | 2 到 8 位元 | 較小模型與有嚴格限制的部署目標 | [量化感知訓練](quantisation-aware-training/index.zh-TW.md) |
+| 二值與三值 | 是 | 1 到 2 位元 | 專用硬體上的卷積網路 | [二值與三值](binary-and-ternary/index.zh-TW.md) |
+| 混合精度 | 視方法而定 | 每層不同 | 均勻位元寬度無法滿足的預算 | [混合精度](mixed-precision/index.zh-TW.md) |
 
-## 重要方法
+大型語言模型通常以 PTQ 為預設，因為這個規模的訓練成本太高。若負擔得起訓練，QAT 與其他需要訓練的家族在低位元時能恢復更多準確度。
 
-### LLM.int8()（Dettmers 等人，2022）
+## 訓練後方法一覽
 
-- **問題：** 大型 Transformer 會出現少數隱藏狀態維度，數值特別大。當模型夠大時，全部量化為 8 位元會使品質急遽下降，而以完整精度運行又放不進記憶體。
-- **核心想法：** 把每次矩陣乘法拆開。少數離群維度以 16 位元精度計算，其餘以 8 位元整數與向量尺度計算。這種方法稱為混合精度分解。
-- **公式或演算法：** 輸入 \(X\) 與權重 \(W\) 的乘積寫成兩部分之和：正常維度的部分量化為 int8；離群維度的部分以 fp16 計算。\(X\) 的每一列與 \(W\) 的每一行各有自己的尺度。
-- **結果：** 摘要報告，此方法能把推論所需記憶體減半，同時保持與完整精度相當的效能。
-- **限制：** 混合精度分解對離群路徑帶來額外負擔，而且此方法針對 8 位元。更低位元的推論需要其他方法。
-
-### GPTQ（Frantar 等人，2022）
-
-- **問題：** 像最近捨入這樣把每個權重都四捨五入到最近的網格值，忽略了捨入對其他權重的影響。在 3 或 4 位元時，誤差會累積，品質下降。
-- **核心想法：** 逐行量化單一層的權重。每一行捨入後，用校準輸入的近似二階資訊，更新尚未量化的行，以補償捨入誤差。
-- **公式或演算法：** 此方法遵循最佳腦部量化（optimal brain quantisation）的框架，利用該層平方誤差的反 Hessian \(H^{-1}\)，決定先捨入哪個權重，以及如何更新其餘權重。GPTQ 以分塊處理與 Cholesky 分解，使數十億參數的模型也能有效率地完成。
-- **結果：** 摘要報告，GPTQ 能在約四個 GPU 小時內量化 1750 億參數的 GPT 模型，把權重降到 3 或 4 位元。
-- **限制：** 校準使用一小批資料，因此結果取決於它與目標領域的吻合程度。推論時要獲得加速，需要支援該打包格式的核心程式。
-
-### AWQ（Lin 等人，2023）
-
-- **問題：** 最重要的權重並不是量值最大的權重。統一量化所有權重，會在攜帶大激活值的少數通道上損失準確度。
-- **核心想法：** 依激活統計量而非權重量值找出顯著通道。量化前先放大這些通道的尺度，使它們的相對捨入誤差下降。反向的尺度會併入前一個運算，因此在完整精度下網路在數學上不變。
-- **公式或演算法：** 對尺度為 \(s\) 的通道，層的計算為 \((W\,\mathrm{diag}(s)) \cdot (\mathrm{diag}(s)^{-1}X)\)。尺度透過網格搜尋選定，目標是在校準資料上使輸出誤差最小。
-- **結果：** 作者報告，只保護約 1% 的顯著權重，就能大幅降低量化誤差。此論文獲得 MLSys 2024 最佳論文獎。
-- **限制：** 搜尋尺度需要校準時間。與其他訓練後量化方法一樣，它以僅權重量化為目標，激活值仍維持較高精度。
-
-## 相關方法
-
-- **純整數推論**（Jacob 等人，2017）：量化感知訓練，使卷積網路中的每個運算都是整數值。它是許多行動裝置部署工具鏈的基礎。
-- **SmoothQuant**（Xiao 等人，2022）：透過逐通道縮放，把激活離群值的困難轉移到權重上，使權重與激活值都能量化為 8 位元。摘要報告，對大型語言模型可達 1.56 倍加速與 2 倍記憶體縮減，準確度損失可忽略。
-- **KV 快取量化**：以較少位元儲存注意力快取。見 [KV 快取管理](../../../theory/models/transformer/kv-cache/index.zh-TW.md)。
-
-## 變體
-
-每個方法家族都有自己的頁面，包含重要方法與開放問題：
-
-- [量化感知訓練](quantisation-aware-training/index.zh-TW.md)：可學習步長與純整數推論。
-- [二值與三值](binary-and-ternary/index.zh-TW.md)：BinaryConnect、XNOR-Net 與三值權重網路。
-- [混合精度](mixed-precision/index.zh-TW.md)：以 HAWQ 依基於 Hessian 的敏感度為每層選擇位元寬度。
+- [LLM.int8()](post-training/llm-int8/index.zh-TW.md)：把離群維度保留在 16 位元，其餘以 8 位元計算。
+- [GPTQ](post-training/gptq/index.zh-TW.md)：以二階資訊進行捨入，並補償誤差，適用 3 與 4 位元。
+- [AWQ](post-training/awq/index.zh-TW.md)：依激活統計量縮放顯著通道，加以保護。
+- [SmoothQuant](post-training/smoothquant/index.zh-TW.md)：把激活離群值的困難移到權重上，使權重與激活值都能是 8 位元。
 
 ## 取捨
 
@@ -95,7 +69,7 @@ q = \operatorname{clip}\!\left(\operatorname{round}\!\left(\frac{x}{s}\right) + 
 
 ### 開創性論文
 
-- Jacob, B., 等人 (2017). *Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference*. arXiv:1712.05877. https://arxiv.org/abs/1712.05877 — 量化感知訓練與純整數推論。
+- Jacob, B., 等人 (2017). *Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference*. arXiv:1712.05877. https://arxiv.org/abs/1712.05877 — 量化感知訓練，並讓每個運算都以整數算術進行，是許多行動部署的基礎。
 - Dettmers, T., Lewis, M., Belkada, Y., Zettlemoyer, L. (2022). *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*. NeurIPS. https://arxiv.org/abs/2208.07339 — 混合精度 8 位元推論，把離群維度保留在 16 位元。
 - Frantar, E., 等人 (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. ICLR 2023. https://arxiv.org/abs/2210.17323 — 逐層的二階誤差補償，用於 3 與 4 位元權重。
 - Lin, J., 等人 (2023). *AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration*. MLSys 2024. https://arxiv.org/abs/2306.00978 — 依激活統計量選擇逐通道尺度，以保護顯著權重。
