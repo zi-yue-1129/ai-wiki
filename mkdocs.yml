@@ -241,6 +241,9 @@ plugins:
             Learning Paths: 學習路線
             Open-Source Resource Survey: 開源資源調查
             History of AI: AI 發展史
+            Dartmouth and the Symbolic Era: 達特茅斯與符號時代
+            Expert Systems and AI Winters: 專家系統與 AI 寒冬
+            The Deep-Learning Revolution: 深度學習革命
             Theory: 理論
             Mathematics: 數學基礎
             Linear Algebra: 線性代數
@@ -263,6 +266,24 @@ plugins:
             Causal Inference: 因果推論
             Machine Learning: 機器學習
             Deep Learning: 深度學習
+            Normalisation: 正規化
+            Batch Normalisation: 批次正規化
+            Group Normalisation: 群組正規化
+            Dropout & Stochastic Regularisation: 丟棄法與隨機正則化
+            Dropout: 丟棄法
+            Mixup: 混合增強
+            Stochastic Depth: 隨機深度
+            Weight Initialisation: 權重初始化
+            Glorot (Xavier): Glorot（Xavier）初始化
+            He (Kaiming): He（Kaiming）初始化
+            muP: 最大更新參數化（muP）
+            Automatic Differentiation: 自動微分
+            Reverse Mode: 反向模式微分
+            Forward Mode: 前向模式微分
+            3D Vision & Neural Rendering: 三維視覺與神經渲染
+            3D Gaussian Splatting: 三維高斯潑濺
+            Video: 影片理解與生成
+            Video Diffusion: 影片擴散模型
             Optimisation: 最佳化
             SGD & Momentum: SGD 與動量
             Heavy-Ball Momentum: 重球動量
@@ -470,6 +491,7 @@ plugins:
             WGAN: WGAN
             WGAN-GP: WGAN-GP
             Flow-Based Models: 流模型
+            Autoregressive Models: 自迴歸模型
             Normalising Flows: 正規化流
             Real NVP: Real NVP
             Glow: Glow
@@ -479,6 +501,7 @@ plugins:
             Stochastic Interpolants: 隨機插值
             Minibatch OT Flow Matching: 小批次最優傳輸流匹配
             Classifier-Free Guidance: 無分類器引導
+            Consistency Models and Fast Samplers: 一致性模型與快速取樣器
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
             Message Passing: 訊息傳遞
@@ -663,6 +686,8 @@ plugins:
             Speech & Audio: 語音與音訊
             Multimodal Models: 多模態模型
             Embeddings: 嵌入表示
+            Time-Series Forecasting: 時間序列預測
+            Recommender Systems: 推薦系統
             Graph Neural Networks: 圖神經網路
             AI Agents: AI 代理人
             World Models & Embodied AI: 世界模型與具身智慧
@@ -783,6 +808,10 @@ plugins:
             Accessibility & Assistive Technology: 無障礙與輔助科技
             Engineering: 工程實務
             Frameworks & Tools: 框架與工具
+            Compilers and Kernels: 編譯器與核心程式
+            XLA: XLA
+            torch.compile and TorchInductor: torch.compile 與 TorchInductor
+            Triton: Triton
             Data: 資料工程
             MinHash Deduplication: MinHash 去重
             Confident Learning: 置信學習
@@ -801,6 +830,11 @@ plugins:
             ColBERT: ColBERT
             Indirect Prompt Injection: 間接提示注入
             Universal Adversarial Suffixes: 通用對抗後綴
+            Jailbreaks & Red-Teaming: 越獄與紅隊測試
+            Guardrails: 護欄與輸出過濾
+            Data Poisoning: 資料投毒
+            Model Extraction: 模型萃取
+            Watermarking: 模型輸出浮水印
             LLM Application Security: LLM 應用安全
             Agent Engineering: 代理工程
             Tool Calling & MCP: 工具呼叫與 MCP
@@ -820,12 +854,15 @@ plugins:
             Prompt Engineering: 提示工程
             Retrieval-Augmented Generation: 檢索增強生成 RAG
             Evaluation & Benchmarks: 評估與基準
+            Benchmark Suites: 基準套件
+            HELM (Liang et al. 2022): HELM（Liang 等人，2022）
             Inference Optimization: 推論最佳化
             Orca: Orca
             PagedAttention and vLLM: PagedAttention 與 vLLM
             Speculative Decoding: 推測式解碼
             Multi-Query Attention: 多查詢注意力
             Grouped-Query Attention: 分組查詢注意力
+            Fused Kernels: 融合核心
             MLOps & Deployment: MLOps 與部署
             AI Coding Assistants: AI 程式助手
             AI Hardware: AI 硬體
@@ -846,6 +883,14 @@ plugins:
             AI & Society: AI 與社會
             Safety & Alignment: AI 安全與對齊
             Interpretability: 可解釋性
+            Reward hacking and specification gaming: 獎勵駭客與規格博弈
+            Scalable oversight: 可擴展監督
+            Constitutional AI and RLAIF: 憲法式 AI 與 RLAIF
+            Model specifications: 模型規範
+            Deceptive alignment and sleeper agents: 欺騙性對齊與潛伏代理
+            Dangerous-capability evaluations: 危險能力評估
+            Mechanistic interpretability and circuits: 機制可解釋性與電路
+            Sparse autoencoders and feature dictionaries: 稀疏自編碼器與特徵字典
             Ethics & Fairness: 倫理與公平
             Fairness Definitions: 公平性定義
             Bias Case Studies: 偏見案例研究
@@ -885,6 +930,9 @@ plugins:
             Philosophy of AI: AI 哲學
             Reference: 參考
             Glossary: 名詞對照表
+            Model Catalogue: 模型目錄
+            Notation: 符號表
+            How to Read an AI Paper: 如何閱讀 AI 論文
             People and Research Labs: 人物與研究室
             FAQ: 常見問題
             Landmark Papers: 經典論文
@@ -951,11 +999,19 @@ nav:
       - start/index.md
       - Learning Paths: start/learning-paths/index.md
       - Open-Source Resource Survey: start/open-source-survey/index.md
-      - History of AI: start/history/index.md
+      - History of AI:
+          - start/history/index.md
+          - Dartmouth and the Symbolic Era: start/history/symbolic-era/index.md
+          - Expert Systems and AI Winters: start/history/expert-systems-and-winters/index.md
+          - The Deep-Learning Revolution: start/history/deep-learning-revolution/index.md
   - Theory:
       - theory/index.md
       - Mathematics:
           - theory/math/index.md
+          - Automatic Differentiation:
+              - theory/math/automatic-differentiation/index.md
+              - Reverse Mode: theory/math/automatic-differentiation/reverse-mode.md
+              - Forward Mode: theory/math/automatic-differentiation/forward-mode.md
           - Linear Algebra:
               - theory/math/linear-algebra/index.md
               - Singular Value Decomposition: theory/math/linear-algebra/svd.md
@@ -973,6 +1029,21 @@ nav:
       - Machine Learning: theory/machine-learning/index.md
       - Deep Learning:
           - theory/deep-learning/index.md
+          - Normalisation:
+              - theory/deep-learning/normalisation/index.md
+              - Batch Normalisation: theory/deep-learning/normalisation/batch-normalisation.md
+              - Group Normalisation: theory/deep-learning/normalisation/group-normalisation.md
+              - RMSNorm: theory/deep-learning/normalisation/rms-normalisation.md
+          - Dropout & Stochastic Regularisation:
+              - theory/deep-learning/dropout/index.md
+              - Dropout: theory/deep-learning/dropout/dropout-method.md
+              - Mixup: theory/deep-learning/dropout/mixup.md
+              - Stochastic Depth: theory/deep-learning/dropout/stochastic-depth.md
+          - Weight Initialisation:
+              - theory/deep-learning/initialisation/index.md
+              - Glorot (Xavier): theory/deep-learning/initialisation/glorot-initialisation.md
+              - He (Kaiming): theory/deep-learning/initialisation/he-initialisation.md
+              - muP: theory/deep-learning/initialisation/mup.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum:
@@ -1077,12 +1148,15 @@ nav:
                           - Rectified Flow: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/rectified-flow.md
                           - Stochastic Interpolants: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/stochastic-interpolants.md
                           - Minibatch OT Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/minibatch-ot-flow-matching.md
+                  - Autoregressive Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index.md
                   - Diffusion Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
                       - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
                       - DDIM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md
                       - Latent Diffusion: theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md
                       - Classifier-Free Guidance: theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md
+                      - Consistency Models and Fast Samplers: theory/paradigms/unsupervised/density-and-generative-models/diffusion/consistency-models.md
               - Autoencoders & Representations: theory/paradigms/unsupervised/autoencoders-and-representations/index.md
               - Anomaly Detection: theory/paradigms/unsupervised/anomaly-detection/index.md
           - Semi- & Weakly Supervised Learning:
@@ -1503,12 +1577,23 @@ nav:
                   - Process Reward Models: theory/models/reasoning/process-reward-models.md
           - Computer Vision:
               - theory/models/computer-vision/index.md
+              - 3D Vision & Neural Rendering:
+                  - theory/models/computer-vision/3d-and-neural-rendering/index.md
+                  - NeRF: theory/models/computer-vision/3d-and-neural-rendering/nerf.md
+                  - 3D Gaussian Splatting: theory/models/computer-vision/3d-and-neural-rendering/gaussian-splatting.md
+              - Video:
+                  - theory/models/computer-vision/video/index.md
+                  - I3D: theory/models/computer-vision/video/i3d.md
+                  - ViViT: theory/models/computer-vision/video/vivit.md
+                  - Video Diffusion: theory/models/computer-vision/video/video-diffusion.md
               - Object Detection: theory/models/computer-vision/object-detection/index.md
               - Image Segmentation: theory/models/computer-vision/segmentation/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
           - Embeddings: theory/models/embeddings/index.md
+          - Time-Series Forecasting: theory/models/time-series/index.md
+          - Recommender Systems: theory/models/recommender/index.md
           - Graph Neural Networks:
               - theory/models/gnn/index.md
               - Message Passing:
@@ -1714,7 +1799,13 @@ nav:
       - Accessibility & Assistive Technology: applications/accessibility/index.md
   - Engineering:
       - engineering/index.md
-      - Frameworks & Tools: engineering/frameworks/index.md
+      - Frameworks & Tools:
+          - engineering/frameworks/index.md
+          - Compilers and Kernels:
+              - engineering/frameworks/compilers-and-kernels/index.md
+              - XLA: engineering/frameworks/compilers-and-kernels/xla.md
+              - torch.compile and TorchInductor: engineering/frameworks/compilers-and-kernels/torch-compile.md
+              - Triton: engineering/frameworks/compilers-and-kernels/triton.md
       - Data:
           - engineering/data/index.md
           - MinHash Deduplication: engineering/data/minhash-deduplication.md
@@ -1738,6 +1829,11 @@ nav:
           - engineering/llm-security/index.md
           - Indirect Prompt Injection: engineering/llm-security/indirect-prompt-injection.md
           - Universal Adversarial Suffixes: engineering/llm-security/universal-adversarial-suffixes.md
+          - Jailbreaks & Red-Teaming: engineering/llm-security/jailbreaks-and-red-teaming.md
+          - Guardrails: engineering/llm-security/guardrails.md
+          - Data Poisoning: engineering/llm-security/data-poisoning.md
+          - Model Extraction: engineering/llm-security/model-extraction.md
+          - Watermarking: engineering/llm-security/watermarking.md
       - Synthetic Data:
           - engineering/synthetic-data/index.md
           - Self-Instruct: engineering/synthetic-data/self-instruct.md
@@ -1758,7 +1854,10 @@ nav:
           - Toolformer (Schick et al. 2023): engineering/agents/toolformer.md
           - Voyager (Wang et al. 2023): engineering/agents/voyager.md
           - SWE-agent (Yang et al. 2024): engineering/agents/swe-agent.md
-      - Evaluation & Benchmarks: engineering/evaluation/index.md
+      - Evaluation & Benchmarks:
+          - engineering/evaluation/index.md
+          - Benchmark Suites: engineering/evaluation/benchmark-suites.md
+          - HELM (Liang et al. 2022): engineering/evaluation/helm.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md
           - Orca: engineering/inference-optimization/orca.md
@@ -1766,6 +1865,7 @@ nav:
           - Speculative Decoding: engineering/inference-optimization/speculative-decoding.md
           - Multi-Query Attention: engineering/inference-optimization/multi-query-attention.md
           - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
+          - Fused Kernels: engineering/inference-optimization/fused-kernels.md
       - MLOps & Deployment: engineering/mlops/index.md
       - AI Coding Assistants: engineering/coding-assistants/index.md
       - AI Hardware:
@@ -1787,9 +1887,18 @@ nav:
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
   - AI & Society:
       - society/index.md
-      - Safety & Alignment: society/safety-alignment/index.md
+      - Safety & Alignment:
+          - society/safety-alignment/index.md
+          - Reward hacking and specification gaming: society/safety-alignment/reward-hacking.md
+          - Scalable oversight: society/safety-alignment/scalable-oversight.md
+          - Constitutional AI and RLAIF: society/safety-alignment/constitutional-ai.md
+          - Model specifications: society/safety-alignment/model-specs.md
+          - Deceptive alignment and sleeper agents: society/safety-alignment/deceptive-alignment.md
+          - Dangerous-capability evaluations: society/safety-alignment/dangerous-capability-evals.md
       - Interpretability:
           - society/interpretability/index.md
+          - Mechanistic interpretability and circuits: society/interpretability/mechanistic-interpretability.md
+          - Sparse autoencoders and feature dictionaries: society/interpretability/sparse-autoencoders.md
           - Feature Attribution: society/interpretability/feature-attribution.md
           - Probing Classifiers: society/interpretability/probing.md
       - Ethics & Fairness:
@@ -1837,6 +1946,9 @@ nav:
   - Reference:
       - reference/index.md
       - Glossary: reference/glossary/index.md
+      - Model Catalogue: reference/model-catalogue/index.md
+      - Notation: reference/notation/index.md
+      - How to Read an AI Paper: reference/how-to-read-a-paper/index.md
       - People and Research Labs: reference/people-and-labs/index.md
       - FAQ: reference/faq/index.md
       - Landmark Papers: reference/papers/index.md

@@ -21,6 +21,10 @@ flowchart TB
 | [scikit-learn](https://scikit-learn.org/) | 傳統機器學習 | 表格資料基準方法的預設選擇 |
 | XGBoost、LightGBM、CatBoost | 梯度提升 | 表格資料 |
 
+## 編譯器與核心程式
+
+編譯器把模型的計算圖轉為晶片上的程式碼，而核心程式則是一個融合運算的程式碼。[XLA](compilers-and-kernels/xla.zh-TW.md)、[torch.compile 與 TorchInductor](compilers-and-kernels/torch-compile.zh-TW.md) 以及 [Triton](compilers-and-kernels/triton.zh-TW.md) 是主要的系統，並在[編譯器與核心程式](compilers-and-kernels/index.zh-TW.md)頁面中比較。
+
 ## Hugging Face 生態系
 
 - **Hub**：數十萬個模型與資料集

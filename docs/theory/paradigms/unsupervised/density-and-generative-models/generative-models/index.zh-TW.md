@@ -14,6 +14,7 @@
 | 正規化流 | 可逆的變換 | 可精確計算似然 | 架構受限 | RealNVP、Glow |
 | 擴散模型 | 學習逐步去除雜訊 | 品質高、穩定、多樣 | 採樣步數多（已大幅改善） | DDPM、Stable Diffusion、Imagen |
 | 流匹配（Flow matching） | 學習從雜訊到資料的速度場 | 訓練簡單，採樣快 | — | Stable Diffusion 3、Flux |
+| 自迴歸模型 | 依前面的元素預測下一個元素 | 似然可精確計算 | 逐步取樣，速度慢 | PixelRNN、WaveNet、Image GPT |
 | 能量基模型 | 學習能量函數 \(E(x)\) | 彈性高 | 採樣困難 | Hopfield 網路、EBM |
 
 其他家族的方法頁：[VAE](../vae/index.md)、[GAN](../gan/index.md) 與[流模型](../flow/index.md)。

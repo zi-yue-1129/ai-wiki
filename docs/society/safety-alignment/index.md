@@ -15,12 +15,12 @@ related:
 
 | Problem | Description | Example |
 |---|---|---|
-| Specification gaming / reward hacking | Optimising the literal objective, not the intended one | A boat-racing agent circling to collect points instead of finishing (OpenAI, 2016); models special-casing unit tests |
+| [Specification gaming / reward hacking](reward-hacking.md) | Optimising the literal objective, not the intended one | A boat-racing agent circling to collect points instead of finishing (OpenAI, 2016); models special-casing unit tests |
 | Goal misgeneralisation | Learning a goal that matches training but differs out of distribution | CoinRun agent learns "go right" rather than "get the coin" (Langosco et al., 2022) |
 | Sycophancy | Telling users what they want to hear | Agreeing with incorrect user claims |
-| Deception and scheming | Models strategically misleading overseers | Studied in controlled evaluations (e.g. "alignment faking", Greenblatt et al., 2024; Apollo Research's scheming evals) |
+| [Deception and scheming](deceptive-alignment.md) | Models strategically misleading overseers | Studied in controlled evaluations (e.g. "alignment faking", Greenblatt et al., 2024; Apollo Research's scheming evals) |
 | Robustness | Jailbreaks, adversarial inputs, distribution shift | Universal adversarial suffixes (Zou et al., 2023) |
-| Scalable oversight | Supervising systems that may exceed human expertise | Grading research-level answers |
+| [Scalable oversight](scalable-oversight.md) | Supervising systems that may exceed human expertise | Grading research-level answers |
 | Power-seeking and instrumental convergence | Many goals favour acquiring resources and avoiding shutdown | Theoretical (Omohundro, Bostrom; Turner et al., 2021) |
 
 ## Techniques
@@ -28,8 +28,8 @@ related:
 | Approach | Ideas |
 |---|---|
 | Learning from human feedback | RLHF, DPO; reward modelling |
-| Principle-based training | Constitutional AI and model specifications that state intended behaviour |
-| Scalable oversight | Debate, recursive reward modelling, weak-to-strong generalisation, AI-assisted critique |
+| Principle-based training | [Constitutional AI](constitutional-ai.md) and [model specifications](model-specs.md) that state intended behaviour |
+| [Scalable oversight](scalable-oversight.md) | Debate, recursive reward modelling, weak-to-strong generalisation, AI-assisted critique |
 | [Interpretability](../interpretability/index.md) | Understanding internals to detect deception or dangerous capabilities |
 | Adversarial training and red-teaming | Human and automated attacks to find failures |
 | Monitoring and control | Chain-of-thought monitoring, trusted monitors, sandboxing, "AI control" protocols that assume models might be misaligned (Greenblatt et al., 2024) |
@@ -37,6 +37,8 @@ related:
 | Unlearning | Removing hazardous knowledge (e.g. WMDP benchmark) |
 
 ## Evaluating dangerous capabilities
+
+The detailed page is [dangerous-capability evaluations](dangerous-capability-evals.md).
 
 Frontier developers and government institutes evaluate models before release for:
 
@@ -46,6 +48,15 @@ Frontier developers and government institutes evaluate models before release for
 - Persuasion and manipulation
 
 These evaluations feed **frontier safety frameworks** (Anthropic's Responsible Scaling Policy with AI Safety Levels, OpenAI's Preparedness Framework, Google DeepMind's Frontier Safety Framework) that tie capability thresholds to required safeguards. Government bodies include the UK AI Security Institute and the US Center for AI Standards and Innovation.
+
+## Detailed pages
+
+- [Reward hacking and specification gaming](reward-hacking.md): optimising a proxy reward until it diverges from the goal.
+- [Scalable oversight](scalable-oversight.md): debate, decomposition and weak-to-strong generalisation.
+- [Constitutional AI and RLAIF](constitutional-ai.md): principle-guided self-critique and AI preference labels.
+- [Model specifications](model-specs.md): written statements of intended behaviour, instruction hierarchies and auditing.
+- [Deceptive alignment and sleeper agents](deceptive-alignment.md): the deceptive-alignment argument and the experimental evidence.
+- [Dangerous-capability evaluations](dangerous-capability-evals.md): pre-deployment tests and frontier safety frameworks.
 
 ## Perspectives and debate
 

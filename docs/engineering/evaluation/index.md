@@ -30,6 +30,8 @@ These examples are a starting catalogue, not a ranking of current models. Record
 | Human preference | Chatbot Arena | Rater population and presentation affect interpretation |
 | Safety | HarmBench, StrongREJECT, WMDP, dangerous-capability evals | See [Safety & Alignment](../../society/safety-alignment/index.md) |
 
+Suite-level comparisons are covered in [Benchmark suites](benchmark-suites.md), and the holistic framework that reports several metrics per scenario is in [HELM](helm.md).
+
 ## Designing an evaluation protocol
 
 ### Define the task and the decision
