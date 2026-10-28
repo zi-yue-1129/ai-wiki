@@ -47,23 +47,14 @@ Rights holders have responded in several ways: lawsuits, opt-out signals that te
 
 ## Key methods
 
-### Somepalli et al. (2022), data replication in diffusion models
+Each study has its own page with the problem, method, results and limitations. The table compares them briefly.
 
-- **Problem:** do image diffusion models copy their training images, or do they generalise?
-- **Core idea:** generate images from prompts tied to training captions, then search the training set for close matches to the generated images, using similarity measures on image features.
-- **Equation or algorithm:** retrieval of nearest training images for each generated image, followed by a similarity threshold and manual inspection of matches.
-- **Results:** the abstract says that some diffusion models, including Stable Diffusion, can "blatantly copy" from their training data in specific cases, and that replication depends on factors such as training set size and duplication. It gives no overall replication rate.
-- **Limitations:** the abstract does not quantify how often replication occurs, and it does not say how far the results extend beyond the datasets tested (including Oxford flowers, CelebA, ImageNet and LAION subsets).
+| Study | Question | Main result (per abstract) | Read more |
+|---|---|---|---|
+| Somepalli et al. (2022) | Do diffusion models copy training images? | Some models "blatantly copy" in specific cases; replication depends on training set size and duplication | [Data replication in diffusion models](data-replication.md) |
+| Carlini et al. (2023) | Can training images be extracted from a trained model? | Over a thousand training examples extracted from state-of-the-art models | [Extracting training data from diffusion models](diffusion-extraction.md) |
 
-### Carlini et al. (2023), extracting training data from diffusion models
-
-- **Problem:** can an outside user extract training images from a trained diffusion model?
-- **Core idea:** a generate-and-filter pipeline. Sample many images from the model, then filter out the candidates that look like copies of training images.
-- **Equation or algorithm:** generation, then filtering on similarity to training examples, with candidates checked against the source data.
-- **Results:** the abstract reports that the pipeline extracts "over a thousand training examples from state-of-the-art models". It does not give separate counts per model.
-- **Limitations:** the abstract gives no counts per model and does not say how many generated images were examined, so extraction rates cannot be compared directly across settings.
-
-Somepalli et al. report that duplication and training set size affect replication. This makes deduplication a practical safeguard, and also a privacy measure (see [Privacy and Data Protection](../privacy/index.md)).
+Both studies point to duplication as a key risk factor. That makes deduplication a practical safeguard, and also a privacy measure (see [Privacy and Data Protection](../privacy/index.md)).
 
 ## Law and regulation
 
