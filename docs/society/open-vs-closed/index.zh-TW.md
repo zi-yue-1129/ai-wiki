@@ -52,7 +52,7 @@ aliases:
 |---|---|---|
 | 預設開放釋出 | 開放模型帶來創新、競爭、透明度，以及更分散的決策權力；其額外風險應以邊際風險來判斷 | [Kapoor 等人（2024）](https://arxiv.org/abs/2403.07918) |
 | 限制最具能力的模型 | 對於近期可能出現的某些強大模型，風險可能超過效益，因此起初不應開放釋出；應探索其他分享方式 | [Seger 等人（2023）](https://arxiv.org/abs/2311.09227) |
-| 精確定義開放性 | 開源 AI 需要資料資訊、程式碼與參數，使有能力的人能修改該系統 | [開源 AI 定義 1.0（2024）](https://opensource.org/ai/open-source-ai-definition) |
+| 精確定義開放性 | 開源 AI 需要資料資訊、程式碼與參數，使有能力的人能修改該系統 | [開源 AI 定義 1.0（2024）](https://opensource.org/ai) |
 | 衡量透明度 | 開發者對資料、算力、散佈與下游影響的揭露不足，指數可以讓此問題被看見 | [Bommasani 等人（2023）](https://arxiv.org/abs/2310.12941) |
 
 ## 因應措施
@@ -95,4 +95,4 @@ aliases:
 
 ### 文章與官方文件
 
-- Open Source Initiative.《開源 AI 定義》1.0 版（2024）。https://opensource.org/ai/open-source-ai-definition — 定義 AI 系統要被稱為開源時，必須提供的自由與組成部分。
+- Open Source Initiative.《開源 AI 定義》1.0 版（2024）。https://opensource.org/ai — 定義 AI 系統要被稱為開源時，必須提供的自由與組成部分。

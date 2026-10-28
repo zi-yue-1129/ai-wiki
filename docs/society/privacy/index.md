@@ -97,7 +97,7 @@ Each method has its own page with the problem, method, results and limitations. 
 
 ### Surveys and textbooks
 
-- Dwork, C. & Roth, A. (2014). *The Algorithmic Foundations of Differential Privacy*. Foundations and Trends in Theoretical Computer Science, 9(3–4). https://doi.org/10.1561/0400000042 — The standard textbook on differential privacy, with the mechanisms and proofs in full.
+- Dwork, C. & Roth, A. (2014). *The Algorithmic Foundations of Differential Privacy*. Foundations and Trends in Theoretical Computer Science, 9(3–4). https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf — The standard textbook on differential privacy, with the mechanisms and proofs in full.
 
 ### Articles and documentation
 

@@ -50,7 +50,7 @@ The table compares the main positions in the literature. The positions are argum
 |---|---|---|
 | Open release by default | Open models bring innovation, competition, transparency and a more distributed share of decision-making power, and their extra risk should be judged at the margin | [Kapoor et al. (2024)](https://arxiv.org/abs/2403.07918) |
 | Restrict the most capable models | For some powerful models expected in the near future, the risks could outweigh the benefits, so they should not be released openly at first; alternative sharing methods should be explored | [Seger et al. (2023)](https://arxiv.org/abs/2311.09227) |
-| Define openness precisely | Open-source AI requires data information, code and parameters, so that a skilled person can modify the system | [Open Source AI Definition 1.0 (2024)](https://opensource.org/ai/open-source-ai-definition) |
+| Define openness precisely | Open-source AI requires data information, code and parameters, so that a skilled person can modify the system | [Open Source AI Definition 1.0 (2024)](https://opensource.org/ai) |
 | Measure transparency | Developers disclose too little about data, compute, distribution and downstream impact, and an index can make this visible | [Bommasani et al. (2023)](https://arxiv.org/abs/2310.12941) |
 
 ## Responses
@@ -93,4 +93,4 @@ Regulation also treats open release as a policy question. See [Law, Policy & Gov
 
 ### Articles and documentation
 
-- Open Source Initiative. *The Open Source AI Definition, version 1.0* (2024). https://opensource.org/ai/open-source-ai-definition — Defines the freedoms and the components an AI system must provide to be called open source.
+- Open Source Initiative. *The Open Source AI Definition, version 1.0* (2024). https://opensource.org/ai — Defines the freedoms and the components an AI system must provide to be called open source.
