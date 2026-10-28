@@ -19,7 +19,7 @@ aliases:
 
 # Prompt Tuning
 
-Prompt tuning adapts a frozen language model by learning soft prompts, which are sequences of trainable embedding vectors prepended to the input. Lester et al. (2021) show that these learned prompts, unlike hand-written text prompts, can use the signal from any number of labelled examples, and that as models grow the method becomes competitive with full model tuning. It is a simplification of [prefix tuning](prefix-tuning.md), and it sits within [fine-tuning and adaptation](index.md).
+Prompt tuning adapts a frozen language model by learning soft prompts, which are trainable embedding vectors prepended to the input. Lester et al. (2021) show that these prompts can be trained on any number of labelled examples, unlike hand-written text prompts, and that as the frozen model grows, the method becomes competitive with full model tuning. It is a simplification of [prefix tuning](prefix-tuning.md), and it sits within [fine-tuning and adaptation](index.md).
 
 ## Problem
 
@@ -27,28 +27,31 @@ Text prompts are discrete words chosen by hand, so their effect is limited by wh
 
 ## Key concepts
 
-- **Soft prompt:** a sequence of learned vectors in the model's embedding space. It is not made of real words, and it is trained by backpropagation.
-- **Frozen model:** the pre-trained model, whose parameters stay fixed while the prompt is learned.
-- **Model scale:** the paper's central variable. Its results depend on how large the frozen model is.
+- **Soft prompt:** a block of \(p\) trainable vectors, each of the model's embedding width, placed in front of the embedded input. It is not made of real words, and it is trained by backpropagation.
+- **Frozen model:** the pre-trained T5 model, whose parameters stay fixed while the prompt is learned.
+- **Initialisation:** the paper compares random uniform values, embeddings of common vocabulary tokens, and embeddings of the output class labels. Initialising from the class labels is the default, and it works best at smaller sizes.
 
 ## How it works
 
-A small set of prompt vectors is placed in front of the input embeddings. The loss on labelled task data is backpropagated to the prompt vectors alone, and the model's weights are not updated. At serving time, the model is shared, and each task brings its own prompt. Since a prompt is only a few small vectors, storing many tasks is cheap.
+The prompt vectors are placed in front of the input embeddings, and the frozen encoder-decoder processes the combined sequence. The loss on labelled task data is backpropagated to the prompt vectors alone. The default prompt length is 100 tokens, and the paper ablates lengths from 1 to 150. Each task therefore needs about \(E \times p\) new parameters, which for T5-XXL with a 100-token prompt is about 410K parameters, or 0.004% of the model. At serving time the model is shared, and each task brings its own prompt.
 
 ## Results
 
-The abstract reports that the learned prompts outperform GPT-3's few-shot learning by a large margin. In ablations over T5 model sizes, prompt tuning becomes more competitive as models grow, and beyond billions of parameters it matches the performance of model tuning, where all weights are updated. The authors also report that conditioning a frozen model with soft prompts gives better robustness to domain transfer than model tuning does.
+At T5-XXL (11B), prompt tuning matches a strong multi-task model-tuning baseline on SuperGLUE while using far fewer task-specific parameters. The method only becomes competitive at billions of parameters, and smaller models lag well behind. The paper also reports that prompt-tuned T5-Small matches GPT-3 XL, and prompt-tuned T5-Large beats GPT-3 175B on its evaluation.
+
+On domain transfer, a prompt trained on SQuAD and tested on out-of-domain question answering datasets beats model tuning on most of them, with the largest gain about 12.5 F1 on TextbookQA. Model tuning is better on a few sets, notably DROP, which shares Wikipedia with SQuAD.
 
 ## Limitations
 
-- **Small models.** The paper's own results show that prompt tuning is weaker than model tuning at smaller scales, so its benefit depends on the model being large.
-- **Optimisation.** Soft prompts are continuous vectors that are not easy to read or edit, so debugging and manual control are harder than with text prompts.
-- **Single-task framing.** The paper studies task-specific prompts. Combining prompts for many tasks at once is a separate question that the paper does not settle.
+- **Small models.** Small models depend heavily on the prompt length and the initialisation, and the gap to model tuning is large until the model reaches XXL scale.
+- **Unreliable frozen checkpoints.** Span-corruption T5 checkpoints worked well as frozen models at only 2 of 5 sizes. A language-model adaptation step fixes this, at roughly 10% of T5's original pre-training steps.
+- **Long prompts.** Prompts longer than about 100 tokens slightly hurt larger models, and long prompts make training slow.
+- **Interpretability.** The learned prompts are hard to read, and the paper finds little structure in them beyond nearest-neighbour clusters.
 
 ## Open questions
 
 - **Scale threshold.** The model size at which prompt tuning matches model tuning depends on the task and the model family, and the threshold is not known in general.
-- **Initialisation and length.** How the prompt is initialised and how long it should be affect results, and both are usually chosen by search.
+- **Convergence speed.** The paper does not compare convergence speed with model tuning across the full range of tasks.
 
 ## Connections
 
@@ -58,7 +61,7 @@ Prompt tuning is the simplest of the prompt-based methods. [Prefix tuning](prefi
 
 ### Seminal papers
 
-- Lester, B., Al-Rfou, R., Constant, N. (2021). *The Power of Scale for Parameter-Efficient Prompt Tuning*. arXiv:2104.08691. https://arxiv.org/abs/2104.08691 — Learns soft prompts on a frozen model, becoming competitive with model tuning as models grow.
+- Lester, B., Al-Rfou, R., Constant, N. (2021). *The Power of Scale for Parameter-Efficient Prompt Tuning*. arXiv:2104.08691. https://arxiv.org/abs/2104.08691 — Learns soft prompts on a frozen T5 model, becoming competitive with model tuning as models grow.
 - Li, X. L., Liang, P. (2021). *Prefix-Tuning: Optimizing Continuous Prompts for Generation*. arXiv:2101.00190. https://arxiv.org/abs/2101.00190 — The prompt-based method that prompt tuning simplifies, learning conditioning at every layer.
 - Houlsby, N., et al. (2019). *Parameter-Efficient Transfer Learning for NLP*. arXiv:1902.00751. https://arxiv.org/abs/1902.00751 — Introduces adapters, the layer-adding alternative to prompt-based tuning.
 - Hu, E. J., et al. (2021). *LoRA: Low-Rank Adaptation of Large Language Models*. arXiv:2106.09685. https://arxiv.org/abs/2106.09685 — Learns low-rank updates on frozen weights, a third route to parameter-efficient adaptation.
