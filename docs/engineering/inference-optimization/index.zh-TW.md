@@ -46,6 +46,7 @@ flowchart TD
 | 多查詢注意力 | 每個頭各自保存的 KV 快取很大 | 所有查詢共用一組 key 與 value 頭 | 品質有些損失 | [多查詢注意力](multi-query-attention.zh-TW.md) |
 | 分組查詢注意力 | 多查詢注意力可能損失太多品質 | 查詢頭分組，每組共用一組 key-value 頭 | 快取比多查詢大 | [分組查詢注意力](grouped-query-attention.zh-TW.md) |
 | KV 快取壓縮與淘汰 | 長上下文下，儲存的 key 與 value 占滿記憶體 | 保留較少 token，或每個值儲存較少位元 | 需要被丟棄內容的任務，準確度可能下降 | [KV 快取壓縮與淘汰](kv-cache-compression.zh-TW.md) |
+| 預填充與解碼分離 | 預填充與解碼共用一張 GPU 時互相干擾 | 兩個階段分到不同的池，並在兩者之間移動 KV 快取 | KV 快取傳輸成本，以及較難平衡兩個池 | [預填充與解碼分離](disaggregated-serving.zh-TW.md) |
 
 ## 相關連結
 
