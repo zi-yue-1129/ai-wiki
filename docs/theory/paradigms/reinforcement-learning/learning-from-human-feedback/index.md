@@ -19,12 +19,18 @@ People are often better at comparing two outputs than at writing a numerical rew
 2. **Train a reward model.** A network learns to score outputs so that preferred ones score higher, using a Bradley–Terry style likelihood.
 3. **Optimise the policy.** A reinforcement learning algorithm, usually PPO, maximises the learned reward, with a penalty for drifting from the supervised model.
 
+## Methods
+
+- [Reward modelling](reward-modelling/index.md): learns a reward from pairwise comparisons with the Bradley–Terry model. It is the first step of RLHF.
+- [Direct preference optimisation](dpo/index.md): fits the policy to comparisons with a classification loss, with no explicit reward model and no reinforcement learning loop.
+- [InstructGPT](../../../models/llm/instructgpt-rlhf/index.md): the RLHF pipeline applied to GPT-3, combining a reward model with PPO.
+
 ## Known problems
 
 - **Reward hacking:** the policy finds outputs that score well on the reward model but are not actually preferred.
 - **Annotator disagreement and bias:** preferences reflect particular people and contexts, and they may not generalise.
 - **Cost:** collecting comparisons and running online optimisation is expensive.
-- **Alternatives:** direct preference optimisation and similar methods fit the policy to comparisons without an explicit reward model, which simplifies the pipeline.
+- **Alternatives:** [direct preference optimisation](dpo/index.md) and similar methods fit the policy to comparisons without an explicit reward model, which simplifies the pipeline.
 
 ## Connections
 
