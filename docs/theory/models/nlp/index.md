@@ -81,4 +81,4 @@ Static embeddings give each word one vector regardless of sense; contextual mode
 
 ### Articles and documentation
 
-- Alammar, J. *The Illustrated Word2vec*. https://jalammar.github.io/illustrated-word2vec/ — Step-by-step diagrams of how word embeddings are trained with skip-gram and negative sampling.
+- Mikolov, T., Sutskever, I., Chen, K., Corrado, G. & Dean, J. (2013). *Distributed Representations of Words and Phrases and their Compositionality*. NeurIPS. arXiv:1310.4546. https://arxiv.org/abs/1310.4546 — Introduces skip-gram training with negative sampling, an efficient way to learn word embeddings.

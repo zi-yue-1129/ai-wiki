@@ -131,7 +131,7 @@ Good references are what make a page trustworthy and useful for learning. Every 
 
 - **Seminal papers.** The papers that introduced or defined the idea. Prefer the original publication.
 - **Surveys and textbooks.** Reviews and books a reader can use to go deeper. Link a free version when one is legally available.
-- **Lectures and videos.** Courses and talks from universities, research labs, conferences or official channels. Name the speaker, course or event, and year.
+- **Lectures.** Course pages from universities and research labs. Name the speaker, course and year. Videos are not cited (see Citations).
 - **Articles and documentation.** Official documentation, posts from the original authors or labs, and careful journalism. Prefer primary sources over commentary.
 
 **Format**
@@ -161,13 +161,14 @@ Group entries under these headings when the page has enough of them. Use one lin
 
 **Rules**
 
-1. **Open every link before you add it.** Confirm the title, authors, year and that it says what you cite it for. Never guess a DOI, arXiv id or URL, and never cite a paper you have not at least read the abstract of.
+1. **Open every link before you add it.** Confirm the title, authors, year and that it says what you cite it for. Never guess a DOI, arXiv id or URL, and never cite a paper you have not at least read the abstract of. Check every DOI against a source that shows it (the publisher page, Crossref, or a database that displays the DOI). A DOI written from memory is not verified.
 2. **Cite a specific claim with a footnote** (`[^1]`) that points to the entry. Keep a general reading list in References.
 3. **Annotate every entry.** Add a dash and one or two sentences after the link saying what the source covers and who it is for. Describe the content, not how good it is, so readers can decide whether to open it.
-4. **Videos:** use the course page or the speaker's official channel, not a re-upload.
+4. **Videos are not references.** Do not cite YouTube videos or talk recordings. If a course page from a university or research lab is the only source, cite that page; otherwise cite the paper the video explains.
 5. **Don't copy.** Citing a source is not a license to reproduce its text, figures or diagrams. Paraphrase, and link.
 6. **Dead links** are found by the weekly link check. Replace them with an archived copy or a newer source, don't just delete the entry.
 7. Pages that are pure lists or meta pages (the roadmap, the glossary, the reference lists) set `references: not-required` in their front matter. Section overviews are exempt automatically.
+8. **Primary sources only.** Blogs, newsletters, YouTube and other video channels, bookseller pages, and bibliographic aggregators (Semantic Scholar mirrors, scilit, researchr, RePEc and similar) are not references. Cite the paper, official report, standard or statute itself. If only an aggregator page can be confirmed, say so in the PR body rather than adding it.
 
 ## Formatting
 

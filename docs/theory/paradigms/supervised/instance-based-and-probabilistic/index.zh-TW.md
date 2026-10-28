@@ -41,7 +41,7 @@ GP 在資料點很少時仍能給出校準良好的不確定性，也驅動貝�
 
 ### 開創性論文
 
-- Cover & Hart (1967), "Nearest neighbor pattern classification", *IEEE Transactions on Information Theory* 13(1). https://scilit.com/publications/1c1a8d2564999a97b19d96400e1cd017 — 證明最近鄰規則的漸近誤差上界。
+- Cover, T. M. & Hart, P. E. (1967). Nearest neighbor pattern classification. *IEEE Transactions on Information Theory*, 13(1), 21–27. https://doi.org/10.1109/TIT.1967.1053964 — 證明最近鄰規則的漸近誤差上界。
 - Ng & Jordan (2001), "On discriminative vs. generative classifiers: a comparison of logistic regression and naive Bayes", NeurIPS. https://papers.nips.cc/paper/2001/hash/7b7a53e239400a13bd6be6c91c4f6c4e-Abstract.html — 比較各分類器需要多少資料，以及各自何時勝出。
 - Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), arXiv:math/0612821. https://arxiv.org/abs/math/0612821 — 說明哪些凸替代損失仍能得到良好的分類器。
 - Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting — 對常見分類器的機率校準做實證比較。
@@ -53,7 +53,7 @@ GP 在資料點很少時仍能給出校準良好的不確定性，也驅動貝�
 
 ### 講座與影片
 
-- StatQuest with Josh Starmer，關於單純貝氏的單元，YouTube。https://www.youtube.com/@statquest — 以視覺化、逐步的方式說明單純貝氏如何計算類別機率。
+- Hand, D. J. & Yu, K. (2001). Idiot’s Bayes: not so stupid after all? *International Statistical Review*, 69(3), 385–398. https://econpapers.repec.org/RePEc:bla:istatr:v:69:y:2001:i:3:p:385-398 — 說明即使獨立性假設不成立，樸素貝氏分類器為何仍表現良好。
 
 ### 文章與文件
 

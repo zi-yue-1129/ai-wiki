@@ -103,4 +103,3 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 
 ### 文章與文件
 
-- Rogge, N. & Rasul, K., *The Annotated Diffusion Model*。Hugging Face 部落格。https://huggingface.co/blog/annotated-diffusion — DDPM 的逐步程式碼導讀，適合對照本頁的公式。

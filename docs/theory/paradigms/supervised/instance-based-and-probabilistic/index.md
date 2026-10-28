@@ -41,7 +41,7 @@ The Bayesian view links to [Probabilistic & Bayesian Methods](../../../probabili
 
 ### Seminal papers
 
-- Cover & Hart (1967), "Nearest neighbor pattern classification", *IEEE Transactions on Information Theory* 13(1). https://scilit.com/publications/1c1a8d2564999a97b19d96400e1cd017 — Proves the asymptotic error bound for the nearest-neighbour rule.
+- Cover, T. M. & Hart, P. E. (1967). Nearest neighbor pattern classification. *IEEE Transactions on Information Theory*, 13(1), 21–27. https://doi.org/10.1109/TIT.1967.1053964 — Proves the asymptotic error bound for the nearest-neighbour rule.
 - Ng & Jordan (2001), "On discriminative vs. generative classifiers: a comparison of logistic regression and naive Bayes", NeurIPS. https://papers.nips.cc/paper/2001/hash/7b7a53e239400a13bd6be6c91c4f6c4e-Abstract.html — Compares how much data each classifier needs and when each wins.
 - Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), arXiv:math/0612821. https://arxiv.org/abs/math/0612821 — Shows which convex surrogate losses still yield good classifiers.
 - Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting — Empirical comparison of probability calibration across standard classifiers.
@@ -53,7 +53,7 @@ The Bayesian view links to [Probabilistic & Bayesian Methods](../../../probabili
 
 ### Lectures and videos
 
-- StatQuest with Josh Starmer, episodes on Naive Bayes, YouTube. https://www.youtube.com/@statquest — Visual, step-by-step explanation of how Naive Bayes computes class probabilities.
+- Hand, D. J. & Yu, K. (2001). Idiot’s Bayes: not so stupid after all? *International Statistical Review*, 69(3), 385–398. https://econpapers.repec.org/RePEc:bla:istatr:v:69:y:2001:i:3:p:385-398 — Explains why naive Bayes classifiers perform well even when the independence assumption fails.
 
 ### Articles and documentation
 

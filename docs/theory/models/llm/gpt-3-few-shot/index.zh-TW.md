@@ -51,7 +51,6 @@ translation_reviewed: 2026-10-28
 
 ### 講座與影片
 
-- Karpathy, A. (2023). *[1hr Talk] Intro to Large Language Models*. YouTube. https://www.youtube.com/watch?v=zjkBMFhNj_g — 一小時、非技術性的概述，介紹 LLM 如何訓練、能做什麼、在哪裡失敗。
 
 ### 文章與文件
 

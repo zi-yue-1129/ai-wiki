@@ -52,7 +52,6 @@ The authors note that InstructGPT still makes simple mistakes. The reward reflec
 
 ### Lectures and videos
 
-- Karpathy, A. (2023). *[1hr Talk] Intro to Large Language Models*. YouTube. https://www.youtube.com/watch?v=zjkBMFhNj_g — A one-hour non-technical overview of how LLMs are trained, what they can do and where they fail.
 
 ### Articles and documentation
 

@@ -72,7 +72,7 @@
 ## 參考文獻
 
 - Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — 提出軟間隔 SVM，是經典的監督式分類器。
-- Boser, Guyon & Vapnik (1992), "A training algorithm for optimal margin classifiers", COLT. https://mlanthology.org/colt/1992/boser1992colt-training — 第一篇核 SVM 論文，結合最大間隔與核技巧。
-- Breiman (2001), "Random forests", *Machine Learning* 45(1). https://mlanthology.org/mlj/2001/breiman2001mlj-random — 隨機森林，是當時最強的通用樹集成方法。
+- Boser, B. E., Guyon, I. M. & Vapnik, V. N. (1992). A training algorithm for optimal margin classifiers. *COLT*. https://doi.org/10.1145/130385.130401 — 第一篇核 SVM 論文，結合最大間隔與核技巧。
+- Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32. https://mlanthology.org/mlj/2001/breiman2001mlj-random — 隨機森林，是當時最強的通用樹集成方法。
 - Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). https://doi.org/10.1214/AOS/1013203451 — 梯度提升，是現代多數表格模型的基礎。
-- Zhang et al. (2017), "Understanding deep learning requires rethinking generalization", ICLR, arXiv:1611.03530. https://mlanthology.org/iclr/2017/zhang2017iclr-understanding — 顯示古典泛化理論無法解釋深度網路。
+- Zhang, C. et al. (2017). Understanding deep learning requires rethinking generalization. ICLR. arXiv:1611.03530. https://arxiv.org/abs/1611.03530 — 顯示古典泛化理論無法解釋深度網路。

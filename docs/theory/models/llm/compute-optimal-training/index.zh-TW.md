@@ -48,7 +48,6 @@ Chinchilla 有 700 億參數與四倍的資料，使用的運算量與 Gopher（
 
 ### 講座與影片
 
-- Karpathy, A. (2023). *[1hr Talk] Intro to Large Language Models*. YouTube. https://www.youtube.com/watch?v=zjkBMFhNj_g — 一小時、非技術性的概述，介紹 LLM 如何訓練、能做什麼、在哪裡失敗。
 
 ### 文章與文件
 

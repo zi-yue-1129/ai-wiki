@@ -81,4 +81,4 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 
 ### 文章與文件
 
-- Weng, L. (2021). *What are Diffusion Models?* Lil'Log. https://lilianweng.github.io/posts/2021-07-11-diffusion-models/ — 清楚推導擴散模型的訓練目標及其變體，並附有圖解。
+- Song, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S. & Poole, B. (2021). *Score-Based Generative Modeling through Stochastic Differential Equations*. ICLR. arXiv:2011.13456. https://arxiv.org/abs/2011.13456 — 把擴散模型統一為隨機微分方程，並推導其反向時間的取樣器。
