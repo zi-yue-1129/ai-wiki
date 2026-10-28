@@ -79,12 +79,12 @@ Marr（1969）與 Albus（1971）的論文都是關於小腦功能的理論提�
 
 ### 開創性論文
 
-- Marr, D. (1969). A theory of cerebellar cortex. *Journal of Physiology*. https://doi.org/10.1113/jphysiol.1969.sp008820 — 提出小腦皮質學習運動技能，下橄欖核傳來的攀爬纖維輸入是教導訊號。
+- Marr, D. (1969). A theory of cerebellar cortex. *Journal of Physiology*, 202(2), 437–470。https://doi.org/10.1113/jphysiol.1969.sp008820 — 提出小腦皮質學習運動技能，下橄欖核傳來的攀爬纖維輸入是教導訊號。
 - Albus, J. S. (1971). A theory of cerebellar function. *Mathematical Biosciences*. https://doi.org/10.1016/0025-5564(71)90051-4 — 提出一套小腦功能理論，發表於 Marr 的理論兩年之後。
-- Albus, J. S. (1975). A new approach to manipulator control: the cerebellar model articulation controller (CMAC). *Journal of Dynamic Systems, Measurement, and Control*. https://doi.org/10.1115/1.3426922 — 把小腦模型應用於機器人操作器控制。
+- Albus, J. S. (1975). A new approach to manipulator control: the cerebellar model articulation controller (CMAC). *Journal of Dynamic Systems, Measurement, and Control*, 97(3), 220–227。https://doi.org/10.1115/1.3426922 — 把小腦模型應用於機器人操作器控制。
 
 ### 綜述與教科書
 
-- Ito, M. (2006). Cerebellar circuitry as a neuronal machine. *Progress in Neurobiology*. https://doi.org/10.1016/j.pneurobio.2006.02.006 — 回顧小腦皮質的迴路。
+- Ito, M. (2006). Cerebellar circuitry as a neuronal machine. *Progress in Neurobiology*, 78(3–5), 272–303。https://doi.org/10.1016/j.pneurobio.2006.02.006 — 回顧小腦皮質的迴路。
 - Ito, M. (2008). Control of mental activities by internal models in the cerebellum. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2332 — 提出一個假說：小腦編碼內部模型，包括非運動功能的模型。
-- Doya, K. (1999). What are the computations of the cerebellum, the basal ganglia and the cerebral cortex? *Neural Networks*. https://doi.org/10.1016/S0893-6080(99)00046-5 — 探討小腦、基底核與大腦皮質各自執行哪些計算。
+- Doya, K. (1999). What are the computations of the cerebellum, the basal ganglia and the cerebral cortex? *Neural Networks*, 12(7–8), 961–974。https://doi.org/10.1016/S0893-6080(99)00046-5 — 探討小腦、基底核與大腦皮質各自執行哪些計算。

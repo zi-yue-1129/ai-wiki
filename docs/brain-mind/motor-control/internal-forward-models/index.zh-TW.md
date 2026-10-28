@@ -31,7 +31,7 @@ aliases:
 
 核心主張是，神經系統包含兩種互補的習得映射。前向模型根據當前狀態與送出的指令，預測下一個感覺狀態。反向模型，也就是控制器，則產生一個能帶來期望狀態的指令。前向模型的預測能立即取得，因此可以與延遲的回饋結合，得到對當前狀態更好的估計。
 
-Kawato、Furukawa 與 Suzuki（1987）提出一個用於隨意動作控制與學習的階層式網路，其中動力學與反向動力學模型經由練習習得；他們以搭配機器人手臂的電腦模擬加以檢驗。Wolpert、Ghahramani 與 Jordan（1995）在一項感覺運動任務中檢驗了此想法。他們探討人們對手部位置估計的誤差如何隨時間擴散，並以最優狀態估計來解讀結果。他們的結論是，此模式支持運動系統的內部模型。
+Kawato、Furukawa 與 Suzuki（1987）提出一個用於隨意動作控制與學習的階層式網路，其中動力學與反向動力學模型經由練習習得；他們以機器人操作器作為受控系統的電腦模擬加以檢驗。Wolpert、Ghahramani 與 Jordan（1995）提出一個感覺運動整合的內部模型，其中預測與感測到的資訊會被結合，以估計身體的狀態。
 
 ## 方程式與演算法
 
@@ -49,7 +49,7 @@ Kawato、Furukawa 與 Suzuki（1987）提出一個用於隨意動作控制與學
 
 ## 結果
 
-前向模型的實驗證據是間接的。前向模型不能直接觀察，它的存在是從行為推斷出來的。Wolpert、Ghahramani 與 Jordan（1995）在最優狀態估計的框架下，分析估計手部位置的誤差如何隨時間傳播，並把結果視為對內部模型的直接支持。Wolpert、Miall 與 Kawato（1998）則回顧小腦中的內部模型。
+前向模型的實驗證據是間接的。前向模型不能直接觀察，它的存在是從行為推斷出來的。Wolpert、Ghahramani 與 Jordan（1995）主張感覺運動整合需要內部模型。Wolpert、Miall 與 Kawato（1998）則回顧小腦中的內部模型。
 
 ## 限制
 
@@ -79,11 +79,12 @@ Kawato、Furukawa 與 Suzuki（1987）提出一個用於隨意動作控制與學
 
 ### 開創性論文
 
-- Kawato, M., Furukawa, K. & Suzuki, R. (1987). A hierarchical neural-network model for control and learning of voluntary movement. *Biological Cybernetics*. https://doi.org/10.1007/BF00364149 — 提出一個階層式網路，其中動力學與反向動力學模型經由練習習得，並以模擬加以檢驗。
-- Wolpert, D. M., Ghahramani, Z. & Jordan, M. I. (1995). An internal model for sensorimotor integration. *Science*. https://doi.org/10.1126/science.7569931 — 分析手部位置估計中的誤差如何隨時間傳播，並以此作為運動系統內部模型的支持。
+- Kawato, M., Furukawa, K. & Suzuki, R. (1987). A hierarchical neural-network model for control and learning of voluntary movement. *Biological Cybernetics*, 57(3), 169–185. https://doi.org/10.1007/BF00364149 — 提出一個階層式網路，其中動力學與反向動力學模型經由練習習得，並以模擬加以檢驗。
+- Wolpert, D. M., Ghahramani, Z. & Jordan, M. I. (1995). An internal model for sensorimotor integration. *Science*, 269(5232), 1880–1882. https://doi.org/10.1126/science.7569931 — 提出感覺運動整合的內部模型，結合預測與感測到的資訊。
 
 ### 綜述與教科書
 
-- Wolpert, D. M., Miall, R. C. & Kawato, M. (1998). Internal models in the cerebellum. *Trends in Cognitive Sciences*. https://doi.org/10.1016/S1364-6613(98)01221-2 — 回顧小腦中的內部模型。
-- Kawato, M. (1999). Internal models for motor control and trajectory planning. *Current Opinion in Neurobiology*. https://doi.org/10.1016/S0959-4388(99)00028-8 — 討論運動控制與軌跡規劃中的內部模型。
-- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧前向模型如何經由感覺預測誤差驅動的運動適應而保持校準。
+- Wolpert, D. M., Miall, R. C. & Kawato, M. (1998). Internal models in the cerebellum. *Trends in Cognitive Sciences*, 2(9), 338–347. https://doi.org/10.1016/S1364-6613(98)01221-2
+- Ito, M.（2008）。Control of mental activities by internal models in the cerebellum。*Nature Reviews Neuroscience*, 9(4), 304–313。https://doi.org/10.1038/nrn2332 — 回顧小腦中內部模型的提議，即 Ito 假說的基礎。 — 回顧小腦中的內部模型。
+- Kawato, M. (1999). Internal models for motor control and trajectory planning. *Current Opinion in Neurobiology*, 9(6), 718–727. https://doi.org/10.1016/S0959-4388(99)00028-8 — 討論運動控制與軌跡規劃中的內部模型。
+- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*, 33, 89–108. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧前向模型如何經由感覺預測誤差驅動的運動適應而保持校準。

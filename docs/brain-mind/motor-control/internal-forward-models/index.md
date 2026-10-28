@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - motor control
@@ -32,7 +32,7 @@ Motor control faces delays, noise and changing dynamics. Feedback from the eyes 
 
 The central proposal is that the nervous system contains two complementary learned mappings. A forward model predicts the next sensory state from the current state and the outgoing command. An inverse model, which acts as the controller, produces a command that would bring about a desired state. The forward model's prediction is available immediately, so it can be combined with delayed feedback to give a better estimate of the current state.
 
-Kawato, Furukawa and Suzuki (1987) proposed a hierarchical network for the control and learning of voluntary movement, in which dynamics and inverse-dynamics models are learned through practice. They tested it in computer simulations with a robotic manipulator. Wolpert, Ghahramani and Jordan (1995) tested the idea in a sensorimotor task. They asked how errors in people's estimates of hand position spread over time, and used optimal state estimation to interpret the result. Their conclusion was that the pattern supports an internal model of the motor system.
+Kawato, Furukawa and Suzuki (1987) proposed a hierarchical network for the control and learning of voluntary movement, in which dynamics and inverse-dynamics models are learned through practice. They tested it in computer simulations with a robotic manipulator. Wolpert, Ghahramani and Jordan (1995) propose an internal model for sensorimotor integration, in which predicted and sensed information are combined to estimate the state of the body.
 
 ## Equation or algorithm
 
@@ -50,7 +50,7 @@ Learning is often described as error-driven. The mismatch between predicted and 
 
 ## Results
 
-The experimental evidence for forward models is indirect. The forward model is not observed directly, so its existence is inferred from behaviour. Wolpert, Ghahramani and Jordan (1995) analyse how errors in estimated hand position propagate over time, within the framework of optimal state estimation, and they take the result as direct support for an internal model. Wolpert, Miall and Kawato (1998) review internal models in the cerebellum.
+The experimental evidence for forward models is indirect. The forward model is not observed directly, so its existence is inferred from behaviour. Wolpert, Ghahramani and Jordan (1995) argue for an internal model of sensorimotor integration, and Wolpert, Miall and Kawato (1998) review internal models in the cerebellum.
 
 ## Limitations
 
@@ -80,11 +80,12 @@ The experimental evidence for forward models is indirect. The forward model is n
 
 ### Seminal papers
 
-- Kawato, M., Furukawa, K. & Suzuki, R. (1987). A hierarchical neural-network model for control and learning of voluntary movement. *Biological Cybernetics*. https://doi.org/10.1007/BF00364149 — Proposes a hierarchical network in which dynamics and inverse-dynamics models are learned through practice, tested in simulation.
-- Wolpert, D. M., Ghahramani, Z. & Jordan, M. I. (1995). An internal model for sensorimotor integration. *Science*. https://doi.org/10.1126/science.7569931 — Analyses how errors in estimated hand position propagate over time, and takes this as support for an internal model of the motor system.
+- Kawato, M., Furukawa, K. & Suzuki, R. (1987). A hierarchical neural-network model for control and learning of voluntary movement. *Biological Cybernetics*, 57(3), 169–185. https://doi.org/10.1007/BF00364149 — Proposes a hierarchical network in which dynamics and inverse-dynamics models are learned through practice, tested in simulation with a robotic manipulator.
+- Wolpert, D. M., Ghahramani, Z. & Jordan, M. I. (1995). An internal model for sensorimotor integration. *Science*, 269(5232), 1880–1882. https://doi.org/10.1126/science.7569931 — Proposes an internal model for sensorimotor integration, combining predicted and sensed information.
 
 ### Surveys and textbooks
 
-- Wolpert, D. M., Miall, R. C. & Kawato, M. (1998). Internal models in the cerebellum. *Trends in Cognitive Sciences*. https://doi.org/10.1016/S1364-6613(98)01221-2 — Reviews internal models in the cerebellum.
-- Kawato, M. (1999). Internal models for motor control and trajectory planning. *Current Opinion in Neurobiology*. https://doi.org/10.1016/S0959-4388(99)00028-8 — Discusses internal models for motor control and trajectory planning.
-- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — Reviews evidence that forward models stay calibrated through motor adaptation driven by sensory prediction errors.
+- Ito, M. (2008). Control of mental activities by internal models in the cerebellum. *Nature Reviews Neuroscience*, 9(4), 304–313. https://doi.org/10.1038/nrn2332 — Reviews the proposal that the cerebellum holds internal models, the basis of the Ito hypothesis discussed above.
+- Wolpert, D. M., Miall, R. C. & Kawato, M. (1998). Internal models in the cerebellum. *Trends in Cognitive Sciences*, 2(9), 338–347. https://doi.org/10.1016/S1364-6613(98)01221-2 — Reviews internal models in the cerebellum.
+- Kawato, M. (1999). Internal models for motor control and trajectory planning. *Current Opinion in Neurobiology*, 9(6), 718–727. https://doi.org/10.1016/S0959-4388(99)00028-8 — Discusses internal models for motor control and trajectory planning.
+- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*, 33, 89–108. https://doi.org/10.1146/annurev-neuro-060909-153135 — Reviews evidence that forward models stay calibrated through motor adaptation driven by sensory prediction errors.
