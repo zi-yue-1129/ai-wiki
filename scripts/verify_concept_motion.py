@@ -83,6 +83,12 @@ def main() -> int:
                 (page.parent / link).resolve() for link in links
             }:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
+            if stem == "moe-top2-routing":
+                static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                linked = {(page.parent / link).resolve() for link in static_links}
+                for fallback in (static_path, ASSETS / "moe-top2-routing-token-b.svg"):
+                    if fallback.resolve() not in linked:
+                        errors.append(f"{page}: missing GitHub-readable fallback link {fallback.name}")
             if "CC BY-SA 4.0" not in text:
                 errors.append(f"{page}: missing original-diagram attribution")
         print(
