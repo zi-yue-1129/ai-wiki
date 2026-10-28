@@ -70,7 +70,7 @@ Active learning is the machine counterpart of **curiosity**:
 
 ### Seminal papers
 
-- Lewis & Gale (1994), "A sequential algorithm for training text classifiers", SIGIR, arXiv:cmp-lg/9407020 — Introduces uncertainty sampling, the basic query strategy.
+- Lewis & Gale (1994), "A sequential algorithm for training text classifiers", SIGIR, https://arxiv.org/abs/cmp-lg/9407020 — Introduces uncertainty sampling, the basic query strategy.
 - Dasgupta (2005), "Coarse sample complexity bounds for active learning", NeurIPS. https://proceedings.neurips.cc/paper/2005/hash/6e82873a32b95af115de1c414a1849cb-Abstract.html — Early theory on when active learning reduces the number of labels.
 - Gal, Islam & Ghahramani (2017), "Deep Bayesian active learning with image data", ICML, arXiv:1703.02910 — Makes uncertainty-based active learning work with deep networks.
 - Sener & Savarese (2018), "Active learning for convolutional neural networks: a core-set approach", ICLR, arXiv:1708.00489 — Core-set selection, a strong deep baseline.
