@@ -47,11 +47,15 @@ For the methods in this table in more depth, see [Search Algorithms](search/inde
 - **Planning under uncertainty**: MDPs, POMDPs
 - **Applications**: logistics, space missions (NASA's Remote Agent), game AI, robot task planning
 
+For planning in depth, including STRIPS, hierarchical task networks, planning under uncertainty and language-model planning, see [Automated Planning](planning/index.md), with pages on [STRIPS](planning/strips/index.md), [SHOP2](planning/shop2/index.md) and [SayCan](planning/saycan/index.md).
+
 ## Automated reasoning and theorem proving
 
 - SAT/SMT solvers (Z3): chip and software verification, scheduling
 - Interactive theorem provers: Lean, Coq (Rocq), Isabelle
 - **AI for mathematics**: LLMs combined with Lean (AlphaProof reached silver-medal level at IMO 2024; several systems later reached gold-medal level on IMO problems); the Mathlib community formalising mathematics
+
+For this topic in depth, including resolution, SAT and SMT solving, proof assistants and learned proof search, see [Automated Theorem Proving and Formal Mathematics](theorem-proving/index.md), with pages on [resolution](theorem-proving/resolution/index.md), [conflict-driven clause learning](theorem-proving/cdcl-sat/index.md) and [GPT-f](theorem-proving/gpt-f/index.md).
 
 ## Strengths and weaknesses
 
@@ -72,6 +76,8 @@ Combine neural networks' perception and learning with symbolic reasoning and int
 - **Differentiable logic**: logic tensor networks, ∂ILP
 - **Program induction**: DreamCoder learns reusable program libraries from examples
 - **Knowledge graphs + LLMs**: GraphRAG
+
+For neuro-symbolic AI in depth, including the case for combining the two traditions, differentiable logic, program induction and neural theorem proving, see [Neuro-Symbolic AI](neuro-symbolic/index.md), with pages on [∂ILP](neuro-symbolic/differentiable-ilp/index.md), [DreamCoder](neuro-symbolic/dreamcoder/index.md) and [neural theorem provers](neuro-symbolic/neural-theorem-prover/index.md).
 
 The cognitive-science counterpart is **dual-process theory**: fast, intuitive "System 1" resembles neural networks; slow, deliberate "System 2" resembles symbolic reasoning (see [Psychology & AI](../../brain-mind/psychology/index.md)). Some theorists argue human thought relies on a symbolic "language of thought" (Fodor).
 

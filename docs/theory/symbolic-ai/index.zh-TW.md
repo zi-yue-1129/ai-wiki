@@ -39,11 +39,15 @@ A* 的評估函數：\( f(n) = g(n) + h(n) \)，若 \(h\) 不高估（可容許�
 - **部分可觀察與機率規劃**：POMDP
 - **應用**：物流、太空任務（NASA 的 Remote Agent）、遊戲 AI、機器人任務規劃
 
+更完整的規劃說明，包括 STRIPS、階層任務網路、不確定性下的規劃與以語言模型為基礎的規劃，見[自動規劃](planning/index.md)，其中包含 [STRIPS](planning/strips/index.md)、[SHOP2](planning/shop2/index.md) 與 [SayCan](planning/saycan/index.md) 等專頁。
+
 ## 自動推理與定理證明
 
 - SAT／SMT 求解器（Z3）：晶片驗證、軟體驗證、排程
 - 互動式定理證明：Lean、Coq（Rocq）、Isabelle
 - **AI × 數學**：LLM 搭配 Lean 自動證明（AlphaProof 在 2024 IMO 達銀牌水準；之後多個系統在 IMO 題目上達到金牌水準）、Mathlib 社群形式化數學
+
+本主題的完整說明，包括歸結、SAT 與 SMT 求解、證明助理與學習式證明搜尋，見[自動定理證明與形式化數學](theorem-proving/index.zh-TW.md)，其中包含[歸結](theorem-proving/resolution/index.zh-TW.md)、[衝突驅動子句學習](theorem-proving/cdcl-sat/index.zh-TW.md)與 [GPT-f](theorem-proving/gpt-f/index.zh-TW.md) 等專頁。
 
 ## 符號 AI 的優缺點
 
@@ -64,6 +68,8 @@ A* 的評估函數：\( f(n) = g(n) + h(n) \)，若 \(h\) 不高估（可容許�
 - **可微分邏輯**：邏輯張量網路、∂ILP
 - **程式歸納**：DreamCoder 從範例學出可重用的程式庫
 - **知識圖譜＋LLM**：GraphRAG
+
+更完整的神經符號 AI 說明，包括兩種傳統為何要結合、可微分邏輯、程式歸納與神經定理證明，見[神經符號 AI](neuro-symbolic/index.md)，其中包含 [∂ILP](neuro-symbolic/differentiable-ilp/index.md)、[DreamCoder](neuro-symbolic/dreamcoder/index.md) 與[神經定理證明器](neuro-symbolic/neural-theorem-prover/index.md) 等專頁。
 
 認知科學中的對應是**雙歷程理論**：快速直覺的「系統一」像神經網路，緩慢審慎的「系統二」像符號推理（見 [心理學與 AI](../../brain-mind/psychology/index.md)）。也有學者主張人類思考依賴「思維語言」（Fodor）這種符號結構。
 
