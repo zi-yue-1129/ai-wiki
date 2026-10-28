@@ -233,6 +233,9 @@ plugins:
             AdamW: AdamW
             Adaptive Methods: 自適應方法
             Second-Order Methods: 二階方法
+            L-BFGS: L-BFGS
+            K-FAC: K-FAC
+            Shampoo: Shampoo
             Learning-Rate Schedules: 學習率排程
             Gradual Warm-up: 漸進式預熱
             Cosine Annealing with Warm Restarts: 附暖重啟的餘弦退火
@@ -544,7 +547,11 @@ nav:
               - theory/optimization/adaptive/index.md
               - Adam: theory/optimization/adaptive/adam.md
               - AdamW: theory/optimization/adaptive/adamw.md
-          - Second-Order Methods: theory/optimization/second-order.md
+          - Second-Order Methods:
+              - theory/optimization/second-order.md
+              - L-BFGS: theory/optimization/lbfgs.md
+              - K-FAC: theory/optimization/kfac.md
+              - Shampoo: theory/optimization/shampoo.md
           - Learning-Rate Schedules:
               - theory/optimization/learning-rate-schedules.md
               - Gradual Warm-up: theory/optimization/gradual-warm-up.md
