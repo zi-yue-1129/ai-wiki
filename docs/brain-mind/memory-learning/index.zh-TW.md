@@ -1,3 +1,7 @@
+---
+translation_reviewed: 2026-10-28
+---
+
 # 記憶與學習的神經機制
 
 ## 記憶的種類
@@ -76,6 +80,35 @@ McClelland、McNaughton 與 O'Reilly（1995）解釋了*為什麼*需要兩個�
 | 遺忘有用 | 記憶衰減、近期加權、修剪過時知識 |
 | 工作記憶有限且需主動維持 | 上下文管理、草稿區、任務拆解 |
 
+## 關鍵方法
+
+### 病人 H.M. 與內側顳葉損傷（Scoville & Milner, 1957）
+
+- **問題：** 形成新的長期記憶需要大腦哪些結構？
+- **核心想法：** 研究雙側內側顳葉切除後留下明確損傷的病人，測試他們還能記住什麼、不能記住什麼。H.M. 是最著名的個案。
+- **演算法：** 無方程式。方法是損傷研究加上記憶測驗。
+- **結果：** 病人對新的陳述性資訊出現順行性失憶；即時記憶與較舊的記憶則相對保留。
+- **限制：** 病人人數少，手術損傷無法精確控制。研究證明這些結構是必要的，但未說明它們如何儲存記憶。
+
+### 長期增益（Bliss & Lømo, 1973）
+
+- **問題：** 突觸是否存在持久的實體變化，可以用來儲存記憶？
+- **核心想法：** 對麻醉兔子的穿通路徑施以短暫高頻刺激後，齒狀回細胞的反應在很長時間內持續增強。
+- **演算法：**
+    1. 以低頻測試脈衝記錄基線反應。
+    2. 施加短暫的高頻刺激串。
+    3. 持續測試並追蹤反應振幅隨時間的變化。
+- **結果：** 增強持續的時間遠超過刺激本身，這是長期增益（LTP）的首次報告。
+- **限制：** 實驗在麻醉動物身上進行，與學習的連結是推論。後續研究將 LTP 與 NMDA 受體及突觸後鈣離子連結，這些是本文未檢驗的。
+
+### 互補學習系統（McClelland, McNaughton & O'Reilly, 1995）
+
+- **問題：** 大腦為何同時需要海馬迴與新皮質？為何單一網路的快速學習會抹除先前的學習？
+- **核心想法：** 海馬迴以稀疏編碼快速儲存新項目，新皮質以重疊編碼緩慢學習。在皮質訓練時，透過重播已儲存的型態，讓新舊項目交錯學習。
+- **演算法：** 在連結主義模擬中，快速學習器儲存新項目；以新舊項目交錯的訓練方式訓練緩慢學習器。
+- **結果：** 依序訓練會抹除先前的項目（災難性干擾），交錯訓練則能避免。
+- **限制：** 這是概念性理論，依據模擬建立。Kumaran 等人（2016）在深度學習與重播的脈絡下重新檢視此理論。
+
 ## 學習資源
 
 - Squire & Kandel,《Memory: From Mind to Molecules》
@@ -83,3 +116,16 @@ McClelland、McNaughton 與 O'Reilly（1995）解釋了*為什麼*需要兩個�
 - McClelland, McNaughton & O'Reilly (1995), *Psychological Review*
 - Kumaran, Hassabis & McClelland (2016), *Trends in Cognitive Sciences*
 - Buzsáki,《The Brain from Inside Out》
+
+## 參考文獻
+
+### 開創性論文
+
+- Scoville, W. B. & Milner, B. (1957). Loss of recent memory after bilateral hippocampal lesions. *Journal of Neurology, Neurosurgery & Psychiatry*. https://doi.org/10.1136/jnnp.20.1.11 — 報告包括 H.M. 在內、雙側內側顳葉損傷的病人，確立這些結構對新記憶的作用。
+- Bliss, T. V. P. & Lømo, T. (1973). Long-lasting potentiation of synaptic transmission in the dentate area of the anaesthetized rabbit following stimulation of the perforant path. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1973.sp010273 — 長期增益的首次報告，許多記憶模型的突觸基礎。
+- McClelland, J. L., McNaughton, B. L. & O'Reilly, R. C. (1995). Why there are complementary learning systems in the hippocampus and neocortex. *Psychological Review*. https://doi.org/10.1037/0033-295X.102.3.419 — 互補學習系統理論的原始版本，包含干擾與交錯學習的模擬。
+
+### 綜述與教科書
+
+- Kumaran, D., Hassabis, D. & McClelland, J. L. (2016). What learning systems do intelligent agents need? Complementary learning systems theory updated. *Trends in Cognitive Sciences*. https://doi.org/10.1016/j.tics.2016.05.004 — 在深度學習、重播與兩個系統角色的脈絡下重新檢視此理論。
+- Richards, B. A. & Frankland, P. W. (2017). The persistence and transience of memory. *Neuron*. https://doi.org/10.1016/j.neuron.2017.04.037 — 主張遺忘有助於泛化，記憶應被理解為持久與短暫之間的平衡。
