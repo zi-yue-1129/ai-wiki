@@ -39,6 +39,10 @@ Let \(g\) be the gradient and \(\tau\) the threshold.
 
 The threshold is a hyperparameter. The paper suggests choosing it from statistics of the gradient norm averaged over many updates.
 
+![Animated gradient norm clipping: a raw gradient grows past a circular threshold while the clipped gradient stops at the threshold without changing its direction.](../../assets/concept-animations/gradient-norm-clipping-motion.svg)
+
+*Original looping geometric teaching animation, CC BY-SA 4.0.* The dashed circle represents a global L2 norm threshold \(\tau\). The grey raw gradient grows beyond it, while the teal clipped vector is rescaled to \(\tau g/\|g\|_2\); as the raw gradient shrinks below the threshold, both lengths again agree. Their direction is preserved throughout. The bar lengths and trajectory are **illustrative, not measured training gradients**. The bound applies to the gradient **before the optimiser update**, not necessarily to the parameter-step norm of an adaptive optimiser. See [Pascanu et al. (2013)](https://arxiv.org/abs/1211.5063). The wiki website supports pausing and reduced-motion playback.
+
 ## Results
 
 The abstract states that the authors propose a gradient norm clipping strategy to deal with exploding gradients, and that the hypotheses and proposed solutions are validated empirically in the experiments. It gives no specific numbers, so this page does not quote any.
