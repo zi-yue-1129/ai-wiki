@@ -69,13 +69,13 @@ The explanation problem links to [Interpretability](../interpretability/index.md
 ### Seminal papers
 
 - Parasuraman, R. & Manzey, D. H. (2010). Complacency and Bias in Human Use of Automation: An Attentional Integration. *Human Factors*, 52(3), 381–410. https://doi.org/10.1177/0018720810376055 — Review of how complacency and bias shape the use of automated systems.
-- Bansal, G. et al. (2021). Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance. *Proceedings of CHI 2021*. https://doi.org/10.1145/3411764.3445717 — Tests whether explanations improve human-AI team performance.
+- Bansal, G. et al. (2021). Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance. *Proceedings of CHI 2021*. https://doi.org/10.1145/3411764.3445717 — Finds that explanations do not raise complementary team performance, though they increase acceptance of the AI's recommendation.
 - Vasconcelos, H. et al. (2023). Explanations Can Reduce Overreliance on AI Systems During Decision-Making. *Proceedings of the ACM on Human-Computer Interaction*, 7(CSCW1). https://doi.org/10.1145/3579605 — Argues, with a cost-benefit framework, that explanations can reduce overreliance in some scenarios.
-- Bainbridge, L. (1983). Ironies of automation. *Automatica*, 19(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8 — Discusses the ironies of automation for operator skill.
+- Bainbridge, L. (1983). Ironies of automation. *Automatica*, 19(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8 — Discusses the ironies of automation, as its title states.
 
 ### Surveys and textbooks
 
-- Lee, H.-P. et al. (2025). The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence. *Proceedings of CHI 2025*. https://doi.org/10.1145/3706598.3713778 — Survey reporting self-reported reductions in cognitive effort and confidence with generative AI.
+- Lee, H.-P. et al. (2025). The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence Effects From a Survey of Knowledge Workers. *Proceedings of CHI 2025*. https://doi.org/10.1145/3706598.3713778 — Survey of knowledge workers on self-reported reductions in cognitive effort and confidence with generative AI.
 
 ## Further learning
 

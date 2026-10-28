@@ -70,13 +70,13 @@ aliases:
 ### 開創性論文
 
 - Parasuraman, R. & Manzey, D. H. (2010). Complacency and Bias in Human Use of Automation: An Attentional Integration. *Human Factors*, 52(3), 381–410. https://doi.org/10.1177/0018720810376055 — 回顧自滿與偏誤如何影響自動化系統的使用。
-- Bansal, G. et al. (2021). Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance. *Proceedings of CHI 2021*. https://doi.org/10.1145/3411764.3445717 — 檢驗解釋是否能提升人機團隊的表現。
+- Bansal, G. et al. (2021). Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance. *Proceedings of CHI 2021*. https://doi.org/10.1145/3411764.3445717 — 發現解釋並未提升互補的團隊表現，但會提高人接受 AI 建議的機率。
 - Vasconcelos, H. et al. (2023). Explanations Can Reduce Overreliance on AI Systems During Decision-Making. *Proceedings of the ACM on Human-Computer Interaction*, 7(CSCW1). https://doi.org/10.1145/3579605 — 以成本效益架構主張，解釋在某些情境中能降低過度依賴。
-- Bainbridge, L. (1983). Ironies of automation. *Automatica*, 19(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8 — 討論自動化的諷刺，即其對操作人員技能的影響。
+- Bainbridge, L. (1983). Ironies of automation. *Automatica*, 19(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8 — 討論自動化的諷刺，如其標題所示。
 
 ### 綜述與教科書
 
-- Lee, H.-P. et al. (2025). The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence. *Proceedings of CHI 2025*. https://doi.org/10.1145/3706598.3713778 — 以調查報告生成式 AI 使用時自述的認知投入與信心降低。
+- Lee, H.-P. et al. (2025). The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence Effects From a Survey of Knowledge Workers. *Proceedings of CHI 2025*. https://doi.org/10.1145/3706598.3713778 — 以知識工作者的調查，報告生成式 AI 使用時自述的認知投入與信心降低。
 
 ## 延伸學習
 

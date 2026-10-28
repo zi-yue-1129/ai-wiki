@@ -57,5 +57,5 @@ D\bigl(M(x), M(y)\bigr) \le d(x, y) \quad \text{對所有個體 } x, y.
 
 ### 綜述與教科書
 
-- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — 如其標題所述，這是一篇包含個體公平的公平性定義綜述。
+- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — 如其標題所述，這是一篇公平性定義的綜述。
 - Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — 免費教科書，涵蓋個體公平與群體公平。

@@ -54,14 +54,14 @@ Obermeyer 等人（2019）研究美國醫療體系廣泛使用的一套演算法
 
 ## 案例四：語言模型的刻板印象與方言偏見
 
-大型語言模型會重現訓練文本中存在的刻板印象。Bender 等人（2021）討論以極大規模網路文本訓練的語言模型所帶來的風險，包括它們可能編碼的偏見。Hofmann 等人（2024）研究方言。其預印本報告，語言模型對非裔美國英語使用者持有隱性刻板印象，其負面程度超過實驗中記錄到的任何人類刻板印象，並將此與就業能力及犯罪判斷等決策連結起來。
+大型語言模型會重現訓練文本中存在的刻板印象。Bender 等人（2021）討論極大型語言模型所帶來的風險，如其標題所示。Hofmann 等人（2024）研究方言。其預印本報告，語言模型對非裔美國英語使用者持有隱性刻板印象，其負面程度超過實驗中記錄到的任何人類刻板印象，並將此與就業能力及犯罪判斷等決策連結起來。
 
 ## 本案例教會我們什麼
 
 - **依群體量測，並說明是哪些群體。** 整體準確率會掩蓋真正重要的失敗。
 - **檢查目標。** 代理標籤可能編碼了模型本應避免的不平等。
 - **預期指標會衝突。** 不同立場可能各自對於不同的準則是正確的。
-- **公開點名是問責的一種機制。** 公開有偏見的結果是否促成改變，是 Raji 與 Buolamwini（2019）等研究探討的問題，其效果仍待釐清。
+- **公開點名是問責的一種機制。** 公開有偏見的結果是否促成改變，是 Raji 與 Buolamwini（2019）探討的問題。
 
 ## 關聯
 
@@ -77,7 +77,7 @@ Obermeyer 等人（2019）研究美國醫療體系廣泛使用的一套演算法
 
 - **由誰決定目標與群體？** 多數案例的關鍵都在於開發者或稽核者所做的選擇，而這些選擇並不中立。
 - **語言模型的偏見能否推廣？** 隱性方言偏見已在特定模型與任務上被證明；這個結果能延伸到多廣的系統範圍，仍是活躍的問題。
-- **稽核能改變行為到什麼程度？** Raji 與 Buolamwini（2019）等後續研究探討此問題，答案尚未確定。
+- **稽核能改變行為到什麼程度？** Raji 與 Buolamwini（2019）探討公開點名有偏見結果的影響；稽核更廣泛的效果仍是未解的問題。
 
 ## 參考文獻
 
@@ -87,7 +87,7 @@ Obermeyer 等人（2019）研究美國醫療體系廣泛使用的一套演算法
 - Raji, I. D. & Buolamwini, J. (2019). Actionable Auditing: Investigating the Impact of Publicly Naming Biased Performance Results of Commercial AI Products. *Proceedings of AIES 2019*. https://doi.org/10.1145/3306618.3314244 — 探討公開點名商業 AI 產品有偏見的效能結果所產生的影響。
 - Chouldechova, A. (2017). Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments. *Big Data*, 5(2), 153–163. https://doi.org/10.1089/big.2016.0047 — 顯示在再犯盛行率因群體而異時，這些公平性準則無法同時被滿足。
 - Obermeyer, Z., Powers, B., Vogeli, C. & Mullainathan, S. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. *Science*, 366, 447–453. https://doi.org/10.1126/science.aax2342 — 顯示以成本為代理目標的健康管理演算法產生種族偏見，而改變目標可降低此偏見。
-- Bender, E. M., Gebru, T., McMillan-Major, A. & Shmitchell, S. (2021). On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? *Proceedings of FAccT 2021*. https://doi.org/10.1145/3442188.3445922 — 討論以網路資料訓練的超大型語言模型所帶來的環境、社會與偏見風險。
+- Bender, E. M., Gebru, T., McMillan-Major, A. & Shmitchell, S. (2021). On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? *Proceedings of FAccT 2021*. https://doi.org/10.1145/3442188.3445922 — 討論超大型語言模型所帶來的風險，如其標題所示。
 - Hofmann, V., Kalluri, P. R., Jurafsky, D. & King, S. (2024). AI generates covertly racist decisions about people based on their dialect. *Nature*, 633, 147–154. https://doi.org/10.1038/s41586-024-07856-5 — 報告語言模型中的隱性方言偏見，其刻板印象比記錄到的人類刻板印象更負面。
 
 ### 綜述與教科書

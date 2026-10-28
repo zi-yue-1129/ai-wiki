@@ -53,14 +53,14 @@ The case shows that a model can be accurate for its stated target and still be b
 
 ## Case 4: Language-model stereotypes and dialect bias
 
-Large language models reproduce stereotypes present in their training text. Bender et al. (2021) discuss the risks of very large language models trained on web text, including the bias they can encode. Hofmann et al. (2024) study dialect. Their preprint reports that language models hold covert stereotypes about speakers of African American English that are more negative than any human stereotypes recorded experimentally, and links them to decisions about employability and criminality.
+Large language models reproduce stereotypes present in their training text. Bender et al. (2021) discuss the risks of very large language models, as the title states. Hofmann et al. (2024) study dialect. Their preprint reports that language models hold covert stereotypes about speakers of African American English that are more negative than any human stereotypes recorded experimentally, and links them to decisions about employability and criminality.
 
 ## What the cases taught
 
 - **Measure per group, and say which groups.** Aggregate accuracy hides the failures that matter.
 - **Check the target.** A proxy label can encode the inequality the model is supposed to avoid.
 - **Expect conflicting metrics.** Different parties can be correct about different criteria.
-- **Public naming is one accountability mechanism.** Whether publicly naming biased results changes products is the question Raji and Buolamwini (2019) examine; the effect is still open.
+- **Public naming is one accountability mechanism.** Whether publicly naming biased results changes products is the question Raji and Buolamwini (2019) investigate.
 
 ## Connections
 
@@ -76,7 +76,7 @@ The cases use the fairness criteria in [Fairness definitions](fairness-definitio
 
 - **Who decides the target and the groups?** Most cases turn on choices made by the developer or the auditor, and these choices are not neutral.
 - **Do language-model biases generalise?** Covert dialect bias has been shown for particular models and tasks; how far the result extends across systems is an active question.
-- **How much does an audit change behaviour?** Follow-up studies such as Raji and Buolamwini (2019) examine this, and the answer is not settled.
+- **How much does an audit change behaviour?** Raji and Buolamwini (2019) investigate the impact of publicly naming biased results, and the wider effect of audits is still an open question.
 
 ## References
 
@@ -86,7 +86,7 @@ The cases use the fairness criteria in [Fairness definitions](fairness-definitio
 - Raji, I. D. & Buolamwini, J. (2019). Actionable Auditing: Investigating the Impact of Publicly Naming Biased Performance Results of Commercial AI Products. *Proceedings of AIES 2019*. https://doi.org/10.1145/3306618.3314244 — Examines the impact of publicly naming biased performance results of commercial AI products.
 - Chouldechova, A. (2017). Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments. *Big Data*, 5(2), 153–163. https://doi.org/10.1089/big.2016.0047 — Shows that fairness criteria cannot all be satisfied when recidivism prevalence differs across groups.
 - Obermeyer, Z., Powers, B., Vogeli, C. & Mullainathan, S. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. *Science*, 366, 447–453. https://doi.org/10.1126/science.aax2342 — Shows that a cost-based proxy target produced racial bias in a widely used health-management algorithm, and that changing the target reduced it.
-- Bender, E. M., Gebru, T., McMillan-Major, A. & Shmitchell, S. (2021). On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? *Proceedings of FAccT 2021*. https://doi.org/10.1145/3442188.3445922 — Discusses the environmental, social and bias risks of very large language models trained on web data.
+- Bender, E. M., Gebru, T., McMillan-Major, A. & Shmitchell, S. (2021). On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? *Proceedings of FAccT 2021*. https://doi.org/10.1145/3442188.3445922 — Discusses the risks of very large language models, as its title states.
 - Hofmann, V., Kalluri, P. R., Jurafsky, D. & King, S. (2024). AI generates covertly racist decisions about people based on their dialect. *Nature*, 633, 147–154. https://doi.org/10.1038/s41586-024-07856-5 — Reports covert dialect prejudice in language models, with stereotypes more negative than recorded human stereotypes.
 
 ### Surveys and textbooks
