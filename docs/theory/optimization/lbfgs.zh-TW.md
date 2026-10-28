@@ -29,7 +29,7 @@ BFGS 方法依據觀察到的梯度變化，建構 Hessian 逆的近似。完整
 
 ## 結果
 
-Liu 與 Nocedal 報告了大型問題上的數值實驗。本頁未核對該論文的表格與圖，因此不引用具體數字。測試問題與計時結果應參考原論文。
+Liu 與 Nocedal 報告了大型測試問題上的數值實驗。本頁未引用其圖表或計時數字，因為未能核對該論文的全文。測試問題與計時結果應參考原論文。
 
 ## 限制
 
@@ -40,7 +40,7 @@ Liu 與 Nocedal 報告了大型問題上的數值實驗。本頁未核對該論�
 ## 關聯
 
 - [二階與擬牛頓方法](second-order.md)是上層概述，L-BFGS 與 K-FAC、Shampoo 並列於其中。
-- [附克羅內克分解的曲率（K-FAC）](kfac.md)是針對神經網路、隨機設定的替代方法。
+- [附克羅內克分解的曲率（K-FAC）](kfac/index.md)是針對神經網路、隨機設定的替代方法。
 - [SGD 與動量](sgd-and-momentum/index.md)是 L-BFGS 通常比較的一階方法。
 - [數學](../math/index.md)涵蓋推導中使用的 Wolfe 條件與 Hessian。
 
@@ -65,4 +65,5 @@ Liu 與 Nocedal 報告了大型問題上的數值實驗。本頁未核對該論�
 ### 綜述與教科書
 
 - Nocedal, J. & Wright, S. J. (2006). *Numerical Optimization*. 第 2 版. Springer. https://doi.org/10.1007/978-0-387-40065-5 — 擬牛頓法的教科書式介紹，包括有限記憶更新與 Wolfe 線搜尋。
-- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. SIAM Review. https://arxiv.org/abs/1606.04838 — 綜述擬牛頓法及其在隨機梯度下的使用。
+- Nocedal, J. & Wright, S. J. (2006). *Numerical Optimization*，第 7 章：Large-Scale Unconstrained Optimization。Springer. https://doi.org/10.1007/978-0-387-40065-5_7 — 教科書中關於大型無約束最佳化的章節，有限記憶方法通常是在此情境下介紹的。
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. arXiv:1606.04838. https://arxiv.org/abs/1606.04838 — 綜述擬牛頓法及其在隨機梯度下的使用。

@@ -57,6 +57,8 @@ plugins:
         'foundations/deep-learning/index.md': 'theory/deep-learning/index.md'
         'foundations/deep-learning/index.zh-TW.md': 'theory/deep-learning/index.zh-TW.md'
         'foundations/evolutionary/index.md': 'theory/paradigms/evolutionary/index.md'
+        'theory/optimization/kfac.md': 'theory/optimization/kfac/index.md'
+        'theory/optimization/kfac.zh-TW.md': 'theory/optimization/kfac/index.zh-TW.md'
         'foundations/evolutionary/index.zh-TW.md': 'theory/paradigms/evolutionary/index.zh-TW.md'
         'foundations/index.md': 'theory/index.md'
         'foundations/index.zh-TW.md': 'theory/index.zh-TW.md'
@@ -889,7 +891,11 @@ nav:
           - Second-Order Methods:
               - theory/optimization/second-order.md
               - L-BFGS: theory/optimization/lbfgs.md
-              - K-FAC: theory/optimization/kfac.md
+              - K-FAC:
+                  - theory/optimization/kfac/index.md
+                  - K-FAC for Convolutions (KFC): theory/optimization/kfac/kfc.md
+                  - EKFAC: theory/optimization/kfac/ekfac.md
+                  - Distributed K-FAC: theory/optimization/kfac/distributed-kfac.md
               - Shampoo: theory/optimization/shampoo.md
           - Learning-Rate Schedules:
               - theory/optimization/learning-rate-schedules.md

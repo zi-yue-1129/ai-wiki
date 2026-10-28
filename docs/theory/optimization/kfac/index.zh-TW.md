@@ -50,8 +50,11 @@ K-FAC（Kronecker 分解近似曲率）是神經網路自然梯度的實用近�
 
 ## 變體
 
-- **卷積層的 K-FAC。** Grosse 與 Martens（2016）把克羅內克分解改寫為適用於卷積層的形式，卷積層的權重在空間位置之間共享。[arXiv:1602.01407](https://arxiv.org/abs/1602.01407)
-- **EKFAC。** George 等人（2018）保留克羅內克分解的特徵基底，但在該基底中重新估計縮放，目標是在相近成本下更忠實地近似費雪矩陣。[arXiv:1806.03884](https://arxiv.org/abs/1806.03884)
+每個變體都有各自的頁面。
+
+- **[卷積的 K-FAC（KFC）](kfc.md)。** Grosse 與 Martens（2016）把克羅內克分解改寫為適用於卷積層的形式，卷積層的權重在空間位置之間共享。[arXiv:1602.01407](https://arxiv.org/abs/1602.01407)
+- **[EKFAC](ekfac.md)。** George 等人（2018）保留克羅內克分解的特徵基底，但在其中追蹤對角的變異數，論文主張這比 K-FAC 更能忠實地近似費雪矩陣。[arXiv:1806.03884](https://arxiv.org/abs/1806.03884)
+- **[分散式 K-FAC](distributed-kfac.md)。** Osawa 等人（2019）把因子的計算分散到多個 GPU 上，並在約 10 分鐘內以 ResNet-50 訓練 ImageNet。[doi:10.1109/cvpr.2019.01264](https://doi.org/10.1109/cvpr.2019.01264)
 
 ## 關聯
 
@@ -76,8 +79,9 @@ K-FAC（Kronecker 分解近似曲率）是神經網路自然梯度的實用近�
 
 - Martens, J. & Grosse, R. (2015). *Optimizing Neural Networks with Kronecker-factored Approximate Curvature*. ICML. https://arxiv.org/abs/1503.05671 — 提出 K-FAC，為神經網路的自然梯度提供克羅內克分解近似。
 - Amari, S. (1998). *Natural Gradient Works Efficiently in Learning*. Neural Computation, 10(2), 251–276. https://doi.org/10.1162/089976698300017746 — K-FAC 所近似的自然梯度方法。
-- Grosse, R. & Martens, J. (2016). *A Kronecker-factored approximate Fisher matrix for convolution layers*. arXiv. https://arxiv.org/abs/1602.01407 — 把克羅內克分解擴展到卷積層。
-- George, T., et al. (2018). *Fast Approximate Natural Gradient Descent in a Kronecker-factored Eigenbasis*. arXiv. https://arxiv.org/abs/1806.03884 — 在克羅內克分解的特徵基底中重新估計縮放，是更忠實的費雪近似。
+- Grosse, R. & Martens, J. (2016). *A Kronecker-factored approximate Fisher matrix for convolution layers*. ICML, PMLR 48:573–582. https://proceedings.mlr.press/v48/grosse16.html — 把克羅內克分解擴展到卷積層。
+- George, T., et al. (2018). *Fast Approximate Natural Gradient Descent in a Kronecker-factored Eigenbasis*. arXiv. https://arxiv.org/abs/1806.03884 — 在克羅內克分解的特徵基底中追蹤對角變異數，論文主張這是比 K-FAC 更好的費雪近似。
+- Osawa, K., et al. (2019). *Large-Scale Distributed Second-Order Optimization Using Kronecker-Factored Approximate Curvature for Deep Convolutional Neural Networks*. IEEE/CVF CVPR. https://doi.org/10.1109/cvpr.2019.01264 — 把 K-FAC 分散到多個 GPU 上，在數分鐘內以 ResNet-50 訓練 ImageNet。
 - Wu, Y., et al. (2017). *Scalable trust-region method for deep reinforcement learning using Kronecker-factored approximation*. arXiv. https://arxiv.org/abs/1708.05144 — 把 K-FAC 以信賴域方法應用於行動者–評論者強化學習。
 - Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. arXiv. https://arxiv.org/abs/1802.09568 — 相關的矩陣結構預條件子，與基於費雪矩陣的做法作比較。
 - Liu, D. C. & Nocedal, J. (1989). *On the Limited Memory BFGS Method for Large Scale Optimization*. Mathematical Programming, 45, 503–528. https://doi.org/10.1007/BF01589116 — 與 K-FAC 形成對比的確定性擬牛頓法。
