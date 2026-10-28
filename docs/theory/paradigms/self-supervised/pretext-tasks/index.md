@@ -58,4 +58,5 @@ Which pretext task produces the most transferable representation is largely an e
 
 ## Further reading
 
-- Noroozi & Favaro (2016), on jigsaw puzzles, and Zhang, Isola & Efros (2016), on colourisation. Both at ECCV. No link checked.
+- Noroozi & Favaro (2016), on jigsaw puzzles. ECCV. https://arxiv.org/abs/1603.09246 — Learns visual features by asking the network to solve shuffled-patch puzzles.
+- Zhang, Isola & Efros (2016), on colourisation. ECCV. https://arxiv.org/abs/1603.08511 — Learns visual features by predicting colour from greyscale images.

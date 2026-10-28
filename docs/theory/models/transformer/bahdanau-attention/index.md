@@ -42,9 +42,12 @@ The encoder and decoder are still recurrent, so training remains sequential. The
 
 ### Lectures and videos
 
-- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — Live coding of a small GPT from an empty file, explaining each part of the Transformer as it is written.
+- Luong, M.-T., Pham, H. & Manning, C. D. (2015). *Effective Approaches to Attention-based Neural Machine Translation*. EMNLP. arXiv:1508.04025. https://arxiv.org/abs/1508.04025 — Compares global and local attention mechanisms for neural machine translation, with several scoring functions.
 
 ### Articles and documentation
 
-- Alammar, J. *The Illustrated Transformer*. https://jalammar.github.io/illustrated-transformer/ — Step-by-step diagrams of attention and the encoder–decoder stack.
 - Harvard NLP. *The Annotated Transformer*. https://nlp.seas.harvard.edu/annotated-transformer/ — Paper-by-paper PyTorch implementation with commentary alongside the original text.
+
+## Further learning
+
+- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — Live coding of a small GPT from an empty file, explaining each part of the Transformer as it is written.

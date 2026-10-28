@@ -57,4 +57,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Hanneke (2011), "Rates of convergence in active learning", Annals of Statistics. No link checked.
+- Hanneke (2011), "Rates of convergence in active learning", *Annals of Statistics*. https://doi.org/10.1214/10-AOS843 — Analyses the convergence rates of active learning.

@@ -47,7 +47,7 @@ Hickok 與 Poeppel（2007）提出，皮質中的語音處理沿兩條路徑進�
 
 ## 與其他主題的關聯
 
-- **語言網路**：後續研究用來找出語言區的個人層級方法，見 [Fedorenko 等人（2010）](https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923)。把語言與思考分開的較完整論證，見 [Fedorenko 與 Varley（2016）](https://discovery.ucl.ac.uk/id/eprint/1489434/)。
+- **語言網路**：後續研究用來找出語言區的個人層級方法，見 [Fedorenko 等人（2010）](https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923)。把語言與思考分開的較完整論證，見 [Fedorenko 與 Varley（2016）](https://doi.org/10.1111/nyas.13046)。
 - **語言模型**：之後比較大腦反應與 Transformer 模型的研究，見 [Schrimpf 等人（2021）](../schrimpf-2021/index.md)與 [Goldstein 等人（2022）](../goldstein-2022/index.md)。
 - **認知科學**：與此模型並存的語言心理學，見[認知科學](../../cognitive-science/index.md)。
 - **神經科學背景**：皮質區域與記錄方法，見[神經科學基礎](../../neuroscience/index.md)。
@@ -66,7 +66,7 @@ Hickok 與 Poeppel（2007）提出，皮質中的語音處理沿兩條路徑進�
 
 ### 綜述與回顧
 
-- Fedorenko, E. & Varley, R.（2016）。Language and thought are not the same thing: evidence from neuroimaging and neurological patients. *Annals of the New York Academy of Sciences*。https://discovery.ucl.ac.uk/id/eprint/1489434/ — 回顧神經影像與患者證據，論證語言與思考可以分離。
+- Fedorenko, E. & Varley, R.（2016）。Language and thought are not the same thing: evidence from neuroimaging and neurological patients. *Annals of the New York Academy of Sciences*。https://doi.org/10.1111/nyas.13046 — 回顧神經影像與患者證據，論證語言與思考可以分離。
 
 ### 文章與原始研究
 

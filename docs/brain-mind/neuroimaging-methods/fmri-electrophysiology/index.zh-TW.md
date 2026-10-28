@@ -63,7 +63,7 @@ Logothetis 等人（2001）在猴子的皮質中記錄電活動，同時對同�
 
 - Logothetis, N. K., Pauls, J., Augath, M., Trinath, T. & Oeltermann, A.（2001）。Neurophysiological investigation of the basis of the fMRI signal. *Nature*。https://doi.org/10.1038/35084005 — 把 BOLD 訊號與同一批動物記錄的局部場電位及脈衝相關聯。
 - Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W.（1990）。Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*。https://pmc.ncbi.nlm.nih.gov/articles/PMC55275 — BOLD 訊號所測量的血氧對比。
-- Hubel, D. H. & Wiesel, T. N.（1962）。Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*。https://doi.org/10.1113/jphysiol.1962.sp006837 — 脈衝測量所依據的單神經元記錄傳統。（此參考文獻沿用自神經科學基礎頁面，本頁未重新檢驗。）
+- Hubel, D. H. & Wiesel, T. N.（1962）。Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*。https://pubmed.ncbi.nlm.nih.gov/14449617/ — 脈衝測量所依據的單神經元記錄傳統。
 
 ### 文章與原始研究
 

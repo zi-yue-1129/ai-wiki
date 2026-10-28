@@ -41,6 +41,7 @@
 
 ## 延伸閱讀
 
-- Bishop,《Pattern Recognition and Machine Learning》第 9、12 章（免費 PDF）
+- Bishop，《Pattern Recognition and Machine Learning》第 9、12 章。https://www.microsoft.com/en-us/research/?p=231646
 - [scikit-learn 非監督學習指南](https://scikit-learn.org/stable/unsupervised_learning.html)
-- McInnes et al. (2018) UMAP 論文；Wattenberg et al.〈How to Use t-SNE Effectively〉（Distill, 2016）
+- McInnes et al. (2018) UMAP 論文。https://arxiv.org/abs/1802.03426
+- Wattenberg et al.，〈How to Use t-SNE Effectively〉（Distill, 2016）。https://distill.pub/2016/misread-tsne/

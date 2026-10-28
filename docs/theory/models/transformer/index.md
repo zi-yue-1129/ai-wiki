@@ -147,9 +147,12 @@ Each part of the Transformer has its own family of variants, with its own trade-
 
 ### Lectures and videos
 
-- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — Live coding of a small GPT from an empty file, explaining each part of the Transformer as it is written.
+- Radford, A., Wu, J., Child, R., Luan, D., Amodei, D. & Sutskever, I. (2019). *Language Models are Unsupervised Multitask Learners*. OpenAI technical report. https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf — The GPT-2 technical report, describing the decoder-only Transformer language model that the video builds.
 
 ### Articles and documentation
 
-- Alammar, J. *The Illustrated Transformer*. https://jalammar.github.io/illustrated-transformer/ — Step-by-step diagrams of attention and the encoder–decoder stack.
 - Harvard NLP. *The Annotated Transformer*. https://nlp.seas.harvard.edu/annotated-transformer/ — Paper-by-paper PyTorch implementation with commentary alongside the original text.
+
+## Further learning
+
+- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — Live coding of a small GPT from an empty file, explaining each part of the Transformer as it is written.

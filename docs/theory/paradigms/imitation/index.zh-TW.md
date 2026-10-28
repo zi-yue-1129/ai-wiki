@@ -38,7 +38,7 @@
 
 ## 延伸閱讀
 
-- Osa et al. (2018), "An Algorithmic Perspective on Imitation Learning"
-- Ross, Gordon & Bagnell (2011), DAgger
-- Ho & Ermon (2016), GAIL
-- Chi et al. (2023), Diffusion Policy
+- Osa et al. (2018)，《An Algorithmic Perspective on Imitation Learning》。https://arxiv.org/abs/1811.06711
+- Ross, Gordon & Bagnell (2011)，DAgger。https://proceedings.mlr.press/v15/ross11a
+- Ho & Ermon (2016)，GAIL。https://arxiv.org/abs/1606.03476
+- Chi et al. (2023)，Diffusion Policy。https://arxiv.org/abs/2303.04137

@@ -57,12 +57,16 @@ The delta rule that trains a single linear unit is the same equation as the Resc
 
 ### Lectures and videos
 
-- StatQuest with Josh Starmer, episodes on logistic regression and regularisation, YouTube. https://www.youtube.com/@statquest — Short visual explanations of logistic regression, ridge and lasso for beginners.
+- Tibshirani, R. (1996). Regression shrinkage and selection via the lasso. *Journal of the Royal Statistical Society: Series B*, 58(1), 267–288. https://doi.org/10.1111/j.2517-6161.1996.tb02080.x — Introduces the lasso, an L1-penalised regression that regularises and selects variables at once.
 
 ### Articles and documentation
 
 - Andrew Ng, Stanford CS229 lecture notes. https://cs229.stanford.edu/main_notes.pdf — Derivations of linear and logistic regression and the generalised linear model framework.
 
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on logistic regression and regularisation, YouTube. https://www.youtube.com/@statquest — Short visual explanations of logistic regression, ridge and lasso for beginners.
+
 ## Further reading
 
-- McCullagh & Nelder, *Generalized Linear Models*, 2nd ed. (1989). No free link checked.
+- McCullagh & Nelder, *Generalized Linear Models*, 2nd ed. (1989). https://doi.org/10.1201/9780203753736 — The standard text on GLMs. The DOI is for the Routledge reprint (2019).

@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - brain-mind/cognitive-science
@@ -67,6 +67,6 @@ The paper reports that the emotion words fall into a circular arrangement define
 
 ### Surveys and reviews
 
-- Ekman, P. (1992). An argument for basic emotions. *Cognition and Emotion*. https://doi.org/10.1080/02699939208411068 — The discrete basic-emotion view that the dimensional model is set against.
+- Ekman, P. (1992). An argument for basic emotions. *Cognition and Emotion*. https://www.scilit.net/publications/c2147e0f8860a7b33b86f26f61fd4b82 — The discrete basic-emotion view that the dimensional model is set against.
 - Lindquist, K. A., Wager, T. D., Kober, H., Bliss-Moreau, E. & Barrett, L. F. (2012). The brain basis of emotion: a meta-analytic review. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X11000446 — A meta-analysis of how emotional states map onto brain regions.
-- Picard, R. W. (1997). *Affective Computing*. MIT Press. https://www.schweitzer-online.de/en/buch/Picard/Affective-Computing/9780262161701/A39598287/ — Uses dimensional and discrete models of affect to build systems that recognise emotion.
+- Picard, R. W. (1997). *Affective Computing*. MIT Press. https://www.computerhistory.org/collections/catalog/102628597 — Uses dimensional and discrete models of affect to build systems that recognise emotion.

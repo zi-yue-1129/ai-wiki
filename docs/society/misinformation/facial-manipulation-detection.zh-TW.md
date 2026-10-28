@@ -56,10 +56,10 @@ Rössler 等人（2019）建立了 FaceForensics++，這是一個用於偵測人
 ### 開創性論文
 
 - Rössler, A., Cozzolino, D., Verdoliva, L., Riess, C., Thies, J. & Nießner, M. (2019). FaceForensics++: Learning to detect manipulated facial images. *ICCV*. https://arxiv.org/abs/1901.08971 — 本頁所述的基準，含四種操縱方法與隱藏測試集。
-- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://politics.media.mit.edu/papers/Vosoughi_Science.pdf — 顯示假內容主要透過人類分享而廣泛傳播，單靠偵測無法阻止。
+- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://www.media.mit.edu/publications/the-spread-of-true-and-false-news-online/ — 顯示假內容主要透過人類分享而廣泛傳播，單靠偵測無法阻止。
 - Chesney, B. & Citron, D. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. *California Law Review*, 107. https://www.californialawreview.org/print/deep-fakes-a-looming-challenge-for-privacy-democracy-and-national-security — 深偽危害的法律分析，包括超越偵測的必要性。
 
 ### 文章與官方文件
 
-- C2PA. *Content Credentials specification*. https://c2pa.org/ — 有簽章的來源標準，是發布後偵測的替代做法。
+- C2PA. *Content Credentials: C2PA Technical Specification*, version 2.0. https://c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html — 有簽章的來源標準，是發布後偵測的替代做法。
 - EUR-Lex. *Regulation (EU) 2024/1689 (Artificial Intelligence Act)*. https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng — AI 法的官方條文。本頁未摘要其對合成內容的透明度規則。

@@ -55,7 +55,7 @@ What is still debated or unsolved.
 
 ## References
 
-Aim for at least 5 entries in total; the Citations section of the style guide has the rules. Every entry needs a DOI, arXiv id or URL, and a note after " — " saying what it covers.
+Aim for at least 5 entries in total; the Citations section of the style guide has the rules. Every entry needs a DOI, arXiv id or URL, and a note after " — " saying what it covers. Formal sources only here: blogs and videos go under Further learning below.
 
 ### Seminal papers
 
@@ -65,12 +65,18 @@ Aim for at least 5 entries in total; the Citations section of the style guide ha
 
 - Author, *Title*, Publisher (Year). Link to a free version where one exists. — Who the book is for and what it covers.
 
-### Lectures and videos
+### Lectures
 
-- Speaker, *Course or talk title*, Institution or event (Year). Link to the official page. — What the lecture covers and its level.
+- Speaker, *Course title*, Institution (Year). Link to the official page. — What the lecture covers and its level.
 
 ### Articles and documentation
 
 - Organization or author, *Page title*. Link. — What the page explains and why it is useful.
 
 Use footnotes for specific claims: a sentence ending in `[^1]` points to `[^1]: ...` below, or to the matching entry above.
+
+## Further learning
+
+Optional. Blogs, video lectures and other informal pointers for readers who want to go further. These are not references and cannot support a claim on the page. Every entry needs a link too.
+
+- Author, *Title*. Link. — What it covers and who it is for.

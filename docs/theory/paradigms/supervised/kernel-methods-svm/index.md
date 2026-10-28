@@ -44,7 +44,7 @@ Training scales between $O(n^2)$ and $O(n^3)$ in the number of examples, which i
 
 ### Seminal papers
 
-- Boser, Guyon & Vapnik (1992), "A training algorithm for optimal margin classifiers", COLT. https://mlanthology.org/colt/1992/boser1992colt-training — The first kernel SVM paper, combining maximum margins with the kernel trick.
+- Boser, B. E., Guyon, I. M. & Vapnik, V. N. (1992). A training algorithm for optimal margin classifiers. *COLT*. https://doi.org/10.1145/130385.130401 — The first kernel SVM paper, combining maximum margins with the kernel trick.
 - Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — Introduces the soft-margin SVM, which allows some training errors.
 - Jacot, Gabriel & Hongler (2018), "Neural tangent kernel", NeurIPS, arXiv:1806.07572 — Shows that infinitely wide networks trained by gradient descent behave like a kernel machine.
 - Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting — Compares how well classifiers including SVMs produce calibrated probabilities.
@@ -63,5 +63,5 @@ Training scales between $O(n^2)$ and $O(n^3)$ in the number of examples, which i
 
 ## Further reading
 
-- Schölkopf & Smola, *Learning with Kernels*, MIT Press (2002). No free link checked.
-- Platt (1999), "Probabilistic outputs for support vector machines", in *Advances in Large Margin Classifiers*. No free link checked.
+- Schölkopf & Smola, *Learning with Kernels*, MIT Press (2002). https://is.mpg.de/publications/973 — The reference text on kernel methods and support vector machines, covering theory and algorithms.
+- Platt (2000), "Probabilities for SV Machines", in *Advances in Large-Margin Classifiers*, MIT Press. https://doi.org/10.7551/mitpress/1113.003.0008 — Fits a sigmoid to SVM scores to give calibrated probabilities.

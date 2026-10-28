@@ -50,7 +50,7 @@
 
 ## 延伸閱讀
 
-- Lattimore & Szepesvári,《Bandit Algorithms》（免費 PDF）
-- Shalev-Shwartz (2012), "Online Learning and Online Convex Optimization"
-- Hazan,《Introduction to Online Convex Optimization》（免費）
-- Russo et al., "A Tutorial on Thompson Sampling"
+- Lattimore & Szepesvári，《Bandit Algorithms》，Cambridge University Press。https://cambridge.org/core/books/bandit-algorithms/introduction/022B0BDCFDC5B66E5EF2C2690467D928
+- Shalev-Shwartz (2012)，《Online Learning and Online Convex Optimization》。https://doi.org/10.1561/2200000018
+- Hazan，《Introduction to Online Convex Optimization》。預印本（免費）：https://arxiv.org/abs/1909.05207
+- Russo et al.，《A Tutorial on Thompson Sampling》。https://arxiv.org/abs/1707.02038

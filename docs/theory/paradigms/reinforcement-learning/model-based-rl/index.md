@@ -60,4 +60,4 @@ Models that generalise beyond their training distribution, and methods that give
 
 ## Further reading
 
-- Sutton (1991), "Dyna, an integrated architecture for learning, planning, and reacting", *ACM SIGART Bulletin*. No link checked.
+- Sutton (1991), "Dyna, an integrated architecture for learning, planning, and reacting", *ACM SIGART Bulletin*. https://papersdb.cs.ualberta.ca/~papersdb/view_publication.php?pub_id=500 — Introduces Dyna, which mixes real experience with planning on a learned model.

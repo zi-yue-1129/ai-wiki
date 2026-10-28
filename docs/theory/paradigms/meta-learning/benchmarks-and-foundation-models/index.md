@@ -62,4 +62,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Wang, Yao, Kwok & Ni (2020), "Generalizing from a few examples: a survey on few-shot learning", ACM Computing Surveys. No link checked.
+- Wang, Yao, Kwok & Ni (2020), "Generalizing from a few examples: a survey on few-shot learning", *ACM Computing Surveys*. https://arxiv.org/abs/1904.05046 — Surveys few-shot learning by how each method uses prior knowledge: the data, the model or the algorithm.

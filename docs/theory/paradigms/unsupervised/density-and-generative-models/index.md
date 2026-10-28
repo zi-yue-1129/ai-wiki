@@ -56,12 +56,16 @@ Likelihood is not the same as sample quality. A model can assign high likelihood
 
 ### Lectures and videos
 
-- StatQuest with Josh Starmer, episodes on Gaussian distributions and mixture models, YouTube. https://www.youtube.com/@statquest — Animated introduction to the Gaussian building blocks behind mixture density models.
+- Dempster, A. P., Laird, N. M. & Rubin, D. B. (1977). Maximum likelihood from incomplete data via the EM algorithm. *Journal of the Royal Statistical Society: Series B*, 39(1), 1–38. https://www.ms.uky.edu/~mai/sta705/DLR.pdf — Introduces the EM algorithm for maximum likelihood with latent variables, used to fit mixture models.
 
 ### Articles and documentation
 
 (none beyond the entries above)
 
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on Gaussian distributions and mixture models, YouTube. https://www.youtube.com/@statquest — Animated introduction to the Gaussian building blocks behind mixture density models.
+
 ## Further reading
 
-- Murphy, *Probabilistic Machine Learning: Advanced Topics* (2023), chapters on normalising flows and generative models. No link checked.
+- Murphy, *Probabilistic Machine Learning: Advanced Topics* (2023), chapters on normalising flows and generative models. Free online: https://probml.github.io/pml-book/book2

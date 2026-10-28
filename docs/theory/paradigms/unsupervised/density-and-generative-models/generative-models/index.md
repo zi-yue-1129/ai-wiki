@@ -88,4 +88,8 @@ Key techniques:
 
 ### Articles and documentation
 
+- Song, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S. & Poole, B. (2021). *Score-Based Generative Modeling through Stochastic Differential Equations*. ICLR. arXiv:2011.13456. https://arxiv.org/abs/2011.13456 — Unifies diffusion models as stochastic differential equations and derives their reverse-time samplers.
+
+## Further learning
+
 - Weng, L. (2021). *What are Diffusion Models?* Lil'Log. https://lilianweng.github.io/posts/2021-07-11-diffusion-models/ — A clear derivation of the diffusion training objective and its variants, with diagrams.

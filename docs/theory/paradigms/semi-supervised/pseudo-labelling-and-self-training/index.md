@@ -61,4 +61,4 @@ Choosing thresholds without validation labels, detecting when self-training is m
 
 ## Further reading
 
-- Lee (2013), "Pseudo-label: the simple and efficient semi-supervised learning method for deep neural networks", ICML workshop. No link checked.
+- Lee (2013), "Pseudo-label: the simple and efficient semi-supervised learning method for deep neural networks", ICML 2013 Workshop on Challenges in Representation Learning. http://deeplearning.net/wp-content/uploads/2013/03/pseudo_label_final.pdf — Uses the network's own most probable class as the label for unlabelled data.

@@ -61,11 +61,11 @@ Rao 與 Ballard（1999）提出，來自較高視覺區域的回饋連接攜帶�
 
 ### 開創性論文
 
-- Rao, R. P. N. & Ballard, D. H.（1999）。Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects. *Nature Neuroscience*。https://doi.org/10.1038/4580 — 提出回饋攜帶預測、前饋連接攜帶誤差，並顯示在自然影像上訓練的階層式網路會重現數種周邊效應。
-- Whittington, J. C. R. & Bogacz, R.（2017）。An Approximation of the Error Backpropagation Algorithm in a Predictive Coding Network with Local Hebbian Synaptic Plasticity. *Neural Computation*。https://doi.org/10.1162/NECO_a_00949 — 顯示在適當參數下，具局部可塑性的預測編碼可近似反向傳播。
-- Hubel, D. H. & Wiesel, T. N.（1962）。Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*。https://doi.org/10.1113/jphysiol.1962.sp006837 — 本論文所依據的古典感受野研究。（此參考文獻沿用自神經科學基礎頁面，本頁未重新檢驗。）
+- Rao, R. P. N. & Ballard, D. H.（1999）。Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects. *Nature Neuroscience*。https://pubmed.ncbi.nlm.nih.gov/10195184/ — 提出回饋攜帶預測、前饋連接攜帶誤差，並顯示在自然影像上訓練的階層式網路會重現數種周邊效應。
+- Whittington, J. C. R. & Bogacz, R.（2017）。An Approximation of the Error Backpropagation Algorithm in a Predictive Coding Network with Local Hebbian Synaptic Plasticity. *Neural Computation*。https://pmc.ncbi.nlm.nih.gov/articles/PMC5467749/ — 顯示在適當參數下，具局部可塑性的預測編碼可近似反向傳播。
+- Hubel, D. H. & Wiesel, T. N.（1962）。Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*。https://pubmed.ncbi.nlm.nih.gov/14449617/ — 本論文所依據的古典感受野研究。
 
 ### 綜述與回顧
 
-- Keller, G. B. & Mrsic-Flogel, T. D.（2018）。Predictive Processing: A Canonical Cortical Computation. *Neuron*。https://doi.org/10.1016/j.neuron.2018.10.003 — 主張預測處理是皮質各處重複出現的電路層級計算，並討論如何檢驗它。
-- Friston, K.（2010）。The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*。https://doi.org/10.1038/nrn2787 — 提出大腦會最小化預測誤差，作為知覺、行動與學習的統一框架。（此參考文獻沿用自上層頁面，本頁未重新檢驗。）
+- Keller, G. B. & Mrsic-Flogel, T. D.（2018）。Predictive Processing: A Canonical Cortical Computation. *Neuron*。https://pmc.ncbi.nlm.nih.gov/articles/PMC6400266 — 主張預測處理是皮質各處重複出現的電路層級計算，並討論如何檢驗它。
+- Friston, K.（2010）。The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*。https://pubmed.ncbi.nlm.nih.gov/20068583/ — 提出大腦會最小化預測誤差，作為知覺、行動與學習的統一框架。

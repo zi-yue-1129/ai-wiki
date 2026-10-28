@@ -60,10 +60,7 @@ Transfer can hurt when source and target are too dissimilar. Check against a fro
 
 ## Further reading
 
-- Pan & Yang (2010), "A Survey on Transfer Learning"
-- Howard & Ruder (2018), ULMFiT
-- Ganin et al. (2016), "Domain-Adversarial Training of Neural Networks"
-- Koh et al. (2021), WILDS benchmark of in-the-wild distribution shifts
+- Koh et al. (2021), WILDS benchmark of in-the-wild distribution shifts. https://proceedings.mlr.press/v139/koh21a.html
 
 ## References
 

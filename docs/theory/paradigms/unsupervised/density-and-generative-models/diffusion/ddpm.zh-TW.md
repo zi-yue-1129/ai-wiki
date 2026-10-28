@@ -67,5 +67,9 @@ L_{\text{simple}} = \mathbb{E}_{t, x_0, \epsilon}\big[\|\epsilon - \epsilon_\the
 
 ### 文章與文件
 
-- Rogge, N. & Rasul, K., *The Annotated Diffusion Model*。Hugging Face 部落格。https://huggingface.co/blog/annotated-diffusion — 逐步導讀 DDPM 的訓練與取樣，與本頁公式對應。
 - Ho, J., *diffusion* 官方程式碼庫。https://github.com/hojonathanho/diffusion — 作者原始 TensorFlow 實作，包含論文實驗的程式。
+- Song, J., Meng, C. & Ermon, S. (2021). Denoising Diffusion Implicit Models. ICLR. https://arxiv.org/abs/2010.02502 — 說明 DDPM 訓練的模型可以用少很多的步數取樣。
+
+## 延伸學習
+
+- Rogge, N. & Rasul, K., *The Annotated Diffusion Model*。Hugging Face 部落格。https://huggingface.co/blog/annotated-diffusion — 逐步導讀 DDPM 的訓練與取樣，與本頁公式對應。

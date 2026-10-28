@@ -61,4 +61,4 @@ Whose preferences should count, how to detect reward hacking, and how to keep pr
 
 ## Further reading
 
-- Bradley & Terry (1952), "Rank analysis of incomplete block designs", *Biometrika*. The model behind pairwise preference learning. No link checked.
+- Bradley & Terry (1952), "Rank analysis of incomplete block designs", *Biometrika* 39. https://doi.org/10.2307/2334029 — Introduces the paired-comparison model behind pairwise preference learning.

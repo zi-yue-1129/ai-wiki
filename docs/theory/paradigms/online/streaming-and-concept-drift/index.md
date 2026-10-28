@@ -58,4 +58,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Bifet & Gavaldà (2007), "Learning from time-changing data with adaptive windowing", SDM. No link checked.
+- Bifet & Gavaldà (2007), "Learning from time-changing data with adaptive windowing", *Proceedings of the 2007 SIAM International Conference on Data Mining* (SDM). https://doi.org/10.1137/1.9781611972771.42 — Introduces an adaptive window for detecting changes in streaming data.

@@ -57,11 +57,11 @@ The abstract reports that about 126,000 stories, tweeted by about 3 million peop
 
 ### Seminal papers
 
-- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://politics.media.mit.edu/papers/Vosoughi_Science.pdf — The study described on this page, comparing the spread of true and false stories on Twitter.
+- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://www.media.mit.edu/publications/the-spread-of-true-and-false-news-online/ — The study described on this page, comparing the spread of true and false stories on Twitter.
 - Chesney, B. & Citron, D. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. *California Law Review*, 107. https://www.californialawreview.org/print/deep-fakes-a-looming-challenge-for-privacy-democracy-and-national-security — Legal analysis of deepfake harms, including the liar's dividend, which depends on doubt spreading as fakes become common.
 - Rössler, A. et al. (2019). FaceForensics++: Learning to detect manipulated facial images. *ICCV*. https://arxiv.org/abs/1901.08971 — A detection benchmark for manipulated faces, covered on its own page.
 
 ### Articles and documentation
 
-- C2PA. *Content Credentials specification*. https://c2pa.org/ — A signed provenance standard, an alternative to detecting fakes after the fact.
+- C2PA. *Content Credentials: C2PA Technical Specification*, version 2.0. https://c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html — A signed provenance standard, an alternative to detecting fakes after the fact.
 - EUR-Lex. *Regulation (EU) 2022/2065 (Digital Services Act)*. https://eur-lex.europa.eu/eli/reg/2022/2065/oj/eng — The official text of the DSA. Recitals 82 and 84 mention negative effects on civic discourse and the dissemination of disinformation.

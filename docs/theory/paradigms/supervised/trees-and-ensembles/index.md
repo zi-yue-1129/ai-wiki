@@ -42,8 +42,8 @@ Why do trees beat deep networks on many tabular tasks? Grinsztajn et al. (2022) 
 
 ### Seminal papers
 
-- Quinlan (1986), "Induction of decision trees", *Machine Learning* 1(1). https://mlanthology.org/mlj/1986/quinlan1986mlj-induction — The ID3 algorithm for building decision trees by information gain.
-- Breiman (2001), "Random forests", *Machine Learning* 45(1). https://mlanthology.org/mlj/2001/breiman2001mlj-random — Bagged trees with random feature selection, and out-of-bag error estimates.
+- Quinlan, J. R. (1986). Induction of decision trees. *Machine Learning*, 1(1), 81–106. https://doi.org/10.1007/BF00116251 — The ID3 algorithm for building decision trees by information gain.
+- Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32. https://mlanthology.org/mlj/2001/breiman2001mlj-random — Bagged trees with random feature selection, and out-of-bag error estimates.
 - Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). https://doi.org/10.1214/AOS/1013203451 — Derives gradient boosting as gradient descent in function space.
 - Ke et al. (2017), "LightGBM: a highly efficient gradient boosting decision tree", NeurIPS. https://neurips.cc/virtual/2017/poster/9099 — Histogram-based splits and leaf-wise tree growth for faster boosting on large data.
 - Prokhorenkova et al. (2018), "CatBoost: unbiased boosting with categorical features", NeurIPS. https://proceedings.neurips.cc/paper/2018/hash/14491b756b3a51daac41c24863285549-Abstract.html — Ordered boosting and target statistics for categorical features without leakage.
@@ -54,12 +54,16 @@ Why do trees beat deep networks on many tabular tasks? Grinsztajn et al. (2022) 
 
 ### Lectures and videos
 
-- StatQuest with Josh Starmer, episodes on random forests and gradient boosting, YouTube. https://www.youtube.com/@statquest — Step-by-step animated walkthroughs of how trees are built and combined.
+- Friedman, J. H. (2001). Greedy function approximation: a gradient boosting machine. *Annals of Statistics*, 29(5), 1189–1232. https://doi.org/10.1214/aos/1013203451 — Introduces gradient boosting, which adds weak learners by gradient descent in function space.
 
 ### Articles and documentation
 
 - Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, arXiv:2207.08815 — Benchmark and analysis explaining why tree ensembles often beat neural networks on tabular data.
 
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on random forests and gradient boosting, YouTube. https://www.youtube.com/@statquest — Step-by-step animated walkthroughs of how trees are built and combined.
+
 ## Further reading
 
-- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD. No link checked.
+- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD. https://arxiv.org/abs/1603.02754 — The XGBoost system: regularised gradient-boosted trees built for speed and scale.

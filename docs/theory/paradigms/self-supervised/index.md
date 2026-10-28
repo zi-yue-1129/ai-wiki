@@ -62,9 +62,11 @@ Minimising it maximises a lower bound on the mutual information between views.
 
 ## Further reading
 
-- Balestriero et al. (2023), "A Cookbook of Self-Supervised Learning"
-- LeCun & Misra, "Self-supervised learning: the dark matter of intelligence" (Meta AI blog, 2021)
-- Chen et al. (2020) SimCLR; He et al. (2022) MAE; Radford et al. (2021) CLIP
+- Balestriero et al. (2023), "A Cookbook of Self-Supervised Learning". https://arxiv.org/abs/2304.12210
+- LeCun, Y. & Misra, I. (2021), "Self-supervised learning: the dark matter of intelligence", Meta AI blog. https://ai.meta.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/ — A blog post by two Meta AI researchers arguing that self-supervised learning is central to machine intelligence.
+- Chen et al. (2020), SimCLR. https://arxiv.org/abs/2002.05709
+- He et al. (2022), MAE. https://arxiv.org/abs/2111.06377
+- Radford et al. (2021), CLIP. https://arxiv.org/abs/2103.00020
 
 ## References
 
