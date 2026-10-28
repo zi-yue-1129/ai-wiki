@@ -336,6 +336,11 @@ plugins:
             Retrieval-Augmented Generation: 檢索增強生成 RAG
             Evaluation & Benchmarks: 評估與基準
             Inference Optimization: 推論最佳化
+            Orca: Orca
+            PagedAttention and vLLM: PagedAttention 與 vLLM
+            Speculative Decoding: 推測式解碼
+            Multi-Query Attention: 多查詢注意力
+            Grouped-Query Attention: 分組查詢注意力
             MLOps & Deployment: MLOps 與部署
             AI Hardware: AI 硬體
             AI & Society: AI 與社會
@@ -614,7 +619,13 @@ nav:
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
-      - Inference Optimization: engineering/inference-optimization/index.md
+      - Inference Optimization:
+          - engineering/inference-optimization/index.md
+          - Orca: engineering/inference-optimization/orca.md
+          - PagedAttention and vLLM: engineering/inference-optimization/paged-attention.md
+          - Speculative Decoding: engineering/inference-optimization/speculative-decoding.md
+          - Multi-Query Attention: engineering/inference-optimization/multi-query-attention.md
+          - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
       - MLOps & Deployment: engineering/mlops/index.md
       - AI Hardware: engineering/hardware/index.md
   - AI & Society:
