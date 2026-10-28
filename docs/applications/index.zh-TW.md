@@ -37,8 +37,8 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | 教育 | [大型語言模型](../theory/models/llm/index.md)、[評估與基準](../engineering/evaluation/index.md) |
 | 金融 | [上下文賭博機](../theory/paradigms/online/contextual-bandits/index.md)、[串流與概念漂移](../theory/paradigms/online/streaming-and-concept-drift/index.md)、[機率與貝氏方法](../theory/probabilistic/index.md) |
 | 法律 | [檢索增強生成](../engineering/rag/index.md)、[可解釋性](../society/interpretability/index.md) |
-| 機器人 | [模仿學習](../theory/paradigms/imitation/index.md)、[強化學習](../theory/paradigms/reinforcement-learning/index.md)、[世界模型與具身 AI](../theory/models/world-models/index.md) |
-| 自動駕駛與運輸 | [模擬到真實遷移](../theory/paradigms/transfer/sim-to-real/index.md)、[世界模型與具身 AI](../theory/models/world-models/index.md) |
+| 機器人 | [模仿學習](../theory/paradigms/imitation/index.md)、[強化學習](../theory/paradigms/reinforcement-learning/index.md)、[世界模型與具身 AI](../theory/models/world-models/index.md)、[用於抓取的手眼協調學習](robotics/hand-eye-grasping/index.md) |
+| 自動駕駛與運輸 | [模擬到真實遷移](../theory/paradigms/transfer/sim-to-real/index.md)、[世界模型與具身 AI](../theory/models/world-models/index.md)、[從像素到方向盤的端到端學習](autonomous-driving/end-to-end-steering/index.md) |
 | 製造與工業 | [電腦視覺](../theory/models/computer-vision/index.md)、[異常偵測](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
 | 農業與食品 | [電腦視覺](../theory/models/computer-vision/index.md)、[領域適應](../theory/paradigms/transfer/domain-adaptation/index.md) |
 | 氣候與能源 | [串流與概念漂移](../theory/paradigms/online/streaming-and-concept-drift/index.md)、[領域適應](../theory/paradigms/transfer/domain-adaptation/index.md) |

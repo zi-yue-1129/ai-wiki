@@ -138,6 +138,8 @@ L^{\text{CLIP}}(\theta) = \mathbb{E}_t\left[\min\left(r_t(\theta)\hat{A}_t,\ \te
 - [Model-based RL](model-based-rl/index.md): world models, MuZero and Dreamer.
 - [Offline RL](offline-rl/index.md): learning from fixed datasets with conservative value estimates.
 - [Learning from human feedback](learning-from-human-feedback/index.md): reward models and RLHF.
+- [Experience replay](experience-replay/index.md): reusing past transitions to learn more from each one.
+- [Exploration](exploration/index.md): how agents try new actions when rewards are sparse.
 
 ## Resources
 

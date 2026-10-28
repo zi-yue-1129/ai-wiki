@@ -37,8 +37,8 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Education | [Large Language Models](../theory/models/llm/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
 | Finance | [Contextual Bandits](../theory/paradigms/online/contextual-bandits/index.md), [Streaming & Concept Drift](../theory/paradigms/online/streaming-and-concept-drift/index.md), [Probabilistic & Bayesian Methods](../theory/probabilistic/index.md) |
 | Law | [Retrieval-Augmented Generation](../engineering/rag/index.md), [Interpretability](../society/interpretability/index.md) |
-| Robotics | [Imitation Learning](../theory/paradigms/imitation/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [World Models & Embodied AI](../theory/models/world-models/index.md) |
-| Autonomous Driving & Transport | [Sim-to-Real Transfer](../theory/paradigms/transfer/sim-to-real/index.md), [World Models & Embodied AI](../theory/models/world-models/index.md) |
+| Robotics | [Imitation Learning](../theory/paradigms/imitation/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [World Models & Embodied AI](../theory/models/world-models/index.md), [Hand-eye coordination for grasping](robotics/hand-eye-grasping/index.md) |
+| Autonomous Driving & Transport | [Sim-to-Real Transfer](../theory/paradigms/transfer/sim-to-real/index.md), [World Models & Embodied AI](../theory/models/world-models/index.md), [End-to-end steering from pixels](autonomous-driving/end-to-end-steering/index.md) |
 | Manufacturing & Industry | [Computer Vision](../theory/models/computer-vision/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
 | Agriculture & Food | [Computer Vision](../theory/models/computer-vision/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
 | Climate & Energy | [Streaming & Concept Drift](../theory/paradigms/online/streaming-and-concept-drift/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |

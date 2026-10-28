@@ -276,6 +276,10 @@ plugins:
             Speech Neuroprosthesis: 言語神經義肢
             ACT-R: ACT-R
             CoALA: CoALA
+            Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
+            False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
+            Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
             Exploration: 探索
             Multilayer Perceptrons: 多層感知器
@@ -325,6 +329,8 @@ plugins:
             Diffusion Decision Model: 擴散決策模型
             Model-Based vs Model-Free: 有模型與無模型控制
             Perception & the Visual System: 知覺與視覺系統
+            Performance-Optimised Networks (Yamins et al. 2014): 效能最佳化的網路（Yamins 等人，2014）
+            Shape Bias in CNNs (Geirhos et al. 2019): CNN 的形狀偏好（Geirhos 等人，2019）
             Applications: 領域應用
             Healthcare: 醫療與健康
             Life Sciences & Drug Discovery: 生命科學與藥物開發
@@ -616,7 +622,10 @@ nav:
           - brain-mind/cognitive-architectures/index.md
           - ACT-R: brain-mind/cognitive-architectures/act-r/index.md
           - CoALA: brain-mind/cognitive-architectures/coala/index.md
-      - Psychology & AI: brain-mind/psychology/index.md
+      - Psychology & AI:
+          - brain-mind/psychology/index.md
+          - Chimpanzee Theory-of-Mind Test: brain-mind/psychology/chimpanzee-theory-of-mind/index.md
+          - False-Belief Tests on LLMs: brain-mind/psychology/false-belief-llms/index.md
       - Consciousness & Philosophy of Mind:
           - brain-mind/consciousness/index.md
           - Integrated Information Theory: brain-mind/consciousness/integrated-information-theory/index.md
@@ -631,7 +640,10 @@ nav:
           - brain-mind/decision-reward/index.md
           - Diffusion Decision Model: brain-mind/decision-reward/diffusion-model/index.md
           - Model-Based vs Model-Free: brain-mind/decision-reward/model-based-vs-model-free/index.md
-      - Perception & the Visual System: brain-mind/visual-perception/index.md
+      - Perception & the Visual System:
+          - brain-mind/visual-perception/index.md
+          - Performance-Optimised Networks (Yamins et al. 2014): brain-mind/visual-perception/yamins-2014/index.md
+          - Shape Bias in CNNs (Geirhos et al. 2019): brain-mind/visual-perception/geirhos-2019/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
@@ -641,8 +653,12 @@ nav:
       - Education: applications/education/index.md
       - Finance: applications/finance/index.md
       - Law: applications/law/index.md
-      - Robotics: applications/robotics/index.md
-      - Autonomous Driving & Transport: applications/autonomous-driving/index.md
+      - Robotics:
+          - applications/robotics/index.md
+          - Hand-Eye Coordination for Grasping: applications/robotics/hand-eye-grasping/index.md
+      - Autonomous Driving & Transport:
+          - applications/autonomous-driving/index.md
+          - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md
       - Manufacturing & Industry: applications/manufacturing/index.md
       - Agriculture & Food: applications/agriculture/index.md
       - Climate & Energy: applications/climate-energy/index.md

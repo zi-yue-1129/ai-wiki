@@ -50,6 +50,8 @@ Data: filtered web crawls (Common Crawl), books, papers, code, multilingual corp
 | RLAIF / Constitutional AI | AI feedback guided by written principles | Scale oversight |
 | RL with verifiable rewards (RLVR) | Automatic grading (math answers, unit tests) | Train reasoning |
 
+The imitation step, and what it can and cannot teach, is covered in [Imitation in Foundation Models](imitation-in-foundation-models/index.md).
+
 ## Capabilities and phenomena
 
 - **In-context learning**: learn a task from a few examples in the prompt (GPT-3)

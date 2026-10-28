@@ -29,9 +29,11 @@ The mechanism, with a diagram, formula or worked example where it helps.
 
 ## Key methods
 
-Summarise the two to four landmark papers behind the topic, one block each. Read the paper (or at least its abstract and method section) before writing the block, and cite it in References.
+Compare the two to four landmark methods behind the topic briefly: one line each, saying what separates them, with a link to the method's own page. Each method gets its own page, with the detail below. Read the paper (or at least its abstract and method section) before writing it, and cite it in References.
 
-### Method name (First author Year)
+- [Method name (First author Year)](method-name.md): what separates it from the others.
+
+On the method's own page:
 
 - **Problem:** the gap or question the paper addresses.
 - **Core idea:** the method in two or three sentences, in your own words.

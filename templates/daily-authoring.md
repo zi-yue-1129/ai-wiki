@@ -16,7 +16,8 @@ Instructions for the scheduled Claude routine that drafts one page per day as a 
     - Open every link and check its title, authors, year and content before adding it. Prefer the original paper and official course or channel pages for videos. Never invent a citation, DOI or URL; if you can't verify an entry, leave it out.
     - In the PR body, list each reference with the check you made (for example "opened, abstract matches").
     - Include the brain and mind connection where one genuinely exists.
-    - Add a `## Key methods` section after "How it works" (pattern in `templates/page-template.md`): two to four landmark papers, each with problem, core idea, equation or algorithm, results and limitations. Every paper named there must also appear in References, and its results must come from the paper itself, never from memory.
+    - Add a `## Key methods` section after "How it works" (pattern in `templates/page-template.md`): a brief comparison of two to four landmark methods, one line each, linking to each method's own page. Write each method as its own detailed page in the topic folder, with problem, core idea, equation or algorithm, results and limitations, in the same PR. Every paper named there must also appear in References, and its results must come from the paper itself, never from memory.
+    - When you add a child page or a method, update the comparison and overview of every ancestor page in the same PR (see "Method pages and parent overviews" in the style guide).
     - If the topic also belongs to other categories, add those topic folders to `related` (and fitting `tags`) in the front matter (see "Topics in more than one category" in the style guide) rather than duplicating content. Also check whether existing pages should list the new page.
     - Add `aliases` in the front matter with the other names readers search for, such as the Chinese name and common abbreviations, so cross-language search finds the page. Pages you edit should gain `aliases` too.
     - Remove the "Work in progress" admonition. Set `status: draft` and `last_reviewed:` to today in the front matter.
@@ -27,7 +28,7 @@ Instructions for the scheduled Claude routine that drafts one page per day as a 
 
 ## Limits
 
-- One page per run. If nothing suitable is left, open no PR.
+- One topic per run, including its method pages and the parent overviews it changes. If nothing suitable is left, open no PR.
 - If 5 or more `auto/` pull requests are already open and unreviewed, open no new one and stop; the reviewer is behind.
-- Never edit workflows, scripts, the license, or pages other than the one being drafted (plus `mkdocs.yml` nav).
+- Never edit workflows, scripts, the license, or pages other than the topic being drafted, its method pages, the parent overviews above them (plus `mkdocs.yml` nav).
 - Do not add a `Co-Authored-By` line to commit messages, even if other attribution guidance says to. Commit messages are a subject line and a short body; add no other attribution trailers.
