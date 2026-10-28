@@ -70,6 +70,7 @@ Each named method has its own page with the problem, core idea, equations, resul
 - [Latent Diffusion](latent-diffusion.md) (Rombach et al., 2021/2022): diffusion in the latent space of an autoencoder, with cross-attention conditioning.
 - [DiT](dit.md) (Peebles & Xie, 2022/2023): a Transformer denoiser that replaces the U-Net and scales with compute.
 - [Classifier-free guidance](classifier-free-guidance.md) (Ho & Salimans, 2022): conditioning control without a separate classifier.
+- [Consistency models and fast samplers](consistency-models.md) (Song et al., 2023; Lu et al., 2022): distillation and high-order ODE solvers that reduce sampling to one to about twenty steps.
 
 ### Comparison
 
@@ -79,7 +80,7 @@ Each named method has its own page with the problem, core idea, equations, resul
 | [DDIM](ddim.md) | Non-Markovian sampler on the same model | Any subsequence, far fewer | Same as DDPM | Same as DDPM |
 | [Latent Diffusion](latent-diffusion.md) | Diffusion in an autoencoder latent | Few to many | U-Net | Cross-attention |
 | [DiT](dit.md) | Transformer denoiser | Few to many | Transformer on patches | Adaptive layer norm with time step and class |
-| [Classifier-free guidance](classifier-free-guidance.md) | Sampling-time combination of two predictions | Unchanged, but two evaluations per step | Any | Guidance scale \(w\) |
+| [Consistency models and fast samplers](consistency-models.md) | Distilled one-step maps, and high-order ODE solvers | One to about 20 | Same as the trained model | Same as the trained model |
 
 ## Connections
 

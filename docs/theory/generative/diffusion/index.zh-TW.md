@@ -54,6 +54,7 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 - [潛在擴散](latent-diffusion.md)（Rombach 等人，2021/2022）：在自編碼器潛在空間中擴散，並以交叉注意力條件化。
 - [DiT](dit.md)（Peebles 與 Xie，2022/2023）：取代 U-Net 且隨運算量擴展的 Transformer 去噪器。
 - [無分類器引導](classifier-free-guidance.md)（Ho 與 Salimans，2022）：不需另外分類器的條件控制。
+- [一致性模型與快速取樣器](consistency-models.md)（Song 等人，2023；Lu 等人，2022）：以蒸餾與高階 ODE 求解器，把取樣減少到一到約二十步。
 
 ### 比較
 
@@ -63,7 +64,7 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 | [DDIM](ddim.md) | 同一模型上的非馬可夫取樣器 | 任意子序列，遠少於 DDPM | 同 DDPM | 同 DDPM |
 | [潛在擴散](latent-diffusion.md) | 在自編碼器潛在空間中擴散 | 少到多 | U-Net | 交叉注意力 |
 | [DiT](dit.md) | Transformer 去噪器 | 少到多 | 作用於圖塊的 Transformer | 自適應層正規化，含時間步與類別 |
-| [無分類器引導](classifier-free-guidance.md) | 取樣時結合兩種預測 | 不變，但每步兩次評估 | 任意 | 引導比例 \(w\) |
+| [一致性模型與快速取樣器](consistency-models.md) | 蒸餾出的單步映射，以及高階 ODE 求解器 | 一到約 20 | 同訓練好的模型 | 同訓練好的模型 |
 
 ## 關聯
 
