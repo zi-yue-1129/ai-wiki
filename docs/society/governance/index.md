@@ -31,7 +31,7 @@ Fines reach up to 7% of global turnover for prohibited practices. In late 2025 t
 - Executive Order 14110 (2023) was revoked in January 2025; the 2025 *AI Action Plan* emphasised innovation, infrastructure and exports
 - NIST AI Risk Management Framework (AI RMF 1.0) and its generative-AI profile are widely used voluntary standards; the US AI Safety Institute was reorganised as the Center for AI Standards and Innovation (CAISI) in 2025
 - **States**: Colorado AI Act (algorithmic discrimination in consequential decisions; effective date delayed to 2026), California's SB 53 (2025) on frontier-model transparency and safety-incident reporting, plus many deepfake, election and chatbot laws
-- Export controls on advanced chips and model weights
+- Export controls on advanced chips and model weights; see [Compute Governance and Export Controls](compute-governance.md)
 
 ## China
 
@@ -61,7 +61,7 @@ Fines reach up to 7% of global turnover for prohibited practices. In late 2025 t
 ## Key policy debates
 
 - Open-weight vs closed models
-- Compute thresholds as regulatory triggers
+- Compute thresholds as regulatory triggers; see [Compute Governance and Export Controls](compute-governance.md)
 - Liability for AI harms
 - Copyright and training data (see [Art, Media & Creativity](../../applications/creative/index.md))
 - Preemption of state laws (US)
