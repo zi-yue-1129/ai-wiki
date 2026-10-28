@@ -20,6 +20,10 @@ tags:
 | [語言](language/index.md) | [GLUE](language/glue.md)、[SuperGLUE](language/superglue.md)、[MMLU](language/mmlu.md)、[GPQA](language/gpqa.md)、[人類的最後考試](language/hle.md) | 理解、知識與專家推理 |
 | [數學與程式](math-and-code/index.md) | [GSM8K](math-and-code/gsm8k.md)、[MATH](math-and-code/math.md)、[SWE-bench](math-and-code/swe-bench.md) | 數學與軟體推理 |
 | [多模態](multimodal/index.md) | [VQA v2](multimodal/vqa-v2.md)、[MMMU](multimodal/mmmu.md) | 結合影像、知識與推理 |
+| [語音](speech/index.md) | [LibriSpeech](speech/librispeech.md) | 轉寫英文語音 |
+| [強化學習](reinforcement/index.md) | [Arcade Learning Environment](reinforcement/ale.md)、[MuJoCo](reinforcement/mujoco.md) | 遊玩遊戲與控制模擬身體的回報 |
+| [科學](science/index.md) | [MoleculeNet](science/moleculenet.md) | 預測分子性質 |
+| [神經科學](neuroscience/index.md) | [Brain-Score](neuroscience/brain-score.md) | 比對神經與行為反應 |
 | [推理與代理](reasoning-agents/index.md) | [ARC-AGI](reasoning-agents/arc-agi.md)、[GAIA](reasoning-agents/gaia.md)、[WebArena](reasoning-agents/webarena.md) | 規則獲得、真實世界問題與網頁任務 |
 | [少樣本](few-shot/index.md) | [miniImageNet](few-shot/mini-imagenet.md) | 從少數有標籤的範例辨識新類別 |
 
