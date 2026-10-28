@@ -39,6 +39,10 @@ Let \(g\) be the gradient and \(\tau\) the threshold.
 
 The threshold is a hyperparameter. The paper suggests choosing it from statistics of the gradient norm averaged over many updates.
 
+![Gradient norm clipping geometry: a long original gradient and a shorter clipped gradient lie on the same ray, with the clipped endpoint on a norm threshold circle.](../../assets/concept-animations/gradient-norm-clipping.svg)
+
+*Original geometric concept diagram, CC BY-SA 4.0.* The dashed circle represents a **global L2-norm threshold** \(\tau\). If \(\lVert g\rVert_2>\tau\), the clipped vector \(\tau g/\lVert g\rVert_2\) has the same direction as the raw gradient but reaches the circle, while smaller gradients remain unchanged. Axis positions and magnitudes are **schematic, not measured training gradients**. Clipping bounds the gradient norm **before** the optimiser applies its update; adaptive or preconditioned optimisers need not bound the parameter-step norm by \(\eta\tau\). See [Pascanu et al. (2013)](https://arxiv.org/abs/1211.5063).
+
 ## Results
 
 The abstract states that the authors propose a gradient norm clipping strategy to deal with exploding gradients, and that the hypotheses and proposed solutions are validated empirically in the experiments. It gives no specific numbers, so this page does not quote any.
