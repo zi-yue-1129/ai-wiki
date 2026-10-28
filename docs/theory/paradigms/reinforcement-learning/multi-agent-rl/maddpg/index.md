@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - MADDPG
@@ -38,7 +38,11 @@ The critic is trained with a temporal-difference target built from the target ac
 
 ## Results
 
-The paper evaluates on six multi-agent environments: cooperative communication, cooperative navigation, keep-away, physical deception, predator–prey, and covert communication. It reports that "in all cases, MADDPG outperforms DDPG when directly pitted against it". In cooperative communication, agents reach the target in 84.0% of episodes with MADDPG against 32.0% with DDPG. The authors also report that agents with policy ensembles are stronger than those with a single policy.
+The paper evaluates on six multi-agent environments: cooperative communication, cooperative navigation, keep-away, physical deception, predator–prey, and covert communication.
+
+- **MADDPG against DDPG.** A figure caption reports that "in all cases, MADDPG outperforms DDPG when directly pitted against it". The bar values are in the figure, not in the text.
+- **Cooperative communication.** Table 1 reports that after 25,000 episodes the listener reaches the target in 84.0% of episodes with MADDPG, against 32.0% with DDPG.
+- **Policy ensembles.** The paper reports that agents with policy ensembles are stronger than those with a single policy in its experiments. It does not study how performance depends on the number of sub-policies \(K\).
 
 ## Limitations
 
@@ -68,7 +72,10 @@ The paper evaluates on six multi-agent environments: cooperative communication, 
 ### Seminal papers
 
 - Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — The MADDPG paper, with the centralised critic, the ensemble extension and the results above.
-- Lillicrap et al. (2016), "Continuous control with deep reinforcement learning", ICLR, [arXiv:1509.02971](https://arxiv.org/abs/1509.02971) — DDPG, the single-agent method that each MADDPG agent uses.
+- Lillicrap et al. (2016), "Continuous control with deep reinforcement learning", [arXiv:1509.02971](https://arxiv.org/abs/1509.02971) — DDPG, the single-agent method that each MADDPG agent uses.
 - Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — A value-based alternative for cooperative teams.
-- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", NeurIPS 2022 Datasets and Benchmarks Track, [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — A strong on-policy baseline with a centralised value function.
-- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/tsmcc.2007.913919 — Survey of multi-agent learning settings and their difficulties.
+- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — A strong on-policy baseline with a centralised value function.
+
+### Surveys and textbooks
+
+- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/TSMCC.2007.913919 — Survey of multi-agent learning settings and their difficulties.

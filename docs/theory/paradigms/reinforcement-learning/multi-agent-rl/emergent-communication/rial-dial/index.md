@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - RIAL
@@ -37,12 +37,12 @@ where \(h_t\) is the recurrent hidden state of the agent. For DIAL, the message 
 
 ## Results
 
-In the switch riddle with three agents, all four variants (RIAL and DIAL, each with and without parameter sharing) learn an optimal policy within 5,000 episodes, and all four beat the baseline with no communication. DIAL with parameter sharing reaches optimal performance substantially faster than RIAL. With four agents, RIAL without parameter sharing does not beat the no-communication baseline, and the authors conclude that parameter sharing can be crucial for learning to communicate. In the multi-step and colour-digit MNIST tasks, DIAL substantially outperforms the other methods, and parameter sharing is needed to reach the optimal protocol.
+In the switch riddle with three agents, all four variants (RIAL and DIAL, each with and without parameter sharing) learn an optimal policy within about 5,000 episodes, as the paper's text states. DIAL with parameter sharing reaches it faster than RIAL. With four agents, RIAL without parameter sharing does not beat the no-communication baseline. In the multi-step and colour-digit MNIST tasks, DIAL substantially outperforms the other methods on both games, and RIAL fails to learn the multi-step task. The results are shown as curves normalised to an oracle baseline, so the exact values are in the figures.
 
 ## Limitations
 
 - **Centralised learning.** DIAL needs gradients to flow between agents during training, which requires a shared training process.
-- **Independent learning is fragile.** Without parameter sharing, RIAL can fail to learn a shared protocol at all, as the four-agent switch riddle shows.
+- **Independent learning is fragile.** Without parameter sharing, RIAL did not beat the no-communication baseline in the four-agent switch riddle.
 - **Interpretability.** The learned symbols are not guaranteed to carry any human-readable meaning.
 
 ## Connections
@@ -72,4 +72,4 @@ In the switch riddle with three agents, all four variants (RIAL and DIAL, each w
 
 ### Surveys and textbooks
 
-- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/tsmcc.2007.913919 — Survey of multi-agent learning settings and of the coordination problems that communication addresses.
+- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/TSMCC.2007.913919 — Survey of multi-agent learning settings and of the coordination problems that communication addresses.

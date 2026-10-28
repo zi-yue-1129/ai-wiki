@@ -244,6 +244,7 @@ plugins:
             Theory: 理論
             Mathematics: 數學基礎
             Information Theory: 資訊理論
+            Causal Inference: 因果推論
             Machine Learning: 機器學習
             Deep Learning: 深度學習
             Optimisation: 最佳化
@@ -287,6 +288,7 @@ plugins:
             CMA-ES: CMA-ES
             Theory & Landscapes: 理論與損失地形
             Sharpness-Aware Minimisation: 銳度感知最小化
+            Adaptive Sharpness-Aware Minimisation (ASAM): 自適應銳度感知最小化
             Reinforcement Learning: 強化學習
             Learning Paradigms: 學習範式
             Supervised Learning: 監督式學習
@@ -501,6 +503,8 @@ plugins:
             Cross-Validation: 交叉驗證
             Paired Bootstrap: 配對自助法
             LLM as Judge: LLM 作為評審
+            MT-Bench: MT-Bench
+            Length-Controlled AlpacaEval: 長度控制 AlpacaEval
             Human Evaluation: 人工評估
             Elo Rating and Arenas: Elo 評分與競技場
             Contamination Detection: 污染偵測
@@ -776,6 +780,12 @@ plugins:
             Indirect Prompt Injection: 間接提示注入
             Universal Adversarial Suffixes: 通用對抗後綴
             LLM Application Security: LLM 應用安全
+            Agent Engineering: 代理工程
+            Tool Calling & MCP: 工具呼叫與 MCP
+            Sandboxing & Computer Use: 沙箱與電腦操作代理
+            Multi-Agent Orchestration: 多代理編排
+            Agent Evaluation: 代理評估
+            Agent Observability: 代理可觀測性
             Synthetic Data: 合成資料
             Self-Instruct: Self-Instruct
             Textbook-quality data: 教科書品質的合成資料
@@ -831,6 +841,12 @@ plugins:
             AI in Taiwan: 台灣的 AI
             Children, Education Policy & AI: 兒童、教育政策與 AI
             Law, Policy & Governance: 法規與治理
+            Surveillance & Human Rights: 監控與人權
+            AI Companionship: AI 陪伴
+            AI Literacy: AI 素養
+            Compute Governance & Export Controls: 算力治理與出口管制
+            AI, Elections & Democracy: AI、選舉與民主
+            AI Incident Databases: AI 事件資料庫
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
             Reference: 參考
@@ -906,6 +922,7 @@ nav:
       - theory/index.md
       - Mathematics: theory/math/index.md
       - Information Theory: theory/information-theory/index.md
+      - Causal Inference: theory/causal-inference/index.md
       - Machine Learning: theory/machine-learning/index.md
       - Deep Learning:
           - theory/deep-learning/index.md
@@ -961,6 +978,7 @@ nav:
           - Theory & Landscapes:
               - theory/optimization/theory-and-landscapes.md
               - Sharpness-Aware Minimisation: theory/optimization/sharpness-aware-minimisation.md
+              - ASAM: theory/optimization/asam.md
       - Learning Paradigms:
           - theory/paradigms/index.md
           - Supervised Learning:
@@ -1334,6 +1352,8 @@ nav:
               - Cross-Validation: theory/evaluation/protocols/methods/cross-validation.md
               - Paired Bootstrap: theory/evaluation/protocols/methods/paired-bootstrap.md
               - LLM as Judge: theory/evaluation/protocols/methods/llm-as-judge.md
+              - MT-Bench: theory/evaluation/protocols/methods/mt-bench.md
+              - Length-Controlled AlpacaEval: theory/evaluation/protocols/methods/length-controlled-alpacaeval.md
               - Human Evaluation: theory/evaluation/protocols/methods/human-evaluation.md
               - Elo Rating and Arenas: theory/evaluation/protocols/methods/elo-rating.md
               - Contamination Detection: theory/evaluation/protocols/methods/contamination-detection.md
@@ -1663,6 +1683,13 @@ nav:
           - Model Collapse: engineering/synthetic-data/model-collapse.md
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
+      - Agent Engineering:
+          - engineering/agents/index.md
+          - Tool Calling & MCP: engineering/agents/tool-calling-and-mcp.md
+          - Sandboxing & Computer Use: engineering/agents/sandboxing-and-computer-use.md
+          - Multi-Agent Orchestration: engineering/agents/multi-agent-orchestration.md
+          - Agent Evaluation: engineering/agents/agent-evaluation.md
+          - Agent Observability: engineering/agents/agent-observability.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md
@@ -1719,7 +1746,14 @@ nav:
       - Open versus Closed Models: society/open-vs-closed/index.md
       - AI in Taiwan: society/ai-in-taiwan/index.md
       - Children, Education Policy & AI: society/children-education-policy/index.md
-      - Law, Policy & Governance: society/governance/index.md
+      - Surveillance & Human Rights: society/surveillance/index.md
+      - AI Companionship: society/human-ai-interaction/ai-companionship.md
+      - AI Literacy: society/human-ai-interaction/ai-literacy.md
+      - Law, Policy & Governance:
+          - society/governance/index.md
+          - Compute Governance & Export Controls: society/governance/compute-governance.md
+          - AI, Elections & Democracy: society/governance/elections-and-democracy.md
+          - AI Incident Databases: society/governance/incidents.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
   - Reference:

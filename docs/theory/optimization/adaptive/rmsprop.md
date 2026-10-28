@@ -76,7 +76,7 @@ RMSProp has no paper, so this page quotes no benchmark numbers. Its effect is do
 - Tieleman, T. & Hinton, G. (2012). *Lecture 6.5 — RMSProp: Divide the gradient by a running average of its recent magnitude*. Coursera lecture notes, *Neural Networks for Machine Learning*. https://cir.nii.ac.jp/crid/1370017282431050757 — The original, unpublished introduction of RMSProp.
 - Duchi, J., Hazan, E. & Singer, Y. (2011). Adaptive Subgradient Methods for Online Learning and Stochastic Optimization. *Journal of Machine Learning Research*, 12. https://jmlr.org/papers/v12/duchi11a.html — The cumulative-sum method that RMSProp replaces with an average.
 - Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — Uses the same exponential average of squared gradients, with momentum and bias correction.
-- Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — The decoupled weight decay used with adaptive methods of this family.
+- Loshchilov, I. & Hutter, F. (2019). *Decoupled Weight Decay Regularization*. ICLR 2019. https://arxiv.org/abs/1711.05101 — The decoupled weight decay used with adaptive methods of this family. Checked: the ICLR 2019 poster page https://iclr.cc/virtual/2019/poster/935 lists the same title.
 
 ### Surveys and textbooks
 

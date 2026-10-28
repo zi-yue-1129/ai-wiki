@@ -21,24 +21,24 @@ PBT 保留一組工作者，每個工作者平行訓練自己的模型。每個�
 
 ## 方程式或演算法
 
-每個工作者重複以下迴圈：
+每個工作者重複以下循環：
 
-1. 以目前的權重 \(\theta\) 與超參數 \(h\) 進行 \(T\) 步梯度訓練。
-2. 以效能指標 \(p\) 評估模型，例如平均回合回報或驗證分數。
-3. 若該工作者的表現落後於種群中的其他成員，複製表現較好成員的權重與超參數，\(h, \theta \leftarrow \text{exploit}(h, \theta, p, P)\)。
-4. 對複製來的超參數進行擾動或重新取樣，\(h \leftarrow \text{explore}(h)\)，然後繼續訓練。
+1. 以目前的權重 \(\theta\) 與超參數 \(h\) 訓練 \(T\) 個梯度步。
+2. 以效能指標 \(p\)（例如平均回合回報或驗證分數）評估模型。
+3. 若該工作者的表現落後於種群其他成員，複製表現較佳成員的權重與超參數：\(h, \theta \leftarrow \text{exploit}(h, \theta, p, P)\)。
+4. 對複製來的超參數進行擾動或重新抽樣：\(h \leftarrow \text{explore}(h)\)，然後繼續訓練。
 
-論文中，\(\text{exploit}\) 會選擇紀錄表現較高的成員，\(\text{explore}\) 則擾動超參數或從先驗分布重新取樣。
+論文以 \(\text{exploit}\) 選擇記錄效能較高的成員，並以 \(\text{explore}\) 擾動超參數或從先驗中重新抽樣。在實驗中，截斷選擇會把底部 20% 的工作者替換為前 20% 中的某位成員；強化學習的執行則對近期的回報做 t 檢定。多數實驗中，每個超參數以 1.2 或 0.8 的倍數擾動，GAN 實驗則使用 2.0 或 0.5。
 
 ## 結果
 
-論文將 PBT 應用於深度強化學習、機器翻譯的監督式學習，以及生成對抗網路。在強化學習方面，它調整 UNREAL 在 DeepMind Lab 關卡上的設定、Feudal Networks 在 Atari 遊戲上的設定，以及 A3C 智能體在星海爭霸上的設定。作者報告，PBT「能夠與經過精心調整的超參數時程相當，甚至更好」，並且能讓智能體以更快的實際時間收斂，最終表現也更高。
+論文把 PBT 應用於深度強化學習、以機器翻譯為例的監督式學習，以及生成對抗網路。在強化學習方面，它調整了 DeepMind Lab 關卡上的 UNREAL、Atari 遊戲上的 Feudal Networks，以及星海爭霸 II 上的 A3C 智能體。引言指出 PBT「可以匹敵甚至超越經過大量調校的超參數排程」。摘要報告了更快的牆鐘收斂與更高的最終效能。強化學習的比較是在相同步數下進行的，因此論文並未測量其牆鐘速度。在翻譯上，論文報告 BLEU 在驗證集上由 23.71 提高到 24.23，在測試集上由 22.30 提高到 22.65。
 
 ## 限制
 
-- **種群成本。** 此方法同時使用許多模型，需要足夠的平行運算資源。
-- **貪婪地複製。** exploit 會複製表現最好的成員，可能降低種群的多樣性。
-- **規則的選擇。** exploit 與 explore 的規則及其設定取決於應用。
+- **種群成本。** 此方法同時使用許多模型，因此需要足夠的並行運算資源。
+- **貪婪複製。** 論文稱 PBT 為貪婪演算法，並且「可能陷入局部最優」。十個或更少的種群可能不足以維持探索所需的多樣性。
+- **規則的選擇。** 選擇與探索規則及其設定取決於應用。
 
 ## 關聯
 
@@ -61,8 +61,8 @@ PBT 保留一組工作者，每個工作者平行訓練自己的模型。每個�
 
 ### 奠基性論文
 
-- Jaderberg 等人（2017），"Population based training of neural networks"，[arXiv:1711.09846](https://arxiv.org/abs/1711.09846)——PBT 論文，包含 exploit 與 explore 步驟，以及在強化學習、翻譯與 GAN 上的實驗。
-- Snoek, Larochelle & Adams（2012），"Practical Bayesian optimization of machine learning algorithms"，[arXiv:1206.2944](https://arxiv.org/abs/1206.2944)——超參數的貝氏最佳化，是 PBT 時程的搜尋式基準。
-- Jaderberg 等人（2016），"Reinforcement learning with unsupervised auxiliary tasks"，[arXiv:1611.05397](https://arxiv.org/abs/1611.05397)——UNREAL，論文中 PBT 所調整的智能體之一。
-- Jaderberg 等人（2019），"Human-level performance in 3D multiplayer games with population-based reinforcement learning"，*Science* 364, 859–865。https://doi.org/10.1126/science.aau6249——將 PBT 應用於奪旗遊戲。
-- Mnih 等人（2015），"Human-level control through deep reinforcement learning"，*Nature* 518, 529–533。https://doi.org/10.1038/nature14236——深度強化學習方法之一，其超參數正是 PBT 所調整的類型。
+- Jaderberg et al. (2017), "Population based training of neural networks", [arXiv:1711.09846](https://arxiv.org/abs/1711.09846) — PBT 論文，包含 exploit 與 explore 步驟，以及在強化學習、翻譯與 GAN 上的實驗。
+- Snoek, Larochelle & Adams (2012), "Practical Bayesian optimization of machine learning algorithms", [arXiv:1206.2944](https://arxiv.org/abs/1206.2944) — 超參數的貝氏最佳化，是 PBT 排程的搜尋式基線。
+- Jaderberg et al. (2016), "Reinforcement learning with unsupervised auxiliary tasks", [arXiv:1611.05397](https://arxiv.org/abs/1611.05397) — UNREAL，論文中 PBT 所調整的智能體之一。
+- Jaderberg et al. (2019), "Human-level performance in 3D multiplayer games with population-based reinforcement learning", *Science* 364, 859–865. https://discovery.ucl.ac.uk/id/eprint/10076318 — 把基於種群的訓練應用於奪旗遊戲。連結為作者機構的典藏紀錄。
+- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — 超參數是 PBT 所調整種類的深度強化學習方法。

@@ -41,7 +41,7 @@ Scaling is done in software. Each tensor is multiplied by a scaling factor befor
 
 The paper reports that FP8 training effectively matches 16-bit training on a range of image and language tasks, with hyperparameters unchanged. The models include convolutional networks, recurrent networks and Transformers, with language models up to 175 billion parameters.
 
-For the 175-billion-parameter model, the FP8 run reached a perplexity of 6.68, against 6.65 for the bfloat16 baseline. That comparison is taken at 75% of the training run, because the baseline had not finished. The paper reports that MobileNet v2 was the only vision model whose result fell outside run-to-run variation, and it says the gap was still under investigation.
+For the 175-billion-parameter model, the FP8 run reached a perplexity of 6.68, against 6.65 for the bfloat16 baseline. That comparison is taken at 75% of the training run, because the baseline had not finished. The paper reports that MobileNet v2 was the only vision model whose result fell outside run-to-run variation.
 
 The paper also applies FP8 to post-training quantisation of language models that had not quantised well to 8-bit integers. Quantising a 1.3-billion-parameter GPT model's residual connections with a single exponent bias raised its perplexity to 12.59, against 10.19 for the baseline. Per-tensor calibration brought it to 10.44.
 
