@@ -29,7 +29,7 @@
 1. [數學基礎](../../theory/math/index.md)（含資訊理論、凸最佳化）
 2. [機率圖模型與貝氏方法](../../theory/probabilistic/index.md)
 3. [深度學習](../../theory/deep-learning/index.md) 的理論段落（泛化、雙下降、縮放定律）
-4. [生成模型](../../theory/models/generative/index.md)（擴散、流匹配）
+4. [生成模型](../../theory/generative/index.md)（擴散、流匹配）
 5. [強化學習](../../theory/paradigms/reinforcement-learning/index.md) → [世界模型](../../theory/models/world-models/index.md)
 6. [可解釋性](../../society/interpretability/index.md) → [AI 安全與對齊](../../society/safety-alignment/index.md)
 7. [經典論文](../../reference/papers/index.md)

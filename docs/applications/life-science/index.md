@@ -1,6 +1,6 @@
 ---
 related:
-- theory/models/generative
+- theory/generative
 - theory/models/gnn
 - applications/science
 - applications/healthcare

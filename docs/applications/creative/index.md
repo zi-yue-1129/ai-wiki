@@ -1,6 +1,6 @@
 ---
 related:
-- theory/models/generative
+- theory/generative
 - theory/models/multimodal
 - theory/models/speech
 - society/governance
