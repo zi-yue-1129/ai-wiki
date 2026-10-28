@@ -67,6 +67,10 @@ The modern trend is **integration**: neural networks for perception and intuitio
 
 ## References
 
+- McCulloch & Pitts (1943). A logical calculus of the ideas immanent in nervous activity. *Bulletin of Mathematical Biophysics* 5. https://doi.org/10.1007/bf02478259 — The first mathematical model of a neuron as a logic unit.
+- Turing (1950). Computing Machinery and Intelligence. *Mind* 59. https://doi.org/10.1093/mind/lix.236.433 — Proposes the imitation game, later called the Turing test.
+- Rumelhart, Hinton & Williams (1986). Learning representations by back-propagating errors. *Nature* 323. https://doi.org/10.1038/323533a0 — Popularises backpropagation for training multi-layer networks.
+- LeCun, Bengio & Hinton (2015). Deep learning. *Nature* 521. https://doi.org/10.1038/nature14539 — A review of deep learning: representation learning with several processing layers.
 - Nilsson, N. J. (2009). *The Quest for Artificial Intelligence*. Cambridge University Press. https://doi.org/10.1017/cbo9780511819346 — A history of AI's ideas and achievements, written by a Stanford AI researcher.
 - Mitchell, M. (2019). *Artificial Intelligence: A Guide for Thinking Humans*. Farrar, Straus and Giroux. https://melaniemitchell.me/aibook/ — An accessible tour of what current AI can and cannot do, with its history.
 - Sejnowski, T. J. (2018). *The Deep Learning Revolution*. MIT Press. https://doi.org/10.7551/mitpress/11474.001.0001 — A neuroscientist's history of deep learning and its links to the brain.
