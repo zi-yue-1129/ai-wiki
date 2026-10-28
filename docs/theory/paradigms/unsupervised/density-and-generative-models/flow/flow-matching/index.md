@@ -70,6 +70,9 @@ Text-to-image and video generation with latent flow models, and generation of mo
 ### Seminal papers
 
 - Lipman, Y., et al. (2023). *Flow Matching for Generative Modeling*. ICLR (arXiv). https://arxiv.org/abs/2210.02747 — Introduces conditional flow matching for training continuous normalising flows without simulation.
+- Liu, X., Gong, C. & Liu, Q. (2022). *Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow*. arXiv. https://arxiv.org/abs/2209.03003 — Learns a velocity field that follows straighter paths, which allows sampling with fewer steps.
+- Albergo, M. S. & Vanden-Eijnden, E. (2022). *Building Normalizing Flows with Stochastic Interpolants*. arXiv. https://arxiv.org/abs/2209.15571 — A stochastic-interpolant framework that bridges flows and diffusion and gives a regression target for the velocity.
+- Tong, A., et al. (2024). *Improving and Generalizing Flow-Based Generative Models with Minibatch Optimal Transport*. TMLR. https://arxiv.org/abs/2302.00482 — Pairs noise and data with minibatch optimal transport, giving straighter conditional paths for flow matching.
 
 ### Surveys and textbooks
 

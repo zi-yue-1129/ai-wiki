@@ -90,6 +90,7 @@ Representation learning for images, audio and molecules, anomaly detection by re
 
 - Kingma, D. P. & Welling, M. (2013). *Auto-Encoding Variational Bayes*. arXiv. https://arxiv.org/abs/1312.6114 — Introduces the VAE, the ELBO and the reparameterisation estimator for amortised inference.
 - Rezende, D. J., Mohamed, S. & Wierstra, D. (2014). *Stochastic Backpropagation and Approximate Inference in Deep Generative Models*. ICML. https://arxiv.org/abs/1401.4082 — Develops the same model class with stochastic backpropagation and a recognition model.
+- Burda, Y., Grosse, R. & Salakhutdinov, R. (2016). *Importance Weighted Autoencoders*. ICLR. https://arxiv.org/abs/1509.00519 — Tightens the ELBO with importance-weighted samples, giving a stronger bound for the same model class.
 
 ### Surveys and textbooks
 

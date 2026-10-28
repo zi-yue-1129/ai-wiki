@@ -89,6 +89,7 @@ Kingma 與 Welling（2013）以及 Rezende、Mohamed 與 Wierstra（2014）幾�
 
 - Kingma, D. P. & Welling, M. (2013). *Auto-Encoding Variational Bayes*. arXiv. https://arxiv.org/abs/1312.6114 — 提出 VAE、ELBO 與用於攤銷推論的重參數化估計量。
 - Rezende, D. J., Mohamed, S. & Wierstra, D. (2014). *Stochastic Backpropagation and Approximate Inference in Deep Generative Models*. ICML. https://arxiv.org/abs/1401.4082 — 以隨機反向傳播與識別模型發展同一類模型。
+- Burda, Y., Grosse, R. & Salakhutdinov, R. (2016). *Importance Weighted Autoencoders*. ICLR. https://arxiv.org/abs/1509.00519 — 以重要性加權樣本收緊 ELBO，對同一模型類別給出更強的下界。
 
 ### 綜述與教科書
 

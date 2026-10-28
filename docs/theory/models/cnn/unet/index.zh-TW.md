@@ -77,3 +77,4 @@ U-Net 是此處的里程碑式架構。它的變體改變維度或區塊設計�
 - Long, J., Shelhamer, E. & Darrell, T. (2015). *Fully Convolutional Networks for Semantic Segmentation*. CVPR（arXiv）. https://arxiv.org/abs/1411.4038 — 證明卷積網路可以端到端訓練用於密集預測，並在不同尺度之間使用跳接連線。
 - Ho, J., Jain, A. & Abbeel, P. (2020). *Denoising Diffusion Probabilistic Models*. NeurIPS（arXiv）. https://arxiv.org/abs/2006.11239 — 以帶時間步條件的 U-Net 作為影像擴散的去噪器。
 - Dhariwal, P. & Nichol, A. (2021). *Diffusion Models Beat GANs on Image Synthesis*. NeurIPS（arXiv）. https://arxiv.org/abs/2105.05233 — 改良擴散模型所用的 U-Net 去噪器，並報告其在影像合成上超越 GAN。
+- Çiçek, Ö., Abdulkadir, A., Lienkamp, S. S., Brox, T. & Ronneberger, O. (2016). *3D U-Net: Learning Dense Volumetric Segmentation from Sparse Annotation*. arXiv. https://arxiv.org/abs/1606.06650 — 把 U-Net 推廣到體積資料，並以稀疏標註的切片訓練。

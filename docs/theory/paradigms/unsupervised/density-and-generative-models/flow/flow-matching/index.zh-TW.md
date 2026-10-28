@@ -69,6 +69,9 @@ Lipman 等人（2023）提出流匹配來訓練連續正規化流。關鍵觀察
 ### 開創性論文
 
 - Lipman, Y., et al. (2023). *Flow Matching for Generative Modeling*. ICLR（arXiv）. https://arxiv.org/abs/2210.02747 — 提出條件流匹配，無需模擬即可訓練連續正規化流。
+- Liu, X., Gong, C. & Liu, Q. (2022). *Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow*. arXiv. https://arxiv.org/abs/2209.03003 — 學習沿較直路徑的速度場，使抽樣所需的步數更少。
+- Albergo, M. S. & Vanden-Eijnden, E. (2022). *Building Normalizing Flows with Stochastic Interpolants*. arXiv. https://arxiv.org/abs/2209.15571 — 以隨機內插橋接流與擴散，並給出速度的回歸目標。
+- Tong, A., et al. (2024). *Improving and Generalizing Flow-Based Generative Models with Minibatch Optimal Transport*. TMLR. https://arxiv.org/abs/2302.00482 — 以小批次最優傳輸配對雜訊與資料，使條件流匹配的路徑更直。
 
 ### 綜述與教科書
 
