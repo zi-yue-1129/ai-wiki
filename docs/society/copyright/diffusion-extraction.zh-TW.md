@@ -58,3 +58,10 @@ Carlini 等人（2023）顯示，可以從已訓練的擴散模型中萃取出�
 
 - Carlini, N. et al. (2023). Extracting training data from diffusion models. arXiv:2301.13188. https://arxiv.org/abs/2301.13188 — 本頁所述的研究，以先生成、再過濾的流程萃取出逾一千個訓練樣本。
 - Somepalli, G., Singla, V., Goldblum, M., Geiping, J. & Goldstein, T. (2022). Diffusion art or digital forgery? Investigating data replication in diffusion models. arXiv:2212.03860. https://arxiv.org/abs/2212.03860 — 關於擴散模型資料重現的相關研究，並說明了其結論的限制。
+- Carlini, N. et al. (2021). Extracting training data from large language models. *USENIX Security Symposium*. https://arxiv.org/abs/2012.07805 — 文字模型的對應研究，顯示被記住的訓練序列可以被逐字萃取。
+- Rombach, R., Blattmann, A., Lorenz, D., Esser, P. & Ommer, B. (2022). High-resolution image synthesis with latent diffusion models. *CVPR*. https://arxiv.org/abs/2112.10752 — Stable Diffusion 所依據的潛在擴散方法，本頁所述的研究對象之一。
+- Ho, J., Jain, A. & Abbeel, P. (2020). Denoising diffusion probabilistic models. arXiv:2006.11239. https://arxiv.org/abs/2006.11239 — 本頁所述模型所依據的去噪擴散公式。
+
+### 文章與官方文件
+
+- EUR-Lex. *Directive (EU) 2019/790 on copyright and related rights in the Digital Single Market*. https://eur-lex.europa.eu/eli/dir/2019/790/oj/eng — 第 3 條與第 4 條規定文字與資料探勘的例外，以及權利保留，這決定了何種訓練複製是被允許的。

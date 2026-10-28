@@ -58,5 +58,11 @@ The abstract reports that some diffusion models, including Stable Diffusion, "bl
 ### Seminal papers
 
 - Somepalli, G., Singla, V., Goldblum, M., Geiping, J. & Goldstein, T. (2022). Diffusion art or digital forgery? Investigating data replication in diffusion models. arXiv:2212.03860. https://arxiv.org/abs/2212.03860 — The study described on this page, with examples of direct copying and the effect of training set size and duplication.
-
 - Carlini, N. et al. (2023). Extracting training data from diffusion models. arXiv:2301.13188. https://arxiv.org/abs/2301.13188 — A companion study showing that training images can be extracted from trained diffusion models.
+- Rombach, R., Blattmann, A., Lorenz, D., Esser, P. & Ommer, B. (2022). High-resolution image synthesis with latent diffusion models. *CVPR*. https://arxiv.org/abs/2112.10752 — The latent diffusion method behind Stable Diffusion, which runs diffusion on compressed image representations.
+- Ho, J., Jain, A. & Abbeel, P. (2020). Denoising diffusion probabilistic models. arXiv:2006.11239. https://arxiv.org/abs/2006.11239 — The denoising diffusion formulation that most image diffusion models build on.
+- Schuhmann, C. et al. (2022). LAION-5B: An open large-scale dataset for training next generation image-text models. arXiv:2210.08402. https://arxiv.org/abs/2210.08402 — A public dataset of 5.85 billion image-text pairs, one of the sources used to train image models.
+
+### Articles and documentation
+
+- EUR-Lex. *Directive (EU) 2019/790 on copyright and related rights in the Digital Single Market*. https://eur-lex.europa.eu/eli/dir/2019/790/oj/eng — Sets out the text and data mining exceptions and the reservation of rights in Articles 3 and 4, which frame when training copies are allowed.

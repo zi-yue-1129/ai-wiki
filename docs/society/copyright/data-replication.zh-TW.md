@@ -60,3 +60,10 @@ Somepalli 等人（2022）探討影像擴散模型是會複製訓練影像，還
 
 - Somepalli, G., Singla, V., Goldblum, M., Geiping, J. & Goldstein, T. (2022). Diffusion art or digital forgery? Investigating data replication in diffusion models. arXiv:2212.03860. https://arxiv.org/abs/2212.03860 — 本頁所述的研究，包含直接複製的例子，以及訓練集大小與資料重複的影響。
 - Carlini, N. et al. (2023). Extracting training data from diffusion models. arXiv:2301.13188. https://arxiv.org/abs/2301.13188 — 相關研究，顯示可以從已訓練的擴散模型中萃取出訓練影像。
+- Rombach, R., Blattmann, A., Lorenz, D., Esser, P. & Ommer, B. (2022). High-resolution image synthesis with latent diffusion models. *CVPR*. https://arxiv.org/abs/2112.10752 — Stable Diffusion 所依據的潛在擴散方法，在壓縮的影像表示上進行擴散。
+- Ho, J., Jain, A. & Abbeel, P. (2020). Denoising diffusion probabilistic models. arXiv:2006.11239. https://arxiv.org/abs/2006.11239 — 多數影像擴散模型所依據的去噪擴散公式。
+- Schuhmann, C. et al. (2022). LAION-5B: An open large-scale dataset for training next generation image-text models. arXiv:2210.08402. https://arxiv.org/abs/2210.08402 — 公開的資料集，含 58.5 億組影像與文字配對，是訓練影像模型的來源之一。
+
+### 文章與官方文件
+
+- EUR-Lex. *Directive (EU) 2019/790 on copyright and related rights in the Digital Single Market*. https://eur-lex.europa.eu/eli/dir/2019/790/oj/eng — 第 3 條與第 4 條規定文字與資料探勘的例外，以及權利保留，這決定了何種訓練複製是被允許的。

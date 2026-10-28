@@ -57,3 +57,10 @@ The abstract reports that the pipeline extracts "over a thousand training exampl
 
 - Carlini, N. et al. (2023). Extracting training data from diffusion models. arXiv:2301.13188. https://arxiv.org/abs/2301.13188 — The study described on this page, with a generate-and-filter pipeline that extracts over a thousand training examples.
 - Somepalli, G., Singla, V., Goldblum, M., Geiping, J. & Goldstein, T. (2022). Diffusion art or digital forgery? Investigating data replication in diffusion models. arXiv:2212.03860. https://arxiv.org/abs/2212.03860 — A companion study on replication in diffusion models, with its own limits on what it shows.
+- Carlini, N. et al. (2021). Extracting training data from large language models. *USENIX Security Symposium*. https://arxiv.org/abs/2012.07805 — The text-model counterpart, showing that memorised training sequences can be extracted verbatim.
+- Rombach, R., Blattmann, A., Lorenz, D., Esser, P. & Ommer, B. (2022). High-resolution image synthesis with latent diffusion models. *CVPR*. https://arxiv.org/abs/2112.10752 — The latent diffusion method behind Stable Diffusion, one of the model families studied for extraction.
+- Ho, J., Jain, A. & Abbeel, P. (2020). Denoising diffusion probabilistic models. arXiv:2006.11239. https://arxiv.org/abs/2006.11239 — The denoising diffusion formulation that the models in this page are built on.
+
+### Articles and documentation
+
+- EUR-Lex. *Directive (EU) 2019/790 on copyright and related rights in the Digital Single Market*. https://eur-lex.europa.eu/eli/dir/2019/790/oj/eng — Sets out the text and data mining exceptions and the reservation of rights in Articles 3 and 4, which frame when training copies are allowed.
