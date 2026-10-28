@@ -257,6 +257,29 @@ plugins:
             Attention Variants: 注意力變體
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
+            Hodgkin–Huxley Model: Hodgkin–Huxley 模型
+            Sparse Coding: 稀疏編碼
+            Medial Temporal Lobe Lesions: 內側顳葉損傷
+            Long-Term Potentiation: 長期增益
+            Complementary Learning Systems: 互補學習系統
+            Receptive Fields in Visual Cortex: 視覺皮質的感受野
+            Dopamine Reward Prediction Error: 多巴胺的獎勵預測誤差
+            Heuristics and Biases: 啟發法與偏誤
+            Building Machines That Learn Like People: 打造像人一樣學習的機器
+            Performance-Optimised Networks Predict Visual Cortex: 以效能最佳化的網路預測視覺皮質
+            Grid-Like Units in Navigating Networks: 導航網路中的格狀單元
+            Surrogate Gradients: 替代梯度
+            Online Learning with Local Updates (e-prop): 具局部更新的線上學習（e-prop）
+            Integrated Information Theory: 整合資訊理論
+            Global Workspace: 全域工作空間
+            Neural Reach and Grasp: 神經控制的伸手與抓取
+            Speech Neuroprosthesis: 言語神經義肢
+            ACT-R: ACT-R
+            CoALA: CoALA
+            Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
+            False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
+            Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
             Exploration: 探索
             Multilayer Perceptrons: 多層感知器
@@ -573,16 +596,47 @@ nav:
           - World Models & Embodied AI: theory/models/world-models/index.md
   - Brain & Mind:
       - brain-mind/index.md
-      - Neuroscience Basics: brain-mind/neuroscience/index.md
-      - Computational Neuroscience: brain-mind/computational-neuroscience/index.md
-      - NeuroAI: brain-mind/neuroai/index.md
-      - Spiking Networks & Neuromorphic Computing: brain-mind/snn-neuromorphic/index.md
-      - Memory & Learning in the Brain: brain-mind/memory-learning/index.md
-      - Cognitive Science: brain-mind/cognitive-science/index.md
-      - Cognitive Architectures: brain-mind/cognitive-architectures/index.md
-      - Psychology & AI: brain-mind/psychology/index.md
-      - Consciousness & Philosophy of Mind: brain-mind/consciousness/index.md
-      - Brain-Computer Interfaces: brain-mind/bci/index.md
+      - Neuroscience Basics:
+          - brain-mind/neuroscience/index.md
+          - Receptive Fields in Visual Cortex: brain-mind/neuroscience/receptive-fields-hubel-wiesel/index.md
+          - Dopamine Reward Prediction Error: brain-mind/neuroscience/dopamine-reward-prediction-error/index.md
+      - Computational Neuroscience:
+          - brain-mind/computational-neuroscience/index.md
+          - Hodgkin–Huxley Model: brain-mind/computational-neuroscience/hodgkin-huxley/index.md
+          - Sparse Coding: brain-mind/computational-neuroscience/sparse-coding/index.md
+      - NeuroAI:
+          - brain-mind/neuroai/index.md
+          - Performance-Optimised Networks Predict Visual Cortex: brain-mind/neuroai/performance-optimised-networks/index.md
+          - Grid-Like Units in Navigating Networks: brain-mind/neuroai/grid-like-units/index.md
+      - Spiking Networks & Neuromorphic Computing:
+          - brain-mind/snn-neuromorphic/index.md
+          - Surrogate Gradients: brain-mind/snn-neuromorphic/surrogate-gradients/index.md
+          - Online Learning with Local Updates (e-prop): brain-mind/snn-neuromorphic/eprop/index.md
+      - Memory & Learning in the Brain:
+          - brain-mind/memory-learning/index.md
+          - Medial Temporal Lobe Lesions: brain-mind/memory-learning/medial-temporal-lesions/index.md
+          - Long-Term Potentiation: brain-mind/memory-learning/long-term-potentiation/index.md
+          - Complementary Learning Systems: brain-mind/memory-learning/complementary-learning-systems/index.md
+      - Cognitive Science:
+          - brain-mind/cognitive-science/index.md
+          - Heuristics and Biases: brain-mind/cognitive-science/heuristics-and-biases/index.md
+          - Building Machines That Learn Like People: brain-mind/cognitive-science/building-machines-like-people/index.md
+      - Cognitive Architectures:
+          - brain-mind/cognitive-architectures/index.md
+          - ACT-R: brain-mind/cognitive-architectures/act-r/index.md
+          - CoALA: brain-mind/cognitive-architectures/coala/index.md
+      - Psychology & AI:
+          - brain-mind/psychology/index.md
+          - Chimpanzee Theory-of-Mind Test: brain-mind/psychology/chimpanzee-theory-of-mind/index.md
+          - False-Belief Tests on LLMs: brain-mind/psychology/false-belief-llms/index.md
+      - Consciousness & Philosophy of Mind:
+          - brain-mind/consciousness/index.md
+          - Integrated Information Theory: brain-mind/consciousness/integrated-information-theory/index.md
+          - Global Workspace: brain-mind/consciousness/global-workspace/index.md
+      - Brain-Computer Interfaces:
+          - brain-mind/bci/index.md
+          - Neural Reach and Grasp: brain-mind/bci/neural-reach-and-grasp/index.md
+          - Speech Neuroprosthesis: brain-mind/bci/speech-neuroprosthesis/index.md
       - Language in the Brain:
           - brain-mind/language-in-brain/index.md
           - Dual-Stream Model (Hickok & Poeppel 2007): brain-mind/language-in-brain/hickok-poeppel-2007/index.md
@@ -606,8 +660,12 @@ nav:
       - Education: applications/education/index.md
       - Finance: applications/finance/index.md
       - Law: applications/law/index.md
-      - Robotics: applications/robotics/index.md
-      - Autonomous Driving & Transport: applications/autonomous-driving/index.md
+      - Robotics:
+          - applications/robotics/index.md
+          - Hand-Eye Coordination for Grasping: applications/robotics/hand-eye-grasping/index.md
+      - Autonomous Driving & Transport:
+          - applications/autonomous-driving/index.md
+          - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md
       - Manufacturing & Industry: applications/manufacturing/index.md
       - Agriculture & Food: applications/agriculture/index.md
       - Climate & Energy: applications/climate-energy/index.md
