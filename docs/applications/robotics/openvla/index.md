@@ -19,7 +19,7 @@ The strongest robot vision-language-action models were closed, so most labs coul
 
 ## Core idea
 
-OpenVLA combines a Llama 2 language backbone with a visual encoder built from DINOv2 and SigLIP features. It is trained on 970k real-world robot demonstrations. RT-2-X has 55 billion parameters, and the paper reports that OpenVLA outperforms it by 16.5% absolute success rate across 29 tasks, with about seven times fewer parameters.
+OpenVLA combines a Llama 2 language backbone with a visual encoder built from DINOv2 and SigLIP features. It is trained on 970k real-world robot demonstrations. RT-2-X has 55 billion parameters, and the paper reports that OpenVLA outperforms it by 16.5% absolute success rate across 29 tasks, with about eight times fewer parameters.
 
 ## Procedure
 
@@ -29,7 +29,7 @@ OpenVLA combines a Llama 2 language backbone with a visual encoder built from DI
 
 ## Results
 
-The paper reports a 16.5% absolute success advantage over RT-2-X across 29 tasks, and clear gains on BridgeData V2 (70.6% against 50.6%). RT-2-X remains stronger on semantic generalisation, and the two are comparable on the Google robot. The LoRA and quantisation results are in the paper's Tables 1 and 2.
+The paper reports a 16.5% absolute success advantage over RT-2-X across 29 tasks, and clear gains on BridgeData V2 (the figures are in Figure 3). RT-2-X remains stronger on semantic generalisation, and the two are comparable on the Google robot. The LoRA and quantisation results are in the paper's Tables 1 and 2.
 
 ## Limitations
 
