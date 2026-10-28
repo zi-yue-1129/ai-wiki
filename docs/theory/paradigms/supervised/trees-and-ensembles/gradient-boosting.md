@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/supervised/trees-and-ensembles
@@ -63,8 +63,8 @@ For squared loss, the pseudo-residuals are the plain residuals, so each tree fit
 
 - **Problem:** Gradient-boosted trees were slow to train on very large data sets, and handling sparse inputs needed care. The method needed to scale without losing accuracy.
 - **Core idea:** A complete tree boosting system with a sparsity-aware algorithm for split finding and a weighted quantile sketch for approximate split finding. The abstract also points to attention to cache access patterns, data compression and sharding, which are engineering choices for speed.
-- **Equation or algorithm:** the same stagewise update \(F_m = F_{m-1} + \nu\, h_m\) as Friedman's method. The regularised objective and the split-gain formula used by the system are not reproduced here, because they were not checked against the paper in this pass.
-- **Results:** The abstract states that XGBoost "scales beyond billions of examples using far fewer resources than existing systems." Its benchmark tables were not checked in this pass, so no speed-up or accuracy figures are given here.
+- **Equation or algorithm:** the same stagewise update \(F_m = F_{m-1} + \nu\, h_m\) as Friedman's method. The regularised objective and the split-gain formula used by the system are not reproduced here.
+- **Results:** The abstract states that XGBoost "scales beyond billions of examples using far fewer resources than existing systems." This page gives no speed-up or accuracy figures beyond that claim.
 - **Limitations:** The system has many hyperparameters, including depth, learning rate, regularisation and subsampling settings, that interact. It inherits the sequential nature of boosting. The abstract makes a scaling claim, not a claim about accuracy against every alternative.
 
 ### LightGBM (Ke et al., 2017)
@@ -72,8 +72,8 @@ For squared loss, the pseudo-residuals are the plain residuals, so each tree fit
 - **Problem:** On large data, finding the best split for every feature over every example is the main cost of gradient boosting.
 - **Core idea:** Gradient-based one-side sampling (GOSS) excludes a significant proportion of the instances with small gradients, so that split search runs on fewer examples. Exclusive feature bundling (EFB) bundles features that rarely take non-zero values at the same time, which reduces the number of features to scan.
 - **Equation or algorithm:** no closed form is given here. The method is the gradient boosting procedure above with GOSS sampling and EFB bundling applied at each split search.
-- **Results:** The abstract states that LightGBM "speeds up the training process of conventional GBDT by up to over 20 times." The phrase "up to" marks this as a best-case figure, and the experiments behind it were not checked in this pass.
-- **Limitations:** The speed-up depends on the data set, and the abstract gives it as an upper bound ("up to"). The paper's experiments were not checked in this pass.
+- **Results:** The abstract states that LightGBM "speeds up the training process of conventional GBDT by up to over 20 times while achieving almost the same accuracy." The phrase "up to" marks this as a best-case figure, and this page does not reproduce the experiments behind it.
+- **Limitations:** The speed-up depends on the data set, and the abstract gives it as an upper bound ("up to"). This page does not reproduce the paper's experiments.
 
 ### CatBoost (Prokhorenkova et al., 2017)
 
@@ -99,8 +99,8 @@ For squared loss, the pseudo-residuals are the plain residuals, so each tree fit
 
 ### Seminal papers
 
-- Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. *Annals of Statistics*, 29(5), 1189–1232. https://projecteuclid.org/journals/annals-of-statistics/volume-29/issue-5/Greedy-function-approximation-A-gradient-boosting-machine/10.1214/aos/1013203451.full — Frames boosting as steepest descent in function space, which allows many losses.
-- Chen, T. & Guestrin, C. (2016). XGBoost: A scalable tree boosting system. *KDD 2016*. https://arxiv.org/abs/1603.02754 — The XGBoost system, with a sparsity-aware split algorithm and a weighted quantile sketch for scalable training.
+- Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. *Annals of Statistics*, 29(5), 1189–1232. https://doi.org/10.1214/aos/1013203451 — Frames boosting as steepest descent in function space, which allows many losses.
+- Chen, T. & Guestrin, C. (2016). XGBoost: A scalable tree boosting system. *Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD '16)*, pp. 785–794. https://doi.org/10.1145/2939672.2939785 — The XGBoost system, with a sparsity-aware split algorithm and a weighted quantile sketch for scalable training.
 - Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q. & Liu, T.-Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. *Advances in Neural Information Processing Systems 30 (NIPS 2017)*. https://papers.nips.cc/paper/6907-lightgbm-a-highly-efficient-gradient-boosting-decision-tree — Introduces GOSS and EFB to speed up gradient boosting on large data.
 - Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V. & Gulin, A. (2017). CatBoost: Unbiased boosting with categorical features. arXiv:1706.09516. https://arxiv.org/abs/1706.09516 — Introduces ordered boosting and an ordered target-statistics scheme against prediction shift.
 

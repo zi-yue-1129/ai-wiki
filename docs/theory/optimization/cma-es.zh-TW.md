@@ -67,4 +67,4 @@ CMA-ES 是族群方法。它的目標是無法取得梯度的非線性、非凸�
 
 ### 綜述與教科書
 
-- Bottou, L., Curtis, F. E. & Nocedal, J.（2018）。*Optimization Methods for Large-Scale Machine Learning*。SIAM Review。https://arxiv.org/abs/1606.04838 — 基於梯度的隨機方法綜述，是無梯度方法比較時的基準。
+- Bottou, L., Curtis, F. E. & Nocedal, J.（2018）。*Optimization Methods for Large-Scale Machine Learning*。*SIAM Review*, 60(2), 223–311。https://doi.org/10.1137/16M1080173 — 基於梯度的隨機方法綜述，是無梯度方法比較時的基準。

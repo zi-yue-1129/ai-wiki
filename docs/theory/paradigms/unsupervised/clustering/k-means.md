@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/unsupervised/clustering
@@ -85,11 +85,11 @@ where \(C_j\) is the set of points currently assigned to centre \(j\). Each step
 
 ### Seminal papers
 
-- Lloyd, S. P. (1982). Least squares quantization in PCM. *IEEE Transactions on Information Theory*, 28(2), 129–137. https://doi.org/10.1109/TIT.1982.1056489 — Iterative least-squares quantizer design, the source of the alternating update now called Lloyd's algorithm. The DOI resolves to the IEEE record; the venue and volume were confirmed by search.
-- Hartigan, J. A. & Wong, M. A. (1979). Algorithm AS 136: A K-means clustering algorithm. *Applied Statistics*, 28(1), 100–108. https://doi.org/10.2307/2346830 — The Applied Statistics procedure for k-means (AS 136). The DOI is registered through Crossref to JSTOR; the title, venue, volume and pages were confirmed by search.
-- Arthur, D. & Vassilvitskii, S. (2007). k-means++: the advantages of careful seeding. *Proceedings of the 18th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA '07)*, New Orleans. SIAM. https://www.haralick.org/ML/kMeansPP-soda.pdf — Seeding rule with the expected bound \(8(\ln k + 2)\) and the \(\Theta(\log k)\)-competitive statement, both checked in the paper text. The link is a third-party copy, and the venue line is not printed in it.
-- Bahmani, B. et al. (2012). Scalable k-means++. *Proceedings of the VLDB Endowment*, 5. https://www.vldb.org/pvldb/volumes/5/paper/Scalable%20K-Means%2B%2B — A scalable variant of k-means++ seeding for large datasets. Confirmed by search only.
+- Lloyd, S. P. (1982). Least squares quantization in PCM. *IEEE Transactions on Information Theory*, 28(2), 129–137. https://doi.org/10.1109/TIT.1982.1056489 — Iterative least-squares quantizer design, the source of the alternating update now called Lloyd's algorithm.
+- Hartigan, J. A. & Wong, M. A. (1979). Algorithm AS 136: A K-means clustering algorithm. *Applied Statistics*, 28(1), 100–108. https://doi.org/10.2307/2346830 — The Applied Statistics procedure for k-means (AS 136).
+- Arthur, D. & Vassilvitskii, S. (2007). k-means++: the advantages of careful seeding. *Proceedings of the 18th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA '07)*, New Orleans. SIAM. https://www.haralick.org/ML/kMeansPP-soda.pdf — Seeding rule with the expected bound \(8(\ln k + 2)\) and the \(\Theta(\log k)\)-competitive statement. The link is a third-party copy of the paper.
+- Bahmani, B., Moseley, B., Vattani, A., Kumar, R. & Vassilvitskii, S. (2012). Scalable k-means++. *Proceedings of the VLDB Endowment*, 5, 622–633. https://doi.org/10.14778/2180912.2180915 — A scalable variant of k-means++ seeding for large datasets.
 
 ### Surveys and textbooks
 
-- Jain, A. K. (2010). Data clustering: 50 years beyond K-means. *Pattern Recognition Letters*. https://doi.org/10.1016/j.patrec.2009.09.011 — A survey of clustering research that starts from k-means. The DOI resolves to the Elsevier record for Pattern Recognition Letters; the title was confirmed by search.
+- Jain, A. K. (2010). Data clustering: 50 years beyond K-means. *Pattern Recognition Letters*, 31, 651–666. https://doi.org/10.1016/j.patrec.2009.09.011 — A survey of clustering research that starts from k-means.

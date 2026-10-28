@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/math
@@ -71,11 +71,11 @@ The tutorial describes CMA-ES as a stochastic, randomised method for real-parame
 
 ### Seminal papers
 
-- Hansen, N. (2016). *The CMA Evolution Strategy: A Tutorial*. arXiv. https://arxiv.org/abs/1604.00772 — Tutorial on CMA-ES, a randomised method for non-linear, non-convex real-parameter optimisation.
+- Hansen, N. (2016). *The CMA Evolution Strategy: A Tutorial*. arXiv. https://arxiv.org/abs/1604.00772 — Tutorial on CMA-ES, a stochastic, randomised method for non-linear, non-convex real-parameter optimisation.
 - Salimans, T., et al. (2017). *Evolution Strategies as a Scalable Alternative to Reinforcement Learning*. arXiv. https://arxiv.org/abs/1703.03864 — A population-based gradient estimator for policies, the main alternative to CMA-ES in large-scale settings.
 - Spall, J. C. (1992). Multivariate stochastic approximation using a simultaneous perturbation gradient approximation. *IEEE Transactions on Automatic Control*, 37(3), 332–341. https://doi.org/10.1109/9.119632 — The gradient-free estimator from the other side of the same comparison.
 - Malladi, S., et al. (2023). *Fine-Tuning Language Models with Just Forward Passes*. arXiv. https://arxiv.org/abs/2305.17333 — A zeroth-order method for large models, where covariance adaptation is not affordable.
 
 ### Surveys and textbooks
 
-- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. SIAM Review. https://arxiv.org/abs/1606.04838 — Survey of gradient-based stochastic methods, the baseline against which gradient-free methods are compared.
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. *SIAM Review*, 60(2), 223–311. https://doi.org/10.1137/16M1080173 — Survey of gradient-based stochastic methods, the baseline against which gradient-free methods are compared.

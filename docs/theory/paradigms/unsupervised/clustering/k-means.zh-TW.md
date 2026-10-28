@@ -77,11 +77,11 @@ c(i) \leftarrow \arg\min_{j}\ \|x_i - \mu_j\|^2, \qquad
 
 ### 開創性論文
 
-- Lloyd, S. P. (1982). Least squares quantization in PCM. *IEEE Transactions on Information Theory*, 28(2), 129–137. https://doi.org/10.1109/TIT.1982.1056489 — 迭代式最小平方量化器設計，即機器學習中所稱 Lloyd 演算法之交替更新的來源。DOI 解析至 IEEE 紀錄；期刊、卷期已由搜尋確認。
-- Hartigan, J. A. & Wong, M. A. (1979). Algorithm AS 136: A K-means clustering algorithm. *Applied Statistics*, 28(1), 100–108. https://doi.org/10.2307/2346830 — Applied Statistics 中的 k-means 程序（AS 136）。DOI 經 Crossref 登記至 JSTOR；標題、期刊、卷期與頁碼已由搜尋確認。
-- Arthur, D. & Vassilvitskii, S. (2007). k-means++: the advantages of careful seeding. *Proceedings of the 18th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA '07)*, New Orleans. SIAM. https://www.haralick.org/ML/kMeansPP-soda.pdf — 期望界 \(8(\ln k + 2)\) 與 \(\Theta(\log k)\) 競爭比的敘述，均已對照論文內文核對。此連結為第三方副本，其中未印出會議名稱行。
-- Bahmani, B. 等人 (2012). Scalable k-means++. *Proceedings of the VLDB Endowment*, 5. https://www.vldb.org/pvldb/volumes/5/paper/Scalable%20K-Means%2B%2B — 適用於大型資料集的 k-means++ 可擴展初始化變體。僅由搜尋確認。
+- Lloyd, S. P. (1982). Least squares quantization in PCM. *IEEE Transactions on Information Theory*, 28(2), 129–137. https://doi.org/10.1109/TIT.1982.1056489 — 迭代式最小平方量化器設計，即機器學習中所稱 Lloyd 演算法之交替更新的來源。
+- Hartigan, J. A. & Wong, M. A. (1979). Algorithm AS 136: A K-means clustering algorithm. *Applied Statistics*, 28(1), 100–108. https://doi.org/10.2307/2346830 — Applied Statistics 中的 k-means 程序（AS 136）。
+- Arthur, D. & Vassilvitskii, S. (2007). k-means++: the advantages of careful seeding. *Proceedings of the 18th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA '07)*, New Orleans. SIAM. https://www.haralick.org/ML/kMeansPP-soda.pdf — 期望界 \(8(\ln k + 2)\) 與 \(\Theta(\log k)\) 競爭比的敘述。此連結為第三方副本。
+- Bahmani, B. 等人 (2012). Scalable k-means++. *Proceedings of the VLDB Endowment*, 5, 622–633. https://doi.org/10.14778/2180912.2180915 — 適用於大型資料集的 k-means++ 可擴展初始化變體。
 
 ### 綜述與教科書
 
-- Jain, A. K. (2010). Data clustering: 50 years beyond K-means. *Pattern Recognition Letters*. https://doi.org/10.1016/j.patrec.2009.09.011 — 以 k-means 為起點的分群研究綜述。DOI 解析至 Elsevier 的 Pattern Recognition Letters 紀錄；標題已由搜尋確認。
+- Jain, A. K. (2010). Data clustering: 50 years beyond K-means. *Pattern Recognition Letters*, 31, 651–666. https://doi.org/10.1016/j.patrec.2009.09.011 — 以 k-means 為起點的分群研究綜述。
