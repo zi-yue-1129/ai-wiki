@@ -39,6 +39,7 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 | Term | 中文 | Short definition |
 |---|---|---|
 | Data augmentation | 資料增強 | Creating modified copies of training data |
+| Differential privacy | 差分隱私 | A formal guarantee that one person's data barely changes the output ([Privacy and Data Protection](../../society/privacy/index.md)) |
 | Diffusion model | 擴散模型 | Generative model that learns to denoise ([Generative Models](../../theory/generative/index.md)) |
 | Distillation | 知識蒸餾 | Training a small model to imitate a large one |
 | Distribution shift | 分布偏移 | Test data differ from training data |
@@ -81,6 +82,8 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 | Learning rate | 學習率 | Step size in gradient descent |
 | LoRA | 低秩適應 | Parameter-efficient fine-tuning with low-rank updates |
 | Loss function | 損失函數 | Quantity minimised in training |
+| Membership inference | 成員推論 | Deciding whether a record was in a model's training set ([Privacy and Data Protection](../../society/privacy/index.md)) |
+| Memorisation | 記憶化 | A model reproducing specific training examples ([Privacy and Data Protection](../../society/privacy/index.md)) |
 | Meta-learning | 元學習 | Learning to learn ([Meta-Learning](../../theory/paradigms/meta-learning/index.md)) |
 | Mixture of experts (MoE) | 混合專家 | Routing each token to a subset of expert sub-networks |
 | Model card | 模型卡 | Documentation of a model's intended use and limits |
