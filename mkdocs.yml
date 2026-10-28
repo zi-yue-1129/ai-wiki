@@ -317,6 +317,19 @@ plugins:
             AlphaZero: 阿爾法零
             MuZero: MuZero
             Proximal Policy Optimisation: 近端策略最佳化
+            Value-Based Methods: 值函數方法
+            Q-Learning: Q 學習
+            SARSA: SARSA
+            Double DQN: 雙重 DQN
+            Rainbow: Rainbow
+            Policy Gradient & Actor-Critic: 策略梯度與演員–評論家
+            REINFORCE: REINFORCE
+            A3C: 異步優勢演員–評論家
+            TRPO: 信賴區域策略最佳化
+            DDPG: 深度確定性策略梯度
+            TD3: 雙延遲深度確定性策略梯度
+            SAC: 軟演員–評論家
+            GRPO: 群組相對策略最佳化
             AlexNet: AlexNet
             GPT-3 Few-Shot Learning: GPT-3 少樣本學習
             Compute-Optimal Training: 運算最佳化訓練
@@ -878,8 +891,21 @@ nav:
               - AlphaGo: theory/paradigms/reinforcement-learning/alphago/index.md
               - AlphaZero: theory/paradigms/reinforcement-learning/alphazero/index.md
               - Proximal Policy Optimisation: theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index.md
-              - Value-Based Methods: theory/paradigms/reinforcement-learning/value-based-methods/index.md
-              - Policy Gradient & Actor-Critic: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
+              - Value-Based Methods:
+                  - theory/paradigms/reinforcement-learning/value-based-methods/index.md
+                  - Q-Learning: theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.md
+                  - SARSA: theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.md
+                  - Double DQN: theory/paradigms/reinforcement-learning/value-based-methods/double-dqn/index.md
+                  - Rainbow: theory/paradigms/reinforcement-learning/value-based-methods/rainbow/index.md
+              - Policy Gradient & Actor-Critic:
+                  - theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
+                  - REINFORCE: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index.md
+                  - A3C: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/a3c/index.md
+                  - TRPO: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/trpo/index.md
+                  - DDPG: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/ddpg/index.md
+                  - TD3: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/td3/index.md
+                  - SAC: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/sac/index.md
+                  - GRPO: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index.md
               - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
               - MuZero: theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md
               - Offline RL: theory/paradigms/reinforcement-learning/offline-rl/index.md

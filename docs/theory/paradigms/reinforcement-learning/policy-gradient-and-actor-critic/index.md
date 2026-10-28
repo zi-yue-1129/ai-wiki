@@ -15,10 +15,12 @@ For a parametrised policy $\pi_\theta$, the policy gradient theorem gives $\nabl
 
 ## Key methods
 
-- **REINFORCE** samples full trajectories and weights log-probabilities by the return. It is simple and unbiased, but needs many samples.
-- **Actor-critic** methods train a critic to estimate values and use the temporal-difference error as the advantage.
-- **A3C** runs several actors in parallel with asynchronous updates, which decorrelates the data without a replay buffer.
-- **PPO** limits how far each update can move the policy, using a clipped objective. It is simple to tune and is the default in many applications.
+- **[REINFORCE](reinforce/index.md)** samples full trajectories and weights log-probabilities by the return. It is simple and unbiased, but needs many samples.
+- **[A3C](a3c/index.md)** runs several actors in parallel with asynchronous updates, which decorrelates the data without a replay buffer.
+- **[TRPO](trpo/index.md)** maximises a surrogate objective under an average KL constraint on the policy change. It is principled but complicated to implement.
+- **[PPO](../proximal-policy-optimisation/index.md)** limits how far each update can move the policy, using a clipped objective. It is simple to tune and is the default in many applications.
+- **[DDPG](ddpg/index.md)**, **[TD3](td3/index.md)** and **[SAC](sac/index.md)** are off-policy actor-critic methods for continuous actions. TD3 corrects DDPG's overestimation, and SAC adds an entropy term with a stochastic actor.
+- **[GRPO](grpo/index.md)** drops the critic and uses the mean reward of a group of sampled answers as the baseline, for language models.
 
 ## Trade-offs
 
