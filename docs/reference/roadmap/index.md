@@ -12,7 +12,7 @@ To pick something up, see [Contributing](../contributing/index.md).
 
 ## Open chapters
 
-The issues are the list, so this page does not repeat them. A pull request that says `Closes #n` in its description closes the chapter when it is merged.
+The issues are the list, so this page does not repeat them. A pull request that says `Closes #n` in its description closes the chapter when it is merged. A workflow also closes a chapter issue once its page is complete, and opens one for each new stub or draft that has none.
 
 | Priority | Open chapter issues |
 |---|---|
