@@ -321,6 +321,7 @@ plugins:
             Training & Fine-tuning: 訓練與微調
             Distributed Training: 分散式訓練
             Vector Databases and Semantic Search: 向量資料庫與語意搜尋
+            LLM Application Security: LLM 應用安全
             Prompt Engineering: 提示工程
             Retrieval-Augmented Generation: 檢索增強生成 RAG
             Evaluation & Benchmarks: 評估與基準
@@ -585,6 +586,7 @@ nav:
       - Training & Fine-tuning: engineering/training/index.md
       - Distributed Training: engineering/distributed-training/index.md
       - Vector Databases: engineering/vector-databases/index.md
+      - LLM Application Security: engineering/llm-security/index.md
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
