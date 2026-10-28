@@ -622,6 +622,7 @@ plugins:
             TinyML and Mobile Runtimes: TinyML 與行動端執行環境
             Compute Governance and Export Controls: 運算治理與出口管制
             Variational Autoencoders: 變分自編碼器
+            Search Engines and Information Retrieval: 搜尋引擎與資訊檢索
 
 markdown_extensions:
   - abbr
@@ -1144,6 +1145,11 @@ nav:
       - Cybersecurity: applications/cybersecurity/index.md
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md
+      - Search Engines and Information Retrieval:
+          - applications/search-and-information-retrieval/index.md
+          - RankNet: applications/search-and-information-retrieval/ranknet/index.md
+          - DSSM: applications/search-and-information-retrieval/dssm/index.md
+          - "Wide & Deep": applications/search-and-information-retrieval/wide-and-deep/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools:
