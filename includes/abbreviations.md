@@ -33,3 +33,5 @@
 *[STDP]: Spike-Timing-Dependent Plasticity
 *[ACT-R]: Adaptive Control of Thought—Rational
 *[MCP]: Model Context Protocol
+*[DP]: Differential Privacy
+*[GDPR]: General Data Protection Regulation
