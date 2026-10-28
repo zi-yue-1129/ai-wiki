@@ -101,11 +101,17 @@ Each method has its own page. The overview and comparison here are brief.
 - **Comparison:** The policy-based route, simpler than trust-region methods. It is on-policy, which the offline RL page contrasts with.
 - **Full write-up:** [Proximal Policy Optimisation](proximal-policy-optimisation/index.md)
 
+### AlphaGo and AlphaZero (Silver et al., 2016, 2018)
+
+- **Overview:** Search with learned networks. AlphaGo combines a policy network and a value network with Monte Carlo tree search and uses human games to start. AlphaZero learns from self-play alone, with only the rules of each game.
+- **Comparison:** The search-based route to game play. Both sit in the Go and board-game milestones, and [MuZero](model-based-rl/muzero/index.md) extends the same search to games whose rules are not given to the planner.
+- **Full write-up:** [AlphaGo](alphago/index.md), [AlphaZero](alphazero/index.md)
+
 ## Milestones
 
 - **TD-Gammon** (1992)
 - **DQN** (2013/2015): Atari from pixels
-- **AlphaGo / AlphaZero / MuZero** (2016–2019): self-play + Monte Carlo tree search
+- **[AlphaGo](alphago/index.md) / [AlphaZero](alphazero/index.md) / [MuZero](model-based-rl/muzero/index.md)** (2016–2019): self-play + Monte Carlo tree search
 - **OpenAI Five, AlphaStar** (2019): Dota 2, StarCraft II
 - **RLHF** (2017 onward, mainstream with ChatGPT in 2022): train a reward model on human preferences, then optimise the LLM with PPO
 - **RL for reasoning** (2024–2025): training long chains of thought with verifiable rewards (math answers, unit tests), e.g. GRPO as used for DeepSeek-R1

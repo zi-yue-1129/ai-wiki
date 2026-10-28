@@ -38,7 +38,7 @@ Deep learning's rise was enabled by GPUs; today compute is a strategic resource 
 ## Subchapters
 
 - [AI accelerators](accelerators/index.md): GPU, TPU and ASIC design principles, with pages on the [TPU](accelerators/tpu/index.md) and [Eyeriss v2](accelerators/eyeriss-v2/index.md).
-- [Memory Hierarchy and Bandwidth](memory-hierarchy/index.md): registers, on-chip SRAM and HBM, arithmetic intensity, the roofline model, and why LLM decoding is bandwidth-bound.
+- [Memory Hierarchy and Bandwidth](memory-hierarchy/index.md): registers, on-chip SRAM and HBM, arithmetic intensity, the [roofline model](memory-hierarchy/roofline.md), and why LLM decoding is bandwidth-bound.
 - [Interconnects and Scaling](interconnects/index.md): NVLink, InfiniBand and TPU inter-chip links, collective operations, and how parallelism strategies use them.
 - [In-Memory and Analogue Computing](in-memory-computing/index.md): computing inside resistive crossbars, the noise and conversion costs it brings, and its training and LLM challenges.
 - [Hardware-Aware Model and Software Co-Design](co-design/index.md): number formats, fused kernels and compilers, and architecture choices measured on the target chip.

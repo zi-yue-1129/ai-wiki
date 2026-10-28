@@ -90,11 +90,17 @@ Schultz、Dayan 與 Montague（1997）發現：中腦多巴胺神經元的放電
 - **比較：** 策略基礎的路線，比信任區域方法簡單。它是同策略的，與離線強化學習頁形成對比。
 - **完整內容：** [近端策略最佳化](proximal-policy-optimisation/index.md)
 
+### AlphaGo 與 AlphaZero（Silver 等人，2016、2018）
+
+- **概況：** 以學習得到的網路進行搜尋。AlphaGo 結合策略網路與價值網路及蒙地卡羅樹搜尋，並以人類棋譜起步。AlphaZero 僅靠自我對弈學習，只依各遊戲的規則。
+- **比較：** 以搜尋為基礎的對弈路線。兩者都列於圍棋與棋類遊戲的里程碑中，而 [MuZero](model-based-rl/muzero/index.md) 把同一套搜尋延伸到規則不交給規劃器的遊戲。
+- **完整內容：** [AlphaGo](alphago/index.md)、[AlphaZero](alphazero/index.md)
+
 ## 里程碑
 
 - **TD-Gammon**（1992）
 - **DQN**（2013/2015）：從像素學會玩 Atari
-- **AlphaGo / AlphaZero / MuZero**（2016–2019）：自我對弈＋蒙地卡羅樹搜尋
+- **[AlphaGo](alphago/index.md) / [AlphaZero](alphazero/index.md) / [MuZero](model-based-rl/muzero/index.md)**（2016–2019）：自我對弈＋蒙地卡羅樹搜尋
 - **OpenAI Five、AlphaStar**（2019）：Dota 2、星海爭霸 II
 - **RLHF**（2017 起，2022 ChatGPT 普及）：用人類偏好訓練獎勵模型再以 PPO 微調 LLM
 - **推理模型的 RL**（2024–2025）：以可驗證獎勵（數學答案、程式測試）訓練長思維鏈，例如 DeepSeek-R1 使用的 GRPO

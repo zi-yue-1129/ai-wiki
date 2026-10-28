@@ -60,7 +60,7 @@ Each method has its own page. This table is only a comparison.
 
 ## Attention in machines
 
-Neural networks use the word attention for a learned weighting over inputs, and transformer models rely on it heavily. The mechanism is described on the [Transformer](../../theory/models/transformer/index.md) pages, and its variants are on [Attention Variants](../../theory/models/transformer/attention-variants/index.md). The analogy with biology is loose. A transformer weights every input token by a learned score, while a brain selects among competing signals with limited capacity. Models that select glimpses from images, such as recurrent visual attention networks, are closer to the neural case, and they are cited in the references below.
+Neural networks use the word attention for a learned weighting over inputs, and transformer models rely on it heavily. The mechanism is described on the [Transformer](../../theory/models/transformer/index.md) pages, and its variants are on [Attention Variants](../../theory/models/transformer/attention-variants/index.md). The analogy with biology is loose. A transformer weights every input token by a learned score, while a brain selects among competing signals with limited capacity. Models that select glimpses from images, such as recurrent visual attention networks, are closer to the neural case. The recurrent attention model has its own page, [Recurrent Models of Visual Attention](recurrent-visual-attention/index.md), and it is cited in the references below.
 
 ## Connections
 

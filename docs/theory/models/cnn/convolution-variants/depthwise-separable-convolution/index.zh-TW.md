@@ -25,6 +25,14 @@ translation_reviewed: 2026-10-28
 
 Xception 論文把深度可分離卷積描述為「對輸入的每個通道獨立進行的空間卷積」，接著是「把深度卷積的輸出通道投影到新通道空間的 1×1 卷積」。論文指出，這種卷積「可以理解為具有最大數量分支的 Inception 模組」。Xception 之名即 "Extreme Inception"（極致 Inception）：整個架構由這些區塊與殘差連接組成。MobileNets（Howard 等人，2017）則以同樣的分解作為高效裝置端視覺的建構單元。
 
+![三個輸入通道先經獨立的空間濾波器，再於同一空間位置混合為兩個輸出通道。](../../../../../assets/concept-animations/depthwise-channel-mixing.gif)
+
+*原創動畫；AI Wiki，CC BY-SA 4.0。*
+
+沿著彩色路徑由左向右閱讀：每個輸入通道各有一個 3×3 空間濾波器，產生一個中間通道（深度倍率為 1）。中央的三個小方塊代表同一空間位置的數值，而非整張特徵圖。在 1×1 逐點步驟中，兩個輸出通道各自以可學習權重，對全部三個中間通道加權求和；跨通道混合發生在此處。[^factorisation] 輸入中標示的區塊只示範一個位置；掃描影像時會重用相同濾波器。圖中省略非線性、偏置、正規化與邊界處理。圓點移動的順序用來解釋相依關係，不代表硬體執行時間。顏色與特徵值皆為示意，並非模型實測值；每次循環會重新演示這個單一位置的例子。
+
+[^factorisation]: Howard et al. (2017), [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861), Section 3.1；列於參考文獻。
+
 ## 方程式或演算法
 
 對於輸入通道數 \(C_{\text{in}}\)、輸出通道數 \(C_{\text{out}}\)、\(k \times k\) 的核，以及大小為 \(H \times W\) 的輸出，一般卷積的成本約為 \(k^2 C_{\text{in}} C_{\text{out}} HW\) 次乘加。深度可分離形式的成本為深度卷積的 \(k^2 C_{\text{in}} HW\) 加上 1×1 步驟的 \(C_{\text{in}} C_{\text{out}} HW\)，因此與一般卷積成本的比值為 \(1/C_{\text{out}} + 1/k^2\)。此比值由上述定義推出，並非論文報告的數字。

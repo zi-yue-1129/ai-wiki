@@ -38,18 +38,17 @@ Ronneberger、Fischer 與 Brox（2015）結合了兩個想法。卷積網路在�
 
 ## 關鍵方法
 
-U-Net 是此處的里程碑式架構。它的變體改變維度或區塊設計；每一種變體都有待撰寫的獨立頁面。
+U-Net 是此處的里程碑式架構。主要的變體把設計從二維影像延伸到體積影像，它的獨立頁面列為後續工作。
 
 - **U-Net（Ronneberger 等人，2015）**：上述架構，以跳接連線進行密集預測。
-- **3D U-Net 與 V-Net**：相同的設計用於體積醫學影像。方法頁仍待撰寫。
-- **殘差與注意力 U-Net**：在跳接路徑上加入殘差區塊或注意力閘門。方法頁仍待撰寫。
+- **3D U-Net（Çiçek 等人，2016）**：相同的編碼器–解碼器設計用於體積影像，並以稀疏標註訓練。獨立頁面列為後續工作。
 
 ### U-Net：用於生物醫學影像分割的卷積網路（Ronneberger 等人，2015）
 
 - **問題：** 在只有少量標註範例的情況下，對生物醫學影像做密集分割，且相鄰物件必須被精確地分開。
 - **核心想法：** 對稱的編碼器–解碼器，跳接連線把高解析度特徵送到解碼器，並搭配重疊切片推論與彈性形變擴增。
 - **公式或演算法：** 即上述架構。損失為逐像素交叉熵，並以權重圖提升細窄分隔邊界的權重。
-- **結果：** 摘要報告網路能以極少的影像端到端訓練，並在 ISBI 電子顯微鏡神經結構分割挑戰賽上，優於先前最好的滑動視窗卷積方法。它也在 ISBI 2015 細胞追蹤挑戰賽的相位對比與 DIC 類別中獲勝，並報告在近期 GPU 上一秒內可分割 512×512 的影像。
+- **結果：** 摘要報告網路能以極少的影像端到端訓練。在 ISBI 電子顯微鏡挑戰賽上，論文表格報告的扭曲誤差為 0.000353、Rand 誤差為 0.0382，而 Ciresan 等人的滑動視窗網路分別為 0.000420 與 0.0504。網路也在 ISBI 2015 細胞追蹤挑戰賽的相位對比與 DIC 類別中獲勝，摘要並指出它在近期 GPU 上不到一秒即可分割 512×512 的影像。
 - **限制：** 論文的設計針對二維影像，而重疊切片策略增加推論開銷。填充方式的選擇很重要，且架構的深度固定，因此非常大或非常小的輸入需要調整。
 
 ## 關聯
@@ -75,6 +74,6 @@ U-Net 是此處的里程碑式架構。它的變體改變維度或區塊設計�
 
 - Ronneberger, O., Fischer, P. & Brox, T. (2015). *U-Net: Convolutional Networks for Biomedical Image Segmentation*. MICCAI（arXiv）. https://arxiv.org/abs/1505.04597 — 提出具跳接連線、重疊切片推論與加權損失的編碼器–解碼器架構。
 - Long, J., Shelhamer, E. & Darrell, T. (2015). *Fully Convolutional Networks for Semantic Segmentation*. CVPR（arXiv）. https://arxiv.org/abs/1411.4038 — 證明卷積網路可以端到端訓練用於密集預測，並在不同尺度之間使用跳接連線。
-- Ho, J., Jain, A. & Abbeel, P. (2020). *Denoising Diffusion Probabilistic Models*. NeurIPS（arXiv）. https://arxiv.org/abs/2006.11239 — 以帶時間步條件的 U-Net 作為影像擴散的去噪器。
-- Dhariwal, P. & Nichol, A. (2021). *Diffusion Models Beat GANs on Image Synthesis*. NeurIPS（arXiv）. https://arxiv.org/abs/2105.05233 — 改良擴散模型所用的 U-Net 去噪器，並報告其在影像合成上超越 GAN。
+- Ho, J., Jain, A. & Abbeel, P. (2020). *Denoising Diffusion Probabilistic Models*. arXiv. https://arxiv.org/abs/2006.11239 — 以帶時間步條件的 U-Net 作為影像擴散的去噪器。
+- Dhariwal, P. & Nichol, A. (2021). *Diffusion Models Beat GANs on Image Synthesis*. arXiv. https://arxiv.org/abs/2105.05233 — 改良擴散模型所用的 U-Net 去噪器，並報告其在影像合成上超越 GAN。
 - Çiçek, Ö., Abdulkadir, A., Lienkamp, S. S., Brox, T. & Ronneberger, O. (2016). *3D U-Net: Learning Dense Volumetric Segmentation from Sparse Annotation*. arXiv. https://arxiv.org/abs/1606.06650 — 把 U-Net 推廣到體積資料，並以稀疏標註的切片訓練。

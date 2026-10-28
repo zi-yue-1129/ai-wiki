@@ -1,46 +1,97 @@
 ---
-translation_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-10-28
 ---
 
-# 病人 H.M. 與內側顳葉損傷（Scoville & Milner, 1957）
+# 內側顳葉損傷的患者（Scoville 與 Milner，1957）
 
-雙側切除內側顳葉的病人，顯示記憶依賴哪些結構。
+雙側切除內側顳葉的患者顯示，此腦區是形成新的長期記憶所必需的，而許多其他能力則得以保留。
+
+## 概觀
+
+關於記憶如何運作，一些最清楚的證據來自腦部受損的人。1953 年，一位被稱為 H.M. 的病人接受手術，切除雙側內側顳葉，以治療嚴重的癲癇。術後，他仍能進行對話，也記得早年的生活事件，但無法形成關於日常事件的新的持久記憶。William Scoville 與 Brenda Milner（1957）詳細描述了這個案例與其他病例，他們的論文成為現代記憶系統研究的起點。
+
+這篇論文之所以重要，有兩個原因。它顯示某個特定腦區對於形成新記憶是必要的；它也顯示記憶並非單一能力：某些能力喪失，另一些則得以保留。後來的研究以這些觀察為基礎，並將它們與本節其他頁面所討論的系統連結起來。
+
+## 關鍵概念
+
+- **內側顳葉**：顳葉的內側部分，包括海馬迴以及與之相鄰的內嗅皮質、鄰近嗅皮質與海馬旁皮質。Squire 與 Zola-Morgan（1991）把這些結構描述為內側顳葉記憶系統。
+- **順行性失憶**：受損之後，無法形成新記憶的能力喪失。
+- **逆行性失憶**：受損之前形成的記憶喪失。在這些患者身上，它是部分的，並且依時間而有梯度。
+- **陳述性記憶**：可有意識地回想的事實與事件的長期記憶。海馬迴系統是形成它所必需的。
+- **即時記憶**：在數秒或數分鐘內保留少量資訊的能力，依賴其他系統。
+- **損傷研究（lesion study）**：從腦區受損後出現的缺陷，推論該腦區功能的研究。
 
 ## 問題
 
-形成新的長期記憶需要大腦哪些結構？
+形成新的長期記憶需要哪些腦結構？在這些研究之前，記憶很難定位。皮質受損往往造成廣泛且不一致的效果，也不清楚記憶是依賴某個特定區域，還是分布於全腦。Scoville 與 Milner 探問：切除內側顳葉會造成哪些缺陷，又有哪些能力不受影響？
 
 ## 核心想法
 
-研究雙側內側顳葉切除後留下明確損傷的病人，測試他們還能記住什麼、不能記住什麼。H.M. 是最著名的個案。
+研究方法是檢視手術留下已知損傷的患者，並測試他們能記住什麼、不能記住什麼。1957 年的論文報告了十位患者，其中大多數有雙側內側顳葉損傷，最著名的是 H.M. 論文比較了每位患者記憶缺陷的嚴重程度與損傷的範圍。損傷範圍最廣的雙側病例，缺陷最嚴重；而損傷未涉及海馬迴、或僅限於單側的患者，則沒有持續性的缺陷。此比較讓作者能把記憶受損與某個特定結構連結起來。
 
 ## 方程式或演算法
 
-無方程式。方法是損傷研究加上記憶測驗。
+沒有方程式。方法是帶有記憶測驗的結構化損傷研究，可以寫成以下步驟：
+
+1. 找出有已知手術損傷的患者，並以標準量表評估其一般智力。
+2. 測試即時記憶，例如數字、故事與圖形的回憶，以檢查短期容量是否完好。
+3. 測試延遲回憶與新學習，例如成對聯想學習與辨認已做過的測驗，以測量順行性失憶。
+4. 測試近期與遠期記憶，包括早年生活事件的回憶，以描繪逆行性喪失的模式。
+5. 把缺陷與損傷的範圍與側別比較，也與海馬迴未受損的患者比較。
 
 ## 結果
 
-病人對新的陳述性資訊出現順行性失憶；即時記憶與較舊的記憶則相對保留。
+核心發現是對新陳述性資訊的順行性失憶。嚴重受影響的患者，在注意力轉移之後就忘記了新資訊，在延遲回憶與聯想學習上也沒有進步。H.M. 無法學會新的字詞聯想，也無法辨認他已做過的測驗。
+
+其他能力則相對保留。若不受干擾，患者能將一串數字或字詞保持數分鐘，因此即時記憶大致完好。早年生活的遠期記憶得以詳細保留。逆行性喪失是部分的，而且依時間而有梯度：H.M. 失去了手術前數年的記憶，但更早的記憶仍在。作者也報告，這些患者的技術性技能完好，這指向記憶種類之間的分離。
+
+後續研究強化了這個結果。Vargha-Khadem 等人（1997）描述了三名兒童，他們在早期即有雙側海馬迴損傷，對日常生活事件有全面性的順行性失憶，但仍能就讀一般學校，其語言、識字與事實知識達到一般至偏低的水準。這支持了一種看法：記憶的情節成分與語意成分部分可分離，而只有情節成分完全依賴海馬迴。
 
 ## 限制
 
-病人人數少，手術損傷無法精確控制。研究證明這些結構是必要的，但未說明它們如何儲存記憶。
+樣本很小，而且損傷是手術造成的，無法精確控制。患者在年齡、病因與切除範圍上各不相同，因此結論依據的是比較，而非受控實驗。當時可用的測驗，也可能無法捕捉所有形式的記憶。
+
+此研究顯示，這些結構是形成新陳述性記憶所必需的，但並未顯示它們如何儲存記憶。它也無法區分海馬迴與鄰近結構，因為手術時這些結構是一併切除的。動物研究，例如 Squire 與 Zola-Morgan（1991）所回顧的猴子模型，有助於分辨各部分的貢獻。關於儲存機制，則見[長期增益](../long-term-potentiation/index.md)的研究，以及[互補學習系統](../complementary-learning-systems/index.md)等系統理論。
+
+## 關鍵方法
+
+以下三種具代表性的方法，以不同工具研究同一個問題：
+
+- 動物損傷研究：在猴子身上選擇性損傷內側顳葉的部分，以區分海馬迴與鄰近皮質的貢獻（Squire 與 Zola-Morgan，1991）。
+- 發展性損傷研究：研究早期海馬迴受損的患者，顯示結構在早期受損時記憶如何發展（Vargha-Khadem 等人，1997）。
+- 記憶的神經影像：在健康人身上測量編碼與回憶時的活動，顯示與記憶相關的活動發生在哪裡，但無法顯示它是否必需。見[神經影像方法](../../neuroimaging-methods/index.md)。
 
 ## 連結
 
 - 母頁：[記憶與學習的神經機制](../index.md)
 - 同一主題的另一方法：[長期增益](../long-term-potentiation/index.md)
 - 同一主題的另一方法：[互補學習系統](../complementary-learning-systems/index.md)
+- H.M. 的案例也出現在母頁關於記憶系統的概述中。他所顯示的陳述性與程序性記憶之區分，在該頁有所討論。
+
+## 應用
+
+- **臨床評估。** 區分即時、近期與遠期記憶，並檢查新學習的測驗，被用來評估傷病、手術後的失憶。這些測驗的邏輯可追溯至 1957 年論文所描述的病例。
+- **教學記憶系統。** H.M. 的案例是區分陳述性與非陳述性記憶的標準範例。Squire（2009）回顧了該案例對神經科學的貢獻。
+- **指引理論。** 這些觀察促成了系統理論，這些理論主張海馬迴是暫時的儲存器，而記憶會逐漸不再依賴它。Squire 與 Zola-Morgan（1991）即陳述了這種隨時間消退的暫時角色。
+
+## 未解問題
+
+- 內側顳葉的哪些部分負責哪些記憶功能，例如海馬迴、嗅周皮質與杏仁核？
+- 一個記憶需要海馬迴多長時間，又是什麼決定了它何時變得獨立？
+- 成人與早期受損兒童所呈現的模式，是否反映相同的底層組織？
+- 患者的發現如何與互補學習系統所提出的回放與交錯有關？
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Scoville, W. B. & Milner, B. (1957). Loss of recent memory after bilateral hippocampal lesions. *Journal of Neurology, Neurosurgery & Psychiatry*. https://doi.org/10.1136/jnnp.20.1.11 — 報告包括 H.M. 在內、雙側內側顳葉損傷的病人，確立這些結構對新記憶的作用。
-- Bliss, T. V. P. & Lømo, T. (1973). Long-lasting potentiation of synaptic transmission in the dentate area of the anaesthetized rabbit following stimulation of the perforant path. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1973.sp010273 — 長期增益的首次報告，許多記憶模型的突觸基礎。
-- McClelland, J. L., McNaughton, B. L. & O'Reilly, R. C. (1995). Why there are complementary learning systems in the hippocampus and neocortex: Insights from the successes and failures of connectionist models of learning and memory. *Psychological Review*. https://doi.org/10.1037/0033-295X.102.3.419 — 互補學習系統理論的原始版本，包含干擾與交錯學習的模擬。
+- Scoville, W. B. & Milner, B. (1957). Loss of recent memory after bilateral hippocampal lesions. *Journal of Neurology, Neurosurgery & Psychiatry*. https://doi.org/10.1136/jnnp.20.1.11 — 雙側內側顳葉損傷患者（包括 H.M.）的原始報告，顯示新記憶喪失，而即時與遠期記憶得以保留。
+- Squire, L. R. & Zola-Morgan, S. (1991). The medial temporal lobe memory system. *Science*. https://doi.org/10.1126/science.1896849 — 綜述人類與猴子的研究，指出海馬迴與鄰近皮質構成長期陳述性記憶的系統，且其角色是暫時的。
+- Vargha-Khadem, F. et al. (1997). Differential effects of early hippocampal pathology on episodic and semantic memory. *Science*. https://doi.org/10.1126/science.277.5324.376 — 三名早期雙側海馬迴損傷的兒童，喪失了日常情節記憶，但保留了語言與事實知識。
 
 ### 綜述與教科書
 
-- Kumaran, D., Hassabis, D. & McClelland, J. L. (2016). What learning systems do intelligent agents need? Complementary learning systems theory updated. *Trends in Cognitive Sciences*. https://doi.org/10.1016/j.tics.2016.05.004 — 在深度學習、重播與兩個系統角色的脈絡下重新檢視此理論。
-- Richards, B. A. & Frankland, P. W. (2017). The persistence and transience of memory. *Neuron*. https://doi.org/10.1016/j.neuron.2017.04.037 — 主張遺忘有助於泛化，記憶應被理解為持久與短暫之間的平衡。
+- Corkin, S. (2002). What's new with the amnesic patient H.M.? *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn726 — 綜述對 H.M. 的後續研究，以及他的案例所揭示的記憶相關內容。
+- Squire, L. R. (2009). The legacy of patient H.M. for neuroscience. *Neuron*. https://doi.org/10.1016/j.neuron.2008.12.023 — 綜述 H.M. 案例對神經科學記憶研究的貢獻。
+- Milner, B., Squire, L. R. & Kandel, E. R. (1998). Cognitive neuroscience and the study of memory. *Neuron*. https://doi.org/10.1016/s0896-6273(00)80987-3 — 綜述失憶與動物損傷的研究，如何建立認知神經科學所使用的記憶系統。
