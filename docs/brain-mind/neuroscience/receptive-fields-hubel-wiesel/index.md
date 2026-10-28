@@ -78,6 +78,10 @@ The study found orientation-selective cells in the cat primary visual cortex, ar
 - Hubel, D. H. & Wiesel, T. N. (1959). Receptive fields of single neurones in the cat's striate cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1959.sp006308 — The first recordings of receptive fields in cat striate cortex, which introduced the on and off regions of the cell types.
 - Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1962.sp006837 — Discovers orientation-selective simple and complex cells, the biological inspiration for hierarchical vision models.
 
+- Hubel, D. H. & Wiesel, T. N. (1968). Receptive fields and functional architecture of monkey striate cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1968.sp008455 — Extends the receptive-field results to the monkey, and describes the columnar organisation of orientation preference.
+- Fukushima, K. (1980). Neocognitron: A self-organizing neural network model for a mechanism of pattern recognition unaffected by shift in position. *Biological Cybernetics*. https://doi.org/10.1007/BF00344251 — A hierarchical network of simple and complex layers, built on the Hubel and Wiesel cell types, that is an early ancestor of convolutional networks.
+
 ### Surveys and textbooks
 
 - Neuroscience Online: An Electronic Textbook for the Neurosciences. Department of Neurobiology and Anatomy, UTHealth McGovern Medical School. https://nba.uth.tmc.edu/neuroscience/ — A free, open-access electronic textbook for the neurosciences.
+- Felleman, D. J. & Van Essen, D. C. (1991). Distributed hierarchical processing in the primate cerebral cortex. *Cerebral Cortex*. https://doi.org/10.1093/cercor/1.1.1 — Maps the hierarchy of visual areas in the primate cortex, which extends the simple-to-complex idea beyond V1.

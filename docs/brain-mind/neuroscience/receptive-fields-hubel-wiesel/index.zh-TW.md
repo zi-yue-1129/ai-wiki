@@ -77,6 +77,10 @@ aliases:
 - Hubel, D. H. & Wiesel, T. N.（1959）。Receptive fields of single neurones in the cat's striate cortex. *The Journal of Physiology*。https://doi.org/10.1113/jphysiol.1959.sp006308 — 首次記錄貓紋狀皮質中的感受野，引入了開區與關區的概念。
 - Hubel, D. H. & Wiesel, T. N.（1962）。Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*。https://doi.org/10.1113/jphysiol.1962.sp006837 — 發現具方向選擇性的簡單細胞與複雜細胞，是階層式視覺模型的生物學靈感來源。
 
+- Hubel, D. H. & Wiesel, T. N.（1968）。Receptive fields and functional architecture of monkey striate cortex. *The Journal of Physiology*。https://doi.org/10.1113/jphysiol.1968.sp008455 — 把感受野的結果擴展到猴子，並描述方向偏好的柱狀組織。
+- Fukushima, K.（1980）。Neocognitron: A self-organizing neural network model for a mechanism of pattern recognition unaffected by shift in position. *Biological Cybernetics*。https://doi.org/10.1007/BF00344251 — 以 Hubel 與 Wiesel 的細胞類型為基礎的簡單層與複雜層階層網路，是卷積網路的早期前身。
+
 ### 綜述與教科書
 
 - Neuroscience Online: An Electronic Textbook for the Neurosciences. Department of Neurobiology and Anatomy, UTHealth McGovern Medical School。https://nba.uth.tmc.edu/neuroscience/ — 免費、開放取用的神經科學電子教科書。
+- Felleman, D. J. & Van Essen, D. C.（1991）。Distributed hierarchical processing in the primate cerebral cortex. *Cerebral Cortex*。https://doi.org/10.1093/cercor/1.1.1 — 描繪靈長類皮質中視覺區的階層，把簡單到複雜的想法延伸到 V1 之外。
