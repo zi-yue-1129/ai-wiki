@@ -1,5 +1,11 @@
 # History of AI
 
+## Period chapters
+
+- [Dartmouth and the symbolic era (1956–1974)](symbolic-era/index.md): the 1956 workshop, the Logic Theorist and General Problem Solver, perceptrons and their critique, and the early language and vision programs.
+- [Expert systems and the AI winters (1974–2006)](expert-systems-and-winters/index.md): the Lighthill report, MYCIN and expert systems, the Fifth Generation project, the second winter, backpropagation's revival and the statistical turn in language processing.
+- [The deep learning revolution (2006–present)](deep-learning-revolution/index.md): deep belief networks, ImageNet, AlexNet, and the attention and Transformer era up to large language models, with the institutions that grew around them.
+
 ## Timeline
 
 | Year | Event | Significance |
