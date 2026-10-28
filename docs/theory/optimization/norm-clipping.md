@@ -19,7 +19,7 @@ Norm clipping rescales the gradient whenever its norm exceeds a fixed threshold,
 
 ## Overview
 
-A recurrent network applies the same weights at every time step, so its gradient is a product of many Jacobians. When these have norms above one, the product can grow without bound, and a single update can throw the parameters far away. The fix must be cheap and rare, because most gradients are fine. Pascanu et al. observe that the trouble is in the magnitude of the gradient, not its direction, which suggests capping the magnitude alone.
+A recurrent network applies the same weights at every time step, so its gradient is a product of many Jacobians. When these have norms above one, the product can grow without bound, and a single update can throw the parameters far away. The fix must be cheap and rare, because most gradients are fine. Pascanu et al. propose capping the gradient norm as a simple remedy for the explosions.
 
 ## Problem
 
@@ -27,7 +27,7 @@ Training recurrent networks by backpropagation through time is often unstable. E
 
 ## Core idea
 
-Compute the gradient as usual. If its norm is greater than a threshold, rescale it so that its norm equals the threshold. Otherwise leave it unchanged. The direction is preserved, so the update still points downhill, but its length is bounded.
+Compute the gradient as usual. If its norm is greater than a threshold, rescale it so that its norm equals the threshold. Otherwise leave it unchanged. Rescaling multiplies the gradient by a positive number, so its direction is unchanged and only its length is bounded. The paper argues that the clipped update remains a descent direction for the current minibatch.
 
 ## Algorithm
 
@@ -37,7 +37,7 @@ Let \(g\) be the gradient and \(\tau\) the threshold.
 2. If \(\|g\| > \tau\), set \(g \leftarrow \tau\, g / \|g\|\).
 3. Apply the optimiser update with the clipped gradient.
 
-The threshold is a hyperparameter. A common practice is to set it from the typical gradient norm observed early in training.
+The threshold is a hyperparameter. The paper suggests choosing it from statistics of the gradient norm averaged over many updates.
 
 ## Results
 

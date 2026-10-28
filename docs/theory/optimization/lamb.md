@@ -19,7 +19,7 @@ LAMB (Layer-wise Adaptive Moments for Batch training) applies the layer-wise tru
 
 ## Overview
 
-LARS scales each layer's step by its trust ratio, but it works with SGD-type updates. Transformers are usually trained with Adam, whose per-coordinate normalisation is important for them. LAMB keeps the Adam update, which contains the bias-corrected first and second moments, and then rescales the whole layer update by the trust ratio. The result is an adaptive optimiser whose step size for each layer is proportional to the layer's weight norm.
+LARS scales each layer's step by its trust ratio, but it works with SGD-type updates. Transformers are usually trained with Adam, whose per-coordinate normalisation is important for them. LAMB keeps the Adam update, which contains the bias-corrected first and second moments, and then rescales the whole layer update by the trust ratio. The result is an adaptive optimiser in which the size of each layer's change is proportional to the layer's weight norm, clipped by a function \(\phi\).
 
 ## Problem
 
@@ -27,16 +27,16 @@ The abstract states the aim as large-batch training without degradation in perfo
 
 ## Core idea
 
-Compute the Adam direction for each layer, then multiply it by a trust ratio equal to the layer's weight norm divided by the norm of the update. This makes each layer's change proportional to its own weights, as in LARS, while keeping Adam's per-coordinate behaviour.
+Compute the Adam direction for each layer, then multiply it by a trust ratio equal to the layer's weight norm, clipped by \(\phi\), divided by the norm of the update. This makes each layer's change proportional to its own weights, as in LARS, while keeping Adam's per-coordinate behaviour.
 
 ## Algorithm
 
-For layer \(\ell\), let \(r_t\) be the Adam update direction \(\hat m_t/(\sqrt{\hat v_t}+\epsilon) + \lambda\theta_t\), with weight decay \(\lambda\).
+For layer \(\ell\) with weights \(x_t\), let \(r_t = \dfrac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}\) be the bias-corrected Adam direction, without weight decay, and let \(\lambda\) be the weight-decay coefficient. Let \(\phi(z) = \min\{\max\{z, \gamma_l\}, \gamma_u\}\) be a clipping function with bounds \(\gamma_l\) and \(\gamma_u\), where \(\phi(z) = z\) is a special case.
 
-1. Compute the trust ratio \(\phi_\ell = \dfrac{\|\theta_{t,\ell}\|}{\|r_{t,\ell}\|}\).
-2. Update \(\theta_{t+1,\ell} = \theta_{t,\ell} - \eta\, \phi_\ell\, r_{t,\ell}\).
+1. Compute the trust ratio \(\dfrac{\phi(\|x_t\|)}{\|r_t + \lambda x_t\|}\).
+2. Update \(x_{t+1} = x_t - \eta_t\, \dfrac{\phi(\|x_t\|)}{\|r_t + \lambda x_t\|}\,(r_t + \lambda x_t)\).
 
-The formula is taken from the method description in the paper. The abstract does not state it, so it should be checked against the full text.
+The update is taken from the method description in the paper and was checked against the full text.
 
 ## Results
 
@@ -47,7 +47,7 @@ The formula is taken from the method description in the paper. The abstract does
 ## Limitations
 
 - The reported speed-up depends on a large hardware setup, and it is not a like-for-like comparison of algorithms on one machine.
-- The trust ratio can be unstable for layers with very small updates, which are usually excluded from the scaling.
+- The clipping function \(\phi\) adds bounds \(\gamma_l\) and \(\gamma_u\), which are further settings to choose.
 - The convergence analysis is stated for general nonconvex settings, so it does not promise a rate for a specific model.
 
 ## Connections

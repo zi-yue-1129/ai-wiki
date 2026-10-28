@@ -27,17 +27,16 @@ The abstract states that the usual large-batch recipe, linear learning-rate scal
 
 ## Core idea
 
-Compute, for each layer, a local learning rate equal to the global rate times a trust ratio. The trust ratio is the layer's weight norm divided by its gradient norm, with a small weight-decay term included. Each layer then takes a step whose size is set by its own weights.
+Compute, for each layer, a local learning rate equal to the global rate times a trust ratio. The trust ratio is the layer's weight norm divided by its gradient norm, with a small weight-decay term included, and it is scaled by a trust coefficient \(\eta\). Each layer then takes a step whose size is set by its own weights.
 
 ## Algorithm
 
-For layer \(\ell\) with weights \(w_\ell\) and gradient \(g_\ell\), with global rate \(\eta\) and weight decay \(\beta\):
+For layer \(\ell\) with weights \(w_\ell\) and gradient \(\nabla L(w_\ell)\), with global learning rate \(\gamma\), weight decay \(\beta\) and trust coefficient \(\eta < 1\):
 
-1. Compute the trust ratio \(\lambda_\ell = \dfrac{\|w_\ell\|}{\|g_\ell\| + \beta\|w_\ell\|}\).
-2. Set the local rate \(\eta_\ell = \eta\, \lambda_\ell\).
-3. Update \(w_\ell \leftarrow w_\ell - \eta_\ell\,(g_\ell + \beta w_\ell)\), usually with momentum applied on top.
+1. Compute the trust ratio \(\lambda_\ell = \eta\, \dfrac{\|w_\ell\|}{\|\nabla L(w_\ell)\| + \beta\|w_\ell\|}\).
+2. Update the momentum \(v_\ell \leftarrow m\, v_\ell + \gamma\, \lambda_\ell\, (\nabla L(w_\ell) + \beta w_\ell)\), then set \(w_\ell \leftarrow w_\ell - v_\ell\).
 
-The formula is from the method description in the paper. The abstract does not state it, so it should be checked against the full text.
+The trust ratio is defined in Equation 6 of the paper, and the momentum and weight updates follow its Algorithm 1. Both were checked against the full text.
 
 ## Results
 
@@ -47,7 +46,7 @@ The formula is from the method description in the paper. The abstract does not s
 ## Limitations
 
 - The method is designed for SGD-type updates with momentum. Its extension to adaptive optimisers is the subject of [LAMB](lamb.md).
-- The trust ratio can be unstable for layers with very small gradients or with biases and normalisation parameters, which are usually excluded from the scaling.
+- The paper reports the trust ratio separately for biases and weights, and the two differ.
 - The benefit is reported for large batches. At small batches it may not improve on plain SGD.
 
 ## Connections
