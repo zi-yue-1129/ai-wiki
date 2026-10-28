@@ -39,7 +39,7 @@ Here $T(t)$ is the accumulated transmittance. The integral is approximated by sa
 
 ## Results
 
-The paper reports state-of-the-art view synthesis on the synthetic and real scenes it evaluates, with clearer detail than prior neural and voxel-based methods. The headline comparisons are in its results tables; the summary here does not restate the numbers.
+The abstract reports state-of-the-art results for synthesising novel views of complex scenes. The comparisons with prior methods are in the paper's results tables, which this page does not restate.
 
 ## Limitations
 

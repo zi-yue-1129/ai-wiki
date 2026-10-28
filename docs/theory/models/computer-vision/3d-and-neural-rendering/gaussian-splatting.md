@@ -39,7 +39,7 @@ Here $c_i$ is the view-dependent colour of Gaussian $i$, and $\alpha_i$ is its o
 
 ## Results
 
-The paper reports high-quality novel views on the scenes it evaluates, with real-time rendering at high resolution and training times far shorter than per-scene NeRF optimisation. The exact numbers are in the paper's results tables and are not restated here.
+The abstract reports real-time rendering at 1080p, at least 30 frames per second, with competitive training times. The paper's tables give the comparisons, which are not restated here.
 
 ## Limitations
 
