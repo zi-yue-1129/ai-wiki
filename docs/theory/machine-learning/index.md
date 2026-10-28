@@ -88,6 +88,8 @@ For how models express doubt, and how to make their probabilities match observed
 
 For inputs crafted to fool a model, and methods that keep a model correct under them, see [Adversarial Examples and Robustness](adversarial-robustness/index.md).
 
+For inputs that come from a different distribution than the training data, and how to detect them, see [Out-of-Distribution Detection and Distribution Shift](ood-detection/index.md).
+
 ## Learning theory in brief
 
 - **PAC learning**: how many samples are needed to learn an approximately correct hypothesis with high probability.
