@@ -294,7 +294,13 @@ nav:
               - Theory & Sample Complexity: foundations/paradigms/active/theory-and-sample-complexity/index.md
               - Deep Active Learning: foundations/paradigms/active/deep-active-learning/index.md
               - Practice & Labelling Cost: foundations/paradigms/active/practice-and-labelling-cost/index.md
-          - Online Learning & Bandits: foundations/paradigms/online/index.md
+          - Online Learning & Bandits:
+              - foundations/paradigms/online/index.md
+              - Online Convex Optimisation: foundations/paradigms/online/online-convex-optimisation/index.md
+              - Stochastic Bandits: foundations/paradigms/online/stochastic-bandits/index.md
+              - Contextual Bandits: foundations/paradigms/online/contextual-bandits/index.md
+              - Adversarial & Expert Advice: foundations/paradigms/online/adversarial-and-experts/index.md
+              - Streaming & Concept Drift: foundations/paradigms/online/streaming-and-concept-drift/index.md
           - Federated & Privacy-Preserving Learning:
               - foundations/paradigms/federated/index.md
               - Federated Averaging: foundations/paradigms/federated/federated-averaging/index.md
