@@ -36,7 +36,7 @@ Graphs encode conditional dependencies so high-dimensional joint distributions b
 
 - **Exact**: variable elimination, belief propagation (on trees)
 - **Approximate**:
-    - **Sampling**: MCMC (Metropolis–Hastings, Gibbs, HMC/NUTS)
+    - **Sampling**: [Markov chain Monte Carlo](mcmc/index.md) (Metropolis–Hastings, Gibbs, HMC/NUTS, Langevin dynamics)
     - **Variational inference**: approximate the posterior with a simpler \(q\) by maximising the evidence lower bound (ELBO) — a VAE is amortised variational inference. See [Variational Inference](variational-inference/index.md) for the methods.
 
 ## Causal inference
