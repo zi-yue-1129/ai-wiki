@@ -8,7 +8,14 @@ translation_reviewed: 2026-10-28
 
 ## 概述
 
-思維鏈提示通常只解碼一條推理路徑，也就是每一步最可能的那一條。這條路徑可能含有錯誤，而模型在另一次嘗試中未必會犯同樣的錯。此方法的依據是 Wang 等人（2022）提出的直覺：一個問題通常有數條通往同一答案的有效推理路線，而錯誤則會分散到不同的答案上。因此，取樣多樣的路徑並投票，會偏向一致的答案。
+思維鏈提示通常只解碼一條推理路徑，也就是每一步最可能的那一條。這條路徑可能含有錯誤，而模型在另一次嘗試中未必會犯同樣的錯。此方法的依據是 Wang 等人（2023）提出的直覺：一個問題通常有數條通往同一答案的有效推理路線，而錯誤則會分散到不同的答案上。因此，取樣多樣的路徑並投票，會偏向一致的答案。
+
+## 關鍵概念
+
+- **貪婪解碼（greedy decoding）**：每一步都選最可能的字詞，得到一條固定的推理路徑。
+- **取樣溫度（sampling temperature）**：控制取樣文字隨機程度的設定。大於零時，重複執行會得到不同的路徑。
+- **對路徑邊際化（marginalisation over paths）**：把每個最終答案在所有達到它的路徑上的機率加總，使獲得最多支持的答案勝出。
+- **多數決（majority vote）**：最簡單的合併答案方式，選出最多路徑所達到的答案。
 
 ## 問題
 
@@ -27,9 +34,13 @@ translation_reviewed: 2026-10-28
 
 此方法需要能在不同路徑之間比較的答案。對自由格式的文字做聚合較為困難，摘要並未涵蓋這一點。
 
+## 核心方法
+
+自洽性本身只有一個方法，即在固定提示之上做取樣與投票。其替代做法分別見於[測試時運算擴展](test-time-scaling.md)（以驗證器評分的搜尋）與 [DeepSeek-R1](deepseek-r1.md)（以取樣的解訓練）。
+
 ## 結果
 
-Wang 等人（2022）報告，在算術與常識基準上，此方法勝過貪婪的思維鏈解碼。摘要列出以下準確率提升：
+Wang 等人（2023）報告，在算術與常識基準上，此方法勝過貪婪的思維鏈解碼。摘要列出以下準確率提升：
 
 - GSM8K：+17.9%
 - SVAMP：+11.0%
@@ -46,11 +57,22 @@ Wang 等人（2022）報告，在算術與常識基準上，此方法勝過貪�
 - 當模型系統性地犯錯時，多數決可能一致地選中錯誤答案。取樣無法修補缺少的能力。
 - 論文的增益是在答案簡短的基準上報告的，在長篇文字任務上的幅度並未顯示。
 
+## 變體與更多變體
+
+- **加權投票**：依每條路徑的分數（例如其機率或驗證器的評分）加權，而非每條路徑一票。
+- **驗證器引導的選擇**：以學習得到的模型為每個候選打分，並保留最佳者，見[測試時運算擴展](test-time-scaling.md)。
+- **步驟層級的驗證**：檢查每個推理步驟，而不只檢查最終答案，見 [Let's Verify Step by Step](https://arxiv.org/abs/2305.20050)。
+
 ## 關聯
 
 - [思維鏈](chain-of-thought.md)是自洽性所重複解碼的提示方法。
 - [測試時運算擴展](test-time-scaling.md)將此想法加以推廣：花費額外的樣本或搜尋步驟，並以驗證器而非投票來決定保留哪些結果。
 - [DeepSeek-R1](deepseek-r1.md)在產生訓練資料時，取樣多個候選解，也使用了相關的想法。
+
+## 應用
+
+- 算術與文字題求解，最終答案是容易比較的短數字。
+- 選擇題問答，答案選項提供了可供投票的固定標籤。
 
 ## 開放問題
 
@@ -61,10 +83,10 @@ Wang 等人（2022）報告，在算術與常識基準上，此方法勝過貪�
 
 ### 開創性論文
 
-- Wang, X., et al. (2022). *Self-Consistency Improves Chain of Thought Reasoning in Language Models*. arXiv. https://arxiv.org/abs/2203.11171 — 原始方法：取樣多樣的推理路徑，並保留最一致的最終答案。
-- Wei, J., et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — 自洽性所取代的貪婪思維鏈基準。
-- Snell, C., Lee, J., Xu, K. & Kumar, A. (2024). *Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters*. arXiv. https://arxiv.org/abs/2408.03314 — 研究增加推論運算（包括取樣）如何能與更大的模型相抗衡。
-- Lightman, H., et al. (2023). *Let's Verify Step by Step*. arXiv. https://arxiv.org/abs/2305.20050 — 以步驟層級的驗證器為候選解排序，是投票之外的另一種選擇。
+- Wang, X., et al.（2023）。*Self-Consistency Improves Chain of Thought Reasoning in Language Models*. ICLR. https://arxiv.org/abs/2203.11171 — 原始方法：取樣多樣的推理路徑，並保留最一致的最終答案。
+- Wei, J., et al.（2022）。*Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — 自洽性所取代的貪婪思維鏈基準。
+- Snell, C., Lee, J., Xu, K. & Kumar, A.（2024）。*Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters*. arXiv. https://arxiv.org/abs/2408.03314 — 研究增加推論運算（包括取樣）如何能與更大的模型相抗衡。摘要報告，相較 best-of-N 基準，效率提升超過 4 倍。
+- Lightman, H., et al.（2023）。*Let's Verify Step by Step*. arXiv. https://arxiv.org/abs/2305.20050 — 以步驟層級的驗證器為候選解排序，是投票之外的另一種選擇。
 
 ### 綜述與教科書
 

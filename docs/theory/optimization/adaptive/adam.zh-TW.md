@@ -8,7 +8,7 @@ Adam（自適應矩估計）是一種結合動量項與逐參數步長的最佳�
 
 ## 概述
 
-Kingma 與 Ba（2014，2015 年於 ICLR 發表）為隨機目標提出 Adam，這類問題的梯度有雜訊且常常稀疏。他們的目標是一個容易實作、記憶體成本低、且幾乎不需要超參數調校的最佳化器。摘要描述此方法在實務上表現良好，並優於其他隨機最佳化器。
+Kingma 與 Ba（2014，2015 年於 ICLR 發表）為隨機目標提出 Adam，這類問題的梯度有雜訊且常常稀疏。他們的目標是一個實作簡單、計算效率高、記憶體需求低，且幾乎不需要超參數調校的最佳化器。摘要還指出，此方法對梯度的對角重新縮放具有不變性，並在線上凸最佳化框架下給出遺憾界（regret bound）。
 
 ## 核心概念
 
@@ -30,7 +30,7 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 \end{aligned}
 \]
 
-論文的預設值為 \(\beta_1 = 0.9\)、\(\beta_2 = 0.999\)，\(\epsilon\) 為很小的常數，例如 \(10^{-8}\)。由於更新量除以二階矩的平方根，每個座標每步大致移動 \(\eta\)，不論其梯度的尺度如何。有效步長仍會隨 \(v_t\) 變動而改變，這也是學習率排程在實務上重要的原因。
+論文建議的預設值為步長 \(\alpha = 0.001\)（此處寫作 \(\eta\)）、\(\beta_1 = 0.9\)、\(\beta_2 = 0.999\)，以及 \(\epsilon = 10^{-8}\)。由於更新量除以二階矩的平方根，每個座標每步大致移動 \(\eta\)，不論其梯度的尺度如何。有效步長仍會隨 \(v_t\) 變動而改變，這也是學習率排程在實務上重要的原因。
 
 ## 關鍵方法
 
@@ -39,8 +39,8 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 - **問題：** 隨機梯度有雜訊且稀疏，一階方法需要仔細、針對問題調整的學習率。
 - **核心想法：** 利用每個參數梯度的一階與二階矩的移動估計，為每個參數調整步長，並對初期步驟做偏差校正。
 - **公式或演算法：** 上述更新式，搭配偏差校正後的矩與預設值。
-- **結果：** 摘要描述此方法在實務上表現良好，並優於其他隨機最佳化器。摘要中沒有基準測試數字，實驗結果見論文正文。
-- **限制：** 論文的收斂分析是在線上凸最佳化框架下進行，而非針對深度網路。在某些影像任務上，Adam 的泛化能力可能比帶動量的 SGD 差；其逐參數縮放也與 L2 正則化相互干擾。[AdamW](adamw.md) 處理的是後者。
+- **結果：** 論文在 L2 正則化的 MNIST 邏輯迴歸、全連接網路與卷積網路上測試 Adam，並與帶 Nesterov 動量的加速 SGD、AdaGrad 等方法比較。摘要中沒有基準測試數字，數字見論文的實驗章節。
+- **限制：** 論文的收斂分析是在線上凸最佳化框架下進行，而非針對深度網路。Adam 的泛化能力也可能比 SGD 差：[Wilson 等人（2017）](https://arxiv.org/abs/1705.08292) 指出，自適應方法可能找到泛化較差的解。其逐參數縮放也與 L2 正則化相互干擾，[AdamW](adamw.md) 處理的正是這點。
 
 ## 關聯
 
@@ -61,12 +61,9 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR. https://arxiv.org/abs/1412.6980 — 提出 Adam，使用梯度偏差校正後的一階與二階矩估計。
 - Loshchilov, I. & Hutter, F. (2019). Decoupled Weight Decay Regularization. ICLR. https://arxiv.org/abs/1711.05101 — 指出在 Adam 的自適應縮放下，L2 正則化與權重衰減不同。
 - Duchi, J., Hazan, E. & Singer, Y. (2011). Adaptive Subgradient Methods for Online Learning and Stochastic Optimization. *JMLR*. https://jmlr.org/papers/v12/duchi11a.html — 提出 Adam 二階矩所建立於其上的逐座標自適應步長。
+- Wilson, A. C., Roelofs, R., Stern, M., Srebro, N. & Recht, B. (2017). The Marginal Value of Adaptive Gradient Methods in Machine Learning. NeurIPS. https://arxiv.org/abs/1705.08292 — 顯示自適應方法可能找到泛化劣於 SGD 的解，包括在構造的問題上與數個深度網路上。
 
 ### 綜述與教科書
 
 - Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization Methods for Large-Scale Machine Learning. *SIAM Review*. https://arxiv.org/abs/1606.04838 — 隨機梯度方法綜述，包含自適應變體及其取捨。
-
-### 文章與文件
-
-- PyTorch 文件，*torch.optim.Adam*。https://pytorch.org/docs/stable/generated/torch.optim.Adam.html — 更新規則與預設值的參考實作。
 - Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*，第 8 章。MIT Press。https://www.deeplearningbook.org/ — 在深度網路訓練背景下對自適應最佳化器的教科書說明，可線上免費閱讀。
