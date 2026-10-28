@@ -1,3 +1,7 @@
+---
+translation_reviewed: 2026-10-28
+---
+
 # 自監督學習
 
 ## 概念
@@ -5,6 +9,10 @@
 **從未標註資料本身**製造出看似監督的任務：把輸入的一部分遮起來再預測，或讓同一事物的兩個視角一致。模型必須學到有用的表徵才能解決這個前置任務。自監督是基礎模型得以存在的原因：資料自己標註自己時，「標註資料」的數量沒有上限。
 
 ## 家族
+
+![對比式自監督學習動畫：同一樣本的兩個增強視角在表徵空間靠近，無關樣本的表徵則被推遠。](../../../assets/concept-animations/contrastive-learning.gif)
+
+*原創動態概念圖，CC BY-SA 4.0。* 同一樣本經資料增強得到的兩個視角形成**正樣本對**，其他無關樣本提供**負樣本**；動畫中的表徵距離僅為示意，並非實際訓練結果。**對比學習只是自監督學習的一個家族**，遮罩預測及非對比式方法使用不同的訓練訊號。參見 [SimCLR](https://arxiv.org/abs/2002.05709)。
 
 | 家族 | 前置任務 | 例子 |
 |---|---|---|
@@ -50,3 +58,13 @@ L = -\log \frac{\exp(s(z_i, z_i^+)/\tau)}{\sum_j \exp(s(z_i, z_j)/\tau)}
 - Balestriero et al. (2023), "A Cookbook of Self-Supervised Learning"
 - LeCun & Misra〈Self-supervised learning: the dark matter of intelligence〉（Meta AI 部落格, 2021）
 - Chen et al. (2020) SimCLR；He et al. (2022) MAE；Radford et al. (2021) CLIP
+
+## 參考文獻
+
+### 代表性論文
+
+- Chen, T., Kornblith, S., Norouzi, M. & Hinton, G. (2020). *A Simple Framework for Contrastive Learning of Visual Representations*. ICML. https://arxiv.org/abs/2002.05709 — 提出 SimCLR，研究資料增強與對比式表徵學習。
+- Devlin, J., et al. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*. NAACL. https://arxiv.org/abs/1810.04805 — 使用遮罩語言建模建立雙向語言表徵。
+- Grill, J.-B., et al. (2020). *Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning*. NeurIPS. https://arxiv.org/abs/2006.07733 — 提出不需負樣本對的 BYOL。
+- He, K., et al. (2022). *Masked Autoencoders Are Scalable Vision Learners*. CVPR. https://arxiv.org/abs/2111.06377 — 在影像遮罩重建中使用非對稱編碼器與解碼器。
+- Radford, A., et al. (2021). *Learning Transferable Visual Models From Natural Language Supervision*. ICML. https://arxiv.org/abs/2103.00020 — 以大規模圖文配對建立可轉移的跨模態表徵。

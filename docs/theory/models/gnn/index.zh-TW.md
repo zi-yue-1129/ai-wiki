@@ -1,3 +1,7 @@
+---
+translation_reviewed: 2026-10-28
+---
+
 # 圖神經網路（GNN）
 
 ## 為什麼需要圖？
@@ -13,6 +17,10 @@ h_v^{(k+1)} = \text{UPDATE}\Big(h_v^{(k)},\; \text{AGG}_{u\in\mathcal{N}(v)}\, \
 \]
 
 聚合函數必須**置換不變**（sum、mean、max、attention）。
+
+![圖神經網路訊息傳遞動畫：相鄰節點沿圖邊傳送訊息，目標節點聚合後更新表徵。](../../../assets/concept-animations/gnn-message-passing.gif)
+
+*原創訊息傳遞示意動畫，CC BY-SA 4.0。* 每個節點沿著**圖中現有的邊**接收鄰居訊息，以置換不變的運算聚合資訊，再更新節點表徵。動畫的顏色及脈衝僅供概念說明，不是實際計算的節點特徵。堆疊多層後，訊息能逐層傳到更遠的鄰居。參見 [Gilmer 等人（2017）](https://arxiv.org/abs/1704.01212)。
 
 ## 代表模型
 
@@ -59,3 +67,16 @@ h_v^{(k+1)} = \text{UPDATE}\Big(h_v^{(k)},\; \text{AGG}_{u\in\mathcal{N}(v)}\, \
 - [PyTorch Geometric](https://pyg.org/)、[DGL](https://www.dgl.ai/)
 - Hamilton《Graph Representation Learning》（免費 PDF）
 - Bronstein et al.《Geometric Deep Learning》（免費線上）
+
+## 參考文獻
+
+### 開創性論文
+
+- Kipf, T. N. & Welling, M. (2017). *Semi-Supervised Classification with Graph Convolutional Networks*. ICLR. https://arxiv.org/abs/1609.02907 — 提出使用局部鄰居特徵的圖卷積網路。
+- Gilmer, J., et al. (2017). *Neural Message Passing for Quantum Chemistry*. ICML. https://arxiv.org/abs/1704.01212 — 系統化描述訊息傳遞、聚合與更新架構。
+- Hamilton, W. L., Ying, R. & Leskovec, J. (2017). *Inductive Representation Learning on Large Graphs*. NeurIPS. https://arxiv.org/abs/1706.02216 — 提出 GraphSAGE 與歸納式鄰居取樣。
+- Veličković, P., et al. (2018). *Graph Attention Networks*. ICLR. https://arxiv.org/abs/1710.10903 — 利用注意力權重整合鄰居表徵。
+
+### 綜述
+
+- Zhou, J., et al. (2021). *Graph Neural Networks: A Review of Methods and Applications*. AI Open. https://arxiv.org/abs/1812.08434 — 回顧 GNN 架構、訊息傳遞、應用及研究挑戰。

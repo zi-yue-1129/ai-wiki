@@ -13,6 +13,10 @@ Create a supervised-looking task **from unlabelled data itself** — hide part o
 
 ## Families
 
+![Contrastive learning animation: two augmented views of one sample map to nearby embeddings while embeddings from unrelated samples move away.](../../../assets/concept-animations/contrastive-learning.gif)
+
+*Original animated schematic, CC BY-SA 4.0.* The two augmentations represent a **positive pair** in a contrastive objective; unrelated samples act as **negatives**. Their illustrated embedding distances are schematic rather than measured model outputs. Contrastive learning is **one family** of self-supervised learning—masked prediction and non-contrastive approaches use different training signals. See [SimCLR](https://arxiv.org/abs/2002.05709).
+
 | Family | Pretext task | Examples |
 |---|---|---|
 | Autoregressive prediction | Predict the next token / pixel / audio sample | GPT, PixelCNN, WaveNet, audio LMs |

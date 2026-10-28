@@ -21,6 +21,10 @@ h_v^{(k+1)} = \text{UPDATE}\Big(h_v^{(k)},\; \text{AGG}_{u\in\mathcal{N}(v)}\, \
 
 The aggregation must be **permutation-invariant** (sum, mean, max, attention).
 
+![Graph neural network message-passing animation: neighbouring nodes send messages, a target node aggregates them and updates its representation.](../../../assets/concept-animations/gnn-message-passing.gif)
+
+*Original message-passing schematic, CC BY-SA 4.0.* A node receives messages **along existing graph edges**, aggregates the incoming information using a permutation-invariant operation, and computes an updated embedding. The colours and pulses are schematic, not computed node features. Multiple layers let information propagate across progressively larger neighbourhoods. See [Gilmer et al. (2017)](https://arxiv.org/abs/1704.01212).
+
 ## Representative models
 
 | Model | Character |
@@ -67,3 +71,16 @@ The aggregation must be **permutation-invariant** (sum, mean, max, attention).
 - [PyTorch Geometric](https://pyg.org/), [DGL](https://www.dgl.ai/)
 - Hamilton, *Graph Representation Learning* (free PDF)
 - Bronstein et al., *Geometric Deep Learning* (free online)
+
+## References
+
+### Seminal papers
+
+- Kipf, T. N. & Welling, M. (2017). *Semi-Supervised Classification with Graph Convolutional Networks*. ICLR. https://arxiv.org/abs/1609.02907 — Introduces a scalable graph convolution that uses local neighbourhood features.
+- Gilmer, J., et al. (2017). *Neural Message Passing for Quantum Chemistry*. ICML. https://arxiv.org/abs/1704.01212 — Formalises the message–aggregate–update framework for graph-structured molecular learning.
+- Hamilton, W. L., Ying, R. & Leskovec, J. (2017). *Inductive Representation Learning on Large Graphs*. NeurIPS. https://arxiv.org/abs/1706.02216 — Introduces GraphSAGE and inductive neighbour sampling.
+- Veličković, P., et al. (2018). *Graph Attention Networks*. ICLR. https://arxiv.org/abs/1710.10903 — Uses attention weights to combine representations from neighbouring nodes.
+
+### Surveys and textbooks
+
+- Zhou, J., et al. (2021). *Graph Neural Networks: A Review of Methods and Applications*. AI Open. https://arxiv.org/abs/1812.08434 — Surveys graph-learning architectures, message passing, applications and open challenges.
