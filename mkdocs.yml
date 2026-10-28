@@ -262,6 +262,10 @@ plugins:
             Message Passing: 訊息傳遞
             Large Language Models: 大型語言模型
             Generative Models: 生成模型
+            Model Compression: 模型壓縮
+            Quantisation: 量化
+            Pruning: 剪枝
+            Knowledge Distillation: 知識蒸餾
             Computer Vision: 電腦視覺
             Natural Language Processing: 自然語言處理
             Speech & Audio: 語音與音訊
@@ -474,6 +478,11 @@ nav:
       - Symbolic AI, Search & Planning: theory/symbolic-ai/index.md
       - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
       - Generative Models: theory/generative/index.md
+      - Model Compression:
+          - theory/model-compression/index.md
+          - Quantisation: theory/model-compression/quantisation/index.md
+          - Pruning: theory/model-compression/pruning/index.md
+          - Knowledge Distillation: theory/model-compression/knowledge-distillation/index.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons: theory/models/mlp/index.md
