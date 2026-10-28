@@ -8,7 +8,7 @@ aliases:
 
 # K-FAC
 
-K-FAC（Kronecker 分解近似曲率）是神經網路自然梯度的實用近似。它逐層近似費雪資訊矩陣，把每個區塊寫成兩個小矩陣的克羅內克積，然後對這兩個小矩陣求逆。Martens 與 Grosse（2015）提出了此方法。上層概述見[二階與擬牛頓方法](second-order.md)。
+K-FAC（Kronecker 分解近似曲率）是神經網路自然梯度的實用近似。它逐層近似費雪資訊矩陣，把每個區塊寫成兩個小矩陣的克羅內克積，然後對這兩個小矩陣求逆。Martens 與 Grosse（2015）提出了此方法。上層概述見[二階與擬牛頓方法](../second-order.md)。
 
 ## 概述
 
@@ -58,10 +58,10 @@ K-FAC（Kronecker 分解近似曲率）是神經網路自然梯度的實用近�
 
 ## 關聯
 
-- [二階與擬牛頓方法](second-order.md)是上層概述，K-FAC 與 L-BFGS、Shampoo 並列於其中。
-- [L-BFGS](lbfgs.md)是確定性的擬牛頓替代方法。
-- [Shampoo](shampoo.md)是相關的矩陣結構預條件子，它的建構來自梯度統計量而非費雪矩陣。
-- [深度學習](../deep-learning/index.md)描述了為各因子提供輸出梯度的反向傳播。
+- [二階與擬牛頓方法](../second-order.md)是上層概述，K-FAC 與 L-BFGS、Shampoo 並列於其中。
+- [L-BFGS](../lbfgs.md)是確定性的擬牛頓替代方法。
+- [Shampoo](../shampoo.md)是相關的矩陣結構預條件子，它的建構來自梯度統計量而非費雪矩陣。
+- [深度學習](../../deep-learning/index.md)描述了為各因子提供輸出梯度的反向傳播。
 
 ## 應用
 
