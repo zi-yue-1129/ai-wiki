@@ -23,6 +23,10 @@ Generative modelling is an **approach**, not an architecture. Any family in [Mod
 | Flow matching | Learn a velocity field from noise to data | Simple training, fast sampling | — | Stable Diffusion 3, Flux |
 | Energy-based | Learn an energy \(E(x)\) | Flexible | Sampling is hard | Hopfield nets, EBMs |
 
+## Variational autoencoders
+
+Full treatment, with one page per landmark variant (β-VAE and VQ-VAE): [Variational Autoencoders](vae/index.md). VAEs trade sample sharpness for a structured latent space that can be sampled and interpolated. The discrete variant, VQ-VAE, supplies the codes that later image generators model.
+
 ## Generative adversarial networks
 
 Full treatment, with one page per landmark method (the original GAN, DCGAN and Wasserstein GAN): [Generative Adversarial Networks](gan/index.md). GANs trade stable training for fast sampling in a single forward pass, whereas diffusion models trade sampling cost for stable training.
