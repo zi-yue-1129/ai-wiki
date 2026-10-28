@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/models/transformer
@@ -41,7 +41,7 @@ where \(E_i\) is the \(i\)-th expert and \(G(x)\) is the gate's output vector, w
 
 ## Key results
 
-The abstract reports a mixture of experts with up to 137 billion parameters applied between stacked LSTM layers. It claims more than a thousandfold improvement in model capacity, with only minor losses in computational efficiency, and that these models achieve significantly better results than the state of the art at lower computational cost. The abstract does not give specific perplexity or BLEU scores, so this page quotes none.
+The abstract reports a mixture of experts with up to 137 billion parameters, applied convolutionally between stacked LSTM layers. It claims greater than a thousandfold improvement in model capacity. The abstract does not give specific perplexity or BLEU scores, so this page quotes none.
 
 ## Limitations
 
