@@ -46,7 +46,7 @@ LLM evaluation adds benchmark contamination and judge-model bias; see [Large Lan
 
 ### Seminal papers
 
-- Saito & Rehmsmeier (2015), "The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets", *PLoS ONE* 10(3). https://pmc.ncbi.nlm.nih.gov/articles/PMC4349800 — Shows why precision-recall curves are more informative than ROC curves for rare positives.
+- Saito & Rehmsmeier (2015), "The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets", *PLoS ONE* 10(3). https://doi.org/10.1371/journal.pone.0118432 — Shows why precision-recall curves are more informative than ROC curves for rare positives.
 - Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://doi.org/10.1145/1102351.1102430 — Compares probability calibration across common classifiers and the effect of calibration methods.
 - Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599 — Shows that modern networks are overconfident and that temperature scaling corrects it.
 - Zhang, C. et al. (2017). Understanding deep learning requires rethinking generalization. ICLR. arXiv:1611.03530. https://arxiv.org/abs/1611.03530 — Shows that networks can memorise random labels, so held-out tests are essential.

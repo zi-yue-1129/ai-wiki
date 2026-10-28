@@ -74,9 +74,9 @@ flowchart LR
 
 ### 開創性論文
 
-- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W.（1990）。Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*。https://pmc.ncbi.nlm.nih.gov/articles/PMC55275 — 顯示磁共振對比取決於血氧含量，是 BOLD 功能性磁振造影的基礎。
+- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W.（1990）。Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*。https://doi.org/10.1073/pnas.87.24.9868 — 顯示磁共振對比取決於血氧含量，是 BOLD 功能性磁振造影的基礎。
 - Logothetis, N. K., Pauls, J., Augath, M., Trinath, T. & Oeltermann, A.（2001）。Neurophysiological investigation of the basis of the fMRI signal. *Nature*。https://doi.org/10.1038/35084005 — 把 BOLD 訊號與同一批動物中記錄的局部場電位及脈衝相關聯。
-- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N.（2010）。New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*。https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923 — 在個人層級以功能定義腦區的功能性磁振造影方法。
+- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N.（2010）。New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*。https://doi.org/10.1152/jn.00032.2010 — 在個人層級以功能定義腦區的功能性磁振造影方法。
 
 ### 文章與原始研究
 

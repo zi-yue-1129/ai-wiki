@@ -74,4 +74,4 @@ Geirhos 等人（2019）問了一個簡單、答案卻很明確的問題：在 I
 ### 綜述與回顧
 
 - Lindsay, G. W.（2021）。Convolutional Neural Networks as a Model of the Visual System: Past, Present, and Future. *Journal of Cognitive Neuroscience*。https://doi.org/10.1162/jocn_a_01544 — 回顧 CNN 作為視覺系統模型的用法，以及它能解釋與無法解釋的部分。
-- Goodale, M. A. & Milner, A. D.（1992）。Separate visual pathways for perception and action. *Trends in Neurosciences*。https://pubmed.ncbi.nlm.nih.gov/1374953/ — 腹側與背側路徑，為人類側的對照提供背景。
+- Goodale, M. A. & Milner, A. D.（1992）。Separate visual pathways for perception and action. *Trends in Neurosciences*。https://doi.org/10.1016/0166-2236(92)90344-8 — 腹側與背側路徑，為人類側的對照提供背景。

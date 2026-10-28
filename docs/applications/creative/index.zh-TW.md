@@ -14,17 +14,13 @@
 
 ## 創造力研究
 
-- **AI 有創造力嗎？** Boden 區分了組合式、探索式與轉換式的創造力；多數生成式 AI 擅長前兩種
+- **AI 有創造力嗎？** Boden 區分了組合式、探索式與轉換式的創造力（Boden, 2009）；多數生成式 AI 擅長前兩種
 - **人機共創**：研究發現，AI 的點子可能提高個人的創意評分，卻降低各人產出的**多樣性**（Doshi & Hauser, 2024, *Science Advances*）
-- **發散思維測驗**：LLM 在標準測驗（例如替代用途測驗）上得分很高，不過這類測驗未必能反映真正的創作成就
 - **計算創造力**是一個歷史悠久的研究領域（AARON、EMI／David Cope）
 
 ## 著作權與所有權
 
-- **訓練資料**：作者、藝術家、新聞機構、唱片公司等對 AI 公司提起了許多訴訟。在美國，*Bartz v. Anthropic*（2025）認定以合法取得的書籍進行訓練屬於合理使用，但對盜版複本負有責任，之後達成大額和解；*Thomson Reuters v. Ross*（2025）則駁回了一個非生成式競爭者的合理使用抗辯；其他案件仍在進行中
-- **輸出內容**：美國著作權局認為，純粹由 AI 生成的內容缺乏人類著作權，不受保護；但人類的選擇、編排與修改可以受到保護（*Thaler v. Perlmutter*，2025，後經確認）
-- **退出機制與授權**：robots.txt 與退出登記；AI 公司與出版商或圖庫之間的授權協議；歐盟 AI 法要求通用模型提供訓練資料摘要並制定著作權政策
-- **風格與肖像**：聲音與肖像權（例如田納西州的 ELVIS Act，2024）；演員與編劇工會的協議（SAG-AFTRA、WGA，2023）對 AI 的使用設下規則
+訓練資料與 AI 輸出的所有權，在多個國家的法院與立法機關仍有爭議，規則尚未定論。引用任何特定立場前，請查閱目前的判決與官方指引。
 
 ## 來源與不實資訊
 
@@ -34,11 +30,27 @@
 
 ## 對創意工作的經濟影響
 
-在生成式 AI 推出後，部分自由撰稿與插畫工作的需求下降（Hui, Reshef & Zhou, 2024），同時也有創作者利用 AI 擴大產出。見[經濟與就業](../../society/economics/index.md)。
+在生成式 AI 推出後，部分自由撰稿與插畫工作的需求下降（Hui et al., 2024），同時也有創作者利用 AI 擴大產出。見[經濟與就業](../../society/economics/index.md)。
 
-## 學習資源
+## 關鍵方法
 
-- Boden，*The Creative Mind*
-- [C2PA 規範](https://c2pa.org/)
-- 美國著作權局關於著作權與 AI 的報告（2024–2025）
-- Epstein et al. (2023), "Art and the science of generative AI", *Science*
+下列三種方法構成多數影像與影片生成器的基礎。每一項都連結到解釋該方法的頁面。
+
+- [去噪擴散](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md)：模型學習逆轉逐步加噪的過程（Ho et al., 2020）。
+- [潛在擴散](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md)：在壓縮的潛在空間中做擴散，使高解析度影像生成變得可行（Rombach et al., 2022）。
+- [無分類器引導](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md)：不需獨立分類器，即可把樣本導向文字提示（Ho & Salimans, 2022）。
+
+## 參考文獻
+
+### 開創性論文
+
+- Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. NeurIPS. https://arxiv.org/abs/2006.11239 — 本頁連結的擴散方法頁所依據的 DDPM 論文。
+- Rombach et al. (2022). High-Resolution Image Synthesis with Latent Diffusion Models. arXiv. https://arxiv.org/abs/2112.10752 — 潛在擴散，在壓縮的潛在空間中進行擴散。
+- Ho & Salimans (2022). Classifier-Free Diffusion Guidance. arXiv. https://arxiv.org/abs/2207.12598 — 不需獨立分類器，即可把擴散樣本導向提示詞。
+- Doshi & Hauser (2024). Generative AI enhances individual creativity but reduces the collective diversity of novel content. *Science Advances*. https://doi.org/10.1126/sciadv.adn5290 — 發現 AI 點子提高個人創意，卻降低各作者作品的多樣性。
+- Boden (2009). Computer Models of Creativity. *AI Magazine*. https://doi.org/10.1609/aimag.v30i3.2254 — 計算創造力的回顧，包含三種創造力類型。
+- Epstein et al. (2023). Art and the science of generative AI. *Science*. https://doi.org/10.1126/science.adh4451 — 概述生成式 AI 在藝術中的用途，以及它對創作者的影響。
+
+### 文章與文件
+
+- Hui et al. (2024). The Short-Term Effects of Generative Artificial Intelligence on Employment: Evidence from an Online Labor Market. *Organization Science*. https://doi.org/10.1287/orsc.2023.18441 — 線上勞動市場研究，探討生成式 AI 對自由接案需求的影響。

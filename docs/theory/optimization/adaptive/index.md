@@ -52,15 +52,15 @@ Because every coordinate is scaled, the update size is bounded by roughly \(\eta
 
 | Method | Idea | Status |
 |---|---|---|
-| AdaGrad | Accumulate all past squared gradients; suits sparse features | Planned |
-| RMSProp | Exponential average of squared gradients instead of a sum | Planned |
+| AdaGrad | Accumulate all past squared gradients; suits sparse features | [AdaGrad](adagrad.md) |
+| RMSProp | Exponential average of squared gradients instead of a sum | [RMSProp](rmsprop.md) |
 | Adam | Momentum plus adaptive scale, with bias correction | [Adam](adam.md) |
 | AdamW | Adam with decoupled weight decay | [AdamW](adamw.md) |
 | LARS, LAMB | Layer-wise scaling of the step by the weight norm, for very large batches | [LARS](../lars.md) and [LAMB](../lamb.md) have their own pages |
-| Adafactor | Factorised second-moment estimate to save memory | Planned |
-| Lion | Sign-based update from momentum; less memory than Adam | Planned |
-| Shampoo, SOAP | Preconditioners built from matrix statistics of the gradient | [Shampoo](../shampoo.md) has its own page; SOAP is planned, see [Second-order methods](../second-order.md) |
-| Muon | Orthogonalised momentum updates for matrix parameters | Planned |
+| Adafactor | Factorised second-moment estimate to save memory | [Adafactor](adafactor.md) |
+| Lion | Sign-based update from momentum; less memory than Adam | [Lion](lion.md) |
+| Shampoo, SOAP | Preconditioners built from matrix statistics of the gradient | [Shampoo](../shampoo.md) has its own page; [SOAP](soap.md) has its own page |
+| Muon | Orthogonalised momentum updates for matrix parameters | [Muon](muon.md) |
 
 ## Key methods
 

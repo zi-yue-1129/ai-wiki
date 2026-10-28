@@ -98,7 +98,7 @@ AI 系統從關於人的資訊中學習，而且有時會把這些資訊再次�
 
 ### 綜述與教科書
 
-- Dwork, C. & Roth, A. (2014). *The Algorithmic Foundations of Differential Privacy*. Foundations and Trends in Theoretical Computer Science, 9(3–4). https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf — 差分隱私的標準教科書，完整收錄機制與證明。
+- Dwork, C. & Roth, A. (2014). *The Algorithmic Foundations of Differential Privacy*. Foundations and Trends in Theoretical Computer Science, 9(3–4). https://doi.org/10.1561/0400000042 — 差分隱私的標準教科書，完整收錄機制與證明。
 
 ### 文章與官方文件
 

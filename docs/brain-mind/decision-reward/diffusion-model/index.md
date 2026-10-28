@@ -77,8 +77,8 @@ The model describes behaviour, and its parameters are not directly neural quanti
 ### Seminal papers
 
 - Ratcliff, R. & McKoon, G. (2008). The Diffusion Decision Model: Theory and Data for Two-Choice Decision Tasks. *Neural Computation*. https://doi.org/10.1162/neco.2008.12-06-420 — Reviews the diffusion model and shows how its parameters separate the effects of difficulty, speed-accuracy instructions and bias.
-- Ratcliff, R. (1978). A theory of memory retrieval. *Psychological Review*. https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%205/Ratcliff1978.pdf — An early diffusion-style account of memory retrieval, from which the decision model was later developed.
-- Ratcliff, R. & Smith, P. L. (2004). A comparison of sequential sampling models for two-choice reaction time. *Psychological Review*. https://pmc.ncbi.nlm.nih.gov/articles/PMC1440925 — Compares sequential-sampling models of two-choice reaction time, the family that includes the diffusion model.
+- Ratcliff, R. (1978). A theory of memory retrieval. *Psychological Review*. https://doi.org/10.1037/0033-295X.85.2.59 — An early diffusion-style account of memory retrieval, from which the decision model was later developed.
+- Ratcliff, R. & Smith, P. L. (2004). A comparison of sequential sampling models for two-choice reaction time. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.2.333 — Compares sequential-sampling models of two-choice reaction time, the family that includes the diffusion model.
 
 ### Surveys and reviews
 

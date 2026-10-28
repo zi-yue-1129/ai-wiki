@@ -76,10 +76,10 @@ flowchart LR
 ### 開創性論文
 
 - Baillargeon, R., Spelke, E. S. & Wasserman, S.（1985）。Object permanence in five-month-old infants. *Cognition*。https://doi.org/10.1016/0010-0277(85)90008-3 — 以注視時間顯示，年幼的嬰兒預期被遮住的物體會繼續存在。
-- Saffran, J. R., Aslin, R. N. & Newport, E. L.（1996）。Statistical learning by 8-month-old infants. *Science*。https://pubmed.ncbi.nlm.nih.gov/8943209/ — 顯示嬰兒能從連續音節流的轉移機率中抽取類詞單位。
+- Saffran, J. R., Aslin, R. N. & Newport, E. L.（1996）。Statistical learning by 8-month-old infants. *Science*。https://doi.org/10.1126/science.274.5294.1926 — 顯示嬰兒能從連續音節流的轉移機率中抽取類詞單位。
 
 ### 綜述與教科書
 
-- Spelke, E. S. & Kinzler, K. D.（2007）。Core knowledge. *Developmental Science*。https://pmc.ncbi.nlm.nih.gov/articles/PMC2746564 — 闡述嬰兒在各領域共享的核心知識系統。
+- Spelke, E. S. & Kinzler, K. D.（2007）。Core knowledge. *Developmental Science*。https://doi.org/10.1111/j.1467-7687.2007.00569.x — 闡述嬰兒在各領域共享的核心知識系統。
 - Lake, B. M., Ullman, T. D., Tenenbaum, J. B. & Gershman, S. J.（2017）。Building machines that learn and think like people. *Behavioral and Brain Sciences*。https://doi.org/10.1017/S0140525X16001837 — 主張機器應像兒童一樣學習，並內建核心知識。
-- Kidd, C., Piantadosi, S. T. & Aslin, R. N.（2012）。The Goldilocks effect: human infants allocate attention to visual sequences that are neither too simple nor too complex. *PLoS ONE*。https://pmc.ncbi.nlm.nih.gov/articles/PMC3359326 — 顯示嬰兒最關注中等複雜度的序列。
+- Kidd, C., Piantadosi, S. T. & Aslin, R. N.（2012）。The Goldilocks effect: human infants allocate attention to visual sequences that are neither too simple nor too complex. *PLoS ONE*。https://doi.org/10.1371/journal.pone.0036399 — 顯示嬰兒最關注中等複雜度的序列。

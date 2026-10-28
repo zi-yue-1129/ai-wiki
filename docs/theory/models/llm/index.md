@@ -142,7 +142,6 @@ Each method has its own page. The overview and comparison here are brief.
 
 ### Articles and documentation
 
-- Hugging Face. *LLM Course*. https://huggingface.co/learn/llm-course — Hands-on course on using, fine-tuning and building LLMs with the Hugging Face libraries.
 
 ## Further learning
 

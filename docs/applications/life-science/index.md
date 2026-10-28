@@ -4,6 +4,9 @@ related:
 - theory/models/gnn
 - applications/science
 - applications/healthcare
+aliases:
+  - 生命科學
+  - 藥物發現
 ---
 
 # Life Sciences & Drug Discovery
@@ -64,9 +67,31 @@ flowchart LR
 
 The same tools could help design harmful agents. Responses: screening of DNA synthesis orders, evaluation of models for biological-misuse uplift, and responsible-release policies (see [Safety & Alignment](../../society/safety-alignment/index.md)).
 
-## Resources
+## Key methods
 
-- Jumper et al. (2021), AlphaFold 2, *Nature*; Abramson et al. (2024), AlphaFold 3
-- [AlphaFold DB](https://alphafold.ebi.ac.uk/), [RCSB PDB](https://www.rcsb.org/)
-- [DeepChem](https://deepchem.io/), [RDKit](https://www.rdkit.org/), [TDC — Therapeutics Data Commons](https://tdcommons.ai/)
-- "Machine learning for drug discovery" courses from MIT (6.S897-style) and the Valence Labs community
+Three methods underlie most of the protein and genomics tools above. Each links to the page that explains it.
+
+- [Transformer](../../theory/models/transformer/attention-is-all-you-need/index.md): self-attention over sequences. Protein language models such as ESM apply it to amino-acid sequences (Vaswani et al., 2017; Lin et al., 2023).
+- [Denoising diffusion](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md): a model learns to reverse a gradual noising process, and sampling from it produces new data. RFdiffusion uses diffusion to generate protein backbones (Ho et al., 2020; Watson et al., 2023).
+- [Graph neural networks](../../theory/models/gnn/message-passing/gin/index.md): message passing over atoms and bonds. GIN is the variant that the paper shows is as discriminative as the Weisfeiler–Leman graph test (Xu et al., 2019).
+
+## References
+
+### Seminal papers
+
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — Introduces the Transformer, built on multi-head self-attention.
+- Jumper, J. et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*. https://doi.org/10.1038/s41586-021-03819-2 — AlphaFold 2, competitive with experimental methods on most targets at CASP14.
+- Abramson, J. et al. (2024). Accurate structure prediction of biomolecular interactions with AlphaFold 3. *Nature*. https://doi.org/10.1038/s41586-024-07487-w — Extends structure prediction to complexes with DNA, RNA, ligands and ions.
+- Watson, J. L. et al. (2023). De novo design of protein structure and function with RFdiffusion. *Nature*. https://doi.org/10.1038/s41586-023-06415-8 — RFdiffusion, a diffusion model that generates new protein backbones.
+- Lin, Z. et al. (2023). Evolutionary-scale prediction of atomic-level protein structure with a language model. *Science*. https://doi.org/10.1126/science.ade2574 — The ESM language model with ESMFold, predicting structure from a single sequence.
+- Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. NeurIPS. https://arxiv.org/abs/2006.11239 — The DDPM paper behind the diffusion method page linked above.
+- Xu, K. et al. (2019). How Powerful are Graph Neural Networks? ICLR. https://arxiv.org/abs/1810.00826 — GIN, shown to be as discriminative as the Weisfeiler–Leman graph test.
+- Stokes, J. M. et al. (2020). A Deep Learning Approach to Antibiotic Discovery. *Cell*. https://doi.org/10.1016/j.cell.2020.01.021 — A deep-learning screen that identified halicin as an antibiotic candidate.
+
+## Further learning
+
+- [AlphaFold DB](https://alphafold.ebi.ac.uk/) — Free database of predicted protein structures from AlphaFold.
+- [RCSB PDB](https://www.rcsb.org/) — Archive of experimentally determined macromolecular structures.
+- [DeepChem](https://deepchem.io/) — Open-source toolkit for deep learning in chemistry and drug discovery.
+- [RDKit](https://www.rdkit.org/) — Open-source cheminformatics toolkit for handling molecules.
+- [TDC — Therapeutics Data Commons](https://tdcommons.ai/) — Benchmark datasets and tasks for AI in drug discovery.

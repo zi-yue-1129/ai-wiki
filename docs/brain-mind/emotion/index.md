@@ -80,7 +80,7 @@ Affective computing builds systems that recognise and respond to emotion, using 
 
 - Russell, J. A. (1980). A circumplex model of affect. *Journal of Personality and Social Psychology*. https://doi.org/10.1037/h0077714 — Proposes that emotional states can be placed on a circle defined by valence and arousal.
 - LeDoux, J. E. (2000). Emotion circuits in the brain. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.23.1.155 — Reviews the amygdala-centred circuits for fear and threat.
-- Picard, R. W. (1997). *Affective Computing*. MIT Press. https://www.schweitzer-online.de/en/buch/Picard/Affective-Computing/9780262161701/A39598287/ — Sets out the field of systems that recognise, interpret and express emotion.
+- Picard, R. W. (1997). *Affective Computing*. MIT Press. https://doi.org/10.7551/mitpress/1140.001.0001 — Sets out the field of systems that recognise, interpret and express emotion.
 
 ### Surveys and reviews
 

@@ -62,11 +62,11 @@ Saffran、Aslin 與 Newport（1996）顯示，八個月大的嬰兒只聽幾分�
 
 ### 開創性論文
 
-- Saffran, J. R., Aslin, R. N. & Newport, E. L.（1996）。Statistical learning by 8-month-old infants. *Science*。https://pubmed.ncbi.nlm.nih.gov/8943209/ — 顯示嬰兒能從連續音節流的轉移機率中辨識出類詞單位。
+- Saffran, J. R., Aslin, R. N. & Newport, E. L.（1996）。Statistical learning by 8-month-old infants. *Science*。https://doi.org/10.1126/science.274.5294.1926 — 顯示嬰兒能從連續音節流的轉移機率中辨識出類詞單位。
 - Baillargeon, R., Spelke, E. S. & Wasserman, S.（1985）。Object permanence in five-month-old infants. *Cognition*。https://doi.org/10.1016/0010-0277(85)90008-3 — 另一項注視時間研究，探討嬰兒對物體的預期。
 
 ### 綜述與教科書
 
-- Spelke, E. S. & Kinzler, K. D.（2007）。Core knowledge. *Developmental Science*。https://pmc.ncbi.nlm.nih.gov/articles/PMC2746564 — 統計學習所對照的核心知識觀點。
+- Spelke, E. S. & Kinzler, K. D.（2007）。Core knowledge. *Developmental Science*。https://doi.org/10.1111/j.1467-7687.2007.00569.x — 統計學習所對照的核心知識觀點。
 - Lake, B. M., Ullman, T. D., Tenenbaum, J. B. & Gershman, S. J.（2017）。Building machines that learn and think like people. *Behavioral and Brain Sciences*。https://doi.org/10.1017/S0140525X16001837 — 討論兒童如何從有限資料學習，以及這與機器學習的關係。
-- Kidd, C., Piantadosi, S. T. & Aslin, R. N.（2012）。The Goldilocks effect: human infants allocate attention to visual sequences that are neither too simple nor too complex. *PLoS ONE*。https://pmc.ncbi.nlm.nih.gov/articles/PMC3359326 — 顯示嬰兒會注意中等複雜度的序列，這與他們會抽取哪些統計規律有關。
+- Kidd, C., Piantadosi, S. T. & Aslin, R. N.（2012）。The Goldilocks effect: human infants allocate attention to visual sequences that are neither too simple nor too complex. *PLoS ONE*。https://doi.org/10.1371/journal.pone.0036399 — 顯示嬰兒會注意中等複雜度的序列，這與他們會抽取哪些統計規律有關。

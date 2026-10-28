@@ -77,10 +77,10 @@ Each method has its own page. This table is only a comparison.
 ### Seminal papers
 
 - Baillargeon, R., Spelke, E. S. & Wasserman, S. (1985). Object permanence in five-month-old infants. *Cognition*. https://doi.org/10.1016/0010-0277(85)90008-3 — Uses looking time to show that young infants expect objects to continue to exist when hidden.
-- Saffran, J. R., Aslin, R. N. & Newport, E. L. (1996). Statistical learning by 8-month-old infants. *Science*. https://pubmed.ncbi.nlm.nih.gov/8943209/ — Shows that infants pick up word-like units from transition probabilities in a continuous stream of syllables.
+- Saffran, J. R., Aslin, R. N. & Newport, E. L. (1996). Statistical learning by 8-month-old infants. *Science*. https://doi.org/10.1126/science.274.5294.1926 — Shows that infants pick up word-like units from transition probabilities in a continuous stream of syllables.
 
 ### Surveys and reviews
 
-- Spelke, E. S. & Kinzler, K. D. (2007). Core knowledge. *Developmental Science*. https://pmc.ncbi.nlm.nih.gov/articles/PMC2746564 — Sets out the core-knowledge systems that infants share across domains.
+- Spelke, E. S. & Kinzler, K. D. (2007). Core knowledge. *Developmental Science*. https://doi.org/10.1111/j.1467-7687.2007.00569.x — Sets out the core-knowledge systems that infants share across domains.
 - Lake, B. M., Ullman, T. D., Tenenbaum, J. B. & Gershman, S. J. (2017). Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — Argues that machines should build in core knowledge and learn as children do.
-- Kidd, C., Piantadosi, S. T. & Aslin, R. N. (2012). The Goldilocks effect: human infants allocate attention to visual sequences that are neither too simple nor too complex. *PLoS ONE*. https://pmc.ncbi.nlm.nih.gov/articles/PMC3359326 — Shows that infants attend most to sequences of intermediate complexity.
+- Kidd, C., Piantadosi, S. T. & Aslin, R. N. (2012). The Goldilocks effect: human infants allocate attention to visual sequences that are neither too simple nor too complex. *PLoS ONE*. https://doi.org/10.1371/journal.pone.0036399 — Shows that infants attend most to sequences of intermediate complexity.

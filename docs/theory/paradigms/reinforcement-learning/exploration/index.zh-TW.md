@@ -96,5 +96,5 @@ Go-Explore 把問題拆成兩部分：回到先前找過的狀態，然後從那
 
 ### 文章與文件
 
-- Wilson, R. C., et al. (2014). "Humans use directed and random exploration to solve the explore–exploit dilemma". *Journal of Experimental Psychology: General* 143(6). https://pmc.ncbi.nlm.nih.gov/articles/PMC5635655 — 行為證據顯示人們同時使用依不確定性導向的探索與隨機探索。
+- Wilson, R. C., et al. (2014). "Humans use directed and random exploration to solve the explore–exploit dilemma". *Journal of Experimental Psychology: General* 143(6). https://doi.org/10.1037/a0038199 — 行為證據顯示人們同時使用依不確定性導向的探索與隨機探索。
 - Fortunato, M., et al. (2017). "Noisy Networks for Exploration". arXiv:1706.10295 — 學習網路權重雜訊的尺度，讓代理人在有把握之處減少探索。
