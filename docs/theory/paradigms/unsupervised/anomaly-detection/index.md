@@ -52,7 +52,7 @@ Defining normal for data that drift, separating harmful anomalies from merely ra
 
 ### Seminal papers
 
-- Liu, F. T., Ting, K. M. & Zhou, Z.-H. (2008). Isolation forest. *ICDM*. https://doi.org/10.1109/ICDM.2008.17 — Introduces Isolation Forest, which isolates anomalies with random splits.
+- Liu, F. T., Ting, K. M. & Zhou, Z.-H. (2008). Isolation forest. *ICDM*. https://www.scilit.net/publications/35daf3a8bfd44608b80ebb9e31d26a2a — Introduces Isolation Forest, which isolates anomalies with random splits.
 - Breunig, Kriegel, Ng & Sander (2000), "LOF: identifying density-based local outliers", SIGMOD. https://cs.fit.edu/~pkc/ml/related/breunig00sigmod.pdf — Defines the local outlier factor, a score based on relative local density.
 - Schölkopf, Platt, Shawe-Taylor, Smola & Williamson (2001), "Estimating the support of a high-dimensional distribution", *Neural Computation* 13(7). https://doi.org/10.1162/089976601750264965 — Introduces the one-class SVM for novelty detection.
 

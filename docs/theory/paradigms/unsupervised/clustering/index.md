@@ -63,8 +63,7 @@ How many clusters are there? Is a "true" clustering even defined? Clustering in 
 
 ### Lectures and videos
 
-- Lloyd, S. P. (1982). Least squares quantization in PCM. *IEEE Transactions on Information Theory*, 28(2), 129–137. https://doi.org/10.1109/TIT.1982.1056489 — Presents the iterative least-squares quantisation method that underlies the k-means algorithm.
-- Ward, J. H. (1963). Hierarchical grouping to optimize an objective function. *Journal of the American Statistical Association*, 58(301), 236–244. https://doi.org/10.1080/01621459.1963.10500845 — Introduces hierarchical clustering that merges groups to minimise the increase in within-group variance.
+- Lloyd, S. P. (1982). Least squares quantization in PCM. *IEEE Transactions on Information Theory*, 28(2), 129–137. https://www.stat.cmu.edu/~rnugent/PCMI2016/papers/LloydKMeans.pdf — Presents the iterative least-squares quantisation method that underlies the k-means algorithm.
 
 ### Articles and documentation
 

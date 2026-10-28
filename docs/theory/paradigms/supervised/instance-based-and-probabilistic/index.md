@@ -53,7 +53,7 @@ The Bayesian view links to [Probabilistic & Bayesian Methods](../../../probabili
 
 ### Lectures and videos
 
-- Hand, D. J. & Yu, K. (2001). Idiot’s Bayes: not so stupid after all? *International Statistical Review*, 69(3), 385–398. https://doi.org/10.1111/j.1751-5823.2001.tb00465.x — Explains why naive Bayes classifiers perform well even when the independence assumption fails.
+- Hand, D. J. & Yu, K. (2001). Idiot’s Bayes: not so stupid after all? *International Statistical Review*, 69(3), 385–398. https://econpapers.repec.org/RePEc:bla:istatr:v:69:y:2001:i:3:p:385-398 — Explains why naive Bayes classifiers perform well even when the independence assumption fails.
 
 ### Articles and documentation
 

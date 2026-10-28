@@ -87,4 +87,4 @@ H(p,q) = H(p) + D_{\mathrm{KL}}(p\,\|\,q)
 
 ### 文章與文件
 
-- Shannon, C. E. (1948). A Mathematical Theory of Communication. *Bell System Technical Journal*, 27(3), 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x — 定義通訊中的熵與互資訊，是本頁各種資訊量度量的基礎。
+- Shannon, C. E. (1948). A Mathematical Theory of Communication. *Bell System Technical Journal*, 27(3), 379–423. https://mlanthology.org/misc/1948/shannon1948misc-mathematical — 定義通訊中的熵與互資訊，是本頁各種資訊量度量的基礎。

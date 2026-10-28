@@ -73,6 +73,6 @@ Even "self-supervised" foundation models rely on supervised steps: **supervised 
 
 - Cortes & Vapnik (1995), "Support-vector networks", *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — Introduces the soft-margin SVM, the classic supervised classifier.
 - Boser, B. E., Guyon, I. M. & Vapnik, V. N. (1992). A training algorithm for optimal margin classifiers. *COLT*. https://doi.org/10.1145/130385.130401 — The first kernel SVM paper, combining margins with the kernel trick.
-- Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324 — Random forests, the strongest general-purpose tree ensemble of its era.
+- Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32. https://mlanthology.org/mlj/2001/breiman2001mlj-random — Random forests, the strongest general-purpose tree ensemble of its era.
 - Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). https://doi.org/10.1214/AOS/1013203451 — Gradient boosting, the basis of most modern tabular models.
 - Zhang, C. et al. (2017). Understanding deep learning requires rethinking generalization. ICLR. arXiv:1611.03530. https://arxiv.org/abs/1611.03530 — Shows why classical generalisation theory does not explain deep networks.

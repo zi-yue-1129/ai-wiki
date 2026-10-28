@@ -53,7 +53,7 @@ GP 在資料點很少時仍能給出校準良好的不確定性，也驅動貝�
 
 ### 講座與影片
 
-- Hand, D. J. & Yu, K. (2001). Idiot’s Bayes: not so stupid after all? *International Statistical Review*, 69(3), 385–398. https://doi.org/10.1111/j.1751-5823.2001.tb00465.x — 說明即使獨立性假設不成立，樸素貝氏分類器為何仍表現良好。
+- Hand, D. J. & Yu, K. (2001). Idiot’s Bayes: not so stupid after all? *International Statistical Review*, 69(3), 385–398. https://econpapers.repec.org/RePEc:bla:istatr:v:69:y:2001:i:3:p:385-398 — 說明即使獨立性假設不成立，樸素貝氏分類器為何仍表現良好。
 
 ### 文章與文件
 

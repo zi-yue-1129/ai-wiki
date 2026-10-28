@@ -43,7 +43,7 @@ tags:
 ### 開創性論文
 
 - Quinlan, J. R. (1986). Induction of decision trees. *Machine Learning*, 1(1), 81–106. https://doi.org/10.1007/BF00116251 — ID3 演算法，依資訊增益建立決策樹。
-- Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324 — 結合隨機特徵選取的裝袋樹，以及袋外誤差估計。
+- Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32. https://mlanthology.org/mlj/2001/breiman2001mlj-random — 結合隨機特徵選取的裝袋樹，以及袋外誤差估計。
 - Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). https://doi.org/10.1214/AOS/1013203451 — 把梯度提升推導為函數空間中的梯度下降。
 - Ke et al. (2017), "LightGBM: a highly efficient gradient boosting decision tree", NeurIPS. https://neurips.cc/virtual/2017/poster/9099 — 基於直方圖的分裂與逐葉生長，使大資料上的提升更快。
 - Prokhorenkova et al. (2018), "CatBoost: unbiased boosting with categorical features", NeurIPS. https://proceedings.neurips.cc/paper/2018/hash/14491b756b3a51daac41c24863285549-Abstract.html — 有序提升與目標統計量，在不洩漏的前提下處理類別特徵。
