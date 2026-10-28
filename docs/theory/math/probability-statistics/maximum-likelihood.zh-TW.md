@@ -27,6 +27,8 @@ MLE 求解
 
 兩個例子說明此概念。對於均值與變異數皆未知的高斯分布，均值的 MLE 是樣本平均，而變異數的 MLE 除以 \(N\) 而非 \(N-1\)，因此在小樣本下有偏差。對於類別分類器，最大化正確標籤的概似，即等同於最小化交叉熵損失。
 
+對於多數模型，極大值沒有閉式解，因此需以數值方法求得。基於梯度的最佳化器沿著負對數概似的梯度方向前進，這與訓練神經網路所用的計算相同（見[微積分與最佳化基礎](../calculus/index.md)）。當部分資料遺失或為隱變數時，例如混合模型，可以用迭代程序交替地估計遺失值並重新擬合參數。Dempster、Laird 與 Rubin（1977）分析了此程序，並證明每一次迭代的概似都不會下降 [(Dempster et al., 1977)](https://doi.org/10.1111/j.2517-6161.1977.tb01600.x)。
+
 Fisher（1922）給出此方法的現代形式，並提出估計量的一致性、效率與充分性等性質。Bishop（2006）與 Murphy（2022）則以機器學習的角度說明同一內容。
 
 ## 主要方法
@@ -44,6 +46,8 @@ Fisher（1922）給出此方法的現代形式，並提出估計量的一致性�
 - **分類器訓練**：交叉熵損失，即類別分布的 NLL（Bishop, 2006）。
 - **語言模型**：下一個詞元的訓練，即最大化觀測文本的對數概似。
 - **迴歸**：在常數變異數的高斯雜訊下，最小平方擬合就是 MLE。
+- **不完整資料**：刪失、截斷與遺失的觀測，以及因子分析，Dempster 等人（1977）以同一種以概似為基礎的程序處理。
+- **混合模型**：當每個觀測所屬的成分未知時，擬合混合分布；這正是 Dempster 等人（1977）明確分析的情境。
 
 ## 開放問題
 
@@ -55,6 +59,7 @@ Fisher（1922）給出此方法的現代形式，並提出估計量的一致性�
 ### 奠基性論文
 
 - Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A* 222, 309–368. https://doi.org/10.1098/rsta.1922.0009 — 以現代形式提出最大概似估計，並定義一致性與效率。
+- Dempster, Laird and Rubin（1977）。*Maximum Likelihood from Incomplete Data Via the EM Algorithm*。*Journal of the Royal Statistical Society: Series B*，39(1)，1–22。https://doi.org/10.1111/j.2517-6161.1977.tb01600.x — 分析含遺失或隱變數資料的最大概似，並證明此迭代程序使概似單調遞增。
 - 對 Fisher（1922）的評論：*From evidence to understanding*，PubMed Central。https://pmc.ncbi.nlm.nih.gov/articles/PMC4360088/ — 說明該論文的內容與影響，包括其對概似的處理。
 
 ### 綜述與教科書

@@ -38,6 +38,8 @@ The MLE solves
 
 Two worked examples show the idea. For a Gaussian with unknown mean and variance, the MLE of the mean is the sample mean, and the MLE of the variance divides by \(N\) rather than \(N-1\), which makes it biased in small samples. For a categorical classifier, maximising the likelihood of the correct labels is exactly minimising the cross-entropy loss.
 
+For most models the maximum has no closed form, so it is found numerically. Gradient-based optimisers step against the gradient of the negative log-likelihood, the same calculation that trains neural networks (see [Calculus and optimisation foundations](../calculus/index.md)). When some data are missing or latent, as in mixture models, an iterative procedure can alternate between estimating the missing values and re-fitting the parameters. Dempster, Laird and Rubin (1977) analysed this procedure and proved that the likelihood never decreases from one iteration to the next [(Dempster et al., 1977)](https://doi.org/10.1111/j.2517-6161.1977.tb01600.x).
+
 Fisher (1922) gave the method its modern form and introduced the properties of consistency, efficiency and sufficiency for estimators. Bishop (2006) and Murphy (2022) explain the same material in the machine-learning setting.
 
 ## Key methods
@@ -55,6 +57,8 @@ Fisher (1922) gave the method its modern form and introduced the properties of c
 - **Training classifiers**: cross-entropy loss, which is the NLL of a categorical distribution (Bishop, 2006).
 - **Language models**: next-token training maximises the log-likelihood of the observed text.
 - **Regression**: least-squares fitting is MLE under Gaussian noise with constant variance.
+- **Incomplete data**: censored, truncated and missing observations, and factor analysis, which Dempster et al. (1977) treat with the same likelihood-based procedure.
+- **Mixture models**: fitting a mixture of distributions when the component of each observation is unknown, the setting Dempster et al. (1977) analyse explicitly.
 
 ## Open questions
 
@@ -65,6 +69,7 @@ Fisher (1922) gave the method its modern form and introduced the properties of c
 
 ### Seminal papers
 
+- Dempster, Laird and Rubin (1977). Maximum Likelihood from Incomplete Data Via the EM Algorithm. *Journal of the Royal Statistical Society: Series B*, 39(1), 1–22. https://doi.org/10.1111/j.2517-6161.1977.tb01600.x — Analyses maximum likelihood with missing or latent data and proves that the likelihood improves monotonically under the iterative procedure.
 - Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A* 222, 309–368. https://doi.org/10.1098/rsta.1922.0009 — Introduces maximum likelihood estimation in its modern form, with the properties of consistency and efficiency.
 - Commentary on Fisher (1922): *From evidence to understanding*, PubMed Central. https://pmc.ncbi.nlm.nih.gov/articles/PMC4360088/ — Explains the content and influence of Fisher's paper, including its treatment of likelihood.
 
