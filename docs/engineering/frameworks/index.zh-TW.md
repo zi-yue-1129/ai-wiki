@@ -1,5 +1,15 @@
 # 框架與工具
 
+一個現代的 ML 專案會在幾個層次使用工具：用框架定義並訓練模型，當單一裝置不夠用時使用分散式訓練層，推論時使用服務引擎，最上層則是應用程式與代理人框架。多數選擇在同一層內還能更換，但跨層的決定很難逆轉，因此最重要的是各層如何搭配。
+
+```mermaid
+flowchart TB
+  A[應用與代理人框架] --> S[服務引擎]
+  S --> T[訓練框架]
+  T --> D[分散式訓練層]
+  D --> H[加速器與互連]
+```
+
 ## 深度學習框架
 
 | 框架 | 優點 | 說明 |
@@ -63,3 +73,41 @@
 - TPU 規模或偏好函數式風格 → JAX
 - 表格資料 → scikit-learn 加梯度提升
 - 本地 LLM → Ollama／llama.cpp；正式環境服務 → vLLM 或 SGLang
+
+## 選擇標準
+
+工具清單很快就會過時，因此下面的標準比任何單一推薦都更持久。
+
+| 標準 | 應該問的問題 |
+|---|---|
+| 硬體適配 | 框架是否支援你的加速器與互連，且達到所需的規模？ |
+| 正式環境路徑 | 從訓練到服務是否有經過測試的路線，包含有版本的產物與回滾？ |
+| 生態系 | 你需要的預訓練模型、資料集與整合是否已有人維護？ |
+| 鎖定程度 | 把模型或資料搬到另一個框架有多困難？權重格式是否開放（例如 safetensors）？ |
+| 維護與授權 | 專案是否仍在積極維護，其授權是否允許你的用途？ |
+| 團隊技能 | 團隊是否已熟悉語言與風格，學習曲線有多長？ |
+
+## 相關連結
+
+- 訓練層背後的分片與管線策略見[分散式訓練](../distributed-training/index.zh-TW.md)，包括 [ZeRO](../distributed-training/zero.zh-TW.md) 與 [PyTorch FSDP](../distributed-training/fsdp.zh-TW.md)。
+- 服務引擎建立在[推論最佳化](../inference-optimization/index.zh-TW.md)的技術上，例如 [PagedAttention 與 vLLM](../inference-optimization/paged-attention.zh-TW.md)。
+- 圍繞這些工具的部署做法見 [MLOps 與部署](../mlops/index.zh-TW.md)。
+
+## 開放問題
+
+- 當硬體、模型架構與服務需求在一年內改變時，團隊應如何比較框架？
+- 當模型在訓練與裝置端執行環境之間移動時，safetensors 與 ONNX 等互通格式能否持續可靠？
+
+## 參考文獻
+
+### 重要論文
+
+- Paszke, A. et al. (2019). *PyTorch: An Imperative Style, High-Performance Deep Learning Library*. arXiv:1912.01703. https://arxiv.org/abs/1912.01703 — 描述 PyTorch 即時執行、邊執行邊定義圖的設計，以及它如何兼顧彈性與效能。
+- Abadi, M. et al. (2016). *TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems*. arXiv:1603.04467. https://arxiv.org/abs/1603.04467 — 描述 TensorFlow 的資料流圖，以及它對異質裝置與分散式執行的支援。
+- Pedregosa, F. et al. (2012). *Scikit-learn: Machine Learning in Python*. arXiv:1201.0490. https://arxiv.org/abs/1201.0490 — 介紹 scikit-learn 函式庫，為經典機器學習演算法提供一致的 API。
+
+### 相關工作
+
+- Wolf, T. et al. (2019). *HuggingFace's Transformers: State-of-the-art Natural Language Processing*. arXiv:1910.03771. https://arxiv.org/abs/1910.03771 — 描述 Transformers 函式庫，以及其共用的模型與 tokenizer 介面。
+- Moritz, P. et al. (2017). *Ray: A Distributed Framework for Emerging AI Applications*. arXiv:1712.05889. https://arxiv.org/abs/1712.05889 — 用於訓練、服務與強化學習工作負載的分散式執行框架。
+- Khattab, O. et al. (2023). *DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines*. arXiv:2310.03714. https://arxiv.org/abs/2310.03714 — 描述一個編譯宣告式語言模型流程並最佳化其提示的框架。
