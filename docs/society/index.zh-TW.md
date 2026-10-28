@@ -17,6 +17,7 @@ AI 的技術進步引出了一些單靠技術無法回答的問題。
 | [兒童、教育政策與 AI](children-education-policy/index.md) | 兒童權利、年齡限制與家長同意、兒童資料保護，以及工具設計如何影響學習 |
 | [法律、政策與治理](governance/index.md) | 歐盟 AI 法、美國與中國的做法、國際努力、標準 |
 | [經濟與就業](economics/index.md) | 生產力、工作、不平等、集中 |
+| [人機互動與信任](human-ai-interaction/index.md) | 自動化偏誤與過度依賴、解釋如何改變信任、AI 陪伴、AI 素養
 | [AI 哲學](philosophy/index.md) | 智慧、理解、意義、能動性、道德地位 |
 
 ## 風險版圖
