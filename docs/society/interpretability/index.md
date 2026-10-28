@@ -43,7 +43,7 @@ Full treatment, with the methods compared and the open questions: [Mechanistic i
 - **Sparse autoencoders (SAEs) and dictionary learning** extract millions of more interpretable features from LLM activations (Anthropic's "Scaling Monosemanticity", 2024; similar work at OpenAI and Google DeepMind's Gemma Scope)
 - **Attribution graphs / circuit tracing**: tracing how features interact to produce outputs, e.g. revealing multi-step reasoning and planning ahead in rhymes (Anthropic, 2025)
 - **Causal interventions**: activation patching, causal tracing (locating factual recall, Meng et al., 2022), steering vectors
-- **Probing**: linear classifiers that read information from activations — e.g. truthfulness directions, board state in Othello-GPT
+- **Probing**: linear classifiers that read information from activations — e.g. truthfulness directions, board state in Othello-GPT. Control tasks and representation analysis are covered in [Probing classifiers and representation analysis](probing.md)
 - **Chain-of-thought faithfulness**: whether a model's stated reasoning reflects its actual computation — often only partially
 
 ## The neuroscience parallel
