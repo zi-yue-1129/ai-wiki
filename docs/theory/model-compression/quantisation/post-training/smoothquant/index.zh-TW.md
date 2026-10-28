@@ -16,11 +16,11 @@ SmoothQuant 是一種訓練後方法，讓大型語言模型的權重與激活�
 
 ![SmoothQuant 動態示意圖：降低激活值離群通道的幅度，並相對放大對應權重通道，再進行 W8A8 量化。](../../../../../assets/concept-animations/smoothquant-rescaling.gif)
 
-*原創概念動畫，CC BY-SA 4.0。* 以**逐輸入通道**的正縮放係數 \(s\) 重新分配動態範圍：\(X'=X\operatorname{diag}(s)^{-1}\)、\(W'=\operatorname{diag}(s)W\)，因此在**量化前**有 \(X'W'=XW\)。動畫中的激活離群通道縮小、對應權重通道放大；長條高度只是示意，**不是校準值、量化誤差或實際模型激活值**。後續 INT8 捨入仍可能引入誤差，並非完全無損。參見 [Xiao 等人（2022／2023）](https://arxiv.org/abs/2211.10438)。
+*原創概念動畫，CC BY-SA 4.0。* 以**逐輸入通道**的正縮放係數 \(s\) 重新分配動態範圍：\(X'=X\operatorname{diag}(s)^{-1}\)、\(W'=\operatorname{diag}(s)W\)，因此在**量化前**有 \(X'W'=XW\)。動畫中的激活離群通道縮小、對應權重通道放大；長條高度只是示意，**不是校準值、量化誤差或實際模型激活值**。後續 INT8 捨入仍可能引入誤差，並非完全無損。參見 [Xiao 等人（2023）](https://arxiv.org/abs/2211.10438)。
 
 ## 公式或演算法
 
-對線性層 \(Y = XW\)，方法計算 \(Y = (X\,\mathrm{diag}(s)^{-1})(\mathrm{diag}(s)\,W)\)，其中縮放 \(s\) 由激活與權重的統計量選定。縮放後的激活值與權重再量化為 8 位元。
+對線性層 \(Y = XW\)，方法計算 \(Y = (X\,\mathrm{diag}(s)^{-1})(\mathrm{diag}(s)\,W)\)。輸入通道 \(j\) 的縮放係數為 \(s_j = \max|X_j|^{\alpha} / \max|W_j|^{1-\alpha}\)，其中最大值取自校準資料，\(\alpha\) 為遷移強度。論文報告 \(\alpha = 0.5\) 對 OPT 與 BLOOM 模型是不錯的預設值。縮放後的激活值與權重再量化為 8 位元。
 
 ## 結果
 
@@ -37,13 +37,13 @@ SmoothQuant 是一種訓練後方法，讓大型語言模型的權重與激活�
 
 ## 相關連結
 
-SmoothQuant 是 [AWQ](../awq/index.zh-TW.md) 在激活端的對應方法。它讓整數矩陣乘法變得實用，而這正是具有 8 位元張量單元的[硬體](../../../../../engineering/hardware/index.zh-TW.md)執行最快的運算。
+SmoothQuant 與 [AWQ](../awq/index.zh-TW.md) 使用相同的逐通道縮放想法，但它也把縮放套用在激活值上，使兩個運算元都能量化為 8 位元；AWQ 則只量化權重。這使整數矩陣乘法變得實用，而這正是具有 8 位元張量單元的[硬體](../../../../../engineering/hardware/index.zh-TW.md)執行最快的運算。
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., Han, S. (2022). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — 把激活離群值移到權重上以進行 8 位元推論，速度最高提升 1.56 倍。
+- Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., Han, S. (2023). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. ICML 2023. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — 把激活離群值移到權重上以進行 8 位元推論，速度最高提升 1.56 倍。
 - Dettmers, T., 等人 (2022). *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*. arXiv:2208.07339. https://arxiv.org/abs/2208.07339 — 把離群值保留在 16 位元，而不是移動它們。
 - Lin, J., 等人 (2023). *AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration*. arXiv:2306.00978. https://arxiv.org/abs/2306.00978 — 面向僅權重量化的激活感知縮放。
 
