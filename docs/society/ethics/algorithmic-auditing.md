@@ -40,28 +40,28 @@ A model that performs well on a benchmark can still fail for particular users, i
 
 ### Audit stages
 
-Raji et al. (2020) propose an end-to-end framework for internal audit with five stages: scoping the system, mapping its stakeholders and risks, collecting artefacts such as data sheets and model cards, testing against defined criteria, and reflecting on the results with the team. Their central claim is that an audit fails when it is not connected to a decision: the findings must be able to change what is built or deployed. The framework is one of several proposals; audits in practice vary widely in scope and rigour.
+Raji et al. (2020) introduce a framework for algorithmic auditing that supports AI system development end to end, applied throughout the internal organisation's development lifecycle. Its aim is to identify harms before deployment and to trace issues that emerge after it back to their source. Audits in practice vary widely in scope and rigour.
 
 ### Documentation artefacts
 
-- **Model cards.** Mitchell et al. (2019) propose a template with sections on model details, intended use, the factors that affect performance, metrics, evaluation data, training data, quantitative results broken down by group, ethical considerations and caveats. The purpose is to make the limits of a model visible to people who did not train it.
-- **Datasheets for datasets.** Gebru et al. (2021) propose answering a fixed set of questions about each dataset: why it was created, how it was collected, who is in it, what labels mean, and what should not be done with it.
+- **Model cards.** Mitchell et al. (2019) propose model cards: short documents that accompany a trained model and provide benchmarked evaluation across conditions such as cultural and demographic groups. The purpose is to make the model's intended use and limits visible to people who did not train it.
+- **Datasheets for datasets.** Gebru et al. (2021) propose that every dataset be accompanied by a datasheet documenting its motivation, composition, collection process and recommended uses.
 
 Both artefacts are self-reported. They make audits possible but do not replace them.
 
 ### Impact assessment
 
-An impact assessment identifies the affected groups, the decisions the system influences, the likely failure modes, and the mitigations that are planned. Several regulatory frameworks now require one for high-risk uses, and they differ in how formal the procedure must be and who must be consulted.
+An impact assessment identifies the affected groups, the decisions the system influences, the likely failure modes, and the mitigations that are planned. Some regulatory frameworks ask for such assessments, and the procedures differ by jurisdiction.
 
 ## Regulatory context
 
-The EU Artificial Intelligence Act, Regulation (EU) 2024/1689, sets out harmonised rules for AI in the Union. It classifies certain systems as high-risk, including those listed in its Annex III, and attaches obligations to them such as risk management, data governance, technical documentation, record keeping and human oversight. Providers of high-risk systems must complete a conformity assessment before placing them on the market, and some systems must be assessed by a third party. The Act is the primary text for these duties; interpretation and enforcement guidance continue to develop.
+The EU Artificial Intelligence Act, Regulation (EU) 2024/1689, sets out harmonised rules for AI in the Union. It includes obligations for systems it classifies as high-risk. The classification and conformity rules are in the Act's text, which is the primary source for these duties; interpretation and enforcement guidance continue to develop.
 
 Other regimes take different routes. Some jurisdictions rely on sector regulators, on procurement rules for public bodies, or on voluntary standards. Law and policy are covered in [Law, Policy & Governance](../governance/index.md).
 
 ## Auditing large language models
 
-Auditing general-purpose models is harder than auditing narrow classifiers, because the set of tasks and users is open-ended. Common approaches include benchmark evaluation across groups, adversarial testing or red-teaming to find harmful outputs, and documentation of training data and safety measures. Metaxa et al. (2021) review methods for auditing algorithmic systems from the outside, including sock-puppet audits and scraping, and they discuss the ethical and legal constraints on such work. Their review is a useful guide to the limits of black-box access.
+Auditing general-purpose models is harder than auditing narrow classifiers, because the set of tasks and users is open-ended. Common approaches include benchmark evaluation across groups, adversarial testing or red-teaming to find harmful outputs, and documentation of training data and safety measures. Metaxa et al. (2021) survey methods for auditing algorithmic systems from the outside in, which is the setting that black-box access imposes.
 
 ## Connections
 
@@ -84,11 +84,11 @@ Auditing puts into practice the fairness criteria discussed in [Fairness definit
 
 ### Seminal papers
 
-- Raji, I. D. et al. (2020). Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing. *Proceedings of FAT\* 2020*. https://doi.org/10.1145/3351095.3372873 — Proposes an internal audit framework that links audit stages to development decisions.
-- Mitchell, M. et al. (2019). Model Cards for Model Reporting. *Proceedings of FAT\* 2019*. https://doi.org/10.1145/3287560.3287596 — Proposes a standard template for documenting model performance across groups and intended uses.
-- Gebru, T. et al. (2021). Datasheets for Datasets. *Communications of the ACM*, 64(12), 86–92. https://doi.org/10.1145/3458723 — Proposes question-based documentation for datasets.
+- Raji, I. D. et al. (2020). Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing. *Proceedings of FAT\* 2020*. https://doi.org/10.1145/3351095.3372873 — Proposes an internal audit framework applied across the development lifecycle.
+- Mitchell, M. et al. (2019). Model Cards for Model Reporting. *Proceedings of FAT\* 2019*. https://doi.org/10.1145/3287560.3287596 — Proposes model cards with benchmarked evaluation across cultural and demographic groups.
+- Gebru, T. et al. (2021). Datasheets for Datasets. *Communications of the ACM*, 64(12), 86–92. https://doi.org/10.1145/3458723 — Proposes datasheets that document each dataset's motivation, composition, collection process and recommended uses.
 
 ### Surveys and textbooks
 
-- Metaxa, D. et al. (2021). Auditing Algorithms: Understanding Algorithmic Systems from the Outside In. *Foundations and Trends in Human–Computer Interaction*, 14(4), 272–344. https://doi.org/10.1561/1100000083 — Surveys external audit methods, their access requirements and their limits.
-- Regulation (EU) 2024/1689 of the European Parliament and of the Council (Artificial Intelligence Act). *Official Journal of the European Union*. https://eur-lex.europa.eu/eli/reg/2024/1689/oj — The primary legal text for high-risk classification, documentation and conformity duties.
+- Metaxa, D. et al. (2021). Auditing Algorithms: Understanding Algorithmic Systems from the Outside In. *Foundations and Trends in Human–Computer Interaction*, 14(4), 272–344. https://doi.org/10.1561/1100000083 — Surveys methods for auditing algorithmic systems from the outside in.
+- Regulation (EU) 2024/1689 of the European Parliament and of the Council (Artificial Intelligence Act). *Official Journal of the European Union*. https://eur-lex.europa.eu/eli/reg/2024/1689/oj — The primary legal text for AI Act obligations, including for high-risk systems.

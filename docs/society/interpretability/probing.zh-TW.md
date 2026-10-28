@@ -51,15 +51,15 @@ aliases:
 - **結構探測器（Hewitt & Manning, 2019）。** 學習一個對詞表徵的線性轉換，使轉換後的平方距離近似句法樹上的距離。此探測器能從上下文嵌入中恢復樹結構，這是單純的標籤分類探測所無法顯示的。
 - **控制任務（Hewitt & Liang, 2019）。** 報告選擇性，即真實任務與隨機標籤準確率之間的差距，使高分代表表徵確實編碼了該性質，而非探測器在記憶。
 - **表徵相似度分析（Kriegeskorte et al., 2008）。** 透過兩系統回應之間的成對相異度矩陣來比較它們，使網路某一層與大腦區域能在相同刺激上進行比較。
-- **結合因果介入的探測（Li et al., 2023）。** 在序列模型中訓練一個探測器來辨識黑白棋（Othello）的棋盤狀態，接著沿探測器的方向編輯啟動值，檢查模型預測的合法著法是否改變。此類介入測試的是使用，而不只是存在。
+- **結合因果介入的探測（Li et al., 2023）。** 在僅以落子序列訓練的序列模型中，以探測器辨識黑白棋（Othello）的棋盤狀態，並對該表徵進行介入，檢查模型的輸出是否改變。此類介入測試的是使用，而不只是存在。
 
 ## 結果
 
-Hewitt 與 Liang（2019）發現，表達力強的探測器能在隨機標籤上達到高準確率，因此單看準確率會高估表徵所含的內容；選擇性可以修正這一點。Hewitt 與 Manning（2019）報告，一個線性結構探測器能從 BERT 的嵌入中恢復句法距離。Li 等人（2023）顯示，一個僅在落子序列上訓練的模型中，探測器能恢復棋盤狀態，而沿探測器方向介入會改變模型的預測。Park 等人（2023）報告，大型語言模型中的數個概念沿近似線性的方向被表徵，而這些方向可用來引導輸出。
+Hewitt 與 Liang（2019）主張，探測器能夠記住與詞彙相關的標籤，因此單看準確率會高估表徵所含的內容；選擇性衡量的正是這個差距。Hewitt 與 Manning（2019）報告，對 ELMo 與 BERT 的嵌入做線性轉換後，平方距離對應句法樹上的距離，平方範數對應深度，而基線模型沒有這種結構。Li 等人（2023）顯示，僅在落子序列上訓練的模型會形成非線性的棋盤狀態內部表徵，對此表徵的介入能控制模型的輸出。Park 等人（2023）報告 LLaMA-2 中概念的線性表徵，並顯示這些表徵與線性探測及引導向量（steering vectors）相關。
 
 ## 限制
 
-- **存在不等於使用。** 探測只顯示資訊可被解碼，並未顯示模型是否依賴它。Belinkov（2022）回顧了這個缺口，並建議將探測與因果測試搭配使用。
+- **存在不等於使用。** 探測只顯示資訊可被解碼，並未顯示模型是否依賴它。Belinkov（2022）批判性地回顧了探測分類器的方法學限制。
 - **探測器容量。** 探測器架構的選擇會改變結論。線性探測器可用來限制此問題，但非線性結構仍可能被漏掉。
 - **標籤品質。** 探測器會承襲標籤中的錯誤，而像真實性這類抽象性質的標籤很難定義。
 - **混淆因子。** 探測器可能抓到與目標相關的其他性質。平衡的資料集與控制可降低此風險。
@@ -89,12 +89,12 @@ Hewitt 與 Liang（2019）發現，表達力強的探測器能在隨機標籤上
 - Hewitt, J. & Manning, C. D. (2019). A Structural Probe for Finding Syntax in Word Representations. *Proceedings of NAACL-HLT 2019*. https://doi.org/10.18653/v1/N19-1419 — 顯示上下文嵌入的線性轉換能恢復句法樹距離。
 - Hewitt, J. & Liang, P. (2019). Designing and Interpreting Probes with Control Tasks. *Proceedings of EMNLP-IJCNLP 2019*. https://doi.org/10.18653/v1/D19-1275 — 引入控制任務與選擇性，以區分探測器的記憶與被編碼的資訊。
 - Kriegeskorte, N., Mur, M. & Bandettini, P. (2008). Representational similarity analysis – connecting the branches of systems neuroscience. *Frontiers in Systems Neuroscience*. https://doi.org/10.3389/neuro.06.004.2008 — 定義表徵相似度分析，透過回應幾何來比較系統。
-- Li, K., Hopkins, A. K., Bau, D., Viégas, F., Pfister, H. & Wattenberg, M. (2023). Emergent World Representations: Exploring a Sequence Model Trained on a Synthetic Task. *Proceedings of ICLR 2023*. https://arxiv.org/abs/2210.13382 — 在以黑白棋落子序列訓練的模型中探測棋盤狀態，並以介入測試探測器。
+- Li, K., Hopkins, A. K., Bau, D., Viégas, F., Pfister, H. & Wattenberg, M. (2023). Emergent World Representations: Exploring a Sequence Model Trained on a Synthetic Task. *Proceedings of ICLR 2023*. https://arxiv.org/abs/2210.13382 — 在以黑白棋落子序列訓練的模型中發現非線性的棋盤狀態表徵，並以介入測試它。
 - Park, K., Choe, Y. J. & Veitch, V. (2023). The Linear Representation Hypothesis and the Geometry of Large Language Models. *arXiv preprint*. https://arxiv.org/abs/2311.03658 — 將語言模型中概念的線性表徵形式化並加以檢驗。
 
 ### 綜述與教科書
 
-- Belinkov, Y. (2022). Probing Classifiers: Promises, Shortcomings, and Advances. *Computational Linguistics*, 48(1), 207–219. https://doi.org/10.1162/coli_a_00422 — 回顧探測方法、其假設與限制，並呼籲進行因果後續研究。
+- Belinkov, Y. (2022). Probing Classifiers: Promises, Shortcomings, and Advances. *Computational Linguistics*, 48(1), 207–219. https://doi.org/10.1162/coli_a_00422 — 批判性地回顧探測分類器框架，包括其優點、缺點與進展。
 
 ## 延伸學習
 

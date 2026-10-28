@@ -41,28 +41,28 @@ aliases:
 
 ### 稽核階段
 
-Raji 等人（2020）提出一套端到端的內部稽核框架，包含五個階段：界定系統範圍、對利害關係人與風險進行對應、蒐集如資料表與模型卡等成果文件、依定義好的標準進行測試，以及與團隊一同反思結果。他們的核心主張是：稽核若與決策脫節便會失敗，因此稽核結果必須能改變系統的建造或部署方式。此框架只是數種提案之一；實務中的稽核在範圍與嚴謹程度上差異極大。
+Raji 等人（2020）提出一套內部演算法稽核框架，支援 AI 系統從開發到部署的端到端流程，並套用於組織內部的整個開發生命週期。其目標是在部署前找出危害，並將部署後出現的問題追溯到其來源。實務中的稽核在範圍與嚴謹程度上差異極大。
 
 ### 文件工具
 
-- **模型卡。** Mitchell 等人（2019）提出一份範本，包含模型細節、預定用途、影響表現的因素、指標、評估資料、訓練資料、依群體拆分的量化結果、倫理考量與警示事項。目的是讓未參與訓練的人也能看見模型的限制。
-- **資料集資料表。** Gebru 等人（2021）建議對每個資料集回答一組固定問題：為何建立、如何蒐集、包含哪些人、標籤代表什麼，以及不應如何使用。
+- **模型卡。** Mitchell 等人（2019）提出模型卡：附隨於訓練好模型的簡短文件，提供跨文化與人口群體等條件下的基準評估。目的是讓未參與訓練的人也能看見模型的預定用途與限制。
+- **資料集資料表。** Gebru 等人（2021）主張每個資料集都應附上資料表，記錄其建立動機、組成、蒐集過程與建議用途。
 
 這兩種文件都是自我申報的。它們使稽核成為可能，但無法取代稽核。
 
 ### 影響評估
 
-影響評估會辨識受影響的群體、系統所影響的決策、可能的失敗模式，以及計畫中的緩解措施。數個法規框架現在要求高風險用途須進行影響評估，它們在程序的正式程度，以及必須諮詢哪些對象上有所不同。
+影響評估會辨識受影響的群體、系統所影響的決策、可能的失敗模式，以及計畫中的緩解措施。部分法規框架要求此類評估，其程序因法域而異。
 
 ## 法規背景
 
-歐盟《人工智慧法》（Artificial Intelligence Act），即 Regulation (EU) 2024/1689，為聯盟內的 AI 制定統一規則。它將特定系統分類為高風險，包括其附件三所列的系統，並對其課以風險管理、資料治理、技術文件、紀錄保存與人類監督等義務。高風險系統的提供者在上市前必須完成符合性評鑑，部分系統須由第三方評鑑。該法是這些義務的主要法律文本；其解釋與執法指引仍在持續發展。
+歐盟《人工智慧法》（Artificial Intelligence Act），即 Regulation (EU) 2024/1689，為聯盟內的 AI 制定統一規則。它對被歸類為高風險的系統課以義務。分類與符合性規則見該法條文，應直接閱讀條文，其解釋與執法指引仍在持續發展。
 
 其他法域採取不同路徑，例如依賴各行業監管機關、公部門採購規則或自願性標準。法律與政策見[法律、政策與治理](../governance/index.md)。
 
 ## 稽核大型語言模型
 
-稽核通用模型比稽核狹義的分類器困難，因為任務與使用者的範圍是開放的。常見做法包括跨群體的基準評估、對抗性測試或紅隊測試以找出有害輸出，以及記錄訓練資料與安全措施。Metaxa 等人（2021）回顧從外部稽核演算法系統的方法，包括傀儡帳號稽核與資料爬取，並討論此類工作的倫理與法律限制。該綜述是理解黑箱存取限制的實用指南。
+稽核通用模型比稽核狹義的分類器困難，因為任務與使用者的範圍是開放的。常見做法包括跨群體的基準評估、對抗性測試或紅隊測試以找出有害輸出，以及記錄訓練資料與安全措施。Metaxa 等人（2021）綜述從外部由外而內稽核演算法系統的方法，這也是黑箱存取所帶來的處境。
 
 ## 關聯
 
@@ -85,11 +85,11 @@ Raji 等人（2020）提出一套端到端的內部稽核框架，包含五個�
 
 ### 開創性論文
 
-- Raji, I. D. et al. (2020). Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing. *Proceedings of FAT\* 2020*. https://doi.org/10.1145/3351095.3372873 — 提出將稽核階段與開發決策連結起來的內部稽核框架。
-- Mitchell, M. et al. (2019). Model Cards for Model Reporting. *Proceedings of FAT\* 2019*. https://doi.org/10.1145/3287560.3287596 — 提出記錄模型在各群體表現與預定用途的標準範本。
-- Gebru, T. et al. (2021). Datasheets for Datasets. *Communications of the ACM*, 64(12), 86–92. https://doi.org/10.1145/3458723 — 提出以問題形式記錄資料集的文件方式。
+- Raji, I. D. et al. (2020). Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing. *Proceedings of FAT\* 2020*. https://doi.org/10.1145/3351095.3372873 — 提出套用於整個開發生命週期的內部稽核框架。
+- Mitchell, M. et al. (2019). Model Cards for Model Reporting. *Proceedings of FAT\* 2019*. https://doi.org/10.1145/3287560.3287596 — 提出模型卡：附帶跨文化與人口群體等條件基準評估的文件。
+- Gebru, T. et al. (2021). Datasheets for Datasets. *Communications of the ACM*, 64(12), 86–92. https://doi.org/10.1145/3458723 — 提出資料表，記錄每個資料集的建立動機、組成、蒐集過程與建議用途。
 
 ### 綜述與教科書
 
-- Metaxa, D. et al. (2021). Auditing Algorithms: Understanding Algorithmic Systems from the Outside In. *Foundations and Trends in Human–Computer Interaction*, 14(4), 272–344. https://doi.org/10.1561/1100000083 — 綜述外部稽核方法、其存取需求與限制。
-- Regulation (EU) 2024/1689 of the European Parliament and of the Council (Artificial Intelligence Act). *Official Journal of the European Union*. https://eur-lex.europa.eu/eli/reg/2024/1689/oj — 高風險分類、文件與符合性義務的主要法律文本。
+- Metaxa, D. et al. (2021). Auditing Algorithms: Understanding Algorithmic Systems from the Outside In. *Foundations and Trends in Human–Computer Interaction*, 14(4), 272–344. https://doi.org/10.1561/1100000083 — 綜述從外部由外而內稽核演算法系統的方法。
+- Regulation (EU) 2024/1689 of the European Parliament and of the Council (Artificial Intelligence Act). *Official Journal of the European Union*. https://eur-lex.europa.eu/eli/reg/2024/1689/oj — AI 法義務（包括高風險系統）的主要法律文本。

@@ -50,15 +50,15 @@ Comparing layers shows where information appears and where it disappears. Alain 
 - **Structural probes (Hewitt & Manning, 2019).** Learn a linear transformation of word representations under which squared distances approximate distances in the syntax tree. The probe recovers tree structure from contextual embeddings, which a label-classification probe would not show.
 - **Control tasks (Hewitt & Liang, 2019).** Report selectivity, the gap between real-task and random-label accuracy, so that a high score means the representation encodes the property and the probe is not simply memorising.
 - **Representational similarity analysis (Kriegeskorte et al., 2008).** Compare two systems through the matrices of pairwise dissimilarities between their responses, which allows comparisons between a network layer and a brain region on the same stimuli.
-- **Probes with causal interventions (Li et al., 2023).** Train a probe for the board state of the game Othello in a sequence model, then edit the activations along the probe's direction and check whether the model's predicted legal moves change. The intervention tests use, not just presence.
+- **Probes with causal interventions (Li et al., 2023).** Train a sequence model on Othello move sequences, probe its internal board state, and intervene on that representation to test whether the model's output changes. The intervention tests use, not just presence.
 
 ## Results
 
-Hewitt and Liang (2019) found that expressive probes can reach high accuracy on random labels, so accuracy alone overstates what a representation contains; selectivity corrects for this. Hewitt and Manning (2019) report that a linear structural probe recovers syntactic distances in BERT's embeddings. Li et al. (2023) show that a probe recovers board state from a model trained only on move sequences, and that intervening along the probe direction changes the model's predictions. Park et al. (2023) report that several concepts in large language models are represented along approximately linear directions, and that these directions can be used to steer output.
+Hewitt and Liang (2019) argue that probes can memorise labels from word types, so accuracy alone overstates what a representation contains; selectivity measures the gap. Hewitt and Manning (2019) report that a linear transformation of ELMo and BERT embeddings makes squared distances track parse-tree distance and squared norms track depth, and that baselines lack this structure. Li et al. (2023) show that a model trained only on move sequences develops a nonlinear internal representation of the board state, and that interventions on this representation can control the model's output. Park et al. (2023) report linear representations of concepts in LLaMA-2 and show that these connect to linear probing and steering vectors.
 
 ## Limits
 
-- **Presence is not use.** A probe shows that information is decodable, not that the model relies on it. Belinkov (2022) reviews this gap and recommends pairing probes with causal tests.
+- **Presence is not use.** A probe shows that information is decodable, not that the model relies on it. Belinkov (2022) critically reviews the methodological limitations of probing classifiers.
 - **Probe capacity.** The choice of probe architecture changes the conclusions. Linear probes are used to limit this, but nonlinear structure can still be missed.
 - **Label quality.** Probes inherit the errors in their labels, and labels for abstract properties such as truth are hard to define.
 - **Confounds.** A probe may pick up a correlated property. Balanced datasets and controls reduce this risk.
@@ -88,12 +88,12 @@ Probing is the most direct shared tool between neural network interpretability a
 - Hewitt, J. & Manning, C. D. (2019). A Structural Probe for Finding Syntax in Word Representations. *Proceedings of NAACL-HLT 2019*. https://doi.org/10.18653/v1/N19-1419 — Shows that a linear transformation of contextual embeddings recovers syntax tree distances.
 - Hewitt, J. & Liang, P. (2019). Designing and Interpreting Probes with Control Tasks. *Proceedings of EMNLP-IJCNLP 2019*. https://doi.org/10.18653/v1/D19-1275 — Introduces control tasks and selectivity to separate probe memorisation from encoded information.
 - Kriegeskorte, N., Mur, M. & Bandettini, P. (2008). Representational similarity analysis – connecting the branches of systems neuroscience. *Frontiers in Systems Neuroscience*. https://doi.org/10.3389/neuro.06.004.2008 — Defines representational similarity analysis for comparing systems through their response geometry.
-- Li, K., Hopkins, A. K., Bau, D., Viégas, F., Pfister, H. & Wattenberg, M. (2023). Emergent World Representations: Exploring a Sequence Model Trained on a Synthetic Task. *Proceedings of ICLR 2023*. https://arxiv.org/abs/2210.13382 — Probes board state in a model trained on Othello move sequences and tests the probe with interventions.
+- Li, K., Hopkins, A. K., Bau, D., Viégas, F., Pfister, H. & Wattenberg, M. (2023). Emergent World Representations: Exploring a Sequence Model Trained on a Synthetic Task. *Proceedings of ICLR 2023*. https://arxiv.org/abs/2210.13382 — Finds a nonlinear board-state representation in a model trained on Othello move sequences, and tests it with interventions.
 - Park, K., Choe, Y. J. & Veitch, V. (2023). The Linear Representation Hypothesis and the Geometry of Large Language Models. *arXiv preprint*. https://arxiv.org/abs/2311.03658 — Formalises linear representations of concepts in language models and tests them.
 
 ### Surveys and textbooks
 
-- Belinkov, Y. (2022). Probing Classifiers: Promises, Shortcomings, and Advances. *Computational Linguistics*, 48(1), 207–219. https://doi.org/10.1162/coli_a_00422 — Reviews probing methods, their assumptions and their limits, and calls for causal follow-up.
+- Belinkov, Y. (2022). Probing Classifiers: Promises, Shortcomings, and Advances. *Computational Linguistics*, 48(1), 207–219. https://doi.org/10.1162/coli_a_00422 — Critically reviews the probing framework, its promises, shortcomings and advances.
 
 ## Further learning
 

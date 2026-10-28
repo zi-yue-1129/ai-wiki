@@ -57,14 +57,14 @@ The table below gives the main criteria. Each one is a constraint on the joint d
 
 Two results show that the main group criteria conflict when base rates differ and the predictor is not perfect.
 
-- **Kleinberg, Mullainathan and Raghavan (2016)** show that three properties cannot hold together: calibration within groups, balance for the positive class (equal average scores for true positives across groups), and balance for the negative class. They prove this for any score that is not perfectly predictive and for groups with unequal base rates.
+- **Kleinberg, Mullainathan and Raghavan (2016)** show that three conditions cannot hold together: calibration within groups, balance for the positive class (equal average scores for true positives across groups), and balance for the negative class. Their abstract states that, except in highly constrained special cases, no method can satisfy the three conditions simultaneously.
 - **Chouldechova (2017)** shows, for binary predictions, that predictive parity, equal false-positive rates and equal false-negative rates cannot all hold when base rates differ. She applies this result to the risk instruments studied in the COMPAS debate.
 
 The practical consequence is that a model can be calibrated and still have unequal error rates, or it can have equal error rates and unequal precision. Choosing between these outcomes is a choice about which harm matters more.
 
 ### Costs of enforcing a criterion
 
-Corbett-Davies et al. (2017) study the cost of imposing fairness constraints on a risk-based decision rule. They show that enforcing some criteria can reduce public-safety outcomes or the utility of the decision, and that the cost depends on how the constraint is applied. The point for practitioners is that a fairness constraint is a policy with measurable side effects, not a free adjustment.
+Corbett-Davies et al. (2017) study the cost of imposing fairness constraints on a risk-based decision rule. They reformulate fairness as constrained optimisation, maximising public safety subject to fairness constraints, and show that for several past definitions of fairness the resulting algorithms come at a cost to public safety. The point for practitioners is that a fairness constraint is a policy with measurable side effects, not a free adjustment.
 
 ## Key methods
 
@@ -103,7 +103,7 @@ On the machine-learning side, the definitions are the target of fairness toolkit
 - Hardt, M., Price, E. & Srebro, N. (2016). Equality of Opportunity in Supervised Learning. *Advances in Neural Information Processing Systems 29*. https://arxiv.org/abs/1610.02413 — Defines equal opportunity and equalised odds and gives a post-processing method to achieve them.
 - Kleinberg, J., Mullainathan, S. & Raghavan, M. (2017). Inherent Trade-Offs in the Fair Determination of Risk Scores. *Proceedings of ITCS 2017*. https://arxiv.org/abs/1609.05807 — Proves that calibration and balance conditions cannot hold together when base rates differ.
 - Chouldechova, A. (2017). Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments. *Big Data*, 5(2), 153–163. https://doi.org/10.1089/big.2016.0047 — Shows that predictive parity and error-rate balance are incompatible under unequal base rates, using recidivism tools as the case.
-- Corbett-Davies, S., Pierson, E., Feller, A. & Goel, S. (2017). Algorithmic Decision Making and the Cost of Fairness. *Proceedings of KDD 2017*. https://doi.org/10.1145/3097983.3098095 — Analyses the utility cost of imposing common fairness constraints on risk-based decisions.
+- Corbett-Davies, S., Pierson, E., Feller, A. & Goel, S. (2017). Algorithmic Decision Making and the Cost of Fairness. *Proceedings of KDD 2017*. https://doi.org/10.1145/3097983.3098095 — Reformulates fairness as constrained optimisation of public safety, using pretrial detention decisions.
 
 ### Surveys and textbooks
 

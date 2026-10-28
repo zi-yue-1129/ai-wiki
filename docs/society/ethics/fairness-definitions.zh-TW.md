@@ -58,14 +58,14 @@ aliases:
 
 兩項結果顯示，當基礎比率不同且預測器並非完美時，主要的群體準則會彼此衝突。
 
-- **Kleinberg、Mullainathan 與 Raghavan（2016）** 證明三種性質無法同時成立：群體內校準、正類的平衡（真陽性在各群體的平均分數相等），以及負類的平衡。他們的證明適用於任何非完美預測的分數，且各群體基礎比率不同的情況。
+- **Kleinberg、Mullainathan 與 Raghavan（2016）** 證明三項條件無法同時成立：群體內校準、正類的平衡（真陽性在各群體的平均分數相等），以及負類的平衡。其摘要指出，除了高度受限的特殊情況外，沒有任何方法能同時滿足這三項條件。
 - **Chouldechova（2017）** 在二元預測中證明：當基礎比率不同時，預測值均等、偽陽性率相等與偽陰性率相等無法同時成立。她將此結果應用於 COMPAS 爭論中研究的風險評估工具。
 
 實務上的結論是：模型可以是校準的，同時錯誤率卻不平等；或者錯誤率相等，但正向決定的精確率不平等。在這些結果之間做選擇，是在判斷哪一種傷害更重要。
 
 ### 強制執行準則的代價
 
-Corbett-Davies 等人（2017）研究對風險導向決策規則施加公平性限制的代價。他們顯示，強制某些準則可能降低公共安全成效或決策效用，而代價取決於限制的套用方式。對實務者而言，重點是：公平性限制是有可量測副作用的政策，而不是無代價的微調。
+Corbett-Davies 等人（2017）研究對風險導向決策規則施加公平性限制的代價。他們將公平性重新表述為受限最佳化：在滿足公平性限制的前提下最大化公共安全，並顯示對於數種過去的公平性定義，所得演算法會對公共安全造成代價。對實務者而言，重點是：公平性限制是有可量測副作用的政策，而不是無代價的微調。
 
 ## 主要方法
 
@@ -104,7 +104,7 @@ Corbett-Davies 等人（2017）研究對風險導向決策規則施加公平性�
 - Hardt, M., Price, E. & Srebro, N. (2016). Equality of Opportunity in Supervised Learning. *Advances in Neural Information Processing Systems 29*. https://arxiv.org/abs/1610.02413 — 定義機會均等與機會均衡，並給出達成它們的後處理方法。
 - Kleinberg, J., Mullainathan, S. & Raghavan, M. (2017). Inherent Trade-Offs in the Fair Determination of Risk Scores. *Proceedings of ITCS 2017*. https://arxiv.org/abs/1609.05807 — 證明當基礎比率不同時，校準與平衡條件無法同時成立。
 - Chouldechova, A. (2017). Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments. *Big Data*, 5(2), 153–163. https://doi.org/10.1089/big.2016.0047 — 以再犯預測工具為例，顯示在基礎比率不同時，預測值均等與錯誤率平衡互不相容。
-- Corbett-Davies, S., Pierson, E., Feller, A. & Goel, S. (2017). Algorithmic Decision Making and the Cost of Fairness. *Proceedings of KDD 2017*. https://doi.org/10.1145/3097983.3098095 — 分析在風險導向決策上施加常見公平性限制的效用代價。
+- Corbett-Davies, S., Pierson, E., Feller, A. & Goel, S. (2017). Algorithmic Decision Making and the Cost of Fairness. *Proceedings of KDD 2017*. https://doi.org/10.1145/3097983.3098095 — 將公平性重新表述為以公共安全為目標的受限最佳化，並以審前羈押決策為例。
 
 ### 綜述與教科書
 

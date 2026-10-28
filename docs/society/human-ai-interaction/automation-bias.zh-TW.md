@@ -36,25 +36,25 @@ aliases:
 
 ## 運作方式
 
-Parasuraman 與 Manzey（2010）回顧自滿與自動化偏誤的研究，並將其與注意力模型整合。他們的說明是：人會在監控工作與自動系統之間分配注意力。當系統可靠時，監控變得較不頻繁、也較不周全，因而降低了發現系統偶發錯誤的機會。結果取決於輔助工具的可靠度、人的工作負荷，以及錯誤被查核的難易程度。
+Parasuraman 與 Manzey（2010）回顧自滿與自動化偏誤的研究，並依其標題所示，將其整合為注意力的說明。依此觀點，關鍵在於人如何在監控與自動系統之間分配注意力。當系統可靠時，監控變得較不頻繁、也較不周全，因而降低了發現系統偶發錯誤的機會。結果取決於輔助工具的可靠度、人的工作負荷，以及錯誤被查核的難易程度。
 
-Skitka、Mosier 與 Burdick（1999）在飛行模擬的情境中，以自動監控輔助工具測試這一點。他們發現，當輔助工具未標示問題時，人們會犯遺漏錯誤；當他們遵循錯誤的建議時，則會犯誤作為錯誤。他們的結論是，這些錯誤是依賴輔助工具的可量測代價，而不只是粗心所致。
+Skitka、Mosier 與 Burdick（1999）研究自動決策輔助是否使人的判斷產生偏誤，論文標題即為〈Does automation bias decision-making?〉。
 
 ## 主要方法
 
 實驗研究在嘗試降低此效應時採取的方式各有不同：
 
-- **解釋。** Bansal 等人（2021）研究 AI 解釋是否有助於人機團隊。他們報告，解釋往往增加人們採納 AI 建議的頻率，包括錯誤的建議，因此團隊表現的提升在不同任務間並不一致。
-- **關於檢查的成本效益推理。** Vasconcelos 等人（2023）主張並檢驗：當檢查解釋的努力相對於發現錯誤的效益來說較低時，解釋能降低過度依賴。
-- **認知強制功能。** Buçinca、Malaya 與 Gajos（2021）引入一些設計，延遲或結構化 AI 的回答，讓人在接受之前先思考。這些設計降低了過度依賴，但參與者常認為它們較不有幫助，顯示有用之處與人們的偏好之間存在落差。
+- **解釋。** Bansal 等人（2021）檢驗 AI 解釋是否能提升人機團隊的表現。
+- **關於檢查的成本效益推理。** Vasconcelos 等人（2023）報告，一般而言 AI 提供解釋時過度依賴並不會下降；他們以成本效益架構主張，人們會策略性地選擇是否參與解釋，因此在某些情境中解釋確實能降低過度依賴。
+- **認知強制功能。** Buçinca、Malaya 與 Gajos（2021）設計三種認知強制介入，促使人更認真地思考 AI 解釋。在一項有 199 名參與者的實驗中，他們將其與兩種可解釋 AI 設計及無 AI 的基線相比。
 
 ## 實務中的證據
 
-航空與醫療的研究早於生成式 AI，而其發現已被應用於 AI 決策支援。語言模型的過度依賴已在寫作、程式設計與資訊搜尋任務中被研究，在這些任務中，看似合理卻錯誤的答案可能在未檢查的情況下被接受。Lee 等人（2025）對知識工作者進行調查，報告對生成式 AI 工具的信心較高，與自述的批判性思考較少相關；而對自身技能的自信較高，則與批判性思考較多相關。該研究以自述為依據且屬橫斷面設計，因此顯示的是關聯，而非因果。
+航空與醫療的研究早於生成式 AI，而其發現已被應用於 AI 決策支援。語言模型的過度依賴是活躍的研究領域，在這些情況中，看似合理卻錯誤的答案可能在未檢查的情況下被接受。Lee 等人（2025）以調查報告，人們使用生成式 AI 時，自述的認知投入與信心有所降低。自述測量的是人們對自己思考的說法，而非其表現的實際變化。
 
 ## 技能退化與認知卸載
 
-Bainbridge（1983）描述了自動化的「諷刺」：將任務自動化，會移除維持操作人員技能所需的練習，而剩下的人工任務，例如處理罕見的故障，正是最需要技能的部分。同樣的論點也被用於生成式 AI：一個從不起草或檢查解答的工作者，可能會失去做這些事的能力。這方面的證據仍然有限，研究者區分了兩種卸載：一種釋放注意力、讓人做更好的工作；另一種則侵蝕人所需的技能。
+Bainbridge（1983）討論自動化的「諷刺」（ironies of automation），即自動化可能改變人在剩餘任務中所需的技能。同樣的疑慮也被提出用於生成式 AI：一個從不起草或檢查解答的工作者，可能會失去做這些事的能力。這方面的證據仍然有限，研究者區分了兩種卸載：一種釋放注意力、讓人做更好的工作；另一種則侵蝕人所需的技能。
 
 ## 關聯
 
@@ -77,12 +77,12 @@ Bainbridge（1983）描述了自動化的「諷刺」：將任務自動化，會
 
 ### 開創性論文
 
-- Skitka, L. J., Mosier, K. L. & Burdick, M. (1999). Does automation bias decision-making? *International Journal of Human-Computer Studies*, 51(5), 991–1006. https://doi.org/10.1006/ijhc.1999.0252 — 實驗研究人們在監控任務中使用自動輔助工具時的遺漏與誤作為錯誤。
-- Bainbridge, L. (1983). Ironies of automation. *Automatica*, 19(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8 — 主張將流程自動化會移除操作人員處理故障所需的練習。
-- Bansal, G. et al. (2021). Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance. *Proceedings of CHI 2021*. https://doi.org/10.1145/3411764.3445717 — 檢驗 AI 解釋是否提升互補的人機團隊表現，並發現效果取決於任務。
-- Buçinca, Z., Malaya, M. B. & Gajos, K. Z. (2021). To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on AI in AI-assisted Decision-making. *Proceedings of the ACM on Human-Computer Interaction*, 5(CSCW1). https://doi.org/10.1145/3449287 — 顯示認知強制功能能降低過度依賴，而參與者較不喜歡這類功能。
-- Vasconcelos, H. et al. (2023). Explanations Can Reduce Overreliance on AI Systems During Decision-Making. *Proceedings of the ACM on Human-Computer Interaction*, 7(CSCW1). https://doi.org/10.1145/3579605 — 主張並檢驗：當檢查成本相對於效益較低時，解釋能降低過度依賴。
-- Lee, H.-P. et al. (2025). The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence. *Proceedings of CHI 2025*. https://doi.org/10.1145/3706598.3713778 — 以知識工作者的調查，將對生成式 AI 的信心與批判性思考建立關聯。
+- Skitka, L. J., Mosier, K. L. & Burdick, M. (1999). Does automation bias decision-making? *International Journal of Human-Computer Studies*, 51(5), 991–1006. https://doi.org/10.1006/ijhc.1999.0252 — 實驗研究自動決策輔助是否使人的判斷產生偏誤。
+- Bainbridge, L. (1983). Ironies of automation. *Automatica*, 19(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8 — 討論自動化的諷刺，即其對操作人員技能的影響。
+- Bansal, G. et al. (2021). Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance. *Proceedings of CHI 2021*. https://doi.org/10.1145/3411764.3445717 — 檢驗 AI 解釋是否能提升人機團隊的表現。
+- Buçinca, Z., Malaya, M. B. & Gajos, K. Z. (2021). To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on AI in AI-assisted Decision-making. *Proceedings of the ACM on Human-Computer Interaction*, 5(CSCW1). https://doi.org/10.1145/3449287 — 設計三種認知強制介入，並與僅有解釋的設計及無 AI 基線相比。
+- Vasconcelos, H. et al. (2023). Explanations Can Reduce Overreliance on AI Systems During Decision-Making. *Proceedings of the ACM on Human-Computer Interaction*, 7(CSCW1). https://doi.org/10.1145/3579605 — 以成本效益架構主張，解釋在某些情境中能降低過度依賴。
+- Lee, H.-P. et al. (2025). The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence. *Proceedings of CHI 2025*. https://doi.org/10.1145/3706598.3713778 — 以調查報告生成式 AI 使用時自述的認知投入與信心降低。
 
 ### 綜述與教科書
 

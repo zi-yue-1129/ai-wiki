@@ -54,15 +54,15 @@ aliases:
   \[
   \phi_i = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!\,(|N|-|S|-1)!}{|N|!}\,\bigl[v(S \cup \{i\}) - v(S)\bigr],
   \]
-  其中 \(N\) 是特徵集合，\(v(S)\) 是只知道 \(S\) 中特徵時模型的期望輸出。Lundberg 與 Lee 將數種既有方法統一於這個可加形式之下，並提出高效的估計器。基於 Shapley 的預測歸因更早已由 Štrumbelj 與 Kononenko（2014）用於解釋預測。
+  其中 \(N\) 是特徵集合，\(v(S)\) 是只知道 \(S\) 中特徵時模型的期望輸出。Lundberg 與 Lee 將六種既有方法統一於這個可加形式之下，並提出其估計器。基於 Shapley 的預測歸因更早已由 Štrumbelj 與 Kononenko（2014）用於解釋預測。
 
 ## 結果
 
-這些方法主要以公理與健全性檢查來驗證，而非單一基準。Sundararajan 等人（2017）顯示積分梯度滿足其提出的公理；Lundberg 與 Lee（2017）顯示 SHAP 家族在可加歸因下統一了數種既有方法。Ribeiro 等人（2016）以使用者研究評估 LIME，檢驗解釋是否幫助人們決定是否信任分類器。Adebayo 等人（2018）以隨機化模型權重與資料標籤來檢驗顯著性方法：數種廣泛使用的梯度型地圖在模型為隨機時看起來相似，表示它們並不取決於模型所學到的內容。
+這些方法主要以公理與健全性檢查來驗證，而非單一基準。Sundararajan 等人（2017）以敏感性與實作不變性兩項公理設計積分梯度，並報告多數已知的歸因方法不滿足這些公理；Lundberg 與 Lee（2017）提出統一六種既有方法的可加特徵重要性類別。Ribeiro 等人（2016）以模擬與人類受試者實驗評估 LIME，包括判斷是否應信任某一預測。Adebayo 等人（2018）提出評估顯著性方法所能解釋內容的可行方法，並報告部分既有顯著性方法與模型及資料生成過程皆無關。
 
 ## 限制
 
-- **健全性。** 某些歸因地圖在很大程度上獨立於已訓練的模型，因此看起來有資訊量，卻未反映模型行為（Adebayo 等人，2018）。
+- **健全性。** 部分顯著性方法與模型及資料皆無關（Adebayo 等人，2018），因此其地圖可能看似有資訊量，卻未反映模型所學到的內容。
 - **對基準的依賴。** 積分梯度與 SHAP 取決於參考輸入或背景分布，解釋會隨此選擇而改變。
 - **相關特徵。** 當特徵彼此相關時，Shapley 式的值可能歸功於模型並未使用的特徵，因為此方法會評估不太可能出現的輸入組合。
 - **因果。** 高歸因表示在所選擾動下，模型輸出依賴該特徵，而非現實世界結果的因果來源。
@@ -96,7 +96,7 @@ aliases:
 - Ribeiro, M. T., Singh, S. & Guestrin, C. (2016). "Why Should I Trust You?": Explaining the Predictions of Any Classifier. *Proceedings of KDD 2016*. https://arxiv.org/abs/1602.04938 — 提出 LIME，為任何分類器提供局部代理解釋。
 - Lundberg, S. M. & Lee, S.-I. (2017). A Unified Approach to Interpreting Model Predictions. *Advances in Neural Information Processing Systems 30*. https://arxiv.org/abs/1705.07874 — 提出 SHAP，在 Shapley 值下統一可加特徵歸因方法。
 - Štrumbelj, E. & Kononenko, I. (2014). Explaining prediction models and individual predictions with feature contributions. *Knowledge and Information Systems*, 41(3), 647–665. https://doi.org/10.1007/s10115-013-0679-x — 以 Shapley 值解釋一般模型的個別預測。
-- Adebayo, J., Gilmer, J., Muelly, M., Goodfellow, I., Hardt, M. & Kim, B. (2018). Sanity Checks for Saliency Maps. *Advances in Neural Information Processing Systems 31*. https://arxiv.org/abs/1810.03292 — 顯示數種顯著性方法無法通過隨機化檢驗。
+- Adebayo, J., Gilmer, J., Muelly, M., Goodfellow, I., Hardt, M. & Kim, B. (2018). Sanity Checks for Saliency Maps. *Advances in Neural Information Processing Systems 31*. https://arxiv.org/abs/1810.03292 — 提出評估顯著性方法的方法，並發現部分方法與模型及資料無關。
 
 ### 綜述與教科書
 

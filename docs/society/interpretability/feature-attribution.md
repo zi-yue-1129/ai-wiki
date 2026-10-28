@@ -53,15 +53,15 @@ Attribution methods fall into two broad families.
   \[
   \phi_i = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!\,(|N|-|S|-1)!}{|N|!}\,\bigl[v(S \cup \{i\}) - v(S)\bigr],
   \]
-  where \(N\) is the set of features and \(v(S)\) is the model's expected output when only the features in \(S\) are known. Lundberg and Lee unify several existing methods under this additive form and propose efficient estimators. Shapley-based attribution was used for predictions earlier by Štrumbelj and Kononenko (2014).
+  where \(N\) is the set of features and \(v(S)\) is the model's expected output when only the features in \(S\) are known. Lundberg and Lee unify six existing methods under this additive form and propose estimators for it. Shapley-based attribution was used for predictions earlier by Štrumbelj and Kononenko (2014).
 
 ## Results
 
-The methods are validated mainly by axioms and sanity checks rather than by one benchmark. Sundararajan et al. (2017) show that integrated gradients satisfies the axioms they propose, and Lundberg and Lee (2017) show that the SHAP family unifies several earlier methods under additive attributions. Ribeiro et al. (2016) evaluate LIME with user studies on whether explanations help people decide whether to trust a classifier. Adebayo et al. (2018) test saliency methods by randomising model weights and data labels: several widely used gradient-based maps look similar when the model is random, which shows they do not depend on what the model has learned.
+The methods are validated mainly by axioms and sanity checks rather than by one benchmark. Sundararajan et al. (2017) use the axioms of sensitivity and implementation invariance to design integrated gradients, and report that most known attribution methods do not satisfy them. Lundberg and Lee (2017) present a class of additive feature importance measures that unifies six existing methods. Ribeiro et al. (2016) evaluate LIME with simulated and human-subject experiments, including on deciding whether to trust a prediction. Adebayo et al. (2018) propose an actionable methodology for evaluating what a saliency method can explain, and report that some existing saliency methods are independent both of the model and of the data-generating process.
 
 ## Limits
 
-- **Sanity.** Some attribution maps are largely independent of the trained model, so they can look informative without reflecting the model's behaviour (Adebayo et al., 2018).
+- **Sanity.** Some saliency methods are independent of both the model and the data (Adebayo et al., 2018), so their maps can look informative without reflecting what the model learned.
 - **Baseline dependence.** Integrated gradients and SHAP depend on the reference input or background distribution, and the explanation changes with that choice.
 - **Correlated features.** When features are correlated, Shapley-style values can credit a feature the model does not use, because the method evaluates unlikely input combinations.
 - **Causation.** High attribution shows what the model's output depends on under the chosen perturbation, not what causes the real-world outcome.
@@ -95,7 +95,7 @@ Attribution is one of the explanation tools in [Interpretability](index.md), nex
 - Ribeiro, M. T., Singh, S. & Guestrin, C. (2016). "Why Should I Trust You?": Explaining the Predictions of Any Classifier. *Proceedings of KDD 2016*. https://arxiv.org/abs/1602.04938 — Introduces LIME, a local surrogate explanation for any classifier.
 - Lundberg, S. M. & Lee, S.-I. (2017). A Unified Approach to Interpreting Model Predictions. *Advances in Neural Information Processing Systems 30*. https://arxiv.org/abs/1705.07874 — Introduces SHAP, unifying additive feature attribution methods under Shapley values.
 - Štrumbelj, E. & Kononenko, I. (2014). Explaining prediction models and individual predictions with feature contributions. *Knowledge and Information Systems*, 41(3), 647–665. https://doi.org/10.1007/s10115-013-0679-x — Uses Shapley values to explain individual predictions of general models.
-- Adebayo, J., Gilmer, J., Muelly, M., Goodfellow, I., Hardt, M. & Kim, B. (2018). Sanity Checks for Saliency Maps. *Advances in Neural Information Processing Systems 31*. https://arxiv.org/abs/1810.03292 — Shows that several saliency methods fail randomisation tests.
+- Adebayo, J., Gilmer, J., Muelly, M., Goodfellow, I., Hardt, M. & Kim, B. (2018). Sanity Checks for Saliency Maps. *Advances in Neural Information Processing Systems 31*. https://arxiv.org/abs/1810.03292 — Proposes a methodology for evaluating saliency methods and finds that some are independent of the model and the data.
 
 ### Surveys and textbooks
 
