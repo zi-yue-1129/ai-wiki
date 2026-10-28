@@ -1,6 +1,6 @@
 ---
 translation_reviewed: 2026-10-28
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - neuroscience
@@ -52,7 +52,7 @@ TEM 是以預測來訓練的神經網路，無法用單一方程式概括。以�
 
 ## 結果
 
-以下結果取自同一研究較早的 bioRxiv 預印本摘要（Whittington 等人，2019）。正式發表的 Cell 文章有所擴充，相關主張應以該版本為準。
+以下結果取自同一研究較早的 bioRxiv 預印本的引言與結果部分（Whittington 等人，2019）。正式發表的 Cell 文章有所擴充，相關主張應以該版本為準。
 
 - 模型提出內嗅皮層的內側細胞形成描述結構知識的基底，海馬迴細胞則把此基底與感覺表徵連結起來。
 - 學習後，其類內嗅皮層的單元包括格狀、帶狀、邊界與物件向量細胞。格狀部分見[格狀單元頁面](../../neuroai/grid-like-units/index.md)。
@@ -89,7 +89,7 @@ TEM 是以預測來訓練的神經網路，無法用單一方程式概括。以�
 ### 開創性論文
 
 - Whittington, J. C. R. 等人（2020）。The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation。*Cell*。https://doi.org/10.1016/j.cell.2020.10.024 — 提出 TEM，以及一個結構如何同時支持空間與關係記憶與泛化的解釋。
-- Whittington, J. C. R.、Muller, T.、Mark, S.、Chen, G.、Barry, C. 與 Burgess, N.（2019）。The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation。*bioRxiv*（預印本）。https://doi.org/10.1101/770495 — 同一研究較早的預印本；結果段落取自其摘要。
+- Whittington, J. C. R.、Muller, T.、Mark, S.、Chen, G.、Barry, C. 與 Burgess, N.（2019）。The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation。*bioRxiv*（預印本）。https://doi.org/10.1101/770495 — 同一研究較早的預印本；結果段落取自其引言與結果部分。
 - Hafting, T. 等人（2005）。Microstructure of a spatial map in the entorhinal cortex。*Nature*。https://doi.org/10.1038/nature03721 — 描述內嗅皮質中的格狀細胞，也就是 TEM 重現的細胞類型。
 
 ### 綜述與教科書
@@ -99,4 +99,4 @@ TEM 是以預測來訓練的神經網路，無法用單一方程式概括。以�
 
 ### 文章與文件
 
-- Constantinescu, A. O.、O'Reilly, J. X. 與 Behrens, T. E. J.（2016）。Organizing conceptual knowledge in humans with a gridlike code。*Science*。https://doi.org/10.1126/science.aaf0941 — 報告在包括內嗅皮質在內的多個腦區中，對概念空間的格狀神經表徵。
+- Constantinescu, A. O.、O'Reilly, J. X. 與 Behrens, T. E. J.（2016）。Organizing conceptual knowledge in humans with a gridlike code。*Science*, 352(6292), 1464–1468。https://doi.org/10.1126/science.aaf0941 — 報告人類中對概念知識的格狀編碼。

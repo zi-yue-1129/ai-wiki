@@ -26,6 +26,9 @@ tags:
 | [人工評估](methods/human-evaluation.md) | 由人判斷輸出，並報告一致性 |
 | [Elo 評分與競技場](methods/elo-rating.md) | 從成對結果為系統排名 |
 | [污染偵測](methods/contamination-detection.md) | 檢查基準項目是否在訓練資料中 |
+| [N-gram 重疊去污染](methods/ngram-overlap-decontamination.md) | 移除與語料共享長詞序列的基準項目 |
+| [Min-K% Prob](methods/min-k-percent-prob.md) | 只用模型的 token 機率偵測預訓練資料 |
+| [LiveBench](methods/livebench.md) | 更新基準題目，使其晚於訓練資料 |
 
 ## 切分資料
 

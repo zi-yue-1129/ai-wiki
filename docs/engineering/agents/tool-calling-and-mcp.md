@@ -56,6 +56,15 @@ sequenceDiagram
 
 The application, not the model, runs the call. This is what allows it to check permissions, validate the arguments and ask the user for consent before anything changes state.
 
+## Key methods
+
+Two named methods show the two routes to tool use. Each has its own page.
+
+- [ReAct](react.md): the model is prompted to interleave reasoning with actions.
+- [Toolformer](toolformer.md): the model learns to call tools during training, from its own text.
+
+The Model Context Protocol, described below, is a standard for connecting tools to applications. It is not a training or prompting method.
+
 ## Designing tool interfaces
 
 - **Narrow tools with clear names.** The description is the text the model reads when it chooses a tool, so it should say what the tool does and when to use it.

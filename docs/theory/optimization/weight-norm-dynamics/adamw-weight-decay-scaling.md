@@ -60,7 +60,7 @@ The paper sweeps the decay on residual networks and vision transformers trained 
 ## References
 
 - Wang, X., & Aitchison, L. (2024). *How to Set AdamW's Weight Decay as You Scale Model and Dataset Size*. arXiv:2405.13698. https://arxiv.org/abs/2405.13698 — the source of the epoch-timescale rule and the scaling sweeps.
-- Loshchilov, I., & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. arXiv:1711.05101. https://arxiv.org/abs/1711.05101 — defines the decoupled decay that the rule adjusts.
+- Loshchilov, I., & Hutter, F. (2019). *Decoupled Weight Decay Regularization*. ICLR 2019. https://arxiv.org/abs/1711.05101 — defines the decoupled decay that the rule adjusts.
 - Kosson, A., Messmer, B., & Jaggi, M. (2023). *Rotational Equilibrium: How Weight Decay Balances Learning Across Neural Networks*. arXiv:2305.17212. https://arxiv.org/abs/2305.17212 — gives the timescale \(1/(\eta\lambda)\) in steps.
-- Li, Z., & Arora, S. (2019). *An Exponential Learning Rate Schedule for Deep Learning*. arXiv:1910.07454. https://arxiv.org/abs/1910.07454 — shows how decay and normalisation interact with the learning rate.
+- Li, Z., & Arora, S. (2019). *An Exponential Learning Rate Schedule for Deep Learning*. ICLR 2020. https://arxiv.org/abs/1910.07454 — shows how decay and normalisation interact with the learning rate.
 - Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — tests how the stable learning-rate range depends on weight decay and warm-up.

@@ -64,4 +64,4 @@ Wortsman 等人（2023）在小規模上測試這個機制。他們報告，加�
 - Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — 在小規模上測試查詢鍵正規化與其他補救方法。
 - Zhai, S., Likhomanenko, T., Littwin, E., et al. (2023). *Stabilizing Transformer Training by Preventing Attention Entropy Collapse*. ICML 2023, PMLR 202:40770–40803. https://proceedings.mlr.press/v202/zhai23a.html — 把注意力崩潰連結到查詢鍵乘積的譜範數。
 - Noci, L., Anagnostidis, S., Biggio, L., et al. (2022). *Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse*. arXiv:2206.03126. https://arxiv.org/abs/2206.03126 — 分析堆疊注意力中的秩崩潰及其對梯度的影響。
-- Xiong, R., Yang, Y., He, D., et al. (2020). *On Layer Normalization in the Transformer Architecture*. arXiv:2002.04745. https://arxiv.org/abs/2002.04745 — 研究 Transformer 區塊中正規化的位置。
+- Xiong, R., Yang, Y., He, D., et al. (2020). *On Layer Normalization in the Transformer Architecture*. ICML 2020. https://arxiv.org/abs/2002.04745 — 研究 Transformer 區塊中正規化的位置。

@@ -32,7 +32,7 @@ Motor coordination involves more degrees of freedom than a task needs. A human a
 
 Todorov and Jordan (2002) treat motor coordination as stochastic optimal feedback control. The controller chooses commands at each moment to minimise an expected cost, using sensory feedback to choose its next command. It is not required to hold the movement on a predefined path, so it allows deviation in task-irrelevant directions and corrects deviations that would affect the outcome.
 
-The authors argue that the pattern of movement variability follows from this single principle, rather than from a separate mechanism for each feature. They test the framework on a range of motor tasks.
+The authors argue that the pattern of movement variability follows from this single principle, rather than from a separate mechanism for each feature.
 
 ## Equation or algorithm
 
@@ -46,7 +46,7 @@ In the linear-quadratic-Gaussian case, the optimal control law is a linear feedb
 
 ## Results
 
-Todorov and Jordan (2002) present experimental results from a range of motor tasks in support of the theory. The predicted pattern is that variability is allowed in redundant, task-irrelevant directions, while deviations that affect the task outcome are corrected. These results do not by themselves show that the brain runs this exact algorithm.
+The predicted pattern is that variability is allowed in redundant, task-irrelevant directions, while deviations that affect the task outcome are corrected. This page does not quote numbers from the 2002 paper's experiments. The key evidence for the theory is the match between this predicted pattern and observed movement variability, and such a match does not by itself show that the brain runs this exact algorithm.
 
 ## Limitations
 
@@ -75,11 +75,11 @@ Todorov and Jordan (2002) present experimental results from a range of motor tas
 
 ### Seminal papers
 
-- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*. https://doi.org/10.1038/nn963 — Proposes that movement coordination follows from stochastic optimal feedback control, in which only task-relevant errors are corrected.
-- Harris, C. M. & Wolpert, D. M. (1998). Signal-dependent noise determines motor planning. *Nature*. https://doi.org/10.1038/29528 — Argues that signal-dependent noise, which grows with the size of the motor command, shapes motor planning.
+- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*, 5(11), 1226–1235. https://doi.org/10.1038/nn963 — Proposes that movement coordination follows from stochastic optimal feedback control, in which only task-relevant errors are corrected.
+- Harris, C. M. & Wolpert, D. M. (1998). Signal-dependent noise determines motor planning. *Nature*, 394(6695), 780–784. https://doi.org/10.1038/29528 — Proposes minimum-variance theory: because noise grows with the size of the command, trajectories are chosen to minimise the variance of the final position.
 
 ### Surveys and textbooks
 
-- Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*. https://doi.org/10.1038/nn1309 — Discusses optimality principles in sensorimotor control, the framework that this method builds on.
+- Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*, 7(9), 907–915. https://doi.org/10.1038/nn1309 — Discusses optimality principles in sensorimotor control, the framework that this method builds on.
 - Scott, S. H. (2004). Optimal feedback control and the neural basis of volitional motor control. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn1427 — Discusses optimal feedback control and its neural basis in volitional movement.
 - Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — Reviews how sensory prediction errors drive motor adaptation and keep forward models calibrated.

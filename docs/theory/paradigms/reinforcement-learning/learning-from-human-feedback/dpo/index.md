@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - DPO
@@ -73,4 +73,4 @@ The paper compares DPO with PPO-based RLHF on several tasks:
 - Ouyang et al. (2022), "Training language models to follow instructions with human feedback", [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — InstructGPT, the RLHF pipeline that DPO simplifies.
 - Christiano et al. (2017), "Deep reinforcement learning from human preferences", [arXiv:1706.03741](https://arxiv.org/abs/1706.03741) — Learns reward functions from human comparisons, the basis of the reward model that DPO avoids.
 - Stiennon et al. (2020), "Learning to summarize from human feedback", NeurIPS 2020, [arXiv:2009.01325](https://arxiv.org/abs/2009.01325) — Summarisation with a reward model and PPO, one of the baselines DPO is compared against.
-- Bradley & Terry (1952), "Rank analysis of incomplete block designs: I. The method of paired comparisons", *Biometrika* 39(3/4), 324. https://doi.org/10.2307/2334029 — The paired-comparison model used to derive the DPO loss.
+- Bradley & Terry (1952), "Rank analysis of incomplete block designs: I. The method of paired comparisons", *Biometrika* 39(3/4), starting on p. 324. https://doi.org/10.2307/2334029 — The paired-comparison model used to derive the DPO loss.

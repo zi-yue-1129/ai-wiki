@@ -51,8 +51,8 @@ The attention-specific side of this problem is on the [QK-normalisation](../../m
 ## References
 
 - Kosson, A., Messmer, B., & Jaggi, M. (2023). *Rotational Equilibrium: How Weight Decay Balances Learning Across Neural Networks*. arXiv:2305.17212. https://arxiv.org/abs/2305.17212 — analyses the equilibrium of each neuron's weights under AdamW and SGD.
-- Loshchilov, I., & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. arXiv:1711.05101. https://arxiv.org/abs/1711.05101 — separates weight decay from the adaptive gradient step.
+- Loshchilov, I., & Hutter, F. (2019). *Decoupled Weight Decay Regularization*. ICLR 2019. https://arxiv.org/abs/1711.05101 — separates weight decay from the adaptive gradient step.
 - Wan, R., Zhu, Z., Zhang, X., & Sun, J. (2020). *Spherical Motion Dynamics: Learning Dynamics of Neural Network with Normalization, Weight Decay, and SGD*. arXiv:2006.08419. https://arxiv.org/abs/2006.08419 — derives the norm dynamics of normalised layers trained with SGD and weight decay.
-- Li, Z., & Arora, S. (2019). *An Exponential Learning Rate Schedule for Deep Learning*. arXiv:1910.07454. https://arxiv.org/abs/1910.07454 — shows that weight decay with normalisation acts like an exponentially growing learning rate.
+- Li, Z., & Arora, S. (2019). *An Exponential Learning Rate Schedule for Deep Learning*. ICLR 2020. https://arxiv.org/abs/1910.07454 — shows that weight decay with normalisation acts like an exponentially growing learning rate.
 - Wang, X., & Aitchison, L. (2024). *How to Set AdamW's Weight Decay as You Scale Model and Dataset Size*. arXiv:2405.13698. https://arxiv.org/abs/2405.13698 — proposes how to set the decay as model and dataset size change.
 - Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — reproduces attention and output-logit instabilities at small scale, and tests remedies.

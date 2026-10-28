@@ -243,6 +243,22 @@ plugins:
             History of AI: AI 發展史
             Theory: 理論
             Mathematics: 數學基礎
+            Linear Algebra: 線性代數
+            Singular Value Decomposition: 奇異值分解
+            Eigendecomposition: 特徵值分解
+            Calculus and Optimisation Foundations: 微積分與最佳化基礎
+            Newton's Method: 牛頓法
+            Lagrange Multipliers: 拉格朗日乘數法
+            Probability and Statistics: 機率與統計
+            Maximum Likelihood: 最大概似估計
+            Maximum A Posteriori: 最大後驗估計
+            Variational Inference: 變分推論
+            Mean-Field Variational Inference: 平均場變分推論
+            Stochastic Variational Inference: 隨機變分推論
+            Markov Chain Monte Carlo: 馬可夫鏈蒙地卡羅
+            Metropolis–Hastings: Metropolis–Hastings
+            Gibbs Sampling: 吉布斯抽樣
+            Hamiltonian Monte Carlo: 哈密頓蒙地卡羅
             Information Theory: 資訊理論
             Causal Inference: 因果推論
             Machine Learning: 機器學習
@@ -445,6 +461,8 @@ plugins:
             Mixtral: Mixtral 8x7B
             Density Estimation & Generative Models: 密度估計與生成模型
             U-Net: U-Net
+            3D U-Net: 3D U-Net
+            MLP-Mixer: MLP 混合器
             Variational Autoencoders: 變分自編碼器
             VQ-VAE: VQ-VAE
             GANs: 生成對抗網路
@@ -508,6 +526,9 @@ plugins:
             Human Evaluation: 人工評估
             Elo Rating and Arenas: Elo 評分與競技場
             Contamination Detection: 污染偵測
+            N-gram Overlap Decontamination: N-gram 重疊去污染
+            Min-K% Prob: Min-K% Prob
+            LiveBench: LiveBench
             Benchmarks: 基準測試
             Vision: 視覺
             Language: 語言
@@ -636,9 +657,13 @@ plugins:
             Data-Free: 無資料
             LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
+            Object Detection: 物件偵測
+            Image Segmentation: 影像分割
             Natural Language Processing: 自然語言處理
             Speech & Audio: 語音與音訊
             Multimodal Models: 多模態模型
+            Embeddings: 嵌入表示
+            Recommender Systems: 推薦系統
             Graph Neural Networks: 圖神經網路
             AI Agents: AI 代理人
             World Models & Embodied AI: 世界模型與具身智慧
@@ -784,6 +809,11 @@ plugins:
             Multi-Agent Orchestration: 多代理編排
             Agent Evaluation: 代理評估
             Agent Observability: 代理可觀測性
+            ReAct (Yao et al. 2022): ReAct（Yao 等人，2022）
+            Reflexion (Shinn et al. 2023): Reflexion（Shinn 等人，2023）
+            Toolformer (Schick et al. 2023): Toolformer（Schick 等人，2023）
+            Voyager (Wang et al. 2023): Voyager（Wang 等人，2023）
+            SWE-agent (Yang et al. 2024): SWE-agent（Yang 等人，2024）
             Synthetic Data: 合成資料
             Self-Instruct: Self-Instruct
             Textbook-quality data: 教科書品質的合成資料
@@ -918,7 +948,20 @@ nav:
       - History of AI: start/history/index.md
   - Theory:
       - theory/index.md
-      - Mathematics: theory/math/index.md
+      - Mathematics:
+          - theory/math/index.md
+          - Linear Algebra:
+              - theory/math/linear-algebra/index.md
+              - Singular Value Decomposition: theory/math/linear-algebra/svd.md
+              - Eigendecomposition: theory/math/linear-algebra/eigendecomposition.md
+          - Calculus and Optimisation Foundations:
+              - theory/math/calculus/index.md
+              - Newton's Method: theory/math/calculus/newtons-method.md
+              - Lagrange Multipliers: theory/math/calculus/lagrange-multipliers.md
+          - Probability and Statistics:
+              - theory/math/probability-statistics/index.md
+              - Maximum Likelihood: theory/math/probability-statistics/maximum-likelihood.md
+              - Maximum A Posteriori: theory/math/probability-statistics/maximum-a-posteriori.md
       - Information Theory: theory/information-theory/index.md
       - Causal Inference: theory/causal-inference/index.md
       - Machine Learning: theory/machine-learning/index.md
@@ -1179,7 +1222,17 @@ nav:
               - Communication Efficiency: theory/paradigms/federated/communication-efficiency/index.md
               - Vertical & Cross-silo: theory/paradigms/federated/vertical-and-cross-silo/index.md
           - Other Paradigms: theory/paradigms/other/index.md
-          - Probabilistic & Bayesian Methods: theory/paradigms/probabilistic/index.md
+          - Probabilistic & Bayesian Methods:
+              - theory/paradigms/probabilistic/index.md
+              - Variational Inference:
+                  - theory/paradigms/probabilistic/variational-inference/index.md
+                  - Mean-Field Variational Inference: theory/paradigms/probabilistic/variational-inference/mean-field.md
+                  - Stochastic Variational Inference: theory/paradigms/probabilistic/variational-inference/stochastic-variational-inference.md
+              - Markov Chain Monte Carlo:
+                  - theory/paradigms/probabilistic/mcmc/index.md
+                  - Metropolis–Hastings: theory/paradigms/probabilistic/mcmc/metropolis-hastings.md
+                  - Gibbs Sampling: theory/paradigms/probabilistic/mcmc/gibbs-sampling.md
+                  - Hamiltonian Monte Carlo: theory/paradigms/probabilistic/mcmc/hamiltonian-monte-carlo.md
           - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
           - Evolutionary & Swarm Intelligence:
               - theory/paradigms/evolutionary/index.md
@@ -1355,15 +1408,20 @@ nav:
               - Human Evaluation: theory/evaluation/protocols/methods/human-evaluation.md
               - Elo Rating and Arenas: theory/evaluation/protocols/methods/elo-rating.md
               - Contamination Detection: theory/evaluation/protocols/methods/contamination-detection.md
+              - N-gram Overlap Decontamination: theory/evaluation/protocols/methods/ngram-overlap-decontamination.md
+              - Min-K% Prob: theory/evaluation/protocols/methods/min-k-percent-prob.md
+              - LiveBench: theory/evaluation/protocols/methods/livebench.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons:
               - theory/models/mlp/index.md
               - GELU: theory/models/mlp/gelu/index.md
               - Layer Normalisation: theory/models/mlp/layer-normalisation/index.md
+              - MLP-Mixer: theory/models/mlp/mlp-mixer.md
           - Convolutional Networks:
               - theory/models/cnn/index.md
               - U-Net: theory/models/cnn/unet/index.md
+              - 3D U-Net: theory/models/cnn/unet/3d-unet.md
               - Convolution Variants:
                   - theory/models/cnn/convolution-variants/index.md
                   - Dilated Convolution: theory/models/cnn/convolution-variants/dilated-convolution/index.md
@@ -1437,10 +1495,15 @@ nav:
                   - DeepSeek-R1: theory/models/reasoning/deepseek-r1.md
                   - Test-Time Compute Scaling: theory/models/reasoning/test-time-scaling.md
                   - Process Reward Models: theory/models/reasoning/process-reward-models.md
-          - Computer Vision: theory/models/computer-vision/index.md
+          - Computer Vision:
+              - theory/models/computer-vision/index.md
+              - Object Detection: theory/models/computer-vision/object-detection/index.md
+              - Image Segmentation: theory/models/computer-vision/segmentation/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
+          - Embeddings: theory/models/embeddings/index.md
+          - Recommender Systems: theory/models/recommender/index.md
           - Graph Neural Networks:
               - theory/models/gnn/index.md
               - Message Passing:
@@ -1685,6 +1748,11 @@ nav:
           - Multi-Agent Orchestration: engineering/agents/multi-agent-orchestration.md
           - Agent Evaluation: engineering/agents/agent-evaluation.md
           - Agent Observability: engineering/agents/agent-observability.md
+          - ReAct (Yao et al. 2022): engineering/agents/react.md
+          - Reflexion (Shinn et al. 2023): engineering/agents/reflexion.md
+          - Toolformer (Schick et al. 2023): engineering/agents/toolformer.md
+          - Voyager (Wang et al. 2023): engineering/agents/voyager.md
+          - SWE-agent (Yang et al. 2024): engineering/agents/swe-agent.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md

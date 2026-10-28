@@ -31,7 +31,7 @@ aliases:
 
 Todorov 與 Jordan（2002）把運動協調視為隨機最優回饋控制。控制器在每一刻選擇指令，以最小化期望成本，並利用感覺回饋決定下一個指令。它不必把動作固定在預先定義的路徑上，因此允許在與任務無關的方向上偏離，並修正會影響結果的偏差。
 
-作者主張，動作變異的模式來自這一個原理，而不是每個特徵各有一套獨立的機制。他們在一系列運動任務上檢驗此框架。
+作者主張，動作變異的模式來自這一個原理，而不是每個特徵各有一套獨立的機制。
 
 ## 方程式與演算法
 
@@ -45,7 +45,7 @@ Todorov 與 Jordan（2002）把運動協調視為隨機最優回饋控制。控�
 
 ## 結果
 
-Todorov 與 Jordan（2002）在一系列運動任務上提出實驗結果，以支持此理論。預測的模式是：在冗餘、與任務無關的方向上允許變異，而會影響任務結果的偏差則被修正。這些結果本身並不能證明大腦實際執行的就是這個精確演算法。
+預測的模式是：在冗餘、與任務無關的方向上允許變異，而會影響任務結果的偏差則被修正。本頁不引用 2002 年論文實驗中的數字。此理論的主要證據，是此預測模式與觀察到的動作變異之間的吻合；然而這種吻合本身，並不能證明大腦確實執行這個精確演算法。
 
 ## 限制
 
@@ -74,11 +74,11 @@ Todorov 與 Jordan（2002）在一系列運動任務上提出實驗結果，以�
 
 ### 開創性論文
 
-- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*. https://doi.org/10.1038/nn963 — 提出隨機最優回饋控制作為運動協調的理論，其中只修正與任務相關的誤差。
-- Harris, C. M. & Wolpert, D. M. (1998). Signal-dependent noise determines motor planning. *Nature*. https://doi.org/10.1038/29528 — 主張隨運動指令大小增加的信號相依雜訊，會影響運動規劃的方式。
+- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*, 5(11), 1226–1235。https://doi.org/10.1038/nn963 — 提出隨機最優回饋控制作為運動協調的理論，其中只修正與任務相關的誤差。
+- Harris, C. M. & Wolpert, D. M. (1998). Signal-dependent noise determines motor planning. *Nature*, 394(6695), 780–784. https://doi.org/10.1038/29528 — 提出最小變異理論：因為雜訊隨指令大小增加，軌跡被選為使終點位置的變異最小。
 
 ### 綜述與教科書
 
-- Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*. https://doi.org/10.1038/nn1309 — 討論感覺運動控制中的最優性原理，這是最優回饋控制所依據的框架。
+- Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*, 7(9), 907–915。https://doi.org/10.1038/nn1309 — 討論感覺運動控制中的最優性原理，這是最優回饋控制所依據的框架。
 - Scott, S. H. (2004). Optimal feedback control and the neural basis of volitional motor control. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn1427 — 討論最優回饋控制及其在自主運動中的神經基礎。
 - Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧感覺預測誤差如何驅動運動適應，並使前向模型保持校準。
