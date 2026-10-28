@@ -64,6 +64,10 @@ Yamins et al. (2014) found that CNNs that perform better at object recognition a
 | Illusions | Susceptible to many | Some networks show similar illusions |
 | Power | Visual cortex: a few watts | GPUs: hundreds of watts |
 
+## Deeper pages
+
+Two areas have their own chapters. [3D vision and neural rendering](3d-and-neural-rendering/index.md) covers NeRF and Gaussian splatting, and [video understanding and generation](video/index.md) covers I3D, ViViT and video diffusion.
+
 ## Applications
 
 Medical imaging ([Healthcare](../../../applications/healthcare/index.md)), autonomous driving ([Autonomous Driving](../../../applications/autonomous-driving/index.md)), industrial inspection ([Manufacturing](../../../applications/manufacturing/index.md)), crop monitoring, remote sensing, retail, security, sports analytics, AR/VR, and animal behaviour tracking in neuroscience (DeepLabCut).

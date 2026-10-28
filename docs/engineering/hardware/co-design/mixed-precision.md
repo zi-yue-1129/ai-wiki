@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - engineering/hardware
@@ -28,6 +28,18 @@ Training a network keeps the weights, the activations and the gradients in memor
 - **Half precision:** a 16-bit floating-point format for activations and gradients, with less range and precision than 32-bit.
 - **Master weights:** a single-precision copy of the weights, which accumulates the gradient updates after each optimiser step, so small updates are not lost to rounding.
 - **Loss scaling:** multiplying the loss by a constant before the backward pass, so that small gradients do not underflow in half precision, and dividing the gradients by the same constant before the weight update.
+
+## Key methods
+
+### Mixed-precision training (Micikevicius et al., 2017)
+
+- **Problem:** 32-bit storage doubles the memory and bandwidth a training step needs, but 16-bit values lose the range and precision that small gradients rely on.
+- **Core idea:** keep an FP32 master copy of the weights, run the forward and backward passes in FP16, and scale the loss by a constant before the backward pass.
+- **Equations:** the optimiser receives \(g = \tfrac{1}{S}\nabla_\theta(S \cdot L)\) and updates the FP32 master weights, \(\theta \leftarrow \theta - \eta\, g\). The scale \(S\) cancels, so the update matches full-precision training when no value overflows or underflows.
+- **Results:** the paper reports nearly a 2× reduction in memory across convolutional, recurrent and generative adversarial networks.
+- **Limitations:** the master weights and the optimiser state stay at full precision, so the saving is less than half. The scale must be tuned to avoid overflow.
+
+The 8-bit extension is [FP8](fp8.md). The results and limits are discussed below.
 
 ## How it works
 
@@ -68,9 +80,9 @@ Mixed precision is one of the three levers in the [co-design overview](index.md)
 
 ### Surveys and textbooks
 
-- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — Surveys how dataflow and number format choices shape the efficiency of DNN hardware.
+- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — Surveys the energy and throughput trade-offs of DNN hardware, including hardware–algorithm co-design.
 
 ### Articles and documentation
 
 - Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — Shows the inference-side counterpart: per-channel 8-bit quantisation keeps many CNNs within 2% of floating-point accuracy.
-- Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory bandwidth, not compute, is the primary bottleneck for AI serving, which is the pressure this method relieves.
+- Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory, rather than compute, has become the primary bottleneck for AI applications, particularly serving, which is the pressure this method relieves.

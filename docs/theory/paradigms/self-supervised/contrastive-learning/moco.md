@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/self-supervised
@@ -54,8 +54,8 @@ After each step, the newest keys are added to the queue and the oldest are remov
 - **Problem:** contrastive learning works better with many negatives, but in end-to-end training the negatives are limited to the current batch. The abstract's stated goal is a dictionary that is both large and consistent.
 - **Core idea:** keep keys in a queue, and produce them with a momentum-updated encoder, so the dictionary can be large while the key encoder changes slowly.
 - **Equation or algorithm:** the InfoNCE loss with \(\tau = 0.07\), the momentum update with \(m = 0.999\), the queue with \(K = 65{,}536\) keys, and shuffling BN, as described in How it works.
-- **Results:** under the linear protocol on ImageNet, MoCo with a ResNet-50 trained for 200 epochs reaches 60.6% top-1 accuracy. On PASCAL VOC detection with Faster R-CNN, AP is 53.5 for supervised ImageNet pre-training and 55.9 for MoCo pre-trained on ImageNet-1M. On COCO with Mask R-CNN (R50-FPN, box AP), it is 40.6 for supervised pre-training and 40.8 for MoCo on ImageNet-1M.
-- **Limitations:** the paper's gains over supervised pre-training are small on COCO (40.8 against 40.6 for R50-FPN). The paper reports no supervised baseline under the linear protocol, so the linear result cannot be compared directly with supervised training. Shuffling BN is a workaround for multi-GPU batch statistics rather than a property of the objective. The queue holds keys from earlier encoder states, so the method depends on the momentum value.
+- **Results:** under the linear protocol on ImageNet, MoCo with a ResNet-50 reaches 60.6% top-1 accuracy. On PASCAL VOC detection with Faster R-CNN and an R50-C4 backbone, AP is 53.5 for supervised ImageNet pre-training and 55.9 for MoCo pre-trained on ImageNet-1M. On COCO with Mask R-CNN and an R50-FPN backbone, box AP is 38.9 for supervised pre-training and 38.5 for MoCo under the 1× schedule, and 40.6 for supervised pre-training and 40.8 for MoCo under the 2× schedule.
+- **Limitations:** on COCO the gain over supervised pre-training is small. Under the 2× schedule MoCo is ahead by 0.2 AP (40.8 against 40.6), and under the 1× schedule the supervised baseline is ahead by 0.4 AP (38.9 against 38.5). Shuffling BN is a workaround for multi-GPU batch statistics rather than a property of the objective. The queue holds keys from earlier encoder states, so the method depends on the momentum value.
 
 ## Connections
 
@@ -74,12 +74,8 @@ After each step, the newest keys are added to the queue and the oldest are remov
 ### Seminal papers
 
 - He, K., Fan, H., Wu, Y., Xie, S. & Girshick, R. (2020). Momentum Contrast for Unsupervised Visual Representation Learning. CVPR. https://arxiv.org/abs/1911.05722 — The paper described on this page.
-- Chen, X., Fan, H., Girshick, R. & He, K. (2020). Improved Baselines with Momentum Contrastive Learning. arXiv:2003.04297. https://arxiv.org/abs/2003.04297 — Follow-up that revisits MoCo as a baseline with an improved training recipe.
+- Chen, X., Fan, H., Girshick, R. & He, K. (2020). Improved Baselines with Momentum Contrastive Learning. arXiv:2003.04297. https://arxiv.org/abs/2003.04297 — Revisits MoCo with an improved training recipe, adopting SimCLR's MLP head and augmentations.
 - Chen, T., Kornblith, S., Norouzi, M. & Hinton, G. (2020). A Simple Framework for Contrastive Learning of Visual Representations. ICML (PMLR 119). https://arxiv.org/abs/2002.05709 — The contrastive method that uses in-batch negatives, which MoCo's queue replaces.
 - Wu, Z., Xiong, Y., Yu, S. X. & Lin, D. (2018). Unsupervised Feature Learning via Non-Parametric Instance Discrimination. CVPR. https://arxiv.org/abs/1805.01978 — Instance discrimination with a memory bank of stored features, an earlier way to get many negatives.
 - Oord, A. van den, Li, Y. & Vinyals, O. (2018). Representation Learning with Contrastive Predictive Coding. arXiv:1807.03748. https://arxiv.org/abs/1807.03748 — Introduces the InfoNCE loss used by MoCo.
-
-### Surveys and textbooks
-
-- Balestriero, R. et al. (2023). A Cookbook of Self-Supervised Learning. arXiv:2304.12210. https://arxiv.org/abs/2304.12210 — Practical survey of self-supervised design choices, including momentum encoders and queues.
-- Liu, X. et al. (2020). Self-supervised Learning: Generative or Contrastive. arXiv:2006.08218. https://arxiv.org/abs/2006.08218 — Survey that compares generative and contrastive approaches to self-supervised learning.
+- Grill, J.-B. et al. (2020). Bootstrap your own latent: A new approach to self-supervised learning. arXiv:2006.07733. https://arxiv.org/abs/2006.07733 — Keeps a momentum target network but uses no negatives, the comparison point for MoCo.

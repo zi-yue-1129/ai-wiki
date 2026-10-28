@@ -16,6 +16,16 @@ FP8 是一種用於深度學習的 8 位元浮點格式。Micikevicius 等人（
 - **E5M2：** 5 個指數位元與 2 個尾數位元。它的範圍較大，精度較低，並遵循 IEEE 754 對特殊值的慣例。它的最大正規數為 57,344。
 - **縮放因子：** 在轉換為 FP8 之前乘在張量上的數字，使張量的最大量值接近該格式的最大值。仍然溢位的數值會飽和到該最大值。
 
+## 關鍵方法
+
+### 以 E4M3 與 E5M2 進行 FP8 訓練（Micikevicius 等人，2022）
+
+- **問題：** 8 位元格式必須在範圍與精度之間分配位元，而且溢位比 16 位元常見得多。
+- **核心想法：** 權重與激活值使用 E4M3，梯度使用 E5M2，每個張量各有一個縮放因子。矩陣乘法與卷積的輸入捨入為 FP8，運算仍以 16 位元或更高精度進行。
+- **公式：** 每個張量以 \(x_{\text{FP8}} = \mathrm{cast}(s \cdot x)\) 轉換，其中 \(s\) 的選擇使張量的最大量值接近格式上限：E4M3 為 448，E5M2 為 57,344。
+- **結果：** 多數模型的 FP8 訓練結果，在多次執行的變異範圍內與 16 位元相當。1750 億參數的模型以訓練進行到 75% 時比較，困惑度為 6.68，bfloat16 基準為 6.65。
+- **限制：** 實驗以軟體模擬 FP8，論文把縮放啟發式方法留給實作決定。16 位元的補救方法，即溢位時跳過更新，並不適合 FP8。
+
 ## 運作方式
 
 論文以模擬的方式進行 FP8 訓練：把每次矩陣乘法與卷積的輸入捨入為 FP8。運算以 16 位元或 bfloat16 進行，輸出則保留在較高精度。在此設定下，論文建議權重與激活值使用 E4M3，而範圍較寬的激活梯度使用 E5M2。
@@ -56,9 +66,9 @@ FP8 延伸了[混合精度訓練](mixed-precision.zh-TW.md)的想法，後者在
 
 ### 綜述與教科書
 
-- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — 綜述資料流與數值格式的選擇如何影響 DNN 硬體的效率。
+- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — 綜述 DNN 硬體的能量效率與吞吐量，並涵蓋硬體與演算法的共同設計。
 
 ### 文章與文件
 
 - Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — 顯示推論端的整數對應做法：逐通道的 8 位元量化能讓許多 CNN 維持在浮點數 2% 以內的準確度。
-- Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張對 AI 服務而言，主要瓶頸是記憶體頻寬而非運算，而低位元格式正是為了緩解這項壓力。
+- Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張記憶體而非運算已成為 AI 應用（尤其是服務）的主要瓶頸，而低位元格式正是為了緩解這項壓力。

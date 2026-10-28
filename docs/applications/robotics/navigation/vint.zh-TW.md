@@ -1,10 +1,12 @@
 ---
 translation_reviewed: 2026-10-28
+related:
+  - applications/robotics/navigation
+  - theory/models/transformer
 tags:
   - robotics
   - navigation
   - foundation model
-  - transformer
 aliases:
   - ViNT
   - Visual Navigation Transformer
@@ -13,53 +15,62 @@ aliases:
 
 # ViNT：視覺導航的基礎模型
 
-ViNT 由 Shah、Sridhar、Dashora、Stachowicz、Black、Hirose 與 Levine（2023）提出，是一個在大量機器人導航資料集混合體上訓練的視覺導航 Transformer 策略。它根據過去的影格與目標影像，預測時間距離與一小段未來路標。一張儲存影像的拓撲圖提供子目標，之後策略可以用少量資料微調到新任務。上層子主題是[以視覺目標導航](index.md)。
+ViNT 由 Shah、Sridhar、Dashora、Stachowicz、Black、Hirose 與 Levine 提出（arXiv 2023），是一個以 Transformer 為基礎、以目標影像進行導航的基礎模型。它在許多既有的導航資料集上訓練，只需少量資料即可調整到新任務；並可搭配擴散模型提出的子目標影像，進行長距離探索。所屬的子主題是 [以視覺目標導航](index.md)。
 
 ## 概述
 
-ViNT 有兩個部分。預訓練的 Transformer 把一小段影格歷史與目標一起編碼，兩個輸出頭分別產生時間距離估計與未來路標。執行時，在儲存影像的圖上搜尋路徑，把路徑上的下一個節點當作子目標，策略輸出的路標再由滾動視窗控制器跟隨。
+通用的預訓練模型已在許多機器學習問題上發揮作用，因為大型、弱標註的預訓練資料集，使得小型下游資料集也足以應用。ViNT 探討同樣的做法是否適用於導航。作者以一般的目標到達目標，訓練一個 Transformer，使其可以使用任何導航資料集；他們報告，所得模型會出現正向遷移，表現勝過只在單一資料集上訓練的專家模型（Shah et al., 2023）。
+
+此模型不只是單一策略。結合提出子目標影像的擴散模型後，ViNT 可以探索新環境；作者並報告了公里級的導航執行，分別以 GPS 或衛星影像作為引導。
 
 ## 問題
 
-較早的導航策略只在一台機器人或一個環境上訓練，每換一個場景都需要大量新資料。論文探討：大規模且多樣的訓練資料，加上 Transformer 架構，能否得到一個只需少量額外資料就能轉移到新機器人與新任務的單一模型。
+導航資料集來自不同的機器人、相機與環境，而且每個資料集都很小。在某一資料集上訓練的策略，很少能在另一個平台上運作。要匯集這些資料，需要一個能吸收異質資料的模型，以及一種只需少量資料即可適應每個新任務的調整方法。
 
 ## 核心想法
 
-同時擴大資料與模型，並預測對規劃與控制都有用的輸出。時間距離頭為圖上的規劃提供訊號，路標頭則提供控制訊號。模型在混合多台機器人的資料上訓練，論文認為這是廣泛泛化所必需的。
+使用一個 Transformer 讀取一小段觀測歷史與一張目標影像，同時預測目標有多遠，以及一串未來的路點。先在所有資料上訓練，再以小學習率微調整個模型，以適應新任務。若要長距離探索，則由擴散模型取樣子目標影像，並以一個以目標為啟發式的搜尋來選擇。
 
-## 運作方式
+## 方程式或演算法
 
-1. 在來自不同機器人的導航資料集混合體上訓練 Transformer，預測時間距離與未來路標。
-2. 為目標環境建立影像的拓撲圖，並在圖上搜尋通往目標的路徑。
-3. 以路徑上的下一個節點作為子目標，用目前的影格歷史執行策略。
-4. 以比例微分控制器跟隨預測的路標，並隨新影格到來重新規劃。
-5. 適應新任務時，以少量任務資料微調。
+架構包含四個主要部分：
+
+1. **編碼器。** 兩個 EfficientNet-B0 編碼器，分別處理目前的觀測及其過去的上下文，以及目標。目標編碼器的輸出與目前的觀測在通道方向堆疊後融合。
+2. **Transformer。** 一個只含解碼器的 Transformer，有四層、四個注意力頭，token 維度為 512。模型約有 3,100 萬個參數，論文使用五個過去的畫面作為上下文。
+3. **輸出。** 一個輸出頭預測到子目標的時間距離，另一個輸出頭預測五個未來的相對路點。
+4. **子目標搜尋。** 擴散模型提出候選子目標影像，ViNT 對每個候選預測其距離，然後由一個以目標為啟發式的類 A* 搜尋，選出下一個子目標。
+
+在調整時，整個模型以 10⁻⁴ 的學習率端到端微調五個 epoch。學習得到的目標 token 可以取代影像目標編碼器，使模型也能接受其他形式的目標，例如 GPS 路點或路線指令。
 
 ## 結果
 
-論文報告，模型以超過一百小時的資料訓練，約有三千一百萬參數；在作者的真實世界測試中，可在數百公尺到超過一公里的路線上導航。論文報告，以一到兩小時的資料適應新任務，成功率有明顯提升。隨機子目標選擇的消融顯示，以圖為基礎的子目標確實重要。確切數字應在論文表格中核對。
+論文指出，模型在八個機器人平台與十一個資料集上訓練，主文描述為超過 100 小時的軌跡。論文中的表格給出的總量不同，因此確切的數量應以論文的資料表為準。在無方向的目標到達任務中，ViNT 在室內與室外分別得分 0.94 與 1.00；同樣的設定下，端到端的行為克隆分別為 0.72 與 0.44，RECON 則為 0.19 與 0.23（Shah et al., 2023, Table 1）。
+
+搭配子目標擴散時，論文報告 GPS 引導的執行覆蓋 1,270 公尺，衛星影像引導的執行覆蓋 1,040 公尺，兩者都抵達目標，成功率分別為 0.95 與 1.00（Table 2）。在新機器人的零樣本覆蓋實驗中，ViNT 在 LoCoBot、Go 1 與 Vizbot 上的最大行進距離大於 GNM，在 Clearpath Jackal 上兩者幾乎相等（Table 3）。論文指出，微調約一小時的資料即可掌握新環境，成功率約為 80%。
 
 ## 限制
 
-- 模型很大，在小型車載電腦上執行需要不是每個平台都有的加速器。
-- 只由一次行走建立的拓撲圖本質上近似一條鏈，子目標的選擇因此有限。
-- 新任務的成功率取決於適應資料的數量與品質，論文只報告其自身設定的結果。
+- 公里級的結果依賴額外加入的子目標擴散與圖搜尋。這類執行中的成功，是以「未經人工介入而抵達目標」來非正式判定，論文除此之外沒有給出正式定義。
+- 論文在不同段落中給出的資料集總量不一致，因此關於資料量的主張應對照論文檢查。
+- 影像目標雖然通用，卻不一定是使用者指定目的地最自然的方式。作者提出學習得到的目標 token，以支援其他形式的目標，但報告的實驗都是以影像進行。
+- Jackal 的結果顯示，在某些平台上 ViNT 與 GNM 表現大致相同，因此改善並非在所有機器人上都一致。
 
-## 相關主題
+## 相關連結
 
-- [GNM](gnm.md) 是前身，提出共用模型與正規化路標輸出。
-- [NoMaD](nomad.md) 是後來的變體，使用擴散策略與目標遮罩。
-- [ViNG](ving.md) 提供 ViNT 所用的時間距離與圖上規劃。
+- [GNM](gnm.md) 是共享資料的導航模型，ViNT 在它的基礎上以更大的 Transformer 與更多資料加以延伸。
+- [ViNG](ving.md) 是較早的圖式方法，ViNT 的子目標選擇與其圖搜尋相似。
+- [NoMaD](nomad.md) 使用相關的 Transformer 編碼器與擴散解碼器，並加入目標遮罩以支援探索。
+- [Transformer](../../../theory/models/transformer/index.md) 涵蓋 ViNT 所使用的架構。
 
 ## 開放問題
 
-- 單一基礎模型能涵蓋多大範圍、外觀與佈局差異很大的環境。
-- 新任務所需的適應資料，能否透過在無標註影片上的自監督預訓練進一步減少。
+- 導航基礎模型能否以相當的資料量，適應差異很大的任務，例如機器人附近的操作。
+- 公里級的表現中，有多少來自學習得到的模型，又有多少來自搜尋與擴散提出的子目標。
 
 ## 參考文獻
 
-- Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N., & Levine, S. (2023). *ViNT: A foundation model for visual navigation*. CoRL 2023. arXiv:2306.14846. https://arxiv.org/abs/2306.14846 — Transformer 策略、圖規劃與適應結果的來源。
-- Shah, D., Sridhar, A., Bhorkar, A., Hirose, N., & Levine, S. (2023). *GNM: A general navigation model to drive any robot*. ICRA 2023. arXiv:2210.03370. https://arxiv.org/abs/2210.03370 — ViNT 所建立於其上的共用模型與輸出空間比較。
-- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N., & Levine, S. (2021). *ViNG: Learning open-world navigation with visual goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — 時間距離與圖規劃的做法。
-- Savinov, N., Dosovitskiy, A., & Koltun, V. (2018). *Semi-parametric topological memory for navigation*. ICLR 2018. arXiv:1803.00653. https://arxiv.org/abs/1803.00653 — 用於子目標選擇的拓撲記憶。
-- Sridhar, A., Shah, D., Glossop, C., & Levine, S. (2023). *NoMaD: Goal masked diffusion policies for navigation and exploration*. arXiv:2310.07896. https://arxiv.org/abs/2310.07896 — 同一系列較後的策略。
+- Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N. & Levine, S. (2023). *ViNT: A Foundation Model for Visual Navigation*. arXiv. https://arxiv.org/abs/2306.14846 — 模型、訓練資料、調整方法與公里級結果的來源。
+- Shah, D., Sridhar, A., Bhorkar, A., Hirose, N. & Levine, S. (2022). *GNM: A General Navigation Model to Drive Any Robot*. arXiv. https://arxiv.org/abs/2210.03370 — ViNT 多資料集訓練所沿用的共享導航模型。
+- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N. & Levine, S. (2021). *ViNG: Learning Open-World Navigation with Visual Goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — ViNT 的子目標選擇所延伸的前身圖式方法。
+- Sridhar, A., Shah, D., Glossop, C. & Levine, S. (2023). *NoMaD: Goal Masked Diffusion Policies for Navigation and Exploration*. arXiv. https://arxiv.org/abs/2310.07896 — 較晚的擴散式模型，使用相關的 Transformer 編碼器。
+- Savinov, N., Dosovitskiy, A. & Koltun, V. (2018). *Semi-parametric Topological Memory for Navigation*. arXiv. https://arxiv.org/abs/1803.00653 — ViNT 的子目標搜尋所建立的拓撲記憶。

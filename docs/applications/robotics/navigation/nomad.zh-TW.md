@@ -1,64 +1,83 @@
 ---
 translation_reviewed: 2026-10-28
+related:
+  - applications/robotics/navigation
+  - theory/paradigms/imitation
 tags:
   - robotics
   - navigation
-  - diffusion policy
+  - diffusion
   - exploration
 aliases:
   - NoMaD
-  - Goal masked diffusion policy
+  - Goal Masked Diffusion Policy
   - 目標遮罩擴散策略
 ---
 
 # NoMaD：目標遮罩擴散策略
 
-NoMaD 由 Sridhar、Shah、Glossop 與 Levine（2023）提出，是一個以擴散模型取代單一回歸輸出的導航策略，擴散模型作用於動作序列上。它的目標遮罩讓同一個網路既能抵達目標影像，也能在沒有目標時探索。論文的核心論點是：單峰的回歸不適合路口這類情境，因為此時有幾種動作同樣好；取樣得到的分布則能保留這些選項。上層子主題是[以視覺目標導航](index.md)。
+NoMaD 由 Sridhar、Shah、Glossop 與 Levine（2023）提出，是一個同時做兩件事的擴散策略：目標已知時抵達目標影像，目標未知時探索新環境。這兩種行為來自同一個網路，由目標輸入上的二元遮罩切換。所屬的子主題是 [以視覺目標導航](index.md)。
 
 ## 概述
 
-NoMaD 是擴散策略：它以目前觀測為條件，對隨機樣本做去噪，產生未來的動作序列。訓練時，目標影像會在部分樣本中被遮掉，因此同一個網路同時學會以目標為條件的導航，以及無目標的探索。模型體積不大，論文報告它能在小型嵌入式電腦上執行。
+在陌生地方導航需要兩種能力，通常由不同的元件負責。以任務為導向的導航，是抵達機器人已經找到的目標。與任務無關的探索，則是在機器人沒見過的環境中搜尋目標。早期的系統為每種能力使用一個模型，或依賴子目標提議與規劃器。NoMaD 訓練單一策略同時做到兩者，作者報告，相較於使用生成模型子目標提議或較早的潛變數方法，這種做法在新環境中的整體表現較好（Sridhar et al., 2023）。
 
 ## 問題
 
-每個觀測只輸出一個動作的回歸策略，會對各種模式取平均。在機器人可以左轉或右轉的路口，平均結果可能是直直撞向牆壁。論文探討：生成式策略能否避免這個問題，以及同一模型能否同時做以目標為導向的導航與探索。
+探索與抵達目標會把策略拉向不同方向。探索中的機器人應該在沒有目的地的情況下覆蓋區域並避免碰撞，抵達目標的機器人則應朝特定影像前進。若要用同一個模型兩者兼顧，就需要一種方式告訴模型目前處於哪種模式，而且模型在兩種模式下都必須產生有用的動作。
 
 ## 核心想法
 
-以擴散過程對動作序列的分布建模，並以觀測（有目標時還包括目標）為條件。訓練時遮掉目標，讓模型學會無目標時的行為，因此不需要另外訓練第二個網路。
+把目標當作一個輸入權杖給策略，並附上一個二元遮罩，控制網路是否可以注意該權杖。遮罩開啟時，策略忽略目標而進行探索；遮罩關閉時，策略以目標為條件並朝它導航。訓練時遮罩隨機抽樣，因此網路從同一份資料學會兩種行為。
 
-## 運作方式
+## 方程式或演算法
 
-1. 編碼目前的觀測，以及有目標時的目標影像。
-2. 從一個動作序列的隨機樣本開始，以編碼後的輸入為條件做去噪。
-3. 執行取樣所得序列的前幾個動作，然後再重新取樣。
-4. 訓練時，在部分樣本中遮掉目標，使模型學會無目標的行為。
+NoMaD 是一個條件式去噪擴散策略：
+
+1. **編碼器。** EfficientNet-B0 編碼器把過去五個觀測（各為 96 × 96 像素）與選擇性的目標影像轉換成 256 維的權杖。
+2. **目標遮罩。** 二元遮罩 *m* 控制對目標權杖的注意力。訓練時 *m* 以 *p* = 0.5 的伯努利分布抽樣。測試時，*m* = 1 給出無方向的探索，*m* = 0 給出以目標為條件的導航。
+3. **Transformer 與去噪器。** 一個四層、四頭的 Transformer 解碼器為一個一維條件 U-Net 提供上下文，該 U-Net 對一串未來動作進行去噪。論文的圖中顯示八個未來動作。
+4. **訓練。** 去噪目標是加在真實動作序列上的雜訊與網路預測雜訊之間的均方誤差。另加一個權重較小的時間距離項。
+5. **抽樣。** 測試時，策略透過十個去噪步驟抽取動作。探索在線上建立的拓撲圖中以無方向模式進行，子目標選擇沿用 ViKiNG 的邊界（frontier）方法。
+
+模型約有 1,900 萬個參數，如論文的比較表所列。
 
 ## 結果
 
-論文報告，以目標為條件的成功率與 ViNT 相當；在探索方面，模型的碰撞次數少，且體積遠小於作者比較的子目標擴散基線。作者也報告，模型能在小型嵌入式電腦上即時執行。數字取決於所用的環境，應在重用前於論文中核對。
+論文報告兩類評估。探索以成功的比例與碰撞次數評分。論文的表 I 給出 NoMaD 與比較方法在室內與室外情境的數值：
+
+| 方法 | 探索成功率 | 每次執行的碰撞數 | 導航成功率 |
+|---|---|---|---|
+| 遮罩 ViNT | 50% | 1.0 | 30% |
+| VIB | 30% | 4.0 | 15% |
+| 自回歸 | 90% | 2.0 | 60% |
+| 隨機子目標 | 70% | 2.7 | 90% |
+| 子目標擴散（3.35 億參數） | 77% | 1.7 | 90% |
+| NoMaD（1,900 萬參數） | 98% | 0.2 | 90% |
+
+論文的表 II 報告 NoMaD 在無方向與以目標為條件兩種模式下的成功率分別為 98% 與 92%，對照之下，無方向模式的一般擴散策略為 98%，以目標為條件模式的 ViNT 策略為 92%。論文的實驗在未見過的環境中以行動機器人進行。正文在不同地方給出的評估環境數不同，因此環境清單應以論文的附錄為準。
 
 ## 限制
 
-- 擴散取樣需要數個去噪步驟，因此每個動作的運算量高於單次前向傳播。
-- 相較於回歸，優勢在路口等多模態情境中最明顯；在開闊的走廊中，優勢較小。
-- 評估是在作者所用的機器人平台與環境上進行，因此對其他平台的泛化並未展示。
+- 探索依賴標準的邊界規劃。論文提出較聰明的區域選擇，例如語意或先驗策略，作為未來工作。
+- 目標影像雖然通用，但對使用者而言未必是最自然的指定目的地方式。本版本不支援語言與空間座標。
+- 作者把結果描述為概念驗證。他們報告 NoMaD 在除了最困難環境以外都能成功，但對其他失敗模式的分析很少。
 
-## 相關主題
+## 相關連結
 
-- [ViNT](vint.md) 是 NoMaD 比較以目標為條件的表現時所用的回歸 Transformer 策略。
-- [GNM](gnm.md) 是共用模型的前身，同一研究團隊的導航工作即建立於其上。
-- [Hirose 等人（2019）](https://arxiv.org/abs/1903.02749) 較早顯示，把打分的目標蒸餾成策略，可以勝過執行時打分。
+- [GNM](gnm.md) 與 [ViNT](vint.md) 是 NoMaD 所比較的以目標為條件的策略，而 ViNT 的 Transformer 設計與 NoMaD 的編碼器最為接近。
+- [擴散策略](../../../theory/paradigms/imitation/index.md) 透過模仿學習而得，與本頁多數導航策略屬於同一範式。
+- [視覺教導與重播](visual-teach-and-repeat.md) 是不需要學習探索的經典替代方法。
 
 ## 開放問題
 
-- 當去噪步數減少以加快控制時，擴散策略相對於回歸的優勢是否仍然成立。
-- 目標遮罩如何與需要不同長程行為的探索與抵達目標互動。
+- 單一擴散策略在非常大或會改變的環境中，能否與使用度量地圖的規劃器探索得一樣好。
+- 目標遮罩如何推廣到影像以外的其他目標類型。
 
 ## 參考文獻
 
-- Sridhar, A., Shah, D., Glossop, C., & Levine, S. (2023). *NoMaD: Goal masked diffusion policies for navigation and exploration*. arXiv:2310.07896. https://arxiv.org/abs/2310.07896 — 目標遮罩擴散策略與其導航結果的來源。
-- Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N., & Levine, S. (2023). *ViNT: A foundation model for visual navigation*. CoRL 2023. arXiv:2306.14846. https://arxiv.org/abs/2306.14846 — 以目標為條件導航的回歸基線。
-- Shah, D., Sridhar, A., Bhorkar, A., Hirose, N., & Levine, S. (2023). *GNM: A general navigation model to drive any robot*. ICRA 2023. arXiv:2210.03370. https://arxiv.org/abs/2210.03370 — 共用模型與輸出空間比較。
-- Hirose, N., Xia, F., Martín-Martín, R., Sadeghian, A., & Savarese, S. (2019). *Deep visual MPC-policy learning for navigation*. IEEE Robotics and Automation Letters, 4(4), 3184–3191. arXiv:1903.02749. https://arxiv.org/abs/1903.02749 — 把打分的目標蒸餾成策略。
-- Meng, X., Ratliff, N., Xiang, Y., & Fox, D. (2020). *Scaling local control to large-scale topological navigation*. ICRA 2020. arXiv:1909.12329. https://arxiv.org/abs/1909.12329 — 拓撲地圖上控制輸出的比較。
+- Sridhar, A., Shah, D., Glossop, C. & Levine, S. (2023). *NoMaD: Goal Masked Diffusion Policies for Navigation and Exploration*. arXiv. https://arxiv.org/abs/2310.07896 — 目標遮罩策略、比較表與探索結果的來源。
+- Chi, C. et al. (2023). *Diffusion Policy: Visuomotor Policy Learning via Action Diffusion*. arXiv. https://arxiv.org/abs/2303.04137 — 將機器人策略表示為對動作的條件式去噪擴散過程。
+- Ho, J., Jain, A. & Abbeel, P. (2020). *Denoising Diffusion Probabilistic Models*. arXiv. https://arxiv.org/abs/2006.11239 — 策略抽樣器所依據的去噪擴散模型。
+- Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N. & Levine, S. (2023). *ViNT: A Foundation Model for Visual Navigation*. arXiv. https://arxiv.org/abs/2306.14846 — NoMaD 所比較的 Transformer 策略與子目標擴散基線。
+- Shah, D., Sridhar, A., Bhorkar, A., Hirose, N. & Levine, S. (2022). *GNM: A General Navigation Model to Drive Any Robot*. arXiv. https://arxiv.org/abs/2210.03370 — 同一研究群較早的共享導航模型，作為以目標為條件導航的背景。

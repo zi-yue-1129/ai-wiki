@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - engineering/hardware
@@ -26,8 +26,8 @@ A programmer who measures a kernel at, say, a few gigaflops per second cannot te
 ## Key concepts
 
 - **Operational intensity:** the number of operations per byte of DRAM traffic, measured between the caches and main memory. It is the horizontal axis of the chart.
-- **Compute ceiling:** the peak floating-point performance of the machine. It is a horizontal line, and no kernel can go above it. The paper obtains it from the hardware specifications or from microbenchmarks.
-- **Memory ceiling:** the peak memory bandwidth, drawn as a diagonal on log-log axes. The paper describes it as the steady-state bandwidth the memory can sustain, not the nominal pin bandwidth of the DRAM chips.
+- **Compute ceiling:** the peak floating-point performance of the machine. It is a horizontal line, and no kernel can go above it. In practice it is usually measured with a benchmark rather than taken from a datasheet.
+- **Memory ceiling:** the peak memory bandwidth, drawn as a diagonal on log-log axes. In practice it is the bandwidth the memory system sustains in a benchmark, which is usually below the nominal figure.
 - **Ridge point:** the intensity where the two ceilings meet. It is the peak performance divided by the peak bandwidth.
 
 ## How it works
@@ -47,17 +47,41 @@ To use the chart, a kernel is measured and plotted as a point:
 
 The ceilings are computed once for each machine, not once for each kernel. Every kernel on that machine is then judged against the same two lines.
 
+## Key methods
+
+### Roofline (Williams et al., 2009)
+
+- **Problem:** the speed of a measured kernel alone does not show whether memory or arithmetic limits it.
+- **Core idea:** plot attainable performance against operational intensity, bounded by the compute and memory ceilings of the machine.
+- **Equations:** \(P_{\text{attainable}} = \min(P_{\text{peak}}, B \cdot I)\), with ridge point \(I^* = P_{\text{peak}} / B\).
+- **Use:** every kernel on a machine is judged against the same two lines, so kernels can be compared by how far they sit below the roof.
+- **Limitations:** the original bound treats main-memory traffic as the only memory cost, and it ignores latency and overlap.
+
+### Hierarchical roofline (Yang et al., 2020)
+
+- **Problem:** when caches serve much of the traffic, a single memory ceiling gives a misleading bound.
+- **Core idea:** extend the analysis across the memory hierarchy of NVIDIA GPUs, with a profiling method built on NVIDIA Nsight Compute to collect the data.
+- **Results:** the Empirical Roofline Toolkit is extended to more numerical precisions and Tensor Core operations, and the method is applied to a deep learning climate segmentation application in TensorFlow and PyTorch.
+- **Limitations:** the measurements depend on the GPU profiling tools available for the target machine.
+
+### LLM roofline analysis (Yuan et al., 2024)
+
+- **Problem:** comparing efficient LLM inference methods needs one view of their memory access and computation.
+- **Core idea:** place the methods on a roofline framework according to how each one changes memory access and computation.
+- **Results:** the framework addresses why LLMs are memory-bound, how much memory and computation they need, and how to choose hardware. The authors open-source their analysis tool, LLM-Viewer.
+- **Limitations:** the ceilings are peak values, so the analysis gives bounds rather than measured speed.
+
 ## Hierarchical roofline
 
-The original model counts only traffic to main memory, and it assumes the working set does not fit in on-chip caches. When caches do serve much of the traffic, a single memory ceiling gives a misleading bound. Yang et al. (2020) extend the model to a ceiling for each level of the memory hierarchy of NVIDIA GPUs. Each level has its own intensity, which is the operations per byte moved at that level, so a kernel can be limited by one level and not by another. They also extend the Empirical Roofline Toolkit to more numerical precisions and to Tensor Core operations, and apply the analysis to a deep learning climate segmentation application written in TensorFlow and PyTorch.
+The original model counts only traffic to main memory, and it assumes the working set does not fit in on-chip caches. When caches do serve much of the traffic, a single memory ceiling gives a misleading bound. Yang et al. (2020) extend the analysis across the memory hierarchy of NVIDIA GPUs, with automated characterisation of both the machine and the application. Charting each level separately is what lets a kernel be limited by one level and not by another, which is the point of the hierarchical view. They also extend the Empirical Roofline Toolkit to more numerical precisions and to Tensor Core operations, and apply the analysis to a deep learning climate segmentation application written in TensorFlow and PyTorch.
 
 ## Applying the model to LLM inference
 
-Yuan et al. (2024) use a roofline framework to analyse the efficiency of LLM inference. Their analysis explains why LLMs are memory-bound during decoding, how much memory and computation each method needs, and how to choose hardware. The same arithmetic is set out in the [memory hierarchy](index.md) page: when a model generates one token for one sequence, each weight is read once and used for about one operation, so the intensity is roughly one, far to the left of the ridge point. Batching sequences reuses each weight across the batch and moves the point to the right.
+Yuan et al. (2024) use a roofline framework to analyse the efficiency of LLM inference. The abstract says the framework addresses why LLMs are memory-bound, how much memory and computation they need, and how to choose hardware. The same arithmetic is set out in the [memory hierarchy](index.md) page: when a model generates one token for one sequence, each weight is read once and used for about one operation, so the intensity is roughly one, far to the left of the ridge point. Batching sequences reuses each weight across the batch and moves the point to the right.
 
 ## Results
 
-The model has been extended to GPUs and applied to deep learning workloads. Yang et al. (2020) use the per-level charts to show how an application uses the compute and memory resources of a GPU, and how its TensorFlow and PyTorch implementations differ. Yuan et al. (2024) use the roofline framework to analyse efficient LLM inference techniques by their effect on memory access and computation.
+The model has been extended to GPUs and applied to deep learning workloads. Yang et al. (2020) use the extended model to show how a deep learning application uses the compute and memory resources of a GPU, and to compare its TensorFlow and PyTorch implementations. Yuan et al. (2024) use the roofline framework to analyse efficient LLM inference techniques by their effect on memory access and computation.
 
 ## Limitations
 
@@ -85,9 +109,9 @@ The roofline model is the analysis tool behind the bandwidth argument in the [me
 
 ### Surveys and textbooks
 
-- Yang, C., Wang, Y., Farrell, S., Kurth, T. & Williams, S. (2020). *Hierarchical Roofline Performance Analysis for Deep Learning Applications*. arXiv:2009.05257. https://arxiv.org/abs/2009.05257 — Extends the model to a ceiling for each memory level of NVIDIA GPUs and applies it to a deep learning application.
-- Yuan, Z., et al. (2024). *LLM Inference Unveiled: Survey and Roofline Model Insights*. arXiv:2402.16363. https://arxiv.org/abs/2402.16363 — Uses a roofline framework to survey efficient LLM inference and explain why LLMs are memory-bound.
+- Yang, C., Wang, Y., Farrell, S., Kurth, T. & Williams, S. (2020). *Hierarchical Roofline Performance Analysis for Deep Learning Applications*. arXiv:2009.05257. https://arxiv.org/abs/2009.05257 — Extends the Empirical Roofline Toolkit and the analysis across the memory hierarchy of NVIDIA GPUs, and applies it to a deep learning application.
+- Yuan, Z., et al. (2024). *LLM Inference Unveiled: Survey and Roofline Model Insights*. arXiv:2402.16363. https://arxiv.org/abs/2402.16363 — Uses a roofline framework to survey efficient LLM inference and address why LLMs are memory-bound.
 
 ### Articles and documentation
 
-- Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory bandwidth, not compute, is the primary bottleneck for AI serving, which is the regime the memory ceiling describes.
+- Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory, rather than compute, has become the primary bottleneck for AI applications, particularly serving, which is the regime the memory ceiling describes.

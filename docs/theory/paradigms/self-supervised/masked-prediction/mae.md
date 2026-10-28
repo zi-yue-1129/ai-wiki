@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/self-supervised
@@ -22,11 +22,11 @@ Masked autoencoders (MAE) pre-train a vision transformer by hiding most of an im
 
 ## Overview
 
-He et al. (2022) show that BERT-style masked prediction works for images when the masked fraction is large. The abstract reports that the approach trains "3× or more" faster and improves accuracy. It also reports 87.8% fine-tuning accuracy for a vanilla ViT-Huge pre-trained only on ImageNet-1K, which it describes as the best accuracy among methods that use only ImageNet-1K data.
+He et al. (2022) show that BERT-style masked prediction works for images when the masked fraction is large. The abstract says the approach trains "3× or more" faster and improves accuracy. The abstract's 87.8% fine-tuning accuracy is for a vanilla ViT-Huge pre-trained only on ImageNet-1K and fine-tuned at 448 input size. The same model reaches 86.9% at 224 input. The abstract describes the 87.8% result as the best accuracy among methods that use only ImageNet-1K data.
 
 ## Key concepts
 
-- **Patches and masking**: the image is split into square patches, and a random 75% of them are removed. The paper states that 75% "is good for both linear probing and fine-tuning".
+- **Patches and masking**: the image is split into square patches, and a random 75% of them are removed. Figure 5 of the paper, a masking-ratio study, supports 75% as a good default for image data.
 - **Asymmetric encoder–decoder**: the encoder sees only the visible patches, with no mask tokens. The decoder receives the encoded visible patches together with mask tokens, and reconstructs the whole image.
 - **Lightweight decoder**: the default decoder has 8 Transformer blocks with width 512, which is smaller than the encoder. It is used only during pre-training.
 - **Reconstruction target**: pixel values. The paper reports that normalised pixel targets improve representation quality over raw pixels.
@@ -41,7 +41,7 @@ He et al. (2022) show that BERT-style masked prediction works for images when th
 5. Compute the mean squared error on the masked patches only.
 6. After pre-training, discard the decoder and feed the complete, unmasked image to the encoder for recognition tasks.
 
-Because the encoder runs on the 25% of patches that are visible, pre-training is much cheaper than encoding every patch. This is the source of the speedup reported in the abstract.
+Because the encoder runs on the 25% of patches that are visible, pre-training is much cheaper than encoding every patch. The paper's timing experiment measures a 2.8× wall-clock speedup for ViT-L, which is below the "3× or more" that the abstract reports.
 
 ## Key methods
 
@@ -50,21 +50,22 @@ Because the encoder runs on the 25% of patches that are visible, pre-training is
 - **Problem:** BERT's masked-language approach had worked for text. The question was whether a similar masked objective could train large vision transformers efficiently. Images contain much spatial redundancy, so a small masked fraction can often be filled in from neighbouring patches.
 - **Core idea:** mask a high fraction of random patches, encode only the visible ones, and decode pixels from the encoded visible patches plus mask tokens.
 - **Equation or algorithm:** mean squared error on the masked patches only, a 75% masking ratio, an asymmetric encoder and an 8-block, width-512 decoder, and normalised pixel targets, as in the six steps above.
-- **Results:** fine-tuning a ViT-L pre-trained with MAE on ImageNet-1K gives 85.9% top-1 accuracy at 224 input. A ViT-H at 448 input gives 87.8%. Linear probing for ViT-L gives 75.8%. In the paper's ablation for ViT-L on ImageNet-1K, normalised pixel targets raise fine-tuning accuracy from 84.9% to 85.4%, and linear probing from 73.5% to 73.9%. In the paper's timing experiment, the design that leaves mask tokens out of the encoder gives a 2.8× wall-clock speedup for ViT-L.
-- **Limitations:** linear probing lags far behind fine-tuning (75.8% against 85.9% for ViT-L), so the features depend heavily on fine-tuning. The decoder is an extra design choice that needs tuning, and the 75% masking ratio was tuned on image data.
+- **Results:** fine-tuning a ViT-L pre-trained with MAE on ImageNet-1K gives 85.9% top-1 accuracy at 224 input. A ViT-H at 448 input gives 87.8%, and the same ViT-H at 224 input gives 86.9%. In the paper's ablation for ViT-L on ImageNet-1K, normalised pixel targets raise fine-tuning accuracy from 84.9% to 85.4%, and linear probing from 73.5% to 73.9%. In the paper's timing experiment, leaving mask tokens out of the encoder gives a 2.8× wall-clock speedup for ViT-L.
+- **Limitations:** linear probing lags far behind fine-tuning (73.9% against 85.4% in the ViT-L ablation with normalised pixel targets), so the features depend heavily on fine-tuning. The decoder is an extra design choice that needs tuning, and the 75% masking ratio was tuned on image data.
 
 ## Connections
 
 - The masked-language origin of the approach is described on the [Masked Prediction](index.md) page, which also covers BERT and other masked models.
 - The encoder is a [vision transformer](../../../models/transformer/vision-transformer/index.md), so MAE pre-trains the same architecture used for supervised image classification.
-- [Contrastive learning](../contrastive-learning/index.md) is the alternative route: it matches views rather than reconstructing content. [SimCLR](../contrastive-learning/simclr.md) is the reference example.
+- [Contrastive learning](../contrastive-learning/index.md) is the alternative route: it matches views rather than reconstructing content. [SimCLR](../contrastive-learning/simclr.md) is the reference example, and [MoCo](../contrastive-learning/moco.md) uses a queue of negatives.
+- [DINOv2](../non-contrastive-methods/dinov2.md) also uses a masked patch objective, combined with self-distillation, and scales it to a curated dataset.
 - MAE's reconstruction objective is a masked form of the denoising idea in [autoencoders and representations](../../unsupervised/autoencoders-and-representations/index.md).
 - Image models more broadly are covered under [computer vision](../../../models/computer-vision/index.md).
 - The gap between linear probing and fine-tuning is part of the wider discussion of [theory and evaluation](../theory-and-evaluation/index.md).
 
 ## Open questions
 
-- Is pixel regression the best reconstruction target? Predicting features or tokens instead of pixels is a natural alternative, and parallel methods such as BEiT and SimMIM explore it.
+- Is pixel regression the best reconstruction target? Predicting features or tokens instead of pixels is a natural alternative, and parallel methods such as [BEiT](https://arxiv.org/abs/2106.08254) and [SimMIM](https://arxiv.org/abs/2111.09886) explore it.
 - How does the best masking ratio change with image resolution, model size and data type? The paper's 75% setting comes from its own image experiments.
 - Can the representation be made more linearly separable without the cost of fine-tuning?
 
@@ -77,6 +78,8 @@ Because the encoder runs on the 25% of patches that are visible, pre-training is
 - Dosovitskiy, A. et al. (2021). An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale. ICLR. https://arxiv.org/abs/2010.11929 — The vision transformer architecture that MAE pre-trains.
 - Bao, H. et al. (2022). BEiT: BERT Pre-Training of Image Transformers. ICLR. https://arxiv.org/abs/2106.08254 — A parallel masked image modelling method for vision transformers.
 - Xie, Z. et al. (2022). SimMIM: A Simple Framework for Masked Image Modeling. CVPR. https://arxiv.org/abs/2111.09886 — A masked image modelling framework with a simpler design, developed in parallel with MAE.
+- He, K., Fan, H., Wu, Y., Xie, S. & Girshick, R. (2020). Momentum Contrast for Unsupervised Visual Representation Learning. CVPR. https://arxiv.org/abs/1911.05722 — The contrastive alternative that MAE is compared against in the self-supervised literature.
+- Oquab, M. et al. (2023). DINOv2: Learning Robust Visual Features without Supervision. arXiv:2304.07193. https://arxiv.org/abs/2304.07193 — Combines a masked patch objective with self-distillation at larger scale.
 
 ### Surveys and textbooks
 
