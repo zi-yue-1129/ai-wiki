@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - society/ethics
@@ -26,7 +26,7 @@ A score that is well calibrated overall can still be systematically too high for
 
 ## Core idea
 
-Partition people by their score and check, within each group, how often the outcome occurs at each score level. Calibration within groups holds when the observed rate at each score matches the score itself for every group.
+Partition people by their score and check, within each group, how often the outcome occurs at each score level. Calibration within groups holds when, for every group and every score bin, the share of the group's members in the bin who belong to the positive class matches the bin's score. Kleinberg et al. state this as one of three conditions, the other two being balance for the positive class and balance for the negative class.
 
 ## Equation
 
@@ -38,11 +38,13 @@ For score \(S\) and protected attribute \(A\), calibration within groups holds w
 
 ## Results
 
-Kleinberg et al. (2017) show that calibration within groups cannot hold together with balance for the positive and the negative class, except in highly constrained special cases. Chouldechova (2017) shows, for binary predictions, that calibration-type criteria conflict with error-rate balance when recidivism prevalence differs across groups.
+Kleinberg et al. (2017) prove that if a risk assignment satisfies all three conditions, then the instance must allow perfect prediction or the two groups must have the same base rate. Calibration within groups therefore cannot hold together with both balance conditions when base rates differ, except in these special cases.
+
+Chouldechova (2017) studies recidivism prediction instruments, including COMPAS. When prevalence differs across groups, a score with equal positive predictive value (predictive parity) cannot also have equal false-positive and false-negative rates. Her result is about error rates and precision, so it does not state the calibration condition above directly.
 
 ## Limitations
 
-- **Error-rate conflict.** Calibration within groups cannot be combined with equal error rates when base rates differ, so a calibrated tool can still produce unequal false-positive rates.
+- **Score balance versus error rates.** The impossibility result concerns the two score-balance conditions, not the error rates of a thresholded decision. Calibrated scores can still produce unequal false-positive and false-negative rates when base rates differ, so equal error rates need a separate check.
 - **Score meaning.** Calibration says nothing about the decisions taken at a threshold; a calibrated score can still lead to unequal decisions.
 - **Data needs.** Checking calibration within small groups needs enough outcome data at each score level.
 
@@ -50,11 +52,11 @@ Kleinberg et al. (2017) show that calibration within groups cannot hold together
 
 ### Seminal papers
 
-- Kleinberg, J., Mullainathan, S. & Raghavan, M. (2017). Inherent Trade-Offs in the Fair Determination of Risk Scores. *Proceedings of ITCS 2017*. https://arxiv.org/abs/1609.05807 — Proves that calibration within groups and two balance conditions cannot hold together under unequal base rates.
-- Chouldechova, A. (2017). Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments. *Big Data*, 5(2), 153–163. https://doi.org/10.1089/big.2016.0047 — Shows that fairness criteria, including predictive parity, cannot all hold when prevalence differs.
+- Kleinberg, J., Mullainathan, S. & Raghavan, M. (2017). Inherent Trade-Offs in the Fair Determination of Risk Scores. *Proceedings of ITCS 2017*. https://doi.org/10.4230/LIPIcs.ITCS.2017.43 — Proves that calibration within groups and two balance conditions cannot hold together under unequal base rates, except with perfect prediction.
+- Chouldechova, A. (2017). Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments. *Big Data*, 5(2), 153–163. https://doi.org/10.1089/big.2016.0047 — Shows that, when prevalence differs across groups, a score with equal precision cannot also have equal false-positive and false-negative rates.
 - Hardt, M., Price, E. & Srebro, N. (2016). Equality of Opportunity in Supervised Learning. *Advances in Neural Information Processing Systems 29*. https://arxiv.org/abs/1610.02413 — Defines error-based criteria that contrast with calibration.
 
 ### Surveys and textbooks
 
-- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — A survey of fairness definitions, as its title states.
-- Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — Free textbook covering calibration and its trade-offs with other criteria.
+- Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K. & Galstyan, A. (2021). A Survey on Bias and Fairness in Machine Learning. *ACM Computing Surveys*, 54(6), 1–35. https://doi.org/10.1145/3457607 — A survey of sources of bias and of the fairness definitions used to measure it.
+- Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — Free online textbook covering calibration and its trade-offs with other criteria.

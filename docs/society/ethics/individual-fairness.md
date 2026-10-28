@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - society/ethics
@@ -26,7 +26,7 @@ Group criteria compare averages across groups, and they can be satisfied while s
 
 ## Core idea
 
-Define a metric \(d\) that measures how similar two individuals are for the task at hand. The classifier must map similar individuals to similar output distributions. The requirement is that similar individuals are treated similarly, and the metric is what makes "similar" precise.
+Define a metric \(d\) that measures how similar two individuals are for the task at hand. The classifier must map similar individuals to similar output distributions. The requirement is that similar individuals are treated similarly, and the metric is what makes "similar" precise. The paper's classifier is randomised: it maps each individual to a distribution over outcomes.
 
 ## Equation
 
@@ -36,25 +36,33 @@ If \(M(x)\) is the output distribution for individual \(x\), and \(D\) measures 
 D\bigl(M(x), M(y)\bigr) \le d(x, y) \quad \text{for all individuals } x, y.
 \]
 
+The paper uses total variation distance and max-divergence as choices of \(D\).
+
 ## Results
 
-The paper gives a framework for fair classification that combines the similarity metric with an algorithm for maximising utility subject to the fairness constraint. Its main contribution is the framework; it does not claim that a particular metric is right for a particular application.
+The paper is theoretical, and it reports no experiments. Its main results are:
+
+- **Optimisation.** Minimising expected loss subject to the Lipschitz condition can be written as a linear program, for both of the distance choices it considers.
+- **Relation to group fairness.** Bounds relate the Lipschitz condition to statistical parity, measured with earth mover's distance.
+- **Non-uniqueness.** Many classifiers are consistent with a single metric, so the metric alone does not determine the classifier.
+
+The paper describes the metric as hypothetical. It does not evaluate a concrete metric on real data.
 
 ## Limitations
 
-- **Metric choice.** The criterion is only as fair as the metric, and the metric has to be designed by someone. The framework assumes that a task-specific similarity metric is available, which makes choosing it the central difficulty.
-- **Scaling.** Checking the condition for every pair of individuals is hard for large datasets, so practical versions approximate it.
+- **Metric choice.** The criterion is only as fair as the metric, and someone has to design the metric. The framework assumes that a task-specific similarity metric is available, which makes choosing it the central difficulty.
+- **Scaling.** The Lipschitz condition has to hold for every pair of individuals, so checking it directly is expensive for large datasets.
 - **Proxies.** A metric that ignores sensitive attributes can still allow a classifier to discriminate through correlated features.
 
 ## References
 
 ### Seminal papers
 
-- Dwork, C., Hardt, M., Pitassi, T., Reingold, O. & Zemel, R. (2012). Fairness through awareness. *Proceedings of ITCS 2012*. https://doi.org/10.1145/2090236.2090255 — Introduces individual fairness as a Lipschitz condition on a task-specific similarity metric.
+- Dwork, C., Hardt, M., Pitassi, T., Reingold, O. & Zemel, R. (2012). Fairness through awareness. *Proceedings of ITCS 2012*, 214–226. https://doi.org/10.1145/2090236.2090255 — Introduces individual fairness as a Lipschitz condition on a task-specific similarity metric.
 - Kusner, M. J., Loftus, J., Russell, C. & Silva, R. (2017). Counterfactual Fairness. *Advances in Neural Information Processing Systems 30*. https://arxiv.org/abs/1703.06856 — An individual-level criterion based on causal reasoning, which addresses the metric choice differently.
 - Hardt, M., Price, E. & Srebro, N. (2016). Equality of Opportunity in Supervised Learning. *Advances in Neural Information Processing Systems 29*. https://arxiv.org/abs/1610.02413 — The group-based criteria that individual fairness is often contrasted with.
 
 ### Surveys and textbooks
 
-- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — A survey of fairness definitions, as its title states.
-- Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — Free textbook covering individual and group fairness.
+- Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K. & Galstyan, A. (2021). A Survey on Bias and Fairness in Machine Learning. *ACM Computing Surveys*, 54(6), 1–35. https://doi.org/10.1145/3457607 — A survey of sources of bias and of the fairness definitions used to measure it.
+- Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — Free online textbook covering individual and group fairness.

@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 related:
   - applications/games
 tags:
@@ -39,6 +39,10 @@ a_t = \arg\max_a \left( \bar{X}_a + \sqrt{\frac{2 \ln N}{n_a}} \right)
 \]
 
 其中 \(\bar{X}_a\) 是經由子節點 \(a\) 的模擬平均結果，\(n_a\) 是它被造訪的次數，\(N\) 是父節點的造訪次數。Auer、Cesa-Bianchi 與 Fischer（2002）證明 UCB1 的遺憾值只隨遊戲次數以對數速度增長。Kocsis 與 Szepesvári（2006）把同一規則用於蒙地卡羅規劃，形成 UCT 演算法。
+
+![蒙地卡羅樹搜尋四階段：選擇、擴展、評估與回傳](../../../../assets/concept-animations/mcts-search-cycle-motion.svg)
+
+*原創教學示意圖（CC BY-SA 4.0）。* 四個畫面依序呈現：沿 A 分支選擇路徑、新增子節點、評估節點，以及沿已走過的路徑回傳結果。圖中的 `+1` 評估值與 `N + 1` 造訪次數標記均為示意，不是實測結果或依 UCT 公式計算的分數。MkDocs 網站可使用播放／暫停按鈕；GitHub 可查看[靜態總覽圖](../../../../assets/concept-animations/mcts-search-cycle-still.svg)。
 
 ## 關鍵方法
 

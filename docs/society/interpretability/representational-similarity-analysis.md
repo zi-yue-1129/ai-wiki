@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - society/interpretability
@@ -31,17 +31,17 @@ For each system, compute the dissimilarity between every pair of stimulus respon
 
 ## Equation
 
-For responses \(r_i\) and \(r_j\) to stimuli \(i\) and \(j\), a common choice of dissimilarity is one minus the correlation between the response patterns:
+For responses $r_i$ and $r_j$ to stimuli $i$ and $j$, a common choice of dissimilarity is one minus the correlation between the response patterns:
 
-\[
+$$
 \mathrm{RDM}_{ij} = 1 - \mathrm{corr}(r_i, r_j).
-\]
+$$
 
 Two systems are compared by correlating the upper triangles of their RDMs.
 
 ## Results
 
-The paper describes the framework and shows that it can relate activity patterns across different measurement modalities, and across subjects and species. It is a framework paper, so its contribution is the method rather than a single measured effect.
+Kriegeskorte et al. present RSA as a framework for comparing systems through their response geometry. The paper's contribution is the method and its use for comparison, not a single measured effect. Later work applies the same comparison to artificial networks, where the question is whether a layer's geometry matches a brain region's.
 
 ## Limitations
 
@@ -49,13 +49,29 @@ The paper describes the framework and shows that it can relate activity patterns
 - **Metric choice.** The dissimilarity measure affects which structure is visible, and different choices can give different answers.
 - **Similarity is not mechanism.** Two representations can share geometry without computing the same function.
 
+## Connections
+
+RSA is a geometric alternative to the single-label [linear probes](linear-probes.md) and to the [control tasks](control-tasks.md) that check them. It belongs to the same family of representation analyses as [probing](probing.md). Its origins are in systems neuroscience, which connects to the [neuroAI](../../brain-mind/neuroai/index.md) comparison of artificial and biological networks. Work on linear geometry in language models (Park et al., 2023) asks a related question about concept directions.
+
+## Applications
+
+- Comparing the representations of a vision model with the responses of visual cortex to the same images.
+- Checking whether two trained networks organise the same inputs similarly, regardless of architecture.
+- Tracking how the geometry of a language model's layers changes across training.
+
+## Open questions
+
+- How should the stimulus set be chosen so that RSA results generalise beyond it?
+- Which dissimilarity measure best matches the question being asked?
+- When does shared geometry imply a shared computation, and when does it not?
+
 ## References
 
 ### Seminal papers
 
-- Kriegeskorte, N., Mur, M. & Bandettini, P. (2008). Representational similarity analysis – connecting the branches of systems neuroscience. *Frontiers in Systems Neuroscience*. https://doi.org/10.3389/neuro.06.004.2008 — Defines RSA for comparing systems through their response geometry.
-- Alain, G. & Bengio, Y. (2016). Understanding intermediate layers using linear classifier probes. *arXiv preprint*. https://arxiv.org/abs/1610.01644 — A different way to read layers of a network, against which RSA is often compared.
-- Park, K., Choe, Y. J. & Veitch, V. (2023). The Linear Representation Hypothesis and the Geometry of Large Language Models. *arXiv preprint*. https://arxiv.org/abs/2311.03658 — Studies the geometry of concept representations in a language model.
+- Kriegeskorte, N., Mur, M. & Bandettini, P. (2008). Representational similarity analysis – connecting the branches of systems neuroscience. *Frontiers in Systems Neuroscience*, 2. https://doi.org/10.3389/neuro.06.004.2008 — Defines RSA for comparing systems through the geometry of their responses.
+- Alain, G. & Bengio, Y. (2016). Understanding intermediate layers using linear classifier probes. arXiv:1610.01644. https://arxiv.org/abs/1610.01644 — A different way to read the layers of a network, against which RSA is often compared.
+- Park, K., Choe, Y. J. & Veitch, V. (2023). The Linear Representation Hypothesis and the Geometry of Large Language Models. arXiv:2311.03658. https://arxiv.org/abs/2311.03658 — Studies concepts as linear directions in a language model's representation space, and the inner product that gives them geometric meaning.
 
 ### Surveys and textbooks
 

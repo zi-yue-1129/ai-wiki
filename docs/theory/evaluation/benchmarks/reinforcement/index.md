@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -20,7 +20,7 @@ Reinforcement learning benchmarks are environments in which an agent acts and is
 
 ## Overview
 
-A reinforcement learning benchmark is a simulator or game with a fixed reward, an observation format and an action space, plus a protocol for running agents on it. The Arcade Learning Environment (ALE) made Atari 2600 games into such a testbed. Its authors described it as a platform and a methodology for evaluating general agents, with interfaces to hundreds of games, and they reported results on more than 55 of them (Bellemare et al., 2013). Deep Q-Networks were later evaluated on these games, which made ALE a reference point for value-based deep reinforcement learning (Mnih et al., 2015).
+A reinforcement learning benchmark is a simulator or game with a fixed reward, an observation format and an action space, plus a protocol for running agents on it. The Arcade Learning Environment (ALE) made Atari 2600 games into such a testbed. Its authors described it as a platform and a methodology for evaluating general agents, with interfaces to hundreds of games, and they reported results on more than 55 of them (Bellemare et al., 2013).
 
 Continuous-control benchmarks use physics simulators instead. MuJoCo is a physics engine built for model-based control (Todorov et al., 2012). OpenAI Gym gave many such environments a common interface and a shared place to report results, so that methods could be compared across suites (Brockman et al., 2016).
 
@@ -70,12 +70,11 @@ An agent interacts with the environment for a fixed number of steps or until an 
 ### Seminal papers
 
 - Bellemare, M. G., Naddaf, Y., Veness, J. & Bowling, M. (2013). *The Arcade Learning Environment: An Evaluation Platform for General Agents*. Journal of Artificial Intelligence Research, 47, 253–279. https://doi.org/10.1613/jair.3912 — Introduces the Atari platform and the methodology for comparing agents on it, with results on more than 55 games.
-- Mnih, V. et al. (2015). *Human-level control through deep reinforcement learning*. Nature, 529–533. https://doi.org/10.1038/nature14236 — Evaluates deep Q-networks across Atari games with the same input and settings.
 - Todorov, E., Erez, T. & Tassa, Y. (2012). *MuJoCo: A physics engine for model-based control*. IROS 2012. https://doi.org/10.1109/IROS.2012.6386109 — Describes the physics engine used for simulated control tasks.
 
 ### Articles and documentation
 
 - Brockman, G. et al. (2016). *OpenAI Gym*. arXiv. https://arxiv.org/abs/1606.01540 — Describes the common interface and shared benchmark collection that many environments follow.
-- Machado, M. C. et al. (2017). *Revisiting the Arcade Learning Environment: Evaluation Protocols and Open Problems for General Agents*. arXiv. https://arxiv.org/abs/1709.06009 — Surveys how ALE is evaluated, sets out best practices, and introduces sticky actions.
+- Machado, M. C. et al. (2018). *Revisiting the Arcade Learning Environment: Evaluation Protocols and Open Problems for General Agents*. Journal of Artificial Intelligence Research, 61, 523–562. https://doi.org/10.1613/jair.5699 — Surveys how ALE is evaluated, sets out best practices, and introduces sticky actions.
 - Henderson, P. et al. (2017). *Deep Reinforcement Learning that Matters*. arXiv. https://arxiv.org/abs/1709.06560 — Shows how non-determinism and seed variance make reported deep RL results hard to interpret.
 - Sutton, R. S. & Barto, A. G. *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — Free online textbook on reward, return and episodes.

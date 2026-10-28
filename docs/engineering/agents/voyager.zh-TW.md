@@ -29,7 +29,7 @@ Minecraft 之類的遊戲提供開放式的世界與眾多任務，持續學習�
 
 ## 核心想法
 
-Voyager 有三個元件。第一，自動課程（curriculum）提出下一項任務，以最大化探索。第二，技能庫儲存成功技能的可執行程式碼，並在之後取回，使複雜行為由較簡單的行為組成。第三，迭代提示機制利用環境回饋、執行錯誤與自我驗證來改進程式。作者認為，這些技能具有時間延展性與組合性，能使能力逐步疊加，並減少災難性遺忘。
+Voyager 有三個元件。第一，自動課程（curriculum）提出下一項任務，以最大化探索。第二，技能庫儲存成功技能的可執行程式碼，並在之後以任務計畫與環境回饋的嵌入向量取回相關技能，使複雜行為由較簡單的行為組成。第三，迭代提示機制利用環境回饋、執行錯誤與自我驗證來改進程式。作者認為，這些技能具有時間延展性與組合性，能使能力逐步疊加，並減少災難性遺忘。
 
 ## 方程式或演算法
 
@@ -37,7 +37,7 @@ Voyager 有三個元件。第一，自動課程（curriculum）提出下一項�
 
 1. 課程依據代理已探索的內容與已能做到的事，提出一項任務。
 2. 模型為某項技能撰寫程式碼，並使用從技能庫取回的相關技能。
-3. 程式在環境中執行。錯誤與回饋被送回，程式持續修改，直到成功或達到嘗試上限。
+3. 程式在環境中執行。錯誤、環境回饋，以及另一個 GPT-4 批判者所做的自我驗證會被送回，程式持續修改，直到任務成功或達到嘗試上限。
 4. 經驗證的技能加入技能庫，供之後的任務取回。
 
 ## 結果
@@ -74,8 +74,8 @@ Voyager 有三個元件。第一，自動課程（curriculum）提出下一項�
 
 - Wang, G. 等人（2023）。*Voyager: An Open-Ended Embodied Agent with Large Language Models*。arXiv。https://arxiv.org/abs/2305.16291 — 提出 Voyager，包括自動課程、可執行技能庫與 Minecraft 中的迭代提示。
 - Yao, S. 等人（2023）。*ReAct: Synergizing Reasoning and Acting in Language Models*。ICLR。https://arxiv.org/abs/2210.03629 — Voyager 代理行動迴圈所依據的推理與行動方法。
-- Shinn, N. 等人（2023）。*Reflexion: Language Agents with Verbal Reinforcement Learning*。NeurIPS。https://arxiv.org/abs/2303.11366 — 說明語言代理如何從語言回饋中跨次嘗試學習，與技能庫形成對照。
-- Park, J. S. 等人（2023）。*Generative Agents: Interactive Simulacra of Human Behavior*。arXiv。https://arxiv.org/abs/2304.03442 — 在共享環境中具有記憶的互動式代理，是對已儲存經驗的另一種運用。
+- Shinn, N. 等人（2023）。*Reflexion: Language Agents with Verbal Reinforcement Learning*。NeurIPS。https://doi.org/10.52202/075280-0377 — 說明語言代理如何從語言回饋中跨次嘗試學習，與技能庫形成對照。
+- Park, J. S. 等人（2023）。*Generative Agents: Interactive Simulacra of Human Behavior*。UIST。https://doi.org/10.1145/3586183.3606763 — 在共享環境中具有記憶的互動式代理，是對已儲存經驗的另一種運用。
 
 ### 調查與教科書
 

@@ -48,6 +48,7 @@ Two method pages go deeper: [Feature attribution: SHAP, LIME and saliency](featu
 
 - [Mechanistic interpretability and circuits](mechanistic-interpretability.md): circuits, induction heads, factual recall and superposition.
 - [Sparse autoencoders and feature dictionaries](sparse-autoencoders.md): dictionary learning on activations, scaling and known failure modes.
+- [Gated sparse autoencoders](gated-sae.md): separating feature detection from magnitude to reduce shrinkage.
 - [k-sparse autoencoders](k-sparse-autoencoders.md): enforcing sparsity by keeping the k largest activations.
 - [JumpReLU sparse autoencoders](jumprelu-sae.md): per-feature thresholds that improve reconstruction at a given sparsity.
 

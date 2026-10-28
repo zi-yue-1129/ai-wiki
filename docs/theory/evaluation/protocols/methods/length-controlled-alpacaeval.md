@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -40,15 +40,13 @@ Here $m$ is the model being scored, $b$ is the baseline, $\sigma$ is the logisti
 ## Results
 
 - **Agreement with Chatbot Arena.** The Spearman correlation between the leaderboard and Chatbot Arena rose from 0.94 for AlpacaEval to 0.98 for the length-controlled version, on 38 models (Figure 1 and Section 4.2). The authors report a bootstrap p-value of 0.07 against the original, so the improvement is suggestive rather than conclusive.
-- **Length gaming.** For the model gpt4_1106_preview, the raw win rate ranged from 22.9% under a concise prompt to 64.3% under a verbose prompt. The length-controlled rate ranged from 41.9% to 51.6% (Figure 3 and Table 1). For claude-2.1, the raw rate ranged from 9.2% to 24.4%, and the length-controlled rate from 18.2% to 30.3%.
+- **Length gaming.** Varying the verbosity instruction in the prompt moved the raw win rate of gpt4_1106_preview from 22.9% to 64.3%. Its length-controlled rate ranged from 41.9% to 51.6% (Section 4.1). The paper notes qualitatively that weaker models, such as claude-2.1, can gain a lot from being asked to be verbose.
 - **Stability across prompts.** The normalised standard deviation of the win rate across prompt variants fell from about 25% to about 10% (Section 4.1). Table 1 lists 26% to 10%.
-- **Truncation attack.** The win rate for truncated GPT-4 outputs rose from 3.7 to 25.9 without regularisation and to 12.2 with it (Section 4.3). The paper's Table 1 lists a gain of 8.5 for the same attack, so readers should check the table alongside the text.
-
-The paper does not report how much longer the winning answers are, only the average output length of each model.
+- **Truncation attack.** The win rate for truncated outputs rose from 3.7 on AlpacaEval 2.0 to 25.9 on AlpacaEval-LC without regularisation, and fell to 12.2 with it (Section 4.3). Table 1 reports the gain with regularisation as 8.5 points.
 
 ## Limitations
 
-- The authors tested the debiasing method only on AlpacaEval, which uses relatively simple English instructions and one judge prompt.
+- The authors test the debiasing method on AlpacaEval. The results here do not show that it transfers to other benchmarks.
 - The method answers a counterfactual question, namely how the two models would compare at equal length. Length can be part of a good answer, so this is a modelling choice, not a fact about users.
 - The method does not address the other known biases of LLM judges, such as position and self-preference. See [MT-Bench](mt-bench.md) for those.
 - The reference model and the auto-annotator are fixed to a GPT-4 Turbo variant, so that judge's own biases carry into the result.

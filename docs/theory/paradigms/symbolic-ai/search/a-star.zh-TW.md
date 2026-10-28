@@ -38,7 +38,7 @@ A\* 以優先佇列保存前緣節點，並依 \(f\) 排序。它反覆取出 \(
 
 - **路徑規劃**：道路網路與格狀地圖上的最短路徑，包括機器人導航。
 - **謎題**：以曼哈頓距離為啟發式的滑動方塊謎題。
-- **規劃**：古典規劃中的啟發式狀態空間搜尋，其啟發式常由鬆弛問題導出（Helmert，2006）。
+- **規劃**：古典規劃中的啟發式狀態空間搜尋。Helmert（2006）比較了基於鬆弛的啟發式與 Fast Downward 所用的因果圖啟發式。
 
 ## 開放問題
 
@@ -55,5 +55,5 @@ A\* 以優先佇列保存前緣節點，並依 \(f\) 排序。它反覆取出 \(
 ### 綜述與教科書
 
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — 教科書中對 A\* 與可容許、一致啟發式的說明。
-- Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — 在古典規劃中使用由鬆弛問題導出之啟發式的 A\*。
+- Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — 描述 Fast Downward 規劃器，它以最佳優先搜尋為主，其啟發式由規劃問題的階層分解（因果圖啟發式）建構。
 - Blum, A. L. & Furst, M. L. (1997). Fast planning through planning graph analysis. *Artificial Intelligence* 90(1–2), 281–300. https://doi.org/10.1016/S0004-3702(96)00047-1 — 說明以圖式啟發式加速規劃中的啟發式搜尋。

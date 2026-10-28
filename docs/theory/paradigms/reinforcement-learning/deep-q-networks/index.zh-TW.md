@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # 深度 Q 網路（Mnih 等人，2015）
@@ -30,6 +30,10 @@ L(\theta) = \mathbb{E}\left[\left(r + \gamma \max_{a'} Q(s', a'; \theta^-) - Q(s
 4. 從 \(D\) 抽取 32 筆轉移組成小批量。
 5. 終止轉移的目標為 \(y = r\)，否則為 \(y = r + \gamma \max_{a'} Q(s', a'; \theta^-)\)。以 RMSProp 進行一步更新，降低 \((y - Q(s, a; \theta))^2\)。
 6. 每 \(C\) 步令 \(\theta^- \leftarrow \theta\)。
+
+![DQN 訓練循環：經驗回放取樣、線上網路更新、目標網路維持不變，以及週期性同步](../../../../assets/concept-animations/dqn-target-sync-motion.svg)
+
+*原創教學示意圖（CC BY-SA 4.0）。* 動畫先從經驗回放緩衝區選取兩筆轉移資料，再顯示線上 Q 網路參數更新、目標 Q 網路維持固定，最後定期將線上網路參數完整複製至目標網路。色條僅代表示意參數，並非實際訓練權重、時間或效能數據。MkDocs 網站可播放／暫停；GitHub 可查看[同步階段的靜態總覽圖](../../../../assets/concept-animations/dqn-target-sync-still.svg)。
 
 ## 結果
 

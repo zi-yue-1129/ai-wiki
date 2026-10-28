@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" role="img" tabindex="0" aria-labelledby="lstm-title lstm-desc">
+<title id="lstm-title">Original LSTM cell: write, retain and read</title>
+<desc id="lstm-desc">A simplified 1997 LSTM memory cell. The input gate opens to write a candidate, the self-connected memory retains state, then the output gate opens to read it. This diagram intentionally omits the forget gate introduced in later LSTM variants. Animation pauses when the standalone SVG receives keyboard focus; reduced-motion mode displays the whole structure without moving particles.</desc>
+<defs><linearGradient id="lstm-bg" x2="1" y2="1"><stop stop-color="#f8fbfd"/><stop offset="1" stop-color="#eef5f7"/></linearGradient><marker id="lstm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#829dac" stroke-width="1.6" stroke-linejoin="round"/></marker></defs>
+<style>
+ text{font-family:system-ui,-apple-system,sans-serif;fill:#244153}.heading{font-size:19px;font-weight:720}.sub{font-size:11px;font-weight:650;letter-spacing:1.2px;fill:#6c8493}.tag{font-size:13px;font-weight:700}.small{font-size:11px;font-weight:650;fill:#78919f}.wire{fill:none;stroke:#91a8b5;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#lstm-arrow)}
+ .write-gate{animation:lstm-write 9s steps(1,end) infinite}.read-gate{animation:lstm-read 9s steps(1,end) infinite}.memory-glow{animation:lstm-state 9s steps(1,end) infinite}.write-dot{animation:lstm-dot-write 9s linear infinite}.read-dot{animation:lstm-dot-read 9s linear infinite}.loop-flow{animation:lstm-loop 9s linear infinite}.stage-write{animation:lstm-write 9s steps(1,end) infinite}.stage-hold{animation:lstm-hold 9s steps(1,end) infinite}.stage-read{animation:lstm-read 9s steps(1,end) infinite}
+ @keyframes lstm-write{0%,32.99%{opacity:1}33%,100%{opacity:.28}}@keyframes lstm-hold{0%,32.99%{opacity:.28}33%,65.99%{opacity:1}66%,100%{opacity:.28}}@keyframes lstm-read{0%,65.99%{opacity:.28}66%,100%{opacity:1}}
+ @keyframes lstm-state{0%,19.99%{opacity:.22}20%,99.99%{opacity:1}100%{opacity:.22}}
+ @keyframes lstm-dot-write{0%,4%{opacity:0;transform:translate(0,0)}7%{opacity:1}19%{opacity:1;transform:translate(105px,0)}30%{opacity:1;transform:translate(228px,-55px)}33%,100%{opacity:0;transform:translate(228px,-55px)}}
+ @keyframes lstm-dot-read{0%,65%{opacity:0;transform:translate(0,0)}68%{opacity:1}81%{opacity:1;transform:translate(100px,55px)}94%{opacity:1;transform:translate(220px,55px)}99%,100%{opacity:0;transform:translate(220px,55px)}}
+ @keyframes lstm-loop{0%,32.99%{opacity:.2;stroke-dashoffset:0}33%,65.99%{opacity:1;stroke-dashoffset:-60}66%,100%{opacity:.2;stroke-dashoffset:-60}}
+ svg:hover .write-gate,svg:hover .read-gate,svg:hover .memory-glow,svg:hover .write-dot,svg:hover .read-dot,svg:hover .loop-flow,svg:hover .stage-write,svg:hover .stage-hold,svg:hover .stage-read,svg:focus .write-gate,svg:focus .read-gate,svg:focus .memory-glow,svg:focus .write-dot,svg:focus .read-dot,svg:focus .loop-flow,svg:focus .stage-write,svg:focus .stage-hold,svg:focus .stage-read{animation-play-state:paused}
+ @media(prefers-reduced-motion:reduce){.write-gate,.read-gate,.memory-glow,.write-dot,.read-dot,.loop-flow,.stage-write,.stage-hold,.stage-read{animation:none}.write-gate,.read-gate,.memory-glow{opacity:1}.write-dot,.read-dot{opacity:0}.loop-flow{opacity:.55}.stage-write,.stage-hold,.stage-read{opacity:.7}}
+</style>
+<rect width="760" height="380" rx="20" fill="url(#lstm-bg)"/>
+<text x="34" y="40" class="heading">LSTM memory cell</text><text x="34" y="61" class="sub">ORIGINAL TWO-GATE DESIGN · SCHEMATIC</text>
+<path d="M474 158C558 70 203 70 288 158" fill="none" stroke="#c6d9e2" stroke-width="10" stroke-linecap="round"/>
+<path class="loop-flow" d="M474 158C558 70 203 70 288 158" fill="none" stroke="#438db0" stroke-width="4" stroke-dasharray="10 12" stroke-linecap="round" marker-end="url(#lstm-arrow)"/>
+<text x="380" y="79" class="small" text-anchor="middle">STATE RECURRENCE</text>
+<path class="wire" d="M86 279H191L314 226"/><path class="wire" d="M468 226L568 279H678"/>
+<rect x="287" y="126" width="187" height="102" rx="17" fill="#fff" stroke="#bdd1db" stroke-width="1.6"/>
+<text x="380" y="156" class="tag" text-anchor="middle">cell state</text>
+<g fill="#3b9b93" class="memory-glow"><rect x="310" y="175" width="32" height="29" rx="7"/><rect x="350" y="175" width="32" height="29" rx="7"/><rect x="390" y="175" width="32" height="29" rx="7"/><rect x="430" y="175" width="22" height="29" rx="7"/></g>
+<rect x="44" y="254" width="74" height="50" rx="12" fill="#e1edf3" stroke="#b9d1df" stroke-width="1.4"/><text x="81" y="284" class="tag" text-anchor="middle">input</text>
+<circle cx="201" cy="279" r="27" fill="#fff" stroke="#c5d6de" stroke-width="2"/><circle class="write-gate" cx="201" cy="279" r="20" fill="#3b9b93"/><text x="201" y="285" text-anchor="middle" font-size="18" font-weight="700" fill="white" style="fill:white">×</text>
+<circle cx="568" cy="279" r="27" fill="#fff" stroke="#c5d6de" stroke-width="2"/><circle class="read-gate" cx="568" cy="279" r="20" fill="#c78d45"/><text x="568" y="285" text-anchor="middle" font-size="18" font-weight="700" style="fill:white">×</text>
+<rect x="645" y="254" width="79" height="50" rx="12" fill="#e1edf3" stroke="#b9d1df" stroke-width="1.4"/><text x="684" y="284" class="tag" text-anchor="middle">output</text>
+<circle class="write-dot" cx="87" cy="279" r="8" fill="#168a79" stroke="white" stroke-width="2"/><circle class="read-dot" cx="468" cy="226" r="8" fill="#c78d45" stroke="white" stroke-width="2"/>
+<text x="201" y="325" class="tag" text-anchor="middle">write gate</text><text x="568" y="325" class="tag" text-anchor="middle">read gate</text>
+<g class="small" text-anchor="middle"><text x="292" y="358">WRITE</text><text x="380" y="358">RETAIN</text><text x="468" y="358">READ</text></g>
+<rect class="stage-write" x="259" y="366" width="66" height="4" rx="2" fill="#3b9b93"/><rect class="stage-hold" x="347" y="366" width="66" height="4" rx="2" fill="#438db0"/><rect class="stage-read" x="435" y="366" width="66" height="4" rx="2" fill="#c78d45"/>
+</svg>

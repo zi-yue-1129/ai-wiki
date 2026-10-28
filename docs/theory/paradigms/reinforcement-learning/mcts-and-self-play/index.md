@@ -39,6 +39,10 @@ a_t = \arg\max_a \left( \bar{X}_a + \sqrt{\frac{2 \ln N}{n_a}} \right)
 
 Here \(\bar{X}_a\) is the mean result of simulations through child \(a\), \(n_a\) is the number of times it has been visited, and \(N\) is the number of visits to the parent. Auer, Cesa-Bianchi & Fischer (2002) show that UCB1's regret grows only logarithmically with the number of plays. Kocsis & Szepesvári (2006) applied the same rule to Monte Carlo planning, which gave the UCT algorithm.
 
+![MCTS search iteration: selection, expansion, evaluation and backup](../../../../assets/concept-animations/mcts-search-cycle-motion.svg)
+
+*Original teaching schematic (CC BY-SA 4.0).* The four states trace a single search iteration: select branch A, expand a new child, evaluate it and back up the result along the visited path. The `+1` value and `N + 1` visit-count marker are illustrative, not measured outcomes or computed UCT scores. Use the MkDocs Play/Pause control, or view the [GitHub-readable static overview](../../../../assets/concept-animations/mcts-search-cycle-still.svg).
+
 ## Key methods
 
 The landmark systems below differ in where their evaluations come from and what the search learns from. Each system's detail is on its own page, except the two classical methods, which are described here.

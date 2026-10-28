@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - society/ethics
@@ -27,7 +27,7 @@ Decision rules can look fair on average while giving some groups more false accu
 
 ## Core idea
 
-Require that the decision's error rates, both the rate of correctly flagged positives and the rate of incorrectly flagged negatives, do not depend on group membership. The paper shows that one can adjust any learned predictor, using group-specific thresholds, so that it satisfies this criterion.
+Require that the decision's error rates, both the rate of correctly flagged positives and the rate of incorrectly flagged negatives, do not depend on group membership. Hardt et al. show that a learned predictor can be adjusted after training to meet this condition. The adjusted decision is a function of the prediction and the protected attribute only, and finding the best such decision is a linear program when the prediction is binary. When the prediction is a real-valued score, equalised odds can require randomised group-specific thresholds, which the authors optimise numerically. Equal opportunity needs only deterministic group-specific thresholds.
 
 ## Equation
 
@@ -41,23 +41,34 @@ Equal opportunity is the weaker requirement that only the true-positive rate, fo
 
 ## Results
 
-Hardt et al. (2016) show how to optimally adjust a learned predictor to remove discrimination according to their definition, and they note that the criterion depends only on the joint statistics of the predictor, the target and the protected attribute.
+Hardt et al. (2016) use a credit-default case study with a sample of 301,536 TransUnion TransRisk scores from 2003, a fixed 82/18 cost ratio and a 620 cutoff. They report the fraction of maximum profit that each rule attains at an 82% non-default threshold:
+
+| Rule | Fraction of maximum profit |
+|---|---|
+| Race blind | 99.3% |
+| Equal opportunity | 92.8% |
+| Equalised odds | 80.2% |
+| Demographic parity | 69.8% |
+
+The authors conclude that equal opportunity costs less than a quarter of what demographic parity costs. The comparison is one case study with a single score and a single cost ratio.
 
 ## Limitations
 
-- **Base rates.** When base rates differ, equalised odds cannot hold together with calibration within groups (Chouldechova, 2017; Kleinberg et al., 2017).
-- **Post-processing cost.** Group-specific thresholds lower accuracy for some groups and require the protected attribute at decision time.
-- **Labels.** The criterion assumes the true outcome is measured correctly; biased labels make equal error rates a weaker guarantee.
+- **Base rates.** When base rates differ, equalised odds cannot hold together with equal precision, that is, predictive parity (Chouldechova, 2017). Calibration within groups is a separate condition on scores, covered by Kleinberg et al. (2017).
+- **Post-processing cost.** Group-specific thresholds lower the profit or accuracy of the decision, and the adjusted rule needs the protected attribute at decision time.
+- **Not proof of fairness.** The paper states that satisfying the criterion, or any other criterion that uses only the joint statistics, "should not be considered a conclusive proof of fairness". Two causal scenarios with identical joint statistics cannot be told apart by such a test.
+- **Labels.** The criterion assumes the true outcome is measured correctly. The authors note that the target may itself be unreliable or biased, so equal error rates against a biased label are a weaker guarantee.
+- **Finite samples.** The analysis assumes the joint distribution is known. Estimation from finite samples is not covered.
 
 ## References
 
 ### Seminal papers
 
 - Hardt, M., Price, E. & Srebro, N. (2016). Equality of Opportunity in Supervised Learning. *Advances in Neural Information Processing Systems 29*. https://arxiv.org/abs/1610.02413 — Defines equalised odds and equal opportunity and gives a post-processing method to achieve them.
-- Chouldechova, A. (2017). Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments. *Big Data*, 5(2), 153–163. https://doi.org/10.1089/big.2016.0047 — Shows that equal error rates cannot hold together with predictive parity when prevalence differs across groups.
-- Kleinberg, J., Mullainathan, S. & Raghavan, M. (2017). Inherent Trade-Offs in the Fair Determination of Risk Scores. *Proceedings of ITCS 2017*. https://arxiv.org/abs/1609.05807 — Proves that the three fairness conditions cannot be satisfied together, except in special cases.
+- Chouldechova, A. (2017). Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments. *Big Data*, 5(2), 153–163. https://doi.org/10.1089/big.2016.0047 — Shows that, when prevalence differs across groups, a score with equal precision cannot also have equal false-positive and false-negative rates. The paper's example is the COMPAS recidivism score.
+- Kleinberg, J., Mullainathan, S. & Raghavan, M. (2017). Inherent Trade-Offs in the Fair Determination of Risk Scores. *Proceedings of ITCS 2017*. https://doi.org/10.4230/LIPIcs.ITCS.2017.43 — Proves that calibration within groups and the two balance conditions cannot hold together, except with perfect prediction or equal base rates.
 
 ### Surveys and textbooks
 
-- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — A survey of fairness definitions, as its title states.
-- Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — Free textbook covering error-rate criteria and their trade-offs.
+- Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K. & Galstyan, A. (2021). A Survey on Bias and Fairness in Machine Learning. *ACM Computing Surveys*, 54(6), 1–35. https://doi.org/10.1145/3457607 — A survey of sources of bias and of the fairness definitions used to measure it.
+- Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — Free online textbook covering error-rate criteria and their trade-offs.
