@@ -36,8 +36,8 @@ translation_reviewed: 2026-10-28
 |---|---|---|
 | 隨機動作雜訊 | ε-greedy 或 softmax 動作選擇 | Sutton & Barto (2018) |
 | 偽計數獎勵 | 用密度模型估計狀態造訪，並加上隨造訪次數遞減的獎勵 | Bellemare et al. (2016), [arXiv:1606.01868](https://arxiv.org/abs/1606.01868) |
-| 好奇心模組（ICM） | 獎勵是前向模型在學到的特徵空間中的誤差 | Pathak et al. (2017), [arXiv:1705.05363](https://arxiv.org/abs/1705.05363) |
-| 隨機網路蒸餾 | 獎勵是一個預測器模仿固定隨機網路時的誤差 | Burda et al. (2018), [arXiv:1810.12894](https://arxiv.org/abs/1810.12894) |
+| [好奇心模組（ICM）](icm/index.zh-TW.md) | 獎勵是前向模型在學到的特徵空間中的誤差 | Pathak et al. (2017), [arXiv:1705.05363](https://arxiv.org/abs/1705.05363) |
+| [隨機網路蒸餾](rnd/index.zh-TW.md) | 獎勵是一個預測器模仿固定隨機網路時的誤差 | Burda et al. (2018), [arXiv:1810.12894](https://arxiv.org/abs/1810.12894) |
 | 雜訊網路 | 學習網路權重上雜訊的尺度，讓探索在訓練中自我調整 | Fortunato et al. (2017), [arXiv:1706.10295](https://arxiv.org/abs/1706.10295) |
 | Bootstrapped DQN | 共用網路上有多個價值頭；每回合由抽中的一個頭引導行動 | Osband et al. (2016), [arXiv:1602.04621](https://arxiv.org/abs/1602.04621) |
 | Go-Explore | 保存已造訪狀態的歸檔，回到有潛力的狀態，再從那裡探索 | Ecoffet et al. (2019), [arXiv:1901.10995](https://arxiv.org/abs/1901.10995) |

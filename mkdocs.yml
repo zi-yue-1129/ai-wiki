@@ -399,6 +399,13 @@ plugins:
             End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
             Exploration: 探索
+            Intrinsic Curiosity Module: 內在好奇心模組
+            Random Network Distillation: 隨機網路蒸餾
+            CQL: 保守 Q 學習
+            IQL: 隱式 Q 學習
+            Decision Transformer: 決策 Transformer
+            MBPO: 基於模型的策略最佳化
+            PETS: 機率式集成與軌跡取樣
             Multilayer Perceptrons: 多層感知器
             Convolutional Networks: 卷積網路
             Convolution Variants: 卷積變體
@@ -998,9 +1005,16 @@ nav:
                   - TD3: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/td3/index.md
                   - SAC: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/sac/index.md
                   - GRPO: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index.md
-              - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
+              - Model-Based RL:
+                  - theory/paradigms/reinforcement-learning/model-based-rl/index.md
+                  - MBPO: theory/paradigms/reinforcement-learning/model-based-rl/mbpo/index.md
+                  - PETS: theory/paradigms/reinforcement-learning/model-based-rl/pets/index.md
               - MuZero: theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md
-              - Offline RL: theory/paradigms/reinforcement-learning/offline-rl/index.md
+              - Offline RL:
+                  - theory/paradigms/reinforcement-learning/offline-rl/index.md
+                  - CQL: theory/paradigms/reinforcement-learning/offline-rl/cql/index.md
+                  - IQL: theory/paradigms/reinforcement-learning/offline-rl/iql/index.md
+                  - Decision Transformer: theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.md
               - Multi-Agent RL:
                   - theory/paradigms/reinforcement-learning/multi-agent-rl/index.md
                   - Emergent Communication:
@@ -1020,7 +1034,10 @@ nav:
                   - Reward Modelling: theory/paradigms/reinforcement-learning/learning-from-human-feedback/reward-modelling/index.md
                   - Direct Preference Optimisation: theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo/index.md
               - Experience Replay: theory/paradigms/reinforcement-learning/experience-replay/index.md
-              - Exploration: theory/paradigms/reinforcement-learning/exploration/index.md
+              - Exploration:
+                  - theory/paradigms/reinforcement-learning/exploration/index.md
+                  - Intrinsic Curiosity Module: theory/paradigms/reinforcement-learning/exploration/icm/index.md
+                  - Random Network Distillation: theory/paradigms/reinforcement-learning/exploration/rnd/index.md
           - Imitation Learning:
               - theory/paradigms/imitation/index.md
               - Behavioural Cloning:
