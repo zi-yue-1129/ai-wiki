@@ -564,6 +564,7 @@ plugins:
             AI Literacy and Public Understanding: AI 素養與大眾理解
             "Feature Attribution: SHAP, LIME and Saliency": 特徵歸因：SHAP、LIME 與顯著性
             AI Companionship and Parasocial Relationships: AI 陪伴與準社會關係
+            Automation Bias and Overreliance: 自動化偏誤與過度依賴
 
 markdown_extensions:
   - abbr
@@ -1120,6 +1121,7 @@ nav:
           - Cognitive forcing functions: society/human-ai-interaction/cognitive-forcing/index.md
           - AI Literacy and Public Understanding: society/human-ai-interaction/ai-literacy.md
           - AI Companionship and Parasocial Relationships: society/human-ai-interaction/ai-companionship.md
+          - Automation Bias and Overreliance: society/human-ai-interaction/automation-bias.md
   - Reference:
       - reference/index.md
       - Glossary: reference/glossary/index.md
