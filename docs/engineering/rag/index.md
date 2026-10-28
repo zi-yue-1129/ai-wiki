@@ -12,17 +12,11 @@ related:
 
 ## Pipeline
 
-```mermaid
-flowchart LR
-  subgraph Indexing
-    D[Documents] --> P[Parse & clean] --> C[Chunk] --> E[Embed] --> V[(Vector / keyword index)]
-  end
-  subgraph Query
-    Q[Question] --> QR[Rewrite / expand] --> R[Retrieve top-k]
-    V --> R
-    R --> RR[Rerank] --> G[LLM generates answer with citations]
-  end
-```
+![Animated concept diagram of retrieval-augmented generation: documents are indexed, relevant evidence is retrieved, and an answer is generated with sources.](../../assets/concept-animations/rag-pipeline.gif)
+
+*Animated concept diagram · Original illustration, CC BY-SA 4.0.*
+
+**Reading the animation:** Documents are parsed and split into passages, then represented in a searchable index. When a question arrives, a retrieval step selects relevant evidence; optional query rewriting and reranking can improve its selection. The LLM then uses the selected passages as context and can include source citations. Retrieval offers evidence but does not guarantee that every generated claim is correct.
 
 ## Design choices
 
