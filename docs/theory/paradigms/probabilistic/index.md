@@ -39,6 +39,9 @@ Graphs encode conditional dependencies so high-dimensional joint distributions b
     - **Sampling**: MCMC (Metropolis–Hastings, Gibbs, HMC/NUTS)
     - **Variational inference**: approximate the posterior with a simpler \(q\) by maximising the evidence lower bound (ELBO) — a VAE is amortised variational inference
 
+Detailed pages: [Variational inference](variational-inference/index.md), with [mean-field](variational-inference/mean-field.md) and [stochastic variational inference](variational-inference/stochastic-variational-inference.md); and [Markov chain Monte Carlo](mcmc/index.md), with [Metropolis–Hastings](mcmc/metropolis-hastings.md), [Gibbs sampling](mcmc/gibbs-sampling.md) and [Hamiltonian Monte Carlo](mcmc/hamiltonian-monte-carlo.md).
+
+
 ## Causal inference
 
 Correlation is not causation. Pearl's ladder of causation:

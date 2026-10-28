@@ -243,6 +243,22 @@ plugins:
             History of AI: AI 發展史
             Theory: 理論
             Mathematics: 數學基礎
+            Linear Algebra: 線性代數
+            Singular Value Decomposition: 奇異值分解
+            Eigendecomposition: 特徵值分解
+            Calculus and Optimisation Foundations: 微積分與最佳化基礎
+            Newton's Method: 牛頓法
+            Lagrange Multipliers: 拉格朗日乘數法
+            Probability and Statistics: 機率與統計
+            Maximum Likelihood: 最大概似估計
+            Maximum A Posteriori: 最大後驗估計
+            Variational Inference: 變分推論
+            Mean-Field Variational Inference: 平均場變分推論
+            Stochastic Variational Inference: 隨機變分推論
+            Markov Chain Monte Carlo: 馬可夫鏈蒙地卡羅
+            Metropolis–Hastings: Metropolis–Hastings
+            Gibbs Sampling: 吉布斯抽樣
+            Hamiltonian Monte Carlo: 哈密頓蒙地卡羅
             Information Theory: 資訊理論
             Causal Inference: 因果推論
             Machine Learning: 機器學習
@@ -920,7 +936,20 @@ nav:
       - History of AI: start/history/index.md
   - Theory:
       - theory/index.md
-      - Mathematics: theory/math/index.md
+      - Mathematics:
+          - theory/math/index.md
+          - Linear Algebra:
+              - theory/math/linear-algebra/index.md
+              - Singular Value Decomposition: theory/math/linear-algebra/svd.md
+              - Eigendecomposition: theory/math/linear-algebra/eigendecomposition.md
+          - Calculus and Optimisation Foundations:
+              - theory/math/calculus/index.md
+              - Newton's Method: theory/math/calculus/newtons-method.md
+              - Lagrange Multipliers: theory/math/calculus/lagrange-multipliers.md
+          - Probability and Statistics:
+              - theory/math/probability-statistics/index.md
+              - Maximum Likelihood: theory/math/probability-statistics/maximum-likelihood.md
+              - Maximum A Posteriori: theory/math/probability-statistics/maximum-a-posteriori.md
       - Information Theory: theory/information-theory/index.md
       - Causal Inference: theory/causal-inference/index.md
       - Machine Learning: theory/machine-learning/index.md
@@ -1181,7 +1210,17 @@ nav:
               - Communication Efficiency: theory/paradigms/federated/communication-efficiency/index.md
               - Vertical & Cross-silo: theory/paradigms/federated/vertical-and-cross-silo/index.md
           - Other Paradigms: theory/paradigms/other/index.md
-          - Probabilistic & Bayesian Methods: theory/paradigms/probabilistic/index.md
+          - Probabilistic & Bayesian Methods:
+              - theory/paradigms/probabilistic/index.md
+              - Variational Inference:
+                  - theory/paradigms/probabilistic/variational-inference/index.md
+                  - Mean-Field Variational Inference: theory/paradigms/probabilistic/variational-inference/mean-field.md
+                  - Stochastic Variational Inference: theory/paradigms/probabilistic/variational-inference/stochastic-variational-inference.md
+              - Markov Chain Monte Carlo:
+                  - theory/paradigms/probabilistic/mcmc/index.md
+                  - Metropolis–Hastings: theory/paradigms/probabilistic/mcmc/metropolis-hastings.md
+                  - Gibbs Sampling: theory/paradigms/probabilistic/mcmc/gibbs-sampling.md
+                  - Hamiltonian Monte Carlo: theory/paradigms/probabilistic/mcmc/hamiltonian-monte-carlo.md
           - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
           - Evolutionary & Swarm Intelligence:
               - theory/paradigms/evolutionary/index.md
