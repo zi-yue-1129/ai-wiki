@@ -8,7 +8,7 @@ aliases:
 
 # Speculative Decoding
 
-Speculative decoding speeds up generation from a large model by letting a cheaper draft model propose several tokens, then checking them all with the large model in one parallel pass. Tokens that match the large model's distribution are kept, and the output is exactly the large model's distribution, so quality does not change.
+Speculative decoding speeds up generation from a large model by letting a cheaper draft model propose several tokens, then checking them all with the large model in one parallel pass. A probabilistic acceptance-and-correction rule preserves the target model's output distribution rather than comparing tokens for equality.
 
 ## Overview
 
@@ -25,13 +25,9 @@ Decoding is slow because each token needs a full forward pass of the large model
 
 The draft model generates $\gamma$ tokens autoregressively. The target model computes its probabilities for those positions in one pass. For each drafted token $x$ with draft probability $q(x)$ and target probability $p(x)$, the token is accepted with probability $\min\!\left(1, \frac{p(x)}{q(x)}\right)$. At the first rejection, a replacement token is sampled from $\mathrm{norm}\big(\max(0, p - q)\big)$, and the round ends.
 
-```mermaid
-flowchart LR
-  D[Draft model proposes γ tokens] --> V[Target model verifies in one pass]
-  V --> A{Accept each token?}
-  A -->|all accepted| N[Keep γ tokens plus one bonus token]
-  A -->|rejected at i| R[Keep first i-1 tokens and a corrected token]
-```
+![Four-stage speculative decoding: draft A–D, parallel target verification, stochastic acceptance of A and B, rejection of C, and residual-distribution replacement R.](../../assets/concept-animations/speculative-decoding-motion.svg)
+
+*Original animated teaching diagram, CC BY-SA 4.0.* A–D are **symbolic draft tokens**, not actual model predictions. The target evaluates the drafted positions in parallel; green checks show **one illustrative outcome of probabilistic acceptance tests**, not a comparison of token identities or measured acceptance rates. At the first rejection (C), the later draft D is discarded and the replacement R is sampled from the normalised positive part of \(p-q\). The four states are intentionally separated for teaching; they do not represent measured execution time. On the MkDocs site, use the keyboard-accessible **Play/Pause** button; reduced-motion preferences initially show the still. For GitHub, see the [static corrected-output overview](../../assets/concept-animations/speculative-decoding-still.svg). The original acceptance rule is described by [Leviathan et al. (2023)](https://arxiv.org/abs/2211.17192).
 
 ## Key methods
 

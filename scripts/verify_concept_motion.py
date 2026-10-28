@@ -19,6 +19,8 @@ TOPICS = {
     "gradient-norm-clipping": "theory/optimization/norm-clipping",
     "swin-shifted-windows": "theory/models/transformer/vision-transformer/swin/index",
     "deformable-sampling": "theory/models/cnn/convolution-variants/deformable-convolution/index",
+    "speculative-decoding": "engineering/inference-optimization/speculative-decoding",
+    "orca-continuous-batching": "engineering/inference-optimization/orca",
 }
 FORBIDDEN = {"script", "foreignObject", "iframe", "image"}
 LIMIT = 50 * 1024
@@ -85,7 +87,7 @@ def main() -> int:
                 (page.parent / link).resolve() for link in links
             }:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling"}:
+            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)

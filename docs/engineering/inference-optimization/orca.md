@@ -22,14 +22,9 @@ Generation is sequential: each request produces one token per iteration until it
 
 Before each iteration, the scheduler removes finished requests, adds waiting requests whose prompts fit in memory, and runs one iteration on the resulting batch. Linear layers run as one batched matrix multiplication. Attention runs per request, because each request has its own cached keys and values.
 
-```mermaid
-flowchart LR
-  Q[Waiting queue] --> S[Scheduler: remove finished, add new]
-  S --> B[Batch of active requests]
-  B --> I[One model iteration]
-  I --> O[One new token per request]
-  O --> S
-```
+![Continuous batching across four iterations: B finishes, C joins the active batch, and A later finishes while C continues.](../../assets/concept-animations/orca-continuous-batching-motion.svg)
+
+*Original animated teaching diagram, CC BY-SA 4.0.* Columns t1–t4 represent **model iterations**, not wall-clock measurements. A, B and C are toy requests; numbers indicate their illustrative generated-token counts. B finishes after t1, allowing waiting request C to join at t2; A finishes after t3 while C continues. The moving outline marks the current iteration and the GPU batch label updates accordingly. This simplified schedule assumes the newly admitted request's prompt is ready to process and omits prefill and memory-capacity details; it is **not a measured throughput trace**. The MkDocs player offers keyboard-accessible **Play/Pause** and honours reduced-motion preferences. GitHub readers can use the [static four-iteration timeline](../../assets/concept-animations/orca-continuous-batching-still.svg). See the [original Orca paper](https://www.usenix.org/conference/osdi22/presentation/yu).
 
 ## Key methods
 
