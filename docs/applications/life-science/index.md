@@ -18,7 +18,7 @@ aliases:
 - **AlphaFold Protein Structure Database**: over 214 million predicted structures, freely available ([Varadi et al., 2024](https://doi.org/10.1093/nar/gkad1011))
 - **AlphaFold 3 (2024)**: predicts complexes of proteins with DNA, RNA, ligands and ions
 - **2024 Nobel Prize in Chemistry**: David Baker (computational protein design) and Demis Hassabis & John Jumper (protein structure prediction)
-- Open alternatives: RoseTTAFold, OpenFold, ESMFold (from a protein language model), Boltz, Chai
+- Open alternatives: RoseTTAFold, OpenFold, [ESMFold](esm/esmfold.md) (from a protein language model), Boltz, Chai
 
 ## Protein design
 
@@ -26,7 +26,7 @@ aliases:
 |---|---|
 | [RFdiffusion](rfdiffusion/index.md) | Diffusion model generating new protein backbones for binders, enzymes, symmetric assemblies |
 | ProteinMPNN | Designs sequences that fold into a given backbone |
-| [ESM-2 and ESMFold](esm/index.md), ESM-family protein language models | Learn evolutionary constraints from millions of sequences; ESM3 generated a novel fluorescent protein |
+| [ESM family](esm/index.md): [ESM-2](esm/esm-2.md) and [ESMFold](esm/esmfold.md), protein language models | Learn evolutionary constraints from millions of sequences; ESM3 generated a novel fluorescent protein |
 | Inverse folding, binder design pipelines | Combined with high-throughput lab testing |
 
 ## Genomics and molecular biology
