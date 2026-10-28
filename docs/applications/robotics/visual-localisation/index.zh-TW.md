@@ -1,5 +1,8 @@
 ---
 translation_reviewed: 2026-10-28
+related:
+  - applications/robotics
+  - theory/paradigms/self-supervised/non-contrastive-methods
 tags:
   - robotics
   - visual localisation
@@ -27,22 +30,22 @@ aliases:
 
 | 方法 | 編碼器 | 訓練 | 改變的部分 |
 |---|---|---|---|
-| [AnyLoc](anyloc.md)（Keetha 等人，2023） | 凍結的 DINOv2 特徵，不經訓練即聚合 | 編碼器不需訓練 | 顯示通用基礎模型可以與為任務訓練的地點辨識編碼器相當或更好 |
-| [EigenPlaces](eigenplaces.md)（Berton 等人，2023） | 卷積網路 | 在每個地點的多個視角上訓練 | 把視角穩健性變成訓練目標，而不是資料中偶然具備的性質 |
+| [AnyLoc](anyloc.md)（Keetha 等人，2023） | 凍結的 DINOv2 特徵，不經訓練即聚合 | 編碼器不需訓練 | 顯示通用基礎模型在多個基準上可以勝過為任務訓練的地點辨識編碼器 |
+| [EigenPlaces](eigenplaces.md)（Berton 等人，2023） | 卷積網路 | 在每個地點的多個視角上訓練，視角依場景幾何分組 | 把視角穩健性變成訓練目標，而不是資料中偶然具備的性質 |
 
 ## 在改變下的評估
 
-Zaffar 等人（2021）建立了一個基準，把視角改變與外觀改變以受控的幅度分開。結果顯示，航向與三維偏移比橫向偏移更傷害匹配，而方向性的光照比均勻的亮度變化更傷害匹配。這個基準之所以有用，是因為混合資料集上的單一分數會隱藏是哪一種改變造成失敗。
+Zaffar 等人（2021）建立了 VPR-Bench，這是一個附有視角與光照變化已量化資料集的評估框架，並在十二個資料集上評估十種地點辨識技術。他們的主要發現是：所有技術都受視角變異的影響，而橫向改變的影響小於三維改變。方向性的光照改變對匹配信心的負面影響，也大於均勻的光照改變。這個基準之所以有用，是因為混合資料集上的單一分數會隱藏是哪一種改變造成失敗。
 
 ## 機器人中的預訓練表示
 
-同樣的問題也出現在機器人操作與導航中。Burns 等人（2023）發現，預訓練的視覺表示對光照與紋理改變的穩健性各不相同，而預訓練時所用的增強方式，比監督方式的選擇更重要。Silwal 等人（2024）報告，預訓練編碼器在真實機器人上能維持效能，而從頭訓練的編碼器則不行。這些結果支持以凍結的基礎模型特徵作為機器人地點辨識的起點，前提是其穩健性要在目標平台上測量。
+同樣的問題也出現在機器人操作與導航中。Burns 等人（2023）比較了十五個預訓練視覺模型在光照與場景紋理改變下的表現。他們發現，增強方式的選擇比監督訊號的重要性更大，而在視覺 Transformer 中，湧現的分割能力是分布外成功的最強預測因子。Silwal 等人（2024）在模擬與真實機器人上評估了五種預訓練視覺表示。模擬中的趨勢大致與真實世界相符；而隨機初始化、以相同增強方式微調的 ViT-Base 基線，在真實機器人的影像導航上表現很差，成功率為 10%，而 VC-1 Large 為 90%。這些結果支持以凍結的基礎模型特徵作為機器人地點辨識的起點，前提是其穩健性要在目標平台上測量。
 
 ## 相關主題
 
 - [機器人](../index.md) 把視覺定位放在本站其他機器人任務之中。
 - [以視覺目標導航](../navigation/index.md) 使用相同的檢索想法，在影像圖中找出下一個路標。
-- [DINOv2](../../../theory/paradigms/self-supervised/non-contrastive-methods/dinov2.md) 說明 AnyLoc 所用的凍結骨幹。
+- [DINOv2](../../../theory/paradigms/self-supervised/non-contrastive-methods/dinov2.md) 說明 AnyLoc 所用的凍結編碼器。
 
 ## 開放問題
 
@@ -51,8 +54,8 @@ Zaffar 等人（2021）建立了一個基準，把視角改變與外觀改變以
 
 ## 參考文獻
 
-- Zaffar, M., Garg, S., Milford, M., et al. (2021). *VPR-Bench: An open-source visual place recognition evaluation framework with quantifiable viewpoint and appearance change*. International Journal of Computer Vision, 129(7), 2136–2174. arXiv:2005.08135. https://arxiv.org/abs/2005.08135 — 把視角改變與外觀改變分開的基準。
-- Keetha, N., Mishra, A., Karhade, J., et al. (2023). *AnyLoc: Towards Universal Visual Place Recognition*. arXiv:2308.00688. https://arxiv.org/abs/2308.00688 — 用於地點辨識的凍結基礎模型特徵。
-- Berton, G., Trivigno, G., Caputo, B., & Masone, C. (2023). *EigenPlaces: Training Viewpoint Robust Models for Visual Place Recognition*. ICCV 2023. arXiv:2308.10832. https://arxiv.org/abs/2308.10832 — 在每個地點的多個視角上訓練地點辨識，以達到視角穩健性。
-- Burns, K., Witzel, Z., Hamid, J. I., et al. (2023). *What makes pre-trained visual representations successful for robust manipulation?* arXiv:2312.12444. https://arxiv.org/abs/2312.12444 — 視覺偏移下預訓練表示的穩健性。
-- Silwal, S., Yadav, K., Wu, T., et al. (2024). *What do we learn from a large-scale study of pre-trained visual representations in sim and real environments?* ICRA 2024. arXiv:2310.02219. https://arxiv.org/abs/2310.02219 — 預訓練編碼器在機器人上的模擬到真實轉移。
+- Zaffar, M., Garg, S., Milford, M., et al. (2021). *VPR-Bench: An open-source visual place recognition evaluation framework with quantifiable viewpoint and appearance change*. International Journal of Computer Vision (2021). https://doi.org/10.1007/s11263-021-01469-5 — 把視角與外觀改變分開並加以量化的基準。
+- Keetha, N., Mishra, A., Karhade, J., et al. (2023). *AnyLoc: Towards Universal Visual Place Recognition*. arXiv:2308.00688. https://arxiv.org/abs/2308.00688 — 用於跨領域地點辨識的凍結基礎模型特徵。
+- Berton, G., Trivigno, G., Caputo, B., & Masone, C. (2023). *EigenPlaces: Training Viewpoint Robust Models for Visual Place Recognition*. ICCV 2023. https://openaccess.thecvf.com/content/ICCV2023/papers/Berton_EigenPlaces_Training_Viewpoint_Robust_Models_for_Visual_Place_Recognition_ICCV_2023_paper.pdf — 依幾何分組的多視角資料訓練地點辨識，以達到視角穩健性。
+- Burns, K., Witzel, Z., Hamid, J. I., et al. (2023). *What makes pre-trained visual representations successful for robust manipulation?* arXiv:2312.12444. https://arxiv.org/abs/2312.12444 — 比較十五個預訓練模型在視覺偏移下的表現，發現增強方式比監督更重要。
+- Silwal, S., Yadav, K., Wu, T., et al. (2024). *What do we learn from a large-scale study of pre-trained visual representations in sim and real environments?* arXiv:2310.02219. https://arxiv.org/abs/2310.02219 — 在模擬與真實機器人上研究預訓練視覺表示，並包含從頭訓練的基線。
