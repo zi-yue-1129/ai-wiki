@@ -45,7 +45,7 @@ The compute-optimal choice depends on how hard the prompt is for the base model.
 ## Key methods
 
 - [Self-consistency](self-consistency.md): voting over samples, with no verifier.
-- Verifier-guided search, from Snell et al. (2024): PRM-scored candidates, with the budget allocated per prompt.
+- Verifier-guided search, from Snell et al. (2024): PRM-scored candidates, with the budget allocated per prompt. The verifier is covered on the [process reward models](process-reward-models.md) page.
 - Sequential revision, from Snell et al. (2024): the model refines its own previous attempts.
 
 ## Algorithm

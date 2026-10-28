@@ -482,9 +482,11 @@ plugins:
             Large Language Models: 大型語言模型
             Reasoning Models: 推理模型
             Chain of Thought: 思維鏈
+            Zero-Shot Chain of Thought: 零樣本思維鏈
             Self-Consistency: 自洽性
             DeepSeek-R1: DeepSeek-R1
             Test-Time Compute Scaling: 測試時運算擴展
+            Process Reward Models: 過程獎勵模型
             Generative Models: 生成模型
             Model Compression: 模型壓縮
             Evaluation: 評估
@@ -1403,9 +1405,11 @@ nav:
               - Reasoning Models:
                   - theory/models/reasoning/index.md
                   - Chain of Thought: theory/models/reasoning/chain-of-thought.md
+                  - Zero-Shot Chain of Thought: theory/models/reasoning/zero-shot-chain-of-thought.md
                   - Self-Consistency: theory/models/reasoning/self-consistency.md
                   - DeepSeek-R1: theory/models/reasoning/deepseek-r1.md
                   - Test-Time Compute Scaling: theory/models/reasoning/test-time-scaling.md
+                  - Process Reward Models: theory/models/reasoning/process-reward-models.md
           - Computer Vision: theory/models/computer-vision/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
