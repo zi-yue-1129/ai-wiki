@@ -13,11 +13,14 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | [教育](education/index.md) | 智慧型教學系統、LLM 家教、評量、學術誠信 |
 | [金融](finance/index.md) | 詐欺、信用、交易、風險、法遵 |
 | [法律](law/index.md) | 法律研究、合約審閱、幻覺判例、法院中的 AI |
+| [人力資源與招募](hr-recruiting/index.md) | 履歷篩選、技能比對、面試分析、偏見稽核、紐約市第 144 號地方法、歐盟 AI 法的高風險義務 |
 | [機器人](robotics/index.md) | 操作、移動、人形機器人、機器人基礎模型 |
 | [自動駕駛與運輸](autonomous-driving/index.md) | 無人計程車、駕駛輔助、物流、交通 |
+| [物流與供應鏈](logistics-supply-chain/index.md) | 需求預測、車輛路徑規劃、倉儲機器人、港口營運、短缺預測 |
 | [製造與工業](manufacturing/index.md) | 視覺檢測、預測性維護、製程最佳化、晶片設計 |
 | [農業與食品](agriculture/index.md) | 精準農業、作物監測、育種、食品系統 |
 | [氣候與能源](climate-energy/index.md) | 預報、電網、排放監測、AI 本身的足跡 |
+| [天氣預報與地球觀測](weather-and-earth-observation/index.md) | GraphCast 與 Pangu-Weather、ML 與數值預報的比較、衛星與遙感模型、災害製圖 |
 | [藝術、媒體與創作](creative/index.md) | 圖像、影片、音樂與寫作工具；著作權 |
 | [遊戲](games/index.md) | 遊戲 AI、遊戲開發、AI 原生遊戲 |
 | [資訊安全](cybersecurity/index.md) | 偵測、漏洞發現、AI 助長的攻擊、保護 AI |
@@ -39,11 +42,14 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | 教育 | [大型語言模型](../theory/models/llm/index.md)、[評估與基準](../engineering/evaluation/index.md) |
 | 金融 | [上下文賭博機](../theory/paradigms/online/contextual-bandits/index.md)、[串流與概念漂移](../theory/paradigms/online/streaming-and-concept-drift/index.md)、[機率與貝氏方法](../theory/probabilistic/index.md) |
 | 法律 | [檢索增強生成](../engineering/rag/index.md)、[可解釋性](../society/interpretability/index.md) |
+| 人力資源與招募 | [大型語言模型](../theory/models/llm/index.md)、[倫理與公平](../society/ethics/index.md)、[評估與基準](../engineering/evaluation/index.md) |
 | 機器人 | [模仿學習](../theory/paradigms/imitation/index.md)、[強化學習](../theory/paradigms/reinforcement-learning/index.md)、[世界模型與具身 AI](../theory/models/world-models/index.md)、[用於抓取的手眼協調學習](robotics/hand-eye-grasping/index.md) |
 | 自動駕駛與運輸 | [模擬到真實遷移](../theory/paradigms/transfer/sim-to-real/index.md)、[世界模型與具身 AI](../theory/models/world-models/index.md)、[從像素到方向盤的端到端學習](autonomous-driving/end-to-end-steering/index.md) |
+| 物流與供應鏈 | [強化學習](../theory/paradigms/reinforcement-learning/index.md)、[循環神經網路](../theory/models/rnn/index.md)、[自動規劃](../theory/symbolic-ai/planning/index.md) |
 | 製造與工業 | [電腦視覺](../theory/models/computer-vision/index.md)、[異常偵測](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
 | 農業與食品 | [電腦視覺](../theory/models/computer-vision/index.md)、[領域適應](../theory/paradigms/transfer/domain-adaptation/index.md) |
 | 氣候與能源 | [串流與概念漂移](../theory/paradigms/online/streaming-and-concept-drift/index.md)、[領域適應](../theory/paradigms/transfer/domain-adaptation/index.md) |
+| 天氣預報與地球觀測 | [圖神經網路](../theory/models/gnn/index.md)、[電腦視覺](../theory/models/computer-vision/index.md)、[遮罩預測](../theory/paradigms/self-supervised/masked-prediction/index.md) |
 | 藝術、媒體與創作 | [生成模型](../theory/generative/index.md)、[多模態模型](../theory/models/multimodal/index.md) |
 | 遊戲 | [強化學習](../theory/paradigms/reinforcement-learning/index.md)、[符號 AI、搜尋與規劃](../theory/symbolic-ai/index.md) |
 | 資訊安全 | [異常偵測](../theory/paradigms/unsupervised/anomaly-detection/index.md)、[安全與對齊](../society/safety-alignment/index.md) |

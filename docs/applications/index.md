@@ -13,11 +13,14 @@ Each page follows the same structure: **landscape** (main use cases), **landmark
 | [Education](education/index.md) | Intelligent tutoring, LLM tutors, assessment, academic integrity |
 | [Finance](finance/index.md) | Fraud, credit, trading, risk, compliance |
 | [Law](law/index.md) | Legal research, contract review, hallucinated citations, AI in courts |
+| [Human Resources & Recruiting](hr-recruiting/index.md) | Résumé screening, skills matching, interview analysis, bias audits, NYC Local Law 144, EU AI Act high-risk duties |
 | [Robotics](robotics/index.md) | Manipulation, locomotion, humanoids, robot foundation models |
 | [Autonomous Driving & Transport](autonomous-driving/index.md) | Robotaxis, driver assistance, logistics, traffic |
+| [Logistics & Supply Chain](logistics-supply-chain/index.md) | Demand forecasting, vehicle routing, warehouse robots, port operations, shortage prediction |
 | [Manufacturing & Industry](manufacturing/index.md) | Visual inspection, predictive maintenance, process optimisation, chip design |
 | [Agriculture & Food](agriculture/index.md) | Precision farming, crop monitoring, breeding, food systems |
 | [Climate & Energy](climate-energy/index.md) | Forecasting, grids, emissions monitoring, AI's own footprint |
+| [Weather Forecasting & Earth Observation](weather-and-earth-observation/index.md) | GraphCast and Pangu-Weather, ML versus numerical forecasts, satellite and remote-sensing models, disaster mapping |
 | [Art, Media & Creativity](creative/index.md) | Image, video, music and writing tools; copyright |
 | [Games](games/index.md) | Game-playing AI, game development, AI-native games |
 | [Cybersecurity](cybersecurity/index.md) | Detection, vulnerability discovery, AI-enabled attacks, securing AI |
@@ -39,11 +42,14 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Education | [Large Language Models](../theory/models/llm/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
 | Finance | [Contextual Bandits](../theory/paradigms/online/contextual-bandits/index.md), [Streaming & Concept Drift](../theory/paradigms/online/streaming-and-concept-drift/index.md), [Probabilistic & Bayesian Methods](../theory/probabilistic/index.md) |
 | Law | [Retrieval-Augmented Generation](../engineering/rag/index.md), [Interpretability](../society/interpretability/index.md) |
+| Human Resources & Recruiting | [Large Language Models](../theory/models/llm/index.md), [Ethics & Fairness](../society/ethics/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
 | Robotics | [Imitation Learning](../theory/paradigms/imitation/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [World Models & Embodied AI](../theory/models/world-models/index.md), [Hand-eye coordination for grasping](robotics/hand-eye-grasping/index.md) |
 | Autonomous Driving & Transport | [Sim-to-Real Transfer](../theory/paradigms/transfer/sim-to-real/index.md), [World Models & Embodied AI](../theory/models/world-models/index.md), [End-to-end steering from pixels](autonomous-driving/end-to-end-steering/index.md) |
+| Logistics & Supply Chain | [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Recurrent Networks](../theory/models/rnn/index.md), [Automated Planning](../theory/symbolic-ai/planning/index.md) |
 | Manufacturing & Industry | [Computer Vision](../theory/models/computer-vision/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
 | Agriculture & Food | [Computer Vision](../theory/models/computer-vision/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
 | Climate & Energy | [Streaming & Concept Drift](../theory/paradigms/online/streaming-and-concept-drift/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md) |
+| Weather Forecasting & Earth Observation | [Graph Neural Networks](../theory/models/gnn/index.md), [Computer Vision](../theory/models/computer-vision/index.md), [Masked prediction](../theory/paradigms/self-supervised/masked-prediction/index.md) |
 | Art, Media & Creativity | [Generative Models](../theory/generative/index.md), [Multimodal Models](../theory/models/multimodal/index.md) |
 | Games | [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Symbolic AI, Search & Planning](../theory/symbolic-ai/index.md) |
 | Cybersecurity | [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Safety & Alignment](../society/safety-alignment/index.md) |
