@@ -129,6 +129,7 @@ Each method has its own page. The overview and comparison here are brief.
 - [Learning from human feedback](learning-from-human-feedback/index.md): reward models and RLHF.
 - [Experience replay](experience-replay/index.md): reusing past transitions to learn more from each one.
 - [Exploration](exploration/index.md): how agents try new actions when rewards are sparse.
+- [Multi-agent reinforcement learning](multi-agent-rl/index.md): several learning agents that cooperate, compete or form populations, with QMIX, MADDPG and population-based training.
 
 ## Resources
 

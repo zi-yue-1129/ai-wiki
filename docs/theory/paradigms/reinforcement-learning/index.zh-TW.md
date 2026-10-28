@@ -108,6 +108,18 @@ Schultz、Dayan 與 Montague（1997）發現：中腦多巴胺神經元的放電
 - 訓練不穩定、對超參數敏感
 - 模擬與真實的差距
 
+## 子主題
+
+- [價值基礎方法](value-based-methods/index.md)：Q 學習、DQN，以及利用學到的價值進行規劃。
+- [策略梯度與 Actor-Critic](policy-gradient-and-actor-critic/index.md)：REINFORCE、A3C 與 PPO。
+- [模型式強化學習](model-based-rl/index.md)：世界模型、MuZero 與 Dreamer。
+- [蒙地卡羅樹搜尋與自我對弈](mcts-and-self-play/index.md)：由學習得到的網路引導的樹搜尋，從 AlphaGo 與 AlphaZero 到 MuZero 與 LLM 推理。
+- [離線強化學習](offline-rl/index.md)：從固定資料集學習，並採用保守的價值估計。
+- [從人類回饋學習](learning-from-human-feedback/index.md)：獎勵模型與 RLHF。
+- [經驗回放](experience-replay/index.md)：重用過去的轉移，讓每一筆經驗學到更多。
+- [探索](exploration/index.md)：稀疏獎勵下，代理人如何嘗試新動作。
+- [多代理人強化學習](multi-agent-rl/index.md)：多個互動的學習代理人，包括合作、競爭與族群訓練，涵蓋 QMIX、MADDPG 與基於族群的訓練。
+
 ## 學習資源
 
 - Sutton & Barto《Reinforcement Learning: An Introduction》第二版（免費 PDF）
