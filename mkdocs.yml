@@ -660,6 +660,8 @@ plugins:
             Hippocampal Replay: 海馬迴重播
             Targeted Memory Reactivation: 目標式記憶再活化
             "Conferences & Journals": 會議與期刊
+            Serving Mixture-of-Experts Models: 混合專家模型服務
+            Mathematics and Formal Proof: 數學與形式證明
 
 markdown_extensions:
   - abbr
@@ -1227,6 +1229,11 @@ nav:
           - RankNet: applications/search-and-information-retrieval/ranknet/index.md
           - DSSM: applications/search-and-information-retrieval/dssm/index.md
           - "Wide & Deep": applications/search-and-information-retrieval/wide-and-deep/index.md
+      - Mathematics and Formal Proof:
+          - applications/mathematics/index.md
+          - AlphaGeometry: applications/mathematics/alphageometry/index.md
+          - AlphaProof: applications/mathematics/alphaproof/index.md
+          - FunSearch: applications/mathematics/funsearch/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools:
@@ -1285,6 +1292,7 @@ nav:
           - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
           - KV Cache Compression and Eviction: engineering/inference-optimization/kv-cache-compression.md
           - Disaggregated Prefill and Decode: engineering/inference-optimization/disaggregated-serving.md
+          - Serving Mixture-of-Experts Models: engineering/inference-optimization/moe-serving.md
       - MLOps & Deployment: engineering/mlops/index.md
       - AI Coding Assistants: engineering/coding-assistants/index.md
       - AI Hardware: engineering/hardware/index.md
