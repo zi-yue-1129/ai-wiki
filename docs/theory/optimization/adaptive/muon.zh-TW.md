@@ -20,7 +20,15 @@ Muon 適用於矩陣形狀的參數，例如線性層與注意力層的權重矩
 
 ## 演算法
 
-對權重矩陣 \(W\)，其梯度為 \(G_t\)，先更新動量 \(M_t = \mu M_{t-1} + G_t\)。接著以少數幾次 Newton–Schulz 迭代近似地正交化 \(M_t\)，這種做法不需要顯式的奇異值分解，然後套用 \(W_{t+1} = W_t - \eta\,\mathrm{Orth}(M_t)\)。Liu 等人（2025）報告，要讓 Muon 能擴展，需要兩個要素：權重衰減，以及對各參數更新尺度的仔細調整。
+對權重矩陣 \(W\)，其梯度為 \(G_t\)，保留動量 \(M_t = \mu M_{t-1} + G_t\)。正交因子 \(O_t\) 以 Newton–Schulz 迭代計算，這不需要顯式的奇異值分解。Liu 等人（2025）使用五次迭代，從 \(M_t / \|M_t\|_F\) 出發，採用固定的多項式係數，並將 Nesterov 式的動量餵入迭代。
+
+有兩項改動讓 Muon 能用於大規模。更新加上與 AdamW 相同的解耦權重衰減。更新也被重新縮放，使其均方根與典型的 AdamW 更新相符，因此 Muon 可以沿用 AdamW 的學習率與權重衰減。對形狀為 \(A \times B\) 的權重矩陣、權重衰減為 \(\lambda\)，論文的最終規則為
+
+\[
+W_t = W_{t-1} - \eta_t\big(0.2\, O_t \sqrt{\max(A, B)} + \lambda W_{t-1}\big).
+\]
+
+論文預訓練時的權重衰減為 0.1。
 
 ## 主要結果
 
@@ -53,7 +61,7 @@ Muon 適用於矩陣形狀的參數，例如線性層與注意力層的權重矩
 ### 開創性論文
 
 - Liu, J., Su, J., Yao, X., 等人（2025）。*Muon is Scalable for LLM Training*。arXiv。https://arxiv.org/abs/2502.16982 — 顯示加上權重衰減與更新尺度調整後，Muon 可擴展到大型語言模型，並報告相對 AdamW 約 2 倍的運算效率。
-- Gupta, V., Koren, T. & Singer, Y.（2018）。*Shampoo: Preconditioned Stochastic Tensor Optimization*。ICML。https://arxiv.org/abs/1802.09568 — 針對同一類參數的矩陣結構方法。
+- Gupta, V., Koren, T. & Singer, Y.（2018）。*Shampoo: Preconditioned Stochastic Tensor Optimization*。ICML 2018，PMLR 80。https://proceedings.mlr.press/v80/gupta18a.html — 針對同一類參數的矩陣結構方法。查核：PMLR 條目的標題與作者相符；arXiv 1802.09568 亦相符。
 - Vyas, N., 等人（2024）。*SOAP: Improving and Stabilizing Shampoo using Adam*。arXiv。https://arxiv.org/abs/2409.11321 — 另一種矩陣結構方法，與 Muon 的正交化作比較。
 - Kingma, D. P. & Ba, J.（2015）。*Adam: A Method for Stochastic Optimization*。ICLR。https://arxiv.org/abs/1412.6980 — 效率比較的基準。
 

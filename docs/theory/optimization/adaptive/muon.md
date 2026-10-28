@@ -32,7 +32,15 @@ Compute momentum as usual, then replace the momentum matrix by its orthogonal fa
 
 ## Algorithm
 
-For a weight matrix \(W\) with gradient \(G_t\), update the momentum \(M_t = \mu M_{t-1} + G_t\). Then orthogonalise \(M_t\), approximately, with a few Newton–Schulz iterations, which avoid an explicit SVD, and apply \(W_{t+1} = W_t - \eta\,\mathrm{Orth}(M_t)\). Liu et al. (2025) report that two ingredients are needed to scale Muon: weight decay, and a careful adjustment of the per-parameter update scale.
+For a weight matrix \(W\) with gradient \(G_t\), keep the momentum \(M_t = \mu M_{t-1} + G_t\). The orthogonal factor \(O_t\) is computed by Newton–Schulz iteration, which avoids an explicit SVD. Liu et al. (2025) use five iterations, starting from \(M_t / \|M_t\|_F\) with fixed polynomial coefficients, and feed a Nesterov-style momentum into the iteration.
+
+Two changes make Muon usable at scale. The update gets decoupled weight decay, as in AdamW. The update is also rescaled so that its root-mean-square matches a typical AdamW update, which lets Muon reuse AdamW's learning rate and weight decay. For a weight matrix of shape \(A \times B\) and weight decay \(\lambda\), the paper's final rule is
+
+\[
+W_t = W_{t-1} - \eta_t\big(0.2\, O_t \sqrt{\max(A, B)} + \lambda W_{t-1}\big).
+\]
+
+The paper uses a pre-training weight decay of 0.1.
 
 ## Key results
 
@@ -65,7 +73,7 @@ The abstract reports about 2× computational efficiency compared with AdamW unde
 ### Seminal papers
 
 - Liu, J., Su, J., Yao, X., et al. (2025). *Muon is Scalable for LLM Training*. arXiv. https://arxiv.org/abs/2502.16982 — Shows that Muon, with weight decay and update-scale adjustment, scales to large language models and reports about 2× compute efficiency over AdamW.
-- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. ICML. https://arxiv.org/abs/1802.09568 — A matrix-structured method for the same class of parameters.
+- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. ICML 2018, PMLR 80. https://proceedings.mlr.press/v80/gupta18a.html — A matrix-structured method for the same class of parameters. Checked: the PMLR entry lists the same title and authors; arXiv 1802.09568 matches.
 - Vyas, N., et al. (2024). *SOAP: Improving and Stabilizing Shampoo using Adam*. arXiv. https://arxiv.org/abs/2409.11321 — Another matrix-structured method, for comparison with Muon's orthogonalisation.
 - Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — The baseline for the efficiency comparison.
 

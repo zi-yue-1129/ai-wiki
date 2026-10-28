@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - REINFORCE
@@ -16,7 +16,7 @@ A stochastic policy should be adjusted directly to increase the expected reinfor
 
 ## Core idea
 
-For a stochastic unit with weight \(w_{ij}\), Williams defines the update \(\Delta w_{ij} = \alpha_{ij}\,(r - b_{ij})\,e_{ij}\). Here \(r\) is the reinforcement, \(b_{ij}\) is a baseline, and \(e_{ij}\) is the eligibility term, which is the derivative of the log-probability of the sampled output with respect to that weight. The paper's Theorem 1 states that the average update vector lies in a direction in which expected reinforcement increases. The baseline does not change that direction, but the paper notes that the choice of baseline affects which local maxima the algorithm may reach.
+For a stochastic unit with weight \(w_{ij}\), Williams defines the update \(\Delta w_{ij} = \alpha_{ij}\,(r - b_{ij})\,e_{ij}\). Here \(r\) is the reinforcement, \(b_{ij}\) is a baseline, and \(e_{ij}\) is the eligibility term, which is the derivative of the log-probability of the sampled output with respect to that weight. The paper's Theorem 1 states that the average update vector lies in a direction in which expected reinforcement increases. The theorem holds for any reinforcement baseline, but the paper conjectures that the choice of baseline makes convergence to a local maximum more or less likely.
 
 ## Equation or algorithm
 
@@ -42,7 +42,7 @@ Williams's paper gives a derivation and a theorem rather than a benchmark. Its c
 
 - **High variance.** Using the full return as the weight gives an unbiased but noisy gradient. Baselines and critics, the basis of [actor-critic methods](../a3c/index.md), reduce the variance.
 - **On-policy and episodic.** Each episode is used for one update, which makes the method sample-hungry.
-- **Local maxima.** The paper notes that the baseline affects the local maxima the algorithm can reach, and the theorem only guarantees movement along the gradient.
+- **Local maxima.** The paper does not prove convergence. It conjectures that the baseline affects which local maximum is reached, and its theorem guarantees only that the expected update points uphill.
 
 ## Connections
 

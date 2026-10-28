@@ -24,7 +24,7 @@ Shampoo 的更新使用矩陣統計量的逆根，計算成本高，而且對重
 
 ## 主要結果
 
-摘要報告，與 AdamW 相比，SOAP 把迭代次數減少超過 40%，把實際執行時間減少超過 35%。與 Shampoo 相比，兩項指標都改善約 20%。摘要未詳述所用模型，因此本頁只引用這些數字。
+摘要報告，在大批次情況下，與 AdamW 相比，SOAP 把迭代次數減少超過 40%，把實際執行時間減少超過 35%。與 Shampoo 相比，兩項指標都改善約 20%。摘要未詳述所用模型，因此本頁只引用這些數字。
 
 ## 限制
 
@@ -53,9 +53,9 @@ Shampoo 的更新使用矩陣統計量的逆根，計算成本高，而且對重
 ### 開創性論文
 
 - Vyas, N., Morwani, D., Zhao, R., Kwun, M., Shapira, I., Brandfonbrener, D., Janson, L. & Kakade, S.（2024）。*SOAP: Improving and Stabilizing Shampoo using Adam*。arXiv。https://arxiv.org/abs/2409.11321 — 在 Shampoo 預條件子的特徵基中執行 Adam，並報告相對 AdamW 與 Shampoo 的效率改善。
-- Gupta, V., Koren, T. & Singer, Y.（2018）。*Shampoo: Preconditioned Stochastic Tensor Optimization*。ICML。https://arxiv.org/abs/1802.09568 — SOAP 所建立的矩陣預條件子。
+- Gupta, V., Koren, T. & Singer, Y.（2018）。*Shampoo: Preconditioned Stochastic Tensor Optimization*。ICML 2018，PMLR 80。https://proceedings.mlr.press/v80/gupta18a.html — SOAP 所建立的矩陣預條件子。查核：PMLR 條目的標題與作者相符。
 - Kingma, D. P. & Ba, J.（2015）。*Adam: A Method for Stochastic Optimization*。ICLR。https://arxiv.org/abs/1412.6980 — SOAP 在旋轉空間中套用的逐座標更新。
-- Loshchilov, I. & Hutter, F.（2017）。*Decoupled Weight Decay Regularization*。ICLR。https://arxiv.org/abs/1711.05101 — AdamW，即 SOAP 效率比較中的基準。
+- Loshchilov, I. & Hutter, F.（2019）。*Decoupled Weight Decay Regularization*。ICLR 2019。https://arxiv.org/abs/1711.05101 — AdamW，即 SOAP 效率比較中的基準。
 
 ### 綜述與教科書
 
