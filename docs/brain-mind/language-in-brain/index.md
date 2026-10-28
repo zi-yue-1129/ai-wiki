@@ -50,41 +50,13 @@ Two findings have shaped the modern picture. First, the language network can be 
 
 ## Key methods
 
-### Dual-stream model of speech processing (Hickok & Poeppel, 2007)
+Each method has its own page. This table is only a comparison.
 
-- **Problem:** The speech neuroanatomy field had struggled to map speech processing, partly because studies often ignored how the task being performed shapes brain activity.
-- **Core idea:** Separate speech processing into two streams. A largely bilateral ventral stream supports comprehension, and a strongly left-dominant dorsal stream links acoustic speech signals to frontal articulatory networks.
-- **Equation or algorithm:** Not a computational model. The steps are:
-  1. Take the acoustic signal and map it onto phonological representations in the superior temporal cortex.
-  2. Route these representations along the ventral stream to lexical and sentence-level meaning.
-  3. Route them along the dorsal stream to frontal articulatory networks for repetition and speech production.
-  4. Use task demands to predict which stream is active in a given experiment.
-- **Results:** The paper is a review and reports no new numbers. Its claim is that the proposed streams organise the existing lesion and imaging evidence.
-- **Limitations:** The model is a verbal framework, not a formal one, and the exact division between the streams is still debated. The paper predates much of the work on language networks and language models that follows.
-
-### Language models predict brain responses to sentences (Schrimpf et al., 2021)
-
-- **Problem:** Which computational features of a language model explain human brain responses to sentences, and do these features track the models' ability to predict the next word?
-- **Core idea:** Score many transformer language models on how well their internal representations predict human responses to the same sentences, recorded with functional MRI and electrocorticography (ECoG). Then check which model properties, such as accuracy on next-word prediction, correlate with the brain fit.
-- **Equation or algorithm:**
-  1. Present the same sentences to human participants and to a set of transformer language models.
-  2. Record brain responses with fMRI and ECoG, and extract each model's internal activations.
-  3. Fit a regression from model activations to the brain responses, and measure how much of the explainable variance it accounts for.
-  4. Relate each model's brain fit to its next-word prediction accuracy and to its scores on other language tasks.
-- **Results:** The most powerful models predicted "nearly 100% of explainable variance" in neural responses to sentences, across datasets and both imaging modalities. Brain fit and behavioural fit correlated strongly with next-word prediction accuracy, but not with other language tasks.
-- **Limitations:** Explainable variance depends on the noise ceiling of each dataset, so the figure is relative to that ceiling. The result shows a correlation between prediction and brain fit, not a mechanism. Model architecture also affected the fit, which the authors note as a separate factor.
-
-### Contextual embeddings and the next-word prediction loop (Goldstein et al., 2022)
-
-- **Problem:** Do autoregressive language models and the human brain share computational principles during real listening, or are the similarities only at the level of final predictions?
-- **Core idea:** Record electrocorticography from people listening to a 30-minute podcast, and compare the neural signals with GPT-2 on three properties: continuous next-word prediction before a word is heard, a surprise signal after it is heard, and contextual embeddings for each word.
-- **Equation or algorithm:**
-  1. Collect word-level predictions from human participants, and compare them with GPT-2's predictions for the same words.
-  2. Measure how well each electrode's signal encodes GPT-2 embeddings and GloVe embeddings.
-  3. Test whether neural activity before word onset predicts the upcoming word, and whether post-onset activity tracks surprise.
-  4. Decode word identity from neural signals and compare the decoding performance across embedding types.
-- **Results:** Human predictability and GPT-2 predictions correlated at r = 0.79, and the match improved as the context grew, from r = 0.46 at two words to about 0.79 at roughly 100 words. Contextual GPT-2 embeddings were encoded at 208 left-hemisphere electrodes and 34 right-hemisphere electrodes, with 71 of the left-hemisphere sites not found with GloVe. Decoding with GPT-2 embeddings gave a mean ROC-AUC of 0.74, against 0.68 for GloVe. Post-onset activity peaked around 400 ms after onset for unpredicted words.
-- **Limitations:** The study has nine participants, so the individual-level generality is limited. Electrocorticography is recorded only where clinical needs place electrodes, which constrains which regions can be studied. The authors argue for a biologically feasible framework, not a proof that the brain implements a transformer.
+| Method | Question it answers | Page |
+|---|---|---|
+| Dual-stream model (Hickok & Poeppel, 2007) | Which regions handle sound-to-meaning and sound-to-articulation, and which stream is active for a given task? | [Hickok & Poeppel 2007](hickok-poeppel-2007/index.md) |
+| Transformer models and brain responses to sentences (Schrimpf et al., 2021) | Which properties of a language model predict its fit to brain responses to sentences? | [Schrimpf et al. 2021](schrimpf-2021/index.md) |
+| Contextual embeddings during listening (Goldstein et al., 2022) | Do GPT-2's prediction and embedding computations line up with ECoG responses during a real podcast? | [Goldstein et al. 2022](goldstein-2022/index.md) |
 
 ## Connections
 
