@@ -604,6 +604,10 @@ plugins:
             Object Detection: 物件偵測
             RetinaNet and Focal Loss: RetinaNet 與焦點損失
             ML Compilers and Kernel Languages: 機器學習編譯器與核函式語言
+            LLM-as-judge and Pairwise Evaluation: LLM 作為評審與成對評估
+            Guardrails and Output Filtering: 護欄與輸出過濾
+            Agent Evaluation: 代理人評估
+            KV Cache Compression and Eviction: KV 快取壓縮與淘汰
 
 markdown_extensions:
   - abbr
@@ -1149,6 +1153,7 @@ nav:
           - Indirect Prompt Injection: engineering/llm-security/indirect-prompt-injection.md
           - Universal Adversarial Suffixes: engineering/llm-security/universal-adversarial-suffixes.md
           - Jailbreaks and Red-Teaming: engineering/llm-security/jailbreaks-and-red-teaming.md
+          - Guardrails and Output Filtering: engineering/llm-security/guardrails.md
       - Synthetic Data:
           - engineering/synthetic-data/index.md
           - Self-Instruct: engineering/synthetic-data/self-instruct.md
@@ -1160,6 +1165,7 @@ nav:
       - Evaluation & Benchmarks:
           - engineering/evaluation/index.md
           - Benchmark Suites: engineering/evaluation/benchmark-suites.md
+          - LLM-as-judge and Pairwise Evaluation: engineering/evaluation/llm-as-judge.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md
           - Orca: engineering/inference-optimization/orca.md
@@ -1167,6 +1173,7 @@ nav:
           - Speculative Decoding: engineering/inference-optimization/speculative-decoding.md
           - Multi-Query Attention: engineering/inference-optimization/multi-query-attention.md
           - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
+          - KV Cache Compression and Eviction: engineering/inference-optimization/kv-cache-compression.md
       - MLOps & Deployment: engineering/mlops/index.md
       - AI Coding Assistants: engineering/coding-assistants/index.md
       - AI Hardware: engineering/hardware/index.md
@@ -1192,6 +1199,11 @@ nav:
               - Multi-Agent Debate: engineering/agents/multi-agent-orchestration/debate/index.md
               - MetaGPT: engineering/agents/multi-agent-orchestration/metagpt/index.md
               - HuggingGPT: engineering/agents/multi-agent-orchestration/hugginggpt/index.md
+          - Agent Evaluation:
+              - engineering/agents/agent-evaluation/index.md
+              - SWE-bench: engineering/agents/agent-evaluation/swe-bench/index.md
+              - τ-bench: engineering/agents/agent-evaluation/tau-bench/index.md
+              - WebArena: engineering/agents/agent-evaluation/webarena/index.md
   - AI & Society:
       - society/index.md
       - Safety & Alignment:
