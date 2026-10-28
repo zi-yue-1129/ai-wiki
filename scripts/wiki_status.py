@@ -316,6 +316,30 @@ def only_links_changed(base: str, status: str, path: Path) -> bool:
     return normalise_links(old.stdout) == normalise_links((ROOT / path).read_text(encoding="utf-8"))
 
 
+LINK_TARGET = re.compile(r"\]\((?!https?:|mailto:|#)([^)\s#]+)")
+
+
+def unlinked_children() -> list[str]:
+    """Pages that their parent overview does not link to. Reported as warnings, not failures."""
+    warnings: list[str] = []
+    for page in english_pages():
+        rel = page.relative_to(DOCS)
+        if len(rel.parts) == 1 or (rel.name == "index.md" and len(rel.parts) == 2):
+            continue  # the home page and section overviews sit above this rule
+        if rel.name == "index.md":
+            parent = page.parent.parent / "index.md"
+            own = {page, page.parent}
+        else:
+            parent = page.parent / "index.md"
+            own = {page}
+        if not parent.exists():
+            continue
+        linked = {Path(os.path.normpath(parent.parent / target)) for target in LINK_TARGET.findall(read(parent)[1])}
+        if not own & linked:
+            warnings.append(f"docs/{rel.as_posix()}: not linked from docs/{parent.relative_to(DOCS).as_posix()}")
+    return warnings
+
+
 def check(pages: list[Page]) -> int:
     problems: list[str] = []
     nav = nav_paths()
@@ -365,7 +389,10 @@ def check(pages: list[Page]) -> int:
             backlog += 1
     for line in problems:
         print(f"::error::{line}" if "GITHUB_ACTIONS" in os.environ else line)
-    print(f"{len(pages)} pages checked, {len(problems)} problem(s).")
+    warnings = unlinked_children()
+    for line in warnings:
+        print(f"::warning::{line}" if "GITHUB_ACTIONS" in os.environ else f"warning: {line}")
+    print(f"{len(pages)} pages checked, {len(problems)} problem(s), {len(warnings)} warning(s).")
     if backlog:
         print(f"{backlog} existing page(s) lack a complete References section; enforced once they are edited.")
     return 1 if problems else 0

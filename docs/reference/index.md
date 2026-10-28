@@ -9,3 +9,4 @@
 | [Contributing](contributing/index.md) | How to add or improve pages |
 | [Roadmap & Coverage](roadmap/index.md) | What is planned and what is missing |
 | [Style Guide](style-guide/index.md) | Writing conventions for this wiki |
+| [Tags](tags/index.md) | Cross-cutting themes that link pages across sections |
