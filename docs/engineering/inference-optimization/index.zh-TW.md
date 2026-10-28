@@ -46,6 +46,8 @@ flowchart TD
 | 多查詢注意力 | 每個頭各自保存的 KV 快取很大 | 所有查詢共用一組 key 與 value 頭 | 品質有些損失 | [多查詢注意力](multi-query-attention.zh-TW.md) |
 | 分組查詢注意力 | 多查詢注意力可能損失太多品質 | 查詢頭分組，每組共用一組 key-value 頭 | 快取比多查詢大 | [分組查詢注意力](grouped-query-attention.zh-TW.md) |
 
+會在單一層內減少記憶體存取的核心層融合，見[融合核心](fused-kernels.zh-TW.md)。
+
 ## 相關連結
 
 - KV 快取本身的說明見 [Transformer KV 快取](../../theory/models/transformer/kv-cache/index.zh-TW.md)；本頁說明服務系統如何管理它。
