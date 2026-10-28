@@ -71,6 +71,8 @@ The first work is a theory of trust and gives no measurements of its own. The se
 
 This umbrella page introduces three sub-chapters: automation bias and overreliance, AI companionship and parasocial relationships, and AI literacy and public understanding. Each takes one part of the trust question in more depth.
 
+- [Automation bias and overreliance](automation-bias.md): when people accept automated or AI outputs without checking them, and how explanations, confidence displays and cognitive forcing change this.
+- [AI companionship and parasocial relationships](ai-companionship.md): companion chatbots, loneliness and emotional dependence, risks for minors, sycophancy and regulatory responses.
 - [AI literacy and public understanding](ai-literacy.md): what the public believes about AI, mental models of LLMs, literacy frameworks, and the role of media framing.
 
 ## Connections
