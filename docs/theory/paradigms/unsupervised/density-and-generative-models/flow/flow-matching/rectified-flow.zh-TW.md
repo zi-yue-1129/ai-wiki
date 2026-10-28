@@ -37,7 +37,7 @@ related:
 - **問題：** 以 ODE 為基礎的生成模型需要很多解算器步數，因為粗糙的積分器無法精確逼近彎曲的軌跡。
 - **核心想法：** 沿線性內插把漂移項擬合到直線方向 \(X_1 - X_0\)，再以修正程序讓雜訊與資料沿更直的路徑配對。
 - **公式或演算法：** 上述最小平方目標與修正更新。每一輪修正都在前一個流的端點配對上訓練。
-- **結果：** 摘要指出，接近直線的流即使只用單一 Euler 步，也能給出高品質的樣本。論文表 1 報告，在 CIFAR-10 上，經蒸餾的兩輪修正流以少步取樣時 FID 為 4.85。本頁查閱的文字未提供 ImageNet 的 FID。
+- **結果：** 摘要指出，接近直線的流即使只用單一 Euler 步，也能給出高品質的樣本。在 CIFAR-10（無條件生成，DDPM++ 架構）上，論文表 1(a) 列出單步結果。文字引用經蒸餾的兩輪修正流 FID 為 4.85，而表中同一列的單步數值為 12.21，4.85 則以括號附於其旁。單輪流以自適應 RK45 模擬時，約 127 次函數評估即達到 FID 2.58。論文未提供 ImageNet 的 FID，其高解析度結果僅以定性方式呈現。
 - **限制：** 修正每一輪都需要模擬前一個模型，計算成本高。輪數太多會累積誤差。第一輪使用獨立配對，因此沒有處理配對方式的選擇，這也是[小批次最優傳輸流匹配](minibatch-ot-flow-matching.md)的動機之一。
 
 ## 關聯
@@ -55,13 +55,13 @@ related:
 
 ### 開創性論文
 
-- Liu, X., Gong, C. & Liu, Q. (2022). *Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow*. arXiv. https://arxiv.org/abs/2209.03003 — 提出修正流與本頁描述的修正程序。
+- Liu, X., Gong, C. & Liu, Q. (2022). *Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow*. arXiv；ICLR 2023. https://arxiv.org/abs/2209.03003 — 提出修正流與本頁描述的修正程序。
 - Lipman, Y., Chen, R. T. Q., Ben-Hamu, H., Nickel, M. & Le, M. (2023). *Flow Matching for Generative Modeling*. ICLR. https://arxiv.org/abs/2210.02747 — 修正流所比較的條件流匹配目標。
 - Tong, A., Fatras, K., Malkin, N., Huguet, G., Zhang, Y., Rector-Brooks, J., Wolf, G. & Bengio, Y. (2024). *Improving and Generalizing Flow-Based Generative Models with Minibatch Optimal Transport*. TMLR. https://arxiv.org/abs/2302.00482 — 處理第一輪修正留下的雜訊與資料配對問題。
 
 ### 規模化與應用
 
-- Esser, P., et al. (2024). *Scaling Rectified Flow Transformers for High-Resolution Image Synthesis*. arXiv. https://arxiv.org/abs/2403.03206 — 以 Transformer 將修正流應用於高解析度文字到影像生成，並報告相較擴散基準的進步。
+- Esser, P., et al. (2024). *Scaling Rectified Flow Transformers for High-Resolution Image Synthesis*. arXiv. https://arxiv.org/abs/2403.03206 — 以 Transformer 將修正流應用於高解析度文字到影像生成，並報告此方法優於既有的擴散模型公式化方式。
 
 ### 背景
 
