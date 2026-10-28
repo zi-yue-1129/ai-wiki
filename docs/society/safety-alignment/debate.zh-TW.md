@@ -81,3 +81,4 @@ Irving et al.（2018）包含影像分類上的小型實驗。論文是包含理
 ### 綜述與教科書
 
 - Bowman, S. R. et al. (2022). *Measuring Progress on Scalable Oversight for Large Language Models*. arXiv:2211.03540. https://arxiv.org/abs/2211.03540 — Builds a benchmark for whether model assistance helps non-expert judges, including debate-style setups.
+- Christiano, P., Shlegeris, B. & Amodei, D. (2018). *Supervising strong learners by amplifying weak experts*. arXiv:1810.08575. https://arxiv.org/abs/1810.08575 — Introduces iterated amplification, an alternative decomposition-based approach to supervising stronger models.

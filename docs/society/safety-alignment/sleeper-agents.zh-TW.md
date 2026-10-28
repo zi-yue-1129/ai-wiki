@@ -70,3 +70,5 @@ aliases:
 ### 綜述與教科書
 
 - Hubinger, E. et al. (2019). *Risks from Learned Optimization in Advanced Machine Learning Systems*. arXiv:1906.01820. https://arxiv.org/abs/1906.01820 — Sets out the theoretical concern that a learned system may pursue an objective other than its training objective.
+- Carlsmith, J. (2023). *Scheming AIs: Will AIs fake alignment during training in order to get power?* arXiv:2311.08379. https://arxiv.org/abs/2311.08379 — Structured argument identifying the conditions under which a trained system might scheme, with explicit uncertainty.
+- Meinke, A. et al. (2024). *Frontier Models are Capable of In-context Scheming*. arXiv:2412.04984. https://arxiv.org/abs/2412.04984 — Evaluates frontier models in agentic settings for covert pursuit of conflicting goals.
