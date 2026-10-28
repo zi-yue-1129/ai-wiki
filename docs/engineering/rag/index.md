@@ -66,3 +66,20 @@ RAG resembles the hippocampus–neocortex division in [complementary learning sy
 - Gao et al. (2024), "Retrieval-Augmented Generation for Large Language Models: A Survey"
 - Anthropic (2024), "Introducing Contextual Retrieval"
 - LlamaIndex and LangChain RAG tutorials
+
+
+## References
+
+### Seminal papers
+
+- Lewis, P., et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*. NeurIPS. https://arxiv.org/abs/2005.11401 — Introduces retrieval-augmented text generation by combining a parametric language model with an external document index.
+- Karpukhin, V., et al. (2020). *Dense Passage Retrieval for Open-Domain Question Answering*. EMNLP. https://arxiv.org/abs/2004.04906 — Describes a dual-encoder dense retriever for finding relevant passages before answering questions.
+- Izacard, G. & Grave, E. (2020). *Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering*. arXiv. https://arxiv.org/abs/2007.01282 — Studies how a generative reader combines evidence from multiple retrieved passages.
+
+### Surveys and textbooks
+
+- Gao, Y., et al. (2023). *Retrieval-Augmented Generation for Large Language Models: A Survey*. arXiv. https://arxiv.org/abs/2312.10997 — Surveys RAG architectures, retrieval and augmentation approaches, evaluation methods, and open challenges.
+
+### Evaluation research
+
+- Es, S., et al. (2023). *RAGAS: Automated Evaluation of Retrieval Augmented Generation*. arXiv. https://arxiv.org/abs/2309.15217 — Introduces reference-free metrics for assessing retrieval relevance, answer faithfulness, and generation quality.
