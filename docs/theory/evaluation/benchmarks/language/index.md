@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -30,10 +30,10 @@ Performance on GLUE rose quickly, and SuperGLUE was introduced with harder tasks
 | [GLUE](glue.md) | Sentence and sentence-pair understanding tasks, scored together | Per-task scores, combined into one number |
 | [SuperGLUE](superglue.md) | Harder understanding tasks, with a human baseline | Per-task scores, combined into one number |
 | [MMLU](mmlu.md) | Multiple-choice knowledge across 57 subjects | Accuracy |
-| [GPQA](gpqa.md) | Graduate-level questions in biology, physics and chemistry | Accuracy |
-| [Humanity's Last Exam](hle.md) | 2,500 expert questions, multiple-choice and short-answer | Accuracy with automated grading |
+| [GPQA](gpqa.md) | Graduate-level multiple-choice questions written by experts | Accuracy |
+| [Humanity's Last Exam](hle.md) | 2,700 expert questions, multiple-choice and short-answer | Accuracy with automated grading |
 
-GPQA was built to be hard to answer with search. Its 448 multiple-choice questions were written by experts, and PhD-level experts reached 65% accuracy, while skilled non-experts with web access reached 34%. The strongest GPT-4 based baseline in the paper reached 39% (Rein et al., 2023). Humanity's Last Exam extends the idea to 2,500 questions across many subjects, with answers that are unambiguous but cannot be found quickly on the internet (Phan et al., 2025).
+GPQA was built to be hard to answer with search. Its 448 multiple-choice questions were written by experts, and PhD-level experts reached 65% accuracy, while skilled non-experts with web access reached 34%. The strongest GPT-4 based baseline in the paper reached 39% (Rein et al., 2023). Humanity's Last Exam extends the idea to 2,700 questions across many subjects, with answers that are unambiguous but cannot be found quickly on the internet (Phan et al., 2025).
 
 ## Key concepts
 
@@ -79,5 +79,5 @@ A typical evaluation prompts the model with the question and its options, or wit
 ### Articles and documentation
 
 - Rein, D. et al. (2023). *GPQA: A Graduate-Level Google-Proof Q&A Benchmark*. arXiv. https://arxiv.org/abs/2311.12022 — Introduces 448 expert-written science questions, with expert and non-expert accuracy reported.
-- Phan, L. et al. (2025). *Humanity's Last Exam*. arXiv. https://arxiv.org/abs/2501.14249 — Introduces 2,500 expert questions designed to remain hard for frontier models.
+- Phan, L. et al. (2025). *Humanity's Last Exam*. arXiv. https://arxiv.org/abs/2501.14249 — Introduces 2,700 expert questions designed to remain hard for frontier models.
 - Brown, T. B. et al. (2020). *Language Models are Few-Shot Learners*. arXiv. https://arxiv.org/abs/2005.14165 — The GPT-3 paper, whose prompting setup is the usual way these benchmarks are run on large models.
