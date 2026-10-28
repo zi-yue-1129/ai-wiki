@@ -27,6 +27,15 @@ translation_reviewed: 2026-10-28
 - [結構化狀態空間](structured-state-spaces/index.md)：如何初始化與結構化 \(A\)（HiPPO、對角形式），使長程記憶成為可能，如 S4、S5 與線性循環單元。
 - [選擇性狀態空間](selective-state-spaces/index.md)：依輸入而變的參數，讓模型決定保留什麼，如 Mamba 與 Mamba-2。
 
+## 關鍵方法
+
+| 方法 | 年份 | 核心想法 | 頁面 |
+|---|---|---|---|
+| S4 | 2021 | 結構化的狀態矩陣，其卷積核可以快速計算 | [S4](structured-state-spaces/s4/index.md) |
+| Mamba | 2023 | 依輸入而變的參數，搭配硬體感知的平行掃描 | [Mamba](selective-state-spaces/mamba/index.md) |
+
+S4 提供可以像卷積一樣快速訓練的長記憶狀態。Mamba 讓參數依輸入而變，使模型能決定保留什麼。
+
 ## 取捨
 
 - **成本。** 循環式推論每個 token 只需固定記憶體，且沒有鍵值快取；注意力則隨上下文長度增長。

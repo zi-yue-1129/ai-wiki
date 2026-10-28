@@ -45,6 +45,12 @@ Several recurrent layers can be stacked, with each layer's outputs as the next l
 
 Backpropagation through time unrolls the network over the whole sequence, which costs memory linearly in its length. Truncated backpropagation through time processes long sequences in fixed-length chunks, carrying the state across chunks but limiting gradient flow to each chunk. Teacher forcing feeds the true previous output during training, which speeds learning but can create a mismatch with generation, when the model's own outputs are fed back.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| Sequence to sequence | 2014 | An encoder LSTM and a decoder LSTM, trained end to end for translation | [Sequence to sequence](sequence-to-sequence/index.md) |
+
 ## Trade-offs
 
 - **Context versus latency.** Bidirectional modes see more context but cannot stream. Unidirectional modes stream but cannot use future context.

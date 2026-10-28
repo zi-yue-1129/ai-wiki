@@ -42,6 +42,13 @@ A bigger network can be made by adding depth, width or input resolution. Efficie
 
 Liu et al. (2022) started from a ResNet and changed its design step by step, borrowing choices from Transformers, such as larger kernels, fewer activation functions, layer normalisation and an inverted bottleneck. The resulting ConvNeXt matched Transformer baselines on image classification and detection. The result suggests that much of the gap between CNNs and Transformers came from training recipes and design details rather than from the core operation.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| Deep residual learning (ResNet) | 2015 | Shortcut connections make very deep networks trainable | [ResNet](resnet/index.md) |
+| Compound scaling (EfficientNet) | 2019 | One coefficient scales depth, width and resolution together | [EfficientNet](efficientnet/index.md) |
+
 ## Trade-offs
 
 - **Depth versus width.** Deeper networks represent more complex functions, but they cost more memory during training, and width often gives better hardware efficiency.

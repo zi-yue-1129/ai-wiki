@@ -26,6 +26,15 @@ A convolutional layer slides a learned kernel over its input, producing one outp
 - [Convolution variants](convolution-variants/index.md): standard, dilated, depthwise separable, transposed and deformable convolutions, and what each trades off.
 - [Backbones and scaling](backbones-and-scaling/index.md): residual connections, the evolution from AlexNet to ConvNeXt, and compound scaling.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| Deep residual learning (ResNet) | 2015 | Shortcut connections make very deep networks trainable | [ResNet](backbones-and-scaling/resnet/index.md) |
+| Compound scaling (EfficientNet) | 2019 | One coefficient scales depth, width and resolution together | [EfficientNet](backbones-and-scaling/efficientnet/index.md) |
+
+ResNet makes very deep backbones trainable, and EfficientNet chooses depth, width and resolution together rather than one at a time.
+
 ## Trade-offs
 
 - **Inductive bias.** Locality and weight sharing make CNNs data-efficient on images, but they can limit the modelling of long-range dependencies unless the receptive field is enlarged.
