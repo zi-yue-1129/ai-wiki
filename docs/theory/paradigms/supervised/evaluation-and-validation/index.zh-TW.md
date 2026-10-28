@@ -47,7 +47,7 @@ LLM 的評估會加入基準污染與評審模型偏誤的問題；見[大型語
 ### 開創性論文
 
 - Saito & Rehmsmeier (2015), "The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets", *PLoS ONE* 10(3). https://pmc.ncbi.nlm.nih.gov/articles/PMC4349800 — 說明為什麼在稀有正例上，精確率—召回率曲線比 ROC 曲線更有資訊量。
-- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://mlanthology.org/icml/2005/niculescumizil2005icml-predicting — 比較常見分類器的機率校準，以及校準方法的效果。
+- Niculescu-Mizil & Caruana (2005), "Predicting good probabilities with supervised learning", ICML. https://doi.org/10.1145/1102351.1102430 — 比較常見分類器的機率校準，以及校準方法的效果。
 - Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599 — 顯示現代網路過度自信，並說明溫度縮放可以修正這一點。
 - Zhang, C. et al. (2017). Understanding deep learning requires rethinking generalization. ICLR. arXiv:1611.03530. https://arxiv.org/abs/1611.03530 — 顯示網路可以記住隨機標籤，因此保留測試集不可或缺。
 
