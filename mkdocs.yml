@@ -616,6 +616,12 @@ plugins:
             Optimal Feedback Control: 最優回饋控制
             Motor Cortex Population Dynamics: 運動皮質群體動態
             Case Studies in Algorithmic Bias: 演算法偏見案例研究
+            Agent Observability and Tracing: 代理人可觀測性與追蹤
+            MAST Failure Taxonomy: MAST 失敗分類法
+            AgentOps Taxonomy: AgentOps 分類法
+            TinyML and Mobile Runtimes: TinyML 與行動端執行環境
+            Compute Governance and Export Controls: 運算治理與出口管制
+            Variational Autoencoders: 變分自編碼器
 
 markdown_extensions:
   - abbr
@@ -853,6 +859,10 @@ nav:
               - Original GAN: theory/generative/gan/original-gan/index.md
               - DCGAN: theory/generative/gan/dcgan/index.md
               - Wasserstein GAN: theory/generative/gan/wgan/index.md
+          - Variational Autoencoders:
+              - theory/generative/vae/index.md
+              - β-VAE: theory/generative/vae/beta-vae/index.md
+              - VQ-VAE: theory/generative/vae/vq-vae/index.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation:
@@ -1194,6 +1204,7 @@ nav:
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
+          - TinyML and Mobile Runtimes: engineering/on-device-edge/tinyml-and-mobile-runtimes.md
       - Agent Engineering:
           - engineering/agents/index.md
           - ReAct: engineering/agents/react/index.md
@@ -1218,6 +1229,11 @@ nav:
               - SWE-bench: engineering/agents/agent-evaluation/swe-bench/index.md
               - τ-bench: engineering/agents/agent-evaluation/tau-bench/index.md
               - WebArena: engineering/agents/agent-evaluation/webarena/index.md
+          - Agent Observability and Tracing:
+              - engineering/agents/observability/index.md
+              - MAST Failure Taxonomy: engineering/agents/observability/mast-failure-taxonomy/index.md
+              - AgentOps Taxonomy: engineering/agents/observability/agentops-taxonomy/index.md
+              - AgentSight: engineering/agents/observability/agentsight/index.md
   - AI & Society:
       - society/index.md
       - Safety & Alignment:
@@ -1256,7 +1272,9 @@ nav:
           - Green AI: society/environment/green-ai.md
           - Reporting energy and carbon: society/environment/reporting-framework.md
       - Open versus Closed Models: society/open-vs-closed/index.md
-      - Law, Policy & Governance: society/governance/index.md
+      - Law, Policy & Governance:
+          - society/governance/index.md
+          - Compute Governance and Export Controls: society/governance/compute-governance.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
       - Human-AI Interaction and Trust:
