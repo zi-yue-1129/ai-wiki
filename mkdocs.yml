@@ -663,6 +663,7 @@ plugins:
             Speech & Audio: 語音與音訊
             Multimodal Models: 多模態模型
             Embeddings: 嵌入表示
+            Recommender Systems: 推薦系統
             Graph Neural Networks: 圖神經網路
             AI Agents: AI 代理人
             World Models & Embodied AI: 世界模型與具身智慧
@@ -1502,6 +1503,7 @@ nav:
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
           - Embeddings: theory/models/embeddings/index.md
+          - Recommender Systems: theory/models/recommender/index.md
           - Graph Neural Networks:
               - theory/models/gnn/index.md
               - Message Passing:
