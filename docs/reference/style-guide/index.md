@@ -35,6 +35,13 @@ docs/
 - File and folder names are lowercase English with hyphens.
 - When you move or rename a page, add its old and new paths to `redirect_maps` in `mkdocs.yml`, so existing links keep working.
 
+## Method pages and parent overviews
+
+- Every named method (a model, algorithm or architecture that readers look up by name) gets its own page with the detail: problem, core idea, equation or algorithm, results and limitations. Put it in the topic folder, as `<method>.md` or `<method>/index.md`.
+- A parent page, whether a topic or section overview, keeps only a brief comparison: one line per method, what separates them, and a link to each method page. It does not repeat the detail.
+- When you add a sub-topic, a method or any other child page, update the comparison and overview of every ancestor page in the same pull request, not only the direct parent.
+- Each child page must be linked from its parent's `index.md`. `python scripts/wiki_status.py --check` warns when it is not.
+
 ## Theory or models?
 
 Models is a subsection of Theory, so both kinds of page live under `docs/theory/`. Decide by what the page is about:
@@ -56,7 +63,7 @@ Start new pages from the [page template](https://github.com/zi-yue-1129/ai-wiki/
 
 1. Title (`# Heading`) and a one- or two-sentence summary
 2. Overview, key concepts, how it works
-3. Key methods: for the landmark papers, the problem, core idea, equation or algorithm, results and limitations (see the template for the block pattern)
+3. Key methods: a brief comparison of the landmark methods, linking to each method's own page, which holds the problem, core idea, equation or algorithm, results and limitations (see "Method pages and parent overviews" and the template)
 4. Connections to other pages (especially the brain and mind angle)
 5. Applications, open questions
 6. Further reading and references
