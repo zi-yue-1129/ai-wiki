@@ -63,7 +63,7 @@ Other compression approaches, such as quantisation-aware training and structured
 
 - Mobile NPUs and their frameworks (Core ML, LiteRT, ExecuTorch, ONNX Runtime) map operators to the accelerator.
 - Small language models with 1–8 billion parameters, quantised, run on laptops and phones.
-- Microcontrollers run TinyML models for sensors and wearables, where the budget is kilobytes of memory.
+- Microcontrollers run TinyML models for sensors and wearables, where the budget is kilobytes of memory. The runtimes behind these choices, from TinyML to Core ML, LiteRT, ExecuTorch and on-device LLMs, are compared in [TinyML and mobile runtimes](tinyml-and-mobile-runtimes.md).
 - Efficient vision architectures, such as MobileNets, are designed for these budgets from the start, and are covered under the [CNN family](../../theory/models/cnn/index.md).
 
 ## Trade-offs

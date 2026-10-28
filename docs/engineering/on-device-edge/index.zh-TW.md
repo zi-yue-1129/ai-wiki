@@ -63,7 +63,7 @@ flowchart LR
 
 - 行動 NPU 與其框架（Core ML、LiteRT、ExecuTorch、ONNX Runtime）會把運算子對應到加速器上。
 - 量化後、參數量 10 億到 80 億的小型語言模型，可在筆電與手機上執行。
-- 微控制器執行用於感測器與穿戴裝置的 TinyML 模型，其記憶體預算只有幾 KB。
+- 微控制器執行用於感測器與穿戴裝置的 TinyML 模型，其記憶體預算只有幾 KB。這些選擇背後的執行環境，從 TinyML 到 Core ML、LiteRT、ExecuTorch 與裝置端大型語言模型，見[TinyML 與行動端執行環境](tinyml-and-mobile-runtimes.zh-TW.md)的比較。
 - 像 MobileNets 這類高效的視覺架構，從一開始就為這些預算設計，見 [CNN 家族](../../theory/models/cnn/index.zh-TW.md)。
 
 ## 取捨
