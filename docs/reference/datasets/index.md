@@ -38,11 +38,11 @@ Widely used datasets, grouped by field. Check each dataset's licence and terms b
 
 ## Multimodal and video
 
-Kinetics, Something-Something, Ego4D, HowTo100M, VQAv2, MMMU.
+[Kinetics](https://arxiv.org/abs/1705.06950), Something-Something, [Ego4D](https://arxiv.org/abs/2110.07058), [HowTo100M](https://arxiv.org/abs/1906.03327), [VQAv2](https://arxiv.org/abs/1612.00837), [MMMU](https://arxiv.org/abs/2311.16502).
 
 ## Robotics and driving
 
-Open X-Embodiment, DROID, nuScenes, Waymo Open Dataset, Argoverse, KITTI.
+[Open X-Embodiment](https://arxiv.org/abs/2310.08864), [DROID](https://arxiv.org/abs/2403.12945), [nuScenes](https://arxiv.org/abs/1903.11027), [Waymo Open Dataset](https://arxiv.org/abs/1912.04838), [Argoverse](https://arxiv.org/abs/1911.02620), [KITTI](https://doi.org/10.1109/CVPR.2012.6248074).
 
 ## Science and health
 
