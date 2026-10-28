@@ -62,8 +62,8 @@ y_i = r_i + \gamma\, Q'\big(s_{i+1}, \mu'(s_{i+1} \mid \theta^{\mu'}) \mid \thet
 
 - Lillicrap et al. (2016), "Continuous control with deep reinforcement learning", ICLR, arXiv:1509.02971 — The DDPG paper, with the deterministic actor, the target networks and the physics results above.
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The replay and target-network design that DDPG adapts to continuous actions.
-- Silver et al. (2014), "Deterministic policy gradient algorithms", *Proceedings of ICML 2014*, PMLR 32, 387–395 — The deterministic policy gradient theorem on which DDPG's actor update rests.
-- Fujimoto, van Hoof & Meger (2018), "Addressing function approximation error in actor-critic methods", arXiv:1802.09477 — TD3, which corrects DDPG's overestimation.
+- Silver et al. (2014), "Deterministic policy gradient algorithms", *Proceedings of ICML 2014*, PMLR 32, 387–395. https://proceedings.mlr.press/v32/silver14.html — The deterministic policy gradient theorem on which DDPG's actor update rests.
+- Fujimoto, van Hoof & Meger (2018), "Addressing function approximation error in actor-critic methods", arXiv:1802.09477 — TD3, a later method that corrects DDPG's overestimation.
 - Haarnoja et al. (2018), "Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor", arXiv:1801.01290 — A stochastic successor to DDPG for continuous control.
 
 ### 綜述與教科書
