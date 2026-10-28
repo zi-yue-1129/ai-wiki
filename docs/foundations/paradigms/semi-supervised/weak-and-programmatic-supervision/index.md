@@ -59,4 +59,3 @@ Estimating the accuracy of labelling functions without any gold labels is not al
 
 ## Further reading
 
-- Mintz, Bills, Snow & Jurafsky (2009), "Distant supervision for relation extraction without labeled data", ACL. No link checked.

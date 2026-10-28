@@ -238,7 +238,13 @@ nav:
               - Density Estimation & Generative Models: foundations/paradigms/unsupervised/density-and-generative-models/index.md
               - Autoencoders & Representations: foundations/paradigms/unsupervised/autoencoders-and-representations/index.md
               - Anomaly Detection: foundations/paradigms/unsupervised/anomaly-detection/index.md
-          - Semi- & Weakly Supervised Learning: foundations/paradigms/semi-supervised/index.md
+          - Semi- & Weakly Supervised Learning:
+              - foundations/paradigms/semi-supervised/index.md
+              - Consistency Regularisation: foundations/paradigms/semi-supervised/consistency-regularisation/index.md
+              - Pseudo-Labelling & Self-Training: foundations/paradigms/semi-supervised/pseudo-labelling-and-self-training/index.md
+              - Graph-Based Methods: foundations/paradigms/semi-supervised/graph-based-methods/index.md
+              - Weak & Programmatic Supervision: foundations/paradigms/semi-supervised/weak-and-programmatic-supervision/index.md
+              - Theory & Assumptions: foundations/paradigms/semi-supervised/theory-and-assumptions/index.md
           - Self-Supervised Learning:
               - foundations/paradigms/self-supervised/index.md
               - Contrastive Learning: foundations/paradigms/self-supervised/contrastive-learning/index.md
