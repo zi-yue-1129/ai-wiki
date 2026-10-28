@@ -63,9 +63,9 @@ Here x is the block input, y is the block output, and F is the residual mapping 
 
 ### Seminal papers
 
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — Residual connections that allow very deep CNNs to train.
-- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". arXiv:1409.1556 — Stacks of small 3×3 convolutions, the plain deep design behind VGG.
-- Huang, G., et al. (2017). "Densely Connected Convolutional Networks". arXiv:1608.06993 — Connects each layer to all later layers, reusing features and easing gradient flow.
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — Residual connections that allow very deep CNNs to train.
+- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". [arXiv:1409.1556](https://arxiv.org/abs/1409.1556) — Stacks of small 3×3 convolutions, the plain deep design behind VGG.
+- Huang, G., et al. (2017). "Densely Connected Convolutional Networks". [arXiv:1608.06993](https://arxiv.org/abs/1608.06993) — Connects each layer to all later layers, reusing features and easing gradient flow.
 
 ### Surveys and textbooks
 
@@ -77,4 +77,4 @@ Here x is the block input, y is the block output, and F is the residual mapping 
 
 ### Articles and documentation
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt, a modernised pure CNN that matches Transformer baselines.
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt, a modernised pure CNN that matches Transformer baselines.

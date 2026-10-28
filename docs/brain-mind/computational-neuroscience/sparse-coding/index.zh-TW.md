@@ -1,51 +1,103 @@
 ---
-translation_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-10-28
 ---
 
 # 稀疏編碼（Olshausen & Field, 1996）
 
-自然影像小塊可以用少數學得的基底函數的稀疏組合來描述。
+自然影像小塊可以用少數學得的基底函數的稀疏組合來描述；當基底由自然影像學得時，其函數類似初級視覺皮質（V1）簡單細胞的感受野。
+
+## 概覽
+
+哺乳類初級視覺皮質（V1）的神經元，會對視野中特定位置、特定方向的邊緣作出反應。Olshausen 與 Field（1996）探問，這種結構是否源自一個簡單的效率原則：以盡可能少的活躍單元來表示自然影像。他們把學習演算法應用於自然場景的小影像塊，所得到的濾波器看起來就像 V1 簡單細胞的感受野。
+
+因此，稀疏編碼是早期視覺的一種規範性解釋，它說明系統應該計算什麼，而不是每個神經元如何連線。它屬於效率編碼（efficient coding）理論的家族，此後同一目標也被用作機器學習中的特徵學習器。
+
+## 關鍵概念
+
+- **基底函數（basis function）**：一種可以與其他模式相加、以構成影像小塊的圖案，例如局部化的小波。
+- **係數（coefficient）**：每個基底函數對某一影像小塊的貢獻量。係數會隨影像不同而改變。
+- **稀疏性（sparseness）**：任一輸入只有少數係數非零的性質。它以懲罰函數 $S$ 來實施。
+- **過完備編碼（overcomplete code）**：基底函數數量多於輸入維度的編碼。1997 年的後續論文聚焦於此情形。
+- **感受野（receptive field）**：神經元會對其產生反應的刺激區域，以及該區域內的圖案。
+- **效率編碼（efficient coding）**：以使編碼緊湊、或其輸出統計上獨立的方式，來表示感覺輸入。
 
 ## 問題
 
-初級視覺皮質（V1）的神經元為何對特定位置的定向邊緣有反應？
+為什麼 V1 的神經元會對特定位置、有方向的局部邊緣作出反應？這個問題與自然影像的統計特性有關。在此之前，以無標籤的自然影像訓練無監督學習演算法的嘗試，都未能得到具備 V1 簡單細胞全部三項性質（局部化、有方向、帶通）的完整基底函數集。
 
 ## 核心想法
 
-將自然影像小塊表示為少數基底函數的加權和，且係數稀疏。基底函數由無標籤的影像學得。
+影像小塊被建模為基底函數的加權和，每個係數 $a_i$ 乘以基底函數 $\phi_i$。基底函數由無標籤的自然影像學得。對每個影像小塊，係數的選取要平衡兩個目標：準確地重建該小塊，並讓非零的係數盡可能少。第二個目標即論文所說的最大化稀疏性，正是它產生了局部化、有方向的濾波器。
 
 ## 方程式或演算法
 
-對每個影像小塊，求係數 \(a_i\) 與基底函數 \(\phi_i\)，使下式最小化：
+影像模型為
 
-\[
-E = \Big\| I - \sum_i a_i \phi_i \Big\|^2 + \lambda \sum_i S(a_i)
-\]
+$$I(x, y) = \sum_i a_i\, \phi_i(x, y)$$
 
-其中 \(S\) 是稀疏性懲罰項，偏好只有少數係數為非零。
+對每個影像小塊，係數的選取是為了最小化能量
+
+$$E = \frac{1}{2} \sum_{x,y} \Big( I(x, y) - \sum_i a_i\, \phi_i(x, y) \Big)^2 + \lambda \sum_i S\!\left(\frac{a_i}{\sigma}\right)$$
+
+其中 $\lambda$ 決定稀疏項的權重，$\sigma$ 是尺度常數，$S$ 是對大係數給予較大懲罰的函數。論文的主要模擬使用 $S(x) = \log(1 + x^2)$。此能量遵循論文的形式，同時包含重建項與稀疏項；這裡寫成要最小化的成本。第一項是重建誤差，第二項是稀疏成本。
+
+學習程序交替進行兩個步驟：
+
+1. 從自然影像中取一個 16 × 16 像素的小塊。
+2. 在基底固定時，調整係數 $a_i$ 使能量下降。論文給出係數的動力學，描述它們在此能量下隨時間的變化。
+3. 調整基底函數 $\phi_i$，使多個小塊上平均的能量下降。對許多小塊重複，直到基底穩定。
 
 ## 結果
 
-學到的基底函數具有局部性、方向性與帶通特性，類似 V1 簡單細胞的感受野。
+以 16 × 16 像素的小塊與 192 個基底函數進行學習，絕大多數學得的函數都在其陣列內局部化良好。它們具有方向性，並調諧到不同的空間尺度；摘要將整組函數描述為一個完整的局部化、有方向、帶通感受野家族。論文報告，這些函數的平均空間頻率頻寬約為 1.1 個八度（octave），平均長寬比約為 1.3。作者也指出，學得的編碼對後續處理更有效率，因為其輸出在統計上更為獨立。
 
 ## 限制
 
-這是線性生成模型，未涵蓋複雜細胞、時間動態與高層回饋。稀疏編碼是多種規範性解釋之一，並非 V1 的完整模型。
+1996 年的模型是線性的生成模型：它把影像描述為基底函數的和，並未模擬複雜細胞、時間動態或高層回饋。稀疏懲罰 $S$ 是作者選定的，並非由神經元推導而來。與 V1 的比較是定性的，依據的是濾波器的形狀，而非擬合的神經反應。稀疏編碼只是數種規範性解釋之一，並非 V1 的完整模型。
+
+1997 年的後續論文走得更遠。它主張過完備基底（函數數量多於輸入維度）使輸入與輸出的映射偏離線性，這可能解釋皮質簡單細胞中觀察到的微弱非線性。此延伸超出了 1996 年模型的範圍。
+
+## 關鍵方法
+
+以下簡要比較最常與稀疏編碼並列的方法：
+
+- **主成分分析（PCA）**：找出去相關的成分，使平方重建誤差最小，但沒有稀疏性限制。1996 年論文以 PCA 作為其學得基底的比較對象。
+- **獨立成分分析（ICA）**：學得一組輸出在統計上彼此獨立的基底，同樣能從自然影像中學得濾波器。它與稀疏編碼的差別在於目標函數，而非資料。
+- **稀疏編碼**（本頁）：帶有稀疏懲罰的線性生成模型，會產生局部化、有方向的濾波器。
+- **稀疏自編碼器（sparse autoencoder）**：在隱藏單元上加入稀疏懲罰的神經網路版本，在學得的編碼器與解碼器中應用相同的想法。
 
 ## 連結
 
 - 母頁：[計算神經科學](../index.md)
-- 同一主題的另一方法：[Hodgkin–Huxley 模型](../hodgkin-huxley/index.md)
+- 相關方法：[Hodgkin–Huxley 模型](../hodgkin-huxley/index.md)描述單一神經元的電學行為。稀疏編碼描述的則是一群神經元應該表示什麼，因此兩者位於不同的描述層級。
+- [感受野（Hubel & Wiesel）](../../neuroscience/receptive-fields-hubel-wiesel/index.md)涵蓋稀疏編碼所要解釋的感受野測量。
+- [視覺感知](../../visual-perception/index.md)提供視覺系統如何處理影像的更廣泛背景。
+- [預測編碼](../../predictive-coding/index.md)提供另一種早期視覺的規範性解釋，以預測誤差而非稀疏性為基礎。
+- 機器學習端：[非監督式學習](../../../theory/paradigms/unsupervised/index.md)涵蓋從無標籤資料中學習特徵。
+
+## 應用
+
+- **V1 模型。** 學得的基底函數可作為簡單細胞感受野的定量模型。1997 年論文概述了進一步的模型預測與可能的實驗檢驗。
+- **特徵學習。** 以少數活躍單元重建輸入的同一目標，出現在稀疏字典學習與稀疏自編碼器中，它們能從無標籤影像與其他資料中學習特徵。
+- **檢驗效率編碼的想法。** 由於模型簡單且完全說明，它是檢驗某項原則（此處為稀疏性）是否真能解釋皮質性質的標準案例。
+
+## 未解問題
+
+- 真實的簡單細胞是實現了這個目標，還是只是與其輸出相似？
+- 過完備與非線性編碼如何與皮質的記錄相符？它們能解釋多少非線性？
+- 如何在不失去模型清晰性的前提下，加入複雜細胞、時間結構與回饋？
+- 神經元如何以局部訊號實現稀疏懲罰與學習規則？
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Hodgkin, A. L. & Huxley, A. F. (1952). A quantitative description of membrane current and its application to conduction and excitation in nerve. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1952.sp004764 — 推導動作電位的四變數電導模型，是多數生物物理神經元模型的基礎。
-- Izhikevich, E. M. (2003). Simple model of spiking neurons. *IEEE Transactions on Neural Networks*. https://doi.org/10.1109/TNN.2003.820440 — 雙變數模型，以低計算成本重現多種皮質發放型態。
-- Olshausen, B. A. & Field, D. J. (1996). Emergence of simple-cell receptive field properties by learning a sparse code for natural images. *Nature*. https://doi.org/10.1038/381607a0 — 顯示自然影像的稀疏編碼會產生類似 V1 簡單細胞的定向局部濾波器。
-- Richards, B. A. et al. (2019). A deep learning framework for neuroscience. *Nature Neuroscience*. https://doi.org/10.1038/s41593-019-0520-2 — 主張以目標函數、學習規則與架構來研究大腦。
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1962.sp006837 — 貓視覺皮質感受野的原始研究，是稀疏編碼模型試圖解釋的實證背景。
+- Olshausen, B. A. & Field, D. J. (1996). Emergence of simple-cell receptive field properties by learning a sparse code for natural images. *Nature*. https://doi.org/10.1038/381607a0 — 顯示從自然影像學得的稀疏編碼，會產生類似 V1 簡單細胞感受野的局部化、有方向、帶通濾波器。
+- Olshausen, B. A. & Field, D. J. (1997). Sparse coding with an overcomplete basis set: A strategy employed by V1? *Vision Research*. https://doi.org/10.1016/S0042-6989(97)00169-7 — 將此論述延伸到過完備編碼，並討論它們如何解釋皮質簡單細胞的微弱非線性。
 
 ### 綜述與教科書
 
-- Gerstner, W., Kistler, W. M., Naud, R. & Paninski, L. (2014). *Neuronal Dynamics*. Cambridge University Press. https://neuronaldynamics.epfl.ch/ — 免費線上教科書，從單一神經元模型到網路與學習規則。
+- Richards, B. A. et al. (2019). A deep learning framework for neuroscience. *Nature Neuroscience*. https://doi.org/10.1038/s41593-019-0520-2 — 主張以目標函數、學習規則與架構來研究大腦，稀疏編碼即置於此框架之中。
+- Gerstner, W., Kistler, W. M., Naud, R. & Paninski, L. (2014). *Neuronal Dynamics*. Cambridge University Press. https://doi.org/10.1017/CBO9781107447615 — 神經元與網路模型的教科書，線上免費版見 https://neuronaldynamics.epfl.ch/。適合想了解神經建模背景的讀者。

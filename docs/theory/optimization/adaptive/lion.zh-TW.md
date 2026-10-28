@@ -64,7 +64,7 @@ m_t = \beta_2 m_{t-1} + (1 - \beta_2) g_t,
 - Chen, X., Liang, C., Huang, D., Real, E., Wang, K., Liu, Y., Pham, H., Dong, X., Luong, T., Hsieh, C.-J., Lu, Y. & Le, Q. V.（2023）。*Symbolic Discovery of Optimization Algorithms*。arXiv。https://arxiv.org/abs/2302.06675 — 提出 Lion，一種只保存單一動量緩衝的符號式最佳化器。
 - Kingma, D. P. & Ba, J.（2015）。*Adam: A Method for Stochastic Optimization*。ICLR。https://arxiv.org/abs/1412.6980 — Lion 所比較的雙緩衝方法。
 - Loshchilov, I. & Hutter, F.（2017）。*Decoupled Weight Decay Regularization*。ICLR。https://arxiv.org/abs/1711.05101 — Lion 更新中所用的解耦權重衰減。
-- Shazeer, N. & Stern, M.（2018）。*Adafactor: Adaptive Learning Rates with Sublinear Memory Cost*。arXiv。https://arxiv.org/abs/1804.04235 — 另一種省記憶體的自適應方法，用於比較。
+- Shazeer, N. & Stern, M.（2018）。*Adafactor: Adaptive Learning Rates with Sublinear Memory Cost*。ICML 2018，PMLR 80，頁 4596–4604。https://proceedings.mlr.press/v80/shazeer18a.html — 另一種省記憶體的自適應方法，用於比較。
 
 ### 綜述與教科書
 

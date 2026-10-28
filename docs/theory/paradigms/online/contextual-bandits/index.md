@@ -37,14 +37,14 @@ Contextual models can be biased when the logged data comes from an old policy, a
 
 ### Seminal papers
 
-- Li, Chu, Langford & Schapire (2010), "A contextual-bandit approach to personalized news article recommendation", WWW, arXiv:1003.0146 — LinUCB, applied to news recommendation with real user logs.
+- Li, Chu, Langford & Schapire (2010), "A contextual-bandit approach to personalized news article recommendation", WWW, [arXiv:1003.0146](https://arxiv.org/abs/1003.0146) — LinUCB, applied to news recommendation with real user logs.
 - Chu, Li, Reyzin & Schapire (2011), "Contextual bandits with linear payoff functions", AISTATS. https://proceedings.mlr.press/v15/chu11a — Gives regret bounds for linear contextual bandits, a theoretical companion to LinUCB.
 - Chapelle & Li (2011), "An empirical evaluation of Thompson sampling", NeurIPS. https://papers.nips.cc/paper/4321-an-empirical-evaluation-of-thompson-sampling — Shows that Thompson sampling performs strongly in practice, in a contextual news recommendation setting.
 
 ### Surveys and textbooks
 
-- Russo, Van Roy, Kazerouni, Osband & Wen (2018), "A tutorial on Thompson sampling", Foundations and Trends in Machine Learning, arXiv:1707.02038 — Tutorial on posterior sampling for bandits, including contextual models.
-- Slivkins (2019), "Introduction to multi-armed bandits", arXiv:1904.07272 — Survey that covers contextual bandits and their regret analysis.
+- Russo, Van Roy, Kazerouni, Osband & Wen (2018), "A tutorial on Thompson sampling", Foundations and Trends in Machine Learning, [arXiv:1707.02038](https://arxiv.org/abs/1707.02038) — Tutorial on posterior sampling for bandits, including contextual models.
+- Slivkins (2019), "Introduction to multi-armed bandits", [arXiv:1904.07272](https://arxiv.org/abs/1904.07272) — Survey that covers contextual bandits and their regret analysis.
 
 ### Lectures and videos
 

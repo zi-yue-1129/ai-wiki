@@ -41,7 +41,7 @@ AWQ 是讓大型模型[服務](../../../../../engineering/mlops/index.zh-TW.md)�
 
 - Lin, J., 等人 (2023). *AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration*. MLSys 2024. https://arxiv.org/abs/2306.00978 — 依激活統計量縮放顯著通道，並觀察到保護約 1% 權重即可大幅降低誤差。
 - Frantar, E., 等人 (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. arXiv:2210.17323. https://arxiv.org/abs/2210.17323 — 以捨入補償為主的替代方法。
-- Xiao, G., 等人 (2022). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — 面向 8 位元推論的激活端縮放。
+- Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., Han, S. (2023). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. ICML 2023. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — 面向 8 位元推論的激活端縮放。
 
 ### 綜述與教科書
 

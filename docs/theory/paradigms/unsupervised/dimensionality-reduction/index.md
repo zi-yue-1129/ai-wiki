@@ -15,14 +15,14 @@ Real data often lies near a low-dimensional subspace or manifold. Dimensionality
 
 ## Linear methods
 
-- **Principal component analysis (PCA)** finds orthogonal directions of maximal variance. Equivalently, it gives the best rank-$k$ linear reconstruction in squared error, computed from the eigenvectors of the covariance matrix or the singular value decomposition.
+- **[Principal component analysis (PCA)](pca.md)** finds orthogonal directions of maximal variance. Equivalently, it gives the best rank-$k$ linear reconstruction in squared error, computed from the eigenvectors of the covariance matrix or the singular value decomposition.
 - **Independent component analysis (ICA)** finds sources that are statistically independent, not merely uncorrelated. It solves the "cocktail party" problem, and it is used to remove eye-blink and muscle artefacts from EEG recordings.
 - **Non-negative matrix factorisation (NMF)** writes a non-negative data matrix as the product of two non-negative factors. The parts are often easier to interpret, which is why it is used for topics and images.
 
 ## Nonlinear methods
 
-- **t-SNE** converts distances into neighbour probabilities and matches the low-dimensional map to them, preserving local neighbourhoods well.
-- **UMAP** builds a weighted neighbour graph and optimises a low-dimensional layout, usually faster than t-SNE and better at keeping some global structure.
+- **[t-SNE](t-sne.md)** converts distances into neighbour probabilities and matches the low-dimensional map to them, preserving local neighbourhoods well.
+- **[UMAP](umap.md)** builds a weighted neighbour graph and optimises a low-dimensional layout, usually faster than t-SNE and better at keeping some global structure.
 - **Autoencoders** learn nonlinear encoders and decoders through a bottleneck; see [autoencoders and representations](../autoencoders-and-representations/index.md).
 
 !!! warning "Reading maps"
@@ -51,7 +51,7 @@ Preserving local structure is easy, but reliably preserving global geometry is n
 - Hyvärinen & Oja (2000), "Independent component analysis: algorithms and applications", *Neural Networks* 13(4–5). https://itb.biologie.hu-berlin.de/%7Ekempter/Teaching/2004_SS/hyvarinen_oja_2000.pdf — The standard tutorial on ICA, its assumptions and its fast algorithms.
 - Lee & Seung (1999), "Learning the parts of objects by non-negative matrix factorization", *Nature* 401. https://doi.org/10.1038/44565 — Shows that non-negativity yields parts-based representations of images.
 - van der Maaten & Hinton (2008), "Visualizing data using t-SNE", *JMLR* 9. https://jmlr.org/papers/v9/vandermaaten08a.html — Introduces t-SNE, the most widely used method for two-dimensional visualisation.
-- McInnes, Healy & Melville (2018), "UMAP: Uniform Manifold Approximation and Projection for dimension reduction", arXiv:1802.03426 — Introduces UMAP, a faster neighbour-graph method that also keeps more global structure.
+- McInnes, Healy & Melville (2018), "UMAP: Uniform Manifold Approximation and Projection for dimension reduction", [arXiv:1802.03426](https://arxiv.org/abs/1802.03426) — Introduces UMAP, a faster neighbour-graph method that also keeps more global structure.
 
 ### Surveys and textbooks
 

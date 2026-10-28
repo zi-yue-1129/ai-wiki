@@ -67,11 +67,11 @@ These variants are the main tools behind long-context [large language models](..
 
 ### Seminal papers
 
-- Vaswani, A., et al. (2017). *Attention Is All You Need*. arXiv:1706.03762 — Introduces scaled dot-product and multi-head attention, the baseline for all variants here.
-- Shazeer, N. (2019). "Fast Transformer Decoding: One Write-Head is All You Need". arXiv:1911.02150 — Multi-query attention, with one shared key–value head for all queries.
-- Ainslie, J., et al. (2023). "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints". arXiv:2305.13245 — Grouped-query attention, converted from multi-head checkpoints.
-- Child, R., et al. (2019). "Generating Long Sequences with Sparse Transformers". arXiv:1904.10509 — Factorised sparse attention patterns with near-\(O(n\sqrt{n})\) cost.
-- Beltagy, I., Peters, M. E. & Cohan, A. (2020). "Longformer: The Long-Document Transformer". arXiv:2004.05150 — Sliding-window attention with global tokens for long documents.
+- Vaswani, A., et al. (2017). *Attention Is All You Need*. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — Introduces scaled dot-product and multi-head attention, the baseline for all variants here.
+- Shazeer, N. (2019). "Fast Transformer Decoding: One Write-Head is All You Need". [arXiv:1911.02150](https://arxiv.org/abs/1911.02150) — Multi-query attention, with one shared key–value head for all queries.
+- Ainslie, J., et al. (2023). "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints". [arXiv:2305.13245](https://arxiv.org/abs/2305.13245) — Grouped-query attention, converted from multi-head checkpoints.
+- Child, R., et al. (2019). "Generating Long Sequences with Sparse Transformers". [arXiv:1904.10509](https://arxiv.org/abs/1904.10509) — Factorised sparse attention patterns with near-\(O(n\sqrt{n})\) cost.
+- Beltagy, I., Peters, M. E. & Cohan, A. (2020). "Longformer: The Long-Document Transformer". [arXiv:2004.05150](https://arxiv.org/abs/2004.05150) — Sliding-window attention with global tokens for long documents.
 
 ### Surveys and textbooks
 
@@ -83,8 +83,8 @@ These variants are the main tools behind long-context [large language models](..
 
 ### Articles and documentation
 
-- Katharopoulos, A., et al. (2020). "Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention". ICML 2020. arXiv:2006.16236 — Linear attention with a recurrent form for fast autoregressive decoding.
-- Choromanski, K., et al. (2020). "Rethinking Attention with Performers". arXiv:2009.14794 — Random-feature approximation of softmax attention (FAVOR+).
-- Dao, T., et al. (2022). "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness". arXiv:2205.14135 — Tiled, IO-aware exact attention that cuts memory traffic.
-- Dao, T. (2023). "FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning". arXiv:2307.08691 — Improved parallelism and work partitioning of FlashAttention.
-- Jiang, A. Q., et al. (2023). "Mistral 7B". arXiv:2310.06825 — Uses sliding-window attention in a widely used open model.
+- Katharopoulos, A., et al. (2020). "Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention". ICML 2020. [arXiv:2006.16236](https://arxiv.org/abs/2006.16236) — Linear attention with a recurrent form for fast autoregressive decoding.
+- Choromanski, K., et al. (2020). "Rethinking Attention with Performers". [arXiv:2009.14794](https://arxiv.org/abs/2009.14794) — Random-feature approximation of softmax attention (FAVOR+).
+- Dao, T., et al. (2022). "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness". [arXiv:2205.14135](https://arxiv.org/abs/2205.14135) — Tiled, IO-aware exact attention that cuts memory traffic.
+- Dao, T. (2023). "FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning". [arXiv:2307.08691](https://arxiv.org/abs/2307.08691) — Improved parallelism and work partitioning of FlashAttention.
+- Jiang, A. Q., et al. (2023). "Mistral 7B". [arXiv:2310.06825](https://arxiv.org/abs/2310.06825) — Uses sliding-window attention in a widely used open model.

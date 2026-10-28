@@ -71,9 +71,9 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. arXiv:1409.3215 — 以端到端的編碼器–解碼器循環網路進行機器翻譯。
-- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — 用於翻譯的 RNN 編碼器–解碼器與門控單元。
-- Bahdanau, D., Cho, K. & Bengio, Y. (2014). "Neural Machine Translation by Jointly Learning to Align and Translate". arXiv:1409.0473 — 加入注意力，使解碼器能回看整個輸入。
+- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. [arXiv:1409.3215](https://arxiv.org/abs/1409.3215) — 以端到端的編碼器–解碼器循環網路進行機器翻譯。
+- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". [arXiv:1406.1078](https://arxiv.org/abs/1406.1078) — 用於翻譯的 RNN 編碼器–解碼器與門控單元。
+- Bahdanau, D., Cho, K. & Bengio, Y. (2014). "Neural Machine Translation by Jointly Learning to Align and Translate". [arXiv:1409.0473](https://arxiv.org/abs/1409.0473) — 加入注意力，使解碼器能回看整個輸入。
 
 ### 綜述與教科書
 
@@ -85,4 +85,4 @@ translation_reviewed: 2026-10-28
 
 ### 文章與文件
 
-- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". arXiv:1211.5063 — 分析使長序列訓練困難的梯度問題。
+- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". [arXiv:1211.5063](https://arxiv.org/abs/1211.5063) — 分析使長序列訓練困難的梯度問題。

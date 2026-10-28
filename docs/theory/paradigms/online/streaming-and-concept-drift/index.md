@@ -45,7 +45,7 @@ Distinguishing real drift from noise is difficult, and drift detectors can raise
 ### Surveys and textbooks
 
 - Gama, Žliobaitė, Bifet, Pechenizkiy & Bouchachia (2014), "A survey on concept drift adaptation", ACM Computing Surveys. https://doi.org/10.1145/2523813 — Survey of drift types, detection methods and adaptation strategies.
-- Hoi, Sahoo, Lu & Zhao (2018), "Online learning: a comprehensive survey", arXiv:1802.02871 — Survey that includes streaming and drift settings within online learning.
+- Hoi, Sahoo, Lu & Zhao (2018), "Online learning: a comprehensive survey", [arXiv:1802.02871](https://arxiv.org/abs/1802.02871) — Survey that includes streaming and drift settings within online learning.
 - Shalev-Shwartz (2012), "Online learning and online convex optimization", Foundations and Trends in Machine Learning. https://www.cs.huji.ac.il/~shais/papers/OLsurvey.pdf — Survey of the online learning framework that underlies stream learners.
 
 ### Lectures and videos

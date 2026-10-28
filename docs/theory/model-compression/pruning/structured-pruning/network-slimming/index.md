@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -20,19 +20,25 @@ Choosing which channels to remove needs a score that is cheap to compute and ref
 
 ## Core idea
 
-Add an \(\ell_1\) penalty on the batch-normalisation scaling factors during training. Many factors become small, which marks their channels as unimportant. Remove those channels and fine-tune the rest.
+Add an \(\ell_1\) penalty on the batch-normalisation scaling factors during training. Many factors become small, which marks their channels as unimportant. Remove those channels globally, using one threshold across the whole network, and fine-tune the rest.
 
 ## Equation or algorithm
 
-The training loss includes a penalty \(\lambda \sum_\gamma |\gamma|\) on the scale parameters \(\gamma\) of the batch-normalisation layers. After training, channels with small \(\gamma\) are removed, and the remaining network is fine-tuned to recover accuracy.
+The training objective adds a sparsity penalty on the scale parameters \(\gamma\) of the batch-normalisation layers:
+
+\[
+\mathcal{L} = \sum_{(x,y)} \ell\big(f(x, W), y\big) + \lambda \sum_{\gamma \in \Gamma} |\gamma|
+\]
+
+Here \(\lambda\) balances the two terms. The paper chooses it by grid search over \(10^{-3}\), \(10^{-4}\) and \(10^{-5}\) on a validation set. It uses \(10^{-4}\) for VGGNet and \(10^{-5}\) for ResNet and DenseNet. The \(\ell_1\) term is not smooth, so the paper trains with subgradient descent. After training, channels are pruned by a global threshold, a percentile of all the scaling factors. In the multi-pass VGGNet experiments on CIFAR, at most half of the channels in any layer may be pruned, so that no layer is removed entirely. The remaining network is then fine-tuned.
 
 ## Results
 
-For VGGNet, the abstract reports a 20 times reduction in model size and a 5 times reduction in computing operations with the multi-pass version of the method.
+The abstract reports that a multi-pass version of network slimming gives a 20 times reduction in VGGNet's model size and a 5 times reduction in its computing operations.
 
 ## Limitations
 
-The penalty weight is set by hand. The method depends on batch normalisation being present in the architecture, which limits it for models that do not use it.
+The penalty weight \(\lambda\) has to be chosen by search, and the global threshold can remove a whole layer unless a per-layer cap is added. The method depends on batch normalisation being present in the architecture, which limits it for models that do not use it.
 
 ## Open issues and related variants
 
@@ -47,13 +53,13 @@ Network slimming removes whole channels, so the result runs on the dense hardwar
 
 ### Seminal papers
 
-- Liu, Z., et al. (2017). *Learning Efficient Convolutional Networks through Network Slimming*. arXiv:1708.06519. https://arxiv.org/abs/1708.06519 — Uses an \(\ell_1\) penalty on batch-normalisation scales to choose channels, with a 20 times smaller VGGNet.
+- Liu, Z., Li, J., Shen, Z., Huang, G., Yan, S., Zhang, C. (2017). *Learning Efficient Convolutional Networks through Network Slimming*. arXiv:1708.06519. https://arxiv.org/abs/1708.06519 — Uses an \(\ell_1\) penalty on batch-normalisation scales to choose channels; a 20 times smaller VGGNet with the multi-pass version.
 - Li, H., Kadav, A., Durdanovic, I., Samet, H., Graf, H. P. (2016). *Pruning Filters for Efficient ConvNets*. arXiv:1608.08710. https://arxiv.org/abs/1608.08710 — The filter-norm alternative to the batch-normalisation score.
 - Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — The unstructured baseline that channel removal is compared against.
 
 ### Surveys and textbooks
 
-- Hoefler, T., et al. (2021). *Sparsity in Deep Learning: Pruning and Growth for Efficient Inference and Training in Neural Networks*. arXiv:2102.00554. https://arxiv.org/abs/2102.00554 — Compares channel-level and weight-level sparsity across training and inference.
+- Hoefler, T., Alistarh, D., Ben-Nun, T., Dryden, N., Peste, A. (2021). *Sparsity in Deep Learning: Pruning and Growth for Efficient Inference and Training in Neural Networks*. arXiv:2102.00554. https://arxiv.org/abs/2102.00554 — Compares channel-level and weight-level sparsity across training and inference.
 
 ### Lectures and videos
 

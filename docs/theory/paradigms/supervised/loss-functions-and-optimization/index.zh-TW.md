@@ -32,7 +32,7 @@ tags:
 訓練會最小化經驗風險 $\hat R(\theta)=\frac1n\sum_i L(f_\theta(x_i),y_i)$。
 
 - **梯度下降**：$\theta\leftarrow\theta-\eta\nabla\hat R(\theta)$。**隨機／小批次**版本在子集上使用帶有雜訊的梯度，成本較低，也有助於逃離尖銳的極小值。
-- **動量、RMSProp、Adam**（Kingma & Ba, 2015, arXiv:1412.6980）會自適應地調整步伐方向與大小。
+- **動量、RMSProp、Adam**（Kingma & Ba, 2015, [arXiv:1412.6980](https://arxiv.org/abs/1412.6980)）會自適應地調整步伐方向與大小。
 - **學習率排程**（預熱、餘弦衰減）與最佳化器的選擇同樣重要。
 - 凸問題（線性模型、SVM）只有一個全域最優解；深度網路則不然，但 SGD 的效果出乎意料地好。
 
@@ -52,13 +52,13 @@ tags:
 ### 開創性論文
 
 - Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), 138–156. https://doi.org/10.1198/016214505000000907 — 說明哪些凸代理損失仍能得到良好的分類器。
-- Lin et al. (2017), "Focal loss for dense object detection", ICCV, arXiv:1708.02002 — 在交叉熵中降低容易樣本的權重，有助於處理類別不平衡。
-- Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980 — Adam 最佳化器，具有每個參數自適應的步長。
-- Loshchilov & Hutter (2019), "Decoupled weight decay regularization", ICLR, arXiv:1711.05101 — 提出 AdamW，把權重衰減與梯度更新分開套用。
+- Lin et al. (2017), "Focal loss for dense object detection", ICCV, [arXiv:1708.02002](https://arxiv.org/abs/1708.02002) — 在交叉熵中降低容易樣本的權重，有助於處理類別不平衡。
+- Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, [arXiv:1412.6980](https://arxiv.org/abs/1412.6980) — Adam 最佳化器，具有每個參數自適應的步長。
+- Loshchilov & Hutter (2019), "Decoupled weight decay regularization", ICLR, [arXiv:1711.05101](https://arxiv.org/abs/1711.05101) — 提出 AdamW，把權重衰減與梯度更新分開套用。
 
 ### 綜述與教科書
 
-- Ruder (2016), "An overview of gradient descent optimization algorithms", arXiv:1609.04747 — 梯度下降變體的綜述，清楚解說動量與自適應方法。
+- Ruder (2016), "An overview of gradient descent optimization algorithms", [arXiv:1609.04747](https://arxiv.org/abs/1609.04747) — 梯度下降變體的綜述，清楚解說動量與自適應方法。
 
 ### 講座與影片
 

@@ -44,6 +44,18 @@ One landmark method anchors the learning discussion below. Its full write-up is 
 - [OpenVLA (Kim et al. 2024)](openvla/index.md): an open 7-billion-parameter vision-language-action model.
 - [SayCan (Ahn et al. 2022)](saycan/index.md): a language model proposes steps, and learned value functions check which steps the robot can carry out.
 
+### Navigation with visual goals (Savinov et al., 2018; Shah et al., 2021–2023)
+
+- **Overview:** A robot reaches a goal shown as an image, using a graph of stored frames and a learned policy.
+- **Comparison:** Classical teach-and-repeat tracks a taught route with odometry. Learned methods such as ViNG, GNM, ViNT and NoMaD regress or sample continuous motion, and they differ in output and in how much data they use.
+- **Full write-up:** [Navigation with visual goals](navigation/index.md)
+
+### Visual localisation (Zaffar et al., 2021; Keetha et al., 2023; Berton et al., 2023)
+
+- **Overview:** A robot recovers where it is by retrieving matching images from a database. The methods differ in whether the encoder is a frozen foundation model or one trained for viewpoint robustness.
+- **Comparison:** AnyLoc uses frozen DINOv2 features with no encoder training. EigenPlaces trains on several views of each place. Zaffar et al. give a benchmark that separates viewpoint from appearance change.
+- **Full write-up:** [Visual localisation](visual-localisation/index.md)
+
 ## Learning-based robotics
 
 | Approach | Examples |

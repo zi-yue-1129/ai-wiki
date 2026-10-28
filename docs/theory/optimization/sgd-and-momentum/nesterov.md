@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/math
@@ -19,7 +19,7 @@ Nesterov momentum is a variant of heavy-ball momentum that computes the gradient
 
 ## Overview
 
-Heavy-ball momentum can overshoot, because the velocity is applied before the gradient at the new point is known. Nesterov proposed evaluating the gradient at the point the velocity alone would reach. The resulting method has a provably better worst-case rate than plain gradient descent on smooth convex problems, which heavy-ball does not achieve in general.
+Heavy-ball momentum can overshoot, because the velocity is applied before the gradient at the new point is known. Nesterov proposed evaluating the gradient at the point the velocity alone would reach. The resulting method has a provably better worst-case rate than plain gradient descent on smooth convex problems, which heavy-ball is not known to achieve in general.
 
 ## Key concepts
 
@@ -42,12 +42,12 @@ Compared with heavy-ball, only the place where the gradient is evaluated changes
 
 ## Key methods
 
-### Accelerated gradient (Nesterov, 1983)
+### Accelerated gradient (Nesterov, 1983; see Nesterov, 2004)
 
 - **Problem:** gradient descent on smooth convex problems has a worst-case rate of \(O(1/T)\), and momentum methods such as heavy-ball do not improve that rate in general.
 - **Core idea:** evaluate the gradient at a look-ahead point that the momentum alone would reach, so the step is corrected before it is taken.
 - **Equation or algorithm:** the update above, with \(\eta\) the step size and \(\beta\) the momentum coefficient, which must be chosen from the smoothness and convexity constants for the theory to hold.
-- **Results:** as described in Bubeck (2014), the method has a faster worst-case convergence rate than plain gradient descent for smooth convex functions. The original article is not freely available online, so this description follows the monograph, and the numerical constants are not repeated here.
+- **Results:** Nesterov (2004) and Bubeck (2014) show that the method has a faster worst-case convergence rate than plain gradient descent for smooth convex functions. This page follows their presentation, and the numerical constants are not repeated here.
 - **Limitations:** the guarantees are for smooth convex problems. Deep networks are neither, so the benefit in practice is empirical and depends on tuning.
 
 ## Connections
@@ -67,14 +67,11 @@ Compared with heavy-ball, only the place where the gradient is evaluated changes
 
 - Sutskever, I., Martens, J., Dahl, G. & Hinton, G. (2013). On the importance of initialization and momentum in deep learning. ICML. https://proceedings.mlr.press/v28/sutskever13.html — Shows that Nesterov-style momentum, with careful initialisation, trains deep and recurrent networks.
 
-- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:10.1016/0041-5553(64)90137-5 — The heavy-ball method that Nesterov's variant modifies.
+- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:[10.1016/0041-5553(64)90137-5](https://doi.org/10.1016/0041-5553(64)90137-5) — The heavy-ball method that Nesterov's variant modifies.
 
 ### Surveys and textbooks
 
 - Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*, Chapter 8. MIT Press. https://www.deeplearningbook.org/ — Textbook treatment of momentum and Nesterov momentum in training, free online.
 - Bubeck, S. (2014). Convex Optimization: Algorithms and Complexity. https://arxiv.org/abs/1405.4980 — Monograph that presents accelerated gradient descent and its complexity analysis.
 - Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization Methods for Large-Scale Machine Learning. *SIAM Review*. https://arxiv.org/abs/1606.04838 — Survey of momentum variants and their behaviour in stochastic training.
-
-### Articles and documentation
-
-- PyTorch documentation, *torch.optim.SGD* (with `nesterov=True`). https://pytorch.org/docs/stable/generated/torch.optim.SGD.html — Reference implementation of Nesterov momentum in a standard framework.
+- Nesterov, Y. (2004). *Introductory Lectures on Convex Optimization: A Basic Course*. Springer. doi:[10.1007/978-1-4419-8853-9](https://doi.org/10.1007/978-1-4419-8853-9) — Textbook treatment of accelerated gradient methods and their worst-case rates on smooth convex functions.

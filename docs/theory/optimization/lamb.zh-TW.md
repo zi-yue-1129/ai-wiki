@@ -31,13 +31,13 @@ LARS 以信任比縮放每一層的步長，但它只適用於 SGD 類的更新�
 
 - 摘要報告以 32,868 的極大批次訓練，且「沒有任何效能退步」。
 - 摘要報告 BERT 的訓練時間可以「從三天縮短到只需 76 分鐘」，較短的時間來自把批次大小提高到 TPUv3 Pod 的記憶體上限。
-- 摘要列出的任務為 BERT 與 ResNet-50，並提供 LAMB 與 LARS 在一般非凸情況下的收斂分析。
+- 摘要提及 BERT 與 ResNet-50 的訓練，並述及 LAMB 與 LARS 的收斂分析。
 
 ## 限制
 
 - 所報告的加速依賴大型硬體，並非在單一機器上對演算法做的同條件比較。
 - 裁剪函數 \(\phi\) 含有上下界 \(\gamma_l\) 與 \(\gamma_u\)，它們是另外需要選擇的設定。
-- 收斂分析針對一般的非凸情況，因此它並不保證特定模型的收斂速率。
+- 收斂分析是一般性的結果，無法取代對目標模型的實證檢驗。
 
 ## 關聯
 
@@ -59,7 +59,7 @@ LARS 以信任比縮放每一層的步長，但它只適用於 SGD 類的更新�
 - You, Y., et al. (2019). *Large Batch Optimization for Deep Learning: Training BERT in 76 Minutes*. ICLR. https://arxiv.org/abs/1904.00962 — 提出 LAMB，一種基於 Adam 的逐層最佳化器，用於極大批次的 BERT 預訓練。
 - You, Y., Gitman, I. & Ginsburg, B. (2017). *Large Batch Training of Convolutional Networks*. arXiv. https://arxiv.org/abs/1708.03888 — LAMB 延伸到 Adam 的 SGD 版信任比想法。
 - Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — LAMB 逐層縮放的逐座標更新。
-- Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — 解耦的權重衰減，與信任比一同用於自適應更新。
+- Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. arXiv:1711.05101（ICLR 2019）. https://arxiv.org/abs/1711.05101 — 解耦的權重衰減，與信任比一同用於自適應更新。
 
 ### 綜述與教科書
 

@@ -79,11 +79,11 @@ The cache is where the costs of [attention](../attention-variants/index.md) meet
 
 ### Seminal papers
 
-- Vaswani, A., et al. (2017). *Attention Is All You Need*. arXiv:1706.03762 — Defines the multi-head attention whose keys and values are cached during generation.
-- Kwon, W., et al. (2023). "Efficient Memory Management for Large Language Model Serving with PagedAttention". SOSP. arXiv:2309.06180 — Paged allocation of the KV cache, the basis of vLLM.
-- Zhang, Z., et al. (2023). "H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models". arXiv:2306.14048 — Eviction that keeps the tokens with the largest accumulated attention.
-- Xiao, G., et al. (2024). "Efficient Streaming Language Models with Attention Sinks". ICLR. arXiv:2309.17453 — Attention sinks and a recent window for stable streaming generation.
-- Liu, Z., et al. (2024). "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache". arXiv:2402.02750 — Two-bit cache quantisation with different schemes for keys and values.
+- Vaswani, A., et al. (2017). *Attention Is All You Need*. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — Defines the multi-head attention whose keys and values are cached during generation.
+- Kwon, W., et al. (2023). "Efficient Memory Management for Large Language Model Serving with PagedAttention". SOSP. [arXiv:2309.06180](https://arxiv.org/abs/2309.06180) — Paged allocation of the KV cache, the basis of vLLM.
+- Zhang, Z., et al. (2023). "H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models". [arXiv:2306.14048](https://arxiv.org/abs/2306.14048) — Eviction that keeps the tokens with the largest accumulated attention.
+- Xiao, G., et al. (2024). "Efficient Streaming Language Models with Attention Sinks". ICLR. [arXiv:2309.17453](https://arxiv.org/abs/2309.17453) — Attention sinks and a recent window for stable streaming generation.
+- Liu, Z., et al. (2024). "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache". [arXiv:2402.02750](https://arxiv.org/abs/2402.02750) — Two-bit cache quantisation with different schemes for keys and values.
 
 ### Surveys and textbooks
 
@@ -95,8 +95,8 @@ The cache is where the costs of [attention](../attention-variants/index.md) meet
 
 ### Articles and documentation
 
-- Liu, Z., et al. (2023). "Scissorhands: Exploiting the Persistence of Importance Hypothesis for LLM KV Cache Compression at Test Time". arXiv:2305.17118 — Eviction based on tokens whose importance persists over time.
-- Li, Y., et al. (2024). "SnapKV: LLM Knows What You are Looking for Before Generation". arXiv:2404.14469 — Chooses per-head prefix tokens to keep using an observation window at the end of the prompt.
-- Hooper, C., et al. (2024). "KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization". arXiv:2401.18079 — Quantisation of keys before rotary embedding, with non-uniform levels and outlier handling.
-- DeepSeek-AI (2024). "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model". arXiv:2405.04434 — Multi-head latent attention, which caches a compressed latent instead of full keys and values.
-- Sheng, Y., et al. (2023). "FlexGen: High-Throughput Generative Inference of Large Language Models with a Single GPU". arXiv:2303.06865 — Offloads weights and cache across GPU, CPU and disk with scheduled transfers.
+- Liu, Z., et al. (2023). "Scissorhands: Exploiting the Persistence of Importance Hypothesis for LLM KV Cache Compression at Test Time". [arXiv:2305.17118](https://arxiv.org/abs/2305.17118) — Eviction based on tokens whose importance persists over time.
+- Li, Y., et al. (2024). "SnapKV: LLM Knows What You are Looking for Before Generation". [arXiv:2404.14469](https://arxiv.org/abs/2404.14469) — Chooses per-head prefix tokens to keep using an observation window at the end of the prompt.
+- Hooper, C., et al. (2024). "KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization". [arXiv:2401.18079](https://arxiv.org/abs/2401.18079) — Quantisation of keys before rotary embedding, with non-uniform levels and outlier handling.
+- DeepSeek-AI (2024). "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model". [arXiv:2405.04434](https://arxiv.org/abs/2405.04434) — Multi-head latent attention, which caches a compressed latent instead of full keys and values.
+- Sheng, Y., et al. (2023). "FlexGen: High-Throughput Generative Inference of Large Language Models with a Single GPU". [arXiv:2303.06865](https://arxiv.org/abs/2303.06865) — Offloads weights and cache across GPU, CPU and disk with scheduled transfers.

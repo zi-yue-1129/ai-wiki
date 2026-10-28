@@ -16,7 +16,7 @@ Given points $x_1,\dots,x_n$, a clustering assigns each point to a group. Nothin
 
 | Method | Assumed cluster shape | Needs $k$? | Cost |
 |---|---|---|---|
-| k-means | Roughly spherical, similar size | Yes | $O(nkd)$ per iteration |
+| [k-means](k-means.md) | Roughly spherical, similar size | Yes | $O(nkd)$ per iteration |
 | Gaussian mixtures (EM) | Ellipsoidal, soft assignment | Yes | Similar, with covariance terms |
 | Hierarchical (agglomerative) | Any, depends on linkage | No (cut the tree) | $O(n^2)$ or more |
 | DBSCAN / HDBSCAN | Arbitrary, separated by low-density gaps | No | Near $O(n\log n)$ with indexes |
@@ -24,7 +24,7 @@ Given points $x_1,\dots,x_n$, a clustering assigns each point to a group. Nothin
 
 ## How they work
 
-**k-means** alternates two steps: assign each point to its nearest centre, then move each centre to the mean of its points. It minimises the within-cluster sum of squares and always converges, but only to a local optimum. The usual remedy is many random restarts or k-means++ seeding.
+**[k-means](k-means.md)** alternates two steps: assign each point to its nearest centre, then move each centre to the mean of its points. It minimises the within-cluster sum of squares and always converges, but only to a local optimum. The usual remedy is many random restarts or k-means++ seeding (see the [k-means](k-means.md) page).
 
 **Gaussian mixtures** model the data as a weighted sum of Gaussians and fit them with expectation–maximisation. Each point gets a probability of belonging to each cluster, which gives soft assignments and a full density model (see [density estimation](../density-and-generative-models/index.md)).
 

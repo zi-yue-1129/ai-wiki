@@ -31,8 +31,8 @@ The steps were:
 
 1. Define a family of hierarchical networks, varying depth, filter sizes and connectivity.
 2. Train each network on an object-recognition task and score its performance.
-3. Select the networks with high recognition performance. The selected model matches human performance on several recognition tests.
-4. Fit a linear regression from each model layer to recorded IT and V4 responses on held-out natural images, and measure how well the model predicts each recording site.
+3. Select the networks with high recognition performance. The selected model matches human performance on a range of recognition tasks.
+4. Map each model layer to recorded IT and V4 responses to natural images, and measure how well it predicts each recording site. The abstract does not give the mapping method, so this page does not specify it.
 
 The key feature is that the selection step never uses neural data. Only the final regression does.
 
@@ -41,15 +41,15 @@ The key feature is that the selection step never uses neural data. Only the fina
 The abstract reports three findings:
 
 - Within the family, categorisation performance was strongly correlated with how well a network predicted IT responses.
-- The selected network, which matched human performance on several recognition tasks, predicted IT spiking responses to natural images at both single-site and population levels.
+- The selected network, which matched human performance on a range of recognition tasks, predicted IT spiking responses to natural images at both single-site and population levels.
 - Its intermediate layers predicted responses in V4, the area before IT.
 
 The abstract gives no numerical correlation values or explained-variance figures, so this page does not quote any.
 
 ## Limitations
 
-- The comparison uses a limited set of images and recorded sites. A good linear fit does not show that the model uses the same computation as the brain.
-- Predictive success on held-out images does not establish that the model generalises to other stimuli, species or tasks.
+- The abstract does not say how many images or recording sites were used, so the size of the match cannot be judged from it. A good predictive fit does not show that the model uses the same computation as the brain.
+- Predictive success on the tested images does not establish that the model generalises to other stimuli, species or tasks.
 - Later benchmark work compares many more models against neural data. Whether this predictive power transfers across stimuli and species remains an open question.
 
 ## Connections
@@ -60,7 +60,7 @@ The abstract gives no numerical correlation values or explained-variance figures
 
 ## Open questions
 
-- **How far does the match extend?** The paper tested visual categories and a limited set of sites. Whether the match holds for other sensory systems and tasks is open.
+- **How far does the match extend?** The abstract reports results for visual recognition and for IT and V4 recordings. Whether the match holds for other sensory systems and tasks is open.
 - **Is performance the right selector?** Selecting by performance worked here, but other selection criteria might identify different models.
 
 ## References

@@ -40,13 +40,13 @@ Most theory assumes tasks are drawn from one environment with a simple structure
 ### Seminal papers
 
 - Baxter (2000), "A model of inductive bias learning", Journal of Artificial Intelligence Research. https://jair.org/index.php/jair/article/download/10253/24418 — Formalises inductive bias as something that can be learned from a family of tasks, with generalisation bounds.
-- Maurer, Pontil & Romera-Paredes (2016), "The benefit of multitask representation learning", JMLR, arXiv:1505.06279 — Shows that learning a shared representation across tasks reduces the sample complexity of each new task.
-- Grant, Finn, Levine, Darrell & Griffiths (2018), "Recasting gradient-based meta-learning as hierarchical Bayes", ICLR, arXiv:1801.08930 — Interprets gradient-based meta-learning as inference in a hierarchical Bayesian model.
-- Denevi, Ciliberto, Grazzi & Pontil (2019), "Learning-to-learn stochastic gradient descent with biased regularization", ICML, arXiv:1903.10399 — Regularises each task toward a learned parameter and proves guarantees for this scheme.
+- Maurer, Pontil & Romera-Paredes (2016), "The benefit of multitask representation learning", JMLR, [arXiv:1505.06279](https://arxiv.org/abs/1505.06279) — Shows that learning a shared representation across tasks reduces the sample complexity of each new task.
+- Grant, Finn, Levine, Darrell & Griffiths (2018), "Recasting gradient-based meta-learning as hierarchical Bayes", ICLR, [arXiv:1801.08930](https://arxiv.org/abs/1801.08930) — Interprets gradient-based meta-learning as inference in a hierarchical Bayesian model.
+- Denevi, Ciliberto, Grazzi & Pontil (2019), "Learning-to-learn stochastic gradient descent with biased regularization", ICML, [arXiv:1903.10399](https://arxiv.org/abs/1903.10399) — Regularises each task toward a learned parameter and proves guarantees for this scheme.
 
 ### Surveys and textbooks
 
-- Hospedales, Antoniou, Micaelli & Storkey (2021), "Meta-learning in neural networks: a survey", IEEE TPAMI, arXiv:2004.05439 — Survey that summarises the theoretical framing of meta-learning and its open questions.
+- Hospedales, Antoniou, Micaelli & Storkey (2021), "Meta-learning in neural networks: a survey", IEEE TPAMI, [arXiv:2004.05439](https://arxiv.org/abs/2004.05439) — Survey that summarises the theoretical framing of meta-learning and its open questions.
 
 ### Lectures and videos
 

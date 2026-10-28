@@ -12,14 +12,15 @@ How a page's status is decided (English page = docs/**/<name>.md):
   3. Otherwise a page under DRAFT_WORDS words is a draft, else complete.
 
 References: every page that is not a stub needs a "## References" section with at
-least REFERENCE_MIN entries, each carrying a DOI, arXiv id or URL and a note of
+least REFERENCE_MIN entries, each carrying a clickable link (a Markdown link or a bare
+https:// URL; a DOI or arXiv id on its own is not clickable) and a note of
 at least ANNOTATION_MIN_WORDS words after " — " saying what the source covers. Pages marked
 `references: not-required` in front matter (meta pages such as the roadmap) are
 exempt, as are section overviews (docs/<section>/index.md). --check enforces this only on pages the current branch changes relative
 to the base branch, so the existing backlog does not fail every PR. Pages that were only moved (at least 90% similar) do not count as changed. The full
 backlog is listed as a count.
 
-Further reading and Further learning entries (and their zh-TW headings) need a link in the same way, and are checked on changed pages too. `--unlinked` lists every reference and further-reading entry in the wiki that has no link, so the backlog can be fixed in batches.
+Further reading and Further learning entries (and their zh-TW headings) need a clickable link in the same way, and are checked on changed pages too. `--unlinked` lists every reference and further-reading entry in the wiki that has no link, so the backlog can be fixed in batches.
 
 A page is stale when its last review (`last_reviewed:` front matter, falling back
 to its last git commit) is older than STALE_DAYS.
@@ -58,6 +59,8 @@ ANNOTATION_MIN_WORDS = 6
 REFERENCE_HEADING = re.compile(r"^##\s+References\s*$", re.M)
 NEXT_H2 = re.compile(r"^##\s", re.M)
 IDENTIFIER = re.compile(r"https?://|doi\.org|10\.\d{4,}/|arXiv:\s*\d{4}\.\d{4,5}", re.I)
+CODE_SPAN = re.compile(r"`[^`]*`")
+URL_SCHEME = re.compile(r"https?://")
 STATUS_ICON = {"stub": "⬜", "draft": "🟨", "complete": "✅"}
 
 FRONT_MATTER = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
@@ -243,6 +246,12 @@ def render(pages: list[Page], base: str, heading: str) -> str:
     return "\n".join(out)
 
 
+def has_link(entry: str) -> bool:
+    """True when the entry has a URL that renders as a link. Inline code is not linkified, and
+    pymdownx.magiclink turns a bare https:// URL into one, so a DOI or arXiv id alone does not count."""
+    return bool(URL_SCHEME.search(CODE_SPAN.sub("", entry)))
+
+
 def reference_problems(path: Path) -> list[str]:
     """Return problems with a page's References section (empty if it is fine)."""
     meta, body = read(path)
@@ -265,6 +274,8 @@ def reference_problems(path: Path) -> list[str]:
     for entry in entries:
         if not IDENTIFIER.search(entry):
             problems.append(f"docs/{rel}: reference without a DOI, arXiv id or URL: {entry.strip()[:70]}")
+        elif not has_link(entry):
+            problems.append(f"docs/{rel}: reference has no clickable link (use an https:// URL): {entry.strip()[:70]}")
         _, sep, note = entry.partition(ANNOTATION_SEP)
         if not sep or len(note.split()) < ANNOTATION_MIN_WORDS:
             problems.append(
@@ -328,9 +339,9 @@ def source_problems(path: Path, known: set[str]) -> list[str]:
     if meta.get("references") == "not-required":
         return []
     problems = [
-        f"docs/{rel}: further-reading entry without a DOI, arXiv id or URL: {entry[:70]}"
+        f"docs/{rel}: further-reading entry without a clickable link: {entry[:70]}"
         for entry in source_entries(body, LINKED_HEADING)
-        if not IDENTIFIER.search(entry) and entry not in known
+        if not has_link(entry) and entry not in known
     ]
     problems += [
         f"docs/{rel}: reference is a blog, video or aggregator; move it to Further learning: {entry[:70]}"
@@ -343,7 +354,7 @@ def source_problems(path: Path, known: set[str]) -> list[str]:
 def source_findings(path: Path) -> list[str]:
     """Entries to fix: any source entry without a link, and informal sources listed under References."""
     _, body = read(path)
-    findings = [entry for entry in source_entries(body, SOURCE_HEADING) if not IDENTIFIER.search(entry)]
+    findings = [entry for entry in source_entries(body, SOURCE_HEADING) if not has_link(entry)]
     findings += [entry for entry in source_entries(body, REFERENCE_SECTION) if is_informal(entry)]
     return findings
 

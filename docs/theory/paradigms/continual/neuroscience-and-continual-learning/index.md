@@ -44,13 +44,13 @@ It is unclear which biological mechanisms are essential for continual learning a
 ### Seminal papers
 
 - Kumaran, Hassabis & McClelland (2016), "What learning systems do intelligent agents need? Complementary learning systems theory updated", Trends in Cognitive Sciences. https://web.stanford.edu/~jlmcc/papers/KumaranHassabisMcClelland16FinalMS.pdf — Updates the complementary learning systems theory with a fast episodic system and a slow semantic system.
-- Kirkpatrick et al. (2017), "Overcoming catastrophic forgetting in neural networks", PNAS, arXiv:1612.00796 — Applies the idea of synaptic consolidation to protect important parameters.
-- Zenke, Poole & Ganguli (2017), "Continual learning through synaptic intelligence", ICML, arXiv:1703.04200 — Models synapses that accumulate importance over time, in the spirit of biological consolidation.
+- Kirkpatrick et al. (2017), "Overcoming catastrophic forgetting in neural networks", PNAS, [arXiv:1612.00796](https://arxiv.org/abs/1612.00796) — Applies the idea of synaptic consolidation to protect important parameters.
+- Zenke, Poole & Ganguli (2017), "Continual learning through synaptic intelligence", ICML, [arXiv:1703.04200](https://arxiv.org/abs/1703.04200) — Models synapses that accumulate importance over time, in the spirit of biological consolidation.
 
 ### Surveys and textbooks
 
-- Parisi, Kemker, Part, Kanan & Wermter (2019), "Continual lifelong learning with neural networks: a review", Neural Networks, arXiv:1802.07569 — Review that discusses the biological inspiration for continual learning methods.
-- De Lange et al. (2021), "A continual learning survey: defying forgetting in classification tasks", IEEE TPAMI, arXiv:1909.08383 — Survey that connects the artificial methods to the biological ideas they draw on.
+- Parisi, Kemker, Part, Kanan & Wermter (2019), "Continual lifelong learning with neural networks: a review", Neural Networks, [arXiv:1802.07569](https://arxiv.org/abs/1802.07569) — Review that discusses the biological inspiration for continual learning methods.
+- De Lange et al. (2021), "A continual learning survey: defying forgetting in classification tasks", IEEE TPAMI, [arXiv:1909.08383](https://arxiv.org/abs/1909.08383) — Survey that connects the artificial methods to the biological ideas they draw on.
 
 ### Lectures and videos
 

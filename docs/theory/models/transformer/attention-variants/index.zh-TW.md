@@ -67,11 +67,11 @@ FlashAttention 計算的結果與標準注意力完全相同，同時減少記�
 
 ### 開創性論文
 
-- Vaswani, A., et al. (2017). *Attention Is All You Need*. arXiv:1706.03762 — 提出縮放點積與多頭注意力，是本頁所有變體的基準。
-- Shazeer, N. (2019). "Fast Transformer Decoding: One Write-Head is All You Need". arXiv:1911.02150 — 多查詢注意力，所有查詢共用一個鍵值頭。
-- Ainslie, J., et al. (2023). "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints". arXiv:2305.13245 — 分組查詢注意力，從多頭檢查點轉換而來。
-- Child, R., et al. (2019). "Generating Long Sequences with Sparse Transformers". arXiv:1904.10509 — 因式分解的稀疏注意力模式，成本接近 \(O(n\sqrt{n})\)。
-- Beltagy, I., Peters, M. E. & Cohan, A. (2020). "Longformer: The Long-Document Transformer". arXiv:2004.05150 — 結合全域 token 的滑動窗口注意力，用於長文件。
+- Vaswani, A., et al. (2017). *Attention Is All You Need*. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — 提出縮放點積與多頭注意力，是本頁所有變體的基準。
+- Shazeer, N. (2019). "Fast Transformer Decoding: One Write-Head is All You Need". [arXiv:1911.02150](https://arxiv.org/abs/1911.02150) — 多查詢注意力，所有查詢共用一個鍵值頭。
+- Ainslie, J., et al. (2023). "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints". [arXiv:2305.13245](https://arxiv.org/abs/2305.13245) — 分組查詢注意力，從多頭檢查點轉換而來。
+- Child, R., et al. (2019). "Generating Long Sequences with Sparse Transformers". [arXiv:1904.10509](https://arxiv.org/abs/1904.10509) — 因式分解的稀疏注意力模式，成本接近 \(O(n\sqrt{n})\)。
+- Beltagy, I., Peters, M. E. & Cohan, A. (2020). "Longformer: The Long-Document Transformer". [arXiv:2004.05150](https://arxiv.org/abs/2004.05150) — 結合全域 token 的滑動窗口注意力，用於長文件。
 
 ### 綜述與教科書
 
@@ -83,8 +83,8 @@ FlashAttention 計算的結果與標準注意力完全相同，同時減少記�
 
 ### 文章與文件
 
-- Katharopoulos, A., et al. (2020). "Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention". ICML 2020. arXiv:2006.16236 — 線性注意力，並具有快速自回歸解碼的循環形式。
-- Choromanski, K., et al. (2020). "Rethinking Attention with Performers". arXiv:2009.14794 — 以隨機特徵近似 softmax 注意力（FAVOR+）。
-- Dao, T., et al. (2022). "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness". arXiv:2205.14135 — 分塊、IO 感知的精確注意力。
-- Dao, T. (2023). "FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning". arXiv:2307.08691 — 改善 FlashAttention 的平行性與工作分配。
-- Jiang, A. Q., et al. (2023). "Mistral 7B". arXiv:2310.06825 — 在廣泛使用的開源模型中採用滑動窗口注意力。
+- Katharopoulos, A., et al. (2020). "Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention". ICML 2020. [arXiv:2006.16236](https://arxiv.org/abs/2006.16236) — 線性注意力，並具有快速自回歸解碼的循環形式。
+- Choromanski, K., et al. (2020). "Rethinking Attention with Performers". [arXiv:2009.14794](https://arxiv.org/abs/2009.14794) — 以隨機特徵近似 softmax 注意力（FAVOR+）。
+- Dao, T., et al. (2022). "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness". [arXiv:2205.14135](https://arxiv.org/abs/2205.14135) — 分塊、IO 感知的精確注意力。
+- Dao, T. (2023). "FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning". [arXiv:2307.08691](https://arxiv.org/abs/2307.08691) — 改善 FlashAttention 的平行性與工作分配。
+- Jiang, A. Q., et al. (2023). "Mistral 7B". [arXiv:2310.06825](https://arxiv.org/abs/2310.06825) — 在廣泛使用的開源模型中採用滑動窗口注意力。

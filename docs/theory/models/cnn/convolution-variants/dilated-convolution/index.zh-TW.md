@@ -25,6 +25,14 @@ translation_reviewed: 2026-10-28
 
 空洞（或稱 atrous）卷積在核的取樣點之間插入間隔。空洞率為 \(l\) 時，位置 \(\mathbf{p}\) 的輸出會對所有滿足 \(\mathbf{s} + l\mathbf{t} = \mathbf{p}\) 的輸入 \(\mathbf{s}\) 求和；\(l = 1\) 即為一般卷積。若空洞率逐層加倍（1、2、4、8……），感受野就隨層數指數成長，而每層的權重數量與特徵圖大小都不變。
 
+![三個核取樣點分別以空洞率一、二、三同步滑動，產生相鄰的輸出。](../../../../../assets/concept-animations/dilated-convolution-sampling.gif)
+
+*原創動畫；AI Wiki，CC BY-SA 4.0。*
+
+每一列代表獨立的一維卷積，各有三個可學習的核取樣點。由上到下，空洞率為 1、2、3，涵蓋範圍分別為 3、5、7 個輸入位置，但每個輸出仍只取用三個位置。移動的圓點表示各取樣點對外框所標示輸出的貢獻；三列的窗口每次皆前進一個輸入位置（步幅為 1）。空洞率改變取樣點的間距，不改變輸出的間距。[^sampling] 圖中僅呈現五個內部輸出位置，省略邊界與填補。二維的 3×3 核會沿兩個軸套用這種間距。三列是在比較不同設定，並非連續堆疊的層。顏色、活化值與時間皆為示意，並非模型實測值；循環交界的跳轉表示重新開始掃描。
+
+[^sampling]: Yu & Koltun (2015), [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122), Section 2；列於參考文獻。
+
 ## 方程式或演算法
 
 對於離散特徵圖 \(F\) 與核 \(k\)，論文把 \(l\) 空洞卷積定義為
@@ -57,10 +65,10 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Yu, F. & Koltun, V. (2015). "Multi-Scale Context Aggregation by Dilated Convolutions". arXiv:1511.07122 — 用於密集預測的空洞卷積，感受野隨深度指數成長。
-- Dai, J., et al. (2017). "Deformable Convolutional Networks". arXiv:1703.06211 — 學習取樣偏移量，使卷積能適應物件形狀。
-- Chollet, F. (2016). "Xception: Deep Learning with Depthwise Separable Convolutions". arXiv:1610.02357 — 顯示把空間與通道混合分解後，能以較低成本超越 Inception 式設計。
-- Chen, L.-C., et al. (2016). "DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs". arXiv:1606.00915 — 空洞卷積搭配全連接條件隨機場，用於密集分割。
+- Yu, F. & Koltun, V. (2015). "Multi-Scale Context Aggregation by Dilated Convolutions". [arXiv:1511.07122](https://arxiv.org/abs/1511.07122) — 用於密集預測的空洞卷積，感受野隨深度指數成長。
+- Dai, J., et al. (2017). "Deformable Convolutional Networks". [arXiv:1703.06211](https://arxiv.org/abs/1703.06211) — 學習取樣偏移量，使卷積能適應物件形狀。
+- Chollet, F. (2016). "Xception: Deep Learning with Depthwise Separable Convolutions". [arXiv:1610.02357](https://arxiv.org/abs/1610.02357) — 顯示把空間與通道混合分解後，能以較低成本超越 Inception 式設計。
+- Chen, L.-C., et al. (2016). "DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs". [arXiv:1606.00915](https://arxiv.org/abs/1606.00915) — 空洞卷積搭配全連接條件隨機場，用於密集分割。
 
 ### 綜述與教科書
 

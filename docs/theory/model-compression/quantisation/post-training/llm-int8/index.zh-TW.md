@@ -40,7 +40,7 @@ LLM.int8() 是大型 Transformer 的訓練後 8 位元推論方法。它把少�
 ### 開創性論文
 
 - Dettmers, T., Lewis, M., Belkada, Y., Zettlemoyer, L. (2022). *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*. NeurIPS. https://arxiv.org/abs/2208.07339 — 混合精度 8 位元矩陣乘法，把離群維度保留在 16 位元。
-- Xiao, G., 等人 (2022). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — 把離群值移到權重上的替代方法。
+- Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., Han, S. (2023). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. ICML 2023. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — 把離群值移到權重上的替代方法。
 - Frantar, E., 等人 (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. arXiv:2210.17323. https://arxiv.org/abs/2210.17323 — 較低位元的訓練後替代方法。
 
 ### 綜述與教科書

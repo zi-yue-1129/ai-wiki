@@ -11,12 +11,12 @@
 | 1994–2007 | 西洋跳棋 | Chinook | 搜尋；2007 年西洋跳棋被完全解出 |
 | 1997 | 西洋棋 | Deep Blue | 大規模搜尋加人工設計的評估函數 |
 | 2015 | Atari 遊戲 | DQN | 以像素為輸入的深度強化學習 |
-| 2016 | 圍棋 | AlphaGo | 策略與價值網路加 MCTS |
-| 2017 | 西洋棋、將棋、圍棋 | AlphaZero | 從零開始的自我對弈 |
+| 2016 | 圍棋 | [AlphaGo](../../theory/paradigms/reinforcement-learning/alphago/index.md) | 策略與價值網路加 MCTS |
+| 2017 | 西洋棋、將棋、圍棋 | [AlphaZero](../../theory/paradigms/reinforcement-learning/alphazero/index.md) | 從零開始的自我對弈 |
 | 2017–2019 | 一對一與六人德州撲克 | Libratus、Pluribus | 反事實遺憾最小化，處理不完全資訊 |
 | 2019 | Dota 2 | [OpenAI Five](openai-five/index.md) | 大規模 PPO 自我對弈 |
 | 2019 | 星海爭霸 II | AlphaStar | 聯賽式訓練，結合模仿與強化學習 |
-| 2020 | Atari、圍棋、西洋棋（不給規則） | MuZero | 學習出的模型加規劃 |
+| 2020 | Atari、圍棋、西洋棋（不給規則） | [MuZero](../../theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md) | 學習出的模型加規劃 |
 | 2022 | 外交（Diplomacy） | Cicero | 語言模型加策略規劃，與人類談判 |
 | 2022 | Stratego | DeepNash | 不完全資訊下的無模型強化學習 |
 | 2022 | Gran Turismo | GT Sophy | 強化學習賽車，兼顧運動家精神 |

@@ -44,6 +44,8 @@ Transformer（Vaswani et al., 2017，"Attention Is All You Need"）完全以注�
 | 編碼器—解碼器 | 雙向編碼器加交叉注意力 | 原始 Transformer、T5、Whisper | 翻譯、摘要、語音辨識 |
 | 僅解碼器 | 因果式（只看過去） | GPT、Llama、Claude、Gemini 等 | 生成、通用 LLM |
 
+[架構家族](architecture-families/index.md)頁比較三種形式及其預訓練目標。[BERT](architecture-families/bert/index.md) 與 [T5](architecture-families/t5/index.md) 各有獨立頁面。
+
 ## 位置資訊
 
 注意力本身與順序無關，因此必須注入位置資訊：
@@ -94,6 +96,18 @@ Transformer（Vaswani et al., 2017，"Attention Is All You Need"）完全以注�
 - **概述：** 把影像切成固定大小的區塊，每塊嵌入為一個 token，再把未經修改的 Transformer 編碼器套用到序列上，不使用任何卷積層。
 - **比較：** 與上述相同的注意力區塊，但用於影像而非文字。它的歸納偏置較弱，因此需要比 CNN 更多的資料；與卷積骨幹的比較見[卷積骨幹與縮放](../cnn/backbones-and-scaling/index.md)。
 - **完整介紹：** [視覺 Transformer（ViT）](vision-transformer/index.md)
+
+### QK 正規化（Dehghani 等人，2023）
+
+- **概要：** 在內積之前對查詢與鍵做層正規化，使注意力 logit 不再隨權重範數增長。
+- **比較：** 注意力內部的修改。它限制了 logit，但不限制其他層的範數增長。
+- **完整介紹：** [QK 正規化](qk-norm.md)
+
+### σReparam（Zhai 等人，2023）
+
+- **概要：** 以譜範數與可學習純量對每個線性層做重參數化，以防止注意力熵崩潰。
+- **比較：** 與 QK 正規化相對的方案，作用於每個線性層，而不只是查詢與鍵。
+- **完整介紹：** [σReparam](sigma-reparam.md)
 
 ## 組件與變體
 

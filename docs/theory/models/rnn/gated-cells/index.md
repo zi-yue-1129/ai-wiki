@@ -68,7 +68,7 @@ Gating is the recurrent ancestor of the learned, multiplicative control used in 
 ### Seminal papers
 
 - Hochreiter, S. & Schmidhuber, J. (1997). "Long Short-Term Memory". *Neural Computation* 9(8). https://doi.org/10.1162/neco.1997.9.8.1735 — The LSTM cell with additive cell-state updates and multiplicative gates.
-- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — Introduces the GRU, a cell with two gates and no separate memory.
+- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". [arXiv:1406.1078](https://arxiv.org/abs/1406.1078) — Introduces the GRU, a cell with two gates and no separate memory.
 
 ### Surveys and textbooks
 
@@ -80,6 +80,6 @@ Gating is the recurrent ancestor of the learned, multiplicative control used in 
 
 ### Articles and documentation
 
-- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". arXiv:1412.3555 — Compares LSTM and GRU with the plain recurrent cell on several sequence tasks.
+- Chung, J., et al. (2014). "Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling". [arXiv:1412.3555](https://arxiv.org/abs/1412.3555) — Compares LSTM and GRU with the plain recurrent cell on several sequence tasks.
 - Bengio, Y., Simard, P. & Frasconi, P. (1994). "Learning long-term dependencies with gradient descent is difficult". *IEEE Transactions on Neural Networks* 5(2). https://doi.org/10.1109/72.279181 — Analyses why gradients fail over long spans in plain recurrent networks.
-- Greff, K., et al. (2017). "LSTM: A Search Space Odyssey". arXiv:1503.04069 — Benchmarks several LSTM variants and finds that the vanilla design is hard to beat.
+- Greff, K., et al. (2017). "LSTM: A Search Space Odyssey". [arXiv:1503.04069](https://arxiv.org/abs/1503.04069) — Benchmarks several LSTM variants and finds that the vanilla design is hard to beat.

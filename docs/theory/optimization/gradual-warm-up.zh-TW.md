@@ -4,71 +4,77 @@ translation_reviewed: 2026-10-28
 
 # 漸進式預熱與線性縮放
 
-漸進式預熱是一種學習率排程，開頭從小值出發，並在訓練的前段逐步上升。Goyal 等人（2017）把它與線性縮放規則結合：批次大小乘以 \(k\) 時，學習率也乘以 \(k\)。如此，ResNet 得以在極大的小批次上訓練而不損失準確率。上層概述見[學習率排程與預熱](learning-rate-schedules.md)。
+漸進式預熱是一種學習率排程，開始時很小，並在訓練前段逐步上升。Goyal 等人（2017）將它與線性縮放規則結合，後者會依小批次放大的倍數同比例放大學習率。有了這一對方法，ResNet-50 便能在 ImageNet 上以 8,192 張影像的小批次訓練而不損失準確率。上層總覽為[學習率排程與預熱](learning-rate-schedules.zh-TW.md)。
 
 ## 概述
 
-若批次大小乘以 \(k\)，梯度就是對 \(k\) 倍的樣本取平均，雜訊因此較少。線性縮放規則主張學習率也應以同樣的 \(k\) 倍成長，使每個 epoch 的進展大致不變。但在實務中，若從第一步就套用大的學習率，隨機初始化網路的早期梯度並不可靠，權重可能被推入不佳的區域。預熱就是針對這個問題的做法。
+若小批次放大為 \(k\) 倍，每次計算的梯度平均於 \(k\) 倍數量的樣本，因此較少雜訊。線性縮放規則主張學習率也應放大 \(k\) 倍，使每一遍資料帶來相近的進展。然而，若從第一步就套用很大的學習率，權重可能被推入不佳的區域，因為剛初始化的網路所算出的梯度並不可靠。預熱正是為了處理這種早期的不穩定。
 
 ## 問題
 
-大批次訓練的吸引力在於能以許多加速器並行運算。然而，若排程不改變，批次越大，準確率就越低。Goyal 等人想知道，是否有一條簡單的規則，能在不做調校的情況下，於大批次下維持準確率。
+大型批次訓練很有吸引力，因為許多加速器可以平行工作。但若不改變排程，隨著小批次變大，準確率會下降。Goyal 等人想知道，能否以一個簡單的規則，在不經調校的情況下維持大型小批次下的準確率。
 
-## 核心想法
+## 核心概念
 
-兩項改變。第一，學習率依小批次大小線性縮放。第二，學習率從小的基礎值開始，在前幾個 epoch 內升到縮放後的目標值，而不是一步跳上去。
+有兩項改變。第一，學習率隨小批次大小線性縮放。第二，學習率從小的基準值開始，在前幾個 epoch 內上升到縮放後的目標值，而不是一次跳到目標值。
 
 ## 演算法
 
-令 \(\eta\) 為批次大小 \(n\) 時的基礎學習率，而實際批次為 \(kn\)。
+令 \(\eta\) 為大小 \(n\) 張影像的小批次所用的基準學習率，大批次則為 \(kn\) 張影像。論文採用參考學習率 \(\eta = 0.1 \cdot kn/256\)，因此基準為 256 張影像的小批次、學習率 0.1。
 
-1. 大批次的學習率設為 \(k\eta\)（線性縮放規則）。
-2. 在預熱期間，從 \(\eta\) 出發，每次迭代增加固定的量。論文的排程在 5 個 epoch 後達到 \(\hat\eta = k\eta\)。
-3. 預熱結束後，改用一般的衰減排程。
+1. **線性縮放。** 將大批次的目標學習率設為 \(\hat\eta = k\eta\)。
+2. **漸進式預熱。** 從 \(\eta\) 開始，每次迭代以固定量增加學習率，使其在 5 個 epoch 後達到 \(\hat\eta\)。
+3. **衰減。** 預熱後，接續使用一般的衰減排程。
 
-論文指出，結果對預熱的確切長度並不敏感。
-
-對於 Transformer，Vaswani 等人（2017）使用相關的預熱，之後接反平方根衰減：
+對於 Transformer，Vaswani 等人（2017）使用相關的預熱，之後接平方根倒數衰減：
 
 \[
 \mathrm{lrate} = d_{\mathrm{model}}^{-0.5}\cdot \min\!\left(\mathrm{step}^{-0.5},\ \mathrm{step}\cdot \mathrm{warmup\_steps}^{-1.5}\right)
 \]
 
-在 \(\mathrm{warmup\_steps} = 4000\) 時，學習率在前 4000 步線性上升，之後與步數的平方根倒數成比例下降。
+論文設定 \(\mathrm{warmup\_steps} = 4000\)，基準模型的 \(d_{\mathrm{model}} = 512\)。學習率在前 4,000 步線性上升，之後與步數的平方根成反比下降。
 
 ## 結果
 
-- Goyal 等人（2017）報告，在 ImageNet 上，批次大小達 8192 張圖片時「沒有準確率損失」。
-- 他們報告，在所述硬體上，以 256 張 GPU、批次 8192 訓練 ResNet-50 只需一小時，從 8 張擴展到 256 張 GPU 時約有 90% 的擴展效率。
-- Vaswani 等人（2017）的 Transformer 排程使用 warmup_steps = 4000，此數值為論文所述。
+- **大批次的準確率。** 摘要報告，小批次達 8,192 張影像時沒有準確率損失。論文表格中，使用漸進式預熱的 8k 批次錯誤率為 23.74%（±0.09），256 張影像的基準則為 23.60%（±0.12）。
+- **訓練時間。** 作者在 256 個 GPU 上，以 8,192 張影像的小批次，於一小時內訓練完成 ResNet-50。
+- **擴展效率。** 從 8 個 GPU 擴展到 256 個 GPU，在作者所述的硬體上約有 90% 的擴展效率。
 
 ## 限制
 
-- 線性縮放規則不需要額外的超參數，但它只在論文研究的大批次範圍內測試過，其他設定可能需要不同的縮放方式。
-- 5 個 epoch 的預熱，在 ImageNet 上的 ResNet-50 已證實穩健，但這並非通用的規定，其他任務可能需要更長或更短的上升段。
-- Transformer 排程透過 \(d_{\mathrm{model}}\) 把學習率與模型寬度綁在一起，因此相同的數字換到不同寬度時，需要重新檢查。
+- **臨界點。** 論文指出，小批次「不能無限擴大」。在 ImageNet 上，超過約 8k 後準確率迅速下降，16k 時錯誤率為 24.79%（±0.27）。超過 64k 時，使用線性規則的訓練會發散。
+- **敏感度。** 接近臨界點時，結果對學習率更敏感，作者建議避開接近臨界點的小批次大小。
+- **預熱形式。** 固定值的預熱「實際上會使結果變差」，而完全不做預熱的結果也比基準差。
+- **持續時間。** 論文表示，結果對預熱的確切長度並不敏感，但它只測試了 5 個 epoch。其他任務可能需要更長或更短的爬升。
+- **模擬執行。** 12k 以上的小批次是在單一伺服器上以梯度累積模擬，並非跨多台機器實際執行。
+- **適用範圍。** 作者的泛化主張以 ImageNet 為限，並把線性規則的理論前提描述為一個強假設。
 
-## 關聯
+## 變體與相關排程
 
-- [學習率排程與預熱](learning-rate-schedules.md)是比較本方法與餘弦重啟、循環學習率的上層概述。
-- [大批次與分散式訓練](large-batch-and-distributed.md)是線性縮放與預熱最重要的場景。
-- [餘弦退火與暖重啟](cosine-annealing-warm-restarts.md)是預熱之後常接的衰減。
-- [Transformer](../models/transformer/index.md)幾乎所有訓練流程都使用預熱。
+- **固定值的預熱**在預熱期間將學習率維持在低值。論文指出，這會使結果變差。
+- **分層規則**，例如 [LARS](lars.zh-TW.md) 與 [LAMB](lamb.zh-TW.md)，會依各層調整步長，這是線性規則所沒有的做法。二者用於極大批次時，也會搭配預熱。
+
+## 與其他頁面的連結
+
+- [學習率排程與預熱](learning-rate-schedules.zh-TW.md)是比較此方法與餘弦重啟及循環學習率的總覽。
+- [大批次與分散式訓練](large-batch-and-distributed.zh-TW.md)是線性縮放與預熱最重要的應用場景。
+- [附暖重啟的餘弦退火](cosine-annealing-warm-restarts.zh-TW.md)是有時會接在預熱之後的衰減方法，兩者是各自獨立的方法。
+- [Transformer](../models/transformer/index.zh-TW.md)幾乎所有的訓練流程都會使用預熱。
 
 ## 開放問題
 
-- 預熱是在解決訓練初期的最佳化問題，還是主要在穩定正規化統計量？
-- 線性縮放規則在其他架構、遠超過 8192 的批次大小下是否仍成立？
+- 預熱主要是為了解決早期的最佳化問題，還是為了穩定正規化層的統計量？
+- 線性縮放規則在其他架構上，是否適用於超過 8,192 張影像的批次？
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Goyal, P., et al. (2017). *Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour*. arXiv. https://arxiv.org/abs/1706.02677 — 線性縮放規則與漸進式預熱，以及批次大小 8192 的 ResNet-50 結果。
-- Vaswani, A., et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — 附線性預熱與反平方根衰減的 Transformer 排程。
-- Loshchilov, I. & Hutter, F. (2017). *SGDR: Stochastic Gradient Descent with Warm Restarts*. ICLR. https://arxiv.org/abs/1608.03983 — 較晚的排程，同樣在重啟後以較高的學習率開始每一輪。
-- Smith, L. N. (2017). *Cyclical Learning Rates for Training Neural Networks*. WACV. https://arxiv.org/abs/1506.01186 — 另一種在界限之間變化學習率的排程，供比較之用。
+- Goyal, P., et al. (2017). *Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour*. arXiv. https://arxiv.org/abs/1706.02677 — 線性縮放規則與漸進式預熱，並附上小批次 8,192 時 ResNet-50 的結果。
+- Vaswani, A., et al. (2017). *Attention Is All You Need*. NeurIPS 2017. https://arxiv.org/abs/1706.03762 — Transformer 的排程，包含線性預熱與平方根倒數衰減。
+- Loshchilov, I. & Hutter, F. (2017). *SGDR: Stochastic Gradient Descent with Warm Restarts*. ICLR 2017. https://arxiv.org/abs/1608.03983 — 附重啟的餘弦衰減，常與預熱合併使用。
+- Smith, L. N. (2017). *Cyclical Learning Rates for Training Neural Networks*. WACV 2017, pp. 464–472. doi:[10.1109/WACV.2017.58](https://doi.org/10.1109/WACV.2017.58) — 在上下界之間循環學習率，是改變訓練中學習率的另一種做法。
 
 ### 綜述與教科書
 
-- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. SIAM Review. https://arxiv.org/abs/1606.04838 — 隨機梯度方法的綜述，包含預熱背後的步長選擇。
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. SIAM Review, 60(2), 223–311. doi:[10.1137/16M1080173](https://doi.org/10.1137/16M1080173) — 隨機梯度方法綜述，包括預熱背後的步長選擇。

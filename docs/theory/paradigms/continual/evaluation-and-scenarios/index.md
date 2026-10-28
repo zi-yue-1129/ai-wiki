@@ -42,14 +42,14 @@ Standard benchmarks may not reflect the streams of data found in practice, where
 
 ### Seminal papers
 
-- Van de Ven & Tolias (2019), "Three scenarios for continual learning", arXiv:1904.07734 — Defines the task-, domain- and class-incremental scenarios and compares methods within each.
-- Kemker, McClure, Abitino, Hayes & Kanan (2018), "Measuring catastrophic forgetting in neural networks", AAAI, arXiv:1708.02072 — Proposes systematic measurements of forgetting across architectures and methods.
-- Chaudhry, Dokania, Ajanthan & Torr (2018), "Riemannian walk for incremental learning: understanding forgetting and intransigence", ECCV, arXiv:1801.10112 — Defines forgetting and intransigence as separate measures and studies their trade-off.
-- Lopez-Paz & Ranzato (2017), "Gradient episodic memory for continual learning", NeurIPS, arXiv:1706.08840 — Introduces backward and forward transfer metrics for sequences of tasks.
+- Van de Ven & Tolias (2019), "Three scenarios for continual learning", [arXiv:1904.07734](https://arxiv.org/abs/1904.07734) — Defines the task-, domain- and class-incremental scenarios and compares methods within each.
+- Kemker, McClure, Abitino, Hayes & Kanan (2018), "Measuring catastrophic forgetting in neural networks", AAAI, [arXiv:1708.02072](https://arxiv.org/abs/1708.02072) — Proposes systematic measurements of forgetting across architectures and methods.
+- Chaudhry, Dokania, Ajanthan & Torr (2018), "Riemannian walk for incremental learning: understanding forgetting and intransigence", ECCV, [arXiv:1801.10112](https://arxiv.org/abs/1801.10112) — Defines forgetting and intransigence as separate measures and studies their trade-off.
+- Lopez-Paz & Ranzato (2017), "Gradient episodic memory for continual learning", NeurIPS, [arXiv:1706.08840](https://arxiv.org/abs/1706.08840) — Introduces backward and forward transfer metrics for sequences of tasks.
 
 ### Surveys and textbooks
 
-- De Lange et al. (2021), "A continual learning survey: defying forgetting in classification tasks", IEEE TPAMI, arXiv:1909.08383 — Survey that proposes a common evaluation protocol for continual classification.
+- De Lange et al. (2021), "A continual learning survey: defying forgetting in classification tasks", IEEE TPAMI, [arXiv:1909.08383](https://arxiv.org/abs/1909.08383) — Survey that proposes a common evaluation protocol for continual classification.
 
 ### Lectures and videos
 

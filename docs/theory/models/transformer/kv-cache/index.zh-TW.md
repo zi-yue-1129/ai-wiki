@@ -79,11 +79,11 @@ FlexGen 把權重與快取在 GPU 記憶體、CPU 記憶體與磁碟之間移動
 
 ### 開創性論文
 
-- Vaswani, A., et al. (2017). *Attention Is All You Need*. arXiv:1706.03762 — 定義多頭注意力，其鍵與值在生成時被快取。
-- Kwon, W., et al. (2023). "Efficient Memory Management for Large Language Model Serving with PagedAttention". SOSP 2023. arXiv:2309.06180 — KV 快取的分頁配置，是 vLLM 的基礎。
-- Zhang, Z., et al. (2023). "H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models". arXiv:2306.14048 — 保留累積注意力最大 token 的淘汰方法。
-- Xiao, G., et al. (2024). "Efficient Streaming Language Models with Attention Sinks". ICLR 2024. arXiv:2309.17453 — 以注意力沉點加上近期窗口，達成穩定的串流生成。
-- Liu, Z., et al. (2024). "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache". arXiv:2402.02750 — 兩位元快取量化，鍵與值採用不同方案。
+- Vaswani, A., et al. (2017). *Attention Is All You Need*. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — 定義多頭注意力，其鍵與值在生成時被快取。
+- Kwon, W., et al. (2023). "Efficient Memory Management for Large Language Model Serving with PagedAttention". SOSP 2023. [arXiv:2309.06180](https://arxiv.org/abs/2309.06180) — KV 快取的分頁配置，是 vLLM 的基礎。
+- Zhang, Z., et al. (2023). "H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models". [arXiv:2306.14048](https://arxiv.org/abs/2306.14048) — 保留累積注意力最大 token 的淘汰方法。
+- Xiao, G., et al. (2024). "Efficient Streaming Language Models with Attention Sinks". ICLR 2024. [arXiv:2309.17453](https://arxiv.org/abs/2309.17453) — 以注意力沉點加上近期窗口，達成穩定的串流生成。
+- Liu, Z., et al. (2024). "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache". [arXiv:2402.02750](https://arxiv.org/abs/2402.02750) — 兩位元快取量化，鍵與值採用不同方案。
 
 ### 綜述與教科書
 
@@ -95,8 +95,8 @@ FlexGen 把權重與快取在 GPU 記憶體、CPU 記憶體與磁碟之間移動
 
 ### 文章與文件
 
-- Liu, Z., et al. (2023). "Scissorhands: Exploiting the Persistence of Importance Hypothesis for LLM KV Cache Compression at Test Time". arXiv:2305.17118 — 依重要性持續存在的 token 進行淘汰。
-- Li, Y., et al. (2024). "SnapKV: LLM Knows What You are Looking for Before Generation". arXiv:2404.14469 — 利用提示末段的觀察窗口，為每個頭選擇要保留的前綴 token。
-- Hooper, C., et al. (2024). "KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization". arXiv:2401.18079 — 在旋轉嵌入之前量化鍵，使用非均勻層級並處理離群值。
-- DeepSeek-AI (2024). "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model". arXiv:2405.04434 — 多頭潛在注意力，快取壓縮後的潛在向量而非完整的鍵與值。
-- Sheng, Y., et al. (2023). "FlexGen: High-Throughput Generative Inference of Large Language Models with a Single GPU". arXiv:2303.06865 — 以排程的傳輸，把權重與快取卸載到 GPU、CPU 與磁碟之間。
+- Liu, Z., et al. (2023). "Scissorhands: Exploiting the Persistence of Importance Hypothesis for LLM KV Cache Compression at Test Time". [arXiv:2305.17118](https://arxiv.org/abs/2305.17118) — 依重要性持續存在的 token 進行淘汰。
+- Li, Y., et al. (2024). "SnapKV: LLM Knows What You are Looking for Before Generation". [arXiv:2404.14469](https://arxiv.org/abs/2404.14469) — 利用提示末段的觀察窗口，為每個頭選擇要保留的前綴 token。
+- Hooper, C., et al. (2024). "KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization". [arXiv:2401.18079](https://arxiv.org/abs/2401.18079) — 在旋轉嵌入之前量化鍵，使用非均勻層級並處理離群值。
+- DeepSeek-AI (2024). "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model". [arXiv:2405.04434](https://arxiv.org/abs/2405.04434) — 多頭潛在注意力，快取壓縮後的潛在向量而非完整的鍵與值。
+- Sheng, Y., et al. (2023). "FlexGen: High-Throughput Generative Inference of Large Language Models with a Single GPU". [arXiv:2303.06865](https://arxiv.org/abs/2303.06865) — 以排程的傳輸，把權重與快取卸載到 GPU、CPU 與磁碟之間。

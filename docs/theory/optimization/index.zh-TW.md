@@ -29,9 +29,10 @@ translation_reviewed: 2026-10-28
 |---|---|---|---|
 | 一階、SGD 家族 | 梯度與動量 | [SGD 與動量](sgd-and-momentum/index.md) | 草稿 |
 | 自適應方法 | 由梯度平方得出的逐參數尺度 | [自適應方法](adaptive/index.md) | 草稿（Adam 與 AdamW 各有獨立頁） |
-| 二階與擬牛頓 | 曲率（Hessian 或其近似） | [二階方法](second-order.md)，並有 [L-BFGS](lbfgs.md)、[K-FAC](kfac.md) 與 [Shampoo](shampoo.md) 等方法頁 | 草稿 |
+| 二階與擬牛頓 | 曲率（Hessian 或其近似） | [二階方法](second-order.md)，並有 [L-BFGS](lbfgs.md)、[K-FAC](kfac/index.md) 與 [Shampoo](shampoo.md) 等方法頁 | 草稿 |
 | 學習率排程與預熱 | 學習率如何隨時間變化 | [學習率排程](learning-rate-schedules.md)，並有[漸進式預熱](gradual-warm-up.md)、[附暖重啟的餘弦退火](cosine-annealing-warm-restarts.md)與[循環學習率](cyclical-learning-rates.md)等方法頁 | 草稿 |
 | 正則化與權重衰減 | 最佳化器必須遵守的懲罰項 | [正則化與權重衰減](regularisation-and-weight-decay.md)，並有[尖銳極小值](sharp-minima.md)與 [SGD 雜訊尺度](sgd-noise-scale.md) 等方法頁；解耦衰減見 [AdamW](adaptive/adamw.md) 頁 | 草稿 |
+| 權重範數動態 | 正規化下的範數增長，以及衰減所設定的平衡 | [權重範數動態](weight-norm-dynamics/index.md)，並有[旋轉平衡](weight-norm-dynamics/rotational-equilibrium.md)與 [AdamW 權重衰減縮放](weight-norm-dynamics/adamw-weight-decay-scaling.md) 等方法頁 | 草稿 |
 | 梯度裁剪與正規化 | 對梯度大小的限制 | [梯度裁剪與正規化](gradient-clipping-and-normalisation.md)，並有[範數裁剪](norm-clipping.md)、[LARS](lars.md) 與 [LAMB](lamb.md) 等方法頁 | 草稿 |
 | 大批次與分散式 | 跨多個裝置的訓練 | [大批次與分散式](large-batch-and-distributed.md) | 草稿 |
 | 零階與演化 | 完全不使用梯度 | [零階與演化](zeroth-order-and-evolutionary.md)，並有 [SPSA](spsa.md)、[演化策略](evolution-strategies.md) 與 [CMA-ES](cma-es.md) 等方法頁 | 草稿 |
@@ -59,8 +60,8 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. doi:10.1214/aoms/1177729586 — 提出使用遞減步長的隨機逼近，是隨機梯度下降的基礎。
-- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:10.1016/0041-5553(64)90137-5 — 提出重球動量，並分析其在二次問題上的加速效果。
+- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. doi:[10.1214/aoms/1177729586](https://doi.org/10.1214/aoms/1177729586) — 提出使用遞減步長的隨機逼近，是隨機梯度下降的基礎。
+- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:[10.1016/0041-5553(64)90137-5](https://doi.org/10.1016/0041-5553(64)90137-5) — 提出重球動量，並分析其在二次問題上的加速效果。
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR. https://arxiv.org/abs/1412.6980 — 提出 Adam，一種利用梯度偏差校正矩估計的自適應方法。
 
 ### 綜述與教科書

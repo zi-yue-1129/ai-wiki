@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/math
@@ -49,7 +49,7 @@ Unrolled, the step is a weighted sum of all past gradients with weights that dec
 - **Core idea:** add a velocity term that accumulates past steps, so consistent directions speed up and oscillating directions cancel.
 - **Equation or algorithm:** the two-line update above, with \(\eta\) the learning rate and \(\beta\) the momentum coefficient.
 - **Results:** the paper analyses acceleration on quadratic problems, showing faster convergence than plain gradient descent for suitable parameter choices. The numerical constants come from that analysis and are not repeated here.
-- **Limitations:** the analysis is for quadratic objectives. Heavy-ball does not give the optimal worst-case rate for general convex functions; Nesterov's variant does ([Nesterov momentum](nesterov.md)).
+- **Limitations:** the analysis is for quadratic objectives. For general smooth convex functions, the heavy-ball method with fixed parameters is not known to reach the optimal \(O(1/T^2)\) rate of Nesterov's variant ([Nesterov momentum](nesterov.md)). [Lessard et al. (2016)](https://arxiv.org/abs/1408.3595) compare the rates of the two methods numerically.
 
 ## Connections
 
@@ -65,8 +65,9 @@ Unrolled, the step is a weighted sum of all past gradients with weights that dec
 
 ### Seminal papers
 
-- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:10.1016/0041-5553(64)90137-5 — Introduces heavy-ball momentum and analyses its acceleration on quadratic problems.
+- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:[10.1016/0041-5553(64)90137-5](https://doi.org/10.1016/0041-5553(64)90137-5) — Introduces heavy-ball momentum and analyses its acceleration on quadratic problems.
 - Sutskever, I., Martens, J., Dahl, G. & Hinton, G. (2013). On the importance of initialization and momentum in deep learning. ICML. https://proceedings.mlr.press/v28/sutskever13.html — Shows that momentum with careful initialisation trains deep and recurrent networks.
+- Lessard, L., Recht, B. & Packard, A. (2016). Analysis and Design of Optimization Algorithms via Integral Quadratic Constraints. *SIAM Journal on Optimization*. doi:[10.1137/15M1009597](https://doi.org/10.1137/15M1009597) — Derives numerical convergence bounds for the gradient, heavy-ball and Nesterov methods on convex functions.
 
 ### Surveys and textbooks
 

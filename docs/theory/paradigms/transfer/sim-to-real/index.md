@@ -39,14 +39,14 @@ Randomisation can make policies overly conservative, and it is hard to know whic
 
 ### Seminal papers
 
-- Tobin, Fong, Ray, Schneider, Zaremba & Abbeel (2017), "Domain randomization for transferring deep neural networks from simulation to the real world", IROS, arXiv:1703.06907 — Randomises rendering in simulation so that real images look like one more training sample.
-- Peng, Andrychowicz, Zaremba & Abbeel (2018), "Sim-to-real transfer of robotic control with dynamics randomization", ICRA, arXiv:1710.06537 — Randomises physical parameters so that a control policy adapts to unknown real dynamics.
-- Sadeghi & Levine (2017), "CAD2RL: real single-image flight without a single real image", RSS, arXiv:1611.04201 — Trains drone flight policies entirely in rendered CAD scenes and flies them in the real world.
-- Tan et al. (2018), "Sim-to-real: learning agile locomotion for quadruped robots", RSS, arXiv:1804.10332 — Quadruped locomotion learned in simulation with actuator modelling, transferred to hardware.
+- Tobin, Fong, Ray, Schneider, Zaremba & Abbeel (2017), "Domain randomization for transferring deep neural networks from simulation to the real world", IROS, [arXiv:1703.06907](https://arxiv.org/abs/1703.06907) — Randomises rendering in simulation so that real images look like one more training sample.
+- Peng, Andrychowicz, Zaremba & Abbeel (2018), "Sim-to-real transfer of robotic control with dynamics randomization", ICRA, [arXiv:1710.06537](https://arxiv.org/abs/1710.06537) — Randomises physical parameters so that a control policy adapts to unknown real dynamics.
+- Sadeghi & Levine (2017), "CAD2RL: real single-image flight without a single real image", RSS, [arXiv:1611.04201](https://arxiv.org/abs/1611.04201) — Trains drone flight policies entirely in rendered CAD scenes and flies them in the real world.
+- Tan et al. (2018), "Sim-to-real: learning agile locomotion for quadruped robots", RSS, [arXiv:1804.10332](https://arxiv.org/abs/1804.10332) — Quadruped locomotion learned in simulation with actuator modelling, transferred to hardware.
 
 ### Surveys and textbooks
 
-- Zhao, Queralta & Westerlund (2020), "Sim-to-real transfer in deep reinforcement learning for robotics: a survey", arXiv:2009.13303 — Survey of methods for closing the simulation gap in deep RL for robots.
+- Zhao, Queralta & Westerlund (2020), "Sim-to-real transfer in deep reinforcement learning for robotics: a survey", [arXiv:2009.13303](https://arxiv.org/abs/2009.13303) — Survey of methods for closing the simulation gap in deep RL for robots.
 
 ### Lectures and videos
 

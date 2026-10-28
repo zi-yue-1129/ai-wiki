@@ -12,6 +12,19 @@ tags:
 
 A protocol defines how the data is divided, which comparisons are made, and how uncertainty is reported. Protocol mistakes often change a conclusion more than the choice of metric does.
 
+## Methods
+
+Each method has its own page.
+
+| Method | Used for |
+|---|---|
+| [Cross-validation](methods/cross-validation.md) | Estimating generalisation from several splits |
+| [Paired bootstrap](methods/paired-bootstrap.md) | Intervals for the difference between two methods |
+| [LLM as judge](methods/llm-as-judge.md) | Scoring open-ended outputs with a model |
+| [Human evaluation](methods/human-evaluation.md) | Judging outputs with people, with agreement reported |
+| [Elo rating and arenas](methods/elo-rating.md) | Ranking systems from pairwise outcomes |
+| [Contamination detection](methods/contamination-detection.md) | Checking whether benchmark items were in training data |
+
 ## Splitting the data
 
 - **Train, validation and test.** Tune on validation and report on test once.

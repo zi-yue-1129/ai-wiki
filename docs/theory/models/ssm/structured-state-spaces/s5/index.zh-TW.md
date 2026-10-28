@@ -61,9 +61,9 @@ S5 是 [S4](../s4/index.md) 層的簡化形式，與其同屬[結構化狀態空
 
 ### 開創性論文
 
-- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". arXiv:2111.00396 — S4，具正規加低秩結構與快速卷積核。
-- Gu, A., Gupta, A., Goel, K. & Ré, C. (2022). "On the Parameterization and Initialization of Diagonal State Space Models". arXiv:2206.11893 — 仔細初始化的複數對角狀態矩陣，能以較簡單的實作匹敵 S4。
-- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". arXiv:2008.07669 — 推導 HiPPO 狀態矩陣，透過多項式投影使循環能記住歷史。
+- Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". [arXiv:2111.00396](https://arxiv.org/abs/2111.00396) — S4，具正規加低秩結構與快速卷積核。
+- Gu, A., Gupta, A., Goel, K. & Ré, C. (2022). "On the Parameterization and Initialization of Diagonal State Space Models". [arXiv:2206.11893](https://arxiv.org/abs/2206.11893) — 仔細初始化的複數對角狀態矩陣，能以較簡單的實作匹敵 S4。
+- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". [arXiv:2008.07669](https://arxiv.org/abs/2008.07669) — 推導 HiPPO 狀態矩陣，透過多項式投影使循環能記住歷史。
 
 ### 綜述與教科書
 
@@ -75,5 +75,5 @@ S5 是 [S4](../s4/index.md) 層的簡化形式，與其同屬[結構化狀態空
 
 ### 文章與文件
 
-- Smith, J. T. H., Warrington, A. & Linderman, S. W. (2022). "Simplified State Space Layers for Sequence Modeling". arXiv:2208.04933 — S5，帶有平行掃描的對角狀態空間層。
-- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". arXiv:2303.06349 — 對對角線性循環做仔細初始化，在長程基準上與 S4 相當。
+- Smith, J. T. H., Warrington, A. & Linderman, S. W. (2022). "Simplified State Space Layers for Sequence Modeling". [arXiv:2208.04933](https://arxiv.org/abs/2208.04933) — S5，帶有平行掃描的對角狀態空間層。
+- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". [arXiv:2303.06349](https://arxiv.org/abs/2303.06349) — 對對角線性循環做仔細初始化，在長程基準上與 S4 相當。

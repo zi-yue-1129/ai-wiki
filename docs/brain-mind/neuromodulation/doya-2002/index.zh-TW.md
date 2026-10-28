@@ -1,0 +1,101 @@
+---
+translation_reviewed: 2026-10-28
+related:
+- theory/paradigms/meta-learning
+tags:
+- neuroscience
+- reinforcement learning
+- meta-learning
+aliases:
+  - Doya 2002
+  - Metalearning and neuromodulation
+  - 以神經調節實現的元學習
+  - Neuromodulators as meta-parameters
+  - 神經調節的元參數假說
+---
+
+# 以神經調節實現的元學習（Doya, 2002）
+
+Doya 提出，四種主要的神經調節物質各自控制強化學習演算法的一部分。多巴胺攜帶預測誤差，血清素、正腎上腺素與乙醯膽鹼則分別設定三個元參數：預測的時間尺度、動作選擇的隨機程度，以及學習的速度。論文把神經調節視為大腦調整「如何學習」的方式，而不只是調整「學什麼」。
+
+本頁屬於[多巴胺之外的神經調節物質](../index.md)。預測誤差本身見[多巴胺的獎勵預測誤差](../../neuroscience/dopamine-reward-prediction-error/index.md)，本頁不重複該內容。
+
+## 概要
+
+強化學習代理人除了價值規則之外，還有其他設定。學習率控制每個結果如何移動它的估計值。折扣因子控制未來獎勵相對於即時獎勵的權重。選擇規則控制代理人挑選最佳價值選項的嚴格程度，這決定了利用與探索之間的平衡。這些設定是元參數，因為它們管理學習過程，而不是從資料學出來的。固定的設定只適用於某些環境。Doya 問的是：大腦能否隨環境改變這些設定，而神經調節物質是否就是其機制。
+
+## 核心概念
+
+- **折扣因子（γ）**：未來獎勵相對於即時獎勵的權重。接近 1 的值會看得很遠。
+- **逆溫度（β）**：softmax 選擇規則的銳利程度。數值高時，代理人幾乎總是挑選價值最高的選項；數值低時，選擇較隨機。
+- **學習率（α）**：用於更新價值估計的預測誤差比例。
+
+## 問題
+
+強化學習能解釋多巴胺可能攜帶預測誤差，但沒有說明其他設定如何被選定。有好幾條迴路都可能調整它們。Doya 問的是：哪種神經調節物質可能控制哪個設定，而這種選擇能否從演算法的需求推出。
+
+## 核心想法
+
+Doya 把每種神經調節物質連到演算法的一個組成部分：
+
+- **多巴胺**攜帶時序差分誤差，也就是學習訊號本身。
+- **血清素**控制折扣因子，因此控制獎勵被預測的時間尺度。
+- **正腎上腺素**控制選擇規則的逆溫度，因此控制動作選擇的隨機程度與探索。
+- **乙醯膽鹼**控制學習率，也就是記憶更新的速度。
+
+論文把神經調節物質看作調節大腦分散式學習機制的全域訊號。這讓大腦有途徑調整自身的學習。這個對應是一項提議，但它讓每種神經調節物質都有精確的計算角色，可以與行為比對檢驗。
+
+## 方程式或演算法
+
+標準演算法中，$Q(s, a)$ 是在狀態 $s$ 採取動作 $a$ 的習得價值：
+
+- 預測誤差（SARSA 形式）：$\delta_t = r_t + \gamma Q(s_{t+1}, a_{t+1}) - Q(s_t, a_t)$，其中 $\gamma$ 為折扣因子。
+- 價值更新：$Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \, \delta_t$，其中 $\alpha$ 為學習率。
+- 選擇規則：$P(a \mid s) = \dfrac{\exp(\beta \, Q(s, a))}{\sum_{b} \exp(\beta \, Q(s, b))}$，其中 $\beta$ 為逆溫度。
+
+在 Doya 的對應中，$\delta_t$ 對應多巴胺，$\gamma$ 對應血清素，$\beta$ 對應正腎上腺素，$\alpha$ 對應乙醯膽鹼。更新與選擇規則是標準形式，而對應才是論文的貢獻。
+
+## 結果
+
+論文是理論提議，沒有報告新的實驗資料集。它的對應基於對實驗資料的回顧以及理論模型。其摘要指出，神經調節物質與環境之間可能的交互作用，是由一套元學習的計算理論所預測的。本頁不逐一摘述個別實驗，想了解各項對應的證據者應閱讀原文。
+
+## 限制
+
+- **是假說，不是證明。** 論文把這個對應當作一項提議，依據是對實驗資料與理論模型的回顧。
+- **每個系統有多種角色。** 神經調節物質作用於許多迴路，並有多種效應。一對一對應到單一參數是一種簡化。
+- **純量設定。** 模型把每個元參數視為單一數值。神經控制可能因腦區與時間而異。
+- **設定如何被選定。** 提議說明了哪個訊號設定哪個參數，但沒有說明數值如何隨時間改變。這需要額外的學習機制。
+
+## 連結
+
+- **強化學習。** 三個元參數與預測誤差都是[強化學習](../../../theory/paradigms/reinforcement-learning/index.md)所涵蓋演算法的組成部分。
+- **以模型為基礎與無模型控制。** 折扣因子與逆溫度會影響代理人如何權衡快取的價值與規劃。見[以模型為基礎與無模型控制](../../decision-reward/model-based-vs-model-free/index.md)。
+- **決策。** 正腎上腺素與多巴胺如何影響選擇，見[決策、多巴胺與獎勵](../../decision-reward/index.md)。
+- **AI 中的元學習。** 調整學習演算法本身，是[元學習](../../../theory/paradigms/meta-learning/index.md)的核心關切。
+- **適應性最佳化器。** 每個參數的學習率控制，例如 [Adam](../../../theory/optimization/adaptive/adam.md)，解決的是相關的實務問題。它並不是神經調節模型。
+
+## 應用
+
+- **適應性強化學習。** 強化學習系統常以手動方式調整折扣因子、學習率與探索溫度。Doya 的對應為每一項提供生物學詮釋，並暗示它們可以隨環境改變而調整。
+- **計算精神醫學。** 把學習率與選擇銳利度擬合到行為上，是研究選擇個體差異的標準方法。這些正是 Doya 的對應指派給神經調節物質的參數。背景見[決策、多巴胺與獎勵](../../decision-reward/index.md)。
+
+## 開放問題
+
+- **哪種神經調節物質控制哪個設定？** 這個對應是一項提議，每項指派都需要各自的檢驗。
+- **這些設定如何被學習？** 提議需要一條隨時間改變設定的規則，而實現此規則的神經機制尚不清楚。
+- **神經調節物質是唯一的控制者嗎？** 皮質連結或其他腦區的改變也可能設定這些參數，它們各自的角色仍不清楚。
+
+## 參考文獻
+
+### Seminal papers
+
+- Doya, K. (2002). Metalearning and neuromodulation. *Neural Networks*, 15(4–6), 495–506. https://doi.org/10.1016/s0893-6080(02)00044-8 — 原始論文。提出多巴胺、血清素、正腎上腺素與乙醯膽鹼分別對應預測誤差與強化學習的三個元參數。
+
+- Yu, A. J. & Dayan, P. (2005). Uncertainty, Neuromodulation, and Attention. *Neuron*, 46(4), 681–692. https://doi.org/10.1016/j.neuron.2005.04.026 — 提出乙醯膽鹼與正腎上腺素分別訊號預期與非預期不確定性，是對同兩種神經調節物質的另一種解釋。
+
+### Surveys and textbooks
+
+- Doya, K. (2008). Modulators of decision making. *Nature Neuroscience*, 11(4), 410–416. https://doi.org/10.1038/nn2077 — 回顧神經調節物質與決策的關係。
+- Aston-Jones, G. & Cohen, J. D. (2005). An integrative theory of locus coeruleus-norepinephrine function: adaptive gain and optimal performance. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.28.061604.135709 — 回顧正腎上腺素系統及其緊張性與相位模式，與本提議中正腎上腺素在動作選擇中的角色有關。
+- Hasselmo, M. E. (2006). The role of acetylcholine in learning and memory. *Current Opinion in Neurobiology*, 16(6), 710–715. https://doi.org/10.1016/j.conb.2006.09.002 — 回顧乙醯膽鹼在學習與記憶中的角色，與本頁的學習率對應相關。
+- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — 強化學習的標準入門教科書，涵蓋本頁使用的折扣因子、學習率與 softmax 選擇規則。

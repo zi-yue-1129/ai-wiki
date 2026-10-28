@@ -1,64 +1,65 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
-aliases:
-  - 全生命週期估算
-  - BLOOM carbon footprint
-  - Life-cycle estimate
 ---
 
-# 全生命週期碳估算（BLOOM，2022）
+# 全生命週期碳排估算（BLOOM，2022）
 
-!!! info "屬於 AI 的環境影響"
-    本方法頁隸屬於 [AI 的環境影響](index.zh-TW.md)。它詳細說明一項估算；上層頁面則將它與其他估算並列比較。
+!!! info "屬於「AI 的環境影響」"
+    本方法頁隸屬於[AI 的環境影響](index.zh-TW.md)。它詳細說明一項估算；上層頁面則比較各項估算。
 
-Luccioni、Viguier 與 Ligozat（2022）估算了訓練 BLOOM 的碳足跡。BLOOM 是一個擁有 1760 億參數的語言模型。他們針對同一次訓練執行給出兩個數字，兩者的差別在於計入的範圍。這項估算顯示，計入什麼會使結果相差很大，而且要為機器學習模型得出精確的碳數字相當困難。
+Luccioni、Viguier 與 Ligozat（2022）估算了訓練 BLOOM（一個 1,760 億參數語言模型）的碳足跡。他們針對同一次訓練執行報告了兩個數字，兩者的差別在於計入的範圍。這個差距顯示，範圍的選擇可能使結果相差很大，而要為 ML 模型給出精確的碳排數字十分困難。
 
 ## 問題
 
-模型排放的單一數字，會隱藏背後的各種選擇。只計訓練時的用電，得到的數字會比同時計入硬體製造與整個系統的結果小。問題在於如何顯示計算範圍的影響有多大，並為一個真實的模型提供透明的估算。
+一個模型的單一排放數字，掩蓋了背後的各種選擇。若只計入訓練期間處理器用掉的電力，得到的數字會比同時計入硬體製造與閒置機器耗電的數字來得小。問題在於展示範圍的選擇有多重要，並為一個真實模型提供透明的估算。
 
-## 核心想法
+## 核心概念
 
-先測量訓練實際消耗的能源，再分階段向外延伸估算：從處理器的耗電功率，到整個系統，最後到設備製造的排放。在每一個範圍都報告數字，讓讀者可以看出每個數字包含什麼。
+測量訓練期間處理器實際耗用的能量，以電網碳強度換算，然後分階段向外擴展估算範圍。在每個範圍界定處都報告數字，讓讀者看見每個數字包含了什麼。
 
-## 估算如何運作
+## 估算方式
 
-1. **測量動態功率。** 記錄訓練期間處理器所用的能源。
-2. **加入系統。** 計入處理器所在的更大系統，例如冷卻與其他設備。
-3. **加入生命週期。** 計入設備製造的排放，以及訓練以外所用能源的排放。
-4. **報告每個範圍。** 針對每個範圍給出結果，讓讀者可以比較。
+1. **動態功率。** 以訓練時 GPU 的耗電功率乘上電網的碳強度。作者排除了 CPU 的功耗，也不計入抵換或熱能回收。
+2. **閒置功率。** 加上叢集在閒置時的耗電，這是維持硬體可供使用的成本。
+3. **嵌入式排放。** 加上製造伺服器與 GPU 所產生的排放。作者以代理數據而非精確的硬體資料估算這部分。
+4. **分別報告各範圍。** 為每個階段給出總量，讓讀者可以比較僅計動態功率的數字與完整生命週期的數字。
 
-摘要描述了這些範圍及由此得出的兩個數字。逐項的計算則在論文中。
+論文並未嘗試「從搖籃到墳墓」的完整評估。網路交換器與冷卻設備未計入嵌入式排放。
 
 ## 結果
 
-摘要指出，若只計動態功耗，估算約為 24.7 公噸二氧化碳當量；若計入所有過程，從設備製造到營運能源，則為 50.5 公噸。兩者的差距來自範圍的選擇，作者也強調，要為機器學習模型得出精確的碳估算相當困難。
+本次訓練使用約 433 MWh 的動態能量，共約 108 萬 GPU 小時，歷時 118 天。硬體為法國國家叢集中的 Nvidia A100 GPU，該處電網的碳強度約為 57 gCO2eq/kWh。兩個主要數字為：
+
+- **僅計動態功率：** 約 24.7 公噸 CO2eq。
+- **完整生命週期：** 約 50.5 公噸 CO2eq。這再加上伺服器與 GPU 的嵌入式排放約 11.2 公噸，以及叢集閒置功率約 14.6 公噸。
+
+作者也測量了一個服務部署：16 個 A100 GPU 位於雲端執行個體上，在約 18 天內處理約 23 萬次請求，耗電 914 kWh，當地電網碳強度為 394 gCO2eq/kWh。這在追蹤期間約為 340 公斤 CO2eq。作者將這些數字都描述為估算值。
 
 ## 限制
 
-- **只有一個模型。** 估算描述的是一個模型在一套硬體設定上的一次訓練，無法推導出一般性的比率。
-- **假設的輸入。** 系統範圍的部分數值，依賴無法從外部完整測量的設備與能源假設。
-- **只計訓練。** 數字涵蓋的是訓練，不包括模型部署後提供服務的排放。
+- **單一模型與單一叢集。** 估算描述的是一種硬體設定下的一次訓練執行，不能代表 ML 的一般排放率。
+- **代理輸入。** 訓練功耗並未即時追蹤，因此以 GPU 的額定功率為代理；嵌入式排放的數字也依賴代理資料。
+- **未計入的部分。** CPU 功耗、網路交換器與冷卻設備都不在數字之內，因此總量並不完整。
+- **服務是另一種情況。** 推論數字來自單一部署，可能無法代表其他設定。
 
-## 與其他主題的連結
+## 與其他頁面的連結
 
-- 不計較更大範圍的較簡單計算工具，見[機器學習排放計算器](emissions-calculator.zh-TW.md)頁面。
-- 降低訓練碳足跡的做法，見[節能訓練](energy-efficient-training.zh-TW.md)頁面。
-- 全生命週期數字中所計入的硬體製造，相關內容見[AI 硬體](../../engineering/hardware/index.md)。
+- 只計三項輸入的較簡單計算器，見[機器學習排放計算器](emissions-calculator.zh-TW.md)。
+- 降低訓練足跡的方法，見[節能訓練](energy-efficient-training.zh-TW.md)。
+- 被計入全生命週期數字的硬體，見[AI 硬體](../../engineering/hardware/index.zh-TW.md)。
+- 每篇論文都應附上這類數字的論點，見[能源與排放的報告](reporting-framework.zh-TW.md)。
 
 ## 開放問題
 
-- 全生命週期的範圍應如何標準化，才能比較不同的模型？
-- 模型提供服務的排放，應如何與訓練的排放一併計算？
+- 應如何標準化全生命週期的範圍界定，才能比較不同模型？
+- 模型的服務排放應如何與其訓練排放合併計算？
 
-## 參考資料
+## 參考文獻
 
 ### 開創性論文
 
-- Luccioni, A. S., Viguier, S. & Ligozat, A.-L. (2022). Estimating the carbon footprint of BLOOM, a 176B parameter language model. arXiv:2211.02001. https://arxiv.org/abs/2211.02001 — 本頁所述的研究，為同一次訓練給出兩個以範圍區分的碳足跡。
-- Lacoste, A., Luccioni, A., Schmidt, V. & Dandres, T. (2019). Quantifying the carbon emissions of machine learning. arXiv:1910.09700. https://arxiv.org/abs/1910.09700 — 只以三個輸入進行估算的計算工具。
-- Patterson, D. et al. (2021). Carbon emissions and large neural network training. arXiv:2104.10350. https://arxiv.org/abs/2104.10350 — 顯示模型、資料中心與處理器的選擇如何改變碳足跡。
-- Strubell, E., Ganesh, A. & McCallum, A. (2019). Energy and policy considerations for deep learning in NLP. arXiv:1906.02243. https://arxiv.org/abs/1906.02243 — 較早估算訓練成本，這類估算即是在其基礎上延伸。
-- Henderson, P. et al. (2020). Towards the systematic reporting of the energy and carbon footprints of machine learning. *Journal of Machine Learning Research*. https://arxiv.org/abs/2002.05651 — 建議報告能源與排放時，須一併說明範圍。
+- Luccioni, A. S., Viguier, S. & Ligozat, A.-L. (2022). *Estimating the Carbon Footprint of BLOOM, a 176B Parameter Language Model*. arXiv 預印本。https://arxiv.org/abs/2211.02001 — 本頁所述的研究，一次訓練執行的兩個足跡數字，以及兩者之間的範圍界定。
+- Lacoste, A., Luccioni, A., Schmidt, V. & Dandres, T. (2019). *Quantifying the Carbon Emissions of Machine Learning*. arXiv 預印本。https://arxiv.org/abs/1910.09700 — 只計三項輸入的較簡單計算器。
+- Patterson, D., et al. (2021). *Carbon Emissions and Large Neural Network Training*. arXiv 預印本。https://arxiv.org/abs/2104.10350 — 顯示模型、資料中心與處理器的選擇如何改變足跡。
+- Strubell, E., Ganesh, A. & McCallum, A. (2019). *Energy and Policy Considerations for Deep Learning in NLP*. ACL 2019, pp. 3645–3650. doi:[10.18653/v1/P19-1355](https://doi.org/10.18653/v1/P19-1355) — 較早的訓練成本估算，此類估算是在它的基礎上延伸。
+- Henderson, P., Hu, J., Romoff, J., Brunskill, E., Jurafsky, D. & Pineau, J. (2020). *Towards the Systematic Reporting of the Energy and Carbon Footprints of Machine Learning*. JMLR 21(248)。https://www.jmlr.org/papers/v21/20-312.html — 建議報告能源與排放時，應同時說明範圍界定。

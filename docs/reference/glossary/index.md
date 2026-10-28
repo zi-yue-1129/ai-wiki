@@ -12,6 +12,7 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 |---|---|---|
 | Activation function | 啟動函數 | Nonlinearity applied to a neuron's weighted sum ([Deep Learning](../../theory/deep-learning/index.md)) |
 | Active learning | 主動學習 | Model chooses which examples to label ([Active Learning](../../theory/paradigms/active/index.md)) |
+| Activity-silent working memory | 活動靜默工作記憶 | Memory held by short-term synaptic changes rather than persistent spiking ([Activity-Silent Working Memory](../../brain-mind/working-memory-executive-function/activity-silent-working-memory/index.md)) |
 | Adversarial example | 對抗樣本 | Input perturbed to fool a model |
 | Agent | 代理人／智慧體 | System that perceives and acts toward goals ([AI Agents](../../theory/models/agents/index.md)) |
 | Alignment | 對齊 | Making AI pursue intended goals ([Safety & Alignment](../../society/safety-alignment/index.md)) |
@@ -27,7 +28,10 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 | Catastrophic forgetting | 災難性遺忘 | Losing old skills when learning new ones ([Continual Learning](../../theory/paradigms/continual/index.md)) |
 | Chain-of-thought | 思維鏈 | Step-by-step reasoning in text |
 | Cognitive architecture | 認知架構 | Integrated theory of the mind's structure ([Cognitive Architectures](../../brain-mind/cognitive-architectures/index.md)) |
+| Cognitive map | 認知地圖 | Internal model of how places or concepts relate, used for planning and inference ([Spatial Navigation and Cognitive Maps](../../brain-mind/navigation-cognitive-maps/index.md)) |
+| Communication through coherence | 透過相干性的通訊 | Idea that synchrony between areas gates the flow of information ([Communication through Coherence](../../brain-mind/oscillations/communication-through-coherence/index.md)) |
 | Complementary learning systems | 互補學習系統 | Fast hippocampal + slow cortical learning ([Memory & Learning](../../brain-mind/memory-learning/index.md)) |
+| Computational phenotyping | 計算表型分析 | Fitting computational models to behaviour to characterise individual differences ([Computational Psychiatry](../../brain-mind/computational-psychiatry/index.md)) |
 | Connectome | 連結體 | Complete wiring diagram of a nervous system |
 | Context window | 上下文視窗 | Tokens a model can attend to at once |
 | Contrastive learning | 對比學習 | Learning by pulling similar pairs together and pushing others apart |
@@ -36,6 +40,11 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 
 ## D–H
 
+| Experience replay | 經驗回放 | Storing past experiences and reusing them to train an agent ([Experience Replay](../../brain-mind/sleep-and-consolidation/experience-replay/index.md)) |
+| Neuromodulator | 神經調節物質 | Chemical signal that changes the gain and state of many neurons at once ([Neuromodulators beyond Dopamine](../../brain-mind/neuromodulation/index.md)) |
+| Place cell | 位置細胞 | Hippocampal neuron that fires in a specific location of an environment ([Place Cells](../../brain-mind/navigation-cognitive-maps/place-cells/index.md)) |
+| Sharp-wave ripple | 尖波漣波 | Brief high-frequency event in the hippocampus, linked to replay ([Sharp-Wave Ripples](../../brain-mind/sleep-and-consolidation/sharp-wave-ripples/index.md)) |
+| Successor representation | 後繼表徵 | Representation of a state by the expected future occupancy of the states it leads to ([Successor Representation](../../brain-mind/navigation-cognitive-maps/successor-representation/index.md)) |
 | Term | 中文 | Short definition |
 |---|---|---|
 | Data augmentation | 資料增強 | Creating modified copies of training data |
@@ -121,6 +130,7 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 | Synapse | 突觸 | Connection between neurons |
 | TD error | 時序差分誤差 | Reward-prediction error in RL |
 | Theory of mind | 心智理論 | Attributing mental states to others |
+| Theta–gamma coupling | θ–γ 耦合 | Gamma bursts locked to the phase of theta oscillations ([Neural Oscillations and Synchrony](../../brain-mind/oscillations/index.md)) |
 | Token / tokenisation | 詞元／分詞 | Unit of text for a language model |
 | Transfer learning | 遷移學習 | Reusing knowledge across tasks ([Transfer](../../theory/paradigms/transfer/index.md)) |
 | Transformer | Transformer | Attention-based architecture |

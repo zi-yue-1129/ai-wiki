@@ -30,8 +30,9 @@ A result is interpretable only when all three are stated. Changing any one of th
 |---|---|
 | [Metrics](metrics/index.md) | Which number matches the decision: accuracy, ranking quality, calibration or error size? |
 | [Protocols](protocols/index.md) | How do we split data, compare methods and report uncertainty without fooling ourselves? |
+| [Benchmarks](benchmarks/index.md) | Which named test measures what, and what can its score show? |
 
-Benchmarks by task, with one page per benchmark family, are planned for a later phase. Until then, see [Evaluation & Benchmarks](../../engineering/evaluation/index.md) for the main language-model benchmarks.
+Named benchmarks, grouped by task with one page per benchmark, are in [Benchmarks](benchmarks/index.md). For practical guidance on language-model benchmarks, see [Evaluation & Benchmarks](../../engineering/evaluation/index.md).
 
 ## Where the topic already appears
 

@@ -28,6 +28,10 @@ translation_reviewed: 2026-10-28
 
 門檻是超參數。論文建議依許多次更新中梯度範數的平均統計量來設定。
 
+![梯度範數裁剪動畫：灰色原始梯度穿越範數門檻圓時，青綠色裁剪梯度停在圓周且方向不變；原始梯度縮回門檻內後，兩者長度一致。](../../assets/concept-animations/gradient-norm-clipping-motion.svg)
+
+*原創循環幾何教學動畫，CC BY-SA 4.0。* 虛線圓是全域 L2 範數門檻 \(\tau\)。灰色原始梯度超過門檻時，青綠色向量會縮放至 \(\tau g/\|g\|_2\)；當原始梯度回到門檻內，兩者長度便再次相同，全程不改變方向。長度及變化過程**僅供教學示意，並非量測的訓練梯度**。裁剪限制的是**最佳化器更新前的梯度**，不保證自適應最佳化器的參數更新範數也受到相同上限限制。參見 [Pascanu 等人（2013）](https://arxiv.org/abs/1211.5063)。Wiki 網站支援暫停與減少動態效果。
+
 ## 結果
 
 摘要指出，作者提出了一種梯度範數裁剪策略來處理梯度爆炸，並在實驗部分以實證驗證了假說與所提出的解法。摘要未給出具體數字，因此本頁不引用任何數值。
@@ -57,7 +61,6 @@ translation_reviewed: 2026-10-28
 - Pascanu, R., Mikolov, T. & Bengio, Y. (2013). *On the Difficulty of Training Recurrent Neural Networks*. ICML. https://arxiv.org/abs/1211.5063 — 提出以梯度範數裁剪處理梯度爆炸，並分析循環網路中的梯度消失。
 - You, Y., Gitman, I. & Ginsburg, B. (2017). *Large Batch Training of Convolutional Networks*. arXiv. https://arxiv.org/abs/1708.03888 — 對整體步長的逐層替代做法。
 - Goyal, P., et al. (2017). *Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour*. arXiv. https://arxiv.org/abs/1706.02677 — 以預熱處理訓練初期不穩定的另一種做法。
-- Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — 與梯度大小控制相關的自適應更新，供比較之用。
 
 ### 綜述與教科書
 
