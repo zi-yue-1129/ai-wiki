@@ -783,6 +783,10 @@ plugins:
             Accessibility & Assistive Technology: 無障礙與輔助科技
             Engineering: 工程實務
             Frameworks & Tools: 框架與工具
+            Compilers and Kernels: 編譯器與核心程式
+            XLA: XLA
+            torch.compile and TorchInductor: torch.compile 與 TorchInductor
+            Triton: Triton
             Data: 資料工程
             MinHash Deduplication: MinHash 去重
             Confident Learning: 置信學習
@@ -1707,7 +1711,13 @@ nav:
       - Accessibility & Assistive Technology: applications/accessibility/index.md
   - Engineering:
       - engineering/index.md
-      - Frameworks & Tools: engineering/frameworks/index.md
+      - Frameworks & Tools:
+          - engineering/frameworks/index.md
+          - Compilers and Kernels:
+              - engineering/frameworks/compilers-and-kernels/index.md
+              - XLA: engineering/frameworks/compilers-and-kernels/xla.md
+              - torch.compile and TorchInductor: engineering/frameworks/compilers-and-kernels/torch-compile.md
+              - Triton: engineering/frameworks/compilers-and-kernels/triton.md
       - Data:
           - engineering/data/index.md
           - MinHash Deduplication: engineering/data/minhash-deduplication.md
