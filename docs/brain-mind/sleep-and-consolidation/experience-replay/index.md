@@ -30,7 +30,7 @@ The question for this chapter is whether the brain reuses recent experience in a
 
 ## Core idea
 
-Each transition is stored as a tuple of state, action, reward and next state. Lin (1992) presented experience replay as one of three extensions for speeding up reinforcement learning, evaluated in a simulated testbed. Mnih et al. (2015) kept a replay memory of recent experience in the deep Q-network and sampled from it at random. Random sampling breaks the correlation between consecutive steps.
+Each transition is stored as a tuple of state, action, reward and next state. Lin (1992) presented experience replay as one of three extensions for speeding up reinforcement learning, alongside learning action models for planning and teaching. The extensions were evaluated in a dynamic, nondeterministic environment. Mnih et al. (2015) kept a replay memory of recent experience in the deep Q-network and sampled from it at random. Random sampling breaks the correlation between consecutive steps.
 
 The brain comparison lies in the structure. Both systems reuse recent experience out of the order in which it occurred. Hippocampal replay is compressed in time and tied to network events (see [Sharp-wave ripples](../sharp-wave-ripples/index.md)), while the artificial buffer is a plain store sampled at random. The match is in the principle, not in the mechanism.
 
@@ -40,7 +40,7 @@ In outline, the agent stores each transition, samples a mini-batch from the buff
 
 ## Results
 
-- Lin (1992) evaluated the methods empirically in a simulated testbed. Experience replay was one of three extensions for speeding up learning that the paper compares.
+- Lin (1992) evaluated the three extensions empirically in a dynamic, nondeterministic environment. Experience replay was one of them.
 - Mnih et al. (2015) reported human-level control on a set of games with a deep Q-network that uses replay.
 
 The DQN results combine replay with other components of the agent, so they do not isolate replay's contribution.
@@ -73,7 +73,7 @@ The DQN results combine replay with other components of the agent, so they do no
 
 ### Seminal papers
 
-- Lin, L.-J. (1992). Self-improving reactive agents based on reinforcement learning, planning and teaching. *Machine Learning* 8, 293–321. https://doi.org/10.1007/BF00992699 — Presents experience replay as one of three extensions for speeding up reinforcement learning, evaluated in a simulated testbed.
+- Lin, L.-J. (1992). Self-improving reactive agents based on reinforcement learning, planning and teaching. *Machine Learning* 8, 293–321. https://doi.org/10.1007/BF00992699 — Presents experience replay as one of three extensions for speeding up reinforcement learning (with learning action models for planning and teaching), evaluated in a dynamic, nondeterministic environment.
 - Mnih, V. et al. (2015). Human-level control through deep reinforcement learning. *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The deep Q-network, which learns from a replay memory of recent experience sampled at random.
 - Foster, D. J. & Wilson, M. A. (2006). Reverse replay of behavioural sequences in hippocampal place cells during the awake state. *Nature* 440, 680–683. https://doi.org/10.1038/nature04587 — The biological counterpart: reverse replay of place-cell sequences during waking rest after running in rats.
 - Mattar, M. G. & Daw, N. D. (2018). Prioritized memory access explains planning and hippocampal replay. *Nature Neuroscience* 21, 1609–1617. https://doi.org/10.1038/s41593-018-0232-z — Proposes that replay is ordered by utility, the extra reward an update would earn, and reproduces forward and reverse replay.

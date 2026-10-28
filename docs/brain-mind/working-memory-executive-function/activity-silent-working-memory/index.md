@@ -38,7 +38,7 @@ If memory depended only on ongoing spiking, maintaining it would be costly and f
 Two linked ideas describe the account.
 
 1. **Synaptic storage.** Mongillo et al. (2008) propose that working memory is sustained by calcium-mediated synaptic facilitation in the recurrent connections of neocortical networks. Residual calcium in presynaptic terminals acts as a buffer. Spiking loads, refreshes and reads out this buffer. Because calcium decays slowly, the refresh can be infrequent, which makes the mechanism metabolically efficient and robust.
-2. **Dynamic hidden states.** Stokes (2015) reviews evidence for activity-silent neural states and proposes a dynamic coding framework, in which memory is encoded in patterns of connectivity. Wolff et al. (2017) support the hidden-state view with a perturbation pulse during the delay, which allowed item-specific memory to be detected in EEG even without lingering delay activity.
+2. **Dynamic hidden states.** Stokes (2015) reviews evidence for activity-silent neural states and proposes a dynamic coding framework, in which memory is encoded in patterns of connectivity. Wolff et al. (2017) report evidence for hidden states in working-memory-guided behaviour.
 
 ## Equation or algorithm
 
@@ -54,7 +54,6 @@ The steps describe a simplified model. Other hidden-state mechanisms are possibl
 ## Results
 
 - **Synaptic model.** Mongillo et al. (2008) propose that a synaptic memory can be sustained with a low refresh rate and that its duration can be controlled by background activity. They describe the mechanism as robust and metabolically efficient.
-- **Pulse-based evidence.** Wolff et al. (2017) used EEG and a perturbation pulse during maintenance. A cue to forget one item erased its trace, while items that were only unattended stayed coded. The strength of this hidden-state coding predicted the accuracy and precision of memory-guided responses.
 
 ## Limitations
 
@@ -72,7 +71,7 @@ The steps describe a simplified model. Other hidden-state mechanisms are possibl
 
 ## Applications
 
-- **Experimental design.** Perturbation and decoding methods, such as the pulse design of Wolff et al. (2017), are used to read memory when ongoing activity does not show it.
+- **Experimental design.** Perturbation and decoding methods are used to read memory when ongoing activity does not show it.
 - **Models of maintenance.** Synaptic models of working memory inspire network models in which memory is kept by connection strengths rather than by sustained firing (Mongillo et al., 2008).
 
 ## Open questions
@@ -86,7 +85,7 @@ The steps describe a simplified model. Other hidden-state mechanisms are possibl
 ### Seminal papers
 
 - Mongillo, G., Barak, O. & Tsodyks, M. (2008). Synaptic theory of working memory. *Science*. https://doi.org/10.1126/science.1150769 — Proposes that working memory is sustained by calcium-mediated synaptic facilitation, refreshed by spiking.
-- Wolff, M. J., Jochim, J., Akyürek, E. G. & Stokes, M. G. (2017). Dynamic hidden states underlying working-memory-guided behavior. *Nature Neuroscience*. https://doi.org/10.1038/nn.4546 — Uses EEG and a perturbation pulse to detect item-specific memory during the delay; the strength of this signal predicts memory-guided behaviour.
+- Wolff, M. J., Jochim, J., Akyürek, E. G. & Stokes, M. G. (2017). Dynamic hidden states underlying working-memory-guided behavior. *Nature Neuroscience*. https://doi.org/10.1038/nn.4546 — Reports evidence for hidden states underlying working-memory-guided behaviour.
 - Compte, A. et al. (2000). Synaptic mechanisms and network dynamics underlying spatial working memory in a cortical network model. *Cerebral Cortex*. https://doi.org/10.1093/cercor/10.9.910 — A cortical network model of spatial working memory in which persistent activity sustains the memory.
 
 ### Surveys and textbooks
