@@ -90,7 +90,7 @@ The report's Section 6 lists the following limits, and the earlier sections expl
 - [Chain of thought](chain-of-thought.md) describes the prompting approach that R1 replaces with trained behaviour.
 - [Self-consistency](self-consistency.md) and [test-time scaling](test-time-scaling.md) spend extra compute at inference. R1 spends it during training and at generation time.
 - [Large Language Models](../llm/index.md) places this training stage after supervised fine-tuning and preference alignment.
-- [Reinforcement learning](../../paradigms/reinforcement-learning/index.md) gives the general framework for the policy-gradient method used here.
+- [Reinforcement learning](../../paradigms/reinforcement-learning/index.md) gives the general framework. The policy-gradient method used here is [GRPO](../../paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index.md).
 
 ## Applications
 

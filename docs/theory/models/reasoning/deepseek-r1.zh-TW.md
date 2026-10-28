@@ -78,7 +78,7 @@ DeepSeek-R1-Zero 略過第 1 與第 3 階段。其獎勵包括準確率獎勵與
 - [思維鏈](chain-of-thought.md)描述了 R1 以訓練所得行為取代的提示方法。
 - [自洽性](self-consistency.md)與[測試時運算擴展](test-time-scaling.md)在推論時花費額外運算。R1 則在訓練與生成時花費運算。
 - [大型語言模型](../llm/index.md)把此訓練階段放在監督式微調與偏好對齊之後。
-- [強化學習](../../paradigms/reinforcement-learning/index.md)提供本頁所用策略梯度方法的一般框架。
+- [強化學習](../../paradigms/reinforcement-learning/index.md)提供一般框架。本頁所用的策略梯度方法是 [GRPO](../../paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index.md)。
 
 ## 應用
 

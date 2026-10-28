@@ -66,7 +66,7 @@ No weights change. The same procedure can be run with any model that accepts a t
 Two entries on this page, each with the detail it needs:
 
 - **Few-shot chain of thought** (Wei et al., 2022): exemplars with written steps, the method described above.
-- **Zero-shot chain of thought** (Kojima et al., 2022): no exemplars. The trigger phrase "Let's think step by step" is appended to the question. It is covered here because the trigger changes only the prompt, not the method.
+- **Zero-shot chain of thought** (Kojima et al., 2022): no exemplars. The trigger phrase "Let's think step by step" is appended to the question. It is covered here because the trigger changes only the prompt, not the method. The full page is [zero-shot chain of thought](zero-shot-chain-of-thought.md).
 
 ## Results
 
