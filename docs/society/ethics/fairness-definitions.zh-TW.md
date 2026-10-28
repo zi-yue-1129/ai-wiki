@@ -54,13 +54,13 @@ aliases:
 
 **機會均衡與機會均等。** Hardt、Price 與 Srebro（2016）定義了機會均衡，以及其較弱的形式機會均等，並展示如何用對各群體套用不同門檻、作用於固定分數的後處理規則來達成。
 
-**不察覺屬性。** 從輸入中移除 \(A\) 是最簡單的政策，但其他特徵（郵遞區號、教育程度、消費紀錄）可能充當代理變數。Hardt 等人（2016）與 Dwork 等人（2012）都指出，模型即使從未看見受保護屬性，仍可能產生歧視。
+**不察覺屬性。** 從輸入中移除 \(A\) 是最簡單的政策，但其他特徵（郵遞區號、教育程度、消費紀錄）可能充當代理變數。Kusner 等人（2017）認為這正是不察覺屬性會失敗的原因：模型即使從未看見受保護屬性，仍可能產生歧視。
 
 ### 不可能性結果
 
 兩項結果顯示，當基礎比率不同且預測器並非完美時，主要的群體準則會彼此衝突。
 
-- **Kleinberg、Mullainathan 與 Raghavan（2016）** 證明三項條件無法同時成立：群體內校準、正類的平衡（真陽性在各群體的平均分數相等），以及負類的平衡。其摘要指出，除了高度受限的特殊情況外，沒有任何方法能同時滿足這三項條件。
+- **Kleinberg、Mullainathan 與 Raghavan（2017）** 證明三項條件無法同時成立：群體內校準、正類的平衡（真陽性在各群體的平均分數相等），以及負類的平衡。他們證明，若風險指派同時滿足三項條件，則該情境必須允許完美預測，或兩個群體的基礎比率必須相同。
 - **Chouldechova（2017）** 在二元預測中證明：當基礎比率不同時，預測值均等、偽陽性率相等與偽陰性率相等無法同時成立。她將此結果應用於 COMPAS 爭論中研究的風險評估工具。
 
 實務上的結論是：模型可以是校準的，同時錯誤率卻不平等；或者錯誤率相等，但正向決定的精確率不平等。在這些結果之間做選擇，是在判斷哪一種傷害更重要。
@@ -104,13 +104,13 @@ Corbett-Davies 等人（2017）研究對風險導向決策規則施加公平性�
 
 - Dwork, C. et al. (2012). Fairness through awareness. *Proceedings of ITCS 2012*. https://doi.org/10.1145/2090236.2090255 — 以任務專屬相似度度量上的 Lipschitz 條件引入個體公平。
 - Hardt, M., Price, E. & Srebro, N. (2016). Equality of Opportunity in Supervised Learning. *Advances in Neural Information Processing Systems 29*. https://arxiv.org/abs/1610.02413 — 定義機會均等與機會均衡，並給出達成它們的後處理方法。
-- Kleinberg, J., Mullainathan, S. & Raghavan, M. (2017). Inherent Trade-Offs in the Fair Determination of Risk Scores. *Proceedings of ITCS 2017*. https://arxiv.org/abs/1609.05807 — 證明當基礎比率不同時，校準與平衡條件無法同時成立。
+- Kleinberg, J., Mullainathan, S. & Raghavan, M. (2017). Inherent Trade-Offs in the Fair Determination of Risk Scores. *Proceedings of ITCS 2017*. https://doi.org/10.4230/LIPIcs.ITCS.2017.43 — 證明當基礎比率不同時，校準與平衡條件無法同時成立，除非可以完美預測。
 - Chouldechova, A. (2017). Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments. *Big Data*, 5(2), 153–163. https://doi.org/10.1089/big.2016.0047 — 以再犯預測工具為例，顯示在基礎比率不同時，預測值均等與錯誤率平衡互不相容。
 - Corbett-Davies, S., Pierson, E., Feller, A. & Goel, S. (2017). Algorithmic Decision Making and the Cost of Fairness. *Proceedings of KDD 2017*. https://doi.org/10.1145/3097983.3098095 — 將公平性重新表述為以公共安全為目標的受限最佳化，並以審前羈押決策為例。
 
 ### 綜述與教科書
 
-- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — 綜述公平性定義，如其標題所示。
+- Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K. & Galstyan, A. (2021). A Survey on Bias and Fairness in Machine Learning. *ACM Computing Surveys*, 54(6), 1–35. https://doi.org/10.1145/3457607 — 綜述機器學習中偏誤的來源，以及用來衡量偏誤的公平性定義。
 - Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — 免費教科書，涵蓋這些定義、其取捨與社會脈絡。
 
 ## 延伸學習
