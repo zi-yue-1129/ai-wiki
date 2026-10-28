@@ -38,9 +38,7 @@ aliases:
 | [ViNT](vint.md)（Shah 等人，2023） | 五個未來路標與時間距離 | 擴散模型提出的子目標，以類 A* 方法搜尋 | 約 3,100 萬參數的 Transformer，只需少量資料即可適應 |
 | [NoMaD](nomad.md)（Sridhar 等人，2023） | 從擴散模型取樣的動作序列 | 目標遮罩，因此同一模型在沒有目標時也能探索 | 同一策略同時支援以目標為條件的導航與無方向探索 |
 
-各列的差異在於策略輸出什麼，而有比較輸出空間的論文報告了以下結果。在 ViNG 中，在 50 公尺的目標距離下，預測路標得分 0.81，離散動作得分 0.70（Shah 等人，2021，Table II）。在 GNM 中，LoCoBot 在簡單與中等設定下，正規化路標得分 1.00 與 0.95，速度輸出則為 0.73 與 0.54（Shah 等人，2022，Table V）。這些比較只在各自的論文內部、針對不同任務進行，因此不應被讀成單一排名。
-
-Hirose 等人（2019）採取另一條路線。他們的模型 PoliNet 是一個視覺的模型預測控制策略。它以視覺軌跡與目前的視野為輸入，輸出規劃時域內的速度指令，並在執行時避開訓練時未見過的物體。其摘要以建圖與定位為對照來描述問題，而較新的方法則避開了這兩者。用學習得到的預測模型做規劃的一般概念，見[世界模型](../../../theory/models/world-models/index.md)子主題。
+各列的差異在於策略輸出什麼，而有比較輸出空間的論文報告了以下結果。在 ViNG 中，在 50 公尺的目標距離下，路點方法得分為 0.81，以離散輸出的路點方法為 0.70，直接預測動作則為 0.40（Shah 等人，2021，Table II）。在 GNM 中，LoCoBot 在簡單與中等設定下，正規化路標得分 1.00 與 0.95，速度輸出則為 0.73 與 0.54（Shah 等人，2022，Table V）。這些比較只在各自的論文內部、針對不同任務進行，因此不應被讀成單一排名。
 
 ## 相關主題
 
@@ -61,4 +59,3 @@ Hirose 等人（2019）採取另一條路線。他們的模型 PoliNet 是一個
 - Shah, D., Sridhar, A., Bhorkar, A., Hirose, N., & Levine, S. (2022). *GNM: A General Navigation Model to Drive Any Robot*. arXiv. https://arxiv.org/abs/2210.03370 — 在多台機器人上訓練一個導航模型，並比較輸出空間。
 - Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N., & Levine, S. (2023). *ViNT: A Foundation Model for Visual Navigation*. arXiv. https://arxiv.org/abs/2306.14846 — 用於視覺導航的 Transformer 基礎模型，搭配擴散子目標提案。
 - Sridhar, A., Shah, D., Glossop, C., & Levine, S. (2023). *NoMaD: Goal Masked Diffusion Policies for Navigation and Exploration*. arXiv. https://arxiv.org/abs/2310.07896 — 以目標遮罩擴散策略做以目標為條件的導航與探索。
-- Hirose, N., Xia, F., Martín-Martín, R., Sadeghian, A., & Savarese, S. (2019). *Deep Visual MPC-Policy Learning for Navigation*. IEEE Robotics and Automation Letters, 4(4), 3184–3191. https://doi.org/10.1109/LRA.2019.2925731 — 視覺模型預測策略（PoliNet），跟隨視覺軌跡並避開未見過的障礙物。

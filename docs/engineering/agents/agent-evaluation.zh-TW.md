@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 tags:
@@ -29,6 +29,7 @@ aliases:
 - **軌跡：**一次執行中完整的觀察、工具呼叫與輸出序列。
 - **環境狀態：**任務所改變的資料，例如資料庫或網頁，成功與否就是對照它來檢查。
 - **模擬使用者：**在對話中扮演使用者的語言模型，使代理能在對話中接受測試。
+- **pass@k：**在一項任務的 k 次嘗試中，至少一次成功的任務期望比例。它衡量重複嘗試能帶來多少幫助。
 - **pass^k：**代理在同一任務的 k 次獨立嘗試中全部成功的機率。它衡量可靠度，這是單次執行無法顯示的。
 - **每項任務成本：**完成一項任務所需的模型與工具成本。
 
@@ -36,12 +37,19 @@ aliases:
 
 典型的評估遵循相同步驟。駕馭層設定任務與初始狀態。代理以固定的工具組執行。執行過程被記錄為軌跡。檢查器把最終狀態與目標比較。結果會依任務與重複執行彙總，因為單次執行會掩蓋變異。被比較的系統必須使用相同的駕馭層與工具。
 
+## 指標
+
+依重複執行計算的兩個指標，回答的問題不同。pass@k 是至少一次嘗試成功的任務比例。Chen 等人（2021）以每項任務 n ≥ k 個樣本、其中 c 個正確，對各任務的 1 − C(n−c, k)/C(n, k) 取平均，得到不偏的估計。pass^k 是 k 次獨立嘗試全部成功的任務比例，Yao 等人（2024）把它估計為各任務 C(c, k)/C(n, k) 的平均。pass@k 高而 pass^k 低，表示代理有時成功，但並不可靠。
+
+軌跡層級的指標，例如每項任務的步數、工具呼叫數與權杖數，能顯示代理如何得到結果，以及成本花在哪裡。每項任務成本是總模型與工具支出除以嘗試的任務數。
+
 ## 基準
 
 - **AgentBench**（Liu 等人，2023）在八個不同環境中評估語言模型作為代理的表現，並報告商用模型與開放模型之間有顯著差距。
 - **WebArena**（Zhou 等人，2023）使用四個領域的寫實、可重現網站：電子商務、社群論壇、協作式軟體開發與內容管理。
 - **OSWorld**（Xie 等人，2024）使用真實的電腦環境，因此任務不侷限於單一應用程式。
-- **τ-bench**（Yao 等人，2024）以模擬使用者模擬對話，代理須使用領域工具並遵循政策指引。它把對話結束時的資料庫狀態與標註的目標狀態比較，並提出 pass^k 作為可靠度指標。
+- **SWE-bench**（Jimenez 等人，2023）給代理 12 個熱門 Python 儲存庫中的 2,294 個真實 GitHub 議題，要求它修改程式碼庫以解決每個議題。補丁會以儲存庫的單元測試評判：FAIL_TO_PASS 測試必須由失敗轉為通過，PASS_TO_PASS 測試必須維持通過。
+- **τ-bench**（Yao 等人，2024）以模擬使用者模擬對話，代理須使用領域工具並遵循政策指引。它分為 τ-retail（115 項任務）與 τ-airline（50 項任務）兩個領域。它把對話結束時的資料庫狀態與標註的目標狀態比較，並提出 pass^k 作為可靠度指標。代理在此基準上的表現並不穩定：在零售領域，pass^8 低於 25%。
 - **GAIA**（Mialon 等人，2023）測試需要工具與多步推理的一般助理任務。其專屬頁面見 [GAIA](../../theory/evaluation/benchmarks/reasoning-agents/gaia.zh-TW.md)。
 
 ## 對現行做法的批評
@@ -54,6 +62,7 @@ Kapoor 等人（2024）認為，代理基準過度偏重準確率，因而忽略
 - **資料污染。**公開任務可能出現在訓練資料中。
 - **變異。**少數任務與單次執行，可能得出誤導性的排名。
 - **環境簡化。**基準是真實任務的模型，兩者之間的差距會影響結果。
+- **可重現性。**分數取決於模型版本、工具與環境版本、抽樣設定與評分者。只有把這些都報告出來，分數才可以比較。
 
 ## 關聯
 
@@ -82,6 +91,9 @@ Kapoor 等人（2024）認為，代理基準過度偏重準確率，因而忽略
 - Xie, T. 等人（2024）。*OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments*。arXiv。https://arxiv.org/abs/2404.07972 — 用於評估多模態代理開放式任務的真實電腦環境。
 - Yao, S. 等人（2024）。*τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains*。arXiv。https://arxiv.org/abs/2406.12045 — 以模擬使用者的對話、領域工具與政策，並以資料庫狀態檢查，附 pass^k 可靠度指標。
 - Mialon, G. 等人（2023）。*GAIA: a benchmark for General AI Assistants*。arXiv。https://arxiv.org/abs/2311.12983 — 需要推理、工具與瀏覽的一般助理任務基準。
+
+- Jimenez, C. E. 等人（2023）。*SWE-bench: Can Language Models Resolve Real-World GitHub Issues?* arXiv。https://arxiv.org/abs/2310.06770 — 來自 12 個 Python 儲存庫的真實 GitHub 議題，以儲存庫的單元測試評判。
+- Chen, M. 等人（2021）。*Evaluating Large Language Models Trained on Code*。arXiv。https://arxiv.org/abs/2107.03374 — 提出 HumanEval 與 pass@k 指標及其不偏估計式。
 
 ### 調查與教科書
 

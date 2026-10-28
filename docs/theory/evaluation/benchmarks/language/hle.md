@@ -10,7 +10,7 @@ tags:
 
 # Humanity's Last Exam
 
-Humanity's Last Exam (HLE) is a benchmark of 2,500 questions across dozens of subjects, including mathematics, the humanities and the natural sciences. It is multimodal and was written by subject-matter experts to stay hard as models improve. Its authors describe it as the final closed-ended academic benchmark of its kind (Phan et al., 2025).
+Humanity's Last Exam (HLE) is a benchmark of 2,700 questions across dozens of subjects, including mathematics, the humanities and the natural sciences. It is multimodal and was written by subject-matter experts to stay hard as models improve. Its authors describe it as the final closed-ended academic benchmark of its kind (Phan et al., 2025).
 
 ## Task and data
 
@@ -41,7 +41,7 @@ The benchmark was built because models had passed 90% on MMLU (Phan et al., 2025
 
 ### Seminal papers
 
-- Phan, L. et al. (2025). *Humanity's Last Exam*. arXiv. https://arxiv.org/abs/2501.14249 — Introduces the 2,500-question benchmark, its construction and its grading.
+- Phan, L. et al. (2025). *Humanity's Last Exam*. arXiv. https://arxiv.org/abs/2501.14249 — Introduces the 2,700-question benchmark, its construction and its grading.
 - Hendrycks, D. et al. (2021). *Measuring Massive Multitask Language Understanding*. ICLR. https://arxiv.org/abs/2009.03300 — The benchmark whose saturation motivated HLE.
 
 ### Articles and documentation

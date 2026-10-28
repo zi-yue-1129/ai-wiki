@@ -10,7 +10,7 @@ tags:
 
 # 人類的最後考試
 
-人類的最後考試（HLE）是一個包含 2,500 題的基準，涵蓋數十個學科，包括數學、人文與自然科學。它是多模態的，由各領域專家撰寫，目的是隨模型進步仍能保持困難。作者把它描述為此類封閉式學術基準的最後一個（Phan et al., 2025）。
+人類的最後考試（HLE）是一個包含 2,700 題的基準，涵蓋數十個學科，包括數學、人文與自然科學。它是多模態的，由各領域專家撰寫，目的是隨模型進步仍能保持困難。作者把它描述為此類封閉式學術基準的最後一個（Phan et al., 2025）。
 
 ## 任務與資料
 
@@ -41,7 +41,7 @@ tags:
 
 ### 開創性論文
 
-- Phan, L. et al. (2025). *Humanity's Last Exam*. arXiv. https://arxiv.org/abs/2501.14249 — 介紹 2,500 題的基準、其建構方式與評分方式。
+- Phan, L. et al. (2025). *Humanity's Last Exam*. arXiv. https://arxiv.org/abs/2501.14249 — 介紹 2,700 題的基準、其建構方式與評分方式。
 - Hendrycks, D. et al. (2021). *Measuring Massive Multitask Language Understanding*. ICLR. https://arxiv.org/abs/2009.03300 — 其飽和促成了 HLE 的設計。
 
 ### 文章與文件

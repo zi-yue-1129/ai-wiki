@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -15,7 +15,7 @@ aliases:
 
 # Math and Code Benchmarks
 
-These benchmarks test whether a model can reason through a problem with a checkable result: a number at the end of a word problem, a formal answer in competition mathematics, a function that passes unit tests, or a patch that makes a repository's tests pass. Because the result can be checked automatically, these tasks became a standard way to measure reasoning in language models.
+These benchmarks test whether a model can reason through a problem with a checkable result: a number at the end of a word problem, a formal answer in competition mathematics, a function that passes unit tests, or a patch that resolves a real repository issue. Because the result can be checked automatically, these tasks became a standard way to measure reasoning in language models.
 
 ## Overview
 
@@ -23,7 +23,7 @@ The first benchmark in the family, GSM8K, contains 8.5K grade-school word proble
 
 Competition mathematics is harder. The MATH dataset has 12,500 problems, each with a step-by-step solution. The authors report that accuracy stayed relatively low even with very large Transformer models, and that scaling alone was not solving the benchmark (Hendrycks et al., 2021).
 
-Code benchmarks moved from single functions to whole repositories. HumanEval measures whether a generated Python function passes unit tests written for a docstring. The Codex paper reports that its model solved 28.8% of the problems, against 0% for GPT-3 and 11.4% for GPT-J, and that repeated sampling raised the solved share to 70.2% with 100 samples per problem (Chen et al., 2021). SWE-bench takes the task further: it uses 2,294 real GitHub issues from 12 Python repositories, and a model must edit the codebase so that the repository's tests pass (Jimenez et al., 2024).
+Code benchmarks moved from single functions to whole repositories. HumanEval measures whether a generated Python function passes unit tests written for a docstring. The Codex paper reports that its model solved 28.8% of the problems, against 0% for GPT-3 and 11.4% for GPT-J, and that repeated sampling raised the solved share to 70.2% with 100 samples per problem (Chen et al., 2021). SWE-bench takes the task further: it uses 2,294 real GitHub issues from 12 Python repositories, and a model must edit the codebase to address the issue (Jimenez et al., 2024).
 
 ## Benchmarks compared
 
@@ -32,7 +32,7 @@ Code benchmarks moved from single functions to whole repositories. HumanEval mea
 | [GSM8K](gsm8k.md) | Grade-school word problems | Accuracy on the final number |
 | [MATH](math.md) | Competition mathematics | Accuracy on the final answer |
 | [HumanEval](humaneval.md) | Writing Python functions from docstrings | Fraction of problems passed, with repeated sampling reported as pass@k |
-| [SWE-bench](swe-bench.md) | Resolving GitHub issues in Python repositories | Fraction of issues resolved by the repository's tests |
+| [SWE-bench](swe-bench.md) | Resolving GitHub issues in Python repositories | Fraction of issues resolved |
 
 The first two check a final answer, so answer normalisation decides the score. The last two check behaviour: a program is judged by running it against tests, and an issue is judged by whether the patched repository passes them.
 
@@ -75,7 +75,7 @@ For a math benchmark, the model writes a solution, the answer is extracted, and 
 - Cobbe, K. et al. (2021). *Training Verifiers to Solve Math Word Problems*. arXiv. https://arxiv.org/abs/2110.14168 — Introduces the 8.5K GSM8K problems and the verifier that ranks sampled solutions.
 - Hendrycks, D. et al. (2021). *Measuring Mathematical Problem Solving With the MATH Dataset*. arXiv. https://arxiv.org/abs/2103.03874 — Introduces 12,500 competition problems with step-by-step solutions and reports low accuracy at scale.
 - Chen, M. et al. (2021). *Evaluating Large Language Models Trained on Code*. arXiv. https://arxiv.org/abs/2107.03374 — Introduces HumanEval, function-level tests, and the effect of repeated sampling.
-- Jimenez, C. E. et al. (2024). *SWE-bench: Can Language Models Resolve Real-World GitHub Issues?* arXiv (2023). https://arxiv.org/abs/2310.06770 — Introduces 2,294 repository-level issues judged by tests across 12 Python repositories.
+- Jimenez, C. E. et al. (2024). *SWE-bench: Can Language Models Resolve Real-World GitHub Issues?* arXiv (2023). https://arxiv.org/abs/2310.06770 — Introduces 2,294 real GitHub issues from 12 popular Python repositories.
 
 ### Articles and documentation
 

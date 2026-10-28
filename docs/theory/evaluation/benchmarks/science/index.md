@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -20,7 +20,7 @@ Science benchmarks test whether a model predicts measured properties of natural 
 
 ## Overview
 
-Molecular machine learning long lacked a shared benchmark. Most new methods were tested on different datasets, which made it hard to tell which methods were better. MoleculeNet addressed this by curating several public datasets, defining metrics for evaluation, and providing open-source implementations of featurisation and learning methods in the DeepChem library (Wu et al., 2018). Its authors report that learnable representations were powerful and performed best on average, with caveats: they struggled with complex tasks under data scarcity and with highly imbalanced classification.
+Molecular machine learning long lacked a shared benchmark. Most new methods were tested on different datasets, which made it hard to tell which methods were better. MoleculeNet addressed this by curating several public datasets, defining metrics for evaluation, and providing open-source implementations of featurisation and learning methods in the DeepChem library (Wu et al., 2018). Its authors report that learnable representations are powerful and broadly offer the best performance, with the caveat that they still struggle with complex tasks under data scarcity and with highly imbalanced classification.
 
 The benchmark is an early example of a general pattern in science: a predictive model is only as informative as the split that separates training molecules from test molecules. Random splits put close relatives in both sets, and a scaffold split, which groups molecules by their core structure, tests whether a model generalises to new chemistry.
 
