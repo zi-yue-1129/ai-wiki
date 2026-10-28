@@ -24,18 +24,13 @@ Transformer（Vaswani et al., 2017，"Attention Is All You Need"）完全以注�
 
 ## Transformer 區塊
 
-```mermaid
-flowchart TB
-  X[輸入嵌入 + 位置資訊] --> N1[LayerNorm / RMSNorm]
-  N1 --> A[多頭自注意力]
-  A --> R1((+))
-  X --> R1
-  R1 --> N2[LayerNorm / RMSNorm]
-  N2 --> F[前饋網路／SwiGLU 或 MoE]
-  F --> R2((+))
-  R1 --> R2
-  R2 --> Y[傳至下一層]
-```
+![自注意力機制動態概念圖：查詢向量比較不同 token 的鍵，再以權重組合值向量。](../../assets/concept-animations/self-attention.gif)
+
+*動態概念圖 · 原創示意，CC BY-SA 4.0。*
+
+**動畫解讀：** 以「Apple」為查詢 token，與其他位置的鍵向量比較。示例中「phone」的相關性較高，因此它的值向量對最後的上下文表徵有較大影響。動畫的權重**僅供概念說明，並非實際訓練模型的計算結果**。
+
+典型的*前置正規化（pre-norm）* Transformer 區塊會在注意力子層前套用正規化，並在子層後加上殘差連接；接著對前饋網路（或 MoE）重複類似結構。動畫僅放大注意力機制，不代表完整區塊的所有運算。
 
 ## 三種變體
 

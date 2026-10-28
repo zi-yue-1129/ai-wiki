@@ -35,18 +35,13 @@ Dividing by \(\sqrt{d_k}\) keeps dot products from growing so large that the sof
 
 ## The Transformer block
 
-```mermaid
-flowchart TB
-  X[Input embeddings + positional information] --> N1[LayerNorm / RMSNorm]
-  N1 --> A[Multi-head self-attention]
-  A --> R1((+))
-  X --> R1
-  R1 --> N2[LayerNorm / RMSNorm]
-  N2 --> F[Feed-forward / SwiGLU or MoE]
-  F --> R2((+))
-  R1 --> R2
-  R2 --> Y[To next layer]
-```
+![Animated concept diagram of self-attention: one query compares three token keys and weights the corresponding values.](../../assets/concept-animations/self-attention.gif)
+
+*Animated concept diagram · Original illustration, CC BY-SA 4.0.*
+
+**Reading the animation:** For the query token “Apple,” the model compares keys from all visible positions; the illustrated weights assign more relevance to “phone” than to the other words. The weighted value vectors then produce a context-dependent representation. The weights shown are **illustrative, not outputs of a trained model**.
+
+A common *pre-normalization* Transformer block wraps self-attention in a normalization-and-residual step, then applies a feed-forward network (or MoE) with its own normalization and residual connection. The animation zooms into the attention operation; it does not depict those surrounding operations.
 
 ## Three variants
 

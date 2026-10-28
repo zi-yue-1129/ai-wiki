@@ -23,6 +23,12 @@ Generative models learn the data distribution \(p(x)\) and can **produce new sam
 
 ## Diffusion models
 
+![Animated illustration of diffusion sampling: an initially noisy grid gradually becomes a structured sample as denoising progresses.](../../assets/concept-animations/diffusion-denoising.gif)
+
+*Animated concept diagram · Original illustration, CC BY-SA 4.0.*
+
+**Reading the animation:** Sampling begins from noise and repeatedly applies a learned reverse-process update until a structured sample emerges. The pixel grid is a **conceptual illustration**, not a real model sample. During training, the forward process deliberately corrupts clean data with noise.
+
 **Forward process**: gradually add Gaussian noise until data become pure noise.
 **Reverse process**: train a network to predict the noise at each step; generate by denoising from pure noise.
 
