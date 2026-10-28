@@ -10,6 +10,7 @@ copyright: Content licensed under <a href="https://creativecommons.org/licenses/
 theme:
   name: material
   language: en
+  custom_dir: overrides
   icon:
     logo: material/brain
     repo: fontawesome/brands/github
@@ -38,9 +39,6 @@ theme:
     - navigation.footer
     - navigation.tracking
     - toc.follow
-    - search.suggest
-    - search.highlight
-    - search.share
     - content.code.copy
     - content.action.edit
     - content.tooltips
@@ -50,17 +48,14 @@ hooks:
   - hooks/knowledge_map.py
 
 plugins:
-  - search:
-      lang:
-        - zh
-        - en
-      separator: '[\s​\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  # Keeps Material's header search button. The dialog itself is Pagefind
+  # (overrides/partials/search.html, built by .github/workflows/deploy.yml).
+  - material/search
   - tags
   - i18n:
       docs_structure: suffix
       fallback_to_default: true
       reconfigure_material: true
-      reconfigure_search: true
       languages:
         - locale: en
           default: true
