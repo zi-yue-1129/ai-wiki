@@ -380,6 +380,9 @@ plugins:
             Ethics & Fairness: 倫理與公平
             Privacy & Data Protection: 隱私與資料保護
             Misinformation & Deepfakes: 不實資訊與深偽
+            Copyright & IP: 著作權與智慧財產權
+            Data replication in diffusion models: 擴散模型中的資料重現
+            Extracting training data from diffusion models: 從擴散模型萃取訓練資料
             Law, Policy & Governance: 法規與治理
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
@@ -712,6 +715,10 @@ nav:
       - Ethics & Fairness: society/ethics/index.md
       - Privacy & Data Protection: society/privacy/index.md
       - Misinformation & Deepfakes: society/misinformation/index.md
+      - Copyright & IP:
+          - society/copyright/index.md
+          - Data replication in diffusion models: society/copyright/data-replication.md
+          - Extracting training data from diffusion models: society/copyright/diffusion-extraction.md
       - Law, Policy & Governance: society/governance/index.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
