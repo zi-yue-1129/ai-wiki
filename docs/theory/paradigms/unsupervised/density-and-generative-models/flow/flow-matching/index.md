@@ -22,6 +22,8 @@ Flow matching trains a continuous-time generative model by regressing a velocity
 
 Lipman et al. (2023) proposed flow matching for training continuous normalising flows. The key observation is that the velocity field can be learned by regressing on the velocity of a conditional path, one for each data point, and the marginal velocity field is then recovered. The authors show that the diffusion paths used by score-based models are one family of such paths, so flow matching generalises diffusion training. They also highlight optimal-transport paths, which give straighter trajectories and faster sampling in their experiments.
 
+Later work keeps the same regression idea and changes one of three things: the interpolant between noise and data, the way noise and data points are paired, or the way the trajectories are straightened.
+
 ## Key concepts
 
 - **Probability path** \(p_t\): a family of distributions that moves from a simple noise distribution at \(t=0\) to the data distribution at \(t=1\).
@@ -41,13 +43,10 @@ Because the conditional velocities are known in closed form, this regression nee
 
 ## Key methods
 
-### Flow Matching for Generative Modeling (Lipman et al., 2023)
-
-- **Problem:** continuous normalising flows give exact likelihoods but are expensive to train, because each gradient step requires solving an ODE. Diffusion models train cheaply but use a fixed stochastic process.
-- **Core idea:** regress the velocity field on conditional velocities of a chosen probability path, which gives an unbiased objective for the marginal field without simulation. Diffusion paths and optimal-transport paths are both allowed.
-- **Equation or algorithm:** the conditional flow matching loss above with the optimal-transport path. Each step: sample a time, a noise point and a data point, form \(x_t\), and regress \(v_\theta(x_t, t)\) onto \(x_1 - x_0\). Sample by ODE integration.
-- **Results:** the abstract reports better likelihood and sample quality than diffusion-based alternatives on ImageNet, faster training and sampling for the optimal-transport path, and robust, stable training of diffusion paths when used with flow matching. It gives no specific figures; quote the paper's tables when citing numbers.
-- **Limitations:** sampling still needs several ODE steps, so generation is slower than a single GAN pass, though the paper argues the trajectories are easier to integrate. Exact likelihood requires solving an extra ODE. The choice of path affects quality, and the paper does not settle which path is best in general.
+- [Conditional flow matching (Lipman et al., 2023)](conditional-flow-matching.md): the regression objective with Gaussian optimal-transport paths. This is the base method, and it covers diffusion paths as special cases.
+- [Rectified flow (Liu et al., 2022)](rectified-flow.md): regression onto straight-line interpolants, with a reflow procedure that straightens trajectories for few-step sampling.
+- [Stochastic interpolants (Albergo & Vanden-Eijnden, 2023)](stochastic-interpolants.md): a general interpolant framework that unifies flows and diffusions, with the choice of interpolant left open.
+- [Minibatch OT flow matching (Tong et al., 2024)](minibatch-ot-flow-matching.md): pairs noise and data points by an optimal transport plan computed on each minibatch.
 
 ## Connections
 
@@ -69,9 +68,9 @@ Text-to-image and video generation with latent flow models, and generation of mo
 
 ### Seminal papers
 
-- Lipman, Y., et al. (2023). *Flow Matching for Generative Modeling*. ICLR (arXiv). https://arxiv.org/abs/2210.02747 — Introduces conditional flow matching for training continuous normalising flows without simulation.
+- Lipman, Y., et al. (2023). *Flow Matching for Generative Modeling*. ICLR. https://arxiv.org/abs/2210.02747 — Introduces conditional flow matching for training continuous normalising flows without simulation.
 - Liu, X., Gong, C. & Liu, Q. (2022). *Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow*. arXiv. https://arxiv.org/abs/2209.03003 — Learns a velocity field that follows straighter paths, which allows sampling with fewer steps.
-- Albergo, M. S. & Vanden-Eijnden, E. (2022). *Building Normalizing Flows with Stochastic Interpolants*. arXiv. https://arxiv.org/abs/2209.15571 — A stochastic-interpolant framework that bridges flows and diffusion and gives a regression target for the velocity.
+- Albergo, M. S. & Vanden-Eijnden, E. (2023). *Building Normalizing Flows with Stochastic Interpolants*. ICLR. https://arxiv.org/abs/2209.15571 — A stochastic-interpolant framework that bridges flows and diffusion and gives a regression target for the velocity.
 - Tong, A., et al. (2024). *Improving and Generalizing Flow-Based Generative Models with Minibatch Optimal Transport*. TMLR. https://arxiv.org/abs/2302.00482 — Pairs noise and data with minibatch optimal transport, giving straighter conditional paths for flow matching.
 
 ### Surveys and textbooks
