@@ -410,6 +410,27 @@ plugins:
             Evaluation: 評估
             Metrics: 指標
             Protocols: 評估協定
+            Classification: 分類
+            Probabilistic: 機率
+            Regression: 迴歸
+            Ranking: 排序
+            Segmentation: 分割
+            Accuracy: 準確率
+            Precision: 精確率
+            Recall: 召回率
+            F1 Score: F1 分數
+            ROC-AUC: ROC-AUC
+            PR-AUC: PR-AUC
+            Log-Loss: 對數損失
+            Brier Score: Brier 分數
+            Calibration Error: 校準誤差
+            MAE: MAE
+            RMSE: RMSE
+            R²: R²
+            NDCG: NDCG
+            Mean Average Precision: 平均精確率均值
+            IoU: 交併比
+            Dice: Dice 係數
             Quantisation: 量化
             Pruning: 剪枝
             Knowledge Distillation: 知識蒸餾
@@ -938,7 +959,34 @@ nav:
               - LoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
       - Evaluation:
           - theory/evaluation/index.md
-          - Metrics: theory/evaluation/metrics/index.md
+          - Metrics:
+              - theory/evaluation/metrics/index.md
+              - Classification:
+                  - theory/evaluation/metrics/classification/index.md
+                  - Accuracy: theory/evaluation/metrics/classification/accuracy.md
+                  - Precision: theory/evaluation/metrics/classification/precision.md
+                  - Recall: theory/evaluation/metrics/classification/recall.md
+                  - F1 Score: theory/evaluation/metrics/classification/f1.md
+                  - ROC-AUC: theory/evaluation/metrics/classification/roc-auc.md
+                  - PR-AUC: theory/evaluation/metrics/classification/pr-auc.md
+              - Probabilistic:
+                  - theory/evaluation/metrics/probabilistic/index.md
+                  - Log-Loss: theory/evaluation/metrics/probabilistic/log-loss.md
+                  - Brier Score: theory/evaluation/metrics/probabilistic/brier-score.md
+                  - Calibration Error: theory/evaluation/metrics/probabilistic/calibration-error.md
+              - Regression:
+                  - theory/evaluation/metrics/regression/index.md
+                  - MAE: theory/evaluation/metrics/regression/mae.md
+                  - RMSE: theory/evaluation/metrics/regression/rmse.md
+                  - R²: theory/evaluation/metrics/regression/r-squared.md
+              - Ranking:
+                  - theory/evaluation/metrics/ranking/index.md
+                  - NDCG: theory/evaluation/metrics/ranking/ndcg.md
+                  - Mean Average Precision: theory/evaluation/metrics/ranking/map.md
+              - Segmentation:
+                  - theory/evaluation/metrics/segmentation/index.md
+                  - IoU: theory/evaluation/metrics/segmentation/iou.md
+                  - Dice: theory/evaluation/metrics/segmentation/dice.md
           - Protocols: theory/evaluation/protocols/index.md
       - Models:
           - theory/models/index.md
