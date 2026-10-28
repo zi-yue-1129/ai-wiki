@@ -56,6 +56,7 @@ Whose preferences should count, how to detect reward hacking, and how to keep pr
 
 ### Articles and documentation
 
+- Rafailov et al. (2023), "Direct preference optimization: your language model is secretly a reward model", NeurIPS, arXiv:2305.18290 — Fits the policy to preference pairs directly, without a separate reward model.
 - Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — The PPO algorithm used in most RLHF pipelines.
 
 ## Further reading

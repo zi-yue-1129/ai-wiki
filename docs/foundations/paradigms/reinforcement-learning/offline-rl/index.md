@@ -42,6 +42,7 @@ Reliable off-policy evaluation without strong overlap assumptions is unsolved. C
 
 - Fujimoto, Meger & Precup (2019), "Off-policy deep reinforcement learning without exploration", ICML, arXiv:1812.02900 — Batch-constrained Q-learning, which keeps the policy within the support of the data.
 - Kumar, Zhou, Tucker & Levine (2020), "Conservative Q-learning for offline reinforcement learning", NeurIPS, arXiv:2006.04779 — Pessimistic Q-values that prevent overestimating unseen actions.
+- Wu, Tucker & Nachum (2019), "Behavior regularized offline reinforcement learning", arXiv:1911.11361 — Regularises the policy toward the behaviour data, a simple and strong offline baseline.
 - Chen et al. (2021), "Decision transformer: reinforcement learning via sequence modeling", NeurIPS, arXiv:2106.01345 — Frames offline RL as conditional sequence prediction over returns.
 
 ### Surveys and textbooks
