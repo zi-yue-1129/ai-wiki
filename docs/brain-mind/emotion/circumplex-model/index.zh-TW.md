@@ -68,4 +68,4 @@ Russell 研究人們如何判斷情緒詞彙之間的相似度。受試者評定
 
 - Ekman, P.（1992）。An argument for basic emotions. *Cognition and Emotion*。https://doi.org/10.1080/02699939208411068 — 與向度模型相對的離散基本情緒觀點。
 - Lindquist, K. A., Wager, T. D., Kober, H., Bliss-Moreau, E. & Barrett, L. F.（2012）。The brain basis of emotion: a meta-analytic review. *Behavioral and Brain Sciences*。https://doi.org/10.1017/S0140525X11000446 — 後設分析，呈現情緒狀態如何對應到腦區。
-- Picard, R. W.（1997）。*Affective Computing*。MIT Press。 — 結合向度與離散的情感模型，建立能辨識情緒的系統。
+- Picard, R. W.（1997）。*Affective Computing*。MIT Press。https://www.schweitzer-online.de/en/buch/Picard/Affective-Computing/9780262161701/A39598287/ — 結合向度與離散的情感模型，建立能辨識情緒的系統。

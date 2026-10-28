@@ -68,4 +68,4 @@ LeDoux（2000）回顧了大腦中偵測威脅並產生恐懼反應的迴路，�
 - Lindquist, K. A., Wager, T. D., Kober, H., Bliss-Moreau, E. & Barrett, L. F.（2012）。The brain basis of emotion: a meta-analytic review. *Behavioral and Brain Sciences*。https://doi.org/10.1017/S0140525X11000446 — 質疑每種情緒是否都有專屬迴路的後設分析。
 - Russell, J. A.（1980）。A circumplex model of affect. *Journal of Personality and Social Psychology*。https://doi.org/10.1037/h0077714 — 威脅訊號所對應的向度情感模型。
 - Ekman, P.（1992）。An argument for basic emotions. *Cognition and Emotion*。https://doi.org/10.1080/02699939208411068 — 基本情緒觀點，本迴路解釋對恐懼所做的檢驗對象。
-- Picard, R. W.（1997）。*Affective Computing*。MIT Press。 — 建立能辨識機器情緒的領域，不依賴這些迴路的細節。
+- Picard, R. W.（1997）。*Affective Computing*。MIT Press。https://www.schweitzer-online.de/en/buch/Picard/Affective-Computing/9780262161701/A39598287/ — 建立能辨識機器情緒的領域，不依賴這些迴路的細節。
