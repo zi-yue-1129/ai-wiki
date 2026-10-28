@@ -53,5 +53,5 @@ flowchart LR
 
 - Gunasekar, S. et al. (2023). *Textbooks Are All You Need*. https://arxiv.org/abs/2306.11644 — 應用同樣為品質而挑選訓練資料的想法，但對象是程式碼與教科書風格的材料。
 - Wang, Y. et al. (2023). *Self-Instruct: Aligning Language Models with Self-Generated Instructions*. https://arxiv.org/abs/2212.10560 — 把生成資料用於指令微調，目標與這裡的故事語料不同。
-- Liu, Z. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. https://arxiv.org/abs/2404.07503 — 討論生成控制與評估如何影響合成語料教給模型的內容。
+- Liu, R. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. COLM 2024. https://arxiv.org/abs/2404.07503 — 討論生成控制與評估如何影響合成語料教給模型的內容。
 - Shumailov, I. et al. (2024). *AI models collapse when trained on recursively generated data*. Nature, 631. https://doi.org/10.1038/s41586-024-07566-y — 指出當模型以自己寫的文字訓練時，受控生成可能減輕、也可能加重的多樣性風險。

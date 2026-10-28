@@ -52,7 +52,7 @@ flowchart LR
 
 ### 相關研究
 
-- Liu, Z. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. https://arxiv.org/abs/2404.07503 — 回顧決定合成資料能安全使用多少的混合與過濾選擇。
+- Liu, R. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. COLM 2024. https://arxiv.org/abs/2404.07503 — 回顧決定合成資料能安全使用多少的混合與過濾選擇。
 - Wang, Y. et al. (2023). *Self-Instruct: Aligning Language Models with Self-Generated Instructions*. https://arxiv.org/abs/2212.10560 — 把模型輸出回饋進訓練的迴圈範例，崩潰風險也適用於此。
 - Gunasekar, S. et al. (2023). *Textbooks Are All You Need*. https://arxiv.org/abs/2306.11644 — 依賴為品質而挑選的生成資料，是限制導致崩潰的漂移的一種方式。
 - Eldan, R. & Li, Y. (2023). *TinyStories: How Small Can Language Models Be and Still Speak Coherent English?* https://arxiv.org/abs/2305.07759 — 受控生成的語料，其多樣性取決於生成提示，這是需要檢查崩潰風險的案例。

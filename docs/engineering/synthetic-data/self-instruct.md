@@ -60,6 +60,6 @@ The paper reports that fine-tuning on the generated data gives a large improveme
 ### Related work
 
 - Gunasekar, S. et al. (2023). *Textbooks Are All You Need*. https://arxiv.org/abs/2306.11644 — Shows a different route to synthetic training data: generated textbook-style material chosen for educational quality.
-- Liu, Z. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. https://arxiv.org/abs/2404.07503 — Surveys the generation, filtering and evaluation choices that determine whether self-generated data helps.
+- Liu, R. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. COLM 2024. https://arxiv.org/abs/2404.07503 — Surveys the generation, filtering and evaluation choices that determine whether self-generated data helps.
 - Shumailov, I. et al. (2024). *AI models collapse when trained on recursively generated data*. Nature, 631. https://doi.org/10.1038/s41586-024-07566-y — Explains the risk of training repeatedly on model outputs, which applies to bootstrapping loops such as this one.
 - Eldan, R. & Li, Y. (2023). *TinyStories: How Small Can Language Models Be and Still Speak Coherent English?* https://arxiv.org/abs/2305.07759 — Shows that carefully generated data can train capable models at small scale, a comparison point for bootstrapped data.
