@@ -32,6 +32,8 @@ Understanding *why* a model produces its outputs — for debugging, trust, scien
 
 Caution: attribution maps can be unfaithful or fail sanity checks (Adebayo et al., 2018), and explanations can increase over-trust.
 
+Two method pages go deeper: [Feature attribution: SHAP, LIME and saliency](feature-attribution.md) and [Probing classifiers and representation analysis](probing.md). Each named method has its own page: [Saliency maps](saliency-maps.md), [Integrated gradients](integrated-gradients.md), [LIME](lime.md), [SHAP](shap.md), [Linear probes](linear-probes.md), [Control tasks and selectivity](control-tasks.md) and [Representational similarity analysis](representational-similarity-analysis.md).
+
 ## Mechanistic interpretability
 
 - **[Circuits](mechanistic-interpretability.md)**: small subnetworks implementing identifiable algorithms — curve detectors in vision models, induction heads in Transformers, indirect-object identification circuits
@@ -46,6 +48,8 @@ Caution: attribution maps can be unfaithful or fail sanity checks (Adebayo et al
 
 - [Mechanistic interpretability and circuits](mechanistic-interpretability.md): circuits, induction heads, factual recall and superposition.
 - [Sparse autoencoders and feature dictionaries](sparse-autoencoders.md): dictionary learning on activations, scaling and known failure modes.
+- [k-sparse autoencoders](k-sparse-autoencoders.md): enforcing sparsity by keeping the k largest activations.
+- [JumpReLU sparse autoencoders](jumprelu-sae.md): per-feature thresholds that improve reconstruction at a given sparsity.
 
 ## The neuroscience parallel
 

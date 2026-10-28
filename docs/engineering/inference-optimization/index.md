@@ -59,6 +59,10 @@ Each named method has its own page, which gives the problem, the core idea, the 
 
 Kernel-level fusion, which cuts memory traffic inside a single layer, is covered in [Fused kernels](fused-kernels.md).
 
+Methods that shrink the cache after training, rather than by design, are compared on the [KV cache compression and eviction](kv-cache-compression.md) page: [H2O](h2o.md) and [StreamingLLM](streamingllm.md) drop tokens, while [KIVI](kivi.md) keeps every token at 2 bits.
+
+Serving is also split across machines. [Disaggregated prefill and decode](disaggregated-serving.md) runs the compute-bound prompt phase and the memory-bound token phase on separate pools, with [DistServe](distserve.md), [Splitwise](splitwise.md) and [Mooncake](mooncake.md) as the main designs. Mixture-of-experts models add their own serving problems, of expert placement and offloading, covered on [Serving mixture-of-experts models](moe-serving.md) with [GShard](gshard.md), [DeepSpeed-MoE](deepspeed-moe.md) and [expert offloading](expert-offloading.md).
+
 ## Connections
 
 - The KV cache itself is explained in [Transformer KV cache](../../theory/models/transformer/kv-cache/index.md); this page covers how serving systems manage it.

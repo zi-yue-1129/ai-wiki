@@ -48,7 +48,7 @@ This catalogue lists major model families by the technical report that introduce
 
 | Model | Report | Size as stated | Note |
 |---|---|---|---|
-| Gemini | Gemini Team, December 2023 | Ultra, Pro and Nano tiers; the abstract gives no parameter counts | A multimodal family. The report lists the author group rather than individuals. |
+| Gemini | Gemini Team, December 2023 | Ultra, Pro and Nano tiers; the abstract gives no parameter counts | A family of models in Ultra, Pro and Nano tiers. |
 
 ## Qwen family (Alibaba)
 
@@ -74,7 +74,7 @@ Anthropic's Claude models have no single public technical report in the form abo
 
 ## Limits of this table
 
-- Sizes come from the reports' abstracts, not from full reading of each report. Check the report before relying on a size.
+- Sizes were checked against each report's abstract, not the full report. Check the report before relying on a size beyond the abstract.
 - Release dates here are report dates. Product availability can differ.
 - The table will drift as new families are released. Add rows with a report link and check the abstract before merging.
 

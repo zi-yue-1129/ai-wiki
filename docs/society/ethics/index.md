@@ -39,6 +39,8 @@ Most AI ethics frameworks (OECD AI Principles, UNESCO Recommendation on the Ethi
 
 **Impossibility results**: when base rates differ, calibration and equal error rates cannot generally hold together (Kleinberg, Mullainathan & Raghavan, 2016; Chouldechova, 2017) — the heart of the COMPAS debate. Choosing a criterion is a value judgement, not a technical one.
 
+Details, with the impossibility proofs, are in [Fairness definitions and impossibility results](fairness-definitions.md). Each criterion has its own page: [Demographic parity](demographic-parity.md), [Equalised odds](equalised-odds.md), [Calibration within groups](calibration-within-groups.md), [Individual fairness](individual-fairness.md) and [Counterfactual fairness](counterfactual-fairness.md).
+
 ### Mitigation
 
 Pre-processing (reweighting, resampling), in-processing (fairness constraints), post-processing (group-specific thresholds), plus — most importantly — better problem formulation, data and stakeholder involvement. Tools: Fairlearn, AIF360.
@@ -46,6 +48,8 @@ Pre-processing (reweighting, resampling), in-processing (fairness constraints), 
 ### Bias in LLMs
 
 Stereotypes in generated text and images, dialect bias (e.g. covert prejudice against African American English, Hofmann et al., 2024, *Nature*), unequal performance across languages, and cultural default to Western norms.
+
+Concrete cases, including COMPAS, Gender Shades and a health-risk algorithm, are in [Case studies in algorithmic bias](bias-case-studies.md).
 
 ## Privacy
 
@@ -60,6 +64,8 @@ Stereotypes in generated text and images, dialect bias (e.g. covert prejudice ag
 - Who is responsible when an AI-assisted decision harms someone? Developers, deployers, users?
 - Documentation (model cards, datasheets, system cards), audits, impact assessments
 - Contestability: people should be able to challenge automated decisions
+
+Documentation and audit practice is covered in [Algorithmic auditing and impact assessment](algorithmic-auditing.md).
 
 ## Hidden labour and global justice
 
@@ -80,7 +86,7 @@ Stereotypes in generated text and images, dialect bias (e.g. covert prejudice ag
 - Buolamwini, J. & Gebru, T. (2018). Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. *Proceedings of the 1st Conference on Fairness, Accountability and Transparency (PMLR 81)*. https://proceedings.mlr.press/v81/buolamwini18a.html — Audits commercial gender classifiers and finds much higher error rates for darker-skinned women.
 - Obermeyer, Z. et al. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. *Science*. https://doi.org/10.1126/science.aax2342 — Shows a health-risk algorithm underestimating the needs of Black patients because it used cost as a proxy for health.
 - Mitchell, M. et al. (2019). Model Cards for Model Reporting. *Proceedings of the Conference on Fairness, Accountability, and Transparency*. https://arxiv.org/abs/1810.03993 — Proposes a standard documentation template covering intended use, evaluation across groups and known limitations.
-- Bender, E. M. et al. (2021). On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? *Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency*. https://doi.org/10.1145/3442188.3445922 — Discusses the environmental cost, documentation debt and bias risks of ever-larger language models.
+- Bender, E. M. et al. (2021). On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? *Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency*. https://doi.org/10.1145/3442188.3445922 — Discusses the risks of ever-larger language models, as its title states.
 
 ## Further learning
 

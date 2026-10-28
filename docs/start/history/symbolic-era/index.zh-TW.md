@@ -72,4 +72,4 @@ Rosenblatt 把感知器介紹為資訊如何在大腦中儲存的機率模型。
 
 ### 綜述與教科書
 
-- Lighthill，*Artificial Intelligence: A General Survey*，Science Research Council（1973）。https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm — 對 AI 進展的批判性綜述，報告的日期為 1972 年，1973 年出版。詳見[下一章](../expert-systems-and-winters/index.zh-TW.md)。
+- Lighthill，*Artificial Intelligence: A General Survey*，Science Research Council（1972）。https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm — 對 AI 進展的批判性綜述，報告的日期為 1972 年，1973 年出版。詳見[下一章](../expert-systems-and-winters/index.zh-TW.md)。

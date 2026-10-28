@@ -13,7 +13,7 @@ aliases:
 
 # QK 正規化
 
-QK 正規化在每個注意力頭做內積之前，先對其查詢（query）與鍵（key）套用層正規化。不論產生 \(Q\) 與 \(K\) 的權重範數有多大，它都能限制注意力的 logit。Dehghani 等人（2023）把它作為訓練 220 億參數視覺 Transformer 的穩定性修正。上層概述是[Transformer 與注意力](index.md)，更廣泛的範數增長問題見[權重範數動態](../../optimization/weight-norm-dynamics/index.md)頁面。
+QK 正規化在每個注意力頭做內積之前，先對其查詢（query）與鍵（key）套用層正規化。不論產生 \(Q\) 與 \(K\) 的權重範數有多大，它都能限制注意力的 logit。Dehghani 等人（2023）在訓練 220 億參數的視覺 Transformer（ViT-22B）時，用它來防止注意力 logit 失控增長所造成的發散。上層概述是[Transformer 與注意力](index.md)，更廣泛的範數增長問題見[權重範數動態](../../optimization/weight-norm-dynamics/index.md)頁面。
 
 ## 概述
 
@@ -21,7 +21,7 @@ QK 正規化在每個注意力頭做內積之前，先對其查詢（query）與
 
 ## 問題
 
-Dehghani 等人報告，在訓練非常大的視覺 Transformer 時，注意力 logit 失去控制地增長。softmax 因此集中在少數位置上，訓練發散。論文的補救方法就是下文所述的正規化。
+注意力 logit 的增長是大型 Transformer 訓練不穩定的來源之一。Wortsman 等人（2023）列舉了這一點，並引用先前在大規模上的報告（Dehghani 等人，2023）。logit 增長時，softmax 會集中在少數位置上，訓練可能發散。
 
 ## 核心想法
 
@@ -38,12 +38,12 @@ Dehghani 等人報告，在訓練非常大的視覺 Transformer 時，注意力 
 
 ## 結果
 
-Wortsman 等人（2023）在小規模上測試這個機制。他們報告，加入查詢與鍵的層正規化可使注意力 logit 保持有界，並提高能穩定訓練的最大學習率。他們的實驗把注意力 logit 的增長與輸出 logit 的發散分開，而 QK 正規化處理的是前者，不是後者。確切的掃描數字應以論文為準。
+Wortsman 等人（2023）在小規模上重現注意力 logit 的增長，並測試查詢與鍵的層正規化作為補救。他們報告，在所測的模型規模上，它能防止發散，而學習率敏感度仍隨模型規模增加。輸出 logit 的發散是另一種不穩定，他們以 z-loss 處理，而非這種正規化。確切數字應以論文為準。
 
 ## 限制
 
-- QK 正規化限制了注意力 logit，但沒有限制輸出投影或前饋層的範數，這些範數仍可能增長，與權重範數分析的預測一致。
-- 它限制的是 logit 的尺度，注意力仍可能在秩或熵上崩潰。Zhai 等人（2023）把崩潰連結到查詢鍵乘積的譜範數，Noci 等人（2022）則連結到 token 表示的秩崩潰。
+- QK 正規化限制了注意力 logit，但沒有限制輸出投影或前饋層的範數。Wortsman 等人（2023）報告，即使使用它，學習率敏感度仍隨模型規模增長；其他層的範數仍可能持續增長，權重範數分析說明了原因。
+- 它限制的是 logit 的尺度，注意力仍可能在秩或熵上崩潰。Zhai 等人（2023）把熵崩潰連結到注意力 logit 的譜範數，Noci 等人（2022）則把秩崩潰連結到 token 表示。
 - 論文報告的主要效益是訓練穩定性。關於最終準確率的主張取決於各論文的實驗，應在論文中核對。
 
 ## 相關主題
@@ -60,8 +60,8 @@ Wortsman 等人（2023）在小規模上測試這個機制。他們報告，加�
 
 ## 參考文獻
 
-- Dehghani, M., Djolonga, J., Mustafa, B., et al. (2023). *Scaling Vision Transformers to 22 Billion Parameters*. ICML 2023, PMLR 202:7480–7512. https://proceedings.mlr.press/v202/dehghani23a.html — 為大型視覺 Transformer 引入查詢鍵層正規化。
-- Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — 在小規模上測試查詢鍵正規化與其他補救方法。
-- Zhai, S., Likhomanenko, T., Littwin, E., et al. (2023). *Stabilizing Transformer Training by Preventing Attention Entropy Collapse*. ICML 2023, PMLR 202:40770–40803. https://proceedings.mlr.press/v202/zhai23a.html — 把注意力崩潰連結到查詢鍵乘積的譜範數。
+- Dehghani, M., Djolonga, J., Mustafa, B., et al. (2023). *Scaling Vision Transformers to 22 Billion Parameters*. ICML 2023, PMLR 202:7480–7512. https://proceedings.mlr.press/v202/dehghani23a.html — 在訓練 ViT-22B（一個 220 億參數的視覺 Transformer）時，以查詢鍵層正規化防止注意力 logit 失控增長所造成的發散。
+- Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — 在小規模上重現注意力 logit 與輸出 logit 的不穩定，並測試查詢鍵層正規化與 z-loss 作為補救。
+- Zhai, S., Likhomanenko, T., Littwin, E., et al. (2023). *Stabilizing Transformer Training by Preventing Attention Entropy Collapse*. ICML 2023, PMLR 202:40770–40803. https://proceedings.mlr.press/v202/zhai23a.html — 把注意力熵崩潰連結到注意力 logit 的譜範數。
 - Noci, L., Anagnostidis, S., Biggio, L., et al. (2022). *Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse*. arXiv:2206.03126. https://arxiv.org/abs/2206.03126 — 分析堆疊注意力中的秩崩潰及其對梯度的影響。
 - Xiong, R., Yang, Y., He, D., et al. (2020). *On Layer Normalization in the Transformer Architecture*. ICML 2020. https://arxiv.org/abs/2002.04745 — 研究 Transformer 區塊中正規化的位置。

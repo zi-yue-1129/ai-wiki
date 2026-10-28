@@ -17,6 +17,7 @@ AI's technical progress raises questions that technology alone cannot answer.
 | [Children, Education Policy & AI](children-education-policy/index.md) | Child rights, age limits and parental consent, data protection for children, and how tool design affects learning |
 | [Law, Policy & Governance](governance/index.md) | EU AI Act, US and Chinese approaches, international efforts, standards |
 | [Economics & Work](economics/index.md) | Productivity, jobs, inequality, concentration |
+| [Human-AI Interaction & Trust](human-ai-interaction/index.md) | Automation bias and overreliance, how explanations change trust, AI companionship, AI literacy
 | [Philosophy of AI](philosophy/index.md) | Intelligence, understanding, meaning, agency, moral status |
 
 ## Risk landscape

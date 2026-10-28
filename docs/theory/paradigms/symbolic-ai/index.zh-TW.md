@@ -15,6 +15,8 @@
 | 知識圖譜 | (實體, 關係, 實體) 三元組 | Wikidata、Google Knowledge Graph |
 | 常識知識庫 | 日常常識 | Cyc、ConceptNet、ATOMIC |
 
+詳細頁面：[知識圖譜與知識表示](knowledge-graphs/index.md)，包含 [TransE](knowledge-graphs/transe.md)。
+
 ## 搜尋
 
 | 類型 | 演算法 | 用途 |
@@ -28,6 +30,8 @@
 
 A* 的評估函數：\( f(n) = g(n) + h(n) \)，若 \(h\) 不高估（可容許），A* 保證找到最佳解。
 
+詳細頁面：[搜尋演算法](search/index.md)，包含 [A\* 搜尋](search/a-star.md)、[α–β 剪枝](search/alpha-beta-pruning.md)與[蒙地卡羅樹搜尋](search/monte-carlo-tree-search.md)。
+
 ## 自動規劃
 
 - **STRIPS / PDDL**：以前提條件與效果描述行動，規劃器自動找出行動序列
@@ -35,11 +39,15 @@ A* 的評估函數：\( f(n) = g(n) + h(n) \)，若 \(h\) 不高估（可容許�
 - **部分可觀察與機率規劃**：POMDP
 - **應用**：物流、太空任務（NASA 的 Remote Agent）、遊戲 AI、機器人任務規劃
 
+詳細頁面：[自動規劃](planning/index.md)，包含 [STRIPS](planning/strips.md) 與 [GraphPlan](planning/graphplan.md)。
+
 ## 自動推理與定理證明
 
 - SAT／SMT 求解器（Z3）：晶片驗證、軟體驗證、排程
 - 互動式定理證明：Lean、Coq（Rocq）、Isabelle
 - **AI × 數學**：LLM 搭配 Lean 自動證明（AlphaProof 在 2024 IMO 達銀牌水準；之後多個系統在 IMO 題目上達到金牌水準）、Mathlib 社群形式化數學
+
+詳細頁面：[自動定理證明與形式數學](theorem-proving/index.md)，包含[歸結](theorem-proving/resolution.md)與 [DPLL](theorem-proving/dpll.md)。
 
 ## 符號 AI 的優缺點
 
@@ -62,6 +70,8 @@ A* 的評估函數：\( f(n) = g(n) + h(n) \)，若 \(h\) 不高估（可容許�
 - **知識圖譜＋LLM**：GraphRAG
 
 認知科學中的對應是**雙歷程理論**：快速直覺的「系統一」像神經網路，緩慢審慎的「系統二」像符號推理（見 [心理學與 AI](../../../brain-mind/psychology/index.md)）。也有學者主張人類思考依賴「思維語言」（Fodor）這種符號結構。
+
+詳細頁面：[神經符號 AI](neuro-symbolic/index.md)，包含[馬可夫邏輯網路](neuro-symbolic/markov-logic-networks.md)。
 
 ## 學習資源
 

@@ -62,6 +62,8 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 | 自編碼器／VAE | 瓶頸式壓縮 | 表徵學習、生成 | [生成模型](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 | 擴散模型 | 迭代去噪 | 影像、影片、分子 | [生成模型](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 
+架構也可以自動搜尋，而非手工設計。見[神經架構搜尋與 AutoML](nas-automl/index.md)。
+
 ## 讓深度網路能被訓練的技巧
 
 - **初始化**：Xavier／Glorot、He
@@ -85,6 +87,8 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 Kaplan et al.（2020）與 Hoffmann et al.（2022，「Chinchilla」）發現，語言模型的損失會依參數量、資料量與運算量呈**冪次定律**下降。Chinchilla 指出，在固定的運算預算下，參數量與訓練 token 數應該同步成長（大約每個參數 20 個 token）。實務上，為了讓推論更便宜，模型往往會被訓練到遠超過這個比例。
 
 自 2024 年起，**測試時運算的縮放**——讓模型在回答前想得更久（長思維鏈、搜尋、取樣與投票）——已成為推理能力的第二條可靠的改進軸線。
+
+縮放的擬合及其限制，以及關於湧現能力的爭論，見[縮放定律](../models/llm/scaling-laws/index.md)頁面。
 
 ## 開放的理論問題
 

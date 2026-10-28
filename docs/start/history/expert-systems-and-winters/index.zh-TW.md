@@ -22,7 +22,7 @@ aliases:
 
 ## 概述
 
-早期的符號計畫曾承諾通用智能，但在問題超出玩具領域時便陷入困難。1973 年，Lighthill 為英國科學研究委員會所做的綜述認為，AI 未能實現其廣泛的目標，並指出組合爆炸是主要障礙 [(Lighthill, 1973)](https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm)。報告之後英國的基礎研究經費被大幅削減，通常被視為第一次寒冬的開端。
+早期的符號計畫曾承諾通用智能，但在問題超出玩具領域時便陷入困難。1972 年，Lighthill 為英國科學研究委員會所做的綜述認為，AI 未能實現其廣泛的目標，並指出組合爆炸是主要障礙 [(Lighthill, 1972)](https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm)。報告之後英國的基礎研究經費被大幅削減，通常被視為第一次寒冬的開端。
 
 ## 關鍵概念
 
@@ -66,7 +66,7 @@ aliases:
 
 ### 綜述與教科書
 
-- Lighthill，*Artificial Intelligence: A General Survey*，Science Research Council（1973）。https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm — 批判性綜述，其結論促成英國 AI 研究經費的削減。
+- Lighthill，*Artificial Intelligence: A General Survey*，Science Research Council（1972）。https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm — 批判性綜述，其結論促成英國 AI 研究經費的削減。
 
 ### 文章與文件
 

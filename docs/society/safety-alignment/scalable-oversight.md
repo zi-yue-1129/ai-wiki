@@ -31,7 +31,7 @@ Scalable oversight treats this as a research problem with two parts: designing p
 
 ## Key methods
 
-- [Debate](#debate) (Irving et al., 2018): two agents argue opposing answers, and a judge decides which argument is more convincing.
+- [Debate](debate.md) (Irving et al., 2018): two agents argue opposing answers, and a judge decides which argument is more convincing.
 - **Recursive reward modelling** (Leike et al., 2018): a hard task is split into subtasks, and the human uses AI assistants on each subtask to evaluate the whole.
 - **Iterated amplification** (Christiano et al., 2018): a human combined with copies of the model answers questions the human could not answer alone, and the combined system is distilled into a new model that is trained the same way.
 - **Weak-to-strong generalisation** (Burns et al., 2023): a strong model is fine-tuned on labels from a weaker model, and the question is how much of the strong model's ability is recovered.
@@ -39,6 +39,8 @@ Scalable oversight treats this as a research problem with two parts: designing p
 These differ in what the judge sees. Debate and amplification change how the judge is assisted. Weak-to-strong generalisation changes the training signal itself, so it is also a way of asking what a strong model learns when its supervisor is weak.
 
 ## Debate
+
+The detailed page is [AI debate](debate.md).
 
 In the debate proposal, two copies of a model are shown a question and each argues for a different answer, possibly citing evidence. A human judge reads the exchange and picks a winner. Irving, Christiano and Amodei (2018) argue that, under certain assumptions, the honest side can win because a lie that is hard to defend can be exposed by its opponent, so the judge needs to evaluate only short, checkable claims. The paper is a proposal with a theoretical argument and small-scale demonstrations, not a deployed system.
 

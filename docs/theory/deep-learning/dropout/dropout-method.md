@@ -34,7 +34,7 @@ For an activation vector $\mathbf{h}$, the training-time output is $\tilde{\math
 
 ## Results
 
-The paper reports reduced overfitting and improved results across several classification tasks and architectures, with figures in its experiments section. The specific numbers are not restated here.
+The abstract says dropout significantly reduces overfitting and gives major improvements over other regularisation methods. The paper's experiments give the figures, which are not restated here.
 
 ## Limitations
 

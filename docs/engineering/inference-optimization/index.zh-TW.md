@@ -48,6 +48,10 @@ flowchart TD
 
 會在單一層內減少記憶體存取的核心層融合，見[融合核心](fused-kernels.zh-TW.md)。
 
+在訓練之後才縮小快取，而非在設計時就縮小，這類方法在[KV 快取壓縮與淘汰](kv-cache-compression.zh-TW.md)頁面中比較：[H2O](h2o.zh-TW.md) 與 [StreamingLLM](streamingllm.zh-TW.md) 丟棄 token，而 [KIVI](kivi.zh-TW.md) 則以 2 位元保留每一個 token。
+
+服務也會跨越多台機器。[預填充與解碼分離](disaggregated-serving.zh-TW.md)把受運算限制的提示階段，與受記憶體限制的 token 階段放在不同的資源池上執行，主要設計為 [DistServe](distserve.zh-TW.md)、[Splitwise](splitwise.zh-TW.md) 與 [Mooncake](mooncake.zh-TW.md)。混合專家模型還有自己的服務問題，包括專家的放置與卸載，見[混合專家模型的服務](moe-serving.zh-TW.md)，其中比較 [GShard](gshard.zh-TW.md)、[DeepSpeed-MoE](deepspeed-moe.zh-TW.md) 與[專家卸載](expert-offloading.zh-TW.md)。
+
 ## 相關連結
 
 - KV 快取本身的說明見 [Transformer KV 快取](../../theory/models/transformer/kv-cache/index.zh-TW.md)；本頁說明服務系統如何管理它。

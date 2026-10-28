@@ -29,7 +29,7 @@ aliases:
 
 - **編碼器與解碼器（encoder and decoder）**：編碼器把激活映射為稀疏碼，解碼器則把碼映射回激活的近似值。
 - **字典（dictionary）**：解碼器的各欄，每一欄對應一個特徵。
-- **稀疏性（sparsity）**：同時活躍的特徵比例。稀疏性由 L1 懲罰或明確的 top-k 規則強制執行（Makhzani & Frey, 2014）。
+- **稀疏性（sparsity）**：同時活躍的特徵比例。稀疏性由 L1 懲罰或明確的 top-k 規則強制執行（[Makhzani & Frey, 2014](k-sparse-autoencoders.md)）。
 - **單義特徵（monosemantic feature）**：以人類可辨識的方式只對一個概念產生反應的特徵。
 
 ## 運作方式
@@ -40,7 +40,7 @@ Cunningham et al.（2023）在小型語言模型的激活上訓練 SAE，並報�
 
 ## 擴展
 
-主要的問題是這個方法能否擴展。Templeton et al.（2024）在一個量產規模的模型的激活上訓練 SAE，並報告數百萬個特徵，包括具體實體的特徵與一些抽象概念的特徵，以及可用來引導行為的特徵。Gao et al.（2024）顯示，SAE 的大小與稀疏性可以依可預測的取捨來擴展，並提出一種 top-k 架構，使訓練更穩定。Lieberum et al.（2024）為一個開放的模型家族釋出一組 SAE，讓其他研究者無需自行訓練，就能研究這些特徵。
+主要的問題是這個方法能否擴展。Templeton et al.（2024）在一個量產規模的模型的激活上訓練 SAE，並報告數百萬個特徵，包括具體實體的特徵與一些抽象概念的特徵，以及可用來引導行為的特徵。Gao et al.（2024）顯示，SAE 的大小與稀疏性可以依可預測的取捨來擴展，並提出一種 top-k 架構，使訓練更穩定。Lieberum et al.（2024）為一個開放的模型家族釋出一組 SAE，讓其他研究者無需自行訓練，就能研究這些特徵。[JumpReLU 稀疏自編碼器](jumprelu-sae.md)為每個特徵設定獨立閾值，以改善重建。
 
 擴展也帶來新的問題。重建得很好的 SAE 仍可能漏掉特徵；在較小 SAE 中具可解釋性的特徵，在較大的 SAE 中可能分裂為數個特徵，因此特徵取決於字典的大小。
 
@@ -89,6 +89,7 @@ Cunningham et al.（2023）在小型語言模型的激活上訓練 SAE，並報�
 - Bricken, T. et al. (2023). *Towards Monosemanticity: Decomposing Language Models With Dictionary Learning*. Transformer Circuits Thread. https://transformer-circuits.pub/2023/monosemantic-features/index.html — Applies dictionary learning to a small transformer and reports monosemantic features.
 - Templeton, A. et al. (2024). *Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet*. Transformer Circuits Thread. https://transformer-circuits.pub/2024/scaling-monosemanticity/ — Scales sparse autoencoders to a production-scale model and reports features and steering demonstrations.
 - Lieberum, T. et al. (2024). *Gemma Scope: Open Sparse Autoencoders Everywhere All At Once on Gemma 2*. arXiv:2408.05147. https://arxiv.org/abs/2408.05147 — Releases a suite of sparse autoencoders for an open model family.
+- Rajamanoharan, S. et al. (2024). *Jumping Ahead: Improving Reconstruction Fidelity with JumpReLU Sparse Autoencoders*. arXiv:2407.14435. https://arxiv.org/abs/2407.14435 — Introduces a sparse autoencoder with a thresholded JumpReLU activation that improves reconstruction at a given sparsity.
 
 ## 延伸學習
 
