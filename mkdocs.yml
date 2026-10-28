@@ -273,7 +273,13 @@ nav:
               - Multi-task Learning: foundations/paradigms/transfer/multi-task-learning/index.md
               - Sim-to-Real Transfer: foundations/paradigms/transfer/sim-to-real/index.md
               - Transfer Theory: foundations/paradigms/transfer/transfer-theory/index.md
-          - Meta-Learning & Few-Shot Learning: foundations/paradigms/meta-learning/index.md
+          - Meta-Learning & Few-Shot Learning:
+              - foundations/paradigms/meta-learning/index.md
+              - Optimisation-based: foundations/paradigms/meta-learning/optimisation-based/index.md
+              - Metric-based Few-shot: foundations/paradigms/meta-learning/metric-based/index.md
+              - Memory & Model-based: foundations/paradigms/meta-learning/memory-and-model-based/index.md
+              - Meta-learning Theory: foundations/paradigms/meta-learning/meta-learning-theory/index.md
+              - Benchmarks & Foundation Models: foundations/paradigms/meta-learning/benchmarks-and-foundation-models/index.md
           - Continual Learning: foundations/paradigms/continual/index.md
           - Active Learning: foundations/paradigms/active/index.md
           - Online Learning & Bandits: foundations/paradigms/online/index.md
