@@ -29,6 +29,8 @@ AI 用到的數學主要有五塊。這頁說明每塊「用在哪裡」與「�
 \frac{\partial L}{\partial w} = \frac{\partial L}{\partial y}\cdot\frac{\partial y}{\partial z}\cdot\frac{\partial z}{\partial w}
 \]
 
+**自動微分**把鏈式法則套用到整個程式，是反向傳播背後的機制。它的兩種模式見[自動微分](automatic-differentiation/index.zh-TW.md)。
+
 ## 3. 機率與統計
 
 **用在哪裡**：模型輸出機率分布；語言模型就是 \( p(x_t \mid x_{<t}) \)；不確定性估計；評估時的信賴區間與顯著性檢定。

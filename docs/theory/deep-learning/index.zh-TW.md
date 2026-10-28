@@ -72,6 +72,8 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 - **混合精度**：BF16／FP16／FP8
 - **分散式訓練**：資料、張量與管線平行；ZeRO／FSDP
 
+其中三項技巧各有獨立頁面：[正規化](normalisation/index.zh-TW.md)、[丟棄法與隨機正則化](dropout/index.zh-TW.md)，以及[權重初始化](initialisation/index.zh-TW.md)。每一章都會比較各種方法，並連結到每個方法的頁面。
+
 ## 表徵學習與自監督
 
 深度學習真正的威力在於**學習表徵**。近年最大的轉變是[自監督學習](../paradigms/self-supervised/index.md)：從未標註的資料中建立訓練訊號——遮罩預測（BERT、MAE）、下一個 token 預測（GPT）、對比學習（SimCLR、CLIP）、聯合嵌入預測（JEPA）。

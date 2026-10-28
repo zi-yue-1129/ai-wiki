@@ -80,6 +80,8 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 - **Mixed precision**: BF16/FP16/FP8
 - **Distributed training**: data, tensor and pipeline parallelism; ZeRO/FSDP
 
+Three of these tricks have their own pages: [normalisation](normalisation/index.md), [dropout and stochastic regularisation](dropout/index.md), and [weight initialisation](initialisation/index.md). Each chapter compares its methods and links to a page per method.
+
 ## Representation learning and self-supervision
 
 Deep learning's real power is **learning representations**. The biggest shift of recent years is [self-supervised learning](../paradigms/self-supervised/index.md): creating training signals from unlabelled data — masked prediction (BERT, MAE), next-token prediction (GPT), contrastive learning (SimCLR, CLIP), joint-embedding prediction (JEPA).
