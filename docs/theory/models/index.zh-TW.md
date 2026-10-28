@@ -24,6 +24,7 @@ references: not-required
 | 頁面 | 重點 |
 |---|---|
 | [大型語言模型](llm/index.md) | 預訓練、對齊、推理模型、開放權重生態 |
+| [推理模型與測試時運算](reasoning/index.md) | 長鏈式思維、以可驗證獎勵進行強化學習、測試時運算擴展 |
 | [電腦視覺](computer-vision/index.md) | 分類、偵測、分割、3D、影片理解 |
 | [自然語言處理](nlp/index.md) | 從詞向量到 LLM 的 NLP 任務 |
 | [語音與音訊](speech/index.md) | 語音辨識、語音合成、音樂生成 |

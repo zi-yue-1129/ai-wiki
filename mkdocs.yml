@@ -327,6 +327,11 @@ plugins:
             Linear Recurrent Units: 線性循環單元
             GraphSAGE: GraphSAGE
             Large Language Models: 大型語言模型
+            Reasoning Models: 推理模型
+            Chain of Thought: 思維鏈
+            Self-Consistency: 自洽性
+            DeepSeek-R1: DeepSeek-R1
+            Test-Time Compute Scaling: 測試時運算擴展
             Generative Models: 生成模型
             Model Compression: 模型壓縮
             Quantisation: 量化
@@ -661,6 +666,12 @@ nav:
           - Large Language Models:
               - theory/models/llm/index.md
               - Imitation in Foundation Models: theory/models/llm/imitation-in-foundation-models/index.md
+              - Reasoning Models:
+                  - theory/models/reasoning/index.md
+                  - Chain of Thought: theory/models/reasoning/chain-of-thought.md
+                  - Self-Consistency: theory/models/reasoning/self-consistency.md
+                  - DeepSeek-R1: theory/models/reasoning/deepseek-r1.md
+                  - Test-Time Compute Scaling: theory/models/reasoning/test-time-scaling.md
           - Computer Vision: theory/models/computer-vision/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
