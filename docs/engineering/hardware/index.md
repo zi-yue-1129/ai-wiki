@@ -38,6 +38,7 @@ Deep learning's rise was enabled by GPUs; today compute is a strategic resource 
 ## Subchapters
 
 - [AI accelerators](accelerators/index.md): GPU, TPU and ASIC design principles, with pages on the [TPU](accelerators/tpu/index.md) and [Eyeriss v2](accelerators/eyeriss-v2/index.md).
+- [Memory Hierarchy and Bandwidth](memory-hierarchy/index.md): registers, on-chip SRAM and HBM, arithmetic intensity, the roofline model, and why LLM decoding is bandwidth-bound.
 
 ## Supply chain and policy
 
