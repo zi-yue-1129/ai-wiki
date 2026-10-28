@@ -24,7 +24,7 @@ Richards et al.（2019, *Nature Neuroscience*）〈A deep learning framework for
 |---|---|---|
 | McCulloch–Pitts | 最簡 | 二元閾值單元 |
 | 速率模型 | 簡單 | 輸出為放電頻率；與人工神經元相似 |
-| 漏電積分發放（LIF） | 簡單 | 帶洩漏地累積輸入，達閾值即發放並重置——是 SNN 的基礎 |
+| [漏電積分發放（LIF）](lif/index.md) | 簡單 | 帶洩漏地累積輸入，達閾值即發放並重置——是 SNN 的基礎 |
 | Izhikevich | 中等 | 以兩個變數重現多種放電模式 |
 | Hodgkin–Huxley | 高 | 動作電位的離子通道動力學（1963 年諾貝爾獎） |
 | 多室模型 | 極高 | 詳細的樹突形態 |
