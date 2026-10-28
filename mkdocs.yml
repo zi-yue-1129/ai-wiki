@@ -918,6 +918,13 @@ plugins:
             Mechanistic interpretability and circuits: 機制可解釋性與電路
             Sparse autoencoders and feature dictionaries: 稀疏自編碼器與特徵字典
             Ethics & Fairness: 倫理與公平
+            Fairness Definitions: 公平性定義
+            Bias Case Studies: 偏見案例研究
+            Algorithmic Auditing: 演算法稽核與影響評估
+            Feature Attribution: 特徵歸因
+            Probing Classifiers: 探測分類器
+            Human-AI Interaction & Trust: 人機互動與信任
+            Automation Bias: 自動化偏誤與過度依賴
             Privacy & Data Protection: 隱私與資料保護
             Differential privacy: 差分隱私
             Membership inference: 成員推論
@@ -1953,7 +1960,13 @@ nav:
           - society/interpretability/index.md
           - Mechanistic interpretability and circuits: society/interpretability/mechanistic-interpretability.md
           - Sparse autoencoders and feature dictionaries: society/interpretability/sparse-autoencoders.md
-      - Ethics & Fairness: society/ethics/index.md
+          - Feature Attribution: society/interpretability/feature-attribution.md
+          - Probing Classifiers: society/interpretability/probing.md
+      - Ethics & Fairness:
+          - society/ethics/index.md
+          - Fairness Definitions: society/ethics/fairness-definitions.md
+          - Bias Case Studies: society/ethics/bias-case-studies.md
+          - Algorithmic Auditing: society/ethics/algorithmic-auditing.md
       - Privacy & Data Protection:
           - society/privacy/index.md
           - Differential privacy: society/privacy/differential-privacy.md
@@ -1979,8 +1992,11 @@ nav:
       - AI in Taiwan: society/ai-in-taiwan/index.md
       - Children, Education Policy & AI: society/children-education-policy/index.md
       - Surveillance & Human Rights: society/surveillance/index.md
-      - AI Companionship: society/human-ai-interaction/ai-companionship.md
-      - AI Literacy: society/human-ai-interaction/ai-literacy.md
+      - Human-AI Interaction & Trust:
+          - society/human-ai-interaction/index.md
+          - Automation Bias: society/human-ai-interaction/automation-bias.md
+          - AI Companionship: society/human-ai-interaction/ai-companionship.md
+          - AI Literacy: society/human-ai-interaction/ai-literacy.md
       - Law, Policy & Governance:
           - society/governance/index.md
           - Compute Governance & Export Controls: society/governance/compute-governance.md

@@ -32,6 +32,8 @@ Understanding *why* a model produces its outputs — for debugging, trust, scien
 
 Caution: attribution maps can be unfaithful or fail sanity checks (Adebayo et al., 2018), and explanations can increase over-trust.
 
+Two method pages go deeper: [Feature attribution: SHAP, LIME and saliency](feature-attribution.md) and [Probing classifiers and representation analysis](probing.md).
+
 ## Mechanistic interpretability
 
 - **[Circuits](mechanistic-interpretability.md)**: small subnetworks implementing identifiable algorithms — curve detectors in vision models, induction heads in Transformers, indirect-object identification circuits

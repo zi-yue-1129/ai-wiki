@@ -39,6 +39,8 @@ Most AI ethics frameworks (OECD AI Principles, UNESCO Recommendation on the Ethi
 
 **Impossibility results**: when base rates differ, calibration and equal error rates cannot generally hold together (Kleinberg, Mullainathan & Raghavan, 2016; Chouldechova, 2017) — the heart of the COMPAS debate. Choosing a criterion is a value judgement, not a technical one.
 
+Details, with the impossibility proofs, are in [Fairness definitions and impossibility results](fairness-definitions.md).
+
 ### Mitigation
 
 Pre-processing (reweighting, resampling), in-processing (fairness constraints), post-processing (group-specific thresholds), plus — most importantly — better problem formulation, data and stakeholder involvement. Tools: Fairlearn, AIF360.
@@ -46,6 +48,8 @@ Pre-processing (reweighting, resampling), in-processing (fairness constraints), 
 ### Bias in LLMs
 
 Stereotypes in generated text and images, dialect bias (e.g. covert prejudice against African American English, Hofmann et al., 2024, *Nature*), unequal performance across languages, and cultural default to Western norms.
+
+Concrete cases, including COMPAS, Gender Shades and a health-risk algorithm, are in [Case studies in algorithmic bias](bias-case-studies.md).
 
 ## Privacy
 
@@ -60,6 +64,8 @@ Stereotypes in generated text and images, dialect bias (e.g. covert prejudice ag
 - Who is responsible when an AI-assisted decision harms someone? Developers, deployers, users?
 - Documentation (model cards, datasheets, system cards), audits, impact assessments
 - Contestability: people should be able to challenge automated decisions
+
+Documentation and audit practice is covered in [Algorithmic auditing and impact assessment](algorithmic-auditing.md).
 
 ## Hidden labour and global justice
 
