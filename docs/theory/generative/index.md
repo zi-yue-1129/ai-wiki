@@ -58,6 +58,10 @@ Key techniques:
 - **Fast sampling**: DDIM, DPM-Solver, consistency models, distillation — from ~1000 steps to a few or one
 - **Control**: ControlNet, LoRA, IP-Adapter
 
+## Flow matching
+
+Full treatment, with one page per landmark method (conditional flow matching, rectified flow and OT-CFM): [Flow Matching and Rectified Flow](flow-matching/index.md). Flow matching trains a network to predict a velocity field that carries noise to data along a path, without simulating that path during training. It generalises the diffusion paths, and rectified flow, a flow-matching variant with straight paths, underlies Stable Diffusion 3.
+
 ## Where they are used
 
 - Images, video, 3D, music, speech (see [Multimodal Models](../models/multimodal/index.md), [Art & Creativity](../../applications/creative/index.md))

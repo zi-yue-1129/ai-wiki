@@ -51,6 +51,10 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 - **快速採樣**：DDIM、DPM-Solver、一致性模型、蒸餾——從約 1000 步降到幾步甚至一步
 - **控制**：ControlNet、LoRA、IP-Adapter
 
+## 流匹配
+
+完整說明，並為各代表性方法（條件流匹配、整流流、OT-CFM）各設一頁：[流匹配與整流流](flow-matching/index.md)。流匹配訓練網路預測速度場，把雜訊沿著一條路徑帶到資料，訓練時不需要模擬這條路徑。它推廣了擴散的路徑，而採用直線路徑的流匹配變體「整流流」則是 Stable Diffusion 3 的基礎。
+
 ## 應用領域
 
 - 影像、影片、3D、音樂、語音（見[多模態模型](../models/multimodal/index.md)、[藝術與創作](../../applications/creative/index.md)）
