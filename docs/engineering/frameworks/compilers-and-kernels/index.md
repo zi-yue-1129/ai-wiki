@@ -54,7 +54,7 @@ Three systems are the main examples. Each has its own page, which gives the desi
 - [torch.compile and TorchInductor](torch-compile.md): PyTorch's graph capture and default compiler. It captures the Python program and generates code, using Triton for NVIDIA, AMD and Intel GPUs.
 - [Triton](triton.md): a Python-based language for writing tiled GPU kernels by hand. It is used directly by engineers and as a backend by TorchInductor.
 
-TVM, a compiler for deep-learning workloads across many back-ends, is an important earlier system. Chen et al. (2018) describe its graph-level and operator-level optimisations.[^tvm]
+TVM, a compiler for deep-learning workloads across many back-ends, is an important earlier system. Chen et al. (2018) describe its graph-level and operator-level optimisations.
 
 ## Connections
 
@@ -85,4 +85,4 @@ Kernel and compiler work matters most where a single operation dominates cost, s
 - PyTorch. *torch.compiler: Compiling PyTorch models*. https://docs.pytorch.org/docs/2.14/user_guide/torch_compiler/torch.compiler.html — Official description of TorchDynamo, AOTAutograd, TorchInductor and the default backend.
 - Triton contributors. *Triton documentation*. https://triton-lang.org/main/index.html — Official documentation of Triton, a Python-based language and compiler for writing GPU kernels.
 
-[^tvm]: Chen et al. (2018), listed in References.
+: Chen et al. (2018), listed in References.

@@ -18,7 +18,7 @@ aliases:
 !!! info "屬於編譯器與核心程式"
     本方法頁隸屬於[編譯器與核心程式](index.zh-TW.md)。它詳細說明這個核心程式語言；上層頁面則比較它與各種編譯器系統。
 
-Triton 是一種以 Python 撰寫 GPU 核心程式的語言與編譯器。官方文件把它描述為提供「基於 Python 的程式設計環境」，用來「高效率地撰寫自訂的 DNN 運算核心程式」，目標是在「現代 GPU 硬體上達到最大吞吐量」。它介於全自動編譯器與手寫裝置程式碼之間：程式設計者決定分塊方式，底層細節則由 Triton 處理。[^triton]
+Triton 是一種以 Python 撰寫 GPU 核心程式的語言與編譯器。官方文件把它描述為提供「基於 Python 的程式設計環境」，用來「高效率地撰寫自訂的 DNN 運算核心程式」，目標是在「現代 GPU 硬體上達到最大吞吐量」。它介於全自動編譯器與手寫裝置程式碼之間：程式設計者決定分塊方式，底層細節則由 Triton 處理。
 
 ## 問題
 
@@ -72,4 +72,4 @@ Triton 也被用作後端。TorchInductor 會為 NVIDIA、AMD 與 Intel GPU 產�
 - PyTorch. *torch.compiler: Compiling PyTorch models*. https://docs.pytorch.org/docs/2.14/user_guide/torch_compiler/torch.compiler.html — 說明 TorchInductor 如何為 GPU 核心程式使用 Triton。
 - OpenXLA. *XLA: Optimized compiler for machine learning*. https://openxla.org/xla — 與手寫核心程式競爭的編譯器路徑的官方說明。
 
-[^triton]: Triton contributors，*Triton documentation*，見參考文獻。
+: Triton contributors，*Triton documentation*，見參考文獻。

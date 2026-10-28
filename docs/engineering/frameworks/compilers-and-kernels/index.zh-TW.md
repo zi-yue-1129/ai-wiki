@@ -54,7 +54,7 @@ flowchart LR
 - [torch.compile 與 TorchInductor](torch-compile.zh-TW.md)：PyTorch 的圖擷取與預設編譯器。它擷取 Python 程式並產生程式碼，對 NVIDIA、AMD 與 Intel GPU 使用 Triton 產生核心程式。
 - [Triton](triton.zh-TW.md)：以 Python 撰寫分塊 GPU 核心程式的語言。工程師可以直接使用，TorchInductor 也把它當作後端。
 
-TVM 是一個更早的系統，是能針對多種後端的深度學習工作負載的編譯器。Chen et al. (2018) 描述了它的圖層級與運算子層級最佳化。[^tvm]
+TVM 是一個更早的系統，是能針對多種後端的深度學習工作負載的編譯器。Chen et al. (2018) 描述了它的圖層級與運算子層級最佳化。
 
 ## 關聯
 
@@ -85,4 +85,4 @@ TVM 是一個更早的系統，是能針對多種後端的深度學習工作負�
 - PyTorch. *torch.compiler: Compiling PyTorch models*. https://docs.pytorch.org/docs/2.14/user_guide/torch_compiler/torch.compiler.html — 官方說明 torch.compile 的 TorchDynamo、AOTAutograd、TorchInductor 與預設後端，並列出可選的後端。
 - Triton contributors. *Triton documentation*. https://triton-lang.org/main/index.html — Triton 的官方文件，它是以 Python 撰寫 GPU 核心程式的語言與編譯器。
 
-[^tvm]: Chen et al. (2018)，見參考文獻。
+: Chen et al. (2018)，見參考文獻。

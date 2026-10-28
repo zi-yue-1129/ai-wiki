@@ -19,7 +19,7 @@ aliases:
 !!! info "Part of Compilers and Kernels"
     This method page belongs to [Compilers and Kernels](index.md). It explains PyTorch's compiler stack in detail; the parent page compares it with the other systems.
 
-`torch.compile` is PyTorch's entry point for compiling a model while keeping the eager Python programming style. It captures the program with TorchDynamo, captures the backward pass with AOTAutograd, and hands the graph to a backend. The default backend is TorchInductor, which generates fast code for several accelerators and, for NVIDIA, AMD and Intel GPUs, uses OpenAI Triton kernels.[^torch]
+`torch.compile` is PyTorch's entry point for compiling a model while keeping the eager Python programming style. It captures the program with TorchDynamo, captures the backward pass with AOTAutograd, and hands the graph to a backend. The default backend is TorchInductor, which generates fast code for several accelerators and, for NVIDIA, AMD and Intel GPUs, uses OpenAI Triton kernels.
 
 ## Problem
 
@@ -74,4 +74,4 @@ The official documentation describes the components and the default backend, and
 - OpenXLA. *XLA: Optimized compiler for machine learning*. https://openxla.org/xla — Official description of the compiler used by JAX and TensorFlow, for comparison.
 - Triton contributors. *Triton documentation*. https://triton-lang.org/main/index.html — Official documentation of the kernel language that TorchInductor uses for GPU code.
 
-[^torch]: PyTorch, *torch.compiler: Compiling PyTorch models*, listed in References.
+: PyTorch, *torch.compiler: Compiling PyTorch models*, listed in References.

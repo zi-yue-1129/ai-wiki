@@ -19,7 +19,7 @@ aliases:
 !!! info "屬於編譯器與核心程式"
     本方法頁隸屬於[編譯器與核心程式](index.zh-TW.md)。它詳細說明 PyTorch 的編譯器堆疊；上層頁面則比較它與其他系統。
 
-`torch.compile` 是 PyTorch 用來編譯模型的入口，同時保留即時執行的 Python 程式設計風格。它用 TorchDynamo 擷取程式，用 AOTAutograd 事先擷取反向傳播，再把圖交給後端。預設後端是 TorchInductor，它能為多種加速器產生快速程式碼；對 NVIDIA、AMD 與 Intel GPU，則使用 OpenAI Triton 核心程式。[^torch]
+`torch.compile` 是 PyTorch 用來編譯模型的入口，同時保留即時執行的 Python 程式設計風格。它用 TorchDynamo 擷取程式，用 AOTAutograd 事先擷取反向傳播，再把圖交給後端。預設後端是 TorchInductor，它能為多種加速器產生快速程式碼；對 NVIDIA、AMD 與 Intel GPU，則使用 OpenAI Triton 核心程式。
 
 ## 問題
 
@@ -74,4 +74,4 @@ PyTorch 的即時執行模式容易除錯，但它一次只執行一個運算，
 - OpenXLA. *XLA: Optimized compiler for machine learning*. https://openxla.org/xla — 與 JAX 和 TensorFlow 使用的編譯器相比，供參考。
 - Triton contributors. *Triton documentation*. https://triton-lang.org/main/index.html — TorchInductor 用來產生 GPU 程式碼的核心程式語言官方文件。
 
-[^torch]: PyTorch，*torch.compiler: Compiling PyTorch models*，見參考文獻。
+: PyTorch，*torch.compiler: Compiling PyTorch models*，見參考文獻。

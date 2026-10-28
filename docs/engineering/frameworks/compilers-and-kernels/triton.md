@@ -18,7 +18,7 @@ aliases:
 !!! info "Part of Compilers and Kernels"
     This method page belongs to [Compilers and Kernels](index.md). It explains the kernel language in detail; the parent page compares it with the compiler systems.
 
-Triton is a language and compiler for writing GPU kernels in Python. The official documentation describes it as providing a "Python-based programming environment" for "productively writing custom DNN compute kernels," with the aim of reaching "maximal throughput on modern GPU hardware." It sits between a fully automatic compiler and hand-written device code: the programmer chooses the tiling, and Triton handles the low-level details.[^triton]
+Triton is a language and compiler for writing GPU kernels in Python. The official documentation describes it as providing a "Python-based programming environment" for "productively writing custom DNN compute kernels," with the aim of reaching "maximal throughput on modern GPU hardware." It sits between a fully automatic compiler and hand-written device code: the programmer chooses the tiling, and Triton handles the low-level details.
 
 ## Problem
 
@@ -72,4 +72,4 @@ The official documentation is a description of the language and its goals, and i
 - PyTorch. *torch.compiler: Compiling PyTorch models*. https://docs.pytorch.org/docs/2.14/user_guide/torch_compiler/torch.compiler.html — Official description of how TorchInductor uses Triton for GPU kernels.
 - OpenXLA. *XLA: Optimized compiler for machine learning*. https://openxla.org/xla — Official description of the compiler path that competes with hand-written kernels.
 
-[^triton]: Triton contributors, *Triton documentation*, listed in References.
+: Triton contributors, *Triton documentation*, listed in References.

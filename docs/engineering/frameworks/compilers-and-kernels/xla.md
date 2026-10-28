@@ -18,7 +18,7 @@ aliases:
 !!! info "Part of Compilers and Kernels"
     This method page belongs to [Compilers and Kernels](index.md). It explains XLA in detail; the parent page compares it with the other systems.
 
-XLA (Accelerated Linear Algebra) is an open-source compiler for machine learning. It takes a model's graph, optimises it, and generates code for a specific device. It is the compiler behind JAX and TensorFlow's accelerated paths, and PyTorch can use it as a backend. The official description says it is built collaboratively by companies including Alibaba, AMD, Google, Intel, Meta and NVIDIA.[^xla]
+XLA (Accelerated Linear Algebra) is an open-source compiler for machine learning. It takes a model's graph, optimises it, and generates code for a specific device. It is the compiler behind JAX and TensorFlow's accelerated paths, and PyTorch can use it as a backend. The official description says it is built collaboratively by companies including Alibaba, AMD, Google, Intel, Meta and NVIDIA.
 
 ## Problem
 
@@ -72,4 +72,4 @@ The official page is a description of the system and does not report benchmark r
 - PyTorch. *torch.compiler: Compiling PyTorch models*. https://docs.pytorch.org/docs/2.14/user_guide/torch_compiler/torch.compiler.html — Official PyTorch documentation of torch.compile and its backend options, for comparison with XLA's approach.
 - Triton contributors. *Triton documentation*. https://triton-lang.org/main/index.html — Official documentation of the hand-written kernel language that complements compilers such as XLA.
 
-[^xla]: OpenXLA, *XLA: Optimized compiler for machine learning*, listed in References.
+: OpenXLA, *XLA: Optimized compiler for machine learning*, listed in References.

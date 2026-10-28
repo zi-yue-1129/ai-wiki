@@ -18,7 +18,7 @@ aliases:
 !!! info "屬於編譯器與核心程式"
     本方法頁隸屬於[編譯器與核心程式](index.zh-TW.md)。它詳細說明 XLA；上層頁面則比較它與其他系統。
 
-XLA（Accelerated Linear Algebra，加速線性代數）是一個開源的機器學習編譯器。它接收模型的計算圖、加以最佳化，並為特定裝置產生程式碼。它是 JAX 與 TensorFlow 加速路徑背後的編譯器，PyTorch 也能把它當作後端使用。官方說明指出，它由 Alibaba、AMD、Google、Intel、Meta 與 NVIDIA 等公司共同開發。[^xla]
+XLA（Accelerated Linear Algebra，加速線性代數）是一個開源的機器學習編譯器。它接收模型的計算圖、加以最佳化，並為特定裝置產生程式碼。它是 JAX 與 TensorFlow 加速路徑背後的編譯器，PyTorch 也能把它當作後端使用。官方說明指出，它由 Alibaba、AMD、Google、Intel、Meta 與 NVIDIA 等公司共同開發。
 
 ## 問題
 
@@ -72,4 +72,4 @@ XLA（Accelerated Linear Algebra，加速線性代數）是一個開源的機器
 - PyTorch. *torch.compiler: Compiling PyTorch models*. https://docs.pytorch.org/docs/2.14/user_guide/torch_compiler/torch.compiler.html — 官方的 torch.compile 文件，說明後端選項，可與 XLA 的做法比較。
 - Triton contributors. *Triton documentation*. https://triton-lang.org/main/index.html — 與 XLA 等編譯器互補的手寫核心程式語言的官方文件。
 
-[^xla]: OpenXLA，*XLA: Optimized compiler for machine learning*，見參考文獻。
+: OpenXLA，*XLA: Optimized compiler for machine learning*，見參考文獻。
