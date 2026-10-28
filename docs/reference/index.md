@@ -12,6 +12,7 @@
 | [How to Read an AI Paper](how-to-read-a-paper/index.md) | How ML papers are laid out and read, and how to check their claims, baselines, contamination and code |
 | [Datasets](datasets/index.md) | Widely used datasets and benchmarks across fields |
 | [Model Catalogue](model-catalogue/index.md) | Major model families by vendor, with release dates, size classes and openness |
+| [Timeline](timeline/index.md) | Dated milestones in AI, from the perceptron to recent large models |
 | [Contributing](contributing/index.md) | How to add or improve pages |
 | [Roadmap & Coverage](roadmap/index.md) | What is planned and what is missing |
 | [Style Guide](style-guide/index.md) | Writing conventions for this wiki |

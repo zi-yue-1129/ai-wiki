@@ -90,7 +90,7 @@ aliases:
 
 ### 開創性論文
 
-- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://www.media.mit.edu/publications/the-spread-of-true-and-false-news-online/ — 比較 Twitter 上真假故事的傳播，發現假新聞傳播得更遠、更快，且主要是由人類分享造成。
+- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://doi.org/10.1126/science.aap9559 — 比較 Twitter 上真假故事的傳播，發現假新聞傳播得更遠、更快，且主要是由人類分享造成。
 - Rössler, A. et al. (2019). FaceForensics++: Learning to detect manipulated facial images. *ICCV*. https://arxiv.org/abs/1901.08971 — 含壓縮變化與隱藏測試集的人臉操縱基準，用於訓練與評估偵測器。
 - Chesney, B. & Citron, D. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. *California Law Review*, 107. https://www.californialawreview.org/print/deep-fakes-a-looming-challenge-for-privacy-democracy-and-national-security — 深偽危害的法律分析，包括說謊者紅利。
 
