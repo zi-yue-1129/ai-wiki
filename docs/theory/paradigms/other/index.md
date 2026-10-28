@@ -64,3 +64,11 @@ Learning without global backpropagated error — Hebbian, STDP, predictive-codin
 
 - **Test-time training/adaptation**: update the model on each test input via a self-supervised loss.
 - **Test-time compute scaling**: spend more inference computation (long chains of thought, search, voting) instead of more training — a defining trend of 2024–2026 reasoning models.
+
+## References
+
+- Caruana, R. (1997). Multitask Learning. *Machine Learning*. https://doi.org/10.1023/A:1007379606734 — Shows that sharing representations across related tasks improves generalisation on each of them.
+- Bengio, Y. et al. (2009). Curriculum learning. *Proceedings of ICML 2009*. https://doi.org/10.1145/1553374.1553380 — Argues that presenting easier examples first can speed up training and improve the final model.
+- Dietterich, T. G., Lathrop, R. H. & Lozano-Pérez, T. (1997). Solving the multiple instance problem with axis-parallel rectangles. *Artificial Intelligence*. https://doi.org/10.1016/S0004-3702(96)00034-3 — Introduces the multiple-instance setting, in which a label attaches to a bag of instances rather than to each instance.
+- Hinton, G., Vinyals, O. & Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — Trains a small student model to match the softened outputs of a larger teacher.
+- Finn, C., Abbeel, P. & Levine, S. (2017). Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks. *Proceedings of ICML 2017*. https://arxiv.org/abs/1703.03400 — Learns an initialisation that adapts to a new task within a few gradient steps.

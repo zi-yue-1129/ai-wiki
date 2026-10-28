@@ -44,10 +44,10 @@ Pattern: large gains on well-specified tasks and for less experienced workers; s
 
 Education and reskilling, wage insurance, portable benefits, competition policy, tax policy (capital vs labour), public compute and data infrastructure, and ideas such as universal basic income.
 
-## Resources
+## References
 
-- Agrawal, Gans & Goldfarb, *Prediction Machines* and *Power and Prediction*
-- Acemoglu & Johnson, *Power and Progress*
-- Stanford AI Index, economy chapter
-- Brynjolfsson, "The Turing Trap" (2022)
-- Korinek, research on AI and economic policy
+- Brynjolfsson, E., Li, D. & Raymond, L. (2025). Generative AI at Work. *The Quarterly Journal of Economics*. https://doi.org/10.1093/qje/qjae044 — Field study of customer-support agents in which access to a generative AI assistant raised productivity, with the largest gains for less experienced workers.
+- Noy, S. & Zhang, W. (2023). Experimental evidence on the productivity effects of generative artificial intelligence. *Science*. https://doi.org/10.1126/science.adh2586 — Randomised experiment on professional writing tasks finding large time savings and quality gains when participants used ChatGPT.
+- Eloundou, T. et al. (2023). *GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models*. arXiv:2303.10130. https://arxiv.org/abs/2303.10130 — Rates how far large language models could affect each task in occupations, giving the exposure measures used in this section.
+- Acemoglu, D. & Restrepo, P. (2019). Automation and New Tasks: How Technology Displaces and Reinstates Labor. *Journal of Economic Perspectives*. https://doi.org/10.1257/jep.33.2.3 — Separates the displacement effect of automation from the creation of new tasks that reinstate labour.
+- Felten, E., Raj, M. & Seamans, R. (2021). Occupational, industry, and geographic exposure to artificial intelligence: A novel dataset and its potential uses. *Strategic Management Journal*. https://doi.org/10.1002/smj.3286 — Builds occupation-level AI exposure scores from ability linkages, a dataset that many later labour-market studies use.

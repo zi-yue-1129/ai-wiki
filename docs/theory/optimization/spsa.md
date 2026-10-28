@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/math
@@ -65,7 +65,7 @@ Spall (1992) gives conditions on the gain and perturbation sequences under which
 ## Applications
 
 - Parameter tuning of systems where only noisy measurements of performance are available.
-- Fine-tuning language models with forward passes only, as in MeZO (Malladi et al., 2023), which adapts SPSA-style estimation to large models.
+- Fine-tuning language models with forward passes only, as in MeZO (Malladi et al., 2023), which runs a zeroth-order SGD method that estimates gradients from two forward passes, a close relative of SPSA.
 
 ## Open questions
 
@@ -83,4 +83,4 @@ Spall (1992) gives conditions on the gain and perturbation sequences under which
 ### Surveys and textbooks
 
 - Hansen, N. (2016). *The CMA Evolution Strategy: A Tutorial*. arXiv. https://arxiv.org/abs/1604.00772 — Tutorial on a different gradient-free method, for comparison with SPSA.
-- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. SIAM Review. https://arxiv.org/abs/1606.04838 — Survey of the gradient-based stochastic methods that SPSA's update rule belongs to.
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. *SIAM Review*, 60(2), 223–311. https://doi.org/10.1137/16M1080173 — Survey of the gradient-based stochastic methods that SPSA's update rule belongs to.

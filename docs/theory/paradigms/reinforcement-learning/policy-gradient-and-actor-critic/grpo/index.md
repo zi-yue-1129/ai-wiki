@@ -66,11 +66,11 @@ These are gains from one training run on mathematical reasoning, not a general c
 
 ### Seminal papers
 
-- Shao et al. (2024), "DeepSeekMath: Pushing the limits of mathematical reasoning in open language models", arXiv:2402.03300 — Introduces GRPO, the group-relative baseline, and the GSM8K and MATH results above.
-- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — The clipped objective that GRPO keeps.
-- Schulman et al. (2015), "Trust region policy optimization", *Proceedings of ICML 2015*, arXiv:1502.05477 — The trust-region idea behind the constraint on policy change.
-- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", arXiv:2203.02155 — Policy-gradient fine-tuning of language models with a learned reward model.
-- Mnih et al. (2016), "Asynchronous methods for deep reinforcement learning", arXiv:1602.01783 — Advantage-based actor-critic updates, the family GRPO modifies.
+- Shao et al. (2024), "DeepSeekMath: Pushing the limits of mathematical reasoning in open language models", [arXiv:2402.03300](https://arxiv.org/abs/2402.03300) — Introduces GRPO, the group-relative baseline, and the GSM8K and MATH results above.
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The clipped objective that GRPO keeps.
+- Schulman et al. (2015), "Trust region policy optimization", *Proceedings of ICML 2015*, [arXiv:1502.05477](https://arxiv.org/abs/1502.05477) — The trust-region idea behind the constraint on policy change.
+- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — Policy-gradient fine-tuning of language models with a learned reward model.
+- Mnih et al. (2016), "Asynchronous methods for deep reinforcement learning", [arXiv:1602.01783](https://arxiv.org/abs/1602.01783) — Advantage-based actor-critic updates, the family GRPO modifies.
 
 ### Surveys and textbooks
 

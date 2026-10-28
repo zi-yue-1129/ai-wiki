@@ -87,19 +87,12 @@ Information theory is also central in neuroscience: the **efficient coding hypot
 
 ## References
 
-### Surveys and textbooks
-
-- Golub, G. H. & Van Loan, C. F. (2013). *Matrix Computations*, 4th ed. Johns Hopkins University Press. https://www.press.jhu.edu/books/title/10678/matrix-computations — Standard reference on numerical linear algebra, behind the matrix and decomposition sections.
-- Trefethen, L. N. & Bau, D. (1997). *Numerical Linear Algebra*. SIAM. https://people.maths.ox.ac.uk/trefethen/text.html — Graduate textbook on numerical linear algebra, including the SVD and eigenvalue problems.
-- Boyd, S. & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press. https://web.stanford.edu/~boyd/cvxbook/ — Free text covering the calculus of optimisation, Newton's method and duality.
-- Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer. https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf — Free PDF; covers probability, estimation and approximate inference for machine learning.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook covering the mathematics in sections 1 to 5 in a machine learning setting.
-
-### Lectures
-
-- Strang, G., *18.06 Linear Algebra*, MIT. https://web.mit.edu/18.06/www/ — Undergraduate course on the linear algebra in section 1.
+- Deisenroth, M. P., Faisal, A. A. & Ong, C. S. (2020). *Mathematics for Machine Learning*. Cambridge University Press. https://mml-book.github.io/ — Textbook linking linear algebra, analytic geometry, matrix decompositions, vector calculus, probability and optimisation to machine learning.
+- Cover, T. M. & Thomas, J. A. (2006). *Elements of Information Theory* (2nd ed.). Wiley. https://doi.org/10.1002/047174882X — Standard reference for entropy, mutual information and channel-coding results used in the information-theory section.
+- Boyd, S. & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press. https://doi.org/10.1017/CBO9780511804441 — Textbook on convex sets, duality and the algorithms behind the optimisation section.
+- Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*. MIT Press. https://www.deeplearningbook.org/ — Chapters 2 to 4 cover the linear algebra, probability and information theory this page introduces.
+- Hastie, T., Tibshirani, R. & Friedman, J. (2009). *The Elements of Statistical Learning* (2nd ed.). Springer. https://doi.org/10.1007/978-0-387-84858-7 — Statistical foundations for probability, regression and model selection in machine learning.
 
 ## Further learning
 
-- [Mathematics for Machine Learning](https://mml-book.github.io/) (free PDF)
-- [d2l appendix: Mathematics for Deep Learning](https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/index.html)
+- [d2l appendix: Mathematics for Deep Learning](https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/index.html) — free interactive appendix with code.

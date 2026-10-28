@@ -49,8 +49,8 @@ related:
 
 - **問題：** 梯度提升樹在非常大的資料上訓練緩慢，而處理稀疏輸入需要特別小心。方法需要在不損失準確度的前提下擴展。
 - **核心想法：** 一個完整的樹提升系統，包含處理稀疏資料的分裂搜尋演算法，以及用於近似分裂搜尋的加權分位數草圖（weighted quantile sketch）。摘要還提到對快取存取模式、資料壓縮與分片（sharding）的注意，這些都是加速的工程選擇。
-- **公式或演算法：** 與 Friedman 方法相同的分階段更新 \(F_m = F_{m-1} + \nu h_m\)。系統所用的正則化目標與分裂增益公式，本次未與論文核對，因此此處不再列出。
-- **結果：** 摘要指出，XGBoost「能以遠少於既有系統的資源，擴展到數十億筆範例以上」。其基準測試表格本次未核對，因此此處不列出加速倍數或準確度的數值。
+- **公式或演算法：** 與 Friedman 方法相同的分階段更新 \(F_m = F_{m-1} + \nu h_m\)。系統所用的正則化目標與分裂增益公式不在此處重現。
+- **結果：** 摘要指出，XGBoost「能以遠少於既有系統的資源，擴展到數十億筆範例以上」。除此說法外，本頁不列出加速倍數或準確度的數值。
 - **限制：** 系統有許多超參數，包括深度、學習率、正則化與次抽樣設定，且彼此互相影響。它繼承了提升法依序建立的性質。摘要所做的是規模上的主張，並非與所有替代方法相比的準確度主張。
 
 ### LightGBM（Ke et al., 2017）
@@ -58,8 +58,8 @@ related:
 - **問題：** 在大型資料上，為每個特徵、在每個範例上找出最佳分裂，是梯度提升的主要成本。
 - **核心想法：** 梯度單側抽樣（GOSS）會排除大量梯度很小的樣本，使分裂搜尋只在較少的範例上進行。互斥特徵捆綁（EFB）則把很少同時取非零值的特徵捆綁在一起，減少需要掃描的特徵數。
 - **公式或演算法：** 此處不給出封閉形式。方法即上述的梯度提升程序，並在每次分裂搜尋中套用 GOSS 抽樣與 EFB 捆綁。
-- **結果：** 摘要指出 LightGBM 將傳統 GBDT 的訓練過程「加速至多達 20 倍以上」。「至多」一詞表示這是最佳情況的數字，論文中的實驗本次未核對。
-- **限制：** 加速幅度取決於資料集，摘要以上限（「至多」）的方式給出。論文的實驗本次未核對。
+- **結果：** 摘要指出 LightGBM 將傳統 GBDT 的訓練過程「加速至多達 20 倍以上，同時達到幾乎相同的準確度」。「至多」一詞表示這是最佳情況的數字，本頁不重現論文中的實驗。
+- **限制：** 加速幅度取決於資料集，摘要以上限（「至多」）的方式給出。本頁不重現論文的實驗。
 
 ### CatBoost（Prokhorenkova et al., 2017）
 
@@ -85,8 +85,8 @@ related:
 
 ### 開創性論文
 
-- Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. *Annals of Statistics*, 29(5), 1189–1232. https://projecteuclid.org/journals/annals-of-statistics/volume-29/issue-5/Greedy-function-approximation-A-gradient-boosting-machine/10.1214/aos/1013203451.full — 把提升法視為函數空間中的最速下降，因而能適用於多種損失。
-- Chen, T. & Guestrin, C. (2016). XGBoost: A scalable tree boosting system. *KDD 2016*. https://arxiv.org/abs/1603.02754 — XGBoost 系統，包含處理稀疏資料的分裂演算法與用於可擴展訓練的加權分位數草圖。
+- Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. *Annals of Statistics*, 29(5), 1189–1232. https://doi.org/10.1214/aos/1013203451 — 把提升法視為函數空間中的最速下降，因而能適用於多種損失。
+- Chen, T. & Guestrin, C. (2016). XGBoost: A scalable tree boosting system. *Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD '16)*, pp. 785–794. https://doi.org/10.1145/2939672.2939785 — XGBoost 系統，包含處理稀疏資料的分裂演算法與用於可擴展訓練的加權分位數草圖。
 - Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q. & Liu, T.-Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. *Advances in Neural Information Processing Systems 30 (NIPS 2017)*. https://papers.nips.cc/paper/6907-lightgbm-a-highly-efficient-gradient-boosting-decision-tree — 提出 GOSS 與 EFB，加速大型資料上的梯度提升。
 - Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V. & Gulin, A. (2017). CatBoost: Unbiased boosting with categorical features. arXiv:1706.09516. https://arxiv.org/abs/1706.09516 — 提出有序提升，以及針對預測偏移的有序目標統計量方案。
 

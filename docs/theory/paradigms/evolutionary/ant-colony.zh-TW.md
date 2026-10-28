@@ -41,7 +41,7 @@ p_{ij} = \frac{\tau_{ij}^{\alpha}\, \eta_{ij}^{\beta}}{\sum_{k \in \mathcal{N}_i
 
 ## 關鍵結果
 
-本頁不引用 Dorigo 等人（1996）的結果，因為尚未對照全文查核。
+Dorigo 等人（1996）介紹 Ant System，並應用於旅行推銷員問題。本頁不引用論文中的數值結果。
 
 ## 限制
 
@@ -68,23 +68,11 @@ p_{ij} = \frac{\tau_{ij}^{\alpha}\, \eta_{ij}^{\beta}}{\sum_{k \in \mathcal{N}_i
 
 ### 開創性論文
 
-- Dorigo, M., Maniezzo, V. & Colorni, A. (1996). *Ant system: optimization by a colony of cooperating agents*. IEEE Transactions on Systems, Man, and Cybernetics, Part B. https://doi.org/10.1109/3477.484436 — 提出 Ant System，人工螞蟻在費洛蒙與啟發值的引導下建構路線。
-- Dorigo, M. & Gambardella, L. M. (1997). *Ant colony system: a cooperative learning approach to the traveling salesman problem*. IEEE Transactions on Evolutionary Computation. https://iridia.ulb.ac.be/~leonardo/teaching/INFO-H-414/papers/DorigoGambardella97-ACS.pdf — 提出 Ant Colony System，採用局部費洛蒙更新，並更偏好最佳路線。
-- Stützle, T. & Hoos, H. H. (2000). *MAX–MIN Ant System*. Future Generation Computer Systems. https://iridia.ulb.ac.be/~leonardo/teaching/INFO-H-414/papers/StuetzleHoos00-MMAS.pdf — 提出 MAX–MIN Ant System，以費洛蒙上下限限制過早收斂。
-- Dorigo, M. & Blum, C. (2005). *Ant colony optimization theory: a survey*. Theoretical Computer Science. https://upcommons.upc.edu/entities/publication/9fdcd2c5-49f8-4745-a32b-6331a6616704 — 綜述 ACO 的理論結果。
-- Dorigo, M., Birattari, M. & Stützle, T. (2006). *Ant colony optimization: artificial ants as a computational intelligence technique*. IEEE Computational Intelligence Magazine. https://ieeexplore.ieee.org/document/4129846 — 以計算智慧技術的角度概述 ACO。
-
-### 綜述與教科書
-
-（本頁尚未查核任何項目）
-
-### 講座與影片
-
-（本頁尚未查核任何項目）
-
-### 文章與文件
-
-（本頁尚未查核任何項目）
+- Dorigo, M., Maniezzo, V. & Colorni, A. (1996). *Ant system: optimization by a colony of cooperating agents*. IEEE Transactions on Systems, Man, and Cybernetics, Part B, 26, 29–41. https://doi.org/10.1109/3477.484436 — 提出 Ant System，人工螞蟻在費洛蒙與啟發值的引導下建構路線。
+- Dorigo, M. & Gambardella, L. M. (1997). *Ant colony system: a cooperative learning approach to the traveling salesman problem*. IEEE Transactions on Evolutionary Computation, 1, 53–66. https://doi.org/10.1109/4235.585892 — 提出 Ant Colony System，採用局部費洛蒙更新，並更偏好最佳路線。
+- Stützle, T. & Hoos, H. H. (2000). *MAX–MIN Ant System*. Future Generation Computer Systems, 16, 889–914. https://doi.org/10.1016/S0167-739X(00)00043-1 — 提出 MAX–MIN Ant System，以費洛蒙上下限限制過早收斂。
+- Dorigo, M. & Blum, C. (2005). *Ant colony optimization theory: a survey*. Theoretical Computer Science, 344, 243–278. https://doi.org/10.1016/j.tcs.2005.05.020 — 綜述 ACO 的理論結果。
+- Dorigo, M., Birattari, M. & Stützle, T. (2006). *Ant colony optimization: artificial ants as a computational intelligence technique*. IEEE Computational Intelligence Magazine, 1, 28–39. https://doi.org/10.1109/MCI.2006.329691 — 以計算智慧技術的角度概述 ACO。
 
 ## 延伸學習
 

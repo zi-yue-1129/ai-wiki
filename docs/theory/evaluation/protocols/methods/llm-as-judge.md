@@ -1,4 +1,5 @@
 ---
+last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
   - theory/evaluation/protocols/index.md
@@ -15,6 +16,14 @@ LLM-as-judge is an evaluation protocol in which a language model scores another 
 ## Procedure
 
 The protocol has three parts: a rubric that defines what a good answer is, a judge prompt that asks for a score or a preference, and a parser that turns the reply into a number. Pairwise comparison asks the judge which of two answers is better, and single-answer grading assigns each answer a score on a fixed scale (Zheng et al., 2023).
+
+## Key methods
+
+Three judging methods have their own pages. Each answers the same question, how to get a reliable judgement from a model, in a different way.
+
+- [MT-Bench](mt-bench.md): pairwise and single-answer judging with a fixed prompt, swapped answer order and ties. Its agreement figures with human experts are the main evidence for model judges.
+- [Length-Controlled AlpacaEval](length-controlled-alpacaeval.md): corrects an automatic judge's preference for longer answers with a regression, and reports a higher correlation with Chatbot Arena.
+- [Elo rating and arenas](elo-rating.md): turns many pairwise verdicts, from people or from models, into a ranking. This is the aggregation step that Chatbot Arena uses.
 
 ## Known biases
 
@@ -41,6 +50,8 @@ Report the judge model and version, the exact rubric and prompt, the order-swap 
 ### Seminal papers
 
 - Zheng, L. et al. (2023). *Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena*. arXiv. https://arxiv.org/abs/2306.05685 — Studies model-based judging, its agreement with humans and its position and verbosity biases.
+- Wang, P. et al. (2023). *Large Language Models are not Fair Evaluators*. arXiv. https://arxiv.org/abs/2305.17926 — Shows that the order of candidate answers can change an LLM evaluator's verdict.
+- Dubois, Y. et al. (2024). *Length-Controlled AlpacaEval: A Simple Way to Debias Automatic Evaluators*. arXiv. https://arxiv.org/abs/2404.04475 — Proposes a length-controlled win rate for an automatic judge and reports its correlation with Chatbot Arena.
 
 ### Articles and documentation
 

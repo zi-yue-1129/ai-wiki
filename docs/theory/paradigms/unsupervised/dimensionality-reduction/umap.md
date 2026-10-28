@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/unsupervised/dimensionality-reduction
@@ -87,6 +87,6 @@ The attractive terms pull connected points together, and the repulsive terms pus
 
 ### Applications and comparisons
 
-- Becht, E. et al. (2019). Dimensionality reduction for visualizing single-cell data using UMAP. *Nature Biotechnology*. https://link.springer.com/article/10.1038/nbt.4314 — Applies UMAP to visualising single-cell data.
+- Becht, E. et al. (2019). Dimensionality reduction for visualizing single-cell data using UMAP. *Nature Biotechnology*, 37, 38–44. https://doi.org/10.1038/nbt.4314 — Applies UMAP to visualising single-cell data.
 - Kobak, D. & Linderman, G. C. (2021). Initialization is critical for preserving global data structure in both t-SNE and UMAP. *Nature Biotechnology*. https://doi.org/10.1038/s41587-020-00809-z — Argues, per its title, that initialisation is critical for preserving global data structure in t-SNE and UMAP.
 - Sainburg, T., McInnes, L. & Gentner, T. Q. (2021). Parametric UMAP embeddings for representation and semisupervised learning. *Neural Computation*. https://pmc.ncbi.nlm.nih.gov/articles/PMC8516496 — A parametric version of UMAP for representation and semi-supervised learning, per its title.

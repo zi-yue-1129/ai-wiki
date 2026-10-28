@@ -59,11 +59,14 @@ These evaluations feed **frontier safety frameworks** (Anthropic's Responsible S
 - **Moral psychology** (Haidt's moral foundations, trolley-problem studies) informs what "human values" even are — and how much they vary across cultures (Moral Machine experiment, Awad et al., 2018)
 - **Corrigibility** echoes debates about autonomy and deference in human institutions
 
-## Resources
+## References
 
-- Russell, *Human Compatible*
-- Christian, *The Alignment Problem*
-- Hendrycks, *Introduction to AI Safety, Ethics, and Society* (free textbook)
-- [AI Safety Fundamentals](https://aisafetyfundamentals.com/) (BlueDot) courses
-- *International AI Safety Report* (2025)
-- Amodei et al. (2016), "Concrete Problems in AI Safety"
+- Amodei, D. et al. (2016). *Concrete Problems in AI Safety*. arXiv:1606.06565. https://arxiv.org/abs/1606.06565 — Lists practical accident risks for machine-learning systems, including side effects, reward hacking and unsafe exploration.
+- Christiano, P. et al. (2017). Deep Reinforcement Learning from Human Preferences. *NeurIPS 2017*. https://arxiv.org/abs/1706.03741 — Learns a reward model from human pairwise comparisons, the basis of later RLHF methods.
+- Ouyang, L. et al. (2022). Training language models to follow instructions with human feedback. *NeurIPS 2022*. https://arxiv.org/abs/2203.02155 — Applies reward-model RLHF to make a language model follow user instructions more reliably.
+- Hubinger, E. et al. (2019). *Risks from Learned Optimization in Advanced Machine Learning Systems*. arXiv:1906.01820. https://arxiv.org/abs/1906.01820 — Introduces mesa-optimisation, the risk that a learned system pursues objectives different from its training signal.
+- Ngo, R., Chan, L. & Mindermann, S. (2022). *The Alignment Problem from a Deep Learning Perspective*. arXiv:2209.00626. https://arxiv.org/abs/2209.00626 — Argues that capable deep-learning systems may develop goals and situational awareness that make misalignment hard to detect.
+
+## Further learning
+
+- [AI Safety Fundamentals](https://aisafetyfundamentals.com/) (BlueDot) — introductory course with curated readings on alignment and safety.

@@ -31,7 +31,7 @@ aliases:
 
 ## 核心想法
 
-每個轉移都以狀態、行動、獎勵與下一狀態的元組儲存。Lin（1992）把經驗回放列為加速強化學習的三種延伸之一，並在模擬測試平台中評估。Mnih 等人（2015）在深度 Q 網路中保留近期經驗的重播記憶，並從中隨機抽樣。隨機抽樣能打破連續步驟之間的相關性。
+每個轉移都以狀態、行動、獎勵與下一狀態的元組儲存。Lin（1992）把經驗回放列為加速強化學習的三種延伸之一（另兩者為規劃用的行動模型學習與教學），並在動態、非確定性的環境中評估。Mnih 等人（2015）在深度 Q 網路中保留近期經驗的重播記憶，並從中隨機抽樣。隨機抽樣能打破連續步驟之間的相關性。
 
 大腦與演算法的比較在於結構。兩者都以不同於經驗發生時的順序，重複利用近期經驗。海馬迴重播在時間上是壓縮的，並與網路事件相連（見[尖波漣波](../sharp-wave-ripples/index.zh-TW.md)），而人工緩衝區則是以隨機方式抽樣的一般儲存。兩者的相似處在於原理，而非機制。
 
@@ -41,7 +41,7 @@ aliases:
 
 ## 結果
 
-- Lin（1992）以模擬測試平台對各方法進行實證評估。經驗回放是該文比較的三種加速學習延伸之一。
+- Lin（1992）以動態、非確定性的環境對三種延伸進行實證評估。經驗回放是其中之一。
 - Mnih 等人（2015）報告，使用回放的深度 Q 網路在一組遊戲上達到人類水準的控制。
 
 深度 Q 網路的結果，是把回放與代理人的其他組成部分合併後的表現，因此無法單獨分離出回放的貢獻。
@@ -74,7 +74,7 @@ aliases:
 
 ### 奠基性論文
 
-- Lin, L.-J. (1992). Self-improving reactive agents based on reinforcement learning, planning and teaching. *Machine Learning* 8, 293–321. https://doi.org/10.1007/BF00992699 — 把經驗回放列為加速強化學習的三種延伸之一，並在模擬測試平台中評估。
+- Lin, L.-J. (1992). Self-improving reactive agents based on reinforcement learning, planning and teaching. *Machine Learning* 8, 293–321. https://doi.org/10.1007/BF00992699 — 把經驗回放列為加速強化學習的三種延伸之一（另兩者為規劃用的行動模型學習與教學），並在動態、非確定性的環境中評估。
 - Mnih, V. 等人（2015）。Human-level control through deep reinforcement learning. *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — 深度 Q 網路，從近期經驗的重播記憶中隨機抽樣進行學習。
 - Foster, D. J. & Wilson, M. A. (2006). Reverse replay of behavioural sequences in hippocampal place cells during the awake state. *Nature* 440, 680–683. https://doi.org/10.1038/nature04587 — 生物學上的對應：清醒大鼠跑動後休息期間，位置細胞序列的逆向重播。
 - Mattar, M. G. & Daw, N. D. (2018). Prioritized memory access explains planning and hippocampal replay. *Nature Neuroscience* 21, 1609–1617. https://doi.org/10.1038/s41593-018-0232-z — 提出重播依效用排序的假說（效用指更新所帶來的額外獎勵），並重現向前與逆向重播。

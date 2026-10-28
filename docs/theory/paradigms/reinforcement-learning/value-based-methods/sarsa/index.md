@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - SARSA
@@ -37,7 +37,7 @@ The only difference from Q-learning is step 4: Q-learning uses \(\max_b Q(s', b)
 
 ## Results
 
-SARSA has no single headline benchmark. Rummery and Niranjan (1994) studied on-line connectionist versions of this family of updates. In a simulated robot-navigation task they reported that on-line updating was more robust to the choice of training parameters than backward replay.
+SARSA has no single headline benchmark. Rummery and Niranjan (1994) studied connectionist Q-learning variants with on-line updating. Their report introduces MCQ-L, an update rule closely related to SARSA, and on a simulated mobile robot that must reach a goal among obstacles, it finds that on-line learning is less sensitive to the choice of training parameters than backward replay.
 
 ## Limitations
 
@@ -53,7 +53,7 @@ SARSA has no single headline benchmark. Rummery and Niranjan (1994) studied on-l
 
 ## Applications
 
-- **Online control with costly mistakes**, where the agent must learn while it acts. Its values include the cost of its own exploration, which is the setting the on-line study addresses (Rummery & Niranjan, 1994).
+- **Online control**, where the agent must learn while it acts and its exploration has a cost. Rummery and Niranjan (1994) study this setting with a simulated mobile robot and limited sensory feedback.
 
 ## Open questions
 
@@ -64,10 +64,10 @@ SARSA has no single headline benchmark. Rummery and Niranjan (1994) studied on-l
 
 ### Seminal papers
 
-- Rummery & Niranjan (1994), "On-line Q-learning using connectionist systems", Technical Report CUED/F-INFENG/TR 166, Cambridge University Engineering Department. https://mi.eng.cam.ac.uk/reports/abstracts/rummery_tr166.html — Early study of on-line connectionist temporal-difference control, with the robustness result cited above.
+- Rummery & Niranjan (1994), Technical Report CUED/F-INFENG/TR 166, Cambridge University Engineering Department. https://mi.eng.cam.ac.uk/reports/abstracts/rummery_tr166.html — Early study of on-line connectionist temporal-difference control, with the robustness result cited above. The report's full title was not confirmed in this check.
 - Watkins & Dayan (1992), "Q-learning", *Machine Learning* 8(3–4), 279–292. https://doi.org/10.1007/bf00992698 — The off-policy counterpart, with its convergence theorem.
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The deep off-policy value learner, a contrast to SARSA's on-policy target.
-- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — A deep on-policy method that also learns from data gathered by the current policy.
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — A deep on-policy method that also learns from data gathered by the current policy.
 
 ### Surveys and textbooks
 

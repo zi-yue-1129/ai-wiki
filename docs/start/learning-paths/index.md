@@ -70,3 +70,11 @@ Pick the path that fits your background. Each stop links to a page on this site;
 - [ ] Explain the link between the TD error and dopamine neurons
 - [ ] Design an evaluation set for a task and explain the contamination risk
 - [ ] List the three main risks of deploying AI in your own field
+
+## References
+
+- Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*. MIT Press. https://www.deeplearningbook.org/ — Standard textbook covering the mathematics and practice that most paths on this page build towards.
+- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction* (2nd ed.). MIT Press. http://incompleteideas.net/book/the-book-2nd.html — Foundational text for the reinforcement-learning material in Path C.
+- Vaswani, A. et al. (2017). Attention Is All You Need. *NeurIPS 2017*. https://arxiv.org/abs/1706.03762 — The Transformer paper; reading it is the usual step from the basics to frontier models in Paths B and C.
+- Lake, B. M. et al. (2017). Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — Argues that learning systems need intuitive physics, intuitive psychology and compositionality; a bridge reading for Path E.
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1962.sp006837 — Classic study of visual cortex that inspired convolutional vision models; a starting point for Path D.

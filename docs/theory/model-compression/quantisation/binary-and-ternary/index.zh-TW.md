@@ -28,7 +28,7 @@ BinaryConnect 證明二值權重可以訓練；XNOR-Net 加上保留輸出量級
 
 ## 取捨
 
-- **壓縮與準確度**：從三值改為二值，每個權重的儲存量減半，但失去零值。準確度損失取決於任務與訓練方法，應以論文的表格為準。
+- **壓縮與準確度**：二值權重每個權重佔一位元，三值權重緊密打包時約占 1.6 位元（log₂ 3），因此從三值改為二值，節省的儲存量不到一半，並且失去零值。準確度損失取決於任務與訓練方法，應以論文的表格為準。
 - **硬體支援**：二值與三值網路在晶片實作位元運算時獲益最多。在 GPU 上，獲益有限。
 - **訓練困難**：梯度近似有偏差，結果也取決於訓練排程。
 
@@ -46,9 +46,11 @@ BinaryConnect 證明二值權重可以訓練；XNOR-Net 加上保留輸出量級
 
 ### 開創性論文
 
-- Courbariaux, M., Bengio, Y., David, J.-P. (2015). *BinaryConnect: Training Deep Neural Networks with Binary Weights during Propagations*. arXiv:1511.00363. https://arxiv.org/abs/1511.00363 — 前向傳播使用二值權重訓練，同時保留實數權重做更新。
-- Rastegari, M., Ordonez, V., Redmon, J., Farhadi, A. (2016). *XNOR-Net: ImageNet Classification Using Binary Convolutional Neural Networks*. arXiv:1603.05279. https://arxiv.org/abs/1603.05279 — 帶尺度因子的二值濾波器，使 AlexNet 的 top-1 準確度只差 2.9%。
-- Li, F., Liu, B., Wang, X., Zhang, B., Yan, J. (2016). *Ternary Weight Networks*. arXiv:1605.04711. https://arxiv.org/abs/1605.04711 — 三值權重，帶有學習得到的門檻與尺度，最高可達 16 倍壓縮。
+- Courbariaux, M., Bengio, Y., David, J.-P. (2015). *BinaryConnect: Training Deep Neural Networks with binary weights during propagations*. arXiv:1511.00363. https://arxiv.org/abs/1511.00363 — 在前向與反向傳播中使用二值權重，同時保留實數權重以累積梯度。
+- Rastegari, M., Ordonez, V., Redmon, J., Farhadi, A. (2016). *XNOR-Net: ImageNet Classification Using Binary Convolutional Neural Networks*. arXiv:1603.05279. https://arxiv.org/abs/1603.05279 — 帶尺度因子的二值濾波器。其二值權重版本的 AlexNet 與全精度的 top-1 準確度相差僅 2.9%；另將輸入也二值化的 XNOR-Net，卷積運算快 58 倍。
+- Li, F., Liu, B., Wang, X., Zhang, B., Yan, J. (2016). *Ternary Weight Networks*. arXiv:1605.04711. https://arxiv.org/abs/1605.04711 — 三值權重由門檻函數決定，並以尺度因子最小化與全精度權重的距離，最高可達 16 倍壓縮。
+- Hubara, I., Soudry, D., El-Yaniv, R. (2016). *Binarized Neural Networks*. arXiv:1602.02505. https://arxiv.org/abs/1602.02505 — 執行時權重與激活值皆為二值的網路。
+- Zhu, C., Han, S., Mao, H., Dally, W. J. (2016). *Trained Ternary Quantization*. arXiv:1612.01064. https://arxiv.org/abs/1612.01064 — 為每層中正負兩類三值權重分別學習尺度因子。
 
 ### 綜述與教科書
 

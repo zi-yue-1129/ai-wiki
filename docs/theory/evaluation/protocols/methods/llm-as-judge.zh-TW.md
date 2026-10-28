@@ -1,4 +1,6 @@
 ---
+translation_reviewed: 2026-10-28
+last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
   - theory/evaluation/protocols/index.md
@@ -15,6 +17,14 @@ LLM 作為評審是一種評估協定，由語言模型依書寫的評分準則�
 ## 程序
 
 這個協定有三個部分：定義好答案標準的評分準則、要求給分或偏好的評審提示，以及把回覆轉成數字的解析器。成對比較會請評審判斷兩個答案何者較好；單一答案評分則依固定尺度為每個答案給分（Zheng et al., 2023）。
+
+## 主要方法
+
+本頁提到的三種評審方法各有獨立頁面。它們都在回答同一個問題：如何從模型取得可靠的判斷，只是做法不同。
+
+- [MT-Bench](mt-bench.md)：以固定提示、交換答案順序並計入平手的成對與單一答案評分。它與人類專家的一致度，是支持模型評審最主要的證據。
+- [長度控制 AlpacaEval](length-controlled-alpacaeval.md)：以迴歸修正自動評審偏好較長答案的傾向，並報告它與 Chatbot Arena 有更高的相關性。
+- [Elo 評分與競技場](elo-rating.md)：把大量成對判定（來自人或模型）轉為排名，這是 Chatbot Arena 採用的彙總步驟。
 
 ## 已知偏誤
 
@@ -41,6 +51,8 @@ Zheng et al.（2023）報告了位置偏誤（評審偏好成對中的第一個�
 ### 開創性論文
 
 - Zheng, L. et al. (2023). *Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena*. arXiv. https://arxiv.org/abs/2306.05685 — 研究以模型為基礎的評審、其與人類的一致性以及偏誤。
+- Wang, P. et al. (2023). *Large Language Models are not Fair Evaluators*. arXiv. https://arxiv.org/abs/2305.17926 — 顯示候選答案的順序會改變 LLM 評估者的判定。
+- Dubois, Y. et al. (2024). *Length-Controlled AlpacaEval: A Simple Way to Debias Automatic Evaluators*. arXiv. https://arxiv.org/abs/2404.04475 — 為自動評審提出長度控制的勝率，並報告其與 Chatbot Arena 的相關性。
 
 ### 文章與文件
 
