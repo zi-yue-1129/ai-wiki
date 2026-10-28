@@ -33,12 +33,12 @@ The abstract does not give every detail of steps 3 to 5. Read the paper before r
 
 ## Results
 
-The abstract reports that some diffusion models, including Stable Diffusion, "blatantly copy" from their training data in specific cases. It also says that replication depends on factors such as training set size and duplication. The abstract does not give an overall replication rate for any model, so the study should not be read as a measure of how often copying happens in practice.
+The abstract reports that some diffusion models, including Stable Diffusion, "blatantly copy" from their training data in specific cases. It also says that training set size affects how often content is replicated, and the body of the paper examines duplication in the training data. The abstract does not give an overall replication rate for any model, so the study should not be read as a measure of how often copying happens in practice.
 
 ## Limitations
 
 - **No overall rate.** The abstract does not quantify how often replication occurs, so it cannot show the scale of the problem across all outputs.
-- **Limited scope.** The abstract lists the datasets used (including Oxford flowers, CelebA, ImageNet and LAION subsets). Results may not extend to other models, datasets or prompting styles.
+- **Limited scope.** The abstract lists the datasets used: Oxford flowers, Celeb-A, ImageNet and LAION. Results may not extend to other models, datasets or prompting styles.
 - **Matching is a judgement.** Deciding that two images are copies depends on a similarity threshold and on manual inspection, which can disagree with a legal test for copying.
 
 ## Connections

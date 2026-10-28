@@ -27,7 +27,7 @@ In plain SGD, adding an L2 penalty \(\frac{\lambda}{2}\|\theta\|^2\) to the loss
 - **L2 regularisation**: a penalty added to the loss, whose gradient is then scaled by the optimiser.
 - **Weight decay**: a shrinkage of the parameters at each step, applied outside the gradient.
 - **Decoupling**: applying the decay with its own coefficient \(\lambda\), independent of the adaptive denominator.
-- **Learning rate and decay interaction**: the paper's experiments show the two coefficients should be tuned together.
+- **Learning-rate independence**: the paper reports that with decoupled decay, the best decay factor is largely independent of the learning rate, so the two can be tuned separately.
 
 ## How it works
 
@@ -47,7 +47,7 @@ The decay term \(\lambda\theta_{t-1}\) is added after the adaptive step, so it i
 - **Core idea:** apply weight decay directly to the parameters, outside the adaptive step, so the decay factor is decoupled from the gradient scaling.
 - **Equation or algorithm:** the update above, with \(\lambda\) the decay coefficient.
 - **Results:** the abstract reports that decoupled decay substantially improves Adam's generalisation and lets it compete with SGD with momentum on image classification. It gives no specific numbers in the abstract.
-- **Limitations:** the decay coefficient and learning rate still interact, and the benefit has been reported mainly for image classification. AdamW is common for Transformer models, but its advantage on other tasks depends on tuning.
+- **Limitations:** the paper's evidence comes mainly from image classification, and its advantage on other tasks depends on tuning. AdamW is widely used for Transformer models, where the gain over Adam with L2 regularisation depends on the setup.
 
 ## Connections
 
@@ -71,12 +71,9 @@ The decay term \(\lambda\theta_{t-1}\) is added after the adaptive step, so it i
 
 - Loshchilov, I. & Hutter, F. (2019). Decoupled Weight Decay Regularization. ICLR. https://arxiv.org/abs/1711.05101 — Shows that L2 regularisation and weight decay differ under adaptive methods and proposes AdamW.
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR. https://arxiv.org/abs/1412.6980 — The base optimiser that AdamW modifies.
+- Wilson, A. C., Roelofs, R., Stern, M., Srebro, N. & Recht, B. (2017). The Marginal Value of Adaptive Gradient Methods in Machine Learning. NeurIPS. https://arxiv.org/abs/1705.08292 — Shows that adaptive methods can find solutions that generalise worse than SGD, the gap that decoupled decay addresses.
 
 ### Surveys and textbooks
 
 - Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization Methods for Large-Scale Machine Learning. *SIAM Review*. https://arxiv.org/abs/1606.04838 — Survey of stochastic gradient methods, including adaptive variants and their trade-offs.
 - Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*, Chapter 7 on regularisation. MIT Press. https://www.deeplearningbook.org/ — Textbook treatment of weight decay as a regulariser, free online.
-
-### Articles and documentation
-
-- PyTorch documentation, *torch.optim.AdamW*. https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html — Reference implementation with decoupled weight decay and its default coefficient.
