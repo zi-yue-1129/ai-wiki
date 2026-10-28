@@ -48,6 +48,8 @@ flowchart TD
 
 會在單一層內減少記憶體存取的核心層融合，見[融合核心](fused-kernels.zh-TW.md)。
 
+在訓練之後才縮小快取，而非在設計時就縮小，這類方法在[KV 快取壓縮與淘汰](kv-cache-compression.zh-TW.md)頁面中比較：[H2O](h2o.zh-TW.md) 與 [StreamingLLM](streamingllm.zh-TW.md) 丟棄 token，而 [KIVI](kivi.zh-TW.md) 則以 2 位元保留每一個 token。
+
 ## 相關連結
 
 - KV 快取本身的說明見 [Transformer KV 快取](../../theory/models/transformer/kv-cache/index.zh-TW.md)；本頁說明服務系統如何管理它。

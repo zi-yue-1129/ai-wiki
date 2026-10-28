@@ -883,6 +883,10 @@ plugins:
             PagedAttention and vLLM: PagedAttention 與 vLLM
             Speculative Decoding: 推測式解碼
             Multi-Query Attention: 多查詢注意力
+            KV Cache Compression and Eviction: KV 快取壓縮與淘汰
+            H2O: H2O
+            StreamingLLM: StreamingLLM
+            KIVI: KIVI
             Grouped-Query Attention: 分組查詢注意力
             Fused Kernels: 融合核心
             MLOps & Deployment: MLOps 與部署
@@ -1913,6 +1917,11 @@ nav:
           - PagedAttention and vLLM: engineering/inference-optimization/paged-attention.md
           - Speculative Decoding: engineering/inference-optimization/speculative-decoding.md
           - Multi-Query Attention: engineering/inference-optimization/multi-query-attention.md
+          - KV Cache Compression and Eviction:
+              - engineering/inference-optimization/kv-cache-compression.md
+              - H2O: engineering/inference-optimization/h2o.md
+              - StreamingLLM: engineering/inference-optimization/streamingllm.md
+              - KIVI: engineering/inference-optimization/kivi.md
           - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
           - Fused Kernels: engineering/inference-optimization/fused-kernels.md
       - MLOps & Deployment: engineering/mlops/index.md
