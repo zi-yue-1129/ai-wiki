@@ -46,6 +46,7 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 - Maximum likelihood (MLE) and maximum a posteriori (MAP) estimation
 - Sampling and Monte Carlo methods
 - Hypothesis testing and the bootstrap (is model A really better than B?)
+- [Probability and statistics for AI](probability-statistics/index.md): random variables, Bayes' rule, MLE versus MAP, estimators and confidence, and the statistical view of a loss function, with the [maximum likelihood](probability-statistics/maximum-likelihood/index.md), [EM](probability-statistics/expectation-maximisation/index.md) and [bootstrap](probability-statistics/bootstrap/index.md) methods.
 
 ## 4. Information theory
 

@@ -44,6 +44,7 @@ AI 用到的數學主要有五塊。這頁說明每塊「用在哪裡」與「�
 - 最大概似估計（MLE）與最大後驗估計（MAP）
 - 抽樣、蒙地卡羅方法
 - 假設檢定、bootstrap（評估模型差異是否顯著）
+- [機率與統計](probability-statistics/index.md)：隨機變數、貝氏定理、MLE 與 MAP、估計量與信賴區間，以及損失函數的統計觀點，並包含[最大概似估計](probability-statistics/maximum-likelihood/index.md)、[EM 演算法](probability-statistics/expectation-maximisation/index.md)與[自助法](probability-statistics/bootstrap/index.md)三個方法頁。
 
 ## 4. 資訊理論
 
