@@ -86,3 +86,16 @@ Information theory is also central in neuroscience: the **efficient coding hypot
 - 3Blue1Brown, *Essence of Linear Algebra*, *Essence of Calculus*, *Neural Networks*
 - [d2l appendix: Mathematics for Deep Learning](https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/index.html)
 - MIT 18.06 Linear Algebra (Gilbert Strang)
+
+## References
+
+Seminal works for this overview, drawn from the sub-pages linked above, where each is discussed in detail.
+
+- Eckart, C. & Young, G. (1936). The Approximation of One Matrix by Another of Lower Rank. *Psychometrika*. https://doi.org/10.1007/BF02288367 — Shows how the best approximation of a matrix by one of lower rank is found, the basis of the truncated SVD.
+- Pearson, K. (1901). LIII. On lines and planes of closest fit to systems of points in space. *Philosophical Magazine*. https://doi.org/10.1080/14786440109462720 — Finds the lines and planes that best fit a cloud of points, the geometric origin of principal component analysis.
+- Kuhn, H. W. & Tucker, A. W. (1951). Nonlinear Programming. *Proceedings of the Second Berkeley Symposium on Mathematical Statistics and Probability*. https://doi.org/10.1525/9780520411586-036 — First-order conditions for a constrained optimum, the origin of KKT.
+- Cortes, C. & Vapnik, V. (1995). Support-vector networks. *Machine Learning*. https://doi.org/10.1007/BF00994018 — Soft-margin support-vector machine, trained through its Lagrangian dual.
+- Bayes, T. (1763). An essay towards solving a problem in the doctrine of chances. *Philosophical Transactions of the Royal Society of London*. https://doi.org/10.1098/rstl.1763.0053 — Posthumous essay on inverse probability, the origin of the rule that bears Bayes' name.
+- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A*. https://doi.org/10.1098/rsta.1922.0009 — Lays out the foundations of estimation, including maximum likelihood and its properties.
+- Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). Learning representations by back-propagating errors. *Nature*. https://doi.org/10.1038/323533a0 — Popularises backpropagation for multilayer networks, the reverse-mode gradient method used to train deep networks.
+- Pearlmutter, B. A. (1994). Fast Exact Multiplication by the Hessian. *Neural Computation*. https://doi.org/10.1162/neco.1994.6.1.147 — Shows how to multiply a Hessian by a vector exactly, without forming the matrix, using differentiation.

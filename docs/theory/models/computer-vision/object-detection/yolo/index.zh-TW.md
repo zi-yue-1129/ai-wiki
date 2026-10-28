@@ -70,6 +70,11 @@ $$
 
 當系統必須對移動中的場景做出反應時，即時偵測就十分重要：例如[自動駕駛](../../../../../applications/autonomous-driving/index.md)中的交通與行人監測、視訊監控，以及必須在移動時追蹤物件的機器人。
 
+[^1]: Redmon et al. (2015)，摘要：偵測器是一個可端到端最佳化的單一網路，其從自然影像到藝術作品的泛化能力與 DPM 和 R-CNN 相比。
+[^2]: Redmon et al. (2015)，第 2 節：格子、信心值的定義，以及 λ_coord = 5 與 λ_noobj = 0.5 的平方和損失。關於 NMS 的說明也在同一節。
+[^3]: Redmon et al. (2015)，表 1 與表 3 以及第 4 節：VOC 2007 與 2012 的結果、速度比較與誤差分析。Faster R-CNN 與 Fast R-CNN 的數字是該論文所列的數值。
+[^4]: Redmon and Farhadi (2016)，摘要；Bochkovskiy et al. (2020)，摘要；Ge et al. (2021)，摘要。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -87,8 +92,3 @@ $$
 
 - Bochkovskiy, A., Wang, C.-Y. & Liao, H.-Y. M. (2020). *YOLOv4: Optimal Speed and Accuracy of Object Detection*. arXiv. https://arxiv.org/abs/2004.10934 — 將許多已發表的 CNN 技術組合成一個在單一 GPU 上兼顧速度與準確率的 YOLO 偵測器。
 - Ge, Z., Liu, S., Wang, F., Li, Z. & Sun, J. (2021). *YOLOX: Exceeding YOLO Series in 2021*. arXiv. https://arxiv.org/abs/2107.08430 — 把 YOLO 設計改為無錨框形式，並搭配解耦頭與新的標籤指派策略。
-
-[^1]: Redmon et al. (2015)，摘要：偵測器是一個可端到端最佳化的單一網路，其從自然影像到藝術作品的泛化能力與 DPM 和 R-CNN 相比。
-[^2]: Redmon et al. (2015)，第 2 節：格子、信心值的定義，以及 λ_coord = 5 與 λ_noobj = 0.5 的平方和損失。關於 NMS 的說明也在同一節。
-[^3]: Redmon et al. (2015)，表 1 與表 3 以及第 4 節：VOC 2007 與 2012 的結果、速度比較與誤差分析。Faster R-CNN 與 Fast R-CNN 的數字是該論文所列的數值。
-[^4]: Redmon and Farhadi (2016)，摘要；Bochkovskiy et al. (2020)，摘要；Ge et al. (2021)，摘要。

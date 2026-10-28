@@ -75,6 +75,11 @@ A\* is the informed counterpart of Dijkstra's shortest-path algorithm, of which 
 - **Robot motion planning** on grid maps, where the grid distance to the goal is a standard estimate.
 - **Automated planning** in puzzles and logistics, where relaxed-problem heuristics guide the search.[^4]
 
+[^1]: Hart, Nilsson and Raphael (1968) and the correction note (1972), listed above. The 1972 abstract describes the consistency result.
+[^2]: Dijkstra (1959), listed above.
+[^3]: Korf (1985), listed above.
+[^4]: Hoffmann and Nebel (2001), listed above. The competition claim is as reported in their abstract.
+
 ## References
 
 ### Seminal papers
@@ -87,8 +92,3 @@ A\* is the informed counterpart of Dijkstra's shortest-path algorithm, of which 
 ### Articles and documentation
 
 - Hoffmann, J. & Nebel, B. (2001). The FF Planning System: Fast Plan Generation Through Heuristic Search. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.855 — Shows heuristic forward search with a relaxed-problem estimate applied to automated planning.
-
-[^1]: Hart, Nilsson and Raphael (1968) and the correction note (1972), listed above. The 1972 abstract describes the consistency result.
-[^2]: Dijkstra (1959), listed above.
-[^3]: Korf (1985), listed above.
-[^4]: Hoffmann and Nebel (2001), listed above. The competition claim is as reported in their abstract.

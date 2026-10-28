@@ -84,3 +84,14 @@ Stereotypes in generated text and images, dialect bias (e.g. covert prejudice ag
 - O'Neil, *Weapons of Math Destruction*; Benjamin, *Race After Technology*; Crawford, *Atlas of AI*
 - Mitchell et al. (2019), "Model Cards for Model Reporting"
 - [Stanford Encyclopedia of Philosophy: Ethics of AI and Robotics](https://plato.stanford.edu/entries/ethics-ai/)
+
+## References
+
+Seminal works for this overview, drawn from the sub-pages linked above, where each is discussed in detail.
+
+- Dwork, C., Hardt, M., Pitassi, T., Reingold, O. & Zemel, R. (2012). *Fairness Through Awareness*. arXiv preprint. https://arxiv.org/abs/1104.3913 — Defines individual fairness via a task-specific similarity metric, and links statistical parity to affirmative action.
+- Hardt, M., Price, E. & Srebro, N. (2016). *Equality of Opportunity in Supervised Learning*. arXiv preprint. https://arxiv.org/abs/1610.02413 — Introduces equal opportunity and equalised odds, and how to adjust predictors to meet them.
+- Buolamwini, J. & Gebru, T. (2018). *Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification*. Proceedings of Machine Learning Research 81. https://proceedings.mlr.press/v81/buolamwini18a.html — Introduces a gender- and skin-type-balanced benchmark and shows large error-rate gaps in three commercial gender classifiers.
+- Chouldechova, A. (2017). Fair prediction with disparate impact: A study of bias in recidivism prediction instruments. *Big Data*. https://doi.org/10.1089/big.2016.0047 — Re-analyses the COMPAS data and shows why error-rate balance and predictive parity cannot both hold when recidivism rates differ across groups.
+- Raji, I. D. et al. (2020). *Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing*. arXiv. https://arxiv.org/abs/2001.00973 — Internal audit framework applied across the development lifecycle.
+- Mitchell, M. et al. (2019). *Model Cards for Model Reporting*. arXiv. https://arxiv.org/abs/1810.03993 — Proposes model cards with evaluation results across demographic and other groups.

@@ -59,6 +59,11 @@ The paper covers unconditional generation, video prediction and text conditionin
 - Does the image recipe scale to long, high-resolution video? [Align your Latents](https://arxiv.org/abs/2304.08818) and [Stable Video Diffusion](https://arxiv.org/abs/2311.15127) denoise a compressed latent space to cut cost, and the latter stresses data curation.[^3]
 - Is a U-Net or a Transformer the better denoiser for video? [Diffusion Transformers](https://arxiv.org/abs/2212.09748) replace the U-Net with a Transformer over latent patches for images, and video is less settled.[^4]
 
+[^1]: Ho et al. (2022): the abstract, Sections 2 to 4, and Tables 1 to 3, including the sampling note in the video prediction section.
+[^2]: Ho et al. (2022), Section 4.1: FID for UCF-101 is computed with C3D features, and FVD for video prediction with I3D features.
+[^3]: Blattmann et al. (2023), both abstracts: temporal layers on latent image models, and the study of training stages and data curation.
+[^4]: Peebles and Xie (2022): the Transformer denoiser operates on latent patches.
+
 ## References
 
 ### Seminal papers
@@ -67,14 +72,9 @@ The paper covers unconditional generation, video prediction and text conditionin
 - Carreira, J. & Zisserman, A. (2017). *Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset*. arXiv. https://arxiv.org/abs/1705.07750 — Introduces I3D, whose features underlie FVD.
 - Tran, D., et al. (2014). *Learning Spatiotemporal Features with 3D Convolutional Networks*. arXiv. https://arxiv.org/abs/1412.0767 — The C3D network, whose features underlie FID here.
 - Soomro, K., Zamir, A. R. & Shah, M. (2012). *UCF101: A Dataset of 101 Human Actions Classes From Videos in The Wild*. arXiv. https://arxiv.org/abs/1212.0402 — The action dataset used for unconditional training.
-- Heusel, M., et al. (2017). *GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium*. arXiv. https://arxiv.org/abs/1706.08500 — Defines the Fréchet Inception Distance.
-- Unterthiner, T., et al. (2018). *Towards Accurate Generative Models of Video: A New Metric & Challenges*. arXiv. https://arxiv.org/abs/1812.01717 — Introduces the Fréchet Video Distance.
+- Heusel, M., et al. (2017). *GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium*. arXiv. https://arxiv.org/abs/1706.08500 — Defines the Fréchet Inception Distance, the image-quality metric that later video metrics extend.
+- Unterthiner, T., et al. (2018). *Towards Accurate Generative Models of Video: A New Metric & Challenges*. arXiv. https://arxiv.org/abs/1812.01717 — Introduces the Fréchet Video Distance, a metric for comparing generated and real video distributions.
 - Ronneberger, O., Fischer, P. & Brox, T. (2015). *U-Net: Convolutional Networks for Biomedical Image Segmentation*. arXiv. https://arxiv.org/abs/1505.04597 — Encoder–decoder with skip connections, extended here to space-time.
 - Blattmann, A., et al. (2023). *Align your Latents: High-Resolution Video Synthesis with Latent Diffusion Models*. arXiv. https://arxiv.org/abs/2304.08818 — Adds temporal layers to a latent image diffusion model.
 - Blattmann, A., et al. (2023). *Stable Video Diffusion: Scaling Latent Video Diffusion Models to Large Datasets*. arXiv. https://arxiv.org/abs/2311.15127 — Studies training stages and data curation.
 - Peebles, W. & Xie, S. (2022). *Scalable Diffusion Models with Transformers*. arXiv. https://arxiv.org/abs/2212.09748 — Replaces the U-Net denoiser with a Transformer over latent patches.
-
-[^1]: Ho et al. (2022): the abstract, Sections 2 to 4, and Tables 1 to 3, including the sampling note in the video prediction section.
-[^2]: Ho et al. (2022), Section 4.1: FID for UCF-101 is computed with C3D features, and FVD for video prediction with I3D features.
-[^3]: Blattmann et al. (2023), both abstracts: temporal layers on latent image models, and the study of training stages and data curation.
-[^4]: Peebles and Xie (2022): the Transformer denoiser operates on latent patches.

@@ -49,6 +49,11 @@ GraphRAG 是一種檢索增強生成方法。大型語言模型（LLM）從文�
 - 文件改變時，索引應如何更新，才能不必重建每個摘要？
 - GraphRAG 與其他以圖或樹為基礎的方法相比如何，例如同樣採取由下而上摘要的 RAPTOR？[^4]
 
+[^1]: Lewis et al. (2020)，見上方參考文獻。
+[^2]: Edge et al. (2024)，見上方參考文獻。數字與流程依論文在實驗中的報告呈現。
+[^3]: Traag et al. (2018)，見上方參考文獻。
+[^4]: Sarthi et al. (2024) 與 Peng et al. (2024)，見上方參考文獻。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -62,8 +67,3 @@ GraphRAG 是一種檢索增強生成方法。大型語言模型（LLM）從文�
 
 - Gao, Y. et al. (2023). Retrieval-Augmented Generation for Large Language Models: A Survey. arXiv. https://arxiv.org/abs/2312.10997 — 綜述用於大型語言模型的 RAG，包括它如何處理幻覺與過時知識。
 - Peng, B. et al. (2024). Graph Retrieval-Augmented Generation: A Survey. arXiv. https://arxiv.org/abs/2408.08921 — 綜述以圖為基礎的 RAG，包括 GraphRAG 如何利用實體之間的結構。
-
-[^1]: Lewis et al. (2020)，見上方參考文獻。
-[^2]: Edge et al. (2024)，見上方參考文獻。數字與流程依論文在實驗中的報告呈現。
-[^3]: Traag et al. (2018)，見上方參考文獻。
-[^4]: Sarthi et al. (2024) 與 Peng et al. (2024)，見上方參考文獻。

@@ -88,6 +88,11 @@ a^{*} = \arg\max_{a \in \mathcal{A}} \; \mathrm{Acc}_{\mathrm{val}}\big(w^{*}(a)
 - **硬體測量。** 實測延遲取決於裝置、編譯器與軟體。在某支手機上很快的網路，在另一支上不一定快。
 - **人力去了哪裡。** AutoML 並未消除專家知識，而是把它轉移到搜尋空間設計、基準與目標函數之中。
 
+[^1]: Zoph and Le（2016）描述 12,800 個取樣架構，以及 800 個子網路在 800 個 GPU 上同時訓練。
+[^2]: Real et al.（2018）回報，一次受控搜尋（20,000 個小模型）在 450 個 K40 GPU 上跑了約七天。
+[^3]: Liu et al.（2018）回報，一階搜尋需 1.5 GPU 天，二階搜尋需 4 GPU 天；相較之下 NASNet 需 2000 GPU 天。
+[^4]: Tan et al.（2018）回報，每次架構搜尋在 64 台 TPUv2 上花了 4.5 天。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -110,8 +115,3 @@ a^{*} = \arg\max_{a \in \mathcal{A}} \; \mathrm{Acc}_{\mathrm{val}}\big(w^{*}(a)
 - Li, L. & Talwalkar, A. (2019). *Random Search and Reproducibility for Neural Architecture Search*. arXiv:1902.07638. https://arxiv.org/abs/1902.07638 — 顯示附提前停止的隨機搜尋，在 PTB 與 CIFAR-10 NAS 基準上是有競爭力的基準。
 - Yang, A., Esperança, P. M. & Carlucci, F. M. (2019). *NAS evaluation is frustratingly hard*. arXiv:1912.12522. https://arxiv.org/abs/1912.12522 — 在五個資料集上以共同協定比較八種 NAS 方法，並主張與隨機架構比較。
 - Ying, C., et al. (2019). *NAS-Bench-101: Towards Reproducible Neural Architecture Search*. arXiv:1902.09635. https://arxiv.org/abs/1902.09635 — 公開的已訓練架構資料集，讓人們無須大量計算即可比較搜尋演算法。
-
-[^1]: Zoph and Le（2016）描述 12,800 個取樣架構，以及 800 個子網路在 800 個 GPU 上同時訓練。
-[^2]: Real et al.（2018）回報，一次受控搜尋（20,000 個小模型）在 450 個 K40 GPU 上跑了約七天。
-[^3]: Liu et al.（2018）回報，一階搜尋需 1.5 GPU 天，二階搜尋需 4 GPU 天；相較之下 NASNet 需 2000 GPU 天。
-[^4]: Tan et al.（2018）回報，每次架構搜尋在 64 台 TPUv2 上花了 4.5 天。

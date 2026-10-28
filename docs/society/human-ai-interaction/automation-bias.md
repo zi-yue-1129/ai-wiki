@@ -87,6 +87,8 @@ A signal helps only when it changes what the person does. A confident-sounding e
 - Do skills lost to offloading or automation return when people work unaided again?
 - How much of the skill loss in medicine is caused by AI, as opposed to changes in patients or practice?
 
+[^1]: The Budzyń study is observational, so it cannot by itself show that AI exposure caused the drop. The authors describe it as a possible negative effect on endoscopist behaviour. Check the paper for the exact figures before quoting them.
+
 ## References
 
 ### Seminal papers
@@ -108,5 +110,3 @@ A signal helps only when it changes what the person does. A confident-sounding e
 - Kim, S. S. Y. et al. (2024). "I'm Not Sure, But...": Examining the Impact of Large Language Models' Uncertainty Expression on User Reliance and Trust. *FAccT 2024*. https://arxiv.org/abs/2405.00623 — Pre-registered experiment (N=404) on how uncertainty phrases in LLM answers change reliance and accuracy on medical questions.
 - Steyvers, M. et al. (2025). What large language models know and what people think they know. *Nature Machine Intelligence*. https://doi.org/10.1038/s42256-024-00976-7 — Experiments on the gap between user confidence and model confidence, and on how explanation length changes it.
 - Spatharioti, S. E. et al. (2023). Comparing Traditional and LLM-based Search for Consumer Choice: A Randomized Experiment. arXiv. https://arxiv.org/abs/2307.03744 — Randomised online experiments in which people overrelied on wrong LLM answers, and colour-coded highlighting helped them catch errors.
-
-[^1]: The Budzyń study is observational, so it cannot by itself show that AI exposure caused the drop. The authors describe it as a possible negative effect on endoscopist behaviour. Check the paper for the exact figures before quoting them.

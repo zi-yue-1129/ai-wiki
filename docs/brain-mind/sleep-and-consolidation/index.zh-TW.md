@@ -72,6 +72,8 @@ flowchart LR
 - **AI 的類比能走多遠？** Kumaran 等人（2016）主張，重播與互補系統對代理人而言是有用的概念。深度強化學習中的重播通常採用固定排程，缺少大腦那種類似睡眠的結構。
 - **多少證據來自人類？** 最詳細的重播證據來自齧齒類動物，人類的記錄較為稀少。見 Staresina 等人（2015）。
 
+[^1]: Tononi 與 Cirelli（2006）提出，清醒時突觸強度平均上升，睡眠時則再次降低。此假說只是關於睡眠功能的數種解釋之一，其證據仍有爭議。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -101,5 +103,3 @@ flowchart LR
 - Squire, L. R. & Alvarez, P. (1995). Retrograde amnesia and memory consolidation: a neurobiological perspective. *Current Opinion in Neurobiology*. https://doi.org/10.1016/0959-4388(95)80023-9 — 綜述逆行性失憶，作為記憶會經歷隨時間逐步鞏固的證據。
 - Frankland, P. W. & Bontempi, B. (2005). The organization of recent and remote memories. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn1607 — 綜述近期與遠期記憶在腦中如何組織，以及它們的儲存如何隨時間改變。
 - Tononi, G. & Cirelli, C. (2006). Sleep function and synaptic homeostasis. *Sleep Medicine Reviews*. https://doi.org/10.1016/j.smrv.2005.05.002 — 提出睡眠會降低整體突觸強度，這是關於睡眠功能的假說，至今仍有爭議。
-
-[^1]: Tononi 與 Cirelli（2006）提出，清醒時突觸強度平均上升，睡眠時則再次降低。此假說只是關於睡眠功能的數種解釋之一，其證據仍有爭議。

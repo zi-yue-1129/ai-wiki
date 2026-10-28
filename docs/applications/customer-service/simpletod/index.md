@@ -66,6 +66,8 @@ These are benchmark results, not evidence from live business systems.
 - **Live tools.** Benchmarks with live tools and state changes test a different skill. Whether the sequence approach extends to them is not settled (Yao et al., 2024).
 - **Evaluation.** Hudeček and Dušek (2023) found instruction-tuned language models weaker than specialised ones at belief tracking, so a benchmark score must be read with the task it measures.
 
+[^1]: Hosseini-Asl et al. (2020), abstract: inform rate up 8.1 points, success rate up 9.7 points and combined score up 7.2 points in the end-to-end setting on MultiWOZ. https://arxiv.org/abs/2005.00796
+
 ## References
 
 ### Seminal papers
@@ -82,5 +84,3 @@ These are benchmark results, not evidence from live business systems.
 
 - Hudeček, V. & Dušek, O. (2023). Are LLMs All You Need for Task-Oriented Dialogue? https://arxiv.org/abs/2304.06556 — Tests instruction-tuned language models on task-oriented benchmarks, finding weaker belief tracking but good task completion given correct slot values.
 - Yao, S. et al. (2024). τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains. https://arxiv.org/abs/2406.12045 — Simulated-customer benchmark in which agents call live domain tools and are graded by database state.
-
-[^1]: Hosseini-Asl et al. (2020), abstract: inform rate up 8.1 points, success rate up 9.7 points and combined score up 7.2 points in the end-to-end setting on MultiWOZ. https://arxiv.org/abs/2005.00796

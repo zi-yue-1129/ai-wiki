@@ -101,6 +101,10 @@ The first keeps separate, typed outputs that can be checked. The second gives up
 - **Simulated customers.** A language model playing the customer may not behave like a real one, so benchmark results need checking against recorded human conversations.
 - **Accountability.** When an agent gives wrong refund information, responsibility is unclear. The [governance](../../society/governance/index.md) section covers these questions.
 
+[^1]: Yao et al. (2024), abstract: state-of-the-art function-calling agents, including gpt-4o, succeed on fewer than 50% of tasks, and pass^8 is below 25% in the retail domain. https://arxiv.org/abs/2406.12045
+[^2]: Brynjolfsson, Li and Raymond (2023), abstract: a 15% average increase in issues resolved per hour, with larger gains for less experienced and lower-skilled workers. https://arxiv.org/abs/2304.11771
+[^3]: Kagan, Hathaway and Dada (2025), abstract: a key driver of low uptake is "gatekeeper aversion", and uptake rises when customers see average waiting times and information about chatbot limitations. https://arxiv.org/abs/2504.06145
+
 ## References
 
 ### Seminal papers
@@ -126,9 +130,3 @@ The first keeps separate, typed outputs that can be checked. The second gives up
 - Hudeček, V. & Dušek, O. (2023). Are LLMs All You Need for Task-Oriented Dialogue? https://arxiv.org/abs/2304.06556 — Tests instruction-tuned language models on task-oriented benchmarks, finding weaker belief tracking but good task completion given correct slots.
 - Wen, R. (2020). Turn-level Dialog Evaluation with Dialog-level Weak Signals for Bot-Human Hybrid Customer Service Systems. https://arxiv.org/abs/2011.06395 — Describes a model that scores each turn of bot and human customer-service contacts, for monitoring and evaluation.
 - Kim, Y., Levy, J. & Liu, Y. (2020). Speech Sentiment and Customer Satisfaction Estimation in Socialbot Conversations. https://arxiv.org/abs/2008.12376 — Estimates customer satisfaction automatically from acoustic and lexical signals, so explicit surveys are not needed.
-
-[^1]: Yao et al. (2024), abstract: state-of-the-art function-calling agents, including gpt-4o, succeed on fewer than 50% of tasks, and pass^8 is below 25% in the retail domain. https://arxiv.org/abs/2406.12045
-
-[^2]: Brynjolfsson, Li and Raymond (2023), abstract: a 15% average increase in issues resolved per hour, with larger gains for less experienced and lower-skilled workers. https://arxiv.org/abs/2304.11771
-
-[^3]: Kagan, Hathaway and Dada (2025), abstract: a key driver of low uptake is "gatekeeper aversion", and uptake rises when customers see average waiting times and information about chatbot limitations. https://arxiv.org/abs/2504.06145

@@ -69,6 +69,11 @@ The abstract reports that DreamCoder solves both classic inductive programming t
 
 Code-trained language models write programs without a learned DSL,[^4] and the mechanics of executing model-written code are covered in [CodeAct](../../../../engineering/agents/sandboxing-and-computer-use/codeact/index.md). DreamCoder's layered libraries are one attempt at the compositional, learned-to-learn ingredients that Lake and colleagues argue human-like learning requires.[^3] The abstract makes no claim about the brain. Its "imagined and replayed" training is a loose analogy to offline replay, which is discussed in [Hippocampal Replay](../../../../brain-mind/sleep-and-consolidation/hippocampal-replay/index.md). For the wider picture, see [Neuro-Symbolic AI](../index.md).
 
+[^1]: Ellis et al. (2020), listed above. The description of the procedure, scope and results is taken from the abstract.
+[^2]: Gulwani (2011), listed above.
+[^3]: Lake et al. (2016), listed above.
+[^4]: Chen et al. (2021) on Codex and Gao et al. (2022) on PAL, both listed above.
+
 ## References
 
 ### Seminal papers
@@ -81,8 +86,3 @@ Code-trained language models write programs without a learned DSL,[^4] and the m
 
 - Chen, M. et al. (2021). *Evaluating Large Language Models Trained on Code*. arXiv. https://arxiv.org/abs/2107.03374 — Introduces Codex, a language model trained on code, and evaluates it on writing programs from docstrings.
 - Gao, L. et al. (2022). *PAL: Program-aided Language Models*. arXiv. https://arxiv.org/abs/2211.10435 — Has a language model write programs that a Python interpreter executes, so that the solving step is exact.
-
-[^1]: Ellis et al. (2020), listed above. The description of the procedure, scope and results is taken from the abstract.
-[^2]: Gulwani (2011), listed above.
-[^3]: Lake et al. (2016), listed above.
-[^4]: Chen et al. (2021) on Codex and Gao et al. (2022) on PAL, both listed above.

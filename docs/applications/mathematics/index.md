@@ -88,6 +88,8 @@ AlphaGeometry and AlphaProof are provers: each produces a proof of a stated resu
 - **Coverage.** Formal libraries cover some areas of mathematics well and others poorly. The areas where machine proof is easiest may not be the areas where mathematicians most need help.
 - **Credit and trust.** When a machine finds a construction or a proof, who should be credited, and how should a community judge a result it has not read line by line?
 
+[^1]: The 51.7% figure is reported in Shao et al. (2024) for MATH, without external toolkits or voting. Scores on this benchmark have risen considerably since, so the figure is a historical marker, not a current result.
+
 ## References
 
 ### Seminal papers
@@ -115,5 +117,3 @@ AlphaGeometry and AlphaProof are provers: each produces a proof of a stated resu
 - Chervonyi, Y. et al. (2025). *Gold-medalist Performance in Solving Olympiad Geometry with AlphaGeometry2*. arXiv. https://arxiv.org/abs/2502.03544 — Reports AlphaGeometry 2 and its solving rate on 25 years of IMO geometry.
 - Georgiev, B. et al. (2025). *Mathematical exploration and discovery at scale*. arXiv. https://arxiv.org/abs/2511.02864 — Applies AlphaEvolve to 67 mathematical problems, with mathematicians including Terence Tao.
 - Ren, Z. Z. et al. (2025). *DeepSeek-Prover-V2: Advancing Formal Mathematical Reasoning via Reinforcement Learning for Subgoal Decomposition*. arXiv. https://arxiv.org/abs/2504.21801 — Open-weight Lean prover that decomposes problems into subgoals, reported on MiniF2F and PutnamBench.
-
-[^1]: The 51.7% figure is reported in Shao et al. (2024) for MATH, without external toolkits or voting. Scores on this benchmark have risen considerably since, so the figure is a historical marker, not a current result.

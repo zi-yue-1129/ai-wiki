@@ -67,3 +67,20 @@ These evaluations feed **frontier safety frameworks** (Anthropic's Responsible S
 - [AI Safety Fundamentals](https://aisafetyfundamentals.com/) (BlueDot) courses
 - *International AI Safety Report* (2025)
 - Amodei et al. (2016), "Concrete Problems in AI Safety"
+
+## References
+
+Seminal works for this overview, drawn from the sub-pages linked above, where each is discussed in detail.
+
+- Bai, Y. et al. (2022). *Constitutional AI: Harmlessness from AI Feedback*. arXiv. https://arxiv.org/abs/2212.08073 — Introduces the constitution, self-critique and RL from AI feedback for harmlessness.
+- Christiano, P. et al. (2017). *Deep Reinforcement Learning from Human Preferences*. NeurIPS. https://arxiv.org/abs/1706.03741 — Learns reward functions from human comparisons of agent behaviour, the root of RLHF.
+- Amodei, D. et al. (2016). *Concrete Problems in AI Safety*. arXiv. https://arxiv.org/abs/1606.06565 — Lists five practical accident-risk problems, including avoiding reward hacking and side effects.
+- Skalse, J. et al. (2022). *Defining and Characterizing Reward Hacking*. arXiv. https://arxiv.org/abs/2209.13085 — Gives the first formal definition of reward hacking in terms of a proxy and a true reward.
+- Shevlane, T. et al. (2023). *Model evaluation for extreme risks*. arXiv. https://arxiv.org/abs/2305.15324 — Argues that dangerous-capability and alignment evaluations should inform decisions about training, deployment and security.
+- Phuong, M. et al. (2024). *Evaluating Frontier Models for Dangerous Capabilities*. arXiv. https://arxiv.org/abs/2403.13793 — Pilots dangerous-capability evaluations on Gemini 1.0 in persuasion, cybersecurity, self-proliferation and self-reasoning.
+- Irving, G., Christiano, P. & Amodei, D. (2018). *AI safety via debate*. arXiv. https://arxiv.org/abs/1805.00899 — Proposes self-play on a zero-sum debate game judged by a human.
+- Christiano, P., Shlegeris, B. & Amodei, D. (2018). *Supervising strong learners by amplifying weak experts*. arXiv. https://arxiv.org/abs/1810.08575 — Introduces iterated amplification, building hard-task training signals from easier subproblems.
+- Hubinger, E. et al. (2019). *Risks from Learned Optimization in Advanced Machine Learning Systems*. arXiv. https://arxiv.org/abs/1906.01820 — Introduces mesa-optimisation and analyses when a learned objective may differ from the training objective.
+- Carlsmith, J. (2023). *Scheming AIs: Will AIs fake alignment during training in order to get power?*. arXiv. https://arxiv.org/abs/2311.08379 — Report on whether AIs that perform well in training do so to gain power later.
+- Wallace, E. et al. (2024). *The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions*. arXiv. https://arxiv.org/abs/2404.13208 — Defines a priority order among instruction sources and trains models to ignore lower-privileged conflicting instructions.
+- Guan, M. Y. et al. (2024). *Deliberative Alignment: Reasoning Enables Safer Language Models*. arXiv. https://arxiv.org/abs/2412.16339 — Teaches models the text of safety specifications and trains them to reason over it before answering.

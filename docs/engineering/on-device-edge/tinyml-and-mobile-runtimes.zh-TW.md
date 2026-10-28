@@ -84,6 +84,13 @@ flowchart LR
 - 跨平台執行環境會縮小與平台專屬執行環境的差距嗎？還是為了速度，仍必須依賴廠商的委派模組？
 - 隨著上下文視窗變長，KV 快取會不會超過裝置的記憶體？從快閃記憶體串流權重，是長久的解法嗎？
 
+[^1]: Lin et al. (2020)，*MCUNet*。摘要指出，微控制器的記憶體比行動手機小「2 到 3 個數量級」。
+[^2]: Lin et al. (2021)，*MCUNetV2*。摘要指出，CNN 前幾個區塊使用的記憶體，可能比網路其餘部分多一個數量級。
+[^3]: Liu et al. (2024)，*MobileLLM*。摘要稱這個次十億參數的規模是「行動端部署的實用選擇」。
+[^4]: Abdin et al. (2024)，*Phi-3 Technical Report*。摘要將 phi-3-mini 描述為參數量 38 億、「小到能部署在手機上」的模型。
+[^5]: Lin et al. (2023)，*AWQ*。摘要指出，只保護 1% 的關鍵權重，就能大幅降低量化誤差。
+[^6]: Banbury et al. (2021)，*MLPerf Tiny*。摘要將這套基準測試描述為衡量超低功耗 TinyML 系統的準確度、延遲與能源消耗。
+
 ## 參考文獻
 
 ### 重要論文
@@ -108,10 +115,3 @@ flowchart LR
 - Abdin, M. et al. (2024). *Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone*. arXiv:2404.14219. https://arxiv.org/abs/2404.14219 — 介紹一個可在手機上執行、參數量為 38 億的模型的技術報告。
 - Gunter, T. et al. (2024). *Apple Intelligence Foundation Language Models*. arXiv:2407.21075. https://arxiv.org/abs/2407.21075 — 描述一個約 30 億參數的裝置端模型，以及它如何針對推論最佳化。
 - Liu, Z. et al. (2024). *MobileLLM: Optimizing Sub-billion Parameter Language Models for On-Device Use Cases*. ICML 2024. arXiv:2402.14905. https://arxiv.org/abs/2402.14905 — 針對參數量在 10 億以下語言模型的架構研究，供行動端使用。
-
-[^1]: Lin et al. (2020)，*MCUNet*。摘要指出，微控制器的記憶體比行動手機小「2 到 3 個數量級」。
-[^2]: Lin et al. (2021)，*MCUNetV2*。摘要指出，CNN 前幾個區塊使用的記憶體，可能比網路其餘部分多一個數量級。
-[^3]: Liu et al. (2024)，*MobileLLM*。摘要稱這個次十億參數的規模是「行動端部署的實用選擇」。
-[^4]: Abdin et al. (2024)，*Phi-3 Technical Report*。摘要將 phi-3-mini 描述為參數量 38 億、「小到能部署在手機上」的模型。
-[^5]: Lin et al. (2023)，*AWQ*。摘要指出，只保護 1% 的關鍵權重，就能大幅降低量化誤差。
-[^6]: Banbury et al. (2021)，*MLPerf Tiny*。摘要將這套基準測試描述為衡量超低功耗 TinyML 系統的準確度、延遲與能源消耗。

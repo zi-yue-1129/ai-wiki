@@ -81,6 +81,8 @@ The bootstrap has also been used to compare learning algorithms. Dietterich (199
 - **Standard errors without formulas.** The median, a ratio or a correlation coefficient has no simple standard error in general, and the bootstrap supplies one.
 - **Model comparison.** A bootstrap interval for the difference in accuracy between two classifiers on the same test examples shows whether the difference exceeds sampling noise.
 
+[^1]: As the sample size grows, the probability that a given original point appears in a resample tends to $1-(1-1/n)^n \to 1-e^{-1}\approx 0.632$.
+
 ## References
 
 ### Seminal papers
@@ -96,5 +98,3 @@ The bootstrap has also been used to compare learning algorithms. Dietterich (199
 ### Articles and documentation
 
 - Agarwal, R. et al. (2021). Deep reinforcement learning at the edge of the statistical precipice. arXiv. https://arxiv.org/abs/2108.13264 — Argues that few-run reinforcement learning benchmarks need uncertainty estimates, and proposes bootstrap intervals and robust aggregate metrics.
-
-[^1]: As the sample size grows, the probability that a given original point appears in a resample tends to $1-(1-1/n)^n \to 1-e^{-1}\approx 0.632$.

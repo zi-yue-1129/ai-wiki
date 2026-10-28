@@ -56,6 +56,8 @@ $$
 
 Liu 等人（2020）把此分數視為對 softmax 從訓練繼承而來之過度自信的回應，這也是[不確定性量化與校準](../../uncertainty-and-calibration/index.md)所關心的問題。
 
+[^1]: 數字取自 Liu 等人（2020）的摘要。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -72,5 +74,3 @@ Liu 等人（2020）把此分數視為對 softmax 從訓練繼承而來之過度
 ### 文章與文件
 
 - Hendrycks, D., Mazeika, M. & Dietterich, T. (2018). *Deep Anomaly Detection with Outlier Exposure*. arXiv. https://arxiv.org/abs/1812.04606 — 以輔助離群值訓練偵測器，與以能量為基礎的變體相關（ICLR 2019）。
-
-[^1]: 數字取自 Liu 等人（2020）的摘要。

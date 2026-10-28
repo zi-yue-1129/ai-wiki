@@ -64,6 +64,9 @@ Robinson's 1965 paper establishes the rule and its completeness by proof rather 
 - **Combining with SAT and SMT.** Ground parts of a problem are often better handled by a SAT or SMT solver. How to split work between the two is an engineering question with no fixed answer.
 - **Human proof style.** Resolution proofs are rarely readable as mathematics. Whether machine proofs can be translated into human-style arguments remains open.
 
+[^1]: Davis and Putnam (1960), and Davis, Logemann and Loveland (1962), listed above.
+[^2]: Kaliszyk et al. (2018), listed above.
+
 ## References
 
 ### Seminal papers
@@ -81,6 +84,3 @@ Robinson's 1965 paper establishes the rule and its completeness by proof rather 
 
 - Kaliszyk, C., Urban, J., Michalewski, H. & Olšák, M. (2018). *Reinforcement Learning of Theorem Proving*. arXiv. https://arxiv.org/abs/1805.07563 — Guides proof search in a connection-style prover with reinforcement learning.
 - Fikes, R. E. & Nilsson, N. J. (1971). *STRIPS: A new approach to the application of theorem proving to problem solving*. Artificial Intelligence. https://doi.org/10.1016/0004-3702(71)90010-5 — Shows how theorem proving was applied to planning, the origin of the STRIPS formalism.
-
-[^1]: Davis and Putnam (1960), and Davis, Logemann and Loveland (1962), listed above.
-[^2]: Kaliszyk et al. (2018), listed above.

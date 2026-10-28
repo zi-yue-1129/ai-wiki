@@ -100,6 +100,8 @@ Ioffe 與 Szegedy 把批次正規化的效益歸因於減少內部共變量偏�
 - **集合的選擇。** 對所有架構、資料類型與批次大小而言，並沒有單一最佳的正規化集合。在新情境中如何選擇，目前仍大多依靠經驗。
 - **生物學。** 皮質中的除法正規化已有定論，但目前不知道是否有任何生物機制，會以批次正規化那種跨樣本的方式計算統計量。
 
+[^1]: 「少 14 倍的訓練步數」這一數字來自 Ioffe 與 Szegedy（2015）的摘要，指的是他們所測試的影像分類器。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -127,5 +129,3 @@ Ioffe 與 Szegedy 把批次正規化的效益歸因於減少內部共變量偏�
 - Nguyen, T. Q. & Salazar, J. (2019). "Transformers without Tears: Improving the Normalization of Self-Attention". arXiv:1910.05895 — 在低資源與高資源翻譯上比較前置與後置正規化的 Transformer。
 - Liu, L., et al. (2020). "Understanding the Difficulty of Training Transformers". arXiv:2004.08249 — 以殘差分支的放大效應，解釋 Transformer 訓練的不穩定性。
 - Touvron, H., et al. (2023). "LLaMA: Open and Efficient Foundation Language Models". arXiv:2302.13971 — 描述一個語言模型家族，以 RMSNorm 正規化每個子層的輸入。
-
-[^1]: 「少 14 倍的訓練步數」這一數字來自 Ioffe 與 Szegedy（2015）的摘要，指的是他們所測試的影像分類器。

@@ -71,6 +71,8 @@ flowchart LR
 - **規則還是判斷？** 詳盡的規則手冊可預測、便於稽核，也較難被操縱，但在作者未預料的情境中會失效。Anthropic 的憲法偏好培養判斷，保留少數硬性限制，並主張狹隘的規則可能重塑模型更廣泛的自我形象。
 - **開發者可以限制使用者到什麼程度？** 讓開發者擁有優先權可以保護產品，但也會限制使用者能了解系統的程度。這條界線應設在哪裡，既是政策問題，也是技術問題。
 
+[^1]: 該論文報告了超過 70,000 個情境，其中在來自多家供應商的十二個前沿模型之間，存在顯著的行為分歧。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -91,5 +93,3 @@ flowchart LR
 - Anthropic (n.d.). *Claude's Constitution*. https://www.anthropic.com/constitution — Anthropic 公開的憲法，涵蓋其優先順序、偏好判斷勝於規則的立場，以及其自陳的限制。
 - Zhang, J. et al. (2025). *Stress-Testing Model Specs Reveals Character Differences among Language Models*. arXiv. https://arxiv.org/abs/2510.07686 — 產生價值衝突情境，以找出已公開模型規範中的矛盾與歧義。
 - Marks, S. et al. (2025). *Auditing language models for hidden objectives*. arXiv. https://arxiv.org/abs/2503.10965 — 訓練一個具有隱藏目標的模型，並在盲測與非盲測研究中測試八種稽核技術。
-
-[^1]: 該論文報告了超過 70,000 個情境，其中在來自多家供應商的十二個前沿模型之間，存在顯著的行為分歧。

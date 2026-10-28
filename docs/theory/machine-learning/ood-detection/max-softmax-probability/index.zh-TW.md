@@ -52,6 +52,8 @@ $$
 
 此分數也是[不確定性量化與校準](../../uncertainty-and-calibration/index.md)的一部分。溫度縮放會改變 softmax 的數值，因此可能改變 MSP 分數的排序。
 
+[^1]: 數字取自 Liang 等人（2017）的摘要。該文中的基準即為最大 softmax 機率方法。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -68,5 +70,3 @@ $$
 ### 文章與文件
 
 - Ovadia, Y. et al. (2019). *Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift*. arXiv. https://arxiv.org/abs/1906.02530 — 在資料集偏移下評估基於 softmax 的不確定性，結果顯示其可靠性會下降。
-
-[^1]: 數字取自 Liang 等人（2017）的摘要。該文中的基準即為最大 softmax 機率方法。

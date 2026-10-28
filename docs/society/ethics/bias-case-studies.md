@@ -104,6 +104,9 @@ Bias in language models has been measured in several ways. Bolukbasi et al. (201
 - Does removing a proxy or training against a benchmark reduce harm in use, or only on the test set? The Hofmann et al. result suggests that some fixes may hide the problem.
 - Most audits depend on access. The cases above could be studied because the systems or their APIs were available to outsiders. How can audits proceed when access is limited?
 
+[^1]: Chouldechova (2017), Section 1, which summarises the ProPublica analysis and the replies to it.
+[^2]: Buolamwini & Gebru (2018), abstract.
+
 ## References
 
 ### Seminal papers
@@ -128,6 +131,3 @@ Bias in language models has been measured in several ways. Bolukbasi et al. (201
 ### Articles and documentation
 
 - Dastin, J. (2022). Amazon Scraps Secret AI Recruiting Tool that Showed Bias against Women. In *Ethics of Data and Analytics*. https://doi.org/10.1201/9781003278290-44 — Book chapter with the title of the 2018 report on Amazon's experimental résumé-screening system and its gender bias.
-
-[^1]: Chouldechova (2017), Section 1, which summarises the ProPublica analysis and the replies to it.
-[^2]: Buolamwini & Gebru (2018), abstract.

@@ -101,6 +101,10 @@ Labels are not a neutral fix. Altay and Gilardi (2024) found that labelling a he
 - Can silicon samples be used for polling, and how would anyone detect that they had replaced real respondents?
 - Can persuasive chatbots be made less inaccurate without losing persuasive force? Hackenburg et al. (2025) report a trade-off between the two.
 
+[^1]: Hackenburg and Margetts (2024) report an average shift of 4.83 percentage points for microtargeted messages and 6.20 for non-microtargeted messages, a difference that is not statistically significant (P = 0.226). Simchon et al. (2024) reach a different conclusion about personality-tailored ads, so the two studies should be read together.
+[^2]: Hackenburg et al. (2025) report that post-training boosted persuasiveness by up to 51% and prompting by up to 27%. These are relative figures from one experimental setting and should not be read as effects on real votes.
+[^3]: Altay and Gilardi (2024) report that the AI-label effect was three times smaller than the effect of labelling headlines as false. Their participants were US and UK online samples, so the result does not describe labels in real feeds.
+
 ## References
 
 ### Seminal papers
@@ -122,7 +126,3 @@ Labels are not a neutral fix. Altay and Gilardi (2024) found that labelling a he
 - Potter, Y. et al. (2024). Hidden Persuaders: LLMs' Political Leaning and Their Influence on Voters. arXiv preprint. https://arxiv.org/abs/2410.24190 — Shows that language models lean toward one US presidential nominee, and that talking with them shifted some voters' support in an experiment.
 - Simon, F. M., Altay, S. & Mercier, H. (2023). Misinformation reloaded? Fears about the impact of generative AI on misinformation are overblown. *Harvard Kennedy School Misinformation Review*. https://doi.org/10.37016/mr-2020-127 — Reviews evidence from communication, cognitive and political science and argues that fears about generative-AI misinformation are overstated.
 - Altay, S. & Gilardi, F. (2024). People are skeptical of headlines labeled as AI-generated, even if true or human-made, because they assume full AI automation. *PNAS Nexus*. https://doi.org/10.1093/pnasnexus/pgae403 — Two preregistered experiments on how AI labels change perceived accuracy and willingness to share.
-
-[^1]: Hackenburg and Margetts (2024) report an average shift of 4.83 percentage points for microtargeted messages and 6.20 for non-microtargeted messages, a difference that is not statistically significant (P = 0.226). Simchon et al. (2024) reach a different conclusion about personality-tailored ads, so the two studies should be read together.
-[^2]: Hackenburg et al. (2025) report that post-training boosted persuasiveness by up to 51% and prompting by up to 27%. These are relative figures from one experimental setting and should not be read as effects on real votes.
-[^3]: Altay and Gilardi (2024) report that the AI-label effect was three times smaller than the effect of labelling headlines as false. Their participants were US and UK online samples, so the result does not describe labels in real feeds.

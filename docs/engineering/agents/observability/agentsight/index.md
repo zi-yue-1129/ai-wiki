@@ -76,6 +76,9 @@ The evaluation has two parts, overhead and case studies, and both are small.
 - Should a monitor watch what a model says it is thinking or what it does? Baker et al. (2025) found that monitoring chain of thought caught reward hacking better than monitoring actions, but that optimising against the monitor taught hidden reasoning.[^2]
 - How can boundary tracing be made privacy-preserving, for example by keeping only the events an alert needs?
 
+[^1]: Zheng et al. (2025), Table 1 and Section 5.1, https://arxiv.org/abs/2508.02736
+[^2]: Baker et al. (2025), abstract, https://arxiv.org/abs/2503.11926
+
 ## References
 
 ### Seminal papers
@@ -88,6 +91,3 @@ The evaluation has two parts, overhead and case studies, and both are small.
 ### Articles and documentation
 
 - Anthropic (2024). *Building effective AI agents*. Anthropic Engineering. https://www.anthropic.com/engineering/building-effective-agents — Notes the potential for compounding errors in agents and recommends extensive testing in sandboxed environments.
-
-[^1]: Zheng et al. (2025), Table 1 and Section 5.1, https://arxiv.org/abs/2508.02736
-[^2]: Baker et al. (2025), abstract, https://arxiv.org/abs/2503.11926

@@ -101,6 +101,9 @@ No single control is enough, and most have been tested only in part.
 - **Capability gap.** Whether imitation can close a gap on tasks outside the imitation data is unsettled; Oliynyk et al. (2023) survey the field.
 - **Durability and law.** Fine-tuning may remove marks, and the legal status of model outputs under terms of service and copyright law is unsettled.
 
+[^1]: Carlini et al. (2024) report extracting the full projection matrix of two OpenAI models for under 20 US dollars, per the abstract.
+[^2]: Maini et al. (2021) report owner confidence above 99% from 50 training points, per the abstract.
+
 ## References
 
 ### Seminal papers
@@ -121,7 +124,3 @@ No single control is enough, and most have been tested only in part.
 ### Surveys and textbooks
 
 - Oliynyk, D., Mayer, R. & Rauber, A. (2023). *I Know What You Trained Last Summer: A Survey on Stealing Machine Learning Models and Defences*. ACM Computing Surveys. https://arxiv.org/abs/2206.08451 — Taxonomy of extraction attacks and defences, with an analysis of which defences current attacks weaken.
-
-[^1]: Carlini et al. (2024) report extracting the full projection matrix of two OpenAI models for under 20 US dollars, per the abstract.
-
-[^2]: Maini et al. (2021) report owner confidence above 99% from 50 training points, per the abstract.

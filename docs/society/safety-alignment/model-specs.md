@@ -90,6 +90,8 @@ The first three are developer-written. The fourth tests who writes the principle
 - **Rules or judgement?** A detailed rulebook is predictable, auditable and harder to manipulate, but it fails in cases its authors did not foresee. Anthropic's constitution favours judgement, keeps a few hard constraints, and argues that narrow rules can reshape a model's broader self-image.
 - **How far may developers restrict users?** Priority for developers protects products, but it also limits what users can learn about the system. Where that line sits is a policy question as much as a technical one.
 
+[^1]: The paper reports over 70,000 scenarios with significant behavioural divergence among twelve frontier models from several providers.
+
 ## References
 
 ### Seminal papers
@@ -110,5 +112,3 @@ The first three are developer-written. The fourth tests who writes the principle
 - Anthropic (n.d.). *Claude's Constitution*. https://www.anthropic.com/constitution — Anthropic's published constitution, covering its priority ordering, its preference for judgement over rules and its acknowledged limits.
 - Zhang, J. et al. (2025). *Stress-Testing Model Specs Reveals Character Differences among Language Models*. arXiv. https://arxiv.org/abs/2510.07686 — Generates value-conflict scenarios to find contradictions and ambiguities in published model specs.
 - Marks, S. et al. (2025). *Auditing language models for hidden objectives*. arXiv. https://arxiv.org/abs/2503.10965 — Trains a model with a hidden objective and tests eight auditing techniques in blind and unblinded studies.
-
-[^1]: The paper reports over 70,000 scenarios with significant behavioural divergence among twelve frontier models from several providers.

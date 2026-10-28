@@ -68,6 +68,12 @@ The abstract reports that the framework solves the tasks traditional ILP systems
 
 ∂ILP is the learning counterpart of the rule-based tradition in [knowledge representation](../../knowledge-graphs/index.md), since it learns definite clauses of the kind a knowledge base stores. Other differentiable logics include Logic Tensor Networks,[^2] DeepProbLog,[^3] Logical Neural Networks[^4] and Neural Logic Machines,[^5] which generalise rules learned from small tasks to larger ones. On the proving side, [neural theorem provers](../neural-theorem-prover/index.md) make a similar move. The argument that learning should yield explanatory, causal rules is developed in [Building Machines That Learn and Think Like People](../../../../brain-mind/cognitive-science/building-machines-like-people/index.md).
 
+[^1]: Evans and Grefenstette (2018), listed above. The summary of findings is taken from the abstract.
+[^2]: Serafini and d'Avila Garcez (2016), listed above.
+[^3]: Manhaeve et al. (2018), listed above.
+[^4]: Riegel et al. (2020), listed above.
+[^5]: Dong et al. (2019), listed above. The generalisation example is from the abstract.
+
 ## References
 
 ### Seminal papers
@@ -81,9 +87,3 @@ The abstract reports that the framework solves the tasks traditional ILP systems
 ### Surveys and textbooks
 
 - Besold, T. R. et al. (2017). *Neural-Symbolic Learning and Reasoning: A Survey and Interpretation*. arXiv. https://arxiv.org/abs/1711.03902 — Surveys neural-symbolic learning and reasoning, relating computational-logic and connectionist models of cognition.
-
-[^1]: Evans and Grefenstette (2018), listed above. The summary of findings is taken from the abstract.
-[^2]: Serafini and d'Avila Garcez (2016), listed above.
-[^3]: Manhaeve et al. (2018), listed above.
-[^4]: Riegel et al. (2020), listed above.
-[^5]: Dong et al. (2019), listed above. The generalisation example is from the abstract.

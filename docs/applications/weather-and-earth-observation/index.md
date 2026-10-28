@@ -97,6 +97,10 @@ Other systems in the same family are discussed in the text: GenCast, a probabili
 - **Labels for Earth observation.** Labels for disasters, crops and land use are expensive and local. Pretrained foundation models reduce the labels needed, but they must generalise across sensors, regions and seasons.
 - **Evaluation.** Shared benchmarks such as WeatherBench 2 standardise the scores (Rasp et al., 2023), but the choice of metrics and baselines still shapes the conclusions.
 
+[^1]: Lam et al. (2023) describe training on an error averaged over an increasing number of autoregressive steps, from one to twelve, and report that more steps improve performance at longer lead times.
+[^2]: The GraphCast abstract reports that the system significantly outperforms the most accurate operational deterministic systems on 90% of 1,380 verification targets.
+[^3]: Nearing et al. (2024) report reliability at up to a five-day lead time, compared with nowcasts from the Copernicus Emergency Management Service Global Flood Awareness System.
+
 ## References
 
 ### Seminal papers
@@ -123,7 +127,3 @@ Other systems in the same family are discussed in the text: GenCast, a probabili
 - Pathak, J. et al. (2022). *FourCastNet: A Global Data-driven High-resolution Weather Model using Adaptive Fourier Neural Operators*. arXiv. https://arxiv.org/abs/2202.11214 — Global data-driven forecasting model that uses Fourier neural operators.
 - Bodnar, C. et al. (2024). *A Foundation Model for the Earth System*. arXiv. https://arxiv.org/abs/2405.13063 — Aurora, a foundation model for weather, air quality and ocean forecasts.
 - Rasp, S. et al. (2023). *WeatherBench 2: A benchmark for the next generation of data-driven global weather models*. arXiv. https://arxiv.org/abs/2308.15560 — Open evaluation framework and baselines for data-driven weather models.
-
-[^1]: Lam et al. (2023) describe training on an error averaged over an increasing number of autoregressive steps, from one to twelve, and report that more steps improve performance at longer lead times.
-[^2]: The GraphCast abstract reports that the system significantly outperforms the most accurate operational deterministic systems on 90% of 1,380 verification targets.
-[^3]: Nearing et al. (2024) report reliability at up to a five-day lead time, compared with nowcasts from the Copernicus Emergency Management Service Global Flood Awareness System.

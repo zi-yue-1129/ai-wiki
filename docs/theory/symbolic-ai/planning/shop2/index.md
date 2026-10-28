@@ -66,6 +66,8 @@ SHOP2 is one way to add hierarchy to planning, and it is compared with the flat 
 - **Game AI**, where designers encode how characters carry out tasks such as patrolling or taking cover.
 - **Logistics and project planning**, where tasks such as transporting a load already have standard procedures.
 
+[^1]: Nau et al. (2003), listed above. The award and the temporal and metric features are as stated in the paper's abstract.
+
 ## References
 
 ### Seminal papers
@@ -79,5 +81,3 @@ SHOP2 is one way to add hierarchy to planning, and it is compared with the flat 
 - Helmert, M. (2006). The Fast Downward Planning System. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.1705 — Describes a non-hierarchical heuristic planner for PDDL tasks, which won the classical track of the 2004 competition.
 - Hoffmann, J. & Nebel, B. (2001). The FF Planning System: Fast Plan Generation Through Heuristic Search. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.855 — Shows heuristic forward search, a flat alternative that does not rely on hand-written methods.
 - Ahn, M. et al. (2022). Do As I Can, Not As I Say: Grounding Language in Robotic Affordances. arXiv. https://arxiv.org/abs/2204.01691 — Uses primitive robot skills as the actions of a plan that a language model composes.
-
-[^1]: Nau et al. (2003), listed above. The award and the temporal and metric features are as stated in the paper's abstract.

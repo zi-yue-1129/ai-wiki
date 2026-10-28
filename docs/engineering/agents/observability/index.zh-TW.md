@@ -84,6 +84,16 @@ flowchart LR
 - **歸因。** 自動評審比起找出決定性的步驟，更能可靠地找出負責的代理人。Zhang 等人（2025）報告其最佳方法的代理人層級準確率為 53.5%，步驟層級準確率為 14.2%。[^8]
 - **標準。** 各工具記錄的欄位不同。業界正在發展共通的慣例，而本頁介紹的分類法仍是提案，而非標準。[^9]
 
+[^1]: Cemri 等人（2025），第 1 節，關於多代理人系統中驗證根本原因基準事實的困難，https://arxiv.org/abs/2503.13657
+[^2]: Chen、Zaharia 與 Zou（2023），摘要，https://arxiv.org/abs/2305.05176
+[^3]: Feng 等人（2025），摘要，https://arxiv.org/abs/2505.17716
+[^4]: Zheng 等人（2025），第 5.2 節，https://arxiv.org/abs/2508.02736
+[^5]: Dong 等人（2024），第 3 節，https://arxiv.org/abs/2411.05285
+[^6]: Chan 等人（2024），摘要，https://arxiv.org/abs/2401.13138
+[^7]: Baker 等人（2025），摘要，https://arxiv.org/abs/2503.11926
+[^8]: Zhang 等人（2025），摘要，https://arxiv.org/abs/2505.00212
+[^9]: Zheng 等人（2025），相關研究一節，關於 OpenTelemetry GenAI 標準，https://arxiv.org/abs/2508.02736
+
 ## 參考文獻
 
 ### 奠基性論文
@@ -104,13 +114,3 @@ flowchart LR
 ### 文章與文件
 
 - Anthropic（2024）。*Building effective AI agents*。Anthropic Engineering。https://www.anthropic.com/engineering/building-effective-agents — 指出代理人以延遲與成本換取效能，可能使錯誤累積，並應在沙箱環境中充分測試。
-
-[^1]: Cemri 等人（2025），第 1 節，關於多代理人系統中驗證根本原因基準事實的困難，https://arxiv.org/abs/2503.13657
-[^2]: Chen、Zaharia 與 Zou（2023），摘要，https://arxiv.org/abs/2305.05176
-[^3]: Feng 等人（2025），摘要，https://arxiv.org/abs/2505.17716
-[^4]: Zheng 等人（2025），第 5.2 節，https://arxiv.org/abs/2508.02736
-[^5]: Dong 等人（2024），第 3 節，https://arxiv.org/abs/2411.05285
-[^6]: Chan 等人（2024），摘要，https://arxiv.org/abs/2401.13138
-[^7]: Baker 等人（2025），摘要，https://arxiv.org/abs/2503.11926
-[^8]: Zhang 等人（2025），摘要，https://arxiv.org/abs/2505.00212
-[^9]: Zheng 等人（2025），相關研究一節，關於 OpenTelemetry GenAI 標準，https://arxiv.org/abs/2508.02736

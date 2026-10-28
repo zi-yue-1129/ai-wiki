@@ -82,6 +82,8 @@ Lee 與 See（2004）用三個詞來描述這個循環的品質。*校準*指信
 - 考慮到流暢的輸出無論是否正確都可能看起來可靠，介面應該如何呈現語言模型的不確定性？
 - 歐盟 AI 法對部分高風險系統設有人類監督的義務。要讓這些義務在實務上有意義，需要多少程度的人類監督？
 
+[^1]: 該後設分析報告，在決策任務上，人與 AI 的組合平均而言表現不如兩者中較好的一方；在創意任務上則結果不同。引用確切的效果量前，請查閱原文。
+
 ## 參考資料
 
 ### 開創性論文
@@ -106,5 +108,3 @@ Lee 與 See（2004）用三個詞來描述這個循環的品質。*校準*指信
 - Gaube, S. et al. (2021). Do as AI say: susceptibility in deployment of clinical decision-aids. *npj Digital Medicine*. https://doi.org/10.1038/s41746-021-00385-9 — 研究臨床人員如何受到 AI 建議影響，包括不正確的建議。
 - Budzyń, K. et al. (2025). Endoscopist deskilling risk after exposure to artificial intelligence in colonoscopy: a multicentre, observational study. *The Lancet Gastroenterology & Hepatology*. https://doi.org/10.1016/S2468-1253(25)00133-5 — 多中心觀察性研究，探討內視鏡醫師在接觸 AI 後表現是否改變，檢視去技能化的風險。
 - Kasneci, E. et al. (2023). ChatGPT for good? On opportunities and challenges of large language models for education. *Learning and Individual Differences*. https://doi.org/10.1016/j.lindif.2023.102274 — 對大型語言模型如何支持學習、以及它帶來的風險所做的觀點性綜述。
-
-[^1]: 該後設分析報告，在決策任務上，人與 AI 的組合平均而言表現不如兩者中較好的一方；在創意任務上則結果不同。引用確切的效果量前，請查閱原文。

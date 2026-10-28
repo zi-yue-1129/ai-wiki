@@ -65,6 +65,7 @@ The companion method is [Grid Cells](../grid-cells/index.md), whose firing is pr
 
 - O'Keefe, J. & Dostrovsky, J. (1971). The hippocampus as a spatial map. Preliminary evidence from unit activity in the freely-moving rat. *Brain Research*. https://doi.org/10.1016/0006-8993(71)90358-1 — Reports hippocampal units in freely moving rats that fire when the animal is in a particular place, and proposes that the hippocampus is a spatial map.
 - Tolman, E. C. (1948). Cognitive maps in rats and men. *Psychological Review*. https://doi.org/10.1037/h0061626 — Argues that rats in mazes acquire a map-like knowledge of the environment, the idea that place-cell work later made physiological.
+- Hafting, T., Fyhn, M., Molden, S., Moser, M.-B. & Moser, E. I. (2005). Microstructure of a spatial map in the entorhinal cortex. *Nature*. https://doi.org/10.1038/nature03721 — Reports grid cells in the medial entorhinal cortex, the input region proposed to supply place cells with a metric code.
 
 ### Surveys and textbooks
 

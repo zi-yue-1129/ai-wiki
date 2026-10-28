@@ -69,6 +69,10 @@ The main evidence is the labelled dataset and the agreement figures, not a bench
 - Can labels support causal attribution? Zhang et al. (2025) found that automated judges identified the responsible agent far more often than the decisive error step. The best method reached 53.5% agent-level and 14.2% step-level accuracy.[^3]
 - When is a workflow change more effective than a prompt change? The two case studies point in different directions.
 
+[^1]: Cemri et al. (2025), Section 1, https://arxiv.org/abs/2503.13657
+[^2]: Cemri et al. (2025), Table 2 and Appendix H, https://arxiv.org/abs/2503.13657
+[^3]: Zhang et al. (2025), abstract and Table 1, https://arxiv.org/abs/2505.00212
+
 ## References
 
 ### Seminal papers
@@ -81,7 +85,3 @@ The main evidence is the labelled dataset and the agreement figures, not a bench
 ### Articles and documentation
 
 - Anthropic (2024). *Building effective AI agents*. Anthropic Engineering. https://www.anthropic.com/engineering/building-effective-agents — Notes that agents can compound errors and recommends extensive testing in sandboxed environments.
-
-[^1]: Cemri et al. (2025), Section 1, https://arxiv.org/abs/2503.13657
-[^2]: Cemri et al. (2025), Table 2 and Appendix H, https://arxiv.org/abs/2503.13657
-[^3]: Zhang et al. (2025), abstract and Table 1, https://arxiv.org/abs/2505.00212

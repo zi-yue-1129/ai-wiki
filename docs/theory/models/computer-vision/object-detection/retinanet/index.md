@@ -75,6 +75,12 @@ On COCO test-dev, RetinaNet-101 at 800 pixels, trained with scale jitter for 1.5
 
 Dense one-stage detectors suit settings where latency matters, such as video analysis and embedded systems. The choice between one-stage and two-stage designs depends on latency, data and hardware, and the applications listed on the [Object Detection](../index.md) page apply here too.
 
+[^1]: Lin et al. (2017), Introduction: dense detectors evaluate 10^4 to 10^5 candidate locations per image, of which only a few contain objects; the paper argues that class imbalance is the central cause of the accuracy gap.
+[^2]: Lin et al. (2017), Sections 3 and 5 and Table 1: the focal loss definition, the α and γ ablations (Tables 1a and 1b), the OHEM comparison (Table 1d), and the default setting γ = 2 with α = 0.25.
+[^3]: Lin et al. (2017), Section 5 and Table 2, including the Inception-ResNet-v2-TDM comparison.
+[^4]: Lin et al. (2017), Section 4 (inference), Section 5.2 and Figure 2: the inference procedure, the speed-accuracy comparison on an M40 GPU, and the paper's statement that high frame rates need a different network design.
+[^5]: Ge et al. (2021), abstract: YOLOX uses an anchor-free form with a decoupled head and the SimOTA label-assignment strategy.
+
 ## References
 
 ### Seminal papers
@@ -92,9 +98,3 @@ Dense one-stage detectors suit settings where latency matters, such as video ana
 ### Articles and documentation
 
 - Ge, Z., Liu, S., Wang, F., Li, Z. & Sun, J. (2021). *YOLOX: Exceeding YOLO Series in 2021*. arXiv. https://arxiv.org/abs/2107.08430 — A later one-stage detector that uses a different label-assignment strategy, SimOTA.
-
-[^1]: Lin et al. (2017), Introduction: dense detectors evaluate 10^4 to 10^5 candidate locations per image, of which only a few contain objects; the paper argues that class imbalance is the central cause of the accuracy gap.
-[^2]: Lin et al. (2017), Sections 3 and 5 and Table 1: the focal loss definition, the α and γ ablations (Tables 1a and 1b), the OHEM comparison (Table 1d), and the default setting γ = 2 with α = 0.25.
-[^3]: Lin et al. (2017), Section 5 and Table 2, including the Inception-ResNet-v2-TDM comparison.
-[^4]: Lin et al. (2017), Section 4 (inference), Section 5.2 and Figure 2: the inference procedure, the speed-accuracy comparison on an M40 GPU, and the paper's statement that high frame rates need a different network design.
-[^5]: Ge et al. (2021), abstract: YOLOX uses an anchor-free form with a decoupled head and the SimOTA label-assignment strategy.

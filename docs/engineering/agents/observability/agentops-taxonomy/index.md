@@ -78,6 +78,8 @@ The paper is a conceptual and descriptive study and reports no experiments.
 - Will the taxonomy converge with shared telemetry standards? Zheng et al. (2025) note that observability is being unified by standards from the OpenTelemetry GenAI working group.[^1]
 - How should sensitive content in traces be governed? Chan et al. (2024) discuss the privacy implications of visibility measures for agents.
 
+[^1]: Zheng et al. (2025), related-work section, https://arxiv.org/abs/2508.02736
+
 ## References
 
 ### Seminal papers
@@ -94,5 +96,3 @@ The paper is a conceptual and descriptive study and reports no experiments.
 ### Articles and documentation
 
 - Anthropic (2024). *Building effective AI agents*. Anthropic Engineering. https://www.anthropic.com/engineering/building-effective-agents — Notes that agentic systems trade latency and cost for performance, and recommends extensive testing in sandboxed environments.
-
-[^1]: Zheng et al. (2025), related-work section, https://arxiv.org/abs/2508.02736

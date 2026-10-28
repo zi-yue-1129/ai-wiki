@@ -72,6 +72,8 @@ On a K40 GPU, Selective Search with Fast R-CNN takes 1,830 ms per image. The RPN
 
 Faster R-CNN and its variants have been used for pedestrian and vehicle detection in driving systems, for medical image analysis and for industrial inspection.
 
+[^1]: Ren et al. (2015), Tables 3, 4, 5 and 8. The VOC mAP values depend on the training data; the timing is measured on a K40 GPU, and the Selective Search time is measured on a CPU.
+
 ## References
 
 ### Seminal papers
@@ -82,5 +84,3 @@ Faster R-CNN and its variants have been used for pedestrian and vehicle detectio
 - Lin, T.-Y., Dollár, P., Girshick, R., He, K., Hariharan, B. & Belongie, S. (2016). *Feature Pyramid Networks for Object Detection*. arXiv. https://arxiv.org/abs/1612.03144 — Builds a top-down pyramid of features from a CNN backbone, which later detectors use for multi-scale detection.
 - Lin, T.-Y., et al. (2014). *Microsoft COCO: Common Objects in Context*. arXiv. https://arxiv.org/abs/1405.0312 — The COCO dataset on which Faster R-CNN's 2015 results were reported and against which later detectors are compared.
 - Zou, Z., et al. (2019). *Object Detection in 20 Years: A Survey*. arXiv. https://arxiv.org/abs/1905.05055 — A broad survey of detection methods, with the region-based family placed in its historical context.
-
-[^1]: Ren et al. (2015), Tables 3, 4, 5 and 8. The VOC mAP values depend on the training data; the timing is measured on a K40 GPU, and the Selective Search time is measured on a CPU.

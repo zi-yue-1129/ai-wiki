@@ -64,6 +64,11 @@ A\* 是 Dijkstra 最短路徑演算法的有資訊版本，而後者是它的特
 - **機器人動作規劃**，用於格狀地圖；格子距離到目標是常用的估計。
 - **自動規劃**，用於謎題與物流；鬆弛問題的啟發式引導搜尋方向。[^4]
 
+[^1]: Hart、Nilsson 與 Raphael (1968) 以及更正說明 (1972)，見上方參考文獻。1972 年的摘要描述了一致性的結果。
+[^2]: Dijkstra (1959)，見上方參考文獻。
+[^3]: Korf (1985)，見上方參考文獻。
+[^4]: Hoffmann and Nebel (2001)，見上方參考文獻。競賽的說法如其摘要所報告。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -76,8 +81,3 @@ A\* 是 Dijkstra 最短路徑演算法的有資訊版本，而後者是它的特
 ### 文章與文件
 
 - Hoffmann, J. & Nebel, B. (2001). The FF Planning System: Fast Plan Generation Through Heuristic Search. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.855 — 展示以鬆弛問題估計為啟發式的前向狀態搜尋，應用於自動規劃。
-
-[^1]: Hart、Nilsson 與 Raphael (1968) 以及更正說明 (1972)，見上方參考文獻。1972 年的摘要描述了一致性的結果。
-[^2]: Dijkstra (1959)，見上方參考文獻。
-[^3]: Korf (1985)，見上方參考文獻。
-[^4]: Hoffmann and Nebel (2001)，見上方參考文獻。競賽的說法如其摘要所報告。

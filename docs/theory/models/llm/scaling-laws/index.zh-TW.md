@@ -82,6 +82,12 @@ $$L(N, D) \approx E + \frac{A}{N^{\alpha}} + \frac{B}{D^{\beta}}$$
 - **定律能否移轉？** Henighan et al.（2020）在影像、影片、多模態與數學模型中，也發現了與文字相似的冪律縮放，指數相近。新架構、新目標或新模態是否維持相同的形狀，每次都需要重新測量。
 - **訓練與推論的權衡。** 如何權衡服務成本與訓練成本，以及對於特定查詢，測試時運算能否取代參數，仍是開放問題。
 
+[^1]: Hestness et al.（2017）測試了四個領域：機器翻譯、語言模型、影像處理與語音辨識。見參考文獻。
+[^2]: 損失隨規模變化的結果，以及「橫跨超過七個數量級」一語，皆取自 Kaplan et al.（2020）的摘要。擬合常數載於原論文中，此處不再重複。
+[^3]: Wei et al.（2022）在引言中定義了此詞。他們所舉的例子此處不再重複，因為本頁撰寫時未檢視全文。
+[^4]: 此論點是在固定的模型輸出上改變指標而提出的；見參考文獻中的 Schaeffer et al.（2023）。
+[^5]: 此報告是作為由較小的訓練進行預測這一做法的出處而引用。其中的具體數字此處不再重複。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -106,9 +112,3 @@ $$L(N, D) \approx E + \frac{A}{N^{\alpha}} + \frac{B}{D^{\beta}}$$
 - Sardana, N., et al. (2023). *Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws*. arXiv. https://arxiv.org/abs/2401.00448 — 修正 Chinchilla 分析，在選擇模型大小與資料量時納入推論成本。
 - Gadre, S. Y., et al. (2024). *Language models scale reliably with over-training and on downstream tasks*. arXiv. https://arxiv.org/abs/2403.08540 — 研究模型訓練超過運算最佳點、並於下游任務上評估時，縮放預測是否仍然成立。
 - Brown, B., et al. (2024). *Large Language Monkeys: Scaling Inference Compute with Repeated Sampling*. arXiv. https://arxiv.org/abs/2407.21787 — 顯示至少有一次取樣解出問題的比例，會隨取樣次數增加而上升。
-
-[^1]: Hestness et al.（2017）測試了四個領域：機器翻譯、語言模型、影像處理與語音辨識。見參考文獻。
-[^2]: 損失隨規模變化的結果，以及「橫跨超過七個數量級」一語，皆取自 Kaplan et al.（2020）的摘要。擬合常數載於原論文中，此處不再重複。
-[^3]: Wei et al.（2022）在引言中定義了此詞。他們所舉的例子此處不再重複，因為本頁撰寫時未檢視全文。
-[^4]: 此論點是在固定的模型輸出上改變指標而提出的；見參考文獻中的 Schaeffer et al.（2023）。
-[^5]: 此報告是作為由較小的訓練進行預測這一做法的出處而引用。其中的具體數字此處不再重複。

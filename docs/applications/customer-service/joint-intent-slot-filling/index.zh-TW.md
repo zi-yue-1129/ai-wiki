@@ -61,6 +61,8 @@ $$
 - **標籤效率。** 預訓練句子編碼器能減少新意圖所需的標註範例（Casanueva et al., 2020）。它對槽位標籤的效果有多大，則較不清楚。
 - **取代標記器。** 生成式語言模型可以把意圖與槽位值寫成文字，這消除了固定標籤集合，但可能犧牲有型別輸出的可檢查性。參見 [SimpleTOD](../simpletod/index.md) 頁面。
 
+[^1]: Liu and Lane (2016)，摘要：聯合模型相較於獨立的任務模型，意圖偵測錯誤率絕對降低 0.56%（相對降低 23.8%），槽位填充的 F1 絕對提升 0.23%，評估資料為 ATIS。https://arxiv.org/abs/1609.01454
+
 ## 參考文獻
 
 ### 奠基性論文
@@ -73,5 +75,3 @@ $$
 ### 綜述與教科書
 
 - Weld, H. et al. (2021). A survey of joint intent detection and slot-filling models in natural language understanding. https://arxiv.org/abs/2101.08091 — 綜述聯合意圖與槽位模型的發展，從循環網路一直到以 BERT 為基礎的模型。
-
-[^1]: Liu and Lane (2016)，摘要：聯合模型相較於獨立的任務模型，意圖偵測錯誤率絕對降低 0.56%（相對降低 23.8%），槽位填充的 F1 絕對提升 0.23%，評估資料為 ATIS。https://arxiv.org/abs/1609.01454

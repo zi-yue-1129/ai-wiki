@@ -56,6 +56,12 @@ $$
 
 ∂ILP 是[知識表示](../../knowledge-graphs/index.md)中規則式傳統在學習面上的對應，因為它學習的是知識庫所儲存的那類定子句。其他可微分邏輯包括邏輯張量網路、[^2] DeepProbLog、[^3] 邏輯神經網路[^4] 與神經邏輯機，[^5] 後者能把從小任務學得的規則推廣到較大的任務。在證明方面，[神經定理證明器](../neural-theorem-prover/index.md)採取了相近的做法。主張學習應產生可解釋的因果規則，這一論點在 [Building Machines That Learn and Think Like People](../../../../brain-mind/cognitive-science/building-machines-like-people/index.md) 中有所發展。
 
+[^1]: Evans 與 Grefenstette（2018），見上文。研究結果的摘要取自摘要部分。
+[^2]: Serafini 與 d'Avila Garcez（2016），見上文。
+[^3]: Manhaeve 等人（2018），見上文。
+[^4]: Riegel 等人（2020），見上文。
+[^5]: Dong 等人（2019），見上文。推廣的例子取自摘要。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -69,9 +75,3 @@ $$
 ### 綜述與教科書
 
 - Besold, T. R. et al. (2017). *Neural-Symbolic Learning and Reasoning: A Survey and Interpretation*. arXiv. https://arxiv.org/abs/1711.03902 — 綜述神經符號學習與推理，連結計算邏輯與連結主義的認知模型。
-
-[^1]: Evans 與 Grefenstette（2018），見上文。研究結果的摘要取自摘要部分。
-[^2]: Serafini 與 d'Avila Garcez（2016），見上文。
-[^3]: Manhaeve 等人（2018），見上文。
-[^4]: Riegel 等人（2020），見上文。
-[^5]: Dong 等人（2019），見上文。推廣的例子取自摘要。

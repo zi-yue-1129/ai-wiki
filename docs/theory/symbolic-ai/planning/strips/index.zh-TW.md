@@ -63,6 +63,11 @@ STRIPS 是[基於搜尋的規劃](../../search/index.md)所建立的表示法，
 - **機器人任務規劃**，這是最初的應用，機器人必須排序移動與推動物件等行動。
 - **物流與運輸**，以 PDDL 建模，運算子包括裝載、移動與卸載，並用於規劃競賽中。[^2]
 
+[^1]: Fikes and Nilsson (1971)，見上方列表。
+[^2]: Fox and Long (2003)，見上方列表。
+[^3]: Hoffmann and Nebel (2001)，見上方列表。鬆弛及其作為啟發式的用途，見其摘要。
+[^4]: Helmert (2006)，見上方列表。競賽結果依該論文摘要所報告。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -75,8 +80,3 @@ STRIPS 是[基於搜尋的規劃](../../search/index.md)所建立的表示法，
 - Fox, M. & Long, D. (2003). PDDL2.1: An Extension to PDDL for Expressing Temporal Planning Domains. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.1129 — 定義 PDDL2.1，把 STRIPS 式運算子擴充到時間與數值規劃，並給出其語意。
 - Hoffmann, J. & Nebel, B. (2001). The FF Planning System: Fast Plan Generation Through Heuristic Search. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.855 — 說明以忽略刪除清單的目標距離估計進行啟發式前向搜尋，這是對 STRIPS 運算子的一種鬆弛。
 - Helmert, M. (2006). The Fast Downward Planning System. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.1705 — 描述以因果圖啟發式處理 PDDL 任務的規劃器，該系統在 2004 年競賽的古典賽道中獲勝。
-
-[^1]: Fikes and Nilsson (1971)，見上方列表。
-[^2]: Fox and Long (2003)，見上方列表。
-[^3]: Hoffmann and Nebel (2001)，見上方列表。鬆弛及其作為啟發式的用途，見其摘要。
-[^4]: Helmert (2006)，見上方列表。競賽結果依該論文摘要所報告。

@@ -78,6 +78,10 @@ The gains are larger on FB15k-237 and WN18RR. There RotatE reports an MRR of 0.3
 - Can rotation-based models represent facts with more than two entities, or facts that change over time? Ji and colleagues survey temporal graphs.[^3]
 - Does the pattern structure found in learned relations hold for noisy, automatically built graphs?
 
+[^1]: Sun et al. (2019), listed above.
+[^2]: Sun et al. (2019), listed above, Tables 4 and 5. Numbers are copied from the tables, whose baseline rows come from other papers.
+[^3]: Ji et al. (2020), listed above.
+
 ## References
 
 ### Seminal papers
@@ -90,7 +94,3 @@ The gains are larger on FB15k-237 and WN18RR. There RotatE reports an MRR of 0.3
 
 - Nickel, M. et al. (2015). A Review of Relational Machine Learning for Knowledge Graphs. arXiv. https://arxiv.org/abs/1503.00759 — Reviews latent-feature models for predicting facts in knowledge graphs.
 - Ji, S. et al. (2020). A Survey on Knowledge Graphs: Representation, Acquisition and Applications. arXiv. https://arxiv.org/abs/2002.00388 — Surveys knowledge-graph representation learning, completion, temporal graphs and applications.
-
-[^1]: Sun et al. (2019), listed above.
-[^2]: Sun et al. (2019), listed above, Tables 4 and 5. Numbers are copied from the tables, whose baseline rows come from other papers.
-[^3]: Ji et al. (2020), listed above.

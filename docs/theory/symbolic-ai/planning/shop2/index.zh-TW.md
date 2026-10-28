@@ -55,6 +55,8 @@ SHOP2 是為規劃加入階層結構的一種方式，[規劃概述](../index.md
 - **遊戲 AI**，設計者編碼角色如何執行巡邏或掩護等任務。
 - **物流與專案規劃**，運送貨物等任務已有標準流程。
 
+[^1]: Nau et al. (2003)，見上方列表。獎項以及時間與度量特性，依該論文摘要所述。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -68,5 +70,3 @@ SHOP2 是為規劃加入階層結構的一種方式，[規劃概述](../index.md
 - Helmert, M. (2006). The Fast Downward Planning System. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.1705 — 描述一個非階層式的啟發式 PDDL 規劃器，是競賽中階層分解以外的主要替代方案。
 - Hoffmann, J. & Nebel, B. (2001). The FF Planning System: Fast Plan Generation Through Heuristic Search. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.855 — 說明啟發式前向搜尋，這是不依賴人手寫方法的扁平替代方案。
 - Ahn, M. et al. (2022). Do As I Can, Not As I Say: Grounding Language in Robotic Affordances. arXiv. https://arxiv.org/abs/2204.01691 — 以原始機器人技能作為計畫中的行動，由語言模型加以組合。
-
-[^1]: Nau et al. (2003)，見上方列表。獎項以及時間與度量特性，依該論文摘要所述。

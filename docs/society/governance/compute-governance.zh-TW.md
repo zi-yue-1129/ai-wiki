@@ -66,6 +66,9 @@ translation_reviewed: 2026-10-28
 - **出口管制容易被繞過。** Gupta 等人（2024）提出證據，指出中國的實驗室已取得受管制的晶片，並運用軟體與建模技術，從較弱的硬體中榨取更多效能。其論點集中於一家公司的一個模型，因此應視為一個有力的主張，而非定論。
 - **範圍過廣的代價。** Sastry 等人（2024）警告，範圍設計不當的運算治理，會對隱私、經濟活動，以及權力集中於少數行為者等方面帶來風險。
 
+[^1]: Sevilla 等人（2022）分別報告了各時期的倍增時間；此處引用的是深度學習時代的數字，確切估計值取決於所用的模型樣本。
+[^2]: 歐盟的推定與美國的回報義務，皆以訓練運算量作為參照。確切數值見法律條文本身；應對照各法律的現行版本核對。
+
 ## 參考資料
 
 ### 開創性論文
@@ -82,6 +85,3 @@ translation_reviewed: 2026-10-28
 - Hooker, S. (2024). *On the Limitations of Compute Thresholds as a Governance Strategy*. arXiv preprint. https://arxiv.org/abs/2407.05694 — 質疑訓練運算量能否預測風險的隨筆，並提出更好的做法。
 - Pistillo, M. & Villalobos, P. (2025). *Defending Compute Thresholds Against Legal Loopholes*. arXiv preprint. https://arxiv.org/abs/2502.00003 — 檢視可讓開發者規避美國與歐盟法律中門檻的節省運算技術。
 - Gupta, R., Walker, L. & Reddie, A. W. (2024). *Whack-a-Chip: The Futility of Hardware-Centric Export Controls*. arXiv preprint. https://arxiv.org/abs/2411.14425 — 以中國開發者規避晶片出口管制為案例研究，並評估此策略。
-
-[^1]: Sevilla 等人（2022）分別報告了各時期的倍增時間；此處引用的是深度學習時代的數字，確切估計值取決於所用的模型樣本。
-[^2]: 歐盟的推定與美國的回報義務，皆以訓練運算量作為參照。確切數值見法律條文本身；應對照各法律的現行版本核對。

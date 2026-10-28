@@ -73,6 +73,11 @@ STRIPS is the representation on which [search-based planning](../../search/index
 - **Robot task planning**, which is the original application, where a robot must sequence actions such as moving and pushing objects.
 - **Logistics and transport**, modelled in PDDL with operators for loading, moving and unloading, as used in the planning competitions.[^2]
 
+[^1]: Fikes and Nilsson (1971), listed above.
+[^2]: Fox and Long (2003), listed above.
+[^3]: Hoffmann and Nebel (2001), listed above. The relaxation and its use as a heuristic are described in their abstract.
+[^4]: Helmert (2006), listed above. The competition result is as reported in the paper's abstract.
+
 ## References
 
 ### Seminal papers
@@ -85,8 +90,3 @@ STRIPS is the representation on which [search-based planning](../../search/index
 - Fox, M. & Long, D. (2003). PDDL2.1: An Extension to PDDL for Expressing Temporal Planning Domains. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.1129 — Defines the PDDL2.1 extension of STRIPS-style operators to temporal and numeric planning, with its semantics.
 - Hoffmann, J. & Nebel, B. (2001). The FF Planning System: Fast Plan Generation Through Heuristic Search. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.855 — Shows heuristic forward search whose goal-distance estimate ignores delete lists, a relaxation of STRIPS operators.
 - Helmert, M. (2006). The Fast Downward Planning System. *Journal of Artificial Intelligence Research*. https://doi.org/10.1613/jair.1705 — Describes a planner for PDDL tasks that uses a causal-graph heuristic and won the classical track of the 2004 competition.
-
-[^1]: Fikes and Nilsson (1971), listed above.
-[^2]: Fox and Long (2003), listed above.
-[^3]: Hoffmann and Nebel (2001), listed above. The relaxation and its use as a heuristic are described in their abstract.
-[^4]: Helmert (2006), listed above. The competition result is as reported in the paper's abstract.

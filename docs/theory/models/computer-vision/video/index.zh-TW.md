@@ -71,6 +71,18 @@ SlowFast 與 TimeSformer 是上文提及的另外兩個代表。[視覺 Transfor
 - **物理一致性。** 影片生成器究竟學到了物理，還是只學到了訓練資料的統計特性，仍有爭議，如[世界模型](../../world-models/index.md)頁所討論。
 - **預訓練。** 影片的自監督能否在大規模上取代影像預訓練，仍未解決。VideoMAE 顯示，單靠影片資料便足以應付中等規模的基準，但它也顯示了資料集之間的領域偏移。[^7]
 
+[^1]: Tong 等人（2022）：摘要與第 3 節。跨連續影格的時間冗餘支持 90% 至 95% 的遮罩比率。
+[^2]: Kay 等人（2017）：400 類，每類至少 400 段，每段約十秒，來自不同的 YouTube 影片。24 萬段訓練片段的數字見 Carreira 與 Zisserman（2017）第 3 節，該文亦報告了從 Kinetics 遷移到 UCF-101 與 HMDB-51 的結果。
+[^3]: Ho 等人（2022）：FVD 以 I3D 特徵計算，論文指出取樣協定會改變分數。
+[^4]: Simonyan 與 Zisserman（2014），摘要與引言，包括關於雙流假說的註記。
+[^5]: Carreira 與 Zisserman（2017），第 2 節，關於把二維濾波器膨脹為三維。
+[^6]: Bertasius 等人（2021），摘要。
+[^7]: Tong 等人（2022），表 2，以及預訓練資料集段落中關於領域偏移的討論。
+[^8]: Feichtenhofer 等人（2018），摘要。
+[^9]: Goodale 與 Milner（1992）。
+[^10]: Liu 等人（2024），摘要：此綜述涵蓋 Sora 背後的技術、跨產業的應用以及其限制。
+[^11]: Bardes 等人（2024），摘要：不做像素重建的特徵預測。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -91,15 +103,3 @@ SlowFast 與 TimeSformer 是上文提及的另外兩個代表。[視覺 Transfor
 - Zhu, Y., et al. (2020). *A Comprehensive Study of Deep Video Action Recognition*. arXiv. https://arxiv.org/abs/2012.06567 — 綜述逾兩百篇深度影片動作辨識論文，涵蓋其使用的資料集與評估協定。
 - Xing, Z., et al. (2023). *A Survey on Video Diffusion Models*. arXiv. https://arxiv.org/abs/2310.10647 — 綜述影片擴散的架構、訓練與評估。
 - Liu, Y., et al. (2024). *Sora: A Review on Background, Technology, Limitations, and Opportunities of Large Vision Models*. arXiv. https://arxiv.org/abs/2402.17177 — 回顧文字生成影片模型 Sora 的背景技術、應用與限制。
-
-[^1]: Tong 等人（2022）：摘要與第 3 節。跨連續影格的時間冗餘支持 90% 至 95% 的遮罩比率。
-[^2]: Kay 等人（2017）：400 類，每類至少 400 段，每段約十秒，來自不同的 YouTube 影片。24 萬段訓練片段的數字見 Carreira 與 Zisserman（2017）第 3 節，該文亦報告了從 Kinetics 遷移到 UCF-101 與 HMDB-51 的結果。
-[^3]: Ho 等人（2022）：FVD 以 I3D 特徵計算，論文指出取樣協定會改變分數。
-[^4]: Simonyan 與 Zisserman（2014），摘要與引言，包括關於雙流假說的註記。
-[^5]: Carreira 與 Zisserman（2017），第 2 節，關於把二維濾波器膨脹為三維。
-[^6]: Bertasius 等人（2021），摘要。
-[^7]: Tong 等人（2022），表 2，以及預訓練資料集段落中關於領域偏移的討論。
-[^8]: Feichtenhofer 等人（2018），摘要。
-[^9]: Goodale 與 Milner（1992）。
-[^10]: Liu 等人（2024），摘要：此綜述涵蓋 Sora 背後的技術、跨產業的應用以及其限制。
-[^11]: Bardes 等人（2024），摘要：不做像素重建的特徵預測。

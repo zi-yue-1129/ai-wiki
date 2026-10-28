@@ -106,6 +106,13 @@ FlashAttention-2 found that the original reached only 25–40% of peak FLOPs/s, 
 - **Changing balance.** If memory bandwidth grows more slowly than compute, memory-aware algorithms will matter more. The rate is uncertain.
 - **Reproducibility.** Tiled and fused kernels change the order of summation, so outputs can differ across block sizes and hardware.
 
+[^1]: Dao et al. (2022) make this argument in their abstract.
+[^2]: The bound is from Williams, Waterman and Patterson (2009). The traffic figures are this page's own estimate.
+[^3]: Milakov and Gimelshein (2018) report up to 1.3 times faster softmax.
+[^4]: Rabe and Staats (2021) report 59 times lower memory at sequence length 16,384.
+[^5]: Hsu et al. (2024) report these averages across popular LLMs in their abstract.
+[^6]: Dao (2023) reports these figures, including linear rather than quadratic attention memory, in the abstract.
+
 ## References
 
 ### Seminal papers
@@ -124,10 +131,3 @@ FlashAttention-2 found that the original reached only 25–40% of peak FLOPs/s, 
 ### Articles and documentation
 
 - Hsu, P.-L. et al. (2024). *Liger Kernel: Efficient Triton Kernels for LLM Training*. arXiv:2410.10989. https://arxiv.org/abs/2410.10989 — Open-source Triton kernels for LLM training, built on operation fusion and input chunking.
-
-[^1]: Dao et al. (2022) make this argument in their abstract.
-[^2]: The bound is from Williams, Waterman and Patterson (2009). The traffic figures are this page's own estimate.
-[^3]: Milakov and Gimelshein (2018) report up to 1.3 times faster softmax.
-[^4]: Rabe and Staats (2021) report 59 times lower memory at sequence length 16,384.
-[^5]: Hsu et al. (2024) report these averages across popular LLMs in their abstract.
-[^6]: Dao (2023) reports these figures, including linear rather than quadratic attention memory, in the abstract.

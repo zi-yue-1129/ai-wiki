@@ -81,6 +81,8 @@ flowchart LR
 - **執行功能是否為單一系統？** Diamond 的清單顯示其中包含多個成分。它們反映的是一個控制系統，還是多個可分離的系統，仍未解決。
 - **語言模型是否保有資訊？** 注意力機制可以讀取上下文視窗，但語言模型中是否有任何部分能像前額葉皮質那樣抵抗干擾而保留資訊，仍是開放的研究問題。
 
+[^1]: Cowan 的估計取決於如何定義組塊，他的綜述指出，只有在仔細描述的條件下，容量才能可靠地測量。數字七是較早的粗略估計，Cowan 的綜述對其加以修正。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -104,5 +106,3 @@ flowchart LR
 
 - Liu, N. F. et al. (2023). Lost in the Middle: How Language Models Use Long Contexts. arXiv. https://arxiv.org/abs/2307.03172 — 顯示語言模型比起長上下文中段的資訊，更能可靠地利用位於開頭或結尾的資訊。
 - Chung, J. et al. (2014). Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling. arXiv. https://arxiv.org/abs/1412.3555 — 比較 LSTM 與 GRU 單元在複音音樂與語音建模上的表現，發現兩者都優於單純的 tanh 單元。
-
-[^1]: Cowan 的估計取決於如何定義組塊，他的綜述指出，只有在仔細描述的條件下，容量才能可靠地測量。數字七是較早的粗略估計，Cowan 的綜述對其加以修正。

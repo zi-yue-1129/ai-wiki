@@ -55,6 +55,8 @@ Marr 與 Albus 的論文屬於理論性質。它們的支持來自理論與小�
 - **其他可塑性位點扮演什麼角色？** 小腦中其他突觸的學習，可能對計時以及跨動作的泛化有所影響。
 - **此規則與機器學習中的監督學習有何關係？** 攀爬纖維是老師，但它並不提供完整的目標值；與[監督式學習](../../../theory/paradigms/supervised/index.md)的比較有用，但並不完全相同。
 
+[^1]: Ito 的綜述描述了當攀爬纖維與平行纖維對浦金埃氏細胞的輸入反覆同時出現時，所誘發的長期抑制。綜述討論了其訊號機制與功能角色，更廣的解釋仍有爭議。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -68,5 +70,3 @@ Marr 與 Albus 的論文屬於理論性質。它們的支持來自理論與小�
 - Ito, M.（2001）。Cerebellar long-term depression: characterization, signal transduction, and functional roles. *Physiological Reviews*。https://doi.org/10.1152/physrev.2001.81.3.1143 — 綜述小腦浦金埃氏細胞突觸長期抑制的生理學及其被提出的功能。
 - Dean, P.、Porrill, J.、Ekerot, C.-F. 與 Jörntell, H.（2009）。The cerebellar microcircuit as an adaptive filter: experimental and computational evidence. *Nature Reviews Neuroscience*。https://doi.org/10.1038/nrn2756 — 綜述小腦微迴路作為適應性濾波器的實驗與計算證據。
 - Wolpert, D. M.、Miall, R. C. 與 Kawato, M.（1998）。Internal models in the cerebellum. *Trends in Cognitive Sciences*。https://doi.org/10.1016/S1364-6613(98)01221-2 — 綜述小腦學習前向與反向內部模型以產生運動的證據。
-
-[^1]: Ito 的綜述描述了當攀爬纖維與平行纖維對浦金埃氏細胞的輸入反覆同時出現時，所誘發的長期抑制。綜述討論了其訊號機制與功能角色，更廣的解釋仍有爭議。

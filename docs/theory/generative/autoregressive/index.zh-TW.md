@@ -79,6 +79,9 @@ PixelCNN 與 WaveNet 保留了各自輸入的卷積歸納偏置，而 Image GPT 
 - **長程結構。** 音樂與長篇語音需要數分鐘的連貫性。下一個詞元模型能否在規模化後學到它，或需要階層式的編碼，仍有爭議。
 - **大腦證據。** 大腦模型的結果是相關性的。大腦是否以與這些模型相同的方式使用預測，仍未確定。
 
+[^1]: 這些研究把模型的活化與自然語言期間的大腦記錄加以比較。它們顯示兩者共享預測式的結構，但並不表示大腦執行的是與 Transformer 相同的演算法，也不表示大腦是以自回歸的方式產生語音。
+[^2]: 這種對應只是近似的。算術編碼會在理想編碼長度之上增加少量的額外開銷，PixelRNN 論文也提到了這一點。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -100,7 +103,3 @@ PixelCNN 與 WaveNet 保留了各自輸入的卷積歸納偏置，而 Image GPT 
 
 - Schrimpf, M. et al. (2021). The neural architecture of language: Integrative modeling converges on predictive processing. *PNAS*. https://doi.org/10.1073/pnas.2105646118 — 把語言模型中的下一詞預測與人類在語言處理時的大腦反應連結起來。
 - Goldstein, A. et al. (2022). Shared computational principles for language processing in humans and deep language models. *Nature Neuroscience*. https://doi.org/10.1038/s41593-022-01026-4 — 在人類大腦記錄中報告持續的下一詞預測與驚訝訊號。
-
-[^1]: 這些研究把模型的活化與自然語言期間的大腦記錄加以比較。它們顯示兩者共享預測式的結構，但並不表示大腦執行的是與 Transformer 相同的演算法，也不表示大腦是以自回歸的方式產生語音。
-
-[^2]: 這種對應只是近似的。算術編碼會在理想編碼長度之上增加少量的額外開銷，PixelRNN 論文也提到了這一點。

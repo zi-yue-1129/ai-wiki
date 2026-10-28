@@ -80,6 +80,9 @@ flowchart LR
 - **門檻。** 哪種嚴重程度應觸發通報義務，又由誰決定？這些問題與[運算治理與出口管制](compute-governance.md)中關於運算門檻的辯論相連。
 - **私下的失敗。** 嚴重的失敗往往留在企業內部。通報要如何觸及它們，又不洩露商業機密？
 
+[^1]: McGregor（2020）報告，在預印本發表時已存檔超過 1,000 份事故報告。此後資料庫持續成長，引用數字前請查核其最新總數。
+[^2]: Dahl 等人（2024）的比率適用於關於聯邦法院案件、可核對的具體問題，且在不同模型之間差異很大。不應將其視為法律工作的一般失敗率。
+
 ## 參考資料
 
 ### 開創性論文
@@ -97,6 +100,3 @@ flowchart LR
 - Paeth, K. et al. (2024). *Lessons for Editors of AI Incidents from the AI Incident Database*. arXiv preprint. https://arxiv.org/abs/2409.16425 — 檢視 750 件以上的事故，找出使事故索引變得複雜的模糊之處。
 - Wei, M. & Zhou, Z. (2022). *AI Ethics Issues in Real World: Evidence from AI Incident Database*. arXiv preprint. https://arxiv.org/abs/2206.07635 — 對該資料庫進行內容分析，找出 13 個應用領域與八種倫理問題形式。
 - Dahl, M. et al. (2024). *Large Legal Fictions: Profiling Legal Hallucinations in Large Language Models*. arXiv preprint. https://arxiv.org/abs/2401.01301 — 以可核對的法律案件問題，衡量大型語言模型的法律幻覺。
-
-[^1]: McGregor（2020）報告，在預印本發表時已存檔超過 1,000 份事故報告。此後資料庫持續成長，引用數字前請查核其最新總數。
-[^2]: Dahl 等人（2024）的比率適用於關於聯邦法院案件、可核對的具體問題，且在不同模型之間差異很大。不應將其視為法律工作的一般失敗率。

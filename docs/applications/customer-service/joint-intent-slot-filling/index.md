@@ -70,6 +70,8 @@ These results come from one domain with a small label set, so they show that sha
 - **Label efficiency.** Pretrained sentence encoders reduce the labelled examples needed for new intents (Casanueva et al., 2020). How far this reaches for slot labels is less clear.
 - **Replacing the tagger.** A generative language model can write intents and slot values as text, which removes the fixed label set but may cost the checkability of typed outputs. See the [SimpleTOD](../simpletod/index.md) page.
 
+[^1]: Liu and Lane (2016), abstract: the joint model gives a 0.56% absolute (23.8% relative) error reduction on intent detection and a 0.23% absolute gain in slot filling over the independent task models, on ATIS. https://arxiv.org/abs/1609.01454
+
 ## References
 
 ### Seminal papers
@@ -82,5 +84,3 @@ These results come from one domain with a small label set, so they show that sha
 ### Surveys and textbooks
 
 - Weld, H. et al. (2021). A survey of joint intent detection and slot-filling models in natural language understanding. https://arxiv.org/abs/2101.08091 — Survey tracing joint intent and slot models from recurrent networks to BERT-based models.
-
-[^1]: Liu and Lane (2016), abstract: the joint model gives a 0.56% absolute (23.8% relative) error reduction on intent detection and a 0.23% absolute gain in slot filling over the independent task models, on ATIS. https://arxiv.org/abs/1609.01454

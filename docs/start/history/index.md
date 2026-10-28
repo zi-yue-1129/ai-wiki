@@ -77,3 +77,14 @@ The modern trend is **integration**: neural networks for perception and intuitio
 - Mitchell, *Artificial Intelligence: A Guide for Thinking Humans*
 - Sejnowski, *The Deep Learning Revolution* (a neuroscientist's history of deep learning)
 - [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence)
+
+## References
+
+Seminal works for this overview, drawn from the sub-pages linked above, where each is discussed in detail.
+
+- Newell, A. & Simon, H. A. (1956). The logic theory machine: A complex information processing system. *IEEE Transactions on Information Theory*. https://doi.org/10.1109/TIT.1956.1056797 — Describes the Logic Theorist, an early program that searches for proofs of logic theorems using heuristics rather than exhaustive enumeration.
+- Newell, A., Shaw, J. C. & Simon, H. A. (1958). Elements of a theory of human problem solving. *Psychological Review*. https://doi.org/10.1037/h0048495 — Proposes a general theory of human problem solving as heuristic search, drawing on the Logic Theorist and the means–ends method behind the General Problem Solver.
+- Shortliffe, E. H. & Buchanan, B. G. (1975). A model of inexact reasoning in medicine. *Mathematical Biosciences*. https://doi.org/10.1016/0025-5564(75)90047-4 — Presents the certainty-factor model for combining uncertain evidence, developed for the MYCIN consultation system.
+- Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). Learning representations by back-propagating errors. *Nature*. https://doi.org/10.1038/323533a0 — Shows how error can be propagated backwards to adjust hidden units, so that a network learns its own internal features.
+- Hinton, G. E., Osindero, S. & Teh, Y.-W. (2006). A fast learning algorithm for deep belief nets. *Neural Computation*. https://doi.org/10.1162/neco.2006.18.7.1527 — Introduces greedy layer-wise training of deep belief networks, the start of the revival.
+- Deng, J. et al. (2009). ImageNet: A large-scale hierarchical image database. *CVPR 2009*. https://doi.org/10.1109/CVPR.2009.5206848 — Introduces the ImageNet database on which the yearly challenge is built.

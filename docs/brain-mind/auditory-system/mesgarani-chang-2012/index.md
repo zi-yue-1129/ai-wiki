@@ -59,6 +59,8 @@ The result turns a behavioural idea into a measurable change in cortical activit
 - **Where in the pathway does selection happen?** The recordings are from cortex, downstream of the brainstem. Whether selection already occurs earlier is open.
 - **Can the readout scale to natural settings?** Many talkers, varying noise and everyday listening remain to be tested.
 
+[^1]: Cherry's experiments presented two speech signals at once, and different signals to the two ears, and interpreted listeners' responses statistically.
+
 ## References
 
 ### Seminal papers
@@ -75,5 +77,3 @@ The result turns a behavioural idea into a measurable change in cortical activit
 ### Articles and documentation
 
 - Wang, D. & Chen, J. (2018). Supervised Speech Separation Based on Deep Learning: An Overview. arXiv. https://arxiv.org/abs/1708.07524 — Surveys deep-learning methods that select a target talker from background interference.
-
-[^1]: Cherry's experiments presented two speech signals at once, and different signals to the two ears, and interpreted listeners' responses statistically.

@@ -78,6 +78,18 @@ flowchart LR
 - **符號與模式。** 知識最好以明確符號、分散模式，或兩者並用來表示，目前仍有爭論。
 - **評估。** 鏈結預測基準是標準做法，但只檢驗了圖譜功能的一部分。以 GraphRAG 研究為例，其答案由語言模型評判，且未衡量捏造率。[^7]
 
+[^1]: Hogan et al. (2020)，見上方參考文獻。該綜述涵蓋圖資料模型、綱要、同一性，以及知識的演繹與歸納技術。
+[^2]: Nickel et al. (2015) 與 Ji et al. (2020)，見上方參考文獻。
+[^3]: Vrandečić and Krötzsch (2014)，見上方參考文獻。
+[^4]: Trajanoska et al. (2023)，見上方參考文獻。比較對象為 ChatGPT 與 REBEL 模型，如摘要所述。
+[^5]: Lenat (1995)，見上方參考文獻。數字為摘要中給出的約略數值。
+[^6]: Sun et al. (2019)，見上方參考文獻。
+[^7]: Edge et al. (2024)，見上方參考文獻。評估涵蓋兩個落在一百萬詞元範圍內的語料庫。
+[^8]: Pan et al. (2023)，見上方參考文獻。三個框架的名稱載於摘要中。
+[^9]: Mitchell et al. (2008)，見上方參考文獻。
+[^10]: Lake et al. (2016)，見上方參考文獻。
+[^11]: Mitchell et al. (2018)，見上方參考文獻。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -100,15 +112,3 @@ flowchart LR
 - Vrandečić, D. & Krötzsch, M. (2014). Wikidata. *Communications of the ACM*. https://doi.org/10.1145/2629489 — 介紹 Wikidata，這是一個由社群協作編輯的知識庫，為 Wikipedia 與其他使用者提供共同資料。
 - Mitchell, T. et al. (2018). Never-ending learning. *Communications of the ACM*. https://doi.org/10.1145/3191513 — 主張機器應如人一樣，多年來持續學習多種知識，並以 Never-Ending Language Learner 作為案例研究。
 - Trajanoska, M., Stojanov, R. & Trajanov, D. (2023). Enhancing Knowledge Graph Construction Using Large Language Models. arXiv. https://arxiv.org/abs/2305.04676 — 在從文本建構圖譜時，比較一般大型語言模型與專用模型的聯合實體與關係抽取。
-
-[^1]: Hogan et al. (2020)，見上方參考文獻。該綜述涵蓋圖資料模型、綱要、同一性，以及知識的演繹與歸納技術。
-[^2]: Nickel et al. (2015) 與 Ji et al. (2020)，見上方參考文獻。
-[^3]: Vrandečić and Krötzsch (2014)，見上方參考文獻。
-[^4]: Trajanoska et al. (2023)，見上方參考文獻。比較對象為 ChatGPT 與 REBEL 模型，如摘要所述。
-[^5]: Lenat (1995)，見上方參考文獻。數字為摘要中給出的約略數值。
-[^6]: Sun et al. (2019)，見上方參考文獻。
-[^7]: Edge et al. (2024)，見上方參考文獻。評估涵蓋兩個落在一百萬詞元範圍內的語料庫。
-[^8]: Pan et al. (2023)，見上方參考文獻。三個框架的名稱載於摘要中。
-[^9]: Mitchell et al. (2008)，見上方參考文獻。
-[^10]: Lake et al. (2016)，見上方參考文獻。
-[^11]: Mitchell et al. (2018)，見上方參考文獻。

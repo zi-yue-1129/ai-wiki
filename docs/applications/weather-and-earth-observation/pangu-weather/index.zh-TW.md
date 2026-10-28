@@ -44,6 +44,8 @@ $$\hat{A}_{t+\Delta t} = f(A_t;\, \theta)$$
 - 作者提出三個方向：納入更多觀測變數、加入第四個（時間）維度，以及使用更深或更寬的網路。哪一項能以最少的運算帶來最多的準確度，尚未經過測試。
 - 更好的強度預報，可能需要包含未經偏差校正的氣旋觀測、解析度更高的訓練資料。
 
+[^1]: 這些數字取自 arXiv 預印本（arXiv:2211.02556）。已發表的版本數字可能不同，引用前請加以核對。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -57,5 +59,3 @@ $$\hat{A}_{t+\Delta t} = f(A_t;\, \theta)$$
 - Liu, Z. 等人（2021）。*Swin Transformer: Hierarchical Vision Transformer using Shifted Windows*。arXiv。https://arxiv.org/abs/2103.14030 — 採用移位視窗注意力的 Transformer，其機制為 3DEST 區塊所改編。
 - Hersbach, H. 等人（2020）。*The ERA5 global reanalysis*。Quarterly Journal of the Royal Meteorological Society。https://doi.org/10.1002/qj.3803 — 說明 ERA5，用於訓練與評估的再分析資料。
 - Rasp, S. 等人（2023）。*WeatherBench 2: A benchmark for the next generation of data-driven global weather models*。arXiv。https://arxiv.org/abs/2308.15560 — 資料驅動全球天氣模型的開放評估框架與基線。
-
-[^1]: 這些數字取自 arXiv 預印本（arXiv:2211.02556）。已發表的版本數字可能不同，引用前請加以核對。

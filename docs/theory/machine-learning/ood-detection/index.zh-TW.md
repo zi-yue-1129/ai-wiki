@@ -89,6 +89,8 @@ $$
 - **封閉集準確率。** Vaze 等人（2021）回報，開放集表現與封閉集準確率高度相關，這使人不禁懷疑是否真的需要另外的偵測機制。
 - **虛假特徵。** Nagarajan 等人（2020）指出，即使在容易學習的線性任務上，模型在偏移下仍可能失效；而偵測器可能不會察覺失效的原因是一個看起來正常的特徵。
 
+[^1]: 數字取自 Recht 等人（2019）摘要中，新測試集相對於原始測試集的結果。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -118,5 +120,3 @@ $$
 - Nagarajan, V., Andreassen, A. & Neyshabur, B. (2020). *Understanding the Failure Modes of Out-of-Distribution Generalization*. arXiv. https://arxiv.org/abs/2010.15775 — 即使在容易的任務上，虛假相關也會導致偏移下的失效。
 - Ovadia, Y. et al. (2019). *Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift*. arXiv. https://arxiv.org/abs/1906.02530 — 在資料集偏移下評估預測不確定性與校準的基準。
 - Geirhos, R. et al. (2019). *ImageNet-trained CNNs are biased towards texture; increasing shape bias improves accuracy and robustness*. arXiv. https://arxiv.org/abs/1811.12231 — 顯示在 ImageNet 上訓練的 CNN 偏好紋理而非形狀，而風格化訓練能提高形狀偏好。
-
-[^1]: 數字取自 Recht 等人（2019）摘要中，新測試集相對於原始測試集的結果。

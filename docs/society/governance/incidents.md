@@ -98,6 +98,9 @@ A larger effort, the AI Risk Repository (Slattery et al., 2024), finds that huma
 - **Thresholds.** What severity should trigger a reporting duty, and who decides? These questions connect to the debate on compute thresholds in [Compute Governance and Export Controls](compute-governance.md).
 - **Private failures.** Serious failures often stay inside companies. How can reporting reach them without exposing trade secrets?
 
+[^1]: McGregor (2020) reports more than 1,000 incident reports archived at the time of the preprint. The database has grown since, so check its current totals before quoting a number.
+[^2]: The rates in Dahl et al. (2024) apply to specific, verifiable questions about federal court cases and vary strongly between models. They should not be read as a general failure rate for legal work.
+
 ## References
 
 ### Seminal papers
@@ -115,6 +118,3 @@ A larger effort, the AI Risk Repository (Slattery et al., 2024), finds that huma
 - Paeth, K. et al. (2024). *Lessons for Editors of AI Incidents from the AI Incident Database*. arXiv preprint. https://arxiv.org/abs/2409.16425 — Reviews 750+ incidents, identifying ambiguities that complicate incident indexing.
 - Wei, M. & Zhou, Z. (2022). *AI Ethics Issues in Real World: Evidence from AI Incident Database*. arXiv preprint. https://arxiv.org/abs/2206.07635 — Content analysis of the database, finding 13 areas and eight forms of ethical issue.
 - Dahl, M. et al. (2024). *Large Legal Fictions: Profiling Legal Hallucinations in Large Language Models*. arXiv preprint. https://arxiv.org/abs/2401.01301 — Measures legal hallucinations in large language models on verifiable case questions.
-
-[^1]: McGregor (2020) reports more than 1,000 incident reports archived at the time of the preprint. The database has grown since, so check its current totals before quoting a number.
-[^2]: The rates in Dahl et al. (2024) apply to specific, verifiable questions about federal court cases and vary strongly between models. They should not be read as a general failure rate for legal work.

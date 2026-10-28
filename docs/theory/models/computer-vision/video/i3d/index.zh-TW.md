@@ -50,6 +50,13 @@ $$
 - 膨脹是否同樣適用於 Inception-v1 以外的架構？
 - 當網路夠大、訓練影片夠多時，是否仍需要獨立的光流串流？SlowFast 與 TimeSformer 只處理 RGB 影格。[^5][^6]
 
+[^1]: Simonyan 與 Zisserman（2014），摘要：空間與時間串流及其融合。
+[^2]: Carreira 與 Zisserman（2017）：第 2 節（膨脹）、引言（參數數量），以及表 3、表 4 與表 5 的結果。準確率在 Kinetics-400 為 top-1，在 UCF-101 與 HMDB-51 則為三個切分的平均。
+[^3]: Kay 等人（2017）：400 類，每類至少 400 個片段，每段約十秒，來自不同的 YouTube 影片。24 萬個訓練片段的數字見 Carreira 與 Zisserman（2017）第 3 節。
+[^4]: Goodale 與 Milner（1992）。雙流設計與此理論有關，Simonyan 與 Zisserman 的論文曾提及此關聯但未加以檢驗。
+[^5]: Feichtenhofer 等人（2018）：慢速路徑為低影格率，快速路徑為高影格率。
+[^6]: Bertasius 等人（2021），摘要：僅由時空自注意力構成的影片 Transformer。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -65,10 +72,3 @@ $$
 - Feichtenhofer, C., Fan, H., Malik, J. & He, K. (2018). *SlowFast Networks for Video Recognition*. arXiv. https://arxiv.org/abs/1812.03982 — 以慢速與快速兩條路徑，同時建模語意與運動。
 - Bertasius, G., Wang, H. & Torresani, L. (2021). *Is Space-Time Attention All You Need for Video Understanding?* arXiv. https://arxiv.org/abs/2102.05095 — TimeSformer，一種不使用卷積的影片 Transformer。
 - Goodale, M. A. & Milner, A. D. (1992). *Separate visual pathways for perception and action*. Trends in Neurosciences. https://doi.org/10.1016/0166-2236%2892%2990344-8 — 提出腹側與背側視覺通路的架構，雙流設計與之相互比較。
-
-[^1]: Simonyan 與 Zisserman（2014），摘要：空間與時間串流及其融合。
-[^2]: Carreira 與 Zisserman（2017）：第 2 節（膨脹）、引言（參數數量），以及表 3、表 4 與表 5 的結果。準確率在 Kinetics-400 為 top-1，在 UCF-101 與 HMDB-51 則為三個切分的平均。
-[^3]: Kay 等人（2017）：400 類，每類至少 400 個片段，每段約十秒，來自不同的 YouTube 影片。24 萬個訓練片段的數字見 Carreira 與 Zisserman（2017）第 3 節。
-[^4]: Goodale 與 Milner（1992）。雙流設計與此理論有關，Simonyan 與 Zisserman 的論文曾提及此關聯但未加以檢驗。
-[^5]: Feichtenhofer 等人（2018）：慢速路徑為低影格率，快速路徑為高影格率。
-[^6]: Bertasius 等人（2021），摘要：僅由時空自注意力構成的影片 Transformer。

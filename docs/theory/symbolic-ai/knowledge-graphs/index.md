@@ -101,6 +101,18 @@ Two landmark methods have their own pages. They represent the two strands that h
 - **Symbols and patterns.** It is still debated whether knowledge is best represented as explicit symbols, as distributed patterns, or as both.
 - **Evaluation.** Link-prediction benchmarks are standard, but they test only part of what a graph is for. The GraphRAG study, for example, judged answers with language models and left fabrication rates unmeasured.[^7]
 
+[^1]: Hogan et al. (2020), listed above. The survey covers graph data models, schema, identity, and deductive and inductive techniques for knowledge.
+[^2]: Nickel et al. (2015) and Ji et al. (2020), listed above.
+[^3]: Vrandečić and Krötzsch (2014), listed above.
+[^4]: Trajanoska et al. (2023), listed above. The comparison is between ChatGPT and the REBEL model, as described in the abstract.
+[^5]: Lenat (1995), listed above. The counts are the approximate figures given in the abstract.
+[^6]: Sun et al. (2019), listed above.
+[^7]: Edge et al. (2024), listed above. The evaluation covered two corpora in the one-million-token range.
+[^8]: Pan et al. (2023), listed above. The three frameworks are named in the abstract.
+[^9]: Mitchell et al. (2008), listed above.
+[^10]: Lake et al. (2016), listed above.
+[^11]: Mitchell et al. (2018), listed above.
+
 ## References
 
 ### Seminal papers
@@ -123,15 +135,3 @@ Two landmark methods have their own pages. They represent the two strands that h
 - Vrandečić, D. & Krötzsch, M. (2014). Wikidata. *Communications of the ACM*. https://doi.org/10.1145/2629489 — Describes Wikidata, a collaboratively edited knowledge base that provides common data for Wikipedia and other users.
 - Mitchell, T. et al. (2018). Never-ending learning. *Communications of the ACM*. https://doi.org/10.1145/3191513 — Argues that machines should learn many kinds of knowledge continuously over years, and presents the Never-Ending Language Learner as a case study.
 - Trajanoska, M., Stojanov, R. & Trajanov, D. (2023). Enhancing Knowledge Graph Construction Using Large Language Models. arXiv. https://arxiv.org/abs/2305.04676 — Compares a general large language model with a specialised model for joint entity and relation extraction when building graphs from text.
-
-[^1]: Hogan et al. (2020), listed above. The survey covers graph data models, schema, identity, and deductive and inductive techniques for knowledge.
-[^2]: Nickel et al. (2015) and Ji et al. (2020), listed above.
-[^3]: Vrandečić and Krötzsch (2014), listed above.
-[^4]: Trajanoska et al. (2023), listed above. The comparison is between ChatGPT and the REBEL model, as described in the abstract.
-[^5]: Lenat (1995), listed above. The counts are the approximate figures given in the abstract.
-[^6]: Sun et al. (2019), listed above.
-[^7]: Edge et al. (2024), listed above. The evaluation covered two corpora in the one-million-token range.
-[^8]: Pan et al. (2023), listed above. The three frameworks are named in the abstract.
-[^9]: Mitchell et al. (2008), listed above.
-[^10]: Lake et al. (2016), listed above.
-[^11]: Mitchell et al. (2018), listed above.

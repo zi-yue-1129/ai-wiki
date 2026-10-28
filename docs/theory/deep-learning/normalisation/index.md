@@ -113,6 +113,8 @@ Inside the wiki, normalisation interacts with [optimisation](../../optimization/
 - **Choice of set.** No single normalisation set is best for every architecture, data type and batch size. Rules for choosing one in new settings are still largely empirical.
 - **Biology.** Divisive normalisation in the cortex is established, but it is not known whether any biological mechanism computes statistics in the way batch normalisation does across examples.
 
+[^1]: The figure of 14 times fewer training steps is reported in the abstract of Ioffe and Szegedy (2015), for the image classifier they tested.
+
 ## References
 
 ### Seminal papers
@@ -137,5 +139,3 @@ Inside the wiki, normalisation interacts with [optimisation](../../optimization/
 - Nguyen, T. Q. & Salazar, J. (2019). "Transformers without Tears: Improving the Normalization of Self-Attention". arXiv:1910.05895 — Compares pre-norm and post-norm Transformers on low- and high-resource translation.
 - Liu, L., et al. (2020). "Understanding the Difficulty of Training Transformers". arXiv:2004.08249 — Explains Transformer training instability through the amplification effect of residual branches.
 - Touvron, H., et al. (2023). "LLaMA: Open and Efficient Foundation Language Models". arXiv:2302.13971 — Describes a family of language models that normalise the input of each sub-layer with RMSNorm.
-
-[^1]: The figure of 14 times fewer training steps is reported in the abstract of Ioffe and Szegedy (2015), for the image classifier they tested.

@@ -61,6 +61,11 @@ translation_reviewed: 2026-10-28
 - **程式設計**，在代理人系統中搜尋候選程式碼，並以測試結果作為回饋。[^2]
 - **模擬環境中的規劃**，如以 Reasoning via Planning 研究的規劃生成任務。[^3]
 
+[^1]: Yao et al. (2023)，見上方參考文獻。成功率為摘要所報告的數字。
+[^2]: Zhou et al. (2023)，見上方參考文獻。數字為摘要中報告的 GPT-4 pass@1。
+[^3]: Hao et al. (2023)，見上方參考文獻。33% 為摘要中報告的相對提升。
+[^4]: Snell et al. (2024)，見上方參考文獻。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -78,8 +83,3 @@ translation_reviewed: 2026-10-28
 - Hao, S. et al. (2023). Reasoning with Language Model is Planning with World Model. arXiv. https://arxiv.org/abs/2305.14992 — 在推理步驟上使用蒙地卡羅樹搜尋，語言模型同時擔任世界模型與推理代理人。
 - Zhou, A. et al. (2023). Language Agent Tree Search Unifies Reasoning Acting and Planning in Language Models. arXiv. https://arxiv.org/abs/2310.04406 — 為代理人結合蒙地卡羅樹搜尋、語言模型價值函數與環境回饋。
 - Snell, C. et al. (2024). Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters. arXiv. https://arxiv.org/abs/2408.03314 — 研究推論時依驗證器做搜尋與自適應取樣，如何依提示難度在模型大小之間權衡。
-
-[^1]: Yao et al. (2023)，見上方參考文獻。成功率為摘要所報告的數字。
-[^2]: Zhou et al. (2023)，見上方參考文獻。數字為摘要中報告的 GPT-4 pass@1。
-[^3]: Hao et al. (2023)，見上方參考文獻。33% 為摘要中報告的相對提升。
-[^4]: Snell et al. (2024)，見上方參考文獻。

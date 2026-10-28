@@ -84,6 +84,10 @@ flowchart LR
 - 矽樣本能否用於民調？若真實受訪者已被取代，要如何察覺？
 - 具說服力的聊天機器人，能否在不喪失說服力的前提下減少不實主張？Hackenburg et al.（2025）指出，兩者之間存在取捨。
 
+[^1]: Hackenburg and Margetts（2024）報告，微目標訊息的平均態度變化為 4.83 個百分點，非微目標訊息為 6.20 個百分點，差異未達統計顯著（P = 0.226）。Simchon et al.（2024）對依人格量身設計的廣告得出不同結論，因此兩項研究應併同閱讀。
+[^2]: Hackenburg et al.（2025）報告，後訓練最多使說服力提升 51%，提示設計最多提升 27%。這些是某一實驗情境中的相對數字，不應被理解為對真實投票的效果。
+[^3]: Altay and Gilardi（2024）報告，AI 標示的效果只有把標題標示為假的效果的三分之一。其受試者為美國與英國的線上樣本，因此結果並不描述真實資訊流中的標示。
+
 ## 參考資料
 
 ### 開創性論文
@@ -105,7 +109,3 @@ flowchart LR
 - Potter, Y. et al. (2024). Hidden Persuaders: LLMs' Political Leaning and Their Influence on Voters. arXiv preprint. https://arxiv.org/abs/2410.24190 — 顯示語言模型偏向美國某一位總統候選人，且與模型交談後，部分選民的支持度出現改變。
 - Simon, F. M., Altay, S. & Mercier, H. (2023). Misinformation reloaded? Fears about the impact of generative AI on misinformation are overblown. *Harvard Kennedy School Misinformation Review*. https://doi.org/10.37016/mr-2020-127 — 整理傳播學、認知科學與政治學的證據，主張對生成式 AI 錯誤資訊的擔憂被誇大。
 - Altay, S. & Gilardi, F. (2024). People are skeptical of headlines labeled as AI-generated, even if true or human-made, because they assume full AI automation. *PNAS Nexus*. https://doi.org/10.1093/pnasnexus/pgae403 — 兩項經預先註冊的實驗，探討 AI 標示如何改變讀者對準確性的判斷與分享意願。
-
-[^1]: Hackenburg and Margetts（2024）報告，微目標訊息的平均態度變化為 4.83 個百分點，非微目標訊息為 6.20 個百分點，差異未達統計顯著（P = 0.226）。Simchon et al.（2024）對依人格量身設計的廣告得出不同結論，因此兩項研究應併同閱讀。
-[^2]: Hackenburg et al.（2025）報告，後訓練最多使說服力提升 51%，提示設計最多提升 27%。這些是某一實驗情境中的相對數字，不應被理解為對真實投票的效果。
-[^3]: Altay and Gilardi（2024）報告，AI 標示的效果只有把標題標示為假的效果的三分之一。其受試者為美國與英國的線上樣本，因此結果並不描述真實資訊流中的標示。

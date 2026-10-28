@@ -101,6 +101,13 @@ On-device processing also changes privacy, because raw input stays on the device
 - Will cross-platform runtimes close the gap with platform-specific ones, or will vendor delegates remain necessary for speed?
 - As context windows grow, will the KV cache outgrow device memory, and is streaming weights from flash a lasting answer?
 
+[^1]: Lin et al. (2020), *MCUNet*. The abstract states that microcontroller memory is "2-3 orders of magnitude smaller" than that of mobile phones.
+[^2]: Lin et al. (2021), *MCUNetV2*. The abstract reports that the first several blocks of a CNN can use an order of magnitude more memory than the rest of the network.
+[^3]: Liu et al. (2024), *MobileLLM*. The abstract describes the sub-billion scale as "a practical choice for mobile deployment".
+[^4]: Abdin et al. (2024), *Phi-3 Technical Report*. The abstract describes phi-3-mini as a 3.8-billion-parameter model "small enough to be deployed on a phone".
+[^5]: Lin et al. (2023), *AWQ*. The abstract states that protecting only 1% of salient weights can greatly reduce quantisation error.
+[^6]: Banbury et al. (2021), *MLPerf Tiny*. The abstract describes the suite as measuring accuracy, latency and energy for ultra-low-power TinyML systems.
+
 ## References
 
 ### Seminal papers
@@ -125,10 +132,3 @@ On-device processing also changes privacy, because raw input stays on the device
 - Abdin, M. et al. (2024). *Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone*. arXiv:2404.14219. https://arxiv.org/abs/2404.14219 — Technical report on a 3.8-billion-parameter model designed to run on a phone.
 - Gunter, T. et al. (2024). *Apple Intelligence Foundation Language Models*. arXiv:2407.21075. https://arxiv.org/abs/2407.21075 — Describes an on-device model of about 3 billion parameters and how it is optimised for inference.
 - Liu, Z. et al. (2024). *MobileLLM: Optimizing Sub-billion Parameter Language Models for On-Device Use Cases*. ICML 2024. arXiv:2402.14905. https://arxiv.org/abs/2402.14905 — Architecture study for language models below one billion parameters, for mobile use.
-
-[^1]: Lin et al. (2020), *MCUNet*. The abstract states that microcontroller memory is "2-3 orders of magnitude smaller" than that of mobile phones.
-[^2]: Lin et al. (2021), *MCUNetV2*. The abstract reports that the first several blocks of a CNN can use an order of magnitude more memory than the rest of the network.
-[^3]: Liu et al. (2024), *MobileLLM*. The abstract describes the sub-billion scale as "a practical choice for mobile deployment".
-[^4]: Abdin et al. (2024), *Phi-3 Technical Report*. The abstract describes phi-3-mini as a 3.8-billion-parameter model "small enough to be deployed on a phone".
-[^5]: Lin et al. (2023), *AWQ*. The abstract states that protecting only 1% of salient weights can greatly reduce quantisation error.
-[^6]: Banbury et al. (2021), *MLPerf Tiny*. The abstract describes the suite as measuring accuracy, latency and energy for ultra-low-power TinyML systems.

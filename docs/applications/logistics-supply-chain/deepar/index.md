@@ -61,6 +61,8 @@ On the parts dataset (monthly automobile-part sales) and on two Amazon weekly-sa
 - How do recurrent global models compare with transformer-based ones on the same retail data?
 - Can the distributions be recalibrated with [conformal prediction](../../../theory/machine-learning/uncertainty-and-calibration/conformal-prediction/index.md) to guarantee coverage?
 
+[^1]: Table 2 of Salinas et al. (2020). The arXiv abstract (arXiv:1704.04110) summarises the gain over state-of-the-art methods as around 15%.
+
 ## References
 
 ### Seminal papers
@@ -73,5 +75,3 @@ On the parts dataset (monthly automobile-part sales) and on two Amazon weekly-sa
 
 - Petropoulos, F. et al. (2020). Forecasting: theory and practice. arXiv. https://arxiv.org/abs/2012.03854 — Non-systematic review of forecasting methods across fields, from classical statistics to machine learning.
 - Makridakis, S., Spiliotis, E. & Assimakopoulos, V. (2022). M5 accuracy competition: results, findings, and conclusions. *International Journal of Forecasting*. https://doi.org/10.1016/j.ijforecast.2021.11.013 — Reports a large benchmark of hierarchical retail forecasts that compared many methods.
-
-[^1]: Table 2 of Salinas et al. (2020). The arXiv abstract (arXiv:1704.04110) summarises the gain over state-of-the-art methods as around 15%.

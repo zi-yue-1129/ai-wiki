@@ -66,6 +66,8 @@ The energy score links the classifier to a density model: the negative energy is
 
 Liu et al. (2020) frame the score as an answer to the overconfidence that the softmax inherits from training, a concern shared with [uncertainty quantification and calibration](../../uncertainty-and-calibration/index.md).
 
+[^1]: Figure as reported in the abstract of Liu et al. (2020).
+
 ## References
 
 ### Seminal papers
@@ -82,5 +84,3 @@ Liu et al. (2020) frame the score as an answer to the overconfidence that the so
 ### Articles and documentation
 
 - Hendrycks, D., Mazeika, M. & Dietterich, T. (2018). *Deep Anomaly Detection with Outlier Exposure*. arXiv. https://arxiv.org/abs/1812.04606 — Trains detectors against auxiliary outliers, a training approach related to the energy-based variant (ICLR 2019).
-
-[^1]: Figure as reported in the abstract of Liu et al. (2020).

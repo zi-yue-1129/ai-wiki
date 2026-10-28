@@ -58,6 +58,12 @@ Rocktäschel 與 Riedel 以軟性比對取代精確比對。他們的網路以�
 - **知識庫補全。** 推論不完整知識庫中缺少的事實，如摘要中的實驗所示。[^1]
 - **多跳查詢。** 回答需要串接多個事實與規則的問題。
 
+[^1]: Rocktäschel 與 Riedel（2017），見上文。結果與能力取自摘要。
+[^2]: Polu 與 Sutskever（2020），見上文。
+[^3]: Yang 等人（2023），見上文。
+[^4]: Hubert 等人（2025），見上文。
+[^5]: de Moura 與 Ullrich（2021），見上文。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -70,9 +76,3 @@ Rocktäschel 與 Riedel 以軟性比對取代精確比對。他們的網路以�
 - Yang, K. et al. (2023). *LeanDojo: Theorem Proving with Retrieval-Augmented Language Models*. arXiv. https://arxiv.org/abs/2306.15626 — 開源的 Lean 工具組，包含資料、模型與基準，並含一個以檢索增強的證明器。
 - Hubert, T. et al. (2025). *Olympiad-level formal mathematical reasoning with reinforcement learning*. Nature. https://doi.org/10.1038/s41586-025-09833-y — 描述 AlphaProof，它透過強化學習學會找出形式化的 Lean 證明，並帶有測試時適應。
 - de Moura, L. & Ullrich, S. (2021). *The Lean 4 Theorem Prover and Programming Language*. Lecture Notes in Computer Science. https://doi.org/10.1007/978-3-030-79876-5_37 — 描述 Lean 4，即 AlphaProof 所用的證明助手與程式語言。
-
-[^1]: Rocktäschel 與 Riedel（2017），見上文。結果與能力取自摘要。
-[^2]: Polu 與 Sutskever（2020），見上文。
-[^3]: Yang 等人（2023），見上文。
-[^4]: Hubert 等人（2025），見上文。
-[^5]: de Moura 與 Ullrich（2021），見上文。

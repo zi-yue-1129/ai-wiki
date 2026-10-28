@@ -77,6 +77,19 @@ flowchart TD
 - **不確定性下的規劃能否擴展？**精確求解 POMDP 很困難，因此該領域仰賴近似方法。
 - **人類的規劃是否為樹狀搜尋？**神經科學證據符合樹狀規劃，但也符合只重播或修剪樹的一部分的捷徑。
 
+[^1]: Fikes and Nilsson (1971)，見上方列表。
+[^2]: Fox and Long (2003)，見上方列表。競賽的敘述依據其摘要。
+[^3]: Hoffmann and Nebel (2001)，見上方列表。鬆弛及其作為啟發式的用途，見其摘要。
+[^4]: Nau et al. (2003)，見上方列表。
+[^5]: Kaelbling, Littman and Cassandra (1998)，見上方列表。
+[^6]: Kaelbling, Littman and Moore (1996)，見上方列表。
+[^7]: Dolan and Dayan (2013)，見上方列表。
+[^8]: Mattar and Daw (2018)，見上方列表。此發現來自模型與記錄資料，其解釋仍有爭議。
+[^9]: Muscettola et al. (1998)，見上方列表。
+[^10]: Ahn et al. (2022)，見上方列表。
+[^11]: Valmeekam et al. (2023)，見上方列表。成功率為其摘要中所報告、最佳模型在各領域的平均值。
+[^12]: Kambhampati et al. (2024)，見上方列表。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -101,16 +114,3 @@ flowchart TD
 - Kambhampati, S. et al. (2024). LLMs Can't Plan, But Can Help Planning in LLM-Modulo Frameworks. arXiv. https://arxiv.org/abs/2402.01817 — 立場論文，主張語言模型在與外部驗證器的迴圈中才發揮最佳作用。
 - Mattar, M. G. & Daw, N. D. (2018). Prioritized memory access explains planning and hippocampal replay. *Nature Neuroscience*. https://doi.org/10.1038/s41593-018-0232-z — 提出被重播的記憶是依其對規劃的價值而被選取，把重播與規劃過程連結起來。
 - Muscettola, N. et al. (1998). Remote Agent: to boldly go where no AI system has gone before. *Artificial Intelligence*. https://doi.org/10.1016/S0004-3702(98)00068-X — 描述一個太空器自主架構，包含機上規劃與執行。
-
-[^1]: Fikes and Nilsson (1971)，見上方列表。
-[^2]: Fox and Long (2003)，見上方列表。競賽的敘述依據其摘要。
-[^3]: Hoffmann and Nebel (2001)，見上方列表。鬆弛及其作為啟發式的用途，見其摘要。
-[^4]: Nau et al. (2003)，見上方列表。
-[^5]: Kaelbling, Littman and Cassandra (1998)，見上方列表。
-[^6]: Kaelbling, Littman and Moore (1996)，見上方列表。
-[^7]: Dolan and Dayan (2013)，見上方列表。
-[^8]: Mattar and Daw (2018)，見上方列表。此發現來自模型與記錄資料，其解釋仍有爭議。
-[^9]: Muscettola et al. (1998)，見上方列表。
-[^10]: Ahn et al. (2022)，見上方列表。
-[^11]: Valmeekam et al. (2023)，見上方列表。成功率為其摘要中所報告、最佳模型在各領域的平均值。
-[^12]: Kambhampati et al. (2024)，見上方列表。

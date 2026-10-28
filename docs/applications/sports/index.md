@@ -96,6 +96,9 @@ Pose estimation answers the question of where each body part of each athlete is.
 - **Privacy and data ownership.** Tracking data about athletes raise questions about consent, the use of health data and who may sell or analyse it, which are discussed in [surveillance](../../society/surveillance/index.md) and [ethics and fairness](../../society/ethics/index.md).
 - **Automated decisions.** Automatic officiating promises consistency, but errors in close calls are costly, and the human role in review is unsettled.
 
+[^1]: The arXiv abstract of Giancola et al. (2018) reports 500 complete matches from six European leagues, covering 764 hours of video.
+[^2]: The arXiv abstract of Held et al. (2024) reports that the system recognises the foul type in 50% of instances and the sanction in 46%, for the SoccerNet-MVFoul dataset.
+
 ## References
 
 ### Seminal papers
@@ -123,6 +126,3 @@ Pose estimation answers the question of where each body part of each athlete is.
 - Deliège, A. et al. (2020). SoccerNet-v2: a dataset and benchmarks for holistic understanding of broadcast soccer videos. arXiv. https://arxiv.org/abs/2011.13367 — Extends the SoccerNet benchmark with more annotations and tasks for understanding broadcast soccer video.
 - Held, J. et al. (2024). Towards AI-powered video assistant referee system (VARS) for association football. arXiv. https://arxiv.org/abs/2407.12483 — Presents a semi-automated multi-view system for classifying fouls and their sanctions in football, compared with human performance on the same task.
 - Desai, S. (2025). Real time offside detection using a single camera in soccer. arXiv. https://arxiv.org/abs/2502.16030 — Proposes offside detection from one broadcast camera using image processing, as a lower-cost alternative to multi-camera systems.
-
-[^1]: The arXiv abstract of Giancola et al. (2018) reports 500 complete matches from six European leagues, covering 764 hours of video.
-[^2]: The arXiv abstract of Held et al. (2024) reports that the system recognises the foul type in 50% of instances and the sanction in 46%, for the SoccerNet-MVFoul dataset.

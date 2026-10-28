@@ -59,6 +59,11 @@ The cheapest variant, root-level community summaries, won 72% of comprehensivene
 - How should the index be updated when documents change, without rebuilding every summary?
 - How does GraphRAG compare with other graph-based and tree-based methods, such as RAPTOR, which also summarises bottom-up?[^4]
 
+[^1]: Lewis et al. (2020), listed above.
+[^2]: Edge et al. (2024), listed above. Figures and procedure are as the paper reports them from its experiments.
+[^3]: Traag et al. (2018), listed above.
+[^4]: Sarthi et al. (2024) and Peng et al. (2024), listed above.
+
 ## References
 
 ### Seminal papers
@@ -72,8 +77,3 @@ The cheapest variant, root-level community summaries, won 72% of comprehensivene
 
 - Gao, Y. et al. (2023). Retrieval-Augmented Generation for Large Language Models: A Survey. arXiv. https://arxiv.org/abs/2312.10997 — Surveys RAG for LLMs, including how it addresses hallucination and outdated knowledge.
 - Peng, B. et al. (2024). Graph Retrieval-Augmented Generation: A Survey. arXiv. https://arxiv.org/abs/2408.08921 — Surveys graph-based RAG, including how GraphRAG uses structure among entities.
-
-[^1]: Lewis et al. (2020), listed above.
-[^2]: Edge et al. (2024), listed above. Figures and procedure are as the paper reports them from its experiments.
-[^3]: Traag et al. (2018), listed above.
-[^4]: Sarthi et al. (2024) and Peng et al. (2024), listed above.

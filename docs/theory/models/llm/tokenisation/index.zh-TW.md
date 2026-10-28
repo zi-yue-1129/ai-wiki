@@ -72,6 +72,10 @@ flowchart LR
 - **無分詞模型。** 位元組級模型避開了詞彙表的問題，但會拉長序列。像 Byte Latent Transformer（Pagnoni et al., 2024）那樣對位元組做動態分塊，是一種恢復效率的嘗試；它能否在規模上追上以分詞器為基礎的模型，還需要更廣泛的測試。
 - **與人類的比較。** 人類的語言處理是否使用更接近詞素、字或音節的單位，仍有爭議，而子詞詞元是另一種單位。這個問題關係到我們如何解讀模型從文字中學到了什麼。
 
+[^1]: 開放詞彙建模的歷史，從字到字元再到子詞，已由 Mielke et al. (2021) 作過回顧；參見參考文獻。
+[^2]: WordPiece 在 GNMT 論文（Wu et al., 2016）中有描述。以似然度為基礎的評分規則，是引用前應對照該論文再次確認的細節。
+[^3]: 各語言之間不平等的詞元成本，已由 Petrov et al. (2023) 測量；參見參考文獻。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -95,7 +99,3 @@ flowchart LR
 - Schmidt, C. W. et al. (2024). *Tokenization Is More Than Compression*. arXiv. https://arxiv.org/abs/2402.18376 — 主張單靠壓縮率無法預測分詞器在下游語言建模中的表現，並以其他標準比較各種分詞器。
 - Pagnoni, A. et al. (2024). *Byte Latent Transformer: Patches Scale Better Than Tokens*. arXiv. https://arxiv.org/abs/2412.09871 — 提出一種位元組級模型，把位元組分成大小動態變化的區塊，並與以分詞器為基礎的模型比較其擴展特性。
 - Wang, C., Cho, K. & Gu, J. (2019). *Neural Machine Translation with Byte-Level Subwords*. arXiv. https://arxiv.org/abs/1909.03341 — 把位元組級 BPE 應用於翻譯，使任何文字都能以 256 個位元組值組成的基礎詞彙表來編碼。
-
-[^1]: 開放詞彙建模的歷史，從字到字元再到子詞，已由 Mielke et al. (2021) 作過回顧；參見參考文獻。
-[^2]: WordPiece 在 GNMT 論文（Wu et al., 2016）中有描述。以似然度為基礎的評分規則，是引用前應對照該論文再次確認的細節。
-[^3]: 各語言之間不平等的詞元成本，已由 Petrov et al. (2023) 測量；參見參考文獻。

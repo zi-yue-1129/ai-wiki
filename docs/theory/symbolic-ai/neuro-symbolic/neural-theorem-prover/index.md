@@ -71,6 +71,12 @@ The neural theorem prover and [∂ILP](../differentiable-ilp/index.md) both lear
 - **Knowledge-base completion.** Inferring facts missing from an incomplete knowledge base, as in the abstract's experiments.[^1]
 - **Multi-hop queries.** Answering questions that require chaining several facts and rules.
 
+[^1]: Rocktäschel and Riedel (2017), listed above. The results and capabilities are taken from the abstract.
+[^2]: Polu and Sutskever (2020), listed above.
+[^3]: Yang et al. (2023), listed above.
+[^4]: Hubert et al. (2025), listed above.
+[^5]: de Moura and Ullrich (2021), listed above.
+
 ## References
 
 ### Seminal papers
@@ -83,9 +89,3 @@ The neural theorem prover and [∂ILP](../differentiable-ilp/index.md) both lear
 - Yang, K. et al. (2023). *LeanDojo: Theorem Proving with Retrieval-Augmented Language Models*. arXiv. https://arxiv.org/abs/2306.15626 — An open Lean toolkit with data, models and benchmarks, including a retrieval-augmented prover.
 - Hubert, T. et al. (2025). *Olympiad-level formal mathematical reasoning with reinforcement learning*. Nature. https://doi.org/10.1038/s41586-025-09833-y — Describes AlphaProof, which learns to find formal Lean proofs through reinforcement learning, with test-time adaptation.
 - de Moura, L. & Ullrich, S. (2021). *The Lean 4 Theorem Prover and Programming Language*. Lecture Notes in Computer Science. https://doi.org/10.1007/978-3-030-79876-5_37 — Describes Lean 4, the proof assistant and programming language used by AlphaProof.
-
-[^1]: Rocktäschel and Riedel (2017), listed above. The results and capabilities are taken from the abstract.
-[^2]: Polu and Sutskever (2020), listed above.
-[^3]: Yang et al. (2023), listed above.
-[^4]: Hubert et al. (2025), listed above.
-[^5]: de Moura and Ullrich (2021), listed above.

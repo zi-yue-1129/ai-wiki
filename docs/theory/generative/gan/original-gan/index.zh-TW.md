@@ -54,6 +54,8 @@ Goodfellow 等人提出一種透過對抗程序估計生成模型的新方法。
 - 哪些實用的訓練程序能夠收斂，需要什麼樣的正則化？Mescheder 等人（2018）為未經正則化的訓練給出反例。
 - 沒有概似函數時，應如何為樣本評分？Fréchet Inception 距離是之後為此提出的（Heusel 等人，2017）。
 
+[^1]: Goodfellow 等人（2014）的表 1。Parzen 窗估計的變異很大，因此該表中方法之間的小差異不應過度解讀。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -71,5 +73,3 @@ Goodfellow 等人提出一種透過對抗程序估計生成模型的新方法。
 ### 講座與影片
 
 - Goodfellow, I. (2016). *NIPS 2016 Tutorial: Generative Adversarial Networks*. arXiv. https://arxiv.org/abs/1701.00160 — 作者關於原始框架、訓練細節與開放問題的教學報告，並附有習題。
-
-[^1]: Goodfellow 等人（2014）的表 1。Parzen 窗估計的變異很大，因此該表中方法之間的小差異不應過度解讀。

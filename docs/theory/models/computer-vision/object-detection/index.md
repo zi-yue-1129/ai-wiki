@@ -97,6 +97,16 @@ R-CNN and Fast R-CNN are the direct ancestors of Faster R-CNN, and their ideas a
 - **Are anchors and NMS needed?** Set prediction shows that they can be removed, but the trade-off between simplicity and training cost is still being studied.
 - **Open vocabulary.** Closed-set detectors recognise only the classes they were trained on. Whether detectors can reliably find objects named by arbitrary text is an active question.
 
+[^2]: Ren et al. (2015): an anchor is assigned a negative label if its IoU is lower than 0.3 for all ground-truth boxes.
+[^3]: Redmon et al. (2015): non-maximal suppression adds 2–3% to mAP, and the authors note that YOLO struggles to localise small objects.
+[^4]: Lin et al. (2017): dense detectors evaluate 10^4 to 10^5 candidate locations per image, of which only a few contain objects.
+[^5]: Carion et al. (2020): AP is reported as the integral metric over multiple IoU thresholds.
+[^6]: Everingham et al. (2009) define the VOC scoring protocol; mAP is the mean over classes of the area under each class's precision–recall curve.
+[^7]: Carion et al. (2020), Table 1: DETR 42.0 AP (APS 20.5, APL 61.1) against Faster R-CNN with FPN at 40.2 AP (APS 24.2, APL 52.0).
+[^8]: Zhu et al. (2020), abstract: Deformable DETR performs better than DETR, especially on small objects, with 10 times fewer training epochs.
+[^9]: Girshick et al. (2013): R-CNN uses around 2,000 category-independent region proposals per image, generated with Selective Search at test time.
+[^10]: Lin et al. (2016), abstract: feature pyramids are a basic component of recognition systems for detecting objects at different scales.
+
 ## References
 
 ### Seminal papers
@@ -117,13 +127,3 @@ R-CNN and Fast R-CNN are the direct ancestors of Faster R-CNN, and their ideas a
 
 - Zou, Z., et al. (2019). *Object Detection in 20 Years: A Survey*. arXiv. https://arxiv.org/abs/1905.05055 — A broad survey of detection from the early hand-crafted detectors to deep learning, with the main benchmarks.
 - Zhao, Z.-Q., Zheng, P., Xu, S.-t. & Wu, X. (2018). *Object Detection with Deep Learning: A Review*. arXiv. https://arxiv.org/abs/1807.05511 — A review of deep detectors that groups them into two-stage and one-stage methods and compares their results.
-
-[^2]: Ren et al. (2015): an anchor is assigned a negative label if its IoU is lower than 0.3 for all ground-truth boxes.
-[^3]: Redmon et al. (2015): non-maximal suppression adds 2–3% to mAP, and the authors note that YOLO struggles to localise small objects.
-[^4]: Lin et al. (2017): dense detectors evaluate 10^4 to 10^5 candidate locations per image, of which only a few contain objects.
-[^5]: Carion et al. (2020): AP is reported as the integral metric over multiple IoU thresholds.
-[^6]: Everingham et al. (2009) define the VOC scoring protocol; mAP is the mean over classes of the area under each class's precision–recall curve.
-[^7]: Carion et al. (2020), Table 1: DETR 42.0 AP (APS 20.5, APL 61.1) against Faster R-CNN with FPN at 40.2 AP (APS 24.2, APL 52.0).
-[^8]: Zhu et al. (2020), abstract: Deformable DETR performs better than DETR, especially on small objects, with 10 times fewer training epochs.
-[^9]: Girshick et al. (2013): R-CNN uses around 2,000 category-independent region proposals per image, generated with Selective Search at test time.
-[^10]: Lin et al. (2016), abstract: feature pyramids are a basic component of recognition systems for detecting objects at different scales.

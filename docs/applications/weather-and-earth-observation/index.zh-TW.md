@@ -79,6 +79,10 @@ flowchart LR
 - **地球觀測的標註。** 災害、作物與土地利用的標註既昂貴又具有地域性。預訓練的基礎模型能減少所需標註，但必須能跨感測器、地區與季節泛化。
 - **評估。** WeatherBench 2 等共用基準標準化了分數（Rasp 等人，2023），但指標與基線的選擇仍會左右結論。
 
+[^1]: Lam 等人（2023）描述訓練時採用的誤差，是在數量逐步增加（從一步到十二步）的自迴歸步驟上取平均，並報告步數增加有助於較長預報時效的表現。
+[^2]: GraphCast 的摘要報告，該系統在 1,380 個驗證目標中，有 90% 的目標顯著優於最準確的業務確定性系統。
+[^3]: Nearing 等人（2024）報告的可靠度是針對最長五天的預報時效，比較對象為 Copernicus 緊急管理服務全球洪水預警系統的臨近預報。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -105,7 +109,3 @@ flowchart LR
 - Pathak, J. 等人（2022）。*FourCastNet: A Global Data-driven High-resolution Weather Model using Adaptive Fourier Neural Operators*。arXiv。https://arxiv.org/abs/2202.11214 — 使用傅立葉神經算子的全球資料驅動預報模型。
 - Bodnar, C. 等人（2024）。*A Foundation Model for the Earth System*。arXiv。https://arxiv.org/abs/2405.13063 — Aurora，一個用於天氣、空氣品質與海洋預報的基礎模型。
 - Rasp, S. 等人（2023）。*WeatherBench 2: A benchmark for the next generation of data-driven global weather models*。arXiv。https://arxiv.org/abs/2308.15560 — 資料驅動全球天氣模型的開放評估框架與基線。
-
-[^1]: Lam 等人（2023）描述訓練時採用的誤差，是在數量逐步增加（從一步到十二步）的自迴歸步驟上取平均，並報告步數增加有助於較長預報時效的表現。
-[^2]: GraphCast 的摘要報告，該系統在 1,380 個驗證目標中，有 90% 的目標顯著優於最準確的業務確定性系統。
-[^3]: Nearing 等人（2024）報告的可靠度是針對最長五天的預報時效，比較對象為 Copernicus 緊急管理服務全球洪水預警系統的臨近預報。

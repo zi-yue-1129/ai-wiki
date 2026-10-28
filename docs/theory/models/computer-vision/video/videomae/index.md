@@ -68,6 +68,11 @@ Without extra data, Kinetics-400 accuracy reaches 81.5% for ViT-B, 85.2% for ViT
 - Does reconstructing pixels teach motion as well as appearance? [V-JEPA](https://arxiv.org/abs/2404.08471) predicts features instead of pixels and reports strong video representations, which suggests the choice of target matters.[^4]
 - Is a 90% masking ratio best for tasks beyond recognition, such as generation or video-language modelling?
 
+[^1]: Tong et al. (2022), Introduction: video Transformers are usually derived from image models, and training from scratch gives unsatisfactory results.
+[^2]: Tong et al. (2022): Section 3 (tube masking, encoder, timing), Table 2 (16-frame ViT-B comparison), Table 3 (pre-training time), Table 7 (Kinetics-400 scaling) and the domain-shift discussion in the pre-training dataset section.
+[^3]: He et al. (2021): the MSE loss is computed on normalised pixels of the masked patches.
+[^4]: Bardes et al. (2024), abstract: feature prediction without pixel reconstruction, on two million videos.
+
 ## References
 
 ### Seminal papers
@@ -81,8 +86,3 @@ Without extra data, Kinetics-400 accuracy reaches 81.5% for ViT-B, 85.2% for ViT
 - Soomro, K., Zamir, A. R. & Shah, M. (2012). *UCF101: A Dataset of 101 Human Actions Classes From Videos in The Wild*. arXiv. https://arxiv.org/abs/1212.0402 — The 101-class action dataset used in the transfer experiments.
 - Kuehne, H., Jhuang, H., Garrote, E., Poggio, T. & Serre, T. (2011). *HMDB: A large video database for human motion recognition*. ICCV. https://doi.org/10.1109/ICCV.2011.6126543 — The 51-class action dataset, the smallest used here.
 - Bardes, A., et al. (2024). *Revisiting Feature Prediction for Learning Visual Representations from Video*. arXiv. https://arxiv.org/abs/2404.08471 — V-JEPA, which learns video features by predicting features rather than pixels.
-
-[^1]: Tong et al. (2022), Introduction: video Transformers are usually derived from image models, and training from scratch gives unsatisfactory results.
-[^2]: Tong et al. (2022): Section 3 (tube masking, encoder, timing), Table 2 (16-frame ViT-B comparison), Table 3 (pre-training time), Table 7 (Kinetics-400 scaling) and the domain-shift discussion in the pre-training dataset section.
-[^3]: He et al. (2021): the MSE loss is computed on normalised pixels of the masked patches.
-[^4]: Bardes et al. (2024), abstract: feature prediction without pixel reconstruction, on two million videos.

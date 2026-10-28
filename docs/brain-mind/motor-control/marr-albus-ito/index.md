@@ -66,6 +66,8 @@ The synaptic side of the theory was tested later. Ito's review of cerebellar lon
 - **What is the role of other plasticity sites?** Learning at other synapses in the cerebellum may matter for timing and for generalisation across movements.
 - **How does the rule relate to machine supervised learning?** The climbing fibre is a teacher, but it does not supply the full target value; a comparison with supervised learning in [Supervised Learning](../../../theory/paradigms/supervised/index.md) is useful but not exact.
 
+[^1]: Ito's review describes long-term depression induced when climbing-fibre and parallel-fibre inputs to a Purkinje cell are repeatedly associated. The review discusses the signalling mechanism and its functional role, and the wider interpretation remains debated.
+
 ## References
 
 ### Seminal papers
@@ -79,5 +81,3 @@ The synaptic side of the theory was tested later. Ito's review of cerebellar lon
 - Ito, M. (2001). Cerebellar long-term depression: characterization, signal transduction, and functional roles. *Physiological Reviews*. https://doi.org/10.1152/physrev.2001.81.3.1143 — Reviews the physiology of long-term depression at cerebellar Purkinje cell synapses and its proposed functions.
 - Dean, P., Porrill, J., Ekerot, C.-F. & Jörntell, H. (2009). The cerebellar microcircuit as an adaptive filter: experimental and computational evidence. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2756 — Reviews experimental and computational evidence that the cerebellar microcircuit acts as an adaptive filter.
 - Wolpert, D. M., Miall, R. C. & Kawato, M. (1998). Internal models in the cerebellum. *Trends in Cognitive Sciences*. https://doi.org/10.1016/S1364-6613(98)01221-2 — Reviews evidence that the cerebellum learns forward and inverse internal models for movement.
-
-[^1]: Ito's review describes long-term depression induced when climbing-fibre and parallel-fibre inputs to a Purkinje cell are repeatedly associated. The review discusses the signalling mechanism and its functional role, and the wider interpretation remains debated.

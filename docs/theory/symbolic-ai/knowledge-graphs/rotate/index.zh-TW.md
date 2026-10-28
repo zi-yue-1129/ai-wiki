@@ -68,6 +68,10 @@ $$
 - 以旋轉為基礎的模型能否表示涉及兩個以上實體的事實，或隨時間變化的事實？Ji 等人綜述了時序圖譜。[^3]
 - 在學習得到的關係中所發現的模式結構，能否延伸到雜訊較多、自動建構的圖譜？
 
+[^1]: Sun et al. (2019)，見上方參考文獻。
+[^2]: Sun et al. (2019)，見上方參考文獻，表 4 與表 5。數字直接取自表格，其中的基準列來自其他論文。
+[^3]: Ji et al. (2020)，見上方參考文獻。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -80,7 +84,3 @@ $$
 
 - Nickel, M. et al. (2015). A Review of Relational Machine Learning for Knowledge Graphs. arXiv. https://arxiv.org/abs/1503.00759 — 回顧用於預測知識圖譜事實的潛在特徵模型。
 - Ji, S. et al. (2020). A Survey on Knowledge Graphs: Representation, Acquisition and Applications. arXiv. https://arxiv.org/abs/2002.00388 — 綜述知識圖譜的表示學習、補全、時序圖譜與應用。
-
-[^1]: Sun et al. (2019)，見上方參考文獻。
-[^2]: Sun et al. (2019)，見上方參考文獻，表 4 與表 5。數字直接取自表格，其中的基準列來自其他論文。
-[^3]: Ji et al. (2020)，見上方參考文獻。

@@ -85,6 +85,11 @@ Alpha-beta is the search half of the classic game-playing systems on the [Games]
 - **Chess.** Deep Blue, and the engines that followed it, used alpha-beta search with a handcrafted evaluation.[^3]
 - **Baseline for learned methods.** Alpha-beta-style search of deterministic two-player games is the reference against which learned search, such as the AlphaZero work above, is measured.
 
+[^1]: Knuth and Moore (1975), listed above.
+[^2]: Knuth and Moore (1975), listed above. The leaf count is their result for a uniform tree under ideal ordering.
+[^3]: Campbell, Hoane and Hsu (2002), listed above.
+[^4]: Silver et al. (2017), listed above. The 24-hour figure is taken from the abstract.
+
 ## References
 
 ### Seminal papers
@@ -97,8 +102,3 @@ Alpha-beta is the search half of the classic game-playing systems on the [Games]
 ### Articles and documentation
 
 - Campbell, M., Hoane, A. J. & Hsu, F. (2002). Deep Blue. *Artificial Intelligence*. https://doi.org/10.1016/S0004-3702(01)00129-1 — Describes the design of the system that defeated the world chess champion, combining alpha-beta search, hardware and evaluation.
-
-[^1]: Knuth and Moore (1975), listed above.
-[^2]: Knuth and Moore (1975), listed above. The leaf count is their result for a uniform tree under ideal ordering.
-[^3]: Campbell, Hoane and Hsu (2002), listed above.
-[^4]: Silver et al. (2017), listed above. The 24-hour figure is taken from the abstract.

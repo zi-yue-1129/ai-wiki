@@ -57,6 +57,8 @@ The main benchmark compares GraphCast with HRES on held-out data from 2018 onwar
 - Does the skill extend to precipitation and to rare, extreme events, which the evaluation treats only partly?
 - The authors expect the approach to scale with compute and higher-resolution data. Whether accuracy keeps improving at finer resolution is not tested in the paper.
 
+[^1]: The preprint numbers (arXiv:2212.12794) are the source for the 90.3% and 89.9% figures; the published abstract gives the rounded 90% figure.
+
 ## References
 
 ### Seminal papers
@@ -70,5 +72,3 @@ The main benchmark compares GraphCast with HRES on held-out data from 2018 onwar
 - Hersbach, H. et al. (2020). *The ERA5 global reanalysis*. Quarterly Journal of the Royal Meteorological Society. https://doi.org/10.1002/qj.3803 — Describes ERA5, the reanalysis that GraphCast is trained and evaluated on.
 - Rasp, S. et al. (2023). *WeatherBench 2: A benchmark for the next generation of data-driven global weather models*. arXiv. https://arxiv.org/abs/2308.15560 — Open evaluation framework and baselines for data-driven weather models.
 - Bi, K. et al. (2023). *Accurate medium-range global weather forecasting with 3D neural networks*. Nature. https://doi.org/10.1038/s41586-023-06185-3 — The Pangu-Weather paper, a contemporary learned forecaster.
-
-[^1]: The preprint numbers (arXiv:2212.12794) are the source for the 90.3% and 89.9% figures; the published abstract gives the rounded 90% figure.

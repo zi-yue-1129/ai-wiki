@@ -81,6 +81,14 @@ Results vary with object size. DETR's APS is 20.5, against 24.2 for Faster R-CNN
 
 The paper evaluates DETR on COCO object detection and shows that the framework extends to panoptic segmentation.[^1]
 
+[^1]: Carion et al. (2020), abstract and introduction: the set-based loss with bipartite matching and the Transformer encoder–decoder; accuracy and run-time on par with Faster R-CNN on COCO; and the extension to panoptic segmentation.
+[^2]: Carion et al. (2020), Section 3 and the training details in the appendix: the box loss combines a generalised IoU term and an L1 term, with weights λ_iou = 2 and λ_L1 = 5.
+[^3]: Carion et al. (2020), Section 4.2: the decoder self-attention reduces double predictions, and the ablation shows the effect of removing it.
+[^4]: Carion et al. (2020), Section 4: the 300-epoch baseline trained for three days on 16 V100 GPUs, the 500-epoch comparison schedule, and the optimiser comparison with Faster R-CNN in Section 4.1.
+[^5]: Carion et al. (2020), Table 1: COCO validation AP, APS and APL, GFLOPS and FPS for Faster R-CNN and DETR with ResNet-50 and ResNet-101 backbones.
+[^6]: Carion et al. (2020), Table 2 and Section 4.2: AP by number of encoder layers (36.7 with none, 41.6 with 12), and the AP gain across the decoder layers.
+[^7]: Zhu et al. (2020), abstract: Deformable DETR performs better than DETR, especially on small objects, with 10 times fewer training epochs.
+
 ## References
 
 ### Seminal papers
@@ -94,11 +102,3 @@ The paper evaluates DETR on COCO object detection and shows that the framework e
 ### Surveys and textbooks
 
 - Zou, Z., et al. (2019). *Object Detection in 20 Years: A Survey*. arXiv. https://arxiv.org/abs/1905.05055 — A survey of detection methods, including the hand-designed components that DETR replaces.
-
-[^1]: Carion et al. (2020), abstract and introduction: the set-based loss with bipartite matching and the Transformer encoder–decoder; accuracy and run-time on par with Faster R-CNN on COCO; and the extension to panoptic segmentation.
-[^2]: Carion et al. (2020), Section 3 and the training details in the appendix: the box loss combines a generalised IoU term and an L1 term, with weights λ_iou = 2 and λ_L1 = 5.
-[^3]: Carion et al. (2020), Section 4.2: the decoder self-attention reduces double predictions, and the ablation shows the effect of removing it.
-[^4]: Carion et al. (2020), Section 4: the 300-epoch baseline trained for three days on 16 V100 GPUs, the 500-epoch comparison schedule, and the optimiser comparison with Faster R-CNN in Section 4.1.
-[^5]: Carion et al. (2020), Table 1: COCO validation AP, APS and APL, GFLOPS and FPS for Faster R-CNN and DETR with ResNet-50 and ResNet-101 backbones.
-[^6]: Carion et al. (2020), Table 2 and Section 4.2: AP by number of encoder layers (36.7 with none, 41.6 with 12), and the AP gain across the decoder layers.
-[^7]: Zhu et al. (2020), abstract: Deformable DETR performs better than DETR, especially on small objects, with 10 times fewer training epochs.

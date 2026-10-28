@@ -81,6 +81,21 @@ flowchart LR
 - **基準飽和。** 隨著 miniF2F 的通過率上升，需要研究級的更難基準來顯示進展。
 - **遷移與可讀性。** 在某個函式庫上訓練的證明器，未必能遷移到另一個函式庫的慣例或新的研究問題；機器生成的證明也可能太長，難以幫助數學家理解結果。
 
+[^1]: Kaliszyk 與 Urban（2014），見上方參考文獻。
+[^2]: Alemi 等人（2016），見上方參考文獻。
+[^3]: Yang 與 Deng（2019），見上方參考文獻。
+[^4]: Han 等人（2021），見上方參考文獻，所報告的是留出的 Lean 測試定理。
+[^5]: Zheng 等人（2021），見上方參考文獻。
+[^6]: Ren 等人（2025），見上方參考文獻。該數字是在 MiniF2F-test 切分上報告的。
+[^7]: Fikes 與 Nilsson（1971），見上方參考文獻。
+[^8]: Amalric 與 Dehaene（2016），見上方參考文獻。
+[^9]: Leroy（2009），見上方參考文獻。
+[^10]: Hales 等人（2015），見上方參考文獻。
+[^11]: Gonthier 等人（2013），見上方參考文獻。
+[^12]: The mathlib Community（2020），見上方參考文獻。
+[^13]: Heule、Kullmann 與 Marek（2016），見上方參考文獻。
+[^14]: Wu 等人（2022），見上方參考文獻。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -114,18 +129,3 @@ flowchart LR
 - Wu, Y. et al. (2022). *Autoformalization with Large Language Models*. arXiv. https://arxiv.org/abs/2205.12615 — 展示語言模型把競賽題目翻譯成 Isabelle/HOL 陳述。
 - Ren, Z. Z. et al. (2025). *DeepSeek-Prover-V2: Advancing Formal Mathematical Reasoning via Reinforcement Learning for Subgoal Decomposition*. arXiv. https://arxiv.org/abs/2504.21801 — 以子目標分解訓練的開放 Lean 證明器。
 - Amalric, M. & Dehaene, S. (2016). *Origins of the brain networks for advanced mathematics in expert mathematicians*. PNAS. https://doi.org/10.1073/pnas.1603205113 — 對專業數學家進行腦部造影，發現其網絡與數字和空間共用，而非語言。
-
-[^1]: Kaliszyk 與 Urban（2014），見上方參考文獻。
-[^2]: Alemi 等人（2016），見上方參考文獻。
-[^3]: Yang 與 Deng（2019），見上方參考文獻。
-[^4]: Han 等人（2021），見上方參考文獻，所報告的是留出的 Lean 測試定理。
-[^5]: Zheng 等人（2021），見上方參考文獻。
-[^6]: Ren 等人（2025），見上方參考文獻。該數字是在 MiniF2F-test 切分上報告的。
-[^7]: Fikes 與 Nilsson（1971），見上方參考文獻。
-[^8]: Amalric 與 Dehaene（2016），見上方參考文獻。
-[^9]: Leroy（2009），見上方參考文獻。
-[^10]: Hales 等人（2015），見上方參考文獻。
-[^11]: Gonthier 等人（2013），見上方參考文獻。
-[^12]: The mathlib Community（2020），見上方參考文獻。
-[^13]: Heule、Kullmann 與 Marek（2016），見上方參考文獻。
-[^14]: Wu 等人（2022），見上方參考文獻。

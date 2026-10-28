@@ -84,6 +84,16 @@ R-CNN 與 Fast R-CNN 是 Faster R-CNN 的直接前身，其想法在該頁說明
 - **錨框與 NMS 是否必要？** 集合預測顯示它們可以被移除，但簡潔性與訓練成本之間的取捨仍在研究中。
 - **開放詞彙。** 封閉集合的偵測器只能辨識訓練時見過的類別。偵測器能否可靠地找出以任意文字描述的物件，是一個活躍的研究問題。
 
+[^2]: Ren et al. (2015)：若錨框與所有真實框的 IoU 都低於 0.3，則該錨框被標為負樣本。
+[^3]: Redmon et al. (2015)：非極大值抑制使 mAP 增加 2–3%；作者指出 YOLO 難以定位小物件。
+[^4]: Lin et al. (2017)，第 1 節：密集偵測器每張影像評估 10^4 到 10^5 個候選位置，其中只有少數包含物件。
+[^5]: Carion et al. (2020)：AP 以多個 IoU 門檻上的積分指標報告。
+[^6]: Everingham et al. (2009) 定義了 VOC 的評分協定；mAP 是各類別精確率—召回率曲線下面積的類別平均。
+[^7]: Carion et al. (2020)，表 1：DETR 為 42.0 AP（APS 20.5，APL 61.1），帶有 FPN 的 Faster R-CNN 為 40.2 AP（APS 24.2，APL 52.0）。
+[^8]: Zhu et al. (2020)，摘要：Deformable DETR 在小物件上尤其優於 DETR，且訓練週期減少為十分之一。
+[^9]: Girshick et al. (2013)：R-CNN 在測試時對每張影像使用約 2,000 個與類別無關的區域提議，由選擇性搜尋產生。
+[^10]: Lin et al. (2016)，摘要：特徵金字塔是辨識系統中偵測不同尺度物件的基本組件。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -104,13 +114,3 @@ R-CNN 與 Fast R-CNN 是 Faster R-CNN 的直接前身，其想法在該頁說明
 
 - Zou, Z., et al. (2019). *Object Detection in 20 Years: A Survey*. arXiv. https://arxiv.org/abs/1905.05055 — 涵蓋偵測方法的廣泛綜述，從早期的人工特徵偵測器到深度學習。
 - Zhao, Z.-Q., Zheng, P., Xu, S.-t. & Wu, X. (2018). *Object Detection with Deep Learning: A Review*. arXiv. https://arxiv.org/abs/1807.05511 — 深度偵測器的回顧，將其分為雙階段與單階段方法並比較結果。
-
-[^2]: Ren et al. (2015)：若錨框與所有真實框的 IoU 都低於 0.3，則該錨框被標為負樣本。
-[^3]: Redmon et al. (2015)：非極大值抑制使 mAP 增加 2–3%；作者指出 YOLO 難以定位小物件。
-[^4]: Lin et al. (2017)，第 1 節：密集偵測器每張影像評估 10^4 到 10^5 個候選位置，其中只有少數包含物件。
-[^5]: Carion et al. (2020)：AP 以多個 IoU 門檻上的積分指標報告。
-[^6]: Everingham et al. (2009) 定義了 VOC 的評分協定；mAP 是各類別精確率—召回率曲線下面積的類別平均。
-[^7]: Carion et al. (2020)，表 1：DETR 為 42.0 AP（APS 20.5，APL 61.1），帶有 FPN 的 Faster R-CNN 為 40.2 AP（APS 24.2，APL 52.0）。
-[^8]: Zhu et al. (2020)，摘要：Deformable DETR 在小物件上尤其優於 DETR，且訓練週期減少為十分之一。
-[^9]: Girshick et al. (2013)：R-CNN 在測試時對每張影像使用約 2,000 個與類別無關的區域提議，由選擇性搜尋產生。
-[^10]: Lin et al. (2016)，摘要：特徵金字塔是辨識系統中偵測不同尺度物件的基本組件。

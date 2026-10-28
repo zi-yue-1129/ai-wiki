@@ -76,3 +76,16 @@ Interpretability researchers face the problems neuroscientists have faced for de
 - Neel Nanda's mechanistic interpretability guides; [TransformerLens](https://github.com/TransformerLensOrg/TransformerLens)
 - Bereska & Gavves (2024), "Mechanistic Interpretability for AI Safety — A Review"
 - [Captum](https://captum.ai/), [SHAP](https://github.com/shap/shap)
+
+## References
+
+Seminal works for this overview, drawn from the sub-pages linked above, where each is discussed in detail.
+
+- Olah, C., et al. (2020). *Zoom In: An Introduction to Circuits*. Distill. https://doi.org/10.23915/distill.00024.001 — Sets out the three claims of the circuits program: features, circuits and universality.
+- Elhage, N., et al. (2022). *Toy Models of Superposition*. arXiv. https://arxiv.org/abs/2209.10652 — Shows in small models how networks store more features than dimensions when features are sparse.
+- Simonyan, K., Vedaldi, A. & Zisserman, A. (2013). *Deep Inside Convolutional Networks: Visualising Image Classification Models and Saliency Maps*. arXiv. https://arxiv.org/abs/1312.6034 — Defines gradient-based class saliency maps for image classifiers.
+- Sundararajan, M., Taly, A. & Yan, Q. (2017). *Axiomatic Attribution for Deep Networks*. ICML. https://arxiv.org/abs/1703.01365 — Introduces Integrated Gradients, derived from two attribution axioms.
+- Alain, G. & Bengio, Y. (2016). *Understanding intermediate layers using linear classifier probes*. arXiv. https://arxiv.org/abs/1610.01644 — Introduces linear probes on image-classifier layers, showing that feature separability grows with depth.
+- Hewitt, J. & Liang, P. (2019). *Designing and Interpreting Probes with Control Tasks*. EMNLP. https://arxiv.org/abs/1909.03368 — Introduces control tasks and selectivity, separating a probe's skill from the content of the representation.
+- Olshausen, B. A. & Field, D. J. (1996). Emergence of simple-cell receptive field properties by learning a sparse code for natural images. *Nature*. https://doi.org/10.1038/381607a0 — Shows that a sparse code for natural images yields V1-like oriented filters.
+- Mairal, J., Bach, F., Ponce, J. & Sapiro, G. (2009). Online learning for matrix factorization and sparse coding. arXiv. https://arxiv.org/abs/0908.0050 — Gives an online algorithm for learning a dictionary from large data sets.

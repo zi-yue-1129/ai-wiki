@@ -47,6 +47,11 @@ $$
 - 影像的做法能否擴展到長篇、高解析度的影片？[Align your Latents](https://arxiv.org/abs/2304.08818) 與 [Stable Video Diffusion](https://arxiv.org/abs/2311.15127) 在壓縮後的潛在空間中去噪以降低成本，後者並強調資料篩選的重要性。[^3]
 - 對影片而言，U-Net 還是 Transformer 是較好的去噪器？[Diffusion Transformers](https://arxiv.org/abs/2212.09748) 在影像上以作用於潛在圖塊的 Transformer 取代 U-Net，影片方面的答案仍未定。[^4]
 
+[^1]: Ho 等人（2022）：摘要、第 2 至 4 節，以及表 1 至表 3，包括影片預測段落中的取樣說明。
+[^2]: Ho 等人（2022）第 4.1 節：UCF-101 的 FID 以 C3D 特徵計算，影片預測的 FVD 以 I3D 特徵計算。
+[^3]: Blattmann 等人（2023）：兩篇摘要，分別描述在潛在影像模型上加入時間層，以及對訓練階段與資料篩選的研究。
+[^4]: Peebles 與 Xie（2022）：Transformer 去噪器作用於潛在圖塊。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -61,8 +66,3 @@ $$
 - Blattmann, A., et al. (2023). *Align your Latents: High-Resolution Video Synthesis with Latent Diffusion Models*. arXiv. https://arxiv.org/abs/2304.08818 — 為潛在影像擴散模型加入時間層。
 - Blattmann, A., et al. (2023). *Stable Video Diffusion: Scaling Latent Video Diffusion Models to Large Datasets*. arXiv. https://arxiv.org/abs/2311.15127 — 研究訓練階段與資料篩選。
 - Peebles, W. & Xie, S. (2022). *Scalable Diffusion Models with Transformers*. arXiv. https://arxiv.org/abs/2212.09748 — 以作用於潛在圖塊的 Transformer 取代 U-Net 去噪器。
-
-[^1]: Ho 等人（2022）：摘要、第 2 至 4 節，以及表 1 至表 3，包括影片預測段落中的取樣說明。
-[^2]: Ho 等人（2022）第 4.1 節：UCF-101 的 FID 以 C3D 特徵計算，影片預測的 FVD 以 I3D 特徵計算。
-[^3]: Blattmann 等人（2023）：兩篇摘要，分別描述在潛在影像模型上加入時間層，以及對訓練階段與資料篩選的研究。
-[^4]: Peebles 與 Xie（2022）：Transformer 去噪器作用於潛在圖塊。

@@ -56,6 +56,11 @@ $$
 
 以程式碼訓練的語言模型，無需學得的 DSL 即可撰寫程式，[^4] 而執行模型所寫程式碼的機制見 [CodeAct](../../../../engineering/agents/sandboxing-and-computer-use/codeact/index.md)。DreamCoder 的分層程式庫，是對 Lake 等人所主張的類人學習所需的組合性與學會學習要素的一次嘗試。[^3] 摘要並未對大腦作任何主張。其「想像與重播」式的訓練，與離線重播只是鬆散的類比；相關神經科學見[海馬迴重播](../../../../brain-mind/sleep-and-consolidation/hippocampal-replay/index.md)。更完整的脈絡見[神經符號 AI](../index.md)。
 
+[^1]: Ellis 等人（2020），見上文。程序描述、範圍與結果取自摘要。
+[^2]: Gulwani（2011），見上文。
+[^3]: Lake 等人（2016），見上文。
+[^4]: Chen 等人（2021）論 Codex，Gao 等人（2022）論 PAL，均見上文。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -68,8 +73,3 @@ $$
 
 - Chen, M. et al. (2021). *Evaluating Large Language Models Trained on Code*. arXiv. https://arxiv.org/abs/2107.03374 — 介紹以程式碼訓練的語言模型 Codex，並評估它依文件字串撰寫程式的能力。
 - Gao, L. et al. (2022). *PAL: Program-aided Language Models*. arXiv. https://arxiv.org/abs/2211.10435 — 讓語言模型撰寫程式，由 Python 直譯器執行，使求解步驟是精確的。
-
-[^1]: Ellis 等人（2020），見上文。程序描述、範圍與結果取自摘要。
-[^2]: Gulwani（2011），見上文。
-[^3]: Lake 等人（2016），見上文。
-[^4]: Chen 等人（2021）論 Codex，Gao 等人（2022）論 PAL，均見上文。

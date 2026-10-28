@@ -94,6 +94,9 @@ The variants below sit at different points in the pipeline, and none is sufficie
 - **Adaptive evaluation**: how much reported robustness survives an attacker who adapts to the filter is still unclear.
 - **Language coverage**: taxonomies and training data are mostly in English, so bypass and false-positive rates may differ across languages.
 
+[^1]: Sharma et al. (2025), abstract: an absolute increase of 0.38% in production-traffic refusals and a 23.7% inference overhead, the authors' figures for their deployment.
+[^2]: Han et al. (2024), abstract: the success rate of jailbreak attacks falls from 79.8% to 2.4% in an LLM interface, the authors' figures on their own evaluation.
+
 ## References
 
 ### Seminal papers
@@ -111,6 +114,3 @@ The variants below sit at different points in the pipeline, and none is sufficie
 ### Surveys and textbooks
 
 - Dong, Y. et al. (2024). *Building Guardrails for Large Language Models*. arXiv:2402.01822. https://arxiv.org/abs/2402.01822 — Position paper comparing open-source guardrail tools and arguing for systematic, tested design.
-
-[^1]: Sharma et al. (2025), abstract: an absolute increase of 0.38% in production-traffic refusals and a 23.7% inference overhead, the authors' figures for their deployment.
-[^2]: Han et al. (2024), abstract: the success rate of jailbreak attacks falls from 79.8% to 2.4% in an LLM interface, the authors' figures on their own evaluation.

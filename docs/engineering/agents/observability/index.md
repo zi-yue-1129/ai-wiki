@@ -99,6 +99,16 @@ Three landmark methods, each with its own page, show the main directions of the 
 - **Attribution.** Automated judges identify the responsible agent more reliably than the decisive step. Zhang et al. (2025) report 53.5% agent-level and 14.2% step-level accuracy for their best method.[^8]
 - **Standards.** Tools record different fields. Shared conventions are being developed, and the taxonomies on this page are proposals, not standards.[^9]
 
+[^1]: Cemri et al. (2025), Section 1, on the difficulty of verifying ground truth for root-cause detection, https://arxiv.org/abs/2503.13657
+[^2]: Chen, Zaharia & Zou (2023), abstract, https://arxiv.org/abs/2305.05176
+[^3]: Feng et al. (2025), abstract, https://arxiv.org/abs/2505.17716
+[^4]: Zheng et al. (2025), Section 5.2, https://arxiv.org/abs/2508.02736
+[^5]: Dong et al. (2024), Section 3, https://arxiv.org/abs/2411.05285
+[^6]: Chan et al. (2024), abstract, https://arxiv.org/abs/2401.13138
+[^7]: Baker et al. (2025), abstract, https://arxiv.org/abs/2503.11926
+[^8]: Zhang et al. (2025), abstract, https://arxiv.org/abs/2505.00212
+[^9]: Zheng et al. (2025), related-work section, on OpenTelemetry GenAI standards, https://arxiv.org/abs/2508.02736
+
 ## References
 
 ### Seminal papers
@@ -119,13 +129,3 @@ Three landmark methods, each with its own page, show the main directions of the 
 ### Articles and documentation
 
 - Anthropic (2024). *Building effective AI agents*. Anthropic Engineering. https://www.anthropic.com/engineering/building-effective-agents — Notes that agents trade latency and cost for performance, can compound errors, and should be tested extensively in sandboxed environments.
-
-[^1]: Cemri et al. (2025), Section 1, on the difficulty of verifying ground truth for root-cause detection, https://arxiv.org/abs/2503.13657
-[^2]: Chen, Zaharia & Zou (2023), abstract, https://arxiv.org/abs/2305.05176
-[^3]: Feng et al. (2025), abstract, https://arxiv.org/abs/2505.17716
-[^4]: Zheng et al. (2025), Section 5.2, https://arxiv.org/abs/2508.02736
-[^5]: Dong et al. (2024), Section 3, https://arxiv.org/abs/2411.05285
-[^6]: Chan et al. (2024), abstract, https://arxiv.org/abs/2401.13138
-[^7]: Baker et al. (2025), abstract, https://arxiv.org/abs/2503.11926
-[^8]: Zhang et al. (2025), abstract, https://arxiv.org/abs/2505.00212
-[^9]: Zheng et al. (2025), related-work section, on OpenTelemetry GenAI standards, https://arxiv.org/abs/2508.02736

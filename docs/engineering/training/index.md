@@ -79,3 +79,16 @@ The derivation of DPO and its successors (IPO, KTO, ORPO, SimPO), with online ve
 - *The Ultra-Scale Playbook* (Hugging Face, 2025) on distributed training
 - Lambert, *RLHF Book* (free online)
 - Unsloth and Axolotl documentation for practical fine-tuning
+
+## References
+
+Seminal works for this overview, drawn from the sub-pages linked above, where each is discussed in detail.
+
+- Hu, E. J. et al. (2021). *LoRA: Low-Rank Adaptation of Large Language Models*. arXiv:2106.09685. https://arxiv.org/abs/2106.09685 — Introduces the frozen-weight low-rank update used throughout this page.
+- Dettmers, T. et al. (2023). *QLoRA: Efficient Finetuning of Quantized LLMs*. arXiv:2305.14314. https://arxiv.org/abs/2305.14314 — Trains LoRA adapters on a 4-bit frozen base model.
+- Bradley, R. A. & Terry, M. E. (1952). *Rank Analysis of Incomplete Block Designs: I. The Method of Paired Comparisons*. Biometrika. https://doi.org/10.2307/2334029 — Introduces the paired-comparison model behind the preference loss.
+- Rafailov, R. et al. (2023). *Direct Preference Optimization: Your Language Model is Secretly a Reward Model*. arXiv. https://arxiv.org/abs/2305.18290 — Derives the DPO loss from the RLHF objective, dropping the reward model.
+- Micikevicius, P. et al. (2017). *Mixed Precision Training*. arXiv:1710.03740. https://arxiv.org/abs/1710.03740 — Introduces FP32 master weights and loss scaling for half-precision training.
+- Kalamkar, D. et al. (2019). *A Study of BFLOAT16 for Deep Learning Training*. arXiv:1905.12322. https://arxiv.org/abs/1905.12322 — Shows BF16 training matches FP32 results across several domains.
+- Dao, T. et al. (2022). *FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness*. NeurIPS 2022. https://arxiv.org/abs/2205.14135 — Introduces tiled exact attention that reduces reads and writes between GPU high-bandwidth memory and on-chip SRAM.
+- Dao, T. (2023). *FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning*. ICLR 2024. https://arxiv.org/abs/2307.08691 — Improves work partitioning across thread blocks and warps, so attention reaches a larger share of peak FLOPs/s.

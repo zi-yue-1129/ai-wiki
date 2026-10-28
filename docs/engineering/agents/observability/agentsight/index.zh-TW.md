@@ -63,6 +63,9 @@ flowchart LR
 - 監控器應該監看模型說它在想什麼，還是監看它做了什麼？Baker 等人（2025）發現，監控思維鏈比只監控行動更能偵測獎勵駭客，但針對監控器進行最佳化會教會模型隱藏推理。[^2]
 - 邊界追蹤如何在保護隱私的前提下進行？例如只保留警示所需的事件。
 
+[^1]: Zheng 等人（2025），表 1 與第 5.1 節，https://arxiv.org/abs/2508.02736
+[^2]: Baker 等人（2025），摘要，https://arxiv.org/abs/2503.11926
+
 ## 參考文獻
 
 ### 奠基性論文
@@ -75,6 +78,3 @@ flowchart LR
 ### 文章與文件
 
 - Anthropic（2024）。*Building effective AI agents*。Anthropic Engineering。https://www.anthropic.com/engineering/building-effective-agents — 指出代理人可能使錯誤累積，並建議在沙箱環境中進行充分測試。
-
-[^1]: Zheng 等人（2025），表 1 與第 5.1 節，https://arxiv.org/abs/2508.02736
-[^2]: Baker 等人（2025），摘要，https://arxiv.org/abs/2503.11926

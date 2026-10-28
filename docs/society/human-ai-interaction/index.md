@@ -99,6 +99,8 @@ This umbrella page introduces three sub-chapters: automation bias and overrelian
 - What should an interface show about the uncertainty of a language model, given that fluent output can look reliable whether or not it is?
 - The EU AI Act sets human-oversight duties for some high-risk systems. How much human oversight is needed to make those duties meaningful in practice?
 
+[^1]: The meta-analysis reports that, on average, human and AI combinations did worse than the better of the two alone on decision tasks, and that results differed for creative tasks. Check the paper for the exact effect sizes before quoting them.
+
 ## References
 
 ### Seminal papers
@@ -123,5 +125,3 @@ This umbrella page introduces three sub-chapters: automation bias and overrelian
 - Gaube, S. et al. (2021). Do as AI say: susceptibility in deployment of clinical decision-aids. *npj Digital Medicine*. https://doi.org/10.1038/s41746-021-00385-9 — Studies how clinicians are influenced by AI advice, including advice that is incorrect.
 - Budzyń, K. et al. (2025). Endoscopist deskilling risk after exposure to artificial intelligence in colonoscopy: a multicentre, observational study. *The Lancet Gastroenterology & Hepatology*. https://doi.org/10.1016/S2468-1253(25)00133-5 — Observational study of whether endoscopists' performance changes after AI exposure, examining the risk of deskilling.
 - Kasneci, E. et al. (2023). ChatGPT for good? On opportunities and challenges of large language models for education. *Learning and Individual Differences*. https://doi.org/10.1016/j.lindif.2023.102274 — Perspective review of how language models could support learning, and the risks they bring to it.
-
-[^1]: The meta-analysis reports that, on average, human and AI combinations did worse than the better of the two alone on decision tasks, and that results differed for creative tasks. Check the paper for the exact effect sizes before quoting them.

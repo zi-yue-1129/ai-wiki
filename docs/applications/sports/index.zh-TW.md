@@ -78,6 +78,9 @@ flowchart LR
 - **隱私與資料所有權。** 有關運動員的追蹤資料引發了同意、健康資料的使用，以及誰可以販售或分析這些資料的問題，這些議題在[監控](../../society/surveillance/index.md)與[倫理與公平](../../society/ethics/index.md)中有所討論。
 - **自動化判決。** 自動化裁判承諾一致性，但在接近的判決中出錯代價高昂，而審查中人類的角色仍未有定論。
 
+[^1]: Giancola 等人（2018）的 arXiv 摘要報告了來自六個歐洲聯賽、共 500 場完整比賽，總計 764 小時的影片。
+[^2]: Held 等人（2024）的 arXiv 摘要報告，在 SoccerNet-MVFoul 資料集上，該系統辨識犯規類型的正確率為 50%，判處的處罰則為 46%。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -105,6 +108,3 @@ flowchart LR
 - Deliège, A. 等人（2020）。SoccerNet-v2: a dataset and benchmarks for holistic understanding of broadcast soccer videos。arXiv。https://arxiv.org/abs/2011.13367 — 以更多標註與任務擴充 SoccerNet 基準，用於整體理解轉播足球影片。
 - Held, J. 等人（2024）。Towards AI-powered video assistant referee system (VARS) for association football。arXiv。https://arxiv.org/abs/2407.12483 — 提出一套半自動的多視角系統，用於判斷足球犯規與其處罰，並與人類裁判的表現相比較。
 - Desai, S.（2025）。Real time offside detection using a single camera in soccer。arXiv。https://arxiv.org/abs/2502.16030 — 提出以單一轉播攝影機、利用影像處理偵測越位的方法，作為多攝影機系統的低成本替代方案。
-
-[^1]: Giancola 等人（2018）的 arXiv 摘要報告了來自六個歐洲聯賽、共 500 場完整比賽，總計 764 小時的影片。
-[^2]: Held 等人（2024）的 arXiv 摘要報告，在 SoccerNet-MVFoul 資料集上，該系統辨識犯規類型的正確率為 50%，判處的處罰則為 46%。

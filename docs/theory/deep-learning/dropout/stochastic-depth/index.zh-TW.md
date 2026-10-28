@@ -70,6 +70,8 @@ Huang 等人（2016）的摘要報告，隨機深度大幅縮短了訓練時間�
 - **縮短訓練時間。** 論文報告，此方法縮短了訓練深層殘差網路所需的時間。
 - **其他殘差架構。** 丟棄殘差分支的想法可用於任何由殘差區塊組成的架構。
 
+[^1]: 數字引自 Huang 等人（2016）的摘要。基準測試表格見論文原文。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -82,5 +84,3 @@ Huang 等人（2016）的摘要報告，隨機深度大幅縮短了訓練時間�
 
 - He, K. et al. (2016). *Identity Mappings in Deep Residual Networks*. arXiv. https://arxiv.org/abs/1603.05027 — 分析恆等跳接，並提出一種殘差單元，使非常深網路的訓練更容易。
 - Veit, A., Wilber, M. & Belongie, S. (2016). *Residual Networks Behave Like Ensembles of Relatively Shallow Networks*. arXiv. https://arxiv.org/abs/1605.06431 — 把殘差網路描述為由不同長度路徑組成的集合，其中大多數是短路徑。
-
-[^1]: 數字引自 Huang 等人（2016）的摘要。基準測試表格見論文原文。

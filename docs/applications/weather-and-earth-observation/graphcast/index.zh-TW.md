@@ -46,6 +46,8 @@ $$\hat{X}_{t+1} = X_t + \hat{Y}_t$$
 - 其能力能否延伸到降水與罕見的極端事件？評估只部分涵蓋這些情況。
 - 作者預期此方法能隨運算與高解析度資料而擴展。然而，論文中並未測試更高解析度時準確度是否持續提升。
 
+[^1]: 90.3% 與 89.9% 的數字取自預印本（arXiv:2212.12794）；已發表的摘要給出四捨五入的 90%。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -59,5 +61,3 @@ $$\hat{X}_{t+1} = X_t + \hat{Y}_t$$
 - Hersbach, H. 等人（2020）。*The ERA5 global reanalysis*。Quarterly Journal of the Royal Meteorological Society。https://doi.org/10.1002/qj.3803 — 說明 ERA5，即 GraphCast 所訓練與評估使用的再分析資料。
 - Rasp, S. 等人（2023）。*WeatherBench 2: A benchmark for the next generation of data-driven global weather models*。arXiv。https://arxiv.org/abs/2308.15560 — 資料驅動天氣模型的開放評估框架與基線。
 - Bi, K. 等人（2023）。*Accurate medium-range global weather forecasting with 3D neural networks*。Nature。https://doi.org/10.1038/s41586-023-06185-3 — Pangu-Weather 原論文，是同期的學習型預報模型。
-
-[^1]: 90.3% 與 89.9% 的數字取自預印本（arXiv:2212.12794）；已發表的摘要給出四捨五入的 90%。

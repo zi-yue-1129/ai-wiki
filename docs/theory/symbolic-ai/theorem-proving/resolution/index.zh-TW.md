@@ -54,6 +54,9 @@ Robinson 1965 年的論文以證明而非基準測試，確立了該規則及其
 - **與 SAT 和 SMT 結合。** 問題中的基礎（ground）部分，通常由 SAT 或 SMT 求解器處理得更好。如何在兩者之間分配工作，是一個沒有固定答案的工程問題。
 - **人類的證明風格。** 歸結證明很少能以數學的方式被人讀懂。機器證明能否轉譯為人類式的論證，仍是開放問題。
 
+[^1]: Davis 與 Putnam（1960），以及 Davis、Logemann 與 Loveland（1962），見上方參考文獻。
+[^2]: Kaliszyk 等人（2018），見上方參考文獻。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -71,6 +74,3 @@ Robinson 1965 年的論文以證明而非基準測試，確立了該規則及其
 
 - Kaliszyk, C., Urban, J., Michalewski, H. & Olšák, M. (2018). *Reinforcement Learning of Theorem Proving*. arXiv. https://arxiv.org/abs/1805.07563 — 以強化學習引導連接式證明器的證明搜尋。
 - Fikes, R. E. & Nilsson, N. J. (1971). *STRIPS: A new approach to the application of theorem proving to problem solving*. Artificial Intelligence. https://doi.org/10.1016/0004-3702(71)90010-5 — 展示定理證明如何被應用於規劃，是 STRIPS 形式化的起源。
-
-[^1]: Davis 與 Putnam（1960），以及 Davis、Logemann 與 Loveland（1962），見上方參考文獻。
-[^2]: Kaliszyk 等人（2018），見上方參考文獻。

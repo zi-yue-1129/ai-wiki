@@ -94,6 +94,9 @@ PixelCNN and WaveNet keep the convolutional inductive biases of their inputs, wh
 - **Long-range structure.** Music and long speech need coherence over minutes. Whether next-token models can learn it at scale, or need hierarchical codes, is debated.
 - **Brain evidence.** The brain-model results are correlational. Whether the brain uses prediction in the same way as these models is open.
 
+[^1]: These studies compare model activations with brain recordings during natural language. They show that the two share a predictive structure, not that the brain runs the same algorithm as a Transformer or that it generates speech autoregressively.
+[^2]: The correspondence is approximate. Arithmetic coding adds a small overhead above the ideal code length, which the PixelRNN paper also mentions.
+
 ## References
 
 ### Seminal papers
@@ -115,7 +118,3 @@ PixelCNN and WaveNet keep the convolutional inductive biases of their inputs, wh
 
 - Schrimpf, M. et al. (2021). The neural architecture of language: Integrative modeling converges on predictive processing. *PNAS*. https://doi.org/10.1073/pnas.2105646118 — Links next-word prediction in language models to human brain responses during language processing.
 - Goldstein, A. et al. (2022). Shared computational principles for language processing in humans and deep language models. *Nature Neuroscience*. https://doi.org/10.1038/s41593-022-01026-4 — Reports continuous next-word prediction and surprise signals in human brain recordings.
-
-[^1]: These studies compare model activations with brain recordings during natural language. They show that the two share a predictive structure, not that the brain runs the same algorithm as a Transformer or that it generates speech autoregressively.
-
-[^2]: The correspondence is approximate. Arithmetic coding adds a small overhead above the ideal code length, which the PixelRNN paper also mentions.

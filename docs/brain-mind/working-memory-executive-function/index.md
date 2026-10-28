@@ -99,6 +99,8 @@ The first two methods ask how a memory is kept. The third asks when it should ch
 - **Are executive functions one system?** Diamond's list suggests several components. Whether they reflect one control system or several separable ones is unresolved.
 - **Do language models maintain information?** Attention can read a context window, but whether anything in a language model keeps information against distraction in the way that prefrontal cortex does is an open research question.
 
+[^1]: Cowan's estimate depends on how a chunk is defined, and his review says that capacity can be measured reliably only under carefully described conditions. The figure of seven is an older rough estimate, which Cowan's review revises.
+
 ## References
 
 ### Seminal papers
@@ -122,5 +124,3 @@ The first two methods ask how a memory is kept. The third asks when it should ch
 
 - Liu, N. F. et al. (2023). Lost in the Middle: How Language Models Use Long Contexts. arXiv. https://arxiv.org/abs/2307.03172 — Shows that language models use information at the start or end of a long context more reliably than information in the middle.
 - Chung, J. et al. (2014). Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling. arXiv. https://arxiv.org/abs/1412.3555 — Compares LSTM and GRU units on polyphonic music and speech modelling, finding both better than plain tanh units.
-
-[^1]: Cowan's estimate depends on how a chunk is defined, and his review says that capacity can be measured reliably only under carefully described conditions. The figure of seven is an older rough estimate, which Cowan's review revises.

@@ -76,6 +76,11 @@ ToT is the language-model counterpart of the classical methods in the [parent ov
 - **Programming**, in agent systems that search over candidate code and use test results as feedback.[^2]
 - **Planning in simulated environments**, such as plan generation tasks studied with Reasoning via Planning.[^3]
 
+[^1]: Yao et al. (2023), listed above. The success rates are as reported in the abstract.
+[^2]: Zhou et al. (2023), listed above. The figure is the abstract's reported pass@1 with GPT-4.
+[^3]: Hao et al. (2023), listed above. The 33% figure is the relative improvement reported in the abstract.
+[^4]: Snell et al. (2024), listed above.
+
 ## References
 
 ### Seminal papers
@@ -93,8 +98,3 @@ ToT is the language-model counterpart of the classical methods in the [parent ov
 - Hao, S. et al. (2023). Reasoning with Language Model is Planning with World Model. arXiv. https://arxiv.org/abs/2305.14992 — Uses Monte Carlo tree search over reasoning steps, with the language model acting as both world model and reasoning agent.
 - Zhou, A. et al. (2023). Language Agent Tree Search Unifies Reasoning Acting and Planning in Language Models. arXiv. https://arxiv.org/abs/2310.04406 — Combines Monte Carlo tree search, language-model value functions and environment feedback for agents.
 - Snell, C. et al. (2024). Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters. arXiv. https://arxiv.org/abs/2408.03314 — Studies how searching against verifiers and adaptive sampling at test time trade off against model size, depending on prompt difficulty.
-
-[^1]: Yao et al. (2023), listed above. The success rates are as reported in the abstract.
-[^2]: Zhou et al. (2023), listed above. The figure is the abstract's reported pass@1 with GPT-4.
-[^3]: Hao et al. (2023), listed above. The 33% figure is the relative improvement reported in the abstract.
-[^4]: Snell et al. (2024), listed above.

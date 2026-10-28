@@ -98,6 +98,8 @@ Veale & Borgesius（2021）分析的是委員會的草案，它早於最終條�
 - 預測性警務的回饋迴圈應如何打破：改變模型、改變資料，還是改變系統的部署方式？Ensign et al.（2017）提出修正事件資料，Hung & Yen（2023）則提出治理措施。
 - 大眾接受度因國家而異：Kostka et al.（2021）發現中國的接受度最高，德國最低，而人們在判斷時，便利與安全比監控更為突出。這些態度是否應影響規範，是民主程序需要回答的問題。
 
+[^1]: Buolamwini & Gebru（2018），摘要與表 4。數字取自 Pilot Parliaments Benchmark，三款分類器在其中對深膚色女性的錯誤率都是最高的。
+
 ## 參考資料
 
 ### 開創性論文
@@ -121,5 +123,3 @@ Veale & Borgesius（2021）分析的是委員會的草案，它早於最終條�
 - Kieslich, K. & Lünich, M.（2024）. Regulating AI-Based Remote Biometric Identification. Investigating the Public Demand for Bans, Audits, and Public Database Registrations. arXiv. https://arxiv.org/abs/2401.13605 — 針對德國公民的調查，探討遠端生物特徵辨識的規範。
 - Gabrielli, G.（2025）. The Use of Facial Recognition Technologies in the Context of Peaceful Protest. *European Journal of Risk Regulation*. https://doi.org/10.1017/err.2025.26 — 把人權標準套用到抗議活動中的人臉辨識。
 - Kostka, G., Steinacker, L. & Meckel, M.（2021）. Between security and convenience: Facial recognition technology in the eyes of citizens in China, Germany, the United Kingdom, and the United States. *Public Understanding of Science*. https://doi.org/10.1177/09636625211001555 — 在四個國家進行的線上調查，比較大眾對人臉辨識的接受度。
-
-[^1]: Buolamwini & Gebru（2018），摘要與表 4。數字取自 Pilot Parliaments Benchmark，三款分類器在其中對深膚色女性的錯誤率都是最高的。

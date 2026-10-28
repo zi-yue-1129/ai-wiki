@@ -84,6 +84,8 @@ flowchart LR
 - **規模。**奠基性論文中的影像結果，所用資料集的解析度最高為 256 × 256 像素。正規化流能否在最大規模的文字生成影像與影片任務上，與擴散模型和自回歸 Transformer 相匹敵，仍是有待比較的問題。
 - **連續流的成本。**連續流在訓練時需要求解 ODE，而跡估計器會增加變異。流匹配與隨機插值降低了這項成本，但它們在精確似然上的取捨仍在研究之中。
 
+[^1]: 以不同去量化方案報告的每維位元數並不能直接比較，因為每種方案定義的連續密度都不同。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -110,5 +112,3 @@ flowchart LR
 
 - Noé, F., Olsson, S., Köhler, J. & Wu, H. (2019). *Boltzmann generators: Sampling equilibrium states of many-body systems with deep learning*. Science. https://doi.org/10.1126/science.aaw1147 — 以學習得到的可逆變換，生成分子系統中無偏的一步平衡樣本。
 - van den Oord, A. et al. (2017). *Parallel WaveNet: Fast High-Fidelity Speech Synthesis*. arXiv. https://arxiv.org/abs/1711.10433 — 把依序生成的 WaveNet 蒸餾成前饋流，生成語音的速度快於實時。
-
-[^1]: 以不同去量化方案報告的每維位元數並不能直接比較，因為每種方案定義的連續密度都不同。

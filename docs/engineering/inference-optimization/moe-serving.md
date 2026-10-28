@@ -106,6 +106,11 @@ GShard scaled a translation model past 600 billion parameters with automatic sha
 - **Predictable routing.** Prefetching needs the next layer's experts to be predictable, and caching needs experts to recur. Both depend on the data.
 - **Batch size.** Offloading suits small batches; large ones need most experts resident. The crossover depends on hardware and routing variety.
 
+[^1]: Jiang et al. (2024) state 47 billion parameters accessible per token, 13 billion used during inference, and an Apache 2.0 release.
+[^2]: With B tokens each choosing 2 of 8 experts uniformly and independently, the expected count of distinct experts is 8 × (1 − 0.75^B). Real routers are skewed, so the true count may be lower. Computed here, not measured.
+[^3]: Xue et al. (2024) report these latency figures for batch size one, on DeepSeek and Mixtral models, in their own setup.
+[^4]: DeepSeek-AI (2024) state 671 billion total and 37 billion activated parameters per token.
+
 ## References
 
 ### Seminal papers
@@ -126,8 +131,3 @@ GShard scaled a translation model past 600 billion parameters with automatic sha
 
 - Jiang, A. Q. et al. (2024). *Mixtral of Experts*. arXiv preprint. https://arxiv.org/abs/2401.04088 — Introduces an open-weight sparse model with eight experts and two chosen per token.
 - DeepSeek-AI (2024). *DeepSeek-V3 Technical Report*. arXiv preprint. https://arxiv.org/abs/2412.19437 — Technical report for a large MoE model, with auxiliary-loss-free load balancing.
-
-[^1]: Jiang et al. (2024) state 47 billion parameters accessible per token, 13 billion used during inference, and an Apache 2.0 release.
-[^2]: With B tokens each choosing 2 of 8 experts uniformly and independently, the expected count of distinct experts is 8 × (1 − 0.75^B). Real routers are skewed, so the true count may be lower. Computed here, not measured.
-[^3]: Xue et al. (2024) report these latency figures for batch size one, on DeepSeek and Mixtral models, in their own setup.
-[^4]: DeepSeek-AI (2024) state 671 billion total and 37 billion activated parameters per token.

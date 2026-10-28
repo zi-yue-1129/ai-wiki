@@ -69,6 +69,8 @@ Parasuraman 與 Manzey（2010）把這個效應與注意力連結起來。當手
 - 因卸載或自動化而流失的技能，當人重新獨立工作時能否恢復？
 - 醫療中的技能流失，有多少是由 AI 造成的，又有多少是因病人或做法的改變？
 
+[^1]: Budzyń 的研究屬於觀察性研究，因此無法單憑它證明是 AI 的接觸造成了這個下降。作者將其描述為對內視鏡醫師行為可能的負面影響。引用確切數字前，請查閱原文。
+
 ## 參考資料
 
 ### 開創性論文
@@ -90,5 +92,3 @@ Parasuraman 與 Manzey（2010）把這個效應與注意力連結起來。當手
 - Kim, S. S. Y. et al. (2024). "I'm Not Sure, But...": Examining the Impact of Large Language Models' Uncertainty Expression on User Reliance and Trust. *FAccT 2024*. https://arxiv.org/abs/2405.00623 — 預先註冊的實驗（N=404），探討 LLM 答案中不同的不確定性用語如何改變醫療問題上的依賴與準確度。
 - Steyvers, M. et al. (2025). What large language models know and what people think they know. *Nature Machine Intelligence*. https://doi.org/10.1038/s42256-024-00976-7 — 實驗探討使用者信心與模型信心之間的差距，以及解釋長度如何改變這個差距。
 - Spatharioti, S. E. et al. (2023). Comparing Traditional and LLM-based Search for Consumer Choice: A Randomized Experiment. arXiv. https://arxiv.org/abs/2307.03744 — 隨機化的線上實驗，顯示人會過度依賴錯誤的 LLM 答案，而以顏色標示的提示有助於他們發現錯誤。
-
-[^1]: Budzyń 的研究屬於觀察性研究，因此無法單憑它證明是 AI 的接觸造成了這個下降。作者將其描述為對內視鏡醫師行為可能的負面影響。引用確切數字前，請查閱原文。

@@ -107,6 +107,21 @@ Three landmark methods have their own pages. They show the range from classical 
 - **Benchmark saturation.** As pass rates on miniF2F rise, harder research-level benchmarks are needed.
 - **Transfer and readability.** A prover trained on one library may not carry over to another's conventions or to new research, and machine-generated proofs can be too long to help a mathematician understand a result.
 
+[^1]: Kaliszyk and Urban (2014), listed above.
+[^2]: Alemi et al. (2016), listed above.
+[^3]: Yang and Deng (2019), listed above.
+[^4]: Han et al. (2021), listed above, reporting held-out Lean test theorems.
+[^5]: Zheng et al. (2021), listed above.
+[^6]: Ren et al. (2025), listed above. The figure is reported on the MiniF2F-test split.
+[^7]: Fikes and Nilsson (1971), listed above.
+[^8]: Amalric and Dehaene (2016), listed above.
+[^9]: Leroy (2009), listed above.
+[^10]: Hales et al. (2015), listed above.
+[^11]: Gonthier et al. (2013), listed above.
+[^12]: The mathlib Community (2020), listed above.
+[^13]: Heule, Kullmann and Marek (2016), listed above.
+[^14]: Wu et al. (2022), listed above.
+
 ## References
 
 ### Seminal papers
@@ -140,18 +155,3 @@ Three landmark methods have their own pages. They show the range from classical 
 - Wu, Y. et al. (2022). *Autoformalization with Large Language Models*. arXiv. https://arxiv.org/abs/2205.12615 — Shows language models translating competition problems into Isabelle/HOL statements.
 - Ren, Z. Z. et al. (2025). *DeepSeek-Prover-V2: Advancing Formal Mathematical Reasoning via Reinforcement Learning for Subgoal Decomposition*. arXiv. https://arxiv.org/abs/2504.21801 — An open Lean prover trained with subgoal decomposition.
 - Amalric, M. & Dehaene, S. (2016). *Origins of the brain networks for advanced mathematics in expert mathematicians*. PNAS. https://doi.org/10.1073/pnas.1603205113 — Brain imaging of professional mathematicians, showing networks shared with number and space.
-
-[^1]: Kaliszyk and Urban (2014), listed above.
-[^2]: Alemi et al. (2016), listed above.
-[^3]: Yang and Deng (2019), listed above.
-[^4]: Han et al. (2021), listed above, reporting held-out Lean test theorems.
-[^5]: Zheng et al. (2021), listed above.
-[^6]: Ren et al. (2025), listed above. The figure is reported on the MiniF2F-test split.
-[^7]: Fikes and Nilsson (1971), listed above.
-[^8]: Amalric and Dehaene (2016), listed above.
-[^9]: Leroy (2009), listed above.
-[^10]: Hales et al. (2015), listed above.
-[^11]: Gonthier et al. (2013), listed above.
-[^12]: The mathlib Community (2020), listed above.
-[^13]: Heule, Kullmann and Marek (2016), listed above.
-[^14]: Wu et al. (2022), listed above.

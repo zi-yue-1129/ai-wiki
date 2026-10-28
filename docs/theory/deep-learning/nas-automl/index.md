@@ -104,6 +104,11 @@ The most successful product of this line of work in image classification is the 
 - **Hardware measurements.** Measured latency depends on the device, the compiler and the software. A network that is fast on one phone may not be fast on another.
 - **Where the effort goes.** AutoML does not remove expert knowledge. It moves that knowledge into search-space design, benchmarks and objective functions.
 
+[^1]: Zoph and Le (2016) describe 12,800 sampled architectures and 800 child networks training concurrently on 800 GPUs.
+[^2]: Real et al. (2018) report that one controlled search of 20,000 small models ran on 450 K40 GPUs for about seven days.
+[^3]: Liu et al. (2018) report 1.5 GPU days for the first-order search and 4 GPU days for the second-order search, compared with 2000 GPU days for NASNet.
+[^4]: Tan et al. (2018) report that each architecture search took 4.5 days on 64 TPUv2 devices.
+
 ## References
 
 ### Seminal papers
@@ -126,8 +131,3 @@ The most successful product of this line of work in image classification is the 
 - Li, L. & Talwalkar, A. (2019). *Random Search and Reproducibility for Neural Architecture Search*. arXiv:1902.07638. https://arxiv.org/abs/1902.07638 — Shows that random search with early stopping is a competitive NAS baseline on PTB and CIFAR-10.
 - Yang, A., Esperança, P. M. & Carlucci, F. M. (2019). *NAS evaluation is frustratingly hard*. arXiv:1912.12522. https://arxiv.org/abs/1912.12522 — Benchmarks eight NAS methods on five datasets under a shared protocol and discusses why comparisons are difficult.
 - Ying, C., et al. (2019). *NAS-Bench-101: Towards Reproducible Neural Architecture Search*. arXiv:1902.09635. https://arxiv.org/abs/1902.09635 — A public dataset of trained architectures for comparing search algorithms without large compute budgets.
-
-[^1]: Zoph and Le (2016) describe 12,800 sampled architectures and 800 child networks training concurrently on 800 GPUs.
-[^2]: Real et al. (2018) report that one controlled search of 20,000 small models ran on 450 K40 GPUs for about seven days.
-[^3]: Liu et al. (2018) report 1.5 GPU days for the first-order search and 4 GPU days for the second-order search, compared with 2000 GPU days for NASNet.
-[^4]: Tan et al. (2018) report that each architecture search took 4.5 days on 64 TPUv2 devices.

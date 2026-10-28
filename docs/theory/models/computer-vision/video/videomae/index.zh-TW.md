@@ -55,6 +55,11 @@ $$
 - 重建像素能否和重建外觀一樣有效地學到運動？[V-JEPA](https://arxiv.org/abs/2404.08471) 預測特徵而非像素，並報告了強勁的影片表徵，顯示預測目標的選擇很重要。[^4]
 - 90% 的遮罩比率在識別以外的任務上，例如生成或影片與語言建模，是否仍是最佳值？
 
+[^1]: Tong 等人（2022），引言：影片 Transformer 通常衍生自影像模型，從零訓練的結果並不理想。
+[^2]: Tong 等人（2022）：第 3 節（管狀遮罩、編碼器與時程）、表 2（16 影格 ViT-B 比較）、表 3（預訓練時間）、表 7（Kinetics-400 的擴展），以及預訓練資料集段落中關於領域偏移的討論。
+[^3]: He 等人（2021）：MSE 損失計算於被遮住圖塊經正規化後的像素。
+[^4]: Bardes 等人（2024），摘要：不做像素重建、僅以特徵預測為目標，在兩百萬段影片上訓練。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -68,8 +73,3 @@ $$
 - Soomro, K., Zamir, A. R. & Shah, M. (2012). *UCF101: A Dataset of 101 Human Actions Classes From Videos in The Wild*. arXiv. https://arxiv.org/abs/1212.0402 — 遷移實驗所用的 101 類動作資料集。
 - Kuehne, H., Jhuang, H., Garrote, E., Poggio, T. & Serre, T. (2011). *HMDB: A large video database for human motion recognition*. ICCV. https://doi.org/10.1109/ICCV.2011.6126543 — 51 類動作資料集，也是此處使用的最小資料集。
 - Bardes, A., et al. (2024). *Revisiting Feature Prediction for Learning Visual Representations from Video*. arXiv. https://arxiv.org/abs/2404.08471 — V-JEPA，透過預測特徵而非像素來學習影片表徵。
-
-[^1]: Tong 等人（2022），引言：影片 Transformer 通常衍生自影像模型，從零訓練的結果並不理想。
-[^2]: Tong 等人（2022）：第 3 節（管狀遮罩、編碼器與時程）、表 2（16 影格 ViT-B 比較）、表 3（預訓練時間）、表 7（Kinetics-400 的擴展），以及預訓練資料集段落中關於領域偏移的討論。
-[^3]: He 等人（2021）：MSE 損失計算於被遮住圖塊經正規化後的像素。
-[^4]: Bardes 等人（2024），摘要：不做像素重建、僅以特徵預測為目標，在兩百萬段影片上訓練。

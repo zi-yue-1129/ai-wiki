@@ -100,6 +100,17 @@ Three landmark methods have their own pages. They were introduced at very differ
 - **Does search generalise beyond checkable tasks?** Search works well when solutions can be verified cheaply, as in puzzles, code and mathematics. Open-ended tasks lack such a verifier.
 - **Is human planning a tree search?** The neuroscience evidence fits tree-like planning, but also approximations that prune or replay only parts of the tree.
 
+[^1]: Kirkpatrick et al. (1983), listed above.
+[^2]: Mackworth (1977), listed above.
+[^3]: Hoffmann and Nebel (2001), listed above. The competition result is as reported in their abstract.
+[^4]: Newell and Simon (1976), listed above.
+[^5]: Daw, Niv and Dayan (2005), listed above.
+[^6]: Huys et al. (2012), listed above.
+[^7]: Pfeiffer and Foster (2013), listed above. The finding is from animal recordings, and its interpretation as planning is debated.
+[^8]: Campbell, Hoane and Hsu (2002), listed above.
+[^9]: Silver et al. (2016), listed above.
+[^10]: Snell et al. (2024), listed above. Their compute-optimal allocation outperforms a best-of-N baseline, as reported in their abstract.
+
 ## References
 
 ### Seminal papers
@@ -125,14 +136,3 @@ Three landmark methods have their own pages. They were introduced at very differ
 - Daw, N. D., Niv, Y. & Dayan, P. (2005). Uncertainty-based competition between prefrontal and dorsolateral striatal systems for behavioral control. *Nature Neuroscience*. https://doi.org/10.1038/nn1560 — Proposes that model-based planning and model-free habits compete for control, with arbitration based on uncertainty.
 - Huys, Q. J. M. et al. (2012). Bonsai Trees in Your Head: How the Pavlovian System Sculpts Goal-Directed Choices by Pruning Decision Trees. *PLoS Computational Biology*. https://doi.org/10.1371/journal.pcbi.1002410 — Argues that a Pavlovian bias prunes the decision trees that goal-directed choice searches.
 - Pfeiffer, B. E. & Foster, D. J. (2013). Hippocampal place-cell sequences depict future paths to remembered goals. *Nature*. https://doi.org/10.1038/nature12112 — Reports sequences of hippocampal place cells that run ahead of the animal along paths toward goals.
-
-[^1]: Kirkpatrick et al. (1983), listed above.
-[^2]: Mackworth (1977), listed above.
-[^3]: Hoffmann and Nebel (2001), listed above. The competition result is as reported in their abstract.
-[^4]: Newell and Simon (1976), listed above.
-[^5]: Daw, Niv and Dayan (2005), listed above.
-[^6]: Huys et al. (2012), listed above.
-[^7]: Pfeiffer and Foster (2013), listed above. The finding is from animal recordings, and its interpretation as planning is debated.
-[^8]: Campbell, Hoane and Hsu (2002), listed above.
-[^9]: Silver et al. (2016), listed above.
-[^10]: Snell et al. (2024), listed above. Their compute-optimal allocation outperforms a best-of-N baseline, as reported in their abstract.

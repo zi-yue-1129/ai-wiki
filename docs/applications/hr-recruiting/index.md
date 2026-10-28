@@ -106,6 +106,15 @@ The EU AI Act treats AI used for recruitment and selection as high-risk. Its hig
 - **Does automation reduce human bias or move it?** Evidence comparing human and machine decisions in the same applicant pool is still limited.
 - **Who is accountable?** Vendors, employers and the people who configure a tool may each hold part of the responsibility, and the law is still settling the division.
 
+[^1]: Decorte et al. (2021), JobBERT. The reported gains are the authors' own results on their benchmark.
+[^2]: Bertrand and Mullainathan (2004) report that White-sounding names received 50 percent more callbacks than African-American-sounding names, uniformly across occupations and employer sizes.
+[^3]: Naim et al. (2015) report that interviewer ratings of excitement, friendliness and engagement could be predicted with correlation coefficients of 0.75 or higher, and that a candidate's rating on the first question predicted overall ratings. The sample is small and drawn from one university.
+[^4]: Wilson and Caliskan (2024). The percentages refer to the comparisons in their audit, not to real hiring decisions.
+[^5]: Hickman et al. (2022). Reliability was mixed when models were cross-validated across samples; models trained on self-reports showed little evidence of either reliability or validity.
+[^6]: Raghavan et al. (2020). The paper is a study of vendor claims, not a test of the tools themselves.
+[^7]: Groves et al. (2024). The findings come from interviews with participants rather than from a review of audit reports.
+[^8]: Veale and Zuiderveen Borgesius (2021) analyse the draft, so their classification should be checked against the adopted text.
+
 ## References
 
 ### Seminal papers
@@ -126,12 +135,3 @@ The EU AI Act treats AI used for recruitment and selection as high-risk. Its hig
 - Hickman, L. et al. (2022). Automated video interview personality assessments: Reliability, validity, and generalizability investigations. *Journal of Applied Psychology*. https://doi.org/10.1037/apl0000695 — Tests machine-learning personality assessments from mock video interviews across three samples, comparing interviewer-rated and self-reported training labels.
 - Veale, M. & Zuiderveen Borgesius, F. (2021). Demystifying the Draft EU Artificial Intelligence Act. *Computer Law Review International*. https://doi.org/10.9785/cri-2021-220402 — Legal analysis of the Commission's 2021 draft, including its high-risk classification of employment systems; the final text differs in detail.
 - Decorte, J.-J. et al. (2021). *JobBERT: Understanding Job Titles through Skills*. arXiv preprint. https://arxiv.org/abs/2109.09605 — Represents job titles through the skills in vacancies, improving title normalisation over generic sentence encoders.
-
-[^1]: Decorte et al. (2021), JobBERT. The reported gains are the authors' own results on their benchmark.
-[^2]: Bertrand and Mullainathan (2004) report that White-sounding names received 50 percent more callbacks than African-American-sounding names, uniformly across occupations and employer sizes.
-[^3]: Naim et al. (2015) report that interviewer ratings of excitement, friendliness and engagement could be predicted with correlation coefficients of 0.75 or higher, and that a candidate's rating on the first question predicted overall ratings. The sample is small and drawn from one university.
-[^4]: Wilson and Caliskan (2024). The percentages refer to the comparisons in their audit, not to real hiring decisions.
-[^5]: Hickman et al. (2022). Reliability was mixed when models were cross-validated across samples; models trained on self-reports showed little evidence of either reliability or validity.
-[^6]: Raghavan et al. (2020). The paper is a study of vendor claims, not a test of the tools themselves.
-[^7]: Groves et al. (2024). The findings come from interviews with participants rather than from a review of audit reports.
-[^8]: Veale and Zuiderveen Borgesius (2021) analyse the draft, so their classification should be checked against the adopted text.

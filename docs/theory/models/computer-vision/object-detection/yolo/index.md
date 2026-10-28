@@ -82,6 +82,11 @@ The error analysis is one of the paper's clearest results. YOLO makes more local
 
 Real-time detection matters where a system must react to a moving scene: traffic and pedestrian monitoring in [autonomous driving](../../../../../applications/autonomous-driving/index.md), video surveillance, and robotics that must track objects while it moves.
 
+[^1]: Redmon et al. (2015), abstract: the detector is a single network that can be optimised end to end, and its generalisation from natural images to artwork is compared with DPM and R-CNN.
+[^2]: Redmon et al. (2015), Section 2: the grid, the confidence definition, and the sum-squared loss with λ_coord = 5 and λ_noobj = 0.5. The statement about NMS is in the same section.
+[^3]: Redmon et al. (2015), Tables 1 and 3 and Section 4: the VOC 2007 and 2012 results, the speed comparison and the error analysis. The Faster R-CNN and Fast R-CNN figures are as tabulated in that paper.
+[^4]: Redmon and Farhadi (2016), abstract; Bochkovskiy et al. (2020), abstract; Ge et al. (2021), abstract.
+
 ## References
 
 ### Seminal papers
@@ -99,8 +104,3 @@ Real-time detection matters where a system must react to a moving scene: traffic
 
 - Bochkovskiy, A., Wang, C.-Y. & Liao, H.-Y. M. (2020). *YOLOv4: Optimal Speed and Accuracy of Object Detection*. arXiv. https://arxiv.org/abs/2004.10934 — Combines many published CNN techniques into a YOLO detector tuned for speed and accuracy on a single GPU.
 - Ge, Z., Liu, S., Wang, F., Li, Z. & Sun, J. (2021). *YOLOX: Exceeding YOLO Series in 2021*. arXiv. https://arxiv.org/abs/2107.08430 — Moves the YOLO design to an anchor-free form with a decoupled head and a new label-assignment strategy.
-
-[^1]: Redmon et al. (2015), abstract: the detector is a single network that can be optimised end to end, and its generalisation from natural images to artwork is compared with DPM and R-CNN.
-[^2]: Redmon et al. (2015), Section 2: the grid, the confidence definition, and the sum-squared loss with λ_coord = 5 and λ_noobj = 0.5. The statement about NMS is in the same section.
-[^3]: Redmon et al. (2015), Tables 1 and 3 and Section 4: the VOC 2007 and 2012 results, the speed comparison and the error analysis. The Faster R-CNN and Fast R-CNN figures are as tabulated in that paper.
-[^4]: Redmon and Farhadi (2016), abstract; Bochkovskiy et al. (2020), abstract; Ge et al. (2021), abstract.

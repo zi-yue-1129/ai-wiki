@@ -52,6 +52,8 @@ $$
 - 循環式全域模型與以 Transformer 為基礎的模型，在相同的零售資料上表現如何比較？
 - 能否以[共形預測](../../../theory/machine-learning/uncertainty-and-calibration/conformal-prediction/index.md)重新校準這些分布，以保證涵蓋率？
 
+[^1]: 數據來自 Salinas 等人（2020）的表 2。同一篇論文的 arXiv 摘要（arXiv:1704.04110）將相對於最先進方法的增益總結為約 15%。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -64,5 +66,3 @@ $$
 
 - Petropoulos, F. et al. (2020). Forecasting: theory and practice. arXiv. https://arxiv.org/abs/2012.03854 — 對跨領域預測方法的非系統性回顧，從古典統計到機器學習。
 - Makridakis, S., Spiliotis, E. & Assimakopoulos, V. (2022). M5 accuracy competition: results, findings, and conclusions. *International Journal of Forecasting*. https://doi.org/10.1016/j.ijforecast.2021.11.013 — 報告大型的階層式零售預測基準測試，其中比較了許多方法。
-
-[^1]: 數據來自 Salinas 等人（2020）的表 2。同一篇論文的 arXiv 摘要（arXiv:1704.04110）將相對於最先進方法的增益總結為約 15%。

@@ -99,6 +99,19 @@ Three landmark methods have their own pages. They differ in the knowledge they n
 - **Can uncertain planning scale?** Exact solution of POMDPs is hard, and the field relies on approximations.
 - **Is human planning tree search?** The neuroscience evidence fits tree-like planning, but also shortcuts that replay or prune only parts of a tree.
 
+[^1]: Fikes and Nilsson (1971), listed above.
+[^2]: Fox and Long (2003), listed above. The statement about the competition follows their abstract.
+[^3]: Hoffmann and Nebel (2001), listed above. The heuristic ignores delete lists, as described in their abstract.
+[^4]: Nau et al. (2003), listed above.
+[^5]: Kaelbling, Littman and Cassandra (1998), listed above.
+[^6]: Kaelbling, Littman and Moore (1996), listed above.
+[^7]: Dolan and Dayan (2013), listed above.
+[^8]: Mattar and Daw (2018), listed above. The finding comes from modelling and recordings, and its interpretation is debated.
+[^9]: Muscettola et al. (1998), listed above.
+[^10]: Ahn et al. (2022), listed above.
+[^11]: Valmeekam et al. (2023), listed above. The success rate is the average reported in their abstract for the best model tested.
+[^12]: Kambhampati et al. (2024), listed above.
+
 ## References
 
 ### Seminal papers
@@ -123,16 +136,3 @@ Three landmark methods have their own pages. They differ in the knowledge they n
 - Kambhampati, S. et al. (2024). LLMs Can't Plan, But Can Help Planning in LLM-Modulo Frameworks. arXiv. https://arxiv.org/abs/2402.01817 — Position paper arguing that language models should work inside a loop with external model-based verifiers.
 - Mattar, M. G. & Daw, N. D. (2018). Prioritized memory access explains planning and hippocampal replay. *Nature Neuroscience*. https://doi.org/10.1038/s41593-018-0232-z — Proposes that replayed memories are chosen by their value for planning, linking replay to the planning process.
 - Muscettola, N. et al. (1998). Remote Agent: to boldly go where no AI system has gone before. *Artificial Intelligence*. https://doi.org/10.1016/S0004-3702(98)00068-X — Describes an autonomy architecture for spacecraft that includes onboard planning and execution.
-
-[^1]: Fikes and Nilsson (1971), listed above.
-[^2]: Fox and Long (2003), listed above. The statement about the competition follows their abstract.
-[^3]: Hoffmann and Nebel (2001), listed above. The heuristic ignores delete lists, as described in their abstract.
-[^4]: Nau et al. (2003), listed above.
-[^5]: Kaelbling, Littman and Cassandra (1998), listed above.
-[^6]: Kaelbling, Littman and Moore (1996), listed above.
-[^7]: Dolan and Dayan (2013), listed above.
-[^8]: Mattar and Daw (2018), listed above. The finding comes from modelling and recordings, and its interpretation is debated.
-[^9]: Muscettola et al. (1998), listed above.
-[^10]: Ahn et al. (2022), listed above.
-[^11]: Valmeekam et al. (2023), listed above. The success rate is the average reported in their abstract for the best model tested.
-[^12]: Kambhampati et al. (2024), listed above.

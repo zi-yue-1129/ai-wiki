@@ -82,6 +82,10 @@ flowchart LR
 - **模擬的顧客。** 扮演顧客的語言模型，行為未必與真人相同，因此基準結果需要與真人對話紀錄對照檢驗。
 - **責任歸屬。** 當代理人給出錯誤的退款資訊時，責任並不清楚。[治理](../../society/governance/index.md)一節討論了這些問題。
 
+[^1]: Yao et al. (2024)，摘要：包括 gpt-4o 在內的先進函式呼叫代理人，成功完成的任務不到 50%；在零售領域，pass^8 低於 25%。https://arxiv.org/abs/2406.12045
+[^2]: Brynjolfsson, Li and Raymond (2023)，摘要：每小時解決的問題數平均增加 15%，經驗較少、技能較低的員工獲益較大。https://arxiv.org/abs/2304.11771
+[^3]: Kagan, Hathaway and Dada (2025)，摘要：採用率偏低的主要原因是「閘門規避」（gatekeeper aversion）；當顧客看到平均等候時間與聊天機器人限制的資訊時，採用率會提高。https://arxiv.org/abs/2504.06145
+
 ## 參考文獻
 
 ### 奠基性論文
@@ -107,9 +111,3 @@ flowchart LR
 - Hudeček, V. & Dušek, O. (2023). Are LLMs All You Need for Task-Oriented Dialogue? https://arxiv.org/abs/2304.06556 — 在任務導向基準上測試經指令微調的語言模型，發現信念追蹤較弱，但在給定正確槽位時任務完成度良好。
 - Wen, R. (2020). Turn-level Dialog Evaluation with Dialog-level Weak Signals for Bot-Human Hybrid Customer Service Systems. https://arxiv.org/abs/2011.06395 — 描述一個為機器人與人工客服聯絡的每一輪打分的模型，用於監控與評估。
 - Kim, Y., Levy, J. & Liu, Y. (2020). Speech Sentiment and Customer Satisfaction Estimation in Socialbot Conversations. https://arxiv.org/abs/2008.12376 — 從聲學與詞彙訊號自動估計顧客滿意度，因此不必依賴明確的問卷。
-
-[^1]: Yao et al. (2024)，摘要：包括 gpt-4o 在內的先進函式呼叫代理人，成功完成的任務不到 50%；在零售領域，pass^8 低於 25%。https://arxiv.org/abs/2406.12045
-
-[^2]: Brynjolfsson, Li and Raymond (2023)，摘要：每小時解決的問題數平均增加 15%，經驗較少、技能較低的員工獲益較大。https://arxiv.org/abs/2304.11771
-
-[^3]: Kagan, Hathaway and Dada (2025)，摘要：採用率偏低的主要原因是「閘門規避」（gatekeeper aversion）；當顧客看到平均等候時間與聊天機器人限制的資訊時，採用率會提高。https://arxiv.org/abs/2504.06145

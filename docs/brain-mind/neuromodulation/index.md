@@ -94,6 +94,8 @@ The first account concerns learning speed and time horizons. The second concerns
 - **How can expected and unexpected uncertainty be separated in data?** The distinction is clear in models but hard to read from recordings, where both signals may change together.
 - **Should AI meta-learning copy biology?** Learned plasticity rules can work without any neuromodulator, so the value of the analogy is an empirical question.
 
+[^1]: Dayan and Huys (2009) discuss serotonin in terms of aversive processing and note that its statistics differ from those of dopamine. The page does not claim a single accepted role for serotonin.
+
 ## References
 
 ### Seminal papers
@@ -116,5 +118,3 @@ The first account concerns learning speed and time horizons. The second concerns
 ### Articles and documentation
 
 - Najarro, E. & Risi, S. (2020). Meta-Learning through Hebbian Plasticity in Random Networks. *arXiv*. https://arxiv.org/abs/2007.02686 — Searches for Hebbian learning rules that let agents adapt their own networks over their lifetime, a machine analogue of learned plasticity.
-
-[^1]: Dayan and Huys (2009) discuss serotonin in terms of aversive processing and note that its statistics differ from those of dopamine. The page does not claim a single accepted role for serotonin.

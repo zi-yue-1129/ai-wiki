@@ -91,6 +91,15 @@ flowchart LR
 - **自動化是減少人的偏見，還是把偏見轉移到別處？** 在同一批應徵者中比較人與機器決策的證據仍然有限。
 - **誰負責？** 廠商、雇主與設定工具的人，各自可能承擔部分責任，而法律仍在釐清這種劃分。
 
+[^1]: Decorte 等人（2021），JobBERT。所列的改進是作者在其基準上的結果。
+[^2]: Bertrand 與 Mullainathan（2004）報告，白人常見姓名的履歷回電率比非裔美國人常見姓名的履歷高 50%，且此差距在各職業與雇主規模間一致。
+[^3]: Naim 等人（2015）報告，對興奮、友善與投入度的面試官評分可以預測，相關係數為 0.75 或更高；第一題的評分也能預測整體評分。樣本規模小，且來自單一大學。
+[^4]: Wilson 與 Caliskan（2024）。百分比指的是其稽核中的比較結果，並非真實的招募決策。
+[^5]: Hickman 等人（2022）。當模型跨樣本交叉驗證時，信度證據不一致；以自我報告訓練的模型，幾乎沒有信度或效度的證據。
+[^6]: Raghavan 等人（2020）。本文是對廠商宣稱的研究，並非對工具本身的測試。
+[^7]: Groves 等人（2024）。研究結果來自與參與者的訪談，而非對稽核報告的審閱。
+[^8]: Veale 與 Zuiderveen Borgesius（2021）分析的是草案，因此其分類應與通過的文本核對。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -111,12 +120,3 @@ flowchart LR
 - Hickman, L. et al. (2022). Automated video interview personality assessments: Reliability, validity, and generalizability investigations. *Journal of Applied Psychology*. https://doi.org/10.1037/apl0000695 — 在三個樣本中檢驗以模擬錄影面試訓練的人格評估機器學習模型，發現信度證據不一致。
 - Veale, M. & Zuiderveen Borgesius, F. (2021). Demystifying the Draft EU Artificial Intelligence Act. *Computer Law Review International*. https://doi.org/10.9785/cri-2021-220402 — 對執委會 2021 年草案的法律分析，包括草案對就業系統的高風險分類；定案文本在細節上有所不同。
 - Decorte, J.-J. et al. (2021). *JobBERT: Understanding Job Titles through Skills*. arXiv 預印本. https://arxiv.org/abs/2109.09605 — 以職缺中的技能來表示職稱，在職稱正規化上優於一般的句子編碼器。
-
-[^1]: Decorte 等人（2021），JobBERT。所列的改進是作者在其基準上的結果。
-[^2]: Bertrand 與 Mullainathan（2004）報告，白人常見姓名的履歷回電率比非裔美國人常見姓名的履歷高 50%，且此差距在各職業與雇主規模間一致。
-[^3]: Naim 等人（2015）報告，對興奮、友善與投入度的面試官評分可以預測，相關係數為 0.75 或更高；第一題的評分也能預測整體評分。樣本規模小，且來自單一大學。
-[^4]: Wilson 與 Caliskan（2024）。百分比指的是其稽核中的比較結果，並非真實的招募決策。
-[^5]: Hickman 等人（2022）。當模型跨樣本交叉驗證時，信度證據不一致；以自我報告訓練的模型，幾乎沒有信度或效度的證據。
-[^6]: Raghavan 等人（2020）。本文是對廠商宣稱的研究，並非對工具本身的測試。
-[^7]: Groves 等人（2024）。研究結果來自與參與者的訪談，而非對稽核報告的審閱。
-[^8]: Veale 與 Zuiderveen Borgesius（2021）分析的是草案，因此其分類應與通過的文本核對。

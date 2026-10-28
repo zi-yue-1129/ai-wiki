@@ -55,6 +55,8 @@ The benchmark is ERA5 as ground truth, with comparisons against the operational 
 - The authors propose three directions: more observation variables, a fourth (time) dimension, and deeper or wider networks. Which of these yields the most accuracy per unit of compute is untested.
 - Better intensity forecasts may need higher-resolution training data that include unbiased cyclone observations.
 
+[^1]: These figures are from the arXiv preprint (arXiv:2211.02556). The published version may report different numbers, so check it before quoting them.
+
 ## References
 
 ### Seminal papers
@@ -68,5 +70,3 @@ The benchmark is ERA5 as ground truth, with comparisons against the operational 
 - Liu, Z. et al. (2021). *Swin Transformer: Hierarchical Vision Transformer using Shifted Windows*. arXiv. https://arxiv.org/abs/2103.14030 — The shifted-window transformer whose mechanism the 3DEST block adapts.
 - Hersbach, H. et al. (2020). *The ERA5 global reanalysis*. Quarterly Journal of the Royal Meteorological Society. https://doi.org/10.1002/qj.3803 — Describes ERA5, the reanalysis used for training and evaluation.
 - Rasp, S. et al. (2023). *WeatherBench 2: A benchmark for the next generation of data-driven global weather models*. arXiv. https://arxiv.org/abs/2308.15560 — Open evaluation framework and baselines for data-driven weather models.
-
-[^1]: These figures are from the arXiv preprint (arXiv:2211.02556). The published version may report different numbers, so check it before quoting them.

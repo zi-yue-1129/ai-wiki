@@ -65,6 +65,8 @@ The paper trains on MNIST, the Toronto Face Database (TFD) and CIFAR-10. Because
 - Which practical training procedures converge, and under what regularisation? Mescheder et al. (2018) give counterexamples for unregularised training.
 - How should samples be scored when no likelihood is available? The Fréchet Inception Distance was introduced later to address this (Heusel et al., 2017).
 
+[^1]: Table 1 of Goodfellow et al. (2014). Parzen-window estimates have high variance, so small differences between methods in this table should not be over-read.
+
 ## References
 
 ### Seminal papers
@@ -82,5 +84,3 @@ The paper trains on MNIST, the Toronto Face Database (TFD) and CIFAR-10. Because
 ### Lectures and videos
 
 - Goodfellow, I. (2016). *NIPS 2016 Tutorial: Generative Adversarial Networks*. arXiv. https://arxiv.org/abs/1701.00160 — The author's tutorial on the original framework, its training details and open problems, with exercises.
-
-[^1]: Table 1 of Goodfellow et al. (2014). Parzen-window estimates have high variance, so small differences between methods in this table should not be over-read.

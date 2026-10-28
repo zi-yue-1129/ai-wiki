@@ -88,6 +88,9 @@ Obermeyer 等人（2019）檢驗了一個廣泛使用的商業演算法，該演
 - 移除代理指標或依基準進行訓練，是否能在實際使用中降低傷害，還是只在測試集上有效？Hofmann 等人的結果顯示，部分修正可能只是掩蓋了問題。
 - 多數稽核仰賴取得系統的管道。上述案例之所以能被研究，是因為外部研究者能取得系統或其 API。當取得管道受限時，稽核該如何進行？
 
+[^1]: Chouldechova（2017），第 1 節，該節概述了 ProPublica 的分析及其所受到的回應。
+[^2]: Buolamwini 與 Gebru（2018），摘要。
+
 ## 參考資料
 
 ### 開創性論文
@@ -112,6 +115,3 @@ Obermeyer 等人（2019）檢驗了一個廣泛使用的商業演算法，該演
 ### 文章與文件
 
 - Dastin, J. (2022). Amazon Scraps Secret AI Recruiting Tool that Showed Bias against Women. In *Ethics of Data and Analytics*. https://doi.org/10.1201/9781003278290-44 — 書中章節與 2018 年關於亞馬遜實驗性履歷篩選系統及其性別偏見之報導同名。
-
-[^1]: Chouldechova（2017），第 1 節，該節概述了 ProPublica 的分析及其所受到的回應。
-[^2]: Buolamwini 與 Gebru（2018），摘要。

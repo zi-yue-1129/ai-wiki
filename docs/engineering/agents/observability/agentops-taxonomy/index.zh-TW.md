@@ -65,6 +65,8 @@ flowchart TD
 - 此分類法會不會與共通的遙測標準趨於一致？Zheng 等人（2025）指出，可觀測性正由 OpenTelemetry GenAI 工作小組的標準所統一。[^1]
 - 追蹤紀錄中的敏感內容應如何治理？Chan 等人（2024）討論了代理人可見性措施的隱私影響。
 
+[^1]: Zheng 等人（2025），相關研究一節，https://arxiv.org/abs/2508.02736
+
 ## 參考文獻
 
 ### 奠基性論文
@@ -81,5 +83,3 @@ flowchart TD
 ### 文章與文件
 
 - Anthropic（2024）。*Building effective AI agents*。Anthropic Engineering。https://www.anthropic.com/engineering/building-effective-agents — 指出代理人系統以延遲與成本換取效能，並建議進行充分的沙箱測試。
-
-[^1]: Zheng 等人（2025），相關研究一節，https://arxiv.org/abs/2508.02736

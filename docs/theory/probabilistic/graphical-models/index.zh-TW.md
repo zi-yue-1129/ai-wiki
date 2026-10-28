@@ -88,6 +88,8 @@ flowchart TD
 - **與深度學習的混合。** 因子是否應由神經網路學習，同時保留圖的結構？在表示已被學習之後，人工設計的結構哪些部分仍然有用？CRF 加神經編碼器的系統提供了部分答案，但一般問題仍未解決。
 - **大腦的實現。** 皮質是進行訊息傳遞、抽樣，還是其他機制，目前未知。訊息傳遞與抽樣兩者都曾被提出，而現有證據尚無法區分。
 
+[^1]: 準確率與 F1 數值取自 Ma 與 Hovy（2016）的摘要：Penn Treebank 詞性標註準確率 97.55%，CoNLL 2003 命名實體辨識 F1 為 91.21。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -112,5 +114,3 @@ flowchart TD
 - Ma, X. & Hovy, E. (2016). *End-to-end Sequence Labeling via Bi-directional LSTM-CNNs-CRF*. arXiv. https://arxiv.org/abs/1603.01354 — 結合字元與詞彙表示、雙向 LSTM 與 CRF 層，用於序列標註。
 - Lee, T. S. & Mumford, D. (2003). Hierarchical Bayesian inference in the visual cortex. *Journal of the Optical Society of America A*. https://doi.org/10.1364/JOSAA.20.001434 — 主張視覺皮質執行階層式貝氏推論，並將各層之間的訊號視為訊息。
 - Ma, W. J., Beck, J. M., Latham, P. E. & Pouget, A. (2006). Bayesian inference with probabilistic population codes. *Nature Neuroscience*. https://doi.org/10.1038/nn1790 — 主張神經元群體能表示機率分布，因此貝氏計算可由神經群體執行。
-
-[^1]: 準確率與 F1 數值取自 Ma 與 Hovy（2016）的摘要：Penn Treebank 詞性標註準確率 97.55%，CoNLL 2003 命名實體辨識 F1 為 91.21。

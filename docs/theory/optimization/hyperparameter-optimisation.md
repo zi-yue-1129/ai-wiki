@@ -100,6 +100,10 @@ Five families cover most practice. The table compares them, and the paragraphs b
 - Repeated tuning on a shared validation set can overfit that set. How should tuning cost and selection effects be reported fairly?
 - Which methods remain practical when a single trial costs as much as a full training run?
 
+[^1]: Li et al. (2016) describe Hyperband as a bandit-based method that allocates a predefined resource, such as iterations, data samples or features, to randomly sampled configurations. The bracket structure is in the paper and is not repeated here.
+[^2]: The abstract of Li et al. (2016) reports a speedup of "over an order-of-magnitude" relative to the competitor set on a variety of deep-learning and kernel-based problems.
+[^3]: The abstract of Li et al. (2018) reports that ASHA scales linearly with the number of workers and was demonstrated on a task with 500 workers.
+
 ## References
 
 ### Seminal papers
@@ -123,7 +127,3 @@ Five families cover most practice. The table compares them, and the paragraphs b
 ### Articles and documentation
 
 - Akiba, T., Sano, S., Yanase, T., Ohta, T. & Koyama, M. (2019). *Optuna: A Next-generation Hyperparameter Optimization Framework*. arXiv. https://arxiv.org/abs/1907.10902 — Describes the Optuna software design, with its define-by-run search spaces and pruning of unpromising trials.
-
-[^1]: Li et al. (2016) describe Hyperband as a bandit-based method that allocates a predefined resource, such as iterations, data samples or features, to randomly sampled configurations. The bracket structure is in the paper and is not repeated here.
-[^2]: The abstract of Li et al. (2016) reports a speedup of "over an order-of-magnitude" relative to the competitor set on a variety of deep-learning and kernel-based problems.
-[^3]: The abstract of Li et al. (2018) reports that ASHA scales linearly with the number of workers and was demonstrated on a task with 500 workers.

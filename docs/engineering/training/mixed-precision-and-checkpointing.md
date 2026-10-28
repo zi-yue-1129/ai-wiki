@@ -112,6 +112,12 @@ The brain link is loose. Biological neurons do not compute with 16-bit floats, a
 - **Optimal checkpoint placement.** Jain et al. solve rematerialisation with off-the-shelf MILP solvers and report inputs up to 5.1 times larger.[^8] Whether optimal schedules are worth their planning cost in everyday practice is an engineering judgement.
 - **Lower precision for optimiser state.** Peng et al. and Fishman et al. quantise gradients and Adam moments to FP8 in specific settings. How far this extends across scales and tasks is open.
 
+[^1]: Micikevicius et al. (2017) report memory reductions of nearly 2x.
+[^4]: Peng et al. (2023) report 39% lower memory and 75% higher speed than BF16 for GPT-175B, as measured by the authors.
+[^5]: Chen et al. (2016) report memory falling from 48 GB to 7 GB for a 1,000-layer network.
+[^7]: Korthikanti et al. (2022) report 5x less activation memory and over 90% less recomputation overhead.
+[^8]: Jain et al. (2019) report inputs up to 5.1 times larger.
+
 ## References
 
 ### Seminal papers
@@ -131,9 +137,3 @@ The brain link is loose. Biological neurons do not compute with 16-bit floats, a
 ### Surveys and textbooks
 
 - Griewank, A. & Walther, A. (2008). *Evaluating Derivatives*. SIAM. https://doi.org/10.1137/1.9780898717761 — Standard reference on automatic differentiation and reverse-mode storage costs.
-
-[^1]: Micikevicius et al. (2017) report memory reductions of nearly 2x.
-[^4]: Peng et al. (2023) report 39% lower memory and 75% higher speed than BF16 for GPT-175B, as measured by the authors.
-[^5]: Chen et al. (2016) report memory falling from 48 GB to 7 GB for a 1,000-layer network.
-[^7]: Korthikanti et al. (2022) report 5x less activation memory and over 90% less recomputation overhead.
-[^8]: Jain et al. (2019) report inputs up to 5.1 times larger.

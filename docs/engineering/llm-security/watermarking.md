@@ -102,6 +102,11 @@ Green lists shift probabilities and so are not distortion-free; distortion-free 
 - **Coverage.** A watermark exists only if the provider embeds it, and open-weight models can run with ordinary sampling ([Open vs Closed](../../society/open-vs-closed/index.md)).
 - **Short and structured outputs.** Code and short answers carry little signal, and thresholds tuned on essays may not transfer.
 
+[^1]: Kirchenbauer et al. (2023b), abstract: after strong human paraphrasing, about 800 tokens are needed on average at a false positive rate of 1e-5.
+[^2]: Krishna et al. (2023), abstract: the paraphraser lowers DetectGPT's accuracy from 70.3% to 4.6% at a 1% false positive rate.
+[^3]: Jovanović et al. (2024), abstract: spoofing and scrubbing succeed at an average rate above 80%, for under US$50.
+[^4]: Kuditipudi et al. (2023), abstract: for Alpaca-7B, about 25% of responses, with a median length near 100 tokens, are detectable at p ≤ 0.01.
+
 ## References
 
 ### Seminal papers
@@ -117,13 +122,8 @@ Green lists shift probabilities and so are not distortion-free; distortion-free 
 - Wen, Y. et al. (2023). *Tree-Ring Watermarks: Fingerprints for Diffusion Images that are Invisible and Robust*. arXiv:2305.20030. https://arxiv.org/abs/2305.20030 — Embeds a pattern in the initial noise of a diffusion model.
 - Fernandez, P. et al. (2023). *The Stable Signature: Rooting Watermarks in Latent Diffusion Models*. arXiv:2303.15435. https://arxiv.org/abs/2303.15435 — Fine-tunes the decoder so every image carries a signature.
 - Zhao, X. et al. (2023). *Invisible Image Watermarks Are Provably Removable Using Generative AI*. arXiv:2306.01953. https://arxiv.org/abs/2306.01953 — Shows regeneration attacks remove pixel-level invisible marks.
-- Gowal, S. et al. (2025). *SynthID-Image: Image watermarking at internet scale*. arXiv:2510.09263. https://arxiv.org/abs/2510.09263 — Describes the deployed SynthID-Image system.
+- Gowal, S. et al. (2025). *SynthID-Image: Image watermarking at internet scale*. arXiv:2510.09263. https://arxiv.org/abs/2510.09263 — Describes the deployed SynthID-Image system, its threat models and the practical challenges of watermarking at internet scale.
 
 ### Surveys and textbooks
 
 - Liu, A. et al. (2023). *A Survey of Text Watermarking in the Era of Large Language Models*. arXiv:2312.07913. https://arxiv.org/abs/2312.07913 — Surveys text watermarks by detectability and robustness.
-
-[^1]: Kirchenbauer et al. (2023b), abstract: after strong human paraphrasing, about 800 tokens are needed on average at a false positive rate of 1e-5.
-[^2]: Krishna et al. (2023), abstract: the paraphraser lowers DetectGPT's accuracy from 70.3% to 4.6% at a 1% false positive rate.
-[^3]: Jovanović et al. (2024), abstract: spoofing and scrubbing succeed at an average rate above 80%, for under US$50.
-[^4]: Kuditipudi et al. (2023), abstract: for Alpaca-7B, about 25% of responses, with a median length near 100 tokens, are detectable at p ≤ 0.01.

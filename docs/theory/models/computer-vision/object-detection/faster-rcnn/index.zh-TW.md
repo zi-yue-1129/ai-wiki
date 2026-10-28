@@ -59,6 +59,8 @@ $$
 
 Faster R-CNN 及其變體已用於駕駛系統中的行人與車輛偵測、醫學影像分析以及工業檢測。
 
+[^1]: Ren et al. (2015)，表 3、4、5 與 8。VOC 的 mAP 數值取決於訓練資料；計時是在 K40 GPU 上測得，選擇性搜尋的時間則是在 CPU 上測得。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -69,5 +71,3 @@ Faster R-CNN 及其變體已用於駕駛系統中的行人與車輛偵測、醫�
 - Lin, T.-Y., Dollár, P., Girshick, R., He, K., Hariharan, B. & Belongie, S. (2016). *Feature Pyramid Networks for Object Detection*. arXiv. https://arxiv.org/abs/1612.03144 — 從 CNN 骨幹網路建立自上而下的特徵金字塔，後續偵測器用它進行多尺度偵測。
 - Lin, T.-Y., et al. (2014). *Microsoft COCO: Common Objects in Context*. arXiv. https://arxiv.org/abs/1405.0312 — Faster R-CNN 2015 年的結果所報告的 COCO 資料集，後續偵測器也以它進行比較。
 - Zou, Z., et al. (2019). *Object Detection in 20 Years: A Survey*. arXiv. https://arxiv.org/abs/1905.05055 — 涵蓋偵測方法的廣泛綜述，並將區域式方法放在其歷史脈絡中。
-
-[^1]: Ren et al. (2015)，表 3、4、5 與 8。VOC 的 mAP 數值取決於訓練資料；計時是在 K40 GPU 上測得，選擇性搜尋的時間則是在 CPU 上測得。

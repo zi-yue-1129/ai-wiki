@@ -73,6 +73,8 @@ AlphaGeometry 與 AlphaProof 是證明器：它們各自證明一個給定的結
 - **涵蓋範圍。** 形式函式庫對某些數學領域涵蓋得很好，對其他領域則很差。機器證明最容易的領域，未必是數學家最需要協助的領域。
 - **功勞與信任。** 當機器找到一個構造或一個證明時，應該歸功於誰？社群又該如何評判一個沒有人逐行讀過的結果？
 
+[^1]: 51.7% 的數字見於 Shao 等人（2024）在 MATH 上的結果，未使用外部工具或投票。此後該基準的分數已大幅提升，因此這個數字只是歷史上的標記，不代表目前的結果。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -100,5 +102,3 @@ AlphaGeometry 與 AlphaProof 是證明器：它們各自證明一個給定的結
 - Chervonyi, Y. 等人（2025）。*Gold-medalist Performance in Solving Olympiad Geometry with AlphaGeometry2*。arXiv。https://arxiv.org/abs/2502.03544 — 報告 AlphaGeometry 2 及其在 25 年 IMO 幾何題上的解題率。
 - Georgiev, B. 等人（2025）。*Mathematical exploration and discovery at scale*。arXiv。https://arxiv.org/abs/2511.02864 — 將 AlphaEvolve 應用於 67 道數學問題，作者包括數學家 Terence Tao。
 - Ren, Z. Z. 等人（2025）。*DeepSeek-Prover-V2: Advancing Formal Mathematical Reasoning via Reinforcement Learning for Subgoal Decomposition*。arXiv。https://arxiv.org/abs/2504.21801 — 開放權重的 Lean 證明器，將問題分解為子目標，並在 MiniF2F 與 PutnamBench 上報告結果。
-
-[^1]: 51.7% 的數字見於 Shao 等人（2024）在 MATH 上的結果，未使用外部工具或投票。此後該基準的分數已大幅提升，因此這個數字只是歷史上的標記，不代表目前的結果。

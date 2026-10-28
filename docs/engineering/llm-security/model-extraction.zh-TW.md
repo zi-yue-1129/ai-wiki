@@ -86,6 +86,9 @@ Carlini 等人（2024）則走向參數還原。Transformer 對許多提示所�
 - **能力差距。** 模仿能否在模仿資料未涵蓋的任務上縮小差距，仍無定論；Oliynyk 等人（2023）綜述了這個領域。
 - **標記的持久性與法律地位。** 微調可能移除浮水印或指紋；模型輸出在服務條款與著作權法下的法律地位，也尚未確定。
 
+[^1]: Carlini 等人（2024）回報，以不到 20 美元的 API 查詢，萃取了兩個 OpenAI 模型的完整投影矩陣，數據取自論文摘要。
+[^2]: Maini 等人（2021）回報，以 50 個訓練點即可使擁有者的主張信心超過 99%，數據取自論文摘要。
+
 ## 參考文獻
 
 ### 奠基性論文
@@ -106,7 +109,3 @@ Carlini 等人（2024）則走向參數還原。Transformer 對許多提示所�
 ### 綜述與教科書
 
 - Oliynyk, D., Mayer, R. & Rauber, A. (2023). *I Know What You Trained Last Summer: A Survey on Stealing Machine Learning Models and Defences*. ACM Computing Surveys. https://arxiv.org/abs/2206.08451 — 萃取攻擊與防禦的分類，並分析哪些防禦已被現有攻擊削弱。
-
-[^1]: Carlini 等人（2024）回報，以不到 20 美元的 API 查詢，萃取了兩個 OpenAI 模型的完整投影矩陣，數據取自論文摘要。
-
-[^2]: Maini 等人（2021）回報，以 50 個訓練點即可使擁有者的主張信心超過 99%，數據取自論文摘要。

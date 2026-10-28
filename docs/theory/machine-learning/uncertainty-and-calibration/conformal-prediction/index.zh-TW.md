@@ -64,6 +64,8 @@ Lei 等人（2016）發展了迴歸的分割與完整保形推論。摘要指出
 
 [溫度縮放](../temperature-scaling/index.md)在訓練後修正機率，而保形預測修正的是集合。兩者都使用保留的切分，Angelopoulos 等人（2020）比較中的 Platt scaling 基準，顯示了兩者的關係。[機率方法](../../../probabilistic/index.md)頁面涵蓋以貝氏方式取得區間的途徑，這需要正確地指定模型與先驗。保形預測則以分布自由的主張，避開了這種依賴。它與大腦和心智沒有直接連結；它是一個統計保證，而不是認知的模型。
 
+[^1]: 出自 Angelopoulos 等人（2020）的摘要，該摘要報告的是 ImageNet 與 ImageNet-V2 上的結果。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -79,5 +81,3 @@ Lei 等人（2016）發展了迴歸的分割與完整保形推論。摘要指出
 ### 文章與文件
 
 - Ovadia, Y. et al. (2019). Can you trust your model's uncertainty? Evaluating predictive uncertainty under dataset shift. NeurIPS. https://arxiv.org/abs/1906.02530 — 在資料集偏移下對預測不確定性的基準測試，這是可交換性最容易受到威脅的情境。
-
-[^1]: 出自 Angelopoulos 等人（2020）的摘要，該摘要報告的是 ImageNet 與 ImageNet-V2 上的結果。

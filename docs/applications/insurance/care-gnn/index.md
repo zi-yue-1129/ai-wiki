@@ -74,6 +74,7 @@ The paper also compares variants that change only the aggregator across relation
 - Dou, Y. et al. (2020). Enhancing Graph Neural Network-based Fraud Detectors against Camouflaged Fraudsters. *CIKM*. https://arxiv.org/abs/2008.08692 — Introduces CARE-GNN, with label-aware similarity, adaptive top-p filtering and reinforcement-learned thresholds, tested on Yelp and Amazon fraud graphs.
 - Kipf, T. N. & Welling, M. (2017). Semi-Supervised Classification with Graph Convolutional Networks. *ICLR*. https://arxiv.org/abs/1609.02907 — Introduces the graph convolutional network, the GCN baseline used in the paper.
 - Hamilton, W. L., Ying, R. & Leskovec, J. (2017). Inductive Representation Learning on Large Graphs. *NeurIPS*. https://arxiv.org/abs/1706.02216 — Introduces GraphSAGE, a neighbourhood-sampling GNN that is one of the baselines in the paper's comparison.
+- Veličković, P. et al. (2018). Graph Attention Networks. *ICLR*. https://arxiv.org/abs/1710.10903 — Introduces graph attention networks, which weight each neighbour's message by a learned score, an alternative to CARE-GNN's similarity-based neighbour filtering.
 
 ### Surveys and textbooks
 

@@ -76,6 +76,17 @@ flowchart TD
 - **搜尋能否推廣到無法驗證的任務？**當解可以廉價驗證時，例如謎題、程式與數學，搜尋效果很好；開放式任務缺乏這樣的驗證器。
 - **人類規劃是樹狀搜尋嗎？**神經科學證據與樹狀規劃相符，也與只修剪或重播部分樹的近似方式相符。
 
+[^1]: Kirkpatrick et al. (1983)，見上方參考文獻。
+[^2]: Mackworth (1977)，見上方參考文獻。
+[^3]: Hoffmann and Nebel (2001)，見上方參考文獻。競賽結果如其摘要所報告。
+[^4]: Newell and Simon (1976)，見上方參考文獻。
+[^5]: Daw, Niv and Dayan (2005)，見上方參考文獻。
+[^6]: Huys et al. (2012)，見上方參考文獻。
+[^7]: Pfeiffer and Foster (2013)，見上方參考文獻。此發現來自動物記錄，將其詮釋為規劃仍有爭議。
+[^8]: Campbell, Hoane and Hsu (2002)，見上方參考文獻。
+[^9]: Silver et al. (2016)，見上方參考文獻。
+[^10]: Snell et al. (2024)，見上方參考文獻。其依運算分配的策略優於 best-of-N 基準，如其摘要所報告。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -101,14 +112,3 @@ flowchart TD
 - Daw, N. D., Niv, Y. & Dayan, P. (2005). Uncertainty-based competition between prefrontal and dorsolateral striatal systems for behavioral control. *Nature Neuroscience*. https://doi.org/10.1038/nn1560 — 提出以模型為基礎的規劃與無模型的習慣競爭行為控制權，並以不確定性進行仲裁。
 - Huys, Q. J. M. et al. (2012). Bonsai Trees in Your Head: How the Pavlovian System Sculpts Goal-Directed Choices by Pruning Decision Trees. *PLoS Computational Biology*. https://doi.org/10.1371/journal.pcbi.1002410 — 主張巴夫洛夫式偏誤會修剪目標導向選擇所搜尋的決策樹。
 - Pfeiffer, B. E. & Foster, D. J. (2013). Hippocampal place-cell sequences depict future paths to remembered goals. *Nature*. https://doi.org/10.1038/nature12112 — 報告海馬迴位置細胞序列沿著通往目標的路徑，先於動物所在位置展開。
-
-[^1]: Kirkpatrick et al. (1983)，見上方參考文獻。
-[^2]: Mackworth (1977)，見上方參考文獻。
-[^3]: Hoffmann and Nebel (2001)，見上方參考文獻。競賽結果如其摘要所報告。
-[^4]: Newell and Simon (1976)，見上方參考文獻。
-[^5]: Daw, Niv and Dayan (2005)，見上方參考文獻。
-[^6]: Huys et al. (2012)，見上方參考文獻。
-[^7]: Pfeiffer and Foster (2013)，見上方參考文獻。此發現來自動物記錄，將其詮釋為規劃仍有爭議。
-[^8]: Campbell, Hoane and Hsu (2002)，見上方參考文獻。
-[^9]: Silver et al. (2016)，見上方參考文獻。
-[^10]: Snell et al. (2024)，見上方參考文獻。其依運算分配的策略優於 best-of-N 基準，如其摘要所報告。

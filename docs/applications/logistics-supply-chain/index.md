@@ -100,6 +100,8 @@ The three address different decisions. DeepAR estimates what will be needed, the
 - **Visibility beyond the first tier.** Companies often see little of their suppliers' suppliers, which limits the data available for shortage prediction.
 - **Rare events.** Historical data contain few disruptions, so benchmarks may not reflect shocks such as pandemics or port closures.
 
+[^1]: The four sources are listed in the abstract of Lee, Padmanabhan & Whang (1997), the first entry under Seminal papers.
+
 ## References
 
 ### Seminal papers
@@ -122,5 +124,3 @@ The three address different decisions. DeepAR estimates what will be needed, the
 ### Articles and documentation
 
 - Ivanov, D. (2020). Viable supply chain model: integrating agility, resilience and sustainability perspectives. *Annals of Operations Research*. https://doi.org/10.1007/s10479-020-03640-6 — Proposes a framework for supply chains that adapt to change and absorb shocks, written after the COVID-19 pandemic.
-
-[^1]: The four sources are listed in the abstract of Lee, Padmanabhan & Whang (1997), the first entry under Seminal papers.

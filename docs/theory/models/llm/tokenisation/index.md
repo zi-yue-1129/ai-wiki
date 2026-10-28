@@ -84,6 +84,10 @@ Each method has its own page with the algorithm, the reported results and the li
 - **Token-free models.** Byte-level models avoid the vocabulary problem but lengthen sequences. Dynamic patching of bytes, as in the Byte Latent Transformer (Pagnoni et al., 2024), is one attempt to recover efficiency. Whether it matches tokeniser-based models at scale needs wider testing.
 - **Human comparison.** Whether human language processing uses units closer to morphemes, words or syllables is debated, and subword tokens are a different kind of unit. The question matters for interpreting what models learn from text.
 
+[^1]: The history of open-vocabulary modelling, from words to characters to subwords, is surveyed in Mielke et al. (2021); see References.
+[^2]: WordPiece is described in the GNMT paper (Wu et al., 2016). The likelihood-based scoring rule is the detail to double-check against that paper before relying on it.
+[^3]: The unequal token cost across languages is measured in Petrov et al. (2023); see References.
+
 ## References
 
 ### Seminal papers
@@ -107,7 +111,3 @@ Each method has its own page with the algorithm, the reported results and the li
 - Schmidt, C. W. et al. (2024). *Tokenization Is More Than Compression*. arXiv. https://arxiv.org/abs/2402.18376 — Argues that compression alone does not predict how well a tokeniser serves downstream language modelling, and compares tokenisers on other criteria.
 - Pagnoni, A. et al. (2024). *Byte Latent Transformer: Patches Scale Better Than Tokens*. arXiv. https://arxiv.org/abs/2412.09871 — Proposes a byte-level model that groups bytes into dynamically sized patches and compares its scaling with tokeniser-based models.
 - Wang, C., Cho, K. & Gu, J. (2019). *Neural Machine Translation with Byte-Level Subwords*. arXiv. https://arxiv.org/abs/1909.03341 — Applies byte-level BPE to translation, so that any text can be encoded from a base vocabulary of 256 byte values.
-
-[^1]: The history of open-vocabulary modelling, from words to characters to subwords, is surveyed in Mielke et al. (2021); see References.
-[^2]: WordPiece is described in the GNMT paper (Wu et al., 2016). The likelihood-based scoring rule is the detail to double-check against that paper before relying on it.
-[^3]: The unequal token cost across languages is measured in Petrov et al. (2023); see References.

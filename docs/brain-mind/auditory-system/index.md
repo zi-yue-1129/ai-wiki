@@ -97,6 +97,9 @@ Each method has its own page. This table is only a comparison.
 - **How stable is the map across people?** Frequency maps differ between individuals, and the number and borders of human auditory areas are still being refined. Moerel et al. (2014) review how these areas are identified.
 - **Do the two pathways in hearing mirror those in vision?** The anterior and posterior streams are supported by work in non-human primates. Their human counterparts, and how they interact during speech, remain an active research question.
 
+[^1]: Cherry's experiments presented two speech signals at once, and different signals to the two ears, and interpreted listeners' responses statistically.
+[^2]: Dallos's review describes how outer hair cells amplify the basilar membrane's response. The strength and role of this amplification in normal hearing is discussed in the review and remains an active area of research.
+
 ## References
 
 ### Seminal papers
@@ -119,7 +122,3 @@ Each method has its own page. This table is only a comparison.
 
 - Wang, D. & Chen, J. (2018). Supervised Speech Separation Based on Deep Learning: An Overview. arXiv. https://arxiv.org/abs/1708.07524 — Surveys deep-learning methods that separate target speech from background interference, the engineering side of speech in noise.
 - Won, J. H. et al. (2008). Improving performance in noise for hearing aids and cochlear implants using coherent modulation filtering. *Hearing Research*. https://doi.org/10.1016/j.heares.2008.01.009 — A signal-processing method, coherent modulation filtering, aimed at better speech performance in noise for hearing-aid and cochlear-implant users.
-
-[^1]: Cherry's experiments presented two speech signals at once, and different signals to the two ears, and interpreted listeners' responses statistically.
-
-[^2]: Dallos's review describes how outer hair cells amplify the basilar membrane's response. The strength and role of this amplification in normal hearing is discussed in the review and remains an active area of research.

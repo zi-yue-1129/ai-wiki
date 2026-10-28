@@ -100,6 +100,14 @@ Attention is the clearest case for hand-designed kernels. Standard attention mat
 - **Dynamic shapes and control flow**: captured graphs assume a fixed structure, while variable-length inputs and data-dependent branches force recompilation or fallbacks.
 - **Numerical behaviour**: fusion changes floating-point results, so testing must follow the compiled code, not only the original model.
 
+[^tvm]: The TVM paper states that deploying workloads to new platforms otherwise requires significant manual effort. See Chen et al. (2018) in References.
+[^halide]: The separation of algorithm and schedule is the central idea of Ragan-Kelley et al. (2013).
+[^roofline]: See Williams, Waterman and Patterson (2009). The bound is the lower of peak compute and arithmetic intensity times bandwidth.
+[^flashattention]: Dao et al. (2022) argue that attention must account for reads and writes between GPU high-bandwidth memory and on-chip SRAM.
+[^pt2]: Ansel et al. (2024) describe the compiled path and its fallback to eager execution.
+[^triton]: Tillet, Kung and Cox (2019) describe the compiler's handling of details within each tile.
+[^ansor]: The figure is the one reported in the abstract of Zheng et al. (2020).
+
 ## References
 
 ### Seminal papers
@@ -115,11 +123,3 @@ Attention is the clearest case for hand-designed kernels. Standard attention mat
 ### Surveys and textbooks
 
 - Li, M. et al. (2020). *The Deep Learning Compiler: A Comprehensive Survey*. arXiv:2002.03794. https://arxiv.org/abs/2002.03794 — A survey of deep-learning compilers, including XLA and TVM, focused on their multi-level intermediate representations.
-
-[^tvm]: The TVM paper states that deploying workloads to new platforms otherwise requires significant manual effort. See Chen et al. (2018) in References.
-[^halide]: The separation of algorithm and schedule is the central idea of Ragan-Kelley et al. (2013).
-[^roofline]: See Williams, Waterman and Patterson (2009). The bound is the lower of peak compute and arithmetic intensity times bandwidth.
-[^flashattention]: Dao et al. (2022) argue that attention must account for reads and writes between GPU high-bandwidth memory and on-chip SRAM.
-[^pt2]: Ansel et al. (2024) describe the compiled path and its fallback to eager execution.
-[^triton]: Tillet, Kung and Cox (2019) describe the compiler's handling of details within each tile.
-[^ansor]: The figure is the one reported in the abstract of Zheng et al. (2020).

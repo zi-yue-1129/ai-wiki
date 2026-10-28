@@ -57,6 +57,8 @@ $$
 - **即時工具。** 含有即時工具與狀態變化的基準測試的是另一種能力。序列式方法能否延伸至此，尚無定論（Yao et al., 2024）。
 - **評估。** Hudeček 與 Dušek（2023）發現，經指令微調的語言模型在信念追蹤上弱於專門系統，因此基準分數必須連同其所衡量的任務一併解讀。
 
+[^1]: Hosseini-Asl et al. (2020)，摘要：在 MultiWOZ 的端到端設定中，告知率提高 8.1 個百分點、成功率提高 9.7 個百分點、綜合分數提高 7.2 分。https://arxiv.org/abs/2005.00796
+
 ## 參考文獻
 
 ### 奠基性論文
@@ -73,5 +75,3 @@ $$
 
 - Hudeček, V. & Dušek, O. (2023). Are LLMs All You Need for Task-Oriented Dialogue? https://arxiv.org/abs/2304.06556 — 在任務導向基準上測試經指令微調的語言模型，發現信念追蹤較弱，但在給定正確槽位值時任務完成度良好。
 - Yao, S. et al. (2024). τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains. https://arxiv.org/abs/2406.12045 — 模擬顧客的基準，代理人在其中呼叫即時的領域工具，並以資料庫狀態評分。
-
-[^1]: Hosseini-Asl et al. (2020)，摘要：在 MultiWOZ 的端到端設定中，告知率提高 8.1 個百分點、成功率提高 9.7 個百分點、綜合分數提高 7.2 分。https://arxiv.org/abs/2005.00796

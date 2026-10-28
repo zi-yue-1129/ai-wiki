@@ -89,6 +89,18 @@ SlowFast and TimeSformer are the other landmarks named above, and the [Vision Tr
 - **Physical consistency.** Whether video generators learn physics or only the statistics of their training data is debated, as discussed on the [World Models](../../world-models/index.md) page.
 - **Pre-training.** Whether video self-supervision can replace image pre-training at scale is still open. VideoMAE shows that video data alone can suffice on mid-sized benchmarks, but it also shows a domain shift between datasets.[^7]
 
+[^1]: Tong et al. (2022), abstract and Section 3: temporal redundancy across consecutive frames supports masking ratios of 90% to 95%.
+[^2]: Kay et al. (2017): 400 classes, at least 400 clips per class, each about ten seconds from a different YouTube video. The 240,000 training clips figure is in Carreira and Zisserman (2017), Section 3, which also reports transfer from Kinetics to UCF-101 and HMDB-51.
+[^3]: Ho et al. (2022): FVD is computed with I3D features, and the paper reports that sampling protocol changes the score.
+[^4]: Simonyan and Zisserman (2014), abstract and Introduction, including the note on the two-streams hypothesis.
+[^5]: Carreira and Zisserman (2017), Section 2, on inflating 2D filters into 3D.
+[^6]: Bertasius et al. (2021), abstract.
+[^7]: Tong et al. (2022), Table 2, and the domain-shift discussion in the pre-training dataset section.
+[^8]: Feichtenhofer et al. (2018), abstract.
+[^9]: Goodale and Milner (1992).
+[^10]: Liu et al. (2024), abstract: the review covers the technology behind Sora, its applications across industries, and its limitations.
+[^11]: Bardes et al. (2024), abstract: feature prediction without pixel reconstruction.
+
 ## References
 
 ### Seminal papers
@@ -109,15 +121,3 @@ SlowFast and TimeSformer are the other landmarks named above, and the [Vision Tr
 - Zhu, Y., et al. (2020). *A Comprehensive Study of Deep Video Action Recognition*. arXiv. https://arxiv.org/abs/2012.06567 — Survey of over two hundred deep action recognition papers, with the datasets and protocols they use.
 - Xing, Z., et al. (2023). *A Survey on Video Diffusion Models*. arXiv. https://arxiv.org/abs/2310.10647 — Surveys video diffusion architectures, training and evaluation.
 - Liu, Y., et al. (2024). *Sora: A Review on Background, Technology, Limitations, and Opportunities of Large Vision Models*. arXiv. https://arxiv.org/abs/2402.17177 — Reviews the text-to-video model Sora, its underlying technology, applications and limitations.
-
-[^1]: Tong et al. (2022), abstract and Section 3: temporal redundancy across consecutive frames supports masking ratios of 90% to 95%.
-[^2]: Kay et al. (2017): 400 classes, at least 400 clips per class, each about ten seconds from a different YouTube video. The 240,000 training clips figure is in Carreira and Zisserman (2017), Section 3, which also reports transfer from Kinetics to UCF-101 and HMDB-51.
-[^3]: Ho et al. (2022): FVD is computed with I3D features, and the paper reports that sampling protocol changes the score.
-[^4]: Simonyan and Zisserman (2014), abstract and Introduction, including the note on the two-streams hypothesis.
-[^5]: Carreira and Zisserman (2017), Section 2, on inflating 2D filters into 3D.
-[^6]: Bertasius et al. (2021), abstract.
-[^7]: Tong et al. (2022), Table 2, and the domain-shift discussion in the pre-training dataset section.
-[^8]: Feichtenhofer et al. (2018), abstract.
-[^9]: Goodale and Milner (1992).
-[^10]: Liu et al. (2024), abstract: the review covers the technology behind Sora, its applications across industries, and its limitations.
-[^11]: Bardes et al. (2024), abstract: feature prediction without pixel reconstruction.

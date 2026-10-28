@@ -70,6 +70,16 @@ flowchart LR
 - **語言模型能自我驗證嗎？** LLM-Modulo 主張它們無法單獨做到。若存在便宜且可靠的檢查器，例如單元測試或證明助手，外部驗證就很實用。許多開放式任務沒有這樣的檢查器。
 - **這種分工是心智的模型嗎？** 人類推理是否有符號核心，以及神經符號系統能否說明這件事，仍有爭議。
 
+[^1]: Garcez 與 Lamb（2020），見上文。
+[^2]: Lake 等人（2016），見上文。
+[^3]: Mao 等人（2019），見上文。
+[^4]: Serafini 與 d'Avila Garcez（2016），見上文。
+[^5]: Trinh 等人（2024），見上文。
+[^6]: Gao 等人（2022），見上文。
+[^7]: Kambhampati 等人（2024），見上文。
+[^8]: Trinh 等人（2024），見上文。所列數字為摘要所報告，測試集為 30 題。
+[^9]: Hubert 等人（2025），見上文。結果依摘要所述；摘要並提到，AlphaProof 與 AlphaGeometry 2 合併後，達到相當於銀牌的分數。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -94,13 +104,3 @@ flowchart LR
 - Kambhampati, S. et al. (2024). *LLMs Can't Plan, But Can Help Planning in LLM-Modulo Frameworks*. arXiv. https://arxiv.org/abs/2402.01817 — 立場論文，主張 LLM 無法單獨規劃或自我驗證，並提出與外部模型式驗證器搭配的 LLM。
 - Gao, L. et al. (2022). *PAL: Program-aided Language Models*. arXiv. https://arxiv.org/abs/2211.10435 — 讓語言模型撰寫程式，由 Python 直譯器執行，以得出推理問題的答案。
 - de Moura, L. & Ullrich, S. (2021). *The Lean 4 Theorem Prover and Programming Language*. Lecture Notes in Computer Science. https://doi.org/10.1007/978-3-030-79876-5_37 — 描述 Lean 4，即 AlphaProof 所用的證明助手與程式語言。
-
-[^1]: Garcez 與 Lamb（2020），見上文。
-[^2]: Lake 等人（2016），見上文。
-[^3]: Mao 等人（2019），見上文。
-[^4]: Serafini 與 d'Avila Garcez（2016），見上文。
-[^5]: Trinh 等人（2024），見上文。
-[^6]: Gao 等人（2022），見上文。
-[^7]: Kambhampati 等人（2024），見上文。
-[^8]: Trinh 等人（2024），見上文。所列數字為摘要所報告，測試集為 30 題。
-[^9]: Hubert 等人（2025），見上文。結果依摘要所述；摘要並提到，AlphaProof 與 AlphaGeometry 2 合併後，達到相當於銀牌的分數。

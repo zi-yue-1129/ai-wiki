@@ -78,6 +78,12 @@ GPT-f's pattern, in which a model proposes and a checker judges, resembles test-
 - **Proof assistance.** A model that proposes tactics can suggest steps to a person writing a proof in Lean or Coq, and the proof assistant checks each one. GPT-f's accepted Metamath proofs show that such results can enter a community library.[^1]
 - **Benchmarking.** Formal benchmarks such as miniF2F allow automatic comparison of systems.[^2]
 
+[^1]: Polu and Sutskever (2020), listed above.
+[^2]: Zheng et al. (2021), listed above.
+[^3]: Lample et al. (2022), listed above. The Metamath figures are as reported in the abstract.
+[^4]: Han et al. (2021), listed above. The data-scarcity point is from its abstract.
+[^5]: Alemi et al. (2016), cited on the parent page.
+
 ## References
 
 ### Seminal papers
@@ -90,9 +96,3 @@ GPT-f's pattern, in which a model proposes and a checker judges, resembles test-
 ### Surveys and textbooks
 
 - Yang, K. et al. (2024). *Formal Mathematical Reasoning: A New Frontier in AI*. arXiv. https://arxiv.org/abs/2412.16075 — A survey of formal theorem proving, covering learned tactic prediction and its open challenges.
-
-[^1]: Polu and Sutskever (2020), listed above.
-[^2]: Zheng et al. (2021), listed above.
-[^3]: Lample et al. (2022), listed above. The Metamath figures are as reported in the abstract.
-[^4]: Han et al. (2021), listed above. The data-scarcity point is from its abstract.
-[^5]: Alemi et al. (2016), cited on the parent page.

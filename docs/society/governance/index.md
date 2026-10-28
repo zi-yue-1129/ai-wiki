@@ -76,3 +76,14 @@ Fines reach up to 7% of global turnover for prohibited practices. In late 2025 t
 - [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)
 - Stanford AI Index, policy chapter
 - IAPP Global AI Law and Policy Tracker
+
+## References
+
+Seminal works for this overview, drawn from the sub-pages linked above, where each is discussed in detail.
+
+- Sastry, G. et al. (2024). *Computing Power and the Governance of Artificial Intelligence*. arXiv preprint. https://arxiv.org/abs/2402.08797 — Argues that compute is a practical point of intervention for AI governance, and lists its uses and risks.
+- Shavit, Y. (2023). *What does it take to catch a Chinchilla? Verifying Rules on Large-Scale Neural Network Training via Compute Monitoring*. arXiv preprint. https://arxiv.org/abs/2303.11341 — Proposes hardware-level monitoring so that governments can verify rules on large training runs.
+- Kosinski, M., Stillwell, D. & Graepel, T. (2013). Private traits and attributes are predictable from digital records of human behavior. *PNAS*. https://doi.org/10.1073/pnas.1218772110 — Shows that Facebook Likes predict sensitive traits, including political views, from a large volunteer sample.
+- Matz, S. C., Kosinski, M., Nave, G. & Stillwell, D. J. (2017). Psychological targeting as an effective approach to digital mass persuasion. *PNAS*. https://doi.org/10.1073/pnas.1710966114 — Argues that adapting persuasive appeals to the psychological traits of large groups can be effective, and discusses the policy risks.
+- McGregor, S. (2020). *Preventing Repeated Real World AI Failures by Cataloging Incidents: The AI Incident Database*. arXiv preprint. https://arxiv.org/abs/2011.08512 — Introduces the AI Incident Database as a shared record of real AI failures.
+- Weidinger, L. et al. (2021). *Ethical and social risks of harm from Language Models*. arXiv preprint. https://arxiv.org/abs/2112.04359 — Maps 21 risks of large language models across six areas, with mitigations.

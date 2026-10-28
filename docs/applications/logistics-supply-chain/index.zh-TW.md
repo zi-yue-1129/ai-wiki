@@ -82,6 +82,8 @@ flowchart LR
 - **第一階層以外的可見度。**企業往往看不清供應商的供應商，這限制了短缺預測可用的資料。
 - **罕見事件。**歷史資料中的干擾很少，因此基準測試可能無法反映疫情或港口關閉等衝擊。
 
+[^1]: 四個來源列於 Lee, Padmanabhan & Whang（1997）的摘要中，即「開創性論文」下的第一筆文獻。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -104,5 +106,3 @@ flowchart LR
 ### 文章與文件
 
 - Ivanov, D. (2020). Viable supply chain model: integrating agility, resilience and sustainability perspectives. *Annals of Operations Research*. https://doi.org/10.1007/s10479-020-03640-6 — 提出供應鏈的架構，使其能適應變化並吸收衝擊，撰寫於 COVID-19 疫情之後。
-
-[^1]: 四個來源列於 Lee, Padmanabhan & Whang（1997）的摘要中，即「開創性論文」下的第一筆文獻。

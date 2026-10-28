@@ -82,6 +82,9 @@ The four instruments below are compared briefly. Most real policies combine seve
 - **Export controls are porous.** Gupta et al. (2024) present evidence that Chinese labs have obtained restricted chips and used software and modelling techniques to get more from weaker hardware. Their argument centres on one company's model, so it should be weighed as a strong case rather than a settled finding.
 - **Broad scope has costs.** Sastry et al. (2024) warn that poorly scoped compute governance carries risks for privacy, economic activity and the concentration of power.
 
+[^1]: Sevilla et al. (2022) report separate doubling times for each period; exact estimates depend on the sample of models.
+[^2]: Both the EU presumption and the US reporting duty are set by reference to training compute. The exact figures are in the legal texts; check the current version of each law.
+
 ## References
 
 ### Seminal papers
@@ -98,6 +101,3 @@ The four instruments below are compared briefly. Most real policies combine seve
 - Hooker, S. (2024). *On the Limitations of Compute Thresholds as a Governance Strategy*. arXiv preprint. https://arxiv.org/abs/2407.05694 — Essay that questions whether training compute predicts risk, and recommends a better approach.
 - Pistillo, M. & Villalobos, P. (2025). *Defending Compute Thresholds Against Legal Loopholes*. arXiv preprint. https://arxiv.org/abs/2502.00003 — Examines compute-saving techniques that could let developers avoid thresholds in US and EU law.
 - Gupta, R., Walker, L. & Reddie, A. W. (2024). *Whack-a-Chip: The Futility of Hardware-Centric Export Controls*. arXiv preprint. https://arxiv.org/abs/2411.14425 — Presents a case study of Chinese developers working around chip export controls, and assesses the strategy.
-
-[^1]: Sevilla et al. (2022) report separate doubling times for each period; exact estimates depend on the sample of models.
-[^2]: Both the EU presumption and the US reporting duty are set by reference to training compute. The exact figures are in the legal texts; check the current version of each law.

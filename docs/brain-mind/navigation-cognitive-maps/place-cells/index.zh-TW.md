@@ -57,6 +57,7 @@ O'Keefe 與 Dostrovsky（1971）在可自由移動的老鼠身上，記錄海馬
 
 - O'Keefe, J. & Dostrovsky, J. (1971). The hippocampus as a spatial map. Preliminary evidence from unit activity in the freely-moving rat. *Brain Research*. https://doi.org/10.1016/0006-8993(71)90358-1 — 報告自由活動的老鼠海馬迴中，有單元在動物位於特定地點時放電，並提出海馬迴是空間地圖。
 - Tolman, E. C. (1948). Cognitive maps in rats and men. *Psychological Review*. https://doi.org/10.1037/h0061626 — 主張迷宮中的老鼠會習得一種類似地圖的環境知識，這個想法後來由位置細胞研究在生理層次上加以發展。
+- Hafting, T., Fyhn, M., Molden, S., Moser, M.-B. & Moser, E. I. (2005). Microstructure of a spatial map in the entorhinal cortex. *Nature*. https://doi.org/10.1038/nature03721 — 報告內側內嗅皮質中的網格細胞；這個區域被認為為位置細胞提供度量性的輸入。
 
 ### 綜述與教科書
 

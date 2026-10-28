@@ -96,6 +96,12 @@ The first two methods answer the allocation question, how to spend compute. The 
 - **Do the laws transfer?** Henighan et al. (2020) found power-law scaling in image, video, multimodal and mathematical models as well as text, with similar exponents. Whether new architectures, objectives or modalities keep the same shape has to be measured again each time.
 - **Training versus inference.** How to weigh serving cost against training cost, and whether test-time compute can replace parameters for a given query, remain open.
 
+[^1]: Hestness et al. (2017) test four domains: machine translation, language modelling, image processing and speech recognition. See References.
+[^2]: The loss-versus-scale results and the phrase "over more than seven orders of magnitude" are from the Kaplan et al. (2020) abstract. The fitted constants are in the paper and are not repeated here.
+[^3]: Wei et al. (2022) define the term in their introduction. The examples they give are not repeated here because the full text was not checked for this page.
+[^4]: The argument is made by changing the metric on fixed model outputs; see Schaeffer et al. (2023) in References.
+[^5]: The report is cited for the practice of forecasting from smaller runs. Its specific figures are not repeated here.
+
 ## References
 
 ### Seminal papers
@@ -120,9 +126,3 @@ The first two methods answer the allocation question, how to spend compute. The 
 - Sardana, N., et al. (2023). *Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws*. arXiv. https://arxiv.org/abs/2401.00448 — Modifies the Chinchilla analysis to include the cost of inference in choosing model size and data.
 - Gadre, S. Y., et al. (2024). *Language models scale reliably with over-training and on downstream tasks*. arXiv. https://arxiv.org/abs/2403.08540 — Studies how scaling predictions hold when models are trained past the compute-optimal regime and evaluated on downstream tasks.
 - Brown, B., et al. (2024). *Large Language Monkeys: Scaling Inference Compute with Repeated Sampling*. arXiv. https://arxiv.org/abs/2407.21787 — Shows that the fraction of problems solved by at least one sample grows with the number of samples drawn.
-
-[^1]: Hestness et al. (2017) test four domains: machine translation, language modelling, image processing and speech recognition. See References.
-[^2]: The loss-versus-scale results and the phrase "over more than seven orders of magnitude" are from the Kaplan et al. (2020) abstract. The fitted constants are in the paper and are not repeated here.
-[^3]: Wei et al. (2022) define the term in their introduction. The examples they give are not repeated here because the full text was not checked for this page.
-[^4]: The argument is made by changing the metric on fixed model outputs; see Schaeffer et al. (2023) in References.
-[^5]: The report is cited for the practice of forecasting from smaller runs. Its specific figures are not repeated here.

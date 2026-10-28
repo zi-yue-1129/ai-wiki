@@ -93,6 +93,16 @@ The language-model side is covered in Connections, since its mechanics belong to
 - **Can language models verify themselves?** LLM-Modulo argues that they cannot do so alone. Where a cheap and sound checker exists, such as unit tests or a proof assistant, external verification is practical. Many open-ended tasks have no such checker.
 - **Is the split a model of the mind?** Whether human reasoning has a symbolic core, and whether neuro-symbolic systems tell us anything about it, remains contested.
 
+[^1]: Garcez and Lamb (2020), listed above.
+[^2]: Lake et al. (2016), listed above.
+[^3]: Mao et al. (2019), listed above.
+[^4]: Serafini and d'Avila Garcez (2016), listed above.
+[^5]: Trinh et al. (2024), listed above.
+[^6]: Gao et al. (2022), listed above.
+[^7]: Kambhampati et al. (2024), listed above.
+[^8]: Trinh et al. (2024), listed above. The count is the one reported in the abstract, on the test set of 30 problems.
+[^9]: Hubert et al. (2025), listed above. The result is as reported in the abstract, which notes that AlphaProof combined with AlphaGeometry 2 reached a score equivalent to a silver medallist.
+
 ## References
 
 ### Seminal papers
@@ -117,13 +127,3 @@ The language-model side is covered in Connections, since its mechanics belong to
 - Kambhampati, S. et al. (2024). *LLMs Can't Plan, But Can Help Planning in LLM-Modulo Frameworks*. arXiv. https://arxiv.org/abs/2402.01817 — Position paper arguing that LLMs cannot plan or self-verify alone, and proposing LLMs paired with external model-based verifiers.
 - Gao, L. et al. (2022). *PAL: Program-aided Language Models*. arXiv. https://arxiv.org/abs/2211.10435 — Has a language model write programs that a Python interpreter executes to produce the answers to reasoning problems.
 - de Moura, L. & Ullrich, S. (2021). *The Lean 4 Theorem Prover and Programming Language*. Lecture Notes in Computer Science. https://doi.org/10.1007/978-3-030-79876-5_37 — Describes Lean 4, the proof assistant and programming language used by AlphaProof.
-
-[^1]: Garcez and Lamb (2020), listed above.
-[^2]: Lake et al. (2016), listed above.
-[^3]: Mao et al. (2019), listed above.
-[^4]: Serafini and d'Avila Garcez (2016), listed above.
-[^5]: Trinh et al. (2024), listed above.
-[^6]: Gao et al. (2022), listed above.
-[^7]: Kambhampati et al. (2024), listed above.
-[^8]: Trinh et al. (2024), listed above. The count is the one reported in the abstract, on the test set of 30 problems.
-[^9]: Hubert et al. (2025), listed above. The result is as reported in the abstract, which notes that AlphaProof combined with AlphaGeometry 2 reached a score equivalent to a silver medallist.

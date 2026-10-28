@@ -108,6 +108,8 @@ Three landmark methods are compared below. Each has its own page.
 - **Hybrids with deep learning.** Should the factors be learned by neural networks while the graph structure is kept, and which parts of a hand-designed structure still help once representations are learned? The CRF-on-neural-encoder systems suggest a partial answer, but the general question is open.
 - **Brain implementation.** Whether cortex performs message passing, sampling, or something else is unknown. Both message passing and sampling have been proposed, and the evidence does not yet separate them.
 
+[^1]: The accuracy and F1 figures are those given in the abstract of Ma and Hovy (2016): 97.55% accuracy for part-of-speech tagging on the Penn Treebank and 91.21 F1 for named-entity recognition on CoNLL 2003.
+
 ## References
 
 ### Seminal papers
@@ -132,5 +134,3 @@ Three landmark methods are compared below. Each has its own page.
 - Ma, X. & Hovy, E. (2016). *End-to-end Sequence Labeling via Bi-directional LSTM-CNNs-CRF*. arXiv. https://arxiv.org/abs/1603.01354 — Combines character and word representations, a bidirectional LSTM and a CRF layer for sequence labelling.
 - Lee, T. S. & Mumford, D. (2003). Hierarchical Bayesian inference in the visual cortex. *Journal of the Optical Society of America A*. https://doi.org/10.1364/JOSAA.20.001434 — Proposes that visual cortex performs hierarchical Bayesian inference, a view that treats signals between cortical levels as messages.
 - Ma, W. J., Beck, J. M., Latham, P. E. & Pouget, A. (2006). Bayesian inference with probabilistic population codes. *Nature Neuroscience*. https://doi.org/10.1038/nn1790 — Argues that populations of neurons can represent probability distributions, so that Bayesian computations could be carried out by neural populations.
-
-[^1]: The accuracy and F1 figures are those given in the abstract of Ma and Hovy (2016): 97.55% accuracy for part-of-speech tagging on the Penn Treebank and 91.21 F1 for named-entity recognition on CoNLL 2003.

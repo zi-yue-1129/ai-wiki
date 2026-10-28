@@ -63,6 +63,7 @@ $$
 - Dou, Y. et al. (2020). Enhancing Graph Neural Network-based Fraud Detectors against Camouflaged Fraudsters. *CIKM*. https://arxiv.org/abs/2008.08692 — 介紹 CARE-GNN，包含標籤感知相似度、自適應 top-p 過濾以及以強化學習學得的閾值，並在 Yelp 與 Amazon 詐欺圖上測試。
 - Kipf, T. N. & Welling, M. (2017). Semi-Supervised Classification with Graph Convolutional Networks. *ICLR*. https://arxiv.org/abs/1609.02907 — 介紹圖卷積網路，即論文所用的 GCN 基準。
 - Hamilton, W. L., Ying, R. & Leskovec, J. (2017). Inductive Representation Learning on Large Graphs. *NeurIPS*. https://arxiv.org/abs/1706.02216 — 介紹 GraphSAGE，一種以鄰居抽樣為基礎的 GNN，也是論文比較中的基準之一。
+- Veličković, P. et al. (2018). Graph Attention Networks. *ICLR*. https://arxiv.org/abs/1710.10903 — 提出圖注意力網路，以學習到的分數為每個鄰居的訊息加權，是 CARE-GNN 以相似度篩選鄰居之外的另一種做法。
 
 ### 綜述與教科書
 

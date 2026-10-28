@@ -103,6 +103,11 @@ PEFT is common in [LLM post-training](../../theory/models/llm/instructgpt-rlhf/i
 - **Scale and learning rates.** rsLoRA and LoRA+ suggest the default settings are not optimal, and the best combination is not settled.
 - **Many adapters at once.** TIES reduces interference between merged models; whether it scales to many adapters is not settled.
 
+[^1]: Hu et al. (2021) report that, against fine-tuning GPT-3 175B with Adam, LoRA cuts trainable parameters by 10,000 times and GPU memory requirement by three times.
+[^2]: Dettmers et al. (2023) report fine-tuning a 65B-parameter model on a single 48 GB GPU, with performance the authors state matches 16-bit fine-tuning.
+[^3]: Houlsby et al. (2019) report that, on the GLUE benchmark, their adapters attain within 0.4% of the performance of full fine-tuning while adding only 3.6% parameters per task.
+[^4]: Li and Liang (2021) report that learning only 0.1% of the parameters gives performance comparable to fine-tuning when the full dataset is used.
+
 ## References
 
 ### Seminal papers
@@ -131,8 +136,3 @@ PEFT is common in [LLM post-training](../../theory/models/llm/instructgpt-rlhf/i
 ### Articles and documentation
 
 - Biderman, D. et al. (2024). *LoRA Learns Less and Forgets Less*. arXiv:2405.09673. https://arxiv.org/abs/2405.09673 — Empirical comparison of LoRA and full fine-tuning on code and mathematics.
-
-[^1]: Hu et al. (2021) report that, against fine-tuning GPT-3 175B with Adam, LoRA cuts trainable parameters by 10,000 times and GPU memory requirement by three times.
-[^2]: Dettmers et al. (2023) report fine-tuning a 65B-parameter model on a single 48 GB GPU, with performance the authors state matches 16-bit fine-tuning.
-[^3]: Houlsby et al. (2019) report that, on the GLUE benchmark, their adapters attain within 0.4% of the performance of full fine-tuning while adding only 3.6% parameters per task.
-[^4]: Li and Liang (2021) report that learning only 0.1% of the parameters gives performance comparable to fine-tuning when the full dataset is used.

@@ -88,6 +88,10 @@ DPO 通常以離線方式訓練：配對一次蒐集（常來自另一個模型�
 - **似然位移**：偏好回應的似然在 DPO 訓練中可能下降。Razin et al. 將其與回應嵌入相似的配對相連。[^2]
 - **過度最佳化**：當針對代理獎勵模型的最佳化走得太遠，真實品質可能下降。[^3] IPO 的作者認為，無獎勵模型的方法仍可能過擬合一組固定的配對。
 
+[^1]: Xu 等人（2024）報告，PPO 在他們的所有情況中都超越了其他方法，並認為 DPO 存在根本限制。
+[^2]: Razin 等人（2024）報告，過濾掉以中心化嵌入相似度分數標記出的樣本，減輕了此問題。
+[^3]: Gao 等人（2022）以合成的黃金標準獎勵模型取代人類標籤，因此其結果未必能直接套用於真實資料。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -111,7 +115,3 @@ DPO 通常以離線方式訓練：配對一次蒐集（常來自另一個模型�
 - Park, R. et al. (2024). *Disentangling Length from Quality in Direct Preference Optimization*. arXiv. https://arxiv.org/abs/2403.19159 — 顯示 DPO 會利用冗長的回應，並提出正則化方法。
 - Razin, N. et al. (2024). *Unintentional Unalignment: Likelihood Displacement in Direct Preference Optimization*. arXiv. https://arxiv.org/abs/2410.08847 — 說明 DPO 中偏好回應的似然為何可能下降。
 - Gao, L., Schulman, J. & Hilton, J. (2022). *Scaling Laws for Reward Model Overoptimization*. arXiv. https://arxiv.org/abs/2210.10760 — 衡量在針對代理獎勵進行最佳化時，真實品質如何變化。
-
-[^1]: Xu 等人（2024）報告，PPO 在他們的所有情況中都超越了其他方法，並認為 DPO 存在根本限制。
-[^2]: Razin 等人（2024）報告，過濾掉以中心化嵌入相似度分數標記出的樣本，減輕了此問題。
-[^3]: Gao 等人（2022）以合成的黃金標準獎勵模型取代人類標籤，因此其結果未必能直接套用於真實資料。

@@ -72,6 +72,12 @@ SayCan treats skills as the primitive actions of a plan, a structure that [SHOP2
 - **Mobile manipulation**, where a robot carries out household-style instructions such as cleaning or fetching.[^2]
 - **Hybrid planners**, where a language model writes a plan in a formal language and a classical planner solves it, as in LLM+P.[^5]
 
+[^1]: Ahn et al. (2022), listed above.
+[^2]: Ahn et al. (2022), listed above. The setting and claims follow the paper's abstract. Success rates are not quoted.
+[^3]: Huang et al. (2022, Inner Monologue), listed above.
+[^4]: Valmeekam et al. (2023), listed above.
+[^5]: Liu et al. (2023), listed above.
+
 ## References
 
 ### Seminal papers
@@ -88,9 +94,3 @@ SayCan treats skills as the primitive actions of a plan, a structure that [SHOP2
 - Liu, B. et al. (2023). LLM+P: Empowering Large Language Models with Optimal Planning Proficiency. arXiv. https://arxiv.org/abs/2304.11477 — Converts a language problem into PDDL, solves it with a classical planner and translates the plan back into language.
 - Valmeekam, K. et al. (2023). On the Planning Abilities of Large Language Models: A Critical Investigation. arXiv. https://arxiv.org/abs/2305.15771 — Measures the autonomous planning ability of language models and shows gains when they guide an external planner.
 - Kambhampati, S. et al. (2024). LLMs Can't Plan, But Can Help Planning in LLM-Modulo Frameworks. arXiv. https://arxiv.org/abs/2402.01817 — Position paper arguing that language models do their best work in loops with external verifiers.
-
-[^1]: Ahn et al. (2022), listed above.
-[^2]: Ahn et al. (2022), listed above. The setting and claims follow the paper's abstract. Success rates are not quoted.
-[^3]: Huang et al. (2022, Inner Monologue), listed above.
-[^4]: Valmeekam et al. (2023), listed above.
-[^5]: Liu et al. (2023), listed above.

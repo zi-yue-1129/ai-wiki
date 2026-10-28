@@ -110,6 +110,8 @@ The brain also detects deviance automatically. The mismatch negativity is a resp
 - **Closed-set accuracy.** Vaze et al. (2021) report that open-set performance correlates strongly with closed-set accuracy, which raises the question of how much separate detection machinery is needed.
 - **Spurious features.** Nagarajan et al. (2020) show that models can fail under shift even on easy linear tasks, and a detector may not notice when the cause is a feature that looks normal.
 
+[^1]: The figures are those reported in the abstract of Recht et al. (2019), for the new test sets compared with the original ones.
+
 ## References
 
 ### Seminal papers
@@ -139,5 +141,3 @@ The brain also detects deviance automatically. The mismatch negativity is a resp
 - Nagarajan, V., Andreassen, A. & Neyshabur, B. (2020). *Understanding the Failure Modes of Out-of-Distribution Generalization*. arXiv. https://arxiv.org/abs/2010.15775 — Spurious correlations cause failures under shift, even in easy tasks.
 - Ovadia, Y. et al. (2019). *Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift*. arXiv. https://arxiv.org/abs/1906.02530 — Benchmarks predictive uncertainty and calibration under dataset shift.
 - Geirhos, R. et al. (2019). *ImageNet-trained CNNs are biased towards texture; increasing shape bias improves accuracy and robustness*. arXiv. https://arxiv.org/abs/1811.12231 — ImageNet-trained CNNs prefer texture to shape; stylised training helps.
-
-[^1]: The figures are those reported in the abstract of Recht et al. (2019), for the new test sets compared with the original ones.

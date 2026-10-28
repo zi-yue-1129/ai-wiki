@@ -52,6 +52,12 @@ CDCL 求解器的核心迴圈如下：
 - **擴展 cube-and-conquer。** 把困難問題切分為許多子問題，在某些實例上有效。如何一般性地選出好的切分方式，仍是開放的。
 - **信任求解器。** 經認證的證明（例如 DRAT 證明）能把信任轉移到一個小型檢查器上。
 
+[^1]: Marques-Silva 與 Sakallah（1999），見上方參考文獻。
+[^2]: Marques-Silva、Lynce 與 Malik（2021），見上方參考文獻。
+[^3]: Nieuwenhuis、Oliveras 與 Tinelli（2006），見上方參考文獻。
+[^4]: de Moura 與 Bjørner（2008），見上方參考文獻。
+[^5]: Heule、Kullmann 與 Marek（2016），見上方參考文獻。叢集規模與運算時間以其摘要所述為準。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -68,9 +74,3 @@ CDCL 求解器的核心迴圈如下：
 ### 文章與文件
 
 - Heule, M. J. H., Kullmann, O. & Marek, V. W. (2016). *Solving and Verifying the boolean Pythagorean Triples problem via Cube-and-Conquer*. arXiv. https://arxiv.org/abs/1605.00723 — 描述一種在大型叢集上運行的混合式 SAT 方法，解決了一個開放的拉姆齊理論問題並附上經驗證的證明。
-
-[^1]: Marques-Silva 與 Sakallah（1999），見上方參考文獻。
-[^2]: Marques-Silva、Lynce 與 Malik（2021），見上方參考文獻。
-[^3]: Nieuwenhuis、Oliveras 與 Tinelli（2006），見上方參考文獻。
-[^4]: de Moura 與 Bjørner（2008），見上方參考文獻。
-[^5]: Heule、Kullmann 與 Marek（2016），見上方參考文獻。叢集規模與運算時間以其摘要所述為準。

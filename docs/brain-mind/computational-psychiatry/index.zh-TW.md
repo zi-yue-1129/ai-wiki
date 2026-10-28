@@ -80,6 +80,10 @@ flowchart LR
 - **分類器能否推廣？** 一項研究中做出的預測，可能在另一個族群或另一家診所失效。Bzdok 與 Meyer-Lindenberg（2018）討論了機器學習用於精準精神醫學的機會與挑戰。
 - **這些測量能否進入常規照護？** 這裡描述的大多數工具仍是研究工具。Dwyer et al.（2018）說明了機器學習方法在臨床轉化之前需要的步驟與限制。
 
+[^1]: Montague、Dolan、Friston 與 Dayan（2012）在此引用，是為了說明該領域的目標，而非某項特定結果。
+[^2]: 研究領域準則是美國國家心理衛生研究所提出的研究框架。它用來組織研究，而不是一套診斷工具。
+[^3]: Gillan et al.（2016）招募的是大型的一般人群線上樣本，而非臨床病人。其結果涉及一個症狀維度，而非診斷，也不能確定同樣的缺陷就是強迫性疾患的成因。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -103,7 +107,3 @@ flowchart LR
 
 - Insel, T. et al. (2010). Research Domain Criteria (RDoC): Toward a New Classification Framework for Research on Mental Disorders. *American Journal of Psychiatry*. https://doi.org/10.1176/appi.ajp.2010.09091379 — 提出一個研究框架，依功能維度而非固定的診斷類別來組織精神疾病。
 - Bzdok, D. & Meyer-Lindenberg, A. (2018). Machine Learning for Precision Psychiatry: Opportunities and Challenges. *Biological Psychiatry: Cognitive Neuroscience and Neuroimaging*. https://doi.org/10.1016/j.bpsc.2017.11.007 — 討論機器學習如何支持精準精神醫學，以及它面對的驗證問題。
-
-[^1]: Montague、Dolan、Friston 與 Dayan（2012）在此引用，是為了說明該領域的目標，而非某項特定結果。
-[^2]: 研究領域準則是美國國家心理衛生研究所提出的研究框架。它用來組織研究，而不是一套診斷工具。
-[^3]: Gillan et al.（2016）招募的是大型的一般人群線上樣本，而非臨床病人。其結果涉及一個症狀維度，而非診斷，也不能確定同樣的缺陷就是強迫性疾患的成因。

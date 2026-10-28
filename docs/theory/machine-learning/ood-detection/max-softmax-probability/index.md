@@ -62,6 +62,8 @@ The [energy score](../energy-score/index.md) keeps the logit magnitude that the 
 
 The score is also part of [uncertainty quantification and calibration](../../uncertainty-and-calibration/index.md). Temperature scaling changes the softmax values, and so can change the ordering of MSP scores.
 
+[^1]: Figures as reported in the abstract of Liang et al. (2017). The baseline there is the maximum softmax probability method.
+
 ## References
 
 ### Seminal papers
@@ -78,5 +80,3 @@ The score is also part of [uncertainty quantification and calibration](../../unc
 ### Articles and documentation
 
 - Ovadia, Y. et al. (2019). *Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift*. arXiv. https://arxiv.org/abs/1906.02530 — Benchmarks softmax-based uncertainty under dataset shift, where its reliability declines.
-
-[^1]: Figures as reported in the abstract of Liang et al. (2017). The baseline there is the maximum softmax probability method.

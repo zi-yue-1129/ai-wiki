@@ -60,6 +60,12 @@ SayCan 把技能視為計畫的基本行動，這種結構在 [SHOP2](../shop2/i
 - **行動機械手操作**，機器人執行類似家務的指令，例如清潔或取物。[^2]
 - **混合式規劃器**，語言模型以形式化語言寫出計畫，再由古典規劃器求解，如 LLM+P 所示。[^5]
 
+[^1]: Ahn et al. (2022)，見上方列表。
+[^2]: Ahn et al. (2022)，見上方列表。內容與主張依論文摘要。這裡不引用成功率。
+[^3]: Huang et al. (2022, Inner Monologue)，見上方列表。
+[^4]: Valmeekam et al. (2023)，見上方列表。
+[^5]: Liu et al. (2023)，見上方列表。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -73,9 +79,3 @@ SayCan 把技能視為計畫的基本行動，這種結構在 [SHOP2](../shop2/i
 - Liu, B. et al. (2023). LLM+P: Empowering Large Language Models with Optimal Planning Proficiency. arXiv. https://arxiv.org/abs/2304.11477 — 把語言問題轉為 PDDL，交由古典規劃器求解，再把計畫翻譯回語言。
 - Valmeekam, K. et al. (2023). On the Planning Abilities of Large Language Models: A Critical Investigation. arXiv. https://arxiv.org/abs/2305.15771 — 測量語言模型自主規劃的能力，並顯示在引導外部規劃器時的進步。
 - Kambhampati, S. et al. (2024). LLMs Can't Plan, But Can Help Planning in LLM-Modulo Frameworks. arXiv. https://arxiv.org/abs/2402.01817 — 立場論文，主張語言模型在與外部驗證器的迴圈中最能發揮作用。
-
-[^1]: Ahn et al. (2022)，見上方列表。
-[^2]: Ahn et al. (2022)，見上方列表。內容與主張依論文摘要。這裡不引用成功率。
-[^3]: Huang et al. (2022, Inner Monologue)，見上方列表。
-[^4]: Valmeekam et al. (2023)，見上方列表。
-[^5]: Liu et al. (2023)，見上方列表。

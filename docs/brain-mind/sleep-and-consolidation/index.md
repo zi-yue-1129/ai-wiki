@@ -89,6 +89,8 @@ Each method has its own page. This table is only a comparison.
 - **How far does the AI analogy go?** Kumaran et al. (2016) argue that replay and complementary systems are useful ideas for agents. Deep RL replay usually uses a fixed schedule, without the sleep-like structure of the brain.
 - **How much evidence comes from humans?** Most detailed replay evidence comes from rodents, and human recordings are rarer. See Staresina et al. (2015).
 
+[^1]: Tononi and Cirelli (2006) propose that synaptic strength rises on average during waking and is reduced during sleep. The hypothesis is one of several accounts of sleep's function, and its evidence is debated.
+
 ## References
 
 ### Seminal papers
@@ -118,5 +120,3 @@ Each method has its own page. This table is only a comparison.
 - Squire, L. R. & Alvarez, P. (1995). Retrograde amnesia and memory consolidation: a neurobiological perspective. *Current Opinion in Neurobiology*. https://doi.org/10.1016/0959-4388(95)80023-9 — Reviews retrograde amnesia as evidence that memories undergo a gradual, time-dependent consolidation in the brain.
 - Frankland, P. W. & Bontempi, B. (2005). The organization of recent and remote memories. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn1607 — Reviews how recent and remote memories are organised in the brain, and how their storage changes over time.
 - Tononi, G. & Cirelli, C. (2006). Sleep function and synaptic homeostasis. *Sleep Medicine Reviews*. https://doi.org/10.1016/j.smrv.2005.05.002 — Proposes that sleep reduces overall synaptic strength, a hypothesis about sleep's function that remains debated.
-
-[^1]: Tononi and Cirelli (2006) propose that synaptic strength rises on average during waking and is reduced during sleep. The hypothesis is one of several accounts of sleep's function, and its evidence is debated.

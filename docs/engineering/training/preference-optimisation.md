@@ -106,6 +106,10 @@ The brain connection is suggestive, not established. Preference data are people'
 - **Likelihood displacement.** The likelihood of preferred responses can fall during DPO training. Razin et al. link it to pairs with similar embeddings.[^2]
 - **Over-optimisation.** Optimising against a proxy reward model can lower true quality once optimisation goes too far.[^3] The IPO authors argue that reward-free methods can still overfit a fixed set of pairs.
 
+[^1]: Xu et al. (2024) report that PPO surpassed the other methods in all their cases, and argue that DPO has fundamental limitations.
+[^2]: Razin et al. (2024) report that filtering out the samples a centred embedding-similarity score flags reduced the problem.
+[^3]: Gao et al. (2022) use a synthetic gold-standard reward model in place of human labels, so their results may not transfer directly.
+
 ## References
 
 ### Seminal papers
@@ -129,7 +133,3 @@ The brain connection is suggestive, not established. Preference data are people'
 - Park, R. et al. (2024). *Disentangling Length from Quality in Direct Preference Optimization*. arXiv. https://arxiv.org/abs/2403.19159 — Shows DPO exploits verbosity and proposes a regulariser.
 - Razin, N. et al. (2024). *Unintentional Unalignment: Likelihood Displacement in Direct Preference Optimization*. arXiv. https://arxiv.org/abs/2410.08847 — Explains how the likelihood of preferred responses can fall in DPO.
 - Gao, L., Schulman, J. & Hilton, J. (2022). *Scaling Laws for Reward Model Overoptimization*. arXiv. https://arxiv.org/abs/2210.10760 — Measures true quality as a policy is optimised against a proxy reward.
-
-[^1]: Xu et al. (2024) report that PPO surpassed the other methods in all their cases, and argue that DPO has fundamental limitations.
-[^2]: Razin et al. (2024) report that filtering out the samples a centred embedding-similarity score flags reduced the problem.
-[^3]: Gao et al. (2022) use a synthetic gold-standard reward model in place of human labels, so their results may not transfer directly.

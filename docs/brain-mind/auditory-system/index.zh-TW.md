@@ -80,6 +80,9 @@ flowchart LR
 - **不同人之間的圖譜有多穩定？** 頻率圖譜在個體之間有所差異，而人類聽覺區域的數目與邊界仍在持續修正。Moerel 等人（2014）回顧了如何辨識這些區域。
 - **聽覺的兩條路徑是否與視覺的路徑相對應？** 前側與後側串流的證據來自非人類靈長類的研究。它們在人類中的對應，以及在語音處理中如何互動，仍是活躍的研究問題。
 
+[^1]: Cherry 的實驗同時呈現兩段語音，並把不同的訊號分別送到兩耳，並以統計方式詮釋聽者的反應。
+[^2]: Dallos 的回顧描述外毛細胞如何放大基底膜的反應。這種放大在正常聽覺中的強度與作用，在該回顧中有所討論，目前仍是活躍的研究領域。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -102,7 +105,3 @@ flowchart LR
 
 - Wang, D. & Chen, J.（2018）。Supervised Speech Separation Based on Deep Learning: An Overview。arXiv。https://arxiv.org/abs/1708.07524 — 綜述以深度學習從背景干擾中分離目標語音的方法，是噪音中語音問題的工程面向。
 - Won, J. H. 等人（2008）。Improving performance in noise for hearing aids and cochlear implants using coherent modulation filtering。*Hearing Research*。https://doi.org/10.1016/j.heares.2008.01.009 — 一種名為相干調變濾波的訊號處理方法，旨在改善助聽器與人工電子耳使用者在噪音中的語音表現。
-
-[^1]: Cherry 的實驗同時呈現兩段語音，並把不同的訊號分別送到兩耳，並以統計方式詮釋聽者的反應。
-
-[^2]: Dallos 的回顧描述外毛細胞如何放大基底膜的反應。這種放大在正常聽覺中的強度與作用，在該回顧中有所討論，目前仍是活躍的研究領域。

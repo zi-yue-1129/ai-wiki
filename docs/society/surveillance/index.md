@@ -116,6 +116,8 @@ Veale and Borgesius (2021) analyse the Commission's draft, which predates the fi
 - How should a predictive-policing feedback loop be broken: by changing the model, the data or the way the system is deployed? Ensign et al. (2017) propose a correction to the incident data, and Hung and Yen (2023) propose governance measures.
 - Public acceptance varies by country: Kostka et al. (2021) find the highest acceptance in China and the lowest in Germany, with convenience and security more prominent than surveillance in people's reasoning. Whether such attitudes should shape regulation is a question for democratic process.
 
+[^1]: Buolamwini & Gebru (2018), abstract and Table 4. The figures are for the Pilot Parliaments Benchmark, where all three classifiers have their highest error rates on darker-skinned women.
+
 ## References
 
 ### Seminal papers
@@ -139,5 +141,3 @@ Veale and Borgesius (2021) analyse the Commission's draft, which predates the fi
 - Kieslich, K. & Lünich, M. (2024). Regulating AI-Based Remote Biometric Identification. Investigating the Public Demand for Bans, Audits, and Public Database Registrations. arXiv. https://arxiv.org/abs/2401.13605 — Survey of German citizens on regulating remote biometric identification.
 - Gabrielli, G. (2025). The Use of Facial Recognition Technologies in the Context of Peaceful Protest. *European Journal of Risk Regulation*. https://doi.org/10.1017/err.2025.26 — Applies human rights standards to facial recognition at protests.
 - Kostka, G., Steinacker, L. & Meckel, M. (2021). Between security and convenience: Facial recognition technology in the eyes of citizens in China, Germany, the United Kingdom, and the United States. *Public Understanding of Science*. https://doi.org/10.1177/09636625211001555 — Online surveys in four countries comparing public acceptance of facial recognition.
-
-[^1]: Buolamwini & Gebru (2018), abstract and Table 4. The figures are for the Pilot Parliaments Benchmark, where all three classifiers have their highest error rates on darker-skinned women.

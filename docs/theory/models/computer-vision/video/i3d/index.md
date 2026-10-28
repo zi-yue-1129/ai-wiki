@@ -63,6 +63,13 @@ The main model runs two I3D networks, one on RGB frames and one on flow, trained
 - Does inflation work as well for architectures other than Inception-v1?
 - Is a separate flow stream still needed once networks are large and trained on enough video? SlowFast and TimeSformer work on RGB frames alone.[^5][^6]
 
+[^1]: Simonyan and Zisserman (2014), abstract.
+[^2]: Carreira and Zisserman (2017): Section 2 (inflation), Introduction (parameter count), Tables 3, 4 and 5. Accuracies are top-1 on Kinetics-400 and mean over three splits for UCF-101 and HMDB-51.
+[^3]: Kay et al. (2017): 400 classes, at least 400 clips each, about ten seconds long. The 240,000 training clips figure is in Carreira and Zisserman (2017), Section 3.
+[^4]: Goodale and Milner (1992). The two-stream paper notes the link without testing it.
+[^5]: Feichtenhofer et al. (2018): a slow pathway at a low frame rate and a fast pathway at a high frame rate.
+[^6]: Bertasius et al. (2021), abstract.
+
 ## References
 
 ### Seminal papers
@@ -76,12 +83,5 @@ The main model runs two I3D networks, one on RGB frames and one on flow, trained
 - Tran, D., et al. (2014). *Learning Spatiotemporal Features with 3D Convolutional Networks*. arXiv. https://arxiv.org/abs/1412.0767 — The C3D network, trained from scratch.
 - Kay, W., et al. (2017). *The Kinetics Human Action Video Dataset*. arXiv. https://arxiv.org/abs/1705.06950 — The 400-class YouTube dataset used for pre-training.
 - Feichtenhofer, C., Fan, H., Malik, J. & He, K. (2018). *SlowFast Networks for Video Recognition*. arXiv. https://arxiv.org/abs/1812.03982 — Slow and fast pathways that model semantics and motion.
-- Bertasius, G., Wang, H. & Torresani, L. (2021). *Is Space-Time Attention All You Need for Video Understanding?* arXiv. https://arxiv.org/abs/2102.05095 — TimeSformer, a convolution-free video Transformer.
+- Bertasius, G., Wang, H. & Torresani, L. (2021). *Is Space-Time Attention All You Need for Video Understanding?* arXiv. https://arxiv.org/abs/2102.05095 — Introduces TimeSformer, a convolution-free video Transformer built on divided space-time self-attention.
 - Goodale, M. A. & Milner, A. D. (1992). *Separate visual pathways for perception and action*. Trends in Neurosciences. https://doi.org/10.1016/0166-2236%2892%2990344-8 — The ventral and dorsal pathway account.
-
-[^1]: Simonyan and Zisserman (2014), abstract.
-[^2]: Carreira and Zisserman (2017): Section 2 (inflation), Introduction (parameter count), Tables 3, 4 and 5. Accuracies are top-1 on Kinetics-400 and mean over three splits for UCF-101 and HMDB-51.
-[^3]: Kay et al. (2017): 400 classes, at least 400 clips each, about ten seconds long. The 240,000 training clips figure is in Carreira and Zisserman (2017), Section 3.
-[^4]: Goodale and Milner (1992). The two-stream paper notes the link without testing it.
-[^5]: Feichtenhofer et al. (2018): a slow pathway at a low frame rate and a fast pathway at a high frame rate.
-[^6]: Bertasius et al. (2021), abstract.

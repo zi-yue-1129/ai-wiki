@@ -83,6 +83,14 @@ flowchart LR
 - **動態形狀與控制流程**：擷取到的計算圖假設結構固定，而可變長度的輸入與依資料決定的分支，會迫使系統重新編譯或退回逐步執行。
 - **數值行為**：融合會改變浮點數結果，因此測試必須以編譯後的程式碼為準，而不只是原始模型。
 
+[^tvm]: TVM 論文指出，若沒有編譯器，把工作負載部署到新平台就需要大量人工投入。參見參考文獻中的 Chen et al. (2018)。
+[^halide]: 演算法與排程的分離，正是 Ragan-Kelley et al. (2013) 的核心想法。
+[^roofline]: 參見 Williams, Waterman and Patterson (2009)。上限為峰值運算能力與算術強度乘以頻寬兩者中的較小者。
+[^flashattention]: Dao et al. (2022) 主張，注意力演算法必須考慮 GPU 高頻寬記憶體與晶片上 SRAM 之間的讀寫。
+[^pt2]: Ansel et al. (2024) 說明了經編譯的執行路徑，以及退回逐步執行的情況。
+[^triton]: Tillet, Kung and Cox (2019) 說明編譯器如何處理每個分塊內部的細節。
+[^ansor]: 此數字是 Zheng et al. (2020) 摘要中報告的結果。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -98,11 +106,3 @@ flowchart LR
 ### 綜述與教科書
 
 - Li, M. et al. (2020). *The Deep Learning Compiler: A Comprehensive Survey*. arXiv:2002.03794. https://arxiv.org/abs/2002.03794 — 深度學習編譯器的綜述，包含 XLA 與 TVM，聚焦於其多層級中間表示。
-
-[^tvm]: TVM 論文指出，若沒有編譯器，把工作負載部署到新平台就需要大量人工投入。參見參考文獻中的 Chen et al. (2018)。
-[^halide]: 演算法與排程的分離，正是 Ragan-Kelley et al. (2013) 的核心想法。
-[^roofline]: 參見 Williams, Waterman and Patterson (2009)。上限為峰值運算能力與算術強度乘以頻寬兩者中的較小者。
-[^flashattention]: Dao et al. (2022) 主張，注意力演算法必須考慮 GPU 高頻寬記憶體與晶片上 SRAM 之間的讀寫。
-[^pt2]: Ansel et al. (2024) 說明了經編譯的執行路徑，以及退回逐步執行的情況。
-[^triton]: Tillet, Kung and Cox (2019) 說明編譯器如何處理每個分塊內部的細節。
-[^ansor]: 此數字是 Zheng et al. (2020) 摘要中報告的結果。

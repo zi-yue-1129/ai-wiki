@@ -89,6 +89,8 @@ Each method has its own page. This table is only a comparison.
 - **Does the brain implement optimal control, or only approximate it?** The framework explains much of human movement, but the cost functions are modelling choices and the neural implementation remains open. Scott (2004) reviews the case for and against.
 - **How are forward models learned and combined with feedback?** Shadmehr, Smith and Krakauer (2010) review how error correction, sensory prediction and adaptation interact, but a single account has not been agreed.
 
+[^1]: Ito's review describes the induction of long-term depression when climbing-fibre and parallel-fibre inputs to a Purkinje cell are repeatedly paired. The mechanism and its functional role are discussed in the review, and remain debated.
+
 ## References
 
 ### Seminal papers
@@ -112,5 +114,3 @@ Each method has its own page. This table is only a comparison.
 ### Articles and documentation
 
 - Hafner, D., Lillicrap, T., Ba, J. & Norouzi, M. (2019). Dream to Control: Learning Behaviors by Latent Imagination. arXiv. https://arxiv.org/abs/1912.01603 — Learns a world model from images and trains control behaviour by imagining trajectories inside it, a model-based use of the forward-model idea.
-
-[^1]: Ito's review describes the induction of long-term depression when climbing-fibre and parallel-fibre inputs to a Purkinje cell are repeatedly paired. The mechanism and its functional role are discussed in the review, and remain debated.

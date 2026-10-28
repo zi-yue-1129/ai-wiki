@@ -56,6 +56,10 @@ MAST 提供了一套共通的詞彙：一組有定義的失敗模式，每個模
 - 標籤能否支援因果歸因？Zhang 等人（2025）發現，自動評審找出負責代理人的次數遠多於找出決定性錯誤步驟的次數。其最佳方法的代理人層級準確率為 53.5%，步驟層級為 14.2%。[^3]
 - 何時修改工作流程會比修改提示更有效？這兩個案例研究指向不同的方向。
 
+[^1]: Cemri 等人（2025），第 1 節，https://arxiv.org/abs/2503.13657
+[^2]: Cemri 等人（2025），表 2 與附錄 H，https://arxiv.org/abs/2503.13657
+[^3]: Zhang 等人（2025），摘要與表 1，https://arxiv.org/abs/2505.00212
+
 ## 參考文獻
 
 ### 奠基性論文
@@ -68,7 +72,3 @@ MAST 提供了一套共通的詞彙：一組有定義的失敗模式，每個模
 ### 文章與文件
 
 - Anthropic（2024）。*Building effective AI agents*。Anthropic Engineering。https://www.anthropic.com/engineering/building-effective-agents — 指出代理人可能使錯誤累積，並建議在沙箱環境中進行充分測試。
-
-[^1]: Cemri 等人（2025），第 1 節，https://arxiv.org/abs/2503.13657
-[^2]: Cemri 等人（2025），表 2 與附錄 H，https://arxiv.org/abs/2503.13657
-[^3]: Zhang 等人（2025），摘要與表 1，https://arxiv.org/abs/2505.00212

@@ -94,6 +94,10 @@ Each method has its own page. This table is only a comparison.
 - **Do classifiers generalise?** A prediction made in one study can fail in another population or clinic. Bzdok and Meyer-Lindenberg (2018) discuss both the opportunities and the challenges of machine learning for precision psychiatry.
 - **Can these measures enter routine care?** Most of the tools described here remain research instruments. Dwyer et al. (2018) describe the steps and the limitations that a machine learning method faces before clinical translation.
 
+[^1]: Montague, Dolan, Friston and Dayan (2012) is cited here for the aims of the field, not for any specific result.
+[^2]: The Research Domain Criteria are a research framework proposed by the US National Institute of Mental Health. They are a proposal for research organisation, not a diagnostic tool.
+[^3]: Gillan et al. (2016) recruited large general-population samples online, not clinical patients. Their result concerns a symptom dimension, not a diagnosis, and it does not establish that the same deficit is the cause of compulsive disorders.
+
 ## References
 
 ### Seminal papers
@@ -117,7 +121,3 @@ Each method has its own page. This table is only a comparison.
 
 - Insel, T. et al. (2010). Research Domain Criteria (RDoC): Toward a New Classification Framework for Research on Mental Disorders. *American Journal of Psychiatry*. https://doi.org/10.1176/appi.ajp.2010.09091379 — Proposes a research framework that organises mental disorders around dimensions of function instead of fixed diagnostic categories.
 - Bzdok, D. & Meyer-Lindenberg, A. (2018). Machine Learning for Precision Psychiatry: Opportunities and Challenges. *Biological Psychiatry: Cognitive Neuroscience and Neuroimaging*. https://doi.org/10.1016/j.bpsc.2017.11.007 — Discusses how machine learning could support precision psychiatry, and the validation problems it faces.
-
-[^1]: Montague, Dolan, Friston and Dayan (2012) is cited here for the aims of the field, not for any specific result.
-[^2]: The Research Domain Criteria are a research framework proposed by the US National Institute of Mental Health. They are a proposal for research organisation, not a diagnostic tool.
-[^3]: Gillan et al. (2016) recruited large general-population samples online, not clinical patients. Their result concerns a symptom dimension, not a diagnosis, and it does not establish that the same deficit is the cause of compulsive disorders.

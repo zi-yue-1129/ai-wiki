@@ -98,6 +98,8 @@ The table shows the main trade-off. Coupling flows are fast in both directions, 
 - **Scale.** The landmark image results are on datasets up to 256 × 256 pixels. Whether flows can match diffusion models and autoregressive Transformers on the largest text-to-image and video tasks is an open comparison.
 - **Cost of continuous flows.** Continuous flows need ODE solves during training, and the trace estimator adds variance. Flow matching and stochastic interpolants reduce this cost, but their trade-offs for exact likelihood are still being studied.
 
+[^1]: Bits-per-dimension values reported under different dequantisation schemes are not directly comparable, because each scheme defines a different continuous density.
+
 ## References
 
 ### Seminal papers
@@ -124,5 +126,3 @@ The table shows the main trade-off. Coupling flows are fast in both directions, 
 
 - Noé, F., Olsson, S., Köhler, J. & Wu, H. (2019). *Boltzmann generators: Sampling equilibrium states of many-body systems with deep learning*. Science. https://doi.org/10.1126/science.aaw1147 — Applies learned invertible transformations to generate unbiased one-shot equilibrium samples of molecular systems.
 - van den Oord, A. et al. (2017). *Parallel WaveNet: Fast High-Fidelity Speech Synthesis*. arXiv. https://arxiv.org/abs/1711.10433 — Distils a sequential WaveNet into a feed-forward flow that generates speech faster than real time.
-
-[^1]: Bits-per-dimension values reported under different dequantisation schemes are not directly comparable, because each scheme defines a different continuous density.

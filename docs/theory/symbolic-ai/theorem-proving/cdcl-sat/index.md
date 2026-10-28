@@ -65,6 +65,12 @@ The strongest recent evidence is from Heule, Kullmann and Marek, who settled the
 - **Scaling cube-and-conquer.** Splitting a hard problem into many subproblems works on some instances. How to choose the split well in general is open.
 - **Trusting solvers.** Certified proofs, such as DRAT proofs, shift trust to a small checker.
 
+[^1]: Marques-Silva and Sakallah (1999), listed above.
+[^2]: Marques-Silva, Lynce and Malik (2021), listed above.
+[^3]: Nieuwenhuis, Oliveras and Tinelli (2006), listed above.
+[^4]: de Moura and Bjørner (2008), listed above.
+[^5]: Heule, Kullmann and Marek (2016), listed above. The cluster size and running time are as reported in the abstract.
+
 ## References
 
 ### Seminal papers
@@ -81,9 +87,3 @@ The strongest recent evidence is from Heule, Kullmann and Marek, who settled the
 ### Articles and documentation
 
 - Heule, M. J. H., Kullmann, O. & Marek, V. W. (2016). *Solving and Verifying the boolean Pythagorean Triples problem via Cube-and-Conquer*. arXiv. https://arxiv.org/abs/1605.00723 — Describes a hybrid SAT method, run on a large cluster, that solved an open Ramsey-theory problem with a verified proof.
-
-[^1]: Marques-Silva and Sakallah (1999), listed above.
-[^2]: Marques-Silva, Lynce and Malik (2021), listed above.
-[^3]: Nieuwenhuis, Oliveras and Tinelli (2006), listed above.
-[^4]: de Moura and Bjørner (2008), listed above.
-[^5]: Heule, Kullmann and Marek (2016), listed above. The cluster size and running time are as reported in the abstract.

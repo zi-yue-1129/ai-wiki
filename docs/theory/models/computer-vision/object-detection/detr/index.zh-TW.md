@@ -68,6 +68,14 @@ $$
 
 論文在 COCO 物件偵測上評估 DETR，並顯示同一框架可以延伸到全景分割。[^1]
 
+[^1]: Carion et al. (2020)，摘要與引言：以二分匹配為基礎的集合損失與 Transformer 編碼器—解碼器；在 COCO 上的準確率與速度可與 Faster R-CNN 相當；以及延伸到全景分割。
+[^2]: Carion et al. (2020)，第 3 節與附錄中的訓練細節：框損失結合廣義 IoU 項與 L1 項，權重為 λ_iou = 2 與 λ_L1 = 5。
+[^3]: Carion et al. (2020)，第 4.2 節：解碼器的自注意力減少了重複預測，消融實驗顯示移除它的影響。
+[^4]: Carion et al. (2020)，第 4 節：300 個週期的基準模型在 16 張 V100 GPU 上訓練三天、500 個週期的比較排程，以及第 4.1 節中與 Faster R-CNN 的優化器比較。
+[^5]: Carion et al. (2020)，表 1：Faster R-CNN 與 DETR 在 ResNet-50 與 ResNet-101 骨幹網路下，於 COCO 驗證集上的 AP、APS、APL、GFLOPS 與 FPS。
+[^6]: Carion et al. (2020)，表 2 與第 4.2 節：依編碼器層數區分的 AP（0 層為 36.7，12 層為 41.6），以及解碼器各層之間的 AP 增益。
+[^7]: Zhu et al. (2020)，摘要：Deformable DETR 優於 DETR，尤其在小物件上，且訓練週期減少為十分之一。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -81,11 +89,3 @@ $$
 ### 綜述與教科書
 
 - Zou, Z., et al. (2019). *Object Detection in 20 Years: A Survey*. arXiv. https://arxiv.org/abs/1905.05055 — 偵測方法的綜述，包括 DETR 所取代的人工設計組件。
-
-[^1]: Carion et al. (2020)，摘要與引言：以二分匹配為基礎的集合損失與 Transformer 編碼器—解碼器；在 COCO 上的準確率與速度可與 Faster R-CNN 相當；以及延伸到全景分割。
-[^2]: Carion et al. (2020)，第 3 節與附錄中的訓練細節：框損失結合廣義 IoU 項與 L1 項，權重為 λ_iou = 2 與 λ_L1 = 5。
-[^3]: Carion et al. (2020)，第 4.2 節：解碼器的自注意力減少了重複預測，消融實驗顯示移除它的影響。
-[^4]: Carion et al. (2020)，第 4 節：300 個週期的基準模型在 16 張 V100 GPU 上訓練三天、500 個週期的比較排程，以及第 4.1 節中與 Faster R-CNN 的優化器比較。
-[^5]: Carion et al. (2020)，表 1：Faster R-CNN 與 DETR 在 ResNet-50 與 ResNet-101 骨幹網路下，於 COCO 驗證集上的 AP、APS、APL、GFLOPS 與 FPS。
-[^6]: Carion et al. (2020)，表 2 與第 4.2 節：依編碼器層數區分的 AP（0 層為 36.7，12 層為 41.6），以及解碼器各層之間的 AP 增益。
-[^7]: Zhu et al. (2020)，摘要：Deformable DETR 優於 DETR，尤其在小物件上，且訓練週期減少為十分之一。

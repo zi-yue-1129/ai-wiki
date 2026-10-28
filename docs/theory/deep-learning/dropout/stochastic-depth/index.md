@@ -79,6 +79,8 @@ Stochastic depth is the block-level counterpart of [dropout](../index.md), which
 - **Shorter training time.** The paper reports that the method reduces the time needed to train deep residual networks.
 - **Other residual architectures.** The idea of dropping residual branches can be used in any architecture built from residual blocks.
 
+[^1]: Figures quoted from the abstract of Huang et al. (2016). The benchmark tables are in the paper.
+
 ## References
 
 ### Seminal papers
@@ -91,5 +93,3 @@ Stochastic depth is the block-level counterpart of [dropout](../index.md), which
 
 - He, K. et al. (2016). *Identity Mappings in Deep Residual Networks*. arXiv. https://arxiv.org/abs/1603.05027 — Analyses identity skip connections and proposes a residual unit that eases the training of very deep networks.
 - Veit, A., Wilber, M. & Belongie, S. (2016). *Residual Networks Behave Like Ensembles of Relatively Shallow Networks*. arXiv. https://arxiv.org/abs/1605.06431 — Describes residual networks as collections of paths of different lengths, most of which are short.
-
-[^1]: Figures quoted from the abstract of Huang et al. (2016). The benchmark tables are in the paper.

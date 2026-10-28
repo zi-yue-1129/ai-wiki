@@ -62,6 +62,8 @@ Doya's paper is primarily a theoretical proposal. It supports the mapping in two
 - **Can the agent learn its own meta-parameters?** Schweighofer and Doya (2003) examine adapting meta-parameters during learning. The question is whether the adjustment can be learned rather than set by hand, and how stable such learning is.
 - **Does the mapping extend to model-based learning?** The proposal was framed around model-free learning. Whether the same parameters control planning and model-based control is less clear.
 
+[^1]: Dayan and Huys (2009) argue that serotonin's computational role concerns aversive processing, and that its statistics differ from dopamine's because punishments and rewards are asymmetric in nature. This is a view that competes with Doya's discount-factor assignment.
+
 ## References
 
 ### Seminal papers
@@ -78,5 +80,3 @@ Doya's paper is primarily a theoretical proposal. It supports the mapping in two
 ### Articles and documentation
 
 - Najarro, E. & Risi, S. (2020). Meta-Learning through Hebbian Plasticity in Random Networks. *arXiv*. https://arxiv.org/abs/2007.02686 — Searches for Hebbian learning rules that let agents adapt their own networks over their lifetime, a machine analogue of learned plasticity.
-
-[^1]: Dayan and Huys (2009) argue that serotonin's computational role concerns aversive processing, and that its statistics differ from dopamine's because punishments and rewards are asymmetric in nature. This is a view that competes with Doya's discount-factor assignment.
