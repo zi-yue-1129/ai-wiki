@@ -12,7 +12,7 @@ A short guide to people and groups whose work shaped modern AI. It is a starting
 ## Foundations of deep learning
 
 - **Yoshua Bengio, Geoffrey Hinton and Yann LeCun** shared the 2018 ACM A.M. Turing Award, announced in 2019, for "conceptual and engineering breakthroughs that have made deep neural networks a critical component of computing" ([ACM SIGAI](https://sigai.acm.org/aimatters/blog/2019/04/01/472/)). See [Deep Learning](../../theory/deep-learning/index.md) for the methods they developed.
-- **John Hopfield and Geoffrey Hinton** shared the 2024 Nobel Prize in Physics for foundational work that enables machine learning with artificial neural networks ([Lindau Nobel Laureate Meetings](https://www.lindau-nobel.org/news-nobel-prize-in-physics-2024/)). For the brain-related side of this work, see [Brain & Mind](../../brain-mind/index.md).
+- **John Hopfield and Geoffrey Hinton** shared the 2024 Nobel Prize in Physics for foundational work that enables machine learning with artificial neural networks ([Hopfield](https://www.nobelprize.org/prizes/physics/2024/hopfield/facts/) and [Hinton](https://www.nobelprize.org/prizes/physics/2024/hinton/facts/), nobelprize.org). For the brain-related side of this work, see [Brain & Mind](../../brain-mind/index.md).
 
 ## Vision and data
 
