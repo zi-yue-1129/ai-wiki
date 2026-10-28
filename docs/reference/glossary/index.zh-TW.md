@@ -39,6 +39,7 @@ references: not-required  # lists and meta pages cite through their entries
 | 術語 | 中文 | 簡短定義 |
 |---|---|---|
 | Data augmentation | 資料增強 | 產生訓練資料的修改版本 |
+| Differential privacy | 差分隱私 | 單一個人的資料幾乎不改變輸出的形式化保證（[隱私與資料保護](../../society/privacy/index.md)） |
 | Diffusion model | 擴散模型 | 學習去除雜訊的生成模型（[生成模型](../../theory/generative/index.md)） |
 | Distillation | 知識蒸餾 | 訓練小模型模仿大模型 |
 | Distribution shift | 分布偏移 | 測試資料與訓練資料不同 |
@@ -81,6 +82,8 @@ references: not-required  # lists and meta pages cite through their entries
 | Learning rate | 學習率 | 梯度下降中的步長 |
 | LoRA | 低秩適應 | 以低秩更新進行參數高效的微調 |
 | Loss function | 損失函數 | 訓練時要最小化的量 |
+| Membership inference | 成員推論 | 判斷某筆紀錄是否在模型的訓練集中（[隱私與資料保護](../../society/privacy/index.md)） |
+| Memorisation | 記憶化 | 模型重現特定的訓練樣本（[隱私與資料保護](../../society/privacy/index.md)） |
 | Meta-learning | 元學習 | 學習如何學習（[元學習](../../theory/paradigms/meta-learning/index.md)） |
 | Mixture of experts (MoE) | 混合專家 | 把每個 token 路由到一部分專家子網路 |
 | Model card | 模型卡 | 記錄模型預期用途與限制的文件 |

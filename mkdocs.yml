@@ -311,6 +311,7 @@ plugins:
             Safety & Alignment: AI 安全與對齊
             Interpretability: 可解釋性
             Ethics & Fairness: 倫理與公平
+            Privacy & Data Protection: 隱私與資料保護
             Law, Policy & Governance: 法規與治理
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
@@ -552,6 +553,7 @@ nav:
       - Safety & Alignment: society/safety-alignment/index.md
       - Interpretability: society/interpretability/index.md
       - Ethics & Fairness: society/ethics/index.md
+      - Privacy & Data Protection: society/privacy/index.md
       - Law, Policy & Governance: society/governance/index.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
