@@ -469,6 +469,11 @@ plugins:
             V-JEPA 2: V-JEPA 2
             Genie: Genie
             LAPO: LAPO
+            Class-Balanced Loss: 類別平衡損失
+            Logit Adjustment: 邏輯調整
+            Causal Confusion: 因果混淆
+            DAgger: DAgger
+            DART: DART
             Brain & Mind: 腦與心智
             Neuroscience Basics: 神經科學基礎
             Computational Neuroscience: 計算神經科學
@@ -722,7 +727,10 @@ nav:
               - Trees & Ensembles: theory/paradigms/supervised/trees-and-ensembles/index.md
               - Kernels & SVMs: theory/paradigms/supervised/kernel-methods-svm/index.md
               - kNN, Naive Bayes & Gaussian Processes: theory/paradigms/supervised/instance-based-and-probabilistic/index.md
-              - Loss Functions & Optimisation: theory/paradigms/supervised/loss-functions-and-optimization/index.md
+              - Loss Functions & Optimisation:
+                  - theory/paradigms/supervised/loss-functions-and-optimization/index.md
+                  - Class-Balanced Loss: theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss.md
+                  - Logit Adjustment: theory/paradigms/supervised/loss-functions-and-optimization/logit-adjustment.md
               - Generalisation Theory: theory/paradigms/supervised/generalization-theory/index.md
               - Evaluation & Validation: theory/paradigms/supervised/evaluation-and-validation/index.md
           - Unsupervised Learning:
@@ -773,8 +781,13 @@ nav:
               - Exploration: theory/paradigms/reinforcement-learning/exploration/index.md
           - Imitation Learning:
               - theory/paradigms/imitation/index.md
-              - Behavioural Cloning: theory/paradigms/imitation/behavioural-cloning/index.md
-              - Interactive Imitation: theory/paradigms/imitation/interactive-imitation/index.md
+              - Behavioural Cloning:
+                  - theory/paradigms/imitation/behavioural-cloning/index.md
+                  - Causal Confusion: theory/paradigms/imitation/behavioural-cloning/causal-confusion.md
+              - Interactive Imitation:
+                  - theory/paradigms/imitation/interactive-imitation/index.md
+                  - DAgger: theory/paradigms/imitation/interactive-imitation/dagger.md
+                  - DART: theory/paradigms/imitation/interactive-imitation/dart.md
               - Inverse Reinforcement Learning: theory/paradigms/imitation/inverse-reinforcement-learning/index.md
               - Adversarial Imitation: theory/paradigms/imitation/adversarial-imitation/index.md
           - Transfer Learning & Domain Adaptation:
