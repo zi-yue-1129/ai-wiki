@@ -534,6 +534,7 @@ plugins:
             Truncated SVD: 截斷 SVD
             Low-Rank Filter Expansion: 低秩濾波器展開
             LoRA: LoRA
+            QLoRA: 量化低秩適應（QLoRA）
             Data-Free: 無資料
             LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
@@ -1063,7 +1064,9 @@ nav:
               - theory/model-compression/low-rank-and-efficient-architectures/index.md
               - Truncated SVD: theory/model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md
               - Low-Rank Filter Expansion: theory/model-compression/low-rank-and-efficient-architectures/low-rank-filter-expansion/index.md
-              - LoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
+              - LoRA:
+                  - theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
+                  - QLoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md
       - Evaluation:
           - theory/evaluation/index.md
           - Metrics:
