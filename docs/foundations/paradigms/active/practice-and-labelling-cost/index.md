@@ -39,7 +39,7 @@ Little is known about how annotator behaviour interacts with query strategies, a
 
 ### Seminal papers
 
-- Lewis & Gale (1994), "A sequential algorithm for training text classifiers", SIGIR, arXiv:cmp-lg/9407020 — Sequential uncertainty sampling for text, where the labelling savings were first shown in practice.
+- Lewis & Gale (1994), "A sequential algorithm for training text classifiers", SIGIR, https://arxiv.org/abs/cmp-lg/9407020 — Sequential uncertainty sampling for text, where the labelling savings were first shown in practice.
 - MacKay (1992), "Information-based objective functions for active data selection", Neural Computation. https://authors.library.caltech.edu/records/efefp-2j353 — Shows how to choose data by expected information gain, a basis for cost-aware selection.
 - Kirsch, van Amersfoort & Gal (2019), "BatchBALD: efficient and diverse batch acquisition for deep Bayesian active learning", NeurIPS, arXiv:1906.08158 — Batch selection that avoids redundant labels, which saves annotation effort.
 

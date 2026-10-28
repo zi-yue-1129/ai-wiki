@@ -53,9 +53,32 @@ Real streams drift. Tools: drift detectors (ADWIN, DDM, Page–Hinkley), sliding
 - Exploration declines with age, and children explore more than adults — a "high temperature" early-life search (Gopnik, 2020).
 - Bandit tasks are standard tools in **computational psychiatry** to measure altered exploration in anxiety, depression and ADHD.
 
+## Subtopics
+
+- [Online convex optimisation](online-convex-optimisation/index.md): online gradient descent, follow-the-regularised-leader and regret bounds.
+- [Stochastic bandits](stochastic-bandits/index.md): UCB, Thompson sampling and the logarithmic regret lower bound.
+- [Contextual bandits](contextual-bandits/index.md): LinUCB and posterior sampling with features.
+- [Adversarial and expert advice](adversarial-and-experts/index.md): weighted majority, Hedge and EXP3.
+- [Streaming and concept drift](streaming-and-concept-drift/index.md): Hoeffding trees, drift detection and adaptive windows.
+
 ## Further reading
 
 - Lattimore & Szepesvári, *Bandit Algorithms* (free PDF)
 - Shalev-Shwartz (2012), "Online Learning and Online Convex Optimization"
 - Hazan, *Introduction to Online Convex Optimization* (free)
 - Russo et al., "A Tutorial on Thompson Sampling"
+
+## References
+
+### Seminal papers
+
+- Zinkevich (2003), "Online convex programming and generalized infinitesimal gradient ascent", ICML. https://mlanthology.org/icml/2003/zinkevich2003icml-online — Introduces online gradient descent with a regret bound.
+- Lai & Robbins (1985), "Asymptotically efficient adaptive allocation rules", Advances in Applied Mathematics. https://doi.org/10.1016/0196-8858(85)90002-8 — Logarithmic lower bound on regret for bandit problems.
+- Auer, Cesa-Bianchi & Fischer (2002), "Finite-time analysis of the multiarmed bandit problem", Machine Learning. https://homes.di.unimi.it/~cesabian/Pubblicazioni/ml-02.pdf — UCB1, a simple algorithm with finite-time regret bounds.
+- Littlestone & Warmuth (1994), "The weighted majority algorithm", Information and Computation. https://dx.doi.org/10.1006/inco.1994.1009 — Combines expert predictions with multiplicatively updated weights.
+
+### Surveys and textbooks
+
+- Gama et al. (2014), "A survey on concept drift adaptation", ACM Computing Surveys. https://doi.org/10.1145/2523813 — Survey of concept drift detection and adaptation in data streams.
+- Hoi, Sahoo, Lu & Zhao (2018), "Online learning: a comprehensive survey", arXiv:1802.02871 — Broad survey of online learning settings and algorithms.
+- Lattimore & Szepesvári (2020), *Bandit Algorithms*, Cambridge University Press. https://cambridge.org/core/books/bandit-algorithms/introduction/022B0BDCFDC5B66E5EF2C2690467D928 — Textbook covering the bandit algorithms on this page.
