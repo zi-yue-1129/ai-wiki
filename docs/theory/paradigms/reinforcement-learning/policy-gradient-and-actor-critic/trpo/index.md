@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - TRPO
@@ -37,8 +37,8 @@ The paper uses \(\delta = 0.01\) in all of its experiments.
 
 ## Results
 
-- **Simulated locomotion.** Single-path and vine TRPO solve all three MuJoCo tasks, Swimmer, Hopper and Walker, and the paper reports that they give the best solutions among the methods compared. The learning curves are averaged over five runs.
-- **Atari.** On seven games, the paper says TRPO "only outperformed the prior methods on some of the games" but "consistently achieved reasonable scores". On Q\*bert, TRPO-vine scored 7732.5, against 1952 for deep Q-learning and 20025 for UCC-I, which shows the method did not win every game. Each run was done once, so the Atari results carry no error statistics.
+- **Simulated locomotion.** Single-path and vine TRPO are trained on the three MuJoCo tasks, Swimmer, Hopper and Walker. The learning curves are averaged over five runs per algorithm, with random initialisations.
+- **Atari.** On seven games (Beam Rider, Breakout, Enduro, Pong, Q\*bert, Seaquest and Space Invaders), the paper states: "While our method only outperformed the prior methods on some of the games, it consistently achieved reasonable scores." On Q\*bert, TRPO-vine scored 7732.5, against 1952 for deep Q-learning and 20025 for UCC-I, which shows the method did not win every game. Each run was done once, so the Atari results carry no error statistics.
 
 ## Limitations
 
@@ -69,7 +69,7 @@ The paper uses \(\delta = 0.01\) in all of its experiments.
 - Schulman, Levine, Moritz, Jordan & Abbeel (2015), "Trust region policy optimization", *Proceedings of the 31st International Conference on Machine Learning (ICML)*, [arXiv:1502.05477](https://arxiv.org/abs/1502.05477) — The TRPO paper, with the surrogate, the KL constraint and the MuJoCo and Atari results above.
 - Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The simpler clipped method that replaces the constraint.
 - Schulman et al. (2016), "High-dimensional continuous control using generalized advantage estimation", [arXiv:1506.02438](https://arxiv.org/abs/1506.02438) — Advantage estimation for the policy-gradient updates that trust-region methods rely on.
-- Engstrom et al. (2020), "Implementation matters in deep policy gradients: a case study on PPO and TRPO", [arXiv:2005.12729](https://arxiv.org/abs/2005.12729) — Shows that code-level details account for much of the gap between PPO and TRPO.
+- Engstrom et al. (2020), "Implementation matters in deep policy gradients: a case study on PPO and TRPO", [arXiv:2005.12729](https://arxiv.org/abs/2005.12729) — Shows that code-level implementation details strongly affect how PPO and TRPO compare.
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The deep value-based baseline on the Atari suite.
 
 ### Surveys and textbooks

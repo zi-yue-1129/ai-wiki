@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - Double DQN
@@ -47,7 +47,7 @@ The paper also measures value estimates over evaluation phases of 125,000 steps 
 ## Limitations
 
 - **Overestimation is reduced, not removed.** The decoupled target lowers the bias, but the learned values can still be inaccurate, and the paper offers no general guarantee.
-- **Same replay and bootstrapping.** Double DQN still uses one-step targets and uniform replay. Prioritised replay (Schaul et al., 2016) and multi-step returns are separate improvements, combined later in Rainbow.
+- **Same replay and bootstrapping.** Double DQN still uses one-step targets and uniform replay. Prioritised replay and multi-step returns are separate improvements, combined later in Rainbow.
 - **Discrete actions.** The argmax over actions still requires a finite action set.
 
 ## Connections
@@ -69,10 +69,9 @@ The paper also measures value estimates over evaluation phases of 125,000 steps 
 
 ### Seminal papers
 
-- van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", [arXiv:1509.06461](https://arxiv.org/abs/1509.06461) — The Double DQN paper, showing DQN's overestimation and the decoupled target.
+- van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", [arXiv:1509.06461](https://arxiv.org/abs/1509.06461) (submitted 2015) — The Double DQN paper, showing DQN's overestimation and the decoupled target.
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The DQN paper whose target Double DQN modifies.
-- Schaul, Quan, Antonoglou & Silver (2016), "Prioritized experience replay", [arXiv:1511.05952](https://arxiv.org/abs/1511.05952) — A separate DQN improvement that replays transitions by their learning potential.
-- Hessel et al. (2018), "Rainbow: Combining improvements in deep reinforcement learning", [arXiv:1710.02298](https://arxiv.org/abs/1710.02298) — Combines Double DQN with five other DQN extensions.
+- Hessel et al. (2018), "Rainbow: Combining improvements in deep reinforcement learning", [arXiv:1710.02298](https://arxiv.org/abs/1710.02298) — Examines six DQN extensions, Double DQN among them, and combines them.
 
 ### Surveys and textbooks
 
