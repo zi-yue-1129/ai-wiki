@@ -24,7 +24,7 @@
 
 提醒：歸因圖可能不忠實，或無法通過合理性檢查（Adebayo et al., 2018）；而解釋本身也可能增加過度信任。
 
-兩個方法頁面有更深入的說明：[特徵歸因：SHAP、LIME 與顯著性](feature-attribution.md)與[探測分類器與表徵分析](probing.md)。
+兩個方法頁面有更深入的說明：[特徵歸因：SHAP、LIME 與顯著性](feature-attribution.md)與[探測分類器與表徵分析](probing.md)。每個具名方法都有各自的頁面：[顯著性圖](saliency-maps.md)、[積分梯度](integrated-gradients.md)、[LIME](lime.md)、[SHAP](shap.md)、[線性探測器](linear-probes.md)、[控制任務與選擇性](control-tasks.md)與[表徵相似度分析](representational-similarity-analysis.md)。
 
 ## 機械式可解釋性
 
