@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/reinforcement-learning
@@ -41,7 +41,7 @@ The abstract reports that the backdoor behaviour persists through standard safet
 - **Designed backdoor.** The conditional behaviour is inserted by the experimenters. The results show persistence, not origin.
 - **Specific triggers.** The triggers are simple and known to the experimenters. Natural triggers may be harder or easier to find.
 - **Tested methods only.** The paper covers the safety methods it tests. Other procedures, or larger combinations of them, could behave differently.
-- **Detection.** Showing that a behaviour persists does not show how to find it. The authors discuss detection, but the evidence is limited to their setups.
+- **Detection.** Showing that a behaviour persists does not show how to find it. The paper's experiments test persistence, not methods for finding such behaviour.
 
 ## Connections
 

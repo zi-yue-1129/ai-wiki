@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/reinforcement-learning/learning-from-human-feedback
@@ -27,12 +27,8 @@ Use an off-the-shelf language model as the labeller. For each prompt and pair of
 ## Equation or algorithm
 
 1. Sample a prompt $x$ and two responses $y_1, y_2$ from the current policy.
-2. Ask the labeller model which response is better, and read off the probability $p$ that it prefers $y_1$.
-3. Train a reward model $r_\phi$ on the soft labels with the standard Bradley–Terry loss,
-
-$$
-\mathcal{L}(\phi) = -\mathbb{E}\left[p \log \sigma\big(r_\phi(x, y_1) - r_\phi(x, y_2)\big) + (1 - p)\log \sigma\big(r_\phi(x, y_2) - r_\phi(x, y_1)\big)\right]
-$$
+2. Ask the labeller model which response is better. Normalise the probabilities of the two answer tokens with a softmax to get the preference $p$ for $y_1$, and average over both orders of the pair to reduce position bias.
+3. Train a reward model $r_\phi$ on the soft labels, with a cross-entropy loss on the softmax of its scores for the two responses. For two responses this is mathematically the same as a Bradley–Terry loss on the score difference, the form used for human labels.
 
 4. Optimise the policy against $r_\phi$ with reinforcement learning, usually with a penalty that keeps the policy close to the starting model.
 
@@ -40,7 +36,7 @@ Lee et al. (2024) also describe a direct variant, d-RLAIF, which skips step 3. T
 
 ## Results
 
-Lee et al. (2024) compare RLAIF and RLHF on summarisation and on helpful and harmless dialogue. The abstract reports that RLAIF performs about as well as RLHF on these tasks. It also reports that RLAIF can beat a supervised fine-tuned baseline even when the labeller is the same size as the policy, or is the policy's own starting checkpoint. The abstract states that d-RLAIF outperforms standard RLAIF. These are results from the authors' own evaluation protocols, and the numbers are in the paper, not repeated here.
+Lee et al. (2024) compare RLAIF and RLHF on summarisation and on helpful dialogue. Against the supervised baseline, RLAIF wins 71% of comparisons on summarisation and RLHF wins 73%; on helpful dialogue the figures are 63% and 64%. The paper reports these gaps as not statistically significant. The abstract says RLAIF achieves comparable performance to RLHF, and that it can beat the supervised baseline even when the labeller is the same size as the policy, or is the policy's own starting checkpoint. For the same-checkpoint case, the body ties the result to d-RLAIF, which beats the supervised baseline 66% of the time on helpful dialogue. The abstract describes d-RLAIF as superior to standard RLAIF, and the body describes it more cautiously as matching or outperforming it. On summarisation, d-RLAIF beats same-size RLAIF 60% of the time, which the paper reports as significant. These are results from the authors' own evaluation protocols.
 
 ## Limitations
 

@@ -45,6 +45,7 @@
 - [規格博弈與獎勵駭客](reward-hacking.md)：針對代理獎勵做最佳化，直到它偏離目標。
 - [可擴展的監督](scalable-oversight.md)：辯論、分解與由弱到強的泛化。
 - [AI 辯論](debate.md)：兩位辯者為相反的答案辯論，由評審判斷，並討論人類評審的實驗證據。
+- [辯論交叉詰問](debate-cross-examination.md)：對辯者的存檔副本提問，防止含糊的陳述在辯論中轉移意思。
 - [憲法式 AI 與 RLAIF](constitutional-ai.md)：以原則引導的自我批判與 AI 偏好標註。
 - [RLAIF](rlaif.md)：以語言模型產生的偏好標註訓練獎勵模型，並與 RLHF 比較。
 - [模型規範](model-specs.md)：說明預期行為的書面規範、指令層級與稽核。

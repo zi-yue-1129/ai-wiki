@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/models/transformer
@@ -18,7 +18,7 @@ A JumpReLU sparse autoencoder is a sparse autoencoder for language-model activat
 
 ## Problem
 
-Sparse autoencoders for language models must do two things at once: reconstruct the model's activations faithfully, and keep most features inactive for each input. The common ReLU sparse autoencoder with an L1 penalty shrinks active features toward zero, which damages reconstruction. Top-k autoencoders fix the sparsity level but use a fixed number of active features per input. Rajamanoharan et al. describe these two goals as being in tension, and ask whether an architecture can serve both better.
+Sparse autoencoders for language models must do two things at once: reconstruct the model's activations faithfully, and keep most features inactive for each input. The common ReLU sparse autoencoder with an L1 penalty shrinks active features toward zero, which damages reconstruction. Top-k autoencoders fix the sparsity level but use a fixed number of active features per input. Rajamanoharan et al. note that training with an L1 penalty has known limitations, and they replace it with an L0 count of active features.
 
 ## Core idea
 
@@ -53,7 +53,7 @@ The abstract reports state-of-the-art reconstruction fidelity at a given sparsit
 
 ## Connections
 
-JumpReLU sits within the family of sparse autoencoders described in [sparse autoencoders](sparse-autoencoders.md), alongside the top-k variant described in [k-sparse autoencoders](k-sparse-autoencoders.md). The separation of "is it on" from "how strong" is a design choice rather than a claim about neurons, but it parallels the idea that a neuron has a firing threshold. For the transformer architecture whose activations the autoencoder reads, see [transformers](../../theory/models/transformer/index.md).
+JumpReLU sits within the family of sparse autoencoders described in [sparse autoencoders](sparse-autoencoders.md), alongside the top-k variant described in [k-sparse autoencoders](k-sparse-autoencoders.md). The separation of "is it on" from "how strong" is a design choice rather than a claim about neurons, but it parallels the idea that a neuron has a firing threshold. The gated design that this paper compares against is described in [gated sparse autoencoders](gated-sae.md). For the transformer architecture whose activations the autoencoder reads, see [transformers](../../theory/models/transformer/index.md).
 
 ## Applications
 
@@ -76,6 +76,6 @@ JumpReLU sits within the family of sparse autoencoders described in [sparse auto
 
 ### Surveys and textbooks
 
-- Cunningham, H. et al. (2023). *Sparse Autoencoders Find Highly Interpretable Features in Language Models*. arXiv:2309.08600. https://arxiv.org/abs/2309.08600 — Applies sparse autoencoders to language model activations, the setting in which JumpReLU is used.
+- Cunningham, H. et al. (2023). *Sparse Autoencoders Find Highly Interpretable Features in Language Models*. arXiv:2309.08600. https://arxiv.org/abs/2309.08600 — Applies L1-penalised sparse autoencoders to language model activations, the setting in which JumpReLU is later applied.
 - Gao, L. et al. (2024). *Scaling and evaluating sparse autoencoders*. arXiv:2406.04093. https://arxiv.org/abs/2406.04093 — Studies how sparse autoencoders scale with dictionary size, and proposes a top-k architecture and evaluation metrics.
-- Lieberum, T. et al. (2024). *Gemma Scope: Open Sparse Autoencoders Everywhere All At Once on Gemma 2*. arXiv:2408.05147. https://arxiv.org/abs/2408.05147 — Releases a suite of sparse autoencoders for an open model family.
+- Lieberum, T. et al. (2024). *Gemma Scope: Open Sparse Autoencoders Everywhere All At Once on Gemma 2*. arXiv:2408.05147. https://arxiv.org/abs/2408.05147 — Releases a suite of JumpReLU sparse autoencoders for Gemma 2 models.

@@ -41,11 +41,11 @@ aliases:
 
 ## 辯論
 
-詳細頁面見 [AI 辯論](debate.md)。
+詳細頁面見 [AI 辯論](debate.md)與[辯論交叉詰問](debate-cross-examination.md)。
 
 在辯論的提案中，兩個模型的複本會看到同一個問題，各自為不同的答案辯護，並可能引用證據。人類評審閱讀這段交流並選出勝者。Irving、Christiano 與 Amodei（2018）主張，在某些假設下，誠實的一方可以獲勝，因為難以辯護的謊言會被對手揭穿，因此評審只需要評估簡短、可檢查的主張。這篇論文是帶有理論論證與小規模示範的提案，而不是已部署的系統。
 
-後續的實證研究衡量辯論是否真的幫助人類判斷正確性。Bowman et al.（2022）建立一個基準，比較非專家評審與專家的差異，並報告模型協助的價值高度取決於任務。
+後續的實證研究衡量辯論是否真的幫助人類判斷正確性。Bowman et al.（2022）提出「sandwiching」，一種實驗設計：非專家人類借助聊天助手，回答專家可以查核的問題。其概念驗證研究使用 MMLU 與限時的 QuALITY，並把辯論列為候選技術加以討論，但未實際測試。
 
 ## 過程監督
 
@@ -83,7 +83,7 @@ Burns et al.（2023）提出監督問題的一個具體版本。他們以遠較�
 
 ### 綜述與教科書
 
-- Bowman, S. R. et al. (2022). *Measuring Progress on Scalable Oversight for Large Language Models*. arXiv:2211.03540. https://arxiv.org/abs/2211.03540 — Builds a benchmark for whether model assistance helps non-expert judges, and reports how much this depends on the task.
+- Bowman, S. R. et al. (2022). *Measuring Progress on Scalable Oversight for Large Language Models*. arXiv:2211.03540. https://arxiv.org/abs/2211.03540 — Proposes “sandwiching”, an experimental setup for testing whether non-expert humans can use a model's help to answer questions beyond their expertise.
 
 ### 文章與文件
 

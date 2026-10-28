@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/models/transformer
@@ -37,7 +37,7 @@ The method's sparsity is therefore fixed by $k$, not by a penalty weight. The pa
 
 ## Results
 
-Makhzani and Frey (2014) evaluate the method on MNIST and NORB. The abstract reports that the features give better classification results than denoising autoencoders, and that the method outperforms networks trained with dropout and restricted Boltzmann machines on the tasks studied. It also reports that the method is simple to train and that encoding is very fast, since the selection step is a single pass over the hidden units. The paper reports these comparisons without numerical values in the abstract.
+Makhzani and Frey (2014) evaluate the method on MNIST and NORB. The abstract reports better classification than denoising autoencoders, networks trained with dropout, and restricted Boltzmann machines. The tables show that this advantage holds mainly for unsupervised features with a logistic-regression classifier. After fine-tuning the results are mixed: on MNIST, a deep dropout autoencoder reaches 0.85% error against 0.97% for the deep k-sparse model, and on NORB, deep dropout (7.0%) and a third-order RBM (6.5%) beat the deep k-sparse model (7.4%). The abstract also says that training is simple and encoding is very fast. The paper supports the speed claim only qualitatively, with no timing measurements.
 
 ## Limitations
 

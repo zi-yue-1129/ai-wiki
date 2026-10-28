@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 related:
@@ -19,7 +19,7 @@ JumpReLU 稀疏自編碼器是用於語言模型激活的稀疏自編碼器，�
 
 ## 問題
 
-用於語言模型的稀疏自編碼器必須同時做到兩件事：忠實地重建模型的激活，以及讓大多數特徵對每個輸入都保持不活躍。常見的 ReLU 稀疏自編碼器加上 L1 懲罰，會把活躍的特徵拉向零，損害重建。top-k 自編碼器固定了稀疏程度，但每個輸入的活躍特徵數量也固定。Rajamanoharan et al. 把這兩個目標描述為彼此緊張，並問一種架構能否同時更好地服務兩者。
+用於語言模型的稀疏自編碼器必須同時做到兩件事：忠實地重建模型的激活，以及讓大多數特徵對每個輸入都保持不活躍。常見的 ReLU 稀疏自編碼器加上 L1 懲罰，會把活躍的特徵拉向零，損害重建。top-k 自編碼器固定了稀疏程度，但每個輸入的活躍特徵數量也固定。Rajamanoharan et al. 指出以 L1 懲罰訓練有已知的限制，並以 L0 的啟用特徵計數取而代之。
 
 ## 核心想法
 
@@ -54,7 +54,7 @@ $$
 
 ## 相關連結
 
-JumpReLU 屬於[稀疏自編碼器](sparse-autoencoders.md)所述的家族，與[k-稀疏自編碼器](k-sparse-autoencoders.md)所述的 top-k 變體並列。把「是否開啟」與「強度多大」分開，是一項設計選擇，而不是關於神經元的主張，但它與神經元具有發放閾值的想法相呼應。關於自編碼器所讀取的 Transformer 架構，見[Transformer](../../theory/models/transformer/index.md)。
+JumpReLU 屬於[稀疏自編碼器](sparse-autoencoders.md)所述的家族，與[k-稀疏自編碼器](k-sparse-autoencoders.md)所述的 top-k 變體並列。把「是否開啟」與「強度多大」分開，是一項設計選擇，而不是關於神經元的主張，但它與神經元具有發放閾值的想法相呼應。JumpReLU 論文所比較的 Gated 設計，見[門控稀疏自編碼器](gated-sae.md)。關於自編碼器所讀取的 Transformer 架構，見[Transformer](../../theory/models/transformer/index.md)。
 
 ## 應用
 
@@ -77,6 +77,6 @@ JumpReLU 屬於[稀疏自編碼器](sparse-autoencoders.md)所述的家族，與
 
 ### 綜述與教科書
 
-- Cunningham, H. et al. (2023). *Sparse Autoencoders Find Highly Interpretable Features in Language Models*. arXiv:2309.08600. https://arxiv.org/abs/2309.08600 — Applies sparse autoencoders to language model activations, the setting in which JumpReLU is used.
+- Cunningham, H. et al. (2023). *Sparse Autoencoders Find Highly Interpretable Features in Language Models*. arXiv:2309.08600. https://arxiv.org/abs/2309.08600 — Applies L1-penalised sparse autoencoders to language model activations, the setting in which JumpReLU is later applied.
 - Gao, L. et al. (2024). *Scaling and evaluating sparse autoencoders*. arXiv:2406.04093. https://arxiv.org/abs/2406.04093 — Studies how sparse autoencoders scale with dictionary size, and proposes a top-k architecture and evaluation metrics.
-- Lieberum, T. et al. (2024). *Gemma Scope: Open Sparse Autoencoders Everywhere All At Once on Gemma 2*. arXiv:2408.05147. https://arxiv.org/abs/2408.05147 — Releases a suite of sparse autoencoders for an open model family.
+- Lieberum, T. et al. (2024). *Gemma Scope: Open Sparse Autoencoders Everywhere All At Once on Gemma 2*. arXiv:2408.05147. https://arxiv.org/abs/2408.05147 — Releases a suite of JumpReLU sparse autoencoders for Gemma 2 models.
