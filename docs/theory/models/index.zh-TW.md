@@ -30,6 +30,7 @@ references: not-required
 | [語音與音訊](speech/index.md) | 語音辨識、語音合成、音樂生成 |
 | [多模態模型](multimodal/index.md) | 視覺語言模型、文生圖／影片、全模態模型 |
 | [嵌入表示與表徵學習](embeddings/index.md) | 用於搜尋、相似度與跨模態對齊的向量表示 |
+| [時間序列預測](time-series/index.md) | 預測測量值的序列，包括機率式與多步預測 |
 | [推薦系統](recommender/index.md) | 由使用者與項目的互動進行排序、協同過濾與隱式回饋 |
 | [AI 代理人](agents/index.md) | 工具使用、規劃、記憶、多代理系統 |
 | [世界模型與具身智慧](world-models/index.md) | 預測環境、在想像中規劃、機器人基礎模型 |
