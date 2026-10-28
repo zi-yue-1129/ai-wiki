@@ -36,7 +36,7 @@ Keskar 等人（2017）報告，以大批次訓練會收斂到損失函數的尖
 ## 限制
 
 - 摘要沒有數字，因此差距的大小取決於論文中的實驗。
-- 尖銳度取決於鄰域與參數化的選擇。部分後續研究認為，單靠尖銳度無法解釋泛化，本頁不對此表態。
+- 尖銳度取決於鄰域與參數化的選擇。[Dinh 等人（2017）](https://arxiv.org/abs/1703.04933) 認為，常見的平坦度度量作為解釋都有問題，本頁不對此問題表態。
 - 此結果針對批次大小。後續關於大批次訓練的研究，包括 Goyal 等人（2017）的線性縮放與預熱，顯示透過排程的改變可以縮小差距。
 
 ## 關聯
@@ -58,7 +58,7 @@ Keskar 等人（2017）報告，以大批次訓練會收斂到損失函數的尖
 - Keskar, N. S., Mudigere, D., Nocedal, J., Smelyanskiy, M. & Tang, P. T. P. (2017). *On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima*. ICLR. https://arxiv.org/abs/1609.04836 — 報告大批次訓練收斂到尖銳極小值，泛化能力不如小批次訓練。
 - Smith, S. L. & Le, Q. V. (2018). *A Bayesian Perspective on Generalization and Stochastic Gradient Descent*. ICLR. https://arxiv.org/abs/1710.06451 — 以 SGD 雜訊尺度解釋批次大小效應，是尖銳度論述的定量補充。
 - Goyal, P., et al. (2017). *Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour*. arXiv. https://arxiv.org/abs/1706.02677 — 顯示線性縮放與預熱在實務中能縮小大批次的大部分差距。
-- Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — 與最佳化器隱含偏好互動的顯式正則化。
+- Dinh, L., Pascanu, R., Bengio, S. & Bengio, Y. (2017). *Sharp Minima Can Generalize for Deep Nets*. ICML. https://arxiv.org/abs/1703.04933 — 論證多數常見的平坦度概念，作為泛化的解釋都有問題。
 
 ### 綜述與教科書
 

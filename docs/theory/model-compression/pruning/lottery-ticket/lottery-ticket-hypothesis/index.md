@@ -62,4 +62,4 @@ The ticket view connects to why overparameterised networks train well, covered u
 
 ### Articles and documentation
 
-- Gale, T., Elsen, E., Hooker, S. (2019). *The State of Sparsity in Deep Neural Networks*. arXiv:1902.09574. https://arxiv.org/abs/1902.09574 — Shows that trained sparse networks are hard to train from scratch.
+- Gale, T., Elsen, E., Hooker, S. (2019). *The State of Sparsity in Deep Neural Networks*. arXiv:1902.09574. https://arxiv.org/abs/1902.09574 — Finds that sparse architectures learned by pruning cannot be trained from scratch to the same accuracy as jointly sparsified and optimised models.

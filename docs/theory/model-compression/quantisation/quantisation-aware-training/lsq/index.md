@@ -26,7 +26,7 @@ Make the step size a parameter of each quantiser, and update it from the loss in
 
 ## Equation or algorithm
 
-The quantised value is \(\hat{x} = s \cdot \operatorname{round}(\operatorname{clip}(x/s, -Q_n, Q_p))\), where \(s\) is the learned step size and \(Q_n\), \(Q_p\) set the integer range for the bit-width. The gradient with respect to \(s\) is taken through the rounding with the straight-through estimator. The paper scales this gradient by a factor based on the number of values in the tensor, so that the step size learns at a sensible rate relative to the weights.
+The quantised value is \(\hat{x} = s \cdot \operatorname{round}(\operatorname{clip}(x/s, -Q_n, Q_p))\), where \(s\) is the learned step size and \(Q_n\), \(Q_p\) set the integer range for the bit-width. The gradient with respect to \(s\) is taken through the rounding with the straight-through estimator. The paper scales this gradient by \(g = 1/\sqrt{N Q_p}\), where \(N\) is the number of weights (or features) in the layer, so that the step size learns at a sensible rate relative to the weights.
 
 ## Results
 
@@ -56,10 +56,6 @@ LSQ depends on the number formats supported by the [hardware](../../../../../eng
 ### Surveys and textbooks
 
 - Gholami, A., et al. (2021). *A Survey of Quantization Methods for Efficient Neural Network Inference*. arXiv:2103.13630. https://arxiv.org/abs/2103.13630 — Places learned step sizes among training-aware quantisation methods.
-
-### Lectures and videos
-
-(none checked for this page)
 
 ### Articles and documentation
 

@@ -1,5 +1,9 @@
 ---
 translation_reviewed: 2026-10-28
+aliases:
+  - K-FAC
+  - Kronecker-factored approximate curvature
+  - Kronecker 分解近似曲率
 ---
 
 # K-FAC
@@ -16,29 +20,38 @@ K-FAC（Kronecker 分解近似曲率）是神經網路自然梯度的實用近�
 
 ## 核心想法
 
-對於輸入激活為 \(a\)、輸出梯度為 \(g\) 的全連接層，其權重矩陣的梯度為 \(\nabla W = g a^\top\)。作者以克羅內克積 \(A \otimes G\) 近似每層的費雪區塊，其中 \(A\) 為激活的二階矩，\(G\) 為反向傳播得到的輸出梯度的二階矩。克羅內克積的逆是各因子的逆之克羅內克積，因此只需對兩個小因子求逆。
+對於輸入激活為 $a$、輸出梯度為 $g$ 的全連接層，其權重矩陣的梯度為 $\nabla W = g a^\top$。作者以克羅內克積 $A \otimes G$ 近似每層的費雪區塊，其中 $A$ 為激活的二階矩，$G$ 為反向傳播得到的輸出梯度的二階矩。克羅內克積的逆是各因子的逆之克羅內克積，因此只需對兩個小因子求逆。
+
+論文也把整個區塊結構矩陣的逆近似為區塊對角或區塊三對角。作者為費雪矩陣的逆提出這項論證，但對費雪矩陣本身並不成立，實驗也確認，逆矩陣只是近似地具有此結構。
 
 ## 演算法
 
-對每一層 \(\ell\)：
+對每一層 $\ell$：
 
-1. 累積激活共變異數 \(A_\ell\) 與輸出梯度共變異數 \(G_\ell\) 的滾動估計。
-2. 對兩個因子求逆，通常會為每個因子加上阻尼項以維持穩定。
-3. 以 \(\Delta W_\ell = G_\ell^{-1}\,\nabla W_\ell\,A_\ell^{-1}\) 預處理該層的梯度，因子如上加上阻尼。
-4. 以學習率套用更新，並每隔固定間隔更新因子及其逆，以節省運算。
+1. 在一段小批次窗口上累積激活共變異數 $A_\ell$ 與輸出梯度共變異數 $G_\ell$ 的滾動估計。
+2. 對兩個因子求逆，並為每個因子加上阻尼項以維持穩定。
+3. 以 $\Delta W_\ell = G_\ell^{-1}\,\nabla W_\ell\,A_\ell^{-1}$ 預處理該層的梯度，因子如上加上阻尼。
+4. 以學習率套用更新。動量施加在這個更新之上，論文認為這在實務上很重要。
 
-因子的逆比梯度更新得少。論文的實驗中，每 \(T_3 = 20\) 次迭代才重新求逆一次，梯度則在每一步都使用。
+因子的逆比梯度更新得少。論文的實驗中，每 $T_3 = 20$ 次迭代才重新求逆一次，梯度則在每一步都使用。
 
 ## 結果
 
-- 摘要指出，K-FAC 是費雪矩陣「可有效求逆的近似」，其更新能比帶動量的隨機梯度下降取得更快的進展。
-- 摘要描述其計算成本「只比普通的隨機梯度高出數倍」。摘要未給出數值上的加速比，因此增益大小應參考論文的實驗。
+- 摘要把 K-FAC 描述為費雪矩陣「可有效求逆的近似」，其更新能比帶動量的隨機梯度下降取得更快的進展，並且每次更新的計算成本「只比普通的隨機梯度高出數倍」。
+- 論文的主要實驗訓練了三個深度自編碼器，資料分別為 MNIST、CURVES 與 FACES，來自 Hinton 與 Salakhutdinov（2006）。帶動量的 K-FAC 在相同的計算時間內，達到的訓練誤差比調校良好的帶動量 SGD 基線更低（見論文圖 10）。
+- 這些增益依賴動量技術。沒有它，K-FAC 並不會明顯比基線快。
 
 ## 限制
 
-- 克羅內克積是一種近似。摘要指出它既非對角也非低秩，但仍忽略了層與層之間的相關性。
-- 此方法針對全連接層設計，要擴展到卷積與循環層，需要進一步的近似。
-- 因子必須每隔一段時間更新並求逆，阻尼也需要調校，因此它比 SGD 有更多超參數。
+- 克羅內克積與區塊結構的逆都是近似，它們忽略了層與層之間的相關性。
+- 此方法針對全連接層設計。卷積與循環層需要進一步的近似，見下方的變體。
+- 每次更新的成本約為 SGD 的數倍。因子的更新間隔、阻尼排程與動量都會增加 SGD 沒有的超參數。
+- 證據來自自編碼器基準。若要主張在其他任務上也更快，需要各自的實驗。
+
+## 變體
+
+- **卷積層的 K-FAC。** Grosse 與 Martens（2016）把克羅內克分解改寫為適用於卷積層的形式，卷積層的權重在空間位置之間共享。[arXiv:1602.01407](https://arxiv.org/abs/1602.01407)
+- **EKFAC。** George 等人（2018）保留克羅內克分解的特徵基底，但在該基底中重新估計縮放，目標是在相近成本下更忠實地近似費雪矩陣。[arXiv:1806.03884](https://arxiv.org/abs/1806.03884)
 
 ## 關聯
 
@@ -49,13 +62,13 @@ K-FAC（Kronecker 分解近似曲率）是神經網路自然梯度的實用近�
 
 ## 應用
 
-- 訓練大型前饋網路與卷積網路，這些情況下每步成本必須接近 SGD。
-- 以策略網路進行強化學習，此時自然梯度是更新的自然選擇。
+- 訓練大型前饋網路與卷積網路，這些情況下每步成本必須接近 SGD。卷積變體涵蓋後一種情況。
+- 以行動者–評論者方法進行強化學習。Wu 等人（2017）在信賴域方法中，以 K-FAC 計算行動者與評論者的自然梯度更新。[arXiv:1708.05144](https://arxiv.org/abs/1708.05144)
 
 ## 開放問題
 
-- 應如何把近似擴展到卷積與注意力層，同時不失去速度上的優勢？
-- K-FAC 的好處有多少來自曲率估計，又有多少來自阻尼與更新的排程？
+- 克羅內克近似與精確費雪矩陣之間的差距，在實務上有多重要？
+- K-FAC 的好處有多少來自曲率估計，又有多少來自阻尼、更新與動量的排程？
 
 ## 參考文獻
 
@@ -63,7 +76,10 @@ K-FAC（Kronecker 分解近似曲率）是神經網路自然梯度的實用近�
 
 - Martens, J. & Grosse, R. (2015). *Optimizing Neural Networks with Kronecker-factored Approximate Curvature*. ICML. https://arxiv.org/abs/1503.05671 — 提出 K-FAC，為神經網路的自然梯度提供克羅內克分解近似。
 - Amari, S. (1998). *Natural Gradient Works Efficiently in Learning*. Neural Computation, 10(2), 251–276. https://doi.org/10.1162/089976698300017746 — K-FAC 所近似的自然梯度方法。
-- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. ICML. https://arxiv.org/abs/1802.09568 — 相關的矩陣結構預條件子，與基於費雪矩陣的做法作比較。
+- Grosse, R. & Martens, J. (2016). *A Kronecker-factored approximate Fisher matrix for convolution layers*. arXiv. https://arxiv.org/abs/1602.01407 — 把克羅內克分解擴展到卷積層。
+- George, T., et al. (2018). *Fast Approximate Natural Gradient Descent in a Kronecker-factored Eigenbasis*. arXiv. https://arxiv.org/abs/1806.03884 — 在克羅內克分解的特徵基底中重新估計縮放，是更忠實的費雪近似。
+- Wu, Y., et al. (2017). *Scalable trust-region method for deep reinforcement learning using Kronecker-factored approximation*. arXiv. https://arxiv.org/abs/1708.05144 — 把 K-FAC 以信賴域方法應用於行動者–評論者強化學習。
+- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. arXiv. https://arxiv.org/abs/1802.09568 — 相關的矩陣結構預條件子，與基於費雪矩陣的做法作比較。
 - Liu, D. C. & Nocedal, J. (1989). *On the Limited Memory BFGS Method for Large Scale Optimization*. Mathematical Programming, 45, 503–528. https://doi.org/10.1007/BF01589116 — 與 K-FAC 形成對比的確定性擬牛頓法。
 
 ### 綜述與教科書

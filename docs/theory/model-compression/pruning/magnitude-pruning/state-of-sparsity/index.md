@@ -33,7 +33,7 @@ The abstract reports that on large-scale tasks, simple magnitude pruning matches
 
 ## Limitations
 
-The benchmarks cover the image and language models of their time. The paper also shows that sparse networks obtained by pruning are harder to train from scratch than dense ones, a point that limits the sparse-training methods.
+The benchmarks cover the image and language models of their time. The paper also finds that sparse architectures learned by pruning cannot be trained from scratch to the same test accuracy as models trained with joint sparsification and optimisation, a point that limits sparse-training methods.
 
 ## Open issues and related variants
 

@@ -68,7 +68,7 @@ The paper does not introduce an optimiser. The method is a rule for choosing the
 - Smith, S. L. & Le, Q. V. (2018). *A Bayesian Perspective on Generalization and Stochastic Gradient Descent*. ICLR. https://arxiv.org/abs/1710.06451 — Introduces the SGD noise scale \(\epsilon N/B\) and argues that the optimal batch size scales with the learning rate and training set size.
 - Keskar, N. S., et al. (2017). *On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima*. ICLR. https://arxiv.org/abs/1609.04836 — The empirical batch-size effect that the noise-scale account tries to explain.
 - Goyal, P., et al. (2017). *Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour*. arXiv. https://arxiv.org/abs/1706.02677 — Linear scaling of the learning rate with batch size, which keeps the noise scale roughly fixed.
-- Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — Shows that adaptive optimisers change the effective learning rate, which the noise-scale rule does not account for.
+- Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — Adaptive per-parameter step sizes, so the noise-scale rule for plain SGD does not transfer directly.
 
 ### Surveys and textbooks
 
