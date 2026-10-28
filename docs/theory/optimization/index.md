@@ -46,7 +46,7 @@ The optimisers below are grouped by what information they use. Each subpage give
 | First-order, SGD family | Gradient and momentum | [SGD and momentum](sgd-and-momentum/index.md) | Draft |
 | Adaptive methods | Per-parameter scale from squared gradients | [Adaptive methods](adaptive/index.md) | Draft (Adam and AdamW have their own pages) |
 | Second-order and quasi-Newton | Curvature (Hessian or its approximation) | [Second-order methods](second-order.md) | Planned |
-| Learning-rate schedules and warm-up | How \(\eta\) changes over time | [Learning-rate schedules](learning-rate-schedules.md) | Planned |
+| Learning-rate schedules and warm-up | How \(\eta\) changes over time | [Learning-rate schedules](learning-rate-schedules.md), with pages on [gradual warm-up](gradual-warm-up.md), [cosine annealing with warm restarts](cosine-annealing-warm-restarts.md) and [cyclical learning rates](cyclical-learning-rates.md) | Draft |
 | Regularisation and weight decay | Penalties that the optimiser must respect | [Regularisation and weight decay](regularisation-and-weight-decay.md) | Planned |
 | Gradient clipping and normalisation | Limits on gradient size | [Gradient clipping and normalisation](gradient-clipping-and-normalisation.md) | Planned |
 | Large-batch and distributed | Training across many devices | [Large-batch and distributed](large-batch-and-distributed.md) | Planned |

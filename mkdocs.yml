@@ -234,6 +234,9 @@ plugins:
             Adaptive Methods: 自適應方法
             Second-Order Methods: 二階方法
             Learning-Rate Schedules: 學習率排程
+            Gradual Warm-up: 漸進式預熱
+            Cosine Annealing with Warm Restarts: 附暖重啟的餘弦退火
+            Cyclical Learning Rates: 循環學習率
             Regularisation & Weight Decay: 正則化與權重衰減
             Gradient Clipping & Normalisation: 梯度裁剪與正規化
             Large-Batch & Distributed: 大批次與分散式
@@ -535,7 +538,11 @@ nav:
               - Adam: theory/optimization/adaptive/adam.md
               - AdamW: theory/optimization/adaptive/adamw.md
           - Second-Order Methods: theory/optimization/second-order.md
-          - Learning-Rate Schedules: theory/optimization/learning-rate-schedules.md
+          - Learning-Rate Schedules:
+              - theory/optimization/learning-rate-schedules.md
+              - Gradual Warm-up: theory/optimization/gradual-warm-up.md
+              - Cosine Annealing with Warm Restarts: theory/optimization/cosine-annealing-warm-restarts.md
+              - Cyclical Learning Rates: theory/optimization/cyclical-learning-rates.md
           - Regularisation & Weight Decay: theory/optimization/regularisation-and-weight-decay.md
           - Gradient Clipping & Normalisation: theory/optimization/gradient-clipping-and-normalisation.md
           - Large-Batch & Distributed: theory/optimization/large-batch-and-distributed.md

@@ -30,7 +30,7 @@ translation_reviewed: 2026-10-28
 | 一階、SGD 家族 | 梯度與動量 | [SGD 與動量](sgd-and-momentum/index.md) | 草稿 |
 | 自適應方法 | 由梯度平方得出的逐參數尺度 | [自適應方法](adaptive/index.md) | 草稿（Adam 與 AdamW 各有獨立頁） |
 | 二階與擬牛頓 | 曲率（Hessian 或其近似） | [二階方法](second-order.md) | 規劃中 |
-| 學習率排程與預熱 | 學習率如何隨時間變化 | [學習率排程](learning-rate-schedules.md) | 規劃中 |
+| 學習率排程與預熱 | 學習率如何隨時間變化 | [學習率排程](learning-rate-schedules.md)，並有[漸進式預熱](gradual-warm-up.md)、[附暖重啟的餘弦退火](cosine-annealing-warm-restarts.md)與[循環學習率](cyclical-learning-rates.md)等方法頁 | 草稿 |
 | 正則化與權重衰減 | 最佳化器必須遵守的懲罰項 | [正則化與權重衰減](regularisation-and-weight-decay.md) | 規劃中 |
 | 梯度裁剪與正規化 | 對梯度大小的限制 | [梯度裁剪與正規化](gradient-clipping-and-normalisation.md) | 規劃中 |
 | 大批次與分散式 | 跨多個裝置的訓練 | [大批次與分散式](large-batch-and-distributed.md) | 規劃中 |
