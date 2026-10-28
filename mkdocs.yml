@@ -383,6 +383,9 @@ plugins:
             Emotion & Affective Computing: 情緒與情感運算
             Circumplex Model of Affect (Russell 1980): 情感的環狀模型（Russell，1980）
             Emotion Circuits (LeDoux 2000): 大腦中的情緒迴路（LeDoux，2000）
+            Neuroimaging & Recording Methods: 神經影像與記錄方法
+            BOLD fMRI (Ogawa et al. 1990): BOLD 功能性磁振造影（Ogawa 等人，1990）
+            Simultaneous fMRI and Electrophysiology (Logothetis et al. 2001): 功能性磁振造影與電生理同步記錄（Logothetis 等人，2001）
             Performance-Optimised Networks (Yamins et al. 2014): 效能最佳化的網路（Yamins 等人，2014）
             Shape Bias in CNNs (Geirhos et al. 2019): CNN 的形狀偏好（Geirhos 等人，2019）
             Applications: 領域應用
@@ -787,6 +790,10 @@ nav:
           - Dual-Stream Model (Hickok & Poeppel 2007): brain-mind/language-in-brain/hickok-poeppel-2007/index.md
           - Language Models Predict Brain Responses (Schrimpf et al. 2021): brain-mind/language-in-brain/schrimpf-2021/index.md
           - Shared Computational Principles (Goldstein et al. 2022): brain-mind/language-in-brain/goldstein-2022/index.md
+      - Neuroimaging & Recording Methods:
+          - brain-mind/neuroimaging-methods/index.md
+          - BOLD fMRI (Ogawa et al. 1990): brain-mind/neuroimaging-methods/bold-fmri/index.md
+          - Simultaneous fMRI and Electrophysiology (Logothetis et al. 2001): brain-mind/neuroimaging-methods/fmri-electrophysiology/index.md
       - Emotion & Affective Computing:
           - brain-mind/emotion/index.md
           - Circumplex Model of Affect (Russell 1980): brain-mind/emotion/circumplex-model/index.md
