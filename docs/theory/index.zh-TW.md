@@ -11,6 +11,7 @@
 | [學習範式](paradigms/index.md) | 監督、非監督、半監督／弱監督、自監督、強化、模仿、遷移、元學習、持續、主動、線上、聯邦學習，以及機率、符號與演化方法：學習訊號是什麼？資料怎麼來？ |
 | [強化學習](paradigms/reinforcement-learning/index.md) | 如何從試誤與獎勵中學習行為？和大腦的多巴胺有什麼關係？ |
 | [資訊理論](information-theory/index.md) | 熵、KL 散度與互資訊如何量化學習？ |
+| [因果推論](causal-inference/index.md) | 介入之後會發生什麼？何時能從資料估計它？ |
 | [模型壓縮](model-compression/index.md) | 剪枝、量化與蒸餾如何在不損失能力的前提下縮小模型？ |
 | [評估](evaluation/index.md) | 如何衡量模型的好壞？基準分數能信到什麼程度？ |
 
