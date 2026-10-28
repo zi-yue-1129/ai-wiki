@@ -258,10 +258,28 @@ plugins:
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
             AlexNet: AlexNet
-            Residual Networks: 殘差網路
             GPT-3 Few-Shot Learning: GPT-3 少樣本學習
             Compute-Optimal Training: 運算最佳化訓練
             InstructGPT and RLHF: InstructGPT 與 RLHF
+            Hodgkin–Huxley Model: Hodgkin–Huxley 模型
+            Sparse Coding: 稀疏編碼
+            Medial Temporal Lobe Lesions: 內側顳葉損傷
+            Long-Term Potentiation: 長期增益
+            Complementary Learning Systems: 互補學習系統
+            Receptive Fields in Visual Cortex: 視覺皮質的感受野
+            Dopamine Reward Prediction Error: 多巴胺的獎勵預測誤差
+            Heuristics and Biases: 啟發法與偏誤
+            Building Machines That Learn Like People: 打造像人一樣學習的機器
+            Performance-Optimised Networks Predict Visual Cortex: 以效能最佳化的網路預測視覺皮質
+            Grid-Like Units in Navigating Networks: 導航網路中的格狀單元
+            Surrogate Gradients: 替代梯度
+            Online Learning with Local Updates (e-prop): 具局部更新的線上學習（e-prop）
+            Integrated Information Theory: 整合資訊理論
+            Global Workspace: 全域工作空間
+            Neural Reach and Grasp: 神經控制的伸手與抓取
+            Speech Neuroprosthesis: 言語神經義肢
+            ACT-R: ACT-R
+            CoALA: CoALA
             Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
             False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
             Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
@@ -285,6 +303,29 @@ plugins:
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
             Message Passing: 訊息傳遞
+            GCN: 圖卷積網路
+            GAT: 圖注意力網路
+            GIN: 圖同構網路
+            GELU: 高斯誤差線性單元
+            Layer Normalisation: 層正規化
+            LSTM: 長短期記憶
+            Sequence to Sequence: 序列到序列學習
+            ResNet: 殘差網路
+            EfficientNet: EfficientNet 與複合縮放
+            S4: S4 結構化狀態空間
+            Mamba: Mamba
+            Mamba-2: Mamba-2
+            Dilated Convolution: 空洞卷積
+            Depthwise Separable Convolution: 深度可分離卷積
+            Deformable Convolution: 可變形卷積
+            VGG: VGG
+            ConvNeXt: ConvNeXt
+            GRU: 門控循環單元
+            HiPPO: HiPPO 高階多項式投影
+            S4D: S4D：S4 的對角版本
+            S5: S5：簡化狀態空間層
+            Linear Recurrent Units: 線性循環單元
+            GraphSAGE: GraphSAGE
             Large Language Models: 大型語言模型
             Generative Models: 生成模型
             Model Compression: 模型壓縮
@@ -310,6 +351,9 @@ plugins:
             Consciousness & Philosophy of Mind: 意識與心靈哲學
             Brain-Computer Interfaces: 腦機介面與神經解碼
             Language in the Brain: 大腦中的語言
+            Dual-Stream Model (Hickok & Poeppel 2007): 語音處理的雙路徑模型（Hickok 與 Poeppel，2007）
+            Language Models Predict Brain Responses (Schrimpf et al. 2021): 語言模型預測大腦對句子的反應（Schrimpf 等人，2021）
+            Shared Computational Principles (Goldstein et al. 2022): 人類與深度語言模型的共享計算原則（Goldstein 等人，2022）
             Predictive Coding & Free Energy: 預測編碼與自由能
             Decision Making, Dopamine & Reward: 決策、多巴胺與獎勵
             Diffusion Decision Model: 擴散決策模型
@@ -350,6 +394,11 @@ plugins:
             Retrieval-Augmented Generation: 檢索增強生成 RAG
             Evaluation & Benchmarks: 評估與基準
             Inference Optimization: 推論最佳化
+            Orca: Orca
+            PagedAttention and vLLM: PagedAttention 與 vLLM
+            Speculative Decoding: 推測式解碼
+            Multi-Query Attention: 多查詢注意力
+            Grouped-Query Attention: 分組查詢注意力
             MLOps & Deployment: MLOps 與部署
             AI Hardware: AI 硬體
             AI & Society: AI 與社會
@@ -358,6 +407,9 @@ plugins:
             Ethics & Fairness: 倫理與公平
             Privacy & Data Protection: 隱私與資料保護
             Misinformation & Deepfakes: 不實資訊與深偽
+            Copyright & IP: 著作權與智慧財產權
+            Data replication in diffusion models: 擴散模型中的資料重現
+            Extracting training data from diffusion models: 從擴散模型萃取訓練資料
             Law, Policy & Governance: 法規與治理
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
@@ -429,7 +481,6 @@ nav:
       - Deep Learning:
           - theory/deep-learning/index.md
           - AlexNet: theory/deep-learning/alexnet/index.md
-          - Residual Networks: theory/deep-learning/residual-networks/index.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum: theory/optimization/sgd-and-momentum.md
@@ -550,15 +601,32 @@ nav:
           - Knowledge Distillation: theory/model-compression/knowledge-distillation/index.md
       - Models:
           - theory/models/index.md
-          - Multilayer Perceptrons: theory/models/mlp/index.md
+          - Multilayer Perceptrons:
+              - theory/models/mlp/index.md
+              - GELU: theory/models/mlp/gelu/index.md
+              - Layer Normalisation: theory/models/mlp/layer-normalisation/index.md
           - Convolutional Networks:
               - theory/models/cnn/index.md
-              - Convolution Variants: theory/models/cnn/convolution-variants/index.md
-              - Backbones & Scaling: theory/models/cnn/backbones-and-scaling/index.md
+              - Convolution Variants:
+                  - theory/models/cnn/convolution-variants/index.md
+                  - Dilated Convolution: theory/models/cnn/convolution-variants/dilated-convolution/index.md
+                  - Depthwise Separable Convolution: theory/models/cnn/convolution-variants/depthwise-separable-convolution/index.md
+                  - Deformable Convolution: theory/models/cnn/convolution-variants/deformable-convolution/index.md
+              - Backbones & Scaling:
+                  - theory/models/cnn/backbones-and-scaling/index.md
+                  - VGG: theory/models/cnn/backbones-and-scaling/vgg/index.md
+                  - ResNet: theory/models/cnn/backbones-and-scaling/resnet/index.md
+                  - EfficientNet: theory/models/cnn/backbones-and-scaling/efficientnet/index.md
+                  - ConvNeXt: theory/models/cnn/backbones-and-scaling/convnext/index.md
           - Recurrent Networks:
               - theory/models/rnn/index.md
-              - Gated Cells: theory/models/rnn/gated-cells/index.md
-              - Sequence Modes: theory/models/rnn/sequence-modes/index.md
+              - Gated Cells:
+                  - theory/models/rnn/gated-cells/index.md
+                  - LSTM: theory/models/rnn/gated-cells/lstm/index.md
+                  - GRU: theory/models/rnn/gated-cells/gru/index.md
+              - Sequence Modes:
+                  - theory/models/rnn/sequence-modes/index.md
+                  - Sequence to Sequence: theory/models/rnn/sequence-modes/sequence-to-sequence/index.md
           - Transformers & Attention:
               - theory/models/transformer/index.md
               - Attention Variants: theory/models/transformer/attention-variants/index.md
@@ -566,8 +634,17 @@ nav:
               - KV Cache: theory/models/transformer/kv-cache/index.md
           - State-Space Models:
               - theory/models/ssm/index.md
-              - Structured State Spaces: theory/models/ssm/structured-state-spaces/index.md
-              - Selective State Spaces: theory/models/ssm/selective-state-spaces/index.md
+              - Structured State Spaces:
+                  - theory/models/ssm/structured-state-spaces/index.md
+                  - HiPPO: theory/models/ssm/structured-state-spaces/hippo/index.md
+                  - S4: theory/models/ssm/structured-state-spaces/s4/index.md
+                  - S4D: theory/models/ssm/structured-state-spaces/s4d/index.md
+                  - S5: theory/models/ssm/structured-state-spaces/s5/index.md
+                  - Linear Recurrent Units: theory/models/ssm/structured-state-spaces/linear-recurrent-units/index.md
+              - Selective State Spaces:
+                  - theory/models/ssm/selective-state-spaces/index.md
+                  - Mamba: theory/models/ssm/selective-state-spaces/mamba/index.md
+                  - Mamba-2: theory/models/ssm/selective-state-spaces/mamba-2/index.md
           - Large Language Models:
               - theory/models/llm/index.md
               - GPT-3 Few-Shot Learning: theory/models/llm/gpt-3-few-shot/index.md
@@ -580,25 +657,62 @@ nav:
           - Multimodal Models: theory/models/multimodal/index.md
           - Graph Neural Networks:
               - theory/models/gnn/index.md
-              - Message Passing: theory/models/gnn/message-passing/index.md
+              - Message Passing:
+                  - theory/models/gnn/message-passing/index.md
+                  - GraphSAGE: theory/models/gnn/message-passing/graphsage/index.md
+                  - GCN: theory/models/gnn/message-passing/gcn/index.md
+                  - GAT: theory/models/gnn/message-passing/gat/index.md
+                  - GIN: theory/models/gnn/message-passing/gin/index.md
           - AI Agents: theory/models/agents/index.md
           - World Models & Embodied AI: theory/models/world-models/index.md
   - Brain & Mind:
       - brain-mind/index.md
-      - Neuroscience Basics: brain-mind/neuroscience/index.md
-      - Computational Neuroscience: brain-mind/computational-neuroscience/index.md
-      - NeuroAI: brain-mind/neuroai/index.md
-      - Spiking Networks & Neuromorphic Computing: brain-mind/snn-neuromorphic/index.md
-      - Memory & Learning in the Brain: brain-mind/memory-learning/index.md
-      - Cognitive Science: brain-mind/cognitive-science/index.md
-      - Cognitive Architectures: brain-mind/cognitive-architectures/index.md
+      - Neuroscience Basics:
+          - brain-mind/neuroscience/index.md
+          - Receptive Fields in Visual Cortex: brain-mind/neuroscience/receptive-fields-hubel-wiesel/index.md
+          - Dopamine Reward Prediction Error: brain-mind/neuroscience/dopamine-reward-prediction-error/index.md
+      - Computational Neuroscience:
+          - brain-mind/computational-neuroscience/index.md
+          - Hodgkin–Huxley Model: brain-mind/computational-neuroscience/hodgkin-huxley/index.md
+          - Sparse Coding: brain-mind/computational-neuroscience/sparse-coding/index.md
+      - NeuroAI:
+          - brain-mind/neuroai/index.md
+          - Performance-Optimised Networks Predict Visual Cortex: brain-mind/neuroai/performance-optimised-networks/index.md
+          - Grid-Like Units in Navigating Networks: brain-mind/neuroai/grid-like-units/index.md
+      - Spiking Networks & Neuromorphic Computing:
+          - brain-mind/snn-neuromorphic/index.md
+          - Surrogate Gradients: brain-mind/snn-neuromorphic/surrogate-gradients/index.md
+          - Online Learning with Local Updates (e-prop): brain-mind/snn-neuromorphic/eprop/index.md
+      - Memory & Learning in the Brain:
+          - brain-mind/memory-learning/index.md
+          - Medial Temporal Lobe Lesions: brain-mind/memory-learning/medial-temporal-lesions/index.md
+          - Long-Term Potentiation: brain-mind/memory-learning/long-term-potentiation/index.md
+          - Complementary Learning Systems: brain-mind/memory-learning/complementary-learning-systems/index.md
+      - Cognitive Science:
+          - brain-mind/cognitive-science/index.md
+          - Heuristics and Biases: brain-mind/cognitive-science/heuristics-and-biases/index.md
+          - Building Machines That Learn Like People: brain-mind/cognitive-science/building-machines-like-people/index.md
+      - Cognitive Architectures:
+          - brain-mind/cognitive-architectures/index.md
+          - ACT-R: brain-mind/cognitive-architectures/act-r/index.md
+          - CoALA: brain-mind/cognitive-architectures/coala/index.md
       - Psychology & AI:
           - brain-mind/psychology/index.md
           - Chimpanzee Theory-of-Mind Test: brain-mind/psychology/chimpanzee-theory-of-mind/index.md
           - False-Belief Tests on LLMs: brain-mind/psychology/false-belief-llms/index.md
-      - Consciousness & Philosophy of Mind: brain-mind/consciousness/index.md
-      - Brain-Computer Interfaces: brain-mind/bci/index.md
-      - Language in the Brain: brain-mind/language-in-brain/index.md
+      - Consciousness & Philosophy of Mind:
+          - brain-mind/consciousness/index.md
+          - Integrated Information Theory: brain-mind/consciousness/integrated-information-theory/index.md
+          - Global Workspace: brain-mind/consciousness/global-workspace/index.md
+      - Brain-Computer Interfaces:
+          - brain-mind/bci/index.md
+          - Neural Reach and Grasp: brain-mind/bci/neural-reach-and-grasp/index.md
+          - Speech Neuroprosthesis: brain-mind/bci/speech-neuroprosthesis/index.md
+      - Language in the Brain:
+          - brain-mind/language-in-brain/index.md
+          - Dual-Stream Model (Hickok & Poeppel 2007): brain-mind/language-in-brain/hickok-poeppel-2007/index.md
+          - Language Models Predict Brain Responses (Schrimpf et al. 2021): brain-mind/language-in-brain/schrimpf-2021/index.md
+          - Shared Computational Principles (Goldstein et al. 2022): brain-mind/language-in-brain/goldstein-2022/index.md
       - Predictive Coding & Free Energy: brain-mind/predictive-coding/index.md
       - Decision Making, Dopamine & Reward:
           - brain-mind/decision-reward/index.md
@@ -648,7 +762,13 @@ nav:
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
-      - Inference Optimization: engineering/inference-optimization/index.md
+      - Inference Optimization:
+          - engineering/inference-optimization/index.md
+          - Orca: engineering/inference-optimization/orca.md
+          - PagedAttention and vLLM: engineering/inference-optimization/paged-attention.md
+          - Speculative Decoding: engineering/inference-optimization/speculative-decoding.md
+          - Multi-Query Attention: engineering/inference-optimization/multi-query-attention.md
+          - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
       - MLOps & Deployment: engineering/mlops/index.md
       - AI Hardware: engineering/hardware/index.md
   - AI & Society:
@@ -658,6 +778,10 @@ nav:
       - Ethics & Fairness: society/ethics/index.md
       - Privacy & Data Protection: society/privacy/index.md
       - Misinformation & Deepfakes: society/misinformation/index.md
+      - Copyright & IP:
+          - society/copyright/index.md
+          - Data replication in diffusion models: society/copyright/data-replication.md
+          - Extracting training data from diffusion models: society/copyright/diffusion-extraction.md
       - Law, Policy & Governance: society/governance/index.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md

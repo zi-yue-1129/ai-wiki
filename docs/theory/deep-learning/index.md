@@ -113,7 +113,7 @@ Each method has its own page. The overview and comparison here are brief.
 
 - **Overview:** Each block learns a residual function of its input and adds the input back through a shortcut, so passing the signal through unchanged is easy.
 - **Comparison:** The shortcut idea reappears in Transformer blocks; see the Transformer page for the attention variants.
-- **Full write-up:** [Residual Networks](residual-networks/index.md)
+- **Full write-up:** [ResNet, in the CNN section](../models/cnn/backbones-and-scaling/resnet/index.md)
 
 ## Resources
 

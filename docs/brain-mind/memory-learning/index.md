@@ -85,32 +85,25 @@ This is the conceptual root of **experience replay** in deep RL and of replay-ba
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### Patients with medial temporal lobe lesions (Scoville & Milner, 1957)
 
-- **Problem:** which brain structures are needed to form new long-term memories?
-- **Core idea:** study patients whose bilateral medial temporal lobe removal left a known lesion, and test what they can and cannot remember. Patient H.M. is the best-known case.
-- **Equation or algorithm:** none. The method is a lesion study with memory tests.
-- **Results:** the patients showed anterograde amnesia for new declarative material, while immediate memory and older memories were relatively spared.
-- **Limitations:** a small number of patients, and surgical lesions that could not be controlled exactly. The study shows that the structures are necessary, not how they store memories.
+- **Overview:** Patients with bilateral removal of the medial temporal lobe show what memory depends on.
+- **Comparison:** A lesion study: it shows necessity but not mechanism, which the synaptic and replay methods address.
+- **Full write-up:** [Medial Temporal Lobe Lesions](medial-temporal-lesions/index.md)
 
 ### Long-term potentiation (Bliss & Lømo, 1973)
 
-- **Problem:** is there a lasting physical change at synapses that could store memories?
-- **Core idea:** a brief high-frequency stimulus to the perforant path of anaesthetised rabbits made the responses of dentate gyrus cells stay enhanced for a long time.
-- **Algorithm:**
-    1. Record baseline responses to low-frequency test pulses.
-    2. Deliver a brief high-frequency train of stimuli.
-    3. Keep testing and track the response amplitude over time.
-- **Results:** the enhancement lasted far longer than the stimulus itself, which is the first report of long-term potentiation.
-- **Limitations:** the experiments were in anaesthetised animals, and the link to learning was an inference. Later work linked LTP to NMDA receptors and postsynaptic calcium, which the paper did not examine.
+- **Overview:** A brief high-frequency stimulus strengthens synapses for a long time, a candidate cellular mechanism for memory.
+- **Comparison:** A cellular mechanism rather than a systems-level account. The complementary learning systems method below explains how such plasticity fits into memory.
+- **Full write-up:** [Long-Term Potentiation](long-term-potentiation/index.md)
 
 ### Complementary learning systems (McClelland, McNaughton & O'Reilly, 1995)
 
-- **Problem:** why does the brain need both a hippocampus and a neocortex, and why does fast learning in one network erase earlier learning?
-- **Core idea:** the hippocampus stores new items quickly with sparse codes, while the neocortex learns slowly with overlapping codes. Replay of stored patterns interleaves old and new items during cortical training.
-- **Algorithm:** in connectionist simulations, a fast learner stores new items, and an interleaved training schedule of old and new items trains the slow learner.
-- **Results:** sequential training erased earlier items (catastrophic interference), while interleaved training avoided it.
-- **Limitations:** the theory is conceptual and rests on simulations. Kumaran et al. (2016) revisit it in light of deep learning and replay.
+- **Overview:** A fast hippocampal store and a slow neocortical learner, linked by replay.
+- **Comparison:** A systems-level account that draws on the lesion and plasticity evidence above.
+- **Full write-up:** [Complementary Learning Systems](complementary-learning-systems/index.md)
 
 ## Resources
 

@@ -95,21 +95,19 @@ These remain an influential checklist for evaluating modern models.
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### Heuristics and biases (Tversky & Kahneman, 1974)
 
-- **Problem:** how do people judge probabilities and frequencies when they cannot compute the exact answer?
-- **Core idea:** judgement under uncertainty relies on a few heuristics, namely representativeness, availability, and anchoring and adjustment. Each is often useful, and each leads to systematic errors.
-- **Method:** illustrative problems and experiments, in which participants' judgements are compared with the answers that probability theory gives.
-- **Results:** judgements deviate in predictable directions from the normative answers. Examples include ignoring base rates when a description seems typical of a category, and estimates that are pulled toward an arbitrary starting value.
-- **Limitations:** the heuristics are described in words rather than as a formal model, so the paper does not say exactly when each one applies. Later work has argued that many heuristics are adaptive, not merely biased.
+- **Overview:** Judgement under uncertainty relies on a few heuristics that produce systematic errors.
+- **Comparison:** Describes human biases. The psychology page applies the same kind of tests to language models.
+- **Full write-up:** [Heuristics and Biases](heuristics-and-biases/index.md)
 
 ### Building machines that learn and think like people (Lake et al., 2017)
 
-- **Problem:** why do deep networks need far more data than people do, and how do they differ from people in what they learn and how?
-- **Core idea:** three ingredients are proposed: causal models of the world, learning grounded in intuitive theories of physics and psychology, and compositionality with learning-to-learn for fast generalisation to new tasks.
-- **Method:** a target article with open commentaries, which argues for the three ingredients. Its evidence is a review of existing models and experiments, with a model that learns handwritten characters from a single example as a worked case.
-- **Results:** the article is a position paper and does not report a new benchmark result.
-- **Limitations:** the commentaries disagree about how much built-in structure machines need. Progress in large models since 2017 has changed how much of the argument still applies.
+- **Overview:** Three ingredients, causal models, intuitive theories and compositionality, are proposed as the route to human-like learning.
+- **Comparison:** A target-article position paper. It sets the agenda that cognitive architectures try to meet.
+- **Full write-up:** [Building Machines That Learn Like People](building-machines-like-people/index.md)
 
 ## Resources
 

@@ -40,6 +40,13 @@ The LSTM keeps a separate cell state that is updated additively. A forget gate s
 
 The GRU merges the cell and hidden states and uses two gates: an update gate that interpolates between the old and new state, and a reset gate that controls how much of the old state enters the candidate. It has fewer parameters than an LSTM. Cho et al. (2014) introduced it, and Chung et al. (2014) compared it with the LSTM across several sequence tasks, finding that both gated cells clearly outperformed the plain cell and neither was consistently better.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| Long short-term memory (LSTM) | 1997 | Memory cell updated by addition, with gates that control writing and reading | [LSTM](lstm/index.md) |
+| Gated recurrent unit (GRU) | 2014 | A two-gate cell with no separate memory, cheaper than the LSTM | [GRU](gru/index.md) |
+
 ## Trade-offs
 
 - **Capacity versus cost.** The LSTM has more parameters and can keep more information separate, while the GRU is cheaper and often trains faster on smaller data.

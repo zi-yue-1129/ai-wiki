@@ -29,7 +29,7 @@ translation_reviewed: 2026-10-28
 ## 連結
 
 - 母頁：[深度學習](../index.md)
-- 同一主題的另一方法：[殘差網路](../residual-networks/index.md)
+- 同一主題的另一方法：[CNN 章節中的 ResNet](../../models/cnn/backbones-and-scaling/resnet/index.md)
 
 ## 參考文獻
 

@@ -105,7 +105,7 @@ Kaplan et al.（2020）與 Hoffmann et al.（2022，「Chinchilla」）發現，
 
 - **概述：** 每個區塊學習輸入的殘差函數，並透過捷徑把輸入加回來，因此讓訊號原樣通過變得容易。
 - **比較：** 同樣的捷徑想法也出現在 Transformer 區塊中；注意力的變體見 Transformer 頁。
-- **完整內容：** [殘差網路](residual-networks/index.md)
+- **完整內容：** [CNN 章節中的 ResNet](../models/cnn/backbones-and-scaling/resnet/index.md)
 
 ## 學習資源
 
