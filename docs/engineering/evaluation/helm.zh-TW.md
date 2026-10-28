@@ -68,6 +68,7 @@ HELM 分三步進行。作者先對情境與指標進行分類。接著，依涵
 - Liang, P. 等人（2022）。*Holistic Evaluation of Language Models*。arXiv。https://arxiv.org/abs/2211.09110 — 提出 HELM，包括情境與指標的分類，以及 16 個核心情境上的七項指標網格。
 - Hendrycks, D. 等人（2021）。*Measuring Massive Multitask Language Understanding*。ICLR。https://arxiv.org/abs/2009.03300 — 以準確率為基礎的套件，HELM 的準確率指標即與之比較。
 - Srivastava, A. 等人（2022）。*Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models*。arXiv。https://arxiv.org/abs/2206.04615 — 一套廣泛、由多方共同建立的任務，用來衡量模型規模增長時的能力。
+- Mitchell, M. 等人（2019）。*Model Cards for Model Reporting*。FAT* 2019 會議論文集。https://doi.org/10.1145/3287560.3287596 — 提出模型卡，以簡短文件報告模型的預期用途、評估條件與各群體的表現，這也是 HELM 所追求的透明度的一種形式。
 
 ### 調查與教科書
 

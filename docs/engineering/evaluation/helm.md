@@ -69,6 +69,7 @@ The abstract states that the framework measures seven metrics for each of 16 cor
 - Liang, P. et al. (2022). Holistic Evaluation of Language Models. arXiv. https://arxiv.org/abs/2211.09110 — Introduces HELM, the taxonomy of scenarios and metrics, and a grid of seven metrics across 16 core scenarios.
 - Hendrycks, D. et al. (2021). Measuring Massive Multitask Language Understanding. ICLR. https://arxiv.org/abs/2009.03300 — The accuracy-based suite that HELM's accuracy metric is compared with.
 - Srivastava, A. et al. (2022). Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models. arXiv. https://arxiv.org/abs/2206.04615 — A broad, collaboratively built task suite for measuring capabilities as models scale.
+- Mitchell, M. et al. (2019). Model Cards for Model Reporting. Proceedings of FAT* 2019. https://doi.org/10.1145/3287560.3287596 — Proposes model cards, short documents that report a model's intended use, evaluation conditions and performance across groups, a form of the transparency that HELM also aims at.
 
 ### Surveys and textbooks
 
