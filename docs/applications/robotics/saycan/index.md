@@ -54,7 +54,7 @@ Moving from the mock kitchen to the real kitchen drops planning by 3 points and 
 ## Limitations
 
 - **Skill library:** the paper proposes 551 skills, but uses a subset of those "most amenable" to composition. The range and capability of the skills is the main bottleneck (Sec. 4, Sec. 8).
-- **Data cost:** behavioural cloning used 68,000 teleoperated demonstrations and 276,000 autonomous episodes, of which about 12,000 succeeded. Reinforcement learning used MT-Opt in simulation, for about 100 hours on 16 TPUv3 chips (App. C.2).
+- **Data cost:** behavioural cloning used 68,000 teleoperated demonstrations, and the authors collected 276,000 autonomous episodes, of which about 12,000 were successful. Reinforcement learning used MT-Opt in simulation, for about 100 hours on 16 TPUv3 chips (App. C.2).
 - **Language model errors:** the system struggles with negation and ambiguous references. Most long-horizon failures are early termination by the language model (Sec. 5.1). The authors expect it to inherit the biases and limits of its training data (Sec. 8).
 - **Limited feedback:** feedback reaches the planner only through the value functions at the current step. The system cannot easily react when a skill fails despite a high value, so some failures go undetected (Sec. 5.2, Sec. 8).
 - **Scope of evaluation:** the experiments use the authors' robot and skill set.
