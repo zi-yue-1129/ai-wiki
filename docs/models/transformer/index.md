@@ -3,6 +3,10 @@ related:
 - models/llm
 - society/interpretability
 - brain-mind/memory-learning
+aliases:
+  - Attention
+  - 自注意力
+  - 注意力機制
 ---
 
 # Transformers & Attention

@@ -46,6 +46,7 @@ theme:
 hooks:
   - hooks/related.py
   - hooks/knowledge_map.py
+  - hooks/search_aliases.py
 
 plugins:
   # Keeps Material's header search button. The dialog itself is Pagefind
@@ -155,6 +156,7 @@ plugins:
             Landmark Papers: 經典論文
             Courses & Books: 課程與書籍
             Datasets: 資料集
+            Tags: 標籤
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
             Style Guide: 寫作風格指南
@@ -308,6 +310,7 @@ nav:
       - Landmark Papers: reference/papers/index.md
       - Courses & Books: reference/courses-books/index.md
       - Datasets: reference/datasets/index.md
+      - Tags: reference/tags/index.md
       - Contributing: reference/contributing/index.md
       - Roadmap & Coverage: reference/roadmap/index.md
       - Style Guide: reference/style-guide/index.md
