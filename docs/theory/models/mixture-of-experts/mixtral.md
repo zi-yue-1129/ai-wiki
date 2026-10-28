@@ -70,7 +70,7 @@ The abstract reports that each token has access to 47 billion parameters but use
 - Shazeer, N., et al. (2017). *Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*. arXiv. https://arxiv.org/abs/1701.06538 — The sparse top-k gate that Mixtral uses in each layer.
 - Fedus, W., Zoph, B. & Shazeer, N. (2021). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. arXiv. https://arxiv.org/abs/2101.03961 — Top-1 routing, for comparison with Mixtral's top-2.
 - Lepikhin, D., et al. (2020). *GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding*. arXiv. https://arxiv.org/abs/2006.16668 — Sparse Transformer experts at scale, with automatic sharding.
-- Jacobs, R. A., Jordan, M. I., Nowlan, S. J. & Hinton, G. E. (1991). Adaptive Mixtures of Local Experts. *Neural Computation*, 3(1), 79–87. https://doi.org/10.1162/neco.1991.3.1.79 — The original mixture of experts.
+- Jacobs, R. A., Jordan, M. I., Nowlan, S. J. & Hinton, G. E. (1991). Adaptive Mixtures of Local Experts. *Neural Computation*, 3(1), 79–87. https://doi.org/10.1162/neco.1991.3.1.79 — The original mixture-of-experts model, with a gating network that weights local expert networks.
 
 ### Surveys and textbooks
 
