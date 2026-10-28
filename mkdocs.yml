@@ -882,6 +882,14 @@ plugins:
             AI & Society: AI 與社會
             Safety & Alignment: AI 安全與對齊
             Interpretability: 可解釋性
+            Reward hacking and specification gaming: 獎勵駭客與規格博弈
+            Scalable oversight: 可擴展監督
+            Constitutional AI and RLAIF: 憲法式 AI 與 RLAIF
+            Model specifications: 模型規範
+            Deceptive alignment and sleeper agents: 欺騙性對齊與潛伏代理
+            Dangerous-capability evaluations: 危險能力評估
+            Mechanistic interpretability and circuits: 機制可解釋性與電路
+            Sparse autoencoders and feature dictionaries: 稀疏自編碼器與特徵字典
             Ethics & Fairness: 倫理與公平
             Privacy & Data Protection: 隱私與資料保護
             Differential privacy: 差分隱私
@@ -1870,8 +1878,18 @@ nav:
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
   - AI & Society:
       - society/index.md
-      - Safety & Alignment: society/safety-alignment/index.md
-      - Interpretability: society/interpretability/index.md
+      - Safety & Alignment:
+          - society/safety-alignment/index.md
+          - Reward hacking and specification gaming: society/safety-alignment/reward-hacking.md
+          - Scalable oversight: society/safety-alignment/scalable-oversight.md
+          - Constitutional AI and RLAIF: society/safety-alignment/constitutional-ai.md
+          - Model specifications: society/safety-alignment/model-specs.md
+          - Deceptive alignment and sleeper agents: society/safety-alignment/deceptive-alignment.md
+          - Dangerous-capability evaluations: society/safety-alignment/dangerous-capability-evals.md
+      - Interpretability:
+          - society/interpretability/index.md
+          - Mechanistic interpretability and circuits: society/interpretability/mechanistic-interpretability.md
+          - Sparse autoencoders and feature dictionaries: society/interpretability/sparse-autoencoders.md
       - Ethics & Fairness: society/ethics/index.md
       - Privacy & Data Protection:
           - society/privacy/index.md

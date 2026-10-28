@@ -26,13 +26,18 @@
 
 ## 機械式可解釋性
 
-- **電路**：實現可辨識演算法的小型子網路——視覺模型中的曲線偵測器、Transformer 中的歸納頭（induction heads）、間接賓語辨識電路
+- **[電路](mechanistic-interpretability.md)**：實現可辨識演算法的小型子網路——視覺模型中的曲線偵測器、Transformer 中的歸納頭（induction heads）、間接賓語辨識電路
 - **疊加（superposition）**：網路透過重疊的方向，表示比神經元數量更多的特徵（Elhage et al., 2022），使單一神經元呈現多義性（polysemantic）
-- **稀疏自編碼器（SAE）與字典學習**能從 LLM 的激活中抽出數百萬個較易解讀的特徵（Anthropic 的 "Scaling Monosemanticity"，2024；OpenAI 與 Google DeepMind 的類似工作，以及 Gemma Scope）
+- **[稀疏自編碼器（SAE）](sparse-autoencoders.md)與字典學習**能從 LLM 的激活中抽出數百萬個較易解讀的特徵（Anthropic 的 "Scaling Monosemanticity"，2024；OpenAI 與 Google DeepMind 的類似工作，以及 Gemma Scope）
 - **歸因圖／電路追蹤**：追蹤特徵如何交互作用以產生輸出，例如揭示押韻時的多步驟推理與提前規劃（Anthropic, 2025）
 - **因果介入**：激活修補（activation patching）、因果追蹤（定位事實記憶，Meng et al., 2022）、引導向量（steering vectors）
 - **探測（probing）**：從激活中讀取資訊的線性分類器——例如真實性方向，或 Othello-GPT 中的棋盤狀態
 - **思維鏈的忠實性**：模型陳述的推理是否反映其實際運算——通常只是部分如此
+
+## 詳細頁面
+
+- [機械式可解釋性與電路](mechanistic-interpretability.md)：電路、歸納頭、事實回憶與疊加。
+- [稀疏自編碼器與特徵字典](sparse-autoencoders.md)：激活上的字典學習、擴展與已知的失效模式。
 
 ## 與神經科學的平行
 
