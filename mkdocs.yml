@@ -673,6 +673,7 @@ plugins:
             Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
             Mixed-Precision Training: 混合精度訓練
             FP8 Formats: FP8 格式
+            Gradient Checkpointing: 梯度檢查點
             Roofline Model: 屋頂線模型
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
@@ -1386,6 +1387,7 @@ nav:
           - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md
           - Mixed-Precision Training: engineering/hardware/co-design/mixed-precision.md
           - FP8 Formats: engineering/hardware/co-design/fp8.md
+          - Gradient Checkpointing: engineering/hardware/co-design/gradient-checkpointing.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
