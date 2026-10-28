@@ -63,17 +63,17 @@ The image representation is the final layer-normalised class token, \(y = \mathr
 
 ### Variants and related models
 
-These are named methods that build on ViT. Each needs a page of its own, and none has one yet.
+These are named methods that build on ViT, each with its own page.
 
-- **DeiT** (Touvron et al., 2021) trains a ViT on ImageNet alone. Its 86M-parameter reference model reaches 83.1% top-1 on ImageNet with no external data, and it adds a distillation token that learns from a teacher through attention. [arXiv:2012.12877](https://arxiv.org/abs/2012.12877)
-- **Swin Transformer** (Liu et al., 2021) builds a hierarchical ViT that computes self-attention inside shifted local windows. Its cost is linear in image size, and it serves as a general backbone for detection and segmentation. [DOI 10.1109/ICCV48922.2021.00986](https://doi.org/10.1109/ICCV48922.2021.00986)
+- **[DeiT](deit/index.md)** (Touvron et al., 2021) trains a ViT on ImageNet alone. Its 86M-parameter reference model reaches 83.1% top-1 on ImageNet with no external data, and it adds a distillation token that learns from a teacher through attention. [arXiv:2012.12877](https://arxiv.org/abs/2012.12877)
+- **[Swin Transformer](swin/index.md)** (Liu et al., 2021) builds a hierarchical ViT that computes self-attention inside shifted local windows. Its cost is linear in image size, and it serves as a general backbone for detection and segmentation. [DOI 10.1109/ICCV48922.2021.00986](https://doi.org/10.1109/ICCV48922.2021.00986)
 - **ConvNeXt** (Liu et al., 2022) goes the other way: it modernises a ResNet with Transformer-style design choices and stays a pure convolutional network. [CNN backbones and scaling](../../cnn/backbones-and-scaling/convnext/index.md)
 
 ## Components and variants
 
 - **Pre-training data and regularisation.** The inductive bias of ViT is weak, so its results depend on data and training recipe. Steiner et al. (2022) show that more compute combined with data augmentation and regularisation ("AugReg") can match models trained on about ten times more data, and that models trained on the public ImageNet-21k can match or beat counterparts trained on JFT-300M.
-- **Hierarchical and windowed attention.** Swin and similar models trade global attention for local windows, which suits dense prediction.
-- **Distillation and data-efficient training.** DeiT shows that a convnet teacher can help a ViT learn on ImageNet alone.
+- **Hierarchical and windowed attention.** [Swin](swin/index.md) and similar models trade global attention for local windows, which suits dense prediction.
+- **Distillation and data-efficient training.** [DeiT](deit/index.md) shows that a convnet teacher can help a ViT learn on ImageNet alone.
 
 ## Connections
 

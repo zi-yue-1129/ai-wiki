@@ -52,7 +52,7 @@ DiT（Diffusion Transformer，擴散 Transformer）是一種擴散去噪器，�
 
 ### 開創性論文
 
-- Peebles, W. & Xie, S. (2023). Scalable Diffusion Models with Transformers. ICCV. https://arxiv.org/abs/2212.09748 — 提出 DiT，並報告 FID 隨 Gflops 改善。
+- Peebles, W. & Xie, S. (2023). Scalable Diffusion Models with Transformers. ICCV 2023. [DOI 10.1109/ICCV51070.2023.00387](https://doi.org/10.1109/ICCV51070.2023.00387)。另見 [arXiv:2212.09748](https://arxiv.org/abs/2212.09748) — 提出 DiT，並報告 FID 隨 Gflops 改善。
 - Rombach, R. 等人 (2022). High-Resolution Image Synthesis with Latent Diffusion Models. CVPR. https://arxiv.org/abs/2112.10752 — DiT 取代 U-Net 的潛在擴散設定。
 - Vaswani, A. 等人 (2017). Attention Is All You Need. NeurIPS. https://arxiv.org/abs/1706.03762 — DiT 重用為去噪器的 Transformer 架構。
 

@@ -64,17 +64,17 @@ z_\ell = \mathrm{MLP}\big(\mathrm{LN}(z'_\ell)\big) + z'_\ell
 
 ### 變體與相關模型
 
-以下是建立在 ViT 之上的具名方法。每一個都應該有自己的頁面，目前還沒有。
+以下是建立在 ViT 之上的具名方法，每一個都有自己的頁面。
 
-- **DeiT**（Touvron 等人，2021）只用 ImageNet 訓練 ViT。其 86M 參數的參考模型在 ImageNet 上不使用外部資料即達到 83.1% top-1，並加入一個蒸餾 token，讓學生模型透過注意力向教師學習。[arXiv:2012.12877](https://arxiv.org/abs/2012.12877)
-- **Swin Transformer**（Liu 等人，2021）建立階層式的 ViT，在平移後的局部視窗內計算自注意力。其計算成本隨影像大小線性成長，並作為偵測與分割的通用骨幹。[DOI 10.1109/ICCV48922.2021.00986](https://doi.org/10.1109/ICCV48922.2021.00986)
+- **[DeiT](deit/index.md)**（Touvron 等人，2021）只用 ImageNet 訓練 ViT。其 86M 參數的參考模型在 ImageNet 上不使用外部資料即達到 83.1% top-1，並加入一個蒸餾 token，讓學生模型透過注意力向教師學習。[arXiv:2012.12877](https://arxiv.org/abs/2012.12877)
+- **[Swin Transformer](swin/index.md)**（Liu 等人，2021）建立階層式的 ViT，在平移後的局部視窗內計算自注意力。其計算成本隨影像大小線性成長，並作為偵測與分割的通用骨幹。[DOI 10.1109/ICCV48922.2021.00986](https://doi.org/10.1109/ICCV48922.2021.00986)
 - **ConvNeXt**（Liu 等人，2022）走了相反的方向：以 Transformer 式的設計選擇現代化 ResNet，仍然是純卷積網路。[卷積骨幹與縮放](../../cnn/backbones-and-scaling/convnext/index.md)
 
 ## 組件與變體
 
 - **預訓練資料與正則化。** ViT 的歸納偏置較弱，因此結果取決於資料與訓練配方。Steiner 等人（2022）顯示，更多的計算加上資料增強與正則化（「AugReg」），可以追上資料多約十倍的模型；而在公開的 ImageNet-21k 上訓練的模型，能匹配或超越在較大、但不公開的 JFT-300M 上訓練的對照模型。
-- **階層式與視窗式注意力。** Swin 等模型以局部視窗換取全域注意力，較適合密集預測任務。
-- **蒸餾與資料高效訓練。** DeiT 顯示，卷積網路教師能幫助 ViT 只用 ImageNet 也能學好。
+- **階層式與視窗式注意力。** [Swin](swin/index.md) 等模型以局部視窗換取全域注意力，較適合密集預測任務。
+- **蒸餾與資料高效訓練。** [DeiT](deit/index.md) 顯示，卷積網路教師能幫助 ViT 只用 ImageNet 也能學好。
 
 ## 連結
 
