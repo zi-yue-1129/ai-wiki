@@ -34,16 +34,16 @@ Links come in tiers, and each tier sets the scope of the parallelism that can ru
 | Tier | Examples | Typical scope |
 |---|---|---|
 | Within a server or rack-scale domain | NVLink and NVSwitch in GPU systems | A group of GPUs with very high bandwidth between any pair |
-| Within a pod or slice | Inter-chip interconnect (ICI) in TPU systems, arranged as a torus | A TPU slice or pod |
+| Within a pod or slice | Inter-chip interconnect (ICI) in TPU systems, arranged as a 3D torus | A TPU slice or pod |
 | Between servers | InfiniBand, or Ethernet with RDMA (RoCE) | A cluster, at lower bandwidth per chip |
 
 Parallel work is usually split so that the most frequent communication stays in the fastest tier. Tensor parallelism exchanges data inside every layer and so needs the fastest links, while data parallelism exchanges gradients once per step and tolerates slower ones.
 
-Collective operations describe the common communication patterns. All-reduce sums values across chips and gives every chip the result. All-gather collects shards onto every chip, and reduce-scatter sums values and leaves each chip with one shard. All-to-all sends a different piece to every other chip, which is what routes tokens to experts in a mixture-of-experts model.
+Collective operations describe the common communication patterns. All-reduce sums values across chips and gives every chip the result. All-gather collects shards onto every chip, and reduce-scatter sums values and leaves each chip with one shard. All-to-all sends a different piece to every other chip, which is the pattern that routes tokens to experts in a mixture-of-experts model.
 
 ## Equation or algorithm
 
-A ring all-reduce arranges the chips in a cycle. It runs as a reduce-scatter followed by an all-gather, and each chip sends and receives a fraction of the data in every step. The bandwidth cost per chip is then
+A ring all-reduce arranges the chips in a cycle. It runs as a reduce-scatter followed by an all-gather, and each chip sends and receives a fraction of the data in every step. Patarasuk and Yuan show that this is bandwidth-optimal, and the per-chip bandwidth cost is then
 
 \[
 T \approx \frac{2(N-1)}{N} \cdot \frac{S}{B}
@@ -55,18 +55,18 @@ Parallelism strategies differ in what they send. Data parallelism all-reduces gr
 
 ## Results
 
-Jouppi et al. (2023) describe the TPU v4 pod, which connects its chips with optical circuit switches that reconfigure the network topology. They report that these switches add only a small share of system cost and power, and that at comparable scale the system ran its workloads 1.2 to 1.7 times faster than the Nvidia A100 while using 1.3 to 1.9 times less power.
+Jouppi et al. (2023) describe the TPU v4 pod, which uses optical circuit switches to reconfigure its interconnect topology. They report that the switches and their optical components are under 5% of system cost and under 3% of system power. For similar-sized systems, TPU v4 is 1.2 to 1.7 times faster and uses 1.3 to 1.9 times less power than the Nvidia A100.
 
-Shoeybi et al. (2019) show that splitting each layer across GPUs lets transformer models with billions of parameters train on up to 512 GPUs at about 76 percent scaling efficiency. Rajbhandari et al. (2019) remove the duplicated memory of data-parallel training while keeping the volume of communication low. Narayanan et al. (2021) combine tensor, pipeline and data parallelism to train models with trillions of parameters, and they note that naive use of these methods becomes costly because of data transfer between nodes.
+Shoeybi et al. (2019) train an 8.3 billion parameter transformer on 512 GPUs with 76% scaling efficiency, by splitting each layer across GPUs. Rajbhandari et al. (2019) show that ZeRO eliminates memory redundancy in data- and model-parallel training while keeping communication volume low. Narayanan et al. (2021) combine tensor, pipeline and data parallelism to train a model with one trillion parameters on 3072 GPUs. They note that naive use of these methods becomes costly because of expensive cross-node communication.
 
 ## Limitations
 
 Bandwidth figures differ across generations and vendors, and they are often quoted per direction, per link or per chip, so they are not directly comparable. Topology matters as well: a torus, a switched fabric and a tree give different collective costs at the same nominal bandwidth. The bandwidth model above ignores latency and contention, and real scaling efficiency also depends on overlap, load balance and failures, which become more frequent at large scale.
 
-## Open issues and related variants
+## Open questions
 
 - **How far a fast domain can grow.** The point at which a tightly coupled group should be split across slower links depends on the workload. Optical switching, as in TPU v4, is one answer to making larger domains cheap.
-- **Expert routing.** All-to-all traffic from [mixture-of-experts](../../../theory/models/mixture-of-experts/index.md) routing is hard to overlap with computation, so it often limits the scaling of such models.
+- **Expert routing.** The all-to-all traffic from [mixture-of-experts](../../../theory/models/mixture-of-experts/index.md) routing is a different pattern from all-reduce, and it can be harder to overlap with computation.
 - **Smaller messages.** Lower-precision gradients and activations reduce traffic; see [quantisation](../../../theory/model-compression/quantisation/index.md).
 - **Related:** the [memory hierarchy](../memory-hierarchy/index.md) follows the same logic inside a chip, where bandwidth between levels decides speed.
 
@@ -79,18 +79,8 @@ The training side of this topic is covered in [distributed training](../../distr
 ### Seminal papers
 
 - Jouppi, N. P., et al. (2023). *TPU v4: An Optically Reconfigurable Supercomputer for Machine Learning with Hardware Support for Embeddings*. arXiv:2304.01433. https://arxiv.org/abs/2304.01433 — Describes optical circuit switching for reconfiguring the TPU v4 network and reports its speed and power against the A100.
-- Shoeybi, M., et al. (2019). *Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism*. arXiv:1909.08053. https://arxiv.org/abs/1909.08053 — Shows intra-layer model parallelism training billion-parameter transformers on up to 512 GPUs at about 76 percent scaling efficiency.
-- Rajbhandari, S., et al. (2019). *ZeRO: Memory Optimizations Toward Training Trillion Parameter Models*. arXiv:1910.02054. https://arxiv.org/abs/1910.02054 — Removes duplicated memory in data-parallel and model-parallel training while keeping communication volume low.
-- Narayanan, D., et al. (2021). *Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM*. arXiv:2104.04473. https://arxiv.org/abs/2104.04473 — Combines tensor, pipeline and data parallelism for trillion-parameter training and discusses the cost of inter-node transfer.
-
-### Surveys and textbooks
-
-(none checked for this page)
-
-### Lectures and videos
-
-(none checked for this page)
-
-### Articles and documentation
-
-- Sergeev, A., et al. (2018). *Horovod: fast and easy distributed deep learning in TensorFlow*. arXiv:1802.05799. https://arxiv.org/abs/1802.05799 — Uses ring-based reduction to make communication between GPUs efficient in data-parallel training.
+- Shoeybi, M., et al. (2019). *Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism*. arXiv:1909.08053. https://arxiv.org/abs/1909.08053 — Shows intra-layer model parallelism training an 8.3 billion parameter transformer on 512 GPUs at 76% scaling efficiency.
+- Rajbhandari, S., et al. (2019). *ZeRO: Memory Optimizations Toward Training Trillion Parameter Models*. arXiv:1910.02054. https://arxiv.org/abs/1910.02054 — Eliminates memory redundancy in data- and model-parallel training while keeping communication volume low.
+- Narayanan, D., et al. (2021). *Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM*. arXiv:2104.04473. https://arxiv.org/abs/2104.04473 — Combines tensor, pipeline and data parallelism for one-trillion-parameter training and discusses the cost of cross-node transfer.
+- Sergeev, A. and Del Balso, M. (2018). *Horovod: fast and easy distributed deep learning in TensorFlow*. arXiv:1802.05799. https://arxiv.org/abs/1802.05799 — Uses ring reduction for efficient inter-GPU communication in data-parallel training.
+- Patarasuk, P. and Yuan, X. (2009). *Bandwidth optimal all-reduce algorithms for clusters of workstations*. Journal of Parallel and Distributed Computing 69, 117–124. https://doi.org/10.1016/j.jpdc.2008.09.002 — Shows that the ring all-reduce is bandwidth-optimal, the basis of the cost formula above.
