@@ -62,6 +62,7 @@ AdamW 是帶有解耦權重衰減的 Adam。它把權重衰減懲罰直接作用
 
 ### 綜述與教科書
 
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization Methods for Large-Scale Machine Learning. *SIAM Review*. https://arxiv.org/abs/1606.04838 — 隨機梯度方法綜述，包含自適應變體及其取捨。
 - Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*，第 7 章正則化。MIT Press。https://www.deeplearningbook.org/ — 將權重衰減作為正則化項的教科書說明，可線上免費閱讀。
 
 ### 文章與文件

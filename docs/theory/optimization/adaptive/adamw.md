@@ -74,6 +74,7 @@ The decay term \(\lambda\theta_{t-1}\) is added after the adaptive step, so it i
 
 ### Surveys and textbooks
 
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization Methods for Large-Scale Machine Learning. *SIAM Review*. https://arxiv.org/abs/1606.04838 — Survey of stochastic gradient methods, including adaptive variants and their trade-offs.
 - Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*, Chapter 7 on regularisation. MIT Press. https://www.deeplearningbook.org/ — Textbook treatment of weight decay as a regulariser, free online.
 
 ### Articles and documentation
