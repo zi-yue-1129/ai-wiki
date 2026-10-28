@@ -352,6 +352,7 @@ plugins:
             DDIM: DDIM
             Latent Diffusion: 潛在擴散
             DiT: DiT 擴散 Transformer
+            Vision Transformer (ViT): 視覺 Transformer（ViT）
             Diffusion Transformer (DiT): 擴散 Transformer（DiT）
             Mixture of Experts: 混合專家
             Sparsely-Gated MoE: 稀疏閘控混合專家
