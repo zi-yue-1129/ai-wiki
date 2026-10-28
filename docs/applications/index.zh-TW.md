@@ -23,6 +23,15 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | [資訊安全](cybersecurity/index.md) | 偵測、漏洞發現、AI 助長的攻擊、保護 AI |
 | [社會科學與人文學](social-science/index.md) | 計算社會科學、數位人文、社會模擬 |
 | [軟體開發](software/index.md) | 程式碼助理、程式碼代理人、測試、生產力證據 |
+| [搜尋與資訊檢索](search-and-information-retrieval/index.md) | 學習排序、神經檢索、答案引擎、引用準確度 |
+| [數學與形式證明](mathematics/index.md) | AlphaProof、AlphaGeometry、FunSearch、Lean 驗證 |
+| [天氣預報與地球觀測](weather-and-earth-observation/index.md) | GraphCast、Pangu-Weather、衛星與遙測製圖 |
+| [物流與供應鏈](logistics-supply-chain/index.md) | 需求預測、路線規劃、倉儲機器人 |
+| [客戶服務與對話系統](customer-service/index.md) | 從意圖分類器到使用工具的代理人、轉接、勞動影響的證據 |
+| [人力資源與招募](hr-recruiting/index.md) | 履歷篩選、面試分析、偏誤稽核、高風險規範 |
+| [保險與精算科學](insurance/index.md) | 定價、理賠分流、詐欺偵測、定價公平性 |
+| [運動分析](sports/index.md) | 追蹤資料、動作價值、姿態估計、裁判技術 |
+| [AI 用於 AI 研究](ai-research/index.md) | 研究代理人、研究能力基準、遞迴式改進的爭論 |
 
 ## 各領域背後的方法
 
@@ -47,6 +56,15 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | 資訊安全 | [異常偵測](../theory/paradigms/unsupervised/anomaly-detection/index.md)、[安全與對齊](../society/safety-alignment/index.md) |
 | 社會科學與人文學 | [機率與貝氏方法](../theory/paradigms/probabilistic/index.md)、[倫理與公平](../society/ethics/index.md) |
 | 軟體開發 | [大型語言模型](../theory/models/llm/index.md)、[AI 代理人](../theory/models/agents/index.md)、[評估與基準](../engineering/evaluation/index.md) |
+| 搜尋與資訊檢索 | [向量資料庫與語意搜尋](../engineering/vector-databases/index.md)、[檢索增強生成](../engineering/rag/index.md)、[Transformer](../theory/models/transformer/index.md) |
+| 數學與形式證明 | [符號 AI、搜尋與規劃](../theory/paradigms/symbolic-ai/index.md)、[推理模型](../theory/models/reasoning/index.md)、[強化學習](../theory/paradigms/reinforcement-learning/index.md) |
+| 天氣預報與地球觀測 | [圖神經網路](../theory/models/gnn/index.md)、[電腦視覺](../theory/models/computer-vision/index.md)、[領域適應](../theory/paradigms/transfer/domain-adaptation/index.md) |
+| 物流與供應鏈 | [最佳化](../theory/optimization/index.md)、[強化學習](../theory/paradigms/reinforcement-learning/index.md)、[串流與概念漂移](../theory/paradigms/online/streaming-and-concept-drift/index.md) |
+| 客戶服務與對話系統 | [AI 代理人](../theory/models/agents/index.md)、[檢索增強生成](../engineering/rag/index.md)、[評估與基準](../engineering/evaluation/index.md) |
+| 人力資源與招募 | [倫理與公平](../society/ethics/index.md)、[可解釋性](../society/interpretability/index.md)、[評估與驗證](../theory/paradigms/supervised/evaluation-and-validation/index.md) |
+| 保險與精算科學 | [決策樹與集成方法](../theory/paradigms/supervised/trees-and-ensembles/index.md)、[異常偵測](../theory/paradigms/unsupervised/anomaly-detection/index.md)、[機率與貝氏方法](../theory/paradigms/probabilistic/index.md) |
+| 運動分析 | [電腦視覺](../theory/models/computer-vision/index.md)、[強化學習](../theory/paradigms/reinforcement-learning/index.md)、[機率與貝氏方法](../theory/paradigms/probabilistic/index.md) |
+| AI 用於 AI 研究 | [AI 代理人](../theory/models/agents/index.md)、[思維鏈推理](../theory/models/reasoning/chain-of-thought.md)、[評估與基準](../engineering/evaluation/index.md) |
 
 ## 跨領域的模式
 
