@@ -86,6 +86,8 @@ L1 (sparsity), L2 (weight decay), early stopping, data augmentation, dropout, en
 
 For how models express doubt, and how to make their probabilities match observed frequencies, see [Uncertainty Quantification and Calibration](uncertainty-and-calibration/index.md).
 
+For inputs crafted to fool a model, and methods that keep a model correct under them, see [Adversarial Examples and Robustness](adversarial-robustness/index.md).
+
 ## Learning theory in brief
 
 - **PAC learning**: how many samples are needed to learn an approximately correct hypothesis with high probability.
