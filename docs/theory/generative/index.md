@@ -23,6 +23,10 @@ Generative modelling is an **approach**, not an architecture. Any family in [Mod
 | Flow matching | Learn a velocity field from noise to data | Simple training, fast sampling | — | Stable Diffusion 3, Flux |
 | Energy-based | Learn an energy \(E(x)\) | Flexible | Sampling is hard | Hopfield nets, EBMs |
 
+## Autoregressive models
+
+Full treatment, with one page per landmark method (PixelCNN, WaveNet and Image GPT): [Autoregressive Generative Models](autoregressive/index.md). Autoregressive models factor a joint distribution into next-step predictions, which gives exact likelihoods at the cost of sequential sampling. Next-token prediction in [language models](../models/llm/index.md) is the same objective applied to text.
+
 ## Variational autoencoders
 
 Full treatment, with one page per landmark variant (β-VAE and VQ-VAE): [Variational Autoencoders](vae/index.md). VAEs trade sample sharpness for a structured latent space that can be sampled and interpolated. The discrete variant, VQ-VAE, supplies the codes that later image generators model.
@@ -61,6 +65,10 @@ Key techniques:
 ## Flow matching
 
 Full treatment, with one page per landmark method (conditional flow matching, rectified flow and OT-CFM): [Flow Matching and Rectified Flow](flow-matching/index.md). Flow matching trains a network to predict a velocity field that carries noise to data along a path, without simulating that path during training. It generalises the diffusion paths, and rectified flow, a flow-matching variant with straight paths, underlies Stable Diffusion 3.
+
+## Normalising flows
+
+Full treatment, with one page per landmark method (RealNVP, Glow, masked autoregressive flow and FFJORD): [Normalising Flows](normalising-flows/index.md). Flows are invertible maps with a tractable Jacobian determinant, which gives exact likelihoods. Their continuous-time form, the continuous normalising flow, is the ancestor of flow matching.
 
 ## Where they are used
 

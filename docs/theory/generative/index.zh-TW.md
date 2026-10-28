@@ -16,6 +16,10 @@
 | 流匹配（Flow matching） | 學習從雜訊到資料的速度場 | 訓練簡單，採樣快 | — | Stable Diffusion 3、Flux |
 | 能量基模型 | 學習能量函數 \(E(x)\) | 彈性高 | 採樣困難 | Hopfield 網路、EBM |
 
+## 自回歸模型
+
+完整說明，並為各代表性方法（PixelCNN、WaveNet 與 Image GPT）各設一頁：[自回歸生成模型](autoregressive/index.md)。自回歸模型把聯合分布分解為逐步的預測，因而能給出精確的似然，代價是採樣必須依序進行。[語言模型](../models/llm/index.md)中的下一個詞元預測，就是把同一目標套用到文字上。
+
 ## 變分自編碼器
 
 完整說明，並為兩個代表性變體（β-VAE 與 VQ-VAE）各設一頁：[變分自編碼器](vae/index.md)。VAE 以樣本較模糊為代價，換得結構化、可取樣的潛在空間。離散變體 VQ-VAE 則提供後來影像生成器所建模的編碼。
@@ -54,6 +58,10 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 ## 流匹配
 
 完整說明，並為各代表性方法（條件流匹配、整流流、OT-CFM）各設一頁：[流匹配與整流流](flow-matching/index.md)。流匹配訓練網路預測速度場，把雜訊沿著一條路徑帶到資料，訓練時不需要模擬這條路徑。它推廣了擴散的路徑，而採用直線路徑的流匹配變體「整流流」則是 Stable Diffusion 3 的基礎。
+
+## 正規化流
+
+完整說明，並為各代表性方法（RealNVP、Glow、遮罩自回歸流與 FFJORD）各設一頁：[正規化流](normalising-flows/index.md)。正規化流是雅可比行列式容易計算的可逆映射，因此能給出精確的似然。其連續時間形式，即連續正規化流，是流匹配的前身。
 
 ## 應用領域
 
