@@ -31,7 +31,7 @@ aliases:
 
 核心主張是，神經系統包含兩種互補的習得映射。前向模型根據當前狀態與送出的指令，預測下一個感覺狀態。反向模型，也就是控制器，則產生一個能帶來期望狀態的指令。前向模型的預測能立即取得，因此可以與延遲的回饋結合，得到對當前狀態更好的估計。
 
-Kawato、Furukawa 與 Suzuki（1987）提出一個用於隨意動作控制與學習的階層式網路，其中習得的模型與回饋控制器結合。Wolpert、Ghahramani 與 Jordan（1995）在一項感覺運動任務中檢驗了此想法。他們探討人們對手部位置估計的誤差如何隨時間擴散，並以最優狀態估計來解讀結果。他們的結論是，此模式支持運動系統的內部模型。
+Kawato、Furukawa 與 Suzuki（1987）提出一個用於隨意動作控制與學習的階層式網路，其中動力學與反向動力學模型經由練習習得；他們以搭配機器人手臂的電腦模擬加以檢驗。Wolpert、Ghahramani 與 Jordan（1995）在一項感覺運動任務中檢驗了此想法。他們探討人們對手部位置估計的誤差如何隨時間擴散，並以最優狀態估計來解讀結果。他們的結論是，此模式支持運動系統的內部模型。
 
 ## 方程式與演算法
 
@@ -45,23 +45,23 @@ Kawato、Furukawa 與 Suzuki（1987）提出一個用於隨意動作控制與學
 
 其中 \(y_{t+1}\) 是觀察到的感覺回饋，\(\hat{y}_{t+1}\) 是預測的回饋，\(K\) 是增益，決定誤差在多大程度上改變估計。前向模型提供預測；增益則決定控制器相對於預測，對回饋的信任程度。
 
-學習通常以誤差驅動的方式描述。預測的感覺回饋與實際回饋之間的不一致，被用來調整前向模型；而回饋控制器的修正量，則可作為訓練反向模型的誤差訊號。這種模式是 Kawato 工作中「回饋誤差學習」（feedback-error-learning）模型族的基礎。
+學習通常以誤差驅動的方式描述。預測的感覺回饋與實際回饋之間的不一致，被用來調整前向模型。
 
 ## 結果
 
-前向模型的實驗證據是間接的。前向模型不能直接觀察，它的存在是從行為推斷出來的。Wolpert、Ghahramani 與 Jordan（1995）顯示，估計手部位置中誤差的傳播，符合最優狀態估計下內部模型的預測，作者把這一點視為直接支持。Wolpert、Miall 與 Kawato（1998）則回顧了小腦中支持前向與反向模型的證據。
+前向模型的實驗證據是間接的。前向模型不能直接觀察，它的存在是從行為推斷出來的。Wolpert、Ghahramani 與 Jordan（1995）在最優狀態估計的框架下，分析估計手部位置的誤差如何隨時間傳播，並把結果視為對內部模型的直接支持。Wolpert、Miall 與 Kawato（1998）則回顧小腦中的內部模型。
 
 ## 限制
 
 - **證據是間接的。** 前向模型是從行為與誤差擴散的方式推斷出來的，而不是從單一神經元讀取的。對同樣的資料，也可能有其他解釋。
 - **模型的形式不明確。** 大腦學習的是身體的精確模型，還是只在所訓練情境下有效的近似模型，目前尚未定論。
-- **模型儲存的位置不確定。** 小腦是主要候選者。[小腦監督式學習](../marr-albus-ito/index.md)一頁說明了 Ito（2008）認為小腦學習此類模型的論點。其他區域也可能分擔此角色。
-- **適應與預測相關但不相同。** Shadmehr、Smith 與 Krakauer（2010）回顧了誤差修正、感覺預測與適應如何相互配合，但並未把三者視為同一過程。
+- **模型儲存的位置不確定。** 小腦是主要候選者。[小腦監督式學習](../marr-albus-ito/index.md)一頁說明了 Ito（2008）的假說，即小腦編碼此類模型。其他區域也可能分擔此角色。
+- **預測與適應相互關聯。** Shadmehr、Smith 與 Krakauer（2010）回顧證據，顯示前向模型是經由由感覺預測誤差驅動的運動適應而保持校準的。
 
 ## 連結
 
 - **最優控制。** 最優回饋控制需要對身體狀態的估計，而前向模型提供此估計。見[最優回饋控制](../optimal-feedback-control/index.md)。
-- **小腦。** 小腦被認為學習前向與反向模型，這把本頁連結到[小腦監督式學習](../marr-albus-ito/index.md)。
+- **小腦。** 小腦被認為學習內部模型，這把本頁連結到[小腦監督式學習](../marr-albus-ito/index.md)。
 - **世界模型與基於模型的強化學習。** 預測行動結果的環境學習模型，是前向模型在 AI 中的對應物。見[世界模型與具身智慧](../../../theory/models/world-models/index.md)與[有模型與無模型控制](../../decision-reward/model-based-vs-model-free/index.md)。
 
 ## 應用
@@ -79,11 +79,11 @@ Kawato、Furukawa 與 Suzuki（1987）提出一個用於隨意動作控制與學
 
 ### 開創性論文
 
-- Kawato, M., Furukawa, K. & Suzuki, R. (1987). A hierarchical neural-network model for control and learning of voluntary movement. *Biological Cybernetics*. https://doi.org/10.1007/BF00364149 — 提出一個階層式網路，透過結合習得模型與回饋，學習控制隨意動作。
+- Kawato, M., Furukawa, K. & Suzuki, R. (1987). A hierarchical neural-network model for control and learning of voluntary movement. *Biological Cybernetics*. https://doi.org/10.1007/BF00364149 — 提出一個階層式網路，其中動力學與反向動力學模型經由練習習得，並以模擬加以檢驗。
 - Wolpert, D. M., Ghahramani, Z. & Jordan, M. I. (1995). An internal model for sensorimotor integration. *Science*. https://doi.org/10.1126/science.7569931 — 分析手部位置估計中的誤差如何隨時間傳播，並以此作為運動系統內部模型的支持。
 
-### 綜述與回顧
+### 綜述與教科書
 
-- Wolpert, D. M., Miall, R. C. & Kawato, M. (1998). Internal models in the cerebellum. *Trends in Cognitive Sciences*. https://doi.org/10.1016/S1364-6613(98)01221-2 — 回顧小腦同時持有前向與反向內部模型的證據。
-- Kawato, M. (1999). Internal models for motor control and trajectory planning. *Current Opinion in Neurobiology*. https://doi.org/10.1016/S0959-4388(99)00028-8 — 回顧運動控制與軌跡規劃中的內部模型。
-- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧感覺預測與誤差修正如何支撐適應。
+- Wolpert, D. M., Miall, R. C. & Kawato, M. (1998). Internal models in the cerebellum. *Trends in Cognitive Sciences*. https://doi.org/10.1016/S1364-6613(98)01221-2 — 回顧小腦中的內部模型。
+- Kawato, M. (1999). Internal models for motor control and trajectory planning. *Current Opinion in Neurobiology*. https://doi.org/10.1016/S0959-4388(99)00028-8 — 討論運動控制與軌跡規劃中的內部模型。
+- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧前向模型如何經由感覺預測誤差驅動的運動適應而保持校準。

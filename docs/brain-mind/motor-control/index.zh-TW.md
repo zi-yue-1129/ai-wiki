@@ -26,15 +26,15 @@ aliases:
 
 ## 概述
 
-伸手拿一個杯子看似簡單，但大腦面對一連串困難的問題。感覺訊號會有數十毫秒的延遲，因此大腦不能只靠回饋來引導快速的動作。肌肉會因疲勞與負荷而改變表現，手臂的力學也取決於姿勢。運動控制理論要問的是：控制器如何應付這些情況，仍能產生精確的動作，以及大腦各部位分別負責什麼。
+伸手拿一個杯子看似簡單，但大腦面對一連串困難的問題。感覺訊號會有延遲，因此大腦不能只靠回饋來引導快速的動作。肌肉會因疲勞與負荷而改變表現，手臂的力學也取決於姿勢。運動控制理論要問的是：控制器如何應付這些情況，仍能產生精確的動作，以及大腦各部位分別負責什麼。
 
-這些答案是數十年間逐步形成的。工程師與生理學家逐漸匯聚到幾個共通的想法：大腦保有一個身體的內部模型，它以依任務而定的方式使用回饋，並從誤差中學習。這些想法解釋了小腦在調整動作中的角色，也連結到在運動皮質中觀察到的群體層級動態。
+這些答案是數十年間逐步形成的。工程師與生理學家逐漸匯聚到幾個共通的想法：大腦保有一個身體的內部模型，它以依任務而定的方式使用回饋，並從誤差中學習。這些想法與小腦在調整動作中的角色有關，也連結到在運動皮質中觀察到的群體層級動態。
 
 ## 核心概念
 
 - **內部模型（internal model）**：大腦內部習得的映射，表示身體與外在世界如何回應指令。前向模型（forward model）預測指令的結果；反向模型（inverse model）則為期望的結果提出一個指令。
 - **傳出複本（efference copy）**：送往感覺區的運動指令副本，使人能把自身動作的預期感覺結果，與真實的感覺結果相比較。
-- **攀爬纖維與平行纖維（climbing fibre and parallel fibre）**：小腦浦肯野細胞（Purkinje cell）的兩種輸入。攀爬纖維攜帶類似誤差的教導訊號，平行纖維則攜帶情境訊號。
+- **攀爬纖維與平行纖維（climbing fibre and parallel fibre）**：小腦浦肯野細胞（Purkinje cell）的兩種輸入。攀爬纖維攜帶類似誤差的教導訊號。
 - **回饋控制（feedback control）**：在動作進行中，依據感測到的誤差加以修正。
 - **最優控制（optimal control）**：在給定誤差與努力的成本，以及系統中存在雜訊的條件下，選出最能達成目標的指令。
 - **神經群體動力學（neural population dynamics）**：一種觀點，認為許多神經元的聯合活動依一定規則隨時間演化，而不是每個神經元各自編碼某個固定的量。
@@ -50,16 +50,15 @@ aliases:
 ## 連結
 
 - **腦與心智。** 小腦也參與程序性學習與制約學習；見[記憶與學習的神經機制](../memory-learning/index.md)。把知覺與動作視為降低預測誤差的預測處理觀點，見[預測編碼與自由能原理](../predictive-coding/index.md)。神經系統的基本結構見[神經科學基礎](../neuroscience/index.md)，建模工具見[計算神經科學](../computational-neuroscience/index.md)。
-- **運動皮質與腦機介面。** 對運動皮質的群體分析，是[腦機介面與神經解碼](../bci/index.md)所用解碼器的基礎，包括[以神經控制的手臂進行伸手與抓取（Hochberg 等人，2012）](../bci/neural-reach-and-grasp/index.md)的研究。
+- **運動皮質與腦機介面。** 對運動皮質的群體分析，與[腦機介面與神經解碼](../bci/index.md)所用的解碼器相關，包括[以神經控制的手臂進行伸手與抓取（Hochberg 等人，2012）](../bci/neural-reach-and-grasp/index.md)的研究。
 - **強化學習與基於模型的控制。** 前向模型正是基於模型的控制器用來規劃的東西。用習得模型規劃，與直接學習價值之間的對比，見[有模型與無模型控制](../decision-reward/model-based-vs-model-free/index.md)；獎勵導向的學習見[決策、多巴胺與獎勵](../decision-reward/index.md)。整體框架見[強化學習](../../theory/paradigms/reinforcement-learning/index.md)。
 - **NeuroAI。** 運動控制一直是學習模型與世界模型的試驗場，見[NeuroAI：大腦與 AI 的雙向啟發](../neuroai/index.md)與[世界模型與具身智慧](../../theory/models/world-models/index.md)。
 
 ## 應用
 
 - **機器人。** Albus 後來提出的小腦模型關節控制器（CMAC）是一種以查表為基礎的控制器，為機器人操作器而設計，把小腦的概念帶入工程。見[機器人](../../applications/robotics/index.md)。
-- **腦機介面。** 從運動皮質讀取意圖動作的解碼器，依賴群體活動攜帶動作狀態與動態這一觀點。見[腦機介面概述](../bci/index.md)。
+- **腦機介面。** 部分從運動皮質讀取意圖動作的解碼器，建立在對該皮質的群體層級分析之上。見[腦機介面概述](../bci/index.md)。
 - **基於模型的強化學習。** 會學習環境模型並以之規劃的代理人，借用了運動控制中的前向模型概念。見[強化學習](../../theory/paradigms/reinforcement-learning/index.md)。
-- **臨床神經科學。** 小腦受損與動作協調及適應能力的下降相關，這也是小腦被當作學習系統來研究的原因之一（見小腦方法頁所引的 Ito 2006 綜述）。
 
 ## 開放問題
 
@@ -73,16 +72,16 @@ aliases:
 ### 開創性論文
 
 - Marr, D. (1969). A theory of cerebellar cortex. *Journal of Physiology*. https://doi.org/10.1113/jphysiol.1969.sp008820 — 提出小腦皮質學習運動技能，下橄欖核傳來的攀爬纖維輸入是教導訊號。
-- Albus, J. S. (1971). A theory of cerebellar function. *Mathematical Biosciences*. https://doi.org/10.1016/0025-5564(71)90051-4 — 發展小腦學習模型，其中攀爬纖維訊號引導浦肯野細胞輸出的變化。
+- Albus, J. S. (1971). A theory of cerebellar function. *Mathematical Biosciences*. https://doi.org/10.1016/0025-5564(71)90051-4 — 提出一套小腦功能理論，發表於 Marr 的理論兩年之後。
 - Albus, J. S. (1975). A new approach to manipulator control: the cerebellar model articulation controller (CMAC). *Journal of Dynamic Systems, Measurement, and Control*. https://doi.org/10.1115/1.3426922 — 把小腦模型應用於機器人操作器控制。
-- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*. https://doi.org/10.1038/nn963 — 提出以隨機最優回饋控制作為運動協調的理論，協同與受控參數都由同一原理導出。
+- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*. https://doi.org/10.1038/nn963 — 提出隨機最優回饋控制作為運動協調的理論，其中只修正與任務相關的誤差。
 - Wolpert, D. M., Ghahramani, Z. & Jordan, M. I. (1995). An internal model for sensorimotor integration. *Science*. https://doi.org/10.1126/science.7569931 — 分析手部位置估計中的誤差如何隨時間傳播，並主張此結果支持運動系統的內部模型。
-- Churchland, M. M., Cunningham, J. P., Kaufman, M. T., Foster, J. D., Nuyujukian, P., Ryu, S. I. & Shenoy, K. V. (2012). Neural population dynamics during reaching. *Nature*. https://doi.org/10.1038/nature11129 — 在伸手過程中，把運動皮質的活動分析為一個群體動力系統。
+- Churchland, M. M., Cunningham, J. P., Kaufman, M. T., Foster, J. D., Nuyujukian, P., Ryu, S. I. & Shenoy, K. V. (2012). Neural population dynamics during reaching. *Nature*. https://doi.org/10.1038/nature11129 — 在伸手過程中，運動皮質的群體反應出現一段短暫但強烈的振盪成分。
 
-### 綜述與回顧
+### 綜述與教科書
 
-- Wolpert, D. M., Miall, R. C. & Kawato, M. (1998). Internal models in the cerebellum. *Trends in Cognitive Sciences*. https://doi.org/10.1016/S1364-6613(98)01221-2 — 回顧小腦同時持有前向與反向內部模型的證據。
-- Ito, M. (2008). Control of mental activities by internal models in the cerebellum. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2332 — 回顧小腦內部模型的概念，包括非運動功能。
+- Wolpert, D. M., Miall, R. C. & Kawato, M. (1998). Internal models in the cerebellum. *Trends in Cognitive Sciences*. https://doi.org/10.1016/S1364-6613(98)01221-2 — 回顧小腦中的內部模型。
+- Ito, M. (2008). Control of mental activities by internal models in the cerebellum. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2332 — 提出一個假說：小腦編碼內部模型，也包括對心智表徵的模型。
 - Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧誤差修正與感覺預測如何支撐適應。
 - Shenoy, K. V., Sahani, M. & Churchland, M. M. (2013). Cortical control of arm movements: a dynamical systems perspective. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-062111-150509 — 回顧運動皮質的動力系統觀點，及其與動作的關係。
-- Doya, K. (1999). What are the computations of the cerebellum, the basal ganglia and the cerebral cortex? *Neural Networks*. https://doi.org/10.1016/S0893-6080(99)00046-5 — 提出小腦、基底核與皮質的分工：分別為監督式、強化式與非監督式學習者。
+- Doya, K. (1999). What are the computations of the cerebellum, the basal ganglia and the cerebral cortex? *Neural Networks*. https://doi.org/10.1016/S0893-6080(99)00046-5 — 探討小腦、基底核與大腦皮質各自執行哪些計算。

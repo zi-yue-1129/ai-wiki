@@ -37,7 +37,7 @@ A central question is how the brain turns movement and sensory input into a sens
 
 The grid-like units are covered in detail on [Grid-like units in a navigating network](../neuroai/grid-like-units/index.md), so this page does not repeat that material.
 
-The cognitive-map idea is older than these recordings. Tolman (1948) argued from maze experiments that rats learn something like the layout of a maze, not only a chain of turns. A map of that kind would allow an animal to work out a route it had never taken. The later question is which neural structures hold such a map, and what form it takes.
+The cognitive-map idea is older than these recordings. Tolman (1948) introduced the term cognitive map in a paper on rats and people. A map of that kind would allow an animal to work out a route it had never taken. The later question is which neural structures hold such a map, and what form it takes.
 
 ## Key concepts
 
@@ -50,13 +50,13 @@ The cognitive-map idea is older than these recordings. Tolman (1948) argued from
 
 ## How it works
 
-Head-direction cells are commonly modelled as continuous attractor networks, in which a bump of activity moves around a ring of directions as the animal turns. The signal and its origins are reviewed by Taube (2007). The computational side is covered on [Computational Neuroscience](../computational-neuroscience/index.md). Place-cell firing is thought to depend on landmarks and self-motion cues. Path integration can estimate position without landmarks, and landmarks can correct the error that accumulates.
+Head-direction cells fire according to the animal's heading. Their signal and its origins are reviewed by Taube (2007). The computational side is covered on [Computational Neuroscience](../computational-neuroscience/index.md). Path integration can estimate position without landmarks, and landmarks can correct the error that accumulates.
 
 ## Key methods
 
 - [Tolman–Eichenbaum Machine (Whittington et al., 2020)](tolman-eichenbaum-machine/index.md): treats spatial navigation and relational memory as one problem, and produces grid-like and place-like units from a shared structure.
 - [Successor representation (Dayan, 1993)](successor-representation/index.md): stores expected future occupancy of states, so that the structure of transitions is kept apart from the reward at each state.
-- [Place cells and the cognitive-map hypothesis (O'Keefe & Dostrovsky, 1971)](place-cells/index.md): the first report of location-tuned hippocampal neurons, and the proposal that the hippocampus holds a spatial map.
+- [Place cells and the cognitive-map hypothesis (O'Keefe & Dostrovsky, 1971)](place-cells/index.md): unit recordings from freely moving rats, and the proposal, in its title, that the hippocampus is a spatial map.
 
 ## Connections
 
@@ -68,8 +68,8 @@ Head-direction cells are commonly modelled as continuous attractor networks, in 
 
 ## Applications
 
-- **Modelling human learning**: the successor representation has been used to fit human choice behaviour in sequential decision tasks (Momennejad et al., 2017).
-- **Trained navigation agents**: recurrent agents trained only to navigate can develop grid-like units. Hafting et al. (2005) gives the biological background for grid cells, and the agent result is on the [grid-like units page](../neuroai/grid-like-units/index.md).
+- **Modelling human learning**: Momennejad et al. (2017) tested the successor representation in two behavioural studies with humans, looking at how choices respond to changes in the sequence of events and to changes in rewards.
+- **Trained navigation agents**: whether grid-like units can emerge in artificial agents trained only to navigate is discussed on the [grid-like units page](../neuroai/grid-like-units/index.md).
 
 ## Open questions
 
@@ -82,20 +82,20 @@ Head-direction cells are commonly modelled as continuous attractor networks, in 
 
 ### Seminal papers
 
-- O'Keefe, J. & Dostrovsky, J. (1971). The hippocampus as a spatial map. Preliminary evidence from unit activity in the freely-moving rat. *Brain Research*. https://doi.org/10.1016/0006-8993(71)90358-1 — The first report of hippocampal units tuned to location in a freely moving rat, with the proposal that the hippocampus holds a spatial map.
-- Tolman, E. C. (1948). Cognitive maps in rats and men. *Psychological Review*. https://doi.org/10.1037/h0061626 — Argues from maze behaviour that rats learn a map-like representation of the environment, the origin of the cognitive-map idea.
+- O'Keefe, J. & Dostrovsky, J. (1971). The hippocampus as a spatial map. Preliminary evidence from unit activity in the freely-moving rat. *Brain Research*. https://doi.org/10.1016/0006-8993(71)90358-1 — Preliminary evidence from unit activity in a freely moving rat, with the proposal, in its title, that the hippocampus is a spatial map.
+- Tolman, E. C. (1948). Cognitive maps in rats and men. *Psychological Review*. https://doi.org/10.1037/h0061626 — Introduces the term cognitive map in a paper on rats and people, the origin of the idea used on this page.
 - Taube, J. S., Muller, R. U. & Ranck, J. B. (1990). Head-direction cells recorded from the postsubiculum in freely moving rats. I. Description and quantitative analysis. *Journal of Neuroscience*. https://doi.org/10.1523/JNEUROSCI.10-02-00420.1990 — Describes cells whose firing depends on head direction in the postsubiculum.
 - Hafting, T. et al. (2005). Microstructure of a spatial map in the entorhinal cortex. *Nature*. https://doi.org/10.1038/nature03721 — Describes grid cells in the entorhinal cortex. Included for context; the grid-cell detail is on the grid-like units page.
-- Dayan, P. (1993). Improving generalization for temporal difference learning: the successor representation. *Neural Computation*. https://doi.org/10.1162/neco.1993.5.4.613 — Defines the successor representation and shows how temporal-difference machinery can learn it.
+- Dayan, P. (1993). Improving generalization for temporal difference learning: the successor representation. *Neural Computation*. https://doi.org/10.1162/neco.1993.5.4.613 — Shows how temporal-difference machinery can learn representations in which each state is described by its successors.
 - Whittington, J. C. R. et al. (2020). The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation. *Cell*. https://doi.org/10.1016/j.cell.2020.10.024 — Proposes a model in which hippocampal and entorhinal structure supports spatial and relational memory together.
-- Stachenfeld, K. L., Botvinick, M. M. & Gershman, S. J. (2017). The hippocampus as a predictive map. *Nature Neuroscience*. https://doi.org/10.1038/nn.4650 — Proposes that the hippocampus represents space as a predictive map, linked to the successor representation.
+- Stachenfeld, K. L., Botvinick, M. M. & Gershman, S. J. (2017). The hippocampus as a predictive map. *Nature Neuroscience*. https://doi.org/10.1038/nn.4650 — Proposes, drawing on reinforcement learning, that the hippocampus represents space as a predictive map.
 
-### Surveys and reviews
+### Surveys and textbooks
 
 - Behrens, T. E. J. et al. (2018). What Is a Cognitive Map? Organizing Knowledge for Flexible Behavior. *Neuron*. https://doi.org/10.1016/j.neuron.2018.10.002 — Review of cognitive maps, including their extension beyond physical space.
 - Gershman, S. J. (2018). The Successor Representation: Its Computational Logic and Neural Substrates. *Journal of Neuroscience*. https://doi.org/10.1523/JNEUROSCI.0151-18.2018 — Review of the computational logic of the successor representation and the evidence for it in the brain.
 - Taube, J. S. (2007). The Head Direction Signal: Origins and Sensory-Motor Integration. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.29.051605.112854 — Review of where the head-direction signal comes from and how it is combined with movement.
 
-### Articles and applications
+### Articles and documentation
 
 - Momennejad, I. et al. (2017). The successor representation in human reinforcement learning. *Nature Human Behaviour*. https://doi.org/10.1038/s41562-017-0180-8 — Applies the successor representation to human reinforcement learning.

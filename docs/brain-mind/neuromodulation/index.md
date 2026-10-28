@@ -56,7 +56,7 @@ The two accounts differ in what they explain. Yu and Dayan ask how the brain sho
 
 **Uncertainty as a signal.** If a cue is known to be noisy, one surprising outcome should not change beliefs much. If the environment has just changed, beliefs should change quickly. Yu and Dayan argue that acetylcholine and noradrenaline encode these two cases.
 
-**Arousal and the exploration trade-off.** The locus coeruleus, the main source of brain noradrenaline, is described as switching between a tonic mode that supports broad exploration and a phasic mode that supports focused exploitation (Aston-Jones & Cohen, 2005). In humans, pupil-linked arousal tracks how likely a change in the environment is and predicts how strongly new outcomes update predictions (Nassar et al., 2012).
+**Arousal and the exploration trade-off.** The locus coeruleus, the main source of brain noradrenaline, is described as switching between a tonic mode that supports broad exploration and a phasic mode that supports focused exploitation (Aston-Jones & Cohen, 2005). In humans, pupil-linked arousal tracks the assessed instability of a noisy process and predicts how strongly new data change beliefs (Nassar et al., 2012).
 
 **Neuromodulators as meta-parameters.** Doya (2002) maps dopamine onto the prediction error, serotonin onto the discount factor, noradrenaline onto the randomness of action selection, and acetylcholine onto the learning rate. The mapping is a hypothesis, but it gives each neuromodulator a precise computational job.
 
@@ -89,14 +89,14 @@ The two accounts differ in what they explain. Yu and Dayan ask how the brain sho
 
 - Yu, A. J. & Dayan, P. (2005). Uncertainty, Neuromodulation, and Attention. *Neuron*. https://doi.org/10.1016/j.neuron.2005.04.026 — Proposes that acetylcholine and noradrenaline signal expected and unexpected uncertainty. Covered on [Yu & Dayan 2005](yu-dayan-2005/index.md).
 - Doya, K. (2002). Metalearning and neuromodulation. *Neural Networks*, 15(4–6), 495–506. https://doi.org/10.1016/s0893-6080(02)00044-8 — Proposes that four neuromodulators correspond to reinforcement-learning meta-parameters. Covered on [Doya 2002](doya-2002/index.md).
-- Dayan, P. & Yu, A. J. (2006). Phasic norepinephrine: a neural interrupt signal for unexpected events. *Network: Computation in Neural Systems*. https://doi.org/10.1080/09548980601004024 — Develops the idea that noradrenaline signals unexpected events.
-- Nassar, M. R., Rumsey, K. M., Wilson, R. C., Parikh, K., Heasly, B. & Gold, J. I. (2012). Rational regulation of learning dynamics by pupil-linked arousal systems. *Nature Neuroscience*. https://doi.org/10.1038/nn.3130 — Human experiments showing that pupil measures track change-point probability and predict learning rate.
+- Dayan, P. & Yu, A. J. (2006). Phasic norepinephrine: a neural interrupt signal for unexpected events. *Network: Computation in Neural Systems*, 17(4), 335–350. https://doi.org/10.1080/09548980601004024 — Proposes that phasic noradrenaline is a neural interrupt signal for unexpected events.
+- Nassar, M. R., Rumsey, K. M., Wilson, R. C., Parikh, K., Heasly, B. & Gold, J. I. (2012). Rational regulation of learning dynamics by pupil-linked arousal systems. *Nature Neuroscience*, 15(7), 1040–1046. https://doi.org/10.1038/nn.3130 — Human experiments showing that pupil-linked arousal tracks assessed instability in a noisy process and predicts how strongly new data influence beliefs.
 - Andrychowicz, M. et al. (2016). Learning to learn by gradient descent by gradient descent. *NeurIPS*. https://arxiv.org/abs/1606.04474 — Trains recurrent networks as optimisers that outperform hand-designed optimisers on the tasks they are trained on.
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. *ICLR*. https://arxiv.org/abs/1412.6980 — Introduces Adam, which keeps running estimates of the first and second moments of the gradient.
 
-### Surveys and reviews
+### Surveys and textbooks
 
-- Aston-Jones, G. & Cohen, J. D. (2005). An integrative theory of locus coeruleus-norepinephrine function: adaptive gain and optimal performance. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.28.061604.135709 — Proposes that noradrenaline's tonic and phasic modes adjust the gain of task-relevant processing, trading exploration against exploitation.
-- Doya, K. (2008). Modulators of decision making. *Nature Neuroscience*. https://doi.org/10.1038/nn2077 — Review of how serotonin, dopamine, noradrenaline and acetylcholine contribute to decisions.
+- Aston-Jones, G. & Cohen, J. D. (2005). An integrative theory of locus coeruleus-norepinephrine function: adaptive gain and optimal performance. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.28.061604.135709 — Proposes that tonic noradrenaline activity supports exploration and phasic activity supports exploitation.
+- Doya, K. (2008). Modulators of decision making. *Nature Neuroscience*, 11(4), 410–416. https://doi.org/10.1038/nn2077 — Review of neuromodulators and decision making.
 - Hasselmo, M. E. (2006). The role of acetylcholine in learning and memory. *Current Opinion in Neurobiology*. https://doi.org/10.1016/j.conb.2006.09.002 — Reviews the evidence for acetylcholine's role in learning and memory.
-- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — The standard textbook on the reinforcement-learning parameters discussed here.
+- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — Standard introduction to reinforcement learning, the framework in which the discount factor, learning rate and softmax choice rule are used.

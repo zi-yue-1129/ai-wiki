@@ -16,7 +16,7 @@ aliases:
 
 # 海馬迴重播（Foster & Wilson, 2006）
 
-海馬迴重播是指，經驗期間記錄到的神經元放電序列，在動物休息或睡眠時再次被重新活化。Foster 與 Wilson（2006）顯示，清醒的大鼠在跑動後會以反向順序重播這些序列。
+海馬迴重播是指，經驗期間記錄到的神經元放電序列，在動物休息或睡眠時再次被重新活化。Foster 與 Wilson（2006）顯示，清醒的大鼠在跑動後的休息期間，會以反向順序重播這些序列。
 
 本頁是[睡眠、重播與記憶鞏固](../index.zh-TW.md)的一部分。承載重播的網路事件，見[尖波漣波](../sharp-wave-ripples/index.zh-TW.md)。
 
@@ -30,9 +30,9 @@ aliases:
 
 ## 核心想法
 
-Wilson 與 McNaughton（1994）同時記錄多個位置細胞。他們發現，大鼠跑動時代表其路徑的活動模式，會在之後的睡眠中重新活化。Skaggs 與 McNaughton（1996）報告，空間經驗之後的睡眠期間，會重播位置細胞的放電序列。Foster 與 Wilson（2006）接著記錄清醒大鼠的活動。跑完之後，位置細胞的序列以跑動時相反的順序播放。Diba 與 Buzsáki（2007）發現，在[尖波漣波](../sharp-wave-ripples/index.zh-TW.md)頁所述的漣波事件中，序列既會順向播放，也會反向播放。
+Wilson 與 McNaughton（1994）在大鼠身上同時記錄多個位置細胞。他們發現，空間任務中一起放電的細胞，在之後的睡眠中會更常一起放電。Skaggs 與 McNaughton（1996）報告，空間經驗之後的睡眠期間，會重播位置細胞的放電序列。Foster 與 Wilson（2006）接著記錄清醒大鼠的活動。在跑完後的休息期間，位置細胞的序列以跑動時相反的順序播放。Diba 與 Buzsáki（2007）發現，在[尖波漣波](../sharp-wave-ripples/index.zh-TW.md)頁所述的漣波事件中，序列既會順向播放，也會反向播放。
 
-反向順序之所以重要，是因為它把結果連回導致結果的各個狀態。Foster 與 Wilson 認為，這可能支持對事件序列的評估，類似強化學習模型中的做法。
+反向順序之所以重要，是因為它把結果連回導致結果的各個狀態與行動。Mattar 與 Daw（2018）以此方式描述逆向重播，即把經歷過的結果連回導致它的先前行動。
 
 ## 方程式或演算法
 
@@ -48,14 +48,14 @@ Wilson 與 McNaughton（1994）同時記錄多個位置細胞。他們發現，�
 - 清醒時位置細胞的活動模式，已在睡眠中觀察到重播（Wilson & McNaughton, 1994；Skaggs & McNaughton, 1996）。
 - 已觀察到跑動後的清醒重播，在 Foster 與 Wilson（2006）的研究中，序列以反向順序播放。
 - 在尖波漣波期間，序列會順向與反向播放（Diba & Buzsáki, 2007）。
-- Mattar 與 Daw（2018）建立了一個規範性模型，依效用為每個候選記憶排序，效用定義為更新該記憶所帶來的未來獎勵增益，乘以代理人預期會造訪該狀態的折扣後次數。此模型可同時解釋有助於規劃的順向重播，以及把結果連回先前行動的逆向重播。
+- Mattar 與 Daw（2018）建立了一個規範性模型，依效用為每個候選記憶排序，效用即存取該記憶所帶來的未來獎勵增加量。效用是增益項與需求項的乘積：增益項偏好在出現非預期結果後位於代理人後方的狀態，需求項偏好代理人即將造訪的狀態。此模型可重現有助於規劃的順向重播，以及把結果連回先前行動的逆向重播。
 
 ## 限制
 
-- **觀察不等於因果。** 重播顯示序列被重新活化，但不表示這種重新活化就是記憶得以持久的原因。因果性的檢驗主要來自干擾承載重播的漣波（見[尖波漣波](../sharp-wave-ripples/index.zh-TW.md)）。
+- **觀察不等於因果。** 重播顯示序列被重新活化，但不表示這種重新活化就是記憶得以持久的原因。因果性的檢驗包括干擾承載重播的漣波（見[尖波漣波](../sharp-wave-ripples/index.zh-TW.md)）。
 - **解碼依賴各種選擇。** 重建細胞順序取決於位置場的估計方式與所用的統計對照。結論受這些選擇影響。
 - **證據主要來自齧齒類動物的空間任務。** 其他物種與任務中的重播，特徵較不清楚。
-- **逆向重播的功能仍有爭議。** Foster 與 Wilson 將其與事件序列的評估連結，Mattar 與 Daw 則將其與規劃連結。後續研究尚未確定哪種解釋正確。
+- **重播的功能仍有爭議。** 常見觀點把規劃歸於順向重播、學習歸於逆向重播；Mattar 與 Daw 則主張同一個依優先順序進行的過程能產生兩者。哪種解釋正確，仍有待釐清。
 
 ## 關聯
 
@@ -70,7 +70,7 @@ Wilson 與 McNaughton（1994）同時記錄多個位置細胞。他們發現，�
 
 ## 未解問題
 
-- **哪些事件會被重播，原因為何？** Mattar 與 Daw 的效用解釋是其中一個候選，其對特定事件的預測仍在檢驗中。
+- **哪些事件會被重播，原因為何？** Mattar 與 Daw 的效用解釋是其中一個候選。
 - **睡眠中的重播與清醒時的重播功能相同嗎？** 兩者在鞏固與規劃中的角色可能不同。
 - **重播如何改變皮質？** 從海馬迴重播到皮質持久改變的路徑，仍在研究中。
 - **人類的重播與齧齒類動物的重播是否相似？** 證據正在增加，但較難取得。
@@ -79,7 +79,7 @@ Wilson 與 McNaughton（1994）同時記錄多個位置細胞。他們發現，�
 
 ### 奠基性論文
 
-- Foster, D. J. & Wilson, M. A. (2006). Reverse replay of behavioural sequences in hippocampal place cells during the awake state. *Nature* 440, 680–683. https://doi.org/10.1038/nature04587 — 顯示清醒大鼠跑動後的休息期間，位置細胞序列會以反向順序重播，並提出與強化學習評估的關聯。
+- Foster, D. J. & Wilson, M. A. (2006). Reverse replay of behavioural sequences in hippocampal place cells during the awake state. *Nature* 440, 680–683. https://doi.org/10.1038/nature04587 — 顯示清醒大鼠跑動後的休息期間，位置細胞序列會以反向順序重播。
 - Wilson, M. A. & McNaughton, B. L. (1994). Reactivation of hippocampal ensemble memories during sleep. *Science* 265, 676–679. https://doi.org/10.1126/science.8036517 — 報告清醒時海馬迴位置細胞的活動模式，在睡眠中重新活化。
 - Skaggs, W. E. & McNaughton, B. L. (1996). Replay of neuronal firing sequences in rat hippocampus during sleep following spatial experience. *Science* 271, 1870–1873. https://doi.org/10.1126/science.271.5257.1870 — 報告空間經驗之後，睡眠期間位置細胞放電序列的重播。
 - Diba, K. & Buzsáki, G. (2007). Forward and reverse hippocampal place-cell sequences during ripples. *Nature Neuroscience* 10, 1241–1242. https://doi.org/10.1038/nn1961 — 報告在尖波漣波期間，位置細胞序列同時順向與反向播放。
@@ -87,5 +87,5 @@ Wilson 與 McNaughton（1994）同時記錄多個位置細胞。他們發現，�
 
 ### 綜述與教科書
 
-- Davidson, T. J., Kloosterman, F. & Wilson, M. A. (2009). Hippocampal replay of extended experience. *Neuron* 63, 497–507. https://doi.org/10.1016/j.neuron.2009.07.027 — 報告海馬迴對較長段空間經驗的重播，超越早期研究中的短序列。
-- Wittkuhn, L. 等人（2021）。Replay in minds and machines. *Neuroscience & Biobehavioral Reviews* 129, 367–388. https://doi.org/10.1016/j.neubiorev.2021.08.002 — 回顧神經科學與機器學習中重播的計算功能，並比較兩個領域。
+- Davidson, T. J., Kloosterman, F. & Wilson, M. A. (2009). Hippocampal replay of extended experience. *Neuron* 63, 497–507. https://doi.org/10.1016/j.neuron.2009.07.027 — 報告長距離穿越大型環境的跑動，其序列能以高保真度被解碼，順向與反向皆然。
+- Wittkuhn, L. 等人（2021）。Replay in minds and machines. *Neuroscience & Biobehavioral Reviews* 129, 367–388. https://doi.org/10.1016/j.neubiorev.2021.08.002 — 回顧大腦與機器學習中的重播，並比較兩個領域。

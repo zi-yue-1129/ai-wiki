@@ -34,7 +34,7 @@ aliases:
 
 ## 關鍵方法
 
-- [透過相干性的通訊（Fries, 2005）](communication-through-coherence/index.md)：主張各腦區之間的節律同步決定它們訊號何時有效，因此相干性控制哪些互動得以通過。它關注的是腦區之間的溝通。
+- [透過相干性的通訊（Fries, 2005）](communication-through-coherence/index.md)：主張各腦區之間的相干性控制它們訊號溝通的效力。它關注的是腦區之間的溝通。
 - [θ–γ 耦合（Lisman & Jensen, 2013）](theta-gamma-coupling/index.md)：主張慢 theta 節律的相位組織快速 gamma 爆發，形成迴路內部的編碼方式。它關注的是單一迴路如何組織項目，主要應用於記憶。
 
 ## 連結
@@ -42,7 +42,7 @@ aliases:
 - **記憶。** [記憶與學習](../memory-learning/index.md)中與記憶相關的想法，核心在於海馬迴中的 theta 與 gamma 節律。該頁提到的睡眠節律，如慢振盪、紡錘波與漣波，也屬於同一類想法。
 - **記錄。** 群體節律以 [LFP、ECoG 與 EEG](../neuroimaging-methods/index.md) 測量，它們看見的是神經元群而非單一細胞。解讀時需要謹慎，因為加總訊號中的節律無法揭示是哪些神經元產生的。
 - **計算模型。** 耦合振盪器與脈衝神經網路模型研究這類節律如何產生。參見[計算神經科學](../computational-neuroscience/index.md)與[脈衝神經網路與神經形態運算](../snn-neuromorphic/index.md)，後者把相位編碼列為其中一種編碼方式。
-- **人工網路。** 標準人工網路沒有膜電位、脈衝或自身的節律，因此振盪在其中沒有直接對應物。有一種架構直接採用了這個想法：耦合振盪循環神經網路（coRNN）把其隱藏狀態視為一組耦合非線性振盪器的輸出，並在時間上離散化（Rusch & Mishra, 2020）。作者報告，這種設計能使梯度有界，有助於長序列的學習，並在數個基準測試上取得與當前最佳方法相當的結果。這個類比屬於架構層面：它說明振盪器動力學可以作為循環式運算，但並不表示經過訓練的網路會發展出類似大腦的 theta 或 gamma 節律，也不表示兩個系統中的這些節律做的是同一件事。參見[循環神經網路](../../theory/models/rnn/index.md)。
+- **人工網路。** 標準人工網路沒有膜電位、脈衝或自身的節律，因此振盪在其中沒有直接對應物。有一種架構直接採用了這個想法：耦合振盪循環神經網路（coRNN）把其隱藏狀態視為一組耦合非線性振盪器的輸出，並在時間上離散化（Rusch & Mishra, 2020）。作者證明了隱藏狀態梯度的界限，從而緩解梯度爆炸與消失的問題，並報告其在多項基準測試上的表現與當前最佳方法相當。這個類比屬於架構層面：它說明振盪器動力學可以作為循環式運算，但並不表示經過訓練的網路會發展出類似大腦的 theta 或 gamma 節律，也不表示兩個系統中的這些節律做的是同一件事。參見[循環神經網路](../../theory/models/rnn/index.md)。
 
 ## 應用
 
@@ -61,14 +61,14 @@ aliases:
 
 ### 開創性論文
 
-- Singer, W. & Gray, C. M.（1995）。Visual feature integration and the temporal correlation hypothesis. *Annual Review of Neuroscience*。https://doi.org/10.1146/annurev.ne.18.030195.003011 — 主張神經元之間的時間相關性可能把視覺特徵綁定為物件。
+- Singer, W. & Gray, C. M.（1995）。Visual feature integration and the temporal correlation hypothesis. *Annual Review of Neuroscience*。https://doi.org/10.1146/annurev.ne.18.030195.003011 — 關於視覺特徵如何被整合的時間相關性假說的回顧。
 - Lisman, J. E. & Idiart, M. A. P.（1995）。Storage of 7 ± 2 short-term memories in oscillatory subcycles. *Science*。https://doi.org/10.1126/science.7878473 — 一個網路模型，其中記憶項目佔據慢 theta 週期內連續的 gamma 子週期。
-- Fries, P.（2005）。A mechanism for cognitive dynamics: neuronal communication through neuronal coherence. *Trends in Cognitive Sciences*。https://doi.org/10.1016/j.tics.2005.08.011 — 主張神經元群之間的相干性控制它們溝通的效力。
+- Fries, P.（2005）。A mechanism for cognitive dynamics: neuronal communication through neuronal coherence. *Trends in Cognitive Sciences*。https://doi.org/10.1016/j.tics.2005.08.011 — 最初提出神經元相干性是神經元群之間溝通機制的論文。
 
-### 綜述與回顧
+### 綜述與教科書
 
 - Buzsáki, G. & Draguhn, A.（2004）。Neuronal oscillations in cortical networks. *Science*。https://doi.org/10.1126/science.1099745 — 皮質網路中振盪的綜述，涵蓋其頻率範圍與所被提出的功能。
-- Fries, P.（2015）。Rhythms for cognition: communication through coherence. *Neuron*。https://doi.org/10.1016/j.neuron.2015.09.034 — 相干性假說與其證據的回顧，由提出者本人撰寫。
+- Fries, P.（2015）。Rhythms for cognition: communication through coherence. *Neuron*。https://doi.org/10.1016/j.neuron.2015.09.034 — 由該假說的提出者撰寫的回顧，論述 gamma 頻段的同步如何塑造群體之間的溝通，以及注意力如何作用於其上。
 - Buzsáki, G.（2006）。*Rhythms of the Brain*。Oxford University Press。https://doi.org/10.1093/acprof:oso/9780195301069.001.0001 — 關於腦節律的專書，內容比上述綜述更深入。
 
 ### 文章與文件

@@ -28,7 +28,7 @@ Working memory is the ability to hold a small amount of information in mind for 
 
 ## Overview
 
-Working memory is a limited, temporary store. Baddeley and Hitch (1974) proposed a multi-component model in which a central executive directs attention and coordinates storage systems for verbal and visual-spatial information. Executive functions form a broader family of controls: selecting goals, switching between tasks, filtering distractions and holding rules in mind. The two are hard to separate in practice, because holding something in mind serves control, and control decides what is held.
+Working memory is a limited, temporary store. Baddeley and Hitch (1974) introduced working memory as a distinct, temporary store. Executive functions form a broader family of controls: selecting goals, switching between tasks, filtering distractions and holding rules in mind. The two are hard to separate in practice, because holding something in mind serves control, and control decides what is held.
 
 Miller and Cohen (2001) proposed that the prefrontal cortex does executive work by actively maintaining patterns of activity that represent goals and the means to reach them. These patterns bias processing in other brain areas, so that activity flows along the mappings between inputs, internal states and outputs that a task requires.
 
@@ -45,7 +45,7 @@ Miller and Cohen (2001) proposed that the prefrontal cortex does executive work 
 
 **Keeping and deciding are separate problems.** A system that keeps everything is not selective, and one that updates constantly forgets what it needs. Gating is the common solution proposed: the system learns when to write to memory and when to protect what is already there.
 
-**Two mechanisms for keeping information.** Early network models explained persistent activity as a stable pattern of firing sustained by recurrent connections (Compte et al., 2000). More recent work finds that delay activity does not always accompany maintenance, which suggests that memory can also be carried by synaptic or other hidden states (Stokes, 2015). The two views are not yet resolved.
+**Two mechanisms for keeping information.** Early network models explained persistent activity as a stable pattern of firing sustained by recurrent connections (Compte et al., 2000). More recent work finds that delay activity does not always accompany maintenance, which suggests that memory can also be carried by synaptic or other hidden states (Wolff et al., 2017; Stokes, 2015). The two views are not yet resolved.
 
 **Learned gates for control.** In one influential model, the basal ganglia learn when the prefrontal cortex should update its contents, using a dopamine-like learning signal. Control is then something the system learns, rather than an unexplained internal controller.
 
@@ -69,12 +69,12 @@ Miller and Cohen (2001) proposed that the prefrontal cortex does executive work 
 ## Applications
 
 - **Gated memory in neural networks.** The LSTM (Hochreiter & Schmidhuber, 1997) uses multiplicative gates to protect a memory cell across long time lags, and it is widely used in sequence modelling.
-- **Interpreting executive-control experiments.** Miller and Cohen (2001) review neurophysiological, neuroimaging and computational studies that support the view of the PFC as a source of control. That framing guides how studies of task switching and rule use are interpreted.
+- **Interpreting executive-control experiments.** Miller and Cohen (2001) review neurophysiological, neuroimaging and computational studies that support the view of the PFC as a source of control.
 - **Testing memory maintenance.** Wolff et al. (2017) used a brief EEG perturbation pulse to detect item-specific memory during the delay.
 
 ## Open questions
 
-- **How is information kept?** Persistent spiking, synaptic states and a mixture of the two all have some support. How much each contributes in a given task is debated (Stokes, 2015; Ma et al., 2014).
+- **How is information kept?** Persistent spiking, synaptic states and a mixture of the two all have some support. How much each contributes in a given task is debated (Stokes, 2015; Wolff et al., 2017).
 - **What sets capacity?** Slot-based and resource-based accounts still compete, and the answer may depend on the task (Cowan, 2001; Bays & Husain, 2008).
 - **How is gating learned?** PBWM proposes a learned, dopamine-based gate, but its mapping onto identified circuits is still under test.
 - **Do AI and brain gates share principles?** The functional analogy is clear. Whether it reflects a shared computational principle is an open question.
@@ -83,7 +83,7 @@ Miller and Cohen (2001) proposed that the prefrontal cortex does executive work 
 
 ### Seminal papers
 
-- Baddeley, A. D. & Hitch, G. (1974). Working memory. In *Psychology of Learning and Motivation*, pp. 47–89. Academic Press. https://doi.org/10.1016/S0079-7421(08)60452-1 — Proposes the multi-component model of working memory, with a central executive.
+- Baddeley, A. D. & Hitch, G. (1974). Working memory. In *Psychology of Learning and Motivation*, pp. 47–89. Academic Press. https://doi.org/10.1016/S0079-7421(08)60452-1 — Introduces working memory as a distinct, temporary store, the concept this overview starts from.
 - Funahashi, S., Bruce, C. J. & Goldman-Rakic, P. S. (1989). Mnemonic coding of visual space in the monkey's dorsolateral prefrontal cortex. *Journal of Neurophysiology*. https://doi.org/10.1152/jn.1989.61.2.331 — Records prefrontal neurons active during a memory delay in a spatial task.
 - Compte, A. et al. (2000). Synaptic mechanisms and network dynamics underlying spatial working memory in a cortical network model. *Cerebral Cortex*. https://doi.org/10.1093/cercor/10.9.910 — Network model of spatial working memory based on persistent activity.
 - Cowan, N. (2001). The magical number 4 in short-term memory: A reconsideration of mental storage capacity. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X01003922 — Reviews evidence that the capacity limit is about three to five chunks.
@@ -93,11 +93,11 @@ Miller and Cohen (2001) proposed that the prefrontal cortex does executive work 
 - O'Reilly, R. C. & Frank, M. J. (2006). Making working memory work: a computational model of learning in the prefrontal cortex and basal ganglia. *Neural Computation*. https://doi.org/10.1162/089976606775093909 — Introduces PBWM, a model in which basal ganglia gate prefrontal updating.
 - Mongillo, G., Barak, O. & Tsodyks, M. (2008). Synaptic theory of working memory. *Science*. https://doi.org/10.1126/science.1150769 — Proposes that working memory is sustained by calcium-mediated synaptic facilitation.
 
-### Surveys and reviews
+### Surveys and textbooks
 
 - Stokes, M. G. (2015). 'Activity-silent' working memory in prefrontal cortex: a dynamic coding framework. *Trends in Cognitive Sciences*. https://doi.org/10.1016/j.tics.2015.05.004 — Reviews evidence that memory can be held without persistent spiking, and proposes a dynamic coding framework.
 - Curtis, C. E. & D'Esposito, M. (2003). Persistent activity in the prefrontal cortex during working memory. *Trends in Cognitive Sciences*. https://doi.org/10.1016/S1364-6613(03)00197-9 — Reviews the evidence for persistent delay activity in prefrontal cortex.
-- Ma, W. J., Husain, M. & Bays, P. M. (2014). Changing concepts of working memory. *Nature Neuroscience*. https://doi.org/10.1038/nn.3655 — Reviews how models of working memory capacity and maintenance have changed.
-- Miller, E. K., Lundqvist, M. & Bastos, A. M. (2018). Working memory 2.0. *Neuron*. https://doi.org/10.1016/j.neuron.2018.09.023 — Reviews recent neural accounts of working memory across brain areas.
-- Jonides, J., Lewis, R. L., Nee, D. E., Lustig, C. A., Berman, M. G. & Moore, K. S. (2008). The mind and brain of short-term memory. *Annual Review of Psychology*. https://doi.org/10.1146/annurev.psych.59.103006.093615 — Reviews behavioural and neuroimaging evidence on short-term memory.
+- Ma, W. J., Husain, M. & Bays, P. M. (2014). Changing concepts of working memory. *Nature Neuroscience*. https://doi.org/10.1038/nn.3655 — Reviews the shift from a fixed number of items to a limited resource distributed among items, with behavioural and neural evidence.
+- Miller, E. K., Lundqvist, M. & Bastos, A. M. (2018). Working memory 2.0. *Neuron*. https://doi.org/10.1016/j.neuron.2018.09.023 — Reviews recent proposals that working memory maintenance relies on synaptic weight changes between bursts of spiking, and that executive control arises from interplay of oscillations in different cortical layers.
+- Jonides, J., Lewis, R. L., Nee, D. E., Lustig, C. A., Berman, M. G. & Moore, K. S. (2008). The mind and brain of short-term memory. *Annual Review of Psychology*. https://doi.org/10.1146/annurev.psych.59.103006.093615 — Reviews psychological theories of short-term memory, including capacity and forgetting, and how they relate to evidence on brain mechanisms.
 - Wolff, M. J., Jochim, J., Akyürek, E. G. & Stokes, M. G. (2017). Dynamic hidden states underlying working-memory-guided behavior. *Nature Neuroscience*. https://doi.org/10.1038/nn.4546 — Uses EEG and a perturbation pulse to detect item-specific memory during the delay; the strength of this signal predicts memory-guided behaviour.

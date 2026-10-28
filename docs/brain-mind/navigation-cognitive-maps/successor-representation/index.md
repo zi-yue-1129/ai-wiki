@@ -35,7 +35,7 @@ Temporal-difference learning estimates values from experience. Dayan (1993) argu
 
 ## Core idea
 
-Dayan (1993) defines the SR as a vector of predicted future occupancy of each state, starting from the current state. It is learned with TD machinery in the same way as a value estimate. Once learned, the value of a state is the sum of its SR weighted by the rewards. The SR thus separates two parts of the task: the temporal structure of which states lead to which, and the reward attached to each state. The paper says that the SR factors out the temporal component of the task, so that learning becomes a simpler estimation problem.
+Dayan (1993) shows how TD machinery can learn representations in which each state is described by the states that follow it. The SR is learned in the same way as a value estimate. Once learned, the value of a state is the sum of its SR weighted by the rewards. The SR thus separates two parts of the task: the temporal structure of which states lead to which, and the reward attached to each state.
 
 ## Equation or algorithm
 
@@ -51,13 +51,13 @@ with learning rate \(\alpha\). The reward weights \(R\) are estimated separately
 
 ## Results
 
-Dayan (1993) illustrates the approach with a navigation task, and the abstract says the result is distributed across states in a way that reflects their successors. The evidence in the paper is this single illustrative task, so it does not establish the account for brains.
+Dayan (1993) illustrates the approach with a navigation task, and the abstract describes the result as appropriately distributed across states. The abstract presents this as an illustration of the method, not as evidence about brains.
 
 Later work applied the idea to human choice (Momennejad et al., 2017) and related it to hippocampal place cells (Stachenfeld et al., 2017). These are discussed on the relevant pages.
 
 ## Limitations
 
-- **Transitions must be relearned when they change.** Dayan (1993) notes that correcting the SR after a change in the task requires relearning the affected predictions. The SR removes the need to relearn when only rewards change, but not when the paths between states change.
+- **Transitions must be relearned when they change.** The SR summarises the transitions between states, so when the paths between states change, the affected predictions have to be updated. The SR removes the need to relearn when only rewards change.
 - **Storage.** The SR is a matrix over states. For large state spaces, storing and learning it is costly.
 - **Policy dependence.** The SR is defined under a particular policy, so a different way of acting produces a different SR.
 - **Representation dependence.** Its usefulness depends on how states are defined, which the method does not solve.
@@ -65,14 +65,14 @@ Later work applied the idea to human choice (Momennejad et al., 2017) and relate
 ## Connections
 
 - **Dopamine and TD learning**: the SR is learned with the same kind of temporal-difference update that dopamine is thought to signal. See [Dopamine Reward Prediction Error](../../neuroscience/dopamine-reward-prediction-error/index.md).
-- **Model-based and model-free control**: the SR stores predictions about the future without a full model of rewards, so it is often discussed as a middle ground. See [Model-Based vs Model-Free Control](../../decision-reward/model-based-vs-model-free/index.md).
+- **Model-based and model-free control**: the SR stores predictions about the future without a full model of rewards, so it is often discussed as a middle ground (Momennejad et al., 2017; Russek et al., 2017). See [Model-Based vs Model-Free Control](../../decision-reward/model-based-vs-model-free/index.md).
 - **Place cells**: a predictive map in the hippocampus can be read as an SR over space. See [Place cells and the cognitive-map hypothesis](../place-cells/index.md).
 - **Reinforcement learning in AI**: the SR is one of the representations studied in [Reinforcement Learning](../../../theory/paradigms/reinforcement-learning/index.md), and it is closely tied to [Model-Based RL](../../../theory/paradigms/reinforcement-learning/model-based-rl/index.md).
 
 ## Applications
 
 - **Modelling human learning**: Momennejad et al. (2017) apply the SR to human reinforcement learning, asking whether human learning fits this predictive account.
-- **Interpreting the hippocampus**: Stachenfeld et al. (2017) propose the hippocampus as a predictive map related to the SR, which links the method to spatial memory.
+- **Interpreting the hippocampus**: Stachenfeld et al. (2017) propose the hippocampus as a predictive map, built on reinforcement-learning ideas, which links the method to spatial memory.
 - **Transfer between tasks**: because the SR does not depend on reward, it can be reused when rewards change, which is the point the SR's definition makes.
 
 ## Open questions
@@ -85,13 +85,14 @@ Later work applied the idea to human choice (Momennejad et al., 2017) and relate
 
 ### Seminal papers
 
-- Dayan, P. (1993). Improving generalization for temporal difference learning: the successor representation. *Neural Computation*. https://doi.org/10.1162/neco.1993.5.4.613 — Defines the successor representation and shows how temporal-difference learning can learn it. The paper uses a navigation task to illustrate the result.
-- Stachenfeld, K. L., Botvinick, M. M. & Gershman, S. J. (2017). The hippocampus as a predictive map. *Nature Neuroscience*. https://doi.org/10.1038/nn.4650 — Proposes that hippocampal place cells encode a predictive map closely related to the successor representation.
+- Dayan, P. (1993). Improving generalization for temporal difference learning: the successor representation. *Neural Computation*. https://doi.org/10.1162/neco.1993.5.4.613 — Shows how temporal-difference learning can learn representations in which each state is described by its successors, illustrated with a navigation task.
+- Stachenfeld, K. L., Botvinick, M. M. & Gershman, S. J. (2017). The hippocampus as a predictive map. *Nature Neuroscience*. https://doi.org/10.1038/nn.4650 — Proposes, drawing on reinforcement learning, that hippocampal place cells carry a predictive map rather than a purely spatial one.
 
-### Surveys and reviews
+### Surveys and textbooks
 
 - Gershman, S. J. (2018). The Successor Representation: Its Computational Logic and Neural Substrates. *Journal of Neuroscience*. https://doi.org/10.1523/JNEUROSCI.0151-18.2018 — Reviews the computational logic of the successor representation and the evidence for it in the brain.
 
-### Articles and applications
+### Articles and documentation
 
-- Momennejad, I. et al. (2017). The successor representation in human reinforcement learning. *Nature Human Behaviour*. https://doi.org/10.1038/s41562-017-0180-8 — Applies the successor representation to human reinforcement learning.
+- Momennejad, I. et al. (2017). The successor representation in human reinforcement learning. *Nature Human Behaviour*. https://doi.org/10.1038/s41562-017-0180-8 — Applies the successor representation to human reinforcement learning, testing it in two behavioural studies with humans.
+- Russek, E. M. et al. (2017). Predictive representations can link model-based reinforcement learning to model-free mechanisms. *PLoS Computational Biology*. https://doi.org/10.1371/journal.pcbi.1005768 — Argues that predictive representations can link model-based reinforcement learning to model-free mechanisms.

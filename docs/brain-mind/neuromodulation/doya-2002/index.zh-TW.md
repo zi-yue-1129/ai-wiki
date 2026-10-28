@@ -61,7 +61,7 @@ Doya 把每種神經調節物質連到演算法的一個組成部分：
 
 ## 限制
 
-- **是假說，不是證明。** 後續工作討論過對應的各部分，而其中部分指派（尤其是血清素在折扣中的角色）仍未定論。
+- **是假說，不是證明。** 論文把這個對應當作一項提議，依據是對實驗資料與理論模型的回顧。
 - **每個系統有多種角色。** 神經調節物質作用於許多迴路，並有多種效應。一對一對應到單一參數是一種簡化。
 - **純量設定。** 模型把每個元參數視為單一數值。神經控制可能因腦區與時間而異。
 - **設定如何被選定。** 提議說明了哪個訊號設定哪個參數，但沒有說明數值如何隨時間改變。這需要額外的學習機制。
@@ -81,18 +81,21 @@ Doya 把每種神經調節物質連到演算法的一個組成部分：
 
 ## 開放問題
 
-- **哪種神經調節物質控制哪個設定？** 部分指派有支持，其他如血清素與折扣則有爭議。
+- **哪種神經調節物質控制哪個設定？** 這個對應是一項提議，每項指派都需要各自的檢驗。
 - **這些設定如何被學習？** 提議需要一條隨時間改變設定的規則，而實現此規則的神經機制尚不清楚。
 - **神經調節物質是唯一的控制者嗎？** 皮質連結或其他腦區的改變也可能設定這些參數，它們各自的角色仍不清楚。
 
 ## 參考文獻
 
-### 開創性論文
+### Seminal papers
 
 - Doya, K. (2002). Metalearning and neuromodulation. *Neural Networks*, 15(4–6), 495–506. https://doi.org/10.1016/s0893-6080(02)00044-8 — 原始論文。提出多巴胺、血清素、正腎上腺素與乙醯膽鹼分別對應預測誤差與強化學習的三個元參數。
 
-### 綜述與回顧
+- Yu, A. J. & Dayan, P. (2005). Uncertainty, Neuromodulation, and Attention. *Neuron*, 46(4), 681–692. https://doi.org/10.1016/j.neuron.2005.04.026 — 提出乙醯膽鹼與正腎上腺素分別訊號預期與非預期不確定性，是對同兩種神經調節物質的另一種解釋。
 
-- Doya, K. (2008). Modulators of decision making. *Nature Neuroscience*. https://doi.org/10.1038/nn2077 — 回顧血清素、多巴胺、正腎上腺素與乙醯膽鹼如何參與決策。
+### Surveys and textbooks
+
+- Doya, K. (2008). Modulators of decision making. *Nature Neuroscience*, 11(4), 410–416. https://doi.org/10.1038/nn2077 — 回顧神經調節物質與決策的關係。
 - Aston-Jones, G. & Cohen, J. D. (2005). An integrative theory of locus coeruleus-norepinephrine function: adaptive gain and optimal performance. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.28.061604.135709 — 回顧正腎上腺素系統及其緊張性與相位模式，與本提議中正腎上腺素在動作選擇中的角色有關。
-- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — 演算法的標準教科書，涵蓋本頁使用的折扣因子、學習率與 softmax 選擇規則。
+- Hasselmo, M. E. (2006). The role of acetylcholine in learning and memory. *Current Opinion in Neurobiology*, 16(6), 710–715. https://doi.org/10.1016/j.conb.2006.09.002 — 回顧乙醯膽鹼在學習與記憶中的角色，與本頁的學習率對應相關。
+- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — 強化學習的標準入門教科書，涵蓋本頁使用的折扣因子、學習率與 softmax 選擇規則。

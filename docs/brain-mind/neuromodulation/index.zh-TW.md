@@ -55,7 +55,7 @@ aliases:
 
 **不確定性作為訊號。** 如果某個線索已知有雜訊，一次出乎意料的結果不應大幅改變信念。如果環境剛剛改變，信念就應迅速調整。Yu 與 Dayan 主張乙醯膽鹼與正腎上腺素分別編碼這兩種情況。
 
-**覺醒與探索的權衡。** 藍斑核是大腦正腎上腺素的主要來源，據描述它會在支持廣泛探索的緊張性模式與支持專注利用的相位模式之間切換（Aston-Jones & Cohen, 2005）。在人類身上，瞳孔相關的覺醒程度會追蹤環境改變的可能性，並預測新結果會如何更新預測（Nassar et al., 2012）。
+**覺醒與探索的權衡。** 藍斑核是大腦正腎上腺素的主要來源，據描述它會在支持廣泛探索的緊張性模式與支持專注利用的相位模式之間切換（Aston-Jones & Cohen, 2005）。在人類身上，瞳孔相關的覺醒程度會追蹤雜訊過程中可評估的不穩定性，並預測新資料會如何改變信念（Nassar et al., 2012）。
 
 **神經調節物質作為元參數。** Doya（2002）把多巴胺對應到預測誤差，血清素對應到折扣因子，正腎上腺素對應到動作選擇的隨機程度，乙醯膽鹼對應到學習率。這個對應是一項假說，但它讓每種神經調節物質都有精確的計算角色。
 
@@ -84,18 +84,18 @@ aliases:
 
 ## 參考文獻
 
-### 開創性論文
+### Seminal papers
 
 - Yu, A. J. & Dayan, P. (2005). Uncertainty, Neuromodulation, and Attention. *Neuron*. https://doi.org/10.1016/j.neuron.2005.04.026 — 提出乙醯膽鹼與正腎上腺素分別訊號預期與非預期不確定性。詳見[Yu & Dayan 2005](yu-dayan-2005/index.md)。
 - Doya, K. (2002). Metalearning and neuromodulation. *Neural Networks*, 15(4–6), 495–506. https://doi.org/10.1016/s0893-6080(02)00044-8 — 提出四種神經調節物質分別對應強化學習的元參數。詳見[Doya 2002](doya-2002/index.md)。
-- Dayan, P. & Yu, A. J. (2006). Phasic norepinephrine: a neural interrupt signal for unexpected events. *Network: Computation in Neural Systems*. https://doi.org/10.1080/09548980601004024 — 發展正腎上腺素訊號非預期事件的想法。
-- Nassar, M. R., Rumsey, K. M., Wilson, R. C., Parikh, K., Heasly, B. & Gold, J. I. (2012). Rational regulation of learning dynamics by pupil-linked arousal systems. *Nature Neuroscience*. https://doi.org/10.1038/nn.3130 — 人類實驗顯示瞳孔測量追蹤環境改變的機率，並預測學習率。
+- Dayan, P. & Yu, A. J. (2006). Phasic norepinephrine: a neural interrupt signal for unexpected events. *Network: Computation in Neural Systems*, 17(4), 335–350. https://doi.org/10.1080/09548980601004024 — 提出相位正腎上腺素是非預期事件的神經中斷訊號。
+- Nassar, M. R., Rumsey, K. M., Wilson, R. C., Parikh, K., Heasly, B. & Gold, J. I. (2012). Rational regulation of learning dynamics by pupil-linked arousal systems. *Nature Neuroscience*, 15(7), 1040–1046. https://doi.org/10.1038/nn.3130 — 人類實驗顯示瞳孔相關的覺醒追蹤雜訊過程中可評估的不穩定性，並預測新資料會多大程度地影響信念。
 - Andrychowicz, M. et al. (2016). Learning to learn by gradient descent by gradient descent. *NeurIPS*. https://arxiv.org/abs/1606.04474 — 訓練遞迴網路作為最佳化器，在其訓練任務上勝過人工設計的最佳化器。
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. *ICLR*. https://arxiv.org/abs/1412.6980 — 提出 Adam，保留梯度一階與二階矩的滑動估計。
 
-### 綜述與回顧
+### Surveys and textbooks
 
-- Aston-Jones, G. & Cohen, J. D. (2005). An integrative theory of locus coeruleus-norepinephrine function: adaptive gain and optimal performance. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.28.061604.135709 — 提出正腎上腺素的緊張性與相位模式會調整與任務相關處理的增益，在探索與利用之間取捨。
-- Doya, K. (2008). Modulators of decision making. *Nature Neuroscience*. https://doi.org/10.1038/nn2077 — 回顧血清素、多巴胺、正腎上腺素與乙醯膽鹼如何參與決策。
+- Aston-Jones, G. & Cohen, J. D. (2005). An integrative theory of locus coeruleus-norepinephrine function: adaptive gain and optimal performance. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.28.061604.135709 — 提出緊張性正腎上腺素活動支持探索，相位活動支持利用。
+- Doya, K. (2008). Modulators of decision making. *Nature Neuroscience*, 11(4), 410–416. https://doi.org/10.1038/nn2077 — 回顧神經調節物質與決策的關係。
 - Hasselmo, M. E. (2006). The role of acetylcholine in learning and memory. *Current Opinion in Neurobiology*. https://doi.org/10.1016/j.conb.2006.09.002 — 回顧乙醯膽鹼在學習與記憶中角色的證據。
-- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — 強化學習的標準教科書，涵蓋本頁討論的元參數。
+- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — 強化學習的標準入門教科書，本頁使用的折扣因子、學習率與 softmax 選擇規則都在此框架下。

@@ -38,7 +38,7 @@ aliases:
 
 格狀單元的細節見[導航網路中的格狀單元](../neuroai/grid-like-units/index.md)，本頁不重複該內容。
 
-認知地圖的想法早於這些記錄。Tolman（1948）根據迷宮實驗主張，老鼠學到的是類似迷宮佈局的東西，而不只是一串轉彎動作。這樣的地圖能讓動物算出一條從未走過的路。之後的問題是，哪些神經結構承載這樣的地圖，以及它採取什麼形式。
+認知地圖的想法早於這些記錄。Tolman（1948）在一篇關於大鼠與人的論文中提出「認知地圖」一詞。這樣的地圖能讓動物算出一條從未走過的路。之後的問題是，哪些神經結構承載這樣的地圖，以及它採取什麼形式。
 
 ## 關鍵概念
 
@@ -51,13 +51,13 @@ aliases:
 
 ## 運作方式
 
-頭部方向細胞常被建模為連續吸引子網路：隨著動物轉頭，一團活動會沿著方向的環移動。此訊號及其來源由 Taube（2007）回顧。其計算面見[計算神經科學](../computational-neuroscience/index.md)。位置細胞的放電被認為取決於地標與自身移動的線索。路徑積分可以在沒有地標時估計位置，而地標則能修正累積的誤差。
+頭部方向細胞的放電隨動物的朝向而變化。此訊號及其來源由 Taube（2007）回顧。其計算面見[計算神經科學](../computational-neuroscience/index.md)。
 
 ## 關鍵方法
 
 - [Tolman–Eichenbaum 機器（Whittington 等人，2020）](tolman-eichenbaum-machine/index.md)：把空間導航與關係記憶視為同一個問題，並從共用結構中產生類似格狀與位置的單元。
 - [後繼表徵（Dayan，1993）](successor-representation/index.md)：儲存狀態未來被佔據的期望值，使狀態之間轉移的結構與各狀態的獎勵分開。
-- [位置細胞與認知地圖假說（O'Keefe 與 Dostrovsky，1971）](place-cells/index.md)：首次報告對位置有調諧的海馬迴神經元，並提出海馬迴保有空間地圖。
+- [位置細胞與認知地圖假說（O'Keefe 與 Dostrovsky，1971）](place-cells/index.md)：對自由移動大鼠單元活動的初步報告，並以其標題提出海馬迴是一張空間地圖。
 
 ## 關聯
 
@@ -69,8 +69,8 @@ aliases:
 
 ## 應用
 
-- **模擬人類學習**：後繼表徵已被用來擬合序列決策任務中的人類選擇行為（Momennejad 等人，2017）。
-- **訓練出的導航智慧體**：只受過導航訓練的循環智慧體，可能發展出格狀單元。Hafting 等人（2005）提供格狀細胞的生物學背景，智慧體的結果見[格狀單元頁面](../neuroai/grid-like-units/index.md)。
+- **模擬人類學習**：Momennejad 等人（2017）以兩項人類行為研究檢驗後繼表徵，考察人類選擇如何隨事件順序與獎勵的改變而變化。
+- **訓練出的導航智慧體**：只受過導航訓練的人工智慧體能否出現格狀單元，見[格狀單元頁面](../neuroai/grid-like-units/index.md)。
 
 ## 未解問題
 
@@ -83,20 +83,20 @@ aliases:
 
 ### 開創性論文
 
-- O'Keefe, J. 與 Dostrovsky, J.（1971）。The hippocampus as a spatial map. Preliminary evidence from unit activity in the freely-moving rat. *Brain Research*。https://doi.org/10.1016/0006-8993(71)90358-1 — 首次報告在自由移動的大鼠身上，海馬迴單元對位置有調諧，並提出海馬迴保有空間地圖。
-- Tolman, E. C.（1948）。Cognitive maps in rats and men。*Psychological Review*。https://doi.org/10.1037/h0061626 — 由迷宮行為主張老鼠學到類似地圖的表徵，即認知地圖概念的來源。
+- O'Keefe, J. 與 Dostrovsky, J.（1971）。The hippocampus as a spatial map. Preliminary evidence from unit activity in the freely-moving rat. *Brain Research*。https://doi.org/10.1016/0006-8993(71)90358-1 — 以自由移動大鼠的單元活動提供初步證據，其標題提出海馬迴是一張空間地圖。
+- Tolman, E. C.（1948）。Cognitive maps in rats and men。*Psychological Review*。https://doi.org/10.1037/h0061626 — 在一篇關於大鼠與人的論文中提出「認知地圖」一詞，即本頁所用概念的來源。
 - Taube, J. S.、Muller, R. U. 與 Ranck, J. B.（1990）。Head-direction cells recorded from the postsubiculum in freely moving rats. I. Description and quantitative analysis。*Journal of Neuroscience*。https://doi.org/10.1523/JNEUROSCI.10-02-00420.1990 — 描述後下托中放電取決於頭部方向的細胞。
 - Hafting, T. 等人（2005）。Microstructure of a spatial map in the entorhinal cortex。*Nature*。https://doi.org/10.1038/nature03721 — 描述內嗅皮質中的格狀細胞。列為背景資料；格狀細胞的細節見格狀單元頁面。
-- Dayan, P.（1993）。Improving generalization for temporal difference learning: the successor representation。*Neural Computation*。https://doi.org/10.1162/neco.1993.5.4.613 — 定義後繼表徵，並說明時序差分學習如何學到它。
+- Dayan, P.（1993）。Improving generalization for temporal difference learning: the successor representation。*Neural Computation*。https://doi.org/10.1162/neco.1993.5.4.613 — 示範時序差分學習如何學到一種表徵，其中每個狀態由其後繼狀態描述。
 - Whittington, J. C. R. 等人（2020）。The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation。*Cell*。https://doi.org/10.1016/j.cell.2020.10.024 — 提出一個模型，說明海馬迴與內嗅結構如何同時支持空間與關係記憶。
-- Stachenfeld, K. L.、Botvinick, M. M. 與 Gershman, S. J.（2017）。The hippocampus as a predictive map。*Nature Neuroscience*。https://doi.org/10.1038/nn.4650 — 提出海馬迴把空間表徵為與後繼表徵相關的預測地圖。
+- Stachenfeld, K. L.、Botvinick, M. M. 與 Gershman, S. J.（2017）。The hippocampus as a predictive map。*Nature Neuroscience*。https://doi.org/10.1038/nn.4650 — 借鏡強化學習，提出海馬迴把空間表徵為預測地圖。
 
-### 綜論與回顧
+### 綜述與教科書
 
 - Behrens, T. E. J. 等人（2018）。What Is a Cognitive Map? Organizing Knowledge for Flexible Behavior。*Neuron*。https://doi.org/10.1016/j.neuron.2018.10.002 — 回顧認知地圖，包括其延伸至抽象知識的部分。
 - Gershman, S. J.（2018）。The Successor Representation: Its Computational Logic and Neural Substrates。*Journal of Neuroscience*。https://doi.org/10.1523/JNEUROSCI.0151-18.2018 — 回顧後繼表徵的計算邏輯與大腦中的證據。
 - Taube, J. S.（2007）。The Head Direction Signal: Origins and Sensory-Motor Integration。*Annual Review of Neuroscience*。https://doi.org/10.1146/annurev.neuro.29.051605.112854 — 回顧頭部方向訊號的來源，以及它如何與移動整合。
 
-### 文章與應用
+### 文章與文件
 
 - Momennejad, I. 等人（2017）。The successor representation in human reinforcement learning。*Nature Human Behaviour*。https://doi.org/10.1038/s41562-017-0180-8 — 把後繼表徵應用於人類強化學習。

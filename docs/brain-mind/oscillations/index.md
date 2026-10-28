@@ -35,7 +35,7 @@ Oscillations occur across a very wide range of frequencies. Buzsáki and Draguhn
 
 ## Key methods
 
-- [Communication through coherence (Fries, 2005)](communication-through-coherence/index.md): proposes that rhythmic synchrony between areas sets when their signals are effective, so that coherence controls which interactions get through. It is about communication between areas.
+- [Communication through coherence (Fries, 2005)](communication-through-coherence/index.md): proposes that coherence between areas controls how effectively their signals communicate. It is about communication between areas.
 - [Theta–gamma coupling (Lisman & Jensen, 2013)](theta-gamma-coupling/index.md): proposes that the phase of a slow theta rhythm organises fast gamma bursts into a coding scheme within a circuit. It is about how one circuit organises items, with memory as the main application.
 
 ## Connections
@@ -43,7 +43,7 @@ Oscillations occur across a very wide range of frequencies. Buzsáki and Draguhn
 - **Memory.** Theta and gamma rhythms in the hippocampus are central to the memory-related ideas in [Memory & Learning](../memory-learning/index.md). The sleep rhythms there, such as slow oscillations, spindles and ripples, belong to the same family of ideas.
 - **Recording.** Group rhythms are measured with [LFP, ECoG and EEG](../neuroimaging-methods/index.md), which see populations rather than single cells. Interpreting them requires care, since a rhythm in a summed signal does not reveal which neurons produced it.
 - **Computational models.** Models of coupled oscillators and of spiking networks study how such rhythms arise. See [Computational Neuroscience](../computational-neuroscience/index.md) and [Spiking Networks & Neuromorphic Computing](../snn-neuromorphic/index.md), where phase coding is one of the listed coding schemes.
-- **Artificial networks.** Standard artificial networks have no membrane potentials, spikes or rhythms of their own, so oscillations have no direct counterpart in them. One architecture applies the idea directly. The coupled oscillatory recurrent neural network (coRNN) treats its hidden state as the output of a system of coupled nonlinear oscillators, discretised over time (Rusch & Mishra, 2020). The authors report that this keeps gradients bounded, which helps learning over long sequences, and reports results comparable to the state of the art on several benchmarks. The analogy is architectural: it shows that oscillator dynamics can serve as a recurrent computation. It does not show that trained networks develop brain-like theta or gamma rhythms, or that such rhythms do the same job in both systems. See [Recurrent Neural Networks](../../theory/models/rnn/index.md).
+- **Artificial networks.** Standard artificial networks have no membrane potentials, spikes or rhythms of their own, so oscillations have no direct counterpart in them. One architecture applies the idea directly. The coupled oscillatory recurrent neural network (coRNN) treats its hidden state as the output of a system of coupled nonlinear oscillators, discretised over time (Rusch & Mishra, 2020). The authors prove bounds on the gradients of the hidden states, which mitigate the exploding and vanishing gradient problem, and report performance comparable to the state of the art on a variety of benchmarks. The analogy is architectural: it shows that oscillator dynamics can serve as a recurrent computation. It does not show that trained networks develop brain-like theta or gamma rhythms, or that such rhythms do the same job in both systems. See [Recurrent Neural Networks](../../theory/models/rnn/index.md).
 
 ## Applications
 
@@ -62,14 +62,14 @@ Oscillations occur across a very wide range of frequencies. Buzsáki and Draguhn
 
 ### Seminal papers
 
-- Singer, W. & Gray, C. M. (1995). Visual feature integration and the temporal correlation hypothesis. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.ne.18.030195.003011 — Proposes that temporal correlation between neurons may bind visual features into objects.
+- Singer, W. & Gray, C. M. (1995). Visual feature integration and the temporal correlation hypothesis. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.ne.18.030195.003011 — A review of the temporal correlation hypothesis for how visual features are integrated.
 - Lisman, J. E. & Idiart, M. A. P. (1995). Storage of 7 ± 2 short-term memories in oscillatory subcycles. *Science*. https://doi.org/10.1126/science.7878473 — A network model in which memory items occupy different gamma subcycles within slow theta cycles.
-- Fries, P. (2005). A mechanism for cognitive dynamics: neuronal communication through neuronal coherence. *Trends in Cognitive Sciences*. https://doi.org/10.1016/j.tics.2005.08.011 — Proposes that coherence between neuronal groups controls their communication.
+- Fries, P. (2005). A mechanism for cognitive dynamics: neuronal communication through neuronal coherence. *Trends in Cognitive Sciences*. https://doi.org/10.1016/j.tics.2005.08.011 — The original proposal that neuronal coherence is the mechanism of communication between neuronal groups.
 
-### Surveys and reviews
+### Surveys and textbooks
 
 - Buzsáki, G. & Draguhn, A. (2004). Neuronal oscillations in cortical networks. *Science*. https://doi.org/10.1126/science.1099745 — Survey of the oscillations in cortical networks, their frequency span and their proposed functions.
-- Fries, P. (2015). Rhythms for cognition: communication through coherence. *Neuron*. https://doi.org/10.1016/j.neuron.2015.09.034 — Review of the coherence hypothesis and the evidence for it, written by the author who proposed it.
+- Fries, P. (2015). Rhythms for cognition: communication through coherence. *Neuron*. https://doi.org/10.1016/j.neuron.2015.09.034 — Review by Fries, who proposed the hypothesis, on how gamma-band synchronisation shapes communication between groups and how attention acts on it.
 - Buzsáki, G. (2006). *Rhythms of the Brain*. Oxford University Press. https://doi.org/10.1093/acprof:oso/9780195301069.001.0001 — Book-length treatment of brain rhythms, for readers who want more depth than the survey above.
 
 ### Articles and documentation

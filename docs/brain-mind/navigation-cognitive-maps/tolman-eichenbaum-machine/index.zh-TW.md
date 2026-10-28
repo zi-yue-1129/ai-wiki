@@ -40,7 +40,7 @@ TEM 主張，內嗅細胞形成一組描述結構知識的基底，而海馬迴�
 
 ## 方程式或演算法
 
-TEM 是以預測來訓練的神經網路，無法用單一方程式概括。以下的流程依循摘要的描述；論文的方法部分提供細節：
+TEM 是以預測來訓練的神經網路，無法用單一方程式概括。以下的流程概括模型的主要步驟；論文的方法部分提供細節：
 
 1. 讓模型接收某環境中一串觀察與移動。
 2. 內嗅式成分為這串事件中的關係建立結構編碼。
@@ -63,13 +63,13 @@ TEM 是以預測來訓練的神經網路，無法用單一方程式概括。以�
 ## 關聯
 
 - **認知地圖**：TEM 為認知地圖的想法提供一個具體的解釋。見[空間導航與認知地圖](../index.md)。
-- **記憶**：海馬迴與內嗅在記憶中的角色見[記憶與學習的神經機制](../../memory-learning/index.md)。TEM 把其中的空間與關係部分連在一起。
+- **記憶**：海馬迴與內嗅在記憶中的角色見[記憶與學習的神經機制](../../memory-learning/index.md)。TEM 把其中的空間與關係部分連在一起。在概念性（非空間）知識上，人類也曾報告格狀式的編碼（Constantinescu 等人，2016）。
 - **位置細胞**：模型的海馬迴部分就是[位置細胞與認知地圖假說](../place-cells/index.md)中的位置細胞故事。
 - **AI**：能轉移到新環境的共用結構，是[世界模型與具身智慧](../../../theory/models/world-models/index.md)中討論的想法。
 
 ## 應用
 
-- **產生假說**：TEM 產生可與記錄比對的預測，例如位置細胞與格狀細胞如何一起重映射。
+- **產生假說**：TEM 產生可與記錄比對的預測，例如海馬迴的重映射是否在各環境之間保留結構知識。
 - **AI 中的結構化泛化**：學到的結構應能跨環境重用，這個想法把 TEM 與世界模型的研究連在一起。見[世界模型頁面](../../../theory/models/world-models/index.md)。
 
 ## 未解問題
@@ -85,6 +85,11 @@ TEM 是以預測來訓練的神經網路，無法用單一方程式概括。以�
 - Whittington, J. C. R. 等人（2020）。The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation。*Cell*。https://doi.org/10.1016/j.cell.2020.10.024 — 提出 TEM，以及一個結構如何同時支持空間與關係記憶與泛化的解釋。
 - Hafting, T. 等人（2005）。Microstructure of a spatial map in the entorhinal cortex。*Nature*。https://doi.org/10.1038/nature03721 — 描述內嗅皮質中的格狀細胞，也就是 TEM 重現的細胞類型。
 
-### 綜論與回顧
+### 綜述與教科書
 
 - Behrens, T. E. J. 等人（2018）。What Is a Cognitive Map? Organizing Knowledge for Flexible Behavior。*Neuron*。https://doi.org/10.1016/j.neuron.2018.10.002 — 回顧認知地圖，以及它延伸至抽象知識的部分，這是 TEM 所依據的框架。
+- Moser, E. I.、Kropff, E. 與 Moser, M.-B.（2008）。Place Cells, Grid Cells, and the Brain's Spatial Representation System。*Annual Review of Neuroscience*。https://doi.org/10.1146/annurev.neuro.31.061307.090723 — 回顧位置細胞與格狀細胞作為同一迴路的一部分，如何在行為與記憶中表徵地點與路線。
+
+### 文章與文件
+
+- Constantinescu, A. O.、O'Reilly, J. X. 與 Behrens, T. E. J.（2016）。Organizing conceptual knowledge in humans with a gridlike code。*Science*。https://doi.org/10.1126/science.aaf0941 — 報告在包括內嗅皮質在內的多個腦區中，對概念空間的格狀神經表徵。

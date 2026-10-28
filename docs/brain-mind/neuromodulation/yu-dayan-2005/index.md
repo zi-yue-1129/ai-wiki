@@ -23,7 +23,7 @@ This page is part of [Neuromodulators beyond Dopamine](../index.md), which compa
 
 ## Overview
 
-Imagine a light that usually predicts a reward but is wrong one time in five. Learning what that light means should be slow and careful. Now suppose the rules change without warning. The light that was reliable a moment ago now means nothing, and the brain should update quickly. Both cases involve uncertainty, but they call for opposite responses. Yu and Dayan argue that the brain separates them and assigns each to a neuromodulator.
+Imagine a light that usually predicts a reward but is sometimes wrong. Learning what that light means should be slow and careful. Now suppose the rules change without warning. The light that was reliable a moment ago now means nothing, and the brain should update quickly. Both cases involve uncertainty, but they call for opposite responses. Yu and Dayan argue that the brain separates them and assigns each to a neuromodulator.
 
 ## Key concepts
 
@@ -34,7 +34,7 @@ Imagine a light that usually predicts a reward but is wrong one time in five. Le
 
 ## Problem
 
-Acetylcholine and noradrenaline both affect attention and learning, and their effects are hard to separate in experiments. Without a model, cholinergic and noradrenergic effects look like a general change in arousal. The question is what computational variable each one reports.
+Acetylcholine and noradrenaline both affect attention and learning, and their effects are hard to separate in experiments. The question is what computational variable each one reports.
 
 ## Core idea
 
@@ -50,9 +50,9 @@ The paper builds a probabilistic model of cue validity and context change. This 
 
 The paper does not present a new large dataset. It compares its model with existing experiments, mainly cueing tasks and maze learning.
 
-- In cueing tasks, the validity effect, the advantage of valid over invalid cues, changes with cholinergic manipulation. The model reproduces this as a change in expected uncertainty.
+- In cueing tasks, the validity effect, the advantage of valid over invalid cues, changes with cholinergic manipulation. Nicotine reduces it and scopolamine increases it. The model reproduces this qualitatively as a change in expected uncertainty.
 - In maze learning, boosting noradrenaline speeds the detection of a cue shift. The model links this to unexpected uncertainty.
-- In simulated tracking runs, the model's acetylcholine and noradrenaline signals follow the true cue validity and context changes.
+- The paper also simulates runs in which cue validity and context change over time.
 
 The paper also proposes an extended cueing task in which both cue identity and cue validity change, as a test of the theory.
 
@@ -60,8 +60,8 @@ The paper also proposes an extended cueing task in which both cue identity and c
 
 - **Qualitative comparison.** The model is compared with pharmacological results from a few tasks, and the agreement is qualitative.
 - **Model constructs.** Expected and unexpected uncertainty cannot be recorded directly, so each signal's link to its neuromodulator is inferred from behaviour and drugs.
-- **Scope of the claim.** The authors warn that the results do not mean more noradrenaline makes animals learn faster in general. The claim concerns learning after a change in context.
-- **Later measurements.** Pupil-linked arousal studies (Nassar et al., 2012) support a role for noradrenaline in updating beliefs, but they measure a proxy and do not separate expected from unexpected uncertainty in the same way.
+- **Reanalysis.** The paper reanalyses published experiments and reports no new dataset of its own.
+- **Later measurements.** Pupil-linked arousal studies (Nassar et al., 2012) show that arousal regulates how strongly new data change beliefs. They measure a proxy and do not test the acetylcholine and noradrenaline split.
 
 ## Connections
 
@@ -77,8 +77,8 @@ The paper also proposes an extended cueing task in which both cue identity and c
 
 ## Open questions
 
-- **Are the two signals separable?** The model assumes that acetylcholine and noradrenaline carry different uncertainty signals, and experiments that manipulate both have given mixed results.
-- **How is unexpected uncertainty detected?** The model assumes a change-detection process that signals noradrenaline, and the circuit that performs this detection is not yet mapped.
+- **Are the two signals separable?** The model assumes that acetylcholine and noradrenaline carry different uncertainty signals, and their effects are hard to separate experimentally.
+- **How is unexpected uncertainty detected?** The model assumes a change-detection process that drives noradrenaline, and how the brain implements it is unclear.
 - **Does the model generalise?** Most tests use cueing and maze tasks, so its reach into richer, natural environments is unclear.
 
 ## References
@@ -86,10 +86,10 @@ The paper also proposes an extended cueing task in which both cue identity and c
 ### Seminal papers
 
 - Yu, A. J. & Dayan, P. (2005). Uncertainty, Neuromodulation, and Attention. *Neuron*, 46(4), 681–692. https://doi.org/10.1016/j.neuron.2005.04.026 — The original paper. Proposes acetylcholine as a signal of expected uncertainty and noradrenaline as a signal of unexpected uncertainty, and models their effects on attention and learning.
-- Dayan, P. & Yu, A. J. (2006). Phasic norepinephrine: a neural interrupt signal for unexpected events. *Network: Computation in Neural Systems*, 17(4). https://doi.org/10.1080/09548980601004024 — Develops the noradrenaline part of the account, treating phasic noradrenaline as an interrupt signal for unexpected events.
-- Nassar, M. R., Rumsey, K. M., Wilson, R. C., Parikh, K., Heasly, B. & Gold, J. I. (2012). Rational regulation of learning dynamics by pupil-linked arousal systems. *Nature Neuroscience*. https://doi.org/10.1038/nn.3130 — Human experiments showing that pupil measures track change-point probability and predict learning rate.
+- Dayan, P. & Yu, A. J. (2006). Phasic norepinephrine: a neural interrupt signal for unexpected events. *Network: Computation in Neural Systems*, 17(4), 335–350. https://doi.org/10.1080/09548980601004024 — Proposes that phasic noradrenaline is a neural interrupt signal for unexpected events.
+- Nassar, M. R., Rumsey, K. M., Wilson, R. C., Parikh, K., Heasly, B. & Gold, J. I. (2012). Rational regulation of learning dynamics by pupil-linked arousal systems. *Nature Neuroscience*, 15(7), 1040–1046. https://doi.org/10.1038/nn.3130 — Human experiments showing that pupil-linked arousal tracks assessed instability in a noisy process and predicts how strongly new data influence beliefs.
 
-### Surveys and reviews
+### Surveys and textbooks
 
 - Aston-Jones, G. & Cohen, J. D. (2005). An integrative theory of locus coeruleus-norepinephrine function: adaptive gain and optimal performance. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.28.061604.135709 — Reviews the noradrenaline system the model relies on, with its tonic and phasic modes.
 - Hasselmo, M. E. (2006). The role of acetylcholine in learning and memory. *Current Opinion in Neurobiology*. https://doi.org/10.1016/j.conb.2006.09.002 — Reviews acetylcholine's role in learning and memory, relevant to the acetylcholine part of the account.

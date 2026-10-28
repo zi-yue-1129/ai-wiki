@@ -13,7 +13,7 @@ aliases:
 
 # 最優回饋控制（Todorov & Jordan，2002）
 
-最優回饋控制主張，動作是由一個在雜訊下最小化成本的控制器所產生，而且控制器只修正對任務有影響的誤差。這能解釋許多單純規劃理論無法說明的人類動作特徵，也把動作行為連結到工程中使用的最優控制方法。
+最優回饋控制主張，動作是由一個在雜訊下最小化成本的控制器所產生，而且控制器只修正對任務有影響的誤差。它提供了對人類動作數項特徵的解釋，也把動作行為連結到工程中使用的最優控制方法。
 
 本頁屬於[運動控制與小腦](../index.md)。它詳細說明一種方法。這類控制器所需的預測機制，見[內部前向模型](../internal-forward-models/index.md)。
 
@@ -25,13 +25,13 @@ aliases:
 
 ## 問題
 
-動作協調涉及的自由度遠多於任務所需。人類手臂的關節與肌肉數量，超過把手放到某一點所需的數量，因此同一結果有許多種達成方式。早期理論常假設大腦會選擇單一偏好的軌跡，或以固定規則解決這種冗餘，而這些說法難以解釋動作變異為何具有這樣的結構。
+動作協調涉及的自由度遠多於任務所需。人類手臂的關節與肌肉數量，超過把手放到某一點所需的數量，因此同一結果有許多種達成方式。有些理論假設大腦會選擇單一偏好的軌跡，或以固定規則解決這種冗餘。最優回饋控制則問：動作變異為何具有現在的結構。
 
 ## 核心想法
 
 Todorov 與 Jordan（2002）把運動協調視為隨機最優回饋控制。控制器在每一刻選擇指令，以最小化期望成本，並利用感覺回饋決定下一個指令。它不必把動作固定在預先定義的路徑上，因此允許在與任務無關的方向上偏離，並修正會影響結果的偏差。
 
-作者主張，數種協調特徵來自這一個原理，而不是來自各自獨立的機制。這些特徵包括協同（一組共同運動的關節）、控制器似乎調節的參數，以及離散的協調模式。作者在數種運動任務上檢驗了此框架。
+作者主張，動作變異的模式來自這一個原理，而不是每個特徵各有一套獨立的機制。他們在一系列運動任務上檢驗此框架。
 
 ## 方程式與演算法
 
@@ -45,13 +45,13 @@ Todorov 與 Jordan（2002）把運動協調視為隨機最優回饋控制。控�
 
 ## 結果
 
-Todorov 與 Jordan（2002）報告，此框架能解釋多種任務中人類運動協調的數項特徵。在不改變任務結果的方向上，變異較大；修正則主要出現在與任務相關的方向上。證據來自比較模型行為與記錄到的人類動作，顯示模型能重現其設計所要解釋的模式，但並不表明大腦實際執行的就是這個精確演算法。
+Todorov 與 Jordan（2002）在一系列運動任務上提出實驗結果，以支持此理論。預測的模式是：在冗餘、與任務無關的方向上允許變異，而會影響任務結果的偏差則被修正。這些結果本身並不能證明大腦實際執行的就是這個精確演算法。
 
 ## 限制
 
 - **成本函數由建模者選定。** 預測取決於所假設的成本。不同的成本可能產生不同的模式，因此擬合良好本身並不能辨識大腦的目標。
 - **動力學必須已知或習得。** 控制器需要一個身體模型，以預測指令的效果並估計狀態。若該模型不準確，預測的行為可能與觀察到的行為不同。預測機制見[內部前向模型](../internal-forward-models/index.md)。
-- **最優性是一種框架。** 最優性解釋描述的是動作系統似乎達成了什麼，本身並不規定實現此計算的神經迴路。Todorov（2004）回顧了這一取向及其假設。
+- **最優性是一種框架。** 最優性解釋描述的是動作系統似乎達成了什麼，本身並不規定實現此計算的神經迴路。Todorov（2004）討論了感覺運動控制中的最優性原理。
 - **簡單形式假設線性。** 閉式解適用於線性動力學與二次成本。真實的肢體與肌肉是非線性的，因此需要近似方法。
 
 ## 連結
@@ -74,9 +74,11 @@ Todorov 與 Jordan（2002）報告，此框架能解釋多種任務中人類運�
 
 ### 開創性論文
 
-- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*. https://doi.org/10.1038/nn963 — 提出隨機最優回饋控制作為運動協調的解釋，協同與受控參數皆由同一原理導出。
+- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*. https://doi.org/10.1038/nn963 — 提出隨機最優回饋控制作為運動協調的理論，其中只修正與任務相關的誤差。
+- Harris, C. M. & Wolpert, D. M. (1998). Signal-dependent noise determines motor planning. *Nature*. https://doi.org/10.1038/29528 — 主張隨運動指令大小增加的信號相依雜訊，會影響運動規劃的方式。
 
-### 綜述與回顧
+### 綜述與教科書
 
-- Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*. https://doi.org/10.1038/nn1309 — 回顧感覺運動控制中的最優性原理及其假設。
-- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧誤差修正與感覺預測如何塑造適應，也就是回饋控制被研究的背景。
+- Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*. https://doi.org/10.1038/nn1309 — 討論感覺運動控制中的最優性原理，這是最優回饋控制所依據的框架。
+- Scott, S. H. (2004). Optimal feedback control and the neural basis of volitional motor control. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn1427 — 討論最優回饋控制及其在自主運動中的神經基礎。
+- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧感覺預測誤差如何驅動運動適應，並使前向模型保持校準。

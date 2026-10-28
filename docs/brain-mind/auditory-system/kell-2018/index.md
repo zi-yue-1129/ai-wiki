@@ -28,30 +28,30 @@ Hand-designed models of auditory cortex, such as spectrotemporal filter models, 
 
 ## Core idea
 
-The network is trained on a task that listeners perform, not on recordings from the brain. Its input is a cochlea-like representation of sound. After training, the learned features are compared with people and with brain data, using the same test sounds. The authors also split the network into speech and music branches after shared early layers. The authors relate this split to the separate speech and music pathways that may exist in cortex.
+The network is trained on a task that listeners perform, not on recordings from the brain. Its input is a cochlea-like representation of sound. After training, the learned features are compared with people and with brain data, using the same test sounds. After seven shared layers, the network splits into a word branch and a genre branch.
 
 ## Equation or algorithm
 
-1. **Input.** Each 2-second clip is turned into a cochleagram: 211 filters spanning about 30 to 7860 Hz on an ERB-like scale, with compressed amplitude. The result is resized to 256 by 256.
-2. **Architecture.** A 12-layer convolutional network has five convolutional, three pooling, two normalisation and two fully connected layers. The first seven layers are shared. The network then splits into a word branch and a genre branch of five layers each.
-3. **Training.** The word task is a 587-way classification of a word at the middle of a clip. The clips use words from TIMIT and WSJ, mixed with background sounds at a mean signal-to-noise ratio of about −3 dB. The genre task is a 41-way classification of music clips, with noise mixed in at about 12 dB.
+1. **Input.** Each 2-second clip is turned into a cochleagram with 211 filters, with centre frequencies from 30 to 7860 Hz. The result is resized to 256 by 256.
+2. **Architecture.** The network has twelve layers. The first seven are shared, and the network then branches into two sets of five task-specific layers, one for words and one for genre.
+3. **Training.** The word task is a 587-way classification of the word at the midpoint of a two-second clip. The clips use words from TIMIT and WSJ, mixed with background sounds at a mean signal-to-noise ratio of 3 dB (auditory scenes and speech babble) or 6 dB (music). The genre task is a 41-way classification of two-second music clips, with noise mixed in at a mean signal-to-noise ratio of 12 dB.
 4. **Evaluation.** For each layer, a linear encoding model predicts fMRI responses to the test sounds, and the variance explained is compared across regions.
 
-The shared early layers were chosen to share as much processing as possible without hurting performance. A fully separate pair of networks had about twice the parameters.
+A fully separate pair of networks would have nearly twice as many parameters.
 
 ## Results
 
-- **Behaviour.** On word recognition, the network's accuracy across background types and signal-to-noise ratios matched that of 18 listeners (r² = 0.92). A simple model of cochlear distortion explained much less (r² = 0.37).
+- **Behaviour.** On word recognition, the network's accuracy across background types and signal-to-noise ratios matched that of 18 listeners (r² = 0.92). A simple measure of distortion in the cochleagram explained much less (r² = 0.37).
 - **Music genre.** Accuracy was roughly human-level, and the pattern of errors correlated with human confusions. This task showed the largest mismatches.
-- **Brain fit.** Across auditory cortex, the trained network explained a median of 69.9% of the variance in fMRI responses to 165 natural sounds from 8 participants. The spectrotemporal filter baseline explained 55.1%. The same architecture with random weights did worse than both.
-- **Hierarchy.** Primary (tonotopic) cortex was best predicted by intermediate layers. Non-primary regions for pitch, music and speech were best predicted by deeper layers, and speech-selective voxels showed the largest advantage for deep layers.
+- **Brain fit.** Across auditory cortex, the trained network explained 69.9% of the variance in fMRI responses to 165 natural sounds from 8 participants. The spectrotemporal filter baseline explained 55.1%. The same architecture with random weights did worse than both.
+- **Hierarchy.** Primary (tonotopic) cortex was best predicted by intermediate layers. Beyond the core, deeper layers gave the best predictions, although pitch- and music-selective voxels were predicted about equally well by intermediate and deep layers.
 
 ## Limitations
 
 - **Imperfect match.** The network matched human genre judgements only partly, which the authors connect to listeners' cultural experience.
-- **Unexplained variance.** The network did not explain all reliable voxel variance. Possible reasons include the missing tasks, the regression method, and the feedforward design, which has no recurrence, feedback or attention.
+- **Unexplained variance.** The network did not explain all reliable voxel variance. The model is feedforward, with no recurrence or feedback.
 - **Weak evidence for the primate layout.** The data did not clearly show the three-stage core, belt and parabelt hierarchy seen in non-human primates.
-- **Learning.** The network needs millions of labelled examples, and its learning procedure differs greatly from biological learning.
+- **Learning.** The network was trained on more than two and a half million labelled examples per task, far more than people appear to need to learn words, and its learning procedure differs from biological learning.
 - **Measurement.** fMRI has limited temporal resolution, and the model has no realistic temporal dynamics or behavioural state.
 
 ## Connections
@@ -78,7 +78,10 @@ The shared early layers were chosen to share as much processing as possible with
 
 - Kell, A. J. E., Yamins, D. L. K., Shook, E. N., Norman-Haignere, S. V. & McDermott, J. H. (2018). A task-optimized neural network replicates human auditory behavior, predicts brain responses, and reveals a cortical processing hierarchy. *Neuron*. https://doi.org/10.1016/j.neuron.2018.03.044 — The original paper. It trains a network on word and genre tasks and compares it with human behaviour and auditory cortex fMRI.
 - Yamins, D. L. K., Hong, H., Cadieu, C. F., Solomon, E. A., Seibert, D. & DiCarlo, J. J. (2014). Performance-optimized hierarchical models predict neural responses in higher visual cortex. *PNAS*. https://doi.org/10.1073/pnas.1403112111 — The visual precursor of the task-optimised approach, which predicts neural responses in higher visual cortex.
+- Chi, T., Ru, P. & Shamma, S. A. (2005). Multiresolution spectrotemporal analysis of complex sounds. *Journal of the Acoustical Society of America*. https://doi.org/10.1121/1.1945807 — The spectrotemporal baseline that this study compares the network with, which proposes a unified multiresolution representation.
 
 ### Surveys and textbooks
 
 - Hickok, G. & Poeppel, D. (2007). The cortical organization of speech processing. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2113 — Background on the cortical speech pathways that the speech branch may resemble.
+- Robles, L. & Ruggero, M. A. (2001). Mechanics of the mammalian cochlea. *Physiological Reviews*. https://doi.org/10.1152/physrev.2001.81.3.1305 — Reviews cochlear mechanics: travelling waves, tonotopic place coding and outer hair cell amplification, the biology behind cochlea-like inputs.
+- Rauschecker, J. P. & Scott, S. K. (2009). Maps and streams in the auditory cortex: nonhuman primates illuminate human speech processing. *Nature Neuroscience*. https://doi.org/10.1038/nn.2331 — Reviews maps and streams in auditory cortex, drawing on nonhuman primate work and its bearing on human speech processing.

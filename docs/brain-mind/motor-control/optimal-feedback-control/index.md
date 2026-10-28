@@ -14,7 +14,7 @@ aliases:
 
 # Optimal feedback control (Todorov & Jordan, 2002)
 
-Optimal feedback control proposes that movement is produced by a controller that minimises a cost under noise, and that the controller corrects only the errors that matter for the task. This explains many features of human movement that simpler planning accounts leave open, and it connects motor behaviour to the optimal control methods used in engineering.
+Optimal feedback control proposes that movement is produced by a controller that minimises a cost under noise, and that the controller corrects only the errors that matter for the task. It offers an account of several features of human movement, and it connects motor behaviour to the optimal control methods used in engineering.
 
 This page is part of [Motor Control and the Cerebellum](../index.md). It covers one method in detail. The predictive machinery that such a controller needs is on [Internal Forward Models](../internal-forward-models/index.md).
 
@@ -26,13 +26,13 @@ The proposed answer is that the brain aims at a goal, not a trajectory. It tries
 
 ## Problem
 
-Motor coordination involves more degrees of freedom than a task needs. A human arm has more joints and muscles than are required to place the hand at one point, so many movements achieve the same result. Earlier accounts often assumed a single preferred trajectory or a fixed rule for resolving this redundancy, and found it hard to explain why movement variation is structured as it is.
+Motor coordination involves more degrees of freedom than a task needs. A human arm has more joints and muscles than are required to place the hand at one point, so many movements achieve the same result. Some accounts assume a single preferred trajectory or a fixed rule for resolving this redundancy. Optimal feedback control asks why movement variation has the structure it does.
 
 ## Core idea
 
 Todorov and Jordan (2002) treat motor coordination as stochastic optimal feedback control. The controller chooses commands at each moment to minimise an expected cost, using sensory feedback to choose its next command. It is not required to hold the movement on a predefined path, so it allows deviation in task-irrelevant directions and corrects deviations that would affect the outcome.
 
-The authors argue that several coordination features follow from this single principle, rather than from separate mechanisms. These include synergies (groups of joints that move together), the parameters the controller appears to regulate, and discrete modes of coordination. They test the framework on several motor tasks.
+The authors argue that the pattern of movement variability follows from this single principle, rather than from a separate mechanism for each feature. They test the framework on a range of motor tasks.
 
 ## Equation or algorithm
 
@@ -46,13 +46,13 @@ In the linear-quadratic-Gaussian case, the optimal control law is a linear feedb
 
 ## Results
 
-Todorov and Jordan (2002) report that the framework accounts for several features of human motor coordination across multiple tasks. Variability is larger in directions that do not change the task outcome, and corrections occur mainly along task-relevant directions. The evidence compares model behaviour with recorded human movements, and shows that the model reproduces the patterns it was built to explain, not that the brain runs this exact algorithm.
+Todorov and Jordan (2002) present experimental results from a range of motor tasks in support of the theory. The predicted pattern is that variability is allowed in redundant, task-irrelevant directions, while deviations that affect the task outcome are corrected. These results do not by themselves show that the brain runs this exact algorithm.
 
 ## Limitations
 
 - **Cost functions are chosen by the modeller.** The predictions depend on the assumed cost. Different costs can produce different patterns, so a good fit does not by itself identify the brain's objective.
 - **Dynamics must be known or learned.** The controller needs a model of the body to predict the effects of its commands and to estimate the state. Where that model is inaccurate, the predicted behaviour may differ from observed behaviour. The predictive machinery is discussed on the [Internal Forward Models](../internal-forward-models/index.md) page.
-- **Optimality is a framework.** Optimality accounts describe what a movement system appears to achieve. They do not, on their own, specify the neural circuit that carries out the computation. Todorov (2004) reviews this approach and its assumptions.
+- **Optimality is a framework.** Optimality accounts describe what a movement system appears to achieve. They do not, on their own, specify the neural circuit that carries out the computation. Todorov (2004) discusses optimality principles in sensorimotor control.
 - **Simple forms assume linearity.** The closed-form solution holds for linear dynamics and quadratic costs. Real limbs and muscles are nonlinear, so approximate methods are needed.
 
 ## Connections
@@ -75,9 +75,11 @@ Todorov and Jordan (2002) report that the framework accounts for several feature
 
 ### Seminal papers
 
-- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*. https://doi.org/10.1038/nn963 — Proposes stochastic optimal feedback control as the account of motor coordination, with synergies and controlled parameters following from one principle.
+- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*. https://doi.org/10.1038/nn963 — Proposes that movement coordination follows from stochastic optimal feedback control, in which only task-relevant errors are corrected.
+- Harris, C. M. & Wolpert, D. M. (1998). Signal-dependent noise determines motor planning. *Nature*. https://doi.org/10.1038/29528 — Argues that signal-dependent noise, which grows with the size of the motor command, shapes motor planning.
 
-### Surveys and reviews
+### Surveys and textbooks
 
-- Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*. https://doi.org/10.1038/nn1309 — Reviews optimality principles in sensorimotor control and their assumptions.
-- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — Reviews how error correction and sensory prediction shape adaptation, the setting in which feedback control is studied.
+- Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*. https://doi.org/10.1038/nn1309 — Discusses optimality principles in sensorimotor control, the framework that this method builds on.
+- Scott, S. H. (2004). Optimal feedback control and the neural basis of volitional motor control. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn1427 — Discusses optimal feedback control and its neural basis in volitional movement.
+- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — Reviews how sensory prediction errors drive motor adaptation and keep forward models calibrated.

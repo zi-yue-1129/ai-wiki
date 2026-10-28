@@ -16,25 +16,25 @@ aliases:
 
 # Cerebellar supervised learning (Marr, Albus & Ito)
 
-The Marr–Albus–Ito theory proposes that the cerebellar cortex learns motor skills as a supervised learner. Climbing-fibre input acts as a teaching signal, and it changes how Purkinje cells respond to patterns of input from parallel fibres. The theory links a specific circuit to a specific learning rule, and it is one of the clearest examples of a neural circuit explained in terms of a learning algorithm.
+The Marr–Albus–Ito theory proposes that the cerebellar cortex learns motor skills as a supervised learner. Climbing-fibre input acts as a teaching signal, and it changes how Purkinje cells respond to patterns of input from parallel fibres. The theory links a specific circuit to a specific learning rule, which is why it is often cited as an example of a neural circuit explained in terms of a learning algorithm.
 
 This page is part of [Motor Control and the Cerebellum](../index.md). It covers one method in detail. The general paradigm of learning from a teacher is in [Supervised Learning](../../../theory/paradigms/supervised/index.md).
 
 ## Overview
 
-The cerebellum holds most of the brain's neurons (see [Neuroscience Basics](../../neuroscience/index.md)), yet damage to it usually impairs coordination and movement adjustment rather than causing paralysis. The Marr–Albus–Ito theory asks what it computes and how its connections support learning.
+The cerebellum is central to learning motor skills, as Marr's 1969 theory proposed (see [Neuroscience Basics](../../neuroscience/index.md) for its basic structure). The Marr–Albus–Ito theory asks what it computes and how its connections support learning.
 
 ## Problem
 
-How can a neural circuit learn the right motor output for a context, given only occasional error feedback? The cerebellar circuit is highly structured, with a huge number of granule cells and a single output per Purkinje cell. The question is what that structure computes and how its synapses change.
+How can a neural circuit learn the right motor output for a context, given only occasional error feedback? The cerebellar circuit is highly structured. The question is what that structure computes and how its synapses change.
 
 ## Core idea
 
-Marr's 1969 theory proposed that the cerebellar cortex learns motor skills. He described two forms of input-output relation, one for learning movements and one for maintaining posture and balance. In his account, the inferior olive sends a signal that represents an elemental movement, and the climbing fibre carries it to the matched Purkinje cell. The Purkinje cell is also exposed, through the mossy-fibre pathway and the granule cells, to the context in which the movement occurred. Repeated pairing of context and climbing-fibre activity lets the Purkinje cell later initiate the movement from the context alone.
+Marr's 1969 theory proposed that the cerebellar cortex learns motor skills. He described two forms of input-output relation, one for learning movements and one for maintaining posture and balance. In his account, the inferior olive sends a signal that represents an elemental movement, and the climbing fibre carries it to the matched Purkinje cell. The Purkinje cell is also exposed, through the mossy-fibre pathway, to the context in which the movement occurred. Repeated pairing of context and climbing-fibre activity lets the Purkinje cell later initiate the movement from the context alone.
 
-Albus (1971) developed a related model. Its central idea is that the climbing-fibre signal acts as an error signal, so that the cerebellum adjusts its output to reduce the error. In this view the cerebellum is a learning machine that is trained by a teacher, which is what "supervised" means here.
+Albus (1971) presented another theory of cerebellar function. The "supervised" in this page's title refers to the climbing-fibre input, which is read as a teaching signal.
 
-Ito's contribution was experimental. His work on the cerebellar cortex identified a form of synaptic change, long-term depression, at parallel-fibre to Purkinje-cell synapses when those synapses are active together with climbing-fibre input (reviewed in Ito, 2006). This gave a biological mechanism for an error-driven weight change, and it linked the theory to measured synapses. Ito (2008) further argued that the cerebellum learns internal models of the body and the world, which is the connection to [Internal Forward Models](../internal-forward-models/index.md).
+Ito (2008) proposes, as a hypothesis, that the cerebellum encodes internal models, and that these may extend to mental representations in the cerebral cortex. This is the link to [Internal Forward Models](../internal-forward-models/index.md).
 
 ## Equation or algorithm
 
@@ -46,34 +46,34 @@ Here \(x_i\) is the activity of parallel fibre \(i\), \(w_i\) is its synaptic we
 
 \(\Delta w_i = -\eta \, e \, x_i\)
 
-with learning rate \(\eta\). This is the perceptron-style delta rule from supervised learning. It is a simplified model: the papers do not state it in this form, and the detailed biological rule is still debated.
+with learning rate \(\eta\). This is the perceptron-style delta rule from supervised learning. It is a simplified form written for this page, not a formula quoted from the papers, and the detailed biological rule is still debated.
 
 ## Results
 
-Marr's and Albus's papers are theoretical. They argue that a circuit with the assumed connectivity can learn input-output mappings in the stated way, and that the cerebellum fits this theory. Experimental support came later, notably Ito's studies of long-term depression, reviewed in Ito (2006), which provided evidence for the synaptic change the theory needs.
+Marr's 1969 paper and Albus's 1971 paper are theoretical proposals about cerebellar function. Whether the synaptic changes they require are found in the cerebellum is a question for experiments, which this page does not review in detail.
 
 ## Limitations
 
-- **The original theories preceded the measurements.** Marr's and Albus's theories were formulated before the synaptic change was measured. Ito's identification of depression at parallel-fibre to Purkinje-cell synapses fixed the direction of that change, which the theories had not pinned down from data.
+- **These theories are proposals.** Marr's and Albus's accounts must be checked against measurements of the cerebellar circuit before they can be taken as established.
 - **The teaching signal is not fully settled.** Calling the climbing fibre an error signal is a strong interpretation. Its exact content in different tasks is still studied.
-- **The model is simplified.** It leaves out the deep cerebellar nuclei, the interneurons and the many connections that shape the output. Later work has added these to the picture.
-- **Motor learning is not the whole story.** The cerebellum is also linked to timing and to some cognitive functions, which the motor theory does not explain on its own (Ito, 2008).
+- **The model is simplified.** It leaves out the deep cerebellar nuclei, the interneurons and many connections that shape the output.
+- **Motor learning is not the whole story.** Ito (2008) proposes that the cerebellum may also contribute to non-motor functions, which the motor theory does not cover.
 
 ## Connections
 
-- **Internal models.** Ito's later view is that the cerebellum learns internal models, which connects this theory to forward prediction. See [Internal Forward Models](../internal-forward-models/index.md).
+- **Internal models.** Ito (2008) proposes that the cerebellum encodes internal models, which connects this theory to forward prediction. See [Internal Forward Models](../internal-forward-models/index.md).
 - **Optimal control.** Whether the cerebellum learns the feedback gains that optimal control predicts is an open hypothesis; see [Optimal Feedback Control](../optimal-feedback-control/index.md).
 - **Supervised learning.** The theory is a biological instance of supervised learning, the paradigm in which a teacher supplies the target. See [Supervised Learning](../../../theory/paradigms/supervised/index.md).
-- **Division of labour.** Doya (1999) proposed that the cerebellum, basal ganglia and cortex implement supervised, reinforcement and unsupervised learning. The cerebellum's part is the supervised one. Procedural learning more broadly is on [Memory & Learning in the Brain](../../memory-learning/index.md).
+- **Division of labour.** Doya (1999) asks what computations the cerebellum, basal ganglia and cerebral cortex perform. Procedural learning more broadly is on [Memory & Learning in the Brain](../../memory-learning/index.md).
 
 ## Applications
 
-- **Robot control.** Albus (1975) introduced the cerebellar model articulation controller (CMAC), a table-based function approximator for manipulator control. It applies the cerebellar idea of a sparse, expanded code to engineering control. See [Robotics](../../../applications/robotics/index.md).
+- **Robot control.** Albus (1975) introduced the cerebellar model articulation controller (CMAC), a table-based function approximator for manipulator control. It applies the cerebellar model to engineering control. See [Robotics](../../../applications/robotics/index.md).
 - **Neural network design.** The pairing of an expanded input code with an error-driven weight change recurs in AI learning systems, including the perceptron-like models above. See [NeuroAI](../../neuroai/index.md).
 
 ## Open questions
 
-- **Does the teaching signal always mean error?** Some studies suggest that climbing-fibre activity carries information beyond a simple error.
+- **Does the teaching signal always mean error?** How well the climbing-fibre signal matches a simple error is an open question.
 - **Where else does learning happen?** The theory places learning in the Purkinje-cell synapses, but plasticity may also occur at other sites in the cerebellum.
 
 ## References
@@ -81,11 +81,11 @@ Marr's and Albus's papers are theoretical. They argue that a circuit with the as
 ### Seminal papers
 
 - Marr, D. (1969). A theory of cerebellar cortex. *Journal of Physiology*. https://doi.org/10.1113/jphysiol.1969.sp008820 — Proposes that the cerebellar cortex learns motor skills, with climbing-fibre input from the inferior olive as the teaching signal.
-- Albus, J. S. (1971). A theory of cerebellar function. *Mathematical Biosciences*. https://doi.org/10.1016/0025-5564(71)90051-4 — Develops the cerebellar learning model in which the climbing-fibre signal guides changes in Purkinje-cell output.
+- Albus, J. S. (1971). A theory of cerebellar function. *Mathematical Biosciences*. https://doi.org/10.1016/0025-5564(71)90051-4 — Presents a theory of cerebellar function, published two years after Marr's account.
 - Albus, J. S. (1975). A new approach to manipulator control: the cerebellar model articulation controller (CMAC). *Journal of Dynamic Systems, Measurement, and Control*. https://doi.org/10.1115/1.3426922 — Applies the cerebellar model to robot manipulator control.
 
-### Surveys and reviews
+### Surveys and textbooks
 
-- Ito, M. (2006). Cerebellar circuitry as a neuronal machine. *Progress in Neurobiology*. https://doi.org/10.1016/j.pneurobio.2006.02.006 — Reviews the circuit of the cerebellar cortex and the synaptic plasticity that supports its learning.
-- Ito, M. (2008). Control of mental activities by internal models in the cerebellum. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2332 — Argues that the cerebellum learns internal models, including for non-motor functions.
-- Doya, K. (1999). What are the computations of the cerebellum, the basal ganglia and the cerebral cortex? *Neural Networks*. https://doi.org/10.1016/S0893-6080(99)00046-5 — Proposes a division of labour among cerebellum, basal ganglia and cortex as supervised, reinforcement and unsupervised learners.
+- Ito, M. (2006). Cerebellar circuitry as a neuronal machine. *Progress in Neurobiology*. https://doi.org/10.1016/j.pneurobio.2006.02.006 — Reviews the circuitry of the cerebellar cortex.
+- Ito, M. (2008). Control of mental activities by internal models in the cerebellum. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2332 — Proposes, as a hypothesis, that the cerebellum encodes internal models, including for mental representations.
+- Doya, K. (1999). What are the computations of the cerebellum, the basal ganglia and the cerebral cortex? *Neural Networks*. https://doi.org/10.1016/S0893-6080(99)00046-5 — Asks what computations the cerebellum, basal ganglia and cerebral cortex perform.

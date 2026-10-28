@@ -27,11 +27,11 @@ aliases:
 
 ## 問題
 
-逐人擬合模型很簡單，但當每個人只貢獻少數試驗時，效果很差。估計值會有很大的雜訊，甚至可能取得不合理的數值。精神醫學的樣本通常很小。Ahn 等人（2017）指出，這些方法通常也過於技術化，臨床研究者不易使用。
+逐人擬合模型很簡單，但當每個人只貢獻少數試驗時，效果很差。估計值會有很大的雜訊，甚至可能取得不合理的數值。精神醫學的樣本通常很小。Ahn 等人（2017）指出，許多研究者覺得這些方法過於技術化，難以採用。
 
 ## 核心想法
 
-每個人的選擇，都由一個帶有少數自由參數的模型來描述，例如學習率與選擇敏感度參數。階層式貝氏擬合假設個別參數來自一個共享的群體分布。它同時估計個別參數與群體分布，因此每個人的估計也參考了其他人的資料。資料少的人會被拉向群體平均，而群體分布本身也從樣本中學得。Ahn 等人（2017）建立了 hBayesDM，讓這個方法只需很少的程式碼即可使用，涵蓋一組決策任務的模型擬合、視覺化與模型比較。該套件也可以輸出逐試驗的潛在變數，例如預測誤差，供有模型的神經影像分析使用。
+每個人的選擇，都由一個帶有少數自由參數的模型來描述，例如學習率與選擇敏感度參數。階層式貝氏擬合假設個別參數來自一個共享的群體分布。它同時估計個別參數與群體分布，因此每個人的估計也參考了其他人的資料。資料少的人會被拉向群體平均，而群體分布本身也從樣本中學得。Ahn 等人（2017）建立了 hBayesDM，讓這個方法只需很少的程式碼即可使用，涵蓋一組決策任務的模型擬合、視覺化與模型比較。對其中部分任務，該套件也可以輸出逐試驗的潛在變數，例如預測誤差，供有模型的神經影像分析使用。
 
 ## 方程式或演算法
 
@@ -51,16 +51,16 @@ aliases:
 4. 以貝氏抽樣同時估計個別與群體參數。hBayesDM 為此使用 Stan。
 5. 比較候選模型，並報告參數估計值及其不確定性。
 
-第 3 步是一般形式，並非來自單一論文的公式。Gershman（2016）主張群體層級的先驗應從資料中設定，而非事先固定。
+第 3 步是一般形式，並非來自單一論文的公式。經驗先驗（即從資料設定的先驗）是選擇群體層級先驗的一種方式（Gershman，2016）。
 
 ## 結果
 
-Ahn 等人（2017）把 hBayesDM 介紹為一個可用的工具，能在多種決策任務上擬合這些模型，並提供模型比較與潛在變數輸出。他們的主張著重於可用性；該論文並未顯示這些參數能預測臨床結果。
+Ahn 等人（2017）把 hBayesDM 介紹為一個可用的工具，能在多種決策任務上擬合這些模型，並提供模型比較與潛在變數輸出。他們的摘要著重於該套件的可用性。
 
 ## 限制
 
 - **模型依賴。**參數的意義取決於模型所說的內容。對同樣的行為，不同模型可能給出不同的參數值。Wilson 與 Collins（2019）強調，模型必須謹慎使用，才能產生有意義的洞見。
-- **收縮效應。**把個別估計拉向群體平均，在資料稀少時能使估計更穩定，但也可能模糊人與人之間的真實差異。收縮的程度取決於先驗，這正是先驗選擇重要的原因（Gershman，2016）。
+- **收縮效應。**把個別估計拉向群體平均，在資料稀少時能使估計更穩定，但也可能模糊人與人之間的真實差異。收縮的程度取決於先驗，因此先驗的選擇很重要。
 - **任務特異性。**參數是在某一任務內測得的。參數可能捕捉的是該任務特有的策略，而不是穩定的特質。
 - **效度。**模型能擬合行為，並不表示其參數就是症狀背後的機制。
 
@@ -86,14 +86,11 @@ Ahn 等人（2017）把 hBayesDM 介紹為一個可用的工具，能在多種�
 
 ### 開創性論文
 
-- Ahn, W.-Y., Haines, N. & Zhang, L.（2017）。Revealing Neurocomputational Mechanisms of Reinforcement Learning and Decision-Making With the hBayesDM Package。*Computational Psychiatry*。https://doi.org/10.1162/cpsy_a_00002 — 介紹 hBayesDM，一個用於以階層式貝氏方法擬合強化學習與決策模型的開源套件，並提供模型比較與潛在變數輸出。
-- Gershman, S. J.（2016）。Empirical priors for reinforcement learning models。*Journal of Mathematical Psychology*。https://doi.org/10.1016/j.jmp.2016.01.006 — 主張為強化學習參數從資料設定先驗，而非事先固定。
+- Ahn, W.-Y., Haines, N. & Zhang, L.（2017）。Revealing Neurocomputational Mechanisms of Reinforcement Learning and Decision-Making With the hBayesDM Package。*Computational Psychiatry*。https://doi.org/10.1162/cpsy_a_00002 — 介紹 hBayesDM，一個以階層式貝氏方法擬合強化學習與決策模型的 R 套件，並提供模型比較與潛在變數輸出。
+- Gershman, S. J.（2016）。Empirical priors for reinforcement learning models。*Journal of Mathematical Psychology*。https://doi.org/10.1016/j.jmp.2016.01.006 — 介紹適用於強化學習模型的經驗先驗，即從資料設定的先驗。
 
 ### 綜述與教科書
 
-- Wilson, R. C. & Collins, A. G.（2019）。Ten simple rules for the computational modeling of behavioral data。*eLife*。https://doi.org/10.7554/eLife.49547 — 一份適合初學者的指南，說明如何把計算模型與行為資料連結起來，提出十條使結論有意義的規則，並附程式範例。
-- Sutton, R. S. & Barto, A. G.（2018）。*Reinforcement Learning: An Introduction*，第 2 版。MIT Press。http://incompleteideas.net/book/the-book-2nd.html — 關於本方法所用價值學習與選擇模型的標準教科書。
-
-### 文章與文件
-
-- CCS-Lab. *hBayesDM: hierarchical Bayesian modeling of decision-making tasks*. GitHub repository. https://github.com/CCS-Lab/hBayesDM — 此套件的原始碼與教學，是本方法的實際形式。
+- Wilson, R. C. & Collins, A. G.（2019）。Ten simple rules for the computational modeling of behavioral data。*eLife*。https://doi.org/10.7554/eLife.49547 — 一份適合初學者的指南，說明如何把計算模型與行為資料連結起來，並提出十條使結論有意義的規則。
+- Maia, T. V. & Frank, M. J.（2011）。From reinforcement learning models to psychiatric and neurological disorders。*Nature Neuroscience*。https://doi.org/10.1038/nn.2723 — 回顧強化學習模型如何描述精神與神經疾病中的行為。
+- Huys, Q. J. M., Maia, T. V. & Frank, M. J.（2016）。Computational psychiatry as a bridge from neuroscience to clinical applications。*Nature Neuroscience*。https://doi.org/10.1038/nn.4238 — 區分資料驅動與理論驅動的計算精神醫學方法，並回顧兩者的臨床應用。

@@ -39,10 +39,10 @@ aliases:
 ## 核心想法
 
 1. **耳蝸依頻率分類聲音。** 基底膜攜帶一道行進波，其波峰位置由頻率決定。高頻波峰在靠近基部處，低頻波峰在靠近頂端處。外毛細胞提供主動放大，使安靜聲音的調諧更為銳利（Robles & Ruggero, 2001）。
-2. **頻率圖延續到皮層。** 人類初級聽覺皮層位於橫顳回，含有兩張相鄰的音調拓撲圖，二者互為鏡像並共享一條低頻邊界（Formisano 等人, 2003）。這與其他靈長類所見的排列相符。
-3. **核心之外，各區域逐漸專精。** 非初級區域對音高、音樂與語音的反應較強。靈長類研究的綜述描述了階層式的層級、拓撲圖與平行的路徑（Rauschecker & Scott, 2009）。Hickok 與 Poeppel（2007）則把雙路徑觀點應用於語音。
-4. **皮層追隨被注意的聲音。** Cherry（1953）研究聽者如何在多人說話中跟隨其中一人。人類皮層的記錄顯示，非初級區域對被注意說話者的表徵強於未被注意者（Mesgarani & Chang, 2012）。因此注意力影響皮層編碼的內容，而不只是耳朵接收到的內容。
-5. **受訓練的網路呈現類似皮層的階層。** 僅訓練於辨識字詞與音樂類型的深度網路，重現了類似人類的行為，並且比頻譜時間濾波器模型更能預測功能性磁振造影（fMRI）反應。它的早期層對應初級皮層，後期層對應非初級區域（Kell 等人, 2018）。
+2. **頻率圖延續到皮層。** 人類初級聽覺皮層含有兩張互為鏡像的音調拓撲圖（Formisano 等人, 2003）。
+3. **核心之外，各區域逐漸專精。** 非初級區域包括對音高、音樂與語音具有選擇性的區域（Kell 等人, 2018）。Rauschecker 與 Scott（2009）綜述聽覺皮層中的圖與路徑，並參照靈長類研究。Hickok 與 Poeppel（2007）則綜述皮層中語音處理的組織方式。
+4. **皮層追隨被注意的聲音。** Cherry（1953）研究聽者在兩段語音同時呈現時的語音辨識。來自非初級人類聽覺皮層的記錄顯示，在兩人混合語音中，皮層編碼被注意說話者的特徵（Mesgarani & Chang, 2012）。這暗示注意力影響皮層編碼的內容，而不只是耳朵接收到的內容。
+5. **受訓練的網路呈現類似皮層的階層。** 僅訓練於辨識字詞與音樂類型的深度網路，重現了類似人類的行為，並且比頻譜時間濾波器模型更能預測功能性磁振造影（fMRI）反應。它的中間層最能預測初級皮層，較深的層則最能預測非初級區域（Kell 等人, 2018）。
 
 ## 運作方式
 
@@ -83,13 +83,13 @@ aliases:
 
 ### 開創性論文
 
-- Cherry, E. C.（1953）。Some experiments on the recognition of speech, with one and with two ears. *Journal of the Acoustical Society of America*。https://doi.org/10.1121/1.1907229 — 研究聽者如何在多人說話中辨識一人的經典研究，是雞尾酒會問題的起源。
-- Formisano, E., Kim, D.-S., Di Salle, F., van de Moortele, P.-F., Ugurbil, K. & Goebel, R.（2003）。Mirror-symmetric tonotopic maps in human primary auditory cortex. *Neuron*。https://doi.org/10.1016/S0896-6273(03)00669-X — 以高場 fMRI 顯示人類初級聽覺皮層中兩張互為鏡像的頻率圖。
-- Mesgarani, N. & Chang, E. F.（2012）。Selective cortical representation of attended speaker in multi-talker speech perception. *Nature*。https://doi.org/10.1038/nature11020 — 顯示在兩人混合語音中，非初級區域的皮層記錄代表被注意的說話者。
+- Cherry, E. C.（1953）。Some experiments on the recognition of speech, with one and with two ears. *Journal of the Acoustical Society of America*。https://doi.org/10.1121/1.1907229 — 研究兩段語音同時呈現時的語音辨識，以及不同語音分別送入兩耳時的聽者行為。
+- Formisano, E., Kim, D.-S., Di Salle, F., van de Moortele, P.-F., Ugurbil, K. & Goebel, R.（2003）。Mirror-symmetric tonotopic maps in human primary auditory cortex. *Neuron*。https://doi.org/10.1016/S0896-6273(03)00669-X — 報告人類初級聽覺皮層中兩張互為鏡像的音調拓撲圖。
+- Mesgarani, N. & Chang, E. F.（2012）。Selective cortical representation of attended speaker in multi-talker speech perception. *Nature*。https://doi.org/10.1038/nature11020 — 顯示來自非初級人類聽覺皮層的記錄，在兩人混合語音中編碼被注意說話者的特徵。
 - Kell, A. J. E., Yamins, D. L. K., Shook, E. N., Norman-Haignere, S. V. & McDermott, J. H.（2018）。A task-optimized neural network replicates human auditory behavior, predicts brain responses, and reveals a cortical processing hierarchy. *Neuron*。https://doi.org/10.1016/j.neuron.2018.03.044 — 在語音與音樂任務上訓練網路，並與人類行為及聽覺皮層 fMRI 比較。
 
 ### 綜述與教科書
 
 - Robles, L. & Ruggero, M. A.（2001）。Mechanics of the mammalian cochlea. *Physiological Reviews*。https://doi.org/10.1152/physrev.2001.81.3.1305 — 綜述耳蝸力學：行進波、音調的位置編碼與外毛細胞放大。
-- Rauschecker, J. P. & Scott, S. K.（2009）。Maps and streams in the auditory cortex: nonhuman primates illuminate human speech processing. *Nature Neuroscience*。https://doi.org/10.1038/nn.2331 — 綜述靈長類聽覺皮層的階層層級、拓撲圖與平行路徑，以及其對語音的意義。
-- Hickok, G. & Poeppel, D.（2007）。The cortical organization of speech processing. *Nature Reviews Neuroscience*。https://doi.org/10.1038/nrn2113 — 提出聽覺皮層中語音處理的雙路徑模型。
+- Rauschecker, J. P. & Scott, S. K.（2009）。Maps and streams in the auditory cortex: nonhuman primates illuminate human speech processing. *Nature Neuroscience*。https://doi.org/10.1038/nn.2331 — 綜述聽覺皮層中的圖與路徑，參照靈長類研究，並討論其對人類語音處理的意義。
+- Hickok, G. & Poeppel, D.（2007）。The cortical organization of speech processing. *Nature Reviews Neuroscience*。https://doi.org/10.1038/nrn2113 — 綜述語音處理在皮層中的組織方式。

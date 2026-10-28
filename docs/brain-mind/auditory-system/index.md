@@ -38,10 +38,10 @@ Sound reaches the ear as a single fluctuating pressure signal, yet listeners pic
 ## Core ideas
 
 1. **The cochlea sorts sound by frequency.** The basilar membrane carries a travelling wave that peaks at a place set by frequency. High frequencies peak near the base and low frequencies near the apex. Outer hair cells add active amplification, which sharpens tuning for quiet sounds (Robles & Ruggero, 2001).
-2. **Frequency maps continue into cortex.** Human primary auditory cortex on Heschl's gyrus contains two adjacent tonotopic maps that are mirror images of each other, sharing a low-frequency border (Formisano et al., 2003). This matches the layout found in other primates.
-3. **Beyond the core, areas specialise.** Non-primary regions respond more to pitch, music and speech. Reviews of primate work describe hierarchical levels, topographic maps and parallel streams (Rauschecker & Scott, 2009). Hickok and Poeppel (2007) apply a dual-stream account to speech.
-4. **The cortex follows the attended voice.** Cherry (1953) studied how listeners follow one voice among others. Recordings from the human cortex show that non-primary areas represent the attended talker more strongly than the unattended one (Mesgarani & Chang, 2012), so attention shapes what the cortex encodes, not only what the ear receives.
-5. **Trained networks show a cortical-like hierarchy.** A deep network trained only to recognise words and music genres reproduces human-like behaviour and predicts fMRI responses better than a spectrotemporal filter model. Its early layers match primary cortex and its later layers match non-primary regions (Kell et al., 2018).
+2. **Frequency maps continue into cortex.** Human primary auditory cortex contains two mirror-symmetric tonotopic maps (Formisano et al., 2003).
+3. **Beyond the core, areas specialise.** Non-primary regions include areas selective for pitch, music and speech (Kell et al., 2018). Rauschecker and Scott (2009) review maps and streams in auditory cortex, drawing on nonhuman primate work. Hickok and Poeppel (2007) review how speech processing is organised in the cortex.
+4. **The cortex follows the attended voice.** Cherry (1953) studied listeners' recognition of speech when two speech signals were presented together. Recordings from non-primary human auditory cortex encode features of the attended speaker in a two-talker mixture (Mesgarani & Chang, 2012). This suggests that attention shapes what the cortex encodes, not only what the ear receives.
+5. **Trained networks show a cortical-like hierarchy.** A deep network trained only to recognise words and music genres reproduces human-like behaviour and predicts fMRI responses better than a spectrotemporal filter model. Its intermediate layers best predict primary cortex, and its deeper layers best predict non-primary regions (Kell et al., 2018).
 
 ## How it works
 
@@ -82,13 +82,13 @@ Each method has its own page. This list is only a comparison.
 
 ### Seminal papers
 
-- Cherry, E. C. (1953). Some experiments on the recognition of speech, with one and with two ears. *Journal of the Acoustical Society of America*. https://doi.org/10.1121/1.1907229 — A classic study of how listeners follow one voice among competing talkers, the work behind the cocktail party problem.
-- Formisano, E., Kim, D.-S., Di Salle, F., van de Moortele, P.-F., Ugurbil, K. & Goebel, R. (2003). Mirror-symmetric tonotopic maps in human primary auditory cortex. *Neuron*. https://doi.org/10.1016/S0896-6273(03)00669-X — Shows two mirror-symmetric frequency maps in human primary auditory cortex using high-field fMRI.
-- Mesgarani, N. & Chang, E. F. (2012). Selective cortical representation of attended speaker in multi-talker speech perception. *Nature*. https://doi.org/10.1038/nature11020 — Shows that cortical recordings in non-primary areas represent the attended talker in a two-speaker mixture.
+- Cherry, E. C. (1953). Some experiments on the recognition of speech, with one and with two ears. *Journal of the Acoustical Society of America*. https://doi.org/10.1121/1.1907229 — Studies listeners' recognition of speech when two speech signals are presented together, and when different signals reach each ear.
+- Formisano, E., Kim, D.-S., Di Salle, F., van de Moortele, P.-F., Ugurbil, K. & Goebel, R. (2003). Mirror-symmetric tonotopic maps in human primary auditory cortex. *Neuron*. https://doi.org/10.1016/S0896-6273(03)00669-X — Reports two mirror-symmetric tonotopic frequency maps in human primary auditory cortex.
+- Mesgarani, N. & Chang, E. F. (2012). Selective cortical representation of attended speaker in multi-talker speech perception. *Nature*. https://doi.org/10.1038/nature11020 — Shows that recordings from non-primary human auditory cortex encode features of the attended speaker in a two-talker mixture.
 - Kell, A. J. E., Yamins, D. L. K., Shook, E. N., Norman-Haignere, S. V. & McDermott, J. H. (2018). A task-optimized neural network replicates human auditory behavior, predicts brain responses, and reveals a cortical processing hierarchy. *Neuron*. https://doi.org/10.1016/j.neuron.2018.03.044 — Trains a network on speech and music tasks and compares it with human behaviour and auditory cortex fMRI.
 
 ### Surveys and textbooks
 
 - Robles, L. & Ruggero, M. A. (2001). Mechanics of the mammalian cochlea. *Physiological Reviews*. https://doi.org/10.1152/physrev.2001.81.3.1305 — Review of cochlear mechanics: travelling waves, tonotopic place coding and outer hair cell amplification.
-- Rauschecker, J. P. & Scott, S. K. (2009). Maps and streams in the auditory cortex: nonhuman primates illuminate human speech processing. *Nature Neuroscience*. https://doi.org/10.1038/nn.2331 — Reviews hierarchical levels, topographic maps and parallel streams in primate auditory cortex, and their bearing on speech.
-- Hickok, G. & Poeppel, D. (2007). The cortical organization of speech processing. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2113 — Proposes the dual-stream model of speech processing in auditory cortex.
+- Rauschecker, J. P. & Scott, S. K. (2009). Maps and streams in the auditory cortex: nonhuman primates illuminate human speech processing. *Nature Neuroscience*. https://doi.org/10.1038/nn.2331 — Reviews maps and streams in auditory cortex, drawing on nonhuman primate work and its bearing on human speech processing.
+- Hickok, G. & Poeppel, D. (2007). The cortical organization of speech processing. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2113 — A review of how speech processing is organised across the cortex.

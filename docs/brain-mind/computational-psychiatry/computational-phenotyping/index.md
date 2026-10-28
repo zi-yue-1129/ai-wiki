@@ -28,11 +28,11 @@ A behavioural task gives each person a sequence of choices and outcomes. Standar
 
 ## Problem
 
-Fitting a model to one person at a time is simple, but it works poorly when each person contributes few trials. The estimates are noisy and can take implausible values. Psychiatric samples are often small. Ahn et al. (2017) note that these methods are also often too technical for clinical researchers to use.
+Fitting a model to one person at a time is simple, but it works poorly when each person contributes few trials. The estimates are noisy and can take implausible values. Psychiatric samples are often small. Ahn et al. (2017) note that many researchers find these methods too technical to adopt.
 
 ## Core idea
 
-Each person's choices are described by a model with a few free parameters, such as a learning rate and a choice-sensitivity parameter. Hierarchical Bayesian fitting assumes that individual parameters come from a shared group distribution. It estimates the individual parameters and the group distribution together, so each person's estimate is informed by everyone else's data. People with little data are pulled toward the group, and the group distribution itself is learned from the sample. Ahn et al. (2017) built hBayesDM to make this approach available with minimal code, covering model fitting, visualisation and model comparison for a set of decision-making tasks. The package can also export trial-by-trial latent variables, such as prediction errors, for model-based neuroimaging.
+Each person's choices are described by a model with a few free parameters, such as a learning rate and a choice-sensitivity parameter. Hierarchical Bayesian fitting assumes that individual parameters come from a shared group distribution. It estimates the individual parameters and the group distribution together, so each person's estimate is informed by everyone else's data. People with little data are pulled toward the group, and the group distribution itself is learned from the sample. Ahn et al. (2017) built hBayesDM to make this approach available with minimal code, covering model fitting, visualisation and model comparison for a set of decision-making tasks. For some of these tasks the package can also export trial-by-trial latent variables, such as prediction errors, for model-based neuroimaging.
 
 ## Equation or algorithm
 
@@ -52,16 +52,16 @@ The procedure for fitting such a model hierarchically is:
 4. Estimate the individual and group parameters together with Bayesian sampling. hBayesDM uses Stan for this.
 5. Compare candidate models, and report the parameter estimates with their uncertainty.
 
-Step 3 is a general form, not a formula from one paper. Gershman (2016) argues for setting the group-level priors from the data rather than fixing them in advance.
+Step 3 is a general form, not a formula from one paper. Empirical priors, which are set from data, are one way to choose the group-level priors (Gershman, 2016).
 
 ## Results
 
-Ahn et al. (2017) present hBayesDM as a usable tool for fitting these models across decision-making tasks, with model comparison and latent-variable export. Their claims concern usability; the paper does not show that the parameters predict clinical outcomes.
+Ahn et al. (2017) present hBayesDM as a usable tool for fitting these models across decision-making tasks, with model comparison and latent-variable export. Their abstract concerns the package's usability.
 
 ## Limitations
 
 - **Model dependence.** A parameter means what the model says it means. A different model of the same behaviour can give different parameter values. Wilson and Collins (2019) emphasise that models must be used with care if they are to yield meaningful insights.
-- **Shrinkage.** Pulling individual estimates toward the group mean stabilises them when data are sparse, but it can also blur real differences between people. The degree of shrinkage depends on the prior, which is why the choice of prior matters (Gershman, 2016).
+- **Shrinkage.** Pulling individual estimates toward the group mean stabilises them when data are sparse, but it can also blur real differences between people. The degree of shrinkage depends on the prior, so the choice of prior matters.
 - **Task specificity.** Parameters are measured within a task. A parameter may capture a strategy that is specific to that task rather than a stable trait.
 - **Validity.** Showing that a model fits behaviour does not show that its parameters are the mechanisms behind symptoms.
 
@@ -87,14 +87,11 @@ Ahn et al. (2017) present hBayesDM as a usable tool for fitting these models acr
 
 ### Seminal papers
 
-- Ahn, W.-Y., Haines, N. & Zhang, L. (2017). Revealing Neurocomputational Mechanisms of Reinforcement Learning and Decision-Making With the hBayesDM Package. *Computational Psychiatry*. https://doi.org/10.1162/cpsy_a_00002 — Introduces hBayesDM, an open-source package for hierarchical Bayesian fitting of reinforcement learning and decision models, with model comparison and latent-variable export.
-- Gershman, S. J. (2016). Empirical priors for reinforcement learning models. *Journal of Mathematical Psychology*. https://doi.org/10.1016/j.jmp.2016.01.006 — Argues for setting priors on reinforcement learning parameters from data, rather than fixing them in advance.
+- Ahn, W.-Y., Haines, N. & Zhang, L. (2017). Revealing Neurocomputational Mechanisms of Reinforcement Learning and Decision-Making With the hBayesDM Package. *Computational Psychiatry*. https://doi.org/10.1162/cpsy_a_00002 — Introduces hBayesDM, an R package for hierarchical Bayesian fitting of reinforcement learning and decision models, with model comparison and latent-variable export.
+- Gershman, S. J. (2016). Empirical priors for reinforcement learning models. *Journal of Mathematical Psychology*. https://doi.org/10.1016/j.jmp.2016.01.006 — Introduces empirical priors for reinforcement learning models, which are set from data.
 
 ### Surveys and textbooks
 
-- Wilson, R. C. & Collins, A. G. (2019). Ten simple rules for the computational modeling of behavioral data. *eLife*. https://doi.org/10.7554/eLife.49547 — A beginner-friendly guide to relating computational models to behavioural data, with ten rules for meaningful conclusions and code examples.
-- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — The standard textbook on the value-learning and choice models used in this method.
-
-### Articles and documentation
-
-- CCS-Lab. *hBayesDM: hierarchical Bayesian modeling of decision-making tasks*. GitHub repository. https://github.com/CCS-Lab/hBayesDM — Source code and tutorials for the package, which is the practical form of this method.
+- Wilson, R. C. & Collins, A. G. (2019). Ten simple rules for the computational modeling of behavioral data. *eLife*. https://doi.org/10.7554/eLife.49547 — A beginner-friendly guide to relating computational models to behavioural data, set out as ten rules for meaningful conclusions.
+- Maia, T. V. & Frank, M. J. (2011). From reinforcement learning models to psychiatric and neurological disorders. *Nature Neuroscience*. https://doi.org/10.1038/nn.2723 — Reviews how reinforcement learning models describe behaviour in psychiatric and neurological disorders.
+- Huys, Q. J. M., Maia, T. V. & Frank, M. J. (2016). Computational psychiatry as a bridge from neuroscience to clinical applications. *Nature Neuroscience*. https://doi.org/10.1038/nn.4238 — Separates data-driven from theory-driven approaches to computational psychiatry and reviews their clinical applications.

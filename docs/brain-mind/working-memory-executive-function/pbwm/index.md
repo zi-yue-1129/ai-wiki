@@ -49,7 +49,7 @@ The paper gives the full learning rule. This page gives the outline as numbered 
 
 1. An input arrives. Gate units in the basal ganglia decide whether it should update a set of prefrontal units or be ignored.
 2. If the gate opens, the prefrontal representation is overwritten. If it stays closed, the previous contents are kept, so information survives distractors.
-3. The task produces an outcome. The critic compares its prediction with what happened. The difference is a prediction error of the kind described in the [dopamine reward prediction error](../../neuroscience/dopamine-reward-prediction-error/index.md) page, and of the kind used by temporal-difference learning in [Reinforcement Learning](../../../theory/paradigms/reinforcement-learning/index.md).
+3. The task produces an outcome. The critic compares its prediction with what happened. The difference is a prediction error of the kind described in the [dopamine reward prediction error](../../neuroscience/dopamine-reward-prediction-error/index.md) page, and it plays the same role as in the actor–critic methods covered in [Reinforcement Learning](../../../theory/paradigms/reinforcement-learning/index.md).
 4. The prediction error trains the critic and the actor. Future gating decisions then favour updates that proved useful.
 
 ## Results
@@ -72,7 +72,7 @@ On the 1-2-AX working memory task and other benchmark working memory tasks, the 
 
 ## Applications
 
-- **Modelling prefrontal tasks.** PBWM was built to explain behaviour on working memory benchmarks such as the 1-2-AX task. Related frontal models have been used to simulate performance on Stroop and Wisconsin card sorting, in both intact and frontally damaged people (Rougier et al., 2005).
+- **Modelling prefrontal tasks.** PBWM was tested on working memory benchmarks such as the 1-2-AX task. Related frontal models have been used to simulate performance on Stroop and Wisconsin card sorting, in both intact and frontally damaged people (Rougier et al., 2005).
 - **Designing gated memory in AI.** Learned gates that protect a memory store are a core design in recurrent networks, as in the LSTM.
 
 ## Open questions
@@ -86,9 +86,10 @@ On the 1-2-AX working memory task and other benchmark working memory tasks, the 
 ### Seminal papers
 
 - O'Reilly, R. C. & Frank, M. J. (2006). Making working memory work: a computational model of learning in the prefrontal cortex and basal ganglia. *Neural Computation*. https://doi.org/10.1162/089976606775093909 — The original PBWM paper, which introduces the learned gate and the actor–critic learning rule.
-- Frank, M. J., Loughry, B. & O'Reilly, R. C. (2001). Interactions between frontal cortex and basal ganglia in working memory: a computational model. *Cognitive, Affective, & Behavioral Neuroscience*. https://doi.org/10.3758/CABN.1.2.137 — An earlier model of the same frontal and basal ganglia interaction, which PBWM builds on.
+- Frank, M. J., Loughry, B. & O'Reilly, R. C. (2001). Interactions between frontal cortex and basal ganglia in working memory: a computational model. *Cognitive, Affective, & Behavioral Neuroscience*. https://doi.org/10.3758/CABN.1.2.137 — An earlier computational model of interactions between frontal cortex and basal ganglia in working memory, the same interaction that PBWM models.
 - Rougier, N. P., Noelle, D. C., Braver, T. S., Cohen, J. D. & O'Reilly, R. C. (2005). Prefrontal cortex and flexible cognitive control: rules without symbols. *Proceedings of the National Academy of Sciences*. https://doi.org/10.1073/pnas.0502455102 — Shows how a related PFC model forms abstract rule-like representations and simulates Stroop and card-sorting behaviour.
+- Hochreiter, S. & Schmidhuber, J. (1997). Long short-term memory. *Neural Computation*. https://doi.org/10.1162/neco.1997.9.8.1735 — Introduces the LSTM, whose multiplicative gate units learn to open and close access to a memory cell.
 
-### Surveys and reviews
+### Surveys and textbooks
 
 - Miller, E. K. & Cohen, J. D. (2001). An integrative theory of prefrontal cortex function. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.24.1.167 — Reviews evidence for the PFC as a source of goal-directed bias signals, a framework that PBWM is consistent with.

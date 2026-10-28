@@ -15,7 +15,7 @@ aliases:
 
 # Hippocampal replay (Foster & Wilson, 2006)
 
-Hippocampal replay is the reactivation of neuron firing sequences that were recorded during an experience, seen again later while an animal rests or sleeps. Foster and Wilson (2006) showed that awake rats replay these sequences in reverse order, immediately after running.
+Hippocampal replay is the reactivation of neuron firing sequences that were recorded during an experience, seen again later while an animal rests or sleeps. Foster and Wilson (2006) showed that awake rats replay these sequences in reverse order during rest after running.
 
 This page is part of [Sleep, Replay and Memory Consolidation](../index.md). The network event that carries replay is covered on [Sharp-wave ripples](../sharp-wave-ripples/index.md).
 
@@ -29,9 +29,9 @@ The hippocampus is needed to form new episodic memories, as patient H.M. showed 
 
 ## Core idea
 
-Wilson and McNaughton (1994) recorded many place cells at once. They found that the patterns that represented a rat's path during running were reactivated in later sleep. Skaggs and McNaughton (1996) reported replay of firing sequences during sleep after spatial experience. Foster and Wilson (2006) then recorded awake rats. Immediately after running, the sequences of place cells replayed in the reverse order of the run. Diba and Buzsáki (2007) found that sequences run both forward and in reverse during the ripple events described on the [sharp-wave ripples](../sharp-wave-ripples/index.md) page.
+Wilson and McNaughton (1994) recorded many place cells at once in rats. Cells that fired together during spatial behaviour fired together more often in later sleep. Skaggs and McNaughton (1996) reported replay of firing sequences during sleep after spatial experience. Foster and Wilson (2006) then recorded awake rats. During rest after running, the sequences of place cells replayed in the reverse order of the run. Diba and Buzsáki (2007) found that sequences run both forward and in reverse during the ripple events described on the [sharp-wave ripples](../sharp-wave-ripples/index.md) page.
 
-Reverse order matters because it links an outcome back to the states that led to it. Foster and Wilson suggested that this could support the evaluation of event sequences, as in reinforcement-learning models.
+Reverse order matters because it links an outcome back to the states and actions that led to it. Mattar and Daw (2018) describe reverse replay in this way, as connecting an experienced outcome with the actions that preceded it.
 
 ## Equation or algorithm
 
@@ -47,14 +47,14 @@ Replay has no single equation. The measure is a procedure for detecting it:
 - Replay of waking place-cell patterns has been observed during sleep (Wilson & McNaughton, 1994; Skaggs & McNaughton, 1996).
 - Awake replay after running has been observed, and in the Foster and Wilson (2006) study the sequences ran in reverse order.
 - Sequences run forward and in reverse during sharp-wave ripples (Diba & Buzsáki, 2007).
-- Mattar and Daw (2018) built a normative model in which each candidate memory is ranked by its utility, defined as the gain in future reward from updating it multiplied by the discounted number of future visits the agent is expected to make to the state it concerns. The model explains both forward replay, which helps plan ahead, and reverse replay, which links outcomes back to earlier actions.
+- Mattar and Daw (2018) built a normative model in which each candidate memory is ranked by its utility, the increase in future reward from accessing it. Utility is the product of a gain term, which favours states behind the agent after an unexpected outcome, and a need term, which favours states the agent is about to visit. The model reproduces both forward replay, which helps plan ahead, and reverse replay, which links outcomes back to earlier actions.
 
 ## Limitations
 
-- **Observation is not causation.** Replay shows that a sequence is reactivated, but not that the reactivation is what makes the memory last. Causal tests have mostly come from disrupting the ripples that carry replay (see [Sharp-wave ripples](../sharp-wave-ripples/index.md)).
+- **Observation is not causation.** Replay shows that a sequence is reactivated, but not that the reactivation is what makes the memory last. Causal tests include disrupting the ripples that carry replay (see [Sharp-wave ripples](../sharp-wave-ripples/index.md)).
 - **Decoding depends on choices.** Reconstructing the order of cells depends on how place fields are estimated and on the statistical controls used. Conclusions depend on these choices.
 - **Evidence is mostly from rodents in spatial tasks.** Replay in other species and tasks is less well characterised.
-- **The function of reverse replay is contested.** Foster and Wilson linked it to evaluation of event sequences, while Mattar and Daw linked it to planning. Later work has not settled which account is right.
+- **The function of replay is debated.** The common view assigns planning to forward replay and learning to reverse replay, while Mattar and Daw argue that one prioritised process can produce both. Which account is right is still debated.
 
 ## Connections
 
@@ -69,7 +69,7 @@ Replay has no single equation. The measure is a procedure for detecting it:
 
 ## Open questions
 
-- **Which events are replayed, and why?** Mattar and Daw's utility account is one candidate. Its predictions for specific events are still being tested.
+- **Which events are replayed, and why?** Mattar and Daw's utility account is one candidate.
 - **Do sleep and waking replay have the same function?** Their roles in consolidation and planning may differ.
 - **How does replay change cortex?** The route from hippocampal replay to lasting cortical change is still under study.
 - **Does replay in humans look like replay in rodents?** Evidence is growing, but it is harder to obtain.
@@ -78,7 +78,7 @@ Replay has no single equation. The measure is a procedure for detecting it:
 
 ### Seminal papers
 
-- Foster, D. J. & Wilson, M. A. (2006). Reverse replay of behavioural sequences in hippocampal place cells during the awake state. *Nature* 440, 680–683. https://doi.org/10.1038/nature04587 — Shows that place-cell sequences replay in reverse order during waking rest after running in rats, and suggests a link to reinforcement-learning evaluation.
+- Foster, D. J. & Wilson, M. A. (2006). Reverse replay of behavioural sequences in hippocampal place cells during the awake state. *Nature* 440, 680–683. https://doi.org/10.1038/nature04587 — Shows that place-cell sequences replay in reverse order during waking rest after running in rats.
 - Wilson, M. A. & McNaughton, B. L. (1994). Reactivation of hippocampal ensemble memories during sleep. *Science* 265, 676–679. https://doi.org/10.1126/science.8036517 — Reports that patterns of hippocampal place-cell activity from waking experience reactivate during sleep.
 - Skaggs, W. E. & McNaughton, B. L. (1996). Replay of neuronal firing sequences in rat hippocampus during sleep following spatial experience. *Science* 271, 1870–1873. https://doi.org/10.1126/science.271.5257.1870 — Reports replay of place-cell firing sequences during sleep after spatial experience.
 - Diba, K. & Buzsáki, G. (2007). Forward and reverse hippocampal place-cell sequences during ripples. *Nature Neuroscience* 10, 1241–1242. https://doi.org/10.1038/nn1961 — Reports that place-cell sequences run both forward and in reverse during sharp-wave ripples.
@@ -86,5 +86,5 @@ Replay has no single equation. The measure is a procedure for detecting it:
 
 ### Surveys and textbooks
 
-- Davidson, T. J., Kloosterman, F. & Wilson, M. A. (2009). Hippocampal replay of extended experience. *Neuron* 63, 497–507. https://doi.org/10.1016/j.neuron.2009.07.027 — Reports hippocampal replay of extended spatial experience, beyond the short sequences of earlier studies.
-- Wittkuhn, L. et al. (2021). Replay in minds and machines. *Neuroscience & Biobehavioral Reviews* 129, 367–388. https://doi.org/10.1016/j.neubiorev.2021.08.002 — Reviews the computational functions of replay in neuroscience and machine learning, with the two fields compared.
+- Davidson, T. J., Kloosterman, F. & Wilson, M. A. (2009). Hippocampal replay of extended experience. *Neuron* 63, 497–507. https://doi.org/10.1016/j.neuron.2009.07.027 — Reports that replay of long runs through a large environment is decoded with high fidelity, in forward and reverse order.
+- Wittkuhn, L. et al. (2021). Replay in minds and machines. *Neuroscience & Biobehavioral Reviews* 129, 367–388. https://doi.org/10.1016/j.neubiorev.2021.08.002 — Reviews replay in brains and in machine learning, comparing the two fields.

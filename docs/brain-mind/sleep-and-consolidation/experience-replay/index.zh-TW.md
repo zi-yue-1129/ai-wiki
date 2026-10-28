@@ -17,79 +17,68 @@ aliases:
 
 # 經驗回放（Lin, 1992；Mnih 等人, 2015）
 
-經驗回放把代理人過去的轉移儲存在緩衝區中，並在之後的學習更新中重複使用。Lin 於 1992 年為搭配神經網路學習器的強化學習代理人提出此想法。Mnih 等人（2015）則讓它成為深度 Q 網路的核心，該網路能從畫面學會玩 Atari 遊戲。這是神經科學中的重播想法，轉變為標準工程工具的最清楚例子。
+經驗回放把代理人過去的轉移儲存在緩衝區中，並在之後的學習更新中重複使用。它是標準的工程工具，也是本章中與海馬迴重播最接近的對應概念。
 
-本頁是[睡眠、重播與記憶鞏固](../index.zh-TW.md)的一部分。本頁涵蓋此方法的起源與其與大腦的比較。各種變體，例如優先回放與後見之明回放，見[經驗回放的理論頁](../../../theory/paradigms/reinforcement-learning/experience-replay/index.zh-TW.md)。
+本頁是[睡眠、重播與記憶鞏固](../index.zh-TW.md)的一部分，比較此方法與海馬迴重播。演算法本身、各種變體及其取捨，見[經驗回放的理論頁](../../../theory/paradigms/reinforcement-learning/experience-replay/index.zh-TW.md)，此處不重複。
 
 ## 概述
 
-若學習者只把每個新轉移使用一次，且依發生的順序使用，學習會很慢，而且所見的資料高度相關。連續步驟彼此相似，因此由它們得出的更新高度相關。經驗回放的做法是把轉移保存在緩衝區中，並從中抽取訓練樣本。如此，同一段經驗可以支持多次更新，而且來自不同時間的樣本可以混合在一起。
+若學習者只依發生順序使用每個新轉移一次，它看到的資料會高度相關，因為連續的步驟彼此相似。把轉移儲存在緩衝區中，並從中抽樣，能讓同一個經驗支持多次更新，也能把不同時間的樣本混合在一起。
 
 ## 問題
 
-早期的強化學習方法，例如 Q 學習，會在每個轉移到達時就從中學習價值函數。當價值函數是神經網路時，這既慢又可能不穩定。Lin（1992）提出的問題是：代理人能否從同一段經驗中學到更多，以及重複使用這些經驗的順序是否重要。
+本章要問的是，大腦是否以類似方式重複利用近期經驗。海馬迴重播會在休息與睡眠期間重新活化近期序列，有時是反向的（見[海馬迴重播](../hippocampal-replay/index.zh-TW.md)）。
 
 ## 核心想法
 
-每個轉移都以狀態、行動、獎勵與下一個狀態組成的元組儲存。學習者反覆呈現這些儲存的轉移，彷彿代理人又經歷了一次。Lin 的版本重播最近的經驗，並指出，依逆向時間順序重播，可能更有效地傳遞沿軌跡的功勞。他也主張，把同一段經驗重播太多次是有害的，因此重播必須加以限制。
+每個轉移都以狀態、行動、獎勵與下一狀態的元組儲存。Lin（1992）把經驗回放列為加速強化學習的三種延伸之一，並在模擬測試平台中評估。Mnih 等人（2015）在深度 Q 網路中保留近期經驗的重播記憶，並從中隨機抽樣。隨機抽樣能打破連續步驟之間的相關性。
 
-Mnih 等人（2015）保留了最近一百萬個畫面的重播記憶。每次更新時，他們從這個記憶中均勻隨機抽取一批樣本。隨機抽樣打破了連續畫面之間的相關性；作者指出，這能降低更新的變異，並避免參數的振盪或發散。
+大腦與演算法的比較在於結構。兩者都以不同於經驗發生時的順序，重複利用近期經驗。海馬迴重播在時間上是壓縮的，並與網路事件相連（見[尖波漣波](../sharp-wave-ripples/index.zh-TW.md)），而人工緩衝區則是以隨機方式抽樣的一般儲存。兩者的相似處在於原理，而非機制。
 
 ## 方程式或演算法
 
-深度 Q 網路的程序如下：
-
-1. 以目前的策略（並加入少量隨機探索）與環境互動，並把轉移 (s, a, r, s') 儲存在重播記憶 D 中。記憶滿了時，移除最舊的轉移。
-2. 從 D 中均勻抽取一批轉移。
-3. 對每個抽樣的轉移，計算目標值 r + γ 乘以 a' 上的最大 Q(s', a'; θ⁻)，其中 θ⁻ 是另一個目標網路的參數。
-4. 以梯度下降更新線上參數 θ，使 Q(s, a; θ) 逼近目標值，其依據是兩者之間的平方誤差。
-
-以方程式表示，損失為
-
-\(L(\theta) = \mathbb{E}_{(s,a,r,s') \sim D}\left[\left(r + \gamma \max_{a'} Q(s', a'; \theta^-) - Q(s, a; \theta)\right)^2\right]\)
-
-其中 \(\gamma\) 是折扣因子，期望值是對重播記憶取的，而不是對目前的軌跡取的。
+概括來說，代理人儲存每個轉移，從緩衝區抽取一個小批次，並依抽樣到的轉移更新其價值估計。精確的更新規則，見[經驗回放的理論頁](../../../theory/paradigms/reinforcement-learning/experience-replay/index.zh-TW.md)與[深度 Q 網路頁](../../../theory/paradigms/reinforcement-learning/deep-q-networks/index.zh-TW.md)。
 
 ## 結果
 
-- Lin（1992）報告，在模擬的生存任務中，重播顯著提升了學習速度，對照組是沒有重播的相同學習器。
-- Mnih 等人（2015）報告一個深度 Q 網路，能從畫面與遊戲分數中學習。它在 49 款遊戲上接受測試，並在其中 43 款上超越此前最好的強化學習方法。
+- Lin（1992）以模擬測試平台對各方法進行實證評估。經驗回放是該文比較的三種加速學習延伸之一。
+- Mnih 等人（2015）報告，使用回放的深度 Q 網路在一組遊戲上達到人類水準的控制。
 
-深度 Q 網路的結果，是把重播與代理人的其他組成部分結合後的結果，因此它們不能單獨衡量重播的貢獻。
+深度 Q 網路的結果，是把回放與代理人的其他組成部分合併後的表現，因此無法單獨分離出回放的貢獻。
 
 ## 限制
 
-- **記憶體成本。** 儲存原始畫面，特別是影像，成本很高。緩衝區大小因此成為設計限制。
-- **均勻抽樣會平均分配更新。** 代理人已能良好預測的轉移，與罕見或令人意外的轉移，獲得的更新次數相同。優先方法改變了這一點，理論頁涵蓋這些方法。
-- **離策略偏差。** 儲存的轉移來自較舊的策略，因此由它們所做的更新與同策略更新不同。雖有修正方法，但會增加複雜度。
-- **證據範圍有限。** 深度 Q 網路的結果來自一組固定的 Atari 基準遊戲。推廣到其他領域需要另外的證據。
-- **大腦類比僅是啟發式的。** 與海馬迴重播的相似之處是一種比較，並不證明大腦使用了這種演算法。
+- **記憶體成本。** 儲存原始畫面，尤其是影像，成本高昂，因此緩衝區大小會成為設計上的限制。
+- **均勻抽樣會平均分配更新。** 代理人已能良好預測的轉移，與罕見或出乎意料的轉移，得到的更新次數相同。優先方法會改變這一點，理論頁有說明。
+- **離策略偏差。** 儲存的轉移來自較舊的策略，因此由它們所做的更新，與依當前策略所做的更新不同。
+- **證據範圍窄。** 深度 Q 網路的結果來自同一類遊戲。推廣到其他領域，需要另外的證據。
+- **大腦類比僅具啟發性。** 與海馬迴重播的相似，是一個比較的起點，而非大腦使用此演算法的證據。
 
 ## 關聯
 
-- **大腦。** 海馬迴的重播（見[海馬迴重播](../hippocampal-replay/index.zh-TW.md)）同樣會重複使用近期序列，而 Lin 的逆向順序與 Foster 與 Wilson（2006）報告的逆向重播相似。與記憶系統的概念連結，是[互補學習系統](../../memory-learning/complementary-learning-systems/index.zh-TW.md)的理論。
-- **強化學習。** 完整演算法見[深度 Q 網路](../../../theory/paradigms/reinforcement-learning/deep-q-networks/index.zh-TW.md)，整體框架見[強化學習](../../../theory/paradigms/reinforcement-learning/index.zh-TW.md)。
-- **持續學習。** 為防止遺忘而重播舊資料，使用的是同樣的緩衝區想法，見[持續學習中的重播與記憶](../../../theory/paradigms/continual/replay-and-memory/index.md)。
+- **大腦。** [海馬迴重播](../hippocampal-replay/index.zh-TW.md)所述的海馬迴重播會重複使用近期序列，而逆向重播把結果連回先前的行動（Mattar 與 Daw, 2018）。記憶系統的說明見[互補學習系統](../../memory-learning/complementary-learning-systems/index.zh-TW.md)。
+- **強化學習。** 演算法見[深度 Q 網路](../../../theory/paradigms/reinforcement-learning/deep-q-networks/index.zh-TW.md)，一般框架見[強化學習](../../../theory/paradigms/reinforcement-learning/index.zh-TW.md)。
+- **持續學習。** 以重播舊資料來防止遺忘，使用的是同樣的緩衝區概念，見[持續學習中的重播與記憶](../../../theory/paradigms/continual/replay-and-memory/index.md)。
 
 ## 應用
 
-- **遊戲與控制代理人。** 深度 Q 網路風格的代理人，包括 Mnih 等人（2015）的 Atari 代理人，使用重播緩衝區從畫面輸入中學習。
-- **持續學習。** 將舊資料與新資料交錯排練，是對抗災難性遺忘的常用基準。
+- **遊戲與控制代理人。** 深度 Q 網路風格的代理人，使用重播緩衝區從儲存的經驗中學習。
+- **持續學習。** 將舊資料與新資料交錯重新排練，是對抗災難性遺忘的常用基準。
 
 ## 未解問題
 
-- **逆向順序對深度網路有幫助嗎？** Lin 的結果來自一個模擬的格狀世界任務，逆向重播在大型網路中的好處尚未確立。
-- **應該保留哪些經驗？** 先進先出的緩衝區會遺忘，而選擇規則則增加成本。最佳的保留規則取決於任務。
-- **大腦類比能否預測新的演算法？** Mattar 與 Daw（2018）的效用規則是否能作為深度網路的選擇規則，仍是開放問題。
+- **反轉重播的順序，對深度網路有幫助嗎？** 逆向重播是受大腦啟發的想法，其對大型網路的效益尚未確立。
+- **效用規則能否推廣？** Mattar 與 Daw（2018）的效用解釋，是選擇哪些經驗進行重播的候選規則。它是否對深度網路有幫助，仍是開放問題。
 
 ## 參考文獻
 
 ### 奠基性論文
 
-- Lin, L.-J. (1992). Self-improving reactive agents based on reinforcement learning, planning and teaching. *Machine Learning* 8, 293–321. https://doi.org/10.1007/BF00992699 — 為搭配神經網路學習器的強化學習代理人提出經驗回放，並在模擬的生存任務中加以測試。
-- Mnih, V. 等人（2015）。Human-level control through deep reinforcement learning. *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — 深度 Q 網路，從重播近期畫面的記憶中均勻抽樣，並從畫面學會 Atari 遊戲。
-- Foster, D. J. & Wilson, M. A. (2006). Reverse replay of behavioural sequences in hippocampal place cells during the awake state. *Nature* 440, 680–683. https://doi.org/10.1038/nature04587 — 生物對應：清醒大鼠中位置細胞序列的逆向重播。
+- Lin, L.-J. (1992). Self-improving reactive agents based on reinforcement learning, planning and teaching. *Machine Learning* 8, 293–321. https://doi.org/10.1007/BF00992699 — 把經驗回放列為加速強化學習的三種延伸之一，並在模擬測試平台中評估。
+- Mnih, V. 等人（2015）。Human-level control through deep reinforcement learning. *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — 深度 Q 網路，從近期經驗的重播記憶中隨機抽樣進行學習。
+- Foster, D. J. & Wilson, M. A. (2006). Reverse replay of behavioural sequences in hippocampal place cells during the awake state. *Nature* 440, 680–683. https://doi.org/10.1038/nature04587 — 生物學上的對應：清醒大鼠跑動後休息期間，位置細胞序列的逆向重播。
+- Mattar, M. G. & Daw, N. D. (2018). Prioritized memory access explains planning and hippocampal replay. *Nature Neuroscience* 21, 1609–1617. https://doi.org/10.1038/s41593-018-0232-z — 提出重播依效用排序的假說（效用指更新所帶來的額外獎勵），並重現向前與逆向重播。
 
 ### 綜述與教科書
 
-- Wittkuhn, L. 等人（2021）。Replay in minds and machines. *Neuroscience & Biobehavioral Reviews* 129, 367–388. https://doi.org/10.1016/j.neubiorev.2021.08.002 — 回顧神經科學與機器學習中重播的計算功能，並比較兩個領域。
+- Wittkuhn, L. 等人（2021）。Replay in minds and machines. *Neuroscience & Biobehavioral Reviews* 129, 367–388. https://doi.org/10.1016/j.neubiorev.2021.08.002 — 回顧大腦與機器學習中的重播，並比較兩個領域。

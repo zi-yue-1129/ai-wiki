@@ -18,7 +18,7 @@ aliases:
 
 # Aberrant prediction error in psychosis (Corlett et al., 2007)
 
-A line of computational work proposes that delusional beliefs form when the brain's prediction-error signal, the learning signal from reinforcement learning, is disrupted. Corlett et al. (2007) tested this with functional MRI in people who held delusional beliefs and in healthy comparison participants, during an associative learning task.
+A line of computational work proposes that delusional beliefs form when the brain's prediction-error signal, the learning signal from reinforcement learning, is disrupted. Corlett et al. (2007) tested this with functional MRI in people who held delusional beliefs and in healthy comparison participants, measuring prediction-error-related brain responses.
 
 This page is part of [Computational Psychiatry](../index.md). It describes a research hypothesis and its evidence. It does not describe a diagnostic test, and the findings concern groups rather than individual patients.
 
@@ -28,7 +28,7 @@ Learning depends on comparing what happens with what was expected, and the diffe
 
 ## Problem
 
-Delusions are maladaptive beliefs about the world. Behavioural studies had shown that prediction error drives the formation of beliefs in healthy people. The open question was whether delusions form because the prediction-error process itself is disrupted in the brain, and whether the disruption explains why some people form delusions more readily than others.
+Delusions are maladaptive beliefs about the world. Earlier experimental work had shown that prediction error drives belief formation. The open question was whether delusions form because the prediction-error process itself is disrupted in the brain, and whether the disruption explains why some people form delusions more readily than others.
 
 ## Core idea
 
@@ -36,14 +36,14 @@ Corlett et al. (2007) framed the account in associative terms. Prediction errors
 
 Using the notation of [Computational phenotyping with hierarchical Bayesian RL models](../computational-phenotyping/index.md), the learning update is \(V_{t+1} = V_t + \alpha\,\delta_t\), with \(\delta_t\) the prediction error. The hypothesis concerns the brain's representation of \(\delta_t\), which the update relies on.
 
-Related accounts treat the same problem from other angles. Fletcher and Frith (2008) describe positive symptoms as Bayesian belief updating that has gone wrong, and Kapur (2003) describes psychosis as a state of aberrant salience.
+Related accounts treat the same problem from other angles. Fletcher and Frith (2009) describe positive symptoms as a disturbance in the updating of beliefs, and Kapur (2003) describes psychosis as a state of aberrant salience.
 
 ## Equation or algorithm
 
 The method is an experimental design rather than a single equation. The procedure is:
 
 1. Recruit a group with delusional beliefs and a healthy comparison group, and measure delusional tendency.
-2. Run an associative learning task in the scanner, in which cues predict outcomes and the expectation can be violated.
+2. Run a learning task in the scanner in which outcomes can violate expectations.
 3. Model the trial-by-trial prediction errors, and use them as regressors in the fMRI analysis.
 4. Compare the prediction-error responses between groups, and test whether the response relates to the degree of delusional belief across participants.
 
@@ -56,8 +56,8 @@ Powers et al. (2017) extended the idea to hallucinations. Pairing a visual stimu
 ## Limitations
 
 - **Sample size.** The 2007 study compared 12 people with delusions with 12 controls. Small groups give limited power, so the findings need replication in larger samples.
-- **Contested evidence.** Griffiths, Langdon and Le Pelley (2014) re-examined the behavioural evidence for disrupted error signalling in delusion formation, so the support for the hypothesis is still debated.
-- **Specificity.** Prediction-error abnormalities may reflect attention, salience or general belief processes rather than prediction error alone. Sterzer et al. (2018) review how predictive-coding accounts of psychosis differ on this point.
+- **Contested evidence.** Griffiths et al. (2014) re-examined the behavioural evidence for disrupted error signalling in delusion formation and found important methodological limitations in the studies that test this link, so the support for the hypothesis is still debated.
+- **Specificity.** Prediction-error abnormalities may reflect attention, salience or general belief processes rather than prediction error alone. Sterzer et al. (2018) review evidence that hallucinations and delusions may involve distinct alterations in predictive coding.
 - **Correlation.** An abnormal signal in people with delusions does not by itself show that the abnormality causes the delusions.
 
 ## Connections
@@ -70,7 +70,7 @@ Powers et al. (2017) extended the idea to hallucinations. Pairing a visual stimu
 ## Applications
 
 - **Experimental design**: associative learning tasks with patient and control groups are used to study how beliefs are formed and revised.
-- **Understanding hallucinations**: conditioning paradigms such as Powers et al.'s are used to test how strongly people rely on prior expectations relative to sensory evidence.
+- **Understanding hallucinations**: Powers et al.'s conditioning paradigm separates the effect of perceptual priors from sensory evidence.
 - **Clinical research**: the hypothesis guides mechanistic research. It is not yet a clinical test.
 
 ## Open questions
@@ -86,10 +86,10 @@ Powers et al. (2017) extended the idea to hallucinations. Pairing a visual stimu
 
 - Corlett, P. R., Murray, G. K., Honey, G. D., Aitken, M. R. F., Shanks, D. R., Robbins, T. W., Bullmore, E. T., Dickinson, A. & Fletcher, P. C. (2007). Disrupted prediction-error signal in psychosis: evidence for an associative account of delusions. *Brain*. https://doi.org/10.1093/brain/awm173 — An fMRI study of 12 healthy participants and 12 with delusional beliefs, reporting disrupted frontal prediction-error responses related to delusion-forming tendency.
 - Powers, A. R. et al. (2017). Pavlovian conditioning–induced hallucinations result from overweighting of perceptual priors. *Science*. https://doi.org/10.1126/science.aan3458 — Shows that conditioning can induce hallucinations, more strongly in people prone to hearing voices, and attributes the effect to overweighted perceptual priors.
-- Fletcher, P. C. & Frith, C. D. (2008). Perceiving is believing: a Bayesian approach to explaining the positive symptoms of schizophrenia. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2536 — Proposes a Bayesian account of positive symptoms, in which belief updating from prior expectations and sensory evidence goes wrong.
-- Kapur, S. (2003). Psychosis as a State of Aberrant Salience: A Framework Linking Biology, Phenomenology, and Pharmacology in Schizophrenia. *American Journal of Psychiatry*. https://doi.org/10.1176/appi.ajp.160.1.13 — Proposes aberrant salience as a framework linking the biology, experience and drug treatment of psychosis.
+- Fletcher, P. C. & Frith, C. D. (2009). Perceiving is believing: a Bayesian approach to explaining the positive symptoms of schizophrenia. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2536 — Proposes a Bayesian account of positive symptoms, in which a disturbance in error-dependent updating of beliefs underlies both hallucinations and delusions.
+- Kapur, S. (2003). Psychosis as a State of Aberrant Salience: A Framework Linking Biology, Phenomenology, and Pharmacology in Schizophrenia. *American Journal of Psychiatry*. https://doi.org/10.1176/appi.ajp.160.1.13 — Proposes aberrant salience as a framework linking the biology, phenomenology and pharmacology of schizophrenia.
 
 ### Surveys and textbooks
 
-- Sterzer, P. et al. (2018). The Predictive Coding Account of Psychosis. *Biological Psychiatry*. https://doi.org/10.1016/j.biopsych.2018.05.015 — Reviews predictive-coding accounts of psychotic symptoms and how they differ.
-- Griffiths, Langdon & Le Pelley (2014). Delusions and prediction error: re-examining the behavioural evidence for disrupted error signalling in delusion formation. *Cognitive Neuropsychiatry*. https://doi.org/10.1080/13546805.2014.897601 — Re-examines the behavioural evidence for disrupted error signalling in delusion formation.
+- Sterzer, P. et al. (2018). The Predictive Coding Account of Psychosis. *Biological Psychiatry*. https://doi.org/10.1016/j.biopsych.2018.05.015 — Reviews the evidence for aberrant predictive coding in psychosis and the challenges to the canonical account.
+- Griffiths, O., Langdon, R., Le Pelley, M. E. & Coltheart, M. (2014). Delusions and prediction error: re-examining the behavioural evidence for disrupted error signalling in delusion formation. *Cognitive Neuropsychiatry*. https://doi.org/10.1080/13546805.2014.897601 — Re-examines the studies that test whether deviant prediction-error signalling produces delusions, and finds important methodological limitations in them.

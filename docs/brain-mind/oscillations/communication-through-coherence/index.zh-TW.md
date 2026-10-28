@@ -21,9 +21,7 @@ aliases:
 
 ## 核心想法
 
-Fries（2005）主張，節律活動就是這個開關。當發送端的群體振盪時，其脈衝在節律的特定相位抵達接收端的群體。如果接收端在相匹配的相位最興奮，在那時到達的輸入就有較大的效果，在其他相位到達的輸入效果則較小。相干性維持了這種對齊的一致性。兩個群體的節律若保持穩定的相位差，就能可靠地彼此影響；沒有穩定關係的群體則不能。由於相位關係會改變，同一條解剖連結在不同時間可以攜帶不同的訊號。
-
-作者後來的綜述（Fries, 2015）檢視了支持這套說法的證據。
+Fries（2005）主張神經元之間的溝通是經由神經元的相干性進行的，而相干性的彈性模式決定了彈性的溝通結構。同一作者後來的綜述（Fries, 2015）更具體地說明了其機制：gamma 頻段的同步調變興奮，使其能躲過隨後的抑制，並有效地活化突觸後神經元。它也使突觸前的活動模式以時間上協調的方式抵達突觸後神經元。由於相位關係會改變，同一條解剖連結在不同時間可以攜帶不同的訊號。
 
 ## 方程式或演算法
 
@@ -36,21 +34,22 @@ Fries（2005）主張，節律活動就是這個開關。當發送端的群體�
 
 ## 結果
 
-Womelsdorf et al.（2007）以神經元記錄直接檢驗了這套說法。他們發現，神經元群之間的相互影響取決於它們節律活動的相位關係。支持某次互動的相位關係，比互動本身早了數毫秒出現，作者認為這與其機制性角色相符。這些效果在時間、頻率與空間上都具有特異性。作者的結論是，同步的模式彈性地決定了神經元互動的模式。同一團隊後來的一章延伸這個想法到選擇性注意，其標題《Selective Attention Through Selective Neuronal Synchronization》即表明了這一點。
+Womelsdorf et al.（2007）以神經元記錄直接檢驗了這套說法。他們發現，神經元群之間的相互影響取決於它們節律活動的相位關係。支持某次互動的相位關係，比互動本身早了數毫秒出現，作者認為這與其機制性角色相符。這些效果在時間、頻率與空間上都具有特異性。作者的結論是，同步的模式彈性地決定了神經元互動的模式。
 
-這些證據大多屬於相關性的，並來自有限的實驗材料，因此支持了這個假說，但尚未完全確立它。
+Bosman et al.（2012）在猴子的視覺皮質上檢驗了注意的面向。當兩個刺激分別驅動 V1 的不同位點，並同樣強烈地驅動同一個 V4 位點時，行為上相關的刺激主要與 V4 發生 gamma 同步。作者提出，選擇性同步使相關的輸入得以有效傳遞。
+
+這些證據大多屬於相關性的，因此支持了這個假說，但尚未完全確立它。
 
 ## 限制
 
 - **相關不等於因果。** 兩個群體可能因為共享同一輸入而變得相干，而兩者之間並無直接影響。要證明相干性會改變溝通，必須操控節律本身。
 - **分析的選擇很重要。** 相干性取決於頻段、視窗長度與參考訊號的選擇。報告的效果可能因這些決定而不同，因此比較不同研究時需要謹慎。
-- **哪個頻段？** 這個假說是一個框架，而不是針對某個固定頻率的主張。gamma 是否為腦區之間溝通的正確頻段，以及它在不同腦區與任務中是否不同，仍有爭議。
-- **人類證據。** 直接記錄人腦遠距腦區之間相干性的研究，比確立這效應的動物記錄少，而且訊號較為嘈雜。
+- **哪個頻段？** 這個假說是一個框架，而不是針對某個固定頻率的主張。在 Bosman et al.（2012）中，不同位點的 gamma 活動在頻率上有相當大的重疊，因此承載相干性的頻段並不明確。gamma 是否為腦區之間溝通的正確頻段，以及它在不同腦區與任務中是否不同，仍有爭議。
 
 ## 連結
 
 - **θ–γ 耦合。** [θ–γ 耦合](../theta-gamma-coupling/index.md)是本章另一個以節律為基礎的方法。兩者的範圍不同：相干性關注群體之間的溝通，θ–γ 耦合關注單一迴路如何組織自己的項目。
-- **注意力。** 相干性被提出作為選擇性注意的機制，這也是 wiki 中[注意力：腦與機器](../../attention-brain-machine/index.md)頁的主要主題之一。
+- **注意力。** 相干性被提出作為選擇性注意的機制（Fries, 2015）。這個主題也是 wiki 中[注意力：腦與機器](../../attention-brain-machine/index.md)頁的主要內容之一。
 - **記錄。** 相干性由局部場電位、ECoG 與 EEG 訊號計算，這些訊號的說明見[神經影像與記錄方法](../../neuroimaging-methods/index.md)。
 - **人工網路。** 標準人工網路沒有相位，因此這個想法沒有直接的對應物。最接近的類比是注意力機制中的閘控，它依學得的權重而非時間來選擇資訊。這只是概念上的粗略連結，並不表示兩者的運作方式相同。
 
@@ -68,10 +67,12 @@ Womelsdorf et al.（2007）以神經元記錄直接檢驗了這套說法。他�
 
 ### 開創性論文
 
-- Fries, P.（2005）。A mechanism for cognitive dynamics: neuronal communication through neuronal coherence. *Trends in Cognitive Sciences*。https://doi.org/10.1016/j.tics.2005.08.011 — 主張神經元群之間的相干性控制它們溝通的效力。這是原始論文。
+- Fries, P.（2005）。A mechanism for cognitive dynamics: neuronal communication through neuronal coherence. *Trends in Cognitive Sciences*。https://doi.org/10.1016/j.tics.2005.08.011 — 最初的提議，把神經元群之間的相干性命名為溝通的機制。
 - Womelsdorf, T. et al.（2007）。Modulation of neuronal interactions through neuronal synchronization. *Science*。https://doi.org/10.1126/science.1139597 — 神經記錄顯示，神經元群之間的互動取決於其節律的相位關係，並且比互動早數毫秒。
+- Bosman, C. et al.（2012）。Attentional stimulus selection through selective synchronization between monkey visual areas. *Neuron*。https://doi.org/10.1016/j.neuron.2012.06.037 — 猴子的記錄顯示，當兩個刺激驅動 V1 時，行為上相關的那個與 V4 發生 gamma 同步。
 
-### 綜述與回顧
+### 綜述與教科書
 
-- Fries, P.（2015）。Rhythms for cognition: communication through coherence. *Neuron*。https://doi.org/10.1016/j.neuron.2015.09.034 — 相干性假說及其證據的回顧，由提出者本人撰寫。
-- Womelsdorf, T. & Fries, P.（2009）。Selective attention through selective neuronal synchronization. 收於 *The Cognitive Neurosciences*，MIT Press。https://doi.org/10.7551/mitpress/8029.003.0028 — 將相干性假說應用於選擇性注意的章節。
+- Fries, P.（2015）。Rhythms for cognition: communication through coherence. *Neuron*。https://doi.org/10.1016/j.neuron.2015.09.034 — 由該假說的提出者撰寫的回顧，論述 gamma 頻段的同步如何塑造群體之間的溝通，以及注意力如何作用於其上。
+- Fries, P.（2009）。Neuronal gamma-band synchronization as a fundamental process in cortical computation. *Annual Review of Neuroscience*。https://doi.org/10.1146/annurev.neuro.051508.135603 — 主張 gamma 頻段的同步能選取多個匯聚輸入中的一個，是皮質運算的基本操作。
+- Womelsdorf, T. & Fries, P.（2009）。Selective attention through selective neuronal synchronization. 收於 *The Cognitive Neurosciences*，MIT Press。https://doi.org/10.7551/mitpress/8029.003.0028 — 關於透過選擇性神經同步實現選擇性注意的章節，主題由其標題所示。

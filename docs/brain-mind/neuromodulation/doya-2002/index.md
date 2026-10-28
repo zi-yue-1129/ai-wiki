@@ -62,7 +62,7 @@ The paper is a theoretical proposal and does not report a new experimental datas
 
 ## Limitations
 
-- **A hypothesis, not a demonstration.** Later work has discussed the parts of the mapping, and some assignments, notably the role of serotonin in discounting, remain open.
+- **A hypothesis, not a demonstration.** The paper presents the mapping as a proposal, based on a review of experimental data and theoretical models.
 - **Several roles per system.** Neuromodulators act across many circuits and have several effects. A one-to-one mapping to a single parameter simplifies this.
 - **Scalar settings.** The model treats each meta-parameter as one number. Neural control may vary across regions and over time.
 - **How settings are chosen.** The proposal says which signal sets which parameter, but not how the values change over time. That needs an additional learning mechanism.
@@ -82,7 +82,7 @@ The paper is a theoretical proposal and does not report a new experimental datas
 
 ## Open questions
 
-- **Which neuromodulator controls which setting?** Some assignments are supported, while others, such as serotonin and discounting, are disputed.
+- **Which neuromodulator controls which setting?** The mapping is a proposal, and each assignment needs its own test.
 - **How are the settings learned?** The proposal needs a rule for changing them over time, and the neural mechanism for that rule is not yet clear.
 - **Are neuromodulators the only controllers?** Changes in cortical connectivity or in other areas could also set these parameters, and their relative roles are unknown.
 
@@ -92,8 +92,11 @@ The paper is a theoretical proposal and does not report a new experimental datas
 
 - Doya, K. (2002). Metalearning and neuromodulation. *Neural Networks*, 15(4–6), 495–506. https://doi.org/10.1016/s0893-6080(02)00044-8 — The original paper. Proposes that dopamine, serotonin, noradrenaline and acetylcholine correspond to the prediction error and three reinforcement-learning meta-parameters.
 
-### Surveys and reviews
+- Yu, A. J. & Dayan, P. (2005). Uncertainty, Neuromodulation, and Attention. *Neuron*, 46(4), 681–692. https://doi.org/10.1016/j.neuron.2005.04.026 — Proposes that acetylcholine and noradrenaline signal expected and unexpected uncertainty, an alternative account of the same two neuromodulators.
 
-- Doya, K. (2008). Modulators of decision making. *Nature Neuroscience*. https://doi.org/10.1038/nn2077 — Review of how serotonin, dopamine, noradrenaline and acetylcholine contribute to decisions.
+### Surveys and textbooks
+
+- Doya, K. (2008). Modulators of decision making. *Nature Neuroscience*, 11(4), 410–416. https://doi.org/10.1038/nn2077 — Review of neuromodulators and decision making.
 - Aston-Jones, G. & Cohen, J. D. (2005). An integrative theory of locus coeruleus-norepinephrine function: adaptive gain and optimal performance. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.28.061604.135709 — Reviews the noradrenaline system and its tonic and phasic modes, which relate to the proposal's role for noradrenaline in action selection.
-- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — The standard textbook on the algorithm, including the discount factor, learning rate and softmax choice rule used on this page.
+- Hasselmo, M. E. (2006). The role of acetylcholine in learning and memory. *Current Opinion in Neurobiology*, 16(6), 710–715. https://doi.org/10.1016/j.conb.2006.09.002 — Reviews acetylcholine's role in learning and memory, relevant to the learning-rate mapping on this page.
+- Sutton, R. S. & Barto, A. G. (2018). *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — Standard introduction to reinforcement learning, which covers the discount factor, learning rate and softmax choice rule used on this page.
