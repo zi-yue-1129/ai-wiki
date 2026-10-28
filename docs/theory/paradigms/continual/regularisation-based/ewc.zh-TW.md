@@ -38,11 +38,11 @@ L(\theta) = L_B(\theta) + \sum_i \frac{\lambda}{2}\,F_i\,(\theta_i - \theta^*_{A
 
 ### Overcoming catastrophic forgetting in neural networks（Kirkpatrick 等人，2017）
 
-- **問題：** 在一連串任務上做基於梯度的訓練，會覆寫較早任務所依賴的權重，因此網路遺忘。論文把依序學習任務視為人工智慧的關鍵能力，並把遺忘視為主要障礙。
-- **核心想法：** 依舊任務的估計重要性，懲罰每個權重的改變幅度，並以費雪資訊作為重要性的衡量。重要的權重留在舊值附近，不重要的權重則可以適應新任務。
-- **公式或演算法：** 上節的懲罰損失，以及每個任務後計算的對角費雪值。每個舊任務一項懲罰，即可擴展到多個任務。
-- **結果：** 在 MNIST 置換任務上，結果只以圖形呈現，正文未給出準確率數值。在依序 Atari 2600 遊戲上，各遊戲的分數只以曲線呈現，因此本頁不引用具體數字。論文的設定包括：每個序列使用 19 款遊戲的池中抽出的 10 款（這 19 款是獨立 DQN 能達到人類水準或以上的遊戲），以及費雪縮放係數 400。論文描述，給予網路真實任務標籤（而非學到的標籤）的好處只是「適度」的。
-- **限制：** 作者表示，點估計（對角拉普拉斯）的處理方式「確實是一項重大弱點」，而且實作「低估了參數的不確定性」。使用單一網路時，EWC 「未能達到」十個獨立 DQN 的分數。此方法還需要為每個突觸儲存三個數值：權重、其費雪值與錨點。論文沒有獨立的限制一節，以上內容取自其討論。
+- **問題：**對一系列任務進行基於梯度的訓練，會覆寫早期任務所依賴的權重，因此網路會遺忘。論文把依序學習任務視為人工智慧的關鍵，並把遺忘視為障礙。
+- **核心想法：**依每個權重對舊任務的估計重要性，懲罰其改變量，並以 Fisher 資訊作為重要性的度量。重要的權重維持在舊值附近，不重要的權重則適應新任務。
+- **方程式或演算法：**即上方的受懲罰損失，在每個任務之後計算對角 Fisher。每個舊任務各加一項懲罰，即可把方法推廣到多個任務。
+- **結果：**在 MNIST 排列任務上，結果只以圖形呈現，文字中沒有準確率數值。在依序的 Atari 2600 遊戲上，論文繪製的是上限為 10 的總人類正規化分數曲線，逐遊戲的分數也只在圖中，因此本頁不引用這些數值。論文的設定包括每個序列十個遊戲，從 DQN 達到人類水準或以上的遊戲中隨機抽取，並在附錄中使用 400 的 EWC 懲罰縮放係數。論文報告，EWC 單一網路的分數不及十個分開訓練的 DQN。
+- **限制：**論文對權重採用的對角、點估計處理是一種近似。論文指出 EWC 能讓「大量任務依序學習，錯誤率僅適度增加」，但其圖形只呈現少數任務序列，因此擴展性的說法是定性的。
 
 ## 關聯
 
@@ -61,11 +61,11 @@ L(\theta) = L_B(\theta) + \sum_i \frac{\lambda}{2}\,F_i\,(\theta_i - \theta^*_{A
 
 ### 開創性論文
 
-- Kirkpatrick, J. 等人 (2017). Overcoming catastrophic forgetting in neural networks. PNAS. https://doi.org/10.1073/pnas.1611835114 — 提出 EWC。arXiv 預印本為 [arXiv:1612.00796](https://arxiv.org/abs/1612.00796)。
-- Zenke, F., Poole, B. & Ganguli, S. (2017). Continual Learning Through Synaptic Intelligence. arXiv:1703.04200. https://arxiv.org/abs/1703.04200 — 每個連結在訓練中追蹤它對較早任務的有用程度，是基於費雪的懲罰的另一種選擇。
-- Li, Z. & Hoiem, D. (2016). Learning without Forgetting. arXiv:1606.09282. https://arxiv.org/abs/1606.09282 — 在新資料上蒸餾舊模型的輸出，以保留先前的行為，因此不需要舊的訓練資料。
+- Kirkpatrick, J. et al. (2017). Overcoming catastrophic forgetting in neural networks. *PNAS* 114(13), 3521–3526. https://pmc.ncbi.nlm.nih.gov/articles/PMC5380101 — 提出 EWC。預印本為 [arXiv:1612.00796](https://arxiv.org/abs/1612.00796)。
+- Zenke, F., Poole, B. & Ganguli, S. (2017). Continual Learning Through Synaptic Intelligence. arXiv:1703.04200. https://arxiv.org/abs/1703.04200 — 每個連接在訓練中追蹤自己對早期任務的貢獻，是基於 Fisher 懲罰的替代方法。
+- Li, Z. & Hoiem, D. (2016). Learning without Forgetting. arXiv:1606.09282. https://arxiv.org/abs/1606.09282 — 以在新資料上蒸餾舊模型的輸出來保留早期行為，因此不需要舊的訓練資料。
 
 ### 綜述與教科書
 
-- De Lange, M. 等人 (2021). A continual learning survey: Defying forgetting in classification tasks. IEEE TPAMI. https://doi.org/10.1109/TPAMI.2021.3057446（arXiv:1909.08383，https://arxiv.org/abs/1909.08383）— 在共同的基準上比較正則化、重播與架構方法。
-- Parisi, G. I. 等人 (2019). Continual lifelong learning with neural networks: a review. Neural Networks. https://doi.org/10.1016/j.neunet.2019.01.012（arXiv:1802.07569，https://arxiv.org/abs/1802.07569）— 回顧減少災難性遺忘的持續學習方法，並討論其與生物學習的關聯。
+- De Lange, M. et al. (2021). A continual learning survey: Defying forgetting in classification tasks. IEEE TPAMI. https://doi.org/10.1109/TPAMI.2021.3057446 (arXiv:1909.08383, https://arxiv.org/abs/1909.08383) — 在常見基準上比較正則化、重播與架構方法。
+- Parisi, G. I. et al. (2019). Continual Lifelong Learning with Neural Networks: A Review. arXiv:1802.07569. https://arxiv.org/abs/1802.07569 — 回顧減少災難性遺忘的持續學習方法，以及它們與生物學習的關聯。

@@ -12,12 +12,12 @@ translation_reviewed: 2026-10-28
 
 ## 核心想法
 
-此方法使用兩層最佳化過程：
+此方法採用兩層最佳化流程：
 
-- **內層迴圈。** 種群中的每個智能體以強化學習，根據自己的內在獎勵學習策略。內在獎勵補充了勝利時稀疏的遊戲獎勵，而智能體的策略在多個時間尺度上選擇動作。
-- **外層迴圈。** 一個種群在數千場平行比賽中同時訓練，智能體在隨機生成的地圖上組隊、彼此對戰。外層迴圈即是基於種群的訓練，會調整每個智能體的內在獎勵與超參數。
+- **內層。**種群中的每個智能體以強化學習從自身的內部獎勵學習策略。內部獎勵補足了勝利時稀疏的獎勵，而智能體的策略會在數個時間尺度上選擇動作。
+- **外層。**一個智能體種群在數千場並行比賽中同時訓練，智能體在隨機生成的地圖上與隊友合作、也與對手競爭。外層是基於種群的訓練，會調整智能體的內部獎勵與超參數。
 
-地圖是程序生成的，包括室內與室外兩種主題；在固定回合數之後，奪旗次數最多的隊伍獲勝。由於種群中有許多不同的智能體，訓練對局讓每個智能體接觸到多樣的隊友與對手。
+地圖是程序生成的，包含室內與室外，一場比賽中奪旗次數最多的隊伍在五分鐘後獲勝。由於種群中的智能體各不相同，訓練比賽讓每個智能體接觸到各式各樣的隊友與對手。
 
 ## 方程式或演算法
 
@@ -25,7 +25,7 @@ translation_reviewed: 2026-10-28
 
 ## 結果
 
-論文以錦標賽式的評估檢驗訓練後的智能體。作者報告，這些智能體「作為隊友與對手時，勝率都超過強大的人類玩家」，而且遠強於現有的最先進智能體。技能以 Elo 分數衡量，該分數在訓練期間依種群做了調整。學到的表徵編碼了高層次的遊戲知識，作者用它來解釋跟隨、防守與導航等行為。
+論文以錦標賽式的情境檢驗訓練後的智能體。摘要指出，智能體「作為隊友與對手時，勝率都超過強大的人類玩家」，並且「遠強於現有的最先進智能體」。論文所稱的「強大」人類是其 40 名參與者中前 20%，摘要並未給出對抗這些人類的數值勝率。技能以取自西洋棋的 Elo 分數線上估計。智能體訓練了二十億步，約 45 萬場比賽。學到的表徵編碼了各式各樣的遊戲知識，論文以線性探測衡量。論文描述的行為包括導航、跟隨與防守，其中跟隨在訓練中途被捨棄。
 
 ## 限制
 
@@ -52,8 +52,11 @@ translation_reviewed: 2026-10-28
 
 ### 奠基性論文
 
-- Jaderberg 等人（2019），"Human-level performance in 3D multiplayer games with population-based reinforcement learning"，*Science* 364, 859–865。https://doi.org/10.1126/science.aau6249——FTW 論文，包含兩層最佳化、奪旗環境與人類錦標賽結果。
-- Jaderberg 等人（2018），"Human-level performance in first-person multiplayer games with population-based deep reinforcement learning"，[arXiv:1807.01281](https://arxiv.org/abs/1807.01281)——FTW 論文的預印本版本，方法與結果相同。
-- Jaderberg 等人（2017），"Population based training of neural networks"，[arXiv:1711.09846](https://arxiv.org/abs/1711.09846)——FTW 外層迴圈所用的 PBT 方法。
-- Vinyals 等人（2019），"Grandmaster level in StarCraft II using multi-agent reinforcement learning"，*Nature* 575, 350–354。https://doi.org/10.1038/s41586-019-1724-z——另一個競爭遊戲中達到宗師級水準的多智能體訓練。
-- Lowe 等人（2017），"Multi-agent actor-critic for mixed cooperative-competitive environments"，[arXiv:1706.02275](https://arxiv.org/abs/1706.02275)——混合合作與競爭設定下的集中式評論家，即 FTW 以種群研究的設定。
+- Jaderberg et al. (2019), "Human-level performance in 3D multiplayer games with population-based reinforcement learning", *Science* 364, 859–865. https://discovery.ucl.ac.uk/id/eprint/10076318 — FTW 論文，包含兩層最佳化、奪旗環境與人類錦標賽結果。連結為作者機構的典藏紀錄。
+- Jaderberg et al. (2018), "Human-level performance in first-person multiplayer games with population-based deep reinforcement learning", [arXiv:1807.01281](https://arxiv.org/abs/1807.01281) — FTW 論文的預印本，方法與結果相同。
+- Jaderberg et al. (2017), "Population based training of neural networks", [arXiv:1711.09846](https://arxiv.org/abs/1711.09846) — FTW 外層所用的 PBT 方法。
+- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — 混合合作與競爭設定下的集中式評論家，即 FTW 以種群研究的設定。
+
+### 綜述與教科書
+
+- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/TSMCC.2007.913919 — 多智能體學習情境的綜述，包含 FTW 所結合的競爭與合作情形。

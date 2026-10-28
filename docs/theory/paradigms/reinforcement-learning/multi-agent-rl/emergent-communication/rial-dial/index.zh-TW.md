@@ -31,13 +31,13 @@ Q_a(h_t, u_t) \leftarrow r_t + \gamma \max_{u'} Q_a(h_{t+1}, u') ,
 
 ## 結果
 
-在三個智能體的 switch riddle 中，四種變體（RIAL 與 DIAL，各自有與沒有參數共享）都能在 5,000 個回合內學到最佳策略，且都勝過沒有通訊的基準。DIAL 搭配參數共享，達到最佳表現的速度明顯快於 RIAL。在四個智能體的情況下，沒有參數共享的 RIAL 無法勝過沒有通訊的基準，作者因此認為參數共享對學習通訊可能至關重要。在多步驟與色彩數字 MNIST 任務中，DIAL 明顯優於其他方法，而參數共享是達到最佳協定的必要條件。
+在三個智能體的開關謎題中，四種變體（RIAL 與 DIAL，各有與無參數共享）都在約 5,000 回合內學到最佳策略，與論文文字所述一致。有參數共享的 DIAL 比 RIAL 更快達到最佳。四個智能體時，沒有參數共享的 RIAL 無法超過無通訊的基線。在多步與顏色數字 MNIST 任務上，DIAL 在兩個遊戲中都明顯優於其他方法，而 RIAL 無法學會多步任務。結果以相對於 oracle 基線正規化的曲線呈現，確切數值在圖中。
 
 ## 限制
 
-- **集中式學習。** DIAL 需要在訓練時讓梯度在智能體之間流動，因此需要共享的訓練流程。
-- **獨立學習容易失敗。** 沒有參數共享時，RIAL 可能根本學不到共享協定，四個智能體的 switch riddle 即是例子。
-- **可解釋性。** 學到的符號不保證具有人類可讀的意義。
+- **集中式學習。** DIAL 在訓練時需要梯度在智能體之間流動，因此需要共享的訓練流程。
+- **獨立學習並不穩定。** 沒有參數共享時，在四個智能體的開關謎題中，RIAL 無法超過無通訊的基線。
+- **可解釋性。** 學到的符號不保證帶有人類可讀的意義。
 
 ## 關聯
 
@@ -59,11 +59,11 @@ Q_a(h_t, u_t) \leftarrow r_t + \gamma \max_{u'} Q_a(h_{t+1}, u') ,
 
 ### 奠基性論文
 
-- Foerster 等人（2016），"Learning to communicate with deep multi-agent reinforcement learning"，[arXiv:1605.06676](https://arxiv.org/abs/1605.06676)——RIAL 與 DIAL 的論文，包含 switch riddle 與上文所述的離散化與正則化單元。
-- Mnih 等人（2015），"Human-level control through deep reinforcement learning"，*Nature* 518, 529–533。https://doi.org/10.1038/nature14236——RIAL 為每個智能體使用的深度 Q 學習方法。
-- Sukhbaatar, Szlam & Fergus（2016），"Learning multiagent communication with backpropagation"，[arXiv:1605.07736](https://arxiv.org/abs/1605.07736)——CommNet，是 DIAL 離散通道的連續替代方案。
-- Lazaridou, Peysakhovich & Baroni（2017），"Multi-agent cooperation and the emergence of (natural) language"，[arXiv:1612.07182](https://arxiv.org/abs/1612.07182)——研究參照遊戲中湧現的符號，以及如何與人類語言建立關聯。
+- Foerster et al. (2016), "Learning to communicate with deep multi-agent reinforcement learning", [arXiv:1605.06676](https://arxiv.org/abs/1605.06676) — RIAL 與 DIAL 論文，包含開關謎題與上述的離散化／正則化單元。
+- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — RIAL 為每個智能體使用的深度 Q 學習方法。
+- Sukhbaatar, Szlam & Fergus (2016), "Learning multiagent communication with backpropagation", [arXiv:1605.07736](https://arxiv.org/abs/1605.07736) — CommNet，是 DIAL 離散通道的連續替代方案。
+- Lazaridou, Peysakhovich & Baroni (2017), "Multi-agent cooperation and the emergence of (natural) language", [arXiv:1612.07182](https://arxiv.org/abs/1612.07182) — 研究指涉遊戲中湧現的符號，以及如何把它們與人類語言建立連結。
 
 ### 綜述與教科書
 
-- Busoniu, Babuska & De Schutter（2008），"A comprehensive survey of multiagent reinforcement learning"，*IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172。https://doi.org/10.1109/tsmcc.2007.913919——多智能體學習設定與通訊所要解決的協調問題的綜述。
+- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/TSMCC.2007.913919 — 多智能體學習情境的綜述，以及通訊所處理的協調問題。

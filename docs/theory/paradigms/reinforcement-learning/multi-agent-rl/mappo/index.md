@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - MAPPO
@@ -25,17 +25,18 @@ MAPPO is the PPO algorithm of [Proximal Policy Optimisation](../../proximal-poli
 - **Value normalisation** to stabilise value learning.
 - **Value input** with both local, agent-specific features and global features, where these are available.
 - **Limited epochs.** Up to 10 training epochs on difficult environments and 15 on easy ones.
-- **Clipping** with a ratio below 0.2 for the best performance.
-- **Large batch sizes** for the best task performance.
+- **Clipping** with the ratio kept under 0.2, tuned within that range.
+- **Large batches**, tuned for sample efficiency. The paper gives no fixed number.
 
 The paper also finds that performance degrades when samples are reused too often in multi-agent domains.
 
 ## Results
 
-- **SMAC.** IPPO and MAPPO perform strongly on the vast majority of maps. MAPPO performs at least as well as QMIX on most maps with the same number of samples. On 6h_vs_8z, MAPPO with feature pruning reaches a median win rate of 88.3%, against 9.4% for QMIX.
-- **MPE.** MAPPO performs comparably to the off-policy baselines, and very similarly to QMIX on all tasks.
-- **Google Research Football.** MAPPO clearly outperforms QMIX in each scenario. On 3v1, it reaches 88.03 against 8.12 for QMIX.
-- **Hanabi.** MAPPO produces results comparable or superior to the best and average returns reported for the benchmark.
+- **SMAC.** On the 6h_vs_8z map, MAPPO with feature pruning reaches a median win rate of 88.3%, against 9.4% for QMIX (Table 1).
+- **Parameter sharing.** Appendix C.2 reports that MAPPO with parameter sharing outperforms MAPPO without it by a clear margin, for example 88.3 against 11.4 on 6h_vs_8z.
+- **MPE.** MAPPO performs comparably to or better than the off-policy baselines, and very similarly to QMIX on all tasks.
+- **Google Research Football.** On the 3v1 scenario, MAPPO reaches an average success rate of 88.03 over six seeds, against 8.12 for QMIX (Table 2).
+- **Hanabi.** The paper states that MAPPO is comparable to or better than the best and average returns of SAD and VDN in nearly every setting. The exception is the best score with four players, where MAPPO is slightly lower.
 
 ## Limitations
 
@@ -63,7 +64,7 @@ The paper also finds that performance degrades when samples are reused too often
 
 ### Seminal papers
 
-- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", NeurIPS 2022 Datasets and Benchmarks Track, [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — The MAPPO paper, with the benchmark results and recommended practices above.
+- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — The MAPPO paper, with the benchmark results and recommended practices above.
 - Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The single-agent PPO algorithm that MAPPO adapts.
 - Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — The value-factorisation baseline that MAPPO is compared against.
 - Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — MADDPG, the centralised-critic baseline in the paper's comparisons.

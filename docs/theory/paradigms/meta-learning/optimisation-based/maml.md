@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/meta-learning/optimisation-based
@@ -51,7 +51,7 @@ and the shared parameters move with a meta step size \(\beta\):
 \theta \leftarrow \theta - \beta\,\nabla_\theta \sum_{\mathcal T_i \sim p(\mathcal T)} \mathcal L_{\mathcal T_i}\big(f_{\theta_i'}\big)
 \]
 
-Algorithm 1 in the paper repeats these steps. It samples a batch of tasks, computes the adapted parameters for each task from a few examples, and then updates \(\theta\) with the summed meta-gradient. The paper's inner step sizes include \(\alpha = 0.01\) with 5 inner steps in training for miniImageNet, and \(\alpha = 0.4\) with 1 inner step in training for 5-way Omniglot. The paper does not state a meta step size \(\beta\) for every experiment. It also uses different optimisers in different domains: Adam for sinusoid regression and TRPO for reinforcement learning.
+Algorithm 1 in the paper repeats these steps. It samples a batch of tasks, computes the adapted parameters for each task from a few examples, and then updates \(\theta\) with the summed meta-gradient. The paper's inner step sizes include \(\alpha = 0.01\) with 5 inner steps in training for miniImageNet, and \(\alpha = 0.4\) with 1 inner step in training for 5-way Omniglot. The paper does not state a meta step size \(\beta\) for every experiment.
 
 ## Key methods
 

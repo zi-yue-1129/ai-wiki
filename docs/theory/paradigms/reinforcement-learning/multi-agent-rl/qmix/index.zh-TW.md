@@ -31,13 +31,13 @@ Rashid 等人透過讓混合網路的權重非負來強制此限制。這些權�
 
 ## 結果
 
-實驗使用星海爭霸 II 的分散式單位微操，在六張地圖上進行：3m、5m、8m、2s_3z、3s_5z 與 1c_3s_5z。基線為獨立 Q 學習（IQL）與 VDN。論文報告：「QMIX 在所有地圖上都明顯最強，特別是在具有異質智能體類型的地圖上」。
+實驗使用星海爭霸 II 的分散式單位微操，在六張地圖上進行：3m、5m、8m、2s_3z、3s_5z 與 1c_3s_5z。基線為獨立 Q 學習（IQL）與 VDN。結果為測試勝率，取 20 次執行的平均，並附 95% 信賴區間。論文指出：「QMIX 在所有地圖上都明顯最強」（第 7.1 節）。
 
 ## 限制
 
-- **可表示的價值函數。**單調性限制「使 QMIX 無法表示不能以此方式分解的價值函數」。若某個智能體的最佳動作取決於其他智能體的動作，則無法被完美表示。
-- **離散動作。**對每個智能體的價值取 argmax，假設動作集合是有限的。
-- **基準範圍。**實驗只在一類微操地圖上進行，論文未測試更廣的設定。
+- **可表示的價值函數。** 單調性限制使 QMIX 無法表示每個團隊價值函數。若某個智能體的最佳動作取決於其他智能體的動作，這類函數超出混合網路能表示的範圍。
+- **離散動作。** 對每個智能體的價值取 argmax，假設動作集合是有限的。
+- **基準範圍。** 實驗只在同一系列的微操地圖上進行，論文未測試更廣泛的設定。
 
 ## 連結
 
@@ -59,8 +59,11 @@ Rashid 等人透過讓混合網路的權重非負來強制此限制。這些權�
 
 ### 開創性論文
 
-- Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — The QMIX paper, with the monotonic mixing network and the StarCraft II results above.
-- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The deep Q-learning agent whose per-agent value function QMIX builds on.
-- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — MADDPG, the centralised-critic alternative for multi-agent learning.
-- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", NeurIPS 2022 Datasets and Benchmarks Track, [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — Compares a PPO baseline with QMIX on StarCraft II maps and other benchmarks.
-- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/tsmcc.2007.913919 — Survey of multi-agent learning settings and their difficulties.
+- Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — QMIX 論文，包含單調混合網路與上述星海爭霸 II 結果。
+- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — QMIX 每個智能體價值函數所依據的深度 Q 學習智能體。
+- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — MADDPG，多智能體學習中的集中式評論家替代方法。
+- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — 在星海爭霸 II 地圖與其他基準上比較 PPO 基線與 QMIX。
+
+### 綜述與教科書
+
+- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/TSMCC.2007.913919 — 多智能體學習情境與其困難的綜述。
