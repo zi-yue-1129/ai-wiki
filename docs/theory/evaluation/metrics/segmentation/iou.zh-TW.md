@@ -42,3 +42,7 @@ $$\text{IoU} = \frac{|A \cap B|}{|A \cup B|}$$
 
 - scikit-learn contributors. *jaccard_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.jaccard_score.html — API 參考，給出標籤集合交併比的定義，並附有二元與多標籤的範例。
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — 分類式比較可用的評分器概述。
+
+### 補充來源
+
+- Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — 提供免費線上草稿的機率機器學習教科書。

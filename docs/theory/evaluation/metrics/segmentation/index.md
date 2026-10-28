@@ -31,3 +31,7 @@ On binary masks, the Dice coefficient is the same formula as the [F1 score](../c
 - scikit-learn contributors. *jaccard_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.jaccard_score.html — API reference describing the Jaccard index as the size of the intersection divided by the size of the union of two label sets.
 - scikit-learn contributors. *f1_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html — API reference giving the formula $2TP / (2TP + FP + FN)$, the same overlap ratio that Dice uses on binary masks.
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — Overview of the classification scorers that apply to pixel labels.
+
+### Additional sources
+
+- Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — Textbook with a free online draft on probabilistic machine learning.

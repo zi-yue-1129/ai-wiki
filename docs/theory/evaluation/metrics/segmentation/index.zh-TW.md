@@ -31,3 +31,7 @@ IoU 與 Dice 都是重疊指標，對單一區域而言排序結果相同，但�
 - scikit-learn contributors. *jaccard_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.jaccard_score.html — API 參考，將 Jaccard 指數描述為兩個標籤集合的交集大小除以聯集大小。
 - scikit-learn contributors. *f1_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html — API 參考，給出公式 $2TP / (2TP + FP + FN)$，這與二元遮罩上的 Dice 係數是同一個比率。
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — 可用於像素標籤比較的分類評分器概述。
+
+### 補充來源
+
+- Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — 提供免費線上草稿的機率機器學習教科書。

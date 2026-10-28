@@ -48,3 +48,7 @@ Temperature scaling, a single-parameter fix for overconfident networks, is descr
 ### Articles and documentation
 
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — Overview of the probabilistic scorers used alongside calibration checks.
+
+### Additional sources
+
+- Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — Textbook with a free online draft on probabilistic machine learning.

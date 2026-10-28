@@ -48,3 +48,7 @@ ECE 接近零，表示信心平均而言接近觀察到的頻率。ECE 無法指
 ### 文章與文件
 
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — 與校準檢查一起使用的機率評分器概述。
+
+### 補充來源
+
+- Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — 提供免費線上草稿的機率機器學習教科書。
