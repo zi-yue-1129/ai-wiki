@@ -22,7 +22,7 @@ flowchart LR
 
 ### 1. 分詞（Tokenisation）
 
-文字會被切分成 token（BPE、SentencePiece、Unigram）。分詞器的設計會影響多語言的效率（一個中文字可能需要一個或多個 token），甚至影響算術能力。
+文字會被切分成 token（BPE、SentencePiece、Unigram）。分詞器的設計會影響多語言的效率（一個中文字可能需要一個或多個 token），甚至影響算術能力。詳見[分詞](tokenisation/index.md)。
 
 ### 2. 預訓練
 
@@ -89,6 +89,12 @@ flowchart LR
 - **概述：** 一個 1,750 億參數的自回歸 Transformer，以提示中的零、一或少數範例進行測試。
 - **比較：** 展示單靠規模與提示能達到的效果。下方的 InstructGPT 則加入人類回饋來改變行為。
 - **完整內容：** [GPT-3 少樣本學習](gpt-3-few-shot/index.md)
+
+### 縮放定律：損失的冪律（Kaplan 等人，2020）
+
+- **概述：** 測試損失隨模型大小、資料量與運算量呈冪律下降，橫跨許多個數量級。
+- **比較：** 為訓練前選擇模型大小提供依據。下方的運算最佳化擬合修正了它建議的分配方式。
+- **完整內容：** [縮放定律](scaling-laws/index.md)，其中包括 [Kaplan 縮放定律](scaling-laws/kaplan-scaling-laws.md)
 
 ### 運算最佳化訓練（Hoffmann 等人，2022）
 

@@ -265,6 +265,24 @@ plugins:
             Graphical Models: 機率圖模型
             Belief Propagation: 信念傳播
             Hidden Markov Models: 隱馬可夫模型
+            Adversarial Robustness: 對抗樣本與穩健性
+            FGSM: FGSM
+            PGD Adversarial Training: PGD 對抗訓練
+            Randomized Smoothing: 隨機平滑
+            Out-of-Distribution Detection: 分布外偵測
+            ODIN: ODIN
+            Mahalanobis Distance Detector: 馬氏距離偵測器
+            Tokenisation: 分詞
+            Byte-Pair Encoding: 位元組對編碼
+            SentencePiece & Unigram: SentencePiece 與 unigram
+            Scaling Laws: 縮放定律
+            Kaplan Scaling Laws: Kaplan 縮放定律
+            Neural Architecture Search & AutoML: 神經架構搜尋與 AutoML
+            DARTS: DARTS
+            Efficient Neural Architecture Search: 高效神經架構搜尋
+            Hyperparameter Optimisation: 超參數最佳化
+            Bayesian Optimisation: 貝氏最佳化
+            Hyperband: Hyperband
             Search Algorithms: 搜尋演算法
             A* Search: A* 搜尋
             Alpha–Beta Pruning: α–β 剪枝
@@ -1041,7 +1059,17 @@ nav:
               - Maximum A Posteriori: theory/math/probability-statistics/maximum-a-posteriori.md
       - Information Theory: theory/information-theory/index.md
       - Causal Inference: theory/causal-inference/index.md
-      - Machine Learning: theory/machine-learning/index.md
+      - Machine Learning:
+          - theory/machine-learning/index.md
+          - Adversarial Robustness:
+              - theory/machine-learning/adversarial-robustness/index.md
+              - FGSM: theory/machine-learning/adversarial-robustness/fgsm.md
+              - PGD Adversarial Training: theory/machine-learning/adversarial-robustness/pgd-adversarial-training.md
+              - Randomized Smoothing: theory/machine-learning/adversarial-robustness/randomized-smoothing.md
+          - Out-of-Distribution Detection:
+              - theory/machine-learning/ood-detection/index.md
+              - ODIN: theory/machine-learning/ood-detection/odin.md
+              - Mahalanobis Distance Detector: theory/machine-learning/ood-detection/mahalanobis-distance.md
       - Deep Learning:
           - theory/deep-learning/index.md
           - Normalisation:
@@ -1059,6 +1087,10 @@ nav:
               - Glorot (Xavier): theory/deep-learning/initialisation/glorot-initialisation.md
               - He (Kaiming): theory/deep-learning/initialisation/he-initialisation.md
               - muP: theory/deep-learning/initialisation/mup.md
+          - Neural Architecture Search & AutoML:
+              - theory/deep-learning/nas-automl/index.md
+              - DARTS: theory/deep-learning/nas-automl/darts.md
+              - Efficient Neural Architecture Search: theory/deep-learning/nas-automl/efficient-neural-architecture-search.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum:
@@ -1112,6 +1144,10 @@ nav:
               - theory/optimization/theory-and-landscapes.md
               - Sharpness-Aware Minimisation: theory/optimization/sharpness-aware-minimisation.md
               - ASAM: theory/optimization/asam.md
+          - Hyperparameter Optimisation:
+              - theory/optimization/hyperparameter-optimisation/index.md
+              - Bayesian Optimisation: theory/optimization/hyperparameter-optimisation/bayesian-optimisation.md
+              - Hyperband: theory/optimization/hyperparameter-optimisation/hyperband.md
       - Learning Paradigms:
           - theory/paradigms/index.md
           - Supervised Learning:
@@ -1608,7 +1644,14 @@ nav:
                   - Mamba-2: theory/models/ssm/selective-state-spaces/mamba-2/index.md
           - Large Language Models:
               - theory/models/llm/index.md
+              - Tokenisation:
+                  - theory/models/llm/tokenisation/index.md
+                  - Byte-Pair Encoding: theory/models/llm/tokenisation/byte-pair-encoding.md
+                  - SentencePiece & Unigram: theory/models/llm/tokenisation/sentencepiece.md
               - GPT-3 Few-Shot Learning: theory/models/llm/gpt-3-few-shot/index.md
+              - Scaling Laws:
+                  - theory/models/llm/scaling-laws/index.md
+                  - Kaplan Scaling Laws: theory/models/llm/scaling-laws/kaplan-scaling-laws.md
               - Compute-Optimal Training: theory/models/llm/compute-optimal-training/index.md
               - InstructGPT and RLHF: theory/models/llm/instructgpt-rlhf/index.md
               - Imitation in Foundation Models: theory/models/llm/imitation-in-foundation-models/index.md
