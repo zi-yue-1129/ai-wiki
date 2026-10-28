@@ -67,7 +67,7 @@ The modern trend is **integration**: neural networks for perception and intuitio
 
 ## Further reading
 
-- Nilsson, *The Quest for Artificial Intelligence* (free PDF on the author's site)
-- Mitchell, *Artificial Intelligence: A Guide for Thinking Humans*
-- Sejnowski, *The Deep Learning Revolution* (a neuroscientist's history of deep learning)
+- Nilsson, N. J. (2009). *The Quest for Artificial Intelligence*. Cambridge University Press. https://doi.org/10.1017/cbo9780511819346 — A history of AI's ideas and achievements, written by a Stanford AI researcher.
+- Mitchell, M. (2019). *Artificial Intelligence: A Guide for Thinking Humans*. Farrar, Straus and Giroux. https://melaniemitchell.me/aibook/ — An accessible tour of what current AI can and cannot do, with its history.
+- Sejnowski, T. J. (2018). *The Deep Learning Revolution*. MIT Press. https://doi.org/10.7551/mitpress/11474.001.0001 — A neuroscientist's history of deep learning and its links to the brain.
 - [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence)

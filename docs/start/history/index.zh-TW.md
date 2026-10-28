@@ -67,7 +67,7 @@
 
 ## 延伸閱讀
 
-- Nilsson, *The Quest for Artificial Intelligence*（作者網站提供免費 PDF）
-- Mitchell, *Artificial Intelligence: A Guide for Thinking Humans*
-- Sejnowski, *The Deep Learning Revolution*（從神經科學家的角度寫深度學習史）
+- Nilsson, N. J.（2009）。*The Quest for Artificial Intelligence*。Cambridge University Press。https://doi.org/10.1017/cbo9780511819346 — 由史丹佛 AI 研究者撰寫的 AI 思想與成就史。
+- Mitchell, M.（2019）。*Artificial Intelligence: A Guide for Thinking Humans*。Farrar, Straus and Giroux。https://melaniemitchell.me/aibook/ — 淺顯介紹當前 AI 能做什麼、不能做什麼，並附歷史脈絡。
+- Sejnowski, T. J.（2018）。*The Deep Learning Revolution*。MIT Press。https://doi.org/10.7551/mitpress/11474.001.0001 — 從神經科學家角度寫的深度學習史，以及它與大腦的關聯。
 - [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence)
