@@ -56,9 +56,31 @@ flowchart LR
 
 同樣的工具也可能被用來設計有害的製劑。目前的因應包括：篩檢 DNA 合成訂單、評估模型對生物濫用的助長程度，以及負責任的釋出政策（見[安全與對齊](../../society/safety-alignment/index.md)）。
 
-## 學習資源
+## 關鍵方法
 
-- Jumper et al. (2021), AlphaFold 2, *Nature*；Abramson et al. (2024), AlphaFold 3
-- [AlphaFold DB](https://alphafold.ebi.ac.uk/)、[RCSB PDB](https://www.rcsb.org/)
-- [DeepChem](https://deepchem.io/)、[RDKit](https://www.rdkit.org/)、[TDC — Therapeutics Data Commons](https://tdcommons.ai/)
-- MIT 的藥物發現機器學習課程（風格類似 6.S897），以及 Valence Labs 社群
+下列三種方法是上文多數蛋白質與基因組工具的基礎。每一項都連結到解釋該方法的頁面。
+
+- [Transformer](../../theory/models/transformer/attention-is-all-you-need/index.md)：對序列做自注意力。ESM 等蛋白質語言模型把它應用在胺基酸序列上（Vaswani et al., 2017；Lin et al., 2023）。
+- [去噪擴散](../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md)：模型學習逆轉逐步加噪的過程，取樣即可產生新資料。RFdiffusion 以擴散生成蛋白質骨架（Ho et al., 2020；Watson et al., 2023）。
+- [圖神經網路](../../theory/models/gnn/message-passing/gin/index.md)：在原子與化學鍵之間做訊息傳遞。GIN 是論文證明其判別能力與 Weisfeiler–Leman 圖測試相當的變體（Xu et al., 2019）。
+
+## 參考文獻
+
+### 開創性論文
+
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — 提出 Transformer，以多頭自注意力為核心。
+- Jumper, J. et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*. https://doi.org/10.1038/s41586-021-03819-2 — AlphaFold 2，在 CASP14 中於多數目標上可與實驗方法媲美。
+- Abramson, J. et al. (2024). Accurate structure prediction of biomolecular interactions with AlphaFold 3. *Nature*. https://doi.org/10.1038/s41586-024-07487-w — 將結構預測擴展到涉及 DNA、RNA、配體與離子的複合體。
+- Watson, J. L. et al. (2023). De novo design of protein structure and function with RFdiffusion. *Nature*. https://doi.org/10.1038/s41586-023-06415-8 — RFdiffusion，一種生成新蛋白質骨架的擴散模型。
+- Lin, Z. et al. (2023). Evolutionary-scale prediction of atomic-level protein structure with a language model. *Science*. https://doi.org/10.1126/science.ade2574 — ESM 語言模型與 ESMFold，僅從單一序列預測結構。
+- Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. NeurIPS. https://arxiv.org/abs/2006.11239 — 本頁連結的擴散方法頁所依據的 DDPM 論文。
+- Xu, K. et al. (2019). How Powerful are Graph Neural Networks? ICLR. https://arxiv.org/abs/1810.00826 — GIN，證明其判別能力與 Weisfeiler–Leman 圖測試相當。
+- Stokes, J. M. et al. (2020). A Deep Learning Approach to Antibiotic Discovery. *Cell*. https://doi.org/10.1016/j.cell.2020.01.021 — 以深度學習篩選出抗生素候選物 halicin。
+
+## 延伸學習
+
+- [AlphaFold DB](https://alphafold.ebi.ac.uk/) — AlphaFold 預測蛋白質結構的免費資料庫。
+- [RCSB PDB](https://www.rcsb.org/) — 實驗測定之生物大分子結構的典藏庫。
+- [DeepChem](https://deepchem.io/) — 化學與藥物發現深度學習的開源工具包。
+- [RDKit](https://www.rdkit.org/) — 處理分子的開源化學資訊學工具包。
+- [TDC — Therapeutics Data Commons](https://tdcommons.ai/) — 藥物發現 AI 的基準資料集與任務。

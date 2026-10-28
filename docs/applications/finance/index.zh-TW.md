@@ -18,23 +18,37 @@
 
 - **非平穩性**：市場會適應，關係隨之改變——包括適應模型本身
 - **訊噪比低**：可預測的成分微小
-- **回測過度擬合**：測試大量策略，必然會有一些因為運氣而看起來很好（López de Prado 的校正夏普比率）
+- **回測過度擬合**：測試大量策略，必然會有一些因為運氣而看起來很好（Bailey & López de Prado, 2014）
 - **對抗者**：詐欺者會適應偵測器
 - **可解釋性要求**：例如美國《平等信用機會法》要求對不利決定發出通知；歐盟 AI 法把信用評估列為高風險
 
 ## 金融領域的 LLM
 
-- BloombergGPT（2023）是專為金融設計的 LLM，但很快就在許多任務上被通用模型追平，這是常見的模式
+- BloombergGPT（Wu et al., 2023）是專為金融設計的 LLM。
 - 用途：摘要申報文件與電話會議、研究助理、量化分析師的程式碼、法遵審查、客服
 - 風險：數字幻覺、資料洩漏，以及許多機構使用相似模型時產生的羊群效應
 
 ## 系統性風險
 
-監管機關（FSB、BIS、IMF）警告，大量使用相似的模型與供應商，可能提高相關性、順循環性與集中風險；閃崩事件也顯示自動化策略之間可能產生交互作用。
+大量使用相似的模型與供應商，可能提高相關性、順循環性與集中風險，而自動化策略在閃崩情境中可能相互作用。
 
-## 學習資源
+## 關鍵方法
 
-- López de Prado，*Advances in Financial Machine Learning*
-- Dixon、Halperin 與 Bilokon，*Machine Learning in Finance*
-- Financial Stability Board (2024), "The Financial Stability Implications of Artificial Intelligence"
-- 開源專案 [FinGPT](https://github.com/AI4Finance-Foundation/FinGPT) 與 FinRL
+下列三種方法與本頁最相關。每一項都連結到解釋該方法的頁面。
+
+- [圖神經網路](../../theory/models/gnn/message-passing/index.md)：在交易網路上做訊息傳遞，用於標記可疑帳戶（Weber et al., 2019）。
+- [異常偵測](../../theory/paradigms/unsupervised/anomaly-detection/index.md)：學習正常活動並標出偏離的模型，用於詐欺偵測。
+- [線上學習](../../theory/paradigms/online/index.md)：隨資料到來而更新的模型，因應市場的非平穩性。
+
+## 參考文獻
+
+### 開創性論文
+
+- Weber et al. (2019). Anti-Money Laundering in Bitcoin: Experimenting with Graph Convolutional Networks for Financial Forensics. arXiv. https://arxiv.org/abs/1908.02591 — 以圖卷積網路偵測比特幣中的非法交易。
+- Chen & Guestrin (2016). XGBoost: A Scalable Tree Boosting System. arXiv. https://arxiv.org/abs/1603.02754 — 梯度提升樹，是詐欺與信用模型常用的方法。
+- Wu et al. (2023). BloombergGPT: A Large Language Model for Finance. arXiv. https://arxiv.org/abs/2303.17564 — 專為金融設計的大型語言模型，在金融與一般資料上訓練。
+- Bailey & López de Prado (2014). The Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest Overfitting, and Non-Normality. *The Journal of Portfolio Management*. https://doi.org/10.3905/jpm.2014.40.5.094 — 依測試過的策略數量調整夏普比率。
+
+### 綜述與教科書
+
+- Dixon, Halperin & Bilokon (2020). *Machine Learning in Finance*. Springer. https://doi.org/10.1007/978-3-030-41068-1 — 金融中機器學習方法的教科書。

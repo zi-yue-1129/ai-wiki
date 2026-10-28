@@ -23,13 +23,13 @@
 ## 政治學與公共政策
 
 - 衡量極化、宣傳與審查
-- 說服研究：AI 生成的訊息改變態度的效果，與人類撰寫的相當；在一項大型研究中，個人化的 AI 對話降低了人們對陰謀論的相信程度（Costello, Pennycook & Rand, 2024, *Science*）
-- 政府中的演算法決策：福利詐欺偵測的醜聞（例如荷蘭的兒童津貼事件）說明了其危害
+- 說服研究：在一項大型研究中，個人化的 AI 對話降低了對陰謀論的相信程度（Costello, Pennycook & Rand, 2024）
+- 政府中的演算法決策在錯誤未被檢查時可能造成嚴重傷害
 
 ## 數位人文
 
 - 檔案的 OCR 與手寫文字辨識（Transkribus）
-- 古代文本的解讀與修復：用於希臘銘文的 Ithaca（Assael et al., 2022, *Nature*）；Vesuvius Challenge 以機器學習讀取了碳化的赫庫蘭尼姆古卷（2023–2024）
+- 古代文本的解讀與修復：用於希臘銘文的 Ithaca（Assael et al., 2022）
 - 文體計量與作者歸屬
 - 對數百萬本書、圖像與電影的文化分析
 - 瀕危語言的翻譯與復振
@@ -41,9 +41,27 @@
 - 為了可重現性，記錄提示與模型版本；封閉模型會無聲地改變
 - 考量網路爬取與同意的倫理問題
 
-## 學習資源
+## 關鍵方法
 
-- Grimmer、Roberts 與 Stewart，*Text as Data*
-- Salganik，*Bit by Bit: Social Research in the Digital Age*（可免費線上閱讀）
-- Ziems et al. (2024), "Can Large Language Models Transform Computational Social Science?", *Computational Linguistics*
-- 計算社會科學夏季學院（SICSS）的教材
+下列三種方法與本頁最相關。每一項都連結到解釋該方法的頁面。
+
+- [Transformer](../../theory/models/transformer/attention-is-all-you-need/index.md)：上文文字資料與標註工具背後的架構（Vaswani et al., 2017）。
+- [InstructGPT 與 RLHF](../../theory/models/llm/instructgpt-rlhf/index.md)：可作為零樣本標註器的指令遵循模型（Gilardi et al., 2023）。
+- [代理人](../../theory/models/agents/index.md)：用於模擬個人與社會的 LLM 代理人（Park et al., 2023；Park et al., 2024）。
+
+## 參考文獻
+
+### 開創性論文
+
+- Salganik et al. (2020). Measuring the predictability of life outcomes with a scientific mass collaboration. *PNAS*. https://doi.org/10.1073/pnas.1915006117 — Fragile Families 挑戰，顯示預測生命結果的侷限。
+- Gilardi et al. (2023). ChatGPT outperforms crowd workers for text-annotation tasks. *PNAS*. https://doi.org/10.1073/pnas.2305016120 — 比較 ChatGPT 零樣本標註與群眾工作者的結果。
+- Argyle et al. (2023). Out of One, Many: Using Language Models to Simulate Human Samples. *Political Analysis*. https://doi.org/10.1017/pan.2023.2 — 以人口背景條件化語言模型，模擬調查樣本。
+- Park et al. (2023). Generative Agents: Interactive Simulacra of Human Behavior. arXiv. https://arxiv.org/abs/2304.03442 — 在模擬小鎮中會規劃與記憶的 LLM 代理人。
+- Park et al. (2024). LLM Agents Grounded in Self-Reports Enable General-Purpose Simulation of Individuals. arXiv. https://arxiv.org/abs/2411.10109 — 以訪談紀錄模擬個人，並比對其調查回答。
+- Jean et al. (2016). Combining satellite imagery and machine learning to predict poverty. *Science*. https://doi.org/10.1126/science.aaf7894 — 以衛星影像與機器學習預測貧窮。
+- Costello, Pennycook & Rand (2024). Durably reducing conspiracy beliefs through dialogues with AI. *Science*. https://doi.org/10.1126/science.adq1814 — 與 AI 對話，在大規模實驗中持久降低陰謀論信念。
+- Assael et al. (2022). Restoring and attributing ancient texts using deep neural networks. *Nature*. https://doi.org/10.1038/s41586-022-04448-z — Ithaca，用於修復與定年希臘銘文的神經網路。
+
+### 綜述與教科書
+
+- Ziems et al. (2024). Can Large Language Models Transform Computational Social Science? *Computational Linguistics*. https://doi.org/10.1162/coli_a_00502 — 回顧大型語言模型如何用於計算社會科學。
