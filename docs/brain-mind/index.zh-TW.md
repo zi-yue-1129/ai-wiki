@@ -41,6 +41,7 @@ flowchart TB
 | [注意力：大腦與機器](attention-brain-machine/index.md) | 偏向競爭、顯著性圖、由上而下控制、機器中的注意力 |
 | [情緒與情感運算](emotion/index.md) | 效價與喚起度、威脅迴路、基本情緒、情感運算 |
 | [神經影像與記錄方法](neuroimaging-methods/index.md) | BOLD 功能性磁振造影、fMRI 與電生理各自測量什麼、LFP 與 ECoG |
+| [發展認知與兒童如何學習](developmental-cognition/index.md) | 嬰兒期的核心知識、注視時間方法、統計學習、Goldilocks 效應 |
 
 ## 雙向關係一覽
 
