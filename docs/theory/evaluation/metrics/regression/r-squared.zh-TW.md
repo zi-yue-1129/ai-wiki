@@ -1,0 +1,43 @@
+---
+related:
+  - engineering/evaluation
+tags:
+  - evaluation
+  - metrics
+  - regression
+---
+
+# R²（決定係數）
+
+$R^2$ 比較模型的平方誤差與一個永遠預測真實值平均數的基準所產生的誤差。它可以解讀為模型所解釋的變異比例，而且無單位，因此可以跨不同尺度的目標值比較。
+
+## 定義
+
+$$R^2 = 1 - \frac{\sum_{i}(y_i - \hat{y}_i)^2}{\sum_{i}(y_i - \bar{y})^2}$$
+
+其中 $\bar{y}$ 是真實值的平均數。完美的模型得分為 1.0。一個永遠預測 $\bar{y}$ 的模型得分為 0.0，比它還差的模型得分為負數。scikit-learn 的文件給出一個例子：預測值與真實值完全相反時，得分為 −3.0（見參考文獻）。
+
+## 解讀
+
+$R^2$ 回答的問題與 MAE 或 RMSE 不同。後兩者說明誤差有多大；$R^2$ 說明模型是否比平均值做得更好。當目標值的變異很小時，即使 RMSE 也很小，$R^2$ 仍可能很低，因此兩者應一起解讀。
+
+## 何時使用
+
+當要總結模型解釋了多少目標值的變異，或要在同一資料上比較模型時，使用 $R^2$。若要判斷預測在使用者關心的單位下準不準，它就較不適用。
+
+## 常見陷阱
+
+- **測試集的變異。** $R^2$ 取決於測試目標值的變異。同樣的誤差，在一個資料集上可能得高分，在另一個變異較大的資料集上卻得低分。
+- **非線性與樣本外使用。** 在保留資料上，$R^2$ 可能為負數，它並不以零為下界。
+- **不是擬合的保證。** $R^2$ 高並不表示模型正確，只表示相對於目標值的分散程度，誤差很小。
+
+## 相關指標
+
+[MAE](mae.md)與 [RMSE](rmse.md) 以目標值的單位給出誤差。家族概述見[迴歸指標](index.md)。
+
+## 參考文獻
+
+### 文章與文件
+
+- scikit-learn contributors. *r2_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html — API 參考，給出定義、最佳值 1.0、負值的意義與範例。
+- scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — 迴歸評分器的概述與用法。
