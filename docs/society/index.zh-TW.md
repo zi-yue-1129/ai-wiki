@@ -7,6 +7,7 @@ AI 的技術進步引出了一些單靠技術無法回答的問題。
 | [安全與對齊](safety-alignment/index.md) | 讓 AI 系統做我們預期的事；誤用、意外與失控 |
 | [可解釋性](interpretability/index.md) | 理解模型內部發生了什麼 |
 | [倫理與公平](ethics/index.md) | 偏見、公平性定義、隱私、問責，以及 AI 背後的勞動 |
+| [不實資訊與深偽](misinformation/index.md) | 假內容如何傳播、合成媒體與偵測、來源標準、說謊者紅利，以及 DSA 與 AI 法的義務 |
 | [隱私與資料保護](privacy/index.md) | 訓練模型的記憶化與洩露、成員推論、差分隱私、GDPR 與歐盟 AI 法 |
 | [法律、政策與治理](governance/index.md) | 歐盟 AI 法、美國與中國的做法、國際努力、標準 |
 | [經濟與就業](economics/index.md) | 生產力、工作、不平等、集中 |
