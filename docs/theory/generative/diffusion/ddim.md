@@ -78,4 +78,3 @@ where \(z\) is fresh noise and \(\sigma\) controls stochasticity. Setting \(\sig
 
 ### Articles and documentation
 
-- Rogge, N. & Rasul, K., *The Annotated Diffusion Model*. Hugging Face blog. https://huggingface.co/blog/annotated-diffusion — Walk-through of the DDPM sampler that DDIM generalises.

@@ -58,7 +58,7 @@ Each method has its own page with the problem, method, results and limitations. 
 
 | Approach | What it does | Limits |
 |---|---|---|
-| Provenance (for example [C2PA Content Credentials](https://c2pa.org/)) | Records capture and edit history in signed metadata | Only useful if adopted along the whole chain; metadata can be stripped |
+| Provenance (for example [C2PA Content Credentials](https://c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html)) | Records capture and edit history in signed metadata | Only useful if adopted along the whole chain; metadata can be stripped |
 | Watermarking of generated output | Marks model output at creation | Can be removed or weakened; must be robust across platforms |
 | Detection | Flags likely fakes after publication | Degrades on new generators; false positives harm real people |
 | Platform rules and labelling | Downranks, labels or removes content | Trade-offs with free expression; hard to apply consistently at scale |
@@ -89,12 +89,12 @@ Regulation is moving in parallel. The EU AI Act sets transparency obligations fo
 
 ### Seminal papers
 
-- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://politics.media.mit.edu/papers/Vosoughi_Science.pdf — Compares the spread of true and false stories on Twitter and finds false news travels farther and faster, mainly through human sharing.
+- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://doi.org/10.1126/science.aap9559 — Compares the spread of true and false stories on Twitter and finds false news travels farther and faster, mainly through human sharing.
 - Rössler, A. et al. (2019). FaceForensics++: Learning to detect manipulated facial images. *ICCV*. https://arxiv.org/abs/1901.08971 — Benchmark of facial manipulations with compression variations and a hidden test set for training and evaluating detectors.
 - Chesney, B. & Citron, D. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. *California Law Review*, 107. https://www.californialawreview.org/print/deep-fakes-a-looming-challenge-for-privacy-democracy-and-national-security — Legal analysis of deepfake harms, including the liar's dividend.
 
 ### Articles and documentation
 
-- C2PA. *Content Credentials specification*. https://c2pa.org/ — The open standard for signed provenance metadata, backed by a steering committee of technology and media companies.
+- C2PA. *Content Credentials: C2PA Technical Specification*, version 2.0. https://c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html — The open standard for signed provenance metadata, backed by a steering committee of technology and media companies.
 - EUR-Lex. *Regulation (EU) 2022/2065 (Digital Services Act)*. https://eur-lex.europa.eu/eli/reg/2022/2065/oj/eng — The official text of the DSA, which sets systemic-risk duties for very large online platforms.
 - EUR-Lex. *Regulation (EU) 2024/1689 (Artificial Intelligence Act)*. https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng — The official text of the EU AI Act, including transparency rules for AI-generated content.

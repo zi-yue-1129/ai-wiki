@@ -41,9 +41,8 @@ translation_reviewed: 2026-10-28
 
 ### 講座與影片
 
-- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — 從空白檔案現場撰寫一個小型 GPT，寫的同時解說 Transformer 的每個部分。
+- Luong, M.-T., Pham, H. & Manning, C. D. (2015). *Effective Approaches to Attention-based Neural Machine Translation*. EMNLP. arXiv:1508.04025. https://arxiv.org/abs/1508.04025 — 比較神經機器翻譯中的全域與局部注意力機制，並比較多種計分函數。
 
 ### 文章與文件
 
-- Alammar, J. *The Illustrated Transformer*. https://jalammar.github.io/illustrated-transformer/ — 注意力與編碼器—解碼器堆疊的逐步圖解。
 - Harvard NLP. *The Annotated Transformer*. https://nlp.seas.harvard.edu/annotated-transformer/ — 逐篇對照原文的 PyTorch 實作，並附帶註解。

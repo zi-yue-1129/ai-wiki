@@ -94,4 +94,4 @@ The hypothesis is contested. Efficiency may be shaped by metabolic or other cons
 
 ### Articles and documentation
 
-- *Visual Information Theory*. colah's blog (2015). https://colah.github.io/posts/2015-09-Visual-Information/ — A diagram-based introduction to entropy, cross-entropy, KL divergence and mutual information.
+- Shannon, C. E. (1948). A Mathematical Theory of Communication. *Bell System Technical Journal*, 27(3), 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x — Defines entropy and mutual information for communication, the basis of the information measures on this page.

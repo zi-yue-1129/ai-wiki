@@ -57,7 +57,7 @@ tags:
 
 ### 講座與影片
 
-- StatQuest with Josh Starmer，關於邏輯迴歸與正規化的單元，YouTube。https://www.youtube.com/@statquest — 為初學者提供邏輯迴歸、ridge 與 lasso 的簡短視覺化解說。
+- Tibshirani, R. (1996). Regression shrinkage and selection via the lasso. *Journal of the Royal Statistical Society: Series B*, 58(1), 267–288. https://doi.org/10.1111/j.2517-6161.1996.tb02080.x — 提出 lasso，以 L1 懲罰的迴歸同時完成正則化與變數選取。
 
 ### 文章與文件
 

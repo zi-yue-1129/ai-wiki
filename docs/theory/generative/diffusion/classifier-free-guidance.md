@@ -72,4 +72,3 @@ With \(w = 1\) this is the plain conditional model. Larger \(w\) pushes the samp
 
 ### Articles and documentation
 
-- Rogge, N. & Rasul, K., *The Annotated Diffusion Model*. Hugging Face blog. https://huggingface.co/blog/annotated-diffusion — Walk-through of diffusion sampling where the guidance step can be added.

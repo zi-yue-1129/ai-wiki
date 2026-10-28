@@ -62,4 +62,3 @@ Dhariwal 與 Nichol（2021）指出，用另外訓練的分類器的梯度來引
 
 ### 文章與文件
 
-- Rogge, N. & Rasul, K.，*The Annotated Diffusion Model*。Hugging Face 部落格。https://huggingface.co/blog/annotated-diffusion — 導讀擴散取樣的流程，其中可以加入引導步驟。

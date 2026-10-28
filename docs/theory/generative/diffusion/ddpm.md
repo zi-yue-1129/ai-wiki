@@ -76,5 +76,4 @@ Training samples a clean image, a random \(t\) and noise \(\epsilon\), then take
 
 ### Articles and documentation
 
-- Rogge, N. & Rasul, K., *The Annotated Diffusion Model*. Hugging Face blog. https://huggingface.co/blog/annotated-diffusion — Code walk-through of DDPM training and sampling that matches the equations on this page.
 - Ho, J., DDPM official code repository, *diffusion* project. https://github.com/hojonathanho/diffusion — The authors' original TensorFlow implementation of the paper's experiments.

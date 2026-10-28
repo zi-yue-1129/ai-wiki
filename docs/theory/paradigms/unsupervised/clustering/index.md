@@ -63,7 +63,8 @@ How many clusters are there? Is a "true" clustering even defined? Clustering in 
 
 ### Lectures and videos
 
-- StatQuest with Josh Starmer, episodes on k-means clustering and hierarchical clustering, YouTube. https://www.youtube.com/@statquest — Visual, step-by-step walkthroughs of how k-means and hierarchical methods build clusters.
+- Lloyd, S. P. (1982). Least squares quantization in PCM. *IEEE Transactions on Information Theory*, 28(2), 129–137. https://doi.org/10.1109/TIT.1982.1056489 — Presents the iterative least-squares quantisation method that underlies the k-means algorithm.
+- Ward, J. H. (1963). Hierarchical grouping to optimize an objective function. *Journal of the American Statistical Association*, 58(301), 236–244. https://doi.org/10.1080/01621459.1963.10500845 — Introduces hierarchical clustering that merges groups to minimise the increase in within-group variance.
 
 ### Articles and documentation
 

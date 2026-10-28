@@ -59,7 +59,7 @@ aliases:
 
 | 做法 | 作用 | 限制 |
 |---|---|---|
-| 來源紀錄（例如 [C2PA Content Credentials](https://c2pa.org/)） | 在有簽章的中繼資料中記錄拍攝與編輯歷程 | 必須整條鏈都採用才有效；中繼資料可能被移除 |
+| 來源紀錄（例如 [C2PA Content Credentials](https://c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html)） | 在有簽章的中繼資料中記錄拍攝與編輯歷程 | 必須整條鏈都採用才有效；中繼資料可能被移除 |
 | 生成輸出加上浮水印 | 在生成時標記模型輸出 | 可能被移除或減弱；必須能跨平台保持穩健 |
 | 偵測 | 在發布後標記可能的假貨 | 遇到新的生成器會失效；誤判會傷害真實的人 |
 | 平台規則與標示 | 降低排序、加上標示或移除內容 | 與言論自由之間有取捨；難以大規模一致地執行 |
@@ -90,12 +90,12 @@ aliases:
 
 ### 開創性論文
 
-- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://politics.media.mit.edu/papers/Vosoughi_Science.pdf — 比較 Twitter 上真假故事的傳播，發現假新聞傳播得更遠、更快，且主要是由人類分享造成。
+- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://doi.org/10.1126/science.aap9559 — 比較 Twitter 上真假故事的傳播，發現假新聞傳播得更遠、更快，且主要是由人類分享造成。
 - Rössler, A. et al. (2019). FaceForensics++: Learning to detect manipulated facial images. *ICCV*. https://arxiv.org/abs/1901.08971 — 含壓縮變化與隱藏測試集的人臉操縱基準，用於訓練與評估偵測器。
 - Chesney, B. & Citron, D. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. *California Law Review*, 107. https://www.californialawreview.org/print/deep-fakes-a-looming-challenge-for-privacy-democracy-and-national-security — 深偽危害的法律分析，包括說謊者紅利。
 
 ### 文章與官方文件
 
-- C2PA. *Content Credentials specification*. https://c2pa.org/ — 有簽章來源中繼資料的開放標準，由科技與媒體公司組成的指導委員會支持。
+- C2PA. *Content Credentials: C2PA Technical Specification*, version 2.0. https://c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html — 有簽章來源中繼資料的開放標準，由科技與媒體公司組成的指導委員會支持。
 - EUR-Lex. *Regulation (EU) 2022/2065 (Digital Services Act)*. https://eur-lex.europa.eu/eli/reg/2022/2065/oj/eng — 《數位服務法》的官方條文，為超大型線上平台設定系統性風險的義務。
 - EUR-Lex. *Regulation (EU) 2024/1689 (Artificial Intelligence Act)*. https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng — 歐盟 AI 法的官方條文，包括 AI 生成內容的透明度規則。

@@ -58,11 +58,11 @@ Vosoughi、Roy 與 Aral（2018）以大量經事實查核判定過的謠言轉�
 
 ### 開創性論文
 
-- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://politics.media.mit.edu/papers/Vosoughi_Science.pdf — 本頁所述的研究，比較真假故事在 Twitter 上的傳播。
+- Vosoughi, S., Roy, D. & Aral, S. (2018). The spread of true and false news online. *Science*, 359, 1146–1151. https://doi.org/10.1126/science.aap9559 — 本頁所述的研究，比較真假故事在 Twitter 上的傳播。
 - Chesney, B. & Citron, D. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. *California Law Review*, 107. https://www.californialawreview.org/print/deep-fakes-a-looming-challenge-for-privacy-democracy-and-national-security — 深偽危害的法律分析，包括說謊者紅利，而此紅利取決於懷疑在假貨變普遍時的擴散。
 - Rössler, A. et al. (2019). FaceForensics++: Learning to detect manipulated facial images. *ICCV*. https://arxiv.org/abs/1901.08971 — 人臉操縱的偵測基準，另有獨立頁面說明。
 
 ### 文章與官方文件
 
-- C2PA. *Content Credentials specification*. https://c2pa.org/ — 有簽章的來源標準，是事後偵測假貨的替代做法。
+- C2PA. *Content Credentials: C2PA Technical Specification*, version 2.0. https://c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html — 有簽章的來源標準，是事後偵測假貨的替代做法。
 - EUR-Lex. *Regulation (EU) 2022/2065 (Digital Services Act)*. https://eur-lex.europa.eu/eli/reg/2022/2065/oj/eng — 《數位服務法》的官方條文。前言第 82 與第 84 點提及對公民討論的負面影響，以及不實資訊的散布。

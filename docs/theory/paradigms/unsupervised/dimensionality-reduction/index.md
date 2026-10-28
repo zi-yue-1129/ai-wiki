@@ -59,7 +59,7 @@ Preserving local structure is easy, but reliably preserving global geometry is n
 
 ### Lectures and videos
 
-- StatQuest with Josh Starmer, episodes on principal component analysis, YouTube. https://www.youtube.com/@statquest — Animated explanation of PCA, with the variance and loading ideas made concrete.
+- Hotelling, H. (1933). Analysis of a complex of statistical variables into principal components. *Journal of Educational Psychology*, 24(6), 417–441. https://doi.org/10.1037/h0071325 — Introduces principal component analysis, choosing orthogonal directions that maximise variance.
 
 ### Articles and documentation
 
