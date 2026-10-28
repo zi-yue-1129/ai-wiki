@@ -28,7 +28,7 @@ related:
 | Approach | Ideas |
 |---|---|
 | Learning from human feedback | RLHF, DPO; reward modelling |
-| Principle-based training | Constitutional AI and model specifications that state intended behaviour |
+| Principle-based training | [Constitutional AI and RLAIF](constitutional-ai.md) and model specifications that state intended behaviour |
 | Scalable oversight | Debate, recursive reward modelling, weak-to-strong generalisation, AI-assisted critique |
 | [Interpretability](../interpretability/index.md) | Understanding internals to detect deception or dangerous capabilities |
 | Adversarial training and red-teaming | Human and automated attacks to find failures |
