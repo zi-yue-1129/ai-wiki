@@ -29,6 +29,7 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 - The chain rule — backpropagation is the chain rule applied systematically
 - Jacobians and Hessians
 - Taylor expansion (to understand optimisers and curvature)
+- [Calculus and optimisation foundations](calculus/index.md): gradients, Hessians, convexity and Lagrange multipliers, with the methods they support.
 - [Automatic differentiation](automatic-differentiation/index.md): how software computes exact derivatives of programs by applying the chain rule to each operation
 
 \[
