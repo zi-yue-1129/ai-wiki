@@ -24,6 +24,7 @@ Each page follows the same structure: **landscape** (main use cases), **landmark
 | [Social Sciences & Humanities](social-science/index.md) | Computational social science, digital humanities, simulating societies |
 | [Software Development](software/index.md) | Code assistants, coding agents, testing, productivity evidence |
 | [Search & Information Retrieval](search-and-information-retrieval/index.md) | Learning to rank, neural web search, query understanding, answer engines, ads and recommendation ranking |
+| [Mathematics & Formal Proof](mathematics/index.md) | Competition mathematics, Lean proofs, AlphaProof and AlphaGeometry, program search for new constructions, mathematicians' workflows |
 
 ## Methods behind each field
 
@@ -49,6 +50,7 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Social Sciences & Humanities | [Probabilistic & Bayesian Methods](../theory/probabilistic/index.md), [Ethics & Fairness](../society/ethics/index.md) |
 | Software Development | [Large Language Models](../theory/models/llm/index.md), [AI Agents](../theory/models/agents/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
 | Search & Information Retrieval | [Loss Functions, Regularisation and Optimisation](../theory/paradigms/supervised/loss-functions-and-optimization/index.md), [Vector Databases and Semantic Search](../engineering/vector-databases/index.md), [Contextual Bandits](../theory/paradigms/online/contextual-bandits/index.md) |
+| Mathematics & Formal Proof | [Mathematics for AI](../theory/math/index.md), [Symbolic AI, Search & Planning](../theory/symbolic-ai/index.md), [Reasoning Models and Test-Time Compute](../theory/models/reasoning/index.md) |
 
 ## Cross-cutting patterns
 
