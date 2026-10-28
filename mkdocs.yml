@@ -225,6 +225,16 @@ plugins:
             Information Theory: 資訊理論
             Machine Learning: 機器學習
             Deep Learning: 深度學習
+            Optimisation: 最佳化
+            SGD & Momentum: SGD 與動量
+            Adaptive Methods: 自適應方法
+            Second-Order Methods: 二階方法
+            Learning-Rate Schedules: 學習率排程
+            Regularisation & Weight Decay: 正則化與權重衰減
+            Gradient Clipping & Normalisation: 梯度裁剪與正規化
+            Large-Batch & Distributed: 大批次與分散式
+            Zeroth-Order & Evolutionary: 零階與演化
+            Theory & Landscapes: 理論與損失地形
             Reinforcement Learning: 強化學習
             Learning Paradigms: 學習範式
             Supervised Learning: 監督式學習
@@ -390,6 +400,17 @@ nav:
       - Information Theory: theory/information-theory/index.md
       - Machine Learning: theory/machine-learning/index.md
       - Deep Learning: theory/deep-learning/index.md
+      - Optimisation:
+          - theory/optimization/index.md
+          - SGD & Momentum: theory/optimization/sgd-and-momentum.md
+          - Adaptive Methods: theory/optimization/adaptive/index.md
+          - Second-Order Methods: theory/optimization/second-order.md
+          - Learning-Rate Schedules: theory/optimization/learning-rate-schedules.md
+          - Regularisation & Weight Decay: theory/optimization/regularisation-and-weight-decay.md
+          - Gradient Clipping & Normalisation: theory/optimization/gradient-clipping-and-normalisation.md
+          - Large-Batch & Distributed: theory/optimization/large-batch-and-distributed.md
+          - Zeroth-Order & Evolutionary: theory/optimization/zeroth-order-and-evolutionary.md
+          - Theory & Landscapes: theory/optimization/theory-and-landscapes.md
       - Learning Paradigms:
           - theory/paradigms/index.md
           - Supervised Learning:
