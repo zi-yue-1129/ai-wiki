@@ -54,6 +54,10 @@ flowchart TD
 
 本主題的五個子章節會更深入地探討各個部分：工具呼叫與 Model Context Protocol、沙箱與電腦操作代理人、多代理人編排模式、代理人評估，以及代理人可觀測性與追蹤。
 
+- [工具呼叫與 Model Context Protocol](tool-calling-and-mcp/index.md)：工具定義與 JSON 結構描述、結構化輸出、Model Context Protocol，以及工具結果的處理與錯誤復原。
+- [沙箱與電腦操作代理人](sandboxing-and-computer-use/index.md)：程式執行沙箱、瀏覽器與 GUI 代理人、以螢幕截圖為基礎的電腦操作、權限模型，以及隔離副作用。
+- [多代理人編排](multi-agent-orchestration/index.md)：規劃者－工作者、辯論、角色式團隊與階層式委派，以及何時多個代理人勝過單一代理人。
+
 ## 相關連結
 
 - **概念基礎**：關於定義、代理人的分類，以及與認知架構的比較，請見 [AI 代理人](../../theory/models/agents/index.md)。本頁預設讀者已熟悉該頁的詞彙。

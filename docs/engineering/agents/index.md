@@ -69,6 +69,10 @@ Two landmark methods define the basic patterns of the loop and of learning from 
 
 Five sub-chapters cover the parts of this topic in more depth: tool calling and the Model Context Protocol, sandboxing and computer-use agents, multi-agent orchestration patterns, agent evaluation, and agent observability and tracing.
 
+- [Tool Calling and the Model Context Protocol](tool-calling-and-mcp/index.md): tool definitions and JSON schemas, structured outputs, the Model Context Protocol, and tool-result handling with error recovery.
+- [Sandboxing and Computer-Use Agents](sandboxing-and-computer-use/index.md): code execution sandboxes, browser and GUI agents, screenshot-based computer use, permission models and isolating side effects.
+- [Multi-Agent Orchestration](multi-agent-orchestration/index.md): planner–worker, debate, role-based teams and hierarchical delegation, and when several agents beat a single one.
+
 ## Connections
 
 - **Conceptual foundation**: definitions, the taxonomy of agents and the comparison with cognitive architectures are in [AI Agents](../../theory/models/agents/index.md). This page assumes that vocabulary.
