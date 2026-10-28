@@ -26,23 +26,14 @@ The original experiment is simple. Train a dense network, prune its smallest-mag
 - **Rewinding.** Resetting the surviving weights to an early iteration of training rather than to the very first step. Rewinding to early training is what makes the ticket work on deeper networks.
 - **Sparsity achieved.** Winning tickets often reach high sparsity on small networks, but the same procedure struggles on deeper ones without rewinding.
 
-## Key methods
+## Comparison of key methods
 
-### The Lottery Ticket Hypothesis (Frankle and Carbin, 2018)
+| Method | Change to the procedure | Page |
+| --- | --- | --- |
+| Lottery ticket hypothesis | Reset surviving weights to the original initialisation | [The lottery ticket hypothesis](lottery-ticket-hypothesis/index.md) |
+| Stabilised tickets | Rewind to an early training point, which works for deeper networks | [Stabilised lottery tickets](stabilised-lottery-ticket/index.md) |
 
-- **Problem:** Pruning removes most weights of a trained network, but it was unclear why the remaining subnetwork can be trained at all, or whether it could have been trained from the start.
-- **Core idea:** A dense network contains sparse subnetworks that, from their original initial weights, train to comparable accuracy in isolation. Iterative magnitude pruning with resetting finds them.
-- **Equation or algorithm:** Initialise \(\theta_0\), train to \(\theta_T\), prune the smallest weights to a mask \(m\), reset \(m \odot \theta_0\), and train again. Repeat with increasing pruning.
-- **Results:** The abstract states that dense, randomly initialised feed-forward networks contain subnetworks that reach accuracy comparable to the original network when trained in isolation.
-- **Limitations:** Reported on small networks and datasets of the time. The reset to the original initialisation fails for deeper networks, which motivated the next key method.
-
-### Stabilizing the Lottery Ticket Hypothesis (Frankle et al., 2019)
-
-- **Problem:** For deeper networks, resetting to the initialisation does not produce winning tickets, so the hypothesis appeared to fail beyond small models.
-- **Core idea:** Rewind the surviving weights to an early point in training, after the initial instability, rather than to initialisation. The authors also argue that pruning at initialisation has struggled on deeper networks, so they search for subnetworks that can be identified early in training.
-- **Equation or algorithm:** The iterative procedure is modified so that the mask is taken from training at an early iteration and the weights are rewound to that iteration.
-- **Results:** The abstract describes the modified procedure as searching for subnetworks that could have been obtained by pruning early in training, and it extends the tickets to deeper networks.
-- **Limitations:** Finding tickets still needs a full dense training run, so the approach does not save training compute on its own.
+The second method keeps the procedure of the first and changes only where the weights are rewound to. That one change is what allows tickets to be found in deeper networks.
 
 ## Trade-offs
 
@@ -54,7 +45,7 @@ The original experiment is simple. Train a dense network, prune its smallest-mag
 
 - **Open issue:** whether winning tickets exist for large transformers, and how rewinding should work for them.
 - **Open issue:** whether the subnetworks found are transferable between datasets and tasks.
-- **Variant:** [magnitude pruning](../magnitude-pruning/index.md) with gradual schedules, which avoids repeated training runs.
+- **Variant:** [magnitude pruning](../magnitude-pruning/gradual-pruning/index.md) with gradual schedules, which avoids repeated training runs.
 
 ## Connections
 

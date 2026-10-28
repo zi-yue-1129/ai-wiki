@@ -28,23 +28,14 @@ A convolutional layer with \(C\) output channels can lose a channel together wit
 - **Speed-up versus compression.** Removing channels reduces both parameters and computation, but the fraction of each depends on where the channels are removed.
 - **Consistency.** The network must still be well defined after removal, which constrains which channels can be dropped together, such as residual connections.
 
-## Key methods
+## Comparison of key methods
 
-### Pruning Filters for Efficient ConvNets (Li et al., 2016)
+| Method | Importance score | Page |
+| --- | --- | --- |
+| Filter pruning | \(\ell_1\) norm of each filter | [Filter pruning](filter-pruning/index.md) |
+| Network slimming | Scaling factors of batch normalisation, pushed down by an \(\ell_1\) penalty | [Network slimming](network-slimming/index.md) |
 
-- **Problem:** Pruning individual weights gives sparse layers that standard convolution libraries cannot accelerate. A pruning scheme that gives smaller dense layers was needed.
-- **Core idea:** Rank the filters of each convolution by the magnitude of their weights, remove the smallest, and retrain. The paper analyses which layers are sensitive and prunes them less.
-- **Equation or algorithm:** Filter importance is the \(\ell_1\) norm of the filter weights. Removing filter \(j\) also removes the input channel \(j\) of the following layer, and the network is retrained after each round of removal.
-- **Results:** The abstract reports that inference cost for VGG-16 is reduced by up to 34% and for ResNet-110 by up to 38% on CIFAR-10.
-- **Limitations:** The reduction is in computation, and the saving in memory is smaller. The importance measure ignores how removing a filter affects the layers after it, beyond the retraining.
-
-### Learning Efficient Convolutional Networks through Network Slimming (Liu et al., 2017)
-
-- **Problem:** Choosing which channels to remove needs a score that is cheap to compute and reflects how much each channel matters after training.
-- **Core idea:** Add an \(\ell_1\) penalty on the scaling factors of batch normalisation during training, so that many factors become small, then remove the channels with small factors and fine-tune.
-- **Equation or algorithm:** The training loss includes a penalty \(\lambda \sum_\gamma |\gamma|\) on batch-normalisation scale parameters \(\gamma\). Channels with small \(\gamma\) are removed and the remaining network is fine-tuned.
-- **Results:** For VGGNet, the abstract reports a 20 times reduction in model size and a 5 times reduction in computing operations with the multi-pass version of the method.
-- **Limitations:** The penalty is set by hand, and the method depends on batch normalisation being present in the architecture.
+Filter pruning needs no change to training, but it scores each filter from its weights alone. Network slimming adds a penalty during training so that the score reflects the trained network more directly. It also needs batch normalisation in the architecture.
 
 ## Trade-offs
 

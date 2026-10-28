@@ -30,23 +30,14 @@ Unstructured sparsity can remove many weights, but the irregular positions of th
 - **Training with the pattern.** Pruning to N:M can be done after training or during training, and the pattern can be imposed from the start.
 - **Trade-off with block size.** Larger blocks allow more freedom in choosing which weights to keep, but they make hardware support harder.
 
-## Key methods
+## Comparison of key methods
 
-### Learning N:M Fine-grained Structured Sparse Neural Networks From Scratch (Zhou et al., 2021)
+| Method | When the pattern is imposed | Page |
+| --- | --- | --- |
+| Learning N:M from scratch | During training, from the first step | [Learning N:M from scratch](learning-n-m-from-scratch/index.md) |
+| Sparse tensor cores | After training, then fine-tuning to the 2:4 pattern | [Sparse tensor cores](sparse-tensor-cores/index.md) |
 
-- **Problem:** N:M sparsity was known to be hardware friendly, but it was unclear whether networks can be trained with the pattern from scratch without losing accuracy.
-- **Core idea:** Train the network with the N:M constraint from the start, using a training method that keeps the pattern while letting the weights and their selection evolve.
-- **Equation or algorithm:** Within each block of \(M\) weights at most \(N\) may be non-zero. The method keeps this constraint throughout training, rather than pruning to the pattern once at the end. The exact update rule is in the paper.
-- **Results:** The abstract states that a 2:4 sparse network could achieve a 2 times speed-up without performance drop on NVIDIA A100 GPUs.
-- **Limitations:** The reported speed-up is for the matrix multiplications that the hardware accelerates, not for the whole model, and the paper's experiments are on the networks of its time.
-
-### Accelerating Sparse Deep Neural Networks (Mishra et al., 2021)
-
-- **Problem:** Sparse tensor cores need a documented hardware pattern and a software path that makes the sparse format usable in training and inference.
-- **Core idea:** Describe the 2:4 pattern implemented by sparse tensor cores, the workflow for pruning a trained network to that pattern, and retraining to recover accuracy.
-- **Equation or algorithm:** Pruning to 2:4 keeps the two largest values in each group of four, followed by fine-tuning, with the compressed representation handled by the hardware.
-- **Results:** The abstract states that sparse tensor cores exploit the 2:4 (50%) sparsity pattern, giving twice the math throughput of dense matrix units.
-- **Limitations:** The gain depends on the hardware pattern and on the operations that the hardware accelerates. Patterns other than 2:4 do not get the same support.
+The first method asks whether the pattern costs accuracy if it is present from the start. The second describes the hardware and the workflow that make the pattern fast in practice.
 
 ## Trade-offs
 

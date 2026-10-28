@@ -42,42 +42,24 @@ The classic pipeline, from Han et al. (2015), has three steps: train a dense net
 
 Large language models changed the problem. Retraining them is costly, so recent methods prune in one shot, using only a small calibration set and a closed-form or local correction for each layer.
 
-## Key methods
+## Comparison of families
 
-### Learning both weights and connections (Han, Pool, Tran and Dally, 2015)
+| Family | Granularity | Schedule | Hardware needs | Page |
+| --- | --- | --- | --- | --- |
+| Prune and retrain | Individual weights | Iterative | Sparse kernels for speed | [Learning weights and connections](learning-weights-and-connections/index.md) |
+| Magnitude pruning | Individual weights | Gradual or one-shot | Sparse kernels for speed | [Magnitude pruning](magnitude-pruning/index.md) |
+| Lottery ticket | Individual weights | Iterative with rewinding | Sparse kernels for speed | [Lottery ticket](lottery-ticket/index.md) |
+| Structured pruning | Filters, channels, heads | Iterative or after training | Dense hardware, no special kernels | [Structured pruning](structured-pruning/index.md) |
+| N:M sparsity | Blocks of M weights | Training or after training | Hardware that supports the pattern | [N:M sparsity](n-m-sparsity/index.md) |
+| One-shot LLM pruning | Individual weights | One shot, no retraining | Sparse kernels for speed | [One-shot LLM pruning](one-shot-llm-pruning/index.md) |
 
-- **Problem:** Large networks, such as AlexNet for image classification, contain far more parameters than they need, and storing them is expensive on mobile systems.
-- **Core idea:** Train the network to learn which connections matter, prune the weak ones, and retrain. The paper shows that the pruned network keeps accuracy while having far fewer connections.
-- **Equation or algorithm:** Weights below a threshold are set to zero and held there with a mask. The network is then retrained on the remaining weights, and the threshold is raised over several rounds.
-- **Results:** The abstract reports that the method reduced the number of parameters of AlexNet by a factor of 9, from 61 million to 6.7 million.
-- **Limitations:** Retraining costs as much as training, and the unstructured result needs sparse software to run faster. It was developed for convolutional networks before large transformers.
+Structured pruning and N:M sparsity are the two families that give speed-ups on common hardware without sparse kernels or with few of them. The unstructured families reach higher sparsity at the same accuracy, but they need sparse support to run faster.
 
-### SparseGPT (Frantar and Alistarh, 2023)
+## Trade-offs
 
-- **Problem:** Iterative pruning and retraining are too expensive for models with billions of parameters, and simple magnitude pruning fails at high sparsity.
-- **Core idea:** Prune each layer in one shot, choosing which weights to remove and updating the remaining weights to compensate. The compensation uses an approximate inverse Hessian of the layer's reconstruction error, the same framework used by GPTQ for quantisation.
-- **Equation or algorithm:** For a layer with inputs \(X\), the method minimises \(\lVert WX - \hat{W}X \rVert^2\) over masks and updated weights \(\hat{W}\), column by column, with a blockwise update. The solver runs on a small calibration set.
-- **Results:** The abstract reports that the method can reach 60% unstructured sparsity with negligible increase in perplexity for large GPT-family models.
-- **Limitations:** Unstructured sparsity needs sparse kernels to give speed-ups. The method needs calibration data and an approximate second-order solver, which adds engineering complexity.
-
-### Wanda (Sun et al., 2023)
-
-- **Problem:** SparseGPT is accurate but requires a second-order calculation for each layer. A simpler method that scales to large models would be easier to adopt.
-- **Core idea:** Score each weight by its magnitude multiplied by the norm of the corresponding input activation, and prune the lowest-scoring weights within each output, without any weight update or retraining.
-- **Equation or algorithm:** The score of weight \(W_{ij}\) is \(|W_{ij}| \cdot \lVert X_j \rVert_2\), computed on calibration inputs. The lowest-scoring weights are removed per output row.
-- **Results:** The authors report that Wanda significantly outperforms the established baseline of magnitude pruning on large language models.
-- **Limitations:** The method removes weights without correcting the remaining ones, so the accuracy loss at very high sparsity is larger than with methods that update weights.
-
-## Variants
-
-Each method family has its own page with key methods and open issues:
-
-- [Magnitude pruning](magnitude-pruning/index.md): gradual schedules and the magnitude baseline.
-- [Lottery ticket hypothesis](lottery-ticket/index.md): winning tickets, rewinding and pruning early in training.
-- [Structured and channel pruning](structured-pruning/index.md): filter pruning and network slimming.
-- [N:M sparsity](n-m-sparsity/index.md): the 2:4 pattern and sparse tensor cores.
-
-One-shot pruning of large language models, with SparseGPT and Wanda, is covered in the key methods above.
+- **Speed on standard hardware versus sparsity.** Structured pruning gives real speed-ups on dense accelerators, but it removes coarser units and usually reaches lower sparsity at the same accuracy than unstructured pruning.
+- **Cost of finding the mask.** Iterative methods need repeated training, one-shot methods need only calibration, and the accuracy gap between them depends on the sparsity target.
+- **Hardware lock-in.** A pattern is fast only where the hardware supports it, so the choice depends on the target device.
 
 ## Connections
 

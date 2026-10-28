@@ -290,10 +290,21 @@ plugins:
             Ternary Weight Networks: 三值權重網路
             Mixed Precision: 混合精度
             HAWQ: HAWQ
+            Learning Weights and Connections: 學習權重與連接
             Magnitude Pruning: 量值剪枝
+            Gradual Pruning: 漸進式剪枝
+            The State of Sparsity: 稀疏性現況
             Lottery Ticket Hypothesis: 彩票假說
+            Stabilised Lottery Tickets: 穩定的彩票
             Structured & Channel Pruning: 結構化與通道剪枝
+            Filter Pruning: 濾波器剪枝
+            Network Slimming: 網路瘦身
             N:M Sparsity: N:M 稀疏
+            Learning N:M from Scratch: 從頭學習 N:M 稀疏
+            Sparse Tensor Cores: 稀疏張量核心
+            One-Shot LLM Pruning: 大型語言模型一次剪枝
+            SparseGPT: SparseGPT
+            Wanda: Wanda
             Feature-Based: 特徵式
             Relation-Based: 關係式
             Self-Distillation: 自我蒸餾
@@ -553,10 +564,27 @@ nav:
                   - HAWQ: theory/model-compression/quantisation/mixed-precision/hawq/index.md
           - Pruning:
               - theory/model-compression/pruning/index.md
-              - Magnitude Pruning: theory/model-compression/pruning/magnitude-pruning/index.md
-              - Lottery Ticket Hypothesis: theory/model-compression/pruning/lottery-ticket/index.md
-              - Structured & Channel Pruning: theory/model-compression/pruning/structured-pruning/index.md
-              - N:M Sparsity: theory/model-compression/pruning/n-m-sparsity/index.md
+              - Learning Weights and Connections: theory/model-compression/pruning/learning-weights-and-connections/index.md
+              - Magnitude Pruning:
+                  - theory/model-compression/pruning/magnitude-pruning/index.md
+                  - Gradual Pruning: theory/model-compression/pruning/magnitude-pruning/gradual-pruning/index.md
+                  - The State of Sparsity: theory/model-compression/pruning/magnitude-pruning/state-of-sparsity/index.md
+              - Lottery Ticket Hypothesis:
+                  - theory/model-compression/pruning/lottery-ticket/index.md
+                  - Lottery Ticket Hypothesis: theory/model-compression/pruning/lottery-ticket/lottery-ticket-hypothesis/index.md
+                  - Stabilised Lottery Tickets: theory/model-compression/pruning/lottery-ticket/stabilised-lottery-ticket/index.md
+              - Structured & Channel Pruning:
+                  - theory/model-compression/pruning/structured-pruning/index.md
+                  - Filter Pruning: theory/model-compression/pruning/structured-pruning/filter-pruning/index.md
+                  - Network Slimming: theory/model-compression/pruning/structured-pruning/network-slimming/index.md
+              - N:M Sparsity:
+                  - theory/model-compression/pruning/n-m-sparsity/index.md
+                  - Learning N:M from Scratch: theory/model-compression/pruning/n-m-sparsity/learning-n-m-from-scratch/index.md
+                  - Sparse Tensor Cores: theory/model-compression/pruning/n-m-sparsity/sparse-tensor-cores/index.md
+              - One-Shot LLM Pruning:
+                  - theory/model-compression/pruning/one-shot-llm-pruning/index.md
+                  - SparseGPT: theory/model-compression/pruning/one-shot-llm-pruning/sparsegpt/index.md
+                  - Wanda: theory/model-compression/pruning/one-shot-llm-pruning/wanda/index.md
           - Knowledge Distillation:
               - theory/model-compression/knowledge-distillation/index.md
               - Feature-Based: theory/model-compression/knowledge-distillation/feature-based/index.md

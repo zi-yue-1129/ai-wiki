@@ -21,28 +21,19 @@ Given a weight tensor \(W\) and a sparsity target \(s\), magnitude pruning build
 
 ## Key concepts
 
-- **Score.** The absolute value of a weight. It ignores how the weight interacts with the inputs, which is the weakness that later scores such as [Wanda](../index.md) address.
+- **Score.** The absolute value of a weight. It ignores how the weight interacts with the inputs, which is the weakness that later scores such as [Wanda](../one-shot-llm-pruning/wanda/index.md) address.
 - **Global versus layer-wise thresholds.** A global threshold lets some layers prune more than others. Layer-wise thresholds keep every layer at the same sparsity.
 - **Gradual schedule.** Sparsity increases from zero to the target over training, so that the network can adapt while it is being pruned.
 - **Retraining.** The weights that remain are trained further to recover accuracy after each pruning step.
 
-## Key methods
+## Comparison of key methods
 
-### To prune, or not to prune (Zhu and Gupta, 2017)
+| Method | What it adds to magnitude pruning | Page |
+| --- | --- | --- |
+| Gradual pruning | A smooth sparsity schedule over training, shown to beat small dense networks | [Gradual pruning](gradual-pruning/index.md) |
+| Benchmark study | Head-to-head comparison showing magnitude pruning is a strong baseline | [The state of sparsity](state-of-sparsity/index.md) |
 
-- **Problem:** Pruning papers compared pruned networks with the dense networks they came from, but it was unclear whether pruning was a better use of a fixed parameter budget than training a smaller dense network.
-- **Core idea:** Compare large sparse models with small dense models at the same number of parameters, using a gradual pruning schedule during training.
-- **Equation or algorithm:** Sparsity is raised over training steps according to a smooth schedule, and the lowest-magnitude weights are masked at each step. The schedule replaces a one-shot cut with many small cuts.
-- **Results:** The authors find that large-sparse models consistently outperform small-dense models across the architectures they tested, at the same parameter count.
-- **Limitations:** The gradual schedule adds training steps. The comparison is at fixed parameter count, which does not equal fixed compute, because sparse layers may not run faster on dense hardware.
-
-### The State of Sparsity in Deep Neural Networks (Gale et al., 2019)
-
-- **Problem:** Many new sparsity methods were being proposed, with little common benchmarking.
-- **Core idea:** Evaluate several sparsity methods on large-scale tasks under one protocol, including magnitude pruning and more complex alternatives.
-- **Equation or algorithm:** The methods share the same mask-and-retrain pattern, differing in how the mask is chosen and updated.
-- **Results:** The abstract reports that on large-scale tasks, simple magnitude pruning matches or beats more complex sparsity techniques.
-- **Limitations:** The benchmarks are for image and language models of their time. The paper also shows that sparse networks obtained by pruning are not as easy to train from scratch as dense ones.
+Gradual pruning changes when the mask is cut. The benchmark asks whether a more complex mask choice is worth it, and finds that for many tasks it is not.
 
 ## Trade-offs
 
@@ -53,7 +44,7 @@ Given a weight tensor \(W\) and a sparsity target \(s\), magnitude pruning build
 ## More variants and open issues
 
 - **Open issue:** why the magnitude of a weight is a good proxy for its importance in trained networks. This is the question the [lottery ticket](../lottery-ticket/index.md) line of work approaches from another side.
-- **Variant:** magnitude times input norm, which is the basis of [Wanda](../index.md) on the parent page.
+- **Variant:** magnitude times input norm, the basis of [Wanda](../one-shot-llm-pruning/wanda/index.md).
 - **Open issue:** whether gradual schedules transfer across architectures without tuning.
 
 ## Connections
