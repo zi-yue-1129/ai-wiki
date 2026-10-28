@@ -47,7 +47,7 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 | LARS、LAMB | 依權重範數逐層縮放步長，用於極大批次 | 規劃中 |
 | Adafactor | 以因式分解的二階矩估計節省記憶體 | 規劃中 |
 | Lion | 以動量的符號作為更新；記憶體比 Adam 少 | 規劃中 |
-| Shampoo、SOAP | 由梯度的矩陣統計量建構的預條件子 | 規劃中，見[二階方法](../second-order.md) |
+| Shampoo、SOAP | 由梯度的矩陣統計量建構的預條件子 | [Shampoo](../shampoo.md) 有獨立頁面；SOAP 規劃中，見[二階方法](../second-order.md) |
 | Muon | 對矩陣參數做正交化的動量更新 | 規劃中 |
 
 ## 關鍵方法
