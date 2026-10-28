@@ -36,6 +36,14 @@ One landmark method anchors the learning discussion below. Its full write-up is 
 - **Comparison:** Learns from very large real-world data. The alternative of simulation-based training, which avoids collecting real data, is covered in the references on the method page. The abstract gives no grasp success rate.
 - **Full write-up:** [Hand-eye coordination for grasping](hand-eye-grasping/index.md)
 
+### Learned policies and foundation models
+
+- [ALOHA and ACT (Zhao et al. 2023)](aloha/index.md): low-cost bimanual hardware and a transformer policy that predicts chunks of actions from demonstrations.
+- [Diffusion Policy (Chi et al. 2023)](diffusion-policy/index.md): generates robot actions with a conditional denoising diffusion model.
+- [RT-2 (Brohan et al. 2023)](rt-2/index.md): writes robot actions as text tokens inside a vision-language model.
+- [OpenVLA (Kim et al. 2024)](openvla/index.md): an open 7-billion-parameter vision-language-action model.
+- [SayCan (Ahn et al. 2022)](saycan/index.md): a language model proposes steps, and learned value functions check which steps the robot can carry out.
+
 ## Learning-based robotics
 
 | Approach | Examples |

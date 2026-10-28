@@ -31,6 +31,14 @@ flowchart LR
 - **比較：** 從大規模的真實世界資料學習。不必收集真實資料的模擬訓練是另一種做法，列於方法頁的參考文獻中。摘要沒有給出抓取成功率。
 - **完整內容：** [用於抓取的手眼協調學習](hand-eye-grasping/index.md)
 
+### 學習得來的策略與基礎模型
+
+- [ALOHA 與 ACT（Zhao 等人，2023）](aloha/index.md)：低成本雙臂硬體，以及從示範預測動作 chunk 的 transformer 策略。
+- [Diffusion Policy（Chi 等人，2023）](diffusion-policy/index.md)：以條件去噪擴散模型生成機器人動作。
+- [RT-2（Brohan 等人，2023）](rt-2/index.md)：把機器人動作寫成視覺語言模型內的文字 token。
+- [OpenVLA（Kim 等人，2024）](openvla/index.md)：開放的 70 億參數視覺語言動作模型。
+- [SayCan（Ahn 等人，2022）](saycan/index.md)：語言模型提出步驟，學習得來的價值函數檢查機器人實際能執行哪些步驟。
+
 ## 以學習為基礎的機器人
 
 | 方法 | 例子 |
