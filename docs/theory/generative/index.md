@@ -25,6 +25,8 @@ Generative modelling is an **approach**, not an architecture. Any family in [Mod
 
 ## Diffusion models
 
+Full treatment, including the denoising backbones, guidance and key papers: [Diffusion Models](diffusion/index.md).
+
 ![Animated illustration of diffusion sampling: an initially noisy grid gradually becomes a structured sample as denoising progresses.](../../assets/concept-animations/diffusion-denoising.gif)
 
 *Animated concept diagram · Original illustration, CC BY-SA 4.0.*

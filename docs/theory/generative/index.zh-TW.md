@@ -18,6 +18,8 @@
 
 ## 擴散模型
 
+完整說明（包括去噪骨幹、引導與關鍵論文）見[擴散模型](diffusion/index.md)。
+
 ![擴散模型動態概念圖：從雜訊開始，經過多個去噪步驟逐漸產生具有結構的樣本。](../../assets/concept-animations/diffusion-denoising.gif)
 
 *動態概念圖 · 原創示意，CC BY-SA 4.0。*

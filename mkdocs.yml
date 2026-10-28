@@ -267,6 +267,7 @@ plugins:
             Gated Cells: 門控單元
             Sequence Modes: 序列模式
             State-Space Models: 狀態空間模型
+            Diffusion Models: 擴散模型
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
             Message Passing: 訊息傳遞
@@ -507,7 +508,9 @@ nav:
       - Probabilistic & Bayesian Methods: theory/probabilistic/index.md
       - Symbolic AI, Search & Planning: theory/symbolic-ai/index.md
       - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
-      - Generative Models: theory/generative/index.md
+      - Generative Models:
+          - theory/generative/index.md
+          - Diffusion Models: theory/generative/diffusion/index.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation: theory/model-compression/quantisation/index.md
