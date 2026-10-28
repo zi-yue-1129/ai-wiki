@@ -567,6 +567,12 @@ plugins:
             Automation Bias and Overreliance: 自動化偏誤與過度依賴
             Generative Adversarial Networks: 生成對抗網路
             Original GAN: 原始 GAN
+            Reward Hacking and Specification Gaming: 獎勵駭客與規格博弈
+            "Preference Optimisation: DPO and Its Successors": 偏好最佳化：DPO 及其後續方法
+            Scaling Laws and Emergent Abilities: 縮放定律與湧現能力
+            Kaplan Scaling Laws: Kaplan 縮放定律
+            Emergent Abilities: 湧現能力
+            Emergence as a Mirage: 湧現是海市蜃樓
 
 markdown_extensions:
   - abbr
@@ -911,6 +917,11 @@ nav:
                   - Byte-Pair Encoding: theory/models/llm/tokenisation/bpe/index.md
                   - SentencePiece and the Unigram Model: theory/models/llm/tokenisation/sentencepiece/index.md
                   - ByT5: theory/models/llm/tokenisation/byt5/index.md
+              - Scaling Laws and Emergent Abilities:
+                  - theory/models/llm/scaling-laws/index.md
+                  - Kaplan Scaling Laws: theory/models/llm/scaling-laws/kaplan-scaling-laws/index.md
+                  - Emergent Abilities: theory/models/llm/scaling-laws/emergent-abilities/index.md
+                  - Emergence as a Mirage: theory/models/llm/scaling-laws/emergence-mirage/index.md
           - Computer Vision: theory/models/computer-vision/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
@@ -1039,6 +1050,7 @@ nav:
       - Training & Fine-tuning:
           - engineering/training/index.md
           - Parameter-Efficient Fine-Tuning: engineering/training/peft-lora.md
+          - "Preference Optimisation: DPO and Its Successors": engineering/training/preference-optimisation.md
       - Distributed Training:
           - engineering/distributed-training/index.md
           - Megatron-LM Tensor Parallelism: engineering/distributed-training/megatron-tensor-parallelism.md
@@ -1090,6 +1102,7 @@ nav:
       - Safety & Alignment:
           - society/safety-alignment/index.md
           - Constitutional AI and RLAIF: society/safety-alignment/constitutional-ai.md
+          - Reward Hacking and Specification Gaming: society/safety-alignment/reward-hacking.md
       - Interpretability:
           - society/interpretability/index.md
           - Mechanistic Interpretability and Circuits: society/interpretability/mechanistic-interpretability.md
