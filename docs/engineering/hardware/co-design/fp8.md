@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - engineering/hardware
@@ -30,6 +30,16 @@ Storing and moving 16-bit values already halves the traffic that 32-bit values n
 - **E4M3:** 4 exponent bits and 3 mantissa bits. It gives more precision and less range. The paper extends its dynamic range by not representing infinities and by using a single bit pattern for NaN. Its largest normal value is 448.
 - **E5M2:** 5 exponent bits and 2 mantissa bits. It gives more range and less precision, and it follows the IEEE 754 conventions for special values. Its largest normal value is 57,344.
 - **Scaling factor:** a number multiplied into a tensor before it is cast to FP8, so that the tensor's largest magnitude falls near the format's maximum. Values that still overflow saturate to that maximum.
+
+## Key methods
+
+### FP8 training with E4M3 and E5M2 (Micikevicius et al., 2022)
+
+- **Problem:** an 8-bit format must split its bits between range and precision, and overflow is far more common than at 16 bits.
+- **Core idea:** use E4M3 for weights and activations and E5M2 for gradients, with a scaling factor per tensor. The inputs of matrix multiplications and convolutions are rounded to FP8, while the arithmetic runs at 16 bits or higher.
+- **Equations:** each tensor is cast as \(x_{\text{FP8}} = \mathrm{cast}(s \cdot x)\), where \(s\) is chosen so that the tensor's largest magnitude lands near the format's maximum, 448 for E4M3 and 57,344 for E5M2.
+- **Results:** FP8 training matches 16-bit training within run-to-run variation on most models. The 175-billion-parameter model reached perplexity 6.68 against 6.65 for bfloat16, compared at 75% of training.
+- **Limitations:** the experiments simulate FP8 in software, and the paper leaves the scaling heuristics to implementations. Skipping updates on overflow, the 16-bit remedy, is a poor fit for FP8.
 
 ## How it works
 
@@ -71,9 +81,9 @@ FP8 extends the idea of [mixed-precision training](mixed-precision.md), which ke
 
 ### Surveys and textbooks
 
-- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — Surveys how dataflow and number format choices shape the efficiency of DNN hardware.
+- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — Surveys the energy and throughput trade-offs of DNN hardware, including hardware–algorithm co-design.
 
 ### Articles and documentation
 
 - Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — Shows that per-channel 8-bit integer quantisation keeps many CNNs within 2% of floating-point accuracy, the integer counterpart of FP8 inference.
-- Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory bandwidth, not compute, is the primary bottleneck for AI serving, which is the pressure that lower-bit formats relieve.
+- Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory, rather than compute, has become the primary bottleneck for AI applications, particularly serving, which is the pressure that lower-bit formats relieve.

@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - engineering/hardware
@@ -30,6 +30,16 @@ Backpropagation needs the activations from the forward pass, so training stores 
 - **Segment:** the layers between two checkpoints. Their internal activations are discarded.
 - **Recomputation:** rerunning a segment's forward pass during the backward pass, starting from its stored checkpoint, to rebuild the activations needed for that segment's gradients.
 
+## Key methods
+
+### Sublinear-memory checkpointing (Chen et al., 2016)
+
+- **Problem:** backpropagation stores the activations of every layer, so memory grows with depth.
+- **Core idea:** store activations only at about √n segment boundaries, and recompute each segment's forward pass during the backward pass.
+- **Equations:** for n layers, the stored activations need O(√n) memory, at about one extra forward pass per mini-batch. A recursive variant reaches O(log n) memory at an extra O(n log n) forward computation.
+- **Results:** for a 1,000-layer residual network on ImageNet, memory falls from 48 GB to 7 GB at about 30% extra running time.
+- **Limitations:** the bound counts stored feature maps, so parameters and optimiser state lie outside it. The extra forward pass slows training, and the computation graph must be split into segments.
+
 ## How it works
 
 The paper's √n scheme works as follows:
@@ -38,25 +48,22 @@ The paper's √n scheme works as follows:
 2. In the forward pass, store only the outputs at the segment boundaries, and discard every other activation.
 3. In the backward pass, go from the last segment to the first. For each segment, rerun its forward pass from the stored boundary, compute its gradients, and then free its activations.
 
-The stored feature maps then take about √n boundary tensors, plus the activations of the largest segment while it is being recomputed. That gives O(√n) memory, at the cost of about one extra forward pass per mini-batch. When layers have very different memory costs, the paper uses a greedy planner under a memory budget, and it searches over the budget to choose the split.
-
+The stored feature maps then take about √n boundary tensors, plus the activations of the largest segment while it is being recomputed. That gives O(√n) memory, at the cost of about one extra forward pass per mini-batch.
 The paper also describes a recursive version, in which each segment is handled by the same strategy. Memory then grows as O(log n), but the extra forward computation rises to O(n log n), which is far more expensive than the √n scheme.
 
 ## Results
 
-The abstract reports that, for a 1,000-layer residual network on ImageNet, memory falls from about 48 GB to 7 GB, with roughly 30% more running time. The body gives the setting: batch size 32, 224 × 224 inputs, MXNet on a single Titan X GPU, and each conv-bn-relu block counted as one layer. The abstract also reports large memory savings when training recurrent networks on very long sequences.
+The abstract reports that, for a 1,000-layer residual network on ImageNet, memory falls from about 48 GB to 7 GB, with roughly 30% more running time. The body reports that its ResNet experiments used batch size 32, 224 × 224 inputs, MXNet on a single Titan X GPU, and counted each conv-bn-relu block as one layer. The abstract also reports a significant memory reduction when training complex recurrent networks.
 
 ## Limitations
 
 - **Runtime cost.** The measured running time rose by about 30%. The backward pass costs about twice the forward pass, so recomputing the forward pass adds a large share of the work.
-- **Framework support.** The computation graph must be split into segments. Users either set the recomputation count for each node or rely on the planner, and frameworks without this support need custom training loops.
-- **Scope of the saving.** The reported memory covers feature maps and gradients only. It does not cover parameters, optimiser state or temporary buffers such as convolution workspace.
-- **Constant-factor optimisations.** The in-place and memory-sharing optimisations in the paper reduce memory only by a constant factor, and they work only when the graph declares its dependencies minimally.
-- **Failure cases.** The paper does not describe cases where the scheme fails to help.
+- **Framework support.** The computation graph must be split into segments, so frameworks without that support need custom training loops.
+- **Scope of the saving.** The √n bound counts stored feature maps. Parameters and optimiser state lie outside it.
 
 ## Open questions
 
-- **Choosing segments automatically.** The planner depends on per-layer memory costs and a budget. How well its choices hold for irregular graphs is not settled by this paper, whose experiments the abstract describes as residual and recurrent networks.
+- **Choosing segments automatically.** Where the boundaries go depends on per-layer memory costs. How well a good choice holds for irregular graphs is not settled by this paper, whose abstract describes experiments on ImageNet residual networks and complex recurrent networks.
 - **Combining with other memory savers.** How recomputation combines with lower-precision storage and with offloading to host memory is outside this paper, and it is where most practical training systems now operate.
 
 ## Connections
@@ -72,9 +79,9 @@ Checkpointing and [mixed-precision training](mixed-precision.md) are complementa
 
 ### Surveys and textbooks
 
-- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — Surveys how reusing data in local storage reduces the energy cost of moving it, the same trade-off this page describes.
+- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — Surveys the energy and throughput of DNN hardware, the efficiency concerns behind the trade-off this page describes.
 
 ### Articles and documentation
 
 - Ivanov, A., et al. (2020). *Data Movement Is All You Need: A Case Study on Optimizing Transformers*. arXiv:2007.00072. https://arxiv.org/abs/2007.00072 — Argues that data movement is the key bottleneck when training transformers, which is the cost checkpointing trades against.
-- Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory bandwidth, not compute, is the primary bottleneck for AI serving, the same pressure that makes recomputation attractive.
+- Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory, rather than compute, has become the primary bottleneck for AI applications, particularly serving, the same pressure that makes recomputation attractive.
