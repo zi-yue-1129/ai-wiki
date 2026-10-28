@@ -10,3 +10,134 @@
   border-left: 1px solid var(--md-default-fg-color--lightest);
   margin-left: .6rem;
 }
+
+/* Knowledge map: markup from hooks/knowledge_map.py, behaviour from javascripts/knowledge-map.js */
+.km-explorer { margin: 1.2em 0; }
+.km-explorer.km-fullscreen {
+  position: fixed; inset: 0; z-index: 1000; margin: 0; padding: .6rem 1rem;
+  display: flex; flex-direction: column; overflow: auto;
+  background: var(--md-default-bg-color);
+}
+body.km-lock { overflow: hidden; }
+.km-explorer:not(.km-ready) .km-js { display: none; }
+.km-explorer:not(.km-ready) .km-stage { display: none; }
+.km-explorer [hidden] { display: none !important; }
+
+.km-toolbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: .5rem .75rem; margin-bottom: .5rem;
+}
+.km-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: .1rem; font-size: .85rem; }
+.km-crumbs button, .km-crumbs a {
+  padding: .1rem .3rem; border: 0; border-radius: .25rem; background: none;
+  color: var(--md-typeset-a-color); font: inherit; cursor: pointer;
+}
+.km-crumbs button:hover { background: var(--md-default-fg-color--lightest); }
+.km-crumbs [aria-current] { font-weight: 600; padding: .1rem .3rem; }
+.km-crumbs .km-sep { color: var(--md-default-fg-color--light); }
+.km-crumbs .km-open { margin-left: .5rem; font-weight: 600; }
+
+.km-tools { display: flex; align-items: center; gap: .35rem; }
+.km-search { position: relative; }
+.km-search-input {
+  width: 13rem; max-width: 55vw; padding: .3rem .55rem; font: inherit; font-size: .85rem;
+  color: var(--md-default-fg-color); background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter); border-radius: .3rem;
+}
+.km-results {
+  position: absolute; top: 100%; right: 0; z-index: 5; min-width: 16rem; max-height: 16rem;
+  overflow: auto; margin: .2rem 0 0; padding: .2rem 0; list-style: none;
+  background: var(--md-default-bg-color); border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: .3rem; box-shadow: var(--md-shadow-z2);
+}
+.km-results li { margin: 0; }
+.km-results button {
+  display: block; width: 100%; padding: .35rem .6rem; border: 0; background: none;
+  color: var(--md-default-fg-color); font: inherit; font-size: .85rem; text-align: left; cursor: pointer;
+}
+.km-results button:hover, .km-results button:focus { background: var(--md-default-fg-color--lightest); }
+.km-results small { margin-left: .5em; color: var(--md-default-fg-color--light); }
+
+.km-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem; padding: 0; border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: .3rem; background: var(--md-default-bg-color); color: var(--md-default-fg-color); cursor: pointer;
+}
+.km-icon:hover { background: var(--md-default-fg-color--lightest); }
+.km-icon svg {
+  width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.km-stage { position: relative; min-height: 0; }
+.km-stage svg {
+  display: block; width: 100%; height: clamp(340px, 68vh, 640px);
+  background: var(--md-code-bg-color); border-radius: .4rem;
+  touch-action: none; user-select: none; cursor: grab;
+}
+.km-stage svg:active { cursor: grabbing; }
+.km-explorer.km-fullscreen .km-stage { flex: 1; }
+.km-explorer.km-fullscreen .km-stage svg { height: 100%; }
+.km-explorer.km-fullscreen .km-legend p, .km-explorer.km-fullscreen .km-list { display: none; }
+.km-exit { display: none; }
+.km-fullscreen .km-enter { display: none; }
+.km-fullscreen .km-exit { display: inline; }
+
+.km-edge {
+  fill: none; stroke: var(--md-default-fg-color--lighter); opacity: .55;
+  vector-effect: non-scaling-stroke;
+}
+.km-focus .km-edge { opacity: .1; }
+.km-focus .km-edge.km-hot { opacity: 1; stroke: var(--md-accent-fg-color); }
+
+.km-node { cursor: pointer; outline: none; }
+.km-node circle { stroke: var(--md-default-bg-color); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.km-node.km-draft circle { fill-opacity: .3; stroke-width: 2; }
+.km-node:focus-visible circle { stroke: var(--md-accent-fg-color); stroke-width: 3; }
+.km-focus .km-node { opacity: .25; }
+.km-focus .km-node.km-hot { opacity: 1; }
+
+.km-label {
+  font-family: var(--md-text-font), sans-serif; font-size: calc(13px / var(--km-k, 1));
+  fill: var(--md-default-fg-color); text-anchor: middle; pointer-events: none;
+  paint-order: stroke; stroke: var(--md-default-bg-color);
+  stroke-width: calc(3px / var(--km-k, 1)); stroke-linejoin: round;
+  opacity: 0; transition: opacity .15s;
+}
+.km-node.km-section .km-label, .km-node.km-group .km-label {
+  opacity: 1; font-weight: 600; font-size: calc(15px / var(--km-k, 1)); pointer-events: auto;
+}
+.km-zoomed .km-label, .km-node.km-on .km-label, .km-focus .km-node.km-hot .km-label { opacity: 1; }
+.km-cluster {
+  font-family: var(--md-text-font), sans-serif; font-size: calc(13px / var(--km-k, 1)); font-weight: 600;
+  fill: var(--md-default-fg-color--light); opacity: .85; pointer-events: none;
+  paint-order: stroke; stroke: var(--md-code-bg-color); stroke-width: calc(4px / var(--km-k, 1));
+}
+
+.km-info {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .8rem; margin-top: .5rem;
+  padding: .5rem .7rem; border: 1px solid var(--md-default-fg-color--lighter); border-radius: .4rem; font-size: .9rem;
+}
+.km-info .km-meta { color: var(--md-default-fg-color--light); }
+.km-info a { font-weight: 600; }
+.km-info .km-clear {
+  margin-left: auto; padding: 0 .4rem; border: 0; background: none; color: inherit; font-size: 1.1rem; cursor: pointer;
+}
+
+.km-legend { margin: .6rem 0 .4rem; font-size: .8rem; color: var(--md-default-fg-color--light); }
+.km-legend p { margin: 0 0 .3rem; }
+.km-chip { display: inline-block; margin: .1rem .9rem .1rem 0; white-space: nowrap; }
+.km-chip::before {
+  content: ""; display: inline-block; width: .7em; height: .7em; margin-right: .35em;
+  border-radius: 50%; background: var(--km-c, var(--md-default-fg-color--light)); vertical-align: -.05em;
+}
+.km-chip.km-hollow::before { background: none; border: 2px solid var(--md-default-fg-color--light); box-sizing: border-box; }
+
+.km-list { margin-top: 1rem; font-size: .85rem; }
+.km-list ul { margin: .15rem 0 .15rem 1.1rem; }
+.km-list > ul { margin-left: .2rem; }
+
+@media (max-width: 600px) {
+  .km-search-input { width: 8.5rem; }
+  .km-results { min-width: 13rem; }
+}

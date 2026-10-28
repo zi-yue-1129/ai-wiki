@@ -15,7 +15,7 @@ An open, continuously growing wiki that maps **the whole landscape of artificial
 
 ## Knowledge map
 
-Each box is a section. A line joins two sections whose pages link to each other, and a thicker line means more links. Pick a box to open that section, or open the [full knowledge map](knowledge-map/index.md) to see every topic.
+Each circle is a section. A line joins two sections whose pages link to each other, and a thicker line means more links. Click a circle to open that section and its groups, then click a group to see its topics. To explore the whole map, open the [full knowledge map](knowledge-map/index.md).
 
 <!-- knowledge-map:overview -->
 

@@ -109,6 +109,12 @@ Each method has its own page. The overview and comparison here are brief.
 - **Comparison:** A systems-level account that draws on the lesion and plasticity evidence above.
 - **Full write-up:** [Complementary Learning Systems](complementary-learning-systems/index.md)
 
+### Spatial resolution in the hippocampus (Kjelstrup et al., 2008)
+
+- **Overview:** Place-field size grows along the long axis of the hippocampus, and it can also change with experience and goals.
+- **Comparison:** A spatial-coding account that asks where memory resolution is allocated, rather than how memories are stored. It contrasts a fixed anatomical gradient with experience- and goal-driven effects.
+- **Full write-up:** [Spatial Resolution in the Hippocampus](hippocampal-spatial-resolution/index.md)
+
 ## Resources
 
 - Squire & Kandel, *Memory: From Mind to Molecules*

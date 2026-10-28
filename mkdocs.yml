@@ -324,6 +324,13 @@ plugins:
             AlphaZero: 阿爾法零
             MuZero: MuZero
             Proximal Policy Optimisation: 近端策略最佳化
+            Multi-Agent RL: 多智能體強化學習
+            MADDPG: 多智能體深度確定性策略梯度
+            QMIX: QMIX：單調值函數分解
+            Multi-Agent PPO: 多智能體 PPO
+            Learning from Human Feedback: 從人類回饋學習
+            Reward Modelling: 獎勵建模
+            Direct Preference Optimisation: 直接偏好最佳化
             Value-Based Methods: 值函數方法
             Q-Learning: Q 學習
             SARSA: SARSA
@@ -347,6 +354,7 @@ plugins:
             Medial Temporal Lobe Lesions: 內側顳葉損傷
             Long-Term Potentiation: 長期增益
             Complementary Learning Systems: 互補學習系統
+            Spatial Resolution in the Hippocampus: 海馬迴的空間解析度
             Receptive Fields in Visual Cortex: 視覺皮質的感受野
             Dopamine Reward Prediction Error: 多巴胺的獎勵預測誤差
             Heuristics and Biases: 啟發法與偏誤
@@ -372,6 +380,10 @@ plugins:
             GNM: GNM
             ViNT: ViNT
             NoMaD: NoMaD
+            Visual Localisation: 視覺定位
+            AnyLoc: AnyLoc
+            EigenPlaces: EigenPlaces
+            DINOv2: DINOv2
             AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             RFdiffusion: RFdiffusion（蛋白質骨架設計）
             ESM-2 and ESMFold: ESM-2 與 ESMFold
@@ -545,6 +557,12 @@ plugins:
             Truncated SVD: 截斷 SVD
             Low-Rank Filter Expansion: 低秩濾波器展開
             LoRA: LoRA
+            QLoRA: 量化低秩適應（QLoRA）
+            DoRA: DoRA
+            Adapter Modules: 適配器模組
+            Prefix Tuning: 前綴調校
+            Prompt Tuning: 提示調校
+            (IA)³ Fine-Tuning: (IA)³ 微調
             Data-Free: 無資料
             LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
@@ -598,6 +616,33 @@ plugins:
             Neuroimaging & Recording Methods: 神經影像與記錄方法
             Developmental Cognition & How Children Learn: 發展認知與兒童如何學習
             Violation of Expectation (Baillargeon et al. 1985): 違反預期範式（Baillargeon 等人，1985）
+            Motor Control and the Cerebellum: 運動控制與小腦
+            Optimal Feedback Control (Todorov & Jordan 2002): 最優回饋控制（Todorov & Jordan，2002）
+            Cerebellar Supervised Learning (Marr, Albus & Ito): 小腦監督式學習（Marr、Albus 與 Ito）
+            Internal Forward Models (Kawato 1987; Wolpert et al. 1995): 內部前向模型（Kawato 1987；Wolpert 等人，1995）
+            Sleep, Replay and Memory Consolidation: 睡眠、重播與記憶鞏固
+            Hippocampal Replay (Foster & Wilson 2006): 海馬迴重播（Foster & Wilson，2006）
+            Sharp-Wave Ripples (Buzsáki et al. 1992): 尖波漣波（Buzsáki 等人，1992）
+            Experience Replay (Lin 1992; Mnih et al. 2015): 經驗回放（Lin，1992；Mnih 等人，2015）
+            Spatial Navigation and Cognitive Maps: 空間導航與認知地圖
+            Place Cells and the Cognitive-Map Hypothesis (O'Keefe & Dostrovsky 1971): 位置細胞與認知地圖假說（O'Keefe 與 Dostrovsky，1971）
+            Tolman–Eichenbaum Machine (Whittington et al. 2020): Tolman–Eichenbaum 機器（Whittington 等人，2020）
+            Successor Representation (Dayan 1993): 後繼表徵（Dayan，1993）
+            Working Memory and Executive Function: 工作記憶與執行功能
+            Prefrontal Basal Ganglia Working Memory (PBWM): 前額葉—基底核工作記憶（PBWM）
+            Activity-Silent Working Memory: 活動靜默工作記憶
+            Neuromodulators beyond Dopamine: 多巴胺之外的神經調節物質
+            Uncertainty-Based Neuromodulation (Yu & Dayan 2005): 基於不確定性的神經調節（Yu & Dayan，2005）
+            Meta-Learning with Neuromodulation (Doya 2002): 以神經調節實現的元學習（Doya，2002）
+            The Auditory System: 聽覺系統
+            Task-Optimised Networks Model Auditory Cortex (Kell et al. 2018): 任務最佳化網路模擬聽覺皮層（Kell 等人，2018）
+            Multiresolution Spectrotemporal Model (Chi et al. 2005): 多解析度頻譜時間模型（Chi 等人，2005）
+            Neural Oscillations and Synchrony: 神經振盪與同步
+            Communication through Coherence (Fries 2005): 透過相干性的通訊（Fries，2005）
+            Theta–Gamma Coupling (Lisman & Jensen 2013): θ–γ 耦合（Lisman & Jensen，2013）
+            Computational Psychiatry: 計算精神醫學
+            Computational Phenotyping with Hierarchical Bayesian RL (Ahn et al. 2017): 以階層式貝氏強化學習進行計算表型分析（Ahn 等人，2017）
+            Aberrant Prediction Error in Psychosis (Corlett et al. 2007): 精神病中的異常預測誤差（Corlett 等人，2007）
             Statistical Learning in Infants (Saffran et al. 1996): 嬰兒的統計學習（Saffran 等人，1996）
             Animal Cognition & Comparative Intelligence: 動物認知與比較智力
             Mirror Self-Recognition (Gallup 1970): 鏡像自我辨認（Gallup，1970）
@@ -773,6 +818,7 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/mathjax.js
+  - javascripts/knowledge-map.js
   - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
 
 extra_css:
@@ -922,6 +968,7 @@ nav:
               - Non-Contrastive Methods:
                   - theory/paradigms/self-supervised/non-contrastive-methods/index.md
                   - BYOL: theory/paradigms/self-supervised/non-contrastive-methods/byol.md
+                  - DINOv2: theory/paradigms/self-supervised/non-contrastive-methods/dinov2.md
               - Pretext Tasks: theory/paradigms/self-supervised/pretext-tasks/index.md
               - Theory & Evaluation: theory/paradigms/self-supervised/theory-and-evaluation/index.md
           - Reinforcement Learning:
@@ -948,7 +995,16 @@ nav:
               - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
               - MuZero: theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md
               - Offline RL: theory/paradigms/reinforcement-learning/offline-rl/index.md
+              - Multi-Agent RL:
+                  - theory/paradigms/reinforcement-learning/multi-agent-rl/index.md
+                  - MADDPG: theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md
+                  - QMIX: theory/paradigms/reinforcement-learning/multi-agent-rl/qmix/index.md
+                  - Multi-Agent PPO: theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md
               - Learning from Human Feedback: theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
+              - Learning from Human Feedback:
+                  - theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
+                  - Reward Modelling: theory/paradigms/reinforcement-learning/learning-from-human-feedback/reward-modelling/index.md
+                  - Direct Preference Optimisation: theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo/index.md
               - Experience Replay: theory/paradigms/reinforcement-learning/experience-replay/index.md
               - Exploration: theory/paradigms/reinforcement-learning/exploration/index.md
           - Imitation Learning:
@@ -964,7 +1020,12 @@ nav:
               - Adversarial Imitation: theory/paradigms/imitation/adversarial-imitation/index.md
           - Transfer Learning & Domain Adaptation:
               - theory/paradigms/transfer/index.md
-              - Fine-tuning & Adaptation: theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
+              - Fine-tuning & Adaptation:
+                  - theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
+                  - Adapter Modules: theory/paradigms/transfer/fine-tuning-and-adaptation/adapters.md
+                  - Prefix Tuning: theory/paradigms/transfer/fine-tuning-and-adaptation/prefix-tuning.md
+                  - Prompt Tuning: theory/paradigms/transfer/fine-tuning-and-adaptation/prompt-tuning.md
+                  - (IA)³ Fine-Tuning: theory/paradigms/transfer/fine-tuning-and-adaptation/ia3.md
               - Domain Adaptation: theory/paradigms/transfer/domain-adaptation/index.md
               - Multi-task Learning: theory/paradigms/transfer/multi-task-learning/index.md
               - Sim-to-Real Transfer: theory/paradigms/transfer/sim-to-real/index.md
@@ -1096,7 +1157,10 @@ nav:
               - theory/model-compression/low-rank-and-efficient-architectures/index.md
               - Truncated SVD: theory/model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md
               - Low-Rank Filter Expansion: theory/model-compression/low-rank-and-efficient-architectures/low-rank-filter-expansion/index.md
-              - LoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
+              - LoRA:
+                  - theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
+                  - QLoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md
+                  - DoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/dora.md
       - Evaluation:
           - theory/evaluation/index.md
           - Metrics:
@@ -1254,6 +1318,7 @@ nav:
           - Medial Temporal Lobe Lesions: brain-mind/memory-learning/medial-temporal-lesions/index.md
           - Long-Term Potentiation: brain-mind/memory-learning/long-term-potentiation/index.md
           - Complementary Learning Systems: brain-mind/memory-learning/complementary-learning-systems/index.md
+          - Spatial Resolution in the Hippocampus: brain-mind/memory-learning/hippocampal-spatial-resolution/index.md
       - Cognitive Science:
           - brain-mind/cognitive-science/index.md
           - Heuristics and Biases: brain-mind/cognitive-science/heuristics-and-biases/index.md
@@ -1313,6 +1378,41 @@ nav:
           - brain-mind/animal-cognition/index.md
           - Mirror Self-Recognition (Gallup 1970): brain-mind/animal-cognition/mirror-self-recognition/index.md
           - Tool Use in New Caledonian Crows (Weir et al. 2002): brain-mind/animal-cognition/tool-use-crows/index.md
+      - Motor Control and the Cerebellum:
+          - brain-mind/motor-control/index.md
+          - Optimal Feedback Control (Todorov & Jordan 2002): brain-mind/motor-control/optimal-feedback-control/index.md
+          - Cerebellar Supervised Learning (Marr, Albus & Ito): brain-mind/motor-control/marr-albus-ito/index.md
+          - Internal Forward Models (Kawato 1987; Wolpert et al. 1995): brain-mind/motor-control/internal-forward-models/index.md
+      - Sleep, Replay and Memory Consolidation:
+          - brain-mind/sleep-and-consolidation/index.md
+          - Hippocampal Replay (Foster & Wilson 2006): brain-mind/sleep-and-consolidation/hippocampal-replay/index.md
+          - Sharp-Wave Ripples (Buzsáki et al. 1992): brain-mind/sleep-and-consolidation/sharp-wave-ripples/index.md
+          - Experience Replay (Lin 1992; Mnih et al. 2015): brain-mind/sleep-and-consolidation/experience-replay/index.md
+      - Spatial Navigation and Cognitive Maps:
+          - brain-mind/navigation-cognitive-maps/index.md
+          - Place Cells and the Cognitive-Map Hypothesis (O'Keefe & Dostrovsky 1971): brain-mind/navigation-cognitive-maps/place-cells/index.md
+          - Tolman–Eichenbaum Machine (Whittington et al. 2020): brain-mind/navigation-cognitive-maps/tolman-eichenbaum-machine/index.md
+          - Successor Representation (Dayan 1993): brain-mind/navigation-cognitive-maps/successor-representation/index.md
+      - Working Memory and Executive Function:
+          - brain-mind/working-memory-executive-function/index.md
+          - Prefrontal Basal Ganglia Working Memory (PBWM): brain-mind/working-memory-executive-function/pbwm/index.md
+          - Activity-Silent Working Memory: brain-mind/working-memory-executive-function/activity-silent-working-memory/index.md
+      - Neuromodulators beyond Dopamine:
+          - brain-mind/neuromodulation/index.md
+          - Uncertainty-Based Neuromodulation (Yu & Dayan 2005): brain-mind/neuromodulation/yu-dayan-2005/index.md
+          - Meta-Learning with Neuromodulation (Doya 2002): brain-mind/neuromodulation/doya-2002/index.md
+      - The Auditory System:
+          - brain-mind/auditory-system/index.md
+          - Task-Optimised Networks Model Auditory Cortex (Kell et al. 2018): brain-mind/auditory-system/kell-2018/index.md
+          - Multiresolution Spectrotemporal Model (Chi et al. 2005): brain-mind/auditory-system/chi-2005/index.md
+      - Neural Oscillations and Synchrony:
+          - brain-mind/oscillations/index.md
+          - Communication through Coherence (Fries 2005): brain-mind/oscillations/communication-through-coherence/index.md
+          - Theta–Gamma Coupling (Lisman & Jensen 2013): brain-mind/oscillations/theta-gamma-coupling/index.md
+      - Computational Psychiatry:
+          - brain-mind/computational-psychiatry/index.md
+          - Computational Phenotyping with Hierarchical Bayesian RL (Ahn et al. 2017): brain-mind/computational-psychiatry/computational-phenotyping/index.md
+          - Aberrant Prediction Error in Psychosis (Corlett et al. 2007): brain-mind/computational-psychiatry/aberrant-prediction-error-psychosis/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
@@ -1341,6 +1441,10 @@ nav:
               - GNM: applications/robotics/navigation/gnm.md
               - ViNT: applications/robotics/navigation/vint.md
               - NoMaD: applications/robotics/navigation/nomad.md
+          - Visual Localisation:
+              - applications/robotics/visual-localisation/index.md
+              - AnyLoc: applications/robotics/visual-localisation/anyloc.md
+              - EigenPlaces: applications/robotics/visual-localisation/eigenplaces.md
       - Autonomous Driving & Transport:
           - applications/autonomous-driving/index.md
           - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md

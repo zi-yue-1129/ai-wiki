@@ -48,7 +48,7 @@ where \(m(H,t)\) is the number of members that match \(H\) at generation \(t\), 
 
 ## Key results
 
-Holland (1975) gives the schema theorem and the analysis of how selection, crossover and mutation affect schemata. Goldberg (1989) presents the operators and applies them to engineering problems. This page does not quote numerical benchmark results, because the claims depend on the problem and encoding.
+Holland (1975) gives the schema theorem and the analysis of how selection, crossover and mutation affect schemata. Goldberg (1989) presents the operators and applies them to engineering problems. This page does not quote numerical benchmark results, because the claims depend on the problem and encoding. In the architecture-search setting, Real et al. (2018) report that AmoebaNet-A, found by regularised (aging) evolution, reaches a CIFAR-10 test error of 3.34 ± 0.06% with 3.2 M parameters (F = 36), against 3.41% for the NASNet-A baseline. The paper says evolution reached higher accuracy earlier in the search than reinforcement learning did, and that comparison appears only in a figure.
 
 ## Limitations
 

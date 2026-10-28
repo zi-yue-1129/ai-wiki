@@ -131,6 +131,7 @@ Each method has its own page. The overview and comparison here are brief.
 - [Policy gradient and actor-critic](policy-gradient-and-actor-critic/index.md): REINFORCE, A3C, TRPO, DDPG, TD3, SAC and GRPO, with PPO as its own page.
 - [Model-based RL](model-based-rl/index.md): world models, MuZero and Dreamer.
 - [Offline RL](offline-rl/index.md): learning from fixed datasets with conservative value estimates.
+- [Multi-agent RL](multi-agent-rl/index.md): several learning agents, with MADDPG, QMIX and MAPPO as examples of centralised training.
 - [Learning from human feedback](learning-from-human-feedback/index.md): reward models and RLHF.
 - [Experience replay](experience-replay/index.md): reusing past transitions to learn more from each one.
 - [Exploration](exploration/index.md): how agents try new actions when rewards are sparse.

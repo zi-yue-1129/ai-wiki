@@ -68,6 +68,9 @@ Each named method has its own page with the problem, core idea, equations, resul
 
 - [Adam](adam.md) (Kingma & Ba, 2014/2015): momentum plus a per-parameter scale from the second moment, with bias correction.
 - [AdamW](adamw.md) (Loshchilov & Hutter, 2017/2019): Adam with weight decay applied outside the adaptive step.
+- [AdaGrad](adagrad.md) (Duchi et al., 2011): a per-coordinate step size from accumulated squared gradients. It suits sparse features, but the step shrinks over training.
+- [Lion](lion.md) (Chen et al., 2023): a sign-based update from a single momentum buffer, which halves the per-parameter optimiser state of Adam.
+- [Adafactor](adafactor.md) (Shazeer & Stern, 2018): a factored second-moment estimate for matrix parameters, which stores row and column sums instead of one value per entry.
 
 ### Comparison
 
@@ -76,6 +79,9 @@ Each named method has its own page with the problem, core idea, equations, resul
 | SGD with momentum | Yes (heavy-ball or Nesterov) | No, one rate for all | Usually L2 in the gradient | [SGD and momentum](../sgd-and-momentum/index.md) |
 | Adam | Yes, first moment | Yes, root of second moment | L2 in the gradient, if used | [Adam](adam.md) |
 | AdamW | Yes, first moment | Yes, root of second moment | Decoupled, outside the step | [AdamW](adamw.md) |
+| AdaGrad | No | Yes, root of accumulated squared gradients | Not covered in this table | [AdaGrad](adagrad.md) |
+| Adafactor | Optional, can be dropped | Yes, factored second moment for matrices | Not covered in this table | [Adafactor](adafactor.md) |
+| Lion | Yes, one buffer | No, the update is a sign | Decoupled, added to the sign step | [Lion](lion.md) |
 
 ## Connections
 
@@ -100,10 +106,12 @@ Each named method has its own page with the problem, core idea, equations, resul
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR. https://arxiv.org/abs/1412.6980 — Proposes Adam, an adaptive method that uses bias-corrected moment estimates of the gradient.
 - Loshchilov, I. & Hutter, F. (2019). Decoupled Weight Decay Regularization. ICLR. https://arxiv.org/abs/1711.05101 — Shows that L2 regularisation and weight decay differ for Adam and proposes AdamW.
 - Duchi, J., Hazan, E. & Singer, Y. (2011). Adaptive Subgradient Methods for Online Learning and Stochastic Optimization. *JMLR*. https://jmlr.org/papers/v12/duchi11a.html — Introduces AdaGrad, which scales each coordinate by its accumulated squared gradients.
+- Shazeer, N. & Stern, M. (2018). Adafactor: Adaptive Learning Rates with Sublinear Memory Cost. ICML 2018, PMLR 80, pp. 4596–4604. https://proceedings.mlr.press/v80/shazeer18a.html — Factors the second-moment estimate of matrix parameters to cut optimiser memory.
+- Chen, X., Liang, C., Huang, D., Real, E., Wang, K., Liu, Y., Pham, H., Dong, X., Luong, T., Hsieh, C.-J., Lu, Y. & Le, Q. V. (2023). Symbolic Discovery of Optimization Algorithms. arXiv. https://arxiv.org/abs/2302.06675 — Introduces Lion, a sign-based optimiser that keeps a single momentum buffer.
 
 ### Surveys and textbooks
 
-- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization Methods for Large-Scale Machine Learning. *SIAM Review*. https://arxiv.org/abs/1606.04838 — Survey of stochastic gradient methods, including adaptive variants, and their trade-offs for large datasets.
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2016). Optimization Methods for Large-Scale Machine Learning. arXiv. https://arxiv.org/abs/1606.04838 — Survey of stochastic gradient methods, including adaptive variants, and their trade-offs for large datasets.
 
 ### Articles and documentation
 

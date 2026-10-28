@@ -1,0 +1,84 @@
+---
+translation_reviewed: 2026-10-28
+tags:
+- motor control
+- optimal control
+- neuroscience
+aliases:
+  - 最優回饋控制
+  - Optimal feedback control
+  - OFC
+  - Todorov and Jordan 2002
+---
+
+# 最優回饋控制（Todorov & Jordan，2002）
+
+最優回饋控制主張，動作是由一個在雜訊下最小化成本的控制器所產生，而且控制器只修正對任務有影響的誤差。它提供了對人類動作數項特徵的解釋，也把動作行為連結到工程中使用的最優控制方法。
+
+本頁屬於[運動控制與小腦](../index.md)。它詳細說明一種方法。這類控制器所需的預測機制，見[內部前向模型](../internal-forward-models/index.md)。
+
+## 概述
+
+伸手拿一個杯子時，手並不沿著一條固定的路徑移動。每次嘗試的軌跡都不同，而其中一部分變異落在不會改變手最終位置的方向上。最優回饋控制要問的是：為什麼神經系統會容許這樣的變異，以及為什麼它只修正某些偏差而不修正其他偏差。
+
+它提出的答案是：大腦瞄準的是目標，而不是一條軌跡。它要以最低成本達成目標，成本同時計入任務誤差與努力，而運動指令與感覺中都存在雜訊。在這些條件下，最佳策略是讓動作在無害的方向上變動，只在會威脅目標的方向上加以回推。
+
+## 問題
+
+動作協調涉及的自由度遠多於任務所需。人類手臂的關節與肌肉數量，超過把手放到某一點所需的數量，因此同一結果有許多種達成方式。有些理論假設大腦會選擇單一偏好的軌跡，或以固定規則解決這種冗餘。最優回饋控制則問：動作變異為何具有現在的結構。
+
+## 核心想法
+
+Todorov 與 Jordan（2002）把運動協調視為隨機最優回饋控制。控制器在每一刻選擇指令，以最小化期望成本，並利用感覺回饋決定下一個指令。它不必把動作固定在預先定義的路徑上，因此允許在與任務無關的方向上偏離，並修正會影響結果的偏差。
+
+作者主張，動作變異的模式來自這一個原理，而不是每個特徵各有一套獨立的機制。他們在一系列運動任務上檢驗此框架。
+
+## 方程式與演算法
+
+一般問題是，在狀態 \(x_t\) 帶有雜訊地演化的條件下，選出控制量 \(u_t\)，使期望成本最小：
+
+\(\min_{u} \ \mathbb{E}\left[\sum_{t=0}^{T} c(x_t, u_t)\right] \quad \text{subject to} \quad x_{t+1} = f(x_t, u_t) + \xi_t\)
+
+這裡 \(c\) 是成本，結合任務誤差與努力；\(f\) 是身體的動力學；\(\xi_t\) 是雜訊。控制器只能觀察到狀態的雜訊版本，因此必須從觀察中估計狀態，線性情況下即如卡爾曼濾波器（Kalman filter）所做的。
+
+在線性二次高斯（linear-quadratic-Gaussian）情況下，最優控制律是線性回饋規則 \(u_t = -L_t \hat{x}_t\)，其中 \(\hat{x}_t\) 是估計的狀態，增益 \(L_t\) 由成本與動力學決定。在誤差會影響成本的方向上，增益較大；在誤差不影響成本的方向上，增益較小。這正是上述選擇性修正的機制。
+
+## 結果
+
+Todorov 與 Jordan（2002）在一系列運動任務上提出實驗結果，以支持此理論。預測的模式是：在冗餘、與任務無關的方向上允許變異，而會影響任務結果的偏差則被修正。這些結果本身並不能證明大腦實際執行的就是這個精確演算法。
+
+## 限制
+
+- **成本函數由建模者選定。** 預測取決於所假設的成本。不同的成本可能產生不同的模式，因此擬合良好本身並不能辨識大腦的目標。
+- **動力學必須已知或習得。** 控制器需要一個身體模型，以預測指令的效果並估計狀態。若該模型不準確，預測的行為可能與觀察到的行為不同。預測機制見[內部前向模型](../internal-forward-models/index.md)。
+- **最優性是一種框架。** 最優性解釋描述的是動作系統似乎達成了什麼，本身並不規定實現此計算的神經迴路。Todorov（2004）討論了感覺運動控制中的最優性原理。
+- **簡單形式假設線性。** 閉式解適用於線性動力學與二次成本。真實的肢體與肌肉是非線性的，因此需要近似方法。
+
+## 連結
+
+- **內部模型。** 短延遲下的回饋控制需要對身體狀態的預測，這正是前向模型的角色。見[內部前向模型](../internal-forward-models/index.md)。
+- **小腦。** 小腦被認為透過習得的修正來調整動作；小腦觀點見[小腦監督式學習（Marr、Albus 與 Ito）](../marr-albus-ito/index.md)。
+- **強化學習與基於模型的控制。** 利用動力學模型進行規劃的最優控制器，是一種基於模型的方法。與價值導向學習的對比，見[有模型與無模型控制](../../decision-reward/model-based-vs-model-free/index.md)；框架見[強化學習](../../../theory/paradigms/reinforcement-learning/index.md)。
+
+## 應用
+
+- **機器人。** 最優控制與狀態估計是機器人控制中的標準工具，而回饋增益的概念可直接沿用。見[機器人](../../../applications/robotics/index.md)。
+
+## 開放問題
+
+- **大腦的成本是什麼？** 努力、精確度與其他項目都可能重要，要辨識真正的目標並不容易。
+- **模型如何學習？** 控制器需要身體的內部模型。這個模型如何習得，並如何隨時間保持準確，是尚未解答的問題，而小腦是候選者之一。
+- **線性理論能走多遠？** 把框架擴展到非線性動力學，仍是活躍的研究領域。
+
+## 參考文獻
+
+### 開創性論文
+
+- Todorov, E. & Jordan, M. I. (2002). Optimal feedback control as a theory of motor coordination. *Nature Neuroscience*. https://doi.org/10.1038/nn963 — 提出隨機最優回饋控制作為運動協調的理論，其中只修正與任務相關的誤差。
+- Harris, C. M. & Wolpert, D. M. (1998). Signal-dependent noise determines motor planning. *Nature*. https://doi.org/10.1038/29528 — 主張隨運動指令大小增加的信號相依雜訊，會影響運動規劃的方式。
+
+### 綜述與教科書
+
+- Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*. https://doi.org/10.1038/nn1309 — 討論感覺運動控制中的最優性原理，這是最優回饋控制所依據的框架。
+- Scott, S. H. (2004). Optimal feedback control and the neural basis of volitional motor control. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn1427 — 討論最優回饋控制及其在自主運動中的神經基礎。
+- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧感覺預測誤差如何驅動運動適應，並使前向模型保持校準。

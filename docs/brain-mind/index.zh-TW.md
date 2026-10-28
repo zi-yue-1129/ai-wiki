@@ -43,6 +43,14 @@ flowchart TB
 | [神經影像與記錄方法](neuroimaging-methods/index.md) | BOLD 功能性磁振造影、fMRI 與電生理各自測量什麼、LFP 與 ECoG |
 | [發展認知與兒童如何學習](developmental-cognition/index.md) | 嬰兒期的核心知識、注視時間方法、統計學習、Goldilocks 效應 |
 | [動物認知與比較智力](animal-cognition/index.md) | 鏡像自我辨認、烏鴉的工具使用、猿類的錯誤信念測試、趨同演化的智力 |
+| [運動控制與小腦](motor-control/index.md) | 內部模型、小腦學習、最優回饋控制 |
+| [睡眠、重播與記憶鞏固](sleep-and-consolidation/index.md) | 海馬迴重播、尖波漣波、強化學習中的經驗回放 |
+| [空間導航與認知地圖](navigation-cognitive-maps/index.md) | 位置細胞、認知地圖、後繼表徵、TEM |
+| [工作記憶與執行功能](working-memory-executive-function/index.md) | 前額葉的持續與靜默活動、閘控（PBWM） |
+| [多巴胺之外的神經調節物質](neuromodulation/index.md) | 乙醯膽鹼、正腎上腺素、不確定性與學習率 |
+| [聽覺系統](auditory-system/index.md) | 耳蝸、聽覺皮層、作為聽覺模型的深度網路 |
+| [神經振盪與同步](oscillations/index.md) | 頻帶、透過相干性的通訊、θ–γ 耦合 |
+| [計算精神醫學](computational-psychiatry/index.md) | 強化學習與貝氏模型解釋精神症狀、計算表型分析 |
 
 ## 雙向關係一覽
 

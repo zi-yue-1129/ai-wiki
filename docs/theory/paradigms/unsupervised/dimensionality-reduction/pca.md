@@ -84,4 +84,4 @@ Equivalently, take the singular value decomposition \(X = U\Sigma V^\top\). The 
 ### Surveys and textbooks
 
 - Jolliffe, I. T. & Cadima, J. (2016). Principal component analysis: a review and recent developments. *Philosophical Transactions of the Royal Society A*, 374, 20150202. https://doi.org/10.1098/rsta.2015.0202 — A review of PCA and its recent developments.
-- Jolliffe, I. T. (2002). *Principal Component Analysis* (2nd ed.). Springer Series in Statistics. https://doi.org/10.1007/b98835 — The standard textbook on PCA.
+- Jolliffe, I. T. (2002). *Principal Component Analysis* (2nd ed.). Springer Series in Statistics. https://doi.org/10.1007/b98835 — The standard textbook on PCA, covering its derivation, properties and applications in depth.

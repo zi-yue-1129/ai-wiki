@@ -36,7 +36,7 @@ The idea rests on the observation that a trained network's output distribution c
 
 ## How it works
 
-Hinton et al. combine two losses. The student is trained on the true labels with a standard cross-entropy term, and on the teacher's softened outputs with a KL divergence term. A weight \(\alpha\) balances the two:
+Hinton et al. combine two losses as a weighted average. The student is trained on the true labels with a standard cross-entropy term, and on the teacher's softened outputs with a term multiplied by \(T^2\), so that its gradients stay at a similar scale as \(T\) changes. The formula below writes the soft term as a KL divergence, which differs from the cross-entropy only by a constant. A weight \(\alpha\) balances the two:
 
 \[
 \mathcal{L} = (1-\alpha)\, \mathrm{CE}(y, \sigma(z_s)) + \alpha\, T^2\, \mathrm{KL}\!\left(\sigma(z_t/T)\,\Vert\,\sigma(z_s/T)\right)
@@ -90,14 +90,14 @@ The idea of learning from a teacher's graded judgements, rather than from hard a
 
 ### Seminal papers
 
-- Hinton, G., Vinyals, O., Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — Introduces soft targets and temperature for training a small model from a large one.
-- Sanh, V., Debut, L., Chaumond, J., Wolf, T. (2019). *DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter*. arXiv:1910.01108. https://arxiv.org/abs/1910.01108 — A distilled BERT that keeps 97% of the language understanding of the teacher at 40% smaller size.
-- Romero, A., et al. (2014). *FitNets: Hints for Thin Deep Nets*. arXiv:1412.6550. https://arxiv.org/abs/1412.6550 — Trains a thin, deep student on intermediate hints from a teacher, with about 10.4 times fewer parameters than the teacher on CIFAR-10.
+- Hinton, G., Vinyals, O., Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — Introduces soft targets and temperature. The abstract describes compressing an ensemble's knowledge into a single model that is easier to deploy.
+- Sanh, V., Debut, L., Chaumond, J., Wolf, T. (2019). *DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter*. arXiv:1910.01108. https://arxiv.org/abs/1910.01108 — A distilled BERT that keeps 97% of the teacher's language understanding, at 40% smaller size and 60% faster.
+- Romero, A., et al. (2014). *FitNets: Hints for Thin Deep Nets*. arXiv:1412.6550. https://arxiv.org/abs/1412.6550 — Trains a thin, deep student on intermediate hints. On CIFAR-10, a student with almost 10.4 times fewer parameters outperforms a larger, state-of-the-art teacher.
 - Kim, Y., Rush, A. M. (2016). *Sequence-Level Knowledge Distillation*. arXiv:1606.07947. https://arxiv.org/abs/1606.07947 — Distils sequence models by training on teacher outputs, giving a student about 10 times faster than its teacher with little loss in performance.
 
 ### Surveys and textbooks
 
-- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — Surveys distillation by knowledge type, training scheme, architecture and application.
+- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision, 129, 1789–1819. https://doi.org/10.1007/s11263-021-01453-z — Surveys distillation by knowledge type, training scheme, architecture and application.
 
 ### Lectures and videos
 
