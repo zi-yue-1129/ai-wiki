@@ -1,25 +1,25 @@
 # 生成模型
 
-生成模型學習資料分布 \(p(x)\)，能**產生新樣本**。判別模型則學 \(p(y\mid x)\)。
+生成模型學習資料分布 \(p(x)\)，並能**產生新的樣本**；判別模型則學習 \(p(y\mid x)\)。
 
-## 主要家族
+## 模型家族
 
-| 家族 | 核心想法 | 優點 | 缺點 | 代表 |
+| 家族 | 核心想法 | 優點 | 缺點 | 例子 |
 |---|---|---|---|---|
-| 自迴歸模型 | \(p(x)=\prod_t p(x_t\mid x_{<t})\) | 精確概似、可擴展 | 逐步生成較慢 | GPT、PixelCNN、WaveNet |
-| VAE | 編碼到潛在空間再解碼，最大化 ELBO | 有結構的潛在空間 | 樣本較模糊 | VAE、VQ-VAE |
-| GAN | 生成器與判別器對抗 | 樣本銳利、生成快 | 訓練不穩、模式崩塌 | StyleGAN、BigGAN |
-| 正規化流 | 可逆變換、精確概似 | 精確概似 | 架構受限 | RealNVP、Glow |
-| 擴散模型 | 學習逐步去噪 | 品質高、穩定、多樣 | 取樣步數多（已大幅改善） | DDPM、Stable Diffusion、Imagen |
-| 流匹配 | 學習從雜訊到資料的速度場 | 訓練簡單、取樣快 | — | Stable Diffusion 3、Flux 等 |
-| 能量模型 | 學能量函數 \(E(x)\) | 彈性大 | 取樣困難 | Hopfield、EBM |
+| 自回歸 | \(p(x)=\prod_t p(x_t\mid x_{<t})\) | 可精確計算似然，擴展性好 | 採樣必須依序進行 | GPT、PixelCNN、WaveNet |
+| VAE | 編碼到潛在空間再解碼；最大化 ELBO | 潛在空間有結構 | 樣本較模糊 | VAE、VQ-VAE |
+| GAN | 生成器對判別器 | 樣本清晰，採樣快 | 不穩定，模式崩潰 | StyleGAN、BigGAN |
+| 正規化流 | 可逆的變換 | 可精確計算似然 | 架構受限 | RealNVP、Glow |
+| 擴散模型 | 學習逐步去除雜訊 | 品質高、穩定、多樣 | 採樣步數多（已大幅改善） | DDPM、Stable Diffusion、Imagen |
+| 流匹配（Flow matching） | 學習從雜訊到資料的速度場 | 訓練簡單，採樣快 | — | Stable Diffusion 3、Flux |
+| 能量基模型 | 學習能量函數 \(E(x)\) | 彈性高 | 採樣困難 | Hopfield 網路、EBM |
 
 ## 擴散模型
 
-**前向過程**：逐步對資料加高斯雜訊，直到變成純雜訊。
-**反向過程**：訓練神經網路預測每一步加入的雜訊，從純雜訊一步步還原出資料。
+**前向過程**：逐步加入高斯雜訊，直到資料變成純雜訊。
+**反向過程**：訓練一個網路在每一步預測雜訊；生成時從純雜訊開始逐步去噪。
 
-訓練目標（簡化）：
+簡化的目標函數：
 
 \[
 L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big]
@@ -27,31 +27,48 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 
 關鍵技術：
 
-- **潛在擴散（Latent Diffusion）**：在 VAE 的潛在空間擴散，大幅降低成本（Stable Diffusion）
-- **無分類器引導（CFG）**：平衡條件遵循與多樣性
-- **DiT（Diffusion Transformer）**：以 Transformer 取代 U-Net 作為去噪網路，影片生成（Sora 等）多採此類架構
-- **快速取樣**：DDIM、DPM-Solver、一致性模型、蒸餾，從上千步降到數步甚至一步
+- **潛在擴散**：在 VAE 的潛在空間中進行擴散，大幅降低成本（Stable Diffusion）
+- **無分類器引導（classifier-free guidance）**：在提示遵循度與多樣性之間取捨
+- **擴散 Transformer（DiT）**：以 Transformer 取代 U-Net 作為去噪器；廣泛用於影片生成
+- **快速採樣**：DDIM、DPM-Solver、一致性模型、蒸餾——從約 1000 步降到幾步甚至一步
 - **控制**：ControlNet、LoRA、IP-Adapter
 
-## 應用範圍
+## 應用領域
 
-- 影像、影片、3D、音樂、語音生成（見 [多模態](../multimodal/index.md)、[藝術創作](../../applications/creative/index.md)）
-- 蛋白質設計（RFdiffusion）、分子生成、材料設計（見 [生命科學](../../applications/life-science/index.md)）
-- 天氣預報（GenCast 以擴散模型做機率性預報）
+- 影像、影片、3D、音樂、語音（見[多模態模型](../multimodal/index.md)、[藝術與創作](../../applications/creative/index.md)）
+- 蛋白質設計（RFdiffusion）、分子與材料生成（見[生命科學](../../applications/life-science/index.md)）
+- 天氣（GenCast 以擴散模型產生機率預報）
 - 機器人策略（Diffusion Policy）
-- 資料增強與合成資料
+- 資料擴增與合成資料
 
-## 與大腦的關聯
+## 與大腦的連結
 
-- **生成模型作為知覺理論**：Helmholtz 的「無意識推論」、預測編碼都主張大腦有一個生成模型，用來預測與解釋感官輸入
-- **Helmholtz 機器與 wake-sleep 演算法**（Hinton et al., 1995）：受睡眠啟發的生成模型訓練法
-- **夢與想像**：有假說認為作夢是大腦生成模型的離線取樣，有助於泛化（Hoel 2021〈過擬合大腦假說〉）
-- **從 fMRI 重建影像**：用擴散模型把腦活動解碼成看到的影像（Takagi & Nishimoto, 2023），見 [腦機介面](../../brain-mind/bci/index.md)
+- **以生成模型進行感知推論**：Helmholtz 的「無意識推論」與預測編碼認為，大腦使用內部的生成模型來預測並解釋感官輸入
+- **Helmholtz 機器與醒睡演算法**（Hinton et al., 1995）：受睡眠啟發的生成模型訓練方式
+- **夢與想像**：一種假說把夢視為大腦生成模型的離線樣本，有助於泛化（Hoel, 2021，「過度擬合的大腦假說」）
+- **以擴散模型從 fMRI 重建影像**（Takagi & Nishimoto, 2023）——見[腦機介面](../../brain-mind/bci/index.md)
 
 ## 學習資源
 
-- Lilian Weng〈What are Diffusion Models?〉
+- Lilian Weng，"What are Diffusion Models?"
 - Hugging Face Diffusion Models Course
-- Stanford CS236《Deep Generative Models》
-- Yang Song〈Generative Modeling by Estimating Gradients of the Data Distribution〉
-- 《Understanding Deep Learning》第 14–18 章
+- Stanford CS236，*Deep Generative Models*
+- Yang Song，"Generative Modeling by Estimating Gradients of the Data Distribution"
+- *Understanding Deep Learning*，第 14–18 章
+
+## 參考文獻
+
+### 開創性論文
+
+- Goodfellow, I. J., et al. (2014). *Generative Adversarial Networks*. arXiv. https://arxiv.org/abs/1406.2661 — 提出 GAN：生成器與判別器彼此對抗地訓練。
+- Kingma, D. P. & Welling, M. (2013). *Auto-Encoding Variational Bayes*. arXiv. https://arxiv.org/abs/1312.6114 — 變分自編碼器，一種以重參數化的變分下界訓練的潛在變數模型。
+- Ho, J., et al. (2020). *Denoising Diffusion Probabilistic Models*. arXiv. https://arxiv.org/abs/2006.11239 — 顯示學習逆轉逐步加噪的過程，能產生高品質的影像。
+- Rombach, R., et al. (2022). *High-Resolution Image Synthesis with Latent Diffusion Models*. CVPR. https://arxiv.org/abs/2112.10752 — 在壓縮後的潛在空間中進行擴散，即 Stable Diffusion 採用的方法。
+
+### 綜述與教科書
+
+- Yang, L., et al. (2022). *Diffusion Models: A Comprehensive Survey of Methods and Applications*. arXiv. https://arxiv.org/abs/2209.00796 — 綜述擴散方法及其在視覺、音訊與其他領域的應用。
+
+### 文章與文件
+
+- Weng, L. (2021). *What are Diffusion Models?* Lil'Log. https://lilianweng.github.io/posts/2021-07-11-diffusion-models/ — 清楚推導擴散模型的訓練目標及其變體，並附有圖解。
