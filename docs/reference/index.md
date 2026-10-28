@@ -3,6 +3,7 @@
 | Page | Contents |
 |---|---|
 | [Glossary](glossary/index.md) | Key terms in English with Traditional Chinese equivalents |
+| [People & Labs](people-and-labs/index.md) | People and research groups behind key AI work, with links to the topics they shaped |
 | [Landmark Papers](papers/index.md) | The papers that shaped AI, neuroscience-inspired AI and cognitive science |
 | [Courses & Books](courses-books/index.md) | Free and open learning resources by topic |
 | [Datasets](datasets/index.md) | Widely used datasets and benchmarks across fields |

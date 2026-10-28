@@ -3,6 +3,7 @@
 | 頁面 | 內容 |
 |---|---|
 | [詞彙表](glossary/index.md) | 英文關鍵術語與繁體中文對照 |
+| [人物與研究室](people-and-labs/index.md) | 塑造關鍵 AI 工作的人物與研究團體，並連結到他們影響的主題 |
 | [里程碑論文](papers/index.md) | 塑造 AI、受神經科學啟發的 AI 與認知科學的論文 |
 | [課程與書籍](courses-books/index.md) | 依主題分類的免費與開放學習資源 |
 | [資料集](datasets/index.md) | 各領域廣泛使用的資料集與基準 |
