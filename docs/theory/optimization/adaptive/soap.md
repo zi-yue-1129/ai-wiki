@@ -35,7 +35,7 @@ Let \(L\) and \(R\) be the Shampoo statistics for a matrix parameter, with eigen
 
 ## Key results
 
-The abstract reports that SOAP reduces the number of iterations by over 40% and the wall-clock time by over 35% compared with AdamW. It reports about 20% improvements in both measures compared with Shampoo. The abstract does not describe the models in detail, so this page quotes only these figures.
+In the large-batch regime, the abstract reports that SOAP reduces the number of iterations by over 40% and the wall-clock time by over 35% compared with AdamW. It reports about 20% improvements in both measures compared with Shampoo. The abstract does not describe the models in detail, so this page quotes only these figures.
 
 ## Limitations
 
@@ -64,9 +64,9 @@ The abstract reports that SOAP reduces the number of iterations by over 40% and 
 ### Seminal papers
 
 - Vyas, N., Morwani, D., Zhao, R., Kwun, M., Shapira, I., Brandfonbrener, D., Janson, L. & Kakade, S. (2024). *SOAP: Improving and Stabilizing Shampoo using Adam*. arXiv. https://arxiv.org/abs/2409.11321 — Runs Adam in the eigenbasis of Shampoo's preconditioner, and reports efficiency gains over AdamW and Shampoo.
-- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. ICML. https://arxiv.org/abs/1802.09568 — The matrix preconditioner that SOAP builds on.
+- Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. ICML 2018, PMLR 80. https://proceedings.mlr.press/v80/gupta18a.html — The matrix preconditioner that SOAP builds on. Checked: the PMLR entry lists the same title and authors.
 - Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — The per-coordinate update that SOAP applies in the rotated space.
-- Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — AdamW, the baseline in SOAP's efficiency comparison.
+- Loshchilov, I. & Hutter, F. (2019). *Decoupled Weight Decay Regularization*. ICLR 2019. https://arxiv.org/abs/1711.05101 — AdamW, the baseline in SOAP's efficiency comparison.
 
 ### Surveys and textbooks
 

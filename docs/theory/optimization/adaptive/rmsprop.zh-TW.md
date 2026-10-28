@@ -66,7 +66,7 @@ RMSProp 沒有論文，因此本頁不引用基準測試數字。它的效果記
 - Tieleman, T. & Hinton, G.（2012）。*Lecture 6.5 — RMSProp: Divide the gradient by a running average of its recent magnitude*。Coursera 講義，*Neural Networks for Machine Learning*。https://cir.nii.ac.jp/crid/1370017282431050757 — RMSProp 最初、未發表的介紹。
 - Duchi, J., Hazan, E. & Singer, Y.（2011）。Adaptive Subgradient Methods for Online Learning and Stochastic Optimization。*Journal of Machine Learning Research*，12，2121–2159。https://jmlr.org/papers/v12/duchi11a.html — RMSProp 以平均取代的累積總和方法。
 - Kingma, D. P. & Ba, J.（2015）。*Adam: A Method for Stochastic Optimization*。ICLR。https://arxiv.org/abs/1412.6980 — 在 Adam 中使用同樣的平方梯度指數平均，並加入動量與偏差校正。
-- Loshchilov, I. & Hutter, F.（2017）。*Decoupled Weight Decay Regularization*。ICLR。https://arxiv.org/abs/1711.05101 — 這一族自適應方法所用的解耦權重衰減。
+- Loshchilov, I. & Hutter, F.（2019）。*Decoupled Weight Decay Regularization*。ICLR 2019。https://arxiv.org/abs/1711.05101 — 這一族自適應方法所用的解耦權重衰減。查核：ICLR 2019 海報頁 https://iclr.cc/virtual/2019/poster/935 列出相同標題。
 
 ### 綜述與教科書
 
