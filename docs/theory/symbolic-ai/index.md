@@ -36,6 +36,8 @@ related:
 
 A* uses \( f(n) = g(n) + h(n) \); with an admissible heuristic \(h\) (never overestimates), A* is optimal.
 
+For the methods in this table in more depth, see [Search Algorithms](search/index.md), with pages on [A\*](search/a-star/index.md), [alpha-beta pruning](search/alpha-beta/index.md) and [Tree of Thoughts](search/tree-of-thoughts/index.md).
+
 ## Automated planning
 
 - **STRIPS / PDDL**: actions with preconditions and effects; planners find action sequences

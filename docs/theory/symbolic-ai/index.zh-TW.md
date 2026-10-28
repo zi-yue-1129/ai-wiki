@@ -28,6 +28,8 @@
 
 A* 的評估函數：\( f(n) = g(n) + h(n) \)，若 \(h\) 不高估（可容許），A* 保證找到最佳解。
 
+更完整的說明見[搜尋演算法](search/index.md)，其中包含 [A\*](search/a-star/index.md)、[α-β 剪枝](search/alpha-beta/index.md)與[思維樹](search/tree-of-thoughts/index.md)等專頁。
+
 ## 自動規劃
 
 - **STRIPS / PDDL**：以前提條件與效果描述行動，規劃器自動找出行動序列
