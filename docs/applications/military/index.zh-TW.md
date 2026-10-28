@@ -36,14 +36,14 @@ AI 在國防上用於情報分析、後勤、規劃、模擬與訓練，近年�
 
 核心政策問題是：使用武力時，人類必須保留多少判斷權。常被引用的兩種立場如下：
 
-- **國際紅十字委員會（ICRC）** 主張禁止效果無法預測或控制的武器，並限制以人為目標的自主系統。其立場以國際人道法為基礎。
-- **美國** 並未禁止自主武器。其 2023 年的指令要求，自主與半自主武器系統需保留「適當程度的人類判斷，以決定武力的使用」，而且具自主功能的新系統在部署前須經高層審查。
+- **國際紅十字委員會（ICRC）** 主張明確排除效果無法充分理解、預測與解釋的自主武器系統，並禁止設計或用於對人施加武力的自主武器系統。其立場以國際人道法為基礎。
+- **美國** 並未禁止自主武器。其 2023 年的指令（DoD Directive 3000.09，2023 年 1 月 25 日生效）要求，自主與半自主武器系統的設計須能讓指揮官與操作者行使「適當程度的人類判斷，以決定武力的使用」，而且自主武器系統在正式研發前與部署前，各須經過一次高層審查。部分系統可豁免該審查。
 
 民用 AI 法規常將軍事用途排除在外。歐盟 AI 法（AI Act）規定，其不適用於僅用於軍事、國防或國家安全目的的 AI 系統（第 2 條第 3 項）。
 
 ## 戰略競爭
 
-各國政府把 AI 視為軍事優勢的來源，這種競爭推動了投資。Horowitz（2018）主張 AI 可能改變權力平衡，而其影響取決於技術擴散的速度。國家之間的競賽會縮短測試與審慎的時間，這也是軍備管制提案除了技術本身，還著重於查證與規範的原因之一。
+各國政府把 AI 視為軍事優勢的來源，這種競爭推動了投資。Horowitz（2018）主張 AI 是一種通用的使能技術，其對權力平衡的影響較取決於各國軍隊如何採用，而非技術本身；民用研究造成的擴散，則可能縮小各國之間的差距。國家之間的競賽會縮短測試與審慎的時間，這也是軍備管制提案除了技術本身，還著重於查證與規範的原因之一。
 
 ## 關鍵方法
 
@@ -75,11 +75,11 @@ AI 在國防上用於情報分析、後勤、規劃、模擬與訓練，近年�
 
 ### 開創性論文
 
-- Horowitz, M. C. (2018). Artificial Intelligence, International Competition, and the Balance of Power. *Texas National Security Review*, 1(3). https://tnsr.org/2018/05/artificial-intelligence-international-competition-and-the-balance-of-power/ — 主張軍事 AI 可能改變各國之間的權力，並探討技術擴散的速度。
+- Horowitz, M. C. (2018). Artificial Intelligence, International Competition, and the Balance of Power. *Texas National Security Review*, 1(3). https://tnsr.org/2018/05/artificial-intelligence-international-competition-and-the-balance-of-power/ — 主張 AI 是一種使能技術，其對軍事權力的影響取決於各國如何採用，並探討民用研究如何擴散該技術。
 
 ### 文章與文件
 
 - Boulanin, V. & Verbruggen, M. (2017). *Mapping the Development of Autonomy in Weapon Systems*. SIPRI. https://www.sipri.org/publications/2017/other-publications/mapping-development-autonomy-weapon-systems — 獨立研究機構對武器系統自主性發展的調查，並整理其帶出的政策議題。
 - International Committee of the Red Cross (2021). *ICRC position on autonomous weapon systems*. https://www.icrc.org/en/document/icrc-position-autonomous-weapon-systems — ICRC 關於依國際人道法，自主武器需要哪些法律限制的立場。
-- U.S. Department of Defense (2023). *DoD Directive 3000.09, Autonomy in Weapon Systems*. https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/300009p.PDF — 美國現行的政策，規範人類對武力使用的判斷，以及部署前必須經過的高層審查。
+- U.S. Department of Defense (2023). *DoD Directive 3000.09, Autonomy in Weapon Systems*. https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/300009p.PDF — 美國現行的政策，規範人類對武力使用的判斷，以及正式研發前與部署前各須經過的高層審查。
 - European Union (2024). *Regulation (EU) 2024/1689 (Artificial Intelligence Act)*, Article 2(3). https://eur-lex.europa.eu/eli/reg/2024/1689/oj — 排除僅用於軍事、國防或國家安全目的之 AI 系統的法律條文。
