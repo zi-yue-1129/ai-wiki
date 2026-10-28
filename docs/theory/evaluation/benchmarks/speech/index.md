@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -19,9 +19,9 @@ Speech benchmarks test automatic speech recognition, which turns audio into text
 
 ## Overview
 
-Early end-to-end speech systems were trained on large amounts of transcribed speech and judged on a few standard test sets. Deep Speech, for example, replaced hand-engineered pipelines with a single recurrent network trained end to end. The authors report 16.0% error on the Switchboard Hub5'00 test set, and they note that the system handled noisy environments better than widely used commercial systems at the time (Hannun et al., 2014). Connectionist temporal classification, a training objective that aligns unsegmented audio with text, is the mechanism that made such models trainable without frame-level labels (Graves et al., 2006).
+Early end-to-end speech systems were trained on large amounts of transcribed speech and judged on a few standard test sets. Deep Speech, for example, is a simpler end-to-end system than traditional speech pipelines, which depend on hand-built processing stages. The authors report 16.0% error on the Switchboard Hub5'00 test set, and they note that the system handled noisy environments better than widely used commercial systems at the time (Hannun et al., 2014). Connectionist temporal classification, a training objective that aligns unsegmented audio with text, is the mechanism that made such models trainable without frame-level labels (Graves et al., 2006).
 
-LibriSpeech provided a public, open test set built from public-domain audiobook recordings, so that systems could be compared on the same speech (Panayotov et al., 2015). Later work asked how well such scores transfer. Whisper was trained on 680,000 hours of multilingual and multitask transcripts from the internet, and its authors report that it generalises to standard benchmarks without fine-tuning and approaches human accuracy and robustness (Radford et al., 2022).
+LibriSpeech provided a public, open test set built from public-domain audiobook recordings, so that systems could be compared on the same speech (Panayotov et al., 2015). Later work asked how well such scores transfer. Whisper was trained on 680,000 hours of multilingual and multitask supervision, and its authors report that it generalises to standard benchmarks without fine-tuning and approaches human accuracy and robustness (Radford et al., 2022).
 
 ## Benchmarks compared
 
@@ -74,5 +74,5 @@ A recogniser produces a transcript for each audio file in the test set. The tran
 
 ### Articles and documentation
 
-- Radford, A. et al. (2022). *Robust Speech Recognition via Large-Scale Weak Supervision*. arXiv. https://arxiv.org/abs/2212.04356 — Trains on 680,000 hours of web transcripts and reports zero-shot results across benchmarks.
+- Radford, A. et al. (2022). *Robust Speech Recognition via Large-Scale Weak Supervision*. arXiv. https://arxiv.org/abs/2212.04356 — Trains on 680,000 hours of multilingual and multitask supervision and reports zero-shot results across benchmarks.
 - Raji, I. D. & Bender, E. M. et al. (2021). *AI and the Everything in the Whole Wide World Benchmark*. arXiv. https://arxiv.org/abs/2111.15366 — Examines construct validity and the limits of broad claims from benchmarks.

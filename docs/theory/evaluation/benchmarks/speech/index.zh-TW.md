@@ -18,9 +18,9 @@ aliases:
 
 ## 概述
 
-早期的端到端語音系統以大量已轉錄的語音訓練，並在少數標準測試集上評判。例如 Deep Speech 以單一的循環網路取代了人工設計的處理流程，並以端到端方式訓練。作者報告，它在 Switchboard Hub5'00 測試集上的錯誤率為 16.0%，並指出該系統在嘈雜環境中的表現優於當時廣泛使用的商用系統（Hannun et al., 2014）。連接時序分類（CTC）是一種把未分段的音訊與文字對齊的訓練目標，使這類模型不需要逐幀標籤也能訓練（Graves et al., 2006）。
+早期的端到端語音系統以大量已轉錄的語音訓練，並在少數標準測試集上評判。例如 Deep Speech 是比傳統語音系統更簡單的端到端系統，傳統系統依賴人工建構的處理階段。作者報告，它在 Switchboard Hub5'00 測試集上的錯誤率為 16.0%，並指出該系統在嘈雜環境中的表現優於當時廣泛使用的商用系統（Hannun et al., 2014）。連接時序分類（CTC）是一種把未分段的音訊與文字對齊的訓練目標，使這類模型不需要逐幀標籤也能訓練（Graves et al., 2006）。
 
-LibriSpeech 提供了一個公開的測試集，取材自公有領域的有聲書錄音，使不同系統能在相同的語音上比較（Panayotov et al., 2015）。之後的研究則問這些分數能否轉移。Whisper 以來自網際網路、68 萬小時的多語言與多任務轉錄資料訓練，作者報告它無需微調即可在標準基準上達到良好的泛化，並接近人類的準確率與穩健性（Radford et al., 2022）。
+LibriSpeech 提供了一個公開的測試集，取材自公有領域的有聲書錄音，使不同系統能在相同的語音上比較（Panayotov et al., 2015）。之後的研究則問這些分數能否轉移。Whisper 以 68 萬小時的多語言與多任務監督資料訓練，作者報告它無需微調即可在標準基準上達到良好的泛化，並接近人類的準確率與穩健性（Radford et al., 2022）。
 
 ## 比較的基準
 
@@ -73,5 +73,5 @@ LibriSpeech 是此家族的主要基準。它的乾淨測試集與較難的 othe
 
 ### 文章與文件
 
-- Radford, A. et al. (2022). *Robust Speech Recognition via Large-Scale Weak Supervision*. arXiv. https://arxiv.org/abs/2212.04356 — 以 68 萬小時的網路轉錄資料訓練，並報告跨基準的零樣本結果。
+- Radford, A. et al. (2022). *Robust Speech Recognition via Large-Scale Weak Supervision*. arXiv. https://arxiv.org/abs/2212.04356 — 以 68 萬小時的多語言與多任務監督資料訓練，並報告跨基準的零樣本結果。
 - Raji, I. D. & Bender, E. M. et al. (2021). *AI and the Everything in the Whole Wide World Benchmark*. arXiv. https://arxiv.org/abs/2111.15366 — 檢視基準的建構效度，以及廣泛宣稱的限制。
