@@ -32,7 +32,7 @@ GANs of the time were hard to train on images, and convolutional architectures w
 
 The generator takes a noise vector \(z\) (sampled uniformly in the paper), projects it to a small spatial grid, and applies a stack of transposed convolutions to reach a 64 by 64 image. The discriminator mirrors this with strided convolutions and ends in a single sigmoid unit. The paper removes fully connected hidden layers in favour of convolutional stacks, and it uses global average pooling where a dense layer would normally sit.
 
-The training objective is the original minimax GAN loss from [Goodfellow et al. (2014)](index.md#generative-adversarial-networks-goodfellow-et-al-2014), with the non-saturating generator update. The paper trains with Adam using a learning rate of 0.0002 and \(\beta_1 = 0.5\).
+The training objective is the original minimax GAN loss from Goodfellow et al. (2014), with the non-saturating generator update. The paper trains with Adam using a learning rate of 0.0002 and \(\beta_1 = 0.5\).
 
 ## Key methods
 
@@ -50,7 +50,7 @@ DCGAN is a recipe for the convolutional GAN, not a separate training objective. 
 
 - DCGAN is a convolutional network for images in the sense of the [CNN family](../../../../models/cnn/index.md).
 - The same training recipe carries over to the [VAE](../vae/index.md) and [flow](../flow/index.md) image models, which also use convolutional encoders or flows.
-- Batch normalisation, which DCGAN relies on, is a regularisation technique that the wiki covers under [Normalisation layers](../../../../models/cnn/index.md).
+- Batch normalisation, which DCGAN relies on, was introduced by Ioffe and Szegedy (2015); see the references below.
 
 ## Applications
 
