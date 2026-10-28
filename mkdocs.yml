@@ -559,6 +559,7 @@ plugins:
             Byte-Pair Encoding: 位元組對編碼
             SentencePiece and the Unigram Model: SentencePiece 與 Unigram 模型
             Architecture Families: 架構家族
+            Agent Engineering: 代理人工程
 
 markdown_extensions:
   - abbr
@@ -1068,6 +1069,10 @@ nav:
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
+      - Agent Engineering:
+          - engineering/agents/index.md
+          - ReAct: engineering/agents/react/index.md
+          - Reflexion: engineering/agents/reflexion/index.md
   - AI & Society:
       - society/index.md
       - Safety & Alignment:
