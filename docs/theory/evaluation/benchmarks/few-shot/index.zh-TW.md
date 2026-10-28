@@ -15,8 +15,7 @@ tags:
 | 基準 | 影像來源 | 主要指標 |
 |---|---|---|
 | [miniImageNet](mini-imagenet.md) | ImageNet 的子集 | 附信賴區間的情節準確率 |
-
-Omniglot 是 Lake et al.（2015）的手寫字元基準，是另一個標準的少樣本測試。它目前還沒有獨立的頁面，但在 miniImageNet 頁面中有引用。
+| [Omniglot](omniglot.md) | 多種書寫系統的手寫字元 | 附信賴區間的情節準確率 |
 
 ## 常見問題
 
