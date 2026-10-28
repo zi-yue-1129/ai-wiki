@@ -43,29 +43,13 @@ Three mechanisms explain most leakage.
 
 ## Key methods
 
-### Dwork et al. (2006), differential privacy
+Each method has its own page with the problem, method, results and limitations. The table compares them briefly.
 
-- **Problem:** release aggregate statistics from a database without revealing whether any one person is in it.
-- **Core idea:** add random noise scaled to how much one record could change the answer (the query's sensitivity), so the output looks almost the same with or without that record.
-- **Equation or algorithm:** a randomised mechanism \(M\) is \(\varepsilon\)-differentially private if, for every pair of datasets \(D, D'\) that differ in one record and every set of outputs \(S\), \(\Pr[M(D)\in S] \le e^{\varepsilon}\Pr[M(D')\in S]\). The Laplace mechanism adds noise with scale sensitivity divided by \(\varepsilon\).
-- **Results:** a formal guarantee and a recipe for calibrating noise, rather than an empirical benchmark.
-- **Limitations:** privacy costs accuracy, and small groups are affected most. Each release uses part of a privacy budget, so repeated queries weaken the guarantee.
-
-### Shokri et al. (2017), membership inference
-
-- **Problem:** can an attacker with only black-box query access to a trained model tell whether a particular record was in its training set?
-- **Core idea:** build models that imitate the target's behaviour, then train an attack classifier that learns how the target's predictions differ for members and non-members.
-- **Equation or algorithm:** the attack is a binary classifier over the model's output vector, trained on examples whose membership the attacker knows.
-- **Results:** the paper reports that models from commercial machine-learning services, including Google and Amazon, can be vulnerable to membership inference.
-- **Limitations:** the attack depends on outputs that differ between members and non-members. Defences such as regularisation and differential privacy narrow that gap, usually at some cost in accuracy.
-
-### Carlini et al. (2021), extracting training data from language models
-
-- **Problem:** do large language models memorise training text in a form that an outside user can extract?
-- **Core idea:** generate many samples from the model, rank them by signs of memorisation such as unusually high likelihood, and check the top candidates against sources on the web.
-- **Equation or algorithm:** (1) sample many continuations; (2) score each by its likelihood, relative to a reference model; (3) keep the highest-scoring candidates; (4) verify each candidate against the training corpus.
-- **Results:** the abstract reports that the attack extracts hundreds of verbatim text sequences from the training data of GPT-2.
-- **Limitations:** the study targets GPT-2. The authors also report that larger models were more vulnerable than smaller ones, and extraction success depends on how many samples the attacker can afford.
+| Method | Question | Main result (per abstract) | Read more |
+|---|---|---|---|
+| Differential privacy (Dwork et al., 2006) | How can a released result be insensitive to any one person? | A formal guarantee and a noise-calibration recipe, not an empirical benchmark | [Differential Privacy](differential-privacy.md) |
+| Membership inference (Shokri et al., 2017) | Can an attacker tell whether a record was in the training set? | Models from commercial machine-learning services can be vulnerable | [Membership Inference](membership-inference.md) |
+| Training data extraction (Carlini et al., 2021) | Can a language model's training text be recovered? | Hundreds of verbatim sequences extracted from GPT-2 | [Training Data Extraction](training-data-extraction.md) |
 
 ## Protection techniques
 
