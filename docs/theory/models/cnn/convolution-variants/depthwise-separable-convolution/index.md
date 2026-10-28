@@ -25,6 +25,14 @@ A standard convolution does spatial filtering and channel mixing in one operatio
 
 The Xception paper describes a depthwise separable convolution as "a spatial convolution performed independently over each channel of an input," followed by "a 1x1 convolution, projecting the channels output by the depthwise convolution onto a new channel space." It states that such a convolution "can be understood as an Inception module with a maximally large number of towers." The name Xception stands for "Extreme Inception": the architecture is built entirely from these blocks, with residual connections. MobileNets (Howard et al., 2017) use the same factorisation as building blocks for efficient on-device vision.
 
+![Three input channels pass through independent spatial filters, then mix into two output channels at one spatial position.](../../../../../assets/concept-animations/depthwise-channel-mixing.gif)
+
+*Original animation by AI Wiki, CC BY-SA 4.0.*
+
+Follow the coloured paths from left to right. Each input channel has its own 3×3 spatial filter, producing one intermediate channel (depth multiplier 1). The three small squares in the middle represent values at the same spatial position, not entire feature maps. In the 1×1 pointwise step, each of the two output channels forms its own learned weighted sum over all three intermediate channels; this is where cross-channel mixing occurs.[^factorisation] The highlighted input patch illustrates a single location; the same filters are reused as the operation scans the image. Non-linearities, bias, normalisation and boundary handling are omitted. The pulse order explains dependencies, not hardware execution timing. Colours and feature values are schematic, not model measurements; the loop restarts this one-location example.
+
+[^factorisation]: Howard et al. (2017), [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861), Section 3.1; listed in References.
+
 ## Equation or algorithm
 
 For an input with \(C_{\text{in}}\) channels, an output with \(C_{\text{out}}\) channels, a \(k \times k\) kernel and an output of size \(H \times W\), a standard convolution costs about \(k^2 C_{\text{in}} C_{\text{out}} HW\) multiply-adds. The depthwise separable form costs \(k^2 C_{\text{in}} HW\) for the depthwise step plus \(C_{\text{in}} C_{\text{out}} HW\) for the 1×1 step, so its ratio to the standard cost is \(1/C_{\text{out}} + 1/k^2\). This ratio follows from the definitions above and is not a figure reported in the paper.

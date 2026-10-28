@@ -51,6 +51,8 @@ A common *pre-normalization* Transformer block wraps self-attention in a normali
 | Encoder–decoder | Bidirectional encoder + cross-attention | Original Transformer, T5, Whisper | Translation, summarisation, speech recognition |
 | Decoder-only | Causal (past only) | GPT, Llama, Claude, Gemini, etc. | Generation, general-purpose LLMs |
 
+The [architecture families](architecture-families/index.md) page compares the three shapes and their pre-training objectives. [BERT](architecture-families/bert/index.md) and [T5](architecture-families/t5/index.md) have their own pages.
+
 ## Positional information
 
 Attention is order-agnostic, so position must be injected:
@@ -101,6 +103,18 @@ Each method has its own page. The overview and comparison here are brief.
 - **Overview:** Splits an image into fixed-size patches, embeds each as a token, and runs an unmodified Transformer encoder over the sequence, with no convolutional layers.
 - **Comparison:** The same attention block as above, applied to images instead of text. Its weaker inductive bias needs more data than a CNN, and it is compared with convolutional backbones on the [CNN backbones page](../cnn/backbones-and-scaling/index.md).
 - **Full write-up:** [Vision Transformer (ViT)](vision-transformer/index.md)
+
+### QK-normalisation (Dehghani et al., 2023)
+
+- **Overview:** Layer-normalises queries and keys before the dot product, so attention logits no longer grow with the weight norms.
+- **Comparison:** A change inside attention. It bounds the logits, but it does not limit the growth of norms in other layers.
+- **Full write-up:** [QK-normalisation](qk-norm.md)
+
+### σReparam (Zhai et al., 2023)
+
+- **Overview:** Reparameterises every linear layer by its spectral norm and a learnable scalar, to prevent attention entropy collapse.
+- **Comparison:** The alternative to QK-normalisation that acts on every linear layer, not only on queries and keys.
+- **Full write-up:** [σReparam](sigma-reparam.md)
 
 ## Components and variants
 

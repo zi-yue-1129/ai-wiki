@@ -25,6 +25,14 @@ Dense prediction, such as labelling every pixel of an image, needs each output t
 
 A dilated (or atrous) convolution inserts gaps between the kernel taps. With dilation \(l\), the output at position \(\mathbf{p}\) sums over the inputs at positions \(\mathbf{s}\) that satisfy \(\mathbf{s} + l\mathbf{t} = \mathbf{p}\), and \(l = 1\) gives the ordinary convolution. If the dilation doubles from layer to layer (1, 2, 4, 8, and so on), the receptive field grows exponentially with the number of layers, while each layer keeps the same number of weights and the same feature-map size.
 
+![Three kernel taps slide together at dilation rates one, two and three, producing adjacent outputs.](../../../../../assets/concept-animations/dilated-convolution-sampling.gif)
+
+*Original animation by AI Wiki, CC BY-SA 4.0.*
+
+Read each row as a separate one-dimensional convolution with three learned taps. From top to bottom, dilation is 1, 2 and 3: the sampled span is 3, 5 and 7 input positions, but only three positions contribute to each output. The moving dots trace contributions to the outlined output; the window advances by one input position in all rows (stride 1). Dilation changes tap spacing, not output spacing.[^sampling] Only five interior output positions are shown; boundaries and padding are omitted. A 2D 3×3 kernel applies this spacing along both axes. These rows compare separate settings, not successive layers. Colours, activations and timing are schematic, not model measurements. The jump at the loop boundary restarts the scan.
+
+[^sampling]: Yu & Koltun (2015), [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122), Section 2; listed in References.
+
 ## Equation or algorithm
 
 For a discrete feature map \(F\) and kernel \(k\), the paper defines the \(l\)-dilated convolution as
