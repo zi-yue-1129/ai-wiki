@@ -47,11 +47,11 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", arXiv:1706.02275 — MADDPG, which introduces centralised critics with decentralised actors.
-- Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, arXiv:1803.11485 — Value factorisation with a monotonic mixing network.
-- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", NeurIPS 2022 Datasets and Benchmarks Track, arXiv:2103.01955 — MAPPO, a strong PPO baseline for cooperative benchmarks.
+- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — MADDPG, which introduces centralised critics with decentralised actors.
+- Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — Value factorisation with a monotonic mixing network.
+- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", NeurIPS 2022 Datasets and Benchmarks Track, [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — MAPPO, a strong PPO baseline for cooperative benchmarks.
 - Vinyals et al. (2019), "Grandmaster level in StarCraft II using multi-agent reinforcement learning", *Nature* 575, 350–354. https://doi.org/10.1038/s41586-019-1724-z — Grandmaster-level StarCraft II play with multi-agent training.
-- OpenAI et al. (2019), "Dota 2 with large scale deep reinforcement learning", arXiv:1912.06680 — Self-play with PPO and an LSTM policy, beating the reigning world champions.
+- OpenAI et al. (2019), "Dota 2 with large scale deep reinforcement learning", [arXiv:1912.06680](https://arxiv.org/abs/1912.06680) — Self-play with PPO and an LSTM policy, beating the reigning world champions.
 
 ### 綜述與教科書
 

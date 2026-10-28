@@ -63,8 +63,8 @@ The paper also finds that performance degrades when samples are reused too often
 
 ### Seminal papers
 
-- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", NeurIPS 2022 Datasets and Benchmarks Track, arXiv:2103.01955 — The MAPPO paper, with the benchmark results and recommended practices above.
-- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — The single-agent PPO algorithm that MAPPO adapts.
-- Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, arXiv:1803.11485 — The value-factorisation baseline that MAPPO is compared against.
-- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", arXiv:1706.02275 — MADDPG, the centralised-critic baseline in the paper's comparisons.
-- Engstrom et al. (2020), "Implementation matters in deep policy gradients: a case study on PPO and TRPO", arXiv:2005.12729 — Shows that implementation details, which the MAPPO recommendations also depend on, can change PPO's results.
+- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", NeurIPS 2022 Datasets and Benchmarks Track, [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — The MAPPO paper, with the benchmark results and recommended practices above.
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The single-agent PPO algorithm that MAPPO adapts.
+- Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — The value-factorisation baseline that MAPPO is compared against.
+- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — MADDPG, the centralised-critic baseline in the paper's comparisons.
+- Engstrom et al. (2020), "Implementation matters in deep policy gradients: a case study on PPO and TRPO", [arXiv:2005.12729](https://arxiv.org/abs/2005.12729) — Shows that implementation details, which the MAPPO recommendations also depend on, can change PPO's results.
