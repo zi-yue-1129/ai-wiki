@@ -65,7 +65,7 @@ Fisher (1922) gave the method its modern form and introduced the properties of c
 
 ### Seminal papers
 
-- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A*. https://digital.library.adelaide.edu.au/handle/2440/15172 — Introduces maximum likelihood estimation in its modern form, with the properties of consistency and efficiency.
+- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A* 222, 309–368. https://doi.org/10.1098/rsta.1922.0009 — Introduces maximum likelihood estimation in its modern form, with the properties of consistency and efficiency.
 - Commentary on Fisher (1922): *From evidence to understanding*, PubMed Central. https://pmc.ncbi.nlm.nih.gov/articles/PMC4360088/ — Explains the content and influence of Fisher's paper, including its treatment of likelihood.
 
 ### Surveys and textbooks

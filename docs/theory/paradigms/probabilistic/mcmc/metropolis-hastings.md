@@ -62,12 +62,12 @@ Metropolis et al. (1953) introduced the symmetric version for physical systems. 
 
 ### Seminal papers
 
-- Metropolis, N., Rosenbluth, A. W., Rosenbluth, M. N., Teller, A. H. & Teller, E. (1953). Equation of state calculations by fast computing machines. *Journal of Chemical Physics*. https://doi.org/10.1063/1.1699114 — Introduces the symmetric Metropolis acceptance rule.
+- Metropolis, N., Rosenbluth, A. W., Rosenbluth, M. N., Teller, A. H. & Teller, E. (1953). Equation of state calculations by fast computing machines. *Journal of Chemical Physics* 21(6), 1087–1092. https://doi.org/10.1063/1.1699114 — Introduces the symmetric Metropolis acceptance rule.
 - Hastings, W. K. (1970). Monte Carlo sampling methods using Markov chains and their applications. *Biometrika* 57(1), 97–109. https://doi.org/10.1093/biomet/57.1.97 — Generalises the rule to asymmetric proposals and gives the acceptance ratio used today.
 
 ### Surveys and textbooks
 
-- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50. https://www.cs.ox.ac.uk/publications/publication7533-abstract.html — Derives the Metropolis–Hastings algorithm and its detailed-balance proof for machine-learning readers.
+- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://doi.org/10.1023/A:1020281327116 — Derives the Metropolis–Hastings algorithm and its detailed-balance proof for machine-learning readers.
 - Neal, R. M. (2011). MCMC using Hamiltonian dynamics. arXiv:1206.1901. https://arxiv.org/abs/1206.1901 — Compares random-walk Metropolis with the gradient-based alternative in high dimensions.
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; presents Metropolis–Hastings with worked proposals and acceptance rules.
 - Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer. https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf — Chapter on sampling methods covers the Metropolis algorithm.

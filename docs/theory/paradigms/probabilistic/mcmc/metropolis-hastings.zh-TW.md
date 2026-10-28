@@ -52,12 +52,12 @@ Metropolis 等人（1953）為物理系統提出了對稱版本。Hastings（197
 
 ### 奠基性論文
 
-- Metropolis, N., Rosenbluth, A. W., Rosenbluth, M. N., Teller, A. H. & Teller, E. (1953). Equation of state calculations by fast computing machines. *Journal of Chemical Physics*. https://doi.org/10.1063/1.1699114 — 提出對稱的 Metropolis 接受規則。
+- Metropolis, N., Rosenbluth, A. W., Rosenbluth, M. N., Teller, A. H. & Teller, E. (1953). Equation of state calculations by fast computing machines. *Journal of Chemical Physics* 21(6), 1087–1092. https://doi.org/10.1063/1.1699114 — 提出對稱的 Metropolis 接受規則。
 - Hastings, W. K. (1970). Monte Carlo sampling methods using Markov chains and their applications. *Biometrika* 57(1), 97–109. https://doi.org/10.1093/biomet/57.1.97 — 把規則推廣到非對稱提議，並給出今日使用的接受比率。
 
 ### 綜述與教科書
 
-- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50. https://www.cs.ox.ac.uk/publications/publication7533-abstract.html — 為機器學習讀者推導 Metropolis–Hastings 演算法及其細緻平衡證明。
+- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://doi.org/10.1023/A:1020281327116 — 為機器學習讀者推導 Metropolis–Hastings 演算法及其細緻平衡證明。
 - Neal, R. M. (2011). MCMC using Hamiltonian dynamics. arXiv:1206.1901. https://arxiv.org/abs/1206.1901 — 在高維下比較隨機漫步 Metropolis 與以梯度為基礎的替代方法。
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；以實例說明 Metropolis–Hastings 的提議與接受規則。
 - Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer. https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf — 抽樣方法一章涵蓋 Metropolis 演算法。

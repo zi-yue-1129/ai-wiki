@@ -64,9 +64,9 @@ AI 使用的微積分大多是一階的（梯度、連鎖律），少數是二�
 
 ### 奠基性論文
 
-- Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). Learning representations by back-propagating errors. *Nature*. https://doi.org/10.1038/323533a0 — 說明連鎖律可以有效地用來計算多層網路的梯度。
-- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. https://projecteuclid.org/euclid.aoms/1177729586 — 提出隨機逼近，是隨機梯度下降的理論基礎。
-- Cortes, C. & Vapnik, V. (1995). Support-vector networks. *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — 以帶乘數的約束最佳化定義支持向量機。
+- Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). Learning representations by back-propagating errors. *Nature* 323, 533–536. https://doi.org/10.1038/323533a0 — 說明連鎖律可以有效地用來計算多層網路的梯度。
+- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics* 22(3), 400–407. https://doi.org/10.1214/aoms/1177729586 — 提出隨機逼近，是隨機梯度下降的理論基礎。
+- Cortes, C. & Vapnik, V. (1995). Support-vector networks. *Machine Learning* 20(3), 273–297. https://doi.org/10.1007/BF00994018 — 以帶乘數的約束最佳化定義支持向量機。
 
 ### 綜述與教科書
 

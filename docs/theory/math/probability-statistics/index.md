@@ -75,7 +75,7 @@ Two estimators are the landmark methods of this area. Each has its own page.
 
 ### Seminal papers
 
-- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A*. https://digital.library.adelaide.edu.au/handle/2440/15172 — Sets out maximum likelihood estimation and the notions of sufficiency and efficiency. Copy from the University of Adelaide repository.
+- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A* 222, 309–368. https://doi.org/10.1098/rsta.1922.0009 — Sets out maximum likelihood estimation and the notions of sufficiency and efficiency. Copy from the University of Adelaide repository.
 - Commentary on Fisher (1922): *From evidence to understanding: a commentary on Fisher (1922)*, published in PubMed Central. https://pmc.ncbi.nlm.nih.gov/articles/PMC4360088/ — Peer-reviewed commentary that explains the content and influence of Fisher's paper on maximum likelihood.
 
 ### Surveys and textbooks

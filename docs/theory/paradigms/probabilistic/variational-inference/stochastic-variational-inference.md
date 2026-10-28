@@ -66,11 +66,11 @@ For models that are not conjugate, SVI can use black-box gradient estimators in 
 ### Seminal papers
 
 - Hoffman, M. D., Blei, D. M., Wang, C. & Paisley, J. (2013). Stochastic variational inference. *Journal of Machine Learning Research* 14. https://www.jmlr.org/papers/v14/hoffman13a.html — Introduces SVI with natural-gradient minibatch updates for large conjugate models.
-- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. https://projecteuclid.org/euclid.aoms/1177729586 — Gives the step-size conditions that ensure convergence of noisy updates.
+- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics* 22(3), 400–407. https://doi.org/10.1214/aoms/1177729586 — Gives the step-size conditions that ensure convergence of noisy updates.
 - Ranganath, R., Gerrish, S. & Blei, D. M. (2014). Black box variational inference. *AISTATS*. https://proceedings.mlr.press/v33/ranganath14.html — Gives stochastic gradient estimators for VI that apply to models without conjugacy.
 
 ### Surveys and textbooks
 
-- Blei, D. M., Kucukelbir, A. & McAuliffe, J. D. (2017). Variational inference: a review for statisticians. *Journal of the American Statistical Association*. arXiv:1601.00670. https://arxiv.org/abs/1601.00670 — Reviews stochastic and black-box VI, with the trade-offs between them.
+- Blei, D. M., Kucukelbir, A. & McAuliffe, J. D. (2017). Variational inference: a review for statisticians. *Journal of the American Statistical Association* 112(518), 859–877. https://doi.org/10.1080/01621459.2017.1285773 — Reviews stochastic and black-box VI, with the trade-offs between them.
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers scalable variational methods for large datasets.
 - Kingma, D. P. & Welling, M. (2014). Auto-encoding variational Bayes. *ICLR*. arXiv:1312.6114. https://arxiv.org/abs/1312.6114 — Uses minibatch stochastic gradients for the amortised form of VI.

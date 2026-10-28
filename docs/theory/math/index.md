@@ -85,9 +85,21 @@ Information theory is also central in neuroscience: the **efficient coding hypot
 - **Game theory**: GANs, multi-agent systems, mechanism design
 - **Numerics**: floating-point formats (FP32/BF16/FP8), numerical stability (log-sum-exp)
 
-## Resources
+## References
+
+### Surveys and textbooks
+
+- Golub, G. H. & Van Loan, C. F. (2013). *Matrix Computations*, 4th ed. Johns Hopkins University Press. https://www.press.jhu.edu/books/title/10678/matrix-computations — Standard reference on numerical linear algebra, behind the matrix and decomposition sections.
+- Trefethen, L. N. & Bau, D. (1997). *Numerical Linear Algebra*. SIAM. https://people.maths.ox.ac.uk/trefethen/text.html — Graduate textbook on numerical linear algebra, including the SVD and eigenvalue problems.
+- Boyd, S. & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press. https://web.stanford.edu/~boyd/cvxbook/ — Free text covering the calculus of optimisation, Newton's method and duality.
+- Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer. https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf — Free PDF; covers probability, estimation and approximate inference for machine learning.
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook covering the mathematics in sections 1 to 5 in a machine learning setting.
+
+### Lectures
+
+- Strang, G., *18.06 Linear Algebra*, MIT. https://web.mit.edu/18.06/www/ — Undergraduate course on the linear algebra in section 1.
+
+## Further learning
 
 - [Mathematics for Machine Learning](https://mml-book.github.io/) (free PDF)
-- 3Blue1Brown, *Essence of Linear Algebra*, *Essence of Calculus*, *Neural Networks*
 - [d2l appendix: Mathematics for Deep Learning](https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/index.html)
-- MIT 18.06 Linear Algebra (Gilbert Strang)

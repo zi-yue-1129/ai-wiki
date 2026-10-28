@@ -55,13 +55,13 @@ translation_reviewed: 2026-10-28
 
 ### 奠基性論文
 
-- Metropolis, N., Rosenbluth, A. W., Rosenbluth, M. N., Teller, A. H. & Teller, E. (1953). Equation of state calculations by fast computing machines. *Journal of Chemical Physics*. https://doi.org/10.1063/1.1699114 — 提出 Metropolis 演算法，用於從玻爾茲曼分布抽樣。
+- Metropolis, N., Rosenbluth, A. W., Rosenbluth, M. N., Teller, A. H. & Teller, E. (1953). Equation of state calculations by fast computing machines. *Journal of Chemical Physics* 21(6), 1087–1092. https://doi.org/10.1063/1.1699114 — 提出 Metropolis 演算法，用於從玻爾茲曼分布抽樣。
 - Hastings, W. K. (1970). Monte Carlo sampling methods using Markov chains and their applications. *Biometrika* 57(1), 97–109. https://doi.org/10.1093/biomet/57.1.97 — 把 Metropolis 規則推廣到非對稱提議分布。
-- Duane, S., Kennedy, A. D., Pendleton, B. J. & Roweth, D. (1987). Hybrid Monte Carlo. *Physics Letters B* 195, 216. https://ui.adsabs.harvard.edu/abs/1987PhLB..195..216D/abstract — 提出混合（哈密頓）蒙地卡羅方法。
+- Duane, S., Kennedy, A. D., Pendleton, B. J. & Roweth, D. (1987). Hybrid Monte Carlo. *Physics Letters B* 195(2), 216–222. https://ui.adsabs.harvard.edu/abs/1987PhLB..195..216D/abstract — 提出混合（哈密頓）蒙地卡羅方法。
 
 ### 綜述與教科書
 
-- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50. https://www.cs.ox.ac.uk/publications/publication7533-abstract.html — 為機器學習撰寫的 MCMC 導論，涵蓋 Metropolis–Hastings、吉布斯抽樣及其關係。
+- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://doi.org/10.1023/A:1020281327116 — 為機器學習撰寫的 MCMC 導論，涵蓋 Metropolis–Hastings、吉布斯抽樣及其關係。
 - Neal, R. M. (2011). MCMC using Hamiltonian dynamics. In *Handbook of Markov Chain Monte Carlo*. arXiv:1206.1901. https://arxiv.org/abs/1206.1901 — 綜述 HMC、其調校方式，以及相較隨機漫步抽樣器的優勢。
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋 MCMC 方法及其診斷。
 

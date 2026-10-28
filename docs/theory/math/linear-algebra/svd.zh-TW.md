@@ -70,7 +70,7 @@ Eckart 與 Young（1936）在最小平方準則下證明了此最佳性。被捨
 
 ### 綜述與教科書
 
-- Stewart, G. W. (1993). On the early history of the singular value decomposition. *SIAM Review*. https://epubs.siam.org/doi/10.1137/1035134 — 奇異值分解的歷史。本草稿僅取得摘要頁，未取得全文。
+- Stewart, G. W. (1993). On the early history of the singular value decomposition. *SIAM Review* 35(4), 551–566. https://doi.org/10.1137/1035134 — 綜述 Beltrami、Jordan、Sylvester、Schmidt 與 Weyl 的工作，他們建立了奇異值分解的存在性與理論。
 - Golub, G. H. & Van Loan, C. F. (2013). *Matrix Computations*, 4th ed. Johns Hopkins University Press. https://www.press.jhu.edu/books/title/10678/matrix-computations — 涵蓋奇異值分解的計算及其在最小平方問題中的應用。
 - Trefethen, L. N. & Bau, D. (1997). *Numerical Linear Algebra*. SIAM. https://people.maths.ox.ac.uk/trefethen/text.html — 研究所程度教材，涵蓋奇異值分解及其數值行為。
 

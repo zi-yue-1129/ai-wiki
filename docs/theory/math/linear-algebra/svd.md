@@ -83,7 +83,7 @@ Eckart and Young (1936) proved this optimality for the least-squares criterion. 
 
 ### Surveys and textbooks
 
-- Stewart, G. W. (1993). On the early history of the singular value decomposition. *SIAM Review*. https://epubs.siam.org/doi/10.1137/1035134 — History of the SVD. The abstract page was listed, but its full text was not retrieved for this draft.
+- Stewart, G. W. (1993). On the early history of the singular value decomposition. *SIAM Review* 35(4), 551–566. https://doi.org/10.1137/1035134 — Surveys the work of Beltrami, Jordan, Sylvester, Schmidt and Weyl, who established the existence of the SVD and its theory. The abstract page was listed, but its full text was not retrieved for this draft.
 - Golub, G. H. & Van Loan, C. F. (2013). *Matrix Computations*, 4th ed. Johns Hopkins University Press. https://www.press.jhu.edu/books/title/10678/matrix-computations — Covers the computation of the SVD and its use in least-squares problems.
 - Trefethen, L. N. & Bau, D. (1997). *Numerical Linear Algebra*. SIAM. https://people.maths.ox.ac.uk/trefethen/text.html — Graduate text covering the SVD and its numerical behaviour.
 

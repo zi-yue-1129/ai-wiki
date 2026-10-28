@@ -57,12 +57,12 @@ Hoffman 與 Gelman（2014）顯示 NUTS 無需手動設定路徑長度即表現�
 
 ### 奠基性論文
 
-- Duane, S., Kennedy, A. D., Pendleton, B. J. & Roweth, D. (1987). Hybrid Monte Carlo. *Physics Letters B* 195, 216. https://ui.adsabs.harvard.edu/abs/1987PhLB..195..216D/abstract — 提出結合分子動力學與 Metropolis 修正的混合方法。
+- Duane, S., Kennedy, A. D., Pendleton, B. J. & Roweth, D. (1987). Hybrid Monte Carlo. *Physics Letters B* 195(2), 216–222. https://ui.adsabs.harvard.edu/abs/1987PhLB..195..216D/abstract — 提出結合分子動力學與 Metropolis 修正的混合方法。
 - Hoffman, M. D. & Gelman, A. (2014). The No-U-Turn sampler: adaptively setting path lengths in Hamiltonian Monte Carlo. *Journal of Machine Learning Research* 15. https://jmlr.org/papers/v15/hoffman14a.html — 提出 NUTS，自動選擇路徑長度。
 
 ### 綜述與教科書
 
 - Neal, R. M. (2011). MCMC using Hamiltonian dynamics. In *Handbook of Markov Chain Monte Carlo*. arXiv:1206.1901. https://arxiv.org/abs/1206.1901 — HMC 綜述，包括蛙跳積分器、能量守恆與調校。
-- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50. https://www.cs.ox.ac.uk/publications/publication7533-abstract.html — 把 HMC 置於一般 MCMC 演算法之中的導論。
+- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://doi.org/10.1023/A:1020281327116 — 把 HMC 置於一般 MCMC 演算法之中的導論。
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋 HMC 及其對梯度的需求。
 - Gelman, A. et al. (2013). *Bayesian Data Analysis*, 3rd ed. CRC Press. https://sites.stat.columbia.edu/gelman/book — 討論在應用模型中以 HMC 與 NUTS 進行後驗模擬。

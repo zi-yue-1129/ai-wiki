@@ -77,9 +77,9 @@ Three landmark tools organise the calculus of training. Each has its own page or
 
 ### Seminal papers
 
-- Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). Learning representations by back-propagating errors. *Nature*. https://doi.org/10.1038/323533a0 — Shows that the chain rule can be applied efficiently to compute gradients in multilayer networks.
-- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. https://projecteuclid.org/euclid.aoms/1177729586 — Introduces stochastic approximation, the theoretical basis of stochastic gradient descent.
-- Cortes, C. & Vapnik, V. (1995). Support-vector networks. *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — Uses constrained optimisation with multipliers to define the support vector machine.
+- Rumelhart, D. E., Hinton, G. E. & Williams, R. J. (1986). Learning representations by back-propagating errors. *Nature* 323, 533–536. https://doi.org/10.1038/323533a0 — Shows that the chain rule can be applied efficiently to compute gradients in multilayer networks.
+- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics* 22(3), 400–407. https://doi.org/10.1214/aoms/1177729586 — Introduces stochastic approximation, the theoretical basis of stochastic gradient descent.
+- Cortes, C. & Vapnik, V. (1995). Support-vector networks. *Machine Learning* 20(3), 273–297. https://doi.org/10.1007/BF00994018 — Uses constrained optimisation with multipliers to define the support vector machine.
 
 ### Surveys and textbooks
 

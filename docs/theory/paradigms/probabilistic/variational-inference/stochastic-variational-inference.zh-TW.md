@@ -55,11 +55,11 @@ translation_reviewed: 2026-10-28
 ### 奠基性論文
 
 - Hoffman, M. D., Blei, D. M., Wang, C. & Paisley, J. (2013). Stochastic variational inference. *Journal of Machine Learning Research* 14. https://www.jmlr.org/papers/v14/hoffman13a.html — 以自然梯度小批次更新，為大型共軛模型提出 SVI。
-- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. https://projecteuclid.org/euclid.aoms/1177729586 — 給出步長條件，保證雜訊更新收斂。
+- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics* 22(3), 400–407. https://doi.org/10.1214/aoms/1177729586 — 給出步長條件，保證雜訊更新收斂。
 - Ranganath, R., Gerrish, S. & Blei, D. M. (2014). Black box variational inference. *AISTATS*. https://proceedings.mlr.press/v33/ranganath14.html — 為 VI 提出適用於非共軛模型的隨機梯度估計量。
 
 ### 綜述與教科書
 
-- Blei, D. M., Kucukelbir, A. & McAuliffe, J. D. (2017). Variational inference: a review for statisticians. *Journal of the American Statistical Association*. arXiv:1601.00670. https://arxiv.org/abs/1601.00670 — 綜述隨機與黑箱 VI，並說明二者的取捨。
+- Blei, D. M., Kucukelbir, A. & McAuliffe, J. D. (2017). Variational inference: a review for statisticians. *Journal of the American Statistical Association* 112(518), 859–877. https://doi.org/10.1080/01621459.2017.1285773 — 綜述隨機與黑箱 VI，並說明二者的取捨。
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋大型資料集的可擴展變分方法。
 - Kingma, D. P. & Welling, M. (2014). Auto-encoding variational Bayes. *ICLR*. arXiv:1312.6114. https://arxiv.org/abs/1312.6114 — 以小批次隨機梯度實現攤銷形式的 VI。

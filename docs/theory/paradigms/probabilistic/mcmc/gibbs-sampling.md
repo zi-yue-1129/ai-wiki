@@ -62,7 +62,7 @@ The method can mix slowly when variables are strongly correlated, because each u
 ### Seminal papers
 
 - Hastings, W. K. (1970). Monte Carlo sampling methods using Markov chains and their applications. *Biometrika* 57(1), 97–109. https://doi.org/10.1093/biomet/57.1.97 — Gives the general acceptance-ratio framework that contains the Gibbs update as a special case.
-- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50. https://www.cs.ox.ac.uk/publications/publication7533-abstract.html — Shows that the Gibbs update is a Metropolis–Hastings move with acceptance probability one.
+- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://doi.org/10.1023/A:1020281327116 — Shows that the Gibbs update is a Metropolis–Hastings move with acceptance probability one.
 
 ### Surveys and textbooks
 

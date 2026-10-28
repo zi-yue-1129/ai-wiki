@@ -62,7 +62,7 @@ translation_reviewed: 2026-10-28
 
 ### 奠基性論文
 
-- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A*. https://digital.library.adelaide.edu.au/handle/2440/15172 — 提出最大概似估計，並定義一致性、效率與充分性等概念。論文副本取自阿德雷德大學的典藏庫。
+- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A* 222, 309–368. https://doi.org/10.1098/rsta.1922.0009 — 提出最大概似估計，並定義一致性、效率與充分性等概念。論文副本取自阿德雷德大學的典藏庫。
 - 對 Fisher (1922) 的評論：*From evidence to understanding*，PubMed Central。https://pmc.ncbi.nlm.nih.gov/articles/PMC4360088/ — 同儕審查的評論，說明該論文的內容與影響，包括其對概似的處理。
 
 ### 綜述與教科書

@@ -55,13 +55,13 @@ translation_reviewed: 2026-10-28
 
 ### 奠基性論文
 
-- Jordan, M. I., Ghahramani, Z., Jaakkola, T. S. & Saul, L. K. (1999). An introduction to variational methods for graphical models. *Machine Learning* 37. https://doi.org/10.1023/A:1007665907178 — 介紹圖模型的變分方法，包括該界限與平均場更新。
+- Jordan, M. I., Ghahramani, Z., Jaakkola, T. S. & Saul, L. K. (1999). An introduction to variational methods for graphical models. *Machine Learning* 37(2), 183–233. https://doi.org/10.1023/A:1007665907178 — 介紹圖模型的變分方法，包括該界限與平均場更新。
 - Kingma, D. P. & Welling, M. (2014). Auto-encoding variational Bayes. *ICLR*. arXiv:1312.6114. https://arxiv.org/abs/1312.6114 — 提出 VAE，即使用重參數化技巧的攤銷變分推論。
 - Ranganath, R., Gerrish, S. & Blei, D. M. (2014). Black box variational inference. *AISTATS*. https://proceedings.mlr.press/v33/ranganath14.html — 為 ELBO 提出一般的梯度估計量，適用於不具共軛性的模型。
 - Hoffman, M. D., Blei, D. M., Wang, C. & Paisley, J. (2013). Stochastic variational inference. *Journal of Machine Learning Research* 14. https://www.jmlr.org/papers/v14/hoffman13a.html — 以隨機自然梯度的小批次更新，把變分推論擴展到大型資料集。
 
 ### 綜述與教科書
 
-- Blei, D. M., Kucukelbir, A. & McAuliffe, J. D. (2017). Variational inference: a review for statisticians. *Journal of the American Statistical Association*. arXiv:1601.00670. https://arxiv.org/abs/1601.00670 — 為統計學家撰寫的變分推論綜述，說明 ELBO、平均場與隨機方法。
+- Blei, D. M., Kucukelbir, A. & McAuliffe, J. D. (2017). Variational inference: a review for statisticians. *Journal of the American Statistical Association* 112(518), 859–877. https://doi.org/10.1080/01621459.2017.1285773 — 為統計學家撰寫的變分推論綜述，說明 ELBO、平均場與隨機方法。
 - Wainwright, M. J. & Jordan, M. I. (2008). Graphical models, exponential families, and variational inference. *Foundations and Trends in Machine Learning*. https://nowpublishers.com/article/Details/MAL-001 — 專著，把變分方法與指數族及對數分割函數連結起來。
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；與抽樣推論並列介紹變分推論。

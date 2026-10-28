@@ -69,7 +69,7 @@ Lagrange multipliers also appear in deep learning as penalty terms with fixed or
 
 ### Seminal papers
 
-- Cortes, C. & Vapnik, V. (1995). Support-vector networks. *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — Applies constrained optimisation with multipliers to derive the support vector machine.
+- Cortes, C. & Vapnik, V. (1995). Support-vector networks. *Machine Learning* 20(3), 273–297. https://doi.org/10.1007/BF00994018 — Applies constrained optimisation with multipliers to derive the support vector machine.
 - Boyd, S. & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press. https://web.stanford.edu/~boyd/cvxbook/ — Presents Lagrange duality, the KKT conditions and their use in convex problems.
 
 ### Surveys and textbooks

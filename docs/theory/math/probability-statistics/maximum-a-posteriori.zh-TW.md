@@ -54,7 +54,7 @@ MAP 估計是後驗的眾數。對高斯後驗而言，眾數、均值與中位�
 
 ### 奠基性論文
 
-- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A*. https://digital.library.adelaide.edu.au/handle/2440/15172 — 最大概似的來源，MAP 即是在其上加入先驗而得。
+- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A* 222, 309–368. https://doi.org/10.1098/rsta.1922.0009 — 最大概似的來源，MAP 即是在其上加入先驗而得。
 - 對 Fisher（1922）的評論，PubMed Central。https://pmc.ncbi.nlm.nih.gov/articles/PMC4360088/ — 同儕審查的評論，討論該論文及其對概似的處理。
 
 ### 綜述與教科書

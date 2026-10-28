@@ -68,13 +68,13 @@ Four main routes are used in practice. Two have their own pages in this section,
 
 ### Seminal papers
 
-- Jordan, M. I., Ghahramani, Z., Jaakkola, T. S. & Saul, L. K. (1999). An introduction to variational methods for graphical models. *Machine Learning* 37. https://doi.org/10.1023/A:1007665907178 — Introduces variational methods for graphical models, including the bound and mean-field updates.
+- Jordan, M. I., Ghahramani, Z., Jaakkola, T. S. & Saul, L. K. (1999). An introduction to variational methods for graphical models. *Machine Learning* 37(2), 183–233. https://doi.org/10.1023/A:1007665907178 — Introduces variational methods for graphical models, including the bound and mean-field updates.
 - Kingma, D. P. & Welling, M. (2014). Auto-encoding variational Bayes. *ICLR*. arXiv:1312.6114. https://arxiv.org/abs/1312.6114 — Introduces the VAE, an amortised VI method with the reparameterisation trick.
 - Ranganath, R., Gerrish, S. & Blei, D. M. (2014). Black box variational inference. *AISTATS*. https://proceedings.mlr.press/v33/ranganath14.html — Gives a general gradient estimator for the ELBO that applies to models without conjugacy.
 - Hoffman, M. D., Blei, D. M., Wang, C. & Paisley, J. (2013). Stochastic variational inference. *Journal of Machine Learning Research* 14. https://www.jmlr.org/papers/v14/hoffman13a.html — Scales VI to large datasets with stochastic natural-gradient updates.
 
 ### Surveys and textbooks
 
-- Blei, D. M., Kucukelbir, A. & McAuliffe, J. D. (2017). Variational inference: a review for statisticians. *Journal of the American Statistical Association*. arXiv:1601.00670. https://arxiv.org/abs/1601.00670 — Review of VI that explains the ELBO, mean-field and stochastic methods for statisticians.
+- Blei, D. M., Kucukelbir, A. & McAuliffe, J. D. (2017). Variational inference: a review for statisticians. *Journal of the American Statistical Association* 112(518), 859–877. https://doi.org/10.1080/01621459.2017.1285773 — Review of VI that explains the ELBO, mean-field and stochastic methods for statisticians.
 - Wainwright, M. J. & Jordan, M. I. (2008). Graphical models, exponential families, and variational inference. *Foundations and Trends in Machine Learning*. https://nowpublishers.com/article/Details/MAL-001 — Monograph linking variational methods to exponential families and log-partition functions.
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers VI alongside sampling-based inference.

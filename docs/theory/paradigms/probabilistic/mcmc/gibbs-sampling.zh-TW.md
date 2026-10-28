@@ -52,7 +52,7 @@ translation_reviewed: 2026-10-28
 ### 奠基性論文
 
 - Hastings, W. K. (1970). Monte Carlo sampling methods using Markov chains and their applications. *Biometrika* 57(1), 97–109. https://doi.org/10.1093/biomet/57.1.97 — 給出一般的接受比率框架，吉布斯更新是其特例。
-- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50. https://www.cs.ox.ac.uk/publications/publication7533-abstract.html — 說明吉布斯更新是接受機率為一的 Metropolis–Hastings 移動。
+- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://doi.org/10.1023/A:1020281327116 — 說明吉布斯更新是接受機率為一的 Metropolis–Hastings 移動。
 
 ### 綜述與教科書
 

@@ -62,8 +62,8 @@ The algorithm cycles through the factors, recomputing each from the current valu
 
 ### Seminal papers
 
-- Jordan, M. I., Ghahramani, Z., Jaakkola, T. S. & Saul, L. K. (1999). An introduction to variational methods for graphical models. *Machine Learning* 37. https://doi.org/10.1023/A:1007665907178 — Derives the mean-field coordinate updates for graphical models.
-- Blei, D. M., Kucukelbir, A. & McAuliffe, J. D. (2017). Variational inference: a review for statisticians. *Journal of the American Statistical Association*. arXiv:1601.00670. https://arxiv.org/abs/1601.00670 — Explains the mean-field family and its coordinate-ascent algorithm with worked examples.
+- Jordan, M. I., Ghahramani, Z., Jaakkola, T. S. & Saul, L. K. (1999). An introduction to variational methods for graphical models. *Machine Learning* 37(2), 183–233. https://doi.org/10.1023/A:1007665907178 — Derives the mean-field coordinate updates for graphical models.
+- Blei, D. M., Kucukelbir, A. & McAuliffe, J. D. (2017). Variational inference: a review for statisticians. *Journal of the American Statistical Association* 112(518), 859–877. https://doi.org/10.1080/01621459.2017.1285773 — Explains the mean-field family and its coordinate-ascent algorithm with worked examples.
 
 ### Surveys and textbooks
 

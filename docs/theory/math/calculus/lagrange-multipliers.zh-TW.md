@@ -56,7 +56,7 @@ translation_reviewed: 2026-10-28
 
 ### 奠基性論文
 
-- Cortes, C. & Vapnik, V. (1995). Support-vector networks. *Machine Learning* 20. https://link.springer.com/doi/10.1007/BF00994018 — 以帶乘數的約束最佳化推導支持向量機。
+- Cortes, C. & Vapnik, V. (1995). Support-vector networks. *Machine Learning* 20(3), 273–297. https://doi.org/10.1007/BF00994018 — 以帶乘數的約束最佳化推導支持向量機。
 - Boyd, S. & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press. https://web.stanford.edu/~boyd/cvxbook/ — 介紹拉格朗日對偶、KKT 條件及其在凸問題中的應用。
 
 ### 綜述與教科書

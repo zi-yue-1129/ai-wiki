@@ -54,7 +54,7 @@ Fisher（1922）給出此方法的現代形式，並提出估計量的一致性�
 
 ### 奠基性論文
 
-- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A*. https://digital.library.adelaide.edu.au/handle/2440/15172 — 以現代形式提出最大概似估計，並定義一致性與效率。
+- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A* 222, 309–368. https://doi.org/10.1098/rsta.1922.0009 — 以現代形式提出最大概似估計，並定義一致性與效率。
 - 對 Fisher（1922）的評論：*From evidence to understanding*，PubMed Central。https://pmc.ncbi.nlm.nih.gov/articles/PMC4360088/ — 說明該論文的內容與影響，包括其對概似的處理。
 
 ### 綜述與教科書

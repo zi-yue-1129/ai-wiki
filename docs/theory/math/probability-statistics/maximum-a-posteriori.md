@@ -65,7 +65,7 @@ The MAP estimate is the posterior mode. For a Gaussian posterior, the mode, mean
 
 ### Seminal papers
 
-- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A*. https://digital.library.adelaide.edu.au/handle/2440/15172 — Source of maximum likelihood, the estimator that MAP extends by adding a prior.
+- Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. *Philosophical Transactions of the Royal Society A* 222, 309–368. https://doi.org/10.1098/rsta.1922.0009 — Source of maximum likelihood, the estimator that MAP extends by adding a prior.
 - Commentary on Fisher (1922), PubMed Central. https://pmc.ncbi.nlm.nih.gov/articles/PMC4360088/ — Peer-reviewed commentary on the paper and its treatment of likelihood.
 
 ### Surveys and textbooks
