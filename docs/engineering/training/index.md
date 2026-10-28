@@ -27,7 +27,7 @@ Rough compute estimate for dense Transformers: **training FLOPs ≈ 6 × paramet
 |---|---|---|---|
 | Full fine-tuning | All weights | Highest | Enough data and compute; major behaviour change |
 | LoRA (Hu et al., 2021) | Low-rank update \(W + BA\) on chosen matrices | Low | Default for most adaptation |
-| [QLoRA](../../theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md) (Dettmers et al., 2023) | LoRA on a 4-bit quantised base model | Very low | Fine-tune large models on one GPU |
+| QLoRA (Dettmers et al., 2023) | LoRA on a 4-bit quantised base model | Very low | Fine-tune large models on one GPU |
 | DoRA, other LoRA variants | Decompose magnitude/direction, etc. | Low | Sometimes better quality |
 | Adapters, prefix/prompt tuning | Small inserted modules or learned prompts | Very low | Many tasks on one base |
 | Continued pre-training | All weights on domain text | High | New domain or language |

@@ -19,7 +19,7 @@
 |---|---|---|---|
 | 全參數微調 | 所有權重 | 最高 | 資料與運算資源充足；需要大幅改變行為時 |
 | LoRA（Hu et al., 2021） | 在選定的矩陣上加入低秩更新 \(W + BA\) | 低 | 大多數適配任務的預設選擇 |
-| [QLoRA](../../theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.zh-TW.md)（Dettmers et al., 2023） | 在 4-bit 量化的基底模型上做 LoRA | 極低 | 在單一 GPU 上微調大模型 |
+| QLoRA（Dettmers et al., 2023） | 在 4-bit 量化的基底模型上做 LoRA | 極低 | 在單一 GPU 上微調大模型 |
 | DoRA 等其他 LoRA 變體 | 將大小與方向分解等 | 低 | 有時品質更好 |
 | 適配器、前綴／提示微調 | 插入的小模組或學習得到的提示 | 極低 | 同一基底模型服務多項任務 |
 | 持續預訓練 | 在領域文本上更新所有權重 | 高 | 新的領域或語言 |
