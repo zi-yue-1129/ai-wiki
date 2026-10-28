@@ -352,6 +352,9 @@ plugins:
             DDIM: DDIM
             Latent Diffusion: 潛在擴散
             DiT: DiT 擴散 Transformer
+            Vision Transformer (ViT): 視覺 Transformer（ViT）
+            DeiT: DeiT
+            Swin Transformer: Swin Transformer
             Diffusion Transformer (DiT): 擴散 Transformer（DiT）
             Mixture of Experts: 混合專家
             Sparsely-Gated MoE: 稀疏閘控混合專家
@@ -470,6 +473,17 @@ plugins:
             Graph Neural Networks: 圖神經網路
             AI Agents: AI 代理人
             World Models & Embodied AI: 世界模型與具身智慧
+            Action Controllability: 動作可控性
+            Dreamer: Dreamer
+            DINO-WM: DINO-WM
+            V-JEPA 2: V-JEPA 2
+            Genie: Genie
+            LAPO: LAPO
+            Class-Balanced Loss: 類別平衡損失
+            Logit Adjustment: 邏輯調整
+            Causal Confusion: 因果混淆
+            DAgger: DAgger
+            DART: DART
             Brain & Mind: 腦與心智
             Neuroscience Basics: 神經科學基礎
             Computational Neuroscience: 計算神經科學
@@ -609,6 +623,7 @@ plugins:
             Courses & Books: 課程與書籍
             Datasets: 資料集
             Timeline of Models and Releases: 模型與發表時間軸
+            Conferences and Journals: 會議與期刊
             Tags: 標籤
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
@@ -723,7 +738,10 @@ nav:
               - Trees & Ensembles: theory/paradigms/supervised/trees-and-ensembles/index.md
               - Kernels & SVMs: theory/paradigms/supervised/kernel-methods-svm/index.md
               - kNN, Naive Bayes & Gaussian Processes: theory/paradigms/supervised/instance-based-and-probabilistic/index.md
-              - Loss Functions & Optimisation: theory/paradigms/supervised/loss-functions-and-optimization/index.md
+              - Loss Functions & Optimisation:
+                  - theory/paradigms/supervised/loss-functions-and-optimization/index.md
+                  - Class-Balanced Loss: theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss.md
+                  - Logit Adjustment: theory/paradigms/supervised/loss-functions-and-optimization/logit-adjustment.md
               - Generalisation Theory: theory/paradigms/supervised/generalization-theory/index.md
               - Evaluation & Validation: theory/paradigms/supervised/evaluation-and-validation/index.md
           - Unsupervised Learning:
@@ -777,8 +795,13 @@ nav:
               - Exploration: theory/paradigms/reinforcement-learning/exploration/index.md
           - Imitation Learning:
               - theory/paradigms/imitation/index.md
-              - Behavioural Cloning: theory/paradigms/imitation/behavioural-cloning/index.md
-              - Interactive Imitation: theory/paradigms/imitation/interactive-imitation/index.md
+              - Behavioural Cloning:
+                  - theory/paradigms/imitation/behavioural-cloning/index.md
+                  - Causal Confusion: theory/paradigms/imitation/behavioural-cloning/causal-confusion.md
+              - Interactive Imitation:
+                  - theory/paradigms/imitation/interactive-imitation/index.md
+                  - DAgger: theory/paradigms/imitation/interactive-imitation/dagger.md
+                  - DART: theory/paradigms/imitation/interactive-imitation/dart.md
               - Inverse Reinforcement Learning: theory/paradigms/imitation/inverse-reinforcement-learning/index.md
               - Adversarial Imitation: theory/paradigms/imitation/adversarial-imitation/index.md
           - Transfer Learning & Domain Adaptation:
@@ -943,6 +966,10 @@ nav:
               - theory/models/transformer/index.md
               - Attention Is All You Need: theory/models/transformer/attention-is-all-you-need/index.md
               - Additive Attention (Bahdanau): theory/models/transformer/bahdanau-attention/index.md
+              - Vision Transformer (ViT):
+                  - theory/models/transformer/vision-transformer/index.md
+                  - DeiT: theory/models/transformer/vision-transformer/deit/index.md
+                  - Swin Transformer: theory/models/transformer/vision-transformer/swin/index.md
               - Diffusion Transformer (DiT): theory/models/transformer/dit/index.md
               - Mixture of Experts:
                   - theory/models/mixture-of-experts/index.md
@@ -992,7 +1019,14 @@ nav:
                   - GAT: theory/models/gnn/message-passing/gat/index.md
                   - GIN: theory/models/gnn/message-passing/gin/index.md
           - AI Agents: theory/models/agents/index.md
-          - World Models & Embodied AI: theory/models/world-models/index.md
+          - World Models & Embodied AI:
+              - theory/models/world-models/index.md
+              - Action Controllability: theory/models/world-models/action-controllability.md
+              - Dreamer: theory/models/world-models/dreamer.md
+              - DINO-WM: theory/models/world-models/dino-wm.md
+              - V-JEPA 2: theory/models/world-models/v-jepa-2.md
+              - Genie: theory/models/world-models/genie.md
+              - LAPO: theory/models/world-models/lapo.md
   - Brain & Mind:
       - brain-mind/index.md
       - Neuroscience Basics:
@@ -1200,6 +1234,7 @@ nav:
       - Courses & Books: reference/courses-books/index.md
       - Datasets: reference/datasets/index.md
       - Timeline of Models and Releases: reference/timeline/index.md
+      - Conferences and Journals: reference/venues/index.md
       - Tags: reference/tags/index.md
       - Contributing: reference/contributing/index.md
       - Roadmap & Coverage: reference/roadmap/index.md
