@@ -32,7 +32,7 @@ A pruned model is described by a **mask**: a binary value for every weight that 
 
 - **Sparsity**: the fraction of weights removed. A model with 50% sparsity keeps half its weights.
 - **Magnitude pruning**: remove the weights with the smallest absolute value. It is cheap and often a strong baseline, as Gale et al. (2019) showed at large scale.
-- **N:M sparsity**: a structured pattern that keeps N values in every block of M, such as 2 in every 4. NVIDIA's sparse tensor cores, introduced with the Ampere generation of GPUs, run this pattern at higher speed.
+- **N:M sparsity**: a structured pattern that keeps N values in every block of M, such as 2 in every 4. NVIDIA's Ampere GPUs add Sparse Tensor Cores that run the 2:4 pattern. The authors report twice the math throughput of dense matrix units (Mishra et al., 2021).
 - **Lottery ticket**: Frankle and Carbin (2018) found that a dense network contains sparse subnetworks which, reset to their original initial weights, train to comparable accuracy in isolation.
 - **Global versus layer-wise**: a global threshold lets some layers be pruned more than others, which often gives better accuracy for the same total sparsity.
 
@@ -65,7 +65,7 @@ Structured pruning and N:M sparsity are the two families that give speed-ups on 
 
 Pruning and sparse computation depend on what chips can skip. The support for N:M patterns and sparse matrix kernels is part of the story in [AI hardware](../../../engineering/hardware/index.md).
 
-Biology has a parallel. During development, the brain forms more synapses than it keeps, and many are eliminated as circuits are refined. Whether this process is a useful model for artificial pruning is debated, but it is a common starting point in discussions of sparse coding and efficient representation; see [neuroscience](../../../brain-mind/neuroscience/index.md).
+For the biological side of pruning, see [neuroscience](../../../brain-mind/neuroscience/index.md).
 
 ## Applications
 
@@ -88,6 +88,7 @@ Biology has a parallel. During development, the brain forms more synapses than i
 - Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — Finds sparse "winning tickets" that, trained in isolation from their initial weights, reach accuracy comparable to the original network.
 - Frantar, E., Alistarh, D. (2023). *SparseGPT: Massive Language Models Can Be Accurately Pruned in One-Shot*. arXiv:2301.00774. https://arxiv.org/abs/2301.00774 — Prunes GPT-family models to at least 50% sparsity in one shot, without retraining, and reports 60% sparsity with a negligible increase in perplexity.
 - Sun, M., et al. (2023). *A Simple and Effective Pruning Approach for Large Language Models*. arXiv:2306.11695. https://arxiv.org/abs/2306.11695 — Wanda, a magnitude-times-activation score that needs no retraining.
+- Mishra, A., et al. (2021). *Accelerating Sparse Deep Neural Networks*. arXiv:2104.08378. https://arxiv.org/abs/2104.08378 — Describes NVIDIA Ampere's Sparse Tensor Cores for the 2:4 pattern, which give twice the math throughput of dense matrix units.
 
 ### Surveys and textbooks
 

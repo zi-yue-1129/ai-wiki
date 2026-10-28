@@ -18,7 +18,7 @@ translation_reviewed: 2026-10-28
 
 - **稀疏度**：被移除權重的比例。稀疏度 50% 的模型保留一半權重。
 - **量值剪枝**：移除絕對值最小的權重。成本低，而且常是強基準；Gale 等人（2019）在大規模實驗中證實了這一點。
-- **N:M 稀疏**：一種結構化模式，在每 M 個值的區塊中保留 N 個，例如每 4 個保留 2 個。NVIDIA 隨 Ampere 世代 GPU 推出的稀疏張量核心，能以較高速度執行這種模式。
+- **N:M 稀疏**：一種結構化模式，在每 M 個值的區塊中保留 N 個，例如每 4 個保留 2 個。NVIDIA 的 Ampere GPU 加入了稀疏張量核心，可執行 2:4 模式；作者報告其數學吞吐量為稠密矩陣單元的兩倍（Mishra 等人，2021）。
 - **彩票假說**：Frankle 與 Carbin（2018）發現，稠密網路中包含一些稀疏子網路；把它們重設回原始初始權重後，單獨訓練也能達到相近的準確度。
 - **全域與逐層**：全域門檻允許某些層剪得比其他層多，在總稀疏度相同時，通常準確度較好。
 
@@ -51,7 +51,7 @@ Han 等人（2015）提出的經典流程有三個步驟：正常訓練稠密網
 
 剪枝與稀疏運算取決於晶片能跳過什麼。N:M 模式與稀疏矩陣核心的支援，是 [AI 硬體](../../../engineering/hardware/index.zh-TW.md)的一部分。
 
-生物界有類似的現象。發育期間，大腦形成的突觸比保留下來的多，許多突觸會隨著迴路精修而被消除。這個過程是否能作為人工剪枝的良好模型仍有爭議，但它常被用來討論稀疏編碼與高效表徵；見[神經科學](../../../brain-mind/neuroscience/index.zh-TW.md)。
+生物面的對應主題見[神經科學](../../../brain-mind/neuroscience/index.zh-TW.md)。
 
 ## 應用
 
@@ -74,6 +74,7 @@ Han 等人（2015）提出的經典流程有三個步驟：正常訓練稠密網
 - Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — 找出「中獎票」式的稀疏子網路；從初始權重單獨訓練時，準確度可與原網路相當。
 - Frantar, E., Alistarh, D. (2023). *SparseGPT: Massive Language Models Can Be Accurately Pruned in One-Shot*. arXiv:2301.00774. https://arxiv.org/abs/2301.00774 — 把 GPT 系列模型單次剪枝至至少 50% 稀疏，無需重新訓練；60% 稀疏時困惑度僅輕微上升。
 - Sun, M., 等人 (2023). *A Simple and Effective Pruning Approach for Large Language Models*. arXiv:2306.11695. https://arxiv.org/abs/2306.11695 — Wanda，以量值乘以激活值的分數進行剪枝，不需重新訓練。
+- Mishra, A., 等人 (2021). *Accelerating Sparse Deep Neural Networks*. arXiv:2104.08378. https://arxiv.org/abs/2104.08378 — 描述 NVIDIA Ampere 的稀疏張量核心，用於 2:4 模式，其數學吞吐量為稠密矩陣單元的兩倍。
 
 ### 綜述與教科書
 
