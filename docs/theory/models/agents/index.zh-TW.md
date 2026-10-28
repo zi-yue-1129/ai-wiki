@@ -85,11 +85,12 @@ Sumers et al.（2023），"Cognitive Architectures for Language Agents"（CoALA�
 - Yao, S., et al. (2022). *ReAct: Synergizing Reasoning and Acting in Language Models*. arXiv. https://arxiv.org/abs/2210.03629 — 將推理軌跡與工具行動交錯，使語言模型能在同一個循環中規劃與行動。
 - Schick, T., et al. (2023). *Toolformer: Language Models Can Teach Themselves to Use Tools*. arXiv. https://arxiv.org/abs/2302.04761 — 顯示模型可以從自己生成的範例中，學會何時以及如何呼叫外部工具。
 - Park, J. S., et al. (2023). *Generative Agents: Interactive Simulacra of Human Behavior*. arXiv. https://arxiv.org/abs/2304.03442 — 具備記憶、反思與規劃能力的模擬角色，在虛擬小鎮中表現得可信。
+- Wei, J., et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — 顯示要求模型寫出中間推理步驟，能提升多步驟問題的解題表現，也是上文「先推理再行動」迴圈的基礎。
 
 ### 綜述與教科書
 
 - Wang, L., et al. (2023). *A Survey on Large Language Model based Autonomous Agents*. arXiv. https://arxiv.org/abs/2308.11432 — 對 LLM 代理人的設計進行綜述，涵蓋角色設定、記憶、規劃與行動，以及代理人如何被評估。
 
-### 文章與文件
+## 延伸學習
 
 - Erik S. & Zhang, B. (2024). *Building effective agents*. Anthropic Engineering. https://www.anthropic.com/engineering/building-effective-agents — 關於簡單、可組合的代理人工作流程的實務指南，以及何時完全自主的代理人值得付出其成本。

@@ -1,3 +1,11 @@
+---
+translation_reviewed: 2026-10-28
+aliases:
+  - 機器人
+  - 機器人學
+  - Robotics
+---
+
 # 機器人
 
 ## 經典技術堆疊
@@ -12,6 +20,16 @@ flowchart LR
 ```
 
 傳統機器人學使用明確的模型：運動學、動力學、SLAM、取樣式規劃器（RRT、PRM）、最佳控制與模型預測控制。學習方法正逐步取代或增強其中的每個模組。
+
+## 關鍵方法
+
+下方的學習型機器人討論以一項代表性方法為依據。完整內容見其專頁。
+
+### 用於抓取的手眼協調學習（Levine 等人，2016）
+
+- **概述：** 卷積網路從單眼影像預測抓取成功率並伺服夾爪，不需要校正。訓練資料超過 80 萬次抓取嘗試。
+- **比較：** 從大規模的真實世界資料學習。不必收集真實資料的模擬訓練是另一種做法，列於方法頁的參考文獻中。摘要沒有給出抓取成功率。
+- **完整內容：** [用於抓取的手眼協調學習](hand-eye-grasping/index.md)
 
 ## 以學習為基礎的機器人
 
@@ -56,3 +74,13 @@ flowchart LR
 - Siciliano 與 Khatib（編），*Springer Handbook of Robotics*
 - Thrun、Burgard 與 Fox，*Probabilistic Robotics*
 - [MuJoCo](https://mujoco.org/)、[Isaac Lab](https://isaac-sim.github.io/IsaacLab/)、[ROS 2](https://docs.ros.org/)、[LeRobot](https://github.com/huggingface/lerobot)
+
+## 參考文獻
+
+### 開創性論文
+
+- Levine, S. et al. (2016). Learning Hand-Eye Coordination for Robotic Grasping with Deep Learning and Large-Scale Data Collection. arXiv. https://arxiv.org/abs/1603.02199 — 從單眼影像預測抓取成功率並伺服夾爪，訓練資料超過 80 萬次抓取嘗試。
+- Levine, S., Finn, C., Darrell, T. & Abbeel, P. (2015). End-to-End Training of Deep Visuomotor Policies. arXiv. https://arxiv.org/abs/1504.00702 — 訓練把原始相機影像映射為馬達力矩的卷積策略，感知與控制一起學習。
+- Pinto, L. & Gupta, A. (2015). Supersizing Self-supervision: Learning to Grasp from 50K Tries and 700 Robot Hours. arXiv. https://arxiv.org/abs/1509.06825 — 以約 5 萬次試驗進行自監督的抓取學習，主張規模能減少過擬合。
+- Tobin, J. et al. (2017). Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World. arXiv. https://arxiv.org/abs/1703.06907 — 以隨機化的模擬影像訓練的偵測器，可遷移到真實物體與抓取。
+- Kalashnikov, D. et al. (2018). QT-Opt: Scalable Deep Reinforcement Learning for Vision-Based Robotic Manipulation. arXiv. https://arxiv.org/abs/1806.10293 — 以影像為基礎的自監督強化學習抓取，使用超過 58 萬次真實抓取嘗試，對未見過的物體成功率為 96%。

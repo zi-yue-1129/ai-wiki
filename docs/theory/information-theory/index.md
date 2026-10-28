@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-27
 related:
   - brain-mind/neuroai
-  - theory/models/generative
+  - theory/paradigms/unsupervised/density-and-generative-models/generative-models
 tags:
   - information theory
   - entropy
@@ -19,7 +19,7 @@ Information theory, founded by Claude Shannon in 1948, gives a precise measure o
 
 Shannon asked a practical question: how many bits are needed to send a message reliably over a noisy channel? His answer separated two limits. Lossless compression cannot go below the entropy of the source, and reliable transmission cannot exceed the capacity of the channel, which is itself defined as a maximum of mutual information.
 
-The same definitions matter far beyond telephone lines. A model that predicts data well is, in effect, a compressor, and a learner must decide which information to keep and which to discard. Information theory gives both of these ideas a common language. For the probability background these definitions rely on, see [Mathematics](../math/index.md) and [Probabilistic & Bayesian Methods](../probabilistic/index.md).
+The same definitions matter far beyond telephone lines. A model that predicts data well is, in effect, a compressor, and a learner must decide which information to keep and which to discard. Information theory gives both of these ideas a common language. For the probability background these definitions rely on, see [Mathematics](../math/index.md) and [Probabilistic & Bayesian Methods](../paradigms/probabilistic/index.md).
 
 ## Key concepts
 
@@ -45,7 +45,7 @@ Because \(H(p)\) does not depend on the model \(q\), minimising cross-entropy ag
 
 **Learning as coding.** A classifier trained with cross-entropy loss is a maximum-likelihood estimator for categorical outputs. Minimising the average \(-\log q_\theta(y\mid x)\) over the training set is the same as minimising the KL divergence between the empirical data distribution and the model. The loss is explained in more detail on the [loss functions page](../paradigms/supervised/loss-functions-and-optimization/index.md).
 
-Variational autoencoders use the same ideas. Their training objective has a reconstruction term and a KL term that keeps the learned latent distribution close to a simple prior, which is why they appear in the [generative models](../models/generative/index.md) section.
+Variational autoencoders use the same ideas. Their training objective has a reconstruction term and a KL term that keeps the learned latent distribution close to a simple prior, which is why they appear in the [generative models](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) section.
 
 **The information bottleneck.** Tishby, Pereira and Bialek (2000) framed representation learning as a trade-off. Compress an input \(X\) into a representation \(T\) that keeps as much information as possible about a target \(Y\). Formally, one minimises \(I(X;T) - \beta\, I(T;Y)\), where \(\beta\) sets how much predictive power is worth compared with compression. Alemi and colleagues (2016) made this objective trainable with neural networks by replacing the intractable terms with variational bounds. They reported better generalisation and better resistance to adversarial attacks than some standard regularisers.
 
@@ -78,10 +78,10 @@ The hypothesis is contested. Efficiency may be shaped by metabolic or other cons
 
 - Shannon, C. E. (1948). *A Mathematical Theory of Communication*. Bell System Technical Journal, 27, 379–423 and 623–656. https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf — The founding paper: entropy as a measure of information, and the limits of compression and reliable communication. This is a hosted reprint.
 - Linsker, R. (1988). Self-organization in a perceptual network. *Computer*, 21(3), 105–117. https://doi.org/10.1109/2.36 — Introduces the infomax principle, a layered model that organises itself by preserving information about its input.
-- Barlow, H. B. (1961). Possible principles underlying the transformations of sensory messages. In *Sensory Communication*, pp. 217–234. https://mlanthology.org/misc/1961/barlow1961misc-possible — Proposes that sensory processing reduces redundancy. It is the origin of the efficient coding hypothesis.
+- Barlow, H. B. (1961). Possible principles underlying the transformations of sensory messages. In *Sensory Communication*, pp. 217–234. https://doi.org/10.7551/mitpress/9780262518420.003.0013 — Proposes that sensory processing reduces redundancy. It is the origin of the efficient coding hypothesis.
 - Tishby, N., Pereira, F. C. & Bialek, W. (2000). The information bottleneck method. arXiv:physics/0004057. https://arxiv.org/abs/physics/0004057 — Defines relevant information and derives the trade-off between compressing an input and predicting a target.
 - Alemi, A. A., Fischer, I., Dillon, J. V. & Murphy, K. (2016). Deep variational information bottleneck. arXiv:1612.00410. https://arxiv.org/abs/1612.00410 — Makes the information bottleneck trainable with neural networks and reports better generalisation and adversarial robustness than some standard regularisers.
-- Saxe, A. M., Bansal, Y., Dapello, J., Advani, M., Kolchinsky, A., Tracey, B. D. & Cox, D. (2019). On the information bottleneck theory of deep learning. *Journal of Statistical Mechanics*. https://research.ibm.com/publications/on-the-information-bottleneck-theory-of-deep-learning — Argues that central compression claims about deep networks do not hold in general, and that the compression observed depends mainly on the nonlinearity.
+- Saxe, A. M., Bansal, Y., Dapello, J., Advani, M., Kolchinsky, A., Tracey, B. D. & Cox, D. (2019). On the information bottleneck theory of deep learning. *Journal of Statistical Mechanics*. https://doi.org/10.1088/1742-5468/ab3985 — Argues that central compression claims about deep networks do not hold in general, and that the compression observed depends mainly on the nonlinearity.
 
 ### Surveys and textbooks
 
@@ -93,5 +93,9 @@ The hypothesis is contested. Efficiency may be shaped by metabolic or other cons
 - Polyanskiy, Y. (instructor). *6.441 Information Theory*. MIT OpenCourseWare, Spring 2016. https://ocw.mit.edu/courses/6-441-information-theory-spring-2016/ — A graduate course from first principles. The course page provides lecture notes and problem sets; it lists no video lectures.
 
 ### Articles and documentation
+
+- Shannon, C. E. (1948). A Mathematical Theory of Communication. *Bell System Technical Journal*, 27(3), 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x — Defines entropy and mutual information for communication, the basis of the information measures on this page.
+
+## Further learning
 
 - *Visual Information Theory*. colah's blog (2015). https://colah.github.io/posts/2015-09-Visual-Information/ — A diagram-based introduction to entropy, cross-entropy, KL divergence and mutual information.

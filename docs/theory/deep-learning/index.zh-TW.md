@@ -59,8 +59,8 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 | Transformer | 全域注意力、排列等變性（加上位置） | 幾乎所有模態 | [Transformer](../models/transformer/index.md) |
 | 狀態空間模型（S4、Mamba） | 線性循環，能有效處理長序列 | 長序列、音訊、基因組學 | [Transformer](../models/transformer/index.md) |
 | 圖神經網路 | 圖結構、排列不變性 | 分子、社會網路 | [GNN](../models/gnn/index.md) |
-| 自編碼器／VAE | 瓶頸式壓縮 | 表徵學習、生成 | [生成模型](../models/generative/index.md) |
-| 擴散模型 | 迭代去噪 | 影像、影片、分子 | [生成模型](../models/generative/index.md) |
+| 自編碼器／VAE | 瓶頸式壓縮 | 表徵學習、生成 | [生成模型](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
+| 擴散模型 | 迭代去噪 | 影像、影片、分子 | [生成模型](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 
 ## 讓深度網路能被訓練的技巧
 
@@ -93,26 +93,19 @@ Kaplan et al.（2020）與 Hoffmann et al.（2022，「Chinchilla」）發現，
 
 ## 關鍵方法
 
+每個方法各有專頁，此處的概述與比較從簡。
+
 ### AlexNet（Krizhevsky、Sutskever 與 Hinton，2012）
 
-- **問題：** 將 130 萬張高解析度的 ImageNet 影像分為 1,000 類，當時既有系統的表現遠遠不足。
-- **核心想法：** 在 GPU 上訓練的大型深度卷積網路。使用非飽和神經元加速訓練，並為全連接層加入新的正則化方法以減少過擬合。
-- **架構：** 五個卷積層（部分後接最大池化）與兩個全連接層，最後是 1,000 類的 softmax，約有 6,000 萬個參數。
-- **結果：** 在 LSVRC-2010 測試資料上，top-1 與 top-5 錯誤率分別為 39.7% 與 18.9%，作者認為明顯優於先前的最佳結果。
-- **限制：** 證據來自單一網路與 2010 年的基準資料集。訓練依賴大量的標註資料與 GPU 算力，這在當時並不普遍。
+- **概述：** 一個在 GPU 上訓練的大型深度卷積網路，使用非飽和神經元與一種新的正則化方法。
+- **比較：** 下方的殘差網路把這類影像辨識網路推向更大的深度。
+- **完整內容：** [AlexNet](../models/cnn/backbones-and-scaling/alexnet/index.md)
 
 ### 殘差網路（He 等人，2015）
 
-- **問題：** 非常深的網路難以最佳化，因此增加層數反而不再有幫助。
-- **核心想法：** 每個區塊學習輸入的殘差函數，並透過捷徑把輸入加回去。讓訊號原樣通過因此容易學習。
-- **方程式：** 對輸入 \(x\) 的區塊，
-
-\[
-y = \mathcal{F}(x, \{W_i\}) + x
-\]
-
-- **結果：** 網路深度最多 152 層，約為 VGG 網路的八倍，且複雜度較低。這些網路組成的集成模型在 ImageNet 測試集上達到 3.57% 錯誤率，並在 ILSVRC 2015 分類任務中獲得第一名。
-- **限制：** 3.57% 來自集成模型，而非單一網路。恆等捷徑是論文所主張的設計選擇，並未證明它是最佳的。
+- **概述：** 每個區塊學習輸入的殘差函數，並透過捷徑把輸入加回來，因此讓訊號原樣通過變得容易。
+- **比較：** 同樣的捷徑想法也出現在 Transformer 區塊中；注意力的變體見 Transformer 頁。
+- **完整內容：** [CNN 章節中的 ResNet](../models/cnn/backbones-and-scaling/resnet/index.md)
 
 ## 學習資源
 

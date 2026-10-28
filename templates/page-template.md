@@ -29,9 +29,11 @@ The mechanism, with a diagram, formula or worked example where it helps.
 
 ## Key methods
 
-Summarise the two to four landmark papers behind the topic, one block each. Read the paper (or at least its abstract and method section) before writing the block, and cite it in References.
+Compare the two to four landmark methods behind the topic briefly: one line each, saying what separates them, with a link to the method's own page. Each method gets its own page, with the detail below. Read the paper (or at least its abstract and method section) before writing it, and cite it in References.
 
-### Method name (First author Year)
+- [Method name (First author Year)](method-name.md): what separates it from the others.
+
+On the method's own page:
 
 - **Problem:** the gap or question the paper addresses.
 - **Core idea:** the method in two or three sentences, in your own words.
@@ -53,7 +55,7 @@ What is still debated or unsolved.
 
 ## References
 
-Aim for at least 5 entries in total; the Citations section of the style guide has the rules. Every entry needs a DOI, arXiv id or URL, and a note after " — " saying what it covers.
+Aim for at least 5 entries in total; the Citations section of the style guide has the rules. Every entry needs a DOI, arXiv id or URL, and a note after " — " saying what it covers. Formal sources only here: blogs and videos go under Further learning below.
 
 ### Seminal papers
 
@@ -63,12 +65,18 @@ Aim for at least 5 entries in total; the Citations section of the style guide ha
 
 - Author, *Title*, Publisher (Year). Link to a free version where one exists. — Who the book is for and what it covers.
 
-### Lectures and videos
+### Lectures
 
-- Speaker, *Course or talk title*, Institution or event (Year). Link to the official page. — What the lecture covers and its level.
+- Speaker, *Course title*, Institution (Year). Link to the official page. — What the lecture covers and its level.
 
 ### Articles and documentation
 
 - Organization or author, *Page title*. Link. — What the page explains and why it is useful.
 
 Use footnotes for specific claims: a sentence ending in `[^1]` points to `[^1]: ...` below, or to the matching entry above.
+
+## Further learning
+
+Optional. Blogs, video lectures and other informal pointers for readers who want to go further. These are not references and cannot support a claim on the page. Every entry needs a link too.
+
+- Author, *Title*. Link. — What it covers and who it is for.

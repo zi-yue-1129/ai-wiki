@@ -35,6 +35,13 @@ docs/
 - File and folder names are lowercase English with hyphens.
 - When you move or rename a page, add its old and new paths to `redirect_maps` in `mkdocs.yml`, so existing links keep working.
 
+## Method pages and parent overviews
+
+- Every named method (a model, algorithm or architecture that readers look up by name) gets its own page with the detail: problem, core idea, equation or algorithm, results and limitations. Put it in the topic folder, as `<method>.md` or `<method>/index.md`.
+- A parent page, whether a topic or section overview, keeps only a brief comparison: one line per method, what separates them, and a link to each method page. It does not repeat the detail.
+- When you add a sub-topic, a method or any other child page, update the comparison and overview of every ancestor page in the same pull request, not only the direct parent.
+- Each child page must be linked from its parent's `index.md`. `python scripts/wiki_status.py --check` warns when it is not.
+
 ## Theory or models?
 
 Models is a subsection of Theory, so both kinds of page live under `docs/theory/`. Decide by what the page is about:
@@ -56,10 +63,10 @@ Start new pages from the [page template](https://github.com/zi-yue-1129/ai-wiki/
 
 1. Title (`# Heading`) and a one- or two-sentence summary
 2. Overview, key concepts, how it works
-3. Key methods: for the landmark papers, the problem, core idea, equation or algorithm, results and limitations (see the template for the block pattern)
+3. Key methods: a brief comparison of the landmark methods, linking to each method's own page, which holds the problem, core idea, equation or algorithm, results and limitations (see "Method pages and parent overviews" and the template)
 4. Connections to other pages (especially the brain and mind angle)
 5. Applications, open questions
-6. Further reading and references
+6. References, then Further learning for informal pointers (see Citations)
 
 Unfinished pages keep this admonition at the top, which marks them as stubs in the status report:
 
@@ -124,7 +131,7 @@ Good references are what make a page trustworthy and useful for learning. Every 
 
 - **Seminal papers.** The papers that introduced or defined the idea. Prefer the original publication.
 - **Surveys and textbooks.** Reviews and books a reader can use to go deeper. Link a free version when one is legally available.
-- **Lectures and videos.** Courses and talks from universities, research labs, conferences or official channels. Name the speaker, course or event, and year.
+- **Lectures.** Course pages from universities and research labs. Name the speaker, course and year. Videos are not references (see Citations).
 - **Articles and documentation.** Official documentation, posts from the original authors or labs, and careful journalism. Prefer primary sources over commentary.
 
 **Format**
@@ -143,7 +150,7 @@ Group entries under these headings when the page has enough of them. Use one lin
 
 - Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*. MIT Press. https://www.deeplearningbook.org/ — Comprehensive textbook covering the mathematics and practice of deep learning, free online.
 
-### Lectures and videos
+### Lectures
 
 - Lecturer, *Course title*, University, Year. https://example.edu/course — Full lecture series on the topic from first principles, with problem sets.
 
@@ -154,13 +161,26 @@ Group entries under these headings when the page has enough of them. Use one lin
 
 **Rules**
 
-1. **Open every link before you add it.** Confirm the title, authors, year and that it says what you cite it for. Never guess a DOI, arXiv id or URL, and never cite a paper you have not at least read the abstract of.
+1. **Open every link before you add it.** Confirm the title, authors, year and that it says what you cite it for. Never guess a DOI, arXiv id or URL, and never cite a paper you have not at least read the abstract of. Check every DOI against a source that shows it (the publisher page, Crossref, or a database that displays the DOI). A DOI written from memory is not verified.
 2. **Cite a specific claim with a footnote** (`[^1]`) that points to the entry. Keep a general reading list in References.
 3. **Annotate every entry.** Add a dash and one or two sentences after the link saying what the source covers and who it is for. Describe the content, not how good it is, so readers can decide whether to open it.
-4. **Videos:** use the course page or the speaker's official channel, not a re-upload.
+4. **Videos are not references.** Do not cite YouTube videos or talk recordings in References. If a course page from a university or research lab is the only source, cite that page; otherwise cite the paper the video explains. A video may be listed under Further learning (see below).
 5. **Don't copy.** Citing a source is not a license to reproduce its text, figures or diagrams. Paraphrase, and link.
 6. **Dead links** are found by the weekly link check. Replace them with an archived copy or a newer source, don't just delete the entry.
 7. Pages that are pure lists or meta pages (the roadmap, the glossary, the reference lists) set `references: not-required` in their front matter. Section overviews are exempt automatically.
+8. **Primary sources only.** Blogs, newsletters, YouTube and other video channels, bookseller pages, and bibliographic aggregators (Semantic Scholar mirrors, scilit, researchr, RePEc and similar) are not references. Cite the paper, official report, standard or statute itself. If only an aggregator page can be confirmed, say so in the PR body rather than adding it.
+
+**Every external resource has a link, and formal and informal sources are kept apart.** Each entry, in any section, links to its source with a DOI, arXiv id or URL. Formal sources (papers, official reports, standards, statutes, books) go in References. Blogs, videos and aggregators never go in References. They may be listed under Further learning, as described below. CI enforces both rules on changed pages (`wiki_status.py --check`), and `wiki_status.py --unlinked` lists the rest of the wiki.
+
+**Further learning**
+
+Blogs, video lectures and other informal pointers can still help a reader go further. List them under a `## Further learning` heading placed after `## References`, one line each with a link and a note after " — ". These entries are not references: the build does not count them, and they never support a claim on the page, which must be backed by an entry in References. Bookseller pages and bibliographic aggregators are not listed even here. Further reading and Further learning entries need a DOI, arXiv id or URL, just as References entries do; `python scripts/wiki_status.py --unlinked` lists every entry in the wiki that has none.
+
+```markdown
+## Further learning
+
+- Rogge, N. & Rasul, K., *The Annotated Diffusion Model*. Hugging Face blog. https://huggingface.co/blog/annotated-diffusion — Step-by-step code walk-through of DDPM, useful for checking the equations on this page.
+```
 
 ## Formatting
 

@@ -2,9 +2,9 @@
 """Report the state of every wiki page: completeness, staleness, translations.
 
 Usage:
-    python scripts/wiki_status.py --format page   > includes/status.md
     python scripts/wiki_status.py --format issue  > health-report.md
     python scripts/wiki_status.py --check          # exit 1 on structural problems
+    python scripts/wiki_status.py --unlinked       # list every source entry without a link
 
 How a page's status is decided (English page = docs/**/<name>.md):
   1. `status:` in the page's front matter wins (stub / draft / complete).
@@ -18,6 +18,8 @@ at least ANNOTATION_MIN_WORDS words after " — " saying what the source covers.
 exempt, as are section overviews (docs/<section>/index.md). --check enforces this only on pages the current branch changes relative
 to the base branch, so the existing backlog does not fail every PR. Pages that were only moved (at least 90% similar) do not count as changed. The full
 backlog is listed as a count.
+
+Further reading and Further learning entries (and their zh-TW headings) need a link in the same way, and are checked on changed pages too. `--unlinked` lists every reference and further-reading entry in the wiki that has no link, so the backlog can be fixed in batches.
 
 A page is stale when its last review (`last_reviewed:` front matter, falling back
 to its last git commit) is older than STALE_DAYS.
@@ -38,6 +40,7 @@ import sys
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
+from urllib.parse import urlparse
 
 import yaml
 
@@ -271,6 +274,102 @@ def reference_problems(path: Path) -> list[str]:
     return problems
 
 
+SOURCE_HEADING = re.compile(r"^##\s+(References|Further reading|Further learning|參考文獻|延伸閱讀|延伸學習)\s*$", re.M)
+LINKED_HEADING = re.compile(r"^##\s+(Further reading|Further learning|延伸閱讀|延伸學習)\s*$", re.M)
+REFERENCE_SECTION = re.compile(r"^##\s+(References|參考文獻)\s*$", re.M)
+# Blogs, video channels and bibliographic aggregators: informal or secondary, so never References.
+INFORMAL_HOSTS = (
+    "youtube.com", "youtu.be", "medium.com", "substack.com", "colah.github.io", "lilianweng.github.io",
+    "distill.pub", "towardsdatascience.com", "scilit.com", "scilit.net", "researchr.org", "repec.org",
+    "semanticscholar.org", "twitter.com", "x.com",
+)
+
+
+def is_informal(entry: str) -> bool:
+    """True when an entry links to a blog, video, or aggregator rather than the source itself."""
+    for url in re.findall(r"https?://[^\s)\]]+", entry):
+        parts = urlparse(url)
+        host = parts.netloc.lower()
+        if any(host == h or host.endswith("." + h) for h in INFORMAL_HOSTS):
+            return True
+        if host == "huggingface.co" and parts.path.startswith("/blog"):
+            return True
+    return False
+
+
+def source_entries(body: str, headings: re.Pattern) -> list[str]:
+    """List entries under each heading matching `headings`, up to the next level-2 heading."""
+    entries = []
+    for heading in headings.finditer(body):
+        rest = body[heading.end():]
+        nxt = NEXT_H2.search(rest)
+        section = rest[: nxt.start()] if nxt else rest
+        entries += [l.strip() for l in section.splitlines() if re.match(r"^(- |\[\^)", l.strip())]
+    return entries
+
+
+def base_lines(rel: str) -> set[str]:
+    """Stripped lines of a page on the base branch. Entries already there are backlog, not this change."""
+    base = os.environ.get("GITHUB_BASE_REF", "main")
+    out = subprocess.run(
+        ["git", "show", f"origin/{base}:docs/{rel}"], cwd=ROOT, capture_output=True, text=True,
+    )
+    return {line.strip() for line in out.stdout.splitlines()} if out.returncode == 0 else set()
+
+
+def source_problems(path: Path, known: set[str]) -> list[str]:
+    """Source entries that must carry a link, and informal sources listed under References.
+
+    Entries whose text is in `known` (already on the base branch) are skipped, so an edit
+    is held to the same rules as new text without failing on the existing backlog.
+    """
+    meta, body = read(path)
+    rel = path.relative_to(DOCS).as_posix()
+    if meta.get("references") == "not-required":
+        return []
+    problems = [
+        f"docs/{rel}: further-reading entry without a DOI, arXiv id or URL: {entry[:70]}"
+        for entry in source_entries(body, LINKED_HEADING)
+        if not IDENTIFIER.search(entry) and entry not in known
+    ]
+    problems += [
+        f"docs/{rel}: reference is a blog, video or aggregator; move it to Further learning: {entry[:70]}"
+        for entry in source_entries(body, REFERENCE_SECTION)
+        if IDENTIFIER.search(entry) and is_informal(entry) and entry not in known
+    ]
+    return problems
+
+
+def source_findings(path: Path) -> list[str]:
+    """Entries to fix: any source entry without a link, and informal sources listed under References."""
+    _, body = read(path)
+    findings = [entry for entry in source_entries(body, SOURCE_HEADING) if not IDENTIFIER.search(entry)]
+    findings += [entry for entry in source_entries(body, REFERENCE_SECTION) if is_informal(entry)]
+    return findings
+
+
+def source_report() -> dict[str, list[str]]:
+    """Pages with entries to fix, keyed by their path under docs/ (English and zh-TW alike)."""
+    report = {}
+    for path in sorted(DOCS.rglob("*.md")):
+        findings = source_findings(path)
+        if findings:
+            report[path.relative_to(DOCS).as_posix()] = findings
+    return report
+
+
+def scan_unlinked() -> int:
+    """Print every source entry that needs a link or a move to Further learning, grouped by page."""
+    report = source_report()
+    for page, findings in report.items():
+        print(f"docs/{page}")
+        for entry in findings:
+            print(f"  {entry}")
+    total = sum(len(v) for v in report.values())
+    print(f"{total} entr{'y' if total == 1 else 'ies'} to fix on {len(report)} page(s).")
+    return 0
+
+
 LINK_TARGET = re.compile(r"\[[^\]\n]*\]\([^)\n]*\)")
 RELATED_ITEM = re.compile(r"(?m)^(\s*-\s+)(theory|foundations|models)/\S*$")
 
@@ -317,6 +416,30 @@ def only_links_changed(base: str, status: str, path: Path) -> bool:
     return normalise_links(old.stdout) == normalise_links((ROOT / path).read_text(encoding="utf-8"))
 
 
+LINK_TARGET = re.compile(r"\]\((?!https?:|mailto:|#)([^)\s#]+)")
+
+
+def unlinked_children() -> list[str]:
+    """Pages that their parent overview does not link to. Reported as warnings, not failures."""
+    warnings: list[str] = []
+    for page in english_pages():
+        rel = page.relative_to(DOCS)
+        if len(rel.parts) == 1 or (rel.name == "index.md" and len(rel.parts) == 2):
+            continue  # the home page and section overviews sit above this rule
+        if rel.name == "index.md":
+            parent = page.parent.parent / "index.md"
+            own = {page, page.parent}
+        else:
+            parent = page.parent / "index.md"
+            own = {page}
+        if not parent.exists():
+            continue
+        linked = {Path(os.path.normpath(parent.parent / target)) for target in LINK_TARGET.findall(read(parent)[1])}
+        if not own & linked:
+            warnings.append(f"docs/{rel.as_posix()}: not linked from docs/{parent.relative_to(DOCS).as_posix()}")
+    return warnings
+
+
 def check(pages: list[Page]) -> int:
     problems: list[str] = []
     nav = nav_paths()
@@ -357,37 +480,50 @@ def check(pages: list[Page]) -> int:
     for p in pages:
         if p.status == "stub":
             continue
-        issues = reference_problems(DOCS / p.path)
+        rel = p.path.as_posix()
+        on_changed = changed is not None and rel in changed
+        known = base_lines(rel) if on_changed else set()
+        issues = reference_problems(DOCS / p.path) + source_problems(DOCS / p.path, known)
         if not issues:
             continue
-        if changed is not None and p.path.as_posix() in changed:
+        if on_changed:
             problems.extend(issues)
         else:
             backlog += 1
     for line in problems:
         print(f"::error::{line}" if "GITHUB_ACTIONS" in os.environ else line)
-    print(f"{len(pages)} pages checked, {len(problems)} problem(s).")
+    warnings = unlinked_children()
+    for line in warnings:
+        print(f"::warning::{line}" if "GITHUB_ACTIONS" in os.environ else f"warning: {line}")
+    print(f"{len(pages)} pages checked, {len(problems)} problem(s), {len(warnings)} warning(s).")
     if backlog:
-        print(f"{backlog} existing page(s) lack a complete References section; enforced once they are edited.")
+        print(f"{backlog} existing page(s) lack complete reference or further-reading links; enforced once they are edited.")
     return 1 if problems else 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--format", choices=["page", "issue"], default="issue")
+    parser.add_argument("--format", choices=["issue"], default="issue")
     parser.add_argument("--check", action="store_true", help="validate structure and exit")
+    parser.add_argument("--unlinked", action="store_true", help="list every source entry without a link")
     args = parser.parse_args()
 
+    if args.unlinked:
+        return scan_unlinked()
     pages = [load_page(p) for p in english_pages()]
     if args.check:
         return check(pages)
-    if args.format == "page":
-        # Included into docs/reference/roadmap/index.md, so links are relative to that folder.
-        print(render(pages, "../../", "###"))
-    else:
-        base = "https://github.com/zi-yue-1129/ai-wiki/blob/main/docs/"
-        print("This report is regenerated weekly by the `maintenance` workflow.\n")
-        print(render(pages, base, "##"))
+    base = "https://github.com/zi-yue-1129/ai-wiki/blob/main/docs/"
+    print("This report is regenerated weekly by the `maintenance` workflow.\n")
+    print(render(pages, base, "##"))
+    print("## Sources to fix\n")
+    print("Entries with no link, and blogs, videos or aggregators listed under References. Fix them in batches.\n")
+    report = source_report()
+    for page, findings in report.items():
+        print(f"- [`{page}`]({base}{page})")
+        for entry in findings:
+            print(f"    - {entry}")
+    print(f"\n{sum(len(v) for v in report.values())} entries on {len(report)} page(s).")
     return 0
 
 

@@ -47,7 +47,7 @@ tags:
 
 ### 開創性論文
 
-- Tibshirani (1996), "Regression shrinkage and selection via the lasso", *JRSS B*. https://www.math.cuhk.edu.hk/~btjin/math6221/p7.pdf — 提出 lasso，即讓部分係數精確為零的 L1 懲罰。
+- Tibshirani (1996), "Regression shrinkage and selection via the lasso", *JRSS B*. https://doi.org/10.1111/j.2517-6161.1996.tb02080.x — 提出 lasso，即讓部分係數精確為零的 L1 懲罰。
 - Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980 — Adam 最佳化器，是以梯度下降訓練邏輯模型與神經模型的預設選擇。
 - Guo et al. (2017), "On calibration of modern neural networks", ICML, arXiv:1706.04599 — 顯示預測的機率可能校準不良，並提出以溫度縮放作為修正方法。
 
@@ -57,12 +57,16 @@ tags:
 
 ### 講座與影片
 
-- StatQuest with Josh Starmer，關於邏輯迴歸與正規化的單元，YouTube。https://www.youtube.com/@statquest — 為初學者提供邏輯迴歸、ridge 與 lasso 的簡短視覺化解說。
+- Tibshirani, R. (1996). Regression shrinkage and selection via the lasso. *Journal of the Royal Statistical Society: Series B*, 58(1), 267–288. https://doi.org/10.1111/j.2517-6161.1996.tb02080.x — 提出 lasso，以 L1 懲罰的迴歸同時完成正則化與變數選取。
 
 ### 文章與文件
 
 - Andrew Ng，Stanford CS229 講義。https://cs229.stanford.edu/main_notes.pdf — 線性迴歸、邏輯迴歸的推導，以及廣義線性模型的框架。
 
+## 延伸學習
+
+- StatQuest with Josh Starmer，關於邏輯迴歸與正規化的單元，YouTube。https://www.youtube.com/@statquest — 為初學者提供邏輯迴歸、ridge 與 lasso 的簡短視覺化解說。
+
 ## 延伸閱讀
 
-- McCullagh & Nelder，*Generalized Linear Models*，第二版（1989）。未查核連結。
+- McCullagh & Nelder，*Generalized Linear Models*，第二版（1989）。https://doi.org/10.1201/9780203753736 — 廣義線性模型的標準教科書。此 DOI 為 Routledge 重印版（2019）。

@@ -6,9 +6,9 @@ The full guide is on the site: **[Contributing](https://zi-yue-1129.github.io/ai
 
 - **Small fix?** Use the ✏️ button on any page and open a pull request.
 - **Error or missing topic?** Open an issue with one of the [templates](https://github.com/zi-yue-1129/ai-wiki/issues/new/choose).
-- **Writing a page?** Pick a topic from the [Roadmap](docs/reference/roadmap/index.md), start from [`templates/page-template.md`](templates/page-template.md), and follow the [Style Guide](docs/reference/style-guide/index.md).
+- **Writing a page?** Pick an open [chapter issue](https://github.com/zi-yue-1129/ai-wiki/issues?q=is%3Aissue+is%3Aopen+label%3Achapter), start from [`templates/page-template.md`](templates/page-template.md), and follow the [Style Guide](docs/reference/style-guide/index.md).
 - English pages are `topic.md`; Traditional Chinese translations are `topic.zh-TW.md`.
 - Before opening a PR, run `mkdocs build --strict` and `python scripts/wiki_status.py --check`.
 - Search is built by Pagefind after MkDocs: run `npx pagefind --site site` on the built site to test the search box locally. Without that step the search box reports that the index is not built.
 
-Content is licensed CC BY-SA 4.0; write in your own words and cite your sources.
+Content is licensed CC BY-SA 4.0; write in your own words and cite your sources. Every external resource needs a link. Formal sources (papers, official reports, standards, books) go in References; blogs and videos go only under Further learning.

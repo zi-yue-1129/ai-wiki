@@ -87,31 +87,19 @@ Psychological roots: Thorndike's law of effect, Skinner's operant conditioning, 
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### Deep Q-networks (Mnih et al., 2015)
 
-- **Problem:** how can one algorithm learn control policies directly from raw pixels across many different games?
-- **Core idea:** a convolutional network approximates the action-value function Q from raw frames. Two changes make training stable: experience replay, which samples random past transitions, and a target network, which is updated only now and then.
-- **Equation:** the network is trained to reduce the squared temporal-difference error against the target network:
-
-\[
-L(\theta) = \mathbb{E}\left[\left(r + \gamma \max_{a'} Q(s', a'; \theta^-) - Q(s, a; \theta)\right)^2\right]
-\]
-
-- **Results:** one network and one training procedure learned to play a range of Atari 2600 games from raw pixels.
-- **Limitations:** actions must be discrete, and training needs a great deal of experience. Later work such as Double DQN and Rainbow addresses some of the remaining instability, as the algorithm table above shows.
+- **Overview:** A convolutional network approximates the action-value function from raw frames, stabilised by experience replay and a target network.
+- **Comparison:** The value-based route. The value-based methods page covers the family, and PPO below takes the policy-based route.
+- **Full write-up:** [Deep Q-Networks](deep-q-networks/index.md)
 
 ### Proximal policy optimisation (Schulman et al., 2017)
 
-- **Problem:** plain policy gradients can take steps so large that performance collapses. Trust-region methods are stable but complicated to implement.
-- **Core idea:** clip the ratio between the new and old action probabilities in the surrogate objective, so the update gains nothing from moving far from the old policy. This allows several epochs of minibatch updates on the same batch of data.
-- **Equation:** with the probability ratio \(r_t(\theta) = \pi_\theta(a_t \mid s_t) / \pi_{\theta_{\text{old}}}(a_t \mid s_t)\) and advantage estimate \(\hat{A}_t\):
-
-\[
-L^{\text{CLIP}}(\theta) = \mathbb{E}_t\left[\min\left(r_t(\theta)\hat{A}_t,\ \text{clip}\left(r_t(\theta), 1-\epsilon, 1+\epsilon\right)\hat{A}_t\right)\right]
-\]
-
-- **Results:** the paper reports that PPO outperforms other online policy gradient methods on its benchmark tasks, which include simulated robotic locomotion and Atari, with a favourable balance of sample complexity, simplicity and wall-clock time.
-- **Limitations:** the evidence is empirical, and clipping is a heuristic rather than a guarantee of improvement. PPO is also on-policy, so each batch of data supports only a few updates.
+- **Overview:** A policy-gradient method that clips the probability ratio between the new and old policies, so each update stays near the old policy.
+- **Comparison:** The policy-based route, simpler than trust-region methods. It is on-policy, which the offline RL page contrasts with.
+- **Full write-up:** [Proximal Policy Optimisation](proximal-policy-optimisation/index.md)
 
 ## Milestones
 
@@ -138,6 +126,8 @@ L^{\text{CLIP}}(\theta) = \mathbb{E}_t\left[\min\left(r_t(\theta)\hat{A}_t,\ \te
 - [Model-based RL](model-based-rl/index.md): world models, MuZero and Dreamer.
 - [Offline RL](offline-rl/index.md): learning from fixed datasets with conservative value estimates.
 - [Learning from human feedback](learning-from-human-feedback/index.md): reward models and RLHF.
+- [Experience replay](experience-replay/index.md): reusing past transitions to learn more from each one.
+- [Exploration](exploration/index.md): how agents try new actions when rewards are sparse.
 
 ## Resources
 

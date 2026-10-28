@@ -42,8 +42,8 @@ Masked objectives learn features that are good for prediction but may not be bes
 
 - Devlin, Chang, Lee & Toutanova (2019), "BERT: pre-training of deep bidirectional transformers for language understanding", NAACL, arXiv:1810.04805 — Masked language modelling with a bidirectional transformer, the start of modern language pre-training.
 - He, Chen, Xie, Li, Dollár & Girshick (2022), "Masked autoencoders are scalable vision learners", CVPR, arXiv:2111.06377 — Masks most image patches and reconstructs them with an asymmetric encoder–decoder.
-- Hinton & Salakhutdinov (2006), "Reducing the dimensionality of data with neural networks", *Science* 313. https://pubmed.ncbi.nlm.nih.gov/16873662/ — Layer-wise pre-training by reconstruction, an early form of the same idea.
-- Vincent, Larochelle, Bengio & Manzagol (2008), "Extracting and composing robust features with denoising autoencoders", ICML. https://icml.cc/imls/conferences/2008/papers/592.pdf — The denoising objective that masked prediction generalises.
+- Hinton & Salakhutdinov (2006), "Reducing the dimensionality of data with neural networks", *Science* 313. https://doi.org/10.1126/science.1127647 — Layer-wise pre-training by reconstruction, an early form of the same idea.
+- Vincent, Larochelle, Bengio & Manzagol (2008), "Extracting and composing robust features with denoising autoencoders", ICML. https://doi.org/10.1145/1390156.1390294 — The denoising objective that masked prediction generalises.
 
 ### Surveys and textbooks
 
@@ -59,4 +59,4 @@ Masked objectives learn features that are good for prediction but may not be bes
 
 ## Further reading
 
-- Devlin et al.'s BERT GitHub repository for the original training code. No link checked here.
+- Devlin et al., *google-research/bert*, GitHub repository. https://github.com/google-research/bert — The original TensorFlow code and pre-trained models for BERT; the repository is archived and read-only.

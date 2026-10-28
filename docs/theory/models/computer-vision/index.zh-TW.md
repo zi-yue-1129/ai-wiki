@@ -15,7 +15,7 @@
 | 影片理解 | 動作、事件 | SlowFast、VideoMAE、影片視覺語言模型 |
 | 追蹤 | 軌跡 | SORT、ByteTrack |
 | OCR 與文件理解 | 文字、版面 | PaddleOCR、Donut、視覺語言模型 |
-| 影像生成與編輯 | 影像 | 見[生成模型](../generative/index.md) |
+| 影像生成與編輯 | 影像 | 見[生成模型](../../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 
 ## 架構的演進
 

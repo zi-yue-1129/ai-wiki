@@ -72,24 +72,19 @@ LLM agents implicitly re-create cognitive architectures — see [AI Agents](../.
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### ACT-R: a modular architecture of mind (Anderson et al., 2004)
 
-- **Problem:** how can cognitive processes such as retrieval, decision and motor control emerge from one system that also matches human timing?
-- **Core idea:** separate modules (visual, motor, declarative memory, goal) exchange information through buffers, and production rules decide which action to take next. Each module's processing time is set to fit human data.
-- **Algorithm:**
-    1. Each module places its current results in its buffer.
-    2. The production rules match the buffers' contents.
-    3. The rule that matches fires, changing the buffers and so the next step.
-- **Results:** the paper reports that one architecture accounts for human data from a range of tasks, with the module timings linked to brain regions.
-- **Limitations:** the architecture is a large set of hand-built components, and fitting it to data needs many modelling choices. The memory equation above is one of the parts that is fitted.
+- **Overview:** Separate modules communicate through buffers, and production rules choose the next action.
+- **Comparison:** A symbolic architecture. CoALA below applies the same modular idea to language-model agents.
+- **Full write-up:** [ACT-R](act-r/index.md)
 
 ### CoALA: cognitive architectures for language agents (Sumers et al., 2023)
 
-- **Problem:** language agents built on large language models have shown strong results, but there is no systematic framework for organising them.
-- **Core idea:** describe an agent with modular memory (working, episodic, semantic and procedural), a set of internal actions (retrieval, reasoning, learning) and external actions (grounding in an environment), and a decision cycle that chooses among them.
-- **Method:** a conceptual framework. The paper uses it to categorise existing agents and to suggest directions for building new ones.
-- **Results:** the paper reports no new system or benchmark. Its contribution is the categorisation and the design vocabulary.
-- **Limitations:** a framework is not an evaluated system, and the categories may blur when a real agent does not fit them neatly.
+- **Overview:** An agent with modular memory and a set of internal actions, designed for language models.
+- **Comparison:** Adapts ACT-R-style modular memory to language agents. The two are compared, not merged.
+- **Full write-up:** [CoALA](coala/index.md)
 
 ## Resources
 
@@ -105,7 +100,7 @@ LLM agents implicitly re-create cognitive architectures — see [AI Agents](../.
 ### Seminal papers
 
 - Anderson, J. R., et al. (2004). An Integrated Theory of the Mind. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.4.1036 — ACT-R, a cognitive architecture that models memory, goals and learning within one system.
-- Laird, J. E., Lebiere, C. & Rosenbloom, P. S. (2017). A Standard Model of the Mind: Toward a Common Computational Framework. *AI Magazine*. https://doi.org/10.1609/aimag.v38i4.2744 — Proposes a community consensus on the shared components of Soar, ACT-R and Sigma.
+- Laird, J. E., Lebiere, C. & Rosenbloom, P. S. (2017). A Standard Model of the Mind: Toward a Common Computational Framework across Artificial Intelligence, Cognitive Science, Neuroscience, and Robotics. *AI Magazine*. https://doi.org/10.1609/aimag.v38i4.2744 — Proposes a community consensus on the shared components of Soar, ACT-R and Sigma.
 - Lake, B. M., et al. (2017). Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — Argues that human-like learning needs causal models, intuitive theories and compositionality.
 
 ### Surveys and textbooks

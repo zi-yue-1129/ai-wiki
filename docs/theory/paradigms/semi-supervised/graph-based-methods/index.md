@@ -40,7 +40,7 @@ Scaling graph construction and propagation to millions of points, learning the s
 
 ### Seminal papers
 
-- Zhu, Ghahramani & Lafferty (2003), "Semi-supervised learning using Gaussian fields and harmonic functions", ICML. https://mlanthology.org/icml/2003/zhu2003icml-semi/ — Label propagation through harmonic functions on a graph, with a closed-form solution.
+- Zhu, Ghahramani & Lafferty (2003), "Semi-supervised learning using Gaussian fields and harmonic functions", ICML. https://www.cs.cmu.edu/~zhuxj/pub/zgl.pdf — Label propagation through harmonic functions on a graph, with a closed-form solution.
 - Zhou, Bousquet, Lal, Weston & Schölkopf (2004), "Learning with local and global consistency", NeurIPS. https://papers.nips.cc/paper/2506-learning-with-local-and-global-consistency — Balances fitting known labels with graph smoothness.
 - Belkin, Niyogi & Sindhwani (2006), "Manifold regularization: a geometric framework for learning from labeled and unlabeled examples", *JMLR* 7. https://www.jmlr.org/papers/v7/belkin06a.html — Adds manifold smoothness to kernel learners, so they generalise to new points.
 - Singh, Nowak & Zhu (2008), "Unlabeled data: now it helps, now it doesn't", NeurIPS. https://proceedings.neurips.cc/paper/2008/hash/07871915a8107172b3b5dc15a6574ad3-Abstract.html — Shows when smoothing over a graph with unlabelled data helps and when it hurts.
@@ -60,4 +60,4 @@ Scaling graph construction and propagation to millions of points, learning the s
 
 ## Further reading
 
-- Chapelle, Schölkopf & Zien (eds.), *Semi-Supervised Learning*, MIT Press (2006), chapter on graph methods. No free link checked.
+- Chapelle, Schölkopf & Zien (eds.), *Semi-Supervised Learning*, MIT Press (2006), chapter on graph methods. https://doi.org/10.7551/mitpress/9780262033589.001.0001 — The standard volume; this link is to the whole book, not to the chapter.

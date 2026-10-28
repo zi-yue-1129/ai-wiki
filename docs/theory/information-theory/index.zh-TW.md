@@ -10,7 +10,7 @@ translation_reviewed: 2026-10-27
 
 Shannon 問了一個實際的問題：要在有雜訊的通道上可靠地傳送訊息，需要多少位元？他的答案區分了兩個極限。無損壓縮不可能低於來源的熵，而可靠傳輸也不可能超過通道容量，而通道容量本身就是互資訊的最大值。
 
-這些定義的用途遠超電話線路。一個能良好預測資料的模型，實際上就是一個壓縮器；而學習者必須決定該保留哪些資訊、捨棄哪些。資訊理論為這兩個想法提供了共同的語言。這些定義所依賴的機率背景，可參閱[數學基礎](../math/index.md)與[機率圖模型與貝氏方法](../probabilistic/index.md)。
+這些定義的用途遠超電話線路。一個能良好預測資料的模型，實際上就是一個壓縮器；而學習者必須決定該保留哪些資訊、捨棄哪些。資訊理論為這兩個想法提供了共同的語言。這些定義所依賴的機率背景，可參閱[數學基礎](../math/index.md)與[機率圖模型與貝氏方法](../paradigms/probabilistic/index.md)。
 
 ## 核心概念
 
@@ -36,7 +36,7 @@ H(p,q) = H(p) + D_{\mathrm{KL}}(p\,\|\,q)
 
 **把學習看成編碼。** 以交叉熵為損失函數訓練的分類器，對類別輸出而言就是最大概似估計。最小化訓練集上的平均 \(-\log q_\theta(y\mid x)\)，等同於最小化經驗資料分布與模型之間的 KL 散度。這個損失函數在[損失函數頁面](../paradigms/supervised/loss-functions-and-optimization/index.md)有更詳細的說明。
 
-變分自編碼器也用到同樣的想法。它的訓練目標包含一個重建項和一個 KL 項，後者使學到的潛在分布接近一個簡單的先驗分布，因此它出現在[生成模型](../models/generative/index.md)一節中。
+變分自編碼器也用到同樣的想法。它的訓練目標包含一個重建項和一個 KL 項，後者使學到的潛在分布接近一個簡單的先驗分布，因此它出現在[生成模型](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md)一節中。
 
 **資訊瓶頸。** Tishby、Pereira 與 Bialek（2000）將表徵學習架構為一種權衡：把輸入 \(X\) 壓縮成一個表徵 \(T\)，同時盡可能保留關於目標 \(Y\) 的資訊。形式上，要最小化 \(I(X;T) - \beta\, I(T;Y)\)，其中 \(\beta\) 決定預測能力相對於壓縮的價值。Alemi 等人（2016）以變分界取代難以計算的項，使這個目標能以神經網路訓練。他們回報，相較於某些標準正則化方法，模型有更好的泛化能力，並且更能抵抗對抗性攻擊。
 
@@ -71,10 +71,10 @@ H(p,q) = H(p) + D_{\mathrm{KL}}(p\,\|\,q)
 
 - Shannon, C. E. (1948). *A Mathematical Theory of Communication*. Bell System Technical Journal, 27, 379–423 and 623–656. https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf — 奠基之作：以熵衡量資訊，並定義壓縮與可靠通訊的極限。此為網路上的重印版本。
 - Linsker, R. (1988). Self-organization in a perceptual network. *Computer*, 21(3), 105–117. https://doi.org/10.1109/2.36 — 提出 infomax 原則：一個分層的感知模型，會藉由保留關於輸入的資訊而自我組織。
-- Barlow, H. B. (1961). Possible principles underlying the transformations of sensory messages. In *Sensory Communication*, pp. 217–234. https://mlanthology.org/misc/1961/barlow1961misc-possible — 提出感覺處理會減少冗餘，是效率編碼假說的起源。
+- Barlow, H. B. (1961). Possible principles underlying the transformations of sensory messages. In *Sensory Communication*, pp. 217–234. https://doi.org/10.7551/mitpress/9780262518420.003.0013 — 提出感覺處理會減少冗餘，是效率編碼假說的起源。
 - Tishby, N., Pereira, F. C. & Bialek, W. (2000). The information bottleneck method. arXiv:physics/0004057. https://arxiv.org/abs/physics/0004057 — 定義相關資訊，並推導壓縮輸入與預測目標之間的權衡。
 - Alemi, A. A., Fischer, I., Dillon, J. V. & Murphy, K. (2016). Deep variational information bottleneck. arXiv:1612.00410. https://arxiv.org/abs/1612.00410 — 使資訊瓶頸能以神經網路訓練，並回報相較某些標準正則化方法有更好的泛化與對抗性強健性。
-- Saxe, A. M., Bansal, Y., Dapello, J., Advani, M., Kolchinsky, A., Tracey, B. D. & Cox, D. (2019). On the information bottleneck theory of deep learning. *Journal of Statistical Mechanics*. https://research.ibm.com/publications/on-the-information-bottleneck-theory-of-deep-learning — 主張關於深度網路壓縮的核心論點在一般情況下並不成立，觀察到的壓縮主要取決於非線性函數。
+- Saxe, A. M., Bansal, Y., Dapello, J., Advani, M., Kolchinsky, A., Tracey, B. D. & Cox, D. (2019). On the information bottleneck theory of deep learning. *Journal of Statistical Mechanics*. https://doi.org/10.1088/1742-5468/ab3985 — 主張關於深度網路壓縮的核心論點在一般情況下並不成立，觀察到的壓縮主要取決於非線性函數。
 
 ### 教科書與綜述
 
@@ -86,5 +86,9 @@ H(p,q) = H(p) + D_{\mathrm{KL}}(p\,\|\,q)
 - Polyanskiy, Y.（授課教師）。*6.441 Information Theory*. MIT OpenCourseWare, Spring 2016. https://ocw.mit.edu/courses/6-441-information-theory-spring-2016/ — 從基礎出發的研究所課程。課程頁面提供講義與習題，但未列出影片講座。
 
 ### 文章與文件
+
+- Shannon, C. E. (1948). A Mathematical Theory of Communication. *Bell System Technical Journal*, 27(3), 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x — 定義通訊中的熵與互資訊，是本頁各種資訊量度量的基礎。
+
+## 延伸學習
 
 - *Visual Information Theory*. colah's blog (2015). https://colah.github.io/posts/2015-09-Visual-Information/ — 以圖解方式介紹熵、交叉熵、KL 散度與互資訊。

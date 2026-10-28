@@ -7,6 +7,13 @@ AI's technical progress raises questions that technology alone cannot answer.
 | [Safety & Alignment](safety-alignment/index.md) | Making AI systems do what we intend; misuse, accidents and loss of control |
 | [Interpretability](interpretability/index.md) | Understanding what happens inside models |
 | [Ethics & Fairness](ethics/index.md) | Bias, fairness definitions, privacy, accountability, labour behind AI |
+| [Misinformation & Deepfakes](misinformation/index.md) | How false content spreads, synthetic media and detection, provenance standards, the liar's dividend, DSA and AI Act duties |
+| [Copyright & IP](copyright/index.md) | Training on copyrighted works, memorisation and replication, text and data mining exceptions, authorship of generated output |
+| [Privacy & Data Protection](privacy/index.md) | Memorisation and leakage from trained models, membership inference, differential privacy, GDPR and the EU AI Act |
+| [Environmental Impact](environment/index.md) | Energy and emissions of training and serving models, carbon estimates and their system boundaries, efficiency |
+| [Open versus Closed Models](open-vs-closed/index.md) | Release choices for AI models: closed, open-weight and open-source; the arguments on each side and what the open-source definitions require |
+| [AI in Taiwan](ai-in-taiwan/index.md) | Taiwan's AI Action Plan 2.0, the AI Basic Act passed in December 2025, and the agencies that carry them out |
+| [Children, Education Policy & AI](children-education-policy/index.md) | Child rights, age limits and parental consent, data protection for children, and how tool design affects learning |
 | [Law, Policy & Governance](governance/index.md) | EU AI Act, US and Chinese approaches, international efforts, standards |
 | [Economics & Work](economics/index.md) | Productivity, jobs, inequality, concentration |
 | [Philosophy of AI](philosophy/index.md) | Intelligence, understanding, meaning, agency, moral status |

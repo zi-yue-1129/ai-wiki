@@ -50,11 +50,13 @@ Data: filtered web crawls (Common Crawl), books, papers, code, multilingual corp
 | RLAIF / Constitutional AI | AI feedback guided by written principles | Scale oversight |
 | RL with verifiable rewards (RLVR) | Automatic grading (math answers, unit tests) | Train reasoning |
 
+The imitation step, and what it can and cannot teach, is covered in [Imitation in Foundation Models](imitation-in-foundation-models/index.md).
+
 ## Capabilities and phenomena
 
 - **In-context learning**: learn a task from a few examples in the prompt (GPT-3)
 - **Chain-of-thought**: step-by-step reasoning greatly improves math and logic (Wei et al., 2022)
-- **Reasoning models**: RL-trained to produce long reasoning before answering (OpenAI o-series, DeepSeek-R1, Claude extended thinking, Gemini thinking models, etc.); big gains on competition math, programming and science questions
+- **Reasoning models**: RL-trained to produce long reasoning before answering (OpenAI o-series, DeepSeek-R1, Claude extended thinking, Gemini thinking models, etc.); big gains on competition math, programming and science questions. See [Reasoning Models and Test-Time Compute](../reasoning/index.md) for the methods
 - **Tool use**: search, code execution, APIs — see [AI Agents](../agents/index.md)
 - **Long context**: from 2K tokens to the million-token range
 - **Multimodality**: see [Multimodal Models](../multimodal/index.md)
@@ -92,35 +94,25 @@ Data: filtered web crawls (Common Crawl), books, papers, code, multilingual corp
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### GPT-3: few-shot learning from the prompt (Brown et al., 2020)
 
-- **Problem:** can a language model learn a new task from a few examples in its prompt, without any gradient update?
-- **Core idea:** scale an autoregressive Transformer to 175 billion parameters and test it with zero, one or a few worked examples in the prompt. The model is not fine-tuned on the task.
-- **Algorithm:**
-    1. Write a task description and a few input–output examples into the prompt.
-    2. Append the new input.
-    3. Let the model generate the output token by token. No weights change.
-- **Results:** strong performance on translation, question answering and cloze tasks, and on 3-digit arithmetic, which the abstract names among its on-the-fly reasoning tasks.
-- **Limitations:** the paper reports that few-shot performance still lags behind models fine-tuned on task-specific data on some tasks.
+- **Overview:** A 175-billion-parameter autoregressive Transformer, tested with zero, one or a few worked examples in the prompt.
+- **Comparison:** Shows what scale and prompting alone achieve. The InstructGPT method below adds human feedback to change behaviour.
+- **Full write-up:** [GPT-3 Few-Shot Learning](gpt-3-few-shot/index.md)
 
 ### Compute-optimal training (Hoffmann et al., 2022)
 
-- **Problem:** for a fixed compute budget, how should model size and the number of training tokens be balanced?
-- **Core idea:** train more than 400 language models, from 70 million to over 16 billion parameters, on 5 to 500 billion tokens, then find the best size for each budget. Model size and data should grow together.
-- **Rule:** for every doubling of model size, double the number of training tokens.
-- **Results:** Chinchilla, with 70 billion parameters and four times more data, used the same compute as Gopher (280 billion parameters) and outperformed Gopher, GPT-3 and others on a wide range of downstream tasks. It reached 67.5% average accuracy on MMLU.
-- **Limitations:** the rule was fitted on the range the authors trained. Many later models train well beyond this ratio, because a smaller model is cheaper to serve.
+- **Overview:** For a fixed compute budget, the best model size and number of training tokens are found by fitting the trade-off across many training runs.
+- **Comparison:** Revises the scale-only view of GPT-3 by tying model size to the amount of training data.
+- **Full write-up:** [Compute-Optimal Training](compute-optimal-training/index.md)
 
 ### InstructGPT: reinforcement learning from human feedback (Ouyang et al., 2022)
 
-- **Problem:** a larger model is not automatically better at following user intent. It can still be untruthful, toxic or unhelpful.
-- **Core idea:** fine-tune GPT-3 in three stages: supervised learning on human demonstrations, a reward model trained on rankings of model outputs, and reinforcement learning against that reward.
-- **Algorithm:**
-    1. Collect labeller demonstrations and fine-tune with supervised learning.
-    2. Collect rankings of model outputs and train a reward model on them.
-    3. Optimise the policy with reinforcement learning (PPO) against the reward model.
-- **Results:** human raters preferred outputs from the 1.3-billion-parameter InstructGPT over those from the 175-billion-parameter GPT-3. The models were more truthful and produced less toxic output, with minimal regressions on public NLP datasets.
-- **Limitations:** the authors note that InstructGPT still makes simple mistakes. The reward reflects the preferences of a small group of labellers, not a universal standard.
+- **Overview:** Fine-tunes GPT-3 in three stages: supervised learning on demonstrations, a reward model, and reinforcement learning against that reward model.
+- **Comparison:** Adds human preferences to the base model described on the GPT-3 page. The reinforcement-learning pages cover the algorithm.
+- **Full write-up:** [InstructGPT and RLHF](instructgpt-rlhf/index.md)
 
 ## Resources
 
@@ -146,8 +138,10 @@ Data: filtered web crawls (Common Crawl), books, papers, code, multilingual corp
 
 ### Lectures and videos
 
-- Karpathy, A. (2023). *[1hr Talk] Intro to Large Language Models*. YouTube. https://www.youtube.com/watch?v=zjkBMFhNj_g — A one-hour non-technical overview of how LLMs are trained, what they can do and where they fail.
 
 ### Articles and documentation
 
-- Hugging Face. *LLM Course*. https://huggingface.co/learn/llm-course — Hands-on course on using, fine-tuning and building LLMs with the Hugging Face libraries.
+
+## Further learning
+
+- Karpathy, A. (2023). *[1hr Talk] Intro to Large Language Models*. YouTube. https://www.youtube.com/watch?v=zjkBMFhNj_g — A one-hour non-technical overview of how LLMs are trained, what they can do and where they fail.

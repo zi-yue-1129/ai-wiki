@@ -1,6 +1,30 @@
+---
+translation_reviewed: 2026-10-28
+aliases:
+  - 心理學
+  - 心理學與 AI
+  - Psychology
+---
+
 # 心理學與 AI
 
 心理學與 AI 至少以四種方式互相影響：心理學**啟發** AI 的設計、提供**評估** AI 的方法、把 AI 當作**研究工具**，以及研究**人類如何與 AI 互動**。
+
+## 關鍵方法
+
+下方的心智理論討論有兩項代表性研究作為依據。每項研究各有專頁，寫出完整內容。
+
+### 黑猩猩心智理論測驗（Premack 與 Woodruff，1978）
+
+- **概述：** 黑猩猩在可能解法的照片之間做選擇，以解決人類演員的問題。作者把這視為目標歸因。
+- **比較：** 測試的是動物的目標歸因，而不是錯誤信念。摘要沒有給出試驗次數。
+- **完整內容：** [黑猩猩心智理論測驗](chimpanzee-theory-of-mind/index.md)
+
+### 語言模型的錯誤信念測驗（Kosinski，2023）
+
+- **概述：** 11 個語言模型回答錯誤信念情境。ChatGPT-4 通過約 75%；較小與較舊的模型一題都沒通過。
+- **比較：** 沿用兒童研究的邏輯，但後續研究顯示，微小改寫就會使結果變得脆弱。
+- **完整內容：** [語言模型的錯誤信念測驗](false-belief-llms/index.md)
 
 ## 雙歷程理論
 
@@ -88,3 +112,5 @@ Binz & Schulz（2023, *PNAS*）用經典認知心理學任務研究 GPT-3——�
 - Anderson, J. R., et al. (2004). An Integrated Theory of the Mind. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.4.1036 — ACT-R，在單一系統中模擬記憶、目標與學習的認知架構。
 - Lake, B. M., et al. (2017). Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — 目標文章，主張類人學習需要直覺物理、直覺心理學與組合模型，並附有評論。
 - Clark, A. (2013). Whatever next? Predictive brains, situated agents, and the future of cognitive science. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X12000477 — 將預測處理視為感知、行動與認知統一框架的綜述。
+- Premack, D. & Woodruff, G. (1978). Does the chimpanzee have a theory of mind? *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X00076512 — 首次提出「心智理論」一詞，並以錄影與照片的測驗檢驗黑猩猩是否把目標歸因給人類演員。
+- Kosinski, M. (2023). Evaluating Large Language Models in Theory of Mind Tasks. arXiv. https://arxiv.org/abs/2302.02083 — 在錯誤信念任務上測試 11 個語言模型；ChatGPT-4 通過約 75%。

@@ -31,9 +31,18 @@ flowchart TB
 | [記憶與學習的神經機制](memory-learning/index.md) | 海馬迴、突觸可塑性、互補學習系統、災難性遺忘 |
 | [認知科學](cognitive-science/index.md) | 知覺、注意、語言、推理、預測處理 |
 | [認知架構](cognitive-architectures/index.md) | ACT-R、Soar、全域工作空間、LLM 代理人架構 |
-| [心理學與 AI](psychology/index.md) | 認知偏誤、雙歷程理論、發展心理學、機器心理學 |
+| [心理學與 AI](psychology/index.md) | 認知偏誤、雙歷程理論、心智理論測驗、發展心理學、機器心理學 |
 | [意識與心靈哲學](consciousness/index.md) | 意識理論、AI 能否有意識、中文房間 |
 | [腦機介面與神經解碼](bci/index.md) | 侵入式與非侵入式 BCI、從腦活動解碼語言與影像 |
+| [大腦中的語言](language-in-brain/index.md) | 雙路徑語音處理、語言網路、預測大腦反應的語言模型 |
+| [預測編碼與自由能](predictive-coding/index.md) | 預測誤差、階層式模型、類反向傳播學習、自由能原理 |
+| [決策、多巴胺與獎勵](decision-reward/index.md) | 證據累積、有模型與無模型控制、獎勵預測誤差 |
+| [知覺與視覺系統](visual-perception/index.md) | 感受野、腹側路徑、作為視覺模型的 CNN |
+| [注意力：大腦與機器](attention-brain-machine/index.md) | 偏向競爭、顯著性圖、由上而下控制、機器中的注意力 |
+| [情緒與情感運算](emotion/index.md) | 效價與喚起度、威脅迴路、基本情緒、情感運算 |
+| [神經影像與記錄方法](neuroimaging-methods/index.md) | BOLD 功能性磁振造影、fMRI 與電生理各自測量什麼、LFP 與 ECoG |
+| [發展認知與兒童如何學習](developmental-cognition/index.md) | 嬰兒期的核心知識、注視時間方法、統計學習、Goldilocks 效應 |
+| [動物認知與比較智力](animal-cognition/index.md) | 鏡像自我辨認、烏鴉的工具使用、猿類的錯誤信念測試、趨同演化的智力 |
 
 ## 雙向關係一覽
 

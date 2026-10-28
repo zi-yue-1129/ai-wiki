@@ -4,6 +4,10 @@ related:
 - theory/models/world-models
 - theory/paradigms/imitation
 - applications/robotics
+aliases:
+  - 自動駕駛
+  - 自駕車
+  - Autonomous driving
 ---
 
 # Autonomous Driving & Transport
@@ -26,6 +30,16 @@ related:
 - **Level 2/2+ driver assistance** is widespread (Tesla FSD (Supervised), GM Super Cruise, Mobileye, Chinese automakers' highway and urban navigation-on-autopilot systems)
 - **Trucking and logistics**: driverless trucking pilots on highways (e.g. Aurora in Texas, 2025)
 - Setbacks: Cruise halted operations after a 2023 pedestrian-dragging incident and was later wound down by GM
+
+## Key methods
+
+One landmark method anchors the driving discussion below. Its full write-up is on its own page.
+
+### End-to-end steering from pixels (Bojarski et al. 2016)
+
+- **Overview:** One convolutional network maps a front-camera image to a steering command, trained on human driving data.
+- **Comparison:** Replaces the usual separate perception, planning and control modules with one learned mapping. Later work adds route commands, reinforcement learning and simulated testing, listed on the method page.
+- **Full write-up:** [End-to-end steering from pixels](end-to-end-steering/index.md)
 
 ## Technical approaches
 
@@ -60,3 +74,16 @@ Level 2 and 3 systems create **automation complacency**: drivers disengage atten
 - [nuScenes](https://www.nuscenes.org/), [Waymo Open Dataset](https://waymo.com/open/), [Argoverse](https://www.argoverse.org/)
 - [CARLA](https://carla.org/) simulator, [nuPlan](https://www.nuscenes.org/nuplan)
 - Koopman, *How Safe Is Safe Enough?*
+
+## References
+
+### Seminal papers
+
+- Bojarski, M. et al. (2016). End to End Learning for Self-Driving Cars. arXiv. https://arxiv.org/abs/1604.07316 — A convolutional network maps pixels from one front camera to steering commands, trained on human driving data.
+- Codevilla, F. et al. (2018). End-to-end Driving via Conditional Imitation Learning. arXiv. https://arxiv.org/abs/1710.02410 — Conditions an imitation-learned driving policy on high-level commands, such as which turn to take at an intersection.
+- Kendall, A. et al. (2018). Learning to Drive in a Day. arXiv. https://arxiv.org/abs/1807.00412 — Deep reinforcement learning for lane following, learning on a real vehicle from a single monocular camera in a few episodes.
+- Bansal, M., Krizhevsky, A. & Ogale, A. (2018). ChauffeurNet: Learning to Drive by Imitating the Best and Synthesizing the Worst. arXiv. https://arxiv.org/abs/1812.03079 — Imitation learning made more robust with synthesised perturbations and penalties for collisions.
+
+### Articles and documentation
+
+- Dosovitskiy, A. et al. (2017). CARLA: An Open Urban Driving Simulator. arXiv. https://arxiv.org/abs/1711.03938 — An open simulator with city layouts, vehicles and configurable sensors, for training and testing driving systems.

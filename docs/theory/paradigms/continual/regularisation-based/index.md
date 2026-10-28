@@ -60,4 +60,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Aljundi et al. (2018), "Memory aware synapses: learning what (not) to forget", ECCV. No link checked.
+- Aljundi et al. (2018), "Memory aware synapses: learning what (not) to forget", ECCV. https://arxiv.org/abs/1711.09601 — Estimates how sensitive the output is to each weight and penalises changes to the sensitive ones.

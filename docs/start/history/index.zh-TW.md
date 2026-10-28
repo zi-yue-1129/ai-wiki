@@ -48,7 +48,7 @@
 ## 三大思潮
 
 ### 符號主義（Symbolism）
-智慧＝符號操作。代表：邏輯推理、專家系統、知識圖譜、規劃。強項是可解釋、可驗證；弱項是知識獲取瓶頸、處理不確定性與感知困難。詳見 [符號 AI](../../theory/symbolic-ai/index.md)。
+智慧＝符號操作。代表：邏輯推理、專家系統、知識圖譜、規劃。強項是可解釋、可驗證；弱項是知識獲取瓶頸、處理不確定性與感知困難。詳見 [符號 AI](../../theory/paradigms/symbolic-ai/index.md)。
 
 ### 連結主義（Connectionism）
 智慧從大量簡單單元的連結中湧現。代表：神經網路、深度學習。直接受神經科學啟發，詳見 [NeuroAI](../../brain-mind/neuroai/index.md)。
@@ -65,9 +65,16 @@
 3. **資料與算力不足**：神經網路的想法早在 1980 年代就有，等到 2010 年代 GPU 與網路資料才起飛。
 4. **啟示**：評估方法與實際能力要分清楚；基準分數不等於真實世界可靠度（見 [評估與基準](../../engineering/evaluation/index.md)）。
 
-## 延伸閱讀
+## 參考文獻
 
-- Nilsson, *The Quest for Artificial Intelligence*（作者網站提供免費 PDF）
-- Mitchell, *Artificial Intelligence: A Guide for Thinking Humans*
-- Sejnowski, *The Deep Learning Revolution*（從神經科學家的角度寫深度學習史）
-- [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence)
+- McCulloch & Pitts（1943）。A logical calculus of the ideas immanent in nervous activity。*Bulletin of Mathematical Biophysics* 5。https://doi.org/10.1007/bf02478259 — 第一個把神經元當作邏輯單元的數學模型。
+- Turing（1950）。Computing Machinery and Intelligence。*Mind* 59。https://doi.org/10.1093/mind/lix.236.433 — 提出模仿遊戲，後來稱為圖靈測試。
+- Rumelhart, Hinton & Williams（1986）。Learning representations by back-propagating errors。*Nature* 323。https://doi.org/10.1038/323533a0 — 推廣用於訓練多層網路的倒傳遞法。
+- LeCun, Bengio & Hinton（2015）。Deep learning。*Nature* 521。https://doi.org/10.1038/nature14539 — 深度學習的綜述：透過多個處理層學習表徵。
+- Nilsson, N. J.（2009）。*The Quest for Artificial Intelligence*。Cambridge University Press。https://doi.org/10.1017/cbo9780511819346 — 由史丹佛 AI 研究者撰寫的 AI 思想與成就史。
+- Mitchell, M.（2019）。*Artificial Intelligence: A Guide for Thinking Humans*。Farrar, Straus and Giroux。https://melaniemitchell.me/aibook/ — 淺顯介紹當前 AI 能做什麼、不能做什麼，並附歷史脈絡。
+- Sejnowski, T. J.（2018）。*The Deep Learning Revolution*。MIT Press。https://doi.org/10.7551/mitpress/11474.001.0001 — 從神經科學家角度寫的深度學習史，以及它與大腦的關聯。
+
+## 延伸學習
+
+- [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence) — 與上述書籍一併閱讀的百科全書概述。

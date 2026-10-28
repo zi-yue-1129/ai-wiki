@@ -57,4 +57,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Antoniou, Edwards & Storkey (2019), "How to train your MAML", ICLR. No link checked.
+- Antoniou, Edwards & Storkey (2019), "How to train your MAML", ICLR. https://arxiv.org/abs/1810.09502 — Lists the changes that make MAML stable and cheaper to train.

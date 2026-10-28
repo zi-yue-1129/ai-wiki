@@ -22,6 +22,20 @@ h_v^{(k+1)} = \text{UPDATE}\Big(h_v^{(k)},\; \text{AGG}_{u\in\mathcal{N}(v)}\, \
 
 *原創訊息傳遞示意動畫，CC BY-SA 4.0。* 每個節點沿著**圖中現有的邊**接收鄰居訊息，以置換不變的運算聚合資訊，再更新節點表徵。動畫的顏色及脈衝僅供概念說明，不是實際計算的節點特徵。堆疊多層後，訊息能逐層傳到更遠的鄰居。參見 [Gilmer 等人（2017）](https://arxiv.org/abs/1704.01212)。
 
+## 組件與變體
+
+訊息如何形成與聚合，以及網路在節點特徵變得模糊之前能有多深，這些在[訊息傳遞](message-passing/index.md)頁面中介紹。該頁比較了正規化卷積、鄰居採樣、注意力，以及基於求和聚合的表達能力。
+
+## 關鍵方法
+
+| 方法 | 年份 | 核心想法 | 頁面 |
+|---|---|---|---|
+| 圖卷積網路（GCN） | 2016 | 依度數正規化的鄰居平均，是頻譜濾波的一階近似 | [GCN](message-passing/gcn/index.md) |
+| 圖注意力網路（GAT） | 2017 | 對鄰居學習注意力權重 | [GAT](message-passing/gat/index.md) |
+| 圖同構網路（GIN） | 2018 | 求和聚合加上 MLP 更新，表達力等同 WL 檢驗 | [GIN](message-passing/gin/index.md) |
+
+三種方法的差別在於如何為鄰居加權：GCN 使用依度數而定的固定權重，GAT 學習注意力權重，GIN 則以 MLP 更新對鄰居求和。
+
 ## 代表模型
 
 | 模型 | 特點 |
@@ -72,11 +86,12 @@ h_v^{(k+1)} = \text{UPDATE}\Big(h_v^{(k)},\; \text{AGG}_{u\in\mathcal{N}(v)}\, \
 
 ### 開創性論文
 
-- Kipf, T. N. & Welling, M. (2017). *Semi-Supervised Classification with Graph Convolutional Networks*. ICLR. https://arxiv.org/abs/1609.02907 — 提出使用局部鄰居特徵的圖卷積網路。
-- Gilmer, J., et al. (2017). *Neural Message Passing for Quantum Chemistry*. ICML. https://arxiv.org/abs/1704.01212 — 系統化描述訊息傳遞、聚合與更新架構。
-- Hamilton, W. L., Ying, R. & Leskovec, J. (2017). *Inductive Representation Learning on Large Graphs*. NeurIPS. https://arxiv.org/abs/1706.02216 — 提出 GraphSAGE 與歸納式鄰居取樣。
-- Veličković, P., et al. (2018). *Graph Attention Networks*. ICLR. https://arxiv.org/abs/1710.10903 — 利用注意力權重整合鄰居表徵。
+- Gilmer, J., et al. (2017). "Neural Message Passing for Quantum Chemistry". arXiv:1704.01212 — 提出訊息傳遞框架，並說明多種圖模型都符合它。
+- Kipf, T. N. & Welling, M. (2016). "Semi-Supervised Classification with Graph Convolutional Networks". arXiv:1609.02907 — 依對稱度數正規化的 GCN 層。
+- Hamilton, W., Ying, Z. & Leskovec, J. (2017). "Inductive Representation Learning on Large Graphs". arXiv:1706.02216 — GraphSAGE，對採樣鄰域做聚合，可用於未見過的節點。
+- Veličković, P., et al. (2017). "Graph Attention Networks". arXiv:1710.10903 — 對鄰居學習注意力權重，權重由兩端點的特徵計算。
 
-### 綜述
+### 文章與文件
 
-- Zhou, J., et al. (2021). *Graph Neural Networks: A Review of Methods and Applications*. AI Open. https://arxiv.org/abs/1812.08434 — 回顧 GNN 架構、訊息傳遞、應用及研究挑戰。
+- Xu, K., et al. (2018). "How Powerful are Graph Neural Networks?". arXiv:1810.00826 — 顯示聚合函數的表達力限制，並提出基於求和的 GIN。
+- Li, Q., Han, Z. & Wu, X.-M. (2018). "Deeper Insights into Graph Convolutional Networks for Semi-Supervised Learning". arXiv:1801.07606 — 分析重複圖卷積如何使節點特徵趨於一致。

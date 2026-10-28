@@ -44,7 +44,7 @@ Stable value learning with function approximation and off-policy data is not ful
 
 ### Seminal papers
 
-- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518. https://klab.tch.harvard.edu/academia/classes/Neuro230/ReadingAssignments/MnihEtAlHassibis15NatureControlDeepRL.pdf — The DQN paper, which combined replay and target networks to learn Atari play from pixels.
+- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518. https://doi.org/10.1038/nature14236 — The DQN paper, which combined replay and target networks to learn Atari play from pixels.
 - Silver et al. (2016), "Mastering the game of Go with deep neural networks and tree search", *Nature* 529. https://research.google/pubs/mastering-the-game-of-go-with-deep-neural-networks-and-tree-search/ — AlphaGo, which combines learned values and policies with tree search.
 - van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", AAAI, arXiv:1509.06461 — Removes the overestimation bias of DQN by separating action selection from evaluation.
 - Schrittwieser et al. (2020), "Mastering Atari, Go, Chess and Shogi by planning with a learned model", *Nature*, arXiv:1911.08265 — MuZero, which learns values and a model together for planning.
@@ -63,4 +63,4 @@ Stable value learning with function approximation and off-policy data is not ful
 
 ## Further reading
 
-- Sutton & Barto, *Reinforcement Learning: An Introduction*, 2nd ed., MIT Press (2018). No free link checked.
+- Sutton & Barto, *Reinforcement Learning: An Introduction*, 2nd ed., MIT Press (2018). http://incompleteideas.net/book/the-book-2nd.html

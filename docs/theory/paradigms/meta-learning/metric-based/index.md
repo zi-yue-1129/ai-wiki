@@ -57,4 +57,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Koch, Zemel & Salakhutdinov (2015), "Siamese neural networks for one-shot image recognition", ICML deep learning workshop. No link checked.
+- Koch, Zemel & Salakhutdinov (2015), "Siamese neural networks for one-shot image recognition", ICML deep learning workshop. https://www.cs.toronto.edu/~rsalakhu/papers/oneshot1.pdf — Learns a similarity function from pairs of images, so unseen classes can be recognised from one example.

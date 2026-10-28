@@ -1,6 +1,6 @@
 ---
 related:
-  - theory/models/generative
+  - theory/paradigms/unsupervised/density-and-generative-models/generative-models
 tags:
   - unsupervised learning
   - density estimation
@@ -17,7 +17,7 @@ Given samples from an unknown distribution, density estimation asks for a functi
 
 ## Trade-offs between methods
 
-Density methods differ in three properties: whether they give an exact likelihood, how fast they sample, and how stable their training is. Kernel density estimates and Gaussian mixtures have an exact likelihood and sample easily, but kernel methods scale poorly to high-dimensional data. GANs sample quickly but have no likelihood and train adversarially. Diffusion models train stably but sample in many iterative steps. The concrete families, with their pros and cons, are compared in [Generative Models](../../../models/generative/index.md).
+Density methods differ in three properties: whether they give an exact likelihood, how fast they sample, and how stable their training is. Kernel density estimates and Gaussian mixtures have an exact likelihood and sample easily, but kernel methods scale poorly to high-dimensional data. GANs sample quickly but have no likelihood and train adversarially. Diffusion models train stably but sample in many iterative steps. The concrete families, with their pros and cons, are compared in [Generative Models](generative-models/index.md).
 
 ## Key ideas
 
@@ -29,9 +29,15 @@ Density methods differ in three properties: whether they give an exact likelihoo
 
 **GANs** train a generator against a discriminator without writing down a likelihood. Training is powerful but can be unstable, and mode collapse, where samples cover only part of the data, is a known risk.
 
+## Method pages
+
+- [Variational autoencoders](vae/index.md): a latent-variable model trained with a reparameterised bound.
+- [GANs](gan/index.md): a generator and a discriminator trained in a minimax game.
+- [Flow-based models](flow/index.md): invertible maps with exact likelihoods, in [normalising flows](flow/normalising-flows/index.md) and [flow matching](flow/flow-matching/index.md).
+
 ## Connections
 
-Clustering with Gaussian mixtures is density estimation with discrete latent variables, see [clustering](../clustering/index.md). Anomaly detection uses the estimated density, see [anomaly detection](../anomaly-detection/index.md). Modern generative systems are covered in [Generative Models](../../../models/generative/index.md).
+Clustering with Gaussian mixtures is density estimation with discrete latent variables, see [clustering](../clustering/index.md). Anomaly detection uses the estimated density, see [anomaly detection](../anomaly-detection/index.md). Modern generative systems are covered in [Generative Models](generative-models/index.md), and diffusion models have their own method pages in [Diffusion Models](diffusion/index.md).
 
 ## Applications
 
@@ -56,12 +62,16 @@ Likelihood is not the same as sample quality. A model can assign high likelihood
 
 ### Lectures and videos
 
-- StatQuest with Josh Starmer, episodes on Gaussian distributions and mixture models, YouTube. https://www.youtube.com/@statquest — Animated introduction to the Gaussian building blocks behind mixture density models.
+- Dempster, A. P., Laird, N. M. & Rubin, D. B. (1977). Maximum likelihood from incomplete data via the EM algorithm. *Journal of the Royal Statistical Society: Series B*, 39(1), 1–38. https://doi.org/10.1111/j.2517-6161.1977.tb01600.x — Introduces the EM algorithm for maximum likelihood with latent variables, used to fit mixture models.
 
 ### Articles and documentation
 
 (none beyond the entries above)
 
+## Further learning
+
+- StatQuest with Josh Starmer, episodes on Gaussian distributions and mixture models, YouTube. https://www.youtube.com/@statquest — Animated introduction to the Gaussian building blocks behind mixture density models.
+
 ## Further reading
 
-- Murphy, *Probabilistic Machine Learning: Advanced Topics* (2023), chapters on normalising flows and generative models. No link checked.
+- Murphy, *Probabilistic Machine Learning: Advanced Topics* (2023), chapters on normalising flows and generative models. Free online: https://probml.github.io/pml-book/book2

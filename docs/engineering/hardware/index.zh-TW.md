@@ -25,7 +25,15 @@
 - **互連**：NVLink／NVSwitch、InfiniBand、乙太網路（Ultra Ethernet）、TPU ICI——擴展到數萬個晶片
 - **脈動陣列**與張量核心加速矩陣乘法
 - **核心軟體**：CUDA、cuDNN、Triton（OpenAI）、ROCm、XLA，以及像 FlashAttention 這類自訂核心
-- **考量硬體的模型設計**：例如為 NPU 設計的 Softmax 與注意力近似、為記憶體考量的 MoE 路由、適合量化的架構
+- **考量硬體的模型設計**：例如為 NPU 設計的 Softmax 與注意力近似、為記憶體考量的 [MoE](../../theory/models/mixture-of-experts/index.zh-TW.md) 路由、適合量化的架構
+
+## 子章節
+
+- [AI 加速器](accelerators/index.zh-TW.md)：GPU、TPU 與 ASIC 的設計原則，並附 [TPU](accelerators/tpu/index.zh-TW.md) 與 [Eyeriss v2](accelerators/eyeriss-v2/index.zh-TW.md) 頁面。
+- [記憶體階層與頻寬](memory-hierarchy/index.zh-TW.md)：暫存器、晶片上的 SRAM 與 HBM、算術強度、屋頂線模型，以及為何 LLM 解碼受頻寬限制。
+- [互連與擴展](interconnects/index.zh-TW.md)：NVLink、InfiniBand 與 TPU 晶片間連線、集體通訊操作，以及平行化策略如何使用它們。
+- [記憶體內與類比運算](in-memory-computing/index.zh-TW.md)：在電阻交叉陣列中進行運算、它帶來的雜訊與轉換成本，以及訓練與 LLM 上的挑戰。
+- [硬體感知的模型與軟體協同設計](co-design/index.zh-TW.md)：數值格式、融合核心與編譯器，以及在目標晶片上量測的架構選擇。
 
 ## 供應鏈與政策
 
@@ -37,9 +45,28 @@
 
 資料中心的電力與冷卻，是規模化擴展的硬性限制；見[氣候與能源](../../applications/climate-energy/index.md)。效率的提升來自較低的精度、稀疏化、更好的核心、專用晶片，以及長期來看可能的神經形態與類比運算。
 
-## 學習資源
+## 未解問題
 
-- Hennessy 與 Patterson，*Computer Architecture: A Quantitative Approach*（特定領域架構的章節）
-- Sze et al.，*Efficient Processing of Deep Neural Networks*
-- [Epoch AI](https://epoch.ai/) 關於運算趨勢與硬體的資料
-- SemiAnalysis 與 Chips and Cheese 的產業分析
+- **記憶體牆。** Gholami 等人主張，現在限制 AI 服務的主要是記憶體頻寬而非運算。未來的晶片會縮小還是擴大這個差距，仍是開放問題。
+- **稀疏硬體。** 非結構化稀疏在加速器上很少帶來加速，因此剪枝的好處取決於晶片。
+- **可比較的量測。** 廠商公布的吞吐量與功耗數字使用不同的精度、記憶體系統與軟體，難以比較。
+
+## 參考文獻
+
+### 開創性論文
+
+- Jouppi, N. P., 等人 (2017). *In-Datacenter Performance Analysis of a Tensor Processing Unit*. arXiv:1704.04760. https://arxiv.org/abs/1704.04760 — 報告 TPU 的速度約為當時 CPU 與 GPU 的 15 至 30 倍，每瓦效能也好得多。
+- Chen, Y.-H., 等人 (2018). *Eyeriss v2: A Flexible Accelerator for Emerging Deep Neural Networks on Mobile Devices*. arXiv:1807.07928. https://arxiv.org/abs/1807.07928 — 利用稀疏性的行動裝置加速器，報告速度為原始 Eyeriss 的 12.6 倍。
+
+### 綜述與教科書
+
+- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — 關於 DNN 硬體、架構與評估指標的教學與綜述。
+
+### 講座與影片
+
+（本頁尚未查核任何項目）
+
+### 文章與文件
+
+- Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張記憶體頻寬而非運算，是 AI 服務的主要限制。
+- Dao, T., 等人 (2022). *FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness*. arXiv:2205.14135. https://arxiv.org/abs/2205.14135 — 具 IO 感知的注意力核心，減少 GPU 各層記憶體之間的資料搬移。

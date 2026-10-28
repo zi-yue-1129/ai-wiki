@@ -37,7 +37,7 @@ Regret bounds are worst case and can be pessimistic for benign data. Adapting st
 
 ### Seminal papers
 
-- Zinkevich (2003), "Online convex programming and generalized infinitesimal gradient ascent", ICML. https://mlanthology.org/icml/2003/zinkevich2003icml-online — Introduces online gradient descent and proves its regret bound for convex losses.
+- Zinkevich (2003), "Online convex programming and generalized infinitesimal gradient ascent", ICML. https://www.cs.cmu.edu/~maz/publications/ICML03.pdf — Introduces online gradient descent and proves its regret bound for convex losses.
 - Bottou (2010), "Large-scale machine learning with stochastic gradient descent", COMPSTAT. https://leon.bottou.org/papers/bottou-2010 — Shows how stochastic gradient descent, viewed as an online method, scales to very large datasets.
 
 ### Surveys and textbooks
@@ -56,4 +56,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Cesa-Bianchi & Lugosi (2006), *Prediction, Learning, and Games*, Cambridge University Press. No link checked.
+- Cesa-Bianchi & Lugosi (2006), *Prediction, Learning, and Games*, Cambridge University Press. https://www.cambridge.org/core/books/abs/prediction-learning-and-games/preface/57367F57F5C14A8E04EC732E20711EA1 — Covers online prediction with expert advice and games in depth.

@@ -7,6 +7,13 @@ AI 的技術進步引出了一些單靠技術無法回答的問題。
 | [安全與對齊](safety-alignment/index.md) | 讓 AI 系統做我們預期的事；誤用、意外與失控 |
 | [可解釋性](interpretability/index.md) | 理解模型內部發生了什麼 |
 | [倫理與公平](ethics/index.md) | 偏見、公平性定義、隱私、問責，以及 AI 背後的勞動 |
+| [不實資訊與深偽](misinformation/index.md) | 假內容如何傳播、合成媒體與偵測、來源標準、說謊者紅利，以及 DSA 與 AI 法的義務 |
+| [著作權與智慧財產權](copyright/index.md) | 以受著作權保護的作品訓練、記憶與重現、文字與資料探勘例外，以及生成輸出的著作人 |
+| [隱私與資料保護](privacy/index.md) | 訓練模型的記憶化與洩露、成員推論、差分隱私、GDPR 與歐盟 AI 法 |
+| [環境影響](environment/index.md) | 訓練與提供模型服務的能源與排放、碳估算與其系統範圍、效率 |
+| [開放與封閉模型](open-vs-closed/index.md) | AI 模型的釋出選擇：封閉、開放權重與開源；各方的論點，以及開源定義的要求 |
+| [台灣的 AI](ai-in-taiwan/index.md) | 台灣的 AI 行動方案 2.0、2025 年 12 月通過的 AI 基本法，以及負責執行的主管機關 |
+| [兒童、教育政策與 AI](children-education-policy/index.md) | 兒童權利、年齡限制與家長同意、兒童資料保護，以及工具設計如何影響學習 |
 | [法律、政策與治理](governance/index.md) | 歐盟 AI 法、美國與中國的做法、國際努力、標準 |
 | [經濟與就業](economics/index.md) | 生產力、工作、不平等、集中 |
 | [AI 哲學](philosophy/index.md) | 智慧、理解、意義、能動性、道德地位 |

@@ -31,9 +31,18 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Memory & Learning in the Brain](memory-learning/index.md) | Hippocampus, synaptic plasticity, complementary learning systems, forgetting |
 | [Cognitive Science](cognitive-science/index.md) | Perception, attention, language, reasoning, predictive processing |
 | [Cognitive Architectures](cognitive-architectures/index.md) | ACT-R, Soar, global workspace, LLM-agent architectures |
-| [Psychology & AI](psychology/index.md) | Cognitive biases, dual-process theory, development, machine psychology |
+| [Psychology & AI](psychology/index.md) | Cognitive biases, dual-process theory, theory-of-mind tests, development, machine psychology |
 | [Consciousness & Philosophy of Mind](consciousness/index.md) | Theories of consciousness, could AI be conscious, the Chinese room |
 | [Brain-Computer Interfaces](bci/index.md) | Invasive and non-invasive BCIs, decoding language and images from brain activity |
+| [Language in the Brain](language-in-brain/index.md) | Dual-stream speech processing, the language network, language models predicting brain responses |
+| [Predictive Coding & Free Energy](predictive-coding/index.md) | Prediction error, hierarchical models, backprop-like learning, the free-energy principle |
+| [Decision Making, Dopamine & Reward](decision-reward/index.md) | Evidence accumulation, model-based vs model-free control, reward prediction error |
+| [Perception & the Visual System](visual-perception/index.md) | Receptive fields, the ventral stream, CNNs as models of vision |
+| [Attention in Brains & Machines](attention-brain-machine/index.md) | Biased competition, saliency maps, top-down control, attention in neural networks |
+| [Emotion & Affective Computing](emotion/index.md) | Valence and arousal, threat circuits, basic emotions, affective computing |
+| [Neuroimaging & Recording Methods](neuroimaging-methods/index.md) | BOLD fMRI, what fMRI and electrophysiology each measure, LFP and ECoG |
+| [Developmental Cognition & How Children Learn](developmental-cognition/index.md) | Core knowledge in infancy, looking-time methods, statistical learning, the Goldilocks effect |
+| [Animal Cognition & Comparative Intelligence](animal-cognition/index.md) | Mirror self-recognition, tool use in crows, false-belief tests in apes, convergent intelligence |
 
 ## Two-way influence at a glance
 

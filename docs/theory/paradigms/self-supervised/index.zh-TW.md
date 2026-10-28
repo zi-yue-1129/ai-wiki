@@ -53,12 +53,6 @@ L = -\log \frac{\exp(s(z_i, z_i^+)/\tau)}{\sum_j \exp(s(z_i, z_j)/\tau)}
 - **自監督模型和監督模型一樣能吻合腹側視覺流**（Zhuang et al., 2021, *PNAS*）——這很重要，因為靈長類並沒有收到數百萬個標籤
 - **語言**：下一個字預測模型能預測人類語言區的活動（Schrimpf et al., 2021）；大腦可能在多個時間尺度上預測即將到來的字（Caucheteux et al., 2023）
 
-## 延伸閱讀
-
-- Balestriero et al. (2023), "A Cookbook of Self-Supervised Learning"
-- LeCun & Misra〈Self-supervised learning: the dark matter of intelligence〉（Meta AI 部落格, 2021）
-- Chen et al. (2020) SimCLR；He et al. (2022) MAE；Radford et al. (2021) CLIP
-
 ## 參考文獻
 
 ### 代表性論文
@@ -68,3 +62,7 @@ L = -\log \frac{\exp(s(z_i, z_i^+)/\tau)}{\sum_j \exp(s(z_i, z_j)/\tau)}
 - Grill, J.-B., et al. (2020). *Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning*. NeurIPS. https://arxiv.org/abs/2006.07733 — 提出不需負樣本對的 BYOL。
 - He, K., et al. (2022). *Masked Autoencoders Are Scalable Vision Learners*. CVPR. https://arxiv.org/abs/2111.06377 — 在影像遮罩重建中使用非對稱編碼器與解碼器。
 - Radford, A., et al. (2021). *Learning Transferable Visual Models From Natural Language Supervision*. ICML. https://arxiv.org/abs/2103.00020 — 以大規模圖文配對建立可轉移的跨模態表徵。
+
+## 延伸閱讀
+
+- LeCun & Misra〈Self-supervised learning: the dark matter of intelligence〉（Meta AI 部落格, 2021）。https://ai.meta.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/ — 兩位 Meta AI 研究者主張自監督學習是通往智能的關鍵。

@@ -1,9 +1,12 @@
 ---
 related:
 - theory/models/agents
-- theory/symbolic-ai
+- theory/paradigms/symbolic-ai
 - theory/paradigms/active
 - applications/climate-energy
+aliases:
+  - 科學發現
+  - 科學研究
 ---
 
 # Scientific Discovery
@@ -14,8 +17,8 @@ AI is changing how science is done: as **surrogate simulator**, **pattern finder
 
 | Field | Examples |
 |---|---|
-| Weather and climate | GraphCast (GNN), Pangu-Weather, FourCastNet, GenCast (diffusion, probabilistic), and AI forecasts adopted operationally by ECMWF (AIFS, 2025) — often more accurate than traditional numerical models at a fraction of the compute |
-| Materials science | GNoME predicted hundreds of thousands of new stable crystals; MatterGen generates materials with target properties; machine-learned interatomic potentials (MACE) speed up simulation |
+| Weather and climate | GraphCast (GNN), Pangu-Weather, FourCastNet, GenCast (diffusion, probabilistic); AI forecasts that are competitive with numerical weather models on many metrics (Lam et al., 2023) |
+| Materials science | GNoME predicted hundreds of thousands of stable crystals (Merchant et al., 2023); MatterGen generates materials with target properties; machine-learned interatomic potentials (MACE) speed up simulation |
 | Chemistry | Retrosynthesis planning, reaction prediction, autonomous chemistry labs (Coscientist, ChemCrow) |
 | Physics | Jet tagging and anomaly detection at the LHC; controlling tokamak plasma with RL (Degrave et al., 2022); neural-network quantum states; symbolic regression to rediscover laws |
 | Astronomy | Exoplanet detection, galaxy morphology, gravitational-wave detection, imaging the black-hole shadow with learned priors |
@@ -36,13 +39,29 @@ AI is changing how science is done: as **surrogate simulator**, **pattern finder
 ## Concerns
 
 - **Reproducibility**: data leakage in ML-based science is widespread (Kapoor & Narayanan, 2023, found leakage across many fields)
-- **Validation**: AI-generated hypotheses and claims (e.g. "millions of new materials") need experimental confirmation; some claims were later critiqued
+- **Validation**: AI-generated hypotheses and claims need experimental confirmation before they are accepted
 - **Understanding vs prediction**: accurate predictions without mechanistic insight
 - **Monoculture**: over-reliance on the same tools and datasets narrows inquiry (Messeri & Crockett, 2024, *Nature*)
 
-## Resources
+## Key methods
 
-- Wang et al. (2023), "Scientific discovery in the age of artificial intelligence", *Nature*
-- [AI for Science](https://ai4sciencecommunity.github.io/) community; Microsoft Research AI for Science; DeepMind science blog
-- Karniadakis et al. (2021), "Physics-informed machine learning", *Nature Reviews Physics*
-- [WeatherBench 2](https://sites.research.google/weatherbench/)
+Three methods are most relevant here. Each links to the page that explains it.
+
+- [Active learning](../../theory/paradigms/active/index.md): closed-loop discovery, in which a model chooses the next experiment, as in self-driving labs (Wang et al., 2023).
+- [Symbolic AI](../../theory/paradigms/symbolic-ai/index.md): symbolic regression that recovers interpretable laws from data.
+- [Agents](../../theory/models/agents/index.md): LLM agents that generate hypotheses and run experiments, as in AI scientists (Wang et al., 2023).
+
+## References
+
+### Seminal papers
+
+- Lam et al. (2023). Learning skillful medium-range global weather forecasting. *Science*. https://doi.org/10.1126/science.adi2336 — GraphCast, a graph neural network that forecasts global weather.
+- Merchant et al. (2023). Scaling deep learning for materials discovery. *Nature*. https://doi.org/10.1038/s41586-023-06735-9 — GNoME, which predicts large numbers of stable new crystals.
+- Davies et al. (2021). Advancing mathematics by guiding human intuition with AI. *Nature*. https://doi.org/10.1038/s41586-021-04086-x — Uses machine learning to guide mathematicians toward conjectures in knot and representation theory.
+- Kapoor & Narayanan (2023). Leakage and the reproducibility crisis in machine-learning-based science. *Patterns*. https://doi.org/10.1016/j.patter.2023.100804 — Documents data leakage in machine-learning-based science across fields.
+
+### Surveys and textbooks
+
+- Wang et al. (2023). Scientific discovery in the age of artificial intelligence. *Nature*. https://doi.org/10.1038/s41586-023-06221-2 — Review of AI across the stages of scientific discovery.
+- Karniadakis et al. (2021). Physics-informed machine learning. *Nature Reviews Physics*. https://doi.org/10.1038/s42254-021-00314-5 — Review of embedding physical laws into machine learning models.
+- Messeri & Crockett (2024). Artificial intelligence and illusions of understanding in scientific research. *Nature*. https://doi.org/10.1038/s41586-024-07146-0 — Argues that AI tools can create illusions of understanding in science.

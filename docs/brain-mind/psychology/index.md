@@ -4,11 +4,31 @@ related:
 - applications/social-science
 - applications/education
 - engineering/evaluation
+aliases:
+  - 心理學
+  - 心理學與 AI
+  - Psychology
 ---
 
 # Psychology & AI
 
 Psychology and AI influence each other in at least four ways: psychology **inspires** AI designs, provides **methods to evaluate** AI, uses AI as a **research tool**, and studies **how humans interact** with AI.
+
+## Key methods
+
+Two landmark studies anchor the theory-of-mind discussion below. Each has its own page with the full write-up.
+
+### Chimpanzee theory-of-mind test (Premack & Woodruff 1978)
+
+- **Overview:** A chimpanzee chooses between photographs that solve a human actor's problem, which the authors read as goal attribution.
+- **Comparison:** Tests goal attribution in an animal, not false belief. The abstract reports no trial counts.
+- **Full write-up:** [Chimpanzee theory-of-mind test](chimpanzee-theory-of-mind/index.md)
+
+### False-belief tests on language models (Kosinski 2023)
+
+- **Overview:** Eleven language models answer false-belief scenarios. ChatGPT-4 solves about 75% of them; the smaller and older models solve none.
+- **Comparison:** Uses the logic of child studies, but later work shows the results are fragile under rewording.
+- **Full write-up:** [False-belief tests on language models](false-belief-llms/index.md)
 
 ## Dual-process theory
 
@@ -95,3 +115,5 @@ Theory of mind (ToM) is the capacity to attribute beliefs, desires and intention
 - Anderson, J. R., et al. (2004). An Integrated Theory of the Mind. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.4.1036 — ACT-R, a cognitive architecture that models memory, goals and learning within one system.
 - Lake, B. M., et al. (2017). Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — Target article arguing that human-like learning needs intuitive physics, intuitive psychology and compositional models, with commentaries.
 - Clark, A. (2013). Whatever next? Predictive brains, situated agents, and the future of cognitive science. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X12000477 — A review of predictive processing as a unifying framework for perception, action and cognition.
+- Premack, D. & Woodruff, G. (1978). Does the chimpanzee have a theory of mind? *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X00076512 — Introduces the term "theory of mind" and a videotape test of whether a chimpanzee attributes goals to a human actor.
+- Kosinski, M. (2023). Evaluating Large Language Models in Theory of Mind Tasks. arXiv. https://arxiv.org/abs/2302.02083 — Tests eleven language models on false-belief tasks; ChatGPT-4 solves about 75% of them.

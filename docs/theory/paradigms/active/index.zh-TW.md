@@ -48,7 +48,7 @@ flowchart LR
 
 ## 延伸閱讀
 
-- Settles (2009), "Active Learning Literature Survey"
-- Ren et al. (2021), "A Survey of Deep Active Learning"
-- Garnett,《Bayesian Optimization》（2023，免費線上）
+- Settles (2009)，《Active Learning Literature Survey》，Computer Sciences Technical Report 1648。https://research.cs.wisc.edu/techreports/2009/TR1648.pdf
+- Ren et al. (2021)，《A Survey of Deep Active Learning》，ACM Computing Surveys。https://arxiv.org/abs/2009.00236
+- Garnett，《Bayesian Optimization》（2023）。免費線上版：https://bayesoptbook.com/
 - [modAL](https://modal-python.readthedocs.io/) 函式庫

@@ -5,6 +5,9 @@ related:
 - applications/life-science
 - applications/mental-health
 - society/governance
+aliases:
+  - 醫療保健
+  - 醫療
 ---
 
 # Healthcare
@@ -24,11 +27,10 @@ related:
 
 ## Landmark results
 
-- **Diabetic retinopathy**: IDx-DR (2018) was the first FDA-authorised autonomous AI diagnostic system — it makes a screening decision without a clinician reading the image
+- **Diabetic retinopathy**: IDx-DR (2018) was the first FDA-authorised autonomous AI diagnostic system — it makes a screening decision without a clinician reading the image (Abràmoff et al., 2018)
 - **Dermatology**: CNNs matched dermatologists on skin-lesion classification (Esteva et al., 2017)
-- **Mammography**: in a large Swedish randomised trial (MASAI), AI-supported screening detected more cancers while cutting radiologist workload by about 44% (Lång et al., 2023; 2025)
-- **Medical LLMs**: Med-PaLM 2 and later general frontier models exceed passing scores on licensing-exam-style questions; exam performance does not equal clinical safety
-- **Regulation volume**: the FDA's public list of AI-enabled medical devices exceeded 1,000 by 2025, roughly three-quarters in radiology
+- **Mammography**: in a large Swedish randomised trial (MASAI), AI-supported screen reading was compared with standard double reading for safety and screening accuracy (Lång et al., 2023)
+- **Medical LLMs**: Med-PaLM reached passing-level scores on licensing-exam-style questions (Singhal et al., 2023); exam performance does not equal clinical safety
 
 ## Cautionary tales
 
@@ -60,10 +62,34 @@ related:
 - **EU**: Medical Device Regulation plus the AI Act (most medical AI is "high-risk")
 - Clinical responsibility generally remains with the clinician; liability for AI errors is unsettled
 
-## Resources
+## Key methods
 
-- Topol, *Deep Medicine*
-- Rajpurkar et al. (2022), "AI in health and medicine", *Nature Medicine*
-- [FDA list of AI-enabled medical devices](https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-and-machine-learning-aiml-enabled-medical-devices)
-- Stanford AIMI, MIT Clinical ML group publications
-- [MONAI](https://monai.io/) (open medical-imaging framework)
+Three methods underlie most of the systems above. Each links to the page that explains it.
+
+- [ResNet](../../theory/models/cnn/backbones-and-scaling/resnet/index.md): residual convolutional networks, a common backbone for medical image classifiers and detectors (He et al., 2016).
+- [Transformer](../../theory/models/transformer/attention-is-all-you-need/index.md): self-attention over token sequences (Vaswani et al., 2017). It underlies the clinical language models above and transformer-based vision encoders.
+- [InstructGPT and RLHF](../../theory/models/llm/instructgpt-rlhf/index.md): instruction tuning on human preference feedback, which turns a pretrained language model into a dialogue assistant (Ouyang et al., 2022). Many chat-style assistants, including those for patient communication, are built on this recipe.
+
+## References
+
+### Seminal papers
+
+- He, K. et al. (2016). Deep Residual Learning for Image Recognition. CVPR. https://doi.org/10.1109/CVPR.2016.90 — Residual connections that make very deep CNNs trainable.
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — Introduces the Transformer, built on multi-head self-attention.
+- Ouyang, L. et al. (2022). Training language models to follow instructions with human feedback. NeurIPS. https://arxiv.org/abs/2203.02155 — InstructGPT, instruction tuning from human preference feedback.
+- Esteva, A. et al. (2017). Dermatologist-level classification of skin cancer with deep neural networks. *Nature*. https://doi.org/10.1038/nature21056 — A CNN trained on dermatology images and compared with board-certified dermatologists.
+- Abràmoff, M. D. et al. (2018). Pivotal trial of an autonomous AI-based diagnostic system for detection of diabetic retinopathy in primary care offices. *npj Digital Medicine*. https://doi.org/10.1038/s41746-018-0040-6 — Pivotal trial of IDx-DR, the autonomous screening system described above.
+- Obermeyer, Z. et al. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. *Science*. https://doi.org/10.1126/science.aax2342 — Shows how using health costs as a proxy for need disadvantaged Black patients.
+- Wong, A. et al. (2021). External validation of a widely implemented proprietary sepsis prediction model in hospitalized patients. *JAMA Internal Medicine*. https://doi.org/10.1001/jamainternmed.2021.2626 — External validation of the Epic Sepsis Model, which missed most sepsis cases.
+- Roberts, M. et al. (2021). Common pitfalls and recommendations for using machine learning to detect and prognosticate for COVID-19 using chest radiographs and CT scans. *Nature Machine Intelligence*. https://doi.org/10.1038/s42256-021-00307-0 — Reviews published COVID-19 chest imaging models and lists common pitfalls and recommendations.
+- Lång, K. et al. (2023). Artificial intelligence-supported screen reading versus standard double reading in the Mammography Screening with Artificial Intelligence trial (MASAI): a clinical safety analysis of a randomised, controlled, non-inferiority, single-blinded, screening accuracy study. *The Lancet Oncology*. https://doi.org/10.1016/s1470-2045(23)00298-x — Randomised trial comparing AI-supported screen reading with standard double reading.
+- Singhal, K. et al. (2023). Large language models encode clinical knowledge. *Nature*. https://doi.org/10.1038/s41586-023-06291-2 — Med-PaLM, evaluated on medical licensing-style questions.
+- Liu, X. et al. (2020). Reporting guidelines for clinical trial reports for interventions involving artificial intelligence: the CONSORT-AI extension. *Nature Medicine*. https://doi.org/10.1038/s41591-020-1034-x — The CONSORT-AI reporting checklist for trials of AI interventions.
+
+### Surveys and textbooks
+
+- Rajpurkar, P. et al. (2022). AI in health and medicine. *Nature Medicine*. https://doi.org/10.1038/s41591-021-01614-0 — Reviews where AI works in clinical practice and what is still unproven.
+
+## Further learning
+
+- [MONAI](https://monai.io/) — Open-source framework for training and deploying medical imaging models.

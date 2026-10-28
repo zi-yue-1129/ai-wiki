@@ -65,24 +65,29 @@ Transformer（Vaswani et al., 2017，"Attention Is All You Need"）完全以注�
 | 多頭潛在注意力（MLA） | 把 K／V 壓縮成低維的潛在表示（DeepSeek-V2 起採用） |
 | 稀疏／滑動視窗注意力 | 只關注部分位置（Longformer、Mistral） |
 | 線性注意力 | 以核函數近似，把成本降到 \(O(n)\) |
-| 混合專家（MoE） | 以許多專家取代前饋網路，並把每個 token 路由到少數幾個專家——參數很多，但運算量適中 |
+| [混合專家（MoE）](../mixture-of-experts/index.zh-TW.md) | 以許多專家取代前饋網路，並把每個 token 路由到少數幾個專家——參數很多，但運算量適中 |
 
 ## 關鍵方法
 
+每個方法各有專頁，此處的概述與比較從簡。
+
 ### Attention Is All You Need（Vaswani 等人，2017）
 
-- **問題：** 循環式序列模型一次處理一個 token，限制了平行訓練，也讓長距離依賴難以學習。
-- **核心想法：** 完全移除循環與卷積。每個位置透過多頭縮放點積注意力關注所有其他位置，並把位置資訊加到嵌入上。
-- **演算法：** 編碼器與解碼器各自堆疊多頭注意力與前饋網路的層。解碼器遮蔽未來的位置，因此每個輸出只依賴先前的輸出。
-- **結果：** 在 WMT 2014 英譯德任務上達到 28.4 BLEU，比先前最佳結果（包括集成模型）高出超過 2 BLEU。單一模型在英譯法上達到 41.8 BLEU。訓練花了 3.5 天，使用八個 GPU。
-- **限制：** 注意力的成本隨序列長度的平方增長（見上方的效率一節）。原始模型是用於翻譯的編碼器–解碼器，而非今日多數語言模型使用的純解碼器形式。
+- **概述：** 以多頭縮放點積注意力取代遞迴與卷積，使每個位置都能並行地關注所有其他位置。
+- **比較：** 本頁其餘部分都建立在這個架構上。下方的注意力變體與位置編碼改變的是它的部分元件。
+- **完整內容：** [Attention Is All You Need 原始論文](attention-is-all-you-need/index.md)
 
 ### 以學習對齊進行神經機器翻譯（Bahdanau 等人，2015）
 
-- **問題：** 編碼器–解碼器的翻譯會把整個來源句壓縮成一個固定長度的向量，長句中的資訊因此遺失。
-- **核心想法：** 在每個輸出步驟，解碼器以軟對齊搜尋來源句，即對編碼器狀態做加權平均。權重由各來源位置與目前解碼器狀態的匹配程度學得。
-- **結果：** 論文報告，注意力模型在長句上的翻譯品質，比固定向量的基線模型更好。
-- **限制：** 編碼器與解碼器仍是循環式的，因此訓練仍需依序進行。每個輸出詞的對齊成本與來源長度成正比。
+- **概述：** 解碼器以學得的軟對齊權重搜尋來源句，而不是只依賴一個固定長度的向量。
+- **比較：** 較早、仍使用遞迴的注意力形式。上方的 Transformer 移除了這篇論文仍需要的遞迴。
+- **完整內容：** [加性注意力（Bahdanau）](bahdanau-attention/index.md)
+
+### 擴散 Transformer（Peebles 與 Xie，2022）
+
+- **概要：** 以作用於潛在空間區塊的 Transformer 取代潛在擴散中的 U-Net 去噪器，並顯示樣本品質隨運算量增加而提升。
+- **比較：** 與上述相同的注意力區塊，但用作去噪器而非語言模型。它所套用的生成演算法見[擴散模型](../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md)。
+- **完整介紹：** [擴散 Transformer（DiT）](dit/index.md)
 
 ## 組件與變體
 
@@ -135,9 +140,12 @@ Transformer 的每個部分都有自己的變體家族，各有取捨與未解�
 
 ### 講座與影片
 
-- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — 從空白檔案現場撰寫一個小型 GPT，寫的同時解說 Transformer 的每個部分。
+- Radford, A., Wu, J., Child, R., Luan, D., Amodei, D. & Sutskever, I. (2019). *Language Models are Unsupervised Multitask Learners*. OpenAI technical report. https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf — GPT-2 技術報告，描述影片中實作的僅解碼器 Transformer 語言模型。
 
 ### 文章與文件
 
-- Alammar, J. *The Illustrated Transformer*. https://jalammar.github.io/illustrated-transformer/ — 注意力與編碼器—解碼器堆疊的逐步圖解。
-- Harvard NLP. *The Annotated Transformer*. https://nlp.seas.harvard.edu/annotated-transformer/ — 逐篇對照原文的 PyTorch 實作，並附帶註解。
+- Rush, A. M. (2018). *The Annotated Transformer*. Proceedings of Workshop for NLP Open Source Software (NLP-OSS). https://doi.org/10.18653/v1/w18-2509 — 逐篇對照原文的 PyTorch 實作，並附帶註解。
+
+## 延伸學習
+
+- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — 從空白檔案現場撰寫一個小型 GPT，寫的同時解說 Transformer 的每個部分。

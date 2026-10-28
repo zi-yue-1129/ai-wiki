@@ -93,11 +93,12 @@ Sumers et al. (2023), "Cognitive Architectures for Language Agents" (CoALA), lay
 - Yao, S., et al. (2022). *ReAct: Synergizing Reasoning and Acting in Language Models*. arXiv. https://arxiv.org/abs/2210.03629 — Interleaves reasoning traces with tool actions so a language model can plan and act in one loop.
 - Schick, T., et al. (2023). *Toolformer: Language Models Can Teach Themselves to Use Tools*. arXiv. https://arxiv.org/abs/2302.04761 — Shows that models can learn when and how to call external tools from examples they generate themselves.
 - Park, J. S., et al. (2023). *Generative Agents: Interactive Simulacra of Human Behavior*. arXiv. https://arxiv.org/abs/2304.03442 — Simulated characters with memory, reflection and planning that behave believably in a virtual town.
+- Wei, J., et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — Shows that prompting models to write intermediate reasoning steps improves multi-step problem solving, the idea behind the reason-then-act loop above.
 
 ### Surveys and textbooks
 
 - Wang, L., et al. (2023). *A Survey on Large Language Model based Autonomous Agents*. arXiv. https://arxiv.org/abs/2308.11432 — A survey of LLM agent design, covering profiles, memory, planning and action, and how agents are evaluated.
 
-### Articles and documentation
+## Further learning
 
 - Erik S. & Zhang, B. (2024). *Building effective agents*. Anthropic Engineering. https://www.anthropic.com/engineering/building-effective-agents — A practical guide to simple, composable agent workflows, and when a fully autonomous agent is worth its cost.

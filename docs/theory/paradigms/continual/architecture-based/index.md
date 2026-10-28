@@ -57,4 +57,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Serra, Suris, Miron & Karatzoglou (2018), "Overcoming catastrophic forgetting with hard attention to the task", ICML. No link checked.
+- Serra, Suris, Miron & Karatzoglou (2018), "Overcoming catastrophic forgetting with hard attention to the task", ICML. https://proceedings.mlr.press/v80/serra18a.html — Learns a task-specific attention mask that protects units important to earlier tasks.

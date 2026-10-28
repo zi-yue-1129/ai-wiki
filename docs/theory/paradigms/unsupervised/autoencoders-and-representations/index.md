@@ -44,8 +44,8 @@ Reconstruction does not guarantee that the representation is useful, since the m
 
 ### Seminal papers
 
-- Hinton & Salakhutdinov (2006), "Reducing the dimensionality of data with neural networks", *Science* 313. https://pubmed.ncbi.nlm.nih.gov/16873662/ — Deep autoencoders pre-trained layer by layer, which outperform PCA on image data.
-- Vincent, Larochelle, Bengio & Manzagol (2008), "Extracting and composing robust features with denoising autoencoders", ICML. https://icml.cc/imls/conferences/2008/papers/592.pdf — Denoising autoencoders learn features that are robust to input corruption.
+- Hinton & Salakhutdinov (2006), "Reducing the dimensionality of data with neural networks", *Science* 313. https://doi.org/10.1126/science.1127647 — Deep autoencoders pre-trained layer by layer, which outperform PCA on image data.
+- Vincent, Larochelle, Bengio & Manzagol (2008), "Extracting and composing robust features with denoising autoencoders", ICML. https://doi.org/10.1145/1390156.1390294 — Denoising autoencoders learn features that are robust to input corruption.
 - Kingma & Welling (2014), "Auto-encoding variational Bayes", ICLR, arXiv:1312.6114 — The variational autoencoder, a probabilistic version with a smooth latent space.
 - He et al. (2022), "Masked autoencoders are scalable vision learners", CVPR, arXiv:2111.06377 — Masking most image patches and reconstructing them gives strong pre-trained vision models.
 
@@ -63,4 +63,4 @@ Reconstruction does not guarantee that the representation is useful, since the m
 
 ## Further reading
 
-- Goodfellow, Bengio & Courville, *Deep Learning* (2016), chapter 14 on autoencoders. No free link checked here.
+- Goodfellow, Bengio & Courville, *Deep Learning* (2016), chapter 14 on autoencoders. Free online: https://www.deeplearningbook.org/

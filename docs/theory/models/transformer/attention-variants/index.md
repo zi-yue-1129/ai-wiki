@@ -42,7 +42,7 @@ Linear attention replaces the softmax with a kernel feature map \(\phi\), so tha
 
 ### IO-aware exact attention
 
-FlashAttention computes exactly the same result as standard attention, but it tiles the computation so that blocks of queries, keys and values stay in fast on-chip memory. It avoids writing the full \(n \times n\) score matrix to slow memory and recomputes parts of the forward pass in the backward pass. The result is lower memory use and much higher speed. FlashAttention-2 improved the parallelism and the partitioning of work across GPU threads.
+FlashAttention computes exactly the same result as standard attention while reducing memory traffic. It is covered on its own page, [FlashAttention](flash-attention/index.md), with its algorithm, results and later versions. This family is the exact alternative to the approximate methods above.
 
 ## Trade-offs
 

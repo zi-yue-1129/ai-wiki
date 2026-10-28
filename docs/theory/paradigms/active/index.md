@@ -61,9 +61,8 @@ Active learning is the machine counterpart of **curiosity**:
 
 ## Further reading
 
-- Settles (2009), "Active Learning Literature Survey"
-- Ren et al. (2021), "A Survey of Deep Active Learning"
-- Garnett, *Bayesian Optimization* (2023, free online)
+- Ren et al. (2021), "A Survey of Deep Active Learning", ACM Computing Surveys. https://arxiv.org/abs/2009.00236
+- Garnett, *Bayesian Optimization* (2023). Free online at https://bayesoptbook.com/
 - [modAL](https://modal-python.readthedocs.io/) library
 
 ## References

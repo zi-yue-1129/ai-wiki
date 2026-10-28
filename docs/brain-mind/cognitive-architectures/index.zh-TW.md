@@ -67,24 +67,19 @@ LLM 代理人隱含地重現了認知架構的概念（見 [AI 代理人](../../
 
 ## 關鍵方法
 
+每個方法各有專頁，此處的概述與比較從簡。
+
 ### ACT-R：心智的模組化架構（Anderson 等人，2004）
 
-- **問題：** 檢索、決策與運動控制等認知過程，如何從同一個系統中湧現，並與人類的時間表現相符？
-- **核心想法：** 分離的模組（視覺、運動、陳述性記憶、目標）透過緩衝區交換資訊，由產生式規則決定下一步動作。每個模組的處理時間都依人類資料設定。
-- **演算法：**
-    1. 每個模組把目前的結果放入其緩衝區。
-    2. 產生式規則比對各緩衝區的內容。
-    3. 符合的規則被觸發，改變緩衝區，進而決定下一步。
-- **結果：** 論文報告，同一個架構能解釋多種任務的人類資料，且模組的時間與腦區相連。
-- **限制：** 此架構是大量人工設計的元件，擬合資料時需要許多建模選擇。上方的記憶方程式即是其中被擬合的部分。
+- **概述：** 獨立的模組透過緩衝區交換資訊，由產生式規則選擇下一步動作。
+- **比較：** 是符號式架構。下方的 CoALA 把相同的模組化思路用於語言模型代理人。
+- **完整內容：** [ACT-R](act-r/index.md)
 
 ### CoALA：語言代理人的認知架構（Sumers 等人，2023）
 
-- **問題：** 以大型語言模型為基礎的語言代理人已展現強勁的結果，但缺少系統性的框架來組織它們。
-- **核心想法：** 將代理人描述為包含模組化記憶（工作、情節、語意與程序記憶）、一組內部行動（檢索、推理、學習）與外部行動（與環境互動的落地），以及用來選擇行動的決策循環。
-- **方法：** 概念框架。論文用它來分類既有代理人，並提出建造新代理人的方向。
-- **結果：** 論文沒有提出新系統或基準測試，貢獻在於分類與設計語彙。
-- **限制：** 框架本身並非經過評估的系統，而且真實代理人不一定能整齊地歸入這些類別。
+- **概述：** 為語言模型設計的代理人，具有模組化記憶與一組內部動作。
+- **比較：** 把 ACT-R 式的模組化記憶改用於語言代理人。兩者是被比較的，而非合併的。
+- **完整內容：** [CoALA](coala/index.md)
 
 ## 學習資源
 
@@ -100,7 +95,7 @@ LLM 代理人隱含地重現了認知架構的概念（見 [AI 代理人](../../
 ### 開創性論文
 
 - Anderson, J. R., 等人（2004）。An Integrated Theory of the Mind. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.4.1036 — ACT-R，在單一系統中模擬記憶、目標與學習的認知架構。
-- Laird, J. E., Lebiere, C. & Rosenbloom, P. S.（2017）。A Standard Model of the Mind: Toward a Common Computational Framework. *AI Magazine*. https://doi.org/10.1609/aimag.v38i4.2744 — 提出 Soar、ACT-R 與 Sigma 共通元件的社群共識。
+- Laird, J. E., Lebiere, C. & Rosenbloom, P. S.（2017）。A Standard Model of the Mind: Toward a Common Computational Framework across Artificial Intelligence, Cognitive Science, Neuroscience, and Robotics. *AI Magazine*. https://doi.org/10.1609/aimag.v38i4.2744 — 提出 Soar、ACT-R 與 Sigma 共通元件的社群共識。
 - Lake, B. M., 等人（2017）。Building machines that learn and think like people. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X16001837 — 主張類人學習需要因果模型、直覺理論與組合性。
 
 ### 綜述與教科書

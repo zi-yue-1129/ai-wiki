@@ -33,7 +33,6 @@ theme:
   features:
     - navigation.tabs
     - navigation.tabs.sticky
-    - navigation.sections
     - navigation.indexes
     - navigation.top
     - navigation.footer
@@ -57,8 +56,8 @@ plugins:
       redirect_maps:
         'foundations/deep-learning/index.md': 'theory/deep-learning/index.md'
         'foundations/deep-learning/index.zh-TW.md': 'theory/deep-learning/index.zh-TW.md'
-        'foundations/evolutionary/index.md': 'theory/evolutionary/index.md'
-        'foundations/evolutionary/index.zh-TW.md': 'theory/evolutionary/index.zh-TW.md'
+        'foundations/evolutionary/index.md': 'theory/paradigms/evolutionary/index.md'
+        'foundations/evolutionary/index.zh-TW.md': 'theory/paradigms/evolutionary/index.zh-TW.md'
         'foundations/index.md': 'theory/index.md'
         'foundations/index.zh-TW.md': 'theory/index.zh-TW.md'
         'foundations/information-theory/index.md': 'theory/information-theory/index.md'
@@ -167,16 +166,36 @@ plugins:
         'foundations/paradigms/unsupervised/dimensionality-reduction/index.md': 'theory/paradigms/unsupervised/dimensionality-reduction/index.md'
         'foundations/paradigms/unsupervised/index.md': 'theory/paradigms/unsupervised/index.md'
         'foundations/paradigms/unsupervised/index.zh-TW.md': 'theory/paradigms/unsupervised/index.zh-TW.md'
-        'foundations/probabilistic/index.md': 'theory/probabilistic/index.md'
-        'foundations/probabilistic/index.zh-TW.md': 'theory/probabilistic/index.zh-TW.md'
-        'foundations/symbolic-ai/index.md': 'theory/symbolic-ai/index.md'
-        'foundations/symbolic-ai/index.zh-TW.md': 'theory/symbolic-ai/index.zh-TW.md'
+        'foundations/probabilistic/index.md': 'theory/paradigms/probabilistic/index.md'
+        'foundations/probabilistic/index.zh-TW.md': 'theory/paradigms/probabilistic/index.zh-TW.md'
+        'foundations/symbolic-ai/index.md': 'theory/paradigms/symbolic-ai/index.md'
+        'foundations/symbolic-ai/index.zh-TW.md': 'theory/paradigms/symbolic-ai/index.zh-TW.md'
+        'theory/probabilistic/index.md': 'theory/paradigms/probabilistic/index.md'
+        'theory/probabilistic/index.zh-TW.md': 'theory/paradigms/probabilistic/index.zh-TW.md'
+        'theory/symbolic-ai/index.md': 'theory/paradigms/symbolic-ai/index.md'
+        'theory/symbolic-ai/index.zh-TW.md': 'theory/paradigms/symbolic-ai/index.zh-TW.md'
+        'theory/evolutionary/index.md': 'theory/paradigms/evolutionary/index.md'
+        'theory/evolutionary/index.zh-TW.md': 'theory/paradigms/evolutionary/index.zh-TW.md'
+        'theory/generative/index.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md'
+        'theory/generative/index.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.zh-TW.md'
+        'theory/generative/diffusion/index.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md'
+        'theory/generative/diffusion/index.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.zh-TW.md'
+        'theory/generative/diffusion/ddpm.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md'
+        'theory/generative/diffusion/ddpm.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.zh-TW.md'
+        'theory/generative/diffusion/ddim.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md'
+        'theory/generative/diffusion/ddim.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.zh-TW.md'
+        'theory/generative/diffusion/latent-diffusion.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md'
+        'theory/generative/diffusion/latent-diffusion.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.zh-TW.md'
+        'theory/generative/diffusion/classifier-free-guidance.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md'
+        'theory/generative/diffusion/classifier-free-guidance.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.zh-TW.md'
+        'theory/generative/diffusion/dit.md': 'theory/models/transformer/dit/index.md'
+        'theory/generative/diffusion/dit.zh-TW.md': 'theory/models/transformer/dit/index.zh-TW.md'
         'models/agents/index.md': 'theory/models/agents/index.md'
         'models/agents/index.zh-TW.md': 'theory/models/agents/index.zh-TW.md'
         'models/computer-vision/index.md': 'theory/models/computer-vision/index.md'
         'models/computer-vision/index.zh-TW.md': 'theory/models/computer-vision/index.zh-TW.md'
-        'models/generative/index.md': 'theory/models/generative/index.md'
-        'models/generative/index.zh-TW.md': 'theory/models/generative/index.zh-TW.md'
+        'models/generative/index.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md'
+        'models/generative/index.zh-TW.md': 'theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.zh-TW.md'
         'models/gnn/index.md': 'theory/models/gnn/index.md'
         'models/gnn/index.zh-TW.md': 'theory/models/gnn/index.zh-TW.md'
         'models/index.md': 'theory/models/index.md'
@@ -225,6 +244,41 @@ plugins:
             Information Theory: 資訊理論
             Machine Learning: 機器學習
             Deep Learning: 深度學習
+            Optimisation: 最佳化
+            SGD & Momentum: SGD 與動量
+            Heavy-Ball Momentum: 重球動量
+            Nesterov Momentum: Nesterov 動量
+            Adam: Adam
+            AdamW: AdamW
+            AdaGrad: AdaGrad
+            RMSProp: RMSProp
+            Adafactor: Adafactor
+            Lion: Lion
+            SOAP: SOAP
+            Muon: Muon
+            Adaptive Methods: 自適應方法
+            Second-Order Methods: 二階方法
+            L-BFGS: L-BFGS
+            K-FAC: K-FAC
+            Shampoo: Shampoo
+            Learning-Rate Schedules: 學習率排程
+            Gradual Warm-up: 漸進式預熱
+            Cosine Annealing with Warm Restarts: 附暖重啟的餘弦退火
+            Cyclical Learning Rates: 循環學習率
+            Regularisation & Weight Decay: 正則化與權重衰減
+            Sharp Minima: 尖銳極小值
+            SGD Noise Scale: SGD 雜訊尺度
+            Gradient Clipping & Normalisation: 梯度裁剪與正規化
+            Norm Clipping: 範數裁剪
+            LARS: LARS
+            LAMB: LAMB
+            Large-Batch & Distributed: 大批次與分散式
+            Zeroth-Order & Evolutionary: 零階與演化
+            SPSA: SPSA
+            Evolution Strategies: 演化策略
+            CMA-ES: CMA-ES
+            Theory & Landscapes: 理論與損失地形
+            Sharpness-Aware Minimisation: 銳度感知最小化
             Reinforcement Learning: 強化學習
             Learning Paradigms: 學習範式
             Supervised Learning: 監督式學習
@@ -245,12 +299,163 @@ plugins:
             Models: 模型與技術
             Transformers & Attention: Transformer 與注意力
             Attention Variants: 注意力變體
+            FlashAttention: FlashAttention
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
+            Attention Is All You Need: Attention Is All You Need 原始論文
+            Additive Attention (Bahdanau): 加性注意力（Bahdanau）
+            Deep Q-Networks: 深度 Q 網路
+            Proximal Policy Optimisation: 近端策略最佳化
+            AlexNet: AlexNet
+            GPT-3 Few-Shot Learning: GPT-3 少樣本學習
+            Compute-Optimal Training: 運算最佳化訓練
+            InstructGPT and RLHF: InstructGPT 與 RLHF
+            Hodgkin–Huxley Model: Hodgkin–Huxley 模型
+            Sparse Coding: 稀疏編碼
+            Medial Temporal Lobe Lesions: 內側顳葉損傷
+            Long-Term Potentiation: 長期增益
+            Complementary Learning Systems: 互補學習系統
+            Receptive Fields in Visual Cortex: 視覺皮質的感受野
+            Dopamine Reward Prediction Error: 多巴胺的獎勵預測誤差
+            Heuristics and Biases: 啟發法與偏誤
+            Building Machines That Learn Like People: 打造像人一樣學習的機器
+            Performance-Optimised Networks Predict Visual Cortex: 以效能最佳化的網路預測視覺皮質
+            Grid-Like Units in Navigating Networks: 導航網路中的格狀單元
+            Surrogate Gradients: 替代梯度
+            Online Learning with Local Updates (e-prop): 具局部更新的線上學習（e-prop）
+            Integrated Information Theory: 整合資訊理論
+            Global Workspace: 全域工作空間
+            Neural Reach and Grasp: 神經控制的伸手與抓取
+            Speech Neuroprosthesis: 言語神經義肢
+            ACT-R: ACT-R
+            CoALA: CoALA
+            Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
+            False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
+            Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            RFdiffusion: RFdiffusion（蛋白質骨架設計）
+            ESM-2 and ESMFold: ESM-2 與 ESMFold
+            OpenAI Five: OpenAI Five（Dota 2）
+            End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
             Exploration: 探索
+            Multilayer Perceptrons: 多層感知器
+            Convolutional Networks: 卷積網路
+            Convolution Variants: 卷積變體
+            Backbones & Scaling: 骨幹與縮放
+            Recurrent Networks: 循環網路
+            Gated Cells: 門控單元
+            Sequence Modes: 序列模式
+            State-Space Models: 狀態空間模型
+            Diffusion Models: 擴散模型
+            DDPM: DDPM
+            DDIM: DDIM
+            Latent Diffusion: 潛在擴散
+            DiT: DiT 擴散 Transformer
+            Diffusion Transformer (DiT): 擴散 Transformer（DiT）
+            Mixture of Experts: 混合專家
+            Sparsely-Gated MoE: 稀疏閘控混合專家
+            Switch Transformer: Switch Transformer
+            Mixtral: Mixtral 8x7B
+            Density Estimation & Generative Models: 密度估計與生成模型
+            U-Net: U-Net
+            Variational Autoencoders: 變分自編碼器
+            GANs: 生成對抗網路
+            Flow-Based Models: 流模型
+            Normalising Flows: 正規化流
+            Flow Matching: 流匹配
+            Classifier-Free Guidance: 無分類器引導
+            Structured State Spaces: 結構化狀態空間
+            Selective State Spaces: 選擇性狀態空間
+            Message Passing: 訊息傳遞
+            GCN: 圖卷積網路
+            GAT: 圖注意力網路
+            GIN: 圖同構網路
+            GELU: 高斯誤差線性單元
+            Layer Normalisation: 層正規化
+            LSTM: 長短期記憶
+            Sequence to Sequence: 序列到序列學習
+            ResNet: 殘差網路
+            EfficientNet: EfficientNet 與複合縮放
+            S4: S4 結構化狀態空間
+            Mamba: Mamba
+            Mamba-2: Mamba-2
+            Dilated Convolution: 空洞卷積
+            Depthwise Separable Convolution: 深度可分離卷積
+            Deformable Convolution: 可變形卷積
+            VGG: VGG
+            ConvNeXt: ConvNeXt
+            GRU: 門控循環單元
+            HiPPO: HiPPO 高階多項式投影
+            S4D: S4D：S4 的對角版本
+            S5: S5：簡化狀態空間層
+            Linear Recurrent Units: 線性循環單元
+            GraphSAGE: GraphSAGE
             Large Language Models: 大型語言模型
+            Reasoning Models: 推理模型
+            Chain of Thought: 思維鏈
+            Self-Consistency: 自洽性
+            DeepSeek-R1: DeepSeek-R1
+            Test-Time Compute Scaling: 測試時運算擴展
             Generative Models: 生成模型
+            Model Compression: 模型壓縮
+            Quantisation: 量化
+            Pruning: 剪枝
+            Knowledge Distillation: 知識蒸餾
+            Post-Training Quantisation: 訓練後量化
+            LLM.int8(): LLM.int8()
+            GPTQ: GPTQ
+            AWQ: AWQ
+            SmoothQuant: SmoothQuant
+            Quantisation-Aware Training: 量化感知訓練
+            LSQ: 學習步長量化
+            Integer-Only Inference: 純整數推論
+            Binary & Ternary: 二值與三值
+            BinaryConnect: BinaryConnect
+            XNOR-Net: XNOR-Net
+            Ternary Weight Networks: 三值權重網路
+            Mixed Precision: 混合精度
+            HAWQ: HAWQ
+            Deep Compression: 深度壓縮
+            Learning Weights and Connections: 學習權重與連接
+            Magnitude Pruning: 量值剪枝
+            Gradual Pruning: 漸進式剪枝
+            The State of Sparsity: 稀疏性現況
+            Lottery Ticket Hypothesis: 彩票假說
+            Stabilised Lottery Tickets: 穩定的彩票
+            Structured & Channel Pruning: 結構化與通道剪枝
+            Filter Pruning: 濾波器剪枝
+            Network Slimming: 網路瘦身
+            N:M Sparsity: N:M 稀疏
+            Learning N:M from Scratch: 從頭學習 N:M 稀疏
+            Sparse Tensor Cores: 稀疏張量核心
+            One-Shot LLM Pruning: 大型語言模型一次剪枝
+            SparseGPT: SparseGPT
+            Wanda: Wanda
+            Feature-Based: 特徵式
+            Relation-Based: 關係式
+            Response-Based: 響應式
+            Hinton Distillation: Hinton 蒸餾
+            DistilBERT: DistilBERT
+            Teacher Assistant: 助教
+            FitNets: FitNets
+            Attention Transfer: 注意力轉移
+            RKD: RKD
+            Similarity-Preserving: 相似度保持
+            Self-Distillation: 自我蒸餾
+            Born-Again Networks: 重生網路
+            Be Your Own Teacher: 做你自己的老師
+            Data-Free: 無資料
+            Zero-Shot KD: 零樣本蒸餾
+            LLM Distillation: 大型語言模型蒸餾
+            Sequence-Level KD: 序列層級蒸餾
+            MiniLLM: MiniLLM
+            DeepSeek-R1 Distillation: DeepSeek-R1 蒸餾
+            Low-Rank & Efficient Architectures: 低秩與高效架構
+            Truncated SVD: 截斷 SVD
+            Low-Rank Filter Expansion: 低秩濾波器展開
+            LoRA: LoRA
+            Data-Free: 無資料
+            LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
             Natural Language Processing: 自然語言處理
             Speech & Audio: 語音與音訊
@@ -269,6 +474,34 @@ plugins:
             Psychology & AI: 心理學與 AI
             Consciousness & Philosophy of Mind: 意識與心靈哲學
             Brain-Computer Interfaces: 腦機介面與神經解碼
+            Language in the Brain: 大腦中的語言
+            Dual-Stream Model (Hickok & Poeppel 2007): 語音處理的雙路徑模型（Hickok 與 Poeppel，2007）
+            Language Models Predict Brain Responses (Schrimpf et al. 2021): 語言模型預測大腦對句子的反應（Schrimpf 等人，2021）
+            Shared Computational Principles (Goldstein et al. 2022): 人類與深度語言模型的共享計算原則（Goldstein 等人，2022）
+            Predictive Coding & Free Energy: 預測編碼與自由能
+            Predictive Coding in Visual Cortex (Rao & Ballard 1999): 視覺皮質的預測編碼（Rao 與 Ballard，1999）
+            Predictive Coding Approximates Backpropagation (Whittington & Bogacz 2017): 預測編碼近似反向傳播（Whittington 與 Bogacz，2017）
+            Decision Making, Dopamine & Reward: 決策、多巴胺與獎勵
+            Diffusion Decision Model: 擴散決策模型
+            Model-Based vs Model-Free: 有模型與無模型控制
+            Perception & the Visual System: 知覺與視覺系統
+            Attention in Brains & Machines: 大腦與機器中的注意力
+            Biased Competition (Desimone & Duncan 1995): 偏向競爭（Desimone 與 Duncan，1995）
+            Saliency-Based Visual Attention (Itti et al. 1998): 基於顯著性的視覺注意力（Itti 等人，1998）
+            Emotion & Affective Computing: 情緒與情感運算
+            Circumplex Model of Affect (Russell 1980): 情感的環狀模型（Russell，1980）
+            Emotion Circuits (LeDoux 2000): 大腦中的情緒迴路（LeDoux，2000）
+            Neuroimaging & Recording Methods: 神經影像與記錄方法
+            Developmental Cognition & How Children Learn: 發展認知與兒童如何學習
+            Violation of Expectation (Baillargeon et al. 1985): 違反預期範式（Baillargeon 等人，1985）
+            Statistical Learning in Infants (Saffran et al. 1996): 嬰兒的統計學習（Saffran 等人，1996）
+            Animal Cognition & Comparative Intelligence: 動物認知與比較智力
+            Mirror Self-Recognition (Gallup 1970): 鏡像自我辨認（Gallup，1970）
+            Tool Use in New Caledonian Crows (Weir et al. 2002): 新喀里多尼亞烏鴉的工具使用（Weir 等人，2002）
+            BOLD fMRI (Ogawa et al. 1990): BOLD 功能性磁振造影（Ogawa 等人，1990）
+            Simultaneous fMRI and Electrophysiology (Logothetis et al. 2001): 功能性磁振造影與電生理同步記錄（Logothetis 等人，2001）
+            Performance-Optimised Networks (Yamins et al. 2014): 效能最佳化的網路（Yamins 等人，2014）
+            Shape Bias in CNNs (Geirhos et al. 2019): CNN 的形狀偏好（Geirhos 等人，2019）
             Applications: 領域應用
             Healthcare: 醫療與健康
             Life Sciences & Drug Discovery: 生命科學與藥物開發
@@ -290,24 +523,85 @@ plugins:
             Engineering: 工程實務
             Frameworks & Tools: 框架與工具
             Data: 資料工程
+            MinHash Deduplication: MinHash 去重
+            Confident Learning: 置信學習
+            Data Programming and Weak Supervision: 資料編程與弱監督
             Training & Fine-tuning: 訓練與微調
+            Distributed Training: 分散式訓練
+            Megatron-LM Tensor Parallelism: Megatron-LM 張量平行
+            ZeRO: ZeRO
+            GPipe: GPipe 管線平行
+            PyTorch FSDP: PyTorch FSDP
+            Vector Databases and Semantic Search: 向量資料庫與語意搜尋
+            HNSW: HNSW
+            IVF-PQ in FAISS: FAISS 中的 IVF-PQ
+            ScaNN: ScaNN
+            Dense Passage Retrieval: 密集段落檢索
+            ColBERT: ColBERT
+            Indirect Prompt Injection: 間接提示注入
+            Universal Adversarial Suffixes: 通用對抗後綴
+            LLM Application Security: LLM 應用安全
+            Synthetic Data: 合成資料
+            Self-Instruct: Self-Instruct
+            Textbook-quality data: 教科書品質的合成資料
+            Model Collapse: 模型崩潰
             Prompt Engineering: 提示工程
             Retrieval-Augmented Generation: 檢索增強生成 RAG
             Evaluation & Benchmarks: 評估與基準
+            Inference Optimization: 推論最佳化
+            Orca: Orca
+            PagedAttention and vLLM: PagedAttention 與 vLLM
+            Speculative Decoding: 推測式解碼
+            Multi-Query Attention: 多查詢注意力
+            Grouped-Query Attention: 分組查詢注意力
             MLOps & Deployment: MLOps 與部署
+            AI Coding Assistants: AI 程式助手
             AI Hardware: AI 硬體
+            AI Accelerators: AI 加速器
+            TPU: TPU
+            Eyeriss v2: Eyeriss v2
+            Memory Hierarchy and Bandwidth: 記憶體階層與頻寬
+            Interconnects and Scaling: 互連與擴展
+            In-Memory and Analogue Computing: 記憶體內與類比運算
+            Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
+            On-device and Edge AI: 裝置端與邊緣 AI
+            Knowledge Distillation: 知識蒸餾
+            GPTQ: GPTQ
             AI & Society: AI 與社會
             Safety & Alignment: AI 安全與對齊
             Interpretability: 可解釋性
             Ethics & Fairness: 倫理與公平
+            Privacy & Data Protection: 隱私與資料保護
+            Differential privacy: 差分隱私
+            Membership inference: 成員推論
+            Training data extraction: 訓練資料萃取
+            Misinformation & Deepfakes: 不實資訊與深偽
+            How false news spreads: 假新聞如何傳播
+            FaceForensics++: FaceForensics++
+            Copyright & IP: 著作權與智慧財產權
+            Data replication in diffusion models: 擴散模型中的資料重現
+            Extracting training data from diffusion models: 從擴散模型萃取訓練資料
+            Environmental Impact of AI: AI 的環境影響
+            Training energy cost: 訓練能源成本
+            Emissions calculator: 排放計算器
+            Energy-efficient training: 節能訓練
+            BLOOM life-cycle estimate: BLOOM 全生命週期估算
+            Green AI: 綠色 AI
+            Reporting energy and carbon: 能源與排放的報告
+            Open versus Closed Models: 開放與封閉模型
+            AI in Taiwan: 台灣的 AI
+            Children, Education Policy & AI: 兒童、教育政策與 AI
             Law, Policy & Governance: 法規與治理
             Economics & Work: 經濟與勞動
             Philosophy of AI: AI 哲學
             Reference: 參考
             Glossary: 名詞對照表
+            People and Research Labs: 人物與研究室
+            FAQ: 常見問題
             Landmark Papers: 經典論文
             Courses & Books: 課程與書籍
             Datasets: 資料集
+            Timeline of Models and Releases: 模型與發表時間軸
             Tags: 標籤
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
@@ -368,7 +662,52 @@ nav:
       - Mathematics: theory/math/index.md
       - Information Theory: theory/information-theory/index.md
       - Machine Learning: theory/machine-learning/index.md
-      - Deep Learning: theory/deep-learning/index.md
+      - Deep Learning:
+          - theory/deep-learning/index.md
+      - Optimisation:
+          - theory/optimization/index.md
+          - SGD & Momentum:
+              - theory/optimization/sgd-and-momentum/index.md
+              - Heavy-Ball Momentum: theory/optimization/sgd-and-momentum/heavy-ball.md
+              - Nesterov Momentum: theory/optimization/sgd-and-momentum/nesterov.md
+          - Adaptive Methods:
+              - theory/optimization/adaptive/index.md
+              - Adam: theory/optimization/adaptive/adam.md
+              - AdamW: theory/optimization/adaptive/adamw.md
+              - AdaGrad: theory/optimization/adaptive/adagrad.md
+              - RMSProp: theory/optimization/adaptive/rmsprop.md
+              - Adafactor: theory/optimization/adaptive/adafactor.md
+              - Lion: theory/optimization/adaptive/lion.md
+              - SOAP: theory/optimization/adaptive/soap.md
+              - Muon: theory/optimization/adaptive/muon.md
+          - Second-Order Methods:
+              - theory/optimization/second-order.md
+              - L-BFGS: theory/optimization/lbfgs.md
+              - K-FAC: theory/optimization/kfac.md
+              - Shampoo: theory/optimization/shampoo.md
+          - Learning-Rate Schedules:
+              - theory/optimization/learning-rate-schedules.md
+              - Gradual Warm-up: theory/optimization/gradual-warm-up.md
+              - Cosine Annealing with Warm Restarts: theory/optimization/cosine-annealing-warm-restarts.md
+              - Cyclical Learning Rates: theory/optimization/cyclical-learning-rates.md
+          - Regularisation & Weight Decay:
+              - theory/optimization/regularisation-and-weight-decay.md
+              - Sharp Minima: theory/optimization/sharp-minima.md
+              - SGD Noise Scale: theory/optimization/sgd-noise-scale.md
+          - Gradient Clipping & Normalisation:
+              - theory/optimization/gradient-clipping-and-normalisation.md
+              - Norm Clipping: theory/optimization/norm-clipping.md
+              - LARS: theory/optimization/lars.md
+              - LAMB: theory/optimization/lamb.md
+          - Large-Batch & Distributed: theory/optimization/large-batch-and-distributed.md
+          - Zeroth-Order & Evolutionary:
+              - theory/optimization/zeroth-order-and-evolutionary.md
+              - SPSA: theory/optimization/spsa.md
+              - Evolution Strategies: theory/optimization/evolution-strategies.md
+              - CMA-ES: theory/optimization/cma-es.md
+          - Theory & Landscapes:
+              - theory/optimization/theory-and-landscapes.md
+              - Sharpness-Aware Minimisation: theory/optimization/sharpness-aware-minimisation.md
       - Learning Paradigms:
           - theory/paradigms/index.md
           - Supervised Learning:
@@ -384,7 +723,21 @@ nav:
               - theory/paradigms/unsupervised/index.md
               - Clustering: theory/paradigms/unsupervised/clustering/index.md
               - Dimensionality Reduction: theory/paradigms/unsupervised/dimensionality-reduction/index.md
-              - Density Estimation & Generative Models: theory/paradigms/unsupervised/density-and-generative-models/index.md
+              - Density Estimation & Generative Models:
+                  - theory/paradigms/unsupervised/density-and-generative-models/index.md
+                  - Generative Models: theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md
+                  - Variational Autoencoders: theory/paradigms/unsupervised/density-and-generative-models/vae/index.md
+                  - GANs: theory/paradigms/unsupervised/density-and-generative-models/gan/index.md
+                  - Flow-Based Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/flow/index.md
+                      - Normalising Flows: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/index.md
+                      - Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/index.md
+                  - Diffusion Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
+                      - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
+                      - DDIM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md
+                      - Latent Diffusion: theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md
+                      - Classifier-Free Guidance: theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md
               - Autoencoders & Representations: theory/paradigms/unsupervised/autoencoders-and-representations/index.md
               - Anomaly Detection: theory/paradigms/unsupervised/anomaly-detection/index.md
           - Semi- & Weakly Supervised Learning:
@@ -403,6 +756,8 @@ nav:
               - Theory & Evaluation: theory/paradigms/self-supervised/theory-and-evaluation/index.md
           - Reinforcement Learning:
               - theory/paradigms/reinforcement-learning/index.md
+              - Deep Q-Networks: theory/paradigms/reinforcement-learning/deep-q-networks/index.md
+              - Proximal Policy Optimisation: theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index.md
               - Value-Based Methods: theory/paradigms/reinforcement-learning/value-based-methods/index.md
               - Policy Gradient & Actor-Critic: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/index.md
               - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
@@ -459,82 +814,377 @@ nav:
               - Communication Efficiency: theory/paradigms/federated/communication-efficiency/index.md
               - Vertical & Cross-silo: theory/paradigms/federated/vertical-and-cross-silo/index.md
           - Other Paradigms: theory/paradigms/other/index.md
-      - Probabilistic & Bayesian Methods: theory/probabilistic/index.md
-      - Symbolic AI, Search & Planning: theory/symbolic-ai/index.md
-      - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
+          - Probabilistic & Bayesian Methods: theory/paradigms/probabilistic/index.md
+          - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
+          - Evolutionary & Swarm Intelligence: theory/paradigms/evolutionary/index.md
+      - Model Compression:
+          - theory/model-compression/index.md
+          - Quantisation:
+              - theory/model-compression/quantisation/index.md
+              - Post-Training Quantisation:
+                  - theory/model-compression/quantisation/post-training/index.md
+                  - LLM.int8(): theory/model-compression/quantisation/post-training/llm-int8/index.md
+                  - GPTQ: theory/model-compression/quantisation/post-training/gptq/index.md
+                  - AWQ: theory/model-compression/quantisation/post-training/awq/index.md
+                  - SmoothQuant: theory/model-compression/quantisation/post-training/smoothquant/index.md
+              - Quantisation-Aware Training:
+                  - theory/model-compression/quantisation/quantisation-aware-training/index.md
+                  - LSQ: theory/model-compression/quantisation/quantisation-aware-training/lsq/index.md
+                  - Integer-Only Inference: theory/model-compression/quantisation/quantisation-aware-training/integer-only-inference/index.md
+              - Binary & Ternary:
+                  - theory/model-compression/quantisation/binary-and-ternary/index.md
+                  - BinaryConnect: theory/model-compression/quantisation/binary-and-ternary/binaryconnect/index.md
+                  - XNOR-Net: theory/model-compression/quantisation/binary-and-ternary/xnor-net/index.md
+                  - Ternary Weight Networks: theory/model-compression/quantisation/binary-and-ternary/ternary-weight-networks/index.md
+              - Mixed Precision:
+                  - theory/model-compression/quantisation/mixed-precision/index.md
+                  - HAWQ: theory/model-compression/quantisation/mixed-precision/hawq/index.md
+          - Pruning:
+              - theory/model-compression/pruning/index.md
+              - Learning Weights and Connections: theory/model-compression/pruning/learning-weights-and-connections/index.md
+              - Magnitude Pruning:
+                  - theory/model-compression/pruning/magnitude-pruning/index.md
+                  - Gradual Pruning: theory/model-compression/pruning/magnitude-pruning/gradual-pruning/index.md
+                  - The State of Sparsity: theory/model-compression/pruning/magnitude-pruning/state-of-sparsity/index.md
+              - Lottery Ticket Hypothesis:
+                  - theory/model-compression/pruning/lottery-ticket/index.md
+                  - Lottery Ticket Hypothesis: theory/model-compression/pruning/lottery-ticket/lottery-ticket-hypothesis/index.md
+                  - Stabilised Lottery Tickets: theory/model-compression/pruning/lottery-ticket/stabilised-lottery-ticket/index.md
+              - Structured & Channel Pruning:
+                  - theory/model-compression/pruning/structured-pruning/index.md
+                  - Filter Pruning: theory/model-compression/pruning/structured-pruning/filter-pruning/index.md
+                  - Network Slimming: theory/model-compression/pruning/structured-pruning/network-slimming/index.md
+              - N:M Sparsity:
+                  - theory/model-compression/pruning/n-m-sparsity/index.md
+                  - Learning N:M from Scratch: theory/model-compression/pruning/n-m-sparsity/learning-n-m-from-scratch/index.md
+                  - Sparse Tensor Cores: theory/model-compression/pruning/n-m-sparsity/sparse-tensor-cores/index.md
+              - One-Shot LLM Pruning:
+                  - theory/model-compression/pruning/one-shot-llm-pruning/index.md
+                  - SparseGPT: theory/model-compression/pruning/one-shot-llm-pruning/sparsegpt/index.md
+                  - Wanda: theory/model-compression/pruning/one-shot-llm-pruning/wanda/index.md
+          - Deep Compression: theory/model-compression/deep-compression/index.md
+          - Knowledge Distillation:
+              - theory/model-compression/knowledge-distillation/index.md
+              - Response-Based:
+                  - theory/model-compression/knowledge-distillation/response-based/index.md
+                  - Hinton Distillation: theory/model-compression/knowledge-distillation/response-based/hinton-distillation/index.md
+                  - DistilBERT: theory/model-compression/knowledge-distillation/response-based/distilbert/index.md
+                  - Teacher Assistant: theory/model-compression/knowledge-distillation/response-based/teacher-assistant/index.md
+              - Feature-Based:
+                  - theory/model-compression/knowledge-distillation/feature-based/index.md
+                  - FitNets: theory/model-compression/knowledge-distillation/feature-based/fitnets/index.md
+                  - Attention Transfer: theory/model-compression/knowledge-distillation/feature-based/attention-transfer/index.md
+              - Relation-Based:
+                  - theory/model-compression/knowledge-distillation/relation-based/index.md
+                  - RKD: theory/model-compression/knowledge-distillation/relation-based/rkd/index.md
+                  - Similarity-Preserving: theory/model-compression/knowledge-distillation/relation-based/similarity-preserving/index.md
+              - Self-Distillation:
+                  - theory/model-compression/knowledge-distillation/self-distillation/index.md
+                  - Born-Again Networks: theory/model-compression/knowledge-distillation/self-distillation/born-again-networks/index.md
+                  - Be Your Own Teacher: theory/model-compression/knowledge-distillation/self-distillation/be-your-own-teacher/index.md
+              - Data-Free:
+                  - theory/model-compression/knowledge-distillation/data-free/index.md
+                  - Zero-Shot KD: theory/model-compression/knowledge-distillation/data-free/zero-shot-kd/index.md
+              - LLM Distillation:
+                  - theory/model-compression/knowledge-distillation/llm-distillation/index.md
+                  - Sequence-Level KD: theory/model-compression/knowledge-distillation/llm-distillation/sequence-level/index.md
+                  - MiniLLM: theory/model-compression/knowledge-distillation/llm-distillation/minillm/index.md
+                  - DeepSeek-R1 Distillation: theory/model-compression/knowledge-distillation/llm-distillation/deepseek-r1/index.md
+          - Low-Rank & Efficient Architectures:
+              - theory/model-compression/low-rank-and-efficient-architectures/index.md
+              - Truncated SVD: theory/model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md
+              - Low-Rank Filter Expansion: theory/model-compression/low-rank-and-efficient-architectures/low-rank-filter-expansion/index.md
+              - LoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
       - Models:
           - theory/models/index.md
+          - Multilayer Perceptrons:
+              - theory/models/mlp/index.md
+              - GELU: theory/models/mlp/gelu/index.md
+              - Layer Normalisation: theory/models/mlp/layer-normalisation/index.md
+          - Convolutional Networks:
+              - theory/models/cnn/index.md
+              - U-Net: theory/models/cnn/unet/index.md
+              - Convolution Variants:
+                  - theory/models/cnn/convolution-variants/index.md
+                  - Dilated Convolution: theory/models/cnn/convolution-variants/dilated-convolution/index.md
+                  - Depthwise Separable Convolution: theory/models/cnn/convolution-variants/depthwise-separable-convolution/index.md
+                  - Deformable Convolution: theory/models/cnn/convolution-variants/deformable-convolution/index.md
+              - Backbones & Scaling:
+                  - theory/models/cnn/backbones-and-scaling/index.md
+                  - AlexNet: theory/models/cnn/backbones-and-scaling/alexnet/index.md
+                  - VGG: theory/models/cnn/backbones-and-scaling/vgg/index.md
+                  - ResNet: theory/models/cnn/backbones-and-scaling/resnet/index.md
+                  - EfficientNet: theory/models/cnn/backbones-and-scaling/efficientnet/index.md
+                  - ConvNeXt: theory/models/cnn/backbones-and-scaling/convnext/index.md
+          - Recurrent Networks:
+              - theory/models/rnn/index.md
+              - Gated Cells:
+                  - theory/models/rnn/gated-cells/index.md
+                  - LSTM: theory/models/rnn/gated-cells/lstm/index.md
+                  - GRU: theory/models/rnn/gated-cells/gru/index.md
+              - Sequence Modes:
+                  - theory/models/rnn/sequence-modes/index.md
+                  - Sequence to Sequence: theory/models/rnn/sequence-modes/sequence-to-sequence/index.md
           - Transformers & Attention:
               - theory/models/transformer/index.md
-              - Attention Variants: theory/models/transformer/attention-variants/index.md
+              - Attention Is All You Need: theory/models/transformer/attention-is-all-you-need/index.md
+              - Additive Attention (Bahdanau): theory/models/transformer/bahdanau-attention/index.md
+              - Diffusion Transformer (DiT): theory/models/transformer/dit/index.md
+              - Mixture of Experts:
+                  - theory/models/mixture-of-experts/index.md
+                  - Sparsely-Gated MoE: theory/models/mixture-of-experts/sparsely-gated.md
+                  - Switch Transformer: theory/models/mixture-of-experts/switch-transformer.md
+                  - Mixtral: theory/models/mixture-of-experts/mixtral.md
+              - Attention Variants:
+                  - theory/models/transformer/attention-variants/index.md
+                  - FlashAttention: theory/models/transformer/attention-variants/flash-attention/index.md
               - Positional Encodings: theory/models/transformer/positional-encodings/index.md
               - KV Cache: theory/models/transformer/kv-cache/index.md
+          - State-Space Models:
+              - theory/models/ssm/index.md
+              - Structured State Spaces:
+                  - theory/models/ssm/structured-state-spaces/index.md
+                  - HiPPO: theory/models/ssm/structured-state-spaces/hippo/index.md
+                  - S4: theory/models/ssm/structured-state-spaces/s4/index.md
+                  - S4D: theory/models/ssm/structured-state-spaces/s4d/index.md
+                  - S5: theory/models/ssm/structured-state-spaces/s5/index.md
+                  - Linear Recurrent Units: theory/models/ssm/structured-state-spaces/linear-recurrent-units/index.md
+              - Selective State Spaces:
+                  - theory/models/ssm/selective-state-spaces/index.md
+                  - Mamba: theory/models/ssm/selective-state-spaces/mamba/index.md
+                  - Mamba-2: theory/models/ssm/selective-state-spaces/mamba-2/index.md
           - Large Language Models:
               - theory/models/llm/index.md
+              - GPT-3 Few-Shot Learning: theory/models/llm/gpt-3-few-shot/index.md
+              - Compute-Optimal Training: theory/models/llm/compute-optimal-training/index.md
+              - InstructGPT and RLHF: theory/models/llm/instructgpt-rlhf/index.md
               - Imitation in Foundation Models: theory/models/llm/imitation-in-foundation-models/index.md
-          - Generative Models: theory/models/generative/index.md
+              - Reasoning Models:
+                  - theory/models/reasoning/index.md
+                  - Chain of Thought: theory/models/reasoning/chain-of-thought.md
+                  - Self-Consistency: theory/models/reasoning/self-consistency.md
+                  - DeepSeek-R1: theory/models/reasoning/deepseek-r1.md
+                  - Test-Time Compute Scaling: theory/models/reasoning/test-time-scaling.md
           - Computer Vision: theory/models/computer-vision/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
-          - Graph Neural Networks: theory/models/gnn/index.md
+          - Graph Neural Networks:
+              - theory/models/gnn/index.md
+              - Message Passing:
+                  - theory/models/gnn/message-passing/index.md
+                  - GraphSAGE: theory/models/gnn/message-passing/graphsage/index.md
+                  - GCN: theory/models/gnn/message-passing/gcn/index.md
+                  - GAT: theory/models/gnn/message-passing/gat/index.md
+                  - GIN: theory/models/gnn/message-passing/gin/index.md
           - AI Agents: theory/models/agents/index.md
           - World Models & Embodied AI: theory/models/world-models/index.md
   - Brain & Mind:
       - brain-mind/index.md
-      - Neuroscience Basics: brain-mind/neuroscience/index.md
-      - Computational Neuroscience: brain-mind/computational-neuroscience/index.md
-      - NeuroAI: brain-mind/neuroai/index.md
-      - Spiking Networks & Neuromorphic Computing: brain-mind/snn-neuromorphic/index.md
-      - Memory & Learning in the Brain: brain-mind/memory-learning/index.md
-      - Cognitive Science: brain-mind/cognitive-science/index.md
-      - Cognitive Architectures: brain-mind/cognitive-architectures/index.md
-      - Psychology & AI: brain-mind/psychology/index.md
-      - Consciousness & Philosophy of Mind: brain-mind/consciousness/index.md
-      - Brain-Computer Interfaces: brain-mind/bci/index.md
+      - Neuroscience Basics:
+          - brain-mind/neuroscience/index.md
+          - Receptive Fields in Visual Cortex: brain-mind/neuroscience/receptive-fields-hubel-wiesel/index.md
+          - Dopamine Reward Prediction Error: brain-mind/neuroscience/dopamine-reward-prediction-error/index.md
+      - Computational Neuroscience:
+          - brain-mind/computational-neuroscience/index.md
+          - Hodgkin–Huxley Model: brain-mind/computational-neuroscience/hodgkin-huxley/index.md
+          - Sparse Coding: brain-mind/computational-neuroscience/sparse-coding/index.md
+      - NeuroAI:
+          - brain-mind/neuroai/index.md
+          - Performance-Optimised Networks Predict Visual Cortex: brain-mind/neuroai/performance-optimised-networks/index.md
+          - Grid-Like Units in Navigating Networks: brain-mind/neuroai/grid-like-units/index.md
+      - Spiking Networks & Neuromorphic Computing:
+          - brain-mind/snn-neuromorphic/index.md
+          - Surrogate Gradients: brain-mind/snn-neuromorphic/surrogate-gradients/index.md
+          - Online Learning with Local Updates (e-prop): brain-mind/snn-neuromorphic/eprop/index.md
+      - Memory & Learning in the Brain:
+          - brain-mind/memory-learning/index.md
+          - Medial Temporal Lobe Lesions: brain-mind/memory-learning/medial-temporal-lesions/index.md
+          - Long-Term Potentiation: brain-mind/memory-learning/long-term-potentiation/index.md
+          - Complementary Learning Systems: brain-mind/memory-learning/complementary-learning-systems/index.md
+      - Cognitive Science:
+          - brain-mind/cognitive-science/index.md
+          - Heuristics and Biases: brain-mind/cognitive-science/heuristics-and-biases/index.md
+          - Building Machines That Learn Like People: brain-mind/cognitive-science/building-machines-like-people/index.md
+      - Cognitive Architectures:
+          - brain-mind/cognitive-architectures/index.md
+          - ACT-R: brain-mind/cognitive-architectures/act-r/index.md
+          - CoALA: brain-mind/cognitive-architectures/coala/index.md
+      - Psychology & AI:
+          - brain-mind/psychology/index.md
+          - Chimpanzee Theory-of-Mind Test: brain-mind/psychology/chimpanzee-theory-of-mind/index.md
+          - False-Belief Tests on LLMs: brain-mind/psychology/false-belief-llms/index.md
+      - Consciousness & Philosophy of Mind:
+          - brain-mind/consciousness/index.md
+          - Integrated Information Theory: brain-mind/consciousness/integrated-information-theory/index.md
+          - Global Workspace: brain-mind/consciousness/global-workspace/index.md
+      - Brain-Computer Interfaces:
+          - brain-mind/bci/index.md
+          - Neural Reach and Grasp: brain-mind/bci/neural-reach-and-grasp/index.md
+          - Speech Neuroprosthesis: brain-mind/bci/speech-neuroprosthesis/index.md
+      - Language in the Brain:
+          - brain-mind/language-in-brain/index.md
+          - Dual-Stream Model (Hickok & Poeppel 2007): brain-mind/language-in-brain/hickok-poeppel-2007/index.md
+          - Language Models Predict Brain Responses (Schrimpf et al. 2021): brain-mind/language-in-brain/schrimpf-2021/index.md
+          - Shared Computational Principles (Goldstein et al. 2022): brain-mind/language-in-brain/goldstein-2022/index.md
+      - Neuroimaging & Recording Methods:
+          - brain-mind/neuroimaging-methods/index.md
+          - BOLD fMRI (Ogawa et al. 1990): brain-mind/neuroimaging-methods/bold-fmri/index.md
+          - Simultaneous fMRI and Electrophysiology (Logothetis et al. 2001): brain-mind/neuroimaging-methods/fmri-electrophysiology/index.md
+      - Emotion & Affective Computing:
+          - brain-mind/emotion/index.md
+          - Circumplex Model of Affect (Russell 1980): brain-mind/emotion/circumplex-model/index.md
+          - Emotion Circuits (LeDoux 2000): brain-mind/emotion/emotion-circuits/index.md
+      - Attention in Brains & Machines:
+          - brain-mind/attention-brain-machine/index.md
+          - Biased Competition (Desimone & Duncan 1995): brain-mind/attention-brain-machine/biased-competition/index.md
+          - Saliency-Based Visual Attention (Itti et al. 1998): brain-mind/attention-brain-machine/saliency-map/index.md
+      - Predictive Coding & Free Energy:
+          - brain-mind/predictive-coding/index.md
+          - Predictive Coding in Visual Cortex (Rao & Ballard 1999): brain-mind/predictive-coding/rao-ballard-1999/index.md
+          - Predictive Coding Approximates Backpropagation (Whittington & Bogacz 2017): brain-mind/predictive-coding/whittington-bogacz-2017/index.md
+      - Decision Making, Dopamine & Reward:
+          - brain-mind/decision-reward/index.md
+          - Diffusion Decision Model: brain-mind/decision-reward/diffusion-model/index.md
+          - Model-Based vs Model-Free: brain-mind/decision-reward/model-based-vs-model-free/index.md
+      - Perception & the Visual System:
+          - brain-mind/visual-perception/index.md
+          - Performance-Optimised Networks (Yamins et al. 2014): brain-mind/visual-perception/yamins-2014/index.md
+          - Shape Bias in CNNs (Geirhos et al. 2019): brain-mind/visual-perception/geirhos-2019/index.md
+      - Developmental Cognition & How Children Learn:
+          - brain-mind/developmental-cognition/index.md
+          - Violation of Expectation (Baillargeon et al. 1985): brain-mind/developmental-cognition/violation-of-expectation/index.md
+          - Statistical Learning in Infants (Saffran et al. 1996): brain-mind/developmental-cognition/statistical-learning/index.md
+      - Animal Cognition & Comparative Intelligence:
+          - brain-mind/animal-cognition/index.md
+          - Mirror Self-Recognition (Gallup 1970): brain-mind/animal-cognition/mirror-self-recognition/index.md
+          - Tool Use in New Caledonian Crows (Weir et al. 2002): brain-mind/animal-cognition/tool-use-crows/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
-      - Life Sciences & Drug Discovery: applications/life-science/index.md
+      - Life Sciences & Drug Discovery:
+          - applications/life-science/index.md
+          - RFdiffusion: applications/life-science/rfdiffusion/index.md
+          - ESM-2 and ESMFold: applications/life-science/esm/index.md
       - Scientific Discovery: applications/science/index.md
       - Mental Health: applications/mental-health/index.md
       - Education: applications/education/index.md
       - Finance: applications/finance/index.md
       - Law: applications/law/index.md
-      - Robotics: applications/robotics/index.md
-      - Autonomous Driving & Transport: applications/autonomous-driving/index.md
+      - Robotics:
+          - applications/robotics/index.md
+          - Hand-Eye Coordination for Grasping: applications/robotics/hand-eye-grasping/index.md
+      - Autonomous Driving & Transport:
+          - applications/autonomous-driving/index.md
+          - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md
       - Manufacturing & Industry: applications/manufacturing/index.md
       - Agriculture & Food: applications/agriculture/index.md
       - Climate & Energy: applications/climate-energy/index.md
       - Art, Media & Creativity: applications/creative/index.md
-      - Games: applications/games/index.md
+      - Games:
+          - applications/games/index.md
+          - OpenAI Five: applications/games/openai-five/index.md
       - Cybersecurity: applications/cybersecurity/index.md
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools: engineering/frameworks/index.md
-      - Data: engineering/data/index.md
+      - Data:
+          - engineering/data/index.md
+          - MinHash Deduplication: engineering/data/minhash-deduplication.md
+          - Confident Learning: engineering/data/confident-learning.md
+          - Data Programming and Weak Supervision: engineering/data/data-programming.md
       - Training & Fine-tuning: engineering/training/index.md
+      - Distributed Training:
+          - engineering/distributed-training/index.md
+          - Megatron-LM Tensor Parallelism: engineering/distributed-training/megatron-tensor-parallelism.md
+          - ZeRO: engineering/distributed-training/zero.md
+          - GPipe: engineering/distributed-training/gpipe.md
+          - PyTorch FSDP: engineering/distributed-training/fsdp.md
+      - Vector Databases and Semantic Search:
+          - engineering/vector-databases/index.md
+          - HNSW: engineering/vector-databases/hnsw.md
+          - IVF-PQ in FAISS: engineering/vector-databases/ivf-pq-faiss.md
+          - ScaNN: engineering/vector-databases/scann.md
+          - Dense Passage Retrieval: engineering/vector-databases/dense-passage-retrieval.md
+          - ColBERT: engineering/vector-databases/colbert.md
+      - LLM Application Security:
+          - engineering/llm-security/index.md
+          - Indirect Prompt Injection: engineering/llm-security/indirect-prompt-injection.md
+          - Universal Adversarial Suffixes: engineering/llm-security/universal-adversarial-suffixes.md
+      - Synthetic Data:
+          - engineering/synthetic-data/index.md
+          - Self-Instruct: engineering/synthetic-data/self-instruct.md
+          - Textbook-quality data: engineering/synthetic-data/textbook-data.md
+          - TinyStories: engineering/synthetic-data/tinystories.md
+          - Model Collapse: engineering/synthetic-data/model-collapse.md
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
+      - Inference Optimization:
+          - engineering/inference-optimization/index.md
+          - Orca: engineering/inference-optimization/orca.md
+          - PagedAttention and vLLM: engineering/inference-optimization/paged-attention.md
+          - Speculative Decoding: engineering/inference-optimization/speculative-decoding.md
+          - Multi-Query Attention: engineering/inference-optimization/multi-query-attention.md
+          - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
       - MLOps & Deployment: engineering/mlops/index.md
-      - AI Hardware: engineering/hardware/index.md
+      - AI Coding Assistants: engineering/coding-assistants/index.md
+      - AI Hardware:
+          - engineering/hardware/index.md
+          - AI Accelerators:
+              - engineering/hardware/accelerators/index.md
+              - TPU: engineering/hardware/accelerators/tpu/index.md
+              - Eyeriss v2: engineering/hardware/accelerators/eyeriss-v2/index.md
+          - Memory Hierarchy and Bandwidth: engineering/hardware/memory-hierarchy/index.md
+          - Interconnects and Scaling: engineering/hardware/interconnects/index.md
+          - In-Memory and Analogue Computing: engineering/hardware/in-memory-computing/index.md
+          - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md
+      - On-device and Edge AI:
+          - engineering/on-device-edge/index.md
+          - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
   - AI & Society:
       - society/index.md
       - Safety & Alignment: society/safety-alignment/index.md
       - Interpretability: society/interpretability/index.md
       - Ethics & Fairness: society/ethics/index.md
+      - Privacy & Data Protection:
+          - society/privacy/index.md
+          - Differential privacy: society/privacy/differential-privacy.md
+          - Membership inference: society/privacy/membership-inference.md
+          - Training data extraction: society/privacy/training-data-extraction.md
+      - Misinformation & Deepfakes:
+          - society/misinformation/index.md
+          - How false news spreads: society/misinformation/spread-of-false-news.md
+          - FaceForensics++: society/misinformation/facial-manipulation-detection.md
+      - Copyright & IP:
+          - society/copyright/index.md
+          - Data replication in diffusion models: society/copyright/data-replication.md
+          - Extracting training data from diffusion models: society/copyright/diffusion-extraction.md
+      - Environmental Impact of AI:
+          - society/environment/index.md
+          - Training energy cost: society/environment/training-energy-cost.md
+          - Emissions calculator: society/environment/emissions-calculator.md
+          - Energy-efficient training: society/environment/energy-efficient-training.md
+          - BLOOM life-cycle estimate: society/environment/life-cycle-estimate.md
+          - Green AI: society/environment/green-ai.md
+          - Reporting energy and carbon: society/environment/reporting-framework.md
+      - Open versus Closed Models: society/open-vs-closed/index.md
+      - AI in Taiwan: society/ai-in-taiwan/index.md
+      - Children, Education Policy & AI: society/children-education-policy/index.md
       - Law, Policy & Governance: society/governance/index.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
   - Reference:
       - reference/index.md
       - Glossary: reference/glossary/index.md
+      - People and Research Labs: reference/people-and-labs/index.md
+      - FAQ: reference/faq/index.md
       - Landmark Papers: reference/papers/index.md
       - Courses & Books: reference/courses-books/index.md
       - Datasets: reference/datasets/index.md
+      - Timeline of Models and Releases: reference/timeline/index.md
       - Tags: reference/tags/index.md
       - Contributing: reference/contributing/index.md
       - Roadmap & Coverage: reference/roadmap/index.md

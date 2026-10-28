@@ -25,6 +25,20 @@ The aggregation must be **permutation-invariant** (sum, mean, max, attention).
 
 *Original message-passing schematic, CC BY-SA 4.0.* A node receives messages **along existing graph edges**, aggregates the incoming information using a permutation-invariant operation, and computes an updated embedding. The colours and pulses are schematic, not computed node features. Multiple layers let information propagate across progressively larger neighbourhoods. See [Gilmer et al. (2017)](https://arxiv.org/abs/1704.01212).
 
+## Components and variants
+
+How messages are formed and aggregated, and how deep the network can go before its node features blur together, are covered on the [message-passing](message-passing/index.md) page. It compares normalised convolution, neighbour sampling, attention, and the expressivity of sum-based aggregation.
+
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| Graph convolutional networks (GCN) | 2016 | Degree-normalised neighbour averaging, a first-order spectral filter | [GCN](message-passing/gcn/index.md) |
+| Graph attention networks (GAT) | 2017 | Learned attention weights over neighbours | [GAT](message-passing/gat/index.md) |
+| Graph isomorphism networks (GIN) | 2018 | Sum aggregation with an MLP update, as expressive as the WL test | [GIN](message-passing/gin/index.md) |
+
+The three methods differ in how they weight neighbours: GCN uses fixed degree-based weights, GAT learns attention weights, and GIN sums neighbours with an MLP update.
+
 ## Representative models
 
 | Model | Character |
@@ -76,11 +90,12 @@ The aggregation must be **permutation-invariant** (sum, mean, max, attention).
 
 ### Seminal papers
 
-- Kipf, T. N. & Welling, M. (2017). *Semi-Supervised Classification with Graph Convolutional Networks*. ICLR. https://arxiv.org/abs/1609.02907 — Introduces a scalable graph convolution that uses local neighbourhood features.
-- Gilmer, J., et al. (2017). *Neural Message Passing for Quantum Chemistry*. ICML. https://arxiv.org/abs/1704.01212 — Formalises the message–aggregate–update framework for graph-structured molecular learning.
-- Hamilton, W. L., Ying, R. & Leskovec, J. (2017). *Inductive Representation Learning on Large Graphs*. NeurIPS. https://arxiv.org/abs/1706.02216 — Introduces GraphSAGE and inductive neighbour sampling.
-- Veličković, P., et al. (2018). *Graph Attention Networks*. ICLR. https://arxiv.org/abs/1710.10903 — Uses attention weights to combine representations from neighbouring nodes.
+- Gilmer, J., et al. (2017). "Neural Message Passing for Quantum Chemistry". arXiv:1704.01212 — Gives the message-passing framework and shows that several graph models fit it.
+- Kipf, T. N. & Welling, M. (2016). "Semi-Supervised Classification with Graph Convolutional Networks". arXiv:1609.02907 — The GCN layer with symmetric degree normalisation.
+- Hamilton, W., Ying, Z. & Leskovec, J. (2017). "Inductive Representation Learning on Large Graphs". arXiv:1706.02216 — GraphSAGE, sampled neighbourhood aggregation for unseen nodes.
+- Veličković, P., et al. (2017). "Graph Attention Networks". arXiv:1710.10903 — Learned attention weights over neighbours, computed from the features of the two endpoints.
 
-### Surveys and textbooks
+### Articles and documentation
 
-- Zhou, J., et al. (2021). *Graph Neural Networks: A Review of Methods and Applications*. AI Open. https://arxiv.org/abs/1812.08434 — Surveys graph-learning architectures, message passing, applications and open challenges.
+- Xu, K., et al. (2018). "How Powerful are Graph Neural Networks?". arXiv:1810.00826 — Shows the expressivity limits of aggregation functions and proposes sum-based GIN.
+- Li, Q., Han, Z. & Wu, X.-M. (2018). "Deeper Insights into Graph Convolutional Networks for Semi-Supervised Learning". arXiv:1801.07606 — Analyses how repeated graph convolution makes node features converge.

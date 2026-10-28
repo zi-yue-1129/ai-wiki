@@ -42,8 +42,8 @@ tags:
 
 ### 開創性論文
 
-- Quinlan (1986), "Induction of decision trees", *Machine Learning* 1(1). https://mlanthology.org/mlj/1986/quinlan1986mlj-induction — ID3 演算法，依資訊增益建立決策樹。
-- Breiman (2001), "Random forests", *Machine Learning* 45(1). https://mlanthology.org/mlj/2001/breiman2001mlj-random — 結合隨機特徵選取的裝袋樹，以及袋外誤差估計。
+- Quinlan, J. R. (1986). Induction of decision trees. *Machine Learning*, 1(1), 81–106. https://doi.org/10.1007/BF00116251 — ID3 演算法，依資訊增益建立決策樹。
+- Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324 — 結合隨機特徵選取的裝袋樹，以及袋外誤差估計。
 - Friedman (2001), "Greedy function approximation: a gradient boosting machine", *Annals of Statistics* 29(5). https://doi.org/10.1214/AOS/1013203451 — 把梯度提升推導為函數空間中的梯度下降。
 - Ke et al. (2017), "LightGBM: a highly efficient gradient boosting decision tree", NeurIPS. https://neurips.cc/virtual/2017/poster/9099 — 基於直方圖的分裂與逐葉生長，使大資料上的提升更快。
 - Prokhorenkova et al. (2018), "CatBoost: unbiased boosting with categorical features", NeurIPS. https://proceedings.neurips.cc/paper/2018/hash/14491b756b3a51daac41c24863285549-Abstract.html — 有序提升與目標統計量，在不洩漏的前提下處理類別特徵。
@@ -54,12 +54,16 @@ tags:
 
 ### 講座與影片
 
-- StatQuest with Josh Starmer，關於隨機森林與梯度提升的單元，YouTube。https://www.youtube.com/@statquest — 以動畫逐步說明樹如何建立與組合。
+- Friedman, J. H. (2001). Greedy function approximation: a gradient boosting machine. *Annals of Statistics*, 29(5), 1189–1232. https://doi.org/10.1214/aos/1013203451 — 提出梯度提升機，以函數空間中的梯度下降逐步加入弱學習器。
 
 ### 文章與文件
 
 - Grinsztajn, Oyallon & Varoquaux (2022), "Why do tree-based models still outperform deep learning on tabular data?", NeurIPS, arXiv:2207.08815 — 基準測試與分析，說明為什麼在表格資料上樹的集成常勝過神經網路。
 
+## 延伸學習
+
+- StatQuest with Josh Starmer，關於隨機森林與梯度提升的單元，YouTube。https://www.youtube.com/@statquest — 以動畫逐步說明樹如何建立與組合。
+
 ## 延伸閱讀
 
-- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD。未查核連結。
+- Chen & Guestrin (2016)，"XGBoost: a scalable tree boosting system"，KDD。https://arxiv.org/abs/1603.02754 — XGBoost 系統：為速度與規模設計的正則化梯度提升樹。

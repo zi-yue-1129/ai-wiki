@@ -61,4 +61,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Hsu, Liu, Ramasamy & Kira (2018), "Re-evaluating continual learning scenarios: a categorization and case for strong baselines", NeurIPS continual learning workshop. No link checked.
+- Hsu, Liu, Ramasamy & Kira (2018), "Re-evaluating continual learning scenarios: a categorization and case for strong baselines", NeurIPS continual learning workshop. https://arxiv.org/abs/1810.12488 — Categorises continual learning scenarios and argues for simple baselines that are hard to beat.

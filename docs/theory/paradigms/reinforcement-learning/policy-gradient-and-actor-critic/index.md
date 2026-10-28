@@ -59,4 +59,4 @@ Sample efficiency and reproducibility remain serious issues, since results depen
 
 ## Further reading
 
-- Williams (1992), "Simple statistical gradient-following algorithms for connectionist reinforcement learning", *Machine Learning* 8. The original REINFORCE paper. No link checked.
+- Williams (1992), "Simple statistical gradient-following algorithms for connectionist reinforcement learning", *Machine Learning* 8. https://doi.org/10.1007/BF00992696 — The original REINFORCE paper, the basis of policy gradient methods.

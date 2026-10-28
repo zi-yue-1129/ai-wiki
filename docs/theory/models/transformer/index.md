@@ -72,24 +72,29 @@ Standard attention costs \(O(n^2)\) in sequence length n.
 | Multi-head latent attention (MLA) | Compress K/V into a low-dimensional latent (DeepSeek-V2 onward) |
 | Sparse / sliding-window attention | Attend to a subset of positions (Longformer, Mistral) |
 | Linear attention | Kernel approximations reduce cost to \(O(n)\) |
-| Mixture of experts (MoE) | Replace the FFN with many experts and route each token to a few — many parameters, modest compute |
+| [Mixture of experts (MoE)](../mixture-of-experts/index.md) | Replace the FFN with many experts and route each token to a few — many parameters, modest compute |
 
 ## Key methods
 
+Each method has its own page. The overview and comparison here are brief.
+
 ### Attention Is All You Need (Vaswani et al., 2017)
 
-- **Problem:** recurrent sequence models process tokens one after another. That limits parallel training and makes long-range dependencies hard to learn.
-- **Core idea:** remove recurrence and convolution entirely. Each position attends to all others through multi-head scaled dot-product attention, and positional information is added to the embeddings.
-- **Algorithm:** the encoder and the decoder each stack layers of multi-head attention and a feed-forward network. The decoder masks future positions, so each output depends only on earlier outputs.
-- **Results:** 28.4 BLEU on WMT 2014 English-to-German, more than 2 BLEU above the previous best results, including ensembles. A single model reached 41.8 BLEU on English-to-French. Training took 3.5 days on eight GPUs.
-- **Limitations:** the cost of attention grows with the square of the sequence length (see Efficiency above). The original model is an encoder–decoder for translation, not the decoder-only form that most language models use today.
+- **Overview:** Replaces recurrence and convolution with multi-head scaled dot-product attention, so each position attends to all others in parallel.
+- **Comparison:** The architecture the rest of this page builds on. The attention variants and positional encodings below change its parts.
+- **Full write-up:** [Attention Is All You Need](attention-is-all-you-need/index.md)
 
 ### Neural machine translation with learned alignment (Bahdanau et al., 2015)
 
-- **Problem:** encoder–decoder translation compresses a whole source sentence into one fixed-length vector, which loses information in long sentences.
-- **Core idea:** at each output step, the decoder searches the source sentence with a soft alignment, a weighted average of the encoder's states. The weights are learned from how well each source position matches the current decoder state.
-- **Results:** the paper reports that the attention model keeps translation quality on long sentences better than the fixed-vector baseline.
-- **Limitations:** the encoder and decoder are still recurrent, so training remains sequential. The alignment costs time proportional to the source length for each output word.
+- **Overview:** The decoder searches the source sentence with learned soft alignment weights, instead of relying on one fixed-length vector.
+- **Comparison:** The earlier, recurrent form of attention. The Transformer above removes the recurrence that this paper still needs.
+- **Full write-up:** [Additive Attention (Bahdanau)](bahdanau-attention/index.md)
+
+### Diffusion Transformer (Peebles & Xie, 2022)
+
+- **Overview:** Replaces the U-Net denoiser of latent diffusion with a Transformer over latent patches, and shows that sample quality improves with more compute.
+- **Comparison:** The same attention block as above, used as a denoiser rather than a language model. The generative algorithm it plugs into is in [Diffusion Models](../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md).
+- **Full write-up:** [Diffusion Transformer (DiT)](dit/index.md)
 
 ## Components and variants
 
@@ -142,9 +147,12 @@ Each part of the Transformer has its own family of variants, with its own trade-
 
 ### Lectures and videos
 
-- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — Live coding of a small GPT from an empty file, explaining each part of the Transformer as it is written.
+- Radford, A., Wu, J., Child, R., Luan, D., Amodei, D. & Sutskever, I. (2019). *Language Models are Unsupervised Multitask Learners*. OpenAI technical report. https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf — The GPT-2 technical report, describing the decoder-only Transformer language model that the video builds.
 
 ### Articles and documentation
 
-- Alammar, J. *The Illustrated Transformer*. https://jalammar.github.io/illustrated-transformer/ — Step-by-step diagrams of attention and the encoder–decoder stack.
-- Harvard NLP. *The Annotated Transformer*. https://nlp.seas.harvard.edu/annotated-transformer/ — Paper-by-paper PyTorch implementation with commentary alongside the original text.
+- Rush, A. M. (2018). *The Annotated Transformer*. Proceedings of Workshop for NLP Open Source Software (NLP-OSS). https://doi.org/10.18653/v1/w18-2509 — Paper-by-paper PyTorch implementation with commentary alongside the original text.
+
+## Further learning
+
+- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — Live coding of a small GPT from an empty file, explaining each part of the Transformer as it is written.

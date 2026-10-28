@@ -68,9 +68,9 @@ See [Memory & Learning in the Brain](../../../brain-mind/memory-learning/index.m
 
 ## Further reading
 
-- Parisi et al. (2019), "Continual lifelong learning with neural networks: A review"
-- Kudithipudi et al. (2022), "Biological underpinnings for lifelong learning machines", *Nature Machine Intelligence*
-- Wang et al. (2024), "A Comprehensive Survey of Continual Learning", *IEEE TPAMI*
+- Parisi et al. (2019), "Continual lifelong learning with neural networks: A review". https://arxiv.org/abs/1802.07569
+- Kudithipudi et al. (2022), "Biological underpinnings for lifelong learning machines", *Nature Machine Intelligence*. https://www.nature.com/articles/s42256-022-00452-0
+- Wang et al. (2024), "A Comprehensive Survey of Continual Learning", *IEEE TPAMI*. https://arxiv.org/abs/2302.00487
 - [Avalanche](https://avalanche.continualai.org/) library (ContinualAI)
 
 ## References

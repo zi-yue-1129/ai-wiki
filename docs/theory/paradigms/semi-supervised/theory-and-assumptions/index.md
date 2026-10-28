@@ -45,7 +45,7 @@ Formal conditions under which unlabelled data provably help are still limited, a
 - Singh, Nowak & Zhu (2008), "Unlabeled data: now it helps, now it doesn't", NeurIPS. https://proceedings.neurips.cc/paper/2008/hash/07871915a8107172b3b5dc15a6574ad3-Abstract.html — Gives conditions under which unlabelled data help and when they hurt.
 - Belkin, Niyogi & Sindhwani (2006), "Manifold regularization: a geometric framework for learning from labeled and unlabeled examples", *JMLR* 7. https://www.jmlr.org/papers/v7/belkin06a.html — Formalises the manifold assumption as a regulariser.
 - Zhou, Bousquet, Lal, Weston & Schölkopf (2004), "Learning with local and global consistency", NeurIPS. https://papers.nips.cc/paper/2506-learning-with-local-and-global-consistency — Formalises the smoothness trade-off between labelled fit and graph consistency.
-- Zhu, Ghahramani & Lafferty (2003), "Semi-supervised learning using Gaussian fields and harmonic functions", ICML. https://mlanthology.org/icml/2003/zhu2003icml-semi/ — Shows how graph smoothness turns unlabelled data into labels.
+- Zhu, Ghahramani & Lafferty (2003), "Semi-supervised learning using Gaussian fields and harmonic functions", ICML. https://www.cs.cmu.edu/~zhuxj/pub/zgl.pdf — Shows how graph smoothness turns unlabelled data into labels.
 
 ### Surveys and textbooks
 
@@ -61,4 +61,4 @@ Formal conditions under which unlabelled data provably help are still limited, a
 
 ## Further reading
 
-- Chapelle, Schölkopf & Zien (eds.), *Semi-Supervised Learning*, MIT Press (2006). No free link checked.
+- Chapelle, Schölkopf & Zien (eds.), *Semi-Supervised Learning*, MIT Press (2006). https://doi.org/10.7551/mitpress/9780262033589.001.0001 — The standard volume on semi-supervised learning.
