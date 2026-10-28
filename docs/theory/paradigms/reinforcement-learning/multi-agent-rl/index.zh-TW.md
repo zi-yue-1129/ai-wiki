@@ -41,7 +41,7 @@ translation_reviewed: 2026-10-28
 ## 連結
 
 - 母頁：[強化學習](../index.md)
-- 單智能體的基礎方法是[深度 Q 網路](../../deep-q-networks/index.md)與[近端策略最佳化](../../proximal-policy-optimisation/index.md)。
+- 單智能體的基礎方法是[深度 Q 網路](../deep-q-networks/index.md)與[近端策略最佳化](../proximal-policy-optimisation/index.md)。
 
 ## 參考文獻
 

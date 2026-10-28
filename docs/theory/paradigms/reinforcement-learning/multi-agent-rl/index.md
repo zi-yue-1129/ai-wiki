@@ -46,7 +46,7 @@ Competitive and mixed settings often train agents against a population of past o
 ## Connections
 
 - Parent topic: [Reinforcement Learning](../index.md)
-- The single-agent building blocks are [Deep Q-networks](../../deep-q-networks/index.md) and [Proximal Policy Optimisation](../../proximal-policy-optimisation/index.md).
+- The single-agent building blocks are [Deep Q-networks](../deep-q-networks/index.md) and [Proximal Policy Optimisation](../proximal-policy-optimisation/index.md).
 
 ## References
 
