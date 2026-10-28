@@ -28,16 +28,13 @@ Classical robotics uses explicit models: kinematics, dynamics, SLAM, sampling-ba
 
 ## Key methods
 
-### Learning hand-eye coordination for grasping (Levine et al. 2016)
+One landmark method anchors the learning discussion below. Its full write-up is on its own page.
 
-- **Problem:** Robotic grasping has usually relied on calibrated cameras and a known robot pose. Can a robot learn hand-eye coordination from raw monocular images, without calibration?
-- **Core idea:** A large convolutional network estimates the probability that a proposed gripper motion will produce a successful grasp. Because it uses only the camera image, it needs no calibration or knowledge of the current robot pose. The network then guides the gripper in real time.
-- **Equation or algorithm:**
-  1. Collect grasp attempts from several robot arms running in parallel, recording each image and whether the grasp succeeded.
-  2. Train a convolutional network to predict grasp success from the image and the proposed motion.
-  3. During execution, use the network to servo the gripper in real time, correcting its motion from the camera.
-- **Results:** The training data came from more than 800,000 grasp attempts collected over two months, with between 6 and 14 manipulators running at any time. The abstract does not give grasp success rates, so those need the full paper.
-- **Limitations:** The method depends on a very large, costly dataset that few groups can collect. It uses a single camera view and a particular robot setup, and the abstract does not show that it transfers to other robots.
+### Hand-eye coordination for grasping (Levine et al. 2016)
+
+- **Overview:** A convolutional network predicts grasp success from a monocular image and servos the gripper, without calibration. It is trained on over 800,000 grasp attempts.
+- **Comparison:** Learns from very large real-world data. The alternative of simulation-based training, which avoids collecting real data, is covered in the references on the method page. The abstract gives no grasp success rate.
+- **Full write-up:** [Hand-eye coordination for grasping](hand-eye-grasping/index.md)
 
 ## Learning-based robotics
 

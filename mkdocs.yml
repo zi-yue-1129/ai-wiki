@@ -257,6 +257,10 @@ plugins:
             Attention Variants: 注意力變體
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
+            Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
+            False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
+            Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
             Exploration: 探索
             Multilayer Perceptrons: 多層感知器
@@ -557,7 +561,10 @@ nav:
       - Memory & Learning in the Brain: brain-mind/memory-learning/index.md
       - Cognitive Science: brain-mind/cognitive-science/index.md
       - Cognitive Architectures: brain-mind/cognitive-architectures/index.md
-      - Psychology & AI: brain-mind/psychology/index.md
+      - Psychology & AI:
+          - brain-mind/psychology/index.md
+          - Chimpanzee Theory-of-Mind Test: brain-mind/psychology/chimpanzee-theory-of-mind/index.md
+          - False-Belief Tests on LLMs: brain-mind/psychology/false-belief-llms/index.md
       - Consciousness & Philosophy of Mind: brain-mind/consciousness/index.md
       - Brain-Computer Interfaces: brain-mind/bci/index.md
       - Language in the Brain: brain-mind/language-in-brain/index.md
@@ -572,8 +579,12 @@ nav:
       - Education: applications/education/index.md
       - Finance: applications/finance/index.md
       - Law: applications/law/index.md
-      - Robotics: applications/robotics/index.md
-      - Autonomous Driving & Transport: applications/autonomous-driving/index.md
+      - Robotics:
+          - applications/robotics/index.md
+          - Hand-Eye Coordination for Grasping: applications/robotics/hand-eye-grasping/index.md
+      - Autonomous Driving & Transport:
+          - applications/autonomous-driving/index.md
+          - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md
       - Manufacturing & Industry: applications/manufacturing/index.md
       - Agriculture & Food: applications/agriculture/index.md
       - Climate & Energy: applications/climate-energy/index.md

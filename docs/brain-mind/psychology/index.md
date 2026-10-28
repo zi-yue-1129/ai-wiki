@@ -16,29 +16,19 @@ Psychology and AI influence each other in at least four ways: psychology **inspi
 
 ## Key methods
 
-### Videotaped problem-solving test (Premack & Woodruff 1978)
+Two landmark studies anchor the theory-of-mind discussion below. Each has its own page with the full write-up.
 
-- **Problem:** Can an animal infer another agent's goal from its behaviour, the core of theory of mind, or does it only respond to the visible action?
-- **Core idea:** Show a chimpanzee short videos of a human actor struggling with problems, then ask it to choose between photographs of possible solutions. If it reliably picks the photograph that solves the actor's problem, the authors argue it understood the actor's goal and not only the action.
-- **Equation or algorithm:**
-  1. Show an adult chimpanzee a series of videotaped scenes of a human actor struggling with a problem.
-  2. Present photographs of possible solutions, one of which solves the problem shown.
-  3. Record which photograph the chimpanzee chooses on each trial.
-  4. Infer goal attribution from consistent choice of the correct photograph.
-- **Results:** The abstract reports the chimpanzee's consistent choice of the correct photographs. It gives no trial counts or statistics, so the numbers should be checked in the full paper.
-- **Limitations:** The study rests on one adult chimpanzee. Whether the choices reflect attribution of goals rather than simpler explanations is still debated; the theory of mind section above covers the wider question.
+### Chimpanzee theory-of-mind test (Premack & Woodruff 1978)
+
+- **Overview:** A chimpanzee chooses between photographs that solve a human actor's problem, which the authors read as goal attribution.
+- **Comparison:** Tests goal attribution in an animal, not false belief. The abstract reports no trial counts.
+- **Full write-up:** [Chimpanzee theory-of-mind test](chimpanzee-theory-of-mind/index.md)
 
 ### False-belief tests on language models (Kosinski 2023)
 
-- **Problem:** Do large language models solve false-belief tasks, the standard test of theory of mind in children, and how does performance depend on model size?
-- **Core idea:** Write scenarios in which a character's belief about an object or location differs from the facts, then ask what the character will think or do. Each task is written in eight scenario variants with 16 prompts in total, and a task counts as solved only if the model answers all 16 correctly.
-- **Equation or algorithm:**
-  1. Write a false-belief scenario: a protagonist holds a belief that the world has since contradicted.
-  2. Ask a question that can only be answered correctly by tracking the protagonist's belief.
-  3. Repeat across the eight variants, giving 16 prompts per task.
-  4. Score each model, count a task as solved only when all 16 answers are correct, and compare models of different sizes and generations.
-- **Results:** Eleven models were tested. The smaller and older models solved none of the tasks. GPT-3-davinci-003 and ChatGPT-3.5-turbo each solved about 20%, and ChatGPT-4 solved 75%, a level the author compares with six-year-old children in earlier studies.
-- **Limitations:** Passing the test does not show that a model has mental states; the author treats the spontaneous emergence of theory of mind as a possibility the results suggest, not a finding. Later work has questioned how robust such results are to changes in wording (see the theory of mind section above).
+- **Overview:** Eleven language models answer false-belief scenarios. ChatGPT-4 solves about 75% of them; the smaller and older models solve none.
+- **Comparison:** Uses the logic of child studies, but later work shows the results are fragile under rewording.
+- **Full write-up:** [False-belief tests on language models](false-belief-llms/index.md)
 
 ## Dual-process theory
 

@@ -31,7 +31,7 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Memory & Learning in the Brain](memory-learning/index.md) | Hippocampus, synaptic plasticity, complementary learning systems, forgetting |
 | [Cognitive Science](cognitive-science/index.md) | Perception, attention, language, reasoning, predictive processing |
 | [Cognitive Architectures](cognitive-architectures/index.md) | ACT-R, Soar, global workspace, LLM-agent architectures |
-| [Psychology & AI](psychology/index.md) | Cognitive biases, dual-process theory, development, machine psychology |
+| [Psychology & AI](psychology/index.md) | Cognitive biases, dual-process theory, theory-of-mind tests, development, machine psychology |
 | [Consciousness & Philosophy of Mind](consciousness/index.md) | Theories of consciousness, could AI be conscious, the Chinese room |
 | [Brain-Computer Interfaces](bci/index.md) | Invasive and non-invasive BCIs, decoding language and images from brain activity |
 | [Language in the Brain](language-in-brain/index.md) | Dual-stream speech processing, the language network, language models predicting brain responses |
