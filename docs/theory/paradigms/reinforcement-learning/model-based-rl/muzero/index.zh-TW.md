@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 related:
@@ -39,13 +39,13 @@ MuZero 以學習得到的模型取代遊戲規則進行規劃。它學習的模�
 
 ## 結果
 
-論文在其比較中報告：
+論文在 Atari 上比較 MuZero 與無模型及有模型的基線，並在棋類遊戲上與 AlphaZero 比較。以下數字皆取自論文的表格。
 
-- **棋類遊戲**：MuZero 達到與被給予規則之 AlphaZero 相當的超人水準。在圍棋上，它略微超過 AlphaZero。
-- **Atari**：MuZero 在 57 款遊戲上，平均與中位數的正規化分數都創下新的最先進紀錄，並超過無模型的 R2D2 方法。
-- **Reanalyze 變體**：論文報告 MuZero Reanalyze 的中位數正規化分數為 731%，而所比較的方法分別為 192%、231% 與 431%。
+- **棋類遊戲**：MuZero 達到與 AlphaZero 相當的超人水準，而 AlphaZero 是在給定遊戲規則下訓練的。在圍棋上，MuZero 每個搜尋樹節點使用的運算量較少，表現略勝 AlphaZero。
+- **Atari，大量資料設定**：MuZero 的中位數正規化分數為 2041.1%，平均為 4999.2%，高於 R2D2 的中位數 1920.6% 與平均 4024.9%。
+- **Atari，每遊戲 2 億影格**：Reanalyze 變體的中位數為 731.1%。同一設定下，論文將其與 IMPALA（中位數 191.8%）、Rainbow（231.1%）與 LASER（431%）比較。
 
-完整的表格見論文。
+完整表格請見論文。
 
 ## 限制
 

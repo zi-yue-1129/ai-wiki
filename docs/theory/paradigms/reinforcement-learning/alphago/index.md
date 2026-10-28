@@ -48,10 +48,9 @@ where \(Q\) is the average value of simulations through an edge, \(P\) is the po
 
 ## Results
 
-- The paper reports a match against Fan Hui, the European Go champion, which AlphaGo won.
-- The paper compares its strength against other Go programs of the time, which were far weaker.
-
-The exact game scores are in the paper and are not restated here.
+- **Against the European champion**: AlphaGo defeated the human European Go champion Fan Hui 5 games to 0, a result the 2016 paper reports.
+- **Against other Go programs**: the abstract reports a 99.8% winning rate against other Go programs.
+- **Without search**: the paper reports that its networks, with no lookahead search, play at the level of leading Monte Carlo tree search programs.
 
 ## Limitations
 

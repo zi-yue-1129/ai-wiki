@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - applications/games
@@ -45,7 +45,10 @@ Here \(p\) and \(v\) are the network's move probabilities and value for a positi
 
 ## Results
 
-The Science abstract states that AlphaZero beat state-of-the-art programs in each game it was trained on. The arXiv preprint of the same work reports that AlphaZero reached a superhuman level within 24 hours of training, and that it defeated a world-champion program in each case. Match scores and per-game comparisons are in the paper and are not restated here.
+- **Chess**: against Stockfish, the 2016 TCEC champion, the paper's text reports no losses for AlphaZero across its matches.
+- **Shogi**: against Elmo, the 2017 CSA champion, the paper's text reports eight losses for AlphaZero across its matches.
+- **Go**: the paper reports matches against AlphaGo Zero (3-day version) and AlphaGo Lee. The counts are in its table.
+- **Training time**: the abstract says AlphaZero reached a superhuman level "within 24 hours". The paper's supplementary table lists about 9 hours for chess, 12 for shogi and 34 for Go, so the 24-hour figure does not hold for Go.
 
 ## Limitations
 

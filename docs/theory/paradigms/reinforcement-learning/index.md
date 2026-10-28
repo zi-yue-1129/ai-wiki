@@ -106,6 +106,7 @@ Each method has its own page. The overview and comparison here are brief.
 - **Overview:** Search with learned networks. AlphaGo combines a policy network and a value network with Monte Carlo tree search and uses human games to start. AlphaZero learns from self-play alone, with only the rules of each game.
 - **Comparison:** The search-based route to game play. Both sit in the Go and board-game milestones, and [MuZero](model-based-rl/muzero/index.md) extends the same search to games whose rules are not given to the planner.
 - **Full write-up:** [AlphaGo](alphago/index.md), [AlphaZero](alphazero/index.md)
+- **Search method:** [Monte Carlo tree search and self-play](mcts-and-self-play/index.md), the UCT selection rule and the self-play loop these systems share.
 
 ## Milestones
 
