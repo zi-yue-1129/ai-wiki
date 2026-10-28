@@ -53,4 +53,4 @@ translation_reviewed: 2026-10-28
 
 ### 文章與文件
 
-- Gale, T., Elsen, E., Hooker, S. (2019). *The State of Sparsity in Deep Neural Networks*. arXiv:1902.09574. https://arxiv.org/abs/1902.09574 — 比較找到的稀疏網路與其他方法，並顯示稀疏網路很難從頭訓練。
+- Gale, T., Elsen, E., Hooker, S. (2019). *The State of Sparsity in Deep Neural Networks*. arXiv:1902.09574. https://arxiv.org/abs/1902.09574 — 比較找到的稀疏網路與其他方法，並指出經剪枝學得的稀疏架構，無法從頭訓練到與聯合稀疏化和最佳化的模型相同的準確度。
