@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -20,7 +20,7 @@ Neuroscience benchmarks test how closely a model's internal responses match meas
 
 ## Overview
 
-The idea behind these benchmarks predates the current generation of models. Yamins et al. (2014) showed that hierarchical models optimised for object recognition predict responses in higher visual cortex, which made the comparison between networks and neural recordings a practical question. Brain-Score turned that comparison into a shared benchmark: a model's internal layers are mapped to recorded neural sites and to human behavioural data on object images, and the models are ranked by how well they predict held-out data (Schrimpf et al., 2018). The same kind of comparison was later applied to language-processing areas, relating language models to responses in the brain's language network (Schrimpf et al., 2021).
+The idea behind these benchmarks predates the current generation of models. Yamins et al. (2014) showed that hierarchical models optimised for object recognition predict responses in higher visual cortex, which made the comparison between networks and neural recordings a practical question. Brain-Score turned that comparison into a shared benchmark: a model's internal layers are mapped to recorded neural sites, its final layer before the output is compared with human behavioural data on object images, and the models are ranked by how well they predict held-out data (Schrimpf et al., 2018). The same kind of comparison was later applied to human language processing, relating language models to neural responses to sentences (Schrimpf et al., 2021).
 
 ## Benchmarks compared
 
@@ -33,12 +33,12 @@ Brain-Score is the main benchmark in this family, and its page describes the dat
 ## Key concepts
 
 - **Neural site**: a recorded location, such as a population of neurons in a cortical area, whose responses a model must predict.
-- **Predictivity**: how well a model's responses, mapped to the recorded sites, explain held-out data, typically with a linear regression fitted on other images.
+- **Predictivity**: how well a model's responses, mapped to the recorded sites, explain held-out data, in Brain-Score, measured with a partial least squares regression fitted on training images and tested on held-out images.
 - **Representational similarity**: comparing two systems by the similarity structure of their responses to the same stimuli, rather than by matching individual units (Kriegeskorte, 2008).
 
 ## How it works
 
-A model is run on the same images shown to an animal or person. Its activations at chosen layers are mapped to the recorded data, most often with a linear regression fitted on part of the data and tested on the rest. The score is the predictivity on the held-out part, reported for each area and for behavioural data. Because the mapping is fitted, the regression method and the choice of layer must be reported along with the number.
+A model is run on the same images shown to an animal or person. Its activations at chosen layers are mapped to the recorded data. In Brain-Score, that mapping is a partial least squares regression with 25 components, fitted on training images and tested on held-out images over repeated train-test splits. Behavioural scores use the final layer before the output. The score is the predictivity on the held-out part, reported for each area and for behavioural data. Because the mapping is fitted, the regression method and the choice of layer must be reported along with the number.
 
 ## Common issues
 
