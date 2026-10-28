@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -40,13 +40,13 @@ The two benchmarks come from different image domains. A method that does well on
 
 ## How it works
 
-A few-shot learner usually turns each example into a feature vector and then compares the query with the support set. Prototypical Networks, for example, represent each class by the mean of its support embeddings and assign a query to the nearest prototype. The paper argues that this simple inductive bias is well suited to the limited-data regime and matches or beats more complicated designs (Snell et al., 2017). Model-agnostic meta-learning takes a different route: it trains an initialisation that adapts to a new task in a few gradient steps, and it reports results on two few-shot image classification benchmarks (Finn et al., 2017).
+A few-shot learner usually turns each example into a feature vector and then compares the query with the support set. Prototypical Networks, for example, represent each class by the mean of its support embeddings and assign a query to the nearest prototype. The paper argues that this simpler inductive bias suits the limited-data regime, and that simple design choices can outperform more complicated recent approaches (Snell et al., 2017). Model-agnostic meta-learning takes a different route: it trains an initialisation that adapts to a new task in a few gradient steps, and it reports results on two few-shot image classification benchmarks (Finn et al., 2017).
 
 ## Common issues
 
 - **Protocol drift.** Class splits, backbones, image resolutions and episode counts differ between papers, so the same method can report different numbers.
 - **Saturation.** Strong methods leave little room on the standard splits, so small differences need confidence intervals to be meaningful.
-- **Domain gap.** Omniglot is nearly binary and clean, while natural images are noisy. Gains on one do not transfer automatically.
+- **Domain gap.** Omniglot images are simple strokes, while natural images are noisy. Gains on one do not transfer automatically.
 
 ## Connections
 

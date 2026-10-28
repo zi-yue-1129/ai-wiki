@@ -14,7 +14,7 @@ aliases:
 
 # 數學與程式基準
 
-這些基準測試模型能否推理出一個可以檢查結果的問題：應用題結尾的數字、競賽數學中的正式答案、通過單元測試的函式，或是讓儲存庫測試通過的修補程式。由於結果可以自動檢查，這類任務已成為衡量語言模型推理能力的標準方式。
+這些基準測試模型能否推理出一個可以檢查結果的問題：應用題結尾的數字、競賽數學中的正式答案、通過單元測試的函式，或是能解決真實儲存庫問題的修補程式。由於結果可以自動檢查，這類任務已成為衡量語言模型推理能力的標準方式。
 
 ## 概述
 
@@ -22,7 +22,7 @@ aliases:
 
 競賽數學更難。MATH 資料集有 12,500 道題，每題都附有逐步解答。作者報告，即使使用非常大的 Transformer 模型，準確率仍然相對偏低，單靠擴展規模並未解決這個基準（Hendrycks et al., 2021）。
 
-程式基準則從單一函式擴展到整個儲存庫。HumanEval 衡量模型生成的 Python 函式能否通過針對文件字串撰寫的單元測試。Codex 論文報告，其模型解出 28.8% 的題目，GPT-3 為 0%，GPT-J 為 11.4%；若對每題取 100 個樣本進行重複抽樣，解出比例提升到 70.2%（Chen et al., 2021）。SWE-bench 則更進一步：它使用來自 12 個 Python 儲存庫的 2,294 個真實 GitHub issue，模型必須修改程式碼，使儲存庫的測試通過（Jimenez et al., 2024）。
+程式基準則從單一函式擴展到整個儲存庫。HumanEval 衡量模型生成的 Python 函式能否通過針對文件字串撰寫的單元測試。Codex 論文報告，其模型解出 28.8% 的題目，GPT-3 為 0%，GPT-J 為 11.4%；若對每題取 100 個樣本進行重複抽樣，解出比例提升到 70.2%（Chen et al., 2021）。SWE-bench 則更進一步：它使用來自 12 個熱門 Python 儲存庫的 2,294 個真實 GitHub issue，模型必須編修程式碼以處理該 issue（Jimenez et al., 2024）。
 
 ## 比較的基準
 
@@ -31,7 +31,7 @@ aliases:
 | [GSM8K](gsm8k.md) | 國小應用題 | 最終數字的準確率 |
 | [MATH](math.md) | 競賽數學 | 最終答案的準確率 |
 | [HumanEval](humaneval.md) | 依文件字串撰寫 Python 函式 | 通過題目的比例，重複抽樣時以 pass@k 報告 |
-| [SWE-bench](swe-bench.md) | 解決 Python 儲存庫中的 GitHub issue | 儲存庫測試通過而解決的 issue 比例 |
+| [SWE-bench](swe-bench.md) | 解決 Python 儲存庫中的 GitHub issue | 已解決的 issue 比例 |
 
 前兩者檢查最終答案，因此答案的標準化方式決定分數。後兩者檢查行為：程式會在沙箱中以保留的測試執行來評判，issue 則看修補後的儲存庫能否通過測試。
 
@@ -74,7 +74,7 @@ aliases:
 - Cobbe, K. et al. (2021). *Training Verifiers to Solve Math Word Problems*. arXiv. https://arxiv.org/abs/2110.14168 — 介紹 8.5K 題的 GSM8K 應用題，以及為抽樣解答排序的驗證器。
 - Hendrycks, D. et al. (2021). *Measuring Mathematical Problem Solving With the MATH Dataset*. arXiv. https://arxiv.org/abs/2103.03874 — 介紹 12,500 道附逐步解答的競賽題，並報告在大規模下準確率仍然偏低。
 - Chen, M. et al. (2021). *Evaluating Large Language Models Trained on Code*. arXiv. https://arxiv.org/abs/2107.03374 — 介紹 HumanEval、函式層級的測試，以及重複抽樣的效果。
-- Jimenez, C. E. et al. (2024). *SWE-bench: Can Language Models Resolve Real-World GitHub Issues?* arXiv (2023). https://arxiv.org/abs/2310.06770 — 介紹 2,294 個以測試判定的儲存庫層級 issue，來自 12 個 Python 儲存庫。
+- Jimenez, C. E. et al. (2024). *SWE-bench: Can Language Models Resolve Real-World GitHub Issues?* arXiv (2023). https://arxiv.org/abs/2310.06770 — 介紹 2,294 個來自真實 GitHub issue 的問題，橫跨 12 個熱門 Python 儲存庫。
 
 ### 文章與文件
 

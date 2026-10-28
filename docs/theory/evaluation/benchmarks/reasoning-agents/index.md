@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -19,9 +19,9 @@ This family asks whether a system can acquire a new rule from a few examples and
 
 ## Overview
 
-Chollet (2019) argues that skill on a fixed task is a weak measure of intelligence, because skill depends heavily on prior knowledge and experience. Using that view, he introduced the Abstraction and Reasoning Corpus (ARC), in which each task shows a few input-output grid pairs and asks the solver to infer the rule and apply it to a new input. ARC-AGI-2 (Chollet et al., 2025) keeps the same input-output format but adds a newly curated set of harder tasks and reports human testing to calibrate their difficulty.
+Chollet (2019) argues that skill on a fixed task is a weak measure of intelligence, because skill depends heavily on prior knowledge and experience. Using that view, he introduced the Abstraction and Reasoning Corpus (ARC), in which each task shows a few input-output pairs and asks the solver to infer the rule and apply it to a new input. ARC-AGI-2 (Chollet et al., 2025) keeps the same input-output format but adds a newly curated set of harder tasks and reports human testing to calibrate their difficulty.
 
-Agent benchmarks ask a related question in a different setting. GAIA contains 466 real-world questions that need reasoning, browsing and tool use. The authors report that humans answered 92% of them correctly, while GPT-4 with plugins reached 15% (Mialon et al., 2023). WebArena places an agent in self-hosted copies of four websites, covering e-commerce, social forum discussion, collaborative software development and content management, and scores whether the task was completed correctly (Zhou et al., 2023).
+Agent benchmarks ask a related question in a different setting. GAIA contains 466 real-world questions that need reasoning, browsing and tool use. The authors report that humans answered 92% of them correctly, while GPT-4 with plugins reached 15% (Mialon et al., 2023). WebArena places an agent in a reproducible environment with functional websites from four common domains: e-commerce, social forum discussion, collaborative software development and content management. It scores tasks by functional correctness (Zhou et al., 2023).
 
 ## Benchmarks compared
 
@@ -29,7 +29,7 @@ Agent benchmarks ask a related question in a different setting. GAIA contains 46
 |---|---|---|
 | [ARC-AGI](arc-agi.md) | Infer a grid transformation from examples | Exact match on the output grid |
 | [GAIA](gaia.md) | Real-world questions that need browsing and tools | Exact-match accuracy |
-| [WebArena](webarena.md) | Tasks on self-hosted websites | Task success rate, judged by functional correctness |
+| [WebArena](webarena.md) | Tasks on reproducible websites | Task success rate, judged by functional correctness |
 
 ARC-style tasks are scored strictly: an output grid is either exactly right or wrong. Agent tasks are scored by the final state of the environment or the final answer, so a run can fail after many correct steps. The two scoring rules measure different things, and a single number does not compare them directly.
 
@@ -48,7 +48,7 @@ A typical run gives the system a task description and, for agent benchmarks, acc
 - **Small test sets.** A few tasks can change the score a lot, so confidence intervals matter.
 - **Scaffold and search.** Prompting and search methods change results, so systems are hard to compare unless the scaffold is reported.
 - **Leaderboard pressure.** Public examples can be tuned against. Hidden test sets and held-out tasks reduce this risk.
-- **Environment drift.** Live websites change over time. Self-hosted copies, as in WebArena, keep runs reproducible.
+- **Environment drift.** Live websites change over time. A reproducible environment, as in WebArena, keeps runs comparable.
 
 ## Connections
 
@@ -78,5 +78,5 @@ A typical run gives the system a task description and, for agent benchmarks, acc
 
 - Chollet, F., Knoop, M., Kamradt, G., Landers, B. & Pinkard, H. (2025). *ARC-AGI-2: A New Challenge for Frontier AI Reasoning Systems*. arXiv. https://arxiv.org/abs/2505.11831 — Introduces the harder ARC-AGI-2 tasks, keeping the input-output format, with human testing results.
 - Mialon, G. et al. (2023). *GAIA: a benchmark for General AI Assistants*. arXiv. https://arxiv.org/abs/2311.12983 — Introduces 466 real-world questions and reports human and GPT-4 results.
-- Zhou, S. et al. (2023). *WebArena: A Realistic Web Environment for Building Autonomous Agents*. arXiv. https://arxiv.org/abs/2307.13854 — Introduces the self-hosted website environment and functional-correctness tasks.
+- Zhou, S. et al. (2023). *WebArena: A Realistic Web Environment for Building Autonomous Agents*. arXiv. https://arxiv.org/abs/2307.13854 — Introduces a reproducible website environment and functional-correctness tasks.
 - Srivastava, A. et al. (2022). *Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models*. arXiv. https://arxiv.org/abs/2206.04615 — Introduces BIG-bench, 204 tasks contributed by 450 authors across 132 institutions, covering topics from linguistics to physics.

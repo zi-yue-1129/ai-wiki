@@ -29,10 +29,10 @@ GLUE 的表現很快就提升，因此 SuperGLUE 以更難的任務、工具包�
 | [GLUE](glue.md) | 句子與句對的理解任務，合併計分 | 各任務分數，合併成一個數字 |
 | [SuperGLUE](superglue.md) | 更難的理解任務，附人類基線 | 各任務分數，合併成一個數字 |
 | [MMLU](mmlu.md) | 涵蓋 57 個科目的選擇題知識測驗 | 準確率 |
-| [GPQA](gpqa.md) | 生物、物理與化學的研究所程度問題 | 準確率 |
-| [Humanity's Last Exam](hle.md) | 2,500 題專家題目，含選擇題與簡答題 | 以自動評分計算的準確率 |
+| [GPQA](gpqa.md) | 由專家撰寫的研究所程度選擇題 | 準確率 |
+| [Humanity's Last Exam](hle.md) | 2,700 題專家題目，含選擇題與簡答題 | 以自動評分計算的準確率 |
 
-GPQA 的設計目標是讓搜尋難以幫上忙。其 448 道選擇題由專家撰寫，具博士程度的專家達到 65% 準確率，而有網路存取權的熟練非專家只達到 34%。論文中最強的以 GPT-4 為基礎的基線達到 39%（Rein et al., 2023）。Humanity's Last Exam 將此想法延伸到多個科目的 2,500 題，答案明確，但無法在網路上很快找到（Phan et al., 2025）。
+GPQA 的設計目標是讓搜尋難以幫上忙。其 448 道選擇題由專家撰寫，具博士程度的專家達到 65% 準確率，而有網路存取權的熟練非專家只達到 34%。論文中最強的以 GPT-4 為基礎的基線達到 39%（Rein et al., 2023）。Humanity's Last Exam 將此想法延伸到多個科目的 2,700 題，答案明確，但無法在網路上很快找到（Phan et al., 2025）。
 
 ## 關鍵概念
 
@@ -78,5 +78,5 @@ GPQA 的設計目標是讓搜尋難以幫上忙。其 448 道選擇題由專家�
 ### 文章與文件
 
 - Rein, D. et al. (2023). *GPQA: A Graduate-Level Google-Proof Q&A Benchmark*. arXiv. https://arxiv.org/abs/2311.12022 — 介紹 448 題專家撰寫的科學題，並報告專家與非專家的準確率。
-- Phan, L. et al. (2025). *Humanity's Last Exam*. arXiv. https://arxiv.org/abs/2501.14249 — 介紹 2,500 題專家題目，設計目標是讓前沿模型仍感困難。
+- Phan, L. et al. (2025). *Humanity's Last Exam*. arXiv. https://arxiv.org/abs/2501.14249 — 介紹 2,700 題專家題目，設計目標是讓前沿模型仍感困難。
 - Brown, T. B. et al. (2020). *Language Models are Few-Shot Learners*. arXiv. https://arxiv.org/abs/2005.14165 — GPT-3 論文，其提示方式是在大型模型上執行這些基準的常見做法。
