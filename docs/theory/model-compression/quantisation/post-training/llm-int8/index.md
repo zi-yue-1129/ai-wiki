@@ -50,7 +50,7 @@ The outlier problem is the same one that [mixed precision](../../mixed-precision
 ### Seminal papers
 
 - Dettmers, T., Lewis, M., Belkada, Y., Zettlemoyer, L. (2022). *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*. NeurIPS. https://arxiv.org/abs/2208.07339 — Mixed-precision 8-bit matrix multiplication that keeps outlier dimensions in 16 bits.
-- Xiao, G., et al. (2022). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — The alternative that moves outliers into the weights.
+- Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., Han, S. (2023). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. ICML 2023. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — The alternative that moves outliers into the weights.
 - Frantar, E., et al. (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. arXiv:2210.17323. https://arxiv.org/abs/2210.17323 — Compresses weights to 3 and 4 bits after training.
 
 ### Surveys and textbooks
