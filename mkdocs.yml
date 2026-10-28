@@ -393,6 +393,9 @@ plugins:
             Engineering: 工程實務
             Frameworks & Tools: 框架與工具
             Data: 資料工程
+            MinHash Deduplication: MinHash 去重
+            Confident Learning: 置信學習
+            Data Programming and Weak Supervision: 資料編程與弱監督
             Training & Fine-tuning: 訓練與微調
             Distributed Training: 分散式訓練
             Megatron-LM Tensor Parallelism: Megatron-LM 張量平行
@@ -788,7 +791,11 @@ nav:
   - Engineering:
       - engineering/index.md
       - Frameworks & Tools: engineering/frameworks/index.md
-      - Data: engineering/data/index.md
+      - Data:
+          - engineering/data/index.md
+          - MinHash Deduplication: engineering/data/minhash-deduplication.md
+          - Confident Learning: engineering/data/confident-learning.md
+          - Data Programming and Weak Supervision: engineering/data/data-programming.md
       - Training & Fine-tuning: engineering/training/index.md
       - Distributed Training:
           - engineering/distributed-training/index.md
