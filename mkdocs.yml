@@ -370,6 +370,9 @@ plugins:
             Diffusion Decision Model: 擴散決策模型
             Model-Based vs Model-Free: 有模型與無模型控制
             Perception & the Visual System: 知覺與視覺系統
+            Attention in Brains & Machines: 大腦與機器中的注意力
+            Biased Competition (Desimone & Duncan 1995): 偏向競爭（Desimone 與 Duncan，1995）
+            Saliency-Based Visual Attention (Itti et al. 1998): 基於顯著性的視覺注意力（Itti 等人，1998）
             Performance-Optimised Networks (Yamins et al. 2014): 效能最佳化的網路（Yamins 等人，2014）
             Shape Bias in CNNs (Geirhos et al. 2019): CNN 的形狀偏好（Geirhos 等人，2019）
             Applications: 領域應用
@@ -764,6 +767,10 @@ nav:
           - Dual-Stream Model (Hickok & Poeppel 2007): brain-mind/language-in-brain/hickok-poeppel-2007/index.md
           - Language Models Predict Brain Responses (Schrimpf et al. 2021): brain-mind/language-in-brain/schrimpf-2021/index.md
           - Shared Computational Principles (Goldstein et al. 2022): brain-mind/language-in-brain/goldstein-2022/index.md
+      - Attention in Brains & Machines:
+          - brain-mind/attention-brain-machine/index.md
+          - Biased Competition (Desimone & Duncan 1995): brain-mind/attention-brain-machine/biased-competition/index.md
+          - Saliency-Based Visual Attention (Itti et al. 1998): brain-mind/attention-brain-machine/saliency-map/index.md
       - Predictive Coding & Free Energy:
           - brain-mind/predictive-coding/index.md
           - Predictive Coding in Visual Cortex (Rao & Ballard 1999): brain-mind/predictive-coding/rao-ballard-1999/index.md

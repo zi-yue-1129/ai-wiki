@@ -38,6 +38,7 @@ flowchart TB
 | [預測編碼與自由能](predictive-coding/index.md) | 預測誤差、階層式模型、類反向傳播學習、自由能原理 |
 | [決策、多巴胺與獎勵](decision-reward/index.md) | 證據累積、有模型與無模型控制、獎勵預測誤差 |
 | [知覺與視覺系統](visual-perception/index.md) | 感受野、腹側路徑、作為視覺模型的 CNN |
+| [注意力：大腦與機器](attention-brain-machine/index.md) | 偏向競爭、顯著性圖、由上而下控制、機器中的注意力 |
 
 ## 雙向關係一覽
 

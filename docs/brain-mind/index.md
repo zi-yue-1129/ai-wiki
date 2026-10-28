@@ -38,6 +38,7 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Predictive Coding & Free Energy](predictive-coding/index.md) | Prediction error, hierarchical models, backprop-like learning, the free-energy principle |
 | [Decision Making, Dopamine & Reward](decision-reward/index.md) | Evidence accumulation, model-based vs model-free control, reward prediction error |
 | [Perception & the Visual System](visual-perception/index.md) | Receptive fields, the ventral stream, CNNs as models of vision |
+| [Attention in Brains & Machines](attention-brain-machine/index.md) | Biased competition, saliency maps, top-down control, attention in neural networks |
 
 ## Two-way influence at a glance
 
