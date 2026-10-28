@@ -21,7 +21,7 @@ Early layers of a deep network tend to learn generic features, while later layer
 - **Linear probe**: freeze the backbone and train only a new head. Cheap, and a good test of how useful the representation is.
 - **Full fine-tuning**: update every parameter with a small learning rate. Works well with enough data.
 - **Gradual unfreezing and discriminative learning rates**: unfreeze layers from the top down and use smaller learning rates for earlier layers, which reduces catastrophic forgetting of the source task.
-- **Parameter-efficient fine-tuning (PEFT)**: train small added modules such as adapters, or low-rank updates such as LoRA, while the pre-trained weights stay frozen. This makes it practical to serve many tasks from one large model.
+- **Parameter-efficient fine-tuning (PEFT)**: train small added modules such as [adapters](adapters.md), or low-rank updates such as LoRA, while the pre-trained weights stay frozen. Prompt-based variants learn [prefix](prefix-tuning.md) or [soft prompt](prompt-tuning.md) vectors, and [(IA)³](ia3.md) learns scaling vectors for activations. This makes it practical to serve many tasks from one large model.
 
 ## Connections
 

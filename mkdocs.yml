@@ -538,6 +538,11 @@ plugins:
             Low-Rank Filter Expansion: 低秩濾波器展開
             LoRA: LoRA
             QLoRA: 量化低秩適應（QLoRA）
+            DoRA: DoRA
+            Adapter Modules: 適配器模組
+            Prefix Tuning: 前綴調校
+            Prompt Tuning: 提示調校
+            (IA)³ Fine-Tuning: (IA)³ 微調
             Data-Free: 無資料
             LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
@@ -942,7 +947,12 @@ nav:
               - Adversarial Imitation: theory/paradigms/imitation/adversarial-imitation/index.md
           - Transfer Learning & Domain Adaptation:
               - theory/paradigms/transfer/index.md
-              - Fine-tuning & Adaptation: theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
+              - Fine-tuning & Adaptation:
+                  - theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
+                  - Adapter Modules: theory/paradigms/transfer/fine-tuning-and-adaptation/adapters.md
+                  - Prefix Tuning: theory/paradigms/transfer/fine-tuning-and-adaptation/prefix-tuning.md
+                  - Prompt Tuning: theory/paradigms/transfer/fine-tuning-and-adaptation/prompt-tuning.md
+                  - (IA)³ Fine-Tuning: theory/paradigms/transfer/fine-tuning-and-adaptation/ia3.md
               - Domain Adaptation: theory/paradigms/transfer/domain-adaptation/index.md
               - Multi-task Learning: theory/paradigms/transfer/multi-task-learning/index.md
               - Sim-to-Real Transfer: theory/paradigms/transfer/sim-to-real/index.md
@@ -1073,6 +1083,7 @@ nav:
               - LoRA:
                   - theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
                   - QLoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md
+                  - DoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/dora.md
       - Evaluation:
           - theory/evaluation/index.md
           - Metrics:
