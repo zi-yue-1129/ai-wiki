@@ -87,6 +87,34 @@ This is one of the most successful meetings of computational theory and neurosci
 
 Psychological roots: Thorndike's law of effect, Skinner's operant conditioning, the Rescorla–Wagner model (1972) — itself a prediction-error learning rule.
 
+## Key methods
+
+### Deep Q-networks (Mnih et al., 2015)
+
+- **Problem:** how can one algorithm learn control policies directly from raw pixels across many different games?
+- **Core idea:** a convolutional network approximates the action-value function Q from raw frames. Two changes make training stable: experience replay, which samples random past transitions, and a target network, which is updated only now and then.
+- **Equation:** the network is trained to reduce the squared temporal-difference error against the target network:
+
+\[
+L(\theta) = \mathbb{E}\left[\left(r + \gamma \max_{a'} Q(s', a'; \theta^-) - Q(s, a; \theta)\right)^2\right]
+\]
+
+- **Results:** one network and one training procedure learned to play a range of Atari 2600 games from raw pixels.
+- **Limitations:** actions must be discrete, and training needs a great deal of experience. Later work such as Double DQN and Rainbow addresses some of the remaining instability, as the algorithm table above shows.
+
+### Proximal policy optimisation (Schulman et al., 2017)
+
+- **Problem:** plain policy gradients can take steps so large that performance collapses. Trust-region methods are stable but complicated to implement.
+- **Core idea:** clip the ratio between the new and old action probabilities in the surrogate objective, so the update gains nothing from moving far from the old policy. This allows several epochs of minibatch updates on the same batch of data.
+- **Equation:** with the probability ratio \(r_t(\theta) = \pi_\theta(a_t \mid s_t) / \pi_{\theta_{\text{old}}}(a_t \mid s_t)\) and advantage estimate \(\hat{A}_t\):
+
+\[
+L^{\text{CLIP}}(\theta) = \mathbb{E}_t\left[\min\left(r_t(\theta)\hat{A}_t,\ \text{clip}\left(r_t(\theta), 1-\epsilon, 1+\epsilon\right)\hat{A}_t\right)\right]
+\]
+
+- **Results:** the paper reports that PPO outperforms other online policy gradient methods on its benchmark tasks, which include simulated robotic locomotion and Atari, with a favourable balance of sample complexity, simplicity and wall-clock time.
+- **Limitations:** the evidence is empirical, and clipping is a heuristic rather than a guarantee of improvement. PPO is also on-policy, so each batch of data supports only a few updates.
+
 ## Milestones
 
 - **TD-Gammon** (1992)
@@ -126,7 +154,7 @@ Psychological roots: Thorndike's law of effect, Skinner's operant conditioning, 
 
 ### Seminal papers
 
-- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518. https://klab.tch.harvard.edu/academia/classes/Neuro230/ReadingAssignments/MnihEtAlHassibis15NatureControlDeepRL.pdf — The DQN paper, the start of deep reinforcement learning at scale.
+- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518. https://doi.org/10.1038/nature14236 — The DQN paper, the start of deep reinforcement learning at scale.
 - Silver et al. (2016), "Mastering the game of Go with deep neural networks and tree search", *Nature* 529. https://research.google/pubs/mastering-the-game-of-go-with-deep-neural-networks-and-tree-search/ — AlphaGo, combining learned networks with search.
 - Christiano et al. (2017), "Deep reinforcement learning from human preferences", NeurIPS, arXiv:1706.03741 — Learns reward functions from human comparisons, the basis of RLHF.
 - Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — PPO, the policy-gradient method most used in practice.

@@ -1,3 +1,7 @@
+---
+translation_reviewed: 2026-10-28
+---
+
 # 強化學習
 
 ## 直覺
@@ -72,6 +76,34 @@ Schultz、Dayan 與 Montague（1997）發現：中腦多巴胺神經元的放電
 
 心理學背景：Thorndike 效果律、Skinner 操作制約、Rescorla-Wagner 模型（1972，本身就是預測誤差學習規則）。
 
+## 關鍵方法
+
+### 深度 Q 網路（Mnih 等人，2015）
+
+- **問題：** 如何用同一個演算法，直接從原始像素學會多種不同遊戲的控制策略？
+- **核心想法：** 卷積網路從原始畫面近似動作價值函數 Q。兩項改動讓訓練更穩定：經驗回放（隨機抽取過去的轉移）與目標網路（只偶爾更新）。
+- **方程式：** 網路被訓練以降低相對於目標網路的平方時序差分誤差：
+
+\[
+L(\theta) = \mathbb{E}\left[\left(r + \gamma \max_{a'} Q(s', a'; \theta^-) - Q(s, a; \theta)\right)^2\right]
+\]
+
+- **結果：** 同一個網路與訓練程序，能從原始像素學會多款 Atari 2600 遊戲。
+- **限制：** 動作必須是離散的，而且訓練需要大量經驗。後續的 Double DQN 與 Rainbow 處理了部分殘留的不穩定性，見上方的演算法表。
+
+### 近端策略最佳化（Schulman 等人，2017）
+
+- **問題：** 單純的策略梯度可能走出過大的一步，使表現崩潰；信賴域方法雖穩定，但實作複雜。
+- **核心想法：** 在代理目標中裁剪新舊動作機率的比值，使更新無法因遠離舊策略而得利。如此，同一批資料可以用於多個小批次的迭代更新。
+- **方程式：** 令機率比為 \(r_t(\theta) = \pi_\theta(a_t \mid s_t) / \pi_{\theta_{\text{old}}}(a_t \mid s_t)\)，優勢估計為 \(\hat{A}_t\)：
+
+\[
+L^{\text{CLIP}}(\theta) = \mathbb{E}_t\left[\min\left(r_t(\theta)\hat{A}_t,\ \text{clip}\left(r_t(\theta), 1-\epsilon, 1+\epsilon\right)\hat{A}_t\right)\right]
+\]
+
+- **結果：** 論文報告，在其基準任務（包括模擬的機器人運動與 Atari）上，PPO 優於其他線上策略梯度方法，並在樣本效率、簡單性與實際時間之間取得良好平衡。
+- **限制：** 證據是經驗性的，裁剪是啟發式做法，並不保證改進。PPO 也是同策略方法，每批資料只能支持少數幾次更新。
+
 ## 里程碑
 
 - **TD-Gammon**（1992）
@@ -103,7 +135,7 @@ Schultz、Dayan 與 Montague（1997）發現：中腦多巴胺神經元的放電
 
 ### 開創性論文
 
-- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518. https://klab.tch.harvard.edu/academia/classes/Neuro230/ReadingAssignments/MnihEtAlHassibis15NatureControlDeepRL.pdf — DQN 論文，開啟了大規模深度強化學習的起點。
+- Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518. https://doi.org/10.1038/nature14236 — DQN 論文，開啟了大規模深度強化學習的起點。
 - Silver et al. (2016), "Mastering the game of Go with deep neural networks and tree search", *Nature* 529. https://research.google/pubs/mastering-the-game-of-go-with-deep-neural-networks-and-tree-search/ — AlphaGo，結合學習得到的網路與搜尋。
 - Christiano et al. (2017), "Deep reinforcement learning from human preferences", NeurIPS, arXiv:1706.03741 — 從人類的成對比較中學習獎勵函數，是 RLHF 的基礎。
 - Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — PPO，實務上最常用的策略梯度方法。
