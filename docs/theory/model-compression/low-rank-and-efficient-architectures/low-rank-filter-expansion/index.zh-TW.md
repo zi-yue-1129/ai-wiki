@@ -4,7 +4,7 @@ translation_reviewed: 2026-10-28
 
 # 低秩濾波器展開
 
-低秩濾波器展開把每個卷積濾波器近似為少數可分離濾波器的組合。Jaderberg 等人表明，可以用受低秩約束學得的一串較便宜濾波器，取代標準卷積；在場景文字辨識網路上，報告有 2.5 倍的加速且準確度沒有損失。它是一種[低秩分解](../index.zh-TW.md)方法，也是[截斷 SVD](../truncated-svd/index.zh-TW.md)單一 SVD 的替代方案。
+低秩濾波器展開把每個卷積濾波器近似為少數可分離濾波器的組合。Jaderberg 等人表明，可以用受低秩約束學得的一串較便宜濾波器，取代標準卷積；在場景文字辨識網路上，報告可能有 2.5 倍的加速且準確度沒有損失。它是一種[低秩分解](../index.zh-TW.md)方法，也是[截斷 SVD](../truncated-svd/index.zh-TW.md)單一 SVD 的替代方案。
 
 ## 問題
 
@@ -40,7 +40,7 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Jaderberg, M., Vedaldi, A., Zisserman, A. (2014). *Speeding up Convolutional Neural Networks with Low Rank Expansions*. arXiv:1405.3866. https://arxiv.org/abs/1405.3866 — 低秩濾波器展開，在文字辨識網路上以 2.5 倍加速且沒有準確度損失。
+- Jaderberg, M., Vedaldi, A., Zisserman, A. (2014). *Speeding up Convolutional Neural Networks with Low Rank Expansions*. arXiv:1405.3866. https://arxiv.org/abs/1405.3866 — 低秩濾波器展開，在文字辨識網路上，可能有 2.5 倍加速且沒有準確度損失。
 - Denton, R., Zaremba, W., Bruna, J., LeCun, Y., Fergus, R. (2014). *Exploiting Linear Structure Within Convolutional Networks for Efficient Evaluation*. arXiv:1404.0736. https://arxiv.org/abs/1404.0736 — 同年的平行結果，對卷積濾波器做低秩近似。
 - Howard, A. G., 等人 (2017). *MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications*. arXiv:1704.04861. https://arxiv.org/abs/1704.04861 — 深度可分離卷積，是把同類節省內建到設計中的方法。
 
