@@ -51,3 +51,19 @@ There is no ground truth, so evaluation is hard:
 - Bishop, *Pattern Recognition and Machine Learning*, chapters 9 and 12 (free PDF)
 - [scikit-learn unsupervised learning guide](https://scikit-learn.org/stable/unsupervised_learning.html)
 - McInnes et al. (2018), UMAP paper; Wattenberg et al., "How to Use t-SNE Effectively" (Distill, 2016)
+
+## Subtopics
+
+- [Clustering](clustering/index.md): k-means, Gaussian mixtures, DBSCAN and spectral clustering.
+- [Dimensionality reduction](dimensionality-reduction/index.md): PCA, ICA, NMF, t-SNE and UMAP.
+- [Density estimation and generative models](density-and-generative-models/index.md): normalising flows, VAEs and GANs.
+- [Autoencoders and representations](autoencoders-and-representations/index.md): denoising, masked and variational autoencoders.
+- [Anomaly detection](anomaly-detection/index.md): Isolation Forest, LOF, one-class SVM and reconstruction error.
+
+## References
+
+- Lloyd (1982), "Least squares quantization in PCM", *IEEE Transactions on Information Theory* 28(2). https://www.stat.cmu.edu/~rnugent/PCMI2016/papers/LloydKMeans.pdf — The original least-squares quantisation paper behind k-means.
+- Hinton & Salakhutdinov (2006), "Reducing the dimensionality of data with neural networks", *Science* 313. https://pubmed.ncbi.nlm.nih.gov/16873662/ — Deep autoencoders that outperform PCA for compressing image data.
+- Jolliffe, *Principal Component Analysis*, Springer (2002). https://link.springer.com/doi/10.1007/b98835 — The standard reference for PCA, the most widely used unsupervised method.
+- Chandola, Banerjee & Kumar (2009), "Anomaly detection: a survey", *ACM Computing Surveys* 41(3). https://doi.org/10.1145/1541880.1541882 — Classic survey organising anomaly detection by data type and method.
+- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), arXiv:1206.5538 — Survey of what makes learned representations useful.

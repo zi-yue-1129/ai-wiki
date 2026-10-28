@@ -231,7 +231,13 @@ nav:
               - Loss Functions & Optimisation: foundations/paradigms/supervised/loss-functions-and-optimization/index.md
               - Generalisation Theory: foundations/paradigms/supervised/generalization-theory/index.md
               - Evaluation & Validation: foundations/paradigms/supervised/evaluation-and-validation/index.md
-          - Unsupervised Learning: foundations/paradigms/unsupervised/index.md
+          - Unsupervised Learning:
+              - foundations/paradigms/unsupervised/index.md
+              - Clustering: foundations/paradigms/unsupervised/clustering/index.md
+              - Dimensionality Reduction: foundations/paradigms/unsupervised/dimensionality-reduction/index.md
+              - Density Estimation & Generative Models: foundations/paradigms/unsupervised/density-and-generative-models/index.md
+              - Autoencoders & Representations: foundations/paradigms/unsupervised/autoencoders-and-representations/index.md
+              - Anomaly Detection: foundations/paradigms/unsupervised/anomaly-detection/index.md
           - Semi- & Weakly Supervised Learning: foundations/paradigms/semi-supervised/index.md
           - Self-Supervised Learning: foundations/paradigms/self-supervised/index.md
           - Reinforcement Learning: foundations/paradigms/reinforcement-learning/index.md
