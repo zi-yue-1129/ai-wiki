@@ -15,10 +15,11 @@ The action-value function $Q^\pi(s,a)$ is the expected discounted return from ta
 
 ## Key methods
 
-- **Tabular Q-learning** updates a table of values from sampled transitions, and converges to $Q^*$ under suitable conditions when every state–action pair is visited.
-- **Deep Q-networks (DQN)** use a neural network for $Q$, a replay buffer to break correlations between samples, and a target network that is updated slowly. DQN reached human-level play on many Atari games from raw pixels.
-- **Double and dueling variants** reduce the overestimation of maxima and separate the value of states from the advantage of actions.
-- **Distributional methods** learn the full distribution of returns rather than only their mean.
+- **[Tabular Q-learning](q-learning/index.md)** updates a table of values from sampled transitions, and converges to $Q^*$ under suitable conditions when every state–action pair is visited.
+- **[SARSA](sarsa/index.md)** makes the same kind of update toward the action the agent actually takes next, so it learns the values of the policy it follows.
+- **[Deep Q-networks (DQN)](../deep-q-networks/index.md)** use a neural network for $Q$, a replay buffer to break correlations between samples, and a target network that is updated slowly. DQN reached human-level play on many Atari games from raw pixels.
+- **[Double DQN](double-dqn/index.md)** reduces the overestimation of maxima. The dueling variant separates the value of states from the advantage of actions.
+- **[Rainbow](rainbow/index.md)** combines double, dueling, prioritised, multi-step, distributional and noisy-network components, and reports state-of-the-art Atari results. Its distributional part learns the full distribution of returns rather than only their mean.
 
 ## Components and variants
 

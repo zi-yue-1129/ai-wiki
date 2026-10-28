@@ -127,8 +127,8 @@ Each method has its own page. The overview and comparison here are brief.
 
 ## Subtopics
 
-- [Value-based methods](value-based-methods/index.md): Q-learning, DQN and planning with learned values.
-- [Policy gradient and actor-critic](policy-gradient-and-actor-critic/index.md): REINFORCE, A3C and PPO.
+- [Value-based methods](value-based-methods/index.md): Q-learning, SARSA, DQN, Double DQN and Rainbow.
+- [Policy gradient and actor-critic](policy-gradient-and-actor-critic/index.md): REINFORCE, A3C, TRPO, DDPG, TD3, SAC and GRPO, with PPO as its own page.
 - [Model-based RL](model-based-rl/index.md): world models, MuZero and Dreamer.
 - [Offline RL](offline-rl/index.md): learning from fixed datasets with conservative value estimates.
 - [Learning from human feedback](learning-from-human-feedback/index.md): reward models and RLHF.
