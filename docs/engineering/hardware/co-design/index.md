@@ -52,7 +52,7 @@ Changing the number format changes the bytes term directly: storing weights in h
 Two landmark levers show the range of what co-design can change.
 
 - [FlashAttention](../../../theory/models/transformer/attention-variants/flash-attention/index.md) (Dao et al., 2022): a kernel-level change that keeps attention's intermediate results on chip, with the same exact output.
-- [Mixed-precision training](https://arxiv.org/abs/1710.03740) (Micikevicius et al., 2017): a number-format change that halves most of the memory used in training, with master weights and loss scaling.
+- [Mixed-precision training](mixed-precision.md) (Micikevicius et al., 2017): a number-format change that reduces the memory used in training by nearly two times, with master weights and loss scaling.
 
 ## Results
 
