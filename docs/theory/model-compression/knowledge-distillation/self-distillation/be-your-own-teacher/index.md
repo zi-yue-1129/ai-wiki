@@ -54,7 +54,7 @@ The method is a form of deep supervision, in which intermediate layers receive t
 
 ### Surveys and textbooks
 
-- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — Surveys self-distillation variants.
+- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — Surveys self-distillation variants, including deep-layer self-teaching.
 
 ### Lectures and videos
 
