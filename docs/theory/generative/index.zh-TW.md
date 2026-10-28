@@ -16,6 +16,10 @@
 | 流匹配（Flow matching） | 學習從雜訊到資料的速度場 | 訓練簡單，採樣快 | — | Stable Diffusion 3、Flux |
 | 能量基模型 | 學習能量函數 \(E(x)\) | 彈性高 | 採樣困難 | Hopfield 網路、EBM |
 
+## 生成對抗網路
+
+完整說明，並為各代表性方法（原始 GAN、DCGAN、Wasserstein GAN）各設一頁：[生成對抗網路](gan/index.md)。GAN 以訓練不穩定換取一次前向傳播的快速取樣；擴散模型則以較多的取樣步數換取穩定的訓練。
+
 ## 擴散模型
 
 完整說明包含比較表，以及每個方法各自的頁面（DDPM、DDIM、潛在擴散、DiT、無分類器引導），見[擴散模型](diffusion/index.md)。

@@ -41,3 +41,19 @@
 *[LIME]: Local Interpretable Model-agnostic Explanations
 *[SHAP]: SHapley Additive exPlanations
 *[Grad-CAM]: Gradient-weighted Class Activation Mapping
+*[FID]: Fréchet Inception Distance
+*[IPO]: Identity Preference Optimization
+*[KTO]: Kahneman-Tversky Optimization
+*[ORPO]: Odds Ratio Preference Optimization
+*[SimPO]: Simple Preference Optimization
+*[PPO]: Proximal Policy Optimization
+*[IoU]: Intersection over Union
+*[mAP]: mean Average Precision
+*[NMS]: Non-Maximum Suppression
+*[RPN]: Region Proposal Network
+*[FPN]: Feature Pyramid Network
+*[ECE]: Expected Calibration Error
+*[BNN]: Bayesian Neural Network
+*[SVD]: Singular Value Decomposition
+*[PCA]: Principal Component Analysis
+*[ELBO]: Evidence Lower Bound

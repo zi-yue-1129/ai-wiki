@@ -23,6 +23,10 @@ Generative modelling is an **approach**, not an architecture. Any family in [Mod
 | Flow matching | Learn a velocity field from noise to data | Simple training, fast sampling | — | Stable Diffusion 3, Flux |
 | Energy-based | Learn an energy \(E(x)\) | Flexible | Sampling is hard | Hopfield nets, EBMs |
 
+## Generative adversarial networks
+
+Full treatment, with one page per landmark method (the original GAN, DCGAN and Wasserstein GAN): [Generative Adversarial Networks](gan/index.md). GANs trade stable training for fast sampling in a single forward pass, whereas diffusion models trade sampling cost for stable training.
+
 ## Diffusion models
 
 Full treatment, with a comparison table and one page per method (DDPM, DDIM, latent diffusion, DiT, classifier-free guidance): [Diffusion Models](diffusion/index.md).
