@@ -1,7 +1,7 @@
 ---
 related:
-- models/llm/index.md
-- foundations/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
+- foundations/paradigms/imitation
+- foundations/paradigms/reinforcement-learning/learning-from-human-feedback
 - applications/robotics
 tags:
   - imitation learning
@@ -12,7 +12,7 @@ tags:
 
 # Imitation in Foundation Models
 
-Large pre-trained models are shaped by imitation at two stages. Pre-training on human-written text is a form of large-scale imitation, and supervised fine-tuning on curated demonstrations is literal [behavioural cloning](../behavioural-cloning/index.md) of text. The same recipe now trains robot policies from web-scale and teleoperated data, which is why imitation has moved from a niche robotics method to a central training stage.
+Large pre-trained models are shaped by imitation at two stages. Pre-training on human-written text is a form of large-scale imitation, and supervised fine-tuning on curated demonstrations is literal [behavioural cloning](../../../foundations/paradigms/imitation/behavioural-cloning/index.md) of text. The same recipe now trains robot policies from web-scale and teleoperated data, which is why imitation has moved from a niche robotics method to a central training stage.
 
 ## Overview
 
@@ -20,7 +20,7 @@ Three patterns recur. Language models learn to imitate demonstrations written by
 
 ## Language models
 
-Supervised fine-tuning on human-written responses is the first step of instruction tuning. The InstructGPT pipeline (Ouyang et al., 2022) adds a reward model trained on rankings and optimises the policy with reinforcement learning, so the final model goes beyond what the demonstrators wrote. Summarisation work shows the same pattern in a clearer setting: models trained on human comparisons outperform models trained only on demonstrations (Stiennon et al., 2020). See [learning from human feedback](../../reinforcement-learning/learning-from-human-feedback/index.md) for the reward-model side.
+Supervised fine-tuning on human-written responses is the first step of instruction tuning. The InstructGPT pipeline (Ouyang et al., 2022) adds a reward model trained on rankings and optimises the policy with reinforcement learning, so the final model goes beyond what the demonstrators wrote. Summarisation work shows the same pattern in a clearer setting: models trained on human comparisons outperform models trained only on demonstrations (Stiennon et al., 2020). See [learning from human feedback](../../../foundations/paradigms/reinforcement-learning/learning-from-human-feedback/index.md) for the reward-model side.
 
 ## Robot foundation models
 
@@ -32,7 +32,7 @@ Predicting short sequences of actions rather than single steps reduces compoundi
 
 ## Connections
 
-The language-model side connects to [models: large language models](../../../../models/llm/index.md) and to the reward-learning methods in [reinforcement learning](../../reinforcement-learning/index.md). The robot side connects to [applications: robotics](../../../../applications/robotics/index.md). Because the imitation stage often comes first, the quality and coverage of demonstrations usually limit what the final model can do.
+The language-model side connects to the parent [large language models](../index.md) page and to the reward-learning methods in [reinforcement learning](../../../foundations/paradigms/reinforcement-learning/index.md). The robot side connects to [applications: robotics](../../../applications/robotics/index.md). Because the imitation stage often comes first, the quality and coverage of demonstrations usually limit what the final model can do.
 
 ## Applications
 

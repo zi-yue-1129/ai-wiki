@@ -13,6 +13,10 @@ The core theory behind every AI technique.
 | [Symbolic AI, Search & Planning](symbolic-ai/index.md) | How do logic, knowledge representation, search and planning work, and do they still matter in the LLM era? |
 | [Evolutionary & Swarm Intelligence](evolutionary/index.md) | How can evolution and collective behaviour be used for optimisation? |
 
+## Foundations or Models?
+
+Foundations explains how learning and reasoning work in general, independent of any particular network. [Models](../models/index.md) covers the concrete model families and the systems built from them. If a page would still hold after its network was swapped for another, it belongs here. The [style guide](../reference/style-guide/index.md) has the full rule.
+
 ## The three basic learning signals
 
 | Signal | Paradigm | Typical task | Rough brain analogue |

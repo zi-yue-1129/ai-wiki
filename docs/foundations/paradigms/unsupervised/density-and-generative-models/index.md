@@ -1,4 +1,6 @@
 ---
+related:
+  - models/generative
 tags:
   - unsupervised learning
   - density estimation
@@ -13,17 +15,9 @@ Density estimation learns the probability distribution $p(x)$ behind unlabelled 
 
 Given samples from an unknown distribution, density estimation asks for a function $p_\theta(x)$ that places high probability where data occur. Models differ in whether they give an exact likelihood, can sample efficiently, or can be trained stably.
 
-## Families of models
+## Trade-offs between methods
 
-| Family | Exact likelihood | Sampling | Typical use |
-|---|---|---|---|
-| Kernel density estimation | Yes | Yes | Low-dimensional data |
-| Gaussian mixtures | Yes | Yes | Clusters and soft assignments |
-| Autoregressive models | Yes | Slow, one step at a time | Text and audio |
-| Normalising flows | Yes | Fast, invertible maps | Image density, physics |
-| Variational autoencoders | Lower bound | Fast | Latent-variable models |
-| GANs | No | Fast | Realistic images |
-| Diffusion models | Bound or approximate | Iterative | Images, audio, video |
+Density methods differ in three properties: whether they give an exact likelihood, how fast they sample, and how stable their training is. Kernel density estimates and Gaussian mixtures have an exact likelihood and sample easily, but kernel methods scale poorly to high-dimensional data. GANs sample quickly but have no likelihood and train adversarially. Diffusion models train stably but sample in many iterative steps. The concrete families, with their pros and cons, are compared in [Generative Models](../../../../models/generative/index.md).
 
 ## Key ideas
 

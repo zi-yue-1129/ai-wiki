@@ -1,6 +1,6 @@
 # Models
 
-The main model families and technical directions of contemporary AI.
+The main model families of contemporary AI, and the systems built from them. The general theory behind them is in [Foundations](../foundations/index.md).
 
 | Page | Focus |
 |---|---|

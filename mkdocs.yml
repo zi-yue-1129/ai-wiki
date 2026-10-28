@@ -262,7 +262,6 @@ nav:
               - Interactive Imitation: foundations/paradigms/imitation/interactive-imitation/index.md
               - Inverse Reinforcement Learning: foundations/paradigms/imitation/inverse-reinforcement-learning/index.md
               - Adversarial Imitation: foundations/paradigms/imitation/adversarial-imitation/index.md
-              - Imitation in Foundation Models: foundations/paradigms/imitation/imitation-in-foundation-models/index.md
           - Transfer Learning & Domain Adaptation:
               - foundations/paradigms/transfer/index.md
               - Fine-tuning & Adaptation: foundations/paradigms/transfer/fine-tuning-and-adaptation/index.md
@@ -312,7 +311,9 @@ nav:
   - Models:
       - models/index.md
       - Transformers & Attention: models/transformer/index.md
-      - Large Language Models: models/llm/index.md
+      - Large Language Models:
+          - models/llm/index.md
+          - Imitation in Foundation Models: models/llm/imitation-in-foundation-models/index.md
       - Generative Models: models/generative/index.md
       - Computer Vision: models/computer-vision/index.md
       - Natural Language Processing: models/nlp/index.md

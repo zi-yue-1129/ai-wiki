@@ -50,7 +50,7 @@ If a policy makes an error with probability ε per step, errors compound so expe
 - [Interactive imitation](interactive-imitation/index.md): DAgger, human-in-the-loop and noise-injection methods.
 - [Inverse reinforcement learning](inverse-reinforcement-learning/index.md): recovering the reward behind demonstrations.
 - [Adversarial imitation](adversarial-imitation/index.md): GAIL and AIRL, matching trajectories with a discriminator.
-- [Imitation in foundation models](imitation-in-foundation-models/index.md): instruction tuning, robot foundation models and action chunking.
+- [Imitation in foundation models](../../../models/llm/imitation-in-foundation-models/index.md): instruction tuning, robot foundation models and action chunking.
 
 ## Further reading
 
