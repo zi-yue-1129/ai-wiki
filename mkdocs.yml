@@ -390,6 +390,9 @@ plugins:
             Developmental Cognition & How Children Learn: 發展認知與兒童如何學習
             Violation of Expectation (Baillargeon et al. 1985): 違反預期範式（Baillargeon 等人，1985）
             Statistical Learning in Infants (Saffran et al. 1996): 嬰兒的統計學習（Saffran 等人，1996）
+            Animal Cognition & Comparative Intelligence: 動物認知與比較智力
+            Mirror Self-Recognition (Gallup 1970): 鏡像自我辨認（Gallup，1970）
+            Tool Use in New Caledonian Crows (Weir et al. 2002): 新喀里多尼亞烏鴉的工具使用（Weir 等人，2002）
             BOLD fMRI (Ogawa et al. 1990): BOLD 功能性磁振造影（Ogawa 等人，1990）
             Simultaneous fMRI and Electrophysiology (Logothetis et al. 2001): 功能性磁振造影與電生理同步記錄（Logothetis 等人，2001）
             Performance-Optimised Networks (Yamins et al. 2014): 效能最佳化的網路（Yamins 等人，2014）
@@ -830,6 +833,10 @@ nav:
           - brain-mind/developmental-cognition/index.md
           - Violation of Expectation (Baillargeon et al. 1985): brain-mind/developmental-cognition/violation-of-expectation/index.md
           - Statistical Learning in Infants (Saffran et al. 1996): brain-mind/developmental-cognition/statistical-learning/index.md
+      - Animal Cognition & Comparative Intelligence:
+          - brain-mind/animal-cognition/index.md
+          - Mirror Self-Recognition (Gallup 1970): brain-mind/animal-cognition/mirror-self-recognition/index.md
+          - Tool Use in New Caledonian Crows (Weir et al. 2002): brain-mind/animal-cognition/tool-use-crows/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
