@@ -62,3 +62,23 @@ Static embeddings give each word one vector regardless of sense; contextual mode
 - Stanford CS224n
 - Hugging Face LLM Course
 - [d2l: NLP chapters](https://d2l.ai/chapter_natural-language-processing-pretraining/index.html)
+
+## References
+
+### Seminal papers
+
+- Mikolov, T., et al. (2013). *Efficient Estimation of Word Representations in Vector Space*. arXiv. https://arxiv.org/abs/1301.3781 — word2vec, which learns dense word vectors whose geometry captures meaning and analogy.
+- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). *Sequence to Sequence Learning with Neural Networks*. NeurIPS. https://arxiv.org/abs/1409.3215 — An encoder–decoder LSTM that translates whole sentences end to end, the basis of neural machine translation.
+- Devlin, J., et al. (2018). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*. arXiv. https://arxiv.org/abs/1810.04805 — Masked-language-model pretraining that became the standard starting point for fine-tuned NLP systems.
+
+### Surveys and textbooks
+
+- Jurafsky, D. & Martin, J. H. *Speech and Language Processing*, 3rd ed. (draft). https://web.stanford.edu/~jurafsky/slp3/ — The standard NLP textbook, from text processing to large language models; the authors publish a free online draft.
+
+### Lectures and videos
+
+- Yang, D. & Choi, Y. *CS224N: Natural Language Processing with Deep Learning*. Stanford University. https://web.stanford.edu/class/cs224n/ — A Stanford course on neural NLP, from word vectors to large language models, with PyTorch assignments.
+
+### Articles and documentation
+
+- Alammar, J. *The Illustrated Word2vec*. https://jalammar.github.io/illustrated-word2vec/ — Step-by-step diagrams of how word embeddings are trained with skip-gram and negative sampling.
