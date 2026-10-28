@@ -65,3 +65,10 @@
 *[MCMC]: Markov Chain Monte Carlo
 *[HMC]: Hamiltonian Monte Carlo
 *[NUTS]: No-U-Turn Sampler
+*[FCN]: Fully Convolutional Network
+*[SAM]: Segment Anything Model
+*[mIoU]: mean Intersection over Union
+*[SAE]: Sparse Autoencoder
+*[KG]: Knowledge Graph
+*[RDF]: Resource Description Framework
+*[OWL]: Web Ontology Language

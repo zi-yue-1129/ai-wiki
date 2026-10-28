@@ -23,6 +23,7 @@ Each page follows the same structure: **landscape** (main use cases), **landmark
 | [Cybersecurity](cybersecurity/index.md) | Detection, vulnerability discovery, AI-enabled attacks, securing AI |
 | [Social Sciences & Humanities](social-science/index.md) | Computational social science, digital humanities, simulating societies |
 | [Software Development](software/index.md) | Code assistants, coding agents, testing, productivity evidence |
+| [Search & Information Retrieval](search-and-information-retrieval/index.md) | Learning to rank, neural web search, query understanding, answer engines, ads and recommendation ranking |
 
 ## Methods behind each field
 
@@ -47,6 +48,7 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Cybersecurity | [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md), [Safety & Alignment](../society/safety-alignment/index.md) |
 | Social Sciences & Humanities | [Probabilistic & Bayesian Methods](../theory/probabilistic/index.md), [Ethics & Fairness](../society/ethics/index.md) |
 | Software Development | [Large Language Models](../theory/models/llm/index.md), [AI Agents](../theory/models/agents/index.md), [Evaluation & Benchmarks](../engineering/evaluation/index.md) |
+| Search & Information Retrieval | [Loss Functions, Regularisation and Optimisation](../theory/paradigms/supervised/loss-functions-and-optimization/index.md), [Vector Databases and Semantic Search](../engineering/vector-databases/index.md), [Contextual Bandits](../theory/paradigms/online/contextual-bandits/index.md) |
 
 ## Cross-cutting patterns
 
