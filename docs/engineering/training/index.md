@@ -21,6 +21,8 @@ related:
 
 Rough compute estimate for dense Transformers: **training FLOPs ≈ 6 × parameters × tokens**.
 
+The number formats behind the Precision row, and how gradient checkpointing trades recomputation for activation memory, are covered in [Mixed-precision training and gradient checkpointing](mixed-precision-and-checkpointing.md).
+
 ## Fine-tuning methods
 
 | Method | What changes | Memory | When |

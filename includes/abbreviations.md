@@ -54,6 +54,14 @@
 *[FPN]: Feature Pyramid Network
 *[ECE]: Expected Calibration Error
 *[BNN]: Bayesian Neural Network
+*[KKT]: Karush–Kuhn–Tucker conditions
 *[SVD]: Singular Value Decomposition
 *[PCA]: Principal Component Analysis
 *[ELBO]: Evidence Lower Bound
+*[BF16]: Brain Floating Point 16-bit format
+*[FP8]: 8-bit Floating Point format
+*[CTR]: Click-Through Rate
+*[AUC]: Area Under the ROC Curve
+*[MCMC]: Markov Chain Monte Carlo
+*[HMC]: Hamiltonian Monte Carlo
+*[NUTS]: No-U-Turn Sampler
