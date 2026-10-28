@@ -22,12 +22,12 @@ Games are AI's favourite laboratory: clear rules, measurable outcomes, and unlim
 | 1994–2007 | Checkers | Chinook | Search; checkers solved in 2007 |
 | 1997 | Chess | Deep Blue | Massive search + handcrafted evaluation |
 | 2015 | Atari | DQN | Deep RL from pixels |
-| 2016 | Go | AlphaGo | Policy/value networks + MCTS |
-| 2017 | Chess, shogi, Go | AlphaZero | Self-play from scratch |
+| 2016 | Go | [AlphaGo](../../theory/paradigms/reinforcement-learning/alphago/index.md) | Policy/value networks + MCTS |
+| 2017 | Chess, shogi, Go | [AlphaZero](../../theory/paradigms/reinforcement-learning/alphazero/index.md) | Self-play from scratch |
 | 2017–2019 | Heads-up / six-player poker | Libratus, Pluribus | Counterfactual regret minimisation, imperfect information |
 | 2019 | Dota 2 | [OpenAI Five](openai-five/index.md) | Large-scale PPO self-play |
 | 2019 | StarCraft II | AlphaStar | League training, imitation + RL |
-| 2020 | Atari, Go, chess without rules | MuZero | Learned model + planning |
+| 2020 | Atari, Go, chess without rules | [MuZero](../../theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md) | Learned model + planning |
 | 2022 | Diplomacy | Cicero | Language model + strategic planning, negotiating with humans |
 | 2022 | Stratego | DeepNash | Model-free RL in imperfect information |
 | 2022 | Gran Turismo | GT Sophy | RL racing with sportsmanship |
