@@ -44,7 +44,7 @@ Reflexion 有三個角色。行動者（actor）在環境中產生一段行動�
 
 ## 結果
 
-摘要指出，Reflexion 在序列決策、程式與語言推理任務上，相對於基線代理都有顯著的進步。在 HumanEval 程式基準上，它達到 91% 的 pass@1，高於摘要所給出、作為先前最佳結果的 GPT-4 的 80%。論文也對回饋類型、回饋納入方法與代理類型進行了消融與分析。
+摘要指出，Reflexion 在序列決策、程式與語言推理任務上，相對於基線代理都有顯著的進步。在 HumanEval 程式基準上，它達到 91% 的 pass@1，高於摘要所給出、作為先前最佳結果的 GPT-4 的 80%。論文也對回饋類型、回饋納入方法與代理類型進行了消融與分析。在 AlfWorld 上，Reflexion 相較 ReAct 在 12 次學習試驗中絕對提升 22%。
 
 ## 限制
 
@@ -74,9 +74,9 @@ Reflexion 有三個角色。行動者（actor）在環境中產生一段行動�
 
 ### 開創性論文
 
-- Shinn, N. 等人（2023）。*Reflexion: Language Agents with Verbal Reinforcement Learning*。NeurIPS。https://arxiv.org/abs/2303.11366 — 提出 Reflexion，把語言反思存入情節記憶，不更新權重即可改進之後的嘗試。
+- Shinn, N. 等人（2023）。*Reflexion: Language Agents with Verbal Reinforcement Learning*。arXiv。https://arxiv.org/abs/2303.11366 — 提出 Reflexion，把語言反思存入情節記憶，不更新權重即可改進之後的嘗試。
 - Yao, S. 等人（2023）。*ReAct: Synergizing Reasoning and Acting in Language Models*。ICLR。https://arxiv.org/abs/2210.03629 — Reflexion 所延伸的推理與行動迴圈。
-- Madaan, A. 等人（2023）。*Self-Refine: Iterative Refinement with Self-Feedback*。NeurIPS。https://arxiv.org/abs/2303.17651 — 透過反覆的自我回饋來改進輸出，是相關的構想，但沒有跨任務的情節記憶。
+- Madaan, A. 等人（2023）。*Self-Refine: Iterative Refinement with Self-Feedback*。arXiv。https://arxiv.org/abs/2303.17651 — 透過反覆的自我回饋來改進輸出，是相關的構想，但沒有跨任務的情節記憶。
 - Chen, M. 等人（2021）。*Evaluating Large Language Models Trained on Code*。arXiv。https://arxiv.org/abs/2107.03374 — 提出 HumanEval 與用來為程式嘗試評分的 pass@k 指標。
 
 ### 調查與教科書

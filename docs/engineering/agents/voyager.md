@@ -30,7 +30,7 @@ Lifelong learning requires an agent to acquire new abilities without forgetting 
 
 ## Core idea
 
-Voyager has three components. First, an automatic curriculum proposes the next task so as to maximise exploration. Second, a skill library stores executable code for skills that worked, and retrieves them later, so that complex behaviours are built from simpler ones. Third, an iterative prompting mechanism improves a program using environment feedback, execution errors and self-verification. The skills are temporally extended and compositional, which the authors argue allows abilities to compound and reduces catastrophic forgetting.
+Voyager has three components. First, an automatic curriculum proposes the next task so as to maximise exploration. Second, a skill library stores executable code for skills that worked, and retrieves them later by embedding the task plan and environment feedback, so that complex behaviours are built from simpler ones. Third, an iterative prompting mechanism improves a program using environment feedback, execution errors and self-verification. The skills are temporally extended and compositional, which the authors argue allows abilities to compound and reduces catastrophic forgetting.
 
 ## Equation or algorithm
 
@@ -38,7 +38,7 @@ For each iteration:
 
 1. The curriculum proposes a task based on what the agent has explored and what it can already do.
 2. The model writes code for a skill, using relevant skills retrieved from the library.
-3. The code runs in the environment. Errors and feedback are fed back, and the program is revised until it works or the attempt limit is reached.
+3. The code runs in the environment. Errors, environment feedback and a self-verification by a separate GPT-4 critic are fed back, and the program is revised until the task succeeds or the attempt limit is reached.
 4. A verified skill is added to the library, where later tasks can retrieve it.
 
 ## Results
@@ -75,7 +75,7 @@ The abstract reports that Voyager obtains 3.3 times more unique items, travels 2
 
 - Wang, G. et al. (2023). Voyager: An Open-Ended Embodied Agent with Large Language Models. arXiv. https://arxiv.org/abs/2305.16291 — Introduces Voyager, with an automatic curriculum, an executable skill library and iterative prompting in Minecraft.
 - Yao, S. et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR. https://arxiv.org/abs/2210.03629 — The reasoning-and-acting approach on which the agent's action loop is built.
-- Shinn, N. et al. (2023). Reflexion: Language Agents with Verbal Reinforcement Learning. NeurIPS. https://arxiv.org/abs/2303.11366 — Shows how language agents learn across attempts from verbal feedback, a contrast to skill libraries.
+- Shinn, N. et al. (2023). Reflexion: Language Agents with Verbal Reinforcement Learning. arXiv. https://arxiv.org/abs/2303.11366 — Shows how language agents learn across attempts from verbal feedback, a contrast to skill libraries.
 - Park, J. S. et al. (2023). Generative Agents: Interactive Simulacra of Human Behavior. arXiv. https://arxiv.org/abs/2304.03442 — Interactive agents with memory in a shared environment, a related use of stored experience.
 
 ### Surveys and textbooks

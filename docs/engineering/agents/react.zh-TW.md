@@ -73,9 +73,9 @@ ReAct 是一種提示方法，讓語言模型在同一段交錯的序列中寫�
 ### 開創性論文
 
 - Yao, S. 等人（2023）。*ReAct: Synergizing Reasoning and Acting in Language Models*。ICLR。https://arxiv.org/abs/2210.03629 — 提出 ReAct，並報告在 HotpotQA、FEVER、ALFWorld 與 WebShop 上的結果。
-- Wei, J. 等人（2022）。*Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*。NeurIPS。https://arxiv.org/abs/2201.11903 — 顯示寫出中間推理步驟能改善複雜推理，是 ReAct 所延伸的基線。
-- Shridhar, M. 等人（2021）。*ALFWorld: Aligning Text and Embodied Environments for Interactive Learning*。ICLR。https://arxiv.org/abs/2010.03768 — 以文字描述的居家環境，代理在其中行動並觀察，是 ReAct 的測試場景之一。
-- Yao, S. 等人（2022）。*WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents*。NeurIPS。https://arxiv.org/abs/2207.01206 — 模擬的線上購物環境，用於有根基的語言代理，是 ReAct 的第二個測試場景。
+- Wei, J. 等人（2022）。*Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*。arXiv。https://arxiv.org/abs/2201.11903 — 顯示寫出中間推理步驟能改善複雜推理，是 ReAct 所延伸的基線。
+- Shridhar, M. 等人（2020）。*ALFWorld: Aligning Text and Embodied Environments for Interactive Learning*。arXiv。https://arxiv.org/abs/2010.03768 — 以文字描述的居家環境，代理在其中行動並觀察，是 ReAct 的測試場景之一。
+- Yao, S. 等人（2022）。*WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents*。arXiv。https://arxiv.org/abs/2207.01206 — 模擬的線上購物環境，用於有根基的語言代理，是 ReAct 的第二個測試場景。
 
 ### 調查與教科書
 

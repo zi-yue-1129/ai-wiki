@@ -36,14 +36,14 @@ Toolformer 是一種讓語言模型自行學會呼叫外部工具的方法。模
 
 1. 以模型在文字中取樣候選 API 呼叫的位置。
 2. 執行每個呼叫，並把其結果插入呼叫之後。
-3. 若插入呼叫與其結果後，相較於沒有它的同一段文字，能降低後續詞元的損失，就保留該呼叫。
+3. 只有當插入呼叫與其結果後，後續詞元的損失下降至少一個門檻值（預設 1.0，計算機與翻譯工具為 0.5），且相較於兩個基線中較低者（不呼叫，以及呼叫但不提供結果）仍有此下降時，才保留該呼叫。
 4. 以過濾後的文字微調模型，並保留語言建模的目標。
 
 在推論時，當模型判斷需要某個工具，就寫出呼叫的詞元序列，由外部程式執行。
 
 ## 結果
 
-摘要指出，Toolformer 在多種下游任務上的零樣本表現顯著提升，常可與大得多的模型相抗衡，且不犧牲其核心的語言建模能力。所涵蓋的工具涉及算術、事實查找、搜尋、翻譯與日期。
+摘要指出，Toolformer 在多種下游任務上的零樣本表現顯著提升，常可與大得多的模型相抗衡，且不犧牲其核心的語言建模能力。論文以 GPT-J（67 億參數）進行微調。所涵蓋的工具涉及算術、事實查找、搜尋、翻譯與日期。
 
 ## 限制
 
@@ -73,7 +73,7 @@ Toolformer 是一種讓語言模型自行學會呼叫外部工具的方法。模
 
 ### 開創性論文
 
-- Schick, T. 等人（2023）。*Toolformer: Language Models Can Teach Themselves to Use Tools*。NeurIPS。https://arxiv.org/abs/2302.04761 — 提出 Toolformer，以自我監督方式、從每個工具的少量示範中學會呼叫 API。
+- Schick, T. 等人（2023）。*Toolformer: Language Models Can Teach Themselves to Use Tools*。arXiv。https://arxiv.org/abs/2302.04761 — 提出 Toolformer，以自我監督方式、從每個工具的少量示範中學會呼叫 API。
 - Yao, S. 等人（2023）。*ReAct: Synergizing Reasoning and Acting in Language Models*。ICLR。https://arxiv.org/abs/2210.03629 — 以提示為基礎的替代做法，把工具使用與推理交錯。
 - Parisi, A.、Zhao, Y. 與 Fiedel, N.（2022）。*TALM: Tool Augmented Language Models*。arXiv。https://arxiv.org/abs/2205.12255 — 較早的做法，以工具呼叫擴充語言模型。
 

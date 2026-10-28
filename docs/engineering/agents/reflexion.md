@@ -45,7 +45,7 @@ No weights change during this loop.
 
 ## Results
 
-The abstract reports that Reflexion obtains significant improvements over a baseline agent across sequential decision-making, coding and language reasoning tasks. On the HumanEval coding benchmark it reaches 91% pass@1, above the 80% that the abstract gives for GPT-4 as the previous state of the art. The paper also reports ablations on feedback types, feedback incorporation methods and agent types.
+The abstract reports that Reflexion obtains significant improvements over a baseline agent across sequential decision-making, coding and language reasoning tasks. On the HumanEval coding benchmark it reaches 91% pass@1, above the 80% that the abstract gives for GPT-4 as the previous state of the art. The paper also reports ablations on feedback types, feedback incorporation methods and agent types. On AlfWorld, Reflexion improves on ReAct by an absolute 22% over 12 learning trials.
 
 ## Limitations
 
@@ -75,9 +75,9 @@ The abstract reports that Reflexion obtains significant improvements over a base
 
 ### Seminal papers
 
-- Shinn, N. et al. (2023). Reflexion: Language Agents with Verbal Reinforcement Learning. NeurIPS. https://arxiv.org/abs/2303.11366 — Introduces Reflexion, which stores verbal reflections in an episodic memory to improve later trials without weight updates.
+- Shinn, N. et al. (2023). Reflexion: Language Agents with Verbal Reinforcement Learning. arXiv. https://arxiv.org/abs/2303.11366 — Introduces Reflexion, which stores verbal reflections in an episodic memory to improve later trials without weight updates.
 - Yao, S. et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR. https://arxiv.org/abs/2210.03629 — The reasoning-and-acting loop that Reflexion extends.
-- Madaan, A. et al. (2023). Self-Refine: Iterative Refinement with Self-Feedback. NeurIPS. https://arxiv.org/abs/2303.17651 — Refines outputs through iterated self-feedback, a related idea without an episodic memory across tasks.
+- Madaan, A. et al. (2023). Self-Refine: Iterative Refinement with Self-Feedback. arXiv. https://arxiv.org/abs/2303.17651 — Refines outputs through iterated self-feedback, a related idea without an episodic memory across tasks.
 - Chen, M. et al. (2021). Evaluating Large Language Models Trained on Code. arXiv. https://arxiv.org/abs/2107.03374 — Introduces HumanEval and the pass@k measure used to score coding attempts.
 
 ### Surveys and textbooks

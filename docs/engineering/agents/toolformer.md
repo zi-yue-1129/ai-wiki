@@ -37,14 +37,14 @@ For each API, with a handful of demonstrations:
 
 1. Sample candidate API calls at positions in a text, using the model.
 2. Execute each call and insert its result after the call.
-3. Keep a call if inserting it, with its result, lowers the loss on the tokens that follow, compared with the same text without it.
+3. Keep a call only if inserting it, with its result, lowers the loss on the tokens that follow by at least a threshold: 1.0 by default, and 0.5 for the calculator and translation tools. The comparison is with the lower of two baselines, a text with no call and a text with the call but without its result.
 4. Fine-tune the model on the filtered text, which keeps the language modelling objective.
 
 At inference time the model writes a call token sequence when it decides a tool is needed, and the surrounding program executes it.
 
 ## Results
 
-The abstract reports that Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much larger models, without sacrificing its core language modelling abilities. The tools cover arithmetic, factual lookup, search, translation and dates.
+The paper fine-tunes GPT-J, a model with 6.7 billion parameters. The abstract reports that Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much larger models, without sacrificing its core language modelling abilities. The tools cover arithmetic, factual lookup, search, translation and dates.
 
 ## Limitations
 
@@ -74,7 +74,7 @@ The abstract reports that Toolformer achieves substantially improved zero-shot p
 
 ### Seminal papers
 
-- Schick, T. et al. (2023). Toolformer: Language Models Can Teach Themselves to Use Tools. NeurIPS. https://arxiv.org/abs/2302.04761 — Introduces Toolformer, which learns to call APIs in a self-supervised way from a few demonstrations per tool.
+- Schick, T. et al. (2023). Toolformer: Language Models Can Teach Themselves to Use Tools. arXiv. https://arxiv.org/abs/2302.04761 — Introduces Toolformer, which learns to call APIs in a self-supervised way from a few demonstrations per tool.
 - Yao, S. et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR. https://arxiv.org/abs/2210.03629 — The prompt-based alternative, in which tool use is interleaved with reasoning.
 - Parisi, A., Zhao, Y. & Fiedel, N. (2022). TALM: Tool Augmented Language Models. arXiv. https://arxiv.org/abs/2205.12255 — An earlier approach that augments language models with tool calls.
 
