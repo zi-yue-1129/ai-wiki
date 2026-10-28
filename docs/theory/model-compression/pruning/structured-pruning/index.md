@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -59,6 +59,7 @@ Structured pruning is the form of pruning that matches the dense matrix units of
 
 - Li, H., Kadav, A., Durdanovic, I., Samet, H., Graf, H. P. (2016). *Pruning Filters for Efficient ConvNets*. arXiv:1608.08710. https://arxiv.org/abs/1608.08710 — Filter pruning that reduces VGG-16 inference cost by up to 34% on CIFAR-10.
 - Liu, Z., et al. (2017). *Learning Efficient Convolutional Networks through Network Slimming*. arXiv:1708.06519. https://arxiv.org/abs/1708.06519 — Batch-normalisation scale factors with an \(\ell_1\) penalty to choose channels to remove.
+- He, Y., Zhang, X., Sun, J. (2017). *Channel Pruning for Accelerating Very Deep Neural Networks*. arXiv:1707.06168. https://arxiv.org/abs/1707.06168 — Chooses channels with LASSO regression and rebuilds the layer outputs by least squares, giving a 5 times speed-up on VGG-16 for a 0.3% increase in error.
 - Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — Unstructured pruning, the contrast that structured methods are measured against.
 
 ### Surveys and textbooks

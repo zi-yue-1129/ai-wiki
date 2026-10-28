@@ -48,7 +48,8 @@ translation_reviewed: 2026-10-28
 
 - Li, H., Kadav, A., Durdanovic, I., Samet, H., Graf, H. P. (2016). *Pruning Filters for Efficient ConvNets*. arXiv:1608.08710. https://arxiv.org/abs/1608.08710 — 濾波器剪枝，在 CIFAR-10 上使 VGG-16 的推論成本最多降低 34%。
 - Liu, Z., 等人 (2017). *Learning Efficient Convolutional Networks through Network Slimming*. arXiv:1708.06519. https://arxiv.org/abs/1708.06519 — 以批次正規化縮放因子加 \(\ell_1\) 懲罰來選擇要移除的通道。
-- Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — 非結構化剪枝，是結構化方法的對照基準。
+- He, Y., Zhang, X., Sun, J. (2017). *Channel Pruning for Accelerating Very Deep Neural Networks*. arXiv:1707.06168. https://arxiv.org/abs/1707.06168 — 以 LASSO 迴歸選擇通道，再以最小平方法重建該層輸出，使 VGG-16 加速 5 倍，誤差只增加 0.3%。
+- Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — 非結構化剪枝，是結構化方法所對照的基準。
 
 ### 綜述與教科書
 
