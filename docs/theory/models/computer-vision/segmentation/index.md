@@ -52,7 +52,7 @@ Brief comparison. Each method named above is a candidate for its own method page
 
 ## Connections
 
-The U-Net design is covered in more detail on the [U-Net](../cnn/unet/index.md) page. Its use as the denoising network of diffusion models links this topic to [Generative Models](../../../paradigms/unsupervised/density-and-generative-models/generative-models/index.md). The metrics are on the [Segmentation metrics](../../../evaluation/metrics/segmentation/index.md) page.
+The U-Net design is covered in more detail on the [U-Net](../../cnn/unet/index.md) page. Its use as the denoising network of diffusion models links this topic to [Generative Models](../../../paradigms/unsupervised/density-and-generative-models/generative-models/index.md). The metrics are on the [Segmentation metrics](../../../evaluation/metrics/segmentation/index.md) page.
 
 Segmentation also connects to vision science. Separating a figure from its background is a central problem in perception, and models that segment images are sometimes compared with neural data. A good mask on a benchmark does not by itself show that a model perceives regions as people do.
 

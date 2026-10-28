@@ -42,7 +42,7 @@ related:
 
 ## 關聯
 
-U-Net 的設計在 [U-Net](../cnn/unet/index.md) 頁面有更詳細的說明。它作為擴散模型去噪網路的用途，使本主題與[生成模型](../../../paradigms/unsupervised/density-and-generative-models/generative-models/index.md)相連。指標見[分割指標](../../../evaluation/metrics/segmentation/index.md)頁面。
+U-Net 的設計在 [U-Net](../../cnn/unet/index.md) 頁面有更詳細的說明。它作為擴散模型去噪網路的用途，使本主題與[生成模型](../../../paradigms/unsupervised/density-and-generative-models/generative-models/index.md)相連。指標見[分割指標](../../../evaluation/metrics/segmentation/index.md)頁面。
 
 分割也與視覺科學相關。把圖形與背景分開，是知覺中的核心問題，而分割影像的模型有時會與神經資料比較。基準上的好遮罩本身並不能說明模型是否像人一樣知覺區域。
 
