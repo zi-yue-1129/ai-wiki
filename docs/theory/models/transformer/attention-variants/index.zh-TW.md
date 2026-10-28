@@ -42,7 +42,7 @@ translation_reviewed: 2026-10-28
 
 ### IO 感知的精確注意力
 
-FlashAttention 計算的結果與標準注意力完全相同，但它把計算分塊，使查詢、鍵與值的區塊留在較快的晶片上記憶體中。它避免把完整的 \(n \times n\) 分數矩陣寫入較慢的記憶體，並在反向傳播中重算部分前向結果。結果是記憶體用量較少、速度快很多。FlashAttention-2 則改善了平行性，以及工作在 GPU 執行緒間的分配。
+FlashAttention 計算的結果與標準注意力完全相同，同時減少記憶體流量。它有獨立的頁面，見 [FlashAttention](flash-attention/index.zh-TW.md)，內容包括其演算法、結果與後續版本。這一類是精確的注意力，與上面的近似方法相對。
 
 ## 取捨
 

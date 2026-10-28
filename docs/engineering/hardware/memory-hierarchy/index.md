@@ -47,7 +47,7 @@ The arithmetic intensity of a kernel is the number of floating-point operations 
 I = \frac{\text{FLOPs}}{\text{bytes moved}}
 \]
 
-The roofline model bounds the attainable performance \(P\) by the peak compute \(P_{\text{peak}}\) and the memory bandwidth \(B\):
+The roofline model (Williams et al., 2009) bounds the attainable performance \(P\) by the peak compute \(P_{\text{peak}}\) and the memory bandwidth \(B\):
 
 \[
 P = \min\left(P_{\text{peak}},\; B \cdot I\right)
@@ -59,7 +59,7 @@ Decoding shows why this matters for LLMs. For a dense model with \(N\) parameter
 
 ## Results
 
-Ivanov et al. argue that, because arithmetic has become much faster than memory, data movement is the main bottleneck of transformer training, and they reduce it by changing data layouts. Gholami et al. make the same case for serving and show that memory bandwidth, not compute, now limits most of it. Dao et al. show that restructuring attention so that it reads and writes high-bandwidth memory less often speeds it up, while computing exactly the same result. Pope et al. use an analytical model of inference efficiency to choose how a large Transformer is partitioned across TPU v4 slices during generation.
+Ivanov et al. argue that, because arithmetic has become much faster than memory, data movement is the main bottleneck of transformer training, and they reduce it by changing data layouts. Gholami et al. make the same case for serving and show that memory bandwidth, not compute, now limits most of it. Dao et al. show that restructuring attention so that it reads and writes high-bandwidth memory less often speeds it up, while computing exactly the same result; see the [FlashAttention](../../../theory/models/transformer/attention-variants/flash-attention/index.md) page. Pope et al. use an analytical model of inference efficiency to choose how a large Transformer is partitioned across TPU v4 slices during generation.
 
 ## Limitations
 
@@ -82,6 +82,7 @@ Off-chip memory is the boundary between a single chip and the rest of the system
 
 - Ivanov, A., et al. (2020). *Data Movement Is All You Need: A Case Study on Optimizing Transformers*. arXiv:2007.00072. https://arxiv.org/abs/2007.00072 — Argues that data movement, rather than arithmetic, limits transformer training, and reduces it through data layout.
 - Dao, T., et al. (2022). *FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness*. arXiv:2205.14135. https://arxiv.org/abs/2205.14135 — Computes exact attention with fewer reads and writes to high-bandwidth memory, which makes it faster.
+- Williams, S., et al. (2009). *Roofline: an insightful visual performance model for multicore architectures*. Communications of the ACM 52(4). https://doi.org/10.1145/1498765.1498785 — Introduces the roofline model, which bounds attainable performance by peak compute and memory bandwidth.
 
 ### Surveys and textbooks
 

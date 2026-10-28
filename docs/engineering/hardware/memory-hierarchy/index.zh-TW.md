@@ -31,7 +31,7 @@ translation_reviewed: 2026-10-28
 I = \frac{\text{FLOPs}}{\text{搬移的位元組數}}
 \]
 
-屋頂線模型以峰值運算能力 \(P_{\text{peak}}\) 與記憶體頻寬 \(B\) 限制可達到的效能 \(P\)：
+屋頂線模型（Williams 等人，2009）以峰值運算能力 \(P_{\text{peak}}\) 與記憶體頻寬 \(B\) 限制可達到的效能 \(P\)：
 
 \[
 P = \min\left(P_{\text{peak}},\; B \cdot I\right)
@@ -43,7 +43,7 @@ P = \min\left(P_{\text{peak}},\; B \cdot I\right)
 
 ## 結果
 
-Ivanov 等人主張，由於算術運算已遠快於記憶體，資料搬移是 Transformer 訓練的主要瓶頸，並藉由改變資料佈局來減少搬移。Gholami 等人在服務情境中提出相同的論點，並指出如今限制大部分工作的是記憶體頻寬，而非運算。Dao 等人顯示，重新安排注意力計算，使其較少讀寫高頻寬記憶體，可以加速注意力，且得到的結果完全相同。Pope 等人則用推論效率的解析模型，為生成階段選擇大型 Transformer 在 TPU v4 切片上的分割方式。
+Ivanov 等人主張，由於算術運算已遠快於記憶體，資料搬移是 Transformer 訓練的主要瓶頸，並藉由改變資料佈局來減少搬移。Gholami 等人在服務情境中提出相同的論點，並指出如今限制大部分工作的是記憶體頻寬，而非運算。Dao 等人顯示，重新安排注意力計算，使其較少讀寫高頻寬記憶體，可以加速注意力，且得到的結果完全相同，見 [FlashAttention](../../../theory/models/transformer/attention-variants/flash-attention/index.zh-TW.md) 頁面。Pope 等人則用推論效率的解析模型，為生成階段選擇大型 Transformer 在 TPU v4 切片上的分割方式。
 
 ## 限制
 
@@ -66,6 +66,7 @@ Ivanov 等人主張，由於算術運算已遠快於記憶體，資料搬移是 
 
 - Ivanov, A., 等人 (2020). *Data Movement Is All You Need: A Case Study on Optimizing Transformers*. arXiv:2007.00072. https://arxiv.org/abs/2007.00072 — 主張限制 Transformer 訓練的是資料搬移而非算術運算，並透過資料佈局來減少搬移。
 - Dao, T., 等人 (2022). *FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness*. arXiv:2205.14135. https://arxiv.org/abs/2205.14135 — 以較少的高頻寬記憶體讀寫計算精確注意力，因此速度更快。
+- Williams, S., 等人 (2009). *Roofline: an insightful visual performance model for multicore architectures*. Communications of the ACM 52(4). https://doi.org/10.1145/1498765.1498785 — 提出屋頂線模型，以峰值運算能力與記憶體頻寬限制可達到的效能。
 
 ### 綜述與教科書
 
