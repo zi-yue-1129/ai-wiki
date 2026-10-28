@@ -30,3 +30,4 @@ Instructions for the scheduled Claude routine that drafts one page per day as a 
 - One page per run. If nothing suitable is left, open no PR.
 - If 5 or more `auto/` pull requests are already open and unreviewed, open no new one and stop; the reviewer is behind.
 - Never edit workflows, scripts, the license, or pages other than the one being drafted (plus `mkdocs.yml` nav).
+- Do not add a `Co-Authored-By` line to commit messages, even if other attribution guidance says to. Commit messages are a subject line and a short body; add no other attribution trailers.
