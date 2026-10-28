@@ -332,6 +332,9 @@ plugins:
             Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
             False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
             Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            RFdiffusion: RFdiffusion（蛋白質骨架設計）
+            ESM-2 and ESMFold: ESM-2 與 ESMFold
+            OpenAI Five: OpenAI Five（Dota 2）
             End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
             Exploration: 探索
@@ -1046,7 +1049,10 @@ nav:
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
-      - Life Sciences & Drug Discovery: applications/life-science/index.md
+      - Life Sciences & Drug Discovery:
+          - applications/life-science/index.md
+          - RFdiffusion: applications/life-science/rfdiffusion/index.md
+          - ESM-2 and ESMFold: applications/life-science/esm/index.md
       - Scientific Discovery: applications/science/index.md
       - Mental Health: applications/mental-health/index.md
       - Education: applications/education/index.md
@@ -1062,7 +1068,9 @@ nav:
       - Agriculture & Food: applications/agriculture/index.md
       - Climate & Energy: applications/climate-energy/index.md
       - Art, Media & Creativity: applications/creative/index.md
-      - Games: applications/games/index.md
+      - Games:
+          - applications/games/index.md
+          - OpenAI Five: applications/games/openai-five/index.md
       - Cybersecurity: applications/cybersecurity/index.md
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md
