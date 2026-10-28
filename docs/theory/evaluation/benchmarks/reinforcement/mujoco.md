@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -16,7 +16,7 @@ aliases:
 
 # MuJoCo
 
-MuJoCo is a physics engine for simulating articulated bodies and contact, built for model-based control (Todorov et al., 2012). As a benchmark, it is used through continuous-control tasks, such as simulated walkers and arms. Many suites built on the Gym interface use MuJoCo as their simulator, which is why these tasks appear so widely in reinforcement learning papers (Brockman et al., 2016).
+MuJoCo is a physics engine for simulating articulated bodies and contact, built for model-based control (Todorov et al., 2012). As a benchmark, it is used through continuous-control tasks, such as simulated walkers and arms. Gym's 2D and 3D robot tasks run on MuJoCo (Brockman et al., 2016).
 
 ## Overview
 

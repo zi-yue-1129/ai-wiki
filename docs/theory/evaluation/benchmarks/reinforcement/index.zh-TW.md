@@ -19,7 +19,7 @@ aliases:
 
 ## 概述
 
-強化學習基準是一個具有固定獎勵、觀測格式與動作空間的模擬器或遊戲，加上在其上執行代理的協定。Arcade Learning Environment（ALE）把 Atari 2600 遊戲變成這樣的測試平台。作者把它描述為評估通用代理的平台與方法論，提供數百款遊戲的介面，並報告了其中超過 55 款的結果（Bellemare et al., 2013）。Deep Q-Networks 之後也在這些遊戲上評估，使 ALE 成為以價值為基礎的深度強化學習的參照點（Mnih et al., 2015）。
+強化學習基準是一個具有固定獎勵、觀測格式與動作空間的模擬器或遊戲，加上在其上執行代理的協定。Arcade Learning Environment（ALE）把 Atari 2600 遊戲變成這樣的測試平台。作者把它描述為評估通用代理的平台與方法論，提供數百款遊戲的介面，並報告了其中超過 55 款的結果（Bellemare et al., 2013）。
 
 連續控制的基準則改用物理模擬器。MuJoCo 是為模型式控制而建構的物理引擎（Todorov et al., 2012）。OpenAI Gym 為許多這類環境提供共同的介面與共享的結果回報處，使方法能跨不同套件比較（Brockman et al., 2016）。
 
@@ -69,12 +69,11 @@ aliases:
 ### 開創性論文
 
 - Bellemare, M. G., Naddaf, Y., Veness, J. & Bowling, M. (2013). *The Arcade Learning Environment: An Evaluation Platform for General Agents*. Journal of Artificial Intelligence Research, 47, 253–279. https://doi.org/10.1613/jair.3912 — 介紹 Atari 平台與比較代理的方法論，並報告超過 55 款遊戲的結果。
-- Mnih, V. et al. (2015). *Human-level control through deep reinforcement learning*. Nature, 529–533. https://doi.org/10.1038/nature14236 — 以相同的輸入與設定，在多款 Atari 遊戲上評估深度 Q 網路。
 - Todorov, E., Erez, T. & Tassa, Y. (2012). *MuJoCo: A physics engine for model-based control*. IROS 2012. https://doi.org/10.1109/IROS.2012.6386109 — 描述用於模擬控制任務的物理引擎。
 
 ### 文章與文件
 
 - Brockman, G. et al. (2016). *OpenAI Gym*. arXiv. https://arxiv.org/abs/1606.01540 — 描述許多環境所遵循的共同介面與共享的基準集合。
-- Machado, M. C. et al. (2017). *Revisiting the Arcade Learning Environment: Evaluation Protocols and Open Problems for General Agents*. arXiv. https://arxiv.org/abs/1709.06009 — 檢視 ALE 的評估方式、提出最佳實務，並引入 sticky actions。
+- Machado, M. C. et al. (2018). *Revisiting the Arcade Learning Environment: Evaluation Protocols and Open Problems for General Agents*. Journal of Artificial Intelligence Research, 61, 523–562. https://doi.org/10.1613/jair.5699 — 檢視 ALE 的評估方式、提出最佳實務，並引入 sticky actions。
 - Henderson, P. et al. (2017). *Deep Reinforcement Learning that Matters*. arXiv. https://arxiv.org/abs/1709.06560 — 說明非確定性與種子變異如何使已報告的深度強化學習結果難以解讀。
 - Sutton, R. S. & Barto, A. G. *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press. http://incompleteideas.net/book/the-book-2nd.html — 關於獎勵、回報與情節的免費線上教科書。
