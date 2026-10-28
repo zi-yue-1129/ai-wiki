@@ -11,8 +11,8 @@
 | 開放詞彙偵測 | 找出以文字描述的物件 | Grounding DINO、OWL-ViT |
 | 姿態估計 | 關鍵點 | OpenPose、ViTPose |
 | 深度估計 | 深度圖 | Depth Anything、MiDaS |
-| 3D 重建／新視角合成 | 3D 場景 | NeRF、3D Gaussian Splatting、DUSt3R |
-| 影片理解 | 動作、事件 | SlowFast、VideoMAE、影片視覺語言模型 |
+| [3D 重建／新視角合成](3d-and-neural-rendering/index.md) | 3D 場景 | NeRF、3D Gaussian Splatting、DUSt3R |
+| [影片理解與生成](video/index.md) | 動作、事件、生成的片段 | SlowFast、VideoMAE、影片擴散模型 |
 | 追蹤 | 軌跡 | SORT、ByteTrack |
 | OCR 與文件理解 | 文字、版面 | PaddleOCR、Donut、視覺語言模型 |
 | 影像生成與編輯 | 影像 | 見[生成模型](../../generative/index.md) |

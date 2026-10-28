@@ -11,6 +11,7 @@
 *[LSTM]: Long Short-Term Memory
 *[GAN]: Generative Adversarial Network
 *[VAE]: Variational Autoencoder
+*[GLM]: Generalised linear model
 *[GNN]: Graph Neural Network
 *[SNN]: Spiking Neural Network
 *[RAG]: Retrieval-Augmented Generation
@@ -20,7 +21,9 @@
 *[BCI]: Brain-Computer Interface
 *[fMRI]: functional Magnetic Resonance Imaging
 *[EEG]: Electroencephalography
+*[ECoG]: Electrocorticography
 *[MEG]: Magnetoencephalography
+*[LFP]: Local Field Potential
 *[GPU]: Graphics Processing Unit
 *[TPU]: Tensor Processing Unit
 *[NPU]: Neural Processing Unit
@@ -91,3 +94,5 @@
 *[PFC]: Prefrontal Cortex
 *[GRU]: Gated Recurrent Unit
 *[PBWM]: Prefrontal cortex and Basal ganglia Working Memory
+*[IVR]: Interactive Voice Response
+*[CSAT]: Customer Satisfaction

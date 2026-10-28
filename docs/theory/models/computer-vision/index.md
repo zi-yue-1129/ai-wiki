@@ -19,8 +19,8 @@ related:
 | Open-vocabulary detection | Find objects described in text | Grounding DINO, OWL-ViT |
 | Pose estimation | Keypoints | OpenPose, ViTPose |
 | Depth estimation | Depth map | Depth Anything, MiDaS |
-| 3D reconstruction / novel views | 3D scene | NeRF, 3D Gaussian Splatting, DUSt3R |
-| Video understanding | Actions, events | SlowFast, VideoMAE, video VLMs |
+| [3D reconstruction / novel views](3d-and-neural-rendering/index.md) | 3D scene | NeRF, 3D Gaussian Splatting, DUSt3R |
+| [Video understanding and generation](video/index.md) | Actions, events, generated clips | SlowFast, VideoMAE, video diffusion |
 | Tracking | Trajectories | SORT, ByteTrack |
 | OCR and document understanding | Text, layout | PaddleOCR, Donut, VLMs |
 | Image generation and editing | Images | See [Generative Models](../../generative/index.md) |
