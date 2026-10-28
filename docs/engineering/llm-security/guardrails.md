@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - society/safety-alignment
@@ -71,5 +71,5 @@ Structural controls complement classifiers. An agent that cannot send email with
 - Inan, H. et al. (2023). Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations. arXiv. https://arxiv.org/abs/2312.06674 — A classifier safeguard for prompts and responses, built around a safety risk taxonomy.
 - Rebedea, T. et al. (2023). NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails. arXiv. https://arxiv.org/abs/2310.10501 — A toolkit for adding programmable rails that control the topics, dialogue paths and outputs of an LLM application.
 - Bai, Y. et al. (2022). Constitutional AI: Harmlessness from AI Feedback. arXiv. https://arxiv.org/abs/2212.08073 — Trains a harmless assistant through self-improvement guided by written principles, a model-level alternative to external guards.
-- Greshake, K. et al. (2023). Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection. arXiv. https://arxiv.org/abs/2302.12173 — Shows how instructions in retrieved content can bypass input checks on the user's message.
+- Greshake, K. et al. (2023). Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection. arXiv. https://arxiv.org/abs/2302.12173 — Shows that the user need not be the attacker: instructions in retrieved content can steer an integrated application, so a check on the user's message alone misses them.
 - Wei, A., Haghtalab, N. & Steinhardt, J. (2023). Jailbroken: How Does LLM Safety Training Fail? arXiv. https://arxiv.org/abs/2307.02483 — Analyses why safety training can fail, which bears on how much external guards must do.

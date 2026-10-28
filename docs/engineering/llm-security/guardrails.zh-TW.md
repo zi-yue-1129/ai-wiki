@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 tags:
@@ -70,5 +70,5 @@ aliases:
 - Inan, H. 等人（2023）。*Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations*。arXiv。https://arxiv.org/abs/2312.06674 — 針對提示與回應的分類器安全防護，其核心是一套安全風險分類法。
 - Rebedea, T. 等人（2023）。*NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails*。arXiv。https://arxiv.org/abs/2310.10501 — 加入可程式化護欄的工具組，用以控制 LLM 應用程式的主題、對話路徑與輸出。
 - Bai, Y. 等人（2022）。*Constitutional AI: Harmlessness from AI Feedback*。arXiv。https://arxiv.org/abs/2212.08073 — 依書面原則進行自我改進，以訓練無害的助理，是外部護欄之外的模型層替代方案。
-- Greshake, K. 等人（2023）。*Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection*。arXiv。https://arxiv.org/abs/2302.12173 — 顯示檢索內容中的指令如何繞過對使用者訊息的輸入檢查。
+- Greshake, K. 等人（2023）。*Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection*。arXiv。https://arxiv.org/abs/2302.12173 — 顯示使用者不一定是攻擊者：檢索內容中的指令可以操控整合應用程式，因此只檢查使用者訊息的做法會漏掉它們。
 - Wei, A.、Haghtalab, N. 與 Steinhardt, J.（2023）。*Jailbroken: How Does LLM Safety Training Fail?*。arXiv。https://arxiv.org/abs/2307.02483 — 分析安全訓練為何可能失敗，這與外部護欄需要承擔多少工作有關。
