@@ -14,6 +14,14 @@ FlashAttention 計算精確的縮放點積注意力，並大幅減少與高頻�
 
 把 \(Q\)、\(K\) 與 \(V\) 切成能放進晶片上 SRAM 的區塊。對每一個查詢區塊，串流掃過各個鍵與值的區塊，計算部分分數，並在每個區塊到達時更新輸出。softmax 以增量方式計算，因此完整的分數列從未同時存在於記憶體中。在反向傳播時，此方法會重算它沒有儲存的分數，以少量額外運算換取大幅減少的記憶體流量。
 
+
+### 動畫示意
+
+![FlashAttention 動畫：固定一個查詢區塊，依序讀取四個鍵值區塊，在 SRAM 的分數區塊工作區中更新計算，並逐步更新輸出。](../../../../../assets/concept-animations/flashattention-streaming-tiles.svg)
+
+*原創教學動畫，採 CC BY-SA 4.0 授權。依序亮起的欄位**僅示意不同 K/V 區塊的處理順序**，不代表將完整注意力矩陣存放在 SRAM 或 HBM。右側長條示意輸出反覆更新，並非模型實測數值或 GPU 執行紀錄。這是使用線上 softmax 的精確注意力，並非稀疏或近似注意力演算法（Dao 等人，2022；參見參考文獻）。手機可[開啟原尺寸動畫](../../../../../assets/concept-animations/flashattention-streaming-tiles.svg)檢視；獨立開啟 SVG 後，可用滑鼠停留或鍵盤聚焦來暫停。MkDocs 提供可用鍵盤操作的**播放／暫停**控制，暫停時會顯示[靜態概覽](../../../../../assets/concept-animations/flashattention-streaming-tiles-still.svg)；啟用減少動態效果時預設顯示靜態概覽。即使 GitHub 不播放 SVG 動畫，也可直接查看此圖。*
+
+
 ## 公式或演算法
 
 對一個查詢列，令執行中的最大值為 \(m\)，執行中的正規化項為 \(\ell\)。當一個新的分數區塊 \(s\) 到達時，更新為

@@ -22,7 +22,7 @@ This page is part of [Agent Engineering](index.md). It is one of the named metho
 
 ## Overview
 
-A software engineering agent must find the relevant code in a large repository, edit files, and check the result by running tests. Most agents of the time gave the model a standard shell. Yang et al. argue that language-model agents are a new kind of user, with their own needs, and that they benefit from interfaces built for them, much as human engineers benefit from integrated development environments.
+A software engineering agent must find the relevant code in a large repository, edit files, and check the result by running tests. The paper's baseline gives the model only the default Linux shell. Yang et al. argue that language-model agents are a new category of end user, with their own needs and abilities, and that they benefit from interfaces built for them.
 
 ## Problem
 
@@ -30,7 +30,7 @@ The question is how interface design changes what an agent can do. Commands that
 
 ## Core idea
 
-The ACI gives the agent a small, documented set of commands. Its key features, according to the abstract, are commands that create and edit code files, navigate the repository, and execute tests and other programs. The design is evaluated by comparing agent behaviour under different interfaces, which shows how the interface shapes the agent's steps and its results.
+The ACI gives the agent a small, documented set of commands designed for a language model rather than a human. According to the abstract, its effect is clearest on creating and editing code files. The design is evaluated by comparing agent behaviour under the custom interface with a shell-only baseline, which shows how the interface shapes the agent's steps and its results.
 
 ## Equation or algorithm
 
@@ -41,11 +41,10 @@ The agent runs the standard loop of observation and action:
 3. Read the command's output, which the interface formats for the model.
 4. Run tests, and repeat until the tests pass or the attempt limit is reached.
 
-The formatting of each command's output is part of the design the paper studies.
 
 ## Results
 
-The abstract reports evaluation on SWE-bench and HumanEvalFix, with a pass@1 rate of 12.5% on SWE-bench and 87.7% on HumanEvalFix, which the authors describe as state of the art on both at the time, and far above earlier results from non-interactive language models. The paper also gives insight into how the design of the interface changes the agent's behaviour and performance.
+The abstract reports a pass@1 rate of 12.5% on SWE-bench and 87.7% on HumanEvalFix, which the authors describe as state of the art on both at the time. The 12.5% is on the full 2,294-task SWE-bench test set. The previous best non-interactive, retrieval-augmented system reached 3.8% on that benchmark, and on SWE-bench Lite the custom interface gives a 64% relative increase over the shell-only baseline with GPT-4 Turbo (11.00% to 18.00%).
 
 ## Limitations
 
@@ -75,7 +74,7 @@ The abstract reports evaluation on SWE-bench and HumanEvalFix, with a pass@1 rat
 
 ### Seminal papers
 
-- Yang, J. et al. (2024). SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering. arXiv. https://arxiv.org/abs/2405.15793 — Introduces SWE-agent and the agent-computer interface, and reports results on SWE-bench and HumanEvalFix.
+- Yang, J. et al. (2024). SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering. NeurIPS. https://doi.org/10.52202/079017-1601 — Introduces SWE-agent and the agent-computer interface, and reports results on SWE-bench and HumanEvalFix.
 - Jimenez, C. E. et al. (2024). SWE-bench: Can Language Models Resolve Real-World GitHub Issues? ICLR. https://arxiv.org/abs/2310.06770 — The benchmark of real GitHub issues used to evaluate the agent.
 - Chen, M. et al. (2021). Evaluating Large Language Models Trained on Code. arXiv. https://arxiv.org/abs/2107.03374 — Introduces HumanEval, the code benchmark on which HumanEvalFix builds.
 - Yao, S. et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR. https://arxiv.org/abs/2210.03629 — The reasoning-and-acting loop that interactive coding agents follow.

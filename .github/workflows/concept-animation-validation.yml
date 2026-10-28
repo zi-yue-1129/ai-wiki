@@ -6,6 +6,7 @@ on:
       - "docs/assets/concept-animations/**"
       - "scripts/verify_concept_animations.py"
       - "scripts/verify_concept_motion.py"
+      - "scripts/verify_concept_svgs.py"
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
       - "mkdocs.yml"
@@ -37,6 +38,16 @@ jobs:
           python-version: "3.12"
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
+
+  validate-svgs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate FlashAttention and LSTM SVGs
+        run: python scripts/verify_concept_svgs.py
 
   build-docs:
     runs-on: ubuntu-latest

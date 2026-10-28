@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/reinforcement-learning/learning-from-human-feedback
@@ -39,8 +39,8 @@ Irving et al. (2018) include small experiments on image classification. The pape
 
 Two later studies test the idea with language models and human judges:
 
-- Khan et al. (2024) test debate with non-expert human judges. The abstract reports that when expert debaters were optimised to be more persuasive, without ground-truth labels, non-expert judges identified the correct answer more often. In other words, the persuasiveness of the debaters helped the judge reach truth.
-- Michael et al. (2023) test debate between two unreliable expert debaters, against a consultancy baseline with a single expert. The abstract reports that debate helped non-expert human judges answer hard reading-comprehension questions more accurately, at 84% judge accuracy against 74% for the consultancy baseline.
+- Khan et al. (2024) test debate with non-expert human judges. The abstract reports that when expert debaters were optimised to be more persuasive, without ground-truth labels, non-expert judges identified the correct answer more often. In other words, the persuasiveness of the debaters helped the judge reach truth. On QuALITY hard questions, non-expert human judges scored 60% with no expert input, 78% with consultancy and 88% with debate; LLM judges scored 48%, 54% and 76%.
+- Michael et al. (2023) test debate between two unreliable expert debaters, against a consultancy baseline with a single expert. The abstract reports that debate helped non-expert human judges answer hard reading-comprehension questions more accurately, with human judges reaching 84% accuracy under debate and 74% under the consultancy baseline.
 
 These are results from particular tasks and judge pools, and they should not be read as evidence for debate on every kind of question.
 
@@ -54,7 +54,7 @@ These are results from particular tasks and judge pools, and they should not be 
 
 ## Connections
 
-Debate borrows from adversarial legal and scientific practice, where opposing advocates and cross-examination are used to test claims. The analogy is useful for the structure of the protocol, though human debates are not zero-sum games with a learned strategy. The method is one of the decomposition-based approaches in [scalable oversight](scalable-oversight.md), and it is related to the amplification approach of Christiano, Shlegeris and Amodei (2018). Judges in debate experiments face the same evaluation problems discussed in [reward hacking](reward-hacking.md), since a debater can learn to exploit the judge rather than find the truth.
+Debate borrows from adversarial legal and scientific practice, where opposing advocates and cross-examination are used to test claims. The analogy is useful for the structure of the protocol, though human debates are not zero-sum games with a learned strategy. The method is one of the decomposition-based approaches in [scalable oversight](scalable-oversight.md), and it is related to the amplification approach of Christiano, Shlegeris and Amodei (2018). A variant that lets an opponent question a saved copy of each debater is described in [debate cross-examination](debate-cross-examination.md). Judges in debate experiments face the same evaluation problems discussed in [reward hacking](reward-hacking.md), since a debater can learn to exploit the judge rather than find the truth.
 
 ## Applications
 
@@ -78,5 +78,5 @@ Debate borrows from adversarial legal and scientific practice, where opposing ad
 
 ### Surveys and textbooks
 
-- Bowman, S. R. et al. (2022). *Measuring Progress on Scalable Oversight for Large Language Models*. arXiv:2211.03540. https://arxiv.org/abs/2211.03540 — Builds a benchmark for whether model assistance helps non-expert judges, including debate-style setups.
+- Bowman, S. R. et al. (2022). *Measuring Progress on Scalable Oversight for Large Language Models*. arXiv:2211.03540. https://arxiv.org/abs/2211.03540 — Proposes “sandwiching”, a test of oversight methods in which non-expert humans, helped by a chat assistant, answer questions that experts can check; debate is discussed but not tested.
 - Christiano, P., Shlegeris, B. & Amodei, D. (2018). *Supervising strong learners by amplifying weak experts*. arXiv:1810.08575. https://arxiv.org/abs/1810.08575 — Introduces iterated amplification, an alternative decomposition-based approach to supervising stronger models.

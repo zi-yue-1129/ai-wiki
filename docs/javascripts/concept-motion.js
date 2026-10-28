@@ -5,14 +5,23 @@
   'use strict';
   const suffix = /-motion\.svg(?=$|[?#])/;
   const moeSuffix = /moe-top2-routing-motion\.svg(?=$|[?#])/;
+  // Earlier CSS-animated diagrams keep their original filenames.
+  const standalonePairs = {
+    'flashattention-streaming-tiles.svg': 'flashattention-streaming-tiles-still.svg',
+    'lstm-write-retain-read.svg': 'lstm-write-retain-read-still.svg',
+  };
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
       const animated = img.dataset.motionSrc || img.getAttribute('src') || '';
-      if (!suffix.test(animated)) continue;
-      const still = img.dataset.stillSrc || animated.replace(suffix, '-still.svg');
+      const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
+      const pairedStill = standalonePairs[fileName];
+      if (!suffix.test(animated) && !pairedStill) continue;
+      const still = img.dataset.stillSrc || (pairedStill
+        ? animated.replace(fileName, pairedStill)
+        : animated.replace(suffix, '-still.svg'));
       const isMoe = moeSuffix.test(animated);
       const tokenB = isMoe ? animated.replace(suffix, '-token-b.svg') : '';
       const chinese = /[\u3400-\u9fff]/.test(img.alt || '');

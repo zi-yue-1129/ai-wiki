@@ -29,7 +29,7 @@ aliases:
 
 - **編碼器與解碼器（encoder and decoder）**：編碼器把激活映射為稀疏碼，解碼器則把碼映射回激活的近似值。
 - **字典（dictionary）**：解碼器的各欄，每一欄對應一個特徵。
-- **稀疏性（sparsity）**：同時活躍的特徵比例。稀疏性由 L1 懲罰或明確的 top-k 規則強制執行（[Makhzani & Frey, 2014](k-sparse-autoencoders.md)）。
+- **稀疏性（sparsity）**：同時活躍的特徵比例。稀疏性由 L1 懲罰或明確的 top-k 規則強制執行（[Makhzani & Frey, 2014](k-sparse-autoencoders.md)）。門控設計把特徵偵測與幅度估計分開，以減少收縮（[門控稀疏自編碼器](gated-sae.md)）；JumpReLU 則為每個特徵使用獨立的閾值（[JumpReLU 稀疏自編碼器](jumprelu-sae.md)）。
 - **單義特徵（monosemantic feature）**：以人類可辨識的方式只對一個概念產生反應的特徵。
 
 ## 運作方式

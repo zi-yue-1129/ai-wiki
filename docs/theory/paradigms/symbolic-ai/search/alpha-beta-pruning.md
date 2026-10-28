@@ -33,7 +33,7 @@ In a two-player zero-sum game, one player maximises the evaluation and the other
 
 The search is depth-first. At a maximising node, each child is searched with the current \(\alpha\) and \(\beta\), and \(\alpha\) is raised whenever a child returns a larger value. At a minimising node, \(\beta\) is lowered in the same way. When \(\alpha\ge\beta\), the remaining children are pruned. The returned value is the same as plain minimax, because pruned branches could not have changed it.
 
-The number of leaves examined depends on move ordering. Knuth and Moore (1975) show that with perfect ordering, alpha–beta examines about \(b^{d/2}\) leaves for branching factor \(b\) and depth \(d\), instead of \(b^{d}\) for minimax. This roughly doubles the searchable depth for the same effort.
+The number of leaves examined depends on move ordering. Searching the strongest moves first lets more branches be pruned.
 
 ## Variants
 
@@ -46,7 +46,7 @@ The number of leaves examined depends on move ordering. Knuth and Moore (1975) s
 - Alpha–beta returns the minimax value. Its pruning does not change the answer.
 - Its benefit depends on move ordering. Poor ordering removes little work.
 - Plain depth limits cause the horizon effect, so quiescence or extra search is usually added.
-- Alpha–beta needs a static evaluation function at the leaves, and designing it well is a large part of the engineering effort. Campbell et al. (2002) describe how Deep Blue combined alpha–beta search with hardware and a tuned evaluation.
+- Alpha–beta needs a static evaluation function at the leaves, and designing it well is a large part of the engineering effort. Campbell et al. (2002) describe how Deep Blue combined alpha–beta search, implemented partly in hardware, with an evaluation function that was largely hand-tuned.
 
 ## Applications
 
@@ -64,7 +64,7 @@ The number of leaves examined depends on move ordering. Knuth and Moore (1975) s
 ### Seminal papers
 
 - Shannon, C. E. (1950). XXII. Programming a computer for playing chess. *The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science* 41(314), 256–275. https://doi.org/10.1080/14786445008521796 — Early proposal of minimax search with a static evaluation function for chess.
-- Knuth, D. E. & Moore, R. W. (1975). An analysis of alpha-beta pruning. *Artificial Intelligence* 6(4), 293–326. https://doi.org/10.1016/0004-3702(75)90019-3 — Analyses alpha–beta, including the best-case number of leaves examined.
+- Knuth, D. E. & Moore, R. W. (1975). An analysis of alpha-beta pruning. *Artificial Intelligence* 6(4), 293–326. https://doi.org/10.1016/0004-3702(75)90019-3 — Analyses the pruning performance of alpha–beta.
 
 ### Surveys and textbooks
 
