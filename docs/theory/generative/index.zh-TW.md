@@ -18,7 +18,7 @@
 
 ## 擴散模型
 
-完整說明（包括去噪骨幹、引導與關鍵論文）見[擴散模型](diffusion/index.md)。
+完整說明包含比較表，以及每個方法各自的頁面（DDPM、DDIM、潛在擴散、DiT、無分類器引導），見[擴散模型](diffusion/index.md)。
 
 ![擴散模型動態概念圖：從雜訊開始，經過多個去噪步驟逐漸產生具有結構的樣本。](../../assets/concept-animations/diffusion-denoising.gif)
 

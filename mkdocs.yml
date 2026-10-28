@@ -268,6 +268,11 @@ plugins:
             Sequence Modes: 序列模式
             State-Space Models: 狀態空間模型
             Diffusion Models: 擴散模型
+            DDPM: DDPM
+            DDIM: DDIM
+            Latent Diffusion: 潛在擴散
+            DiT: DiT 擴散 Transformer
+            Classifier-Free Guidance: 無分類器引導
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
             Message Passing: 訊息傳遞
@@ -514,7 +519,13 @@ nav:
       - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
       - Generative Models:
           - theory/generative/index.md
-          - Diffusion Models: theory/generative/diffusion/index.md
+          - Diffusion Models:
+              - theory/generative/diffusion/index.md
+              - DDPM: theory/generative/diffusion/ddpm.md
+              - DDIM: theory/generative/diffusion/ddim.md
+              - Latent Diffusion: theory/generative/diffusion/latent-diffusion.md
+              - DiT: theory/generative/diffusion/dit.md
+              - Classifier-Free Guidance: theory/generative/diffusion/classifier-free-guidance.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation: theory/model-compression/quantisation/index.md
