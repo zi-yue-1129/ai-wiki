@@ -106,6 +106,12 @@ McClelland、McNaughton 與 O'Reilly（1995）解釋了*為什麼*需要兩個�
 - **比較：** 系統層級的解釋，結合上述的損傷與可塑性證據。
 - **完整內容：** [互補學習系統](complementary-learning-systems/index.md)
 
+### 海馬迴的空間解析度（Kjelstrup 等人，2008）
+
+- **概述：** 位置場的大小沿海馬迴長軸增加，並且也會隨經驗與目標改變。
+- **比較：** 這是一種空間編碼的解釋，探討記憶解析度被分配到哪裡，而非記憶如何儲存。它對照了固定的解剖梯度與經驗、目標驅動的效應。
+- **完整內容：** [海馬迴的空間解析度](hippocampal-spatial-resolution/index.md)
+
 ## 學習資源
 
 - Squire & Kandel,《Memory: From Mind to Molecules》

@@ -347,6 +347,7 @@ plugins:
             Medial Temporal Lobe Lesions: 內側顳葉損傷
             Long-Term Potentiation: 長期增益
             Complementary Learning Systems: 互補學習系統
+            Spatial Resolution in the Hippocampus: 海馬迴的空間解析度
             Receptive Fields in Visual Cortex: 視覺皮質的感受野
             Dopamine Reward Prediction Error: 多巴胺的獎勵預測誤差
             Heuristics and Biases: 啟發法與偏誤
@@ -1278,6 +1279,7 @@ nav:
           - Medial Temporal Lobe Lesions: brain-mind/memory-learning/medial-temporal-lesions/index.md
           - Long-Term Potentiation: brain-mind/memory-learning/long-term-potentiation/index.md
           - Complementary Learning Systems: brain-mind/memory-learning/complementary-learning-systems/index.md
+          - Spatial Resolution in the Hippocampus: brain-mind/memory-learning/hippocampal-spatial-resolution/index.md
       - Cognitive Science:
           - brain-mind/cognitive-science/index.md
           - Heuristics and Biases: brain-mind/cognitive-science/heuristics-and-biases/index.md
