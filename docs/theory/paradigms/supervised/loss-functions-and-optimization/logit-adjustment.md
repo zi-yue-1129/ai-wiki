@@ -62,6 +62,6 @@ How to extend the correction to outputs that are not calibrated probabilities, a
 
 ### Articles and preprints
 
-- Cao, K. et al. (2019). *Learning Imbalanced Datasets with Label-Distribution-Aware Margin Loss*. arXiv:1906.07413. https://arxiv.org/abs/1906.07413 — Uses margins that depend on class frequency, a related approach that also changes the decision boundary.
-- Kang, B. et al. (2020). *Decoupling Representation and Classifier for Long-Tailed Recognition*. arXiv:1910.09217. https://arxiv.org/abs/1910.09217 — Separates representation learning from classifier learning, and shows that classifier-side rebalancing is effective.
-- Ren, J. et al. (2022). *Balanced MSE for Imbalanced Visual Regression*. arXiv:2203.16427. https://arxiv.org/abs/2203.16427 — Corrects an MSE loss for the training label distribution, the regression analogue of the balancing idea.
+- Cao, K. et al. (2019). *Learning Imbalanced Datasets with Label-Distribution-Aware Margin Loss*. NeurIPS 2019. https://proceedings.neurips.cc/paper/2019/hash/621461af90cadfdaf0e8d4cc25129f91-Abstract.html — Uses margins that depend on class frequency, a related approach that also changes the decision boundary.
+- Kang, B. et al. (2020). *Decoupling Representation and Classifier for Long-Tailed Recognition*. ICLR 2020. https://arxiv.org/abs/1910.09217 — Separates representation learning from classifier learning, and shows that classifier-side rebalancing is effective.
+- Ren, J. et al. (2022). *Balanced MSE for Imbalanced Visual Regression*. CVPR 2022. https://openaccess.thecvf.com/content/CVPR2022/html/Ren_Balanced_MSE_for_Imbalanced_Visual_Regression_CVPR_2022_paper.html — Corrects an MSE loss for the training label distribution, the regression analogue of the balancing idea.
