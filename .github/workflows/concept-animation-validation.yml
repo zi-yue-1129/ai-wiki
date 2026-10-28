@@ -5,6 +5,7 @@ on:
     paths:
       - "docs/assets/concept-animations/**"
       - "scripts/verify_concept_animations.py"
+      - "scripts/verify_concept_svgs.py"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
 
@@ -23,6 +24,16 @@ jobs:
         run: python -m pip install "Pillow==11.3.0"
       - name: Decode every frame and check GIF metadata
         run: python scripts/verify_concept_animations.py
+
+  validate-svgs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Parse SVG XML and validate bilingual references
+        run: python scripts/verify_concept_svgs.py
 
   build-docs:
     runs-on: ubuntu-latest
