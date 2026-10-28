@@ -24,6 +24,8 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Check page structure
         run: python scripts/wiki_status.py --check
+      - name: Build documentation (strict)
+        run: mkdocs build --strict
 
   health-report:
     if: github.event_name != 'pull_request'

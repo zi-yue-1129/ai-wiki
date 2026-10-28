@@ -7,6 +7,7 @@ The core theory behind every AI technique.
 | [Mathematics](math/index.md) | What roles do linear algebra, calculus, probability, information theory and optimisation play? |
 | [Machine Learning](machine-learning/index.md) | How do we learn from data, and how do we know it worked? |
 | [Deep Learning](deep-learning/index.md) | Why are multi-layer neural networks so effective, and how are they trained? |
+| [Optimisation](optimization/index.md) | How does gradient descent find good parameters, and why do methods like Adam and AdamW work? |
 | [Learning Paradigms](paradigms/index.md) | Supervised, unsupervised, semi-/weakly supervised, self-supervised, reinforcement, imitation, transfer, meta, continual, active, online, federated learning — what signal, what setting? |
 | [Reinforcement Learning](paradigms/reinforcement-learning/index.md) | How do agents learn behaviour from trial, error and reward — and what does dopamine have to do with it? |
 | [Probabilistic & Bayesian Methods](probabilistic/index.md) | How do we represent and reason with uncertainty? Is the brain a Bayesian machine? |
