@@ -59,15 +59,15 @@ Latent diffusion first compresses images with a pretrained autoencoder and runs 
 
 ### Faster sampling
 
-A naive sampler needs as many steps as training. Two ideas reduce this. Non-Markovian samplers such as DDIM reuse the same trained model with far fewer steps. Distillation trains a student model to match several teacher steps in one. Classifier-free guidance trades diversity for prompt fidelity, and is applied at sampling time without a separate classifier.
+A naive sampler needs as many steps as training. Two ideas reduce this. Non-Markovian samplers such as DDIM reuse the same trained model with far fewer steps. On unconditional CIFAR-10, DDIM reaches FID 4.67 with 50 steps, where DDPM reaches 8.01 at the same step count. Distillation trains a student model to match several teacher steps in one. Classifier-free guidance trades diversity for prompt fidelity, and is applied at sampling time without a separate classifier.
 
 ## Key methods
 
 Each named method has its own page with the problem, core idea, equations, results and limitations.
 
 - [DDPM](ddpm.md) (Ho, Jain & Abbeel, 2020): the noise-prediction objective and the sampler that made diffusion practical for images.
-- [DDIM](ddim.md) (Song, Meng & Ermon, 2020/2021): a non-Markovian sampler that reuses the DDPM model in far fewer steps.
-- [Latent Diffusion](latent-diffusion.md) (Rombach et al., 2021/2022): diffusion in the latent space of an autoencoder, with cross-attention conditioning.
+- [DDIM](ddim.md) (Song, Meng & Ermon, 2021): a non-Markovian sampler that reuses the DDPM model in far fewer steps.
+- [Latent Diffusion](latent-diffusion.md) (Rombach et al., 2022): diffusion in the latent space of an autoencoder, with cross-attention conditioning.
 - [DiT](../../../../models/transformer/dit/index.md) (Peebles & Xie, 2022/2023): a Transformer denoiser that replaces the U-Net and scales with compute.
 - [Classifier-free guidance](classifier-free-guidance.md) (Ho & Salimans, 2022): conditioning control without a separate classifier.
 
@@ -79,7 +79,7 @@ Each named method has its own page with the problem, core idea, equations, resul
 | [DDIM](ddim.md) | Non-Markovian sampler on the same model | Any subsequence, far fewer | Same as DDPM | Same as DDPM |
 | [Latent Diffusion](latent-diffusion.md) | Diffusion in an autoencoder latent | Few to many | U-Net | Cross-attention |
 | [DiT](../../../../models/transformer/dit/index.md) | Transformer denoiser | Few to many | Transformer on patches | Adaptive layer norm with time step and class |
-| [Classifier-free guidance](classifier-free-guidance.md) | Sampling-time combination of two predictions | Unchanged, but two evaluations per step | Any | Guidance scale \(w\) |
+| [Classifier-free guidance](classifier-free-guidance.md) | Sampling-time combination of two predictions | Unchanged, but two evaluations per step | Any | Guidance weight \(w\), with \(w = 0\) the plain conditional model |
 
 ## Connections
 
