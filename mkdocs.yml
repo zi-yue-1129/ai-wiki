@@ -601,6 +601,8 @@ plugins:
             Truncated SVD: 截斷 SVD
             Principal Component Analysis: 主成分分析
             Randomized SVD: 隨機化 SVD
+            Object Detection: 物件偵測
+            RetinaNet and Focal Loss: RetinaNet 與焦點損失
 
 markdown_extensions:
   - abbr
@@ -990,7 +992,14 @@ nav:
                   - Kaplan Scaling Laws: theory/models/llm/scaling-laws/kaplan-scaling-laws/index.md
                   - Emergent Abilities: theory/models/llm/scaling-laws/emergent-abilities/index.md
                   - Emergence as a Mirage: theory/models/llm/scaling-laws/emergence-mirage/index.md
-          - Computer Vision: theory/models/computer-vision/index.md
+          - Computer Vision:
+              - theory/models/computer-vision/index.md
+              - Object Detection:
+                  - theory/models/computer-vision/object-detection/index.md
+                  - Faster R-CNN: theory/models/computer-vision/object-detection/faster-rcnn/index.md
+                  - YOLO: theory/models/computer-vision/object-detection/yolo/index.md
+                  - RetinaNet and Focal Loss: theory/models/computer-vision/object-detection/retinanet/index.md
+                  - DETR: theory/models/computer-vision/object-detection/detr/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
