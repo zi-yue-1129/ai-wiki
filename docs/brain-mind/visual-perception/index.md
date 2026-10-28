@@ -56,29 +56,12 @@ Convolutional neural networks ([CNN](../../theory/models/cnn/index.md)) implemen
 
 ## Key methods
 
-### Performance-optimised networks predict IT cortex (Yamins et al. 2014)
+Each method has its own page. This table is only a comparison.
 
-- **Problem:** Do models that are good at object recognition also explain the neural responses of higher visual cortex, or is the match a coincidence of architecture?
-- **Core idea:** Search a large family of hierarchical convolutional networks for those whose object-categorisation performance is highest, then test how well each model predicts the responses of individual sites in IT and V4 to natural images. The authors report that categorisation performance is strongly correlated with how well a network predicts IT responses, without the network being fitted to neural data.
-- **Equation or algorithm:**
-  1. Define a family of hierarchical networks that differ in depth, filter sizes and connectivity.
-  2. Train each network on an object-recognition task, and score its performance.
-  3. Select the networks with high recognition performance; the selected model matches human performance on several recognition tests.
-  4. Use linear regression from the model's layers to recorded IT and V4 responses on held-out images, and measure how well the model predicts each site.
-- **Results:** The paper reports that the top layer of the selected network predicts IT spiking responses to natural images at both single-site and population levels, and that intermediate layers predict V4 responses. The abstract gives no numerical correlation values, so check the full paper for them.
-- **Limitations:** The comparison uses a limited set of images and recorded sites, and a good linear fit does not show that the model uses the same computation as the brain. Later benchmark work compares many more models against neural data, and whether this predictive power transfers to new stimuli and species remains open.
-
-### Shape bias in CNNs (Geirhos et al. 2019)
-
-- **Problem:** Do ImageNet-trained CNNs recognise objects by shape, as people do, or by texture?
-- **Core idea:** Build a "Stylized-ImageNet" dataset in which each image keeps its object shape but has the texture of a different image. Compare how networks and people classify these images, and then train the same architecture on the stylised data.
-- **Equation or algorithm:**
-  1. Apply style transfer to ImageNet images, so that object shape and texture conflict.
-  2. Test standard ImageNet-trained networks and human observers on the conflict images.
-  3. Train the same architecture (ResNet-50) on a mixture of standard and stylised images.
-  4. Measure shape-based classification, object detection and robustness to distortions.
-- **Results:** Standard networks relied mainly on texture, unlike humans. Training on stylised images shifted the networks toward shape, which matched human behaviour more closely and improved object detection and robustness to image distortions.
-- **Limitations:** The style-transfer data is an intervention on one kind of shortcut, not a full account of human vision. Shape bias does not remove other failures, such as adversarial vulnerability.
+| Method | Question it answers | Page |
+|---|---|---|
+| Performance-optimised networks (Yamins et al., 2014) | Does a network chosen for recognition performance also predict neural responses in IT cortex? | [Yamins et al. 2014](yamins-2014/index.md) |
+| Shape bias in CNNs (Geirhos et al., 2019) | Do ImageNet-trained networks recognise objects by shape, as people do, or by texture? | [Geirhos et al. 2019](geirhos-2019/index.md) |
 
 ## Connections
 
