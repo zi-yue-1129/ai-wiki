@@ -83,4 +83,4 @@ LLM distillation sits between the [training](../../../../engineering/training/in
 
 ### Articles and documentation
 
-- Hinton, G., Vinyals, O., Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — The original distillation objective.
+- Hinton, G., Vinyals, O., Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — The original distillation objective, which the language-model methods above build on.

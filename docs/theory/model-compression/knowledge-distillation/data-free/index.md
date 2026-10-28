@@ -79,4 +79,4 @@ Data-free distillation touches privacy, which is discussed in the [ethics](../..
 
 ### Articles and documentation
 
-(none checked for this page)
+- Sanh, V., et al. (2019). *DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter*. arXiv:1910.01108. https://arxiv.org/abs/1910.01108 — Distils BERT from teacher outputs and hidden states, the standard reference for language-model distillation.
