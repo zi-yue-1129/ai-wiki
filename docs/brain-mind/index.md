@@ -43,6 +43,14 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Neuroimaging & Recording Methods](neuroimaging-methods/index.md) | BOLD fMRI, what fMRI and electrophysiology each measure, LFP and ECoG |
 | [Developmental Cognition & How Children Learn](developmental-cognition/index.md) | Core knowledge in infancy, looking-time methods, statistical learning, the Goldilocks effect |
 | [Animal Cognition & Comparative Intelligence](animal-cognition/index.md) | Mirror self-recognition, tool use in crows, false-belief tests in apes, convergent intelligence |
+| [Motor Control & the Cerebellum](motor-control/index.md) | Internal models, cerebellar learning, optimal feedback control |
+| [Sleep, Replay & Memory Consolidation](sleep-and-consolidation/index.md) | Hippocampal replay, sharp-wave ripples, experience replay in RL |
+| [Spatial Navigation & Cognitive Maps](navigation-cognitive-maps/index.md) | Place cells, cognitive maps, successor representations, the TEM |
+| [Working Memory & Executive Function](working-memory-executive-function/index.md) | Persistent and silent prefrontal activity, gating (PBWM) |
+| [Neuromodulators beyond Dopamine](neuromodulation/index.md) | Acetylcholine, noradrenaline, uncertainty and learning rate |
+| [The Auditory System](auditory-system/index.md) | Cochlea, auditory cortex, deep networks as models of hearing |
+| [Neural Oscillations & Synchrony](oscillations/index.md) | Frequency bands, communication through coherence, theta–gamma coupling |
+| [Computational Psychiatry](computational-psychiatry/index.md) | RL and Bayesian models of psychiatric symptoms, computational phenotyping |
 
 ## Two-way influence at a glance
 
