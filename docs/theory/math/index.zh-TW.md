@@ -35,6 +35,8 @@ AI 用到的數學主要有五塊。這頁說明每塊「用在哪裡」與「�
 \frac{\partial L}{\partial w} = \frac{\partial L}{\partial y}\cdot\frac{\partial y}{\partial z}\cdot\frac{\partial z}{\partial w}
 \]
 
+**自動微分**把鏈式法則套用到整個程式，是反向傳播背後的機制。它的兩種模式見[自動微分](automatic-differentiation/index.zh-TW.md)。
+
 ## 3. 機率與統計
 
 > 詳細頁面：[AI 所需的機率與統計](probability-statistics/index.md)，包含[最大概似估計](probability-statistics/maximum-likelihood.md)與[最大後驗估計](probability-statistics/maximum-a-posteriori.md)。

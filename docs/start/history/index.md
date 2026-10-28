@@ -1,5 +1,11 @@
 # History of AI
 
+## Chapters
+
+- [Dartmouth and the symbolic era (1956–1974)](symbolic-era/index.md): the 1955 proposal, early programs, the perceptron and the critique that followed.
+- [Expert systems and the AI winters (1974–2006)](expert-systems-and-winters/index.md): the Lighthill report, expert systems, the return of backpropagation and the data that prepared the deep-learning era.
+- [The deep-learning revolution (2006–present)](deep-learning-revolution/index.md): deep belief nets, AlexNet, attention, AlphaGo, Transformers and large language models.
+
 ## Timeline
 
 | Year | Event | Significance |

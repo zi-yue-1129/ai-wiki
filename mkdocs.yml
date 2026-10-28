@@ -241,6 +241,9 @@ plugins:
             Learning Paths: 學習路線
             Open-Source Resource Survey: 開源資源調查
             History of AI: AI 發展史
+            Dartmouth and the Symbolic Era: 達特茅斯與符號時代
+            Expert Systems and AI Winters: 專家系統與 AI 寒冬
+            The Deep-Learning Revolution: 深度學習革命
             Theory: 理論
             Mathematics: 數學基礎
             Linear Algebra: 線性代數
@@ -263,6 +266,24 @@ plugins:
             Causal Inference: 因果推論
             Machine Learning: 機器學習
             Deep Learning: 深度學習
+            Normalisation: 正規化
+            Batch Normalisation: 批次正規化
+            Group Normalisation: 群組正規化
+            Dropout & Stochastic Regularisation: 丟棄法與隨機正則化
+            Dropout: 丟棄法
+            Mixup: 混合增強
+            Stochastic Depth: 隨機深度
+            Weight Initialisation: 權重初始化
+            Glorot (Xavier): Glorot（Xavier）初始化
+            He (Kaiming): He（Kaiming）初始化
+            muP: 最大更新參數化（muP）
+            Automatic Differentiation: 自動微分
+            Reverse Mode: 反向模式微分
+            Forward Mode: 前向模式微分
+            3D Vision & Neural Rendering: 三維視覺與神經渲染
+            3D Gaussian Splatting: 三維高斯潑濺
+            Video: 影片理解與生成
+            Video Diffusion: 影片擴散模型
             Optimisation: 最佳化
             SGD & Momentum: SGD 與動量
             Heavy-Ball Momentum: 重球動量
@@ -880,6 +901,9 @@ plugins:
             Philosophy of AI: AI 哲學
             Reference: 參考
             Glossary: 名詞對照表
+            Model Catalogue: 模型目錄
+            Notation: 符號表
+            How to Read an AI Paper: 如何閱讀 AI 論文
             People and Research Labs: 人物與研究室
             FAQ: 常見問題
             Landmark Papers: 經典論文
@@ -946,11 +970,19 @@ nav:
       - start/index.md
       - Learning Paths: start/learning-paths/index.md
       - Open-Source Resource Survey: start/open-source-survey/index.md
-      - History of AI: start/history/index.md
+      - History of AI:
+          - start/history/index.md
+          - Dartmouth and the Symbolic Era: start/history/symbolic-era/index.md
+          - Expert Systems and AI Winters: start/history/expert-systems-and-winters/index.md
+          - The Deep-Learning Revolution: start/history/deep-learning-revolution/index.md
   - Theory:
       - theory/index.md
       - Mathematics:
           - theory/math/index.md
+          - Automatic Differentiation:
+              - theory/math/automatic-differentiation/index.md
+              - Reverse Mode: theory/math/automatic-differentiation/reverse-mode.md
+              - Forward Mode: theory/math/automatic-differentiation/forward-mode.md
           - Linear Algebra:
               - theory/math/linear-algebra/index.md
               - Singular Value Decomposition: theory/math/linear-algebra/svd.md
@@ -968,6 +1000,21 @@ nav:
       - Machine Learning: theory/machine-learning/index.md
       - Deep Learning:
           - theory/deep-learning/index.md
+          - Normalisation:
+              - theory/deep-learning/normalisation/index.md
+              - Batch Normalisation: theory/deep-learning/normalisation/batch-normalisation.md
+              - Group Normalisation: theory/deep-learning/normalisation/group-normalisation.md
+              - RMSNorm: theory/deep-learning/normalisation/rms-normalisation.md
+          - Dropout & Stochastic Regularisation:
+              - theory/deep-learning/dropout/index.md
+              - Dropout: theory/deep-learning/dropout/dropout-method.md
+              - Mixup: theory/deep-learning/dropout/mixup.md
+              - Stochastic Depth: theory/deep-learning/dropout/stochastic-depth.md
+          - Weight Initialisation:
+              - theory/deep-learning/initialisation/index.md
+              - Glorot (Xavier): theory/deep-learning/initialisation/glorot-initialisation.md
+              - He (Kaiming): theory/deep-learning/initialisation/he-initialisation.md
+              - muP: theory/deep-learning/initialisation/mup.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum:
@@ -1500,6 +1547,15 @@ nav:
                   - Process Reward Models: theory/models/reasoning/process-reward-models.md
           - Computer Vision:
               - theory/models/computer-vision/index.md
+              - 3D Vision & Neural Rendering:
+                  - theory/models/computer-vision/3d-and-neural-rendering/index.md
+                  - NeRF: theory/models/computer-vision/3d-and-neural-rendering/nerf.md
+                  - 3D Gaussian Splatting: theory/models/computer-vision/3d-and-neural-rendering/gaussian-splatting.md
+              - Video:
+                  - theory/models/computer-vision/video/index.md
+                  - I3D: theory/models/computer-vision/video/i3d.md
+                  - ViViT: theory/models/computer-vision/video/vivit.md
+                  - Video Diffusion: theory/models/computer-vision/video/video-diffusion.md
               - Object Detection: theory/models/computer-vision/object-detection/index.md
               - Image Segmentation: theory/models/computer-vision/segmentation/index.md
           - Natural Language Processing: theory/models/nlp/index.md
@@ -1825,6 +1881,9 @@ nav:
   - Reference:
       - reference/index.md
       - Glossary: reference/glossary/index.md
+      - Model Catalogue: reference/model-catalogue/index.md
+      - Notation: reference/notation/index.md
+      - How to Read an AI Paper: reference/how-to-read-a-paper/index.md
       - People and Research Labs: reference/people-and-labs/index.md
       - FAQ: reference/faq/index.md
       - Landmark Papers: reference/papers/index.md

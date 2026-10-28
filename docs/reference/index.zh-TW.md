@@ -9,6 +9,9 @@
 | [課程與書籍](courses-books/index.md) | 依主題分類的免費與開放學習資源 |
 | [資料集](datasets/index.md) | 各領域廣泛使用的資料集與基準 |
 | [模型與發表時間軸](timeline/index.zh-TW.md) | AI 的重要里程碑，從感知器到近期的大型模型 |
+| [模型目錄](model-catalogue/index.md) | 主要模型家族，附上報告日期與報告所述的規模 |
+| [符號表](notation/index.md) | 全站使用的符號，從向量與損失到強化學習 |
+| [如何閱讀 AI 論文](how-to-read-a-paper/index.md) | 閱讀順序、對基準的提問方式，以及可重現性的訊號 |
 | [會議與期刊](venues/index.zh-TW.md) | AI 與神經科學研究的發表場所，以及主要場所的差異 |
 | [貢獻指南](contributing/index.zh-TW.md) | 如何新增或改進頁面 |
 | [路線圖與涵蓋範圍](roadmap/index.md) | 已規劃的內容與尚缺的內容 |

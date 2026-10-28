@@ -39,6 +39,8 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 \frac{\partial L}{\partial w} = \frac{\partial L}{\partial y}\cdot\frac{\partial y}{\partial z}\cdot\frac{\partial z}{\partial w}
 \]
 
+**Automatic differentiation** applies the chain rule to whole programs. It is the mechanism behind backpropagation, and its two modes are covered in [Automatic differentiation](automatic-differentiation/index.md).
+
 ## 3. Probability and statistics
 
 > Detailed page: [Probability and statistics for AI](probability-statistics/index.md), with [maximum likelihood](probability-statistics/maximum-likelihood.md) and [maximum a posteriori estimation](probability-statistics/maximum-a-posteriori.md).

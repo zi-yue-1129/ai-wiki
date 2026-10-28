@@ -56,6 +56,10 @@ Yamins et al.（2014）發現，在物件辨識上表現較好的 CNN，也更�
 | 錯覺 | 容易受到許多錯覺影響 | 有些網路會出現類似的錯覺 |
 | 功耗 | 視覺皮質：幾瓦 | GPU：數百瓦 |
 
+## 深入頁面
+
+兩個領域各有獨立的章節。[三維視覺與神經渲染](3d-and-neural-rendering/index.zh-TW.md)涵蓋 NeRF 與高斯潑濺，[影片理解與生成](video/index.zh-TW.md)涵蓋 I3D、ViViT 與影片擴散。
+
 ## 應用
 
 醫學影像（[醫療保健](../../../applications/healthcare/index.md)）、自動駕駛（[自動駕駛](../../../applications/autonomous-driving/index.md)）、工業檢測（[製造](../../../applications/manufacturing/index.md)）、作物監測、遙測、零售、安防、運動分析、AR／VR，以及神經科學中的動物行為追蹤（DeepLabCut）。
