@@ -1,42 +1,109 @@
 ---
-translation_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-10-28
 ---
 
 # 整合資訊理論（Tononi，2004）
 
-意識被等同於整合的因果結構，以 Φ 衡量。
+整合資訊理論把意識等同於系統整合資訊的能力，並以一個稱為 Φ（phi）的量來衡量。
+
+## 概觀
+
+意識很難研究，因為我們只能直接在自己身上觀察到它，對他人則只能從行為與腦活動去推論。Tononi（2004）採取了不同的路徑。他不去問哪些腦歷程與經驗相關，而是問經驗必須是什麼樣子，才會是它現在的樣子；接著再問，什麼樣的物理系統能擁有這些性質。由此得出的理論主張：意識就是系統整合資訊的能力。它對哪些系統有意識、有多少意識、以及是哪一種意識，都作出了主張。
+
+這個理論是與[全域工作空間](../global-workspace/index.md)理論並列的兩大主要科學意識理論之一，而兩者也已在實驗中彼此對照檢驗。
+
+## 關鍵概念
+
+- **現象學公理**：每一種經驗都具有的性質。Tononi 與 Koch（2015）列出五項：內在存在、組成、資訊、整合與排他。
+- **公設**：從公理推導出來，物理系統為支持經驗所必須具備的性質。
+- **整合資訊（Φ）**：系統在其各部分之外，所產生的因果上有效的資訊量，沿著分割中最弱的連結來衡量。
+- **複合體（complex）**：Φ 大於零、且不屬於任何 Φ 更高的更大子集的元素子集。複合體是意識的單位。
+- **最小資訊分割（minimum information partition，MIP）**：切割系統的方式中，改變其因果結構最少的那一種。Φ 即是沿此切割來測量。
 
 ## 問題
 
-在無法直接詢問的情況下，什麼使某些物理系統有意識，而另一些沒有？
+為什麼大腦皮質有意識，而神經元數目更多的小腦卻沒有？為什麼清醒時意識存在，而在無夢睡眠中大幅減少？當我們無法詢問病人、新生兒或機器時，又如何判斷他們是否有意識，尤其是在嚴重腦損傷的情況下？像是某個網路的活動這類意識相關物，單獨無法回答這些問題，因為它沒有說明這個相關物為何重要。Tononi 主張，需要一個理論來說明經驗是什麼，以及哪些物理系統能擁有它。
 
 ## 核心想法
 
-從每一種經驗都具有的性質出發（例如它存在、具有統一性、具有特定內容，且不能拆成彼此獨立的部分）。接著問：一個物理系統必須具備什麼樣的結構，才能擁有這些性質。所提出的量是整合資訊 Φ，衡量一個系統的因果結構超過其各部分總和的程度。
+論證從經驗本身出發。Tononi（2004）強調每一種有意識經驗共有的兩項性質。第一是分化：系統能擁有的不同經驗數量極為龐大。第二是整合：每一種經驗都是統一的，無法拆成彼此獨立的部分。
 
-## 方法
+由這些性質出發，理論追問：一個物理系統必須是什麼樣子，才能具備這些性質。它的回答是：系統必須具有一種因果結構，其中各元素彼此提供資訊，且若不損失資訊，就無法切分為獨立的子系統。這種統一程度即為 Φ。經驗的質則由元素之間的資訊關係模式給定，而量則由 Φ 給定。後來的版本以更形式化的定義取代了這些概念，但核心主張維持不變。
 
-這是理論框架，不是實驗。2004 年的論文以文字陳述框架，後來的版本才給出 Φ 的形式定義。
+## 方程式或演算法
+
+IIT 3.0 中 Φ 的形式化定義（Oizumi、Albantakis 與 Tononi，2014）可以寫成簡化形式。令 $S$ 為處於某狀態的一組元素，$\mathcal{C}(S)$ 為其概念星座（整體的因果—效果結構），$\mathcal{C}(S^{P})$ 為同一組元素在分割 $P$ 切斷各部分之間的因果連結後的概念星座。則
+
+$$
+P^{*} = \arg\min_{P} \; D\big(\mathcal{C}(S),\, \mathcal{C}(S^{P})\big), \qquad \Phi(S) = D\big(\mathcal{C}(S),\, \mathcal{C}(S^{P^{*}})\big),
+$$
+
+其中 $D$ 是星座之間的延伸推土機距離（extended earth mover's distance）。分割 $P^{*}$ 即是最小資訊分割：它使星座的改變最小。Φ 是此切割之後剩下的差異。此描述依循 Oizumi 等人（2014）的敘述，其中分割是在子集與其補集之間、兩個方向都加以評估。這裡的記號是簡化版本，完整定義見原論文。
+
+整個理論也可以讀成一套程序：
+
+1. 依 Tononi 與 Koch（2015）的做法，陳述經驗的現象學公理。
+2. 推導出物理機制應具備的公設，以滿足這些公理。
+3. 對於處於某狀態的候選系統，計算其概念星座。
+4. 考慮所有分割，找出最小資訊分割，並沿此分割測量 Φ。
+5. 若某子集的 Φ 為正，且包含它的任何更大子集都不具有更高的 Φ，則稱該子集為複合體。只有複合體算作有意識。
 
 ## 結果
 
-論文主張此理論能解釋經驗的基本特徵，本身沒有報告實驗結果。
+2004 年的論文屬於理論性質，沒有報告新的實驗。它主張此理論能解釋若干神經生物學觀察：為何意識與某些神經系統（例如丘腦皮質系統）相連，而與另一些（例如小腦）無關；為何意識在無夢睡眠與全面性癲癇發作時會減弱；以及支持意識的神經互動為何需要時間。後續研究將此理論應用於測量。Casali 等人（2013）提出一種以理論為基礎的指標，依據大腦對刺激反應的複雜度，並報告該指標能測量清醒、睡眠、麻醉與腦損傷受試者的意識程度。
+
+迄今最重要的檢驗之一，是 Cogitate Consortium（2025）報告的對抗性合作研究。其中與整合資訊理論相關的關鍵結果是：資料顯示後側皮質內沒有持續的同步。作者報告，這與「網路連結決定意識」這項核心預測相矛盾。
 
 ## 限制
 
-對於真實系統，Φ 極難計算。理論對非大腦系統的主張來自其公理，仍有爭議；見上方的對抗性合作。
+對於真實系統，Φ 極難計算。若以所有分割中的最小值來定義，就必須考慮切割系統的每一種方式，而方式的數目會隨元素數目迅速增長。這使得理論難以應用於人腦，更遑論其他系統。
+
+理論最引人注目的主張，涉及大腦以外的系統。Tononi 與 Koch（2015）主張，依理論所述，數位電腦即使表現出與人類相同的行為、甚至能忠實模擬人腦，也幾乎不會有任何經驗。這個結論來自公理與公設，因此取決於是否接受這些公理與公設，而許多研究者並不接受。
+
+形式化定義在不同版本之間也有所改變。Albantakis 等人（2023）提出 IIT 4.0，引入新的內在資訊測量，並更明確地處理因果關係。由於這些改變，依某一版本形式所得的結果，未必能直接移用到另一版本。
+
+最後，實證檢驗也對理論的某些預測提出挑戰。2025 年 Cogitate 的結果並未支持該理論的所有預測。這顯示該框架是可檢驗的，但尚未被證實。
+
+## 關鍵方法
+
+以下三種具代表性的替代理論，對意識的解釋方式與整合資訊不同：
+
+- [全域工作空間（Dehaene 與 Naccache，2001）](../global-workspace/index.md)：意識是一個表徵被全域廣播給許多歷程，因此它依賴存取，而非系統內在的結構。
+- 高階理論：當系統以更高一階的狀態表徵某狀態時，該狀態即為有意識的，因此這種說法立基於後設表徵。
+- [預測處理](../../predictive-coding/index.md)：意識與一個會預測並修正其輸入的大腦相連，因此以預測的功能來解釋。
 
 ## 連結
 
 - 母頁：[意識與心靈哲學](../index.md)
 - 同一主題的另一方法：[全域工作空間](../global-workspace/index.md)
+- 測量：Casali 等人（2013）的擾動複雜度指數，把此理論與腦損傷病人的臨床意識評估連結起來。關於測量覺察的更廣泛爭論，見[意識與心靈哲學](../index.md)。
+- 複雜度與資訊：理論對因果結構的使用，依賴於資訊可以在系統中測量的想法。關於此一般概念，見[計算神經科學](../../computational-neuroscience/index.md)。
+
+## 應用
+
+- **臨床評估。** Casali 等人（2013）描述一種指標，量化大腦對刺激反應的複雜度。作者報告，該指標能測量清醒、睡眠、麻醉與腦損傷受試者的意識程度。
+- **評估機器。** Tononi 與 Koch（2015）指出，依整合資訊理論，數位電腦即使執行任何軟體，幾乎不會有任何經驗。這個含義是該理論被用於機器意識辯論的原因之一。
+- **檢驗理論。** 2025 年的 Cogitate 合作研究被設計成能以資料檢驗理論的預測，可作為比較彼此競爭之意識理論的範例。
+
+## 未解問題
+
+- Φ 是否就是正確的測量？形式化定義已在不同版本之間改變，因此值得追問：應檢驗哪一個版本（若有的話）。
+- Φ 能否應用於足夠大、足以重要的系統？還是需要近似方法，而這些近似又有多好？
+- 理論對經驗的解釋能否延伸到非腦的系統？數位電腦的結論依賴於許多研究者並不接受的公理。
+- 2025 年研究中預測失準的情況應如何解讀？這是對理論不利，還是對某些特定版本不利？
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Nagel, T. (1974). What Is It Like to Be a Bat? *The Philosophical Review*. https://doi.org/10.2307/2183914 — 經典論證：主觀經驗無法完全由客觀描述捕捉。
-- Dehaene, S. & Naccache, L. (2001). Towards a cognitive neuroscience of consciousness: basic evidence and a workspace framework. *Cognition*. https://doi.org/10.1016/S0010-0277(00)00123-2 — 意識存取的全域工作空間理論，以及其背後的實驗證據。
-- Tononi, G. (2004). An information integration theory of consciousness. *BMC Neuroscience*. https://doi.org/10.1186/1471-2202-5-42 — 整合資訊理論，將意識與系統的整合資訊連結起來。
-- Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2787 — 提出大腦會最小化預測誤差，為感知、行動與學習提供統一框架。
-- Clark, A. (2013). Whatever next? Predictive brains, situated agents, and the future of cognitive science. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X12000477 — 將預測處理視為感知、行動與認知統一框架的綜述。
+- Tononi, G. (2004). An information integration theory of consciousness. *BMC Neuroscience*. https://doi.org/10.1186/1471-2202-5-42 — 理論的原始陳述，從經驗的性質推導出量 Φ，並將其應用於神經生物學觀察。
+- Oizumi, M., Albantakis, L. & Tononi, G. (2014). From the phenomenology to the mechanisms of consciousness: Integrated Information Theory 3.0. *PLoS Computational Biology*. https://doi.org/10.1371/journal.pcbi.1003588 — 給出 IIT 3.0 中 Φ 的形式化定義，使用星座之間的距離與最小資訊分割。
+- Casali, A. G. et al. (2013). A theoretically based index of consciousness independent of sensory processing and behavior. *Science Translational Medicine*. https://doi.org/10.1126/scitranslmed.3006294 — 提出源自整合資訊理論的臨床指標，以刺激下大腦反應的複雜度，測量清醒、睡眠、麻醉與腦損傷受試者。
+
+### 綜述與教科書
+
+- Tononi, G. & Koch, C. (2015). Consciousness: here, there and everywhere? *Philosophical Transactions of the Royal Society B*. https://doi.org/10.1098/rstb.2014.0167 — 綜述該理論的五項公理、公設與預測，包括漸進式意識與數位電腦的情形。
+- Tononi, G. et al. (2016). Integrated information theory: from consciousness to its physical substrate. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn.2016.44 — 綜述此理論，以及它對意識物理基質的說明。
+- Albantakis, L. et al. (2023). Integrated information theory (IIT) 4.0: formulating the properties of phenomenal existence in physical terms. *PLoS Computational Biology*. https://doi.org/10.1371/journal.pcbi.1011465 — 目前版本的理論陳述，包含新的內在資訊測量，並明確處理因果關係。
+- Cogitate Consortium et al. (2025). Adversarial testing of global neuronal workspace and integrated information theories of consciousness. *Nature*. https://doi.org/10.1038/s41586-025-08888-1 — 以 256 名參與者進行的預先註冊比較，顯示整合資訊與全域工作空間的哪些預測成立、哪些失敗。

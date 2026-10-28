@@ -1,46 +1,103 @@
 ---
-translation_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-10-28
 ---
 
-# 互補學習系統（McClelland, McNaughton & O'Reilly, 1995）
+# 互補學習系統（McClelland、McNaughton 與 O'Reilly，1995）
 
-快速的海馬迴儲存與緩慢的新皮質學習者，透過回放連結。
+大腦以兩套互相補足的系統學習：一個快速的海馬迴儲存器，負責個別情節；一個緩慢的新皮質學習者，負責建立一般知識。兩者透過回放（replay）連結。
+
+## 概觀
+
+學習系統面臨一個兩難。要記住一個新經驗，就必須快速改變其連結；要從許多經驗中學到一般知識，則必須緩慢改變，以免每個新項目覆寫既有的知識。大腦似乎用兩種結構解決了這個問題。海馬迴快速學習新的情節。新皮質則緩慢學習，並逐漸吸收海馬迴已儲存的內容。McClelland、McNaughton 與 O'Reilly（1995）主張，這種分工並非偶然：它是在保留快速學習能力的同時，避免災難性干擾的唯一安排。
+
+此理論已成為記憶研究的標準參照點，也是機器學習中回放概念的來源。它是記憶如何隨時間組織的主要說明之一，並與患者證據及長期增益的研究互相補充。
+
+## 關鍵概念
+
+- **海馬迴**：快速學習並儲存情節的腦區。依此理論，它使用稀疏、經過模式分離的編碼，使相似的經驗以不同的型態表徵。
+- **新皮質**：大腦皮質的外層。依此理論，它緩慢學習，使用分布且重疊的編碼，並在各情節之間萃取共享的結構。
+- **災難性干擾（catastrophic interference）**：在訓練新項目時若不與舊項目混合，網路會失去先前學到的內容。詞彙表中的對應術語為「災難性遺忘」。
+- **交錯學習（interleaved learning）**：以新舊項目混合的內容訓練，而非只用新項目訓練。
+- **回放（replay）**：已儲存活動型態的再活化。在海馬迴中，它讓新皮質能以過去的經驗來訓練。
 
 ## 問題
 
-大腦為何同時需要海馬迴與新皮質？為何單一網路的快速學習會抹除先前的學習？
+大腦為何同時需要海馬迴與新皮質？若單一網路能快速學習新項目，為什麼它會抹除先前學到的內容？以標準學習方法訓練的連結主義模型清楚顯示了這個問題：當網路依序學習新材料時，它會遺忘舊材料。1995 年的論文探問，一個學習系統需要怎樣的結構，才能避免這個問題，同時仍能快速學習新事物。
 
 ## 核心想法
 
-海馬迴以稀疏編碼快速儲存新項目，新皮質以重疊編碼緩慢學習。在皮質訓練時，透過重播已儲存的型態，讓新舊項目交錯學習。
+互補學習系統（CLS）框架提出兩個性質相反的學習系統。海馬迴快速儲存每個新項目，以稀疏編碼使項目彼此分開、不互相干擾。新皮質學習緩慢。它的編碼分布且重疊，因此能找出許多項目之間共享的結構，但若單獨學習新項目，它又會改變得太多。
+
+回放把兩者連結起來。海馬迴再活化最近儲存的型態，這些再活化被用來與其他較舊的材料一起訓練新皮質。每次再活化只會稍微改變皮質連結，因此新皮質能吸收新資訊，而不覆寫其已有的結構性知識。隨著時間推移，記憶對海馬迴的依賴會降低。O'Reilly 等人（2014）將此框架概括為：海馬迴是一個稀疏、經過模式分離的系統，負責快速學習情節記憶；新皮質則是一個分布且重疊的系統，逐步整合各情節，以萃取潛在的語意結構。
 
 ## 方程式或演算法
 
-在連結主義模擬中，快速學習器儲存新項目；以新舊項目交錯的訓練方式訓練緩慢學習器。
+1995 年的論文使用的是連結主義模擬，而非單一方程式。其程序可以寫成以下步驟：
+
+1. 在海馬迴儲存器中快速編碼每個新情節，使用稀疏編碼使其與其他情節保持分開。
+2. 在休息與睡眠期間，再活化已儲存的海馬迴型態，使其能回放給新皮質。
+3. 以混合的回放舊項目與新項目來訓練新皮質網路，而非只用新項目訓練。
+4. 在新皮質使用緩慢的學習率，使每次更新只改變其權重的一小部分。
+5. 隨著鞏固歷程推進，對已被新皮質吸收之項目的回憶，逐漸減少對海馬迴的依賴。
+
+新皮質更新的一般寫法為 $w \leftarrow w - \eta_{\text{ctx}} \nabla_w L(\mathcal{B})$，其中 $\eta_{\text{ctx}}$ 很小，而批次 $\mathcal{B}$ 混合了舊項目與新項目。這是用來說明概念的梯度下降記號，並非直接取自原論文的方程式。
 
 ## 結果
 
-依序訓練會抹除先前的項目（災難性干擾），交錯訓練則能避免。
+1995 年的論文報告了依序訓練與交錯訓練的模擬。當網路依序學習新事實，而不混入舊材料時，它能快速習得新事實，但對既有知識的表現急劇惡化。這就是災難性干擾。當新事實被加入完整的訓練集，與持續進行的範例混合時，網路學習它們的速度較慢，造成的干擾很少，並能把它們整合進既有的結構性知識。論文也把其網路與人類學習者在一個依序學習兩份清單的範式中作比較。網路幾乎完全失去了第一份清單，而人則保留了相當多。
+
+回放部分的支持來自神經記錄。Wilson 與 McNaughton（1994）在三隻大鼠進行空間任務時，以及隨後的慢波睡眠中，記錄了大量海馬迴位置細胞的集合。在行為期間一起放電的細胞，在之後的睡眠中一起放電的頻率較高，而且此效應在每個睡眠階段中逐漸減弱。作者認為，這反映了清醒經驗中的突觸改變，而清醒時習得的資訊會在睡眠中於海馬迴內重新表達。
+
+O'Reilly 等人（2014）回顧了此框架在之後數十年的發展，並總結認為，約十五年來的實證資料大體上證實了其關鍵原則。
 
 ## 限制
 
-這是概念性理論，依據模擬建立。Kumaran 等人（2016）在深度學習與重播的脈絡下重新檢視此理論。
+CLS 是一個概念性框架，主要以模擬與有限的實驗結果為依據。模擬中的網路遠比皮質簡單，而兩個系統之間的分工是關於大腦組織的假說，而非直接測量到的事實。此框架對於回放如何被選擇、哪些項目應被回放，以及睡眠與清醒經驗各自如何貢獻，著墨不多。
+
+此理論也已經過修正。O'Reilly 等人（2014）討論了海馬迴如何同時參與編碼與回憶，以及兩個系統如何互動。Kumaran、Hassabis 與 McClelland（2016）在現代學習系統的脈絡下重新檢視此框架，其標題即詢問智慧代理人需要哪些學習系統。他們的修正顯示，1995 年的說明是一個起點，而非定論。
+
+最後，此框架強調已習得知識的保留，而其他研究則主張遺忘也能帶來助益。Richards 與 Frankland（2017）主張，短暫性（即遺忘）有助於彈性的決策與泛化，因此學習系統同時需要持久與遺忘。這與 CLS 並不矛盾，但它改變了新皮質儲存器的功能定位。
+
+## 關鍵方法
+
+以下三種具代表性的替代說明，解釋記憶如何隨時間組織：
+
+- [內側顳葉損傷（Scoville 與 Milner，1957）](../medial-temporal-lesions/index.md)：患者證據顯示，形成新記憶需要海馬迴。CLS 是解釋這些證據最著名的理論。
+- [長期增益（Bliss 與 Lømo，1973）](../long-term-potentiation/index.md)：加強突觸的細胞機制。CLS 框架並未說明這種機制，兩者可以結合。
+- 標準鞏固說：記憶起初依賴海馬迴，隨時間逐漸不再依賴它，但沒有 CLS 所提出的特定分工。
 
 ## 連結
 
 - 母頁：[記憶與學習的神經機制](../index.md)
 - 同一主題的另一方法：[內側顳葉損傷](../medial-temporal-lesions/index.md)
 - 同一主題的另一方法：[長期增益](../long-term-potentiation/index.md)
+- 機器學習：持續學習中的回放，是交錯學習想法的直接後繼。見[持續學習中的回放與記憶](../../../theory/paradigms/continual/replay-and-memory/index.md)，以及處理災難性遺忘的[持續學習](../../../theory/paradigms/continual/index.md)範式。
+- 稀疏編碼：此理論歸於海馬迴的模式分離，在[稀疏編碼](../../computational-neuroscience/sparse-coding/index.md)中有所討論。
+
+## 應用
+
+- **機器學習中的回放。** 回放緩衝區與複習是持續學習中的標準工具，讓網路在學習新任務時不遺忘舊任務。CLS 常被引用為這個想法的起源，持續學習的相關頁面則說明各種方法。
+- **AI 系統的記憶設計。** 快速的情節儲存器與緩慢、共享的權重之間的分工，是結合外部記憶檢索與訓練模型之系統中常見的設計模式。這是一種設計類比，並非關於大腦的證據。
+- **理解失憶。** 海馬迴受損的患者仍能學習新技能，卻無法形成新的情節記憶，這與理論所提出的分工相符。見[內側顳葉損傷](../medial-temporal-lesions/index.md)頁面。
+
+## 未解問題
+
+- 回放如何選擇要再活化的記憶？這種選擇取決於重要性、新奇性還是情緒顯著性？
+- 新皮質的轉移有多少發生在睡眠中，又有多少發生在清醒的休息中？
+- 海馬迴是否保留每個情節的完整副本，還是只保留指向皮質痕跡的索引？答案會改變兩個系統分擔工作的方式。
+- 如 Richards 與 Frankland（2017）所主張，應如何在各系統之間平衡持久與遺忘？CLS 框架是否需要遺忘機制？
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Scoville, W. B. & Milner, B. (1957). Loss of recent memory after bilateral hippocampal lesions. *Journal of Neurology, Neurosurgery & Psychiatry*. https://doi.org/10.1136/jnnp.20.1.11 — 報告包括 H.M. 在內、雙側內側顳葉損傷的病人，確立這些結構對新記憶的作用。
-- Bliss, T. V. P. & Lømo, T. (1973). Long-lasting potentiation of synaptic transmission in the dentate area of the anaesthetized rabbit following stimulation of the perforant path. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1973.sp010273 — 長期增益的首次報告，許多記憶模型的突觸基礎。
-- McClelland, J. L., McNaughton, B. L. & O'Reilly, R. C. (1995). Why there are complementary learning systems in the hippocampus and neocortex: Insights from the successes and failures of connectionist models of learning and memory. *Psychological Review*. https://doi.org/10.1037/0033-295X.102.3.419 — 互補學習系統理論的原始版本，包含干擾與交錯學習的模擬。
+- McClelland, J. L., McNaughton, B. L. & O'Reilly, R. C. (1995). Why there are complementary learning systems in the hippocampus and neocortex: Insights from the successes and failures of connectionist models of learning and memory. *Psychological Review*. https://doi.org/10.1037/0033-295X.102.3.419 — 原始的 CLS 理論，以模擬顯示依序學習會產生災難性干擾，而交錯訓練能避免它。
+- Wilson, M. A. & McNaughton, B. L. (1994). Reactivation of hippocampal ensemble memories during sleep. *Science*. https://doi.org/10.1126/science.8036517 — 大鼠的記錄顯示，清醒行為時一起活動的海馬迴細胞，在之後的睡眠中更常一起放電，支持此說明中的回放部分。
 
 ### 綜述與教科書
 
-- Kumaran, D., Hassabis, D. & McClelland, J. L. (2016). What learning systems do intelligent agents need? Complementary learning systems theory updated. *Trends in Cognitive Sciences*. https://doi.org/10.1016/j.tics.2016.05.004 — 在深度學習、重播與兩個系統角色的脈絡下重新檢視此理論。
-- Richards, B. A. & Frankland, P. W. (2017). The persistence and transience of memory. *Neuron*. https://doi.org/10.1016/j.neuron.2017.04.037 — 主張遺忘有助於泛化，記憶應被理解為持久與短暫之間的平衡。
+- O'Reilly, R. C., Bhattacharyya, R., Howard, M. D. & Ketz, N. (2014). Complementary learning systems. *Cognitive Science*. https://doi.org/10.1111/j.1551-6709.2011.01214.x — 綜述此框架的核心想法及十五年來的支持證據，涵蓋編碼、回憶、鞏固與海馬迴—新皮質互動。
+- Kumaran, D., Hassabis, D. & McClelland, J. L. (2016). What learning systems do intelligent agents need? Complementary learning systems theory updated. *Trends in Cognitive Sciences*. https://doi.org/10.1016/j.tics.2016.05.004 — 修正後的 CLS 理論，詢問智慧代理人需要哪些學習系統，並結合回放與深度學習的脈絡。
+- Frankland, P. W. & Bontempi, B. (2005). The organization of recent and remote memories. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn1607 — 綜述近期與遠期記憶如何隨時間分布於海馬迴與皮質之間。
+- Richards, B. A. & Frankland, P. W. (2017). The persistence and transience of memory. *Neuron*. https://doi.org/10.1016/j.neuron.2017.04.037 — 主張遺忘有助於彈性決策與泛化，記憶應被理解為持久與短暫之間的平衡。
