@@ -2,7 +2,6 @@
 """Report the state of every wiki page: completeness, staleness, translations.
 
 Usage:
-    python scripts/wiki_status.py --format page   > includes/status.md
     python scripts/wiki_status.py --format issue  > health-report.md
     python scripts/wiki_status.py --check          # exit 1 on structural problems
 
@@ -374,20 +373,16 @@ def check(pages: list[Page]) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--format", choices=["page", "issue"], default="issue")
+    parser.add_argument("--format", choices=["issue"], default="issue")
     parser.add_argument("--check", action="store_true", help="validate structure and exit")
     args = parser.parse_args()
 
     pages = [load_page(p) for p in english_pages()]
     if args.check:
         return check(pages)
-    if args.format == "page":
-        # Included into docs/reference/roadmap/index.md, so links are relative to that folder.
-        print(render(pages, "../../", "###"))
-    else:
-        base = "https://github.com/zi-yue-1129/ai-wiki/blob/main/docs/"
-        print("This report is regenerated weekly by the `maintenance` workflow.\n")
-        print(render(pages, base, "##"))
+    base = "https://github.com/zi-yue-1129/ai-wiki/blob/main/docs/"
+    print("This report is regenerated weekly by the `maintenance` workflow.\n")
+    print(render(pages, base, "##"))
     return 0
 
 

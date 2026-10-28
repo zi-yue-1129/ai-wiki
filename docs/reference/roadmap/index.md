@@ -6,14 +6,9 @@ references: not-required  # lists and meta pages cite through their entries
 
 The goal of this wiki is **complete coverage of artificial intelligence**: how it works, how it relates to the brain and mind, and how every field uses it. This page tracks how far we are and what is still missing.
 
-- **Coverage status** below is generated automatically from the pages themselves on every deploy.
 - **Open chapters** are tracked as GitHub issues with the `chapter` label. Each missing topic and each unfinished page has one issue. Anyone can propose a topic with a [topic request](https://github.com/zi-yue-1129/ai-wiki/issues/new?template=topic-request.yml); accepted requests become chapter issues.
 
 To pick something up, see [Contributing](../contributing/index.md).
-
-## Coverage status
-
---8<-- "includes/status.md"
 
 ## Open chapters
 
@@ -36,4 +31,4 @@ The issues are the list, so this page does not repeat them. A pull request that 
 | Build and internal links | `mkdocs build --strict` and `scripts/wiki_status.py --check` on every PR | GitHub Actions |
 | External links | Weekly link check | Weekly health report issue |
 | Stale pages | Pages not reviewed for 12 months are listed for review | Weekly health report issue |
-| Translations | zh-TW pages older than their English page are flagged | Status above, weekly report |
+| Translations | zh-TW pages older than their English page are flagged | Weekly health report issue |
