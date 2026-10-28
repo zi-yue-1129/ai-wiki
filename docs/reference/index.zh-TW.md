@@ -8,6 +8,7 @@
 | [里程碑論文](papers/index.md) | 塑造 AI、受神經科學啟發的 AI 與認知科學的論文 |
 | [課程與書籍](courses-books/index.md) | 依主題分類的免費與開放學習資源 |
 | [資料集](datasets/index.md) | 各領域廣泛使用的資料集與基準 |
+| [模型與發表時間軸](timeline/index.zh-TW.md) | AI 的重要里程碑，從感知器到近期的大型模型 |
 | [貢獻指南](contributing/index.zh-TW.md) | 如何新增或改進頁面 |
 | [路線圖與涵蓋範圍](roadmap/index.md) | 已規劃的內容與尚缺的內容 |
 | [風格指南](style-guide/index.zh-TW.md) | 本維基的寫作慣例 |
