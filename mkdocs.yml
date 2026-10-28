@@ -265,6 +265,7 @@ plugins:
             Models: 模型與技術
             Transformers & Attention: Transformer 與注意力
             Attention Variants: 注意力變體
+            FlashAttention: FlashAttention
             Positional Encodings: 位置編碼
             KV Cache: KV 快取
             Attention Is All You Need: Attention Is All You Need 原始論文
@@ -851,7 +852,9 @@ nav:
               - theory/models/transformer/index.md
               - Attention Is All You Need: theory/models/transformer/attention-is-all-you-need/index.md
               - Additive Attention (Bahdanau): theory/models/transformer/bahdanau-attention/index.md
-              - Attention Variants: theory/models/transformer/attention-variants/index.md
+              - Attention Variants:
+                  - theory/models/transformer/attention-variants/index.md
+                  - FlashAttention: theory/models/transformer/attention-variants/flash-attention/index.md
               - Positional Encodings: theory/models/transformer/positional-encodings/index.md
               - KV Cache: theory/models/transformer/kv-cache/index.md
           - State-Space Models:

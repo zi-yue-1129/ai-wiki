@@ -55,7 +55,7 @@ Micikevicius et al. (2022) propose two 8-bit floating-point encodings, which the
 
 Krishnamoorthi (2018) reports that post-training 8-bit integer quantisation with per-channel weights keeps many CNNs within about 2 percent of floating-point accuracy, with speed-ups of roughly 2 to 3 times on CPUs and up to 10 times on fixed-point hardware.
 
-Dao et al. (2022) show that an attention kernel which avoids writing intermediate results to high-bandwidth memory is faster than the standard implementation while computing the same exact result.
+Dao et al. (2022) show that an attention kernel which avoids writing intermediate results to high-bandwidth memory is faster than the standard implementation while computing the same exact result. The method has its own page, [FlashAttention](../../../theory/models/transformer/attention-variants/flash-attention/index.md).
 
 Tan et al. (2018) build measured inference speed on a phone into the search objective of MnasNet, so that the search favours networks that balance accuracy and latency on the device, instead of relying on FLOPs as a proxy.
 
