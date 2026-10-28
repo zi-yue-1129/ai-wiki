@@ -62,7 +62,7 @@ Stereotypes in generated text and images, dialect bias (e.g. covert prejudice ag
 ## Accountability and transparency
 
 - Who is responsible when an AI-assisted decision harms someone? Developers, deployers, users?
-- Documentation (model cards, datasheets, system cards), audits, impact assessments
+- Documentation (model cards, datasheets, system cards), audits, impact assessments: see [Algorithmic Auditing and Impact Assessment](algorithmic-auditing.md)
 - Contestability: people should be able to challenge automated decisions
 
 ## Hidden labour and global justice
