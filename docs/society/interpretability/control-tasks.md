@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - society/interpretability
@@ -31,17 +31,17 @@ Build a control task by giving every word type a random output label. A represen
 
 ## Equation
 
-For a linguistic task \(T\) and its control \(C\), the selectivity of a probe is
+For a linguistic task $T$ and its control $C$, the selectivity of a probe is
 
-\[
+$$
 \mathrm{Sel} = \mathrm{Acc}_T - \mathrm{Acc}_C.
-\]
+$$
 
 Probes are compared by selectivity rather than by raw accuracy, which places each result in the context of the probe's capacity.
 
 ## Results
 
-The paper argues that selectivity places linguistic task accuracy in context with a probe's capacity to memorise word-type labels. The authors argue that probes which report high accuracy on linguistic tasks can also memorise word-type labels, so accuracy alone overstates what a representation contains.
+Hewitt and Liang argue that selectivity places linguistic task accuracy in context with a probe's capacity to memorise word-type labels. They report that probes with high accuracy on linguistic tasks can also memorise the random word-type labels of control tasks, so accuracy alone overstates what a representation contains. With default settings, the MLP probes were less selective than linear probes. For part-of-speech tagging, the linear probe reached selectivity 26.0 against 4.5 for a one-hidden-layer MLP, with similar linguistic accuracy (97.2 against 97.3).
 
 ## Limitations
 
@@ -49,12 +49,28 @@ The paper argues that selectivity places linguistic task accuracy in context wit
 - **Probe family.** Selectivity depends on the probe family being compared, so the same representation can receive different scores under different families.
 - **Scope.** Selectivity says whether the probe reads a property beyond memorisation; it does not show that the model uses the property.
 
+## Connections
+
+Control tasks are a check on [linear probes](linear-probes.md), and they are needed whenever probe accuracy is used as evidence in [representational similarity analysis](representational-similarity-analysis.md) or other representation studies. The probing family as a whole is described in [probing classifiers](probing.md). A control only tells whether a probe reads information; whether the model uses that information is a question for interventions, as in [mechanistic interpretability](mechanistic-interpretability.md).
+
+## Applications
+
+- Reporting selectivity alongside accuracy when publishing a probing result, so readers can judge the probe.
+- Choosing a probe capacity for a study by checking how much memorisation each capacity allows.
+- Auditing a model's representations before using them as features for a downstream task.
+
+## Open questions
+
+- How should a control task be designed for images, audio or other non-text inputs?
+- Is there a principled way to choose the probe capacity that makes selectivity meaningful?
+- How often do published probing results change once selectivity is reported?
+
 ## References
 
 ### Seminal papers
 
 - Hewitt, J. & Liang, P. (2019). Designing and Interpreting Probes with Control Tasks. *Proceedings of EMNLP-IJCNLP 2019*. https://doi.org/10.18653/v1/D19-1275 — Introduces control tasks and selectivity to separate probe memorisation from encoded information.
-- Alain, G. & Bengio, Y. (2016). Understanding intermediate layers using linear classifier probes. *arXiv preprint*. https://arxiv.org/abs/1610.01644 — The linear-probe method on which control tasks are built.
+- Alain, G. & Bengio, Y. (2016). Understanding intermediate layers using linear classifier probes. arXiv:1610.01644. https://arxiv.org/abs/1610.01644 — The linear-probe method on which control tasks are built.
 - Hewitt, J. & Manning, C. D. (2019). A Structural Probe for Finding Syntax in Word Representations. *Proceedings of NAACL-HLT 2019*. https://doi.org/10.18653/v1/N19-1419 — A probing study that reports on syntactic structure in contextual embeddings.
 
 ### Surveys and textbooks

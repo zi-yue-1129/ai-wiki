@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - society/interpretability
@@ -30,17 +30,17 @@ Treat the features as players in a game whose payoff is the model's prediction w
 
 ## Equation
 
-For feature set \(N\) and a value function \(v(S)\), which is the expected model output when only the features in \(S\) are known, the Shapley value of feature \(i\) is
+For feature set $N$ and a value function $v(S)$, the expected model output when only the features in $S$ are known, the Shapley value of feature $i$ is
 
-\[
+$$
 \phi_i = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!\,(|N|-|S|-1)!}{|N|!}\,\bigl[v(S \cup \{i\}) - v(S)\bigr].
-\]
+$$
 
-The explanation for a prediction is \(f(x) = \phi_0 + \sum_i \phi_i\), where \(\phi_0\) is the expected output over the background data.
+The explanation for a prediction is $f(x) = \phi_0 + \sum_i \phi_i$, where $\phi_0$ is the expected output over the background data.
 
 ## Results
 
-Lundberg and Lee report that their additive class of feature importance measures unifies six existing methods. The paper's claims are about this unification and about the properties the measures have; they do not establish that SHAP values are correct explanations of every model.
+Lundberg and Lee show that their class of additive feature attribution methods unifies six existing methods: LIME, DeepLIFT, layer-wise relevance propagation, Shapley regression values, Shapley sampling values and quantitative input influence. Each of these uses an explanation model of the same linear form. The paper's claims concern this unification and the properties the resulting measures have. They do not establish that SHAP values are correct explanations of every model.
 
 ## Limitations
 
@@ -48,6 +48,22 @@ Lundberg and Lee report that their additive class of feature importance measures
 - **Background choice.** Shapley values depend on the reference distribution used to fill in missing features.
 - **Correlated features.** Evaluating unlikely combinations of features can credit a feature that the model does not use.
 - **Causal reading.** A large value shows what the output depends on, not what causes the outcome.
+
+## Connections
+
+SHAP sits within [feature attribution](feature-attribution.md), next to [LIME](lime.md), [saliency maps](saliency-maps.md) and [integrated gradients](integrated-gradients.md). Its use of Shapley values comes from cooperative game theory, which is also the basis of many fair-allocation ideas in [ethics and fairness](../ethics/index.md). Unlike the gradient methods, SHAP does not need gradients, so it applies to tabular models and to models that are not differentiable.
+
+## Applications
+
+- Explaining predictions of credit, risk and clinical models to analysts who must check them.
+- Ranking features across a dataset by their average absolute Shapley value, as a global summary.
+- Auditing a model for dependence on a sensitive attribute, with the limits described above.
+
+## Open questions
+
+- How should the background distribution be chosen when features are strongly correlated?
+- When do approximate Shapley values differ enough from exact ones to change the explanation?
+- Do Shapley-based explanations help people make better decisions, not only feel more confident?
 
 ## References
 
@@ -60,4 +76,8 @@ Lundberg and Lee report that their additive class of feature importance measures
 ### Surveys and textbooks
 
 - Sundararajan, M., Taly, A. & Yan, Q. (2017). Axiomatic Attribution for Deep Networks. *Proceedings of ICML 2017*. https://arxiv.org/abs/1703.01365 — Integrated gradients, a neural-network attribution method that SHAP's framework also covers.
-- Molnar, C. *Interpretable Machine Learning: A Guide for Making Black Box Models Explainable*, 3rd edition. https://christophm.github.io/interpretable-ml-book/ — Free online book with a chapter on Shapley values and SHAP.
+- Adebayo, J. et al. (2018). Sanity Checks for Saliency Maps. *Advances in Neural Information Processing Systems 31*. https://arxiv.org/abs/1810.03292 — Shows that some attribution maps fail basic tests, a caution that applies to any explanation method.
+
+## Further learning
+
+- Molnar, C. *Interpretable Machine Learning: A Guide for Making Black Box Models Explainable*, 3rd edition. [Free online book](https://christophm.github.io/interpretable-ml-book/), with a chapter on Shapley values and SHAP.
