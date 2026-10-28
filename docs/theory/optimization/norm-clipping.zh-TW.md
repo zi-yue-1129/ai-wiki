@@ -57,7 +57,6 @@ translation_reviewed: 2026-10-28
 - Pascanu, R., Mikolov, T. & Bengio, Y. (2013). *On the Difficulty of Training Recurrent Neural Networks*. ICML. https://arxiv.org/abs/1211.5063 — 提出以梯度範數裁剪處理梯度爆炸，並分析循環網路中的梯度消失。
 - You, Y., Gitman, I. & Ginsburg, B. (2017). *Large Batch Training of Convolutional Networks*. arXiv. https://arxiv.org/abs/1708.03888 — 對整體步長的逐層替代做法。
 - Goyal, P., et al. (2017). *Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour*. arXiv. https://arxiv.org/abs/1706.02677 — 以預熱處理訓練初期不穩定的另一種做法。
-- Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR. https://arxiv.org/abs/1412.6980 — 與梯度大小控制相關的自適應更新，供比較之用。
 
 ### 綜述與教科書
 
