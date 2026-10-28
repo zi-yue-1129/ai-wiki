@@ -1,53 +1,106 @@
 ---
-translation_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-10-28
 ---
 
 # Hodgkin–Huxley 模型（Hodgkin & Huxley, 1952）
 
-以離子通道與門控變數建立的神經元膜電位電導模型。
+一種神經元膜電位的電導模型：離子通道的電導由閘控變數控制，並產生動作電位。
+
+## 概覽
+
+神經元以短暫的電脈衝（稱為動作電位或脈衝）彼此溝通。1950 年代初，Alan Hodgkin 與 Andrew Huxley 測量了烏賊巨大軸突細胞膜兩側的離子電流，並寫出一組能重現動作電位的方程式。他們 1952 年的論文是多數生物物理神經元模型的基礎。它把個別離子通道的行為與整個細胞的電壓連結起來，也是神經科學中，以及[脈衝神經網路](../../snn-neuromorphic/index.md)中所用的較簡單脈衝模型的參照點。
+
+## 關鍵概念
+
+- **膜電位（V）**：細胞膜兩側的電壓差。
+- **離子通道（ion channel）**：細胞膜上的孔道，讓特定離子（例如鈉離子 Na⁺ 或鉀離子 K⁺）通過。許多通道會依電壓而開啟或關閉。
+- **電導（conductance, g）**：一組通道讓電流通過的難易程度。最大電導 $\bar g$ 乘以開放通道的比例，即為某一時刻的電導。
+- **閘控變數（gating variable，m、h、n）**：介於 0 與 1 之間的量，描述通道閘門開啟的比例。每一個都會朝向依電壓而定的數值鬆弛。
+- **反轉電位（reversal potential, E）**：某一類通道的電流為零時的電壓，由細胞膜兩側的離子濃度決定。
+- **動作電位（action potential）**：膜電位快速而定型地上升與下降，沿軸突傳遞訊號。
 
 ## 問題
 
-動作電位如何由跨越烏賊巨大軸突細胞膜的離子流動產生？
+動作電位如何由跨越神經細胞膜的離子移動產生？在這項研究之前，離子電流只被粗略測量。問題在於，由測得的電流建立的定量模型，能否解釋觀察到的脈衝形狀，以及它沿軸突的傳播。
 
 ## 核心想法
 
-細胞膜被視為一個電容，與電壓門控的鈉、鉀電導以及漏電流並聯。三個閘控變數（m、h、n）各自朝向依電壓而定的數值鬆弛，並控制電導。
+細胞膜被建模為一個電容，與三條電導路徑並聯：一條是鈉、一條是鉀，另一條是漏電流。當細胞膜去極化時，鈉電導迅速上升，把電壓進一步推高；隨後鈉電導失活，而鉀電導上升得較慢，使電壓回落。每個閘控變數都遵循各自的一階動力學，其速率依電壓而定。模型在固定溫度下擬合測得的電流，而論文再把速率換算到其他溫度。
 
 ## 方程式或演算法
 
-（採用現代的符號慣例）
+依照論文所用的慣例，$V$ 是膜電位相對於靜息狀態的位移，去極化會使 $V$ 為負值。許多現代教科書會翻轉這個符號。膜方程式為
 
-\[
-C\frac{dV}{dt} = I - g_{Na}\,m^3 h\,(V - E_{Na}) - g_K\,n^4\,(V - E_K) - g_L\,(V - E_L)
-\]
+$$C_M \frac{dV}{dt} = I - \bar g_{Na}\, m^3 h\,(V - V_{Na}) - \bar g_K\, n^4\,(V - V_K) - \bar g_L\,(V - V_L)$$
 
-\[
-\frac{dx}{dt} = \alpha_x(V)\,(1 - x) - \beta_x(V)\,x, \qquad x \in \{m, h, n\}
-\]
+其中 $C_M$ 是膜電容，$I$ 是注入電流，$\bar g$ 是最大電導，$V_{Na}$、$V_K$、$V_L$ 是反轉電位。每個閘控變數 $x \in \{m, h, n\}$ 遵循
+
+$$\frac{dx}{dt} = \alpha_x(V)\,(1 - x) - \beta_x(V)\,x$$
+
+依論文的單位（V 以 mV 計，速率以 ms⁻¹ 計，溫度為 6.3 °C），速率函數為
+
+$$\alpha_n = \frac{0.01\,(V+10)}{e^{(V+10)/10}-1}, \qquad \beta_n = 0.125\, e^{V/80}$$
+
+$$\alpha_m = \frac{0.1\,(V+25)}{e^{(V+25)/10}-1}, \qquad \beta_m = 4\, e^{V/18}$$
+
+$$\alpha_h = 0.07\, e^{V/20}, \qquad \beta_h = \frac{1}{e^{(V+30)/10}+1}$$
+
+論文以溫度係數（Q10）3 將這些速率換算到其他溫度。模擬此模型的步驟如下：
+
+1. 把 $V$ 設為靜息值，並把每個閘控變數設為該電壓下的穩態值。
+2. 在每個時間步，依目前的 $V$ 計算每個閘門的 $\alpha$ 與 $\beta$。
+3. 以閘控方程式更新 $m$、$h$ 與 $n$。
+4. 依電導計算鈉、鉀與漏電流。
+5. 依膜方程式（包括任何注入電流 $I$）更新 $V$，然後重複。
 
 ## 結果
 
-模擬出的動作電位形狀與烏賊軸突的記錄相符，並重現了動作電位沿軸突傳播的情形。
+計算出的動作電位，其形狀與時間過程與烏賊軸突的記錄脈衝相符。論文將計算結果與記錄比較：計算出的閾值約為 6 mV，而實驗測得約為 8 mV。
+
+在傳播方面，論文把模型與纜線理論（cable theory）結合。在 18.5 °C 時，計算出的傳導速度為 18.8 m/s，同一纖維的觀測速度為 21.2 m/s，因此在此標本中，計算值比測量值低約 11%。
 
 ## 限制
 
-只根據單一標本、單一溫度擬合，沒有樹突結構。每個區室四個耦合方程，對大型網路計算成本高，因此上表中較簡單的 LIF 與 Izhikevich 模型才這麼常見。
+模型只根據一種標本（烏賊巨大軸突）與有限幾種溫度擬合。其他溫度的速率是換算而來，而非直接測量。模型除了纜線結構外沒有空間結構，因此不含樹突，也不含後來神經元中發現的許多其他通道類型。每個區室四個耦合方程式，在大型網路中模擬成本高，這也是 Izhikevich（2003）等較簡單脈衝模型常被採用的原因。這些速率描述的是一種軸突在一定溫度範圍內的情形，同一框架後來已被應用於其他通道類型。因此，1952 年的速率應被視為一種標本的模型，而非普遍定律。
+
+## 關鍵方法
+
+以下簡要比較三種具代表性的脈衝神經元模型：
+
+- **Hodgkin–Huxley**（本頁）：四個狀態變數，每一項都對應測得的離子電流。它具有生物物理上的可解釋性，但模擬成本高。
+- [**Izhikevich 模型**（2003）](../../snn-neuromorphic/index.md)：兩個變數加上重設規則。它以低計算成本重現多種皮質的發放與爆發型態，適用於大型網路比細緻的通道機制更重要的情況。
+- **洩漏積分發放（leaky integrate-and-fire）**：一個變數，累積輸入，並在超過閾值時發出脈衝並重設。三者中它最便宜，但沒有脈衝形狀，也沒有離子通道。
 
 ## 連結
 
 - 母頁：[計算神經科學](../index.md)
-- 同一主題的另一方法：[稀疏編碼](../sparse-coding/index.md)
+- 相關方法：[稀疏編碼](../sparse-coding/index.md)，是皮質如何表示影像的規範性解釋。它與本頁的生物物理處於不同層級。
+- [脈衝神經網路與神經形態運算](../../snn-neuromorphic/index.md)使用這個模型所啟發的簡化脈衝神經元。
+- [神經科學基礎](../../neuroscience/index.md)為初學者介紹神經元、突觸與離子通道。
+
+## 應用
+
+- **研究模擬。** Hodgkin–Huxley 型的電導模型用來測試通道電導的改變如何影響神經元的興奮性。Gerstner 等人（2014）在教科書中把 Hodgkin–Huxley 方程式列為單一神經元模型之一。
+- **設計較簡單的模型。** Izhikevich（2003）結合了 Hodgkin–Huxley 式動力學的生物真實性，以及洩漏積分發放模型的效率，使非常大的脈衝網路得以模擬。
+- **教學。** 此模型是標準的範例：物理機制（離子經由閘控通道流動）如何成為可模擬、可檢驗的訊號方程式。
+
+## 未解問題
+
+- 依烏賊軸突擬合的參數，對其他物種與細胞類型的神經元有多少描述力？
+- 電導模型如何延伸到樹突與大型網路，同時保留其參數的生物物理意義？
+- 哪些簡化模型能保留完整模型的功能行為，同時維持低成本的模擬？
+- 離子通道的多樣性如何影響皮質中的學習與計算？
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Hodgkin, A. L. & Huxley, A. F. (1952). A quantitative description of membrane current and its application to conduction and excitation in nerve. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1952.sp004764 — 推導動作電位的四變數電導模型，是多數生物物理神經元模型的基礎。
-- Izhikevich, E. M. (2003). Simple model of spiking neurons. *IEEE Transactions on Neural Networks*. https://doi.org/10.1109/TNN.2003.820440 — 雙變數模型，以低計算成本重現多種皮質發放型態。
-- Olshausen, B. A. & Field, D. J. (1996). Emergence of simple-cell receptive field properties by learning a sparse code for natural images. *Nature*. https://doi.org/10.1038/381607a0 — 顯示自然影像的稀疏編碼會產生類似 V1 簡單細胞的定向局部濾波器。
-- Richards, B. A. et al. (2019). A deep learning framework for neuroscience. *Nature Neuroscience*. https://doi.org/10.1038/s41593-019-0520-2 — 主張以目標函數、學習規則與架構來研究大腦。
+- Hodgkin, A. L. & Huxley, A. F. (1952). A quantitative description of membrane current and its application to conduction and excitation in nerve. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1952.sp004764 — 從測得的烏賊軸突電流，推導動作電位的四變數電導模型及其計算出的傳導速度。
+- Izhikevich, E. M. (2003). Simple model of spiking neurons. *IEEE Transactions on Neural Networks*. https://doi.org/10.1109/TNN.2003.820440 — 雙變數模型，以低計算成本重現多種皮質的發放與爆發型態。
+- Olshausen, B. A. & Field, D. J. (1996). Emergence of simple-cell receptive field properties by learning a sparse code for natural images. *Nature*. https://doi.org/10.1038/381607a0 — 顯示自然影像的稀疏編碼會產生類似 V1 簡單細胞的局部、定向、帶通濾波器。
+- Richards, B. A. et al. (2019). A deep learning framework for neuroscience. *Nature Neuroscience*. https://doi.org/10.1038/s41593-019-0520-2 — 主張以目標函數、學習規則與架構來研究大腦，生物物理模型也置於此框架之中。
 
 ### 綜述與教科書
 
-- Gerstner, W., Kistler, W. M., Naud, R. & Paninski, L. (2014). *Neuronal Dynamics*. Cambridge University Press. https://neuronaldynamics.epfl.ch/ — 免費線上教科書，從單一神經元模型到網路與學習規則。
+- Gerstner, W., Kistler, W. M., Naud, R. & Paninski, L. (2014). *Neuronal Dynamics*. Cambridge University Press. https://doi.org/10.1017/CBO9781107447615 — 教科書，從包含 Hodgkin–Huxley 方程式的單一神經元模型，講到網路與學習規則。線上免費版見 https://neuronaldynamics.epfl.ch/。
