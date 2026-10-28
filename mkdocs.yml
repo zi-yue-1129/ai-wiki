@@ -545,6 +545,7 @@ nav:
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md
+      - Inference Optimization: engineering/inference-optimization/index.md
       - MLOps & Deployment: engineering/mlops/index.md
       - AI Hardware: engineering/hardware/index.md
   - AI & Society:
