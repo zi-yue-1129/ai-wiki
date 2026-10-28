@@ -233,6 +233,9 @@ plugins:
             AdamW: AdamW
             Adaptive Methods: 自適應方法
             Second-Order Methods: 二階方法
+            L-BFGS: L-BFGS
+            K-FAC: K-FAC
+            Shampoo: Shampoo
             Learning-Rate Schedules: 學習率排程
             Gradual Warm-up: 漸進式預熱
             Cosine Annealing with Warm Restarts: 附暖重啟的餘弦退火
@@ -383,6 +386,12 @@ plugins:
             Emotion & Affective Computing: 情緒與情感運算
             Circumplex Model of Affect (Russell 1980): 情感的環狀模型（Russell，1980）
             Emotion Circuits (LeDoux 2000): 大腦中的情緒迴路（LeDoux，2000）
+            Neuroimaging & Recording Methods: 神經影像與記錄方法
+            Developmental Cognition & How Children Learn: 發展認知與兒童如何學習
+            Violation of Expectation (Baillargeon et al. 1985): 違反預期範式（Baillargeon 等人，1985）
+            Statistical Learning in Infants (Saffran et al. 1996): 嬰兒的統計學習（Saffran 等人，1996）
+            BOLD fMRI (Ogawa et al. 1990): BOLD 功能性磁振造影（Ogawa 等人，1990）
+            Simultaneous fMRI and Electrophysiology (Logothetis et al. 2001): 功能性磁振造影與電生理同步記錄（Logothetis 等人，2001）
             Performance-Optimised Networks (Yamins et al. 2014): 效能最佳化的網路（Yamins 等人，2014）
             Shape Bias in CNNs (Geirhos et al. 2019): CNN 的形狀偏好（Geirhos 等人，2019）
             Applications: 領域應用
@@ -471,6 +480,7 @@ plugins:
             Reference: 參考
             Glossary: 名詞對照表
             People and Research Labs: 人物與研究室
+            FAQ: 常見問題
             Landmark Papers: 經典論文
             Courses & Books: 課程與書籍
             Datasets: 資料集
@@ -546,7 +556,11 @@ nav:
               - theory/optimization/adaptive/index.md
               - Adam: theory/optimization/adaptive/adam.md
               - AdamW: theory/optimization/adaptive/adamw.md
-          - Second-Order Methods: theory/optimization/second-order.md
+          - Second-Order Methods:
+              - theory/optimization/second-order.md
+              - L-BFGS: theory/optimization/lbfgs.md
+              - K-FAC: theory/optimization/kfac.md
+              - Shampoo: theory/optimization/shampoo.md
           - Learning-Rate Schedules:
               - theory/optimization/learning-rate-schedules.md
               - Gradual Warm-up: theory/optimization/gradual-warm-up.md
@@ -789,6 +803,10 @@ nav:
           - Dual-Stream Model (Hickok & Poeppel 2007): brain-mind/language-in-brain/hickok-poeppel-2007/index.md
           - Language Models Predict Brain Responses (Schrimpf et al. 2021): brain-mind/language-in-brain/schrimpf-2021/index.md
           - Shared Computational Principles (Goldstein et al. 2022): brain-mind/language-in-brain/goldstein-2022/index.md
+      - Neuroimaging & Recording Methods:
+          - brain-mind/neuroimaging-methods/index.md
+          - BOLD fMRI (Ogawa et al. 1990): brain-mind/neuroimaging-methods/bold-fmri/index.md
+          - Simultaneous fMRI and Electrophysiology (Logothetis et al. 2001): brain-mind/neuroimaging-methods/fmri-electrophysiology/index.md
       - Emotion & Affective Computing:
           - brain-mind/emotion/index.md
           - Circumplex Model of Affect (Russell 1980): brain-mind/emotion/circumplex-model/index.md
@@ -809,6 +827,10 @@ nav:
           - brain-mind/visual-perception/index.md
           - Performance-Optimised Networks (Yamins et al. 2014): brain-mind/visual-perception/yamins-2014/index.md
           - Shape Bias in CNNs (Geirhos et al. 2019): brain-mind/visual-perception/geirhos-2019/index.md
+      - Developmental Cognition & How Children Learn:
+          - brain-mind/developmental-cognition/index.md
+          - Violation of Expectation (Baillargeon et al. 1985): brain-mind/developmental-cognition/violation-of-expectation/index.md
+          - Statistical Learning in Infants (Saffran et al. 1996): brain-mind/developmental-cognition/statistical-learning/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
@@ -915,6 +937,7 @@ nav:
       - reference/index.md
       - Glossary: reference/glossary/index.md
       - People and Research Labs: reference/people-and-labs/index.md
+      - FAQ: reference/faq/index.md
       - Landmark Papers: reference/papers/index.md
       - Courses & Books: reference/courses-books/index.md
       - Datasets: reference/datasets/index.md
