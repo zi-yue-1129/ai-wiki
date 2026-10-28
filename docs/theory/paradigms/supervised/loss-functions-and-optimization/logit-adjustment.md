@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
   - class imbalance
@@ -21,7 +21,7 @@ A classifier trained on long-tailed data learns scores that favour the head clas
 
 ## Core idea
 
-Menon et al. add an offset $\log \pi_y$ to each class's logit, where $\pi_y$ is the class prior. Subtracting the log-prior from the logits before choosing the largest score makes the decision rule behave as if the classes were balanced. The method changes the margin between rare and dominant labels rather than the learned features.
+Menon et al. shift each class's logit by $-\tau \log \pi_y$ at prediction time, where $\pi_y$ is the class prior and $\tau > 0$ is a scalar (their Equation 9). The same offset can also be built into the training loss. Subtracting the log-prior before choosing the largest score makes the decision rule behave as if the classes were balanced. The method changes the margin between rare and dominant labels rather than the learned features.
 
 ## How it works
 
@@ -33,7 +33,7 @@ The post-hoc version needs no retraining and only one scalar per class in the pr
 
 ## Results
 
-Menon et al. evaluate the method on long-tailed benchmarks, including CIFAR and iNaturalist splits, measuring balanced error. The numbers depend on the setting and are reported in the paper; check them there before use.
+Menon et al. evaluate the method on long-tailed benchmarks, measuring balanced error. The numbers depend on the setting and are reported in the paper; check them there before use.
 
 ## Limitations
 

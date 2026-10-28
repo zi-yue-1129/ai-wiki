@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/models/transformer
@@ -17,7 +17,7 @@ aliases:
 
 # Mixtral 8x7B
 
-Mixtral 8x7B is an open-weight sparse Transformer in which each layer has eight feed-forward experts and a router that selects two of them for each token. Jiang et al. (2024) report that it has 47 billion parameters in total but uses only 13 billion of them for each token. The parent overview is [Mixture of Experts](index.md).
+Mixtral 8x7B is an open-weight sparse Transformer in which each layer has eight feed-forward experts and a router that selects two of them for each token. Jiang et al. (2024) report that each token has access to 47 billion parameters, but uses only 13 billion of them during inference. The parent overview is [Mixture of Experts](index.md).
 
 ## Overview
 
@@ -33,11 +33,11 @@ In each layer, a router scores the eight experts for the current token and sends
 
 ## Algorithm
 
-For the hidden state \(h\) of a token, the router computes scores over the eight experts, selects the top two, and returns a weighted sum of their feed-forward outputs. The attention layers are shared across all tokens and are not sparse. The same routing is applied in every layer.
+For the hidden state \(h\) of a token, the router computes scores over the eight experts, selects the top two, and returns a weighted sum of their feed-forward outputs. In this design only the feed-forward block is sparse; the attention layers are ordinary dense layers. The same top-two routing is applied in every layer.
 
 ## Key results
 
-The abstract reports that each token has access to 47 billion parameters but uses 13 billion during inference. It says the model vastly outperforms Llama 2 70B on mathematics, code generation and multilingual benchmarks, and that it outperforms or matches Llama 2 70B and GPT-3.5 across all evaluated benchmarks. The abstract gives the comparisons in words, so this page quotes no individual benchmark scores.
+The abstract reports that each token has access to 47 billion parameters but uses 13 billion during inference. It says the model outperforms or matches Llama 2 70B and GPT-3.5 across all evaluated benchmarks. The abstract gives the comparisons in words, so this page quotes no individual benchmark scores.
 
 ## Limitations
 
@@ -55,7 +55,6 @@ The abstract reports that each token has access to 47 billion parameters but use
 ## Applications
 
 - Open-weight deployment of a large model where per-token compute must stay near that of a smaller model.
-- Multilingual and code-generation tasks, where the paper reports the largest gains.
 
 ## Open questions
 
