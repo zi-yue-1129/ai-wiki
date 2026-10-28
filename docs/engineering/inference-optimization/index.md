@@ -58,6 +58,7 @@ Each named method has its own page, which gives the problem, the core idea, the 
 | Grouped-query attention | Multi-query attention can lose too much quality | Groups of query heads share one key-value head | Cache is larger than multi-query | [Grouped-query attention](grouped-query-attention.md) |
 | KV cache compression and eviction | Stored keys and values fill memory at long context | Keep fewer tokens, or store fewer bits per value | Accuracy can fall on tasks that need dropped content | [KV cache compression](kv-cache-compression.md) |
 | Disaggregated prefill and decode | Prefill and decode interfere when they share one GPU | Run the two phases on separate pools and move the KV cache between them | Cache transfer cost, and harder balancing of two pools | [Disaggregated prefill and decode](disaggregated-serving.md) |
+| Mixture-of-experts serving | Total parameters exceed what each token uses, and experts are unevenly used | Route each token to a few experts, sharded across devices or offloaded | All-to-all traffic, load imbalance and transfer delay | [Serving mixture-of-experts models](moe-serving.md) |
 
 ## Connections
 
