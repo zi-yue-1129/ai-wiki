@@ -53,13 +53,13 @@ Each criterion in the table has a page of its own: [Demographic parity](demograp
 
 **Equalised odds and equal opportunity.** Hardt, Price and Srebro (2016) define equalised odds and its weaker form, equal opportunity, and show how to build post-processing rules that meet them, using group-specific thresholds applied to a fixed score.
 
-**Fairness through unawareness.** Removing \(A\) from the inputs is the simplest policy, but other features (postcode, education, purchase history) can act as proxies. Hardt et al. (2016) and Dwork et al. (2012) both note that a model can discriminate without ever seeing the protected attribute.
+**Fairness through unawareness.** Removing \(A\) from the inputs is the simplest policy, but other features (postcode, education, purchase history) can act as proxies. Kusner et al. (2017) argue that this is why unawareness can fail: a model can discriminate without ever seeing the protected attribute.
 
 ### Impossibility results
 
 Two results show that the main group criteria conflict when base rates differ and the predictor is not perfect.
 
-- **Kleinberg, Mullainathan and Raghavan (2016)** show that three conditions cannot hold together: calibration within groups, balance for the positive class (equal average scores for true positives across groups), and balance for the negative class. Their abstract states that, except in highly constrained special cases, no method can satisfy the three conditions simultaneously.
+- **Kleinberg, Mullainathan and Raghavan (2017)** show that three conditions cannot hold together: calibration within groups, balance for the positive class (equal average scores for true positives across groups), and balance for the negative class. They prove that if a risk assignment satisfies all three, the instance must allow perfect prediction or the two groups must have the same base rate.
 - **Chouldechova (2017)** shows, for binary predictions, that predictive parity, equal false-positive rates and equal false-negative rates cannot all hold when base rates differ. She applies this result to the risk instruments studied in the COMPAS debate.
 
 The practical consequence is that a model can be calibrated and still have unequal error rates, or it can have equal error rates and unequal precision. Choosing between these outcomes is a choice about which harm matters more.
@@ -103,13 +103,13 @@ On the machine-learning side, the definitions are the target of fairness toolkit
 
 - Dwork, C. et al. (2012). Fairness through awareness. *Proceedings of ITCS 2012*. https://doi.org/10.1145/2090236.2090255 — Introduces individual fairness as a Lipschitz condition on a task-specific similarity metric.
 - Hardt, M., Price, E. & Srebro, N. (2016). Equality of Opportunity in Supervised Learning. *Advances in Neural Information Processing Systems 29*. https://arxiv.org/abs/1610.02413 — Defines equal opportunity and equalised odds and gives a post-processing method to achieve them.
-- Kleinberg, J., Mullainathan, S. & Raghavan, M. (2017). Inherent Trade-Offs in the Fair Determination of Risk Scores. *Proceedings of ITCS 2017*. https://arxiv.org/abs/1609.05807 — Proves that calibration and balance conditions cannot hold together when base rates differ.
+- Kleinberg, J., Mullainathan, S. & Raghavan, M. (2017). Inherent Trade-Offs in the Fair Determination of Risk Scores. *Proceedings of ITCS 2017*. https://doi.org/10.4230/LIPIcs.ITCS.2017.43 — Proves that calibration and balance conditions cannot hold together when base rates differ, except with perfect prediction.
 - Chouldechova, A. (2017). Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments. *Big Data*, 5(2), 153–163. https://doi.org/10.1089/big.2016.0047 — Shows that predictive parity and error-rate balance are incompatible under unequal base rates, using recidivism tools as the case.
 - Corbett-Davies, S., Pierson, E., Feller, A. & Goel, S. (2017). Algorithmic Decision Making and the Cost of Fairness. *Proceedings of KDD 2017*. https://doi.org/10.1145/3097983.3098095 — Reformulates fairness as constrained optimisation of public safety, using pretrial detention decisions.
 
 ### Surveys and textbooks
 
-- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — Surveys fairness definitions, as its title states.
+- Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K. & Galstyan, A. (2021). A Survey on Bias and Fairness in Machine Learning. *ACM Computing Surveys*, 54(6), 1–35. https://doi.org/10.1145/3457607 — A survey of sources of bias and of the fairness definitions used to measure it.
 - Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — Free textbook covering these definitions, their trade-offs and their social context.
 
 ## Further learning

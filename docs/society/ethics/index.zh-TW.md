@@ -28,7 +28,7 @@
 | 個體公平 | 相似的個體受到相似的對待 |
 | 反事實公平 | 若受保護屬性不同，預測結果不變 |
 
-**不可能性結果**：當基礎比率不同時，校準與相等的錯誤率一般無法同時成立（Kleinberg, Mullainathan & Raghavan, 2016；Chouldechova, 2017）——這正是 COMPAS 爭議的核心。選擇哪種準則是價值判斷，而不是技術判斷。
+**不可能性結果**：當基礎比率不同時，校準與相等的錯誤率一般無法同時成立（Kleinberg, Mullainathan & Raghavan, 2017；Chouldechova, 2017）——這正是 COMPAS 爭議的核心。選擇哪種準則是價值判斷，而不是技術判斷。
 
 詳細的定義與不可能性證明見[公平性定義與不可能性結果](fairness-definitions.md)。每個準則都有各自的頁面：[人口統計均等](demographic-parity.md)、[機會均衡](equalised-odds.md)、[群體內校準](calibration-within-groups.md)、[個體公平](individual-fairness.md)與[反事實公平](counterfactual-fairness.md)。
 
