@@ -63,7 +63,7 @@ Bai et al.（2022）仍保留少量人類的有用性標註，使模型在無害
 以下方法共享偏好學習的概念。這裡簡要比較，細節請見連結的頁面。
 
 - [RLHF](../../theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md)（Christiano et al., 2017；Ouyang et al., 2022）：人類比較訓練獎勵模型，再引導強化學習。
-- **RLAIF**（Lee et al., 2024）：在相同的流程中以 AI 標註取代人類標註。改變的是標註來源，學習程序不變。
+- [**RLAIF**](rlaif.md)（Lee et al., 2024）：在相同的流程中以 AI 標註取代人類標註。改變的是標註來源，學習程序不變。
 - **憲法式 AI**（Bai et al., 2022）：RLAIF 加上由書面憲法引導的批判與修訂。
 - [DPO](../../theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo/index.md)（Rafailov et al., 2023）：移除明確的獎勵模型，直接以偏好配對擬合策略。由 AI 產生的配對同樣可以用於 DPO。
 

@@ -44,9 +44,12 @@
 
 - [規格博弈與獎勵駭客](reward-hacking.md)：針對代理獎勵做最佳化，直到它偏離目標。
 - [可擴展的監督](scalable-oversight.md)：辯論、分解與由弱到強的泛化。
+- [AI 辯論](debate.md)：兩位辯者為相反的答案辯論，由評審判斷，並討論人類評審的實驗證據。
 - [憲法式 AI 與 RLAIF](constitutional-ai.md)：以原則引導的自我批判與 AI 偏好標註。
+- [RLAIF](rlaif.md)：以語言模型產生的偏好標註訓練獎勵模型，並與 RLHF 比較。
 - [模型規範](model-specs.md)：說明預期行為的書面規範、指令層級與稽核。
 - [欺騙性對齊與潛伏代理](deceptive-alignment.md)：欺騙性對齊的論證與實驗證據。
+- [潛伏代理](sleeper-agents.md)：在標準安全訓練後仍持續存在的後門，以及實驗能說明與無法說明的事。
 - [危險能力評估](dangerous-capability-evals.md)：部署前測試與前沿安全框架。
 
 ## 觀點與辯論

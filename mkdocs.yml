@@ -887,6 +887,14 @@ plugins:
             H2O: H2O
             StreamingLLM: StreamingLLM
             KIVI: KIVI
+            Disaggregated Prefill and Decode: 預填充與解碼分離
+            DistServe: DistServe
+            Splitwise: Splitwise
+            Mooncake: Mooncake
+            Serving Mixture-of-Experts Models: 混合專家模型的服務
+            GShard: GShard
+            DeepSpeed-MoE: DeepSpeed-MoE
+            Expert offloading: 專家卸載
             Grouped-Query Attention: 分組查詢注意力
             Fused Kernels: 融合核心
             MLOps & Deployment: MLOps 與部署
@@ -916,6 +924,11 @@ plugins:
             Reward hacking and specification gaming: 獎勵駭客與規格博弈
             Scalable oversight: 可擴展監督
             Constitutional AI and RLAIF: 憲法式 AI 與 RLAIF
+            RLAIF: 基於 AI 回饋的強化學習
+            AI debate: AI 辯論
+            Sleeper agents: 潛伏代理
+            k-sparse autoencoders: k-稀疏自編碼器
+            JumpReLU sparse autoencoders: JumpReLU 稀疏自編碼器
             Model specifications: 模型規範
             Deceptive alignment and sleeper agents: 欺騙性對齊與潛伏代理
             Dangerous-capability evaluations: 危險能力評估
@@ -1941,6 +1954,16 @@ nav:
               - H2O: engineering/inference-optimization/h2o.md
               - StreamingLLM: engineering/inference-optimization/streamingllm.md
               - KIVI: engineering/inference-optimization/kivi.md
+          - Disaggregated Prefill and Decode:
+              - engineering/inference-optimization/disaggregated-serving.md
+              - DistServe: engineering/inference-optimization/distserve.md
+              - Splitwise: engineering/inference-optimization/splitwise.md
+              - Mooncake: engineering/inference-optimization/mooncake.md
+          - Serving Mixture-of-Experts Models:
+              - engineering/inference-optimization/moe-serving.md
+              - GShard: engineering/inference-optimization/gshard.md
+              - DeepSpeed-MoE: engineering/inference-optimization/deepspeed-moe.md
+              - Expert offloading: engineering/inference-optimization/expert-offloading.md
           - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
           - Fused Kernels: engineering/inference-optimization/fused-kernels.md
       - MLOps & Deployment: engineering/mlops/index.md
@@ -1973,14 +1996,19 @@ nav:
           - society/safety-alignment/index.md
           - Reward hacking and specification gaming: society/safety-alignment/reward-hacking.md
           - Scalable oversight: society/safety-alignment/scalable-oversight.md
+          - AI debate: society/safety-alignment/debate.md
           - Constitutional AI and RLAIF: society/safety-alignment/constitutional-ai.md
+          - RLAIF: society/safety-alignment/rlaif.md
           - Model specifications: society/safety-alignment/model-specs.md
           - Deceptive alignment and sleeper agents: society/safety-alignment/deceptive-alignment.md
+          - Sleeper agents: society/safety-alignment/sleeper-agents.md
           - Dangerous-capability evaluations: society/safety-alignment/dangerous-capability-evals.md
       - Interpretability:
           - society/interpretability/index.md
           - Mechanistic interpretability and circuits: society/interpretability/mechanistic-interpretability.md
           - Sparse autoencoders and feature dictionaries: society/interpretability/sparse-autoencoders.md
+          - k-sparse autoencoders: society/interpretability/k-sparse-autoencoders.md
+          - JumpReLU sparse autoencoders: society/interpretability/jumprelu-sae.md
           - Feature Attribution:
               - society/interpretability/feature-attribution.md
               - Saliency Maps: society/interpretability/saliency-maps.md
