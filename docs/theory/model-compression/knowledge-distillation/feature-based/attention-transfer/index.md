@@ -74,4 +74,4 @@ Attention maps are a spatial summary of where a network looks, which links the m
 
 ### Surveys and textbooks
 
-- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — Surveys distillation, including feature-based targets.
+- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — Surveys distillation methods, including feature-based targets.
