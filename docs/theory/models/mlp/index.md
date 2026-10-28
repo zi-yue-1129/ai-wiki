@@ -35,6 +35,7 @@ A layer computes \(h = \sigma(Wx + b)\), where \(\sigma\) is a nonlinear activat
 |---|---|---|---|
 | Gaussian error linear units (GELU) | 2016 | A smooth activation that weights each input by the Gaussian CDF | [GELU](gelu/index.md) |
 | Layer normalisation | 2016 | Normalises each example over its features, not over the batch | [Layer normalisation](layer-normalisation/index.md) |
+| MLP-Mixer | 2021 | Vision model using only MLPs, one across patches and one across channels | [MLP-Mixer](mlp-mixer.md) |
 
 GELU is a smooth alternative to ReLU. Layer normalisation does not depend on batch statistics, which suits sequence models.
 

@@ -57,7 +57,7 @@ Wang 與 Aitchison（2024）探討當模型或資料集變大時，AdamW 的權�
 ## 參考文獻
 
 - Wang, X., & Aitchison, L. (2024). *How to Set AdamW's Weight Decay as You Scale Model and Dataset Size*. arXiv:2405.13698. https://arxiv.org/abs/2405.13698 — 以 epoch 時間尺度為基礎的規則與縮放掃描的來源。
-- Loshchilov, I., & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. arXiv:1711.05101. https://arxiv.org/abs/1711.05101 — 定義此規則所調整的解耦權重衰減。
+- Loshchilov, I., & Hutter, F. (2019). *Decoupled Weight Decay Regularization*. ICLR 2019. https://arxiv.org/abs/1711.05101 — 定義此規則所調整的解耦權重衰減。
 - Kosson, A., Messmer, B., & Jaggi, M. (2023). *Rotational Equilibrium: How Weight Decay Balances Learning Across Neural Networks*. arXiv:2305.17212. https://arxiv.org/abs/2305.17212 — 以 \(1/(\eta\lambda)\) 給出以步數計的時間尺度。
-- Li, Z., & Arora, S. (2019). *An Exponential Learning Rate Schedule for Deep Learning*. arXiv:1910.07454. https://arxiv.org/abs/1910.07454 — 說明衰減與正規化如何與學習率互動。
+- Li, Z., & Arora, S. (2019). *An Exponential Learning Rate Schedule for Deep Learning*. ICLR 2020. https://arxiv.org/abs/1910.07454 — 說明衰減與正規化如何與學習率互動。
 - Wortsman, M., Liu, P. J., Xiao, L., et al. (2023). *Small-scale proxies for large-scale Transformer training instabilities*. arXiv:2309.14322. https://arxiv.org/abs/2309.14322 — 測試穩定學習率範圍如何隨權重衰減與預熱改變。
