@@ -51,7 +51,7 @@ A common *pre-normalization* Transformer block wraps self-attention in a normali
 | Encoder–decoder | Bidirectional encoder + cross-attention | Original Transformer, T5, Whisper | Translation, summarisation, speech recognition |
 | Decoder-only | Causal (past only) | GPT, Llama, Claude, Gemini, etc. | Generation, general-purpose LLMs |
 
-The [architecture families](architecture-families/index.md) page explains the masks, pre-training objectives and history behind this table, with full pages on [BERT](architecture-families/bert/index.md) and [T5](architecture-families/t5/index.md).
+The [architecture families](architecture-families/index.md) page explains the masks, pre-training objectives and history behind this table, with full pages on [BERT](architecture-families/bert/index.md) and [T5](architecture-families/t5/index.md). The same encoder also works on images: the [Vision Transformer](vision-transformer/index.md) page covers patch embeddings, the class token and how ViT compares with CNN backbones.
 
 ## Positional information
 
