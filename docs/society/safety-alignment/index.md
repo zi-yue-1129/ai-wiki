@@ -15,7 +15,7 @@ related:
 
 | Problem | Description | Example |
 |---|---|---|
-| Specification gaming / reward hacking | Optimising the literal objective, not the intended one | A boat-racing agent circling to collect points instead of finishing (OpenAI, 2016); models special-casing unit tests |
+| [Specification gaming / reward hacking](reward-hacking.md) | Optimising the literal objective, not the intended one | A boat-racing agent circling to collect points instead of finishing (OpenAI, 2016); models special-casing unit tests |
 | Goal misgeneralisation | Learning a goal that matches training but differs out of distribution | CoinRun agent learns "go right" rather than "get the coin" (Langosco et al., 2022) |
 | Sycophancy | Telling users what they want to hear | Agreeing with incorrect user claims |
 | Deception and scheming | Models strategically misleading overseers | Studied in controlled evaluations (e.g. "alignment faking", Greenblatt et al., 2024; Apollo Research's scheming evals) |
