@@ -58,6 +58,7 @@
 - 著作權與訓練資料（見[藝術、媒體與創作](../../applications/creative/index.md)）
 - 美國各州法律的優先適用（preemption）
 - 全球南方的參與與數位主權
+- 選舉、政治說服與深偽（見[AI、選舉與民主](elections-and-democracy.md)）
 
 ## 學習資源
 

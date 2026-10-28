@@ -66,6 +66,7 @@ Fines reach up to 7% of global turnover for prohibited practices. In late 2025 t
 - Copyright and training data (see [Art, Media & Creativity](../../applications/creative/index.md))
 - Preemption of state laws (US)
 - Global South participation and digital sovereignty
+- Elections, political persuasion and deepfakes; see [AI, Elections and Democracy](elections-and-democracy.md)
 
 ## Resources
 
