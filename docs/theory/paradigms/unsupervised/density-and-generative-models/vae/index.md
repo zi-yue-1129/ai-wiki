@@ -47,7 +47,7 @@ Training draws \(\epsilon\) for each data point, computes \(z = \mu_\phi(x) + \s
 Several variants change the latent prior, the decoder, or the bound itself. Each one would get its own page; the brief comparison here is enough for the family overview.
 
 - **Stochastic backpropagation and approximate inference (Rezende et al., 2014)**: the same model and the same reparameterised estimator, developed from the deep latent Gaussian model viewpoint.
-- **Vector-quantised VAE (VQ-VAE)**: a discrete latent code learned with a codebook. It is common in image and audio tokenisation. A method page is still to be written.
+- **[Vector-quantised VAE (VQ-VAE)](vq-vae.md)**: a discrete latent code learned with a codebook. It is common in image and audio tokenisation.
 - **Conditional VAE (CVAE)**: conditions both encoder and decoder on a label or other input. A method page is still to be written.
 
 ### Auto-Encoding Variational Bayes (Kingma & Welling, 2013)
