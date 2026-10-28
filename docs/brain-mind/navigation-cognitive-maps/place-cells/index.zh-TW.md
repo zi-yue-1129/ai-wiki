@@ -1,6 +1,6 @@
 ---
 translation_reviewed: 2026-10-28
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - neuroscience

@@ -4,6 +4,9 @@ AI 用到的數學主要有五塊。這頁說明每塊「用在哪裡」與「�
 
 ## 1. 線性代數
 
+> 詳細頁面：[AI 所需的線性代數](linear-algebra/index.md)，包含[奇異值分解](linear-algebra/svd.md)與[特徵值分解](linear-algebra/eigendecomposition.md)。
+
+
 **用在哪裡**：資料就是向量與矩陣；神經網路每一層是矩陣乘法加非線性；嵌入（embedding）是向量空間中的點；注意力是向量內積。
 
 **最少要懂**：
@@ -15,6 +18,9 @@ AI 用到的數學主要有五塊。這頁說明每塊「用在哪裡」與「�
 - 範數（L1、L2）：正規化
 
 ## 2. 微積分
+
+> 詳細頁面：[微積分與最佳化基礎](calculus/index.md)，包含[牛頓法](calculus/newtons-method.md)與[拉格朗日乘數法](calculus/lagrange-multipliers.md)。
+
 
 **用在哪裡**：訓練＝最小化損失函數，需要梯度。
 
@@ -32,6 +38,9 @@ AI 用到的數學主要有五塊。這頁說明每塊「用在哪裡」與「�
 **自動微分**把鏈式法則套用到整個程式，是反向傳播背後的機制。它的兩種模式見[自動微分](automatic-differentiation/index.zh-TW.md)。
 
 ## 3. 機率與統計
+
+> 詳細頁面：[AI 所需的機率與統計](probability-statistics/index.md)，包含[最大概似估計](probability-statistics/maximum-likelihood.md)與[最大後驗估計](probability-statistics/maximum-a-posteriori.md)。
+
 
 **用在哪裡**：模型輸出機率分布；語言模型就是 \( p(x_t \mid x_{<t}) \)；不確定性估計；評估時的信賴區間與顯著性檢定。
 

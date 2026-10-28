@@ -71,4 +71,4 @@ The authors train the folding head with the same losses used for AlphaFold, so t
 - Lin et al. (2022). Evolutionary-scale prediction of atomic level protein structure with a language model. *bioRxiv*. https://doi.org/10.1101/2022.07.20.500902 — The preprint behind the speed and atlas figures summarised on this page.
 - Jumper et al. (2021). Highly accurate protein structure prediction with AlphaFold. *Nature*. https://doi.org/10.1038/s41586-021-03819-2 — AlphaFold 2, the alignment-based predictor ESMFold is compared with.
 - Rives et al. (2021). Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. *PNAS*. https://doi.org/10.1073/pnas.2016239118 — The earlier ESM work on language models trained on protein sequences.
-- Vaswani et al. (2017). Attention Is All You Need. arXiv. https://arxiv.org/abs/1706.03762 — Introduces the transformer architecture behind the language model.
+- Vaswani et al. (2017). Attention Is All You Need. NeurIPS 2017. https://proceedings.neurips.cc/paper/7181-attention-is-all-you-need — Introduces the transformer architecture behind the language model.

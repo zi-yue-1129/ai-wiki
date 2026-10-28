@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/continual/regularisation-based
@@ -50,8 +50,8 @@ For the Atari experiments, the paper recomputes the Fisher diagonal at each task
 - **Problem:** gradient-based training on a sequence of tasks overwrites the weights that earlier tasks depended on, so the network forgets. The paper frames learning tasks in sequence as crucial for artificial intelligence, and treats forgetting as the obstacle.
 - **Core idea:** penalise changes to each weight in proportion to its estimated importance for the old task, using the Fisher information as the importance measure. Important weights stay close to their old values, and unimportant weights adapt to the new task.
 - **Equation or algorithm:** the penalised loss above, with a diagonal Fisher computed after each task. One penalty term per old task extends the method to several tasks.
-- **Results:** on the MNIST permutation tasks, the results appear only as figures, and the text gives no accuracy values. On sequential Atari 2600 games, the per-game scores appear only as curves, so this page does not quote them. The paper's reported settings include ten games per sequence drawn from a pool of 19 games that standalone DQN plays at human level or above, and a Fisher scaling factor of 400. The paper describes the benefit of giving the network true task labels, rather than learned ones, as only modest.
-- **Limitations:** the authors say the point-estimate (diagonal Laplace) treatment "does constitute a significant weakness", and that the implementation "under-estimates parameter uncertainty". With one network, EWC "does not reach the score" of ten separate DQNs. The method also stores three values per synapse: the weight, its Fisher value, and its anchor. The paper has no dedicated limitations section, so these points come from its discussion.
+- **Results:** on the MNIST permutation tasks, the results appear only as figures, and the text gives no accuracy values. On sequential Atari 2600 games, the paper plots total human-normalised scores, capped at 10. The per-game scores appear only as plots, so this page does not quote them. The paper's settings include ten games per sequence, drawn at random from those that DQN plays at human level or above, and an EWC penalty scaling factor of 400 in the appendix. The paper reports that EWC does not reach the score of ten separate DQNs.
+- **Limitations:** the paper's diagonal, point-estimate treatment of the weights is an approximation. It reports that EWC lets "a large number of tasks to be learned in sequence, with only modest growth in the error rates", but its figures show only a few task sequences, so the scaling claim is qualitative.
 
 ## Connections
 
@@ -70,11 +70,11 @@ For the Atari experiments, the paper recomputes the Fisher diagonal at each task
 
 ### Seminal papers
 
-- Kirkpatrick, J. et al. (2017). Overcoming catastrophic forgetting in neural networks. PNAS. https://doi.org/10.1073/pnas.1611835114 — Introduces EWC. The arXiv preprint is [arXiv:1612.00796](https://arxiv.org/abs/1612.00796).
+- Kirkpatrick, J. et al. (2017). Overcoming catastrophic forgetting in neural networks. *PNAS* 114(13), 3521–3526. https://pmc.ncbi.nlm.nih.gov/articles/PMC5380101 — Introduces EWC. The arXiv preprint is [arXiv:1612.00796](https://arxiv.org/abs/1612.00796).
 - Zenke, F., Poole, B. & Ganguli, S. (2017). Continual Learning Through Synaptic Intelligence. arXiv:1703.04200. https://arxiv.org/abs/1703.04200 — Each connection tracks how useful it has been for earlier tasks during training, an alternative to a Fisher-based penalty.
 - Li, Z. & Hoiem, D. (2016). Learning without Forgetting. arXiv:1606.09282. https://arxiv.org/abs/1606.09282 — Keeps earlier behaviour by distilling the old model's outputs on new data, so the old training data is not needed.
 
 ### Surveys and textbooks
 
 - De Lange, M. et al. (2021). A continual learning survey: Defying forgetting in classification tasks. IEEE TPAMI. https://doi.org/10.1109/TPAMI.2021.3057446 (arXiv:1909.08383, https://arxiv.org/abs/1909.08383) — Compares regularisation, replay and architecture methods on common benchmarks.
-- Parisi, G. I. et al. (2019). Continual lifelong learning with neural networks: a review. Neural Networks. https://doi.org/10.1016/j.neunet.2019.01.012 (arXiv:1802.07569, https://arxiv.org/abs/1802.07569) — Reviews continual learning methods for reducing catastrophic forgetting and their links to biological learning.
+- Parisi, G. I. et al. (2019). Continual Lifelong Learning with Neural Networks: A Review. arXiv:1802.07569. https://arxiv.org/abs/1802.07569 — Reviews continual learning methods for reducing catastrophic forgetting and their links to biological learning.

@@ -35,5 +35,5 @@ On binary masks, the Dice coefficient is the same formula as the [F1 score](../c
 ### Additional sources
 
 - Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — Textbook with a free online draft on probabilistic machine learning.
-- Sudre, C. H. et al. (2017). Generalised Dice overlap as a deep learning loss function for highly unbalanced segmentations. DLMIA 2017. https://arxiv.org/abs/1707.03237 — Proposes generalised Dice overlap, which weights classes by their size, for highly unbalanced segmentation.
-- Cordts, M. et al. (2016). The Cityscapes dataset for semantic urban scene understanding. CVPR 2016. https://arxiv.org/abs/1604.01685 — Benchmark whose evaluation reports intersection over union per class.
+- Sudre, C. H. et al. (2017). Generalised Dice overlap as a deep learning loss function for highly unbalanced segmentations. arXiv. https://arxiv.org/abs/1707.03237 — Proposes generalised Dice overlap, which weights classes by their size, for highly unbalanced segmentation.
+- Cordts, M. et al. (2016). The Cityscapes dataset for semantic urban scene understanding. CVPR 2016. https://openaccess.thecvf.com/content_cvpr_2016/html/Cordts_The_Cityscapes_Dataset_CVPR_2016_paper.html — Benchmark whose evaluation reports intersection over union per class.

@@ -104,12 +104,11 @@ Ritter 等人的綜述以一般性的方式描述 ACT-R 的成果：在基礎與
 ### 開創性論文
 
 - Anderson, J. R.、Bothell, D.、Byrne, M. D.、Douglass, S.、Lebiere, C. 與 Qin, Y.（2004）。An Integrated Theory of the Mind. *Psychological Review*, 111(4), 1036–1060. https://doi.org/10.1037/0033-295X.111.4.1036 — 標題所指的論文。提出 ACT-R 的模組、緩衝區與產生式系統，以及子符號學習如何調整它們。本版係根據其摘要閱讀。
-- Laird, J. E.、Lebiere, C. 與 Rosenbloom, P. S.（2017）。A Standard Model of the Mind: Toward a Common Computational Framework Across Artificial Intelligence, Cognitive Science, Neuroscience, and Robotics. *AI Magazine*. https://doi.org/10.1609/aimag.v38i4.2744 — 提出由 ACT-R、Sigma 與 Soar 綜合而成的社群共識心智模型，並指出各架構一致與分歧之處。
+- Laird, J. E.、Lebiere, C. 與 Rosenbloom, P. S.（2017）。A Standard Model of the Mind: Toward a Common Computational Framework Across Artificial Intelligence, Cognitive Science, Neuroscience, and Robotics. *AI Magazine*, 38(4), 13–26。https://doi.org/10.1609/aimag.v38i4.2744 — 提出由 ACT-R、Sigma 與 Soar 綜合而成的社群共識心智模型，並指出各架構一致與分歧之處。
 - Lake, B. M.、Ullman, T. D.、Tenenbaum, J. B. 與 Gershman, S. J.（2017）。Building machines that learn and think like people. *Behavioral and Brain Sciences*, 40, e253. https://doi.org/10.1017/S0140525X16001837 — 主張類人學習需要因果模型、物理與心理的直覺理論，以及組合性。
-- Park, J. S.、O'Brien, J. C.、Cai, C. J.、Morris, M. R.、Liang, P. 與 Bernstein, M. S.（2023）。Generative Agents: Interactive Simulacra of Human Behavior. *UIST '23*. https://doi.org/10.1145/3586183.3606763 — 描述一種語言模型代理人，它儲存經驗、對其反思，並檢索這些記憶以規劃可信的行為。
+- Park, J. S.、O'Brien, J. C.、Cai, C. J.、Morris, M. R.、Liang, P. 與 Bernstein, M. S.（2023）。Generative Agents: Interactive Simulacra of Human Behavior. *UIST '23*, 1–22。ACM。https://doi.org/10.1145/3586183.3606763 — 描述一種語言模型代理人，它儲存經驗、對其反思，並檢索這些記憶以規劃可信的行為。
 - Sumers, T. R.、Yao, S.、Narasimhan, K. 與 Griffiths, T. L.（2023）。Cognitive Architectures for Language Agents. arXiv. https://arxiv.org/abs/2309.02427 — 依記憶、行動空間與決策程序來組織語言代理人，並借鑑認知架構。
 
 ### 綜述與教科書
 
 - Ritter, F. E.、Tehranchi, F. 與 Oury, J. D.（2019）。ACT-R: A cognitive architecture for modeling cognition. *WIREs Cognitive Science*, 10(3), e1488. https://doi.org/10.1002/wcs.1488 — 綜述 ACT-R 的歷史、以電腦程式實現的認知理論、其工具，以及在基礎與應用科學中的成果。
-- Anderson, J. R.（2007）。*How Can the Human Mind Occur in the Physical Universe?* Oxford University Press. https://doi.org/10.1093/acprof:oso/9780195324259.001.0001 — ACT-R 作為心智理論的專書式完整呈現，作者為此架構的主要提出者。列出以供查閱完整理論，本版未閱讀此書。

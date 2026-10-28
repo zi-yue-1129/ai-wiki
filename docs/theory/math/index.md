@@ -10,6 +10,9 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 
 ## 1. Linear algebra
 
+> Detailed page: [Linear algebra for AI](linear-algebra/index.md), with [singular value decomposition](linear-algebra/svd.md) and [eigendecomposition](linear-algebra/eigendecomposition.md).
+
+
 **Where it's used:** data are vectors and matrices; each neural-network layer is a matrix multiply plus a nonlinearity; embeddings are points in vector space; attention is built from dot products.
 
 **Minimum to know:**
@@ -21,6 +24,9 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 - Norms (L1, L2): regularisation
 
 ## 2. Calculus
+
+> Detailed page: [Calculus and optimisation foundations](calculus/index.md), with [Newton's method](calculus/newtons-method.md) and [Lagrange multipliers](calculus/lagrange-multipliers.md).
+
 
 **Where it's used:** training = minimising a loss, which needs gradients.
 
@@ -36,6 +42,9 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 **Automatic differentiation** applies the chain rule to whole programs. It is the mechanism behind backpropagation, and its two modes are covered in [Automatic differentiation](automatic-differentiation/index.md).
 
 ## 3. Probability and statistics
+
+> Detailed page: [Probability and statistics for AI](probability-statistics/index.md), with [maximum likelihood](probability-statistics/maximum-likelihood.md) and [maximum a posteriori estimation](probability-statistics/maximum-a-posteriori.md).
+
 
 **Where it's used:** models output probability distributions; a language model *is* \( p(x_t \mid x_{<t}) \); uncertainty estimation; confidence intervals and significance tests in evaluation.
 

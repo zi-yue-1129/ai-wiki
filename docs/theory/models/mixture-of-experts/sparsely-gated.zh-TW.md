@@ -58,10 +58,10 @@ y = \sum_{i \in \mathrm{TopK}(G(x))} G(x)_i\, E_i(x),
 
 ### 開創性論文
 
-- Shazeer, N., Mirhoseini, A., Maziarz, K., Davis, A., Le, Q., Hinton, G. & Dean, J.（2017）。*Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*。arXiv。https://arxiv.org/abs/1701.06538 — 提出稀疏閘控混合專家，參數量最多達 1,370 億，且效率損失不大。
+- Shazeer, N., Mirhoseini, A., Maziarz, K., Davis, A., Le, Q., Hinton, G. & Dean, J.（2017）。*Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*。ICLR 2017。https://arxiv.org/abs/1701.06538 — 提出稀疏閘控混合專家，參數量最多達 1,370 億，且效率損失不大。
 - Jacobs, R. A., Jordan, M. I., Nowlan, S. J. & Hinton, G. E.（1991）。Adaptive Mixtures of Local Experts。*Neural Computation*，3(1)，79–87。https://doi.org/10.1162/neco.1991.3.1.79 — 本層使其稀疏化的原始稠密閘控混合。
 - Lepikhin, D., 等人（2020）。*GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding*。arXiv。https://arxiv.org/abs/2006.16668 — 把稀疏閘控專家應用到 Transformer 翻譯，參數量超過 6,000 億。
-- Fedus, W., Zoph, B. & Shazeer, N.（2021）。*Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*。arXiv。https://arxiv.org/abs/2101.03961 — 把 top-k 閘控簡化為每個詞元一個專家。
+- Fedus, W., Zoph, B. & Shazeer, N.（2022）。*Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*。JMLR 23。https://www.jmlr.org/papers/v23/21-0998.html — 把 top-k 閘控簡化為每個詞元一個專家。
 - Jiang, A. Q., 等人（2024）。*Mixtral of Experts*。arXiv。https://arxiv.org/abs/2401.04088 — 具八個專家、每個詞元啟動兩個的開放權重稀疏 Transformer。
 
 ### 綜述與教科書

@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - PETS
@@ -28,8 +28,8 @@ The agent re-plans at every step (model-predictive control), and it uses only th
 For each planning step, the agent:
 
 1. Fits the probabilistic ensemble to the data collected so far.
-2. Samples action sequences and, for each sequence, propagates particles through randomly chosen ensemble members over the horizon \(H\).
-3. Scores each sequence by the sum of predicted rewards and chooses the sequence with the best score.
+2. Optimises a sequence of actions over the horizon \(H\) with the cross-entropy method. For each candidate sequence, particles are propagated through the ensemble over the horizon, with each particle using a randomly chosen ensemble member.
+3. Scores each candidate by the predicted sum of rewards, averaged over particles, and keeps the best sequence.
 4. Executes the first action, observes the next state, adds the data, and repeats.
 
 The method does not learn a policy from imagined data. It plans directly with the model at each step.
@@ -54,7 +54,7 @@ The abstract reports that PETS "matches the asymptotic performance of model-free
 ## Applications
 
 - **Robot control** where few real trials are possible.
-- **Continuous control** tasks with a smooth dynamics model.
+- **Continuous-control benchmarks**, such as half-cheetah, where sample efficiency is the main comparison.
 
 ## Open questions
 

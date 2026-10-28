@@ -35,4 +35,4 @@ Average precision, the per-query quantity behind MAP, is closely related to the 
 
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — Overview of the scorers for classification, regression and ranking, and when each is appropriate.
 - scikit-learn contributors. *average_precision_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html — API reference for average precision computed from prediction scores, with its step-wise formula.
-- Wang, Y., Wang, L., Li, Y., He, D., Chen, W. & Liu, T.-Y. (2013). A theoretical analysis of NDCG type ranking measures. arXiv:1304.6480. https://arxiv.org/abs/1304.6480 — Theoretical analysis of NDCG-type ranking measures and the position discounts they use.
+- Wang, Y., Wang, L., Li, Y., He, D., Chen, W. & Liu, T.-Y. (2013). A theoretical analysis of NDCG type ranking measures. COLT 2013, PMLR 30. https://proceedings.mlr.press/v30/Wang13.html — Theoretical analysis of NDCG-type ranking measures and the position discounts they use.

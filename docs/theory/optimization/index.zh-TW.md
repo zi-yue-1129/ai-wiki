@@ -36,7 +36,7 @@ translation_reviewed: 2026-10-28
 | 梯度裁剪與正規化 | 對梯度大小的限制 | [梯度裁剪與正規化](gradient-clipping-and-normalisation.md)，並有[範數裁剪](norm-clipping.md)、[LARS](lars.md) 與 [LAMB](lamb.md) 等方法頁 | 草稿 |
 | 大批次與分散式 | 跨多個裝置的訓練 | [大批次與分散式](large-batch-and-distributed.md) | 草稿 |
 | 零階與演化 | 完全不使用梯度 | [零階與演化](zeroth-order-and-evolutionary.md)，並有 [SPSA](spsa.md)、[演化策略](evolution-strategies.md) 與 [CMA-ES](cma-es.md) 等方法頁 | 草稿 |
-| 理論 | 收斂、地形、銳度 | [理論與損失地形](theory-and-landscapes.md)，並有[銳度感知最小化](sharpness-aware-minimisation.md)頁 | 草稿 |
+| 理論 | 收斂、地形、銳度 | [理論與損失地形](theory-and-landscapes.md)，並有[銳度感知最小化](sharpness-aware-minimisation.md)與 [ASAM](asam.md) 頁 | 草稿 |
 
 ## 運作方式
 

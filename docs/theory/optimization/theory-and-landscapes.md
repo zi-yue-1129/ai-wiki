@@ -49,6 +49,7 @@ The geometry also bears on generalisation. Keskar et al. (2017) observed that la
 | Convergence for convex and smooth losses | Rate of decrease of the loss | This page (Bottou et al., 2018) |
 | Saddle points | Escape from high-error plateaus | Dauphin et al. (2014) |
 | Sharpness-aware minimisation (Foret et al., 2021) | Training towards flat neighbourhoods | [SAM](sharpness-aware-minimisation.md) |
+| Adaptive sharpness-aware minimisation (Kwon et al., 2021) | Neighbourhoods scaled by weight magnitude, invariant to rescaling | [ASAM](asam.md) |
 | Sharp minima and generalisation | Flatness as a predictor | [Sharp minima](sharp-minima.md) |
 
 ## Connections

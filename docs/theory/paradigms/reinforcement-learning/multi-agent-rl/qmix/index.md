@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - QMIX
@@ -35,11 +35,11 @@ The team value is \(Q_{tot}(\tau, \mathbf{u}) = f_{\text{mix}}(Q_1(\tau_1, u_1),
 
 ## Results
 
-The experiments use decentralised unit micromanagement in StarCraft II, on six maps: 3m, 5m, 8m, 2s_3z, 3s_5z and 1c_3s_5z. The baselines are independent Q-learning (IQL) and VDN. The paper reports that "QMIX is noticeably the strongest performer on all of the maps, in particular on the maps with heterogeneous agent types".
+The experiments use decentralised unit micromanagement in StarCraft II, on six maps: 3m, 5m, 8m, 2s_3z, 3s_5z and 1c_3s_5z. The baselines are independent Q-learning (IQL) and VDN. Results are test win rates averaged over 20 runs, with 95% confidence intervals. The paper reports that "QMIX is noticeably the strongest performer on all of the maps" (Section 7.1).
 
 ## Limitations
 
-- **Representable value functions.** The monotonicity constraint "prevents QMIX from representing value functions that do not factorise in such a manner". A team value in which one agent's best action depends on the others' actions cannot be represented perfectly.
+- **Representable value functions.** The monotonicity constraint means QMIX cannot represent every team value function. Any function in which one agent's best action depends on the others' actions is outside the class that the mixing network can express.
 - **Discrete actions.** The argmax on each agent's values assumes a finite action set.
 - **Benchmark scope.** The experiments are on one family of micromanagement maps, and the paper does not test wider settings.
 
@@ -66,5 +66,8 @@ The experiments use decentralised unit micromanagement in StarCraft II, on six m
 - Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — The QMIX paper, with the monotonic mixing network and the StarCraft II results above.
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The deep Q-learning agent whose per-agent value function QMIX builds on.
 - Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — MADDPG, the centralised-critic alternative for multi-agent learning.
-- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", NeurIPS 2022 Datasets and Benchmarks Track, [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — Compares a PPO baseline with QMIX on StarCraft II maps and other benchmarks.
-- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/tsmcc.2007.913919 — Survey of multi-agent learning settings and their difficulties.
+- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — Compares a PPO baseline with QMIX on StarCraft II maps and other benchmarks.
+
+### Surveys and textbooks
+
+- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/TSMCC.2007.913919 — Survey of multi-agent learning settings and their difficulties.
