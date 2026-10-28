@@ -37,11 +37,11 @@ The three questions have different answers, and debates often mix them up. A mod
 - **Text and data mining (TDM)**: automated analysis of works. Many laws create exceptions for it, sometimes only for research or only where rights holders have not opted out.
 - **Fair use and fair dealing**: flexible exceptions in US and UK-style law. Their application to AI training is being decided case by case.
 - **Memorisation and replication**: a model reproducing a training work closely. This is the most direct route to infringing output.
-- **Authorship**: copyright generally requires a human author. Works produced with AI assistance are judged by how much human creative control they show.
+- **Authorship**: the US Copyright Office will not register material produced by a machine without human creative input. Works that combine human and AI contributions can qualify for protection for the human-authored parts.
 
 ## How it works
 
-Training copies works into a dataset, then a model adjusts its weights to predict the data. The model does not usually store files, but it can retain patterns that reproduce specific works, particularly when a work appears many times in the training set. Two outcomes matter for rights holders. A model may output close copies of training works, and it may produce a new work in the style or manner of an artist, which is generally not infringement on its own, although how far a style can be protected is unsettled.
+Training copies works into a dataset, then a model adjusts its weights to predict the data. The model does not usually store files, but it can retain patterns that reproduce specific works, particularly when a work appears many times in the training set. Two outcomes matter for rights holders. A model may output close copies of training works, and it may produce a new work in the style of an artist. Whether style alone can infringe is unsettled.
 
 Rights holders have responded in several ways: lawsuits, opt-out signals that tell crawlers not to use their content, and licensing deals with AI developers. Developers respond with dataset filtering, deduplication and output filters.
 
@@ -67,9 +67,9 @@ Somepalli et al. report that duplication and training set size affect replicatio
 
 ## Law and regulation
 
-- **EU**: Directive (EU) 2019/790 on copyright in the Digital Single Market, adopted 17 April 2019, contains text and data mining exceptions, including a general one that rights holders can opt out of. Whether an opt-out made in a machine-readable form covers AI training is a current question.
-- **EU AI Act**: Regulation (EU) 2024/1689 requires providers of general-purpose AI models to have a copyright policy and to publish a summary of the training content. It applies on top of the copyright rules and does not settle them.
-- **Elsewhere**: countries take different positions on training exceptions, and courts in several countries are deciding AI cases. Outcomes are changing quickly, so check current rulings before relying on any one position. For national approaches, see [Law, Policy & Governance](../governance/index.md).
+- **EU**: Directive (EU) 2019/790 on copyright in the Digital Single Market, adopted 17 April 2019, has a text and data mining exception for research organisations (Article 3) and a general exception for lawfully accessible works (Article 4). The general exception does not apply where rightholders have expressly reserved their rights, for example by machine-readable means (Article 4(3)).
+- **EU AI Act**: Regulation (EU) 2024/1689 sets rules for AI systems and general-purpose models. It sits alongside copyright law and does not replace it. This page does not summarise its training-data obligations, so check the official text.
+- **Elsewhere**: countries take different positions on training exceptions, and courts and regulators in several countries are taking up these questions. Outcomes are changing quickly, so check current rulings before relying on any one position. For national approaches, see [Law, Policy & Governance](../governance/index.md).
 
 ## Connections
 
@@ -87,7 +87,7 @@ Somepalli et al. report that duplication and training set size affect replicatio
 
 - Is copying a work into a training set a reproduction under copyright law, or is it an allowed analysis of the work?
 - If a model memorises a work, who is liable: the developer, the deployer or the user who prompted it?
-- Can an opt-out signal be respected in practice across the web and across jurisdictions?
+- How should a reservation of rights under Article 4(3) be expressed for AI training, and how can it be recognised across the web and across jurisdictions?
 - Should creators receive compensation for training use, and how should it be shared?
 
 ## References
@@ -100,5 +100,6 @@ Somepalli et al. report that duplication and training set size affect replicatio
 
 ### Articles and documentation
 
+- U.S. Copyright Office (2023). *Copyright Registration Guidance: Works Containing Material Generated by Artificial Intelligence*, 88 FR 16190. https://www.federalregister.gov/documents/2023/03/16/2023-05321/copyright-registration-guidance-works-containing-material-generated-by-artificial-intelligence — Sets out when AI-generated material can be registered, and how human contributions to AI-assisted works are assessed.
 - EUR-Lex. *Directive (EU) 2019/790 on copyright and related rights in the Digital Single Market*. https://eur-lex.europa.eu/eli/dir/2019/790/oj/eng — The official text of the EU copyright directive with its text and data mining exceptions.
-- EUR-Lex. *Regulation (EU) 2024/1689 (Artificial Intelligence Act)*. https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng — The official text of the AI Act, including the copyright-policy and training-summary duties for general-purpose models.
+- EUR-Lex. *Regulation (EU) 2024/1689 (Artificial Intelligence Act)*. https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng — The official text of the AI Act. This page does not summarise its training-data obligations.
