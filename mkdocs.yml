@@ -97,6 +97,11 @@ plugins:
             Evolutionary & Swarm Intelligence: 演化計算與群體智慧
             Models: 模型與技術
             Transformers & Attention: Transformer 與注意力
+            Attention Variants: 注意力變體
+            Positional Encodings: 位置編碼
+            KV Cache: KV 快取
+            Experience Replay: 經驗回放
+            Exploration: 探索
             Large Language Models: 大型語言模型
             Generative Models: 生成模型
             Computer Vision: 電腦視覺
@@ -256,6 +261,8 @@ nav:
               - Model-Based RL: foundations/paradigms/reinforcement-learning/model-based-rl/index.md
               - Offline RL: foundations/paradigms/reinforcement-learning/offline-rl/index.md
               - Learning from Human Feedback: foundations/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
+              - Experience Replay: foundations/paradigms/reinforcement-learning/experience-replay/index.md
+              - Exploration: foundations/paradigms/reinforcement-learning/exploration/index.md
           - Imitation Learning:
               - foundations/paradigms/imitation/index.md
               - Behavioural Cloning: foundations/paradigms/imitation/behavioural-cloning/index.md
@@ -310,7 +317,11 @@ nav:
       - Evolutionary & Swarm Intelligence: foundations/evolutionary/index.md
   - Models:
       - models/index.md
-      - Transformers & Attention: models/transformer/index.md
+      - Transformers & Attention:
+          - models/transformer/index.md
+          - Attention Variants: models/transformer/attention-variants/index.md
+          - Positional Encodings: models/transformer/positional-encodings/index.md
+          - KV Cache: models/transformer/kv-cache/index.md
       - Large Language Models:
           - models/llm/index.md
           - Imitation in Foundation Models: models/llm/imitation-in-foundation-models/index.md
