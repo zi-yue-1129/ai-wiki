@@ -927,6 +927,9 @@ nav:
           - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
           - Evolutionary & Swarm Intelligence:
               - theory/paradigms/evolutionary/index.md
+              - Genetic Algorithms: theory/paradigms/evolutionary/genetic-algorithms.md
+              - Genetic Programming: theory/paradigms/evolutionary/genetic-programming.md
+              - NEAT: theory/paradigms/evolutionary/neat.md
               - MAP-Elites: theory/paradigms/evolutionary/map-elites.md
               - Particle Swarm Optimisation: theory/paradigms/evolutionary/particle-swarm.md
               - Ant Colony Optimisation: theory/paradigms/evolutionary/ant-colony.md
