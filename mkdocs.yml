@@ -284,6 +284,7 @@ plugins:
             Psychology & AI: 心理學與 AI
             Consciousness & Philosophy of Mind: 意識與心靈哲學
             Brain-Computer Interfaces: 腦機介面與神經解碼
+            Perception & the Visual System: 知覺與視覺系統
             Applications: 領域應用
             Healthcare: 醫療與健康
             Life Sciences & Drug Discovery: 生命科學與藥物開發
@@ -306,6 +307,7 @@ plugins:
             Frameworks & Tools: 框架與工具
             Data: 資料工程
             Training & Fine-tuning: 訓練與微調
+            Distributed Training: 分散式訓練
             Prompt Engineering: 提示工程
             Retrieval-Augmented Generation: 檢索增強生成 RAG
             Evaluation & Benchmarks: 評估與基準
@@ -529,6 +531,7 @@ nav:
       - Psychology & AI: brain-mind/psychology/index.md
       - Consciousness & Philosophy of Mind: brain-mind/consciousness/index.md
       - Brain-Computer Interfaces: brain-mind/bci/index.md
+      - Perception & the Visual System: brain-mind/visual-perception/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
@@ -553,6 +556,7 @@ nav:
       - Frameworks & Tools: engineering/frameworks/index.md
       - Data: engineering/data/index.md
       - Training & Fine-tuning: engineering/training/index.md
+      - Distributed Training: engineering/distributed-training/index.md
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
       - Evaluation & Benchmarks: engineering/evaluation/index.md

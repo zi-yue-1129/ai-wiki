@@ -43,7 +43,7 @@ Shaw et al. added learned vectors for each relative distance, clipped beyond a m
 
 ![RoPE animation: query and key vectors rotate with their token positions, and shifting both positions by the same amount preserves their relative angle and dot product.](../../../../assets/concept-animations/rope-relative-rotation.gif)
 
-*Original two-dimensional RoPE schematic, CC BY-SA 4.0.* For the **same underlying query and key vectors** and a fixed frequency, shifting positions from **(1, 3)** to **(4, 6)** adds the same rotation to both vectors. Their relative offset remains two positions, so their inner product is unchanged: \((R_m q)^\top(R_n k)=q^\top R_{n-m}k\). The animated arrows are schematic directions, **not measured attention scores**. In full RoPE, different pairs of dimensions use different rotation frequencies. See [Su et al. (2021)](https://arxiv.org/abs/2104.09864).
+*Original two-dimensional RoPE schematic, CC BY-SA 4.0.* For the **same underlying query and key vectors** and a fixed frequency, shifting positions from **(1, 3)** to **(4, 6)** adds the same rotation to both vectors. Their relative offset remains two positions, so their inner product is unchanged: $(R_m q)^\top(R_n k)=q^\top R_{n-m}k$. The animated arrows are schematic directions, **not measured attention scores**. In full RoPE, different pairs of dimensions use different rotation frequencies. See [Su et al. (2021)](https://arxiv.org/abs/2104.09864).
 
 ### Bias-based encodings
 

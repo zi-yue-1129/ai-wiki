@@ -9,6 +9,7 @@ How AI systems are actually built, adapted, evaluated and run.
 | [Training & Fine-tuning](training/index.md) | Pre-training at scale, SFT, LoRA/QLoRA, preference optimisation, distillation |
 | [Prompt Engineering](prompting/index.md) | Writing effective prompts, structured output, context engineering |
 | [Retrieval-Augmented Generation](rag/index.md) | Grounding LLMs in your documents |
+| [Distributed Training](distributed-training/index.md) | Data, tensor, pipeline and sharded parallelism; ZeRO and FSDP |
 | [Evaluation & Benchmarks](evaluation/index.md) | Benchmarks, LLM-as-judge, contamination, human evaluation |
 | [Inference Optimization](inference-optimization/index.md) | Batching, paged KV caches, speculative decoding, attention variants |
 | [MLOps & Deployment](mlops/index.md) | Serving, monitoring, quantisation, cost, LLMOps |
