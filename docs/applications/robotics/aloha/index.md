@@ -25,13 +25,13 @@ ALOHA pairs low-cost arms with a remote-control setup, so a person can demonstra
 
 ## Procedure
 
-1. Collect demonstrations with the teleoperation setup, reported as about 10 minutes of data per task.
+1. Collect demonstrations with the teleoperation setup: 50 per task, and 100 for one task. The paper estimates about 10–20 minutes of data per task.
 2. Train ACT to predict the chunk of actions that follows each observation.
 3. At run time, execute the predicted chunk, then predict the next chunk from the latest observation.
 
 ## Results
 
-The paper reports six real-world bimanual tasks, including opening a see-through condiment container and inserting a battery, with success rates of 80–90%. These figures come from the paper's summary; the detailed comparisons need the full paper.
+The paper evaluates six real-world bimanual tasks, with one seed and 25 trials per task. ACT's final success rates range from 20% (threading Velcro) to 96% (inserting a battery), and the abstract highlights 80–90% on some tasks. The per-task figures are in the paper's Tables I and II.
 
 ## Limitations
 

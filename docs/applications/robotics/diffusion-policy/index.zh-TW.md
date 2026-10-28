@@ -24,11 +24,11 @@ Chi 等人提出以去噪擴散模型生成機器人行為。策略不是從觀�
 
 1. 收集任務的示範，把每個觀察與當時採取的動作配對。
 2. 訓練一個網路，在觀察的條件下預測加入示範動作序列中的雜訊。基礎方法是[去噪擴散模型](../../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md)。
-3. 執行時，從雜訊出發，經過去噪步驟取樣出一段動作序列，再執行其中一部分。論文採用接收視界控制（receding-horizon control），每次部分執行後重新規劃。
+3. 執行時，從雜訊出發，經過去噪步驟取樣出一段動作序列，再執行其中一部分。論文描述的是接收視界控制（receding-horizon control）：策略先執行預測序列的一部分，再重新預測。
 
 ## 結果
 
-論文摘要報告，在四個操作基準的 12 項任務上，平均比先前最先進的方法提升 46.9%。論文也報告了真實機器人的實驗。各任務的細節需要查閱全文。
+論文報告，相較於先前最先進的方法，平均提升 46.9%。摘要描述了四個操作基準上的 15 項任務；主要比較表列出其中 12 項（8 項模擬與 4 項真實世界）。也報告了真實機器人的實驗。各任務的細節需要查閱全文。
 
 ## 限制
 
@@ -46,7 +46,7 @@ Chi 等人提出以去噪擴散模型生成機器人行為。策略不是從觀�
 
 ### 開創性論文
 
-- Chi, C. et al. (2023). Diffusion Policy: Visuomotor Policy Learning via Action Diffusion. arXiv. https://arxiv.org/abs/2303.04137 — 把視覺運動策略建模為條件去噪擴散，並報告 12 項操作任務的結果。
+- Chi, C. et al. (2023). Diffusion Policy: Visuomotor Policy Learning via Action Diffusion. arXiv. https://arxiv.org/abs/2303.04137 — 把視覺運動策略建模為條件去噪擴散，並報告四個基準上 15 項任務的結果。
 - Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. arXiv. https://arxiv.org/abs/2006.11239 — 本策略的訓練與取樣流程所依據的擴散模型。
 - Zhao, T. Z. et al. (2023). Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware. arXiv. https://arxiv.org/abs/2304.13705 — ACT 策略，是針對同類任務的競爭方法。
 

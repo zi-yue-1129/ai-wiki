@@ -30,7 +30,7 @@ RT-2 fine-tunes a web-pretrained vision-language model on robot trajectories tog
 
 ## Results
 
-The summary of the paper reports about 6,000 trials. RT-2 generalised better to new objects than robot-only training, followed commands that were absent from its robot data, and handled basic reasoning. With chain-of-thought prompting it also worked through multi-step problems. The per-task figures need the full paper.
+The paper reports about 6,000 evaluation trials, which include simulated runs. RT-2 generalised better to new objects than robot-only training, followed commands that were absent from its robot data, and handled basic reasoning. With a chain-of-thought step it produced plans for multi-step problems, which the paper presents as qualitative examples only.
 
 ## Limitations
 

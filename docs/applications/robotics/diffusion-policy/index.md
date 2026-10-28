@@ -25,11 +25,11 @@ The paper models the visuomotor policy as a conditional denoising diffusion proc
 
 1. Collect demonstrations of the task, pairing each observation with the actions taken.
 2. Train a network to predict the noise added to demonstrated action sequences, conditioned on observations. The underlying method is the [denoising diffusion model](../../../theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md).
-3. At run time, sample an action sequence from noise by running the denoising steps, then execute part of it. The paper uses receding-horizon control, which replans after each partial execution.
+3. At run time, sample an action sequence from noise by running the denoising steps, then execute part of it. The paper describes receding-horizon control: the policy executes part of each predicted sequence before it predicts again.
 
 ## Results
 
-The summary of the paper reports an average improvement of 46.9% over prior state-of-the-art methods across 12 tasks from four manipulation benchmarks. Real-robot experiments are also reported. The per-task figures need the full paper.
+The paper reports an average improvement of 46.9% over prior state-of-the-art methods. The abstract describes 15 tasks from four manipulation benchmarks, and the main comparison table lists 12 of them (8 simulated and 4 real-world). Real-robot experiments are also reported. The per-task figures need the full paper.
 
 ## Limitations
 
@@ -47,7 +47,7 @@ The summary of the paper reports an average improvement of 46.9% over prior stat
 
 ### Seminal papers
 
-- Chi, C. et al. (2023). Diffusion Policy: Visuomotor Policy Learning via Action Diffusion. arXiv. https://arxiv.org/abs/2303.04137 — Models a visuomotor policy as conditional denoising diffusion, with results across 12 manipulation tasks.
+- Chi, C. et al. (2023). Diffusion Policy: Visuomotor Policy Learning via Action Diffusion. arXiv. https://arxiv.org/abs/2303.04137 — Models a visuomotor policy as conditional denoising diffusion, with results across 15 manipulation tasks from four benchmarks.
 - Ho, J., Jain, A. & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models. arXiv. https://arxiv.org/abs/2006.11239 — The diffusion model that the policy's training and sampling procedure builds on.
 - Zhao, T. Z. et al. (2023). Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware. arXiv. https://arxiv.org/abs/2304.13705 — The ACT policy, a competing approach for the same kind of task.
 

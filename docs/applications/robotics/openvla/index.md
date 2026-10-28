@@ -19,22 +19,23 @@ The strongest robot vision-language-action models were closed, so most labs coul
 
 ## Core idea
 
-OpenVLA combines a Llama 2 language backbone with a visual encoder built from DINOv2 and SigLIP features. It is trained on roughly a million real-world robot demonstrations. The authors report that it outperforms the closed RT-2-X model, which the paper describes as much larger, on multi-task manipulation across many tasks and robot types.
+OpenVLA combines a Llama 2 language backbone with a visual encoder built from DINOv2 and SigLIP features. It is trained on 970k real-world robot demonstrations. RT-2-X has 55 billion parameters, and the paper reports that OpenVLA outperforms it by 16.5% absolute success rate across 29 tasks, with about seven times fewer parameters.
 
 ## Procedure
 
-1. Train the model on about a million real-world robot demonstrations, with the language and vision backbones.
-2. Fine-tune it for a new robot or task. The paper reports low-rank adaptation (LoRA), which can run on consumer GPUs.
-3. Serve the model efficiently with quantisation, so it can run on modest hardware.
+1. Train the model on 970k real-world robot demonstrations, starting from the language and vision backbones.
+2. Fine-tune it for a new robot or task. The paper reports that LoRA at rank 32 reaches about the same success as full fine-tuning while training about 1.4% of the parameters, although its experiments run on A100 GPUs.
+3. Serve the model with quantisation: 4-bit weights matched bfloat16 performance at 7.0 GB rather than 16.8 GB.
 
 ## Results
 
-The summary of the paper reports better multi-task performance than RT-2-X across many tasks and robot types. It also reports fine-tuning on consumer GPUs and efficient serving. Per-task numbers need the full paper.
+The paper reports a 16.5% absolute success advantage over RT-2-X across 29 tasks, and clear gains on BridgeData V2 (70.6% against 50.6%). RT-2-X remains stronger on semantic generalisation, and the two are comparable on the Google robot. The LoRA and quantisation results are in the paper's Tables 1 and 2.
 
 ## Limitations
 
 - The results are on the benchmarks and robots the authors tested.
-- The summary does not show how well the model handles tasks far from its training data.
+- RT-2-X is stronger on semantic generalisation, so the advantage depends on the task.
+- The paper's fine-tuning experiments run on A100 GPUs, not consumer hardware.
 - Fine-tuning and serving are cheaper than training, but still need engineering effort.
 
 ## Connections
