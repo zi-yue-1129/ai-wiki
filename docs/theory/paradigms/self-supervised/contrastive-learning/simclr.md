@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/self-supervised
@@ -20,7 +20,7 @@ SimCLR is a contrastive method for images that needs no memory bank and no speci
 
 ## Overview
 
-Chen, Kornblith, Norouzi and Hinton (2020) study which parts of the contrastive recipe matter. The abstract names three findings: the composition of data augmentations is critical to defining a useful prediction task; a learnable nonlinear transformation between the representation and the contrastive loss improves representation quality; and contrastive learning benefits from larger batch sizes and more training steps than supervised learning. The abstract reports that a linear classifier on SimCLR features reaches 76.5% top-1 accuracy on ImageNet, a 7% relative improvement over earlier self-supervised methods, matching a supervised ResNet-50.
+Chen, Kornblith, Norouzi and Hinton (2020) study which parts of the contrastive recipe matter. The abstract names three findings: the composition of data augmentations is critical to defining a useful prediction task; a learnable nonlinear transformation between the representation and the contrastive loss improves representation quality; and contrastive learning benefits from larger batch sizes and more training steps than supervised learning. The abstract reports that a linear classifier on SimCLR features reaches 76.5% top-1 accuracy on ImageNet, a 7% relative improvement over earlier self-supervised methods. The paper's appendix gives 76.3% for a supervised ResNet-50, slightly below the self-supervised linear result.
 
 ## Key concepts
 
@@ -54,7 +54,7 @@ Training uses the LARS optimizer. The paper trains with batch sizes from 256 to 
 
 ## Connections
 
-- [MoCo](moco.md) uses a closely related loss, but takes its negatives from a queue, so their number is not limited by the batch size.
+- [MoCo](moco.md) uses a closely related loss, but takes its negatives from a queue, so their number is not limited by the batch size. Its follow-up, Improved Baselines with Momentum Contrastive Learning (Chen et al., 2020), adopts SimCLR's MLP head and augmentations.
 - [BYOL](../non-contrastive-methods/byol.md) removes negatives entirely.
 - [Masked autoencoders](../masked-prediction/mae.md) take the other route: they predict missing content rather than contrasting views.
 - The linear evaluation protocol used for the results above is discussed in [Theory and evaluation](../theory-and-evaluation/index.md).
@@ -70,10 +70,11 @@ Training uses the LARS optimizer. The paper trains with batch sizes from 256 to 
 ### Seminal papers
 
 - Chen, T., Kornblith, S., Norouzi, M. & Hinton, G. (2020). A Simple Framework for Contrastive Learning of Visual Representations. ICML (PMLR 119). https://arxiv.org/abs/2002.05709 — The paper described on this page.
-- Chen, T. et al. (2020). Big Self-Supervised Models are Strong Semi-Supervised Learners. NeurIPS. https://arxiv.org/abs/2006.10029 — Follow-up that scales up the SimCLR approach for semi-supervised learning.
+- Chen, X., Fan, H., Girshick, R. & He, K. (2020). Improved Baselines with Momentum Contrastive Learning. arXiv:2003.04297. https://arxiv.org/abs/2003.04297 — Brings SimCLR's MLP head and augmentations into MoCo.
+- He, K., Fan, H., Wu, Y., Xie, S. & Girshick, R. (2020). Momentum Contrast for Unsupervised Visual Representation Learning. CVPR. https://arxiv.org/abs/1911.05722 — Replaces in-batch negatives with a queue, the alternative route to many negatives.
 - Wu, Z., Xiong, Y., Yu, S. X. & Lin, D. (2018). Unsupervised Feature Learning via Non-Parametric Instance Discrimination. CVPR. https://arxiv.org/abs/1805.01978 — Instance discrimination with a memory bank of negatives, which SimCLR avoids.
 - Oord, A. van den, Li, Y. & Vinyals, O. (2018). Representation Learning with Contrastive Predictive Coding. arXiv:1807.03748. https://arxiv.org/abs/1807.03748 — Introduces the InfoNCE loss on which the NT-Xent loss is based.
-- Wang, T. & Isola, P. (2020). Understanding Contrastive Representation Learning through Alignment and Uniformity on the Hypersphere. ICML (PMLR 119). https://arxiv.org/abs/2005.10242 — Explains the contrastive objective in terms of alignment and uniformity.
+- Grill, J.-B. et al. (2020). Bootstrap your own latent: A new approach to self-supervised learning. arXiv:2006.07733. https://arxiv.org/abs/2006.07733 — Removes negatives entirely, the main comparison for SimCLR's design.
 - He, K., Zhang, X., Ren, S. & Sun, J. (2016). Deep Residual Learning for Image Recognition. CVPR. https://arxiv.org/abs/1512.03385 — The ResNet architecture used as the encoder.
 
 ### Surveys and textbooks

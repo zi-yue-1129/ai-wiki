@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - applications/robotics/visual-localisation
@@ -14,52 +14,63 @@ aliases:
 
 # DINOv2
 
-DINOv2, introduced by Oquab et al. (2023), is a self-supervised vision transformer whose frozen features are useful across many tasks without fine-tuning. It extends the DINO family of self-distillation methods with patch-level objectives and trains on a curated image collection. The parent subtopic is [Non-Contrastive Methods](index.md), and the earlier method it builds on is [DINO](index.md).
+DINOv2 is a self-supervised vision transformer whose frozen features work across many image tasks without fine-tuning the backbone. Oquab et al. (2023) combine an image-level self-distillation objective, from DINO, with a patch-level masked objective, from iBOT, and train on a curated collection of about 142 million images.
 
 ## Overview
 
-A frozen DINOv2 backbone produces a feature for each image and for each patch. Downstream systems can use these features directly, with a light head or a retrieval step, instead of training the backbone for each task. The paper's main claim is that a self-supervised model trained at scale on curated data gives features that match or exceed those from weakly supervised pretraining across a range of benchmarks.
+A frozen DINOv2 backbone produces one feature for the whole image and one for each patch. Downstream systems can use these features with a light head, instead of training a separate backbone for each task. The paper's main claim is that features from a self-supervised model trained at scale on curated data are competitive with the best openly available weakly supervised models. It also reports that these features surpass OpenCLIP on most benchmarks. The parent subtopic is [Non-Contrastive Methods](index.md).
 
 ## Problem
 
-Supervised pretraining needs labels that are expensive to collect and that bias the features toward the chosen classes. Earlier self-supervised methods reached useful features but usually on smaller data, and their features were less reliable across tasks. The paper asks whether self-supervised learning can produce general visual features at a scale comparable to weakly supervised models.
+Supervised pretraining needs labels that are expensive to collect, and it biases the features toward the chosen classes. Earlier self-supervised methods were usually trained on smaller data, and their features were less reliable across tasks. The paper asks whether self-supervised learning can produce general visual features at the scale of weakly supervised models.
 
-## Core idea
+## Key concepts
 
-Combine two self-supervised objectives. An image-level objective uses self-distillation between a teacher and a student on different views of the same image. A patch-level objective predicts masked patches from the rest of the image, so that local features are also trained. The data is curated to reduce duplicates and to balance concepts, which the authors identify as important for feature quality.
+- **Image-level objective**: a cross-entropy between the student's and the teacher's class-token features, computed on different crops of the same image. This is the DINO objective.
+- **Patch-level objective**: the student sees some patches masked, and a loss on the masked tokens matches the teacher's patch features. This is the iBOT objective.
+- **Centering**: the teacher's outputs are centred, a technique the paper takes from SwAV.
+- **KoLeo regulariser**: encourages the features within a batch to spread out evenly.
+- **Curated data**: images retrieved from an uncurated pool so that they resemble a set of curated reference datasets.
 
 ## How it works
 
-1. Build a large, curated image collection, using a retrieval step to find images similar to a set of seed datasets.
-2. Train a vision transformer with an image-level self-distillation loss on global crops.
-3. Add a patch-level loss on masked patches, so that dense features are learned as well as global ones.
-4. Freeze the trained backbone and use its image and patch features for downstream tasks, such as classification, segmentation and retrieval.
+1. **Curate the data.** Start from an uncurated pool of about 1.2 billion images, remove near-duplicates, and retrieve images close to those in curated reference datasets, such as ImageNet-22k, ImageNet-1k and Google Landmarks. Retrieval uses embeddings from a self-supervised ViT-H/16 trained on ImageNet-22k, cosine similarity and k-means clustering. The result is LVD-142M, with 142 million images.
+2. **Train the backbone.** Train a vision transformer with the image-level and patch-level objectives, together with the KoLeo regulariser.
+3. **Freeze it.** Keep the backbone fixed after pretraining.
+4. **Use the features.** Feed the image and patch features to a downstream head, for classification, segmentation, depth estimation or retrieval.
 
-## Results
+## Key methods
 
-The paper reports that frozen DINOv2 features perform strongly on image classification, segmentation and depth estimation, often without task-specific training of the backbone. Studies in robotics and place recognition use the frozen features as a drop-in encoder. For example, the AnyLoc work reports that frozen DINOv2 features outperform task-trained place-recognition encoders on indoor datasets. The benchmark numbers should be taken from the paper's tables.
+### DINOv2: Learning Robust Visual Features without Supervision (Oquab et al., 2023)
 
-## Limitations
-
-- The largest backbones are expensive to run on embedded hardware, so smaller variants or distilled versions are often used on robots.
-- Frozen features do not adapt to a domain, and their robustness to lighting and viewpoint must be measured for each application.
-- The curation step that gives the best features depends on the reference datasets chosen, which limits the reproducibility of the exact data mixture.
+- **Problem:** self-supervised features have been less reliable than weakly supervised ones across tasks, and it was unclear whether scale alone would close the gap.
+- **Core idea:** combine DINO's image-level self-distillation with iBOT's masked patch objective, and train on a large curated dataset chosen by retrieval.
+- **Equation or algorithm:** the two losses and the KoLeo regulariser are described in the paper's method section. The page describes them in words, not as a single equation.
+- **Results:** for the largest model (ViT-g/14, frozen), the paper reports 86.5% linear-probe top-1 on ImageNet-1k, 49.0 mIoU on ADE20k with a linear head (53.0 with multi-scale testing), and an RMSE of 0.279 on NYUd depth with a DPT head (lower is better). The paper also reports mAP 52.3 on Oxford-Hard retrieval.
+- **Limitations:** the largest model is a one-billion-parameter ViT, which is costly to run on embedded hardware. The curation step depends on the reference datasets chosen, so the exact data mixture is hard to reproduce without the same retrieval pipeline. Frozen features do not adapt to a new domain, so their robustness to shifts has to be measured for each application.
 
 ## Connections
 
-- [Non-Contrastive Methods](index.md) places DINOv2 among the self-distillation methods.
-- [Visual localisation](../../../../applications/robotics/visual-localisation/index.md) shows DINOv2 features in a robotic setting.
-- [Masked prediction](../../self-supervised/masked-prediction/index.md) describes the patch-level objective's family.
+- [Masked prediction](../masked-prediction/index.md): the patch-level objective is a masked prediction idea, applied to image patches.
+- [Vision transformer](../../../models/transformer/index.md): the backbone architecture.
+- [Robotics](../../../../applications/robotics/index.md): frozen visual features are used as encoders for embodied tasks.
+
+## Applications
+
+- **Image classification, segmentation and depth estimation** with frozen features, as in the paper's evaluations.
+- **Image retrieval**, where the paper reports results on instance-level benchmarks.
 
 ## Open questions
 
-- Whether curated data can be replaced by a principled selection rule that works for new domains with little data.
-- How the frozen features behave under the strong photometric changes that matter in outdoor robotics.
+- Whether a principled selection rule can replace hand-chosen reference datasets when a new domain has little data.
+- How frozen features behave under large changes in lighting and viewpoint, which matter in outdoor robotics.
 
 ## References
 
-- Oquab, M., Darcet, T., Moutakanni, T., et al. (2023). *DINOv2: Learning Robust Visual Features without Supervision*. arXiv:2304.07193. https://arxiv.org/abs/2304.07193 — the source of the self-supervised objectives, the curated data and the frozen-feature results.
-- Caron, M., Touvron, H., Misra, I., et al. (2021). *Emerging Properties in Self-Supervised Vision Transformers*. ICCV 2021. arXiv:2104.14294. https://arxiv.org/abs/2104.14294 — the DINO self-distillation method that DINOv2 extends.
-- Keetha, N., Mishra, A., Karhade, J., et al. (2023). *AnyLoc: Towards Universal Visual Place Recognition*. arXiv:2308.00688. https://arxiv.org/abs/2308.00688 — uses frozen DINOv2 features for place recognition.
-- Burns, K., Witzel, Z., Hamid, J. I., et al. (2023). *What makes pre-trained visual representations successful for robust manipulation?* arXiv:2312.12444. https://arxiv.org/abs/2312.12444 — compares pretrained visual representations under visual shifts, including DINO-style models.
-- Silwal, S., Yadav, K., Wu, T., et al. (2024). *What do we learn from a large-scale study of pre-trained visual representations in sim and real environments?* ICRA 2024. arXiv:2310.02219. https://arxiv.org/abs/2310.02219 — a sim-to-real study of pretrained encoders for navigation.
+### Seminal papers
+
+- Oquab, M. et al. (2023). DINOv2: Learning Robust Visual Features without Supervision. *Transactions on Machine Learning Research*. arXiv:2304.07193. https://arxiv.org/abs/2304.07193 — The paper, with the two objectives, the curated data and the frozen-feature results.
+- Caron, M. et al. (2021). Emerging Properties in Self-Supervised Vision Transformers. arXiv:2104.14294. https://arxiv.org/abs/2104.14294 — DINO, the image-level self-distillation objective that DINOv2 keeps.
+- Zhou, J. et al. (2022). iBOT: Image BERT Pre-training with Online Tokenizer. arXiv:2111.07832. https://arxiv.org/abs/2111.07832 — The masked patch-level objective that DINOv2 combines with DINO.
+- Dosovitskiy, A. et al. (2020). An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale. arXiv:2010.11929. https://arxiv.org/abs/2010.11929 — The vision transformer architecture used as the backbone.
+- Chen, T. et al. (2020). A Simple Framework for Contrastive Learning of Visual Representations. arXiv:2002.05709. https://arxiv.org/abs/2002.05709 — SimCLR, the contrastive alternative to self-distillation.
