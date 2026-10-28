@@ -34,7 +34,7 @@
 - **精確推論**：變數消去、信念傳播（樹狀圖）
 - **近似推論**：
     - **抽樣**：MCMC（Metropolis-Hastings、Gibbs、HMC/NUTS）
-    - **變分推論**：用簡單分布 \(q\) 近似後驗，最大化證據下界（ELBO）——VAE 就是摊銷式變分推論
+    - **變分推論**：用簡單分布 \(q\) 近似後驗，最大化證據下界（ELBO）——VAE 就是攤銷式變分推論。方法細節見 [變分推論](variational-inference/index.md)
 
 ## 因果推論
 

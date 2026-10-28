@@ -37,7 +37,7 @@ Graphs encode conditional dependencies so high-dimensional joint distributions b
 - **Exact**: variable elimination, belief propagation (on trees)
 - **Approximate**:
     - **Sampling**: MCMC (Metropolis–Hastings, Gibbs, HMC/NUTS)
-    - **Variational inference**: approximate the posterior with a simpler \(q\) by maximising the evidence lower bound (ELBO) — a VAE is amortised variational inference
+    - **Variational inference**: approximate the posterior with a simpler \(q\) by maximising the evidence lower bound (ELBO) — a VAE is amortised variational inference. See [Variational Inference](variational-inference/index.md) for the methods.
 
 ## Causal inference
 
