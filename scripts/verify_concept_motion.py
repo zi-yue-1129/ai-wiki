@@ -17,6 +17,8 @@ TOPICS = {
     "moe-top2-routing": "theory/models/mixture-of-experts/index",
     "cfg-extrapolation": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance",
     "gradient-norm-clipping": "theory/optimization/norm-clipping",
+    "swin-shifted-windows": "theory/models/transformer/vision-transformer/swin/index",
+    "deformable-sampling": "theory/models/cnn/convolution-variants/deformable-convolution/index",
 }
 FORBIDDEN = {"script", "foreignObject", "iframe", "image"}
 LIMIT = 50 * 1024
@@ -83,10 +85,11 @@ def main() -> int:
                 (page.parent / link).resolve() for link in links
             }:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem == "moe-top2-routing":
+            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
-                for fallback in (static_path, ASSETS / "moe-top2-routing-token-b.svg"):
+                fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)
+                for fallback in fallbacks:
                     if fallback.resolve() not in linked:
                         errors.append(f"{page}: missing GitHub-readable fallback link {fallback.name}")
             if "CC BY-SA 4.0" not in text:
