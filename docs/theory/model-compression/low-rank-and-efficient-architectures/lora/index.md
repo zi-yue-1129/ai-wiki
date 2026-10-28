@@ -71,4 +71,4 @@ LoRA is a training method, so it sits with the fine-tuning practice described un
 
 ### Articles and documentation
 
-- Ainslie, J., et al. (2023). *GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints*. arXiv:2305.13245. https://arxiv.org/abs/2305.13245 — An efficient attention design that also changes the model's cost at inference.
+- Ainslie, J., et al. (2023). *GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints*. arXiv:2305.13245. https://arxiv.org/abs/2305.13245 — Shrinks the key-value cache at inference, a cost that LoRA does not address.
