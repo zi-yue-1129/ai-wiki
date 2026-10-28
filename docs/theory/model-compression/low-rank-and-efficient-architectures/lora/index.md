@@ -26,6 +26,10 @@ Adapting a large pretrained model to each task means storing a full copy of its 
 
 Freeze the pretrained weight matrix \(W_0\), and learn an update \(\Delta W = BA\) where \(B\) and \(A\) are thin matrices of rank \(r\). Only \(A\) and \(B\) are trained and stored per task. The base model is shared by all of them.
 
+![Animated LoRA schematic: a frozen full-rank weight matrix is kept while small A and B factor matrices learn a low-rank update, which can later be merged into the base.](../../../../assets/concept-animations/lora-low-rank-update.gif)
+
+*Original animated schematic, CC BY-SA 4.0.* The pretrained matrix \(W_0\) remains frozen while the trainable path applies \(A\) **then** \(B\) to an input, giving \(\Delta W = BA\) with rank at most \(r\). LoRA typically initialises \(B\) to zero, so the initial update vanishes. After fine-tuning, \(W_0+BA\) can be merged for inference; **LoRA does not compress the frozen base weights**. Matrix colours, pulse positions and dimensions are schematic, not measured training values. [Hu et al. (2021)](https://arxiv.org/abs/2106.09685).
+
 ## Equation or algorithm
 
 The layer computes \(h = W_0 x + BA x\). With \(W_0 \in \mathbb{R}^{m \times n}\), the update has \(r(m+n)\) parameters, which is far fewer than \(mn\) when \(r\) is small. Hu et al. initialise \(B\) to zero, so training starts from the pretrained model. After training, \(BA\) can be merged into \(W_0\), which removes any extra cost at inference.
