@@ -37,6 +37,10 @@ At each sampling step the network is run twice, and the predictions are combined
 
 Equivalently, \(\tilde\epsilon = \epsilon_\theta(x_t,t) + (1+w)\big(\epsilon_\theta(x_t,t,c) - \epsilon_\theta(x_t,t)\big)\), which shows that the step moves from the unconditional prediction towards the conditional one. With \(w = 0\) this is the plain conditional model. Larger \(w\) pushes the sample further in the direction the condition adds. This doubles the cost per step, because two network evaluations are needed.
 
+![Classifier-free guidance vector diagram: the guided noise prediction extrapolates beyond the conditional prediction along the conditional-minus-unconditional direction.](../../../../../assets/concept-animations/cfg-vector-guidance.svg)
+
+*Original vector-space concept diagram, CC BY-SA 4.0.* Each point represents a **complete predicted noise tensor**, schematically projected to two dimensions rather than an image sample. Moving from the unconditional prediction to the conditional prediction follows the difference vector. In the convention used above, \(w=0\) gives the conditional prediction, whereas \(w>0\) extrapolates beyond it by \(w(\epsilon_{\mathrm{cond}}-\epsilon_{\mathrm{uncond}})\). The positions, distance and colour are **illustrative, not measured model outputs**; the figure does not imply that greater guidance always improves quality. See [Ho & Salimans (2022)](https://arxiv.org/abs/2207.12598).
+
 ## Key methods
 
 ### Classifier-Free Diffusion Guidance (Ho & Salimans, 2022)
