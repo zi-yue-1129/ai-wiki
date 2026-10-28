@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - brain-mind/cognitive-science
@@ -30,7 +30,11 @@ Two-choice tasks produce two kinds of data: the proportion of correct answers an
 - **Non-decision time**: the time taken by processes outside the decision itself, such as perceiving the stimulus and moving the hand.
 - **Noise**: random fluctuation in the evidence, which makes the same stimulus lead to different decision times and occasional errors.
 
-## The model
+## Problem
+
+Standard choice models predict which option a person picks but say little about timing. Two people with the same accuracy can differ in speed for very different reasons: one may be more cautious, another may be processing the stimulus more slowly. Ratcliff and McKoon (2008) present the diffusion model as a theory that predicts both accuracy and the full distribution of response times for two-choice tasks, and that ties each part of the data to a separate parameter.
+
+## How it works
 
 Let evidence x start at a point z between boundaries at 0 and a. In standard notation, x changes as
 
@@ -38,21 +42,39 @@ dx = v dt + s dW
 
 where v is the drift rate, s the scale of the noise, and dW a small increment of a Wiener process. The decision is made when x first reaches 0 or a. The response time is the time to reach a boundary plus the non-decision time. Choice and response time together then determine the predicted data, and fitting the parameters to the observed distribution of response times is what separates the components.
 
+```mermaid
+flowchart LR
+  S[Starting point z] --> X[Noisy evidence x<br/>drift v, noise s]
+  X -->|x reaches 0| L[Choose option 0]
+  X -->|x reaches a| R[Choose option 1]
+  X --> T[Response time =<br/>crossing time +<br/>non-decision time]
+```
+
 The model's form is a continuous version of sequential sampling, in which evidence is gathered one sample at a time until a threshold is reached. Its continuous form makes the predicted distributions of response times analytical, which is why it can be fitted to large datasets.
 
-## Evidence from experiments
+## Evidence and what the parameters explain
 
-Ratcliff and McKoon (2008) review the model and illustrate its parameters with three experiments:
+Ratcliff and McKoon (2008) review the model's theory and the data it was fitted to. The central point is that each experimental manipulation maps onto a parameter, so the model can say *what* changed:
 
-1. **Stimulus difficulty** changes the drift rate. Harder stimuli give less information per unit time, and the effect appears in both accuracy and the shape of response-time distributions.
-2. **Speed-accuracy instructions** change boundary separation. Asking for speed narrows the boundaries, which shortens responses and increases errors, without changing the quality of information.
-3. **Stimulus proportions** bias the starting point and drift. When one option is more frequent, responses shift toward it, and the model attributes this to a biased starting point.
+- **Stimulus difficulty** is best described as a change in drift rate: harder stimuli give less information per unit time.
+- **Speed-accuracy instructions** are best described as a change in boundary separation: asking for speed narrows the boundaries, which shortens responses and raises errors without changing the quality of information.
+- **Response bias**, such as unequal frequencies of the two options, is best described as a shift in the starting point or the drift.
 
-The authors also argue that the model's constraints make it testable and potentially falsifiable, which distinguishes it from descriptive accounts of response times.
+Because the model makes precise predictions for the whole response-time distribution, not just the mean, it can be rejected by data. This is what separates it from descriptive accounts of response times.
+
+## Results
+
+The model is evaluated by fitting it to two-choice data and comparing its predicted accuracy and response-time distributions with those observed. The sources cited here support the qualitative pattern above: parameters move in the directions described when difficulty, instructions or bias change. This page does not quote numerical fits, since none are given in the sources read for it.
 
 ## Neural correspondence
 
 The model describes behaviour, and its parameters are not directly neural quantities. Accumulation-to-bound ideas were motivated in large part by recordings from parietal cortex in monkeys performing motion discrimination, where firing rates rise toward a level before a choice. Gold and Shadlen (2007) review this line of work, which is the main reason the model is considered a candidate neural mechanism. Whether the fitted parameters map onto specific neurons is still an open research question.
+
+## Limitations
+
+- **Two options.** The basic model is built for two-choice tasks. Extensions to many options exist, but they are not the same model.
+- **Fixed boundaries.** The basic model assumes the boundaries do not move during a trial. Some tasks suggest the boundary changes over time or with reward, which the basic model does not capture.
+- **Parameters are summaries.** Fitted parameters are useful summaries of behaviour, but the step from them to specific neural populations has not been established.
 
 ## Connections
 
@@ -76,7 +98,7 @@ The model describes behaviour, and its parameters are not directly neural quanti
 
 ### Seminal papers
 
-- Ratcliff, R. & McKoon, G. (2008). The Diffusion Decision Model: Theory and Data for Two-Choice Decision Tasks. *Neural Computation*. https://doi.org/10.1162/neco.2008.12-06-420 — Reviews the diffusion model and shows how its parameters separate the effects of difficulty, speed-accuracy instructions and bias.
+- Ratcliff, R. & McKoon, G. (2008). The Diffusion Decision Model: Theory and Data for Two-Choice Decision Tasks. *Neural Computation*. https://doi.org/10.1162/neco.2008.12-06-420 — Reviews the diffusion model's theory and the data it is fitted to, and explains how its parameters separate the effects of difficulty, speed-accuracy instructions and bias.
 - Ratcliff, R. (1978). A theory of memory retrieval. *Psychological Review*. https://doi.org/10.1037/0033-295X.85.2.59 — An early diffusion-style account of memory retrieval, from which the decision model was later developed.
 - Ratcliff, R. & Smith, P. L. (2004). A comparison of sequential sampling models for two-choice reaction time. *Psychological Review*. https://doi.org/10.1037/0033-295X.111.2.333 — Compares sequential-sampling models of two-choice reaction time, the family that includes the diffusion model.
 
