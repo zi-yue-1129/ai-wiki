@@ -25,7 +25,7 @@ Behavioural cloning suffers from **covariate shift**. The learner's own mistakes
 
 ## Connections
 
-Behavioural cloning is supervised learning on demonstrations, so the usual [supervised learning](../../supervised/index.md) tools and pitfalls apply, including overfitting and distribution shift. The same idea trains the supervised fine-tuning stage of language models, see [imitation in foundation models](../imitation-in-foundation-models/index.md). Learning by watching others has a parallel in human observational learning, see [psychology and AI](../../../../brain-mind/psychology/index.md).
+Behavioural cloning is supervised learning on demonstrations, so the usual [supervised learning](../../supervised/index.md) tools and pitfalls apply, including overfitting and distribution shift. The same idea trains the supervised fine-tuning stage of language models, see [imitation in foundation models](../../../../models/llm/imitation-in-foundation-models/index.md). Learning by watching others has a parallel in human observational learning, see [psychology and AI](../../../../brain-mind/psychology/index.md).
 
 ## Applications
 

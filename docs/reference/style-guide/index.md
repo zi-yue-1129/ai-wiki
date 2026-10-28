@@ -34,6 +34,15 @@ docs/
 - When a page grows sub-pages, turn `<subtopic>.md` into `<subtopic>/index.md` and move its translation along with it.
 - File and folder names are lowercase English with hyphens.
 
+## Foundations or Models?
+
+Both sections touch the same techniques, so decide by what the page is about:
+
+- **Foundations** explains *how* something works in general: mathematics, learning signals, learning theory, inference. A foundations page should still make sense if its network were swapped for another one.
+- **Models** explains *what* a concrete model or system is and where it is used: a named family such as transformers or diffusion models, or a system built from them such as an LLM or an agent.
+
+When a technique belongs to both, put the theory in Foundations and the model-specific application in Models, and link the two with `related:`. Don't repeat the same material in both sections.
+
 ## Audience and tone
 
 - Write for a curious reader from any field: a psychology student, a doctor, an engineer. Explain jargon on first use or link to the page that does.
