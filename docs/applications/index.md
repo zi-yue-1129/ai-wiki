@@ -27,6 +27,7 @@ Each page follows the same structure: **landscape** (main use cases), **landmark
 | [Space & Astronomy](space-astronomy/index.md) | Survey classification, exoplanets, gravitational waves, anomaly search |
 | [Architecture & Urban Planning](architecture-urban/index.md) | Building energy, structural inspection, urban mobility, generative design |
 | [Telecommunications](telecommunications/index.md) | Learned radio, network operations, traffic prediction, network LLMs |
+| [Linguistics & Machine Translation](linguistics-translation/index.md) | Neural translation, low-resource languages, corpus linguistics, translator tools |
 
 ## Methods behind each field
 
@@ -55,6 +56,7 @@ Each field relies on a few shared methods. The right-hand column lists the pages
 | Space & Astronomy | [Convolutional Neural Networks](../theory/models/cnn/index.md), [Active Learning](../theory/paradigms/active/index.md), [Anomaly Detection](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
 | Architecture & Urban Planning | [Computer Vision](../theory/models/computer-vision/index.md), [Domain Adaptation](../theory/paradigms/transfer/domain-adaptation/index.md), [Graph Neural Networks](../theory/models/gnn/index.md), [Generative Models](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 | Telecommunications | [Autoencoders & Representations](../theory/paradigms/unsupervised/autoencoders-and-representations/index.md), [Reinforcement Learning](../theory/paradigms/reinforcement-learning/index.md), [Federated Learning](../theory/paradigms/federated/index.md), [Large Language Models](../theory/models/llm/index.md) |
+| Linguistics & Machine Translation | [Natural Language Processing](../theory/models/nlp/index.md), [Transformer](../theory/models/transformer/index.md), [Attention in Brains & Machines](../brain-mind/attention-brain-machine/index.md) |
 
 ## Cross-cutting patterns
 

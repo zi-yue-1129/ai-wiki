@@ -27,6 +27,7 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | [太空與天文](space-astronomy/index.md) | 巡天分類、系外行星、重力波、異常搜尋 |
 | [建築與城市規劃](architecture-urban/index.md) | 建築能源、結構檢查、城市移動、生成式設計 |
 | [電信](telecommunications/index.md) | 學習式無線電、網路營運、流量預測、網路 LLM |
+| [語言學與機器翻譯](linguistics-translation/index.md) | 神經翻譯、低資源語言、語料庫語言學、譯者工具 |
 
 ## 各領域背後的方法
 
@@ -55,6 +56,7 @@ AI 在各領域如何被運用——目前什麼有效、什麼正在興起，�
 | 太空與天文 | [卷積神經網路](../theory/models/cnn/index.md)、[主動學習](../theory/paradigms/active/index.md)、[異常偵測](../theory/paradigms/unsupervised/anomaly-detection/index.md) |
 | 建築與城市規劃 | [電腦視覺](../theory/models/computer-vision/index.md)、[領域適應](../theory/paradigms/transfer/domain-adaptation/index.md)、[圖神經網路](../theory/models/gnn/index.md)、[生成模型](../theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 | 電信 | [自編碼器與學習式表徵](../theory/paradigms/unsupervised/autoencoders-and-representations/index.md)、[強化學習](../theory/paradigms/reinforcement-learning/index.md)、[聯邦學習](../theory/paradigms/federated/index.md)、[大型語言模型](../theory/models/llm/index.md) |
+| 語言學與機器翻譯 | [自然語言處理](../theory/models/nlp/index.md)、[Transformer](../theory/models/transformer/index.md)、[大腦與機器中的注意力](../brain-mind/attention-brain-machine/index.md) |
 
 ## 跨領域的模式
 

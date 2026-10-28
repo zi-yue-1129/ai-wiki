@@ -89,6 +89,12 @@ Transformer（Vaswani et al., 2017，"Attention Is All You Need"）完全以注�
 - **比較：** 與上述相同的注意力區塊，但用作去噪器而非語言模型。它所套用的生成演算法見[擴散模型](../../paradigms/unsupervised/density-and-generative-models/diffusion/index.md)。
 - **完整介紹：** [擴散 Transformer（DiT）](dit/index.md)
 
+### An Image is Worth 16x16 Words（Dosovitskiy 等人，2021）
+
+- **概述：** 把影像切成固定大小的區塊，每塊嵌入為一個 token，再把未經修改的 Transformer 編碼器套用到序列上，不使用任何卷積層。
+- **比較：** 與上述相同的注意力區塊，但用於影像而非文字。它的歸納偏置較弱，因此需要比 CNN 更多的資料；與卷積骨幹的比較見[卷積骨幹與縮放](../cnn/backbones-and-scaling/index.md)。
+- **完整介紹：** [視覺 Transformer（ViT）](vision-transformer/index.md)
+
 ## 組件與變體
 
 Transformer 的每個部分都有自己的變體家族，各有取捨與未解問題：
