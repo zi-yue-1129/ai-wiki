@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 aliases:
   - TD3
   - 雙延遲深度確定性策略梯度
@@ -37,6 +37,10 @@ y = r + \gamma \min_{i=1,2} Q_{\theta'_i}\big(s', \pi_{\phi'}(s') + \epsilon\big
 2. 由目標演員計算平滑後的目標動作，並形成截斷式雙 Q 目標 \(y\)。
 3. 讓兩個評論家都朝 \(y\) 更新。
 4. 每 \(d\) 步，沿第一個評論家的梯度更新演員，然後更新目標網路。
+
+![TD3 四階段流程：目標動作平滑、雙目標 Q 值取較小者、每步更新評論家，以及延遲更新演員與目標網路](../../../../../assets/concept-animations/td3-delayed-twin-critics-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 上方路徑先在**目標演員的動作**加入截斷雜訊，再由**兩個目標評論家**估計 Q 值，取其中**較小值**形成 bootstrap 目標。下方區分**兩個線上評論家每步更新**，以及**演員與目標網路每兩次評論家更新才更新一次**（論文示例的延遲 (d=2)）。目標網路使用**軟更新**，並非直接硬複製；演員的策略梯度則使用第一個線上評論家。此時序**僅為教學示意，不是訓練實測軌跡**。MkDocs 可使用播放／暫停按鈕；GitHub 可查看[靜態總覽圖](../../../../../assets/concept-animations/td3-delayed-twin-critics-still.svg)。詳見 [Fujimoto 等人（2018）](https://arxiv.org/abs/1802.09477)。
 
 ## 結果
 

@@ -39,6 +39,10 @@ With \(\hat m_t\) and \(\hat v_t\) defined as in [Adam](adam.md), the AdamW upda
 
 The decay term \(\lambda\theta_{t-1}\) is added after the adaptive step, so it is not divided by \(\sqrt{\hat v_t}\). Adam with L2 regularisation would instead put \(\lambda\theta_{t-1}\) inside the gradient \(g_t\), and the adaptive scaling would weaken it for parameters with large gradients.
 
+![Four-stage comparison of L2-regularized Adam and AdamW, highlighting whether weight decay enters the adaptive moments or bypasses them](../../../assets/concept-animations/adamw-decoupled-paths-motion.svg)
+
+*Original animated teaching schematic (CC BY-SA 4.0).* The orange upper path shows **Adam with an L2 penalty**: the regularisation gradient joins the task gradient before the adaptive moments. The teal lower path shows **AdamW**: the adaptive gradient step and direct parameter shrinkage remain separate until the parameter update. The four highlighted phases are a schematic of computational dependencies, **not measured gradients, coefficients or training traces**. Use the MkDocs Play/Pause control (keyboard accessible), or open the [GitHub-readable static comparison](../../../assets/concept-animations/adamw-decoupled-paths-still.svg). The diagram omits bias correction and the detailed moment recurrences; see the [original AdamW paper](https://arxiv.org/abs/1711.05101).
+
 ## Key methods
 
 ### Decoupled Weight Decay Regularization (Loshchilov & Hutter, 2017/2019)
