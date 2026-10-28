@@ -64,7 +64,7 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 
 ## 讓深度網路能被訓練的技巧
 
-- **初始化**：Xavier／Glorot、He
+- **初始化**：[Xavier／Glorot、He 與 muP](initialisation/index.md)
 - **正規化**：[BatchNorm、LayerNorm、RMSNorm](normalisation/index.md)
 - **殘差連接**（ResNet）：讓梯度能流經數百層
 - [**Dropout**與隨機正則化](dropout/index.md)、權重衰減、資料增強

@@ -72,7 +72,7 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 
 ## Tricks that make deep networks trainable
 
-- **Initialisation**: Xavier/Glorot, He
+- **Initialisation**: [Xavier/Glorot, He and muP](initialisation/index.md)
 - **Normalisation**: [BatchNorm, LayerNorm, RMSNorm](normalisation/index.md)
 - **Residual connections** (ResNet): gradients flow through hundreds of layers
 - [**Dropout** and stochastic regularisation](dropout/index.md), weight decay, data augmentation
