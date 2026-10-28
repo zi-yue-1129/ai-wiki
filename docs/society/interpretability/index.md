@@ -46,6 +46,8 @@ Caution: attribution maps can be unfaithful or fail sanity checks (Adebayo et al
 
 - [Mechanistic interpretability and circuits](mechanistic-interpretability.md): circuits, induction heads, factual recall and superposition.
 - [Sparse autoencoders and feature dictionaries](sparse-autoencoders.md): dictionary learning on activations, scaling and known failure modes.
+- [k-sparse autoencoders](k-sparse-autoencoders.md): enforcing sparsity by keeping the k largest activations.
+- [JumpReLU sparse autoencoders](jumprelu-sae.md): per-feature thresholds that improve reconstruction at a given sparsity.
 
 ## The neuroscience parallel
 

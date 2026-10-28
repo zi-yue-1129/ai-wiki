@@ -28,7 +28,7 @@ Sparse dictionary learning is the classic tool for this. Olshausen and Field (19
 
 - **Encoder and decoder**: the encoder maps an activation to a sparse code, and the decoder maps the code back to an approximation of the activation.
 - **Dictionary**: the decoder's columns, one per feature.
-- **Sparsity**: the fraction of features active at once. Sparsity is enforced by an L1 penalty or by an explicit top-k rule (Makhzani & Frey, 2014).
+- **Sparsity**: the fraction of features active at once. Sparsity is enforced by an L1 penalty or by an explicit top-k rule, described in [k-sparse autoencoders](k-sparse-autoencoders.md).
 - **Monosemantic feature**: a feature that responds to one concept in a human-recognisable way.
 
 ## How it works
@@ -39,7 +39,7 @@ Cunningham et al. (2023) train SAEs on activations from a small language model a
 
 ## Scaling
 
-The main question is whether the method scales. Templeton et al. (2024) train SAEs on activations from a production-scale model and report millions of features, including features for concrete entities and some abstract concepts, along with features that can be used to steer behaviour. Gao et al. (2024) show that SAE size and sparsity can be scaled with predictable trade-offs between reconstruction quality and sparsity, and introduce a top-k architecture that makes training more stable. Lieberum et al. (2024) release a suite of SAEs for an open model family, which lets other researchers study the features without training their own.
+The main question is whether the method scales. Templeton et al. (2024) train SAEs on activations from a production-scale model and report millions of features, including features for concrete entities and some abstract concepts, along with features that can be used to steer behaviour. Gao et al. (2024) show that SAE size and sparsity can be scaled with predictable trade-offs between reconstruction quality and sparsity, and introduce a top-k architecture that makes training more stable. Lieberum et al. (2024) release a suite of SAEs for an open model family, which lets other researchers study the features without training their own. A [JumpReLU autoencoder](jumprelu-sae.md) gives each feature its own threshold to improve reconstruction.
 
 Scaling introduces its own problems. An SAE that reconstructs activations well may still miss features, and a feature that is interpretable in one SAE may split into several in a larger one, so the features depend on the dictionary size.
 
@@ -88,6 +88,7 @@ Sparse coding has a long history in neuroscience. The efficient-coding hypothesi
 - Bricken, T. et al. (2023). *Towards Monosemanticity: Decomposing Language Models With Dictionary Learning*. Transformer Circuits Thread. https://transformer-circuits.pub/2023/monosemantic-features/index.html — Applies dictionary learning to a small transformer and reports monosemantic features.
 - Templeton, A. et al. (2024). *Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet*. Transformer Circuits Thread. https://transformer-circuits.pub/2024/scaling-monosemanticity/ — Scales sparse autoencoders to a production-scale model and reports features and steering demonstrations.
 - Lieberum, T. et al. (2024). *Gemma Scope: Open Sparse Autoencoders Everywhere All At Once on Gemma 2*. arXiv:2408.05147. https://arxiv.org/abs/2408.05147 — Releases a suite of sparse autoencoders for an open model family.
+- Rajamanoharan, S. et al. (2024). *Jumping Ahead: Improving Reconstruction Fidelity with JumpReLU Sparse Autoencoders*. arXiv:2407.14435. https://arxiv.org/abs/2407.14435 — Introduces a sparse autoencoder with a thresholded JumpReLU activation that improves reconstruction at a given sparsity.
 
 ## Further learning
 

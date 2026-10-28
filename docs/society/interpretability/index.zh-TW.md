@@ -38,6 +38,8 @@
 
 - [機械式可解釋性與電路](mechanistic-interpretability.md)：電路、歸納頭、事實回憶與疊加。
 - [稀疏自編碼器與特徵字典](sparse-autoencoders.md)：激活上的字典學習、擴展與已知的失效模式。
+- [k-稀疏自編碼器](k-sparse-autoencoders.md)：保留最大的 k 個激活以強制稀疏性。
+- [JumpReLU 稀疏自編碼器](jumprelu-sae.md)：每個特徵有獨立閾值，在給定稀疏程度下改善重建。
 
 ## 與神經科學的平行
 
