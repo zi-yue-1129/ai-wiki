@@ -46,9 +46,10 @@ Start new pages from the [page template](https://github.com/zi-yue-1129/ai-wiki/
 
 1. Title (`# Heading`) and a one- or two-sentence summary
 2. Overview, key concepts, how it works
-3. Connections to other pages (especially the brain and mind angle)
-4. Applications, open questions
-5. Further reading and references
+3. Key methods: for the landmark papers, the problem, core idea, equation or algorithm, results and limitations (see the template for the block pattern)
+4. Connections to other pages (especially the brain and mind angle)
+5. Applications, open questions
+6. Further reading and references
 
 Unfinished pages keep this admonition at the top, which marks them as stubs in the status report:
 
