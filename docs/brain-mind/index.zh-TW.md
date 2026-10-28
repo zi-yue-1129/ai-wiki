@@ -43,6 +43,7 @@ flowchart TB
 | [神經影像與記錄方法](neuroimaging-methods/index.md) | BOLD 功能性磁振造影、fMRI 與電生理各自測量什麼、LFP 與 ECoG |
 | [發展認知與兒童如何學習](developmental-cognition/index.md) | 嬰兒期的核心知識、注視時間方法、統計學習、Goldilocks 效應 |
 | [動物認知與比較智力](animal-cognition/index.md) | 鏡像自我辨認、烏鴉的工具使用、猿類的錯誤信念測試、趨同演化的智力 |
+| [運動控制與小腦](motor-control/index.md) | 內部模型與前向預測、小腦監督學習、最優回饋控制、運動皮質群體動態 |
 
 ## 雙向關係一覽
 
