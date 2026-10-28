@@ -68,6 +68,10 @@ Modern view: **double descent** — very large models, past the point where they
 
 L1 (sparsity), L2 (weight decay), early stopping, data augmentation, dropout, ensembling.
 
+### Robustness and out-of-distribution inputs
+
+Models can fail on inputs that are deliberately perturbed ([adversarial robustness](adversarial-robustness/index.md)) or that come from a different distribution ([out-of-distribution detection and distribution shift](ood-detection/index.md)). Both topics ask whether generalisation holds beyond the training distribution.
+
 ## Experimental method
 
 1. **Split data**: train / validation / test. Touch the test set once, at the end.

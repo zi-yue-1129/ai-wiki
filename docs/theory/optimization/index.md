@@ -53,6 +53,7 @@ The optimisers below are grouped by what information they use. Each subpage give
 | Large-batch and distributed | Training across many devices | [Large-batch and distributed](large-batch-and-distributed.md) | Draft |
 | Zeroth-order and evolutionary | No gradient at all | [Zeroth-order and evolutionary](zeroth-order-and-evolutionary.md), with pages on [SPSA](spsa.md), [evolution strategies](evolution-strategies.md) and [CMA-ES](cma-es.md) | Draft |
 | Theory | Convergence, landscapes, sharpness | [Theory and landscapes](theory-and-landscapes.md), with pages on [sharpness-aware minimisation](sharpness-aware-minimisation.md) and [ASAM](asam.md) | Draft |
+| Hyperparameter optimisation | Validation scores of whole training runs | [Hyperparameter optimisation](hyperparameter-optimisation/index.md), with pages on [Bayesian optimisation](hyperparameter-optimisation/bayesian-optimisation.md) and [Hyperband](hyperparameter-optimisation/hyperband.md) | Draft |
 
 ## How it works
 

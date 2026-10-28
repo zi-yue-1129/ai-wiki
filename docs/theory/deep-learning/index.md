@@ -70,6 +70,8 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 | Autoencoder / VAE | Bottleneck compression | Representation learning, generation | [Generative Models](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 | Diffusion model | Iterative denoising | Images, video, molecules | [Generative Models](../paradigms/unsupervised/density-and-generative-models/generative-models/index.md) |
 
+Architectures can also be searched automatically rather than designed by hand. See [Neural architecture search and AutoML](nas-automl/index.md).
+
 ## Tricks that make deep networks trainable
 
 - **Initialisation**: Xavier/Glorot, He
@@ -93,6 +95,8 @@ This echoes **predictive processing** theories of the brain, in which the cortex
 Kaplan et al. (2020) and Hoffmann et al. (2022, "Chinchilla") found that language-model loss falls as a **power law** in parameters, data and compute. Chinchilla suggested that for a fixed compute budget, parameters and training tokens should grow together (roughly 20 tokens per parameter). In practice, models are often trained far beyond that ratio to make inference cheaper.
 
 Since 2024, **test-time compute scaling** — letting models think longer before answering (long chains of thought, search, sampling and voting) — has become a second reliable axis of improvement for reasoning.
+
+The fits, and the debate about emergent abilities, are on the [Scaling laws](../models/llm/scaling-laws/index.md) page.
 
 ## Open theoretical questions
 

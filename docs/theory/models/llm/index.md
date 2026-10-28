@@ -32,7 +32,7 @@ flowchart LR
 
 ### 1. Tokenisation
 
-Text is split into tokens (BPE, SentencePiece, Unigram). Tokeniser design affects multilingual efficiency (Chinese characters may take one or more tokens each) and even arithmetic ability.
+Text is split into tokens (BPE, SentencePiece, Unigram). Tokeniser design affects multilingual efficiency (Chinese characters may take one or more tokens each) and even arithmetic ability. See [Tokenisation](tokenisation/index.md) for the methods.
 
 ### 2. Pre-training
 
@@ -101,6 +101,12 @@ Each method has its own page. The overview and comparison here are brief.
 - **Overview:** A 175-billion-parameter autoregressive Transformer, tested with zero, one or a few worked examples in the prompt.
 - **Comparison:** Shows what scale and prompting alone achieve. The InstructGPT method below adds human feedback to change behaviour.
 - **Full write-up:** [GPT-3 Few-Shot Learning](gpt-3-few-shot/index.md)
+
+### Scaling laws: loss as a power law (Kaplan et al., 2020)
+
+- **Overview:** Test loss falls as a power law in model size, data and compute, over many orders of magnitude.
+- **Comparison:** Gives the basis for choosing model size before training. The compute-optimal fit below revises the allocation it recommends.
+- **Full write-up:** [Scaling laws](scaling-laws/index.md), with the [Kaplan scaling laws](scaling-laws/kaplan-scaling-laws.md) page
 
 ### Compute-optimal training (Hoffmann et al., 2022)
 
