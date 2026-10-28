@@ -21,7 +21,7 @@ translation_reviewed: 2026-10-28
 
 搜尋採深度優先。在極大節點，每個子節點都以目前的 \(\alpha\) 與 \(\beta\) 搜尋，只要某子節點回傳較大的值，就提高 \(\alpha\)。在極小節點則以同樣方式降低 \(\beta\)。當 \(\alpha\ge\beta\) 時，剩餘子節點被剪掉。回傳的值與普通極小極大相同，因為被剪掉的分支不可能改變它。
 
-檢查的葉節點數取決於走法排序。Knuth 與 Moore（1975）指出，在完美排序下，對分支因子 \(b\) 與深度 \(d\)，α–β 檢查的葉節點約為 \(b^{d/2}\) 個，而極小極大則為 \(b^{d}\) 個。這大約讓同樣成本下可搜尋的深度加倍。
+檢查的葉節點數取決於走法排序。先搜尋最強的著法，可以剪掉更多分支。
 
 ## 變體
 
@@ -34,7 +34,7 @@ translation_reviewed: 2026-10-28
 - α–β 回傳的是極小極大值，剪枝不改變答案。
 - 其效益取決於走法排序。排序不佳時，省下的工作很少。
 - 單純的深度限制會造成地平線效應，因此通常會加上靜態搜尋或額外搜尋。
-- α–β 需要葉節點上的靜態評估函數，而設計好的評估函數是工程上的主要部分。Campbell 等人（2002）描述 Deep Blue 如何結合 α–β 搜尋、專用硬體與調校過的評估函數。
+- α–β 需要葉節點上的靜態評估函數，而設計好的評估函數是工程上的主要部分。Campbell 等人（2002）描述 Deep Blue 如何結合 α–β 搜尋（部分以硬體實作）與主要靠手工調校的評估函數。
 
 ## 應用
 
@@ -52,7 +52,7 @@ translation_reviewed: 2026-10-28
 ### 奠基性論文
 
 - Shannon, C. E. (1950). XXII. Programming a computer for playing chess. *The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science* 41(314), 256–275. https://doi.org/10.1080/14786445008521796 — 早期提出以靜態評估函數搭配極小極大搜尋來下西洋棋。
-- Knuth, D. E. & Moore, R. W. (1975). An analysis of alpha-beta pruning. *Artificial Intelligence* 6(4), 293–326. https://doi.org/10.1016/0004-3702(75)90019-3 — 分析 α–β，包括葉節點檢查數的最佳情形。
+- Knuth, D. E. & Moore, R. W. (1975). An analysis of alpha-beta pruning. *Artificial Intelligence* 6(4), 293–326. https://doi.org/10.1016/0004-3702(75)90019-3 — 分析 α–β 的剪枝表現。
 
 ### 綜述與教科書
 
