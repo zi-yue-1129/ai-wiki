@@ -33,7 +33,7 @@ translation_reviewed: 2026-10-28
 | 學習率排程與預熱 | 學習率如何隨時間變化 | [學習率排程](learning-rate-schedules.md)，並有[漸進式預熱](gradual-warm-up.md)、[附暖重啟的餘弦退火](cosine-annealing-warm-restarts.md)與[循環學習率](cyclical-learning-rates.md)等方法頁 | 草稿 |
 | 正則化與權重衰減 | 最佳化器必須遵守的懲罰項 | [正則化與權重衰減](regularisation-and-weight-decay.md)，並有[尖銳極小值](sharp-minima.md)與 [SGD 雜訊尺度](sgd-noise-scale.md) 等方法頁；解耦衰減見 [AdamW](adaptive/adamw.md) 頁 | 草稿 |
 | 梯度裁剪與正規化 | 對梯度大小的限制 | [梯度裁剪與正規化](gradient-clipping-and-normalisation.md)，並有[範數裁剪](norm-clipping.md)、[LARS](lars.md) 與 [LAMB](lamb.md) 等方法頁 | 草稿 |
-| 大批次與分散式 | 跨多個裝置的訓練 | [大批次與分散式](large-batch-and-distributed.md) | 規劃中 |
+| 大批次與分散式 | 跨多個裝置的訓練 | [大批次與分散式](large-batch-and-distributed.md) | 草稿 |
 | 零階與演化 | 完全不使用梯度 | [零階與演化](zeroth-order-and-evolutionary.md)，並有 [SPSA](spsa.md)、[演化策略](evolution-strategies.md) 與 [CMA-ES](cma-es.md) 等方法頁 | 草稿 |
 | 理論 | 收斂、地形、銳度 | [理論與損失地形](theory-and-landscapes.md) | 規劃中 |
 

@@ -44,7 +44,7 @@ tags:
 
 ### 開創性論文
 
-- Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), arXiv:math/0612821. https://arxiv.org/abs/math/0612821 — 說明哪些凸代理損失仍能得到良好的分類器。
+- Bartlett, Jordan & McAuliffe (2006), "Convexity, classification, and risk bounds", *JASA* 101(473), 138–156. https://doi.org/10.1198/016214505000000907 — 說明哪些凸代理損失仍能得到良好的分類器。
 - Lin et al. (2017), "Focal loss for dense object detection", ICCV, arXiv:1708.02002 — 在交叉熵中降低容易樣本的權重，有助於處理類別不平衡。
 - Kingma & Ba (2015), "Adam: a method for stochastic optimization", ICLR, arXiv:1412.6980 — Adam 最佳化器，具有每個參數自適應的步長。
 - Loshchilov & Hutter (2019), "Decoupled weight decay regularization", ICLR, arXiv:1711.05101 — 提出 AdamW，把權重衰減與梯度更新分開套用。

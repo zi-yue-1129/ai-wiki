@@ -16,7 +16,7 @@ A short guide to people and groups whose work shaped modern AI. It is a starting
 
 ## Vision and data
 
-- **Fei-Fei Li** is the last of six authors, with Jia Deng, Wei Dong, Richard Socher, Li-Jia Li and Kai Li, of the 2009 CVPR paper that introduced ImageNet as a large-scale hierarchical image database ([CVPR 2009, mlanthology](https://mlanthology.org/cvpr/2009/deng2009cvpr-imagenet)). See [Computer Vision](../../theory/models/computer-vision/index.md) and [Datasets](../datasets/index.md).
+- **Fei-Fei Li** is the last of six authors, with Jia Deng, Wei Dong, Richard Socher, Li-Jia Li and Kai Li, of the 2009 CVPR paper that introduced ImageNet as a large-scale hierarchical image database ([CVPR 2009, DOI](https://doi.org/10.1109/CVPR.2009.5206848)). See [Computer Vision](../../theory/models/computer-vision/index.md) and [Datasets](../datasets/index.md).
 
 ## Research labs and institutes
 

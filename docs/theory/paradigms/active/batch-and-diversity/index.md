@@ -56,4 +56,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Hoi, Jin, Zhu & Lyu (2006), "Batch mode active learning and its application to medical image classification", ICML. https://mlanthology.org/icml/2006/hoi2006icml-batch/ — Selects a whole batch of unlabelled examples at once, balancing informativeness and diversity.
+- Hoi, Jin, Zhu & Lyu (2006), "Batch mode active learning and its application to medical image classification", ICML. https://doi.org/10.1145/1143844.1143897 — Selects a whole batch of unlabelled examples at once, balancing informativeness and diversity.

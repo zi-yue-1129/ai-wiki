@@ -41,7 +41,7 @@ Entity alignment leaks information, and encrypted training is slow for large mod
 
 - Hardy et al. (2017), "Private federated learning on vertically partitioned data via entity resolution and additively homomorphic encryption", arXiv:1711.10677 — Trains a vertical logistic regression with entity resolution and homomorphic encryption.
 - Shokri & Shmatikov (2015), "Privacy-preserving deep learning", CCS. https://www.comp.nus.edu.sg/~reza/files/Shokri-CCS2015.pdf — Early collaborative training in which parties share selected parameters rather than data.
-- Bonawitz et al. (2017), "Practical secure aggregation for privacy-preserving machine learning", CCS, arXiv:1611.04482 — Secure aggregation protocol that applies to cross-party gradient sums.
+- Bonawitz et al. (2017), "Practical secure aggregation for privacy-preserving machine learning", CCS. https://doi.org/10.1145/3133956.3133982 — Secure aggregation protocol that applies to cross-party gradient sums.
 
 ### Surveys and textbooks
 

@@ -14,12 +14,12 @@ This wiki aims to cover everything about AI, from the mathematics to the neurosc
 | Report a factual error | Open a [correction issue](https://github.com/zi-yue-1129/ai-wiki/issues/new?template=correction.yml) |
 | Suggest a missing topic | Open a [topic request](https://github.com/zi-yue-1129/ai-wiki/issues/new?template=topic-request.yml) |
 | Write a page | Pick an open [chapter issue](https://github.com/zi-yue-1129/ai-wiki/issues?q=is%3Aissue+is%3Aopen+label%3Achapter) and follow the steps below |
-| Translate | Pick a page without a 繁體中文 translation from the [Roadmap](../roadmap/index.md) status list, or open a [translation request](https://github.com/zi-yue-1129/ai-wiki/issues/new?template=translation.yml) |
+| Translate | Pick a page without a 繁體中文 translation (the weekly health report lists them), or open a [translation request](https://github.com/zi-yue-1129/ai-wiki/issues/new?template=translation.yml) |
 | Review | Check an older page against current knowledge and set its `last_reviewed` date |
 
 ## Writing or expanding a page
 
-1. Read the [Style Guide](../style-guide/index.md), especially the Citations section of the [Style Guide](../style-guide/index.md): every topic page needs a References section with at least 5 verified entries.
+1. Read the [Style Guide](../style-guide/index.md), especially its Citations section: every topic page needs a References section with at least 5 verified entries.
 2. To avoid duplicate work, comment on the related issue (or open one) saying you are working on it.
 3. For a new page, copy `templates/page-template.md` into the right folder (see [Where pages live](../style-guide/index.md)) and add it to `nav` in `mkdocs.yml`. For a stub, replace the "Work in progress" admonition with real content.
 4. Preview locally:

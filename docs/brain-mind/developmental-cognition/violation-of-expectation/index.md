@@ -62,7 +62,7 @@ The paper reports that five-month-old infants looked longer at the impossible ev
 
 ### Seminal papers
 
-- Baillargeon, R., Spelke, E. S. & Wasserman, S. (1985). Object permanence in five-month-old infants. *Cognition*. https://doi.org/10.1016/0010-0277(85)90024-9 — Uses looking time to show that young infants expect hidden objects to persist.
+- Baillargeon, R., Spelke, E. S. & Wasserman, S. (1985). Object permanence in five-month-old infants. *Cognition*. https://doi.org/10.1016/0010-0277(85)90008-3 — Uses looking time to show that young infants expect hidden objects to persist.
 - Saffran, J. R., Aslin, R. N. & Newport, E. L. (1996). Statistical learning by 8-month-old infants. *Science*. https://pubmed.ncbi.nlm.nih.gov/8943209/ — A different looking-time paradigm, applied to speech segmentation.
 
 ### Surveys and reviews

@@ -70,5 +70,5 @@ Weir and colleagues reported that the crow shaped a wire into a hook and used it
 
 ### Surveys and reviews
 
-- Hunt, G. R. & Gray, R. D. (2003). Diversification and cumulative evolution in New Caledonian crow tool manufacture. *Proceedings of the Royal Society B*, 270, 867–874. https://doi.org/10.1098/rspb.2002.2299 — Documents variation in tool design across wild crow populations and discusses how tool designs change over time.
+- Hunt, G. R. & Gray, R. D. (2003). Diversification and cumulative evolution in New Caledonian crow tool manufacture. *Proceedings of the Royal Society B*, 270, 867–874. https://doi.org/10.1098/rspb.2002.2302 — Documents variation in tool design across wild crow populations and discusses how tool designs change over time.
 - Emery, N. J. & Clayton, N. S. (2004). The mentality of crows: convergent evolution of intelligence in corvids and apes. *Science*, 306, 1903–1907. https://doi.org/10.1126/science.1098410 — Places crow tool use and causal reasoning in a comparative setting with apes.

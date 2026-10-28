@@ -94,7 +94,7 @@ The hypothesis is contested. Efficiency may be shaped by metabolic or other cons
 
 ### Articles and documentation
 
-- Shannon, C. E. (1948). A Mathematical Theory of Communication. *Bell System Technical Journal*, 27(3), 379–423. https://mlanthology.org/misc/1948/shannon1948misc-mathematical — Defines entropy and mutual information for communication, the basis of the information measures on this page.
+- Shannon, C. E. (1948). A Mathematical Theory of Communication. *Bell System Technical Journal*, 27(3), 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x — Defines entropy and mutual information for communication, the basis of the information measures on this page.
 
 ## Further learning
 
