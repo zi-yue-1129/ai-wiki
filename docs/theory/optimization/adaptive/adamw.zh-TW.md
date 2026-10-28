@@ -59,7 +59,7 @@ AdamW 是帶有解耦權重衰減的 Adam。它把權重衰減懲罰直接作用
 
 - Loshchilov, I. & Hutter, F. (2019). Decoupled Weight Decay Regularization. ICLR. https://arxiv.org/abs/1711.05101 — 指出在自適應方法下，L2 正則化與權重衰減不同，並提出 AdamW。
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR. https://arxiv.org/abs/1412.6980 — AdamW 所修改的基礎最佳化器。
-- Wilson, A. C., Roelofs, R., Stern, M., Srebro, N. & Recht, B. (2017). The Marginal Value of Adaptive Gradient Methods in Machine Learning. NeurIPS. https://arxiv.org/abs/1705.08292 — 顯示自適應方法可能找到泛化劣於 SGD 的解，正是解耦衰減所要處理的差距。
+- Wilson, A. C., Roelofs, R., Stern, M., Srebro, N. & Recht, B. (2017). The Marginal Value of Adaptive Gradient Methods in Machine Learning. NeurIPS. https://proceedings.neurips.cc/paper_files/paper/2017/hash/81b3833e2504647f9d794f7d7b9bf341-Abstract.html — 顯示自適應方法可能找到泛化劣於 SGD 的解，正是解耦衰減所要處理的差距。
 
 ### 綜述與教科書
 
