@@ -65,9 +65,12 @@
 3. **資料與算力不足**：神經網路的想法早在 1980 年代就有，等到 2010 年代 GPU 與網路資料才起飛。
 4. **啟示**：評估方法與實際能力要分清楚；基準分數不等於真實世界可靠度（見 [評估與基準](../../engineering/evaluation/index.md)）。
 
-## 延伸閱讀
+## 參考文獻
 
 - Nilsson, N. J.（2009）。*The Quest for Artificial Intelligence*。Cambridge University Press。https://doi.org/10.1017/cbo9780511819346 — 由史丹佛 AI 研究者撰寫的 AI 思想與成就史。
 - Mitchell, M.（2019）。*Artificial Intelligence: A Guide for Thinking Humans*。Farrar, Straus and Giroux。https://melaniemitchell.me/aibook/ — 淺顯介紹當前 AI 能做什麼、不能做什麼，並附歷史脈絡。
 - Sejnowski, T. J.（2018）。*The Deep Learning Revolution*。MIT Press。https://doi.org/10.7551/mitpress/11474.001.0001 — 從神經科學家角度寫的深度學習史，以及它與大腦的關聯。
-- [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence)
+
+## 延伸學習
+
+- [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence) — 與上述書籍一併閱讀的百科全書概述。

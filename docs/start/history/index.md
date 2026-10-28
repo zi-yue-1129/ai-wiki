@@ -65,9 +65,12 @@ The modern trend is **integration**: neural networks for perception and intuitio
 3. **Not enough data or compute**: the core neural-net ideas existed in the 1980s; they took off only with GPUs and web-scale data in the 2010s.
 4. **Takeaway**: keep benchmarks and real-world capability separate; a benchmark score is not deployment reliability (see [Evaluation](../../engineering/evaluation/index.md)).
 
-## Further reading
+## References
 
 - Nilsson, N. J. (2009). *The Quest for Artificial Intelligence*. Cambridge University Press. https://doi.org/10.1017/cbo9780511819346 — A history of AI's ideas and achievements, written by a Stanford AI researcher.
 - Mitchell, M. (2019). *Artificial Intelligence: A Guide for Thinking Humans*. Farrar, Straus and Giroux. https://melaniemitchell.me/aibook/ — An accessible tour of what current AI can and cannot do, with its history.
 - Sejnowski, T. J. (2018). *The Deep Learning Revolution*. MIT Press. https://doi.org/10.7551/mitpress/11474.001.0001 — A neuroscientist's history of deep learning and its links to the brain.
-- [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence)
+
+## Further learning
+
+- [Wikipedia: History of artificial intelligence](https://en.wikipedia.org/wiki/History_of_artificial_intelligence) — An encyclopedia overview to read alongside the books above.
