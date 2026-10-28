@@ -35,6 +35,10 @@ Deep learning's rise was enabled by GPUs; today compute is a strategic resource 
 - **Kernel software**: CUDA, cuDNN, Triton (OpenAI), ROCm, XLA, custom kernels such as FlashAttention
 - **Hardware-aware model design**: e.g. Softmax and attention approximations designed for NPUs, MoE routing for memory, quantisation-friendly architectures
 
+## Subchapters
+
+- [AI accelerators](accelerators/index.md): GPU, TPU and ASIC design principles, with pages on the [TPU](accelerators/tpu/index.md) and [Eyeriss v2](accelerators/eyeriss-v2/index.md).
+
 ## Supply chain and policy
 
 - Leading-edge chips are fabricated mostly by TSMC; advanced packaging (CoWoS) and HBM supply are bottlenecks
@@ -45,9 +49,28 @@ Deep learning's rise was enabled by GPUs; today compute is a strategic resource 
 
 Data-centre power and cooling are binding constraints for scaling; see [Climate & Energy](../../applications/climate-energy/index.md). Efficiency gains come from lower precision, sparsity, better kernels, specialised chips and — in the long run — possibly neuromorphic and analogue computing.
 
-## Resources
+## Open issues
 
-- Hennessy & Patterson, *Computer Architecture: A Quantitative Approach* (domain-specific architectures chapter)
-- Sze et al., *Efficient Processing of Deep Neural Networks*
-- [Epoch AI](https://epoch.ai/) data on compute trends and hardware
-- SemiAnalysis and Chips and Cheese for industry analysis
+- **The memory wall.** Gholami et al. argue that memory bandwidth now limits AI serving more than compute. Whether future chips close that gap, or widen it, is open.
+- **Sparse hardware.** Speed-ups from unstructured sparsity remain rare on accelerators, so the benefit of pruning depends on the chip.
+- **Comparable measurements.** Vendor throughput and power figures use different precisions, memory systems and software, so they are hard to compare.
+
+## References
+
+### Seminal papers
+
+- Jouppi, N. P., et al. (2017). *In-Datacenter Performance Analysis of a Tensor Processing Unit*. arXiv:1704.04760. https://arxiv.org/abs/1704.04760 — Reports the TPU at about 15 to 30 times the speed of contemporary CPUs and GPUs, with far better performance per watt.
+- Chen, Y.-H., et al. (2018). *Eyeriss v2: A Flexible Accelerator for Emerging Deep Neural Networks on Mobile Devices*. arXiv:1807.07928. https://arxiv.org/abs/1807.07928 — A mobile accelerator that exploits sparsity, reported as 12.6 times faster than the original Eyeriss.
+
+### Surveys and textbooks
+
+- Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — A tutorial and survey of DNN hardware, architectures and evaluation metrics.
+
+### Lectures and videos
+
+(none checked for this page)
+
+### Articles and documentation
+
+- Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory bandwidth, not compute, is the main constraint on AI serving.
+- Dao, T., et al. (2022). *FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness*. arXiv:2205.14135. https://arxiv.org/abs/2205.14135 — An IO-aware attention kernel that reduces memory traffic between GPU memory levels.

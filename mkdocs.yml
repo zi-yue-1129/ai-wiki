@@ -502,6 +502,9 @@ plugins:
             MLOps & Deployment: MLOps 與部署
             AI Coding Assistants: AI 程式助手
             AI Hardware: AI 硬體
+            AI Accelerators: AI 加速器
+            TPU: TPU
+            Eyeriss v2: Eyeriss v2
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
             GPTQ: GPTQ
@@ -1022,7 +1025,12 @@ nav:
           - Grouped-Query Attention: engineering/inference-optimization/grouped-query-attention.md
       - MLOps & Deployment: engineering/mlops/index.md
       - AI Coding Assistants: engineering/coding-assistants/index.md
-      - AI Hardware: engineering/hardware/index.md
+      - AI Hardware:
+          - engineering/hardware/index.md
+          - AI Accelerators:
+              - engineering/hardware/accelerators/index.md
+              - TPU: engineering/hardware/accelerators/tpu/index.md
+              - Eyeriss v2: engineering/hardware/accelerators/eyeriss-v2/index.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
