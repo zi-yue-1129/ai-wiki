@@ -576,6 +576,31 @@ plugins:
             Monte Carlo Tree Search and Self-Play: 蒙地卡羅樹搜尋與自我對弈
             Monte Carlo Tree Search: 蒙地卡羅樹搜尋
             Sandboxing and Computer-Use Agents: 沙箱與電腦操作代理人
+            Dropout and Stochastic Regularisation: 丟棄法與隨機正則化
+            Stochastic Depth: 隨機深度
+            Mixup and CutMix: Mixup 與 CutMix
+            Label Smoothing: 標籤平滑
+            Uncertainty Quantification and Calibration: 不確定性量化與校準
+            Temperature Scaling: 溫度縮放
+            Deep Ensembles: 深度集成
+            MC Dropout: MC 丟棄法
+            Conformal Prediction: 保形預測
+            Vision Transformer: 視覺 Transformer
+            Search Algorithms: 搜尋演算法
+            "A* Search": A* 搜尋
+            Minimax with Alpha-Beta Pruning: 極小化極大與 α-β 剪枝
+            Tree of Thoughts: 思維樹（Tree of Thoughts）
+            Variational Inference: 變分推論
+            Variational Autoencoder: 變分自編碼器
+            Black-Box Variational Inference: 黑箱變分推論
+            Normalising Flow Posteriors: 正規化流後驗
+            Tool Calling and the Model Context Protocol: 工具呼叫與 Model Context Protocol
+            Multi-Agent Orchestration: 多代理人編排
+            Multi-Agent Debate: 多代理人辯論
+            Linear Algebra for AI: AI 的線性代數
+            Truncated SVD: 截斷 SVD
+            Principal Component Analysis: 主成分分析
+            Randomized SVD: 隨機化 SVD
 
 markdown_extensions:
   - abbr
@@ -635,8 +660,20 @@ nav:
               - theory/math/automatic-differentiation/index.md
               - Forward-Mode AD: theory/math/automatic-differentiation/forward-mode/index.md
               - Reverse-Mode AD: theory/math/automatic-differentiation/reverse-mode/index.md
+          - Linear Algebra for AI:
+              - theory/math/linear-algebra/index.md
+              - Truncated SVD: theory/math/linear-algebra/truncated-svd/index.md
+              - Principal Component Analysis: theory/math/linear-algebra/pca/index.md
+              - Randomized SVD: theory/math/linear-algebra/randomized-svd/index.md
       - Information Theory: theory/information-theory/index.md
-      - Machine Learning: theory/machine-learning/index.md
+      - Machine Learning:
+          - theory/machine-learning/index.md
+          - Uncertainty Quantification and Calibration:
+              - theory/machine-learning/uncertainty-and-calibration/index.md
+              - Temperature Scaling: theory/machine-learning/uncertainty-and-calibration/temperature-scaling/index.md
+              - Deep Ensembles: theory/machine-learning/uncertainty-and-calibration/deep-ensembles/index.md
+              - MC Dropout: theory/machine-learning/uncertainty-and-calibration/mc-dropout/index.md
+              - Conformal Prediction: theory/machine-learning/uncertainty-and-calibration/conformal-prediction/index.md
       - Deep Learning:
           - theory/deep-learning/index.md
           - Normalisation Layers:
@@ -644,6 +681,11 @@ nav:
               - Batch Normalisation: theory/deep-learning/normalisation/batch-normalisation/index.md
               - Group Normalisation: theory/deep-learning/normalisation/group-normalisation/index.md
               - RMSNorm: theory/deep-learning/normalisation/rmsnorm/index.md
+          - Dropout and Stochastic Regularisation:
+              - theory/deep-learning/dropout/index.md
+              - Stochastic Depth: theory/deep-learning/dropout/stochastic-depth/index.md
+              - Mixup and CutMix: theory/deep-learning/dropout/mixup/index.md
+              - Label Smoothing: theory/deep-learning/dropout/label-smoothing/index.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum:
@@ -767,8 +809,20 @@ nav:
               - Communication Efficiency: theory/paradigms/federated/communication-efficiency/index.md
               - Vertical & Cross-silo: theory/paradigms/federated/vertical-and-cross-silo/index.md
           - Other Paradigms: theory/paradigms/other/index.md
-      - Probabilistic & Bayesian Methods: theory/probabilistic/index.md
-      - Symbolic AI, Search & Planning: theory/symbolic-ai/index.md
+      - Probabilistic & Bayesian Methods:
+          - theory/probabilistic/index.md
+          - Variational Inference:
+              - theory/probabilistic/variational-inference/index.md
+              - Variational Autoencoder: theory/probabilistic/variational-inference/variational-autoencoder/index.md
+              - Black-Box Variational Inference: theory/probabilistic/variational-inference/black-box-variational-inference/index.md
+              - Normalising Flow Posteriors: theory/probabilistic/variational-inference/normalising-flow-posteriors/index.md
+      - Symbolic AI, Search & Planning:
+          - theory/symbolic-ai/index.md
+          - Search Algorithms:
+              - theory/symbolic-ai/search/index.md
+              - "A* Search": theory/symbolic-ai/search/a-star/index.md
+              - Minimax with Alpha-Beta Pruning: theory/symbolic-ai/search/alpha-beta/index.md
+              - Tree of Thoughts: theory/symbolic-ai/search/tree-of-thoughts/index.md
       - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
       - Generative Models:
           - theory/generative/index.md
@@ -896,6 +950,11 @@ nav:
                   - theory/models/transformer/architecture-families/index.md
                   - BERT: theory/models/transformer/architecture-families/bert/index.md
                   - T5: theory/models/transformer/architecture-families/t5/index.md
+              - Vision Transformer:
+                  - theory/models/transformer/vision-transformer/index.md
+                  - ViT: theory/models/transformer/vision-transformer/vit/index.md
+                  - DeiT: theory/models/transformer/vision-transformer/deit/index.md
+                  - Swin Transformer: theory/models/transformer/vision-transformer/swin/index.md
           - State-Space Models:
               - theory/models/ssm/index.md
               - Structured State Spaces:
@@ -1111,6 +1170,16 @@ nav:
               - CodeAct: engineering/agents/sandboxing-and-computer-use/codeact/index.md
               - OSWorld: engineering/agents/sandboxing-and-computer-use/osworld/index.md
               - CaMeL: engineering/agents/sandboxing-and-computer-use/camel/index.md
+          - Tool Calling and the Model Context Protocol:
+              - engineering/agents/tool-calling-and-mcp/index.md
+              - Toolformer: engineering/agents/tool-calling-and-mcp/toolformer/index.md
+              - Gorilla: engineering/agents/tool-calling-and-mcp/gorilla/index.md
+              - ToolLLM: engineering/agents/tool-calling-and-mcp/toolllm/index.md
+          - Multi-Agent Orchestration:
+              - engineering/agents/multi-agent-orchestration/index.md
+              - Multi-Agent Debate: engineering/agents/multi-agent-orchestration/debate/index.md
+              - MetaGPT: engineering/agents/multi-agent-orchestration/metagpt/index.md
+              - HuggingGPT: engineering/agents/multi-agent-orchestration/hugginggpt/index.md
   - AI & Society:
       - society/index.md
       - Safety & Alignment:
