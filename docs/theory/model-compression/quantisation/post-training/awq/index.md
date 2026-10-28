@@ -50,7 +50,7 @@ AWQ is one of the main ways of making [serving](../../../../../engineering/mlops
 
 - Lin, J., et al. (2023). *AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration*. MLSys 2024. https://arxiv.org/abs/2306.00978 — Scales salient channels by activation statistics, with the observation that protecting about 1% of weights greatly reduces error.
 - Frantar, E., et al. (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. arXiv:2210.17323. https://arxiv.org/abs/2210.17323 — Rounds weights with second-order error compensation instead.
-- Xiao, G., et al. (2022). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — Scales activations and weights for 8-bit integer inference.
+- Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., Han, S. (2023). *SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models*. ICML 2023. arXiv:2211.10438. https://arxiv.org/abs/2211.10438 — Scales activations and weights for 8-bit integer inference.
 
 ### Surveys and textbooks
 
