@@ -33,6 +33,7 @@ translation_reviewed: 2026-10-28
 | AlexNet | 2012 | 在 GPU 上訓練的大型深度卷積網路 | [AlexNet](backbones-and-scaling/alexnet/index.md) |
 | 深度殘差學習（ResNet） | 2015 | 捷徑連接使極深的網路能夠訓練 | [ResNet](backbones-and-scaling/resnet/index.md) |
 | 複合縮放（EfficientNet） | 2019 | 以單一係數同時縮放深度、寬度與解析度 | [EfficientNet](backbones-and-scaling/efficientnet/index.md) |
+| U-Net | 2015 | 用於密集預測的帶跳接連線編碼器–解碼器 | [U-Net](unet/index.md) |
 
 ResNet 讓極深的骨幹可以訓練，EfficientNet 則同時選擇深度、寬度與解析度，而不是逐一調整。
 

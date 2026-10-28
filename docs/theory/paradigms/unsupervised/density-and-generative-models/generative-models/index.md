@@ -23,6 +23,8 @@ Generative modelling is an **approach**, not an architecture. Any family in [Mod
 | Flow matching | Learn a velocity field from noise to data | Simple training, fast sampling | — | Stable Diffusion 3, Flux |
 | Energy-based | Learn an energy \(E(x)\) | Flexible | Sampling is hard | Hopfield nets, EBMs |
 
+Method pages for the other families: [VAE](../vae/index.md), [GAN](../gan/index.md) and [flow-based models](../flow/index.md).
+
 ## Diffusion models
 
 Full treatment, with a comparison table and one page per method (DDPM, DDIM, latent diffusion, classifier-free guidance; the DiT denoiser is a [Transformer](../../../../models/transformer/dit/index.md) method): [Diffusion Models](../diffusion/index.md).

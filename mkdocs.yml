@@ -340,6 +340,12 @@ plugins:
             DiT: DiT 擴散 Transformer
             Diffusion Transformer (DiT): 擴散 Transformer（DiT）
             Density Estimation & Generative Models: 密度估計與生成模型
+            U-Net: U-Net
+            Variational Autoencoders: 變分自編碼器
+            GANs: 生成對抗網路
+            Flow-Based Models: 流模型
+            Normalising Flows: 正規化流
+            Flow Matching: 流匹配
             Classifier-Free Guidance: 無分類器引導
             Structured State Spaces: 結構化狀態空間
             Selective State Spaces: 選擇性狀態空間
@@ -689,6 +695,12 @@ nav:
               - Density Estimation & Generative Models:
                   - theory/paradigms/unsupervised/density-and-generative-models/index.md
                   - Generative Models: theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md
+                  - Variational Autoencoders: theory/paradigms/unsupervised/density-and-generative-models/vae/index.md
+                  - GANs: theory/paradigms/unsupervised/density-and-generative-models/gan/index.md
+                  - Flow-Based Models:
+                      - theory/paradigms/unsupervised/density-and-generative-models/flow/index.md
+                      - Normalising Flows: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/index.md
+                      - Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/index.md
                   - Diffusion Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
                       - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
@@ -860,6 +872,7 @@ nav:
               - Layer Normalisation: theory/models/mlp/layer-normalisation/index.md
           - Convolutional Networks:
               - theory/models/cnn/index.md
+              - U-Net: theory/models/cnn/unet/index.md
               - Convolution Variants:
                   - theory/models/cnn/convolution-variants/index.md
                   - Dilated Convolution: theory/models/cnn/convolution-variants/dilated-convolution/index.md
