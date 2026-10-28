@@ -35,7 +35,7 @@ Let \(\tilde x = g_\theta(z)\) and \(\hat x = \epsilon x + (1-\epsilon)\tilde x\
 L_{\text{critic}} = \mathbb E_{\tilde x}[f_w(\tilde x)] - \mathbb E_{x}[f_w(x)] + \lambda\,\mathbb E_{\hat x}\big[(\|\nabla_{\hat x} f_w(\hat x)\|_2 - 1)^2\big]
 \]
 
-The generator loss is unchanged from WGAN, \(-\mathbb E_z[f_w(g_\theta(z))]\). Because the penalty needs the critic's gradient, each critic step computes a gradient of a gradient. The paper also advises against batch normalisation in the critic, since batch statistics mix samples and break the per-sample penalty.
+The generator loss is unchanged from WGAN, \(-\mathbb E_z[f_w(g_\theta(z))]\). Because the penalty needs the critic's gradient, each critic step computes a gradient of a gradient. The paper simply omits batch normalisation in the critic, reporting good performance without it. The paper's default is Adam with a learning rate of 0.0001, \(\beta_1 = 0\) and \(\beta_2 = 0.9\).
 
 ## Key methods
 
@@ -48,8 +48,8 @@ WGAN-GP differs from [WGAN](wgan.md) only in how the Lipschitz constraint is enf
 
 - **Problem:** weight clipping in [WGAN](wgan.md) limits the critic and makes training sensitive to the clipping threshold.
 - **Core idea:** constrain the critic by penalising deviations of its gradient norm from one on random interpolations between real and generated samples.
-- **Equation or algorithm:** the critic loss above, with \(\lambda = 10\) and the generator loss from WGAN. The paper trains the critic several times per generator step.
-- **Results:** the abstract reports stable training of a wide variety of GAN architectures with almost no hyperparameter tuning, including deep residual networks and language models over discrete data. Image results are in the paper's experiments.
+- **Equation or algorithm:** the critic loss above, with \(\lambda = 10\) and the generator loss from WGAN. The paper trains the critic five times per generator step.
+- **Results:** the abstract reports stable training of a wide variety of GAN architectures with almost no hyperparameter tuning, including deep residual networks and language models over discrete data. The abstract also reports high-quality generations on CIFAR-10 and LSUN bedrooms.
 - **Limitations:** the penalty is enforced only on interpolated points, so the constraint holds approximately everywhere. Each critic step costs an extra gradient computation. The method still needs a suitable critic architecture, and the paper's guidance on normalisation is specific to it.
 
 ## Connections

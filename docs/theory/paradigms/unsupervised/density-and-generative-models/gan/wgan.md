@@ -43,7 +43,7 @@ The critic maximises the difference in expected score between real and generated
 L_{\text{critic}} = \mathbb E_{z}[f_w(g_\theta(z))] - \mathbb E_{x}[f_w(x)], \qquad L_{\text{gen}} = -\mathbb E_{z}[f_w(g_\theta(z))]
 \]
 
-In the paper's algorithm, the critic is updated several times (five in the paper) for each generator update, its weights are clipped after every step, and RMSProp is recommended over momentum-based optimisers, which the authors found less stable.
+In the paper's algorithm, the critic is updated several times (five by default) for each generator update, its weights are clipped after every step, and RMSProp is recommended over momentum-based optimisers, which the authors found less stable. The paper's defaults are a learning rate of 0.00005, a clipping constant c = 0.01, and five critic iterations per generator iteration (n_critic = 5).
 
 ## Key methods
 
@@ -57,7 +57,7 @@ WGAN is one of the two Wasserstein-based GAN methods covered on the wiki. The tw
 - **Problem:** GAN training is unstable, and the Jensen–Shannon objective gives no useful gradient when the model and data distributions are far apart.
 - **Core idea:** replace the discriminator with a critic that approximates the Wasserstein-1 distance, and keep the critic approximately 1-Lipschitz by clipping its weights.
 - **Equation or algorithm:** the critic and generator losses above. Each iteration: several critic updates on real and generated minibatches with clipping, then one generator update.
-- **Results:** the paper compares training behaviour with the original GAN and reports that training is more stable, that the critic's loss correlates with sample quality, and that mode collapse is reduced in its experiments. Generated images are shown on several image datasets. The paper gives the numbers in its tables.
+- **Results:** the paper compares training behaviour with the original GAN and reports that training is more stable, that the critic's loss correlates with sample quality, and, per its abstract, that it avoids mode collapse. Generated images are shown on several image datasets. The paper gives the numbers in its tables.
 - **Limitations:** weight clipping limits the critic's capacity and can slow training, and the clipping range is a sensitive hyperparameter. Enforcing the constraint by a penalty instead, as in WGAN-GP, avoids these problems.
 
 ## Connections

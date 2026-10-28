@@ -19,20 +19,20 @@ DCGAN is a set of architectural rules for building a GAN from convolutional laye
 
 ## Overview
 
-GANs of the time were hard to train on images, and convolutional architectures were rarely used in them. Radford, Metz and Chintala (2016) found a combination of convolutional design choices that trained reliably across several image datasets, and they showed that the discriminator's features could be reused for other tasks.
+GANs of the time were hard to train on images, and convolutional architectures were rarely used in them. Radford, Metz and Chintala (2016) found a combination of convolutional design choices that trained reliably across several image datasets, and they used the learned features for unsupervised representation learning.
 
 ## Key concepts
 
 - **Strided convolution**: the discriminator downsamples with learned strided convolutions in place of pooling.
 - **Fractional-strided (transposed) convolution**: the generator upsamples with learned layers instead of fixed interpolation.
 - **Batch normalisation**: applied in both networks, except at the generator's output and the discriminator's input.
-- **LeakyReLU and ReLU**: the discriminator uses LeakyReLU, and the generator uses ReLU, with tanh at the output.
+- **LeakyReLU and ReLU**: the discriminator uses LeakyReLU with slope 0.2, and the generator uses ReLU, with tanh at the output.
 
 ## How it works
 
-The generator takes a noise vector \(z\) (sampled uniformly in the paper), projects it to a small spatial grid, and applies a stack of transposed convolutions to reach a 64 by 64 image. The discriminator mirrors this with strided convolutions and ends in a single sigmoid unit. The paper removes fully connected hidden layers in favour of convolutional stacks, and it uses global average pooling where a dense layer would normally sit.
+The generator takes a noise vector \(z\) (sampled uniformly in the paper), projects it to a small spatial grid, and applies a stack of transposed convolutions to reach a 64 by 64 image. The discriminator mirrors this with strided convolutions and ends in a single sigmoid unit. The paper removes fully connected hidden layers and pooling layers in favour of strided and fractional-strided convolutions.
 
-The training objective is the original minimax GAN loss from Goodfellow et al. (2014), with the non-saturating generator update. The paper trains with Adam using a learning rate of 0.0002 and \(\beta_1 = 0.5\).
+The training objective is the original minimax GAN loss from Goodfellow et al. (2014), with the non-saturating generator update. The paper uses Adam with a learning rate of 0.0002 and \(\beta_1 = 0.5\). The authors found the suggested learning rate of 0.001 too high, and the default momentum of 0.9 caused oscillation.
 
 ## Key methods
 
@@ -43,8 +43,8 @@ DCGAN is a recipe for the convolutional GAN, not a separate training objective. 
 - **Problem:** the original GAN used fully connected networks and was unstable on images. Earlier convolutional attempts were unreliable.
 - **Core idea:** a fixed set of convolutional design rules (strided and transposed convolutions, batch normalisation, LeakyReLU and ReLU activations, no hidden fully connected layers) that make the adversarial game trainable on natural images.
 - **Equation or algorithm:** the GAN value function from the [GAN overview](index.md), optimised with the architecture above. Each step updates the discriminator on a real and a generated minibatch, then updates the generator.
-- **Results:** the paper shows generated images of bedrooms and faces, latent-space interpolations, and simple vector arithmetic on face attributes. It also evaluates the discriminator's learned features on image classification. The exact figures are in the paper.
-- **Limitations:** the architecture alone does not remove the general GAN problems of mode coverage and the lack of a likelihood. The vector arithmetic shows some structure in the latent space, but not disentanglement. The work targets 64 by 64 images.
+- **Results:** the paper trains on LSUN, ImageNet-1k and a newly assembled faces dataset, and shows generated samples from these models. It also examines the structure of the latent space. The exact figures are in the paper.
+- **Limitations:** the architecture alone does not remove the general GAN problems of mode coverage and the lack of a likelihood. The vector arithmetic shows some structure in the latent space, but not disentanglement. The main generator results are at 64 by 64 resolution.
 
 ## Connections
 
