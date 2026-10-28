@@ -492,6 +492,15 @@ plugins:
             Reasoning and agents: 推理與代理
             Few-shot: 少樣本
             Multimodal: 多模態
+            Speech: 語音
+            Reinforcement: 強化學習
+            Science: 科學
+            Neuroscience: 神經科學
+            LibriSpeech: LibriSpeech
+            Arcade Learning Environment: 街機學習環境
+            MuJoCo: MuJoCo
+            MoleculeNet: MoleculeNet
+            Brain-Score: Brain-Score
             GAIA: GAIA
             WebArena: WebArena
             VQA v2: VQA v2
@@ -1272,6 +1281,19 @@ nav:
                   - theory/evaluation/benchmarks/multimodal/index.md
                   - VQA v2: theory/evaluation/benchmarks/multimodal/vqa-v2.md
                   - MMMU: theory/evaluation/benchmarks/multimodal/mmmu.md
+              - Speech:
+                  - theory/evaluation/benchmarks/speech/index.md
+                  - LibriSpeech: theory/evaluation/benchmarks/speech/librispeech.md
+              - Reinforcement:
+                  - theory/evaluation/benchmarks/reinforcement/index.md
+                  - Arcade Learning Environment: theory/evaluation/benchmarks/reinforcement/ale.md
+                  - MuJoCo: theory/evaluation/benchmarks/reinforcement/mujoco.md
+              - Science:
+                  - theory/evaluation/benchmarks/science/index.md
+                  - MoleculeNet: theory/evaluation/benchmarks/science/moleculenet.md
+              - Neuroscience:
+                  - theory/evaluation/benchmarks/neuroscience/index.md
+                  - Brain-Score: theory/evaluation/benchmarks/neuroscience/brain-score.md
               - Few-shot:
                   - theory/evaluation/benchmarks/few-shot/index.md
                   - miniImageNet: theory/evaluation/benchmarks/few-shot/mini-imagenet.md

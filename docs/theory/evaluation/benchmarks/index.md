@@ -21,6 +21,10 @@ A benchmark is a fixed set of tasks, data and a metric that a community agrees t
 | [Math and code](math-and-code/index.md) | [GSM8K](math-and-code/gsm8k.md), [MATH](math-and-code/math.md), [SWE-bench](math-and-code/swe-bench.md) | Mathematical and software reasoning |
 | [Multimodal](multimodal/index.md) | [VQA v2](multimodal/vqa-v2.md), [MMMU](multimodal/mmmu.md) | Combining images with knowledge and reasoning |
 | [Reasoning and agents](reasoning-agents/index.md) | [ARC-AGI](reasoning-agents/arc-agi.md), [GAIA](reasoning-agents/gaia.md), [WebArena](reasoning-agents/webarena.md) | Rule acquisition, real-world questions and web tasks |
+| [Speech](speech/index.md) | [LibriSpeech](speech/librispeech.md) | Transcribing spoken English |
+| [Reinforcement](reinforcement/index.md) | [Arcade Learning Environment](reinforcement/ale.md), [MuJoCo](reinforcement/mujoco.md) | Return from playing games and controlling simulated bodies |
+| [Science](science/index.md) | [MoleculeNet](science/moleculenet.md) | Predicting molecular properties |
+| [Neuroscience](neuroscience/index.md) | [Brain-Score](neuroscience/brain-score.md) | Matching neural and behavioural responses |
 | [Few-shot](few-shot/index.md) | [miniImageNet](few-shot/mini-imagenet.md) | Recognising new classes from few labelled examples |
 
 ## Reading a score
