@@ -44,7 +44,7 @@ flowchart LR
 
 - **上下文學習**：從提示中的少量範例學會一項任務（GPT-3）
 - **思維鏈**：逐步推理大幅提升數學與邏輯表現（Wei et al., 2022）
-- **推理模型**：經強化學習訓練，在回答前產生很長的推理過程（OpenAI o 系列、DeepSeek-R1、Claude 的延伸思考、Gemini 的思考模型等）；在競賽數學、程式設計與科學問題上大幅進步
+- **推理模型**：經強化學習訓練，在回答前產生很長的推理過程（OpenAI o 系列、DeepSeek-R1、Claude 的延伸思考、Gemini 的思考模型等）；在競賽數學、程式設計與科學問題上大幅進步（方法見[推理模型與測試時運算](../reasoning/index.md)）
 - **工具使用**：搜尋、程式執行、API——見 [AI 代理人](../agents/index.md)
 - **長脈絡**：從 2K token 發展到百萬 token 等級
 - **多模態**：見[多模態模型](../multimodal/index.md)

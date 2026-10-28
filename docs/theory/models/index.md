@@ -24,6 +24,7 @@ These pages describe tasks, modalities and systems. Each one is built from one o
 | Page | Focus |
 |---|---|
 | [Large Language Models](llm/index.md) | Pre-training, alignment, reasoning models, the open-weight ecosystem |
+| [Reasoning Models & Test-Time Compute](reasoning/index.md) | Long chain-of-thought, reinforcement learning on verifiable rewards, test-time scaling |
 | [Computer Vision](computer-vision/index.md) | Classification, detection, segmentation, 3D, video |
 | [Natural Language Processing](nlp/index.md) | From word vectors to LLMs |
 | [Speech & Audio](speech/index.md) | Recognition, synthesis, music generation |

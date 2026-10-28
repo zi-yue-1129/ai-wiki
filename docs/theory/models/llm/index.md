@@ -56,7 +56,7 @@ The imitation step, and what it can and cannot teach, is covered in [Imitation i
 
 - **In-context learning**: learn a task from a few examples in the prompt (GPT-3)
 - **Chain-of-thought**: step-by-step reasoning greatly improves math and logic (Wei et al., 2022)
-- **Reasoning models**: RL-trained to produce long reasoning before answering (OpenAI o-series, DeepSeek-R1, Claude extended thinking, Gemini thinking models, etc.); big gains on competition math, programming and science questions
+- **Reasoning models**: RL-trained to produce long reasoning before answering (OpenAI o-series, DeepSeek-R1, Claude extended thinking, Gemini thinking models, etc.); big gains on competition math, programming and science questions. See [Reasoning Models and Test-Time Compute](../reasoning/index.md) for the methods
 - **Tool use**: search, code execution, APIs — see [AI Agents](../agents/index.md)
 - **Long context**: from 2K tokens to the million-token range
 - **Multimodality**: see [Multimodal Models](../multimodal/index.md)
