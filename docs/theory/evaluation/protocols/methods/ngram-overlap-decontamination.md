@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -19,7 +19,7 @@ aliases:
 !!! info "Part of Contamination Detection"
     This method page belongs to [Contamination Detection](contamination-detection.md). It explains the overlap method in detail; the parent page compares it with the other detection methods.
 
-N-gram overlap decontamination searches a training corpus for long word sequences that also appear in a benchmark's test items, and removes or flags the matching items. It is the most direct check for contamination, and it was the main method used for GPT-3 (Brown et al., 2020). Its weakness is that it only finds copies that match word for word.
+N-gram overlap decontamination searches a training corpus for long word sequences that also appear in a benchmark's test items, and removes or flags the matching items. It is a direct check for contamination, and GPT-3 used a 13-gram version of it (Brown et al., 2020). Its weakness is that it only finds copies that match word for word.
 
 ## Problem
 
@@ -40,7 +40,7 @@ The window size is a trade-off. A short window flags common phrases that are not
 
 ## Results
 
-Brown et al. (2020, Section 4) describe the procedure and its effect on GPT-3. The paper's text, as read through a machine extraction, reports that contamination was frequent, but that its effect on most datasets was minimal, and that the effects were "not as large as feared." For LAMBADA the authors report a negligible effect, and for Winograd a small one. The extraction did not include the clean-versus-full score tables, so the page does not give those numbers. The paper also records a bug that removed only part of the detected overlaps, which is a reminder that the cleaning itself needs testing.
+Brown et al. (2020, Section 4) describe the procedure and its effect on GPT-3. They expect contamination to be frequent, but that its effects "may not be as large as feared", and the introduction states that contamination has a minimal effect on most datasets. For LAMBADA the paper reports a negligible effect, and for Winograd a small one. The paper also records a bug that removed only part of the detected overlaps, which is a reminder that the cleaning itself needs testing.
 
 Dodge et al. (2021) show the same risk from the corpus side. Their documentation of the C4 corpus finds that it contains evaluation examples from other benchmark NLP datasets.
 
@@ -68,6 +68,6 @@ Dodge et al. (2021) show the same risk from the corpus side. Their documentation
 
 - Brown, T. B. et al. (2020). *Language Models are Few-Shot Learners*. arXiv. https://arxiv.org/abs/2005.14165 — Introduces GPT-3 and describes 13-gram overlap filtering between the training data and benchmark test sets, with its effects.
 - Dodge, J. et al. (2021). *Documenting Large Webtext Corpora: A Case Study on the Colossal Clean Crawled Corpus*. arXiv. https://arxiv.org/abs/2104.08758 — Documents C4 and finds evaluation examples from other benchmark datasets in the corpus.
-- Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. arXiv. https://arxiv.org/abs/2012.07805 — Shows that language models reproduce memorised training text, which is why exact copies of test items matter.
+- Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. arXiv. https://arxiv.org/abs/2012.07805 — Shows that training examples can be extracted from a language model by querying it, which is why exact copies of test items matter.
 - Oren, Y. et al. (2023). *Proving Test Set Contamination in Black Box Language Models*. arXiv. https://arxiv.org/abs/2310.17623 — Gives a black-box test for contamination, which is the alternative when the corpus cannot be searched.
 - Srivastava, A. et al. (2022). *Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models*. arXiv. https://arxiv.org/abs/2206.04615 — The BIG-bench benchmark, whose task files carry canary strings against web scraping.

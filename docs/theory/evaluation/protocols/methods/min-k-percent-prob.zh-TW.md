@@ -22,7 +22,7 @@ Min-K% Prob 是一種偵測方法，只利用模型的 token 機率，判斷某�
 
 ## 問題
 
-重疊檢查需要訓練語料，而許多模型不公開語料。早期的似然度方法也可能需要一個在相似資料上訓練的參考模型。問題在於：只能存取模型的輸出、不知道語料內容時，能否偵測預訓練資料。
+重疊檢查需要訓練語料，而許多模型不公開語料。部分早期的偵測方法需要一個在相似資料上訓練的參考模型。問題在於：只能存取模型的輸出、不知道語料內容時，能否偵測預訓練資料。
 
 ## 核心想法
 
@@ -39,14 +39,15 @@ Min-K% Prob 是一種偵測方法，只利用模型的 token 機率，判斷某�
 
 ## 結果
 
-Shi et al. (2024) 的摘要報告，Min-K% Prob 在 WikiMIA 上比先前方法提升 7.4%。摘要未提供 AUC 數值；這些數字在論文的結果章節，本頁未完整閱讀該章節。因此本頁只報告摘要所述的提升幅度。
+Shi et al. (2024) 的摘要報告，Min-K% Prob 在 WikiMIA 上比先前方法提升 7.4%。論文以 AUC 報告 WikiMIA 結果，表 1 中 Min-K% Prob 的平均值為 0.72。
 
 ## 限制
 
-- **依賴基準。** 所報告的提升來自 WikiMIA，其建構自類似維基百科的文本。本來就充滿罕見詞的文字類型（例如程式碼或人名），可能產生較多的誤報訊號。
-- **K 的選擇。** 結果取決於 K，而最佳值在不同語料中不一定相同。
+- **依賴基準。** 所報告的 7.4% 提升來自 WikiMIA。論文第 5 節另以 Books3 中的版權書籍摘錄做個案研究（AUC 0.88），但那是不同的設定；兩項結果都不能說明此方法在程式碼上的表現。
+- **K 的選擇。** 論文在驗證集上掃描 10 至 50 後，採用 k = 20。本頁不能說明 20 對其他語料也是最佳值。
+- **判定方向。** 圖 1 表示平均對數似然度高代表屬於預訓練資料，但演算法 1 的寫法相反。重用門檻前，應先確認符號慣例。
 - **是排序，不是證明。** 分數只顯示某文字很可能在訓練資料中，無法指出確切使用了哪些文件，因此它是統計訊號，不是定論。
-- **模型行為。** 經過大量調校或在預訓練後被過濾的模型，其似然度可能較不可靠。
+- **模型存取。** 此方法需要模型提供 token 機率，因此無法用於不提供機率的模型。
 
 ## 關聯
 
@@ -63,7 +64,7 @@ Shi et al. (2024) 的摘要報告，Min-K% Prob 在 WikiMIA 上比先前方法�
 ### 開創性論文
 
 - Shi, W. et al. (2024). *Detecting Pretraining Data from Large Language Models*. arXiv. https://arxiv.org/abs/2310.16789 — 提出 Min-K% Prob，一種不需參考模型的似然度偵測器，並報告在 WikiMIA 上提升 7.4%。
-- Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. arXiv. https://arxiv.org/abs/2012.07805 — 顯示被記住的訓練文本可以因其高似然度而被辨識，這是似然度偵測的基礎。
-- Shokri, R., Stronati, M., Song, C. & Shmatikov, V. (2017). *Membership Inference Attacks Against Machine Learning Models*. IEEE Symposium on Security and Privacy. https://arxiv.org/abs/1610.05820 — 提出成員推論，似然度偵測即屬於此類攻擊。
-- Oren, Y. et al. (2023). *Proving Test Set Contamination in Black Box Language Models*. arXiv. https://arxiv.org/abs/2310.17623 — 提出黑箱的污染統計檢定，同樣只使用模型輸出。
+- Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. arXiv. https://arxiv.org/abs/2012.07805 — 顯示可以透過查詢模型來抽取其訓練樣本，這也說明了為何要偵測被記住的文本。
+- Shokri, R., Stronati, M., Song, C. & Shmatikov, V. (2017). *Membership Inference Attacks Against Machine Learning Models*. IEEE Symposium on Security and Privacy. https://arxiv.org/abs/1610.05820 — 研究黑箱存取下，模型是否會洩露某筆紀錄是否在其訓練資料中；似然度偵測與此類攻擊相近。
+- Oren, Y. et al. (2023). *Proving Test Set Contamination in Black Box Language Models*. arXiv. https://arxiv.org/abs/2310.17623 — 提出黑箱的污染統計檢定，不需要預訓練資料或模型權重。
 - Dodge, J. et al. (2021). *Documenting Large Webtext Corpora: A Case Study on the Colossal Clean Crawled Corpus*. arXiv. https://arxiv.org/abs/2104.08758 — 在 C4 網路語料中發現基準評估範例，顯示預訓練文本可能含有測試資料。

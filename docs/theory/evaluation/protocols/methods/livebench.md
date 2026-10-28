@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - engineering/evaluation
@@ -40,7 +40,7 @@ As White et al. (2024) describe the design, a LiveBench release is produced in t
 
 ## Results
 
-The abstract of White et al. (2024) describes the design and the goals; it does not report a headline score for any model, and this page does not give one. The abstract states that questions are "added and updated on a monthly basis," and that all questions, code and model answers are released.
+The abstract of White et al. (2024) states that questions are "added and updated on a monthly basis" and that all questions, code and model answers are released. It reports only that top models score below 70% accuracy and gives no per-model score, so this page gives none.
 
 ## Limitations
 
