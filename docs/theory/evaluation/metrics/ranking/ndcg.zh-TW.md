@@ -25,6 +25,10 @@ NDCG 為 1.0 表示排序已是理想的。由於每個位置都有折損，把�
 
 在搜尋與推薦中比較排序時使用 NDCG，特別是當相關性有多個等級，或只有前幾名結果重要時。此時應設定截斷值 $k$，並一併報告。
 
+## 範例
+
+取六個項目，依模型排序後的分級相關性為 $(3, 2, 3, 0, 1, 2)$。折扣累積增益為 $\mathrm{DCG} = \sum_{i=1}^{6} \mathrm{rel}_i / \log_2(i + 1) \approx 6.86$。理想排序 $(3, 3, 2, 2, 1, 0)$ 的值為 $\mathrm{IDCG} \approx 7.14$，因此 NDCG 為 $6.86 / 7.14 \approx 0.96$。
+
 ## 常見陷阱
 
 - **依查詢正規化。** NDCG 先對每個查詢計算，再取平均。沒有相關項目的查詢需要說明採用的慣例。
@@ -45,3 +49,4 @@ NDCG 為 1.0 表示排序已是理想的。由於每個位置都有折損，把�
 
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — 分類、迴歸與排序評分器的概述，以及各自的適用時機。
 - scikit-learn contributors. *average_precision_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html — 由預測分數計算平均精確率的 API 參考，附階梯式公式。
+- Wang, Y., Wang, L., Li, Y., He, D., Chen, W. & Liu, T.-Y. (2013). A theoretical analysis of NDCG type ranking measures. arXiv:1304.6480. https://arxiv.org/abs/1304.6480 — 對 NDCG 類排序指標及其位置折扣的理論分析。

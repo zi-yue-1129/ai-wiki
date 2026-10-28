@@ -25,6 +25,10 @@ Recall measures the cost of misses. A screening test with high recall rarely let
 
 Use recall when a missed positive is costly, for example in disease screening or safety monitoring. The usual practice is to fix a minimum recall the application requires and then report the precision that goes with it.
 
+## Worked example
+
+Using the 100 cases above, there are 60 actual positives and the classifier finds 40 of them. Recall is $40 / (40 + 20) = 0.67$. It says nothing about the 10 false alarms, which precision captures.
+
 ## Pitfalls
 
 - **Trivial recall.** A model that predicts everything positive has recall 1.0 and is useless. Always read recall with precision.

@@ -27,6 +27,10 @@ Dice is 1 for identical regions and 0 for no overlap. Since $\text{Dice} = 2\,\t
 
 Use Dice for binary or per-class segmentation where the region size varies, particularly in medical imaging, and where the score is reported per case and then averaged. Report whether the score is averaged per image or over pixels, because the two give different results when regions differ in size.
 
+## Worked example
+
+Use the two regions from the [IoU](iou.md) example: 6 predicted pixels, 4 reference pixels and 3 shared. Dice is $2 \cdot 3 / (6 + 4) = 0.60$. As a check, $2 \cdot 0.43 / (1 + 0.43) \approx 0.60$. If both masks were empty, the formula would be $0/0$, which is the empty-mask case in the pitfalls below.
+
 ## Pitfalls
 
 - **Empty masks.** If both masks are empty, the formula is 0/0. The convention for this case must be stated.
@@ -47,3 +51,5 @@ Use Dice for binary or per-class segmentation where the region size varies, part
 
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — Overview of the scorers for classification, regression and ranking, and when each is appropriate.
 - Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — Textbook with a free online draft on probabilistic machine learning.
+- Dice, L. R. (1945). Measures of the amount of ecologic association between species. *Ecology* 26(3), 297–302. https://doi.org/10.2307/1932409 — Original paper defining the coefficient, first used to measure association between species.
+- Milletari, F., Navab, N. & Ahmadi, S.-A. (2016). V-Net: fully convolutional neural networks for volumetric medical image segmentation. 3DV 2016. https://arxiv.org/abs/1606.04797 — Introduces a volumetric segmentation network trained with a Dice-based objective.

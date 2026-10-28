@@ -25,6 +25,10 @@ ROC-AUC needs only the scores, not labels at a threshold, so it compares models 
 
 Use ROC-AUC for model comparison when the operating threshold is not yet known, and when positives and negatives are of comparable size.
 
+## Worked example
+
+Take four cases with scores. The two positives score 0.9 and 0.6, and the two negatives score 0.8 and 0.3. There are four positive-negative pairs. The positive scores higher in three of them (0.9 over 0.8, 0.9 over 0.3, 0.6 over 0.3) and lower in one (0.6 under 0.8). So ROC-AUC is $3 / 4 = 0.75$.
+
 ## Pitfalls
 
 - **Rare positives.** When negatives vastly outnumber positives, the false positive rate stays small even for many false alarms, so ROC-AUC can look better than the model is for the positive class. Saito and Rehmsmeier (2015) show that the precision-recall view is more informative in this case. Use [PR-AUC](pr-auc.md) for rare events.

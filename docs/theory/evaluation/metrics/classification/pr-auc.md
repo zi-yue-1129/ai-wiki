@@ -27,6 +27,10 @@ A random classifier has precision equal to the positive rate, so PR-AUC for a ra
 
 Use PR-AUC when positives are rare, as in fraud or fault detection, and when the scores will be used to pick the top of a ranked list. Saito and Rehmsmeier (2015) show that on imbalanced data the precision-recall plot is more informative than the ROC plot.
 
+## Worked example
+
+Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (negative), 0.6 (positive), 0.3 (negative). Precision at the two positives is $1/1$ and $2/3$, so average precision is $(1 + 2/3) / 2 \approx 0.83$, which matches the value `average_precision_score` returns. A random ranking would score 0.5 here, the prevalence of positives.
+
 ## Pitfalls
 
 - **Prevalence.** Two datasets with different positive rates give different PR-AUC baselines. Report the prevalence next to the score.

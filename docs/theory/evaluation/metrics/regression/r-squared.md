@@ -25,6 +25,10 @@ $R^2$ answers a different question from MAE or RMSE. Those tell how large the er
 
 Use $R^2$ to summarise how much of the target's variation a model explains, and to compare models on the same data. It is less useful for judging forecast accuracy in the units that matter to a user.
 
+## Worked example
+
+Using the same values, the mean of the true values is $2.875$. The total sum of squares is $29.19$ and the residual sum of squares is $1.5$, so $R^2 = 1 - 1.5 / 29.19 \approx 0.949$. The model explains about 95% of the variance here, but the number does not say whether errors of 0.5 units are acceptable.
+
 ## Pitfalls
 
 - **Test-set variance.** $R^2$ depends on the variance of the test targets. A model can score well on one dataset and poorly on another with the same errors.

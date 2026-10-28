@@ -25,6 +25,10 @@ Because MAE grows linearly with each error, a few very large errors have a propo
 
 Use MAE when the error costs grow in proportion to the size of the error, and when results should be reported in the units of the target. It is also a sensible default when outliers in the target are real but should not dominate the score.
 
+## Worked example
+
+Take true values $(3, -0.5, 2, 7)$ and predictions $(2.5, 0, 2, 8)$. The absolute errors are $0.5, 0.5, 0, 1$, so MAE is their mean, $0.5$. The largest error, 1, contributes as much as the two 0.5 errors together.
+
 ## Pitfalls
 
 - **Scale.** MAE cannot be compared across targets with different units. Normalise the target, or report a relative metric such as [R²](r-squared.md) for cross-task comparison.

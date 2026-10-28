@@ -27,6 +27,10 @@ $$\text{Dice} = \frac{2\,|A \cap B|}{|A| + |B|}$$
 
 當區域大小變化很大，且分數是逐案例計算後再平均時，例如醫學影像，使用 Dice 係數。應報告分數是依影像平均還是依像素平均，因為當區域大小不同時，兩種方式的結果會不一樣。
 
+## 範例
+
+沿用 [IoU](iou.md) 範例的兩個區域：預測 6 個像素、參考 4 個像素、共享 3 個。Dice 為 $2 \cdot 3 / (6 + 4) = 0.60$。作為檢查，$2 \cdot 0.43 / (1 + 0.43) \approx 0.60$。若兩個遮罩都是空的，公式會變成 $0/0$，即下方陷阱所說的空遮罩情況。
+
 ## 常見陷阱
 
 - **空遮罩。** 若兩個遮罩都是空的，公式為 0/0。必須說明這種情況所用的慣例。
@@ -47,3 +51,5 @@ $$\text{Dice} = \frac{2\,|A \cap B|}{|A| + |B|}$$
 
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — 分類、迴歸與排序評分器的概述，以及各自的適用時機。
 - Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — 提供免費線上草稿的機率機器學習教科書。
+- Dice, L. R. (1945). Measures of the amount of ecologic association between species. *Ecology* 26(3), 297–302. https://doi.org/10.2307/1932409 — 首次定義此係數的原始論文，當時用於衡量物種之間的關聯。
+- Milletari, F., Navab, N. & Ahmadi, S.-A. (2016). V-Net: fully convolutional neural networks for volumetric medical image segmentation. 3DV 2016. https://arxiv.org/abs/1606.04797 — 提出體積醫學影像分割網路，並以基於 Dice 的目標函數訓練。

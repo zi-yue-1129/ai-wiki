@@ -25,6 +25,10 @@ Squaring makes a single error of size 10 count as much as a hundred errors of si
 
 Use RMSE when large errors are disproportionately costly, or when the target is assumed to have roughly Gaussian errors. Report it with MAE when the two disagree, because the gap between them shows how much a few large errors drive the score.
 
+## Worked example
+
+Using the same values, the squared errors are $0.25, 0.25, 0, 1$. Their mean is $0.375$, and the square root gives RMSE $\approx 0.61$. RMSE is larger than the MAE of 0.5 because squaring gives the single error of 1 more weight.
+
 ## Pitfalls
 
 - **Outliers.** A few extreme errors can dominate RMSE. Check the error distribution, not only the summary.

@@ -27,6 +27,10 @@ Because the squared error is bounded, a confident mistake costs at most 1 for th
 
 Use the Brier score when the probabilities are used directly and a single bounded measure is wanted, or when outliers in the predictions should not dominate the result.
 
+## Worked example
+
+Using the same predictions, the squared errors are $0.01$, $0.64$, $0.09$ and $0.16$. The Brier score is their mean, $0.225$. Unlike log loss, the squared error is bounded, so one confident mistake adds at most 1 to a case's contribution.
+
 ## Pitfalls
 
 - **Rare events.** For a rare outcome, a model that predicts a small constant probability has a low Brier score without any skill. Compare it with the base rate, $p_{\text{base}}(1 - p_{\text{base}})$, as a baseline.

@@ -25,6 +25,10 @@ An NDCG of 1.0 means the ordering is ideal. Because each position is discounted,
 
 Use NDCG to compare rankings in search and recommendation, especially when relevance has several levels or when only the top results matter, in which case set a cut-off $k$ and report it.
 
+## Worked example
+
+Take six items whose graded relevance, in the order the model ranks them, is $(3, 2, 3, 0, 1, 2)$. The discounted cumulative gain is $\mathrm{DCG} = \sum_{i=1}^{6} \mathrm{rel}_i / \log_2(i + 1) \approx 6.86$. The ideal order $(3, 3, 2, 2, 1, 0)$ gives $\mathrm{IDCG} \approx 7.14$, so NDCG is $6.86 / 7.14 \approx 0.96$.
+
 ## Pitfalls
 
 - **Normalisation per query.** NDCG is computed for each query and then averaged. A query with no relevant items needs a stated convention.
@@ -45,3 +49,4 @@ Use NDCG to compare rankings in search and recommendation, especially when relev
 
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — Overview of the scorers for classification, regression and ranking, and when each is appropriate.
 - scikit-learn contributors. *average_precision_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html — API reference for average precision computed from prediction scores, with its step-wise formula.
+- Wang, Y., Wang, L., Li, Y., He, D., Chen, W. & Liu, T.-Y. (2013). A theoretical analysis of NDCG type ranking measures. arXiv:1304.6480. https://arxiv.org/abs/1304.6480 — Theoretical analysis of NDCG-type ranking measures and the position discounts they use.

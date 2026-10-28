@@ -29,6 +29,10 @@ MAP is high when relevant items are placed early and consistently. It rewards fi
 
 Use MAP for information retrieval benchmarks where relevance is yes or no and every relevant item matters. Use [NDCG](ndcg.md) when relevance has several levels or only the top results count.
 
+## Worked example
+
+Take one query whose ranked list has binary labels $(1, 0, 1, 0, 0, 1)$, where 1 means relevant. Precision at the three relevant positions is $1/1$, $2/3$ and $3/6$. Average precision is $(1 + 2/3 + 1/2) / 3 \approx 0.72$. MAP over several queries is the mean of such values.
+
 ## Pitfalls
 
 - **Query weighting.** MAP gives every query equal weight, so a few queries with many relevant items do not dominate. Report the number of queries.
@@ -48,3 +52,5 @@ Use MAP for information retrieval benchmarks where relevance is yes or no and ev
 ### Additional sources
 
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — Overview of the scorers for classification, regression and ranking, and when each is appropriate.
+- Robertson, S. (2008). A new interpretation of average precision. In *Proceedings of SIGIR 2008*. https://doi.org/10.1145/1390334.1390453 — Offers a new interpretation of average precision as a single-number retrieval measure.
+- Järvelin, K. & Kekäläinen, J. (2002). Cumulated gain-based evaluation of IR techniques. *ACM Transactions on Information Systems*. https://doi.org/10.1145/582415.582418 — Introduces discounted cumulated gain, the basis of NDCG.

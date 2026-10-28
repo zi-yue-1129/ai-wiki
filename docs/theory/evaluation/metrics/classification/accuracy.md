@@ -27,6 +27,10 @@ Accuracy needs no threshold and is easy to explain. Its weakness is that it depe
 
 Use accuracy when the classes are roughly balanced and every kind of error has the same cost. Otherwise report precision and recall alongside it, or use a ranking metric such as [PR-AUC](pr-auc.md).
 
+## Worked example
+
+Using the 100 cases above, accuracy is $(40 + 30) / 100 = 0.70$. The same classifier has precision 0.80 and recall 0.67 (see [precision](precision.md) and [recall](recall.md)), so accuracy alone does not show which kind of error dominates.
+
 ## Pitfalls
 
 - **Imbalance.** A high score can come from predicting the majority class. Compare against the majority-class rate as a baseline.

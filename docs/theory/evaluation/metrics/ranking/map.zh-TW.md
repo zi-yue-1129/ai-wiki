@@ -29,6 +29,10 @@ $$\text{AP} = \frac{1}{R} \sum_{k=1}^{N} P(k)\, \text{rel}(k)$$
 
 在相關性為是或否、且每個相關項目都重要的資訊檢索基準中，使用 MAP。當相關性有多個等級，或只有前幾名結果重要時，應改用 [NDCG](ndcg.md)。
 
+## 範例
+
+取一個查詢，排序後的二元相關性標籤為 $(1, 0, 1, 0, 0, 1)$，其中 1 表示相關。在三個相關位置上的精確率分別為 $1/1$、$2/3$ 與 $3/6$。平均精確率為 $(1 + 2/3 + 1/2) / 3 \approx 0.72$。多個查詢的 MAP 就是這些值的平均。
+
 ## 常見陷阱
 
 - **查詢權重。** MAP 對每個查詢給予相同權重，因此少數有很多相關項目的查詢不會主導結果。應報告查詢數量。
@@ -48,3 +52,5 @@ $$\text{AP} = \frac{1}{R} \sum_{k=1}^{N} P(k)\, \text{rel}(k)$$
 ### 補充來源
 
 - scikit-learn contributors. *Metrics and scoring: quantifying the quality of predictions*. https://scikit-learn.org/stable/modules/model_evaluation.html — 分類、迴歸與排序評分器的概述，以及各自的適用時機。
+- Robertson, S. (2008). A new interpretation of average precision. 收於 *SIGIR 2008 論文集*。https://doi.org/10.1145/1390334.1390453 — 為平均精確率提出新的詮釋，並將其視為單一數字的檢索指標。
+- Järvelin, K. & Kekäläinen, J. (2002). Cumulated gain-based evaluation of IR techniques. *ACM Transactions on Information Systems*。https://doi.org/10.1145/582415.582418 — 提出折扣累積增益，這是 NDCG 的基礎。

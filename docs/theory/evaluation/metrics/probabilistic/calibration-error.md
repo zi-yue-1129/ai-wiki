@@ -27,6 +27,10 @@ An ECE near zero means the confidence is close to the observed frequency on aver
 
 Use calibration error when probabilities are used for decisions, reported to users, or passed to another system, and when the question is whether the numbers mean what they say.
 
+## Worked example
+
+Use the same four predictions with two equal-width bins. This is too few bins for a real evaluation and is only meant to show the arithmetic. The bin $[0, 0.5)$ holds one case with mean confidence 0.30 and observed positive rate 0. The bin $[0.5, 1]$ holds three cases with mean confidence 0.77 and observed positive rate 0.67. ECE is $\tfrac{1}{4} \cdot 0.30 + \tfrac{3}{4} \cdot 0.10 = 0.15$.
+
 ## Pitfalls
 
 - **Bin choice.** Equal-width bins are sensitive to the number of bins and to sparse ranges. Report the bin count and the binning scheme.

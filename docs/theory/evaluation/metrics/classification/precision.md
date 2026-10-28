@@ -25,6 +25,10 @@ Precision measures the cost of false alarms. A spam filter with high precision r
 
 Use precision when acting on a positive prediction is expensive or harmful, for example when a flagged transaction is blocked or a patient is called back for further tests. Report it at the threshold you will actually deploy, not at a default value.
 
+## Worked example
+
+Using the 100 cases above, the classifier predicts 50 positives. Precision is $40 / (40 + 10) = 0.80$: four in five flagged cases are correct. It says nothing about the 20 positives that were missed.
+
 ## Pitfalls
 
 - **Threshold dependence.** Precision at one threshold says little about the model as a whole. Pair it with a threshold-free metric such as [PR-AUC](pr-auc.md).

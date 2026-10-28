@@ -27,6 +27,10 @@ $$\text{IoU} = \frac{|A \cap B|}{|A \cup B|}$$
 
 當問題是預測區域與參考區域的吻合程度時使用 IoU，例如在偵測中以 IoU ≥ 0.5 作為正確偵測的門檻。應報告所用的門檻，以及分數是依影像、依類別還是依整個資料集平均。
 
+## 範例
+
+取一條 10 個像素的一維區域。預測區域涵蓋像素 1 到 6（6 個像素），參考區域涵蓋像素 4 到 7（4 個像素），兩者共享 3 個像素。聯集為 $6 + 4 - 3 = 7$，因此 IoU $= 3 / 7 \approx 0.43$。同樣的遮罩，[Dice](dice.md) 為 0.60，可見兩個指標的數值可以差距很大。
+
 ## 常見陷阱
 
 - **平均方式。** 依類別或影像取平均的 mean IoU，可能掩蓋在稀有或小物件上的糟糕表現。應報告各類別的數值。
@@ -46,3 +50,5 @@ $$\text{IoU} = \frac{|A \cap B|}{|A \cup B|}$$
 ### 補充來源
 
 - Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — 提供免費線上草稿的機率機器學習教科書。
+- Rezatofighi, H. et al. (2019). Generalized intersection over union: a metric and a loss for bounding box regression. CVPR 2019. https://arxiv.org/abs/1902.09630 — 擴充 IoU，使其在邊界框不重疊時仍能提供資訊。
+- Cordts, M. et al. (2016). The Cityscapes dataset for semantic urban scene understanding. CVPR 2016. https://arxiv.org/abs/1604.01685 — 基準資料集，其評估以各類別的交集除以聯集報告結果。
