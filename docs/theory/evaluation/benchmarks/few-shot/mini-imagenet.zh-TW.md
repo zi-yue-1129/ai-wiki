@@ -16,7 +16,7 @@ miniImageNet 是由 ImageNet 影像建立的少樣本影像分類基準。它用
 
 每個評估情節會抽出 N 個模型在訓練中未見過的類別，並為每個類別提供 K 個有標籤的範例作為支持集。模型接著要對這些類別中的新查詢影像進行分類。情節是從保留的類別集合中隨機抽樣，因此訓練與測試的類別不重疊。
 
-不同論文的確切類別切分與影像數量各有不同。在比較結果前，必須先檢查該論文使用的切分。本頁沒有引用某個固定切分定義的來源。
+最常見的切分為 64 個訓練類別、16 個驗證類別與 20 個測試類別，由 Ravi 與 Larochelle（2017）定義。其他論文可能使用不同切分，因此在比較結果前，必須先檢查該論文使用的切分。
 
 ## 協定與指標
 
@@ -46,6 +46,7 @@ Vinyals et al.（2016）為 ImageNet 與 Omniglot 上的單樣本評估設定了
 
 - Vinyals, O. et al. (2016). *Matching Networks for One Shot Learning*. arXiv. https://arxiv.org/abs/1606.04080 — 定義在 ImageNet 與 Omniglot 上的單樣本評估，之後的基準都沿用此設定。
 - Lake, B. M. et al. (2015). *Human-level concept learning through probabilistic program induction*. Science. https://doi.org/10.1126/science.aab3050 — 介紹 Omniglot 手寫字元基準，用於從少量範例學習。
+- Ravi, S. & Larochelle, H. (2017). *Optimization as a Model for Few-Shot Learning*. ICLR. https://openreview.net/forum?id=rJY0-Kcll — 定義多數 miniImageNet 論文所用的 64/16/20 類別切分。
 
 ### 文章與文件
 

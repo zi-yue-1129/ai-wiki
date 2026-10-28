@@ -39,4 +39,4 @@ Omniglot, the handwritten-character benchmark of Lake et al. (2015), is the othe
 
 - Snell, J. et al. (2017). *Prototypical Networks for Few-shot Learning*. arXiv. https://arxiv.org/abs/1703.05175 — Uses N-way K-shot episodes with results on miniImageNet.
 - Finn, C. et al. (2017). *Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks*. arXiv. https://arxiv.org/abs/1703.03400 — Reports few-shot results on miniImageNet for a meta-learning method.
-- Russakovsky, O. et al. (2015). *ImageNet Large Scale Visual Recognition Challenge*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-015-0816-y — The source dataset behind miniImageNet.
+- Russakovsky, O. et al. (2015). *ImageNet Large Scale Visual Recognition Challenge*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-015-0816-y — The source dataset from which miniImageNet images are taken.

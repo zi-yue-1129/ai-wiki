@@ -16,7 +16,7 @@ miniImageNet is a few-shot image classification benchmark built from ImageNet im
 
 Each evaluation episode samples N classes the model has not seen in training and gives K labelled examples per class as the support set. The model then classifies new query images from those classes. Episodes are sampled at random from a held-out set of classes, so training and test classes do not overlap.
 
-The exact class split and image counts vary between papers. The split used in a given paper has to be checked before results are compared. This page does not cite a source for one fixed definition of the split.
+The most common split uses 64 classes for training, 16 for validation and 20 for testing, as defined by Ravi and Larochelle (2017). Other papers use different splits, so the split must be checked before results are compared.
 
 ## Protocol and metric
 
@@ -46,6 +46,7 @@ Few-shot benchmarks test whether a learner can adapt from little data, which ord
 
 - Vinyals, O. et al. (2016). *Matching Networks for One Shot Learning*. arXiv. https://arxiv.org/abs/1606.04080 — Defines one-shot evaluation on ImageNet and Omniglot that later benchmarks follow.
 - Lake, B. M. et al. (2015). *Human-level concept learning through probabilistic program induction*. Science. https://doi.org/10.1126/science.aab3050 — Introduces the Omniglot handwritten-character benchmark for learning from few examples.
+- Ravi, S. & Larochelle, H. (2017). *Optimization as a Model for Few-Shot Learning*. ICLR. https://openreview.net/forum?id=rJY0-Kcll — Defines the 64/16/20 class split that most miniImageNet papers use.
 
 ### Articles and documentation
 

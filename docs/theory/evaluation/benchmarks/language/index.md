@@ -35,9 +35,9 @@ Language benchmarks cover three different things: sentence-level understanding (
 
 ### Seminal papers
 
-- Wang, A. et al. (2018). *GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding*. arXiv. https://arxiv.org/abs/1804.07461 — Introduces the multi-task understanding benchmark.
+- Wang, A. et al. (2018). *GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding*. arXiv. https://arxiv.org/abs/1804.07461 — Introduces the multi-task understanding benchmark and its shared score.
 - Wang, A. et al. (2019). *SuperGLUE: A Stickier Benchmark for General-Purpose Language Understanding Systems*. arXiv. https://arxiv.org/abs/1905.00537 — Introduces the harder successor and its human baseline.
-- Hendrycks, D. et al. (2021). *Measuring Massive Multitask Language Understanding*. ICLR. https://arxiv.org/abs/2009.03300 — Introduces the 57-subject knowledge test.
+- Hendrycks, D. et al. (2021). *Measuring Massive Multitask Language Understanding*. ICLR. https://arxiv.org/abs/2009.03300 — Introduces the 57-subject knowledge test and its first results.
 
 ### Articles and documentation
 
