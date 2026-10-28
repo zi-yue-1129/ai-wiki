@@ -1,0 +1,67 @@
+---
+related:
+  - theory/models/generative
+tags:
+  - unsupervised learning
+  - density estimation
+  - generative models
+---
+
+# Density Estimation and Generative Models
+
+Density estimation learns the probability distribution $p(x)$ behind unlabelled data. A model that can assign a probability to any input can also generate new samples and flag unusual inputs.
+
+## Overview
+
+Given samples from an unknown distribution, density estimation asks for a function $p_\theta(x)$ that places high probability where data occur. Models differ in whether they give an exact likelihood, can sample efficiently, or can be trained stably.
+
+## Trade-offs between methods
+
+Density methods differ in three properties: whether they give an exact likelihood, how fast they sample, and how stable their training is. Kernel density estimates and Gaussian mixtures have an exact likelihood and sample easily, but kernel methods scale poorly to high-dimensional data. GANs sample quickly but have no likelihood and train adversarially. Diffusion models train stably but sample in many iterative steps. The concrete families, with their pros and cons, are compared in [Generative Models](../../../models/generative/index.md).
+
+## Key ideas
+
+**Maximum likelihood** chooses parameters that maximise $\sum_i \log p_\theta(x_i)$, which is equivalent to minimising the KL divergence between the data and the model. Most of the methods above are different ways to make this objective tractable.
+
+**Normalising flows** map a simple base distribution through a sequence of invertible transformations. The change-of-variables formula gives the exact likelihood, and the Jacobian must be cheap to compute. Real NVP uses coupling layers that make this easy.
+
+**Variational autoencoders** introduce latent variables and optimise an evidence lower bound. The encoder approximates the posterior and the decoder models the data, so generation and inference are both available.
+
+**GANs** train a generator against a discriminator without writing down a likelihood. Training is powerful but can be unstable, and mode collapse, where samples cover only part of the data, is a known risk.
+
+## Connections
+
+Clustering with Gaussian mixtures is density estimation with discrete latent variables, see [clustering](../clustering/index.md). Anomaly detection uses the estimated density, see [anomaly detection](../anomaly-detection/index.md). Modern generative systems are covered in [Generative Models](../../../models/generative/index.md).
+
+## Applications
+
+Synthetic data generation, image and audio synthesis, detecting out-of-distribution inputs, compressing data with learned probability models, and scientific simulation where likelihoods are needed for inference.
+
+## Open questions
+
+Likelihood is not the same as sample quality. A model can assign high likelihood to images that look wrong, which makes evaluation hard. Scaling exact-likelihood models to very high resolution, and understanding when generative models memorise their training data, remain active problems.
+
+## References
+
+### Seminal papers
+
+- Dinh, Sohl-Dickstein & Bengio (2017), "Density estimation using Real NVP", ICLR, arXiv:1605.08803 — Coupling-layer normalising flows that give exact likelihoods for images.
+- Kingma & Welling (2014), "Auto-encoding variational Bayes", ICLR, arXiv:1312.6114 — The variational autoencoder, which combines a latent-variable model with amortised inference.
+- Goodfellow et al. (2014), "Generative adversarial networks", NeurIPS, arXiv:1406.2661 — Introduces adversarial training of a generator against a discriminator.
+- Fraley & Raftery (2002), "Model-based clustering, discriminant analysis, and density estimation", *JASA* 97(458). https://sites.stat.washington.edu/raftery/Research/PDF/fraley2002.pdf — Defines Gaussian mixture density estimation and model selection.
+
+### Surveys and textbooks
+
+(none checked for this page)
+
+### Lectures and videos
+
+- StatQuest with Josh Starmer, episodes on Gaussian distributions and mixture models, YouTube. https://www.youtube.com/@statquest — Animated introduction to the Gaussian building blocks behind mixture density models.
+
+### Articles and documentation
+
+(none beyond the entries above)
+
+## Further reading
+
+- Murphy, *Probabilistic Machine Learning: Advanced Topics* (2023), chapters on normalising flows and generative models. No link checked.

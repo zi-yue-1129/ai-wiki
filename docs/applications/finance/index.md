@@ -1,7 +1,7 @@
 ---
 related:
-- foundations/paradigms/online
-- foundations/paradigms/federated
+- theory/paradigms/online
+- theory/paradigms/federated
 - society/ethics
 - applications/cybersecurity
 ---

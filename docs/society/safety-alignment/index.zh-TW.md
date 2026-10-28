@@ -46,7 +46,7 @@
 
 ## 與認知科學的連結
 
-- **價值學習**與人類如何推斷他人的偏好有關（逆向規劃，見[模仿學習](../../foundations/paradigms/imitation/index.md)）
+- **價值學習**與人類如何推斷他人的偏好有關（逆向規劃，見[模仿學習](../../theory/paradigms/imitation/index.md)）
 - **道德心理學**（Haidt 的道德基礎理論、電車難題研究）影響了「人類價值」究竟是什麼的理解，也說明了它在不同文化間有多大差異（Moral Machine 實驗，Awad et al., 2018）
 - **可修正性**（corrigibility）呼應了人類制度中關於自主與服從的爭論
 

@@ -24,12 +24,12 @@ hide:
 
 <div class="grid cards" markdown>
 
--   :material-sigma: **[基礎理論](foundations/index.md)**
+-   :material-sigma: **[理論](theory/index.md)**
 
     ---
     數學、機器學習、深度學習、強化學習、機率模型、符號 AI、演化計算。
 
--   :material-cube-outline: **[模型與技術](models/index.md)**
+-   :material-cube-outline: **[模型與技術](theory/models/index.md)**
 
     ---
     Transformer、LLM、擴散模型、電腦視覺、NLP、語音、多模態、GNN、代理人、世界模型。

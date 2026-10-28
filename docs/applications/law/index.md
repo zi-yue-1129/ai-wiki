@@ -1,6 +1,6 @@
 ---
 related:
-- models/llm
+- theory/models/llm
 - engineering/rag
 - society/governance
 - society/ethics

@@ -1,0 +1,138 @@
+---
+related:
+- theory/models/llm
+- society/interpretability
+- brain-mind/memory-learning
+aliases:
+  - Attention
+  - 自注意力
+  - 注意力機制
+---
+
+# Transformers & Attention
+
+## Intuition
+
+The meaning of each word depends on its context: in "Apple released a new phone", "Apple" is a company because of "phone". **Attention** lets every position directly *query* all other positions and combine their information weighted by relevance.
+
+The Transformer (Vaswani et al., 2017, "Attention Is All You Need") replaced recurrence entirely with attention. It parallelises well in training and became the backbone of LLMs, vision transformers, speech models, protein models — nearly everything.
+
+## Scaled dot-product attention
+
+Each token's vector is projected into:
+
+- **Query (Q)** — what am I looking for?
+- **Key (K)** — what do I offer to be found?
+- **Value (V)** — what do I contribute when found?
+
+\[
+\text{Attention}(Q,K,V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+\]
+
+Dividing by \(\sqrt{d_k}\) keeps dot products from growing so large that the softmax saturates.
+
+**Multi-head attention** splits vectors into h heads that attend independently and are concatenated, letting the model track different relations (syntax, coreference, position) at once.
+
+## The Transformer block
+
+```mermaid
+flowchart TB
+  X[Input embeddings + positional information] --> N1[LayerNorm / RMSNorm]
+  N1 --> A[Multi-head self-attention]
+  A --> R1((+))
+  X --> R1
+  R1 --> N2[LayerNorm / RMSNorm]
+  N2 --> F[Feed-forward / SwiGLU or MoE]
+  F --> R2((+))
+  R1 --> R2
+  R2 --> Y[To next layer]
+```
+
+## Three variants
+
+| Type | Attention | Examples | Uses |
+|---|---|---|---|
+| Encoder-only | Bidirectional | BERT, RoBERTa | Understanding, classification, embeddings |
+| Encoder–decoder | Bidirectional encoder + cross-attention | Original Transformer, T5, Whisper | Translation, summarisation, speech recognition |
+| Decoder-only | Causal (past only) | GPT, Llama, Claude, Gemini, etc. | Generation, general-purpose LLMs |
+
+## Positional information
+
+Attention is order-agnostic, so position must be injected:
+
+- Sinusoidal encodings (original paper)
+- Learned absolute embeddings (BERT, GPT-2)
+- **Rotary position embeddings (RoPE)** — today's default
+- ALiBi (linear biases; extrapolates to longer sequences)
+
+## Efficiency
+
+Standard attention costs \(O(n^2)\) in sequence length n.
+
+| Technique | Idea |
+|---|---|
+| FlashAttention | Tiled, IO-aware exact attention — faster, less memory |
+| KV cache | Store past keys and values during generation |
+| MQA / GQA | Query heads share key/value heads, shrinking the KV cache |
+| Multi-head latent attention (MLA) | Compress K/V into a low-dimensional latent (DeepSeek-V2 onward) |
+| Sparse / sliding-window attention | Attend to a subset of positions (Longformer, Mistral) |
+| Linear attention | Kernel approximations reduce cost to \(O(n)\) |
+| Mixture of experts (MoE) | Replace the FFN with many experts and route each token to a few — many parameters, modest compute |
+
+## Components and variants
+
+Each part of the Transformer has its own family of variants, with its own trade-offs and open questions:
+
+- [Attention variants](attention-variants/index.md): sparse and linear attention, shared key–value heads, and IO-aware exact attention.
+- [Positional encodings](positional-encodings/index.md): relative, rotary and bias-based encodings, and methods for extending the context length.
+- [KV cache management](kv-cache/index.md): memory paging, eviction, quantisation, latent compression and offloading.
+
+## Alternative architectures
+
+- **State-space models**: S4, Mamba, Mamba-2 — constant cost per generated token, efficient on long sequences
+- **Modern RNNs**: RWKV, xLSTM, Griffin
+- **Hybrids**: interleave Transformer layers with SSM or linear-attention layers (e.g. Jamba), trading off quality and efficiency
+- As of 2026, frontier models are still predominantly Transformers (often MoE); hybrids are increasingly common for long context and on-device use
+
+## Mechanistic understanding
+
+- **Induction heads**: a two-head circuit implementing "after A B … A, predict B", thought to underlie much in-context learning (Olsson et al., 2022)
+- The **residual stream** as a shared communication channel that layers read from and write to
+- **Feed-forward layers as key–value memories** (Geva et al., 2021)
+- See [Interpretability](../../../society/interpretability/index.md)
+
+## Links to the brain
+
+- The name "attention" comes from psychology's selective attention, but the mechanisms are not the same thing
+- Transformers with recurrent positional encodings develop place-cell- and grid-cell-like representations, suggesting a formal link to **hippocampal** computation (Whittington et al., 2022)
+- The update rule of **modern Hopfield networks** is equivalent to attention (Ramsauer et al., 2020, "Hopfield Networks is All You Need")
+- A proposal maps attention onto neuron–astrocyte interactions (Kozachkov et al., 2023)
+- LLM internal representations predict fMRI/ECoG responses in human language areas (Schrimpf et al., 2021; Goldstein et al., 2022) — see [NeuroAI](../../../brain-mind/neuroai/index.md)
+
+## Resources
+
+- Jay Alammar, "The Illustrated Transformer"
+- [The Annotated Transformer](https://nlp.seas.harvard.edu/annotated-transformer/) (Harvard NLP)
+- Karpathy, "Let's build GPT: from scratch"; nanoGPT
+- 3Blue1Brown deep learning series, chapters 5–7
+
+## References
+
+### Seminal papers
+
+- Vaswani, A., et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — Introduces the Transformer, replacing recurrence with multi-head self-attention.
+- Bahdanau, D., Cho, K. & Bengio, Y. (2015). Neural Machine Translation by Jointly Learning to Align and Translate. ICLR. https://arxiv.org/abs/1409.0473 — Adds learned attention to sequence-to-sequence translation, the idea the Transformer later generalised.
+- Elhage, N., et al. (2021). *A Mathematical Framework for Transformer Circuits*. Anthropic. https://transformer-circuits.pub/2021/framework/index.html — Treats the Transformer as a set of linear paths between residual-stream reads and writes, the basis of mechanistic interpretability work.
+
+### Surveys and textbooks
+
+- Tay, Y., et al. (2020). *Efficient Transformers: A Survey*. arXiv. https://arxiv.org/abs/2009.06732 — Surveys the many attempts to reduce the quadratic cost of attention, with a taxonomy of approaches.
+
+### Lectures and videos
+
+- Karpathy, A. (2023). *Let's build GPT: from scratch, in code, spelled out*. YouTube. https://www.youtube.com/watch?v=kCc8FmEb1nY — Live coding of a small GPT from an empty file, explaining each part of the Transformer as it is written.
+
+### Articles and documentation
+
+- Alammar, J. *The Illustrated Transformer*. https://jalammar.github.io/illustrated-transformer/ — Step-by-step diagrams of attention and the encoder–decoder stack.
+- Harvard NLP. *The Annotated Transformer*. https://nlp.seas.harvard.edu/annotated-transformer/ — Paper-by-paper PyTorch implementation with commentary alongside the original text.

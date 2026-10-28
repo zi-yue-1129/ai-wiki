@@ -1,7 +1,7 @@
 ---
 related:
-- models/generative
-- models/gnn
+- theory/models/generative
+- theory/models/gnn
 - applications/science
 - applications/healthcare
 ---
@@ -57,7 +57,7 @@ flowchart LR
 
 ## Lab automation and agents
 
-- Self-driving labs combine robotics, Bayesian optimisation and [active learning](../../foundations/paradigms/active/index.md)
+- Self-driving labs combine robotics, Bayesian optimisation and [active learning](../../theory/paradigms/active/index.md)
 - LLM agents plan experiments, write lab protocols and analyse data (see [Scientific Discovery](../science/index.md))
 
 ## Biosecurity

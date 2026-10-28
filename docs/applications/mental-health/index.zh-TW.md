@@ -14,7 +14,7 @@
 
 ## 計算精神醫學
 
-運用[強化學習](../../foundations/paradigms/reinforcement-learning/index.md)與[貝氏推論](../../foundations/probabilistic/index.md)的模型，描述認知如何出現偏差：
+運用[強化學習](../../theory/paradigms/reinforcement-learning/index.md)與[貝氏推論](../../theory/probabilistic/index.md)的模型，描述認知如何出現偏差：
 
 - **憂鬱**：獎勵敏感度或學習率降低；悲觀的先驗；探索行為改變
 - **焦慮**：高估威脅的機率；無法忍受不確定性

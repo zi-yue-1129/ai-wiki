@@ -1,8 +1,8 @@
 ---
 related:
-- models/generative
-- models/multimodal
-- models/speech
+- theory/models/generative
+- theory/models/multimodal
+- theory/models/speech
 - society/governance
 - society/economics
 ---

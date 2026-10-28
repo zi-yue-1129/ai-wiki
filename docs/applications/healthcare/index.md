@@ -1,7 +1,7 @@
 ---
 related:
-- models/computer-vision
-- models/llm
+- theory/models/computer-vision
+- theory/models/llm
 - applications/life-science
 - applications/mental-health
 - society/governance
@@ -42,7 +42,7 @@ related:
 - Imaging: CNNs and ViTs, self-supervised pre-training on unlabelled scans, foundation models for pathology (e.g. UNI, Virchow, Prov-GigaPath) and radiology
 - EHR: sequence models over visits, LLMs over clinical notes
 - Multimodal: combining images, notes, labs and genomics
-- Privacy-preserving training: [federated learning](../../foundations/paradigms/federated/index.md)
+- Privacy-preserving training: [federated learning](../../theory/paradigms/federated/index.md)
 - Datasets: MIMIC (ICU records), CheXpert and MIMIC-CXR, UK Biobank, The Cancer Genome Atlas, PhysioNet
 
 ## Evaluation that matters
