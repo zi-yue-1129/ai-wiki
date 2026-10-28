@@ -498,6 +498,33 @@ plugins:
             Neuroimaging & Recording Methods: 神經影像與記錄方法
             Developmental Cognition & How Children Learn: 發展認知與兒童如何學習
             Violation of Expectation (Baillargeon et al. 1985): 違反預期範式（Baillargeon 等人，1985）
+            Motor Control and the Cerebellum: 運動控制與小腦
+            Optimal Feedback Control (Todorov & Jordan 2002): 最優回饋控制（Todorov & Jordan，2002）
+            Cerebellar Supervised Learning (Marr, Albus & Ito): 小腦監督式學習（Marr、Albus 與 Ito）
+            Internal Forward Models (Kawato 1987; Wolpert et al. 1995): 內部前向模型（Kawato 1987；Wolpert 等人，1995）
+            Sleep, Replay and Memory Consolidation: 睡眠、重播與記憶鞏固
+            Hippocampal Replay (Foster & Wilson 2006): 海馬迴重播（Foster & Wilson，2006）
+            Sharp-Wave Ripples (Buzsáki et al. 1992): 尖波漣波（Buzsáki 等人，1992）
+            Experience Replay (Lin 1992; Mnih et al. 2015): 經驗回放（Lin，1992；Mnih 等人，2015）
+            Spatial Navigation and Cognitive Maps: 空間導航與認知地圖
+            Place Cells and the Cognitive-Map Hypothesis (O'Keefe & Dostrovsky 1971): 位置細胞與認知地圖假說（O'Keefe 與 Dostrovsky，1971）
+            Tolman–Eichenbaum Machine (Whittington et al. 2020): Tolman–Eichenbaum 機器（Whittington 等人，2020）
+            Successor Representation (Dayan 1993): 後繼表徵（Dayan，1993）
+            Working Memory and Executive Function: 工作記憶與執行功能
+            Prefrontal Basal Ganglia Working Memory (PBWM): 前額葉—基底核工作記憶（PBWM）
+            Activity-Silent Working Memory: 活動靜默工作記憶
+            Neuromodulators beyond Dopamine: 多巴胺之外的神經調節物質
+            Uncertainty-Based Neuromodulation (Yu & Dayan 2005): 基於不確定性的神經調節（Yu & Dayan，2005）
+            Meta-Learning with Neuromodulation (Doya 2002): 以神經調節實現的元學習（Doya，2002）
+            The Auditory System: 聽覺系統
+            Task-Optimised Networks Model Auditory Cortex (Kell et al. 2018): 任務最佳化網路模擬聽覺皮層（Kell 等人，2018）
+            Multiresolution Spectrotemporal Model (Chi et al. 2005): 多解析度頻譜時間模型（Chi 等人，2005）
+            Neural Oscillations and Synchrony: 神經振盪與同步
+            Communication through Coherence (Fries 2005): 透過相干性的通訊（Fries，2005）
+            Theta–Gamma Coupling (Lisman & Jensen 2013): θ–γ 耦合（Lisman & Jensen，2013）
+            Computational Psychiatry: 計算精神醫學
+            Computational Phenotyping with Hierarchical Bayesian RL (Ahn et al. 2017): 以階層式貝氏強化學習進行計算表型分析（Ahn 等人，2017）
+            Aberrant Prediction Error in Psychosis (Corlett et al. 2007): 精神病中的異常預測誤差（Corlett 等人，2007）
             Statistical Learning in Infants (Saffran et al. 1996): 嬰兒的統計學習（Saffran 等人，1996）
             Animal Cognition & Comparative Intelligence: 動物認知與比較智力
             Mirror Self-Recognition (Gallup 1970): 鏡像自我辨認（Gallup，1970）
@@ -1067,6 +1094,41 @@ nav:
           - brain-mind/animal-cognition/index.md
           - Mirror Self-Recognition (Gallup 1970): brain-mind/animal-cognition/mirror-self-recognition/index.md
           - Tool Use in New Caledonian Crows (Weir et al. 2002): brain-mind/animal-cognition/tool-use-crows/index.md
+      - Motor Control and the Cerebellum:
+          - brain-mind/motor-control/index.md
+          - Optimal Feedback Control (Todorov & Jordan 2002): brain-mind/motor-control/optimal-feedback-control/index.md
+          - Cerebellar Supervised Learning (Marr, Albus & Ito): brain-mind/motor-control/marr-albus-ito/index.md
+          - Internal Forward Models (Kawato 1987; Wolpert et al. 1995): brain-mind/motor-control/internal-forward-models/index.md
+      - Sleep, Replay and Memory Consolidation:
+          - brain-mind/sleep-and-consolidation/index.md
+          - Hippocampal Replay (Foster & Wilson 2006): brain-mind/sleep-and-consolidation/hippocampal-replay/index.md
+          - Sharp-Wave Ripples (Buzsáki et al. 1992): brain-mind/sleep-and-consolidation/sharp-wave-ripples/index.md
+          - Experience Replay (Lin 1992; Mnih et al. 2015): brain-mind/sleep-and-consolidation/experience-replay/index.md
+      - Spatial Navigation and Cognitive Maps:
+          - brain-mind/navigation-cognitive-maps/index.md
+          - Place Cells and the Cognitive-Map Hypothesis (O'Keefe & Dostrovsky 1971): brain-mind/navigation-cognitive-maps/place-cells/index.md
+          - Tolman–Eichenbaum Machine (Whittington et al. 2020): brain-mind/navigation-cognitive-maps/tolman-eichenbaum-machine/index.md
+          - Successor Representation (Dayan 1993): brain-mind/navigation-cognitive-maps/successor-representation/index.md
+      - Working Memory and Executive Function:
+          - brain-mind/working-memory-executive-function/index.md
+          - Prefrontal Basal Ganglia Working Memory (PBWM): brain-mind/working-memory-executive-function/pbwm/index.md
+          - Activity-Silent Working Memory: brain-mind/working-memory-executive-function/activity-silent-working-memory/index.md
+      - Neuromodulators beyond Dopamine:
+          - brain-mind/neuromodulation/index.md
+          - Uncertainty-Based Neuromodulation (Yu & Dayan 2005): brain-mind/neuromodulation/yu-dayan-2005/index.md
+          - Meta-Learning with Neuromodulation (Doya 2002): brain-mind/neuromodulation/doya-2002/index.md
+      - The Auditory System:
+          - brain-mind/auditory-system/index.md
+          - Task-Optimised Networks Model Auditory Cortex (Kell et al. 2018): brain-mind/auditory-system/kell-2018/index.md
+          - Multiresolution Spectrotemporal Model (Chi et al. 2005): brain-mind/auditory-system/chi-2005/index.md
+      - Neural Oscillations and Synchrony:
+          - brain-mind/oscillations/index.md
+          - Communication through Coherence (Fries 2005): brain-mind/oscillations/communication-through-coherence/index.md
+          - Theta–Gamma Coupling (Lisman & Jensen 2013): brain-mind/oscillations/theta-gamma-coupling/index.md
+      - Computational Psychiatry:
+          - brain-mind/computational-psychiatry/index.md
+          - Computational Phenotyping with Hierarchical Bayesian RL (Ahn et al. 2017): brain-mind/computational-psychiatry/computational-phenotyping/index.md
+          - Aberrant Prediction Error in Psychosis (Corlett et al. 2007): brain-mind/computational-psychiatry/aberrant-prediction-error-psychosis/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
