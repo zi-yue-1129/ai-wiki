@@ -2,6 +2,10 @@
 related:
 - brain-mind/neuroai
 - brain-mind/snn-neuromorphic
+aliases:
+  - 計算神經科學
+  - 理論神經科學
+  - Theoretical neuroscience
 ---
 
 # Computational Neuroscience
@@ -66,6 +70,39 @@ LIF dynamics:
 
 Derive what the brain *should* do by optimising an objective, then compare with data: efficient coding, Bayesian observers, optimal control, reinforcement learning, resource rationality.
 
+## Key methods
+
+### Hodgkin–Huxley model (Hodgkin & Huxley, 1952)
+
+- **Problem:** how the action potential arises from ion movements across the membrane of the squid giant axon.
+- **Core idea:** the membrane is a capacitor in parallel with voltage-gated sodium and potassium conductances and a leak. Three gating variables (m, h, n) each relax toward a voltage-dependent value, and they control the conductances.
+- **Equations** (modern sign convention):
+
+\[
+C\frac{dV}{dt} = I - g_{Na}\,m^3 h\,(V - E_{Na}) - g_K\,n^4\,(V - E_K) - g_L\,(V - E_L)
+\]
+
+\[
+\frac{dx}{dt} = \alpha_x(V)\,(1 - x) - \beta_x(V)\,x, \qquad x \in \{m, h, n\}
+\]
+
+- **Results:** the simulated action potential matches the shape of recordings from the squid axon, and the model reproduces how the spike propagates along the axon.
+- **Limitations:** fitted to one preparation at one temperature, with no dendritic structure. Four coupled equations per compartment are costly for large networks, which is why the simpler leaky integrate-and-fire and Izhikevich models in the table above are so common.
+
+### Sparse coding (Olshausen & Field, 1996)
+
+- **Problem:** why neurons in primary visual cortex (V1) respond to oriented edges at particular positions.
+- **Core idea:** a natural image patch is described as a weighted sum of a few basis functions with sparse coefficients. The basis functions are learned from unlabelled images.
+- **Equation:** for each patch, find coefficients \(a_i\) and basis functions \(\phi_i\) that minimise
+
+\[
+E = \Big\| I - \sum_i a_i \phi_i \Big\|^2 + \lambda \sum_i S(a_i)
+\]
+
+  where \(S\) is a sparseness penalty that favours few active coefficients.
+- **Results:** the learned basis functions are localised, oriented and band-pass, resembling the simple-cell receptive fields of V1.
+- **Limitations:** a linear generative model that leaves out complex cells, temporal dynamics and top-down influences. Sparse coding is one normative account among several, not a full model of V1.
+
 ## Tools and data
 
 - Simulators: [NEURON](https://neuron.yale.edu/), [NEST](https://www.nest-simulator.org/), [Brian2](https://briansimulator.org/)
@@ -79,3 +116,16 @@ Derive what the brain *should* do by optimising an objective, then compare with 
 - [Neuromatch Academy Computational Neuroscience](https://compneuro.neuromatch.io/) (CC BY 4.0; strongly recommended)
 - Marr, *Vision*
 - Artem Kirsanov's YouTube channel (visual computational-neuroscience explainers)
+
+## References
+
+### Seminal papers
+
+- Hodgkin, A. L. & Huxley, A. F. (1952). A quantitative description of membrane current and its application to conduction and excitation in nerve. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1952.sp004764 — Derives the four-variable conductance model of the action potential, the basis of most biophysical neuron models.
+- Izhikevich, E. M. (2003). Simple model of spiking neurons. *IEEE Transactions on Neural Networks*. https://doi.org/10.1109/TNN.2003.820440 — A two-variable model that reproduces many cortical firing patterns at low computational cost.
+- Olshausen, B. A. & Field, D. J. (1996). Emergence of simple-cell receptive field properties by learning a sparse code for natural images. *Nature*. https://doi.org/10.1038/381607a0 — Shows that a sparse code for natural images yields oriented, localised filters like V1 simple cells.
+- Richards, B. A. et al. (2019). A deep learning framework for neuroscience. *Nature Neuroscience*. https://doi.org/10.1038/s41593-019-0520-2 — Argues for studying the brain through objective functions, learning rules and architectures.
+
+### Surveys and textbooks
+
+- Gerstner, W., Kistler, W. M., Naud, R. & Paninski, L. (2014). *Neuronal Dynamics*. Cambridge University Press. https://neuronaldynamics.epfl.ch/ — Free online textbook, from single neuron models to networks and learning rules.

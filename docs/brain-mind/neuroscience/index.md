@@ -2,6 +2,9 @@
 related:
 - brain-mind/computational-neuroscience
 - brain-mind/bci
+aliases:
+  - 神經科學
+  - 腦科學
 ---
 
 # Neuroscience Basics
@@ -99,6 +102,29 @@ flowchart LR
 | Energy | ~20 W | Frontier training runs use data centres drawing tens of MW |
 | Learning | Continual, local, few-shot | Mostly offline batches with global backprop |
 | Fault tolerance | High | Low |
+
+## Key methods
+
+### Single-neuron recording in visual cortex (Hubel & Wiesel, 1962)
+
+- **Problem:** how the visual cortex builds representations of edges and shapes from light falling on the retina.
+- **Core idea:** record single neurons in the visual cortex of anaesthetised cats while presenting spots and bars of light at different positions and orientations. Neurons were sorted into simple cells, with separate on and off subregions that respond to edges at a preferred orientation, and complex cells, which respond to such an edge anywhere in a larger region.
+- **Algorithm:**
+    1. Present a stimulus at a given position and orientation.
+    2. Record the spikes of the neuron.
+    3. Map the receptive field from the responses.
+    4. Classify the cell by its response pattern.
+- **Results:** complex cells appear to pool the outputs of simple cells, a hierarchy that inspired hierarchical convolutional vision models.
+- **Limitations:** the experiments used anaesthetised cats, and the hierarchy is a model that later work found more varied than the two cell types suggest.
+
+### Dopamine reward prediction error (Schultz, Dayan & Montague, 1997)
+
+- **Problem:** what do midbrain dopamine neurons signal while an animal learns about rewards?
+- **Core idea:** dopamine neurons respond to unexpected rewards, and as learning proceeds the response moves to the earliest predictive cue. The pattern matches a temporal-difference error, the difference between the reward received and the reward predicted.
+- **Equation:** in modern notation, \(\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)\).
+
+- **Results:** in monkeys, dopamine firing rose to unexpected rewards, shifted to the predictive cue after learning, and dipped when an expected reward was omitted.
+- **Limitations:** recordings came from a limited number of monkeys and tasks. Later work debated whether dopamine signals only prediction error or also salience and other information.
 
 ## Resources
 

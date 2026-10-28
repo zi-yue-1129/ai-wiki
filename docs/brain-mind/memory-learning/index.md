@@ -1,3 +1,10 @@
+---
+aliases:
+  - 記憶與學習的神經機制
+  - 神經記憶
+  - 海馬迴與記憶
+---
+
 # Memory & Learning in the Brain
 
 ## Kinds of memory
@@ -76,6 +83,35 @@ This is the conceptual root of **experience replay** in deep RL and of replay-ba
 | Forgetting is useful | Memory decay, recency weighting, pruning stale knowledge |
 | Working memory is limited and actively maintained | Context management, scratchpads, task decomposition |
 
+## Key methods
+
+### Patients with medial temporal lobe lesions (Scoville & Milner, 1957)
+
+- **Problem:** which brain structures are needed to form new long-term memories?
+- **Core idea:** study patients whose bilateral medial temporal lobe removal left a known lesion, and test what they can and cannot remember. Patient H.M. is the best-known case.
+- **Equation or algorithm:** none. The method is a lesion study with memory tests.
+- **Results:** the patients showed anterograde amnesia for new declarative material, while immediate memory and older memories were relatively spared.
+- **Limitations:** a small number of patients, and surgical lesions that could not be controlled exactly. The study shows that the structures are necessary, not how they store memories.
+
+### Long-term potentiation (Bliss & Lømo, 1973)
+
+- **Problem:** is there a lasting physical change at synapses that could store memories?
+- **Core idea:** a brief high-frequency stimulus to the perforant path of anaesthetised rabbits made the responses of dentate gyrus cells stay enhanced for a long time.
+- **Algorithm:**
+    1. Record baseline responses to low-frequency test pulses.
+    2. Deliver a brief high-frequency train of stimuli.
+    3. Keep testing and track the response amplitude over time.
+- **Results:** the enhancement lasted far longer than the stimulus itself, which is the first report of long-term potentiation.
+- **Limitations:** the experiments were in anaesthetised animals, and the link to learning was an inference. Later work linked LTP to NMDA receptors and postsynaptic calcium, which the paper did not examine.
+
+### Complementary learning systems (McClelland, McNaughton & O'Reilly, 1995)
+
+- **Problem:** why does the brain need both a hippocampus and a neocortex, and why does fast learning in one network erase earlier learning?
+- **Core idea:** the hippocampus stores new items quickly with sparse codes, while the neocortex learns slowly with overlapping codes. Replay of stored patterns interleaves old and new items during cortical training.
+- **Algorithm:** in connectionist simulations, a fast learner stores new items, and an interleaved training schedule of old and new items trains the slow learner.
+- **Results:** sequential training erased earlier items (catastrophic interference), while interleaved training avoided it.
+- **Limitations:** the theory is conceptual and rests on simulations. Kumaran et al. (2016) revisit it in light of deep learning and replay.
+
 ## Resources
 
 - Squire & Kandel, *Memory: From Mind to Molecules*
@@ -83,3 +119,16 @@ This is the conceptual root of **experience replay** in deep RL and of replay-ba
 - McClelland, McNaughton & O'Reilly (1995), *Psychological Review*
 - Kumaran, Hassabis & McClelland (2016), "What learning systems do intelligent agents need?", *Trends in Cognitive Sciences*
 - Buzsáki, *The Brain from Inside Out*
+
+## References
+
+### Seminal papers
+
+- Scoville, W. B. & Milner, B. (1957). Loss of recent memory after bilateral hippocampal lesions. *Journal of Neurology, Neurosurgery & Psychiatry*. https://doi.org/10.1136/jnnp.20.1.11 — Reports the patients with bilateral medial temporal lobe lesions, including H.M., that established the role of these structures in new memories.
+- Bliss, T. V. P. & Lømo, T. (1973). Long-lasting potentiation of synaptic transmission in the dentate area of the anaesthetized rabbit following stimulation of the perforant path. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1973.sp010273 — The first report of long-lasting potentiation, the synaptic change that many memory models build on.
+- McClelland, J. L., McNaughton, B. L. & O'Reilly, R. C. (1995). Why there are complementary learning systems in the hippocampus and neocortex. *Psychological Review*. https://doi.org/10.1037/0033-295X.102.3.419 — The original complementary learning systems theory, with simulations of interference and interleaved learning.
+
+### Surveys and textbooks
+
+- Kumaran, D., Hassabis, D. & McClelland, J. L. (2016). What learning systems do intelligent agents need? Complementary learning systems theory updated. *Trends in Cognitive Sciences*. https://doi.org/10.1016/j.tics.2016.05.004 — Revisits the theory in light of deep learning, replay and the roles of the two systems.
+- Richards, B. A. & Frankland, P. W. (2017). The persistence and transience of memory. *Neuron*. https://doi.org/10.1016/j.neuron.2017.04.037 — Argues that forgetting supports generalisation, and that memory should be seen as a balance of persistence and transience.
