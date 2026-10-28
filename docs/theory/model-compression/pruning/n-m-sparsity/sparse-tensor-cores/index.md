@@ -54,7 +54,7 @@ The 2:4 pattern is an example of the link between [pruning](../../index.md) and 
 
 ### Surveys and textbooks
 
-- Hoefler, T., et al. (2021). *Sparsity in Deep Learning: Pruning and Growth for Efficient Inference and Training in Neural Networks*. arXiv:2102.00554. https://arxiv.org/abs/2102.00554 — Surveys hardware-supported sparsity patterns.
+- Hoefler, T., et al. (2021). *Sparsity in Deep Learning: Pruning and Growth for Efficient Inference and Training in Neural Networks*. arXiv:2102.00554. https://arxiv.org/abs/2102.00554 — Surveys hardware-supported sparsity patterns and their deployment costs.
 
 ### Lectures and videos
 

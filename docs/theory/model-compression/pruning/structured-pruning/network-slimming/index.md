@@ -53,7 +53,7 @@ Network slimming removes whole channels, so the result runs on the dense hardwar
 
 ### Surveys and textbooks
 
-- Hoefler, T., et al. (2021). *Sparsity in Deep Learning: Pruning and Growth for Efficient Inference and Training in Neural Networks*. arXiv:2102.00554. https://arxiv.org/abs/2102.00554 — Compares channel-level and weight-level sparsity.
+- Hoefler, T., et al. (2021). *Sparsity in Deep Learning: Pruning and Growth for Efficient Inference and Training in Neural Networks*. arXiv:2102.00554. https://arxiv.org/abs/2102.00554 — Compares channel-level and weight-level sparsity across training and inference.
 
 ### Lectures and videos
 
