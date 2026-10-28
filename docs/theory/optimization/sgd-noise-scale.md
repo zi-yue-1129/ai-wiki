@@ -27,7 +27,7 @@ Practitioners choose a learning rate and a batch size, and the two interact. Smi
 
 ## Core idea
 
-Write the update as a stochastic step, and approximate the stochastic term by a Gaussian noise whose scale is governed by \(\epsilon N/B\). Use this to argue that the optimal batch size grows with the learning rate, and that it grows with the training set size. The authors also argue that, for a fixed noise scale, changing the batch size and the learning rate in proportion leaves the dynamics similar.
+Write the update as a stochastic step, and approximate the stochastic term by a Gaussian noise whose scale is governed by \(\epsilon N/B\). Use this to argue that the optimum batch size is proportional to both the learning rate and the training set size. The paper also states that when the learning rate or the training set size is varied, the noise scale should be kept fixed.
 
 ## Algorithm
 

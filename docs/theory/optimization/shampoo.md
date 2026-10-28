@@ -42,7 +42,7 @@ Then update the parameters with
 W_{t+1} = W_t - \eta\, L_t^{-1/4}\, G_t\, R_t^{-1/4}
 \]
 
-In practice the inverse roots are computed periodically, and a small constant is added before inverting. The rule generalises to tensors by applying one such matrix to each dimension.
+The paper uses a delayed update: it recomputes the roots only once every 20 to 100 steps, and reports that this had almost no impact on accuracy while lowering the amortised cost per step. The preconditioners are initialised as \(\epsilon I\), so a small constant acts as damping before inverting. The rule generalises to tensors by applying one such matrix to each dimension.
 
 ## Results
 
@@ -50,7 +50,7 @@ The abstract reports that the per-step runtime of Shampoo is "comparable to that
 
 ## Limitations
 
-- Computing the inverse roots is expensive, so they are refreshed at intervals. The refresh interval and the damping constant are extra hyperparameters.
+- Computing the inverse roots is expensive, so the paper recomputes them on a delayed schedule. The refresh interval and the damping constant are extra hyperparameters.
 - The method is most natural for matrix and tensor parameters. For vectors such as biases, it reduces to a diagonal method.
 - The abstract's convergence comparison is an empirical claim. Its advantage over Adam depends on how well the preconditioners are tuned.
 
