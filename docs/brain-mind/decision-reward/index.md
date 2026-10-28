@@ -31,7 +31,7 @@ A decision has two parts. The first is evidence: how much information supports e
 - **Speed-accuracy trade-off**: waiting longer for evidence improves accuracy but delays the decision. Models describe this trade-off with a decision boundary.
 - **Value**: the expected reward of an option, estimated from experience.
 - **Model-free and model-based control**: model-free methods cache the value of actions from past rewards, which is cheap but slow to adapt. Model-based methods plan with a model of the environment, which is flexible but costly.
-- **Reward prediction error**: the difference between the reward received and the reward expected. Dopamine neurons signal this quantity, as summarised in [Neuroscience Basics](../neuroscience/index.md).
+- **Reward prediction error**: the difference between the reward received and the reward expected. Dopamine neurons signal this quantity, as set out in [Dopamine Reward Prediction Error](../neuroscience/dopamine-reward-prediction-error/index.md).
 
 ## How it works
 
@@ -59,11 +59,11 @@ Each method has its own page. This table is only a comparison.
 | Diffusion decision model (Ratcliff & McKoon, 2008) | Which process changes when difficulty or instructions change: information quality, caution, or bias? | [Diffusion Decision Model](diffusion-model/index.md) |
 | Model-based vs model-free arbitration (Daw, Niv & Dayan, 2005) | When the two controllers disagree, which one should control choice? | [Model-Based vs Model-Free Control](model-based-vs-model-free/index.md) |
 
-The dopamine reward prediction error (Schultz, Dayan & Montague, 1997), the third landmark, is covered on [Neuroscience Basics](../neuroscience/index.md) and is not repeated here.
+The dopamine reward prediction error (Schultz, Dayan & Montague, 1997), the third landmark, is covered on [Dopamine Reward Prediction Error](../neuroscience/dopamine-reward-prediction-error/index.md) and is not repeated here.
 
 ## Connections
 
-- **Neuroscience**: the basal ganglia, the dopamine reward prediction error and neuromodulation are in [Neuroscience Basics](../neuroscience/index.md).
+- **Neuroscience**: the basal ganglia and neuromodulation are in [Neuroscience Basics](../neuroscience/index.md), and the dopamine reward prediction error is on [Dopamine Reward Prediction Error](../neuroscience/dopamine-reward-prediction-error/index.md).
 - **Cognitive science**: reasoning and decision making, including the dual-process view, are in [Cognitive Science](../cognitive-science/index.md).
 - **Psychology**: cognitive biases and the human side of choice, including how people respond to AI advice, are in [Psychology & AI](../psychology/index.md).
 - **Predictive coding**: active inference treats choice as inference over preferred outcomes, a different route to decisions from value learning. See [Predictive Coding & Free Energy](../predictive-coding/index.md).

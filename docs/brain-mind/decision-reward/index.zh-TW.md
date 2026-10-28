@@ -30,7 +30,7 @@ aliases:
 - **速度與準確度的取捨**：等待更久的證據能提高準確度，但會延遲決定。模型以決策邊界描述這種取捨。
 - **價值（value）**：某選項的預期報酬，從經驗中估計。
 - **無模型與有模型控制**：無模型方法從過去的獎勵中快取行動的價值，便宜但適應慢；有模型方法使用環境的模型進行規劃，有彈性但成本高。
-- **獎勵預測誤差（reward prediction error）**：實際獲得的獎勵與預期獎勵之差。多巴胺神經元會發出這個量，見[神經科學基礎](../neuroscience/index.md)的摘要。
+- **獎勵預測誤差（reward prediction error）**：實際獲得的獎勵與預期獎勵之差。多巴胺神經元會發出這個量，見[多巴胺的獎勵預測誤差](../neuroscience/dopamine-reward-prediction-error/index.zh-TW.md)。
 
 ## 運作方式
 
@@ -58,11 +58,11 @@ flowchart LR
 | 擴散決策模型（Ratcliff 與 McKoon，2008） | 難度或指示改變時，哪個過程在變：資訊品質、謹慎程度，還是偏誤？ | [擴散決策模型](diffusion-model/index.md) |
 | 有模型與無模型仲裁（Daw、Niv 與 Dayan，2005） | 兩個控制器意見不合時，應由哪一個控制選擇？ | [有模型與無模型控制](model-based-vs-model-free/index.md) |
 
-多巴胺的獎勵預測誤差（Schultz、Dayan 與 Montague，1997）是第三個里程碑，列於[神經科學基礎](../neuroscience/index.md)，此處不重複。
+多巴胺的獎勵預測誤差（Schultz、Dayan 與 Montague，1997）是第三個里程碑，列於[多巴胺的獎勵預測誤差](../neuroscience/dopamine-reward-prediction-error/index.zh-TW.md)，此處不重複。
 
 ## 與其他主題的關聯
 
-- **神經科學**：基底核、多巴胺獎勵預測誤差與神經調節，見[神經科學基礎](../neuroscience/index.md)。
+- **神經科學**：基底核與神經調節，見[神經科學基礎](../neuroscience/index.md)；多巴胺的獎勵預測誤差見[多巴胺的獎勵預測誤差](../neuroscience/dopamine-reward-prediction-error/index.zh-TW.md)。
 - **認知科學**：推理與決策，包括雙歷程觀點，見[認知科學](../cognitive-science/index.md)。
 - **心理學**：認知偏誤與人類選擇的一面，包括人們如何回應 AI 建議，見[心理學與 AI](../psychology/index.md)。
 - **預測編碼**：主動推論把選擇視為對偏好結果的推論，是與價值學習不同的決策途徑。見[預測編碼與自由能](../predictive-coding/index.md)。

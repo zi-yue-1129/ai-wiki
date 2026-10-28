@@ -58,7 +58,7 @@ Daw、Niv 與 Dayan（2005）的出發點是：大腦似乎有不止一個選擇
 
 ## 與其他主題的關聯
 
-- **獎勵預測誤差**：無模型控制器由多巴胺神經元所發出的同一種預測誤差更新。見[神經科學基礎](../../neuroscience/index.md)中的多巴胺關鍵方法。
+- **獎勵預測誤差**：無模型控制器由多巴胺神經元所發出的同一種預測誤差更新。見[多巴胺的獎勵預測誤差](../../neuroscience/dopamine-reward-prediction-error/index.zh-TW.md)。
 - **擴散決策模型**：這是另一個問題，關於證據如何累積成選擇。見[擴散決策模型](../diffusion-model/index.md)。
 - **強化學習**：同一個區分也是 AI 代理人的核心，它們結合學得的價值與規劃。見[強化學習](../../../theory/paradigms/reinforcement-learning/index.md)。
 
