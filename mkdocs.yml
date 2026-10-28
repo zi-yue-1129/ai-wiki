@@ -541,6 +541,24 @@ plugins:
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
             Style Guide: 寫作風格指南
+            Human-AI Interaction and Trust: 人機互動與信任
+            Trust in automation: 自動化中的信任
+            Cognitive forcing functions: 認知強制功能
+            Mechanistic Interpretability and Circuits: 機械式可解釋性與電路
+            Benchmark Suites: 基準測試套件
+            Normalisation Layers: 正規化層
+            Batch Normalisation: 批次正規化
+            Group Normalisation: 群組正規化
+            Parameter-Efficient Fine-Tuning: 參數高效微調
+            Constitutional AI and RLAIF: 憲法式 AI 與 RLAIF
+            Jailbreaks and Red-Teaming: 越獄與紅隊測試
+            Automatic Differentiation: 自動微分
+            Forward-Mode AD: 前向模式 AD
+            Reverse-Mode AD: 反向模式 AD
+            Tokenisation: 分詞
+            Byte-Pair Encoding: 位元組對編碼
+            SentencePiece and the Unigram Model: SentencePiece 與 Unigram 模型
+            Architecture Families: 架構家族
 
 markdown_extensions:
   - abbr
@@ -594,11 +612,21 @@ nav:
       - History of AI: start/history/index.md
   - Theory:
       - theory/index.md
-      - Mathematics: theory/math/index.md
+      - Mathematics:
+          - theory/math/index.md
+          - Automatic Differentiation:
+              - theory/math/automatic-differentiation/index.md
+              - Forward-Mode AD: theory/math/automatic-differentiation/forward-mode/index.md
+              - Reverse-Mode AD: theory/math/automatic-differentiation/reverse-mode/index.md
       - Information Theory: theory/information-theory/index.md
       - Machine Learning: theory/machine-learning/index.md
       - Deep Learning:
           - theory/deep-learning/index.md
+          - Normalisation Layers:
+              - theory/deep-learning/normalisation/index.md
+              - Batch Normalisation: theory/deep-learning/normalisation/batch-normalisation/index.md
+              - Group Normalisation: theory/deep-learning/normalisation/group-normalisation/index.md
+              - RMSNorm: theory/deep-learning/normalisation/rmsnorm/index.md
       - Optimisation:
           - theory/optimization/index.md
           - SGD & Momentum:
@@ -836,6 +864,10 @@ nav:
               - Attention Variants: theory/models/transformer/attention-variants/index.md
               - Positional Encodings: theory/models/transformer/positional-encodings/index.md
               - KV Cache: theory/models/transformer/kv-cache/index.md
+              - Architecture Families:
+                  - theory/models/transformer/architecture-families/index.md
+                  - BERT: theory/models/transformer/architecture-families/bert/index.md
+                  - T5: theory/models/transformer/architecture-families/t5/index.md
           - State-Space Models:
               - theory/models/ssm/index.md
               - Structured State Spaces:
@@ -861,6 +893,11 @@ nav:
                   - Self-Consistency: theory/models/reasoning/self-consistency.md
                   - DeepSeek-R1: theory/models/reasoning/deepseek-r1.md
                   - Test-Time Compute Scaling: theory/models/reasoning/test-time-scaling.md
+              - Tokenisation:
+                  - theory/models/llm/tokenisation/index.md
+                  - Byte-Pair Encoding: theory/models/llm/tokenisation/bpe/index.md
+                  - SentencePiece and the Unigram Model: theory/models/llm/tokenisation/sentencepiece/index.md
+                  - ByT5: theory/models/llm/tokenisation/byt5/index.md
           - Computer Vision: theory/models/computer-vision/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
@@ -986,7 +1023,9 @@ nav:
           - MinHash Deduplication: engineering/data/minhash-deduplication.md
           - Confident Learning: engineering/data/confident-learning.md
           - Data Programming and Weak Supervision: engineering/data/data-programming.md
-      - Training & Fine-tuning: engineering/training/index.md
+      - Training & Fine-tuning:
+          - engineering/training/index.md
+          - Parameter-Efficient Fine-Tuning: engineering/training/peft-lora.md
       - Distributed Training:
           - engineering/distributed-training/index.md
           - Megatron-LM Tensor Parallelism: engineering/distributed-training/megatron-tensor-parallelism.md
@@ -1004,6 +1043,7 @@ nav:
           - engineering/llm-security/index.md
           - Indirect Prompt Injection: engineering/llm-security/indirect-prompt-injection.md
           - Universal Adversarial Suffixes: engineering/llm-security/universal-adversarial-suffixes.md
+          - Jailbreaks and Red-Teaming: engineering/llm-security/jailbreaks-and-red-teaming.md
       - Synthetic Data:
           - engineering/synthetic-data/index.md
           - Self-Instruct: engineering/synthetic-data/self-instruct.md
@@ -1012,7 +1052,9 @@ nav:
           - Model Collapse: engineering/synthetic-data/model-collapse.md
       - Prompt Engineering: engineering/prompting/index.md
       - Retrieval-Augmented Generation: engineering/rag/index.md
-      - Evaluation & Benchmarks: engineering/evaluation/index.md
+      - Evaluation & Benchmarks:
+          - engineering/evaluation/index.md
+          - Benchmark Suites: engineering/evaluation/benchmark-suites.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md
           - Orca: engineering/inference-optimization/orca.md
@@ -1028,8 +1070,12 @@ nav:
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
   - AI & Society:
       - society/index.md
-      - Safety & Alignment: society/safety-alignment/index.md
-      - Interpretability: society/interpretability/index.md
+      - Safety & Alignment:
+          - society/safety-alignment/index.md
+          - Constitutional AI and RLAIF: society/safety-alignment/constitutional-ai.md
+      - Interpretability:
+          - society/interpretability/index.md
+          - Mechanistic Interpretability and Circuits: society/interpretability/mechanistic-interpretability.md
       - Ethics & Fairness: society/ethics/index.md
       - Privacy & Data Protection:
           - society/privacy/index.md
@@ -1056,6 +1102,10 @@ nav:
       - Law, Policy & Governance: society/governance/index.md
       - Economics & Work: society/economics/index.md
       - Philosophy of AI: society/philosophy/index.md
+      - Human-AI Interaction and Trust:
+          - society/human-ai-interaction/index.md
+          - Trust in automation: society/human-ai-interaction/trust-in-automation/index.md
+          - Cognitive forcing functions: society/human-ai-interaction/cognitive-forcing/index.md
   - Reference:
       - reference/index.md
       - Glossary: reference/glossary/index.md
