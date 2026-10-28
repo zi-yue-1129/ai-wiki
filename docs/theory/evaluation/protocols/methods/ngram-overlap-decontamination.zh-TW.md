@@ -19,7 +19,7 @@ aliases:
 !!! info "屬於污染偵測"
     本方法頁隸屬於[污染偵測](contamination-detection.zh-TW.md)。它詳細說明重疊方法；上層頁面則比較各種偵測方法。
 
-N-gram 重疊去污染會在訓練語料中搜尋與基準測試項目共享的長詞序列，並移除或標記相符的項目。它是檢查污染最直接的方法，也是 GPT-3 所用的主要方法（Brown et al., 2020）。它的弱點是只能找到逐字相同的複本。
+N-gram 重疊去污染會在訓練語料中搜尋與基準測試項目共享的長詞序列，並移除或標記相符的項目。它是檢查污染的直接方法，GPT-3 採用的正是 13-gram 版本（Brown et al., 2020）。它的弱點是只能找到逐字相同的複本。
 
 ## 問題
 
@@ -40,7 +40,7 @@ N-gram 重疊去污染會在訓練語料中搜尋與基準測試項目共享的�
 
 ## 結果
 
-Brown et al. (2020) 第 4 節描述了這個程序及其對 GPT-3 的影響。透過機器抽取讀取的論文正文報告：污染相當常見，但對多數資料集的影響很小，而且影響「並不如擔心的那樣大」。對 LAMBADA，作者報告影響可忽略；對 Winograd，影響則很小。抽取的文字未包含乾淨版與完整版的分數表，因此本頁不提供這些數字。論文也記錄了一個錯誤：它只移除了部分被偵測到的重疊，這提醒我們清理本身也需要測試。
+Brown et al. (2020) 第 4 節描述了這個程序及其對 GPT-3 的影響。作者預期污染可能相當常見，但其影響「可能不如擔心的那樣大」；引言則指出，污染對多數資料集的影響很小。對 LAMBADA，論文報告影響可忽略；對 Winograd，影響則很小。論文也記錄了一個錯誤：它只移除了部分被偵測到的重疊，這提醒我們清理本身也需要測試。
 
 Dodge et al. (2021) 從語料端顯示了同樣的風險。他們對 C4 語料的記錄發現，其中含有其他基準 NLP 資料集的評估範例。
 
@@ -68,6 +68,6 @@ Dodge et al. (2021) 從語料端顯示了同樣的風險。他們對 C4 語料�
 
 - Brown, T. B. et al. (2020). *Language Models are Few-Shot Learners*. arXiv. https://arxiv.org/abs/2005.14165 — 介紹 GPT-3，並描述訓練資料與基準測試集之間的 13-gram 重疊過濾及其影響。
 - Dodge, J. et al. (2021). *Documenting Large Webtext Corpora: A Case Study on the Colossal Clean Crawled Corpus*. arXiv. https://arxiv.org/abs/2104.08758 — 記錄 C4，並在語料中發現其他基準資料集的評估範例。
-- Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. arXiv. https://arxiv.org/abs/2012.07805 — 顯示語言模型會重現被記住的訓練文本，這就是測試項目完全相同的複本之所以重要的原因。
+- Carlini, N. et al. (2021). *Extracting Training Data from Large Language Models*. arXiv. https://arxiv.org/abs/2012.07805 — 顯示可以透過查詢語言模型來抽取其訓練樣本，這就是測試項目完全相同的複本之所以重要的原因。
 - Oren, Y. et al. (2023). *Proving Test Set Contamination in Black Box Language Models*. arXiv. https://arxiv.org/abs/2310.17623 — 提出黑箱的污染統計檢定，是無法搜尋語料時的替代方案。
 - Srivastava, A. et al. (2022). *Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models*. arXiv. https://arxiv.org/abs/2206.04615 — BIG-bench 基準，其任務檔案內含用來防止網路爬取的金絲雀字串。
