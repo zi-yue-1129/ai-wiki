@@ -85,6 +85,6 @@ These variants are the main tools behind long-context [large language models](..
 
 - Katharopoulos, A., et al. (2020). "Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention". ICML 2020. arXiv:2006.16236 — Linear attention with a recurrent form for fast autoregressive decoding.
 - Choromanski, K., et al. (2020). "Rethinking Attention with Performers". arXiv:2009.14794 — Random-feature approximation of softmax attention (FAVOR+).
-- Dao, T., et al. (2022). "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness". arXiv:2205.14135 — Tiled, IO-aware exact attention.
+- Dao, T., et al. (2022). "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness". arXiv:2205.14135 — Tiled, IO-aware exact attention that cuts memory traffic.
 - Dao, T. (2023). "FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning". arXiv:2307.08691 — Improved parallelism and work partitioning of FlashAttention.
 - Jiang, A. Q., et al. (2023). "Mistral 7B". arXiv:2310.06825 — Uses sliding-window attention in a widely used open model.
