@@ -387,6 +387,9 @@ plugins:
             Circumplex Model of Affect (Russell 1980): 情感的環狀模型（Russell，1980）
             Emotion Circuits (LeDoux 2000): 大腦中的情緒迴路（LeDoux，2000）
             Neuroimaging & Recording Methods: 神經影像與記錄方法
+            Developmental Cognition & How Children Learn: 發展認知與兒童如何學習
+            Violation of Expectation (Baillargeon et al. 1985): 違反預期範式（Baillargeon 等人，1985）
+            Statistical Learning in Infants (Saffran et al. 1996): 嬰兒的統計學習（Saffran 等人，1996）
             BOLD fMRI (Ogawa et al. 1990): BOLD 功能性磁振造影（Ogawa 等人，1990）
             Simultaneous fMRI and Electrophysiology (Logothetis et al. 2001): 功能性磁振造影與電生理同步記錄（Logothetis 等人，2001）
             Performance-Optimised Networks (Yamins et al. 2014): 效能最佳化的網路（Yamins 等人，2014）
@@ -822,6 +825,10 @@ nav:
           - brain-mind/visual-perception/index.md
           - Performance-Optimised Networks (Yamins et al. 2014): brain-mind/visual-perception/yamins-2014/index.md
           - Shape Bias in CNNs (Geirhos et al. 2019): brain-mind/visual-perception/geirhos-2019/index.md
+      - Developmental Cognition & How Children Learn:
+          - brain-mind/developmental-cognition/index.md
+          - Violation of Expectation (Baillargeon et al. 1985): brain-mind/developmental-cognition/violation-of-expectation/index.md
+          - Statistical Learning in Infants (Saffran et al. 1996): brain-mind/developmental-cognition/statistical-learning/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
