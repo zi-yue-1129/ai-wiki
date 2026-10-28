@@ -23,6 +23,12 @@ Gradient descent takes steps \(\theta_t = \theta_{t-1} - \eta_t\, g_t\), where \
 
 Warm-up addresses a different problem. At initialisation the gradients are unreliable, and a large rate can push the weights into a poor region before the network has settled. Starting from a small rate and ramping up avoids this, and it becomes more important as the batch size grows.
 
+![A learning rate increases during warm-up, then decreases linearly to zero.](../../assets/concept-animations/learning-rate-warmup-decay.gif)
+
+*Original animation by AI Wiki, CC BY-SA 4.0.*
+
+The marker advances through a schedule: orange rises linearly for the first 20% of steps, then blue falls linearly to zero. The graph describes the learning-rate parameter, not the loss or the magnitude of a parameter update; actual update size also depends on the gradient. The schedule, values and timing are illustrative, not measurements from a model. The jump at the loop boundary restarts the example; it is not a training restart.
+
 ## Key concepts
 
 - **Schedule**: a function from the step (or epoch) index to the learning rate.

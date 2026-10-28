@@ -30,6 +30,7 @@ These pages describe tasks, modalities and systems. Each one is built from one o
 | [Speech & Audio](speech/index.md) | Recognition, synthesis, music generation |
 | [Multimodal Models](multimodal/index.md) | Vision-language models, text-to-image/video, omni models |
 | [Embeddings & Representation Learning](embeddings/index.md) | Vector representations for search, similarity and cross-modal alignment |
+| [Time-Series Forecasting](time-series/index.md) | Predicting sequences of measurements, with probabilistic and multi-horizon forecasts |
 | [Recommender Systems](recommender/index.md) | Ranking items from user–item interactions, collaborative filtering and implicit feedback |
 | [AI Agents](agents/index.md) | Tool use, planning, memory, multi-agent systems |
 | [World Models & Embodied AI](world-models/index.md) | Predicting environments, planning in imagination, robot foundation models |

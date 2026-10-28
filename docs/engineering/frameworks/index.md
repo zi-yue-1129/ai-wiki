@@ -32,6 +32,10 @@ flowchart TB
 | [scikit-learn](https://scikit-learn.org/) | Classical ML | The default for tabular baselines |
 | XGBoost, LightGBM, CatBoost | Gradient boosting | Tabular data |
 
+## Compilers and kernels
+
+A compiler turns a model's graph into code for a chip, and a kernel is the code for one fused operation. [XLA](compilers-and-kernels/xla.md), [torch.compile and TorchInductor](compilers-and-kernels/torch-compile.md) and [Triton](compilers-and-kernels/triton.md) are the main systems, compared on the [Compilers and Kernels](compilers-and-kernels/index.md) page.
+
 ## The Hugging Face ecosystem
 
 - **Hub**: hundreds of thousands of models and datasets
