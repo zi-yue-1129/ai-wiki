@@ -280,7 +280,13 @@ nav:
               - Memory & Model-based: foundations/paradigms/meta-learning/memory-and-model-based/index.md
               - Meta-learning Theory: foundations/paradigms/meta-learning/meta-learning-theory/index.md
               - Benchmarks & Foundation Models: foundations/paradigms/meta-learning/benchmarks-and-foundation-models/index.md
-          - Continual Learning: foundations/paradigms/continual/index.md
+          - Continual Learning:
+              - foundations/paradigms/continual/index.md
+              - Regularisation-based: foundations/paradigms/continual/regularisation-based/index.md
+              - Replay & Memory: foundations/paradigms/continual/replay-and-memory/index.md
+              - Architecture-based: foundations/paradigms/continual/architecture-based/index.md
+              - Evaluation & Scenarios: foundations/paradigms/continual/evaluation-and-scenarios/index.md
+              - Neuroscience & Continual Learning: foundations/paradigms/continual/neuroscience-and-continual-learning/index.md
           - Active Learning: foundations/paradigms/active/index.md
           - Online Learning & Bandits: foundations/paradigms/online/index.md
           - Federated & Privacy-Preserving Learning: foundations/paradigms/federated/index.md
