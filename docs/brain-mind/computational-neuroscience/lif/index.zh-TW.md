@@ -81,6 +81,7 @@ aliases:
 
 - Abbott, L. F.（1999）。Lapicque's introduction of the integrate-and-fire model neuron (1907). *Brain Research Bulletin*。https://doi.org/10.1016/S0361-9230(99)00161-6 — Lapicque 1907 年積分發放模型的歷史回顧，是 LIF 神經元的起源。
 - Burkitt, A. N.（2006）。A review of the integrate-and-fire neuron model: I. Homogeneous synaptic input. *Biological Cybernetics*。https://doi.org/10.1007/s00422-006-0082-8 — 回顧積分發放模型在恆定與波動突觸輸入下的行為。
+- Izhikevich, E. M.（2003）。Simple model of spiking neurons. *IEEE Transactions on Neural Networks*。https://doi.org/10.1109/TNN.2003.820440 — 比較簡單的脈衝模型，包括積分發放族，並說明哪些能重現皮質神經元的放電型態。
 
 ### 綜述與教科書
 
