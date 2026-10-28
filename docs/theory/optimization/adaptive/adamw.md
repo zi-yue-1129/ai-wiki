@@ -71,7 +71,7 @@ The decay term \(\lambda\theta_{t-1}\) is added after the adaptive step, so it i
 
 - Loshchilov, I. & Hutter, F. (2019). Decoupled Weight Decay Regularization. ICLR. https://arxiv.org/abs/1711.05101 — Shows that L2 regularisation and weight decay differ under adaptive methods and proposes AdamW.
 - Kingma, D. P. & Ba, J. (2015). Adam: A Method for Stochastic Optimization. ICLR. https://arxiv.org/abs/1412.6980 — The base optimiser that AdamW modifies.
-- Wilson, A. C., Roelofs, R., Stern, M., Srebro, N. & Recht, B. (2017). The Marginal Value of Adaptive Gradient Methods in Machine Learning. NeurIPS. https://arxiv.org/abs/1705.08292 — Shows that adaptive methods can find solutions that generalise worse than SGD, the gap that decoupled decay addresses.
+- Wilson, A. C., Roelofs, R., Stern, M., Srebro, N. & Recht, B. (2017). The Marginal Value of Adaptive Gradient Methods in Machine Learning. NeurIPS. https://proceedings.neurips.cc/paper_files/paper/2017/hash/81b3833e2504647f9d794f7d7b9bf341-Abstract.html — Shows that adaptive methods can find solutions that generalise worse than SGD, the gap that decoupled decay addresses.
 
 ### Surveys and textbooks
 
