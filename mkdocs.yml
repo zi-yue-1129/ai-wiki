@@ -565,6 +565,8 @@ plugins:
             "Feature Attribution: SHAP, LIME and Saliency": 特徵歸因：SHAP、LIME 與顯著性
             AI Companionship and Parasocial Relationships: AI 陪伴與準社會關係
             Automation Bias and Overreliance: 自動化偏誤與過度依賴
+            Generative Adversarial Networks: 生成對抗網路
+            Original GAN: 原始 GAN
 
 markdown_extensions:
   - abbr
@@ -762,6 +764,11 @@ nav:
               - Latent Diffusion: theory/generative/diffusion/latent-diffusion.md
               - DiT: theory/generative/diffusion/dit.md
               - Classifier-Free Guidance: theory/generative/diffusion/classifier-free-guidance.md
+          - Generative Adversarial Networks:
+              - theory/generative/gan/index.md
+              - Original GAN: theory/generative/gan/original-gan/index.md
+              - DCGAN: theory/generative/gan/dcgan/index.md
+              - Wasserstein GAN: theory/generative/gan/wgan/index.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation:
