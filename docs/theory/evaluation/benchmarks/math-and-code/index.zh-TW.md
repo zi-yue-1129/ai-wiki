@@ -16,6 +16,7 @@ tags:
 |---|---|---|
 | [GSM8K](gsm8k.md) | 小學應用題 | 最終數字的準確率 |
 | [MATH](math.md) | 競賽數學 | 最終答案的準確率 |
+| [HumanEval](humaneval.md) | 依 docstring 撰寫 Python 函式 | 以 pass@k 估計的通過比例 |
 | [SWE-bench](swe-bench.md) | 解決 Python 儲存庫中的 GitHub 議題 | 測試判定已解決的議題比例 |
 
 ## 常見問題

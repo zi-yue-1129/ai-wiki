@@ -16,6 +16,7 @@ These benchmarks test whether a model can reason through a problem with a checka
 |---|---|---|
 | [GSM8K](gsm8k.md) | Grade-school word problems | Accuracy on the final number |
 | [MATH](math.md) | Competition mathematics | Accuracy on the final answer |
+| [HumanEval](humaneval.md) | Writing Python functions from docstrings | Fraction of problems passed, estimated as pass@k |
 | [SWE-bench](swe-bench.md) | Resolving GitHub issues in Python repositories | Fraction of issues resolved by tests |
 
 ## Common issues

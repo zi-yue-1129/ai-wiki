@@ -57,6 +57,8 @@ plugins:
         'foundations/deep-learning/index.md': 'theory/deep-learning/index.md'
         'foundations/deep-learning/index.zh-TW.md': 'theory/deep-learning/index.zh-TW.md'
         'foundations/evolutionary/index.md': 'theory/paradigms/evolutionary/index.md'
+        'theory/optimization/kfac.md': 'theory/optimization/kfac/index.md'
+        'theory/optimization/kfac.zh-TW.md': 'theory/optimization/kfac/index.zh-TW.md'
         'foundations/evolutionary/index.zh-TW.md': 'theory/paradigms/evolutionary/index.zh-TW.md'
         'foundations/index.md': 'theory/index.md'
         'foundations/index.zh-TW.md': 'theory/index.zh-TW.md'
@@ -260,6 +262,9 @@ plugins:
             Second-Order Methods: 二階方法
             L-BFGS: L-BFGS
             K-FAC: K-FAC
+            K-FAC for Convolutions (KFC): 卷積的 K-FAC（KFC）
+            EKFAC: EKFAC
+            Distributed K-FAC: 分散式 K-FAC
             Shampoo: Shampoo
             Learning-Rate Schedules: 學習率排程
             Gradual Warm-up: 漸進式預熱
@@ -485,12 +490,32 @@ plugins:
             Evaluation: 評估
             Metrics: 指標
             Protocols: 評估協定
+            Cross-Validation: 交叉驗證
+            Paired Bootstrap: 配對自助法
+            LLM as Judge: LLM 作為評審
+            Human Evaluation: 人工評估
+            Elo Rating and Arenas: Elo 評分與競技場
+            Contamination Detection: 污染偵測
             Benchmarks: 基準測試
             Vision: 視覺
             Language: 語言
             Math and code: 數學與程式
             Reasoning and agents: 推理與代理
             Few-shot: 少樣本
+            Multimodal: 多模態
+            Speech: 語音
+            Reinforcement: 強化學習
+            Science: 科學
+            Neuroscience: 神經科學
+            LibriSpeech: LibriSpeech
+            Arcade Learning Environment: 街機學習環境
+            MuJoCo: MuJoCo
+            MoleculeNet: MoleculeNet
+            Brain-Score: Brain-Score
+            GAIA: GAIA
+            WebArena: WebArena
+            VQA v2: VQA v2
+            MMMU: MMMU
             ImageNet: ImageNet
             COCO: COCO
             GLUE: GLUE
@@ -503,6 +528,8 @@ plugins:
             SWE-bench: SWE-bench
             ARC-AGI: ARC-AGI
             miniImageNet: miniImageNet
+            Omniglot: Omniglot
+            HumanEval: HumanEval
             Classification: 分類
             Probabilistic: 機率
             Regression: 迴歸
@@ -891,7 +918,11 @@ nav:
           - Second-Order Methods:
               - theory/optimization/second-order.md
               - L-BFGS: theory/optimization/lbfgs.md
-              - K-FAC: theory/optimization/kfac.md
+              - K-FAC:
+                  - theory/optimization/kfac/index.md
+                  - K-FAC for Convolutions (KFC): theory/optimization/kfac/kfc.md
+                  - EKFAC: theory/optimization/kfac/ekfac.md
+                  - Distributed K-FAC: theory/optimization/kfac/distributed-kfac.md
               - Shampoo: theory/optimization/shampoo.md
           - Learning-Rate Schedules:
               - theory/optimization/learning-rate-schedules.md
@@ -1259,14 +1290,42 @@ nav:
                   - theory/evaluation/benchmarks/math-and-code/index.md
                   - GSM8K: theory/evaluation/benchmarks/math-and-code/gsm8k.md
                   - MATH: theory/evaluation/benchmarks/math-and-code/math.md
+                  - HumanEval: theory/evaluation/benchmarks/math-and-code/humaneval.md
                   - SWE-bench: theory/evaluation/benchmarks/math-and-code/swe-bench.md
               - Reasoning and agents:
                   - theory/evaluation/benchmarks/reasoning-agents/index.md
                   - ARC-AGI: theory/evaluation/benchmarks/reasoning-agents/arc-agi.md
+                  - GAIA: theory/evaluation/benchmarks/reasoning-agents/gaia.md
+                  - WebArena: theory/evaluation/benchmarks/reasoning-agents/webarena.md
+              - Multimodal:
+                  - theory/evaluation/benchmarks/multimodal/index.md
+                  - VQA v2: theory/evaluation/benchmarks/multimodal/vqa-v2.md
+                  - MMMU: theory/evaluation/benchmarks/multimodal/mmmu.md
+              - Speech:
+                  - theory/evaluation/benchmarks/speech/index.md
+                  - LibriSpeech: theory/evaluation/benchmarks/speech/librispeech.md
+              - Reinforcement:
+                  - theory/evaluation/benchmarks/reinforcement/index.md
+                  - Arcade Learning Environment: theory/evaluation/benchmarks/reinforcement/ale.md
+                  - MuJoCo: theory/evaluation/benchmarks/reinforcement/mujoco.md
+              - Science:
+                  - theory/evaluation/benchmarks/science/index.md
+                  - MoleculeNet: theory/evaluation/benchmarks/science/moleculenet.md
+              - Neuroscience:
+                  - theory/evaluation/benchmarks/neuroscience/index.md
+                  - Brain-Score: theory/evaluation/benchmarks/neuroscience/brain-score.md
               - Few-shot:
                   - theory/evaluation/benchmarks/few-shot/index.md
                   - miniImageNet: theory/evaluation/benchmarks/few-shot/mini-imagenet.md
-          - Protocols: theory/evaluation/protocols/index.md
+                  - Omniglot: theory/evaluation/benchmarks/few-shot/omniglot.md
+          - Protocols:
+              - theory/evaluation/protocols/index.md
+              - Cross-Validation: theory/evaluation/protocols/methods/cross-validation.md
+              - Paired Bootstrap: theory/evaluation/protocols/methods/paired-bootstrap.md
+              - LLM as Judge: theory/evaluation/protocols/methods/llm-as-judge.md
+              - Human Evaluation: theory/evaluation/protocols/methods/human-evaluation.md
+              - Elo Rating and Arenas: theory/evaluation/protocols/methods/elo-rating.md
+              - Contamination Detection: theory/evaluation/protocols/methods/contamination-detection.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons:

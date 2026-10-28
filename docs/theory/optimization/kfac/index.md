@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/math
@@ -16,7 +16,7 @@ aliases:
 
 # K-FAC
 
-K-FAC (Kronecker-factored approximate curvature) is a practical approximation to the natural gradient for neural networks. It approximates the Fisher information matrix one layer at a time, writes each block as a Kronecker product of two small matrices, and inverts those small matrices. Martens and Grosse (2015) introduced it. The family overview is [Second-Order and Quasi-Newton Methods](second-order.md).
+K-FAC (Kronecker-factored approximate curvature) is a practical approximation to the natural gradient for neural networks. It approximates the Fisher information matrix one layer at a time, writes each block as a Kronecker product of two small matrices, and inverts those small matrices. Martens and Grosse (2015) introduced it. The family overview is [Second-Order and Quasi-Newton Methods](../second-order.md).
 
 ## Overview
 
@@ -58,15 +58,18 @@ The inverses are updated less often than the gradients. In the paper's experimen
 
 ## Variants
 
-- **K-FAC for convolutional layers.** Grosse and Martens (2016) adapt the Kronecker factorisation to convolution layers, whose weights are shared across spatial positions. [arXiv:1602.01407](https://arxiv.org/abs/1602.01407)
-- **EKFAC.** George et al. (2018) keep the Kronecker-factored eigenbasis but re-estimate the scaling in that basis, aiming for a more faithful approximation of the Fisher at similar cost. [arXiv:1806.03884](https://arxiv.org/abs/1806.03884)
+Each variant has its own page.
+
+- **[K-FAC for convolutions (KFC)](kfc.md).** Grosse and Martens (2016) adapt the Kronecker factorisation to convolution layers, whose weights are shared across spatial positions. [arXiv:1602.01407](https://arxiv.org/abs/1602.01407)
+- **[EKFAC](ekfac.md).** George et al. (2018) keep the Kronecker-factored eigenbasis but track a diagonal variance in it, which the paper argues is a provably better approximation of the Fisher than K-FAC. [arXiv:1806.03884](https://arxiv.org/abs/1806.03884)
+- **[Distributed K-FAC](distributed-kfac.md).** Osawa et al. (2019) distribute the factor computation across GPUs and train ResNet-50 on ImageNet in about 10 minutes. [doi:10.1109/cvpr.2019.01264](https://doi.org/10.1109/cvpr.2019.01264)
 
 ## Connections
 
-- [Second-Order and Quasi-Newton Methods](second-order.md) is the overview where K-FAC sits next to L-BFGS and Shampoo.
-- [L-BFGS](lbfgs.md) is the deterministic quasi-Newton alternative.
-- [Shampoo](shampoo.md) is a related matrix-structured preconditioner, built from gradient statistics rather than the Fisher.
-- [Deep learning](../deep-learning/index.md) describes the back-propagation that supplies the output gradients used by the factors.
+- [Second-Order and Quasi-Newton Methods](../second-order.md) is the overview where K-FAC sits next to L-BFGS and Shampoo.
+- [L-BFGS](../lbfgs.md) is the deterministic quasi-Newton alternative.
+- [Shampoo](../shampoo.md) is a related matrix-structured preconditioner, built from gradient statistics rather than the Fisher.
+- [Deep learning](../../deep-learning/index.md) describes the back-propagation that supplies the output gradients used by the factors.
 
 ## Applications
 
@@ -84,8 +87,9 @@ The inverses are updated less often than the gradients. In the paper's experimen
 
 - Martens, J. & Grosse, R. (2015). *Optimizing Neural Networks with Kronecker-factored Approximate Curvature*. ICML. https://arxiv.org/abs/1503.05671 — Introduces K-FAC, a Kronecker-factored approximation to the natural gradient for neural networks.
 - Amari, S. (1998). *Natural Gradient Works Efficiently in Learning*. Neural Computation, 10(2), 251–276. https://doi.org/10.1162/089976698300017746 — The natural-gradient method that K-FAC approximates.
-- Grosse, R. & Martens, J. (2016). *A Kronecker-factored approximate Fisher matrix for convolution layers*. arXiv. https://arxiv.org/abs/1602.01407 — Extends the Kronecker factorisation to convolution layers.
-- George, T., et al. (2018). *Fast Approximate Natural Gradient Descent in a Kronecker-factored Eigenbasis*. arXiv. https://arxiv.org/abs/1806.03884 — Re-estimates the scaling in the Kronecker-factored eigenbasis, a more faithful Fisher approximation.
+- Grosse, R. & Martens, J. (2016). *A Kronecker-factored approximate Fisher matrix for convolution layers*. ICML, PMLR 48:573–582. https://proceedings.mlr.press/v48/grosse16.html — Extends the Kronecker factorisation to convolution layers.
+- George, T., et al. (2018). *Fast Approximate Natural Gradient Descent in a Kronecker-factored Eigenbasis*. arXiv. https://arxiv.org/abs/1806.03884 — Tracks a diagonal variance in the Kronecker-factored eigenbasis, which the paper argues is a better Fisher approximation.
+- Osawa, K., et al. (2019). *Large-Scale Distributed Second-Order Optimization Using Kronecker-Factored Approximate Curvature for Deep Convolutional Neural Networks*. IEEE/CVF CVPR. https://doi.org/10.1109/cvpr.2019.01264 — Distributes K-FAC across GPUs to train ResNet-50 on ImageNet in minutes.
 - Wu, Y., et al. (2017). *Scalable trust-region method for deep reinforcement learning using Kronecker-factored approximation*. arXiv. https://arxiv.org/abs/1708.05144 — Applies K-FAC to actor-critic reinforcement learning with a trust region.
 - Gupta, V., Koren, T. & Singer, Y. (2018). *Shampoo: Preconditioned Stochastic Tensor Optimization*. arXiv. https://arxiv.org/abs/1802.09568 — A related matrix-structured preconditioner, for comparison with the Fisher-based approach.
 - Liu, D. C. & Nocedal, J. (1989). *On the Limited Memory BFGS Method for Large Scale Optimization*. Mathematical Programming, 45, 503–528. https://doi.org/10.1007/BF01589116 — The deterministic quasi-Newton method that K-FAC is contrasted with.
