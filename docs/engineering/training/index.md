@@ -51,6 +51,8 @@ DPO objective, given preferred \(y_w\) and dispreferred \(y_l\):
 L = -\log \sigma\!\left(\beta \log\frac{\pi_\theta(y_w\mid x)}{\pi_{ref}(y_w\mid x)} - \beta \log\frac{\pi_\theta(y_l\mid x)}{\pi_{ref}(y_l\mid x)}\right)
 \]
 
+The derivation of DPO and its successors (IPO, KTO, ORPO, SimPO), with online versus offline data, is in [Preference optimisation: DPO and its successors](preference-optimisation.md).
+
 ## Practical recipe for a LoRA fine-tune
 
 1. Define the target behaviour and build an **evaluation set first**

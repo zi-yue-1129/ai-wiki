@@ -43,6 +43,8 @@
 L = -\log \sigma\!\left(\beta \log\frac{\pi_\theta(y_w\mid x)}{\pi_{ref}(y_w\mid x)} - \beta \log\frac{\pi_\theta(y_l\mid x)}{\pi_{ref}(y_l\mid x)}\right)
 \]
 
+DPO 的推導及其後續方法（IPO、KTO、ORPO、SimPO），以及線上與離線資料的差異，請見 [偏好最佳化：DPO 及其後續方法](preference-optimisation.zh-TW.md)。
+
 ## LoRA 微調的實務流程
 
 1. 定義目標行為，並**先建立評估集**
