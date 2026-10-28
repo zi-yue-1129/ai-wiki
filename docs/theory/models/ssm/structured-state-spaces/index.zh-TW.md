@@ -62,6 +62,7 @@ S4 把狀態矩陣表示為對角加低秩矩陣，可以轉成卷積核並用�
 
 - Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". arXiv:2008.07669 — 推導 HiPPO 狀態矩陣，透過多項式投影使循環能記住歷史。
 - Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". arXiv:2111.00396 — S4，具正規加低秩結構與快速卷積核。
+- Gu, A., Gupta, A., Goel, K. & Ré, C. (2022). "On the Parameterization and Initialization of Diagonal State Space Models". arXiv:2206.11893 — 仔細初始化的複數對角狀態矩陣，能以較簡單的實作匹敵 S4。
 
 ### 綜述與教科書
 

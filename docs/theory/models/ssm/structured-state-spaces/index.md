@@ -62,6 +62,7 @@ The structured family is the static, input-independent side of the [state-space 
 
 - Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". arXiv:2008.07669 — Derives the HiPPO state matrices that let a recurrence remember a history through polynomial projections.
 - Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". arXiv:2111.00396 — S4, with the normal-plus-low-rank structure and fast convolution kernel.
+- Gu, A., Gupta, A., Goel, K. & Ré, C. (2022). "On the Parameterization and Initialization of Diagonal State Space Models". arXiv:2206.11893 — Diagonal complex state matrices, carefully initialised, that match S4 with a simpler implementation.
 
 ### Surveys and textbooks
 

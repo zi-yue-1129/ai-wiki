@@ -1,3 +1,7 @@
+---
+references: not-required
+---
+
 # Models
 
 The architecture families of contemporary AI, and the systems built from them. A family is a way of building a network: how it routes information across inputs, and what it assumes about the data. The general theory behind them is in [Theory](../index.md). Generative modelling is not listed here, because any family can be trained that way; see [Generative Modelling](../generative/index.md).

@@ -67,6 +67,7 @@ The encoder–decoder pattern was the setting in which attention was first added
 
 - Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. arXiv:1409.3215 — Encoder–decoder recurrent networks for machine translation, end to end.
 - Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — The RNN encoder–decoder with gated units for translation.
+- Bahdanau, D., Cho, K. & Bengio, Y. (2014). "Neural Machine Translation by Jointly Learning to Align and Translate". arXiv:1409.0473 — Adds attention so the decoder can look back over the whole input.
 
 ### Surveys and textbooks
 

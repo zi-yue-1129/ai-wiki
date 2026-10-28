@@ -56,6 +56,7 @@ Selective SSMs are the input-dependent side of the [state-space](../index.md) fa
 ### Seminal papers
 
 - Gu, A. & Dao, T. (2023). "Mamba: Linear-Time Sequence Modeling with Selective State Spaces". arXiv:2312.00752 — Input-dependent state-space parameters, computed with a hardware-aware parallel scan.
+- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". arXiv:2008.07669 — Polynomial projection framework that supplies the state matrices behind the S4 lineage.
 
 ### Surveys and textbooks
 
@@ -69,3 +70,4 @@ Selective SSMs are the input-dependent side of the [state-space](../index.md) fa
 
 - Dao, T. & Gu, A. (2024). "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality". arXiv:2405.21060 — Mamba-2 and the duality between selective SSMs and structured attention.
 - Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". arXiv:2111.00396 — S4, the static structured model that selective SSMs extend.
+- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". arXiv:2303.06349 — Careful initialisation of diagonal linear recurrences that rivals S4 on long-range tasks.

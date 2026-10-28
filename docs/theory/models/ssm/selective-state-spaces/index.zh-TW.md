@@ -56,6 +56,7 @@ Dao 與 Gu（2024）證明，一種限制形式的選擇性 SSM（每個頭使�
 ### 開創性論文
 
 - Gu, A. & Dao, T. (2023). "Mamba: Linear-Time Sequence Modeling with Selective State Spaces". arXiv:2312.00752 — 依輸入而變的狀態空間參數，以硬體感知的平行掃描計算。
+- Gu, A., et al. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections". arXiv:2008.07669 — 多項式投影框架，提供 S4 一脈所用的狀態矩陣。
 
 ### 綜述與教科書
 
@@ -69,3 +70,4 @@ Dao 與 Gu（2024）證明，一種限制形式的選擇性 SSM（每個頭使�
 
 - Dao, T. & Gu, A. (2024). "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality". arXiv:2405.21060 — Mamba-2，以及選擇性 SSM 與結構化注意力的對偶。
 - Gu, A., Goel, K. & Ré, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces". arXiv:2111.00396 — S4，選擇性 SSM 所延伸的靜態結構化模型。
+- Orvieto, A., et al. (2023). "Resurrecting Recurrent Neural Networks for Long Sequences". arXiv:2303.06349 — 仔細設計對角線性循環的初始化，在長程基準上可與 S4 相當。
