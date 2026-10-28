@@ -18,9 +18,9 @@ aliases:
 
 ## 概述
 
-Chollet（2019）主張，在某一固定任務上的技能是衡量智力的弱指標，因為技能高度依賴先備知識與經驗。依此觀點，他提出了抽象與推理語料庫（ARC），每個任務給出幾組輸入與輸出的網格配對，要求解題者推斷規則並套用到新的輸入上。ARC-AGI-2（Chollet et al., 2025）保留相同的輸入輸出格式，但加入一組新整理、較困難的任務，並以人類測試來校準難度。
+Chollet（2019）主張，在某一固定任務上的技能是衡量智力的弱指標，因為技能高度依賴先備知識與經驗。依此觀點，他提出了抽象與推理語料庫（ARC），每個任務給出幾組輸入與輸出的配對，要求解題者推斷規則並套用到新的輸入上。ARC-AGI-2（Chollet et al., 2025）保留相同的輸入輸出格式，但加入一組新整理、較困難的任務，並以人類測試來校準難度。
 
-代理基準在不同的情境中提出相關的問題。GAIA 包含 466 個需要推理、瀏覽網頁與使用工具的真實世界問題。作者報告，人類答對其中 92%，而附帶外掛程式的 GPT-4 只答對 15%（Mialon et al., 2023）。WebArena 將代理放入四個自架網站的複本中，涵蓋電子商務、社群論壇討論、協作軟體開發與內容管理，並依任務是否正確完成來計分（Zhou et al., 2023）。
+代理基準在不同的情境中提出相關的問題。GAIA 包含 466 個需要推理、瀏覽網頁與使用工具的真實世界問題。作者報告，人類答對其中 92%，而附帶外掛程式的 GPT-4 只答對 15%（Mialon et al., 2023）。WebArena 將代理放入一個可重現的環境中，其中有來自四個常見領域的功能完整網站：電子商務、社群論壇討論、協作軟體開發與內容管理。它依功能正確性為任務計分（Zhou et al., 2023）。
 
 ## 比較的基準
 
@@ -28,7 +28,7 @@ Chollet（2019）主張，在某一固定任務上的技能是衡量智力的弱
 |---|---|---|
 | [ARC-AGI](arc-agi.md) | 從範例推斷網格轉換 | 輸出網格的完全符合 |
 | [GAIA](gaia.md) | 需要瀏覽與工具的真實世界問題 | 完全符合的準確率 |
-| [WebArena](webarena.md) | 自架網站上的任務 | 依功能正確性判定的任務成功率 |
+| [WebArena](webarena.md) | 可重現網站上的任務 | 依功能正確性判定的任務成功率 |
 
 ARC 類任務採嚴格計分：輸出網格不是完全正確就是錯誤。代理任務則依環境的最終狀態或最終答案計分，因此一次執行可能在許多正確步驟之後失敗。兩種計分規則衡量的東西不同，單一數字無法直接比較。
 
@@ -47,7 +47,7 @@ ARC 類任務採嚴格計分：輸出網格不是完全正確就是錯誤。代�
 - **測試集小。** 少數幾個任務就可能大幅改變分數，因此信賴區間很重要。
 - **鷹架與搜尋。** 提示與搜尋方法會改變結果，因此除非報告鷹架，否則系統很難比較。
 - **排行榜壓力。** 公開的範例可能被針對調校。隱藏的測試集與保留的任務可以降低這種風險。
-- **環境漂移。** 線上網站會隨時間改變。像 WebArena 這樣的自架複本則能讓執行可重現。
+- **環境漂移。** 線上網站會隨時間改變。像 WebArena 這樣的可重現環境則能讓執行可比較。
 
 ## 相關連結
 
@@ -77,5 +77,5 @@ ARC 類任務採嚴格計分：輸出網格不是完全正確就是錯誤。代�
 
 - Chollet, F., Knoop, M., Kamradt, G., Landers, B. & Pinkard, H. (2025). *ARC-AGI-2: A New Challenge for Frontier AI Reasoning Systems*. arXiv. https://arxiv.org/abs/2505.11831 — 介紹較難的 ARC-AGI-2 任務，保留輸入輸出格式，並附人類測試結果。
 - Mialon, G. et al. (2023). *GAIA: a benchmark for General AI Assistants*. arXiv. https://arxiv.org/abs/2311.12983 — 介紹 466 個真實世界問題，並報告人類與 GPT-4 的結果。
-- Zhou, S. et al. (2023). *WebArena: A Realistic Web Environment for Building Autonomous Agents*. arXiv. https://arxiv.org/abs/2307.13854 — 介紹自架網站環境與功能正確性任務。
+- Zhou, S. et al. (2023). *WebArena: A Realistic Web Environment for Building Autonomous Agents*. arXiv. https://arxiv.org/abs/2307.13854 — 介紹可重現的網站環境與功能正確性任務。
 - Srivastava, A. et al. (2022). *Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models*. arXiv. https://arxiv.org/abs/2206.04615 — 介紹 BIG-bench，共 204 項任務，由 450 位作者、132 個機構提供，主題涵蓋語言學到物理學。

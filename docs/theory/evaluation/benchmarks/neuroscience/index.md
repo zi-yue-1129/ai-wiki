@@ -44,7 +44,7 @@ A model is run on the same images shown to an animal or person. Its activations 
 
 - **Mapping choice.** The score depends on how model units are mapped to neural sites, so the regression and the layer must be reported.
 - **Limited recordings.** Few sites and images give wide uncertainty, so small differences between models are not reliable.
-- **Similarity is not mechanism.** A high score shows that representations are similar on the test, not that the model works the same way as the brain (Yamins et al., 2014).
+- **Similarity is not mechanism.** A high score shows that representations are similar on the test, not that the model works the same way as the brain.
 - **Narrow stimuli.** Object images and short sentences are a small part of what the brain does, so a benchmark built on them says little about other functions.
 
 ## Connections
