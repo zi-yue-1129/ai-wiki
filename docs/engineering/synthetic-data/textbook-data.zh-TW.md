@@ -56,5 +56,5 @@ flowchart LR
 
 - Eldan, R. & Li, Y. (2023). *TinyStories: How Small Can Language Models Be and Still Speak Coherent English?* https://arxiv.org/abs/2305.07759 — 以受控生成的簡單故事，顯示精心選擇的資料能讓小模型產生連貫的文字。
 - Wang, Y. et al. (2023). *Self-Instruct: Aligning Language Models with Self-Generated Instructions*. https://arxiv.org/abs/2212.10560 — 使用模型生成的指令資料，但沒有這裡描述的教育性挑選步驟。
-- Liu, Z. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. https://arxiv.org/abs/2404.07503 — 回顧過濾與生成選擇如何影響合成訓練集的品質。
+- Liu, R. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. COLM 2024. https://arxiv.org/abs/2404.07503 — 回顧過濾與生成選擇如何影響合成訓練集的品質。
 - Shumailov, I. et al. (2024). *AI models collapse when trained on recursively generated data*. Nature, 631. https://doi.org/10.1038/s41586-024-07566-y — 提醒當生成資料主導訓練集時，可能出現的多樣性損失。

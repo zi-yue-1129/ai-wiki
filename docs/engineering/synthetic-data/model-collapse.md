@@ -58,7 +58,7 @@ The paper reports collapse across several model types, including language models
 
 ### Related work
 
-- Liu, Z. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. https://arxiv.org/abs/2404.07503 — Reviews mixing and filtering choices that determine how much generated data can safely be used.
+- Liu, R. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. COLM 2024. https://arxiv.org/abs/2404.07503 — Reviews mixing and filtering choices that determine how much generated data can safely be used.
 - Wang, Y. et al. (2023). *Self-Instruct: Aligning Language Models with Self-Generated Instructions*. https://arxiv.org/abs/2212.10560 — An example of a training loop that feeds model output back into training, where the collapse risk applies.
 - Gunasekar, S. et al. (2023). *Textbooks Are All You Need*. https://arxiv.org/abs/2306.11644 — Relies on generated data chosen for quality, which is one way to limit the drift that causes collapse.
 - Eldan, R. & Li, Y. (2023). *TinyStories: How Small Can Language Models Be and Still Speak Coherent English?* https://arxiv.org/abs/2305.07759 — A controlled generated corpus whose diversity depends on the generator's prompts, a case where collapse risk must be checked.

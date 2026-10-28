@@ -81,4 +81,4 @@ Each named method has its own page, with the problem it addresses, the core idea
 
 ### Surveys
 
-- Liu, Z. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. https://arxiv.org/abs/2404.07503 — Reviews generation, filtering and evaluation practices for synthetic data used to train language models.
+- Liu, R. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. COLM 2024. https://arxiv.org/abs/2404.07503 — Reviews generation, filtering and evaluation practices for synthetic data used to train language models.

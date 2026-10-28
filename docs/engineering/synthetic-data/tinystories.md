@@ -59,5 +59,5 @@ The paper reports that models with only a few million to tens of millions of par
 
 - Gunasekar, S. et al. (2023). *Textbooks Are All You Need*. https://arxiv.org/abs/2306.11644 — Applies the same idea of choosing training data for quality, but for code and textbook-style material.
 - Wang, Y. et al. (2023). *Self-Instruct: Aligning Language Models with Self-Generated Instructions*. https://arxiv.org/abs/2212.10560 — Uses generated data for instruction tuning, a different target from the story-writing corpus here.
-- Liu, Z. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. https://arxiv.org/abs/2404.07503 — Discusses how generation controls and evaluation affect what a synthetic corpus teaches a model.
+- Liu, R. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. COLM 2024. https://arxiv.org/abs/2404.07503 — Discusses how generation controls and evaluation affect what a synthetic corpus teaches a model.
 - Shumailov, I. et al. (2024). *AI models collapse when trained on recursively generated data*. Nature, 631. https://doi.org/10.1038/s41586-024-07566-y — Notes the diversity risk that controlled generation can reduce or increase when models train on model-written text.

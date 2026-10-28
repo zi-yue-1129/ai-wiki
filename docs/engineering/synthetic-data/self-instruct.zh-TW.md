@@ -54,6 +54,6 @@ flowchart LR
 ### 相關研究
 
 - Gunasekar, S. et al. (2023). *Textbooks Are All You Need*. https://arxiv.org/abs/2306.11644 — 展示另一種合成訓練資料的路線：為教學品質而挑選的教科書式生成內容。
-- Liu, Z. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. https://arxiv.org/abs/2404.07503 — 綜述決定自我生成資料是否有幫助的生成、過濾與評估選擇。
+- Liu, R. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. COLM 2024. https://arxiv.org/abs/2404.07503 — 綜述決定自我生成資料是否有幫助的生成、過濾與評估選擇。
 - Shumailov, I. et al. (2024). *AI models collapse when trained on recursively generated data*. Nature, 631. https://doi.org/10.1038/s41586-024-07566-y — 說明反覆以模型輸出訓練的風險，這也適用於本方法這類自我引導迴圈。
 - Eldan, R. & Li, Y. (2023). *TinyStories: How Small Can Language Models Be and Still Speak Coherent English?* https://arxiv.org/abs/2305.07759 — 顯示精心生成的資料能讓小模型發揮能力，可作為自我引導資料的比較基準。

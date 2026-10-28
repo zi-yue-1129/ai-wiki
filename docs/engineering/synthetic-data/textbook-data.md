@@ -62,5 +62,5 @@ The paper reports that a 1.3-billion-parameter model trained on this mixture ach
 
 - Eldan, R. & Li, Y. (2023). *TinyStories: How Small Can Language Models Be and Still Speak Coherent English?* https://arxiv.org/abs/2305.07759 — Uses controlled generated stories to show that carefully chosen data lets small models produce coherent text.
 - Wang, Y. et al. (2023). *Self-Instruct: Aligning Language Models with Self-Generated Instructions*. https://arxiv.org/abs/2212.10560 — Uses model-generated instruction data without the educational selection step described here.
-- Liu, Z. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. https://arxiv.org/abs/2404.07503 — Reviews how filtering and generation choices affect the quality of synthetic training sets.
+- Liu, R. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. COLM 2024. https://arxiv.org/abs/2404.07503 — Reviews how filtering and generation choices affect the quality of synthetic training sets.
 - Shumailov, I. et al. (2024). *AI models collapse when trained on recursively generated data*. Nature, 631. https://doi.org/10.1038/s41586-024-07566-y — Warns about the diversity loss that can follow when generated data dominates a training set.

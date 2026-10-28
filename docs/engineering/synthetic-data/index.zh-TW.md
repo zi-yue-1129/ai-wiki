@@ -73,4 +73,4 @@ flowchart LR
 
 ### 綜述
 
-- Liu, Z. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. https://arxiv.org/abs/2404.07503 — 回顧用於訓練語言模型的合成資料在生成、過濾與評估上的實務。
+- Liu, R. et al. (2024). *Best Practices and Lessons Learned on Synthetic Data*. COLM 2024. https://arxiv.org/abs/2404.07503 — 回顧用於訓練語言模型的合成資料在生成、過濾與評估上的實務。
