@@ -21,10 +21,10 @@ translation_reviewed: 2026-10-28
 
 | 方法 | 相對於量值剪枝新增的內容 | 頁面 |
 | --- | --- | --- |
-| 漸進剪枝 | 訓練過程中的平滑稀疏度排程，證明優於小型稠密網路 | [漸進剪枝](gradual-pruning/index.zh-TW.md) |
+| 漸進剪枝 | 訓練過程中的平滑稀疏度排程；在相同記憶體占用下，大型稀疏模型優於小型稠密模型 | [漸進剪枝](gradual-pruning/index.zh-TW.md) |
 | 基準研究 | 直接比較，顯示量值剪枝是強基準 | [神經網路中稀疏性的現況](state-of-sparsity/index.zh-TW.md) |
 
-漸進剪枝改變的是遮罩何時被剪下。基準研究則問：更複雜的遮罩選擇是否值得，並發現對許多任務而言並不值得。
+漸進剪枝改變的是遮罩何時被剪下。基準研究則問：更複雜的剪枝方法是否值得其成本，並發現在其測試的任務上，簡單的量值剪枝與之相當或更好。
 
 ## 取捨
 
@@ -46,7 +46,7 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Zhu, M., Gupta, S. (2017). *To prune, or not to prune: exploring the efficacy of pruning for model compression*. arXiv:1710.01878. https://arxiv.org/abs/1710.01878 — 在相同參數數量下，大型稀疏模型優於小型稠密模型。
+- Zhu, M., Gupta, S. (2017). *To prune, or not to prune: exploring the efficacy of pruning for model compression*. arXiv:1710.01878. https://arxiv.org/abs/1710.01878 — 在相同記憶體占用下，大型稀疏模型優於小型稠密模型，非零參數可減少至多 10 倍而準確度損失極小。
 - Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — 量值剪枝加重新訓練，使 AlexNet 的參數減少為九分之一。
 - Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — 以量值剪枝找到的子網路，能從初始權重開始良好訓練。
 

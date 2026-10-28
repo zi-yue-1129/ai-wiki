@@ -15,7 +15,7 @@ translation_reviewed: 2026-10-28
 - **獲勝彩票**：稀疏子網路加上它被重設到的初始權重，能訓練到稠密網路的準確度。
 - **迭代量值剪枝（IMP）**：訓練、剪除一部分權重、倒回並重複的程序。比單次剪枝能找到更稀疏的彩票。
 - **倒回**：把剩餘權重重設為訓練早期的某個迭代，而不是第一步。倒回到早期訓練，使彩票能在較深的網路上運作。
-- **達到的稀疏度**：獲勝彩票在小型網路上常能達到很高的稀疏度，但同樣的程序在較深的網路上沒有倒回便很難成功。
+- **達到的稀疏度**：剪枝可以移除某些已訓練網路超過 90% 的參數（Frankle 與 Carbin，2018）。但同樣的迭代程序在較深的網路上若沒有倒回，便很難成功（Frankle 等人，2019）。
 
 ## 各重要方法比較
 
@@ -48,6 +48,7 @@ translation_reviewed: 2026-10-28
 
 - Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — 從原始初始化訓練的稀疏子網路，能達到稠密網路的準確度。
 - Frankle, J., Dziugaite, G. K., Roy, D. M., Carbin, M. (2019). *Stabilizing the Lottery Ticket Hypothesis*. arXiv:1903.01611. https://arxiv.org/abs/1903.01611 — 倒回到訓練的早期點，在較深的網路中找到彩票。
+- Renda, A., Frankle, J., Carbin, M. (2020). *Comparing Rewinding and Fine-tuning in Neural Network Pruning*. arXiv:2003.02389. https://arxiv.org/abs/2003.02389 — 比較剪枝後的倒回與微調，提出學習率倒回；兩種倒回方法都優於微調。
 - Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — 彩票程序所依據的剪枝加重新訓練流程。
 
 ### 綜述與教科書

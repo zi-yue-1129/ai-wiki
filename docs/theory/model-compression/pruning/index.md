@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - engineering/hardware
@@ -40,7 +40,7 @@ A pruned model is described by a **mask**: a binary value for every weight that 
 
 The classic pipeline, from Han et al. (2015), has three steps: train a dense network normally, remove weights whose magnitude is below a threshold, then retrain the remaining weights to recover accuracy. Repeating the prune-and-retrain loop raises sparsity gradually. This pipeline needs a full training run per iteration, so it is expensive for models with billions of parameters.
 
-Large language models changed the problem. Retraining them is costly, so recent methods prune in one shot, using only a small calibration set and a closed-form or local correction for each layer.
+Large language models changed the problem. Retraining them is costly, so recent methods prune in one shot, using only a small calibration set and a a per-layer score or a weight reconstruction step.
 
 ## Comparison of families
 
@@ -53,7 +53,7 @@ Large language models changed the problem. Retraining them is costly, so recent 
 | N:M sparsity | Blocks of M weights | Training or after training | Hardware that supports the pattern | [N:M sparsity](n-m-sparsity/index.md) |
 | One-shot LLM pruning | Individual weights | One shot, no retraining | Sparse kernels for speed | [One-shot LLM pruning](one-shot-llm-pruning/index.md) |
 
-Structured pruning and N:M sparsity are the two families that give speed-ups on common hardware without sparse kernels or with few of them. The unstructured families reach higher sparsity at the same accuracy, but they need sparse support to run faster.
+Structured pruning gives speed-ups on dense hardware with no special kernels. N:M sparsity gives speed-ups only where hardware such as Sparse Tensor Cores supports the pattern. Unstructured methods usually reach higher sparsity at the same accuracy, but they need sparse support to run faster.
 
 ## Trade-offs
 

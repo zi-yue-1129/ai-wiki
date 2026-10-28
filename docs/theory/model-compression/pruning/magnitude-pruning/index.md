@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -30,10 +30,10 @@ Given a weight tensor \(W\) and a sparsity target \(s\), magnitude pruning build
 
 | Method | What it adds to magnitude pruning | Page |
 | --- | --- | --- |
-| Gradual pruning | A smooth sparsity schedule over training, shown to beat small dense networks | [Gradual pruning](gradual-pruning/index.md) |
+| Gradual pruning | A smooth sparsity schedule over training, large sparse models beat small dense ones at the same memory footprint | [Gradual pruning](gradual-pruning/index.md) |
 | Benchmark study | Head-to-head comparison showing magnitude pruning is a strong baseline | [The state of sparsity](state-of-sparsity/index.md) |
 
-Gradual pruning changes when the mask is cut. The benchmark asks whether a more complex mask choice is worth it, and finds that for many tasks it is not.
+Gradual pruning changes when the mask is cut. The benchmark asks whether more complex pruning methods are worth their cost, and finds that simple magnitude pruning matches or beats them on the tasks it tests.
 
 ## Trade-offs
 
@@ -55,7 +55,7 @@ Magnitude pruning gives an unstructured mask, so its speed-up depends on the spa
 
 ### Seminal papers
 
-- Zhu, M., Gupta, S. (2017). *To prune, or not to prune: exploring the efficacy of pruning for model compression*. arXiv:1710.01878. https://arxiv.org/abs/1710.01878 — Shows that large sparse models outperform small dense models at equal parameter counts.
+- Zhu, M., Gupta, S. (2017). *To prune, or not to prune: exploring the efficacy of pruning for model compression*. arXiv:1710.01878. https://arxiv.org/abs/1710.01878 — Finds that large sparse models beat small dense models at the same memory footprint, with up to 10 times fewer non-zero parameters and minimal loss in accuracy.
 - Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — Magnitude pruning followed by retraining, reducing AlexNet parameters by a factor of 9.
 - Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — Magnitude-based pruning finds subnetworks that train well from their initial weights.
 

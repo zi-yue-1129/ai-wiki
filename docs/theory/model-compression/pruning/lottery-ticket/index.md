@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -24,7 +24,7 @@ The original experiment is simple. Train a dense network, prune its smallest-mag
 - **Winning ticket.** A sparse subnetwork plus the initial weights it was reset to, which trains to the accuracy of the dense network.
 - **Iterative magnitude pruning (IMP).** The procedure of training, pruning a fraction of weights, rewinding and repeating, which finds sparser tickets than one-shot pruning.
 - **Rewinding.** Resetting the surviving weights to an early iteration of training rather than to the very first step. Rewinding to early training is what makes the ticket work on deeper networks.
-- **Sparsity achieved.** Winning tickets often reach high sparsity on small networks, but the same procedure struggles on deeper ones without rewinding.
+- **Sparsity achieved.** Pruning can remove over 90% of the parameters of some trained networks (Frankle and Carbin, 2018). The same iterative procedure struggles on deeper networks without rewinding (Frankle et al., 2019).
 
 ## Comparison of key methods
 
@@ -57,6 +57,7 @@ The ticket view connects to the broader question of why overparameterised networ
 
 - Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — Sparse subnetworks trained from their original initialisation match the dense network's accuracy.
 - Frankle, J., Dziugaite, G. K., Roy, D. M., Carbin, M. (2019). *Stabilizing the Lottery Ticket Hypothesis*. arXiv:1903.01611. https://arxiv.org/abs/1903.01611 — Rewinds to an early training point to find tickets in deeper networks.
+- Renda, A., Frankle, J., Carbin, M. (2020). *Comparing Rewinding and Fine-tuning in Neural Network Pruning*. arXiv:2003.02389. https://arxiv.org/abs/2003.02389 — Proposes learning-rate rewinding, and shows that both rewinding methods outperform fine-tuning after pruning.
 - Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — The prune-and-retrain pipeline that the lottery ticket procedure builds on.
 
 ### Surveys and textbooks
