@@ -10,6 +10,7 @@ How AI systems are actually built, adapted, evaluated and run.
 | [Prompt Engineering](prompting/index.md) | Writing effective prompts, structured output, context engineering |
 | [Retrieval-Augmented Generation](rag/index.md) | Grounding LLMs in your documents |
 | [Evaluation & Benchmarks](evaluation/index.md) | Benchmarks, LLM-as-judge, contamination, human evaluation |
+| [Inference Optimization](inference-optimization/index.md) | Batching, paged KV caches, speculative decoding, attention variants |
 | [MLOps & Deployment](mlops/index.md) | Serving, monitoring, quantisation, cost, LLMOps |
 | [AI Hardware](hardware/index.md) | GPUs, TPUs, NPUs, memory bandwidth, interconnects, neuromorphic chips |
 
