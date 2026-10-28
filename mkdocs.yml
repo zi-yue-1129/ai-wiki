@@ -296,6 +296,9 @@ plugins:
             Probabilistic & Bayesian Methods: 機率圖模型與貝氏方法
             Symbolic AI, Search & Planning: 符號 AI、搜尋與規劃
             Evolutionary & Swarm Intelligence: 演化計算與群體智慧
+            MAP-Elites: MAP-Elites
+            Particle Swarm Optimisation: 粒子群最佳化
+            Ant Colony Optimisation: 螞蟻演算法
             Models: 模型與技術
             Transformers & Attention: Transformer 與注意力
             Attention Variants: 注意力變體
@@ -801,7 +804,11 @@ nav:
           - Other Paradigms: theory/paradigms/other/index.md
           - Probabilistic & Bayesian Methods: theory/paradigms/probabilistic/index.md
           - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
-          - Evolutionary & Swarm Intelligence: theory/paradigms/evolutionary/index.md
+          - Evolutionary & Swarm Intelligence:
+              - theory/paradigms/evolutionary/index.md
+              - MAP-Elites: theory/paradigms/evolutionary/map-elites.md
+              - Particle Swarm Optimisation: theory/paradigms/evolutionary/particle-swarm.md
+              - Ant Colony Optimisation: theory/paradigms/evolutionary/ant-colony.md
       - Model Compression:
           - theory/model-compression/index.md
           - Quantisation:

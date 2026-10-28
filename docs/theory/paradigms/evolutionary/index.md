@@ -3,7 +3,7 @@ status: draft
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/meta-learning
-  - theory/optimization/zeroth-order-and-evolutionary
+  - theory/optimization
   - applications/science
 tags:
   - evolutionary
@@ -32,7 +32,7 @@ Part of the [Paradigms](../index.md) folder. Each method has its own page, and t
 | Genetic algorithms | Selection, crossover and mutation on bit strings or vectors | Scheduling, design | Planned |
 | Genetic programming | Crossover and mutation on program trees | Symbolic regression | Planned |
 | Evolution strategies and CMA-ES | Sample a Gaussian, move its mean and covariance toward good samples | Continuous black-box optimisation | [Zeroth-order and evolutionary](../../optimization/zeroth-order-and-evolutionary.md) |
-| NEAT | Evolve weights and topology together, with innovation numbers | Neuroevolution, control | [NEAT](neat.md) |
+| NEAT | Evolve weights and topology together, with innovation numbers | Neuroevolution, control | Planned |
 | MAP-Elites | Keep the best solution in each cell of a behaviour grid | Diverse solutions, robot repertoires | [MAP-Elites](map-elites.md) |
 | Particle swarm optimisation | Each particle moves by its own and its neighbours' best positions | Continuous optimisation | [Particle swarm](particle-swarm.md) |
 | Ant colony optimisation | Ants deposit pheromone on good paths; paths are sampled in proportion | Combinatorial routing | [Ant colony](ant-colony.md) |
