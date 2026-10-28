@@ -47,37 +47,15 @@ The scheduler decides which requests run in each step. The memory manager decide
 
 ## Key methods
 
-### Orca: iteration-level scheduling (Yu et al., 2022)
+Each named method has its own page, which gives the problem, the core idea, the algorithm, the reported results and the limitations. The table compares them.
 
-- **Problem:** static batching waits for the longest request in a batch, so GPUs sit idle while short requests finish.
-- **Core idea:** schedule at the granularity of one model iteration. Finished requests leave and waiting requests join between iterations.
-- **Equation or algorithm:** each iteration runs the model once over the current set of active requests; selective batching batches the parts of the computation that can be shared and handles attention per request.
-- **Results:** the paper reports large throughput gains over request-level batching for GPT-style generation at comparable latency.
-- **Limitations:** the scheduler must manage uneven sequence lengths, and memory fragmentation remains an issue, which the next method addresses.
-
-### PagedAttention and vLLM (Kwon et al., 2023)
-
-- **Problem:** the KV cache was stored in contiguous buffers reserved for the maximum sequence length, wasting most of the memory to fragmentation and over-reservation.
-- **Core idea:** split the KV cache into fixed-size blocks, like virtual-memory pages, and map each request's logical blocks to physical blocks on demand. Blocks can be shared between requests with a common prefix.
-- **Equation or algorithm:** the attention kernel reads keys and values through a block table, so a sequence's blocks need not be contiguous in memory.
-- **Results:** the paper reports higher throughput than prior serving systems at similar latency, with memory waste reduced to a small fraction.
-- **Limitations:** block lookups add kernel complexity, and the benefit depends on how much prefix sharing a workload has.
-
-### Speculative decoding (Leviathan et al., 2023)
-
-- **Problem:** decoding one token per full forward pass leaves the large model memory-bound and underused.
-- **Core idea:** a small, cheap draft model proposes several tokens, then the large target model checks all of them in one parallel pass. Accepted tokens are kept, and the first rejected token is replaced by a corrected sample.
-- **Equation or algorithm:** a drafted token $x$ with draft probability $q(x)$ is accepted with probability $\min\!\left(1, \frac{p(x)}{q(x)}\right)$, where $p$ is the target distribution. On rejection, a token is sampled from $\mathrm{norm}\big(\max(0, p - q)\big)$. This keeps the output distribution exactly equal to the target model's.
-- **Results:** the paper reports 2–3× faster decoding on translation and summarisation with T5-XXL, with no change in output distribution.
-- **Limitations:** speedup depends on how often the draft matches the target. Variants that avoid a separate draft model, such as Medusa and EAGLE, trade extra training for that.
-
-### Multi-query and grouped-query attention (Shazeer, 2019; Ainslie et al., 2023)
-
-- **Problem:** with many heads, each one keeps its own keys and values, so the KV cache is large and each decoding step reads a lot of memory.
-- **Core idea:** share keys and values across query heads. Multi-query attention uses a single key-value head; grouped-query attention uses a few groups, a compromise between quality and memory.
-- **Equation or algorithm:** with $H$ query heads and $G$ key-value groups, the cache scales with $G$ instead of $H$.
-- **Results:** Ainslie et al. show that multi-head checkpoints can be converted to grouped-query models with a small fraction of the original pre-training compute, with quality close to multi-head attention.
-- **Limitations:** fewer key-value heads reduce capacity, which can cost quality on tasks that need diverse attention patterns.
+| Method | Problem it addresses | Core idea | Main trade-off | Page |
+|---|---|---|---|---|
+| Orca | Static batches leave the GPU idle on short requests | Schedule every model iteration, so requests join and leave | Memory fragmentation remains | [Orca](orca.md) |
+| PagedAttention and vLLM | Contiguous KV-cache buffers waste memory | Store KV in blocks addressed through a block table | Needs a custom attention kernel | [PagedAttention and vLLM](paged-attention.md) |
+| Speculative decoding | One token per full pass underuses the GPU | A draft model proposes tokens that the target verifies in one pass | Speedup depends on the acceptance rate | [Speculative decoding](speculative-decoding.md) |
+| Multi-query attention | Each head keeps its own large KV cache | One shared key and value head for all queries | Some loss of quality | [Multi-query attention](multi-query-attention.md) |
+| Grouped-query attention | Multi-query attention can lose too much quality | Groups of query heads share one key-value head | Cache is larger than multi-query | [Grouped-query attention](grouped-query-attention.md) |
 
 ## Connections
 
