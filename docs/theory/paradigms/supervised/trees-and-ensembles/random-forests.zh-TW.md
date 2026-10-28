@@ -46,7 +46,7 @@ Breiman 的論文主張，增加樹的數量不會使森林過擬合。由於增
 - **問題：** 單棵樹的變異很高，而裝袋樹常因為同一個強特徵主導許多分裂而彼此相關。集成需要的樹既準確又彼此不同。
 - **核心想法：** 每個節點只使用隨機的特徵子集進行分裂。子集越小，樹之間的相關性越低，代價是每棵樹的強度會下降。論文直接指出目標：隨機性應該追求低相關性，同時維持合理的強度。
 - **公式或演算法：** 上述的自助抽樣加投票程序，以及平均規則。訓練點 \(i\) 的袋外誤差，是僅由那些自助樣本未包含 \(i\) 的樹所組成的平均預測之誤差。
-- **結果：** 在第 9 節的合成資料上（1,000 個二元輸入，貝氏誤差為 1.0%），F = 25 的森林測試誤差為 2.8%。F = 1 時為 10.7%。在表 2 的乳癌資料上，隨機特徵森林的測試誤差為 2.7%，AdaBoost 為 3.2%。以上為論文實驗所報告的數值。
+- **結果：** 在第 9 節的合成資料上（1,000 個二元輸入，貝氏誤差為 1.0%），F = 25 的森林測試誤差為 2.8%。F = 1 時為 10.7%。在表 2 的乳癌資料上，每次分裂只使用單一隨機特徵（F = 1）的森林測試誤差為 2.7%，AdaBoost 為 3.2%。以上為論文實驗所報告的數值。
 - **限制：** 森林比單棵樹更難解釋。分段常數的樹平均後，無法外推到訓練目標範圍之外。記憶體與預測時間隨樹的數量增加。相關的輸入特徵會把重要性分散到許多變數上，削弱變數重要性的衡量。
 
 ## 關聯
@@ -68,7 +68,7 @@ Breiman 的論文主張，增加樹的數量不會使森林過擬合。由於增
 - Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324 — 提出每次分裂時的隨機特徵選取、袋外誤差估計，以及強度與相關性的分析。
 - Breiman, L. (1996). Bagging predictors. *Machine Learning*, 24, 123–140. https://doi.org/10.1007/BF00058655 — 提出自助聚合（bagging）的平均想法，隨機森林即建立於其上。論文指出，預測方法的不穩定性是關鍵要素。
 - Ho, T. K. (1995). Random decision forests. *Proceedings of the Third International Conference on Document Analysis and Recognition (ICDAR 1995)*. https://doi.org/10.1109/ICDAR.1995.598994 — 在隨機特徵子集上生成樹的集成之早期提案。
-- Amit, Y. & Geman, D. (1997). Shape quantization and recognition with randomized trees. *Neural Computation*. https://mlanthology.org/neco/1997/amit1997neco-shape — 把隨機化的樹用於形狀辨識，是隨機特徵想法的早期來源。
+- Amit, Y. & Geman, D. (1997). Shape quantization and recognition with randomized trees. *Neural Computation*, 9(7), 1545–1588. https://doi.org/10.1162/neco.1997.9.7.1545 — 把隨機化的樹用於形狀辨識，是隨機特徵想法的早期來源。
 
 ### 綜述與教科書
 

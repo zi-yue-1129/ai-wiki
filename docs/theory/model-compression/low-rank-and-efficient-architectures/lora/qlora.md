@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - engineering/training
@@ -18,7 +18,7 @@ aliases:
 
 # QLoRA
 
-QLoRA fine-tunes a large model by training LoRA adapters on top of a base model whose frozen weights are stored in 4 bits. Dettmers et al. (2023) report that this reduces the memory needed to fine-tune a 65-billion-parameter model to under 48 GB, so that it fits on one GPU, while matching 16-bit full fine-tuning on the benchmarks they test. It is a variant of [LoRA](index.md) that depends on [quantisation](../../quantisation/index.md) of the base model.
+QLoRA fine-tunes a large model by training LoRA adapters on top of a base model whose frozen weights are stored in 4 bits. Dettmers et al. (2023) report that this reduces the memory needed to fine-tune a 65-billion-parameter model to under 48 GB, so that it fits on one GPU, while matching 16-bit full fine-tuning on the smaller-model benchmarks they test. It is a variant of [LoRA](index.md) that depends on [quantisation](../../quantisation/index.md) of the base model.
 
 ## Problem
 
@@ -71,5 +71,5 @@ QLoRA is LoRA applied to a quantised base, so the adapter mathematics on the [Lo
 
 ### Articles and documentation
 
-- Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — Shows that per-channel 8-bit quantisation keeps many CNNs close to floating-point accuracy, the post-training counterpart of storing the base in low bits.
+- Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — Reports that per-channel 8-bit quantisation keeps classification accuracy within 2% of floating-point networks across many CNN architectures, the post-training counterpart of storing the base in low bits.
 - Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory bandwidth, not compute, is the primary bottleneck for AI serving, the pressure that storing the base in 4 bits relieves.

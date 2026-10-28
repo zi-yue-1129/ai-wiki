@@ -78,11 +78,11 @@ The table is the paper's own. On InvertedDoublePendulum, DDPG's value is slightl
 
 ### Seminal papers
 
-- Fujimoto, van Hoof & Meger (2018), "Addressing function approximation error in actor-critic methods", *Proceedings of ICML 2018*, arXiv:1802.09477 — The TD3 paper, with the three changes and the MuJoCo comparison above.
-- Lillicrap et al. (2016), "Continuous control with deep reinforcement learning", ICLR, arXiv:1509.02971 — DDPG, the deterministic method that TD3 modifies.
-- Haarnoja et al. (2018), "Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor", arXiv:1801.01290 — A stochastic actor-critic method that is compared against the same family.
-- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — The on-policy baseline in the TD3 MuJoCo comparison.
-- van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", arXiv:1509.06461 — Double Q-learning in discrete actions, the origin of the clipped double-Q idea.
+- Fujimoto, van Hoof & Meger (2018), "Addressing function approximation error in actor-critic methods", *Proceedings of ICML 2018*, [arXiv:1802.09477](https://arxiv.org/abs/1802.09477) — The TD3 paper, with the three changes and the MuJoCo comparison above.
+- Lillicrap et al. (2016), "Continuous control with deep reinforcement learning", ICLR, [arXiv:1509.02971](https://arxiv.org/abs/1509.02971) — DDPG, the deterministic method that TD3 modifies.
+- Haarnoja et al. (2018), "Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor", [arXiv:1801.01290](https://arxiv.org/abs/1801.01290) — A stochastic actor-critic method that is compared against the same family.
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The on-policy baseline in the TD3 MuJoCo comparison.
+- van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", [arXiv:1509.06461](https://arxiv.org/abs/1509.06461) — Double Q-learning in discrete actions, the origin of the clipped double-Q idea.
 
 ### Surveys and textbooks
 

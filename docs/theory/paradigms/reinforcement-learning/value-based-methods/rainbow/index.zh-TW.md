@@ -63,11 +63,11 @@ Rainbow 保留 DQN 的回放、目標網路與小批量更新結構，並改動�
 
 ### 開創性論文
 
-- Hessel et al. (2018), "Rainbow: Combining improvements in deep reinforcement learning", arXiv:1710.02298 — The Rainbow paper, with its six-component ablation and the reported Atari results.
-- van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", arXiv:1509.06461 — The double Q-learning component, which reduces overestimation.
-- Schaul, Quan, Antonoglou & Silver (2016), "Prioritized experience replay", arXiv:1511.05952 — The prioritised replay component, reported to beat uniform replay on 41 of 49 games.
+- Hessel et al. (2018), "Rainbow: Combining improvements in deep reinforcement learning", [arXiv:1710.02298](https://arxiv.org/abs/1710.02298) — The Rainbow paper, with its six-component ablation and the reported Atari results.
+- van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", [arXiv:1509.06461](https://arxiv.org/abs/1509.06461) — The double Q-learning component, which reduces overestimation.
+- Schaul, Quan, Antonoglou & Silver (2016), "Prioritized experience replay", [arXiv:1511.05952](https://arxiv.org/abs/1511.05952) — The prioritised replay component, reported to beat uniform replay on 41 of 49 games.
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The base DQN agent that Rainbow extends.
-- Mnih et al. (2013), "Playing Atari with deep reinforcement learning", arXiv:1312.5602 — The early preprint that introduced the Atari setting used throughout.
+- Mnih et al. (2013), "Playing Atari with deep reinforcement learning", [arXiv:1312.5602](https://arxiv.org/abs/1312.5602) — The early preprint that introduced the Atari setting used throughout.
 
 ### 綜述與教科書
 

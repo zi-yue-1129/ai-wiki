@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
@@ -29,11 +29,11 @@ Text prompts are discrete words chosen by hand, so their effect is limited by wh
 
 - **Soft prompt:** a block of \(p\) trainable vectors, each of the model's embedding width, placed in front of the embedded input. It is not made of real words, and it is trained by backpropagation.
 - **Frozen model:** the pre-trained T5 model, whose parameters stay fixed while the prompt is learned.
-- **Initialisation:** the paper compares random uniform values, embeddings of common vocabulary tokens, and embeddings of the output class labels. Initialising from the class labels is the default, and it works best at smaller sizes.
+- **Initialisation:** the paper compares random uniform values, embeddings of common vocabulary tokens, and embeddings of the output class labels. Initialising from the class labels is one of the options compared.
 
 ## How it works
 
-The prompt vectors are placed in front of the input embeddings, and the frozen encoder-decoder processes the combined sequence. The loss on labelled task data is backpropagated to the prompt vectors alone. The default prompt length is 100 tokens, and the paper ablates lengths from 1 to 150. Each task therefore needs about \(E \times p\) new parameters, which for T5-XXL with a 100-token prompt is about 410K parameters, or 0.004% of the model. At serving time the model is shared, and each task brings its own prompt.
+The prompt vectors are placed in front of the input embeddings, and the frozen encoder-decoder processes the combined sequence. The loss on labelled task data is backpropagated to the prompt vectors alone. The default prompt length is 100 tokens, and the paper tests lengths of 1, 5, 20, 100 and 150. Each task therefore needs about \(E \times p\) new parameters, which for T5-XXL with a 100-token prompt is about 410K parameters, or 0.004% of the model. At serving time the model is shared, and each task brings its own prompt.
 
 ## Results
 
@@ -45,7 +45,7 @@ On domain transfer, a prompt trained on SQuAD and tested on out-of-domain questi
 
 - **Small models.** Small models depend heavily on the prompt length and the initialisation, and the gap to model tuning is large until the model reaches XXL scale.
 - **Unreliable frozen checkpoints.** Span-corruption T5 checkpoints worked well as frozen models at only 2 of 5 sizes. A language-model adaptation step fixes this, at roughly 10% of T5's original pre-training steps.
-- **Long prompts.** Prompts longer than about 100 tokens slightly hurt larger models, and long prompts make training slow.
+- **Long prompts.** Prompts longer than 100 tokens appear mildly detrimental for larger models, and long prompts make training slow.
 - **Interpretability.** The learned prompts are hard to read, and the paper finds little structure in them beyond nearest-neighbour clusters.
 
 ## Open questions

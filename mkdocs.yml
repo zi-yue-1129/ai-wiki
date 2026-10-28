@@ -327,6 +327,7 @@ plugins:
             Deep Q-Networks: 深度 Q 網路
             AlphaGo: 阿爾法圍棋
             AlphaZero: 阿爾法零
+            MCTS and self-play: 蒙地卡羅樹搜尋與自我對弈
             MuZero: MuZero
             Proximal Policy Optimisation: 近端策略最佳化
             Multi-Agent RL: 多智能體強化學習
@@ -384,6 +385,11 @@ plugins:
             Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
             False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
             Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            ALOHA and ACT (Zhao et al. 2023): ALOHA 與 ACT（Zhao 等人，2023）
+            Diffusion Policy (Chi et al. 2023): Diffusion Policy（Chi 等人，2023）
+            RT-2 (Brohan et al. 2023): RT-2（Brohan 等人，2023）
+            OpenVLA (Kim et al. 2024): OpenVLA（Kim 等人，2024）
+            SayCan (Ahn et al. 2022): SayCan（Ahn 等人，2022）
             Navigation with Visual Goals: 以視覺目標導航
             Visual Teach-and-Repeat: 視覺教學與重播
             SPTM: SPTM
@@ -1042,6 +1048,7 @@ nav:
               - Deep Q-Networks: theory/paradigms/reinforcement-learning/deep-q-networks/index.md
               - AlphaGo: theory/paradigms/reinforcement-learning/alphago/index.md
               - AlphaZero: theory/paradigms/reinforcement-learning/alphazero/index.md
+              - MCTS and self-play: theory/paradigms/reinforcement-learning/mcts-and-self-play/index.md
               - Proximal Policy Optimisation: theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index.md
               - Value-Based Methods:
                   - theory/paradigms/reinforcement-learning/value-based-methods/index.md
@@ -1571,6 +1578,11 @@ nav:
       - Robotics:
           - applications/robotics/index.md
           - Hand-Eye Coordination for Grasping: applications/robotics/hand-eye-grasping/index.md
+          - ALOHA and ACT (Zhao et al. 2023): applications/robotics/aloha/index.md
+          - Diffusion Policy (Chi et al. 2023): applications/robotics/diffusion-policy/index.md
+          - RT-2 (Brohan et al. 2023): applications/robotics/rt-2/index.md
+          - OpenVLA (Kim et al. 2024): applications/robotics/openvla/index.md
+          - SayCan (Ahn et al. 2022): applications/robotics/saycan/index.md
           - Navigation with Visual Goals:
               - applications/robotics/navigation/index.md
               - Visual Teach-and-Repeat: applications/robotics/navigation/visual-teach-and-repeat.md

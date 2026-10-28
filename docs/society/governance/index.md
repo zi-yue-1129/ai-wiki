@@ -67,10 +67,15 @@ Fines reach up to 7% of global turnover for prohibited practices. In late 2025 t
 - Preemption of state laws (US)
 - Global South participation and digital sovereignty
 
-## Resources
+## References
 
-- [EU AI Act Explorer](https://artificialintelligenceact.eu/)
-- [OECD.AI Policy Observatory](https://oecd.ai/)
-- [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)
-- Stanford AI Index, policy chapter
-- IAPP Global AI Law and Policy Tracker
+- European Union (2024). *Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act)*. Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj — Binding EU law with a risk-based classification of AI systems, prohibited practices and obligations for general-purpose models.
+- Veale, M. & Zuiderveen Borgesius, F. (2021). Demystifying the Draft EU Artificial Intelligence Act. *Computer Law Review International*. https://doi.org/10.9785/cri-2021-220402 — Early legal analysis of the draft AI Act's risk categories, identifying the elements that were unclear.
+- National Institute of Standards and Technology (2023). *Artificial Intelligence Risk Management Framework (AI RMF 1.0)*. NIST AI 100-1. https://doi.org/10.6028/NIST.AI.100-1 — Voluntary framework organised around govern, map, measure and manage functions for trustworthy AI.
+- OECD (2019, updated 2024). *Recommendation of the Council on Artificial Intelligence*. OECD/LEGAL/0449. https://oecd.ai/en/ai-principles — First intergovernmental standard on AI, with principles for trustworthy AI that adhering countries have committed to.
+- Vassilev et al. (2025). Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations. NIST AI 100-2e2025. https://doi.org/10.6028/nist.ai.100-2e2025 — Taxonomy of attacks on machine learning systems, used when reviewing the security duties that AI rules impose.
+
+## Further learning
+
+- [EU AI Act Explorer](https://artificialintelligenceact.eu/) — article-by-article navigator for the AI Act.
+- [OECD.AI Policy Observatory](https://oecd.ai/) — tracker of national AI policies and their comparison.

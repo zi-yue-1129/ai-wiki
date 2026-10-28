@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/math
@@ -53,7 +53,7 @@ Then update \(\theta \leftarrow \theta + \alpha g\), where \(\alpha\) is a learn
 
 ## Key results
 
-The abstract reports that ES scales to over a thousand parallel workers, communicates only scalars, and solves 3D humanoid walking in 10 minutes. It also reports competitive results on most Atari games after one hour of training. The abstract gives no per-game scores, so this page does not quote them.
+The abstract reports that ES scales to over a thousand parallel workers and communicates only scalars. The body reports solving the 3D humanoid task in under 10 minutes with 1,440 workers, and competitive results on most Atari games after one hour of training on 720 CPUs, against A3C's published one-day results. The paper's per-game comparison splits, with ES better in 23 games and worse in 28, so this page does not quote per-game scores.
 
 ## Limitations
 
@@ -90,4 +90,4 @@ The abstract reports that ES scales to over a thousand parallel workers, communi
 ### Surveys and textbooks
 
 - Hansen, N. (2016). *The CMA Evolution Strategy: A Tutorial*. arXiv. https://arxiv.org/abs/1604.00772 — Tutorial on the covariance-adapting member of the evolution strategy family.
-- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. SIAM Review. https://arxiv.org/abs/1606.04838 — Survey of gradient-based stochastic methods, the baseline against which ES is compared.
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. *SIAM Review*, 60(2), 223–311. https://doi.org/10.1137/16M1080173 — Survey of gradient-based stochastic methods, the baseline against which ES is compared.

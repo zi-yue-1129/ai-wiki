@@ -68,10 +68,10 @@ The paper also reports a TORCS driving result, in which A3C reaches between roug
 
 ### Seminal papers
 
-- Mnih et al. (2016), "Asynchronous methods for deep reinforcement learning", arXiv:1602.01783 — The A3C paper, with the parallel actor-learner design and the Atari results reported above.
+- Mnih et al. (2016), "Asynchronous methods for deep reinforcement learning", [arXiv:1602.01783](https://arxiv.org/abs/1602.01783) — The A3C paper, with the parallel actor-learner design and the Atari results reported above.
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The replay-based deep value method that A3C is compared against.
-- Schulman et al. (2016), "High-dimensional continuous control using generalized advantage estimation", arXiv:1506.02438 — Advantage estimation used in the same family of actor-critic methods.
-- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — Reports the A2C comparison and the sample-complexity results against which A3C-style methods are measured.
+- Schulman et al. (2016), "High-dimensional continuous control using generalized advantage estimation", [arXiv:1506.02438](https://arxiv.org/abs/1506.02438) — Advantage estimation used in the same family of actor-critic methods.
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — Reports the A2C comparison and the sample-complexity results against which A3C-style methods are measured.
 
 ### Surveys and textbooks
 

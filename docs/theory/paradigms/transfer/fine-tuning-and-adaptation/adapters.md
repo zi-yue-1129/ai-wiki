@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
@@ -27,7 +27,7 @@ Full fine-tuning gives every task its own complete copy of the model. For a mode
 
 - **Bottleneck adapter:** a module that projects the hidden activations down to a narrow width \(m\), applies a non-linearity, and projects back up to the model width \(d\). It has an internal skip connection, so near initialisation it passes its input through.
 - **Placement:** each Transformer layer gets two adapters, one after the attention sub-layer and one after the feed-forward sub-layer.
-- **Trained parameters:** the adapter weights, plus the layer normalisation parameters, which add about \(2d\) parameters per layer. The paper reports that training only the layer norms performs poorly.
+- **Trained parameters:** the adapter weights, plus the layer normalisation parameters, which are trained together with them.
 
 ## How it works
 

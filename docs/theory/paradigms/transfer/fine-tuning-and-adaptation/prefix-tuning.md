@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
@@ -38,8 +38,7 @@ For each task, a prefix is trained by gradient descent on the task's objective w
 
 On table-to-text with GPT-2, prefix tuning trains about 0.1% of the parameters and is roughly on par with full fine-tuning across E2E, WebNLG and DART; on E2E with GPT-2 Medium it scores slightly higher on BLEU (69.7 against 68.2). On summarisation with BART-Large, full fine-tuning reaches ROUGE-L 37.25, while prefix tuning reaches 36.05 with 2% of the parameters and 35.05 with 0.1%, so it is slightly worse there.
 
-With 50 to 500 training examples, prefix tuning outperforms fine-tuning on average, by about 2.9 BLEU on table-to-text, and the gap shrinks as data grows. It also generalises better than fine-tuning to unseen WebNLG categories and to held-out XSUM splits.
-
+With 50 to 500 training examples, prefix tuning outperforms fine-tuning on average, by about 2.9 BLEU on table-to-text, and the gap shrinks as data grows.
 ## Limitations
 
 - **Narrow task set.** The main tasks are table-to-text and summarisation, so the paper does not show the method's behaviour on other tasks.
@@ -48,7 +47,7 @@ With 50 to 500 training examples, prefix tuning outperforms fine-tuning on avera
 
 ## Open questions
 
-- **Why the prefix generalises.** The paper reports better extrapolation to unseen topics. What causes it is an open question for further study.
+- **Why the prefix generalises.** The paper reports a gain over fine-tuning with few examples. What causes it is an open question for further study.
 - **Versus adapters.** How prefix tuning compares with adapters across model sizes and tasks depends on the setting, and the two are hard to compare on equal footing.
 
 ## Connections

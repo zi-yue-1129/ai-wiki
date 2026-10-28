@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - engineering/hardware
@@ -46,7 +46,7 @@ The first method asks whether the pattern costs accuracy if it is present from t
 ## Trade-offs
 
 - **Speed versus flexibility.** The 2:4 pattern gives a fixed 50% sparsity with hardware support, but it is less flexible than unstructured sparsity at high sparsity levels.
-- **Accuracy.** Fine-grained patterns keep more accuracy than channel pruning at the same speed on supporting hardware.
+- **Accuracy.** Zhou et al. argue that coarse-grained sparsity cannot give both GPU speed-ups and good accuracy, while N:M fine-grained patterns can.
 - **Hardware lock-in.** The pattern is only fast where it is supported, so the choice follows the [accelerator](../../../../engineering/hardware/index.md) available.
 
 ## More variants and open issues
@@ -63,7 +63,7 @@ N:M sparsity is the clearest example of a compression method shaped by hardware 
 
 ### Seminal papers
 
-- Zhou, A., et al. (2021). *Learning N:M Fine-grained Structured Sparse Neural Networks From Scratch*. arXiv:2102.04010. https://arxiv.org/abs/2102.04010 — Trains networks with the 2:4 pattern from scratch, reporting a 2 times speed-up on A100 GPUs without accuracy loss.
+- Zhou, A., et al. (2021). *Learning N:M Fine-grained Structured Sparse Neural Networks From Scratch*. arXiv:2102.04010. https://arxiv.org/abs/2102.04010 — Trains N:M fine-grained sparse networks from scratch with a sparse-refined straight-through estimator (SR-STE), and measures how the sparse topology changes during training.
 - Mishra, A., et al. (2021). *Accelerating Sparse Deep Neural Networks*. arXiv:2104.08378. https://arxiv.org/abs/2104.08378 — Describes the 2:4 pattern that sparse tensor cores execute, with twice the math throughput.
 - Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — Unstructured pruning, the pattern that N:M sparsity trades off against.
 

@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/unsupervised/dimensionality-reduction
@@ -68,7 +68,7 @@ The paper's optimisation settings for its visualisations are: the \(p_{ij}\) are
 - **Problem:** existing embedding methods, including SNE, had trouble with optimisation and with crowding, so the map often showed overlapping clusters.
 - **Core idea:** keep Gaussian affinities in the original space, use a Student-t kernel with one degree of freedom in the map, and minimise the KL divergence between the two.
 - **Equation or algorithm:** the affinity, perplexity, KL and gradient equations above, and the optimisation schedule.
-- **Results:** in the paper's random-walk variant, the affinities are computed from all 60,000 MNIST digits and the map is built from 6,000 of them. Under 10-fold cross-validation, the 1-nearest-neighbour error is 5.75% on the original 784-dimensional data and 5.13% on the two-dimensional map.
+- **Results:** on MNIST, under 10-fold cross-validation, the 1-nearest-neighbour error is 5.75% on the original 784-dimensional data. The two-dimensional map from the paper's random-walk variant, built from 6,000 digits with affinities computed over all 60,000, reaches 5.13%.
 - **Limitations:** the paper states that the cost function is not convex, so runs can end in different local minima. The paper describes t-SNE as non-parametric and lists a parametric version as future work, which would allow generalisation to held-out data.
 
 ## Connections
@@ -96,5 +96,5 @@ The paper's optimisation settings for its visualisations are: the \(p_{ij}\) are
 
 ### Applications
 
-- Kobak, D. & Berens, P. (2019). The art of using t-SNE for single-cell transcriptomics. *Nature Communications*. https://pmc.ncbi.nlm.nih.gov/articles/PMC6882829 — Practical guidance on using t-SNE for single-cell transcriptomic data.
-- Becht, E. et al. (2019). Dimensionality reduction for visualizing single-cell data using UMAP. *Nature Biotechnology*. https://link.springer.com/article/10.1038/nbt.4314 — Applies UMAP to visualising single-cell data.
+- Kobak, D. & Berens, P. (2019). The art of using t-SNE for single-cell transcriptomics. *Nature Communications*, 10, 5416. https://doi.org/10.1038/s41467-019-13056-x — Practical guidance on using t-SNE for single-cell transcriptomic data.
+- Becht, E. et al. (2019). Dimensionality reduction for visualizing single-cell data using UMAP. *Nature Biotechnology*, 37, 38–44. https://doi.org/10.1038/nbt.4314 — Applies UMAP to visualising single-cell data.

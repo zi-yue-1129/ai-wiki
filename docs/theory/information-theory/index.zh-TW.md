@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-27
+translation_reviewed: 2026-10-28
 ---
 
 # 資訊理論
@@ -74,21 +74,17 @@ H(p,q) = H(p) + D_{\mathrm{KL}}(p\,\|\,q)
 - Barlow, H. B. (1961). Possible principles underlying the transformations of sensory messages. In *Sensory Communication*, pp. 217–234. https://doi.org/10.7551/mitpress/9780262518420.003.0013 — 提出感覺處理會減少冗餘，是效率編碼假說的起源。
 - Tishby, N., Pereira, F. C. & Bialek, W. (2000). The information bottleneck method. arXiv:physics/0004057. https://arxiv.org/abs/physics/0004057 — 定義相關資訊，並推導壓縮輸入與預測目標之間的權衡。
 - Alemi, A. A., Fischer, I., Dillon, J. V. & Murphy, K. (2016). Deep variational information bottleneck. arXiv:1612.00410. https://arxiv.org/abs/1612.00410 — 使資訊瓶頸能以神經網路訓練，並回報相較某些標準正則化方法有更好的泛化與對抗性強健性。
-- Saxe, A. M., Bansal, Y., Dapello, J., Advani, M., Kolchinsky, A., Tracey, B. D. & Cox, D. (2019). On the information bottleneck theory of deep learning. *Journal of Statistical Mechanics*. https://doi.org/10.1088/1742-5468/ab3985 — 主張關於深度網路壓縮的核心論點在一般情況下並不成立，觀察到的壓縮主要取決於非線性函數。
+- Saxe, A. M., Bansal, Y., Dapello, J., Advani, M., Kolchinsky, A., Tracey, B. D. & Cox, D. (2019). On the information bottleneck theory of deep learning. *Journal of Statistical Mechanics: Theory and Experiment*. https://doi.org/10.1088/1742-5468/ab3985 — 主張關於深度網路壓縮的核心論點在一般情況下並不成立，觀察到的壓縮主要取決於非線性函數。
 
 ### 教科書與綜述
 
 - MacKay, D. J. C. (2003). *Information Theory, Inference, and Learning Algorithms*. Cambridge University Press. https://www.cambridge.org/0521642981 — 將資訊理論與貝氏推論及學習演算法一併討論的教科書。
 - Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*. MIT Press. https://www.deeplearningbook.org/ — 第 3 章〈Probability and Information Theory〉以深度學習的角度介紹熵、KL 散度與交叉熵。全文可於線上免費閱讀。
 
-### 講座與影片
+### 講座
 
-- Polyanskiy, Y.（授課教師）。*6.441 Information Theory*. MIT OpenCourseWare, Spring 2016. https://ocw.mit.edu/courses/6-441-information-theory-spring-2016/ — 從基礎出發的研究所課程。課程頁面提供講義與習題，但未列出影片講座。
-
-### 文章與文件
-
-- Shannon, C. E. (1948). A Mathematical Theory of Communication. *Bell System Technical Journal*, 27(3), 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x — 定義通訊中的熵與互資訊，是本頁各種資訊量度量的基礎。
+- Polyanskiy, Y.（授課教師）。*6.441 Information Theory*. MIT OpenCourseWare, Spring 2016. https://ocw.mit.edu/courses/6-441-information-theory-spring-2016/ — 從基礎出發的研究所課程。課程頁面列出講義與習題。
 
 ## 延伸學習
 
-- *Visual Information Theory*. colah's blog (2015). https://colah.github.io/posts/2015-09-Visual-Information/ — 以圖解方式介紹熵、交叉熵、KL 散度與互資訊。
+- Olah, C. *Visual Information Theory*. colah's blog (2015). https://colah.github.io/posts/2015-09-Visual-Information/ — 以圖解方式介紹熵、交叉熵、KL 散度與互資訊。

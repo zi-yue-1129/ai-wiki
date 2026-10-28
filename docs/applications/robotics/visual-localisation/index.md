@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - applications/robotics
@@ -31,16 +31,16 @@ Each method has its own page. The overview and comparison here are brief.
 
 | Method | Encoder | Training | What it changes |
 |---|---|---|---|
-| [AnyLoc](anyloc.md) (Keetha et al., 2023) | Frozen DINOv2 features, aggregated without training | None for the encoder | Shows that a general foundation model can match or beat task-trained place recognition encoders |
-| [EigenPlaces](eigenplaces.md) (Berton et al., 2023) | Convolutional network | Trained on multiple views of each place | Makes viewpoint robustness a training target, not an accident of the data |
+| [AnyLoc](anyloc.md) (Keetha et al., 2023) | Frozen DINOv2 features, aggregated without training | None for the encoder | Shows that a general foundation model can outperform task-trained place recognition encoders on several benchmarks |
+| [EigenPlaces](eigenplaces.md) (Berton et al., 2023) | Convolutional network | Trained on multiple views of each place, grouped by scene geometry | Makes viewpoint robustness a training target, not an accident of the data |
 
 ## Evaluation under change
 
-Zaffar et al. (2021) build a benchmark that separates viewpoint change from appearance change by controlled amounts. Their results show that heading and three-dimensional offsets hurt matching more than a lateral shift, and that directional lighting hurts more than uniform brightness. The benchmark is useful because a single score on a mixed dataset hides which kind of change is failing.
+Zaffar et al. (2021) build VPR-Bench, a framework with a dataset whose viewpoint and illumination changes are quantified, and evaluate ten place recognition techniques on twelve datasets. Their main findings are that all techniques suffer from viewpoint variance, and that lateral change has less effect than three-dimensional change. Directional illumination change also has more adverse effects on matching confidence than uniform illumination change. The benchmark is useful because a single score on a mixed dataset hides which kind of change is causing failure.
 
 ## Pretrained representations in robotics
 
-The same question appears in robotic manipulation and navigation. Burns et al. (2023) find that pretrained visual representations differ in robustness to lighting and texture changes, and that the choice of augmentations matters more than the choice of supervision. Silwal et al. (2024) report that pretrained encoders keep their performance on a real robot, while an encoder trained from scratch does not. These results support using frozen foundation features as the starting point for place recognition on robots, provided their robustness is measured on the target platform.
+The same question appears in robotic manipulation and navigation. Burns et al. (2023) compare fifteen pretrained vision models under changes of lighting and scene texture. They find that the choice of augmentations outweighs the importance of the supervision signal, and that emergent segmentation ability is the strongest predictor of out-of-distribution success among vision transformers. Silwal et al. (2024) evaluate five pretrained visual representations in simulation and on real robots. Their simulation trends largely match the real-world trends, and a randomly initialised ViT-Base baseline, fine-tuned with the same augmentations, does poorly on real-robot image navigation, at 10% success against 90% for VC-1 Large. These results support using frozen foundation features as the starting point for place recognition on robots, provided their robustness is measured on the target platform.
 
 ## Connections
 
@@ -55,8 +55,8 @@ The same question appears in robotic manipulation and navigation. Burns et al. (
 
 ## References
 
-- Zaffar, M., Garg, S., Milford, M., et al. (2021). *VPR-Bench: An open-source visual place recognition evaluation framework with quantifiable viewpoint and appearance change*. International Journal of Computer Vision, 129(7), 2136–2174. arXiv:2005.08135. https://arxiv.org/abs/2005.08135 — a benchmark that separates viewpoint and appearance change.
-- Keetha, N., Mishra, A., Karhade, J., et al. (2023). *AnyLoc: Towards Universal Visual Place Recognition*. arXiv:2308.00688. https://arxiv.org/abs/2308.00688 — frozen foundation features for place recognition across domains.
-- Berton, G., Trivigno, G., Caputo, B., & Masone, C. (2023). *EigenPlaces: Training Viewpoint Robust Models for Visual Place Recognition*. ICCV 2023. arXiv:2308.10832. https://arxiv.org/abs/2308.10832 — trains place recognition on multiple views of each place for viewpoint robustness.
-- Burns, K., Witzel, Z., Hamid, J. I., et al. (2023). *What makes pre-trained visual representations successful for robust manipulation?* arXiv:2312.12444. https://arxiv.org/abs/2312.12444 — pretrained representation robustness under visual shifts.
-- Silwal, S., Yadav, K., Wu, T., et al. (2024). *What do we learn from a large-scale study of pre-trained visual representations in sim and real environments?* ICRA 2024. arXiv:2310.02219. https://arxiv.org/abs/2310.02219 — sim-to-real transfer of pretrained encoders on a robot.
+- Zaffar, M., Garg, S., Milford, M., et al. (2021). *VPR-Bench: An open-source visual place recognition evaluation framework with quantifiable viewpoint and appearance change*. International Journal of Computer Vision (2021). https://doi.org/10.1007/s11263-021-01469-5 — A benchmark that separates viewpoint and appearance change and quantifies each.
+- Keetha, N., Mishra, A., Karhade, J., et al. (2023). *AnyLoc: Towards Universal Visual Place Recognition*. arXiv:2308.00688. https://arxiv.org/abs/2308.00688 — Frozen foundation features for place recognition across domains.
+- Berton, G., Trivigno, G., Caputo, B., & Masone, C. (2023). *EigenPlaces: Training Viewpoint Robust Models for Visual Place Recognition*. ICCV 2023. https://openaccess.thecvf.com/content/ICCV2023/papers/Berton_EigenPlaces_Training_Viewpoint_Robust_Models_for_Visual_Place_Recognition_ICCV_2023_paper.pdf — Trains place recognition on geometry-grouped multiple views of each place for viewpoint robustness.
+- Burns, K., Witzel, Z., Hamid, J. I., et al. (2023). *What makes pre-trained visual representations successful for robust manipulation?* arXiv:2312.12444. https://arxiv.org/abs/2312.12444 — Compares fifteen pretrained models under visual shifts and finds that augmentations matter more than supervision.
+- Silwal, S., Yadav, K., Wu, T., et al. (2024). *What do we learn from a large-scale study of pre-trained visual representations in sim and real environments?* arXiv:2310.02219. https://arxiv.org/abs/2310.02219 — Studies pretrained visual representations across simulation and real robots, with a from-scratch baseline.

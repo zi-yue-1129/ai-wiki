@@ -95,6 +95,7 @@ Schultz、Dayan 與 Montague（1997）發現：中腦多巴胺神經元的放電
 - **概況：** 以學習得到的網路進行搜尋。AlphaGo 結合策略網路與價值網路及蒙地卡羅樹搜尋，並以人類棋譜起步。AlphaZero 僅靠自我對弈學習，只依各遊戲的規則。
 - **比較：** 以搜尋為基礎的對弈路線。兩者都列於圍棋與棋類遊戲的里程碑中，而 [MuZero](model-based-rl/muzero/index.md) 把同一套搜尋延伸到規則不交給規劃器的遊戲。
 - **完整內容：** [AlphaGo](alphago/index.md)、[AlphaZero](alphazero/index.md)
+- **搜尋方法：** [蒙地卡羅樹搜尋與自我對弈](mcts-and-self-play/index.md)，這些系統共用的 UCT 選擇規則與自我對弈循環。
 
 ## 里程碑
 

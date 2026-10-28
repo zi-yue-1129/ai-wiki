@@ -62,10 +62,10 @@ TRPO 最佳化期望回報的局部代理目標，該目標使用舊的狀態訪
 
 ### 開創性論文
 
-- Schulman, Levine, Moritz, Jordan & Abbeel (2015), "Trust region policy optimization", *Proceedings of the 31st International Conference on Machine Learning (ICML)*, arXiv:1502.05477 — The TRPO paper, with the surrogate, the KL constraint and the MuJoCo and Atari results above.
-- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — The simpler clipped method that replaces the constraint.
-- Schulman et al. (2016), "High-dimensional continuous control using generalized advantage estimation", arXiv:1506.02438 — Advantage estimation for the policy-gradient updates that trust-region methods rely on.
-- Engstrom et al. (2020), "Implementation matters in deep policy gradients: a case study on PPO and TRPO", arXiv:2005.12729 — Shows that code-level details account for much of the gap between PPO and TRPO.
+- Schulman, Levine, Moritz, Jordan & Abbeel (2015), "Trust region policy optimization", *Proceedings of the 31st International Conference on Machine Learning (ICML)*, [arXiv:1502.05477](https://arxiv.org/abs/1502.05477) — The TRPO paper, with the surrogate, the KL constraint and the MuJoCo and Atari results above.
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The simpler clipped method that replaces the constraint.
+- Schulman et al. (2016), "High-dimensional continuous control using generalized advantage estimation", [arXiv:1506.02438](https://arxiv.org/abs/1506.02438) — Advantage estimation for the policy-gradient updates that trust-region methods rely on.
+- Engstrom et al. (2020), "Implementation matters in deep policy gradients: a case study on PPO and TRPO", [arXiv:2005.12729](https://arxiv.org/abs/2005.12729) — Shows that code-level details account for much of the gap between PPO and TRPO.
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The deep value-based baseline on the Atari suite.
 
 ### 綜述與教科書

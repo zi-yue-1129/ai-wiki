@@ -37,7 +37,7 @@ Kennedy 與 Eberhart（1995）將每個粒子視為具有位置 \(x_i\) 與速�
 v_i \leftarrow \omega\, v_i + c_1 r_1 (p_i - x_i) + c_2 r_2 (g - x_i), \qquad x_i \leftarrow x_i + v_i,
 \]
 
-其中 \(\omega\) 是慣性權重，\(c_1\) 與 \(c_2\) 分別權衡朝個體最佳與鄰域最佳移動的拉力。每次移動後，若新位置更好，就更新 \(p_i\) 與 \(g\)。此方法一般不保證收斂；實務上，群體會停留在搜尋到的最佳區域附近。
+其中 \(\omega\) 是慣性權重，\(c_1\) 與 \(c_2\) 分別權衡朝個體最佳與鄰域最佳移動的拉力。每次移動後，若新位置更好，就更新 \(p_i\) 與 \(g\)。此方法一般不保證收斂；實務上，群體會停留在搜尋到的最佳區域附近。慣性項由 Shi 與 Eberhart（1998）後來加入；1995 年的原始形式沒有這一項。
 
 ## 關鍵結果
 
@@ -69,23 +69,12 @@ v_i \leftarrow \omega\, v_i + c_1 r_1 (p_i - x_i) + c_2 r_2 (g - x_i), \qquad x_
 
 ### 開創性論文
 
-- Kennedy, J. & Eberhart, R. (1995). *Particle swarm optimization*. Proceedings of IEEE International Conference on Neural Networks. https://doi.org/10.1109/ICNN.1995.488968 — 提出 PSO，每個粒子朝向自身最佳位置與群體最佳位置移動。
-- Eberhart, R. C. & Shi, Y. (2001). *Particle swarm optimization: developments, applications and resources*. Proceedings of the IEEE Congress on Evolutionary Computation. https://dblp.dagstuhl.de/rec/conf/cec/EberhartS01.html — 回顧 PSO 的早期發展與應用。
-- Clerc, M. & Kennedy, J. (2002). *The particle swarm: explosion, stability, and convergence in a multidimensional complex space*. IEEE Transactions on Evolutionary Computation. https://particleswarm.info/IEEE_TEC_2002_MC_JK.htm — 分析粒子動態，並為速度更新引入收縮係數。
+- Kennedy, J. & Eberhart, R. (1995). *Particle swarm optimization*. Proceedings of ICNN'95 - International Conference on Neural Networks, 4, 1942–1948. https://doi.org/10.1109/ICNN.1995.488968 — 提出 PSO，每個粒子朝向自身最佳位置與群體最佳位置移動。
+- Eberhart, R. C. & Shi, Y. (2001). *Particle swarm optimization: developments, applications and resources*. Proceedings of the IEEE Congress on Evolutionary Computation. https://doi.org/10.1109/cec.2001.934374 — 回顧 PSO 的早期發展與應用。
+- Shi, Y. & Eberhart, R. (1998). *A modified particle swarm optimizer*. Proceedings of the 1998 IEEE International Conference on Evolutionary Computation, 69–73. https://doi.org/10.1109/ICEC.1998.699146 — 在速度更新中加入慣性權重，即上方方程式所用的形式。
+- Clerc, M. & Kennedy, J. (2002). *The particle swarm: explosion, stability, and convergence in a multidimensional complex space*. IEEE Transactions on Evolutionary Computation, 6, 58–73. https://doi.org/10.1109/4235.985692 — 分析粒子動態，並為速度更新引入收縮係數。
 - Poli, R. (2008). *Analysis of the publications on the applications of particle swarm optimisation*. Journal of Artificial Evolution and Applications. https://doi.org/10.1155/2008/685175 — 綜述已發表的 PSO 應用。
-- Bonyadi, M. R. & Michalewicz, Z. (2017). *Particle swarm optimization for single objective continuous space problems: a review*. Evolutionary Computation. https://digital.library.adelaide.edu.au/items/c223764a-761b-4ea0-a463-da7cf8a36176 — 綜述針對單目標連續問題的 PSO 變體。
-
-### 綜述與教科書
-
-（本頁尚未查核任何項目）
-
-### 講座與影片
-
-（本頁尚未查核任何項目）
-
-### 文章與文件
-
-（本頁尚未查核任何項目）
+- Bonyadi, M. R. & Michalewicz, Z. (2017). *Particle swarm optimization for single objective continuous space problems: a review*. Evolutionary Computation, 25, 1–54. https://doi.org/10.1162/evco_r_00180 — 綜述針對單目標連續問題的 PSO 變體。
 
 ## 延伸學習
 

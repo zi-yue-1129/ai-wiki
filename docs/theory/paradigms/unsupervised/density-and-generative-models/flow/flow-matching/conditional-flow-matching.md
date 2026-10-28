@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching
@@ -70,9 +70,9 @@ The paper's Theorem 2 states that \(\mathcal L_{\text{FM}}\) and \(\mathcal L_{\
 - Lipman, Y., Chen, R. T. Q., Ben-Hamu, H., Nickel, M. & Le, M. (2023). *Flow Matching for Generative Modeling*. ICLR. https://arxiv.org/abs/2210.02747 — Introduces conditional flow matching and the optimal-transport conditional path used in this page.
 - Chen, R. T. Q., Rubanova, Y., Bettencourt, J. & Duvenaud, D. (2018). *Neural Ordinary Differential Equations*. arXiv. https://arxiv.org/abs/1806.07366 — Introduces continuous-depth models whose training requires ODE solves, which flow matching avoids.
 - Liu, X., Gong, C. & Liu, Q. (2022). *Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow*. arXiv. https://arxiv.org/abs/2209.03003 — Regresses onto the same straight-line direction and adds reflow.
-- Albergo, M. S. & Vanden-Eijnden, E. (2023). *Building Normalizing Flows with Stochastic Interpolants*. ICLR. https://arxiv.org/abs/2209.15571 — Gives a general interpolant framework with a regression objective for the velocity.
+- Albergo, M. S. & Vanden-Eijnden, E. (2022). *Building Normalizing Flows with Stochastic Interpolants*. arXiv. https://arxiv.org/abs/2209.15571 — Gives a general interpolant framework with a regression objective for the velocity.
 - Ho, J., Jain, A. & Abbeel, P. (2020). *Denoising Diffusion Probabilistic Models*. NeurIPS. https://arxiv.org/abs/2006.11239 — The diffusion models whose paths are a special case of the conditional path family.
 
 ### Surveys and textbooks
 
-- Papamakarios, G., et al. (2019/2021). *Normalizing Flows for Probabilistic Modeling and Inference*. arXiv. https://arxiv.org/abs/1912.02762 — Background on continuous and discrete flows and their likelihoods.
+- Papamakarios, G., et al. (2019). *Normalizing Flows for Probabilistic Modeling and Inference*. arXiv. https://arxiv.org/abs/1912.02762 — Background on continuous and discrete flows and their likelihoods.

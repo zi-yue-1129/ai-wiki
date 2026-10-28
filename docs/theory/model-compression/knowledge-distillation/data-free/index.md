@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -18,7 +18,7 @@ Data-free distillation compresses a teacher without access to its training data.
 
 ## Overview
 
-The standard distillation recipe assumes that the student can be trained on real inputs. In many practical cases this is not so: a model may be released without its training set, or the data may be protected. Data-free methods synthesise inputs that the teacher finds representative, usually by optimising random noise so that the teacher's internal statistics match what it would have seen on real data. The student is then distilled on these synthetic samples in the usual way.
+The standard distillation recipe assumes that the student can be trained on real inputs. In many practical cases this is not so: a model may be released without its training set, or the data may be protected. Data-free methods synthesise inputs that the teacher finds representative, usually by optimising random noise so that the teacher's internal statistics match what it would have seen on real data. The student is then distilled on these synthetic samples in the usual way. Other approaches avoid synthesis altogether and instead ask the model's publisher to release a small amount of metadata alongside the trained weights, as Lopes et al. (2017) proposed.
 
 ## Key concepts
 
@@ -27,14 +27,14 @@ The standard distillation recipe assumes that the student can be trained on real
 - **Surrogate data.** Samples that approximate the training data for the purpose of distillation, without reproducing any real example.
 - **Coverage.** Whether the synthetic samples span the regions of input space where the student must perform well.
 
-## Comparison of methods
+## Key methods
 
-| Method | How the inputs are obtained | Domain | Page |
-| --- | --- | --- | --- |
-| Zero-shot KD | Optimised from noise to make the teacher confident and diverse | Image classification | [Zero-shot KD](zero-shot-kd/index.md) |
-| Sequence-level KD | Teacher beam-search outputs for the source sentences, which are still real | Translation | [Sequence-level KD](../llm-distillation/sequence-level/index.md) |
+The two methods below share the goal of distilling without training data, but they obtain their substitute inputs differently.
 
-Zero-shot KD is fully data-free, since it uses no real inputs at all. Sequence-level distillation is only partly data-free, because it still needs source sentences, and it is listed here because it removes the need for the target side of the dataset.
+- [Zero-shot knowledge distillation (Nayak et al., 2019)](zero-shot-kd/index.md): synthesises "data impressions" from the teacher, with no data or metadata from the original training set.
+- [Sequence-level knowledge distillation (Kim & Rush, 2016)](../llm-distillation/sequence-level/index.md): uses the teacher's own outputs on source sentences. It is only partly data-free, because the source side of the dataset is still real, and it is listed here because it removes the need for the target side.
+
+Zero-shot distillation uses no real inputs at all. Sequence-level distillation keeps the real inputs but replaces the reference targets with the teacher's outputs.
 
 ## Trade-offs
 
@@ -50,19 +50,20 @@ Zero-shot KD is fully data-free, since it uses no real inputs at all. Sequence-l
 
 ## Connections
 
-Data-free distillation touches privacy, which is discussed in the [ethics](../../../../society/ethics/index.md) and [governance](../../../../society/governance/index.md) pages, and the training pipelines in [training and fine-tuning](../../../../engineering/training/index.md). Synthesising inputs from a trained network resembles the way the brain replays patterns during rest, a parallel discussed in [memory and learning](../../../../brain-mind/memory-learning/index.md).
+Data-free distillation touches privacy, which is discussed in the [ethics](../../../../society/ethics/index.md) and [governance](../../../../society/governance/index.md) pages, and the training pipelines in [training and fine-tuning](../../../../engineering/training/index.md). Synthesising inputs from a trained network loosely resembles the way the brain replays patterns during rest, a parallel discussed in [memory and learning](../../../../brain-mind/memory-learning/index.md).
 
 ## References
 
 ### Seminal papers
 
-- Nayak, G. K., Mopuri, K. R., Shaj, V., Babu, R. V., Chakraborty, A. (2019). *Zero-Shot Knowledge Distillation in Deep Networks*. arXiv:1905.08114. https://arxiv.org/abs/1905.08114 — Distils a network from synthetic samples, reaching performance competitive with real training data.
-- Kim, Y., Rush, A. M. (2016). *Sequence-Level Knowledge Distillation*. arXiv:1606.07947. https://arxiv.org/abs/1606.07947 — Trains on the teacher's own outputs, giving a student about 10 times faster than its teacher.
-- Hinton, G., Vinyals, O., Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — The standard distillation objective, which assumes a training set that data-free methods replace.
+- Nayak, G. K., Mopuri, K. R., Shaj, V., Babu, R. V. & Chakraborty, A. (2019). *Zero-Shot Knowledge Distillation in Deep Networks*. arXiv:1905.08114. https://arxiv.org/abs/1905.08114 — Synthesises "data impressions" from the teacher and trains the student on them; the abstract reports generalisation competitive with distillation on the real training data across several benchmarks.
+- Lopes, R. G., Fenu, S. & Starner, T. (2017). *Data-Free Knowledge Distillation for Deep Neural Networks*. arXiv:1710.07535. https://arxiv.org/abs/1710.07535 — Replaces the training set with small metadata released with a pretrained model, and examines the trade-offs of different metadata choices.
+- Kim, Y. & Rush, A. M. (2016). *Sequence-Level Knowledge Distillation*. arXiv:1606.07947. https://arxiv.org/abs/1606.07947 — Trains on the teacher's own sequence outputs; the abstract reports a student about 10 times faster than its teacher with little loss in quality.
+- Hinton, G., Vinyals, O. & Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — The standard distillation objective, which assumes a training set that data-free methods replace.
 
 ### Surveys and textbooks
 
-- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — Surveys distillation settings, including those without data.
+- Gou, J., Yu, B., Maybank, S. J. & Tao, D. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision, 129(6). https://doi.org/10.1007/s11263-021-01453-z — Surveys distillation settings, including those without data.
 
 ### Lectures and videos
 
@@ -70,4 +71,4 @@ Data-free distillation touches privacy, which is discussed in the [ethics](../..
 
 ### Articles and documentation
 
-- Sanh, V., et al. (2019). *DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter*. arXiv:1910.01108. https://arxiv.org/abs/1910.01108 — Distils BERT from teacher outputs and hidden states, the standard reference for language-model distillation.
+- Sanh, V., Debut, L., Chaumond, J. & Wolf, T. (2019). *DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter*. arXiv:1910.01108. https://arxiv.org/abs/1910.01108 — Distils BERT into a model about 40% smaller that keeps 97% of its language understanding, a standard reference for language-model distillation.

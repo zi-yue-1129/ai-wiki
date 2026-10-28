@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -30,7 +30,7 @@ A uniform scheme uses the same width everywhere, which wastes bits on insensitiv
 
 | Approach | Unit of allocation | Sensitivity measure | Page |
 | --- | --- | --- | --- |
-| Hessian-based layer allocation | Whole layers | Top Hessian eigenvalue per layer | [HAWQ](hawq/index.md) |
+| Hessian-based layer allocation | Whole layers | Top eigenvalue (HAWQ) or trace (HAWQ-V2) of each layer's Hessian | [HAWQ](hawq/index.md) |
 | Outlier decomposition | Dimensions within a matrix multiplication | Magnitude of activation outliers | [LLM.int8()](../post-training/llm-int8/index.md) |
 
 Layer-level allocation suits convolutional networks, where layers differ a lot in sensitivity. Outlier decomposition suits large transformers, where a few dimensions dominate the error.
@@ -55,7 +55,9 @@ Mixed precision is a direct response to the outlier problem discussed in the par
 
 ### Seminal papers
 
-- Dong, Z., Yao, Z., Gholami, A., Mahoney, M., Keutzer, K. (2019). *HAWQ: Hessian AWare Quantization of Neural Networks with Mixed-Precision*. arXiv:1905.03696. https://arxiv.org/abs/1905.03696 — Assigns per-layer bit-widths from each layer's Hessian spectrum.
+- Dong, Z., Yao, Z., Gholami, A., Mahoney, M., Keutzer, K. (2019). *HAWQ: Hessian AWare Quantization of Neural Networks with Mixed-Precision*. arXiv:1905.03696. https://arxiv.org/abs/1905.03696 — Assigns per-layer bit-widths using the top Hessian eigenvalue as the sensitivity measure, instead of an exhaustive search.
+- Dong, Z., et al. (2020). *HAWQ-V2: Hessian Aware trace-Weighted Quantization of Neural Networks*. arXiv:1911.03852. https://arxiv.org/abs/1911.03852 — Replaces the top-eigenvalue measure with a trace-weighted one that uses more of the Hessian spectrum.
+- Wang, K., et al. (2019). *HAQ: Hardware-Aware Automated Quantization with Mixed Precision*. arXiv:1811.08886. https://arxiv.org/abs/1811.08886 — Searches per-layer bit-widths with hardware-aware feedback instead of a fixed sensitivity rule.
 - Frantar, E., et al. (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. arXiv:2210.17323. https://arxiv.org/abs/2210.17323 — Second-order rounding compensation at 3 and 4 bits, the uniform-precision baseline for LLMs.
 
 ### Surveys and textbooks
