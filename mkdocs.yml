@@ -345,6 +345,13 @@ plugins:
             Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
             False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
             Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            Navigation with Visual Goals: 以視覺目標導航
+            Visual Teach-and-Repeat: 視覺教學與重播
+            SPTM: SPTM
+            ViNG: ViNG
+            GNM: GNM
+            ViNT: ViNT
+            NoMaD: NoMaD
             AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             RFdiffusion: RFdiffusion（蛋白質骨架設計）
             ESM-2 and ESMFold: ESM-2 與 ESMFold
@@ -1244,6 +1251,14 @@ nav:
       - Robotics:
           - applications/robotics/index.md
           - Hand-Eye Coordination for Grasping: applications/robotics/hand-eye-grasping/index.md
+          - Navigation with Visual Goals:
+              - applications/robotics/navigation/index.md
+              - Visual Teach-and-Repeat: applications/robotics/navigation/visual-teach-and-repeat.md
+              - SPTM: applications/robotics/navigation/sptm.md
+              - ViNG: applications/robotics/navigation/ving.md
+              - GNM: applications/robotics/navigation/gnm.md
+              - ViNT: applications/robotics/navigation/vint.md
+              - NoMaD: applications/robotics/navigation/nomad.md
       - Autonomous Driving & Transport:
           - applications/autonomous-driving/index.md
           - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md
