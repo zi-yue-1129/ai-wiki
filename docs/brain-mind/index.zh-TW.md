@@ -44,6 +44,7 @@ flowchart TB
 | [發展認知與兒童如何學習](developmental-cognition/index.md) | 嬰兒期的核心知識、注視時間方法、統計學習、Goldilocks 效應 |
 | [動物認知與比較智力](animal-cognition/index.md) | 鏡像自我辨認、烏鴉的工具使用、猿類的錯誤信念測試、趨同演化的智力 |
 | [運動控制與小腦](motor-control/index.md) | 內部模型與前向預測、小腦監督學習、最優回饋控制、運動皮質群體動態 |
+| [睡眠、重播與記憶鞏固](sleep-and-consolidation/index.md) | 睡眠階段與學習、海馬迴重播與尖波漣波、系統鞏固、目標式記憶再活化、強化學習中的經驗回放 |
 
 ## 雙向關係一覽
 

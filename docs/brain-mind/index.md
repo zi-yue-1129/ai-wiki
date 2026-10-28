@@ -44,6 +44,7 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Developmental Cognition & How Children Learn](developmental-cognition/index.md) | Core knowledge in infancy, looking-time methods, statistical learning, the Goldilocks effect |
 | [Animal Cognition & Comparative Intelligence](animal-cognition/index.md) | Mirror self-recognition, tool use in crows, false-belief tests in apes, convergent intelligence |
 | [Motor Control & the Cerebellum](motor-control/index.md) | Internal models and forward prediction, cerebellar supervised learning, optimal feedback control, motor cortex population dynamics |
+| [Sleep, Replay & Memory Consolidation](sleep-and-consolidation/index.md) | Sleep stages and learning, hippocampal replay and sharp-wave ripples, systems consolidation, targeted memory reactivation, experience replay in RL |
 
 ## Two-way influence at a glance
 
