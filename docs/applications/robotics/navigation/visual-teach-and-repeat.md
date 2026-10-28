@@ -60,7 +60,7 @@ Furgale and Barfoot report long-range field trials on a rover, with autonomous r
 
 ## References
 
-- Furgale, P., & Barfoot, T. D. (2010). *Visual teach and repeat for long-range rover autonomy*. Journal of Field Robotics, 27(5), 534–560. https://doi.org/10.1002/rob.20342 — the canonical topometric teach-and-repeat system.
+- Furgale, P., & Barfoot, T. D. (2010). *Visual teach and repeat for long-range rover autonomy*. Journal of Field Robotics, 27(5), 534–560. https://doi.org/10.1002/rob.20342 — the canonical topometric teach-and-repeat system, built on odometry and submaps.
 - Krajník, T., Faigl, J., Vonásek, V., Košnar, K., Kulich, M., & Přeučil, L. (2010). *Simple yet stable bearing-only navigation*. Journal of Field Robotics, 27(5), 511–533. https://doi.org/10.1002/rob.20354 — bearing-only map-and-replay with odometric segment ends.
 - Krajník, T., Majer, F., Halodová, L., & Vintr, T. (2018). *Navigation without localisation: Reliable teach and repeat based on the convergence theorem*. IROS 2018. arXiv:1711.05348. https://arxiv.org/abs/1711.05348 — replays a taught motion profile and corrects it with vision.
 - Dall'Osto, D., Fischer, T., & Milford, M. (2021). *Fast and robust bio-inspired teach and repeat navigation*. IROS 2021. arXiv:2010.11326. https://arxiv.org/abs/2010.11326 — odometry-driven teach-and-repeat with separate orientation and along-path corrections.
