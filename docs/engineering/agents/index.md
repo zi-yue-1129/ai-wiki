@@ -73,6 +73,7 @@ Five sub-chapters cover the parts of this topic in more depth: tool calling and 
 - [Sandboxing and Computer-Use Agents](sandboxing-and-computer-use/index.md): code execution sandboxes, browser and GUI agents, screenshot-based computer use, permission models and isolating side effects.
 - [Multi-Agent Orchestration](multi-agent-orchestration/index.md): planner–worker, debate, role-based teams and hierarchical delegation, and when several agents beat a single one.
 - [Agent Evaluation](agent-evaluation/index.md): SWE-bench, τ-bench and WebArena, pass@k and pass^k as reliability measures, cost-adjusted reporting and the reproducibility problems of agent benchmarks.
+- [Agent Observability and Tracing](observability/index.md): tracing of model and tool calls, token and cost accounting, replaying trajectories, failure taxonomies and the LLMOps tools that support them.
 
 ## Connections
 

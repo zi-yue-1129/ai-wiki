@@ -58,6 +58,7 @@ flowchart TD
 - [沙箱與電腦操作代理人](sandboxing-and-computer-use/index.md)：程式執行沙箱、瀏覽器與 GUI 代理人、以螢幕截圖為基礎的電腦操作、權限模型，以及隔離副作用。
 - [多代理人編排](multi-agent-orchestration/index.md)：規劃者－工作者、辯論、角色式團隊與階層式委派，以及何時多個代理人勝過單一代理人。
 - [代理人評估](agent-evaluation/index.md)：SWE-bench、τ-bench 與 WebArena 等基準、作為可靠度指標的 pass@k 與 pass^k、成本調整後的回報，以及代理人基準的可重現性問題。
+- [代理人可觀測性與追蹤](observability/index.md)：模型與工具呼叫的追蹤、token 與成本核算、軌跡重播、失敗分類法，以及支援這些工作的 LLMOps 工具。
 
 ## 相關連結
 
