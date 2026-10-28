@@ -47,6 +47,8 @@ The table below gives the main criteria. Each one is a constraint on the joint d
 | Counterfactual fairness | The prediction is unchanged in a model where \(A\) is set to another value, with the causal effects of \(A\) on other variables held fixed | Remove the causal influence of \(A\) |
 | Fairness through unawareness | \(\hat{Y}\) does not use \(A\) directly | Drop the protected attribute |
 
+Each criterion in the table has a page of its own: [Demographic parity](demographic-parity.md), [Equalised odds](equalised-odds.md), [Calibration within groups](calibration-within-groups.md), [Individual fairness](individual-fairness.md) and [Counterfactual fairness](counterfactual-fairness.md). Those pages set out each definition, its assumptions and its limitations in detail; this page compares them.
+
 **Individual fairness.** Dwork et al. (2012) require that the distance between two output distributions be at most the distance between the two individuals under a similarity metric. The metric must be chosen by someone, which is the hard part.
 
 **Equalised odds and equal opportunity.** Hardt, Price and Srebro (2016) define equalised odds and its weaker form, equal opportunity, and show how to build post-processing rules that meet them, using group-specific thresholds applied to a fixed score.
@@ -107,7 +109,7 @@ On the machine-learning side, the definitions are the target of fairness toolkit
 
 ### Surveys and textbooks
 
-- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — Surveys and compares the main fairness definitions on one running example.
+- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — Surveys fairness definitions, as its title states.
 - Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — Free textbook covering these definitions, their trade-offs and their social context.
 
 ## Further learning

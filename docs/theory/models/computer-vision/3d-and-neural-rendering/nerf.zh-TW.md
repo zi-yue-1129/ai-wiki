@@ -16,43 +16,41 @@ aliases:
 
 # NeRF：神經輻射場
 
-NeRF 把場景表示為一個神經網路，它把三維位置與觀看方向映射到顏色與密度。新視角沿相機射線對這個函數積分來渲染。它是學習式視圖合成的里程碑方法，大多數後續的神經渲染工作都以它為起點。
+NeRF 把靜態場景表示為一個多層感知器，它把三維位置與觀看方向映射到顏色與體積密度。新視角沿相機射線對這個函數積分來渲染。網路擬合的是一組已知相機位姿的場景照片。
 
 ## 概觀
 
-[本章](index.zh-TW.md)描述了這個領域。本頁詳細說明一個方法：對一個固定場景的多張照片擬合一個多層感知器，使其能從新的相機位置渲染視角。
+[本章](index.zh-TW.md)描述了這個領域。本頁說明此方法。
 
 ## 問題
 
-給定一個場景的幾十張影像與已知的相機位姿，產生來自不在該集合中的視點的逼真影像。早期的視圖合成方法使用離散的體素格或網格，它們不是記憶體耗費大，就是遺失細節。
+給定一個場景的照片與已知的相機位姿，渲染出不在輸入集合中的相機位置所對應的視角。摘要把這項任務描述為複雜場景的新視角合成。
 
 ## 核心想法
 
-場景是一個連續函數 $F_\Theta(\mathbf{x}, \mathbf{d}) = (\mathbf{c}, \sigma)$。它接收位置 $\mathbf{x}$ 與觀看方向 $\mathbf{d}$，回傳發射的顏色 $\mathbf{c}$ 與體積密度 $\sigma$。網路的訓練目標是讓渲染出的像素與照片相符。有兩個細節很關鍵。輸入會先經過位置編碼，使網路能表示高頻細節。渲染在密度高的地方沿射線更密集地取樣，論文稱之為階層式取樣策略。
+場景是一個函數 $F_\Theta$，它接收位置 $\mathbf{x}$ 與觀看方向 $\mathbf{d}$，回傳顏色 $\mathbf{c}$ 與密度 $\sigma$。密度只依賴位置，$\sigma = \sigma(\mathbf{x})$；顏色則同時依賴兩者，$\mathbf{c} = \mathbf{c}(\mathbf{x}, \mathbf{d})$。有兩個細節對品質很重要。輸入會先經過位置編碼，位置使用 $L = 10$ 個頻率，方向使用 $L = 4$ 個頻率，使網路能表示高頻細節。取樣採階層式：粗網路在每條射線上取 $N_c = 64$ 個點，細網路則在粗網路密度高的地方取 $N_f = 128$ 個點。
 
 ## 方程式
 
-像素的顏色是沿相機射線 $\mathbf{r}(t) = \mathbf{o} + t\mathbf{d}$ 的積分：
+像素的顏色是沿相機射線 $\mathbf{r}(t) = \mathbf{o} + t\mathbf{d}$ 的體積渲染積分：
 
 $$C(\mathbf{r}) = \int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}(\mathbf{r}(t), \mathbf{d})\,dt, \qquad T(t) = \exp\!\left(-\int_{t_n}^{t}\sigma(\mathbf{r}(s))\,ds\right)$$
 
-這裡 $T(t)$ 是累積透射率。積分透過沿射線取樣點來近似，損失函數則是渲染像素與觀察像素顏色之間的平方誤差。
+這裡 $T(t)$ 是累積透射率。訓練損失是粗渲染與細渲染的像素顏色與觀察值之間平方誤差的總和（論文的式 6）。
 
 ## 結果
 
-摘要報告，此方法對複雜場景的新視角合成達到最佳水準。與先前方法的比較見論文的結果表，本頁不重述。
+摘要報告，此方法在複雜場景的新視角合成上達到最佳水準。論文報告，訓練需要 10 萬至 30 萬次迭代，在單張 V100 GPU 上約一至兩天一個場景，渲染一幀約需 30 秒。與先前方法的比較見論文的結果表。
 
 ## 限制
 
-- 訓練很慢，因為每個場景都需要各自最佳化，渲染時每個像素又需要許多次網路評估。
-- 此表示法是隱式的，因此編輯、重新打光與抽取幾何，比網格困難。
-- 原始方法假設場景是靜態的，且相機位姿已知。
-
-後續工作以更快的格點與顯式表示處理了這些限制，包括[三維高斯潑濺](gaussian-splatting.zh-TW.md)。
+- 每個場景都需要各自最佳化，在論文所用的硬體上約需一至兩天。
+- 渲染一幀約需 30 秒。
+- 此方法假設場景是靜態的，且相機位姿已知。對於真實資料，論文以 COLMAP 估計位姿。
 
 ## 關聯
 
-NeRF 建立在[章節概觀](index.zh-TW.md)中也出現的體積渲染概念上。它的最佳化依賴[自動微分](../../../math/automatic-differentiation/index.zh-TW.md)中的梯度機制。
+與這種隱式表示相對的顯式替代方案是[三維高斯潑濺](gaussian-splatting.zh-TW.md)。訓練會透過體積渲染積分計算梯度，其計算方式見[自動微分](../../../math/automatic-differentiation/index.zh-TW.md)。
 
 ## 開放問題
 
@@ -64,10 +62,10 @@ NeRF 建立在[章節概觀](index.zh-TW.md)中也出現的體積渲染概念上
 ### 奠基性論文
 
 - Mildenhall、Srinivasan、Tancik、Barron、Ramamoorthi 與 Ng，*NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis*，European Conference on Computer Vision（2020）。https://doi.org/10.1007/978-3-030-58452-8_24 — NeRF 原始論文，包含體積渲染的公式與位置編碼。
-- Barron 等人，*Mip-NeRF: A Multiscale Representation for Anti-Aliasing Neural Radiance Fields*，IEEE/CVF International Conference on Computer Vision（2021）。https://doi.org/10.1109/iccv48922.2021.00580 — 以多尺度表示擴展 NeRF，以減少混疊。
-- Kerbl、Kopanas、Leimkuehler 與 Drettakis，*3D Gaussian Splatting for Real-Time Radiance Field Rendering*，ACM Transactions on Graphics（2023）。https://doi.org/10.1145/3592433 — 與隱式 NeRF 表示法相對的顯式替代方案。
+- Barron 等人，*Mip-NeRF: A Multiscale Representation for Anti-Aliasing Neural Radiance Fields*，IEEE/CVF International Conference on Computer Vision（2021）。https://doi.org/10.1109/iccv48922.2021.00580 — 以多尺度表示擴展 NeRF，用於抗混疊。
+- Kerbl、Kopanas、Leimkuehler 與 Drettakis，*3D Gaussian Splatting for Real-Time Radiance Field Rendering*，ACM Transactions on Graphics（2023）。https://doi.org/10.1145/3592433 — 提出三維高斯潑濺，是隱式 NeRF 表示法的顯式替代方案。
 
 ### 綜述與教科書
 
-- Kajiya 與 Von Herzen，*Ray tracing volume densities*，SIGGRAPH（1984）。https://doi.org/10.1145/964965.808594 — 透過參與介質進行渲染的早期公式，NeRF 的積分即建立於其上。
+- Kajiya 與 Von Herzen，*Ray tracing volume densities*，SIGGRAPH（1984）。https://doi.org/10.1145/964965.808594 — 透過體積密度進行光線追蹤的早期公式。
 - Max，*Optical models for direct volume rendering*，IEEE Transactions on Visualization and Computer Graphics（1995）。https://doi.org/10.1109/2945.468400 — 體積渲染背後光學模型的綜述。

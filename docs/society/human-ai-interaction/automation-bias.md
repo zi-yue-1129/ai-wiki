@@ -43,7 +43,7 @@ Skitka, Mosier and Burdick (1999) study whether automated decision aids bias peo
 
 Experimental approaches differ in how they try to reduce the effect:
 
-- **Explanations.** Bansal et al. (2021) test whether AI explanations improve the performance of human-AI teams on complementary tasks.
+- **Explanations.** Bansal et al. (2021) test whether AI explanations improve complementary team performance, where the team does better than the human or the AI working alone.
 - **Cost-benefit reasoning about checking.** Vasconcelos et al. (2023) report that overreliance does not generally fall when an AI gives explanations, and argue with a cost-benefit framework that people strategically choose whether to engage with an explanation. In some scenarios explanations do reduce overreliance.
 - **Cognitive forcing functions.** Buçinca, Malaya and Gajos (2021) design three cognitive forcing interventions that compel people to engage more thoughtfully with AI explanations. In an experiment with 199 participants, they compare these with two explainable-AI designs and a no-AI baseline.
 
@@ -53,7 +53,7 @@ The research in aviation and medicine predates generative AI, and its findings h
 
 ## Deskilling and cognitive offloading
 
-Bainbridge (1983) discusses the "ironies of automation", the paradox that automation can change the skills people need for the tasks that remain with them. The same concern is raised for generative AI, where a worker who never drafts or checks a solution may lose the ability to do so. Evidence on this is still limited, and researchers distinguish between offloading that frees attention for better work and offloading that erodes skills people need.
+Bainbridge (1983) discusses the "ironies of automation" in automated systems. Whether generative AI produces a similar loss of skill is an open question, and this page does not treat it as established.
 
 ## Connections
 
@@ -76,12 +76,12 @@ Automation bias is the behavioural side of the explanation problem in [Interpret
 
 ### Seminal papers
 
-- Skitka, L. J., Mosier, K. L. & Burdick, M. (1999). Does automation bias decision-making? *International Journal of Human-Computer Studies*, 51(5), 991–1006. https://doi.org/10.1006/ijhc.1999.0252 — Experimental study of whether automated decision aids bias people's decisions.
-- Bainbridge, L. (1983). Ironies of automation. *Automatica*, 19(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8 — Discusses the ironies of automation for operator skill.
-- Bansal, G. et al. (2021). Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance. *Proceedings of CHI 2021*. https://doi.org/10.1145/3411764.3445717 — Tests whether AI explanations improve the performance of human-AI teams.
+- Skitka, L. J., Mosier, K. L. & Burdick, M. (1999). Does automation bias decision-making? *International Journal of Human-Computer Studies*, 51(5), 991–1006. https://doi.org/10.1006/ijhc.1999.0252 — Study of whether automated decision aids bias people's decisions, as its title asks.
+- Bainbridge, L. (1983). Ironies of automation. *Automatica*, 19(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8 — Discusses the ironies of automation, as its title states.
+- Bansal, G. et al. (2021). Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance. *Proceedings of CHI 2021*. https://doi.org/10.1145/3411764.3445717 — Finds that explanations do not raise complementary team performance, though they increase acceptance of the AI's recommendation.
 - Buçinca, Z., Malaya, M. B. & Gajos, K. Z. (2021). To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on AI in AI-assisted Decision-making. *Proceedings of the ACM on Human-Computer Interaction*, 5(CSCW1). https://doi.org/10.1145/3449287 — Designs three cognitive forcing interventions and compares them with explanation-only designs and a no-AI baseline.
 - Vasconcelos, H. et al. (2023). Explanations Can Reduce Overreliance on AI Systems During Decision-Making. *Proceedings of the ACM on Human-Computer Interaction*, 7(CSCW1). https://doi.org/10.1145/3579605 — Argues, with a cost-benefit framework, that explanations can reduce overreliance in some scenarios.
-- Lee, H.-P. et al. (2025). The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence. *Proceedings of CHI 2025*. https://doi.org/10.1145/3706598.3713778 — Survey reporting self-reported reductions in cognitive effort and confidence with generative AI.
+- Lee, H.-P. et al. (2025). The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence Effects From a Survey of Knowledge Workers. *Proceedings of CHI 2025*. https://doi.org/10.1145/3706598.3713778 — Survey of knowledge workers on self-reported reductions in cognitive effort and confidence with generative AI.
 
 ### Surveys and textbooks
 

@@ -48,6 +48,8 @@ aliases:
 | 反事實公平（counterfactual fairness） | 在將 \(A\) 設為另一值的模型中，預測不變，且 \(A\) 對其他變數的因果效應保持不變 | 移除 \(A\) 的因果影響 |
 | 不察覺屬性（fairness through unawareness） | \(\hat{Y}\) 不直接使用 \(A\) | 移除受保護屬性 |
 
+表中每個準則都有各自的頁面：[人口統計均等](demographic-parity.md)、[機會均衡](equalised-odds.md)、[群體內校準](calibration-within-groups.md)、[個體公平](individual-fairness.md)與[反事實公平](counterfactual-fairness.md)。各頁詳細說明各定義、其假設與限制；本頁則加以比較。
+
 **個體公平。** Dwork 等人（2012）要求兩個輸出分布之間的距離，不超過兩個個體在相似度度量下的距離。度量必須由某人選定，而這正是困難所在。
 
 **機會均衡與機會均等。** Hardt、Price 與 Srebro（2016）定義了機會均衡，以及其較弱的形式機會均等，並展示如何用對各群體套用不同門檻、作用於固定分數的後處理規則來達成。
@@ -108,7 +110,7 @@ Corbett-Davies 等人（2017）研究對風險導向決策規則施加公平性�
 
 ### 綜述與教科書
 
-- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — 以同一個範例綜述並比較主要的公平性定義。
+- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — 綜述公平性定義，如其標題所示。
 - Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — 免費教科書，涵蓋這些定義、其取捨與社會脈絡。
 
 ## 延伸學習

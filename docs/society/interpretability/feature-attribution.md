@@ -46,10 +46,10 @@ Attribution methods fall into two broad families.
 
 ## Key methods
 
-- **Saliency maps (Simonyan et al., 2014).** The gradient of the output with respect to the input. It is fast and needs only backpropagation, but it is sensitive to the gradient's local behaviour and does not satisfy additivity.
-- **Integrated gradients (Sundararajan et al., 2017).** The attribution is the input-minus-baseline difference multiplied by the average gradient along the path. It satisfies sensitivity and implementation invariance, and depends on the choice of baseline.
-- **LIME (Ribeiro et al., 2016).** Samples perturbed versions of the input, weights them by proximity, and fits a sparse linear model. The explanation is local and model-agnostic, but its stability depends on sampling and kernel choices.
-- **SHAP (Lundberg & Lee, 2017).** The Shapley value of feature \(i\) is
+- **[Saliency maps](saliency-maps.md) (Simonyan et al., 2014).** The gradient of the output with respect to the input. It is fast and needs only backpropagation, but it is sensitive to the gradient's local behaviour and does not satisfy additivity.
+- **[Integrated gradients](integrated-gradients.md) (Sundararajan et al., 2017).** The attribution is the input-minus-baseline difference multiplied by the average gradient along the path. It satisfies sensitivity and implementation invariance, and depends on the choice of baseline.
+- **[LIME](lime.md) (Ribeiro et al., 2016).** Samples perturbed versions of the input, weights them by proximity, and fits a sparse linear model. The explanation is local and model-agnostic, but its stability depends on sampling and kernel choices.
+- **[SHAP](shap.md) (Lundberg & Lee, 2017).** The Shapley value of feature \(i\) is
   \[
   \phi_i = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!\,(|N|-|S|-1)!}{|N|!}\,\bigl[v(S \cup \{i\}) - v(S)\bigr],
   \]

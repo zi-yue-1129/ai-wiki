@@ -37,6 +37,7 @@ translation_reviewed: 2026-10-28
 | 大批次與分散式 | 跨多個裝置的訓練 | [大批次與分散式](large-batch-and-distributed.md) | 草稿 |
 | 零階與演化 | 完全不使用梯度 | [零階與演化](zeroth-order-and-evolutionary.md)，並有 [SPSA](spsa.md)、[演化策略](evolution-strategies.md) 與 [CMA-ES](cma-es.md) 等方法頁 | 草稿 |
 | 理論 | 收斂、地形、銳度 | [理論與損失地形](theory-and-landscapes.md)，並有[銳度感知最小化](sharpness-aware-minimisation.md)與 [ASAM](asam.md) 頁 | 草稿 |
+| 超參數最佳化 | 完整訓練執行的驗證分數 | [超參數最佳化](hyperparameter-optimisation/index.md)，並有[貝氏最佳化](hyperparameter-optimisation/bayesian-optimisation.md)與 [Hyperband](hyperparameter-optimisation/hyperband.md) 頁 | 草稿 |
 
 ## 運作方式
 
