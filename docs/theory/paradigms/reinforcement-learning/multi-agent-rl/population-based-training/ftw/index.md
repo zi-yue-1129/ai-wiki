@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - FTW
@@ -22,7 +22,7 @@ The method uses a two-tier optimisation process:
 - **Inner loop.** Each agent in the population learns a policy with reinforcement learning, from its own internal reward. The internal reward complements the sparse reward from winning, and the agent's policy chooses actions at several timescales.
 - **Outer loop.** A population of agents is trained concurrently in thousands of parallel matches, with agents playing in teams together and against each other on randomly generated maps. The outer loop is population-based training, which adapts the internal rewards and hyperparameters of the agents.
 
-The maps are procedurally generated, indoor and outdoor, and the team with the most flag captures after a fixed number of rounds wins. Because the population contains many different agents, the training matches expose each agent to a varied set of teammates and opponents.
+The maps are procedurally generated, indoor and outdoor, and the team with the most flag captures after five minutes wins. Because the population contains many different agents, the training matches expose each agent to a varied set of teammates and opponents.
 
 ## Equation or algorithm
 
@@ -30,7 +30,7 @@ The paper does not reduce the method to one equation. Each agent is trained with
 
 ## Results
 
-The paper evaluates the trained agents in a tournament-style setting. The authors report that the agents "exceeded the win-rate of strong human players both as teammates and opponents", and that they proved far stronger than existing state-of-the-art agents. Skill is measured with Elo scores, which are adapted to the population during training. The learned representations encode high-level game knowledge, which the authors use to explain behaviours such as following, defending and navigating.
+The paper evaluates the trained agents in a tournament-style setting. The abstract reports that the agents "exceeded the winrate of strong human players both as teammates and opponents" and "proved far stronger than existing state-of-the-art agents". The paper's "strong" humans are the top 20% of its 40 participants, and the abstract gives no numeric win rate against them. Skill is estimated online with Elo scores, borrowed from chess. The agents were trained for two billion steps, about 450,000 games. The learned representations encode a wide variety of game knowledge, which the paper measures with linear probes. The behaviours it describes include navigating, following and defending, and following was discarded midway through training.
 
 ## Limitations
 
@@ -57,8 +57,11 @@ The paper evaluates the trained agents in a tournament-style setting. The author
 
 ### Seminal papers
 
-- Jaderberg et al. (2019), "Human-level performance in 3D multiplayer games with population-based reinforcement learning", *Science* 364, 859–865. https://doi.org/10.1126/science.aau6249 — The FTW paper, with the two-tier optimisation, the Capture the Flag environment and the human tournament results.
+- Jaderberg et al. (2019), "Human-level performance in 3D multiplayer games with population-based reinforcement learning", *Science* 364, 859–865. https://discovery.ucl.ac.uk/id/eprint/10076318 — The FTW paper, with the two-tier optimisation, the Capture the Flag environment and the human tournament results. The link is the author-institution repository record.
 - Jaderberg et al. (2018), "Human-level performance in first-person multiplayer games with population-based deep reinforcement learning", [arXiv:1807.01281](https://arxiv.org/abs/1807.01281) — The preprint version of the FTW paper, with the same method and results.
 - Jaderberg et al. (2017), "Population based training of neural networks", [arXiv:1711.09846](https://arxiv.org/abs/1711.09846) — The PBT method that FTW uses for its outer loop.
-- Vinyals et al. (2019), "Grandmaster level in StarCraft II using multi-agent reinforcement learning", *Nature* 575, 350–354. https://doi.org/10.1038/s41586-019-1724-z — Multi-agent training that reaches grandmaster level in another competitive game.
 - Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — Centralised critics for mixed cooperative and competitive settings, the setting FTW studies with a population.
+
+### Surveys and textbooks
+
+- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/TSMCC.2007.913919 — Survey of multi-agent learning settings, including the competitive and cooperative cases FTW combines.

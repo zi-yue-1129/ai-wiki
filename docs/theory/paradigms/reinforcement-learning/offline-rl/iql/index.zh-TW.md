@@ -1,4 +1,6 @@
 ---
+status: complete
+last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 ---
 
@@ -28,7 +30,7 @@ Q 函數以貝爾曼目標 \(r + \gamma V_\psi(s')\) 訓練，只使用資料中
 
 ## 結果
 
-論文在 D4RL 離線基準上報告結果，包括 AntMaze 任務，其中數個基準表現很差。比較表包含行為複製、Decision Transformer、AWAC、TD3+BC 與保守 Q 學習。摘要指出，此方法「從不需要評估資料集之外的動作，卻仍能透過泛化，使學到的策略大幅超越資料中最佳的行為」。
+論文在 D4RL 離線基準上評估 IQL，其中包括 AntMaze 導航任務，並與其他離線方法比較。摘要指出，IQL 在 D4RL 上達到最先進的表現，並且在離線預訓練後以線上互動微調時表現強勁。
 
 ## 限制
 
@@ -57,8 +59,8 @@ Q 函數以貝爾曼目標 \(r + \gamma V_\psi(s')\) 訓練，只使用資料中
 
 ### 奠基性論文
 
-- Kostrikov, Nair & Levine（2021），"Offline reinforcement learning with implicit Q-learning"，[arXiv:2110.06169](https://arxiv.org/abs/2110.06169)——IQL 論文，包含期望價值更新、優勢加權的策略擷取與 D4RL 結果。
-- Kumar, Zhou, Tucker & Levine（2020），"Conservative Q-learning for offline reinforcement learning"，[arXiv:2006.04779](https://arxiv.org/abs/2006.04779)——IQL 的主要悲觀替代方案，用於比較。
-- Fujimoto, Meger & Precup（2019），"Off-policy deep reinforcement learning without exploration"，[arXiv:1812.02900](https://arxiv.org/abs/1812.02900)——批次約束 Q 學習，將策略限制在資料上。
-- Fu, Kumar, Nachum, Tucker & Levine（2020），"D4RL: Datasets for deep data-driven reinforcement learning"，[arXiv:2004.07219](https://arxiv.org/abs/2004.07219)——IQL 所評估的離線基準套件。
-- Chen 等人（2021），"Decision Transformer: Reinforcement learning via sequence modeling"，[arXiv:2106.01345](https://arxiv.org/abs/2106.01345)——以序列建模從回報學習的離線方法，用於比較。
+- Kostrikov, Nair & Levine（2021），"Offline reinforcement learning with implicit Q-learning"，[arXiv:2110.06169](https://arxiv.org/abs/2110.06169) — IQL 論文，包含期望價值更新、優勢加權的策略擷取與 D4RL 結果。
+- Kumar, Zhou, Tucker & Levine（2020），"Conservative Q-learning for offline reinforcement learning"，[arXiv:2006.04779](https://arxiv.org/abs/2006.04779) — IQL 的主要悲觀替代方案，用於比較。
+- Fujimoto, Meger & Precup（2019），"Off-policy deep reinforcement learning without exploration"，[arXiv:1812.02900](https://arxiv.org/abs/1812.02900) — 批次約束 Q 學習，將策略限制在資料上。
+- Fu, Kumar, Nachum, Tucker & Levine（2020），"D4RL: Datasets for deep data-driven reinforcement learning"，[arXiv:2004.07219](https://arxiv.org/abs/2004.07219) — IQL 所評估的離線基準套件。
+- Chen 等人（2021），"Decision Transformer: Reinforcement learning via sequence modeling"，[arXiv:2106.01345](https://arxiv.org/abs/2106.01345) — 以序列建模從回報學習的離線方法，用於比較。

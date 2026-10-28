@@ -34,7 +34,11 @@ translation_reviewed: 2026-10-28
 
 ## 結果
 
-論文在六個多智能體環境上評估：合作通訊、合作導航、保持距離、物理欺騙、獵食者–獵物，以及隱蔽通訊。論文報告：「在所有情況下，當直接與 DDPG 對抗時，MADDPG 都更勝一籌」。在合作通訊中，使用 MADDPG 的智能體有 84.0% 的回合能抵達目標，而 DDPG 為 32.0%。作者也報告，使用策略集成的智能體比只有單一策略的更強。
+論文在六個多智能體環境上評估：合作通訊、合作導航、保持距離、物理欺騙、獵食者–獵物，以及隱蔽通訊。
+
+- **MADDPG 對 DDPG。** 一段圖說報告：「在所有情況下，當直接與 DDPG 對抗時，MADDPG 都更勝一籌」。各長條的數值在圖中，文字中沒有。
+- **合作通訊。** 表 1 報告，在 25,000 回合後，使用 MADDPG 的聆聽者有 84.0% 的回合能抵達目標，使用 DDPG 則為 32.0%。
+- **策略集成。** 論文報告，在其實驗中，具策略集成的智能體比只用單一策略的智能體更強。論文並未研究表現如何隨子策略數量 \(K\) 而變化。
 
 ## 限制
 
@@ -63,8 +67,11 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — The MADDPG paper, with the centralised critic, the ensemble extension and the results above.
-- Lillicrap et al. (2016), "Continuous control with deep reinforcement learning", ICLR, [arXiv:1509.02971](https://arxiv.org/abs/1509.02971) — DDPG, the single-agent method that each MADDPG agent uses.
-- Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — A value-based alternative for cooperative teams.
-- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", NeurIPS 2022 Datasets and Benchmarks Track, [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — A strong on-policy baseline with a centralised value function.
-- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/tsmcc.2007.913919 — Survey of multi-agent learning settings and their difficulties.
+- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — MADDPG 論文，包含集中式評論家、集成擴充與上述結果。
+- Lillicrap et al. (2016), "Continuous control with deep reinforcement learning", [arXiv:1509.02971](https://arxiv.org/abs/1509.02971) — DDPG，每個 MADDPG 智能體所用的單智能體方法。
+- Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — 合作團隊中以價值為基礎的替代方法。
+- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — 具集中式價值函數的強同策略基線。
+
+### 綜述與教科書
+
+- Busoniu, Babuska & De Schutter (2008), "A comprehensive survey of multiagent reinforcement learning", *IEEE Transactions on Systems, Man, and Cybernetics, Part C* 38(2), 156–172. https://doi.org/10.1109/TSMCC.2007.913919 — 多智能體學習情境與其困難的綜述。

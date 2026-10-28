@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
 - brain-mind/attention-brain-machine
@@ -52,7 +52,6 @@ The paper does not present a new large dataset. It compares its model with exist
 
 - In cueing tasks, the validity effect, the advantage of valid over invalid cues, changes with cholinergic manipulation. Nicotine reduces it and scopolamine increases it. The model reproduces this qualitatively as a change in expected uncertainty.
 - In maze learning, boosting noradrenaline speeds the detection of a cue shift. The model links this to unexpected uncertainty.
-- The paper also simulates runs in which cue validity and context change over time.
 
 The paper also proposes an extended cueing task in which both cue identity and cue validity change, as a test of the theory.
 

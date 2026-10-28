@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - neuroscience
@@ -51,7 +51,7 @@ The full architecture and training details are in the paper. This page gives the
 
 ## Results
 
-The results below are from the abstract of the earlier bioRxiv preprint of the same work (Whittington et al., 2019). The published Cell article extends the preprint, so its claims should be checked against that version.
+The results below are from the introduction and results of the earlier bioRxiv preprint of the same work (Whittington et al., 2019). The published Cell article extends the preprint, so its claims should be checked against that version.
 
 - The model proposes that medial entorhinal cells form a basis describing structural knowledge, and that hippocampal cells link this basis to sensory representations.
 - After learning, its entorhinal-like units include grid, band, border and object-vector cells. The grid-like part of this is discussed on the [grid-like units page](../../neuroai/grid-like-units/index.md).
@@ -87,15 +87,15 @@ The results below are from the abstract of the earlier bioRxiv preprint of the s
 
 ### Seminal papers
 
-- Whittington, J. C. R. et al. (2020). The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation. *Cell*. https://doi.org/10.1016/j.cell.2020.10.024 — Proposes the TEM and its account of how one structure supports spatial and relational memory and generalisation.
-- Whittington, J. C. R., Muller, T., Mark, S., Chen, G., Barry, C. & Burgess, N. (2019). The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation. *bioRxiv* (preprint). https://doi.org/10.1101/770495 — The earlier preprint of the same work. Its abstract is the source for the Results section.
-- Hafting, T. et al. (2005). Microstructure of a spatial map in the entorhinal cortex. *Nature*. https://doi.org/10.1038/nature03721 — Describes grid cells in the entorhinal cortex, the cell type TEM reproduces.
+- Whittington, J. C. R. et al. (2020). The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation. *Cell*, 183(5), 1249–1263. https://doi.org/10.1016/j.cell.2020.10.024 — Proposes the TEM and its account of how one structure supports spatial and relational memory and generalisation.
+- Whittington, J. C. R., Muller, T., Mark, S., Chen, G., Barry, C. & Burgess, N. (2019). The Tolman-Eichenbaum Machine: Unifying Space and Relational Memory through Generalization in the Hippocampal Formation. *bioRxiv* (preprint). https://doi.org/10.1101/770495 — The earlier preprint of the same work. Its introduction and results are the source for the Results section.
+- Hafting, T. et al. (2005). Microstructure of a spatial map in the entorhinal cortex. *Nature*, 436(7052), 801–806. https://doi.org/10.1038/nature03721 — Describes grid cells in the entorhinal cortex, the cell type TEM reproduces.
 
 ### Surveys and textbooks
 
-- Behrens, T. E. J. et al. (2018). What Is a Cognitive Map? Organizing Knowledge for Flexible Behavior. *Neuron*. https://doi.org/10.1016/j.neuron.2018.10.002 — Review of cognitive maps and their extension to abstract knowledge, the framework TEM builds on.
-- Moser, E. I., Kropff, E. & Moser, M.-B. (2008). Place Cells, Grid Cells, and the Brain's Spatial Representation System. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.31.061307.090723 — Reviews how place cells and grid cells, as parts of one circuit, may represent places and routes during behaviour and memory.
+- Behrens, T. E. J. et al. (2018). What Is a Cognitive Map? Organizing Knowledge for Flexible Behavior. *Neuron*, 100(2), 490–509. https://doi.org/10.1016/j.neuron.2018.10.002 — Review of cognitive maps and their extension to abstract knowledge, the framework TEM builds on.
+- Moser, E. I., Kropff, E. & Moser, M.-B. (2008). Place Cells, Grid Cells, and the Brain's Spatial Representation System. *Annual Review of Neuroscience*, 31, 69–89. https://doi.org/10.1146/annurev.neuro.31.061307.090723 — Reviews how place cells and grid cells, as parts of one circuit, may represent places and routes during behaviour and memory.
 
 ### Articles and documentation
 
-- Constantinescu, A. O., O'Reilly, J. X. & Behrens, T. E. J. (2016). Organizing conceptual knowledge in humans with a gridlike code. *Science*. https://doi.org/10.1126/science.aaf0941 — Reports gridlike neural representation of conceptual space in several brain regions, including the entorhinal cortex.
+- Constantinescu, A. O., O'Reilly, J. X. & Behrens, T. E. J. (2016). Organizing conceptual knowledge in humans with a gridlike code. *Science*, 352(6292), 1464–1468. https://doi.org/10.1126/science.aaf0941 — Reports a gridlike code for conceptual knowledge in humans.

@@ -21,17 +21,18 @@ MAPPO 即[近端策略最佳化](../../proximal-policy-optimisation/index.md)的
 - **價值正規化**，以穩定價值學習。
 - **價值輸入**同時包含局部的智能體專屬特徵與全域特徵（若可取得）。
 - **有限的迭代次數。**困難環境最多 10 次訓練迭代，簡單環境最多 15 次。
-- **裁剪**，比率低於 0.2 時效果最好。
-- **大批次**，以取得最佳的任務表現。
+- **裁剪**，比率保持在 0.2 以下，並在此範圍內調整。
+- **大批次**，依樣本效率調整，論文未給出固定數值。
 
 論文也發現，在多智能體領域中，若樣本重複使用過於頻繁，表現會下降。
 
 ## 結果
 
-- **SMAC。**IPPO 與 MAPPO 在絕大多數地圖上都表現強勁。在相同的樣本數下，MAPPO 在多數地圖上至少與 QMIX 相當。在 6h_vs_8z 上，搭配特徵修剪的 MAPPO 中位勝率為 88.3%，QMIX 為 9.4%。
-- **MPE。**MAPPO 與離策略基線表現相當，在所有任務上都與 QMIX 非常接近。
-- **Google Research Football。**MAPPO 在每個情境中都明顯優於 QMIX。在 3v1 上，MAPPO 為 88.03，QMIX 為 8.12。
-- **Hanabi。**MAPPO 的結果與該基準報告的最佳與平均回報相當或更好。
+- **SMAC。** 在 6h_vs_8z 地圖上，搭配特徵修剪的 MAPPO 中位勝率為 88.3%，QMIX 為 9.4%（表 1）。
+- **參數共享。** 附錄 C.2 報告，有參數共享的 MAPPO 以明顯差距優於沒有參數共享者，例如在 6h_vs_8z 上為 88.3 對 11.4。
+- **MPE。** MAPPO 與離策略基線表現相當或更好，在所有任務上與 QMIX 非常接近。
+- **Google Research Football。** 在 3v1 情境中，MAPPO 六個種子的平均成功率為 88.03，QMIX 為 8.12（表 2）。
+- **Hanabi。** 論文指出，在幾乎所有設定中，MAPPO 與 SAD 和 VDN 的最佳與平均回報相當或更好。例外是四人時的最佳分數，MAPPO 略低。
 
 ## 限制
 
@@ -59,8 +60,8 @@ MAPPO 即[近端策略最佳化](../../proximal-policy-optimisation/index.md)的
 
 ### 開創性論文
 
-- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", NeurIPS 2022 Datasets and Benchmarks Track, [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — The MAPPO paper, with the benchmark results and recommended practices above.
-- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The single-agent PPO algorithm that MAPPO adapts.
-- Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — The value-factorisation baseline that MAPPO is compared against.
-- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — MADDPG, the centralised-critic baseline in the paper's comparisons.
-- Engstrom et al. (2020), "Implementation matters in deep policy gradients: a case study on PPO and TRPO", [arXiv:2005.12729](https://arxiv.org/abs/2005.12729) — Shows that implementation details, which the MAPPO recommendations also depend on, can change PPO's results.
+- Yu et al. (2022), "The surprising effectiveness of PPO in cooperative multi-agent games", [arXiv:2103.01955](https://arxiv.org/abs/2103.01955) — MAPPO 論文，包含基準結果與上述建議做法。
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — MAPPO 所改編的單智能體 PPO 演算法。
+- Rashid et al. (2018), "QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning", *Proceedings of ICML 2018*, PMLR 80, [arXiv:1803.11485](https://arxiv.org/abs/1803.11485) — MAPPO 所比較的價值分解基線。
+- Lowe et al. (2017), "Multi-agent actor-critic for mixed cooperative-competitive environments", [arXiv:1706.02275](https://arxiv.org/abs/1706.02275) — MADDPG，論文比較中的集中式評論家基線。
+- Engstrom et al. (2020), "Implementation matters in deep policy gradients: a case study on PPO and TRPO", [arXiv:2005.12729](https://arxiv.org/abs/2005.12729) — 顯示實作細節（MAPPO 的建議也依賴這些細節）可能改變 PPO 的結果。

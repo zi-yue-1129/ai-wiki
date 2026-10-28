@@ -36,6 +36,9 @@
     - **抽樣**：MCMC（Metropolis-Hastings、Gibbs、HMC/NUTS）
     - **變分推論**：用簡單分布 \(q\) 近似後驗，最大化證據下界（ELBO）——VAE 就是摊銷式變分推論
 
+詳細頁面：[變分推論](variational-inference/index.md)，包含[平均場變分推論](variational-inference/mean-field.md)與[隨機變分推論](variational-inference/stochastic-variational-inference.md)；以及[馬可夫鏈蒙地卡羅](mcmc/index.md)，包含 [Metropolis–Hastings](mcmc/metropolis-hastings.md)、[吉布斯抽樣](mcmc/gibbs-sampling.md)與[哈密頓蒙地卡羅](mcmc/hamiltonian-monte-carlo.md)。
+
+
 ## 因果推論
 
 相關不等於因果。Pearl 的因果階梯：

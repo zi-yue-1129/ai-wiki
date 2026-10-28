@@ -1,4 +1,6 @@
 ---
+status: complete
+last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
 ---
 
@@ -28,7 +30,7 @@ Q 函數的更新最小化貝爾曼誤差加上保守懲罰，形式如下：
 
 ## 結果
 
-論文在離散與連續動作的離線基準上報告結果，並指出 CQL「學到一個保守的 Q 函數，使策略在此 Q 函數下的期望值成為其真實價值的下界」。實驗與離策略方法比較；後者在離線資料上可能因高估問題而失敗。
+論文在離散與連續動作的離線基準上評估 CQL，並與離策略方法比較；後者在離線資料上可能因高估問題而失敗。摘要指出，CQL 常能學到最終回報為先前離線方法二到五倍的策略，尤其是在資料來自複雜的多模態分布時。
 
 ## 限制
 
@@ -45,6 +47,7 @@ Q 函數的更新最小化貝爾曼誤差加上保守懲罰，形式如下：
 
 ## 應用
 
+- **離線基準**，例如 D4RL，資料集固定，智能體無法探索。
 - **機器人學**，從記錄資料學習，因為新的探索成本很高。
 
 ## 未解問題
@@ -56,8 +59,8 @@ Q 函數的更新最小化貝爾曼誤差加上保守懲罰，形式如下：
 
 ### 奠基性論文
 
-- Kumar, Zhou, Tucker & Levine（2020），"Conservative Q-learning for offline reinforcement learning"，[arXiv:2006.04779](https://arxiv.org/abs/2006.04779)——CQL 論文，包含保守懲罰、下界結果與離線實驗。
-- Fujimoto, Meger & Precup（2019），"Off-policy deep reinforcement learning without exploration"，[arXiv:1812.02900](https://arxiv.org/abs/1812.02900)——批次約束 Q 學習，將策略限制在與資料相似的動作上。
-- Fu, Kumar, Nachum, Tucker & Levine（2020），"D4RL: Datasets for deep data-driven reinforcement learning"，[arXiv:2004.07219](https://arxiv.org/abs/2004.07219)——標準的離線資料集與基準，用於比較離線方法。
-- Kostrikov, Nair & Levine（2021），"Offline reinforcement learning with implicit Q-learning"，[arXiv:2110.06169](https://arxiv.org/abs/2110.06169)——另一種離線方法，從不評估資料集之外的動作。
-- Chen 等人（2021），"Decision Transformer: Reinforcement learning via sequence modeling"，[arXiv:2106.01345](https://arxiv.org/abs/2106.01345)——將強化學習視為序列建模的離線方法，用於比較。
+- Kumar, Zhou, Tucker & Levine（2020），"Conservative Q-learning for offline reinforcement learning"，[arXiv:2006.04779](https://arxiv.org/abs/2006.04779) — CQL 論文，包含保守懲罰、下界結果與離線實驗。
+- Fujimoto, Meger & Precup（2019），"Off-policy deep reinforcement learning without exploration"，[arXiv:1812.02900](https://arxiv.org/abs/1812.02900) — 批次約束 Q 學習，將策略限制在與資料相似的動作上。
+- Fu, Kumar, Nachum, Tucker & Levine（2020），"D4RL: Datasets for deep data-driven reinforcement learning"，[arXiv:2004.07219](https://arxiv.org/abs/2004.07219) — 標準的離線資料集與基準，用於比較離線方法。
+- Kostrikov, Nair & Levine（2021），"Offline reinforcement learning with implicit Q-learning"，[arXiv:2110.06169](https://arxiv.org/abs/2110.06169) — 另一種離線方法，從不評估資料集之外的動作。
+- Chen 等人（2021），"Decision Transformer: Reinforcement learning via sequence modeling"，[arXiv:2106.01345](https://arxiv.org/abs/2106.01345) — 將強化學習視為序列建模的離線方法，用於比較。

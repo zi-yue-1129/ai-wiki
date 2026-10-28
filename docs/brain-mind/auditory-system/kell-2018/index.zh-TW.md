@@ -1,6 +1,6 @@
 ---
 translation_reviewed: 2026-10-28
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - neuroscience
@@ -35,10 +35,9 @@ aliases:
 
 1. **輸入。** 每段 2 秒的片段被轉為耳蝸圖：211 個濾波器，中心頻率涵蓋 30 至 7860 Hz。結果被調整為 256 × 256。
 2. **架構。** 網路共 12 層。前七層共享，之後分為兩組各五層的任務專用層，分別負責字詞與類型。
-3. **訓練。** 字詞任務是對兩秒片段中央的字詞做 587 類分類。語料取自 TIMIT 與 WSJ，並混入背景聲，平均訊噪比為 3 dB（聽覺場景與語音嘈雜聲）或 6 dB（音樂）。類型任務是對兩秒音樂片段做 41 類分類，混入噪音的平均訊噪比為 12 dB。
+3. **訓練。** 字詞任務是對兩秒片段中字詞的 587 類分類，並混入背景聲，平均訊噪比為 3 dB（聽覺場景與語音嘈雜聲）或 6 dB（音樂）。類型任務是對兩秒音樂片段做 41 類分類，混入四種背景之一，平均訊噪比為 12 dB。
 4. **評估。** 對每一層，以線性編碼模型預測對測試聲音的 fMRI 反應，並比較各區域的變異解釋量。
 
-完全分開的兩個網路，參數量將接近它的兩倍。
 
 ## 結果
 
@@ -49,10 +48,10 @@ aliases:
 
 ## 限制
 
-- **吻合不完整。** 網路只部分吻合人類對音樂類型的判斷。作者把這點與聽者的文化經驗聯繫起來。
+- **吻合不完整。** 類型任務上網路與人類聽者的差異最大，雖然網路大致達到人類的表現水準。
 - **未解釋的變異。** 網路沒有解釋所有可靠的體素變異。該模型是前饋的，沒有遞迴或回饋。
 - **對靈長類排列的證據薄弱。** 資料並未清楚顯示非人類靈長類所見的三階段核心、帶狀與副帶狀階層。
-- **學習方式。** 每項任務的網路訓練資料超過兩百五十萬筆有標籤的範例，遠多於人學習字詞所需，其學習程序也與生物學習不同。
+- **學習方式。** 每項任務使用約二百五十萬筆有標籤的片段，遠多於聽者學習字詞所需，且訓練程序並非生物學習的模型。
 - **測量。** fMRI 的時間解析度有限，而模型沒有真實的時間動態或行為狀態。
 
 ## 連結
@@ -65,24 +64,24 @@ aliases:
 ## 應用
 
 - **檢驗聽覺假說**：研究者可以探問哪些任務會產生特定的皮層排列，以及哪些特徵是符合人類錯誤所必需的。
-- **以任務為本的解釋**：網路在未受訓練於人類錯誤的情況下，產生了類似人類的錯誤。這支持部分聆聽行為源自任務本身的觀點，但這仍是需要進一步檢驗的研究主張。
+- **以任務為本的解釋**：網路的字詞辨識行為在各種條件下與人類聽者吻合（r² = 0.92），但並未以人類資料訓練。這支持部分聆聽行為源自任務本身的觀點，但這仍是需要進一步檢驗的研究主張。
 
 ## 開放問題
 
 - **哪些任務？** Kell 等人（2018）只用了兩項任務。若改用聲源定位或說話者辨識等其他任務，是否會改變與皮層相符的層，目前不得而知。
 - **回饋與注意力。** 前饋設計缺少回饋與注意力，這或許能解釋未被解釋的變異。
-- **文化影響。** 類型判斷的落差顯示，部分人類聆聽依賴訓練資料未包含的經驗。
+- **訓練資料。** 類型判斷的落差顯示，部分人類判斷依賴訓練資料未包含的經驗。
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Kell, A. J. E., Yamins, D. L. K., Shook, E. N., Norman-Haignere, S. V. & McDermott, J. H.（2018）。A task-optimized neural network replicates human auditory behavior, predicts brain responses, and reveals a cortical processing hierarchy. *Neuron*。https://doi.org/10.1016/j.neuron.2018.03.044 — 原始論文。在字詞與類型任務上訓練網路，並與人類行為及聽覺皮層 fMRI 比較。
-- Yamins, D. L. K., Hong, H., Cadieu, C. F., Solomon, E. A., Seibert, D. & DiCarlo, J. J.（2014）。Performance-optimized hierarchical models predict neural responses in higher visual cortex. *PNAS*。https://doi.org/10.1073/pnas.1403112111 — 任務最佳化方法的視覺前身，能預測高階視覺皮層的神經反應。
-- Chi, T., Ru, P. & Shamma, S. A.（2005）。Multiresolution spectrotemporal analysis of complex sounds. *Journal of the Acoustical Society of America*。https://doi.org/10.1121/1.1945807 — 本研究用來與網路比較的頻譜時間基準，提出頻譜與時間特徵的統一多解析度表示。
+- Kell, A. J. E., Yamins, D. L. K., Shook, E. N., Norman-Haignere, S. V. & McDermott, J. H.（2018）。A task-optimized neural network replicates human auditory behavior, predicts brain responses, and reveals a cortical processing hierarchy. *Neuron*, 98(3), 630–644。https://doi.org/10.1016/j.neuron.2018.03.044 — 原始論文。在字詞與類型任務上訓練網路，並與人類行為及聽覺皮層 fMRI 比較。
+- Yamins, D. L. K., Hong, H., Cadieu, C. F., Solomon, E. A., Seibert, D. & DiCarlo, J. J.（2014）。Performance-optimized hierarchical models predict neural responses in higher visual cortex. *Proceedings of the National Academy of Sciences*, 111(23), 8619–8624。https://doi.org/10.1073/pnas.1403112111 — 任務最佳化方法的視覺前身，能預測高階視覺皮層的神經反應。
+- Chi, T., Ru, P. & Shamma, S. A.（2005）。Multiresolution spectrotemporal analysis of complex sounds. *Journal of the Acoustical Society of America*, 118(2), 887–906。https://doi.org/10.1121/1.1945807 — 本研究用來與網路比較的頻譜時間基準，提出頻譜與時間特徵的統一多解析度表示。
 
 ### 綜述與教科書
 
-- Hickok, G. & Poeppel, D.（2007）。The cortical organization of speech processing. *Nature Reviews Neuroscience*。https://doi.org/10.1038/nrn2113 — 語音處理的雙路徑模型，是本文語音分支可能相符之皮層語音路徑的背景。
+- Hickok, G. & Poeppel, D.（2007）。The cortical organization of speech processing. *Nature Reviews Neuroscience*, 8(5), 393–402。https://doi.org/10.1038/nrn2113 — 語音處理的雙路徑模型，是本文語音分支可能相符之皮層語音路徑的背景。
 - Robles, L. & Ruggero, M. A.（2001）。Mechanics of the mammalian cochlea. *Physiological Reviews*。https://doi.org/10.1152/physrev.2001.81.3.1305 — 綜述耳蝸力學：行進波、音調的位置編碼與外毛細胞放大，是類耳蝸輸入的生物學背景。
 - Rauschecker, J. P. & Scott, S. K.（2009）。Maps and streams in the auditory cortex: nonhuman primates illuminate human speech processing. *Nature Neuroscience*。https://doi.org/10.1038/nn.2331 — 綜述聽覺皮層中的圖與路徑，參照靈長類研究，並討論其對人類語音處理的意義。

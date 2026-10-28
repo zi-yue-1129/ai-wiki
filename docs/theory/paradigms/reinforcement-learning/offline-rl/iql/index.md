@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 aliases:
   - IQL
@@ -32,7 +32,7 @@ The Q-function is trained with the Bellman target \(r + \gamma V_\psi(s')\), whi
 
 ## Results
 
-The paper reports results on the offline benchmarks of D4RL, including the AntMaze tasks, where several baselines score poorly. Its comparison table includes behaviour cloning, Decision Transformer, AWAC, TD3+BC and conservative Q-learning. The abstract states that the method "never needs to evaluate actions outside of the dataset, but still enables the learned policy to improve substantially over the best behavior in the data through generalization".
+The paper evaluates IQL on the D4RL offline benchmarks, which include the AntMaze navigation tasks, and compares it with other offline methods. The abstract reports state-of-the-art performance on D4RL, and strong performance when the offline-trained policy is fine-tuned with online interaction.
 
 ## Limitations
 

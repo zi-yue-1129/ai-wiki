@@ -29,6 +29,7 @@ These pages describe tasks, modalities and systems. Each one is built from one o
 | [Natural Language Processing](nlp/index.md) | From word vectors to LLMs |
 | [Speech & Audio](speech/index.md) | Recognition, synthesis, music generation |
 | [Multimodal Models](multimodal/index.md) | Vision-language models, text-to-image/video, omni models |
+| [Embeddings & Representation Learning](embeddings/index.md) | Vector representations for search, similarity and cross-modal alignment |
 | [AI Agents](agents/index.md) | Tool use, planning, memory, multi-agent systems |
 | [World Models & Embodied AI](world-models/index.md) | Predicting environments, planning in imagination, robot foundation models |
 
