@@ -332,6 +332,7 @@ plugins:
             Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
             False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
             Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
             Exploration: 探索
@@ -1046,7 +1047,9 @@ nav:
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
-      - Life Sciences & Drug Discovery: applications/life-science/index.md
+      - Life Sciences & Drug Discovery:
+          - applications/life-science/index.md
+          - AlphaFold 2 (Jumper et al. 2021): applications/life-science/alphafold-2.md
       - Scientific Discovery: applications/science/index.md
       - Mental Health: applications/mental-health/index.md
       - Education: applications/education/index.md

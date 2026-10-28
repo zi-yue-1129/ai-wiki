@@ -13,6 +13,7 @@ aliases:
 
 ## Protein structure: the AlphaFold moment
 
+- **Method page**: [AlphaFold 2](alphafold-2.md) (Jumper et al., 2021), with its algorithm, confidence score and limitations
 - **CASP14 (2020)**: AlphaFold 2 predicted protein structures with accuracy competitive with experiment for most targets, solving a 50-year grand challenge
 - **AlphaFold Protein Structure Database**: over 200 million predicted structures, freely available
 - **AlphaFold 3 (2024)**: predicts complexes of proteins with DNA, RNA, ligands and ions
