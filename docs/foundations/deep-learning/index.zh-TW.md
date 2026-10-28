@@ -2,7 +2,7 @@
 
 ## 直覺
 
-深度學習用**多層可微分函數**組成的網路，從原始資料（像素、文字、聲波）自動學出有用的**表徵**。淺層學到邊緣、音素等低階特徵，深層學到物體、語意等高階概念。這種階層結構與靈長類視覺皮質（V1 → V2 → V4 → IT）有驚人的相似，見 [NeuroAI](../../brain-mind/neuroai/index.md)。
+深度學習把**許多層可微分函數**組合起來，直接從原始資料（像素、文字、波形）學習有用的**表徵**。早期的層學習邊緣或音素，較深的層學習物件與意義。這種階層與靈長類的視覺路徑（V1 → V2 → V4 → IT）驚人地相似；見 [NeuroAI](../../brain-mind/neuroai/index.md)。
 
 ## 人工神經元
 
@@ -12,87 +12,95 @@ y = \sigma\Big(\sum_i w_i x_i + b\Big)
 
 | 生物神經元 | 人工神經元 |
 |---|---|
-| 樹突接收訊號 | 輸入 \(x_i\) |
+| 樹突接收輸入 | 輸入 \(x_i\) |
 | 突觸強度 | 權重 \(w_i\) |
-| 細胞體整合 | 加權和 |
-| 達閾值發出動作電位 | 非線性啟動函數 \(\sigma\) |
-| 以脈衝頻率與時序編碼 | 以實數值輸出（脈衝版本見 [SNN](../../brain-mind/snn-neuromorphic/index.md)） |
+| 胞體整合 | 加權和 |
+| 超過閾值時發出動作電位 | 非線性激活 \(\sigma\) |
+| 以脈衝頻率與時序編碼 | 輸出實數（脈衝式版本：[SNN](../../brain-mind/snn-neuromorphic/index.md)） |
 
 !!! warning "類比的限制"
-    真實神經元的樹突本身能做非線性運算，單一皮質神經元可能需要一個 5–8 層的深度網路才能模擬（Beniaguev et al., 2021）。人工神經元是極度簡化的抽象。
+    真實的樹突本身就會進行非線性運算；要模擬單一皮質錐體神經元的輸入—輸出行為，可能需要一個 5–8 層的深度網路（Beniaguev et al., 2021）。人工神經元是一種極端的抽象。
 
-### 啟動函數
+### 激活函數
 
-| 函數 | 公式 | 特點 |
+| 函數 | 公式 | 說明 |
 |---|---|---|
-| Sigmoid | \(1/(1+e^{-x})\) | 早期常用，飽和導致梯度消失 |
-| Tanh | \(\tanh x\) | 零中心 |
-| ReLU | \(\max(0,x)\) | 簡單有效，現代 CNN 標配 |
-| GELU / SiLU | \(x\Phi(x)\) / \(x\sigma(x)\) | Transformer 常用 |
-| SwiGLU | 門控變體 | 現代 LLM（Llama 等）常用 |
+| Sigmoid | \(1/(1+e^{-x})\) | 早期的預設選擇；容易飽和 → 梯度消失 |
+| Tanh | \(\tanh x\) | 以零為中心 |
+| ReLU | \(\max(0,x)\) | 簡單且有效；CNN 的預設選擇 |
+| GELU／SiLU | \(x\Phi(x)\) ／ \(x\sigma(x)\) | 在 Transformer 中常見 |
+| SwiGLU | 門控變體 | 在現代 LLM 中常見 |
 
 ## 訓練：反向傳播與梯度下降
 
-1. **前向傳播**：輸入經過每一層算出預測。
-2. **計算損失**：與正確答案比較（交叉熵、均方誤差）。
-3. **反向傳播**：用連鎖律從輸出往回算每個參數的梯度。
-4. **更新參數**：最佳化器（SGD、AdamW）沿負梯度方向調整。
+1. **前向傳播**：逐層計算預測值。
+2. **損失**：與目標值比較（交叉熵、均方誤差）。
+3. **反向傳播**：從輸出到輸入套用鏈式法則，得到每個參數的梯度。
+4. **更新**：最佳化器（SGD、AdamW）沿著梯度的反方向調整參數。
 
 !!! question "大腦會做反向傳播嗎？"
-    標準反向傳播需要對稱的回饋權重與分離的前向／反向階段，生物上不太可能。研究中的替代方案包括：回饋對齊（feedback alignment）、預測編碼網路、平衡傳播（equilibrium propagation）、樹突誤差計算、forward-forward 演算法。詳見 [NeuroAI](../../brain-mind/neuroai/index.md)。
+    精確的反向傳播需要對稱的回饋權重，以及分開的前向與反向階段——這在生物上不太可能。可能的替代方案包括：回饋對齊、預測編碼網路、平衡傳播、樹突誤差計算、依賴爆發的可塑性，以及前向—前向演算法（forward-forward）。見 [NeuroAI](../../brain-mind/neuroai/index.md)。
 
-## 主要架構
+## 架構
 
-| 架構 | 歸納偏誤 | 典型應用 | 詳見 |
+| 架構 | 歸納偏誤 | 典型用途 | 參見 |
 |---|---|---|---|
-| 多層感知器 MLP | 無特殊結構 | 表格資料、Transformer 內部 | — |
-| 卷積網路 CNN | 局部性、平移等變 | 影像、音訊 | [電腦視覺](../../models/computer-vision/index.md) |
-| 循環網路 RNN / LSTM / GRU | 時間順序、遞迴狀態 | 序列、時間序列 | [NLP](../../models/nlp/index.md) |
-| Transformer | 全域注意力、置換等變（加位置編碼） | 幾乎所有模態 | [Transformer](../../models/transformer/index.md) |
-| 狀態空間模型 SSM（S4、Mamba） | 線性遞迴、長序列高效 | 長序列、音訊、基因體 | [Transformer](../../models/transformer/index.md) |
-| 圖神經網路 GNN | 圖結構、置換不變 | 分子、社群網路 | [GNN](../../models/gnn/index.md) |
-| 自編碼器 / VAE | 瓶頸壓縮 | 表徵學習、生成 | [生成模型](../../models/generative/index.md) |
-| 擴散模型 | 逐步去噪 | 影像、影片、分子生成 | [生成模型](../../models/generative/index.md) |
+| 多層感知器 | 無特定偏誤 | 表格資料、Transformer 內部 | — |
+| 卷積網路（CNN） | 局部性、平移等變性 | 影像、音訊 | [電腦視覺](../../models/computer-vision/index.md) |
+| 循環網路（RNN／LSTM／GRU） | 序列順序、循環狀態 | 序列、時間序列 | [NLP](../../models/nlp/index.md) |
+| Transformer | 全域注意力、排列等變性（加上位置） | 幾乎所有模態 | [Transformer](../../models/transformer/index.md) |
+| 狀態空間模型（S4、Mamba） | 線性循環，能有效處理長序列 | 長序列、音訊、基因組學 | [Transformer](../../models/transformer/index.md) |
+| 圖神經網路 | 圖結構、排列不變性 | 分子、社會網路 | [GNN](../../models/gnn/index.md) |
+| 自編碼器／VAE | 瓶頸式壓縮 | 表徵學習、生成 | [生成模型](../../models/generative/index.md) |
+| 擴散模型 | 迭代去噪 | 影像、影片、分子 | [生成模型](../../models/generative/index.md) |
 
-## 讓深度網路能訓練的關鍵技巧
+## 讓深度網路能被訓練的技巧
 
-- **好的初始化**：Xavier/Glorot、He 初始化
-- **正規化層**：BatchNorm、LayerNorm、RMSNorm
-- **殘差連接**：ResNet，讓梯度能直通，數百層網路可訓練
+- **初始化**：Xavier／Glorot、He
+- **正規化**：BatchNorm、LayerNorm、RMSNorm
+- **殘差連接**（ResNet）：讓梯度能流經數百層
 - **Dropout**、權重衰減、資料增強
-- **最佳化器**：AdamW、學習率 warmup + cosine decay、梯度裁剪
-- **混合精度訓練**：BF16/FP16/FP8 加速並節省記憶體
-- **分散式訓練**：資料平行、張量平行、管線平行、ZeRO/FSDP
+- **最佳化**：AdamW、預熱加餘弦衰減、梯度裁剪
+- **混合精度**：BF16／FP16／FP8
+- **分散式訓練**：資料、張量與管線平行；ZeRO／FSDP
 
 ## 表徵學習與自監督
 
-深度學習真正的威力在於**學習表徵**。近年最重要的轉變是**自監督學習**：從未標註資料本身製造學習訊號。
+深度學習真正的威力在於**學習表徵**。近年最大的轉變是[自監督學習](../paradigms/self-supervised/index.md)：從未標註的資料中建立訓練訊號——遮罩預測（BERT、MAE）、下一個 token 預測（GPT）、對比學習（SimCLR、CLIP）、聯合嵌入預測（JEPA）。
 
-- **遮罩預測**：BERT 遮字、MAE 遮影像塊
-- **下一個 token 預測**：GPT 系列
-- **對比學習**：SimCLR、MoCo、CLIP——拉近同一物件的不同視角、推開不同物件
-- **聯合嵌入預測架構（JEPA）**：在表徵空間而非像素空間預測（LeCun 提倡）
+這呼應了大腦的**預測處理**理論：皮質持續預測其輸入，並從預測誤差中學習（見[認知科學](../../brain-mind/cognitive-science/index.md)）。
 
-這與大腦的**預測處理**理論相呼應：大腦不斷預測感官輸入並以預測誤差更新內部模型（見 [認知科學](../../brain-mind/cognitive-science/index.md)）。
+## 縮放定律
 
-## 縮放定律（Scaling Laws）
+Kaplan et al.（2020）與 Hoffmann et al.（2022，「Chinchilla」）發現，語言模型的損失會依參數量、資料量與運算量呈**冪次定律**下降。Chinchilla 指出，在固定的運算預算下，參數量與訓練 token 數應該同步成長（大約每個參數 20 個 token）。實務上，為了讓推論更便宜，模型往往會被訓練到遠超過這個比例。
 
-Kaplan et al.（2020）與 Hoffmann et al.（2022，Chinchilla）發現：語言模型的損失隨參數量、資料量、計算量呈**冪律下降**。Chinchilla 指出在固定計算預算下，參數與訓練 token 數應等比例增加（約每參數 20 個 token）。實務上，為了推論效率，許多模型會訓練遠超此比例的 token。
+自 2024 年起，**測試時運算的縮放**——讓模型在回答前想得更久（長思維鏈、搜尋、取樣與投票）——已成為推理能力的第二條可靠的改進軸線。
 
-2024 年後出現**測試時運算縮放**：讓模型在回答前「思考」更久（長思維鏈、搜尋、多次取樣），也能穩定提升推理表現。
+## 開放的理論問題
 
-## 理論未解之謎
-
-- 為何過度參數化的網路能泛化？（隱式正規化、平坦極小值、神經正切核 NTK）
-- 頓悟（grokking）：訓練很久之後突然泛化
-- 湧現能力（emergent abilities）：是真的相變還是評估指標造成的假象？（Schaeffer et al., 2023）
-- 表徵收斂假說：不同模型、不同模態是否收斂到相似的世界表徵？（Huh et al., 2024「柏拉圖表徵假說」）
+- 為什麼過參數化的網路能夠泛化？（隱式正規化、平坦極小值、神經正切核）
+- **頓悟（grokking）**：訓練損失早已收斂之後，突然出現的泛化
+- **湧現能力**：是真正的相變，還是不連續指標造成的假象？（Schaeffer et al., 2023）
+- **表徵收斂**：不同的模型與模態，是否會收斂到相似的世界表徵？（Huh et al., 2024，「柏拉圖表徵假說」）
 
 ## 學習資源
 
-- [動手學深度學習 d2l-zh](https://zh.d2l.ai/)（CC BY-SA 4.0，強烈推薦）
+- [Dive into Deep Learning](https://d2l.ai/)（CC BY-SA 4.0；強烈推薦）
 - [Understanding Deep Learning](https://udlbook.github.io/udlbook/)（免費 PDF）
-- Andrej Karpathy《Neural Networks: Zero to Hero》
-- 李宏毅《機器學習》系列
+- Andrej Karpathy，*Neural Networks: Zero to Hero*
 - Stanford CS231n（視覺）、CS224n（NLP）
-- fast.ai《Practical Deep Learning for Coders》
+- fast.ai，*Practical Deep Learning for Coders*
+
+## 參考文獻
+
+### 開創性論文
+
+- Krizhevsky, A., Sutskever, I. & Hinton, G. E. (2012). *ImageNet Classification with Deep Convolutional Neural Networks*. NeurIPS. https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html — AlexNet 論文，其在 ImageNet 上的成果開啟了現代深度學習時代。
+- He, K., et al. (2015). *Deep Residual Learning for Image Recognition*. arXiv. https://arxiv.org/abs/1512.03385 — 殘差連接，使極深的網路得以訓練。
+- Kingma, D. P. & Ba, J. (2014). *Adam: A Method for Stochastic Optimization*. arXiv. https://arxiv.org/abs/1412.6980 — Adam 最佳化器，至今仍是訓練許多神經網路的預設選擇。
+- Zhang, C., et al. (2017). *Understanding deep learning requires rethinking generalization*. ICLR. https://arxiv.org/abs/1611.03530 — 顯示網路可以擬合隨機標籤，挑戰了深度模型如何泛化的古典解釋。
+
+### 綜述與教科書
+
+- Goodfellow, I., Bengio, Y. & Courville, A. (2016). *Deep Learning*. MIT Press. https://www.deeplearningbook.org/ — 深度學習數學與實務的標準教科書，可免費線上閱讀。
+- Zhang, A., Lipton, Z. C., Li, M. & Smola, A. J. *Dive into Deep Learning*. https://d2l.ai/ — 附有可執行程式碼的互動式線上教科書，適合實作練習。

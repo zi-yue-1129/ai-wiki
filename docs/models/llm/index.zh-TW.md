@@ -1,86 +1,107 @@
-# 大型語言模型（LLM）
+# 大型語言模型
 
-## 一句話
+## 一句話說明
 
-LLM 是在海量文字（與程式碼、多模態資料）上以**預測下一個 token** 為目標訓練的超大型 Transformer，再經過指令微調與偏好對齊，成為能對話、寫作、推理、寫程式、使用工具的通用模型。
+LLM 是在海量文字（以及程式碼與其他模態）上訓練、用來**預測下一個 token** 的超大型 Transformer；再經過指令微調與偏好對齊，成為能對話、寫作、推理、寫程式與使用工具的通用模型。
 
 ## 生命週期
 
 ```mermaid
 flowchart LR
-  A[資料收集與清理<br/>數兆 token] --> B[預訓練<br/>下一個 token 預測]
-  B --> C[中期訓練<br/>長上下文、高品質資料、程式與數學]
-  C --> D[監督式微調 SFT<br/>指令與對話]
+  A[資料蒐集與過濾<br/>數兆個 token] --> B[預訓練<br/>預測下一個 token]
+  B --> C[中期訓練<br/>長脈絡、高品質、程式碼與數學]
+  C --> D[監督式微調<br/>指令與對話]
   D --> E[偏好對齊<br/>RLHF / DPO / RLAIF]
-  E --> F[推理 RL<br/>可驗證獎勵]
+  E --> F[推理強化學習<br/>可驗證的獎勵]
   F --> G[評估、紅隊測試、部署]
 ```
 
-### 1. 分詞（Tokenization）
+### 1. 分詞（Tokenisation）
 
-文字切成 token（BPE、SentencePiece、Unigram）。中文常常一字一 token 或多字一 token；分詞器設計影響多語言效率與算術能力。
+文字會被切分成 token（BPE、SentencePiece、Unigram）。分詞器的設計會影響多語言的效率（一個中文字可能需要一個或多個 token），甚至影響算術能力。
 
 ### 2. 預訓練
 
-目標：最小化 \(-\sum_t \log p_\theta(x_t\mid x_{<t})\)
+目標：最小化 \(-\sum_t \log p_\theta(x_t\mid x_{<t})\)。
 
-資料來源：網頁（Common Crawl 經大量過濾）、書籍、論文、程式碼、多語言語料、合成資料。資料品質過濾與去重是關鍵競爭力。
+資料：經過過濾的網路爬取（Common Crawl）、書籍、論文、程式碼、多語言語料與合成資料。品質過濾與去重是主要的競爭優勢。
 
-### 3. 後訓練（Post-training）
+### 3. 後訓練
 
-| 階段 | 做法 | 目的 |
+| 階段 | 方法 | 目的 |
 |---|---|---|
-| SFT | 以高品質「指令—回答」範例微調 | 學會遵循指令與對話格式 |
-| RLHF | 人類比較回答 → 訓練獎勵模型 → PPO 最佳化 | 更有幫助、誠實、無害 |
-| DPO 及變體 | 直接用偏好對最佳化，不需獨立獎勵模型 | 更簡單穩定 |
-| RLAIF / Constitutional AI | 由 AI 依一組原則產生偏好回饋 | 擴展監督規模 |
-| 可驗證獎勵 RL（RLVR） | 用數學答案、程式測試等自動判分 | 訓練推理能力 |
+| SFT | 在高品質的指令—回應配對上微調 | 遵循指令與對話格式（[模仿學習](../../foundations/paradigms/imitation/index.md)） |
+| RLHF | 人類比較回答 → 獎勵模型 → PPO | 更有幫助、誠實、無害 |
+| DPO 及其變體 | 直接在偏好配對上最佳化，不需獨立的獎勵模型 | 更簡單、更穩定 |
+| RLAIF／憲法式 AI | 由依據成文原則的 AI 回饋引導 | 擴大監督規模 |
+| 可驗證獎勵的強化學習（RLVR） | 自動評分（數學答案、單元測試） | 訓練推理能力 |
 
-## 關鍵能力與現象
+## 能力與現象
 
-- **上下文學習（in-context learning）**：只在提示中給幾個例子就能學會新任務（GPT-3 提出）
-- **思維鏈（Chain-of-Thought）**：讓模型逐步推理顯著提升數學與邏輯表現（Wei et al., 2022）
-- **推理模型**：經 RL 訓練在回答前產生長推理過程（OpenAI o 系列、DeepSeek-R1、Claude 的延伸思考、Gemini Thinking 等），在數學競賽、程式競賽與科學問答上大幅進步
-- **工具使用**：呼叫搜尋、程式執行、API，見 [AI 代理人](../agents/index.md)
-- **長上下文**：從 2K token 擴展到百萬 token 等級
-- **多模態**：見 [多模態模型](../multimodal/index.md)
+- **上下文學習**：從提示中的少量範例學會一項任務（GPT-3）
+- **思維鏈**：逐步推理大幅提升數學與邏輯表現（Wei et al., 2022）
+- **推理模型**：經強化學習訓練，在回答前產生很長的推理過程（OpenAI o 系列、DeepSeek-R1、Claude 的延伸思考、Gemini 的思考模型等）；在競賽數學、程式設計與科學問題上大幅進步
+- **工具使用**：搜尋、程式執行、API——見 [AI 代理人](../agents/index.md)
+- **長脈絡**：從 2K token 發展到百萬 token 等級
+- **多模態**：見[多模態模型](../multimodal/index.md)
 
 ## 已知限制
 
 | 問題 | 說明 | 緩解方式 |
 |---|---|---|
-| 幻覺 | 自信地產生錯誤資訊 | RAG、引用來源、校準、讓模型說「不知道」 |
-| 知識截止 | 訓練資料有時間界線 | 搜尋工具、RAG |
-| 推理脆弱 | 題目小幅改寫就可能失敗 | 推理訓練、工具輔助、驗證器 |
-| 諂媚（sycophancy） | 傾向附和使用者 | 對齊訓練、評估 |
-| 提示注入 | 外部內容中的指令劫持模型 | 權限隔離、輸入標記、監控 |
-| 偏見 | 反映訓練資料中的社會偏見 | 資料處理、評估、對齊 |
-| 成本與延遲 | 大模型推論昂貴 | 蒸餾、量化、MoE、推測解碼 |
+| 幻覺 | 以肯定語氣輸出錯誤內容 | RAG、引用、校準、訓練模型學會拒答 |
+| 知識截止 | 訓練資料在某個日期就結束 | 搜尋工具、RAG |
+| 脆弱的推理 | 細微的改寫就可能讓解法失效 | 推理訓練、工具、驗證器 |
+| 諂媚 | 傾向附和使用者 | 對齊訓練、評估 |
+| 提示注入 | 外部內容中隱藏的指令劫持模型 | 權限分離、輸入標記、監控 |
+| 偏見 | 訓練資料帶來的社會偏見 | 資料策展、評估、對齊 |
+| 成本與延遲 | 大模型執行成本高 | 蒸餾、量化、MoE、推測解碼 |
 
-## 模型生態（2026 年概況）
+## 模型生態系（2026 年概觀）
 
-!!! note "變化很快"
-    以下僅列家族，具體版本請查各官方網站與 [LMArena](https://lmarena.ai/)、[Artificial Analysis](https://artificialanalysis.ai/) 等排行榜。
+!!! note "變化快速"
+    此處只列出模型家族。目前的版本請查閱官方網站，以及 [LMArena](https://lmarena.ai/) 與 [Artificial Analysis](https://artificialanalysis.ai/) 等排行榜。
 
-| 類型 | 家族（舉例） |
+| 類型 | 家族（例子） |
 |---|---|
-| 封閉前沿模型 | OpenAI GPT 系列、Anthropic Claude、Google Gemini、xAI Grok |
-| 開放權重模型 | Meta Llama、Alibaba Qwen、DeepSeek、Mistral、Google Gemma、Microsoft Phi、Moonshot Kimi、智譜 GLM、OpenAI gpt-oss |
-| 繁體中文／台灣在地 | TAIDE（國科會）、Breeze（聯發科創新基地）、Taiwan-LLM 等，以在地語料強化繁中與台灣文化知識 |
+| 封閉的前沿模型 | OpenAI GPT、Anthropic Claude、Google Gemini、xAI Grok |
+| 開放權重模型 | Meta Llama、阿里巴巴 Qwen、DeepSeek、Mistral、Google Gemma、Microsoft Phi、月之暗面 Kimi、智譜 GLM、OpenAI gpt-oss |
+| 地區性／主權模型 | 許多國家資助針對在地語言與文化調校的模型（例如台灣的 TAIDE，以及聯發科針對繁體中文的 Breeze） |
 
 ## LLM 與人類語言認知
 
-- **LLM 能預測大腦語言區活動**：模型下一字預測越好，越能預測人類語言網路的神經反應（Schrimpf et al., 2021, *PNAS*）
-- **形式語言能力 vs 功能語言能力**：Mahowald, Fedorenko 等（2024）主張 LLM 已掌握語法等「形式能力」，但推理、世界知識、社會推理等「功能能力」在人腦中由語言網路以外的系統支持，在 LLM 中仍不穩定
-- **兒童 vs LLM 的資料效率**：兒童約接觸 1 億字以內就掌握語言，LLM 用了數兆 token；BabyLM 挑戰賽研究小資料下的語言學習
-- **心智理論（Theory of Mind）測驗**：LLM 能通過許多錯誤信念任務，但對擾動敏感，是否真正具備仍有爭議（Kosinski 2023 vs Ullman 2023）
-- 詳見 [心理學與 AI](../../brain-mind/psychology/index.md) 與 [NeuroAI](../../brain-mind/neuroai/index.md)
+- **LLM 能預測語言區的腦活動**：預測下一個詞越準的模型，也越能預測人類語言網路的反應（Schrimpf et al., 2021, *PNAS*）
+- **形式語言能力與功能語言能力**：Mahowald、Fedorenko 等人（2024）主張，LLM 掌握了形式能力（文法），但功能能力（推理、世界知識、社會認知）——由語言網路以外的腦網路支持——仍較不可靠
+- **資料效率**：兒童到青少年時聽到的詞數約在數千萬量級（遠低於一億）；LLM 則看過數兆 token。BabyLM 挑戰研究的是在兒童規模資料上的學習
+- **心智理論測試**：LLM 通過許多錯誤信念任務，但對微擾很敏感；它們是否「具有」心智理論仍有爭議（Kosinski, 2023 對 Ullman, 2023；Strachan et al., 2024）
+- 見[心理學與 AI](../../brain-mind/psychology/index.md)與 [NeuroAI](../../brain-mind/neuroai/index.md)
 
 ## 學習資源
 
 - [mlabonne/llm-course](https://github.com/mlabonne/llm-course)
-- Sebastian Raschka《Build a Large Language Model (From Scratch)》
-- Stanford CS336《Language Modeling from Scratch》
-- 李宏毅《生成式 AI 導論》《機器學習 2025》
+- Raschka，*Build a Large Language Model (From Scratch)*
+- Stanford CS336，*Language Modeling from Scratch*
 - Hugging Face [LLM Course](https://huggingface.co/learn/llm-course)
-- Andrej Karpathy〈Intro to Large Language Models〉〈Deep Dive into LLMs like ChatGPT〉
+- Karpathy，"Intro to Large Language Models" 與 "Deep Dive into LLMs like ChatGPT"
+
+## 參考文獻
+
+### 開創性論文
+
+- Brown, T. B., et al. (2020). *Language Models are Few-Shot Learners*. arXiv. https://arxiv.org/abs/2005.14165 — GPT-3 論文，顯示非常大的模型能從提示中給出的少量範例學會新任務。
+- Kaplan, J., et al. (2020). *Scaling Laws for Neural Language Models*. arXiv. https://arxiv.org/abs/2001.08361 — 顯示隨著模型大小、資料與運算量增加，損失如何可預測地下降。
+- Hoffmann, J., et al. (2022). *Training Compute-Optimal Large Language Models*. arXiv. https://arxiv.org/abs/2203.15556 — Chinchilla 研究，主張在固定運算預算下，模型大小與訓練 token 數應該同步成長。
+- Ouyang, L., et al. (2022). *Training language models to follow instructions with human feedback*. arXiv. https://arxiv.org/abs/2203.02155 — InstructGPT，結合監督式微調與來自人類偏好的強化學習。
+- Wei, J., et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — 顯示要求模型寫出中間推理步驟，可改善多步驟問題的解題能力。
+
+### 綜述與教科書
+
+- Zhao, W. X., et al. (2023). *A Survey of Large Language Models*. arXiv. https://arxiv.org/abs/2303.18223 — 對 LLM 的預訓練、適應與評估進行廣泛綜述，並附有模型時間線。
+
+### 講座與影片
+
+- Karpathy, A. (2023). *[1hr Talk] Intro to Large Language Models*. YouTube. https://www.youtube.com/watch?v=zjkBMFhNj_g — 一小時、非技術性的概述，介紹 LLM 如何訓練、能做什麼、在哪裡失敗。
+
+### 文章與文件
+
+- Hugging Face. *LLM Course*. https://huggingface.co/learn/llm-course — 使用 Hugging Face 函式庫來使用、微調與建構 LLM 的實作課程。
