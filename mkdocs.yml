@@ -573,6 +573,9 @@ plugins:
             Kaplan Scaling Laws: Kaplan 縮放定律
             Emergent Abilities: 湧現能力
             Emergence as a Mirage: 湧現是海市蜃樓
+            Monte Carlo Tree Search and Self-Play: 蒙地卡羅樹搜尋與自我對弈
+            Monte Carlo Tree Search: 蒙地卡羅樹搜尋
+            Sandboxing and Computer-Use Agents: 沙箱與電腦操作代理人
 
 markdown_extensions:
   - abbr
@@ -709,6 +712,12 @@ nav:
               - Learning from Human Feedback: theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
               - Experience Replay: theory/paradigms/reinforcement-learning/experience-replay/index.md
               - Exploration: theory/paradigms/reinforcement-learning/exploration/index.md
+              - Monte Carlo Tree Search and Self-Play:
+                  - theory/paradigms/reinforcement-learning/mcts-and-self-play/index.md
+                  - Monte Carlo Tree Search: theory/paradigms/reinforcement-learning/mcts-and-self-play/monte-carlo-tree-search/index.md
+                  - AlphaGo: theory/paradigms/reinforcement-learning/mcts-and-self-play/alphago/index.md
+                  - AlphaZero: theory/paradigms/reinforcement-learning/mcts-and-self-play/alphazero/index.md
+                  - MuZero: theory/paradigms/reinforcement-learning/mcts-and-self-play/muzero/index.md
           - Imitation Learning:
               - theory/paradigms/imitation/index.md
               - Behavioural Cloning: theory/paradigms/imitation/behavioural-cloning/index.md
@@ -1097,6 +1106,11 @@ nav:
           - engineering/agents/index.md
           - ReAct: engineering/agents/react/index.md
           - Reflexion: engineering/agents/reflexion/index.md
+          - Sandboxing and Computer-Use Agents:
+              - engineering/agents/sandboxing-and-computer-use/index.md
+              - CodeAct: engineering/agents/sandboxing-and-computer-use/codeact/index.md
+              - OSWorld: engineering/agents/sandboxing-and-computer-use/osworld/index.md
+              - CaMeL: engineering/agents/sandboxing-and-computer-use/camel/index.md
   - AI & Society:
       - society/index.md
       - Safety & Alignment:
