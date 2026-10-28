@@ -399,6 +399,10 @@ plugins:
             Sequence-Level KD: 序列層級蒸餾
             MiniLLM: MiniLLM
             DeepSeek-R1 Distillation: DeepSeek-R1 蒸餾
+            Low-Rank & Efficient Architectures: 低秩與高效架構
+            Truncated SVD: 截斷 SVD
+            Low-Rank Filter Expansion: 低秩濾波器展開
+            LoRA: LoRA
             Data-Free: 無資料
             LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
@@ -800,6 +804,11 @@ nav:
                   - Sequence-Level KD: theory/model-compression/knowledge-distillation/llm-distillation/sequence-level/index.md
                   - MiniLLM: theory/model-compression/knowledge-distillation/llm-distillation/minillm/index.md
                   - DeepSeek-R1 Distillation: theory/model-compression/knowledge-distillation/llm-distillation/deepseek-r1/index.md
+          - Low-Rank & Efficient Architectures:
+              - theory/model-compression/low-rank-and-efficient-architectures/index.md
+              - Truncated SVD: theory/model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md
+              - Low-Rank Filter Expansion: theory/model-compression/low-rank-and-efficient-architectures/low-rank-filter-expansion/index.md
+              - LoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons:
