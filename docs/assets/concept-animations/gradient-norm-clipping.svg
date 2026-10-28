@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+<title id="title">Global gradient norm clipping</title><desc id="desc">Original and clipped gradients point in the same direction. A threshold circle bounds the clipped gradient's norm without changing its direction.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 1L7 4L0 7" fill="none" stroke="#4f7082" stroke-width="1.5"/></marker></defs>
+<style>text{font:500 15px system-ui,sans-serif;fill:#29465b}.muted{font-size:12px;fill:#607a8a}.box{fill:white;stroke:#d2dee8;stroke-width:1.5}</style>
+<rect width="640" height="360" rx="18" fill="#f8fbfe"/>
+<text class="muted" x="32" y="36">NORM CLIPPING</text>
+<path d="M65 287H575M183 318V61" fill="none" stroke="#bfd1dd" stroke-width="2" stroke-linecap="round"/>
+<circle cx="183" cy="287" r="132" fill="#e5f4ee" fill-opacity=".6" stroke="#61aa96" stroke-width="2.5" stroke-dasharray="6 6"/>
+<path d="M183 287L484 88" fill="none" stroke="#9fb1be" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M183 287L293 214" fill="none" stroke="#148773" stroke-width="6" stroke-linecap="round" marker-end="url(#arrow)"/>
+<circle cx="183" cy="287" r="5" fill="#29465b"/><circle cx="293" cy="214" r="7" fill="#148773" stroke="white" stroke-width="2"/>
+<rect class="box" x="458" y="53" width="108" height="36" rx="9"/><text x="512" y="77" text-anchor="middle">raw g</text>
+<rect x="265" y="158" width="119" height="36" rx="9" fill="#e6f5ef" stroke="#91cab8" stroke-width="1.5"/><text x="324" y="182" text-anchor="middle">clipped g</text>
+<text class="muted" x="75" y="152">τ = threshold</text>
+<text class="muted" x="32" y="336">Same direction · bounded norm</text>
+</svg>
