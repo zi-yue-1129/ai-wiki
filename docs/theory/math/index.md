@@ -19,6 +19,7 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 - Linear maps, rank, bases
 - Eigendecomposition and singular value decomposition (SVD): PCA, and the low-rank idea behind LoRA
 - Norms (L1, L2): regularisation
+- [Linear algebra for AI](linear-algebra/index.md): vectors, matrices, eigendecomposition, SVD and low-rank approximation, and where each appears in networks, attention, PCA and compression.
 
 ## 2. Calculus
 
