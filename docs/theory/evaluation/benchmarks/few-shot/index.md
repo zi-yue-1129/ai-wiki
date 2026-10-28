@@ -15,8 +15,7 @@ Few-shot benchmarks test whether a learner can recognise new classes from a hand
 | Benchmark | Source of images | Main metric |
 |---|---|---|
 | [miniImageNet](mini-imagenet.md) | Subset of ImageNet | Episode accuracy with confidence intervals |
-
-Omniglot, the handwritten-character benchmark of Lake et al. (2015), is the other standard few-shot test. It is not a separate page yet, but it is cited in the miniImageNet page.
+| [Omniglot](omniglot.md) | Handwritten characters from many writing systems | Episode accuracy with confidence intervals |
 
 ## Common issues
 

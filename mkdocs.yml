@@ -522,6 +522,8 @@ plugins:
             SWE-bench: SWE-bench
             ARC-AGI: ARC-AGI
             miniImageNet: miniImageNet
+            Omniglot: Omniglot
+            HumanEval: HumanEval
             Classification: 分類
             Probabilistic: 機率
             Regression: 迴歸
@@ -1280,6 +1282,7 @@ nav:
                   - theory/evaluation/benchmarks/math-and-code/index.md
                   - GSM8K: theory/evaluation/benchmarks/math-and-code/gsm8k.md
                   - MATH: theory/evaluation/benchmarks/math-and-code/math.md
+                  - HumanEval: theory/evaluation/benchmarks/math-and-code/humaneval.md
                   - SWE-bench: theory/evaluation/benchmarks/math-and-code/swe-bench.md
               - Reasoning and agents:
                   - theory/evaluation/benchmarks/reasoning-agents/index.md
@@ -1306,6 +1309,7 @@ nav:
               - Few-shot:
                   - theory/evaluation/benchmarks/few-shot/index.md
                   - miniImageNet: theory/evaluation/benchmarks/few-shot/mini-imagenet.md
+                  - Omniglot: theory/evaluation/benchmarks/few-shot/omniglot.md
           - Protocols: theory/evaluation/protocols/index.md
       - Models:
           - theory/models/index.md
