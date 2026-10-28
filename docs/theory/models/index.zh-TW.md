@@ -1,17 +1,29 @@
 # 模型與技術
 
-這一區介紹當代 AI 的主要模型家族，以及由它們組成的系統。這些模型背後的一般理論見[理論](../index.md)。
+這一區介紹當代 AI 的架構家族，以及由它們組成的系統。架構家族是指一種建構網路的方式：資訊如何在輸入之間傳遞，以及它對資料做了什麼假設。這些模型背後的一般理論見[理論](../index.md)。生成式建模不在此列，因為任何家族都可以用這種方式訓練；見[生成式建模](../generative/index.md)。
+
+## 架構家族
+
+| 家族 | 核心想法 | 組件與變體 |
+|---|---|---|
+| [多層感知器](mlp/index.md) | 疊加的仿射映射與非線性，沒有假設結構 | 激活函數、正規化、殘差連接 |
+| [卷積網路](cnn/index.md) | 在每個位置套用同一個局部濾波器 | [卷積變體](cnn/convolution-variants/index.md)、[骨幹與縮放](cnn/backbones-and-scaling/index.md) |
+| [循環網路](rnn/index.md) | 隱藏狀態逐步在序列中傳遞 | [門控單元](rnn/gated-cells/index.md)、[序列模式](rnn/sequence-modes/index.md) |
+| [Transformer 與注意力](transformer/index.md) | 以注意力依內容路由資訊 | [注意力變體](transformer/attention-variants/index.md)、[位置編碼](transformer/positional-encodings/index.md)、[KV 快取](transformer/kv-cache/index.md) |
+| [狀態空間模型](ssm/index.md) | 隨時間更新的線性狀態，具有長程記憶 | [結構化狀態空間](ssm/structured-state-spaces/index.md)、[選擇性狀態空間](ssm/selective-state-spaces/index.md) |
+| [圖神經網路](gnn/index.md) | 沿圖的邊進行訊息傳遞 | [訊息傳遞](gnn/message-passing/index.md) |
+
+## 應用與系統
+
+這些頁面描述任務、模態與系統。每一個都由上述一個或多個家族組成。
 
 | 頁面 | 重點 |
 |---|---|
-| [Transformer 與注意力](transformer/index.md) | 現代 AI 的核心架構，以及 Mamba 等替代方案 |
 | [大型語言模型](llm/index.md) | 預訓練、對齊、推理模型、開放權重生態 |
-| [生成模型](generative/index.md) | VAE、GAN、擴散模型、流匹配、自迴歸生成 |
 | [電腦視覺](computer-vision/index.md) | 分類、偵測、分割、3D、影片理解 |
 | [自然語言處理](nlp/index.md) | 從詞向量到 LLM 的 NLP 任務 |
 | [語音與音訊](speech/index.md) | 語音辨識、語音合成、音樂生成 |
 | [多模態模型](multimodal/index.md) | 視覺語言模型、文生圖／影片、全模態模型 |
-| [圖神經網路](gnn/index.md) | 分子、社群、知識圖譜上的學習 |
 | [AI 代理人](agents/index.md) | 工具使用、規劃、記憶、多代理系統 |
 | [世界模型與具身智慧](world-models/index.md) | 預測環境、在想像中規劃、機器人基礎模型 |
 

@@ -39,7 +39,7 @@ English terms with Traditional Chinese (Taiwan) equivalents. Terms link to the p
 | Term | 中文 | Short definition |
 |---|---|---|
 | Data augmentation | 資料增強 | Creating modified copies of training data |
-| Diffusion model | 擴散模型 | Generative model that learns to denoise ([Generative Models](../../theory/models/generative/index.md)) |
+| Diffusion model | 擴散模型 | Generative model that learns to denoise ([Generative Models](../../theory/generative/index.md)) |
 | Distillation | 知識蒸餾 | Training a small model to imitate a large one |
 | Distribution shift | 分布偏移 | Test data differ from training data |
 | Dopamine | 多巴胺 | Neuromodulator signalling reward-prediction error |

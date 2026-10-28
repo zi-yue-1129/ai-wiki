@@ -21,6 +21,10 @@ h_v^{(k+1)} = \text{UPDATE}\Big(h_v^{(k)},\; \text{AGG}_{u\in\mathcal{N}(v)}\, \
 
 The aggregation must be **permutation-invariant** (sum, mean, max, attention).
 
+## Components and variants
+
+How messages are formed and aggregated, and how deep the network can go before its node features blur together, are covered on the [message-passing](message-passing/index.md) page. It compares normalised convolution, neighbour sampling, attention, and the expressivity of sum-based aggregation.
+
 ## Representative models
 
 | Model | Character |
