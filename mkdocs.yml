@@ -327,6 +327,7 @@ plugins:
             Deep Q-Networks: 深度 Q 網路
             AlphaGo: 阿爾法圍棋
             AlphaZero: 阿爾法零
+            MCTS and self-play: 蒙地卡羅樹搜尋與自我對弈
             MuZero: MuZero
             Proximal Policy Optimisation: 近端策略最佳化
             Multi-Agent RL: 多智能體強化學習
@@ -1042,6 +1043,7 @@ nav:
               - Deep Q-Networks: theory/paradigms/reinforcement-learning/deep-q-networks/index.md
               - AlphaGo: theory/paradigms/reinforcement-learning/alphago/index.md
               - AlphaZero: theory/paradigms/reinforcement-learning/alphazero/index.md
+              - MCTS and self-play: theory/paradigms/reinforcement-learning/mcts-and-self-play/index.md
               - Proximal Policy Optimisation: theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index.md
               - Value-Based Methods:
                   - theory/paradigms/reinforcement-learning/value-based-methods/index.md
