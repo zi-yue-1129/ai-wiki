@@ -33,7 +33,7 @@ t \approx \max\left(\frac{\text{FLOPs}}{P_{\text{peak}}},\; \frac{\text{搬移�
 兩個具代表性的槓桿，展示了協同設計能改變的範圍。
 
 - [FlashAttention](../../../theory/models/transformer/attention-variants/flash-attention/index.zh-TW.md)（Dao 等人，2022）：核心層級的改變，讓注意力的中間結果留在晶片上，輸出完全相同。
-- [混合精度訓練](https://arxiv.org/abs/1710.03740)（Micikevicius 等人，2017）：數值格式的改變，以主權重與損失縮放為輔，使訓練所用的記憶體大約減半。
+- [混合精度訓練](mixed-precision.zh-TW.md)（Micikevicius 等人，2017）：數值格式的改變，以主權重與損失縮放為輔，使訓練所用的記憶體減少近 2 倍。
 
 ## 結果
 
