@@ -69,5 +69,5 @@ Fort, Hu and Lakshminarayanan (2019) argue that the diversity of ensemble member
 ### Surveys and textbooks
 
 - Fort, S., Hu, H. & Lakshminarayanan, B. (2019). Deep ensembles: a loss landscape perspective. arXiv:1912.02757. https://arxiv.org/abs/1912.02757 — Explains why independently trained members diverge and how that affects uncertainty.
-- Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — Compares ensembles with post-hoc calibration.
+- Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — Compares deep ensembles with post-hoc calibration methods for neural networks.
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers ensembles and Bayesian model averaging.
