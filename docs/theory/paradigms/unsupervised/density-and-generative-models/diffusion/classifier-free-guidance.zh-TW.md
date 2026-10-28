@@ -27,6 +27,10 @@ Dhariwal 與 Nichol（2021）指出，用另外訓練的分類器的梯度來引
 
 等價地，\(\tilde\epsilon = \epsilon_\theta(x_t,t) + (1+w)\big(\epsilon_\theta(x_t,t,c) - \epsilon_\theta(x_t,t)\big)\)，可見每一步是從無條件預測朝有條件預測移動。當 \(w = 0\) 時就是一般的有條件模型。\(w\) 越大，樣本就沿著條件所增加的方向推得越遠。每步的成本因此加倍，因為需要兩次網路評估。
 
+![無分類器引導向量示意：引導後的雜訊預測沿有條件與無條件預測的差向量，超越有條件預測繼續外插。](../../../../../assets/concept-animations/cfg-vector-guidance.svg)
+
+*原創向量空間概念圖，CC BY-SA 4.0。* 每個點代表一個**完整的雜訊預測張量**，只是以二維投影呈現，並非生成影像。從無條件預測移往有條件預測的方向為兩者差向量。依本頁公式，\(w=0\) 對應有條件預測；\(w>0\) 會再沿 \(w(\epsilon_{\mathrm{cond}}-\epsilon_{\mathrm{uncond}})\) 外插。圖中的位置、距離與顏色都只是**示意，並非模型實測輸出**，也不表示引導愈強品質一定愈好。參見 [Ho 與 Salimans（2022）](https://arxiv.org/abs/2207.12598)。
+
 ## 關鍵方法
 
 ### Classifier-Free Diffusion Guidance（Ho & Salimans，2022）
