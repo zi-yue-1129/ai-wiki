@@ -244,6 +244,7 @@ plugins:
             Theory: 理論
             Mathematics: 數學基礎
             Information Theory: 資訊理論
+            Causal Inference: 因果推論
             Machine Learning: 機器學習
             Deep Learning: 深度學習
             Optimisation: 最佳化
@@ -906,6 +907,7 @@ nav:
       - theory/index.md
       - Mathematics: theory/math/index.md
       - Information Theory: theory/information-theory/index.md
+      - Causal Inference: theory/causal-inference/index.md
       - Machine Learning: theory/machine-learning/index.md
       - Deep Learning:
           - theory/deep-learning/index.md
