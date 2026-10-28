@@ -14,7 +14,6 @@ tags:
 aliases:
   - Memory hierarchy
   - Memory bandwidth
-  - Roofline model
   - 記憶體階層
 ---
 
@@ -47,7 +46,7 @@ The arithmetic intensity of a kernel is the number of floating-point operations 
 I = \frac{\text{FLOPs}}{\text{bytes moved}}
 \]
 
-The roofline model (Williams et al., 2009) bounds the attainable performance \(P\) by the peak compute \(P_{\text{peak}}\) and the memory bandwidth \(B\):
+The [roofline model](roofline.md) (Williams et al., 2009) bounds the attainable performance \(P\) by the peak compute \(P_{\text{peak}}\) and the memory bandwidth \(B\):
 
 \[
 P = \min\left(P_{\text{peak}},\; B \cdot I\right)
