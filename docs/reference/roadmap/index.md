@@ -22,7 +22,7 @@ Topics that do not have a page yet. Tick a box (in the same PR) when its page is
 ### Foundations
 
 - [ ] ★★★ Optimization (gradient descent variants, convexity, loss landscapes)
-- [ ] ★★★ Information theory for ML (entropy, KL divergence, mutual information)
+- [x] ★★★ Information theory for ML (entropy, KL divergence, mutual information)
 - [ ] ★★ Statistical learning theory (bias–variance, VC dimension, generalization)
 - [ ] ★★ Causal inference and causal ML
 - [ ] ★★ Kernel methods and support vector machines
