@@ -84,9 +84,9 @@ Biology has a parallel. During development, the brain forms more synapses than i
 
 ### Seminal papers
 
-- Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — Shows that pruning and retraining cut AlexNet's parameters by a factor of 9.
-- Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — Identifies sparse subnetworks that train well from their initial weights.
-- Frantar, E., Alistarh, D. (2023). *SparseGPT: Massive Language Models Can Be Accurately Pruned in One-Shot*. arXiv:2301.00774. https://arxiv.org/abs/2301.00774 — One-shot pruning of large language models with weight reconstruction.
+- Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — Shows that pruning and retraining cut AlexNet's parameters by a factor of 9, from 61 million to 6.7 million, with no loss of ImageNet accuracy.
+- Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — Finds sparse "winning tickets" that, trained in isolation from their initial weights, reach accuracy comparable to the original network.
+- Frantar, E., Alistarh, D. (2023). *SparseGPT: Massive Language Models Can Be Accurately Pruned in One-Shot*. arXiv:2301.00774. https://arxiv.org/abs/2301.00774 — Prunes GPT-family models to at least 50% sparsity in one shot, without retraining, and reports 60% sparsity with a negligible increase in perplexity.
 - Sun, M., et al. (2023). *A Simple and Effective Pruning Approach for Large Language Models*. arXiv:2306.11695. https://arxiv.org/abs/2306.11695 — Wanda, a magnitude-times-activation score that needs no retraining.
 
 ### Surveys and textbooks

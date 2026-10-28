@@ -70,9 +70,9 @@ Han 等人（2015）提出的經典流程有三個步驟：正常訓練稠密網
 
 ### 開創性論文
 
-- Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — 顯示剪枝與重新訓練使 AlexNet 的參數減少為九分之一。
-- Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — 找出從初始權重開始就能良好訓練的稀疏子網路。
-- Frantar, E., Alistarh, D. (2023). *SparseGPT: Massive Language Models Can Be Accurately Pruned in One-Shot*. arXiv:2301.00774. https://arxiv.org/abs/2301.00774 — 以權重重建對大型語言模型做單次剪枝。
+- Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — 顯示剪枝與重新訓練使 AlexNet 的參數減少為九分之一（6,100 萬降至 670 萬），且 ImageNet 準確率沒有損失。
+- Frankle, J., Carbin, M. (2018). *The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks*. arXiv:1803.03635. https://arxiv.org/abs/1803.03635 — 找出「中獎票」式的稀疏子網路；從初始權重單獨訓練時，準確度可與原網路相當。
+- Frantar, E., Alistarh, D. (2023). *SparseGPT: Massive Language Models Can Be Accurately Pruned in One-Shot*. arXiv:2301.00774. https://arxiv.org/abs/2301.00774 — 把 GPT 系列模型單次剪枝至至少 50% 稀疏，無需重新訓練；60% 稀疏時困惑度僅輕微上升。
 - Sun, M., 等人 (2023). *A Simple and Effective Pruning Approach for Large Language Models*. arXiv:2306.11695. https://arxiv.org/abs/2306.11695 — Wanda，以量值乘以激活值的分數進行剪枝，不需重新訓練。
 
 ### 綜述與教科書
