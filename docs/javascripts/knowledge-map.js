@@ -29,7 +29,6 @@
     var results = root.querySelector(".km-results");
     var stage = root.querySelector(".km-stage");
     var info = root.querySelector(".km-info");
-    var list = root.querySelector(".km-list");
     var fullButton = root.querySelector(".km-full");
 
     var svg = element("svg", { "class": "km-svg", role: "group", "aria-label": text.aria });
@@ -426,9 +425,8 @@
       if (box.w && box.w !== lastWidth) fit();
     });
 
-    // The page is ready: hide the static list, show the map.
+    // The page is ready: show the map.
     root.classList.add("km-ready");
-    if (list) list.removeAttribute("open");
     show("", null);
   }
 
