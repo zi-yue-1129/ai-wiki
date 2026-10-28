@@ -13,7 +13,7 @@ aliases:
 
 # Low-Rank Filter Expansion
 
-Low-rank filter expansion approximates each convolutional filter as a combination of a few separable filters. Jaderberg et al. showed that a standard convolution can be replaced by a sequence of cheaper filters, learned with a low-rank constraint, and reported a 2.5 times speed-up with no loss in accuracy on a scene text recognition network. It is a [low-rank factorisation](../index.md) method, and an alternative to the single SVD of [truncated SVD](../truncated-svd/index.md).
+Low-rank filter expansion approximates each convolutional filter as a combination of a few separable filters. Jaderberg et al. showed that a standard convolution can be replaced by a sequence of cheaper filters, learned with a low-rank constraint, and reported a possible 2.5 times speed-up with no loss in accuracy on a scene text recognition network. It is a [low-rank factorisation](../index.md) method, and an alternative to the single SVD of [truncated SVD](../truncated-svd/index.md).
 
 ## Problem
 
@@ -49,7 +49,7 @@ Separable filters are a classical idea in image processing, and the same factori
 
 ### Seminal papers
 
-- Jaderberg, M., Vedaldi, A., Zisserman, A. (2014). *Speeding up Convolutional Neural Networks with Low Rank Expansions*. arXiv:1405.3866. https://arxiv.org/abs/1405.3866 — Low-rank filter expansions with a 2.5 times speed-up and no loss in accuracy on a text recognition network.
+- Jaderberg, M., Vedaldi, A., Zisserman, A. (2014). *Speeding up Convolutional Neural Networks with Low Rank Expansions*. arXiv:1405.3866. https://arxiv.org/abs/1405.3866 — Low-rank filter expansions with a possible 2.5 times speed-up and no loss in accuracy on a text recognition network.
 - Denton, R., Zaremba, W., Bruna, J., LeCun, Y., Fergus, R. (2014). *Exploiting Linear Structure Within Convolutional Networks for Efficient Evaluation*. arXiv:1404.0736. https://arxiv.org/abs/1404.0736 — Low-rank approximations of convolutional filters, the parallel result from the same year.
 - Howard, A. G., et al. (2017). *MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications*. arXiv:1704.04861. https://arxiv.org/abs/1704.04861 — Depthwise-separable convolutions, a design that builds in the same kind of saving.
 
