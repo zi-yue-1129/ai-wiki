@@ -65,4 +65,4 @@ GP 在資料點很少時仍能給出校準良好的不確定性，也驅動貝�
 
 ## 延伸閱讀
 
-- Murphy，*Probabilistic Machine Learning: An Introduction*，MIT Press（2022）。未查核免費連結。
+- Murphy，*Probabilistic Machine Learning: An Introduction*，MIT Press（2022）。免費線上版：https://probml.github.io/pml-book/ — 涵蓋樸素貝氏等機率分類器。

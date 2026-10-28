@@ -55,9 +55,9 @@ Even "self-supervised" foundation models rely on supervised steps: **supervised 
 
 ## Further reading
 
-- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning* (free PDF)
+- Hastie, Tibshirani & Friedman, *The Elements of Statistical Learning*, Springer (2009). https://doi.org/10.1007/978-0-387-84858-7
 - [scikit-learn supervised learning guide](https://scikit-learn.org/stable/supervised_learning.html)
-- Geirhos et al. (2020), "Shortcut learning in deep neural networks", *Nature Machine Intelligence*
+- Geirhos et al. (2020), "Shortcut learning in deep neural networks", *Nature Machine Intelligence*. https://arxiv.org/abs/2004.07780
 
 ## Subtopics
 

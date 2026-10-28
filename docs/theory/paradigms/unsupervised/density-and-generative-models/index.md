@@ -68,4 +68,4 @@ Likelihood is not the same as sample quality. A model can assign high likelihood
 
 ## Further reading
 
-- Murphy, *Probabilistic Machine Learning: Advanced Topics* (2023), chapters on normalising flows and generative models. No link checked.
+- Murphy, *Probabilistic Machine Learning: Advanced Topics* (2023), chapters on normalising flows and generative models. Free online: https://probml.github.io/pml-book/book2

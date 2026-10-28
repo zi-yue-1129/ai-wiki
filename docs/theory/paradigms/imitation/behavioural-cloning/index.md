@@ -58,4 +58,4 @@ No further entries; the articles above are covered in the seminal papers group.
 
 ## Further reading
 
-- Argall, Chernova, Veloso & Browning (2009), "A survey of robot learning from demonstration", *Robotics and Autonomous Systems*. No link checked.
+- Argall, Chernova, Veloso & Browning (2009), "A survey of robot learning from demonstration", *Robotics and Autonomous Systems*. https://ri.cmu.edu/publications/a-survey-of-robot-learning-from-demonstration — Surveys how robots learn skills by imitating demonstrations, and how these methods are classified.

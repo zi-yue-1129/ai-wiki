@@ -65,4 +65,4 @@ The Bayesian view links to [Probabilistic & Bayesian Methods](../../../probabili
 
 ## Further reading
 
-- Murphy, *Probabilistic Machine Learning: An Introduction*, MIT Press (2022). No free link checked.
+- Murphy, *Probabilistic Machine Learning: An Introduction*, MIT Press (2022). https://probml.github.io/pml-book/ — Free online textbook; covers probabilistic classifiers such as naive Bayes.

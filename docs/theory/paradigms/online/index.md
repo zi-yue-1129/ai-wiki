@@ -63,10 +63,9 @@ Real streams drift. Tools: drift detectors (ADWIN, DDM, Page–Hinkley), sliding
 
 ## Further reading
 
-- Lattimore & Szepesvári, *Bandit Algorithms* (free PDF)
-- Shalev-Shwartz (2012), "Online Learning and Online Convex Optimization"
-- Hazan, *Introduction to Online Convex Optimization* (free)
-- Russo et al., "A Tutorial on Thompson Sampling"
+- Shalev-Shwartz (2012), "Online Learning and Online Convex Optimization". https://doi.org/10.1561/2200000018
+- Hazan, *Introduction to Online Convex Optimization*. Free preprint: https://arxiv.org/abs/1909.05207
+- Russo et al., "A Tutorial on Thompson Sampling". https://arxiv.org/abs/1707.02038
 
 ## References
 

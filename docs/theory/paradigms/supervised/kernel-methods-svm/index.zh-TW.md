@@ -63,5 +63,5 @@ $$
 
 ## 延伸閱讀
 
-- Schölkopf & Smola，*Learning with Kernels*，MIT Press（2002）。未查核免費連結。
+- Schölkopf & Smola，*Learning with Kernels*，MIT Press（2002）。https://is.mpg.de/publications/973 — 核方法與支持向量機的標準參考書，涵蓋理論與演算法。
 - Platt (1999), "Probabilistic outputs for support vector machines", in *Advances in Large Margin Classifiers*。未查核免費連結。

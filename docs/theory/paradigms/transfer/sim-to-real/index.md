@@ -58,4 +58,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Rusu et al. (2017), "Sim-to-real robot learning from pixels with progressive nets", CoRL. No link checked.
+- Rusu et al. (2017), "Sim-to-real robot learning from pixels with progressive nets", CoRL. https://arxiv.org/abs/1610.04286 — Transfers a policy from simulation to a real robot by reusing features from a network trained in simulation.

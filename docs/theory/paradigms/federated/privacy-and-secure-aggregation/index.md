@@ -59,4 +59,4 @@ No further entries for this page.
 
 ## Further reading
 
-- McMahan, Ramage, Talwar & Zhang (2018), "Learning differentially private recurrent language models", ICLR. No link checked.
+- McMahan, Ramage, Talwar & Zhang (2018), "Learning differentially private recurrent language models", ICLR. https://arxiv.org/abs/1710.06963 — Trains a language model with differential privacy by adding noise to averaged user updates.

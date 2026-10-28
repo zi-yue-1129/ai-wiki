@@ -66,4 +66,4 @@ Why do trees beat deep networks on many tabular tasks? Grinsztajn et al. (2022) 
 
 ## Further reading
 
-- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD. No link checked.
+- Chen & Guestrin (2016), "XGBoost: a scalable tree boosting system", KDD. https://arxiv.org/abs/1603.02754 — The XGBoost system: regularised gradient-boosted trees built for speed and scale.

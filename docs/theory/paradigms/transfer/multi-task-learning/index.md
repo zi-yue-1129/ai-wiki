@@ -59,4 +59,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Zhang & Yang (2021), "A survey on multi-task learning", IEEE Transactions on Knowledge and Data Engineering. No link checked.
+- Zhang & Yang (2021), "A survey on multi-task learning", IEEE Transactions on Knowledge and Data Engineering. https://arxiv.org/abs/1707.08114 — Surveys how learning related tasks together can help each task, and how the models share parameters.

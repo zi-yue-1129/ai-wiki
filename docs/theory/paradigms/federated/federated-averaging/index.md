@@ -58,4 +58,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Bonawitz et al. (2019), "Towards federated learning at scale: system design", SysML. No link checked.
+- Bonawitz et al. (2019), "Towards federated learning at scale: system design", SysML. https://arxiv.org/abs/1902.01046 — Describes the system design for running federated learning across very large device populations.

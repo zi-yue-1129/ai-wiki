@@ -48,9 +48,10 @@ There is no ground truth, so evaluation is hard:
 
 ## Further reading
 
-- Bishop, *Pattern Recognition and Machine Learning*, chapters 9 and 12 (free PDF)
+- Bishop, *Pattern Recognition and Machine Learning*, chapters 9 and 12. https://www.microsoft.com/en-us/research/?p=231646
 - [scikit-learn unsupervised learning guide](https://scikit-learn.org/stable/unsupervised_learning.html)
-- McInnes et al. (2018), UMAP paper; Wattenberg et al., "How to Use t-SNE Effectively" (Distill, 2016)
+- McInnes et al. (2018), UMAP paper. https://arxiv.org/abs/1802.03426
+- Wattenberg et al., "How to Use t-SNE Effectively" (Distill, 2016). https://distill.pub/2016/misread-tsne/
 
 ## Subtopics
 
