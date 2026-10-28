@@ -66,10 +66,14 @@ L = -\log \sigma\!\left(\beta \log\frac{\pi_\theta(y_w\mid x)}{\pi_{ref}(y_w\mid
 - **Curriculum and data mixing** schedules
 - **Hyperparameter search**: random search, Bayesian optimisation, population-based training
 
-## Resources
+## References
 
-- Hugging Face [TRL](https://huggingface.co/docs/trl), [PEFT](https://huggingface.co/docs/peft)
-- Stanford CS336
-- *The Ultra-Scale Playbook* (Hugging Face, 2025) on distributed training
-- Lambert, *RLHF Book* (free online)
-- Unsloth and Axolotl documentation for practical fine-tuning
+- Hu, E. J. et al. (2021). *LoRA: Low-Rank Adaptation of Large Language Models*. arXiv:2106.09685. https://arxiv.org/abs/2106.09685 — Freezes the pretrained weights and trains low-rank update matrices, the method behind the LoRA recipe on this page.
+- Ouyang, L. et al. (2022). *Training language models to follow instructions with human feedback*. NeurIPS 2022. https://arxiv.org/abs/2203.02155 — InstructGPT: supervised fine-tuning on demonstrations, then reinforcement learning against a reward model; the template for post-training.
+- Hoffmann, J. et al. (2022). *Training Compute-Optimal Large Language Models*. arXiv:2203.15556. https://arxiv.org/abs/2203.15556 — Chinchilla: shows that model size and training tokens should grow together for a fixed compute budget.
+- Kaplan, J. et al. (2020). *Scaling Laws for Neural Language Models*. arXiv:2001.08361. https://arxiv.org/abs/2001.08361 — Power-law relations between loss, parameters, data and compute that motivate large-scale pre-training.
+- Rafailov, R. et al. (2023). *Direct Preference Optimization: Your Language Model is Secretly a Reward Model*. NeurIPS 2023. https://arxiv.org/abs/2305.18290 — Fits the policy to preference pairs directly, without a separate reward model or an RL loop.
+
+## Further learning
+
+- [Hugging Face TRL](https://huggingface.co/docs/trl) and [PEFT](https://huggingface.co/docs/peft) — libraries that implement the fine-tuning and adapter methods described above.
