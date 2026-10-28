@@ -1,0 +1,65 @@
+---
+status: draft
+last_reviewed: 2026-10-28
+tags:
+- model compression
+- quantisation
+- binary neural networks
+aliases:
+  - BinaryConnect
+  - 二值連接
+---
+
+# BinaryConnect
+
+BinaryConnect trains a neural network whose weights are binary, \(\pm 1\), during the forward and backward passes, while keeping real-valued weights for the parameter updates. It is the first method to show that deep networks can be trained with binary weights, and it is the starting point for most later work in the [binary and ternary](../index.md) family.
+
+## Problem
+
+Gradient descent needs small real-valued updates to the weights. A network whose weights are only \(\pm 1\) cannot take such updates directly, so training with binary weights seemed impossible without a different learning rule.
+
+## Core idea
+
+Keep a full-precision copy of the weights for the updates. For each mini-batch, binarise the copy with the sign function, run the forward and backward passes with the binary weights, and apply the resulting gradient to the real-valued copy. The real-valued weights are clipped to a bounded range so that they stay close to the binarisation threshold.
+
+## Equation or algorithm
+
+The forward pass uses \(W_b = \operatorname{sign}(W)\). The gradient of the loss with respect to \(W_b\) is computed as usual, and passed to \(W\) with the straight-through estimator, since the sign function has zero gradient almost everywhere. After each update, \(W\) is clipped to \([-1, 1]\). The binarisation is stochastic in one variant of the method, which the paper treats as a regulariser.
+
+## Results
+
+The authors report near state-of-the-art results on permutation-invariant MNIST, CIFAR-10 and SVHN, and say that binarisation acts as a regulariser during training.
+
+## Limitations
+
+The experiments are on small networks and datasets of their time. The method has no per-layer scale factor, which later work found important for keeping the output magnitude close to the full-precision layer. Its arithmetic gain depends on hardware that can exploit binary weights.
+
+## Open issues and related variants
+
+- **Scale factors.** Adding a real scale per filter, as in [XNOR-Net](../xnor-net/index.md), recovers much of the accuracy that the bare sign function loses.
+- **Ternary weights.** Allowing a zero value, as in [ternary weight networks](../ternary-weight-networks/index.md), keeps a sparse code at a small cost in storage.
+- **Stochastic binarisation.** Whether the stochastic form is better than deterministic binarisation is not settled across tasks.
+
+## Connections
+
+The straight-through estimator used here is the same device used throughout [quantisation-aware training](../../quantisation-aware-training/index.md). The arithmetic of binary weights links to the bit-level operations discussed in [AI hardware](../../../../../engineering/hardware/index.md).
+
+## References
+
+### Seminal papers
+
+- Courbariaux, M., Bengio, Y., David, J.-P. (2015). *BinaryConnect: Training Deep Neural Networks with Binary Weights during Propagations*. arXiv:1511.00363. https://arxiv.org/abs/1511.00363 — Trains with binary weights in the forward pass while keeping real-valued weights for updates.
+- Rastegari, M., et al. (2016). *XNOR-Net: ImageNet Classification Using Binary Convolutional Neural Networks*. arXiv:1603.05279. https://arxiv.org/abs/1603.05279 — Adds per-filter scale factors to binary weights, closing most of the accuracy gap.
+- Li, F., et al. (2016). *Ternary Weight Networks*. arXiv:1605.04711. https://arxiv.org/abs/1605.04711 — Extends binary weights to three values, with a zero that keeps a sparse code.
+
+### Surveys and textbooks
+
+- Gholami, A., et al. (2021). *A Survey of Quantization Methods for Efficient Neural Network Inference*. arXiv:2103.13630. https://arxiv.org/abs/2103.13630 — Reviews binary training in the context of other low-bit methods.
+
+### Lectures and videos
+
+(none checked for this page)
+
+### Articles and documentation
+
+- Jacob, B., et al. (2017). *Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference*. arXiv:1712.05877. https://arxiv.org/abs/1712.05877 — The 8-bit integer counterpart to binary weights, for comparison of accuracy costs.
