@@ -51,7 +51,7 @@ The optimisers below are grouped by what information they use. Each subpage give
 | Gradient clipping and normalisation | Limits on gradient size | [Gradient clipping and normalisation](gradient-clipping-and-normalisation.md), with pages on [norm clipping](norm-clipping.md), [LARS](lars.md) and [LAMB](lamb.md) | Draft |
 | Large-batch and distributed | Training across many devices | [Large-batch and distributed](large-batch-and-distributed.md) | Draft |
 | Zeroth-order and evolutionary | No gradient at all | [Zeroth-order and evolutionary](zeroth-order-and-evolutionary.md) | Planned |
-| Theory | Convergence, landscapes, sharpness | [Theory and landscapes](theory-and-landscapes.md) | Planned |
+| Theory | Convergence, landscapes, sharpness | [Theory and landscapes](theory-and-landscapes.md), with a page on [sharpness-aware minimisation](sharpness-aware-minimisation.md) | Draft |
 
 ## How it works
 
