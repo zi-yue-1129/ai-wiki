@@ -83,11 +83,11 @@ flowchart LR
 ### 開創性論文
 
 - Hickok, G. & Poeppel, D.（2007）。The cortical organization of speech processing. *Nature Reviews Neuroscience*。https://doi.org/10.1038/nrn2113 — 提出語音處理的雙路徑模型：腹側路徑負責理解，背側路徑負責發音。
-- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N.（2010）。New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*。https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923 — 在個人層級定位語言網路的方法。
+- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N.（2010）。New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*。https://doi.org/10.1152/jn.00032.2010 — 在個人層級定位語言網路的方法。
 
 ### 綜述與回顧
 
-- Fedorenko, E. & Varley, R.（2016）。Language and thought are not the same thing: evidence from neuroimaging and neurological patients. *Annals of the New York Academy of Sciences*。https://discovery.ucl.ac.uk/id/eprint/1489434/ — 回顧神經影像與患者證據，論證語言與思考可以分離。
+- Fedorenko, E. & Varley, R.（2016）。Language and thought are not the same thing: evidence from neuroimaging and neurological patients. *Annals of the New York Academy of Sciences*。https://doi.org/10.1111/nyas.13046 — 回顧神經影像與患者證據，論證語言與思考可以分離。
 
 ### 文章與原始研究
 

@@ -63,10 +63,10 @@ The summary reports that the BOLD signal tracks local field potentials more clos
 ### Seminal papers
 
 - Logothetis, N. K., Pauls, J., Augath, M., Trinath, T. & Oeltermann, A. (2001). Neurophysiological investigation of the basis of the fMRI signal. *Nature*. https://doi.org/10.1038/35084005 — Relates the BOLD signal to local field potentials and spiking recorded in the same animals.
-- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W. (1990). Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*. https://pmc.ncbi.nlm.nih.gov/articles/PMC55275 — The blood-oxygenation contrast that the BOLD signal measures.
-- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://pubmed.ncbi.nlm.nih.gov/14449617/ — The single-neuron recording tradition on which the spiking measure rests.
+- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W. (1990). Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*. https://doi.org/10.1073/pnas.87.24.9868 — The blood-oxygenation contrast that the BOLD signal measures.
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1962.sp006837 — The single-neuron recording tradition on which the spiking measure rests.
 
 ### Articles and primary research
 
-- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N. (2010). New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*. https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923 — A fMRI method whose interpretation depends on the coupling this paper tests.
+- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N. (2010). New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*. https://doi.org/10.1152/jn.00032.2010 — A fMRI method whose interpretation depends on the coupling this paper tests.
 - Goldstein, A., Zada, Z., Buchnik, E., Schain, M., Price, A., et al. (2022). Shared computational principles for language processing in humans and deep language models. *Nature Neuroscience*. https://doi.org/10.1038/s41593-022-01026-4 — Uses electrocorticography, a direct electrical measure, to compare with the slower blood-based signal.

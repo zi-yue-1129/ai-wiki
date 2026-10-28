@@ -48,7 +48,7 @@ Ogawa 等人（1990）顯示，磁共振對比取決於血氧含量。去氧血�
 ## 與其他主題的關聯
 
 - **與神經元的耦合**：BOLD 訊號追蹤脈衝還是突觸活動，見 [Logothetis 等人（2001）](../fmri-electrophysiology/index.md)。
-- **語言**：功能性磁振造影在個人層級定位語言區，見 [Fedorenko 等人（2010）](https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923)，使用它的語言研究見[大腦中的語言](../../language-in-brain/index.md)。
+- **語言**：功能性磁振造影在個人層級定位語言區，見 [Fedorenko 等人（2010）](https://doi.org/10.1152/jn.00032.2010)，使用它的語言研究見[大腦中的語言](../../language-in-brain/index.md)。
 - **神經科學背景**：訊號背後的血液供應與神經細胞，摘要於[神經科學基礎](../../neuroscience/index.md)。
 
 ## 開放問題
@@ -60,9 +60,9 @@ Ogawa 等人（1990）顯示，磁共振對比取決於血氧含量。去氧血�
 
 ### 開創性論文
 
-- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W.（1990）。Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*。https://pmc.ncbi.nlm.nih.gov/articles/PMC55275 — 顯示磁共振對比取決於血氧含量，是 BOLD 功能性磁振造影的基礎。
+- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W.（1990）。Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*。https://doi.org/10.1073/pnas.87.24.9868 — 顯示磁共振對比取決於血氧含量，是 BOLD 功能性磁振造影的基礎。
 - Logothetis, N. K., Pauls, J., Augath, M., Trinath, T. & Oeltermann, A.（2001）。Neurophysiological investigation of the basis of the fMRI signal. *Nature*。https://doi.org/10.1038/35084005 — 把 BOLD 訊號與電活動及脈衝相關聯。
-- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N.（2010）。New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*。https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923 — 使用 BOLD 訊號的個人層級功能性磁振造影定位方法。
+- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N.（2010）。New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*。https://doi.org/10.1152/jn.00032.2010 — 使用 BOLD 訊號的個人層級功能性磁振造影定位方法。
 
 ### 文章與原始研究
 

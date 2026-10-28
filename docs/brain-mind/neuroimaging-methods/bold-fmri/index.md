@@ -49,7 +49,7 @@ The 1990 paper reports that magnetic resonance contrast changes with blood oxyge
 ## Connections
 
 - **Coupling to neurons**: whether the BOLD signal follows spiking or synaptic activity is tested on [Logothetis et al. 2001](../fmri-electrophysiology/index.md).
-- **Language**: fMRI localisation of language regions, including individual-level methods, is in [Fedorenko et al. 2010](https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923), and the language studies that use it are on [Language in the Brain](../../language-in-brain/index.md).
+- **Language**: fMRI localisation of language regions, including individual-level methods, is in [Fedorenko et al. 2010](https://doi.org/10.1152/jn.00032.2010), and the language studies that use it are on [Language in the Brain](../../language-in-brain/index.md).
 - **Neuroscience background**: the blood supply and neural cells behind the signal are in [Neuroscience Basics](../../neuroscience/index.md).
 
 ## Open questions
@@ -61,9 +61,9 @@ The 1990 paper reports that magnetic resonance contrast changes with blood oxyge
 
 ### Seminal papers
 
-- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W. (1990). Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*. https://pmc.ncbi.nlm.nih.gov/articles/PMC55275 — Shows that magnetic resonance contrast depends on blood oxygenation, the basis of BOLD fMRI.
+- Ogawa, S., Lee, T.-M., Kay, A. R. & Tank, D. W. (1990). Brain magnetic resonance imaging with contrast dependent on blood oxygenation. *Proceedings of the National Academy of Sciences*. https://doi.org/10.1073/pnas.87.24.9868 — Shows that magnetic resonance contrast depends on blood oxygenation, the basis of BOLD fMRI.
 - Logothetis, N. K., Pauls, J., Augath, M., Trinath, T. & Oeltermann, A. (2001). Neurophysiological investigation of the basis of the fMRI signal. *Nature*. https://doi.org/10.1038/35084005 — Relates the BOLD signal to electrical activity and spiking.
-- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N. (2010). New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*. https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923 — An individual-level fMRI localiser that uses the BOLD signal.
+- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N. (2010). New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*. https://doi.org/10.1152/jn.00032.2010 — An individual-level fMRI localiser that uses the BOLD signal.
 
 ### Articles and primary research
 

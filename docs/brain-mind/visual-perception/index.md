@@ -88,7 +88,7 @@ Each method has its own page. This table is only a comparison.
 ### Seminal papers
 
 - Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *The Journal of Physiology*. https://doi.org/10.1113/jphysiol.1962.sp006837 — Discovers orientation-selective simple and complex cells, the biological inspiration for hierarchical vision models.
-- Goodale, M. A. & Milner, A. D. (1992). Separate visual pathways for perception and action. *Trends in Neurosciences*. https://pubmed.ncbi.nlm.nih.gov/1374953/ — Proposes the ventral "what" and dorsal "how" pathways, a framework still used in vision research.
+- Goodale, M. A. & Milner, A. D. (1992). Separate visual pathways for perception and action. *Trends in Neurosciences*. https://doi.org/10.1016/0166-2236(92)90344-8 — Proposes the ventral "what" and dorsal "how" pathways, a framework still used in vision research.
 - Krizhevsky, A., Sutskever, I. & Hinton, G. E. (2012). ImageNet Classification with Deep Convolutional Neural Networks. *NeurIPS*. https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html — The AlexNet paper that made deep convolutional networks the standard model for image recognition.
 - Yamins, D. L. K., Hong, H., Cadieu, C. F., Solomon, E. A., Seibert, D. & DiCarlo, J. J. (2014). Performance-optimized hierarchical models predict neural responses in higher visual cortex. *PNAS*. https://doi.org/10.1073/pnas.1403112111 — Shows that object-recognition performance predicts how well networks explain IT responses.
 - Geirhos, R., Rubisch, P., Michaelis, C., Bethge, M., Wichmann, F. A. & Brendel, W. (2019). ImageNet-trained CNNs are biased towards texture. *ICLR*. https://arxiv.org/abs/1811.12231 — Shows that standard CNNs rely on texture, and that stylised training shifts them toward shape.
@@ -100,4 +100,4 @@ Each method has its own page. This table is only a comparison.
 
 ### Lectures and videos
 
-- Yamins, D., *Predictive Models of Neurons in Sensory Cortex*, Stanford University course materials. https://web.stanford.edu/~yamins/computational-models-of-sensory-cortex.html — Course materials on using optimised networks to model sensory cortex, written by the author of the 2014 paper.
+- Yamins, D., *Computational Models of Sensory Cortex*, Stanford University course materials. https://web.stanford.edu/~yamins/computational-models-of-sensory-cortex.html — Course materials on using optimised networks to model sensory cortex, written by the author of the 2014 paper.

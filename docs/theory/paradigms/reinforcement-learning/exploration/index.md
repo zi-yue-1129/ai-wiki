@@ -96,5 +96,5 @@ Psychology and neuroscience separate two kinds of exploration in human choice. W
 
 ### Articles and documentation
 
-- Wilson, R. C., et al. (2014). "Humans use directed and random exploration to solve the explore–exploit dilemma". *Journal of Experimental Psychology: General* 143(6). https://pmc.ncbi.nlm.nih.gov/articles/PMC5635655 — Behavioural evidence that people use both uncertainty-directed and random exploration.
+- Wilson, R. C., et al. (2014). "Humans use directed and random exploration to solve the explore–exploit dilemma". *Journal of Experimental Psychology: General* 143(6). https://doi.org/10.1037/a0038199 — Behavioural evidence that people use both uncertainty-directed and random exploration.
 - Fortunato, M., et al. (2017). "Noisy Networks for Exploration". arXiv:1706.10295 — Learns the noise scale of network weights so exploration decays where the agent is certain.

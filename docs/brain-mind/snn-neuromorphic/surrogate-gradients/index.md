@@ -64,7 +64,7 @@ The paper presents surrogate gradients as a flexible and efficient route to trai
 ### Seminal papers
 
 - Neftci, E. O., Mostafa, H. & Zenke, F. (2019). Surrogate gradient learning in spiking neural networks. *arXiv*. https://arxiv.org/abs/1901.09948 — Introduces surrogate gradients, which let spiking networks be trained with backpropagation through time.
-- Bellec, G., et al. (2020). A solution to the learning dilemma for recurrent networks of spiking neurons. *Nature Communications*. https://pmc.ncbi.nlm.nih.gov/articles/PMC7367848 — The e-prop learning rule, an online approximation to backpropagation through time for spiking networks.
+- Bellec, G., et al. (2020). A solution to the learning dilemma for recurrent networks of spiking neurons. *Nature Communications*. https://doi.org/10.1038/s41467-020-17236-y — The e-prop learning rule, an online approximation to backpropagation through time for spiking networks.
 
 ### Surveys and reviews
 

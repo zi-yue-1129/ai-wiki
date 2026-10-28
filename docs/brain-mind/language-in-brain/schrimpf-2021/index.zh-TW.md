@@ -49,7 +49,7 @@ Schrimpf 等人（2021）探問：語言模型的哪些計算特徵，能解釋�
 ## 與其他主題的關聯
 
 - **方法家族**：以語言模型比較大腦反應的研究，也見於 [Goldstein 等人（2022）](../goldstein-2022/index.md)。後者採用不同的記錄方法，並提出更偏向時間性的問題。
-- **語言網路**：本研究中的反應來自語言網路，論文依賴 [Fedorenko 等人（2010）](https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923)的定位方法。
+- **語言網路**：本研究中的反應來自語言網路，論文依賴 [Fedorenko 等人（2010）](https://doi.org/10.1152/jn.00032.2010)的定位方法。
 - **模型家族**：比較中使用的 Transformer 架構見 [Transformer](../../../theory/models/transformer/index.md)，語言模型家族見[大型語言模型](../../../theory/models/llm/index.md)。
 - **較早的框架**：用來解讀本研究所涉區域的皮質路徑，見 [Hickok 與 Poeppel（2007）](../hickok-poeppel-2007/index.md)。
 
@@ -65,7 +65,7 @@ Schrimpf 等人（2021）探問：語言模型的哪些計算特徵，能解釋�
 - Schrimpf, M., Blank, I. A., Tuckute, G., Kauf, C., Hosseini, E. A., Kanwisher, N., Tenenbaum, J. B. & Fedorenko, E.（2021）。The neural architecture of language: Integrative modeling converges on predictive processing. *PNAS*。https://doi.org/10.1073/pnas.2105646118 — 顯示效能最強的 Transformer 模型能預測句子神經反應中幾乎全部的可解釋變異。
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł. & Polosukhin, I.（2017）。Attention Is All You Need. *NeurIPS*。https://arxiv.org/abs/1706.03762 — 提出本研究所比較模型使用的 Transformer 架構。
 - Hickok, G. & Poeppel, D.（2007）。The cortical organization of speech processing. *Nature Reviews Neuroscience*。https://doi.org/10.1038/nrn2113 — 提供研究區域的皮質架構背景的雙路徑模型。
-- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N.（2010）。New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*。https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923 — 本研究所用的個人層級語言網路定位方法。
+- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N.（2010）。New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*。https://doi.org/10.1152/jn.00032.2010 — 本研究所用的個人層級語言網路定位方法。
 
 ### 文章與原始研究
 

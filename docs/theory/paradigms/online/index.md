@@ -71,7 +71,7 @@ Real streams drift. Tools: drift detectors (ADWIN, DDM, Page–Hinkley), sliding
 
 ### Seminal papers
 
-- Zinkevich (2003), "Online convex programming and generalized infinitesimal gradient ascent", ICML. https://mlanthology.org/icml/2003/zinkevich2003icml-online — Introduces online gradient descent with a regret bound.
+- Zinkevich (2003), "Online convex programming and generalized infinitesimal gradient ascent", ICML. https://www.cs.cmu.edu/~maz/publications/ICML03.pdf — Introduces online gradient descent with a regret bound.
 - Lai & Robbins (1985), "Asymptotically efficient adaptive allocation rules", Advances in Applied Mathematics. https://doi.org/10.1016/0196-8858(85)90002-8 — Logarithmic lower bound on regret for bandit problems.
 - Auer, Cesa-Bianchi & Fischer (2002), "Finite-time analysis of the multiarmed bandit problem", Machine Learning. https://homes.di.unimi.it/~cesabian/Pubblicazioni/ml-02.pdf — UCB1, a simple algorithm with finite-time regret bounds.
 - Littlestone & Warmuth (1994), "The weighted majority algorithm", Information and Computation. https://dx.doi.org/10.1006/inco.1994.1009 — Combines expert predictions with multiplicatively updated weights.

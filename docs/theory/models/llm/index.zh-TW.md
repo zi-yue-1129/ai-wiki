@@ -129,7 +129,6 @@ flowchart LR
 
 ### 文章與文件
 
-- Hugging Face. *LLM Course*. https://huggingface.co/learn/llm-course — 使用 Hugging Face 函式庫來使用、微調與建構 LLM 的實作課程。
 
 ## 延伸學習
 

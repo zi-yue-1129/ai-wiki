@@ -76,8 +76,8 @@ Ratcliff 與 McKoon（2008）回顧這個模型，並以三項實驗說明其參
 ### 開創性論文
 
 - Ratcliff, R. & McKoon, G.（2008）。The Diffusion Decision Model: Theory and Data for Two-Choice Decision Tasks. *Neural Computation*。https://doi.org/10.1162/neco.2008.12-06-420 — 回顧擴散模型，並顯示其參數如何分開難度、速度與準確度指示及偏誤的效果。
-- Ratcliff, R.（1978）。A theory of memory retrieval. *Psychological Review*。https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%205/Ratcliff1978.pdf — 早期以擴散式描述記憶提取的理論，決策模型後來由此發展而來。
-- Ratcliff, R. & Smith, P. L.（2004）。A comparison of sequential sampling models for two-choice reaction time. *Psychological Review*。https://pmc.ncbi.nlm.nih.gov/articles/PMC1440925 — 比較二選一反應時間的序列抽樣模型，擴散模型屬於這一族。
+- Ratcliff, R.（1978）。A theory of memory retrieval. *Psychological Review*。https://doi.org/10.1037/0033-295X.85.2.59 — 早期以擴散式描述記憶提取的理論，決策模型後來由此發展而來。
+- Ratcliff, R. & Smith, P. L.（2004）。A comparison of sequential sampling models for two-choice reaction time. *Psychological Review*。https://doi.org/10.1037/0033-295X.111.2.333 — 比較二選一反應時間的序列抽樣模型，擴散模型屬於這一族。
 
 ### 綜述與回顧
 

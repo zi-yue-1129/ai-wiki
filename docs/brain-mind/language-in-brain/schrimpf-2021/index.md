@@ -50,7 +50,7 @@ The most powerful models predicted nearly 100% of the explainable variance in ne
 ## Connections
 
 - **Method family**: the comparison of brain responses with language models is also the subject of [Goldstein et al. 2022](../goldstein-2022/index.md), which uses a different recording method and asks a more temporal question.
-- **Language network**: the regions these responses come from are the language network, and the paper relies on the localiser in [Fedorenko et al. 2010](https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923).
+- **Language network**: the regions these responses come from are the language network, and the paper relies on the localiser in [Fedorenko et al. 2010](https://doi.org/10.1152/jn.00032.2010).
 - **Model families**: the transformer architecture used in the comparison is on [Transformer](../../../theory/models/transformer/index.md), and the language-model family is on [Large Language Models](../../../theory/models/llm/index.md).
 - **Earlier framework**: the cortical streams the paper's regions are read against are in [Hickok and Poeppel 2007](../hickok-poeppel-2007/index.md).
 
@@ -66,7 +66,7 @@ The most powerful models predicted nearly 100% of the explainable variance in ne
 - Schrimpf, M., Blank, I. A., Tuckute, G., Kauf, C., Hosseini, E. A., Kanwisher, N., Tenenbaum, J. B. & Fedorenko, E. (2021). The neural architecture of language: Integrative modeling converges on predictive processing. *PNAS*. https://doi.org/10.1073/pnas.2105646118 — Shows that the best transformer models predict nearly all explainable variance in neural responses to sentences.
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł. & Polosukhin, I. (2017). Attention Is All You Need. *NeurIPS*. https://arxiv.org/abs/1706.03762 — Introduces the transformer architecture used by the models compared in the study.
 - Hickok, G. & Poeppel, D. (2007). The cortical organization of speech processing. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2113 — The dual-stream model that gives the cortical framing for the regions studied.
-- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N. (2010). New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*. https://pmc.ncbi.nlm.nih.gov/articles/PMC2934923 — The individual-level localiser that defines the language network used in the study.
+- Fedorenko, E., Hsieh, P.-J., Nieto-Castañón, A., Whitfield-Gabrieli, S. & Kanwisher, N. (2010). New method for fMRI investigations of language: defining ROIs functionally in individual subjects. *Journal of Neurophysiology*. https://doi.org/10.1152/jn.00032.2010 — The individual-level localiser that defines the language network used in the study.
 
 ### Articles and primary research
 

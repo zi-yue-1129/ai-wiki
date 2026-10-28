@@ -56,7 +56,7 @@ Likelihood is not the same as sample quality. A model can assign high likelihood
 
 ### Lectures and videos
 
-- Dempster, A. P., Laird, N. M. & Rubin, D. B. (1977). Maximum likelihood from incomplete data via the EM algorithm. *Journal of the Royal Statistical Society: Series B*, 39(1), 1–38. https://www.ms.uky.edu/~mai/sta705/DLR.pdf — Introduces the EM algorithm for maximum likelihood with latent variables, used to fit mixture models.
+- Dempster, A. P., Laird, N. M. & Rubin, D. B. (1977). Maximum likelihood from incomplete data via the EM algorithm. *Journal of the Royal Statistical Society: Series B*, 39(1), 1–38. https://doi.org/10.1111/j.2517-6161.1977.tb01600.x — Introduces the EM algorithm for maximum likelihood with latent variables, used to fit mixture models.
 
 ### Articles and documentation
 
