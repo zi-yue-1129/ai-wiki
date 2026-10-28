@@ -3,6 +3,7 @@ status: draft
 last_reviewed: 2026-10-28
 related:
   - applications/robotics/navigation
+  - theory/models/world-models
 tags:
   - robotics
   - navigation
@@ -15,52 +16,65 @@ aliases:
 
 # GNM: General Navigation Model
 
-GNM, introduced by Shah, Sridhar, Bhorkar, Hirose and Levine (2023), is a single navigation model trained on data from several different robots. It takes the current image and an image goal, and it outputs a short sequence of normalised waypoints. The paper's main comparison is about the output space: waypoints that are normalised to the robot's scale succeeded where velocity outputs and raw waypoints did not. The parent subtopic is [Navigation with Visual Goals](index.md).
+GNM, introduced by Shah, Sridhar, Bhorkar, Hirose and Levine (2022), is a single goal-conditioned navigation model trained on data from six different robots. It takes the current observation and a goal image, and it predicts a short sequence of normalised waypoints. Its main lesson concerns the action representation: waypoints scaled to each robot's top speed transfer across platforms better than raw velocities. The parent subtopic is [Navigation with Visual Goals](index.md).
 
 ## Overview
 
-GNM is trained by imitation on driving data gathered by several robots and then fine-tuned to a new robot with a small amount of its data. The network also predicts how many steps separate the current image from the goal, so the same model supports image-goal navigation and exploration. Its output is a short sequence of future positions, which a low-level controller follows.
+Navigation policies are usually trained on the data of one robot, and they degrade when the platform changes. GNM asks whether data from many distinct but structurally similar robots can be pooled into one model. The authors identify two design choices that make pooling work: using temporal context, and a standardised action space. They report that an omnipolicy trained on heterogeneous data outperforms policies trained on any single dataset, and that it can be deployed on robots not in the training set (Shah et al., 2022).
 
 ## Problem
 
-Navigation policies are usually trained for one robot, and they fail when the platform changes. The paper asks whether one model can work across robots with different cameras and dynamics, and which representation of the action is most useful for goal-directed driving.
+A vision-based navigation policy needs data, and collecting it on one robot is slow. Data from different robots has different cameras, speeds and dynamics, so naively pooling it can confuse the model. The question is which representation of the action makes trajectories from different robots comparable, and what else the model must see to use them well.
 
 ## Core idea
 
-Use a shared visual encoder with a head for each robot, and predict normalised waypoints rather than velocities. The normalisation makes the outputs comparable across robots of different sizes and speeds. Temporal context, meaning several past frames, helps the model handle manoeuvres that need more information than the current view.
+Standardise the action space. Each waypoint is scaled by the robot's top speed, so that a unit of motion means the same fraction of what the robot can do, whatever its size. The model also sees a short history of past frames, which supplies the context needed for manoeuvres that a single image does not disambiguate. One network is trained on all robots together.
 
-## How it works
+## Equation or algorithm
 
-1. Gather driving data from several robots, each with its own camera and dynamics, and label it with the relative positions reached later.
-2. Train one visual encoder on all of the data, together with a head for each robot embodiment.
-3. Predict a sequence of normalised waypoints from the current image, a goal image and the past frames.
-4. Fine-tune on a new robot with a small amount of its data, and follow the predicted waypoints with a controller.
+The policy has two heads, trained jointly by supervised learning:
+
+1. **Visual encoders.** Separate MobileNetV2 encoders process the current observation, with its context frames, and the goal image. The two embeddings are concatenated and passed through three fully connected layers.
+2. **Temporal distance.** One head predicts the normalised temporal distance to the goal. It is trained on positive and negative pairs.
+3. **Normalised waypoints.** The second head predicts five future waypoints, each as a relative position and a yaw change, scaled by the robot's top speed. It is trained only on positive pairs with a regression loss.
+
+The paper uses five past observations as context. The exact loss weighting between the two heads is not stated in the text read for this page.
 
 ## Results
 
-The paper reports an ablation over the output space on ten environments, comparing velocities, raw waypoints and normalised waypoints. The authors report that normalised waypoints gave the highest success, and that velocity policies struggle in environments that need sharp turns. They also report that adding several past frames improves success in hard environments. The figures should be checked in the paper before reuse.
+On the action-space comparison, the authors evaluate on ten environments with a LoCoBot. Success rates are reported for easy and moderate environments (Shah et al., 2022, Table V):
+
+| Output space | Easy | Moderate |
+|---|---|---|
+| Velocities | 0.73 | 0.54 |
+| Raw waypoints | 0.42 | 0.26 |
+| Normalised waypoints | 1.00 | 0.95 |
+
+Across robots, GNM outperforms the best single-dataset policy that the paper compares against. The mean success rates reported in the paper's main table are 0.96 against 0.62 on the LoCoBot, 0.99 against 0.79 on the DJI Tello, 0.93 against 0.51 on the Vizbot, and 0.94 against 0.68 on the Clearpath Jackal. The main comparison is with single-dataset policies and ImageNet fine-tuning. The paper does not report a head-to-head comparison with ViNG.
 
 ## Limitations
 
-- Most of the data is from wheeled ground robots, so claims for aerial or legged robots are outside the evaluated range.
-- The model is trained by imitation, and it inherits the limitations of behaviour cloning, including sensitivity to the distribution of the training data.
-- The normalisation depends on a reference scale for each robot, which must be set for every new platform.
+- Most of the training data comes from wheeled ground robots, so claims for aerial or legged platforms rest on a small number of deployments. The quadrotor was a DJI Tello, which the paper restricts to a plane about one metre above the ground.
+- The model is trained by imitation, and it inherits the limitations of behaviour cloning, including sensitivity to the distribution of the demonstrations.
+- The normalisation needs each robot's top speed, which must be known for every new platform.
+- The paper's stated size of the dataset differs between the text (about 60 hours) and its table (70 hours), so the figure should be taken from the paper's own table when it matters.
 
 ## Connections
 
-- [ViNG](ving.md) is the earlier method, whose output head regresses relative pose on a single robot.
-- [ViNT](vint.md) scales the same idea to a larger transformer and a larger dataset.
-- [NoMaD](nomad.md) changes the output to a diffusion model over actions.
+- [ViNG](ving.md) is the earlier method from the same line of work. It uses a graph of observations and predicts relative pose on a single robot.
+- [ViNT](vint.md) is a larger transformer successor trained on more datasets.
+- [NoMaD](nomad.md) replaces the regression head with a diffusion model over actions and adds goal-agnostic exploration.
+- [Visual teach-and-repeat](visual-teach-and-repeat.md) is the classical method that needs no learned policy.
 
 ## Open questions
 
-- Whether the normalised waypoint representation holds up for robots whose control interface is not a planar velocity.
+- Whether a normalised representation holds up for robots whose control interface is not a planar velocity.
 - How much robot-specific data is needed to adapt the shared model to a new platform reliably.
 
 ## References
 
-- Shah, D., Sridhar, A., Bhorkar, A., Hirose, N., & Levine, S. (2023). *GNM: A general navigation model to drive any robot*. ICRA 2023. arXiv:2210.03370. https://arxiv.org/abs/2210.03370 — the source of the shared model and the output-space comparison.
-- Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N., & Levine, S. (2023). *ViNT: A foundation model for visual navigation*. CoRL 2023. arXiv:2306.14846. https://arxiv.org/abs/2306.14846 — a larger transformer successor that adds temporal distance and waypoint outputs.
-- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N., & Levine, S. (2021). *ViNG: Learning open-world navigation with visual goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — the single-robot predecessor whose graph planning GNM builds on.
-- Sridhar, A., Shah, D., Glossop, C., & Levine, S. (2023). *NoMaD: Goal masked diffusion policies for navigation and exploration*. arXiv:2310.07896. https://arxiv.org/abs/2310.07896 — a diffusion-based successor for goal-conditioned navigation and exploration.
-- Hirose, N., Xia, F., Martín-Martín, R., Sadeghian, A., & Savarese, S. (2019). *Deep visual MPC-policy learning for navigation*. IEEE Robotics and Automation Letters, 4(4), 3184–3191. arXiv:1903.02749. https://arxiv.org/abs/1903.02749 — an earlier learned navigation policy trained toward image subgoals.
+- Shah, D., Sridhar, A., Bhorkar, A., Hirose, N. & Levine, S. (2022). *GNM: A General Navigation Model to Drive Any Robot*. arXiv. https://arxiv.org/abs/2210.03370 — The source of the shared model, the standardised action space and the output-space comparison.
+- Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N. & Levine, S. (2023). *ViNT: A Foundation Model for Visual Navigation*. arXiv. https://arxiv.org/abs/2306.14846 — A transformer successor that scales the same idea to more data and adds temporal-distance and waypoint outputs.
+- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N. & Levine, S. (2021). *ViNG: Learning Open-World Navigation with Visual Goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — The single-robot predecessor that combines a learned policy with a topological graph.
+- Sridhar, A., Shah, D., Glossop, C. & Levine, S. (2023). *NoMaD: Goal Masked Diffusion Policies for Navigation and Exploration*. arXiv. https://arxiv.org/abs/2310.07896 — A diffusion-based successor for goal-conditioned navigation and exploration.
+- Hirose, N., Xia, F., Martín-Martín, R., Sadeghian, A. & Savarese, S. (2019). *Deep Visual MPC-Policy Learning for Navigation*. arXiv. https://arxiv.org/abs/1903.02749 — An earlier learned visual navigation policy that follows a visual trajectory and avoids unseen obstacles.

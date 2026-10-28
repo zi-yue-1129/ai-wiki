@@ -22,9 +22,9 @@ A robot can be told where to go in several ways: by coordinates on a map, by a l
 
 ## Overview
 
-A typical learned system stores a set of images as a graph, with edges between frames that are close in space or time. To reach a goal, it finds a path through the graph, takes the next image as a subgoal, and outputs a motion that moves the robot toward it. The network that does this either predicts velocities, relative waypoints, or a distribution over actions. Earlier systems chose among a small set of discrete commands, and later ones regress continuous motion.
+A typical learned system stores a set of images as a graph, with edges between frames that are close in space or time. To reach a goal, it finds a path through the graph, takes the next image as a subgoal, and outputs a motion that moves the robot toward it. The policy that does this predicts discrete actions, relative waypoints, velocities, or a distribution over action sequences, depending on the method.
 
-Teach-and-repeat avoids learning the policy by tracking the taught path with odometry and correcting heading from images. Learned methods replace the tracker with a network, and they use the graph to decide where to go next.
+Teach-and-repeat avoids a learned policy altogether. It tracks the taught route with odometry or a replayed motion profile, and it corrects heading from images. The learned methods replace the tracker with a network, and they use a graph to decide where to go next.
 
 ## Key methods
 
@@ -32,14 +32,16 @@ Each method has its own page. The overview and comparison here are brief.
 
 | Method | Output of the policy | Memory | What it changes |
 |---|---|---|---|
-| [Visual teach-and-repeat](visual-teach-and-repeat.md) (classical) | Path tracking on a metric or odometric error | A taught route of images | Steering from a signed bearing or lateral error, not from image similarity |
-| [SPTM](sptm.md) (Savinov et al., 2018) | A discrete action from a pair of images | A topological graph of frames | Learned localisation and a discrete locomotion classifier |
-| [ViNG](ving.md) (Shah et al., 2021) | Relative pose to a waypoint | Graph built from offline data | Temporal distance for planning, and pose regression for control |
-| [GNM](gnm.md) (Shah et al., 2023) | Normalised waypoints | Shared model across robots | Waypoint outputs succeed where velocity outputs struggle on sharp turns |
-| [ViNT](vint.md) (Shah et al., 2023) | Future waypoints and temporal distance | Graph with Dijkstra subgoal selection | A transformer foundation model, adaptable with little data |
-| [NoMaD](nomad.md) (Sridhar et al., 2023) | Samples from a diffusion model over actions | Goal-masked, so the same policy also explores | Keeps several modes, such as left and right at a junction |
+| [Visual teach-and-repeat](visual-teach-and-repeat.md) (classical) | Path tracking on lateral and heading error | The taught route, as local submaps or keyframes | Steering from signed errors computed against the stored route, with no learned policy |
+| [SPTM](sptm.md) (Savinov et al., 2018) | One of seven discrete actions | A topological graph of frames, with visual shortcuts | A learned retrieval network for localisation, and a discrete locomotion network |
+| [ViNG](ving.md) (Shah et al., 2021) | Relative pose to a waypoint, with a hand-designed controller | A graph of offline observations, weighted by a learned temporal distance | A learned distance for graph search, and a learned pose predictor |
+| [GNM](gnm.md) (Shah et al., 2022) | Normalised waypoints | One model shared across robots and datasets | Waypoint outputs, compared with velocity outputs in the paper |
+| [ViNT](vint.md) (Shah et al., 2023) | Five future waypoints and a temporal distance | Diffusion subgoal proposals, searched with an A*-like method | A transformer with about 31 million parameters, adaptable with little data |
+| [NoMaD](nomad.md) (Sridhar et al., 2023) | Action sequences sampled from a diffusion model | Goal masking, so the same model can explore without a goal | One policy for goal-conditioned navigation and undirected exploration |
 
-The table shows a trend. Systems that regress continuous motion usually outperform those that choose from discrete commands on the same task. Hirose et al. (2019) show the same point in a different form: scoring candidate motions through a learned world model in real time was much weaker than a policy trained to imitate the scored behaviour. Planning with a learned predictive model is covered in the [world models](../../../theory/models/world-models/index.md) subtopic.
+The rows differ in what the policy outputs, and the papers that compare output spaces report the following. In ViNG, predicting waypoints scores 0.81 against 0.70 for discrete actions at a 50-metre goal distance (Shah et al., 2021, Table II). In GNM, normalised waypoints score 1.00 and 0.95 on the LoCoBot in the easy and moderate settings, against 0.73 and 0.54 for velocity outputs (Shah et al., 2022, Table V). These comparisons are within each paper and on different tasks, so they should not be read as one ranking.
+
+Hirose et al. (2019) take a different route. Their model, PoliNet, is a visual model-predictive policy. It takes a visual trajectory and the current view, and it outputs velocity commands for a planning horizon while it avoids collisions with objects that were not seen during training. Its abstract frames the problem against mapping and localisation, which the newer methods avoid. Planning with learned predictive models in general is covered in the [world models](../../../theory/models/world-models/index.md) subtopic.
 
 ## Connections
 
@@ -55,9 +57,9 @@ The table shows a trend. Systems that regress continuous motion usually outperfo
 ## References
 
 - Furgale, P., & Barfoot, T. D. (2010). *Visual teach and repeat for long-range rover autonomy*. Journal of Field Robotics, 27(5), 534–560. https://doi.org/10.1002/rob.20342 — the canonical topometric teach-and-repeat system, built on odometry and submaps.
-- Savinov, N., Dosovitskiy, A., & Koltun, V. (2018). *Semi-parametric topological memory for navigation*. ICLR 2018. arXiv:1803.00653. https://arxiv.org/abs/1803.00653 — introduces a topological image memory with a learned locomotion network.
-- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N., & Levine, S. (2021). *ViNG: Learning open-world navigation with visual goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — learns temporal distance and relative pose for goal-image navigation.
-- Shah, D., Sridhar, A., Bhorkar, A., Hirose, N., & Levine, S. (2023). *GNM: A general navigation model to drive any robot*. ICRA 2023. arXiv:2210.03370. https://arxiv.org/abs/2210.03370 — trains one navigation model across robots and compares output spaces.
-- Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N., & Levine, S. (2023). *ViNT: A foundation model for visual navigation*. CoRL 2023. arXiv:2306.14846. https://arxiv.org/abs/2306.14846 — a transformer policy with a topological graph for navigation.
-- Sridhar, A., Shah, D., Glossop, C., & Levine, S. (2023). *NoMaD: Goal masked diffusion policies for navigation and exploration*. arXiv:2310.07896. https://arxiv.org/abs/2310.07896 — uses a diffusion policy with goal masking for goal-conditioned navigation and exploration.
-- Hirose, N., Xia, F., Martín-Martín, R., Sadeghian, A., & Savarese, S. (2019). *Deep visual MPC-policy learning for navigation*. IEEE Robotics and Automation Letters, 4(4), 3184–3191. arXiv:1903.02749. https://arxiv.org/abs/1903.02749 — compares scoring predicted futures with distilling them into a policy.
+- Savinov, N., Dosovitskiy, A., & Koltun, V. (2018). *Semi-parametric Topological Memory for Navigation*. arXiv. https://arxiv.org/abs/1803.00653 — introduces the topological image memory and the learned locomotion network.
+- Shah, D., Eysenbach, B., Kahn, G., Rhinehart, N., & Levine, S. (2021). *ViNG: Learning Open-World Navigation with Visual Goals*. ICRA 2021. https://doi.org/10.1109/ICRA48506.2021.9561936 — learns temporal distance and relative pose for goal-image navigation.
+- Shah, D., Sridhar, A., Bhorkar, A., Hirose, N., & Levine, S. (2022). *GNM: A General Navigation Model to Drive Any Robot*. arXiv. https://arxiv.org/abs/2210.03370 — trains one navigation model across robots and compares output spaces.
+- Shah, D., Sridhar, A., Dashora, N., Stachowicz, K., Black, K., Hirose, N., & Levine, S. (2023). *ViNT: A Foundation Model for Visual Navigation*. arXiv. https://arxiv.org/abs/2306.14846 — a transformer foundation model for visual navigation, with diffusion subgoal proposals.
+- Sridhar, A., Shah, D., Glossop, C., & Levine, S. (2023). *NoMaD: Goal Masked Diffusion Policies for Navigation and Exploration*. arXiv. https://arxiv.org/abs/2310.07896 — a diffusion policy with goal masking for goal-conditioned navigation and exploration.
+- Hirose, N., Xia, F., Martín-Martín, R., Sadeghian, A., & Savarese, S. (2019). *Deep Visual MPC-Policy Learning for Navigation*. IEEE Robotics and Automation Letters, 4(4), 3184–3191. https://doi.org/10.1109/LRA.2019.2925731 — a visual model-predictive policy (PoliNet) that follows a visual trajectory and avoids unseen obstacles.
