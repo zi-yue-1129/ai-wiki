@@ -52,6 +52,7 @@ translation_reviewed: 2026-10-28
 ## 變體與更多變體
 
 - **少樣本思維鏈**：[思維鏈](chain-of-thought.md)頁所述、以範例為基礎的方法；在沒有範例時，引導語便可取代它。
+- **自動範例（Auto-CoT）**：以引導語自動產生範例，因此不需人工撰寫，見參考文獻中的 Zhang 等人（2022）。
 - **自洽性**：取樣多條零樣本推理鏈並投票，見[自洽性](self-consistency.md)。
 
 ## 關聯
@@ -77,6 +78,7 @@ translation_reviewed: 2026-10-28
 - Kojima, T., et al.（2022）。*Large Language Models are Zero-Shot Reasoners*. arXiv. https://arxiv.org/abs/2205.11916 — 提出引導語「Let's think step by step」，並報告本頁使用的 MultiArith 與 GSM8K 結果。
 - Wei, J., et al.（2022）。*Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — 零樣本變體所比較的、以範例為基礎的方法。
 - Brown, T. B., et al.（2020）。*Language Models are Few-Shot Learners*. arXiv. https://arxiv.org/abs/2005.14165 — 本方法所對照的零樣本與少樣本提示設定。
+- Zhang, Z., et al.（2022）。*Automatic Chain of Thought Prompting in Large Language Models*. arXiv. https://arxiv.org/abs/2210.03493 — 以引導語自動產生範例，並在 GPT-3 的十個基準上報告，其效果與人工撰寫的思維鏈相當或更好。
 
 ### 綜述與教科書
 

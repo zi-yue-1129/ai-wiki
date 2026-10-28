@@ -62,6 +62,7 @@ Zero-shot chain of thought is a single method, a trigger phrase on top of an unc
 ## Variants and more variants
 
 - **Few-shot chain of thought**: the exemplar-based method on the [chain-of-thought](chain-of-thought.md) page, which the trigger phrase replaces when no exemplars are available.
+- **Automatic demonstrations (Auto-CoT)**: the trigger phrase generates the exemplars, so none need to be written by hand, see Zhang et al. (2022) in the references.
 - **Self-consistency**: sampling several zero-shot reasoning chains and voting, see [self-consistency](self-consistency.md).
 
 ## Connections
@@ -87,6 +88,7 @@ Zero-shot chain of thought is a single method, a trigger phrase on top of an unc
 - Kojima, T., et al. (2022). *Large Language Models are Zero-Shot Reasoners*. arXiv. https://arxiv.org/abs/2205.11916 — Introduces the trigger phrase "Let's think step by step" and reports the MultiArith and GSM8K results used on this page.
 - Wei, J., et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. arXiv. https://arxiv.org/abs/2201.11903 — The exemplar-based method that the zero-shot variant is compared with.
 - Brown, T. B., et al. (2020). *Language Models are Few-Shot Learners*. arXiv. https://arxiv.org/abs/2005.14165 — The zero-shot and few-shot prompting settings that this method is measured against.
+- Zhang, Z., et al. (2022). *Automatic Chain of Thought Prompting in Large Language Models*. arXiv. https://arxiv.org/abs/2210.03493 — Uses the trigger phrase to generate the exemplars automatically, and reports results on ten benchmarks with GPT-3 that match or exceed manually written chains.
 
 ### Surveys and textbooks
 
