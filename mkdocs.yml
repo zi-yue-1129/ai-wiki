@@ -633,6 +633,7 @@ plugins:
             In-Memory and Analogue Computing: 記憶體內與類比運算
             Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
             Mixed-Precision Training: 混合精度訓練
+            Roofline Model: 屋頂線模型
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
             GPTQ: GPTQ
@@ -1292,6 +1293,7 @@ nav:
               - TPU: engineering/hardware/accelerators/tpu/index.md
               - Eyeriss v2: engineering/hardware/accelerators/eyeriss-v2/index.md
           - Memory Hierarchy and Bandwidth: engineering/hardware/memory-hierarchy/index.md
+          - Roofline Model: engineering/hardware/memory-hierarchy/roofline.md
           - Interconnects and Scaling: engineering/hardware/interconnects/index.md
           - In-Memory and Analogue Computing: engineering/hardware/in-memory-computing/index.md
           - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md
