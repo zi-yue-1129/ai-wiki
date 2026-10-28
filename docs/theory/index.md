@@ -13,6 +13,9 @@ The core theory behind every AI technique.
 | [Probabilistic & Bayesian Methods](probabilistic/index.md) | How do we represent and reason with uncertainty? Is the brain a Bayesian machine? |
 | [Symbolic AI, Search & Planning](symbolic-ai/index.md) | How do logic, knowledge representation, search and planning work, and do they still matter in the LLM era? |
 | [Evolutionary & Swarm Intelligence](evolutionary/index.md) | How can evolution and collective behaviour be used for optimisation? |
+| [Information Theory](information-theory/index.md) | How do entropy, KL divergence and mutual information quantify learning? |
+| [Generative Models](generative/index.md) | How can a model learn a distribution and sample new data from it? |
+| [Model Compression](model-compression/index.md) | How do pruning, quantisation and distillation shrink a model without losing its skill? |
 
 ## Theory or models?
 
