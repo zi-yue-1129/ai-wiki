@@ -76,3 +76,22 @@ See [Robotics](../../../applications/robotics/index.md).
 - LeCun (2022), "A Path Towards Autonomous Machine Intelligence"
 - Hafner et al., DreamerV3
 - Pfeifer & Bongard, *How the Body Shapes the Way We Think*
+
+## References
+
+### Seminal papers
+
+- Ha, D. & Schmidhuber, J. (2018). *World Models*. arXiv preprint. https://arxiv.org/abs/1803.10122 — Early latent world model in which a policy is trained inside the model's own simulated environment.
+- Hafner, D. et al. (2019). *Dream to Control: Learning Behaviors by Latent Imagination*. arXiv preprint. https://arxiv.org/abs/1912.01603 — Introduces Dreamer, which learns behaviour by backpropagating through imagined latent trajectories.
+- Zhou, G. et al. (2025). *DINO-WM: World Models on Pre-trained Visual Features enable Zero-shot Planning*. ICML 2025. https://proceedings.mlr.press/v267/zhou25t.html — Action-conditioned predictor on frozen DINOv2 features, used for zero-shot planning.
+- Bruce, J. et al. (2024). *Genie: Generative Interactive Environments*. ICML 2024. https://proceedings.mlr.press/v235/bruce24a.html — Generative interactive environments with latent actions learned from unlabelled video.
+
+### Surveys and textbooks
+
+- Moerland, T. M. et al. (2020). *Model-based Reinforcement Learning: A Survey*. arXiv preprint. https://arxiv.org/abs/2006.16712 — Survey of learned dynamics models and their use in planning and policy learning.
+
+### Articles and preprints
+
+- Hafner, D. et al. (2025). *Mastering diverse control tasks through world models*. Nature 640. https://doi.org/10.1038/s41586-025-08744-2 — DreamerV3, one configuration across more than 150 tasks.
+- Assran, M. et al. (2025). *V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning*. arXiv preprint. https://arxiv.org/abs/2506.09985 — Video model post-trained on robot video for action-conditioned planning.
+- Schmidt, D. & Jiang, M. (2024). *Learning to Act without Actions*. ICLR 2024 (spotlight). https://arxiv.org/abs/2312.10812 — Latent actions from action-free video with a quantised bottleneck (LAPO).

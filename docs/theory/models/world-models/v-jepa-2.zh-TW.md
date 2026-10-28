@@ -68,4 +68,5 @@ V-JEPA 2 把[自監督](../../paradigms/self-supervised/index.md)的聯合嵌入
 
 - Zhou, G. 等人 (2025). *DINO-WM: World Models on Pre-trained Visual Features enable Zero-shot Planning*. ICML 2025. https://proceedings.mlr.press/v267/zhou25t.html — 在凍結影像特徵上的預測器，是從影片預訓練特徵做規劃的比較對象。
 - Bruce, J. 等人 (2024). *Genie: Generative Interactive Environments*. ICML 2024. https://proceedings.mlr.press/v235/bruce24a.html — 生成式的對應方法：在未標註影片上訓練的潛在動作模型。
+- Schmidt, D. & Jiang, M. (2024). *Learning to Act without Actions*. ICLR 2024（spotlight）. https://arxiv.org/abs/2312.10812 — 從無動作影片學習潛在動作，與用機器人影片訓練預測器相對應。
 - Assran, M. 等人 (2023). *Self-Supervised Learning From Images With a Joint-Embedding Predictive Architecture*. CVPR 2023. https://openaccess.thecvf.com/content/CVPR2023/html/Assran_Self-Supervised_Learning_From_Images_With_a_Joint-Embedding_Predictive_Architecture_CVPR_2023_paper.html — V-JEPA 2 所延伸的影像版本聯合嵌入預測方法。

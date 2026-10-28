@@ -69,3 +69,22 @@
 - LeCun〈A Path Towards Autonomous Machine Intelligence〉（2022）
 - Hafner 等 DreamerV3 論文
 - Pfeifer & Bongard《How the Body Shapes the Way We Think》
+
+## 參考文獻
+
+### 奠基性論文
+
+- Ha, D. & Schmidhuber, J. (2018). *World Models*. arXiv 預印本. https://arxiv.org/abs/1803.10122 — 早期的潛在世界模型，策略在模型自身模擬的環境中訓練。
+- Hafner, D. 等人 (2019). *Dream to Control: Learning Behaviors by Latent Imagination*. arXiv 預印本. https://arxiv.org/abs/1912.01603 — 提出 Dreamer，透過潛在想像軌跡反向傳播來學習行為。
+- Zhou, G. 等人 (2025). *DINO-WM: World Models on Pre-trained Visual Features enable Zero-shot Planning*. ICML 2025. https://proceedings.mlr.press/v267/zhou25t.html — 在凍結 DINOv2 特徵上的動作條件預測器，用於零樣本規劃。
+- Bruce, J. 等人 (2024). *Genie: Generative Interactive Environments*. ICML 2024. https://proceedings.mlr.press/v235/bruce24a.html — 從未標註影片學到潛在動作、可互動的生成式環境。
+
+### 綜述與教科書
+
+- Moerland, T. M. 等人 (2020). *Model-based Reinforcement Learning: A Survey*. arXiv 預印本. https://arxiv.org/abs/2006.16712 — 學習得來的動力學模型及其在規劃與策略學習中用法的綜述。
+
+### 文章與預印本
+
+- Hafner, D. 等人 (2025). *Mastering diverse control tasks through world models*. Nature 640. https://doi.org/10.1038/s41586-025-08744-2 — DreamerV3，同一組設定適用於超過 150 個任務。
+- Assran, M. 等人 (2025). *V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning*. arXiv 預印本. https://arxiv.org/abs/2506.09985 — 在機器人影片上後訓練的影片模型，用於以動作為條件的規劃。
+- Schmidt, D. & Jiang, M. (2024). *Learning to Act without Actions*. ICLR 2024（spotlight）. https://arxiv.org/abs/2312.10812 — 從無動作影片學習潛在動作，並以量化瓶頸限制（LAPO）。
