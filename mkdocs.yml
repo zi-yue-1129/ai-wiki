@@ -287,6 +287,7 @@ plugins:
             CMA-ES: CMA-ES
             Theory & Landscapes: 理論與損失地形
             Sharpness-Aware Minimisation: 銳度感知最小化
+            Adaptive Sharpness-Aware Minimisation (ASAM): 自適應銳度感知最小化
             Reinforcement Learning: 強化學習
             Learning Paradigms: 學習範式
             Supervised Learning: 監督式學習
@@ -973,6 +974,7 @@ nav:
           - Theory & Landscapes:
               - theory/optimization/theory-and-landscapes.md
               - Sharpness-Aware Minimisation: theory/optimization/sharpness-aware-minimisation.md
+              - ASAM: theory/optimization/asam.md
       - Learning Paradigms:
           - theory/paradigms/index.md
           - Supervised Learning:
