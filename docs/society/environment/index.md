@@ -53,13 +53,15 @@ Each method has its own page with the problem, method, results and limitations. 
 | Machine learning emissions calculator (Lacoste et al., 2019) | Can training emissions be estimated from a few easily recorded inputs? | A calculator that uses hardware, duration and location; the abstract reports no benchmark result | [Emissions Calculator](emissions-calculator.md) |
 | Energy-efficient training (Patterson et al., 2021) | How much can choices of model, datacenter and processor change the footprint? | Sparse models can use under a tenth of the energy of dense models; combined choices can cut the footprint by roughly 100 to 1000 times | [Energy-Efficient Training](energy-efficient-training.md) |
 | Life-cycle estimate for BLOOM (Luccioni et al., 2022) | How much does the system boundary change one model's footprint? | About 24.7 tonnes CO2eq counting dynamic power only, and 50.5 tonnes counting the full life cycle | [BLOOM Life-Cycle Estimate](life-cycle-estimate.md) |
+| Green AI (Schwartz et al., 2019) | Should efficiency be judged alongside accuracy? | A position paper proposing that cost be reported and treated as an evaluation criterion; no experiment of its own | [Green AI](green-ai.md) |
+| Reporting energy and carbon (Henderson et al., 2020) | How can energy and emissions be tracked and reported consistently for each experiment? | A framework for tracking during a run, standardised online appendices, and a leaderboard for energy-efficient reinforcement learning | [Reporting Energy and Carbon](reporting-framework.md) |
 
 ## Responses
 
 | Approach | What it does | Limits |
 |---|---|---|
-| Report energy and emissions with each experiment | Makes figures comparable across papers, as recommended by Henderson et al. (2020) | Needs tracking tools and an agreed boundary |
-| Treat efficiency as an evaluation criterion | Makes cost a factor alongside accuracy, as argued by [Schwartz et al. (2019)](https://arxiv.org/abs/1907.10597) | Depends on how the research community judges work |
+| Report energy and emissions with each experiment | Makes figures comparable across papers, as proposed in [Reporting Energy and Carbon](reporting-framework.md) | Needs tracking tools and an agreed boundary |
+| Treat efficiency as an evaluation criterion | Makes cost a factor alongside accuracy, as argued in [Green AI](green-ai.md) | Depends on how the research community judges work |
 | Prefer efficient architectures and hardware | Lowers energy per unit of work, as shown by Patterson et al. (2021) | Gains depend on the baseline and may complicate serving |
 | Train on low-carbon electricity | Lowers emissions for the same energy use | Depends on local grid data and on where compute is available |
 
