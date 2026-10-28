@@ -4,6 +4,9 @@ related:
 - brain-mind/cognitive-architectures
 - brain-mind/memory-learning
 - theory/models/llm
+aliases:
+  - 教育
+  - 教學
 ---
 
 # Education
@@ -22,9 +25,9 @@ related:
 
 ## Evidence
 
-- **Human tutoring** is highly effective — Bloom's "2 sigma problem" (1984) set the goal, though later meta-analyses find smaller but still large effects
+- **Human tutoring** is highly effective. Bloom's "2 sigma problem" (1984) set the goal of matching one-to-one tutoring with group instruction (Bloom, 1984)
 - **Intelligent tutoring systems** produce moderate learning gains on average (VanLehn, 2011; Kulik & Fletcher, 2016)
-- **LLM tutors**: a randomised trial in Nigeria found a GPT-4-based after-school tutoring programme produced substantial English-learning gains over six weeks (World Bank, 2024–2025); a Harvard physics course study found an AI tutor designed with pedagogical best practices outperformed active-learning classes on learning gains (Kestin et al., 2025, *Scientific Reports*)
+- **LLM tutors**: a randomised trial in a physics course found an AI tutor designed with pedagogical best practices produced larger learning gains than active-learning classes (Kestin et al., 2025)
 - **Unstructured LLM use can hurt**: high-school students with unrestricted GPT-4 access did better on practice but worse on exams once access was removed, while a tutor-style version mitigated the harm (Bastani et al., 2025, *PNAS*)
 
 ## Methods
@@ -54,9 +57,25 @@ related:
 - **Equity**: unequal access to devices, connectivity and premium tools
 - **Bias** in automated scoring
 
-## Resources
+## Key methods
 
-- UNESCO (2023), *Guidance for Generative AI in Education and Research*
-- Holmes, Bialik & Fadel, *Artificial Intelligence in Education*
-- Koedinger & Corbett, cognitive tutors research
-- [EdArXiv](https://edarxiv.org/) for recent education research
+Two methods are most relevant here. Each links to the page that explains it.
+
+- [Transformer](../../theory/models/transformer/attention-is-all-you-need/index.md): sequence models used for deep knowledge tracing, which predict a learner's next answer from their history (Vaswani et al., 2017).
+- [InstructGPT and RLHF](../../theory/models/llm/instructgpt-rlhf/index.md): the training recipe behind LLM tutors, which can be tuned to guide rather than give answers (Ouyang et al., 2022).
+
+## References
+
+### Seminal papers
+
+- Bloom (1984). The 2 Sigma Problem: The Search for Methods of Group Instruction as Effective as One-to-One Tutoring. *Educational Researcher*. https://doi.org/10.3102/0013189X013006004 — Sets the benchmark that one-to-one tutoring outperforms group instruction.
+- Kestin et al. (2025). AI tutoring outperforms in-class active learning: an RCT introducing a novel research-based design in an authentic educational setting. *Scientific Reports*. https://doi.org/10.1038/s41598-025-97652-6 — Randomised trial of an AI tutor against in-class active learning in a physics course.
+- Bastani et al. (2025). Generative AI without guardrails can harm learning: Evidence from high school mathematics. *PNAS*. https://doi.org/10.1073/pnas.2422633122 — Unrestricted GPT-4 access hurt exam scores, and a tutor-style version reduced the harm.
+- Liang et al. (2023). GPT detectors are biased against non-native English writers. *Patterns*. https://doi.org/10.1016/j.patter.2023.100779 — Shows AI-text detectors flag non-native English writing as machine-generated.
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — Introduces the Transformer, built on multi-head self-attention.
+- Ouyang, L. et al. (2022). Training language models to follow instructions with human feedback. NeurIPS. https://arxiv.org/abs/2203.02155 — InstructGPT, instruction tuning from human preference feedback.
+
+### Surveys and textbooks
+
+- VanLehn (2011). The Relative Effectiveness of Human Tutoring, Intelligent Tutoring Systems, and Other Tutoring Systems. *Educational Psychologist*. https://doi.org/10.1080/00461520.2011.611369 — Compares human tutoring, intelligent tutoring systems and other tutoring systems.
+- Kulik & Fletcher (2016). Effectiveness of Intelligent Tutoring Systems. *Review of Educational Research*. https://doi.org/10.3102/0034654315581420 — Meta-analysis of the learning gains from intelligent tutoring systems.

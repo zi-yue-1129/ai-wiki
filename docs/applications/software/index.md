@@ -4,6 +4,9 @@ related:
 - theory/models/llm
 - applications/cybersecurity
 - engineering/evaluation
+aliases:
+  - 軟體開發
+  - 程式設計
 ---
 
 # Software Development
@@ -24,18 +27,17 @@ Software engineering is one of the domains most transformed by LLMs, because cod
 
 | Benchmark | Measures |
 |---|---|
-| HumanEval / MBPP | Writing short functions from docstrings (now saturated) |
-| SWE-bench / SWE-bench Verified | Resolving real GitHub issues in Python repositories |
+| HumanEval / MBPP | Writing short functions from docstrings (Chen et al., 2021); now saturated
+| SWE-bench / SWE-bench Verified | Resolving real GitHub issues in Python repositories (Jimenez et al., 2023)
 | LiveCodeBench, Codeforces ratings | Competitive programming, contamination-resistant |
 | Terminal-Bench, other agentic suites | Working in real environments |
 
-Scores on SWE-bench Verified rose from a few percent in 2023 to well over half of tasks by 2025 for leading agents.
 
 ## Productivity evidence
 
-- Controlled task studies found large speedups on well-defined tasks (e.g. ~56% faster on an HTTP-server task with Copilot, Peng et al., 2023)
+- Controlled task studies found speedups on well-defined tasks with Copilot (Peng et al., 2023)
 - Field experiments at large companies found meaningful increases in completed tasks, larger for less experienced developers (Cui et al., 2024)
-- A randomised trial with experienced open-source developers on their own mature repositories found they were ~19% *slower* with early-2025 AI tools despite believing they were faster (METR, 2025) — effects depend heavily on task, codebase and experience
+- A randomised trial with experienced open-source developers on their own mature repositories found they were ~19% *slower* with early-2025 AI tools despite believing they were faster (Becker et al., 2025). Effects depend heavily on task, codebase and experience
 
 ## Practices that work
 
@@ -47,7 +49,7 @@ Scores on SWE-bench Verified rose from a few percent in 2023 to well over half o
 
 ## Risks
 
-- Subtle bugs and insecure code; hallucinated package names ("slopsquatting")
+- Subtle bugs and insecure code; hallucinated package names that attackers can register
 - Licence and provenance concerns for generated code
 - Skill atrophy, especially for learners
 - Maintainability debt from large volumes of generated code
@@ -57,8 +59,22 @@ Scores on SWE-bench Verified rose from a few percent in 2023 to well over half o
 
 Requirements analysis, test generation, code review, migration of legacy code (e.g. COBOL to Java), documentation, incident response, formal verification assistance.
 
-## Resources
+## Key methods
 
-- [SWE-bench](https://www.swebench.com/)
-- Anthropic, "Building effective agents"; Claude Code and OpenAI Codex documentation
-- METR (2025), "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity"
+Three methods are most relevant here. Each links to the page that explains it.
+
+- [Agents](../../theory/models/agents/index.md): coding agents that read a repository, edit files and run tests, as in SWE-bench (Jimenez et al., 2023).
+- [Transformer](../../theory/models/transformer/attention-is-all-you-need/index.md): the architecture behind code models such as Codex (Chen et al., 2021).
+- [InstructGPT and RLHF](../../theory/models/llm/instructgpt-rlhf/index.md): instruction tuning behind the chat assistants in the IDE (Ouyang et al., 2022).
+
+## References
+
+### Seminal papers
+
+- Chen et al. (2021). Evaluating Large Language Models Trained on Code. arXiv. https://arxiv.org/abs/2107.03374 — Introduces the Codex model and the HumanEval benchmark of functions written from docstrings.
+- Peng et al. (2023). The Impact of AI on Developer Productivity: Evidence from GitHub Copilot. arXiv. https://arxiv.org/abs/2302.06590 — Controlled experiment finding faster task completion with Copilot.
+- Cui et al. (2024). The Effects of Generative AI on High Skilled Work: Evidence from Three Field Experiments with Software Developers. *SSRN*. https://doi.org/10.2139/ssrn.4945566 — Field experiments at large firms measuring the effects of AI assistance on developers.
+- Becker et al. (2025). Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity. arXiv. https://arxiv.org/abs/2507.09089 — Randomised trial finding experienced developers slower with AI tools, though they expected to be faster.
+- Jimenez et al. (2023). SWE-bench: Can Language Models Resolve Real-World GitHub Issues? arXiv. https://arxiv.org/abs/2310.06770 — Benchmark of real GitHub issues in Python repositories.
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — Introduces the Transformer, built on multi-head self-attention.
+- Ouyang, L. et al. (2022). Training language models to follow instructions with human feedback. NeurIPS. https://arxiv.org/abs/2203.02155 — InstructGPT, instruction tuning from human preference feedback.
