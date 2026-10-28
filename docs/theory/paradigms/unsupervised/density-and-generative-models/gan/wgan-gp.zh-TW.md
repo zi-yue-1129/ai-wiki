@@ -14,7 +14,7 @@ aliases:
 
 # 帶梯度懲罰的 WGAN（WGAN-GP）
 
-WGAN-GP 保留 [WGAN](wgan.zh-TW.md) 的 Wasserstein 目標，但以梯度懲罰取代權重裁剪來實施 Lipschitz 限制。如此評論家便能發揮完整的容量，並能在更廣泛的架構上訓練。它是最普遍使用的 Wasserstein GAN 變體，在 [GAN 概覽](index.zh-TW.md)頁中與 [WGAN](wgan.zh-TW.md) 並列。
+WGAN-GP 保留 [WGAN](wgan.md) 的 Wasserstein 目標，但以梯度懲罰取代權重裁剪來實施 Lipschitz 限制。如此評論家便能發揮完整的容量，並能在更廣泛的架構上訓練。它是最普遍使用的 Wasserstein GAN 變體，在 [GAN 概覽](index.md)頁中與 [WGAN](wgan.md) 並列。
 
 ## 概覽
 
@@ -38,14 +38,14 @@ L_{\text{critic}} = \mathbb E_{\tilde x}[f_w(\tilde x)] - \mathbb E_{x}[f_w(x)] 
 
 ## 關鍵方法
 
-WGAN-GP 與 [WGAN](wgan.zh-TW.md) 的差別只在於如何實施 Lipschitz 限制。兩者都屬於 [GAN 概覽](index.zh-TW.md)頁中的 Wasserstein 家族。
+WGAN-GP 與 [WGAN](wgan.md) 的差別只在於如何實施 Lipschitz 限制。兩者都屬於 [GAN 概覽](index.md)頁中的 Wasserstein 家族。
 
-- **WGAN（Arjovsky 等人，2017）**：權重裁剪，見 [WGAN](wgan.zh-TW.md)。
+- **WGAN（Arjovsky 等人，2017）**：權重裁剪，見 [WGAN](wgan.md)。
 - **WGAN-GP（Gulrajani 等人，2017）**：在內插樣本上施加梯度懲罰。本頁。
 
 ### 改良的 Wasserstein GAN 訓練（Gulrajani 等人，2017）
 
-- **問題：** [WGAN](wgan.zh-TW.md) 的權重裁剪限制了評論家，也使訓練對裁剪門檻很敏感。
+- **問題：** [WGAN](wgan.md) 的權重裁剪限制了評論家，也使訓練對裁剪門檻很敏感。
 - **核心想法：** 在真實與生成樣本的隨機內插點上，懲罰評論家梯度範數偏離一的程度，藉此約束評論家。
 - **公式或演算法：** 上述評論家損失，\(\lambda = 10\)，生成器損失沿用 WGAN。論文每次生成器更新前，會對評論家更新數次。
 - **結果：** 摘要指出，此方法可在幾乎不需超參數調校的情況下，穩定訓練多種 GAN 架構，包括深層殘差網路與離散資料上的語言模型。影像結果見論文的實驗。
@@ -53,9 +53,9 @@ WGAN-GP 與 [WGAN](wgan.zh-TW.md) 的差別只在於如何實施 Lipschitz 限�
 
 ## 關聯
 
-- 此懲罰是實施 Wasserstein 距離所需 Lipschitz 限制的一種方式，[WGAN](wgan.zh-TW.md) 的參考文獻中也將其與譜正規化比較。
-- Wasserstein 目標把此方法與最佳傳輸連結，而最佳傳輸也是[流模型](../flow/index.zh-TW.md)的基礎。
-- 影像資料的卷積評論家屬於[卷積網路家族](../../../../models/cnn/index.zh-TW.md)。
+- 此懲罰是實施 Wasserstein 距離所需 Lipschitz 限制的一種方式，[WGAN](wgan.md) 的參考文獻中也將其與譜正規化比較。
+- Wasserstein 目標把此方法與最佳傳輸連結，而最佳傳輸也是[流模型](../flow/index.md)的基礎。
+- 影像資料的卷積評論家屬於[卷積網路家族](../../../../models/cnn/index.md)。
 
 ## 應用
 

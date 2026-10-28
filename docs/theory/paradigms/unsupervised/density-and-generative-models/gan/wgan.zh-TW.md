@@ -14,7 +14,7 @@ aliases:
 
 # Wasserstein GAN（WGAN）
 
-Wasserstein GAN 以 Wasserstein-1（推土機）距離取代原始 GAN 的 Jensen–Shannon 目標。即使生成分布與真實分布沒有重疊，它給生成器的梯度仍然有用。它是 [GAN 概覽](index.zh-TW.md)頁中兩大訓練目標家族之一。
+Wasserstein GAN 以 Wasserstein-1（推土機）距離取代原始 GAN 的 Jensen–Shannon 目標。即使生成分布與真實分布沒有重疊，它給生成器的梯度仍然有用。它是 [GAN 概覽](index.md)頁中兩大訓練目標家族之一。
 
 ## 概覽
 
@@ -49,7 +49,7 @@ L_{\text{critic}} = \mathbb E_{z}[f_w(g_\theta(z))] - \mathbb E_{x}[f_w(x)], \qq
 WGAN 是本維基收錄的兩種 Wasserstein 系 GAN 方法之一。兩者的差別在於如何實施 Lipschitz 限制。
 
 - **WGAN（Arjovsky 等人，2017）**：評論家使用權重裁剪。本頁。
-- **WGAN-GP（Gulrajani 等人，2017）**：以梯度懲罰取代裁剪，見 [WGAN-GP](wgan-gp.zh-TW.md)。
+- **WGAN-GP（Gulrajani 等人，2017）**：以梯度懲罰取代裁剪，見 [WGAN-GP](wgan-gp.md)。
 
 ### Wasserstein GAN（Arjovsky 等人，2017）
 
@@ -61,9 +61,9 @@ WGAN 是本維基收錄的兩種 Wasserstein 系 GAN 方法之一。兩者的差
 
 ## 關聯
 
-- Wasserstein 距離是最佳傳輸的一種形式，而評論家即為傳輸問題的對偶位勢。這使本方法自然地連到[流模型](../flow/index.zh-TW.md)，因為後者同樣學習從雜訊到資料的傳輸映射。
+- Wasserstein 距離是最佳傳輸的一種形式，而評論家即為傳輸問題的對偶位勢。這使本方法自然地連到[流模型](../flow/index.md)，因為後者同樣學習從雜訊到資料的傳輸映射。
 - 受 Lipschitz 限制的網路與譜正規化是相關的研究脈絡，見 [Spectral Normalization](https://arxiv.org/abs/1802.05957)。
-- GAN 框架與其價值函數見 [GAN 概覽](index.zh-TW.md)頁。
+- GAN 框架與其價值函數見 [GAN 概覽](index.md)頁。
 
 ## 應用
 
