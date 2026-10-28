@@ -32,6 +32,8 @@ Graphs encode conditional dependencies so high-dimensional joint distributions b
 | Kalman filter | Linear-Gaussian state space | Tracking, navigation |
 | Topic model (LDA) | Hierarchical | Document topics |
 
+Detailed pages: [Probabilistic graphical models](graphical-models/index.md), with [belief propagation](graphical-models/belief-propagation.md) and [hidden Markov models](graphical-models/hidden-markov-models.md).
+
 ## Inference
 
 - **Exact**: variable elimination, belief propagation (on trees)
@@ -58,6 +60,8 @@ Tools: structural causal models, do-calculus, the potential-outcomes framework (
 - **Aleatoric** (data noise) vs **epistemic** (model ignorance) uncertainty
 - **Conformal prediction**: distribution-free prediction sets with coverage guarantees; increasingly popular in medical AI
 - Gaussian processes: small-data regression and Bayesian optimisation (hyperparameters, experimental design)
+
+Detailed pages: [Uncertainty quantification and calibration](uncertainty-calibration/index.md), with [conformal prediction](uncertainty-calibration/conformal-prediction.md), [temperature scaling](uncertainty-calibration/temperature-scaling.md), [deep ensembles](uncertainty-calibration/deep-ensembles.md) and [expected calibration error](uncertainty-calibration/expected-calibration-error.md).
 
 ## The Bayesian brain
 
