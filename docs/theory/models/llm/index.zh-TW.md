@@ -22,7 +22,7 @@ flowchart LR
 
 ### 1. 分詞（Tokenisation）
 
-文字會被切分成 token（BPE、SentencePiece、Unigram）。分詞器的設計會影響多語言的效率（一個中文字可能需要一個或多個 token），甚至影響算術能力。
+文字會被切分成 token（BPE、SentencePiece、Unigram）。分詞器的設計會影響多語言的效率（一個中文字可能需要一個或多個 token），甚至影響算術能力。方法與其取捨見[分詞](tokenisation/index.md)。
 
 ### 2. 預訓練
 

@@ -32,7 +32,7 @@ flowchart LR
 
 ### 1. Tokenisation
 
-Text is split into tokens (BPE, SentencePiece, Unigram). Tokeniser design affects multilingual efficiency (Chinese characters may take one or more tokens each) and even arithmetic ability.
+Text is split into tokens (BPE, SentencePiece, Unigram). Tokeniser design affects multilingual efficiency (Chinese characters may take one or more tokens each) and even arithmetic ability. The methods and their trade-offs are covered in [Tokenisation](tokenisation/index.md).
 
 ### 2. Pre-training
 
