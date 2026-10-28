@@ -42,6 +42,7 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Emotion & Affective Computing](emotion/index.md) | Valence and arousal, threat circuits, basic emotions, affective computing |
 | [Neuroimaging & Recording Methods](neuroimaging-methods/index.md) | BOLD fMRI, what fMRI and electrophysiology each measure, LFP and ECoG |
 | [Developmental Cognition & How Children Learn](developmental-cognition/index.md) | Core knowledge in infancy, looking-time methods, statistical learning, the Goldilocks effect |
+| [Animal Cognition & Comparative Intelligence](animal-cognition/index.md) | Mirror self-recognition, tool use in crows, false-belief tests in apes, convergent intelligence |
 
 ## Two-way influence at a glance
 
