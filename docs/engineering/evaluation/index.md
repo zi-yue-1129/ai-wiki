@@ -10,6 +10,8 @@ related:
 
 Evaluation measures how an AI system behaves under specified conditions. A benchmark provides a shared comparison task; an application evaluation asks whether the whole system meets its users' needs. A leaderboard alone cannot establish usefulness in every setting.[^validity]
 
+Metric definitions, statistical uncertainty and evaluation protocols are covered in the Theory section, in [Evaluation](../../theory/evaluation/index.md). This page shows how to apply them to language models and applications.
+
 ## Major benchmarks (as reference points)
 
 These examples are a starting catalogue, not a ranking of current models. Record the benchmark version, evaluation date and protocol with every result.

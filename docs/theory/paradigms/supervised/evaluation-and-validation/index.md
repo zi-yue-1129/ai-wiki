@@ -28,7 +28,7 @@ Measuring how well a supervised model will do on new data, and avoiding fooling 
 | Ranking | NDCG, MAP | Position-weighted |
 | Segmentation | IoU, Dice | |
 
-**Calibration** asks whether predictions of 80% are right 80% of the time; temperature scaling (Guo et al., 2017) is a simple fix for deep networks.
+**Calibration** asks whether predictions of 80% are right 80% of the time; temperature scaling (Guo et al., 2017) is a simple fix for deep networks. The full metric families by task, and the protocols that use them, are in [Evaluation](../../../evaluation/index.md).
 
 ## Common failures
 
