@@ -14,6 +14,7 @@ AI's technical progress raises questions that technology alone cannot answer.
 | [Open versus Closed Models](open-vs-closed/index.md) | Release choices for AI models: closed, open-weight and open-source; the arguments on each side and what the open-source definitions require |
 | [Law, Policy & Governance](governance/index.md) | EU AI Act, US and Chinese approaches, international efforts, standards |
 | [Economics & Work](economics/index.md) | Productivity, jobs, inequality, concentration |
+| [Human-AI Interaction & Trust](human-ai-interaction/index.md) | How people use, trust, over-trust and are changed by AI; automation bias, companionship, AI literacy, explanation design, deskilling |
 | [Philosophy of AI](philosophy/index.md) | Intelligence, understanding, meaning, agency, moral status |
 
 ## Risk landscape
