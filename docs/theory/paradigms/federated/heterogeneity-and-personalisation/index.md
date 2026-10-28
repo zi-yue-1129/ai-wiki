@@ -39,14 +39,14 @@ It is hard to measure heterogeneity in practice, and personalised models can be 
 
 ### Seminal papers
 
-- Li, Sahu, Zaheer, Sanjabi, Talwalkar & Smith (2020), "Federated optimization in heterogeneous networks", MLSys, arXiv:1812.06127 — FedProx, which limits client drift with a proximal term in local training.
-- Karimireddy, Kale, Mohri, Reddi, Stich & Suresh (2020), "SCAFFOLD: stochastic controlled averaging for federated learning", ICML, arXiv:1910.06378 — Uses control variates to correct the drift of each client's local updates.
-- Zhao, Li, Lai, Suda, Civin & Chandra (2018), "Federated learning with non-IID data", arXiv:1806.00582 — Shows that label skew across clients can reduce accuracy substantially, and studies a small amount of shared data as a remedy.
-- McMahan et al. (2017), "Communication-efficient learning of deep networks from decentralized data", AISTATS, arXiv:1602.05629 — The federated averaging paper, whose experiments include non-IID partitions.
+- Li, Sahu, Zaheer, Sanjabi, Talwalkar & Smith (2020), "Federated optimization in heterogeneous networks", MLSys, [arXiv:1812.06127](https://arxiv.org/abs/1812.06127) — FedProx, which limits client drift with a proximal term in local training.
+- Karimireddy, Kale, Mohri, Reddi, Stich & Suresh (2020), "SCAFFOLD: stochastic controlled averaging for federated learning", ICML, [arXiv:1910.06378](https://arxiv.org/abs/1910.06378) — Uses control variates to correct the drift of each client's local updates.
+- Zhao, Li, Lai, Suda, Civin & Chandra (2018), "Federated learning with non-IID data", [arXiv:1806.00582](https://arxiv.org/abs/1806.00582) — Shows that label skew across clients can reduce accuracy substantially, and studies a small amount of shared data as a remedy.
+- McMahan et al. (2017), "Communication-efficient learning of deep networks from decentralized data", AISTATS, [arXiv:1602.05629](https://arxiv.org/abs/1602.05629) — The federated averaging paper, whose experiments include non-IID partitions.
 
 ### Surveys and textbooks
 
-- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, arXiv:1912.04977 — Survey that discusses heterogeneity and personalisation as open problems.
+- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, [arXiv:1912.04977](https://arxiv.org/abs/1912.04977) — Survey that discusses heterogeneity and personalisation as open problems.
 
 ### Lectures and videos
 

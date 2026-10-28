@@ -63,8 +63,8 @@ LSTM 以門控記憶讓長程依賴變得可以學習。序列到序列模型則
 
 - Hochreiter, S. & Schmidhuber, J. (1997). "Long Short-Term Memory". *Neural Computation* 9(8). https://doi.org/10.1162/neco.1997.9.8.1735 — LSTM，以加法更新的記憶單元解決梯度消失問題。
 - Bengio, Y., Simard, P. & Frasconi, P. (1994). "Learning long-term dependencies with gradient descent is difficult". *IEEE Transactions on Neural Networks* 5(2). https://doi.org/10.1109/72.279181 — 說明為何以梯度下降學習循環網路中的長程依賴很困難。
-- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". arXiv:1406.1078 — 提出 GRU，以及用於序列到序列任務的編碼器–解碼器架構。
-- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. arXiv:1409.3215 — 以端到端的編碼器–解碼器 LSTM 進行機器翻譯。
+- Cho, K., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation". [arXiv:1406.1078](https://arxiv.org/abs/1406.1078) — 提出 GRU，以及用於序列到序列任務的編碼器–解碼器架構。
+- Sutskever, I., Vinyals, O. & Le, Q. V. (2014). "Sequence to Sequence Learning with Neural Networks". NeurIPS. [arXiv:1409.3215](https://arxiv.org/abs/1409.3215) — 以端到端的編碼器–解碼器 LSTM 進行機器翻譯。
 
 ### 綜述與教科書
 
@@ -76,4 +76,4 @@ LSTM 以門控記憶讓長程依賴變得可以學習。序列到序列模型則
 
 ### 文章與文件
 
-- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". arXiv:1211.5063 — 分析梯度爆炸與消失，並提出梯度範數裁剪。
+- Pascanu, R., Mikolov, T. & Bengio, Y. (2013). "On the difficulty of training Recurrent Neural Networks". [arXiv:1211.5063](https://arxiv.org/abs/1211.5063) — 分析梯度爆炸與消失，並提出梯度範數裁剪。

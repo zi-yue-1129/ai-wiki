@@ -66,7 +66,7 @@ Defining normal for data that drift, separating harmful anomalies from merely ra
 
 ### Articles and documentation
 
-- Pang, Shen, Cao & van den Hengel (2021), "Deep learning for anomaly detection: a review", arXiv:2007.02500 — Reviews deep anomaly detection methods and their assumptions.
+- Pang, Shen, Cao & van den Hengel (2021), "Deep learning for anomaly detection: a review", [arXiv:2007.02500](https://arxiv.org/abs/2007.02500) — Reviews deep anomaly detection methods and their assumptions.
 
 ## Further reading
 

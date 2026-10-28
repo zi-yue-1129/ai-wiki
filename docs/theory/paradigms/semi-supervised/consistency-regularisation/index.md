@@ -39,11 +39,11 @@ Results depend heavily on the augmentations and on how many labels there are, an
 
 ### Seminal papers
 
-- Laine & Aila (2017), "Temporal ensembling for semi-supervised learning", ICLR, arXiv:1610.02242 — Introduces the Π-model and temporal ensembling, consistency losses with averaged targets.
-- Tarvainen & Valpola (2017), "Mean teachers are better role models", NeurIPS, arXiv:1703.01780 — Mean Teacher, a teacher built from weight averages of the student.
-- Berthelot et al. (2019), "MixMatch: a holistic approach to semi-supervised learning", NeurIPS, arXiv:1905.02249 — Combines consistency, sharpening and mixup into one semi-supervised objective.
-- Sohn et al. (2020), "FixMatch: simplifying semi-supervised learning with consistency and confidence", NeurIPS, arXiv:2001.07685 — Uses confident pseudo-labels from weak augmentations as targets for strong ones.
-- Oliver, Odena, Raffel, Cubuk & Goodfellow (2018), "Realistic evaluation of deep semi-supervised learning algorithms", NeurIPS, arXiv:1804.09170 — Shows that many reported gains disappear under a fair, consistent evaluation protocol. https://proceedings.neurips.cc/paper/2018/hash/c1fea270c48e8079d8ddf7d06d26ab52-Abstract.html
+- Laine & Aila (2017), "Temporal ensembling for semi-supervised learning", ICLR, [arXiv:1610.02242](https://arxiv.org/abs/1610.02242) — Introduces the Π-model and temporal ensembling, consistency losses with averaged targets.
+- Tarvainen & Valpola (2017), "Mean teachers are better role models", NeurIPS, [arXiv:1703.01780](https://arxiv.org/abs/1703.01780) — Mean Teacher, a teacher built from weight averages of the student.
+- Berthelot et al. (2019), "MixMatch: a holistic approach to semi-supervised learning", NeurIPS, [arXiv:1905.02249](https://arxiv.org/abs/1905.02249) — Combines consistency, sharpening and mixup into one semi-supervised objective.
+- Sohn et al. (2020), "FixMatch: simplifying semi-supervised learning with consistency and confidence", NeurIPS, [arXiv:2001.07685](https://arxiv.org/abs/2001.07685) — Uses confident pseudo-labels from weak augmentations as targets for strong ones.
+- Oliver, Odena, Raffel, Cubuk & Goodfellow (2018), "Realistic evaluation of deep semi-supervised learning algorithms", NeurIPS, [arXiv:1804.09170](https://arxiv.org/abs/1804.09170) — Shows that many reported gains disappear under a fair, consistent evaluation protocol. https://proceedings.neurips.cc/paper/2018/hash/c1fea270c48e8079d8ddf7d06d26ab52-Abstract.html
 
 ### Surveys and textbooks
 

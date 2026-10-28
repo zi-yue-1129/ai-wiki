@@ -50,14 +50,14 @@ Expert effort and the cost of interventions limit scale. Labelling by humans is 
 
 ### Seminal papers
 
-- Ross, Gordon & Bagnell (2011), "A reduction of imitation learning and structured prediction to no-regret online learning", AISTATS, arXiv:1011.0686 — Introduces DAgger and proves its performance bound against behavioural cloning.
-- Sun, Venkatraman, Gordon, Boots & Bagnell (2017), "Deeply AggreVaTeD: differentiable imitation learning for sequential prediction", ICML, arXiv:1703.01030 — Uses a cost-to-go oracle for interactive learning with differentiable policies.
-- Laskey, Lee, Fox, Dragan & Goldberg (2017), "DART: noise injection for robust imitation learning", CoRL, arXiv:1703.09327 — Injects noise into demonstrations to gather recovery data without an online expert.
-- Kelly, Sidrane, Driggs-Campbell & Kochenderfer (2019), "HG-DAgger: interactive imitation learning with human experts", ICRA, arXiv:1810.02890 — A human-gated variant in which the expert takes over only when the policy looks unsafe.
+- Ross, Gordon & Bagnell (2011), "A reduction of imitation learning and structured prediction to no-regret online learning", AISTATS, [arXiv:1011.0686](https://arxiv.org/abs/1011.0686) — Introduces DAgger and proves its performance bound against behavioural cloning.
+- Sun, Venkatraman, Gordon, Boots & Bagnell (2017), "Deeply AggreVaTeD: differentiable imitation learning for sequential prediction", ICML, [arXiv:1703.01030](https://arxiv.org/abs/1703.01030) — Uses a cost-to-go oracle for interactive learning with differentiable policies.
+- Laskey, Lee, Fox, Dragan & Goldberg (2017), "DART: noise injection for robust imitation learning", CoRL, [arXiv:1703.09327](https://arxiv.org/abs/1703.09327) — Injects noise into demonstrations to gather recovery data without an online expert.
+- Kelly, Sidrane, Driggs-Campbell & Kochenderfer (2019), "HG-DAgger: interactive imitation learning with human experts", ICRA, [arXiv:1810.02890](https://arxiv.org/abs/1810.02890) — A human-gated variant in which the expert takes over only when the policy looks unsafe.
 
 ### Surveys and textbooks
 
-- Osa et al. (2018), "An algorithmic perspective on imitation learning", arXiv:1811.06711 — Survey that places interactive methods alongside other imitation approaches.
+- Osa et al. (2018), "An algorithmic perspective on imitation learning", [arXiv:1811.06711](https://arxiv.org/abs/1811.06711) — Survey that places interactive methods alongside other imitation approaches.
 
 ### Lectures and videos
 

@@ -15,7 +15,7 @@ translation_reviewed: 2026-10-28
 
 # ConvNeXt
 
-ConvNeXt 是一種純卷積網路，由 Liu 等人於 2022 年在《A ConvNet for the 2020s》（arXiv:2201.03545）中提出。作者從 ResNet 出發，逐步現代化其設計，並借用 Transformer 的選擇。得到的網路在 ImageNet-1K、COCO 偵測與 ADE20K 分割上，都優於規模相近的 Swin Transformer 基線。
+ConvNeXt 是一種純卷積網路，由 Liu 等人於 2022 年在《A ConvNet for the 2020s》（[arXiv:2201.03545](https://arxiv.org/abs/2201.03545)）中提出。作者從 ResNet 出發，逐步現代化其設計，並借用 Transformer 的選擇。得到的網路在 ImageNet-1K、COCO 偵測與 ADE20K 分割上，都優於規模相近的 Swin Transformer 基線。
 
 ## 問題
 
@@ -77,10 +77,10 @@ y = x + \text{PWConv}_2\!\left(\text{GELU}\!\left(\text{PWConv}_1\!\left(\text{L
 
 ### 開創性論文
 
-- Liu, Z., et al. (2022). "A ConvNet for the 2020s". arXiv:2201.03545 — ConvNeXt，一個現代化的純 CNN，與 Transformer 基線相當。
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — 殘差連接，使極深的 CNN 能夠訓練。
-- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". arXiv:1409.1556 — 堆疊小型 3×3 卷積的普通深層設計，即 VGG 的基礎。
-- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". arXiv:1905.11946 — 同時縮放深度、寬度與輸入解析度的複合縮放。
+- Liu, Z., et al. (2022). "A ConvNet for the 2020s". [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) — ConvNeXt，一個現代化的純 CNN，與 Transformer 基線相當。
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — 殘差連接，使極深的 CNN 能夠訓練。
+- Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". [arXiv:1409.1556](https://arxiv.org/abs/1409.1556) — 堆疊小型 3×3 卷積的普通深層設計，即 VGG 的基礎。
+- Tan, M. & Le, Q. V. (2019). "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks". [arXiv:1905.11946](https://arxiv.org/abs/1905.11946) — 同時縮放深度、寬度與輸入解析度的複合縮放。
 
 ### 綜述與教科書
 

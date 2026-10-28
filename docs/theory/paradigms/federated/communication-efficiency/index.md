@@ -39,14 +39,14 @@ Compression interacts with privacy and with heterogeneous clients, and its effec
 
 ### Seminal papers
 
-- Konečný et al. (2016), "Federated learning: strategies for improving communication efficiency", arXiv:1610.05492 — Proposes structured and sketched updates that reduce the bytes sent per round.
-- Alistarh, Grubic, Li, Tomioka & Vojnovic (2017), "QSGD: communication-efficient SGD via gradient quantization and encoding", NeurIPS, arXiv:1610.02132 — Quantises gradients with an unbiased encoding that trades accuracy for communication.
-- Lin, Han, Mao, Wang & Dally (2018), "Deep gradient compression: reducing the communication bandwidth for distributed training", ICLR, arXiv:1712.01887 — Sparsifies gradients and accumulates the unsent values locally, which keeps accuracy high at high compression.
+- Konečný et al. (2016), "Federated learning: strategies for improving communication efficiency", [arXiv:1610.05492](https://arxiv.org/abs/1610.05492) — Proposes structured and sketched updates that reduce the bytes sent per round.
+- Alistarh, Grubic, Li, Tomioka & Vojnovic (2017), "QSGD: communication-efficient SGD via gradient quantization and encoding", NeurIPS, [arXiv:1610.02132](https://arxiv.org/abs/1610.02132) — Quantises gradients with an unbiased encoding that trades accuracy for communication.
+- Lin, Han, Mao, Wang & Dally (2018), "Deep gradient compression: reducing the communication bandwidth for distributed training", ICLR, [arXiv:1712.01887](https://arxiv.org/abs/1712.01887) — Sparsifies gradients and accumulates the unsent values locally, which keeps accuracy high at high compression.
 
 ### Surveys and textbooks
 
-- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, arXiv:1912.04977 — Survey with a section on communication costs and compression.
-- Yang, Liu, Chen & Tong (2019), "Federated machine learning: concept and applications", ACM Transactions on Intelligent Systems and Technology, arXiv:1902.04885 — Overview that discusses the communication constraints of federated systems.
+- Kairouz et al. (2021), "Advances and open problems in federated learning", Foundations and Trends in Machine Learning, [arXiv:1912.04977](https://arxiv.org/abs/1912.04977) — Survey with a section on communication costs and compression.
+- Yang, Liu, Chen & Tong (2019), "Federated machine learning: concept and applications", ACM Transactions on Intelligent Systems and Technology, [arXiv:1902.04885](https://arxiv.org/abs/1902.04885) — Overview that discusses the communication constraints of federated systems.
 
 ### Lectures and videos
 

@@ -60,7 +60,7 @@ DAgger 位於監督式學習與[強化學習](../../reinforcement-learning/index
 
 ### 奠基性論文
 
-- Ross, S.、Gordon, G. J. 與 Bagnell, J. A.（2011）. *A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning*. AISTATS 2011, PMLR 15:627–635. https://proceedings.mlr.press/v15/ross11a.html — 提出 DAgger，並證明所學策略的期望代價界。arXiv 版本為 arXiv:1011.0686。
+- Ross, S.、Gordon, G. J. 與 Bagnell, J. A.（2011）. *A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning*. AISTATS 2011, PMLR 15:627–635. https://proceedings.mlr.press/v15/ross11a.html — 提出 DAgger，並證明所學策略的期望代價界。arXiv 版本為 [arXiv:1011.0686](https://arxiv.org/abs/1011.0686)。
 - Ross, S. 與 Bagnell, J. A.（2010）. *Efficient Reductions for Imitation Learning*. AISTATS 2010, PMLR 9:661–668. https://proceedings.mlr.press/v9/ross10a.html — 分析克隆策略的誤差如何沿時程累積，這正是 DAgger 要解決的問題。
 
 ### 文章與預印本

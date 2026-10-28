@@ -369,6 +369,10 @@ plugins:
             GNM: GNM
             ViNT: ViNT
             NoMaD: NoMaD
+            Visual Localisation: 視覺定位
+            AnyLoc: AnyLoc
+            EigenPlaces: EigenPlaces
+            DINOv2: DINOv2
             AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             RFdiffusion: RFdiffusion（蛋白質骨架設計）
             ESM-2 and ESMFold: ESM-2 與 ESMFold
@@ -677,6 +681,7 @@ plugins:
             Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
             Mixed-Precision Training: 混合精度訓練
             FP8 Formats: FP8 格式
+            Gradient Checkpointing: 梯度檢查點
             Roofline Model: 屋頂線模型
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
@@ -741,6 +746,8 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
+  # Turns bare https:// URLs in plain text (reference and further-reading entries) into links.
+  - pymdownx.magiclink
   - pymdownx.snippets:
       auto_append:
         - includes/abbreviations.md
@@ -759,6 +766,7 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/mathjax.js
+  - javascripts/knowledge-map.js
   - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
 
 extra_css:
@@ -886,7 +894,9 @@ nav:
               - theory/paradigms/self-supervised/index.md
               - Contrastive Learning: theory/paradigms/self-supervised/contrastive-learning/index.md
               - Masked Prediction: theory/paradigms/self-supervised/masked-prediction/index.md
-              - Non-Contrastive Methods: theory/paradigms/self-supervised/non-contrastive-methods/index.md
+              - Non-Contrastive Methods:
+                  - theory/paradigms/self-supervised/non-contrastive-methods/index.md
+                  - DINOv2: theory/paradigms/self-supervised/non-contrastive-methods/dinov2.md
               - Pretext Tasks: theory/paradigms/self-supervised/pretext-tasks/index.md
               - Theory & Evaluation: theory/paradigms/self-supervised/theory-and-evaluation/index.md
           - Reinforcement Learning:
@@ -979,6 +989,9 @@ nav:
           - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
           - Evolutionary & Swarm Intelligence:
               - theory/paradigms/evolutionary/index.md
+              - Genetic Algorithms: theory/paradigms/evolutionary/genetic-algorithms.md
+              - Genetic Programming: theory/paradigms/evolutionary/genetic-programming.md
+              - NEAT: theory/paradigms/evolutionary/neat.md
               - MAP-Elites: theory/paradigms/evolutionary/map-elites.md
               - Particle Swarm Optimisation: theory/paradigms/evolutionary/particle-swarm.md
               - Ant Colony Optimisation: theory/paradigms/evolutionary/ant-colony.md
@@ -1304,6 +1317,10 @@ nav:
               - GNM: applications/robotics/navigation/gnm.md
               - ViNT: applications/robotics/navigation/vint.md
               - NoMaD: applications/robotics/navigation/nomad.md
+          - Visual Localisation:
+              - applications/robotics/visual-localisation/index.md
+              - AnyLoc: applications/robotics/visual-localisation/anyloc.md
+              - EigenPlaces: applications/robotics/visual-localisation/eigenplaces.md
       - Autonomous Driving & Transport:
           - applications/autonomous-driving/index.md
           - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md
@@ -1390,6 +1407,7 @@ nav:
           - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md
           - Mixed-Precision Training: engineering/hardware/co-design/mixed-precision.md
           - FP8 Formats: engineering/hardware/co-design/fp8.md
+          - Gradient Checkpointing: engineering/hardware/co-design/gradient-checkpointing.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md

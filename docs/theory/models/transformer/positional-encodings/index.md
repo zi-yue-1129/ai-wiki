@@ -30,12 +30,12 @@ Encodings fall into three groups:
 
 | Method | Where position enters | Key paper |
 |---|---|---|
-| Sinusoidal | Added to token embeddings, fixed functions of the index | Vaswani et al. (2017), arXiv:1706.03762 |
-| Relative position representations | Learned vectors for clipped distances, added to keys and values | Shaw et al. (2018), arXiv:1803.02155 |
-| Rotary (RoPE) | Queries and keys rotated by angles proportional to position | Su et al. (2021), arXiv:2104.09864 |
-| ALiBi | Linear penalty on the score, proportional to the distance | Press et al. (2021), arXiv:2108.12409 |
-| Position interpolation | Position indices scaled down to fit the trained range, then briefly fine-tuned | Chen et al. (2023), arXiv:2306.15595 |
-| YaRN | Frequency-dependent interpolation plus a temperature change in attention | Peng et al. (2023), arXiv:2309.00071 |
+| Sinusoidal | Added to token embeddings, fixed functions of the index | Vaswani et al. (2017), [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) |
+| Relative position representations | Learned vectors for clipped distances, added to keys and values | Shaw et al. (2018), [arXiv:1803.02155](https://arxiv.org/abs/1803.02155) |
+| Rotary (RoPE) | Queries and keys rotated by angles proportional to position | Su et al. (2021), [arXiv:2104.09864](https://arxiv.org/abs/2104.09864) |
+| ALiBi | Linear penalty on the score, proportional to the distance | Press et al. (2021), [arXiv:2108.12409](https://arxiv.org/abs/2108.12409) |
+| Position interpolation | Position indices scaled down to fit the trained range, then briefly fine-tuned | Chen et al. (2023), [arXiv:2306.15595](https://arxiv.org/abs/2306.15595) |
+| YaRN | Frequency-dependent interpolation plus a temperature change in attention | Peng et al. (2023), [arXiv:2309.00071](https://arxiv.org/abs/2309.00071) |
 
 ### Relative and rotary encodings
 
@@ -76,10 +76,10 @@ Positional encodings matter for [attention variants](../attention-variants/index
 
 ### Seminal papers
 
-- Vaswani, A., et al. (2017). *Attention Is All You Need*. arXiv:1706.03762 — Introduces sinusoidal position encodings added to the embeddings.
-- Shaw, P., Uszkoreit, J. & Vaswani, A. (2018). "Self-Attention with Relative Position Representations". NAACL 2018. arXiv:1803.02155 — Relative position vectors for clipped distances in self-attention.
-- Su, J., et al. (2021). "RoFormer: Enhanced Transformer with Rotary Position Embedding". arXiv:2104.09864 — Rotary position embedding, which makes the dot product depend only on relative position.
-- Press, O., Smith, N. A. & Lewis, M. (2021). "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation". arXiv:2108.12409 — ALiBi, a distance penalty on attention scores that extrapolates to longer inputs.
+- Vaswani, A., et al. (2017). *Attention Is All You Need*. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — Introduces sinusoidal position encodings added to the embeddings.
+- Shaw, P., Uszkoreit, J. & Vaswani, A. (2018). "Self-Attention with Relative Position Representations". NAACL 2018. [arXiv:1803.02155](https://arxiv.org/abs/1803.02155) — Relative position vectors for clipped distances in self-attention.
+- Su, J., et al. (2021). "RoFormer: Enhanced Transformer with Rotary Position Embedding". [arXiv:2104.09864](https://arxiv.org/abs/2104.09864) — Rotary position embedding, which makes the dot product depend only on relative position.
+- Press, O., Smith, N. A. & Lewis, M. (2021). "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation". [arXiv:2108.12409](https://arxiv.org/abs/2108.12409) — ALiBi, a distance penalty on attention scores that extrapolates to longer inputs.
 
 ### Surveys and textbooks
 
@@ -91,6 +91,6 @@ Positional encodings matter for [attention variants](../attention-variants/index
 
 ### Articles and documentation
 
-- Chen, S., et al. (2023). "Extending Context Window of Large Language Models via Positional Interpolation". arXiv:2306.15595 — Scales position indices to fit a longer context into the trained range, with brief fine-tuning.
-- Peng, B., et al. (2023). "YaRN: Efficient Context Window Extension of Large Language Models". arXiv:2309.00071 — Frequency-dependent interpolation and attention scaling for context extension.
-- Kazemnejad, A., et al. (2023). "The Impact of Positional Encoding on Length Generalization in Transformers". NeurIPS. arXiv:2305.19466 — Compares positional encodings for length generalisation, including no explicit encoding.
+- Chen, S., et al. (2023). "Extending Context Window of Large Language Models via Positional Interpolation". [arXiv:2306.15595](https://arxiv.org/abs/2306.15595) — Scales position indices to fit a longer context into the trained range, with brief fine-tuning.
+- Peng, B., et al. (2023). "YaRN: Efficient Context Window Extension of Large Language Models". [arXiv:2309.00071](https://arxiv.org/abs/2309.00071) — Frequency-dependent interpolation and attention scaling for context extension.
+- Kazemnejad, A., et al. (2023). "The Impact of Positional Encoding on Length Generalization in Transformers". NeurIPS. [arXiv:2305.19466](https://arxiv.org/abs/2305.19466) — Compares positional encodings for length generalisation, including no explicit encoding.

@@ -39,13 +39,13 @@ Uncertainty from deep networks is often poorly calibrated, and retraining is cos
 
 ### Seminal papers
 
-- Gal, Islam & Ghahramani (2017), "Deep Bayesian active learning with image data", ICML, arXiv:1703.02910 — Uses dropout-based uncertainty estimates to make active learning work with deep networks on images.
-- Yoo & Kweon (2019), "Learning loss for active learning", CVPR, arXiv:1905.03677 — Trains a module to predict the loss of unlabelled examples and queries those with high predicted loss.
-- Sener & Savarese (2018), "Active learning for convolutional neural networks: a core-set approach", ICLR, arXiv:1708.00489 — Selects examples that cover the feature space, a strong deep baseline.
+- Gal, Islam & Ghahramani (2017), "Deep Bayesian active learning with image data", ICML, [arXiv:1703.02910](https://arxiv.org/abs/1703.02910) — Uses dropout-based uncertainty estimates to make active learning work with deep networks on images.
+- Yoo & Kweon (2019), "Learning loss for active learning", CVPR, [arXiv:1905.03677](https://arxiv.org/abs/1905.03677) — Trains a module to predict the loss of unlabelled examples and queries those with high predicted loss.
+- Sener & Savarese (2018), "Active learning for convolutional neural networks: a core-set approach", ICLR, [arXiv:1708.00489](https://arxiv.org/abs/1708.00489) — Selects examples that cover the feature space, a strong deep baseline.
 
 ### Surveys and textbooks
 
-- Ren et al. (2020), "A survey of deep active learning", arXiv:2009.00236 — Survey of active learning methods for deep networks, with a taxonomy of approaches.
+- Ren et al. (2020), "A survey of deep active learning", [arXiv:2009.00236](https://arxiv.org/abs/2009.00236) — Survey of active learning methods for deep networks, with a taxonomy of approaches.
 - Settles (2009), "Active learning literature survey", Computer Sciences Technical Report 1648, University of Wisconsin-Madison. https://research.cs.wisc.edu/techreports/2009/TR1648.pdf — Foundational survey that predates deep learning but defines the basic query strategies.
 
 ### Lectures and videos
@@ -58,4 +58,4 @@ No further entries for this page.
 
 ## Further reading
 
-- Kirsch, van Amersfoort & Gal (2019), "BatchBALD: efficient and diverse batch acquisition for deep Bayesian active learning", NeurIPS, arXiv:1906.08158 — Batch acquisition for deep Bayesian active learning.
+- Kirsch, van Amersfoort & Gal (2019), "BatchBALD: efficient and diverse batch acquisition for deep Bayesian active learning", NeurIPS, [arXiv:1906.08158](https://arxiv.org/abs/1906.08158) — Batch acquisition for deep Bayesian active learning.

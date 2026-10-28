@@ -46,7 +46,7 @@ Reflow then takes a trained flow with \(k\) rounds, simulates it from \(\pi_0\) 
 - **Problem:** ODE-based generative models need many solver steps because curved trajectories are poorly approximated by coarse integrators.
 - **Core idea:** fit the drift to the straight direction \(X_1 - X_0\) along linear interpolants, then apply reflow to couple noise and data along straighter paths.
 - **Equation or algorithm:** the least-squares objective and reflow update above. Each reflow round trains on the endpoint pairs of the previous flow.
-- **Results:** the abstract states that nearly straight flows give high-quality samples even with a single Euler step. The paper's Table 1 reports an FID of 4.85 on CIFAR-10 for a distilled two-round rectified flow with few-step sampling. The text checked here gives no ImageNet FID.
+- **Results:** the abstract states that nearly straight flows give high-quality samples even with a single Euler step. On CIFAR-10 (unconditional, DDPM++ architecture), Table 1(a) gives the one-step rows. The text quotes an FID of 4.85 for the distilled two-round rectified flow. In the same table, that row's one-step entry is 12.21, with 4.85 printed in parentheses beside it. With adaptive RK45 simulation, the one-round flow reaches FID 2.58 at about 127 function evaluations. The paper gives no ImageNet FID. Its high-resolution results are shown only qualitatively.
 - **Limitations:** reflow needs a simulation of the previous model for every round, which costs compute. Too many rounds accumulate error. The first round uses independent pairs, so the choice of coupling is not addressed there, which is one motivation for [minibatch OT flow matching](minibatch-ot-flow-matching.md).
 
 ## Connections
@@ -64,13 +64,13 @@ Reflow then takes a trained flow with \(k\) rounds, simulates it from \(\pi_0\) 
 
 ### Seminal papers
 
-- Liu, X., Gong, C. & Liu, Q. (2022). *Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow*. arXiv. https://arxiv.org/abs/2209.03003 — Introduces rectified flow and the reflow procedure described on this page.
+- Liu, X., Gong, C. & Liu, Q. (2022). *Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow*. arXiv; ICLR 2023. https://arxiv.org/abs/2209.03003 — Introduces rectified flow and the reflow procedure described on this page.
 - Lipman, Y., Chen, R. T. Q., Ben-Hamu, H., Nickel, M. & Le, M. (2023). *Flow Matching for Generative Modeling*. ICLR. https://arxiv.org/abs/2210.02747 — The conditional flow matching objective with which rectified flow is compared.
 - Tong, A., Fatras, K., Malkin, N., Huguet, G., Zhang, Y., Rector-Brooks, J., Wolf, G. & Bengio, Y. (2024). *Improving and Generalizing Flow-Based Generative Models with Minibatch Optimal Transport*. TMLR. https://arxiv.org/abs/2302.00482 — Addresses the coupling of noise and data that the first rectified-flow round leaves open.
 
 ### Scaling and applications
 
-- Esser, P., et al. (2024). *Scaling Rectified Flow Transformers for High-Resolution Image Synthesis*. arXiv. https://arxiv.org/abs/2403.03206 — Applies rectified flow with a transformer to high-resolution text-to-image generation, and reports gains over diffusion baselines.
+- Esser, P., et al. (2024). *Scaling Rectified Flow Transformers for High-Resolution Image Synthesis*. arXiv. https://arxiv.org/abs/2403.03206 — Applies rectified flow with a transformer to high-resolution text-to-image generation, and reports that the approach outperforms established diffusion formulations.
 
 ### Background
 

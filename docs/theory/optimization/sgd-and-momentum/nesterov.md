@@ -67,7 +67,7 @@ Compared with heavy-ball, only the place where the gradient is evaluated changes
 
 - Sutskever, I., Martens, J., Dahl, G. & Hinton, G. (2013). On the importance of initialization and momentum in deep learning. ICML. https://proceedings.mlr.press/v28/sutskever13.html — Shows that Nesterov-style momentum, with careful initialisation, trains deep and recurrent networks.
 
-- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:10.1016/0041-5553(64)90137-5 — The heavy-ball method that Nesterov's variant modifies.
+- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:[10.1016/0041-5553(64)90137-5](https://doi.org/10.1016/0041-5553(64)90137-5) — The heavy-ball method that Nesterov's variant modifies.
 
 ### Surveys and textbooks
 

@@ -113,6 +113,7 @@ tags:
 - Link to other pages with relative paths to the `.md` file: `[Transformers](../transformer/index.md)`.
 - Don't link to a heading on another page (`page.md#heading`): headings differ between languages and break the build.
 - Prefer stable external links (DOI, arXiv abs pages, official docs) over blog mirrors.
+- Write every external link so it is clickable: a Markdown link `[text](https://...)`, or a full `https://` URL pasted into the text. A bare DOI (`doi:10.…`) or arXiv id (`arXiv:2005.11401`) is not clickable on its own, so give its `https://` address too.
 
 ## Sources and licensing
 
@@ -125,7 +126,7 @@ tags:
 
 Good references are what make a page trustworthy and useful for learning. Every topic page ends with a `## References` section.
 
-**How many:** at least 5 entries, and more is better. Aim for a spread across the four kinds below. Entries are checked by the build (`--check`): each needs a DOI, arXiv id or URL.
+**How many:** at least 5 entries, and more is better. Aim for a spread across the four kinds below. Entries are checked by the build (`--check`): each needs a clickable link (a full `https://` URL; a bare DOI or arXiv id does not count).
 
 **What to include**
 
@@ -144,7 +145,7 @@ Group entries under these headings when the page has enough of them. Use one lin
 ### Seminal papers
 
 - Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — Introduces the Transformer, replacing recurrence with multi-head self-attention.
-- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *J. Physiology*. doi:10.1113/jphysiol.1962.sp006837 — The original receptive-field study of cat visual cortex, the root of later convolutional vision models.
+- Hubel, D. H. & Wiesel, T. N. (1962). Receptive fields, binocular interaction and functional architecture in the cat's visual cortex. *J. Physiology*. doi:[10.1113/jphysiol.1962.sp006837](https://doi.org/10.1113/jphysiol.1962.sp006837) — The original receptive-field study of cat visual cortex, the root of later convolutional vision models.
 
 ### Surveys and textbooks
 
@@ -170,7 +171,7 @@ Group entries under these headings when the page has enough of them. Use one lin
 7. Pages that are pure lists or meta pages (the roadmap, the glossary, the reference lists) set `references: not-required` in their front matter. Section overviews are exempt automatically.
 8. **Primary sources only.** Blogs, newsletters, YouTube and other video channels, bookseller pages, and bibliographic aggregators (Semantic Scholar mirrors, scilit, researchr, RePEc and similar) are not references. Cite the paper, official report, standard or statute itself. If only an aggregator page can be confirmed, say so in the PR body rather than adding it.
 
-**Every external resource has a link, and formal and informal sources are kept apart.** Each entry, in any section, links to its source with a DOI, arXiv id or URL. Formal sources (papers, official reports, standards, statutes, books) go in References. Blogs, videos and aggregators never go in References. They may be listed under Further learning, as described below. CI enforces both rules on changed pages (`wiki_status.py --check`), and `wiki_status.py --unlinked` lists the rest of the wiki.
+**Every external resource has a link, and formal and informal sources are kept apart.** Each entry, in any section, links to its source with a clickable `https://` link. Formal sources (papers, official reports, standards, statutes, books) go in References. Blogs, videos and aggregators never go in References. They may be listed under Further learning, as described below. CI enforces both rules on changed pages (`wiki_status.py --check`), and `wiki_status.py --unlinked` lists the rest of the wiki.
 
 **Further learning**
 

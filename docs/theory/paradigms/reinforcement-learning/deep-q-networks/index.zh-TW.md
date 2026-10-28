@@ -69,10 +69,10 @@ L(\theta) = \mathbb{E}\left[\left(r + \gamma \max_{a'} Q(s', a'; \theta^-) - Q(s
 ### 開創性論文
 
 - Mnih et al. (2015), "Human-level control through deep reinforcement learning", *Nature* 518, 529–533. https://doi.org/10.1038/nature14236 — The DQN paper: a convolutional Q-network with replay and a target network, trained on 49 Atari games.
-- Mnih et al. (2013), "Playing Atari with deep reinforcement learning", arXiv:1312.5602 — The earlier preprint, which learned seven Atari games from raw pixels.
-- van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", arXiv:1509.06461 — Shows that DQN overestimates action values and reduces the bias with double Q-learning.
-- Schaul, Quan, Antonoglou & Silver (2016), "Prioritized experience replay", arXiv:1511.05952 — Replays important transitions more often, beating uniform replay on 41 of 49 games.
-- Hessel et al. (2018), "Rainbow: Combining improvements in deep reinforcement learning", arXiv:1710.02298 — Combines six DQN extensions and reports state-of-the-art Atari performance.
+- Mnih et al. (2013), "Playing Atari with deep reinforcement learning", [arXiv:1312.5602](https://arxiv.org/abs/1312.5602) — The earlier preprint, which learned seven Atari games from raw pixels.
+- van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", [arXiv:1509.06461](https://arxiv.org/abs/1509.06461) — Shows that DQN overestimates action values and reduces the bias with double Q-learning.
+- Schaul, Quan, Antonoglou & Silver (2016), "Prioritized experience replay", [arXiv:1511.05952](https://arxiv.org/abs/1511.05952) — Replays important transitions more often, beating uniform replay on 41 of 49 games.
+- Hessel et al. (2018), "Rainbow: Combining improvements in deep reinforcement learning", [arXiv:1710.02298](https://arxiv.org/abs/1710.02298) — Combines six DQN extensions and reports state-of-the-art Atari performance.
 
 ### 綜述與教科書
 

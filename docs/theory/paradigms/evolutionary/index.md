@@ -29,10 +29,10 @@ Part of the [Paradigms](../index.md) folder. Each method has its own page, and t
 
 | Method | Population update | Typical use | Page |
 |---|---|---|---|
-| Genetic algorithms | Selection, crossover and mutation on bit strings or vectors | Scheduling, design | Planned |
-| Genetic programming | Crossover and mutation on program trees | Symbolic regression | Planned |
+| Genetic algorithms | Selection, crossover and mutation on bit strings or vectors | Scheduling, design | [Genetic algorithms](genetic-algorithms.md) |
+| Genetic programming | Crossover and mutation on program trees | Symbolic regression | [Genetic programming](genetic-programming.md) |
 | Evolution strategies and CMA-ES | Sample a Gaussian, move its mean and covariance toward good samples | Continuous black-box optimisation | [Zeroth-order and evolutionary](../../optimization/zeroth-order-and-evolutionary.md) |
-| NEAT | Evolve weights and topology together, with innovation numbers | Neuroevolution, control | Planned |
+| NEAT | Evolve weights and topology together, with innovation numbers | Neuroevolution, control | [NEAT](neat.md) |
 | MAP-Elites | Keep the best solution in each cell of a behaviour grid | Diverse solutions, robot repertoires | [MAP-Elites](map-elites.md) |
 | Particle swarm optimisation | Each particle moves by its own and its neighbours' best positions | Continuous optimisation | [Particle swarm](particle-swarm.md) |
 | Ant colony optimisation | Ants deposit pheromone on good paths; paths are sampled in proportion | Combinatorial routing | [Ant colony](ant-colony.md) |

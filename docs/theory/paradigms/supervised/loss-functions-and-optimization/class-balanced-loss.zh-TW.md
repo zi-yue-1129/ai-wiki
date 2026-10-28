@@ -61,7 +61,7 @@ Cui 等人在多個影像基準的長尾切分上評估此方法，並報告最�
 
 ### 奠基性論文
 
-- Cui, Y.、Jia, M.、Lin, T.-Y.、Song, Y. 與 Belongie, S.（2019）. *Class-Balanced Loss Based on Effective Number of Samples*. CVPR 2019. https://openaccess.thecvf.com/content_CVPR_2019/html/Cui_Class-Balanced_Loss_Based_on_Effective_Number_of_Samples_CVPR_2019_paper.html — 提出有效樣本數加權與類別平衡損失。arXiv 版本為 arXiv:1901.05555。
+- Cui, Y.、Jia, M.、Lin, T.-Y.、Song, Y. 與 Belongie, S.（2019）. *Class-Balanced Loss Based on Effective Number of Samples*. CVPR 2019. https://openaccess.thecvf.com/content_CVPR_2019/html/Cui_Class-Balanced_Loss_Based_on_Effective_Number_of_Samples_CVPR_2019_paper.html — 提出有效樣本數加權與類別平衡損失。arXiv 版本為 [arXiv:1901.05555](https://arxiv.org/abs/1901.05555)。
 - Cao, K.、Wei, C.、Gaidon, A.、Arechiga, N. 與 Ma, T.（2019）. *Learning Imbalanced Datasets with Label-Distribution-Aware Margin Loss*. arXiv:1906.07413. https://arxiv.org/abs/1906.07413 — 說明從一開始就加權可能傷害尾部類別，並提出邊界方法與延後加權。
 
 ### 文章與預印本

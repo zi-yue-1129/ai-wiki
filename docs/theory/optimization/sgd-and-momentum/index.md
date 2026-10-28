@@ -94,8 +94,8 @@ Nesterov's variant computes the gradient at the look-ahead point \(\theta_{t-1} 
 
 ### Seminal papers
 
-- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. doi:10.1214/aoms/1177729586 — Introduces stochastic approximation with decreasing step sizes, the basis of SGD.
-- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:10.1016/0041-5553(64)90137-5 — Introduces heavy-ball momentum and analyses its acceleration on quadratic problems.
+- Robbins, H. & Monro, S. (1951). A stochastic approximation method. *Annals of Mathematical Statistics*. doi:[10.1214/aoms/1177729586](https://doi.org/10.1214/aoms/1177729586) — Introduces stochastic approximation with decreasing step sizes, the basis of SGD.
+- Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:[10.1016/0041-5553(64)90137-5](https://doi.org/10.1016/0041-5553(64)90137-5) — Introduces heavy-ball momentum and analyses its acceleration on quadratic problems.
 
 ### Surveys and textbooks
 

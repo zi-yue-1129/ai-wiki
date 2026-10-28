@@ -70,8 +70,8 @@ Children receive very few explicit labels ("that's a dog") relative to the vast 
 
 ## References
 
-- Laine & Aila (2017), "Temporal ensembling for semi-supervised learning", ICLR, arXiv:1610.02242 — Early consistency method that uses averaged predictions as targets.
-- Sohn et al. (2020), "FixMatch: simplifying semi-supervised learning with consistency and confidence", NeurIPS, arXiv:2001.07685 — A simple, strong method combining pseudo-labels and consistency.
+- Laine & Aila (2017), "Temporal ensembling for semi-supervised learning", ICLR, [arXiv:1610.02242](https://arxiv.org/abs/1610.02242) — Early consistency method that uses averaged predictions as targets.
+- Sohn et al. (2020), "FixMatch: simplifying semi-supervised learning with consistency and confidence", NeurIPS, [arXiv:2001.07685](https://arxiv.org/abs/2001.07685) — A simple, strong method combining pseudo-labels and consistency.
 - Zhu, Ghahramani & Lafferty (2003), "Semi-supervised learning using Gaussian fields and harmonic functions", ICML. https://www.cs.cmu.edu/~zhuxj/pub/zgl.pdf — Label propagation over graphs, a foundational graph method.
-- Ratner et al. (2017), "Snorkel: rapid training data creation with weak supervision", arXiv:1711.10160 — Turns labelling functions into training data quickly.
-- Oliver et al. (2018), "Realistic evaluation of deep semi-supervised learning algorithms", NeurIPS, arXiv:1804.09170 — Shows that fair evaluation changes many reported conclusions.
+- Ratner et al. (2017), "Snorkel: rapid training data creation with weak supervision", [arXiv:1711.10160](https://arxiv.org/abs/1711.10160) — Turns labelling functions into training data quickly.
+- Oliver et al. (2018), "Realistic evaluation of deep semi-supervised learning algorithms", NeurIPS, [arXiv:1804.09170](https://arxiv.org/abs/1804.09170) — Shows that fair evaluation changes many reported conclusions.

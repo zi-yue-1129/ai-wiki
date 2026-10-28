@@ -63,10 +63,10 @@ translation_reviewed: 2026-10-28
 
 ### 開創性論文
 
-- Dai, J., et al. (2017). "Deformable Convolutional Networks". arXiv:1703.06211 — 學習取樣偏移量，使卷積能適應物件形狀。
-- Yu, F. & Koltun, V. (2015). "Multi-Scale Context Aggregation by Dilated Convolutions". arXiv:1511.07122 — 用於密集預測的空洞卷積，感受野隨深度指數成長。
-- Chen, L.-C., et al. (2016). "DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs". arXiv:1606.00915 — 空洞卷積搭配全連接條件隨機場，用於密集分割。
-- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". arXiv:1512.03385 — 殘差連接，使極深的 CNN 能夠訓練。
+- Dai, J., et al. (2017). "Deformable Convolutional Networks". [arXiv:1703.06211](https://arxiv.org/abs/1703.06211) — 學習取樣偏移量，使卷積能適應物件形狀。
+- Yu, F. & Koltun, V. (2015). "Multi-Scale Context Aggregation by Dilated Convolutions". [arXiv:1511.07122](https://arxiv.org/abs/1511.07122) — 用於密集預測的空洞卷積，感受野隨深度指數成長。
+- Chen, L.-C., et al. (2016). "DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs". [arXiv:1606.00915](https://arxiv.org/abs/1606.00915) — 空洞卷積搭配全連接條件隨機場，用於密集分割。
+- He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — 殘差連接，使極深的 CNN 能夠訓練。
 
 ### 綜述與教科書
 
