@@ -511,6 +511,7 @@ plugins:
             Eyeriss v2: Eyeriss v2
             Memory Hierarchy and Bandwidth: 記憶體階層與頻寬
             Interconnects and Scaling: 互連與擴展
+            In-Memory and Analogue Computing: 記憶體內與類比運算
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
             GPTQ: GPTQ
@@ -1044,6 +1045,7 @@ nav:
               - Eyeriss v2: engineering/hardware/accelerators/eyeriss-v2/index.md
           - Memory Hierarchy and Bandwidth: engineering/hardware/memory-hierarchy/index.md
           - Interconnects and Scaling: engineering/hardware/interconnects/index.md
+          - In-Memory and Analogue Computing: engineering/hardware/in-memory-computing/index.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md
