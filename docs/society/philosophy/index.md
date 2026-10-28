@@ -54,11 +54,14 @@ related:
 - Instrumental convergence
 - The meaning of human work and purpose in a world of capable machines
 
-## Resources
+## References
 
-- [Stanford Encyclopedia of Philosophy: Artificial Intelligence](https://plato.stanford.edu/entries/artificial-intelligence/), [The Turing Test](https://plato.stanford.edu/entries/turing-test/)
-- Turing (1950), "Computing Machinery and Intelligence"
-- Dreyfus, *What Computers Still Can't Do*
-- Chalmers (2023), "Could a Large Language Model be Conscious?"
-- Mitchell & Krakauer (2023), "The debate over understanding in AI's large language models", *PNAS*
-- Millière & Buckner (2024), "A Philosophical Introduction to Language Models"
+- Turing, A. M. (1950). Computing Machinery and Intelligence. *Mind*. https://doi.org/10.1093/mind/LIX.236.433 — Proposes the imitation game and argues that "can machines think?" should be replaced by a behavioural test.
+- Searle, J. R. (1980). Minds, brains, and programs. *Behavioral and Brain Sciences*. https://doi.org/10.1017/S0140525X00005756 — The Chinese Room argument that symbol manipulation alone cannot produce understanding.
+- Chalmers, D. J. (2023). Could a Large Language Model be Conscious? arXiv:2303.07103. https://arxiv.org/abs/2303.07103 — Assesses whether current language models could be conscious by testing them against leading theories and listing the obstacles.
+- Butlin, P., Long, R., Elmoznino, E. et al. (2023). Consciousness in artificial intelligence: insights from the science of consciousness. arXiv:2308.08708. https://arxiv.org/abs/2308.08708 — Derives computational indicator properties from several theories of consciousness and applies them to AI systems.
+- Floridi, L. & Chiriatti, M. (2020). GPT-3: Its Nature, Scope, Limits, and Consequences. *Minds and Machines*. https://doi.org/10.1007/s11023-020-09548-1 — Philosophical analysis arguing that the fluency of GPT-3 should not be read as understanding.
+
+## Further learning
+
+- [Stanford Encyclopedia of Philosophy: Artificial Intelligence](https://plato.stanford.edu/entries/artificial-intelligence/) and [The Turing Test](https://plato.stanford.edu/entries/turing-test/) — encyclopedia entries covering the debates above.

@@ -64,10 +64,10 @@ The paper reports that SAC "exceeds the performance of prior state-of-the-art of
 
 ### Seminal papers
 
-- Haarnoja, Zhou, Abbeel & Levine (2018), "Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor", arXiv:1801.01290 — The SAC paper, with the maximum-entropy objective and the MuJoCo results above.
-- Fujimoto, van Hoof & Meger (2018), "Addressing function approximation error in actor-critic methods", arXiv:1802.09477 — TD3, which uses the same two-critic minimum against overestimation.
-- Lillicrap et al. (2016), "Continuous control with deep reinforcement learning", ICLR, arXiv:1509.02971 — DDPG, the deterministic off-policy baseline that SAC outperforms.
-- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — The on-policy baseline in the SAC comparison.
+- Haarnoja, Zhou, Abbeel & Levine (2018), "Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor", [arXiv:1801.01290](https://arxiv.org/abs/1801.01290) — The SAC paper, with the maximum-entropy objective and the MuJoCo results above.
+- Fujimoto, van Hoof & Meger (2018), "Addressing function approximation error in actor-critic methods", [arXiv:1802.09477](https://arxiv.org/abs/1802.09477) — TD3, which uses the same two-critic minimum against overestimation.
+- Lillicrap et al. (2016), "Continuous control with deep reinforcement learning", ICLR, [arXiv:1509.02971](https://arxiv.org/abs/1509.02971) — DDPG, the deterministic off-policy baseline that SAC outperforms.
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — The on-policy baseline in the SAC comparison.
 
 ### Surveys and textbooks
 

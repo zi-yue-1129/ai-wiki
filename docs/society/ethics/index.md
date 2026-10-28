@@ -74,9 +74,14 @@ Stereotypes in generated text and images, dialect bias (e.g. covert prejudice ag
 - Children's interaction with AI
 - De-skilling and cognitive offloading (see [Psychology & AI](../../brain-mind/psychology/index.md))
 
-## Resources
+## References
 
-- Barocas, Hardt & Narayanan, *Fairness and Machine Learning* (free online)
-- O'Neil, *Weapons of Math Destruction*; Benjamin, *Race After Technology*; Crawford, *Atlas of AI*
-- Mitchell et al. (2019), "Model Cards for Model Reporting"
-- [Stanford Encyclopedia of Philosophy: Ethics of AI and Robotics](https://plato.stanford.edu/entries/ethics-ai/)
+- Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — Textbook on the fairness definitions used in this section and on the trade-offs between them.
+- Buolamwini, J. & Gebru, T. (2018). Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. *Proceedings of the 1st Conference on Fairness, Accountability and Transparency (PMLR 81)*. https://proceedings.mlr.press/v81/buolamwini18a.html — Audits commercial gender classifiers and finds much higher error rates for darker-skinned women.
+- Obermeyer, Z. et al. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. *Science*. https://doi.org/10.1126/science.aax2342 — Shows a health-risk algorithm underestimating the needs of Black patients because it used cost as a proxy for health.
+- Mitchell, M. et al. (2019). Model Cards for Model Reporting. *Proceedings of the Conference on Fairness, Accountability, and Transparency*. https://arxiv.org/abs/1810.03993 — Proposes a standard documentation template covering intended use, evaluation across groups and known limitations.
+- Bender, E. M. et al. (2021). On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? *Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency*. https://doi.org/10.1145/3442188.3445922 — Discusses the environmental cost, documentation debt and bias risks of ever-larger language models.
+
+## Further learning
+
+- [Stanford Encyclopedia of Philosophy: Ethics of AI and Robotics](https://plato.stanford.edu/entries/ethics-ai/) — peer-reviewed encyclopedia overview of the questions in this section.

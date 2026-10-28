@@ -123,3 +123,11 @@ flowchart TD
 2. **Application gap**: "how AI is used in field X" is scattered across reports and news.
 3. **Language gap**: high-quality Traditional Chinese material is scarce; this wiki is bilingual.
 4. **Sustainability**: Git + Markdown + automatic deployment means anyone can contribute with a pull request.
+
+## References
+
+- Paszke, A. et al. (2019). *PyTorch: An Imperative Style, High-Performance Deep Learning Library*. arXiv:1912.01703. https://arxiv.org/abs/1912.01703 — Describes PyTorch's design, the framework most open-source resources in this survey build on.
+- Abadi, M. et al. (2016). *TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems*. arXiv:1603.04467. https://arxiv.org/abs/1603.04467 — Describes the TensorFlow dataflow system and its support for heterogeneous and distributed execution.
+- Pedregosa, F. et al. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research* 12. https://jmlr.org/papers/v12/pedregosa11a.html — Describes scikit-learn, a widely used open-source toolkit for classical machine learning.
+- Wolf, T. et al. (2020). Transformers: State-of-the-Art Natural Language Processing. *Proceedings of EMNLP 2020: System Demonstrations*. https://doi.org/10.18653/v1/2020.emnlp-demos.6 — Describes the Hugging Face Transformers library and its open model hub.
+- Chen, T. et al. (2015). *MXNet: A Flexible and Efficient Machine Learning Library for Heterogeneous Distributed Systems*. arXiv:1512.01274. https://arxiv.org/abs/1512.01274 — Describes MXNet, an open-source library for distributed deep learning across heterogeneous hardware.

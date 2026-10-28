@@ -64,9 +64,9 @@ Williams's paper gives a derivation and a theorem rather than a benchmark. Its c
 ### Seminal papers
 
 - Williams (1992), "Simple statistical gradient-following algorithms for connectionist reinforcement learning", *Machine Learning* 8(3–4), 229–256. https://doi.org/10.1007/bf00992696 — The paper that introduces the REINFORCE update and proves the gradient-direction theorem.
-- Schulman et al. (2016), "High-dimensional continuous control using generalized advantage estimation", arXiv:1506.02438 — Advantage estimation for reducing the variance of policy-gradient updates.
-- Mnih et al. (2016), "Asynchronous methods for deep reinforcement learning", arXiv:1602.01783 — Actor-critic policy gradients with an advantage baseline.
-- Schulman et al. (2017), "Proximal policy optimization algorithms", arXiv:1707.06347 — A clipped policy-gradient method built on the same log-probability gradient.
+- Schulman et al. (2016), "High-dimensional continuous control using generalized advantage estimation", [arXiv:1506.02438](https://arxiv.org/abs/1506.02438) — Advantage estimation for reducing the variance of policy-gradient updates.
+- Mnih et al. (2016), "Asynchronous methods for deep reinforcement learning", [arXiv:1602.01783](https://arxiv.org/abs/1602.01783) — Actor-critic policy gradients with an advantage baseline.
+- Schulman et al. (2017), "Proximal policy optimization algorithms", [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — A clipped policy-gradient method built on the same log-probability gradient.
 
 ### Surveys and textbooks
 
@@ -74,5 +74,5 @@ Williams's paper gives a derivation and a theorem rather than a benchmark. Its c
 
 ### Articles and documentation
 
-- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", arXiv:2203.02155 — InstructGPT, which fine-tunes a language model with reinforcement learning from human feedback.
-- Shao et al. (2024), "DeepSeekMath: Pushing the limits of mathematical reasoning in open language models", arXiv:2402.03300 — Introduces GRPO, which uses a group-mean baseline in place of a learned critic.
+- Ouyang et al. (2022), "Training language models to follow instructions with human feedback", [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) — InstructGPT, which fine-tunes a language model with reinforcement learning from human feedback.
+- Shao et al. (2024), "DeepSeekMath: Pushing the limits of mathematical reasoning in open language models", [arXiv:2402.03300](https://arxiv.org/abs/2402.03300) — Introduces GRPO, which uses a group-mean baseline in place of a learned critic.
