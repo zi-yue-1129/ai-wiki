@@ -32,15 +32,18 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Cognitive Science](cognitive-science/index.md) | Perception, attention, language, reasoning, predictive processing |
 | [Cognitive Architectures](cognitive-architectures/index.md) | ACT-R, Soar, global workspace, LLM-agent architectures |
 | [Psychology & AI](psychology/index.md) | Cognitive biases, dual-process theory, theory-of-mind tests, development, machine psychology |
+| [Computational Psychiatry](computational-psychiatry/index.md) | RL and Bayesian models of symptoms, computational phenotyping, prediction error in psychosis, treatment prediction |
 | [Consciousness & Philosophy of Mind](consciousness/index.md) | Theories of consciousness, could AI be conscious, the Chinese room |
 | [Brain-Computer Interfaces](bci/index.md) | Invasive and non-invasive BCIs, decoding language and images from brain activity |
 | [Language in the Brain](language-in-brain/index.md) | Dual-stream speech processing, the language network, language models predicting brain responses |
 | [Predictive Coding & Free Energy](predictive-coding/index.md) | Prediction error, hierarchical models, backprop-like learning, the free-energy principle |
 | [Decision Making, Dopamine & Reward](decision-reward/index.md) | Evidence accumulation, model-based vs model-free control, reward prediction error |
 | [Perception & the Visual System](visual-perception/index.md) | Receptive fields, the ventral stream, CNNs as models of vision |
+| [Hearing & the Auditory System](auditory-system/index.md) | Cochlea and tonotopy, auditory cortex hierarchy, speech in noise, deep networks as models of auditory cortex |
 | [Attention in Brains & Machines](attention-brain-machine/index.md) | Biased competition, saliency maps, top-down control, attention in neural networks |
 | [Emotion & Affective Computing](emotion/index.md) | Valence and arousal, threat circuits, basic emotions, affective computing |
 | [Neuroimaging & Recording Methods](neuroimaging-methods/index.md) | BOLD fMRI, what fMRI and electrophysiology each measure, LFP and ECoG |
+| [Neural Oscillations & Synchrony](oscillations/index.md) | Frequency bands, phase coding, communication through coherence, theta–gamma coupling, oscillatory RNNs |
 | [Developmental Cognition & How Children Learn](developmental-cognition/index.md) | Core knowledge in infancy, looking-time methods, statistical learning, the Goldilocks effect |
 | [Animal Cognition & Comparative Intelligence](animal-cognition/index.md) | Mirror self-recognition, tool use in crows, false-belief tests in apes, convergent intelligence |
 | [Motor Control & the Cerebellum](motor-control/index.md) | Internal models and forward prediction, cerebellar supervised learning, optimal feedback control, motor cortex population dynamics |
