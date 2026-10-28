@@ -23,30 +23,22 @@ Distillation for language models transfers the behaviour of a large model into a
 
 Two broad recipes are common. In **sequence-level** distillation, the teacher generates responses to a set of prompts, and the student is trained on them with ordinary supervised learning. In **on-policy** distillation, the student generates its own responses, and the teacher scores them, so that the student is trained on the distribution it actually produces. A third recipe distils reasoning traces, the step-by-step solutions that a strong model writes, into a smaller model, which then learns to reason in a similar way.
 
+## Comparison of methods
+
+| Method | Training data | Divergence or loss | Typical use | Page |
+| --- | --- | --- | --- | --- |
+| Sequence-level KD | Teacher's best outputs | Ordinary maximum likelihood on teacher sequences | Translation and generation | [Sequence-level KD](sequence-level/index.md) |
+| MiniLLM | Student's own samples, scored by the teacher | Reverse KL, optimised with policy gradients | Instruction-following models | [MiniLLM](minillm/index.md) |
+| DeepSeek-R1 distillation | Reasoning traces from a large reasoning model | Supervised fine-tuning | Small reasoning models | [DeepSeek-R1 distillation](deepseek-r1/index.md) |
+
+Sequence-level distillation is the simplest and cheapest, because the teacher's outputs are generated once. MiniLLM is costlier, since the teacher scores samples from the student during training, but it removes the mismatch between training and generation. Reasoning distillation applies the sequence-level recipe to long traces, where the quality of the traces matters most.
+
 ## Key concepts
 
 - **Teacher-generated data.** Responses produced by the large model and used as training targets for the small one.
 - **On-policy training.** Training on the student's own samples, scored by the teacher, which reduces the mismatch between training and generation.
 - **Reasoning traces.** Intermediate steps that a model writes before its answer. Distilling them transfers how a problem is solved, not only the final answer.
 - **Model families.** Students are often smaller models from the same family, which makes the tokenisers and output spaces match.
-
-## Key methods
-
-### MiniLLM: On-Policy Distillation of Large Language Models (Gu et al., 2023)
-
-- **Problem:** Standard distillation of language models uses the teacher's distribution over sequences, which the student does not produce during generation, so errors compound at inference time.
-- **Core idea:** Train the student on its own generated sequences, with a reverse-direction divergence that favours the modes of the teacher's distribution, so that the student concentrates on outputs the teacher finds likely.
-- **Equation or algorithm:** The student's samples are scored by a divergence between the teacher and student distributions, and the student is updated with a policy-gradient style estimator, since the sampling is not differentiable.
-- **Results:** The abstract states that the method is scalable for different model families with 120 million to 13 billion parameters. The comparisons with baselines are reported in the paper.
-- **Limitations:** Policy-gradient style updates are more complex and costlier than supervised distillation, and the method needs a teacher that can be run during training.
-
-### DeepSeek-R1 (DeepSeek-AI, 2025)
-
-- **Problem:** Strong reasoning in language models was thought to need very large models, and smaller models could not learn it from data alone.
-- **Core idea:** The paper shows that reasoning patterns found by reinforcement learning in large models can be used to guide and enhance the reasoning of smaller models. The distillation of these reasoning traces is one of its main results.
-- **Equation or algorithm:** The large model is trained with reinforcement learning, and its reasoning outputs are then used as training data for smaller models in the same family.
-- **Results:** The abstract states that reasoning patterns from large models can be systematically harnessed to guide and enhance the reasoning capabilities of smaller models. Benchmark numbers are in the paper.
-- **Limitations:** The reasoning distilled into small models is bounded by the teacher's reasoning, and the training data are long reasoning traces, which are costly to produce.
 
 ## Trade-offs
 

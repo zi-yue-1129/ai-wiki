@@ -18,7 +18,7 @@ Data-free distillation compresses a teacher without access to its training data.
 
 ## Overview
 
-Every method on the parent page assumes that the student can be trained on real inputs. In many practical cases this is not so: a model may be released without its training set, or the data may be protected. Data-free methods synthesise inputs that the teacher finds representative, usually by optimising random noise so that the teacher's internal statistics match what it would have seen on real data. The student is then distilled on these synthetic samples in the usual way.
+The standard distillation recipe assumes that the student can be trained on real inputs. In many practical cases this is not so: a model may be released without its training set, or the data may be protected. Data-free methods synthesise inputs that the teacher finds representative, usually by optimising random noise so that the teacher's internal statistics match what it would have seen on real data. The student is then distilled on these synthetic samples in the usual way.
 
 ## Key concepts
 
@@ -27,23 +27,14 @@ Every method on the parent page assumes that the student can be trained on real 
 - **Surrogate data.** Samples that approximate the training data for the purpose of distillation, without reproducing any real example.
 - **Coverage.** Whether the synthetic samples span the regions of input space where the student must perform well.
 
-## Key methods
+## Comparison of methods
 
-### Zero-Shot Knowledge Distillation in Deep Networks (Nayak et al., 2019)
+| Method | How the inputs are obtained | Domain | Page |
+| --- | --- | --- | --- |
+| Zero-shot KD | Optimised from noise to make the teacher confident and diverse | Image classification | [Zero-shot KD](zero-shot-kd/index.md) |
+| Sequence-level KD | Teacher beam-search outputs for the source sentences, which are still real | Translation | [Sequence-level KD](../llm-distillation/sequence-level/index.md) |
 
-- **Problem:** Distillation requires training data, which may be unavailable for a released model.
-- **Core idea:** Synthesise surrogate samples from the teacher alone, by optimising inputs so that the teacher's output distribution is confident and diverse, then distil the student on these samples.
-- **Equation or algorithm:** Inputs are optimised from noise to maximise the teacher's confidence in sampled classes, with terms that encourage diversity, and the student is trained on the resulting samples with the usual distillation loss.
-- **Results:** The authors state that the framework results in competitive generalisation performance compared with distillation using the actual training data, on several benchmarks.
-- **Limitations:** Synthesis is expensive, and the quality depends on how well the teacher's outputs characterise the data. The paper's benchmarks are image classification.
-
-### Sequence-Level Knowledge Distillation (Kim and Rush, 2016)
-
-- **Problem:** Neural machine translation models are too slow to deploy, and the training data may not cover the outputs the teacher produces.
-- **Core idea:** Replace the reference translations by the teacher's own beam-search outputs, so that the student is trained on the teacher's distribution over whole sequences rather than on a set of fixed targets.
-- **Equation or algorithm:** The student is trained on the teacher's highest-scoring outputs for each source sentence, which removes the need for the original target side of the dataset.
-- **Results:** The abstract reports that the best student model runs 10 times faster than its state-of-the-art teacher, with little loss in performance.
-- **Limitations:** The method still uses source sentences. It is a partial data-free approach, and the teacher's outputs carry its biases into the student.
+Zero-shot KD is fully data-free, since it uses no real inputs at all. Sequence-level distillation is only partly data-free, because it still needs source sentences, and it is listed here because it removes the need for the target side of the dataset.
 
 ## Trade-offs
 

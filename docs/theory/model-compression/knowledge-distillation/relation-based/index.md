@@ -1,6 +1,8 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
+related:
+- theory/models/transformer
 tags:
 - model compression
 - knowledge distillation
@@ -26,23 +28,14 @@ Output matching asks the student to reproduce the teacher's answer for each inpu
 - **Batch-level loss.** Relation losses are computed over a batch, so the batch size affects the signal.
 - **Geometry.** The arrangement of representations, which can be matched even when the coordinate systems of teacher and student differ.
 
-## Key methods
+## Comparison of methods
 
-### Relational Knowledge Distillation (Park et al., 2019)
+| Method | Relations matched | Cost driver | Page |
+| --- | --- | --- | --- |
+| RKD | Pairwise distances and triple angles | Batch size, through pairwise and triple terms | [RKD](rkd/index.md) |
+| Similarity-preserving | Pairwise similarity of activations | Batch size, through the similarity matrix | [Similarity-preserving](similarity-preserving/index.md) |
 
-- **Problem:** Matching individual features forces the student's representation to share the teacher's coordinates, which is unnecessary when only the structure matters.
-- **Core idea:** Match distance-based and angle-based relations between examples in a batch, so that the student reproduces the teacher's geometry.
-- **Equation or algorithm:** A distance loss compares normalised pairwise distances between examples in teacher and student spaces, and an angle loss compares the angles formed by triples. Both are summed with the usual task loss.
-- **Results:** The abstract says the method improves educated student models with a significant margin, and that students can outperform their teachers in metric learning.
-- **Limitations:** The abstract gives no headline number. The batch-level computation adds cost, and the choice of relation affects the outcome.
-
-### Similarity-Preserving Knowledge Distillation (Tung and Mori, 2019)
-
-- **Problem:** Relational losses over whole batches can be expensive, and it is not clear which relations are most useful.
-- **Core idea:** Train the student so that examples that produce similar activations in the teacher also produce similar activations in the student. The student preserves the pairwise similarities in its own representation space rather than copying the teacher's features.
-- **Equation or algorithm:** Pairwise similarity matrices are computed for the teacher and the student over a batch, and the student is trained to match them.
-- **Results:** The abstract grounds the method in the observation that semantically similar inputs tend to elicit similar activation patterns in a trained network. The experimental figures are in the paper.
-- **Limitations:** Similarity matrices scale with the square of the batch size, and the method was evaluated on classification tasks.
+RKD matches a richer set of relations, including angles over triples, and its results on metric learning are the strongest claim in the family. Similarity-preserving distillation keeps only the pairwise similarities, which is simpler to compute and to explain.
 
 ## Trade-offs
 

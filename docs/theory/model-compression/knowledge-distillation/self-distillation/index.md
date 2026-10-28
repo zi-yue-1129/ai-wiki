@@ -7,7 +7,6 @@ tags:
 - self-distillation
 aliases:
   - Self-distillation
-  - Born-again networks
   - 自我蒸餾
   - 自蒸餾
 ---
@@ -27,23 +26,14 @@ In classic distillation the teacher is a separate model that is larger or better
 - **Deep-layer teacher.** A variant where the deepest classifier of a network supervises its shallower classifiers within one training run.
 - **Why it helps.** The soft targets act as a regulariser and reduce the variance of the final model, though the exact mechanism is still debated.
 
-## Key methods
+## Comparison of methods
 
-### Born Again Neural Networks (Furlanello et al., 2018)
+| Method | Teacher | Training runs | Page |
+| --- | --- | --- | --- |
+| Born-again networks | Previous generation of the same architecture | One run per generation | [Born-again networks](born-again-networks/index.md) |
+| Be Your Own Teacher | Deepest classifier of the same network | One run in total | [Be Your Own Teacher](be-your-own-teacher/index.md) |
 
-- **Problem:** Distillation was assumed to work only when the student is smaller than the teacher, so the teacher must be larger.
-- **Core idea:** Train a student with the same architecture as its teacher on the teacher's predictions. The authors find that the resulting born-again networks outperform their teachers.
-- **Equation or algorithm:** Each generation minimises the distillation loss against the previous generation's softened predictions, with the same architecture and no larger model.
-- **Results:** The abstract states that the born-again networks outperform their teachers significantly, in computer vision and in language modelling.
-- **Limitations:** Each generation costs a full training run, and the reported gains depend on the setting and the number of generations.
-
-### Be Your Own Teacher (Zhang et al., 2019)
-
-- **Problem:** Self-distillation with separate teacher and student runs is expensive, and a single network should be able to improve itself within one training run.
-- **Core idea:** Attach auxiliary classifiers to shallow layers and train each classifier to match the deepest one, so that knowledge flows downwards inside one network.
-- **Equation or algorithm:** The loss sums the cross-entropy of every classifier with the labels and a distillation term that pulls each shallow classifier toward the deepest one.
-- **Results:** The abstract reports an average accuracy improvement of 2.65%, from 0.61% for ResNeXt to 4.07% for VGG19.
-- **Limitations:** The method adds classifiers and training terms. The gains are for convolutional networks on image classification.
+Born-again networks trade extra training runs for a clean teacher-student setup, and the effect can repeat over generations. Be Your Own Teacher achieves a similar effect inside one run, at the cost of auxiliary classifiers and training terms.
 
 ## Trade-offs
 
@@ -55,7 +45,7 @@ In classic distillation the teacher is a separate model that is larger or better
 - **Variant:** [feature-based distillation](../feature-based/index.md), which can also be used between layers of one network.
 - **Open issue:** why a network learns more from a copy of itself than from its labels. The regularisation account is plausible but not settled.
 - **Open issue:** whether repeated generations keep improving or saturate for large models.
-- **Related:** the [teacher assistant](../index.md) idea, which bridges large gaps between teacher and student, shows that the size of the teacher also matters.
+- **Related:** the [teacher assistant](../response-based/teacher-assistant/index.md) idea, which bridges large gaps between teacher and student, shows that the size of the teacher also matters.
 
 ## Connections
 
