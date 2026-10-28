@@ -20,6 +20,10 @@ The action-value function $Q^\pi(s,a)$ is the expected discounted return from ta
 - **Double and dueling variants** reduce the overestimation of maxima and separate the value of states from the advantage of actions.
 - **Distributional methods** learn the full distribution of returns rather than only their mean.
 
+## Components and variants
+
+Two parts of the value-based loop have many variants of their own. [Experience replay](../experience-replay/index.md) decides which stored transitions the network learns from, from uniform sampling to priorities and hindsight relabelling. [Exploration](../exploration/index.md) decides which actions are tried, from count bonuses to ensembles of value heads. Target-network and overestimation fixes, such as the double and dueling variants above, are the third component, and each has open questions of its own.
+
 ## Limits
 
 Value-based methods work best with discrete actions, because the maximum over actions must be computed. They can be unstable with function approximation and off-policy data, which is why target networks and replay are needed. The overestimation bias of the maximum is a persistent source of error.

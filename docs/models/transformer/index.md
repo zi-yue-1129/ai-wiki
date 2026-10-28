@@ -79,6 +79,14 @@ Standard attention costs \(O(n^2)\) in sequence length n.
 | Linear attention | Kernel approximations reduce cost to \(O(n)\) |
 | Mixture of experts (MoE) | Replace the FFN with many experts and route each token to a few — many parameters, modest compute |
 
+## Components and variants
+
+Each part of the Transformer has its own family of variants, with its own trade-offs and open questions:
+
+- [Attention variants](attention-variants/index.md): sparse and linear attention, shared key–value heads, and IO-aware exact attention.
+- [Positional encodings](positional-encodings/index.md): relative, rotary and bias-based encodings, and methods for extending the context length.
+- [KV cache management](kv-cache/index.md): memory paging, eviction, quantisation, latent compression and offloading.
+
 ## Alternative architectures
 
 - **State-space models**: S4, Mamba, Mamba-2 — constant cost per generated token, efficient on long sequences
