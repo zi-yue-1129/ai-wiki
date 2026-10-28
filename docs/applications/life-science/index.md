@@ -13,8 +13,9 @@ aliases:
 
 ## Protein structure: the AlphaFold moment
 
+- **Method page**: [AlphaFold 2](alphafold-2.md) (Jumper et al., 2021), with its algorithm, confidence score and limitations
 - **CASP14 (2020)**: AlphaFold 2 predicted protein structures with accuracy competitive with experiment for most targets, solving a 50-year grand challenge
-- **AlphaFold Protein Structure Database**: over 200 million predicted structures, freely available
+- **AlphaFold Protein Structure Database**: over 214 million predicted structures, freely available ([Varadi et al., 2024](https://doi.org/10.1093/nar/gkad1011))
 - **AlphaFold 3 (2024)**: predicts complexes of proteins with DNA, RNA, ligands and ions
 - **2024 Nobel Prize in Chemistry**: David Baker (computational protein design) and Demis Hassabis & John Jumper (protein structure prediction)
 - Open alternatives: RoseTTAFold, OpenFold, ESMFold (from a protein language model), Boltz, Chai

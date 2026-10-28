@@ -332,6 +332,7 @@ plugins:
             Chimpanzee Theory-of-Mind Test: 黑猩猩心智理論測驗
             False-Belief Tests on LLMs: 語言模型的錯誤信念測驗
             Hand-Eye Coordination for Grasping: 用於抓取的手眼協調學習
+            AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             RFdiffusion: RFdiffusion（蛋白質骨架設計）
             ESM-2 and ESMFold: ESM-2 與 ESMFold
             OpenAI Five: OpenAI Five（Dota 2）
@@ -1064,6 +1065,7 @@ nav:
       - Healthcare: applications/healthcare/index.md
       - Life Sciences & Drug Discovery:
           - applications/life-science/index.md
+          - AlphaFold 2 (Jumper et al. 2021): applications/life-science/alphafold-2.md
           - RFdiffusion: applications/life-science/rfdiffusion/index.md
           - ESM-2 and ESMFold: applications/life-science/esm/index.md
       - Scientific Discovery: applications/science/index.md

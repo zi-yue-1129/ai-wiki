@@ -2,8 +2,9 @@
 
 ## 蛋白質結構：AlphaFold 時刻
 
+- **方法頁面**：[AlphaFold 2](alphafold-2.md)（Jumper 等人，2021），包含其演算法、信心分數與限制
 - **CASP14（2020）**：AlphaFold 2 對多數目標預測的蛋白質結構，精確度已可與實驗結果並駕齊驅，解決了困擾業界 50 年的重大挑戰
-- **AlphaFold 蛋白質結構資料庫**：收錄超過 2 億筆預測結構，免費開放
+- **AlphaFold 蛋白質結構資料庫**：收錄超過 2.14 億筆預測結構，免費開放（[Varadi 等人，2024](https://doi.org/10.1093/nar/gkad1011)）
 - **AlphaFold 3（2024）**：可預測蛋白質與 DNA、RNA、配體及離子所形成的複合物
 - **2024 年諾貝爾化學獎**：David Baker（計算蛋白質設計），以及 Demis Hassabis 與 John Jumper（蛋白質結構預測）
 - 開放的替代方案：RoseTTAFold、OpenFold、ESMFold（源自蛋白質語言模型）、Boltz、Chai
