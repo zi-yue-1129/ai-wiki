@@ -17,7 +17,7 @@ Not all weights matter equally. Methods estimate the importance of each paramete
 
 ## Main methods
 
-- **Elastic weight consolidation (EWC)**: adds a quadratic penalty weighted by an estimate of the Fisher information of each parameter.
+- **[Elastic weight consolidation (EWC)](ewc.md)**: adds a quadratic penalty weighted by an estimate of the Fisher information of each parameter.
 - **Synaptic intelligence (SI)**: accumulates each parameter's contribution to the loss change along the training path, which gives importance without a second pass over old data.
 - **Learning without forgetting (LwF)**: keeps the old model's outputs on new inputs as a distillation target, so no old data is needed.
 

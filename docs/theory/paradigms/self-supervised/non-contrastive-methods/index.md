@@ -15,9 +15,10 @@ Two augmented views of an image are passed through an encoder, and the embedding
 
 ## Methods
 
-- **BYOL** trains an online network to predict the output of a slowly updated target network. The target is a moving average of the online weights, and no negatives are used.
+- **[BYOL](byol.md)** trains an online network to predict the output of a slowly updated target network. The target is a moving average of the online weights, and no negatives are used.
 - **SimSiam** shows that a stop-gradient and a predictor head are enough to prevent collapse, even without a momentum encoder or large batches.
 - **DINO** applies a self-distillation objective to vision transformers. It uses a teacher with centring and sharpening, and the attention maps of the resulting features segment objects without labels.
+- **DINOv2** extends DINO with patch-level objectives and a curated training set. Its frozen features are used in robotic place recognition. See [DINOv2](dinov2.md).
 - **VICReg** adds explicit regularisers. Variance keeps each embedding dimension spread out, covariance decorrelates dimensions, and invariance matches the two views.
 
 ## Why collapse is avoided

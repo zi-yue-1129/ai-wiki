@@ -1,65 +1,67 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
 translation_reviewed: 2026-10-28
-aliases:
-  - 節能訓練
-  - Energy-efficient training
 ---
 
 # 節能訓練（Patterson 等人，2021）
 
-!!! info "屬於 AI 的環境影響"
-    本方法頁隸屬於 [AI 的環境影響](index.zh-TW.md)。它詳細說明一項分析；上層頁面則將它與其他分析並列比較。
+!!! info "屬於「AI 的環境影響」"
+    本方法頁隸屬於[AI 的環境影響](index.zh-TW.md)。它詳細說明一項分析；上層頁面則比較各項分析。
 
-Patterson 等人（2021）分析了模型、資料中心與處理器的選擇，如何改變訓練大型神經網路的碳足跡。他們的主要訊息是：這些選擇影響極大，妥善搭配可以把碳足跡降低很多倍，而稀疏模型是最重要的槓桿之一。
+Patterson 等人（2021）分析了模型、資料中心與處理器的選擇，如何改變訓練大型神經網路的碳足跡。他們的主要論點是，這些選擇非常重要：若搭配得當，可大幅降低足跡，而稀疏激活模型是最有力的槓桿之一。
 
 ## 問題
 
-大型模型常被當作排放量由其規模固定決定。如果真是如此，唯一的槓桿就是訓練較小的模型。問題在於：只要更審慎地選擇架構、地點與硬體，能否以低得多的排放完成同樣的工作？
+大型模型常被當成排放量由其規模固定的東西來討論。若真是如此，唯一的槓桿就只剩下訓練較小的模型。問題在於，能否透過更審慎地選擇架構、地點與硬體，以低得多的排放完成相當的工作。
 
-## 核心想法
+## 核心概念
 
-把碳足跡拆解為實務工作者可以控制的因素，並測量每個因素能改變多少。論文將這些因素分為模型架構、資料中心與其能源組合，以及處理器三類，再觀察它們如何組合。
+把足跡拆解為實務工作者可以控制的因素，並衡量每個因素能改變多少。論文將它們分為模型架構、資料中心及其能源結構，以及處理器，再觀察這些因素如何相互結合。
 
-## 分析如何運作
+## 分析方式
 
-1. **模型架構。** 比較稠密模型與參數數量相近或更多、但只稀疏啟動的模型。
-2. **資料中心與地點。** 比較不同地點與時間的無碳電力比例，並比較雲端資料中心與一般資料中心。
-3. **處理器。** 比較機器學習加速器與通用系統。
-4. **組合。** 估算同時選擇架構、資料中心與處理器的綜合效果。
-
-摘要給出各因素的範圍，論文中的詳細計算則是任何特定情境所需要的。
+1. **模型架構。** 比較大型稠密模型，與參數數量相同或更多的大型稀疏激活模型。
+2. **資料中心與地點。** 比較各地的無碳能源比例，並比較雲端資料中心與一般資料中心。
+3. **處理器。** 比較機器學習加速器與現成系統。
+4. **估算總量。** 估計近期大型模型的能源與 CO2e，包括 T5、Meena、GShard、Switch Transformer 與 GPT-3，並修正先前對 Evolved Transformer 所用架構搜尋的估算。
 
 ## 結果
 
-摘要指出，大型但只稀疏啟動的模型，在不犧牲準確度的情況下，耗能可低於大型稠密模型的十分之一。摘要指出，即使在同一國家、同一機構內，無碳能源比例與由此產生的排放量也會相差大約五到十倍。雲端資料中心的效率約高 1.4 到 2 倍，面向機器學習的加速器則約高 2 到 5 倍。綜合選擇模型、資料中心與處理器，可使碳足跡降低大約 100 到 1000 倍。
+摘要報告了以下範圍：
+
+- 大型稀疏激活模型的能耗可低於大型稠密模型的十分之一，且沒有準確度損失。
+- 無碳能源的比例，進而 CO2e，即使在同一國家與同一機構內，也會因地點而相差約 5 至 10 倍。
+- 雲端資料中心的能源效率約為一般資料中心的 1.4 至 2 倍。
+- 機器學習加速器的效能約為現成系統的 2 至 5 倍。
+- 模型、資料中心與處理器的選擇合併起來，可使足跡降低至多約 100 至 1000 倍。
+
+論文也主張，ML 論文應報告能源與 CO2e，並將其視為關鍵的評估指標，此點與[綠色 AI](green-ai.zh-TW.md)相互呼應。
 
 ## 限制
 
-- **取決於比較基準。** 降幅是相對於特定的稠密基準與特定設定而言。在其他設定下，收益可能較小。
-- **能源組合的估算。** 地點的影響取決於當地電網在訓練時的無碳比例，而這個比例會變動。
-- **準確度與取得性。** 「準確度沒有損失」的說法只適用於所研究的模型。稀疏模型也較難部署，且在某些硬體上較難執行。
-- **範圍。** 分析涵蓋訓練，並未確定模型大規模部署後，總體碳足跡會降低多少。
+- **相對於基準。** 降幅是相對於特定的稠密模型與設定而言。在其他設定下，收益可能較小。
+- **能源結構會變動。** 地點的影響取決於訓練時當地電網的無碳比例，而這一比例會隨時間改變。
+- **僅涵蓋訓練。** 分析只涵蓋訓練，並未說明模型大規模部署後，總排放會降低多少。
+- **估算數字。** 近期大型模型的總量是根據公開資訊估算，並非對每次執行的實測。
 
-## 與其他主題的連結
+## 與其他頁面的連結
 
-- 本分析所依賴的估算方法，在[訓練能源成本（Strubell 等人，2019）](training-energy-cost.zh-TW.md)中有討論。
-- 稀疏架構是一種高效設計。各模型家族的概覽見[模型](../../theory/models/index.md)。
-- 這些因素中硬體的部分，見[AI 硬體](../../engineering/hardware/index.md)。
+- 本分析所依賴的估算方法，見[訓練能源成本（Strubell 等人，2019）](training-energy-cost.zh-TW.md)。
+- 一個大型模型的完整生命週期估算（包括嵌入式排放），見[BLOOM 全生命週期估算](life-cycle-estimate.zh-TW.md)。
+- 稀疏架構是高效設計的一種，各模型家族見[模型](../../theory/models/index.zh-TW.md)。
+- 硬體面的因素見[AI 硬體](../../engineering/hardware/index.zh-TW.md)。
 
 ## 開放問題
 
-- 模型效率的提升，在使用量成長後，能有多少轉化為總排放的下降？
-- 訓練的地點與時間應如何報告，才能使排放可以比較？
-- 能否在保持效率的同時，不讓模型對算力較少的人更難使用？
+- 隨著使用量成長，模型效率的提升能在多大程度上轉化為總排放的降低？
+- 訓練的地點與時間應如何報告，才能讓排放數字可以比較？
+- 能否在不讓運算資源較少的群體更難使用模型的前提下，保留效率的提升？
 
-## 參考資料
+## 參考文獻
 
 ### 開創性論文
 
-- Patterson, D. et al. (2021). Carbon emissions and large neural network training. arXiv:2104.10350. https://arxiv.org/abs/2104.10350 — 本頁所述的分析，探討模型、資料中心與處理器的選擇如何改變碳足跡。
-- Strubell, E., Ganesh, A. & McCallum, A. (2019). Energy and policy considerations for deep learning in NLP. arXiv:1906.02243. https://arxiv.org/abs/1906.02243 — 較早估算訓練 NLP 模型的成本，促成了這一系列研究。
-- Luccioni, A. S., Viguier, S. & Ligozat, A.-L. (2022). Estimating the carbon footprint of BLOOM, a 176B parameter language model. arXiv:2211.02001. https://arxiv.org/abs/2211.02001 — 對一個大型模型的實測碳足跡，顯示本分析的選擇在實務中如何適用。
-- Lacoste, A., Luccioni, A., Schmidt, V. & Dandres, T. (2019). Quantifying the carbon emissions of machine learning. arXiv:1910.09700. https://arxiv.org/abs/1910.09700 — 以硬體、執行時長與地點為輸入的排放計算工具。
-- Henderson, P. et al. (2020). Towards the systematic reporting of the energy and carbon footprints of machine learning. *Journal of Machine Learning Research*. https://arxiv.org/abs/2002.05651 — 建議報告本分析所依賴的各項因素。
+- Patterson, D., et al. (2021). *Carbon Emissions and Large Neural Network Training*. arXiv 預印本。https://arxiv.org/abs/2104.10350 — 本頁所述的分析，探討模型、資料中心與處理器的選擇如何改變足跡。其摘要提供了上述的範圍。
+- Strubell, E., Ganesh, A. & McCallum, A. (2019). *Energy and Policy Considerations for Deep Learning in NLP*. ACL 2019, pp. 3645–3650. doi:[10.18653/v1/P19-1355](https://doi.org/10.18653/v1/P19-1355) — 較早的 NLP 訓練成本估算，促成了這一系列研究。
+- Luccioni, A. S., Viguier, S. & Ligozat, A.-L. (2022). *Estimating the Carbon Footprint of BLOOM, a 176B Parameter Language Model*. arXiv 預印本。https://arxiv.org/abs/2211.02001 — 一個大型模型的實測足跡，並列出總量所依賴的範圍界定。
+- Lacoste, A., Luccioni, A., Schmidt, V. & Dandres, T. (2019). *Quantifying the Carbon Emissions of Machine Learning*. arXiv 預印本。https://arxiv.org/abs/1910.09700 — 一種計算器，輸入為伺服器地點、GPU 與訓練時間。
+- Henderson, P., Hu, J., Romoff, J., Brunskill, E., Jurafsky, D. & Pineau, J. (2020). *Towards the Systematic Reporting of the Energy and Carbon Footprints of Machine Learning*. JMLR 21(248)。https://www.jmlr.org/papers/v21/20-312.html — 建議報告決定足跡的各項因素。

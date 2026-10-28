@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 related:
   - theory/paradigms/supervised/loss-functions-and-optimization
@@ -48,7 +48,7 @@ The paper does not introduce a new update rule. The method is an empirical compa
 ## Limitations
 
 - The abstract gives no numbers, so the size of the gap depends on the experiments in the paper.
-- Sharpness is a measure that depends on the choice of neighbourhood and parameterisation. Some later work has argued that sharpness alone does not explain generalisation, and this page does not take a side.
+- Sharpness is a measure that depends on the choice of neighbourhood and parameterisation. [Dinh et al. (2017)](https://arxiv.org/abs/1703.04933) argue that common flatness measures are problematic as explanations, and this page does not take a side on the question.
 - The result is about batch size. Later work on large-batch training, including the linear scaling rule and warm-up of Goyal et al. (2017), shows that the gap can be reduced with a change in schedule.
 
 ## Connections
@@ -70,7 +70,7 @@ The paper does not introduce a new update rule. The method is an empirical compa
 - Keskar, N. S., Mudigere, D., Nocedal, J., Smelyanskiy, M. & Tang, P. T. P. (2017). *On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima*. ICLR. https://arxiv.org/abs/1609.04836 — Reports that large-batch training converges to sharp minima and generalises worse than small-batch training.
 - Smith, S. L. & Le, Q. V. (2018). *A Bayesian Perspective on Generalization and Stochastic Gradient Descent*. ICLR. https://arxiv.org/abs/1710.06451 — Explains the batch-size effect through the noise scale of SGD, a quantitative companion to the sharpness account.
 - Goyal, P., et al. (2017). *Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour*. arXiv. https://arxiv.org/abs/1706.02677 — Shows that linear scaling and warm-up close much of the large-batch gap in practice.
-- Loshchilov, I. & Hutter, F. (2017). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — Explicit regularisation that interacts with the optimiser's implicit bias.
+- Dinh, L., Pascanu, R., Bengio, S. & Bengio, Y. (2017). *Sharp Minima Can Generalize for Deep Nets*. ICML. https://arxiv.org/abs/1703.04933 — Argues that most common notions of flatness are problematic as explanations of generalisation.
 
 ### Surveys and textbooks
 

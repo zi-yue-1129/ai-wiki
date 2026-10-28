@@ -19,9 +19,9 @@
 |---|---|---|---|
 | 全參數微調 | 所有權重 | 最高 | 資料與運算資源充足；需要大幅改變行為時 |
 | LoRA（Hu et al., 2021） | 在選定的矩陣上加入低秩更新 \(W + BA\) | 低 | 大多數適配任務的預設選擇 |
-| QLoRA（Dettmers et al., 2023） | 在 4-bit 量化的基底模型上做 LoRA | 極低 | 在單一 GPU 上微調大模型 |
-| DoRA 等其他 LoRA 變體 | 將大小與方向分解等 | 低 | 有時品質更好 |
-| 適配器、前綴／提示微調 | 插入的小模組或學習得到的提示 | 極低 | 同一基底模型服務多項任務 |
+| [QLoRA](../../theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.zh-TW.md)（Dettmers et al., 2023） | 在 4-bit 量化的基底模型上做 LoRA | 極低 | 在單一 GPU 上微調大模型 |
+| [DoRA](../../theory/model-compression/low-rank-and-efficient-architectures/lora/dora.zh-TW.md) 等其他 LoRA 變體 | 將大小與方向分解等 | 低 | 有時品質更好 |
+| [適配器](../../theory/paradigms/transfer/fine-tuning-and-adaptation/adapters.zh-TW.md)、[前綴](../../theory/paradigms/transfer/fine-tuning-and-adaptation/prefix-tuning.zh-TW.md)與[提示微調](../../theory/paradigms/transfer/fine-tuning-and-adaptation/prompt-tuning.zh-TW.md) | 插入的小模組或學習得到的提示 | 極低 | 同一基底模型服務多項任務 |
 | 持續預訓練 | 在領域文本上更新所有權重 | 高 | 新的領域或語言 |
 
 ## LLM 的後訓練
@@ -57,6 +57,17 @@ L = -\log \sigma\!\left(\beta \log\frac{\pi_\theta(y_w\mid x)}{\pi_{ref}(y_w\mid
 - **量化感知訓練**
 - **課程式學習與資料混合**排程
 - **超參數搜尋**：隨機搜尋、貝氏最佳化、基於族群的訓練
+
+## 參考文獻
+
+### 開創性論文
+
+- Micikevicius, P., 等人 (2017). *Mixed Precision Training*. arXiv:1710.03740. https://arxiv.org/abs/1710.03740 — 顯示 16 位元訓練在多種架構上可把記憶體用量減少近 2 倍，並需搭配主權重與損失縮放。
+- Shoeybi, M., 等人 (2019). *Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism*. arXiv:1909.08053. https://arxiv.org/abs/1909.08053 — 以層內模型平行訓練 83 億參數的 Transformer，在 512 張 GPU 上達到 76% 的擴展效率。
+- Rajbhandari, S., 等人 (2019). *ZeRO: Memory Optimizations Toward Training Trillion Parameter Models*. arXiv:1910.02054. https://arxiv.org/abs/1910.02054 — 在資料與模型平行訓練中消除記憶體冗餘，同時維持較低的通訊量。
+- Houlsby, N., 等人 (2019). *Parameter-Efficient Transfer Learning for NLP*. arXiv:1902.00751. https://arxiv.org/abs/1902.00751 — 提出適配器模組，在 GLUE 上達到的平均分數，比全參數微調低 0.4 分，同時每個任務只增加 3.6% 參數。
+- Hu, E. J., 等人 (2021). *LoRA: Low-Rank Adaptation of Large Language Models*. arXiv:2106.09685. https://arxiv.org/abs/2106.09685 — 在凍結權重上學習低秩更新，對 GPT-3 175B 最多可減少 10,000 倍的可訓練參數。
+- Dettmers, T., 等人 (2023). *QLoRA: Efficient Finetuning of Quantized LLMs*. arXiv:2305.14314. https://arxiv.org/abs/2305.14314 — 在凍結的 4 位元基底上微調 LoRA 適配器，使 650 億參數模型能在單張 48 GB GPU 上訓練。
 
 ## 學習資源
 

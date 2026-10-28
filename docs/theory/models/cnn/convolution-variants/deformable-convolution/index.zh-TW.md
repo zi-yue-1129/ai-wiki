@@ -10,7 +10,7 @@ tags:
   - convolution
   - object detection
   - spatial adaptation
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # 可變形卷積
@@ -24,6 +24,10 @@ translation_reviewed: 2026-10-28
 ## 核心想法
 
 規則網格上的每個取樣點，都會得到一個額外的學習偏移量，由一個獨立的偏移層預測，該層讀取同一張輸入特徵圖。偏移層以零權重開始，因此運算一開始就是一般卷積。由於偏移量通常是小數，輸入會以雙線性內插取樣，使運算保持可微。同樣的偏移想法也套用在 RoI 池化上，讓池化的分箱能隨物件移動。
+
+![可變形卷積的九個取樣位置在固定網格與示意偏移位置之間移動。](../../../../../assets/concept-animations/deformable-sampling-motion.svg)
+
+*原創示意圖（CC BY-SA 4.0）。* 左側卷積核在固定的 3×3 網格取樣；右側每個橘色點可從灰色基準位置獨立移動到偏移後的位置，半透明區域僅用於提示形狀。偏移量**純屬示意，並非模型學得或實測的數值**。實際遇到非整數座標時會使用雙線性內插，而不是吸附到最近的網格。MkDocs 網站可用**播放／暫停**控制循環，偏好減少動態效果時會顯示[靜態偏移影格](../../../../../assets/concept-animations/deformable-sampling-still.svg)；GitHub Markdown 也可開啟此連結。
 
 ## 方程式或演算法
 

@@ -15,7 +15,7 @@ aliases:
   - Swin Transformer
   - Shifted windows
   - 移位視窗 Transformer
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # Swin Transformer
@@ -52,6 +52,10 @@ z^{l} = \mathrm{MLP}\big(\mathrm{LN}(\hat z^{l})\big) + \hat z^{l}
 其中 \(B\) 是相對位置偏置，取自一個較小、大小為 \((2M-1)\times(2M-1)\) 的可學習表。對移位視窗，論文使用特徵圖的循環移位與注意力遮罩，把自注意力限制在各子視窗之內。
 
 論文中的成本比較為：全域注意力 \(\Omega(\text{MSA}) = 4hwC^2 + 2(hw)^2C\)，視窗注意力 \(\Omega(\text{W-MSA}) = 4hwC^2 + 2M^2hwC\)。第一項隨區塊數 \(hw\) 的平方成長；當 \(M\) 固定時，第二項則隨 \(hw\) 線性成長。
+
+![相鄰兩個區塊在一般注意力視窗中分離，但在移位視窗中可交換資訊。](../../../../../assets/concept-animations/swin-shifted-windows-motion.svg)
+
+*原創示意圖（CC BY-SA 4.0）。* 藍色與橘色區塊在 **W-MSA** 中分屬不同視窗，到了下一層的 **SW-MSA** 則落在同一個視窗；移動標記顯示新的資訊交換路徑。此圖採 **8×8 區塊、4×4 視窗與兩個區塊的位移**，不是實測注意力圖或模型輸出。實際 Swin 通常採 7×7 視窗，並透過循環移位與邊界注意力遮罩處理視窗，此處為便於理解而省略。MkDocs 網站可使用**播放／暫停**，偏好減少動態效果時會顯示[靜態影格](../../../../../assets/concept-animations/swin-shifted-windows-still.svg)，GitHub 也可直接開啟。
 
 ## 關鍵方法
 

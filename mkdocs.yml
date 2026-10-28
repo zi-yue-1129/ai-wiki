@@ -57,6 +57,8 @@ plugins:
         'foundations/deep-learning/index.md': 'theory/deep-learning/index.md'
         'foundations/deep-learning/index.zh-TW.md': 'theory/deep-learning/index.zh-TW.md'
         'foundations/evolutionary/index.md': 'theory/paradigms/evolutionary/index.md'
+        'theory/optimization/kfac.md': 'theory/optimization/kfac/index.md'
+        'theory/optimization/kfac.zh-TW.md': 'theory/optimization/kfac/index.zh-TW.md'
         'foundations/evolutionary/index.zh-TW.md': 'theory/paradigms/evolutionary/index.zh-TW.md'
         'foundations/index.md': 'theory/index.md'
         'foundations/index.zh-TW.md': 'theory/index.zh-TW.md'
@@ -260,6 +262,9 @@ plugins:
             Second-Order Methods: 二階方法
             L-BFGS: L-BFGS
             K-FAC: K-FAC
+            K-FAC for Convolutions (KFC): 卷積的 K-FAC（KFC）
+            EKFAC: EKFAC
+            Distributed K-FAC: 分散式 K-FAC
             Shampoo: Shampoo
             Learning-Rate Schedules: 學習率排程
             Gradual Warm-up: 漸進式預熱
@@ -292,6 +297,13 @@ plugins:
             Transfer Learning & Domain Adaptation: 遷移學習與領域適應
             Meta-Learning & Few-Shot Learning: 元學習與少樣本學習
             Continual Learning: 持續學習
+            EWC: EWC：彈性權重鞏固
+            Support Vector Machines: 支援向量機
+            Random Forests: 隨機森林
+            Gradient Boosting: 梯度提升
+            MAML: MAML：模型無關元學習
+            FixMatch: FixMatch：以一致性與信心簡化半監督學習
+            Mean Teacher: Mean Teacher：平均教師
             Active Learning: 主動學習
             Online Learning & Bandits: 線上學習與多臂吃角子老虎
             Federated & Privacy-Preserving Learning: 聯邦學習與隱私保護學習
@@ -317,6 +329,19 @@ plugins:
             AlphaZero: 阿爾法零
             MuZero: MuZero
             Proximal Policy Optimisation: 近端策略最佳化
+            Multi-Agent RL: 多智能體強化學習
+            MADDPG: 多智能體深度確定性策略梯度
+            QMIX: QMIX：單調值函數分解
+            Multi-Agent PPO: 多智能體 PPO
+            Emergent Communication: 湧現式通訊
+            RIAL and DIAL: RIAL 與 DIAL
+            CommNet: CommNet
+            Population-Based Training: 基於種群的訓練
+            PBT: 基於種群的訓練（PBT）
+            FTW: For The Win
+            Learning from Human Feedback: 從人類回饋學習
+            Reward Modelling: 獎勵建模
+            Direct Preference Optimisation: 直接偏好最佳化
             Value-Based Methods: 值函數方法
             Q-Learning: Q 學習
             SARSA: SARSA
@@ -340,6 +365,7 @@ plugins:
             Medial Temporal Lobe Lesions: 內側顳葉損傷
             Long-Term Potentiation: 長期增益
             Complementary Learning Systems: 互補學習系統
+            Spatial Resolution in the Hippocampus: 海馬迴的空間解析度
             Receptive Fields in Visual Cortex: 視覺皮質的感受野
             Dopamine Reward Prediction Error: 多巴胺的獎勵預測誤差
             Heuristics and Biases: 啟發法與偏誤
@@ -365,6 +391,10 @@ plugins:
             GNM: GNM
             ViNT: ViNT
             NoMaD: NoMaD
+            Visual Localisation: 視覺定位
+            AnyLoc: AnyLoc
+            EigenPlaces: EigenPlaces
+            DINOv2: DINOv2
             AlphaFold 2 (Jumper et al. 2021): AlphaFold 2（Jumper 等人，2021）
             RFdiffusion: RFdiffusion（蛋白質骨架設計）
             ESM-2 and ESMFold: ESM-2 與 ESMFold
@@ -374,6 +404,13 @@ plugins:
             End-to-End Steering from Pixels: 從像素到方向盤的端到端學習
             Experience Replay: 經驗回放
             Exploration: 探索
+            Intrinsic Curiosity Module: 內在好奇心模組
+            Random Network Distillation: 隨機網路蒸餾
+            CQL: 保守 Q 學習
+            IQL: 隱式 Q 學習
+            Decision Transformer: 決策 Transformer
+            MBPO: 基於模型的策略最佳化
+            PETS: 機率式集成與軌跡取樣
             Multilayer Perceptrons: 多層感知器
             Convolutional Networks: 卷積網路
             Convolution Variants: 卷積變體
@@ -445,14 +482,56 @@ plugins:
             Large Language Models: 大型語言模型
             Reasoning Models: 推理模型
             Chain of Thought: 思維鏈
+            Zero-Shot Chain of Thought: 零樣本思維鏈
             Self-Consistency: 自洽性
             DeepSeek-R1: DeepSeek-R1
             Test-Time Compute Scaling: 測試時運算擴展
+            Process Reward Models: 過程獎勵模型
             Generative Models: 生成模型
             Model Compression: 模型壓縮
             Evaluation: 評估
             Metrics: 指標
             Protocols: 評估協定
+            Cross-Validation: 交叉驗證
+            Paired Bootstrap: 配對自助法
+            LLM as Judge: LLM 作為評審
+            Human Evaluation: 人工評估
+            Elo Rating and Arenas: Elo 評分與競技場
+            Contamination Detection: 污染偵測
+            Benchmarks: 基準測試
+            Vision: 視覺
+            Language: 語言
+            Math and code: 數學與程式
+            Reasoning and agents: 推理與代理
+            Few-shot: 少樣本
+            Multimodal: 多模態
+            Speech: 語音
+            Reinforcement: 強化學習
+            Science: 科學
+            Neuroscience: 神經科學
+            LibriSpeech: LibriSpeech
+            Arcade Learning Environment: 街機學習環境
+            MuJoCo: MuJoCo
+            MoleculeNet: MoleculeNet
+            Brain-Score: Brain-Score
+            GAIA: GAIA
+            WebArena: WebArena
+            VQA v2: VQA v2
+            MMMU: MMMU
+            ImageNet: ImageNet
+            COCO: COCO
+            GLUE: GLUE
+            SuperGLUE: SuperGLUE
+            MMLU: MMLU
+            GPQA: GPQA
+            Humanity's Last Exam: 人類的最後考試
+            GSM8K: GSM8K
+            MATH: MATH
+            SWE-bench: SWE-bench
+            ARC-AGI: ARC-AGI
+            miniImageNet: miniImageNet
+            Omniglot: Omniglot
+            HumanEval: HumanEval
             Classification: 分類
             Probabilistic: 機率
             Regression: 迴歸
@@ -468,6 +547,14 @@ plugins:
             Brier Score: Brier 分數
             Calibration Error: 校準誤差
             MAE: MAE
+            Masked Autoencoders (MAE): 遮罩自編碼器（MAE）
+            SimCLR: SimCLR
+            MoCo: MoCo
+            BYOL: BYOL
+            K-means: K-means
+            Principal Component Analysis (PCA): 主成分分析（PCA）
+            t-SNE: t-SNE
+            UMAP: UMAP
             RMSE: RMSE
             R²: R²
             NDCG: NDCG
@@ -530,6 +617,12 @@ plugins:
             Truncated SVD: 截斷 SVD
             Low-Rank Filter Expansion: 低秩濾波器展開
             LoRA: LoRA
+            QLoRA: 量化低秩適應（QLoRA）
+            DoRA: DoRA
+            Adapter Modules: 適配器模組
+            Prefix Tuning: 前綴調校
+            Prompt Tuning: 提示調校
+            (IA)³ Fine-Tuning: (IA)³ 微調
             Data-Free: 無資料
             LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
@@ -583,6 +676,33 @@ plugins:
             Neuroimaging & Recording Methods: 神經影像與記錄方法
             Developmental Cognition & How Children Learn: 發展認知與兒童如何學習
             Violation of Expectation (Baillargeon et al. 1985): 違反預期範式（Baillargeon 等人，1985）
+            Motor Control and the Cerebellum: 運動控制與小腦
+            Optimal Feedback Control (Todorov & Jordan 2002): 最優回饋控制（Todorov & Jordan，2002）
+            Cerebellar Supervised Learning (Marr, Albus & Ito): 小腦監督式學習（Marr、Albus 與 Ito）
+            Internal Forward Models (Kawato 1987; Wolpert et al. 1995): 內部前向模型（Kawato 1987；Wolpert 等人，1995）
+            Sleep, Replay and Memory Consolidation: 睡眠、重播與記憶鞏固
+            Hippocampal Replay (Foster & Wilson 2006): 海馬迴重播（Foster & Wilson，2006）
+            Sharp-Wave Ripples (Buzsáki et al. 1992): 尖波漣波（Buzsáki 等人，1992）
+            Experience Replay (Lin 1992; Mnih et al. 2015): 經驗回放（Lin，1992；Mnih 等人，2015）
+            Spatial Navigation and Cognitive Maps: 空間導航與認知地圖
+            Place Cells and the Cognitive-Map Hypothesis (O'Keefe & Dostrovsky 1971): 位置細胞與認知地圖假說（O'Keefe 與 Dostrovsky，1971）
+            Tolman–Eichenbaum Machine (Whittington et al. 2020): Tolman–Eichenbaum 機器（Whittington 等人，2020）
+            Successor Representation (Dayan 1993): 後繼表徵（Dayan，1993）
+            Working Memory and Executive Function: 工作記憶與執行功能
+            Prefrontal Basal Ganglia Working Memory (PBWM): 前額葉—基底核工作記憶（PBWM）
+            Activity-Silent Working Memory: 活動靜默工作記憶
+            Neuromodulators beyond Dopamine: 多巴胺之外的神經調節物質
+            Uncertainty-Based Neuromodulation (Yu & Dayan 2005): 基於不確定性的神經調節（Yu & Dayan，2005）
+            Meta-Learning with Neuromodulation (Doya 2002): 以神經調節實現的元學習（Doya，2002）
+            The Auditory System: 聽覺系統
+            Task-Optimised Networks Model Auditory Cortex (Kell et al. 2018): 任務最佳化網路模擬聽覺皮層（Kell 等人，2018）
+            Multiresolution Spectrotemporal Model (Chi et al. 2005): 多解析度頻譜時間模型（Chi 等人，2005）
+            Neural Oscillations and Synchrony: 神經振盪與同步
+            Communication through Coherence (Fries 2005): 透過相干性的通訊（Fries，2005）
+            Theta–Gamma Coupling (Lisman & Jensen 2013): θ–γ 耦合（Lisman & Jensen，2013）
+            Computational Psychiatry: 計算精神醫學
+            Computational Phenotyping with Hierarchical Bayesian RL (Ahn et al. 2017): 以階層式貝氏強化學習進行計算表型分析（Ahn 等人，2017）
+            Aberrant Prediction Error in Psychosis (Corlett et al. 2007): 精神病中的異常預測誤差（Corlett 等人，2007）
             Statistical Learning in Infants (Saffran et al. 1996): 嬰兒的統計學習（Saffran 等人，1996）
             Animal Cognition & Comparative Intelligence: 動物認知與比較智力
             Mirror Self-Recognition (Gallup 1970): 鏡像自我辨認（Gallup，1970）
@@ -673,6 +793,7 @@ plugins:
             Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
             Mixed-Precision Training: 混合精度訓練
             FP8 Formats: FP8 格式
+            Gradient Checkpointing: 梯度檢查點
             Roofline Model: 屋頂線模型
             On-device and Edge AI: 裝置端與邊緣 AI
             Knowledge Distillation: 知識蒸餾
@@ -756,10 +877,13 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra_javascript:
+  - javascripts/concept-motion.js
   - javascripts/mathjax.js
+  - javascripts/knowledge-map.js
   - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
 
 extra_css:
+  - stylesheets/concept-motion.css
   - stylesheets/extra.css
 
 nav:
@@ -796,7 +920,11 @@ nav:
           - Second-Order Methods:
               - theory/optimization/second-order.md
               - L-BFGS: theory/optimization/lbfgs.md
-              - K-FAC: theory/optimization/kfac.md
+              - K-FAC:
+                  - theory/optimization/kfac/index.md
+                  - K-FAC for Convolutions (KFC): theory/optimization/kfac/kfc.md
+                  - EKFAC: theory/optimization/kfac/ekfac.md
+                  - Distributed K-FAC: theory/optimization/kfac/distributed-kfac.md
               - Shampoo: theory/optimization/shampoo.md
           - Learning-Rate Schedules:
               - theory/optimization/learning-rate-schedules.md
@@ -830,8 +958,13 @@ nav:
           - Supervised Learning:
               - theory/paradigms/supervised/index.md
               - Linear Models & GLMs: theory/paradigms/supervised/linear-models/index.md
-              - Trees & Ensembles: theory/paradigms/supervised/trees-and-ensembles/index.md
-              - Kernels & SVMs: theory/paradigms/supervised/kernel-methods-svm/index.md
+              - Trees & Ensembles:
+                  - theory/paradigms/supervised/trees-and-ensembles/index.md
+                  - Random Forests: theory/paradigms/supervised/trees-and-ensembles/random-forests.md
+                  - Gradient Boosting: theory/paradigms/supervised/trees-and-ensembles/gradient-boosting.md
+              - Kernels & SVMs:
+                  - theory/paradigms/supervised/kernel-methods-svm/index.md
+                  - Support Vector Machines: theory/paradigms/supervised/kernel-methods-svm/svm.md
               - kNN, Naive Bayes & Gaussian Processes: theory/paradigms/supervised/instance-based-and-probabilistic/index.md
               - Loss Functions & Optimisation:
                   - theory/paradigms/supervised/loss-functions-and-optimization/index.md
@@ -841,8 +974,14 @@ nav:
               - Evaluation & Validation: theory/paradigms/supervised/evaluation-and-validation/index.md
           - Unsupervised Learning:
               - theory/paradigms/unsupervised/index.md
-              - Clustering: theory/paradigms/unsupervised/clustering/index.md
-              - Dimensionality Reduction: theory/paradigms/unsupervised/dimensionality-reduction/index.md
+              - Clustering:
+                  - theory/paradigms/unsupervised/clustering/index.md
+                  - K-means: theory/paradigms/unsupervised/clustering/k-means.md
+              - Dimensionality Reduction:
+                  - theory/paradigms/unsupervised/dimensionality-reduction/index.md
+                  - Principal Component Analysis (PCA): theory/paradigms/unsupervised/dimensionality-reduction/pca.md
+                  - t-SNE: theory/paradigms/unsupervised/dimensionality-reduction/t-sne.md
+                  - UMAP: theory/paradigms/unsupervised/dimensionality-reduction/umap.md
               - Density Estimation & Generative Models:
                   - theory/paradigms/unsupervised/density-and-generative-models/index.md
                   - Generative Models: theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md
@@ -875,16 +1014,27 @@ nav:
               - Anomaly Detection: theory/paradigms/unsupervised/anomaly-detection/index.md
           - Semi- & Weakly Supervised Learning:
               - theory/paradigms/semi-supervised/index.md
-              - Consistency Regularisation: theory/paradigms/semi-supervised/consistency-regularisation/index.md
+              - Consistency Regularisation:
+                  - theory/paradigms/semi-supervised/consistency-regularisation/index.md
+                  - Mean Teacher: theory/paradigms/semi-supervised/consistency-regularisation/mean-teacher.md
+                  - FixMatch: theory/paradigms/semi-supervised/consistency-regularisation/fixmatch.md
               - Pseudo-Labelling & Self-Training: theory/paradigms/semi-supervised/pseudo-labelling-and-self-training/index.md
               - Graph-Based Methods: theory/paradigms/semi-supervised/graph-based-methods/index.md
               - Weak & Programmatic Supervision: theory/paradigms/semi-supervised/weak-and-programmatic-supervision/index.md
               - Theory & Assumptions: theory/paradigms/semi-supervised/theory-and-assumptions/index.md
           - Self-Supervised Learning:
               - theory/paradigms/self-supervised/index.md
-              - Contrastive Learning: theory/paradigms/self-supervised/contrastive-learning/index.md
-              - Masked Prediction: theory/paradigms/self-supervised/masked-prediction/index.md
-              - Non-Contrastive Methods: theory/paradigms/self-supervised/non-contrastive-methods/index.md
+              - Contrastive Learning:
+                  - theory/paradigms/self-supervised/contrastive-learning/index.md
+                  - SimCLR: theory/paradigms/self-supervised/contrastive-learning/simclr.md
+                  - MoCo: theory/paradigms/self-supervised/contrastive-learning/moco.md
+              - Masked Prediction:
+                  - theory/paradigms/self-supervised/masked-prediction/index.md
+                  - Masked Autoencoders (MAE): theory/paradigms/self-supervised/masked-prediction/mae.md
+              - Non-Contrastive Methods:
+                  - theory/paradigms/self-supervised/non-contrastive-methods/index.md
+                  - BYOL: theory/paradigms/self-supervised/non-contrastive-methods/byol.md
+                  - DINOv2: theory/paradigms/self-supervised/non-contrastive-methods/dinov2.md
               - Pretext Tasks: theory/paradigms/self-supervised/pretext-tasks/index.md
               - Theory & Evaluation: theory/paradigms/self-supervised/theory-and-evaluation/index.md
           - Reinforcement Learning:
@@ -908,12 +1058,39 @@ nav:
                   - TD3: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/td3/index.md
                   - SAC: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/sac/index.md
                   - GRPO: theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index.md
-              - Model-Based RL: theory/paradigms/reinforcement-learning/model-based-rl/index.md
+              - Model-Based RL:
+                  - theory/paradigms/reinforcement-learning/model-based-rl/index.md
+                  - MBPO: theory/paradigms/reinforcement-learning/model-based-rl/mbpo/index.md
+                  - PETS: theory/paradigms/reinforcement-learning/model-based-rl/pets/index.md
               - MuZero: theory/paradigms/reinforcement-learning/model-based-rl/muzero/index.md
-              - Offline RL: theory/paradigms/reinforcement-learning/offline-rl/index.md
+              - Offline RL:
+                  - theory/paradigms/reinforcement-learning/offline-rl/index.md
+                  - CQL: theory/paradigms/reinforcement-learning/offline-rl/cql/index.md
+                  - IQL: theory/paradigms/reinforcement-learning/offline-rl/iql/index.md
+                  - Decision Transformer: theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.md
+              - Multi-Agent RL:
+                  - theory/paradigms/reinforcement-learning/multi-agent-rl/index.md
+                  - Emergent Communication:
+                      - theory/paradigms/reinforcement-learning/multi-agent-rl/emergent-communication/index.md
+                      - RIAL and DIAL: theory/paradigms/reinforcement-learning/multi-agent-rl/emergent-communication/rial-dial/index.md
+                      - CommNet: theory/paradigms/reinforcement-learning/multi-agent-rl/emergent-communication/commnet/index.md
+                  - Population-Based Training:
+                      - theory/paradigms/reinforcement-learning/multi-agent-rl/population-based-training/index.md
+                      - PBT: theory/paradigms/reinforcement-learning/multi-agent-rl/population-based-training/pbt/index.md
+                      - FTW: theory/paradigms/reinforcement-learning/multi-agent-rl/population-based-training/ftw/index.md
+                  - MADDPG: theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md
+                  - QMIX: theory/paradigms/reinforcement-learning/multi-agent-rl/qmix/index.md
+                  - Multi-Agent PPO: theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md
               - Learning from Human Feedback: theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
+              - Learning from Human Feedback:
+                  - theory/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
+                  - Reward Modelling: theory/paradigms/reinforcement-learning/learning-from-human-feedback/reward-modelling/index.md
+                  - Direct Preference Optimisation: theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo/index.md
               - Experience Replay: theory/paradigms/reinforcement-learning/experience-replay/index.md
-              - Exploration: theory/paradigms/reinforcement-learning/exploration/index.md
+              - Exploration:
+                  - theory/paradigms/reinforcement-learning/exploration/index.md
+                  - Intrinsic Curiosity Module: theory/paradigms/reinforcement-learning/exploration/icm/index.md
+                  - Random Network Distillation: theory/paradigms/reinforcement-learning/exploration/rnd/index.md
           - Imitation Learning:
               - theory/paradigms/imitation/index.md
               - Behavioural Cloning:
@@ -927,21 +1104,30 @@ nav:
               - Adversarial Imitation: theory/paradigms/imitation/adversarial-imitation/index.md
           - Transfer Learning & Domain Adaptation:
               - theory/paradigms/transfer/index.md
-              - Fine-tuning & Adaptation: theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
+              - Fine-tuning & Adaptation:
+                  - theory/paradigms/transfer/fine-tuning-and-adaptation/index.md
+                  - Adapter Modules: theory/paradigms/transfer/fine-tuning-and-adaptation/adapters.md
+                  - Prefix Tuning: theory/paradigms/transfer/fine-tuning-and-adaptation/prefix-tuning.md
+                  - Prompt Tuning: theory/paradigms/transfer/fine-tuning-and-adaptation/prompt-tuning.md
+                  - (IA)³ Fine-Tuning: theory/paradigms/transfer/fine-tuning-and-adaptation/ia3.md
               - Domain Adaptation: theory/paradigms/transfer/domain-adaptation/index.md
               - Multi-task Learning: theory/paradigms/transfer/multi-task-learning/index.md
               - Sim-to-Real Transfer: theory/paradigms/transfer/sim-to-real/index.md
               - Transfer Theory: theory/paradigms/transfer/transfer-theory/index.md
           - Meta-Learning & Few-Shot Learning:
               - theory/paradigms/meta-learning/index.md
-              - Optimisation-based: theory/paradigms/meta-learning/optimisation-based/index.md
+              - Optimisation-based:
+                  - theory/paradigms/meta-learning/optimisation-based/index.md
+                  - MAML: theory/paradigms/meta-learning/optimisation-based/maml.md
               - Metric-based Few-shot: theory/paradigms/meta-learning/metric-based/index.md
               - Memory & Model-based: theory/paradigms/meta-learning/memory-and-model-based/index.md
               - Meta-learning Theory: theory/paradigms/meta-learning/meta-learning-theory/index.md
               - Benchmarks & Foundation Models: theory/paradigms/meta-learning/benchmarks-and-foundation-models/index.md
           - Continual Learning:
               - theory/paradigms/continual/index.md
-              - Regularisation-based: theory/paradigms/continual/regularisation-based/index.md
+              - Regularisation-based:
+                  - theory/paradigms/continual/regularisation-based/index.md
+                  - EWC: theory/paradigms/continual/regularisation-based/ewc.md
               - Replay & Memory: theory/paradigms/continual/replay-and-memory/index.md
               - Architecture-based: theory/paradigms/continual/architecture-based/index.md
               - Evaluation & Scenarios: theory/paradigms/continual/evaluation-and-scenarios/index.md
@@ -972,6 +1158,9 @@ nav:
           - Symbolic AI, Search & Planning: theory/paradigms/symbolic-ai/index.md
           - Evolutionary & Swarm Intelligence:
               - theory/paradigms/evolutionary/index.md
+              - Genetic Algorithms: theory/paradigms/evolutionary/genetic-algorithms.md
+              - Genetic Programming: theory/paradigms/evolutionary/genetic-programming.md
+              - NEAT: theory/paradigms/evolutionary/neat.md
               - MAP-Elites: theory/paradigms/evolutionary/map-elites.md
               - Particle Swarm Optimisation: theory/paradigms/evolutionary/particle-swarm.md
               - Ant Colony Optimisation: theory/paradigms/evolutionary/ant-colony.md
@@ -1052,7 +1241,10 @@ nav:
               - theory/model-compression/low-rank-and-efficient-architectures/index.md
               - Truncated SVD: theory/model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md
               - Low-Rank Filter Expansion: theory/model-compression/low-rank-and-efficient-architectures/low-rank-filter-expansion/index.md
-              - LoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
+              - LoRA:
+                  - theory/model-compression/low-rank-and-efficient-architectures/lora/index.md
+                  - QLoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md
+                  - DoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/dora.md
       - Evaluation:
           - theory/evaluation/index.md
           - Metrics:
@@ -1083,7 +1275,59 @@ nav:
                   - theory/evaluation/metrics/segmentation/index.md
                   - IoU: theory/evaluation/metrics/segmentation/iou.md
                   - Dice: theory/evaluation/metrics/segmentation/dice.md
-          - Protocols: theory/evaluation/protocols/index.md
+          - Benchmarks:
+              - theory/evaluation/benchmarks/index.md
+              - Vision:
+                  - theory/evaluation/benchmarks/vision/index.md
+                  - ImageNet: theory/evaluation/benchmarks/vision/imagenet.md
+                  - COCO: theory/evaluation/benchmarks/vision/coco.md
+              - Language:
+                  - theory/evaluation/benchmarks/language/index.md
+                  - GLUE: theory/evaluation/benchmarks/language/glue.md
+                  - SuperGLUE: theory/evaluation/benchmarks/language/superglue.md
+                  - MMLU: theory/evaluation/benchmarks/language/mmlu.md
+                  - GPQA: theory/evaluation/benchmarks/language/gpqa.md
+                  - Humanity's Last Exam: theory/evaluation/benchmarks/language/hle.md
+              - Math and code:
+                  - theory/evaluation/benchmarks/math-and-code/index.md
+                  - GSM8K: theory/evaluation/benchmarks/math-and-code/gsm8k.md
+                  - MATH: theory/evaluation/benchmarks/math-and-code/math.md
+                  - HumanEval: theory/evaluation/benchmarks/math-and-code/humaneval.md
+                  - SWE-bench: theory/evaluation/benchmarks/math-and-code/swe-bench.md
+              - Reasoning and agents:
+                  - theory/evaluation/benchmarks/reasoning-agents/index.md
+                  - ARC-AGI: theory/evaluation/benchmarks/reasoning-agents/arc-agi.md
+                  - GAIA: theory/evaluation/benchmarks/reasoning-agents/gaia.md
+                  - WebArena: theory/evaluation/benchmarks/reasoning-agents/webarena.md
+              - Multimodal:
+                  - theory/evaluation/benchmarks/multimodal/index.md
+                  - VQA v2: theory/evaluation/benchmarks/multimodal/vqa-v2.md
+                  - MMMU: theory/evaluation/benchmarks/multimodal/mmmu.md
+              - Speech:
+                  - theory/evaluation/benchmarks/speech/index.md
+                  - LibriSpeech: theory/evaluation/benchmarks/speech/librispeech.md
+              - Reinforcement:
+                  - theory/evaluation/benchmarks/reinforcement/index.md
+                  - Arcade Learning Environment: theory/evaluation/benchmarks/reinforcement/ale.md
+                  - MuJoCo: theory/evaluation/benchmarks/reinforcement/mujoco.md
+              - Science:
+                  - theory/evaluation/benchmarks/science/index.md
+                  - MoleculeNet: theory/evaluation/benchmarks/science/moleculenet.md
+              - Neuroscience:
+                  - theory/evaluation/benchmarks/neuroscience/index.md
+                  - Brain-Score: theory/evaluation/benchmarks/neuroscience/brain-score.md
+              - Few-shot:
+                  - theory/evaluation/benchmarks/few-shot/index.md
+                  - miniImageNet: theory/evaluation/benchmarks/few-shot/mini-imagenet.md
+                  - Omniglot: theory/evaluation/benchmarks/few-shot/omniglot.md
+          - Protocols:
+              - theory/evaluation/protocols/index.md
+              - Cross-Validation: theory/evaluation/protocols/methods/cross-validation.md
+              - Paired Bootstrap: theory/evaluation/protocols/methods/paired-bootstrap.md
+              - LLM as Judge: theory/evaluation/protocols/methods/llm-as-judge.md
+              - Human Evaluation: theory/evaluation/protocols/methods/human-evaluation.md
+              - Elo Rating and Arenas: theory/evaluation/protocols/methods/elo-rating.md
+              - Contamination Detection: theory/evaluation/protocols/methods/contamination-detection.md
       - Models:
           - theory/models/index.md
           - Multilayer Perceptrons:
@@ -1161,9 +1405,11 @@ nav:
               - Reasoning Models:
                   - theory/models/reasoning/index.md
                   - Chain of Thought: theory/models/reasoning/chain-of-thought.md
+                  - Zero-Shot Chain of Thought: theory/models/reasoning/zero-shot-chain-of-thought.md
                   - Self-Consistency: theory/models/reasoning/self-consistency.md
                   - DeepSeek-R1: theory/models/reasoning/deepseek-r1.md
                   - Test-Time Compute Scaling: theory/models/reasoning/test-time-scaling.md
+                  - Process Reward Models: theory/models/reasoning/process-reward-models.md
           - Computer Vision: theory/models/computer-vision/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
@@ -1210,6 +1456,7 @@ nav:
           - Medial Temporal Lobe Lesions: brain-mind/memory-learning/medial-temporal-lesions/index.md
           - Long-Term Potentiation: brain-mind/memory-learning/long-term-potentiation/index.md
           - Complementary Learning Systems: brain-mind/memory-learning/complementary-learning-systems/index.md
+          - Spatial Resolution in the Hippocampus: brain-mind/memory-learning/hippocampal-spatial-resolution/index.md
       - Cognitive Science:
           - brain-mind/cognitive-science/index.md
           - Heuristics and Biases: brain-mind/cognitive-science/heuristics-and-biases/index.md
@@ -1269,6 +1516,41 @@ nav:
           - brain-mind/animal-cognition/index.md
           - Mirror Self-Recognition (Gallup 1970): brain-mind/animal-cognition/mirror-self-recognition/index.md
           - Tool Use in New Caledonian Crows (Weir et al. 2002): brain-mind/animal-cognition/tool-use-crows/index.md
+      - Motor Control and the Cerebellum:
+          - brain-mind/motor-control/index.md
+          - Optimal Feedback Control (Todorov & Jordan 2002): brain-mind/motor-control/optimal-feedback-control/index.md
+          - Cerebellar Supervised Learning (Marr, Albus & Ito): brain-mind/motor-control/marr-albus-ito/index.md
+          - Internal Forward Models (Kawato 1987; Wolpert et al. 1995): brain-mind/motor-control/internal-forward-models/index.md
+      - Sleep, Replay and Memory Consolidation:
+          - brain-mind/sleep-and-consolidation/index.md
+          - Hippocampal Replay (Foster & Wilson 2006): brain-mind/sleep-and-consolidation/hippocampal-replay/index.md
+          - Sharp-Wave Ripples (Buzsáki et al. 1992): brain-mind/sleep-and-consolidation/sharp-wave-ripples/index.md
+          - Experience Replay (Lin 1992; Mnih et al. 2015): brain-mind/sleep-and-consolidation/experience-replay/index.md
+      - Spatial Navigation and Cognitive Maps:
+          - brain-mind/navigation-cognitive-maps/index.md
+          - Place Cells and the Cognitive-Map Hypothesis (O'Keefe & Dostrovsky 1971): brain-mind/navigation-cognitive-maps/place-cells/index.md
+          - Tolman–Eichenbaum Machine (Whittington et al. 2020): brain-mind/navigation-cognitive-maps/tolman-eichenbaum-machine/index.md
+          - Successor Representation (Dayan 1993): brain-mind/navigation-cognitive-maps/successor-representation/index.md
+      - Working Memory and Executive Function:
+          - brain-mind/working-memory-executive-function/index.md
+          - Prefrontal Basal Ganglia Working Memory (PBWM): brain-mind/working-memory-executive-function/pbwm/index.md
+          - Activity-Silent Working Memory: brain-mind/working-memory-executive-function/activity-silent-working-memory/index.md
+      - Neuromodulators beyond Dopamine:
+          - brain-mind/neuromodulation/index.md
+          - Uncertainty-Based Neuromodulation (Yu & Dayan 2005): brain-mind/neuromodulation/yu-dayan-2005/index.md
+          - Meta-Learning with Neuromodulation (Doya 2002): brain-mind/neuromodulation/doya-2002/index.md
+      - The Auditory System:
+          - brain-mind/auditory-system/index.md
+          - Task-Optimised Networks Model Auditory Cortex (Kell et al. 2018): brain-mind/auditory-system/kell-2018/index.md
+          - Multiresolution Spectrotemporal Model (Chi et al. 2005): brain-mind/auditory-system/chi-2005/index.md
+      - Neural Oscillations and Synchrony:
+          - brain-mind/oscillations/index.md
+          - Communication through Coherence (Fries 2005): brain-mind/oscillations/communication-through-coherence/index.md
+          - Theta–Gamma Coupling (Lisman & Jensen 2013): brain-mind/oscillations/theta-gamma-coupling/index.md
+      - Computational Psychiatry:
+          - brain-mind/computational-psychiatry/index.md
+          - Computational Phenotyping with Hierarchical Bayesian RL (Ahn et al. 2017): brain-mind/computational-psychiatry/computational-phenotyping/index.md
+          - Aberrant Prediction Error in Psychosis (Corlett et al. 2007): brain-mind/computational-psychiatry/aberrant-prediction-error-psychosis/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
@@ -1297,6 +1579,10 @@ nav:
               - GNM: applications/robotics/navigation/gnm.md
               - ViNT: applications/robotics/navigation/vint.md
               - NoMaD: applications/robotics/navigation/nomad.md
+          - Visual Localisation:
+              - applications/robotics/visual-localisation/index.md
+              - AnyLoc: applications/robotics/visual-localisation/anyloc.md
+              - EigenPlaces: applications/robotics/visual-localisation/eigenplaces.md
       - Autonomous Driving & Transport:
           - applications/autonomous-driving/index.md
           - End-to-End Steering from Pixels: applications/autonomous-driving/end-to-end-steering/index.md
@@ -1383,6 +1669,7 @@ nav:
           - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md
           - Mixed-Precision Training: engineering/hardware/co-design/mixed-precision.md
           - FP8 Formats: engineering/hardware/co-design/fp8.md
+          - Gradient Checkpointing: engineering/hardware/co-design/gradient-checkpointing.md
       - On-device and Edge AI:
           - engineering/on-device-edge/index.md
           - Knowledge Distillation: engineering/on-device-edge/knowledge-distillation.md

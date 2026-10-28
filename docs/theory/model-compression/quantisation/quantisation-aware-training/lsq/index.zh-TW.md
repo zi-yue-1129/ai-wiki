@@ -16,7 +16,7 @@ translation_reviewed: 2026-10-28
 
 ## 公式或演算法
 
-量化值為 \(\hat{x} = s \cdot \operatorname{round}(\operatorname{clip}(x/s, -Q_n, Q_p))\)，其中 \(s\) 是學習得到的步長，\(Q_n\)、\(Q_p\) 依位元寬度設定整數範圍。對 \(s\) 的梯度以直通估計器穿過捨入運算取得。論文依張量中值的數量縮放此梯度，使步長相對於權重以合理的速度學習。
+量化值為 \(\hat{x} = s \cdot \operatorname{round}(\operatorname{clip}(x/s, -Q_n, Q_p))\)，其中 \(s\) 是學習得到的步長，\(Q_n\)、\(Q_p\) 依位元寬度設定整數範圍。對 \(s\) 的梯度以直通估計器穿過捨入運算取得。論文以 \(g = 1/\sqrt{N Q_p}\) 縮放此梯度，其中 \(N\) 為該層權重（或特徵）的數量，使步長相對於權重以合理的速度學習。
 
 ## 結果
 
@@ -46,10 +46,6 @@ LSQ 依賴執行量化模型的[硬體](../../../../../engineering/hardware/inde
 ### 綜述與教科書
 
 - Gholami, A., 等人 (2021). *A Survey of Quantization Methods for Efficient Neural Network Inference*. arXiv:2103.13630. https://arxiv.org/abs/2103.13630 — 把可學習步長放在訓練期量化方法之中。
-
-### 講座與影片
-
-（本頁尚未查核任何項目）
 
 ### 文章與文件
 

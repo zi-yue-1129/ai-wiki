@@ -38,7 +38,7 @@ v_t &= \beta\, v_{t-1} + g_t \\
 - **核心想法：** 加入累積過去位移的速度項，使方向一致的步伐加速，震盪的方向則互相抵消。
 - **公式或演算法：** 上述兩行更新式，\(\eta\) 為學習率，\(\beta\) 為動量係數。
 - **結果：** 論文分析了二次問題上的加速效果，顯示在適當參數選擇下，收斂比普通梯度下降快。數值常數來自該分析，此處不重複。
-- **限制：** 分析針對二次目標。對於一般凸函數，重球法不能達到最佳的最壞情況速率；Nesterov 的變體可以（見 [Nesterov 動量](nesterov.md)）。
+- **限制：** 分析針對二次目標。對於一般的光滑凸函數，固定參數的重球法未知能否達到 Nesterov 變體所具有的最佳 \(O(1/T^2)\) 速率（見 [Nesterov 動量](nesterov.md)）。[Lessard 等人（2016）](https://arxiv.org/abs/1408.3595) 以數值方式比較了兩者的速率。
 
 ## 關聯
 
@@ -56,6 +56,7 @@ v_t &= \beta\, v_{t-1} + g_t \\
 
 - Polyak, B. T. (1964). Some methods of speeding up the convergence of iteration methods. *USSR Computational Mathematics and Mathematical Physics*. doi:[10.1016/0041-5553(64)90137-5](https://doi.org/10.1016/0041-5553(64)90137-5) — 提出重球動量，並分析其在二次問題上的加速效果。
 - Sutskever, I., Martens, J., Dahl, G. & Hinton, G. (2013). On the importance of initialization and momentum in deep learning. ICML. https://proceedings.mlr.press/v28/sutskever13.html — 顯示在適當初始化下，動量可以訓練深層與循環網路。
+- Lessard, L., Recht, B. & Packard, A. (2016). Analysis and Design of Optimization Algorithms via Integral Quadratic Constraints. *SIAM Journal on Optimization*. doi:[10.1137/15M1009597](https://doi.org/10.1137/15M1009597) — 推導梯度法、重球法與 Nesterov 法在凸函數上的數值收斂界。
 
 ### 綜述與教科書
 

@@ -21,8 +21,8 @@ where $\tau$ is a temperature. Minimising this loss maximises a lower bound on t
 
 ## Key methods
 
-- **SimCLR** uses strong augmentations (random crops, colour jitter, blur) and a large batch, plus a small projection head that is discarded after training.
-- **MoCo** keeps a queue of past embeddings and a slowly updated key encoder, so the number of negatives does not depend on the batch size.
+- **[SimCLR](simclr.md)** uses strong augmentations (random crops, colour jitter, blur) and a large batch, plus a small projection head that is discarded after training.
+- **[MoCo](moco.md)** keeps a queue of past embeddings and a slowly updated key encoder, so the number of negatives does not depend on the batch size.
 - **CPC** applies the same loss to predict future latent states of a sequence, and works for speech, images and text.
 - **CLIP** contrasts image and text embeddings across a large dataset of web image–caption pairs, giving zero-shot classification by comparing an image with text prompts.
 

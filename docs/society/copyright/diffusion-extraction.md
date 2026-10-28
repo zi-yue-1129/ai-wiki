@@ -11,7 +11,7 @@ aliases:
 !!! info "Part of Copyright & IP"
     This method page belongs to [Copyright & IP](index.md). It explains one study in detail; the parent page compares it with others.
 
-Carlini et al. (2023) showed that training images can be extracted from trained diffusion models. Their pipeline produced over a thousand training examples from state-of-the-art models. This is evidence that memorisation in image models is not rare, and it bears on both copyright and privacy.
+Carlini et al. (2023) showed that training images can be extracted from trained diffusion models. Their pipeline produced over a thousand training examples from state-of-the-art models. The paper uses this result to argue that memorisation in image models happens at scale, and it bears on both copyright and privacy.
 
 ## Problem
 
@@ -19,7 +19,7 @@ Diffusion models are trained on large image collections, which can include priva
 
 ## Core idea
 
-Use a generate-and-filter pipeline. Generate many images from the model, then keep only the outputs that look like copies of training images. The filter is applied after generation, so the pipeline needs only sampling access to the model and a way to compare outputs with training data.
+Use a generate-and-filter pipeline. Generate many images from the model, then keep only the outputs that look like copies of training images. The filter is applied after generation, so the cost depends on how many images are generated and how many candidates must be checked against the training data.
 
 ## How the method works
 
@@ -31,7 +31,7 @@ The abstract describes the approach as generate-and-filter. The exact scoring an
 
 ## Results
 
-The abstract reports that the pipeline extracts "over a thousand training examples from state-of-the-art models". It does not give separate counts for each model, and it does not say how many generated images were examined. The headline number therefore shows that extraction happens at scale, but it does not give a rate that can be compared across models or settings.
+The abstract reports that the pipeline extracts "over a thousand training examples from state-of-the-art models". It does not give separate counts for each model, and it does not say how many generated images were examined. The headline number therefore shows that extraction happens at scale, but it does not give a rate that can be compared across models or settings. The abstract also reports that the authors trained hundreds of diffusion models in various settings to test how modelling and data choices affect privacy, and that diffusion models are much less private than prior generative models such as GANs.
 
 ## Limitations
 

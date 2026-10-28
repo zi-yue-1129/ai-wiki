@@ -52,6 +52,10 @@ where \(B\) is the relative position bias, taken from a smaller learned table of
 
 The cost comparison in the paper is \(\Omega(\text{MSA}) = 4hwC^2 + 2(hw)^2C\) for global attention and \(\Omega(\text{W-MSA}) = 4hwC^2 + 2M^2hwC\) for windowed attention. The first term grows with the square of the number of patches \(hw\), and the second grows linearly with it when \(M\) is fixed.
 
+![Two adjacent patches are in separate regular attention windows but the same shifted window, allowing information exchange.](../../../../../assets/concept-animations/swin-shifted-windows-motion.svg)
+
+*Original schematic (CC BY-SA 4.0).* The blue and orange patches fall in separate **W-MSA** windows but share an **SW-MSA** window in the next layer; the moving marker traces their new communication path. This **8×8 patch / 4×4 window / two-patch shift** illustration is not a measured attention map or a model output. Real Swin commonly uses 7×7 windows and cyclic shifting with boundary attention masks, omitted here for clarity. On MkDocs, use **Play/Pause** to stop the motion; reduced-motion settings show the [static frame](../../../../../assets/concept-animations/swin-shifted-windows-still.svg). GitHub also provides this still-frame link.
+
 ## Key methods
 
 ### Swin Transformer: Hierarchical Vision Transformer using Shifted Windows (Liu et al., 2021)

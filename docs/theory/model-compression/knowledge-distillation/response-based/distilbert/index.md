@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
 - model compression
@@ -53,7 +53,7 @@ DistilBERT is the language-model form of the distillation that [LLM methods](../
 
 ### Surveys and textbooks
 
-- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — Surveys distillation methods, including those applied to pretrained language models.
+- Gou, J., et al. (2021). *Knowledge Distillation: A Survey*. International Journal of Computer Vision. https://doi.org/10.1007/s11263-021-01453-z — Surveys distillation methods across knowledge types and training schemes.
 
 ### Lectures and videos
 
