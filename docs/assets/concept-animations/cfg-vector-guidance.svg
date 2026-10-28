@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+<title id="title">Classifier-free guidance vector extrapolation</title>
+<desc id="desc">An unconditional noise prediction and a conditional prediction define a difference direction; positive guidance extrapolates beyond the conditional prediction.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 1L7 4L0 7" fill="none" stroke="#56768a" stroke-width="1.5"/></marker></defs>
+<style>text{font:500 15px system-ui,sans-serif;fill:#274358}.muted{font-size:12px;fill:#667d8e}.box{fill:white;stroke:#d0dde8;stroke-width:1.5}.guide{animation:pulse 2.6s ease-in-out infinite}@keyframes pulse{50%{opacity:.55}}@media(prefers-reduced-motion:reduce){.guide{animation:none}}</style>
+<rect width="640" height="360" rx="18" fill="#f8fbfe"/><text x="32" y="38" class="muted">NOISE-PREDICTION SPACE</text>
+<path d="M66 283H576M99 313V78" stroke="#c5d4df" stroke-width="2" stroke-linecap="round"/>
+<path d="M110 265L538 113" stroke="#dbe5ed" stroke-width="2" stroke-dasharray="5 6"/>
+<path d="M156 249L324 190" stroke="#4d90b6" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+<path d="M324 190L492 131" stroke="#c98634" stroke-width="4" fill="none" stroke-dasharray="9 5" marker-end="url(#arrow)"/>
+<circle cx="156" cy="249" r="13" fill="#e3f1f9" stroke="#4d90b6" stroke-width="3"/>
+<circle cx="324" cy="190" r="13" fill="#4d90b6" stroke="white" stroke-width="3"/>
+<circle class="guide" cx="492" cy="131" r="14" fill="#c98634" stroke="white" stroke-width="3"/>
+<rect class="box" x="70" y="187" width="143" height="36" rx="9"/><text x="141" y="210" text-anchor="middle">Unconditional</text>
+<rect class="box" x="257" y="236" width="136" height="36" rx="9"/><text x="325" y="259" text-anchor="middle">Conditional</text>
+<rect x="435" y="59" width="120" height="36" rx="9" fill="#fff0e0" stroke="#e6c394" stroke-width="1.5"/><text x="495" y="83" text-anchor="middle">Guided</text>
+<text class="muted" x="286" y="163">difference</text><text class="muted" x="422" y="197">w &gt; 0</text>
+<text class="muted" x="32" y="335">Schematic positions, not measured predictions</text></svg>
