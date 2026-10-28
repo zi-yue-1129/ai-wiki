@@ -40,6 +40,7 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Perception & the Visual System](visual-perception/index.md) | Receptive fields, the ventral stream, CNNs as models of vision |
 | [Attention in Brains & Machines](attention-brain-machine/index.md) | Biased competition, saliency maps, top-down control, attention in neural networks |
 | [Emotion & Affective Computing](emotion/index.md) | Valence and arousal, threat circuits, basic emotions, affective computing |
+| [Neuroimaging & Recording Methods](neuroimaging-methods/index.md) | BOLD fMRI, what fMRI and electrophysiology each measure, LFP and ECoG |
 
 ## Two-way influence at a glance
 
