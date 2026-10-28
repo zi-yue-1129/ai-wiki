@@ -259,7 +259,13 @@ nav:
               - Model-Based RL: foundations/paradigms/reinforcement-learning/model-based-rl/index.md
               - Offline RL: foundations/paradigms/reinforcement-learning/offline-rl/index.md
               - Learning from Human Feedback: foundations/paradigms/reinforcement-learning/learning-from-human-feedback/index.md
-          - Imitation Learning: foundations/paradigms/imitation/index.md
+          - Imitation Learning:
+              - foundations/paradigms/imitation/index.md
+              - Behavioural Cloning: foundations/paradigms/imitation/behavioural-cloning/index.md
+              - Interactive Imitation: foundations/paradigms/imitation/interactive-imitation/index.md
+              - Inverse Reinforcement Learning: foundations/paradigms/imitation/inverse-reinforcement-learning/index.md
+              - Adversarial Imitation: foundations/paradigms/imitation/adversarial-imitation/index.md
+              - Imitation in Foundation Models: foundations/paradigms/imitation/imitation-in-foundation-models/index.md
           - Transfer Learning & Domain Adaptation: foundations/paradigms/transfer/index.md
           - Meta-Learning & Few-Shot Learning: foundations/paradigms/meta-learning/index.md
           - Continual Learning: foundations/paradigms/continual/index.md
