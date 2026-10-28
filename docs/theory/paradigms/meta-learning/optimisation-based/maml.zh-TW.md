@@ -76,12 +76,12 @@ Finn、Abbeel 與 Levine（2017）在 ICML 2017（PMLR 70）發表 MAML。此方
 
 ### 開創性論文
 
-- Finn, C., Abbeel, P. & Levine, S. (2017). Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks. ICML（PMLR 70）. https://arxiv.org/abs/1703.03400 — 提出 MAML，並報告本頁使用的 Omniglot 與 miniImageNet 結果。
-- Nichol, A., Achiam, J. & Schulman, J. (2018). On First-Order Meta-Learning Algorithms. arXiv:1803.02999. https://arxiv.org/abs/1803.02999 — 分析一階 MAML，並提出 Reptile。
-- Rusu, A. A. 等人 (2018). Meta-Learning with Latent Embedding Optimization. arXiv:1807.05960. https://arxiv.org/abs/1807.05960 — 不在原始參數空間，而是在學到的低維潛在空間中做基於梯度的適應。
-- Finn, C., Xu, K. & Levine, S. (2018). Probabilistic Model-Agnostic Meta-Learning. arXiv:1806.02817. https://arxiv.org/abs/1806.02817 — 對初始化放置一個分布，使適應可以對模稜兩可的任務取樣合理的模型。
+- Finn, C., Abbeel, P. & Levine, S. (2017). Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks. ICML (PMLR 70). https://arxiv.org/abs/1703.03400 — 提出 MAML，並報告本頁使用的 Omniglot 與 miniImageNet 結果。
+- Nichol, A., Achiam, J. & Schulman, J. (2018). On First-Order Meta-Learning Algorithms. arXiv:1803.02999. https://arxiv.org/abs/1803.02999 — 分析一階 MAML 並提出 Reptile。
+- Rusu, A. A. et al. (2018). Meta-Learning with Latent Embedding Optimization. arXiv:1807.05960. https://arxiv.org/abs/1807.05960 — 在學到的低維潛在空間中進行基於梯度的適應，而非在原始參數空間。
+- Finn, C., Xu, K. & Levine, S. (2018). Probabilistic Model-Agnostic Meta-Learning. arXiv:1806.02817. https://arxiv.org/abs/1806.02817 — 對初始化參數放置分布，使適應時能為模糊的任務抽樣合理的模型。
 - Antoniou, A., Edwards, H. & Storkey, A. (2018). How to train your MAML. arXiv:1810.09502. https://arxiv.org/abs/1810.09502 — 列出使 MAML 訓練更穩定、成本更低的改進。
 
 ### 綜述與教科書
 
-- Hospedales, T. 等人 (2020). Meta-Learning in Neural Networks: A Survey. arXiv:2004.05439. https://arxiv.org/abs/2004.05439 — 綜述元學習，並把基於梯度的方法置於其他方法家族之中。
+- Hospedales, T. et al. (2020). Meta-Learning in Neural Networks: A Survey. arXiv:2004.05439. https://arxiv.org/abs/2004.05439 — 綜述元學習，並把基於梯度的方法置於其他方法家族之中。
