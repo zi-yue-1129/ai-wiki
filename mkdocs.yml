@@ -363,12 +363,15 @@ plugins:
             Density Estimation & Generative Models: 密度估計與生成模型
             U-Net: U-Net
             Variational Autoencoders: 變分自編碼器
+            VQ-VAE: VQ-VAE
             GANs: 生成對抗網路
             DCGAN: DCGAN
             WGAN: WGAN
             WGAN-GP: WGAN-GP
             Flow-Based Models: 流模型
             Normalising Flows: 正規化流
+            Real NVP: Real NVP
+            Glow: Glow
             Flow Matching: 流匹配
             Classifier-Free Guidance: 無分類器引導
             Structured State Spaces: 結構化狀態空間
@@ -751,14 +754,19 @@ nav:
               - Density Estimation & Generative Models:
                   - theory/paradigms/unsupervised/density-and-generative-models/index.md
                   - Generative Models: theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md
-                  - Variational Autoencoders: theory/paradigms/unsupervised/density-and-generative-models/vae/index.md
+                  - Variational Autoencoders:
+                      - theory/paradigms/unsupervised/density-and-generative-models/vae/index.md
+                      - VQ-VAE: theory/paradigms/unsupervised/density-and-generative-models/vae/vq-vae.md
                   - GANs: theory/paradigms/unsupervised/density-and-generative-models/gan/index.md
                   - DCGAN: theory/paradigms/unsupervised/density-and-generative-models/gan/dcgan.md
                   - WGAN: theory/paradigms/unsupervised/density-and-generative-models/gan/wgan.md
                   - WGAN-GP: theory/paradigms/unsupervised/density-and-generative-models/gan/wgan-gp.md
                   - Flow-Based Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/flow/index.md
-                      - Normalising Flows: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/index.md
+                      - Normalising Flows:
+                          - theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/index.md
+                          - Real NVP: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/realnvp.md
+                          - Glow: theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/glow.md
                       - Flow Matching: theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/index.md
                   - Diffusion Models:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
