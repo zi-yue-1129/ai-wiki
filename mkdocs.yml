@@ -564,6 +564,10 @@ plugins:
             Cybersecurity: 資訊安全
             Social Sciences & Humanities: 社會科學與人文
             Software Development: 軟體開發
+            Military & Defence: 軍事與國防
+            Space & Astronomy: 太空與天文
+            Architecture & Urban Planning: 建築與城市規劃
+            Telecommunications: 電信
             Linguistics & Machine Translation: 語言學與機器翻譯
             Government & Public Services: 政府與公共服務
             Retail, Marketing & E-commerce: 零售、行銷與電子商務
@@ -1194,6 +1198,10 @@ nav:
       - Cybersecurity: applications/cybersecurity/index.md
       - Social Sciences & Humanities: applications/social-science/index.md
       - Software Development: applications/software/index.md
+      - Military & Defence: applications/military/index.md
+      - Space & Astronomy: applications/space-astronomy/index.md
+      - Architecture & Urban Planning: applications/architecture-urban/index.md
+      - Telecommunications: applications/telecommunications/index.md
       - Linguistics & Machine Translation: applications/linguistics-translation/index.md
       - Government & Public Services: applications/government/index.md
       - Retail, Marketing & E-commerce: applications/retail-marketing/index.md
