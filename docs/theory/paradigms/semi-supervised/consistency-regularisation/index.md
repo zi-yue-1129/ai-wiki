@@ -15,9 +15,9 @@ The loss has two parts: ordinary cross-entropy on the few labelled examples, plu
 ## Main methods
 
 - **Π-model and temporal ensembling** (Laine & Aila, 2017) apply two random augmentations to each example and penalise disagreement. Temporal ensembling averages predictions across epochs to get smoother targets.
-- **Mean Teacher** (Tarvainen & Valpola, 2017) keeps a teacher whose weights are an exponential moving average of the student's, and uses the teacher's prediction as the target. This is more stable than using the student alone.
+- **[Mean Teacher](mean-teacher.md)** (Tarvainen & Valpola, 2017) keeps a teacher whose weights are an exponential moving average of the student's, and uses the teacher's prediction as the target. This is more stable than using the student alone.
 - **MixMatch** combines consistency with mixup, guessing labels for unlabelled data by averaging predictions over augmentations and sharpening them.
-- **FixMatch** uses a weak augmentation to produce a confident pseudo-label, and a strong augmentation to predict it, keeping only predictions above a confidence threshold.
+- **[FixMatch](fixmatch.md)** uses a weak augmentation to produce a confident pseudo-label, and a strong augmentation to predict it, keeping only predictions above a confidence threshold.
 
 ## Why it helps, and when it does not
 

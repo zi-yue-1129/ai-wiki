@@ -292,6 +292,13 @@ plugins:
             Transfer Learning & Domain Adaptation: 遷移學習與領域適應
             Meta-Learning & Few-Shot Learning: 元學習與少樣本學習
             Continual Learning: 持續學習
+            EWC: EWC：彈性權重鞏固
+            Support Vector Machines: 支援向量機
+            Random Forests: 隨機森林
+            Gradient Boosting: 梯度提升
+            MAML: MAML：模型無關元學習
+            FixMatch: FixMatch：以一致性與信心簡化半監督學習
+            Mean Teacher: Mean Teacher：平均教師
             Active Learning: 主動學習
             Online Learning & Bandits: 線上學習與多臂吃角子老虎
             Federated & Privacy-Preserving Learning: 聯邦學習與隱私保護學習
@@ -486,6 +493,14 @@ plugins:
             Brier Score: Brier 分數
             Calibration Error: 校準誤差
             MAE: MAE
+            Masked Autoencoders (MAE): 遮罩自編碼器（MAE）
+            SimCLR: SimCLR
+            MoCo: MoCo
+            BYOL: BYOL
+            K-means: K-means
+            Principal Component Analysis (PCA): 主成分分析（PCA）
+            t-SNE: t-SNE
+            UMAP: UMAP
             RMSE: RMSE
             R²: R²
             NDCG: NDCG
@@ -883,8 +898,13 @@ nav:
           - Supervised Learning:
               - theory/paradigms/supervised/index.md
               - Linear Models & GLMs: theory/paradigms/supervised/linear-models/index.md
-              - Trees & Ensembles: theory/paradigms/supervised/trees-and-ensembles/index.md
-              - Kernels & SVMs: theory/paradigms/supervised/kernel-methods-svm/index.md
+              - Trees & Ensembles:
+                  - theory/paradigms/supervised/trees-and-ensembles/index.md
+                  - Random Forests: theory/paradigms/supervised/trees-and-ensembles/random-forests.md
+                  - Gradient Boosting: theory/paradigms/supervised/trees-and-ensembles/gradient-boosting.md
+              - Kernels & SVMs:
+                  - theory/paradigms/supervised/kernel-methods-svm/index.md
+                  - Support Vector Machines: theory/paradigms/supervised/kernel-methods-svm/svm.md
               - kNN, Naive Bayes & Gaussian Processes: theory/paradigms/supervised/instance-based-and-probabilistic/index.md
               - Loss Functions & Optimisation:
                   - theory/paradigms/supervised/loss-functions-and-optimization/index.md
@@ -894,8 +914,14 @@ nav:
               - Evaluation & Validation: theory/paradigms/supervised/evaluation-and-validation/index.md
           - Unsupervised Learning:
               - theory/paradigms/unsupervised/index.md
-              - Clustering: theory/paradigms/unsupervised/clustering/index.md
-              - Dimensionality Reduction: theory/paradigms/unsupervised/dimensionality-reduction/index.md
+              - Clustering:
+                  - theory/paradigms/unsupervised/clustering/index.md
+                  - K-means: theory/paradigms/unsupervised/clustering/k-means.md
+              - Dimensionality Reduction:
+                  - theory/paradigms/unsupervised/dimensionality-reduction/index.md
+                  - Principal Component Analysis (PCA): theory/paradigms/unsupervised/dimensionality-reduction/pca.md
+                  - t-SNE: theory/paradigms/unsupervised/dimensionality-reduction/t-sne.md
+                  - UMAP: theory/paradigms/unsupervised/dimensionality-reduction/umap.md
               - Density Estimation & Generative Models:
                   - theory/paradigms/unsupervised/density-and-generative-models/index.md
                   - Generative Models: theory/paradigms/unsupervised/density-and-generative-models/generative-models/index.md
@@ -928,17 +954,26 @@ nav:
               - Anomaly Detection: theory/paradigms/unsupervised/anomaly-detection/index.md
           - Semi- & Weakly Supervised Learning:
               - theory/paradigms/semi-supervised/index.md
-              - Consistency Regularisation: theory/paradigms/semi-supervised/consistency-regularisation/index.md
+              - Consistency Regularisation:
+                  - theory/paradigms/semi-supervised/consistency-regularisation/index.md
+                  - Mean Teacher: theory/paradigms/semi-supervised/consistency-regularisation/mean-teacher.md
+                  - FixMatch: theory/paradigms/semi-supervised/consistency-regularisation/fixmatch.md
               - Pseudo-Labelling & Self-Training: theory/paradigms/semi-supervised/pseudo-labelling-and-self-training/index.md
               - Graph-Based Methods: theory/paradigms/semi-supervised/graph-based-methods/index.md
               - Weak & Programmatic Supervision: theory/paradigms/semi-supervised/weak-and-programmatic-supervision/index.md
               - Theory & Assumptions: theory/paradigms/semi-supervised/theory-and-assumptions/index.md
           - Self-Supervised Learning:
               - theory/paradigms/self-supervised/index.md
-              - Contrastive Learning: theory/paradigms/self-supervised/contrastive-learning/index.md
-              - Masked Prediction: theory/paradigms/self-supervised/masked-prediction/index.md
+              - Contrastive Learning:
+                  - theory/paradigms/self-supervised/contrastive-learning/index.md
+                  - SimCLR: theory/paradigms/self-supervised/contrastive-learning/simclr.md
+                  - MoCo: theory/paradigms/self-supervised/contrastive-learning/moco.md
+              - Masked Prediction:
+                  - theory/paradigms/self-supervised/masked-prediction/index.md
+                  - Masked Autoencoders (MAE): theory/paradigms/self-supervised/masked-prediction/mae.md
               - Non-Contrastive Methods:
                   - theory/paradigms/self-supervised/non-contrastive-methods/index.md
+                  - BYOL: theory/paradigms/self-supervised/non-contrastive-methods/byol.md
                   - DINOv2: theory/paradigms/self-supervised/non-contrastive-methods/dinov2.md
               - Pretext Tasks: theory/paradigms/self-supervised/pretext-tasks/index.md
               - Theory & Evaluation: theory/paradigms/self-supervised/theory-and-evaluation/index.md
@@ -1011,14 +1046,18 @@ nav:
               - Transfer Theory: theory/paradigms/transfer/transfer-theory/index.md
           - Meta-Learning & Few-Shot Learning:
               - theory/paradigms/meta-learning/index.md
-              - Optimisation-based: theory/paradigms/meta-learning/optimisation-based/index.md
+              - Optimisation-based:
+                  - theory/paradigms/meta-learning/optimisation-based/index.md
+                  - MAML: theory/paradigms/meta-learning/optimisation-based/maml.md
               - Metric-based Few-shot: theory/paradigms/meta-learning/metric-based/index.md
               - Memory & Model-based: theory/paradigms/meta-learning/memory-and-model-based/index.md
               - Meta-learning Theory: theory/paradigms/meta-learning/meta-learning-theory/index.md
               - Benchmarks & Foundation Models: theory/paradigms/meta-learning/benchmarks-and-foundation-models/index.md
           - Continual Learning:
               - theory/paradigms/continual/index.md
-              - Regularisation-based: theory/paradigms/continual/regularisation-based/index.md
+              - Regularisation-based:
+                  - theory/paradigms/continual/regularisation-based/index.md
+                  - EWC: theory/paradigms/continual/regularisation-based/ewc.md
               - Replay & Memory: theory/paradigms/continual/replay-and-memory/index.md
               - Architecture-based: theory/paradigms/continual/architecture-based/index.md
               - Evaluation & Scenarios: theory/paradigms/continual/evaluation-and-scenarios/index.md

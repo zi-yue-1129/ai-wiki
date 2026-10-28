@@ -16,7 +16,7 @@ Choose a subset of the input tokens or patches, replace them with a mask or drop
 ## Methods
 
 - **BERT** masks about 15% of word-piece tokens and predicts them with a bidirectional transformer, and it also predicts whether two sentences follow each other (a second objective the follow-up work tested and often dropped).
-- **Masked autoencoders (MAE)** mask a large fraction of image patches, often about 75%, encode only the visible patches, and decode the full image. The high masking ratio makes the task non-trivial.
+- **[Masked autoencoders (MAE)](mae.md)** mask a large fraction of image patches, often about 75%, encode only the visible patches, and decode the full image. The high masking ratio makes the task non-trivial.
 - **Speech models** such as wav2vec 2.0 and HuBERT mask spans of audio and predict discrete targets derived from clustering.
 - **Protein and molecule models** mask residues or atoms and predict them, learning sequence and structural regularities.
 
