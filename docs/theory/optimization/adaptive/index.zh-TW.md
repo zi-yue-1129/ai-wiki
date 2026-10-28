@@ -40,15 +40,15 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 
 | 方法 | 想法 | 狀態 |
 |---|---|---|
-| AdaGrad | 累加所有過去的平方梯度；適合稀疏特徵 | 規劃中 |
-| RMSProp | 以平方梯度的指數移動平均取代總和 | 規劃中 |
+| AdaGrad | 累加所有過去的平方梯度；適合稀疏特徵 | [AdaGrad](adagrad.md) |
+| RMSProp | 以平方梯度的指數移動平均取代總和 | [RMSProp](rmsprop.md) |
 | Adam | 動量加上自適應尺度，並做偏差校正 | [Adam](adam.md) |
 | AdamW | 具解耦權重衰減的 Adam | [AdamW](adamw.md) |
 | LARS、LAMB | 依權重範數逐層縮放步長，用於極大批次 | [LARS](../lars.md) 與 [LAMB](../lamb.md) 有獨立頁面 |
-| Adafactor | 以因式分解的二階矩估計節省記憶體 | 規劃中 |
-| Lion | 以動量的符號作為更新；記憶體比 Adam 少 | 規劃中 |
-| Shampoo、SOAP | 由梯度的矩陣統計量建構的預條件子 | [Shampoo](../shampoo.md) 有獨立頁面；SOAP 規劃中，見[二階方法](../second-order.md) |
-| Muon | 對矩陣參數做正交化的動量更新 | 規劃中 |
+| Adafactor | 以因式分解的二階矩估計節省記憶體 | [Adafactor](adafactor.md) |
+| Lion | 以動量的符號作為更新；記憶體比 Adam 少 | [Lion](lion.md) |
+| Shampoo、SOAP | 由梯度的矩陣統計量建構的預條件子 | [Shampoo](../shampoo.md) 與 [SOAP](soap.md) 各有獨立頁面 |
+| Muon | 對矩陣參數做正交化的動量更新 | [Muon](muon.md) |
 
 ## 關鍵方法
 

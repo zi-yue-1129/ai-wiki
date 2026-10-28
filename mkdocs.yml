@@ -250,6 +250,12 @@ plugins:
             Nesterov Momentum: Nesterov 動量
             Adam: Adam
             AdamW: AdamW
+            AdaGrad: AdaGrad
+            RMSProp: RMSProp
+            Adafactor: Adafactor
+            Lion: Lion
+            SOAP: SOAP
+            Muon: Muon
             Adaptive Methods: 自適應方法
             Second-Order Methods: 二階方法
             L-BFGS: L-BFGS
@@ -655,6 +661,12 @@ nav:
               - theory/optimization/adaptive/index.md
               - Adam: theory/optimization/adaptive/adam.md
               - AdamW: theory/optimization/adaptive/adamw.md
+              - AdaGrad: theory/optimization/adaptive/adagrad.md
+              - RMSProp: theory/optimization/adaptive/rmsprop.md
+              - Adafactor: theory/optimization/adaptive/adafactor.md
+              - Lion: theory/optimization/adaptive/lion.md
+              - SOAP: theory/optimization/adaptive/soap.md
+              - Muon: theory/optimization/adaptive/muon.md
           - Second-Order Methods:
               - theory/optimization/second-order.md
               - L-BFGS: theory/optimization/lbfgs.md
