@@ -45,8 +45,8 @@ flowchart LR
 
 | 方法 | 要解決的問題 | 核心想法 | 主要取捨 | 頁面 |
 |---|---|---|---|---|
-| 知識蒸餾 | 小模型需要達到大模型的品質 | 讓小的學生模型學習大型教師模型的軟輸出 | 需要教師模型與訓練運算 | [知識蒸餾](knowledge-distillation.zh-TW.md) |
-| GPTQ | 訓練後必須縮小大型模型的權重，且不重新訓練 | 逐層量化的後訓練方法，每次取捨時補償誤差 | 品質取決於校準資料與位元寬度 | [GPTQ](gptq.zh-TW.md) |
+| 知識蒸餾 | 小模型需要達到大模型的品質 | 讓小的學生模型學習大型教師模型的軟輸出 | 需要教師模型與訓練運算 | [知識蒸餾](knowledge-distillation.zh-TW.md)（工程筆記）；[理論頁](../../theory/model-compression/knowledge-distillation/index.zh-TW.md) |
+| GPTQ | 訓練後必須縮小大型模型的權重，且不重新訓練 | 逐層量化的後訓練方法，每次取捨時補償誤差 | 品質取決於校準資料與位元寬度 | [GPTQ](../../theory/model-compression/quantisation/post-training/gptq/index.zh-TW.md) |
 
 其他壓縮方法，例如量化感知訓練與結構化剪枝，目前還沒有獨立的頁面，之後再補上。下方參考文獻中的剪枝與量化工作，是進一步研究的起點。
 

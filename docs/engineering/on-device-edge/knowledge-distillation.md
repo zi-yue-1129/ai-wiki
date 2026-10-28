@@ -1,4 +1,7 @@
 ---
+related:
+- theory/model-compression/knowledge-distillation
+- engineering/on-device-edge
 tags:
 - engineering
 - systems
@@ -8,49 +11,31 @@ aliases:
 
 # Knowledge Distillation
 
-Knowledge distillation trains a small student model to imitate a large teacher model. The student learns from the teacher's output probabilities, not only from the hard labels, because those probabilities carry information about which wrong classes are close to the right one. A student that is a fraction of the teacher's size can keep much of its accuracy, which makes it a standard way to produce models for devices.
+This page covers how distillation is used to produce models for devices and services with tight budgets. The method itself, including the temperature-softened loss and its variants, is covered in the theory chapter: [Knowledge Distillation](../../theory/model-compression/knowledge-distillation/index.md). The original procedure is in [Hinton Distillation](../../theory/model-compression/knowledge-distillation/response-based/hinton-distillation/index.md), and distillation for language models is in [Sequence-Level KD](../../theory/model-compression/knowledge-distillation/llm-distillation/sequence-level/index.md).
 
 ## Overview
 
-A large model is accurate but too expensive to run on a phone or in a low-latency service. Training a small model directly on the labels often gives a weaker result than the large model could, because the labels say only which answer is right. Distillation supplies a richer target: the teacher's distribution over all outputs, softened by a temperature so that near-miss classes are visible.
+A large model is accurate but too expensive to run on a phone or in a low-latency service. Distillation produces a smaller student that keeps much of the teacher's behaviour. For deployment the questions are different from those in the theory chapter: what the teacher costs, which inputs the student must handle, and how the student is compressed further.
 
-## Key concepts
+## Engineering notes
 
-- **Teacher and student**: a large, trained model and a smaller model that learns to match it.
-- **Soft targets**: the teacher's output probabilities, computed with a temperature $T > 1$ so that the distribution is less peaked.
-- **Temperature**: a scaling factor applied to the logits before the softmax. Higher values reveal more of the relative similarity between classes.
-- **Hard and soft loss**: the student is usually trained on a weighted sum of the cross-entropy with the true labels and the cross-entropy with the teacher's soft targets.
+- **Teacher cost**: the teacher must be run over the distillation data, which can dominate the total compute. Caching its outputs once and reusing them across student experiments saves time.
+- **Student architecture**: choose a student that the target runtime supports well. A smaller network that uses operators the device accelerates is often faster than a smaller one that does not.
+- **Data coverage**: the student only learns the behaviour that the distillation data shows. Use inputs drawn from the device's real traffic, because this is often the largest lever on quality.
+- **Quantisation after distillation**: distil first, then quantise. Errors from the two steps can add up, so measure the final quantised model on the device's own test set. Post-training quantisation such as [GPTQ](../../theory/model-compression/quantisation/post-training/gptq/index.md) is covered in the theory chapter.
+- **Tuning**: the temperature and the loss weighting need tuning for each task, and the best values can change when the student size changes.
 
-## How it works
-
-For logits $z$, the softened teacher and student distributions are $p_i = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}$. The student minimises a combination of the cross-entropy with the true labels and the cross-entropy with the teacher's softened distribution, often scaled by $T^2$ so that gradients keep a stable size as the temperature changes.
+## How it fits the device pipeline
 
 ```mermaid
 flowchart LR
-  X[Input] --> TE[Teacher model]
-  X --> ST[Student model]
-  TE --> SO[Soft targets at temperature T]
-  ST --> SP[Student predictions at temperature T]
-  SO --> L[Distillation loss]
-  SP --> L
-  Y[True labels] --> L
-  L --> U[Update student]
+  T[Large teacher] --> D[Distillation on device-like data]
+  D --> S[Student model]
+  S --> Q[Quantisation]
+  Q --> E[Evaluation on device test set]
+  E -->|Quality gap| D
+  E -->|Meets budget| R[Deploy to runtime]
 ```
-
-## Key methods
-
-The method is training the student on the teacher's softened outputs, combined with the usual loss on the true labels. Hinton, Vinyals and Dean (2015) introduced the procedure and the use of softened outputs as training targets.
-
-## Results
-
-The original paper reports that distillation recovers much of the accuracy of a large model in a smaller network, and that soft targets carry information that hard labels do not. The effect depends on the task, the temperature and how the student is sized, so readers should check the paper's experiments.
-
-## Limitations
-
-- **Teacher cost**: the teacher must be trained and run on the training data, which can dominate the total compute.
-- **Capacity gap**: a student that is much smaller than the teacher may not match it, and very large gaps can make the teacher's targets harder to imitate.
-- **Data coverage**: the student only learns the behaviour that the distillation data shows, so inputs outside that data are a risk.
-- **Hyperparameters**: the temperature and the loss weighting need tuning for each task.
 
 ## Open questions
 
