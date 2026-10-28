@@ -287,9 +287,21 @@ nav:
               - Architecture-based: foundations/paradigms/continual/architecture-based/index.md
               - Evaluation & Scenarios: foundations/paradigms/continual/evaluation-and-scenarios/index.md
               - Neuroscience & Continual Learning: foundations/paradigms/continual/neuroscience-and-continual-learning/index.md
-          - Active Learning: foundations/paradigms/active/index.md
+          - Active Learning:
+              - foundations/paradigms/active/index.md
+              - Uncertainty Sampling: foundations/paradigms/active/uncertainty-sampling/index.md
+              - Batch & Diversity: foundations/paradigms/active/batch-and-diversity/index.md
+              - Theory & Sample Complexity: foundations/paradigms/active/theory-and-sample-complexity/index.md
+              - Deep Active Learning: foundations/paradigms/active/deep-active-learning/index.md
+              - Practice & Labelling Cost: foundations/paradigms/active/practice-and-labelling-cost/index.md
           - Online Learning & Bandits: foundations/paradigms/online/index.md
-          - Federated & Privacy-Preserving Learning: foundations/paradigms/federated/index.md
+          - Federated & Privacy-Preserving Learning:
+              - foundations/paradigms/federated/index.md
+              - Federated Averaging: foundations/paradigms/federated/federated-averaging/index.md
+              - Heterogeneity & Personalisation: foundations/paradigms/federated/heterogeneity-and-personalisation/index.md
+              - Privacy & Secure Aggregation: foundations/paradigms/federated/privacy-and-secure-aggregation/index.md
+              - Communication Efficiency: foundations/paradigms/federated/communication-efficiency/index.md
+              - Vertical & Cross-silo: foundations/paradigms/federated/vertical-and-cross-silo/index.md
           - Other Paradigms: foundations/paradigms/other/index.md
       - Probabilistic & Bayesian Methods: foundations/probabilistic/index.md
       - Symbolic AI, Search & Planning: foundations/symbolic-ai/index.md
