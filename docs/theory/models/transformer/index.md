@@ -74,6 +74,23 @@ Standard attention costs \(O(n^2)\) in sequence length n.
 | Linear attention | Kernel approximations reduce cost to \(O(n)\) |
 | Mixture of experts (MoE) | Replace the FFN with many experts and route each token to a few — many parameters, modest compute |
 
+## Key methods
+
+### Attention Is All You Need (Vaswani et al., 2017)
+
+- **Problem:** recurrent sequence models process tokens one after another. That limits parallel training and makes long-range dependencies hard to learn.
+- **Core idea:** remove recurrence and convolution entirely. Each position attends to all others through multi-head scaled dot-product attention, and positional information is added to the embeddings.
+- **Algorithm:** the encoder and the decoder each stack layers of multi-head attention and a feed-forward network. The decoder masks future positions, so each output depends only on earlier outputs.
+- **Results:** 28.4 BLEU on WMT 2014 English-to-German, more than 2 BLEU above the previous best results, including ensembles. A single model reached 41.8 BLEU on English-to-French. Training took 3.5 days on eight GPUs.
+- **Limitations:** the cost of attention grows with the square of the sequence length (see Efficiency above). The original model is an encoder–decoder for translation, not the decoder-only form that most language models use today.
+
+### Neural machine translation with learned alignment (Bahdanau et al., 2015)
+
+- **Problem:** encoder–decoder translation compresses a whole source sentence into one fixed-length vector, which loses information in long sentences.
+- **Core idea:** at each output step, the decoder searches the source sentence with a soft alignment, a weighted average of the encoder's states. The weights are learned from how well each source position matches the current decoder state.
+- **Results:** the paper reports that the attention model keeps translation quality on long sentences better than the fixed-vector baseline.
+- **Limitations:** the encoder and decoder are still recurrent, so training remains sequential. The alignment costs time proportional to the source length for each output word.
+
 ## Components and variants
 
 Each part of the Transformer has its own family of variants, with its own trade-offs and open questions:
