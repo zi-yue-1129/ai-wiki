@@ -60,7 +60,7 @@ Duchi 等人（2011）摘要提出一族次梯度方法，這些方法會動態�
 ### 開創性論文
 
 - Duchi, J., Hazan, E. & Singer, Y.（2011）。Adaptive Subgradient Methods for Online Learning and Stochastic Optimization。*Journal of Machine Learning Research*，12，2121–2159。https://jmlr.org/papers/v12/duchi11a.html — 提出 AdaGrad，依每個座標累積的平方梯度縮放步長。
-- Tieleman, T. & Hinton, G.（2012）。*Lecture 6.5 — RMSProp: Divide the gradient by a running average of its recent magnitude*。Coursera 講義，*Neural Networks for Machine Learning*。— 以指數平均修正 AdaGrad 步長縮小問題的 RMSProp 來源。
+- Tieleman, T. & Hinton, G.（2012）。*Lecture 6.5 — RMSProp: Divide the gradient by a running average of its recent magnitude*。Coursera 講義，*Neural Networks for Machine Learning*。https://cir.nii.ac.jp/crid/1370017282431050757 — 以指數平均修正 AdaGrad 步長縮小問題的 RMSProp 來源。
 - Gupta, V., Koren, T. & Singer, Y.（2018）。*Shampoo: Preconditioned Stochastic Tensor Optimization*。ICML。https://arxiv.org/abs/1802.09568 — 把逐座標的 AdaGrad 想法延伸到完整的矩陣預條件子。
 - Kingma, D. P. & Ba, J.（2015）。*Adam: A Method for Stochastic Optimization*。ICLR。https://arxiv.org/abs/1412.6980 — 把逐座標縮放與動量及偏差校正結合。
 
