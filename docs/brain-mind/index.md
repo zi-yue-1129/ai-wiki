@@ -45,6 +45,10 @@ Cognitive science emerged from the 1950s "cognitive revolution" and is tradition
 | [Animal Cognition & Comparative Intelligence](animal-cognition/index.md) | Mirror self-recognition, tool use in crows, false-belief tests in apes, convergent intelligence |
 | [Motor Control & the Cerebellum](motor-control/index.md) | Internal models and forward prediction, cerebellar supervised learning, optimal feedback control, motor cortex population dynamics |
 | [Sleep, Replay & Memory Consolidation](sleep-and-consolidation/index.md) | Sleep stages and learning, hippocampal replay and sharp-wave ripples, systems consolidation, targeted memory reactivation, experience replay in RL |
+| [Working Memory & Executive Function](working-memory-executive-function/index.md) | Persistent vs activity-silent storage, capacity limits, prefrontal gating (PBWM), executive control vs context windows and gated units |
+| [Spatial Navigation & Cognitive Maps](navigation-cognitive-maps/index.md) | Place and grid cells, head-direction cells, the cognitive map, successor representations, the Tolman–Eichenbaum Machine |
+| [Neuromodulation Beyond Dopamine](neuromodulation/index.md) | Acetylcholine, noradrenaline and serotonin as signals for uncertainty, arousal and learning rate; meta-learning with neuromodulators |
+
 
 ## Two-way influence at a glance
 

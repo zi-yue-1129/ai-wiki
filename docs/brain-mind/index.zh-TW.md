@@ -45,6 +45,10 @@ flowchart TB
 | [動物認知與比較智力](animal-cognition/index.md) | 鏡像自我辨認、烏鴉的工具使用、猿類的錯誤信念測試、趨同演化的智力 |
 | [運動控制與小腦](motor-control/index.md) | 內部模型與前向預測、小腦監督學習、最優回饋控制、運動皮質群體動態 |
 | [睡眠、重播與記憶鞏固](sleep-and-consolidation/index.md) | 睡眠階段與學習、海馬迴重播與尖波漣波、系統鞏固、目標式記憶再活化、強化學習中的經驗回放 |
+| [工作記憶與執行功能](working-memory-executive-function/index.md) | 持續活動與活動靜默儲存、容量限制、前額葉門控（PBWM）、執行控制與上下文視窗、門控單元的比較 |
+| [空間導航與認知地圖](navigation-cognitive-maps/index.md) | 位置細胞與網格細胞、頭方向細胞、認知地圖、後繼表徵、Tolman–Eichenbaum 機器 |
+| [多巴胺之外的神經調節](neuromodulation/index.md) | 乙醯膽鹼、去甲腎上腺素與血清素作為不確定性、喚起與學習率的訊號；神經調節式的元學習 |
+
 
 ## 雙向關係一覽
 
