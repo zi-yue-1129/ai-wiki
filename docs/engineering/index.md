@@ -10,6 +10,7 @@ How AI systems are actually built, adapted, evaluated and run.
 | [Prompt Engineering](prompting/index.md) | Writing effective prompts, structured output, context engineering |
 | [Retrieval-Augmented Generation](rag/index.md) | Grounding LLMs in your documents |
 | [Distributed Training](distributed-training/index.md) | Data, tensor, pipeline and sharded parallelism; ZeRO and FSDP |
+| [Vector Databases](vector-databases/index.md) | Embeddings, approximate nearest-neighbour search, HNSW, FAISS, dense retrieval |
 | [Evaluation & Benchmarks](evaluation/index.md) | Benchmarks, LLM-as-judge, contamination, human evaluation |
 | [Inference Optimization](inference-optimization/index.md) | Batching, paged KV caches, speculative decoding, attention variants |
 | [MLOps & Deployment](mlops/index.md) | Serving, monitoring, quantisation, cost, LLMOps |
