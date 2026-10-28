@@ -35,6 +35,7 @@ flowchart TB
 | [意識與心靈哲學](consciousness/index.md) | 意識理論、AI 能否有意識、中文房間 |
 | [腦機介面與神經解碼](bci/index.md) | 侵入式與非侵入式 BCI、從腦活動解碼語言與影像 |
 | [大腦中的語言](language-in-brain/index.md) | 雙路徑語音處理、語言網路、預測大腦反應的語言模型 |
+| [預測編碼與自由能](predictive-coding/index.md) | 預測誤差、階層式模型、類反向傳播學習、自由能原理 |
 | [知覺與視覺系統](visual-perception/index.md) | 感受野、腹側路徑、作為視覺模型的 CNN |
 
 ## 雙向關係一覽
