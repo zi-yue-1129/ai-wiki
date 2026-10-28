@@ -52,8 +52,24 @@ Minimising it maximises a lower bound on the mutual information between views.
 - **Self-supervised models match the ventral stream about as well as supervised ones** (Zhuang et al., 2021, *PNAS*), which matters because primates do not receive millions of labels.
 - **Language**: next-word prediction models predict activity in human language areas (Schrimpf et al., 2021); the brain may predict upcoming words at multiple timescales (Caucheteux et al., 2023).
 
+## Subtopics
+
+- [Contrastive learning](contrastive-learning/index.md): InfoNCE, SimCLR, MoCo and CLIP.
+- [Masked prediction](masked-prediction/index.md): BERT, masked autoencoders and speech models.
+- [Non-contrastive methods](non-contrastive-methods/index.md): BYOL, SimSiam, DINO and VICReg.
+- [Pretext tasks](pretext-tasks/index.md): context prediction, rotation and other hand-designed tasks.
+- [Theory and evaluation](theory-and-evaluation/index.md): alignment and uniformity, linear probing and transfer.
+
 ## Further reading
 
 - Balestriero et al. (2023), "A Cookbook of Self-Supervised Learning"
 - LeCun & Misra, "Self-supervised learning: the dark matter of intelligence" (Meta AI blog, 2021)
 - Chen et al. (2020) SimCLR; He et al. (2022) MAE; Radford et al. (2021) CLIP
+
+## References
+
+- Chen, Kornblith, Norouzi & Hinton (2020), "A simple framework for contrastive learning of visual representations", ICML, arXiv:2002.05709 — SimCLR, the reference contrastive framework for images.
+- Devlin et al. (2019), "BERT: pre-training of deep bidirectional transformers for language understanding", NAACL, arXiv:1810.04805 — The masked-language pre-training method that made self-supervision standard in NLP.
+- Grill et al. (2020), "Bootstrap your own latent", NeurIPS, arXiv:2006.07733 — BYOL, self-supervised learning without negative pairs.
+- Bengio, Courville & Vincent (2013), "Representation learning: a review and new perspectives", *IEEE TPAMI* 35(8), arXiv:1206.5538 — Survey that frames self-supervised learning among representation-learning methods.
+- Radford et al. (2021), "Learning transferable visual models from natural language supervision", ICML, arXiv:2103.00020 — CLIP, self-supervision from image–text pairs at web scale.
