@@ -54,7 +54,6 @@
             : (chinese ? '詞元 B 啟動 E2 與 E4，輸出匯入加權合併節點。' : 'Token B activates E2 and E4, feeding a weighted merge.'))
           : originalAlt;
         toggle.textContent = paused ? (chinese ? '▶ 播放動畫' : '▶ Play animation') : (chinese ? 'Ⅱ 暫停動畫' : 'Ⅱ Pause animation');
-        toggle.setAttribute('aria-pressed', String(paused));
         toggle.setAttribute('aria-label', paused ? (chinese ? '播放概念動畫' : 'Play concept animation') : (chinese ? '暫停概念動畫' : 'Pause concept animation'));
         if (step) {
           step.textContent = paused
