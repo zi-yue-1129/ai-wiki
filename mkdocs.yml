@@ -652,6 +652,14 @@ plugins:
             Sparse Autoencoders and Feature Dictionaries: 稀疏自編碼器與特徵字典
             Algorithmic Auditing and Impact Assessment: 演算法稽核與影響評估
             "AI, Elections and Democracy": AI、選舉與民主
+            Calculus and Optimisation Foundations: 微積分與最佳化基礎
+            Gradient Descent: 梯度下降
+            "Newton's Method": 牛頓法
+            Lagrange Multipliers and KKT: 拉格朗日乘數與 KKT
+            "Sleep, Replay and Memory Consolidation": 睡眠、重播與記憶鞏固
+            Hippocampal Replay: 海馬迴重播
+            Targeted Memory Reactivation: 目標式記憶再活化
+            "Conferences & Journals": 會議與期刊
 
 markdown_extensions:
   - abbr
@@ -716,6 +724,11 @@ nav:
               - Truncated SVD: theory/math/linear-algebra/truncated-svd/index.md
               - Principal Component Analysis: theory/math/linear-algebra/pca/index.md
               - Randomized SVD: theory/math/linear-algebra/randomized-svd/index.md
+          - Calculus and Optimisation Foundations:
+              - theory/math/calculus/index.md
+              - Gradient Descent: theory/math/calculus/gradient-descent/index.md
+              - "Newton's Method": theory/math/calculus/newton-method/index.md
+              - Lagrange Multipliers and KKT: theory/math/calculus/lagrange-multipliers/index.md
       - Information Theory: theory/information-theory/index.md
       - Machine Learning:
           - theory/machine-learning/index.md
@@ -1182,6 +1195,10 @@ nav:
           - Cerebellar Supervised Learning: brain-mind/motor-control/marr-albus-ito/index.md
           - Optimal Feedback Control: brain-mind/motor-control/todorov-jordan-2002/index.md
           - Motor Cortex Population Dynamics: brain-mind/motor-control/churchland-2012/index.md
+      - "Sleep, Replay and Memory Consolidation":
+          - brain-mind/sleep-and-consolidation/index.md
+          - Hippocampal Replay: brain-mind/sleep-and-consolidation/hippocampal-replay/index.md
+          - Targeted Memory Reactivation: brain-mind/sleep-and-consolidation/targeted-memory-reactivation/index.md
   - Applications:
       - applications/index.md
       - Healthcare: applications/healthcare/index.md
@@ -1375,3 +1392,4 @@ nav:
       - Contributing: reference/contributing/index.md
       - Roadmap & Coverage: reference/roadmap/index.md
       - Style Guide: reference/style-guide/index.md
+      - "Conferences & Journals": reference/venues/index.md
