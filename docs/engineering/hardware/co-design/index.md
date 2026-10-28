@@ -49,16 +49,17 @@ Changing the number format changes the bytes term directly: storing weights in h
 
 ## Key methods
 
-Two landmark levers show the range of what co-design can change.
+Three landmark levers show the range of what co-design can change.
 
 - [FlashAttention](../../../theory/models/transformer/attention-variants/flash-attention/index.md) (Dao et al., 2022): a kernel-level change that keeps attention's intermediate results on chip, with the same exact output.
 - [Mixed-precision training](mixed-precision.md) (Micikevicius et al., 2017): a number-format change that reduces the memory used in training by nearly two times, with master weights and loss scaling.
+- [FP8 formats](fp8.md) (Micikevicius et al., 2022): an 8-bit format pair, E4M3 and E5M2, that the paper reports can train models up to 175 billion parameters at close to 16-bit quality.
 
 ## Results
 
 Micikevicius et al. (2017) report that mixed-precision training reduces the memory consumption of deep learning models by nearly 2×, across convolutional, recurrent and generative adversarial networks. The method keeps a single-precision copy of the weights and scales the loss.
 
-Micikevicius et al. (2022) propose two 8-bit floating-point encodings, E4M3 and E5M2. On models up to 175 billion parameters, they report result quality effectively matching 16-bit training, with the hyperparameters left unchanged.
+Micikevicius et al. (2022) propose two [8-bit floating-point encodings](fp8.md), E4M3 and E5M2. On models up to 175 billion parameters, they report result quality effectively matching 16-bit training, with the hyperparameters left unchanged.
 
 Krishnamoorthi (2018) reports that post-training 8-bit quantisation with per-channel weights keeps classification accuracy within 2% of floating point for a wide variety of CNN architectures. It reports speed-ups of 2 to 3 times on CPUs, and up to 10 times on specialised processors with fixed-point SIMD.
 
