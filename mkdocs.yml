@@ -266,7 +266,13 @@ nav:
               - Inverse Reinforcement Learning: foundations/paradigms/imitation/inverse-reinforcement-learning/index.md
               - Adversarial Imitation: foundations/paradigms/imitation/adversarial-imitation/index.md
               - Imitation in Foundation Models: foundations/paradigms/imitation/imitation-in-foundation-models/index.md
-          - Transfer Learning & Domain Adaptation: foundations/paradigms/transfer/index.md
+          - Transfer Learning & Domain Adaptation:
+              - foundations/paradigms/transfer/index.md
+              - Fine-tuning & Adaptation: foundations/paradigms/transfer/fine-tuning-and-adaptation/index.md
+              - Domain Adaptation: foundations/paradigms/transfer/domain-adaptation/index.md
+              - Multi-task Learning: foundations/paradigms/transfer/multi-task-learning/index.md
+              - Sim-to-Real Transfer: foundations/paradigms/transfer/sim-to-real/index.md
+              - Transfer Theory: foundations/paradigms/transfer/transfer-theory/index.md
           - Meta-Learning & Few-Shot Learning: foundations/paradigms/meta-learning/index.md
           - Continual Learning: foundations/paradigms/continual/index.md
           - Active Learning: foundations/paradigms/active/index.md
