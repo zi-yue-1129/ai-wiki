@@ -463,6 +463,12 @@ plugins:
             Graph Neural Networks: 圖神經網路
             AI Agents: AI 代理人
             World Models & Embodied AI: 世界模型與具身智慧
+            Action Controllability: 動作可控性
+            Dreamer: Dreamer
+            DINO-WM: DINO-WM
+            V-JEPA 2: V-JEPA 2
+            Genie: Genie
+            LAPO: LAPO
             Brain & Mind: 腦與心智
             Neuroscience Basics: 神經科學基礎
             Computational Neuroscience: 計算神經科學
@@ -978,7 +984,14 @@ nav:
                   - GAT: theory/models/gnn/message-passing/gat/index.md
                   - GIN: theory/models/gnn/message-passing/gin/index.md
           - AI Agents: theory/models/agents/index.md
-          - World Models & Embodied AI: theory/models/world-models/index.md
+          - World Models & Embodied AI:
+              - theory/models/world-models/index.md
+              - Action Controllability: theory/models/world-models/action-controllability.md
+              - Dreamer: theory/models/world-models/dreamer.md
+              - DINO-WM: theory/models/world-models/dino-wm.md
+              - V-JEPA 2: theory/models/world-models/v-jepa-2.md
+              - Genie: theory/models/world-models/genie.md
+              - LAPO: theory/models/world-models/lapo.md
   - Brain & Mind:
       - brain-mind/index.md
       - Neuroscience Basics:

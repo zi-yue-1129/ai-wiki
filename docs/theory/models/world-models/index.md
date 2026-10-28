@@ -23,6 +23,19 @@ The idea comes from psychology: Craik (1943) proposed the mind builds "small-sca
 | Driving world models | GAIA and others | Generate driving scenarios for training and testing |
 | LLMs as implicit world models | Othello-GPT | A model trained only on move sequences developed an internal board-state representation (Li et al., 2023) |
 
+## Key methods and sub-topics
+
+Each method has its own page with the detail. This overview only compares them.
+
+| Page | What separates it |
+|---|---|
+| [Action controllability](action-controllability.md) | Why models can ignore the action input, the shortcuts behind it, and the remedies |
+| [Dreamer](dreamer.md) | Reinforcement learning by imagining trajectories inside a latent model, from DreamerV1 to DreamerV3 |
+| [DINO-WM](dino-wm.md) | A predictor on frozen DINOv2 patch features, used for zero-shot planning |
+| [V-JEPA 2](v-jepa-2.md) | Video pre-training in representation space, then action post-training on robot video |
+| [Genie](genie.md) | A generative world that the user controls through latent actions learned without labels |
+| [LAPO](lapo.md) | Latent actions learned from action-free video, with a quantised bottleneck against copying |
+
 ## Embodied AI
 
 Intelligence arises not only in a brain but in **the interaction of body and environment**.
