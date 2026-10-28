@@ -43,7 +43,7 @@ The abstract of Shi et al. (2024) reports that Min-K% Prob achieves a 7.4% impro
 
 ## Limitations
 
-- **Benchmark dependence.** The reported gain is on WikiMIA. The paper's evaluation does not show how the method behaves on code or other text types.
+- **Benchmark dependence.** The 7.4% gain is on WikiMIA. The paper's separate case study on excerpts from copyrighted books in Books3 (Section 5, AUC 0.88) is a different setting, and neither result shows how the method behaves on code.
 - **Choice of K.** The paper sets k = 20 after a sweep from 10 to 50 on a validation set. This page does not show that 20 is best for other corpora.
 - **Decision direction.** Figure 1 says a high average log-likelihood indicates pretraining data, but Algorithm 1 is written the other way. Check the sign convention before reusing a threshold.
 - **Ranking, not proof.** The score shows that a text is probably in the training data. It does not show exactly which documents were used, so it is a statistical signal, not a definitive check.
