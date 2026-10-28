@@ -352,6 +352,9 @@ plugins:
             DDIM: DDIM
             Latent Diffusion: 潛在擴散
             DiT: DiT 擴散 Transformer
+            Architecture Families: 架構家族
+            BERT: BERT
+            T5: T5
             Vision Transformer (ViT): 視覺 Transformer（ViT）
             DeiT: DeiT
             Swin Transformer: Swin Transformer
@@ -938,6 +941,10 @@ nav:
                   - Sequence to Sequence: theory/models/rnn/sequence-modes/sequence-to-sequence/index.md
           - Transformers & Attention:
               - theory/models/transformer/index.md
+              - Architecture Families:
+                  - theory/models/transformer/architecture-families/index.md
+                  - BERT: theory/models/transformer/architecture-families/bert/index.md
+                  - T5: theory/models/transformer/architecture-families/t5/index.md
               - Attention Is All You Need: theory/models/transformer/attention-is-all-you-need/index.md
               - Additive Attention (Bahdanau): theory/models/transformer/bahdanau-attention/index.md
               - Vision Transformer (ViT):

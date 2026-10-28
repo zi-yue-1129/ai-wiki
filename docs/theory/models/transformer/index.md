@@ -51,6 +51,8 @@ A common *pre-normalization* Transformer block wraps self-attention in a normali
 | Encoder–decoder | Bidirectional encoder + cross-attention | Original Transformer, T5, Whisper | Translation, summarisation, speech recognition |
 | Decoder-only | Causal (past only) | GPT, Llama, Claude, Gemini, etc. | Generation, general-purpose LLMs |
 
+The [architecture families](architecture-families/index.md) page compares the three shapes and their pre-training objectives. [BERT](architecture-families/bert/index.md) and [T5](architecture-families/t5/index.md) have their own pages.
+
 ## Positional information
 
 Attention is order-agnostic, so position must be injected:
