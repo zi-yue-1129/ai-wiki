@@ -71,4 +71,4 @@ Dwork 等人（2006）提供形式化的保證與校準雜訊的方法，而非�
 
 ### 綜述與教科書
 
-- Dwork, C. & Roth, A. (2014). *The Algorithmic Foundations of Differential Privacy*. Foundations and Trends in Theoretical Computer Science, 9(3–4). https://doi.org/10.1561/0400000042 — 標準教科書，完整收錄機制與證明。
+- Dwork, C. & Roth, A. (2014). *The Algorithmic Foundations of Differential Privacy*. Foundations and Trends in Theoretical Computer Science, 9(3–4). https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf — 標準教科書，完整收錄機制與證明。
