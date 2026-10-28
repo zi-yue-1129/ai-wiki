@@ -53,7 +53,7 @@ The paper compares DPO with PPO-based RLHF on several tasks:
 
 - Parent topic: [Learning from Human Feedback](../index.md), and the wider [Reinforcement Learning](../../index.md) overview.
 - DPO removes the explicit reward model of [Reward modelling](../reward-modelling/index.md) and uses the same Bradley–Terry comparison model.
-- It replaces the policy-optimisation step of [InstructGPT](../../../models/llm/instructgpt-rlhf/index.md), which uses [Proximal Policy Optimisation](../../proximal-policy-optimisation/index.md).
+- It replaces the policy-optimisation step of [InstructGPT](../../../../models/llm/instructgpt-rlhf/index.md), which uses [Proximal Policy Optimisation](../../proximal-policy-optimisation/index.md).
 
 ## Applications
 

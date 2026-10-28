@@ -43,7 +43,7 @@ translation_reviewed: 2026-10-28
 
 - 母頁：[從人類回饋學習](../index.md)，以及更大範圍的[強化學習](../../index.md)總覽。
 - 策略步驟通常使用[近端策略最佳化](../../proximal-policy-optimisation/index.md)。
-- 語言模型版本是 [InstructGPT](../../../models/llm/instructgpt-rlhf/index.md) 的第二步。
+- 語言模型版本是 [InstructGPT](../../../../models/llm/instructgpt-rlhf/index.md) 的第二步。
 - [直接偏好最佳化](../dpo/index.md)略去明確的獎勵模型，直接以相同的比較擬合策略。
 
 ## 應用

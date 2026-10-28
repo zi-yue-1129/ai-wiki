@@ -49,7 +49,7 @@ translation_reviewed: 2026-10-28
 
 - 母頁：[從人類回饋學習](../index.md)，以及更大範圍的[強化學習](../../index.md)總覽。
 - DPO 去掉了[獎勵建模](../reward-modelling/index.md)中明確的獎勵模型，但使用相同的 Bradley–Terry 比較模型。
-- 它取代了 [InstructGPT](../../../models/llm/instructgpt-rlhf/index.md) 的策略最佳化步驟，後者使用[近端策略最佳化](../../proximal-policy-optimisation/index.md)。
+- 它取代了 [InstructGPT](../../../../models/llm/instructgpt-rlhf/index.md) 的策略最佳化步驟，後者使用[近端策略最佳化](../../proximal-policy-optimisation/index.md)。
 
 ## 應用
 

@@ -48,7 +48,7 @@ In the text setting, the policy is also penalised for a KL divergence from the s
 
 - Parent topic: [Learning from Human Feedback](../index.md), and the wider [Reinforcement Learning](../../index.md) overview.
 - The policy step usually uses [Proximal Policy Optimisation](../../proximal-policy-optimisation/index.md).
-- The language-model version is the second step of [InstructGPT](../../../models/llm/instructgpt-rlhf/index.md).
+- The language-model version is the second step of [InstructGPT](../../../../models/llm/instructgpt-rlhf/index.md).
 - [Direct preference optimisation](../dpo/index.md) skips the explicit reward model and fits the policy to the same comparisons.
 
 ## Applications
