@@ -109,7 +109,7 @@ On the machine-learning side, the definitions are the target of fairness toolkit
 
 ### Surveys and textbooks
 
-- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — Surveys and compares the main fairness definitions on one running example.
+- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — Surveys fairness definitions, as its title states.
 - Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — Free textbook covering these definitions, their trade-offs and their social context.
 
 ## Further learning

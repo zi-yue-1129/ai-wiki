@@ -110,7 +110,7 @@ Corbett-Davies 等人（2017）研究對風險導向決策規則施加公平性�
 
 ### 綜述與教科書
 
-- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — 以同一個範例綜述並比較主要的公平性定義。
+- Verma, S. & Rubin, J. (2018). Fairness Definitions Explained. *Proceedings of the International Workshop on Software Fairness*. https://doi.org/10.1145/3194770.3194776 — 綜述公平性定義，如其標題所示。
 - Barocas, S., Hardt, M. & Narayanan, A. (2023). *Fairness and Machine Learning: Limitations and Opportunities*. MIT Press. https://fairmlbook.org/ — 免費教科書，涵蓋這些定義、其取捨與社會脈絡。
 
 ## 延伸學習

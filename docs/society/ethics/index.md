@@ -86,7 +86,7 @@ Documentation and audit practice is covered in [Algorithmic auditing and impact 
 - Buolamwini, J. & Gebru, T. (2018). Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. *Proceedings of the 1st Conference on Fairness, Accountability and Transparency (PMLR 81)*. https://proceedings.mlr.press/v81/buolamwini18a.html — Audits commercial gender classifiers and finds much higher error rates for darker-skinned women.
 - Obermeyer, Z. et al. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. *Science*. https://doi.org/10.1126/science.aax2342 — Shows a health-risk algorithm underestimating the needs of Black patients because it used cost as a proxy for health.
 - Mitchell, M. et al. (2019). Model Cards for Model Reporting. *Proceedings of the Conference on Fairness, Accountability, and Transparency*. https://arxiv.org/abs/1810.03993 — Proposes a standard documentation template covering intended use, evaluation across groups and known limitations.
-- Bender, E. M. et al. (2021). On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? *Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency*. https://doi.org/10.1145/3442188.3445922 — Discusses the environmental cost, documentation debt and bias risks of ever-larger language models.
+- Bender, E. M. et al. (2021). On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? *Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency*. https://doi.org/10.1145/3442188.3445922 — Discusses the risks of ever-larger language models, as its title states.
 
 ## Further learning
 
