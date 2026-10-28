@@ -265,10 +265,6 @@ def reference_problems(path: Path) -> list[str]:
     for entry in entries:
         if not IDENTIFIER.search(entry):
             problems.append(f"docs/{rel}: reference without a DOI, arXiv id or URL: {entry.strip()[:70]}")
-        elif is_informal(entry):
-            problems.append(
-                f"docs/{rel}: reference is a blog, video or aggregator; move it to Further learning: {entry.strip()[:70]}"
-            )
         _, sep, note = entry.partition(ANNOTATION_SEP)
         if not sep or len(note.split()) < ANNOTATION_MIN_WORDS:
             problems.append(
@@ -312,17 +308,36 @@ def source_entries(body: str, headings: re.Pattern) -> list[str]:
     return entries
 
 
-def further_problems(path: Path) -> list[str]:
-    """Further reading and Further learning entries must carry a link, as References entries do."""
+def base_lines(rel: str) -> set[str]:
+    """Stripped lines of a page on the base branch. Entries already there are backlog, not this change."""
+    base = os.environ.get("GITHUB_BASE_REF", "main")
+    out = subprocess.run(
+        ["git", "show", f"origin/{base}:docs/{rel}"], cwd=ROOT, capture_output=True, text=True,
+    )
+    return {line.strip() for line in out.stdout.splitlines()} if out.returncode == 0 else set()
+
+
+def source_problems(path: Path, known: set[str]) -> list[str]:
+    """Source entries that must carry a link, and informal sources listed under References.
+
+    Entries whose text is in `known` (already on the base branch) are skipped, so an edit
+    is held to the same rules as new text without failing on the existing backlog.
+    """
     meta, body = read(path)
     rel = path.relative_to(DOCS).as_posix()
     if meta.get("references") == "not-required":
         return []
-    return [
+    problems = [
         f"docs/{rel}: further-reading entry without a DOI, arXiv id or URL: {entry[:70]}"
         for entry in source_entries(body, LINKED_HEADING)
-        if not IDENTIFIER.search(entry)
+        if not IDENTIFIER.search(entry) and entry not in known
     ]
+    problems += [
+        f"docs/{rel}: reference is a blog, video or aggregator; move it to Further learning: {entry[:70]}"
+        for entry in source_entries(body, REFERENCE_SECTION)
+        if IDENTIFIER.search(entry) and is_informal(entry) and entry not in known
+    ]
+    return problems
 
 
 def source_findings(path: Path) -> list[str]:
@@ -465,10 +480,13 @@ def check(pages: list[Page]) -> int:
     for p in pages:
         if p.status == "stub":
             continue
-        issues = reference_problems(DOCS / p.path) + further_problems(DOCS / p.path)
+        rel = p.path.as_posix()
+        on_changed = changed is not None and rel in changed
+        known = base_lines(rel) if on_changed else set()
+        issues = reference_problems(DOCS / p.path) + source_problems(DOCS / p.path, known)
         if not issues:
             continue
-        if changed is not None and p.path.as_posix() in changed:
+        if on_changed:
             problems.extend(issues)
         else:
             backlog += 1
