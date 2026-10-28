@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-10-28
 tags:
   - class imbalance
@@ -38,11 +38,11 @@ As $\beta \to 1$, the effective number approaches the raw count, so the weights 
 
 ## Results
 
-Cui et al. evaluate the method on long-tailed splits of several image benchmarks and report that the best value of $\beta$ depends on the data set. The exact numbers are in the paper and should be checked there before reuse.
+Cui et al. evaluate on artificially long-tailed CIFAR splits and on the real-world iNaturalist 2017 and 2018 datasets, and check the method on ImageNet (ILSVRC 2012) as a set that is not long-tailed. They report that the best $\beta$ depends on the data set, and that data sets with different imbalance factors tend to have different and smaller optimal values. On CIFAR-100, only small values of $\beta$ improve performance, while larger values degrade it. The exact numbers are in the paper's tables.
 
 ## Limitations
 
-- **The tuning parameter.** Performance depends on $\beta$, and the paper shows that large $\beta$ can hurt on some data.
+- **The tuning parameter.** Performance depends on $\beta$. On CIFAR-100 the paper finds that larger values degrade performance.
 - **Reweighting from the start.** Reweighting from the first epoch can under-fit tail classes. Cao et al. (2019) address this by deferring the reweighting to a later stage of training.
 - **Scope.** The method is for classification. Its extension to regression targets is different, see [logit adjustment](logit-adjustment.md) for a post-hoc alternative.
 
