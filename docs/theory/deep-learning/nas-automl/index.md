@@ -46,6 +46,9 @@ Methods differ mainly in how they make this loop cheaper. Some keep a reinforcem
 
 - [DARTS](darts.md): a continuous relaxation of the search space, optimised by gradient descent.
 - [Efficient Neural Architecture Search (ENAS)](efficient-neural-architecture-search.md): a controller that samples subgraphs of one shared network.
+- [Regularized evolution](regularized-evolution.md): aging evolution, which removes the oldest architecture each step, and matches or exceeds reinforcement-learning search under equal compute.
+- [Large-scale evolution](large-scale-evolution.md): simple evolution with novel mutation operators, starting from trivial networks, run at very large scale.
+- [MnasNet](mnasnet.md): reinforcement-learning search whose reward combines accuracy with latency measured on a phone.
 
 ## Variants
 

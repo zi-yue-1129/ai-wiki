@@ -32,6 +32,9 @@ Elsken、Metzen 與 Hutter（2019）把 NAS 描述為三個部分：搜尋空間
 
 - [DARTS](darts.md)：搜尋空間的連續放寬，以梯度下降最佳化。
 - [高效神經架構搜尋（ENAS）](efficient-neural-architecture-search.md)：由控制器在一個共享網路的子圖中取樣。
+- [正則化演化](regularized-evolution.md)：每一步移除最老架構的老化演化，在相同運算下與強化學習搜尋相當或更好。
+- [大規模演化](large-scale-evolution.md)：以新穎突變運算子、從簡單網路開始、在極大規模上執行的簡單演化。
+- [MnasNet](mnasnet.md)：獎勵結合準確率與手機實測延遲的強化學習搜尋。
 
 ## 變體
 

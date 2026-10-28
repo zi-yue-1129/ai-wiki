@@ -40,7 +40,7 @@ Given a search space and a fixed budget, which settings should be trained, and h
 
 Most methods repeat one loop. They propose a setting, train it with some budget, record the validation score, and use the new score to decide the next proposal. The methods differ in how they make the proposal and how much of each run they keep.
 
-- **Model-free sampling** draws settings at random or on a grid. Random search is the standard baseline.
+- **Model-free sampling** draws settings at random or on a grid. [Random search](random-search.md) is the standard baseline.
 - **Model-based search** fits a surrogate to the observed scores and proposes the setting with the best expected gain. The [Bayesian optimisation](bayesian-optimisation.md) page covers this family.
 - **Bandit and early-stopping methods** treat the budget as a resource. Many settings are started and the poor ones are dropped early. The [Hyperband](hyperband.md) page covers this family.
 - **Population-based training** runs many settings in parallel and copies the weights and settings of the best runs into the weaker ones during training. See [Population-based training](../../paradigms/reinforcement-learning/multi-agent-rl/population-based-training/index.md).
@@ -50,6 +50,8 @@ Most methods repeat one loop. They propose a setting, train it with some budget,
 
 This section gives the comparison and links down. Each method has its own page.
 
+- [Random search](random-search.md): independent sampling from a distribution over the space, keeping the best trial. The standard baseline.
+- [Grid search](grid-search.md): a full lattice of candidate values. Simple and reproducible, but its cost grows exponentially with the number of hyperparameters.
 - [Bayesian optimisation](bayesian-optimisation.md): a Gaussian-process surrogate and an acquisition function choose each next setting. Best when runs are expensive and the space is small.
 - [Hyperband](hyperband.md): successive halving across several budgets, which starts many settings and gives more budget only to the best. Best when early scores predict final scores.
 - [Population-based training](../../paradigms/reinforcement-learning/multi-agent-rl/population-based-training/index.md): a population adapts settings during a single training run.
