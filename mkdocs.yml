@@ -560,6 +560,9 @@ plugins:
             SentencePiece and the Unigram Model: SentencePiece 與 Unigram 模型
             Architecture Families: 架構家族
             Agent Engineering: 代理人工程
+            Fairness Definitions and Impossibility Results: 公平性定義與不可能性結果
+            AI Literacy and Public Understanding: AI 素養與大眾理解
+            "Feature Attribution: SHAP, LIME and Saliency": 特徵歸因：SHAP、LIME 與顯著性
 
 markdown_extensions:
   - abbr
@@ -1081,7 +1084,10 @@ nav:
       - Interpretability:
           - society/interpretability/index.md
           - Mechanistic Interpretability and Circuits: society/interpretability/mechanistic-interpretability.md
-      - Ethics & Fairness: society/ethics/index.md
+          - Feature Attribution: SHAP, LIME and Saliency: society/interpretability/feature-attribution.md
+      - Ethics & Fairness:
+          - society/ethics/index.md
+          - Fairness Definitions and Impossibility Results: society/ethics/fairness-definitions.md
       - Privacy & Data Protection:
           - society/privacy/index.md
           - Differential privacy: society/privacy/differential-privacy.md
@@ -1111,6 +1117,7 @@ nav:
           - society/human-ai-interaction/index.md
           - Trust in automation: society/human-ai-interaction/trust-in-automation/index.md
           - Cognitive forcing functions: society/human-ai-interaction/cognitive-forcing/index.md
+          - AI Literacy and Public Understanding: society/human-ai-interaction/ai-literacy.md
   - Reference:
       - reference/index.md
       - Glossary: reference/glossary/index.md
