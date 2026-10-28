@@ -39,7 +39,7 @@ Here e_ij is the attention score between nodes i and j, a is a shared attention 
 
 ## Results
 
-On Cora in the transductive setting, the paper reports test accuracy of 83.0% ± 0.7% (GCN 81.5%). On Citeseer it reports 72.5% ± 0.7% (GCN 70.3%). On Pubmed it matched GCN at 79.0%. On the inductive PPI dataset the micro-F1 was 0.973, against 0.768 for the best tuned GraphSAGE.
+On Cora in the transductive setting, the paper reports test accuracy of 83.0% ± 0.7% (GCN 81.5%). On Citeseer it reports 72.5% ± 0.7% (GCN 70.3%). On Pubmed it matched GCN at 79.0%. On the inductive PPI dataset the micro-F1 was 0.973, against 0.768 for GraphSAGE in the comparison table that the paper reports.
 
 ## Limitations
 

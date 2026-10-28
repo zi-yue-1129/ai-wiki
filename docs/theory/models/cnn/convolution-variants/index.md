@@ -46,6 +46,14 @@ A regular kernel samples a fixed grid around each position. Deformable convoluti
 
 Transposed convolutions are used to upsample feature maps in decoders, for segmentation and generation. A common problem is the checkerboard pattern that appears when the stride does not divide the kernel size evenly. Resize-then-convolve designs are often used to avoid it.
 
+## Key methods
+
+| Method | Year | Core idea | Page |
+|---|---|---|---|
+| Dilated convolution | 2015 | Spaced kernel taps enlarge the receptive field without extra parameters | [Dilated convolution](dilated-convolution/index.md) |
+| Depthwise separable convolution (Xception) | 2016 | A spatial filter per channel, then 1×1 channel mixing | [Depthwise separable convolution](depthwise-separable-convolution/index.md) |
+| Deformable convolution | 2017 | Learned sampling offsets let the kernel follow object shape | [Deformable convolution](deformable-convolution/index.md) |
+
 ## Trade-offs
 
 - **Receptive field versus resolution.** Dilation and downsampling both enlarge the receptive field, but downsampling loses spatial detail that dilation keeps.

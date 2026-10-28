@@ -50,6 +50,7 @@ Xu et al. (2018) asked which aggregation functions can distinguish graphs as wel
 | Graph convolutional networks (GCN) | 2016 | Degree-normalised neighbour averaging, a first-order spectral filter | [GCN](gcn/index.md) |
 | Graph attention networks (GAT) | 2017 | Learned attention weights over neighbours | [GAT](gat/index.md) |
 | Graph isomorphism networks (GIN) | 2018 | Sum aggregation with an MLP update, as expressive as the WL test | [GIN](gin/index.md) |
+| GraphSAGE | 2017 | Samples a fixed number of neighbours and aggregates them, so it works on unseen nodes | [GraphSAGE](graphsage/index.md) |
 
 ## Trade-offs
 

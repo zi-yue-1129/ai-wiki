@@ -40,6 +40,7 @@ Several language models interleave selective SSM blocks with attention blocks, k
 | Method | Year | Core idea | Page |
 |---|---|---|---|
 | Mamba | 2023 | Input-dependent parameters with a hardware-aware parallel scan | [Mamba](mamba/index.md) |
+| Mamba-2 | 2024 | Structured state-space duality, linking selective SSMs to attention | [Mamba-2](mamba-2/index.md) |
 
 ## Trade-offs
 

@@ -39,7 +39,7 @@ e_{ij} = a(\mathbf{W}\vec{h}_i,\; \mathbf{W}\vec{h}_j), \qquad
 
 ## 結果
 
-在 Cora 的直推式（transductive）設定下，論文報告的測試準確率為 83.0% ± 0.7%（GCN 為 81.5%）。在 Citeseer 上為 72.5% ± 0.7%（GCN 為 70.3%）。在 Pubmed 上與 GCN 持平，為 79.0%。在歸納式（inductive）的 PPI 資料集上，micro-F1 為 0.973，而調校後最佳的 GraphSAGE 為 0.768。
+在 Cora 的直推式（transductive）設定下，論文報告的測試準確率為 83.0% ± 0.7%（GCN 為 81.5%）。在 Citeseer 上為 72.5% ± 0.7%（GCN 為 70.3%）。在 Pubmed 上與 GCN 持平，為 79.0%。在歸納式（inductive）的 PPI 資料集上，micro-F1 為 0.973，而論文比較表中列出的 GraphSAGE 為 0.768。
 
 ## 限制
 

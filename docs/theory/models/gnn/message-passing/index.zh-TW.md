@@ -50,6 +50,7 @@ Xu 等人（2018）探討哪些聚合函數能像 Weisfeiler–Leman 檢驗一�
 | 圖卷積網路（GCN） | 2016 | 依度數正規化的鄰居平均，是頻譜濾波的一階近似 | [GCN](gcn/index.md) |
 | 圖注意力網路（GAT） | 2017 | 對鄰居學習注意力權重 | [GAT](gat/index.md) |
 | 圖同構網路（GIN） | 2018 | 求和聚合加上 MLP 更新，表達力等同 WL 檢驗 | [GIN](gin/index.md) |
+| GraphSAGE | 2017 | 採樣固定數量的鄰居再聚合，可用於未見過的節點 | [GraphSAGE](graphsage/index.md) |
 
 ## 取捨
 

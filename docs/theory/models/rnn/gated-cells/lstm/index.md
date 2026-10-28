@@ -37,7 +37,7 @@ where both gates are logistic sigmoids. Learning uses a truncated gradient, and 
 
 ## Results
 
-On the embedded Reber grammar, the LSTM always learned the task, with two failures in 150 trials, and the best configuration needed 8,440 sequence presentations. On a task with a 100-step delay, the LSTM succeeded in all trials after 5,040 sequences, while RTRL and BPTT did not succeed within 5 million.
+On the embedded Reber grammar, the LSTM always learned the task, with two failures in 150 trials, and the best configuration needed 8,440 sequence presentations. On a task with a 100-step delay, the LSTM succeeded in all trials after 5,040 sequences, while RTRL and BPTT did not succeed within 5 million sequence presentations.
 
 ## Limitations
 

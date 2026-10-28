@@ -45,6 +45,10 @@ Later work showed that a diagonal state matrix, with complex entries, captures m
 | Method | Year | Core idea | Page |
 |---|---|---|---|
 | S4 | 2021 | A structured state matrix whose convolution kernel can be computed quickly | [S4](s4/index.md) |
+| HiPPO | 2020 | Projects the input history onto polynomials to initialise the state matrix | [HiPPO](hippo/index.md) |
+| S4D | 2022 | Diagonal complex state matrices with careful initialisation | [S4D](s4d/index.md) |
+| S5 | 2022 | A diagonal state-space layer with a parallel scan | [S5](s5/index.md) |
+| Linear recurrent units | 2023 | Careful initialisation of diagonal linear recurrences | [Linear recurrent units](linear-recurrent-units/index.md) |
 
 ## Trade-offs
 

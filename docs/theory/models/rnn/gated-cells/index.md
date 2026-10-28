@@ -45,6 +45,7 @@ The GRU merges the cell and hidden states and uses two gates: an update gate tha
 | Method | Year | Core idea | Page |
 |---|---|---|---|
 | Long short-term memory (LSTM) | 1997 | Memory cell updated by addition, with gates that control writing and reading | [LSTM](lstm/index.md) |
+| Gated recurrent unit (GRU) | 2014 | A two-gate cell with no separate memory, cheaper than the LSTM | [GRU](gru/index.md) |
 
 ## Trade-offs
 
