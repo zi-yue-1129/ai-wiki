@@ -9,6 +9,8 @@ related:
 
 Generative models learn the data distribution \(p(x)\) and can **produce new samples**; discriminative models learn \(p(y\mid x)\).
 
+Generative modelling is an **approach**, not an architecture. Any family in [Models](../models/index.md), such as convolutional, recurrent, Transformer or state-space networks, can be trained as a generative model. The families below are generative algorithms that differ in how they represent the distribution and how they sample from it.
+
 ## Families
 
 | Family | Core idea | Pros | Cons | Examples |
@@ -23,7 +25,7 @@ Generative models learn the data distribution \(p(x)\) and can **produce new sam
 
 ## Diffusion models
 
-![Animated illustration of diffusion sampling: an initially noisy grid gradually becomes a structured sample as denoising progresses.](../../../assets/concept-animations/diffusion-denoising.gif)
+![Animated illustration of diffusion sampling: an initially noisy grid gradually becomes a structured sample as denoising progresses.](../../assets/concept-animations/diffusion-denoising.gif)
 
 *Animated concept diagram · Original illustration, CC BY-SA 4.0.*
 
@@ -48,8 +50,8 @@ Key techniques:
 
 ## Where they are used
 
-- Images, video, 3D, music, speech (see [Multimodal Models](../multimodal/index.md), [Art & Creativity](../../../applications/creative/index.md))
-- Protein design (RFdiffusion), molecule and materials generation (see [Life Sciences](../../../applications/life-science/index.md))
+- Images, video, 3D, music, speech (see [Multimodal Models](../models/multimodal/index.md), [Art & Creativity](../../applications/creative/index.md))
+- Protein design (RFdiffusion), molecule and materials generation (see [Life Sciences](../../applications/life-science/index.md))
 - Weather (GenCast produces probabilistic forecasts with diffusion)
 - Robot policies (Diffusion Policy)
 - Data augmentation and synthetic data
@@ -59,7 +61,7 @@ Key techniques:
 - **Perception as inference with a generative model**: Helmholtz's "unconscious inference" and predictive coding hold that the brain uses an internal generative model to predict and explain its sensory input
 - **The Helmholtz machine and wake–sleep algorithm** (Hinton et al., 1995): generative-model training inspired by sleep
 - **Dreaming and imagination**: one hypothesis treats dreams as offline samples from the brain's generative model that aid generalisation (Hoel, 2021, "overfitted brain hypothesis")
-- **Reconstructing images from fMRI** with diffusion models (Takagi & Nishimoto, 2023) — see [Brain-Computer Interfaces](../../../brain-mind/bci/index.md)
+- **Reconstructing images from fMRI** with diffusion models (Takagi & Nishimoto, 2023) — see [Brain-Computer Interfaces](../../brain-mind/bci/index.md)
 
 ## Resources
 

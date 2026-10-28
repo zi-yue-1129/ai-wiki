@@ -175,8 +175,8 @@ plugins:
         'models/agents/index.zh-TW.md': 'theory/models/agents/index.zh-TW.md'
         'models/computer-vision/index.md': 'theory/models/computer-vision/index.md'
         'models/computer-vision/index.zh-TW.md': 'theory/models/computer-vision/index.zh-TW.md'
-        'models/generative/index.md': 'theory/models/generative/index.md'
-        'models/generative/index.zh-TW.md': 'theory/models/generative/index.zh-TW.md'
+        'models/generative/index.md': 'theory/generative/index.md'
+        'models/generative/index.zh-TW.md': 'theory/generative/index.zh-TW.md'
         'models/gnn/index.md': 'theory/models/gnn/index.md'
         'models/gnn/index.zh-TW.md': 'theory/models/gnn/index.zh-TW.md'
         'models/index.md': 'theory/models/index.md'
@@ -249,6 +249,17 @@ plugins:
             KV Cache: KV 快取
             Experience Replay: 經驗回放
             Exploration: 探索
+            Multilayer Perceptrons: 多層感知器
+            Convolutional Networks: 卷積網路
+            Convolution Variants: 卷積變體
+            Backbones & Scaling: 骨幹與縮放
+            Recurrent Networks: 循環網路
+            Gated Cells: 門控單元
+            Sequence Modes: 序列模式
+            State-Space Models: 狀態空間模型
+            Structured State Spaces: 結構化狀態空間
+            Selective State Spaces: 選擇性狀態空間
+            Message Passing: 訊息傳遞
             Large Language Models: 大型語言模型
             Generative Models: 生成模型
             Computer Vision: 電腦視覺
@@ -462,22 +473,37 @@ nav:
       - Probabilistic & Bayesian Methods: theory/probabilistic/index.md
       - Symbolic AI, Search & Planning: theory/symbolic-ai/index.md
       - Evolutionary & Swarm Intelligence: theory/evolutionary/index.md
+      - Generative Models: theory/generative/index.md
       - Models:
           - theory/models/index.md
+          - Multilayer Perceptrons: theory/models/mlp/index.md
+          - Convolutional Networks:
+              - theory/models/cnn/index.md
+              - Convolution Variants: theory/models/cnn/convolution-variants/index.md
+              - Backbones & Scaling: theory/models/cnn/backbones-and-scaling/index.md
+          - Recurrent Networks:
+              - theory/models/rnn/index.md
+              - Gated Cells: theory/models/rnn/gated-cells/index.md
+              - Sequence Modes: theory/models/rnn/sequence-modes/index.md
           - Transformers & Attention:
               - theory/models/transformer/index.md
               - Attention Variants: theory/models/transformer/attention-variants/index.md
               - Positional Encodings: theory/models/transformer/positional-encodings/index.md
               - KV Cache: theory/models/transformer/kv-cache/index.md
+          - State-Space Models:
+              - theory/models/ssm/index.md
+              - Structured State Spaces: theory/models/ssm/structured-state-spaces/index.md
+              - Selective State Spaces: theory/models/ssm/selective-state-spaces/index.md
           - Large Language Models:
               - theory/models/llm/index.md
               - Imitation in Foundation Models: theory/models/llm/imitation-in-foundation-models/index.md
-          - Generative Models: theory/models/generative/index.md
           - Computer Vision: theory/models/computer-vision/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
-          - Graph Neural Networks: theory/models/gnn/index.md
+          - Graph Neural Networks:
+              - theory/models/gnn/index.md
+              - Message Passing: theory/models/gnn/message-passing/index.md
           - AI Agents: theory/models/agents/index.md
           - World Models & Embodied AI: theory/models/world-models/index.md
   - Brain & Mind:

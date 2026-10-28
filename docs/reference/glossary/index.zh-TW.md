@@ -39,7 +39,7 @@ references: not-required  # lists and meta pages cite through their entries
 | 術語 | 中文 | 簡短定義 |
 |---|---|---|
 | Data augmentation | 資料增強 | 產生訓練資料的修改版本 |
-| Diffusion model | 擴散模型 | 學習去除雜訊的生成模型（[生成模型](../../theory/models/generative/index.md)） |
+| Diffusion model | 擴散模型 | 學習去除雜訊的生成模型（[生成模型](../../theory/generative/index.md)） |
 | Distillation | 知識蒸餾 | 訓練小模型模仿大模型 |
 | Distribution shift | 分布偏移 | 測試資料與訓練資料不同 |
 | Dopamine | 多巴胺 | 傳遞獎勵預測誤差的神經調節物質 |
