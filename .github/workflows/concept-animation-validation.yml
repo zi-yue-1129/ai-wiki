@@ -48,8 +48,11 @@ jobs:
         run: node scripts/test_concept_motion_chapters.cjs
       - name: Test MoCo FIFO and BYOL EMA simulators
         run: node scripts/test_self_supervised_labs.cjs
-      - name: Install Chromium for real interactive visual tests
+      - name: Install Chromium and Traditional Chinese fonts for visual tests
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+          fc-list :lang=zh-tw family | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
       - name: Chromium mobile/desktop playback, pause and geometry
