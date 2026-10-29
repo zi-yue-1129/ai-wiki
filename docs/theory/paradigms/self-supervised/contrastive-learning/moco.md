@@ -49,7 +49,7 @@ After each step, the newest keys are added to the queue and the oldest are remov
 
 ### Visual walkthrough: queued negatives and momentum updates
 
-![MoCo animation: query and positive-key encoding, contrast against the FIFO dictionary, gradient versus momentum updates, and queue replacement.](../../../../assets/concept-animations/moco-dictionary-cycle-still.svg)
+![MoCo static overview: query and positive-key encoding, contrast against the FIFO dictionary, gradient versus momentum updates, and queue replacement.](../../../../assets/concept-animations/moco-dictionary-cycle-still.svg)
 
 
 
