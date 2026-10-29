@@ -43,11 +43,11 @@ Supervised pretraining needs labels that are expensive to collect, and it biases
 
 ![DINOv2 animation: global and local crops, class-token distillation, masked patch matching, and EMA teacher updates without teacher gradients.](../../../../assets/concept-animations/dinov2-dual-objective-ema-motion.svg)
 
-[Static four-stage overview for GitHub](../../../../assets/concept-animations/dinov2-dual-objective-ema-still.svg)
+[Static GitHub overview](../../../../assets/concept-animations/dinov2-dual-objective-ema-still.svg)
 
-The four stages are **crops → CLS loss → patch loss → teacher EMA**. The student learns image-level agreement across views using the class-token objective, while masked student patches are trained to match the **unmasked teacher's patch targets** through the iBOT-style objective. **Loss gradients update the student, not the teacher**; the teacher's weights are updated using an exponential moving average of student weights. This diagram isolates the two objectives for teaching; real DINOv2 training also includes KoLeo regularisation, centering and additional implementation details. The grid, masking pattern and arrows are **schematic, not measured features or a faithful training batch**.
+The continuous process is **crops → CLS and patch objectives → student gradient → teacher EMA**. The student learns image-level agreement across views using the class-token objective, while masked student patches are trained to match the **unmasked teacher's patch targets** through the iBOT-style objective. **Loss gradients update the student, not the teacher**; the teacher's weights are updated using an exponential moving average of student weights. This diagram isolates the two objectives for teaching; real DINOv2 training also includes KoLeo regularisation, centering and additional implementation details. The grid, masking pattern and arrows are **schematic, not measured features or a faithful training batch**.
 
-On MkDocs, **Play/Pause** controls the eight-second loop. GitHub Markdown and reduced-motion settings use the linked static fallback. Original diagram **CC BY-SA 4.0**, based on Oquab et al. (2023) and the DINO/iBOT papers already in References.
+On MkDocs, **Play/Pause, Step (+0.7 s), timeline scrubbing and 0.5×/1×/2× speed** expose the 14-second process. Blue/teal particles carry views and teacher targets toward the objectives; a red signal travels backward to the student only. The illustrative student parameter changes from 0.2 to 0.8, while a teacher parameter initialized at 0.50 changes to 0.53 for one EMA update with momentum 0.9. These values are chosen to explain the lag, **not measured weights**. GitHub Markdown and reduced-motion settings retain the linked static overview. Original diagram **CC BY-SA 4.0**, based on Oquab et al. (2023) and the DINO/iBOT papers already in References.
 
 ## Key methods
 
