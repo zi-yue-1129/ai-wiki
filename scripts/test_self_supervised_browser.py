@@ -43,24 +43,31 @@ with sync_playwright() as p:
                                    b.x + b.width <= 641 && b.y + b.height <= 261;
                         });
                     }"""), (kind, width, reduced, "SVG text clipped")
-                    # All 15 operation starts must keep the moving marker off labels.
-                    for operation in range(15):
-                        page.locator('[data-act="seek"]').fill(str(operation))
-                        collisions = page.evaluate("""() => {
-                            const svg = document.querySelector('.ssl-figure svg');
-                            const c = svg.querySelector('.ssl-packet');
-                            const x0 = Number(c.dataset.x0), x1 = Number(c.dataset.x1);
-                            const y0 = Number(c.dataset.y0), y1 = Number(c.dataset.y1);
-                            return [...svg.querySelectorAll('text')].filter(t => {
-                                const b = t.getBBox();
-                                return Array.from({length:21}, (_,i)=>i/20).some(u => {
-                                    const x=x0+(x1-x0)*u, y=y0+(y1-y0)*u;
-                                    return x+7>b.x && x-7<b.x+b.width &&
-                                           y+7>b.y && y-7<b.y+b.height;
-                                });
-                            }).map(t => t.textContent);
-                        }""")
-                        assert not collisions, (kind, operation, collisions)
+                    # Validate each of 15 paths at default and both momentum extremes.
+                    for m, expected in (("0.9", "0.355"), ("0.5", "0.575"), ("0.99", "0.306")):
+                        page.locator('[data-act="momentum"]').fill(m)
+                        for operation in range(15):
+                            page.locator('[data-act="seek"]').fill(str(operation))
+                            collisions = page.evaluate("""() => {
+                                const svg = document.querySelector('.ssl-figure svg');
+                                const c = svg.querySelector('.ssl-packet');
+                                const x0 = Number(c.dataset.x0), x1 = Number(c.dataset.x1);
+                                const y0 = Number(c.dataset.y0), y1 = Number(c.dataset.y1);
+                                return [...svg.querySelectorAll('text')].filter(t => {
+                                    const b = t.getBBox();
+                                    return Array.from({length:21}, (_,i)=>i/20).some(u => {
+                                        const x=x0+(x1-x0)*u, y=y0+(y1-y0)*u;
+                                        return x+7>b.x && x-7<b.x+b.width &&
+                                               y+7>b.y && y-7<b.y+b.height;
+                                    });
+                                }).map(t => t.textContent);
+                            }""")
+                            assert not collisions, (kind, operation, collisions)
+                        page.locator('[data-act="seek"]').fill("4")
+                        calc = page.locator(".ssl-compute").inner_text()
+                        assert expected in calc, (kind, m, calc)
+                        assert page.locator('[data-momentum-output]').inner_text() == f"{float(m):.2f}"
+                    page.locator('[data-act="momentum"]').fill("0.9")
                     page.locator('[data-act="seek"]').fill("4")
                     calc = page.locator(".ssl-compute").inner_text()
                     assert "0.355" in calc, (kind, calc)
@@ -92,4 +99,4 @@ with sync_playwright() as p:
                     )
                     page.close()
     browser.close()
-print("PASS: 16 Chromium cases, bilingual controls, geometry, seek, keyboard, tween, pause, reduced motion")
+print("PASS: 16 Chromium cases, 3 momentum settings × 15 paths, bilingual controls, geometry, seek, keyboard, tween, pause, reduced motion")
