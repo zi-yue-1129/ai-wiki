@@ -55,6 +55,9 @@ On the MkDocs site, the 14-second continuous illustration supports **Play/Pause,
 
 **Guided checkpoints:** the **Previous phase** and **Next phase** controls jump among five meaningful milestones—Mask, Encode, Decode, Reconstruct and Masked loss. A bilingual explanation below the visual updates with the timeline, clarifying why mask tokens are absent from the encoder and why only hidden patches enter the loss. These are navigation landmarks **within continuous motion**, not five discrete animation frames; the slider still permits fine-grained seeking.
 
+
+**Synchronized computation trace:** the line below the player tracks the token counts at each point on the continuous timeline: **4 visible / 12 masked**, **4 encoder inputs / 0 mask tokens**, then **4 encoded + 12 mask = 16 decoder tokens**. The decoder predicts all positions, but the displayed masked MSE averages reconstruction error over **only the 12 masked positions**. These counts come from the schematic 4 × 4 example, not a measured model run.
+
 ## Key methods
 
 ### Masked Autoencoders Are Scalable Vision Learners (He, Chen, Xie, Li, Dollár & Girshick, 2022)
