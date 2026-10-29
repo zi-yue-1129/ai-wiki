@@ -43,6 +43,21 @@ He et al. (2022) show that BERT-style masked prediction works for images when th
 
 Because the encoder runs on the 25% of patches that are visible, pre-training is much cheaper than encoding every patch. The paper's timing experiment measures a 2.8× wall-clock speedup for ViT-L, which is below the "3× or more" that the abstract reports.
 
+### Visual walkthrough: visible-only encoding and masked reconstruction
+
+![MAE animation: retain four of sixteen patches, encode only the visible tokens, restore mask tokens in the decoder, and score the masked reconstruction.](../../../../assets/concept-animations/mae-visible-patch-reconstruction-motion.svg)
+
+[Static GitHub overview](../../../../assets/concept-animations/mae-visible-patch-reconstruction-still.svg)
+
+The continuous **mask → encode → decode → masked loss** sequence uses a schematic 4 × 4 image with **12 of 16 patches masked (75%)**. The encoder receives only four visible tokens; the decoder then combines their encoded representations with twelve mask tokens to predict all patch pixels. **Only the twelve originally masked positions contribute to reconstruction MSE**, although the decoder outputs all sixteen. Patch colours and reconstructions are illustrative, **not model outputs or benchmark measurements**.
+
+On the MkDocs site, the 14-second continuous illustration supports **Play/Pause, Step (+0.7 s), timeline scrubbing, and 0.5×/1×/2× speed**. Watch the four visible tokens travel into the encoder first; the twelve mask tokens appear only inside the decoder, then the missing patches are reconstructed and the masked-position loss accumulates. The timeline is schematic rather than a training-time trace. GitHub Markdown and reduced-motion settings retain the static overview. This original visual is licensed **CC BY-SA 4.0** and illustrates He et al. (2022), cited in References.
+
+**Guided checkpoints:** the **Previous phase** and **Next phase** controls jump among five meaningful milestones—Mask, Encode, Decode, Reconstruct and Masked loss. A bilingual explanation below the visual updates with the timeline, clarifying why mask tokens are absent from the encoder and why only hidden patches enter the loss. These are navigation landmarks **within continuous motion**, not five discrete animation frames; the slider still permits fine-grained seeking.
+
+
+**Synchronized computation trace:** the line below the player tracks the token counts at each point on the continuous timeline: **4 visible / 12 masked**, **4 encoder inputs / 0 mask tokens**, then **4 encoded + 12 mask = 16 decoder tokens**. The decoder predicts all positions, but the displayed masked MSE averages reconstruction error over **only the 12 masked positions**. These counts come from the schematic 4 × 4 example, not a measured model run.
+
 ## Key methods
 
 ### Masked Autoencoders Are Scalable Vision Learners (He, Chen, Xie, Li, Dollár & Girshick, 2022)

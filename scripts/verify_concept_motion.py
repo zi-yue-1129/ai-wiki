@@ -14,6 +14,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
+    "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
     "byol-online-target": "theory/paradigms/self-supervised/non-contrastive-methods/byol",
     "gibbs-coordinate-sweeps": "theory/paradigms/probabilistic/mcmc/gibbs-sampling",
@@ -129,7 +131,7 @@ def main() -> int:
                 (page.parent / link).resolve() for link in links
             }:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
+            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)
@@ -143,10 +145,20 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+    # The two reviewed process animations must show interpolated intermediate states,
+    # not four discrete slides masquerading as motion.
+    for stem in ("mae-visible-patch-reconstruction", "dinov2-dual-objective-ema"):
+        root = ET.parse(ASSETS / f"{stem}-motion.svg").getroot()
+        animations = [node for node in root.iter() if node.tag == NS + "animate"]
+        if len(animations) < 10 or any(node.get("calcMode") == "discrete" for node in animations):
+            errors.append(f"{stem}: continuous interpolation required; discrete slides are not sufficient")
+
     config = Path("mkdocs.yml").read_text(encoding="utf-8")
     for path in (
         "javascripts/concept-motion.js",
         "stylesheets/concept-motion.css",
+        "javascripts/concept-motion-detailed.js",
+        "stylesheets/concept-motion-detailed.css",
     ):
         if path not in config or not (DOCS / path).exists():
             errors.append(f"Missing registered player asset: {path}")

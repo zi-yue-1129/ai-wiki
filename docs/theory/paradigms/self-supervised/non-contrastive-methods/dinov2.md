@@ -39,6 +39,21 @@ Supervised pretraining needs labels that are expensive to collect, and it biases
 3. **Freeze it.** Keep the backbone fixed after pretraining.
 4. **Use the features.** Feed the image and patch features to a downstream head, for classification, segmentation, depth estimation or retrieval.
 
+### Visual walkthrough: two self-distillation objectives and teacher EMA
+
+![DINOv2 animation: global and local crops, class-token distillation, masked patch matching, and EMA teacher updates without teacher gradients.](../../../../assets/concept-animations/dinov2-dual-objective-ema-motion.svg)
+
+[Static GitHub overview](../../../../assets/concept-animations/dinov2-dual-objective-ema-still.svg)
+
+The continuous process is **crops → CLS and patch objectives → student gradient → teacher EMA**. The student learns image-level agreement across views using the class-token objective, while masked student patches are trained to match the **unmasked teacher's patch targets** through the iBOT-style objective. **Loss gradients update the student, not the teacher**; the teacher's weights are updated using an exponential moving average of student weights. This diagram isolates the two objectives for teaching; real DINOv2 training also includes KoLeo regularisation, centering and additional implementation details. The grid, masking pattern and arrows are **schematic, not measured features or a faithful training batch**.
+
+On MkDocs, **Play/Pause, Step (+0.7 s), timeline scrubbing and 0.5×/1×/2× speed** expose the 14-second process. Blue/teal particles carry views and teacher targets toward the objectives; a red signal travels backward to the student only. The illustrative student parameter changes from 0.2 to 0.8, while a teacher parameter initialized at 0.50 changes to 0.53 for one EMA update with momentum 0.9. These values are chosen to explain the lag, **not measured weights**. GitHub Markdown and reduced-motion settings retain the linked static overview. Original diagram **CC BY-SA 4.0**, based on Oquab et al. (2023) and the DINO/iBOT papers already in References.
+
+**Guided checkpoints:** use **Previous phase** and **Next phase** to examine Views, CLS target, Patch target, Student gradient and Teacher EMA. The synchronized explanation distinguishes the two objectives from the later parameter update, and makes the **stop-gradient boundary** explicit. These landmarks do not replace continuous playback; the timeline remains seekable between them.
+
+
+**Synchronized computation trace:** the player distinguishes the CLS and masked-patch cross-entropy terms, then explicitly marks **teacher gradient = 0** during student backpropagation. The EMA example is **one discrete parameter update**, $\theta_t' = 0.9(0.50) + 0.1(0.80) = 0.53$. The slowly changing number shown beside the animation is only a **visual interpolation of that single update**, not repeated EMA steps or measured training dynamics.
+
 ## Key methods
 
 ### DINOv2: Learning Robust Visual Features without Supervision (Oquab et al., 2023)

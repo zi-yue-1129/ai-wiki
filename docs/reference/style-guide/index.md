@@ -183,9 +183,19 @@ Blogs, video lectures and other informal pointers can still help a reader go fur
 - Rogge, N. & Rasul, K., *The Annotated Diffusion Model*. Hugging Face blog. https://huggingface.co/blog/annotated-diffusion — Step-by-step code walk-through of DDPM, useful for checking the equations on this page.
 ```
 
+## Instructional concept motion
+
+Use original visualisations only when they explain a computation, state transition, or causal dependency better than prose. **Do not default to a four-frame slide carousel**: animate the intermediate operations (message propagation, gradients, queue updates, reconstruction, parameter updates) with continuous motion or a controllable simulation. The number of stages and duration follow the concept, not a fixed template.
+
+- Keep figure text sparse and in English; localise the surrounding alt text, captions, controls and interpretation in both page languages.
+- For nontrivial processes, prefer accessible **Play/Pause, single-step, seekable timeline and playback speed**. Support keyboard input, `prefers-reduced-motion` and a non-script fallback.
+- GitHub Markdown cannot be assumed to run scripts or SVG interaction. Include a directly understandable static SVG or, preferably when practical, a compressed animated GIF preview. Use the same reviewed visual assets for both languages.
+- Validate SVG XML and resource safety, GIF decoding and looping when applicable, and MkDocs strict builds. **Render and inspect meaningful intermediate times at desktop and mobile widths**; checking XML alone is not visual QA. Verify controls and teachability, including whether the reader can follow cause and effect.
+- Mark illustrative parameters and outputs as schematic, not model measurements. Retain source citations and original-art licensing.
+
 ## Formatting
 
 - Math: `$inline$` and `$$display$$` (MathJax).
-- Diagrams: Mermaid code blocks.
+- Simple structural diagrams may use Mermaid; **instructional concept motion must follow the continuous-first and accessibility requirements above** rather than substituting a static Mermaid chart.
 - Callouts: `!!! note`, `!!! tip`, `!!! warning`.
 - Abbreviations defined in `includes/abbreviations.md` get tooltips everywhere; add new ones there.
