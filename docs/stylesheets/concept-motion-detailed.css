@@ -14,3 +14,15 @@
 .concept-motion-detailed .concept-motion-chapter-button:disabled { opacity:.5; cursor:default; }
 .concept-motion-detailed .concept-motion-chapter-note { display:block; max-width:640px; padding:.65rem .8rem; margin-top:.45rem; border-left:3px solid var(--md-accent-fg-color,#16858b); border-radius:.25rem; background:var(--md-code-bg-color,#edf6f6); color:var(--md-default-fg-color,#24394c); font-size:.8rem; line-height:1.55; }
 .concept-motion-detailed .concept-motion-chapter-button:focus-visible { outline:3px solid var(--md-accent-fg-color,#387e99); outline-offset:3px; }
+
+/* Computation trace stays outside the diagram and wraps on narrow screens. */
+.concept-motion-detailed .concept-motion-calculation {
+  display:block; max-width:640px; box-sizing:border-box;
+  margin-top:.4rem; padding:.55rem .75rem;
+  border:1px solid var(--md-default-fg-color--lighter,#9cafbe);
+  border-radius:.35rem;
+  background:var(--md-default-bg-color,#fff);
+  color:var(--md-default-fg-color,#24394c);
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-size:.78rem; line-height:1.6; overflow-wrap:anywhere;
+}
