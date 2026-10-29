@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 related:
   - theory/models/computer-vision/3d-and-neural-rendering
 tags:
@@ -37,6 +37,12 @@ NeRF 把靜態場景表示為一個多層感知器，它把三維位置與觀看
 $$C(\mathbf{r}) = \int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}(\mathbf{r}(t), \mathbf{d})\,dt, \qquad T(t) = \exp\!\left(-\int_{t_n}^{t}\sigma(\mathbf{r}(s))\,ds\right)$$
 
 這裡 $T(t)$ 是累積透射率。訓練損失是粗渲染與細渲染的像素顏色與觀察值之間平方誤差的總和（論文的式 6）。
+
+### 動畫解說：透射率與像素合成
+
+![NeRF 四階段教學動畫：沿相機射線取樣、將密度轉為不透明度、計算由前至後的權重並合成像素。](../../../../assets/concept-animations/nerf-volume-rendering-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 在**三個取樣區間的示意射線**中，假設不透明度 `α = (0.10, 0.65, 0.40)`。離散體積渲染使用 `αᵢ = 1 − exp(−σᵢδᵢ)`、`T₁ = 1`、`wᵢ = Tᵢαᵢ` 與 `Tᵢ₊₁ = Tᵢ(1 − αᵢ)`。各取樣點進入時的透射率為 **(1, 0.90, 0.315)**，顏色權重為 **(0.100, 0.585, 0.126)**，最後仍有 **0.189** 的背景透射率。末階段將三種示意 RGB 顏色與**黑色背景**合成，並非 NeRF 模型的實測輸出；此簡化範例亦未呈現完整模型的粗細兩階段階層取樣。MkDocs 網站提供可用鍵盤操作的播放／暫停按鈕；GitHub 可查看[四階段靜態回退圖](../../../../assets/concept-animations/nerf-volume-rendering-still.svg)。
 
 ## 結果
 
