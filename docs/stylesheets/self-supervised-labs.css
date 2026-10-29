@@ -17,3 +17,17 @@
 @media (max-width:480px) {.ssl-toolbar{gap:.5rem}.ssl-toolbar label{flex:1 1 8rem}}
 @media (prefers-reduced-motion:reduce) {.ssl-figure .ssl-packet {display:none!important;} .ssl-lab * {transition:none!important;}}
 @media (max-width:480px) { .ssl-figure .ssl-small {font-size:21px} .ssl-figure .ssl-title {font-size:24px} .ssl-figure .ssl-number {font-size:23px} .ssl-figure .ssl-token {font-size:21px} }
+
+/* Independent loss microscope; text stays outside the teaching SVG. */
+.ssl-loss { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:.45rem .8rem; align-items:center; padding:.65rem .8rem; margin-top:.55rem; border:1px solid var(--md-default-fg-color--lighter,#c2d2dc); border-radius:.4rem; }
+.ssl-loss label { display:flex; gap:.55rem; align-items:center; min-width:0; flex-wrap:wrap; }
+.ssl-loss input[type=range] { flex:1 1 8rem; min-width:6rem; max-width:16rem; accent-color:#087f83; }
+.ssl-loss-value { font:600 .8rem/1.5 ui-monospace,monospace; overflow-wrap:anywhere; }
+.ssl-loss-visual { grid-column:1/-1; min-width:0; }
+.ssl-loss-bars { display:flex; height:20px; overflow:hidden; border-radius:.3rem; background:#e9eff4; }
+.ssl-loss-positive { display:block; background:#3a7fa9; }
+.ssl-loss-negative { display:block; background:#c06647; }
+.ssl-loss-vectors { display:block; width:250px; max-width:100%; height:auto; }
+.ssl-loss-vectors .ssl-vector-label { fill:#20384b; font:12px Arial,sans-serif; }
+.ssl-loss-note { grid-column:1/-1; margin:0; font-size:.75rem; line-height:1.5; }
+@media(max-width:480px) { .ssl-loss {grid-template-columns:1fr;} .ssl-loss-value {grid-column:1;} }
