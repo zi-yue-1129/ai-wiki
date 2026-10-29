@@ -62,7 +62,7 @@
       '<circle class="ssl-packet" cx="'+a[0]+'" cy="'+a[1]+'" r="7" fill="'+emphasis+'" aria-hidden="true">'+
        '<animate attributeName="cx" values="'+a[0]+';'+a[2]+'" dur="1s" repeatCount="indefinite"/>'+
        '<animate attributeName="cy" values="'+a[1]+';'+a[3]+'" dur="1s" repeatCount="indefinite"/></circle>'+
-      '<text x="22" y="247" class="ssl-small">Illustrative scalar weights · m = 0.9 · NOT model measurements</text></svg>';
+      '<text x="22" y="247" class="ssl-small">Toy weights · m = 0.9 · Not measurements</text></svg>';
   }
   function enhance() {
     document.querySelectorAll('[data-self-supervised-lab]').forEach(host=>{
