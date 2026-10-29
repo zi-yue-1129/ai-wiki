@@ -37,6 +37,16 @@ The algorithm for one step is:
 
 Metropolis et al. (1953) introduced the symmetric version for physical systems. Hastings (1970) generalised it to asymmetric proposals, which is the form used today. Detailed balance with respect to \(\pi\) follows from the choice of \(\alpha\), so \(\pi\) is the stationary distribution of the chain.
 
+## Animated walkthrough
+
+![Four stages of Metropolis–Hastings: current state, proposal, acceptance and rejection](../../../../assets/concept-animations/mh-accept-reject-motion.svg)
+
+[Static final-state preview for GitHub and reduced-motion readers](../../../../assets/concept-animations/mh-accept-reject-still.svg). On the MkDocs site, use **Play animation / Pause animation** (keyboard: Tab, then Enter). The animation repeats the four stages; the static preview shows the rejected move.
+
+For the illustrative target \(\pi(\theta)\propto\exp(-\theta^2/2)\) and a **symmetric** proposal, the move from \(-1.0\) to \(0.4\) has \(\alpha=1\). From \(0.4\), the proposal \(2.5\) has \(\alpha=\exp[-(2.5^2-0.4^2)/2]\approx0.048\); an illustrative uniform draw \(u=0.60\) rejects it. The Markov chain **stays at 0.4**—a rejected proposal is not a new sample location. The plotted curve and numbers are constructed teaching examples, **not empirical sampler measurements**. This follows the symmetric-proposal special case of the Hastings (1970) rule already cited below.
+
+*Original instructional animation and fallback: CC BY-SA 4.0.*
+
 ## Key methods
 
 - [Gibbs sampling](gibbs-sampling.md): a special case in which every proposal is accepted, because each move samples from an exact conditional distribution.
