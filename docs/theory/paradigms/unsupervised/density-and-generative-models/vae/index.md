@@ -42,6 +42,16 @@ The first term rewards reconstructions. The second keeps the approximate posteri
 
 Training draws \(\epsilon\) for each data point, computes \(z = \mu_\phi(x) + \sigma_\phi(x)\odot\epsilon\), evaluates the decoder, and takes a gradient step on \(-\mathcal L\). When the prior and posterior are Gaussian, the KL term has a closed form. Generation draws \(z\sim\mathcal N(0,I)\) and returns the decoder's mean or a sample.
 
+### Visual walkthrough: reparameterised latent sampling
+
+![Four-stage VAE reparameterisation animation showing the encoder, independent Gaussian noise, deterministic latent sampling, decoder and reconstruction-gradient path.](../../../../../assets/concept-animations/vae-reparameterisation-motion.svg)
+
+[Static VAE walkthrough for GitHub](../../../../../assets/concept-animations/vae-reparameterisation-still.svg)
+
+The four stages are **Encode → Draw noise → Decode → Gradient**. The encoder produces the approximate posterior parameters \(\mu_\phi(x)\) and \(\sigma_\phi(x)\), while \(\epsilon\sim\mathcal N(0,I)\) is sampled **independently of those parameters**. Forming \(z=\mu_\phi(x)+\sigma_\phi(x)\odot\epsilon\) turns the stochastic sample into a differentiable map for a fixed \(\epsilon\); the reconstruction gradient can then propagate through the decoder and \(z\) to the encoder. The purple path illustrates **only the reconstruction term**; the ELBO's KL term contributes its own encoder gradient (analytically for a diagonal Gaussian posterior and standard-normal prior). No gradient is propagated *through the random-number generator*.
+
+The coloured tiles, geometry and arrows are **schematic, not model outputs or measured gradients**. On MkDocs, use the keyboard-accessible **Play/Pause** control to stop the eight-second loop; the linked static overview works in GitHub Markdown. Original illustration, **CC BY-SA 4.0**. The mechanism follows Kingma and Welling (2013) and Rezende et al. (2014), cited below.
+
 ## Key methods
 
 Several variants change the latent prior, the decoder, or the bound itself. Each one would get its own page; the brief comparison here is enough for the family overview.
