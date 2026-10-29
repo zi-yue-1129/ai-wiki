@@ -1,0 +1,8 @@
+/* Compact responsive gradient curves; all chart text is sparse English. */
+.ssl-gradient { max-width:640px; margin:.5rem auto 1rem; padding:.55rem .7rem; border:1px solid var(--md-default-fg-color--lighter,#c2d2dc); border-radius:.4rem; color:var(--md-default-fg-color,#24394c); }
+.ssl-gradient-heading { font-weight:600; font-size:.82rem; margin-bottom:.3rem; }
+.ssl-gradient-plot { display:block; width:100%; max-width:500px; height:auto; }
+.ssl-gradient-axis { font:15px Arial,sans-serif; fill:#42586a; }
+.ssl-gradient-readout { display:block; font:12px/1.55 ui-monospace,monospace; overflow-wrap:anywhere; margin:.3rem 0; }
+.ssl-gradient-note { margin:.2rem 0 0; font-size:.75rem; line-height:1.55; }
+@media (prefers-reduced-motion:reduce) { .ssl-gradient * { animation:none!important; transition:none!important; } }
