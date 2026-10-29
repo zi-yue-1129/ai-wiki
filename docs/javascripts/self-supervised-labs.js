@@ -49,14 +49,16 @@
     }
     const angle = Math.acos(result.cosine);
     const x = (110 + 70 * Math.cos(angle)).toFixed(2);
-    const y = (80 - 70 * Math.sin(angle)).toFixed(2);
-    return '<svg class="ssl-loss-vectors" viewBox="0 0 250 105" role="img" aria-label="' +
+    const y = (120 - 70 * Math.sin(angle)).toFixed(2);
+    return '<svg class="ssl-loss-vectors" viewBox="0 0 250 140" role="img" aria-label="' +
       (zh ? '兩個單位向量夾角的示意圖' : 'Angle between two unit vectors') + '">' +
-      '<path d="M110 80 H180" stroke="#399a80" stroke-width="4" stroke-linecap="round"/>' +
-      '<path d="M110 80 L' + x + ' ' + y + '" stroke="#3a7fa9" stroke-width="4" stroke-linecap="round"/>' +
-      '<circle cx="110" cy="80" r="4" fill="#20384b"/>' +
-      '<text x="185" y="84" class="ssl-vector-label">Target</text>' +
-      '<text x="8" y="18" class="ssl-vector-label">Online</text></svg>';
+      '<path d="M110 120 H180" stroke="#399a80" stroke-width="4" stroke-linecap="round"/>' +
+      '<path d="M110 120 L' + x + ' ' + y + '" stroke="#3a7fa9" stroke-width="4" stroke-linecap="round"/>' +
+      '<circle cx="110" cy="120" r="4" fill="#20384b"/>' +
+      '<path d="M8 15 H25" stroke="#3a7fa9" stroke-width="3"/>' +
+      '<text x="31" y="19" class="ssl-vector-label">Online</text>' +
+      '<path d="M120 15 H137" stroke="#399a80" stroke-width="3"/>' +
+      '<text x="143" y="19" class="ssl-vector-label">Target</text></svg>';
   }
   const fmt = x => (Math.round((x + Number.EPSILON)*1000)/1000).toFixed(3);
   function calculate(kind, index, momentum) {
