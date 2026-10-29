@@ -22,6 +22,42 @@
       zh: ['兩種影像增強視角分別送入線上與目標分支。','線上預測器嘗試對齊目標網路的表徵。','停止梯度阻止損失梯度回傳至目標網路；沒有負樣本佇列。','只有線上網路與預測器接收損失梯度。','以更新後的線上參數執行 EMA，而非對目標網路反向傳播。']
     }
   };
+
+  // An independent toy loss inspector: fixed similarities are NOT inferred from
+  // the schematic scalar EMA weights or FIFO letters. No gradients are simulated.
+  const toyNegatives = [-0.20, -0.10, 0.00, 0.10, 0.20, 0.05];
+  function lossSnapshot(kind, value) {
+    if (kind === 'moco') {
+      const tau = Math.min(1, Math.max(0.1, value));
+      const logits = [0.70, ...toyNegatives].map(v => v / tau);
+      const offset = Math.max(...logits);
+      const exponentials = logits.map(v => Math.exp(v - offset));
+      const denominator = exponentials.reduce((a, b) => a + b, 0);
+      const positive = exponentials[0] / denominator;
+      return {tau, positive, loss: -Math.log(positive)};
+    }
+    const cosine = Math.min(1, Math.max(-1, value));
+    return {cosine, loss: 2 - 2 * cosine};
+  }
+  function lossGraphic(kind, result, zh) {
+    if (kind === 'moco') {
+      const pct = (100 * result.positive).toFixed(1);
+      return '<div class="ssl-loss-bars" role="img" aria-label="' +
+        (zh ? '正樣本機率 ' + pct + '%，其餘為負樣本' : 'Positive-key probability ' + pct + '%, remainder is negatives') + '">' +
+        '<span class="ssl-loss-positive" style="width:' + pct + '%"></span>' +
+        '<span class="ssl-loss-negative" style="width:' + (100 - result.positive * 100).toFixed(1) + '%"></span></div>';
+    }
+    const angle = Math.acos(result.cosine);
+    const x = (110 + 70 * Math.cos(angle)).toFixed(2);
+    const y = (80 - 70 * Math.sin(angle)).toFixed(2);
+    return '<svg class="ssl-loss-vectors" viewBox="0 0 250 105" role="img" aria-label="' +
+      (zh ? '兩個單位向量夾角的示意圖' : 'Angle between two unit vectors') + '">' +
+      '<path d="M110 80 H180" stroke="#399a80" stroke-width="4" stroke-linecap="round"/>' +
+      '<path d="M110 80 L' + x + ' ' + y + '" stroke="#3a7fa9" stroke-width="4" stroke-linecap="round"/>' +
+      '<circle cx="110" cy="80" r="4" fill="#20384b"/>' +
+      '<text x="185" y="84" class="ssl-vector-label">Target</text>' +
+      '<text x="8" y="18" class="ssl-vector-label">Online</text></svg>';
+  }
   const fmt = x => (Math.round((x + Number.EPSILON)*1000)/1000).toFixed(3);
   function calculate(kind, index, momentum) {
     const target=targets(momentum);
@@ -74,6 +110,9 @@
       if(!stages[kind]) return;
       host.dataset.labReady='yes';
       const zh=host.dataset.locale==='zh-TW';
+      const lossTitle=kind==='moco'?(zh?'溫度 τ':'Temperature τ'):(zh?'餘弦相似度':'Cosine similarity');
+      const lossDefault=kind==='moco'?'0.20':'0.50';
+      const lossMin=kind==='moco'?'0.10':'-1.00';
       const words=zh?['播放','暫停','上一步','下一步','進度','速度','動量 m']:['Play','Pause','Previous','Next','Timeline','Speed','Momentum m'];
       host.classList.add('ssl-lab');
       host.innerHTML='<div class="ssl-figure"></div><div class="ssl-toolbar">'+
@@ -81,11 +120,26 @@
         '<label>'+words[4]+' <input type="range" min="0" max="14" step="1" value="0" aria-label="'+words[4]+'" data-act="seek"></label>'+
         '<label>'+words[5]+' <select aria-label="'+words[5]+'" data-act="speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>'+
         '<label class="ssl-momentum">'+words[6]+' <input type="range" min="0.50" max="0.99" step="0.01" value="0.90" aria-label="'+words[6]+'" data-act="momentum"><output data-momentum-output>0.90</output></label></div>'+
-        '<div class="ssl-explain" aria-live="polite" aria-atomic="true"></div><div class="ssl-compute" aria-live="off"></div>';
+        '<div class="ssl-explain" aria-live="polite" aria-atomic="true"></div><div class="ssl-compute" aria-live="off"></div>'+
+        '<div class="ssl-loss"><label>'+lossTitle+' <input type="range" data-act="loss" min="'+lossMin+'" max="1.00" step="0.05" value="'+lossDefault+'" aria-label="'+lossTitle+'"></label><output class="ssl-loss-value"></output><div class="ssl-loss-visual"></div><p class="ssl-loss-note"></p></div>';
       const find = name => host.querySelector('[data-act="'+name+'"]');
       const figure=host.querySelector('.ssl-figure'),note=host.querySelector('.ssl-explain'),calc=host.querySelector('.ssl-compute');
       const play=find('play'),prev=find('prev'),next=find('next'),seek=find('seek'),speed=find('speed');
       const momentumInput=find('momentum'), momentumOutput=host.querySelector('[data-momentum-output]');
+      const lossInput=find('loss'),lossValue=host.querySelector('.ssl-loss-value');
+      const lossVisual=host.querySelector('.ssl-loss-visual'),lossNote=host.querySelector('.ssl-loss-note');
+      const renderLoss=()=>{
+        const value=Number(lossInput.value),result=lossSnapshot(kind,value);
+        lossInput.setAttribute('aria-valuetext',value.toFixed(2));
+        lossValue.textContent=kind==='moco'
+          ? 'P(+) = '+result.positive.toFixed(3)+' · InfoNCE = '+result.loss.toFixed(3)
+          : 'cos = '+result.cosine.toFixed(2)+' · L = 2 − 2cos = '+result.loss.toFixed(3);
+        lossVisual.innerHTML=lossGraphic(kind,result,zh);
+        lossNote.textContent=kind==='moco'
+          ? (zh?'固定示意相似度：正樣本 0.70，六個負樣本介於 −0.20 至 0.20。調整 τ 觀察 Softmax 與 InfoNCE；與上方 EMA 權重無關。':'Fixed toy similarities: positive 0.70 and six negatives from −0.20 to 0.20. Vary τ to inspect softmax and InfoNCE; independent of EMA weights above.')
+          : (zh?'兩個單位向量的平方距離；調整 cos 觀察損失。這不是上方 EMA 權重的相似度，也不是實測表徵。':'Squared distance between unit vectors. Vary cos to inspect the loss; this is not the cosine of the EMA weights above or a measured representation.');
+      };
+      lossInput.addEventListener('input',renderLoss);
       // The particle follows the current operation ONCE. Its position is a pure
       // function of elapsed time, so Pause freezes it and seek/step is deterministic.
       const STEP_MS=1250;
@@ -146,7 +200,7 @@
       // The what-if slider recomputes all three EMA steps, without changing SGD or FIFO.
       momentumInput.addEventListener('input',()=>{stop();render();});
       document.addEventListener?.('visibilitychange',()=>{if(document.hidden&&running)stop();});
-      render();
+      render();renderLoss();
     });
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);
