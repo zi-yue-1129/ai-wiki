@@ -52,7 +52,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends fonts-noto-cjk
-          fc-list :lang=zh-tw family | grep -q 'Noto Sans CJK'
+          fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
       - name: Chromium mobile/desktop playback, pause and geometry
