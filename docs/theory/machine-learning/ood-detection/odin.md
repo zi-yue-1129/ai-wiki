@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-10-29
 related:
   - theory/machine-learning/ood-detection
 tags:
@@ -15,56 +15,84 @@ aliases:
 
 # ODIN
 
-ODIN is an out-of-distribution detector that improves the softmax score in two ways: it divides the logits by a temperature that is greater than one, and it perturbs the input slightly in the direction that increases the maximum softmax score. Part of [Out-of-distribution detection](index.md).
+ODIN adds temperature scaling and a score-increasing input perturbation to a pretrained classifier's softmax-based out-of-distribution (OOD) detector, without retraining its weights.[^odin] Part of [Out-of-distribution detection](index.md).
 
-## Overview
+## Problem and baseline
 
-A plain softmax confidence is a weak OOD score, because a network can be confident on inputs far from its training data. Liang et al. (2018) found that two small changes sharpen the separation between in-distribution and out-of-distribution inputs without retraining the network. The method needs only a forward pass and one extra gradient step, and it needs a small validation set of OOD inputs to tune its parameters.
-
-## Key concepts
-
-- **Temperature scaling of the softmax**: \(S_i(x;T)=\frac{\exp(f_i(x)/T)}{\sum_j\exp(f_j(x)/T)}\) with \(T>1\). Raising the temperature spreads the scores apart for detection.
-- **Input perturbation**: a step \(\tilde{x}=x-\varepsilon\,\mathrm{sign}(-\nabla_x \log S_{\hat y}(x;T))\) that increases the score of the predicted class.
-- **Detection rule**: an input is flagged as OOD when its score falls below a threshold.
+An OOD detector decides whether to accept an input as in-distribution (ID); this is different from choosing its class. Hendrycks and Gimpel use the maximum softmax probability as a baseline score. Their experiments show useful separation, not that a high score proves an input is familiar or correctly classified.[^baseline]
 
 ## How it works
 
-For an input \(x\), ODIN computes the predicted class \(\hat y\), then forms the perturbed input \(\tilde{x}\) that raises the temperature-scaled softmax score of \(\hat y\). It scores \(\tilde{x}\) with \(S_{\hat y}(\tilde{x};T)\). In-distribution inputs respond to the perturbation differently from OOD inputs, and the separation is larger than with the plain softmax. The temperature \(T\) and perturbation size \(\varepsilon\) are chosen on validation data. Liang et al. (2018) report large gains over the baseline on image benchmarks with a standard network.
+Let $f_i(x)$ be the logit, or unnormalised class score, for class $i$ among $K$ classes. ODIN uses[^odin]
 
-## Variants
+$$
+S_i(x;T)=\frac{\exp(f_i(x)/T)}
+{\sum_{j=1}^{K}\exp(f_j(x)/T)},\qquad
+\hat y=\arg\max_i f_i(x).
+$$
 
-- **Temperature only**: scaling without perturbation, which is cheaper but gives less separation.
-- **Perturbation only**: a step on the unscaled softmax, which can help but is less stable.
-- **Feature-based scores** replace the output score with a distance in feature space, which is the approach of the [Mahalanobis detector](mahalanobis-distance.md).
+Hold $\hat y$ fixed when differentiating. With $\varepsilon\geq0$, form
 
-## Results and limits
+$$
+\tilde x=x+\varepsilon\,\operatorname{sign}
+\left(\nabla_x\log S_{\hat y}(x;T)\right),
+\qquad
+s(x)=\max_i S_i(\tilde x;T).
+$$
 
-- ODIN improves the detection of OOD inputs over the softmax baseline without changing the network's weights (Liang et al., 2018).
-- It uses a small OOD validation set to choose \(T\) and \(\varepsilon\), which may not match the OOD inputs encountered at deployment.
-- The gradient step adds cost at inference, and the method is tied to classifiers with a softmax output.
-- Gains depend on the pair of in- and out-of-distribution datasets, so results on one benchmark do not guarantee performance on another.
+Accept as ID when $s(x)>\delta$; otherwise flag OOD. The practical sequence is an initial forward pass, an input-gradient backward pass, then a forward pass on $\tilde x$. The predicted class supplies the gradient target; no ground-truth label is needed. The original image can still supply the classification output.[^odin]
 
-## Applications
+### What increasing temperature actually changes
 
-- **Image classifiers** in deployment, where a cheap OOD flag is useful.
-- **Benchmarking** of OOD detectors against the softmax baseline.
-- **Triage**: sending flagged inputs for human review.
+For fixed logits and positive $T$, dividing by $T$ preserves their ordering. As $T$ increases, the softmax becomes flatter; as $T\to\infty$, every class probability tends to $1/K$. It does **not** spread one input's class probabilities further apart. Guo et al. discuss this softening and the unchanged predicted class in their calibration method.[^calibration]
 
-## Open questions
+For example, with two logits $(2,0)$, the maximum probability is about $0.881$ at $T=1$, $0.550$ at $T=10$, and approaches $0.5$. These values follow directly from $1/(1+\exp(-2/T))$. This worked example illustrates the equation, not a measured OOD-detection result.
 
-- Tuning on one kind of OOD data may not transfer to the shifts that occur later.
-- Whether temperature and perturbation help when the network is trained with different objectives or on different modalities is not settled.
+OOD separation concerns the **distributions of scores across inputs**, rather than the distance between probabilities of classes in one input. Nor is detection the same objective as probability calibration: Guo et al. fit temperature on labelled validation data by negative log-likelihood; a temperature selected for a rejection decision need not make confidence represent correctness frequency.[^calibration]
+
+## Reported result and its scope
+
+Table 2 of Liang et al. reports FPR at 95% TPR falling from **34.7% to 4.3%** for Dense-BC trained on CIFAR-10 against **TinyImageNet (crop)**. Here ID is positive: FPR means OOD inputs incorrectly accepted as ID, not the classifier's class-error rate. The experiments use separate iSUN validation data for tuning.[^odin]
+
+These are historical results for a specified model and dataset pair. They are not a deployment guarantee or a current ranking.
+
+## Reproducing and evaluating a detector
+
+The following is a reporting checklist, not a claim that one parameter setting works for every classifier:
+
+1. Record the checkpoint, input normalisation, image resizing and score convention.
+2. Keep tuning data separate from the OOD test set. State which OOD examples were available during tuning.
+3. Record $T$, $\varepsilon$ and $\delta$, including the coordinate system in which the perturbation is applied.
+4. Compare the full detector with the unmodified softmax baseline under the same data and operating point.
+5. Report score distributions, false rejections of ID inputs, false acceptance of OOD inputs and measured runtime.
+6. Check different plausible shifts, rather than selecting only the easiest negative dataset.
+
+The threshold expresses a trade-off: lowering it accepts more inputs, potentially retaining more ID inputs while also accepting more OOD inputs. A score is a decision statistic, not a certified probability that the input belongs to the training distribution.
+
+## Connections and alternatives
+
+- **Probability calibration** changes confidence to better reflect correctness frequency; it is distinct from detecting unfamiliar inputs.[^calibration]
+- The [Mahalanobis detector](mahalanobis-distance.md) uses distances to class-conditional feature distributions instead of only output probabilities.[^mahalanobis]
+- **Energy-based detection** offers another logit-based score. Liu et al. study both scoring a pretrained classifier and training with an energy-based objective; those are distinct experimental settings.[^energy]
+
+These methods are comparison points, rather than evidence that ODIN dominates every alternative.
+
+## Limitations and possible use
+
+A flag could feed an abstention or review workflow, but acceptance does not certify correctness. Input gradients require access beyond a service that returns only labels or probabilities; the perturbation path also costs more than one plain forward pass. Actual latency depends on the model and implementation.
+
+Validation choices, preprocessing and the kinds of negative data used all belong in the evaluation report. A complete deployment decision also needs to specify what happens after rejection, and to test that fallback separately.
+
+[^odin]: Liang et al. (2018), Sections 2–4 and Table 2; see References.
+[^baseline]: Hendrycks & Gimpel (2017), abstract; see References.
+[^calibration]: Guo et al. (2017), Section 4.2, temperature scaling; see References.
+[^mahalanobis]: Lee et al. (2018), abstract; see References.
+[^energy]: Liu et al. (2020), abstract; see References.
 
 ## References
 
-### Seminal papers
-
-- Liang, S., Li, Y. & Srikant, R. (2018). Enhancing the reliability of out-of-distribution image detection in neural networks. In *International Conference on Learning Representations*. arXiv:1706.02690. https://arxiv.org/abs/1706.02690 — Introduces ODIN with temperature scaling and input perturbation.
-- Hendrycks, D. & Gimpel, K. (2017). A baseline for detecting misclassified and out-of-distribution examples in neural networks. In *International Conference on Learning Representations*. arXiv:1610.02136. https://arxiv.org/abs/1610.02136 — The softmax baseline that ODIN improves on.
-- Lee, K., Lee, K., Lee, H. & Shin, J. (2018). A simple unified framework for detecting out-of-distribution samples and adversarial attacks. In *Advances in Neural Information Processing Systems* 31. arXiv:1807.03888. https://arxiv.org/abs/1807.03888 — A feature-based alternative to output scores.
-
-### Surveys and textbooks
-
-- Koh, P. W. et al. (2021). WILDS: a benchmark of in-the-wild distribution shifts. In *Proceedings of the 38th International Conference on Machine Learning*, PMLR 139. https://proceedings.mlr.press/v139/koh21a.html — Benchmark on which OOD detectors and shift robustness are measured.
-- Geirhos, R. et al. (2020). Shortcut learning in deep neural networks. *Nature Machine Intelligence* 2(11), 665–673. https://doi.org/10.1038/s42256-020-00257-z — Explains why detectors trained on one shift can miss another.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; background on softmax calibration and detection.
+- Liang, S., Li, Y. & Srikant, R. (2018). *Enhancing the Reliability of Out-of-distribution Image Detection in Neural Networks*. ICLR. https://arxiv.org/abs/1706.02690 — Defines temperature scaling, input preprocessing, the detector and its image-benchmark evaluation.
+- Hendrycks, D. & Gimpel, K. (2017). *A Baseline for Detecting Misclassified and Out-of-Distribution Examples in Neural Networks*. ICLR. https://arxiv.org/abs/1610.02136 — Establishes maximum softmax probability as a baseline for error and OOD detection.
+- Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). *On Calibration of Modern Neural Networks*. ICML, PMLR 70:1321–1330. https://proceedings.mlr.press/v70/guo17a.html — Explains probability calibration and temperature scaling fitted by validation negative log-likelihood.
+- Lee, K., Lee, K., Lee, H. & Shin, J. (2018). *A Simple Unified Framework for Detecting Out-of-Distribution Samples and Adversarial Attacks*. NeurIPS. https://arxiv.org/abs/1807.03888 — Introduces a feature-based detector using class-conditional Gaussian models and Mahalanobis distance.
+- Liu, W., Wang, X., Owens, J. D. & Li, Y. (2020). *Energy-based Out-of-distribution Detection*. https://arxiv.org/abs/2010.03759 — Studies energy scores for pretrained classifiers and energy-based training for OOD detection.
