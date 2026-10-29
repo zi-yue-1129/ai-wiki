@@ -59,9 +59,7 @@
       '<text x="530" y="152" class="ssl-number">'+fmt(s.k)+'</text>'+
       '<path d="M607 65 V158" stroke="'+emphasis+'" stroke-width="4" stroke-linecap="round"/>'+
       queue+
-      '<circle class="ssl-packet" cx="'+a[0]+'" cy="'+a[1]+'" r="7" fill="'+emphasis+'" aria-hidden="true">'+
-       '<animate attributeName="cx" values="'+a[0]+';'+a[2]+'" dur="1s" repeatCount="indefinite"/>'+
-       '<animate attributeName="cy" values="'+a[1]+';'+a[3]+'" dur="1s" repeatCount="indefinite"/></circle>'+
+      '<circle class="ssl-packet" cx="'+a[0]+'" cy="'+a[1]+'" data-x0="'+a[0]+'" data-y0="'+a[1]+'" data-x1="'+a[2]+'" data-y1="'+a[3]+'" r="7" fill="'+emphasis+'" aria-hidden="true"/>'+
       '<text x="22" y="247" class="ssl-small">Toy weights · m = 0.9 · Not measurements</text></svg>';
   }
   function enhance() {
@@ -81,31 +79,60 @@
       const find = name => host.querySelector('[data-act="'+name+'"]');
       const figure=host.querySelector('.ssl-figure'),note=host.querySelector('.ssl-explain'),calc=host.querySelector('.ssl-compute');
       const play=find('play'),prev=find('prev'),next=find('next'),seek=find('seek'),speed=find('speed');
-      let frame=0,running=false,interval=null;
-      const stop=()=>{running=false;clearInterval(interval);interval=null;};
+      // The particle follows the current operation ONCE. Its position is a pure
+      // function of elapsed time, so Pause freezes it and seek/step is deterministic.
+      const STEP_MS=1250;
+      let frame=0,running=false,raf=0,last=null,elapsed=0;
+      const movePacket=()=>{
+        const packet=figure.querySelector?.('.ssl-packet');
+        if(!packet) return; // The lightweight Node DOM mock has no SVG tree.
+        const t=Math.min(1,Math.max(0,elapsed/STEP_MS));
+        const ease=t*t*(3-2*t);
+        for(const axis of ['x','y']){
+          const from=Number(packet.getAttribute('data-'+axis+'0'));
+          const to=Number(packet.getAttribute('data-'+axis+'1'));
+          packet.setAttribute(axis==='x'?'cx':'cy',String(from+(to-from)*ease));
+        }
+      };
+      const updatePlay=()=>{play.textContent=(running?'Ⅱ '+words[1]:'▶ '+words[0]);};
+      const stop=()=>{
+        running=false;last=null;cancelAnimationFrame(raf);raf=0;updatePlay();
+      };
       const render=()=>{
         const s=calculate(kind,frame);
         figure.innerHTML=diagram(kind,s);
         const label=zh ? (kind==='moco'?['產生鍵','對比','查詢 SGD','動量 EMA','佇列入列']:['增強視角','預測','停止梯度','線上 SGD','目標 EMA'])[s.phase] : stages[kind][s.phase];
         note.textContent=(zh?'回合 ':'Iteration ')+(s.turn+1)+'/3 · '+label+' — '+explanations[kind][zh?'zh':'en'][s.phase];
         calc.textContent=(zh?'線上／查詢參數':'Online / query weight')+' = '+fmt(s.q)+' · '+(zh?'目標／鍵參數':'Target / key weight')+' = '+fmt(s.k)+
-          ' · EMA: 0.9×'+fmt(target[s.turn])+' + 0.1×'+fmt(online[s.turn+1])+' = '+fmt(target[s.turn+1])+
+          ' · '+(s.phase >= (kind==='moco'?3:4)?(zh?'已執行 EMA':'EMA applied'):(zh?'待執行 EMA':'EMA pending'))+': 0.9×'+fmt(target[s.turn])+' + 0.1×'+fmt(online[s.turn+1])+' = '+fmt(target[s.turn+1])+
           (kind==='moco'?' · FIFO ['+s.queue.join(' ')+']':' · Target gradient = 0');
-        play.textContent=(running?'Ⅱ '+words[1]:'▶ '+words[0]);
+        movePacket();updatePlay();
         prev.textContent='← '+words[2];next.textContent=words[3]+' →';
         prev.disabled=frame===0;next.disabled=frame===14;seek.value=String(frame);
         seek.setAttribute('aria-valuetext',(frame+1)+'/15');
       };
-      const show=n=>{frame=Math.max(0,Math.min(14,n));render();};
-      const start=()=>{
-        stop();if(frame===14)frame=0;running=true;render();
-        interval=setInterval(()=>{if(frame===14){stop();render();return;}show(frame+1);},Math.round(1250/Number(speed.value)));
+      const show=n=>{frame=Math.max(0,Math.min(14,n));elapsed=0;render();};
+      const tick=now=>{
+        if(!running)return;
+        if(last!==null)elapsed+=Math.min(250,Math.max(0,now-last))*Number(speed.value);
+        last=now;
+        if(elapsed>=STEP_MS){
+          if(frame===14){elapsed=STEP_MS;movePacket();stop();return;}
+          elapsed-=STEP_MS;frame++;render();
+        }else movePacket();
+        raf=requestAnimationFrame(tick);
       };
-      play.addEventListener('click',()=>{if(running){stop();render();}else start();});
+      const start=()=>{
+        if(frame===14){frame=0;elapsed=0;render();}
+        running=true;last=null;updatePlay();raf=requestAnimationFrame(tick);
+      };
+      play.addEventListener('click',()=>{if(running)stop();else start();});
       prev.addEventListener('click',()=>{stop();show(frame-1);});
       next.addEventListener('click',()=>{stop();show(frame+1);});
       seek.addEventListener('input',()=>{stop();show(Number(seek.value));});
-      speed.addEventListener('change',()=>{if(running)start();});
+      // Speed applies to the current interpolation without resetting its state.
+      speed.addEventListener('change',()=>{});
+      document.addEventListener?.('visibilitychange',()=>{if(document.hidden&&running)stop();});
       render();
     });
   }
