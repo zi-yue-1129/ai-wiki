@@ -2,8 +2,12 @@
 // The scalar parameters and six-slot queue are schematic, not training results.
 (() => {
   'use strict';
-  const online = [0.70, 0.85, 0.78, 0.91], momentum = 0.9, target = [0.30];
-  for (let i=1;i<online.length;i++) target.push(momentum*target[i-1]+(1-momentum)*online[i]);
+  const online = [0.70, 0.85, 0.78, 0.91];
+  const targets = momentum => {
+    const values = [0.30];
+    for (let i=1;i<online.length;i++) values.push(momentum*values[i-1]+(1-momentum)*online[i]);
+    return values;
+  };
   const stages = {
     moco: ['Encode key','Contrast','Query SGD','Key EMA','FIFO enqueue'],
     byol: ['Two views','Predict','Stop-gradient','Online SGD','Target EMA']
@@ -18,24 +22,25 @@
       zh: ['兩種影像增強視角分別送入線上與目標分支。','線上預測器嘗試對齊目標網路的表徵。','停止梯度阻止損失梯度回傳至目標網路；沒有負樣本佇列。','只有線上網路與預測器接收損失梯度。','以更新後的線上參數執行 EMA，而非對目標網路反向傳播。']
     }
   };
-  const fmt = x => x.toFixed(3);
-  function calculate(kind, index) {
+  const fmt = x => (Math.round((x + Number.EPSILON)*1000)/1000).toFixed(3);
+  function calculate(kind, index, momentum) {
+    const target=targets(momentum);
     const turn=Math.floor(index/5), phase=index%5;
     const onlineAt=turn+(phase >= (kind==='moco'?2:3)?1:0);
     const targetAt=turn+(phase >= (kind==='moco'?3:4)?1:0);
     const removed=turn+(kind==='moco'&&phase===4?1:0);
     return {turn,phase,q:online[onlineAt],k:target[targetAt],
-      queue:['A','B','C','D','E','F','G','H','I'].slice(removed,removed+6)};
+      target, queue:['A','B','C','D','E','F','G','H','I'].slice(removed,removed+6)};
   }
-  function diagram(kind,s) {
+  function diagram(kind,s,momentum) {
     const m=kind==='moco', qx=112+s.q*380, kx=112+s.k*380;
     const emphasis=['#196b96','#087f83','#c06647','#8c62a7','#15856d'][s.phase];
-    const paths=m?[[130,100,470,100],[305,105,305,166],[460,166,460,110],[330,185,330,115],[488,180,575,180]]
-                 :[[135,100,480,100],[450,100,305,165],[350,170,350,170],[300,170,180,100],[190,220,455,220]];
+    const paths=m?[[130,100,470,100],[305,105,305,156],[460,166,460,110],[330,160,330,115],[488,180,575,180]]
+                 :[[135,100,480,100],[450,100,305,165],[350,170,350,170],[460,155,460,95],[190,220,455,220]];
     const a=paths[s.phase];
     let queue='';
     if(m){
-      queue='<text x="22" y="183" class="ssl-small">FIFO negatives · oldest → newest</text>';
+      queue='<text x="22" y="188" class="ssl-small">FIFO negatives · oldest → newest</text>';
       s.queue.forEach((item,i)=>{
         queue+='<rect x="'+(22+98*i)+'" y="193" width="82" height="37" rx="7" fill="'+(i===5&&s.phase===4?'#c6eee0':'#e9eff4')+'" stroke="#9eb3c0"/>';
         queue+='<text x="'+(63+98*i)+'" y="218" class="ssl-token">'+item+'</text>';
@@ -60,7 +65,7 @@
       '<path d="M607 65 V158" stroke="'+emphasis+'" stroke-width="4" stroke-linecap="round"/>'+
       queue+
       '<circle class="ssl-packet" cx="'+a[0]+'" cy="'+a[1]+'" data-x0="'+a[0]+'" data-y0="'+a[1]+'" data-x1="'+a[2]+'" data-y1="'+a[3]+'" r="7" fill="'+emphasis+'" aria-hidden="true"/>'+
-      '<text x="22" y="247" class="ssl-small">Toy weights · m = 0.9 · Not measurements</text></svg>';
+      '<text x="22" y="247" class="ssl-small">Toy weights · m = '+momentum.toFixed(2)+' · Not measurements</text></svg>';
   }
   function enhance() {
     document.querySelectorAll('[data-self-supervised-lab]').forEach(host=>{
@@ -69,16 +74,18 @@
       if(!stages[kind]) return;
       host.dataset.labReady='yes';
       const zh=host.dataset.locale==='zh-TW';
-      const words=zh?['播放','暫停','上一步','下一步','進度','速度']:['Play','Pause','Previous','Next','Timeline','Speed'];
+      const words=zh?['播放','暫停','上一步','下一步','進度','速度','動量 m']:['Play','Pause','Previous','Next','Timeline','Speed','Momentum m'];
       host.classList.add('ssl-lab');
       host.innerHTML='<div class="ssl-figure"></div><div class="ssl-toolbar">'+
         '<button type="button" data-act="play"></button><button type="button" data-act="prev"></button><button type="button" data-act="next"></button>'+
         '<label>'+words[4]+' <input type="range" min="0" max="14" step="1" value="0" aria-label="'+words[4]+'" data-act="seek"></label>'+
-        '<label>'+words[5]+' <select aria-label="'+words[5]+'" data-act="speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label></div>'+
+        '<label>'+words[5]+' <select aria-label="'+words[5]+'" data-act="speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>'+
+        '<label class="ssl-momentum">'+words[6]+' <input type="range" min="0.50" max="0.99" step="0.01" value="0.90" aria-label="'+words[6]+'" data-act="momentum"><output data-momentum-output>0.90</output></label></div>'+
         '<div class="ssl-explain" aria-live="polite" aria-atomic="true"></div><div class="ssl-compute" aria-live="off"></div>';
       const find = name => host.querySelector('[data-act="'+name+'"]');
       const figure=host.querySelector('.ssl-figure'),note=host.querySelector('.ssl-explain'),calc=host.querySelector('.ssl-compute');
       const play=find('play'),prev=find('prev'),next=find('next'),seek=find('seek'),speed=find('speed');
+      const momentumInput=find('momentum'), momentumOutput=host.querySelector('[data-momentum-output]');
       // The particle follows the current operation ONCE. Its position is a pure
       // function of elapsed time, so Pause freezes it and seek/step is deterministic.
       const STEP_MS=1250;
@@ -99,13 +106,17 @@
         running=false;last=null;cancelAnimationFrame(raf);raf=0;updatePlay();
       };
       const render=()=>{
-        const s=calculate(kind,frame);
-        figure.innerHTML=diagram(kind,s);
+        const momentum=Number(momentumInput.value);
+        const s=calculate(kind,frame,momentum);
+        momentumOutput.textContent=momentum.toFixed(2);
+        momentumInput.setAttribute('aria-valuetext',momentum.toFixed(2));
+        figure.innerHTML=diagram(kind,s,momentum);
         const label=zh ? (kind==='moco'?['產生鍵','對比','查詢 SGD','動量 EMA','佇列入列']:['增強視角','預測','停止梯度','線上 SGD','目標 EMA'])[s.phase] : stages[kind][s.phase];
         note.textContent=(zh?'回合 ':'Iteration ')+(s.turn+1)+'/3 · '+label+' — '+explanations[kind][zh?'zh':'en'][s.phase];
         calc.textContent=(zh?'線上／查詢參數':'Online / query weight')+' = '+fmt(s.q)+' · '+(zh?'目標／鍵參數':'Target / key weight')+' = '+fmt(s.k)+
-          ' · '+(s.phase >= (kind==='moco'?3:4)?(zh?'已執行 EMA':'EMA applied'):(zh?'待執行 EMA':'EMA pending'))+': 0.9×'+fmt(target[s.turn])+' + 0.1×'+fmt(online[s.turn+1])+' = '+fmt(target[s.turn+1])+
-          (kind==='moco'?' · FIFO ['+s.queue.join(' ')+']':' · Target gradient = 0');
+          ' · '+(s.phase >= (kind==='moco'?3:4)?(zh?'已執行 EMA':'EMA applied'):(zh?'待執行 EMA':'EMA pending'))+': '+momentum.toFixed(2)+'×'+fmt(s.target[s.turn])+' + '+(1-momentum).toFixed(2)+'×'+fmt(online[s.turn+1])+' = '+fmt(s.target[s.turn+1])+
+          ' · |Δ|='+fmt(Math.abs(s.q-s.k))+
+          (kind==='moco'?' · FIFO ['+s.queue.join(' ')+']':(zh?' · 目標梯度 = 0':' · Target gradient = 0'));
         movePacket();updatePlay();
         prev.textContent='← '+words[2];next.textContent=words[3]+' →';
         prev.disabled=frame===0;next.disabled=frame===14;seek.value=String(frame);
@@ -132,6 +143,8 @@
       seek.addEventListener('input',()=>{stop();show(Number(seek.value));});
       // Speed applies to the current interpolation without resetting its state.
       speed.addEventListener('change',()=>{});
+      // The what-if slider recomputes all three EMA steps, without changing SGD or FIFO.
+      momentumInput.addEventListener('input',()=>{stop();render();});
       document.addEventListener?.('visibilitychange',()=>{if(document.hidden&&running)stop();});
       render();
     });
