@@ -66,6 +66,13 @@ The animation follows **augment → predict → backpropagate → update target*
 
 On MkDocs, use **Play/Pause** to stop the eight-second loop; the linked static overview works in GitHub Markdown and with reduced motion. This original diagram is licensed **CC BY-SA 4.0** and follows Grill et al. (2020), cited below.
 
+
+#### Interactive experiment: observe stop-gradient and target lag
+
+<div data-self-supervised-lab="byol" data-locale="en"></div>
+
+Use **Play/Pause, Previous/Next, timeline scrubbing and playback speed** to inspect three hand-calculable updates. Each iteration processes two views, aligns an online prediction with a target projection, blocks **target loss gradients**, updates **only online parameters by SGD**, and then applies **one EMA update** to the target. Track the lag between the two scalar parameter markers; for example, the first update is `0.9 × 0.300 + 0.1 × 0.850 = 0.355`. These scalar values and the momentum 0.9 are **illustrative, not learned features or the paper's training schedule**. The full BYOL objective also swaps views and sums both directional losses; the miniature simulation isolates one direction. There is **no negative-key queue**. Reduced-motion readers can operate the states without moving particles. The existing SVG and still figure remain the GitHub/no-JavaScript fallback. Original teaching simulation **CC BY-SA 4.0**.
+
 ## Key methods
 
 ### Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning (Grill et al., 2020)
