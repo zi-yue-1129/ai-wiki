@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-30
 tags:
   - self-supervised learning
   - vision transformer
@@ -35,6 +35,16 @@ DINOv2 是一種自監督視覺 Transformer，其凍結的特徵無需微調主�
 2. **訓練主幹網路。**以影像層級與圖像塊層級目標，加上 KoLeo 正則化，訓練一個視覺 Transformer。
 3. **凍結。**預訓練後，主幹網路保持固定。
 4. **使用特徵。**把影像與圖像塊特徵輸入下游的頭，用於分類、分割、深度估計或檢索。
+
+### 視覺化流程：雙重自蒸餾目標與教師 EMA 更新
+
+![DINOv2 動畫：全域與局部裁切、類別 token 蒸餾、遮罩區塊匹配，以及不接收損失梯度的教師 EMA 更新。](../../../../assets/concept-animations/dinov2-dual-objective-ema-motion.svg)
+
+[GitHub 可閱讀的四階段靜態預覽](../../../../assets/concept-animations/dinov2-dual-objective-ema-still.svg)
+
+四階段依序為**裁切視角 → CLS 損失 → 區塊損失 → 教師 EMA**。學生透過類別 token 目標學習跨視角的影像層級一致性；在區塊層級，**學生被遮罩的區塊**則透過 iBOT 式目標匹配**教師未遮罩的區塊表徵**。**損失梯度只更新學生，不更新教師**；教師權重由學生權重的指數移動平均（EMA）更新。此圖刻意拆開兩種目標以利理解；實際 DINOv2 訓練還包含 KoLeo 正則化、中心化及其他實作細節。區塊格線、遮罩位置與箭頭皆為**教學示意，不是模型實測特徵或真實訓練批次**。
+
+MkDocs 網站可使用**播放／暫停**控制八秒循環；GitHub Markdown 與偏好減少動態效果時可使用靜態預覽。本原創視覺採 **CC BY-SA 4.0** 授權，依據下方 Oquab 等人（2023）及 DINO／iBOT 原始論文製作。
 
 ## 關鍵方法
 

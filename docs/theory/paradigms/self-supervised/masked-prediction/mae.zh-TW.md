@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-30
 related:
   - theory/paradigms/self-supervised
   - theory/paradigms/self-supervised/contrastive-learning
@@ -33,6 +33,16 @@ He 等人（2022）顯示，當遮罩比例很高時，BERT 式的遮罩預測�
 6. 預訓練後，丟棄解碼器，把完整、未遮罩的影像送入編碼器進行辨識任務。
 
 由於編碼器只在可見的 25% 區塊上運作，預訓練比編碼所有區塊便宜得多。論文的計時實驗量測到 ViT-L 的牆鐘時間加速為 2.8 倍，低於摘要中報告的「3 倍或以上」。
+
+### 視覺化流程：僅編碼可見區塊與遮罩重建
+
+![MAE 動畫：十六個影像區塊保留四個，編碼器只處理可見 token，解碼器加入遮罩 token，最後僅計算遮罩位置的重建誤差。](../../../../assets/concept-animations/mae-visible-patch-reconstruction-motion.svg)
+
+[GitHub 可閱讀的四階段靜態預覽](../../../../assets/concept-animations/mae-visible-patch-reconstruction-still.svg)
+
+動畫依序呈現**遮罩 → 編碼 → 解碼 → 遮罩位置損失**。圖中以 4 × 4 區塊示意，**16 個區塊遮住 12 個（75%）**。編碼器只接收四個可見 token；解碼器再結合編碼後的表徵與十二個遮罩 token，預測所有區塊的像素。雖然解碼器輸出全部十六個位置，**重建均方誤差只計算原先被遮住的十二個位置**。圖中顏色與重建結果純屬教學示意，**不是模型實際輸出或效能量測**。
+
+MkDocs 網站可使用**播放／暫停**停止八秒循環；GitHub Markdown 與偏好減少動態效果的讀者可使用靜態預覽。本原創視覺採 **CC BY-SA 4.0** 授權，依據下方 He 等人（2022）的原始論文製作。
 
 ## 關鍵方法
 

@@ -43,6 +43,16 @@ He et al. (2022) show that BERT-style masked prediction works for images when th
 
 Because the encoder runs on the 25% of patches that are visible, pre-training is much cheaper than encoding every patch. The paper's timing experiment measures a 2.8× wall-clock speedup for ViT-L, which is below the "3× or more" that the abstract reports.
 
+### Visual walkthrough: visible-only encoding and masked reconstruction
+
+![MAE animation: retain four of sixteen patches, encode only the visible tokens, restore mask tokens in the decoder, and score the masked reconstruction.](../../../../assets/concept-animations/mae-visible-patch-reconstruction-motion.svg)
+
+[Static four-stage overview for GitHub](../../../../assets/concept-animations/mae-visible-patch-reconstruction-still.svg)
+
+The **mask → encode → decode → masked loss** sequence uses a schematic 4 × 4 image with **12 of 16 patches masked (75%)**. The encoder receives only four visible tokens; the decoder then combines their encoded representations with twelve mask tokens to predict all patch pixels. **Only the twelve originally masked positions contribute to reconstruction MSE**, although the decoder outputs all sixteen. Patch colours and reconstructions are illustrative, **not model outputs or benchmark measurements**.
+
+On the MkDocs site, use **Play/Pause** to stop the eight-second loop. GitHub Markdown and reduced-motion settings have a static four-stage fallback. This original visual is licensed **CC BY-SA 4.0** and illustrates He et al. (2022), cited in References.
+
 ## Key methods
 
 ### Masked Autoencoders Are Scalable Vision Learners (He, Chen, Xie, Li, Dollár & Girshick, 2022)
