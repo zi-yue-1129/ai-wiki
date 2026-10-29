@@ -34,6 +34,10 @@ $$\bar{v}_j = \sum_{i \in \text{children}(j)} \bar{v}_i \,\frac{\partial v_i}{\p
 
 Each adjoint is a vector-Jacobian product. The point is that the gradient with respect to all inputs is produced by one backward sweep whose cost is a small constant multiple of evaluating the function, a result known as the cheap gradient principle [(Griewank and Walther, 2008)](https://doi.org/10.1137/1.9780898717761).
 
+![Reverse-mode AD animation: seed the scalar output adjoint, propagate sensitivities backwards, and accumulate contributions at a shared input.](../../../assets/concept-animations/reverse-ad-vjp-motion.svg)
+
+*Original four-stage teaching animation, CC BY-SA 4.0.* The same illustrative program $a=xy$, $b=x+x$, $z=a+b$ at $(x,y)=(2,3)$ first records the primal values. Seeding $\bar{z}=1$ sends $\bar{a}=\bar{b}=1$ backwards; the two paths into $x$ contribute $y\bar{a}=3$ and $2\bar{b}=2$, which **must be added**, giving $\bar{x}=5$, while $\bar{y}=x\bar{a}=2$. This one reverse sweep yields $\nabla f=(5,2)$ for a scalar output, not a claim about a model's measured gradients. The MkDocs player offers Play/Pause and a reduced-motion fallback; [view the GitHub-compatible static final state](../../../assets/concept-animations/reverse-ad-vjp-still.svg).
+
 ## Equation
 
 For a vector-valued operation $y = g(x)$ with Jacobian $J$, the adjoint rule maps the output sensitivity $\bar{y}$ to an input sensitivity without forming $J$:
