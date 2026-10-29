@@ -9,6 +9,9 @@ on:
       - "scripts/verify_concept_svgs.py"
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
+      - "docs/javascripts/concept-motion-detailed.js"
+      - "docs/stylesheets/concept-motion-detailed.css"
+      - "scripts/test_concept_motion_chapters.cjs"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
@@ -38,6 +41,8 @@ jobs:
           python-version: "3.12"
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
+      - name: Exercise bilingual guided motion controls and fallback
+        run: node scripts/test_concept_motion_chapters.cjs
 
   validate-svgs:
     runs-on: ubuntu-latest
