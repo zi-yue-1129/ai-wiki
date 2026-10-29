@@ -33,6 +33,16 @@ Uniform-cost search finds optimal paths but ignores the goal, so it expands many
 
 A\* keeps a priority queue of frontier nodes ordered by \(f\). It repeatedly removes the node with the lowest \(f\), expands it, and updates the \(g\) value of each successor if a cheaper path is found. It stops when the goal is removed from the queue. Hart et al. (1968) showed that with an admissible heuristic the first goal found is optimal. When \(h\equiv 0\), A\* reduces to uniform-cost search, and when \(h\) is only a guess, it is no longer guaranteed to be optimal.
 
+### Animated walkthrough: frontier priority and the goal pop
+
+![A-star animation: the OPEN queue prioritises the lowest f-score and finds the S–B–D–G path.](../../../../assets/concept-animations/astar-frontier-motion.svg)
+
+[Static final-state diagram for GitHub](../../../../assets/concept-animations/astar-frontier-still.svg)
+
+The four phases show **S** entering OPEN with \(f=0+5=5\); expanding S to enqueue **B** with \(f=1+4=5\) and **A** with \(f=2+5=7\); expanding B to enqueue **D** with \(f=3+2=5\); then expanding D and **popping G** with \(f=g=5\). The highlighted path is **S → B → D → G**, with edge costs \(1+2+2=5\). A remains in OPEN with \(f=7\) when the goal is removed. The heuristic values shown are **consistent and admissible for this particular graph**; the example is not a measured benchmark. The highlight indicates discovered paths, not that every visible node was expanded.
+
+On the MkDocs site, use the animation's **Play/Pause** control (including keyboard activation); GitHub readers can open the static final-state diagram. This original **CC BY-SA 4.0** teaching visual follows the A\* procedure in Hart, Nilsson and Raphael (1968), cited below.
+
 ## Variants
 
 - **Weighted A\*** uses \(f=g+w\,h\) with \(w>1\). It expands fewer nodes, but the path can be up to \(w\) times the optimal cost.
