@@ -11,9 +11,9 @@ function setup(kind,locale) {
       addEventListener(k,v){this.events[k]=v}};
   }
   const host={dataset:{selfSupervisedLab:kind,locale},classList:{add(){}},
-    set innerHTML(value){this.html=value; for(const key of ['play','prev','next','seek','speed','momentum'])map['[data-act="'+key+'"]']=element(key);
-      map['.ssl-figure']=element('figure');map['.ssl-explain']=element('explain');map['.ssl-compute']=element('compute');map['[data-momentum-output]']=element('momentumOutput');
-      map['[data-act="speed"]'].value='1';map['[data-act="momentum"]'].value='0.90';},
+    set innerHTML(value){this.html=value; for(const key of ['play','prev','next','seek','speed','momentum','loss'])map['[data-act="'+key+'"]']=element(key);
+      map['.ssl-figure']=element('figure');map['.ssl-explain']=element('explain');map['.ssl-compute']=element('compute');map['[data-momentum-output]']=element('momentumOutput');map['.ssl-loss-value']=element('lossValue');map['.ssl-loss-visual']=element('lossVisual');map['.ssl-loss-note']=element('lossNote');
+      map['[data-act="speed"]'].value='1';map['[data-act="momentum"]'].value='0.90';map['[data-act="loss"]'].value=kind==='moco'?'0.20':'0.50';},
     querySelector(selector){return map[selector]}};
   const document={readyState:'complete',querySelectorAll(){return [host]}};
   const frames=[];let nextId=0;const cancelled=new Set();
@@ -30,6 +30,24 @@ function setup(kind,locale) {
 for(const kind of ['moco','byol'])for(const locale of ['en','zh-TW']) {
   const h=setup(kind,locale),next=h.control('next'),prev=h.control('prev'),seek=h.control('seek');
   const output=()=>h.map['.ssl-compute'].textContent;
+  const loss=h.control('loss'), lossText=()=>h.map['.ssl-loss-value'].textContent;
+  if(kind==='moco'){
+    assert.match(lossText(),/InfoNCE = /);
+    const initial=Number(lossText().split('InfoNCE = ')[1]);
+    assert.ok(initial>0&&initial<2);
+    loss.value='1.00';loss.events.input();
+    const warmer=Number(lossText().split('InfoNCE = ')[1]);
+    assert.ok(warmer>initial,'warmer temperature softens the positive softmax');
+    assert.match(h.map['.ssl-loss-visual'].innerHTML,/ssl-loss-positive/);
+  }else{
+    assert.match(lossText(),/L = 2 − 2cos = 1.000/);
+    loss.value='1.00';loss.events.input();
+    assert.match(lossText(),/L = 2 − 2cos = 0.000/);
+    loss.value='-1.00';loss.events.input();
+    assert.match(lossText(),/L = 2 − 2cos = 4.000/);
+    assert.match(h.map['.ssl-loss-visual'].innerHTML,/ssl-loss-vectors/);
+  }
+  assert.match(h.map['.ssl-loss-note'].textContent,locale==='zh-TW'?/示意|向量/:/toy|unit vectors/);
   assert.match(output(),/0\.700/);
   assert.match(output(),/0\.300/);
   assert.match(h.map['.ssl-figure'].innerHTML,/<svg/);
@@ -67,4 +85,4 @@ for(const kind of ['moco','byol'])for(const locale of ['en','zh-TW']) {
   assert.match(h.map['.ssl-figure'].innerHTML,/data-x0=/);
   if(locale==='zh-TW')assert.match(h.map['.ssl-explain'].textContent,/回合/);
 }
-console.log('PASS: 4 bilingual MoCo/BYOL DOM simulations; momentum sensitivity, FIFO, SGD, EMA, seek and playback');
+console.log('PASS: 4 bilingual MoCo/BYOL DOM simulations; momentum sensitivity, toy InfoNCE/normalized loss, FIFO, SGD, EMA, seek and playback');
