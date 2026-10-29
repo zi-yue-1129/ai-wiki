@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # Metropolis–Hastings
@@ -26,6 +26,16 @@ Metropolis–Hastings 演算法從簡單分布提出移動，並以能保持目�
 3. 以機率 \(\alpha\) 將下一個狀態設為 \(\theta'\)；否則保持 \(\theta\)。
 
 Metropolis 等人（1953）為物理系統提出了對稱版本。Hastings（1970）把它推廣到非對稱提議，即今日使用的形式。\(\alpha\) 的選擇保證對 \(\pi\) 的細緻平衡成立，因此 \(\pi\) 是該鏈的穩態分布。
+
+## 動態流程示意
+
+![Metropolis–Hastings 四階段動畫：目前狀態、提出候選、接受及拒絕](../../../../assets/concept-animations/mh-accept-reject-motion.svg)
+
+[GitHub 與減少動態效果使用者適用的靜態最終狀態圖](../../../../assets/concept-animations/mh-accept-reject-still.svg)。MkDocs 網站可使用「播放動畫／暫停動畫」按鈕（鍵盤以 Tab 移動焦點，再按 Enter）。動畫循環展示四階段；靜態圖呈現拒絕提議的結果。
+
+示意目標分布為 \(\pi(\theta)\propto\exp(-\theta^2/2)\)，採用**對稱提議**。從 \(-1.0\) 提議 \(0.4\) 時，接受機率 \(\alpha=1\)；接著從 \(0.4\) 提議 \(2.5\) 時，\(\alpha=\exp[-(2.5^2-0.4^2)/2]\approx0.048\)。若示意均勻亂數 \(u=0.60\)，則拒絕提議，**鏈仍停在 0.4**，而不是移動到被拒絕的候選點。曲線與數值均為自行設定的教學案例，**不是抽樣器的實測結果**；此處使用下方 Hastings（1970）所述規則的對稱提議特例。
+
+*原創教學動畫與靜態回退圖：CC BY-SA 4.0。*
 
 ## 主要方法
 
