@@ -11,9 +11,9 @@ function setup(kind,locale) {
       addEventListener(k,v){this.events[k]=v}};
   }
   const host={dataset:{selfSupervisedLab:kind,locale},classList:{add(){}},
-    set innerHTML(value){this.html=value; for(const key of ['play','prev','next','seek','speed'])map['[data-act="'+key+'"]']=element(key);
-      map['.ssl-figure']=element('figure');map['.ssl-explain']=element('explain');map['.ssl-compute']=element('compute');
-      map['[data-act="speed"]'].value='1';},
+    set innerHTML(value){this.html=value; for(const key of ['play','prev','next','seek','speed','momentum'])map['[data-act="'+key+'"]']=element(key);
+      map['.ssl-figure']=element('figure');map['.ssl-explain']=element('explain');map['.ssl-compute']=element('compute');map['[data-momentum-output]']=element('momentumOutput');
+      map['[data-act="speed"]'].value='1';map['[data-act="momentum"]'].value='0.90';},
     querySelector(selector){return map[selector]}};
   const document={readyState:'complete',querySelectorAll(){return [host]}};
   const frames=[];let nextId=0;const cancelled=new Set();
@@ -40,7 +40,18 @@ for(const kind of ['moco','byol'])for(const locale of ['en','zh-TW']) {
   else assert.match(output(),/0\.300/);
   seek.value='4';seek.events.input();assert.match(output(),/0\.355/);
   if(kind==='moco')assert.match(output(),/FIFO \[B C D E F G\]/);
-  else assert.match(output(),/Target gradient = 0/);
+  else assert.match(output(),locale==='zh-TW'?/目標梯度 = 0/:/Target gradient = 0/);
+  const momentum=h.control('momentum');
+  momentum.value='0.50';momentum.events.input();
+  assert.match(output(),/0\.575/,'m=0.50 should move the target more quickly');
+  assert.match(output(),/0\.50×0\.300 \+ 0\.50×0\.850/);
+  assert.equal(h.map['[data-momentum-output]'].textContent,'0.50');
+  if(kind==='moco')assert.match(output(),/FIFO \[B C D E F G\]/);
+  momentum.value='0.99';momentum.events.input();
+  assert.match(output(),/0\.306/,'m=0.99 should keep the target near its initial weight');
+  assert.match(output(),/\|Δ\|=/);
+  assert.equal(seek.value,'4','momentum adjustment must preserve the selected operation');
+  momentum.value='0.90';momentum.events.input();
   seek.value='14';seek.events.input();assert.equal(next.disabled,true);
   const play=h.control('play');play.events.click();assert.equal(seek.value,'0');
   assert.equal(h.frames.length,1);
@@ -56,4 +67,4 @@ for(const kind of ['moco','byol'])for(const locale of ['en','zh-TW']) {
   assert.match(h.map['.ssl-figure'].innerHTML,/data-x0=/);
   if(locale==='zh-TW')assert.match(h.map['.ssl-explain'].textContent,/回合/);
 }
-console.log('PASS: 4 bilingual MoCo/BYOL DOM simulations; deterministic FIFO, SGD, EMA, seek and playback');
+console.log('PASS: 4 bilingual MoCo/BYOL DOM simulations; momentum sensitivity, FIFO, SGD, EMA, seek and playback');
