@@ -49,7 +49,7 @@ Grill 等人（2020）主張，負樣本對對於強大的影像表徵並非必�
 
 ### 視覺解說：線上梯度與動量目標網路
 
-![BYOL 動畫：兩個增強視角、線上分支預測目標表徵、阻斷目標分支梯度，以及以指數移動平均更新目標權重。](../../../../assets/concept-animations/byol-online-target-still.svg)
+![BYOL 靜態概觀：兩個增強視角、線上分支預測目標表徵、阻斷目標分支梯度，以及以指數移動平均更新目標權重。](../../../../assets/concept-animations/byol-online-target-still.svg)
 
 
 
