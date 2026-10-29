@@ -35,6 +35,10 @@ The procedure, following the paper's Methods section:
 5. Set the target to \(y = r\) for terminal transitions and \(y = r + \gamma \max_{a'} Q(s', a'; \theta^-)\) otherwise. Take one RMSProp step to reduce \((y - Q(s, a; \theta))^2\).
 6. Every \(C\) steps, set \(\theta^- \leftarrow \theta\).
 
+![DQN cycle: replay samples, online updates, fixed target and periodic synchronisation](../../../../assets/concept-animations/dqn-target-sync-motion.svg)
+
+*Original teaching schematic (CC BY-SA 4.0).* Two replay transitions are sampled; the online Q-network updates while the target Q-network remains fixed, then a periodic hard copy synchronises their parameters. The colored bars symbolise parameters rather than actual learned weights, timings or empirical performance. On MkDocs, use Play/Pause; the [static GitHub overview](../../../../assets/concept-animations/dqn-target-sync-still.svg) shows the copy step.
+
 ## Results
 
 Across 49 Atari 2600 games, with the same settings for all of them, DQN reached more than 75% of the human score on 29 games. It outperformed the best existing reinforcement learning methods on 43 games. Each game was trained for 50 million frames and evaluated with \(\varepsilon = 0.05\).

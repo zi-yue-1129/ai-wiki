@@ -37,14 +37,9 @@ On a shared GPU, a large prefill can take many milliseconds, during which the de
 
 A request is routed to a prefill pool, which computes the prompt's KV cache. The cache is then transferred to a decoding pool, which generates the output tokens. A scheduler decides which pool and which machine receive each request, and it balances the two pools so that neither waits for the other.
 
-```mermaid
-flowchart LR
-  R[Request] --> P[Prefill pool: compute-bound]
-  P -->|KV cache transfer| D[Decoding pool: memory-bound]
-  D --> T[Streamed tokens]
-  S[Scheduler] --> P
-  S --> D
-```
+![Four stages of disaggregated serving: prompt prefill, KV-cache construction, KV transfer, and token decoding in separate resource pools.](../../assets/concept-animations/disaggregated-handoff-motion.svg)
+
+*Original animated teaching diagram, CC BY-SA 4.0.* The four highlighted phases trace **one request** from prefill to decode. In a serving system, prefill and decoding for *different* requests may run concurrently in separate pools; the sequential highlights are not a GPU schedule, a latency measurement, or evidence that transfer is free. On MkDocs, use the keyboard-accessible **Play/Pause** control; reduced-motion preferences initially show the static image. [Static KV-handoff overview for GitHub](../../assets/concept-animations/disaggregated-handoff-still.svg). This schematic follows the phase separation described in the DistServe and Splitwise papers already listed in References.
 
 The transfer is the step that the design must make cheap. Systems that use it reduce the cost by sending cache blocks over fast interconnects, and by overlapping the transfer with computation.
 

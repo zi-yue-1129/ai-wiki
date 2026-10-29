@@ -37,6 +37,11 @@ Keep a short history of $(s_k, y_k)$ pairs, and use them to define an implicit i
 
 The memory parameter $m$ is typically small, and it trades approximation quality against storage.
 
+![Animated L-BFGS two-loop recursion: retain recent curvature pairs, sweep newest to oldest, scale with H-zero, and sweep oldest to newest.](../../assets/concept-animations/lbfgs-two-loop-motion.svg)
+
+*Original four-stage teaching animation, CC BY-SA 4.0.* The three \((s_i,y_i)\) cards are a **schematic limited-memory history**, not numerical optimisation measurements. The first loop visits stored pairs from newest to oldest to transform \(q\); an initial inverse-Hessian scale \(H_0\) produces \(r\); the second loop visits pairs from oldest to newest before the descent direction \(d=-r\) is used in a line search. The picture deliberately omits the scalar coefficients \(\alpha_i,\beta_i\), which are essential to the actual recursion; it is an order-of-operations illustration, **not** a complete numerical algorithm. MkDocs supports Play/Pause and reduced-motion fallback; [view the four-step static overview](../../assets/concept-animations/lbfgs-two-loop-still.svg) on GitHub.
+
+
 ## Results
 
 Liu and Nocedal report numerical experiments on large-scale test problems. This page does not quote their figures or timings, because the full text of the paper was not checked here. Readers should consult the paper for the test problems and timings.

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # AdamW
@@ -26,6 +26,10 @@ AdamW 是帶有解耦權重衰減的 Adam。它把權重衰減懲罰直接作用
 \]
 
 衰減項 \(\lambda\theta_{t-1}\) 在自適應步驟之後加入，因此不會被 \(\sqrt{\hat v_t}\) 除。若使用 L2 正則化的 Adam，則會把 \(\lambda\theta_{t-1}\) 放進梯度 \(g_t\) 中，於是自適應縮放會削弱梯度大的參數的衰減。
+
+![四階段比較帶 L2 正則化的 Adam 與 AdamW：權重衰減進入自適應動差，或繞過動差直接作用於參數](../../../assets/concept-animations/adamw-decoupled-paths-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 上方橘色路徑表示**帶 L2 正則化的 Adam**：正則化梯度先與任務梯度相加，再進入自適應動差。下方青色路徑表示 **AdamW**：自適應梯度步驟與直接的參數收縮分開計算，最後才共同作用於參數。四個階段是運算依賴關係的**教學示意，不是實測梯度、係數或訓練軌跡**。MkDocs 可使用支援鍵盤操作的播放／暫停按鈕；GitHub 可查看[靜態比較圖](../../../assets/concept-animations/adamw-decoupled-paths-still.svg)。圖中省略偏差校正與動差遞迴細節，詳見 [AdamW 原始論文](https://arxiv.org/abs/1711.05101)。
 
 ## 關鍵方法
 

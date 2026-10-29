@@ -37,6 +37,10 @@ The paper uses policy delay \(d = 2\), target-noise standard deviation \(\sigma 
 3. Update both critics towards \(y\).
 4. Every \(d\) steps, update the actor with the gradient through the first critic, then update the target networks.
 
+![Four-stage TD3 process: smoothed target action, clipped twin target Q values, critic updates each step, and delayed actor and target updates](../../../../../assets/concept-animations/td3-delayed-twin-critics-motion.svg)
+
+*Original animated teaching schematic (CC BY-SA 4.0).* The upper path adds clipped noise to the **target actor's action**, evaluates it with **both target critics**, and uses their **minimum** to form the bootstrap target. The lower path distinguishes **both online critics updating every step** from **the actor and target networks updating only every second critic step** (the paper's example delay (d=2)). The target networks receive a **soft update**, not a hard copy; the actor's policy gradient uses the first online critic. The timeline is **illustrative, not measured training dynamics**. Use the MkDocs Play/Pause control, or view the [GitHub-readable static overview](../../../../../assets/concept-animations/td3-delayed-twin-critics-still.svg). See [Fujimoto et al. (2018)](https://arxiv.org/abs/1802.09477).
+
 ## Results
 
 The paper evaluates on seven OpenAI Gym MuJoCo tasks, with results averaged over 10 trials of one million time steps. The abstract states that the method outperforms the state of the art in every environment tested. Table 1 gives maximum average return for TD3, DDPG and PPO:

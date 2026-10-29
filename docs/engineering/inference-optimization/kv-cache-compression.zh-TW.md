@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 last_reviewed: 2026-10-28
 related:
   - theory/models/transformer/kv-cache
@@ -37,15 +37,9 @@ KV 快取是記憶體問題，而不是運算問題。在長上下文服務中�
 
 服務系統在寫入新的 key 與 value 時套用壓縮，或在快取超過預算時定期套用。
 
-```mermaid
-flowchart LR
-  N[新 token 的 key 與 value] --> B{快取超過預算？}
-  B -->|否| W[寫入快取]
-  B -->|是| P[策略選出要丟棄的 token]
-  P --> Q[可選擇量化其餘部分]
-  Q --> W
-  W --> A[對剩餘的 token 計算注意力]
-```
+![KV 快取淘汰的四步驟：詞元 0 作為注意力匯聚點持續保留，另外三個近期詞元隨新詞元加入而逐步更新。](../../assets/concept-animations/streaming-kv-eviction-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 這張圖特別示範 **StreamingLLM 式「注意力匯聚點＋近期視窗」**策略，**不是** H2O 的重擊手選取，也不是 KIVI 量化。示意的四格快取保留詞元 0 與最近三個詞元；新詞元到來時，中間較舊的詞元被淘汰。詞元編號、容量及四個狀態皆為教學示意，**不是實測數據**。被淘汰的詞元無法再從保留的 KV 快取中取回。MkDocs 網站可透過支援鍵盤操作的**播放／暫停**按鈕控制；減少動態效果偏好會預設顯示靜態圖。[GitHub 可閱讀的最終快取靜態概覽](../../assets/concept-animations/streaming-kv-eviction-still.svg)。注意力匯聚點方法請參閱下方 References 的 Xiao 等人（2024）。
 
 策略與預算決定了取捨。預算越大，保留的內容越多，節省的記憶體越少。量化快取會保留每個 token，但精度較低。
 

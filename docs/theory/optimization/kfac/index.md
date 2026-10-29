@@ -32,6 +32,12 @@ For a fully connected layer with input activations $a$ and output gradients $g$,
 
 The paper also approximates the inverse of the whole block-structured matrix as block-diagonal or block-tridiagonal. The authors justify this for the inverse of the Fisher, but not for the Fisher itself, and their experiments confirm that the inverse has this structure only approximately.
 
+### Animated walkthrough
+
+![K-FAC four-stage animation: collect activation and output-gradient statistics, form two Kronecker factors, invert damped factors, and precondition the layer gradient.](../../../assets/concept-animations/kfac-factor-preconditioning-motion.svg)
+
+*Original CC BY-SA 4.0 teaching animation based on Martens and Grosse (2015; see References). The stages show the two second-moment factors $A=\mathbb E[aa^\top]$ and $G=\mathbb E[gg^\top]$, their **damped** inverses, and the approximate layerwise direction $G^{-1}(\nabla W)A^{-1}$. The displayed matrix intensities and directions are symbolic, **not** empirical covariances or model measurements. The illustration suppresses layer-to-layer correlations and does not imply that separately damping the factors is identical to adding a scalar damping term to the full Fisher block. On MkDocs, use the keyboard-accessible **Play/Pause** button; reduced-motion preferences initially show the [static GitHub-readable overview](../../../assets/concept-animations/kfac-factor-preconditioning-still.svg). [Open the animated SVG](../../../assets/concept-animations/kfac-factor-preconditioning-motion.svg).*
+
 ## Algorithm
 
 For each layer $\ell$:

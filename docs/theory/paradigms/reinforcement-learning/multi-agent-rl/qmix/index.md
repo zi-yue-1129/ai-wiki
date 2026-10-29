@@ -33,6 +33,10 @@ The team value is \(Q_{tot}(\tau, \mathbf{u}) = f_{\text{mix}}(Q_1(\tau_1, u_1),
 3. Train all parts together with a temporal-difference loss on \(Q_{tot}\), with a target network.
 4. At execution time, each agent picks the action with the largest \(Q_a\), with no central coordinator.
 
+![QMIX: local greedy actions, state-conditioned monotonic mixing and decentralised execution](../../../../../assets/concept-animations/qmix-monotonic-greedy-motion.svg)
+
+*Original teaching schematic (CC BY-SA 4.0).* The four stages highlight local action values, nonnegative state-conditioned mixing weights, the monotonic joint value, and decentralised action selection. The bars and two-agent action labels are **illustrative, not learned values or measured results**. Monotonicity guarantees consistency of greedy action selection for a fixed state; it does not make arbitrary non-monotonic team values representable. On MkDocs, use the Play/Pause control; the [GitHub-readable static overview](../../../../../assets/concept-animations/qmix-monotonic-greedy-still.svg) shows decentralised execution.
+
 ## Results
 
 The experiments use decentralised unit micromanagement in StarCraft II, on six maps: 3m, 5m, 8m, 2s_3z, 3s_5z and 1c_3s_5z. The baselines are independent Q-learning (IQL) and VDN. Results are test win rates averaged over 20 runs, with 95% confidence intervals. The paper reports that "QMIX is noticeably the strongest performer on all of the maps" (Section 7.1).

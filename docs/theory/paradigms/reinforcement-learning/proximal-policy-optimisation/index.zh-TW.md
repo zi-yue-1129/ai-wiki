@@ -14,6 +14,12 @@ translation_reviewed: 2026-10-28
 
 令 \(r_t(\theta) = \pi_\theta(a_t \mid s_t) / \pi_{\theta_{\text{old}}}(a_t \mid s_t)\) 為機率比。裁剪目標會把 \(r_t\) 限制在 \([1-\varepsilon, 1+\varepsilon]\) 之內，避免因為大幅移動而獲得額外獎勵。取裁剪項與未裁剪項的最小值，意味著把比值推到此區間之外不會帶來收益。論文在連續控制中使用 \(\varepsilon = 0.2\)。由於更新停留在舊策略附近，同一批資料可以支持數個小批量迭代。
 
+### 動畫解讀：裁剪實際改變了什麼
+
+![PPO 裁剪代理目標：正負優勢的機率比位置逐步移動，顯示不同方向的平坦區](../../../../assets/concept-animations/ppo-clipped-objective-motion.svg)
+
+*原創教學示意圖（CC BY-SA 4.0）。* 虛線是**未裁剪**的 \(r_t\hat A_t\)，實線是單筆樣本的**裁剪代理目標**。動畫以四個狀態移動機率比的標記。當**優勢為正**，\(r_t\) 超過 \(1+\varepsilon\) 後繼續增加，不再提高該樣本的代理目標；當**優勢為負**，\(r_t\) 低於 \(1-\varepsilon\) 後繼續降低，也不再提高目標。裁剪**不會強制把機率比限制在區間內**，也不保證信賴區域。圖中以 \(\varepsilon=0.2\) 示意；標記位置與曲線高度不是實測的策略更新。MkDocs 網站可使用播放／暫停；GitHub 可閱讀[靜態總覽](../../../../assets/concept-animations/ppo-clipped-objective-still.svg)。
+
 ## 方程式或演算法
 
 給定優勢估計 \(\hat{A}_t\)，裁剪代理目標為

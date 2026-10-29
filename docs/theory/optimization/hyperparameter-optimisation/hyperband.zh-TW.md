@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # Hyperband（Li 等人，2017）
@@ -30,6 +30,10 @@ n_i = \left\lfloor n\,\eta^{-i} \right\rfloor \text{ 個設定，每個預算為
 \]
 
 Hyperband 會以數個分支執行此程序。令 \(s_{\max} = \lfloor \log_\eta (R/r) \rfloor\)。分支 \(s\) 以一定數量的設定與最小預算開始，其選擇使每個分支的總預算大致相同。\(s\) 大的分支嘗試許多設定，每個給予少量預算；\(s = 0\) 的分支則把少數設定執行到完整預算。所有分支中最佳的最終分數即為回傳結果。
+
+![Hyperband 資源配置動畫：九組超參數經逐輪淘汰保留三組及一組，並與另一個較高起始預算的分支比較。](../../../assets/concept-animations/hyperband-budget-motion.svg)
+
+*原創四階段教學動畫，CC BY-SA 4.0。* 示意分支 A 使用縮減因子 **3**，將資源量 1 的 9 組設定逐輪縮減為資源量 3 的 3 組，最後保留資源量 9 的 1 組；分支 B 則獨立從資源量 3 的 3 組設定開始，保留 1 組至資源量 9。字母、排名與資源單位皆為教學示意，**不是實測結果或效能比較**；兩個分支分別抽樣設定。動畫僅呈現資源配置，不代表早期排名必然可靠。MkDocs 網站支援播放／暫停及減少動態效果的靜態回退；GitHub 可[檢視靜態總覽圖](../../../assets/concept-animations/hyperband-budget-still.svg)。
 
 ## 主要方法
 

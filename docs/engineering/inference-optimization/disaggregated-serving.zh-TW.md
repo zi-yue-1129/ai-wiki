@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 last_reviewed: 2026-10-28
 related:
   - theory/models/transformer/kv-cache
@@ -36,14 +36,9 @@ aliases:
 
 請求會先送到預填充資源池，由它計算提示的 KV 快取。接著快取傳輸到解碼資源池，由它產生輸出 token。排程器決定每個請求送到哪個資源池與哪台機器，並平衡兩個資源池，使任何一方都不必等待另一方。
 
-```mermaid
-flowchart LR
-  R[請求] --> P[預填充資源池：受運算限制]
-  P -->|KV 快取傳輸| D[解碼資源池：受記憶體限制]
-  D --> T[串流輸出的 token]
-  S[排程器] --> P
-  S --> D
-```
+![分離式推論服務的四個階段：預填充、建立 KV 快取、跨資源池傳輸快取，以及逐詞元解碼。](../../assets/concept-animations/disaggregated-handoff-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 四個依序亮起的階段描述**單一請求**從預填充到解碼的路徑；實際系統可在不同資源池同時處理**不同請求**的預填充與解碼。動畫不是 GPU 排程紀錄、延遲量測，也不代表 KV 傳輸沒有成本。MkDocs 網站可透過支援鍵盤操作的**播放／暫停**按鈕控制；啟用減少動態效果時，預設顯示靜態圖。[GitHub 可閱讀的 KV 傳輸靜態概覽](../../assets/concept-animations/disaggregated-handoff-still.svg)。內容對應下方 References 所列 DistServe 與 Splitwise 的階段分離設計。
 
 設計上必須讓傳輸變得便宜。採用此設計的系統會透過快速互連傳送快取區塊，並讓傳輸與運算重疊，以降低成本。
 

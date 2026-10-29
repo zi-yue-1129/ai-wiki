@@ -24,6 +24,12 @@ K-FAC（Kronecker 分解近似曲率）是神經網路自然梯度的實用近�
 
 論文也把整個區塊結構矩陣的逆近似為區塊對角或區塊三對角。作者為費雪矩陣的逆提出這項論證，但對費雪矩陣本身並不成立，實驗也確認，逆矩陣只是近似地具有此結構。
 
+### 動態概念解說
+
+![K-FAC 四階段動畫：蒐集激活與反向傳播梯度的統計量、建立兩個克羅內克因子、計算阻尼後的逆矩陣，再預處理該層梯度。](../../../assets/concept-animations/kfac-factor-preconditioning-motion.svg)
+
+*原創 CC BY-SA 4.0 教學動畫，依據 Martens 與 Grosse（2015；見參考文獻）。四階段呈現激活與輸出梯度的二階矩因子 $A=\mathbb E[aa^\top]$、$G=\mathbb E[gg^\top]$、兩個加入**阻尼**後的逆矩陣，以及逐層預處理方向 $G^{-1}(\nabla W)A^{-1}$。矩陣顏色深淺與方向皆為**教學示意**，不是模型的共變異數或實測數據。此圖省略跨層相關性，也不代表對兩個因子分別加入阻尼，等同於對完整費雪區塊加上純量阻尼。MkDocs 網站可使用支援鍵盤的**播放／暫停**按鈕；偏好減少動態效果時，預設顯示 [GitHub 可讀的靜態概覽](../../../assets/concept-animations/kfac-factor-preconditioning-still.svg)。[開啟完整動畫](../../../assets/concept-animations/kfac-factor-preconditioning-motion.svg)。*
+
 ## 演算法
 
 對每一層 $\ell$：

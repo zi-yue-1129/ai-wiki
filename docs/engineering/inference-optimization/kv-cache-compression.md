@@ -38,15 +38,9 @@ The KV cache is a memory problem, not a compute problem. In long-context serving
 
 A serving system applies compression at the point where new keys and values are written, or periodically when the cache exceeds its budget.
 
-```mermaid
-flowchart LR
-  N[New token's keys and values] --> B{Cache over budget?}
-  B -->|no| W[Write to cache]
-  B -->|yes| P[Policy chooses tokens to drop]
-  P --> Q[Optionally quantise the rest]
-  Q --> W
-  W --> A[Attention over remaining tokens]
-```
+![Four-step KV-cache eviction: token zero remains as an attention sink while the three-token recent window slides from tokens 1–3 to tokens 4–6.](../../assets/concept-animations/streaming-kv-eviction-motion.svg)
+
+*Original animated teaching diagram, CC BY-SA 4.0.* This is specifically a **StreamingLLM-style sink-plus-recent-window** example, **not** the H2O heavy-hitter selection rule or KIVI quantisation. The illustrative four-slot budget retains token 0 and the latest three tokens; as new tokens arrive, older middle tokens are evicted. The token IDs, budget and four states are schematic, not measurements. Evicted tokens cannot be recalled through the retained KV cache. On MkDocs, use the keyboard-accessible **Play/Pause** control; reduced-motion preferences initially show a still. [Static final-cache overview for GitHub](../../assets/concept-animations/streaming-kv-eviction-still.svg). See Xiao et al. (2024) in References for the attention-sink method.
 
 The policy and the budget set the trade-off. A larger budget keeps more content and saves less memory. A quantised cache keeps every token but at lower precision.
 

@@ -1,3 +1,7 @@
+---
+translation_reviewed: 2026-10-29
+---
+
 # Orca：逐迭代排程
 
 Orca 是以單次模型迭代為單位進行排程的服務系統。完成的請求會離開批次，等待中的請求會在迭代之間加入，因此避免了以請求為單位的批次處理，在短請求上造成的閒置。這個概念稱為連續批次處理（continuous batching），現在已是 LLM 服務引擎的標準做法。
@@ -16,14 +20,9 @@ Orca 是以單次模型迭代為單位進行排程的服務系統。完成的請
 
 在每次迭代之前，排程器會移除已完成的請求、加入提示能放進記憶體的等待請求，然後對得到的批次執行一次迭代。線性層以一次批次矩陣乘法執行。注意力則逐請求執行，因為每個請求都有自己快取的 key 與 value。
 
-```mermaid
-flowchart LR
-  Q[等待佇列] --> S[排程器：移除已完成、加入新請求]
-  S --> B[活躍請求批次]
-  B --> I[一次模型迭代]
-  I --> O[每個請求產生一個新 token]
-  O --> S
-```
+![連續批次處理四個迭代的動畫：B 完成後 C 加入批次，之後 A 完成而 C 持續生成。](../../assets/concept-animations/orca-continuous-batching-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* t1–t4 表示**模型迭代**，不是實測的經過時間。A、B、C 是示意請求；數字代表各請求在該步的示意輸出詞元數。B 在 t1 後完成，讓等待中的 C 於 t2 加入；A 在 t3 後完成，C 則繼續執行。移動外框標示目前迭代，GPU 批次標籤也隨之切換。此簡化時序假設新加入請求的提示已準備好處理，省略預填充與記憶體容量細節，**並非吞吐量實測軌跡**。MkDocs 網站提供可用鍵盤操作的「播放／暫停」及減少動態效果支援；GitHub 可查看[四次迭代的靜態時序圖](../../assets/concept-animations/orca-continuous-batching-still.svg)。詳見 [Orca 原始論文](https://www.usenix.org/conference/osdi22/presentation/yu)。
 
 ## 關鍵方法
 

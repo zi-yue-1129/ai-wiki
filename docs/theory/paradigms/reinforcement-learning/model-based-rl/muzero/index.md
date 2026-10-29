@@ -36,6 +36,10 @@ Three learned functions cooperate. A representation function turns the observati
 3. **Search.** Run MCTS over these latent states to choose an action. Store the visit-count policy and the value found by search.
 4. **Train.** Update all three functions, end to end, so that the predicted rewards, policies and values match the real rewards, the search policies and the game outcomes over the unrolled steps.
 
+![MuZero: observation representation, imagined latent dynamics, policy-value prediction and search](../../../../../assets/concept-animations/muzero-latent-planning-motion.svg)
+
+*Original teaching schematic (CC BY-SA 4.0).* The four stages separate observation encoding \(h\), recurrent dynamics \(g\) that predicts latent transitions and rewards, prediction \(f\) of policies and values, and MCTS choosing an actual action using search visit counts. The diagram shows **one illustrative unroll**, not an observed game trajectory or measured model output; the model need not reconstruct future images. On MkDocs, use Play/Pause; the [GitHub-readable static overview](../../../../../assets/concept-animations/muzero-latent-planning-still.svg) shows the planning decision.
+
 ## Results
 
 The paper compares MuZero with model-free and model-based baselines on Atari, and with AlphaZero on board games. The figures below are the paper's reported numbers.

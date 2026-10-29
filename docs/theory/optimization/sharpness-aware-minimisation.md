@@ -54,6 +54,11 @@ With SGD as the base optimiser, the update is \(w_{t+1} = w_t - \eta\, g\), wher
 
 The paper recommends \(\rho = 0.05\) as a default, a value it calls "a solid default" and uses for all of its ImageNet experiments.
 
+![Animated SAM step: evaluate the gradient at the original weights, perturb uphill, evaluate again, and update from the original weights.](../../assets/concept-animations/sam-two-gradient-motion.svg)
+
+*Original four-stage teaching animation, CC BY-SA 4.0.* The blue point is the original parameter vector \(w\); the orange point is the first-order ascent perturbation \(w+\hat\varepsilon\). The second gradient is evaluated **at the perturbed point**, but the base optimiser updates **from the original \(w\)**, not from \(w+\hat\varepsilon\). The contours, arrow lengths and directions are schematic, not measured training data or a claim that the perturbed point is the exact inner maximiser. The MkDocs site offers Play/Pause and reduced-motion fallback; [view the four-step static overview](../../assets/concept-animations/sam-two-gradient-still.svg) on GitHub.
+
+
 ## Key methods
 
 SAM is the base method. The main alternative that keeps its structure is the adaptive variant, which changes the shape of the neighbourhood rather than the update rule.
