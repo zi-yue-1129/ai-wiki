@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 related:
   - theory/paradigms/unsupervised/clustering
   - theory/paradigms/unsupervised/dimensionality-reduction
@@ -37,6 +37,10 @@ c(i) \leftarrow \arg\min_{j}\ \|x_i - \mu_j\|^2, \qquad
 \]
 
 其中 \(C_j\) 是目前指派給中心 \(j\) 的點集合。每一步都不會使 \(J\) 增加。指派的可能情況有限，因此序列會停在一個不動點，也就是 \(J\) 的局部極小值。每次迭代的成本為 \(O(nkd)\) 次距離計算。
+
+![Lloyd k-means 四階段動畫：初始中心、最近中心指派、移動到群內平均值，以及重新指派。](../../../../assets/concept-animations/kmeans-lloyd-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 藍色與青綠色表示兩個群組，十字圓圈是群中心，橘色虛線顯示中心移動。群內平方距離成本由約 323k 降至 97k、31k；數值根據圖中 12 個**人工示意點**與任意座標單位計算，並非模型效能實測。最後一階段再次進行指派與均值更新；其他資料可能需要更多次迭代。MkDocs 網站提供播放／暫停及減少動態效果的靜態回退；GitHub 可[檢視四階段靜態總覽](../../../../assets/concept-animations/kmeans-lloyd-still.svg)。
 
 ## 關鍵方法
 
