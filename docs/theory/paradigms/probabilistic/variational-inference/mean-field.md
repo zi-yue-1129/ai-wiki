@@ -37,6 +37,16 @@ The optimal update for factor \(j\), holding the others fixed, is
 
 The algorithm cycles through the factors, recomputing each from the current values of the others, until the ELBO stops increasing. Jordan et al. (1999) develop these updates for graphical models, where the expectation only needs local terms.
 
+## Animated walkthrough
+
+![Four mean-field coordinate-ascent updates refit q1 and q2 alternately while a correlated target remains fixed](../../../../assets/concept-animations/mean-field-coordinate-ascent-motion.svg)
+
+[Static final-update preview for GitHub and reduced-motion readers](../../../../assets/concept-animations/mean-field-coordinate-ascent-still.svg). On the MkDocs site, use **Play animation / Pause animation** (keyboard: Tab then Enter). The grey tilted contours represent a correlated target posterior; the teal axis-aligned ellipse is the independent-factor approximation $q_1(z_1)q_2(z_2)$. Each stage replaces **one factor distribution**, not one sampled point, while holding the other factor fixed. The orange dashed ellipse is the preceding approximation.
+
+For a reproducible illustrative Gaussian target with precision matrix $\Lambda=\begin{pmatrix}2&-1.2\\-1.2&1\end{pmatrix}$, the exact mean-field Gaussian updates keep variances $(0.5,1)$ and set $\mu_1\leftarrow0.6\mu_2$, then $\mu_2\leftarrow1.2\mu_1$. Starting at $(\mu_1,\mu_2)=(-1.2,1.4)$, four updates yield $(0.84,1.4)$, $(0.84,1.008)$, $(0.6048,1.008)$, and $(0.6048,0.72576)$. These are **analytical teaching calculations, not measured optimisation traces**. The contours are stylised rather than drawn at a calibrated density level. Exact coordinate maximisation cannot decrease the ELBO, but factorisation cannot reproduce the target correlation.
+
+*Original instructional animation and GitHub fallback: CC BY-SA 4.0.*
+
 ## Key methods
 
 - [Stochastic variational inference](stochastic-variational-inference.md): keeps the factorised structure of conjugate models but replaces the full coordinate updates by noisy natural-gradient steps on minibatches.
