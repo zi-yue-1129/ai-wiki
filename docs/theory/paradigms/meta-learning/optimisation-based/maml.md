@@ -53,6 +53,16 @@ and the shared parameters move with a meta step size \(\beta\):
 
 Algorithm 1 in the paper repeats these steps. It samples a batch of tasks, computes the adapted parameters for each task from a few examples, and then updates \(\theta\) with the summed meta-gradient. The paper's inner step sizes include \(\alpha = 0.01\) with 5 inner steps in training for miniImageNet, and \(\alpha = 0.4\) with 1 inner step in training for 5-way Omniglot. The paper does not state a meta step size \(\beta\) for every experiment.
 
+### Visual walkthrough: inner and outer loops
+
+![MAML animation: a shared initialisation branches into two task-specific support-set adaptations; query losses then send meta-gradients back toward the shared parameters.](../../../../assets/concept-animations/maml-inner-outer-loop-motion.svg)
+
+[Static four-stage overview for GitHub](../../../../assets/concept-animations/maml-inner-outer-loop-still.svg)
+
+The animation cycles through **task sampling → inner adaptation → query evaluation → meta-gradient**. Both adapted models start from the same initial parameters, but each uses its **own support examples**. The outer objective evaluates separate **query examples** *after* adaptation; its gradient with respect to the shared initialisation differentiates through the inner updates (full MAML). The curved purple feedback arrows summarise this dependency rather than a literal computational graph. The two tasks, geometry and arrows are **schematic, not experimental trajectories or measured gradients**.
+
+On the MkDocs site, use **Play/Pause** to stop the eight-second loop; the linked static overview also works in GitHub Markdown. This original illustration is provided under **CC BY-SA 4.0**. The procedure follows Finn, Abbeel and Levine (2017), cited below.
+
 ## Key methods
 
 ### Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks (Finn, Abbeel & Levine, 2017)

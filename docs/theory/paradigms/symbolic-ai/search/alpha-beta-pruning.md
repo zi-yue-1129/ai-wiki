@@ -35,6 +35,16 @@ The search is depth-first. At a maximising node, each child is searched with the
 
 The number of leaves examined depends on move ordering. Searching the strongest moves first lets more branches be pruned.
 
+### Animated example: when a branch can be skipped
+
+![Alpha–beta pruning animation: left MIN returns three, root alpha becomes three, right MIN observes two, and its unvisited sibling is safely pruned.](../../../../assets/concept-animations/alpha-beta-cutoff-motion.svg)
+
+[Static four-stage overview for GitHub](../../../../assets/concept-animations/alpha-beta-cutoff-still.svg)
+
+Read the game tree **left to right**, with depth-first evaluation. The left MIN node receives leaf values **3** and **5**, returning **3**, so the root MAX node sets its lower bound to \(\alpha=3\). The first leaf of the right MIN node is **2**, making its current upper bound \(\beta=2\). Because \(\beta\le\alpha\), no value of the **unvisited** sibling can make this MIN subtree preferable to the left branch; the root result remains **3**. The crossed-out leaf is deliberately marked **?**, not a value known to the algorithm. All leaf values and search order are **illustrative, not measured game positions**.
+
+On MkDocs, **Play/Pause** controls the eight-second animation. GitHub readers can open the static overview. This is an original **CC BY-SA 4.0** illustration of the standard alpha–beta procedure described by Knuth and Moore (1975), already cited below.
+
 ## Variants
 
 - **Iterative deepening with alpha–beta** searches to increasing depths and reuses move-ordering information from shallower searches.
