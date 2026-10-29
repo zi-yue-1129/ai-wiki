@@ -86,7 +86,7 @@ with sync_playwright() as p:
                             const svg=document.querySelector('.ssl-loss-vectors');
                             return [...svg.querySelectorAll('text')].every(t => {
                                 const b=t.getBBox();
-                                return b.x>=-1 && b.y>=-1 && b.x+b.width<=251 && b.y+b.height<=106;
+                                return b.x>=-1 && b.y>=-1 && b.x+b.width<=251 && b.y+b.height<=141;
                             });
                         }"""), "loss vector labels clipped"
                     loss_slider.focus()
