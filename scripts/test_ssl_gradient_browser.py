@@ -39,21 +39,21 @@ with sync_playwright() as p:
                     slider = page.locator('[data-act="loss"]')
                     if kind == "moco":
                         for tau in (0.10, 0.20, 0.35, 0.50, 1.00):
-                            slider.fill(f"{tau:.2f}")
+                            slider.evaluate("(el,v) => {el.value=v; el.dispatchEvent(new Event('input',{bubbles:true}));}", f"{tau:.2f}")
                             readout = page.locator(".ssl-gradient-readout").inner_text()
                             got = float(re.search(r"/τ = (-?[0-9.]+)", readout).group(1))
                             ppos = 1 / (1 + sum(exp((v - .7) / tau) for v in (-.2, -.1, 0, .1, .2, .05)))
                             expected = (ppos - 1) / tau
                             assert abs(got - expected) < .001, (tau, got, expected)
-                        slider.fill("0.35")
+                        slider.evaluate("(el) => {el.value='0.35'; el.dispatchEvent(new Event('input',{bubbles:true}));}")
                     else:
                         for cosine in (-1, -.5, 0, .5, 1):
-                            slider.fill(f"{cosine:.2f}")
+                            slider.evaluate("(el,v) => {el.value=v; el.dispatchEvent(new Event('input',{bubbles:true}));}", f"{cosine:.2f}")
                             readout = page.locator(".ssl-gradient-readout").inner_text()
                             got = float(re.search(r"2sinφ = ([0-9.]+)", readout).group(1))
                             expected = 2 * sin(acos(cosine))
                             assert abs(got - expected) < .001, (cosine, got, expected)
-                        slider.fill("0")
+                        slider.evaluate("(el) => {el.value='0'; el.dispatchEvent(new Event('input',{bubbles:true}));}")
                     assert page.evaluate("""() => {
                       const svg = document.querySelector('.ssl-gradient-plot');
                       return [...svg.querySelectorAll('text')].every(t => {
