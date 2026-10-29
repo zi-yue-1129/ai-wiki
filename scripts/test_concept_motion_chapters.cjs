@@ -53,6 +53,7 @@ function setup(filename, zh, reduced, fail = false) {
     img,
     find: (tag, label) => created.find(el => el.localName === tag && el.textContent === label),
     note: () => created.find(el => el.className === 'concept-motion-chapter-note'),
+    calculation: () => created.find(el => el.className === 'concept-motion-calculation'),
     slider: () => created.find(el => el.localName === 'input'),
   };
 }
@@ -70,15 +71,36 @@ async function main() {
         const prev = h.find('button', zh ? '上一段' : 'Previous phase');
         assert.ok(next && prev, 'bilingual chapter buttons exist');
         assert.match(h.note().textContent, /^1\/5 · /);
+        assert.ok(h.calculation(), 'synchronized calculation trace exists');
+        assert.equal(h.calculation().attrs['aria-live'], 'off', 'continuous values do not spam assistive tech');
+        if (filename.startsWith('mae-')) {
+          assert.match(h.calculation().textContent, zh ? /可見 4\/16/ : /Visible 4\/16/);
+        } else {
+          assert.match(h.calculation().textContent, zh ? /教師梯度：0/ : /Teacher gradient: 0/);
+        }
         next.events.click(); await settle();
         assert.match(h.note().textContent, /^2\/5 · /);
         assert.equal(h.slider().value, '28');
+        if (filename.startsWith('mae-')) {
+          assert.match(h.calculation().textContent, zh ? /遮罩 token：0/ : /Mask tokens: 0/);
+        } else {
+          assert.match(h.calculation().textContent, /CE\(/);
+        }
         prev.events.click(); await settle();
         assert.match(h.note().textContent, /^1\/5 · /);
         assert.equal(h.slider().value, '0');
         h.slider().value = '125'; h.slider().events.input(); await settle();
         assert.match(h.note().textContent, /^5\/5 · /);
         assert.equal(next.disabled, true);
+        if (filename.startsWith('mae-')) {
+          assert.match(h.calculation().textContent, /MSE/);
+          assert.match(h.calculation().textContent, /1\/12/);
+        } else {
+          assert.match(h.calculation().textContent, /0\.53/);
+          assert.match(h.calculation().textContent, /0\.510/);
+          h.slider().value = '135'; h.slider().events.input(); await settle();
+          assert.match(h.calculation().textContent, /0\.530/);
+        }
         scenarios++;
       }
     }
