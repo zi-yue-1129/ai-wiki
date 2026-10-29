@@ -90,7 +90,11 @@
       chapterNote.setAttribute('aria-atomic', 'true');
       const status = document.createElement('span');
       status.className = 'concept-motion-status'; status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite');
-      host.append(controls, chapterNote, status);
+      const calculation = document.createElement('span');
+      calculation.className = 'concept-motion-calculation';
+      // Continuous numeric updates must not flood screen-reader announcements.
+      calculation.setAttribute('aria-live', 'off');
+      host.append(controls, chapterNote, calculation, status);
 
       let svg = null, current = 0, rate = 1, playing = false, frame = 0, previous = null;
       let pending = null, overridden = false, activeChapter = -1;
@@ -113,8 +117,57 @@
         previousChapter.disabled = index === 0 && current < 0.25;
         nextChapter.disabled = index === chapterList.length - 1;
       };
+      // A synchronized computational trace, outside the graphic, explains the
+      // intermediate operation without adding dense labels inside the SVG.
+      // The EMA bar interpolates ONE discrete update; it is not a training trace.
+      const renderCalculation = () => {
+        const index = chapterAt();
+        let message;
+        if (filename === 'mae-visible-patch-reconstruction-motion.svg') {
+          const english = [
+            'Visible 4/16 · Masked 12/16 (75%)',
+            'Encoder input: 4 visible tokens · Mask tokens: 0',
+            'Decoder input: 4 encoded + 12 mask = 16 tokens',
+            'Decoder predictions: 16 patch positions (schematic)',
+            'Masked MSE: (1/12) Σ(i∈M) ‖predictionᵢ − targetᵢ‖²',
+          ];
+          const chinese = [
+            '可見 4/16 · 遮罩 12/16（75%）',
+            '編碼器輸入：4 個可見 token · 遮罩 token：0',
+            '解碼器輸入：4 個編碼 token + 12 個遮罩 token = 16',
+            '解碼器預測：16 個區塊位置（示意）',
+            '遮罩 MSE：(1/12) Σ(i∈M) ‖預測ᵢ − 目標ᵢ‖²',
+          ];
+          message = (zh ? chinese : english)[index];
+        } else {
+          const english = [
+            'Student and teacher: augmented views · Teacher gradient: 0',
+            'Image-level loss: CE(teacher CLS, student CLS)',
+            'Patch loss: CE(teacher patch, masked student patch)',
+            'Backpropagation: student only · Teacher gradient: 0',
+          ];
+          const chinese = [
+            '學生與教師：不同增強視角 · 教師梯度：0',
+            '影像層級損失：CE(教師 CLS, 學生 CLS)',
+            '區塊損失：CE(教師區塊, 學生遮罩區塊)',
+            '反向傳播：僅更新學生 · 教師梯度：0',
+          ];
+          if (index < 4) message = (zh ? chinese : english)[index];
+          else {
+            // 12.04–13.44 s matches the visual bar interpolation. EMA itself
+            // is a single discrete step: 0.9×0.50 + 0.1×0.80 = 0.53.
+            const fraction = Math.max(0, Math.min(1, (current - 12.04) / 1.4));
+            const preview = (0.50 + 0.03 * fraction).toFixed(3);
+            message = zh
+              ? `單次 EMA：0.9×0.50 + 0.1×0.80 = 0.53 · 視覺插值 θt≈${preview}（非連續訓練）`
+              : `One EMA step: 0.9×0.50 + 0.1×0.80 = 0.53 · visual interpolation θt≈${preview} (not continuous training)`;
+          }
+        }
+        if (calculation.textContent !== message) calculation.textContent = message;
+      };
       const renderTime = () => {
         renderChapter();
+        renderCalculation();
         if (svg) { svg.pauseAnimations(); svg.setCurrentTime(current); }
         slider.value = String(Math.round(current * 10));
         slider.setAttribute('aria-valuetext', `${current.toFixed(1)} / ${duration} s`);
