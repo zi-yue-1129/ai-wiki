@@ -48,6 +48,20 @@ jobs:
         run: node scripts/test_concept_motion_chapters.cjs
       - name: Test MoCo FIFO and BYOL EMA simulators
         run: node scripts/test_self_supervised_labs.cjs
+      - name: Install Chromium for real interactive visual tests
+        run: |
+          python -m pip install "playwright==1.55.0"
+          python -m playwright install chromium
+      - name: Chromium mobile/desktop playback, pause and geometry
+        run: python scripts/test_self_supervised_browser.py
+      - name: Keep rendered review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: self-supervised-lab-browser-review
+          path: artifacts/self-supervised-labs/*.png
+          if-no-files-found: ignore
+          retention-days: 7
 
   validate-svgs:
     runs-on: ubuntu-latest
