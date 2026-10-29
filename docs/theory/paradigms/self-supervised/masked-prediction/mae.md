@@ -53,6 +53,8 @@ The continuous **mask → encode → decode → masked loss** sequence uses a sc
 
 On the MkDocs site, the 14-second continuous illustration supports **Play/Pause, Step (+0.7 s), timeline scrubbing, and 0.5×/1×/2× speed**. Watch the four visible tokens travel into the encoder first; the twelve mask tokens appear only inside the decoder, then the missing patches are reconstructed and the masked-position loss accumulates. The timeline is schematic rather than a training-time trace. GitHub Markdown and reduced-motion settings retain the static overview. This original visual is licensed **CC BY-SA 4.0** and illustrates He et al. (2022), cited in References.
 
+**Guided checkpoints:** the **Previous phase** and **Next phase** controls jump among five meaningful milestones—Mask, Encode, Decode, Reconstruct and Masked loss. A bilingual explanation below the visual updates with the timeline, clarifying why mask tokens are absent from the encoder and why only hidden patches enter the loss. These are navigation landmarks **within continuous motion**, not five discrete animation frames; the slider still permits fine-grained seeking.
+
 ## Key methods
 
 ### Masked Autoencoders Are Scalable Vision Learners (He, Chen, Xie, Li, Dollár & Girshick, 2022)
