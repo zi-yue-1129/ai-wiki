@@ -56,6 +56,16 @@ where \(k\) is the current step and \(K\) is the total number of steps.
 
 The projector is a linear layer with 4096 outputs, batch normalisation, a ReLU, and a linear layer with 256 outputs. The predictor has the same architecture. Training runs for 1000 epochs, with a 10-epoch warm-up.
 
+### Visual walkthrough: online gradients and momentum target
+
+![BYOL animation: two views, online prediction of the target, stopped target gradients, and exponential-moving-average target update.](../../../../assets/concept-animations/byol-online-target-motion.svg)
+
+[Static four-stage overview for GitHub](../../../../assets/concept-animations/byol-online-target-still.svg)
+
+The animation follows **augment → predict → backpropagate → update target**. Two augmented views enter separate branches. The online encoder and predictor minimise a matching loss against a **stop-gradient target projection**; the target branch receives **no loss gradient**. The target weights are subsequently updated by **EMA**, not by a backward pass. BYOL does **not** use negative pairs. The figure shows one directional loss for clarity; the original training objective also swaps the two views and sums both directions. All shapes and arrows are **schematic, not measured activations or training traces**.
+
+On MkDocs, use **Play/Pause** to stop the eight-second loop; the linked static overview works in GitHub Markdown and with reduced motion. This original diagram is licensed **CC BY-SA 4.0** and follows Grill et al. (2020), cited below.
+
 ## Key methods
 
 ### Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning (Grill et al., 2020)
