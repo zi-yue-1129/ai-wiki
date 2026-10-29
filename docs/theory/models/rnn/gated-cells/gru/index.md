@@ -30,6 +30,12 @@ The GRU merges the memory and the hidden state into one vector. It uses two gate
 
 The paper calls the cell a hidden unit "that adaptively remembers and forgets". Having no separate output gate, the GRU exposes its whole state at every step.
 
+### Animated walkthrough
+
+![Four-stage GRU animation: reset-gated candidate formation followed by an update-gated blend of the previous and candidate states.](../../../../../assets/concept-animations/gru-gate-flow-motion.svg)
+
+*Original CC BY-SA 4.0 teaching animation based on Cho et al. (2014; see References). The stages distinguish computing the gates, applying the reset gate to the candidate's recurrent input, blending the old and candidate states, and exposing the new hidden state. In the **Cho et al. convention**, $z_t$ weights the **old** state; the depicted $z=0.7$ and bar lengths are schematic, not learned activations or measured results. The drawing omits some connections for legibility: both gates depend on $x_t$ and $h_{t-1}$, and the candidate also depends directly on $x_t$. On MkDocs, use the keyboard-accessible **Play/Pause** button; reduced-motion preferences initially show the [static GitHub-readable overview](../../../../../assets/concept-animations/gru-gate-flow-still.svg). [Open the animated SVG](../../../../../assets/concept-animations/gru-gate-flow-motion.svg).*
+
 ## Equation or algorithm
 
 The paper defines the cell in its Section 2.3 with Eqs. 5 to 8. The equations below are the paper's, written for one unit \(j\) at time \(t\), with \(\sigma\) the logistic sigmoid and \(\varphi\) the candidate activation:
