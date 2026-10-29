@@ -1,0 +1,38 @@
+/* Click-to-enlarge figures: markup and behaviour in javascripts/zoom.js */
+.md-typeset img,
+.md-typeset .mermaid,
+.md-typeset > svg { cursor: zoom-in; }
+.md-typeset img:focus-visible,
+.md-typeset .mermaid:focus-visible,
+.md-typeset > svg:focus-visible { outline: 2px solid var(--md-accent-fg-color); outline-offset: 3px; }
+
+.zoom-dialog {
+  inset: 0; margin: 0; padding: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+  border: 0; background: var(--md-default-bg-color); color: var(--md-default-fg-color);
+  flex-direction: column;
+}
+.zoom-dialog[open] { display: flex; }
+.zoom-dialog:focus-visible { outline: none; }
+
+.zoom-toolbar {
+  display: flex; justify-content: flex-end; gap: .4rem; padding: .5rem .8rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+.zoom-toolbar button {
+  min-width: 2.2rem; height: 2.2rem; padding: 0 .6rem; font: inherit; font-size: .95rem; line-height: 1;
+  color: var(--md-default-fg-color); background: var(--md-default-bg-color); cursor: pointer;
+  border: 1px solid var(--md-default-fg-color--lighter); border-radius: .3rem;
+}
+.zoom-toolbar button:hover { background: var(--md-default-fg-color--lightest); }
+.zoom-toolbar button:focus-visible { outline: 2px solid var(--md-accent-fg-color); outline-offset: 2px; }
+
+.zoom-viewport {
+  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  overscroll-behavior: contain; touch-action: none; cursor: grab;
+}
+.zoom-viewport:active { cursor: grabbing; }
+.zoom-content {
+  position: absolute; left: 0; top: 0; transform-origin: 0 0; user-select: none; will-change: transform;
+}
+.zoom-content > * { display: block; max-width: none; }
+.zoom-content img { -webkit-user-drag: none; }
