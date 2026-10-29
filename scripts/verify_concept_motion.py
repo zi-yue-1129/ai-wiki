@@ -33,6 +33,8 @@ TOPICS = {
     "lbfgs-two-loop": "theory/optimization/lbfgs",
     "nesterov-lookahead": "theory/optimization/sgd-and-momentum/nesterov",
     "hyperband-budget": "theory/optimization/hyperparameter-optimisation/hyperband",
+    "qmix-monotonic-greedy": "theory/paradigms/reinforcement-learning/multi-agent-rl/qmix/index",
+    "muzero-latent-planning": "theory/paradigms/reinforcement-learning/model-based-rl/muzero/index",
 }
 FORBIDDEN = {"script", "foreignObject", "iframe", "image"}
 LIMIT = 50 * 1024
@@ -99,7 +101,7 @@ def main() -> int:
                 (page.parent / link).resolve() for link in links
             }:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget"}:
+            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)
