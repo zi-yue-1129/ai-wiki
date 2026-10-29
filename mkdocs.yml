@@ -1065,13 +1065,15 @@ markdown_extensions:
 extra_javascript:
   - javascripts/concept-motion-detailed.js
   - javascripts/concept-motion.js
+  - javascripts/zoom.js
   - javascripts/mathjax.js
   - javascripts/knowledge-map.js
   - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
 
 extra_css:
-  - stylesheets/concept-motion.css
   - stylesheets/concept-motion-detailed.css
+  - stylesheets/concept-motion.css
+  - stylesheets/zoom.css
   - stylesheets/extra.css
 
 nav:
