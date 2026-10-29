@@ -37,6 +37,10 @@ $$\mu_B = \frac{1}{m}\sum_{i=1}^{m} x_i, \qquad \sigma_B^2 = \frac{1}{m}\sum_{i=
 
 The original paper reported that the method reaches the same accuracy as the baseline in 14 times fewer training steps on an image classification model [(Ioffe and Szegedy, 2015)](https://arxiv.org/abs/1502.03167).
 
+![Animated batch normalisation: shifted training batches are normalised using their own statistics, then a single inference sample uses frozen running statistics.](../../../assets/concept-animations/batch-norm-train-infer-motion.svg)
+
+*Original four-stage teaching animation, CC BY-SA 4.0.* The first two frames show that each training mini-batch supplies its **own per-channel mean and variance**, so a shifted batch can still have centred, scaled activations. The third frame illustrates updating running statistics during training; the fourth uses those **frozen running estimates** for a single inference sample rather than recomputing statistics from that sample. The drawing suppresses spatial dimensions and the subsequent learned affine transform ($\gamma$, $\beta$) for clarity. Dot positions, batch statistics and running estimates are **schematic, not measured model activations**. The website player supports play/pause and reduced-motion mode; [view the GitHub-compatible static preview](../../../assets/concept-animations/batch-norm-train-infer-still.svg).
+
 ## Results
 
 The paper's headline result is the training speed-up on a large image classification model. Exact accuracy and step counts are given in its results section.

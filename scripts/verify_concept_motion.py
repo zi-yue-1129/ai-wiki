@@ -39,6 +39,8 @@ TOPICS = {
     "kfac-factor-preconditioning": "theory/optimization/kfac/index",
     "maml-inner-outer-loop": "theory/paradigms/meta-learning/optimisation-based/maml",
     "alpha-beta-cutoff": "theory/paradigms/symbolic-ai/search/alpha-beta-pruning",
+    "batch-norm-train-infer": "theory/deep-learning/normalisation/batch-normalisation",
+    "stochastic-depth-paths": "theory/deep-learning/dropout/stochastic-depth",
     "vae-reparameterisation": "theory/paradigms/unsupervised/density-and-generative-models/vae/index",
     "realnvp-affine-coupling": "theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/realnvp",
     "mh-accept-reject": "theory/paradigms/probabilistic/mcmc/metropolis-hastings",
@@ -113,7 +115,7 @@ def main() -> int:
                 (page.parent / link).resolve() for link in links
             }:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "vae-reparameterisation", "realnvp-affine-coupling", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory"}:
+            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "batch-norm-train-infer", "stochastic-depth-paths", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "vae-reparameterisation", "realnvp-affine-coupling"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)

@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 related:
   - theory/deep-learning/dropout
   - theory/models/cnn
@@ -37,6 +37,10 @@ aliases:
 $$\mathbf{h}_{l} = \mathbf{h}_{l-1} + b_l \, f_l(\mathbf{h}_{l-1}), \qquad b_l \sim \mathrm{Bernoulli}(p_l)$$
 
 測試時，分支會乘以其期望值 $p_l$。論文的存活機率排程在其方法章節中說明，本頁不重述。
+
+![隨機深度四階段動畫：訓練時隨機跳過整個殘差分支，評估時使用所有分支並乘上存活機率。](../../../assets/concept-animations/stochastic-depth-paths-motion.svg)
+
+*原創四階段教學動畫，CC BY-SA 4.0。* 前三階段展示不同的**整個殘差分支 Bernoulli 遮罩**，並非逐一丟棄激活值。分支被跳過時，輸入仍沿恆等捷徑傳遞，且該分支無須執行殘差運算。第四階段呈現**原始隨機深度論文的評估慣例**：啟用所有分支，並將每個殘差貢獻乘以存活機率 $p_l$。部分現代實作改為訓練時使用反向存活機率縮放，評估時不縮放；兩種慣例不應混用。遮罩與路徑上的流動光點均為**教學示意，非訓練實測**。網站播放器支援播放／暫停及減少動態效果；[GitHub 可顯示的靜態預覽](../../../assets/concept-animations/stochastic-depth-paths-still.svg)。
 
 ## 結果
 
