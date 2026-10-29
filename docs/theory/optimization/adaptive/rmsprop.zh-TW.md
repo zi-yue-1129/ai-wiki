@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # RMSProp
@@ -33,6 +33,10 @@ v_t = \beta\, v_{t-1} + (1 - \beta)\, g_t \odot g_t,
 \]
 
 常用值是 \(\beta\) 接近 0.9，並加上維持數值穩定的小 \(\epsilon\)。除法逐元素進行。
+
+![RMSProp 四階段動畫：比較各座標的梯度大小、平方梯度指數移動平均與縮放後的步長。](../../../assets/concept-animations/rmsprop-adaptive-memory-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 兩個座標依序使用梯度 (4, 1)、(4, 1)、(1, 4)、(1, 4)。以示意設定 $\beta=0.5$、$v_0=(1,1)$、$\epsilon=0$、$\eta=1$ 計算，平方梯度移動平均依序為 (8.50, 1.00)、(12.25, 1.00)、(6.63, 8.50)、(3.81, 12.25)。藍色長條表示梯度絕對值，青綠色長條表示 $|g_t|/\sqrt{v_t}$，**尚未加上更新方向的負號**。這些數字不是訓練實測，超參數僅為凸顯變化，並非建議預設值。MkDocs 提供播放／暫停與減少動態效果的靜態回退；GitHub 可[檢視四階段靜態總覽](../../../assets/concept-animations/rmsprop-adaptive-memory-still.svg)。
 
 ## 主要結果
 
