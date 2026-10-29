@@ -40,6 +40,16 @@ The inverse is \(x_{d+1:D} = (y_{d+1:D} - t(y_{1:d})) \odot \exp(-s(y_{1:d}))\).
 
 Each scale applies three coupling layers with alternating checkerboard masks, squeezes, applies three more with channel masks, and factors out half of the dimensions. The final scale applies four checkerboard coupling layers. Training maximises the change-of-variables log-likelihood on the data.
 
+### Visual walkthrough: one affine coupling layer
+
+![Four-stage Real NVP affine coupling animation: split input, condition on the unchanged channel, transform the other channel and invert the mapping.](../../../../../../assets/concept-animations/realnvp-affine-coupling-motion.svg)
+
+[Static Real NVP coupling overview for GitHub](../../../../../../assets/concept-animations/realnvp-affine-coupling-still.svg)
+
+The four stages are **Split → Condition → Transform → Invert**. In this one-dimensional-per-part **worked example**, \(x_A=0.5\), \(x_B=1\), and the conditioning network is *assumed* to output \(s(x_A)=\ln 2\) and \(t(x_A)=-0.5\). The layer copies \(y_A=x_A=0.5\) and produces \(y_B=\exp(\ln 2)\cdot 1-0.5=1.5\). Its inverse recovers \(x_B=(1.5+0.5)/2=1\). The triangular Jacobian gives \(\log|\det J|=\ln 2\) for this example; it does **not** require differentiating through the conditioning network to compute that determinant. Later coupling layers alternate the unchanged and transformed subsets.
+
+These numbers are **chosen for teaching, not trained-network outputs or empirical likelihood results**. On MkDocs, use the keyboard-accessible **Play/Pause** control; the linked static overview remains readable in GitHub Markdown. Original illustration, **CC BY-SA 4.0**. The layer follows Dinh, Sohl-Dickstein and Bengio (2017), cited below.
+
 ## Key methods
 
 ### Density estimation using Real NVP (Dinh et al., 2017)

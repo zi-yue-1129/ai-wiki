@@ -37,6 +37,10 @@ $$\mathbf{h}_{l} = \mathbf{h}_{l-1} + b_l \, f_l(\mathbf{h}_{l-1}), \qquad b_l \
 
 At test time the branch is multiplied by its expected value, $p_l$. The paper's survival schedule is described in its method section, and this page does not restate it.
 
+![Animated stochastic depth: residual branches are randomly skipped during training, while evaluation uses every branch scaled by its survival probability.](../../../assets/concept-animations/stochastic-depth-paths-motion.svg)
+
+*Original four-stage teaching animation, CC BY-SA 4.0.* The first three frames show different **Bernoulli masks for whole residual branches**, not dropout of individual activations. When a branch is skipped, the identity shortcut still carries its input and no residual computation is needed for that branch. The fourth frame shows **the original stochastic-depth paper's evaluation convention**: every branch is active and its residual contribution is multiplied by survival probability $p_l$. Some modern implementations instead apply inverted survival scaling during training and use unscaled branches at evaluation; the conventions should not be mixed. The masks and path pulses are **illustrative, not measured training runs**. The website player supports play/pause and reduced-motion mode; [view the GitHub-compatible static preview](../../../assets/concept-animations/stochastic-depth-paths-still.svg).
+
 ## Results
 
 The abstract reports that training time is substantially reduced and gives a test error of 4.91% on CIFAR-10. The comparisons are in the paper.

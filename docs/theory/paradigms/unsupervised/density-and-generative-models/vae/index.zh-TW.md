@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 related:
   - theory/paradigms/unsupervised/density-and-generative-models
   - theory/models/cnn
@@ -40,6 +40,16 @@ Kingma 與 Welling（2013）以及 Rezende、Mohamed 與 Wierstra（2014）幾�
 第一項鼓勵重建結果；第二項使近似後驗接近先驗，讓潛在空間夠平滑，可以抽樣。下界與 \(\log p_\theta(x)\) 之間的差距，正好是近似後驗與真實後驗之間的 KL 散度，因此較好的編碼器會讓下界更緊。
 
 訓練時，對每個資料點抽取 \(\epsilon\)，計算 \(z = \mu_\phi(x) + \sigma_\phi(x)\odot\epsilon\)，經過解碼器後對 \(-\mathcal L\) 做一步梯度更新。當先驗與後驗都是高斯時，KL 項有封閉解。生成時，從 \(z\sim\mathcal N(0,I)\) 抽樣，並取解碼器的平均或樣本。
+
+### 視覺解說：重參數化潛在變數抽樣
+
+![四階段 VAE 重參數化動畫，展示編碼器、獨立高斯雜訊、可微分的潛在變數計算、解碼器與重建梯度路徑。](../../../../../assets/concept-animations/vae-reparameterisation-motion.svg)
+
+[GitHub 可預覽的靜態 VAE 流程圖](../../../../../assets/concept-animations/vae-reparameterisation-still.svg)
+
+動畫依序呈現**編碼 → 抽取雜訊 → 解碼 → 梯度傳遞**。編碼器輸出近似後驗的 \(\mu_\phi(x)\) 與 \(\sigma_\phi(x)\)，而 \(\epsilon\sim\mathcal N(0,I)\) 的抽樣**不依賴這些參數**。固定一次抽得的 \(\epsilon\) 後，\(z=\mu_\phi(x)+\sigma_\phi(x)\odot\epsilon\) 是可微分的確定性運算，重建損失的梯度因此能經由解碼器、\(z\) 回傳至編碼器。紫色箭頭**僅表示重建項的梯度**；ELBO 的 KL 項也會對編碼器產生梯度（對角高斯近似後驗與標準常態先驗時可解析計算）。梯度不會穿過亂數產生器。
+
+色塊、位置及箭頭皆為**教學示意，並非模型輸出或實測梯度**。MkDocs 網站可使用支援鍵盤的**播放／暫停**控制停止八秒循環；GitHub 可使用上方靜態圖。原創插圖採 **CC BY-SA 4.0** 授權。原理依據下方 Kingma 與 Welling（2013）及 Rezende 等人（2014）的論文。
 
 ## 關鍵方法
 
