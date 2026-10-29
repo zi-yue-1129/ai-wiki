@@ -57,6 +57,13 @@ The four phases show **encode → compare → update → enqueue**. Two augmente
 
 On MkDocs, use **Play/Pause** to stop the eight-second loop; the static overview is readable in GitHub Markdown and under reduced-motion preferences. This original diagram is licensed **CC BY-SA 4.0**. The algorithm follows He et al. (2020), cited below.
 
+
+#### Interactive experiment: step through three MoCo updates
+
+<div data-self-supervised-lab="moco" data-locale="en"></div>
+
+Use **Play/Pause, Previous/Next, timeline scrubbing, or playback speed** to follow three illustrative minibatch iterations. Each contains five *operations*—encode the positive key, contrast against the **old** FIFO dictionary, update the query weights by SGD, update the key encoder by EMA, then enqueue and evict. Unlike the fixed four-phase overview above, the simulator preserves the queue and parameter values between iterations: the new key is not placed among negatives until **after** the current loss. The six-slot queue A–I, scalar query weights (0.700 → 0.850 → 0.780 → 0.910), initial key weight 0.300 and illustrative momentum 0.9 are a **small hand-calculable example, not measured model parameters**; the paper's configuration uses a much larger dictionary and momentum 0.999. Under reduced-motion settings, moving particles are hidden, while step-by-step states and controls remain usable. The existing SVG and still figure above are the GitHub/no-JavaScript fallback. Original teaching simulation **CC BY-SA 4.0**.
+
 ## Key methods
 
 ### Momentum Contrast for Unsupervised Visual Representation Learning (He, Fan, Wu, Xie & Girshick, 2020)
