@@ -44,6 +44,14 @@ where \(\mathrm{ne}(\cdot)\) denotes neighbours in the factor graph. On a tree, 
 
 On a graph with cycles, the messages keep changing and BP is no longer guaranteed to stop. Running the same updates until they settle is called loopy BP. Its fixed points correspond to stationary points of the Bethe free energy, an approximation to the true free energy of the model. Yedidia et al. (2005) show this link and give generalised BP methods that use larger clusters of variables.
 
+### Animated walkthrough: exact tree messages
+
+![Four-stage factor-tree message passing: evidence, inward collection, outward distribution, and marginal beliefs](../../../../assets/concept-animations/tree-belief-propagation-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* [Static GitHub preview](../../../../assets/concept-animations/tree-belief-propagation-still.svg). The MkDocs **Play/Pause** control supports keyboard Tab and Enter; reduced-motion settings select the static marginal view.
+
+The binary factor tree is \(X_1-f_{12}-X_2-f_{23}-X_3\). For this **illustrative, exactly calculable example**, unary weights for states (0,1) are \(\phi_1=(0.9,0.1)\), \(\phi_2=(0.5,0.5)\), and \(\phi_3=(0.2,0.8)\); each pairwise factor assigns weight 2 to equal states and 1 to unequal states. First, evidence enters at the leaves. Messages travel inward through factor nodes to the root \(X_2\); then they travel outward. **Each outgoing message excludes the incoming message from its recipient**, preventing double-counting on the tree. Normalising the products of incoming messages gives \(P(X_1=0)\approx0.887\), \(P(X_2=0)\approx0.535\), and \(P(X_3=0)\approx0.230\), matching direct enumeration. The bar lengths are calculated from these toy potentials, **not empirical measurements**. Exactness applies to trees, not generally to loopy BP (Kschischang et al., 2001).
+
 ## Variants
 
 - **Max-product** and its log-space version, **min-sum**, compute the most probable configuration on trees and are used in decoding.

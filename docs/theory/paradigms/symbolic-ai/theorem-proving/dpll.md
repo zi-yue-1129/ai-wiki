@@ -39,6 +39,16 @@ At each node of the search, the procedure does three things.
 
 If no branch leads to a solution, the formula is unsatisfiable. The branching variable choice and the backtracking strategy strongly affect performance. Davis, Logemann and Loveland (1962) proposed the splitting rule, and later work added heuristics for variable choice.
 
+### Animated walkthrough: propagate, conflict, backtrack
+
+![DPLL animation: decide A true, propagate B, detect a conflict, backtrack to A false and satisfy the clauses with C true.](../../../../assets/concept-animations/dpll-backtrack-motion.svg)
+
+[Static backtracking outcome for GitHub](../../../../assets/concept-animations/dpll-backtrack-still.svg)
+
+Consider the illustrative CNF \((\neg A\lor B)\land(\neg A\lor\neg B)\land(A\lor C)\). In this trace the **optional pure-literal rule is not applied**. First decide \(A=\mathrm{true}\). The first clause forces \(B=\mathrm{true}\), while the second requires \(B=\mathrm{false}\), so the branch conflicts. DPLL **backtracks and discards B's branch-local assignment**. With \(A=\mathrm{false}\), the first two clauses are satisfied and the third becomes the unit clause \(C\), forcing \(C=\mathrm{true}\). The result is **SAT**; B can remain unassigned. This is a deliberately small logical example, **not a measured solver trace**, and does not depict CDCL learning or backjumping.
+
+On MkDocs, use **Play/Pause** or keyboard activation; GitHub readers can open the static outcome. This original **CC BY-SA 4.0** illustration follows the DPLL splitting and propagation procedure described by Davis, Logemann and Loveland (1962), cited below.
+
 ## Variants
 
 - **Conflict-driven clause learning (CDCL)** analyses each conflict, learns a new clause that prevents the same conflict, and backjumps. Modern SAT solvers are built on it.

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # DPLL
@@ -26,6 +26,16 @@ DPLL 程序判定一個合取範式的命題公式是否可滿足。它以回溯
 3. 若所有子句都被滿足，回傳可滿足。若發現衝突，回溯。否則選一個未指派的變數，先設為真並遞迴；若失敗，再設為假並遞迴。
 
 若沒有任何分支導向解，該公式就是不可滿足的。分支變數的選擇與回溯策略對效能影響很大。Davis、Logemann 與 Loveland（1962）提出分割規則，後續研究則加入了變數選擇的啟發式。
+
+### 動態範例：單位傳播、衝突與回溯
+
+![DPLL 動畫：先決定 A 為真，傳播 B 後產生衝突，再回溯令 A 為假並由 C 為真滿足子句。](../../../../assets/concept-animations/dpll-backtrack-motion.svg)
+
+[GitHub 可閱讀的回溯結果靜態圖](../../../../assets/concept-animations/dpll-backtrack-still.svg)
+
+考慮示意 CNF 公式 \((\neg A\lor B)\land(\neg A\lor\neg B)\land(A\lor C)\)。此追蹤**未套用選用的純文字規則**。先決定 \(A=\mathrm{true}\)，第一個子句迫使 \(B=\mathrm{true}\)，第二個子句卻要求 \(B=\mathrm{false}\)，因此該分支產生衝突。DPLL **回溯並撤銷 B 在該分支的指派**。改令 \(A=\mathrm{false}\) 後，前兩個子句已滿足，第三個子句化為單位子句 \(C\)，迫使 \(C=\mathrm{true}\)。因此結果為 **SAT（可滿足）**，B 可以保持未指派。這是刻意簡化的**邏輯教學示意，並非求解器實測軌跡**，也沒有描繪 CDCL 的子句學習或非循序回溯。
+
+MkDocs 網站可使用**播放／暫停**或鍵盤控制；GitHub 讀者可開啟靜態結果圖。本圖為原創 **CC BY-SA 4.0** 教學視覺，依據下方 Davis、Logemann 與 Loveland（1962）的 DPLL 原始文獻。
 
 ## 變體
 
