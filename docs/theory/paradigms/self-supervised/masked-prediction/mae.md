@@ -47,11 +47,11 @@ Because the encoder runs on the 25% of patches that are visible, pre-training is
 
 ![MAE animation: retain four of sixteen patches, encode only the visible tokens, restore mask tokens in the decoder, and score the masked reconstruction.](../../../../assets/concept-animations/mae-visible-patch-reconstruction-motion.svg)
 
-[Static four-stage overview for GitHub](../../../../assets/concept-animations/mae-visible-patch-reconstruction-still.svg)
+[Static GitHub overview](../../../../assets/concept-animations/mae-visible-patch-reconstruction-still.svg)
 
-The **mask → encode → decode → masked loss** sequence uses a schematic 4 × 4 image with **12 of 16 patches masked (75%)**. The encoder receives only four visible tokens; the decoder then combines their encoded representations with twelve mask tokens to predict all patch pixels. **Only the twelve originally masked positions contribute to reconstruction MSE**, although the decoder outputs all sixteen. Patch colours and reconstructions are illustrative, **not model outputs or benchmark measurements**.
+The continuous **mask → encode → decode → masked loss** sequence uses a schematic 4 × 4 image with **12 of 16 patches masked (75%)**. The encoder receives only four visible tokens; the decoder then combines their encoded representations with twelve mask tokens to predict all patch pixels. **Only the twelve originally masked positions contribute to reconstruction MSE**, although the decoder outputs all sixteen. Patch colours and reconstructions are illustrative, **not model outputs or benchmark measurements**.
 
-On the MkDocs site, use **Play/Pause** to stop the eight-second loop. GitHub Markdown and reduced-motion settings have a static four-stage fallback. This original visual is licensed **CC BY-SA 4.0** and illustrates He et al. (2022), cited in References.
+On the MkDocs site, the 14-second continuous illustration supports **Play/Pause, Step (+0.7 s), timeline scrubbing, and 0.5×/1×/2× speed**. Watch the four visible tokens travel into the encoder first; the twelve mask tokens appear only inside the decoder, then the missing patches are reconstructed and the masked-position loss accumulates. The timeline is schematic rather than a training-time trace. GitHub Markdown and reduced-motion settings retain the static overview. This original visual is licensed **CC BY-SA 4.0** and illustrates He et al. (2022), cited in References.
 
 ## Key methods
 
