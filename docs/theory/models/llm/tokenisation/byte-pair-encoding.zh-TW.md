@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # 位元組對編碼（Sennrich 等人，2016）
@@ -32,6 +32,12 @@ Sennrich、Haddow 與 Birch（2016）把 BPE 改寫為神經機器翻譯的方�
 把語料中所有 \(a^\ast b^\ast\) 出現的地方替換為新符號 \(a^\ast b^\ast\)，並加入 \(V\)。重複此程序，直到 \(|V|\) 達到目標大小。
 
 要對新文字做分詞時，先把文字切成字元，再依學習的順序套用合併規則，使最常見的合併先生效。
+
+### 動畫解說：學習並套用合併規則
+
+![BPE 四階段教學動畫：統計相鄰符號、合併 m 與 a、合併 ma 與 ma，最後依規則順序編碼輸入文字。](../../../../assets/concept-animations/bpe-ordered-merges-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 假設玩具語料包含 **mama × 4** 與 **map × 1**，相鄰配對 `m + a` 共出現 **9** 次（每個 `mama` 有兩次、`map` 有一次）。在整個語料合併後，`ma + ma` 出現 **4** 次。依學習順序套用這兩條規則，就能將輸入 `mama` 編碼成單一符號。本圖示範的是**以字元為起點、僅在字內合併的 BPE**，不代表位元組級分詞或字尾標記的完整實作；配對次數來自示意語料，並非訓練完成的分詞器實測值。MkDocs 網站提供播放／暫停按鈕（可使用鍵盤操作）；GitHub Markdown 可查看[四階段靜態回退圖](../../../../assets/concept-animations/bpe-ordered-merges-still.svg)。
 
 ## 主要方法
 

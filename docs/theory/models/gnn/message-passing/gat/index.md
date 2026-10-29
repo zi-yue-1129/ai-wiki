@@ -25,6 +25,14 @@ Spectral filters depend on the graph's Laplacian. A model trained on one graph s
 
 Each node attends over its neighbours. The attention coefficients come from a shared linear transform of the node features, normalised with a softmax over the neighbourhood. Several attention heads run in parallel, and their outputs are concatenated in hidden layers.
 
+### Animated walkthrough
+
+![Four-stage GAT animation showing edge scores, neighborhood softmax, weighted messages, and the updated target node.](../../../../../assets/concept-animations/gat-aggregation-motion.svg)
+
+*Original CC BY-SA 4.0 teaching animation based on Veličković et al. (2017; see References). It visualizes a **single attention head**, not multi-head concatenation. On MkDocs, the **Play/Pause** control is keyboard accessible; reduced-motion preferences initially select the [GitHub-readable static overview](../../../../../assets/concept-animations/gat-aggregation-still.svg). [Open the animated SVG](../../../../../assets/concept-animations/gat-aggregation-motion.svg).*
+
+The diagram uses the **same four-node star and scalar features as the GCN walkthrough**: $h_i=0.5,\ h_A=1,\ h_B=1.5,\ h_C=2$, including the self-loop in the target's neighborhood. To make the arithmetic reproducible, take $W=1$ and one illustrative shared additive scorer $e_{ij}=\operatorname{LeakyReLU}(h_j-h_i)$. All four scores are nonnegative, so the logits are $(0,0.5,1,1.5)$. Neighborhood softmax gives coefficients approximately $(0.1015,0.1674,0.2760,0.4551)$ for $(i,A,B,C)$; their weighted feature sum is $1.5423$ with an identity output activation. These coefficients sum to one, unlike the degree-normalized GCN weights. The scorer, scalar features, and output are **constructed teaching values**, not parameters or activations measured from a trained GAT.
+
 ## Equation or algorithm
 
 For a node i and its neighbours j, the layer computes

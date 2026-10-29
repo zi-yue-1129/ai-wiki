@@ -11,7 +11,7 @@ tags:
   - spectral convolution
   - semi-supervised learning
   - message passing
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # 圖卷積網路（GCN）
@@ -25,6 +25,14 @@ translation_reviewed: 2026-10-28
 ## 核心想法
 
 GCN 不再依此假設加入懲罰項，而是讓網路以鄰接矩陣為條件。每一層都用加入自迴圈並做對稱度數正規化的矩陣來傳播特徵。作者把此結果描述為局部化頻譜卷積的一階近似。
+
+### 動態概念解說
+
+![GCN 四階段教學動畫：加入自迴圈、對稱度數正規化、鄰居訊息聚合，以及目標節點的特徵更新。](../../../../../assets/concept-animations/gcn-aggregation-motion.svg)
+
+*原創 CC BY-SA 4.0 教學動畫，依據 Kipf 與 Welling（2016；見參考文獻）。四階段依序呈現加入自迴圈、依度數計算係數、聚合鄰居訊息，以及更新目標節點特徵。MkDocs 網站提供支援鍵盤操作的**播放／暫停**按鈕；偏好減少動態效果時，預設顯示 [GitHub 可閱讀的靜態概覽](../../../../../assets/concept-animations/gcn-aggregation-still.svg)。[開啟完整動畫](../../../../../assets/concept-animations/gcn-aggregation-motion.svg)。*
+
+圖中採用四個節點的星狀圖，目標節點為 $i$，其餘為 $A,B,C$。示意純量特徵分別為 $h_i=0.5,\ h_A=1,\ h_B=1.5,\ h_C=2$。加入自迴圈後，目標節點度數為 $4$，每個葉節點度數為 $2$，因此自身訊息係數為 $1/4$，各鄰居訊息係數為 $1/\sqrt{4\cdot2}$。設定 $W=1$ 並使用 ReLU 時，更新結果為 $0.25(0.5)+(1+1.5+2)/\sqrt{8}\approx1.716$。這些對稱正規化係數**不一定加總為一**，與 softmax 不同。圖中的特徵與數值均為手算教學示例，不是學習所得的嵌入向量或效能實測。
 
 ## 方程式或演算法
 

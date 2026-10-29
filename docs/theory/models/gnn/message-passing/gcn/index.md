@@ -26,6 +26,14 @@ Node classification is hard when labels exist for only a few nodes. Earlier grap
 
 Instead of adding a penalty based on that assumption, the GCN conditions the network on the adjacency matrix. Each layer propagates features over that matrix with self-loops and symmetric degree normalisation. The authors describe the result as a first-order approximation of a localised spectral convolution.
 
+### Animated walkthrough
+
+![Four-stage GCN animation showing self-loops, symmetric degree normalization, incoming messages, and the updated target node.](../../../../../assets/concept-animations/gcn-aggregation-motion.svg)
+
+*Original CC BY-SA 4.0 teaching animation based on Kipf and Welling (2016; see References). The phases show self-loop augmentation, degree-based coefficients, aggregation, and the updated node feature. On MkDocs, the **Play/Pause** control is keyboard accessible; reduced-motion preferences initially select the [GitHub-readable static overview](../../../../../assets/concept-animations/gcn-aggregation-still.svg). [Open the animated SVG](../../../../../assets/concept-animations/gcn-aggregation-motion.svg).*
+
+The toy graph is a four-node star with target $i$ and three leaves $A,B,C$. Their scalar input features are $h_i=0.5,\ h_A=1,\ h_B=1.5,\ h_C=2$. After adding self-loops, the target degree is $4$ and every leaf degree is $2$. Thus the self-message coefficient is $1/4$, while each incoming leaf coefficient is $1/\sqrt{4\cdot2}$. With $W=1$ and ReLU, the target update is $0.25(0.5)+(1+1.5+2)/\sqrt{8}\approx1.716$. Unlike a softmax, these symmetric-normalization coefficients do **not** have to sum to one. The features and numbers are hand-computed teaching values, not learned embeddings or benchmark measurements.
+
 ## Equation or algorithm
 
 With Ã = A + I, where I is the identity matrix (so Ã adds self-loops to the adjacency matrix A), and D̃ the diagonal degree matrix of Ã, one layer computes

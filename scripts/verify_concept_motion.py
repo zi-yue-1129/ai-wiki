@@ -53,6 +53,12 @@ TOPICS = {
     "dpll-backtrack": "theory/paradigms/symbolic-ai/theorem-proving/dpll",
     "viterbi-trellis": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "tree-belief-propagation": "theory/paradigms/probabilistic/graphical-models/belief-propagation",
+    "gcn-aggregation": "theory/models/gnn/message-passing/gcn/index",
+    "gat-aggregation": "theory/models/gnn/message-passing/gat/index",
+    "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
+    "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
+    "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
+    "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
 }
 FORBIDDEN = {"script", "foreignObject", "iframe", "image"}
 LIMIT = 50 * 1024
@@ -119,7 +125,7 @@ def main() -> int:
                 (page.parent / link).resolve() for link in links
             }:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent"}:
+            if stem in {"moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)

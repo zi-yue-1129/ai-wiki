@@ -44,6 +44,12 @@ replaces every occurrence of \(a^\ast b^\ast\) by the new symbol \(a^\ast b^\ast
 
 To tokenise new text, the text is first split into characters. The learned merges are then applied in the order they were learned, so that the most common merges take effect first.
 
+### Visual walkthrough: learning and applying merge rules
+
+![Four-stage BPE animation: count adjacent symbol pairs, merge m and a, merge ma and ma, and apply the ordered rules to an input.](../../../../assets/concept-animations/bpe-ordered-merges-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* In the toy word-frequency corpus **mama × 4** and **map × 1**, the pair `m + a` occurs **9** times (twice in each `mama`, once in `map`). After merging it throughout the corpus, `ma + ma` occurs **4** times. The two learned rules, applied in rank order, segment the input `mama` as one symbol. This is **character-level, word-internal BPE**; it does not illustrate byte-level tokenisation, end-of-word markers, or model benchmark results. Counts are calculated for the toy corpus, not measured on a trained tokeniser. On the MkDocs site, use Play/Pause (also accessible by keyboard); [view the four-stage static fallback](../../../../assets/concept-animations/bpe-ordered-merges-still.svg) in GitHub Markdown.
+
 ## Key methods
 
 The method is one algorithm with several practical variants. The steps are:
