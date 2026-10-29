@@ -145,10 +145,20 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+    # The two reviewed process animations must show interpolated intermediate states,
+    # not four discrete slides masquerading as motion.
+    for stem in ("mae-visible-patch-reconstruction", "dinov2-dual-objective-ema"):
+        root = ET.parse(ASSETS / f"{stem}-motion.svg").getroot()
+        animations = [node for node in root.iter() if node.tag == NS + "animate"]
+        if len(animations) < 10 or any(node.get("calcMode") == "discrete" for node in animations):
+            errors.append(f"{stem}: continuous interpolation required; discrete slides are not sufficient")
+
     config = Path("mkdocs.yml").read_text(encoding="utf-8")
     for path in (
         "javascripts/concept-motion.js",
         "stylesheets/concept-motion.css",
+        "javascripts/concept-motion-detailed.js",
+        "stylesheets/concept-motion-detailed.css",
     ):
         if path not in config or not (DOCS / path).exists():
             errors.append(f"Missing registered player asset: {path}")
