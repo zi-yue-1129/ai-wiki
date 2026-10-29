@@ -67,6 +67,32 @@ with sync_playwright() as p:
                         calc = page.locator(".ssl-compute").inner_text()
                         assert expected in calc, (kind, m, calc)
                         assert page.locator('[data-momentum-output]').inner_text() == f"{float(m):.2f}"
+                    # Objective microscope: verify real softmax/cosine calculations
+                    # and that the controls remain operable in reduced motion.
+                    loss_slider = page.locator('[data-act="loss"]')
+                    if kind == "moco":
+                        assert "InfoNCE" in page.locator(".ssl-loss-value").inner_text()
+                        initial = float(page.locator(".ssl-loss-value").inner_text().split("InfoNCE = ")[1])
+                        loss_slider.fill("1.00")
+                        warmer = float(page.locator(".ssl-loss-value").inner_text().split("InfoNCE = ")[1])
+                        assert warmer > initial, (initial, warmer)
+                        assert page.locator(".ssl-loss-positive").count() == 1
+                    else:
+                        loss_slider.fill("1.00")
+                        assert "0.000" in page.locator(".ssl-loss-value").inner_text()
+                        loss_slider.fill("-1.00")
+                        assert "4.000" in page.locator(".ssl-loss-value").inner_text()
+                        assert page.evaluate("""() => {
+                            const svg=document.querySelector('.ssl-loss-vectors');
+                            return [...svg.querySelectorAll('text')].every(t => {
+                                const b=t.getBBox();
+                                return b.x>=-1 && b.y>=-1 && b.x+b.width<=251 && b.y+b.height<=106;
+                            });
+                        }"""), "loss vector labels clipped"
+                    loss_slider.focus()
+                    page.keyboard.press("ArrowLeft")
+                    assert loss_slider.input_value() != ("1.00" if kind == "moco" else "-1.00")
+                    assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
                     page.locator('[data-act="momentum"]').fill("0.9")
                     page.locator('[data-act="seek"]').fill("4")
                     calc = page.locator(".ssl-compute").inner_text()
@@ -99,4 +125,4 @@ with sync_playwright() as p:
                     )
                     page.close()
     browser.close()
-print("PASS: 16 Chromium cases, 3 momentum settings × 15 paths, bilingual controls, geometry, seek, keyboard, tween, pause, reduced motion")
+print("PASS: 16 Chromium cases, bilingual objective microscope, 3 momentum settings × 15 paths, bilingual controls, geometry, seek, keyboard, tween, pause, reduced motion")
