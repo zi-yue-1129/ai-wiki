@@ -16,4 +16,4 @@
 .ssl-compute { padding:.5rem .65rem; border:1px solid var(--md-default-fg-color--lighter,#c2d2dc); border-radius:.3rem; margin-top:.45rem; overflow-wrap:anywhere; font:12px/1.5 ui-monospace,monospace; }
 @media (max-width:480px) {.ssl-toolbar{gap:.5rem}.ssl-toolbar label{flex:1 1 8rem}}
 @media (prefers-reduced-motion:reduce) {.ssl-figure .ssl-packet {display:none!important;} .ssl-lab * {transition:none!important;}}
-@media (max-width:480px) { .ssl-figure .ssl-small {font-size:17px} .ssl-figure .ssl-title {font-size:21px} .ssl-figure .ssl-number {font-size:19px} .ssl-figure .ssl-token {font-size:17px} }
+@media (max-width:480px) { .ssl-figure .ssl-small {font-size:21px} .ssl-figure .ssl-title {font-size:24px} .ssl-figure .ssl-number {font-size:23px} .ssl-figure .ssl-token {font-size:21px} }
