@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # Nesterov 動量
@@ -28,6 +28,10 @@ v_t &= \beta\, v_{t-1} + \nabla L\big(\theta_{t-1} - \eta\beta\, v_{t-1}\big) \\
 \]
 
 與重球法相比，改變的只是計算梯度的位置。實務上，框架常使用等價的重新排列，在目前的點計算梯度，再改寫參數更新，因此不需要額外的前向計算。
+
+![Nesterov 動量動畫：先預測動量前瞻點，在該點計算梯度，再從原始參數位置執行修正更新。](../../../assets/concept-animations/nesterov-lookahead-motion.svg)
+
+*原創四階段教學動畫，CC BY-SA 4.0。* 橘色虛線表示僅由動量預測的前瞻位移；青綠色箭頭示意前瞻點的負梯度修正，最後藍色箭頭則從**原始參數位置**出發，而非從前瞻點更新。位置與箭頭長度皆為教學示意，並非實際最佳化軌跡。MkDocs 網站支援播放／暫停與減少動態效果的靜態回退；GitHub 可[檢視靜態總覽圖](../../../assets/concept-animations/nesterov-lookahead-still.svg)。
 
 ## 關鍵方法
 

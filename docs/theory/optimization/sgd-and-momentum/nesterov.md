@@ -40,6 +40,10 @@ v_t &= \beta\, v_{t-1} + \nabla L\big(\theta_{t-1} - \eta\beta\, v_{t-1}\big) \\
 
 Compared with heavy-ball, only the place where the gradient is evaluated changes. In practice, frameworks often implement an equivalent rearrangement that evaluates the gradient at the current point and rewrites the parameter update, so the look-ahead does not need an extra forward pass.
 
+![Animated Nesterov momentum: momentum predicts a look-ahead point, the gradient is evaluated there, and the corrected step starts from the original weights.](../../../assets/concept-animations/nesterov-lookahead-motion.svg)
+
+*Original four-stage teaching animation, CC BY-SA 4.0.* The orange dashed arrow is the momentum-only prediction; the teal arrow sketches the negative-gradient correction at the look-ahead point, and the final blue arrow starts at the **original** weights. The points and arrow lengths are illustrative, not measured optimisation trajectories. MkDocs provides Play/Pause and a reduced-motion fallback; [view the GitHub-readable static overview](../../../assets/concept-animations/nesterov-lookahead-still.svg).
+
 ## Key methods
 
 ### Accelerated gradient (Nesterov, 1983; see Nesterov, 2004)

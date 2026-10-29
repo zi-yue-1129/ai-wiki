@@ -43,6 +43,10 @@ n_i = \left\lfloor n\,\eta^{-i} \right\rfloor \text{ settings, each with budget 
 
 Hyperband runs this procedure for several brackets. Let \(s_{\max} = \lfloor \log_\eta (R/r) \rfloor\). Bracket \(s\) starts with a number of settings and a minimum budget chosen so that every bracket uses about the same total budget. Brackets with a large \(s\) try many settings with little budget each, and brackets with \(s = 0\) run a few settings to full budget. The best final score over all brackets is returned.
 
+![Animated Hyperband budget allocation: nine configurations are successively halved to three and one, alongside a separate higher-budget bracket.](../../../assets/concept-animations/hyperband-budget-motion.svg)
+
+*Original four-stage teaching animation, CC BY-SA 4.0.* In the illustrative bracket A, a reduction factor of **three** promotes 9 configurations at resource 1 to 3 at resource 3 and then 1 at resource 9. Bracket B independently starts 3 configurations at resource 3 and promotes 1 to resource 9. Letters, rankings, and resource units are schematic, **not measured results or a benchmark**; the brackets use different sampled configurations. The animation shows budget allocation rather than claiming that early rankings are reliable. MkDocs provides Play/Pause and a reduced-motion fallback; [view the GitHub-readable static overview](../../../assets/concept-animations/hyperband-budget-still.svg).
+
 ## Key methods
 
 This page covers one method: successive halving, run across several brackets with different trade-offs between the number of settings and their budgets.
