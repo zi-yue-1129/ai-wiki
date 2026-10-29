@@ -39,7 +39,7 @@ with sync_playwright() as p:
                     slider = page.locator('[data-act="loss"]')
                     if kind == "moco":
                         for tau in (0.10, 0.20, 0.35, 0.50, 1.00):
-                            slider.fill(str(tau))
+                            slider.fill(f"{tau:.2f}")
                             readout = page.locator(".ssl-gradient-readout").inner_text()
                             got = float(re.search(r"/τ = (-?[0-9.]+)", readout).group(1))
                             ppos = 1 / (1 + sum(exp((v - .7) / tau) for v in (-.2, -.1, 0, .1, .2, .05)))
@@ -48,7 +48,7 @@ with sync_playwright() as p:
                         slider.fill("0.35")
                     else:
                         for cosine in (-1, -.5, 0, .5, 1):
-                            slider.fill(str(cosine))
+                            slider.fill(f"{cosine:.2f}")
                             readout = page.locator(".ssl-gradient-readout").inner_text()
                             got = float(re.search(r"2sinφ = ([0-9.]+)", readout).group(1))
                             expected = 2 * sin(acos(cosine))
