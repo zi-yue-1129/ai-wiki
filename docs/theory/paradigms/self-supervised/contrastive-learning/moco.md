@@ -47,6 +47,16 @@ For each query \(q\), the positive key \(k_+\) is the key of its other view, and
 
 After each step, the newest keys are added to the queue and the oldest are removed. Because the keys in the queue were produced by slowly changing encoder states, the dictionary stays consistent while it grows far beyond the batch size.
 
+### Visual walkthrough: queued negatives and momentum updates
+
+![MoCo animation: query and positive-key encoding, contrast against the FIFO dictionary, gradient versus momentum updates, and queue replacement.](../../../../assets/concept-animations/moco-dictionary-cycle-motion.svg)
+
+[Static four-stage overview for GitHub](../../../../assets/concept-animations/moco-dictionary-cycle-still.svg)
+
+The four phases show **encode → compare → update → enqueue**. Two augmented views are encoded separately. InfoNCE contrasts the query with its **positive key and queued negative keys**; the query encoder receives gradients, whereas the key encoder follows an **exponential moving average** of the query weights. Only *after* using the current dictionary are new keys enqueued and the oldest keys evicted. The seven queue slots and the arrow layout are **schematic**, not the paper's 65,536-key configuration or measured embeddings.
+
+On MkDocs, use **Play/Pause** to stop the eight-second loop; the static overview is readable in GitHub Markdown and under reduced-motion preferences. This original diagram is licensed **CC BY-SA 4.0**. The algorithm follows He et al. (2020), cited below.
+
 ## Key methods
 
 ### Momentum Contrast for Unsupervised Visual Representation Learning (He, Fan, Wu, Xie & Girshick, 2020)
