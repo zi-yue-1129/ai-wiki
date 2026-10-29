@@ -64,6 +64,8 @@ This static overview remains readable on GitHub and without JavaScript; the MkDo
 
 **Loss microscope (independent toy example).** Adjust the **Temperature τ** slider (0.10–1.00) to inspect how a fixed positive similarity of 0.70 and six fixed negative similarities (−0.20, −0.10, 0.00, 0.10, 0.20, 0.05) become a softmax probability and an InfoNCE loss. The blue/red bar shows the positive-key probability versus the aggregate negative probability. These similarities are deliberately **not derived from the scalar EMA parameters or FIFO letters above**; this isolates the temperature effect rather than inventing a learned embedding or gradient trajectory. The loss is computed as \(-\log p_+\), with the positive key included in the denominator. The contrastive loss updates the **query encoder only**; the key encoder is updated by EMA.
 
+**Gradient sensitivity (linked to the same temperature slider).** The new continuous curve plots the exact derivative of this fixed toy InfoNCE objective with respect to positive-key similarity \(s_+\): \(\partial\mathcal L/\partial s_+=(p_+-1)/\tau\). The *sum* of negative-similarity derivatives is \((1-p_+)/\tau\), equal and opposite. At very low \(\tau\), softmax saturation can reduce the derivative magnitude; decreasing temperature does **not** monotonically increase it for these fixed logits. These are gradients with respect to illustrative similarities, **not** gradients of the query encoder's parameters or measured training signals.
+
 
 [View the continuous GIF preview of three toy updates](../../../../assets/concept-animations/moco-momentum-preview.gif) (fixed momentum m = 0.90; viewable on GitHub, while the MkDocs simulator lets you vary momentum).
 
