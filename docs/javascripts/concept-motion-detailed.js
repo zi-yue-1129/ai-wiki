@@ -158,7 +158,7 @@
             renderTime(); return true;
           } catch (_) {
             img.src = still; img.hidden = false; status.textContent = labels[6];
-            toggle.disabled = step.disabled = slider.disabled = speed.disabled = true;
+            toggle.disabled = step.disabled = slider.disabled = speed.disabled = previousChapter.disabled = nextChapter.disabled = true;
             return false;
           }
         })();
