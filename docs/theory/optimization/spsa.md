@@ -45,6 +45,10 @@ where the division is coordinate-wise. For \(\pm 1\) entries, \(\Delta_k^{-1} = 
 
 with gain \(a_k\) and perturbation \(c_k\) that decrease with the iteration count \(k\). Each iteration uses two evaluations, whatever the dimension.
 
+![Four-stage SPSA teaching animation: perturb all coordinates in opposite directions, evaluate twice, estimate the gradient and update parameters.](../../assets/concept-animations/spsa-two-evaluations-motion.svg)
+
+*Original four-stage teaching animation, CC BY-SA 4.0.* Orange and teal denote the **same simultaneous random direction** with opposite signs, not coordinate-by-coordinate finite differences. For a reproducible toy objective \(f(x,y)=(x-1)^2+2(y+0.5)^2\), choose \(\theta=(0,0)\), \(\Delta=(1,-1)\) and \(c=0.5\). Then \(y_+=0.25\), \(y_-=4.25\), \(\hat g=(-4,4)\), and a step of \(a=0.15\) gives \(\theta'=(0.6,-0.6)\). The contours and arrow lengths are schematic; these are calculated illustrative values, not empirical performance measurements. The MkDocs site offers Play/Pause and reduced-motion fallback; [view the four-stage static overview](../../assets/concept-animations/spsa-two-evaluations-still.svg) on GitHub.
+
 ## Key results
 
 Spall (1992) gives conditions on the gain and perturbation sequences under which the iterates converge, in the stochastic approximation sense. This page does not quote numerical results from the paper.

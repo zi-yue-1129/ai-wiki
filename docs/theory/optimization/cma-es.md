@@ -40,6 +40,10 @@ At each iteration:
 
 The rank-based update makes the method invariant to monotone transformations of \(f\), because only the order of the scores matters.
 
+![Four-stage CMA-ES teaching animation: sample from a Gaussian, rank candidates, shift the mean and adapt covariance.](../../assets/concept-animations/cmaes-distribution-adaptation-motion.svg)
+
+*Original four-stage teaching animation, CC BY-SA 4.0.* The blue dots represent sampled candidates; teal dots indicate selected candidates. The blue point marks the old mean, and the teal point the new mean. The final tilted ellipse illustrates **covariance adaptation over successive iterations**, not an exact one-generation update; the method also adapts the global step size through evolution paths. All positions, rankings and ellipse shapes are schematic, not benchmark measurements. The MkDocs site provides Play/Pause and a reduced-motion fallback; [view the complete four-stage static overview](../../assets/concept-animations/cmaes-distribution-adaptation-still.svg) in GitHub Markdown.
+
 ## Key results
 
 The tutorial describes CMA-ES as a stochastic, randomised method for real-parameter optimisation, aimed at non-linear, non-convex functions. It gives no benchmark numbers in the abstract, so this page does not quote any.

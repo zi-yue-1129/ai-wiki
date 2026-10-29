@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # CMA-ES
@@ -28,6 +28,10 @@ CMA-ES 是族群方法。它的目標是無法取得梯度的非線性、非凸�
 4. 由被選中的步長更新協方差 \(C\)，並由一條追蹤步伐是否一致的演化路徑更新步長 \(\sigma\)。
 
 以排名為基礎的更新，使方法對 \(f\) 的單調變換不變，因為只有分數的順序有影響。
+
+![CMA-ES 四階段教學動畫：由高斯分布取樣、排序候選解、移動均值及調整協方差。](../../assets/concept-animations/cmaes-distribution-adaptation-motion.svg)
+
+*原創四階段教學動畫，CC BY-SA 4.0。* 藍色小點表示取樣候選解，青綠色小點表示入選候選解；藍色大點是舊均值，青綠色大點是新均值。最後傾斜的橢圓代表**多次迭代後的協方差適應**，並非單一世代的精確更新；演算法也會透過演化路徑調整整體步長。所有位置、排名與橢圓形狀均為教學示意，非基準測試結果。MkDocs 網站提供播放／暫停及減少動態效果的靜態回退；GitHub 可[檢視完整四階段靜態總覽](../../assets/concept-animations/cmaes-distribution-adaptation-still.svg)。
 
 ## 主要結果
 
