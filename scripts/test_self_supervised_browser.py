@@ -73,14 +73,14 @@ with sync_playwright() as p:
                     if kind == "moco":
                         assert "InfoNCE" in page.locator(".ssl-loss-value").inner_text()
                         initial = float(page.locator(".ssl-loss-value").inner_text().split("InfoNCE = ")[1])
-                        loss_slider.fill("1.00")
+                        loss_slider.fill("1")
                         warmer = float(page.locator(".ssl-loss-value").inner_text().split("InfoNCE = ")[1])
                         assert warmer > initial, (initial, warmer)
                         assert page.locator(".ssl-loss-positive").count() == 1
                     else:
                         loss_slider.fill("1.00")
                         assert "0.000" in page.locator(".ssl-loss-value").inner_text()
-                        loss_slider.fill("-1.00")
+                        loss_slider.fill("-1")
                         assert "4.000" in page.locator(".ssl-loss-value").inner_text()
                         assert page.evaluate("""() => {
                             const svg=document.querySelector('.ssl-loss-vectors');
@@ -90,8 +90,9 @@ with sync_playwright() as p:
                             });
                         }"""), "loss vector labels clipped"
                     loss_slider.focus()
+                    before_key = loss_slider.input_value()
                     page.keyboard.press("ArrowLeft" if kind == "moco" else "ArrowRight")
-                    assert loss_slider.input_value() != ("1.00" if kind == "moco" else "-1.00")
+                    assert loss_slider.input_value() != before_key
                     assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
                     page.locator('[data-act="momentum"]').fill("0.9")
                     page.locator('[data-act="seek"]').fill("4")
