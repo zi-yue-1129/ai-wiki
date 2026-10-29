@@ -69,8 +69,14 @@ with sync_playwright() as p:
                     assert page.locator(".ssl-gradient-readout").inner_text()
                     assert not errors, errors
                     assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+                    loss_box = page.locator(".ssl-loss").bounding_box()
+                    gradient_box = page.locator(".ssl-gradient").bounding_box()
+                    assert gradient_box["y"] >= loss_box["y"] + loss_box["height"] - 1, "loss/gradient panels overlap"
                     page.locator(".ssl-gradient").screenshot(
                         path=str(OUT / f"{kind}-{locale}-{width}-reduced-{reduced}.png")
+                    )
+                    page.locator(".ssl-lab").screenshot(
+                        path=str(OUT / f"{kind}-{locale}-{width}-reduced-{reduced}-full.png")
                     )
                     page.close()
     browser.close()
