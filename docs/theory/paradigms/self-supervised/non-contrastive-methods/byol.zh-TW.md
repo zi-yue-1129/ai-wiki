@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 related:
   - theory/paradigms/self-supervised
   - theory/paradigms/self-supervised/contrastive-learning
