@@ -58,7 +58,7 @@ The projector is a linear layer with 4096 outputs, batch normalisation, a ReLU, 
 
 ### Visual walkthrough: online gradients and momentum target
 
-![BYOL animation: two views, online prediction of the target, stopped target gradients, and exponential-moving-average target update.](../../../../assets/concept-animations/byol-online-target-still.svg)
+![BYOL static overview: two views, online prediction of the target, stopped target gradients, and exponential-moving-average target update.](../../../../assets/concept-animations/byol-online-target-still.svg)
 
 
 
