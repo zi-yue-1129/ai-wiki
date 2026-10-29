@@ -43,6 +43,21 @@ with sync_playwright() as p:
                                    b.x + b.width <= 641 && b.y + b.height <= 261;
                         });
                     }"""), (kind, width, reduced, "SVG text clipped")
+                    # All 15 operation starts must keep the moving marker off labels.
+                    for operation in range(15):
+                        page.locator('[data-act="seek"]').fill(str(operation))
+                        collisions = page.evaluate("""() => {
+                            const svg = document.querySelector('.ssl-figure svg');
+                            const c = svg.querySelector('.ssl-packet');
+                            const x = Number(c.getAttribute('cx'));
+                            const y = Number(c.getAttribute('cy'));
+                            return [...svg.querySelectorAll('text')].filter(t => {
+                                const b = t.getBBox();
+                                return x+7>b.x && x-7<b.x+b.width &&
+                                       y+7>b.y && y-7<b.y+b.height;
+                            }).map(t => t.textContent);
+                        }""")
+                        assert not collisions, (kind, operation, collisions)
                     page.locator('[data-act="seek"]').fill("4")
                     calc = page.locator(".ssl-compute").inner_text()
                     assert "0.355" in calc, (kind, calc)
