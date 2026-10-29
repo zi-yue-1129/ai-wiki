@@ -44,6 +44,10 @@ and the parameters move by
 
 Typical values are \(\beta\) near 0.9, with a small \(\epsilon\) for numerical stability. The division is elementwise.
 
+![Four-stage RMSProp animation comparing coordinate-wise gradient magnitudes, squared-gradient exponential averages and scaled steps.](../../../assets/concept-animations/rmsprop-adaptive-memory-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* The two coordinates have gradients (4, 1), (4, 1), (1, 4), (1, 4). With illustrative $\beta=0.5$, $v_0=(1,1)$, $\epsilon=0$ and $\eta=1$, the EMA values are (8.50, 1.00), (12.25, 1.00), (6.63, 8.50) and (3.81, 12.25). Blue bars show gradient magnitudes; teal bars show $|g_t|/\sqrt{v_t}$, **before applying the negative update sign**. This toy calculation is not a measured training trajectory, and its hyperparameters are chosen for visibility rather than as recommended defaults. MkDocs provides Play/Pause and a reduced-motion fallback; [view the four-step static overview](../../../assets/concept-animations/rmsprop-adaptive-memory-still.svg) on GitHub.
+
 ## Key results
 
 RMSProp has no paper, so this page quotes no benchmark numbers. Its effect is documented in the lecture notes and in later comparisons, notably Kingma and Ba (2015), which uses the same scaling inside Adam.

@@ -10,7 +10,7 @@ tags:
   - graph neural networks
   - attention
   - message passing
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # 圖注意力網路（GAT）
@@ -24,6 +24,14 @@ translation_reviewed: 2026-10-28
 ## 核心想法
 
 每個節點對其鄰居做注意力。注意力係數來自節點特徵經過共享線性轉換後的結果，並在鄰域上以 softmax 正規化。數個注意力頭平行執行，其輸出在隱藏層中串接。
+
+### 動態概念解說
+
+![GAT 四階段教學動畫：計算邊的注意力分數、對鄰域執行 softmax、加權訊息，以及更新目標節點。](../../../../../assets/concept-animations/gat-aggregation-motion.svg)
+
+*原創 CC BY-SA 4.0 教學動畫，依據 Veličković 等人（2017；見參考文獻）。圖中展示的是**單一注意力頭**，而非多頭輸出的串接。MkDocs 網站提供支援鍵盤操作的**播放／暫停**按鈕；偏好減少動態效果時，預設顯示 [GitHub 可閱讀的靜態概覽](../../../../../assets/concept-animations/gat-aggregation-still.svg)。[開啟完整動畫](../../../../../assets/concept-animations/gat-aggregation-motion.svg)。*
+
+圖中使用與 GCN 動畫**相同的四節點星狀圖與純量特徵**：$h_i=0.5,\ h_A=1,\ h_B=1.5,\ h_C=2$，並將目標節點自身納入鄰域。為了讓計算可以重現，設定 $W=1$，採用一組示意的共享加法式注意力評分函數 $e_{ij}=\operatorname{LeakyReLU}(h_j-h_i)$。四個分數都非負，因此 logits 為 $(0,0.5,1,1.5)$。在鄰域上執行 softmax 後，對應 $(i,A,B,C)$ 的係數約為 $(0.1015,0.1674,0.2760,0.4551)$；若輸出激活函數為恆等函數，加權特徵和為 $1.5423$。這些係數加總為一，與 GCN 的度數正規化權重不同。圖中的評分函數、特徵及輸出均為**刻意建構的教學數值**，不是訓練後 GAT 的實測參數或激活值。
 
 ## 方程式或演算法
 

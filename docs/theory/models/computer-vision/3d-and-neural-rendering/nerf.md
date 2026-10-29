@@ -37,6 +37,12 @@ $$C(\mathbf{r}) = \int_{t_n}^{t_f} T(t)\,\sigma(\mathbf{r}(t))\,\mathbf{c}(\math
 
 Here $T(t)$ is the accumulated transmittance. The training loss sums the squared error between rendered and observed pixel colours for the coarse and fine renderings (Eq. 6 of the paper).
 
+### Visual walkthrough: transmittance and pixel compositing
+
+![Four-stage NeRF animation: sample a camera ray, turn density into opacity, compute front-to-back weights and composite a pixel.](../../../../assets/concept-animations/nerf-volume-rendering-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* For a **three-sample toy ray**, let the per-interval opacities be `α = (0.10, 0.65, 0.40)`. In the discrete approximation, `αᵢ = 1 − exp(−σᵢδᵢ)`, `T₁ = 1`, `wᵢ = Tᵢαᵢ`, and `Tᵢ₊₁ = Tᵢ(1 − αᵢ)`. The entering transmittances are **(1, 0.90, 0.315)** and the colour weights are **(0.100, 0.585, 0.126)**, leaving **0.189** transmittance for the background. The last panel composites three illustrative RGB sample colours against **black**; it does not show a measured NeRF output. This simplified ray omits the coarse/fine hierarchical sampling of the full model. On MkDocs, Play/Pause is keyboard-accessible; [view the four-stage static fallback](../../../../assets/concept-animations/nerf-volume-rendering-still.svg) on GitHub.
+
 ## Results
 
 The abstract reports state-of-the-art novel-view synthesis for complex scenes. The paper reports 100,000 to 300,000 training iterations on a single V100 GPU, about one to two days per scene, and about 30 seconds to render a frame. Comparisons with prior methods are in the paper's results tables.

@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 related:
   - theory/math/automatic-differentiation
   - theory/deep-learning
@@ -34,6 +34,10 @@ aliases:
 $$\bar{v}_j = \sum_{i \in \text{children}(j)} \bar{v}_i \,\frac{\partial v_i}{\partial v_j}$$
 
 每個伴隨值都是一個向量雅可比積。重點在於，所有輸入的梯度只靠一次反向掃描就能得到，而其成本是計算函數本身的一個小常數倍，這個結果稱為廉價梯度原理 [(Griewank and Walther, 2008)](https://doi.org/10.1137/1.9780898717761)。
+
+![反向模式自動微分的四階段動畫：從純量輸出設定伴隨值、反向傳遞敏感度，並在共用輸入累加梯度。](../../../assets/concept-animations/reverse-ad-vjp-motion.svg)
+
+*原創四階段教學動畫，CC BY-SA 4.0。* 使用相同的示意程式 $a=xy$、$b=x+x$、$z=a+b$ 與 $(x,y)=(2,3)$。先計算並保留中間值，再從 $\bar{z}=1$ 反向傳播，得到 $\bar{a}=\bar{b}=1$。兩條回到 $x$ 的路徑分別貢獻 $y\bar{a}=3$ 與 $2\bar{b}=2$，**必須累加**成 $\bar{x}=5$；另一個輸入得到 $\bar{y}=x\bar{a}=2$。因此一次反向掃描即可得到純量輸出的 $\nabla f=(5,2)$。這是手算示意，非模型梯度實測。MkDocs 網站提供播放／暫停及減少動態效果的回退顯示；[GitHub 可直接閱讀的靜態最終狀態](../../../assets/concept-animations/reverse-ad-vjp-still.svg)。
 
 ## 方程式
 

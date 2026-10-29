@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 related:
   - theory/math/automatic-differentiation
   - theory/math
@@ -30,6 +30,10 @@ aliases:
 ## 核心想法
 
 為每個中間值附上一個切向量（tangent）。若輸入沿方向 $\dot{x}$ 被微擾，每個中間值 $v$ 都會得到切向量 $\dot{v}$，而每個基本運算則依其自身的微分規則傳播切向量。一次前向掃描會回傳雅可比向量積 $J\dot{x}$，即輸出沿該方向的導數。對偶數（dual numbers）提供了一種簡潔的表述方式：數值與其切向量成對攜帶，對這些配對做算術時會自動套用鏈式法則。
+
+![前向模式自動微分的四階段動畫：設定輸入方向、沿計算圖傳播切向量，最後取得雅可比向量積。](../../../assets/concept-animations/forward-ad-jvp-motion.svg)
+
+*原創四階段教學動畫，CC BY-SA 4.0。* 以示意程式 $a=xy$、$b=x+x$、$z=a+b$，在 $(x,y)=(2,3)$ 設定輸入方向 $(\dot{x},\dot{y})=(1,0)$。局部鏈式法則得到 $\dot{a}=3$、$\dot{b}=2$、$\dot{z}=5=J(1,0)^\top$。依序觀察 **Seed → Tangents → JVP** 的高亮路徑：單次前向掃描取得的是**方向導數，而非完整雅可比矩陣**。數值皆為手算教學範例，並非模型實測。MkDocs 網站提供播放／暫停及減少動態效果的回退顯示；[GitHub 可直接閱讀的靜態最終狀態](../../../assets/concept-animations/forward-ad-jvp-still.svg)。
 
 ## 方程式
 

@@ -46,6 +46,10 @@ c(i) \leftarrow \arg\min_{j}\ \|x_i - \mu_j\|^2, \qquad
 
 where \(C_j\) is the set of points currently assigned to centre \(j\). Each step cannot increase \(J\). Since there are finitely many assignments, the sequence stops at a fixed point, which is a local minimum of \(J\). Each iteration costs \(O(nkd)\) distance computations.
 
+![Animated four-stage Lloyd k-means iteration: seed, nearest-centroid assignment, mean update and reassignment.](../../../../assets/concept-animations/kmeans-lloyd-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* Blue and teal represent the two assigned clusters; outlined crosses are centroids, and dashed orange lines show centroid movement. The illustrated within-cluster squared-distance cost decreases from approximately 323k to 97k to 31k in arbitrary diagram-coordinate units. These values come from the twelve **synthetic plotted points**, not from a model benchmark. The final stage repeats assignment and mean update; the method may require further iterations on other data. The MkDocs player provides Play/Pause and a reduced-motion fallback; [view the four-stage static overview](../../../../assets/concept-animations/kmeans-lloyd-still.svg) on GitHub.
+
 ## Key methods
 
 ### Least squares quantization in PCM (Lloyd, 1982)

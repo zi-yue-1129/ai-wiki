@@ -30,6 +30,10 @@ Many scientific and machine learning tasks need the sensitivity of a function's 
 
 Attach a tangent to every intermediate value. If the input is perturbed along a direction $\dot{x}$, each intermediate value $v$ gets a tangent $\dot{v}$, and each elementary operation propagates tangents by its own differentiation rule. One forward pass returns the Jacobian-vector product $J\dot{x}$, the derivative of the output in that direction. Dual numbers give a compact way to express this: a value and its tangent are carried together as a pair, and arithmetic on pairs applies the chain rule automatically.
 
+![Forward-mode AD animation: seed the input direction, propagate tangents through the shared computation graph, and obtain the Jacobian-vector product.](../../../assets/concept-animations/forward-ad-jvp-motion.svg)
+
+*Original four-stage teaching animation, CC BY-SA 4.0.* For the illustrative program $a=xy$, $b=x+x$, $z=a+b$ at $(x,y)=(2,3)$, seed the input direction $(\dot{x},\dot{y})=(1,0)$. The local rules give $\dot{a}=3$, $\dot{b}=2$ and $\dot{z}=5=J(1,0)^\top$. Follow the highlighted edges from **Seed** to **Tangents** to **JVP**; one pass gives a directional derivative, **not** the full Jacobian. Values are hand-computed teaching examples, not model measurements. The MkDocs player offers Play/Pause and a reduced-motion fallback; [view the GitHub-compatible static final state](../../../assets/concept-animations/forward-ad-jvp-still.svg).
+
 ## Equation
 
 For an elementary operation $v = \phi(u)$, the tangent rule is
