@@ -196,6 +196,6 @@ Use original visualisations only when they explain a computation, state transiti
 ## Formatting
 
 - Math: `$inline$` and `$$display$$` (MathJax).
-- Diagrams: Mermaid code blocks.
+- Simple structural diagrams may use Mermaid; **instructional concept motion must follow the continuous-first and accessibility requirements above** rather than substituting a static Mermaid chart.
 - Callouts: `!!! note`, `!!! tip`, `!!! warning`.
 - Abbreviations defined in `includes/abbreviations.md` get tooltips everywhere; add new ones there.
