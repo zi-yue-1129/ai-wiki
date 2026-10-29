@@ -47,6 +47,14 @@ Rabiner (1989) organises the standard problems into three:
 
 The **forward–backward** algorithm combines the forward pass with a backward pass, \(\beta_t\), to give the posterior \(p(z_t\mid x_{1:T})\) for every time step. It is an instance of [belief propagation](belief-propagation.md) on a chain.
 
+### Animated walkthrough: Viterbi decoding
+
+![Four-stage Viterbi trellis showing max-product scores and the A–B–A traceback](../../../../assets/concept-animations/viterbi-trellis-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* [Static GitHub preview](../../../../assets/concept-animations/viterbi-trellis-still.svg). On the MkDocs site, use **Play/Pause** (also accessible with Tab and Enter); reduced-motion settings show the final static path.
+
+The example has two hidden states, A and B, and three observations. Its **illustrative** initial distribution is \(\pi=(0.6,0.4)\), transition rows are \(A=(0.7,0.3)\) and \(B=(0.4,0.6)\), and the emission likelihoods for A/B are \((0.8,0.3)\), \((0.2,0.9)\), and \((0.7,0.4)\) at \(t=1,2,3\). Viterbi computes \(\delta_t(j)=p(x_t\mid z_t=j)\max_i[\delta_{t-1}(i)A_{ij}]\) and stores the maximising predecessor, rather than summing paths as in the forward algorithm. The scores shown in the nodes are rounded: at the last step, \(\delta_3(A)=0.036288\) and \(\delta_3(B)=0.031104\). Backtracking therefore gives **A → B → A**, the most probable *joint state path*, not a sequence of separately maximised marginal states. These are hand-calculated teaching values, **not measured model outputs** (Viterbi, 1967; Rabiner, 1989).
+
 ## Variants
 
 - **Discrete HMMs** emit from a finite alphabet, and **Gaussian HMMs** emit continuous vectors, usually from a mixture of Gaussians per state.
