@@ -53,7 +53,7 @@ After each step, the newest keys are added to the queue and the oldest are remov
 
 
 
-The static overview distinguishes **encode → compare → SGD → EMA → enqueue**; the controllable simulation below shows the intermediate states and multiple iterations. Two augmented views are encoded separately. InfoNCE contrasts the query with its **positive key and queued negative keys**; the query encoder receives gradients, whereas the key encoder follows an **exponential moving average** of the query weights. Only *after* using the current dictionary are new keys enqueued and the oldest keys evicted. The seven queue slots and the arrow layout are **schematic**, not the paper's 65,536-key configuration or measured embeddings.
+The static overview distinguishes **encode → compare → SGD → EMA → enqueue**; the controllable simulation below shows the intermediate states and multiple iterations. Two augmented views are encoded separately. InfoNCE contrasts the query with its **positive key and queued negative keys**; the query encoder receives gradients, whereas the key encoder follows an **exponential moving average** of the query weights. Only *after* using the current dictionary are new keys enqueued and the oldest keys evicted. The six queue slots and the arrow layout are **schematic**, not the paper's 65,536-key configuration or measured embeddings.
 
 This static overview remains readable on GitHub and without JavaScript; the MkDocs experiment below provides pause, step, seek and speed controls. This original diagram is licensed **CC BY-SA 4.0**. The algorithm follows He et al. (2020), cited below.
 
@@ -61,6 +61,9 @@ This static overview remains readable on GitHub and without JavaScript; the MkDo
 #### Interactive experiment: step through three MoCo updates
 
 <div data-self-supervised-lab="moco" data-locale="en"></div>
+
+**Loss microscope (independent toy example).** Adjust the **Temperature τ** slider (0.10–1.00) to inspect how a fixed positive similarity of 0.70 and six fixed negative similarities (−0.20, −0.10, 0.00, 0.10, 0.20, 0.05) become a softmax probability and an InfoNCE loss. The blue/red bar shows the positive-key probability versus the aggregate negative probability. These similarities are deliberately **not derived from the scalar EMA parameters or FIFO letters above**; this isolates the temperature effect rather than inventing a learned embedding or gradient trajectory. The loss is computed as \(-\log p_+\), with the positive key included in the denominator. The contrastive loss updates the **query encoder only**; the key encoder is updated by EMA.
+
 
 [View the continuous GIF preview of three toy updates](../../../../assets/concept-animations/moco-momentum-preview.gif) (fixed momentum m = 0.90; viewable on GitHub, while the MkDocs simulator lets you vary momentum).
 
