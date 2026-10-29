@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 related:
   - theory/paradigms/meta-learning/optimisation-based
   - theory/paradigms/transfer/fine-tuning-and-adaptation
@@ -43,6 +43,16 @@ Finn、Abbeel 與 Levine（2017）在 ICML 2017（PMLR 70）發表 MAML。此方
 \]
 
 論文的演算法 1 重複這些步驟：抽樣一批任務；對每個任務，用少量範例計算梯度並得到適應後的參數 \(\theta_i'\)；最後以加總的元梯度更新 \(\theta\)。論文實驗中的內層步長包括：miniImageNet 使用 \(\alpha = 0.01\)、訓練時 5 步內層更新；5-way Omniglot 使用 \(\alpha = 0.4\)、訓練時 1 步內層更新。論文並未為每個實驗說明元步長 \(\beta\)。它在不同領域也使用不同的最佳化器：正弦回歸使用 Adam，強化學習使用 TRPO。
+
+### 動態示範：任務內適應與外層元梯度
+
+![MAML 動畫：共享初始化分別使用兩個任務的支援資料進行適應，接著由查詢資料的損失將元梯度回傳至共享參數。](../../../../assets/concept-animations/maml-inner-outer-loop-motion.svg)
+
+[GitHub 可直接閱讀的靜態四階段概覽](../../../../assets/concept-animations/maml-inner-outer-loop-still.svg)
+
+動畫依序呈現**抽樣任務 → 內層適應 → 查詢資料評估 → 外層元梯度**。兩個任務都從同一組初始化參數出發，但分別使用各自的**支援集（support set）**計算適應步驟。外層目標則使用**不同的查詢集（query set）**，在適應後評估損失；完整 MAML 的元梯度會對共享初始化求導，並穿過內層更新。紫色曲線僅概括此依賴關係，並非完整計算圖。任務配置、幾何與箭頭均為**教學示意，非實驗軌跡或實測梯度**。
+
+在 MkDocs 網站可透過**播放／暫停**控制八秒循環；GitHub Markdown 也可開啟靜態概覽。此原創圖以 **CC BY-SA 4.0** 授權，流程依據下方已列出的 Finn、Abbeel 與 Levine（2017）論文。
 
 ## 關鍵方法
 
