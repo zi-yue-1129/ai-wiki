@@ -78,7 +78,7 @@ with sync_playwright() as p:
                         assert warmer > initial, (initial, warmer)
                         assert page.locator(".ssl-loss-positive").count() == 1
                     else:
-                        loss_slider.fill("1.00")
+                        loss_slider.fill("1")
                         assert "0.000" in page.locator(".ssl-loss-value").inner_text()
                         loss_slider.fill("-1")
                         assert "4.000" in page.locator(".ssl-loss-value").inner_text()
