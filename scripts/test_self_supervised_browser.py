@@ -90,7 +90,7 @@ with sync_playwright() as p:
                             });
                         }"""), "loss vector labels clipped"
                     loss_slider.focus()
-                    page.keyboard.press("ArrowLeft")
+                    page.keyboard.press("ArrowLeft" if kind == "moco" else "ArrowRight")
                     assert loss_slider.input_value() != ("1.00" if kind == "moco" else "-1.00")
                     assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
                     page.locator('[data-act="momentum"]').fill("0.9")
