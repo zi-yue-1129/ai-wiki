@@ -44,6 +44,16 @@ Because the leapfrog integrator nearly conserves \(H\), the acceptance probabili
 
 Hoffman and Gelman (2014) show that NUTS performs well without hand-tuned path lengths, which made HMC practical in probabilistic programming systems.
 
+## Animated walkthrough
+
+![Four-stage HMC walkthrough: momentum refresh, half kick, leapfrog integration and Metropolis correction](../../../../assets/concept-animations/hmc-leapfrog-trajectory-motion.svg)
+
+[Static final-state preview for GitHub and reduced-motion readers](../../../../assets/concept-animations/hmc-leapfrog-trajectory-still.svg). The MkDocs **Play animation / Pause animation** button supports keyboard Tab/Enter. The moving markers trace **positions**, not independent posterior draws.
+
+For a constructed two-dimensional standard Gaussian, let \(U(\theta)=\|\theta\|^2/2\), \(M=I\), initial \(\theta=(-1.6,0.4)\), refreshed \(p=(0.6,1.1)\), step size \(\varepsilon=0.35\) and \(L=5\). Leapfrog applies a half momentum kick, a position drift and another half kick per step, ending near \(\theta^*=(0.898,1.023)\). Directly evaluating \(H=U+K\) gives \(H_{\mathrm{start}}=2.145\) and \(H_{\mathrm{end}}\approx2.132\), hence \(\Delta H\approx-0.013\) and \(\alpha=\min(1,e^{-\Delta H})=1\); an illustrative \(u=0.50\) accepts the proposal. The momentum is refreshed **once per trajectory**, not at every leapfrog step. These are computed **toy values**, not measured HMC performance. See Neal (2011) below for the integrator and acceptance correction.
+
+*Original instructional animation and fallback: CC BY-SA 4.0.*
+
 ## Key methods
 
 - [Metropolis–Hastings](metropolis-hastings.md): the random-walk method that HMC improves on, and the acceptance correction that HMC still uses.

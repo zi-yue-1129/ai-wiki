@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # 哈密頓蒙地卡羅
@@ -29,6 +29,16 @@ translation_reviewed: 2026-10-28
 由於蛙跳積分器近似守恆 \(H\)，即使軌跡很長，接受機率仍然很高。Neal（2011）綜述此方法，並說明為何動力學能給出既遠距離又可能被接受的提議。最初的想法由 Duane 等人（1987）以混合蒙地卡羅的名稱，在格點物理中提出。
 
 Hoffman 與 Gelman（2014）顯示 NUTS 無需手動設定路徑長度即表現良好，使 HMC 在機率程式設計系統中變得實用。
+
+## 動態流程示意
+
+![HMC 四階段動畫：重新抽取動量、半步動量更新、蛙跳積分與 Metropolis 修正](../../../../assets/concept-animations/hmc-leapfrog-trajectory-motion.svg)
+
+[GitHub 與減少動態效果使用者適用的靜態最終狀態圖](../../../../assets/concept-animations/hmc-leapfrog-trajectory-still.svg)。MkDocs 網站可透過「播放動畫／暫停動畫」按鈕操作，鍵盤可使用 Tab／Enter。動畫上的軌跡點代表**同一次數值積分中的位置**，不是彼此獨立的後驗樣本。
+
+設定二維標準高斯教學案例：\(U(\theta)=\|\theta\|^2/2\)、\(M=I\)、初始 \(\theta=(-1.6,0.4)\)、重新抽取的動量 \(p=(0.6,1.1)\)、步長 \(\varepsilon=0.35\)，共執行 \(L=5\) 個蛙跳步驟。每步依序執行半步動量更新、位置更新及另一個半步動量更新，得到 \(\theta^*\approx(0.898,1.023)\)。直接計算 \(H=U+K\) 可得 \(H_{\mathrm{start}}=2.145\)、\(H_{\mathrm{end}}\approx2.132\)，因此 \(\Delta H\approx-0.013\)、\(\alpha=\min(1,e^{-\Delta H})=1\)；示意亂數 \(u=0.50\) 使候選狀態被接受。**動量在每條軌跡開始時重新抽取一次**，並非每個蛙跳步驟都重抽。上述均為計算所得的**教學示意數值，非 HMC 效能實測**；積分器與接受修正可參考下方 Neal（2011）。
+
+*原創教學動畫與靜態回退圖：CC BY-SA 4.0。*
 
 ## 主要方法
 
