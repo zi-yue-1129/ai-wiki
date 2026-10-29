@@ -87,7 +87,7 @@
         }
       };
       const load = async () => {
-        if (svg) { svg.hidden = false; img.hidden = true; return true; }
+        if (svg) { if (overridden) svg.classList.add('allow-motion'); svg.hidden = false; img.hidden = true; return true; }
         if (pending) return pending;
         pending = (async () => {
           try {
@@ -98,6 +98,7 @@
             validate(element);
             svg = document.importNode(element, true);
             svg.classList.add('concept-motion-inline');
+            if (overridden) svg.classList.add('allow-motion');
             svg.setAttribute('aria-label', img.alt);
             host.insertBefore(svg, img); img.hidden = true;
             renderTime(); return true;
