@@ -49,6 +49,8 @@ The continuous process is **crops → CLS and patch objectives → student gradi
 
 On MkDocs, **Play/Pause, Step (+0.7 s), timeline scrubbing and 0.5×/1×/2× speed** expose the 14-second process. Blue/teal particles carry views and teacher targets toward the objectives; a red signal travels backward to the student only. The illustrative student parameter changes from 0.2 to 0.8, while a teacher parameter initialized at 0.50 changes to 0.53 for one EMA update with momentum 0.9. These values are chosen to explain the lag, **not measured weights**. GitHub Markdown and reduced-motion settings retain the linked static overview. Original diagram **CC BY-SA 4.0**, based on Oquab et al. (2023) and the DINO/iBOT papers already in References.
 
+**Guided checkpoints:** use **Previous phase** and **Next phase** to examine Views, CLS target, Patch target, Student gradient and Teacher EMA. The synchronized explanation distinguishes the two objectives from the later parameter update, and makes the **stop-gradient boundary** explicit. These landmarks do not replace continuous playback; the timeline remains seekable between them.
+
 ## Key methods
 
 ### DINOv2: Learning Robust Visual Features without Supervision (Oquab et al., 2023)
