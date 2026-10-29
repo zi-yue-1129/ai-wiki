@@ -73,6 +73,8 @@ The static overview remains readable in GitHub Markdown and without JavaScript; 
 
 **Loss microscope (independent toy example).** Adjust the **Cosine similarity** slider (−1 to 1) to rotate one illustrative unit vector relative to another. The normalised BYOL directional loss is \(\|\bar q-\bar z\|_2^2=2-2\cos(\bar q,\bar z)\), so aligned vectors yield 0, orthogonal vectors 2 and opposite vectors 4. The rotating vectors are **not the scalar EMA weights above** and are not measured representations. This panel isolates the matching objective, while the main timeline demonstrates **stop-gradient and the target EMA**. The full BYOL training loss symmetrises both augmented-view directions.
 
+**Angular gradient (linked to the same cosine slider).** The continuous sensitivity curve uses \(\phi=\arccos(\bar q\cdot\bar z)\) and \(\mathrm d\mathcal L/\mathrm d\phi=2\sin\phi\), with \(\phi\) measured in **radians** for differentiation. The angular derivative is zero at alignment and opposition, and reaches 2 at a right angle. This is a derivative of the illustrative *directional loss with respect to the angle*, **not** a gradient flowing into the target encoder; stop-gradient remains in effect.
+
 
 [View the continuous GIF preview of three toy updates](../../../../assets/concept-animations/byol-momentum-preview.gif) (fixed momentum m = 0.90; viewable on GitHub, while the MkDocs simulator lets you vary momentum).
 
