@@ -1,0 +1,18 @@
+.ssl-lab { display:block; max-width:640px; margin:1rem auto; color:var(--md-default-fg-color,#24394c); font-size:.85rem; }
+.ssl-figure svg { display:block; width:100%; height:auto; border-radius:.65rem; }
+.ssl-figure .ssl-title { font:600 17px Arial,sans-serif; fill:#20384b; }
+.ssl-figure .ssl-small { font:12px Arial,sans-serif; fill:#455e72; }
+.ssl-figure .ssl-number { font:600 15px ui-monospace,monospace; fill:#20384b; }
+.ssl-figure .ssl-token { font:600 14px Arial,sans-serif; fill:#25465b; text-anchor:middle; }
+.ssl-figure .ssl-packet { opacity:.8; }
+.ssl-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; margin:.5rem 0; }
+.ssl-toolbar button,.ssl-toolbar select { color:inherit; font:inherit; padding:.35rem .5rem; border:1px solid var(--md-default-fg-color--lighter,#9cafbe); border-radius:.35rem; background:var(--md-default-bg-color,#fff); }
+.ssl-toolbar button { cursor:pointer; }
+.ssl-toolbar button:disabled { opacity:.45; cursor:default; }
+.ssl-toolbar label { display:inline-flex; gap:.35rem; align-items:center; }
+.ssl-toolbar input[type=range] { width:clamp(6rem,22vw,12rem); accent-color:#087f83; }
+.ssl-lab :is(button,input,select):focus-visible { outline:3px solid var(--md-accent-fg-color,#16858b); outline-offset:2px; }
+.ssl-explain { padding:.65rem .8rem; border-left:3px solid #087f83; background:var(--md-code-bg-color,#eef4f8); line-height:1.5; border-radius:.3rem; }
+.ssl-compute { padding:.5rem .65rem; border:1px solid var(--md-default-fg-color--lighter,#c2d2dc); border-radius:.3rem; margin-top:.45rem; overflow-wrap:anywhere; font:12px/1.5 ui-monospace,monospace; }
+@media (max-width:480px) {.ssl-toolbar{gap:.5rem}.ssl-toolbar label{flex:1 1 8rem}}
+@media (prefers-reduced-motion:reduce) {.ssl-figure .ssl-packet {display:none!important;} .ssl-lab * {transition:none!important;}}
