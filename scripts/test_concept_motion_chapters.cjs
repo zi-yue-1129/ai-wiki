@@ -69,15 +69,15 @@ async function main() {
         const next = h.find('button', zh ? '下一段' : 'Next phase');
         const prev = h.find('button', zh ? '上一段' : 'Previous phase');
         assert.ok(next && prev, 'bilingual chapter buttons exist');
-        assert.match(h.note().textContent, /^1\\/5 · /);
+        assert.match(h.note().textContent, /^1\/5 · /);
         next.events.click(); await settle();
-        assert.match(h.note().textContent, /^2\\/5 · /);
+        assert.match(h.note().textContent, /^2\/5 · /);
         assert.equal(h.slider().value, '28');
         prev.events.click(); await settle();
-        assert.match(h.note().textContent, /^1\\/5 · /);
+        assert.match(h.note().textContent, /^1\/5 · /);
         assert.equal(h.slider().value, '0');
         h.slider().value = '125'; h.slider().events.input(); await settle();
-        assert.match(h.note().textContent, /^5\\/5 · /);
+        assert.match(h.note().textContent, /^5\/5 · /);
         assert.equal(next.disabled, true);
         scenarios++;
       }
@@ -87,7 +87,7 @@ async function main() {
   h.find('button', 'Next phase').events.click(); await settle();
   assert.equal(h.find('button', 'Next phase').disabled, true);
   assert.equal(h.find('button', 'Previous phase').disabled, true);
-  assert.match(h.img.src, /-still\\.svg$/);
+  assert.match(h.img.src, /-still\.svg$/);
   console.log(`PASS: ${scenarios} bilingual/reduced-motion scenarios, chapter navigation, scrub, and fetch-failure fallback`);
 }
 main().catch(err => { console.error(err); process.exitCode = 1; });
