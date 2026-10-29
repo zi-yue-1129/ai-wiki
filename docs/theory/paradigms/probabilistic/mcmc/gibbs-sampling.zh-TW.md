@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 ---
 
 # 吉布斯抽樣
@@ -26,6 +26,14 @@ translation_reviewed: 2026-10-28
 每次更新都是一個以完全條件分布為提議的 Metropolis–Hastings 移動，因此其接受機率為一（Andrieu et al., 2003）。於是每一步都滿足細緻平衡，聯合分布保持不變。
 
 當變數高度相關時，此方法的混合可能很慢，因為每次更新只沿一個座標移動。常見的補救方法是分塊與重新參數化。
+
+## 動畫示範
+
+![吉布斯抽樣連續四次條件抽樣，交替沿水平 x 與垂直 y 方向更新相關聯合分布中的座標](../../../../assets/concept-animations/gibbs-coordinate-sweeps-motion.svg)
+
+[GitHub 與減少動態效果模式適用的最終狀態靜態預覽](../../../../assets/concept-animations/gibbs-coordinate-sweeps-still.svg)。在 MkDocs 網站可使用**播放動畫／暫停動畫**按鈕，也可按 Tab 聚焦後以 Enter 操作。橘色虛線代表固定的條件座標，青綠色線段代表另一個座標的條件抽樣；兩次水平及兩次垂直更新構成兩輪示意掃描。不同於一般 Metropolis–Hastings 提議，從精確完全條件分布抽出的吉布斯樣本不需要接受／拒絕檢定。圖中的等高線與抽樣位置皆為**教學示意，並非實際執行的馬可夫鏈或後驗實測結果**；幾何形狀不代表經過校準的機率密度。
+
+*原創教學動畫及 GitHub 回退預覽：CC BY-SA 4.0。*
 
 ## 主要方法
 

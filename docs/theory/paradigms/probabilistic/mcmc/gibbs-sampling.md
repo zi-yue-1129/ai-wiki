@@ -37,6 +37,14 @@ Each update is a Metropolis–Hastings move whose proposal is the full condition
 
 The method can mix slowly when variables are strongly correlated, because each update only moves along one coordinate at a time. Blocking and reparameterisation are the common remedies.
 
+## Animated walkthrough
+
+![Four successive Gibbs conditional draws alternate horizontal x updates and vertical y updates over a correlated target](../../../../assets/concept-animations/gibbs-coordinate-sweeps-motion.svg)
+
+[Static final-sweep preview for GitHub and reduced-motion readers](../../../../assets/concept-animations/gibbs-coordinate-sweeps-still.svg). On the MkDocs site, use **Play animation / Pause animation** (Tab and Enter also work). The orange dashed line holds the conditioning coordinate fixed; the teal segment samples the other coordinate. Two horizontal and two vertical moves form two illustrative sweeps. Unlike a general Metropolis–Hastings proposal, an exact full-conditional Gibbs draw is accepted without an accept/reject test. The plotted target contours and draw locations are **schematic teaching examples, not an empirical chain or measured posterior**; the geometry is not a calibrated probability-density plot. This is the coordinate-wise update described in the sampling references below.
+
+*Original instructional animation and GitHub fallback: CC BY-SA 4.0.*
+
 ## Key methods
 
 - [Metropolis–Hastings](metropolis-hastings.md): the general method of which Gibbs sampling is a special case with every proposal accepted.
