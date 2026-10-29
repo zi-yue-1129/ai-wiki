@@ -129,14 +129,14 @@
             'Encoder input: 4 visible tokens · Mask tokens: 0',
             'Decoder input: 4 encoded + 12 mask = 16 tokens',
             'Decoder predictions: 16 patch positions (schematic)',
-            'Masked MSE: (1/12) Σ(i∈M) ‖predictionᵢ − targetᵢ‖²',
+            'Masked MSE: (1/12) Σ(i∈M) pixel-MSE(patchᵢ)',
           ];
           const chinese = [
             '可見 4/16 · 遮罩 12/16（75%）',
             '編碼器輸入：4 個可見 token · 遮罩 token：0',
             '解碼器輸入：4 個編碼 token + 12 個遮罩 token = 16',
             '解碼器預測：16 個區塊位置（示意）',
-            '遮罩 MSE：(1/12) Σ(i∈M) ‖預測ᵢ − 目標ᵢ‖²',
+            '遮罩 MSE：(1/12) Σ(i∈M) 區塊像素 MSEᵢ',
           ];
           message = (zh ? chinese : english)[index];
         } else {
