@@ -1,0 +1,9 @@
+/* Seekable diagrams: no fixed-step carousel, and no horizontal page overflow. */
+.concept-motion-detailed .concept-motion-inline { display:block; width:100%; height:auto; max-width:640px; border-radius:.55rem; }
+.concept-motion-detailed .concept-motion-inline[hidden], .concept-motion-detailed img[hidden] { display:none!important; }
+.concept-motion-detailed .concept-motion-field { display:inline-flex; align-items:center; gap:.4rem; font-size:.75rem; color:var(--md-default-fg-color,#24394c); }
+.concept-motion-detailed input[type=range] { width:clamp(6rem,24vw,12rem); accent-color:var(--md-accent-fg-color,#16858b); cursor:pointer; }
+.concept-motion-detailed select { border:1px solid var(--md-default-fg-color--lighter,#9cafbe); border-radius:.35rem; padding:.25rem; background:var(--md-default-bg-color,#fff); color:var(--md-default-fg-color,#24394c); }
+.concept-motion-detailed .concept-motion-zoom { font-size:.75rem; }
+.concept-motion-detailed :is(input,select,a):focus-visible { outline:3px solid var(--md-accent-fg-color,#387e99); outline-offset:3px; }
+@media (max-width:480px) { .concept-motion-detailed .concept-motion-controls { gap:.45rem .6rem; } .concept-motion-detailed .concept-motion-field { flex:1 1 9rem; } }
