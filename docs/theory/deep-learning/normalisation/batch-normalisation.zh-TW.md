@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-29
 related:
   - theory/deep-learning/normalisation
 tags:
@@ -37,6 +37,10 @@ aliases:
 $$\mu_B = \frac{1}{m}\sum_{i=1}^{m} x_i, \qquad \sigma_B^2 = \frac{1}{m}\sum_{i=1}^{m}(x_i - \mu_B)^2, \qquad y_i = \gamma\,\frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}} + \beta$$
 
 原論文報告，在一個影像分類模型上，此方法以少 14 倍的訓練步數達到與基準相同的準確度 [(Ioffe and Szegedy, 2015)](https://arxiv.org/abs/1502.03167)。
+
+![批次正規化四階段動畫：訓練時不同批次各自計算統計量，推論時單一樣本使用固定的移動統計量。](../../../assets/concept-animations/batch-norm-train-infer-motion.svg)
+
+*原創四階段教學動畫，CC BY-SA 4.0。* 前兩階段展示訓練時每個小批次以**各通道自己的平均值與變異數**進行正規化，因此輸入分布即使位移，仍可得到中心化且縮放後的激活值。第三階段示意訓練期間更新移動統計量；第四階段則使用**固定的移動估計值**處理單一推論樣本，而不從該樣本重新估計統計量。為凸顯核心機制，圖中省略空間維度及後續可學習的仿射變換（$\gamma$、$\beta$）。所有點位與統計量均為**教學示意，非模型實測激活值**。網站播放器支援播放／暫停及減少動態效果；[GitHub 可顯示的靜態預覽](../../../assets/concept-animations/batch-norm-train-infer-still.svg)。
 
 ## 結果
 
