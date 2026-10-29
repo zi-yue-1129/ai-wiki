@@ -52,7 +52,7 @@ On MkDocs, **Play/Pause, Step (+0.7 s), timeline scrubbing and 0.5×/1×/2× spe
 **Guided checkpoints:** use **Previous phase** and **Next phase** to examine Views, CLS target, Patch target, Student gradient and Teacher EMA. The synchronized explanation distinguishes the two objectives from the later parameter update, and makes the **stop-gradient boundary** explicit. These landmarks do not replace continuous playback; the timeline remains seekable between them.
 
 
-**Synchronized computation trace:** the player distinguishes the CLS and masked-patch cross-entropy terms, then explicitly marks **teacher gradient = 0** during student backpropagation. The EMA example is **one discrete parameter update**, $\\theta_t' = 0.9(0.50) + 0.1(0.80) = 0.53$. The slowly changing number shown beside the animation is only a **visual interpolation of that single update**, not repeated EMA steps or measured training dynamics.
+**Synchronized computation trace:** the player distinguishes the CLS and masked-patch cross-entropy terms, then explicitly marks **teacher gradient = 0** during student backpropagation. The EMA example is **one discrete parameter update**, $\theta_t' = 0.9(0.50) + 0.1(0.80) = 0.53$. The slowly changing number shown beside the animation is only a **visual interpolation of that single update**, not repeated EMA steps or measured training dynamics.
 
 ## Key methods
 
