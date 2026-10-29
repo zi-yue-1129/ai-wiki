@@ -40,7 +40,7 @@ He、Fan、Wu、Xie 與 Girshick（2020）把無監督視覺學習視為字典�
 
 ### 視覺解說：負樣本佇列與動量更新
 
-![MoCo 動畫：分別編碼查詢與正樣本鍵、與先進先出佇列中的負樣本比較、區分梯度與動量更新，最後替換佇列中的鍵。](../../../../assets/concept-animations/moco-dictionary-cycle-still.svg)
+![MoCo 靜態概觀：分別編碼查詢與正樣本鍵、與先進先出佇列中的負樣本比較、區分梯度與動量更新，最後替換佇列中的鍵。](../../../../assets/concept-animations/moco-dictionary-cycle-still.svg)
 
 
 
