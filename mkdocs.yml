@@ -1063,6 +1063,7 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra_javascript:
+  - javascripts/concept-motion-detailed.js
   - javascripts/concept-motion.js
   - javascripts/mathjax.js
   - javascripts/knowledge-map.js
@@ -1070,6 +1071,7 @@ extra_javascript:
 
 extra_css:
   - stylesheets/concept-motion.css
+  - stylesheets/concept-motion-detailed.css
   - stylesheets/extra.css
 
 nav:
