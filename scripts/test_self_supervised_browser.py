@@ -49,12 +49,15 @@ with sync_playwright() as p:
                         collisions = page.evaluate("""() => {
                             const svg = document.querySelector('.ssl-figure svg');
                             const c = svg.querySelector('.ssl-packet');
-                            const x = Number(c.getAttribute('cx'));
-                            const y = Number(c.getAttribute('cy'));
+                            const x0 = Number(c.dataset.x0), x1 = Number(c.dataset.x1);
+                            const y0 = Number(c.dataset.y0), y1 = Number(c.dataset.y1);
                             return [...svg.querySelectorAll('text')].filter(t => {
                                 const b = t.getBBox();
-                                return x+7>b.x && x-7<b.x+b.width &&
-                                       y+7>b.y && y-7<b.y+b.height;
+                                return Array.from({length:21}, (_,i)=>i/20).some(u => {
+                                    const x=x0+(x1-x0)*u, y=y0+(y1-y0)*u;
+                                    return x+7>b.x && x-7<b.x+b.width &&
+                                           y+7>b.y && y-7<b.y+b.height;
+                                });
                             }).map(t => t.textContent);
                         }""")
                         assert not collisions, (kind, operation, collisions)
