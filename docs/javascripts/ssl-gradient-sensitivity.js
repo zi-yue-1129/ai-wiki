@@ -57,7 +57,7 @@
   }
 
   // Toy derivatives, not measured parameter gradients.
-  function attribution(kind, value) {
+  function attribution(kind, value, zh) {
     if (kind === 'moco') {
       const neg=[-.2,-.1,0,.1,.2,.05], w=neg.map(s=>Math.exp((s-.2)/value));
       const total=w.reduce((a,b)=>a+b,0), shares=w.map(x=>x/total);
@@ -67,14 +67,14 @@
           '<text x="'+(x+22)+'" y="'+(119-h).toFixed(2)+'" text-anchor="middle" class="ssl-attribution-value">'+(100*v).toFixed(1)+'%</text>'+
           '<text x="'+(x+22)+'" y="145" text-anchor="middle" class="ssl-attribution-axis">'+neg[i].toFixed(2)+'</text>';
       }).join('');
-      return {svg:'<svg viewBox="0 0 500 164" role="img" aria-label="Shares of negative-similarity gradients"><path d="M25 126 H476" stroke="#9ab1bd" stroke-width="1.5"/>'+bars+'<text x="25" y="156" class="ssl-attribution-axis">Negative similarity (toy)</text></svg>',
+      return {svg:'<svg viewBox="0 0 500 164" role="img" aria-label="'+(zh?'負樣本相似度梯度分配':'Shares of negative-similarity gradients')+'"><path d="M25 126 H476" stroke="#9ab1bd" stroke-width="1.5"/>'+bars+'<text x="25" y="156" class="ssl-attribution-axis">Negative similarity (toy)</text></svg>',
         value:(100*shares[4]).toFixed(1)+'% · τ='+value.toFixed(2)};
     }
     const phi=Math.acos(Math.max(-1,Math.min(1,value))),g=2*Math.sin(phi);
     const cx=132,cy=104,r=66,x=cx+r*Math.cos(phi),y=cy-r*Math.sin(phi);
     const delta=Math.min(.28,g*.13),x2=cx+r*Math.cos(Math.max(0,phi-delta)),y2=cy-r*Math.sin(Math.max(0,phi-delta));
     const arrow=g>.005?'<path d="M'+x.toFixed(2)+' '+y.toFixed(2)+' Q'+((x+x2)/2).toFixed(2)+' '+((y+y2)/2-7).toFixed(2)+' '+x2.toFixed(2)+' '+y2.toFixed(2)+'" fill="none" stroke="#b66b40" stroke-width="2.5" stroke-linecap="round" marker-end="url(#ssl-attribution-tip)"/>':'';
-    return {svg:'<svg viewBox="0 0 500 164" role="img" aria-label="Online angular descent; target stop-gradient"><defs><marker id="ssl-attribution-tip" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0 0 L4 2 L0 4 Z" fill="#b66b40"/></marker></defs>'+
+    return {svg:'<svg viewBox="0 0 500 164" role="img" aria-label="'+(zh?'線上向量角度下降；目標停止梯度':'Online angular descent; target stop-gradient')+'"><defs><marker id="ssl-attribution-tip" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0 0 L4 2 L0 4 Z" fill="#b66b40"/></marker></defs>'+
       '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#d5e3e9" stroke-dasharray="3 4"/>'+
       '<path d="M'+cx+' '+cy+' H'+(cx+r)+'" stroke="#399a80" stroke-width="4" stroke-linecap="round"/>'+
       '<path d="M'+cx+' '+cy+' L'+x.toFixed(2)+' '+y.toFixed(2)+'" stroke="#3a7fa9" stroke-width="4" stroke-linecap="round"/>'+arrow+
@@ -141,7 +141,7 @@
       allocation.append(allocationTitle,allocationGraphic,allocationReadout,allocationNote);
       section.after(allocation);
       const updateAllocation=()=>{
-        const a=attribution(kind,Number(slider.value));
+        const a=attribution(kind,Number(slider.value),zh);
         allocationGraphic.innerHTML=a.svg;
         allocationReadout.textContent=(kind==='moco'?(zh?'最高相似度負樣本占比：':'Hardest negative share: '):'')+a.value;
       };
