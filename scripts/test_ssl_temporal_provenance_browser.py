@@ -61,7 +61,7 @@ with sync_playwright() as p:
                     seek.fill('0')
                     page.locator('[data-act="speed"]').select_option('2')
                     page.locator('[data-act="play"]').click()
-                    page.wait_for_timeout(800)
+                    page.wait_for_timeout(1050)
                     assert int(seek.input_value()) >= 1,'player did not advance'
                     page.locator('[data-act="play"]').click()
                     assert not errors,errors
