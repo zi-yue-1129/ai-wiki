@@ -62,6 +62,40 @@ def check_temperature() -> None:
         assert heights[0] > heights[1] > heights[2]
 
 
+
+def check_temperature_timeline() -> None:
+    """The temperature cursor must encode the same samples as all three bars."""
+    root = ET.parse(ROOT / "temperature-softmax-motion.svg").getroot()
+    bars = [r for r in root.findall(".//s:rect", NS)
+            if any(a.get("attributeName") == "height" for a in r.findall("s:animate", NS))]
+    cursor = next(c for c in root.findall(".//s:circle", NS)
+                  if any(a.get("attributeName") == "cx" for a in c.findall("s:animate", NS)))
+    cursor_motion = next(a for a in cursor.findall("s:animate", NS)
+                         if a.get("attributeName") == "cx")
+    cursor_x = [float(x) for x in cursor_motion.get("values").split(";")]
+    timeline = cursor_motion.get("keyTimes")
+    assert len(cursor_x) == 81
+    assert all(abs(cursor_x[j] - (104 + 427 * min(j, 80-j) / 40)) < 0.002
+               for j in range(81))
+    for bar in bars:
+        animations = {a.get("attributeName"): a for a in bar.findall("s:animate", NS)}
+        assert animations["height"].get("keyTimes") == timeline
+        assert animations["y"].get("keyTimes") == timeline
+        assert animations["height"].get("dur") == cursor_motion.get("dur") == "9s"
+        assert animations["y"].get("dur") == "9s"
+        assert animations["height"].get("repeatCount") == "indefinite"
+        assert animations["y"].get("repeatCount") == "indefinite"
+    assert cursor_motion.get("repeatCount") == "indefinite"
+    # SVG's initial attributes must agree with the first animation frame:
+    # otherwise the fallback/first paint shows an inconsistent probability.
+    for bar in bars:
+        animations = {a.get("attributeName"): a for a in bar.findall("s:animate", NS)}
+        for attr in ("height", "y"):
+            first = float(animations[attr].get("values").split(";")[0])
+            assert abs(float(bar.get(attr)) - first) < 0.002, attr
+    assert abs(float(cursor.get("cx")) - cursor_x[0]) < 0.002
+
+
 def check_conformal() -> None:
     root = ET.parse(ROOT / "conformal-quantile-motion.svg").getroot()
     labels = " ".join((t.text or "") for t in root.findall(".//s:text", NS))
@@ -85,5 +119,6 @@ def check_conformal() -> None:
 
 if __name__ == "__main__":
     check_temperature()
+    check_temperature_timeline()
     check_conformal()
     print("Uncertainty animation numerical and structural regression: PASS")
