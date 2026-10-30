@@ -19,8 +19,8 @@
   function queueState(step) {
     return [...initial,...arrivals].slice(step,step+6);
   }
-  function queueGraphic(step) {
-    let svg=svgStart('MoCo FIFO: active negative-key dictionary before and after three enqueues');
+  function queueGraphic(step,zh) {
+    let svg=svgStart(zh ? 'MoCo：三次入列前後的 FIFO 負樣本佇列' : 'MoCo FIFO: active negative-key dictionary before and after three enqueues');
     svg+=`<text x="22" y="30" class="ssl-temporal-title">FIFO window</text><text x="618" y="30" text-anchor="end" class="ssl-temporal-small">oldest → newest</text>`;
     for(let row=0;row<4;row++) {
       const active=row===step, y=49+row*49;
@@ -41,8 +41,8 @@
     for(let i=1;i<=3;i++)out.push(i<=step ? (1-m)*m**(step-i) : 0);
     return out;
   }
-  function historyGraphic(m,step) {
-    let svg=svgStart('BYOL EMA: coefficients of initial target and successive online weights');
+  function historyGraphic(m,step,zh) {
+    let svg=svgStart(zh ? 'BYOL：初始目標與歷次線上權重的 EMA 係數' : 'BYOL EMA: coefficients of initial target and successive online weights');
     svg+=`<text x="22" y="30" class="ssl-temporal-title">EMA source weights</text><text x="618" y="30" text-anchor="end" class="ssl-temporal-small">Σ weights = 1</text>`;
     for(let row=0;row<4;row++) {
       const active=row===step, y=52+row*46;
@@ -78,7 +78,7 @@
       // advances the FIFO window; the newly encoded positive key is not a
       // negative for its own current contrastive objective.
       const step=turn+(phase===4?1:0);
-      chart.innerHTML=queueGraphic(step);
+      chart.innerHTML=queueGraphic(step,zh);
       const queue=queueState(step).join(' ');
       readout.textContent=zh
         ? `已完成入列 ${step}/3 次 · 目前負樣本 [${queue}] · ${phase===4?'本輪新鍵已入列':'本輪新鍵尚未入列'}`
@@ -88,7 +88,7 @@
       // gradient. T_t=m^t*T_0+(1-m)*sum_{i=1}^t m^(t-i)*Q_i.
       const step=turn+(phase===4?1:0);
       const c=coefficients(m,step);
-      chart.innerHTML=historyGraphic(m,step);
+      chart.innerHTML=historyGraphic(m,step,zh);
       readout.textContent=zh
         ? `EMA 已更新 ${step}/3 次 · 初始目標貢獻 ${pct(c[0])} · 線上歷史貢獻 ${pct(1-c[0])} · 係數和 100%`
         : `${step}/3 EMA updates · initial target ${pct(c[0])} · online history ${pct(1-c[0])} · coefficient sum 100%`;
