@@ -38,6 +38,20 @@ def check_temperature() -> None:
             # Plot height: 148 SVG units for probability 1.
             assert abs(height - 148 * p) < 0.012, (i, j, height, p)
         assert all(abs(values[j] - values[80 - j]) < 0.002 for j in range(41))
+    # Ensure bars remain grounded on the same baseline and normalized.
+    # Height-only checks miss an SVG y-coordinate regression.
+    for j in range(81):
+        total = 0.0
+        for bar in bars:
+            motions = {a.get("attributeName"): a for a in bar.findall("s:animate", NS)}
+            assert "y" in motions
+            heights = [float(v) for v in motions["height"].get("values").split(";")]
+            positions = [float(v) for v in motions["y"].get("values").split(";")]
+            assert len(heights) == len(positions) == 81
+            assert abs(positions[j] + heights[j] - 260) < 0.002
+            assert 0 <= heights[j] <= 148
+            total += heights[j]
+        assert abs(total - 148) < 0.002
     # Strict ordering means temperature changes confidence, not the argmax.
     for j in range(81):
         heights = []
