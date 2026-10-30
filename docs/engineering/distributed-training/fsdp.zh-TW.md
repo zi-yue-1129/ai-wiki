@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-10-30
 tags:
 - engineering
 - systems
@@ -25,15 +26,9 @@ aliases:
 
 對每個分片單元，FSDP 在前向傳播前 all-gather 其參數，進行計算後釋放收集到的副本。在反向傳播時，它再次 all-gather，計算梯度，然後對梯度做 reduce-scatter，使每個裝置只保留梯度分片。最佳化器接著更新每個裝置自己的分片。
 
-```mermaid
-flowchart LR
-  A[All-gather 單元參數] --> F[前向計算]
-  F --> X[釋放收集到的參數]
-  X --> B[反向前再次 all-gather]
-  B --> G[反向計算]
-  G --> R[Reduce-scatter 梯度]
-  R --> O[最佳化器更新本地分片]
-```
+![FSDP 動畫：兩個 rank 在前向與反向運算前收集參數分片、釋放暫時的完整參數，再對梯度做 reduce-scatter 並更新本地分片。](../../assets/concept-animations/fsdp-gather-scatter-motion.svg)
+
+*原創連續教學動畫，CC BY-SA 4.0。* 實線 A／B 方塊代表**持續保留的本地參數分片**，虛線方塊是 all-gather 暫時收集的遠端分片。完成前向計算後會重新分片並釋放暫存副本；反向計算前再次收集。移動的圓點分別示意參數交換及稍後的梯度 reduce-scatter，最後每個 rank **只更新自己持有的分片**。本圖描述兩個 rank、單一分片單元的 **full-shard 且前向後 reshard** 路徑，不代表所有 FSDP 設定；通訊速度、時序及記憶體尺寸均為**教學示意，非實測數值**。MkDocs 提供鍵盤可操作的「播放／暫停」及減少動態效果回退，手機可左右捲動。[GitHub 可讀的靜態總覽](../../assets/concept-animations/fsdp-gather-scatter-still.svg)。
 
 ## 關鍵方法
 
