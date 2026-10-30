@@ -16,6 +16,9 @@ on:
       - "docs/stylesheets/extra.css"
       - "docs/stylesheets/distributed-motion-controls.css"
       - "docs/javascripts/distributed-motion-controls.js"
+      - "docs/javascripts/distributed-parameter-explorers.js"
+      - "docs/stylesheets/distributed-parameter-explorers.css"
+      - "scripts/test_distributed_parameter_explorers_browser.py"
       - "mkdocs.yml"
       - "scripts/test_distributed_motion_browser.py"
       - "scripts/test_zero_megatron_motion_browser.py"
@@ -43,10 +46,13 @@ jobs:
           python scripts/test_distributed_motion_browser.py
           python scripts/test_zero_megatron_motion_browser.py
           python scripts/test_distributed_motion_controls_browser.py
+          python scripts/test_distributed_parameter_explorers_browser.py
       - name: Preserve browser screenshots for review
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: distributed-motion-screenshots
-          path: distributed-motion-screenshots/
+          path: |
+            distributed-motion-screenshots/
+            distributed-explorer-screenshots/
           if-no-files-found: ignore
