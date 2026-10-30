@@ -27,7 +27,7 @@
       // Contrast both policies at the *current* phase, not future totals.
       const bytes=size*(n-1)/n, reshardCount=s===0?0:s<4?1:2, retainCount=s===0?0:1;
       const transfer=node('div','dcp-transfer');
-      transfer.append(node('div','dcp-transfer-title',L.transfer));
+      transfer.append(node('div','dcp-transfer-title','All-gather / rank'));
       for(const [name,count] of [['Reshard',reshardCount],['Retain',retainCount]]){
         const row=node('div','dcp-transfer-row'),track=node('div','dcp-transfer-track'),fill=node('span','dcp-transfer-fill');
         fill.style.width=(50*count)+'%';track.append(fill);
@@ -85,7 +85,7 @@
           slider.addEventListener('input',()=>{ringRound=+slider.value;app.set(4);});
           ring.append(slider);
         }
-        ring.append(node('div','dcp-ring-foot',L.traffic+': '+(round*payload/n).toFixed(1)+' / '+traffic.toFixed(1)+' B'));
+        ring.append(node('div','dcp-ring-foot','Sent/rank: '+(round*payload/n).toFixed(1)+' / '+traffic.toFixed(1)+' B'));
         plot.append(ring);
       }
       stats.replaceChildren(node('span','',L.width+': '+width+'/32'),node('span','',L.payload+': '+payload+' B'),node('span','',L.traffic+': '+(round*payload/n).toFixed(1)+' B'));
