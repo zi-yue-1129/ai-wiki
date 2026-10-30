@@ -169,8 +169,14 @@
         figure.innerHTML=diagram(kind,s,momentum);
         const label=zh ? (kind==='moco'?['產生鍵','對比','查詢 SGD','動量 EMA','佇列入列']:['增強視角','預測','停止梯度','線上 SGD','目標 EMA'])[s.phase] : stages[kind][s.phase];
         note.textContent=(zh?'回合 ':'Iteration ')+(s.turn+1)+'/3 · '+label+' — '+explanations[kind][zh?'zh':'en'][s.phase];
+        // The numerical trace must not reveal future SGD/EMA results before
+        // their operations. Other charts already obey this causal boundary.
+        const emaComplete=s.phase >= (kind==='moco'?3:4);
+        const emaReadout=emaComplete
+          ? (zh?'已執行 EMA':'EMA applied')+': '+momentum.toFixed(2)+'×'+fmt(s.target[s.turn])+' + '+(1-momentum).toFixed(2)+'×'+fmt(online[s.turn+1])+' = '+fmt(s.k)
+          : (zh?'待執行 EMA（未來結果隱藏）':'EMA pending (future result hidden)');
         calc.textContent=(zh?'線上／查詢參數':'Online / query weight')+' = '+fmt(s.q)+' · '+(zh?'目標／鍵參數':'Target / key weight')+' = '+fmt(s.k)+
-          ' · '+(s.phase >= (kind==='moco'?3:4)?(zh?'已執行 EMA':'EMA applied'):(zh?'待執行 EMA':'EMA pending'))+': '+momentum.toFixed(2)+'×'+fmt(s.target[s.turn])+' + '+(1-momentum).toFixed(2)+'×'+fmt(online[s.turn+1])+' = '+fmt(s.target[s.turn+1])+
+          ' · '+emaReadout+
           ' · |Δ|='+fmt(Math.abs(s.q-s.k))+
           (kind==='moco'?' · FIFO ['+s.queue.join(' ')+']':(zh?' · 目標梯度 = 0':' · Target gradient = 0'));
         movePacket();updatePlay();

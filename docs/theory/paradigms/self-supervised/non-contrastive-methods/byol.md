@@ -92,6 +92,8 @@ Use **Play/Pause, Previous/Next, timeline scrubbing and playback speed** to insp
 
 Here \(\theta_j\) is the online weight **after** its \(j\)-th SGD update. The bars attribute the target to the initial target (`T0`) and successive online snapshots (`Q1–Q3`); their coefficients sum to one. The highlighted row advances **only after Target EMA**, not during stop-gradient or Online SGD; future contribution bars stay empty until the corresponding update is completed. Adjust **Momentum m** to see how larger momentum retains more initial-target history. These are toy scalar coefficients, **not measured network weights, gradients, or empirical training dynamics**; the existing GIF and static overview above provide the GitHub fallback.
 
+**Causal numeric readout.** Before Online SGD and Target EMA, the readout does not reveal future online weights or EMA results. The completed EMA arithmetic appears only after the target update; seeking backwards hides it again. This aligns the main player with the discrete history charts and keeps stop-gradient distinct from target EMA. Values are schematic, not learned weights.
+
 ## Key methods
 
 ### Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning (Grill et al., 2020)

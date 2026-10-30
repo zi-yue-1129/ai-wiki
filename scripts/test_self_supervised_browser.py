@@ -48,6 +48,15 @@ with sync_playwright() as p:
                         page.locator('[data-act="momentum"]').fill(m)
                         for operation in range(15):
                             page.locator('[data-act="seek"]').fill(str(operation))
+                            # No future parameter result before the discrete EMA operation.
+                            readout = page.locator(".ssl-compute").inner_text()
+                            phase = operation % 5
+                            if phase < (3 if kind == "moco" else 4):
+                                assert "EMA pending" in readout or "待執行 EMA" in readout
+                                if operation == 0:
+                                    assert "0.850" not in readout and "0.355" not in readout
+                            else:
+                                assert "EMA applied" in readout or "已執行 EMA" in readout
                             collisions = page.evaluate("""() => {
                                 const svg = document.querySelector('.ssl-figure svg');
                                 const c = svg.querySelector('.ssl-packet');

@@ -50,12 +50,16 @@ for(const kind of ['moco','byol'])for(const locale of ['en','zh-TW']) {
   assert.match(h.map['.ssl-loss-note'].textContent,locale==='zh-TW'?/示意|向量/:/toy|unit vectors/);
   assert.match(output(),/0\.700/);
   assert.match(output(),/0\.300/);
+  assert.match(output(),locale==='zh-TW'?/待執行 EMA/:/EMA pending/);
+  assert.doesNotMatch(output(),/0\.850|0\.355/,'initial readout must not leak future SGD/EMA values');
   assert.match(h.map['.ssl-figure'].innerHTML,/<svg/);
   next.events.click();assert.equal(seek.value,'1');
   prev.events.click();assert.equal(seek.value,'0');
+  seek.value='2';seek.events.input();
+  if(kind==='moco')assert.doesNotMatch(output(),/0\.355/,'SGD precedes EMA');
   seek.value='3';seek.events.input();assert.match(output(),/0\.850/);
   if(kind==='moco')assert.match(output(),/0\.355/);
-  else assert.match(output(),/0\.300/);
+  else {assert.match(output(),/0\.300/);assert.doesNotMatch(output(),/0\.355/,'BYOL EMA follows online SGD');}
   seek.value='4';seek.events.input();assert.match(output(),/0\.355/);
   if(kind==='moco')assert.match(output(),/FIFO \[B C D E F G\]/);
   else assert.match(output(),locale==='zh-TW'?/目標梯度 = 0/:/Target gradient = 0/);

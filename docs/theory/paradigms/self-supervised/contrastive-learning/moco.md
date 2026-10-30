@@ -77,6 +77,8 @@ Use **Play/Pause, Previous/Next, timeline scrubbing, or playback speed** to foll
 
 **Queue lifetime across iterations (synchronised with the main player).** The new FIFO window highlights the dictionary available at each operation. The six-slot sequence changes from `A–F` to `B–G`, `C–H`, then `D–I` **only at enqueue**, after the current contrastive loss has already used the previous dictionary. The freshly encoded positive key is not a negative for its own query. Future queue snapshots remain blank until their enqueue operation completes, so seeking backward also hides future keys. Position and colour show *illustrative queue age*, not measured feature drift, false-negative probability, or hardness. Use **Previous/Next** or the timeline to compare the dictionary immediately before and after enqueue; the GIF and static overview above remain GitHub-readable fallbacks.
 
+**Causal numeric readout.** The parameter readout now withholds the *next* query weight and computed EMA result until their respective operations. Before Key EMA it shows only completed query/key values and an EMA-pending status; after EMA it displays the arithmetic. This matches the FIFO and trajectory views, including backward seeking. All scalars remain illustrative.
+
 ## Key methods
 
 ### Momentum Contrast for Unsupervised Visual Representation Learning (He, Fan, Wu, Xie & Girshick, 2020)
