@@ -13,7 +13,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / 'docs'
 ASSETS = DOCS / 'assets' / 'concept-animations'
-STEMS = ('gpipe-fill-drain', 'fsdp-gather-scatter')
+STEMS = ('gpipe-fill-drain', 'fsdp-gather-scatter', 'gpipe-gradient-accumulation', 'fsdp-parameter-residency')
 OUT = ROOT / 'distributed-motion-screenshots'
 NS = '{http://www.w3.org/2000/svg}'
 
@@ -84,12 +84,12 @@ def main():
             page.set_content('<style>svg{width:640px;height:360px}</style>'+markup)
             bad = page.evaluate("""() => [...document.querySelectorAll('svg text')].filter(el => {let b=el.getBBox();return b.x < 0 || b.y < 0 || b.x+b.width > 640 || b.y+b.height > 360}).map(el=>el.textContent)""")
             assert not bad, (stem,bad)
-            if stem.startswith('gpipe'):
+            if stem == 'gpipe-fill-drain':
                 first = page.evaluate("document.querySelector('#elapsed rect').width.animVal.value")
                 page.wait_for_timeout(600)
                 later = page.evaluate("document.querySelector('#elapsed rect').width.animVal.value")
                 assert later > first + 10, (first,later)
-            else:
+            elif stem == 'fsdp-gather-scatter':
                 assert page.locator('svg animateTransform').count() >= 3
                 # A full-shard unit gathers for forward and backward, but
                 # must release temporary copies between the two phases.
@@ -98,6 +98,37 @@ def main():
                     assert (opacity > .9) == present, (t, opacity)
                 scatter = page.evaluate("""() => +getComputedStyle(document.querySelectorAll('svg circle')[2]).opacity""")
                 assert scatter > .5, scatter
+            elif stem == 'gpipe-gradient-accumulation':
+                # Stage 3 completes B4 before stages 2 and 1. A single
+                # optimizer step must not appear before all 12 contributions.
+                for t, dots, step in ((0.2, 0, False), (7.5, 1, False),
+                                      (9.5, 6, False), (12.5, 12, False),
+                                      (13.5, 12, True)):
+                    counts = page.evaluate("""t => {
+                        document.querySelector('svg').setCurrentTime(t);
+                        const gs = [...document.querySelectorAll('svg g[opacity]')];
+                        return gs.map(g => +getComputedStyle(g).opacity);
+                    }""", t)
+                    assert len(counts) == 13, (stem, len(counts))
+                    assert sum(v > .9 for v in counts[:12]) == dots, (t, counts)
+                    assert (counts[-1] > .9) == step, (t, counts[-1])
+                    page.screenshot(path=str(OUT / f'{stem}-inline-t{t}.png'))
+            elif stem == 'fsdp-parameter-residency':
+                # Both ranks keep the local shard, but materialize a remote
+                # shard only in forward/backward all-gather windows.
+                for t, remote in ((0.2, False), (2.8, True), (4.5, False),
+                                  (6.6, True), (8.1, False)):
+                    states = page.evaluate("""t => {
+                        document.querySelector('svg').setCurrentTime(t);
+                        return [...document.querySelectorAll('svg g[opacity]')]
+                            .map(g => +getComputedStyle(g).opacity);
+                    }""", t)
+                    assert len(states) == 6, (stem, len(states))
+                    for i in (0, 3):
+                        assert (states[i] > .9) == remote, (t, states)
+                        assert (states[i + 1] > .9) != remote, (t, states)
+                        assert (states[i + 2] > .9) == remote, (t, states)
+                    page.screenshot(path=str(OUT / f'{stem}-inline-t{t}.png'))
             page.close()
             print(f'{stem}: structure, motion, 360/900px, keyboard and reduced-motion checks passed')
         browser.close()
