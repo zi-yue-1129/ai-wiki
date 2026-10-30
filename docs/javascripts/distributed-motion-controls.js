@@ -33,6 +33,9 @@
       frame.setAttribute('aria-label', img.alt || match[1]);
       frame.append(img.cloneNode(true));
       frame.style.visibility = 'hidden';
+      frame.style.position = 'absolute';
+      frame.style.width = '1px';
+      frame.style.height = '1px';
       img.after(frame);
       host.dataset.distributedTimeline = 'yes';
       let svg = null, time = 0, playing = false, speed = 1, raf = 0, last = 0;
@@ -131,7 +134,9 @@
         } else if (svg) {
           img.src = src;
           img.hidden = true;
-          frame.hidden = false; frame.style.visibility = ''; bar.hidden = false;
+          frame.hidden = false; frame.style.visibility = '';
+          frame.style.position = ''; frame.style.width = ''; frame.style.height = '';
+          bar.hidden = false;
           if (previousControls) previousControls.hidden = true;
           setTime(time);
         }
@@ -148,6 +153,7 @@
           img.hidden = true;
           frame.hidden = false;
           frame.style.visibility = '';
+          frame.style.position = ''; frame.style.width = ''; frame.style.height = '';
           bar.hidden = false;
           if (previousControls) previousControls.hidden = true;
         } catch (_) { /* Unsupported or cross-origin object: preserve original image and controls. */ }
