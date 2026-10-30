@@ -30,6 +30,12 @@ aliases:
 
 *原創連續教學動畫，CC BY-SA 4.0。* 實線 A／B 方塊代表**持續保留的本地參數分片**，虛線方塊是 all-gather 暫時收集的遠端分片。完成前向計算後會重新分片並釋放暫存副本；反向計算前再次收集。移動的圓點分別示意參數交換及稍後的梯度 reduce-scatter，最後每個 rank **只更新自己持有的分片**。本圖描述兩個 rank、單一分片單元的 **full-shard 且前向後 reshard** 路徑，不代表所有 FSDP 設定；通訊速度、時序及記憶體尺寸均為**教學示意，非實測數值**。MkDocs 提供鍵盤可操作的「播放／暫停」及減少動態效果回退，手機可左右捲動。[GitHub 可讀的靜態總覽](../../assets/concept-animations/fsdp-gather-scatter-still.svg)。
 
+### 兩次收集之間的暫時參數駐留
+
+![FSDP 參數駐留動畫：每個 GPU 持續保留本地分片，在前向與反向計算期間暫時收集遠端分片，重新分片後回到僅保留本地分片。](../../assets/concept-animations/fsdp-parameter-residency-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 實心方塊是持續駐留的本地參數分片；虛線位置只在 **all-gather 暫時取得遠端分片**時填滿。每個 rank 的示意參數駐留量在前向與反向計算時由一份分片增至兩份，重新分片後降回一份。這只表示**單一 FSDP 分片單元的暫時完整參數駐留**，不是 GPU 總記憶體使用量；未計入 activation、梯度、最佳化器狀態、預先取得的重疊及記憶體配置器影響。階段時間與分片尺寸均為**教學示意，非實測數值**。MkDocs 支援鍵盤播放／暫停及減少動態效果回退，手機可左右捲動。[GitHub 可讀的收集狀態預覽](../../assets/concept-animations/fsdp-parameter-residency-still.svg)。
+
 ## 關鍵方法
 
 這個方法是每個單元的收集、計算、釋放循環，加上梯度的 reduce-scatter。論文的證據是：在大量 GPU 上訓練大型 Transformer 模型時所量測到的記憶體與吞吐量，以及論文記錄的設計取捨。
