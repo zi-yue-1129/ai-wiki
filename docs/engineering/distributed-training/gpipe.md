@@ -38,6 +38,14 @@ With $K$ stages and $M$ micro-batches, the forward passes are scheduled through 
 
 *Original teaching animation, CC BY-SA 4.0.* Each filled teal dot marks **one completed micro-batch gradient contribution** at that pipeline stage, not a gradient magnitude. GPU 3 starts accumulating B4 first, followed by GPU 2 and GPU 1; each stage receives B4–B1 in backward order. Only after **all four contributions at every stage** does one logical optimizer step update the stage-local parameter partitions. The 13-slot clock and gradient arrival times are **schematic, not measured latency**. The MkDocs player supports keyboard Play/Pause and a reduced-motion still; on mobile, scroll horizontally. [GitHub-readable final-state preview](../../assets/concept-animations/gpipe-gradient-accumulation-still.svg).
 
+### Explore the pipeline bubble
+
+Change the number of stages $K$ and micro-batches $M$, then step through or play the **idealised all-forward/all-backward GPipe schedule**. Each F/B cell is one completed forward/backward micro-batch operation; grey cells are idle. The counter is an operation count, not a gradient magnitude. Under equal stage times the bubble fraction is $(K-1)/(M+K-1)$; more micro-batches reduce this fraction but may increase activation-memory pressure. These slots and percentages are **analytical teaching examples, not measured GPU utilisation**. On a narrow screen, scroll the schedule horizontally.
+
+![GPipe three-stage, four-micro-batch schedule fallback for GitHub and no-script readers.](../../assets/concept-animations/gpipe-fill-drain-still.svg)
+
+<div class="distributed-explorer" data-explorer="gpipe" data-lang="en"></div>
+
 ## Key methods
 
 The method is the micro-batch pipeline with synchronous gradient accumulation. The paper's evidence is measured throughput as the number of accelerators grows, for very large image models.
