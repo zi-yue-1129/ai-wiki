@@ -46,7 +46,7 @@ with sync_playwright() as p:
                                 assert expected in page.locator('.ssl-ema-readout').inner_text()
                     # Autoplay changes the existing computation trace but does
                     # not fire a native input event on the seek slider.
-                    momentum.fill('0.90')
+                    momentum.fill('0.9')
                     seek.fill('0')
                     page.locator('[data-act="speed"]').select_option('2')
                     page.locator('[data-act="play"]').click()
