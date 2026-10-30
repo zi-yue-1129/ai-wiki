@@ -53,6 +53,8 @@ with sync_playwright() as p:
                     assert b['x']>=-1 and b['x']+b['w']<=641 and b['y']>=-1 and b['y']+b['h']<=245,(kind,width,b)
                 assert (result['name']=='none') == reduced,(kind,width,reduced,result['name'])
                 if not reduced:
+                    # Hover intentionally pauses the SVG: keep the pointer outside while measuring progression.
+                    page.mouse.move(width - 4, 430)
                     moving=page.locator('.arrive,.pulse-left').first
                     before=moving.evaluate('(el)=>getComputedStyle(el).transform')
                     page.wait_for_timeout(1600)
