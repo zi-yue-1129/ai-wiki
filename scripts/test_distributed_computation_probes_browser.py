@@ -62,7 +62,7 @@ with sync_playwright() as pw:
                         assert host.locator('.dcp-ring-cell.dcp-ring-complete').count()==0
                         ring.fill('7')
                         assert host.locator('.dcp-ring-cell.dcp-ring-complete').count()==8
-                        assert '56.0 B' in host.locator('.dcp-ring-foot').inner_text()
+                        assert '56.0 / 112.0 B' in host.locator('.dcp-ring-foot').inner_text()
                         ring=host.get_by_role('slider',name='Ring 回合' if lang=='zh' else 'Ring round')
                         ring.fill('14')
                         assert host.locator('.dcp-ring-cell.dcp-ring-complete').count()==64
