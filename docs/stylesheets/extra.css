@@ -138,3 +138,20 @@ body.km-lock { overflow: hidden; }
   .km-search-input { width: 8.5rem; }
   .km-results { min-width: 13rem; }
 }
+
+/* Dense distributed-training timelines remain legible on narrow screens.
+   The existing concept-motion player still owns Play/Pause and reduced motion. */
+@media (max-width: 680px) {
+  .concept-motion-player:has(img[src*="gpipe-fill-drain"]),
+  .concept-motion-player:has(img[src*="fsdp-gather-scatter"]) {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+  .concept-motion-player img[src*="gpipe-fill-drain"],
+  .concept-motion-player img[src*="fsdp-gather-scatter"] {
+    width: 640px;
+    min-width: 640px;
+    max-width: none;
+  }
+}
