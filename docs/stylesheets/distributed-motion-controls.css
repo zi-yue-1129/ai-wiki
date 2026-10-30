@@ -1,0 +1,14 @@
+/* Enhanced distributed-training SVG timeline; original image remains the fallback. */
+.distributed-motion-frame { display: block; width: 100%; max-width: 640px; aspect-ratio: 16 / 9; border: 0; border-radius: .55rem; }
+.distributed-motion-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-top: .45rem; }
+.distributed-motion-controls[hidden], .distributed-motion-frame[hidden] { display: none !important; }
+.distributed-motion-seek { flex: 1 1 9rem; min-width: 5rem; accent-color: var(--md-accent-fg-color, #138a81); cursor: pointer; }
+.distributed-motion-time { font-variant-numeric: tabular-nums; font-size: .7rem; white-space: nowrap; }
+.distributed-motion-rate { border: 1px solid var(--md-default-fg-color--lighter, #9cafbe); border-radius: .45rem; padding: .3rem .35rem; background: var(--md-default-bg-color, #fff); color: var(--md-default-fg-color, #24394c); font: inherit; font-size: .72rem; }
+.distributed-motion-seek:focus-visible, .distributed-motion-rate:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 3px; }
+@media (max-width: 720px) {
+  .concept-motion-player:has(.distributed-motion-frame:not([hidden])) { max-width: 100%; overflow-x: auto; }
+  .distributed-motion-frame { width: 640px; min-width: 640px; max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) { .distributed-motion-controls { scroll-behavior: auto; } }
+.concept-motion-player img[hidden] { display: none !important; }
