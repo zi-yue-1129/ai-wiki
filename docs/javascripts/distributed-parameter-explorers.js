@@ -6,7 +6,7 @@
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const labels = {
     en: {stages:'Stages', batches:'Micro-batches', play:'Play', pause:'Pause', prev:'Previous step', next:'Next step', reset:'Reset', speed:'Speed', slot:'Slot', idle:'Idle slots', active:'Completed operations', schematic:'Illustrative equal-duration slots; not measured GPU utilisation.', ranks:'Ranks', stage:'ZeRO stage', baseline:'Replicated', current:'Per rank', saved:'Model-state saving', memory:'Bytes per parameter per rank', caveat:'Model state only; excludes activations and temporary buffers.', live:'Current step'},
-    zh: {stages:'管線階段', batches:'微批次', play:'播放', pause:'暫停', prev:'上一步', next:'下一步', reset:'重設', speed:'速度', slot:'時槽', idle:'閒置比例', active:'已完成運算', schematic:'等長時槽的教學示意，非實測 GPU 使用率。', ranks:'裝置數', stage:'ZeRO 階段', baseline:'未分片', current:'每裝置', saved:'模型狀態節省', memory:'每裝置、每參數位元組', caveat:'僅模型狀態，不含激活值與暫時緩衝區。', live:'目前步驟'}
+    zh: {stages:'管線階段', batches:'微批次', play:'播放', pause:'暫停', prev:'上一步', next:'下一步', reset:'重設', speed:'速度', slot:'時槽', idle:'閒置比例', active:'已完成運算', schematic:'等長時槽的教學示意，非實測 GPU 使用率。', ranks:'裝置數', stage:'ZeRO 階段', baseline:'Replicated', current:'Per rank', saved:'模型狀態節省', memory:'每裝置、每參數位元組', caveat:'僅模型狀態，不含激活值與暫時緩衝區。', live:'目前步驟'}
   };
   const create = (tag, className, text) => {
     const node = document.createElement(tag);
