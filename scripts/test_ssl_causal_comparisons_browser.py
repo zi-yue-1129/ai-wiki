@@ -9,8 +9,8 @@ JS = (ROOT/'docs/javascripts/ssl-causal-comparisons.js').read_text()
 CSS = (ROOT/'docs/stylesheets/ssl-causal-comparisons.css').read_text()
 LAB_JS_PATH = ROOT/'docs/javascripts/self-supervised-labs.js'
 LAB_CSS_PATH = ROOT/'docs/stylesheets/self-supervised-labs.css'
-OUT = ROOT/'screenshots'
-OUT.mkdir(exist_ok=True)
+OUT = ROOT/'artifacts/ssl-causal-comparisons'
+OUT.mkdir(parents=True,exist_ok=True)
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True, args=['--no-sandbox'], **({'executable_path':'/usr/bin/chromium'} if shutil.which('chromium') else {}))
