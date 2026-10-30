@@ -8,7 +8,7 @@
   const baseline = 0.90;
   const xs = [72, 223, 374, 525];
   const y = v => 174 - (v - 0.20) * 160;
-  const fmt = v => v.toFixed(3);
+  const fmt = v => (Math.round((v + Number.EPSILON) * 1000) / 1000).toFixed(3);
   const clamp = (v, min, max, fallback) => Number.isFinite(v) ? Math.max(min, Math.min(max, v)) : fallback;
   function ema(m) {
     const values = [0.30];
