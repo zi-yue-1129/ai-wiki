@@ -167,6 +167,22 @@ def check_conformal_geometry() -> None:
                           if a.get("attributeName") == "opacity")
     summary_times = [float(t) for t in summary_motion.get("keyTimes").split(";")]
     assert summary_times[1] >= max(candidate_times)
+    # The threshold badge and label must not disclose the result before the
+    # quantile line, and the completed set must remain hidden until decisions.
+    threshold_label = next(t for t in root.findall(".//s:text", NS)
+                           if (t.text or "").strip() == "q = 0.54")
+    label_motion = next(a for a in threshold_label.findall("s:animate", NS)
+                        if a.get("attributeName") == "opacity")
+    label_times = [float(t) for t in label_motion.get("keyTimes").split(";")]
+    assert label_times[1] >= reveal[-1]
+    assert label_times[2] >= threshold_times[2]
+    assert summary_times[1] >= threshold_times[2]
+    # Each candidate's visible decision must match its illustrative score.
+    decisions = []
+    for t in root.findall(".//s:text", NS):
+        if (t.text or "").strip() in ("IN", "OUT"):
+            decisions.append((t.text or "").strip())
+    assert decisions == ["IN", "IN", "OUT"], decisions
 
 
 
