@@ -52,8 +52,12 @@ with sync_playwright() as p:
                     page.locator('[data-act="play"]').click()
                     page.wait_for_timeout(850)
                     assert int(seek.input_value()) >= 1, 'autoplay did not advance'
-                    assert 'update 1:' in page.locator('.ssl-ema-readout').inner_text() if locale=='en' else '更新 1：' in page.locator('.ssl-ema-readout').inner_text()
                     page.locator('[data-act="play"]').click()
+                    # Mimic the player changing seek without dispatching input.
+                    seek.evaluate("(e)=>e.value='4'")
+                    page.locator('.ssl-compute').evaluate("(e)=>e.textContent='autoplay render changed'")
+                    page.wait_for_timeout(25)
+                    assert '0.355' in page.locator('.ssl-ema-readout').inner_text()
                     seek.fill('4')
                     momentum.fill('0.50')
                     assert not errors, errors
