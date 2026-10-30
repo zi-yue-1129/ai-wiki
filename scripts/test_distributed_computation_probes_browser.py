@@ -47,7 +47,7 @@ with sync_playwright() as pw:
                         seek.fill('0');assert '0.0 MiB' in host.locator('.dcp-transfer-row').first.inner_text()
                     else:
                         assert '16/32' in host.locator('.dcp-stats').inner_text()
-                        assert '32.0 B' in host.locator('.dcp-stats').inner_text()
+                        assert '32 B' in host.locator('.dcp-stats').inner_text()  # full tensor payload, before any transfer
                         seek.fill('1');assert host.locator('.dcp-col').count()==32
                         assert host.locator('.dcp-gelu').count()==0
                         seek.fill('2');assert host.locator('.dcp-gelu').count()==32
