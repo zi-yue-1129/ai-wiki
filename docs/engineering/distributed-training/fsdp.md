@@ -38,6 +38,16 @@ For each sharded unit, FSDP all-gathers its parameters before the forward pass, 
 
 *Original teaching animation, CC BY-SA 4.0.* Solid blocks remain resident; dashed-outline positions are filled **only when all-gather materializes the remote parameter shard**. The per-rank indicator changes from one to two schematic parameter shards during forward and backward computation, returning to one after resharding. This illustrates the **temporary full-parameter residency for one FSDP unit**, not total GPU memory: activations, gradients, optimizer states, prefetch overlap and allocator effects are excluded. The phase durations and shard sizes are **not measurements**. MkDocs provides keyboard Play/Pause and a reduced-motion fallback; narrow screens can scroll horizontally. [GitHub-readable gather-state preview](../../assets/concept-animations/fsdp-parameter-residency-still.svg).
 
+
+### Interactive parameter residency and reshard policy (MkDocs)
+
+![FSDP static fallback: local parameter shards and temporary full-parameter gathering for two ranks.](../../assets/concept-animations/fsdp-parameter-residency-still.svg)
+
+<div class="distributed-computation-probe" data-probe="fsdp" data-lang="en"></div>
+
+*Original computation probe; GitHub shows the reviewed static fallback above.* On MkDocs, adjust **2–8 ranks**, a **64–512 MiB** parameter unit and **Reshard after forward**. Play, pause, step or seek through shard → forward all-gather → forward → reshard/retain → backward gather/reuse → backward → reduce-scatter; choose 0.5×/1×/2× speed. The two comparison rows show why retaining full parameters between passes avoids the second all-gather but holds more parameter memory. For a 256 MiB unit across four ranks, steady sharded storage is **64 MiB per rank** and full gathered storage is **256 MiB per rank**. These are **analytical parameter-only teaching values**, not GPU measurements; activations, gradients, optimizer state, prefetch overlap and temporary buffers are excluded. Keyboard controls work without a mouse, reduced-motion users can step manually, and the fallback remains visible without JavaScript.
+
+
 ## Key methods
 
 The method is the per-unit gather, compute and free cycle with gradient reduce-scatter. The paper's evidence is measured memory and throughput for large transformer models on many GPUs, and the design trade-offs it documents.
