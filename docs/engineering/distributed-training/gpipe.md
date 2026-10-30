@@ -25,6 +25,9 @@ A model too large for one device can be split by layers, with each device holdin
 
 With $K$ stages and $M$ micro-batches, the forward passes are scheduled through the pipeline, then the backward passes run in reverse order. The idle fraction, or bubble, is approximately $\frac{K-1}{M+K-1}$, so more micro-batches make the pipeline more efficient. Gradients from all micro-batches are summed before a single optimizer step.
 
+
+**Interactive timeline on MkDocs:** Play/Pause, step backward/forward, scrub the timeline, or choose 0.5×/1×/2× speed. Motion starts paused, controls are keyboard-accessible, and reduced-motion preferences retain the readable still image. All timings and values are schematic, not measured GPU results.
+
 ![Animated GPipe schedule: four micro-batches fill three stages in forward order, then backward work drains the pipeline in reverse micro-batch order. Grey cells are idle bubbles.](../../assets/concept-animations/gpipe-fill-drain-motion.svg)
 
 *Original continuous teaching animation, CC BY-SA 4.0.* The moving orange playhead reveals completed work; teal F1–F4 cells are forward computations and violet B4–B1 cells are backward computations. The grey cells make fill/drain bubbles visible. This **illustrative, equal-duration** 3-stage/4-micro-batch schedule has 12 idle stage-slots out of 36 (one-third), consistent with the idealised bubble fraction above; it is **not measured GPU utilisation**. Gradients accumulate over all four backward micro-batches before **one** optimizer update. On MkDocs, use **Play/Pause** (keyboard accessible); reduced-motion settings show the static fallback. On narrow screens, scroll horizontally to inspect all time slots. [GitHub-readable static schedule](../../assets/concept-animations/gpipe-fill-drain-still.svg).
