@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-10-30
 tags:
 - engineering
 - systems
@@ -26,13 +27,9 @@ ZeRO 移除資料平行中每份模型狀態的重複副本。它分三個階段
 
 每個階段都移除一種重複來源。設 $\Psi$ 為參數量、$N_d$ 為資料平行裝置數，並使用混合精度 Adam。論文給出的每裝置記憶體為：第一階段 $(4 + \tfrac{12}{N_d})\Psi$ 位元組，第二階段 $(2 + \tfrac{14}{N_d})\Psi$，第三階段 $\tfrac{16}{N_d}\Psi$。
 
-```mermaid
-flowchart LR
-  S0[普通資料平行：每個裝置都有完整狀態] --> S1[第一階段：分片最佳化器狀態]
-  S1 --> S2[第二階段：也分片梯度]
-  S2 --> S3[第三階段：也分片參數]
-  S3 -. 通訊更多 .-> S3
-```
+![ZeRO 狀態分片動畫：兩個 rank 依序分割最佳化器狀態、梯度與參數，重複副本逐步消失，每個 rank 的模型狀態記憶體隨之減少。](../../assets/concept-animations/zero-state-sharding-motion.svg)
+
+*原創連續教學動畫，CC BY-SA 4.0。* 兩個 GPU 一開始都保留完整的 **P**（參數）、**G**（梯度）及 **O**（最佳化器狀態）。ZeRO 第一至第三階段依序分片 O、G、P；各 rank 只保留自己負責的 A 或 B 分片。下方長條是**兩個 rank、混合精度 Adam 的示意模型狀態用量**：每個參數、每個 rank 從 16 → 10 → 9 → 8 位元組，假設 P = 2 B、G = 2 B、O = 12 B。**不包含**激活值、暫時的 all-gather 緩衝區、記憶體碎片及通訊成本，**不是 GPU 記憶體實測曲線**。橘色指標會隨各階段的分片過程移動。MkDocs 支援鍵盤操作的播放／暫停，減少動態效果模式會顯示最終狀態靜態圖；手機可左右捲動查看完整圖形。[GitHub 可讀的最終狀態預覽](../../assets/concept-animations/zero-state-sharding-still.svg)。
 
 ## 關鍵方法
 
