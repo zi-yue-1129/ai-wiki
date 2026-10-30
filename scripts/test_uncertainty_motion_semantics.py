@@ -146,6 +146,27 @@ def check_conformal_geometry() -> None:
         reveal.append(times[1])
     assert reveal == sorted(reveal)
     assert reveal[0] >= 0 and reveal[-1] < 1
+    # Causal sequence: the quantile cannot appear until every calibration
+    # score has been revealed; candidate decisions follow the quantile.
+    threshold = next(a for a in root.findall(".//s:animate", NS)
+                     if a.get("attributeName") == "stroke-dashoffset")
+    threshold_times = [float(t) for t in threshold.get("keyTimes").split(";")]
+    assert threshold_times[1] >= reveal[-1], (threshold_times, reveal[-1])
+    candidate_times = []
+    for text in root.findall(".//s:text", NS):
+        if (text.text or "").strip() not in ("IN", "OUT"):
+            continue
+        opacity = next(a for a in text.findall("s:animate", NS)
+                       if a.get("attributeName") == "opacity")
+        candidate_times.append(float(opacity.get("keyTimes").split(";")[1]))
+    assert len(candidate_times) == 3
+    assert min(candidate_times) >= threshold_times[2]
+    summary = next(t for t in root.findall(".//s:text", NS)
+                   if "Set =" in (t.text or ""))
+    summary_motion = next(a for a in summary.findall("s:animate", NS)
+                          if a.get("attributeName") == "opacity")
+    summary_times = [float(t) for t in summary_motion.get("keyTimes").split(";")]
+    assert summary_times[1] >= max(candidate_times)
 
 
 if __name__ == "__main__":
