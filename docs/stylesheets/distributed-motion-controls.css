@@ -12,3 +12,4 @@
 }
 @media (prefers-reduced-motion: reduce) { .distributed-motion-controls { scroll-behavior: auto; } }
 .concept-motion-player img[hidden] { display: none !important; }
+.concept-motion-player .concept-motion-controls[hidden] { display: none !important; }
