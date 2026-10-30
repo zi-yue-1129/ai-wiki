@@ -24,14 +24,21 @@
     svg+=`<text x="22" y="30" class="ssl-temporal-title">FIFO window</text><text x="618" y="30" text-anchor="end" class="ssl-temporal-small">oldest → newest</text>`;
     for(let row=0;row<4;row++) {
       const active=row===step, y=49+row*49;
+      svg+=`<g data-step="${row}" data-complete="${row<=step}">`;
       if(active) svg+=`<rect x="12" y="${y-5}" width="616" height="46" rx="9" fill="#e6f2f4" stroke="#17808a" stroke-width="2"/>`;
       svg+=`<text x="22" y="${y+23}" class="ssl-temporal-row">${row}</text>`;
+      if(row>step){
+        for(let i=0;i<6;i++)svg+=`<rect x="${68+i*92}" y="${y}" width="77" height="34" rx="7" fill="#f1f5f7" stroke="#a6b8c2" stroke-dasharray="4 4"/>`;
+        svg+='</g>';
+        continue;
+      }
       const keys=queueState(row);
       for(let i=0;i<6;i++){
         const x=68+i*92, age=5-i;
         svg+=`<rect x="${x}" y="${y}" width="77" height="34" rx="7" fill="${ageColors[age]}" stroke="#829ba6" stroke-width=".8"/>`;
         svg+=`<text x="${x+38.5}" y="${y+23}" text-anchor="middle" class="ssl-temporal-token">${keys[i]}</text>`;
       }
+      svg+='</g>';
     }
     svg+=`<path d="M69 248 H606" stroke="#b5c9d0" stroke-width="2"/><path d="M599 242 L607 248 L599 254" fill="none" stroke="#b5c9d0" stroke-width="2"/><text x="22" y="252" class="ssl-temporal-small">FIFO</text></svg>`;
     return svg;
@@ -46,8 +53,14 @@
     svg+=`<text x="22" y="30" class="ssl-temporal-title">EMA source weights</text><text x="618" y="30" text-anchor="end" class="ssl-temporal-small">Σ weights = 1</text>`;
     for(let row=0;row<4;row++) {
       const active=row===step, y=52+row*46;
+      svg+=`<g data-step="${row}" data-complete="${row<=step}">`;
       if(active)svg+=`<rect x="12" y="${y-5}" width="616" height="43" rx="9" fill="#e6f2f4" stroke="#17808a" stroke-width="2"/>`;
       svg+=`<text x="23" y="${y+23}" class="ssl-temporal-row">${row}</text>`;
+      if(row>step){
+        svg+=`<rect x="67" y="${y}" width="536" height="31" rx="2" fill="#f1f5f7" stroke="#a6b8c2" stroke-dasharray="5 5"/>`;
+        svg+='</g>';
+        continue;
+      }
       let x=67;
       const values=coefficients(m,row);
       values.forEach((v,i)=>{
@@ -58,6 +71,7 @@
         x+=w;
       });
       svg+=`<rect x="67" y="${y}" width="536" height="31" rx="2" fill="none" stroke="#7797a6" stroke-width="1"/>`;
+      svg+='</g>';
     }
     sources.forEach((s,i)=>{
       const x=68+i*132;
@@ -116,10 +130,10 @@
       readout.setAttribute('aria-live','off');
       const note=document.createElement('p');note.className='ssl-temporal-note';
       note.textContent=kind==='moco'
-        ?(zh?'每一列是初始狀態或一次入列後的六格 FIFO 快照；反白列與主播放器同步。最左側是最舊的鍵。字母及位置只代表示意的佇列年齡，不能推算實際嵌入漂移或負樣本難度。'
-          :'Rows show the initial six-slot FIFO and the snapshots after each enqueue; the highlighted row follows playback. Oldest keys are on the left. Letters and positions indicate illustrative queue age, not measured embedding drift or negative hardness.')
-        :(zh?'每一列將目標權重拆成初始目標 T0 與歷次線上權重 Q1–Q3 的 EMA 係數。反白列只在 EMA 步驟後前進；調整動量會重新分配貢獻。這不是模型實測權重或梯度。'
-          :'Each row decomposes the target into its initial weight T0 and online snapshots Q1–Q3. The highlighted row advances only after EMA; momentum redistributes contributions. These are not measured weights or gradients.');
+        ?(zh?'每一列是初始狀態或一次入列後的六格 FIFO 快照；尚未入列的未來列保持空白，反白列與主播放器同步。最左側是最舊的鍵。字母及位置只代表示意的佇列年齡，不能推算實際嵌入漂移或負樣本難度。'
+          :'Rows reveal the initial six-slot FIFO and each completed enqueue; future rows stay empty until their keys actually arrive. The highlighted row follows playback. Oldest keys are on the left. Letters and positions indicate illustrative queue age, not measured embedding drift or negative hardness.')
+        :(zh?'已完成的列將目標權重拆成初始目標 T0 與歷次線上權重 Q1–Q3 的 EMA 係數；尚未執行 EMA 的未來列保持空白。反白列只在 EMA 步驟後前進；調整動量會重新分配貢獻。這不是模型實測權重或梯度。'
+          :'Completed rows decompose the target into its initial weight T0 and online snapshots Q1–Q3. Future rows stay empty until EMA completes; the highlight advances only after EMA, and momentum redistributes contributions. These are not measured weights or gradients.');
       section.append(heading,chart,readout,note);
       compute.after(section);
       const update=()=>render(host,kind,zh,chart,readout);

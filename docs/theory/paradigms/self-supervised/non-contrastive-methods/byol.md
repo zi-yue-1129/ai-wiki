@@ -90,7 +90,7 @@ Use **Play/Pause, Previous/Next, timeline scrubbing and playback speed** to insp
 \xi_t=m^t\xi_0+(1-m)\sum_{j=1}^{t}m^{t-j}\theta_j.
 \]
 
-Here \(\theta_j\) is the online weight **after** its \(j\)-th SGD update. The bars attribute the target to the initial target (`T0`) and successive online snapshots (`Q1–Q3`); their coefficients sum to one. The highlighted row advances **only after Target EMA**, not during stop-gradient or Online SGD. Adjust **Momentum m** to see how larger momentum retains more initial-target history. These are toy scalar coefficients, **not measured network weights, gradients, or empirical training dynamics**; the existing GIF and static overview above provide the GitHub fallback.
+Here \(\theta_j\) is the online weight **after** its \(j\)-th SGD update. The bars attribute the target to the initial target (`T0`) and successive online snapshots (`Q1–Q3`); their coefficients sum to one. The highlighted row advances **only after Target EMA**, not during stop-gradient or Online SGD; future contribution bars stay empty until the corresponding update is completed. Adjust **Momentum m** to see how larger momentum retains more initial-target history. These are toy scalar coefficients, **not measured network weights, gradients, or empirical training dynamics**; the existing GIF and static overview above provide the GitHub fallback.
 
 ## Key methods
 

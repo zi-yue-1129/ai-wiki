@@ -41,7 +41,14 @@ with sync_playwright() as p:
                             assert page.evaluate("""() => [...document.querySelectorAll('.ssl-temporal-chart svg text')].every(t=>{
                                 const b=t.getBBox();return b.x>=-1&&b.y>=-1&&b.x+b.width<=641&&b.y+b.height<=271;
                             })"""),(kind,locale,width,m,frame,'SVG clipped text')
+                            step=frame//5+(frame%5==4)
+                            completed=page.locator('.ssl-temporal-chart g[data-complete="true"]')
+                            pending=page.locator('.ssl-temporal-chart g[data-complete="false"]')
+                            assert completed.count()==step+1,(kind,m,frame,'future rows revealed')
+                            assert pending.count()==3-step,(kind,m,frame,'missing future placeholders')
+                            assert pending.locator('text.ssl-temporal-token, text.ssl-temporal-pct').count()==0,(kind,m,frame,'future labels leaked')
                             if kind=='moco':
+                                assert page.locator('.ssl-temporal-chart text.ssl-temporal-token').count()==6*(step+1),(m,frame,'future queue keys leaked')
                                 step=frame//5+(frame%5==4)
                                 expected=['A B C D E F','B C D E F G','C D E F G H','D E F G H I'][step]
                                 assert expected in page.locator('.ssl-temporal-readout').inner_text()
