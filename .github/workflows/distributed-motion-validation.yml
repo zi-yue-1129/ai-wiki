@@ -9,8 +9,13 @@ on:
       - "docs/assets/concept-animations/fsdp-parameter-residency-*.svg"
       - "docs/engineering/distributed-training/gpipe*.md"
       - "docs/engineering/distributed-training/fsdp*.md"
+      - "docs/engineering/distributed-training/zero*.md"
+      - "docs/engineering/distributed-training/megatron-tensor-parallelism*.md"
+      - "docs/assets/concept-animations/zero-state-sharding-*.svg"
+      - "docs/assets/concept-animations/megatron-column-row-*.svg"
       - "docs/stylesheets/extra.css"
       - "scripts/test_distributed_motion_browser.py"
+      - "scripts/test_zero_megatron_motion_browser.py"
       - ".github/workflows/distributed-motion-validation.yml"
   workflow_dispatch:
 
@@ -30,7 +35,9 @@ jobs:
           python -m pip install "playwright==1.55.0"
           python -m playwright install --with-deps chromium
       - name: Check actual SVG motion, accessible controls, reduced motion and responsive overflow
-        run: python scripts/test_distributed_motion_browser.py
+        run: |
+          python scripts/test_distributed_motion_browser.py
+          python scripts/test_zero_megatron_motion_browser.py
       - name: Preserve browser screenshots for review
         if: always()
         uses: actions/upload-artifact@v4
