@@ -48,7 +48,7 @@
     const back = button(L.prev, '←', () => {stop(); step=clamp(step-1,0,total());render();});
     const play = button(L.play, '▶', () => {
       if (motion.matches) return;
-      if (playing) stop(); else {if(step>=total()) step=0; playing=true;previous=0;fraction=0;raf=requestAnimationFrame(tick);}
+      if (playing) stop(); else {if(step>=total()){step=0;render();} playing=true;previous=0;fraction=0;raf=requestAnimationFrame(tick);}
       renderControls();
     });
     const next = button(L.next, '→', () => {stop();step=clamp(step+1,0,total());render();});
