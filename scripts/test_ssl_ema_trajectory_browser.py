@@ -59,7 +59,7 @@ with sync_playwright() as p:
                     page.wait_for_timeout(25)
                     assert '0.355' in page.locator('.ssl-ema-readout').inner_text()
                     seek.fill('4')
-                    momentum.fill('0.50')
+                    momentum.fill('0.5')
                     assert not errors, errors
                     page.locator('.ssl-ema-trajectory').screenshot(path=str(OUT/f'{kind}-{locale}-{width}-reduced-{reduced}.png'))
                     page.close()
