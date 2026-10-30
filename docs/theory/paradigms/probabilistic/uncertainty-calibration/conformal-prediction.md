@@ -38,6 +38,15 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 
 and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 2023). For regression, the same idea gives prediction intervals, and the score can be the absolute residual or a quantity from a quantile model. Lei et al. (2018) develop distribution-free predictive inference for regression in this framework.
 
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Conformal prediction animation">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/conformal-quantile-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-quantile-motion.svg" alt="Eight ordered illustrative calibration scores select the seventh score 0.54 as the split-conformal threshold; candidate labels A and B are included, while C is excluded." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* With eight illustrative calibration scores and α=0.25, the finite-sample index is ceil((8+1)(1−0.25))=7; the seventh sorted score is q=0.54. For a separate illustrative test input, candidate-label nonconformity scores (A: 0.19, B: 0.48, C: 0.71) give the set **{A, B}**. The animation reveals the calibration scores, threshold, and set membership in that order. **The displayed values are invented for teaching, not empirical coverage or model measurements.** The marginal coverage statement requires exchangeability; it is not a per-input guarantee. MkDocs provides Play/Pause; the [GitHub static preview](../../../../assets/concept-animations/conformal-quantile-still.svg) shows the completed set. Scroll horizontally on narrow screens. See Shafer & Vovk (2008) and Angelopoulos & Bates (2023) in References.
+
 ## Variants
 
 - **Split conformal** uses one calibration set, which is the simplest and most common form.

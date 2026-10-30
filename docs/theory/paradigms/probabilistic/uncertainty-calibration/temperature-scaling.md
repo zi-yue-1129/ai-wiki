@@ -38,6 +38,15 @@ The calibrated probabilities are
 
 The parameter \(T\) is chosen to minimise the NLL of the labels on a held-out validation set. Because dividing all logits by the same positive number leaves their order unchanged, the predicted class, and hence accuracy, does not change. Only the confidence changes. Guo et al. (2017) fit \(T\) by a simple one-dimensional optimisation and report that it reduces the expected calibration error of deep networks substantially on image benchmarks.
 
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Temperature scaling animation">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/temperature-softmax-still.svg" data-motion-src="../../../../assets/concept-animations/temperature-softmax-motion.svg" alt="Three illustrative logits A=3, B=1, C=0; the softmax bars change as temperature rises from 0.5 to 2 and falls again, while A remains the predicted class." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* Fixed schematic logits (3, 1, 0) are converted to softmax probabilities as the temperature varies from 0.5 to 2 and back. The animation computes 41 exact softmax samples and interpolates between them for visual continuity; intermediate interpolated frames are not independent model calculations. The argmax remains A for all positive temperatures. **These are illustrative logits, not fitted calibration parameters or measured model outputs.** On the MkDocs site use Play/Pause; the [static GitHub preview](../../../../assets/concept-animations/temperature-softmax-still.svg) shows T=1. On narrow screens, scroll the figure horizontally. See Guo et al. (2017) in References.
+
 ## Variants
 
 - **Vector scaling** uses a separate scale and bias for each class, which is more flexible but needs more data.
