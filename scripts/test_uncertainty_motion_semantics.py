@@ -169,9 +169,53 @@ def check_conformal_geometry() -> None:
     assert summary_times[1] >= max(candidate_times)
 
 
+
+def check_github_fallback_parity() -> None:
+    """GitHub stills must encode the same numerical result as the motion."""
+    animated = ET.parse(ROOT / "temperature-softmax-motion.svg").getroot()
+    still = ET.parse(ROOT / "temperature-softmax-still.svg").getroot()
+    motion_bars = [r for r in animated.findall(".//s:rect", NS)
+                   if any(a.get("attributeName") == "height"
+                          for a in r.findall("s:animate", NS))]
+    still_bars = [r for r in still.findall(".//s:rect", NS)
+                  if r.get("width") == "76" and r.get("rx") == "5"]
+    assert len(motion_bars) == len(still_bars) == 3
+    for i, (motion_bar, still_bar) in enumerate(zip(motion_bars, still_bars)):
+        weights = [math.exp(z) for z in (3., 1., 0.)]
+        expected = 148 * weights[i] / sum(weights)
+        height = float(still_bar.get("height"))
+        assert abs(height - expected) < 0.002, (i, height, expected)
+        assert abs(float(still_bar.get("y")) + height - 260) < 0.002
+        # The static fallback is T=1, not the motion's first T=0.5 frame.
+    cursor = next(c for c in still.findall(".//s:circle", NS)
+                  if c.get("r") == "11")
+    assert abs(float(cursor.get("cx")) - (104 + 427 / 3)) < 0.002
+    assert not still.findall(".//s:animate", NS)
+
+    conformal = ET.parse(ROOT / "conformal-quantile-still.svg").getroot()
+    labels = " ".join((t.text or "") for t in conformal.findall(".//s:text", NS))
+    for expected in ("q = 0.54", "Set = {A, B}", "s = 0.19",
+                     "s = 0.48", "s = 0.71", "IN", "OUT"):
+        assert expected in labels, expected
+    assert labels.count("IN") == 2 and labels.count("OUT") == 1
+    circles = [c for c in conformal.findall(".//s:circle", NS)
+               if c.get("cy") == "155"]
+    assert len(circles) == 8
+    assert all(float(c.get("opacity", "1")) == 1 for c in circles)
+    threshold = next(p for p in conformal.findall(".//s:path", NS)
+                     if p.get("d") == "M431.5 105V145")
+    assert threshold.get("stroke-dashoffset") == "0"
+    assert not conformal.findall(".//s:animate", NS)
+    for doc in (still, conformal):
+        assert doc.get("role") == "img"
+        assert doc.get("aria-labelledby") == "title desc"
+        assert doc.find("s:title", NS) is not None
+        assert doc.find("s:desc", NS) is not None
+
 if __name__ == "__main__":
     check_temperature()
     check_temperature_timeline()
     check_conformal()
     check_conformal_geometry()
+    check_github_fallback_parity()
     print("Uncertainty animation numerical and structural regression: PASS")
