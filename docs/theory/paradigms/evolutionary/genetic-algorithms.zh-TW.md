@@ -1,7 +1,7 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+last_reviewed: 2026-10-30
+translation_reviewed: 2026-10-30
 related:
   - theory/paradigms/evolutionary
   - theory/optimization/zeroth-order-and-evolutionary
@@ -47,9 +47,16 @@ aliases:
 
 其中 \(m(H,t)\) 為第 \(t\) 代中符合 \(H\) 的成員數，\(f(H)\) 為它們的平均適應度，\(\bar f\) 為族群平均適應度，\(\delta(H)\) 為最外側固定位置之間的距離，\(o(H)\) 為固定位置的數目，\(l\) 為字串長度。短、低階且高於平均適應度的模式會在族群中增加。這就是模式定理，也是此方法為何有效的標準解釋。
 
+## 關鍵方法
+
+兩個重要的變體保留了選擇與變異的迴圈，但改變了族群的內容：
+
+- [遺傳規劃](genetic-programming.zh-TW.md)（Koza，1992）演化的是程式樹，而非固定長度的字串。
+- [NEAT](neat.zh-TW.md)（Stanley 與 Miikkulainen，2002）同時演化網路的權重與拓撲，並以物種分化保護新結構。
+
 ## 主要結果
 
-Holland（1975）給出模式定理，並分析選擇、交叉與突變如何影響模式。Goldberg（1989）介紹各運算子並將其應用於工程問題。本頁不引用數值基準結果，因為結論取決於問題與編碼。在架構搜尋的情境中，Real 等人（2018）報告，以老化演化（aging evolution）找到的 AmoebaNet-A 在 CIFAR-10 上的測試誤差為 3.34 ± 0.06%，參數量為 3.2 M（F = 36），而 NASNet-A 基準為 3.41%。論文指出，演化比強化學習更早達到較高準確率，但此比較只以圖表呈現。
+Holland（1975）給出模式定理，並分析選擇、交叉與突變如何影響模式。Goldberg（1989）介紹各運算子並將其應用於工程問題。本頁不引用數值基準結果，因為結論取決於問題與編碼。在架構搜尋的情境中，Real 等人（2019）報告，以老化演化（aging evolution）找到的 AmoebaNet-A 在 CIFAR-10 上的測試誤差為 3.34 ± 0.06%，參數量為 3.2 M（F = 36），而 NASNet-A 基準為 3.41%。論文指出，演化比強化學習更早達到較高準確率，但此比較只以圖表呈現。
 
 ## 限制
 
@@ -68,7 +75,7 @@ Holland（1975）給出模式定理，並分析選擇、交叉與突變如何影
 ## 應用
 
 - 排程與路徑規劃，候選解為排列，成本由模擬器計算。
-- 架構搜尋，近期的研究如 Real 等人（2018）使用類似錦標賽的演化迴圈來選擇網路設計。
+- 架構搜尋，近期的研究如 Real 等人（2019）使用類似錦標賽的演化迴圈來選擇網路設計。
 
 ## 未解問題
 
@@ -79,9 +86,11 @@ Holland（1975）給出模式定理，並分析選擇、交叉與突變如何影
 
 ### 開創性論文
 
-- Holland, J. H.（1975）。*Adaptation in Natural and Artificial Systems*。University of Michigan Press。https://doi.org/10.1145/1216504.1216510 — 提出模式與模式定理。此 DOI 連到該書 1975 年的一篇書評，是 Crossref 上唯一找到的對應紀錄。
+- Holland, J. H.（1975）。*Adaptation in Natural and Artificial Systems*。University of Michigan Press。https://openlibrary.org/isbn/9780262581110 — 提出模式與模式定理。連結的紀錄為 1992 年的 MIT Press 版本。
 - Goldberg, D. E.（1989）。*Genetic Algorithms in Search, Optimization, and Machine Learning*。Addison-Wesley。https://openlibrary.org/isbn/0201157675 — 運算子、模式分析與工程應用的標準教科書式介紹。
-- Real, E., Aggarwal, A., Huang, Y. & Le, Q. V.（2018）。Regularized Evolution for Image Classifier Architecture Search。arXiv:1802.01548。https://arxiv.org/abs/1802.01548 — 以錦標賽選擇搜尋網路架構的現代遺傳式迴圈範例。
+- Koza, J. R.（1992）。*Genetic Programming: On the Programming of Computers by Means of Natural Selection*。MIT Press。https://openlibrary.org/isbn/0262111705 — 提出遺傳規劃，以演化的程式樹解決指定任務。
+- Stanley, K. O. & Miikkulainen, R.（2002）。Evolving Neural Networks through Augmenting Topologies。*Evolutionary Computation*, 10(2), 99–127。https://doi.org/10.1162/106365602320169811 — 提出 NEAT，同時演化權重與拓撲，並以物種分化保護新結構。
+- Real, E., Aggarwal, A., Huang, Y. & Le, Q. V.（2019）。Regularized Evolution for Image Classifier Architecture Search。收錄於 *Proceedings of the AAAI Conference on Artificial Intelligence*。arXiv:1802.01548。https://arxiv.org/abs/1802.01548 — 以錦標賽選擇搜尋網路架構的現代遺傳式迴圈範例。
 
 ### 綜述與教科書
 
