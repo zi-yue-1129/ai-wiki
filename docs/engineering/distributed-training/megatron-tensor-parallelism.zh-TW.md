@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-10-30
 tags:
 - engineering
 - systems
@@ -25,16 +26,9 @@ Megatron-LM 的張量平行會把每個 Transformer 層內的權重矩陣切分�
 
 對於計算 $Y = \mathrm{GeLU}(XA)$ 的 MLP 區塊，接著乘上第二個矩陣 $B$：第一個矩陣按列切成 $A = [A_1, A_2]$。每個裝置各自計算 $\mathrm{GeLU}(XA_i)$。第二個矩陣按行切成 $B = [B_1; B_2]$，因此每個裝置算出部分乘積，再由一次 all-reduce 加總結果。注意力遵循同樣的模式：頭分散到各裝置，輸出投影則按行切分。
 
-```mermaid
-flowchart LR
-  X[輸入 X] --> A1[裝置 1：列切片 A1]
-  X --> A2[裝置 2：列切片 A2]
-  A1 --> B1[裝置 1：行切片 B1]
-  A2 --> B2[裝置 2：行切片 B2]
-  B1 --> R[All-reduce 加總]
-  B2 --> R
-  R --> Y[輸出 Y]
-```
+![Megatron 張量平行 MLP 動畫：輸入複製到兩個 rank，各自計算列切分的隱藏特徵及行切分的部分輸出，最後透過一次 all-reduce 合併。](../../assets/concept-animations/megatron-column-row-motion.svg)
+
+*原創連續教學動畫，CC BY-SA 4.0。* 兩個 GPU 都收到相同輸入 **X**。第一個投影矩陣的**列分片 A1/A2** 產生不同的隱藏特徵切片；各 rank **在本地執行 GeLU**，再由第二個投影矩陣的**行分片 B1/B2** 計算部分輸出 **p1/p2**。紫色訊號最後在**一次 all-reduce** 中合併，兩個 rank 都得到 **Y = p1 + p2**。第一個投影與本地 GeLU 之間不需要前向集體通訊。這是**兩路 MLP 切分的教學示意**，**不是實測通訊延遲或模型輸出**；圖中省略反向通訊與偏置。MkDocs 提供鍵盤可操作的播放／暫停，減少動態效果設定會顯示完成後的靜態圖；手機可左右捲動。[GitHub 可讀的完成路徑預覽](../../assets/concept-animations/megatron-column-row-still.svg)。
 
 ## 關鍵方法
 
