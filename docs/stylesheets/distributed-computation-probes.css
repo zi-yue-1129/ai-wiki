@@ -7,3 +7,22 @@
 .dcp-scroll{overflow-x:auto;max-width:100%;padding:5px 0 12px}.dcp-grid{display:grid;gap:7px}.dcp-input,.dcp-collective{grid-column:1/-1;border-radius:6px;padding:9px;font:600 12px system-ui,sans-serif;text-align:center;background:#e5eef5;color:#365c75}.dcp-lane{border:1px solid #d3dce4;border-radius:7px;padding:8px 5px;display:grid;gap:8px;min-height:180px}.dcp-lane>strong{text-align:center;font:700 12px system-ui,sans-serif}.dcp-group{min-height:36px}.dcp-group small{font:600 10px system-ui,sans-serif;color:#526a7a}.dcp-blocks{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}.dcp-blocks i{display:block;width:11px;height:12px;border-radius:2px}.dcp-col{background:#168e85}.dcp-gelu{background:#866cc5}.dcp-part{background:#e1a04f}.dcp-output,.dcp-empty{height:24px;text-align:center;font:600 11px system-ui,sans-serif;padding:4px}.dcp-output{background:#c7ebd7;color:#145b40;border-radius:4px}.dcp-collective{background:#edf1f5;min-height:36px}.dcp-collective.dcp-visible{background:#e4daf5;color:#563c94}
 @media(max-width:460px){.dcp-input,.dcp-collective{text-align:left;padding-left:18px}.dcp-panel{padding:10px}.dcp-chart-row{grid-template-columns:55px repeat(7,minmax(0,1fr));gap:3px}}
 @media(prefers-reduced-motion:reduce){.dcp-track>span{transition:none!important}}
+
+/* Causal communication accounting: completed FSDP gathers and exact ring rounds. */
+.dcp-transfer{margin:14px 0;padding:10px;border:1px solid var(--md-default-fg-color--lightest,#d2dce3);border-radius:8px}
+.dcp-transfer-title,.dcp-ring-title{font:700 12px system-ui,sans-serif;margin-bottom:9px}
+.dcp-transfer-row{display:grid;grid-template-columns:58px minmax(0,1fr) 85px;gap:8px;align-items:center;margin:6px 0;font:12px system-ui,sans-serif}
+.dcp-transfer-row strong{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dcp-transfer-track{height:15px;border-radius:4px;background:#e8eef1;overflow:hidden}
+.dcp-transfer-fill{display:block;height:100%;background:#168a7b;transition:width .18s ease}
+.dcp-ring{margin-top:12px;padding:10px;border:1px solid var(--md-default-fg-color--lightest,#d2dce3);border-radius:8px}
+.dcp-ring-grid{display:grid;gap:4px;align-items:stretch;width:max-content}
+.dcp-ring-head,.dcp-ring-cell{display:flex;align-items:center;justify-content:center;min-height:27px;border-radius:4px;font:600 11px system-ui,sans-serif;white-space:nowrap}
+.dcp-ring-head{background:#e4ebf0;color:#365269}
+.dcp-ring-empty{background:#eff3f5;color:#81909b}
+.dcp-ring-partial{background:#f8e8cc;color:#765019}
+.dcp-ring-complete{background:#bde6dc;color:#075b4c}
+.dcp-ring-seek{width:100%;accent-color:#168a7b}
+.dcp-ring-seek:focus-visible{outline:3px solid #148b80;outline-offset:2px}
+.dcp-ring-foot{font-size:12px;color:var(--md-default-fg-color--light,#526b7d);font-variant-numeric:tabular-nums;margin-top:6px}
+@media(prefers-reduced-motion:reduce){.dcp-transfer-fill{transition:none}}

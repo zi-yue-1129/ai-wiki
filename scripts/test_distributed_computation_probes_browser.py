@@ -36,9 +36,15 @@ with sync_playwright() as pw:
                         seek.fill('3');assert '64.0 MiB' in host.locator('.dcp-stats').inner_text()
                         host.get_by_role('checkbox',name='前向後重新分片' if lang=='zh' else 'Reshard after forward').uncheck()
                         assert '256.0 MiB' in host.locator('.dcp-stats').inner_text()
-                        seek.fill('4');assert host.locator('.dcp-stats').inner_text().endswith('1')
+                        seek.fill('4');assert 'All-gathers: 1' in host.locator('.dcp-stats').inner_text() if lang=='en' else 'All-gather 次數: 1' in host.locator('.dcp-stats').inner_text()
                         host.get_by_role('slider',name='裝置數' if lang=='zh' else 'Ranks').fill('8')
                         seek.fill('6');assert '32.0 MiB' in host.locator('.dcp-stats').inner_text()
+                        # Reshard requires two gathers; retain requires one.
+                        host.get_by_role('checkbox',name='前向後重新分片' if lang=='zh' else 'Reshard after forward').check()
+                        assert '448.0 MiB' in host.locator('.dcp-stats').inner_text()
+                        assert host.locator('.dcp-transfer-row').count()==2
+                        assert '224.0 MiB' in host.locator('.dcp-transfer-row').nth(1).inner_text()
+                        seek.fill('0');assert '0.0 MiB' in host.locator('.dcp-transfer-row').first.inner_text()
                     else:
                         assert '16/32' in host.locator('.dcp-stats').inner_text()
                         assert '32.0 B' in host.locator('.dcp-stats').inner_text()
@@ -49,10 +55,21 @@ with sync_playwright() as pw:
                         assert host.locator('.dcp-lane').count()==8
                         assert '4/32' in host.locator('.dcp-stats').inner_text()
                         host.get_by_role('slider',name='Token 數' if lang=='zh' else 'Tokens').fill('4')
-                        assert '112.0 B' in host.locator('.dcp-stats').inner_text()
+                        assert '0.0 B' in host.locator('.dcp-stats').inner_text()  # no early collective
                         seek.fill('4');assert host.locator('.dcp-visible').count()==1
+                        ring=host.get_by_role('slider',name='Ring 回合' if lang=='zh' else 'Ring round')
+                        assert ring.count()==1
+                        assert host.locator('.dcp-ring-cell.dcp-ring-complete').count()==0
+                        ring.fill('7')
+                        assert host.locator('.dcp-ring-cell.dcp-ring-complete').count()==8
+                        assert '56.0 B' in host.locator('.dcp-ring-foot').inner_text()
+                        ring=host.get_by_role('slider',name='Ring 回合' if lang=='zh' else 'Ring round')
+                        ring.fill('14')
+                        assert host.locator('.dcp-ring-cell.dcp-ring-complete').count()==64
+                        assert '112.0 B' in host.locator('.dcp-stats').inner_text()
                         assert host.locator('.dcp-output').count()==0
                         seek.fill('5');assert host.locator('.dcp-output').count()==8
+                        assert host.locator('.dcp-ring-cell.dcp-ring-complete').count()==64
                     if not reduce:
                         seek.fill('0');play.click()
                         assert host.get_by_role('button',name='暫停' if lang=='zh' else 'Pause').count()==1
@@ -63,4 +80,4 @@ with sync_playwright() as pw:
                     page.screenshot(path=str(OUT/f'probe-{lab}-{lang}-{width}-reduce-{reduce}.png'),full_page=True)
                     ctx.close()
     browser.close()
-print('PASS: 16 Chromium combinations, FSDP reshard/retain, Megatron shapes/ring bytes, keyboard-native controls, motion, reduced-motion and overflow')
+print('PASS: 16 Chromium combinations, FSDP cumulative gather tradeoff, exact Megatron ring reduce-scatter/all-gather states, keyboard, reduced-motion and overflow')
