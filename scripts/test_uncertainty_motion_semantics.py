@@ -117,8 +117,40 @@ def check_conformal() -> None:
     assert "prefers-reduced-motion" in (root.find("s:style", NS).text or "")
 
 
+
+def check_conformal_geometry() -> None:
+    """Calibration positions must encode their scores on one common axis."""
+    root = ET.parse(ROOT / "conformal-quantile-motion.svg").getroot()
+    circles = [c for c in root.findall(".//s:circle", NS)
+               if c.get("cy") == "155"]
+    scores = (0.08, 0.13, 0.21, 0.29, 0.35, 0.41, 0.54, 0.68)
+    assert len(circles) == len(scores), len(circles)
+    positions = [float(c.get("cx")) for c in circles]
+    assert positions == sorted(positions)
+    # The schematic uses x = 65 + 678.75 * nonconformity score.
+    for x, score in zip(positions, scores):
+        assert abs(x - (65 + 678.75 * score)) < 0.11, (x, score)
+    threshold = next(p for p in root.findall(".//s:path", NS)
+                     if p.get("stroke-dashoffset") == "40")
+    assert threshold.get("d") == "M431.5 105V145"
+    assert abs(positions[6] - 431.5) < 0.11
+    # Each successive calibration marker is revealed no earlier than
+    # the previous one.  A regression must not reorder the sample.
+    reveal = []
+    for circle in circles:
+        opacity = next(a for a in circle.findall("s:animate", NS)
+                       if a.get("attributeName") == "opacity")
+        times = [float(t) for t in opacity.get("keyTimes").split(";")]
+        assert opacity.get("dur") == "10s"
+        assert opacity.get("repeatCount") == "indefinite"
+        reveal.append(times[1])
+    assert reveal == sorted(reveal)
+    assert reveal[0] >= 0 and reveal[-1] < 1
+
+
 if __name__ == "__main__":
     check_temperature()
     check_temperature_timeline()
     check_conformal()
+    check_conformal_geometry()
     print("Uncertainty animation numerical and structural regression: PASS")
