@@ -64,6 +64,7 @@ def main():
                             }''', timeout=12000)
                             obj = host.locator('object')
                             assert obj.is_visible() and not host.locator('img').first.is_visible()
+                            assert not host.locator('.concept-motion-controls').is_visible(), 'duplicate legacy controls'
                             next_button = host.get_by_role('button', name='下一步' if zh else 'Step →')
                             next_button.focus()
                             page.keyboard.press('Space')
