@@ -45,7 +45,7 @@ with sync_playwright() as p:
                         for cosine in (-1,-.5,0,.5,1):
                             slider.evaluate('(el,v)=>{el.value=v;el.dispatchEvent(new Event("input",{bubbles:true}));}',str(cosine))
                             out=page.locator('.ssl-causal-readout').inner_text()
-                            actual=float(re.search(r'\\|dL/dφ\\|=([0-9.]+)',out).group(1))
+                            actual=float(re.search(r'\|dL/dφ\|=([0-9.]+)',out).group(1))
                             assert abs(actual-2*sin(acos(cosine)))<.001,(cosine,actual)
                             assert page.locator('.ssl-causal svg path[stroke="#b25e66"]').count()==2
                     assert not errors,errors
