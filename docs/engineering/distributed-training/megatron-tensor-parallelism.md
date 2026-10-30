@@ -32,6 +32,16 @@ For an MLP block computing $Y = \mathrm{GeLU}(XA)$ followed by a second matrix $
 
 *Original continuous teaching animation, CC BY-SA 4.0.* Both GPUs receive the same input **X**. The first projection's **column partitions A1/A2** produce separate hidden slices; GeLU is applied **locally** before the second projection's **row partitions B1/B2** produce partial outputs **p1/p2**. Violet signals then meet at **one all-reduce**, after which both ranks have **Y = p1 + p2**. There is no forward collective between the first projection and local GeLU. The animation depicts a schematic two-way MLP split, **not measured communication latency or model outputs**; it omits backward collectives and biases. On MkDocs, use keyboard-accessible **Play/Pause**; reduced-motion settings show the completed computation. On narrow screens, scroll horizontally. [GitHub-readable completed-path preview](../../assets/concept-animations/megatron-column-row-still.svg).
 
+
+### Interactive MLP tensor-parallel communication (MkDocs)
+
+![Megatron static fallback: column-parallel local activations, row-parallel partial outputs and final all-reduce.](../../assets/concept-animations/megatron-column-row-still.svg)
+
+<div class="distributed-computation-probe" data-probe="megatron" data-lang="en"></div>
+
+*Original computation probe; GitHub retains the static overview above.* On MkDocs, select **2, 4 or 8 tensor-parallel ranks** and **1–8 tokens**. Play, pause, step or seek from replicated input X through column-partitioned W1, local GeLU, row-partitioned W2, all-reduce and replicated output Y; playback supports 0.5×/1×/2× speed. The demonstration uses hidden width **H=8**, MLP expansion **4H=32** and **2 bytes per element**. The local intermediate width is **32/N**, while each rank's partial output has shape **T×8**; only after all-reduce does each rank receive Y. For a ring all-reduce, the idealized per-rank transferred payload is **2(N−1)/N × (T×8×2 B)**. This is an **analytical communication illustration**, not measured network traffic, bandwidth or model output. Backward collectives and biases are omitted. Native keyboard controls, reduced-motion manual stepping and a no-script static fallback are provided; scroll the rank lanes horizontally on mobile.
+
+
 ## Key methods
 
 The method is the column-then-row split of each block with a single all-reduce. The paper's evidence is that this scheme trains models with billions of parameters across many GPUs without an unacceptable loss in efficiency.
