@@ -47,6 +47,8 @@
       const old=hold.map(row=>row.map(cell=>new Set(cell)));
       for(let r=0;r<n;r++){const c=(r-step+n)%n,dest=(r+1)%n;hold[dest][c]=new Set([...old[dest][c],...old[r][c]]);}
     }
+    // After reduce-scatter only the completed owned chunk remains on each rank.
+    if(round===n-1)hold=hold.map((row,r)=>row.map((cell,c)=>c===(r+1)%n?cell:new Set()));
     if(round>n-1){
       hold=Array.from({length:n},(_,r)=>Array.from({length:n},(_,c)=>c===(r+1)%n?new Set(Array.from({length:n},(_,i)=>i)):new Set()));
       for(let step=0;step<round-(n-1);step++){
