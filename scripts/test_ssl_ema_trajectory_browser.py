@@ -41,7 +41,24 @@ with sync_playwright() as p:
                               });
                             }'''), (kind,locale,width,m,step,'SVG text clipped')
                             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
-                            assert page.locator('.ssl-ema-chart circle').count() == 8
+                            # No lookahead: only completed SGD/EMA states may be drawn.
+                            turn, phase = divmod(step, 5)
+                            q = turn + (phase >= (2 if kind == 'moco' else 3))
+                            k = turn + (phase >= (3 if kind == 'moco' else 4))
+                            visible = page.evaluate("""() => ({
+                                lines: [...document.querySelectorAll('.ssl-ema-chart polyline')]
+                                    .map(e => ({series:e.dataset.series, count:e.points.numberOfItems})),
+                                dots: [...document.querySelectorAll('.ssl-ema-chart circle')]
+                                    .map(e => ({series:e.dataset.series, step:+e.dataset.step}))
+                            })""")
+                            lines = {item['series']:item['count'] for item in visible['lines']}
+                            assert lines['online'] == q + 1 and lines['target'] == k + 1, (kind,step,lines)
+                            assert sum(d['series'] == 'online' for d in visible['dots']) == q + 1
+                            assert sum(d['series'] == 'target' for d in visible['dots']) == k + 1
+                            assert all(d['step'] <= (q if d['series'] == 'online' else k)
+                                       for d in visible['dots']), (kind,step,visible)
+                            if m != 0.90:
+                                assert lines['reference'] == k + 1, (kind,step,lines)
                             if step == 4:
                                 assert expected in page.locator('.ssl-ema-readout').inner_text()
                     # Autoplay changes the existing computation trace but does
