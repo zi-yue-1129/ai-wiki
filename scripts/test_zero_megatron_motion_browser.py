@@ -132,6 +132,30 @@ def main():
                     assert all(abs(a-b)<.01 for a,b in zip(states, expected)), (t, states)
                     page.screenshot(path=str(OUT / f"{stem}-inline-t{t}.png"))
             page.close()
+            # Direct SVG links must also honor reduced-motion preferences,
+            # independently of MkDocs' still-image player.
+            reduced_context = browser.new_context(reduced_motion="reduce")
+            reduced_page = reduced_context.new_page()
+            reduced_page.set_content((ASSETS / f"{stem}-motion.svg").read_text())
+            reduced_page.evaluate("document.querySelector('svg').setCurrentTime(0.2)")
+            if stem == "zero-state-sharding":
+                states = reduced_page.evaluate("""() => [
+                    +getComputedStyle(document.getElementById('zero-o-0-1')).opacity,
+                    +getComputedStyle(document.getElementById('zero-g-0-1')).opacity,
+                    +getComputedStyle(document.getElementById('zero-p-0-1')).opacity,
+                    +getComputedStyle(document.getElementById('zero-memory-3')).opacity,
+                    getComputedStyle(document.getElementById('zero-memory')).width
+                ]""")
+                assert states[:4] == [0, 0, 0, 1] and states[4] == "127.5px", states
+            else:
+                states = reduced_page.evaluate("""() => [
+                    +getComputedStyle(document.getElementById('tp-partial-0')).opacity,
+                    +getComputedStyle(document.getElementById('tp-output')).opacity,
+                    +getComputedStyle(document.querySelector('.motion-particle')).opacity
+                ]""")
+                assert states == [1, 1, 0], states
+            reduced_page.close()
+            reduced_context.close()
             print(f"{stem}: structure, timeline, keyboard, reduced motion, mobile and desktop passed")
         browser.close()
 
