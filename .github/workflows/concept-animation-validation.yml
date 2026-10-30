@@ -7,6 +7,7 @@ on:
       - "scripts/verify_concept_animations.py"
       - "scripts/verify_concept_motion.py"
       - "scripts/verify_concept_svgs.py"
+      - "scripts/test_uncertainty_motion_semantics.py"
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
@@ -41,6 +42,8 @@ jobs:
           python-version: "3.12"
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
+      - name: Check uncertainty motion numerical semantics
+        run: python scripts/test_uncertainty_motion_semantics.py
       - name: Exercise bilingual guided motion controls and fallback
         run: node scripts/test_concept_motion_chapters.cjs
 
