@@ -29,6 +29,12 @@ With $K$ stages and $M$ micro-batches, the forward passes are scheduled through 
 
 *Original continuous teaching animation, CC BY-SA 4.0.* The moving orange playhead reveals completed work; teal F1–F4 cells are forward computations and violet B4–B1 cells are backward computations. The grey cells make fill/drain bubbles visible. This **illustrative, equal-duration** 3-stage/4-micro-batch schedule has 12 idle stage-slots out of 36 (one-third), consistent with the idealised bubble fraction above; it is **not measured GPU utilisation**. Gradients accumulate over all four backward micro-batches before **one** optimizer update. On MkDocs, use **Play/Pause** (keyboard accessible); reduced-motion settings show the static fallback. On narrow screens, scroll horizontally to inspect all time slots. [GitHub-readable static schedule](../../assets/concept-animations/gpipe-fill-drain-still.svg).
 
+### Gradient accumulation before the optimizer step
+
+![Animated GPipe gradient accumulation: each of three pipeline stages receives backward gradients B4 through B1 at staggered times, and the optimizer step occurs only after all twelve stage-local arrivals.](../../assets/concept-animations/gpipe-gradient-accumulation-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* Each filled teal dot marks **one completed micro-batch gradient contribution** at that pipeline stage, not a gradient magnitude. GPU 3 starts accumulating B4 first, followed by GPU 2 and GPU 1; each stage receives B4–B1 in backward order. Only after **all four contributions at every stage** does one logical optimizer step update the stage-local parameter partitions. The 13-slot clock and gradient arrival times are **schematic, not measured latency**. The MkDocs player supports keyboard Play/Pause and a reduced-motion still; on mobile, scroll horizontally. [GitHub-readable final-state preview](../../assets/concept-animations/gpipe-gradient-accumulation-still.svg).
+
 ## Key methods
 
 The method is the micro-batch pipeline with synchronous gradient accumulation. The paper's evidence is measured throughput as the number of accelerators grows, for very large image models.
