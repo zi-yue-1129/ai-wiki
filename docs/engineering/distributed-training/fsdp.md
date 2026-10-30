@@ -25,15 +25,9 @@ Sharding model state is effective only if it is easy to use. FSDP makes it a fra
 
 For each sharded unit, FSDP all-gathers its parameters before the forward pass, computes, and frees the gathered copy. In the backward pass it all-gathers again, computes gradients, and reduce-scatters them so that each device keeps only its gradient shard. The optimizer then updates each device's own shard.
 
-```mermaid
-flowchart LR
-  A[All-gather unit parameters] --> F[Forward compute]
-  F --> X[Free gathered parameters]
-  X --> B[All-gather again for backward]
-  B --> G[Backward compute]
-  G --> R[Reduce-scatter gradients]
-  R --> O[Optimizer updates local shard]
-```
+![Animated FSDP lifecycle: two ranks all-gather parameter shards for forward and backward compute, release temporary full parameters, then reduce-scatter gradients before local optimizer updates.](../../assets/concept-animations/fsdp-gather-scatter-motion.svg)
+
+*Original continuous teaching animation, CC BY-SA 4.0.* Solid A/B blocks are **persistent local parameter shards**; dashed blocks are temporary remote shards materialised by all-gather for this unit. They disappear after resharding, and the second gather precedes backward computation. Moving dots represent parameter transfers and the later reduce-scatter of gradient contributions; the timeline ends with each rank updating **only its own shard**. The diagram illustrates the **full-shard, reshard-after-forward** path for one unit on two ranks, not every FSDP configuration. Transfer speed, timing and memory size are schematic, **not benchmark measurements**. MkDocs adds keyboard-accessible **Play/Pause** and a reduced-motion fallback; on narrow screens, scroll horizontally. [GitHub-readable static overview](../../assets/concept-animations/fsdp-gather-scatter-still.svg).
 
 ## Key methods
 
