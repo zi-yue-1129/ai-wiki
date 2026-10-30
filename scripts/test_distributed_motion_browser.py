@@ -91,6 +91,13 @@ def main():
                 assert later > first + 10, (first,later)
             else:
                 assert page.locator('svg animateTransform').count() >= 3
+                # A full-shard unit gathers for forward and backward, but
+                # must release temporary copies between the two phases.
+                for t, present in ((0.2, False), (2.8, True), (4.5, False), (6.6, True), (8.1, False)):
+                    opacity = page.evaluate("""t => { const s=document.querySelector('svg'); s.setCurrentTime(t); return +getComputedStyle(s.querySelector('g[opacity]')).opacity }""", t)
+                    assert (opacity > .9) == present, (t, opacity)
+                scatter = page.evaluate("""() => +getComputedStyle(document.querySelectorAll('svg circle')[2]).opacity""")
+                assert scatter > .5, scatter
             page.close()
             print(f'{stem}: structure, motion, 360/900px, keyboard and reduced-motion checks passed')
         browser.close()
