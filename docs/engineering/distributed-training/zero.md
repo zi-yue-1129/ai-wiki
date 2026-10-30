@@ -26,6 +26,9 @@ With plain data parallelism, every device stores the full weights, gradients and
 
 Each stage removes one more source of redundancy. With $\Psi$ parameters, $N_d$ data-parallel devices and Adam in mixed precision, the paper gives the per-device memory as $(4 + \tfrac{12}{N_d})\Psi$ bytes for stage 1, $(2 + \tfrac{14}{N_d})\Psi$ for stage 2, and $\tfrac{16}{N_d}\Psi$ for stage 3.
 
+
+**Interactive timeline on MkDocs:** Play/Pause, step backward/forward, scrub the timeline, or choose 0.5×/1×/2× speed. Motion starts paused, controls are keyboard-accessible, and reduced-motion preferences retain the readable still image. All timings and values are schematic, not measured GPU results.
+
 ![Animated ZeRO state sharding: two ranks progressively partition optimizer state, then gradients, then parameters; per-rank model state shrinks as redundant copies disappear.](../../assets/concept-animations/zero-state-sharding-motion.svg)
 
 *Original continuous teaching animation, CC BY-SA 4.0.* The two GPU columns begin with replicated **P** (parameters), **G** (gradients), and **O** (optimizer state). Each rank retains only its own colour-coded A/B half as ZeRO stages 1–3 successively shard O, G, then P. The lower bar shows an **illustrative** mixed-precision Adam state budget for **two ranks**: 16 → 10 → 9 → 8 bytes per parameter per rank, using P = 2 B, G = 2 B and O = 12 B. This excludes activations, temporary all-gather buffers, fragmentation, and communication; it is **not a measured GPU memory trace**. The orange progress marker follows each sharding transition. On MkDocs, use keyboard-accessible **Play/Pause**; reduced-motion settings show the static final state. On narrow screens, scroll horizontally to keep labels readable. [GitHub-readable final-state preview](../../assets/concept-animations/zero-state-sharding-still.svg).
