@@ -25,15 +25,30 @@ Sharding model state is effective only if it is easy to use. FSDP makes it a fra
 
 For each sharded unit, FSDP all-gathers its parameters before the forward pass, computes, and frees the gathered copy. In the backward pass it all-gathers again, computes gradients, and reduce-scatters them so that each device keeps only its gradient shard. The optimizer then updates each device's own shard.
 
-```mermaid
-flowchart LR
-  A[All-gather unit parameters] --> F[Forward compute]
-  F --> X[Free gathered parameters]
-  X --> B[All-gather again for backward]
-  B --> G[Backward compute]
-  G --> R[Reduce-scatter gradients]
-  R --> O[Optimizer updates local shard]
-```
+
+**Interactive timeline on MkDocs:** Play/Pause, step backward/forward, scrub the timeline, or choose 0.5×/1×/2× speed. Motion starts paused, controls are keyboard-accessible, and reduced-motion preferences retain the readable still image. All timings and values are schematic, not measured GPU results.
+
+![Animated FSDP lifecycle: two ranks all-gather parameter shards for forward and backward compute, release temporary full parameters, then reduce-scatter gradients before local optimizer updates.](../../assets/concept-animations/fsdp-gather-scatter-motion.svg)
+
+*Original continuous teaching animation, CC BY-SA 4.0.* Solid A/B blocks are **persistent local parameter shards**; dashed blocks are temporary remote shards materialised by all-gather for this unit. They disappear after resharding, and the second gather precedes backward computation. Moving dots represent parameter transfers and the later reduce-scatter of gradient contributions; the timeline ends with each rank updating **only its own shard**. The diagram illustrates the **full-shard, reshard-after-forward** path for one unit on two ranks, not every FSDP configuration. Transfer speed, timing and memory size are schematic, **not benchmark measurements**. MkDocs adds keyboard-accessible **Play/Pause** and a reduced-motion fallback; on narrow screens, scroll horizontally. [GitHub-readable static overview](../../assets/concept-animations/fsdp-gather-scatter-still.svg).
+
+### Temporary parameter residency across the two gathers
+
+![Animated FSDP parameter residency: each GPU retains its local shard, briefly materializes the remote shard during forward and backward computation, and returns to one shard between gathers.](../../assets/concept-animations/fsdp-parameter-residency-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* Solid blocks remain resident; dashed-outline positions are filled **only when all-gather materializes the remote parameter shard**. The per-rank indicator changes from one to two schematic parameter shards during forward and backward computation, returning to one after resharding. This illustrates the **temporary full-parameter residency for one FSDP unit**, not total GPU memory: activations, gradients, optimizer states, prefetch overlap and allocator effects are excluded. The phase durations and shard sizes are **not measurements**. MkDocs provides keyboard Play/Pause and a reduced-motion fallback; narrow screens can scroll horizontally. [GitHub-readable gather-state preview](../../assets/concept-animations/fsdp-parameter-residency-still.svg).
+
+
+### Interactive parameter residency and reshard policy (MkDocs)
+
+![FSDP static fallback: local parameter shards and temporary full-parameter gathering for two ranks.](../../assets/concept-animations/fsdp-parameter-residency-still.svg)
+
+<div class="distributed-computation-probe" data-probe="fsdp" data-lang="en"></div>
+
+*Original computation probe; GitHub shows the reviewed static fallback above.* On MkDocs, adjust **2–8 ranks**, a **64–512 MiB** parameter unit and **Reshard after forward**. Play, pause, step or seek through shard → forward all-gather → forward → reshard/retain → backward gather/reuse → backward → reduce-scatter; choose 0.5×/1×/2× speed. The two comparison rows show why retaining full parameters between passes avoids the second all-gather but holds more parameter memory. For a 256 MiB unit across four ranks, steady sharded storage is **64 MiB per rank** and full gathered storage is **256 MiB per rank**. These are **analytical parameter-only teaching values**, not GPU measurements; activations, gradients, optimizer state, prefetch overlap and temporary buffers are excluded. Keyboard controls work without a mouse, reduced-motion users can step manually, and the fallback remains visible without JavaScript.
+
+
+**Communication-versus-residency comparison:** The interactive plot also tracks *cumulative all-gather data received per rank* for both policies at each operation, using $S(N-1)/N$ bytes per gather for a unit of size $S$ over $N$ ranks. For example, at $S=256$ MiB and $N=8$, resharding after forward receives $224$ MiB twice ($448$ MiB), whereas retaining the gathered parameters receives $224$ MiB once. This compares idealized payload volume, **not measured bandwidth, latency, peak allocator memory or total network traffic**. The bars advance only when each gather has occurred.
 
 ## Key methods
 

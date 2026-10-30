@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-10-30
 tags:
 - engineering
 - systems
@@ -25,15 +26,30 @@ aliases:
 
 對每個分片單元，FSDP 在前向傳播前 all-gather 其參數，進行計算後釋放收集到的副本。在反向傳播時，它再次 all-gather，計算梯度，然後對梯度做 reduce-scatter，使每個裝置只保留梯度分片。最佳化器接著更新每個裝置自己的分片。
 
-```mermaid
-flowchart LR
-  A[All-gather 單元參數] --> F[前向計算]
-  F --> X[釋放收集到的參數]
-  X --> B[反向前再次 all-gather]
-  B --> G[反向計算]
-  G --> R[Reduce-scatter 梯度]
-  R --> O[最佳化器更新本地分片]
-```
+
+**MkDocs 互動時間軸：** 這組分散式訓練動畫現在可用「播放／暫停」、「上一步／下一步」、時間軸拖曳及 0.5×／1×／2× 速度操作。動畫預設暫停，支援鍵盤；偏好減少動態效果時會保留可閱讀的靜態回退圖。圖中時間與數值均為教學示意，並非實際 GPU 量測。
+
+![FSDP 動畫：兩個 rank 在前向與反向運算前收集參數分片、釋放暫時的完整參數，再對梯度做 reduce-scatter 並更新本地分片。](../../assets/concept-animations/fsdp-gather-scatter-motion.svg)
+
+*原創連續教學動畫，CC BY-SA 4.0。* 實線 A／B 方塊代表**持續保留的本地參數分片**，虛線方塊是 all-gather 暫時收集的遠端分片。完成前向計算後會重新分片並釋放暫存副本；反向計算前再次收集。移動的圓點分別示意參數交換及稍後的梯度 reduce-scatter，最後每個 rank **只更新自己持有的分片**。本圖描述兩個 rank、單一分片單元的 **full-shard 且前向後 reshard** 路徑，不代表所有 FSDP 設定；通訊速度、時序及記憶體尺寸均為**教學示意，非實測數值**。MkDocs 提供鍵盤可操作的「播放／暫停」及減少動態效果回退，手機可左右捲動。[GitHub 可讀的靜態總覽](../../assets/concept-animations/fsdp-gather-scatter-still.svg)。
+
+### 兩次收集之間的暫時參數駐留
+
+![FSDP 參數駐留動畫：每個 GPU 持續保留本地分片，在前向與反向計算期間暫時收集遠端分片，重新分片後回到僅保留本地分片。](../../assets/concept-animations/fsdp-parameter-residency-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 實心方塊是持續駐留的本地參數分片；虛線位置只在 **all-gather 暫時取得遠端分片**時填滿。每個 rank 的示意參數駐留量在前向與反向計算時由一份分片增至兩份，重新分片後降回一份。這只表示**單一 FSDP 分片單元的暫時完整參數駐留**，不是 GPU 總記憶體使用量；未計入 activation、梯度、最佳化器狀態、預先取得的重疊及記憶體配置器影響。階段時間與分片尺寸均為**教學示意，非實測數值**。MkDocs 支援鍵盤播放／暫停及減少動態效果回退，手機可左右捲動。[GitHub 可讀的收集狀態預覽](../../assets/concept-animations/fsdp-parameter-residency-still.svg)。
+
+
+### 互動式參數駐留與重新分片策略（MkDocs）
+
+![FSDP 靜態回退預覽：兩個裝置保留本地參數分片，並在計算時暫時收集完整參數。](../../assets/concept-animations/fsdp-parameter-residency-still.svg)
+
+<div class="distributed-computation-probe" data-probe="fsdp" data-lang="zh"></div>
+
+*原創運算互動示範；GitHub 可直接閱讀上方靜態回退圖。* 在 MkDocs 可調整 **2–8 個裝置**、**64–512 MiB** 的參數單元，以及是否**在前向運算後重新分片**。可播放／暫停、單步、拖曳時間軸或選擇 0.5×／1×／2× 速度，逐步觀察本地分片、前向 all-gather、前向運算、重新分片／保留、反向收集／沿用、反向運算及 reduce-scatter。兩列對照顯示：保留完整參數可省去第二次 all-gather，但會增加前後向之間的參數駐留量。以 4 個裝置、256 MiB 的單一單元為例，每裝置平時保留 **64 MiB**，收集後暫時持有 **256 MiB**。這是**僅計參數的解析式教學數值，並非 GPU 實測**；不含激活值、梯度、最佳化器狀態、預先取得重疊與暫存緩衝區。支援鍵盤與手動單步；減少動態效果偏好不會自動播放，停用 JavaScript 時保留靜態圖。
+
+
+**通訊量與參數駐留量的取捨：** 互動圖也會依照實際已完成的步驟，逐步累積兩種策略下**每個裝置接收的 All-gather 資料量**。對大小為 $S$ 的單元與 $N$ 個裝置，每次接收量為 $S(N-1)/N$。例如 $S=256$ MiB、$N=8$ 時，前向後重新分片需要接收兩次 $224$ MiB（合計 $448$ MiB）；保留完整參數只需接收一次 $224$ MiB。這是理想化的傳輸酬載估算，**不是頻寬、延遲、記憶體配置器峰值或整體網路流量的實測值**。長條只在對應收集步驟完成後才增加。
 
 ## 關鍵方法
 

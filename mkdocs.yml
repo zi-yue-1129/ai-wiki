@@ -1065,6 +1065,9 @@ markdown_extensions:
 extra_javascript:
   - javascripts/concept-motion-detailed.js
   - javascripts/concept-motion.js
+  - javascripts/distributed-motion-controls.js
+  - javascripts/distributed-parameter-explorers.js
+  - javascripts/distributed-computation-probes.js
   - javascripts/zoom.js
   - javascripts/mathjax.js
   - javascripts/knowledge-map.js
@@ -1073,6 +1076,9 @@ extra_javascript:
 extra_css:
   - stylesheets/concept-motion-detailed.css
   - stylesheets/concept-motion.css
+  - stylesheets/distributed-motion-controls.css
+  - stylesheets/distributed-parameter-explorers.css
+  - stylesheets/distributed-computation-probes.css
   - stylesheets/zoom.css
   - stylesheets/extra.css
 

@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-10-30
 tags:
 - engineering
 - systems
@@ -25,16 +26,24 @@ Megatron-LM 的張量平行會把每個 Transformer 層內的權重矩陣切分�
 
 對於計算 $Y = \mathrm{GeLU}(XA)$ 的 MLP 區塊，接著乘上第二個矩陣 $B$：第一個矩陣按列切成 $A = [A_1, A_2]$。每個裝置各自計算 $\mathrm{GeLU}(XA_i)$。第二個矩陣按行切成 $B = [B_1; B_2]$，因此每個裝置算出部分乘積，再由一次 all-reduce 加總結果。注意力遵循同樣的模式：頭分散到各裝置，輸出投影則按行切分。
 
-```mermaid
-flowchart LR
-  X[輸入 X] --> A1[裝置 1：列切片 A1]
-  X --> A2[裝置 2：列切片 A2]
-  A1 --> B1[裝置 1：行切片 B1]
-  A2 --> B2[裝置 2：行切片 B2]
-  B1 --> R[All-reduce 加總]
-  B2 --> R
-  R --> Y[輸出 Y]
-```
+
+**MkDocs 互動時間軸：** 這組分散式訓練動畫現在可用「播放／暫停」、「上一步／下一步」、時間軸拖曳及 0.5×／1×／2× 速度操作。動畫預設暫停，支援鍵盤；偏好減少動態效果時會保留可閱讀的靜態回退圖。圖中時間與數值均為教學示意，並非實際 GPU 量測。
+
+![Megatron 張量平行 MLP 動畫：輸入複製到兩個 rank，各自計算列切分的隱藏特徵及行切分的部分輸出，最後透過一次 all-reduce 合併。](../../assets/concept-animations/megatron-column-row-motion.svg)
+
+*原創連續教學動畫，CC BY-SA 4.0。* 兩個 GPU 都收到相同輸入 **X**。第一個投影矩陣的**列分片 A1/A2** 產生不同的隱藏特徵切片；各 rank **在本地執行 GeLU**，再由第二個投影矩陣的**行分片 B1/B2** 計算部分輸出 **p1/p2**。紫色訊號最後在**一次 all-reduce** 中合併，兩個 rank 都得到 **Y = p1 + p2**。第一個投影與本地 GeLU 之間不需要前向集體通訊。這是**兩路 MLP 切分的教學示意**，**不是實測通訊延遲或模型輸出**；圖中省略反向通訊與偏置。MkDocs 提供鍵盤可操作的播放／暫停，減少動態效果設定會顯示完成後的靜態圖；手機可左右捲動。[GitHub 可讀的完成路徑預覽](../../assets/concept-animations/megatron-column-row-still.svg)。
+
+
+### 互動式 MLP 張量平行通訊（MkDocs）
+
+![Megatron 靜態回退預覽：列平行的本地特徵、行平行的部分輸出，以及最後的 all-reduce。](../../assets/concept-animations/megatron-column-row-still.svg)
+
+<div class="distributed-computation-probe" data-probe="megatron" data-lang="zh"></div>
+
+*原創運算互動示範；GitHub 可直接閱讀上方靜態總覽。* 在 MkDocs 可選擇 **2、4 或 8 個張量平行裝置**及 **1–8 個 Token**，透過播放／暫停、單步、拖曳時間軸及 0.5×／1×／2× 速度，觀察複製輸入 X、列切分 W1、本地 GeLU、行切分 W2、all-reduce，最後每個裝置取得 Y。示意設定為隱藏維度 **H=8**、MLP 擴張維度 **4H=32**、每元素 **2 B**。每裝置的中間特徵寬度為 **32/N**，而各裝置部分輸出的形狀仍是 **T×8**；必須完成 all-reduce 才會產生各裝置共享的 Y。理想化 ring all-reduce 每裝置傳輸量估算為 **2(N−1)/N × (T×8×2 B)**。這是**解析式通訊示意，並非網路流量、頻寬或模型輸出實測**；省略反向集體通訊與偏置。支援鍵盤操作、減少動態效果時手動單步及無 JavaScript 靜態回退；手機可水平捲動各裝置。
+
+
+**檢視 Ring 集體通訊：** 在 **All-reduce** 階段，第二條滑桿可逐回合查看 $2(N-1)$ 次 Ring 通訊：先以 $N-1$ 回合 Reduce-scatter 將各裝置的貢獻累加至負責的分塊，再以 $N-1$ 回合 All-gather 將完成的分塊分送給所有裝置。每格的分數代表該分塊**已累加的裝置貢獻數／總裝置數**，不是實測張量值。每回合、每裝置的傳輸量增加 $(T\times8\times2)/N$ B，直到完成時才達到 $2(N-1)/N\times(T\times8\times2)$ B。只有完成集體通訊後才顯示最終 Y。表格可水平捲動，回合滑桿支援鍵盤操作。
 
 ## 關鍵方法
 

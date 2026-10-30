@@ -25,12 +25,26 @@ A model too large for one device can be split by layers, with each device holdin
 
 With $K$ stages and $M$ micro-batches, the forward passes are scheduled through the pipeline, then the backward passes run in reverse order. The idle fraction, or bubble, is approximately $\frac{K-1}{M+K-1}$, so more micro-batches make the pipeline more efficient. Gradients from all micro-batches are summed before a single optimizer step.
 
-```mermaid
-flowchart LR
-  M1[Micro-batch 1] --> S1[Stage 1] --> S2[Stage 2] --> S3[Stage 3]
-  M2[Micro-batch 2] -.-> S1
-  M3[Micro-batch 3] -.-> S1
-```
+
+**Interactive timeline on MkDocs:** Play/Pause, step backward/forward, scrub the timeline, or choose 0.5×/1×/2× speed. Motion starts paused, controls are keyboard-accessible, and reduced-motion preferences retain the readable still image. All timings and values are schematic, not measured GPU results.
+
+![Animated GPipe schedule: four micro-batches fill three stages in forward order, then backward work drains the pipeline in reverse micro-batch order. Grey cells are idle bubbles.](../../assets/concept-animations/gpipe-fill-drain-motion.svg)
+
+*Original continuous teaching animation, CC BY-SA 4.0.* The moving orange playhead reveals completed work; teal F1–F4 cells are forward computations and violet B4–B1 cells are backward computations. The grey cells make fill/drain bubbles visible. This **illustrative, equal-duration** 3-stage/4-micro-batch schedule has 12 idle stage-slots out of 36 (one-third), consistent with the idealised bubble fraction above; it is **not measured GPU utilisation**. Gradients accumulate over all four backward micro-batches before **one** optimizer update. On MkDocs, use **Play/Pause** (keyboard accessible); reduced-motion settings show the static fallback. On narrow screens, scroll horizontally to inspect all time slots. [GitHub-readable static schedule](../../assets/concept-animations/gpipe-fill-drain-still.svg).
+
+### Gradient accumulation before the optimizer step
+
+![Animated GPipe gradient accumulation: each of three pipeline stages receives backward gradients B4 through B1 at staggered times, and the optimizer step occurs only after all twelve stage-local arrivals.](../../assets/concept-animations/gpipe-gradient-accumulation-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* Each filled teal dot marks **one completed micro-batch gradient contribution** at that pipeline stage, not a gradient magnitude. GPU 3 starts accumulating B4 first, followed by GPU 2 and GPU 1; each stage receives B4–B1 in backward order. Only after **all four contributions at every stage** does one logical optimizer step update the stage-local parameter partitions. The 13-slot clock and gradient arrival times are **schematic, not measured latency**. The MkDocs player supports keyboard Play/Pause and a reduced-motion still; on mobile, scroll horizontally. [GitHub-readable final-state preview](../../assets/concept-animations/gpipe-gradient-accumulation-still.svg).
+
+### Explore the pipeline bubble
+
+Change the number of stages $K$ and micro-batches $M$, then step through or play the **idealised all-forward/all-backward GPipe schedule**. Each F/B cell is one completed forward/backward micro-batch operation; grey cells are idle. The counter is an operation count, not a gradient magnitude. Under equal stage times the bubble fraction is $(K-1)/(M+K-1)$; more micro-batches reduce this fraction but may increase activation-memory pressure. These slots and percentages are **analytical teaching examples, not measured GPU utilisation**. On a narrow screen, scroll the schedule horizontally.
+
+![GPipe three-stage, four-micro-batch schedule fallback for GitHub and no-script readers.](../../assets/concept-animations/gpipe-fill-drain-still.svg)
+
+<div class="distributed-explorer" data-explorer="gpipe" data-lang="en"></div>
 
 ## Key methods
 

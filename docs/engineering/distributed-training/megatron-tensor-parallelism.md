@@ -25,16 +25,24 @@ Data parallelism replicates the whole model, so it does not reduce the memory ne
 
 For an MLP block computing $Y = \mathrm{GeLU}(XA)$ followed by a second matrix $B$, the first matrix is split as $A = [A_1, A_2]$ by columns. Each device computes $\mathrm{GeLU}(XA_i)$ on its own. The second matrix is split by rows as $B = [B_1; B_2]$, so each device computes a partial product, and a single all-reduce sums the results. Attention follows the same pattern, with the heads divided across devices and the output projection split by rows.
 
-```mermaid
-flowchart LR
-  X[Input X] --> A1[Device 1: column slice A1]
-  X --> A2[Device 2: column slice A2]
-  A1 --> B1[Device 1: row slice B1]
-  A2 --> B2[Device 2: row slice B2]
-  B1 --> R[All-reduce sum]
-  B2 --> R
-  R --> Y[Output Y]
-```
+
+**Interactive timeline on MkDocs:** Play/Pause, step backward/forward, scrub the timeline, or choose 0.5×/1×/2× speed. Motion starts paused, controls are keyboard-accessible, and reduced-motion preferences retain the readable still image. All timings and values are schematic, not measured GPU results.
+
+![Animated Megatron tensor-parallel MLP: the input is replicated, each rank computes its own column-partition activation and row-partition partial output, and one all-reduce combines both partial results.](../../assets/concept-animations/megatron-column-row-motion.svg)
+
+*Original continuous teaching animation, CC BY-SA 4.0.* Both GPUs receive the same input **X**. The first projection's **column partitions A1/A2** produce separate hidden slices; GeLU is applied **locally** before the second projection's **row partitions B1/B2** produce partial outputs **p1/p2**. Violet signals then meet at **one all-reduce**, after which both ranks have **Y = p1 + p2**. There is no forward collective between the first projection and local GeLU. The animation depicts a schematic two-way MLP split, **not measured communication latency or model outputs**; it omits backward collectives and biases. On MkDocs, use keyboard-accessible **Play/Pause**; reduced-motion settings show the completed computation. On narrow screens, scroll horizontally. [GitHub-readable completed-path preview](../../assets/concept-animations/megatron-column-row-still.svg).
+
+
+### Interactive MLP tensor-parallel communication (MkDocs)
+
+![Megatron static fallback: column-parallel local activations, row-parallel partial outputs and final all-reduce.](../../assets/concept-animations/megatron-column-row-still.svg)
+
+<div class="distributed-computation-probe" data-probe="megatron" data-lang="en"></div>
+
+*Original computation probe; GitHub retains the static overview above.* On MkDocs, select **2, 4 or 8 tensor-parallel ranks** and **1–8 tokens**. Play, pause, step or seek from replicated input X through column-partitioned W1, local GeLU, row-partitioned W2, all-reduce and replicated output Y; playback supports 0.5×/1×/2× speed. The demonstration uses hidden width **H=8**, MLP expansion **4H=32** and **2 bytes per element**. The local intermediate width is **32/N**, while each rank's partial output has shape **T×8**; only after all-reduce does each rank receive Y. For a ring all-reduce, the idealized per-rank transferred payload is **2(N−1)/N × (T×8×2 B)**. This is an **analytical communication illustration**, not measured network traffic, bandwidth or model output. Backward collectives and biases are omitted. Native keyboard controls, reduced-motion manual stepping and a no-script static fallback are provided; scroll the rank lanes horizontally on mobile.
+
+
+**Inspect the ring collective:** At the **All-reduce** phase, a second slider exposes each of the $2(N-1)$ ring rounds: $N-1$ reduce-scatter rounds combine rank contributions into owned chunks, followed by $N-1$ all-gather rounds distributing the completed chunks to every rank. Each cell shows **contributions accumulated / rank count** for a chunk; it is not a measured tensor value. Per-rank transferred bytes increase by $(T\times8\times2)/N$ per round, reaching $2(N-1)/N\times(T\times8\times2)$ only after completion. The final Y is revealed only at the completed collective stage. The grid is horizontally scrollable and the round slider is keyboard-operable.
 
 ## Key methods
 

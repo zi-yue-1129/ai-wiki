@@ -1,0 +1,38 @@
+/* Computational explorations; native controls and a no-script chapter SVG fallback. */
+.distributed-explorer { margin: 1rem 0 1.25rem; color: var(--md-default-fg-color, #203246); }
+.dex-panel { border: 1px solid var(--md-default-fg-color--lightest, #d4dfe6); border-radius: 12px; padding: 14px; background: var(--md-default-bg-color, #fff); }
+.dex-fields { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; margin-bottom: 14px; }
+.dex-field { display: grid; gap: 6px; font-size: .77rem; }
+.dex-field-head { display: flex; justify-content: space-between; gap: 8px; }
+.dex-field-value { font-weight: 700; font-variant-numeric: tabular-nums; }
+.dex-field input { width: 100%; accent-color: #12847f; }
+.dex-plot { overflow-x: auto; max-width: 100%; padding: 8px 0 12px; }
+.dex-schedule { display: grid; gap: 3px; width: max-content; align-items: center; }
+.dex-grid-label { font: 600 12px system-ui,sans-serif; text-align: center; }
+.dex-tick { font: 10px system-ui,sans-serif; text-align: center; color: var(--md-default-fg-color--light, #66798b); }
+.dex-cell { display: grid; place-items: center; height: 30px; border-radius: 4px; font: 600 11px system-ui,sans-serif; transition: opacity .18s ease, background-color .18s ease; }
+.dex-forward.dex-done { background: #b9e9df; color: #07564d; }
+.dex-backward.dex-done { background: #d9c9fa; color: #4c3184; }
+.dex-forward.dex-future, .dex-backward.dex-future { background: #eef2f6; color: #8996a4; }
+.dex-idle { background: repeating-linear-gradient(135deg,#f2f4f7,#f2f4f7 4px,#e7ebef 4px,#e7ebef 8px); }
+.dex-cell.dex-now, .dex-tick.dex-now { outline: 2px solid #df8731; outline-offset: 0; }
+.dex-stats { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; font-size: .75rem; font-variant-numeric: tabular-nums; margin: 6px 0 12px; }
+.dex-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.dex-button { min-width: 34px; min-height: 34px; padding: 4px 9px; border: 1px solid var(--md-default-fg-color--lighter,#9baab7); border-radius: 7px; background: var(--md-default-bg-color,#fff); color: inherit; cursor: pointer; font-size: .85rem; }
+.dex-button:disabled { opacity: .4; cursor: default; }
+.dex-button:focus-visible, .dex-rate:focus-visible, .dex-field input:focus-visible { outline: 3px solid #168780; outline-offset: 2px; }
+.dex-time { margin-left: auto; font-size: .75rem; font-variant-numeric: tabular-nums; }
+.dex-rate { border: 1px solid var(--md-default-fg-color--lighter,#9baab7); border-radius: 7px; background: var(--md-default-bg-color,#fff); color: inherit; padding: 5px; }
+.dex-note { margin: 12px 0 0 !important; font-size: .7rem; color: var(--md-default-fg-color--light,#66798b); }
+.dex-memory { display: grid; gap: 12px; margin: 14px 0; }
+.dex-memory-head { display: flex; justify-content: space-between; font-size: .77rem; margin-bottom: 5px; font-variant-numeric: tabular-nums; }
+.dex-memory-track { display: flex; width: 100%; height: 34px; background: repeating-linear-gradient(90deg,#edf1f5,#edf1f5 calc(25% - 1px),#cdd6dd calc(25% - 1px),#cdd6dd 25%); border-radius: 6px; overflow: hidden; }
+.dex-memory-track span { display: block; height: 100%; transition: width .3s ease; }
+.dex-p { background: #178e84; } .dex-g { background: #8068c4; } .dex-o { background: #d69a3c; }
+.dex-legend { display: flex; gap: 14px; font-size: .75rem; }
+.dex-legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.dex-legend-item i { width: 11px; height: 11px; border-radius: 2px; }
+@media (max-width: 460px) { .dex-panel { padding: 10px; } .dex-fields { gap: 10px; } .dex-time { margin-left: 0; } }
+@media (prefers-reduced-motion: reduce) { .dex-cell, .dex-memory-track span { transition: none !important; } }
+
+.distributed-explorer + p[hidden], p[hidden]:has(+ .distributed-explorer) { display: none !important; }
