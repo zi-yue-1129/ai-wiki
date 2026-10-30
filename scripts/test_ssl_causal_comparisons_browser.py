@@ -50,10 +50,10 @@ with sync_playwright() as p:
                             assert page.locator('.ssl-causal svg path[stroke="#b25e66"]').count()==2
                     assert not errors,errors
                     assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),(kind,locale,width,'overflow')
-                    assert page.evaluate("""() => [...document.querySelectorAll('.ssl-causal svg text')].every(t=>{
+                    assert page.evaluate('''() => [...document.querySelectorAll('.ssl-causal svg text')].every(t=>{
                       const b=t.getBBox(),svg=t.ownerSVGElement,v=svg.viewBox.baseVal;
                       return b.x>=-1&&b.y>=-1&&b.x+b.width<=v.width+1&&b.y+b.height<=v.height+1;
-                    })"""),(kind,locale,width,'text clipped')
+                    })'''),(kind,locale,width,'text clipped')
                     # Native range remains keyboard operable; no extra input was introduced.
                     assert page.locator('.ssl-causal input').count()==0
                     slider.focus()
