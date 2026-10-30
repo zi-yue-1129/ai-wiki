@@ -1,0 +1,13 @@
+/* CC BY-SA 4.0. Responsive temporal teaching probes, no autonomous motion. */
+.ssl-temporal-provenance {max-width:640px; margin:.75rem 0; color:var(--md-default-fg-color,#24394c);}
+.ssl-temporal-heading {font-size:.9rem; font-weight:650; margin-bottom:.35rem;}
+.ssl-temporal-chart svg {display:block; width:100%; height:auto; border-radius:.55rem;}
+.ssl-temporal-chart .ssl-temporal-title {font:600 19px Arial,sans-serif; fill:#243d52;}
+.ssl-temporal-chart .ssl-temporal-small {font:15px Arial,sans-serif; fill:#415a6a;}
+.ssl-temporal-chart .ssl-temporal-row {font:600 18px Arial,sans-serif; fill:#304f60;}
+.ssl-temporal-chart .ssl-temporal-token {font:700 21px Arial,sans-serif; fill:#183c4d;}
+.ssl-temporal-chart .ssl-temporal-pct {font:600 15px Arial,sans-serif; fill:white;}
+.ssl-temporal-readout {display:block; font:600 .78rem/1.5 ui-monospace,monospace; overflow-wrap:anywhere; padding:.35rem .1rem;}
+.ssl-temporal-note {font-size:.77rem; line-height:1.55; margin:.2rem 0 .65rem;}
+@media(max-width:480px){.ssl-temporal-chart .ssl-temporal-small{font-size:18px}.ssl-temporal-chart .ssl-temporal-row{font-size:21px}.ssl-temporal-chart .ssl-temporal-pct{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.ssl-temporal-provenance *{transition:none!important;animation:none!important}}
