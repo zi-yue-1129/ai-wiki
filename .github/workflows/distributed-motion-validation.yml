@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - "docs/assets/concept-animations/gpipe-fill-drain-*.svg"
+      - "docs/assets/concept-animations/gpipe-gradient-accumulation-*.svg"
       - "docs/assets/concept-animations/fsdp-gather-scatter-*.svg"
+      - "docs/assets/concept-animations/fsdp-parameter-residency-*.svg"
       - "docs/engineering/distributed-training/gpipe*.md"
       - "docs/engineering/distributed-training/fsdp*.md"
       - "docs/stylesheets/extra.css"
