@@ -33,6 +33,14 @@ Each stage removes one more source of redundancy. With $\Psi$ parameters, $N_d$ 
 
 *Original continuous teaching animation, CC BY-SA 4.0.* The two GPU columns begin with replicated **P** (parameters), **G** (gradients), and **O** (optimizer state). Each rank retains only its own colour-coded A/B half as ZeRO stages 1–3 successively shard O, G, then P. The lower bar shows an **illustrative** mixed-precision Adam state budget for **two ranks**: 16 → 10 → 9 → 8 bytes per parameter per rank, using P = 2 B, G = 2 B and O = 12 B. This excludes activations, temporary all-gather buffers, fragmentation, and communication; it is **not a measured GPU memory trace**. The orange progress marker follows each sharding transition. On MkDocs, use keyboard-accessible **Play/Pause**; reduced-motion settings show the static final state. On narrow screens, scroll horizontally to keep labels readable. [GitHub-readable final-state preview](../../assets/concept-animations/zero-state-sharding-still.svg).
 
+### Explore ZeRO memory as rank count changes
+
+Choose $N_d$ data-parallel ranks and step through the replicated baseline and ZeRO stages 1–3. The live stacked bar separates parameters **P = 2 B**, gradients **G = 2 B**, and optimizer state **O = 12 B** per parameter for a schematic mixed-precision Adam configuration. At stage 1, only O is sharded; at stage 2, G is also sharded; at stage 3, P is sharded. Thus the per-rank state changes from $16$ to $4+12/N_d$, $2+14/N_d$, and $16/N_d$ bytes per parameter. **These are analytical model-state budgets, not measured GPU memory**, and omit activations, all-gather buffers, and communication costs. Play advances stages; in reduced-motion mode, use the keyboard-accessible step controls instead.
+
+![ZeRO two-rank state-sharding static fallback for GitHub and no-script readers.](../../assets/concept-animations/zero-state-sharding-still.svg)
+
+<div class="distributed-explorer" data-explorer="zero" data-lang="en"></div>
+
 ## Key methods
 
 The method is the three-stage partitioning of model state, with parameters gathered on demand. The paper's evidence is the per-device memory formulas and experiments on very large models across many GPUs.
