@@ -18,6 +18,7 @@ with sync_playwright() as pw:
                     ctx=browser.new_context(viewport={'width':width,'height':800},reduced_motion='reduce' if reduce else 'no-preference')
                     page=ctx.new_page()
                     page.set_content(f'<html><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:12px;font:14px system-ui"><p><img src="/assets/concept-animations/{lab}-still.svg" alt="Fallback"></p><div class="distributed-computation-probe" data-probe="{lab}" data-lang="{lang}"></div></body></html>')
+                    assert page.get_by_alt_text('Fallback').is_visible()  # GitHub/no-script baseline
                     page.add_style_tag(content=CSS);page.add_script_tag(content=JS)
                     host=page.locator('.distributed-computation-probe')
                     assert host.get_attribute('data-ready')=='yes'
@@ -25,6 +26,11 @@ with sync_playwright() as pw:
                     play=host.get_by_role('button',name='播放' if lang=='zh' else 'Play')
                     assert play.is_disabled()==reduce
                     seek=host.get_by_role('slider',name='時間軸' if lang=='zh' else 'Timeline')
+                    next_button=host.get_by_role('button',name='下一步' if lang=='zh' else 'Next step')
+                    next_button.focus();page.keyboard.press('Space')
+                    assert '2/' in host.locator('.dcp-status').inner_text()
+                    seek.focus();page.keyboard.press('Home')
+                    assert '1/' in host.locator('.dcp-status').inner_text()
                     if lab=='fsdp':
                         assert '64.0 MiB' in host.locator('.dcp-stats').inner_text()
                         seek.fill('3');assert '64.0 MiB' in host.locator('.dcp-stats').inner_text()
