@@ -42,6 +42,7 @@ with sync_playwright() as pw:
                         # Reshard requires two gathers; retain requires one.
                         host.get_by_role('checkbox',name='前向後重新分片' if lang=='zh' else 'Reshard after forward').check()
                         assert '448.0 MiB' in host.locator('.dcp-stats').inner_text()
+                        if not reduce:page.screenshot(path=str(OUT/f'probe-fsdp-{lang}-{width}-gather-tradeoff.png'),full_page=True)
                         assert host.locator('.dcp-transfer-row').count()==2
                         assert '224.0 MiB' in host.locator('.dcp-transfer-row').nth(1).inner_text()
                         seek.fill('0');assert '0.0 MiB' in host.locator('.dcp-transfer-row').first.inner_text()
@@ -62,10 +63,12 @@ with sync_playwright() as pw:
                         assert host.locator('.dcp-ring-cell.dcp-ring-complete').count()==0
                         ring.fill('7')
                         assert host.locator('.dcp-ring-cell.dcp-ring-complete').count()==8
+                        if not reduce:page.screenshot(path=str(OUT/f'probe-megatron-{lang}-{width}-ring-reduce-scatter.png'),full_page=True)
                         assert '56.0 / 112.0 B' in host.locator('.dcp-ring-foot').inner_text()
                         ring=host.get_by_role('slider',name='Ring 回合' if lang=='zh' else 'Ring round')
                         ring.fill('14')
                         assert host.locator('.dcp-ring-cell.dcp-ring-complete').count()==64
+                        if not reduce:page.screenshot(path=str(OUT/f'probe-megatron-{lang}-{width}-ring-all-gather.png'),full_page=True)
                         assert '112.0 B' in host.locator('.dcp-stats').inner_text()
                         assert host.locator('.dcp-output').count()==0
                         seek.fill('5');assert host.locator('.dcp-output').count()==8
