@@ -39,6 +39,16 @@ aliases:
 
 *原創教學動畫，CC BY-SA 4.0。* 實心方塊是持續駐留的本地參數分片；虛線位置只在 **all-gather 暫時取得遠端分片**時填滿。每個 rank 的示意參數駐留量在前向與反向計算時由一份分片增至兩份，重新分片後降回一份。這只表示**單一 FSDP 分片單元的暫時完整參數駐留**，不是 GPU 總記憶體使用量；未計入 activation、梯度、最佳化器狀態、預先取得的重疊及記憶體配置器影響。階段時間與分片尺寸均為**教學示意，非實測數值**。MkDocs 支援鍵盤播放／暫停及減少動態效果回退，手機可左右捲動。[GitHub 可讀的收集狀態預覽](../../assets/concept-animations/fsdp-parameter-residency-still.svg)。
 
+
+### 互動式參數駐留與重新分片策略（MkDocs）
+
+![FSDP 靜態回退預覽：兩個裝置保留本地參數分片，並在計算時暫時收集完整參數。](../../assets/concept-animations/fsdp-parameter-residency-still.svg)
+
+<div class="distributed-computation-probe" data-probe="fsdp" data-lang="zh"></div>
+
+*原創運算互動示範；GitHub 可直接閱讀上方靜態回退圖。* 在 MkDocs 可調整 **2–8 個裝置**、**64–512 MiB** 的參數單元，以及是否**在前向運算後重新分片**。可播放／暫停、單步、拖曳時間軸或選擇 0.5×／1×／2× 速度，逐步觀察本地分片、前向 all-gather、前向運算、重新分片／保留、反向收集／沿用、反向運算及 reduce-scatter。兩列對照顯示：保留完整參數可省去第二次 all-gather，但會增加前後向之間的參數駐留量。以 4 個裝置、256 MiB 的單一單元為例，每裝置平時保留 **64 MiB**，收集後暫時持有 **256 MiB**。這是**僅計參數的解析式教學數值，並非 GPU 實測**；不含激活值、梯度、最佳化器狀態、預先取得重疊與暫存緩衝區。支援鍵盤與手動單步；減少動態效果偏好不會自動播放，停用 JavaScript 時保留靜態圖。
+
+
 ## 關鍵方法
 
 這個方法是每個單元的收集、計算、釋放循環，加上梯度的 reduce-scatter。論文的證據是：在大量 GPU 上訓練大型 Transformer 模型時所量測到的記憶體與吞吐量，以及論文記錄的設計取捨。
