@@ -37,7 +37,7 @@
       `<rect x="0.5" y="0.5" width="599" height="223" rx="8" fill="#f8fbfd" stroke="#c4d4df"/>`+
       grid + `<path d="M60 14 V174 H545" fill="none" stroke="#7e93a1" stroke-width="1.5"/>`+
       `<text x="60" y="19" class="ssl-ema-axis">Toy scalar</text>` + steps +
-      `<text x="302" y="217" text-anchor="middle" class="ssl-ema-axis">EMA update index</text>`+
+      `<text x="302" y="217" text-anchor="middle" class="ssl-ema-axis">Update index</text>`+
       (compare ? line(original, '#9babb7', true, 2) : '')+
       line(online, '#2c709b', false, 3) + line(target, '#138675', false, 3) +
       circles(online, '#2c709b', queryStep) + circles(target, '#138675', keyStep) +
