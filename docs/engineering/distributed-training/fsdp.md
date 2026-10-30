@@ -29,6 +29,12 @@ For each sharded unit, FSDP all-gathers its parameters before the forward pass, 
 
 *Original continuous teaching animation, CC BY-SA 4.0.* Solid A/B blocks are **persistent local parameter shards**; dashed blocks are temporary remote shards materialised by all-gather for this unit. They disappear after resharding, and the second gather precedes backward computation. Moving dots represent parameter transfers and the later reduce-scatter of gradient contributions; the timeline ends with each rank updating **only its own shard**. The diagram illustrates the **full-shard, reshard-after-forward** path for one unit on two ranks, not every FSDP configuration. Transfer speed, timing and memory size are schematic, **not benchmark measurements**. MkDocs adds keyboard-accessible **Play/Pause** and a reduced-motion fallback; on narrow screens, scroll horizontally. [GitHub-readable static overview](../../assets/concept-animations/fsdp-gather-scatter-still.svg).
 
+### Temporary parameter residency across the two gathers
+
+![Animated FSDP parameter residency: each GPU retains its local shard, briefly materializes the remote shard during forward and backward computation, and returns to one shard between gathers.](../../assets/concept-animations/fsdp-parameter-residency-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* Solid blocks remain resident; dashed-outline positions are filled **only when all-gather materializes the remote parameter shard**. The per-rank indicator changes from one to two schematic parameter shards during forward and backward computation, returning to one after resharding. This illustrates the **temporary full-parameter residency for one FSDP unit**, not total GPU memory: activations, gradients, optimizer states, prefetch overlap and allocator effects are excluded. The phase durations and shard sizes are **not measurements**. MkDocs provides keyboard Play/Pause and a reduced-motion fallback; narrow screens can scroll horizontally. [GitHub-readable gather-state preview](../../assets/concept-animations/fsdp-parameter-residency-still.svg).
+
 ## Key methods
 
 The method is the per-unit gather, compute and free cycle with gradient reduce-scatter. The paper's evidence is measured memory and throughput for large transformer models on many GPUs, and the design trade-offs it documents.
