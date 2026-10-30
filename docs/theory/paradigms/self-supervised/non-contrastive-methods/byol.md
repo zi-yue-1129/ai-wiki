@@ -75,6 +75,10 @@ The static overview remains readable in GitHub Markdown and without JavaScript; 
 
 **Stop-gradient routing counterfactual (linked to the same cosine slider).** The upper row shows the actual BYOL directional loss: loss gradients flow into the **online encoder/predictor**, while the target branch is blocked. The lower row deliberately removes stop-gradient to show the additional target loss-gradient route that would become possible; it is **not the BYOL algorithm**. The separate green EMA connection is a parameter update, **not a backpropagation path**. The displayed angular sensitivity \(2\sin\phi\) belongs to the toy unit-vector loss; arrow lengths are qualitative and do **not** quantify neural-network parameter gradients or predict collapse.
 
+![BYOL counterfactual fallback: loss gradients reach the online branch only under stop-gradient; the no-stop-gradient route is hypothetical and EMA is separate.](../../../../assets/concept-animations/byol-causal-still.svg)
+
+[Open the animated gradient-routing comparison](../../../../assets/concept-animations/byol-causal-motion.svg) (4.6-second loop; hover or keyboard-focus to pause). Orange moving dots trace *possible loss-gradient routes*, while the green pulse marks a **separate EMA parameter update**. This is a qualitative one-directional toy, not measured gradients; the still SVG is GitHub-readable. Original **CC BY-SA 4.0**.
+
 **Angular gradient (linked to the same cosine slider).** The continuous sensitivity curve uses \(\phi=\arccos(\bar q\cdot\bar z)\) and \(\mathrm d\mathcal L/\mathrm d\phi=2\sin\phi\), with \(\phi\) measured in **radians** for differentiation. The angular derivative is zero at alignment and opposition, and reaches 2 at a right angle. This is a derivative of the illustrative *directional loss with respect to the angle*, **not** a gradient flowing into the target encoder; stop-gradient remains in effect.
 
 

@@ -66,6 +66,10 @@ This static overview remains readable on GitHub and without JavaScript; the MkDo
 
 **Queue-timing counterfactual (linked to the same temperature slider).** The two queue rows compare the correct six-key dictionary `A–F` with a deliberately incorrect early enqueue `B–G`. The new key `G` is also the current positive; incorrectly inserting it into the negative dictionary makes the same key both a positive and a **false negative**. The chart recomputes the positive probability and InfoNCE loss as τ changes, using the same six illustrative similarities and setting `G` to 0.70. The loss rises because of this artificial collision. This is a causal teaching example, **not measured embeddings, a real queue error, or a prediction of model performance**. The correct MoCo sequence uses the old queue for loss and only enqueues the new key afterward.
 
+![MoCo counterfactual fallback: correct old FIFO queue A–F versus premature B–G with a duplicate positive key.](../../../../assets/concept-animations/moco-causal-still.svg)
+
+[Open the animated queue-timing comparison](../../../../assets/concept-animations/moco-causal-motion.svg) (5-second loop; hover or keyboard-focus to pause). The animation uses **fixed toy τ = 0.20**; use the MkDocs temperature slider above to explore other values. The still SVG remains directly visible on GitHub; both assets are original **CC BY-SA 4.0** teaching figures.
+
 **Gradient sensitivity (linked to the same temperature slider).** The new continuous curve plots the exact derivative of this fixed toy InfoNCE objective with respect to positive-key similarity \(s_+\): \(\partial\mathcal L/\partial s_+=(p_+-1)/\tau\). The *sum* of negative-similarity derivatives is \((1-p_+)/\tau\), equal and opposite. At very low \(\tau\), softmax saturation can reduce the derivative magnitude; decreasing temperature does **not** monotonically increase it for these fixed logits. These are gradients with respect to illustrative similarities, **not** gradients of the query encoder's parameters or measured training signals.
 
 
