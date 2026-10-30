@@ -212,10 +212,47 @@ def check_github_fallback_parity() -> None:
         assert doc.find("s:title", NS) is not None
         assert doc.find("s:desc", NS) is not None
 
+
+def check_motion_accessibility_and_safety() -> None:
+    """Reject unsafe SVG dependencies and inaccessible looping motion.
+
+    This is structural protection, not a substitute for browser screenshots.
+    """
+    for filename in ("temperature-softmax-motion.svg", "conformal-quantile-motion.svg"):
+        root = ET.parse(ROOT / filename).getroot()
+        assert root.get("role") == "img", filename
+        assert root.get("aria-labelledby") == "title desc", filename
+        for name in ("title", "desc"):
+            element = root.find(f"s:{name}", NS)
+            assert element is not None and (element.text or "").strip(), (filename, name)
+            assert element.get("id") == name, (filename, name)
+        style = root.find("s:style", NS)
+        assert style is not None
+        css = "".join(style.itertext())
+        assert "prefers-reduced-motion" in css and "animate" in css, filename
+        for node in root.iter():
+            tag = node.tag.rsplit("}", 1)[-1]
+            assert tag not in ("script", "foreignObject", "image"), (filename, tag)
+            for key, value in node.attrib.items():
+                attr = key.rsplit("}", 1)[-1].lower()
+                assert not attr.startswith("on"), (filename, attr)
+                if attr in ("href", "src"):
+                    assert value.startswith("#"), (filename, attr, value)
+            if tag != "animate":
+                continue
+            assert node.get("repeatCount") == "indefinite", filename
+            assert node.get("dur") in ("9s", "10s"), filename
+            times = [float(v) for v in node.get("keyTimes", "").split(";")]
+            values = node.get("values", "").split(";")
+            assert len(times) == len(values) >= 2, (filename, tag)
+            assert abs(times[0]) < 1e-9 and abs(times[-1] - 1) < 1e-9
+            assert all(0 <= a < b <= 1 for a, b in zip(times, times[1:])), filename
+
 if __name__ == "__main__":
     check_temperature()
     check_temperature_timeline()
     check_conformal()
     check_conformal_geometry()
     check_github_fallback_parity()
+    check_motion_accessibility_and_safety()
     print("Uncertainty animation numerical and structural regression: PASS")
