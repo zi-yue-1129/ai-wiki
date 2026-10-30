@@ -35,6 +35,7 @@ with sync_playwright() as p:
                     page.add_script_tag(content=GRAD_JS)
                     assert page.locator(".ssl-gradient").count() == 1
                     assert page.locator(".ssl-gradient-plot").count() == 1
+                    assert page.locator(".ssl-attribution svg").count() == 1
                     assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), (kind, locale, width)
                     slider = page.locator('[data-act="loss"]')
                     if kind == "moco":
@@ -62,6 +63,23 @@ with sync_playwright() as p:
                                b.x + b.width <= 501 && b.y + b.height <= 167;
                       });
                     }"""), (kind, locale, width, "clipped labels")
+                    if kind == "moco":
+                        slider.evaluate("(el)=>{el.value='0.20';el.dispatchEvent(new Event('input',{bubbles:true}));}")
+                        weights = [exp((s-.2)/.2) for s in (-.2,-.1,0,.1,.2,.05)]
+                        expected = 100*weights[4]/sum(weights)
+                        actual = float(re.search(r"([0-9.]+)%",page.locator(".ssl-attribution-readout").inner_text()).group(1))
+                        assert abs(actual-expected)<.051, (actual,expected)
+                        assert page.locator(".ssl-attribution svg rect").count()==6
+                    else:
+                        slider.evaluate("(el)=>{el.value='0';el.dispatchEvent(new Event('input',{bubbles:true}));}")
+                        actual = float(re.search(r"dL/dφ = (-?[0-9.]+)",page.locator(".ssl-attribution-readout").inner_text()).group(1))
+                        assert abs(actual+2)<.001,actual
+                        assert page.locator(".ssl-attribution svg path[marker-end]").count()==1
+                        slider.evaluate("(el)=>{el.value='-1';el.dispatchEvent(new Event('input',{bubbles:true}));}")
+                        assert page.locator(".ssl-attribution svg path[marker-end]").count()==0
+                    assert page.evaluate("""() => [...document.querySelectorAll('.ssl-attribution svg text')].every(t=>{
+                        const b=t.getBBox();return b.x>=-1&&b.y>=-1&&b.x+b.width<=501&&b.y+b.height<=165;
+                    })"""), (kind,locale,width,"attribution clipped")
                     slider.focus()
                     before = slider.input_value()
                     page.keyboard.press("ArrowRight")

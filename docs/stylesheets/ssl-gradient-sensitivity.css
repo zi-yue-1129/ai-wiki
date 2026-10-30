@@ -6,3 +6,13 @@
 .ssl-gradient-readout { display:block; font:12px/1.55 ui-monospace,monospace; overflow-wrap:anywhere; margin:.3rem 0; }
 .ssl-gradient-note { margin:.2rem 0 0; font-size:.75rem; line-height:1.55; }
 @media (prefers-reduced-motion:reduce) { .ssl-gradient * { animation:none!important; transition:none!important; } }
+
+/* Gradient attribution is responsive, static and legible in both themes. */
+.ssl-attribution { max-width:640px; margin:.5rem auto 1rem; padding:.6rem .7rem; border:1px solid #b9cbd6; border-radius:.4rem; background:#f8fbfd; color:#20384b; }
+.ssl-attribution-heading { font-weight:600; font-size:.82rem; margin-bottom:.3rem; }
+.ssl-attribution svg { display:block; width:100%; max-width:500px; height:auto; }
+.ssl-attribution-axis { font:14px Arial,sans-serif; fill:#42586a; }
+.ssl-attribution-value { font:13px Arial,sans-serif; fill:#20384b; }
+.ssl-attribution-readout { display:block; font:12px/1.55 ui-monospace,monospace; overflow-wrap:anywhere; margin:.35rem 0; }
+.ssl-attribution-note { margin:.2rem 0 0; font-size:.75rem; line-height:1.55; }
+.ssl-attribution :is(svg,rect,path,circle) { animation:none!important; transition:none!important; }

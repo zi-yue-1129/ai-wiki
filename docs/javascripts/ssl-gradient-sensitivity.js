@@ -55,6 +55,36 @@
       '<text x="' + ((left + right) / 2) + '" y="161" text-anchor="middle" class="ssl-gradient-axis">' + horizontal + '</text>' +
       '</svg>';
   }
+
+  // Toy derivatives, not measured parameter gradients.
+  function attribution(kind, value) {
+    if (kind === 'moco') {
+      const neg=[-.2,-.1,0,.1,.2,.05], w=neg.map(s=>Math.exp((s-.2)/value));
+      const total=w.reduce((a,b)=>a+b,0), shares=w.map(x=>x/total);
+      const bars=shares.map((v,i)=>{
+        const x=32+i*73,h=99*v/.55;
+        return '<rect x="'+x+'" y="'+(126-h).toFixed(2)+'" width="44" height="'+h.toFixed(2)+'" rx="3" fill="'+(i===4?'#b66b40':'#3a7fa9')+'"/>'+
+          '<text x="'+(x+22)+'" y="'+(119-h).toFixed(2)+'" text-anchor="middle" class="ssl-attribution-value">'+(100*v).toFixed(1)+'%</text>'+
+          '<text x="'+(x+22)+'" y="145" text-anchor="middle" class="ssl-attribution-axis">'+neg[i].toFixed(2)+'</text>';
+      }).join('');
+      return {svg:'<svg viewBox="0 0 500 164" role="img" aria-label="Shares of negative-similarity gradients"><path d="M25 126 H476" stroke="#9ab1bd" stroke-width="1.5"/>'+bars+'<text x="25" y="156" class="ssl-attribution-axis">Negative similarity (toy)</text></svg>',
+        value:(100*shares[4]).toFixed(1)+'% · τ='+value.toFixed(2)};
+    }
+    const phi=Math.acos(Math.max(-1,Math.min(1,value))),g=2*Math.sin(phi);
+    const cx=132,cy=104,r=66,x=cx+r*Math.cos(phi),y=cy-r*Math.sin(phi);
+    const delta=Math.min(.28,g*.13),x2=cx+r*Math.cos(Math.max(0,phi-delta)),y2=cy-r*Math.sin(Math.max(0,phi-delta));
+    const arrow=g>.005?'<path d="M'+x.toFixed(2)+' '+y.toFixed(2)+' Q'+((x+x2)/2).toFixed(2)+' '+((y+y2)/2-7).toFixed(2)+' '+x2.toFixed(2)+' '+y2.toFixed(2)+'" fill="none" stroke="#b66b40" stroke-width="2.5" stroke-linecap="round" marker-end="url(#ssl-attribution-tip)"/>':'';
+    return {svg:'<svg viewBox="0 0 500 164" role="img" aria-label="Online angular descent; target stop-gradient"><defs><marker id="ssl-attribution-tip" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0 0 L4 2 L0 4 Z" fill="#b66b40"/></marker></defs>'+
+      '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#d5e3e9" stroke-dasharray="3 4"/>'+
+      '<path d="M'+cx+' '+cy+' H'+(cx+r)+'" stroke="#399a80" stroke-width="4" stroke-linecap="round"/>'+
+      '<path d="M'+cx+' '+cy+' L'+x.toFixed(2)+' '+y.toFixed(2)+'" stroke="#3a7fa9" stroke-width="4" stroke-linecap="round"/>'+arrow+
+      '<circle cx="'+cx+'" cy="'+cy+'" r="4" fill="#20384b"/>'+
+      '<path d="M270 49 H296" stroke="#399a80" stroke-width="4"/><text x="304" y="53" class="ssl-attribution-axis">Target · stop-grad</text>'+
+      '<path d="M270 83 H296" stroke="#3a7fa9" stroke-width="4"/><text x="304" y="87" class="ssl-attribution-axis">Online</text>'+
+      '<path d="M270 117 H296" stroke="#b66b40" stroke-width="4"/><text x="304" y="121" class="ssl-attribution-axis">Descent direction</text></svg>',
+      value:'φ='+(phi*180/Math.PI).toFixed(1)+'° · −dL/dφ = '+(-g).toFixed(3)+' rad⁻¹'};
+  }
+
   function enhance() {
     document.querySelectorAll('[data-self-supervised-lab]').forEach(host => {
       if (host.dataset.gradientReady) return;
@@ -93,6 +123,31 @@
       };
       slider.addEventListener('input', update);
       update();
+
+      const allocation=document.createElement('section');
+      allocation.className='ssl-attribution';
+      const allocationTitle=document.createElement('div');
+      allocationTitle.className='ssl-attribution-heading';
+      allocationTitle.textContent=kind==='moco'?(zh?'負樣本梯度分配':'Negative-gradient allocation'):(zh?'線上向量的角度下降方向':'Online angular descent direction');
+      const allocationGraphic=document.createElement('div');
+      const allocationReadout=document.createElement('output');
+      allocationReadout.className='ssl-attribution-readout';
+      allocationReadout.setAttribute('aria-live','off');
+      const allocationNote=document.createElement('p');
+      allocationNote.className='ssl-attribution-note';
+      allocationNote.textContent=kind==='moco'
+        ? (zh?'長條顯示各負樣本相似度梯度占負樣本梯度總量的比例，不是原始機率。最高相似度的負樣本獲得最大占比。':'Bars show each negative-similarity gradient as a share of the negative gradient total, not the raw probability. Harder negatives receive larger shares.')
+        : (zh?'橘色箭頭表示線上向量減小夾角的局部方向；目標向量不接受梯度。同向或完全反向時角度導數為零，箭頭消失。不是網路權重更新。':'Orange indicates the local direction reducing the online angle; target receives no gradient. At exact alignment or opposition the angular derivative vanishes. Not a weight update.');
+      allocation.append(allocationTitle,allocationGraphic,allocationReadout,allocationNote);
+      section.after(allocation);
+      const updateAllocation=()=>{
+        const a=attribution(kind,Number(slider.value));
+        allocationGraphic.innerHTML=a.svg;
+        allocationReadout.textContent=(kind==='moco'?(zh?'最高相似度負樣本占比：':'Hardest negative share: '):'')+a.value;
+      };
+      slider.addEventListener('input',updateAllocation);
+      updateAllocation();
+
     });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enhance);
