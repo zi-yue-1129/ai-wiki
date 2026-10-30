@@ -33,6 +33,16 @@ Megatron-LM 的張量平行會把每個 Transformer 層內的權重矩陣切分�
 
 *原創連續教學動畫，CC BY-SA 4.0。* 兩個 GPU 都收到相同輸入 **X**。第一個投影矩陣的**列分片 A1/A2** 產生不同的隱藏特徵切片；各 rank **在本地執行 GeLU**，再由第二個投影矩陣的**行分片 B1/B2** 計算部分輸出 **p1/p2**。紫色訊號最後在**一次 all-reduce** 中合併，兩個 rank 都得到 **Y = p1 + p2**。第一個投影與本地 GeLU 之間不需要前向集體通訊。這是**兩路 MLP 切分的教學示意**，**不是實測通訊延遲或模型輸出**；圖中省略反向通訊與偏置。MkDocs 提供鍵盤可操作的播放／暫停，減少動態效果設定會顯示完成後的靜態圖；手機可左右捲動。[GitHub 可讀的完成路徑預覽](../../assets/concept-animations/megatron-column-row-still.svg)。
 
+
+### 互動式 MLP 張量平行通訊（MkDocs）
+
+![Megatron 靜態回退預覽：列平行的本地特徵、行平行的部分輸出，以及最後的 all-reduce。](../../assets/concept-animations/megatron-column-row-still.svg)
+
+<div class="distributed-computation-probe" data-probe="megatron" data-lang="zh"></div>
+
+*原創運算互動示範；GitHub 可直接閱讀上方靜態總覽。* 在 MkDocs 可選擇 **2、4 或 8 個張量平行裝置**及 **1–8 個 Token**，透過播放／暫停、單步、拖曳時間軸及 0.5×／1×／2× 速度，觀察複製輸入 X、列切分 W1、本地 GeLU、行切分 W2、all-reduce，最後每個裝置取得 Y。示意設定為隱藏維度 **H=8**、MLP 擴張維度 **4H=32**、每元素 **2 B**。每裝置的中間特徵寬度為 **32/N**，而各裝置部分輸出的形狀仍是 **T×8**；必須完成 all-reduce 才會產生各裝置共享的 Y。理想化 ring all-reduce 每裝置傳輸量估算為 **2(N−1)/N × (T×8×2 B)**。這是**解析式通訊示意，並非網路流量、頻寬或模型輸出實測**；省略反向集體通訊與偏置。支援鍵盤操作、減少動態效果時手動單步及無 JavaScript 靜態回退；手機可水平捲動各裝置。
+
+
 ## 關鍵方法
 
 這個方法是把每個區塊做列再行的切分，並且只用一次 all-reduce。論文的證據是：這個方案能在許多 GPU 上訓練數十億參數的模型，且效率沒有明顯下降。
