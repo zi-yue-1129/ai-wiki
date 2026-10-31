@@ -20,9 +20,9 @@ translation_reviewed: 2026-10-28
 
 ### 動態排程示意
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="學習率排程動畫">
-<div style="width:640px">
-<img src="../../assets/concept-animations/sgdr-restart-still.svg" data-motion-src="../../assets/concept-animations/sgdr-restart-motion.svg" alt="餘弦學習率在逐次延長的週期內下降，並於重啟時跳回上限。">
+<div style="max-width:640px;width:100%" role="group" aria-label="學習率排程動畫">
+<div style="width:100%">
+<img src="../../assets/concept-animations/sgdr-restart-still.svg" data-motion-src="../../assets/concept-animations/sgdr-restart-motion.svg" style="display:block;width:100%;height:auto" alt="餘弦學習率在逐次延長的週期內下降，並於重啟時跳回上限。">
 </div>
 </div>
 
