@@ -29,6 +29,18 @@ The learning rate is, in the paper's words, "the most important hyper-parameter 
 
 Estimate two bounds, \(\eta_{\min}\) and \(\eta_{\max}\), with a learning-rate range test: increase the rate linearly over several epochs and watch the accuracy. Then cycle the rate between those bounds for the rest of training.
 
+### Schedule in motion
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Learning-rate schedule animation">
+<div style="width:640px">
+<img src="../../assets/concept-animations/clr-triangular2-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-motion.svg" alt="Triangular2 learning-rate schedule over three cycles, each with half the preceding amplitude.">
+</div>
+</div>
+
+*Original animation by AI Wiki, CC BY-SA 4.0.*
+
+The moving marker follows three triangular cycles of equal duration. Each cycle rises linearly and falls linearly, while its amplitude is halved between cycles; the lower bound stays fixed. The plotted values are normalized illustrations, not measured model learning rates or accuracy.
+
 ## Algorithm
 
 **Range test.** Train for a few epochs while the rate rises linearly from a small value to a large one, and plot accuracy against the rate. The lower bound is where accuracy starts to rise. The upper bound is where accuracy slows, becomes erratic, or starts to fall. The paper suggests setting the lower bound to one third or one quarter of the upper bound. The test takes 8 epochs for CIFAR-10 and 4 epochs for GoogLeNet in the paper.
