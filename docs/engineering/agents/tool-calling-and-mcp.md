@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-10-31
 related:
   - theory/models/agents
 tags:
@@ -74,7 +74,9 @@ The Model Context Protocol, described below, is a standard for connecting tools 
 
 ## Model Context Protocol
 
-MCP is specified in a versioned document; this page cites the 2025-06-18 revision. Messages use JSON-RPC 2.0 over stateful connections, and client and server negotiate their capabilities when they connect. Servers can offer resources, prompts and tools. Clients can offer sampling (requests from a server for an LLM completion), roots (the filesystem or URI boundaries a server may work in) and elicitation (requests for input from the user). The specification says that tools represent arbitrary code execution, that hosts must obtain explicit user consent before invoking any tool, and that tool descriptions should be treated as untrusted unless they come from a trusted server. The protocol takes some inspiration from the Language Server Protocol, which standardised how editors connect to language support.
+MCP is specified in a versioned document. This page cites revision 2026-07-28, the newest one at the time of writing, which the specification index lists as current. Messages follow JSON-RPC 2.0. The 2026-07-28 revision describes the protocol as stateless: a server must not rely on earlier requests on the same connection, so every request carries its protocol version, client information and client capabilities in its `_meta` field. Servers can offer resources, prompts and tools. Clients can offer elicitation, which is a server's request for information from the user, and sampling, which is a server's request for an LLM completion. Roots, through which a client told a server which directories and files it considered relevant, are deprecated in this revision. The specification notes that roots were informational guidance and not an access-control mechanism.
+
+The specification says that tools represent arbitrary code execution, that hosts must obtain explicit user consent before invoking any tool, and that descriptions of tool behaviour, such as annotations, should be treated as untrusted unless they come from a trusted server. The protocol takes some inspiration from the Language Server Protocol, which standardised how editors connect to language support.
 
 ## Limitations
 
@@ -115,4 +117,4 @@ MCP is specified in a versioned document; this page cites the 2025-06-18 revisio
 
 ### Articles and documentation
 
-- Model Context Protocol. *Specification, revision 2025-06-18*. https://modelcontextprotocol.io/specification/2025-06-18 — Defines hosts, clients and servers, the resources, prompts and tools features, and the security principles for tool use.
+- Model Context Protocol. *Specification, revision 2026-07-28*. https://modelcontextprotocol.io/specification/2026-07-28 — Defines hosts, clients and servers, the resources, prompts and tools features, the per-request metadata, and the security principles for tool use.
