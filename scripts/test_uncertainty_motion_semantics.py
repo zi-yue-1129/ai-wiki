@@ -183,6 +183,30 @@ def check_conformal_geometry() -> None:
         if (t.text or "").strip() in ("IN", "OUT"):
             decisions.append((t.text or "").strip())
     assert decisions == ["IN", "IN", "OUT"], decisions
+    # Candidate outcomes must be genuinely concealed before the quantile is known.
+    # A pale IN/OUT label or tinted decision pill leaks the result prematurely.
+    decision_text = [t for t in root.findall(".//s:text", NS)
+                     if (t.text or "").strip() in ("IN", "OUT")]
+    assert len(decision_text) == 3
+    for t in decision_text:
+        assert float(t.get("opacity", "1")) == 0, t.text
+        motion = next(a for a in t.findall("s:animate", NS)
+                      if a.get("attributeName") == "opacity")
+        values = [float(v) for v in motion.get("values").split(";")]
+        times = [float(v) for v in motion.get("keyTimes").split(";")]
+        assert values[:2] == [0, 0] and values[-1] == 1
+        assert times[1] >= threshold_times[2]
+    pills = [r for r in root.findall(".//s:rect", NS)
+             if r.get("width") == "62" and r.get("height") == "29"]
+    assert len(pills) == 3
+    for pill in pills:
+        assert float(pill.get("opacity", "1")) == 0
+        motion = next(a for a in pill.findall("s:animate", NS)
+                      if a.get("attributeName") == "opacity")
+        values = [float(v) for v in motion.get("values").split(";")]
+        times = [float(v) for v in motion.get("keyTimes").split(";")]
+        assert values[:2] == [0, 0] and values[-1] == 1
+        assert times[1] >= threshold_times[2]
 
 
 
