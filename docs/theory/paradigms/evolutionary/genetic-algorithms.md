@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-10-30
 related:
   - theory/paradigms/evolutionary
   - theory/optimization/zeroth-order-and-evolutionary.md
@@ -46,9 +46,16 @@ In Holland's schema analysis, a schema \(H\) is a template over bit strings, wit
 
 where \(m(H,t)\) is the number of members that match \(H\) at generation \(t\), \(f(H)\) is their mean fitness, \(\bar f\) is the population mean fitness, \(\delta(H)\) is the distance between the outermost fixed positions, \(o(H)\) is the number of fixed positions, and \(l\) is the string length. Short, low-order, above-average schemata grow in the population. This is the schema theorem, and it is the standard explanation of why the method works.
 
+## Key methods
+
+Two landmark variants keep the selection and variation loop but change what the population contains:
+
+- [Genetic programming](genetic-programming.md) (Koza, 1992) evolves program trees instead of fixed-length strings.
+- [NEAT](neat.md) (Stanley and Miikkulainen, 2002) evolves network weights and topology together, protecting new structures with speciation.
+
 ## Key results
 
-Holland (1975) gives the schema theorem and the analysis of how selection, crossover and mutation affect schemata. Goldberg (1989) presents the operators and applies them to engineering problems. This page does not quote numerical benchmark results, because the claims depend on the problem and encoding. In the architecture-search setting, Real et al. (2018) report that AmoebaNet-A, found by regularised (aging) evolution, reaches a CIFAR-10 test error of 3.34 ± 0.06% with 3.2 M parameters (F = 36), against 3.41% for the NASNet-A baseline. The paper says evolution reached higher accuracy earlier in the search than reinforcement learning did, and that comparison appears only in a figure.
+Holland (1975) gives the schema theorem and the analysis of how selection, crossover and mutation affect schemata. Goldberg (1989) presents the operators and applies them to engineering problems. This page gives no general benchmark numbers, because the claims depend on the problem and encoding. The one published example quoted here is architecture search, where Real et al. (2019) report that AmoebaNet-A, found by regularised (aging) evolution, reaches a CIFAR-10 test error of 3.34 ± 0.06% with 3.2 M parameters (F = 36), against 3.41% for the NASNet-A baseline. The paper says evolution reached higher accuracy earlier in the search than reinforcement learning did, and that comparison appears only in a figure.
 
 ## Limitations
 
@@ -67,7 +74,7 @@ Holland (1975) gives the schema theorem and the analysis of how selection, cross
 ## Applications
 
 - Scheduling and routing, where the candidates are permutations and the cost is computed by a simulator.
-- Architecture search, where recent work uses a tournament-based evolutionary loop to choose network designs, as in Real et al. (2018).
+- Architecture search, where recent work uses a tournament-based evolutionary loop to choose network designs, as in Real et al. (2019).
 
 ## Open questions
 
@@ -78,9 +85,11 @@ Holland (1975) gives the schema theorem and the analysis of how selection, cross
 
 ### Seminal papers
 
-- Holland, J. H. (1975). *Adaptation in Natural and Artificial Systems*. University of Michigan Press. https://doi.org/10.1145/1216504.1216510 — Introduces schemata and the schema theorem. The DOI links to a 1975 review of the book, which is the only Crossref record found for it.
+- Holland, J. H. (1975). *Adaptation in Natural and Artificial Systems*. University of Michigan Press. https://openlibrary.org/isbn/9780262581110 — Introduces schemata and the schema theorem. The linked record is the MIT Press edition of 1992.
 - Goldberg, D. E. (1989). *Genetic Algorithms in Search, Optimization, and Machine Learning*. Addison-Wesley. https://openlibrary.org/isbn/0201157675 — The standard textbook treatment of the operators, schema analysis and engineering uses.
-- Real, E., Aggarwal, A., Huang, Y. & Le, Q. V. (2018). Regularized Evolution for Image Classifier Architecture Search. arXiv:1802.01548. https://arxiv.org/abs/1802.01548 — A modern example of a genetic-style loop, using tournament selection, to search network architectures.
+- Koza, J. R. (1992). *Genetic Programming: On the Programming of Computers by Means of Natural Selection*. MIT Press. https://openlibrary.org/isbn/0262111705 — Introduces genetic programming, which evolves program trees to solve a stated task.
+- Stanley, K. O. & Miikkulainen, R. (2002). Evolving Neural Networks through Augmenting Topologies. *Evolutionary Computation*, 10(2), 99–127. https://doi.org/10.1162/106365602320169811 — Introduces NEAT, which evolves weights and topology together, with speciation.
+- Real, E., Aggarwal, A., Huang, Y. & Le, Q. V. (2019). Regularized Evolution for Image Classifier Architecture Search. In *Proceedings of the AAAI Conference on Artificial Intelligence*. arXiv:1802.01548. https://arxiv.org/abs/1802.01548 — A modern example of a genetic-style loop, using tournament selection, to search network architectures.
 
 ### Surveys and textbooks
 
