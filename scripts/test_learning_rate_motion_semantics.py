@@ -112,6 +112,39 @@ def svg_asset_safety():
             assert "http://" not in raw.replace('xmlns="http://www.w3.org/2000/svg"', ""), name
             assert "https://" not in raw, name
 
+
+def fallback_geometry_parity():
+    """GitHub fallback must show the same curve as the animated teaching asset.
+
+    This guards against edits that update only one variant. It is a source-level
+    consistency check, not a substitute for rendering both variants.
+    """
+    for prefix in ("sgdr-restart", "clr-triangular2"):
+        motion = ET.parse(ROOT / f"{prefix}-motion.svg").getroot()
+        still = ET.parse(ROOT / f"{prefix}-still.svg").getroot()
+        def curves(root):
+            return [
+                (node.attrib.get("d"), node.attrib.get("stroke"),
+                 node.attrib.get("stroke-width"))
+                for node in root.findall(".//svg:path", NS)
+                if node.attrib.get("fill") == "none"
+            ]
+        motion_curves, still_curves = curves(motion), curves(still)
+        assert motion_curves, f"{prefix}: missing schedule curve"
+        assert motion_curves == still_curves, (
+            f"{prefix}: animated and GitHub fallback schedule geometry diverged"
+        )
+        for attribute in ("viewBox", "role", "aria-labelledby"):
+            assert motion.attrib.get(attribute) == still.attrib.get(attribute), (
+                prefix, attribute
+            )
+        for tag in ("title", "desc"):
+            a, b = motion.find(f"svg:{tag}", NS), still.find(f"svg:{tag}", NS)
+            assert a is not None and b is not None and a.text == b.text, (
+                prefix, tag
+            )
+
+
 def bilingual_fallbacks():
     """Ensure each schedule has a static GitHub preview and a shared bilingual embed."""
     pairs = (
@@ -143,4 +176,5 @@ if __name__ == "__main__":
     triangular2()
     bilingual_fallbacks()
     svg_asset_safety()
+    fallback_geometry_parity()
     print("Learning-rate animation numerical and timeline semantics: PASS")
