@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-31
 ---
 
 # 附暖重啟的餘弦退火
@@ -17,6 +17,18 @@ translation_reviewed: 2026-10-28
 ## 核心概念
 
 在第 \(i\) 輪中，學習率沿餘弦曲線從 \(\eta^i_{\max}\) 下降到 \(\eta^i_{\min}\)。該輪結束時，學習率重設為 \(\eta^i_{\max}\)，這就是「暖重啟」，接著開始第 \(i+1\) 輪。每一輪的長度是前一輪的 \(T_{\mathrm{mult}}\) 倍，因此訓練後段的每個階段都較長。
+
+### 動態排程示意
+
+<div style="max-width:640px;width:100%" role="group" aria-label="學習率排程動畫">
+<div style="width:100%">
+<img src="../../assets/concept-animations/sgdr-restart-still.svg" data-motion-src="../../assets/concept-animations/sgdr-restart-motion.svg" style="display:block;width:100%;height:auto" alt="餘弦學習率在逐次延長的週期內下降，並於重啟時跳回上限。">
+</div>
+</div>
+
+*AI Wiki 原創動畫，CC BY-SA 4.0。*
+
+移動標記呈現週期長度依序為 1、2、4 的示意排程，學習率上下界保持固定。每次重啟只將**學習率**調回上限，不會重設最佳化器參數。時間與學習率皆為正規化示意值，並非模型訓練量測。
 
 ## 演算法
 

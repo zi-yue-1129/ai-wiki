@@ -1,0 +1,24 @@
+name: Learning-rate animation semantics
+
+on:
+  pull_request:
+    paths:
+      - 'docs/assets/concept-animations/sgdr-restart-*.svg'
+      - 'docs/assets/concept-animations/clr-triangular2-*.svg'
+      - 'docs/theory/optimization/cosine-annealing-warm-restarts*.md'
+      - 'docs/theory/optimization/cyclical-learning-rates*.md'
+      - 'scripts/test_learning_rate_motion_semantics.py'
+      - '.github/workflows/learning-rate-motion.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  semantics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate animation timing and bilingual fallback assets
+        run: python3 scripts/test_learning_rate_motion_semantics.py
