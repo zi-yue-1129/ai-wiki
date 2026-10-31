@@ -81,6 +81,37 @@ def triangular2():
             assert abs(ys[j]-expected) < 0.035, (j, ys[j], expected)
 
 
+
+def svg_asset_safety():
+    """Reject unsafe dependencies and malformed responsive SVG metadata."""
+    for prefix in ("sgdr-restart", "clr-triangular2"):
+        for variant in ("motion", "still"):
+            name = f"{prefix}-{variant}.svg"
+            asset = ROOT / name
+            raw = asset.read_text(encoding="utf-8")
+            # ElementTree accepts internal DTD entities; instructional SVGs need no DTD.
+            assert "<!DOCTYPE" not in raw.upper() and "<!ENTITY" not in raw.upper(), name
+            root = ET.fromstring(raw)
+            assert root.tag == "{http://www.w3.org/2000/svg}svg", name
+            assert root.attrib.get("viewBox") == "0 0 640 300", name
+            assert root.attrib.get("role") == "img", name
+            ids = {node.attrib["id"] for node in root.iter() if "id" in node.attrib}
+            labelled = root.attrib.get("aria-labelledby", "").split()
+            assert len(labelled) == 2 and all(ref in ids for ref in labelled), name
+            assert root.find("svg:title", NS) is not None, name
+            assert root.find("svg:desc", NS) is not None, name
+            for node in root.iter():
+                tag = node.tag.rsplit("}", 1)[-1].lower()
+                assert tag not in {"script", "foreignobject", "image", "iframe"}, (name, tag)
+                for key, value in node.attrib.items():
+                    local_key = key.rsplit("}", 1)[-1].lower()
+                    assert not local_key.startswith("on"), (name, key)
+                    if local_key in {"href", "src"}:
+                        assert value.startswith("#"), (name, key, value)
+                    assert "url(http" not in value.lower(), (name, key)
+            assert "http://" not in raw.replace('xmlns="http://www.w3.org/2000/svg"', ""), name
+            assert "https://" not in raw, name
+
 def bilingual_fallbacks():
     """Ensure each schedule has a static GitHub preview and a shared bilingual embed."""
     pairs = (
@@ -111,4 +142,5 @@ if __name__ == "__main__":
     sgdr()
     triangular2()
     bilingual_fallbacks()
+    svg_asset_safety()
     print("Learning-rate animation numerical and timeline semantics: PASS")
