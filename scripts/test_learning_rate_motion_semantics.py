@@ -197,7 +197,14 @@ def marker_follows_visible_curve():
         points = list(zip(numbers[::2], numbers[1::2]))
         assert all(math.isfinite(v) for p in points for v in p), prefix
         _, xs, ys = read(f"{prefix}-motion.svg")
-        for i, (x, y) in enumerate(zip(xs, ys)):
+        # Sample mid-interval positions as well as keyframes: SVG calcMode=linear
+        # interpolates between successive cx/cy values. A marker may pass every
+        # keyframe yet leave the visible trace between them.
+        times, _, _ = read(f"{prefix}-motion.svg")
+        samples = list(zip(xs, ys))
+        samples += [((xs[i] + xs[i+1]) / 2, (ys[i] + ys[i+1]) / 2)
+                    for i in range(len(times)-1)]
+        for i, (x, y) in enumerate(samples):
             distance_sq = float("inf")
             for (ax, ay), (bx, by) in zip(points, points[1:]):
                 dx, dy = bx-ax, by-ay
