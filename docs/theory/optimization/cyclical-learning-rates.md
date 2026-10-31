@@ -41,6 +41,8 @@ Estimate two bounds, \(\eta_{\min}\) and \(\eta_{\max}\), with a learning-rate r
 
 The moving marker follows three triangular cycles of equal duration. Each cycle rises linearly and falls linearly, while its amplitude is halved between cycles; the lower bound stays fixed. The plotted values are normalized illustrations, not measured model learning rates or accuracy.
 
+The triangular2 envelope can be read directly from the three peaks: the excursion above the fixed lower bound is proportional to \(1,\;1/2,\;1/4\) for cycles 1–3. More generally, for zero-indexed cycle \(k\), the peak is \(\eta_{\min}+(\eta_{\max}-\eta_{\min})/2^k\). This is a schematic schedule, not an empirical training trace.
+
 ## Algorithm
 
 **Range test.** Train for a few epochs while the rate rises linearly from a small value to a large one, and plot accuracy against the rate. The lower bound is where accuracy starts to rise. The upper bound is where accuracy slows, becomes erratic, or starts to fall. The paper suggests setting the lower bound to one third or one quarter of the upper bound. The test takes 8 epochs for CIFAR-10 and 4 epochs for GoogLeNet in the paper.
