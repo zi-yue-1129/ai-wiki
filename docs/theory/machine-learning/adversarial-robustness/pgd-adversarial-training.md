@@ -44,7 +44,11 @@ where \(\Pi\) is the projection onto the ball and \(\alpha\) is the step size. A
 
 *Original schematic animation.* FGSM (left) makes one gradient-sign step. PGD (right) uses repeated steps; the orange dashed extension represents a proposed update outside the allowed \(\ell_\infty\) region, whereas the teal path depicts a projected result inside the region. This is a **conceptual illustration, not a numerical attack trace or measured loss landscape**. The paths are permanently drawn so GitHub's non-animated SVG preview preserves the explanation.
 
-For an \(\ell_\infty\) budget, projection is **coordinate-wise clipping** rather than movement along the drawn trajectory: \(\Pi_{\mathcal B_\epsilon(x)}(z)_i=\min(x_i+\epsilon,\max(x_i-\epsilon,z_i))\). If the input also has a valid range (for example, pixel values in \([0,1]\)), the update must respect the intersection with that range. As a schematic one-coordinate example with clean value \(0.50\), \(\epsilon=0.10\), and an unprojected candidate \(0.64\), projection returns \(0.60\). These are illustrative values, not measurements. The figure does not depict random initialisation, a loss surface, or literal gradient directions; in a real PGD run, the gradient is recomputed at each iterate.\n\n## Variants
+For an \(\ell_\infty\) budget, projection is **coordinate-wise clipping** rather than movement along the drawn trajectory: \(\Pi_{\mathcal B_\epsilon(x)}(z)_i=\min(x_i+\epsilon,\max(x_i-\epsilon,z_i))\). If the input also has a valid range (for example, pixel values in \([0,1]\)), the update must respect the intersection with that range. As a schematic one-coordinate example with clean value \(0.50\), \(\epsilon=0.10\), and an unprojected candidate \(0.64\), projection returns \(0.60\). These are illustrative values, not measurements. The figure does not depict random initialisation, a loss surface, or literal gradient directions; in a real PGD run, the gradient is recomputed at each iterate.
+
+For bounded inputs, the feasible interval for coordinate \(i\) is \([\max(0,x_i-\epsilon),\min(1,x_i+\epsilon)]\), assuming the input domain is \([0,1]\). The projection is therefore clipping to this *intersection*, not merely clipping to the perturbation budget.
+
+## Variants
 
 - **TRADES** trains with a loss that balances clean accuracy against the change in output under attack, which gives a different accuracy–robustness trade-off.
 - **Free adversarial training** reuses the gradient from one pass to make the attack cheaper.
