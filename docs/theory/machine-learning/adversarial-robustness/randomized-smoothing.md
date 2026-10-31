@@ -110,6 +110,23 @@ Also report $n_0$, $n$, $\alpha$, the confidence-bound method, abstention rate, 
 
 Increasing $\sigma$ changes the distribution seen by $f$, so a larger multiplier in the radius formula does not by itself guarantee a larger useful certificate. The probability bounds and classification performance must be re-evaluated.
 
+## Variants
+
+- **Different noise distributions** change which norm the certificate covers, and this is an active research direction.
+- **Adaptive sampling** spends more samples on inputs near the decision boundary, which tightens the bounds for a given compute budget.
+- **Denoised smoothing** puts a denoiser in front of a standard classifier to improve accuracy on noisy inputs.
+
+## Applications
+
+- **Certified image classifiers** with guarantees for small $\ell_2$ perturbations.
+- **Benchmarks for certified methods**, where radius and certified accuracy are standard metrics.
+- **Robustness in safety-critical vision**, where a guarantee is preferred over an empirical claim.
+
+## Open questions
+
+- Certified radii are small for practical accuracy levels, and improving the trade-off is an active area.
+- Extending the guarantee beyond $\ell_2$ and to structured inputs, such as text or graphs, is harder.
+
 [^cohen]: Cohen, Rosenfeld & Kolter (2019), Theorem 1, Section 3.2.2, Proposition 2 and Table 1; see References.
 [^normal]: SciPy, normal distribution CDF and percent-point function; see References.
 [^binomial]: SciPy, exact binomial proportion confidence intervals; see References.
