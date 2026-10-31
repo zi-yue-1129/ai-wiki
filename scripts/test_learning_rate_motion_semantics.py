@@ -6,6 +6,7 @@ These structural/numerical checks do NOT replace browser rendering QA.
 from __future__ import annotations
 
 import math
+import re
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
@@ -171,10 +172,46 @@ def bilingual_fallbacks():
             assert "concept-animations/" in content, str(page)
 
 
+
+
+def marker_follows_visible_curve():
+    """Verify the moving marker stays on the rendered schedule, not just its clock.
+
+    The visible trace consists of M/L SVG path segments. Compute geometric
+    point-to-segment distance at every animated sample, including restart jumps.
+    This catches marker/curve drift even when the fallback geometry matches.
+    It remains a numerical test, not a browser screenshot or playback test.
+    """
+    for prefix in ("sgdr-restart", "clr-triangular2"):
+        root = ET.parse(ROOT / f"{prefix}-motion.svg").getroot()
+        paths = [p for p in root.findall(".//svg:path", NS)
+                 if p.attrib.get("fill") == "none"]
+        assert len(paths) == 1, (prefix, "expected one visible schedule trace")
+        d = paths[0].attrib["d"]
+        # Only the explicitly supported absolute M/L geometry is accepted.
+        commands = re.findall(r"[A-Za-z]", d)
+        assert commands and commands[0] == "M" and set(commands) <= {"M", "L"}, prefix
+        numbers = [float(n) for n in re.findall(
+            r"[-+]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[eE][-+]?\\d+)?", d)]
+        assert len(numbers) >= 4 and len(numbers) % 2 == 0, prefix
+        points = list(zip(numbers[::2], numbers[1::2]))
+        assert all(math.isfinite(v) for p in points for v in p), prefix
+        _, xs, ys = read(f"{prefix}-motion.svg")
+        for i, (x, y) in enumerate(zip(xs, ys)):
+            distance_sq = float("inf")
+            for (ax, ay), (bx, by) in zip(points, points[1:]):
+                dx, dy = bx-ax, by-ay
+                length_sq = dx*dx + dy*dy
+                u = max(0.0, min(1.0, ((x-ax)*dx + (y-ay)*dy)/length_sq)) if length_sq else 0.0
+                distance_sq = min(distance_sq,
+                    (x-ax-u*dx)**2 + (y-ay-u*dy)**2)
+            assert distance_sq < 2.25, (prefix, i, x, y, math.sqrt(distance_sq))
+
 if __name__ == "__main__":
     sgdr()
     triangular2()
     bilingual_fallbacks()
     svg_asset_safety()
     fallback_geometry_parity()
+    marker_follows_visible_curve()
     print("Learning-rate animation numerical and timeline semantics: PASS")
