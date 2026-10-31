@@ -111,6 +111,23 @@ For a reproducible comparison, document:
 
 These are practical reporting choices. A useful screening flag still needs an independently evaluated fallback, such as abstention or human review. Recompute and revalidate the feature statistics when changing the representation rather than assuming an old numerical threshold transfers.
 
+## Variants
+
+- **Single-layer score** uses only the final feature layer, which is simpler and cheaper.
+- **Multi-layer score** combines distances from several layers, which captures low-level as well as high-level differences.
+- **Class-agnostic density** fits one Gaussian to all features, which removes the need for class labels.
+
+## Applications
+
+- **Image classifiers** with a pretrained backbone, where feature statistics are easy to compute.
+- **Adversarial and OOD screening**, since the same score can flag both kinds of input.
+- **Monitoring**: tracking the distance over time to detect drift in the input distribution.
+
+## Open questions
+
+- The shared-covariance assumption fails for some architectures, and better density models for features are an open area.
+- A score that resists adaptive attacks, which target the detector itself, is hard to guarantee.
+
 [^lee]: Lee et al. (2018), equations 1–2, Algorithm 1, Section 2.2 and Table 5; see References.
 [^scipy]: SciPy's Mahalanobis distance definition and parameter documentation; see References.
 [^covariance]: scikit-learn, empirical and shrunk covariance sections; see References.
