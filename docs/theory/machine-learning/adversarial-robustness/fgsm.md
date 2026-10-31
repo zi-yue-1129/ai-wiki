@@ -37,6 +37,12 @@ Given an input \(x\), label \(y\), loss \(J(\theta,x,y)\) and parameters \(\thet
 
 Clipping \(\tilde{x}\) to the valid input range, such as \([0,1]\) for images, keeps the example a valid input. Goodfellow et al. (2015) show that a linear model is especially vulnerable, because the perturbation adds up across many input dimensions and changes the output by \(\epsilon\|w\|_1\).
 
+### FGSM versus iterative PGD: trajectory
+
+![Comparison of the single FGSM step and a sequence of projected PGD steps](../../../assets/concept-animations/fgsm-pgd-trajectory.svg)
+
+*Original schematic animation.* The left panel shows one gradient-sign update; the right panel shows several smaller updates inside an illustrated \(\ell_\infty\) perturbation budget. The dashed orange segment is an attempted unprojected step, while the teal endpoint remains inside the feasible set after projection. Positions, directions, and timing are illustrative, **not measured model outputs**. The full paths remain visible in GitHub's static SVG preview. Motion may be disabled by the viewer's browser; the geometry is still readable.
+
 ## Variants
 
 - **Targeted FGSM** moves the input toward a chosen wrong label rather than away from the true label.
