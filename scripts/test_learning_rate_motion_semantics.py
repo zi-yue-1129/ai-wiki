@@ -81,7 +81,34 @@ def triangular2():
             assert abs(ys[j]-expected) < 0.035, (j, ys[j], expected)
 
 
+def bilingual_fallbacks():
+    """Ensure each schedule has a static GitHub preview and a shared bilingual embed."""
+    pairs = (
+        ("sgdr-restart", "cosine-annealing-warm-restarts"),
+        ("clr-triangular2", "cyclical-learning-rates"),
+    )
+    docs = ROOT.parents[1]
+    for asset, chapter in pairs:
+        motion = ROOT / (asset + "-motion.svg")
+        still = ROOT / (asset + "-still.svg")
+        assert motion.is_file() and still.is_file(), asset
+        still_root = ET.parse(still).getroot()
+        assert still_root.tag == "{http://www.w3.org/2000/svg}svg", asset
+        assert still_root.find("svg:title", NS) is not None, asset
+        assert not any(node.tag.rsplit("}", 1)[-1] in
+                       {"animate", "animateMotion", "animateTransform", "script"}
+                       for node in still_root.iter()), asset
+        for suffix in (".md", ".zh-TW.md"):
+            page = docs / "theory" / "optimization" / (chapter + suffix)
+            content = page.read_text(encoding="utf-8")
+            assert asset + "-still.svg" in content, str(page)
+            assert asset + "-motion.svg" in content, str(page)
+            assert "data-motion-src" in content, str(page)
+            assert "concept-animations/" in content, str(page)
+
+
 if __name__ == "__main__":
     sgdr()
     triangular2()
+    bilingual_fallbacks()
     print("Learning-rate animation numerical and timeline semantics: PASS")
