@@ -33,6 +33,12 @@ def read(name: str):
     tx, xs = result["cx"]
     ty, ys = result["cy"]
     assert tx == ty, name
+    # A shared clock is essential: equal horizontal distances must consume equal time.
+    assert all(math.isfinite(v) for v in (*tx, *xs, *ys)), name
+    assert all(b >= a for a, b in zip(xs, xs[1:])), name
+    assert all(0 <= t <= 1 for t in tx), name
+    assert anim["cx"].attrib["dur"] == anim["cy"].attrib["dur"], name
+    assert all(anim[axis].attrib.get("begin", "0s") == "0s" for axis in ("cx", "cy")), name
     assert all(abs(x - (64 + 510*t)) < 0.012 for x, t in zip(xs, tx)), name
     return tx, xs, ys
 
@@ -45,6 +51,11 @@ def sgdr():
         assert len(nearby) >= 3, (boundary, nearby)
         # Immediately before restart: low LR (larger y); after: high LR (smaller y).
         assert ys[nearby[0]] > 220 and ys[nearby[-1]] < 100
+    # Restart boundaries are nearly instantaneous relative to the full cycle.
+    for boundary in (1/7, 3/7):
+        nearby = [i for i, t in enumerate(times) if abs(t-boundary) < 0.000005]
+        assert times[nearby[-1]] - times[nearby[0]] < 0.00001
+        assert abs(xs[nearby[-1]] - xs[nearby[0]]) < 0.01
     for t, y in zip(times, ys):
         if any(abs(t-b) < 0.000005 for b in (1/7, 3/7)):
             continue
@@ -56,6 +67,9 @@ def sgdr():
 def triangular2():
     times, xs, ys = read("clr-triangular2-motion.svg")
     assert len(times) == 121
+    # Exactly three equal-duration cycles, with no phantom fourth-cycle peak.
+    assert all(abs(times[k*40] - k/3) < 1e-5 for k in range(4))
+    assert abs(ys[0] - ys[-1]) < 0.03
     for cycle in range(3):
         start, peak, end = cycle*40, cycle*40+20, (cycle+1)*40
         assert abs(ys[start]-223.6) < 0.03
