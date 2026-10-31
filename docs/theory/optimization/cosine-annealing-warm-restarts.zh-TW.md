@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-31
 ---
 
 # 附暖重啟的餘弦退火
