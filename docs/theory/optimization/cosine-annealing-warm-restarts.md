@@ -32,9 +32,9 @@ Within run \(i\), the rate falls along a cosine curve from \(\eta^i_{\max}\) to 
 
 ### Schedule in motion
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Learning-rate schedule animation">
-<div style="width:640px">
-<img src="../../assets/concept-animations/sgdr-restart-still.svg" data-motion-src="../../assets/concept-animations/sgdr-restart-motion.svg" alt="Cosine learning-rate decay over successively longer cycles, with upward resets at each restart.">
+<div style="max-width:640px;width:100%" role="group" aria-label="Learning-rate schedule animation">
+<div style="width:100%">
+<img src="../../assets/concept-animations/sgdr-restart-still.svg" data-motion-src="../../assets/concept-animations/sgdr-restart-motion.svg" style="display:block;width:100%;height:auto" alt="Cosine learning-rate decay over successively longer cycles, with upward resets at each restart.">
 </div>
 </div>
 
