@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-30
 ---
 
 # 共形預測
@@ -25,6 +25,15 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 \]
 
 在可交換性下，\(P(Y\in C(X))\ge 1-\alpha\)（Angelopoulos 與 Bates，2023）。對迴歸而言，同樣的想法產生預測區間，分數可以是絕對殘差，或來自分位數模型的量。Lei 等人（2018）在此框架下發展了迴歸的無分布假設預測推論。
+
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="共形預測動畫">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/conformal-quantile-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-quantile-motion.svg" alt="八筆排序後的示意校準分數，以第七筆 0.54 作為分割式共形預測門檻；候選標籤 A、B 納入預測集合，C 排除。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 假設有八筆示意校準分數，α=0.25，有限樣本的排序位置為 ceil((8+1)(1−0.25))=7，因此第七小的分數為門檻 q=0.54。另一筆示意測試輸入的候選標籤分數分別為 A: 0.19、B: 0.48、C: 0.71，得到預測集合 **{A, B}**。動畫依序呈現校準分數、門檻與集合成員。**數值是教學假設，不是實測模型結果或經驗覆蓋率。** 邊際覆蓋保證須有可交換性，並非逐筆輸入保證。MkDocs 網站可播放／暫停；[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-quantile-still.svg) 顯示最終集合。手機可水平捲動。來源見 Shafer 與 Vovk（2008）、Angelopoulos 與 Bates（2023）。
 
 ## 變體
 

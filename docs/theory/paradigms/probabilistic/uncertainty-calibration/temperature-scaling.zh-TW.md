@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-30
 ---
 
 # 溫度縮放
@@ -26,6 +26,15 @@ translation_reviewed: 2026-10-28
 \]
 
 參數 \(T\) 的選擇使驗證集上標籤的 NLL 最小。由於把所有 logits 除以同一個正數不會改變它們的排序，預測的類別以及準確率都不會改變，只有信心程度改變。Guo 等人（2017）以簡單的一維最佳化來擬合 \(T\)，並報告它在影像基準上大幅降低深度網路的期望校準誤差。
+
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="溫度縮放動畫">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/temperature-softmax-still.svg" data-motion-src="../../../../assets/concept-animations/temperature-softmax-motion.svg" alt="固定示意 logits 為 A=3、B=1、C=0；溫度從 0.5 上升至 2 再下降時，softmax 機率長條連續變化，但預測類別始終為 A。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 以固定示意 logits（3、1、0）計算溫度由 0.5 增至 2 再返回時的 softmax 機率。動畫計算 41 個精確取樣點，點與點之間採視覺插值，**插值影格不是額外的模型運算結果**；所有正溫度下的 argmax 均為 A。**數值並非實際模型輸出，也不是透過驗證集擬合的校準溫度。** MkDocs 網站可播放／暫停；[GitHub 靜態預覽](../../../../assets/concept-animations/temperature-softmax-still.svg) 顯示 T=1。手機可水平捲動查看原尺寸圖。理論來源見參考文獻中的 Guo 等人（2017）。
 
 ## 變體
 
