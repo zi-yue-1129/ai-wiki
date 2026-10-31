@@ -192,7 +192,7 @@ def marker_follows_visible_curve():
         commands = re.findall(r"[A-Za-z]", d)
         assert commands and commands[0] == "M" and set(commands) <= {"M", "L"}, prefix
         numbers = [float(n) for n in re.findall(
-            r"[-+]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[eE][-+]?\\d+)?", d)]
+            r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?", d)]
         assert len(numbers) >= 4 and len(numbers) % 2 == 0, prefix
         points = list(zip(numbers[::2], numbers[1::2]))
         assert all(math.isfinite(v) for p in points for v in p), prefix
