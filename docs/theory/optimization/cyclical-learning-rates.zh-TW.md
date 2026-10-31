@@ -18,6 +18,18 @@ translation_reviewed: 2026-10-28
 
 以學習率範圍測試估計兩個上下界 \(\eta_{\min}\) 與 \(\eta_{\max}\)：在數個 epoch 中讓學習率線性增加，並觀察準確率。接著，在其餘的訓練中讓學習率在這兩個界限之間循環。
 
+### 動態排程示意
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="學習率排程動畫">
+<div style="width:640px">
+<img src="../../assets/concept-animations/clr-triangular2-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-motion.svg" alt="Triangular2 學習率排程的三個週期，每個週期的振幅依序減半。">
+</div>
+</div>
+
+*AI Wiki 原創動畫，CC BY-SA 4.0。*
+
+移動標記沿著三個等長三角週期運行，每輪先線性上升再線性下降，下一輪的振幅減半，而下界固定。圖中數值為正規化示意值，不是模型實測學習率或準確率。
+
 ## 演算法
 
 **範圍測試。** 訓練數個 epoch，同時讓學習率從很小的值線性增加到很大的值，並繪製準確率與學習率的關係。下界是準確率開始上升之處；上界是準確率增長趨緩、變得不穩定，或開始下降之處。論文建議將下界設為上界的三分之一或四分之一。論文中，CIFAR-10 的測試為 8 個 epoch，GoogLeNet 為 4 個 epoch。
