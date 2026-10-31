@@ -11,8 +11,24 @@ on:
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
+      - "docs/javascripts/self-supervised-labs.js"
+      - "docs/javascripts/ssl-causal-comparisons.js"
+      - "docs/javascripts/ssl-gradient-sensitivity.js"
+      - "docs/javascripts/ssl-ema-trajectory.js"
+      - "docs/javascripts/ssl-temporal-provenance.js"
       - "docs/stylesheets/concept-motion-detailed.css"
+      - "docs/stylesheets/self-supervised-labs.css"
+      - "docs/stylesheets/ssl-causal-comparisons.css"
+      - "docs/stylesheets/ssl-gradient-sensitivity.css"
+      - "docs/stylesheets/ssl-ema-trajectory.css"
+      - "docs/stylesheets/ssl-temporal-provenance.css"
+      - "scripts/test_ssl_causal_comparisons_browser.py"
+      - "scripts/test_ssl_causal_previews_browser.py"
+      - "scripts/test_ssl_gradient_browser.py"
+      - "scripts/test_ssl_ema_trajectory_browser.py"
+      - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
+      - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
@@ -46,6 +62,41 @@ jobs:
         run: python scripts/test_uncertainty_motion_semantics.py
       - name: Exercise bilingual guided motion controls and fallback
         run: node scripts/test_concept_motion_chapters.cjs
+      - name: Test MoCo FIFO and BYOL EMA simulators
+        run: node scripts/test_self_supervised_labs.cjs
+      - name: Install Chromium and Traditional Chinese fonts for visual tests
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+          fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
+          python -m pip install "playwright==1.55.0"
+          python -m playwright install chromium
+      - name: Chromium mobile/desktop playback, pause and geometry
+        run: python scripts/test_self_supervised_browser.py
+      - name: Chromium causal counterfactuals, bilingual responsive layout
+        run: python scripts/test_ssl_causal_comparisons_browser.py
+      - name: Chromium counterfactual SVG previews, focus pause and reduced motion
+        run: python scripts/test_ssl_causal_previews_browser.py
+      - name: Chromium gradient sensitivity, bilingual responsive layout
+        run: python scripts/test_ssl_gradient_browser.py
+      - name: Chromium discrete EMA trajectory integration
+        run: python scripts/test_ssl_ema_trajectory_browser.py
+      - name: Chromium FIFO lifetime and EMA historical attribution
+        run: python scripts/test_ssl_temporal_provenance_browser.py
+      - name: Keep rendered review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: self-supervised-lab-browser-review
+          path: |
+            artifacts/self-supervised-labs/*.png
+            artifacts/ssl-causal-comparisons/*.png
+            artifacts/ssl-causal-previews/*.png
+            artifacts/ssl-gradient/*.png
+            artifacts/ssl-ema-trajectory/*.png
+            artifacts/ssl-temporal-provenance/*.png
+          if-no-files-found: ignore
+          retention-days: 7
 
   validate-svgs:
     runs-on: ubuntu-latest

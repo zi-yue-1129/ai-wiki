@@ -58,13 +58,47 @@ The projector is a linear layer with 4096 outputs, batch normalisation, a ReLU, 
 
 ### Visual walkthrough: online gradients and momentum target
 
-![BYOL animation: two views, online prediction of the target, stopped target gradients, and exponential-moving-average target update.](../../../../assets/concept-animations/byol-online-target-motion.svg)
+![BYOL static overview: two views, online prediction of the target, stopped target gradients, and exponential-moving-average target update.](../../../../assets/concept-animations/byol-online-target-still.svg)
 
-[Static four-stage overview for GitHub](../../../../assets/concept-animations/byol-online-target-still.svg)
 
-The animation follows **augment → predict → backpropagate → update target**. Two augmented views enter separate branches. The online encoder and predictor minimise a matching loss against a **stop-gradient target projection**; the target branch receives **no loss gradient**. The target weights are subsequently updated by **EMA**, not by a backward pass. BYOL does **not** use negative pairs. The figure shows one directional loss for clarity; the original training objective also swaps the two views and sums both directions. All shapes and arrows are **schematic, not measured activations or training traces**.
 
-On MkDocs, use **Play/Pause** to stop the eight-second loop; the linked static overview works in GitHub Markdown and with reduced motion. This original diagram is licensed **CC BY-SA 4.0** and follows Grill et al. (2020), cited below.
+The static overview distinguishes **augment → predict → backpropagate → update target**, while the controllable simulation below shows each intermediate operation. Two augmented views enter separate branches. The online encoder and predictor minimise a matching loss against a **stop-gradient target projection**; the target branch receives **no loss gradient**. The target weights are subsequently updated by **EMA**, not by a backward pass. BYOL does **not** use negative pairs. The figure shows one directional loss for clarity; the original training objective also swaps the two views and sums both directions. All shapes and arrows are **schematic, not measured activations or training traces**.
+
+The static overview remains readable in GitHub Markdown and without JavaScript; the MkDocs experiment below provides pause, step, seek and speed controls. This original diagram is licensed **CC BY-SA 4.0** and follows Grill et al. (2020), cited below.
+
+
+#### Interactive experiment: observe stop-gradient and target lag
+
+<div data-self-supervised-lab="byol" data-locale="en"></div>
+
+**Loss microscope (independent toy example).** Adjust the **Cosine similarity** slider (−1 to 1) to rotate one illustrative unit vector relative to another. The normalised BYOL directional loss is \(\|\bar q-\bar z\|_2^2=2-2\cos(\bar q,\bar z)\), so aligned vectors yield 0, orthogonal vectors 2 and opposite vectors 4. The rotating vectors are **not the scalar EMA weights above** and are not measured representations. This panel isolates the matching objective, while the main timeline demonstrates **stop-gradient and the target EMA**. The full BYOL training loss symmetrises both augmented-view directions.
+
+**Stop-gradient routing counterfactual (linked to the same cosine slider).** The upper row shows the actual BYOL directional loss: loss gradients flow into the **online encoder/predictor**, while the target branch is blocked. The lower row deliberately removes stop-gradient to show the additional target loss-gradient route that would become possible; it is **not the BYOL algorithm**. The separate green EMA connection is a parameter update, **not a backpropagation path**. The displayed angular sensitivity \(2\sin\phi\) belongs to the toy unit-vector loss; arrow lengths are qualitative and do **not** quantify neural-network parameter gradients or predict collapse.
+
+![BYOL counterfactual fallback: loss gradients reach the online branch only under stop-gradient; the no-stop-gradient route is hypothetical and EMA is separate.](../../../../assets/concept-animations/byol-causal-still.svg)
+
+[Open the animated gradient-routing comparison](../../../../assets/concept-animations/byol-causal-motion.svg) (4.6-second loop; hover or keyboard-focus to pause). Orange moving dots trace *possible loss-gradient routes*, while the green pulse marks a **separate EMA parameter update**. This is a qualitative one-directional toy, not measured gradients; the still SVG is GitHub-readable. Original **CC BY-SA 4.0**.
+
+**Angular gradient (linked to the same cosine slider).** The continuous sensitivity curve uses \(\phi=\arccos(\bar q\cdot\bar z)\) and \(\mathrm d\mathcal L/\mathrm d\phi=2\sin\phi\), with \(\phi\) measured in **radians** for differentiation. The angular derivative is zero at alignment and opposition, and reaches 2 at a right angle. This is a derivative of the illustrative *directional loss with respect to the angle*, **not** a gradient flowing into the target encoder; stop-gradient remains in effect.
+
+
+[View the continuous GIF preview of three toy updates](../../../../assets/concept-animations/byol-momentum-preview.gif) (fixed momentum m = 0.90; viewable on GitHub, while the MkDocs simulator lets you vary momentum).
+
+Use **Play/Pause, Previous/Next, timeline scrubbing and playback speed** to inspect three hand-calculable updates. Each iteration processes two views, aligns an online prediction with a target projection, blocks **target loss gradients**, updates **only online parameters by SGD**, and then applies **one EMA update** to the target. Track the lag between the two scalar parameter markers; for example, the first update is `0.9 × 0.300 + 0.1 × 0.850 = 0.355`. These scalar values and the momentum 0.9 are **illustrative, not learned features or the paper's training schedule**. The full BYOL objective also swaps views and sums both directional losses; the miniature simulation isolates one direction. There is **no negative-key queue**. Reduced-motion readers can operate the states without moving particles. The static SVG overview remains the GitHub/no-JavaScript fallback. Original teaching simulation **CC BY-SA 4.0**. **Momentum sensitivity:** Adjust the **Momentum m** slider from `0.50` to `0.99` to see how the target/key scalar follows the online/query scalar across three EMA updates; `|Δ|` is the absolute gap between the two illustrative scalars. Changing m recomputes all subsequent EMA states and pauses playback, but leaves the prescribed SGD values and BYOL stop-gradient mechanism unchanged. This is a what-if demonstration of parameter updates, not a training trace, learned representation, or performance prediction.
+
+**Discrete EMA trajectory comparison.** The new plot follows playback, timeline seeking and the momentum slider. Blue dots represent toy online SGD parameters; green dots represent target EMA parameters, with a dashed `m=0.90` reference when momentum changes. Only **completed** update states are drawn: the blue online point appears after SGD, and the green target point appears after its subsequent EMA. Future states and the `m=0.90` reference are revealed only as those updates occur. Lines are not continuous training traces or measured embeddings. Compare the moment after online SGD but before target EMA to distinguish stop-gradient from the separate momentum update.
+
+**Online angular descent (linked to the cosine slider).** The orange tangent arrow indicates the local direction of decreasing angle \(\phi\) for the **online** unit vector, with \(-\mathrm d\mathcal L/\mathrm d\phi=-2\sin\phi\). The target vector remains fixed under stop-gradient. At exact alignment or opposition the angular derivative is zero and the arrow disappears; opposition is a maximum of this illustrative angular loss, not evidence that real training cannot escape collapse. This geometry is **not a network-weight gradient or a learned update**.
+
+**Historical contributions to the EMA target (synchronised with the main player).** The new stacked bars expand the *discrete* EMA recurrence after \(t\) target updates:
+
+\[
+\xi_t=m^t\xi_0+(1-m)\sum_{j=1}^{t}m^{t-j}\theta_j.
+\]
+
+Here \(\theta_j\) is the online weight **after** its \(j\)-th SGD update. The bars attribute the target to the initial target (`T0`) and successive online snapshots (`Q1–Q3`); their coefficients sum to one. The highlighted row advances **only after Target EMA**, not during stop-gradient or Online SGD; future contribution bars stay empty until the corresponding update is completed. Adjust **Momentum m** to see how larger momentum retains more initial-target history. These are toy scalar coefficients, **not measured network weights, gradients, or empirical training dynamics**; the existing GIF and static overview above provide the GitHub fallback.
+
+**Causal numeric readout.** Before Online SGD and Target EMA, the readout does not reveal future online weights or EMA results. The completed EMA arithmetic appears only after the target update; seeking backwards hides it again. This aligns the main player with the discrete history charts and keeps stop-gradient distinct from target EMA. Values are schematic, not learned weights.
 
 ## Key methods
 

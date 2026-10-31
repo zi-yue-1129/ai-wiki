@@ -1,0 +1,10 @@
+/* Discrete EMA comparison: no autoplay motion, SVG labels remain English. */
+.ssl-ema-trajectory { max-width:640px; box-sizing:border-box; margin:.6rem 0 1rem; padding:.6rem .7rem; border:1px solid var(--md-default-fg-color--lighter,#b9cbd6); border-radius:.45rem; background:var(--md-default-bg-color,#fff); color:var(--md-default-fg-color,#20384b); }
+.ssl-ema-heading { font-weight:600; font-size:.82rem; margin-bottom:.35rem; }
+.ssl-ema-chart svg { display:block; width:100%; max-width:600px; height:auto; }
+.ssl-ema-axis { font:12px Arial,sans-serif; fill:#40576a; }
+.ssl-ema-legend { font:12px Arial,sans-serif; fill:#40576a; }
+.ssl-ema-readout { display:block; font:12px/1.6 ui-monospace,monospace; overflow-wrap:anywhere; margin-top:.3rem; }
+.ssl-ema-note { margin:.25rem 0 0; font-size:.75rem; line-height:1.55; }
+.ssl-ema-trajectory :is(svg,rect,path,circle,polyline) { animation:none!important; transition:none!important; }
+@media (max-width:480px) { .ssl-ema-axis,.ssl-ema-legend { font-size:18px; } }

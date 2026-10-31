@@ -1064,6 +1064,11 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/concept-motion-detailed.js
+  - javascripts/self-supervised-labs.js
+  - javascripts/ssl-causal-comparisons.js
+  - javascripts/ssl-gradient-sensitivity.js
+  - javascripts/ssl-ema-trajectory.js
+  - javascripts/ssl-temporal-provenance.js
   - javascripts/concept-motion.js
   - javascripts/distributed-motion-controls.js
   - javascripts/distributed-parameter-explorers.js
@@ -1075,6 +1080,11 @@ extra_javascript:
 
 extra_css:
   - stylesheets/concept-motion-detailed.css
+  - stylesheets/self-supervised-labs.css
+  - stylesheets/ssl-causal-comparisons.css
+  - stylesheets/ssl-gradient-sensitivity.css
+  - stylesheets/ssl-ema-trajectory.css
+  - stylesheets/ssl-temporal-provenance.css
   - stylesheets/concept-motion.css
   - stylesheets/distributed-motion-controls.css
   - stylesheets/distributed-parameter-explorers.css
