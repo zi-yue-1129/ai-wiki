@@ -512,6 +512,9 @@ plugins:
             Diffusion Models: 擴散模型
             DDPM: DDPM
             DDIM: DDIM
+            Score SDE: 分數式 SDE 模型
+            Matching Networks: 匹配網路
+            MPNN: MPNN
             Latent Diffusion: 潛在擴散
             DiT: DiT 擴散 Transformer
             Architecture Families: 架構家族
@@ -1286,6 +1289,7 @@ nav:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
                       - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
                       - DDIM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md
+                      - Score SDE: theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md
                       - Latent Diffusion: theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md
                       - Classifier-Free Guidance: theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md
                       - Consistency Models and Fast Samplers: theory/paradigms/unsupervised/density-and-generative-models/diffusion/consistency-models.md
@@ -1399,7 +1403,9 @@ nav:
               - Optimisation-based:
                   - theory/paradigms/meta-learning/optimisation-based/index.md
                   - MAML: theory/paradigms/meta-learning/optimisation-based/maml.md
-              - Metric-based Few-shot: theory/paradigms/meta-learning/metric-based/index.md
+              - Metric-based Few-shot:
+                  - theory/paradigms/meta-learning/metric-based/index.md
+                  - Matching Networks: theory/paradigms/meta-learning/metric-based/matching-networks.md
               - Memory & Model-based: theory/paradigms/meta-learning/memory-and-model-based/index.md
               - Meta-learning Theory: theory/paradigms/meta-learning/meta-learning-theory/index.md
               - Benchmarks & Foundation Models: theory/paradigms/meta-learning/benchmarks-and-foundation-models/index.md
@@ -1773,6 +1779,7 @@ nav:
               - theory/models/gnn/index.md
               - Message Passing:
                   - theory/models/gnn/message-passing/index.md
+                  - MPNN: theory/models/gnn/message-passing/mpnn.md
                   - GraphSAGE: theory/models/gnn/message-passing/graphsage/index.md
                   - GCN: theory/models/gnn/message-passing/gcn/index.md
                   - GAT: theory/models/gnn/message-passing/gat/index.md
