@@ -18,6 +18,8 @@ def project(z, x, epsilon, lower=0.0, upper=1.0):
     """Coordinate-wise Euclidean projection onto the bounded L-infinity ball."""
     if not all(math.isfinite(v) for v in (epsilon, lower, upper)) or epsilon < 0 or lower > upper:
         raise ValueError("Invalid projection domain")
+    if not x or not z:
+        raise ValueError("Projection requires at least one coordinate")
     if len(z) != len(x):
         raise ValueError("Candidate and clean input must have equal dimensions")
     if not all(math.isfinite(v) for v in (*z, *x)):
@@ -79,6 +81,15 @@ def check_projection_invariants():
             pass
         else:
             raise AssertionError("Invalid projection input must be rejected")
+    # Empty vectors cannot represent an image or perturbation and must not
+    # silently pass feasibility checks (which would be vacuously true).
+    for candidate, clean in (((), ()), ((), (0.5,)), ((0.5,), ())):
+        try:
+            project(candidate, clean, 0.1)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("Empty projection vectors must be rejected")
     # Independent coordinates must not share a clipping interval.
     near(project((-0.5, 1.5), (0.02, 0.98), 0.1), (0.0, 1.0))
     # A mismatched dimensionality is a programming error, not silent truncation.
