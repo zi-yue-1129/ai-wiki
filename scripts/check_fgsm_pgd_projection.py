@@ -216,10 +216,39 @@ def check_geometric_projection_consistency():
     ), "Static projection return must agree with animated displacement"
 
 
+def check_svg_self_containment_and_accessibility():
+    """Prevent external dependencies and hidden motion in the GitHub fallback.
+
+    This is a static safety check; it does not establish visual quality.
+    """
+    root = ET.parse(SVG).getroot()
+    ns = "{http://www.w3.org/2000/svg}"
+    forbidden = {"script", "foreignObject", "iframe", "image", "use"}
+    for element in root.iter():
+        local_name = element.tag.rsplit("}", 1)[-1]
+        assert local_name not in forbidden, f"Unexpected embedded element: {local_name}"
+        for key, value in element.attrib.items():
+            attribute = key.rsplit("}", 1)[-1].lower()
+            assert not attribute.startswith("on"), "Inline event handlers are not allowed"
+            if attribute in {"href", "src"}:
+                assert value.startswith("#"), "External SVG resources are not allowed"
+    assert root.get("role") == "img"
+    labels = root.get("aria-labelledby", "").split()
+    ids = {node.get("id") for node in root.iter() if node.get("id")}
+    assert len(labels) == 2 and all(label in ids for label in labels)
+    style = root.find(ns + "style")
+    assert style is not None
+    css = style.text or ""
+    assert "prefers-reduced-motion: reduce" in css
+    assert "animateMotion" in css and "animate" in css
+    assert "display: none" in css
+
+
 if __name__ == "__main__":
     check_numerical_examples()
     check_projection_invariants()
     check_svg()
     check_motion_timing_and_fallback()
     check_geometric_projection_consistency()
+    check_svg_self_containment_and_accessibility()
     print("FGSM/PGD numerical examples and SVG semantic checks passed.")
