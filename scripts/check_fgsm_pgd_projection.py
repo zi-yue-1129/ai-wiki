@@ -16,8 +16,14 @@ NS = {"s": "http://www.w3.org/2000/svg"}
 
 def project(z, x, epsilon, lower=0.0, upper=1.0):
     """Coordinate-wise Euclidean projection onto the bounded L-infinity ball."""
-    if not (epsilon >= 0 and lower <= upper):
+    if not all(math.isfinite(v) for v in (epsilon, lower, upper)) or epsilon < 0 or lower > upper:
         raise ValueError("Invalid projection domain")
+    if len(z) != len(x):
+        raise ValueError("Candidate and clean input must have equal dimensions")
+    if not all(math.isfinite(v) for v in (*z, *x)):
+        raise ValueError("Projection inputs must be finite")
+    if not all(lower <= center <= upper for center in x):
+        raise ValueError("Clean input must belong to the input domain")
     return tuple(
         min(min(upper, center + epsilon), max(max(lower, center - epsilon), value))
         for value, center in zip(z, x, strict=True)
@@ -58,6 +64,21 @@ def check_projection_invariants():
                 assert lo - 1e-12 <= result <= hi + 1e-12
                 assert math.isclose(result, min(hi, max(lo, candidate)), abs_tol=1e-12)
                 near(project((result,), (clean,), epsilon), (result,))
+    # Reject undefined or infeasible projection inputs explicitly.
+    for bad_epsilon in (-0.1, float("nan"), float("inf")):
+        try:
+            project((0.5,), (0.5,), bad_epsilon)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("Invalid epsilon must be rejected")
+    for candidate, clean in ((float("nan"), 0.5), (0.5, float("inf")), (0.5, 1.2)):
+        try:
+            project((candidate,), (clean,), 0.1)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("Invalid projection input must be rejected")
     # Independent coordinates must not share a clipping interval.
     near(project((-0.5, 1.5), (0.02, 0.98), 0.1), (0.0, 1.0))
     # A mismatched dimensionality is a programming error, not silent truncation.
