@@ -169,6 +169,25 @@ def check_geometric_projection_consistency():
     assert projected[0] == right, "Projection must land on the right boundary"
     assert top <= projected[1] <= bottom, "Projected point must be feasible"
 
+    # The orange candidate must travel from the last feasible iterate to the
+    # out-of-budget point BEFORE the purple projection begins.
+    candidate_markers = [
+        c for c in root.iter(ns + "circle")
+        if c.get("cx") == "595" and c.get("cy") == "120"
+        and c.get("fill") == "#f59e0b"
+    ]
+    assert len(candidate_markers) == 1, "Missing moving candidate update"
+    candidate_motion = candidate_markers[0].find(ns + "animateMotion")
+    assert candidate_motion is not None
+    assert candidate_motion.get("path") == "M0 0L65 -33"
+    assert candidate_motion.get("keyTimes") == "0;0.5;0.7;1"
+    assert candidate_motion.get("keyPoints") == "0;0;1;1"
+    candidate_opacity = candidate_markers[0].find(ns + "animate")
+    assert candidate_opacity is not None
+    assert candidate_opacity.get("calcMode") == "discrete"
+    assert candidate_opacity.get("keyTimes") == "0;0.5;0.51;0.69;0.7;1"
+    assert candidate_markers[0].get("opacity") == "0", "Fallback must not show extra marker"
+
     projected_markers = [
         c for c in root.iter(ns + "circle")
         if c.get("cx") == "660" and c.get("cy") == "87"
