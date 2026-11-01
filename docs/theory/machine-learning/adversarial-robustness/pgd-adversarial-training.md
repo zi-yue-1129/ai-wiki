@@ -20,7 +20,7 @@ Projected gradient descent (PGD) is an iterative attack that repeats small gradi
 
 ## Overview
 
-A single FGSM step can miss the region of highest loss. PGD takes many steps and restarts from random points in the budget, so it finds stronger adversarial examples. Madry et al. (2018) framed robust training as a min–max problem: minimise over the parameters the worst-case loss over perturbations within the budget.
+A single FGSM step can miss higher-loss regions. PGD repeatedly updates the candidate and projects it into the feasible set; optional random starts and multiple independent restarts can strengthen the search, but neither is required for every PGD implementation. Madry et al. (2018) framed robust training as a min–max problem: minimise over the parameters the worst-case loss over perturbations within the budget.
 
 ## Key concepts
 
@@ -47,6 +47,8 @@ where \(\Pi\) is the projection onto the ball and \(\alpha\) is the step size. A
 For an \(\ell_\infty\) budget, projection is **coordinate-wise clipping** rather than movement along the drawn trajectory: \(\Pi_{\mathcal B_\epsilon(x)}(z)_i=\min(x_i+\epsilon,\max(x_i-\epsilon,z_i))\). If the input also has a valid range (for example, pixel values in \([0,1]\)), the update must respect the intersection with that range. As a schematic one-coordinate example with clean value \(0.50\), \(\epsilon=0.10\), and an unprojected candidate \(0.64\), projection returns \(0.60\). These are illustrative values, not measurements. The figure does not depict random initialisation, a loss surface, or literal gradient directions; in a real PGD run, the gradient is recomputed at each iterate.
 
 For bounded inputs, the feasible interval for coordinate \(i\) is \([\max(0,x_i-\epsilon),\min(1,x_i+\epsilon)]\), assuming the input domain is \([0,1]\). The projection is therefore clipping to this *intersection*, not merely clipping to the perturbation budget.
+
+**Two-coordinate check (illustrative, not measured).** Let \(x=(0.95,0.20)\), \(\epsilon=0.10\), and the unprojected candidate be \(z=(1.08,0.04)\). The feasible intervals are \([0.85,1.00]\) and \([0.10,0.30]\), respectively, so projection yields \((1.00,0.10)\). This example exercises *both* the input-domain bound and the perturbation budget. For the \(\ell_\infty\) attack shown here, the gradient-*sign* update is a step of ascent on the attack loss; the subsequent clipping is the projection, not another gradient step.
 
 ## Variants
 
