@@ -37,10 +37,41 @@ jobs:
               assert target.stat().st_size > 0, f"Empty raster: {target}"
               print(f"{target.name}: {target.stat().st_size} bytes")
           PY
+      - name: Install Chromium for actual SMIL frame capture
+        run: |
+          python -m pip install 'playwright==1.56.0'
+          python -m playwright install --with-deps chromium
+      - name: Capture animated frames and reduced-motion fallback
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+
+          source = Path("docs/assets/concept-animations/fgsm-pgd-trajectory.svg").resolve().as_uri()
+          output = Path("/tmp/fgsm-pgd-preview")
+          with sync_playwright() as playwright:
+              browser = playwright.chromium.launch(headless=True)
+              for width in (360, 720, 1024):
+                  page = browser.new_page(viewport={"width": width, "height": 400}, device_scale_factor=1)
+                  page.goto(source)
+                  page.locator("svg").wait_for()
+                  svg = page.locator("svg")
+                  for time_ms in (0, 1000, 2600, 3400, 4500):
+                      # Seek SMIL directly, rather than depending on screenshot timing.
+                      page.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", time_ms / 1000)
+                      svg.screenshot(path=str(output / f"fgsm-pgd-{width}px-{time_ms}ms.png"))
+                  page.close()
+                  reduced = browser.new_page(viewport={"width": width, "height": 400}, reduced_motion="reduce")
+                  reduced.goto(source)
+                  reduced.locator("svg").wait_for()
+                  reduced.locator("svg").screenshot(path=str(output / f"fgsm-pgd-{width}px-reduced.png"))
+                  reduced.close()
+              browser.close()
+          PY
       - name: Upload fallback raster previews for manual visual review
         uses: actions/upload-artifact@v4
         with:
-          name: fgsm-pgd-static-fallback-previews
+          name: fgsm-pgd-browser-frames-and-fallback
           path: /tmp/fgsm-pgd-preview/*.png
           if-no-files-found: error
           retention-days: 14
