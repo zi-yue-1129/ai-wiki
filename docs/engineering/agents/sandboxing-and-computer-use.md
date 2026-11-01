@@ -1,5 +1,5 @@
 ---
-status: draft
+status: complete
 last_reviewed: 2026-11-01
 related:
   - theory/models/agents
@@ -114,7 +114,7 @@ Practical defences include limiting the agent's permissions, separating instruct
 
 - **Testing software** by running scripted flows through the user interface.
 - **Filling forms** in legacy systems that have no API.
-- **Accessibility assistance**, where an agent operates an interface on behalf of a user with a motor or visual impairment. OSWorld's authors cite accessibility and productivity as the motivation for this kind of agent.
+- **Accessibility assistance**, where an agent operates an interface on behalf of a user with a motor or visual impairment.
 
 ## Open questions
 
