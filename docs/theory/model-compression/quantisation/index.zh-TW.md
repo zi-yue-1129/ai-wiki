@@ -33,6 +33,8 @@ q = \operatorname{clip}\!\left(\operatorname{round}\!\left(\frac{x}{s}\right) + 
 | 二元與三元 | 是 | 1 至 2 位元 | 專用硬體上的卷積網路 | [二元與三元](binary-and-ternary/index.md) |
 | 混合精度 | 視方法而定 | 因層而異 | 統一位元寬無法滿足的預算 | [混合精度](mixed-precision/index.md) |
 
+想看數值格式、PTQ 與 QAT 的綜述，請見[神經網路量化方法綜述](quantisation-survey.md)（Gholami et al., 2021）。
+
 對大型語言模型而言，PTQ 通常是首選，因為在那種規模下訓練的成本很高。當負擔得起訓練時，QAT 與其他需要訓練的方法能在低位元寬下挽回更多準確度。
 
 ## 訓練後量化方法速覽

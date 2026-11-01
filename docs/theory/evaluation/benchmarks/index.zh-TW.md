@@ -27,6 +27,8 @@ tags:
 | [推理與代理](reasoning-agents/index.md) | [ARC-AGI](reasoning-agents/arc-agi.md)、[GAIA](reasoning-agents/gaia.md)、[WebArena](reasoning-agents/webarena.md) | 規則獲得、真實世界問題與網頁任務 |
 | [少樣本](few-shot/index.md) | [miniImageNet](few-shot/mini-imagenet.md)、[Omniglot](few-shot/omniglot.md) | 從少數有標籤的範例辨識新類別 |
 
+基準分數是特定任務集合的證據，不會自動成為廣泛能力的證據。[基準的構念效度](benchmark-validity.md)討論這個問題（Raji et al., 2021）。
+
 ## 如何解讀分數
 
 基準分數只有在附上三項資訊時才能解讀：指標、協定與測試集的歷史。指標見[指標](../metrics/index.md)。協定，包括切分、污染與不確定性的報告，見[評估協定](../protocols/index.md)。對於以網路文字訓練的模型，測試集相對於訓練資料的時間也很重要。

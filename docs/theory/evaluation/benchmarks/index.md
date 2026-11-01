@@ -27,6 +27,8 @@ A benchmark is a fixed set of tasks, data and a metric that a community agrees t
 | [Neuroscience](neuroscience/index.md) | [Brain-Score](neuroscience/brain-score.md) | Matching neural and behavioural responses |
 | [Few-shot](few-shot/index.md) | [miniImageNet](few-shot/mini-imagenet.md), [Omniglot](few-shot/omniglot.md) | Recognising new classes from few labelled examples |
 
+A benchmark score is evidence for a specific task set, not automatically for a broad capability. [Benchmark validity](benchmark-validity.md) discusses this construct-validity problem (Raji et al., 2021).
+
 ## Reading a score
 
 A benchmark score is only interpretable with three things attached: the metric, the protocol and the test-set history. The metric is described in [metrics](../metrics/index.md). The protocol, covering splits, contamination and reporting uncertainty, is in [protocols](../protocols/index.md). The date of the test set relative to the training data matters for any model trained on web text.

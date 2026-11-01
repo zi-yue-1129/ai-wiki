@@ -48,6 +48,8 @@ where \(s\) is a scale and \(z\) a zero point. Choosing \(s\) from the range of 
 | Binary and ternary | Yes | 1 to 2 bits | Convolutional networks on specialised hardware | [Binary and ternary](binary-and-ternary/index.md) |
 | Mixed precision | Depends on the method | Varies by layer | Budgets that a uniform width cannot meet | [Mixed precision](mixed-precision/index.md) |
 
+For a survey of number formats, PTQ and QAT, see [A Survey of Quantization Methods](quantisation-survey.md) (Gholami et al., 2021).
+
 PTQ is the usual choice for large language models, because a training run at that scale is expensive. QAT and the training-based families recover more accuracy at low bit-widths when a training run is affordable.
 
 ## Post-training methods at a glance
