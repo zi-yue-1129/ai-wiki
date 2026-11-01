@@ -101,8 +101,47 @@ def check_motion_timing_and_fallback():
     assert title is not None and (title.text or "").strip()
     assert desc is not None and "projection" in (desc.text or "").lower()
 
+def check_geometric_projection_consistency():
+    """Verify the drawn candidate and return motion agree with the budget box.
+
+    This catches a visually misleading endpoint even when SMIL syntax is valid.
+    Coordinates are schematic, not an empirical gradient trace.
+    """
+    root = ET.parse(SVG).getroot()
+    ns = "{http://www.w3.org/2000/svg}"
+    boxes = [r for r in root.iter(ns + "rect") if r.get("stroke-dasharray")]
+    assert len(boxes) == 2, "Expected FGSM and PGD feasible-set boxes"
+    box = boxes[1]
+    left = float(box.get("x"))
+    right = left + float(box.get("width"))
+    top = float(box.get("y"))
+    bottom = top + float(box.get("height"))
+    candidate = (660.0, 87.0)
+    projected = (636.0, 87.0)
+    assert candidate[0] > right, "Candidate must exceed the illustrated budget"
+    assert projected[0] == right, "Projection must land on the right boundary"
+    assert top <= projected[1] <= bottom, "Projected point must be feasible"
+
+    projected_markers = [
+        c for c in root.iter(ns + "circle")
+        if c.get("cx") == "660" and c.get("cy") == "87"
+        and c.find(ns + "animateMotion") is not None
+    ]
+    assert len(projected_markers) == 1, "Expected one projected moving marker"
+    motion = projected_markers[0].find(ns + "animateMotion")
+    assert motion is not None
+    assert motion.get("path") == "M0 0H-24", (
+        "Animated projection displacement must match the static endpoint"
+    )
+    assert candidate[0] - projected[0] == 24
+    assert any(
+        p.get("d") == "M660 87H636" for p in root.iter(ns + "path")
+    ), "Static projection return must agree with animated displacement"
+
+
 if __name__ == "__main__":
     check_numerical_examples()
     check_svg()
     check_motion_timing_and_fallback()
+    check_geometric_projection_consistency()
     print("FGSM/PGD numerical examples and SVG semantic checks passed.")
