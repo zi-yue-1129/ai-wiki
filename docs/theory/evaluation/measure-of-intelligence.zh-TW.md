@@ -73,6 +73,8 @@ ARC 建立在一組明確的先驗上，作者設計這些先驗以盡量接近�
 - Chollet, F.（2019）。On the Measure of Intelligence. [arXiv:1911.01547](https://arxiv.org/abs/1911.01547) — 將智能定義為技能獲取效率，並提出 ARC 基準。
 - Legg, S. & Hutter, M.（2007）。Universal Intelligence: A Definition of Machine Intelligence. [arXiv:0712.3329](https://arxiv.org/abs/0712.3329) — 較早的機器智能形式化定義，Chollet 的框架即是對其的回應。
 - Lake, B. M. 等人（2016）。Building Machines That Learn and Think Like People. [arXiv:1604.00289](https://arxiv.org/abs/1604.00289) — 主張應在學習系統中內建類人的核心知識，是 ARC 中先驗的基礎。
+- Legg, S. & Hutter, M.（2007）。A Collection of Definitions of Intelligence. [arXiv:0706.3639](https://arxiv.org/abs/0706.3639) — 綜述非形式與形式化的智能定義，這個形式化測量即建立在其上。
+- Spelke, E. S. & Kinzler, K. D.（2007）。Core knowledge. Developmental Science, 10, 89–96. [DOI 10.1111/j.1467-7687.2007.00569.x](https://doi.org/10.1111/j.1467-7687.2007.00569.x) — 描述物體、代理與數字的核心知識系統，ARC 的先驗即遵循這些系統。
 
 ### 綜述與教科書
 

@@ -73,6 +73,8 @@ The author also acknowledges that the definition is not the one true definition.
 - Chollet, F. (2019). On the Measure of Intelligence. [arXiv:1911.01547](https://arxiv.org/abs/1911.01547) — Defines intelligence as skill-acquisition efficiency and introduces the ARC benchmark.
 - Legg, S. & Hutter, M. (2007). Universal Intelligence: A Definition of Machine Intelligence. [arXiv:0712.3329](https://arxiv.org/abs/0712.3329) — An earlier formal definition of machine intelligence, which Chollet's framework responds to.
 - Lake, B. M. et al. (2016). Building Machines That Learn and Think Like People. [arXiv:1604.00289](https://arxiv.org/abs/1604.00289) — Argues that human-like core knowledge should be built into learning systems, the basis of the priors in ARC.
+- Legg, S. & Hutter, M. (2007). A Collection of Definitions of Intelligence. [arXiv:0706.3639](https://arxiv.org/abs/0706.3639) — Surveys the informal and formal definitions of intelligence that the formal measure builds on.
+- Spelke, E. S. & Kinzler, K. D. (2007). Core knowledge. Developmental Science, 10, 89–96. [DOI 10.1111/j.1467-7687.2007.00569.x](https://doi.org/10.1111/j.1467-7687.2007.00569.x) — Describes the core knowledge systems for objects, agents and numbers that the ARC priors follow.
 
 ### Surveys and textbooks
 
