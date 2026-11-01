@@ -41,7 +41,7 @@ Clipping \(\tilde{x}\) to the valid input range, such as \([0,1]\) for images, k
 
 ![Comparison of the single FGSM step and a sequence of projected PGD steps](../../../assets/concept-animations/fgsm-pgd-trajectory.svg)
 
-*Original schematic animation.* The left panel shows one gradient-sign update; the right panel shows several smaller updates inside an illustrated \(\ell_\infty\) perturbation budget. The dashed orange segment is an attempted unprojected step, while the teal endpoint remains inside the feasible set after projection. Positions, directions, and timing are illustrative, **not measured model outputs**. The full paths remain visible in GitHub's static SVG preview. Motion may be disabled by the viewer's browser; the geometry is still readable.
+*Original schematic animation.* The left panel shows one gradient-sign update; the right panel shows several smaller updates inside an illustrated \(\ell_\infty\) perturbation budget. The dashed orange segment is an unprojected candidate update from the last teal feasible iterate; the purple segment shows coordinate-wise clipping back to the right-hand budget boundary. The teal endpoint is the pre-candidate iterate, **not** the projection result. Positions, directions, and timing are illustrative, **not measured model outputs**. The full paths remain visible in GitHub's static SVG preview. Motion may be disabled by the viewer's browser; the geometry is still readable.
 
 ## Variants
 
