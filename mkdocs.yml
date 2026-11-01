@@ -378,6 +378,11 @@ plugins:
             Semi- & Weakly Supervised Learning: 半監督與弱監督學習
             Self-Supervised Learning: 自監督學習
             Imitation Learning: 模仿學習
+            Algorithmic Perspective (Osa et al., 2018): 模仿學習的演算法觀點
+            Rethinking Generalization: 重新思考泛化
+            On the Measure of Intelligence: 智能的度量
+            PyTorch paper: PyTorch 論文
+            Efficiently Scaling Transformer Inference: 高效擴展 Transformer 推論
             Transfer Learning & Domain Adaptation: 遷移學習與領域適應
             Meta-Learning & Few-Shot Learning: 元學習與少樣本學習
             Continual Learning: 持續學習
@@ -1250,6 +1255,7 @@ nav:
                   - Class-Balanced Loss: theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss.md
                   - Logit Adjustment: theory/paradigms/supervised/loss-functions-and-optimization/logit-adjustment.md
               - Generalisation Theory: theory/paradigms/supervised/generalization-theory/index.md
+              - Rethinking Generalization: theory/paradigms/supervised/generalization-theory/rethinking-generalization.md
               - Evaluation & Validation: theory/paradigms/supervised/evaluation-and-validation/index.md
           - Unsupervised Learning:
               - theory/paradigms/unsupervised/index.md
@@ -1377,6 +1383,7 @@ nav:
                   - Random Network Distillation: theory/paradigms/reinforcement-learning/exploration/rnd/index.md
           - Imitation Learning:
               - theory/paradigms/imitation/index.md
+              - Algorithmic Perspective (Osa et al., 2018): theory/paradigms/imitation/algorithmic-perspective-survey.md
               - Behavioural Cloning:
                   - theory/paradigms/imitation/behavioural-cloning/index.md
                   - Causal Confusion: theory/paradigms/imitation/behavioural-cloning/causal-confusion.md
@@ -1575,6 +1582,7 @@ nav:
                   - DoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/dora.md
       - Evaluation:
           - theory/evaluation/index.md
+          - On the Measure of Intelligence: theory/evaluation/measure-of-intelligence.md
           - Metrics:
               - theory/evaluation/metrics/index.md
               - Classification:
@@ -1984,6 +1992,7 @@ nav:
       - engineering/index.md
       - Frameworks & Tools:
           - engineering/frameworks/index.md
+          - PyTorch paper: engineering/frameworks/pytorch.md
           - Compilers and Kernels:
               - engineering/frameworks/compilers-and-kernels/index.md
               - XLA: engineering/frameworks/compilers-and-kernels/xla.md
@@ -2043,6 +2052,7 @@ nav:
           - HELM (Liang et al. 2022): engineering/evaluation/helm.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md
+          - Efficiently Scaling Transformer Inference: engineering/inference-optimization/efficient-transformer-inference.md
           - Orca: engineering/inference-optimization/orca.md
           - PagedAttention and vLLM: engineering/inference-optimization/paged-attention.md
           - Speculative Decoding: engineering/inference-optimization/speculative-decoding.md
