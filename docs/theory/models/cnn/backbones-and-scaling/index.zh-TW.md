@@ -26,6 +26,7 @@ CNN 骨幹是把原始像素轉成特徵的疊層，任務頭再用這些特徵�
 | 深層卷積堆疊 | AlexNet、VGG | 大規模端到端學習特徵 |
 | 殘差連接 | ResNet | 訓練極深的網路 |
 | 複合縮放 | EfficientNet | 同時選擇深度、寬度與解析度 |
+| 深度可分離卷積 | MobileNets | 在小型計算與延遲預算內維持準確率 |
 | 現代化卷積 | ConvNeXt | 以純 CNN 達到 Transformer 基線水準 |
 
 ## 做法
@@ -49,6 +50,7 @@ Liu 等人（2022）從 ResNet 出發，逐步修改其設計，借用 Transform
 | AlexNet | 2012 | 在 GPU 上訓練的大型深度卷積網路 | [AlexNet](alexnet/index.md) |
 | 深度殘差學習（ResNet） | 2015 | 捷徑連接使極深的網路能夠訓練 | [ResNet](resnet/index.md) |
 | 複合縮放（EfficientNet） | 2019 | 以單一係數同時縮放深度、寬度與解析度 | [EfficientNet](efficientnet/index.md) |
+| MobileNets | 2017 | 深度可分離卷積，搭配寬度與解析度乘數 | [MobileNets](mobilenet/index.md) |
 | VGG | 2015 | 以小型 3×3 卷積堆疊的普通深層設計 | [VGG](vgg/index.md) |
 | ConvNeXt | 2022 | 逐步現代化的 ResNet，與 Transformer 基線相當 | [ConvNeXt](convnext/index.md) |
 

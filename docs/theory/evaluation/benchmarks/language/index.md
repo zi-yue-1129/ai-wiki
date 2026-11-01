@@ -29,6 +29,7 @@ Performance on GLUE rose quickly, and SuperGLUE was introduced with harder tasks
 |---|---|---|
 | [GLUE](glue.md) | Sentence and sentence-pair understanding tasks, scored together | Per-task scores, combined into one number |
 | [SuperGLUE](superglue.md) | Harder understanding tasks, with a human baseline | Per-task scores, combined into one number |
+| [BIG-bench](big-bench.md) | 204 tasks from 450 authors, probing abilities believed to be beyond current models | Per-task scores, reported separately |
 | [MMLU](mmlu.md) | Multiple-choice knowledge across 57 subjects | Accuracy |
 | [GPQA](gpqa.md) | Graduate-level multiple-choice questions written by experts | Accuracy |
 | [Humanity's Last Exam](hle.md) | 2,700 expert questions, multiple-choice and short-answer | Accuracy with automated grading |

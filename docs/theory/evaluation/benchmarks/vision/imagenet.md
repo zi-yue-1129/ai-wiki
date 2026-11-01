@@ -34,7 +34,7 @@ The benchmark made deep convolutional networks the standard approach to image re
 
 ## Variants
 
-ImageNetV2, from the re-collection in Recht et al. (2019), is the best-known alternative test set. Robustness and out-of-distribution variants are used when a score on the original test set is not enough.
+[ImageNetV2](imagenet-v2.md), from the re-collection in Recht et al. (2019), is the best-known alternative test set. Robustness and out-of-distribution variants are used when a score on the original test set is not enough.
 
 ## Related
 
