@@ -56,10 +56,16 @@ jobs:
                   page.goto(source)
                   page.locator("svg").wait_for()
                   svg = page.locator("svg")
+                  animated_frames = []
                   for time_ms in (0, 1000, 2600, 3400, 4500):
                       # Seek SMIL directly, rather than depending on screenshot timing.
                       page.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", time_ms / 1000)
-                      svg.screenshot(path=str(output / f"fgsm-pgd-{width}px-{time_ms}ms.png"))
+                      animated_frames.append(svg.screenshot(path=str(output / f"fgsm-pgd-{width}px-{time_ms}ms.png")))
+                  # A successfully captured but frozen animation is not a teaching animation.
+                  # Compare the actual browser pixels, not merely SMIL declarations.
+                  assert len(set(animated_frames)) >= 3, (
+                      f"Animation has fewer than three distinct frames at {width}px"
+                  )
                   page.close()
                   reduced = browser.new_page(viewport={"width": width, "height": 400}, reduced_motion="reduce")
                   reduced.goto(source)
