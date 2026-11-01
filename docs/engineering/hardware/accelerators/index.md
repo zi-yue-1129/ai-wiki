@@ -33,6 +33,8 @@ Most accelerators share one idea: keep many multiply-accumulate units busy, and 
 | Sparse-aware edge accelerator | Reconfigurable on-chip network that exploits sparsity and reuse | Efficient on compact, sparse models | Narrower software support | [Eyeriss v2](eyeriss-v2/index.md) |
 | Mobile NPU | Fixed-function inference units at low voltage | Low energy for on-device models | Limited to supported operators and formats | Overview on this page |
 
+For a tutorial on how dataflow and data movement set the efficiency of accelerators, see [Efficient processing of DNNs](efficient-dnn-processing.md) (Sze et al., 2017).
+
 The GPU and mobile NPU rows are covered by the chapter overview, because their design choices are shared across vendors and are described in the Key concepts there.
 
 ## Key concepts

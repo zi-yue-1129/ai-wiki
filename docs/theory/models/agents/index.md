@@ -31,6 +31,8 @@ flowchart LR
 | Perception | Understand multimodal input | VLMs, screenshot understanding (computer-use agents) |
 | Reflection and self-correction | Detect and fix errors | Reflexion, verifiers, tests |
 
+For a survey of LLM-based agents and their brain, perception and action framework, see [The rise and potential of LLM-based agents](llm-agent-survey.md) (Xi et al., 2023).
+
 ## Common patterns
 
 - **ReAct** (Yao et al., 2022): interleave reasoning, action and observation
