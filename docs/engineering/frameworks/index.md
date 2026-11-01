@@ -25,7 +25,7 @@ flowchart TB
 
 | Framework | Strengths | Notes |
 |---|---|---|
-| [PyTorch](https://pytorch.org/) | Dominant in research and increasingly production; eager execution; huge ecosystem; `torch.compile` | Linux Foundation governance |
+| [PyTorch](pytorch.md) ([site](https://pytorch.org/)) | Dominant in research and increasingly production; eager execution; huge ecosystem; `torch.compile` | Linux Foundation governance |
 | [JAX](https://docs.jax.dev/) | Functional transforms (`grad`, `jit`, `vmap`, `pmap`), XLA compilation, excellent on TPUs | Flax, Optax, Equinox |
 | [TensorFlow / Keras](https://www.tensorflow.org/) | Mature production tooling (TF Serving, TFLite) | Keras 3 runs on JAX, TF or PyTorch |
 | [MLX](https://github.com/ml-explore/mlx) | Apple silicon | On-device experimentation |

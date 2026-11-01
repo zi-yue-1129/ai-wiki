@@ -14,7 +14,7 @@ flowchart TB
 
 | 框架 | 優點 | 說明 |
 |---|---|---|
-| [PyTorch](https://pytorch.org/) | 在研究領域居主導地位，且在正式環境中日益普及；即時執行（eager execution）；生態系龐大；`torch.compile` | 由 Linux Foundation 治理 |
+| [PyTorch](pytorch.md)（[官網](https://pytorch.org/)） | 在研究領域居主導地位，且在正式環境中日益普及；即時執行（eager execution）；生態系龐大；`torch.compile` | 由 Linux Foundation 治理 |
 | [JAX](https://docs.jax.dev/) | 函數式轉換（`grad`、`jit`、`vmap`、`pmap`）、XLA 編譯，在 TPU 上表現極佳 | 相關套件：Flax、Optax、Equinox |
 | [TensorFlow／Keras](https://www.tensorflow.org/) | 成熟的正式環境工具（TF Serving、TFLite） | Keras 3 可在 JAX、TF 或 PyTorch 上執行 |
 | [MLX](https://github.com/ml-explore/mlx) | 適用於 Apple 晶片 | 裝置端實驗 |
