@@ -1,0 +1,23 @@
+name: FGSM PGD animation semantics
+
+on:
+  pull_request:
+    paths:
+      - 'docs/assets/concept-animations/fgsm-pgd-trajectory.svg'
+      - 'scripts/check_fgsm_pgd_projection.py'
+      - '.github/workflows/fgsm-pgd-animation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  semantics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify numerical projection and SVG animation geometry
+        run: python scripts/check_fgsm_pgd_projection.py
