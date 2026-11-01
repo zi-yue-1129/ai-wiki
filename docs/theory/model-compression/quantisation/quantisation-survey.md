@@ -74,7 +74,7 @@ The survey is motivated by the memory and compute limits of constrained devices.
 ### Seminal papers
 
 - Gholami, A., Kim, S., Dong, Z., Yao, Z., Mahoney, M. W. & Keutzer, K. (2021). *A Survey of Quantization Methods for Efficient Neural Network Inference*. arXiv. https://arxiv.org/abs/2103.13630 — A survey of number formats, PTQ and QAT, and the hardware speed-ups discussed on this page.
-- Jacob, B., Kligys, S., Chen, B. et al. (2017). *Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference*. arXiv. https://arxiv.org/abs/1712.05877 — Integer-only inference with quantisation-aware training.
+- Jacob, B., Kligys, S., Chen, B. et al. (2017). *Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference*. arXiv. https://arxiv.org/abs/1712.05877 — Integer-only inference with quantisation-aware training, where the whole network runs in integer arithmetic.
 - Banner, R., Nahshan, Y. & Hoffer, E. (2018). *Post-training 4-bit quantization of convolution networks for rapid-deployment*. arXiv. https://arxiv.org/abs/1810.05723 — Post-training quantisation at four bits for convolutional networks.
 - Dettmers, T., Lewis, M., Belkada, Y. & Zettlemoyer, L. (2022). *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*. arXiv. https://arxiv.org/abs/2208.07339 — Eight-bit matrix multiplication for large transformers.
 - Frantar, E., Ashkboos, S., Hoefler, T. & Alistarh, D. (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. arXiv. https://arxiv.org/abs/2210.17323 — Post-training quantisation for large language models at low bit widths.

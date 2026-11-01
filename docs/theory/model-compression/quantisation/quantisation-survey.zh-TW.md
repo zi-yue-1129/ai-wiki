@@ -75,7 +75,7 @@ QAT 需要重新訓練模型，論文指出重新訓練的運算成本是它的�
 ### 開創性論文
 
 - Gholami, A., Kim, S., Dong, Z., Yao, Z., Mahoney, M. W. & Keutzer, K. (2021). *A Survey of Quantization Methods for Efficient Neural Network Inference*. arXiv. https://arxiv.org/abs/2103.13630 — 綜述數值格式、PTQ 與 QAT，以及本頁討論的硬體加速。
-- Jacob, B., Kligys, S., Chen, B. et al. (2017). *Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference*. arXiv. https://arxiv.org/abs/1712.05877 — 以量化感知訓練實現純整數推論。
+- Jacob, B., Kligys, S., Chen, B. et al. (2017). *Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference*. arXiv. https://arxiv.org/abs/1712.05877 — 以量化感知訓練實現純整數推論，使整個網路以整數運算執行。
 - Banner, R., Nahshan, Y. & Hoffer, E. (2018). *Post-training 4-bit quantization of convolution networks for rapid-deployment*. arXiv. https://arxiv.org/abs/1810.05723 — 卷積網路在四位元下的訓練後量化。
 - Dettmers, T., Lewis, M., Belkada, Y. & Zettlemoyer, L. (2022). *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*. arXiv. https://arxiv.org/abs/2208.07339 — 大型 Transformer 的八位元矩陣乘法。
 - Frantar, E., Ashkboos, S., Hoefler, T. & Alistarh, D. (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. arXiv. https://arxiv.org/abs/2210.17323 — 大型語言模型的低位元訓練後量化。
