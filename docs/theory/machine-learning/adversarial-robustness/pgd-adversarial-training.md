@@ -30,13 +30,13 @@ A single FGSM step can miss higher-loss regions. PGD repeatedly updates the cand
 
 ## How it works
 
-Starting from \(x^{(0)}=x+\eta\) with a random \(\eta\) in the ball, PGD updates
+PGD may start from the clean input \(x^{(0)}=x\), or optionally from a random feasible point \(x^{(0)}=x+\eta\). For an \(\ell_\infty\) budget and bounded inputs, define the feasible set \(\mathcal C=\{z:\|z-x\|_\infty\le\epsilon\}\cap[0,1]^d\) (omit the domain intersection when inputs are unbounded). Each attack step is
 
 \[
-x^{(t+1)}=\Pi_{\mathcal{B}_\epsilon(x)}\!\Big(x^{(t)}+\alpha\,\mathrm{sign}\big(\nabla_x J(\theta,x^{(t)},y)\big)\Big),
+x^{(t+1)}=\Pi_{\mathcal C}\!\Big(x^{(t)}+\alpha\,\mathrm{sign}\big(\nabla_x J(\theta,x^{(t)},y)\big)\Big),
 \]
 
-where \(\Pi\) is the projection onto the ball and \(\alpha\) is the step size. Adversarial training computes this inner maximisation for each minibatch and updates the parameters on the resulting examples. The approach is expensive, because each training step needs several gradient computations.
+where \(\Pi_{\mathcal C}\) projects onto the feasible set (both the perturbation budget and input domain) and \(\alpha\) is the step size. Adversarial training computes this inner maximisation for each minibatch and updates the parameters on the resulting examples. The approach is expensive, because each training step needs several gradient computations.
 
 ### Why projection matters
 
