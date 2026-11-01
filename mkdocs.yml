@@ -664,7 +664,10 @@ plugins:
             IoU: 交併比
             Dice: Dice 係數
             Quantisation: 量化
+            A Survey of Quantization Methods: 神經網路量化方法綜述
             Pruning: 剪枝
+            Sparsity in Deep Learning: 深度學習中的稀疏性
+            Benchmark validity: 基準的構念效度
             Knowledge Distillation: 知識蒸餾
             Post-Training Quantisation: 訓練後量化
             LLM.int8(): LLM.int8()
@@ -1482,6 +1485,7 @@ nav:
           - theory/model-compression/index.md
           - Quantisation:
               - theory/model-compression/quantisation/index.md
+              - A Survey of Quantization Methods: theory/model-compression/quantisation/quantisation-survey.md
               - Post-Training Quantisation:
                   - theory/model-compression/quantisation/post-training/index.md
                   - LLM.int8(): theory/model-compression/quantisation/post-training/llm-int8/index.md
@@ -1502,6 +1506,7 @@ nav:
                   - HAWQ: theory/model-compression/quantisation/mixed-precision/hawq/index.md
           - Pruning:
               - theory/model-compression/pruning/index.md
+              - Sparsity in Deep Learning: theory/model-compression/pruning/sparsity-survey.md
               - Learning Weights and Connections: theory/model-compression/pruning/learning-weights-and-connections/index.md
               - Magnitude Pruning:
                   - theory/model-compression/pruning/magnitude-pruning/index.md
@@ -1591,6 +1596,7 @@ nav:
                   - Dice: theory/evaluation/metrics/segmentation/dice.md
           - Benchmarks:
               - theory/evaluation/benchmarks/index.md
+              - Benchmark validity: theory/evaluation/benchmarks/benchmark-validity.md
               - Vision:
                   - theory/evaluation/benchmarks/vision/index.md
                   - ImageNet: theory/evaluation/benchmarks/vision/imagenet.md
