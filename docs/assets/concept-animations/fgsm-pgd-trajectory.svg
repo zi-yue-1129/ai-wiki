@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 310" role="img" aria-labelledby="t d">
-<title id="t">FGSM single step and PGD projected iterations</title><desc id="d">Left: one step from clean input along the gradient sign. Right: repeated smaller steps, with an attempted step outside the allowed region projected back inside.</desc>
+<title id="t">FGSM single step and PGD projected iterations</title><desc id="d">Left: one gradient-sign step. Right: smaller iterative steps, an out-of-budget candidate, and coordinate-wise projection back onto the feasible boundary.</desc>
 <style>@media (prefers-reduced-motion: reduce) { animate, animateMotion { display: none; } }</style>
 <rect width="720" height="310" rx="16" fill="#f8fafc"/>
 <g font-family="Arial,sans-serif" fill="#334155" font-size="17" font-weight="600"><text x="28" y="34">FGSM</text><text x="390" y="34">PGD</text></g>
 <g stroke="#cbd5e1" stroke-width="1"><path d="M28 155H332M180 52V278M390 155H694M542 52V278"/></g>
 <g fill="#dbeafe" stroke="#64748b" stroke-width="2" stroke-dasharray="5 5"><rect x="86" y="70" width="188" height="180" rx="8"/><rect x="448" y="70" width="188" height="180" rx="8"/></g>
 <g fill="#64748b" font-family="Arial,sans-serif" font-size="12"><text x="91" y="87">ε budget</text><text x="453" y="87">ε budget</text></g>
-<g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M180 170L259 103" stroke="#2563eb" stroke-width="5"/><path d="M542 170L570 147L595 120L660 87" stroke="#f59e0b" stroke-width="3" stroke-dasharray="5 6"/><path d="M542 170L570 147L595 120L628 92L636 86" stroke="#0f766e" stroke-width="5"/></g>
-<g fill="#0f172a"><circle cx="180" cy="170" r="7"/><circle cx="542" cy="170" r="7"/></g>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M180 170L259 103" stroke="#2563eb" stroke-width="5"/><path d="M595 120L660 87" stroke="#f59e0b" stroke-width="3" stroke-dasharray="5 6"/><path d="M542 170L570 147L595 120L636 87" stroke="#0f766e" stroke-width="5"/><path d="M660 87H636" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="3 4"/></g>
+<circle cx="660" cy="87" r="5" fill="#f59e0b"/><g fill="#0f172a"><circle cx="180" cy="170" r="7"/><circle cx="542" cy="170" r="7"/></g>
 <g fill="#2563eb"><circle cx="259" cy="103" r="8"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.2;0.8;1" dur="5s" repeatCount="1"/></circle></g>
 <circle cx="180" cy="170" r="9" fill="#2563eb" stroke="white" stroke-width="2"><animateMotion path="M0 0L79 -67" dur="5s" keyTimes="0;0.8;1" keyPoints="0;1;1" calcMode="linear" repeatCount="1"/></circle>
-<circle cx="542" cy="170" r="9" fill="#0f766e" stroke="white" stroke-width="2"><animateMotion path="M0 0L28 -23L53 -50L86 -78L94 -84" dur="5s" keyTimes="0;0.25;0.5;0.75;1" keyPoints="0;0.27;0.53;0.86;1" calcMode="linear" repeatCount="1"/></circle>
+<circle cx="542" cy="170" r="9" fill="#0f766e" stroke="white" stroke-width="2"><animateMotion path="M0 0L28 -23L53 -50L94 -83" dur="5s" keyTimes="0;0.25;0.5;1" keyPoints="0;0.27;0.53;1" calcMode="linear" repeatCount="1"/></circle>
 <g fill="#475569" font-family="Arial,sans-serif" font-size="13"><text x="28" y="290">One gradient-sign step</text><text x="390" y="290">Repeated steps + projection</text></g>
 </svg>
