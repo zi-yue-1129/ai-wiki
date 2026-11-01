@@ -67,7 +67,42 @@ def check_svg():
         assert all(0 <= p <= 1 for p in points)
 
 
+
+
+def check_motion_timing_and_fallback():
+    """Guard against loops, disappearing fallback paths, and malformed motion timing.
+
+    Structural assertions only: browser playback and visual QA remain separate.
+    """
+    root = ET.parse(SVG).getroot()
+    ns = "{http://www.w3.org/2000/svg}"
+    animations = list(root.iter(ns + "animate")) + list(root.iter(ns + "animateMotion"))
+    assert animations, "Expected an instructional motion sequence"
+    for animation in animations:
+        assert animation.get("repeatCount") == "1", "Motion must not loop indefinitely"
+        assert animation.get("dur") == "5s", "Motion timing drifted from the documented sequence"
+        if animation.tag == ns + "animateMotion":
+            assert animation.get("calcMode") == "linear", "Motion interpolation should be explicit"
+            path = animation.get("path", "")
+            assert path.startswith("M"), "Motion requires an explicit path"
+            assert animation.get("keyTimes") and animation.get("keyPoints")
+    # All persistent paths are drawn outside animated groups. SVG image fallback
+    # should remain intelligible when browser animation is unavailable.
+    for path in root.iter(ns + "path"):
+        if path.get("d") in {
+            "M542 170L570 147L595 120",
+            "M595 120L660 87",
+            "M660 87H636",
+        }:
+            assert not any(k.startswith("on") for k in path.attrib), "No inline event handlers"
+            assert path.get("opacity", "1") != "0", "Fallback geometry must remain visible"
+    title = root.find("s:title", NS)
+    desc = root.find("s:desc", NS)
+    assert title is not None and (title.text or "").strip()
+    assert desc is not None and "projection" in (desc.text or "").lower()
+
 if __name__ == "__main__":
     check_numerical_examples()
     check_svg()
+    check_motion_timing_and_fallback()
     print("FGSM/PGD numerical examples and SVG semantic checks passed.")
