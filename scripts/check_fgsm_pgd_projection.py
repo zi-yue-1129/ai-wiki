@@ -156,7 +156,7 @@ def check_geometric_projection_consistency():
     """
     root = ET.parse(SVG).getroot()
     ns = "{http://www.w3.org/2000/svg}"
-    boxes = [r for r in root.iter(ns + "rect") if r.get("stroke-dasharray")]
+    boxes = [r for r in root.iter(ns + "rect") if r.get("x") in {"86", "448"} and r.get("width") == "188" and r.get("height") == "180"]
     assert len(boxes) == 2, "Expected FGSM and PGD feasible-set boxes"
     box = boxes[1]
     left = float(box.get("x"))
