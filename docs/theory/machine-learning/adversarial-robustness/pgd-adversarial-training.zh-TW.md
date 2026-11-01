@@ -18,13 +18,13 @@ translation_reviewed: 2026-11-01
 
 ## 運作方式
 
-從球內隨機的 \(\eta\) 出發，令 \(x^{(0)}=x+\eta\)，PGD 更新為
+PGD 可以從乾淨輸入 \(x^{(0)}=x\) 開始，也可以選擇在可行集合內隨機初始化 \(x^{(0)}=x+\eta\)。若採 \(\ell_\infty\) 擾動預算且輸入值域為 \([0,1]^d\)，定義可行集合 \(\mathcal C=\{z:\|z-x\|_\infty\le\epsilon\}\cap[0,1]^d\)（若輸入無界，則省略值域交集）。每次攻擊更新為
 
 \[
-x^{(t+1)}=\Pi_{\mathcal{B}_\epsilon(x)}\!\Big(x^{(t)}+\alpha\,\mathrm{sign}\big(\nabla_x J(\theta,x^{(t)},y)\big)\Big),
+x^{(t+1)}=\Pi_{\mathcal C}\!\Big(x^{(t)}+\alpha\,\mathrm{sign}\big(\nabla_x J(\theta,x^{(t)},y)\big)\Big),
 \]
 
-其中 \(\Pi\) 為投影到球上，\(\alpha\) 為步長。對抗訓練在每個小批次上計算這個內層最大化，並以得到的樣本更新參數。此方法成本高，因為每個訓練步需要多次計算梯度。
+其中 \(\Pi_{\mathcal C}\) 表示投影到可行集合（同時滿足擾動預算與輸入值域），\(\alpha\) 為步長。對抗訓練在每個小批次上計算這個內層最大化，並以得到的樣本更新參數。此方法成本高，因為每個訓練步需要多次計算梯度。
 
 ### 為何每一步都需要投影
 
