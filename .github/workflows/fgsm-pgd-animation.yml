@@ -65,6 +65,15 @@ jobs:
                   reduced.goto(source)
                   reduced.locator("svg").wait_for()
                   reduced.locator("svg").screenshot(path=str(output / f"fgsm-pgd-{width}px-reduced.png"))
+                  # Reduced-motion users must see stable teaching geometry at
+                  # every timeline position, not merely a CSS media rule.
+                  reduced_frames = []
+                  for t in (0, 2.6, 4.5):
+                      reduced.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", t)
+                      reduced_frames.append(reduced.locator("svg").screenshot())
+                  assert len(set(reduced_frames)) == 1, (
+                      f"Reduced-motion image changes with SMIL time at {width}px"
+                  )
                   reduced.close()
               browser.close()
           PY
