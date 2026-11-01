@@ -40,7 +40,7 @@ ResNet 讓極深的骨幹可以訓練，EfficientNet 則同時選擇深度、寬
 ## 取捨
 
 - **歸納偏置。** 局部性與權重共用使 CNN 在影像上資料效率高，但除非擴大感受野，否則會限制長程依賴的建模。
-- **效率。** 深度可分離設計大幅減少運算，對行動與嵌入式裝置很重要。
+- **效率。** 深度可分離設計大幅減少運算，例如 [MobileNets](backbones-and-scaling/mobilenet/index.md)，對行動與嵌入式裝置很重要。
 - **與 Transformer 相比。** 視覺 Transformer 直接建模全域關係，但通常需要更多資料或預訓練。CNN 與 Transformer 的想法現在可以自由混合，例如 ConvNeXt 就在卷積網路中採用了 Transformer 的設計選擇。
 
 ## 應用範圍

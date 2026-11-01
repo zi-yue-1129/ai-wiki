@@ -16,8 +16,8 @@ A benchmark is a fixed set of tasks, data and a metric that a community agrees t
 
 | Family | Benchmarks | Task |
 |---|---|---|
-| [Vision](vision/index.md) | [ImageNet](vision/imagenet.md), [COCO](vision/coco.md) | Classification, detection and instance segmentation |
-| [Language](language/index.md) | [GLUE](language/glue.md), [SuperGLUE](language/superglue.md), [MMLU](language/mmlu.md), [GPQA](language/gpqa.md), [Humanity's Last Exam](language/hle.md) | Understanding, knowledge and expert reasoning |
+| [Vision](vision/index.md) | [ImageNet](vision/imagenet.md), [ImageNetV2](vision/imagenet-v2.md), [COCO](vision/coco.md) | Classification, detection and instance segmentation |
+| [Language](language/index.md) | [GLUE](language/glue.md), [SuperGLUE](language/superglue.md), [BIG-bench](language/big-bench.md), [MMLU](language/mmlu.md), [GPQA](language/gpqa.md), [Humanity's Last Exam](language/hle.md) | Understanding, knowledge and expert reasoning |
 | [Math and code](math-and-code/index.md) | [GSM8K](math-and-code/gsm8k.md), [MATH](math-and-code/math.md), [HumanEval](math-and-code/humaneval.md), [SWE-bench](math-and-code/swe-bench.md) | Mathematical and software reasoning |
 | [Multimodal](multimodal/index.md) | [VQA v2](multimodal/vqa-v2.md), [MMMU](multimodal/mmmu.md) | Combining images with knowledge and reasoning |
 | [Reasoning and agents](reasoning-agents/index.md) | [ARC-AGI](reasoning-agents/arc-agi.md), [GAIA](reasoning-agents/gaia.md), [WebArena](reasoning-agents/webarena.md) | Rule acquisition, real-world questions and web tasks |

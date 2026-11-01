@@ -559,6 +559,7 @@ plugins:
             Sequence to Sequence: 序列到序列學習
             ResNet: 殘差網路
             EfficientNet: EfficientNet 與複合縮放
+            MobileNets: MobileNets 行動網路
             S4: S4 結構化狀態空間
             Mamba: Mamba
             Mamba-2: Mamba-2
@@ -618,9 +619,11 @@ plugins:
             VQA v2: VQA v2
             MMMU: MMMU
             ImageNet: ImageNet
+            ImageNetV2: ImageNetV2
             COCO: COCO
             GLUE: GLUE
             SuperGLUE: SuperGLUE
+            BIG-bench: BIG-bench
             MMLU: MMLU
             GPQA: GPQA
             Humanity's Last Exam: 人類的最後考試
@@ -1591,11 +1594,13 @@ nav:
               - Vision:
                   - theory/evaluation/benchmarks/vision/index.md
                   - ImageNet: theory/evaluation/benchmarks/vision/imagenet.md
+                  - ImageNetV2: theory/evaluation/benchmarks/vision/imagenet-v2.md
                   - COCO: theory/evaluation/benchmarks/vision/coco.md
               - Language:
                   - theory/evaluation/benchmarks/language/index.md
                   - GLUE: theory/evaluation/benchmarks/language/glue.md
                   - SuperGLUE: theory/evaluation/benchmarks/language/superglue.md
+                  - BIG-bench: theory/evaluation/benchmarks/language/big-bench.md
                   - MMLU: theory/evaluation/benchmarks/language/mmlu.md
                   - GPQA: theory/evaluation/benchmarks/language/gpqa.md
                   - Humanity's Last Exam: theory/evaluation/benchmarks/language/hle.md
@@ -1665,6 +1670,7 @@ nav:
                   - AlexNet: theory/models/cnn/backbones-and-scaling/alexnet/index.md
                   - VGG: theory/models/cnn/backbones-and-scaling/vgg/index.md
                   - ResNet: theory/models/cnn/backbones-and-scaling/resnet/index.md
+                  - MobileNets: theory/models/cnn/backbones-and-scaling/mobilenet/index.md
                   - EfficientNet: theory/models/cnn/backbones-and-scaling/efficientnet/index.md
                   - ConvNeXt: theory/models/cnn/backbones-and-scaling/convnext/index.md
           - Recurrent Networks:

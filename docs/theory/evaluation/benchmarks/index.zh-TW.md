@@ -16,7 +16,7 @@ tags:
 
 | 家族 | 基準 | 任務 |
 |---|---|---|
-| [視覺](vision/index.md) | [ImageNet](vision/imagenet.md)、[COCO](vision/coco.md) | 分類、偵測與實例分割 |
+| [視覺](vision/index.md) | [ImageNet](vision/imagenet.md)、[ImageNetV2](vision/imagenet-v2.md)、[COCO](vision/coco.md) | 分類、偵測與實例分割 |
 | [語言](language/index.md) | [GLUE](language/glue.md)、[SuperGLUE](language/superglue.md)、[MMLU](language/mmlu.md)、[GPQA](language/gpqa.md)、[人類的最後考試](language/hle.md) | 理解、知識與專家推理 |
 | [數學與程式](math-and-code/index.md) | [GSM8K](math-and-code/gsm8k.md)、[MATH](math-and-code/math.md)、[HumanEval](math-and-code/humaneval.md)、[SWE-bench](math-and-code/swe-bench.md) | 數學與軟體推理 |
 | [多模態](multimodal/index.md) | [VQA v2](multimodal/vqa-v2.md)、[MMMU](multimodal/mmmu.md) | 結合影像、知識與推理 |
