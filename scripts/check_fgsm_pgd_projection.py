@@ -43,6 +43,32 @@ def check_numerical_examples():
     assert project((0.66,), (0.58,), 0.10) != step2
 
 
+def check_projection_invariants():
+    """Exercise boundary cases beyond the worked examples.
+
+    The projection must be feasible, idempotent, and coordinate-wise optimal
+    for the intersection of the input range and the L-infinity budget.
+    """
+    for clean in (0.0, 0.02, 0.5, 0.98, 1.0):
+        for epsilon in (0.0, 0.01, 0.1, 0.5):
+            lo = max(0.0, clean - epsilon)
+            hi = min(1.0, clean + epsilon)
+            for candidate in (-0.5, 0.0, 0.15, 0.5, 0.85, 1.0, 1.5):
+                (result,) = project((candidate,), (clean,), epsilon)
+                assert lo - 1e-12 <= result <= hi + 1e-12
+                assert math.isclose(result, min(hi, max(lo, candidate)), abs_tol=1e-12)
+                near(project((result,), (clean,), epsilon), (result,))
+    # Independent coordinates must not share a clipping interval.
+    near(project((-0.5, 1.5), (0.02, 0.98), 0.1), (0.0, 1.0))
+    # A mismatched dimensionality is a programming error, not silent truncation.
+    try:
+        project((0.1, 0.2), (0.1,), 0.1)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Projection must reject mismatched dimensions")
+
+
 def check_svg():
     root = ET.parse(SVG).getroot()
     assert root.tag == "{http://www.w3.org/2000/svg}svg"
@@ -141,6 +167,7 @@ def check_geometric_projection_consistency():
 
 if __name__ == "__main__":
     check_numerical_examples()
+    check_projection_invariants()
     check_svg()
     check_motion_timing_and_fallback()
     check_geometric_projection_consistency()
