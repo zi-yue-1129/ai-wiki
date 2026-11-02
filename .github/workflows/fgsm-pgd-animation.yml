@@ -95,7 +95,11 @@ jobs:
                   reduced.close()
               browser.close()
           PY
-      - name: Upload fallback raster previews for manual visual review
+      # Preserve the actual rendered evidence even when a pixel/phase assertion fails.
+      # Without this, a failed animation check discards the frames needed to
+      # diagnose clipping, phase timing, or reduced-motion regressions.
+      - name: Upload browser frames and fallback for visual review
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: fgsm-pgd-browser-frames-and-fallback
