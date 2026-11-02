@@ -61,6 +61,30 @@ jobs:
                       # Seek SMIL directly, rather than depending on screenshot timing.
                       page.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", time_ms / 1000)
                       animated_frames.append(svg.screenshot(path=str(output / f"fgsm-pgd-{width}px-{time_ms}ms.png")))
+                  # Verify that the SVG and its visible teaching labels fit the
+                  # browser viewport at each responsive width. Pixel changes
+                  # alone cannot detect cropped labels or off-screen geometry.
+                  bounds = page.evaluate("""() => {
+                    const root = document.querySelector('svg');
+                    const viewport = document.documentElement.getBoundingClientRect();
+                    const box = root.getBoundingClientRect();
+                    const labels = [...root.querySelectorAll('text')].map(el => {
+                      const r = el.getBoundingClientRect();
+                      return {text: el.textContent.trim(), x: r.left, y: r.top,
+                              right: r.right, bottom: r.bottom};
+                    });
+                    return {viewportWidth: viewport.width, rootLeft: box.left,
+                            rootRight: box.right, labels};
+                  }""")
+                  assert bounds["rootLeft"] >= -1 and bounds["rootRight"] <= width + 1, (
+                      f"SVG overflows {width}px viewport: {bounds}"
+                  )
+                  for label in bounds["labels"]:
+                      assert label["x"] >= -1 and label["right"] <= width + 1, (
+                          f"Text label clipped horizontally at {width}px: {label}"
+                      )
+                  # This geometric guard does not replace manual visual QA:
+                  # overlapping labels, contrast and arrows need human review.
                   # Check browser-observed visibility at causal phase boundaries.
                   # These assertions complement structural SVG timing checks.
                   def opacity_at(selector, t):
