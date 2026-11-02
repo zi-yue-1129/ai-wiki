@@ -107,32 +107,46 @@ jobs:
           # Contact sheets expose timeline mistakes and mobile clipping in one
           # artifact; they supplement, never replace, manual visual inspection.
           for width in (360, 720, 1024):
-              labels = ["0 ms", "1000 ms", "2600 ms", "3400 ms", "4500 ms", "Reduced motion"]
-              names = [f"fgsm-pgd-{width}px-{t}ms.png" for t in (0, 1000, 2600, 3400, 4500)]
-              names.append(f"fgsm-pgd-{width}px-reduced.png")
+              # Preserve a fixed six-slot timeline even after a partial capture
+              # failure: missing frames must not shift later phases into earlier
+              # positions or create a misleading review sheet.
+              stages = [
+                  (f"fgsm-pgd-{width}px-0ms.png", "0.0 s | Start"),
+                  (f"fgsm-pgd-{width}px-1000ms.png", "1.0 s | Feasible"),
+                  (f"fgsm-pgd-{width}px-2600ms.png", "2.6 s | Candidate"),
+                  (f"fgsm-pgd-{width}px-3400ms.png", "3.4 s | Candidate"),
+                  (f"fgsm-pgd-{width}px-4500ms.png", "4.5 s | Projection"),
+                  (f"fgsm-pgd-{width}px-reduced.png", "Reduced motion"),
+              ]
               images = []
-              for name in names:
+              for name, label in stages:
                   path = folder / name
-                  if not path.exists():
-                      continue
-                  with Image.open(path) as source:
-                      images.append((name, source.convert("RGB").copy()))
-              if not images:
+                  if path.exists():
+                      with Image.open(path) as source:
+                          images.append((label, source.convert("RGB").copy()))
+                  else:
+                      images.append((label + " | MISSING", None))
+              if not any(frame is not None for _, frame in images):
+                  print(f"No captured frames for {width}px; contact sheet unavailable")
                   continue
               columns = 2
-              cell_width = max(image.width for _, image in images)
-              cell_height = max(image.height for _, image in images) + 32
+              cell_width = max(frame.width for _, frame in images if frame is not None)
+              cell_height = max(frame.height for _, frame in images if frame is not None) + 32
               rows = (len(images) + columns - 1) // columns
               sheet = Image.new("RGB", (columns * cell_width, rows * cell_height), "white")
               draw = ImageDraw.Draw(sheet)
-              for index, (name, frame) in enumerate(images):
+              for index, (label, frame) in enumerate(images):
                   x = (index % columns) * cell_width
                   y = (index // columns) * cell_height
-                  draw.text((x + 10, y + 9), name, fill="#172033")
-                  sheet.paste(frame, (x, y + 32))
+                  draw.text((x + 10, y + 9), label, fill="#172033")
+                  if frame is not None:
+                      sheet.paste(frame, (x, y + 32))
+                  else:
+                      draw.rectangle((x + 8, y + 40, x + cell_width - 8, y + cell_height - 8), outline="#b91c1c", width=3)
+                      draw.text((x + 20, y + 54), "CAPTURE FAILED", fill="#b91c1c")
               target = folder / f"fgsm-pgd-{width}px-contact-sheet.png"
               sheet.save(target, optimize=True)
-              print(f"Visual review sheet: {target} ({len(images)} frames)")
+              print(f"Visual review sheet: {target} ({sum(frame is not None for _, frame in images)}/6 frames)")
           PY
       # Preserve the actual rendered evidence even when a pixel/phase assertion fails.
       # Without this, a failed animation check discards the frames needed to
