@@ -95,6 +95,45 @@ jobs:
                   reduced.close()
               browser.close()
           PY
+      - name: Assemble side-by-side visual QA contact sheets
+        if: always()
+        run: |
+          python -m pip install 'Pillow==11.3.0'
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+
+          folder = Path("/tmp/fgsm-pgd-preview")
+          # Contact sheets expose timeline mistakes and mobile clipping in one
+          # artifact; they supplement, never replace, manual visual inspection.
+          for width in (360, 720, 1024):
+              labels = ["0 ms", "1000 ms", "2600 ms", "3400 ms", "4500 ms", "Reduced motion"]
+              names = [f"fgsm-pgd-{width}px-{t}ms.png" for t in (0, 1000, 2600, 3400, 4500)]
+              names.append(f"fgsm-pgd-{width}px-reduced.png")
+              images = []
+              for name in names:
+                  path = folder / name
+                  if not path.exists():
+                      continue
+                  with Image.open(path) as source:
+                      images.append((name, source.convert("RGB").copy()))
+              if not images:
+                  continue
+              columns = 2
+              cell_width = max(image.width for _, image in images)
+              cell_height = max(image.height for _, image in images) + 32
+              rows = (len(images) + columns - 1) // columns
+              sheet = Image.new("RGB", (columns * cell_width, rows * cell_height), "white")
+              draw = ImageDraw.Draw(sheet)
+              for index, (name, frame) in enumerate(images):
+                  x = (index % columns) * cell_width
+                  y = (index // columns) * cell_height
+                  draw.text((x + 10, y + 9), name, fill="#172033")
+                  sheet.paste(frame, (x, y + 32))
+              target = folder / f"fgsm-pgd-{width}px-contact-sheet.png"
+              sheet.save(target, optimize=True)
+              print(f"Visual review sheet: {target} ({len(images)} frames)")
+          PY
       # Preserve the actual rendered evidence even when a pixel/phase assertion fails.
       # Without this, a failed animation check discards the frames needed to
       # diagnose clipping, phase timing, or reduced-motion regressions.
