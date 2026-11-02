@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-02
 related:
   - theory/models/transformer/kv-cache
   - engineering/inference-optimization
@@ -27,7 +27,7 @@ A model trained on sequences of a few thousand tokens fails when it is run on mu
 
 ## Core idea
 
-The authors observe an attention sink: the first few tokens receive large attention scores whatever their content, because the softmax needs somewhere to put attention mass that is not wanted. Keeping the key and value of these initial tokens recovers most of the performance of a window attention, even though the middle of the sequence is removed. StreamingLLM therefore keeps the initial sink tokens and a recent window, and it assigns positions within the cache rather than the original positions of the tokens.
+The authors observe an attention sink: the first few tokens receive large attention scores whatever their content. Attention weights must sum to one, so the softmax needs somewhere to put attention that no context token needs. The initial tokens are visible to nearly every later token, which makes them easy to train as that place. Keeping the keys and values of these initial tokens restores the language-modelling quality that window attention loses, even though the middle of the sequence is removed. The authors also report that the position of the starting tokens matters more than their meaning. StreamingLLM therefore keeps the initial sink tokens and a recent window, and it assigns positions within the cache rather than the original positions of the tokens.
 
 ## Procedure
 
@@ -39,13 +39,13 @@ The authors observe an attention sink: the first few tokens receive large attent
 
 ## Results
 
-The paper reports stable language modelling on up to 4 million tokens, and it reports speed-up of up to 22.2× over the sliding-window recomputation baseline, which recomputes the cache at each step. It also shows that window attention alone loses performance once the initial tokens leave the window, and that keeping the initial tokens' keys and values largely recovers it. The paper also reports that the method works without fine-tuning on the models it tests. These results measure stability and speed on streams, not accuracy on questions about the dropped middle of the input.
+The paper tests Llama-2, MPT, Falcon and Pythia models. It reports stable language modelling on texts of up to 4 million tokens and more. Against the sliding-window recomputation baseline, which recomputes the cache at each step, it reports a speed-up of up to 22.2× per token. It also shows that window attention alone loses performance once the initial tokens leave the window, and that restoring the keys and values of the initial tokens recovers it, without fine-tuning. These results measure stability and speed on long streams, not accuracy on questions about the dropped middle of the input.
 
 ## Limitations
 
 - **No long-range recall.** Tokens outside the window and not sinks are gone, so the method cannot answer questions about them. It stabilises generation but does not extend memory.
 - **Sink tokens must stay.** Removing the initial tokens breaks the stabilisation, so serving code must never evict them.
-- **Speed baseline.** The large speed-up is against recomputation, which is a weak baseline for a serving system that caches normally.
+- **Speed baseline.** The large speed-up is against recomputation at every step, which is a weak baseline for a serving system that already caches keys and values. The comparison does not measure gains over optimised caching systems.
 - **Fixed window.** The window length sets the recall distance, and no window length covers all tasks.
 
 ## Connections
