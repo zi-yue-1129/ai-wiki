@@ -225,6 +225,20 @@ def check_geometric_projection_consistency():
     assert motion.get("path") == "M0 0H-24", (
         "Animated projection displacement must match the static endpoint"
     )
+    # The projection marker must remain hidden until the candidate reaches
+    # its out-of-budget endpoint at 70% of the five-second timeline.
+    # Otherwise the purple return step appears before its input exists.
+    projection_opacity = projected_markers[0].find(ns + "animate")
+    assert projection_opacity is not None, "Projection marker needs a reveal animation"
+    assert projection_opacity.get("attributeName") == "opacity"
+    reveal_times = [float(t) for t in projection_opacity.get("keyTimes", "").split(";")]
+    reveal_values = [float(v) for v in projection_opacity.get("values", "").split(";")]
+    assert len(reveal_times) == len(reveal_values)
+    assert all(a <= b for a, b in zip(reveal_times, reveal_times[1:]))
+    assert all(v == 0 for t, v in zip(reveal_times, reveal_values) if t < 0.7), (
+        "Projection marker must not appear before candidate update completes"
+    )
+    assert projection_opacity.get("fill") == "freeze"
     assert candidate[0] - projected[0] == 24
     assert any(
         p.get("d") == "M660 87H636" for p in root.iter(ns + "path")
