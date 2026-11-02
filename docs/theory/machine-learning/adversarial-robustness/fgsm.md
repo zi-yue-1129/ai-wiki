@@ -25,7 +25,7 @@ FGSM is the simplest effective attack on a differentiable classifier. It needs o
 
 - **Perturbation budget \(\epsilon\)**: the largest allowed change to each input component, measured in the \(\ell_\infty\) norm.
 - **Loss gradient**: the derivative of the training loss with respect to the input, not the parameters.
-- **Sign operation**: keeping only the direction of each gradient component makes every pixel move by the full budget.
+- **Sign operation**: each nonzero gradient component contributes a perturbation of magnitude \(\epsilon\) before input-domain clipping; a zero component contributes no change. Components clipped at the valid input boundary may move by less than \(\epsilon\).
 
 ## How it works
 
