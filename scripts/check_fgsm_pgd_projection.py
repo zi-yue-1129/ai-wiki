@@ -180,6 +180,21 @@ def check_geometric_projection_consistency():
     assert projected[0] == right, "Projection must land on the right boundary"
     assert top <= projected[1] <= bottom, "Projected point must be feasible"
 
+    # The green feasible trajectory must finish before the orange candidate
+    # starts at 2.5 s; otherwise two PGD iterations appear simultaneous.
+    green_markers = [
+        c for c in root.iter(ns + "circle")
+        if c.get("cx") == "542" and c.get("cy") == "170"
+        and c.get("fill") == "#0f766e"
+    ]
+    assert len(green_markers) == 1, "Expected one moving feasible PGD marker"
+    green_motion = green_markers[0].find(ns + "animateMotion")
+    assert green_motion is not None
+    assert green_motion.get("keyTimes") == "0;0.25;0.5;1"
+    assert green_motion.get("keyPoints") == "0;0.53;1;1", (
+        "PGD feasible steps must finish by 2.5 seconds before candidate update"
+    )
+
     # The orange candidate must travel from the last feasible iterate to the
     # out-of-budget point BEFORE the purple projection begins.
     candidate_markers = [
