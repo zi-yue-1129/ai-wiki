@@ -83,6 +83,11 @@ jobs:
                       assert label["x"] >= -1 and label["right"] <= width + 1, (
                           f"Text label clipped horizontally at {width}px: {label}"
                       )
+                      # Horizontal-only checks miss captions cut by a too-short
+                      # SVG viewport. Check the full rendered label rectangle.
+                      assert label["y"] >= -1 and label["bottom"] <= 400 + 1, (
+                          f"Text label clipped vertically at {width}px: {label}"
+                      )
                   # This geometric guard does not replace manual visual QA:
                   # overlapping labels, contrast and arrows need human review.
                   # Check browser-observed visibility at causal phase boundaries.
