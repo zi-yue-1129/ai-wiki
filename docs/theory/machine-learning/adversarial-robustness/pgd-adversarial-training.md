@@ -52,6 +52,16 @@ For bounded inputs, the feasible interval for coordinate \(i\) is \([\max(0,x_i-
 
 **Two-coordinate check (illustrative, not measured).** Let \(x=(0.95,0.20)\), \(\epsilon=0.10\), and the unprojected candidate be \(z=(1.08,0.04)\). The feasible intervals are \([0.85,1.00]\) and \([0.10,0.30]\), respectively, so projection yields \((1.00,0.10)\). This example exercises *both* the input-domain bound and the perturbation budget. For the \(\ell_\infty\) attack shown here, the gradient-*sign* update is a step of ascent on the attack loss; the subsequent clipping is the projection, not another gradient step.
 
+### Why the feasible set is a box
+
+The rectangular budget boundary in the animation represents a two-dimensional **\(\ell_\infty\)** ball, not a generic constraint for every PGD attack. For an \(\ell_2\) budget, the feasible region is circular in two dimensions and an out-of-budget candidate \(z\) (ignoring additional input-domain constraints) is projected radially:
+
+\[
+\Pi_{\mathcal B^{(2)}_\epsilon(x)}(z)=x+(z-x)\min\!\left(1,\frac{\epsilon}{\|z-x\|_2}\right).
+\]
+
+For example, with \(x=(0,0)\), \(\epsilon=1\), and \(z=(1.2,1.6)\), the \(\ell_2\) projection is \((0.6,0.8)\); coordinate-wise \(\ell_\infty\) clipping would instead produce \((1,1)\). These are **illustrative calculations, not model measurements**. The SVG intentionally depicts only the \(\ell_\infty\) case; its horizontal purple return must not be interpreted as the projection rule for other norms.
+
 ### Two projected iterations (illustrative)
 
 Consider a one-dimensional input with clean value \(x=0.50\), \(\epsilon=0.10\), step size \(\alpha=0.08\), and feasible interval \([0.40,0.60]\). Start at \(x^{(0)}=0.50\). If the gradient sign at the first iterate is \(+1\), the candidate is \(0.58\) and projection leaves \(x^{(1)}=0.58\). If the gradient sign recomputed at \(x^{(1)}\) is again \(+1\), the next candidate is \(0.66\), but projection gives \(x^{(2)}=0.60\). The gradient signs are **hypothetical**, not evaluated from a model. This trace makes clear that PGD projects **after every update**, not only at the end, and that the projected endpoint may differ from the unprojected candidate. The schematic SVG conveys the same distinction geometrically without claiming these particular numbers.
