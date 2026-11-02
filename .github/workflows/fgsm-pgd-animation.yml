@@ -61,6 +61,18 @@ jobs:
                       # Seek SMIL directly, rather than depending on screenshot timing.
                       page.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", time_ms / 1000)
                       animated_frames.append(svg.screenshot(path=str(output / f"fgsm-pgd-{width}px-{time_ms}ms.png")))
+                  # Check browser-observed visibility at causal phase boundaries.
+                  # These assertions complement structural SVG timing checks.
+                  def opacity_at(selector, t):
+                      page.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", t)
+                      return float(page.locator(selector).evaluate("(el) => getComputedStyle(el).opacity"))
+
+                  candidate = 'circle.moving-marker[fill="#f59e0b"]'
+                  projected = 'circle.moving-marker[fill="#7c3aed"]'
+                  assert opacity_at(candidate, 2.0) < 0.01, "Candidate appears before feasible PGD steps finish"
+                  assert opacity_at(candidate, 2.8) > 0.99, "Candidate not visible during its update"
+                  assert opacity_at(projected, 3.0) < 0.01, "Projection appears before candidate finishes"
+                  assert opacity_at(projected, 4.5) > 0.99, "Projection not visible after its reveal"
                   # A successfully captured but frozen animation is not a teaching animation.
                   # Compare the actual browser pixels, not merely SMIL declarations.
                   assert len(set(animated_frames)) >= 3, (
