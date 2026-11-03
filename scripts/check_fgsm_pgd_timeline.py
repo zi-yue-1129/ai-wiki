@@ -178,6 +178,40 @@ def main() -> None:
         assert "3.5–5" in body, page
         assert not re.search(r"(?:from |於 )4–5 秒?", body), page
 
+    # Independently recompute the bilingual teaching trace. The candidate
+    # must be projected after EACH iteration; clipping only the final state
+    # produces a different answer even with identical hypothetical signs.
+    # Keep the numerical invariant separate from the SVG drawing geometry.
+    clean, epsilon, alpha = 0.50, 0.10, 0.08
+    signs = (+1, +1, -1)
+    lo, hi = clean - epsilon, clean + epsilon
+    projected_trace = [clean]
+    unprojected_trace = [clean]
+    for sign in signs:
+        proposed = projected_trace[-1] + alpha * sign
+        projected_trace.append(min(hi, max(lo, proposed)))
+        unprojected_trace.append(unprojected_trace[-1] + alpha * sign)
+    assert all(abs(a - b) < 1e-9 for a, b in zip(
+        projected_trace, (0.50, 0.58, 0.60, 0.52)
+    )), projected_trace
+    assert all(abs(a - b) < 1e-9 for a, b in zip(
+        unprojected_trace, (0.50, 0.58, 0.66, 0.58)
+    )), unprojected_trace
+    assert unprojected_trace[2] > hi
+    delayed_projection = min(hi, max(lo, unprojected_trace[-1]))
+    assert abs(delayed_projection - 0.58) < 1e-9
+    assert abs(delayed_projection - projected_trace[-1]) > 0.05
+
+    # Both translations must preserve the same explanatory numerical trace.
+    # These are teaching values, never model-derived measurements.
+    for page in PAGES:
+        body = page.read_text(encoding="utf-8")
+        for trace in (
+            "0.50 \\rightarrow 0.58 \\rightarrow 0.60 \\rightarrow 0.52",
+            "0.50 \\rightarrow 0.58 \\rightarrow 0.66 \\rightarrow 0.58",
+        ):
+            assert trace in body, (page, trace)
+
     print("FGSM/PGD timing and bilingual captions: OK")
     print("Browser motion, reduced-motion and visual inspection: NOT tested")
 
