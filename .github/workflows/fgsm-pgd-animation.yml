@@ -6,6 +6,8 @@ on:
       - 'docs/assets/concept-animations/fgsm-pgd-trajectory.svg'
       - 'scripts/check_fgsm_pgd_projection.py'
       - 'scripts/check_fgsm_pgd_timeline.py'
+      - 'docs/theory/machine-learning/adversarial-robustness/pgd-adversarial-training.md'
+      - 'docs/theory/machine-learning/adversarial-robustness/pgd-adversarial-training.zh-TW.md'
       - '.github/workflows/fgsm-pgd-animation.yml'
   workflow_dispatch:
 
