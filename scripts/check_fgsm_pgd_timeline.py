@@ -85,7 +85,16 @@ def main() -> None:
     # origin (595, 120) before the orange candidate is revealed.
     assert (float(pgd.get("cx")), float(pgd.get("cy"))) == (542.0, 170.0)
     assert pgd_motion.get("path") == "M0 0L28 -23L53 -50"
-    assert timeline(pgd_motion, "keyPoints") == [0.0, 0.53, 1.0, 1.0]
+    # keyPoints are fractions of total path length, not per-segment indices.
+    # At 1.25 s (25% of 5 s), the marker should be at the first teal
+    # vertex (570,147), not already partway through the next segment.
+    import math
+    first_length = math.hypot(28, 23)
+    second_length = math.hypot(25, 27)
+    first_fraction = first_length / (first_length + second_length)
+    points = timeline(pgd_motion, "keyPoints")
+    assert len(points) == 4 and points[0] == 0 and points[-2:] == [1, 1]
+    assert abs(points[1] - first_fraction) < 1e-6, (points, first_fraction)
     # The static GitHub fallback must tell the same story as SMIL motion.
     # A future edit to the visible strokes must not silently disagree with
     # the moving markers, even if the keyframe-only checks still pass.
