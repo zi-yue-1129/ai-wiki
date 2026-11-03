@@ -80,6 +80,39 @@ def main() -> None:
     close(float(budget.get("x")) + float(budget.get("width")), 636.0)
     assert 70.0 <= float(projection.get("cy")) <= 250.0
 
+    # Guard the actual animated PGD geometry as well as its phase timing.
+    # The teal marker starts at the clean input and reaches the candidate
+    # origin (595, 120) before the orange candidate is revealed.
+    assert (float(pgd.get("cx")), float(pgd.get("cy"))) == (542.0, 170.0)
+    assert pgd_motion.get("path") == "M0 0L28 -23L53 -50"
+    assert timeline(pgd_motion, "keyPoints") == [0.0, 0.53, 1.0, 1.0]
+    assert (float(candidate.get("cx")), float(candidate.get("cy"))) == (595.0, 120.0)
+    assert candidate_motion.get("path") == "M0 0L65 -33"
+    close(float(candidate.get("cx")) + 65.0, float(projection.get("cx")))
+    close(float(candidate.get("cy")) - 33.0, float(projection.get("cy")))
+
+    # The projected point must lie inside the right-hand epsilon rectangle,
+    # while the unprojected candidate must lie strictly outside it.
+    left = float(budget.get("x"))
+    right = left + float(budget.get("width"))
+    top = float(budget.get("y"))
+    bottom = top + float(budget.get("height"))
+    assert left <= 636.0 <= right and top <= 87.0 <= bottom
+    assert float(projection.get("cx")) > right
+    assert float(candidate.get("cx")) >= left
+
+    # FGSM must finish inside its own budget, not merely at the specified
+    # timestamp. Its animated displacement must agree with the static end.
+    assert (float(fgsm.get("cx")), float(fgsm.get("cy"))) == (180.0, 170.0)
+    assert fgsm_motion.get("path") == "M0 0L79 -67"
+    fgsm_budget = next(
+        rect for rect in root.findall(".//s:rect", NS)
+        if rect.get("x") == "86" and rect.get("y") == "70"
+    )
+    fgsm_x, fgsm_y = 180.0 + 79.0, 170.0 - 67.0
+    assert float(fgsm_budget.get("x")) <= fgsm_x <= float(fgsm_budget.get("x")) + float(fgsm_budget.get("width"))
+    assert float(fgsm_budget.get("y")) <= fgsm_y <= float(fgsm_budget.get("y")) + float(fgsm_budget.get("height"))
+
     # GitHub's static fallback and reduced-motion view must retain the
     # completed endpoints even when SMIL motion is not available.
     endpoints = root.findall(".//s:circle[@class='endpoint-marker']", NS)
