@@ -24,7 +24,7 @@ def main() -> None:
     root = ET.parse(SVG).getroot()
     markers = root.findall(".//s:circle[@class='moving-marker']", NS)
     assert len(markers) == 4, "Expected FGSM, PGD, candidate and projection markers"
-    fgsm, pgd, candidate, projection = markers
+    candidate, projection, fgsm, pgd = markers
 
     def motion(circle: ET.Element) -> ET.Element:
         result = circle.find("s:animateMotion", NS)
