@@ -125,6 +125,31 @@ def main() -> None:
     assert float(projection.get("cx")) > right
     assert float(candidate.get("cx")) >= left
 
+    # Projection onto an axis-aligned L-infinity ball is coordinate-wise
+    # clipping. Reconstruct the projected endpoint from the animated path,
+    # rather than assuming the purple static dot is necessarily correct.
+    # This also guards against a future candidate whose y coordinate exceeds
+    # the feasible interval but whose x coordinate is clipped correctly.
+    candidate_end = (
+        float(candidate.get("cx")) + 65.0,
+        float(candidate.get("cy")) - 33.0,
+    )
+    projected_end = (
+        min(max(candidate_end[0], left), right),
+        min(max(candidate_end[1], top), bottom),
+    )
+    horizontal_projection = re.fullmatch(
+        r"M0 0H(-?\\d+(?:\\.\\d+)?)",
+        projection_motion.get("path") or "",
+    )
+    assert horizontal_projection is not None, projection_motion.get("path")
+    animated_end = (
+        float(projection.get("cx")) + float(horizontal_projection.group(1)),
+        float(projection.get("cy")),
+    )
+    assert animated_end == projected_end, (animated_end, projected_end)
+    assert (636.0, 87.0) == projected_end
+
     # FGSM must finish inside its own budget, not merely at the specified
     # timestamp. Its animated displacement must agree with the static end.
     assert (float(fgsm.get("cx")), float(fgsm.get("cy"))) == (180.0, 170.0)
