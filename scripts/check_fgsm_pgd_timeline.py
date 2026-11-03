@@ -97,8 +97,8 @@ def main() -> None:
     # otherwise silently contradict the chapter's teaching sequence.
     import math
     pgd_path = pgd_motion.get("path")
-    coordinates = re.findall(r"([ML])(-?\\d+(?:\\.\\d+)?)\\s+(-?\\d+(?:\\.\\d+)?)", pgd_path or "")
-    assert len(coordinates) == 3 and coordinates[0][0] == "M"
+    coordinates = re.findall(r"([ML])(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)", pgd_path or "")
+    assert len(coordinates) == 3 and coordinates[0][0] == "M", (pgd_path, coordinates)
     for command, dx, dy in coordinates:
         assert command in ("M", "L")
         px, py = float(pgd.get("cx")) + float(dx), float(pgd.get("cy")) + float(dy)
