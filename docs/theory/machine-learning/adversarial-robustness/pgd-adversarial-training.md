@@ -25,7 +25,7 @@ A single FGSM step can miss higher-loss regions. PGD repeatedly updates the cand
 ## Key concepts
 
 - **Projection**: after each step, the perturbation is clipped back into the \(\epsilon\)-ball around the clean input.
-- **Random start**: the attack begins at a random point in the ball, which helps it escape flat regions of the loss.
+- **Random start**: the attack begins at a sampled feasible point rather than always at the clean input. Independent starts explore different regions of a non-convex loss surface, but do not guarantee escape from flat regions or convergence to the worst-case adversarial example.
 - **Min–max objective**: \(\min_\theta \mathbb{E}\big[\max_{\|\delta\|\le\epsilon} J(\theta,x+\delta,y)\big]\).
 
 ## How it works
