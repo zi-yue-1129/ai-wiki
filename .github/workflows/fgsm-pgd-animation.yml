@@ -155,12 +155,35 @@ jobs:
                       f"Projection must move inward during 3.5–5s: "
                       f"{start_projection}, {mid_projection}, {end_projection}"
                   )
-                  assert abs(end_candidate[0] - start_projection[0]) < 1, (
-                      "Projection must begin where the candidate ends"
+                  # Both coordinates must join continuously: a matching x
+                  # alone can conceal a discontinuous diagonal jump.
+                  assert all(abs(a - b) < 1 for a, b in zip(end_candidate, start_projection)), (
+                      f"Candidate/projection handoff must be continuous in 2D: "
+                      f"{end_candidate} vs {start_projection}"
                   )
+                  # getCTM() maps SVG user coordinates to its viewport; use
+                  # the rendered SVG width, not the browser window width.
                   svg_rendered_width = page.locator("svg").evaluate("el => el.getBoundingClientRect().width")
-                  assert abs(end_projection[0] - (start_projection[0] - 24 * svg_rendered_width / 720)) < 1, (
+                  scale = svg_rendered_width / 720
+                  assert abs(end_projection[0] - (start_projection[0] - 24 * scale)) < 1, (
                       "Projection must return exactly 24 SVG units toward the budget"
+                  )
+                  assert abs(end_projection[1] - start_projection[1]) < 1, (
+                      f"L-infinity clipping must preserve the in-budget y coordinate: "
+                      f"{start_projection} vs {end_projection}"
+                  )
+                  # The projected endpoint is the right edge of the feasible
+                  # rectangle (x=636, y=87) in the SVG's own coordinate system.
+                  budget_edge = page.locator('rect[x="448"][y="70"]').evaluate("""el => {
+                    const svg = el.ownerSVGElement;
+                    const p = svg.createSVGPoint();
+                    p.x = 636; p.y = 87;
+                    const q = p.matrixTransform(el.getCTM());
+                    return [q.x, q.y];
+                  }""")
+                  assert all(abs(a - b) < 1 for a, b in zip(end_projection, budget_edge)), (
+                      f"Projected marker misses the feasible boundary: "
+                      f"{end_projection} vs {budget_edge}"
                   )
                   # A successfully captured but frozen animation is not a teaching animation.
                   # Compare the actual browser pixels, not merely SMIL declarations.
