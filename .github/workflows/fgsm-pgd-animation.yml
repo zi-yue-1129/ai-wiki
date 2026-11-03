@@ -95,6 +95,25 @@ jobs:
                       assert label["y"] >= -1 and label["bottom"] <= 400 + 1, (
                           f"Text label clipped vertically at {width}px: {label}"
                       )
+                  # Detect actual label collisions at every viewport, not just
+                  # clipping against the browser edge. This catches labels that
+                  # individually fit but become unreadable when they overlap.
+                  for i, first in enumerate(bounds["labels"]):
+                      for second in bounds["labels"][i + 1:]:
+                          overlap_width = min(first["right"], second["right"]) - max(first["x"], second["x"])
+                          overlap_height = min(first["bottom"], second["bottom"]) - max(first["y"], second["y"])
+                          assert overlap_width <= 1 or overlap_height <= 1, (
+                              f"Overlapping SVG text at {width}px: {first} vs {second}"
+                          )
+                  # Also check the SVG's own visible rectangle: a label can
+                  # fit inside a 400px browser window while being clipped by
+                  # the smaller SVG viewport itself.
+                  svg_bounds = page.locator("svg").bounding_box()
+                  assert svg_bounds is not None
+                  for label in bounds["labels"]:
+                      assert label["y"] >= svg_bounds["y"] - 1 and label["bottom"] <= svg_bounds["y"] + svg_bounds["height"] + 1, (
+                          f"Text label outside SVG vertical bounds at {width}px: {label}"
+                      )
                   # This geometric guard does not replace manual visual QA:
                   # overlapping labels, contrast and arrows need human review.
                   # Check browser-observed visibility at causal phase boundaries.
