@@ -139,7 +139,7 @@ def main() -> None:
         min(max(candidate_end[1], top), bottom),
     )
     horizontal_projection = re.fullmatch(
-        r"M0 0H(-?\\d+(?:\\.\\d+)?)",
+        r"M0 0H(-?\d+(?:\.\d+)?)",
         projection_motion.get("path") or "",
     )
     assert horizontal_projection is not None, projection_motion.get("path")
