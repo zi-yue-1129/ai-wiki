@@ -53,6 +53,43 @@ def main() -> None:
     assert timeline(projection_motion, "keyPoints") == [0.0, 0.0, 1.0]
     close(5 * timeline(projection_motion, "keyTimes")[1], 3.5)
 
+    # Visibility must follow motion: the candidate appears just after 2.5 s,
+    # disappears at 3.5 s, and projection begins at that handoff.
+    candidate_opacity = candidate.find("s:animate[@attributeName='opacity']", NS)
+    projection_opacity = projection.find("s:animate[@attributeName='opacity']", NS)
+    assert candidate_opacity is not None and projection_opacity is not None
+    assert timeline(candidate_opacity, "keyTimes") == [0.0, 0.5, 0.51, 0.69, 0.7, 1.0]
+    assert timeline(candidate_opacity, "values") == [0.0, 0.0, 1.0, 1.0, 0.0, 0.0]
+    assert timeline(projection_opacity, "keyTimes") == [0.0, 0.69, 0.7]
+    assert timeline(projection_opacity, "values") == [0.0, 0.0, 1.0]
+    for opacity in (candidate_opacity, projection_opacity):
+        assert opacity.get("calcMode") == "discrete"
+        assert opacity.get("repeatCount") == "1"
+    assert candidate.get("opacity") == "0"
+    assert projection.get("opacity") == "0"
+
+    # Verify the geometric endpoint of the projection, not only its timing.
+    # The out-of-budget point (660, 87) must return to the L-infinity
+    # feasible-set right edge x=636 without changing its y coordinate.
+    assert (float(projection.get("cx")), float(projection.get("cy"))) == (660.0, 87.0)
+    assert projection_motion.get("path") == "M0 0H-24"
+    budget = next(
+        rect for rect in root.findall(".//s:rect", NS)
+        if rect.get("x") == "448" and rect.get("y") == "70"
+    )
+    close(float(budget.get("x")) + float(budget.get("width")), 636.0)
+    assert 70.0 <= float(projection.get("cy")) <= 250.0
+
+    # GitHub's static fallback and reduced-motion view must retain the
+    # completed endpoints even when SMIL motion is not available.
+    endpoints = root.findall(".//s:circle[@class='endpoint-marker']", NS)
+    assert len(endpoints) == 1
+    assert (endpoints[0].get("cx"), endpoints[0].get("cy")) == ("259", "103")
+    css = " ".join(style.text or "" for style in root.findall(".//s:style", NS))
+    assert "prefers-reduced-motion: reduce" in css
+    assert ".moving-marker { display: none" in css
+    assert ".endpoint-marker { opacity: 1" in css
+
     for page in PAGES:
         body = page.read_text(encoding="utf-8")
         assert "2.5–3.5" in body, page
