@@ -158,7 +158,8 @@ jobs:
                   assert abs(end_candidate[0] - start_projection[0]) < 1, (
                       "Projection must begin where the candidate ends"
                   )
-                  assert abs(end_projection[0] - (start_projection[0] - 24 * width / 720)) < 1, (
+                  svg_rendered_width = page.locator("svg").evaluate("el => el.getBoundingClientRect().width")
+                  assert abs(end_projection[0] - (start_projection[0] - 24 * svg_rendered_width / 720)) < 1, (
                       "Projection must return exactly 24 SVG units toward the budget"
                   )
                   # A successfully captured but frozen animation is not a teaching animation.
