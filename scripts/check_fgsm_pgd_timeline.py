@@ -86,6 +86,16 @@ def main() -> None:
     assert (float(pgd.get("cx")), float(pgd.get("cy"))) == (542.0, 170.0)
     assert pgd_motion.get("path") == "M0 0L28 -23L53 -50"
     assert timeline(pgd_motion, "keyPoints") == [0.0, 0.53, 1.0, 1.0]
+    # The static GitHub fallback must tell the same story as SMIL motion.
+    # A future edit to the visible strokes must not silently disagree with
+    # the moving markers, even if the keyframe-only checks still pass.
+    strokes = [p.get("d") for p in root.findall(".//s:path", NS)]
+    assert "M180 170L259 103" in strokes, "FGSM visible arrow differs from motion"
+    assert "M542 170L570 147L595 120" in strokes, "PGD visible trace differs from motion"
+    assert "M595 120L660 87" in strokes, "Candidate visible trace differs from motion"
+    assert "M660 87H636" in strokes, "Projection visible trace differs from motion"
+    assert (float(pgd.get("cx")) + 53, float(pgd.get("cy")) - 50) == (595.0, 120.0)
+    assert (float(fgsm.get("cx")) + 79, float(fgsm.get("cy")) - 67) == (259.0, 103.0)
     assert (float(candidate.get("cx")), float(candidate.get("cy"))) == (595.0, 120.0)
     assert candidate_motion.get("path") == "M0 0L65 -33"
     close(float(candidate.get("cx")) + 65.0, float(projection.get("cx")))
