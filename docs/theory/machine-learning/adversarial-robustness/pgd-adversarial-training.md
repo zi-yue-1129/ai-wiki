@@ -66,6 +66,10 @@ The radial formula is interpreted as the identity when \(z=x\), avoiding divisio
 
 Consider a one-dimensional input with clean value \(x=0.50\), \(\epsilon=0.10\), step size \(\alpha=0.08\), and feasible interval \([0.40,0.60]\). Start at \(x^{(0)}=0.50\). If the gradient sign at the first iterate is \(+1\), the candidate is \(0.58\) and projection leaves \(x^{(1)}=0.58\). If the gradient sign recomputed at \(x^{(1)}\) is again \(+1\), the next candidate is \(0.66\), but projection gives \(x^{(2)}=0.60\). The gradient signs are **hypothetical**, not evaluated from a model. This trace makes clear that PGD projects **after every update**, not only at the end, and that the projected endpoint may differ from the unprojected candidate. The schematic SVG conveys the same distinction geometrically without claiming these particular numbers.
 
+### Why postponing projection changes the trajectory (illustrative)
+
+Projection is part of **each** PGD iteration, not an optional final clean-up. Continue the one-dimensional example above with hypothetical gradient signs \(+1,+1,-1\), while holding those signs fixed solely to compare the update rules. With \(x=0.50\), \(\epsilon=0.10\), and \(\alpha=0.08\), correct per-step projection gives the iterates \(0.50 \rightarrow 0.58 \rightarrow 0.60 \rightarrow 0.52\). If the same candidate increments are instead accumulated *without* intermediate projection, the states are \(0.50 \rightarrow 0.58 \rightarrow 0.66 \rightarrow 0.58\); projecting only at the end yields \(0.58\), **not** \(0.52\). The unprojected second state also violates the perturbation budget. These are synthetic arithmetic traces, not evaluated gradients or model measurements. In a real attack, omitting projection also changes the point where subsequent gradients are evaluated, so the two gradient-sign sequences need not remain equal. The orange candidate and purple return in the animation illustrate why the projection must be applied before the next iteration.
+
 ## Variants
 
 - **TRADES** trains with a loss that balances clean accuracy against the change in output under attack, which gives a different accuracy–robustness trade-off.
