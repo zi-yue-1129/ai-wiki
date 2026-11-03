@@ -91,6 +91,20 @@ def main() -> None:
     close(float(candidate.get("cx")) + 65.0, float(projection.get("cx")))
     close(float(candidate.get("cy")) - 33.0, float(projection.get("cy")))
 
+    # Every visible PGD iterate must remain feasible before the proposed
+    # out-of-budget step. Guard all polyline vertices rather than only the
+    # final marker; an accidentally misplaced intermediate point would
+    # otherwise silently contradict the chapter's teaching sequence.
+    import math
+    pgd_path = pgd_motion.get("path")
+    coordinates = re.findall(r"([ML])(-?\\d+(?:\\.\\d+)?)\\s+(-?\\d+(?:\\.\\d+)?)", pgd_path or "")
+    assert len(coordinates) == 3 and coordinates[0][0] == "M"
+    for command, dx, dy in coordinates:
+        assert command in ("M", "L")
+        px, py = float(pgd.get("cx")) + float(dx), float(pgd.get("cy")) + float(dy)
+        assert 448.0 <= px <= 636.0 and 70.0 <= py <= 250.0, (px, py)
+        assert math.isfinite(px) and math.isfinite(py)
+
     # The projected point must lie inside the right-hand epsilon rectangle,
     # while the unprojected candidate must lie strictly outside it.
     left = float(budget.get("x"))
