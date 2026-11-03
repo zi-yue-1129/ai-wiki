@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-03
 related:
   - theory/evaluation/metrics/segmentation/iou.md
 tags:
@@ -45,12 +45,12 @@ Most detectors share a pipeline. A convolutional or transformer backbone extract
 
 ## Key methods
 
-Brief comparison. Each named detector is a candidate for its own method page; those pages are not yet written, so the detail is given in this section for now.
+Brief comparison of four landmark detectors. Each has its own page with the problem, core idea, algorithm, results and limitations.
 
-- **R-CNN family (two-stage)**: proposals first, then per-region classification and refinement. Accurate, historically slower at inference.
-- **YOLO and SSD (one-stage)**: dense prediction in one pass. Faster, with a historical accuracy gap that focal loss and later designs narrowed.
-- **RetinaNet (one-stage with focal loss)**: a dense detector whose loss is reweighted for class imbalance.
-- **DETR (set prediction)**: transformer decoder with bipartite matching, no anchors and no NMS.
+- [Faster R-CNN (Ren et al., 2015)](faster-r-cnn.md): proposals from a learned region proposal network, then per-region classification and refinement. Accurate, and trainable end to end on shared features.
+- [YOLO (Redmon et al., 2015)](yolo.md): one regression pass over a grid of cells. Much faster, at a cost in localisation accuracy, especially for small objects.
+- [RetinaNet (Lin et al., 2017)](retinanet.md): a one-stage detector whose focal loss reweights easy background examples, closing the accuracy gap with two-stage detectors.
+- [DETR (Carion et al., 2020)](detr.md): a transformer decoder with bipartite matching to a fixed set of object queries, with no anchors and no NMS. Trains on a longer schedule, with weaker small-object results than Faster R-CNN in the original paper.
 
 ## Connections
 

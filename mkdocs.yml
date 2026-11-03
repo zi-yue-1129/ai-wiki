@@ -740,6 +740,10 @@ plugins:
             LLM Distillation: 大型語言模型蒸餾
             Computer Vision: 電腦視覺
             Object Detection: 物件偵測
+            Faster R-CNN: Faster R-CNN
+            YOLO: YOLO
+            RetinaNet: RetinaNet
+            DETR: DETR
             Image Segmentation: 影像分割
             Natural Language Processing: 自然語言處理
             Speech & Audio: 語音與音訊
@@ -1775,7 +1779,12 @@ nav:
                   - I3D: theory/models/computer-vision/video/i3d.md
                   - ViViT: theory/models/computer-vision/video/vivit.md
                   - Video Diffusion: theory/models/computer-vision/video/video-diffusion.md
-              - Object Detection: theory/models/computer-vision/object-detection/index.md
+              - Object Detection:
+                  - theory/models/computer-vision/object-detection/index.md
+                  - Faster R-CNN: theory/models/computer-vision/object-detection/faster-r-cnn.md
+                  - YOLO: theory/models/computer-vision/object-detection/yolo.md
+                  - RetinaNet: theory/models/computer-vision/object-detection/retinanet.md
+                  - DETR: theory/models/computer-vision/object-detection/detr.md
               - Image Segmentation: theory/models/computer-vision/segmentation/index.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
