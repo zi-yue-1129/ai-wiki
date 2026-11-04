@@ -47,6 +47,22 @@ def check_numerical_examples():
     step2 = project((step1[0] + 0.08,), x, 0.10)
     near(step1, (0.58,))
     near(step2, (0.60,))
+    # A pedagogical three-update trace: clipping after EACH update differs
+    # from clipping only once at the end, even for fixed hypothetical signs.
+    # This is arithmetic on illustrative values, not a measured gradient.
+    signs = (1, 1, -1)
+    alpha = 0.06
+    clean = (0.50,)
+    epsilon = 0.10
+    iterate = clean
+    for sign in signs:
+        iterate = project((iterate[0] + alpha * sign,), clean, epsilon)
+    near(iterate, (0.52,))
+    unprojected = clean[0] + alpha * sum(signs)
+    near(project((unprojected,), clean, epsilon), (0.56,))
+    assert iterate != project((unprojected,), clean, epsilon), (
+        "Projection after every update must differ from end-only projection"
+    )
     # Each update projects against the ORIGINAL clean input, not the last iterate.
     assert project((0.66,), (0.58,), 0.10) != step2
 
