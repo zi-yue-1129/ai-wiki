@@ -69,6 +69,36 @@ jobs:
                       # Seek SMIL directly, rather than depending on screenshot timing.
                       page.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", time_ms / 1000)
                       animated_frames.append(svg.screenshot(path=str(output / f"fgsm-pgd-{width}px-{time_ms}ms.png")))
+                      # Check the animated geometry at EACH captured phase.
+                      # End-frame-only bounds checks miss a marker or arrow that
+                      # briefly exits the viewport during an intermediate update.
+                      moving_bounds = page.evaluate("""() => {
+                        const root = document.querySelector('svg');
+                        const viewport = root.getBoundingClientRect();
+                        return [...root.querySelectorAll('.moving-marker')]
+                          .filter(el => {
+                            const style = getComputedStyle(el);
+                            return style.display !== 'none' &&
+                              style.visibility !== 'hidden' &&
+                              Number(style.opacity) > 0.01;
+                          })
+                          .map(el => {
+                            const r = el.getBoundingClientRect();
+                            return {x: r.left, y: r.top, right: r.right,
+                                    bottom: r.bottom, viewport: {
+                                      left: viewport.left, top: viewport.top,
+                                      right: viewport.right, bottom: viewport.bottom
+                                    }};
+                          });
+                      }""")
+                      for marker in moving_bounds:
+                          view = marker["viewport"]
+                          assert (marker["x"] >= view["left"] - 1 and
+                                  marker["right"] <= view["right"] + 1 and
+                                  marker["y"] >= view["top"] - 1 and
+                                  marker["bottom"] <= view["bottom"] + 1), (
+                              f"Moving marker clipped at {width}px / {time_ms}ms: {marker}"
+                          )
                   # Verify that the SVG and its visible teaching labels fit the
                   # browser viewport at each responsive width. Pixel changes
                   # alone cannot detect cropped labels or off-screen geometry.
