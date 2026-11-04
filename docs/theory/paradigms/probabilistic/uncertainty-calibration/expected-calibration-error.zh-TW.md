@@ -30,13 +30,13 @@ translation_reviewed: 2026-10-28
 ## 變體
 
 - **最大校準誤差**取最大的箱差距，而非加權平均，因此強調最差的箱。
-- **自適應分箱**選擇每箱預測數相等的分箱，減少稀疏箱中的變異。
-- **類別別 ECE**分別計算每個類別的差距，可以發現稀有類別上的校準偏差。
+- **自適應分箱**選擇每箱預測數相等的分箱，減少稀疏箱中的變異（Nixon 等人，2019）。
+- **類別別 ECE**分別計算每個類別的差距，可以發現稀有類別上的校準偏差（Nixon 等人，2019）。
 
 ## 結果與限制
 
 - ECE 容易計算也容易解釋，而且直接量化校準所要消除的差距。
-- 其數值取決於箱的數量與位置，因此跨論文比較時需要相同的分箱方式。
+- 其數值取決於箱的數量與位置，因此跨論文比較時需要相同的分箱方式。Naeini 等人（2015）以貝氏方式處理同樣的分箱問題。
 - 在小樣本中有偏差，預測很少的箱也很嘈雜。
 - 它不衡量銳利度與區分能力。一個永遠預測基礎比率的模型，ECE 可能很低，但毫無用處。結合校準與精細度的 Brier 分數可避免這個問題（Brier，1950；DeGroot 與 Fienberg，1983）。
 
@@ -57,10 +57,12 @@ translation_reviewed: 2026-10-28
 
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — 以 ECE 與可靠度圖顯示現代網路的校準偏差。
 - DeGroot, M. H. & Fienberg, S. E. (1983). The comparison and evaluation of forecasters. *The Statistician* 32(1/2), 12–22. https://doi.org/10.2307/2987588 — 定義校準，並把預測分數分解為校準與精細度。
+- Naeini, M. P., Cooper, G. F. & Hauskrecht, M. (2015). Obtaining well calibrated probabilities using Bayesian binning. In *Proceedings of the 29th AAAI Conference on Artificial Intelligence*. https://doi.org/10.1609/aaai.v29i1.9602 — 介紹貝氏分箱以取得校準後的機率，並討論分箱誤差。
 - Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. *Monthly Weather Review* 78(1), 1–3. https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2 — 提出 Brier 分數，是不依賴分箱的替代度量。
 - Niculescu-Mizil, A. & Caruana, R. (2005). Predicting good probabilities with supervised learning. In *Proceedings of the 22nd International Conference on Machine Learning*, 625–632. https://doi.org/10.1145/1102351.1102430 — 以校準度量評估分類器的機率。
 
 ### 綜述與教科書
+- Nixon, J., Dusenberry, M. W., Jerfel, G. & Nguyen, T. (2019). Measuring calibration in deep learning. arXiv:1904.01685. https://arxiv.org/abs/1904.01685 — 為 ECE 提出自適應分箱與類別別校準誤差的變體。
 
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋校準與適當評分規則。
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Murphy 教科書系列的儲存庫；涵蓋校準與適當評分規則。
 - Angelopoulos, A. N. & Bates, S. (2023). Conformal prediction: a gentle introduction. *Foundations and Trends in Machine Learning* 16(4), 494–591. https://doi.org/10.1561/2200000101 — 把校準度量與以覆蓋率為基礎的不確定性方法並列說明。

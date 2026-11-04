@@ -27,11 +27,12 @@ Fort、Hu 與 Lakshminarayanan（2019）認為，集成成員的多樣性來自�
 
 - **快照集成**從同一次訓練的不同時點收集模型，成本較低，但多樣性較少。
 - **隨機化集成**在各成員之間改變資料順序、資料增強或架構。
+- **參數高效的集成**，例如 BatchEnsemble，讓大部分權重在各成員之間共享，降低記憶體與計算成本（Wen 等人，2020）。
 - **貝氏風格的集成**把平均與先驗或近似後驗樣本結合，使此方法與貝氏推論相連（Gal 與 Ghahramani，2016）。
 
 ## 結果與限制
 
-- 集成通常同時改善準確率與校準，並且在各種任務中都穩健，因此是強勁的基準。
+- 集成通常同時改善準確率與校準，並且在各種任務中都穩健，因此是強勁的基準。Ovadia 等人（2019）發現，在資料集偏移下，集成仍是最可靠的方法之一。
 - 無論訓練或推論，成本都隨成員數線性增加。
 - 成員可能過於相似，因此用來估計不確定性的多樣性可能比預期小。
 - 集成並不是參數上的真正後驗。其不確定性是經驗性的估計，沒有一般性的保證。
@@ -56,7 +57,9 @@ Fort、Hu 與 Lakshminarayanan（2019）認為，集成成員的多樣性來自�
 - Gal, Y. & Ghahramani, Z. (2016). Dropout as a Bayesian approximation: representing model uncertainty in deep learning. In *Proceedings of the 33rd International Conference on Machine Learning*, PMLR 48. https://proceedings.mlr.press/v48/gal16.html — 把以 dropout 訓練的網路集成與近似貝氏推論連結起來。
 
 ### 綜述與教科書
+- Ovadia, Y., Fertig, E., Ren, J., Nado, Z. et al. (2019). Can you trust your model's uncertainty? Evaluating predictive uncertainty under dataset shift. In *Advances in Neural Information Processing Systems* 32. arXiv:1906.02530. https://arxiv.org/abs/1906.02530 — 在資料集偏移下比較包括集成在內的不確定性方法。
+- Wen, Y., Tran, D. & Ba, J. (2020). BatchEnsemble: an alternative approach to efficient ensemble and lifelong learning. In *International Conference on Learning Representations*. arXiv:2002.06715. https://arxiv.org/abs/2002.06715 — 在成員之間共享權重，以降低集成的成本。
 
 - Fort, S., Hu, H. & Lakshminarayanan, B. (2019). Deep ensembles: a loss landscape perspective. arXiv:1912.02757. https://arxiv.org/abs/1912.02757 — 解釋獨立訓練的成員為何分歧，以及這如何影響不確定性。
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — 比較集成與事後校準。
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋集成與貝氏模型平均。
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Murphy 教科書系列的儲存庫；涵蓋集成與貝氏模型平均。

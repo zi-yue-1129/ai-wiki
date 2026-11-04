@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/probabilistic/uncertainty-calibration
 tags:
@@ -52,6 +52,7 @@ The parameter \(T\) is chosen to minimise the NLL of the labels on a held-out va
 - **Vector scaling** uses a separate scale and bias for each class, which is more flexible but needs more data.
 - **Matrix scaling** uses a full linear map on the logits, which is the most expressive of the family and the most prone to overfitting.
 - **Histogram binning** fits a piecewise-constant map from confidence to accuracy, a non-parametric alternative.
+- **Platt scaling** fits a logistic map to the classifier scores, a parametric alternative that is common for binary tasks. Lin et al. (2007) give a numerically stable fitting algorithm for it.
 
 ## Results and limits
 
@@ -77,10 +78,12 @@ The parameter \(T\) is chosen to minimise the NLL of the labels on a held-out va
 
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — Introduces temperature scaling for neural networks and compares it with other calibration methods.
 - Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. *Monthly Weather Review* 78(1), 1–3. https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2 — Introduces a proper scoring rule for probability forecasts, a companion measure to calibration.
+- Zadrozny, B. & Elkan, C. (2002). Transforming classifier scores into accurate multiclass probability estimates. In *Proceedings of the 8th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, 694–699. https://doi.org/10.1145/775047.775151 — Introduces isotonic-style and binning calibration of classifier scores for multiclass problems.
 - Niculescu-Mizil, A. & Caruana, R. (2005). Predicting good probabilities with supervised learning. In *Proceedings of the 22nd International Conference on Machine Learning*, 625–632. https://doi.org/10.1145/1102351.1102430 — Compares calibration methods, including Platt scaling and isotonic regression, for classifiers.
 
 ### Surveys and textbooks
 
+- Lin, H.-T., Lin, C.-J. & Weng, R. C. (2007). A note on Platt's probabilistic outputs for support vector machines. *Machine Learning* 68(3), 267–276. https://doi.org/10.1007/s10994-007-5018-6 — Gives a numerically stable algorithm for fitting Platt's sigmoid calibration.
 - DeGroot, M. H. & Fienberg, S. E. (1983). The comparison and evaluation of forecasters. *The Statistician* 32(1/2), 12–22. https://doi.org/10.2307/2987588 — Defines calibration for probability forecasts and compares forecasters on it.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers calibration and post-hoc methods.
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Repository for Murphy's textbook series; covers calibration and post-hoc methods.
 - Gal, Y. & Ghahramani, Z. (2016). Dropout as a Bayesian approximation: representing model uncertainty in deep learning. In *Proceedings of the 33rd International Conference on Machine Learning*, PMLR 48. https://proceedings.mlr.press/v48/gal16.html — Gives an alternative route to uncertainty for the same networks.
