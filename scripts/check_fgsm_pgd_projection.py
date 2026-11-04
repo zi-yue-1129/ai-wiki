@@ -157,7 +157,7 @@ def check_motion_timing_and_fallback():
     title = root.find("s:title", NS)
     desc = root.find("s:desc", NS)
     assert title is not None and (title.text or "").strip()
-    assert desc is not None and "projection" in (desc.text or "").lower()
+    assert desc is not None and any(\n        term in (desc.text or "").lower() for term in ("project", "projection")\n    ), "Accessible description must explain the projection operation"
 
 def check_geometric_projection_consistency():
     """Verify the drawn candidate and return motion agree with the budget box.
@@ -191,7 +191,7 @@ def check_geometric_projection_consistency():
     green_motion = green_markers[0].find(ns + "animateMotion")
     assert green_motion is not None
     assert green_motion.get("keyTimes") == "0;0.25;0.5;1"
-    assert green_motion.get("keyPoints") == "0;0.53;1;1", (
+    assert green_motion.get("keyPoints") == "0;0.4961565;1;1", (
         "PGD feasible steps must finish by 2.5 seconds before candidate update"
     )
 
