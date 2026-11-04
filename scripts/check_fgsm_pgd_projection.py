@@ -51,7 +51,7 @@ def check_numerical_examples():
     # from clipping only once at the end, even for fixed hypothetical signs.
     # This is arithmetic on illustrative values, not a measured gradient.
     signs = (1, 1, -1)
-    alpha = 0.06
+    alpha = 0.08
     clean = (0.50,)
     epsilon = 0.10
     iterate = clean
@@ -59,7 +59,7 @@ def check_numerical_examples():
         iterate = project((iterate[0] + alpha * sign,), clean, epsilon)
     near(iterate, (0.52,))
     unprojected = clean[0] + alpha * sum(signs)
-    near(project((unprojected,), clean, epsilon), (0.56,))
+    near(project((unprojected,), clean, epsilon), (0.58,))
     assert iterate != project((unprojected,), clean, epsilon), (
         "Projection after every update must differ from end-only projection"
     )
