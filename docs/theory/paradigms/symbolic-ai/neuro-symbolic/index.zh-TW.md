@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 ---
 
 # 神經符號 AI
@@ -27,6 +27,10 @@ translation_reviewed: 2026-10-28
 
 其他結合方式，包括邏輯張量網路（Serafini 與 Garcez，2016）與可微分歸納邏輯（Evans 與 Grefenstette，2018），在此僅作摘要，目前尚無專頁。
 
+## 為何對認知重要
+
+人類推理似乎同時結合快速、以模式為基礎的感知，以及較慢、類似規則且能被檢視與修正的思考。神經符號系統是這種分工的工程類比，讓研究者得以檢驗學得的表示是否支持組合式規則。Lake 等人（2017）主張，類人的學習依賴這類結構化、因果與組合式的知識。這個問題的認知面向，請見[心理學與 AI](../../../../brain-mind/psychology/index.md)。
+
 ## 與其他頁面的連結
 
 - [知識圖譜與知識表示](../knowledge-graphs/index.md)提供神經符號系統所要推理的結構化事實。
@@ -52,8 +56,10 @@ translation_reviewed: 2026-10-28
 - Richardson, M. & Domingos, P. (2006). Markov logic networks. *Machine Learning* 62(1–2), 107–136. https://doi.org/10.1007/s10994-006-5833-1 — 提出馬可夫邏輯網路，把帶權重的一階公式作為可能世界上馬可夫網路的模板。
 - Serafini, L. & Garcez, A. d'A. (2016). Logic tensor networks: deep learning and logical reasoning from data and knowledge. arXiv:1606.04422. https://arxiv.org/abs/1606.04422 — 提出實數值邏輯，使一階公式能與神經模型一起訓練。
 - Evans, R. & Grefenstette, E. (2018). Learning explanatory rules from noisy data. *Journal of Artificial Intelligence Research* 61, 1–64. https://doi.org/10.1613/jair.5714 — 以可微分的歸納邏輯程式設計，從雜訊資料中學習規則。
+- Lake, B. M., Ullman, T. D., Tenenbaum, J. B. & Gershman, S. J. (2017). *Building machines that learn and think like people*. *Behavioral and Brain Sciences* 40, e253. https://doi.org/10.1017/S0140525X16001837 — 主張類人學習需要直觀理論、組合結構與因果模型。
 
 ### 綜述與教科書
 
+- Besold, T. R., d'Avila Garcez, A. S. & Bader, S. (2017). *Neural-Symbolic Learning and Reasoning: A Survey and Interpretation*. arXiv:1711.03902. https://arxiv.org/abs/1711.03902 — 綜述神經與符號方法結合於學習與推理的方式，並提出分類。
 - Garcez, A. d'A. & Lamb, L. C. (2023). Neurosymbolic AI: the 3rd wave. *Artificial Intelligence Review* 56(11), 12387–12406. https://doi.org/10.1007/s10462-023-10448-w — 神經符號領域的綜述與主要方向。
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — 神經符號研究所結合的邏輯與機率推理背景。

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-29
+translation_reviewed: 2026-11-04
 ---
 
 # α–β 剪枝
