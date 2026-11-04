@@ -1,7 +1,7 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
+translation_reviewed: 2026-11-04
 tags:
 - neuroscience
 - memory
@@ -46,9 +46,9 @@ aliases:
 
 ## 結果
 
-- Buzsáki 等人（1992）報告，靜止不動、進食與慢波睡眠期間，CA1 出現約 200 Hz 的短暫網路振盪。記錄中的錐體細胞放電頻率低於振盪頻率，且其尖峰與振盪鎖相。
+- Buzsáki 等人（1992）報告，靜止不動、進食與慢波睡眠期間，CA1 出現約 200 Hz 的短暫網路振盪。
 - Girardeau 等人（2009）報告，選擇性抑制海馬迴漣波會損害空間記憶。
-- Ego-Stengel 與 Wilson（2010）報告，休息期間干擾與漣波相關的海馬迴活動，會損害大鼠的空間學習。
+- Ego-Stengel 與 Wilson（2009）報告，休息期間干擾與漣波相關的海馬迴活動，會損害大鼠的空間學習。
 - Buzsáki（2015）是一篇綜述，總結漣波發生於與進食行為和非快速眼動睡眠相關的離線狀態，且干擾漣波會妨礙記憶。
 
 ## 限制
@@ -62,7 +62,7 @@ aliases:
 
 - **重播。** 漣波承載[海馬迴重播](../hippocampal-replay/index.zh-TW.md)中描述的序列，兩頁應一併閱讀。
 - **互補學習系統。** 漣波向皮質的傳遞，是[互補學習系統](../../memory-learning/complementary-learning-systems/index.zh-TW.md)所描述的交錯重播的一種候選機制。
-- **睡眠。** 漣波發生於非快速眼動睡眠（Buzsáki, 2015），其功率與慢振盪及睡眠紡錘波頻帶相關。睡眠階段層級的證據見[章節總覽](../index.zh-TW.md)。
+- **睡眠。** 漣波發生於非快速眼動睡眠（Buzsáki, 2015）。睡眠階段層級的證據見[章節總覽](../index.zh-TW.md)。
 - **神經調節。** Buzsáki（2015）指出，神經傳導物質與神經調節物質會影響漣波的發生，這使漣波與[決策、多巴胺與獎勵](../../decision-reward/index.zh-TW.md)所述的調節系統相連。
 
 ## 應用
@@ -83,7 +83,7 @@ aliases:
 
 - Buzsáki, G. 等人（1992）。High-frequency network oscillation in the hippocampus. *Science* 256, 1025–1027. https://doi.org/10.1126/science.1589772 — 描述靜止不動、進食與慢波睡眠期間 CA1 約 200 Hz 的振盪，這些事件後來被辨識為尖波漣波。
 - Girardeau, G., Benchenane, K., Wiener, S. I., Buzsáki, G. & Zugaro, M. B. (2009). Selective suppression of hippocampal ripples impairs spatial memory. *Nature Neuroscience* 12, 1222–1223. https://doi.org/10.1038/nn.2384 — 報告選擇性抑制漣波會損害空間記憶，這是檢驗其功能的關鍵實驗。
-- Ego-Stengel, V. & Wilson, M. A. (2010). Disruption of ripple-associated hippocampal activity during rest impairs spatial learning in the rat. *Hippocampus* 20, 1–10. https://doi.org/10.1002/hipo.20707 — 報告休息期間干擾與漣波相關的活動，會損害大鼠的空間學習。
+- Ego-Stengel, V. & Wilson, M. A. (2009). Disruption of ripple-associated hippocampal activity during rest impairs spatial learning in the rat. *Hippocampus* 20, 1–10. https://doi.org/10.1002/hipo.20707 — 報告休息期間干擾與漣波相關的活動，會損害大鼠的空間學習。
 - Diba, K. & Buzsáki, G. (2007). Forward and reverse hippocampal place-cell sequences during ripples. *Nature Neuroscience* 10, 1241–1242. https://doi.org/10.1038/nn1961 — 報告在尖波漣波期間，位置細胞序列同時順向與反向播放。
 
 ### 綜述與教科書
