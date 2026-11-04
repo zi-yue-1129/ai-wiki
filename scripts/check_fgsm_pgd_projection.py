@@ -215,6 +215,20 @@ def check_motion_timing_and_fallback():
             path = animation.get("path", "")
             assert path.startswith("M"), "Motion requires an explicit path"
             assert animation.get("keyTimes") and animation.get("keyPoints")
+    # The two instructional moving markers must stay at their completed
+    # positions after the five-second sequence, rather than snapping back to
+    # the clean input when SMIL removes the animation effect.
+    for center, color in (("180", "#2563eb"), ("542", "#0f766e")):
+        matches = [
+            node for node in root.iter(ns + "circle")
+            if node.get("cx") == center and node.get("fill") == color
+            and node.get("class") == "moving-marker"
+        ]
+        assert len(matches) == 1, f"Missing instructional marker at x={center}"
+        motion = matches[0].find(ns + "animateMotion")
+        assert motion is not None and motion.get("fill") == "freeze", (
+            f"Completed instructional marker at x={center} must not reset"
+        )
     # All persistent paths are drawn outside animated groups. SVG image fallback
     # should remain intelligible when browser animation is unavailable.
     for path in root.iter(ns + "path"):
