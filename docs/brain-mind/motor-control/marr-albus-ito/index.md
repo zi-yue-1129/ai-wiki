@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 tags:
 - motor control
 - cerebellum
@@ -30,7 +30,7 @@ How can a neural circuit learn the right motor output for a context, given only 
 
 ## Core idea
 
-Marr's 1969 theory proposed that the cerebellar cortex learns motor skills. He described two forms of input-output relation, one for learning movements and one for maintaining posture and balance. In his account, the inferior olive sends a signal that represents an elemental movement, and the climbing fibre carries it to the matched Purkinje cell. The Purkinje cell is also exposed, through the mossy-fibre pathway, to the context in which the movement occurred. Repeated pairing of context and climbing-fibre activity lets the Purkinje cell later initiate the movement from the context alone.
+Marr's 1969 theory proposed that the cerebellar cortex learns motor skills. In his account, the inferior olive sends a signal that represents an elemental movement, and the climbing fibre carries it to the matched Purkinje cell. The Purkinje cell is also exposed, through the mossy-fibre pathway, to the context in which the movement occurred. Repeated pairing of context and climbing-fibre activity lets the Purkinje cell later initiate the movement from the context alone.
 
 Albus (1971) presented another theory of cerebellar function. The "supervised" in this page's title refers to the climbing-fibre input, which is read as a teaching signal.
 
@@ -81,11 +81,11 @@ Marr's 1969 paper and Albus's 1971 paper are theoretical proposals about cerebel
 ### Seminal papers
 
 - Marr, D. (1969). A theory of cerebellar cortex. *Journal of Physiology*, 202(2), 437–470. https://doi.org/10.1113/jphysiol.1969.sp008820 — Proposes that the cerebellar cortex learns motor skills, with climbing-fibre input from the inferior olive as the teaching signal.
-- Albus, J. S. (1971). A theory of cerebellar function. *Mathematical Biosciences*. https://doi.org/10.1016/0025-5564(71)90051-4 — Presents a theory of cerebellar function, published two years after Marr's account.
+- Albus, J. S. (1971). A theory of cerebellar function. *Mathematical Biosciences* 10, 25–61. https://doi.org/10.1016/0025-5564(71)90051-4 — Presents a theory of cerebellar function, published two years after Marr's account.
 - Albus, J. S. (1975). A new approach to manipulator control: the cerebellar model articulation controller (CMAC). *Journal of Dynamic Systems, Measurement, and Control*, 97(3), 220–227. https://doi.org/10.1115/1.3426922 — Applies the cerebellar model to robot manipulator control.
 
 ### Surveys and textbooks
 
 - Ito, M. (2006). Cerebellar circuitry as a neuronal machine. *Progress in Neurobiology*, 78(3–5), 272–303. https://doi.org/10.1016/j.pneurobio.2006.02.006 — Reviews the circuitry of the cerebellar cortex.
-- Ito, M. (2008). Control of mental activities by internal models in the cerebellum. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn2332 — Proposes, as a hypothesis, that the cerebellum encodes internal models, including for mental representations.
+- Ito, M. (2008). Control of mental activities by internal models in the cerebellum. *Nature Reviews Neuroscience* 9, 304–313. https://doi.org/10.1038/nrn2332 — Proposes, as a hypothesis, that the cerebellum encodes internal models, including for mental representations.
 - Doya, K. (1999). What are the computations of the cerebellum, the basal ganglia and the cerebral cortex? *Neural Networks*, 12(7–8), 961–974. https://doi.org/10.1016/S0893-6080(99)00046-5 — Asks what computations the cerebellum, basal ganglia and cerebral cortex perform.
