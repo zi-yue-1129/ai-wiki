@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 ---
 
 # TransE
@@ -25,7 +25,7 @@ TransE 是一種知識圖譜嵌入模型，把每個關係表示為一個平移�
 \mathcal{L}=\sum_{(h,r,t)\in S}\sum_{(h',r,t')\in S'}\big[\gamma+d(\mathbf{h}+\mathbf{r},\mathbf{t})-d(\mathbf{h}'+\mathbf{r},\mathbf{t}')\big]_+,
 \]
 
-其中 \(S\) 為真實三元組，\(S'\) 為損壞的三元組，\(\gamma\) 為間隔，\([x]_+=\max(0,x)\)。訓練過程中會正規化實體嵌入，損失則促使真實三元組的分數比損壞的三元組至少近 \(\gamma\)。
+其中 \(S\) 為真實三元組，\(S'\) 為損壞的三元組，\(\gamma\) 為間隔，\([x]_+=\max(0,x)\)。訓練過程中會正規化實體嵌入，損失則促使真實三元組的分數比損壞的三元組至少近 \(\gamma\)。實務上，訓練以小批次的隨機梯度下降進行。每個真實三元組都配對一個損壞的三元組，並在每次迭代時把實體向量重新正規化為單位長度。
 
 ## 變體
 
@@ -39,6 +39,12 @@ TransE 是一種知識圖譜嵌入模型，把每個關係表示為一個平移�
 - 對一對多與多對多的關係，同一主體與關係的不同客體會被拉向同一點，這不利於排序。2013 年的論文分析了這些關係類型。
 - 模型只有單一平移，若不加以擴充，就無法捕捉組合或層級結構。
 
+## 評估
+
+TransE 以連結預測來評估。對每個測試三元組，把主體（或客體）替換為每一個候選實體，並記錄真實實體在候選中的排名。常用兩個摘要指標：真實實體的平均排名，以及 Hits@10，即真實實體排在前十名的測試三元組比例。Bordes 等人（2013）引入了*過濾*（filtered）設定：排序前，把資料集中任何會與其他真實事實構成三元組的候選實體移除，使正確但不同的答案不被計為錯誤。論文中的實驗使用 FB15k（Freebase 知識庫的子集）以及以 WordNet 為基礎的資料集。
+
+由於分數取決於基準與評估協定，結果只在固定設定下比較。後續研究指出，某些基準含有反向關係，使任務比表面上容易（Dettmers 等人，2018），這也是下文開放問題的重點。
+
 ## 應用
 
 - **補全知識圖譜**：為大型公開與企業圖譜預測缺少的事實。
@@ -48,17 +54,18 @@ TransE 是一種知識圖譜嵌入模型，把每個關係表示為一個平移�
 ## 開放問題
 
 - 平移是否為多數關係類型的正確歸納偏置，目前尚無定論；更豐富的模型也未必一致地勝過它。
-- 評估依賴的基準切分可能洩漏反向關係，因此報告的進展需要仔細檢驗。
+- 評估依賴的基準切分可能洩漏反向關係，因此報告的進展需要仔細檢驗（Dettmers 等人，2018）。
 
 ## 參考文獻
 
 ### 奠基性論文
 
-- Bordes, A., Usunier, N., Garcia-Duran, A., Weston, J. & Yakhnenko, O. (2013). Translating embeddings for modeling multi-relational data. In *Advances in Neural Information Processing Systems* 26. https://proceedings.neurips.cc/paper/2013/hash/1cecc7a77928ca8133fa24680a88d2f9-Abstract.html — 提出 TransE、基於間隔的訓練以及關係類型分析。
+- Bordes, A., Usunier, N., Garcia-Duran, A., Weston, J. & Yakhnenko, O. (2013). Translating embeddings for modeling multi-relational data. In *Advances in Neural Information Processing Systems* 26. https://proceedings.neurips.cc/paper/2013/hash/1cecc7a77928ca8133fa24680a88d2f9-Abstract.html — 提出 TransE、基於間隔的訓練、關係類型分析以及過濾式評估協定。
 - Trouillon, T., Welbl, J., Riedel, S., Gaussier, É. & Bouchard, G. (2016). Complex embeddings for simple link prediction. In *Proceedings of the 33rd International Conference on Machine Learning*, PMLR 48. https://proceedings.mlr.press/v48/trouillon16.html — 建模非對稱關係，這是 TransE 處理得不好的地方。
 
 ### 綜述與教科書
 
 - Nickel, M., Murphy, K., Tresp, V. & Gabrilovich, E. (2016). A review of relational machine learning for knowledge graphs. *Proceedings of the IEEE* 104(1), 11–33. https://doi.org/10.1109/JPROC.2015.2483592 — 回顧平移與其他關係嵌入模型。
 - Wang, Q., Mao, Z., Wang, B. & Guo, L. (2017). Knowledge graph embedding: a survey of approaches and applications. *IEEE Transactions on Knowledge and Data Engineering* 29(12), 2724–2743. https://doi.org/10.1109/TKDE.2017.2754499 — 綜述 TransE 及其延伸。
+- Dettmers, T., Minervini, P., Stenetorp, P. & Riedel, S. (2018). Convolutional 2D knowledge graph embeddings. In *Proceedings of the AAAI Conference on Artificial Intelligence* 32. https://arxiv.org/abs/1707.01476 — 指出常用基準含有反向關係，使訓練與測試之間的三元組互相洩漏，從而抬高連結預測分數。
 - Hogan, A. et al. (2021). Knowledge graphs. *ACM Computing Surveys* 54(4), 1–37. https://doi.org/10.1145/3447772 — 把嵌入模型置於知識圖譜研究的脈絡中。

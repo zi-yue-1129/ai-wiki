@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 ---
 
 # 自動定理證明與形式數學
@@ -19,7 +19,7 @@ translation_reviewed: 2026-10-28
 
 ## 運作方式
 
-最常用的是兩大類。基於歸結的證明器透過反覆結合子句來推導新子句，以反駁一組子句，直到出現空子句為止。[歸結](resolution.md)是此類方法的基本推理規則（Robinson，1965）。對於命題問題，[DPLL](dpll.md)程序透過搜尋、單位傳播與回溯來判定可滿足性（Davis、Logemann 與 Loveland，1962）。Lean 與 Coq 等證明助手以依賴型別論或相關邏輯來表述陳述，並以一個小型、受信任的核心檢查證明（de Moura 等人，2015）。
+最常用的是兩大類。基於歸結的證明器（例如 Vampire 系統，Kovács 與 Voronkov，2013）透過反覆結合子句來推導新子句，以反駁一組子句，直到出現空子句為止。[歸結](resolution.md)是此類方法的基本推理規則（Robinson，1965）。對於命題問題，[DPLL](dpll.md)程序透過搜尋、單位傳播與回溯來判定可滿足性（Davis、Logemann 與 Loveland，1962）。Lean 與 Coq 等證明助手以依賴型別論或相關邏輯來表述陳述，並以一個小型、受信任的核心檢查證明（de Moura 等人，2015）。
 
 ## 主要方法
 
@@ -27,6 +27,10 @@ translation_reviewed: 2026-10-28
 - [DPLL](dpll.md)：SAT 的回溯搜尋，是現代 SAT 求解器的核心。
 
 Lean 等證明助手在此僅作為系統提及，不以方法的形式介紹。
+
+## 為何證明對 AI 重要
+
+搜尋或學習得到的結論，其可靠性取決於產生它的過程。證明助手提供另一種保證：每一步都由一個小型、獨立的核心檢查，因此只有證明通過檢查，陳述才會被接受。這把系統中「提出結果」的部分與「為結果背書」的部分分開。學得的模型可以提出候選證明、引理或程式，而檢查器則保持簡單到足以信任。仍待回答的問題是，有多少提出的工作能夠自動化，而又不會使檢查的工作變得更困難。
 
 ## 與其他頁面的連結
 
@@ -57,5 +61,6 @@ Lean 等證明助手在此僅作為系統提及，不以方法的形式介紹。
 
 ### 綜述與教科書
 
+- Kovács, L. & Voronkov, A. (2013). First-order theorem proving and Vampire. In *Computer Aided Verification*, Lecture Notes in Computer Science, 1–35. https://doi.org/10.1007/978-3-642-39799-8_1 — 介紹 Vampire 證明器，這是一個基於歸結、採用疊加推理與搜尋策略的系統。
 - Hales, T. et al. (2017). A formal proof of the Kepler conjecture. *Forum of Mathematics, Pi* 5. https://doi.org/10.1017/fmp.2017.1 — 報告一個重要定理在證明助手中的完整形式證明。
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — 歸結與邏輯推論的教科書背景。
