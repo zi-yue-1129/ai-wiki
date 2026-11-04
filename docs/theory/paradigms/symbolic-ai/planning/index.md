@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai
   - theory/paradigms/symbolic-ai/search
@@ -35,14 +34,14 @@ The standard modelling language for classical planning is PDDL, the Planning Dom
 
 ## How it works
 
-Most planners search. A forward planner starts at the initial state and expands actions whose preconditions hold, with a heuristic to guide the search. A backward planner starts from the goal and regresses it through actions. Graph-based planners build a compact layered structure first and then extract a plan from it. The choice of representation and search strategy largely determines the planner's performance.
+Most planners search. A forward planner starts at the initial state and expands actions whose preconditions hold, with a heuristic to guide the search. A backward planner starts from the goal and regresses it through actions. Graph-based planners build a compact layered structure first and then extract a plan from it. The choice of representation and search strategy largely determines the planner's performance. Even the propositional version of the problem is hard in general: Bylander (1994) showed that propositional STRIPS planning is PSPACE-complete.
 
 ## Key methods
 
 - [STRIPS](strips.md): the original representation of actions as preconditions, add lists and delete lists, and the basis of PDDL.
 - [GraphPlan](graphplan.md): builds a layered planning graph with mutual-exclusion information and then searches it backwards for a plan.
 
-Other approaches named in the literature include planning as heuristic search (Bonet & Geffner, 2001) and hierarchical task-network planning, which decomposes tasks into subtasks. These are summarised here without their own pages.
+Other approaches named in the literature include planning as heuristic search (Bonet & Geffner, 2001), heuristics computed from relaxed plans (Hoffmann & Nebel, 2001), and hierarchical task-network planning, which decomposes tasks into subtasks. These are summarised here without their own pages.
 
 ## Planning under uncertainty
 
@@ -74,8 +73,10 @@ When actions are stochastic or observations are partial, planning becomes a deci
 - Blum, A. L. & Furst, M. L. (1997). Fast planning through planning graph analysis. *Artificial Intelligence* 90(1–2), 281–300. https://doi.org/10.1016/S0004-3702(96)00047-1 — Introduces GraphPlan, a planning-graph method that is much faster than earlier planners on benchmarks.
 - Bonet, B. & Geffner, H. (2001). Planning as heuristic search. *Artificial Intelligence* 129(1–2), 5–33. https://doi.org/10.1016/S0004-3702(01)00108-4 — Casts classical planning as heuristic search and studies heuristics derived from relaxed problems.
 - Kaelbling, L. P., Littman, M. L. & Cassandra, A. R. (1998). Planning and acting in partially observable stochastic domains. *Artificial Intelligence* 101(1–2), 99–134. https://doi.org/10.1016/S0004-3702(98)00023-X — Formulates planning and acting under partial observability with POMDPs.
+- Bylander, T. (1994). The computational complexity of propositional STRIPS planning. *Artificial Intelligence* 69, 165–204. https://doi.org/10.1016/0004-3702(94)90081-7 — Proves that planning with propositional STRIPS operators is PSPACE-complete.
 
 ### Surveys and textbooks
 
+- Hoffmann, J. & Nebel, B. (2001). The FF planning system: fast plan generation through heuristic search. *Journal of Artificial Intelligence Research* 14, 253–302. https://doi.org/10.1613/jair.855 — Heuristic search planner whose heuristic is the length of a relaxed plan, a basis for many later planners.
 - Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — Describes a widely used classical planner built on heuristic search.
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — Textbook treatment of classical planning, planning graphs and planning under uncertainty.

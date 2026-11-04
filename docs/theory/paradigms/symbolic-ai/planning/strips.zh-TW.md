@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 ---
 
 # STRIPS
@@ -25,20 +25,20 @@ STRIPS 是古典規劃的一種表示法，每個動作有前置條件列表、�
 \gamma(s,a) = \left(s\setminus \mathrm{del}(a)\right)\cup \mathrm{add}(a).
 \]
 
-計畫是一串可套用的動作，能從初始狀態導向包含目標事實的狀態。前向規劃器從初始狀態套用此規則，後向規劃器則透過動作對目標進行回推。兩者通常都由啟發式引導。
+計畫是一串可套用的動作，能從初始狀態導向包含目標事實的狀態。前向規劃器從初始狀態套用此規則，後向規劃器則透過動作對目標進行回推。兩者通常都由啟發式引導。例如，讓機器人從房間 1 移到房間 2 的動作，其前置條件可為 `At(robot, room1)`，新增 `At(robot, room2)`，刪除 `At(robot, room1)`。
 
 ## 變體
 
 - **命題式 STRIPS** 只使用基底事實，是最簡單的形式。
 - **ADL**（動作描述語言）允許條件效果與量化的前置條件，表達力比 STRIPS 強。
-- **PDDL** 在 STRIPS 的想法上擴充了有型別的物件、數值流（fluent）與持續性動作，並用於規劃競賽。
+- **PDDL** 在 STRIPS 的想法上擴充了有型別的物件、數值流（fluent）與持續性動作，並用於規劃競賽。後來的規劃語言保留相同的動作模型，並加入更豐富的特徵。
 
 ## 結果與限制
 
 - 此表示法易於閱讀與實作，並支援由問題的鬆弛版本導出的通用啟發式（Bonet 與 Geffner，2001）。
 - 封閉世界假設意味著狀態中沒有的事實都為假，這適用於某些領域，但不適用於知識不完整的領域。
 - 基本 STRIPS 不包含否定的前置條件與條件效果，因此某些領域需要擴充。
-- 一般而言計畫的存在性本身就很難判定，搜尋成本取決於所用的啟發式。
+- 命題式 STRIPS 規劃是 PSPACE 完全的（Bylander，1994），搜尋成本取決於所用的啟發式。
 
 ## 應用
 
@@ -58,6 +58,7 @@ STRIPS 是古典規劃的一種表示法，每個動作有前置條件列表、�
 - Fikes, R. E. & Nilsson, N. J. (1971). STRIPS: A new approach to the application of theorem proving to problem solving. *Artificial Intelligence* 2(3–4), 189–208. https://doi.org/10.1016/0004-3702(71)90010-5 — 提出 STRIPS 表示法及其規劃器。
 - Bonet, B. & Geffner, H. (2001). Planning as heuristic search. *Artificial Intelligence* 129(1–2), 5–33. https://doi.org/10.1016/S0004-3702(01)00108-4 — 說明如何由鬆弛問題計算 STRIPS 式問題的啟發式。
 - Blum, A. L. & Furst, M. L. (1997). Fast planning through planning graph analysis. *Artificial Intelligence* 90(1–2), 281–300. https://doi.org/10.1016/S0004-3702(96)00047-1 — 以規劃圖為 STRIPS 式問題規劃，作為前向搜尋的替代方案。
+- Bylander, T. (1994). The computational complexity of propositional STRIPS planning. *Artificial Intelligence* 69, 165–204. https://doi.org/10.1016/0004-3702(94)90081-7 — 證明命題式 STRIPS 規劃是 PSPACE 完全的，因此計畫的存在性一般而言很難判定。
 
 ### 綜述與教科書
 

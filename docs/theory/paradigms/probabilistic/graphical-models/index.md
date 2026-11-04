@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/probabilistic
   - theory/paradigms/probabilistic/variational-inference
@@ -91,5 +91,5 @@ Other named models in the family are summarised below. Only the methods above ha
 ### Surveys and textbooks
 
 - Yedidia, J. S., Freeman, W. T. & Weiss, Y. (2005). Constructing free-energy approximations and generalized belief propagation algorithms. *IEEE Transactions on Information Theory* 51(7), 2282–2312. https://doi.org/10.1109/tit.2005.850085 — Links belief propagation to the Bethe free energy and generalises it.
-- Wainwright, M. J. & Jordan, M. I. (2008). Graphical models, exponential families, and variational inference. *Foundations and Trends in Machine Learning*. https://nowpublishers.com/article/Details/MAL-001 — Monograph connecting graphical models, exponential families and variational methods.
+- Wainwright, M. J. & Jordan, M. I. (2008). Graphical models, exponential families, and variational inference. *Foundations and Trends in Machine Learning*. https://doi.org/10.1561/2200000001 — Monograph connecting graphical models, exponential families and variational methods.
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook with chapters on graphical models and inference.

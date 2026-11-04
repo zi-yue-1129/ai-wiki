@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/probabilistic
   - theory/paradigms/probabilistic/variational-inference
@@ -23,7 +23,7 @@ Uncertainty quantification asks how much a model's prediction can be trusted and
 
 ## Overview
 
-A model that says "90% confident" should be right about nine times in ten, for predictions made with that confidence. Modern neural networks often fail this test: they are accurate but overconfident. Two kinds of uncertainty are usually distinguished. **Aleatoric** uncertainty comes from noise in the data and cannot be reduced by more data. **Epistemic** uncertainty comes from the model's lack of knowledge and can shrink as data grow. Methods for uncertainty address one or both.
+A model that says "90% confident" should be right about nine times in ten, for predictions made with that confidence. Modern neural networks often fail this test: they are accurate but overconfident. Two kinds of uncertainty are usually distinguished. **Aleatoric** uncertainty comes from noise in the data and cannot be reduced by more data. **Epistemic** uncertainty comes from the model's lack of knowledge and can shrink as data grow. Methods for uncertainty address one or both (Hüllermeier & Waegeman, 2021).
 
 ## Key concepts
 
@@ -44,6 +44,15 @@ Bayesian approaches represent a distribution over parameters rather than a singl
 - [Temperature scaling](temperature-scaling.md): a single parameter that rescales logits to fix overconfidence.
 - [Deep ensembles](deep-ensembles.md): several networks trained independently whose predictions are averaged.
 - [Expected calibration error](expected-calibration-error.md): a binned measure of miscalibration.
+
+## Comparing the main methods
+
+| Method | What it targets | Retraining needed | Guarantee | Main cost |
+|---|---|---|---|---|
+| [Temperature scaling](temperature-scaling.md) | Calibration of confidence | No, fitted on held-out data | Calibration on the fitting data only | One parameter and a held-out set |
+| [Deep ensembles](deep-ensembles.md) | Predictive spread and calibration | Yes, one model per member | None formal | Several times the training and inference cost |
+| [Conformal prediction](conformal-prediction.md) | Coverage of prediction sets | No, wraps any predictor | Marginal coverage under exchangeability | A calibration set; large sets for weak models |
+| Dropout-based Bayesian approximation (Gal & Ghahramani, 2016) | Epistemic uncertainty | Yes, trained with dropout | Approximate, no coverage guarantee | Several stochastic forward passes |
 
 ## Connections
 
@@ -67,6 +76,7 @@ Bayesian approaches represent a distribution over parameters rather than a singl
 
 ### Seminal papers
 
+- Kendall, A. & Gal, Y. (2017). What uncertainties do we need in Bayesian deep learning for computer vision? In *Advances in Neural Information Processing Systems* 30. arXiv:1703.04977. https://arxiv.org/abs/1703.04977 — Separates aleatoric and epistemic uncertainty in deep vision models and combines them.
 - Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. *Monthly Weather Review* 78(1), 1–3. https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2 — Introduces the Brier score, a proper scoring rule for probability forecasts.
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — Shows that modern networks are miscalibrated and that temperature scaling corrects it.
 - Lakshminarayanan, B., Pritzel, A. & Blundell, C. (2017). Simple and scalable predictive uncertainty estimation using deep ensembles. In *Advances in Neural Information Processing Systems* 30. https://proceedings.neurips.cc/paper/2017/hash/9ef2ed4b7fd2c810847ffa5fa85bce38-Abstract.html — Proposes deep ensembles as a scalable way to estimate predictive uncertainty.
@@ -74,6 +84,8 @@ Bayesian approaches represent a distribution over parameters rather than a singl
 
 ### Surveys and textbooks
 
+- Hüllermeier, E. & Waegeman, W. (2021). Aleatoric and epistemic uncertainty in machine learning: an introduction to concepts and methods. *Machine Learning* 110(3), 457–506. https://doi.org/10.1007/s10994-021-05946-3 — Survey of the aleatoric–epistemic distinction and how it is measured.
+- Abdar, M., Pourpanah, F., Hussain, S., Rezazadegan, D. et al. (2021). A review of uncertainty quantification in deep learning: techniques, applications and challenges. *Information Fusion* 76, 243–297. https://doi.org/10.1016/j.inffus.2021.05.008 — Broad review of uncertainty methods for deep networks and their applications.
 - DeGroot, M. H. & Fienberg, S. E. (1983). The comparison and evaluation of forecasters. *The Statistician* 32(1/2), 12–22. https://doi.org/10.2307/2987588 — Defines calibration and the decomposition of forecast scores.
 - Gal, Y. & Ghahramani, Z. (2016). Dropout as a Bayesian approximation: representing model uncertainty in deep learning. In *Proceedings of the 33rd International Conference on Machine Learning*, PMLR 48. https://proceedings.mlr.press/v48/gal16.html — Interprets dropout as approximate Bayesian inference for uncertainty.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers calibration, scoring rules and Bayesian uncertainty.
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Repository for Murphy's textbook series; covers calibration, scoring rules and Bayesian uncertainty.

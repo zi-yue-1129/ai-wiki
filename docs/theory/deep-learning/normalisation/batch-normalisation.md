@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/deep-learning/normalisation
 tags:
@@ -43,7 +43,7 @@ The original paper reported that the method reaches the same accuracy as the bas
 
 ## Results
 
-The paper's headline result is the training speed-up on a large image classification model. Exact accuracy and step counts are given in its results section.
+The paper's headline result is a training speed-up on a state-of-the-art image classification model: batch normalisation reaches the same accuracy with 14 times fewer training steps [(Ioffe and Szegedy, 2015)](https://arxiv.org/abs/1502.03167). The abstract also reports that an ensemble of batch-normalised networks reaches 4.9% top-5 validation error and 4.8% test error on ImageNet classification. The experimental setup for each number is given in the paper's experiments section.
 
 ## Limitations
 
