@@ -1,6 +1,6 @@
 ---
-translation_reviewed: 2026-10-28
-last_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
+last_reviewed: 2026-11-04
 related:
   - theory/models/mixture-of-experts
   - engineering/inference-optimization
@@ -64,5 +64,5 @@ DeepSpeed-MoE 結合兩個部分。第一是一組壓縮技術，在維持品質
 - Rajbhandari, S. et al. (2022). *DeepSpeed-MoE: Advancing Mixture-of-Experts Inference and Training to Power Next-Generation AI Scale*. arXiv:2201.05596. https://arxiv.org/abs/2201.05596 — 主要論文：MoE 壓縮與 MoE 推論系統，附有延遲、成本與大小的結果。
 - Lepikhin, D. et al. (2020). *GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding*. arXiv:2006.16668. https://arxiv.org/abs/2006.16668 — 編譯器層級的 MoE 層分片，供比較。
 - Eliseev, A. & Mazur, D. (2023). *Fast Inference of Mixture-of-Experts Language Models with Offloading*. arXiv:2312.17238. https://arxiv.org/abs/2312.17238 — 讓不活躍的專家離開裝置的另一種服務做法。
-- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. Journal of Machine Learning Research. arXiv:2101.03961. https://arxiv.org/abs/2101.03961 — Top-1 路由，簡化了 MoE 推論。
+- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. Journal of Machine Learning Research 23(120):1–39. arXiv:2101.03961. https://arxiv.org/abs/2101.03961 — Top-1 路由，簡化了 MoE 推論。
 - Kwon, W. et al. (2023). *Efficient Memory Management for Large Language Model Serving with PagedAttention*. SOSP 2023. arXiv:2309.06180. https://arxiv.org/abs/2309.06180 — 模型注意力部分的服務記憶體佈局。

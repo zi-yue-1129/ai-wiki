@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/models/mixture-of-experts
   - engineering/inference-optimization
@@ -18,7 +18,7 @@ aliases:
 !!! info "Part of Serving Mixture-of-Experts Models"
     This method page belongs to [Serving Mixture-of-Experts Models](moe-serving.md). It explains GShard in detail; the parent page compares it with the other methods.
 
-GShard is a module of annotation APIs and an extension to the XLA compiler that shards a sparsely gated mixture-of-experts model across many devices. The authors use it to train a model with over 600 billion parameters, by annotating how the tensors should be split and letting the compiler generate the partitioned program. It is primarily a training system, but its sharding method is the basis of expert parallelism at serving time.
+GShard is a module of annotation APIs and an extension to the XLA compiler that shards a sparsely gated mixture-of-experts model across many devices. The authors use it to train a model with over 600 billion parameters, by annotating how the tensors should be split and letting the compiler generate the partitioned program. The paper evaluates it for training, so its serving consequences are discussed on the comparison page and in the other methods here.
 
 ## Problem
 
@@ -63,6 +63,6 @@ The paper reports training a sparsely gated mixture-of-experts model with automa
 
 - Lepikhin, D. et al. (2020). *GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding*. arXiv:2006.16668. https://arxiv.org/abs/2006.16668 — The primary paper: annotation APIs and an XLA extension for sharding a sparsely gated MoE model, with training results.
 - Shazeer, N. et al. (2017). *Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*. arXiv:1701.06538. https://arxiv.org/abs/1701.06538 — The sparsely gated mixture-of-experts layer that GShard shards.
-- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. Journal of Machine Learning Research. arXiv:2101.03961. https://arxiv.org/abs/2101.03961 — Top-1 routing, which simplifies the communication that GShard's layout must support.
+- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. Journal of Machine Learning Research 23(120):1–39. arXiv:2101.03961. https://arxiv.org/abs/2101.03961 — Top-1 routing, which simplifies the communication that GShard's layout must support.
 - Rajbhandari, S. et al. (2022). *DeepSpeed-MoE: Advancing Mixture-of-Experts Inference and Training to Power Next-Generation AI Scale*. arXiv:2201.05596. https://arxiv.org/abs/2201.05596 — An MoE system that focuses on inference, for comparison with a training-first design.
 - Eliseev, A. & Mazur, D. (2023). *Fast Inference of Mixture-of-Experts Language Models with Offloading*. arXiv:2312.17238. https://arxiv.org/abs/2312.17238 — Offloading as a way to serve MoE models on hardware with less memory.

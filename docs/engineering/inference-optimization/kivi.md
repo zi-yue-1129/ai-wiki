@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/models/transformer/kv-cache
   - engineering/inference-optimization
@@ -27,11 +27,11 @@ Eviction reduces the cache by dropping tokens, which can remove content that a l
 
 ## Core idea
 
-The authors analyse the keys and values and find that keys have outliers concentrated in certain channels, while values do not. KIVI therefore quantises keys per channel, so that each channel uses its own scale and the outliers do not spread to the rest. It quantises values per token. The scheme is asymmetric, with a zero point per group, and needs no tuning, so it can be applied to an existing model directly.
+The authors analyse the keys and values and find that a few fixed key channels have very large magnitudes. KIVI therefore quantises keys per channel, so that each channel uses its own scale and the outliers do not spread to the rest. It quantises values per token. The scheme is asymmetric, with a zero point per group, and needs no tuning, so it can be applied to an existing model directly.
 
 ## Procedure
 
-1. Keep a small residual of the most recent tokens in full precision, because they are read most often.
+1. Keep a residual of the most recent tokens in full precision.
 2. Quantise the keys per channel to 2 bits, with a scale and zero point for each group.
 3. Quantise the values per token to 2 bits, with a scale and zero point for each token.
 4. Store the quantised cache, and dequantise each block inside the attention kernel when it is read.
@@ -39,7 +39,7 @@ The authors analyse the keys and values and find that keys have outliers concent
 
 ## Results
 
-The abstract reports that KIVI, applied to the tested models, uses 2.6 times less peak memory including weights, enables up to 4 times larger batch size, and brings 2.35 to 3.47 times throughput on real LLM inference workloads. The paper reports that the accuracy loss is small on the benchmarks it uses. The memory and throughput figures depend on the hardware, the batch size and the baseline, so they should be read with the paper's setup.
+The abstract reports that KIVI, applied to the tested models, uses 2.6 times less peak memory including weights, enables up to 4 times larger batch size, and brings 2.35 to 3.47 times throughput on real LLM inference workloads. The paper tests Llama, Falcon and Mistral models, and reports that quality stays nearly unchanged on them. The memory and throughput figures depend on the hardware, the batch size and the baseline, so they should be read with the paper's setup.
 
 ## Limitations
 
