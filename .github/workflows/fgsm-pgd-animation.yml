@@ -52,6 +52,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import math
           from playwright.sync_api import sync_playwright
 
           source = Path("docs/assets/concept-animations/fgsm-pgd-trajectory.svg").resolve().as_uri()
@@ -161,12 +162,22 @@ jobs:
                       f"Candidate/projection handoff must be continuous in 2D: "
                       f"{end_candidate} vs {start_projection}"
                   )
-                  # getCTM() maps SVG user coordinates to its viewport; use
-                  # the rendered SVG width, not the browser window width.
-                  svg_rendered_width = page.locator("svg").evaluate("el => el.getBoundingClientRect().width")
-                  scale = svg_rendered_width / 720
-                  assert abs(end_projection[0] - (start_projection[0] - 24 * scale)) < 1, (
-                      "Projection must return exactly 24 SVG units toward the budget"
+                  # Compare the displacement with a 24-unit vector transformed
+                  # by the SAME CTM as the animated marker. Browser viewport
+                  # width and CSS bounding-box width are not reliable substitutes
+                  # for the SVG user-coordinate transform (viewBox/preserveAspectRatio).
+                  expected_dx = page.locator(projected).evaluate("""el => {
+                    const matrix = el.ownerSVGElement.getScreenCTM();
+                    if (!matrix) throw new Error('SVG screen transform unavailable');
+                    return Math.hypot(matrix.a * 24, matrix.b * 24);
+                  }""")
+                  actual_dx = math.hypot(
+                      end_projection[0] - start_projection[0],
+                      end_projection[1] - start_projection[1],
+                  )
+                  assert abs(actual_dx - expected_dx) < 1, (
+                      f"Projection displacement must equal 24 transformed SVG units: "
+                      f"actual={actual_dx}, expected={expected_dx}, width={width}"
                   )
                   assert abs(end_projection[1] - start_projection[1]) < 1, (
                       f"L-infinity clipping must preserve the in-budget y coordinate: "
