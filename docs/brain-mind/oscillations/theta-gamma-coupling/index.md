@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 tags:
 - neuroscience
 - neural oscillations
@@ -19,7 +19,7 @@ Theta–gamma coupling is a pattern in which the phase of a slow theta rhythm mo
 
 ## Problem
 
-People can hold only a small number of items in short-term memory at once. Psychophysical measurements put this at about seven (Lisman & Idiart, 1995). The question is how a neural network can keep several items distinct at the same time, when each item is represented by activity in a shared population. A simple scheme in which every item keeps firing would make them interfere with one another.
+People can hold only a small number of items in short-term memory at once. Classic psychophysical work puts this at about seven items, plus or minus two (Miller, 1956). The question is how a neural network can keep several items distinct at the same time, when each item is represented by activity in a shared population. A simple scheme in which every item keeps firing would make them interfere with one another.
 
 ## Core idea
 
@@ -73,6 +73,7 @@ Measuring coupling is a procedure. Tort et al. (2010) describe one common versio
 
 ### Seminal papers
 
+- Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. *Psychological Review* 63, 81–97. https://doi.org/10.1037/h0043158 — The classic estimate of the short-term memory span, about seven items plus or minus two.
 - Lisman, J. E. & Idiart, M. A. P. (1995). Storage of 7 ± 2 short-term memories in oscillatory subcycles. *Science*, 267(5203), 1512–1515. https://doi.org/10.1126/science.7878473 — The original theta–gamma memory model: separate items in successive gamma subcycles within slow cycles.
 - Lisman, J. (2005). The theta/gamma discrete phase code occurring during the hippocampal phase precession may be a more general brain coding scheme. *Hippocampus*, 15(7), 913–922. https://doi.org/10.1002/hipo.20121 — Argues that the theta/gamma phase code of hippocampal phase precession may be a more general coding scheme.
 - Canolty, R. T. et al. (2006). High gamma power is phase-locked to theta oscillations in human neocortex. *Science*, 313(5793), 1626–1628. https://doi.org/10.1126/science.1128115 — ECoG evidence that the phase of theta modulates high-gamma power in humans.
