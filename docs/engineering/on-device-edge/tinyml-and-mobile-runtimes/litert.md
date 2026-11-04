@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - engineering/on-device-edge
   - engineering/frameworks
@@ -18,10 +17,10 @@ aliases:
 
 # LiteRT
 
+LiteRT is Google's on-device runtime for machine learning, the successor to TensorFlow Lite. It loads a model in a compact `.tflite` format and runs it on the device, using the CPU or hardware acceleration on GPUs and neural processing units (NPUs). The official page lists CPU, GPU and NPU acceleration, and export paths from PyTorch, TensorFlow and JAX, each of which converts the model to the `.tflite` format.
+
 !!! info "Part of TinyML and Mobile Runtimes"
     This method page belongs to [TinyML and Mobile Runtimes](index.md). It explains LiteRT in detail; the parent page compares it with the other runtimes.
-
-LiteRT is Google's on-device runtime for machine learning, formerly known as TensorFlow Lite. It loads a model in a compact flatbuffer format and runs it on the device, using the CPU or hardware delegates for GPUs and neural processing units (NPUs). The official page describes it as a way to run models on a range of devices with CPU, GPU and NPU acceleration, and it lists export paths from PyTorch, TensorFlow and JAX.
 
 ## Problem
 
@@ -29,11 +28,11 @@ A model trained in a data-centre framework is large, uses 32-bit floating point,
 
 ## Core idea
 
-Convert the trained model once into a flatbuffer file that the runtime can map into memory without a long parsing step. At run time, an interpreter executes the graph, and for each operator it asks a delegate whether the accelerator can run it. Supported operators go to the GPU or NPU; the rest run on the CPU. The developer writes one application, and the runtime handles the mapping.
+Convert the trained model once into a `.tflite` file that the runtime can load efficiently. At run time an interpreter executes the graph. For each operator it asks whether an accelerator delegate can run it: supported operators go to the GPU or NPU, and the rest run on the CPU. The developer writes one application, and the runtime handles the mapping.
 
 ## Procedure
 
-1. Train the model in PyTorch, TensorFlow or JAX, and export it to the runtime's format.
+1. Train the model in PyTorch, TensorFlow or JAX, and export it to the `.tflite` format.
 2. Quantise the model, typically to 8-bit integers, using calibration data where needed.
 3. Load the file in the application and create an interpreter.
 4. Attach a delegate for the GPU or NPU, if the device has one.
@@ -72,5 +71,5 @@ The official page describes the runtime's acceleration on CPU, GPU and NPU and i
 
 ### Articles and documentation
 
-- Google. *LiteRT: On-device AI runtime*. https://developers.google.com/edge/litert — The official page for the runtime, its CPU, GPU and NPU acceleration, and its export paths.
+- Google. *LiteRT: High-Performance On-Device Machine Learning Framework*. https://developers.google.com/edge/litert — The official page for the runtime, its CPU, GPU and NPU acceleration, and its export paths from PyTorch, TensorFlow and JAX.
 - PyTorch. *ExecuTorch documentation*. https://docs.pytorch.org/executorch/stable/index.html — The PyTorch edge runtime, which covers the same deployment problem from a PyTorch export path.
