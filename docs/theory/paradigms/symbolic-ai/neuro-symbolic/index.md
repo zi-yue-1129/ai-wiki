@@ -39,7 +39,8 @@ Three broad patterns appear in the literature. In the first, a neural model is t
 
 - [Markov logic networks](markov-logic-networks.md): weighted first-order formulas that define a log-linear distribution over possible worlds. They combine logic with the probabilistic graphical models described in [graphical models](../../probabilistic/graphical-models/index.md).
 
-Other integrations, including logic tensor networks (Serafini & Garcez, 2016) and differentiable inductive logic (Evans & Grefenstette, 2018), are summarised here and do not have their own pages yet.
+- [Logic tensor networks](logic-tensor-networks.md): real-valued logic trained together with neural networks, so that axioms are satisfied (Serafini & Garcez, 2016).
+- [Differentiable inductive logic programming](differentiable-ilp.md): learns rules from examples with a differentiable forward-chaining procedure (Evans & Grefenstette, 2018).
 
 ## Why it matters for cognition
 

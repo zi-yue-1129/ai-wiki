@@ -42,7 +42,9 @@ The two uses fail in different ways. Symbolic querying is exact: a fact that is 
 
 - [TransE](transe.md): represents relations as translations between entity embeddings, so that a true triple satisfies head plus relation is close to tail (Bordes et al., 2013).
 
-Other embedding models use different score functions, for example complex-valued scores (Trouillon et al., 2016), and are summarised in the surveys (Wang et al., 2017; Nickel et al., 2016).
+- [ComplEx](complex-embeddings.md): uses complex-valued vectors and a Hermitian product, so that asymmetric relations can be represented (Trouillon et al., 2016).
+
+Other embedding models use different score functions and are summarised in the surveys (Wang et al., 2017; Nickel et al., 2016).
 
 ## Connections
 
