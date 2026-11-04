@@ -162,13 +162,14 @@ jobs:
                       f"Candidate/projection handoff must be continuous in 2D: "
                       f"{end_candidate} vs {start_projection}"
                   )
-                  # Compare the displacement with a 24-unit vector transformed
-                  # by the SAME CTM as the animated marker. Browser viewport
-                  # width and CSS bounding-box width are not reliable substitutes
-                  # for the SVG user-coordinate transform (viewBox/preserveAspectRatio).
+                  # marker_center() uses el.getCTM(), which returns coordinates
+                  # in the SVG viewport coordinate system, NOT CSS screen pixels.
+                  # Use the same coordinate space for the expected 24-unit return.
+                  # getScreenCTM() would introduce CSS scaling at 360px and make
+                  # this assertion fail despite a correct animated projection.
                   expected_dx = page.locator(projected).evaluate("""el => {
-                    const matrix = el.ownerSVGElement.getScreenCTM();
-                    if (!matrix) throw new Error('SVG screen transform unavailable');
+                    const matrix = el.ownerSVGElement.getCTM();
+                    if (!matrix) throw new Error('SVG viewport transform unavailable');
                     return Math.hypot(matrix.a * 24, matrix.b * 24);
                   }""")
                   actual_dx = math.hypot(
