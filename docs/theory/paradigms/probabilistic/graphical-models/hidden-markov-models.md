@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/probabilistic/graphical-models
   - theory/math/probability-statistics
@@ -91,5 +91,5 @@ The example has two hidden states, A and B, and three observations. Its **illust
 
 ### Surveys and textbooks
 
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; chapters on HMM inference and learning.
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Repository for Murphy's textbook series; chapters on HMM inference and learning.
 - Kschischang, F. R., Frey, B. J. & Loeliger, H.-A. (2001). Factor graphs and the sum-product algorithm. *IEEE Transactions on Information Theory* 47(2), 498–519. https://doi.org/10.1109/18.910572 — Shows the forward–backward algorithm as sum-product message passing on a chain.
