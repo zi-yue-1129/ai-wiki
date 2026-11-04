@@ -25,7 +25,7 @@ FGSM is the simplest effective attack on a differentiable classifier. It needs o
 
 - **Perturbation budget \(\epsilon\)**: the largest allowed change to each input component, measured in the \(\ell_\infty\) norm.
 - **Loss gradient**: the derivative of the training loss with respect to the input, not the parameters.
-- **Sign operation**: keeping only the direction of each gradient component makes every pixel move by the full budget.
+- **Sign operation**: each nonzero gradient component contributes a perturbation of magnitude \(\epsilon\) before input-domain clipping; a zero component contributes no change. Components clipped at the valid input boundary may move by less than \(\epsilon\).
 
 ## How it works
 
@@ -36,6 +36,12 @@ Given an input \(x\), label \(y\), loss \(J(\theta,x,y)\) and parameters \(\thet
 \]
 
 Clipping \(\tilde{x}\) to the valid input range, such as \([0,1]\) for images, keeps the example a valid input. Goodfellow et al. (2015) show that a linear model is especially vulnerable, because the perturbation adds up across many input dimensions and changes the output by \(\epsilon\|w\|_1\).
+
+### FGSM versus iterative PGD: trajectory
+
+![Two-panel schematic: FGSM moves once from the start to a feasible endpoint; PGD takes smaller feasible steps, proposes an out-of-budget candidate, then clips it back to the boundary](../../../assets/concept-animations/fgsm-pgd-trajectory.svg)
+
+*Original schematic animation.* The left panel shows one gradient-sign update; the right panel shows several smaller updates inside an illustrated \(\ell_\infty\) perturbation budget. The dashed orange segment is an unprojected candidate update from the last teal feasible iterate; the purple segment shows coordinate-wise clipping back to the right-hand budget boundary. The teal endpoint is the pre-candidate iterate, **not** the projection result. Positions, directions, and timing are illustrative, **not measured model outputs**. The full paths remain visible in GitHub's static SVG preview. Motion may be disabled by the viewer's browser; the geometry is still readable.
 
 ## Variants
 
