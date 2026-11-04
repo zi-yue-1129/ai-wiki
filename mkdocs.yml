@@ -746,6 +746,9 @@ plugins:
             Computer Vision: 電腦視覺
             Object Detection: 物件偵測
             Image Segmentation: 影像分割
+            FCN: FCN
+            Mask R-CNN: Mask R-CNN
+            Segment Anything: 分割一切
             Natural Language Processing: 自然語言處理
             Speech & Audio: 語音與音訊
             Multimodal Models: 多模態模型
@@ -1786,7 +1789,11 @@ nav:
                   - ViViT: theory/models/computer-vision/video/vivit.md
                   - Video Diffusion: theory/models/computer-vision/video/video-diffusion.md
               - Object Detection: theory/models/computer-vision/object-detection/index.md
-              - Image Segmentation: theory/models/computer-vision/segmentation/index.md
+              - Image Segmentation:
+                  - theory/models/computer-vision/segmentation/index.md
+                  - FCN: theory/models/computer-vision/segmentation/fcn.md
+                  - Mask R-CNN: theory/models/computer-vision/segmentation/mask-r-cnn.md
+                  - Segment Anything: theory/models/computer-vision/segmentation/segment-anything.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md

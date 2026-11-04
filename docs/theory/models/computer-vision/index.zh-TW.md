@@ -58,7 +58,7 @@ Yamins et al.（2014）發現，在物件辨識上表現較好的 CNN，也更�
 
 ## 深入頁面
 
-兩個領域各有獨立的章節。[三維視覺與神經渲染](3d-and-neural-rendering/index.zh-TW.md)涵蓋 NeRF 與高斯潑濺，[影片理解與生成](video/index.zh-TW.md)涵蓋 I3D、ViViT 與影片擴散。
+兩個領域各有獨立的章節。[三維視覺與神經渲染](3d-and-neural-rendering/index.zh-TW.md)涵蓋 NeRF 與高斯潑濺，[影片理解與生成](video/index.zh-TW.md)涵蓋 I3D、ViViT 與影片擴散。[影像分割](segmentation/index.md)的 FCN、[U-Net](../cnn/unet/index.md)、[Mask R-CNN](segmentation/mask-r-cnn.md) 與[分割一切](segmentation/segment-anything.md)各有獨立頁面，並在該頁比較。
 
 ## 應用
 
