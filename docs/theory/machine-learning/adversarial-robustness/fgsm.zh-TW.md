@@ -28,7 +28,7 @@ translation_reviewed: 2026-10-28
 
 ### FGSM 與迭代式 PGD 的路徑比較
 
-![FGSM 單一步驟與 PGD 多次投影更新的路徑比較](../../../assets/concept-animations/fgsm-pgd-trajectory.svg)
+![雙欄示意圖：FGSM 從起點單步移至可行終點；PGD 先進行多個可行更新，再將越界候選點投影回擾動範圍邊界](../../../assets/concept-animations/fgsm-pgd-trajectory.svg)
 
 *原創示意動畫。* 左側呈現一次梯度符號更新；右側呈現受 \(\ell_\infty\) 擾動預算限制的多次小步更新。橘色虛線表示從最後一個青綠色可行迭代點出發、尚未投影的候選更新；紫色線段才表示將該候選點逐座標裁剪回右側擾動預算邊界。青綠色路徑終點是候選更新之前的迭代點，**不是投影結果**。位置、方向與時間皆為**教學示意，並非模型實測結果**。GitHub 停用 SVG 動畫時，完整路徑仍可直接閱讀。
 
