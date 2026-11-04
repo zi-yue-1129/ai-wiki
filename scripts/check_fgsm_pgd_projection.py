@@ -157,7 +157,9 @@ def check_motion_timing_and_fallback():
     title = root.find("s:title", NS)
     desc = root.find("s:desc", NS)
     assert title is not None and (title.text or "").strip()
-    assert desc is not None and any(\n        term in (desc.text or "").lower() for term in ("project", "projection")\n    ), "Accessible description must explain the projection operation"
+    assert desc is not None and any(
+        term in (desc.text or "").lower() for term in ("project", "projection")
+    ), "Accessible description must explain the projection operation"
 
 def check_geometric_projection_consistency():
     """Verify the drawn candidate and return motion agree with the budget box.
