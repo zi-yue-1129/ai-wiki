@@ -40,7 +40,7 @@ where \(\Pi_{\mathcal C}\) projects onto the feasible set (both the perturbation
 
 ### Why projection matters
 
-![FGSM single step compared with PGD iterative updates and projection](../../../assets/concept-animations/fgsm-pgd-trajectory.svg)
+![Schematic trajectories: FGSM makes one step within the budget; PGD advances through feasible iterates, proposes an orange out-of-budget point, and projects it horizontally to the purple boundary point](../../../assets/concept-animations/fgsm-pgd-trajectory.svg)
 
 *Original schematic animation.* FGSM (left) makes one gradient-sign step. PGD (right) uses repeated steps; the orange dashed extension represents a proposed update outside the allowed \(\ell_\infty\) region, whereas the teal path shows feasible iterates before that candidate step. The purple endpoint marks the projected result on the boundary. This is a **conceptual illustration, not a numerical attack trace or measured loss landscape**. The paths are permanently drawn so GitHub's non-animated SVG preview preserves the explanation. The purple dotted segment shows the candidate being clipped horizontally to the feasible boundary in this schematic 2D view; actual $\ell_\infty$ projection clips each coordinate independently.
 
