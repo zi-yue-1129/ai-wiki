@@ -28,7 +28,7 @@ x^{(t+1)}=\Pi_{\mathcal C}\!\Big(x^{(t)}+\alpha\,\mathrm{sign}\big(\nabla_x J(\t
 
 ### 為何每一步都需要投影
 
-![FGSM 單步更新與 PGD 迭代更新及投影的比較](../../../assets/concept-animations/fgsm-pgd-trajectory.svg)
+![示意路徑：FGSM 在擾動範圍內單步更新；PGD 先進行可行更新，再提出橘色越界候選點，最後沿水平方向投影至紫色邊界點](../../../assets/concept-animations/fgsm-pgd-trajectory.svg)
 
 *原創示意動畫。* FGSM（左）只做一次梯度符號更新；PGD（右）採多次小步更新。橘色虛線延伸表示超出 \(\ell_\infty\) 可行範圍的候選步驟，青綠色路徑表示候選更新前的可行迭代點，紫色終點才是投影回邊界的結果。這是**概念示意，不是數值攻擊軌跡或實測損失地形**。路徑保持可見，因此 GitHub 的非動畫預覽也能傳達概念。 紫色點線示意在此二維視圖中，將候選點水平裁剪回可行邊界；實際的 $\ell_\infty$ 投影則是對各座標獨立裁剪。
 
