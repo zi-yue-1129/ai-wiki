@@ -46,6 +46,7 @@ For a heuristic search, nodes are kept in a frontier and expanded in order of an
 ## Key methods
 
 - [A\* search](a-star.md): best-first search with \(f=g+h\). It is optimal with an admissible heuristic.
+- [IDA\* search](ida-star.md): the same optimal f-bounded search, with depth-first memory use at the cost of repeated work.
 - [Alpha–beta pruning](alpha-beta-pruning.md): minimax with pruning. It returns the same value as minimax while examining fewer nodes.
 - [Monte Carlo tree search](monte-carlo-tree-search.md): builds a tree from random rollouts with a bandit rule for selection. It is the core of game programs such as AlphaGo.
 

@@ -45,7 +45,7 @@ On the MkDocs site, use the animation's **Play/Pause** control (including keyboa
 ## Variants
 
 - **Weighted A\*** uses \(f=g+w\,h\) with \(w>1\). It expands fewer nodes, but the path can be up to \(w\) times the optimal cost.
-- **IDA\*** repeats depth-first searches with an increasing \(f\)-bound. It uses memory linear in the depth, which makes it practical when storing the whole frontier is impossible. Korf (1985) introduced it.
+- **[IDA\*](ida-star.md)** repeats depth-first searches with an increasing \(f\)-bound. It uses memory linear in the depth, which makes it practical when storing the whole frontier is impossible. Korf (1985) introduced it.
 - **Anytime variants** find a first solution quickly and then improve it as time allows.
 
 ## Results and limits

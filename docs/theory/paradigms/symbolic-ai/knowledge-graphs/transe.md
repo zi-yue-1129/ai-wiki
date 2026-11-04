@@ -40,7 +40,7 @@ where \(S\) contains true triples, \(S'\) contains corrupted triples, \(\gamma\)
 ## Variants
 
 - **Relation-specific projections** give each relation its own space, so that one entity can have different representations under different relations.
-- **Complex-valued and rotational relations** address TransE's weakness on asymmetric relations (Trouillon et al., 2016).
+- **Complex-valued relations** address TransE's weakness on asymmetric relations; see [ComplEx](complex-embeddings.md) (Trouillon et al., 2016).
 
 ## Results and limits
 

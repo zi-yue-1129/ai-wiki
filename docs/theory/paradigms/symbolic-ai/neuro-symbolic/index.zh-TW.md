@@ -25,7 +25,8 @@ translation_reviewed: 2026-11-04
 
 - [馬可夫邏輯網路](markov-logic-networks.md)：帶權重的一階公式，定義可能世界上的對數線性分布。它把邏輯與[圖模型](../../probabilistic/graphical-models/index.md)所述的機率圖模型結合起來。
 
-其他結合方式，包括邏輯張量網路（Serafini 與 Garcez，2016）與可微分歸納邏輯（Evans 與 Grefenstette，2018），在此僅作摘要，目前尚無專頁。
+- [邏輯張量網路](logic-tensor-networks.md)：把實數值邏輯與神經網路一起訓練，以滿足公理（Serafini 與 Garcez，2016）。
+- [可微分歸納邏輯程式設計](differentiable-ilp.md)：以可微分的前向推理從範例中學習規則（Evans 與 Grefenstette，2018）。
 
 ## 為何對認知重要
 

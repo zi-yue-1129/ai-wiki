@@ -290,15 +290,20 @@ plugins:
             MnasNet: MnasNet
             Search Algorithms: 搜尋演算法
             A* Search: A* 搜尋
+            IDA* Search: IDA* 搜尋
             Alpha–Beta Pruning: α–β 剪枝
             Monte Carlo Tree Search: 蒙地卡羅樹搜尋
             Automated Planning: 自動規劃
             STRIPS: STRIPS
             GraphPlan: GraphPlan
+            HTN Planning: 階層任務網路規劃
             Knowledge Graphs: 知識圖譜
             TransE: TransE
+            ComplEx: ComplEx
             Neuro-Symbolic AI: 神經符號 AI
             Markov Logic Networks: 馬可夫邏輯網路
+            Logic Tensor Networks: 邏輯張量網路
+            Differentiable Inductive Logic Programming: 可微分歸納邏輯程式設計
             Theorem Proving: 自動定理證明
             Resolution: 歸結
             DPLL: DPLL
@@ -1473,12 +1478,14 @@ nav:
               - Search Algorithms:
                   - theory/paradigms/symbolic-ai/search/index.md
                   - A* Search: theory/paradigms/symbolic-ai/search/a-star.md
+                  - IDA* Search: theory/paradigms/symbolic-ai/search/ida-star.md
                   - Alpha–Beta Pruning: theory/paradigms/symbolic-ai/search/alpha-beta-pruning.md
                   - Monte Carlo Tree Search: theory/paradigms/symbolic-ai/search/monte-carlo-tree-search.md
               - Automated Planning:
                   - theory/paradigms/symbolic-ai/planning/index.md
                   - STRIPS: theory/paradigms/symbolic-ai/planning/strips.md
                   - GraphPlan: theory/paradigms/symbolic-ai/planning/graphplan.md
+                  - HTN Planning: theory/paradigms/symbolic-ai/planning/htn.md
               - Theorem Proving:
                   - theory/paradigms/symbolic-ai/theorem-proving/index.md
                   - Resolution: theory/paradigms/symbolic-ai/theorem-proving/resolution.md
@@ -1486,9 +1493,12 @@ nav:
               - Knowledge Graphs:
                   - theory/paradigms/symbolic-ai/knowledge-graphs/index.md
                   - TransE: theory/paradigms/symbolic-ai/knowledge-graphs/transe.md
+                  - ComplEx: theory/paradigms/symbolic-ai/knowledge-graphs/complex-embeddings.md
               - Neuro-Symbolic AI:
                   - theory/paradigms/symbolic-ai/neuro-symbolic/index.md
                   - Markov Logic Networks: theory/paradigms/symbolic-ai/neuro-symbolic/markov-logic-networks.md
+                  - Logic Tensor Networks: theory/paradigms/symbolic-ai/neuro-symbolic/logic-tensor-networks.md
+                  - Differentiable Inductive Logic Programming: theory/paradigms/symbolic-ai/neuro-symbolic/differentiable-ilp.md
           - Evolutionary & Swarm Intelligence:
               - theory/paradigms/evolutionary/index.md
               - Genetic Algorithms: theory/paradigms/evolutionary/genetic-algorithms.md

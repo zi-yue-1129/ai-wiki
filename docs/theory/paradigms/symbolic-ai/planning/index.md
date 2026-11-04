@@ -23,7 +23,7 @@ Automated planning is the task of finding a sequence of actions that takes an ag
 
 A planning problem specifies an initial state, a goal, and a set of action schemas. Each action can be applied only when its preconditions hold, and it changes the state through its effects. The planner searches the space of states or of partial plans for a path to the goal. Classical planning assumes a fully known, deterministic world, and it has been extended to uncertain and hierarchical settings.
 
-The standard modelling language for classical planning is PDDL, the Planning Domain Definition Language, which grew out of the STRIPS representation. The two methods below each have their own page.
+The standard modelling language for classical planning is PDDL, the Planning Domain Definition Language, which grew out of the STRIPS representation. The methods below each have their own page.
 
 ## Key concepts
 
@@ -40,8 +40,9 @@ Most planners search. A forward planner starts at the initial state and expands 
 
 - [STRIPS](strips.md): the original representation of actions as preconditions, add lists and delete lists, and the basis of PDDL.
 - [GraphPlan](graphplan.md): builds a layered planning graph with mutual-exclusion information and then searches it backwards for a plan.
+- [HTN planning](htn.md): decomposes high-level tasks into subtasks, using methods written for the domain.
 
-Other approaches named in the literature include planning as heuristic search (Bonet & Geffner, 2001), heuristics computed from relaxed plans (Hoffmann & Nebel, 2001), and hierarchical task-network planning, which decomposes tasks into subtasks. These are summarised here without their own pages.
+Other approaches named in the literature include planning as heuristic search (Bonet & Geffner, 2001) and heuristics computed from relaxed plans (Hoffmann & Nebel, 2001). These are summarised here without their own pages.
 
 ## Planning under uncertainty
 
