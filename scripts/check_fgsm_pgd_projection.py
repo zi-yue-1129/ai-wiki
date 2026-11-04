@@ -117,6 +117,48 @@ def check_projection_invariants():
         raise AssertionError("Projection must reject mismatched dimensions")
 
 
+
+def check_multidimensional_projection_optimality():
+    """Check that PGD projection is the nearest feasible point, not a rescale.
+
+    The L-infinity threat set intersected with [0, 1]^d is a Cartesian
+    product of intervals. Euclidean projection onto that box clips each
+    coordinate independently. A radial L2-style rescaling would produce
+    different points for the examples below.
+    """
+    cases = (
+        ((0.5, 0.5), (0.8, 0.55), 0.1, (0.6, 0.55)),
+        ((0.02, 0.98), (-0.5, 1.5), 0.1, (0.0, 1.0)),
+        ((0.5, 0.2, 0.9), (0.9, -0.4, 0.84), 0.1, (0.6, 0.1, 0.84)),
+    )
+    for clean, candidate, epsilon, expected in cases:
+        projected = project(candidate, clean, epsilon)
+        near(projected, expected)
+        # Idempotence and the original clean-centered budget in every axis.
+        near(project(projected, clean, epsilon), projected)
+        for value, center in zip(projected, clean, strict=True):
+            assert 0.0 <= value <= 1.0
+            assert abs(value - center) <= epsilon + 1e-12
+
+        # Compare against every point on a feasible coordinate grid.
+        # A coordinate-wise nearest point must beat all grid alternatives.
+        candidates_per_axis = []
+        for center in clean:
+            low = max(0.0, center - epsilon)
+            high = min(1.0, center + epsilon)
+            candidates_per_axis.append((low, (low + high) / 2, high))
+        from itertools import product as cartesian_product
+        best_distance = sum((p - z) ** 2 for p, z in zip(projected, candidate, strict=True))
+        for feasible in cartesian_product(*candidates_per_axis):
+            distance = sum((p - z) ** 2 for p, z in zip(feasible, candidate, strict=True))
+            assert best_distance <= distance + 1e-12, (
+                f"Projection is not nearest feasible point: {projected}, {feasible}"
+            )
+
+    # A single scalar clip must not accidentally be applied to every axis.
+    near(project((0.8, 0.55), (0.5, 0.5), 0.1), (0.6, 0.55))
+
+
 def check_svg():
     root = ET.parse(SVG).getroot()
     assert root.tag == "{http://www.w3.org/2000/svg}svg"
@@ -294,6 +336,7 @@ def check_svg_self_containment_and_accessibility():
 if __name__ == "__main__":
     check_numerical_examples()
     check_projection_invariants()
+    check_multidimensional_projection_optimality()
     check_svg()
     check_motion_timing_and_fallback()
     check_geometric_projection_consistency()
