@@ -55,10 +55,23 @@ def check_numerical_examples():
     clean = (0.50,)
     epsilon = 0.10
     iterate = clean
+    # Check the whole trajectory, not just the final coordinate.  The
+    # intermediate clipping at 0.60 is the reason the two procedures differ.
+    projected_trace = [iterate[0]]
     for sign in signs:
         iterate = project((iterate[0] + alpha * sign,), clean, epsilon)
+        projected_trace.append(iterate[0])
+        assert abs(iterate[0] - clean[0]) <= epsilon + 1e-12
+    near(projected_trace, (0.50, 0.58, 0.60, 0.52))
     near(iterate, (0.52,))
-    unprojected = clean[0] + alpha * sum(signs)
+    unprojected_trace = [clean[0]]
+    for sign in signs:
+        unprojected_trace.append(unprojected_trace[-1] + alpha * sign)
+    near(unprojected_trace, (0.50, 0.58, 0.66, 0.58))
+    assert unprojected_trace[2] > clean[0] + epsilon, (
+        "End-only projection must expose an infeasible intermediate iterate"
+    )
+    unprojected = unprojected_trace[-1]
     near(project((unprojected,), clean, epsilon), (0.58,))
     assert iterate != project((unprojected,), clean, epsilon), (
         "Projection after every update must differ from end-only projection"
