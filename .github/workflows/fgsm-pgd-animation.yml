@@ -65,7 +65,7 @@ jobs:
                   page.locator("svg").wait_for()
                   svg = page.locator("svg")
                   animated_frames = []
-                  for time_ms in (0, 1000, 2600, 3400, 4500):
+                  for time_ms in (0, 1000, 2600, 3400, 3500, 4250, 4500, 5000):
                       # Seek SMIL directly, rather than depending on screenshot timing.
                       page.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", time_ms / 1000)
                       animated_frames.append(svg.screenshot(path=str(output / f"fgsm-pgd-{width}px-{time_ms}ms.png")))
@@ -231,7 +231,7 @@ jobs:
           # Contact sheets expose timeline mistakes and mobile clipping in one
           # artifact; they supplement, never replace, manual visual inspection.
           for width in (360, 720, 1024):
-              # Preserve a fixed six-slot timeline even after a partial capture
+              # Preserve a fixed nine-slot timeline even after a partial capture
               # failure: missing frames must not shift later phases into earlier
               # positions or create a misleading review sheet.
               stages = [
@@ -239,7 +239,10 @@ jobs:
                   (f"fgsm-pgd-{width}px-1000ms.png", "1.0 s | Feasible"),
                   (f"fgsm-pgd-{width}px-2600ms.png", "2.6 s | Candidate"),
                   (f"fgsm-pgd-{width}px-3400ms.png", "3.4 s | Candidate"),
+                  (f"fgsm-pgd-{width}px-3500ms.png", "3.5 s | Handoff"),
+                  (f"fgsm-pgd-{width}px-4250ms.png", "4.25 s | Return"),
                   (f"fgsm-pgd-{width}px-4500ms.png", "4.5 s | Projection"),
+                  (f"fgsm-pgd-{width}px-5000ms.png", "5.0 s | Endpoint"),
                   (f"fgsm-pgd-{width}px-reduced.png", "Reduced motion"),
               ]
               images = []
@@ -270,7 +273,7 @@ jobs:
                       draw.text((x + 20, y + 54), "CAPTURE FAILED", fill="#b91c1c")
               target = folder / f"fgsm-pgd-{width}px-contact-sheet.png"
               sheet.save(target, optimize=True)
-              print(f"Visual review sheet: {target} ({sum(frame is not None for _, frame in images)}/6 frames)")
+              print(f"Visual review sheet: {target} ({sum(frame is not None for _, frame in images)}/9 frames)")
           PY
       # Preserve the actual rendered evidence even when a pixel/phase assertion fails.
       # Without this, a failed animation check discards the frames needed to
