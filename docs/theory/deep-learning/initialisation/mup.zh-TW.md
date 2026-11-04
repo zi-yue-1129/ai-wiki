@@ -1,7 +1,7 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
+translation_reviewed: 2026-11-04
 related:
   - theory/deep-learning/initialisation
 tags:
@@ -28,11 +28,11 @@ aliases:
 
 ## 核心想法
 
-Yang 等人找到了這樣的參數化，並在 Transformer 與 ResNet 模型上驗證了轉移。在論文的乘數形式中，每一層的學習率與輸出乘數依該層寬度設定，見下方的表格。
+Yang 等人找到了這樣的參數化，並在 Transformer 與 ResNet 模型上驗證了轉移。在論文的乘數形式中，每一層的學習率與輸出乘數依該層寬度設定，見下方列出的各項。
 
 ## 方程式
 
-論文的表 8 給出 Adam 的乘數形式，其中 $\text{fan\_in}$ 為該層的輸入寬度：
+Adam 的乘數形式如下，其中 $\text{fan\_in}$ 為該層的輸入寬度：
 
 - 隱藏權重：Adam 學習率與 $1/\text{fan\_in}$ 成正比；
 - 輸出層：輸出乘數為 $1/\text{fan\_in}$，Adam 學習率為 1；
@@ -40,7 +40,7 @@ Yang 等人找到了這樣的參數化，並在 Transformer 與 ResNet 模型上
 
 ## 結果
 
-摘要報告，在小模型上調好的超參數，可以不直接調整大模型就用到大得多的模型上，並且此結果對 Transformer 與 ResNet 模型成立。具體數值見論文的結果。
+摘要報告，在小模型上調好的超參數，可以用到大得多的模型上，並且此結果對 Transformer 與 ResNet 模型成立。摘要舉了兩個例子。由 1,300 萬參數的模型轉移預訓練超參數，所得結果優於已發表的 BERT-large 數字，調參成本等同於預訓練 BERT-large 一次。由 4,000 萬參數的模型轉移，所得結果優於已發表的 67 億參數 GPT-3 模型，調參成本僅為其總預訓練成本的 7% [(Yang et al., 2022)](https://arxiv.org/abs/2203.03466)。
 
 ## 限制
 
