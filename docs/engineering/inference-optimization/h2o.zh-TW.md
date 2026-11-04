@@ -1,6 +1,6 @@
 ---
-translation_reviewed: 2026-10-28
-last_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
+last_reviewed: 2026-11-04
 related:
   - theory/models/transformer/kv-cache
   - engineering/inference-optimization
@@ -30,7 +30,7 @@ H2O 是生成式推論中的 KV 快取淘汰策略。它保留一小組「重擊
 
 ## 程序
 
-1. 為每一層設定快取預算，例如序列長度的一部分。
+1. 設定快取預算，例如序列長度的一部分。
 2. 在每個解碼步驟，把新 token 的 key 與 value 加入快取。
 3. 跨步驟累積每個快取 token 的注意力分數。
 4. 快取超過預算時，保留分數最高的 token 與近期視窗，淘汰其餘部分。

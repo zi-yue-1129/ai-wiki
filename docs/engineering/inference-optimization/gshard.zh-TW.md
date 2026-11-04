@@ -1,6 +1,6 @@
 ---
-translation_reviewed: 2026-10-28
-last_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
+last_reviewed: 2026-11-04
 related:
   - theory/models/mixture-of-experts
   - engineering/inference-optimization
@@ -18,7 +18,7 @@ aliases:
 !!! info "屬於混合專家模型的服務"
     本方法頁隸屬於[混合專家模型的服務](moe-serving.zh-TW.md)。它詳細說明 GShard；上層頁面則比較它與其他方法。
 
-GShard 是一組標註 API 與 XLA 編譯器的擴充，用來把稀疏閘控的混合專家模型分片到許多裝置上。作者以它訓練超過 6000 億參數的模型：程式設計者為張量該如何切分加上標註，再由編譯器產生分割後的程式。它主要是訓練系統，但其分片方法是推論時專家平行化的基礎。
+GShard 是一組標註 API 與 XLA 編譯器的擴充，用來把稀疏閘控的混合專家模型分片到許多裝置上。作者以它訓練超過 6000 億參數的模型：程式設計者為張量該如何切分加上標註，再由編譯器產生分割後的程式。論文評估的是訓練，因此推論的影響會在上層頁面與本頁的其他方法中討論。
 
 ## 問題
 
@@ -63,6 +63,6 @@ GShard 要求程式設計者標註哪些張量維度要跨裝置切分（例如�
 
 - Lepikhin, D. et al. (2020). *GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding*. arXiv:2006.16668. https://arxiv.org/abs/2006.16668 — 主要論文：用於分片稀疏閘控 MoE 模型的標註 API 與 XLA 擴充，附有訓練結果。
 - Shazeer, N. et al. (2017). *Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*. arXiv:1701.06538. https://arxiv.org/abs/1701.06538 — GShard 所分片的稀疏閘控混合專家層。
-- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. Journal of Machine Learning Research. arXiv:2101.03961. https://arxiv.org/abs/2101.03961 — Top-1 路由，簡化了 GShard 配置所需支援的通訊。
+- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. Journal of Machine Learning Research 23(120):1–39. arXiv:2101.03961. https://arxiv.org/abs/2101.03961 — Top-1 路由，簡化了 GShard 配置所需支援的通訊。
 - Rajbhandari, S. et al. (2022). *DeepSpeed-MoE: Advancing Mixture-of-Experts Inference and Training to Power Next-Generation AI Scale*. arXiv:2201.05596. https://arxiv.org/abs/2201.05596 — 以推論為主的 MoE 系統，與以訓練為主的設計比較。
 - Eliseev, A. & Mazur, D. (2023). *Fast Inference of Mixture-of-Experts Language Models with Offloading*. arXiv:2312.17238. https://arxiv.org/abs/2312.17238 — 以卸載在記憶體較少的硬體上服務 MoE 模型的另一種做法。

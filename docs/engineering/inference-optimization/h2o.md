@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/models/transformer/kv-cache
   - engineering/inference-optimization
@@ -30,7 +30,7 @@ The authors observe that attention is sparse: a small subset of tokens receives 
 
 ## Procedure
 
-1. Fix a cache budget per layer, for example a share of the sequence length.
+1. Fix a cache budget, for example a share of the sequence length.
 2. At each decoding step, add the new token's keys and values to the cache.
 3. Accumulate each cached token's attention score across the steps.
 4. When the cache exceeds the budget, keep the highest-scoring tokens and the recent window, and evict the rest.
