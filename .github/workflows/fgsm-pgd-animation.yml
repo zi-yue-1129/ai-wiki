@@ -300,6 +300,7 @@ jobs:
           folder = Path("/tmp/fgsm-pgd-preview")
           # Contact sheets expose timeline mistakes and mobile clipping in one
           # artifact; they supplement, never replace, manual visual inspection.
+          incomplete_widths = []
           for width in (360, 720, 1024):
               # Preserve a fixed nine-slot timeline even after a partial capture
               # failure: missing frames must not shift later phases into earlier
@@ -325,6 +326,9 @@ jobs:
                       images.append((label + " | MISSING", None))
               missing = [label for label, frame in images if frame is None]
               if not any(frame is not None for _, frame in images):
+                  # Keep checking the other widths, but never treat a completely
+                  # missing capture as a successful visual QA run.
+                  incomplete_widths.append((width, missing))
                   print(f"No captured frames for {width}px; contact sheet unavailable")
                   continue
               columns = 2
@@ -348,7 +352,9 @@ jobs:
               # A partially captured timeline is not a valid visual QA artifact.
               # Keep the diagnostic contact sheet, then fail this step so CI
               # cannot report success with missing intermediate or fallback frames.
-              assert not missing, f"Missing visual QA frames at {width}px: {missing}"
+              if missing:
+                  incomplete_widths.append((width, missing))
+          assert not incomplete_widths, f"Incomplete visual QA captures: {incomplete_widths}"
           PY
       # Preserve the actual rendered evidence even when a pixel/phase assertion fails.
       # Without this, a failed animation check discards the frames needed to
