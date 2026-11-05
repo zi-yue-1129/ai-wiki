@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-05
 related:
   - brain-mind/neuroai
 tags:
@@ -36,22 +36,22 @@ Causal inference studies when an effect can be estimated from observational data
 
 ## How it works
 
-**Identification.** Before estimating anything, one asks whether the target effect is determined by the observed distribution at all. Pearl (1995) shows how causal diagrams answer this question. The paper gives graphical criteria for choosing a set of variables to adjust for, so that the effect of an intervention can be computed from observational data. When no such set exists, the effect is not identified, and no amount of data from that graph can settle it.
+**Identification.** Before estimating anything, one asks whether the target effect is determined by the observed distribution at all. Pearl (1995) shows how causal diagrams answer this question. The paper gives graphical criteria for choosing a set of variables to adjust for, so that the effect of an intervention can be computed from observational data. When no such set exists, the effect is not identified, and no amount of data from that graph can settle it. Pearl (2009) develops the same framework into a full calculus of interventions.
 
 **Estimation with machine learning.** Flexible learners can model the confounding relationships well, but using them naively biases the effect estimate. Chernozhukov et al. (2016) show how to fix this in the double/debiased machine learning framework. The abstract states that the regularisation bias "can be removed by solving auxiliary prediction problems via ML tools", so the estimate of the effect is built from predictions that are themselves fitted with machine learning.
 
-**Heterogeneous effects.** Individual effects can differ across people, and the subgroups that benefit most are often what decision-makers need. Wager and Athey (2015) propose random forests that estimate treatment effects, called causal forests. The abstract reports that the estimates have an asymptotically Gaussian and centred sampling distribution, which allows asymptotic confidence intervals for the effect at a point.
+**Heterogeneous effects.** Individual effects can differ across people, and the subgroups that benefit most are often what decision-makers need. Wager and Athey (2018) propose random forests that estimate treatment effects, called causal forests. The abstract reports that the estimates have an asymptotically Gaussian and centred sampling distribution, which allows asymptotic confidence intervals for the effect at a point.
 
 **Causal representation learning.** Most causal methods assume that the variables in the graph are already given. Schölkopf et al. (2021) define causal representation learning as the discovery of high-level causal variables from low-level observations, such as pixels, and argue that this is a central open problem for AI.
 
 ## Key methods
 
-Brief comparison. Each approach named above is a candidate for its own method page; those pages are not yet written, so the detail is given in this section for now.
+Two landmark estimators are compared here. Each has its own page with the detail. Both turn flexible machine learning into causal estimates, but they answer different questions.
 
-- **Causal diagrams and adjustment (Pearl)**: an explicit graph, with identification criteria. Transparent about assumptions, but needs the graph to be known.
-- **Double/debiased ML**: flexible nuisance models plus a debiased estimate of a low-dimensional effect. Designed for a single average effect.
-- **Causal forests**: random forests for CATE with valid confidence intervals under the paper's conditions.
-- **Causal representation learning**: learns the variables themselves, rather than taking them as given. Still largely a research programme.
+- [Double/debiased machine learning](double-machine-learning.md): estimates one low-dimensional effect, such as an average treatment effect, from flexible nuisance models and a debiased score. Designed for a single average parameter.
+- [Causal forests](causal-forests.md): random forests adapted to estimate how the effect varies across covariate values, with confidence intervals at a point under the paper's conditions.
+
+Causal diagrams and causal representation learning are frameworks rather than estimators, so they are discussed under How it works.
 
 ## Connections
 
@@ -76,12 +76,13 @@ The brain connection is about how science establishes causal roles. Neuroscience
 
 ### Seminal papers
 
-- Pearl, J. (1995). Causal diagrams for empirical research. *Biometrika*, 82(4), 669–688. https://doi.org/10.1093/biomet/82.4.669 — Shows how causal diagrams answer identification questions, with graphical criteria for choosing variables to adjust for.
+- Pearl, J. (1995). Causal diagrams for empirical research. *Biometrika*, 82(4), 669–688. doi:[10.1093/biomet/82.4.669](https://doi.org/10.1093/biomet/82.4.669) — Shows how causal diagrams answer identification questions, with graphical criteria for choosing variables to adjust for.
 - Chernozhukov, V., Chetverikov, D., Demirer, M., Duflo, E., Hansen, C., Newey, W. & Robins, J. (2016). *Double/Debiased Machine Learning for Treatment and Causal Parameters*. arXiv. https://arxiv.org/abs/1608.00060 — Gives the double/debiased machine learning framework for estimating treatment effects with flexible nuisance models.
-- Wager, S. & Athey, S. (2015). *Estimation and Inference of Heterogeneous Treatment Effects using Random Forests*. arXiv. https://arxiv.org/abs/1510.04342 — Causal forests, with a sampling distribution that is asymptotically Gaussian.
+- Wager, S. & Athey, S. (2018). Estimation and Inference of Heterogeneous Treatment Effects using Random Forests. *Journal of the American Statistical Association*, 113(523), 1228–1242. doi:[10.1080/01621459.2017.1319839](https://doi.org/10.1080/01621459.2017.1319839) — Causal forests, with a sampling distribution that is asymptotically Gaussian and centred, which gives confidence intervals at a point.
 - Schölkopf, B., Locatello, F., Bauer, S., Ke, N. R., Kalchbrenner, N., Goyal, A. & Bengio, Y. (2021). *Towards Causal Representation Learning*. arXiv. https://arxiv.org/abs/2102.11107 — Defines causal representation learning as discovering high-level causal variables from low-level observations.
 
 ### Surveys and textbooks
 
-- Peters, J., Janzing, D. & Schölkopf, B. (2017). *Elements of Causal Inference: Foundations and Learning Algorithms*. MIT Press. https://library.oapen.org/handle/20.500.12657/26040 — Textbook on structural causal models and causal discovery, with an open-access copy listed by the OAPEN library.
+- Pearl, J. (2009). *Causality*, 2nd edition. Cambridge University Press. doi:[10.1017/CBO9780511803161](https://doi.org/10.1017/CBO9780511803161) — The standard book on structural causal models, the do-calculus and counterfactuals.
+- Chernozhukov, V., Hansen, C., Kallus, N., Spindler, M. & Syrgkanis, V. (2024). *Applied Causal Inference Powered by ML and AI*. arXiv. https://arxiv.org/abs/2403.02467 — Introduction to combining machine learning with causal inference, including double/debiased machine learning.
 - Hernán, M. A. & Robins, J. M. (2020). *Causal Inference: What If*. Chapman & Hall/CRC. https://miguelhernan.org/whatifbook — Introductory text on causal inference for observational data, free to download from the authors' page.
