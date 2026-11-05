@@ -60,7 +60,10 @@ jobs:
           with sync_playwright() as playwright:
               browser = playwright.chromium.launch(headless=True)
               for width in (360, 720, 1024):
-                  page = browser.new_page(viewport={"width": width, "height": 400}, device_scale_factor=1)
+                  # The 720x310 SVG renders ~441px tall at 1024px width.
+                  # A fixed 400px viewport falsely reports bottom captions clipped.
+                  viewport_height = math.ceil(width * 310 / 720) + 32
+                  page = browser.new_page(viewport={"width": width, "height": viewport_height}, device_scale_factor=1)
                   page.goto(source)
                   page.locator("svg").wait_for()
                   svg = page.locator("svg")
@@ -123,7 +126,7 @@ jobs:
                       )
                       # Horizontal-only checks miss captions cut by a too-short
                       # SVG viewport. Check the full rendered label rectangle.
-                      assert label["y"] >= -1 and label["bottom"] <= 400 + 1, (
+                      assert label["y"] >= -1 and label["bottom"] <= viewport_height + 1, (
                           f"Text label clipped vertically at {width}px: {label}"
                       )
                   # Detect actual label collisions at every viewport, not just
@@ -273,7 +276,7 @@ jobs:
                       f"Animation has fewer than three distinct frames at {width}px"
                   )
                   page.close()
-                  reduced = browser.new_page(viewport={"width": width, "height": 400}, reduced_motion="reduce")
+                  reduced = browser.new_page(viewport={"width": width, "height": viewport_height}, reduced_motion="reduce")
                   reduced.goto(source)
                   reduced.locator("svg").wait_for()
                   reduced.locator("svg").screenshot(path=str(output / f"fgsm-pgd-{width}px-reduced.png"))
