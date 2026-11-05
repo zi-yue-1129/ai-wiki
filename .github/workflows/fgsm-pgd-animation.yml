@@ -323,6 +323,7 @@ jobs:
                           images.append((label, source.convert("RGB").copy()))
                   else:
                       images.append((label + " | MISSING", None))
+              missing = [label for label, frame in images if frame is None]
               if not any(frame is not None for _, frame in images):
                   print(f"No captured frames for {width}px; contact sheet unavailable")
                   continue
@@ -344,6 +345,10 @@ jobs:
               target = folder / f"fgsm-pgd-{width}px-contact-sheet.png"
               sheet.save(target, optimize=True)
               print(f"Visual review sheet: {target} ({sum(frame is not None for _, frame in images)}/9 frames)")
+              # A partially captured timeline is not a valid visual QA artifact.
+              # Keep the diagnostic contact sheet, then fail this step so CI
+              # cannot report success with missing intermediate or fallback frames.
+              assert not missing, f"Missing visual QA frames at {width}px: {missing}"
           PY
       # Preserve the actual rendered evidence even when a pixel/phase assertion fails.
       # Without this, a failed animation check discards the frames needed to
