@@ -189,6 +189,43 @@ jobs:
                       f"Projection must move inward during 3.5–5s: "
                       f"{start_projection}, {mid_projection}, {end_projection}"
                   )
+                  # Check the actual rendered geometry against the feasible
+                  # L-infinity rectangle, not only the direction of motion.
+                  # A candidate that never crosses the boundary would teach
+                  # clipping incorrectly even if it moved outward.
+                  budget_limits = page.locator('rect[x="448"][y="70"]').evaluate("""el => {
+                    const r = el.getBBox();
+                    const m = el.getCTM();
+                    const transform = (x, y) => {
+                      const p = el.ownerSVGElement.createSVGPoint();
+                      p.x = x; p.y = y;
+                      const q = p.matrixTransform(m);
+                      return [q.x, q.y];
+                    };
+                    return {leftTop: transform(r.x, r.y),
+                            rightBottom: transform(r.x + r.width, r.y + r.height)};
+                  }""")
+                  left, top = budget_limits["leftTop"]
+                  right, bottom = budget_limits["rightBottom"]
+                  assert left < right and top < bottom, f"Invalid feasible bounds: {budget_limits}"
+                  def inside(point, tolerance=1):
+                      return (left - tolerance <= point[0] <= right + tolerance and
+                              top - tolerance <= point[1] <= bottom + tolerance)
+
+                  pgd_marker = 'circle.moving-marker[fill="#0f766e"]'
+                  for t in (0, 0.5, 1.25, 2.0, 2.5):
+                      point = marker_center(pgd_marker, t)
+                      assert inside(point), f"PGD feasible iterate outside budget at {t}s: {point}"
+                  assert inside(start_candidate), "Candidate starts outside the feasible region"
+                  assert end_candidate[0] > right + 5, (
+                      f"PGD candidate must actually cross the budget edge: {end_candidate}, right={right}"
+                  )
+                  assert top <= end_candidate[1] <= bottom, (
+                      f"Candidate must violate only x in this teaching example: {end_candidate}"
+                  )
+                  assert inside(end_projection), (
+                      f"Projected point must return to the feasible region: {end_projection}"
+                  )
                   # Both coordinates must join continuously: a matching x
                   # alone can conceal a discontinuous diagonal jump.
                   assert all(abs(a - b) < 1 for a, b in zip(end_candidate, start_projection)), (
