@@ -142,6 +142,9 @@ jobs:
                   svg_bounds = page.locator("svg").bounding_box()
                   assert svg_bounds is not None
                   for label in bounds["labels"]:
+                      assert label["x"] >= svg_bounds["x"] - 1 and label["right"] <= svg_bounds["x"] + svg_bounds["width"] + 1, (
+                          f"Text label outside SVG horizontal bounds at {width}px: {label}"
+                      )
                       assert label["y"] >= svg_bounds["y"] - 1 and label["bottom"] <= svg_bounds["y"] + svg_bounds["height"] + 1, (
                           f"Text label outside SVG vertical bounds at {width}px: {label}"
                       )
