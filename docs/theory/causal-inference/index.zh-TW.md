@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-05
 related:
   - brain-mind/neuroai
 ---
@@ -25,22 +25,22 @@ related:
 
 ## 運作方式
 
-**可識別性。** 在估計之前，先問目標效應是否根本由觀察到的分布所決定。Pearl（1995）展示了因果圖如何回答這個問題。論文給出圖形化準則，用來選擇應調整的變數集合，使介入的效應能從觀察性資料計算出來。若不存在這樣的集合，該效應就是不可識別的，在該圖形下再多的資料也無法解決。
+**可識別性。** 在估計之前，先問目標效應是否根本由觀察到的分布所決定。Pearl（1995）展示了因果圖如何回答這個問題。論文給出圖形化準則，用來選擇應調整的變數集合，使介入的效應能從觀察性資料計算出來。若不存在這樣的集合，該效應就是不可識別的，在該圖形下再多的資料也無法解決。Pearl（2009）把這個框架發展為完整的介入演算。
 
 **以機器學習估計。** 靈活的學習器能很好地建模混淆關係，但若直接使用，會使效應估計產生偏差。Chernozhukov 等人（2016）在雙重／去偏機器學習框架中說明如何修正。摘要指出，正則化偏差「可以透過以機器學習工具求解輔助預測問題而移除」，因此效應的估計是由同樣以機器學習擬合的預測所建構。
 
-**異質效應。** 個體效應可能因人而異，而最能受益的子群體往往正是決策者所需要的資訊。Wager 與 Athey（2015）提出用隨機森林估計治療效應的方法，稱為因果森林。摘要報告，這些估計量的抽樣分布是漸近高斯且以真值為中心的，因此可以在某一點上建立效應的漸近信賴區間。
+**異質效應。** 個體效應可能因人而異，而最能受益的子群體往往正是決策者所需要的資訊。Wager 與 Athey（2018）提出用隨機森林估計治療效應的方法，稱為因果森林。摘要報告，這些估計量的抽樣分布是漸近高斯且以真值為中心的，因此可以在某一點上建立效應的漸近信賴區間。
 
 **因果表徵學習。** 多數因果方法假設圖中的變數已經給定。Schölkopf 等人（2021）把因果表徵學習定義為：從低階觀察（例如像素）中發現高階的因果變數，並主張這是 AI 的核心開放問題。
 
 ## 關鍵方法
 
-簡要比較。上面提到的每種方法都可以有自己的方法頁面；這些頁面尚未撰寫，因此目前在本節提供細節。
+這裡比較兩個具代表性的估計方法，每個方法各有自己的頁面，可以看到細節。兩者都能把靈活的機器學習轉化為因果估計，但回答的問題不同。
 
-- **因果圖與調整（Pearl）**：明確的圖形，附帶可識別性準則。假設透明，但需要已知的圖。
-- **雙重／去偏機器學習**：靈活的干擾模型加上對低維效應的去偏估計。設計用於單一平均效應。
-- **因果森林**：用於 CATE 的隨機森林，在論文條件下具有有效的信賴區間。
-- **因果表徵學習**：學習變數本身，而非把變數視為給定。仍然主要是研究中的方向。
+- [雙重／去偏機器學習](double-machine-learning.md)：從靈活的干擾模型與去偏分數，估計一個低維效應，例如平均治療效應。設計用於單一平均參數。
+- [因果森林](causal-forests.md)：調整後的隨機森林，用來估計效應如何隨共變量值變化，並在論文條件下於某一點上提供信賴區間。
+
+因果圖與因果表徵學習是框架而非估計量，因此在「運作方式」一節中討論。
 
 ## 關聯
 
@@ -65,12 +65,13 @@ related:
 
 ### 開創性論文
 
-- Pearl, J. (1995). Causal diagrams for empirical research. *Biometrika*, 82(4), 669–688. https://doi.org/10.1093/biomet/82.4.669 — 展示因果圖如何回答可識別性問題，並提供選擇調整變數的圖形準則。
+- Pearl, J. (1995). Causal diagrams for empirical research. *Biometrika*, 82(4), 669–688. doi:[10.1093/biomet/82.4.669](https://doi.org/10.1093/biomet/82.4.669) — 展示因果圖如何回答可識別性問題，並提供選擇調整變數的圖形準則。
 - Chernozhukov, V., Chetverikov, D., Demirer, M., Duflo, E., Hansen, C., Newey, W. & Robins, J. (2016). *Double/Debiased Machine Learning for Treatment and Causal Parameters*. arXiv. https://arxiv.org/abs/1608.00060 — 提出以靈活干擾模型估計治療效應的雙重／去偏機器學習框架。
-- Wager, S. & Athey, S. (2015). *Estimation and Inference of Heterogeneous Treatment Effects using Random Forests*. arXiv. https://arxiv.org/abs/1510.04342 — 因果森林，其抽樣分布為漸近高斯。
+- Wager, S. & Athey, S. (2018). Estimation and Inference of Heterogeneous Treatment Effects using Random Forests. *Journal of the American Statistical Association*, 113(523), 1228–1242. doi:[10.1080/01621459.2017.1319839](https://doi.org/10.1080/01621459.2017.1319839) — 因果森林，其抽樣分布為漸近高斯且以估計值為中心，可在某一點上建立信賴區間。
 - Schölkopf, B., Locatello, F., Bauer, S., Ke, N. R., Kalchbrenner, N., Goyal, A. & Bengio, Y. (2021). *Towards Causal Representation Learning*. arXiv. https://arxiv.org/abs/2102.11107 — 把因果表徵學習定義為從低階觀察中發現高階的因果變數。
 
 ### 綜述與教科書
 
-- Peters, J., Janzing, D. & Schölkopf, B. (2017). *Elements of Causal Inference: Foundations and Learning Algorithms*. MIT Press. https://library.oapen.org/handle/20.500.12657/26040 — 關於結構因果模型與因果發現的教科書，OAPEN 圖書館列出了開放取用的版本。
+- Pearl, J. (2009). *Causality*, 2nd edition. Cambridge University Press. doi:[10.1017/CBO9780511803161](https://doi.org/10.1017/CBO9780511803161) — 結構因果模型、do 演算與反事實的標準專書。
+- Chernozhukov, V., Hansen, C., Kallus, N., Spindler, M. & Syrgkanis, V. (2024). *Applied Causal Inference Powered by ML and AI*. arXiv. https://arxiv.org/abs/2403.02467 — 結合機器學習與因果推論的入門書，包含雙重／去偏機器學習。
 - Hernán, M. A. & Robins, J. M. (2020). *Causal Inference: What If*. Chapman & Hall/CRC. https://miguelhernan.org/whatifbook — 針對觀察性資料之因果推論的入門教科書，作者網頁提供免費下載。
