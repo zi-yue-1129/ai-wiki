@@ -66,7 +66,7 @@ Yamins et al. (2014) found that CNNs that perform better at object recognition a
 
 ## Deeper pages
 
-Two areas have their own chapters. [3D vision and neural rendering](3d-and-neural-rendering/index.md) covers NeRF and Gaussian splatting, and [video understanding and generation](video/index.md) covers I3D, ViViT and video diffusion.
+Two areas have their own chapters. [3D vision and neural rendering](3d-and-neural-rendering/index.md) covers NeRF and Gaussian splatting, and [video understanding and generation](video/index.md) covers I3D, ViViT and video diffusion. The segmentation methods [FCN](segmentation/fcn.md), [U-Net](../cnn/unet/index.md), [Mask R-CNN](segmentation/mask-r-cnn.md) and [Segment Anything](segmentation/segment-anything.md) each have their own page, compared on the [Image segmentation](segmentation/index.md) overview.
 
 ## Applications
 
