@@ -48,11 +48,11 @@ $$
 
 Pixels marked as ambiguous or difficult in the ground truth are excluded from the sum. The paper describes the procedure as standard backpropagation of this loss through the whole network, so the segmentation output and the upsampling filters are trained jointly.
 
-Inference is a single forward pass over the image. The paper's abstract reports that inference takes about one third of a second for a typical image.
+Inference is a single forward pass over the image. The arXiv abstracts report that inference takes about one third of a second for a typical image; the CVPR 2015 abstract gives a bound of less than one fifth of a second, so the figure depends on the version cited.
 
 ## Results
 
-- **PASCAL VOC 2012.** The abstract reports 62.2% mean intersection over union (mean IU) on the VOC 2012 segmentation test set, which it describes as a 20% relative improvement.
+- **PASCAL VOC 2012.** The abstract reports 62.2% mean intersection over union (mean IU) on the VOC 2012 segmentation test set. The arXiv abstracts describe this as a 20% relative improvement; that wording was not confirmed in the CVPR abstract.
 - **Variant comparison.** On a validation subset of VOC 2011, the paper's Table 2 reports 59.4 mean IU for FCN-32s, 62.4 for FCN-16s and 62.7 for FCN-8s, so the skip fusion adds about three points in mean IU.
 - **Other benchmarks.** The abstract also reports state-of-the-art results on NYUDv2 and SIFT Flow.
 
