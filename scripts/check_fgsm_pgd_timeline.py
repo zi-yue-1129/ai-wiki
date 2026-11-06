@@ -110,6 +110,37 @@ def main() -> None:
     close(float(candidate.get("cx")) + 65.0, float(projection.get("cx")))
     close(float(candidate.get("cy")) - 33.0, float(projection.get("cy")))
 
+    # Progressive colored traces must reveal the same phases as moving markers.
+    # These checks are structural only; the Chromium workflow tests rendered motion.
+    animated_strokes = [
+        p for p in root.findall(".//s:path", NS)
+        if p.find("s:animate[@attributeName='stroke-dashoffset']", NS) is not None
+    ]
+    assert len(animated_strokes) == 4, "Expected four progressive teaching strokes"
+    expected = [
+        ("M180 170L259 103", 104.0, [0.0, 0.5, 1.0], [104.0, 0.0, 0.0]),
+        ("M542 170L570 147L595 120", 75.0, [0.0, 0.5, 1.0], [75.0, 0.0, 0.0]),
+        ("M595 120L660 87", 73.0, [0.0, 0.5, 0.7, 1.0], [73.0, 73.0, 0.0, 0.0]),
+        ("M660 87H636", 24.0, [0.0, 0.7, 1.0], [24.0, 24.0, 0.0]),
+    ]
+    for stroke, (geometry, length, times, values) in zip(animated_strokes, expected):
+        assert stroke.get("d") == geometry, (stroke.get("d"), geometry)
+        close(float(stroke.get("stroke-dasharray")), length)
+        close(float(stroke.get("stroke-dashoffset")), length)
+        reveal = stroke.find("s:animate[@attributeName='stroke-dashoffset']", NS)
+        assert reveal is not None
+        assert timeline(reveal, "keyTimes") == times
+        assert timeline(reveal, "values") == values
+        assert reveal.get("dur") == "5s"
+        assert reveal.get("repeatCount") == "1"
+        assert reveal.get("fill") == "freeze"
+    # The pale fallback paths must remain present for GitHub's SVG sanitizer.
+    for geometry, _, _, _ in expected:
+        assert any(
+            p.get("d") == geometry and float(p.get("opacity", "1")) < 0.5
+            for p in root.findall(".//s:path", NS)
+        ), f"Missing static fallback for {geometry}"
+
     # Every visible PGD iterate must remain feasible before the proposed
     # out-of-budget step. Guard all polyline vertices rather than only the
     # final marker; an accidentally misplaced intermediate point would
