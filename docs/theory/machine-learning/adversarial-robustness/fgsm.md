@@ -43,6 +43,8 @@ Clipping \(\tilde{x}\) to the valid input range, such as \([0,1]\) for images, k
 
 *Original schematic animation.* The left panel shows one gradient-sign update; the right panel shows several smaller updates inside an illustrated \(\ell_\infty\) perturbation budget. The dashed orange segment is an unprojected candidate update from the last teal feasible iterate; the purple segment shows coordinate-wise clipping back to the right-hand budget boundary. The teal endpoint is the pre-candidate iterate, **not** the projection result. Positions, directions, and timing are illustrative, **not measured model outputs**. The full paths remain visible in GitHub's static SVG preview. Motion may be disabled by the viewer's browser; the geometry is still readable.
 
+**Read the motion in three phases:** during 0–2.5 s, the blue FGSM marker completes its sole step while teal PGD iterates advance within the budget. During 2.5–3.5 s, the orange candidate follows an *unconstrained* gradient update and can leave the feasible set. During 3.5–5 s, the purple marker returns that candidate to the feasible boundary by projection; this return is **not another gradient step**. The faint complete trajectories are a static preview, not a claim that all updates happen simultaneously. This five-second SVG plays once without play/pause or seek controls; readers who need to inspect a phase can use the static geometry and this timeline.
+
 ## Variants
 
 - **Targeted FGSM** moves the input toward a chosen wrong label rather than away from the true label.
