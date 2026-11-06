@@ -252,6 +252,37 @@ def main() -> None:
         ):
             assert trace in body, (page, trace)
 
+    # Accessibility and GitHub preview regression guards. These are static
+    # checks only: they cannot prove browser or sanitizer behaviour.
+    svg_ns = "{http://www.w3.org/2000/svg}"
+    assert root.tag == svg_ns + "svg"
+    assert root.get("role") == "img"
+    labelled = (root.get("aria-labelledby") or "").split()
+    assert len(labelled) == 2
+    identified = {node.get("id"): node for node in root.iter() if node.get("id")}
+    for label_id, tag in zip(labelled, ("title", "desc")):
+        assert label_id in identified, (label_id, "missing accessible label")
+        assert identified[label_id].tag == svg_ns + tag
+        assert "".join(identified[label_id].itertext()).strip()
+    description = "".join(identified[labelled[1]].itertext()).lower()
+    for concept in ("fgsm", "pgd", "projection", "not measured", "static preview"):
+        assert concept in description, concept
+    assert not root.findall(".//s:script", NS), "SVG must not embed scripts"
+    for node in root.iter():
+        for key, value in node.attrib.items():
+            assert not key.lower().startswith("on"), (node.tag, key)
+            if key.endswith("}href") or key == "href":
+                assert value.startswith("#"), (node.tag, key, value)
+    # Both language versions must embed the same shared visual asset.
+    fgsm_pages = [
+        ROOT / "docs/theory/machine-learning/adversarial-robustness/fgsm.md",
+        ROOT / "docs/theory/machine-learning/adversarial-robustness/fgsm.zh-TW.md",
+    ]
+    for page in fgsm_pages:
+        body = page.read_text(encoding="utf-8")
+        assert body.count("../../../assets/concept-animations/fgsm-pgd-trajectory.svg") == 1, page
+        assert "2.5–3.5" in body and "3.5–5" in body, page
+
     print("FGSM/PGD timing and bilingual captions: OK")
     print("Browser motion, reduced-motion and visual inspection: NOT tested")
 
