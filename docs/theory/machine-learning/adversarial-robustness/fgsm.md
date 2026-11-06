@@ -45,6 +45,8 @@ Clipping \(\tilde{x}\) to the valid input range, such as \([0,1]\) for images, k
 
 **Read the motion in three phases:** during 0–2.5 s, the blue FGSM marker completes its sole step while teal PGD iterates advance within the budget. During 2.5–3.5 s, the orange candidate follows an *unconstrained* gradient update and can leave the feasible set. During 3.5–5 s, the purple marker returns that candidate to the feasible boundary by projection; this return is **not another gradient step**. The faint complete trajectories are a static preview, not a claim that all updates happen simultaneously. This five-second SVG plays once without play/pause or seek controls; readers who need to inspect a phase can use the static geometry and this timeline.
 
+**What the purple projection actually constrains.** For an image with valid input range \([0,1]\), an \(\ell_\infty\)-bounded PGD update projects the orange candidate \(z\) onto the intersection \(\mathcal{S}=[0,1]^d\\cap\{u:\\|u-x\\|_\\infty\\le\\epsilon\}\), not merely onto the image range. Coordinate \(i\) is clipped to \([\\max(0,x_i-\\epsilon),\\min(1,x_i+\\epsilon)]\). The drawing shows a two-dimensional slice with an active right-hand budget boundary; the horizontal purple return is a **schematic instance**, not a claim that every PGD projection is horizontal. Projection changes feasibility without recomputing the loss gradient.
+
 ## Variants
 
 - **Targeted FGSM** moves the input toward a chosen wrong label rather than away from the true label.
