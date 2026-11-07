@@ -75,10 +75,10 @@ def main() -> None:
     assert projection_motion.get("path") == "M0 0H-24"
     budget = next(
         rect for rect in root.findall(".//s:rect", NS)
-        if rect.get("x") == "448" and rect.get("y") == "70"
+        if rect.get("x") == "448" and rect.get("y") == "80"
     )
     close(float(budget.get("x")) + float(budget.get("width")), 636.0)
-    assert 70.0 <= float(projection.get("cy")) <= 250.0
+    assert float(budget.get("y")) <= float(projection.get("cy")) <= float(budget.get("y")) + float(budget.get("height"))
 
     # Guard the actual animated PGD geometry as well as its phase timing.
     # The teal marker starts at the clean input and reaches the candidate
@@ -182,7 +182,7 @@ def main() -> None:
     for command, dx, dy in coordinates:
         assert command in ("M", "L")
         px, py = float(pgd.get("cx")) + float(dx), float(pgd.get("cy")) + float(dy)
-        assert 448.0 <= px <= 636.0 and 70.0 <= py <= 250.0, (px, py)
+        assert float(budget.get("x")) <= px <= float(budget.get("x")) + float(budget.get("width")) and float(budget.get("y")) <= py <= float(budget.get("y")) + float(budget.get("height")), (px, py)
         assert math.isfinite(px) and math.isfinite(py)
 
     # The projected point must lie inside the right-hand epsilon rectangle,
@@ -226,7 +226,7 @@ def main() -> None:
     assert fgsm_motion.get("path") == "M0 0L79 -67"
     fgsm_budget = next(
         rect for rect in root.findall(".//s:rect", NS)
-        if rect.get("x") == "86" and rect.get("y") == "70"
+        if rect.get("x") == "86" and rect.get("y") == "80"
     )
     fgsm_x, fgsm_y = 180.0 + 79.0, 170.0 - 67.0
     assert float(fgsm_budget.get("x")) <= fgsm_x <= float(fgsm_budget.get("x")) + float(fgsm_budget.get("width"))
@@ -235,8 +235,8 @@ def main() -> None:
     # An L-infinity perturbation set is centered on the clean input, not
     # merely a rectangle that happens to contain the trajectory. Validate
     # both panels independently so changes to their geometry stay honest.
-    # This currently exposes the 10-unit vertical offset in the SVG; keep
-    # the PR in Draft until the artwork is visually reviewed and corrected.
+    # Both rectangles were corrected to y=80 (center y=170). Keep this
+    # regression guard tied to the actual clean-input coordinates.
     for rectangle, clean_point in ((fgsm_budget, fgsm), (budget, pgd)):
         center_x = float(rectangle.get("x")) + float(rectangle.get("width")) / 2
         center_y = float(rectangle.get("y")) + float(rectangle.get("height")) / 2
