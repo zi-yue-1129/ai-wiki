@@ -232,6 +232,17 @@ def main() -> None:
     assert float(fgsm_budget.get("x")) <= fgsm_x <= float(fgsm_budget.get("x")) + float(fgsm_budget.get("width"))
     assert float(fgsm_budget.get("y")) <= fgsm_y <= float(fgsm_budget.get("y")) + float(fgsm_budget.get("height"))
 
+    # An L-infinity perturbation set is centered on the clean input, not
+    # merely a rectangle that happens to contain the trajectory. Validate
+    # both panels independently so changes to their geometry stay honest.
+    # This currently exposes the 10-unit vertical offset in the SVG; keep
+    # the PR in Draft until the artwork is visually reviewed and corrected.
+    for rectangle, clean_point in ((fgsm_budget, fgsm), (budget, pgd)):
+        center_x = float(rectangle.get("x")) + float(rectangle.get("width")) / 2
+        center_y = float(rectangle.get("y")) + float(rectangle.get("height")) / 2
+        close(center_x, float(clean_point.get("cx")))
+        close(center_y, float(clean_point.get("cy")))
+
     # GitHub's static fallback and reduced-motion view must retain the
     # completed endpoints even when SMIL motion is not available.
     endpoints = root.findall(".//s:circle[@class='endpoint-marker']", NS)
