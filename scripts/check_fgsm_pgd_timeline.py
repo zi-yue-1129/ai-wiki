@@ -144,16 +144,28 @@ def main() -> None:
     # Fixed destination markers must not reveal a future state before the
     # corresponding moving marker reaches it. This is a known visual-timeline
     # hazard: an endpoint at 2.5 s would spoil the 2.5–3.5 s candidate step.
-    # This guard intentionally fails until the SVG timing is corrected and
-    # visually reviewed in a browser at mobile and desktop widths.
+    # The endpoint must be initially hidden, become visible only at arrival,
+    # and remain visible after the one-shot animation finishes. This is a
+    # source-level guard, not a substitute for browser visual inspection.
     for class_name, earliest in (("phase-candidate", 0.7), ("phase-projection", 1.0)):
         for element in root.findall(f".//*[@class='{class_name}']"):
             opacity = element.find("s:animate[@attributeName='opacity']", NS)
             assert opacity is not None, (class_name, "missing visibility timing")
             assert opacity.get("calcMode") == "discrete", class_name
+            assert opacity.get("dur") == "5s", class_name
+            assert opacity.get("repeatCount") == "1", class_name
+            assert opacity.get("fill") == "freeze", class_name
+            assert element.get("opacity", "1") == "1", (
+                class_name, "the initial opacity is controlled by SMIL at t=0",
+            )
             times = timeline(opacity, "keyTimes")
             values = timeline(opacity, "values")
             assert len(times) == len(values), class_name
+            assert times[0] == 0 and times[-1] <= 1, class_name
+            assert all(0 <= t <= 1 for t in times), class_name
+            assert all(x < y for x, y in zip(times, times[1:])), class_name
+            assert values[0] == 0 and values[-1] == 1, class_name
+            assert set(values) <= {0.0, 1.0}, class_name
             first_visible = next((t for t, v in zip(times, values) if v > 0), None)
             assert first_visible is not None and first_visible >= earliest, (
                 class_name, first_visible, earliest,
