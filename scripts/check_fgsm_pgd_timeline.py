@@ -303,6 +303,33 @@ def main() -> None:
             assert not key.lower().startswith("on"), (node.tag, key)
             if key.endswith("}href") or key == "href":
                 assert value.startswith("#"), (node.tag, key, value)
+    # A static source check must cover every animation, not just the four
+    # moving markers. A newly introduced looping or delayed element could
+    # undermine the one-shot teaching sequence or reduced-motion fallback.
+    animations = [node for node in root.iter() if node.tag in (
+        svg_ns + "animate", svg_ns + "animateMotion", svg_ns + "animateTransform"
+    )]
+    assert animations, "Expected a timed teaching animation"
+    for animation in animations:
+        assert animation.get("dur") == "5s", (animation.tag, animation.attrib)
+        assert animation.get("repeatCount") == "1", (animation.tag, animation.attrib)
+        assert animation.get("fill") == "freeze", (animation.tag, animation.attrib)
+        assert not animation.get("begin"), (animation.tag, "unexpected delayed start")
+        if animation.get("keyTimes"):
+            times = timeline(animation, "keyTimes")
+            assert times[0] == 0.0 and times[-1] <= 1.0, times
+            assert all(0 <= t <= 1 for t in times), times
+            assert all(a < b for a, b in zip(times, times[1:])), times
+        if animation.get("keyPoints"):
+            points = timeline(animation, "keyPoints")
+            assert len(points) == len(timeline(animation, "keyTimes"))
+            assert all(0 <= p <= 1 for p in points), points
+            assert all(a <= b for a, b in zip(points, points[1:])), points
+    # The SVG must remain self-contained for GitHub's static rendering.
+    assert not root.findall(".//s:foreignObject", NS)
+    assert not root.findall(".//s:image", NS)
+    assert "@import" not in css and "url(" not in css
+
     # Both language versions must embed the same shared visual asset.
     fgsm_pages = [
         ROOT / "docs/theory/machine-learning/adversarial-robustness/fgsm.md",
