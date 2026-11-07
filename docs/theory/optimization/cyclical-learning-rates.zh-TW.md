@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-31
 ---
 
 # 循環學習率
@@ -17,6 +17,20 @@ translation_reviewed: 2026-10-28
 ## 核心概念
 
 以學習率範圍測試估計兩個上下界 \(\eta_{\min}\) 與 \(\eta_{\max}\)：在數個 epoch 中讓學習率線性增加，並觀察準確率。接著，在其餘的訓練中讓學習率在這兩個界限之間循環。
+
+### 動態排程示意
+
+<div style="max-width:640px;width:100%" role="group" aria-label="學習率排程動畫">
+<div style="width:100%">
+<img src="../../assets/concept-animations/clr-triangular2-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-motion.svg" style="display:block;width:100%;height:auto" alt="Triangular2 學習率排程的三個週期，每個週期的振幅依序減半。">
+</div>
+</div>
+
+*AI Wiki 原創動畫，CC BY-SA 4.0。*
+
+移動標記沿著三個等長三角週期運行，每輪先線性上升再線性下降，下一輪的振幅減半，而下界固定。圖中數值為正規化示意值，不是模型實測學習率或準確率。
+
+從圖中的三個峰值可直接看出 triangular2 的振幅包絡：相對於固定下界的增量，在第 1–3 輪依序為 \(1,\;1/2,\;1/4\)。一般而言，若循環索引 \(k\) 從零開始，峰值為 \(\eta_{\min}+(\eta_{\max}-\eta_{\min})/2^k\)。這是排程示意，不是實際訓練紀錄。
 
 ## 演算法
 
