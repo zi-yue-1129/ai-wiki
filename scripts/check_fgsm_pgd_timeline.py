@@ -141,6 +141,24 @@ def main() -> None:
             for p in root.findall(".//s:path", NS)
         ), f"Missing static fallback for {geometry}"
 
+    # Fixed destination markers must not reveal a future state before the
+    # corresponding moving marker reaches it. This is a known visual-timeline
+    # hazard: an endpoint at 2.5 s would spoil the 2.5–3.5 s candidate step.
+    # This guard intentionally fails until the SVG timing is corrected and
+    # visually reviewed in a browser at mobile and desktop widths.
+    for class_name, earliest in (("phase-candidate", 0.7), ("phase-projection", 1.0)):
+        for element in root.findall(f".//*[@class='{class_name}']"):
+            opacity = element.find("s:animate[@attributeName='opacity']", NS)
+            assert opacity is not None, (class_name, "missing visibility timing")
+            assert opacity.get("calcMode") == "discrete", class_name
+            times = timeline(opacity, "keyTimes")
+            values = timeline(opacity, "values")
+            assert len(times) == len(values), class_name
+            first_visible = next((t for t, v in zip(times, values) if v > 0), None)
+            assert first_visible is not None and first_visible >= earliest, (
+                class_name, first_visible, earliest,
+            )
+
     # Every visible PGD iterate must remain feasible before the proposed
     # out-of-budget step. Guard all polyline vertices rather than only the
     # final marker; an accidentally misplaced intermediate point would
