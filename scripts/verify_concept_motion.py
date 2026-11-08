@@ -89,7 +89,8 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
     expected_viewbox = (
-        "0 0 380 770" if path.name.startswith("icm-predictable-stochastic-mobile-")
+        "0 0 380 660" if path.name.startswith("rnd-state-novelty-mobile-")
+        else "0 0 380 770" if path.name.startswith("icm-predictable-stochastic-mobile-")
         else "0 0 760 390" if path.name.startswith("icm-predictable-stochastic-")
         else "0 0 680 370" if path.name.startswith(("rnd-prediction-error-", "rnd-state-novelty-", "icm-forward-inverse-"))
         else "0 0 640 360"
@@ -134,6 +135,10 @@ def main() -> int:
         errors.extend(verify_svg(static_path, False))
         if stem == "moe-top2-routing":
             errors.extend(verify_svg(ASSETS / "moe-top2-routing-token-b.svg", False))
+        if stem == "rnd-state-novelty":
+            # A mobile-first stacked diagram; require both motion and fallback.
+            errors.extend(verify_svg(ASSETS / f"{stem}-mobile-motion.svg", True))
+            errors.extend(verify_svg(ASSETS / f"{stem}-mobile-still.svg", False))
         if stem == "icm-predictable-stochastic":
             # The MkDocs player selects this legible stacked layout on narrow
             # screens. Both variants must be valid, self-contained and accessible.

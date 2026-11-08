@@ -23,13 +23,19 @@
         ? animated.replace(fileName, pairedStill)
         : animated.replace(suffix, '-still.svg'));
       const isMobileIcm = /icm-predictable-stochastic-motion\.svg(?=$|[?#])/.test(animated);
+      const isMobileRnd = /rnd-state-novelty-motion\.svg(?=$|[?#])/.test(animated);
+      const hasMobileLayout = isMobileIcm || isMobileRnd;
       const narrowScreen = window.matchMedia('(max-width: 640px)');
       const mobileMotion = isMobileIcm ? animated.replace(
         'icm-predictable-stochastic-motion.svg',
-        'icm-predictable-stochastic-mobile-motion.svg') : animated;
+        'icm-predictable-stochastic-mobile-motion.svg') : isMobileRnd ? animated.replace(
+        'rnd-state-novelty-motion.svg',
+        'rnd-state-novelty-mobile-motion.svg') : animated;
       const mobileStill = isMobileIcm ? still.replace(
         'icm-predictable-stochastic-still.svg',
-        'icm-predictable-stochastic-mobile-still.svg') : still;
+        'icm-predictable-stochastic-mobile-still.svg') : isMobileRnd ? still.replace(
+        'rnd-state-novelty-still.svg',
+        'rnd-state-novelty-mobile-still.svg') : still;
       const isMoe = moeSuffix.test(animated);
       const tokenB = isMoe ? animated.replace(suffix, '-token-b.svg') : '';
       const chinese = /[\u3400-\u9fff]/.test(img.alt || '');
@@ -63,8 +69,8 @@
       }
 
       const sync = () => {
-        const motionSrc = isMobileIcm && narrowScreen.matches ? mobileMotion : animated;
-        const stillSrc = isMobileIcm && narrowScreen.matches ? mobileStill : still;
+        const motionSrc = hasMobileLayout && narrowScreen.matches ? mobileMotion : animated;
+        const stillSrc = hasMobileLayout && narrowScreen.matches ? mobileStill : still;
         const next = paused ? (isMoe && token === 1 ? tokenB : stillSrc) : motionSrc;
         if (img.getAttribute('src') !== next) img.setAttribute('src', next);
         img.alt = paused && isMoe
@@ -98,7 +104,7 @@
       reduced.addEventListener?.('change', event => {
         if (!overridden) { paused = event.matches; token = 0; sync(); }
       });
-      if (isMobileIcm) narrowScreen.addEventListener?.('change', sync);
+      if (hasMobileLayout) narrowScreen.addEventListener?.('change', sync);
       host.append(controls);
       if (status) host.append(status);
       sync();

@@ -30,6 +30,82 @@ def frame(page, time: float) -> bytes:
 
 
 
+
+def check_rnd_mobile_novelty(browser) -> None:
+    """Responsive RND keeps causality and scales its schematic bonus to squared error."""
+    stem = 'rnd-state-novelty-mobile'
+    motion = ASSETS / f'{stem}-motion.svg'
+    still = ASSETS / f'{stem}-still.svg'
+    source = motion.read_text(encoding='utf-8')
+    fallback = still.read_text(encoding='utf-8')
+    assert ET.fromstring(source).get('viewBox') == '0 0 380 660'
+    assert ET.fromstring(fallback).get('viewBox') == '0 0 380 660'
+    initial_squared = (291 - 72) ** 2 + (379 - 496) ** 2
+    for width in (320, 360, 480, 640):
+        context = browser.new_context(viewport={'width': width + 16, 'height': 1000})
+        page = context.new_page()
+        page.set_content(f'<style>body{{margin:0}}svg{{width:{width}px;height:auto}}</style>' + source)
+        states = []
+        for label, t in (('a_early', 0), ('a_learning', 3.5), ('a_fitted', 6.5),
+                         ('b_input', 6.99), ('b_new', 7.2), ('b_learning', 8.9),
+                         ('b_fitted', 9.6)):
+            data = page.evaluate("""(t) => {
+                const s = document.querySelector('svg');
+                s.setCurrentTime(t);
+                const gs = s.querySelectorAll('g.animated[aria-hidden="true"]');
+                const targets = gs[1].querySelectorAll('circle');
+                const target = targets[0], prediction = targets[1];
+                const bonus = s.querySelector('#mobile-rnd-bonus');
+                return [target.cx.animVal.value, target.cy.animVal.value,
+                        prediction.cx.animVal.value, prediction.cy.animVal.value,
+                        bonus.width.animVal.value];
+            }""", t)
+            tx, ty, px, py, displayed = data
+            squared = (tx - px) ** 2 + (ty - py) ** 2
+            expected = 240 * squared / initial_squared
+            assert abs(displayed - expected) < 1.5, (width, t, displayed, expected)
+            states.append(data)
+            (REVIEW / f'{stem}_{width}_{label}.png').write_bytes(
+                page.locator('svg').screenshot(animations='allow'))
+        assert tuple(states[2][:2]) == tuple(states[3][:2]) == (291, 379)
+        assert tuple(states[4][:2]) == tuple(states[6][:2]) == (230, 467)
+        assert states[2][4] < states[0][4] * .03
+        assert states[4][4] > states[3][4] * 8
+        assert states[6][4] < states[4][4] * .03
+        page.set_content(f'<style>svg{{width:{width}px;height:auto}}</style>' + fallback)
+        (REVIEW / f'{stem}_{width}_still.png').write_bytes(page.locator('svg').screenshot())
+        context.close()
+        context = browser.new_context(viewport={'width': width + 16, 'height': 1000},
+                                      reduced_motion='reduce')
+        page = context.new_page()
+        page.set_content(source)
+        checksums = [hashlib.sha256(frame(page, t)).hexdigest() for t in (0, 3, 7, 9)]
+        assert len(set(checksums)) == 1, 'mobile RND ignores reduced motion'
+        context.close()
+
+    if PLAYER.is_file():
+        uri = 'http://127.0.0.1:9/docs/assets/concept-animations/rnd-state-novelty-motion.svg'
+        ctx = browser.new_context(viewport={'width': 390, 'height': 900})
+        page = ctx.new_page()
+        page.set_content(f'<img alt="RND novelty" src="{uri}">')
+        page.add_script_tag(content=PLAYER.read_text())
+        img = page.locator('img')
+        assert img.get_attribute('src').endswith('-mobile-motion.svg')
+        page.get_by_role('button', name='Pause concept animation').click()
+        assert img.get_attribute('src').endswith('-mobile-still.svg')
+        page.set_viewport_size({'width': 1024, 'height': 900})
+        page.wait_for_function(
+            '() => document.querySelector("img").getAttribute("src").endsWith("-still.svg")'
+            ' && !document.querySelector("img").getAttribute("src").endsWith("-mobile-still.svg")')
+        page.get_by_role('button', name='Play concept animation').focus()
+        page.keyboard.press('Enter')
+        assert img.get_attribute('src').endswith('-motion.svg')
+        page.set_viewport_size({'width': 390, 'height': 900})
+        page.wait_for_function(
+            '() => document.querySelector("img").getAttribute("src").endsWith("-mobile-motion.svg")')
+        ctx.close()
+    print('PASS RND mobile: squared-error geometry, responsive player, reduced motion')
+
 def check_icm_mobile_stacked(browser) -> None:
     """Render mobile stacked ICM panels and exercise responsive player state."""
     stem = "icm-predictable-stochastic-mobile"
@@ -587,6 +663,7 @@ def run() -> None:
 
             check_icm_stochastic_comparison(browser)
             check_icm_mobile_stacked(browser)
+            check_rnd_mobile_novelty(browser)
 
             # This is the repository's real shared MkDocs enhancement, not a mock.
             if PLAYER.is_file():
