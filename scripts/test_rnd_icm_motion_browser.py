@@ -111,13 +111,18 @@ def check_icm_mobile_stacked(browser) -> None:
         page.get_by_role("button", name="Pause concept animation").click()
         assert img.get_attribute("src").endswith("-mobile-still.svg")
         page.set_viewport_size({"width": 1024, "height": 850})
-        assert img.get_attribute("src").endswith("-still.svg")
+        page.wait_for_function(
+            '() => document.querySelector("img").getAttribute("src").endsWith("-still.svg")'
+            ' && !document.querySelector("img").getAttribute("src").endsWith("-mobile-still.svg")'
+        )
         page.get_by_role("button", name="Play concept animation").focus()
         page.keyboard.press("Enter")
         assert img.get_attribute("src").endswith("-motion.svg")
         assert not img.get_attribute("src").endswith("-mobile-motion.svg")
         page.set_viewport_size({"width": 390, "height": 850})
-        assert img.get_attribute("src").endswith("-mobile-motion.svg")
+        page.wait_for_function(
+            '() => document.querySelector("img").getAttribute("src").endsWith("-mobile-motion.svg")'
+        )
         context.close()
         context = browser.new_context(
             viewport={"width": 390, "height": 850}, reduced_motion="reduce"
