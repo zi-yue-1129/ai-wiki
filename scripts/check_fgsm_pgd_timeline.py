@@ -99,12 +99,12 @@ def main() -> None:
     # A future edit to the visible strokes must not silently disagree with
     # the moving markers, even if the keyframe-only checks still pass.
     strokes = [p.get("d") for p in root.findall(".//s:path", NS)]
-    assert "M180 170L259 103" in strokes, "FGSM visible arrow differs from motion"
+    assert "M180 170L274 80" in strokes, "FGSM visible arrow differs from motion"
     assert "M542 170L570 147L595 120" in strokes, "PGD visible trace differs from motion"
     assert "M595 120L660 87" in strokes, "Candidate visible trace differs from motion"
     assert "M660 87H636" in strokes, "Projection visible trace differs from motion"
     assert (float(pgd.get("cx")) + 53, float(pgd.get("cy")) - 50) == (595.0, 120.0)
-    assert (float(fgsm.get("cx")) + 79, float(fgsm.get("cy")) - 67) == (259.0, 103.0)
+    assert (float(fgsm.get("cx")) + 94, float(fgsm.get("cy")) - 90) == (274.0, 80.0)
     assert (float(candidate.get("cx")), float(candidate.get("cy"))) == (595.0, 120.0)
     assert candidate_motion.get("path") == "M0 0L65 -33"
     close(float(candidate.get("cx")) + 65.0, float(projection.get("cx")))
@@ -118,7 +118,7 @@ def main() -> None:
     ]
     assert len(animated_strokes) == 4, "Expected four progressive teaching strokes"
     expected = [
-        ("M180 170L259 103", 104.0, [0.0, 0.5, 1.0], [104.0, 0.0, 0.0]),
+        ("M180 170L274 80", 131.0, [0.0, 0.5, 1.0], [131.0, 0.0, 0.0]),
         ("M542 170L570 147L595 120", 75.0, [0.0, 0.5, 1.0], [75.0, 0.0, 0.0]),
         ("M595 120L660 87", 73.0, [0.0, 0.5, 0.7, 1.0], [73.0, 73.0, 0.0, 0.0]),
         ("M660 87H636", 24.0, [0.0, 0.7, 1.0], [24.0, 24.0, 0.0]),
@@ -220,17 +220,20 @@ def main() -> None:
     assert animated_end == projected_end, (animated_end, projected_end)
     assert (636.0, 87.0) == projected_end
 
-    # FGSM must finish inside its own budget, not merely at the specified
+    # FGSM must finish at its budget corner, not merely at the specified
     # timestamp. Its animated displacement must agree with the static end.
     assert (float(fgsm.get("cx")), float(fgsm.get("cy"))) == (180.0, 170.0)
-    assert fgsm_motion.get("path") == "M0 0L79 -67"
+    assert fgsm_motion.get("path") == "M0 0L94 -90"
     fgsm_budget = next(
         rect for rect in root.findall(".//s:rect", NS)
         if rect.get("x") == "86" and rect.get("y") == "80"
     )
-    fgsm_x, fgsm_y = 180.0 + 79.0, 170.0 - 67.0
+    fgsm_x, fgsm_y = 180.0 + 94.0, 170.0 - 90.0
     assert float(fgsm_budget.get("x")) <= fgsm_x <= float(fgsm_budget.get("x")) + float(fgsm_budget.get("width"))
     assert float(fgsm_budget.get("y")) <= fgsm_y <= float(fgsm_budget.get("y")) + float(fgsm_budget.get("height"))
+    # A full FGSM sign update with two nonzero components reaches a corner.
+    close(fgsm_x, float(fgsm_budget.get("x")) + float(fgsm_budget.get("width")))
+    close(fgsm_y, float(fgsm_budget.get("y")))
 
     # An L-infinity perturbation set is centered on the clean input, not
     # merely a rectangle that happens to contain the trajectory. Validate
@@ -247,7 +250,7 @@ def main() -> None:
     # completed endpoints even when SMIL motion is not available.
     endpoints = root.findall(".//s:circle[@class='endpoint-marker']", NS)
     assert len(endpoints) == 1
-    assert (endpoints[0].get("cx"), endpoints[0].get("cy")) == ("259", "103")
+    assert (endpoints[0].get("cx"), endpoints[0].get("cy")) == ("274", "80")
     css = " ".join(style.text or "" for style in root.findall(".//s:style", NS))
     assert "prefers-reduced-motion: reduce" in css
     assert ".moving-marker { display: none" in css
