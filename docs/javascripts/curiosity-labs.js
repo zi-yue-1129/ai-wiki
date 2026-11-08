@@ -26,7 +26,7 @@
       icmNote:'三個等機率示意結果，預測值等於條件平均值；樣本誤差改變，期望均方誤差不變。非模型實測。'}
   };
   const fmt=v=>(v/1000).toFixed(2);
-  function svg(kind,n) {
+  function svg(kind,n,zh) {
     const isRnd=kind==='rnd', row=rnd[n], stochastic=!isRnd&&n>=3;
     const sampled=stochastic?outcomes[n-3]:mean;
     const tx=isRnd?row[1]:mean[0],ty=isRnd?row[2]:mean[1];
@@ -38,25 +38,25 @@
     const tag=isRnd?'Obs '+row[0]:stochastic?'Stochastic':'Predictable';
     const dots=!isRnd&&stochastic?outcomes.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="16" fill="none" stroke="#319d7a" stroke-dasharray="3 5" opacity="${i===n-3?'.9':'.45'}"/>`).join(''):'';
     const badge=isRnd&&row[0]==='B'?'#fff0db':'#e4f1fa';
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 340" role="img" aria-label="${tag}: schematic feature-space squared-error comparison">
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 340" role="img" aria-label="${zh ? `特徵空間示意：${tag}，比較平方預測誤差` : `${tag}: schematic feature-space squared-error comparison`}">
       <title>${isRnd?'RND fixed target and trained predictor':'ICM sample error and conditional expected error'}</title>
-      <desc>Illustrative coordinates; not measured training results.</desc>
+      <desc>${zh ? "示意座標，非訓練實測結果。" : "Illustrative coordinates; not measured training results."}</desc>
       <rect x="1" y="1" width="408" height="338" rx="16" fill="#f7fafc" stroke="#bed0dc"/>
       <rect x="18" y="15" width="150" height="39" rx="11" fill="${badge}"/>
-      <text x="31" y="40" font-size="17" font-weight="700" fill="#223d52">${tag}</text>
-      <text x="295" y="39" font-size="13" fill="#537084">Feature space</text>
+      <text x="31" y="40" font-size="20" font-weight="700" fill="#223d52">${tag}</text>
+      <text x="295" y="39" font-size="17" fill="#537084">Feature space</text>
       <path d="M28 70H382M28 70V246" fill="none" stroke="#d3e0e7" stroke-width="1.5"/>
       ${dots}
       <path d="M${px} ${py}L${ox} ${oy}" stroke="#b87932" stroke-dasharray="6 5" stroke-width="3"/>
       <circle cx="${px}" cy="${py}" r="10" fill="#e19748" stroke="#fff" stroke-width="3"/>
       <circle cx="${ox}" cy="${oy}" r="10" fill="#27926e" stroke="#fff" stroke-width="3"/>
-      <text x="28" y="263" font-size="12" fill="#9c6b36">● Prediction</text>
-      <text x="178" y="263" font-size="12" fill="#167359">● ${isRnd?'Target':'Actual'}</text>
-      <text x="28" y="287" font-size="13" fill="#344a5d">Squared gap</text>
+      <text x="28" y="263" font-size="16" fill="#9c6b36">● Prediction</text>
+      <text x="178" y="263" font-size="16" fill="#167359">● ${isRnd?'Target':'Actual'}</text>
+      <text x="28" y="287" font-size="16" fill="#344a5d">Squared gap</text>
       <rect x="128" y="275" width="244" height="12" rx="6" fill="#e0eaf0"/>
       <rect x="128" y="275" width="${width.toFixed(2)}" height="12" rx="6" fill="#d28a3e"/>
-      ${isRnd?'':`<path d="M${tick} 270v23" stroke="#775fb0" stroke-width="3"/><text x="28" y="316" font-size="12" fill="#7357a2">Expected</text><text x="112" y="316" font-size="13" fill="#7357a2">${fmt(stochastic?expectation:0)}</text>`}
-      <text x="326" y="316" font-size="15" font-weight="700" fill="#8a551c">${fmt(err)}</text>
+      ${isRnd?'':`<path d="M${tick} 270v23" stroke="#775fb0" stroke-width="3"/><text x="28" y="316" font-size="16" fill="#7357a2">Expected</text><text x="112" y="316" font-size="15" fill="#7357a2">${fmt(stochastic?expectation:0)}</text>`}
+      <text x="326" y="316" font-size="17" font-weight="700" fill="#8a551c">${fmt(err)}</text>
       </svg>`;
   }
   function enhance(){
@@ -82,7 +82,7 @@
       const note=document.createElement('p');note.className='curiosity-lab-note';note.textContent=L[kind+'Note'];
       controls.append(prev,play,next,seek,status,speed);host.replaceChildren(plot,controls,note);
       function sync(){prev.textContent='←';next.textContent='→';play.textContent=timer?'Ⅱ':'▶';play.setAttribute('aria-label',timer?L.pause:L.play);play.disabled=reduced.matches;prev.disabled=index===0;next.disabled=index===last;seek.value=String(index);status.textContent=`${L.step} ${index+1}/${last+1} · ${L[kind][index]}`;}
-      function set(n){index=Math.min(last,Math.max(0,n));plot.innerHTML=svg(kind,index);sync();}
+      function set(n){index=Math.min(last,Math.max(0,n));plot.innerHTML=svg(kind,index,host.dataset.locale==='zh-TW');sync();}
       function stop(){if(timer){clearInterval(timer);timer=0;}sync();}
       function start(){timer=setInterval(()=>{if(index===last){stop();return;}set(index+1);},900/(+speed.value));sync();}
       seek.addEventListener('input',()=>{const n=+seek.value;stop();set(n);});

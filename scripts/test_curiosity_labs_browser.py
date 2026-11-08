@@ -34,6 +34,10 @@ def run():
                 for state in states:
                     choose(host, state)
                     assert host.locator("svg").count() == 1
+                    if kind == "icm":
+                        assert "特徵空間示意" in host.locator("svg").get_attribute("aria-label")
+                    else:
+                        assert "schematic feature-space" in host.locator("svg").get_attribute("aria-label")
                     assert host.locator("output").text_content().startswith(
                         "Step " if kind == "rnd" else "步驟 ")
                     (OUT / f"probe_{kind}_{width}_{state}.png").write_bytes(host.screenshot())
