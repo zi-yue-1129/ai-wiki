@@ -1,6 +1,6 @@
 ---
 status: complete
-last_reviewed: 2026-11-04
+last_reviewed: 2026-11-08
 related:
   - theory/machine-learning/adversarial-robustness
 tags:
@@ -25,7 +25,7 @@ FGSM is the simplest effective attack on a differentiable classifier. It needs o
 
 - **Perturbation budget \(\epsilon\)**: the largest allowed change to each input component, measured in the \(\ell_\infty\) norm.
 - **Loss gradient**: the derivative of the training loss with respect to the input, not the parameters.
-- **Sign operation**: keeping only the direction of each gradient component makes every pixel move by the full budget.
+- **Sign operation**: each nonzero gradient component contributes a perturbation of magnitude \(\epsilon\) before input-domain clipping; a zero component contributes no change. Components clipped at the valid input boundary may move by less than \(\epsilon\).
 
 ## How it works
 
@@ -36,6 +36,22 @@ Given an input \(x\), label \(y\), loss \(J(\theta,x,y)\) and parameters \(\thet
 \]
 
 Clipping \(\tilde{x}\) to the valid input range, such as \([0,1]\) for images, keeps the example a valid input. Goodfellow et al. (2015) show that a linear model is especially vulnerable, because the perturbation adds up across many input dimensions and changes the output by \(\epsilon\|w\|_1\).
+
+### FGSM versus iterative PGD: trajectory
+
+![Two-panel schematic: FGSM reaches the upper-right L-infinity budget corner in one step; PGD takes smaller feasible steps, proposes an out-of-budget candidate, then clips it back to the boundary](../../../assets/concept-animations/fgsm-pgd-trajectory.svg)
+
+*Original schematic animation.* The left panel shows one gradient-sign update; the right panel shows several smaller updates inside an illustrated \(\ell_\infty\) perturbation budget. The dashed orange segment is an unprojected candidate update from the last teal feasible iterate; the purple segment shows coordinate-wise clipping back to the right-hand budget boundary. The teal endpoint is the pre-candidate iterate, **not** the projection result. Positions, directions, and timing are illustrative, **not measured model outputs**. The full paths remain visible in GitHub's static SVG preview. Motion may be disabled by the viewer's browser; the geometry is still readable.
+
+**Read the motion in three phases:** during 0–2.5 s, the blue FGSM marker completes its sole step while teal PGD iterates advance within the budget. During 2.5–3.5 s, the orange candidate follows an *unconstrained* gradient update and can leave the feasible set. During 3.5–5 s, the purple marker returns that candidate to the feasible boundary by projection; this return is **not another gradient step**. The faint complete trajectories are a static preview, not a claim that all updates happen simultaneously. This five-second SVG plays once without play/pause or seek controls; readers who need to inspect a phase can use the static geometry and this timeline.
+
+**Reading the FGSM endpoint correctly.** The blue trajectory now reaches the *upper-right corner* of the illustrated \(\ell_\infty\) budget rectangle. This represents a full FGSM sign step for two nonzero gradient components pointing toward that corner, without input-domain clipping. The figure's screen coordinates and arrow lengths are schematic, not measured gradients; an input-domain boundary or zero gradient component can yield a different endpoint. The independent numerical example below uses a different hypothetical sign pattern and is **not** a coordinate readout from this drawing.
+
+**What the purple projection actually constrains.** For an image with valid input range \([0,1]\), an \(\ell_\infty\)-bounded PGD update projects the orange candidate \(z\) onto the intersection \(\mathcal{S}=[0,1]^d\cap\{u:\|u-x\|_\infty\le\epsilon\}\), not merely onto the image range. Coordinate \(i\) is clipped to \([\max(0,x_i-\epsilon),\min(1,x_i+\epsilon)]\). The drawing shows a two-dimensional slice with an active right-hand budget boundary; the horizontal purple return is a **schematic instance**, not a claim that every PGD projection is horizontal. Projection changes feasibility without recomputing the loss gradient.
+
+**A coordinate-exact FGSM comparison (schematic).** With \(x=(0.50,0.50)\), \(\epsilon=0.20\), and input-loss gradient \(g=(+2,-3)\), the untargeted sign update gives \(x+\epsilon\operatorname{sign}(g)=(0.70,0.30)\), exactly the lower-right corner of the feasible square. Its result depends on the **signs**, not the magnitudes 2 and 3; multiplying both gradient components by any positive constant leaves this step unchanged. In contrast, a PGD update of size \(\alpha=0.10\) from the same point with the same local sign would first reach \((0.60,0.40)\). Further PGD signs must be recomputed at the current iterate, so the illustration's later turns cannot be inferred from this single gradient. All values here are invented for instruction, not model measurements.
+
+**Worked projection example (schematic).** Let \(x=(0.50,0.50)\), \(\epsilon=0.20\), and the unprojected candidate be \(z=(0.82,0.63)\). The feasible coordinate intervals are both \([0.30,0.70]\), so \(\Pi_{\mathcal S}(z)=(0.70,0.63)\): only the first coordinate is clipped, producing a horizontal return like the purple segment. If instead \(z=(0.82,0.81)\), both coordinates are clipped to \((0.70,0.70)\); the projection is diagonal. These numbers are illustrative, not measurements from a trained model.
 
 ## Variants
 

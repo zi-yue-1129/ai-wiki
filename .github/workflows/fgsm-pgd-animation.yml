@@ -1,0 +1,372 @@
+name: FGSM PGD animation semantics
+
+on:
+  pull_request:
+    paths:
+      - 'docs/assets/concept-animations/fgsm-pgd-trajectory.svg'
+      - 'scripts/check_fgsm_pgd_projection.py'
+      - 'scripts/check_fgsm_pgd_timeline.py'
+      - 'docs/theory/machine-learning/adversarial-robustness/fgsm.md'
+      - 'docs/theory/machine-learning/adversarial-robustness/fgsm.zh-TW.md'
+      - 'docs/theory/machine-learning/adversarial-robustness/pgd-adversarial-training.md'
+      - 'docs/theory/machine-learning/adversarial-robustness/pgd-adversarial-training.zh-TW.md'
+      - '.github/workflows/fgsm-pgd-animation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  semantics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify numerical projection and SVG animation geometry
+        run: python scripts/check_fgsm_pgd_projection.py
+      - name: Verify FGSM/PGD phase timing, bilingual captions and fallback parity
+        run: python scripts/check_fgsm_pgd_timeline.py
+      - name: Install SVG rasterizer
+        run: python -m pip install 'CairoSVG==2.7.1'
+      - name: Render static SVG fallback at desktop and mobile widths
+        run: |
+          mkdir -p /tmp/fgsm-pgd-preview
+          python - <<'PY'
+          from pathlib import Path
+          import cairosvg
+
+          source = Path("docs/assets/concept-animations/fgsm-pgd-trajectory.svg")
+          for width in (360, 720, 1024):
+              target = Path("/tmp/fgsm-pgd-preview") / f"fgsm-pgd-{width}px.png"
+              cairosvg.svg2png(url=str(source), write_to=str(target), output_width=width)
+              assert target.stat().st_size > 0, f"Empty raster: {target}"
+              print(f"{target.name}: {target.stat().st_size} bytes")
+          PY
+      - name: Install Chromium for actual SMIL frame capture
+        run: |
+          python -m pip install 'playwright==1.56.0'
+          python -m playwright install --with-deps chromium
+      - name: Capture animated frames and reduced-motion fallback
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import math
+          from playwright.sync_api import sync_playwright
+
+          source = Path("docs/assets/concept-animations/fgsm-pgd-trajectory.svg").resolve().as_uri()
+          output = Path("/tmp/fgsm-pgd-preview")
+          with sync_playwright() as playwright:
+              browser = playwright.chromium.launch(headless=True)
+              for width in (360, 720, 1024):
+                  # The 720x310 SVG renders ~441px tall at 1024px width.
+                  # A fixed 400px viewport falsely reports bottom captions clipped.
+                  viewport_height = math.ceil(width * 310 / 720) + 32
+                  page = browser.new_page(viewport={"width": width, "height": viewport_height}, device_scale_factor=1)
+                  page.goto(source)
+                  page.locator("svg").wait_for()
+                  svg = page.locator("svg")
+                  animated_frames = []
+                  for time_ms in (0, 1000, 2600, 3400, 3500, 4250, 4500, 5000):
+                      # Seek SMIL directly, rather than depending on screenshot timing.
+                      page.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", time_ms / 1000)
+                      animated_frames.append(svg.screenshot(path=str(output / f"fgsm-pgd-{width}px-{time_ms}ms.png")))
+                      # Check the animated geometry at EACH captured phase.
+                      # End-frame-only bounds checks miss a marker or arrow that
+                      # briefly exits the viewport during an intermediate update.
+                      moving_bounds = page.evaluate("""() => {
+                        const root = document.querySelector('svg');
+                        const viewport = root.getBoundingClientRect();
+                        return [...root.querySelectorAll('.moving-marker')]
+                          .filter(el => {
+                            const style = getComputedStyle(el);
+                            return style.display !== 'none' &&
+                              style.visibility !== 'hidden' &&
+                              Number(style.opacity) > 0.01;
+                          })
+                          .map(el => {
+                            const r = el.getBoundingClientRect();
+                            return {x: r.left, y: r.top, right: r.right,
+                                    bottom: r.bottom, viewport: {
+                                      left: viewport.left, top: viewport.top,
+                                      right: viewport.right, bottom: viewport.bottom
+                                    }};
+                          });
+                      }""")
+                      for marker in moving_bounds:
+                          view = marker["viewport"]
+                          assert (marker["x"] >= view["left"] - 1 and
+                                  marker["right"] <= view["right"] + 1 and
+                                  marker["y"] >= view["top"] - 1 and
+                                  marker["bottom"] <= view["bottom"] + 1), (
+                              f"Moving marker clipped at {width}px / {time_ms}ms: {marker}"
+                          )
+                  # Verify that the SVG and its visible teaching labels fit the
+                  # browser viewport at each responsive width. Pixel changes
+                  # alone cannot detect cropped labels or off-screen geometry.
+                  bounds = page.evaluate("""() => {
+                    const root = document.querySelector('svg');
+                    const viewport = document.documentElement.getBoundingClientRect();
+                    const box = root.getBoundingClientRect();
+                    const labels = [...root.querySelectorAll('text')].map(el => {
+                      const r = el.getBoundingClientRect();
+                      return {text: el.textContent.trim(), x: r.left, y: r.top,
+                              right: r.right, bottom: r.bottom};
+                    });
+                    return {viewportWidth: viewport.width, rootLeft: box.left,
+                            rootRight: box.right, labels};
+                  }""")
+                  assert bounds["rootLeft"] >= -1 and bounds["rootRight"] <= width + 1, (
+                      f"SVG overflows {width}px viewport: {bounds}"
+                  )
+                  for label in bounds["labels"]:
+                      assert label["x"] >= -1 and label["right"] <= width + 1, (
+                          f"Text label clipped horizontally at {width}px: {label}"
+                      )
+                      # Horizontal-only checks miss captions cut by a too-short
+                      # SVG viewport. Check the full rendered label rectangle.
+                      assert label["y"] >= -1 and label["bottom"] <= viewport_height + 1, (
+                          f"Text label clipped vertically at {width}px: {label}"
+                      )
+                  # Detect actual label collisions at every viewport, not just
+                  # clipping against the browser edge. This catches labels that
+                  # individually fit but become unreadable when they overlap.
+                  for i, first in enumerate(bounds["labels"]):
+                      for second in bounds["labels"][i + 1:]:
+                          overlap_width = min(first["right"], second["right"]) - max(first["x"], second["x"])
+                          overlap_height = min(first["bottom"], second["bottom"]) - max(first["y"], second["y"])
+                          assert overlap_width <= 1 or overlap_height <= 1, (
+                              f"Overlapping SVG text at {width}px: {first} vs {second}"
+                          )
+                  # Also check the SVG's own visible rectangle: a label can
+                  # fit inside a 400px browser window while being clipped by
+                  # the smaller SVG viewport itself.
+                  svg_bounds = page.locator("svg").bounding_box()
+                  assert svg_bounds is not None
+                  for label in bounds["labels"]:
+                      assert label["x"] >= svg_bounds["x"] - 1 and label["right"] <= svg_bounds["x"] + svg_bounds["width"] + 1, (
+                          f"Text label outside SVG horizontal bounds at {width}px: {label}"
+                      )
+                      assert label["y"] >= svg_bounds["y"] - 1 and label["bottom"] <= svg_bounds["y"] + svg_bounds["height"] + 1, (
+                          f"Text label outside SVG vertical bounds at {width}px: {label}"
+                      )
+                  # This geometric guard does not replace manual visual QA:
+                  # overlapping labels, contrast and arrows need human review.
+                  # Check browser-observed visibility at causal phase boundaries.
+                  # These assertions complement structural SVG timing checks.
+                  def opacity_at(selector, t):
+                      page.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", t)
+                      return float(page.locator(selector).evaluate("(el) => getComputedStyle(el).opacity"))
+
+                  candidate = 'circle.moving-marker[fill="#f59e0b"]'
+                  projected = 'circle.moving-marker[fill="#7c3aed"]'
+                  assert opacity_at(candidate, 2.0) < 0.01, "Candidate appears before feasible PGD steps finish"
+                  assert opacity_at(candidate, 2.8) > 0.99, "Candidate not visible during its update"
+                  assert opacity_at(projected, 3.0) < 0.01, "Projection appears before candidate finishes"
+                  assert opacity_at(projected, 4.5) > 0.99, "Projection not visible after its reveal"
+                  # Measure the rendered marker transform in Chromium at the actual
+                  # phase boundaries. Source keyTimes alone cannot establish
+                  # that the candidate and projection move on screen.
+                  def marker_center(selector, t):
+                      page.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", t)
+                      return page.locator(selector).evaluate("""el => {
+                        const point = el.ownerSVGElement.createSVGPoint();
+                        point.x = Number(el.getAttribute('cx'));
+                        point.y = Number(el.getAttribute('cy'));
+                        const p = point.matrixTransform(el.getCTM());
+                        return [p.x, p.y];
+                      }""")
+
+                  start_candidate = marker_center(candidate, 2.5)
+                  mid_candidate = marker_center(candidate, 3.0)
+                  end_candidate = marker_center(candidate, 3.5)
+                  assert start_candidate[0] < mid_candidate[0] < end_candidate[0], (
+                      f"Candidate must move outward during 2.5–3.5s: "
+                      f"{start_candidate}, {mid_candidate}, {end_candidate}"
+                  )
+                  start_projection = marker_center(projected, 3.5)
+                  mid_projection = marker_center(projected, 4.25)
+                  end_projection = marker_center(projected, 5.0)
+                  assert start_projection[0] > mid_projection[0] > end_projection[0], (
+                      f"Projection must move inward during 3.5–5s: "
+                      f"{start_projection}, {mid_projection}, {end_projection}"
+                  )
+                  # Check the actual rendered geometry against the feasible
+                  # L-infinity rectangle, not only the direction of motion.
+                  # A candidate that never crosses the boundary would teach
+                  # clipping incorrectly even if it moved outward.
+                  budget_limits = page.locator('rect[x="448"][y="80"]').evaluate("""el => {
+                    const r = el.getBBox();
+                    const m = el.getCTM();
+                    const transform = (x, y) => {
+                      const p = el.ownerSVGElement.createSVGPoint();
+                      p.x = x; p.y = y;
+                      const q = p.matrixTransform(m);
+                      return [q.x, q.y];
+                    };
+                    return {leftTop: transform(r.x, r.y),
+                            rightBottom: transform(r.x + r.width, r.y + r.height)};
+                  }""")
+                  left, top = budget_limits["leftTop"]
+                  right, bottom = budget_limits["rightBottom"]
+                  assert left < right and top < bottom, f"Invalid feasible bounds: {budget_limits}"
+                  def inside(point, tolerance=1):
+                      return (left - tolerance <= point[0] <= right + tolerance and
+                              top - tolerance <= point[1] <= bottom + tolerance)
+
+                  pgd_marker = 'circle.moving-marker[fill="#0f766e"]'
+                  for t in (0, 0.5, 1.25, 2.0, 2.5):
+                      point = marker_center(pgd_marker, t)
+                      assert inside(point), f"PGD feasible iterate outside budget at {t}s: {point}"
+                  assert inside(start_candidate), "Candidate starts outside the feasible region"
+                  assert end_candidate[0] > right + 5, (
+                      f"PGD candidate must actually cross the budget edge: {end_candidate}, right={right}"
+                  )
+                  assert top <= end_candidate[1] <= bottom, (
+                      f"Candidate must violate only x in this teaching example: {end_candidate}"
+                  )
+                  assert inside(end_projection), (
+                      f"Projected point must return to the feasible region: {end_projection}"
+                  )
+                  # Both coordinates must join continuously: a matching x
+                  # alone can conceal a discontinuous diagonal jump.
+                  assert all(abs(a - b) < 1 for a, b in zip(end_candidate, start_projection)), (
+                      f"Candidate/projection handoff must be continuous in 2D: "
+                      f"{end_candidate} vs {start_projection}"
+                  )
+                  # marker_center() uses el.getCTM(), which returns coordinates
+                  # in the SVG viewport coordinate system, NOT CSS screen pixels.
+                  # Use the same coordinate space for the expected 24-unit return.
+                  # getScreenCTM() would introduce CSS scaling at 360px and make
+                  # this assertion fail despite a correct animated projection.
+                  expected_dx = page.locator(projected).evaluate("""el => {
+                    const matrix = el.ownerSVGElement.getCTM();
+                    if (!matrix) throw new Error('SVG viewport transform unavailable');
+                    return Math.hypot(matrix.a * 24, matrix.b * 24);
+                  }""")
+                  actual_dx = math.hypot(
+                      end_projection[0] - start_projection[0],
+                      end_projection[1] - start_projection[1],
+                  )
+                  assert abs(actual_dx - expected_dx) < 1, (
+                      f"Projection displacement must equal 24 transformed SVG units: "
+                      f"actual={actual_dx}, expected={expected_dx}, width={width}"
+                  )
+                  assert abs(end_projection[1] - start_projection[1]) < 1, (
+                      f"L-infinity clipping must preserve the in-budget y coordinate: "
+                      f"{start_projection} vs {end_projection}"
+                  )
+                  # The projected endpoint is the right edge of the feasible
+                  # rectangle (x=636, y=87) in the SVG's own coordinate system.
+                  budget_edge = page.locator('rect[x="448"][y="80"]').evaluate("""el => {
+                    const svg = el.ownerSVGElement;
+                    const p = svg.createSVGPoint();
+                    p.x = 636; p.y = 87;
+                    const q = p.matrixTransform(el.getCTM());
+                    return [q.x, q.y];
+                  }""")
+                  assert all(abs(a - b) < 1 for a, b in zip(end_projection, budget_edge)), (
+                      f"Projected marker misses the feasible boundary: "
+                      f"{end_projection} vs {budget_edge}"
+                  )
+                  # A successfully captured but frozen animation is not a teaching animation.
+                  # Compare the actual browser pixels, not merely SMIL declarations.
+                  assert len(set(animated_frames)) >= 3, (
+                      f"Animation has fewer than three distinct frames at {width}px"
+                  )
+                  page.close()
+                  reduced = browser.new_page(viewport={"width": width, "height": viewport_height}, reduced_motion="reduce")
+                  reduced.goto(source)
+                  reduced.locator("svg").wait_for()
+                  reduced.locator("svg").screenshot(path=str(output / f"fgsm-pgd-{width}px-reduced.png"))
+                  # Reduced-motion users must see stable teaching geometry at
+                  # every timeline position, not merely a CSS media rule.
+                  reduced_frames = []
+                  for t in (0, 2.6, 4.5):
+                      reduced.evaluate("(t) => document.querySelector('svg').setCurrentTime(t)", t)
+                      reduced_frames.append(reduced.locator("svg").screenshot())
+                  assert len(set(reduced_frames)) == 1, (
+                      f"Reduced-motion image changes with SMIL time at {width}px"
+                  )
+                  reduced.close()
+              browser.close()
+          PY
+      - name: Assemble side-by-side visual QA contact sheets
+        if: always()
+        run: |
+          python -m pip install 'Pillow==11.3.0'
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+
+          folder = Path("/tmp/fgsm-pgd-preview")
+          # Contact sheets expose timeline mistakes and mobile clipping in one
+          # artifact; they supplement, never replace, manual visual inspection.
+          incomplete_widths = []
+          for width in (360, 720, 1024):
+              # Preserve a fixed nine-slot timeline even after a partial capture
+              # failure: missing frames must not shift later phases into earlier
+              # positions or create a misleading review sheet.
+              stages = [
+                  (f"fgsm-pgd-{width}px-0ms.png", "0.0 s | Start"),
+                  (f"fgsm-pgd-{width}px-1000ms.png", "1.0 s | Feasible"),
+                  (f"fgsm-pgd-{width}px-2600ms.png", "2.6 s | Candidate"),
+                  (f"fgsm-pgd-{width}px-3400ms.png", "3.4 s | Candidate"),
+                  (f"fgsm-pgd-{width}px-3500ms.png", "3.5 s | Handoff"),
+                  (f"fgsm-pgd-{width}px-4250ms.png", "4.25 s | Return"),
+                  (f"fgsm-pgd-{width}px-4500ms.png", "4.5 s | Projection"),
+                  (f"fgsm-pgd-{width}px-5000ms.png", "5.0 s | Endpoint"),
+                  (f"fgsm-pgd-{width}px-reduced.png", "Reduced motion"),
+              ]
+              images = []
+              for name, label in stages:
+                  path = folder / name
+                  if path.exists():
+                      with Image.open(path) as source:
+                          images.append((label, source.convert("RGB").copy()))
+                  else:
+                      images.append((label + " | MISSING", None))
+              missing = [label for label, frame in images if frame is None]
+              if not any(frame is not None for _, frame in images):
+                  # Keep checking the other widths, but never treat a completely
+                  # missing capture as a successful visual QA run.
+                  incomplete_widths.append((width, missing))
+                  print(f"No captured frames for {width}px; contact sheet unavailable")
+                  continue
+              columns = 2
+              cell_width = max(frame.width for _, frame in images if frame is not None)
+              cell_height = max(frame.height for _, frame in images if frame is not None) + 32
+              rows = (len(images) + columns - 1) // columns
+              sheet = Image.new("RGB", (columns * cell_width, rows * cell_height), "white")
+              draw = ImageDraw.Draw(sheet)
+              for index, (label, frame) in enumerate(images):
+                  x = (index % columns) * cell_width
+                  y = (index // columns) * cell_height
+                  draw.text((x + 10, y + 9), label, fill="#172033")
+                  if frame is not None:
+                      sheet.paste(frame, (x, y + 32))
+                  else:
+                      draw.rectangle((x + 8, y + 40, x + cell_width - 8, y + cell_height - 8), outline="#b91c1c", width=3)
+                      draw.text((x + 20, y + 54), "CAPTURE FAILED", fill="#b91c1c")
+              target = folder / f"fgsm-pgd-{width}px-contact-sheet.png"
+              sheet.save(target, optimize=True)
+              print(f"Visual review sheet: {target} ({sum(frame is not None for _, frame in images)}/9 frames)")
+              # A partially captured timeline is not a valid visual QA artifact.
+              # Keep the diagnostic contact sheet, then fail this step so CI
+              # cannot report success with missing intermediate or fallback frames.
+              if missing:
+                  incomplete_widths.append((width, missing))
+          assert not incomplete_widths, f"Incomplete visual QA captures: {incomplete_widths}"
+          PY
+      # Preserve the actual rendered evidence even when a pixel/phase assertion fails.
+      # Without this, a failed animation check discards the frames needed to
+      # diagnose clipping, phase timing, or reduced-motion regressions.
+      - name: Upload browser frames and fallback for visual review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fgsm-pgd-browser-frames-and-fallback
+          path: /tmp/fgsm-pgd-preview/*.png
+          if-no-files-found: error
+          retention-days: 14
