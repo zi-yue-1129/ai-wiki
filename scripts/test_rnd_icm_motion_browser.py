@@ -164,7 +164,8 @@ def run() -> None:
                 signatures = []
                 for label, t in (('visited', 0.0), ('early', 2.0),
                                  ('learning', 4.0), ('fitted', 6.4),
-                                 ('new_state', 7.5), ('novel', 9.4)):
+                                 ('new_state', 7.5), ('adapting_B', 8.3),
+                                 ('trained_B', 9.4)):
                     signatures.append(hashlib.sha256(frame(page, t)).hexdigest())
                     (REVIEW / f'{novelty}_{width}_{label}.png').write_bytes(frame(page, t))
                 assert len(set(signatures)) >= 4, 'novelty sequence lacks intermediate motion'
@@ -183,6 +184,17 @@ def run() -> None:
                 assert fitted_bonus < initial_bonus / 3, 'A error bonus did not fall'
                 assert novel[:2] == [550, 202], 'target output did not change on B'
                 assert novel_bonus > fitted_bonus * 4, 'B error bonus did not rise'
+                # Once B is encountered, additional training on B lowers its
+                # prediction error without changing the frozen target output.
+                adapted, adapted_bonus = state_at(9.4)
+                assert adapted[:2] == novel[:2] == [550, 202], (
+                    'target output must stay fixed while training on B'
+                )
+                assert 550 < adapted[2] < novel[2], 'predictor B x did not approach target'
+                assert novel[3] < adapted[3] < 202, 'predictor B y did not approach target'
+                assert adapted_bonus < novel_bonus * .35, (
+                    'RND B error bonus did not fall after predictor adaptation'
+                )
                 assert page.locator('svg').bounding_box()['width'] <= width + 1
                 page.set_content(html.replace(source, fallback_source))
                 (REVIEW / f'{novelty}_{width}_fallback.png').write_bytes(
