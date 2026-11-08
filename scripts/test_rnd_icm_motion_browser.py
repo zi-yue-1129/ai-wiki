@@ -71,8 +71,33 @@ def check_icm_stochastic_comparison(browser) -> None:
         initial, second, third, fitted = map(snapshot, (0, 3.0, 5.4, 7.2))
         assert initial[0] == 136 and fitted[0] == 264, (initial, fitted)
         assert initial[2][0] == 216 and fitted[2][0] == 12, (initial, fitted)
-        assert initial[1] == 666 and second[1] == 594 and third[1] == 669
-        assert initial[2][1] == 161 and second[2][1] == 78 and third[2][1] == 173
+        assert initial[1] == 636 and second[1] == 566 and third[1] == 487
+        assert initial[2][1] == 212 and second[2][1] == 16 and third[2][1] == 211
+        # Three equally weighted, schematic stochastic outcomes have the
+        # fixed orange prediction as their exact conditional mean.
+        outcomes = []
+        for t in (0.0, 3.0, 5.4):
+            page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
+            outcomes.append(moving.nth(1).evaluate(
+                '(n) => [n.cx.animVal.value, n.cy.animVal.value]'
+            ))
+        assert outcomes == [[636, 210], [566, 253], [487, 233]], outcomes
+        prediction = [563, 232]
+        assert [sum(p[i] for p in outcomes) / len(outcomes)
+                for i in range(2)] == prediction, 'prediction not at conditional mean'
+        squared_distances = [
+            sum((p[i] - prediction[i]) ** 2 for i in range(2))
+            for p in outcomes
+        ]
+        observed_bars = [initial[2][1], second[2][1], third[2][1]]
+        expected_bars = [
+            212 * value / squared_distances[0] for value in squared_distances
+        ]
+        assert all(abs(shown - expected) <= 2
+                   for shown, expected in zip(observed_bars, expected_bars)), (
+            'stochastic error bars inconsistent with squared distances',
+            observed_bars, expected_bars
+        )
         assert fitted[0] == snapshot(7.8)[0], 'predictor must not visibly unlearn before replay'
         assert page.locator('svg').bounding_box()['width'] <= width + 1
         page.set_content(html.replace(source, fallback))
