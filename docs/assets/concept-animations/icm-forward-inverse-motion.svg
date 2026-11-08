@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 370" role="img" aria-labelledby="icm-title icm-desc">
 <title id="icm-title">Intrinsic curiosity module: forward prediction error and inverse action training</title>
-<desc id="icm-desc">State and next-state observations pass through an encoder. A forward model uses the current feature and action to predict the next feature, which approaches the encoded actual next feature as training proceeds. A separate inverse model learns to recover the action from the two features. All positions are schematic.</desc>
+<desc id="icm-desc">State and next-state observations pass through an encoder. A forward model uses the current feature and action to predict the next feature, which approaches the encoded actual next feature as training proceeds. A separate inverse model learns to recover the action from the two features. Moving signal markers trace the two forward-model inputs and two inverse-model inputs. All positions are schematic.</desc>
 <style>
  text{font-family:Arial,Helvetica,sans-serif}
  .lbl{font-size:15px;fill:#263b52;font-weight:700}
@@ -11,7 +11,7 @@
 <defs><marker id="icm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8497ad"/></marker></defs>
 <rect width="680" height="370" rx="16" fill="#fff"/>
 <text x="27" y="38" font-size="23" font-weight="700" fill="#142238">ICM · curiosity in feature space</text>
-<text x="27" y="61" font-size="15" fill="#53677f">Action-conditioned prediction and inverse dynamics</text>
+<text x="27" y="61" font-size="15" fill="#53677f">Forward: next feature  ·  Inverse: action</text>
 <!-- current observation, action, next observation -->
 <rect x="27" y="104" width="93" height="52" rx="10" fill="#eff5fa" stroke="#c5d4e5" stroke-width="2"/>
 <text x="73" y="136" font-size="22" font-weight="700" fill="#33577a" text-anchor="middle">s<tspan font-size="14" baseline-shift="sub">t</tspan></text>
@@ -68,5 +68,23 @@
  <animate attributeName="width" values="132;132;68;26;6;6;132" keyTimes="0;.15;.44;.68;.84;.94;1" dur="8s" repeatCount="indefinite"/>
 </rect>
 <rect x="518" y="304" width="132" height="12" rx="6" fill="#d98a4a" class="resting"/>
-<text x="27" y="353" font-size="13" fill="#66788e">Schematic training example; inverse learning encourages action-relevant features.</text>
+
+<g class="animated" aria-hidden="true">
+<circle r="4.5" fill="#2f80bc" stroke="#fff" stroke-width="1.5" opacity="0">
+ <animateMotion path="M320 129H363" keyPoints="0;0;1;1" keyTimes="0;0.080;0.220;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.055;0.080;0.220;0.245;1" dur="8s" repeatCount="indefinite"/>
+</circle>
+<circle r="4.5" fill="#d47c35" stroke="#fff" stroke-width="1.5" opacity="0">
+ <animateMotion path="M340 214H364V150" keyPoints="0;0;1;1" keyTimes="0;0.220;0.360;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.195;0.220;0.360;0.385;1" dur="8s" repeatCount="indefinite"/>
+</circle>
+<circle r="4.5" fill="#8a69b7" stroke="#fff" stroke-width="1.5" opacity="0">
+ <animateMotion path="M328 130V181H367V271" keyPoints="0;0;1;1" keyTimes="0;0.420;0.600;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.395;0.420;0.600;0.625;1" dur="8s" repeatCount="indefinite"/>
+</circle>
+<circle r="4.5" fill="#8a69b7" stroke="#fff" stroke-width="1.5" opacity="0">
+ <animateMotion path="M321 292H367" keyPoints="0;0;1;1" keyTimes="0;0.420;0.600;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.395;0.420;0.600;0.625;1" dur="8s" repeatCount="indefinite"/>
+</circle>
+</g>
 </svg>
