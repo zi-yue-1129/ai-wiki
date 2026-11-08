@@ -101,7 +101,7 @@ def check_icm_mobile_stacked(browser) -> None:
     # preserve Play/Pause selection, including keyboard toggling and reduced
     # motion. Image URLs are inspected without requiring an external server.
     if PLAYER.is_file():
-        src = "https://example.test/docs/assets/concept-animations/icm-predictable-stochastic-motion.svg"
+        src = "http://127.0.0.1:9/docs/assets/concept-animations/icm-predictable-stochastic-motion.svg"
         context = browser.new_context(viewport={"width": 390, "height": 850})
         page = context.new_page()
         page.set_content(f'<img alt="ICM diagram" src="{src}">')
