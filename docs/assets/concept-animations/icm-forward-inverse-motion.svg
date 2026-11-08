@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 370" role="img" aria-labelledby="icm-title icm-desc">
 <title id="icm-title">Intrinsic curiosity module: forward prediction error and inverse action training</title>
-<desc id="icm-desc">State and next-state observations pass through an encoder. A forward model uses the current feature and action to predict the next feature, which approaches the encoded actual next feature as training proceeds. A separate inverse model learns to recover the action from the two features. Moving signal markers trace the two forward-model inputs and two inverse-model inputs. All positions are schematic.</desc>
+<desc id="icm-desc">State and next-state observations pass through an encoder. A forward model uses the current feature and action to predict the next feature, which approaches the encoded actual next feature as training proceeds. A separate inverse model learns to recover the action from the two features. Four input pulses trace the forward and inverse input dependencies. A fifth pulse exits the inverse model as a predicted action, distinct from the next-feature target and the intrinsic reward. All positions are schematic.</desc>
 <style>
  text{font-family:Arial,Helvetica,sans-serif}
  .lbl{font-size:15px;fill:#263b52;font-weight:700}
