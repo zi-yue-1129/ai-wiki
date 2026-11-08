@@ -141,11 +141,73 @@ def run() -> None:
                     ctx.close()
                 print(f'PASS {stem}: three widths, three animation times, reduced-motion stable')
 
+            # Additional RND novelty comparison: a frozen target network's output
+            # changes with the input even though its parameters do not. The bonus
+            # falls on seen A, then can rise when the observation switches to B.
+            novelty = 'rnd-state-novelty'
+            motion = ASSETS / f'{novelty}-motion.svg'
+            still = ASSETS / f'{novelty}-still.svg'
+            assert motion.is_file() and still.is_file()
+            source = motion.read_text(encoding='utf-8')
+            fallback_source = still.read_text(encoding='utf-8')
+            assert 'repeatCount="indefinite"' in source
+            assert '<animate ' not in fallback_source
+            ET.fromstring(source)
+            ET.fromstring(fallback_source)
+            for width in (360, 720, 1024):
+                html = ('<html><head><meta charset="utf-8"><style>'
+                        f'body{{margin:0;padding:14px}}svg{{width:{width}px;height:auto;display:block}}'
+                        '</style></head><body>' + source + '</body></html>')
+                ctx = browser.new_context(viewport={'width': width + 32, 'height': 640})
+                page = ctx.new_page()
+                page.set_content(html)
+                signatures = []
+                for label, t in (('visited', 0.0), ('early', 2.0),
+                                 ('learning', 4.0), ('fitted', 6.4),
+                                 ('new_state', 7.5), ('novel', 9.4)):
+                    signatures.append(hashlib.sha256(frame(page, t)).hexdigest())
+                    (REVIEW / f'{novelty}_{width}_{label}.png').write_bytes(frame(page, t))
+                assert len(set(signatures)) >= 4, 'novelty sequence lacks intermediate motion'
+                def state_at(t):
+                    page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
+                    return page.locator('g.animated line').first.evaluate(
+                        '(node) => [node.x1.animVal.value, node.y1.animVal.value,'
+                        ' node.x2.animVal.value, node.y2.animVal.value]'
+                    ), page.locator('rect.animated').first.evaluate(
+                        '(node) => node.width.animVal.value'
+                    )
+                initial, initial_bonus = state_at(0)
+                fitted, fitted_bonus = state_at(6.4)
+                novel, novel_bonus = state_at(7.5)
+                assert initial[:2] == fitted[:2] == [589, 145], 'target must remain on A'
+                assert fitted_bonus < initial_bonus / 3, 'A error bonus did not fall'
+                assert novel[:2] == [550, 202], 'target output did not change on B'
+                assert novel_bonus > fitted_bonus * 4, 'B error bonus did not rise'
+                assert page.locator('svg').bounding_box()['width'] <= width + 1
+                page.set_content(html.replace(source, fallback_source))
+                (REVIEW / f'{novelty}_{width}_fallback.png').write_bytes(
+                    page.locator('svg').screenshot()
+                )
+                ctx.close()
+
+                ctx = browser.new_context(
+                    viewport={'width': width + 32, 'height': 640}, reduced_motion='reduce'
+                )
+                page = ctx.new_page()
+                page.set_content(html)
+                reduced_frames = [hashlib.sha256(frame(page, t)).hexdigest()
+                                  for t in (0.0, 5.0, 9.0)]
+                assert len(set(reduced_frames)) == 1, (
+                    f'{novelty} at {width}: reduced-motion pixels changed'
+                )
+                ctx.close()
+            print('PASS RND novelty: state-dependent target, reward shift, reduced-motion')
+
             # This is the repository's real shared MkDocs enhancement, not a mock.
             if PLAYER.is_file():
                 with tempfile.TemporaryDirectory() as tmp:
                     fixture = Path(tmp) / 'test.html'
-                    for stem in STEMS:
+                    for stem in (*STEMS, 'rnd-state-novelty'):
                         motion_uri = (ASSETS / f'{stem}-motion.svg').resolve().as_uri()
                         fixture.write_text('<html><body><img alt="RND concept animation" '
                                            f'src="{motion_uri}"></body></html>', encoding='utf-8')
