@@ -96,7 +96,7 @@ def run() -> None:
                         # Each visible pulse must travel along its own existing input
                         # dependency. The inverse branch must not feed the forward target.
                         pulses = page.locator('g.animated[aria-hidden="true"] circle')
-                        assert pulses.count() == 7, 'missing input, forward/target comparison, or inverse action traces'
+                        assert pulses.count() == 8, 'missing input, comparison, inverse output, or training-update trace'
                         for pulse_idx, start_t, end_t in (
                             (0, .8, 1.6), (1, 1.9, 2.7),
                             (2, 3.55, 4.55), (3, 3.55, 4.55),
@@ -121,6 +121,19 @@ def run() -> None:
                             ))
                         output_travel = sum((a-b)**2 for a,b in zip(*positions)) ** .5
                         assert output_travel > width / 85, 'inverse output pulse stationary'
+                        # The eighth pulse is a schematic gradient update:
+                        # error comparison -> forward model, not reward -> policy.
+                        # Its traversal must finish before predictor adaptation.
+                        positions = []
+                        for t in (3.65, 4.05):
+                            page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
+                            positions.append(pulses.nth(7).evaluate(
+                                '(node) => {let b=node.getBoundingClientRect(); return [b.x,b.y]}'
+                            ))
+                        update_travel = sum((a-b)**2 for a,b in zip(*positions)) ** .5
+                        assert update_travel > width / 20, (
+                            f'ICM at {width}: missing loss-to-forward training feedback'
+                        )
                         # The forward prediction and observed next-state feature
                         # arrive as separate signals before the error shrinks.
                         for idx, a, b in ((4, 3.02, 3.48), (5, 1.72, 3.45)):
@@ -138,6 +151,10 @@ def run() -> None:
                         page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', 3.2)
                         assert predicted.evaluate('(n) => n.x2.animVal.value') == 550, (
                             'ICM error begins to shrink before forward inputs arrive'
+                        )
+                        page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', 4.1)
+                        assert predicted.evaluate('(n) => n.x2.animVal.value') == 550, (
+                            'ICM predictor improves before training-update cue arrives'
                         )
                         page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', 5.6)
                         assert predicted.evaluate('(n) => n.x2.animVal.value') > 570, (
