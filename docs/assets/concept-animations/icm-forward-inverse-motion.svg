@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 370" role="img" aria-labelledby="icm-title icm-desc">
 <title id="icm-title">Intrinsic curiosity module: forward prediction error and inverse action training</title>
-<desc id="icm-desc">State and next-state observations pass through an encoder. A forward model uses the current feature and action to predict the next feature, which approaches the encoded actual next feature as training proceeds. A separate inverse model learns to recover the action from the two features. Four input pulses trace the forward and inverse input dependencies. A fifth pulse exits the inverse model as a predicted action, distinct from the next-feature target and the intrinsic reward. All positions are schematic.</desc>
+<desc id="icm-desc">State and next-state observations pass through an encoder. A forward model uses the current feature and action to predict the next feature, which approaches the encoded actual next feature as training proceeds. A separate inverse model learns to recover the action from the two features. Four input pulses trace the forward and inverse dependencies. Green and orange pulses distinguish the encoded next feature from the forward prediction before the comparison changes. A separate purple pulse exits the inverse model as a predicted action, not a target or reward. All positions are schematic.</desc>
 <style>
  text{font-family:Arial,Helvetica,sans-serif}
  .lbl{font-size:15px;fill:#263b52;font-weight:700}
@@ -57,18 +57,18 @@
 <g class="resting"><line x1="550" y1="229" x2="604" y2="143" stroke="#d67737" stroke-width="3" stroke-dasharray="5 5"/><circle cx="550" cy="229" r="9" fill="#d67737" stroke="#fff" stroke-width="3"/></g>
 <g class="animated">
  <line x1="604" y1="143" x2="550" y2="229" stroke="#d67737" stroke-width="3" stroke-dasharray="5 5">
-  <animate attributeName="x2" values="550;550;573;591;598;598;550" keyTimes="0;.15;.44;.68;.84;.94;1" dur="8s" repeatCount="indefinite"/>
-  <animate attributeName="y2" values="229;229;190;162;151;151;229" keyTimes="0;.15;.44;.68;.84;.94;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="x2" values="550;550;573;591;598;598;550" keyTimes="0;.44;.62;.78;.84;.94;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="y2" values="229;229;190;162;151;151;229" keyTimes="0;.44;.62;.78;.84;.94;1" dur="8s" repeatCount="indefinite"/>
  </line>
  <circle cx="550" cy="229" r="9" fill="#d67737" stroke="#fff" stroke-width="3">
-  <animate attributeName="cx" values="550;550;573;591;598;598;550" keyTimes="0;.15;.44;.68;.84;.94;1" dur="8s" repeatCount="indefinite"/>
-  <animate attributeName="cy" values="229;229;190;162;151;151;229" keyTimes="0;.15;.44;.68;.84;.94;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="cx" values="550;550;573;591;598;598;550" keyTimes="0;.44;.62;.78;.84;.94;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="229;229;190;162;151;151;229" keyTimes="0;.44;.62;.78;.84;.94;1" dur="8s" repeatCount="indefinite"/>
  </circle>
 </g>
 <text x="516" y="288" font-size="13" font-weight="700" fill="#53677f">Error → reward</text>
 <rect x="516" y="302" width="138" height="16" rx="8" fill="#e8edf3"/>
 <rect x="518" y="304" width="132" height="12" rx="6" fill="#d98a4a" class="animated">
- <animate attributeName="width" values="132;132;68;26;6;6;132" keyTimes="0;.15;.44;.68;.84;.94;1" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="width" values="132;132;68;26;6;6;132" keyTimes="0;.44;.62;.78;.84;.94;1" dur="8s" repeatCount="indefinite"/>
 </rect>
 <rect x="518" y="304" width="132" height="12" rx="6" fill="#d98a4a" class="resting"/>
 
@@ -89,6 +89,17 @@
  <animateMotion path="M321 292H367" keyPoints="0;0;1;1" keyTimes="0;0.420;0.600;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.395;0.420;0.600;0.625;1" dur="8s" repeatCount="indefinite"/>
 </circle>
+</g>
+<!-- Two distinct routes converge at the forward-error comparison: prediction vs encoded next feature. -->
+<g class="animated" aria-hidden="true">
+ <circle r="4.7" fill="#d67737" stroke="#fff" stroke-width="1.5" opacity="0">
+  <animateMotion path="M478 132H505" keyPoints="0;0;1;1" keyTimes="0;.37;.44;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.35;.37;.44;.46;1" dur="8s" repeatCount="indefinite"/>
+ </circle>
+ <circle r="4.7" fill="#167e71" stroke="#fff" stroke-width="1.5" opacity="0">
+  <animateMotion path="M321 292V334H501V239" keyPoints="0;0;1;1" keyTimes="0;.20;.44;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.18;.20;.44;.46;1" dur="8s" repeatCount="indefinite"/>
+ </circle>
 </g>
 <g class="animated" aria-hidden="true">
  <circle r="3.6" fill="#8a69b7" stroke="#fff" stroke-width="1" opacity="0">
