@@ -63,6 +63,7 @@ def run():
                         assert abs(squared-expected) < 0.01
                         bar = float(host.locator('svg rect[fill="#d28a3e"]').get_attribute("width"))
                         assert abs(bar - 244*squared/21000) < 0.02
+                        assert host.locator('svg circle[fill="none"][stroke="#e19748"]').count() == (1 if percent==100 else 0)
                         metrics = host.locator(".curiosity-lab-transfer .curiosity-lab-metrics").text_content()
                         assert metrics.endswith({0:"19.13",50:"4.78",100:"0.00"}[percent])
                         (OUT / f"rnd_transfer_{width}_{percent}.png").write_bytes(host.screenshot())

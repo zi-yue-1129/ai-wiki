@@ -63,6 +63,7 @@
       ${stochastic?`<circle cx="${mean[0]}" cy="${mean[1]}" r="17" fill="none" stroke="#775fb0" stroke-width="2" stroke-dasharray="3 4"/>`: ''}
       <path d="M${px} ${py}L${ox} ${oy}" stroke="#b87932" stroke-dasharray="6 5" stroke-width="3"/>
       <circle cx="${px}" cy="${py}" r="10" fill="#e19748" stroke="#fff" stroke-width="3"/>
+      ${isRnd&&n>=4&&transfer===100?`<circle cx="${px}" cy="${py}" r="16" fill="none" stroke="#e19748" stroke-width="3"/>`:""}
       <circle cx="${ox}" cy="${oy}" r="10" fill="#27926e" stroke="#fff" stroke-width="3"/>
       <text x="28" y="263" font-size="16" fill="#9c6b36">● Prediction</text>
       <text x="178" y="263" font-size="16" fill="#167359">● ${isRnd?'Target':'Actual'}</text>
