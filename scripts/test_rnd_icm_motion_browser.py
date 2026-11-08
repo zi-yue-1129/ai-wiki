@@ -200,6 +200,37 @@ def run() -> None:
                 ctx = browser.new_context(viewport={'width': width + 32, 'height': 640})
                 page = ctx.new_page()
                 page.set_content(html)
+                # Both A and B must feed the frozen target and predictor before
+                # the corresponding observation's output/bonus is evaluated.
+                observation_pulses = page.locator(
+                    'g.animated[aria-hidden="true"] circle'
+                )
+                assert observation_pulses.count() == 4, (
+                    'RND novelty scene must trace A and B into both networks'
+                )
+                for idx, a, z in (
+                    (0, .2, .9), (1, .2, .9),
+                    (2, 6.67, 7.02), (3, 6.67, 7.02),
+                ):
+                    positions = []
+                    for t in (a, z):
+                        page.evaluate(
+                            '(t) => document.querySelector("svg").setCurrentTime(t)', t
+                        )
+                        positions.append(observation_pulses.nth(idx).evaluate(
+                            '(n) => {let r=n.getBoundingClientRect(); return [r.x,r.y]}'
+                        ))
+                    travel = sum((x-y)**2 for x,y in zip(*positions)) ** .5
+                    assert travel > width / 22, (
+                        f'RND observation pulse {idx} stationary at {width}'
+                    )
+                page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', 6.85)
+                target_x = page.locator('g.animated line').first.evaluate(
+                    '(n) => n.x1.animVal.value'
+                )
+                assert target_x == 589, (
+                    'RND B target response begins before both observation pulses arrive'
+                )
                 signatures = []
                 for label, t in (('visited', 0.0), ('early', 2.0),
                                  ('learning', 4.0), ('fitted', 6.4),
