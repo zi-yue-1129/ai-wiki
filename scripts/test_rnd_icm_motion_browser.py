@@ -407,6 +407,69 @@ def check_icm_stochastic_comparison(browser) -> None:
         context.close()
     print('PASS ICM predictable/stochastic: outcome variation, persistent error, three widths, fallback')
 
+
+def check_rnd_transfer_motion(browser) -> None:
+    """Counterfactual B transfer: spatial interpolation and *squared* bonus agree."""
+    motion = ASSETS / 'rnd-b-transfer-motion.svg'
+    still = ASSETS / 'rnd-b-transfer-still.svg'
+    source = motion.read_text(encoding='utf-8')
+    assert ET.fromstring(source).attrib['viewBox'] == '0 0 380 500'
+    assert ET.fromstring(still.read_text(encoding='utf-8')).attrib['viewBox']
+    assert '<animate ' in source and '<animate ' not in still.read_text(encoding='utf-8')
+    for width in (320, 380, 640):
+        context = browser.new_context(viewport={'width': width + 20, 'height': 1000})
+        try:
+            page = context.new_page()
+            page.set_content(f'<style>body{{margin:0}}svg{{width:{width}px;height:auto}}</style>' + source)
+            for t in (0.0, 1.6, 2.25, 3.2, 4.45, 5.5, 6.6, 7.7):
+                metrics = page.evaluate("""(time) => {
+                    const s = document.querySelector('svg');
+                    s.pauseAnimations();
+                    s.setCurrentTime(time);
+                    const line = s.querySelector('line');
+                    const predictor = s.querySelector('circle[cx="105"]');
+                    const bars = [...s.querySelectorAll('rect[x="134"]')];
+                    return {
+                        px: predictor.cx.animVal.value,
+                        py: predictor.cy.animVal.value,
+                        lx: line.x2.animVal.value, ly: line.y2.animVal.value,
+                        transfer: bars[1].width.animVal.value,
+                        gap: bars[3].width.animVal.value
+                    };
+                }""", t)
+                g = (metrics['px'] - 105) / 126
+                assert -.01 <= g <= 1.01, (width, t, metrics)
+                assert abs(metrics['py'] - (255 - 108 * g)) < .16, (width, t, metrics)
+                assert abs(metrics['lx'] - metrics['px']) < .1
+                assert abs(metrics['ly'] - metrics['py']) < .1
+                assert abs(metrics['transfer'] - 220 * g) < .25
+                assert abs(metrics['gap'] - 220 * (1-g)**2) < .35, (
+                    'Squared bonus mismatches feature distance', width, t, metrics)
+                (REVIEW / f'rnd-transfer_{width}_{t:.2f}.png').write_bytes(
+                    page.locator('svg').screenshot(animations='allow'))
+            assert page.locator('svg').bounding_box()['width'] <= width + 1
+        finally:
+            context.close()
+
+    # Normal MkDocs image enhancement pairs this motion with a static still.
+    if PLAYER.is_file():
+        for reduced in (False, True):
+            context = browser.new_context(reduced_motion='reduce' if reduced else 'no-preference')
+            try:
+                page = context.new_page()
+                page.set_content('<img alt="RND unseen B transfer" src="/docs/assets/concept-animations/rnd-b-transfer-motion.svg">')
+                page.add_script_tag(content=PLAYER.read_text(encoding='utf-8'))
+                button = page.get_by_role('button', name='Play concept animation' if reduced else 'Pause concept animation')
+                assert button.count() == 1
+                if not reduced:
+                    button.focus()
+                    page.keyboard.press('Enter')
+                assert page.locator('img').get_attribute('src').endswith(
+                    '-still.svg'), 'Pause or reduced-motion must show static transfer cases'
+            finally:
+                context.close()
+    print('PASS RND transfer: mobile/desktop animation, quadratic bonus, player fallback')
+
 def run() -> None:
     REVIEW.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as runtime:
@@ -705,6 +768,7 @@ def run() -> None:
                 ctx.close()
             print('PASS RND novelty: state-dependent target, reward shift, reduced-motion')
 
+            check_rnd_transfer_motion(browser)
             check_rnd_desktop_squared_bonus(browser)
             check_icm_stochastic_comparison(browser)
             check_icm_mobile_stacked(browser)
