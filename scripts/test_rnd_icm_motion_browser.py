@@ -11,12 +11,14 @@ import hashlib
 import os
 from pathlib import Path
 import tempfile
+import xml.etree.ElementTree as ET
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = Path(os.environ.get('RND_ICM_ASSETS', ROOT / 'docs/assets/concept-animations'))
 PLAYER = ROOT / 'docs/javascripts/concept-motion.js'
 STEMS = ('rnd-prediction-error', 'icm-forward-inverse')
+REVIEW = ROOT / 'artifacts/rnd-icm-motion'
 
 
 def frame(page, time: float) -> bytes:
@@ -26,6 +28,7 @@ def frame(page, time: float) -> bytes:
 
 
 def run() -> None:
+    REVIEW.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as runtime:
         browser = runtime.chromium.launch(headless=True, executable_path=("/usr/bin/chromium" if Path("/usr/bin/chromium").exists() else None), args=["--no-sandbox"])
         try:
@@ -47,6 +50,11 @@ def run() -> None:
                     first = frame(page, 0.0)
                     middle = frame(page, 3.5)
                     end = frame(page, 6.0)
+                    # Capture real Chromium frames for manual mobile/desktop visual QA.
+                    for label, timestamp in (('initial', 0.0), ('input', 0.7),
+                                             ('transfer', 1.6), ('learning', 3.5),
+                                             ('output', 5.6), ('settled', 7.1)):
+                        (REVIEW / f'{stem}_{width}_{label}.png').write_bytes(frame(page, timestamp))
                     x1 = page.evaluate('document.querySelector(".animated circle").cx.animVal.value')
                     assert x1 > x0 + 15, f'{stem} at {width}: predictor did not approach target'
                     assert len({hashlib.sha256(b).hexdigest() for b in (first, middle, end)}) == 3, (
@@ -66,11 +74,29 @@ def run() -> None:
                         )
                         assert initial_bars == [6, 25, 5, 30], initial_bars
                         assert fitted_bars == [13, 17, 10, 22], fitted_bars
+                        # GitHub static preview must faithfully show the same
+                        # first-frame feature vector as the animated SVG.
+                        root = ET.fromstring(still.read_text(encoding='utf-8'))
+                        group = root.find(".//{http://www.w3.org/2000/svg}g[@fill='#d27b3f']")
+                        assert group is not None
+                        still_heights = [int(rect.attrib['height']) for rect in group]
+                        assert still_heights == initial_bars, (still_heights, initial_bars)
+                        pulses = page.locator('g.animated[aria-hidden="true"] circle')
+                        assert pulses.count() == 2, 'RND input must feed both networks'
+                        for idx, t_start, t_finish in ((0, .3, .8), (1, .4, .9)):
+                            positions = []
+                            for t in (t_start, t_finish):
+                                page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
+                                positions.append(pulses.nth(idx).evaluate(
+                                    '(node) => {let b=node.getBoundingClientRect(); return [b.x,b.y]}'
+                                ))
+                            travel = sum((a-b)**2 for a,b in zip(*positions)) ** .5
+                            assert travel > width / 30, f'RND input pulse {idx} stationary'
                     else:
                         # Each visible pulse must travel along its own existing input
                         # dependency. The inverse branch must not feed the forward target.
                         pulses = page.locator('g.animated[aria-hidden="true"] circle')
-                        assert pulses.count() == 4, 'missing forward/inverse input traces'
+                        assert pulses.count() == 5, 'missing input traces or inverse action output'
                         for pulse_idx, start_t, end_t in (
                             (0, .8, 1.6), (1, 1.9, 2.7),
                             (2, 3.55, 4.55), (3, 3.55, 4.55),
@@ -85,6 +111,17 @@ def run() -> None:
                             assert travel > width / 30, (
                                 f'{stem} at {width}: stationary input pulse {pulse_idx}'
                             )
+                        # Fifth pulse is the inverse model's action estimate,
+                        # not an arrow into the forward feature comparison.
+                        positions = []
+                        for t in (5.1, 5.9):
+                            page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
+                            positions.append(pulses.nth(4).evaluate(
+                                '(node) => {let b=node.getBoundingClientRect(); return [b.x,b.y]}'
+                            ))
+                        output_travel = sum((a-b)**2 for a,b in zip(*positions)) ** .5
+                        assert output_travel > width / 85, 'inverse output pulse stationary'
+                        assert 'd="M477 293H499"' in still.read_text(encoding='utf-8')
                     assert page.locator('svg').bounding_box()['width'] <= width + 1
                     ctx.close()
 
