@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 370" role="img" aria-labelledby="novel-title novel-desc">
 <title id="novel-title">RND novelty: prediction error can rise on an unseen observation</title>
-<desc id="novel-desc">For repeatedly observed A, the predictor approaches the fixed-weight target output and its error falls. Switching to a distinct observation B can raise the error because both networks produce input-dependent features. Further predictor training on B then reduces that error while the target parameters stay fixed. Training steps and bonus lengths are schematic, not measurements.</desc>
+<desc id="novel-desc">For repeatedly observed A, the predictor approaches the fixed-weight target output and its error falls. Switching to a distinct observation B can raise the error because both networks produce input-dependent features. Further predictor training on B then reduces that error while the target parameters stay fixed. Blue and amber input pulses indicate that A and B each pass into both networks before the corresponding feature outputs are compared. Training steps and bonus lengths are schematic, not measurements.</desc>
 <style>
  text{font-family:Arial,Helvetica,sans-serif}
  .lbl{font-size:16px;font-weight:700;fill:#253950}
@@ -15,10 +15,29 @@
 <rect x="24" y="96" width="138" height="170" rx="15" fill="#f3f7fc" stroke="#cbd9ea" stroke-width="2"/>
 <text x="93" y="126" class="lbl" text-anchor="middle">Observation</text>
 <rect x="48" y="146" width="90" height="84" rx="12" fill="#dce8f6"/>
-<g class="animated"><text x="93" y="201" text-anchor="middle" font-size="47" font-weight="700" fill="#376aa9">A<animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.69;.71;.96;1" dur="10s" repeatCount="indefinite"/></text><text x="93" y="201" text-anchor="middle" font-size="47" font-weight="700" fill="#c67b36" opacity="0">B<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.69;.71;.96;1" dur="10s" repeatCount="indefinite"/></text></g>
+<g class="animated"><text x="93" y="201" text-anchor="middle" font-size="47" font-weight="700" fill="#376aa9">A<animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.655;.665;.96;1" dur="10s" repeatCount="indefinite"/></text><text x="93" y="201" text-anchor="middle" font-size="47" font-weight="700" fill="#c67b36" opacity="0">B<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.655;.665;.96;1" dur="10s" repeatCount="indefinite"/></text></g>
 <g class="resting"><text x="93" y="201" text-anchor="middle" font-size="47" font-weight="700" fill="#376aa9">A</text></g>
 <path class="edge" d="M162 168H199V140H226" marker-end="url(#novel-arrow)"/>
 <path class="edge" d="M162 215H199V233H226" marker-end="url(#novel-arrow)"/>
+<!-- Both observations pass through the fixed target and the trainable predictor. -->
+<g class="animated" aria-hidden="true">
+ <circle r="5" fill="#376aa9" stroke="#fff" stroke-width="1.2" opacity="0">
+  <animateMotion path="M162 168H199V140H226" keyPoints="0;0;1;1" keyTimes="0;.012;.12;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.006;.012;.12;.13;1" dur="10s" repeatCount="indefinite"/>
+ </circle>
+ <circle r="5" fill="#376aa9" stroke="#fff" stroke-width="1.2" opacity="0">
+  <animateMotion path="M162 215H199V233H226" keyPoints="0;0;1;1" keyTimes="0;.012;.12;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.006;.012;.12;.13;1" dur="10s" repeatCount="indefinite"/>
+ </circle>
+ <circle r="5" fill="#c67b36" stroke="#fff" stroke-width="1.2" opacity="0">
+  <animateMotion path="M162 168H199V140H226" keyPoints="0;0;1;1" keyTimes="0;.665;.705;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.655;.665;.705;.715;1" dur="10s" repeatCount="indefinite"/>
+ </circle>
+ <circle r="5" fill="#c67b36" stroke="#fff" stroke-width="1.2" opacity="0">
+  <animateMotion path="M162 215H199V233H226" keyPoints="0;0;1;1" keyTimes="0;.665;.705;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.655;.665;.705;.715;1" dur="10s" repeatCount="indefinite"/>
+ </circle>
+</g>
 <rect x="227" y="105" width="150" height="70" rx="12" fill="#e8f6f2" stroke="#8dcbbb" stroke-width="2"/>
 <text x="302" y="132" class="lbl" text-anchor="middle">Frozen target</text>
 <path d="M273 153L300 145L332 153" stroke="#73b9ac" stroke-width="2" fill="none"/><g fill="#148978"><circle cx="273" cy="153" r="6"/><circle cx="300" cy="145" r="6"/><circle cx="332" cy="153" r="6"/></g>
