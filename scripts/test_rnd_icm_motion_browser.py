@@ -195,6 +195,14 @@ def run() -> None:
                 assert adapted_bonus < novel_bonus * .35, (
                     'RND B error bonus did not fall after predictor adaptation'
                 )
+                # The plotted orange circle and dashed error segment must
+                # terminate at the same animated predictor coordinate.
+                point = page.locator('g.animated circle').last.evaluate(
+                    '(node) => [node.cx.animVal.value, node.cy.animVal.value]'
+                )
+                assert abs(point[0] - adapted[2]) < 1 and abs(point[1] - adapted[3]) < 1, (
+                    f'RND B predictor point and error line diverged: {point} vs {adapted}'
+                )
                 assert page.locator('svg').bounding_box()['width'] <= width + 1
                 page.set_content(html.replace(source, fallback_source))
                 (REVIEW / f'{novelty}_{width}_fallback.png').write_bytes(
