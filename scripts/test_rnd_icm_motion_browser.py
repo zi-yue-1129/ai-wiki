@@ -98,6 +98,31 @@ def check_icm_stochastic_comparison(browser) -> None:
             'stochastic error bars inconsistent with squared distances',
             observed_bars, expected_bars
         )
+        # A stochastic outcome is a sampled event, not a continuous
+        # trajectory through features never returned by the environment.
+        # The bar must switch atomically with the sampled target.
+        for t, actual_x, squared_error_bar in (
+            (2.42, 636, 212), (2.55, 566, 16),
+            (4.80, 566, 16), (4.92, 487, 211)
+        ):
+            state = snapshot(t)
+            assert state[1] == actual_x and state[2][1] == squared_error_bar, (
+                'outcome interpolation or delayed error bar',
+                t, state
+            )
+        # The *same* encoded input travels to Forward before each
+        # additional outcome is sampled.
+        input_pulse = page.locator('circle.animated[aria-hidden="true"]')
+        assert input_pulse.count() == 1, 'missing repeated input pulse'
+        for before, after in ((2.32, 2.43), (4.72, 4.83)):
+            page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', before)
+            first_x = input_pulse.evaluate('(n) => n.cx.animVal.value')
+            page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', after)
+            second_x = input_pulse.evaluate('(n) => n.cx.animVal.value')
+            assert second_x - first_x > 10, (
+                'input cue does not precede the next discrete outcome',
+                first_x, second_x
+            )
         assert fitted[0] == snapshot(7.8)[0], 'predictor must not visibly unlearn before replay'
         assert page.locator('svg').bounding_box()['width'] <= width + 1
         page.set_content(html.replace(source, fallback))

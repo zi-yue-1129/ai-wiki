@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 390" role="img" aria-labelledby="iv-title iv-desc">
 <title id="iv-title">ICM: predictable and stochastic next-state features</title>
-<desc id="iv-desc">The same feature and action can lead to a reproducible or a stochastic next feature. In the predictable case the orange forward prediction learns toward a fixed green next feature and the illustrated error decreases. In the stochastic case, the actual encoded next feature changes between repeated transitions even though the input is unchanged, so the orange model prediction cannot match all outcomes. The three equally weighted illustrative outcomes have their arithmetic mean at the fixed orange prediction; the orange error bar is proportional to each sampled squared distance, not a measured training loss. This is a schematic limitation, not a claim that inverse dynamics never filters noise.</desc>
+<desc id="iv-desc">The same feature and action can lead to a reproducible or a stochastic next feature. In the predictable case the orange forward prediction learns toward a fixed green next feature and the illustrated error decreases. In the stochastic case, the actual encoded next feature changes between repeated transitions even though the input is unchanged, so the orange model prediction cannot match all outcomes. The three equally weighted illustrative outcomes have their arithmetic mean at the fixed orange prediction; the orange error bar is proportional to each sampled squared distance, not a measured training loss. A repeated input pulse precedes each discrete outcome change; no interpolated positions represent observations. This is a schematic limitation, not a claim that inverse dynamics never filters noise.</desc>
 <style>
 text{font-family:Arial,Helvetica,sans-serif} .head{font-weight:700;fill:#223950} .small{font-size:16px;fill:#587086} .border{stroke:#d6e2ed;stroke-width:2} .line{stroke:#d4a272;stroke-width:2.8;stroke-dasharray:5 5;fill:none}.resting{display:none}
 @media(prefers-reduced-motion:reduce){.animated{display:none}.resting{display:inline}}
@@ -52,15 +52,19 @@ text{font-family:Arial,Helvetica,sans-serif} .head{font-weight:700;fill:#223950}
 </g>
 <g class="animated" aria-hidden="true">
 <line x1="563" y1="232" x2="636" y2="210" class="line">
- <animate attributeName="x2" values="636;636;566;566;487;487;487" keyTimes="0;.28;.33;.58;.63;.95;1" dur="8s" repeatCount="indefinite"/>
- <animate attributeName="y2" values="210;210;253;253;233;233;233" keyTimes="0;.28;.33;.58;.63;.95;1" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="x2" values="636;566;487;487" keyTimes="0;.31;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="y2" values="210;253;233;233" keyTimes="0;.31;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/>
 </line>
 <circle cx="636" cy="210" r="9" fill="#168476" stroke="#fff" stroke-width="2.5">
- <animate attributeName="cx" values="636;636;566;566;487;487;487" keyTimes="0;.28;.33;.58;.63;.95;1" dur="8s" repeatCount="indefinite"/>
- <animate attributeName="cy" values="210;210;253;253;233;233;233" keyTimes="0;.28;.33;.58;.63;.95;1" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="cx" values="636;566;487;487" keyTimes="0;.31;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="cy" values="210;253;233;233" keyTimes="0;.31;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/>
 </circle>
-<rect x="462" y="300" width="212" height="9" rx="4.5" fill="#d88242"><animate attributeName="width" values="212;212;16;16;211;211;211" keyTimes="0;.28;.33;.58;.63;.95;1" dur="8s" repeatCount="indefinite"/></rect>
+<rect x="462" y="300" width="212" height="9" rx="4.5" fill="#d88242"><animate attributeName="width" values="212;16;211;211" keyTimes="0;.31;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></rect>
 </g>
+<circle class="animated" cx="520" cy="136" r="5.5" fill="#2775bb" aria-hidden="true">
+ <animate attributeName="cx" values="520;520;552;520;552;520" keyTimes="0;.2875;.31;.5875;.61;1" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="opacity" values="0;1;0;1;0;0" keyTimes="0;.2875;.31;.5875;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/>
+</circle>
 <g class="resting">
 <line x1="275" y1="202" x2="264" y2="205" class="line"/>
 <circle cx="264" cy="205" r="9" fill="#d88242" stroke="#fff" stroke-width="2.5"/>
