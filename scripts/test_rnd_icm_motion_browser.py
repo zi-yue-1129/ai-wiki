@@ -96,7 +96,7 @@ def run() -> None:
                         # Each visible pulse must travel along its own existing input
                         # dependency. The inverse branch must not feed the forward target.
                         pulses = page.locator('g.animated[aria-hidden="true"] circle')
-                        assert pulses.count() == 5, 'missing input traces or inverse action output'
+                        assert pulses.count() == 7, 'missing input, forward/target comparison, or inverse action traces'
                         for pulse_idx, start_t, end_t in (
                             (0, .8, 1.6), (1, 1.9, 2.7),
                             (2, 3.55, 4.55), (3, 3.55, 4.55),
@@ -116,11 +116,33 @@ def run() -> None:
                         positions = []
                         for t in (5.1, 5.9):
                             page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
-                            positions.append(pulses.nth(4).evaluate(
+                            positions.append(pulses.nth(6).evaluate(
                                 '(node) => {let b=node.getBoundingClientRect(); return [b.x,b.y]}'
                             ))
                         output_travel = sum((a-b)**2 for a,b in zip(*positions)) ** .5
                         assert output_travel > width / 85, 'inverse output pulse stationary'
+                        # The forward prediction and observed next-state feature
+                        # arrive as separate signals before the error shrinks.
+                        for idx, a, b in ((4, 3.02, 3.48), (5, 1.72, 3.45)):
+                            positions = []
+                            for t in (a, b):
+                                page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
+                                positions.append(pulses.nth(idx).evaluate(
+                                    '(node) => {let r = node.getBoundingClientRect(); return [r.x,r.y] }'
+                                ))
+                            travel = sum((x-y)**2 for x,y in zip(*positions)) ** .5
+                            assert travel > width / 85, f'ICM comparison pulse {idx} stationary'
+                        # No error reduction occurs before both forward inputs
+                        # have arrived. Schematic, not an empirical training curve.
+                        predicted = page.locator('g.animated line').first
+                        page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', 3.2)
+                        assert predicted.evaluate('(n) => n.x2.animVal.value') == 550, (
+                            'ICM error begins to shrink before forward inputs arrive'
+                        )
+                        page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', 5.6)
+                        assert predicted.evaluate('(n) => n.x2.animVal.value') > 570, (
+                            'ICM learning phase fails to approach the target feature'
+                        )
                         assert 'd="M477 293H499"' in still.read_text(encoding='utf-8')
                     assert page.locator('svg').bounding_box()['width'] <= width + 1
                     # The actual GitHub-friendly still SVG must also be
