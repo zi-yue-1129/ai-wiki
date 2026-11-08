@@ -42,7 +42,7 @@ text{font-family:Arial,Helvetica,sans-serif} .head{font-weight:700;fill:#223950}
 <g class="resting">
 <line x1="275" y1="202" x2="264" y2="205" class="line"/>
 <circle cx="264" cy="205" r="9" fill="#d88242" stroke="#fff" stroke-width="2.5"/>
-<rect x="93" y="300" width="12" height="9" rx="4.5" fill="#d88242"/>
+<rect x="93" y="300" width="1.3264" height="9" rx="0.6632" fill="#d88242"/>
 <line x1="563" y1="232" x2="487" y2="233" class="line"/>
 <circle cx="487" cy="233" r="9" fill="#168476" stroke="#fff" stroke-width="2.5"/>
 <rect x="462" y="300" width="211" height="9" rx="4.5" fill="#d88242"/>

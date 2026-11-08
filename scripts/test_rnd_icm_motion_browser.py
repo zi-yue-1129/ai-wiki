@@ -70,7 +70,28 @@ def check_icm_stochastic_comparison(browser) -> None:
             )
         initial, second, third, fitted = map(snapshot, (0, 3.0, 5.4, 7.2))
         assert initial[0] == 136 and fitted[0] == 264, (initial, fitted)
-        assert initial[2][0] == 216 and fitted[2][0] == 12, (initial, fitted)
+        assert initial[2][0] == 216 and fitted[2][0] == 1, (initial, fitted)
+        # The predictable panel's bar must track squared feature error,
+        # rather than a visually plausible but incorrect distance proxy.
+        for t in (0.0, .96, 1.35, 2.0, 2.8, 3.2, 4.1, 5.4, 6.7, 7.6):
+            page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
+            px, py = moving.nth(0).evaluate(
+                '(n) => [n.cx.animVal.value, n.cy.animVal.value]'
+            )
+            bar_width = page.locator('g.animated rect').first.evaluate(
+                '(n) => n.width.animVal.value'
+            )
+            expected = 216 * ((px - 275)**2 + (py - 202)**2) / 21170
+            assert abs(bar_width - expected) < 1.2, (
+                'predictable error bar diverges from squared feature distance',
+                t, bar_width, expected
+            )
+        fallback_rect = ET.fromstring(fallback).find(
+            ".//{http://www.w3.org/2000/svg}g[@class='resting']/"
+            "{http://www.w3.org/2000/svg}rect[@x='93']"
+        )
+        assert fallback_rect is not None
+        assert abs(float(fallback_rect.attrib['width']) - 216 * 130 / 21170) < .01
         assert initial[1] == 636 and second[1] == 566 and third[1] == 487
         assert initial[2][1] == 212 and second[2][1] == 16 and third[2][1] == 211
         # Three equally weighted, schematic stochastic outcomes have the
