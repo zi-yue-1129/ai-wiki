@@ -31,6 +31,50 @@ def frame(page, time: float) -> bytes:
 
 
 
+
+def check_rnd_desktop_squared_bonus(browser) -> None:
+    """Desktop novelty bar tracks feature squared distance and input arrival."""
+    source = (ASSETS / 'rnd-state-novelty-motion.svg').read_text(encoding='utf-8')
+    initial_sq = (589 - 470) ** 2 + (145 - 235) ** 2
+    ctx = browser.new_context(viewport={'width': 1050, 'height': 700})
+    try:
+        page = ctx.new_page()
+        page.set_content(source)
+        readings = {}
+        for t in (0.0, 1.6, 3.6, 6.4, 6.9, 7.11, 7.15, 8.2, 9.6, 9.995):
+            metrics = page.evaluate("""(time) => {
+                const svg = document.querySelector('svg');
+                svg.setCurrentTime(time);
+                svg.pauseAnimations();
+                const target = svg.querySelector('circle[cx="589"][cy="145"]');
+                const pred = svg.querySelector('circle[cx="470"][cy="235"]');
+                const bar = svg.querySelector('rect.animated[x="180"]');
+                return {
+                    tx: target.cx.animVal.value, ty: target.cy.animVal.value,
+                    px: pred.cx.animVal.value, py: pred.cy.animVal.value,
+                    bonus: bar.width.animVal.value,
+                    a: Number(getComputedStyle(svg.querySelector('text[fill="#376aa9"]')).opacity),
+                    b: Number(getComputedStyle(svg.querySelector('text[fill="#c67b36"]')).opacity)
+                };
+            }""", t)
+            squared = (metrics['tx'] - metrics['px']) ** 2 + (
+                metrics['ty'] - metrics['py']) ** 2
+            normalized = 390 * squared / initial_sq
+            assert abs(metrics['bonus'] - normalized) < 2.5, (t, metrics, normalized)
+            if t <= 7.11:
+                assert metrics['a'] > .99 and metrics['b'] < .01, (t, metrics)
+            else:
+                assert metrics['b'] > .99 and metrics['a'] < .01, (t, metrics)
+            readings[t] = metrics
+        assert readings[6.9]['tx'] == readings[7.11]['tx'] == 589
+        assert readings[7.15]['tx'] == 550
+        assert readings[9.995]['tx'] == 550, 'loop end interpolates to an imaginary observation'
+        assert readings[7.15]['bonus'] > readings[6.4]['bonus'] * 10
+        assert readings[9.6]['bonus'] < readings[7.15]['bonus'] * .12
+    finally:
+        ctx.close()
+    print('PASS desktop RND: input timing, squared-distance bonus and loop reset')
+
 def check_rnd_mobile_novelty(browser) -> None:
     """Responsive RND keeps causality and scales its schematic bonus to squared error."""
     stem = 'rnd-state-novelty-mobile'
@@ -661,6 +705,7 @@ def run() -> None:
                 ctx.close()
             print('PASS RND novelty: state-dependent target, reward shift, reduced-motion')
 
+            check_rnd_desktop_squared_bonus(browser)
             check_icm_stochastic_comparison(browser)
             check_icm_mobile_stacked(browser)
             check_rnd_mobile_novelty(browser)
