@@ -71,6 +71,17 @@
   <animate attributeName="cy" values="233;233;201;166;147;147;233" keyTimes="0;.14;.43;.68;.83;.94;1" dur="8s" repeatCount="indefinite"/>
  </circle>
 </g>
+<!-- Two copies of the observation reach fixed target and trainable predictor. -->
+<g class="animated" aria-hidden="true">
+ <circle r="4.5" fill="#138b79" stroke="#fff" stroke-width="1.5" opacity="0">
+  <animateMotion path="M158 164H199V131H224" keyPoints="0;0;1;1" keyTimes="0;.025;.12;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.015;.025;.12;.14;1" dur="8s" repeatCount="indefinite"/>
+ </circle>
+ <circle r="4.5" fill="#d27b3f" stroke="#fff" stroke-width="1.5" opacity="0">
+  <animateMotion path="M158 212H199V230H224" keyPoints="0;0;1;1" keyTimes="0;.045;.14;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.035;.045;.14;.16;1" dur="8s" repeatCount="indefinite"/>
+ </circle>
+</g>
 <text x="28" y="317" class="small">Intrinsic bonus</text>
 <rect x="180" y="298" width="466" height="25" rx="12" fill="#edf1f6"/>
 <rect x="183" y="301" width="406" height="19" rx="9" fill="#d98a4a" class="animated">
