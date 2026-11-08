@@ -11,26 +11,30 @@
   ];
   const outcomes = [[365,101],[310,174],[255,115]];
   const mean = [310,130];
+  // Three illustrative predictor updates on a repeatable next-state feature.
+  // The target is unchanged; only the forecast moves before the stochastic probe.
+  const predictable = [[260,165],[289,145],[310,130]];
   const errors=outcomes.map(([x,y])=>(x-mean[0])**2+(y-mean[1])**2);
   const expectation=errors.reduce((a,b)=>a+b,0)/3;
   const words={
     en:{prev:'Previous step',next:'Next step',play:'Play',pause:'Pause',seek:'Timeline',speed:'Speed',step:'Step',
       rnd:['Observe A','Train A','Train A','A familiar','Switch to B','Train B','Train B','B familiar'],
-      icm:['Repeatable','Repeatable','Repeatable','Sample 1','Sample 2','Sample 3'],
+      icm:['Before update','Train forward','Predictable fitted','Sample 1','Sample 2','Sample 3'],
       rndNote:'Illustrative feature coordinates, not measured rewards. A new observation changes both network outputs; only the predictor parameters train.',
-      icmNote:'Three equally likely toy outcomes. The forecast equals their conditional mean. Sample error changes; expected MSE is fixed. Not measured data.'},
+      icmNote:'For the repeatable outcome, the toy forward prediction fits its fixed target; then three equally likely outcomes illustrate irreducible sample error. Expected MSE is fixed within the stochastic case. Not measured data.'},
     zh:{prev:'上一步',next:'下一步',play:'播放',pause:'暫停',seek:'進度',speed:'速度',step:'步驟',
       rnd:['觀測 A','訓練 A','訓練 A','熟悉 A','切換到 B','訓練 B','訓練 B','熟悉 B'],
-      icm:['可重複','可重複','可重複','取樣 1','取樣 2','取樣 3'],
+      icm:['更新前','訓練前向模型','已擬合可預測結果','取樣 1','取樣 2','取樣 3'],
       rndNote:'人工設計的特徵座標，不是實測獎勵。不同觀測使兩個網路的輸出改變，只有預測器參數接受訓練。',
-      icmNote:'三個等機率示意結果，預測值等於條件平均值；樣本誤差改變，期望均方誤差不變。非模型實測。'}
+      icmNote:'可重複轉移的固定目標與前向預測會逐步接近；再以三個等機率結果呈現不可約的樣本誤差。期望均方誤差在隨機轉移情境中保持不變。非模型實測。'}
   };
   const fmt=v=>(v/1000).toFixed(2);
   function svg(kind,n,zh) {
     const isRnd=kind==='rnd', row=rnd[n], stochastic=!isRnd&&n>=3;
     const sampled=stochastic?outcomes[n-3]:mean;
     const tx=isRnd?row[1]:mean[0],ty=isRnd?row[2]:mean[1];
-    const px=isRnd?row[3]:mean[0],py=isRnd?row[4]:mean[1];
+    const px=isRnd?row[3]:(stochastic?mean[0]:predictable[n][0]);
+    const py=isRnd?row[4]:(stochastic?mean[1]:predictable[n][1]);
     const ox=isRnd?tx:sampled[0],oy=isRnd?ty:sampled[1];
     const err=(ox-px)**2+(oy-py)**2, unit=isRnd?21000:5000;
     const width=Math.min(244,244*err/unit);

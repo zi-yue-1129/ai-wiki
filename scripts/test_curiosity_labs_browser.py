@@ -50,6 +50,22 @@ def run():
                     assert "Obs B" in host.locator("svg").text_content()
                     assert "19.13" in host.locator("svg").text_content()
                 else:
+                    # Predictable target stays fixed while the learner updates its
+                    # deterministic forecast; the bar must track squared distance.
+                    for index,forecast,formatted in (
+                        (0,(260,165),"3.73"),(1,(289,145),"0.67"),
+                        (2,(310,130),"0.00")):
+                        choose(host,index)
+                        predictor=host.locator('svg circle[fill="#e19748"]')
+                        actual=host.locator('svg circle[fill="#27926e"]')
+                        px,py=int(predictor.get_attribute("cx")),int(predictor.get_attribute("cy"))
+                        tx,ty=int(actual.get_attribute("cx")),int(actual.get_attribute("cy"))
+                        assert (px,py)==forecast and (tx,ty)==(310,130)
+                        squared=(px-tx)**2+(py-ty)**2
+                        actual_width=float(host.locator('svg rect[fill="#d28a3e"]').get_attribute("width"))
+                        assert abs(actual_width-244*squared/5000)<0.02
+                        content=host.locator("svg").text_content()
+                        assert formatted in content and "Expected" in content, content
                     for index,val in ((3,"3.87"),(4,"1.94"),(5,"3.25")):
                         choose(host,index)
                         content = host.locator("svg").text_content()
