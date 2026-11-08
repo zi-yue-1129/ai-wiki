@@ -28,6 +28,107 @@ def frame(page, time: float) -> bytes:
 
 
 
+
+
+def check_icm_mobile_stacked(browser) -> None:
+    """Render mobile stacked ICM panels and exercise responsive player state."""
+    stem = "icm-predictable-stochastic-mobile"
+    motion = ASSETS / f"{stem}-motion.svg"
+    still = ASSETS / f"{stem}-still.svg"
+    animated, fallback = motion.read_text(), still.read_text()
+    svg = ET.fromstring(animated)
+    assert svg.attrib["viewBox"] == "0 0 380 770"
+    assert ET.fromstring(fallback).attrib["viewBox"] == "0 0 380 770"
+    assert "<animate " in animated and "<animate " not in fallback
+    # All outcomes have equal illustrative weight; their centroid equals the
+    # fixed forward prediction. Sampled bars and violet expectation share a
+    # single squared-distance scale, rather than being arbitrary decorations.
+    outcomes = [(294, 544), (213, 610), (132, 553)]
+    mean = (213, 569)
+    assert tuple(sum(x[i] for x in outcomes) / 3 for i in (0, 1)) == mean
+    errors = [(x - mean[0]) ** 2 + (y - mean[1]) ** 2 for x, y in outcomes]
+    scale = 177 / max(errors)
+    expected_tick = 153 + sum(errors) / 3 * scale
+    for width in (320, 360, 480, 640):
+        context = browser.new_context(viewport={"width": width + 25, "height": 1000})
+        page = context.new_page()
+        page.set_content(
+            '<html><body style="margin:0"><style>svg{display:block;width:'
+            + str(width) + 'px;height:auto}</style>' + animated + '</body></html>'
+        )
+        observed = []
+        for label, t in (("initial", 0.0), ("learning", 2.0),
+                         ("second", 3.0), ("third", 5.3), ("fitted", 7.2)):
+            data = page.evaluate("""(t) => {
+                const svg = document.querySelector('svg');
+                svg.setCurrentTime(t);
+                const panels = svg.querySelectorAll('g.animated');
+                const upper = panels[0], lower = panels[1];
+                return {
+                    x: upper.querySelector('circle').cx.animVal.value,
+                    learned: upper.querySelector('rect').width.animVal.value,
+                    sampledX: lower.querySelector('circle').cx.animVal.value,
+                    sampled: lower.querySelector('rect').width.animVal.value,
+                    tick: Number(svg.getElementById('mobile-expected-error').getAttribute('x1'))
+                };
+            }""", t)
+            observed.append(data)
+            assert abs(data["tick"] - expected_tick) < .001, data
+            assert data["sampledX"] in (294, 213, 132), data
+            assert abs(data["sampled"] - errors[(294, 213, 132).index(data["sampledX"])] * scale) < .01, data
+            (REVIEW / f"{stem}_{width}_{label}.png").write_bytes(
+                page.locator('svg').screenshot(animations='allow')
+            )
+        assert observed[0]["learned"] > 170
+        assert observed[-1]["learned"] < 2
+        assert [a["sampledX"] for a in observed] == [294, 294, 213, 132, 132]
+        page.set_content(fallback)
+        (REVIEW / f"{stem}_{width}_still.png").write_bytes(page.locator('svg').screenshot())
+        context.close()
+        context = browser.new_context(
+            viewport={"width": width + 25, "height": 1000},
+            reduced_motion="reduce"
+        )
+        page = context.new_page()
+        page.set_content(animated)
+        signatures = []
+        for t in (0.0, 2.0, 4.0, 6.0):
+            signatures.append(hashlib.sha256(frame(page, t)).hexdigest())
+        assert len(set(signatures)) == 1, f"{stem}: reduced motion moved at {width}"
+        context.close()
+
+    # Real shared site JavaScript, not a mock player: viewport switches must
+    # preserve Play/Pause selection, including keyboard toggling and reduced
+    # motion. Image URLs are inspected without requiring an external server.
+    if PLAYER.is_file():
+        src = "https://example.test/docs/assets/concept-animations/icm-predictable-stochastic-motion.svg"
+        context = browser.new_context(viewport={"width": 390, "height": 850})
+        page = context.new_page()
+        page.set_content(f'<img alt="ICM diagram" src="{src}">')
+        page.add_script_tag(content=PLAYER.read_text())
+        img = page.locator("img")
+        assert img.get_attribute("src").endswith("-mobile-motion.svg")
+        page.get_by_role("button", name="Pause concept animation").click()
+        assert img.get_attribute("src").endswith("-mobile-still.svg")
+        page.set_viewport_size({"width": 1024, "height": 850})
+        assert img.get_attribute("src").endswith("-still.svg")
+        page.get_by_role("button", name="Play concept animation").focus()
+        page.keyboard.press("Enter")
+        assert img.get_attribute("src").endswith("-motion.svg")
+        assert not img.get_attribute("src").endswith("-mobile-motion.svg")
+        page.set_viewport_size({"width": 390, "height": 850})
+        assert img.get_attribute("src").endswith("-mobile-motion.svg")
+        context.close()
+        context = browser.new_context(
+            viewport={"width": 390, "height": 850}, reduced_motion="reduce"
+        )
+        page = context.new_page()
+        page.set_content(f'<img alt="ICM diagram" src="{src}">')
+        page.add_script_tag(content=PLAYER.read_text())
+        assert page.locator("img").get_attribute("src").endswith("-mobile-still.svg")
+        assert page.get_by_role("button", name="Play concept animation").count() == 1
+        context.close()
+
 def check_icm_stochastic_comparison(browser) -> None:
     """Check actual animation geometry, static preview and reduced-motion fallback.
 
@@ -480,6 +581,7 @@ def run() -> None:
             print('PASS RND novelty: state-dependent target, reward shift, reduced-motion')
 
             check_icm_stochastic_comparison(browser)
+            check_icm_mobile_stacked(browser)
 
             # This is the repository's real shared MkDocs enhancement, not a mock.
             if PLAYER.is_file():
