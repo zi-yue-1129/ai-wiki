@@ -254,7 +254,8 @@ def main() -> None:
     css = " ".join(style.text or "" for style in root.findall(".//s:style", NS))
     assert "prefers-reduced-motion: reduce" in css
     assert ".moving-marker { display: none" in css
-    assert ".endpoint-marker { opacity: 1" in css
+    assert ".endpoint-marker, .phase-candidate, .phase-projection { opacity: 1" in css
+    assert "path[stroke-dashoffset] { stroke-dashoffset: 0 !important;" in css
 
     for page in PAGES:
         body = page.read_text(encoding="utf-8")
