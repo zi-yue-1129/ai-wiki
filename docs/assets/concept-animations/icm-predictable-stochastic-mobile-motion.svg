@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 770" role="img" aria-labelledby="icm-mobile-title icm-mobile-desc">
+<title id="icm-mobile-title">ICM prediction error: mobile stacked comparison</title>
+<desc id="icm-mobile-desc">Two vertically stacked panels with identical encoded feature and action inputs. In the upper predictable panel, the forward model learns a repeatable feature, with the loss bar tracking squared feature distance. In the lower stochastic panel, the same encoded input yields one of three discrete next-feature outcomes; their equally weighted mean equals the fixed orange prediction. The orange bar shows sampled squared error and a fixed violet marker represents expected squared error for the fixed encoder and optimal deterministic predictor. Illustrative geometry, not empirical data. The transitions loop and pause for reduced-motion preference.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif}.head{font-weight:700;fill:#223950}.fine{fill:#5b7288}.panel{stroke:#d6e2ed;stroke-width:2}.grid{stroke:#ecf1f6;stroke-width:1.3}.pred-dot{fill:#d88242;stroke:#fff;stroke-width:2.5}.actual-dot{fill:#168476;stroke:#fff;stroke-width:2.5}.error-link{stroke:#d4a272;stroke-width:3;stroke-dasharray:5 5}.resting{display:none}@media(prefers-reduced-motion:reduce){.animated{display:none}.resting{display:inline}}</style>
+<rect width="380" height="770" fill="white" rx="16"/>
+<text x="19" y="34" class="head" font-size="22">ICM · prediction error</text>
+<circle cx="27" cy="64" r="7" fill="#d88242"/><text x="41" y="70" class="fine" font-size="16">Predicted</text>
+<circle cx="182" cy="64" r="7" fill="#168476"/><text x="196" y="70" class="fine" font-size="16">Observed</text>
+<rect x="16" y="96" width="348" height="290" rx="15" fill="#f8fbfe" class="panel"/>
+<text x="35" y="129" class="head" font-size="22">Predictable</text>
+<rect x="35" y="151" width="102" height="39" rx="9" fill="#e6f1fd" stroke="#b7d1ee"/><text x="86" y="177" text-anchor="middle" class="head" font-size="19">φ(s), a</text>
+<path d="M139 171H173m-6 -6 6 6 -6 6" stroke="#8196aa" stroke-width="2.5" fill="none"/>
+<rect x="177" y="151" width="151" height="39" rx="9" fill="#e9f6f0" stroke="#a8d4c2"/><text x="252" y="177" text-anchor="middle" class="head" font-size="20">Forward</text>
+<path d="M252 190V207" stroke="#9aacbb" stroke-width="2.5" stroke-dasharray="4 4"/>
+<rect x="35" y="207" width="310" height="113" rx="10" fill="#fff" class="panel"/>
+<path d="M60 301H331M60 301V219" stroke="#c6d5e3" stroke-width="2" fill="none"/>
+<path d="M60 261H331M60 219H331M128 219V301M197 219V301M265 219V301" class="grid" fill="none"/>
+<circle cx="275" cy="248" r="10" class="actual-dot"/>
+<text x="36" y="364" class="fine" font-size="17">Loss²</text><rect x="151" y="351" width="185" height="16" rx="8" fill="#e9eff5"/>
+<rect x="16" y="401" width="348" height="348" rx="15" fill="#fbfcfe" class="panel"/>
+<text x="35" y="435" class="head" font-size="22">Stochastic</text>
+<rect x="35" y="477" width="102" height="39" rx="9" fill="#e6f1fd" stroke="#b7d1ee"/><text x="86" y="503" text-anchor="middle" class="head" font-size="19">φ(s), a</text>
+<path d="M139 498H173m-6 -6 6 6 -6 6" stroke="#8196aa" stroke-width="2.5" fill="none"/>
+<rect x="177" y="477" width="151" height="39" rx="9" fill="#e9f6f0" stroke="#a8d4c2"/><text x="252" y="503" text-anchor="middle" class="head" font-size="20">Forward</text>
+<path d="M252 516V525" stroke="#9aacbb" stroke-width="2.5" stroke-dasharray="4 4"/>
+<rect x="35" y="525" width="310" height="113" rx="10" fill="#fff" class="panel"/>
+<path d="M60 623H331M60 623V537" stroke="#c6d5e3" stroke-width="2" fill="none"/>
+<path d="M60 580H331M60 537H331M128 537V623M197 537V623M265 537V623" class="grid" fill="none"/>
+<path id="mobile-outcomes" d="M294 544L213 610L132 553Z" stroke="#168476" stroke-opacity=".35" stroke-width="2" fill="#168476" fill-opacity=".065"/>
+<circle cx="294" cy="544" r="6" fill="#168476" opacity=".38"/><circle cx="213" cy="610" r="6" fill="#168476" opacity=".38"/><circle cx="132" cy="553" r="6" fill="#168476" opacity=".38"/>
+<circle cx="213" cy="569" r="10" class="pred-dot"/><text x="226" y="558" class="fine" font-size="16">mean</text>
+<text x="36" y="691" class="fine" font-size="17">Loss²</text><rect x="151" y="679" width="185" height="16" rx="8" fill="#e9eff5"/>
+<line id="mobile-expected-error" x1="281.7721" x2="281.7721" y1="674" y2="701" stroke="#6554a4" stroke-width="4" stroke-linecap="round"/>
+<circle cx="38" cy="725" r="5" fill="#6554a4"/><text x="53" y="730" class="fine" font-size="16">Expected error</text>
+
+<g class="animated" aria-hidden="true">
+  <line x1="275" y1="248" x2="124" y2="284" class="error-link"><animate attributeName="x2" values="124;124;268;268" keyTimes="0;.18;.70;1" dur="8s" repeatCount="indefinite"/><animate attributeName="y2" values="284;284;251;251" keyTimes="0;.18;.70;1" dur="8s" repeatCount="indefinite"/></line>
+  <circle cx="124" cy="284" r="10" class="pred-dot"><animate attributeName="cx" values="124;124;268;268" keyTimes="0;.18;.70;1" dur="8s" repeatCount="indefinite"/><animate attributeName="cy" values="284;284;251;251" keyTimes="0;.18;.70;1" dur="8s" repeatCount="indefinite"/></circle>
+  <rect id="learned-squared-loss" x="153" y="353" width="178" height="12" rx="6" fill="#d88242"><animate attributeName="width" values="178;178;166.5093;155.402;144.6782;134.3377;124.3806;114.8069;105.6166;96.8096;88.3861;80.346;72.6893;65.4159;58.526;52.0194;45.8963;40.1565;34.8001;29.8272;25.2376;21.0314;17.2086;13.7692;10.7132;8.0406;5.7514;3.8455;2.3231;1.1841;0.4284;0.4284" keyTimes="0;0.18;0.1979;0.2159;0.2338;0.2517;0.2697;0.2876;0.3055;0.3234;0.3414;0.3593;0.3772;0.3952;0.4131;0.431;0.449;0.4669;0.4848;0.5028;0.5207;0.5386;0.5566;0.5745;0.5924;0.6103;0.6283;0.6462;0.6641;0.6821;0.7;1" dur="8s" repeatCount="indefinite"/></rect>
+  <circle cx="139" cy="174" r="6" fill="#2775bb"><animate attributeName="cx" values="139;177;177;177" keyTimes="0;.12;.18;1" dur="8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;0;0" keyTimes="0;.05;.18;1" dur="8s" repeatCount="indefinite"/></circle>
+</g>
+<g class="animated" aria-hidden="true">
+  <line x1="213" y1="569" x2="294" y2="544" class="error-link"><animate attributeName="x2" values="294;213;132;132" keyTimes="0;.31;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/><animate attributeName="y2" values="544;610;553;553" keyTimes="0;.31;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></line>
+  <circle cx="294" cy="544" r="10" class="actual-dot"><animate attributeName="cx" values="294;213;132;132" keyTimes="0;.31;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/><animate attributeName="cy" values="544;610;553;553" keyTimes="0;.31;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></circle>
+  <rect id="sampled-loss" x="153" y="681" width="177" height="12" rx="6" fill="#d88242"><animate attributeName="width" values="177;41.4051;167.9111;167.9111" keyTimes="0;.31;.61;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></rect>
+  <circle cx="139" cy="502" r="6" fill="#2775bb"><animate attributeName="cx" values="139;139;176;139;176;139" keyTimes="0;.285;.31;.585;.61;1" dur="8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;0;1;0;0" keyTimes="0;.285;.31;.585;.61;1" dur="8s" repeatCount="indefinite"/></circle>
+</g>
+<g class="resting">
+  <line x1="275" y1="248" x2="268" y2="251" class="error-link"/><circle cx="268" cy="251" r="10" class="pred-dot"/>
+  <rect x="153" y="353" width="0.4284" height="12" rx="2" fill="#d88242"/>
+  <line x1="213" y1="569" x2="132" y2="553" class="error-link"/><circle cx="132" cy="553" r="10" class="actual-dot"/>
+  <rect x="153" y="681" width="167.9111" height="12" rx="6" fill="#d88242"/>
+</g>
+</svg>
