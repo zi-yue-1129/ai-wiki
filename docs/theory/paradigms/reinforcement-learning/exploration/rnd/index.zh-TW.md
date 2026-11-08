@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-08
 ---
 
 # 隨機網路蒸餾（Burda 等人，2018）
@@ -29,6 +29,12 @@ r^{\text{int}}_t = \lVert \hat f_\theta(s_t) - f(s_t) \rVert^2 .
 \]
 
 預測器參數 \(\theta\) 被更新，以最小化在已造訪狀態上的誤差；智能體則最大化外在與內在回報的總和。
+
+## 教學動畫
+
+![RND 流程：相同觀測分別進入固定的隨機目標網路與可訓練預測器；反覆學習同一已造訪狀態時，特徵距離與內在獎勵逐漸減小](../../../../../assets/concept-animations/rnd-prediction-error-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* **綠色目標特徵保持固定**，**橘色預測器特徵**則示範對同一已造訪觀測反覆訓練後，逐漸靠近目標的過程。虛線距離對應平方預測誤差獎勵，**不是**明確的狀態造訪次數計數；切換至新觀測時，誤差可能再次升高。圖中的座標、獎勵長條與訓練軌跡都**僅為示意，並非模型實測，也不代表誤差必然單調下降**。MkDocs 網站提供播放／暫停控制；GitHub 可查看[靜態回退預覽](../../../../../assets/concept-animations/rnd-prediction-error-still.svg)。原始研究：[Burda 等人（2018）](https://arxiv.org/abs/1810.12894)。
 
 ## 結果
 
