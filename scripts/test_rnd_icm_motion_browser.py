@@ -52,6 +52,39 @@ def run() -> None:
                     assert len({hashlib.sha256(b).hexdigest() for b in (first, middle, end)}) == 3, (
                         f'{stem} at {width}: intermediate motion missing'
                     )
+                    # The predictor channels are part of the actual RND teaching motion,
+                    # not static decoration alongside an independently moving dot.
+                    if stem == 'rnd-prediction-error':
+                        channels = 'g.animated[fill="#d27b3f"] rect'
+                        page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', 0)
+                        initial_bars = page.locator(channels).evaluate_all(
+                            '(nodes) => nodes.map(node => node.height.animVal.value)'
+                        )
+                        page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', 7.0)
+                        fitted_bars = page.locator(channels).evaluate_all(
+                            '(nodes) => nodes.map(node => node.height.animVal.value)'
+                        )
+                        assert initial_bars == [6, 25, 5, 30], initial_bars
+                        assert fitted_bars == [13, 17, 10, 22], fitted_bars
+                    else:
+                        # Each visible pulse must travel along its own existing input
+                        # dependency. The inverse branch must not feed the forward target.
+                        pulses = page.locator('g.animated[aria-hidden="true"] circle')
+                        assert pulses.count() == 4, 'missing forward/inverse input traces'
+                        for pulse_idx, start_t, end_t in (
+                            (0, .8, 1.6), (1, 1.9, 2.7),
+                            (2, 3.55, 4.55), (3, 3.55, 4.55),
+                        ):
+                            positions = []
+                            for t in (start_t, end_t):
+                                page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
+                                positions.append(pulses.nth(pulse_idx).evaluate(
+                                    '(node) => {let b = node.getBoundingClientRect(); return [b.x,b.y] }'
+                                ))
+                            travel = sum((a-b)**2 for a,b in zip(*positions)) ** .5
+                            assert travel > width / 30, (
+                                f'{stem} at {width}: stationary input pulse {pulse_idx}'
+                            )
                     assert page.locator('svg').bounding_box()['width'] <= width + 1
                     ctx.close()
 
