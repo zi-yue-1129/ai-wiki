@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-08
 ---
 
 # 內在好奇心模組（Pathak 等人，2017）
@@ -31,6 +31,12 @@ r^{\text{int}}_t = \tfrac{\eta}{2}\,\lVert \hat\phi(\phi(s_t), a_t) - \phi(s_{t+
 \]
 
 其中 \(\eta\) 是縮放係數。編碼器、前向模型與逆模型聯合訓練，策略則最大化內在獎勵與外在獎勵的總和。
+
+## 教學動畫
+
+![ICM 流程：共用編碼器將當前與下一個觀測轉成特徵；前向模型依據當前特徵與動作預測下一個特徵，逆動態模型則從前後特徵預測動作](../../../../../assets/concept-animations/icm-forward-inverse-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 畫面上兩個 **Encoder** 方塊代表作用於連續兩個觀測的**同一組編碼器**。**Forward** 模型以當前特徵及動作預測下一個特徵；橘色預測點朝綠色實際編碼特徵靠近，兩者的平方誤差提供內在獎勵。**Inverse** 分支則以轉移前後的特徵預測動作，促使特徵表示保留與動作相關的資訊。比較區域的實際特徵來自**下一個觀測的編碼結果，而不是逆動態模型的輸出**。座標與學習變化**皆為教學示意，非模型實測，也不保證誤差單調下降**。MkDocs 網站提供播放／暫停控制；GitHub 可查看[靜態回退預覽](../../../../../assets/concept-animations/icm-forward-inverse-still.svg)。原始研究：[Pathak 等人（2017）](https://arxiv.org/abs/1705.05363)。
 
 ## 結果
 
