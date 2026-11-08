@@ -38,7 +38,7 @@ def run():
                         assert "特徵空間示意" in host.locator("svg").get_attribute("aria-label")
                     else:
                         assert "schematic feature-space" in host.locator("svg").get_attribute("aria-label")
-                    assert host.locator("output").text_content().startswith(
+                    assert host.locator(".curiosity-lab-status").text_content().startswith(
                         "Step " if kind == "rnd" else "步驟 ")
                     (OUT / f"probe_{kind}_{width}_{state}.png").write_bytes(host.screenshot())
                 if kind == "rnd":
@@ -102,7 +102,7 @@ def run():
             choose(host,2)
             host.get_by_role("button", name="Next step").focus()
             page.keyboard.press("Enter")
-            assert "Step 4/8" in host.locator("output").text_content()
+            assert "Step 4/8" in host.locator(".curiosity-lab-status").text_content()
             host.get_by_role("button", name="Play").click()
             assert host.get_by_role("button", name="Pause").count() == 1
             host.get_by_role("button", name="Pause").click()
