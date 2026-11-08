@@ -74,13 +74,17 @@ def check_icm_stochastic_comparison(browser) -> None:
         # The predictable panel's bar must track squared feature error,
         # rather than a visually plausible but incorrect distance proxy.
         for t in (0.0, .96, 1.35, 2.0, 2.8, 3.2, 4.1, 5.4, 6.7, 7.6):
-            page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
-            px, py = moving.nth(0).evaluate(
-                '(n) => [n.cx.animVal.value, n.cy.animVal.value]'
-            )
-            bar_width = page.locator('g.animated rect').first.evaluate(
-                '(n) => n.width.animVal.value'
-            )
+            # Sample all three animated values atomically at exactly t.
+            # Separate browser round-trips allow the SMIL clock to advance
+            # between the point and bar readings near a keyframe boundary.
+            px, py, bar_width = page.evaluate("""(t) => {
+                const svg = document.querySelector('svg');
+                svg.setCurrentTime(t);
+                const dot = svg.querySelector('g.animated circle');
+                const strip = svg.querySelector('g.animated rect');
+                return [dot.cx.animVal.value, dot.cy.animVal.value,
+                        strip.width.animVal.value];
+            }""", t)
             expected = 216 * ((px - 275)**2 + (py - 202)**2) / 21170
             assert abs(bar_width - expected) < 1.2, (
                 'predictable error bar diverges from squared feature distance',
