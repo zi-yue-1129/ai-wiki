@@ -114,6 +114,22 @@ def check_icm_stochastic_comparison(browser) -> None:
             sum((p[i] - prediction[i]) ** 2 for i in range(2))
             for p in outcomes
         ]
+        # The violet guide is an EXPECTATION across all possible outcomes,
+        # not the squared error of whichever successor was sampled.
+        expected_mean_bar = 462 + 212 * (sum(squared_distances) / 3) / squared_distances[0]
+        for document in (source, fallback):
+            root = ET.fromstring(document)
+            guide = root.find(
+                ".//{http://www.w3.org/2000/svg}line[@id='expected-error-tick']"
+            )
+            assert guide is not None, 'expected-error reference missing'
+            assert abs(float(guide.get('x1')) - expected_mean_bar) < .01, (
+                'expected-error tick does not reflect equally weighted variance',
+                guide.get('x1'), expected_mean_bar
+            )
+        guide = page.locator('#expected-error-tick')
+        assert guide.count() == 1
+        assert abs(float(guide.get_attribute('x1')) - expected_mean_bar) < .01
         observed_bars = [initial[2][1], second[2][1], third[2][1]]
         expected_bars = [
             212 * value / squared_distances[0] for value in squared_distances
