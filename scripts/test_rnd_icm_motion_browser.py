@@ -123,6 +123,14 @@ def run() -> None:
                         assert output_travel > width / 85, 'inverse output pulse stationary'
                         assert 'd="M477 293H499"' in still.read_text(encoding='utf-8')
                     assert page.locator('svg').bounding_box()['width'] <= width + 1
+                    # The actual GitHub-friendly still SVG must also be
+                    # renderable at each review size, not merely parseable.
+                    fallback_html = html.replace(source, still.read_text(encoding='utf-8'))
+                    page.set_content(fallback_html)
+                    (REVIEW / f'{stem}_{width}_fallback.png').write_bytes(
+                        page.locator('svg').screenshot()
+                    )
+                    assert page.locator('svg').bounding_box()['width'] <= width + 1
                     ctx.close()
 
                     ctx = browser.new_context(viewport={'width': width + 32, 'height': 640}, reduced_motion='reduce')
