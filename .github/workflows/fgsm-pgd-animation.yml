@@ -196,7 +196,7 @@ jobs:
                   # L-infinity rectangle, not only the direction of motion.
                   # A candidate that never crosses the boundary would teach
                   # clipping incorrectly even if it moved outward.
-                  budget_limits = page.locator('rect[x="448"][y="70"]').evaluate("""el => {
+                  budget_limits = page.locator('rect[x="448"][y="80"]').evaluate("""el => {
                     const r = el.getBBox();
                     const m = el.getCTM();
                     const transform = (x, y) => {
@@ -259,7 +259,7 @@ jobs:
                   )
                   # The projected endpoint is the right edge of the feasible
                   # rectangle (x=636, y=87) in the SVG's own coordinate system.
-                  budget_edge = page.locator('rect[x="448"][y="70"]').evaluate("""el => {
+                  budget_edge = page.locator('rect[x="448"][y="80"]').evaluate("""el => {
                     const svg = el.ownerSVGElement;
                     const p = svg.createSVGPoint();
                     p.x = 636; p.y = 87;
