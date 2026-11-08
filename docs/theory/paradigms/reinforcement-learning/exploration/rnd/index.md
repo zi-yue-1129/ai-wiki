@@ -8,7 +8,7 @@ aliases:
 
 # Random network distillation (Burda et al., 2018)
 
-An exploration method that rewards the agent for visiting states its own predictor has not learned yet. The predictor is trained to imitate a fixed, randomly initialised network, so its error is high on novel states and falls as states become familiar.
+An exploration method that rewards the agent for visiting states its own predictor has not learned yet. The predictor is trained to imitate a fixed, randomly initialised network, so its error may be high where prediction has not generalised, while training often reduces the error on visited states.
 
 ## Problem
 
@@ -18,7 +18,7 @@ In sparse-reward environments, the agent receives almost no learning signal unti
 
 RND has two networks that take the same observation. A **target** network has random weights that are fixed and never trained. A **predictor** network is trained by gradient descent to match the target's output on the states the agent visits. The squared difference between the two outputs is the exploration bonus, which is added to the extrinsic reward.
 
-Because the predictor has been trained on frequently visited states, its error is small there. A new state gives a large error, and the agent is pushed toward it. The method does not need a model of the environment's dynamics, and it avoids the difficulty of predicting raw future observations.
+Training on frequently visited states can reduce their prediction errors. A new state may produce a larger bonus that encourages exploration, but a predictor may also generalise to a previously unseen state and assign it a small bonus. The method does not need a model of the environment's dynamics, and it avoids the difficulty of predicting raw future observations.
 
 The paper also uses a modified version of PPO. Two value heads estimate the returns for the extrinsic and intrinsic rewards, so that different discount rates can be used for the two streams.
 
@@ -64,7 +64,7 @@ The paper reports that an agent that maximises only the RND bonus, with no extri
 
 ## Limitations
 
-- **Novelty, not progress.** The bonus rewards novelty, so the agent can be attracted to unpredictable but unimportant states.
+- **Error proxy, not a visit counter.** The bonus measures prediction mismatch, not whether an exact state has been visited. Generalisation can make an unseen state low-error; persistent error can also draw the agent to unimportant states.
 - **Stochastic observations.** The predictor can keep producing error for states that look new but are not, which may hold exploration back.
 - **Tuning.** The results depend on the choice of reward normalisation and the two discount rates.
 
