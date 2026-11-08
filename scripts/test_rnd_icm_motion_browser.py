@@ -27,6 +27,69 @@ def frame(page, time: float) -> bytes:
     return page.locator('svg').screenshot(animations='allow')
 
 
+
+def check_icm_stochastic_comparison(browser) -> None:
+    """Check actual animation geometry, static preview and reduced-motion fallback.
+
+    Identical encoded state-action input may have multiple stochastic outcomes.
+    The comparison must not depict irreversible predictor regression at loop end.
+    """
+    stem = 'icm-predictable-stochastic'
+    motion = ASSETS / f'{stem}-motion.svg'
+    still = ASSETS / f'{stem}-still.svg'
+    assert motion.is_file() and still.is_file()
+    source = motion.read_text(encoding='utf-8')
+    fallback = still.read_text(encoding='utf-8')
+    ET.fromstring(source)
+    ET.fromstring(fallback)
+    assert 'repeatCount="indefinite"' in source
+    assert '<animate ' in source and '<animate ' not in fallback
+    for width in (360, 720, 1024):
+        html = ('<html><head><meta charset="utf-8"><style>'
+                f'body{{margin:0;padding:14px}}svg{{width:{width}px;height:auto;display:block}}'
+                '</style></head><body>' + source + '</body></html>')
+        context = browser.new_context(viewport={'width': width + 32, 'height': 750})
+        page = context.new_page()
+        page.set_content(html)
+        signatures = []
+        for label, t in (('initial', 0.0), ('learning', 2.0), ('outcome2', 3.0),
+                         ('outcome3', 5.4), ('fitted', 7.2)):
+            png = frame(page, t)
+            signatures.append(hashlib.sha256(png).hexdigest())
+            (REVIEW / f'{stem}_{width}_{label}.png').write_bytes(png)
+        assert len(set(signatures)) >= 4, 'missing informative ICM variance frames'
+        moving = page.locator('g.animated circle')
+        assert moving.count() == 2, 'expected prediction and next-feature signals'
+        def snapshot(t):
+            page.evaluate('(t) => document.querySelector("svg").setCurrentTime(t)', t)
+            return (
+                moving.nth(0).evaluate('(n) => n.cx.animVal.value'),
+                moving.nth(1).evaluate('(n) => n.cx.animVal.value'),
+                [round(v) for v in page.locator('g.animated rect').evaluate_all(
+                    '(nodes) => nodes.map(n => n.width.animVal.value)')]
+            )
+        initial, second, third, fitted = map(snapshot, (0, 3.0, 5.4, 7.2))
+        assert initial[0] == 136 and fitted[0] == 264, (initial, fitted)
+        assert initial[2][0] == 216 and fitted[2][0] == 12, (initial, fitted)
+        assert initial[1] == 666 and second[1] == 594 and third[1] == 669
+        assert initial[2][1] == 161 and second[2][1] == 78 and third[2][1] == 173
+        assert fitted[0] == snapshot(7.8)[0], 'predictor must not visibly unlearn before replay'
+        assert page.locator('svg').bounding_box()['width'] <= width + 1
+        page.set_content(html.replace(source, fallback))
+        (REVIEW / f'{stem}_{width}_fallback.png').write_bytes(
+            page.locator('svg').screenshot())
+        assert page.locator('svg').bounding_box()['width'] <= width + 1
+        context.close()
+        context = browser.new_context(
+            viewport={'width': width + 32, 'height': 750}, reduced_motion='reduce')
+        page = context.new_page()
+        page.set_content(html)
+        pixel_hashes = [hashlib.sha256(frame(page, t)).hexdigest()
+                        for t in (0, 3.0, 5.4, 7.2)]
+        assert len(set(pixel_hashes)) == 1, 'reduced-motion display varies over time'
+        context.close()
+    print('PASS ICM predictable/stochastic: outcome variation, persistent error, three widths, fallback')
+
 def run() -> None:
     REVIEW.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as runtime:
@@ -293,11 +356,13 @@ def run() -> None:
                 ctx.close()
             print('PASS RND novelty: state-dependent target, reward shift, reduced-motion')
 
+            check_icm_stochastic_comparison(browser)
+
             # This is the repository's real shared MkDocs enhancement, not a mock.
             if PLAYER.is_file():
                 with tempfile.TemporaryDirectory() as tmp:
                     fixture = Path(tmp) / 'test.html'
-                    for stem in (*STEMS, 'rnd-state-novelty'):
+                    for stem in (*STEMS, 'rnd-state-novelty', 'icm-predictable-stochastic'):
                         motion_uri = (ASSETS / f'{stem}-motion.svg').resolve().as_uri()
                         fixture.write_text('<html><body><img alt="RND concept animation" '
                                            f'src="{motion_uri}"></body></html>', encoding='utf-8')
