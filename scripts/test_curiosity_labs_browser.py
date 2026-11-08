@@ -5,6 +5,7 @@ from playwright.sync_api import sync_playwright
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
+PREVIEW = ROOT / "docs/assets/concept-animations/rnd-b-transfer-preview.svg"
 JS = ROOT / "docs/javascripts/curiosity-labs.js"
 CSS = ROOT / "docs/stylesheets/curiosity-labs.css"
 OUT = ROOT / "artifacts/rnd-icm-motion"
@@ -15,6 +16,13 @@ def choose(host, n):
     control.evaluate("(e,n) => {e.value=String(n);e.dispatchEvent(new Event('input',{bubbles:true}));}", n)
 
 def run():
+    # The no-script GitHub fallback is a real, self-contained SVG, not a mock.
+    import xml.etree.ElementTree as ET
+    root = ET.parse(PREVIEW).getroot()
+    assert root.tag == "{http://www.w3.org/2000/svg}svg"
+    assert root.get("viewBox") == "0 0 560 700"
+    assert not any(node.tag.endswith("}animate") for node in root.iter())
+    assert PREVIEW.stat().st_size < 50 * 1024
     with sync_playwright() as p:
         browser = p.chromium.launch()
         for width in (320, 360, 720, 1024):

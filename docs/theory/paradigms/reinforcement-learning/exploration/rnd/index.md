@@ -54,6 +54,10 @@ Use **Previous/Next**, the timeline slider, or Play/Pause with 0.5×–2× speed
 
 <div data-curiosity-lab="rnd" data-locale="en"><p>This interactive step-through is available on the MkDocs site; the SVG animations and GitHub-safe static previews above remain available without scripts.</p></div>
 
+![Static three-scenario summary of the RND transfer experiment: the same unseen B has squared prediction gaps 19.13, 4.78 and 0.00 under three hypothetical predictor outputs](../../../../../assets/concept-animations/rnd-b-transfer-preview.svg)
+
+*Original static fallback for the interactive transfer experiment (CC BY-SA 4.0).* This three-row summary is **specifically for GitHub and no-script readers**; use the interactive slider on MkDocs for intermediate values and keyboard control. The orange ring around the final green target means the two features coincide, not that the predictor output disappeared. The predictions are independent **counterfactual illustrations**, not simultaneous outputs of the same trained model or measured rewards.
+
 ## Results
 
 The paper reports that an agent that maximises only the RND bonus, with no extrinsic reward, consistently finds more than half of the rooms in Montezuma's Revenge. The full method, combined with the two-head PPO, often finds 22 of the 24 rooms on the first level, and occasionally (though not frequently) passes the first level. The abstract reports state-of-the-art performance on Venture, Gravitar and Montezuma's Revenge. For Gravitar, the paper notes that RND does not consistently beat PPO, although it exceeds the prior state of the art.
