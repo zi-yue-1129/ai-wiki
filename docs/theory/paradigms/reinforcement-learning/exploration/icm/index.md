@@ -9,7 +9,7 @@ aliases:
 
 # Intrinsic curiosity module (Pathak et al., 2017)
 
-An exploration method that gives the agent a curiosity reward equal to the error of its own forward model, measured in a learned feature space. The features are trained with a self-supervised inverse dynamics model, so that the bonus ignores parts of the environment the agent cannot influence.
+An exploration method that gives the agent a curiosity reward equal to the error of its own forward model, measured in a learned feature space. The features are trained with a self-supervised inverse dynamics model, encouraging the bonus to focus on action-relevant changes, though this filtering is not guaranteed.
 
 ## Problem
 
@@ -40,6 +40,8 @@ where \(\eta\) is a scaling factor. The encoder, forward model and inverse model
 ![ICM process: a shared encoder maps the current and next observations to features; the action-conditioned forward model predicts the next feature, while the inverse model predicts the action from both features](../../../../../assets/concept-animations/icm-forward-inverse-motion.svg)
 
 *Original instructional animation (CC BY-SA 4.0).* The two **Encoder** boxes represent the **same learned feature mapping** applied to consecutive observations. The **Forward** model combines the current feature and action to predict the next feature; the orange point moves toward the green encoded next feature, reducing the squared feature-space error that supplies intrinsic reward. The **Inverse** branch uses both encoded features to learn which action produced the transition, encouraging action-relevant representations. The arrow to the comparison pane comes from the **actual next-state feature, not the inverse-model output**. This is a **schematic example**, not measured performance or a promise that training error decreases monotonically. MkDocs offers Play/Pause; [static GitHub-friendly preview](../../../../../assets/concept-animations/icm-forward-inverse-still.svg). Source: [Pathak et al. (2017)](https://arxiv.org/abs/1705.05363).
+
+**Reading the signal traces.** The short blue and amber pulses enter the **forward** model from the current feature and action, respectively. The two purple pulses enter the **inverse** model from the two encoded observations. These show input dependencies, not additional gradient steps or the inverse output supplying the forward target. Only the forward prediction error determines the illustrated intrinsic bonus.
 
 ## Results
 
