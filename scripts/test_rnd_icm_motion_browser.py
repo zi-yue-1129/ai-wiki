@@ -75,11 +75,11 @@ def run() -> None:
                         page = ctx.new_page()
                         page.goto(fixture.as_uri())
                         page.add_script_tag(content=PLAYER.read_text(encoding='utf-8'))
-                        toggle = page.get_by_role('button', name='Pause animation')
+                        toggle = page.get_by_role('button', name='Pause concept animation')
                         assert toggle.count() == 1, f'{stem}: player controls did not load'
                         toggle.click()
                         assert page.locator('img').get_attribute('src').endswith('-still.svg'), stem
-                        page.get_by_role('button', name='Play animation').focus()
+                        page.get_by_role('button', name='Play concept animation').focus()
                         page.keyboard.press('Enter')
                         assert page.locator('img').get_attribute('src').endswith('-motion.svg'), stem
                         ctx.close()
@@ -88,7 +88,7 @@ def run() -> None:
                         page.goto(fixture.as_uri())
                         page.add_script_tag(content=PLAYER.read_text(encoding='utf-8'))
                         assert page.locator('img').get_attribute('src').endswith('-still.svg'), stem
-                        assert page.get_by_role('button', name='Play animation').count() == 1
+                        assert page.get_by_role('button', name='Play concept animation').count() == 1
                         ctx.close()
                         print(f'PASS {stem}: MkDocs playback, keyboard, reduced-motion fallback')
             else:
