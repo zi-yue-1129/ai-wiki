@@ -99,6 +99,14 @@ def run():
                         squared=(px-tx)**2+(py-ty)**2
                         actual_width=float(host.locator('svg rect[fill="#d28a3e"]').get_attribute("width"))
                         assert abs(actual_width-244*squared/10000)<0.02
+                        # Deterministic next features have conditional variance zero;
+                        # the violet expected-error tick must meet the sampled-error
+                        # bar, including *before* the predictor is fitted.
+                        tick = host.locator('svg path[stroke="#775fb0"]').first.get_attribute("d")
+                        tick_x = float(tick.split(" ")[0][1:])
+                        assert abs(tick_x-(128+actual_width)) < 0.02
+                        expected_value = host.locator('svg text[fill="#7357a2"]').last.text_content()
+                        assert expected_value == formatted, (index, expected_value, formatted)
                         content=host.locator("svg").text_content()
                         assert formatted in content and "Expected" in content, content
                     for index,val in ((3,"3.87"),(4,"1.94"),(5,"3.25")):

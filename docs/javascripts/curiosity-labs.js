@@ -46,7 +46,9 @@
     const err=(ox-px)**2+(oy-py)**2, unit=isRnd?21000:10000;
     const width=Math.min(244,244*err/unit);
     // E[||Y-p||²] = ||E[Y]-p||² + E[||Y-E[Y]||²] for fixed Y distribution.
-    const conditionalMse=stochastic?expectation+bias*bias:0;
+    // For a deterministic next feature, the conditional variance is zero:
+    // expected squared error equals the current sample error before *and* after fitting.
+    const conditionalMse=stochastic?expectation+bias*bias:err;
     const tick=128+Math.min(244,244*conditionalMse/unit);
     const tag=isRnd?'Obs '+row[0]:stochastic?'Stochastic':'Predictable';
     const dots=!isRnd&&stochastic?outcomes.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="16" fill="none" stroke="#319d7a" stroke-dasharray="3 5" opacity="${i===n-3?'.9':'.45'}"/>`).join(''):'';
