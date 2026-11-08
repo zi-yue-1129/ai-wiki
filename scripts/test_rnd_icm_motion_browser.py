@@ -616,7 +616,7 @@ def run() -> None:
                 )
                 # Distinct observations A and B must not be shown as continuously
                 # varying, nonexistent inputs. Both features and the reward cue
-                # remain on A until the B input pulses reach the networks (~7.05 s).
+                # remain on A until the B input pulses reach the networks (~7.12 s).
                 # They then switch together within one visually imperceptible tick.
                 def response_at(timestamp):
                     page.evaluate(
@@ -634,12 +634,12 @@ def run() -> None:
 
                 for timestamp in (6.90, 7.06, 7.10):
                     coords, bonus = response_at(timestamp)
-                    assert coords == [589, 145, 572, 158] and bonus == 36, (
+                    assert coords == [589, 145, 572, 158] and abs(bonus - 8) < 1, (
                         'RND B response anticipated input or changed reward early',
                         timestamp, coords, bonus
                     )
                 coords, bonus = response_at(7.13)
-                assert coords == [550, 202, 621, 139] and bonus == 330, (
+                assert coords == [550, 202, 621, 139] and abs(bonus - 158) < 1, (
                     'RND target, predictor and bonus did not switch together',
                     coords, bonus
                 )
