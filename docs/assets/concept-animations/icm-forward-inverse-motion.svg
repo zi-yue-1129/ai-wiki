@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 370" role="img" aria-labelledby="icm-title icm-desc">
 <title id="icm-title">Intrinsic curiosity module: forward prediction error and inverse action training</title>
-<desc id="icm-desc">State and next-state observations pass through an encoder. A forward model uses the current feature and action to predict the next feature, which approaches the encoded actual next feature as training proceeds. A separate inverse model learns to recover the action from the two features. Four input pulses trace the forward and inverse dependencies. Green and orange pulses distinguish the encoded next feature from the forward prediction before the comparison changes. A separate purple pulse exits the inverse model as a predicted action, not a target or reward. All positions are schematic.</desc>
+<desc id="icm-desc">State and next-state observations pass through an encoder. A forward model uses the current feature and action to predict the next feature, which approaches the encoded actual next feature as training proceeds. A separate inverse model learns to recover the action from the two features. Four input pulses trace the forward and inverse dependencies. A return pulse indicates a schematic loss-driven update of the forward model, after which the prediction improves over training iterations. Green and orange pulses distinguish the encoded next feature from the forward prediction before the comparison changes. A separate purple pulse exits the inverse model as a predicted action, not a target or reward. All positions are schematic.</desc>
 <style>
  text{font-family:Arial,Helvetica,sans-serif}
  .lbl{font-size:15px;fill:#263b52;font-weight:700}
@@ -8,7 +8,7 @@
  .resting{display:none}
  @media(prefers-reduced-motion:reduce){.animated{display:none}.resting{display:inline}}
 </style>
-<defs><marker id="icm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8497ad"/></marker></defs>
+<defs><marker id="icm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8497ad"/></marker><marker id="icm-update-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#b77736"/></marker></defs>
 <rect width="680" height="370" rx="16" fill="#fff"/>
 <text x="27" y="38" font-size="23" font-weight="700" fill="#142238">ICM · curiosity in feature space</text>
 <text x="27" y="61" font-size="15" fill="#53677f">Forward: next feature  ·  Inverse: action</text>
@@ -49,6 +49,9 @@
 <path class="edge" d="M478 132H505" marker-end="url(#icm-arrow)"/>
 <path class="edge" d="M321 292V334H501V239" marker-end="url(#icm-arrow)"/>
 <rect x="510" y="84" width="147" height="186" rx="13" fill="#f8fafc" stroke="#d9e2ec" stroke-width="2"/>
+<!-- Schematic loss-to-forward-model update: error must be observed before fitting improves. -->
+<path d="M510 123V89H423V100" fill="none" stroke="#b77736" stroke-width="2.1" stroke-dasharray="4 5" marker-end="url(#icm-update-arrow)"/>
+<text x="462" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="#945b2a">update</text>
 <text x="583" y="108" font-size="15" text-anchor="middle" font-weight="700" fill="#354860">Next feature</text>
 <path d="M528 244H637M528 244V122" stroke="#c7d3e1" stroke-width="2"/>
 <path d="M528 202H637M528 160H637M569 122V244M612 122V244" stroke="#e4ebf2" stroke-width="1.5"/>
@@ -57,18 +60,18 @@
 <g class="resting"><line x1="550" y1="229" x2="604" y2="143" stroke="#d67737" stroke-width="3" stroke-dasharray="5 5"/><circle cx="550" cy="229" r="9" fill="#d67737" stroke="#fff" stroke-width="3"/></g>
 <g class="animated">
  <line x1="604" y1="143" x2="550" y2="229" stroke="#d67737" stroke-width="3" stroke-dasharray="5 5">
-  <animate attributeName="x2" values="550;550;573;591;598;598;550" keyTimes="0;.44;.62;.78;.84;.94;1" dur="8s" repeatCount="indefinite"/>
-  <animate attributeName="y2" values="229;229;190;162;151;151;229" keyTimes="0;.44;.62;.78;.84;.94;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="x2" values="550;550;573;591;598;598;550" keyTimes="0;.53;.69;.80;.86;.94;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="y2" values="229;229;190;162;151;151;229" keyTimes="0;.53;.69;.80;.86;.94;1" dur="8s" repeatCount="indefinite"/>
  </line>
  <circle cx="550" cy="229" r="9" fill="#d67737" stroke="#fff" stroke-width="3">
-  <animate attributeName="cx" values="550;550;573;591;598;598;550" keyTimes="0;.44;.62;.78;.84;.94;1" dur="8s" repeatCount="indefinite"/>
-  <animate attributeName="cy" values="229;229;190;162;151;151;229" keyTimes="0;.44;.62;.78;.84;.94;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="cx" values="550;550;573;591;598;598;550" keyTimes="0;.53;.69;.80;.86;.94;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="229;229;190;162;151;151;229" keyTimes="0;.53;.69;.80;.86;.94;1" dur="8s" repeatCount="indefinite"/>
  </circle>
 </g>
 <text x="516" y="288" font-size="13" font-weight="700" fill="#53677f">Error → reward</text>
 <rect x="516" y="302" width="138" height="16" rx="8" fill="#e8edf3"/>
 <rect x="518" y="304" width="132" height="12" rx="6" fill="#d98a4a" class="animated">
- <animate attributeName="width" values="132;132;68;26;6;6;132" keyTimes="0;.44;.62;.78;.84;.94;1" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="width" values="132;132;68;26;6;6;132" keyTimes="0;.53;.69;.80;.86;.94;1" dur="8s" repeatCount="indefinite"/>
 </rect>
 <rect x="518" y="304" width="132" height="12" rx="6" fill="#d98a4a" class="resting"/>
 
@@ -105,6 +108,13 @@
  <circle r="3.6" fill="#8a69b7" stroke="#fff" stroke-width="1" opacity="0">
   <animateMotion path="M479 293H498" keyPoints="0;0;1;1" keyTimes="0;.63;.75;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
   <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.61;.63;.75;.77;1" dur="8s" repeatCount="indefinite"/>
+ </circle>
+</g>
+<!-- Gradient-update cue arrives before any illustrated improvement in prediction. -->
+<g class="animated" aria-hidden="true">
+ <circle r="4.4" fill="#b77736" stroke="#fff" stroke-width="1.2" opacity="0">
+  <animateMotion path="M510 123V89H423V100" keyPoints="0;0;1;1" keyTimes="0;.45;.52;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.445;.45;.52;.525;1" dur="8s" repeatCount="indefinite"/>
  </circle>
 </g>
 </svg>
