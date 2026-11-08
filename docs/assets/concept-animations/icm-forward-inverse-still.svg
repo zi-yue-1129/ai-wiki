@@ -41,7 +41,10 @@
 <path class="edge" d="M321 292H367" marker-end="url(#icm-arrow)"/>
 <rect x="369" y="268" width="108" height="50" rx="12" fill="#f3effb" stroke="#c3b5e1" stroke-width="2"/>
 <text x="423" y="299" class="lbl" text-anchor="middle" fill="#7358a5">Inverse</text>
-<text x="482" y="298" font-size="14" fill="#7358a5">â</text>
+<!-- Inverse action prediction is separate from the forward next-feature target. -->
+<path d="M477 293H499" fill="none" stroke="#8a69b7" stroke-width="2" stroke-linecap="round"/>
+<path d="M494 289L500 293L494 297" fill="none" stroke="#8a69b7" stroke-width="2" stroke-linejoin="round"/>
+<text x="504" y="299" font-size="14" fill="#7358a5" font-weight="700">â</text>
 <!-- comparison window -->
 <path class="edge" d="M478 132H505" marker-end="url(#icm-arrow)"/>
 <path class="edge" d="M321 292V334H501V239" marker-end="url(#icm-arrow)"/>
