@@ -49,6 +49,16 @@ where \(\eta\) is a scaling factor. The encoder, forward model and inverse model
 
 *Original instructional animation (CC BY-SA 4.0).* Both panels repeat the **same encoded current feature and action**. On the **Predictable** side, the observed next feature remains the same, so learning can move the orange forward prediction toward that green target and reduce its error. On the **Stochastic** side, several possible encoded next features arise from the **same input**; one deterministic forward prediction cannot match all outcomes simultaneously. Thus a prediction-error bonus can remain positive even after the model has learned the conditional distribution's central tendency. This is an **illustration of residual unpredictability, not a claim that ICM must reward every random observation**: the inverse-dynamics representation may suppress some uncontrollable factors, but cannot be assumed to remove all of them. The feature coordinates and orange error bars are **qualitative and schematic—not calculated from the drawing or measured model outputs**. The animation loop replays the comparison, not a reset of learned weights. On MkDocs use Play/Pause; [static GitHub-friendly preview](../../../../../assets/concept-animations/icm-predictable-stochastic-still.svg). Source: [Pathak et al. (2017)](https://arxiv.org/abs/1705.05363).
 
+For a fixed encoder and a deterministic forward-model prediction, write \(z=(\phi(s_t),a_t)\) and \(Y=\phi(s_{t+1})\). The squared-error decomposition is
+
+\[
+\mathbb E[\|Y-\hat\phi(z)\|_2^2\mid z]
+=\|\mathbb E[Y\mid z]-\hat\phi(z)\|_2^2
++\operatorname{tr}\!\big(\operatorname{Cov}[Y\mid z]\big).
+\]
+
+Even a predictor matching the conditional mean leaves the conditional-variance term. Joint feature learning can change that variance; the right-hand panel illustrates a **possible limitation**, not a universal failure of ICM.
+
 ## Results
 
 The paper evaluates ICM on the visual games VizDoom and Super Mario Bros, where the extrinsic reward is sparse or absent. The abstract reports that curiosity alone lets the agent learn to explore. The paper reports that a Mario agent trained without any extrinsic reward can learn to cross over 30% of Level 1 of Super Mario Bros, and that in VizDoom the agent learns to walk along corridors instead of bumping into walls or getting stuck in corners.
