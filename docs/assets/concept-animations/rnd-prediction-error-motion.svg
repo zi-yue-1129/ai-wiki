@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 370" role="img" aria-labelledby="rnd-title rnd-desc">
 <title id="rnd-title">Random network distillation: predictor error falls after learning on a visited state</title>
-<desc id="rnd-desc">The fixed target receives the same state as a trainable predictor. The predictor output approaches the unchanged target feature, shortening their error and the intrinsic bonus. Positions are illustrative, not measured model outputs.</desc>
+<desc id="rnd-desc">Two colored pulses show the same observation entering both networks. Only the predictor learns; its feature channels and prediction approach the unchanged random target, shortening feature error and intrinsic bonus. The loop replays a schematic training example, not a measured learning trace.</desc>
 <style>
   text{font-family:Arial,Helvetica,sans-serif}
   .small{font-size:16px;fill:#45556c;font-weight:600}
