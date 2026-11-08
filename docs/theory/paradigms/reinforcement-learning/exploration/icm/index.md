@@ -20,10 +20,10 @@ Extrinsic rewards are often extremely sparse or absent, so the agent needs an in
 ICM has three networks:
 
 - An **encoder** maps the observation \(s_t\) to a feature vector \(\phi(s_t)\).
-- An **inverse dynamics model** predicts the action \(a_t\) from \(\phi(s_t)\) and \(\phi(s_{t+1})\). Training this model forces the features to keep the information that the agent's actions can affect, and to drop the rest.
+- An **inverse dynamics model** predicts the action \(a_t\) from \(\phi(s_t)\) and \(\phi(s_{t+1})\). Training this model encourages features to retain information useful for identifying the agent's action, while reducing sensitivity to irrelevant changes; it does not guarantee complete disentanglement of controllable and uncontrollable factors.
 - A **forward model** predicts \(\phi(s_{t+1})\) from \(\phi(s_t)\) and \(a_t\).
 
-The intrinsic reward is the squared error of the forward model in the feature space. Parts of the environment that the agent cannot influence are not represented in \(\phi\), so they do not produce curiosity. The agent is rewarded for visiting states where its own actions have consequences it cannot yet predict.
+The intrinsic reward is the squared error of the forward model in the feature space. Ideally, the learned representation deemphasises uncontrollable visual changes, but unpredictable factors may remain and can still contribute to the bonus. The agent is rewarded for visiting states where its own actions have consequences it cannot yet predict.
 
 ## Equation or algorithm
 
