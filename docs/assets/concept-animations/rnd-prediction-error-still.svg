@@ -24,7 +24,7 @@
 <g fill="#138b79"><rect x="263" y="145" width="12" height="13" rx="2"/><rect x="284" y="141" width="12" height="17" rx="2"/><rect x="305" y="148" width="12" height="10" rx="2"/><rect x="326" y="136" width="12" height="22" rx="2"/></g>
 <rect x="225" y="192" width="145" height="76" rx="13" fill="#fff2e7" stroke="#edbb8b" stroke-width="2"/>
 <text x="297" y="225" class="small" text-anchor="middle" fill="#a95822">Predictor</text>
-<g fill="#d27b3f"><rect x="263" y="238" width="12" height="14" rx="2"/><rect x="284" y="242" width="12" height="10" rx="2"/><rect x="305" y="237" width="12" height="15" rx="2"/><rect x="326" y="231" width="12" height="21" rx="2"/></g>
+<g fill="#d27b3f"><rect x="263" y="246" width="12" height="6" rx="2"/><rect x="284" y="227" width="12" height="25" rx="2"/><rect x="305" y="247" width="12" height="5" rx="2"/><rect x="326" y="222" width="12" height="30" rx="2"/></g>
 <path class="link" d="M370 135H407" marker-end="url(#rnd-arrow)"/>
 <path class="link" d="M370 232H407" marker-end="url(#rnd-arrow)"/>
 <rect x="417" y="86" width="237" height="202" rx="15" fill="#f8fafc" stroke="#d6e1ec" stroke-width="2"/>
