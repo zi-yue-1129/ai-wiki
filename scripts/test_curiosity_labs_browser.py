@@ -28,7 +28,7 @@ def run():
             page.set_content(html)
             page.add_script_tag(content=JS.read_text())
             assert page.locator("svg").count() == 2
-            assert page.locator("button").count() == 8
+            assert page.locator("button").count() == 10
             for kind, states in (("rnd", (0,2,3,4,6,7)), ("icm", (0,2,3,4,5))):
                 host = page.locator('[data-curiosity-lab="' + kind + '"]')
                 for state in states:
@@ -49,6 +49,32 @@ def run():
                     choose(host, 4)
                     assert "Obs B" in host.locator("svg").text_content()
                     assert "19.13" in host.locator("svg").text_content()
+                    transfer = host.locator("input[data-transfer]")
+                    assert transfer.count() == 1 and host.locator(".curiosity-lab-transfer").is_visible()
+                    for percent, expected in ((0,19125),(50,4781.25),(100,0)):
+                        transfer.evaluate(
+                            "(e,v) => {e.value=String(v);e.dispatchEvent(new Event('input',{bubbles:true}));}", percent
+                        )
+                        predictor = host.locator('svg circle[fill="#e19748"]')
+                        target = host.locator('svg circle[fill="#27926e"]')
+                        px,py = float(predictor.get_attribute("cx")),float(predictor.get_attribute("cy"))
+                        tx,ty = float(target.get_attribute("cx")),float(target.get_attribute("cy"))
+                        squared = (tx-px)**2 + (ty-py)**2
+                        assert abs(squared-expected) < 0.01
+                        bar = float(host.locator('svg rect[fill="#d28a3e"]').get_attribute("width"))
+                        assert abs(bar - 244*squared/21000) < 0.02
+                        metrics = host.locator(".curiosity-lab-transfer .curiosity-lab-metrics").text_content()
+                        assert metrics.endswith({0:"19.13",50:"4.78",100:"0.00"}[percent])
+                        (OUT / f"rnd_transfer_{width}_{percent}.png").write_bytes(host.screenshot())
+                    choose(host,3)
+                    assert not host.locator(".curiosity-lab-transfer").is_visible()
+                    assert host.locator('svg circle[fill="#e19748"]').get_attribute("cx") == "165"
+                    choose(host,4)
+                    transfer.focus()
+                    page.keyboard.press("ArrowLeft")
+                    assert transfer.input_value() == "75"
+                    host.get_by_role("button",name="Reset transfer").click()
+                    assert transfer.input_value() == "0"
                 else:
                     # Predictable target stays fixed while the learner updates its
                     # deterministic forecast; the bar must track squared distance.
@@ -76,7 +102,7 @@ def run():
             choose(icm, 3)
             bias_slider = icm.locator('input[data-bias]')
             assert bias_slider.count() == 1
-            assert "3.02" in icm.locator(".curiosity-lab-metrics").text_content()
+            assert "3.02" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
             assert icm.locator('input[data-timeline]').count() == 1
             bias_slider.evaluate(
                 "(e) => {e.value='40';e.dispatchEvent(new Event('input',{bubbles:true}));}"
@@ -86,7 +112,7 @@ def run():
             assert abs(width_bar - 244*1066/10000) < .02
             tick = icm.locator('svg path[stroke="#775fb0"]').first.get_attribute("d")
             assert abs(float(tick.split(" ")[0][1:]) - (128+244*(3017.3333333333+1600)/10000)) < .05
-            numbers = icm.locator(".curiosity-lab-metrics").text_content()
+            numbers = icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
             assert all(v in numbers for v in ("4.62", "1.60", "3.02"))
             (OUT / f"probe_icm_bias_{width}_p40.png").write_bytes(icm.screenshot())
             # A keyboard nudge and the accessible reset button must recompute
@@ -96,7 +122,7 @@ def run():
             assert bias_slider.input_value() == "30"
             icm.get_by_role("button", name="回到條件平均值").click()
             assert bias_slider.input_value() == "0"
-            assert "3.02" in icm.locator(".curiosity-lab-metrics").text_content()
+            assert "3.02" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
             # Real mouse and keyboard actions, not just DOM existence.
             host=page.locator('[data-curiosity-lab="rnd"]')
             choose(host,2)
@@ -120,12 +146,16 @@ def run():
         rnd=page.locator('[data-curiosity-lab="rnd"]')
         choose(rnd,4)
         assert "Obs B" in rnd.locator("svg").text_content()
+        rnd.locator("input[data-transfer]").evaluate(
+            "(e) => {e.value='100';e.dispatchEvent(new Event('input',{bubbles:true}));}"
+        )
+        assert "0.00" in rnd.locator(".curiosity-lab-transfer .curiosity-lab-metrics").text_content()
         icm = page.locator('[data-curiosity-lab="icm"]')
         choose(icm,3)
         icm.locator('input[data-bias]').evaluate(
             "(e) => {e.value='-40';e.dispatchEvent(new Event('input',{bubbles:true}));}"
         )
-        assert "4.62" in icm.locator(".curiosity-lab-metrics").text_content()
+        assert "4.62" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
         context.close()
         browser.close()
     print("PASS curiosity probes: responsive renders, arithmetic, keyboard, timeline, reduced motion")

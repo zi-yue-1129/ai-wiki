@@ -20,23 +20,27 @@
     en:{prev:'Previous step',next:'Next step',play:'Play',pause:'Pause',seek:'Timeline',speed:'Speed',step:'Step',
       rnd:['Observe A','Train A','Train A','A familiar','Switch to B','Train B','Train B','B familiar'],
       icm:['Before update','Train forward','Predictable fitted','Sample 1','Sample 2','Sample 3'],
-      rndNote:'Illustrative feature coordinates, not measured rewards. A new observation changes both network outputs; only the predictor parameters train.',
+      rndNote:'RND measures predictor error, not a visit count. After A training, a never-seen B can have low error through generalisation. The Transfer slider compares hypothetical B predictions without any parameter update. Coordinates and bonuses are schematic, not measured.',
       icmNote:'For the repeatable outcome, the toy forward prediction fits its fixed target; then three equally likely outcomes illustrate irreducible sample error. On stochastic steps, shift the prediction to see why the conditional mean minimises expected squared error. Not measured data.',
-      shift:'Prediction shift',center:'Reset to mean',expected:'Expected',biasSquared:'Bias²',variance:'Variance'},
+      shift:'Prediction shift',center:'Reset to mean',expected:'Expected',biasSquared:'Bias²',variance:'Variance',transfer:'Transfer to B',noTransfer:'Reset transfer',bonus:'Squared gap'},
     zh:{prev:'上一步',next:'下一步',play:'播放',pause:'暫停',seek:'進度',speed:'速度',step:'步驟',
       rnd:['觀測 A','訓練 A','訓練 A','熟悉 A','切換到 B','訓練 B','訓練 B','熟悉 B'],
       icm:['更新前','訓練前向模型','已擬合可預測結果','取樣 1','取樣 2','取樣 3'],
-      rndNote:'人工設計的特徵座標，不是實測獎勵。不同觀測使兩個網路的輸出改變，只有預測器參數接受訓練。',
+      rndNote:'RND 衡量預測誤差，而非造訪次數。訓練 A 後，即使未曾看過 B，泛化也可能使 B 的誤差很低。遷移滑桿比較假設性的 B 預測，不會執行參數更新；座標與獎勵均非實測。',
       icmNote:'可重複轉移的固定目標與前向預測會逐步接近；三個等機率結果呈現不可約的樣本誤差。在隨機步驟移動預測點，觀察為何條件平均值使期望平方誤差最小。非模型實測。',
-      shift:'預測位置偏移',center:'回到條件平均值',expected:'期望值',biasSquared:'偏差平方',variance:'變異數'}
+      shift:'預測位置偏移',center:'回到條件平均值',expected:'期望值',biasSquared:'偏差平方',variance:'變異數',transfer:'對 B 的泛化程度',noTransfer:'重設泛化',bonus:'平方誤差'}
   };
   const fmt=v=>(v/1000).toFixed(2);
-  function svg(kind,n,zh,bias=0) {
+  function svg(kind,n,zh,bias=0,transfer=0) {
     const isRnd=kind==='rnd', row=rnd[n], stochastic=!isRnd&&n>=3;
     const sampled=stochastic?outcomes[n-3]:mean;
     const tx=isRnd?row[1]:mean[0],ty=isRnd?row[2]:mean[1];
-    const px=isRnd?row[3]:(stochastic?mean[0]+bias:predictable[n][0]);
-    const py=isRnd?row[4]:(stochastic?mean[1]:predictable[n][1]);
+    // Counterfactual predictors after training on A, evaluated on a never-seen B.
+    // A stays untouched; B's target is fixed, while a hypothetical predictor
+    // can already generalise to B before any B-specific update.
+    const factor=isRnd&&n>=4?1-transfer/100:1;
+    const px=isRnd?tx+(row[3]-tx)*factor:(stochastic?mean[0]+bias:predictable[n][0]);
+    const py=isRnd?ty+(row[4]-ty)*factor:(stochastic?mean[1]:predictable[n][1]);
     const ox=isRnd?tx:sampled[0],oy=isRnd?ty:sampled[1];
     // A consistent ICM scale covers every outcome when bias is in [-40,40].
     const err=(ox-px)**2+(oy-py)**2, unit=isRnd?21000:10000;
@@ -78,7 +82,7 @@
       host.classList.add('curiosity-lab');
       const L=words[host.dataset.locale==='zh-TW'?'zh':'en'];
       const last=kind==='rnd'?7:5;
-      let index=0,timer=0,bias=0;
+      let index=0,timer=0,bias=0,transfer=0;
       const plot=document.createElement('div');plot.className='curiosity-lab-plot';
       const controls=document.createElement('div');controls.className='curiosity-lab-toolbar';
       const button=(text,cb)=>{const el=document.createElement('button');el.type='button';el.setAttribute('aria-label',text);el.addEventListener('click',cb);return el;};
@@ -99,17 +103,34 @@
       const reset=button(L.center,()=>{bias=0;biasInput.value='0';set(index);});reset.textContent=L.center;
       const metrics=document.createElement('output');metrics.className='curiosity-lab-metrics';metrics.setAttribute('aria-live','polite');
       biasRow.append(biasLabel,biasValue,reset,metrics);
-      controls.append(prev,play,next,seek,status,speed);host.replaceChildren(plot,controls,biasRow,note);
+      const transferRow=document.createElement('div');transferRow.className='curiosity-lab-bias curiosity-lab-transfer';transferRow.hidden=true;
+      const transferLabel=document.createElement('label');transferLabel.textContent=L.transfer;
+      const transferInput=document.createElement('input');Object.assign(transferInput,{type:'range',min:'0',max:'100',step:'25',value:'0'});
+      transferInput.dataset.transfer='true';transferInput.setAttribute('aria-label',L.transfer);
+      transferLabel.append(transferInput);
+      const transferValue=document.createElement('output');transferValue.className='curiosity-lab-bias-value';
+      const transferReset=button(L.noTransfer,()=>{transfer=0;transferInput.value='0';set(index);});transferReset.textContent=L.noTransfer;
+      const transferMetrics=document.createElement('output');transferMetrics.className='curiosity-lab-metrics';transferMetrics.setAttribute('aria-live','polite');
+      transferRow.append(transferLabel,transferValue,transferReset,transferMetrics);
+      controls.append(prev,play,next,seek,status,speed);host.replaceChildren(plot,controls,biasRow,transferRow,note);
+      transferInput.addEventListener('input',()=>{stop();transfer=Number(transferInput.value);set(index);});
       biasInput.addEventListener('input',()=>{stop();bias=Number(biasInput.value);set(index);});
       function sync(){prev.textContent='←';next.textContent='→';play.textContent=timer?'Ⅱ':'▶';play.setAttribute('aria-label',timer?L.pause:L.play);play.disabled=reduced.matches;prev.disabled=index===0;next.disabled=index===last;seek.value=String(index);status.textContent=`${L.step} ${index+1}/${last+1} · ${L[kind][index]}`;}
       function set(n){
         index=Math.min(last,Math.max(0,n));
-        plot.innerHTML=svg(kind,index,host.dataset.locale==='zh-TW',bias);
+        plot.innerHTML=svg(kind,index,host.dataset.locale==='zh-TW',bias,transfer);
         biasRow.hidden=kind!=='icm'||index<3;
         if(!biasRow.hidden){
           biasValue.textContent=`Δx ${bias>0?'+':''}${bias}`;
           reset.disabled=bias===0;
           metrics.textContent=`${L.expected} ${fmt(expectation+bias*bias)} = ${L.biasSquared} ${fmt(bias*bias)} + ${L.variance} ${fmt(expectation)}`;
+        }
+        transferRow.hidden=kind!=='rnd'||index<4;
+        if(!transferRow.hidden){
+          transferValue.textContent=`${transfer}%`;
+          transferReset.disabled=transfer===0;
+          const row=rnd[index], baseError=(row[1]-row[3])**2+(row[2]-row[4])**2;
+          transferMetrics.textContent=`${L.bonus}: ${fmt(baseError*(1-transfer/100)**2)}`;
         }
         sync();
       }
