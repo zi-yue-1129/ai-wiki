@@ -59,6 +59,12 @@ For a fixed encoder and a deterministic forward-model prediction, write \(z=(\ph
 
 Even a predictor matching the conditional mean leaves the conditional-variance term. Joint feature learning can change that variance; the right-hand panel illustrates a **possible limitation**, not a universal failure of ICM.
 
+## Interactive feature-error probe
+
+Use **Previous/Next**, the timeline slider, or Play/Pause with 0.5×–2× speed to inspect each illustrative transition. The diagram is recomputed per step: there is **no interpolated state A→B**. The three equally likely stochastic outcomes have their mean at the fixed predictor. The orange bar is the **sample squared error**; the violet tick denotes the **expected squared error**, not any single observed reward. The coordinate scale and displayed squared gaps are **arbitrary teaching units, never trained-model measurements**.
+
+<div data-curiosity-lab="icm" data-locale="en"><p>This interactive step-through is available on the MkDocs site; the SVG animations and GitHub-safe static previews above remain available without scripts.</p></div>
+
 ## Results
 
 The paper evaluates ICM on the visual games VizDoom and Super Mario Bros, where the extrinsic reward is sparse or absent. The abstract reports that curiosity alone lets the agent learn to explore. The paper reports that a Mario agent trained without any extrinsic reward can learn to cross over 30% of Level 1 of Super Mario Bros, and that in VizDoom the agent learns to walk along corridors instead of bumping into walls or getting stuck in corners.
