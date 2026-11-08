@@ -11,7 +11,7 @@ OUT = ROOT / "artifacts/rnd-icm-motion"
 OUT.mkdir(parents=True, exist_ok=True)
 
 def choose(host, n):
-    control = host.locator('input[type="range"]')
+    control = host.locator('input[data-timeline]')
     control.evaluate("(e,n) => {e.value=String(n);e.dispatchEvent(new Event('input',{bubbles:true}));}", n)
 
 def run():
@@ -28,7 +28,7 @@ def run():
             page.set_content(html)
             page.add_script_tag(content=JS.read_text())
             assert page.locator("svg").count() == 2
-            assert page.locator("button").count() == 6
+            assert page.locator("button").count() == 8
             for kind, states in (("rnd", (0,2,3,4,6,7)), ("icm", (0,2,3,4,5))):
                 host = page.locator('[data-curiosity-lab="' + kind + '"]')
                 for state in states:
@@ -63,13 +63,40 @@ def run():
                         assert (px,py)==forecast and (tx,ty)==(310,130)
                         squared=(px-tx)**2+(py-ty)**2
                         actual_width=float(host.locator('svg rect[fill="#d28a3e"]').get_attribute("width"))
-                        assert abs(actual_width-244*squared/5000)<0.02
+                        assert abs(actual_width-244*squared/10000)<0.02
                         content=host.locator("svg").text_content()
                         assert formatted in content and "Expected" in content, content
                     for index,val in ((3,"3.87"),(4,"1.94"),(5,"3.25")):
                         choose(host,index)
                         content = host.locator("svg").text_content()
                         assert "3.02" in content and val in content, content
+            # Conditional-mean probe: bias moves the hypothetical forecast, not
+            # sampled outcomes. Expected squared error = variance + squared bias.
+            icm = page.locator('[data-curiosity-lab="icm"]')
+            choose(icm, 3)
+            bias_slider = icm.locator('input[data-bias]')
+            assert bias_slider.count() == 1
+            assert "3.02" in icm.locator(".curiosity-lab-metrics").text_content()
+            assert icm.locator('input[data-timeline]').count() == 1
+            bias_slider.evaluate(
+                "(e) => {e.value='40';e.dispatchEvent(new Event('input',{bubbles:true}));}"
+            )
+            assert icm.locator('svg circle[fill="#e19748"]').get_attribute("cx") == "350"
+            width_bar = float(icm.locator('svg rect[fill="#d28a3e"]').get_attribute("width"))
+            assert abs(width_bar - 244*1066/10000) < .02
+            tick = icm.locator('svg path[stroke="#775fb0"]').first.get_attribute("d")
+            assert abs(float(tick.split(" ")[0][1:]) - (128+244*(3017.3333333333+1600)/10000)) < .05
+            numbers = icm.locator(".curiosity-lab-metrics").text_content()
+            assert all(v in numbers for v in ("4.62", "1.60", "3.02"))
+            (OUT / f"probe_icm_bias_{width}_p40.png").write_bytes(icm.screenshot())
+            # A keyboard nudge and the accessible reset button must recompute
+            # the prediction and expected error, without touching the sample.
+            bias_slider.focus()
+            page.keyboard.press("ArrowLeft")
+            assert bias_slider.input_value() == "30"
+            icm.get_by_role("button", name="回到條件平均值").click()
+            assert bias_slider.input_value() == "0"
+            assert "3.02" in icm.locator(".curiosity-lab-metrics").text_content()
             # Real mouse and keyboard actions, not just DOM existence.
             host=page.locator('[data-curiosity-lab="rnd"]')
             choose(host,2)
@@ -93,6 +120,12 @@ def run():
         rnd=page.locator('[data-curiosity-lab="rnd"]')
         choose(rnd,4)
         assert "Obs B" in rnd.locator("svg").text_content()
+        icm = page.locator('[data-curiosity-lab="icm"]')
+        choose(icm,3)
+        icm.locator('input[data-bias]').evaluate(
+            "(e) => {e.value='-40';e.dispatchEvent(new Event('input',{bubbles:true}));}"
+        )
+        assert "4.62" in icm.locator(".curiosity-lab-metrics").text_content()
         context.close()
         browser.close()
     print("PASS curiosity probes: responsive renders, arithmetic, keyboard, timeline, reduced motion")
