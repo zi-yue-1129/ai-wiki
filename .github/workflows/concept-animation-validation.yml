@@ -101,6 +101,15 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+      - name: Keep RND/ICM motion frames for actual visual inspection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnd-icm-motion-browser-review
+          path: artifacts/rnd-icm-motion/*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
   validate-svgs:
     runs-on: ubuntu-latest
     steps:
