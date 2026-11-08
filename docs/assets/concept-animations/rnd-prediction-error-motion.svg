@@ -11,7 +11,7 @@
 <defs><marker id="rnd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8395ad"/></marker></defs>
 <rect width="680" height="370" rx="16" fill="#fff"/>
 <text x="28" y="37" font-size="23" font-weight="700" fill="#142238">RND · prediction error</text>
-<text x="28" y="61" font-size="15" fill="#53677f">Repeated visits to the same state</text>
+<text x="28" y="61" font-size="15" fill="#53677f">Repeated state · predictor training</text>
 <rect x="24" y="92" width="134" height="176" rx="15" fill="#f3f7fc" stroke="#d6e1ec" stroke-width="2"/>
 <text x="90" y="126" font-size="18" text-anchor="middle" font-weight="700" fill="#26374b">State</text>
 <rect x="53" y="152" width="76" height="76" rx="12" fill="#dce7f3"/>
@@ -24,7 +24,30 @@
 <g fill="#138b79"><rect x="263" y="145" width="12" height="13" rx="2"/><rect x="284" y="141" width="12" height="17" rx="2"/><rect x="305" y="148" width="12" height="10" rx="2"/><rect x="326" y="136" width="12" height="22" rx="2"/></g>
 <rect x="225" y="192" width="145" height="76" rx="13" fill="#fff2e7" stroke="#edbb8b" stroke-width="2"/>
 <text x="297" y="225" class="small" text-anchor="middle" fill="#a95822">Predictor</text>
-<g fill="#d27b3f"><rect x="263" y="238" width="12" height="14" rx="2"/><rect x="284" y="242" width="12" height="10" rx="2"/><rect x="305" y="237" width="12" height="15" rx="2"/><rect x="326" y="231" width="12" height="21" rx="2"/></g>
+<g fill="#d27b3f" class="animated">
+<rect x="263" y="246" width="12" height="6" rx="2">
+ <animate attributeName="y" values="246;246;243;240;239;239;246" keyTimes="0;.14;.43;.68;.83;.94;1" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="height" values="6;6;9;12;13;13;6" keyTimes="0;.14;.43;.68;.83;.94;1" dur="8s" repeatCount="indefinite"/>
+</rect>
+<rect x="284" y="227" width="12" height="25" rx="2">
+ <animate attributeName="y" values="227;227;230;234;235;235;227" keyTimes="0;.14;.43;.68;.83;.94;1" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="height" values="25;25;22;18;17;17;25" keyTimes="0;.14;.43;.68;.83;.94;1" dur="8s" repeatCount="indefinite"/>
+</rect>
+<rect x="305" y="247" width="12" height="5" rx="2">
+ <animate attributeName="y" values="247;247;245;243;242;242;247" keyTimes="0;.14;.43;.68;.83;.94;1" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="height" values="5;5;7;9;10;10;5" keyTimes="0;.14;.43;.68;.83;.94;1" dur="8s" repeatCount="indefinite"/>
+</rect>
+<rect x="326" y="222" width="12" height="30" rx="2">
+ <animate attributeName="y" values="222;222;225;229;230;230;222" keyTimes="0;.14;.43;.68;.83;.94;1" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="height" values="30;30;27;23;22;22;30" keyTimes="0;.14;.43;.68;.83;.94;1" dur="8s" repeatCount="indefinite"/>
+</rect>
+</g>
+<g fill="#d27b3f" class="resting">
+<rect x="263" y="246" width="12" height="6" rx="2"/>
+<rect x="284" y="227" width="12" height="25" rx="2"/>
+<rect x="305" y="247" width="12" height="5" rx="2"/>
+<rect x="326" y="222" width="12" height="30" rx="2"/>
+</g>
 <path class="link" d="M370 135H407" marker-end="url(#rnd-arrow)"/>
 <path class="link" d="M370 232H407" marker-end="url(#rnd-arrow)"/>
 <rect x="417" y="86" width="237" height="202" rx="15" fill="#f8fafc" stroke="#d6e1ec" stroke-width="2"/>
@@ -54,5 +77,5 @@
  <animate attributeName="width" values="406;406;219;74;9;9;406" keyTimes="0;.14;.43;.68;.83;.94;1" dur="8s" repeatCount="indefinite"/>
 </rect>
 <rect x="183" y="301" width="406" height="19" rx="9" fill="#d98a4a" class="resting"/>
-<text x="28" y="352" font-size="13" fill="#66788e">Schematic feature coordinates and bonus; target parameters remain fixed.</text>
+
 </svg>
