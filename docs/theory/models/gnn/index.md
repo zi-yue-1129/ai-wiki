@@ -47,7 +47,7 @@ The three methods differ in how they weight neighbours: GCN uses fixed degree-ba
 | GraphSAGE | Neighbour sampling; scales to large graphs; inductive |
 | GAT | Attention over neighbours |
 | GIN | As expressive as the 1-WL graph isomorphism test |
-| MPNN | Unified message-passing framework (quantum chemistry) |
+| [MPNN](message-passing/mpnn.md) | Unified message-passing framework (quantum chemistry) |
 | Equivariant GNNs (EGNN, NequIP, MACE) | Equivariant to 3D rotations and translations; molecular simulation |
 | Graph Transformers | Global attention plus structural encodings |
 

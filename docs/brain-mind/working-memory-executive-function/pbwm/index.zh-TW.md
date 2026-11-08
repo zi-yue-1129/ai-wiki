@@ -1,7 +1,7 @@
 ---
-translation_reviewed: 2026-10-28
-status: draft
-last_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
+status: complete
+last_reviewed: 2026-11-04
 related:
 - brain-mind/decision-reward
 tags:
@@ -26,8 +26,6 @@ PBWM 是一個計算模型：前額葉皮質（prefrontal cortex, PFC）保存�
 
 設想一個任務：一個提示必須在延遲之後被記住，而延遲中途出現了一個無關的干擾。有用的記憶必須保護提示不受干擾，同時仍允許相關的新資訊取代舊資訊。PBWM 的做法是分工：前額葉皮質是儲存區，基底核則像是位於其前方的閘門。
 
-O'Reilly 與 Frank 描述其目標是拆解執行功能中的「小人」（homunculus）：也就是認為有某個內在行動者決定要保留什麼，卻沒有任何機制說明它如何運作。PBWM 為這個行動者提供了一種可以學習的機制。
-
 ## 問題
 
 執行控制常被描述成彷彿大腦裡有一個控制者，決定要保留什麼以及如何使用它。但這個控制者背後的機制一直難以明確說明。問題在於：系統如何學會控制自己的工作記憶，包括保留哪些資訊、何時覆寫、何時忽略輸入。
@@ -42,8 +40,6 @@ PBWM 有三個協同運作的部分。
 - **基底核。** 提供動態閘門，決定目前的輸入是否更新某個前額葉表徵。
 - **類多巴胺的學習。** 中腦、基底核與杏仁核形成一個行動者—評論者（actor–critic）架構。評論者學習哪些前額葉表徵與任務相關，並訓練提供閘門的行動者。
 
-作者表示，此學習機制旨在同時解決這兩個信用分配問題。
-
 ## 方程式或演算法
 
 論文給出完整的學習規則。本頁以編號步驟描述其大綱，而非單一方程式。
@@ -55,7 +51,7 @@ PBWM 有三個協同運作的部分。
 
 ## 結果
 
-在 1-2-AX 工作記憶任務及其他基準工作記憶任務上，作者報告 PBWM 的表現優於標準的、基於反向傳播的時序學習機制。這個比較是論文對其學習規則的主要證據。
+論文在 1-2-AX 工作記憶任務上測試此學習規則。本頁不報告比較結果，請參閱原文。
 
 ## 限制
 
@@ -73,7 +69,7 @@ PBWM 有三個協同運作的部分。
 
 ## 應用
 
-- **模擬前額葉任務。** PBWM 在 1-2-AX 等工作記憶基準任務上接受測試。相關的額葉模型曾被用來模擬 Stroop 與威斯康辛卡片分類任務的表現，對象包括正常的人與額葉受損的人（Rougier 等人，2005）。
+- **模擬前額葉任務。** PBWM 在 1-2-AX 等工作記憶基準任務上接受測試。Rougier 等人（2005）提出一個相關的前額葉模型，其模擬的任務請參閱原文。
 - **設計 AI 中的門控記憶。** 保護記憶儲存區的可學習閘門，是循環網路中的核心設計，LSTM 即為一例。
 
 ## 未解問題
@@ -86,11 +82,11 @@ PBWM 有三個協同運作的部分。
 
 ### 開創性論文
 
-- O'Reilly, R. C. & Frank, M. J. (2006). Making working memory work: a computational model of learning in the prefrontal cortex and basal ganglia. *Neural Computation*. https://doi.org/10.1162/089976606775093909 — PBWM 的原始論文，提出可學習的閘門與行動者—評論者學習規則。
-- Frank, M. J., Loughry, B. & O'Reilly, R. C. (2001). Interactions between frontal cortex and basal ganglia in working memory: a computational model. *Cognitive, Affective, & Behavioral Neuroscience*. https://doi.org/10.3758/CABN.1.2.137 — 較早的計算模型，探討額葉皮質與基底核在工作記憶中的交互作用，正是 PBWM 所模擬的交互作用。
-- Rougier, N. P., Noelle, D. C., Braver, T. S., Cohen, J. D. & O'Reilly, R. C. (2005). Prefrontal cortex and flexible cognitive control: rules without symbols. *Proceedings of the National Academy of Sciences*. https://doi.org/10.1073/pnas.0502455102 — 顯示一個相關的前額葉模型如何形成抽象的類規則表徵，並模擬 Stroop 與卡片分類的行為。
-- Hochreiter, S. & Schmidhuber, J. (1997). Long short-term memory. *Neural Computation*. https://doi.org/10.1162/neco.1997.9.8.1735 — 提出 LSTM，其乘法閘單元學習開啟與關閉對記憶單元的存取。
+- O'Reilly, R. C. & Frank, M. J. (2006). Making working memory work: a computational model of learning in the prefrontal cortex and basal ganglia. *Neural Computation* 18, 283–328. https://doi.org/10.1162/089976606775093909 — PBWM 的原始論文，提出可學習的閘門與行動者—評論者學習規則。
+- Frank, M. J., Loughry, B. & O'Reilly, R. C. (2001). Interactions between frontal cortex and basal ganglia in working memory: a computational model. *Cognitive, Affective, & Behavioral Neuroscience* 1, 137–160. https://doi.org/10.3758/CABN.1.2.137 — 較早的計算模型，探討額葉皮質與基底核在工作記憶中的交互作用，正是 PBWM 所模擬的交互作用。
+- Rougier, N. P., Noelle, D. C., Braver, T. S., Cohen, J. D. & O'Reilly, R. C. (2005). Prefrontal cortex and flexible cognitive control: rules without symbols. *Proceedings of the National Academy of Sciences* 102, 7338–7343. https://doi.org/10.1073/pnas.0502455102 — 顯示一個相關的前額葉模型如何在靈活的認知控制模型中形成抽象的類規則表徵。
+- Hochreiter, S. & Schmidhuber, J. (1997). Long short-term memory. *Neural Computation* 9, 1735–1780. https://doi.org/10.1162/neco.1997.9.8.1735 — 提出 LSTM，其乘法閘單元學習開啟與關閉對記憶單元的存取。
 
 ### 綜述與教科書
 
-- Miller, E. K. & Cohen, J. D. (2001). An integrative theory of prefrontal cortex function. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.24.1.167 — 回顧前額葉作為目標導向偏置訊號來源的證據，PBWM 與此框架一致。
+- Miller, E. K. & Cohen, J. D. (2001). An integrative theory of prefrontal cortex function. *Annual Review of Neuroscience* 24, 167–202. https://doi.org/10.1146/annurev.neuro.24.1.167 — 回顧前額葉作為目標導向偏置訊號來源的證據，PBWM 與此框架一致。

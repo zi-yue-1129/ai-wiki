@@ -41,6 +41,7 @@ translation_reviewed: 2026-10-30
 - **向量縮放**為每個類別使用各自的尺度與偏置，較有彈性，但需要更多資料。
 - **矩陣縮放**對 logits 使用完整的線性映射，是此族中表達力最強的，也最容易過擬合。
 - **直方圖分箱**擬合一個從信心到準確率的分段常數映射，是非參數的替代方法。
+- **Platt 縮放**對分類器分數擬合一個邏輯映射，是參數化的替代方法，常用於二元任務。Lin 等人（2007）為其擬合給出數值穩定的演算法。
 
 ## 結果與限制
 
@@ -66,10 +67,12 @@ translation_reviewed: 2026-10-30
 
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — 為神經網路提出溫度縮放，並與其他校準方法比較。
 - Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. *Monthly Weather Review* 78(1), 1–3. https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2 — 提出機率預測的適當評分規則，是校準的對應指標。
+- Zadrozny, B. & Elkan, C. (2002). Transforming classifier scores into accurate multiclass probability estimates. In *Proceedings of the 8th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, 694–699. https://doi.org/10.1145/775047.775151 — 為多類別問題引入分類器分數的保序與分箱校準。
 - Niculescu-Mizil, A. & Caruana, R. (2005). Predicting good probabilities with supervised learning. In *Proceedings of the 22nd International Conference on Machine Learning*, 625–632. https://doi.org/10.1145/1102351.1102430 — 比較分類器的校準方法，包括 Platt 縮放與等張迴歸。
 
 ### 綜述與教科書
+- Lin, H.-T., Lin, C.-J. & Weng, R. C. (2007). A note on Platt's probabilistic outputs for support vector machines. *Machine Learning* 68(3), 267–276. https://doi.org/10.1007/s10994-007-5018-6 — 為 Platt 的 sigmoid 校準給出數值穩定的擬合演算法。
 
 - DeGroot, M. H. & Fienberg, S. E. (1983). The comparison and evaluation of forecasters. *The Statistician* 32(1/2), 12–22. https://doi.org/10.2307/2987588 — 定義機率預測的校準。
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋校準與事後方法。
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Murphy 教科書系列的儲存庫；涵蓋校準與事後方法。
 - Gal, Y. & Ghahramani, Z. (2016). Dropout as a Bayesian approximation: representing model uncertainty in deep learning. In *Proceedings of the 33rd International Conference on Machine Learning*, PMLR 48. https://proceedings.mlr.press/v48/gal16.html — 為同類網路提供另一種不確定性的途徑。

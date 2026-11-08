@@ -1,6 +1,6 @@
 ---
-translation_reviewed: 2026-10-28
-last_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
+last_reviewed: 2026-11-04
 related:
   - theory/models/mixture-of-experts
   - engineering/inference-optimization
@@ -19,7 +19,7 @@ aliases:
 !!! info "屬於混合專家模型的服務"
     本方法頁隸屬於[混合專家模型的服務](moe-serving.zh-TW.md)。它詳細說明專家卸載；上層頁面則比較它與其他方法。
 
-專家卸載讓 MoE 模型能在無法保存所有專家的裝置上服務。不活躍的專家保存在主機記憶體或磁碟中，路由器需要時才把它們載入裝置。Eliseev 與 Mazur 以參數卸載演算法為基礎，提出一種加速卸載的策略，並報告能在桌上型硬體上以混合量化執行 Mixtral-8x7B。
+專家卸載讓 MoE 模型能在無法保存所有專家的裝置上服務。不活躍的專家保存在主機記憶體或磁碟中，路由器需要時才把它們載入裝置。Eliseev 與 Mazur 以參數卸載演算法為基礎，提出一種加速卸載的策略，並報告能在桌上型硬體與免費的 Google Colab 執行個體上以混合量化執行 Mixtral-8x7B。
 
 ## 問題
 
@@ -39,7 +39,7 @@ aliases:
 
 ## 結果
 
-摘要報告，此策略可讓 Mixtral-8x7B 以混合量化在桌上型硬體上執行。摘要也指出，MoE 模型生成 token 比同等大小的稠密模型快，因為對任一輸入只有部分層是活躍的。摘要未給出具體的速度數字，因此本頁不報告速度。需要這些數字的讀者，應在目標硬體上，以所用的快取大小與量化方式進行量測。
+摘要報告，此策略可讓 Mixtral-8x7B 以混合量化在桌上型硬體與免費的 Google Colab 執行個體上執行。摘要未給出具體的速度數字，因此本頁不報告速度。需要這些數字的讀者，應在目標硬體上，以所用的快取大小與量化方式進行量測。
 
 ## 限制
 
@@ -68,4 +68,4 @@ aliases:
 - Shazeer, N. et al. (2017). *Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*. arXiv:1701.06538. https://arxiv.org/abs/1701.06538 — 稀疏閘控層，卸載方法讓其中未使用的專家離開裝置。
 - Rajbhandari, S. et al. (2022). *DeepSpeed-MoE: Advancing Mixture-of-Experts Inference and Training to Power Next-Generation AI Scale*. arXiv:2201.05596. https://arxiv.org/abs/2201.05596 — 壓縮加系統的替代服務方法。
 - Lepikhin, D. et al. (2020). *GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding*. arXiv:2006.16668. https://arxiv.org/abs/2006.16668 — 把專家保留在多台裝置上的分片替代做法。
-- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. Journal of Machine Learning Research. arXiv:2101.03961. https://arxiv.org/abs/2101.03961 — Top-1 路由，限制了每個 token 需要的專家數。
+- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. Journal of Machine Learning Research 23(120):1–39. arXiv:2101.03961. https://arxiv.org/abs/2101.03961 — Top-1 路由，限制了每個 token 需要的專家數。

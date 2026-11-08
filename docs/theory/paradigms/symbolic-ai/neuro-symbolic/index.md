@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai
   - theory/paradigms/symbolic-ai/knowledge-graphs
@@ -40,7 +39,12 @@ Three broad patterns appear in the literature. In the first, a neural model is t
 
 - [Markov logic networks](markov-logic-networks.md): weighted first-order formulas that define a log-linear distribution over possible worlds. They combine logic with the probabilistic graphical models described in [graphical models](../../probabilistic/graphical-models/index.md).
 
-Other integrations, including logic tensor networks (Serafini & Garcez, 2016) and differentiable inductive logic (Evans & Grefenstette, 2018), are summarised here and do not have their own pages yet.
+- [Logic tensor networks](logic-tensor-networks.md): real-valued logic trained together with neural networks, so that axioms are satisfied (Serafini & Garcez, 2016).
+- [Differentiable inductive logic programming](differentiable-ilp.md): learns rules from examples with a differentiable forward-chaining procedure (Evans & Grefenstette, 2018).
+
+## Why it matters for cognition
+
+Human reasoning seems to combine fast, pattern-based perception with slower, rule-like thought that can be inspected and revised. Neuro-symbolic systems are an engineering analogue of this division, and they let researchers ask whether learned representations support compositional rules. Lake et al. (2017) argue that human-like learning depends on structured, causal and compositional knowledge of this kind. The cognitive side of the question is discussed in [Psychology and AI](../../../../brain-mind/psychology/index.md).
 
 ## Connections
 
@@ -67,8 +71,10 @@ Other integrations, including logic tensor networks (Serafini & Garcez, 2016) an
 - Richardson, M. & Domingos, P. (2006). Markov logic networks. *Machine Learning* 62(1–2), 107–136. https://doi.org/10.1007/s10994-006-5833-1 — Introduces weighted first-order formulas as a template for a Markov network over possible worlds.
 - Serafini, L. & Garcez, A. d'A. (2016). Logic tensor networks: deep learning and logical reasoning from data and knowledge. arXiv:1606.04422. https://arxiv.org/abs/1606.04422 — Proposes real-valued logic that lets first-order formulas be trained together with neural models.
 - Evans, R. & Grefenstette, E. (2018). Learning explanatory rules from noisy data. *Journal of Artificial Intelligence Research* 61, 1–64. https://doi.org/10.1613/jair.5714 — Differentiable inductive logic programming that learns rules from noisy data.
+- Lake, B. M., Ullman, T. D., Tenenbaum, J. B. & Gershman, S. J. (2017). *Building machines that learn and think like people*. *Behavioral and Brain Sciences* 40, e253. https://doi.org/10.1017/S0140525X16001837 — Argues that human-like learning needs intuitive theories, compositional structure and causal models.
 
 ### Surveys and textbooks
 
+- Besold, T. R., d'Avila Garcez, A. S. & Bader, S. (2017). *Neural-Symbolic Learning and Reasoning: A Survey and Interpretation*. arXiv:1711.03902. https://arxiv.org/abs/1711.03902 — Surveys the ways neural and symbolic methods have been combined for learning and reasoning, and how they can be classified.
 - Garcez, A. d'A. & Lamb, L. C. (2023). Neurosymbolic AI: the 3rd wave. *Artificial Intelligence Review* 56(11), 12387–12406. https://doi.org/10.1007/s10462-023-10448-w — Survey of the neuro-symbolic field and its main directions.
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — Textbook background on logic and probabilistic reasoning that neuro-symbolic work combines with learning.

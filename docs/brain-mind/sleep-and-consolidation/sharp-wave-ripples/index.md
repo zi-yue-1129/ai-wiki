@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 tags:
 - neuroscience
 - memory
@@ -45,9 +45,9 @@ Thresholds and band limits vary between labs, so results from different studies 
 
 ## Results
 
-- Buzsáki et al. (1992) reported transient CA1 network oscillations, near 200 Hz, during behavioural immobility, consummatory behaviour and slow-wave sleep. The pyramidal cells in the recordings fired at a lower rate than the oscillation, and their spikes were phase-locked to it.
+- Buzsáki et al. (1992) reported transient CA1 network oscillations, near 200 Hz, during behavioural immobility, consummatory behaviour and slow-wave sleep.
 - Girardeau et al. (2009) reported that selectively suppressing hippocampal ripples impairs spatial memory.
-- Ego-Stengel and Wilson (2010) reported that disrupting ripple-associated hippocampal activity during rest impairs spatial learning in rats.
+- Ego-Stengel and Wilson (2009) reported that disrupting ripple-associated hippocampal activity during rest impairs spatial learning in rats.
 - Buzsáki (2015), a review, summarises that ripples occur during offline states linked to consummatory behaviour and non-REM sleep, and that disrupting them interferes with memory.
 
 ## Limitations
@@ -61,7 +61,7 @@ Thresholds and band limits vary between labs, so results from different studies 
 
 - **Replay.** Ripples carry the sequences described on [Hippocampal replay](../hippocampal-replay/index.md), so the two pages should be read together.
 - **Complementary learning systems.** Ripple-linked transfer to the cortex is one candidate for the interleaved replay that [Complementary Learning Systems](../../memory-learning/complementary-learning-systems/index.md) describes.
-- **Sleep.** Ripples occur in non-REM sleep (Buzsáki, 2015), and their power correlates with the slow oscillation and sleep-spindle bands. The stage-level evidence is on the [chapter overview](../index.md).
+- **Sleep.** Ripples occur in non-REM sleep (Buzsáki, 2015). The stage-level evidence is on the [chapter overview](../index.md).
 - **Neuromodulation.** Buzsáki (2015) notes that neurotransmitters and neuromodulators influence ripple occurrence, which links ripples to the broader modulatory systems described on [Decision Making, Dopamine & Reward](../../decision-reward/index.md).
 
 ## Applications
@@ -82,7 +82,7 @@ Thresholds and band limits vary between labs, so results from different studies 
 
 - Buzsáki, G. et al. (1992). High-frequency network oscillation in the hippocampus. *Science* 256, 1025–1027. https://doi.org/10.1126/science.1589772 — Describes the roughly 200 Hz CA1 oscillations during immobility, consummatory behaviour and slow-wave sleep, the events later identified as sharp-wave ripples.
 - Girardeau, G., Benchenane, K., Wiener, S. I., Buzsáki, G. & Zugaro, M. B. (2009). Selective suppression of hippocampal ripples impairs spatial memory. *Nature Neuroscience* 12, 1222–1223. https://doi.org/10.1038/nn.2384 — Reports that suppressing ripples selectively impairs spatial memory, a key test of their function.
-- Ego-Stengel, V. & Wilson, M. A. (2010). Disruption of ripple-associated hippocampal activity during rest impairs spatial learning in the rat. *Hippocampus* 20, 1–10. https://doi.org/10.1002/hipo.20707 — Reports that disrupting ripple-associated activity during rest impairs spatial learning in rats.
+- Ego-Stengel, V. & Wilson, M. A. (2009). Disruption of ripple-associated hippocampal activity during rest impairs spatial learning in the rat. *Hippocampus* 20, 1–10. https://doi.org/10.1002/hipo.20707 — Reports that disrupting ripple-associated activity during rest impairs spatial learning in rats.
 - Diba, K. & Buzsáki, G. (2007). Forward and reverse hippocampal place-cell sequences during ripples. *Nature Neuroscience* 10, 1241–1242. https://doi.org/10.1038/nn1961 — Reports that place-cell sequences run both forward and in reverse during sharp-wave ripples.
 
 ### Surveys and textbooks

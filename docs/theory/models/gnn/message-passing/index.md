@@ -51,6 +51,7 @@ Xu et al. (2018) asked which aggregation functions can distinguish graphs as wel
 | Graph attention networks (GAT) | 2017 | Learned attention weights over neighbours | [GAT](gat/index.md) |
 | Graph isomorphism networks (GIN) | 2018 | Sum aggregation with an MLP update, as expressive as the WL test | [GIN](gin/index.md) |
 | GraphSAGE | 2017 | Samples a fixed number of neighbours and aggregates them, so it works on unseen nodes | [GraphSAGE](graphsage/index.md) |
+| Message-passing neural networks (MPNN) | 2017 | One framework of message, update and readout functions, with edge networks for molecules | [MPNN](mpnn.md) |
 
 ## Trade-offs
 

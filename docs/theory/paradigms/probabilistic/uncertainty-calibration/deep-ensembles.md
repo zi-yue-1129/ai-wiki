@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/probabilistic/uncertainty-calibration
 tags:
@@ -38,11 +38,12 @@ Fort, Hu and Lakshminarayanan (2019) argue that the diversity of ensemble member
 
 - **Snapshot ensembles** collect models from different points along one training run, which costs less but gives less diversity.
 - **Randomised ensembles** change the data order, augmentations or architecture across members.
+- **Parameter-efficient ensembles** such as BatchEnsemble share most weights across members, which reduces the memory and compute cost (Wen et al., 2020).
 - **Bayesian-style ensembles** combine the averaging with a prior or with approximate posterior samples, linking the method to Bayesian inference (Gal & Ghahramani, 2016).
 
 ## Results and limits
 
-- Ensembles improve both accuracy and calibration and are robust across tasks, which is why they are a strong baseline.
+- Ensembles improve both accuracy and calibration and are robust across tasks, which is why they are a strong baseline. Ovadia et al. (2019) report that ensembles remain among the most reliable methods under dataset shift.
 - The cost grows linearly with the number of members, both at training and at inference time.
 - Members can be too similar, so the diversity that gives the uncertainty estimate may be smaller than expected.
 - An ensemble is not a true posterior over parameters. Its uncertainty is an empirical estimate and has no general guarantee.
@@ -68,6 +69,8 @@ Fort, Hu and Lakshminarayanan (2019) argue that the diversity of ensemble member
 
 ### Surveys and textbooks
 
+- Ovadia, Y., Fertig, E., Ren, J., Nado, Z. et al. (2019). Can you trust your model's uncertainty? Evaluating predictive uncertainty under dataset shift. In *Advances in Neural Information Processing Systems* 32. arXiv:1906.02530. https://arxiv.org/abs/1906.02530 — Benchmarks uncertainty methods, including ensembles, under dataset shift.
+- Wen, Y., Tran, D. & Ba, J. (2020). BatchEnsemble: an alternative approach to efficient ensemble and lifelong learning. In *International Conference on Learning Representations*. arXiv:2002.06715. https://arxiv.org/abs/2002.06715 — Shares weights across ensemble members to cut the cost of ensembling.
 - Fort, S., Hu, H. & Lakshminarayanan, B. (2019). Deep ensembles: a loss landscape perspective. arXiv:1912.02757. https://arxiv.org/abs/1912.02757 — Explains why independently trained members diverge and how that affects uncertainty.
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — Compares deep ensembles with post-hoc calibration methods for neural networks.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers ensembles and Bayesian model averaging.
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Repository for Murphy's textbook series; covers ensembles and Bayesian model averaging.

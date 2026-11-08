@@ -40,13 +40,15 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 - **分割式共形預測**使用單一校準集，是最簡單也最常見的形式。
 - **完整共形預測**對每個候選標籤重新擬合模型，成本較高，但能更有效率地使用資料。
 - **自適應分數**改變不一致度量，使模型有信心的地方預測集合較小。
+- **加權校準**在已知的共變量偏移下，對校準資料重新加權（Tibshirani 等人，2019）。
+- 共形化分位數迴歸（Romano 等人，2019）是區間預測中廣泛使用的自適應範例。
 
 ## 結果與限制
 
 - 覆蓋保證在有限樣本下成立，只需可交換性，對模型沒有假設。這是此方法最主要的吸引力。
 - 保證是邊際的。某些輸入（包括子群）的覆蓋率可能偏高，另一些則偏低，這對公平性與醫療應用很重要。
 - 預測集合的大小取決於底層模型的品質。模型不佳時，會得到很大而沒有資訊量的集合，但它們仍然滿足保證。
-- 在分布偏移下，可交換性不再成立，若不加調整，保證也就不再成立。
+- 在分布偏移下，可交換性不再成立，若不加調整，保證也就不再成立。Barber 等人（2023）給出可交換性放寬時覆蓋率損失的界。
 
 ## 應用
 
@@ -64,6 +66,11 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 
 ### 奠基性論文
 
+- Vovk, V., Gammerman, A. & Shafer, G. (2005). *Algorithmic Learning in a Random World*. Springer. https://doi.org/10.1007/b106715 — 共形預測及其有效性理論的基礎專書。
+- Romano, Y., Patterson, E. & Candès, E. J. (2019). Conformalized quantile regression. In *Advances in Neural Information Processing Systems* 32. arXiv:1905.03222. https://arxiv.org/abs/1905.03222 — 將分位數迴歸與分割式共形校準結合，得到自適應區間。
+- Tibshirani, R. J., Foygel Barber, R., Candès, E. J. & Ramdas, A. (2019). Conformal prediction under covariate shift. In *Advances in Neural Information Processing Systems* 32. arXiv:1904.06019. https://arxiv.org/abs/1904.06019 — 以加權方式把共形覆蓋推廣到已知的共變量偏移。
+- Bates, S., Angelopoulos, A., Lei, L., Malik, J. & Jordan, M. (2021). Distribution-free, risk-controlling prediction sets. *Journal of the ACM* 68(6). https://doi.org/10.1145/3478535 — 把無分布假設的集合保證推廣到一般的風險控制。
+- Barber, R. F., Candès, E. J., Ramdas, A. & Tibshirani, R. J. (2023). Conformal prediction beyond exchangeability. *The Annals of Statistics* 51(2), 816–845. https://doi.org/10.1214/23-aos2276 — 在放寬可交換性時給出覆蓋率的界。
 - Lei, J., G'Sell, M., Rinaldo, A., Tibshirani, R. J. & Wasserman, L. (2018). Distribution-free predictive inference for regression. *Journal of the American Statistical Association* 113(523), 1094–1111. https://doi.org/10.1080/01621459.2017.1307116 — 以分割式共形方法為迴歸提供無分布假設的預測區間。
 - Shafer, G. & Vovk, V. (2008). A tutorial on conformal prediction. *Journal of Machine Learning Research* 9. https://www.jmlr.org/papers/v9/shafer08a.html — 介紹此框架與其有效性保證的教學文章。
 
@@ -71,4 +78,4 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 
 - Angelopoulos, A. N. & Bates, S. (2023). Conformal prediction: a gentle introduction. *Foundations and Trends in Machine Learning* 16(4), 494–591. https://doi.org/10.1561/2200000101 — 共形方法的入門介紹，包含分割式與自適應變體。
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — 記錄神經分類器的校準偏差，是與覆蓋保證並列的不確定性動機。
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；提供預測不確定性與區間的背景。
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Murphy 教科書系列的儲存庫；提供預測不確定性與區間的背景。

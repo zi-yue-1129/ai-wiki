@@ -290,15 +290,20 @@ plugins:
             MnasNet: MnasNet
             Search Algorithms: 搜尋演算法
             A* Search: A* 搜尋
+            IDA* Search: IDA* 搜尋
             Alpha–Beta Pruning: α–β 剪枝
             Monte Carlo Tree Search: 蒙地卡羅樹搜尋
             Automated Planning: 自動規劃
             STRIPS: STRIPS
             GraphPlan: GraphPlan
+            HTN Planning: 階層任務網路規劃
             Knowledge Graphs: 知識圖譜
             TransE: TransE
+            ComplEx: ComplEx
             Neuro-Symbolic AI: 神經符號 AI
             Markov Logic Networks: 馬可夫邏輯網路
+            Logic Tensor Networks: 邏輯張量網路
+            Differentiable Inductive Logic Programming: 可微分歸納邏輯程式設計
             Theorem Proving: 自動定理證明
             Resolution: 歸結
             DPLL: DPLL
@@ -378,6 +383,11 @@ plugins:
             Semi- & Weakly Supervised Learning: 半監督與弱監督學習
             Self-Supervised Learning: 自監督學習
             Imitation Learning: 模仿學習
+            Algorithmic Perspective (Osa et al., 2018): 模仿學習的演算法觀點
+            Rethinking Generalization: 重新思考泛化
+            On the Measure of Intelligence: 智能的度量
+            PyTorch paper: PyTorch 論文
+            Efficiently Scaling Transformer Inference: 高效擴展 Transformer 推論
             Transfer Learning & Domain Adaptation: 遷移學習與領域適應
             Meta-Learning & Few-Shot Learning: 元學習與少樣本學習
             Continual Learning: 持續學習
@@ -512,6 +522,9 @@ plugins:
             Diffusion Models: 擴散模型
             DDPM: DDPM
             DDIM: DDIM
+            Score SDE: 分數式 SDE 模型
+            Matching Networks: 匹配網路
+            MPNN: MPNN
             Latent Diffusion: 潛在擴散
             DiT: DiT 擴散 Transformer
             Architecture Families: 架構家族
@@ -559,6 +572,7 @@ plugins:
             Sequence to Sequence: 序列到序列學習
             ResNet: 殘差網路
             EfficientNet: EfficientNet 與複合縮放
+            MobileNets: MobileNets 行動網路
             S4: S4 結構化狀態空間
             Mamba: Mamba
             Mamba-2: Mamba-2
@@ -618,9 +632,11 @@ plugins:
             VQA v2: VQA v2
             MMMU: MMMU
             ImageNet: ImageNet
+            ImageNetV2: ImageNetV2
             COCO: COCO
             GLUE: GLUE
             SuperGLUE: SuperGLUE
+            BIG-bench: BIG-bench
             MMLU: MMLU
             GPQA: GPQA
             Humanity's Last Exam: 人類的最後考試
@@ -661,7 +677,10 @@ plugins:
             IoU: 交併比
             Dice: Dice 係數
             Quantisation: 量化
+            A Survey of Quantization Methods: 神經網路量化方法綜述
             Pruning: 剪枝
+            Sparsity in Deep Learning: 深度學習中的稀疏性
+            Benchmark validity: 基準的構念效度
             Knowledge Distillation: 知識蒸餾
             Post-Training Quantisation: 訓練後量化
             LLM.int8(): LLM.int8()
@@ -727,6 +746,9 @@ plugins:
             Computer Vision: 電腦視覺
             Object Detection: 物件偵測
             Image Segmentation: 影像分割
+            FCN: FCN
+            Mask R-CNN: Mask R-CNN
+            Segment Anything: 分割一切
             Natural Language Processing: 自然語言處理
             Speech & Audio: 語音與音訊
             Multimodal Models: 多模態模型
@@ -735,6 +757,7 @@ plugins:
             Recommender Systems: 推薦系統
             Graph Neural Networks: 圖神經網路
             AI Agents: AI 代理人
+            LLM Agent Survey (Xi et al., 2023): 基於 LLM 的代理人綜述
             World Models & Embodied AI: 世界模型與具身智慧
             Action Controllability: 動作可控性
             Dreamer: Dreamer
@@ -926,7 +949,9 @@ plugins:
             AI Accelerators: AI 加速器
             TPU: TPU
             Eyeriss v2: Eyeriss v2
+            Efficient DNN Processing (Sze et al., 2017): 深度神經網路的高效處理
             Memory Hierarchy and Bandwidth: 記憶體階層與頻寬
+            AI and the Memory Wall (Gholami et al., 2024): AI 與記憶體牆
             Interconnects and Scaling: 互連與擴展
             In-Memory and Analogue Computing: 記憶體內與類比運算
             Hardware-Aware Model and Software Co-Design: 硬體感知的模型與軟體協同設計
@@ -1238,6 +1263,7 @@ nav:
                   - Class-Balanced Loss: theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss.md
                   - Logit Adjustment: theory/paradigms/supervised/loss-functions-and-optimization/logit-adjustment.md
               - Generalisation Theory: theory/paradigms/supervised/generalization-theory/index.md
+              - Rethinking Generalization: theory/paradigms/supervised/generalization-theory/rethinking-generalization.md
               - Evaluation & Validation: theory/paradigms/supervised/evaluation-and-validation/index.md
           - Unsupervised Learning:
               - theory/paradigms/unsupervised/index.md
@@ -1277,6 +1303,7 @@ nav:
                       - theory/paradigms/unsupervised/density-and-generative-models/diffusion/index.md
                       - DDPM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md
                       - DDIM: theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md
+                      - Score SDE: theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md
                       - Latent Diffusion: theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion.md
                       - Classifier-Free Guidance: theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance.md
                       - Consistency Models and Fast Samplers: theory/paradigms/unsupervised/density-and-generative-models/diffusion/consistency-models.md
@@ -1364,6 +1391,7 @@ nav:
                   - Random Network Distillation: theory/paradigms/reinforcement-learning/exploration/rnd/index.md
           - Imitation Learning:
               - theory/paradigms/imitation/index.md
+              - Algorithmic Perspective (Osa et al., 2018): theory/paradigms/imitation/algorithmic-perspective-survey.md
               - Behavioural Cloning:
                   - theory/paradigms/imitation/behavioural-cloning/index.md
                   - Causal Confusion: theory/paradigms/imitation/behavioural-cloning/causal-confusion.md
@@ -1390,7 +1418,9 @@ nav:
               - Optimisation-based:
                   - theory/paradigms/meta-learning/optimisation-based/index.md
                   - MAML: theory/paradigms/meta-learning/optimisation-based/maml.md
-              - Metric-based Few-shot: theory/paradigms/meta-learning/metric-based/index.md
+              - Metric-based Few-shot:
+                  - theory/paradigms/meta-learning/metric-based/index.md
+                  - Matching Networks: theory/paradigms/meta-learning/metric-based/matching-networks.md
               - Memory & Model-based: theory/paradigms/meta-learning/memory-and-model-based/index.md
               - Meta-learning Theory: theory/paradigms/meta-learning/meta-learning-theory/index.md
               - Benchmarks & Foundation Models: theory/paradigms/meta-learning/benchmarks-and-foundation-models/index.md
@@ -1451,12 +1481,14 @@ nav:
               - Search Algorithms:
                   - theory/paradigms/symbolic-ai/search/index.md
                   - A* Search: theory/paradigms/symbolic-ai/search/a-star.md
+                  - IDA* Search: theory/paradigms/symbolic-ai/search/ida-star.md
                   - Alpha–Beta Pruning: theory/paradigms/symbolic-ai/search/alpha-beta-pruning.md
                   - Monte Carlo Tree Search: theory/paradigms/symbolic-ai/search/monte-carlo-tree-search.md
               - Automated Planning:
                   - theory/paradigms/symbolic-ai/planning/index.md
                   - STRIPS: theory/paradigms/symbolic-ai/planning/strips.md
                   - GraphPlan: theory/paradigms/symbolic-ai/planning/graphplan.md
+                  - HTN Planning: theory/paradigms/symbolic-ai/planning/htn.md
               - Theorem Proving:
                   - theory/paradigms/symbolic-ai/theorem-proving/index.md
                   - Resolution: theory/paradigms/symbolic-ai/theorem-proving/resolution.md
@@ -1464,9 +1496,12 @@ nav:
               - Knowledge Graphs:
                   - theory/paradigms/symbolic-ai/knowledge-graphs/index.md
                   - TransE: theory/paradigms/symbolic-ai/knowledge-graphs/transe.md
+                  - ComplEx: theory/paradigms/symbolic-ai/knowledge-graphs/complex-embeddings.md
               - Neuro-Symbolic AI:
                   - theory/paradigms/symbolic-ai/neuro-symbolic/index.md
                   - Markov Logic Networks: theory/paradigms/symbolic-ai/neuro-symbolic/markov-logic-networks.md
+                  - Logic Tensor Networks: theory/paradigms/symbolic-ai/neuro-symbolic/logic-tensor-networks.md
+                  - Differentiable Inductive Logic Programming: theory/paradigms/symbolic-ai/neuro-symbolic/differentiable-ilp.md
           - Evolutionary & Swarm Intelligence:
               - theory/paradigms/evolutionary/index.md
               - Genetic Algorithms: theory/paradigms/evolutionary/genetic-algorithms.md
@@ -1479,6 +1514,7 @@ nav:
           - theory/model-compression/index.md
           - Quantisation:
               - theory/model-compression/quantisation/index.md
+              - A Survey of Quantization Methods: theory/model-compression/quantisation/quantisation-survey.md
               - Post-Training Quantisation:
                   - theory/model-compression/quantisation/post-training/index.md
                   - LLM.int8(): theory/model-compression/quantisation/post-training/llm-int8/index.md
@@ -1499,6 +1535,7 @@ nav:
                   - HAWQ: theory/model-compression/quantisation/mixed-precision/hawq/index.md
           - Pruning:
               - theory/model-compression/pruning/index.md
+              - Sparsity in Deep Learning: theory/model-compression/pruning/sparsity-survey.md
               - Learning Weights and Connections: theory/model-compression/pruning/learning-weights-and-connections/index.md
               - Magnitude Pruning:
                   - theory/model-compression/pruning/magnitude-pruning/index.md
@@ -1558,6 +1595,7 @@ nav:
                   - DoRA: theory/model-compression/low-rank-and-efficient-architectures/lora/dora.md
       - Evaluation:
           - theory/evaluation/index.md
+          - On the Measure of Intelligence: theory/evaluation/measure-of-intelligence.md
           - Metrics:
               - theory/evaluation/metrics/index.md
               - Classification:
@@ -1588,14 +1626,17 @@ nav:
                   - Dice: theory/evaluation/metrics/segmentation/dice.md
           - Benchmarks:
               - theory/evaluation/benchmarks/index.md
+              - Benchmark validity: theory/evaluation/benchmarks/benchmark-validity.md
               - Vision:
                   - theory/evaluation/benchmarks/vision/index.md
                   - ImageNet: theory/evaluation/benchmarks/vision/imagenet.md
+                  - ImageNetV2: theory/evaluation/benchmarks/vision/imagenet-v2.md
                   - COCO: theory/evaluation/benchmarks/vision/coco.md
               - Language:
                   - theory/evaluation/benchmarks/language/index.md
                   - GLUE: theory/evaluation/benchmarks/language/glue.md
                   - SuperGLUE: theory/evaluation/benchmarks/language/superglue.md
+                  - BIG-bench: theory/evaluation/benchmarks/language/big-bench.md
                   - MMLU: theory/evaluation/benchmarks/language/mmlu.md
                   - GPQA: theory/evaluation/benchmarks/language/gpqa.md
                   - Humanity's Last Exam: theory/evaluation/benchmarks/language/hle.md
@@ -1665,6 +1706,7 @@ nav:
                   - AlexNet: theory/models/cnn/backbones-and-scaling/alexnet/index.md
                   - VGG: theory/models/cnn/backbones-and-scaling/vgg/index.md
                   - ResNet: theory/models/cnn/backbones-and-scaling/resnet/index.md
+                  - MobileNets: theory/models/cnn/backbones-and-scaling/mobilenet/index.md
                   - EfficientNet: theory/models/cnn/backbones-and-scaling/efficientnet/index.md
                   - ConvNeXt: theory/models/cnn/backbones-and-scaling/convnext/index.md
           - Recurrent Networks:
@@ -1747,7 +1789,11 @@ nav:
                   - ViViT: theory/models/computer-vision/video/vivit.md
                   - Video Diffusion: theory/models/computer-vision/video/video-diffusion.md
               - Object Detection: theory/models/computer-vision/object-detection/index.md
-              - Image Segmentation: theory/models/computer-vision/segmentation/index.md
+              - Image Segmentation:
+                  - theory/models/computer-vision/segmentation/index.md
+                  - FCN: theory/models/computer-vision/segmentation/fcn.md
+                  - Mask R-CNN: theory/models/computer-vision/segmentation/mask-r-cnn.md
+                  - Segment Anything: theory/models/computer-vision/segmentation/segment-anything.md
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
@@ -1758,11 +1804,13 @@ nav:
               - theory/models/gnn/index.md
               - Message Passing:
                   - theory/models/gnn/message-passing/index.md
+                  - MPNN: theory/models/gnn/message-passing/mpnn.md
                   - GraphSAGE: theory/models/gnn/message-passing/graphsage/index.md
                   - GCN: theory/models/gnn/message-passing/gcn/index.md
                   - GAT: theory/models/gnn/message-passing/gat/index.md
                   - GIN: theory/models/gnn/message-passing/gin/index.md
           - AI Agents: theory/models/agents/index.md
+          - LLM Agent Survey (Xi et al., 2023): theory/models/agents/llm-agent-survey.md
           - World Models & Embodied AI:
               - theory/models/world-models/index.md
               - Action Controllability: theory/models/world-models/action-controllability.md
@@ -1961,6 +2009,7 @@ nav:
       - engineering/index.md
       - Frameworks & Tools:
           - engineering/frameworks/index.md
+          - PyTorch paper: engineering/frameworks/pytorch.md
           - Compilers and Kernels:
               - engineering/frameworks/compilers-and-kernels/index.md
               - XLA: engineering/frameworks/compilers-and-kernels/xla.md
@@ -2020,6 +2069,7 @@ nav:
           - HELM (Liang et al. 2022): engineering/evaluation/helm.md
       - Inference Optimization:
           - engineering/inference-optimization/index.md
+          - Efficiently Scaling Transformer Inference: engineering/inference-optimization/efficient-transformer-inference.md
           - Orca: engineering/inference-optimization/orca.md
           - PagedAttention and vLLM: engineering/inference-optimization/paged-attention.md
           - Speculative Decoding: engineering/inference-optimization/speculative-decoding.md
@@ -2049,8 +2099,10 @@ nav:
               - engineering/hardware/accelerators/index.md
               - TPU: engineering/hardware/accelerators/tpu/index.md
               - Eyeriss v2: engineering/hardware/accelerators/eyeriss-v2/index.md
+              - Efficient DNN Processing (Sze et al., 2017): engineering/hardware/accelerators/efficient-dnn-processing.md
           - Memory Hierarchy and Bandwidth: engineering/hardware/memory-hierarchy/index.md
           - Roofline Model: engineering/hardware/memory-hierarchy/roofline.md
+          - AI and the Memory Wall (Gholami et al., 2024): engineering/hardware/memory-hierarchy/ai-and-memory-wall.md
           - Interconnects and Scaling: engineering/hardware/interconnects/index.md
           - In-Memory and Analogue Computing: engineering/hardware/in-memory-computing/index.md
           - Hardware-Aware Model and Software Co-Design: engineering/hardware/co-design/index.md

@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai/theorem-proving
 tags:
@@ -20,7 +19,7 @@ Resolution is an inference rule that derives a new clause from two clauses conta
 
 ## Overview
 
-Logic statements can be converted into a normal form, a set of clauses, each a disjunction of literals. Resolution works on this set. Robinson (1965) showed that a single rule, applied together with unification of variables, is complete for first-order logic: if a set of clauses is unsatisfiable, repeated resolution eventually derives the empty clause. This gave automated provers a single, mechanical inference rule.
+Logic statements can be converted into a normal form, a set of clauses, each a disjunction of literals. Resolution works on this set. Resolution remains the basis of many first-order provers, and clause form is still the standard input for automated reasoning. Robinson (1965) showed that a single rule, applied together with unification of variables, is refutation-complete for first-order logic: if a set of clauses is unsatisfiable, repeated resolution eventually derives the empty clause. This gave automated provers a single, mechanical inference rule.
 
 ## Key concepts
 
@@ -28,6 +27,7 @@ Logic statements can be converted into a normal form, a set of clauses, each a d
 - **Complementary literals**: two literals, one the negation of the other, such as \(p\) and \(\neg p\).
 - **Unification**: finding a substitution of variables that makes two atoms identical. It lets resolution apply to first-order clauses.
 - **Empty clause**: a clause with no literals, which is false. Deriving it proves the set of clauses unsatisfiable.
+- **Clause normal form**: before resolution, a formula is converted to conjunctive normal form, its quantifiers are removed by skolemisation, and the result is split into clauses. This conversion is a standard preprocessing step in provers.
 
 ## How it works
 
@@ -38,6 +38,11 @@ From clauses \(C_1 = A\lor L\) and \(C_2 = B\lor\neg L'\), where \(\sigma\) is t
 \]
 
 Starting from the clauses of the axioms and the negated goal, the prover repeatedly adds resolvents. The proof succeeds when the empty clause is derived. A strategy controls which pairs to resolve. Set-of-support restricts resolution to pairs that involve the negated goal, and linear resolution extends the most recent clause. Both keep the search focused while preserving completeness.
+
+**Example.** Take the clauses \(
+eg p\lor q\) and \(p\), together with the negated goal \(
+eg q\). Resolving the first two on \(p\) gives \(q\), and resolving \(q\) with \(
+eg q\) gives the empty clause, so the goal \(q\) is proved. This schematic example is not from a particular system.
 
 ## Variants
 
@@ -75,4 +80,4 @@ Starting from the clauses of the axioms and the negated goal, the prover repeate
 
 - de Moura, L. et al. (2015). The Lean theorem prover (system description). In *Automated Deduction — CADE-25*, Lecture Notes in Computer Science, 378–388. https://doi.org/10.1007/978-3-319-21401-6_26 — Describes a modern prover that combines interactive proof with automation.
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — Textbook account of resolution and first-order inference.
-- Hales, T. et al. (2017). A formal proof of the Kepler conjecture. *Forum of Mathematics, Pi* 5. https://doi.org/10.1017/fmp.2017.1 — A large formal proof that relies on mechanised reasoning of this kind.
+- Kovács, L. & Voronkov, A. (2013). First-order theorem proving and Vampire. In *Computer Aided Verification*, Lecture Notes in Computer Science, 1–35. https://doi.org/10.1007/978-3-642-39799-8_1 — Describes a resolution-based first-order prover and the search strategies that make it efficient.

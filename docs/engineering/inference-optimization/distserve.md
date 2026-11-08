@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - engineering/inference-optimization
   - engineering/hardware
@@ -26,7 +26,7 @@ A serving system is judged by how many requests meet their latency objectives, n
 
 ## Core idea
 
-DistServe removes the interference by placing prefill and decoding on different GPUs. Each phase then has its own batch, and each pool can be sized and parallelised for its own bottleneck. The system chooses the placement and the parallelism of each phase by searching for the configuration that maximises goodput under the target latencies. The KV cache is moved from the prefill GPU to the decoding GPU after the prompt is processed.
+DistServe removes the interference by placing prefill and decoding on different GPUs. Each phase then has its own batch, and each pool can be sized and parallelised for its own bottleneck. The system chooses the placement and the parallelism of each phase by searching for the configuration that maximises goodput under the target latencies, and it takes the cluster bandwidth into account. The KV cache is moved from the prefill GPU to the decoding GPU after the prompt is processed.
 
 ## Procedure
 

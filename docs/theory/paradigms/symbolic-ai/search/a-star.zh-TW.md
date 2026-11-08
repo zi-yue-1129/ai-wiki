@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-29
+translation_reviewed: 2026-11-04
 ---
 
 # A\* 搜尋
@@ -34,12 +34,12 @@ MkDocs 網站可透過**播放／暫停**控制動畫，亦可使用鍵盤操作
 ## 變體
 
 - **加權 A\*** 使用 \(f=g+w\,h\)，其中 \(w>1\)。它展開的節點較少，但路徑成本可能高出最佳值的 \(w\) 倍。
-- **IDA\*** 以逐步增加的 \(f\) 上界重複進行深度優先搜尋。它的記憶體與深度成線性關係，當儲存整個前緣不可行時很實用。由 Korf（1985）提出。
+- **[IDA\*](ida-star.md)** 以逐步增加的 \(f\) 上界重複進行深度優先搜尋。它的記憶體與深度成線性關係，當儲存整個前緣不可行時很實用。由 Korf（1985）提出。
 - **任意時間變體**先快速找到第一個解，再隨時間推移逐步改進。
 
 ## 結果與限制
 
-- 在可容許的啟發式下，A\* 是最佳的；使用一致的啟發式時，在使用相同啟發式的演算法中，它的效率也是最佳的。
+- 在可容許的啟發式下，A\* 是最佳的；使用一致的啟發式時，在使用相同啟發式的演算法中，它的效率也是最佳的（Dechter 與 Pearl，1985）。
 - 記憶體用量是主要限制。它要保存整個前緣，最壞情況下記憶體隨深度呈指數成長。
 - 啟發式 \(h\) 的品質決定速度。若啟發式很弱，A\* 會接近一致成本搜尋。
 - 為新問題找到好的啟發式，通常是應用 A\* 時最困難的部分。
@@ -61,9 +61,10 @@ MkDocs 網站可透過**播放／暫停**控制動畫，亦可使用鍵盤操作
 
 - Hart, P. E., Nilsson, N. J. & Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. *IEEE Transactions on Systems Science and Cybernetics* 4(2), 100–107. https://doi.org/10.1109/TSSC.1968.300136 — 定義 A\*，並證明可容許啟發式會得到最佳路徑。
 - Korf, R. E. (1985). Depth-first iterative-deepening: an optimal admissible tree search. *Artificial Intelligence* 27(1), 97–109. https://doi.org/10.1016/0004-3702(85)90084-0 — 提出 IDA\*，一種節省記憶體的最佳搜尋。
+- Dechter, R. & Pearl, J. (1985). Generalized best-first search strategies and the optimality of A\*. *Journal of the ACM* 32(3), 505–536. https://doi.org/10.1145/3828.3830 — 分析最佳優先搜尋策略，並給出 A\* 在可容許啟發式下的最佳性結果。
 
 ### 綜述與教科書
 
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — 教科書中對 A\* 與可容許、一致啟發式的說明。
-- Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — 描述 Fast Downward 規劃器，它以最佳優先搜尋為主，其啟發式由規劃問題的階層分解（因果圖啟發式）建構。
-- Blum, A. L. & Furst, M. L. (1997). Fast planning through planning graph analysis. *Artificial Intelligence* 90(1–2), 281–300. https://doi.org/10.1016/S0004-3702(96)00047-1 — 說明以圖式啟發式加速規劃中的啟發式搜尋。
+- Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — 描述 Fast Downward 規劃器及其因果圖啟發式，該啟發式由規劃任務的因果結構導出。
+- Hoffmann, J. & Nebel, B. (2001). The FF planning system: fast plan generation through heuristic search. *Journal of Artificial Intelligence Research* 14, 253–302. https://doi.org/10.1613/jair.855 — 以鬆弛計畫的長度作為啟發式的搜尋規劃器。

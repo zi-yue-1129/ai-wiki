@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai/search
 tags:
@@ -46,12 +45,12 @@ On the MkDocs site, use the animation's **Play/Pause** control (including keyboa
 ## Variants
 
 - **Weighted A\*** uses \(f=g+w\,h\) with \(w>1\). It expands fewer nodes, but the path can be up to \(w\) times the optimal cost.
-- **IDA\*** repeats depth-first searches with an increasing \(f\)-bound. It uses memory linear in the depth, which makes it practical when storing the whole frontier is impossible. Korf (1985) introduced it.
+- **[IDA\*](ida-star.md)** repeats depth-first searches with an increasing \(f\)-bound. It uses memory linear in the depth, which makes it practical when storing the whole frontier is impossible. Korf (1985) introduced it.
 - **Anytime variants** find a first solution quickly and then improve it as time allows.
 
 ## Results and limits
 
-- With an admissible heuristic, A\* is optimal, and with a consistent one it is also optimally efficient among algorithms that use the same heuristic.
+- With an admissible heuristic, A\* is optimal, and with a consistent one it is also optimally efficient among algorithms that use the same heuristic (Dechter & Pearl, 1985).
 - Its memory use is the main limit. It stores the whole frontier, so the memory grows exponentially with depth in the worst case.
 - The quality of \(h\) determines the speed. A weak heuristic makes A\* behave like uniform-cost search.
 - Finding a good heuristic for a new problem is usually the hardest part of applying A\*.
@@ -73,9 +72,10 @@ On the MkDocs site, use the animation's **Play/Pause** control (including keyboa
 
 - Hart, P. E., Nilsson, N. J. & Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. *IEEE Transactions on Systems Science and Cybernetics* 4(2), 100–107. https://doi.org/10.1109/TSSC.1968.300136 — Defines A\* and proves that an admissible heuristic yields optimal paths.
 - Korf, R. E. (1985). Depth-first iterative-deepening: an optimal admissible tree search. *Artificial Intelligence* 27(1), 97–109. https://doi.org/10.1016/0004-3702(85)90084-0 — Introduces IDA\*, a memory-efficient optimal search.
+- Dechter, R. & Pearl, J. (1985). Generalized best-first search strategies and the optimality of A\*. *Journal of the ACM* 32(3), 505–536. https://doi.org/10.1145/3828.3830 — Analyses best-first search strategies and gives the optimality results for A\* with admissible heuristics.
 
 ### Surveys and textbooks
 
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — Textbook treatment of A\* with admissible and consistent heuristics.
-- Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — Describes the Fast Downward planner, a best-first search planner whose heuristic is built from a hierarchical decomposition of the planning task (the causal graph heuristic).
-- Blum, A. L. & Furst, M. L. (1997). Fast planning through planning graph analysis. *Artificial Intelligence* 90(1–2), 281–300. https://doi.org/10.1016/S0004-3702(96)00047-1 — Shows how graph-based heuristics speed up heuristic search for planning.
+- Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — Describes the Fast Downward planner and its causal graph heuristic, which is derived from the causal structure of the planning task.
+- Hoffmann, J. & Nebel, B. (2001). The FF planning system: fast plan generation through heuristic search. *Journal of Artificial Intelligence Research* 14, 253–302. https://doi.org/10.1613/jair.855 — Heuristic search planner whose heuristic is the length of a relaxed plan.

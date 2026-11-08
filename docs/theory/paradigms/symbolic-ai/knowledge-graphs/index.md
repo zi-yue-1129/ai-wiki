@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai
   - theory/paradigms/symbolic-ai/neuro-symbolic
@@ -35,11 +34,17 @@ Symbolic AI represented knowledge as rules and logic, which are precise but hard
 
 A knowledge graph can be used in two ways. Symbolic use queries and reasons over the explicit facts and the ontology, for instance by inferring that a subclass inherits the properties of its parent. Statistical use turns entities and relations into vectors and scores candidate triples. The second approach is the basis of [knowledge graph embeddings](transe.md), a family of methods that predict missing links from learned representations (Nickel et al., 2016).
 
+## Symbolic and statistical use compared
+
+The two uses fail in different ways. Symbolic querying is exact: a fact that is not derivable from the graph and its ontology simply does not appear, and the system cannot say how likely an unlisted fact is. Statistical completion always returns a ranked list, which suits suggesting new links, but a score is not a proof, and a high score can still be wrong. Many systems combine the two. They complete the graph statistically, and then check candidate facts against the ontology before adding them.
+
 ## Key methods
 
 - [TransE](transe.md): represents relations as translations between entity embeddings, so that a true triple satisfies head plus relation is close to tail (Bordes et al., 2013).
 
-Other embedding models use different score functions, for example complex-valued scores (Trouillon et al., 2016), and are summarised in the surveys (Wang et al., 2017; Nickel et al., 2016).
+- [ComplEx](complex-embeddings.md): uses complex-valued vectors and a Hermitian product, so that asymmetric relations can be represented (Trouillon et al., 2016).
+
+Other embedding models use different score functions and are summarised in the surveys (Wang et al., 2017; Nickel et al., 2016).
 
 ## Connections
 
@@ -52,6 +57,7 @@ Other embedding models use different score functions, for example complex-valued
 - **Search and question answering**: answer panels that give facts about an entity directly from a graph.
 - **Recommendation**: graphs that link users, items and attributes to explain and rank suggestions.
 - **Biomedicine**: graphs of genes, drugs and diseases used to propose new hypotheses for study.
+- **Open knowledge bases**: Wikidata is a collaboratively edited graph of entities and statements, which other systems use as a source of facts (Vrandečić & Krötzsch, 2014).
 
 ## Open questions
 
@@ -65,6 +71,7 @@ Other embedding models use different score functions, for example complex-valued
 
 - Bordes, A., Usunier, N., Garcia-Duran, A., Weston, J. & Yakhnenko, O. (2013). Translating embeddings for modeling multi-relational data. In *Advances in Neural Information Processing Systems* 26. https://proceedings.neurips.cc/paper/2013/hash/1cecc7a77928ca8133fa24680a88d2f9-Abstract.html — Introduces TransE for knowledge graph embedding.
 - Trouillon, T., Welbl, J., Riedel, S., Gaussier, É. & Bouchard, G. (2016). Complex embeddings for simple link prediction. In *Proceedings of the 33rd International Conference on Machine Learning*, PMLR 48. https://proceedings.mlr.press/v48/trouillon16.html — Uses complex-valued embeddings to model asymmetric relations.
+- Vrandečić, D. & Krötzsch, M. (2014). Wikidata: a free collaborative knowledgebase. *Communications of the ACM* 57(10), 78–85. https://doi.org/10.1145/2629489 — Describes Wikidata, a large openly edited knowledge graph and an example of the data-oriented approach described above.
 
 ### Surveys and textbooks
 
