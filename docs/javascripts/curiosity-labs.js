@@ -31,14 +31,14 @@
       icm:['Before update','Train forward','Predictable fitted','Sample 1','Sample 2','Sample 3'],
       rndNote:'RND measures predictor error, not a visit count. After A training, a never-seen B can have low error through generalisation. The Transfer slider compares hypothetical B predictions without any parameter update. Coordinates and bonuses are schematic, not measured.',
       icmNote:'For the repeatable outcome, the toy forward prediction fits its fixed target; then three initially equally likely outcomes illustrate residual sample error. Reweight the possible outcomes to move the conditional mean, or shift the prediction away from it to increase expected squared error. Not measured data.',
-      sampleTitle:'Sample outcomes',drawOne:'Draw 1',drawMany:'Draw 20',clearSamples:'Reset samples',sampleMean:'Running mean',sampleCount:'Draws',sampleHint:'Independent toy draws from the selected distribution; the running error need not approach the expected error monotonically.',sampleNone:'No samples yet',sampleRecent:'Most recent outcomes',
+      sampleTitle:'Sample outcomes',drawOne:'Draw 1',drawMany:'Draw 20',clearSamples:'Reset samples',sampleMean:'Running mean',sampleCount:'Draws',sampleHint:'Independent toy draws: the running mean need not approach the expectation monotonically. The trace uses a fixed y-range for each slider setting (see its axis ticks), unlike the separate 0–16 marker strip.',sampleNone:'No samples yet',sampleRecent:'Most recent outcomes',sampleCurve:'Running-mean trace',sampleAxis:'Draws',
       shift:'Prediction shift',center:'Reset to mean',balance:'Outcome balance',resetBalance:'Equal weights',weights:'P(1/2/3)',expected:'Expected',biasSquared:'Bias²',variance:'Variance',transfer:'Transfer to B',noTransfer:'Reset transfer',bonus:'Squared gap'},
     zh:{prev:'上一步',next:'下一步',play:'播放',pause:'暫停',seek:'進度',speed:'速度',step:'步驟',
       rnd:['觀測 A','訓練 A','訓練 A','熟悉 A','切換到 B','訓練 B','訓練 B','熟悉 B'],
       icm:['更新前','訓練前向模型','已擬合可預測結果','取樣 1','取樣 2','取樣 3'],
       rndNote:'RND 衡量預測誤差，而非造訪次數。訓練 A 後，即使未曾看過 B，泛化也可能使 B 的誤差很低。遷移滑桿比較假設性的 B 預測，不會執行參數更新；座標與獎勵均非實測。',
       icmNote:'可重複轉移的固定目標與前向預測會逐步接近；三個初始等機率結果呈現殘餘樣本誤差。調整結果權重可移動條件平均值；再偏移預測點，可觀察期望平方誤差如何增加。非模型實測。',
-      sampleTitle:'重複抽樣',drawOne:'抽取 1 次',drawMany:'抽取 20 次',clearSamples:'重設樣本',sampleMean:'樣本平均',sampleCount:'抽樣次數',sampleHint:'從選定條件分布獨立進行示意抽樣；樣本平均誤差不保證單調接近期望值。',sampleNone:'尚未抽樣',sampleRecent:'最近抽到的結果',
+      sampleTitle:'重複抽樣',drawOne:'抽取 1 次',drawMany:'抽取 20 次',clearSamples:'重設樣本',sampleMean:'樣本平均',sampleCount:'抽樣次數',sampleHint:'從選定條件分布獨立進行示意抽樣；樣本平均不保證單調接近期望值。折線圖的縱軸依目前滑桿設定固定範圍，請依圖上刻度閱讀；上方標記帶另採 0–16 比例。',sampleNone:'尚未抽樣',sampleRecent:'最近抽到的結果',sampleCurve:'累積樣本平均軌跡',sampleAxis:'抽樣次數',
       shift:'預測位置偏移',center:'回到條件平均值',balance:'結果機率偏重',resetBalance:'恢復等機率',weights:'P(1/2/3)',expected:'期望值',biasSquared:'偏差平方',variance:'變異數',transfer:'對 B 的泛化程度',noTransfer:'重設泛化',bonus:'平方誤差'}
   };
   const fmt=v=>(v/1000).toFixed(2);
@@ -134,7 +134,7 @@
       const L=words[host.dataset.locale==='zh-TW'?'zh':'en'];
       const last=kind==='rnd'?7:5;
       let index=0,timer=0,bias=0,transfer=0,skew=0;
-      let sampleSeed=314159,sampleCount=0,sampleSum=0,sampleRecent=[];
+      let sampleSeed=314159,sampleCount=0,sampleSum=0,sampleRecent=[],sampleTrace=[];
       const plot=document.createElement('div');plot.className='curiosity-lab-plot';
       const controls=document.createElement('div');controls.className='curiosity-lab-toolbar';
       const button=(text,cb)=>{const el=document.createElement('button');el.type='button';el.setAttribute('aria-label',text);el.addEventListener('click',cb);return el;};
@@ -190,14 +190,15 @@
       sampleTrack.append(expectedMarker,observedMarker);
       const sampleLegend=document.createElement('div');sampleLegend.className='curiosity-lab-sample-legend';
       sampleLegend.textContent=`${L.expected} · ${L.sampleMean}  |  0 — 16.00`;
+      const trajectory=document.createElement('div');trajectory.className='curiosity-lab-sample-trajectory';trajectory.hidden=true;
       const sampleHistory=document.createElement('div');sampleHistory.className='curiosity-lab-sample-history';sampleHistory.setAttribute('aria-label',L.sampleRecent);
       const sampleHint=document.createElement('p');sampleHint.className='curiosity-lab-sample-hint';sampleHint.textContent=L.sampleHint;
-      sampleRow.append(sampleTitle,sampleActions,sampleStats,sampleTrack,sampleLegend,sampleHistory,sampleHint);
+      sampleRow.append(sampleTitle,sampleActions,sampleStats,sampleTrack,sampleLegend,trajectory,sampleHistory,sampleHint);
       controls.append(prev,play,next,seek,status,speed);host.replaceChildren(plot,controls,biasRow,skewRow,transferRow,sampleRow,note);
       transferInput.addEventListener('input',()=>{stop();transfer=Number(transferInput.value);set(index);});
       biasInput.addEventListener('input',()=>{stop();bias=Number(biasInput.value);resetSamples();set(index);});
       skewInput.addEventListener('input',()=>{stop();skew=Number(skewInput.value);resetSamples();set(index);});
-      function resetSamples(){sampleSeed=314159;sampleCount=0;sampleSum=0;sampleRecent=[];}
+      function resetSamples(){sampleSeed=314159;sampleCount=0;sampleSum=0;sampleRecent=[];sampleTrace=[];}
       function drawSamples(count){
         if(kind!=='icm'||index<3)return;
         const dist=distribution(skew),prediction=[dist.center[0]+bias,dist.center[1]];
@@ -210,9 +211,53 @@
           sampleSum+=(point[0]-prediction[0])**2+(point[1]-prediction[1])**2;
           sampleCount++;
           sampleRecent.push(outcome+1);
+          // Retain only the latest 120 cumulative means to bound DOM and memory.
+          sampleTrace.push(sampleSum/(1000*sampleCount));
+          if(sampleTrace.length>120)sampleTrace.shift();
           if(sampleRecent.length>12)sampleRecent.shift();
         }
         renderSamples();
+      }
+      function renderTrajectory(expected){
+        trajectory.hidden=sampleCount===0;
+        if(!sampleCount){trajectory.replaceChildren();return;}
+        // Every point is a *prefix mean*, not an individual sample loss or
+        // a parameter-update trajectory. The y-axis bounds depend only on
+        // the *possible* losses under this fixed counterfactual setting,
+        // never on the observed draws, so successive draws cannot rescale it.
+        const dist=distribution(skew),px=dist.center[0]+bias,py=dist.center[1];
+        const possible=outcomes.map(([x,y])=>((x-px)**2+(y-py)**2)/1000);
+        const minY=Math.max(0,Math.floor(Math.min(...possible,expected)-.4));
+        const maxY=Math.max(minY+2,Math.ceil(Math.max(...possible,expected)+.4));
+        const x0=44,x1=394,y0=122,ySpan=90;
+        const xx=i=>x0+(sampleTrace.length>1?i/(sampleTrace.length-1):0)*(x1-x0);
+        const yy=v=>y0-(v-minY)/(maxY-minY)*ySpan;
+        const points=sampleTrace.map((v,i)=>`${xx(i).toFixed(2)},${yy(v).toFixed(2)}`);
+        const expectedY=yy(expected).toFixed(2);
+        const latest=points[points.length-1].split(',');
+        const start=sampleCount-sampleTrace.length+1;
+        // Controlled numeric inputs only; no user-supplied markup enters this SVG.
+        trajectory.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 154" role="img" aria-label="${L.sampleCurve}: ${sampleCount} ${L.sampleAxis}; ${L.sampleMean} ${(sampleSum/(1000*sampleCount)).toFixed(3)}; ${L.expected} ${expected.toFixed(3)}">
+          <rect x="1" y="1" width="408" height="152" rx="9" fill="#f7fafc" stroke="#ccdae5"/>
+          <path d="M44 32H394 M44 77H394 M44 122H394" stroke="#dce7ed" stroke-width="1"/>
+          <path d="M44 32V122H394" stroke="#91a9b8" stroke-width="1.4" fill="none"/>
+          <text x="34" y="36" text-anchor="end" font-size="12" fill="#496174">${maxY}</text>
+          <text x="34" y="81" text-anchor="end" font-size="12" fill="#496174">${Number(((maxY+minY)/2).toFixed(1))}</text>
+          <text x="34" y="126" text-anchor="end" font-size="12" fill="#496174">${minY}</text>
+          <line x1="44" y1="${expectedY}" x2="394" y2="${expectedY}" stroke="#775fb0" stroke-width="2" stroke-dasharray="6 4"/>
+          <polyline data-sample-means="true" points="${points.join(' ')}" stroke="#b36b25" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+          <circle data-sample-latest="true" cx="${latest[0]}" cy="${latest[1]}" r="4.3" fill="#b36b25" stroke="white" stroke-width="1.5"/>
+          <line x1="80" y1="15" x2="100" y2="15" stroke="#b36b25" stroke-width="3"/>
+          <text x="106" y="19" font-size="13" fill="#7b4818">Mean</text>
+          <line x1="232" y1="15" x2="252" y2="15" stroke="#775fb0" stroke-dasharray="5 3" stroke-width="2.4"/>
+          <text x="258" y="19" font-size="13" fill="#5d448d">Expected</text>
+          <text x="44" y="141" font-size="12" fill="#496174" text-anchor="middle">${start}</text>
+          ${sampleCount>start?`<text x="394" y="141" font-size="12" fill="#496174" text-anchor="middle">${sampleCount}</text>`:''}
+        </svg>`;
+        trajectory.dataset.yMin=String(minY);
+        trajectory.dataset.yMax=String(maxY);
+        trajectory.dataset.windowStart=String(start);
+        trajectory.dataset.totalDraws=String(sampleCount);
       }
       function renderSamples(){
         if(sampleRow.hidden)return;
@@ -224,6 +269,7 @@
         sampleTrack.setAttribute('aria-label',`${L.expected}: ${expected.toFixed(3)}; ${L.sampleMean}: ${sampleCount?observed.toFixed(3):L.sampleNone}`);
         sampleStats.textContent=`${L.sampleCount}: ${sampleCount} · ${L.sampleMean}: ${sampleCount?observed.toFixed(3):'—'} · ${L.expected}: ${expected.toFixed(3)}`;
         clear.disabled=sampleCount===0;
+        renderTrajectory(expected);
         sampleHistory.replaceChildren(...sampleRecent.map(i=>{
           const el=document.createElement('span');el.className=`curiosity-lab-sample-chip curiosity-lab-sample-chip-${i}`;
           el.textContent=String(i);return el;
