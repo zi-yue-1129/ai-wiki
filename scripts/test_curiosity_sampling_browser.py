@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 JS = (ROOT / 'docs/javascripts/curiosity-labs.js').read_text()
 CSS = (ROOT / 'docs/stylesheets/curiosity-labs.css').read_text()
 PREVIEW = ROOT / 'docs/assets/concept-animations/icm-sample-mean-still.svg'
+RUNS_PREVIEW = ROOT / 'docs/assets/concept-animations/icm-independent-runs-still.svg'
 OUT = ROOT / 'artifacts/rnd-icm-motion'
 OUT.mkdir(parents=True, exist_ok=True)
 
@@ -23,6 +24,16 @@ def run():
     assert root.attrib['viewBox'] == '0 0 420 565'
     assert PREVIEW.stat().st_size < 50 * 1024
     assert not any(node.tag.rsplit('}', 1)[-1] in ('animate', 'script', 'foreignObject') for node in root.iter())
+    independent_root = ET.parse(RUNS_PREVIEW).getroot()
+    assert independent_root.attrib['viewBox'] == '0 0 420 294'
+    assert RUNS_PREVIEW.stat().st_size < 50 * 1024
+    assert not any(node.tag.rsplit('}', 1)[-1] in ('animate', 'script', 'foreignObject') for node in independent_root.iter())
+    two_paths = [node.attrib['points'].split() for node in independent_root.iter()
+                 if node.tag.rsplit('}', 1)[-1] == 'polyline']
+    assert len(two_paths) == 2 and all(len(points) == 20 for points in two_paths)
+    for points, mean in zip(two_paths, (2.786, 3.0016)):
+        target_y = 210 - (mean - 1) * (210 - 88) / 4
+        assert abs(float(points[-1].split(',')[1]) - target_y) < .02
     with sync_playwright() as p:
         browser = p.chromium.launch()
         for width in (320, 360, 720, 1024):
