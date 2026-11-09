@@ -6,7 +6,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'docs/assets/concept-animations'
 CASES = {
-    'rnd-return-scale': ('rect[x="38"][y="316"][fill="#168a7d"]', 'width', [240, 120, 60]),
+    'rnd-return-scale': ('rect[x="38"][y="339"][fill="#168a7d"]', 'width', [240, 120, 60]),
     'icm-loss-blend': ('line[stroke="#168a7d"][stroke-width="4.2"]', 'x2', [283, 205.5, 128]),
 }
 
