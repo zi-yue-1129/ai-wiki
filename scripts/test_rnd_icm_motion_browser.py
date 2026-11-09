@@ -812,6 +812,7 @@ def run() -> None:
 
             check_primary_squared_bonus_geometry(browser)
             check_rnd_transfer_motion(browser)
+            check_icm_weighted_probability_sweep(browser)
             check_rnd_desktop_squared_bonus(browser)
             check_icm_stochastic_comparison(browser)
             check_icm_mobile_stacked(browser)
@@ -850,6 +851,106 @@ def run() -> None:
         finally:
             browser.close()
 
+
+
+
+def check_icm_weighted_probability_sweep(browser) -> None:
+    """Real Chromium geometry and accessibility regression for a moving distribution.
+
+    Fixed outcome coordinates, changing probabilities and the predictive mean
+    must stay mathematically consistent with the variance bar at every instant.
+    """
+    name = "icm-weighted-outcomes"
+    source = (ASSETS / (name + "-motion.svg")).read_text(encoding="utf-8")
+    fallback = (ASSETS / (name + "-still.svg")).read_text(encoding="utf-8")
+    assert ET.fromstring(source).attrib["viewBox"] == "0 0 400 640"
+    assert "<animate " in source and "<animate " not in fallback
+    points = [(365, 101), (310, 174), (255, 115)]
+    for width in (320, 360, 720, 1024):
+        context = browser.new_context(viewport={"width": width, "height": 850})
+        page = context.new_page()
+        page.set_content(
+            '<html><body style="margin:0"><style>'
+            'svg{width:min(100vw,400px);height:auto;display:block}'
+            '</style>' + source + '</body></html>'
+        )
+        for idx, t in enumerate((0, 1.25, 2.5, 3.75, 5, 6.25, 7.5, 8.75, 9.99)):
+            if t <= 2.5:
+                skew = -60 + 24 * t
+            elif t <= 5:
+                skew = 24 * (t - 2.5)
+            elif t <= 7.5:
+                skew = 60 - 24 * (t - 5)
+            else:
+                skew = -24 * (t - 7.5)
+            probabilities = [(100 + skew) / 300, 1 / 3, (100 - skew) / 300]
+            mean_x = sum(p * x for p, (x, y) in zip(probabilities, points))
+            mean_y = sum(p * y for p, (x, y) in zip(probabilities, points))
+            variance = sum(
+                p * ((x - mean_x) ** 2 + (y - mean_y) ** 2)
+                for p, (x, y) in zip(probabilities, points)
+            )
+            data = page.evaluate("""time => {
+              const s = document.querySelector('svg');
+              s.setCurrentTime(time);
+              s.pauseAnimations();
+              const point = name => s.getElementById(name);
+              return {
+                widths: [1,2,3].map(i => point('icm-weight-'+i).width.animVal.value),
+                mean: [point('icm-weighted-mean').cx.animVal.value,
+                       point('icm-weighted-mean').cy.animVal.value],
+                forecast: [point('icm-weighted-forecast').cx.animVal.value,
+                           point('icm-weighted-forecast').cy.animVal.value],
+                variance: point('icm-weighted-variance').width.animVal.value,
+                overflow: document.documentElement.scrollWidth > innerWidth + 1
+              };
+            }""", t)
+            expected_mean = [70 + 1.9 * (mean_x - 245),
+                             210 + 1.9 * (mean_y - 87)]
+            assert max(abs(v - 352 * p) for v, p in zip(
+                data["widths"], probabilities)) < .2, (width, t, data)
+            for key in ("mean", "forecast"):
+                assert max(abs(v - expected_mean[i]) for i, v in enumerate(
+                    data[key])) < .2, (width, t, key, data)
+            assert abs(data["variance"] - 326 * variance / 4000) < .2, (
+                width, t, variance, data)
+            assert not data["overflow"], (width, t, "horizontal overflow")
+            if idx in (0, 2, 4, 6, 8):
+                (REVIEW / (name + "_" + str(width) + "_" + str(idx) + ".png")).write_bytes(
+                    page.locator("svg").screenshot(animations="allow")
+                )
+        context.close()
+
+    # Existing first-party MkDocs image player pairs -motion/-still by name,
+    # and must retain a keyboard-operable pause and reduced-motion fallback.
+    if PLAYER.is_file():
+        url = "http://127.0.0.1:9/docs/assets/concept-animations/" + name + "-motion.svg"
+        for locale, alt in (("en", "ICM weighted outcomes"),
+                            ("zh", "ICM 加權結果動畫")):
+            context = browser.new_context(viewport={"width": 320, "height": 700})
+            page = context.new_page()
+            page.set_content('<img alt="' + alt + '" src="' + url + '">')
+            page.add_script_tag(content=PLAYER.read_text(encoding="utf-8"))
+            img = page.locator("img")
+            assert img.get_attribute("src").endswith("-motion.svg")
+            page.get_by_role("button", name="Pause concept animation" if locale == "en"
+                             else "暫停概念動畫").click()
+            assert img.get_attribute("src").endswith("-still.svg")
+            page.get_by_role("button", name="Play concept animation" if locale == "en"
+                             else "播放概念動畫").focus()
+            page.keyboard.press("Enter")
+            assert img.get_attribute("src").endswith("-motion.svg")
+            context.close()
+            context = browser.new_context(
+                viewport={"width": 320, "height": 700}, reduced_motion="reduce"
+            )
+            page = context.new_page()
+            page.set_content('<img alt="' + alt + '" src="' + url + '">')
+            page.add_script_tag(content=PLAYER.read_text(encoding="utf-8"))
+            assert page.locator("img").get_attribute("src").endswith("-still.svg")
+            context.close()
+    print("PASS weighted ICM: 36 mathematical samples, responsive screenshots, "
+          "shared player and reduced motion")
 
 if __name__ == '__main__':
     run()
