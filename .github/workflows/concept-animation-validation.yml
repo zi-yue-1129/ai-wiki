@@ -84,6 +84,8 @@ jobs:
           python -m playwright install chromium
       - name: Chromium RND/ICM motion, keyboard controls and reduced-motion fallback
         run: python scripts/test_rnd_icm_motion_browser.py
+      - name: Chromium GitHub-safe RND/ICM chapter fallback and keyboard player
+        run: python scripts/test_curiosity_chapter_fallback_browser.py
       - name: Chromium RND separate reward-stream and value-head regression
         run: python scripts/test_rnd_dual_value_browser.py
       - name: Chromium RND stochastic-observation failure-mode motion

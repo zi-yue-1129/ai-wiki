@@ -83,7 +83,7 @@ RND 的隨機目標 $f(s)$ 保持固定，但 ICM 的前向模型要預測的是
 
 ## 教學動畫
 
-![ICM 流程：前向與逆動態模型接收各自的特徵輸入；比較預測與實際特徵後，更新訊號回傳前向模型，再示意訓練後誤差下降](../../../../../assets/concept-animations/icm-forward-inverse-motion.svg)
+<img src="../../../../../assets/concept-animations/icm-forward-inverse-still.svg" data-motion-src="../../../../../assets/concept-animations/icm-forward-inverse-motion.svg" data-still-src="../../../../../assets/concept-animations/icm-forward-inverse-still.svg" width="680" loading="lazy" alt="ICM 流程：前向與逆動態模型接收各自的特徵輸入；比較預測與實際特徵後，更新訊號回傳前向模型，再示意訓練後誤差下降" />
 
 *原創教學動畫（CC BY-SA 4.0）。* 畫面上兩個 **Encoder** 方塊代表作用於連續兩個觀測的**同一組編碼器**。**Forward** 模型以當前特徵及動作預測下一個特徵；橘色預測點朝綠色實際編碼特徵靠近，兩者的平方誤差提供內在獎勵。**Inverse** 分支則以轉移前後的特徵預測動作，促使特徵表示保留與動作相關的資訊。比較區域的實際特徵來自**下一個觀測的編碼結果，而不是逆動態模型的輸出**。**Error → reward** 長條依固定示意比例，呈現綠色目標與橘色預測點之間的**特徵平方距離**；循環重播直接回到起始狀態，不呈現預測器倒退學習的假象。座標與學習變化**皆為教學示意，非模型實測，也不保證誤差單調下降**。MkDocs 網站提供播放／暫停控制；GitHub 可查看[靜態回退預覽](../../../../../assets/concept-animations/icm-forward-inverse-still.svg)。原始研究：[Pathak 等人（2017）](https://arxiv.org/abs/1705.05363)。
 
@@ -91,7 +91,7 @@ RND 的隨機目標 $f(s)$ 保持固定，但 ICM 的前向模型要預測的是
 
 ### 可預測與隨機轉移的差異
 
-![ICM 可預測與隨機轉移對照：可重複的下一狀態特徵讓前向模型的誤差逐漸下降；相同輸入若對應不同下一狀態特徵，預測誤差可能持續存在](../../../../../assets/concept-animations/icm-predictable-stochastic-motion.svg)
+<img src="../../../../../assets/concept-animations/icm-predictable-stochastic-still.svg" data-motion-src="../../../../../assets/concept-animations/icm-predictable-stochastic-motion.svg" data-still-src="../../../../../assets/concept-animations/icm-predictable-stochastic-still.svg" width="760" loading="lazy" alt="ICM 可預測與隨機轉移對照：可重複的下一狀態特徵讓前向模型的誤差逐漸下降；相同輸入若對應不同下一狀態特徵，預測誤差可能持續存在" />
 
 *原創教學動畫（CC BY-SA 4.0）。* 兩個面板都重複給予**相同的當前編碼特徵與動作**。左側 **Predictable** 的下一狀態特徵固定，前向模型可藉訓練讓橘色預測靠近綠色目標，降低誤差；右側 **Stochastic** 的相同輸入可能導致不同的下一狀態編碼特徵，單一確定性預測無法同時符合所有結果。因此，即使模型已學到條件分布的中央趨勢，預測誤差獎勵仍可能持續出現。這是**殘餘不可預測性的示意，不代表 ICM 必然獎勵所有隨機觀測**：逆動態表示學習可能過濾部分不可控因素，但不能假定完全消除。在這個**三種結果的示意**中，三個綠色候選目標採相同的示意權重，算術平均恰好落在固定的橘色前向預測點上。 淺綠色三角形圈出三個可能的下一狀態特徵，標示 **mean** 的橘色點則是等權重的形心。右側誤差長條上的**紫色刻度**固定代表這三種結果的*期望平方誤差*；橘色長條則隨個別取樣結果切換，單次樣本誤差可能低於期望值。此條件變異數下界以編碼器固定且確定性預測器輸出條件平均值為前提，並非 ICM 的實測訓練結果。**兩側**橘色誤差長條都依預測與實際特徵間的**平方距離**等比例縮放：左側隨示意訓練過程連續縮小，右側則隨離散取樣結果同步切換；藍色輸入光點在每次切換之前重送相同的特徵與動作；綠色結果點會直接跳至下一個離散樣本，不在中間插值生成未觀測的狀態。這些座標及權重並非估計機率、模型實測獎勵或真實訓練軌跡。循環播放是重新演示，不代表已學參數重設。MkDocs 網站可播放／暫停；窄螢幕自動改用上下排列、字體較大的動畫，不會把左右雙欄直接縮小。暫停或啟用減少動態效果時會顯示對應的手機版靜態畫面；桌面與手機的特徵座標皆為**獨立的示意數值**，並非模型實測。GitHub 可查看[桌面版靜態回退預覽](../../../../../assets/concept-animations/icm-predictable-stochastic-still.svg)。原始研究：[Pathak 等人（2017）](https://arxiv.org/abs/1705.05363)。
 

@@ -76,7 +76,7 @@ RND 的特徵預測誤差，在不同環境及訓練階段可能具有不同尺�
 
 ## 教學動畫
 
-![RND 流程：相同觀測分別進入固定的隨機目標網路與可訓練預測器；反覆學習同一已造訪狀態時，特徵距離與內在獎勵逐漸減小](../../../../../assets/concept-animations/rnd-prediction-error-motion.svg)
+<img src="../../../../../assets/concept-animations/rnd-prediction-error-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-prediction-error-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-prediction-error-still.svg" width="680" loading="lazy" alt="RND 流程：相同觀測分別進入固定的隨機目標網路與可訓練預測器；反覆學習同一已造訪狀態時，特徵距離與內在獎勵逐漸減小" />
 
 *原創教學動畫（CC BY-SA 4.0）。* **綠色目標特徵保持固定**，**橘色預測器特徵**則示範對同一已造訪觀測反覆訓練後，逐漸靠近目標的過程。虛線表示特徵距離，橘色內在獎勵長條依**距離平方**縮放，**不是**狀態造訪次數計數；切換至新觀測時，誤差可能再次升高。圖中的座標、獎勵長條與訓練軌跡都**僅為示意，並非模型實測，也不代表誤差必然單調下降**。MkDocs 網站提供播放／暫停控制；GitHub 可查看[靜態回退預覽](../../../../../assets/concept-animations/rnd-prediction-error-still.svg)。原始研究：[Burda 等人（2018）](https://arxiv.org/abs/1810.12894)。
 
@@ -85,7 +85,7 @@ RND 的特徵預測誤差，在不同環境及訓練階段可能具有不同尺�
 
 **熟悉狀態與新穎狀態的差別。** 第二段動畫先讓預測器在反覆造訪的狀態 A 上逐漸降低誤差，接著將輸入切換為另一個觀測 B。**目標網路的參數始終固定，但不同輸入的目標特徵 \(\,f(s_A)\,\) 與 \(\,f(s_B)\,\) 不一定相同。** 因此，即使預測器已學會狀態 A，面對 B 時仍可能出現較大的特徵誤差與內在獎勵。這不表示模型權重被重設，也**不保證**所有未見過的觀測都有高獎勵：預測器的泛化能力可能使誤差很低。動畫最後也呈現**繼續使用觀測 B 訓練預測器**：橘色預測特徵逐漸靠近 B 對應的固定目標輸出，示意內在獎勵再次降低。這不代表目標網路的權重改變，也不代表切換觀測時重設了預測器。圖中二維特徵座標、距離與獎勵長條僅為**教學示意，並非實測或經校準的數值**；動畫循環也不是實際重新訓練。
 
-![RND 熟悉與新穎狀態對照：藍色訊號將 A 同時送入兩個網路、訓練後誤差下降；橘色訊號將 B 同時送入兩個網路，可能出現新穎性誤差，隨 B 的預測器訓練再降低](../../../../../assets/concept-animations/rnd-state-novelty-motion.svg)
+<img src="../../../../../assets/concept-animations/rnd-state-novelty-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-state-novelty-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-state-novelty-still.svg" width="680" loading="lazy" alt="RND 熟悉與新穎狀態對照：藍色訊號將 A 同時送入兩個網路、訓練後誤差下降；橘色訊號將 B 同時送入兩個網路，可能出現新穎性誤差，隨 B 的預測器訓練再降低" />
 
 *第二段原創教學動畫（CC BY-SA 4.0）。* 綠色點是**固定權重的目標網路對目前輸入的輸出**，不是對所有狀態均相同的常數特徵；橘色點代表預測器輸出，兩點間虛線表示誤差距離。**藍色輸入光點代表 A、琥珀色輸入光點代表 B**，兩者都沿著觀測通往目標網路與預測器的路徑移動，接著才呈現對應特徵輸出的變化。這表示兩個網路都會處理不同輸入，**並非目標網路的權重改變**。當 B 的輸入訊號抵達兩個網路後，目標特徵、預測特徵與示意獎勵才同步切換，不會以連續插值誤導讀者，讓不同觀測之間出現不存在的中間特徵。手機畫面（寬度不超過 640px）會使用另外設計的上下配置動畫，保留可辨識的字體，而非直接縮小桌面圖。A／B 都先進入固定目標網路和可訓練預測器，才切換對應特徵；桌面版與手機版獎勵長條均依**示意特徵平方距離**呈現 A 逐漸熟悉、遇到 B、繼續學習 B 的變化。暫停或偏好減少動態效果時，可使用[手機版上下排列靜態預覽](../../../../../assets/concept-animations/rnd-state-novelty-mobile-still.svg)。桌面版也會等 B 的輸入訊號抵達兩個網路後才切換 A／B 標籤，且循環重播時直接重設，不會捏造 B 到 A 的中間特徵路徑。圖中的特徵座標、平方誤差比例及獎勵長度皆為示意，非模型實測。MkDocs 網站提供播放／暫停；GitHub 可直接閱讀[狀態 A／B 的靜態對照預覽](../../../../../assets/concept-animations/rnd-state-novelty-still.svg)。
 
