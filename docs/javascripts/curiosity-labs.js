@@ -62,19 +62,22 @@
     const conditionalMse=stochastic?dist.variance+bias*bias:err;
     const tick=128+Math.min(244,244*conditionalMse/unit);
     const tag=isRnd?'Obs '+row[0]:stochastic?'Stochastic':'Predictable';
-    const dots=!isRnd&&stochastic?outcomes.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="16" fill="none" stroke="#319d7a" stroke-width="${(1+4*dist.weights[i]).toFixed(2)}" stroke-dasharray="3 5" opacity="${i===n-3?'1':'.65'}"/><text x="${x+(i===0?15:-20)}" y="${y-18}" font-size="13" fill="#167359">${i+1}</text>`).join(''):'';
+    // Match each outcome, geometric gap and weighted error contribution.
+    const outcomeColours=['#267f9f','#319d91','#8672b4'];
+    const rays=!isRnd&&stochastic?outcomes.map(([x,y],i)=>
+      `<line data-outcome-ray="${i+1}" x1="${x}" y1="${y}" x2="${dist.center[0].toFixed(2)}" y2="${dist.center[1].toFixed(2)}" stroke="${outcomeColours[i]}" stroke-opacity=".55" stroke-width="2" stroke-dasharray="5 5"/>`).join(''):'';
+    const dots=!isRnd&&stochastic?outcomes.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="16" fill="none" stroke="${outcomeColours[i]}" stroke-width="${(1+4*dist.weights[i]).toFixed(2)}" stroke-dasharray="3 5" opacity="${i===n-3?'1':'.65'}"/><text x="${x+(i===0?15:-20)}" y="${y-18}" font-size="13" fill="${outcomeColours[i]}">${i+1}</text>`).join(''):'';
     const badge=isRnd&&row[0]==='B'?'#fff0db':'#e4f1fa';
     // Each coloured contribution is p_i * ||Y_i - prediction||². Their
     // sum is the violet expected-error tick, not an average of three
     // equally weighted samples after Outcome balance has been changed.
     const terms=stochastic?outcomes.map(([x,y],i)=>dist.weights[i]*((x-px)**2+(y-py)**2)):[];
-    const termColours=['#287da1','#49a7b1','#8770b5'];
     const termScale=344/6000;
     const termBars=stochastic?terms.map((term,i)=>{
       const left=28+terms.slice(0,i).reduce((a,v)=>a+v,0)*termScale;
-      return `<rect data-contribution="${i+1}" x="${left.toFixed(2)}" y="370" width="${(term*termScale).toFixed(2)}" height="16" fill="${termColours[i]}"/>`;
+      return `<rect data-contribution="${i+1}" x="${left.toFixed(2)}" y="370" width="${(term*termScale).toFixed(2)}" height="16" fill="${outcomeColours[i]}"/>`;
     }).join(''):'';
-    const termLabels=stochastic?terms.map((term,i)=>`<rect x="${28+i*121}" y="399" width="11" height="11" rx="2" fill="${termColours[i]}"/><text x="${44+i*121}" y="409" font-size="13" fill="#344a5d">${i+1}: ${fmtTerm(term)}</text>`).join(''):'';
+    const termLabels=stochastic?terms.map((term,i)=>`<rect x="${28+i*121}" y="399" width="11" height="11" rx="2" fill="${outcomeColours[i]}"/><text x="${44+i*121}" y="409" font-size="13" fill="#344a5d">${i+1}: ${fmtTerm(term)}</text>`).join(''):'';
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 ${stochastic?422:340}" role="img" aria-label="${zh ? `特徵空間示意：${tag}，比較平方預測誤差` : `${tag}: schematic feature-space squared-error comparison`}">
       <title>${isRnd?'RND fixed target and trained predictor':'ICM sample error and conditional expected error'}</title>
       <desc>${zh ? "示意座標，非訓練實測結果。" : "Illustrative coordinates; not measured training results."}</desc>
@@ -83,6 +86,7 @@
       <text x="31" y="40" font-size="20" font-weight="700" fill="#223d52">${tag}</text>
       <text x="295" y="39" font-size="17" fill="#537084">Feature space</text>
       <path d="M28 70H382M28 70V246" fill="none" stroke="#d3e0e7" stroke-width="1.5"/>
+      ${rays}
       ${dots}
       ${stochastic?`<circle cx="${dist.center[0].toFixed(2)}" cy="${dist.center[1].toFixed(2)}" r="17" fill="none" stroke="#775fb0" stroke-width="2" stroke-dasharray="3 4"/>`: ''}
       <path d="M${px} ${py}L${ox} ${oy}" stroke="#b87932" stroke-dasharray="6 5" stroke-width="3"/>

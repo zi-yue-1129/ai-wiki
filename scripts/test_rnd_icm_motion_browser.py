@@ -865,6 +865,13 @@ def check_icm_weighted_probability_sweep(browser) -> None:
     fallback = (ASSETS / (name + "-still.svg")).read_text(encoding="utf-8")
     assert ET.fromstring(source).attrib["viewBox"] == "0 0 400 640"
     assert "<animate " in source and "<animate " not in fallback
+    # Each moving geometric link shares the matching weighted-risk bar colour.
+    svg_root = ET.fromstring(source)
+    for n, colour in enumerate(("#267f9f", "#319d91", "#8672b4"), 1):
+        ray = svg_root.find(f".//*[@id='icm-outcome-ray-{n}']")
+        term = svg_root.find(f".//*[@id='icm-variance-term-{n}']")
+        assert ray is not None and term is not None
+        assert ray.attrib["stroke"] == term.attrib["fill"] == colour
     points = [(365, 101), (310, 174), (255, 115)]
     for width in (320, 360, 720, 1024):
         context = browser.new_context(viewport={"width": width, "height": 850})
@@ -906,6 +913,10 @@ def check_icm_weighted_probability_sweep(browser) -> None:
                   x: point('icm-variance-term-'+i).x.animVal.value,
                   width: point('icm-variance-term-'+i).width.animVal.value
                 })),
+                rays: [1,2,3].map(i => ({
+                  x: point('icm-outcome-ray-'+i).x2.animVal.value,
+                  y: point('icm-outcome-ray-'+i).y2.animVal.value
+                })),
                 overflow: document.documentElement.scrollWidth > innerWidth + 1
               };
             }""", t)
@@ -916,6 +927,9 @@ def check_icm_weighted_probability_sweep(browser) -> None:
             for key in ("mean", "forecast"):
                 assert max(abs(v - expected_mean[i]) for i, v in enumerate(
                     data[key])) < .2, (width, t, key, data)
+            for ray in data["rays"]:
+                assert abs(ray["x"] - expected_mean[0]) < .2
+                assert abs(ray["y"] - expected_mean[1]) < .2
             assert abs(data["variance"] - 326 * variance / 4000) < .2, (
                 width, t, variance, data)
             # The three color-coded terms must remain contiguous and add to the

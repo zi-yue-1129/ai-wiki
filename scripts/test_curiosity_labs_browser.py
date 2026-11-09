@@ -162,6 +162,15 @@ def run():
                 # *three separate sample gaps*, not three unweighted errors.
                 segments = icm.locator('svg rect[data-contribution]')
                 assert segments.count() == 3
+                # The same outcome colour identifies the gap and its weighted term.
+                palette = ("#267f9f", "#319d91", "#8672b4")
+                for component in range(3):
+                    ray = icm.locator(f'svg line[data-outcome-ray="{component+1}"]')
+                    assert ray.count() == 1
+                    assert ray.get_attribute("stroke") == palette[component]
+                    assert segments.nth(component).get_attribute("fill") == palette[component]
+                    assert abs(float(ray.get_attribute("x2"))-mean_x) < .02
+                    assert abs(float(ray.get_attribute("y2"))-mean_y) < .02
                 scaled_total = sum(float(segments.nth(i).get_attribute("width")) for i in range(3))
                 assert abs(scaled_total - 344 * expected_var / 6000) < 0.05
                 for i in range(3):
