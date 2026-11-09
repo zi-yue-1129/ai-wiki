@@ -25,7 +25,7 @@ def main():
     for topic, stems in CASES.items():
         for locale in ("index.md", "index.zh-TW.md"):
             content = (DOCS / f"theory/paradigms/reinforcement-learning/exploration/{topic}/{locale}").read_text(encoding="utf-8")
-            tags = re.findall(r"<img\\b[^>]*>", content)
+            tags = re.findall(r"<img\b[^>]*>", content)
             for stem in stems:
                 base = BASE + stem
                 matches = [tag for tag in tags if f'data-motion-src="{base}-motion.svg"' in tag]
@@ -34,7 +34,7 @@ def main():
                 for fragment in (f'src="{base}-still.svg"', f'data-still-src="{base}-still.svg"',
                                  'loading="lazy"', 'alt="'):
                     assert fragment in tag, (topic, locale, stem, fragment)
-                assert not re.search(r"!\\[[^\\]]*\\]\\([^\\n)]*" + stem + r"-motion\\.svg\\)", content)
+                assert not re.search(r"!\[[^\]]*\]\([^\n)]*" + stem + r"-motion\.svg\)", content)
                 for suffix in ("motion", "still"):
                     assert (ASSETS / f"{stem}-{suffix}.svg").is_file()
 
