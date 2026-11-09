@@ -98,7 +98,7 @@ def run():
                         assert (px,py)==forecast and (tx,ty)==(310,130)
                         squared=(px-tx)**2+(py-ty)**2
                         actual_width=float(host.locator('svg rect[fill="#d28a3e"]').get_attribute("width"))
-                        assert abs(actual_width-244*squared/10000)<0.02
+                        assert abs(actual_width-244*squared/16000)<0.02
                         # Deterministic next features have conditional variance zero;
                         # the violet expected-error tick must meet the sampled-error
                         # bar, including *before* the predictor is fitted.
@@ -126,9 +126,9 @@ def run():
             )
             assert icm.locator('svg circle[fill="#e19748"]').get_attribute("cx") == "350"
             width_bar = float(icm.locator('svg rect[fill="#d28a3e"]').get_attribute("width"))
-            assert abs(width_bar - 244*1066/10000) < .02
+            assert abs(width_bar - 244*1066/16000) < .02
             tick = icm.locator('svg path[stroke="#775fb0"]').first.get_attribute("d")
-            assert abs(float(tick.split(" ")[0][1:]) - (128+244*(3017.3333333333+1600)/10000)) < .05
+            assert abs(float(tick.split(" ")[0][1:]) - (128+244*(3017.3333333333+1600)/16000)) < .05
             numbers = icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer):not(.curiosity-lab-skew) .curiosity-lab-metrics").text_content()
             assert all(v in numbers for v in ("4.62", "1.60", "3.02"))
             (OUT / f"probe_icm_bias_{width}_p40.png").write_bytes(icm.screenshot())
@@ -156,7 +156,17 @@ def run():
                 assert abs(float(predictor.get_attribute("cy"))-mean_y)<.02
                 expected_tick=icm.locator('svg path[stroke="#775fb0"]').first.get_attribute("d")
                 tick_position=float(expected_tick.split(" ")[0][1:])
-                assert abs(tick_position-(128+244*expected_var/10000))<.05
+                assert abs(tick_position-(128+244*expected_var/16000))<.05
+                # A common axis allows either decomposition to produce the same expectation.
+                vbar=icm.locator("svg rect[data-mse-variance]")
+                bbar=icm.locator("svg rect[data-mse-bias]")
+                assert abs(float(vbar.get_attribute("width"))-344*expected_var/6000)<0.03
+                assert abs(float(bbar.get_attribute("width")))<0.01
+                vector=icm.locator("svg line[data-bias-vector]")
+                assert abs(float(vector.get_attribute("x1"))-mean_x)<0.02
+                assert abs(float(vector.get_attribute("y1"))-mean_y)<0.02
+                assert abs(float(vector.get_attribute("x2"))-mean_x)<0.02
+                assert icm.locator("svg").get_attribute("viewBox")=="0 0 410 505"
                 assert p_text in icm.locator(".curiosity-lab-skew .curiosity-lab-metrics").text_content()
                 # The live coloured strip is a probability-weighted sum of
                 # *three separate sample gaps*, not three unweighted errors.
@@ -189,6 +199,18 @@ def run():
             combined = icm.locator('svg rect[data-contribution]')
             assert abs(sum(float(combined.nth(i).get_attribute("width")) for i in range(3))
                        - 344 * (2648.693333333333 + 1600) / 6000) < 0.05
+            variance_bar=icm.locator("svg rect[data-mse-variance]")
+            bias_bar=icm.locator("svg rect[data-mse-bias]")
+            assert abs(float(variance_bar.get_attribute("width"))-344*2648.693333333333/6000)<0.03
+            assert abs(float(bias_bar.get_attribute("width"))-344*1600/6000)<0.03
+            vector=icm.locator("svg line[data-bias-vector]")
+            assert abs(float(vector.get_attribute("x1"))-332)<0.02
+            assert abs(float(vector.get_attribute("x2"))-372)<0.02
+            skew_slider.evaluate("(e) => {e.value='-60';e.dispatchEvent(new Event('input',{bubbles:true}));}")
+            bias_slider.evaluate("(e) => {e.value='-40';e.dispatchEvent(new Event('input',{bubbles:true}));}")
+            sample_width=float(icm.locator('svg rect[fill="#d28a3e"]').get_attribute("width"))
+            assert abs(sample_width-244*14700.24/16000)<0.03 and sample_width<244
+            bias_slider.evaluate("(e) => {e.value='40';e.dispatchEvent(new Event('input',{bubbles:true}));}")
             icm.get_by_role("button",name="恢復等機率").click()
             assert skew_slider.input_value()=="0"
             assert "4.62" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer):not(.curiosity-lab-skew) .curiosity-lab-metrics").text_content()

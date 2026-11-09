@@ -53,8 +53,10 @@
     const px=isRnd?tx+(row[3]-tx)*factor:(stochastic?dist.center[0]+bias:predictable[n][0]);
     const py=isRnd?ty+(row[4]-ty)*factor:(stochastic?dist.center[1]:predictable[n][1]);
     const ox=isRnd?tx:sampled[0],oy=isRnd?ty:sampled[1];
-    // A consistent ICM scale covers every outcome when bias is in [-40,40].
-    const err=(ox-px)**2+(oy-py)**2, unit=isRnd?21000:10000;
+    // Keep the ICM sample and expected-error bar on one fixed scale;
+    // 16000 exceeds the largest schematic outcome gap (14700.24) across the
+    // allowed probability/forecast sliders, avoiding hidden saturation.
+    const err=(ox-px)**2+(oy-py)**2, unit=isRnd?21000:16000;
     const width=Math.min(244,244*err/unit);
     // E[||Y-p||²] = ||E[Y]-p||² + E[||Y-E[Y]||²] for fixed Y distribution.
     // For a deterministic next feature, the conditional variance is zero:
@@ -78,10 +80,13 @@
       return `<rect data-contribution="${i+1}" x="${left.toFixed(2)}" y="370" width="${(term*termScale).toFixed(2)}" height="16" fill="${outcomeColours[i]}"/>`;
     }).join(''):'';
     const termLabels=stochastic?terms.map((term,i)=>`<rect x="${28+i*121}" y="399" width="11" height="11" rx="2" fill="${outcomeColours[i]}"/><text x="${44+i*121}" y="409" font-size="13" fill="#344a5d">${i+1}: ${fmtTerm(term)}</text>`).join(''):'';
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 ${stochastic?422:340}" role="img" aria-label="${zh ? `特徵空間示意：${tag}，比較平方預測誤差` : `${tag}: schematic feature-space squared-error comparison`}">
+    const decompositionScale=344/6000;
+    const varianceBar=stochastic?dist.variance*decompositionScale:0;
+    const biasBar=stochastic?bias*bias*decompositionScale:0;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 ${stochastic?505:340}" role="img" aria-label="${zh ? `特徵空間示意：${tag}，比較平方預測誤差` : `${tag}: schematic feature-space squared-error comparison`}">
       <title>${isRnd?'RND fixed target and trained predictor':'ICM sample error and conditional expected error'}</title>
       <desc>${zh ? "示意座標，非訓練實測結果。" : "Illustrative coordinates; not measured training results."}</desc>
-      <rect x="1" y="1" width="408" height="${stochastic?420:338}" rx="16" fill="#f7fafc" stroke="#bed0dc"/>
+      <rect x="1" y="1" width="408" height="${stochastic?503:338}" rx="16" fill="#f7fafc" stroke="#bed0dc"/>
       <rect x="18" y="15" width="150" height="39" rx="11" fill="${badge}"/>
       <text x="31" y="40" font-size="20" font-weight="700" fill="#223d52">${tag}</text>
       <text x="295" y="39" font-size="17" fill="#537084">Feature space</text>
@@ -89,6 +94,7 @@
       ${rays}
       ${dots}
       ${stochastic?`<circle cx="${dist.center[0].toFixed(2)}" cy="${dist.center[1].toFixed(2)}" r="17" fill="none" stroke="#775fb0" stroke-width="2" stroke-dasharray="3 4"/>`: ''}
+      ${stochastic?`<line data-bias-vector="true" x1="${dist.center[0].toFixed(2)}" y1="${dist.center[1].toFixed(2)}" x2="${px.toFixed(2)}" y2="${py.toFixed(2)}" stroke="#775fb0" stroke-width="4" stroke-linecap="round"/>`:''}
       <path d="M${px} ${py}L${ox} ${oy}" stroke="#b87932" stroke-dasharray="6 5" stroke-width="3"/>
       <circle cx="${px}" cy="${py}" r="10" fill="#e19748" stroke="#fff" stroke-width="3"/>
       ${isRnd&&n>=4&&transfer===100?`<circle cx="${px}" cy="${py}" r="16" fill="none" stroke="#e19748" stroke-width="3"/>`:""}
@@ -105,7 +111,15 @@
       <text x="327" y="355" font-size="15" font-weight="700" fill="#7357a2">Σ ${fmtTerm(conditionalMse)}</text>
       <rect x="28" y="370" width="344" height="16" rx="3" fill="#e0eaf0"/>
       ${termBars}
-      ${termLabels}`:''}
+      ${termLabels}
+      <path d="M28 422H382" stroke="#d3e0e7" stroke-width="1.5"/>
+      <text x="28" y="445" font-size="15" font-weight="600" fill="#344a5d">Variance + Bias²</text>
+      <text x="327" y="445" font-size="15" font-weight="700" fill="#7357a2">${fmtTerm(conditionalMse)}</text>
+      <rect x="28" y="457" width="344" height="16" rx="3" fill="#e0eaf0"/>
+      <rect data-mse-variance="true" x="28" y="457" width="${varianceBar.toFixed(2)}" height="16" fill="#775fb0"/>
+      <rect data-mse-bias="true" x="${(28+varianceBar).toFixed(2)}" y="457" width="${biasBar.toFixed(2)}" height="16" fill="#e19748"/>
+      <text x="28" y="493" font-size="13" fill="#7357a2">Variance ${fmtTerm(dist.variance)}</text>
+      <text x="217" y="493" font-size="13" fill="#a66323">Bias² ${fmtTerm(bias*bias)}</text>`:''}
       </svg>`;
   }
   function enhance(){
