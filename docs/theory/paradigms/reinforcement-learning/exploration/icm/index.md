@@ -99,13 +99,13 @@ $
 
 The difference between the two means comes from how the empirical frequencies differ from the assumed distribution, not from an ICM training update. In the seeded **20-draw** equal-weight example, the frequencies are **2/20, 8/20, 10/20** (10%, 40%, 50%), while the assumed probabilities remain **1/3 each**; the sample mean is **2.786** versus the analytic **3.017**. More draws do not guarantee that each empirical bar approaches its marker monotonically. Both slider changes and Reset samples clear the counts. The numbers are hypothetical, not environment observations or model measurements.
 
-**Why is the sampled mean different? Signed frequency contributions (MkDocs).** A new zero-centred, three-colour chart decomposes the *sampling gap* rather than the loss itself:
+**Why is the sampled mean different? Centered frequency contributions (MkDocs).** The difference between empirical and assumed outcome frequencies satisfies $\sum_i(N_i/n-p_i)=0$. We can therefore subtract the same baseline from every outcome loss without changing the sampling gap. Choosing the **analytic expected loss** $L$ gives a zero-centred, three-colour decomposition:
 
 \[
-\bar L_n-L=\sum_{i=1}^{3}\left(\frac{N_i}{n}-p_i\right)\ell_i.
+\bar L_n-L=\sum_{i=1}^{3}\left(\frac{N_i}{n}-p_i\right)(\ell_i-L).
 \]
 
-Bars extending left are negative contributions and bars extending right are positive; the outcome colours match the frequency chart. The three signed terms add to **running mean − analytic expectation**, not to either mean separately. With the illustrative seeded 20 draws, the terms are **−0.902, +0.129, +0.542**, totalling **−0.231** (display rounding). Because both the categorical probabilities and per-outcome losses remain fixed during a sequence of draws, the signed-bar scale remains fixed as samples accumulate. Resetting or changing either slider clears these terms along with the samples. This is a **finite-sample accounting identity**, not an estimator of ICM parameters, an intrinsic-reward training curve or an additional model loss.
+An over-sampled *below-average-loss* outcome contributes negatively, while an over-sampled *above-average-loss* outcome contributes positively. Under the illustrative seeded 20 draws the centered terms are **−0.198, −0.072 and +0.039**, summing to **−0.231** (display rounding). Unlike a decomposition using uncentred $\ell_i$, **each centered term is unchanged if an arbitrary constant is added to all outcome losses**. This makes the displayed signs independent of the loss zero point. The signed terms are a finite-sample **accounting decomposition**, not causal effects, forward-model updates, intrinsic-reward measurements or a new training loss. The chart scale stays fixed during draws under a fixed distribution and predictor; either slider change or Reset samples clears the history.
 
 ![ICM signed contributions of three sampled outcomes to the difference between the sample mean and analytic expected error](../../../../../assets/concept-animations/icm-sampling-gap-still.svg)
 
