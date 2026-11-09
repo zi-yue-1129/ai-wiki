@@ -31,14 +31,14 @@
       icm:['Before update','Train forward','Predictable fitted','Sample 1','Sample 2','Sample 3'],
       rndNote:'RND measures predictor error, not a visit count. After A training, a never-seen B can have low error through generalisation. The Transfer slider compares hypothetical B predictions without any parameter update. Coordinates and bonuses are schematic, not measured.',
       icmNote:'For the repeatable outcome, the toy forward prediction fits its fixed target; then three initially equally likely outcomes illustrate residual sample error. Reweight the possible outcomes to move the conditional mean, or shift the prediction away from it to increase expected squared error. Not measured data.',
-      sampleTitle:'Sample outcomes',drawOne:'Draw 1',drawMany:'Draw 20',clearSamples:'Reset samples',sampleMean:'Running mean',sampleCount:'Draws',sampleHint:'Independent toy draws: the running mean need not approach the expectation monotonically. The shaded ±1 SE reference is computed from the exact three-outcome loss distribution (not fitted from draws); it shrinks as 1/√n. It is not a 95% confidence interval and does not contain every sample mean. The trace and shade use a fixed y-range for each slider setting, unlike the separate 0–16 marker strip.',sampleNone:'No samples yet',freqTitle:'Outcome frequencies',freqLegend:'Observed / assumed',freqObserved:'Observed',freqTarget:'Assumed probability',gapTitle:'Sampling gap by outcome',gapLegend:'Frequency gap × centered loss',gapTotal:'Mean − expected',sampleRecent:'Most recent outcomes',sampleCurve:'Running-mean trace',sampleAxis:'Draws',sampleSE:'Analytic SE',
+      sampleTitle:'Sample outcomes',drawOne:'Draw 1',drawMany:'Draw 20',clearSamples:'Reset samples',newRun:'New 20-draw run',runLabel:'Run',priorRun:'Previous run',sampleMean:'Running mean',sampleCount:'Draws',sampleHint:'Independent toy draws: the running mean need not approach the expectation monotonically. The shaded ±1 SE reference is computed from the exact three-outcome loss distribution (not fitted from draws); it shrinks as 1/√n. It is not a 95% confidence interval and does not contain every sample mean. The trace and shade use a fixed y-range for each slider setting, unlike the separate 0–16 marker strip.',sampleNone:'No samples yet',freqTitle:'Outcome frequencies',freqLegend:'Observed / assumed',freqObserved:'Observed',freqTarget:'Assumed probability',gapTitle:'Sampling gap by outcome',gapLegend:'Frequency gap × centered loss',gapTotal:'Mean − expected',sampleRecent:'Most recent outcomes',sampleCurve:'Running-mean trace',sampleAxis:'Draws',sampleSE:'Analytic SE',
       shift:'Prediction shift',center:'Reset to mean',balance:'Outcome balance',resetBalance:'Equal weights',weights:'P(1/2/3)',expected:'Expected',biasSquared:'Bias²',variance:'Variance',transfer:'Transfer to B',noTransfer:'Reset transfer',bonus:'Squared gap'},
     zh:{prev:'上一步',next:'下一步',play:'播放',pause:'暫停',seek:'進度',speed:'速度',step:'步驟',
       rnd:['觀測 A','訓練 A','訓練 A','熟悉 A','切換到 B','訓練 B','訓練 B','熟悉 B'],
       icm:['更新前','訓練前向模型','已擬合可預測結果','取樣 1','取樣 2','取樣 3'],
       rndNote:'RND 衡量預測誤差，而非造訪次數。訓練 A 後，即使未曾看過 B，泛化也可能使 B 的誤差很低。遷移滑桿比較假設性的 B 預測，不會執行參數更新；座標與獎勵均非實測。',
       icmNote:'可重複轉移的固定目標與前向預測會逐步接近；三個初始等機率結果呈現殘餘樣本誤差。調整結果權重可移動條件平均值；再偏移預測點，可觀察期望平方誤差如何增加。非模型實測。',
-      sampleTitle:'重複抽樣',drawOne:'抽取 1 次',drawMany:'抽取 20 次',clearSamples:'重設樣本',sampleMean:'樣本平均',sampleCount:'抽樣次數',sampleHint:'從選定條件分布獨立進行示意抽樣；樣本平均不保證單調接近期望值。淡紫色 ±1 SE 區域是用三種結果的精確損失分布計算的理論標準誤範圍，會依 1/√n 收縮，並非從抽樣估計、95% 信賴區間或每次樣本平均都必須落入的範圍。軌跡與區域的縱軸依滑桿設定固定，與上方 0–16 標記帶不同。',sampleNone:'尚未抽樣',freqTitle:'結果出現頻率',freqLegend:'樣本比例 / 假設機率',freqObserved:'樣本比例',freqTarget:'假設機率',gapTitle:'各結果的抽樣落差',gapLegend:'頻率落差 ×（損失 − 期望損失）',gapTotal:'樣本平均 − 期望值',sampleRecent:'最近抽到的結果',sampleCurve:'累積樣本平均軌跡',sampleAxis:'抽樣次數',sampleSE:'解析標準誤',
+      sampleTitle:'重複抽樣',drawOne:'抽取 1 次',drawMany:'抽取 20 次',clearSamples:'重設樣本',newRun:'新的 20 次抽樣',runLabel:'第幾輪',priorRun:'上一輪',sampleMean:'樣本平均',sampleCount:'抽樣次數',sampleHint:'從選定條件分布獨立進行示意抽樣；樣本平均不保證單調接近期望值。淡紫色 ±1 SE 區域是用三種結果的精確損失分布計算的理論標準誤範圍，會依 1/√n 收縮，並非從抽樣估計、95% 信賴區間或每次樣本平均都必須落入的範圍。軌跡與區域的縱軸依滑桿設定固定，與上方 0–16 標記帶不同。',sampleNone:'尚未抽樣',freqTitle:'結果出現頻率',freqLegend:'樣本比例 / 假設機率',freqObserved:'樣本比例',freqTarget:'假設機率',gapTitle:'各結果的抽樣落差',gapLegend:'頻率落差 ×（損失 − 期望損失）',gapTotal:'樣本平均 − 期望值',sampleRecent:'最近抽到的結果',sampleCurve:'累積樣本平均軌跡',sampleAxis:'抽樣次數',sampleSE:'解析標準誤',
       shift:'預測位置偏移',center:'回到條件平均值',balance:'結果機率偏重',resetBalance:'恢復等機率',weights:'P(1/2/3)',expected:'期望值',biasSquared:'偏差平方',variance:'變異數',transfer:'對 B 的泛化程度',noTransfer:'重設泛化',bonus:'平方誤差'}
   };
   const fmt=v=>(v/1000).toFixed(2);
@@ -134,7 +134,7 @@
       const L=words[host.dataset.locale==='zh-TW'?'zh':'en'];
       const last=kind==='rnd'?7:5;
       let index=0,timer=0,bias=0,transfer=0,skew=0;
-      let sampleSeed=314159,sampleCount=0,sampleSum=0,sampleRecent=[],sampleTrace=[],sampleCounts=[0,0,0];
+      let sampleRun=1,priorRun=null,sampleSeed=314159,sampleCount=0,sampleSum=0,sampleRecent=[],sampleTrace=[],sampleCounts=[0,0,0];
       const plot=document.createElement('div');plot.className='curiosity-lab-plot';
       const controls=document.createElement('div');controls.className='curiosity-lab-toolbar';
       const button=(text,cb)=>{const el=document.createElement('button');el.type='button';el.setAttribute('aria-label',text);el.addEventListener('click',cb);return el;};
@@ -152,7 +152,7 @@
       biasInput.dataset.bias='true';biasInput.setAttribute('aria-label',L.shift);
       biasLabel.append(biasInput);
       const biasValue=document.createElement('output');biasValue.className='curiosity-lab-bias-value';
-      const reset=button(L.center,()=>{stop();bias=0;biasInput.value='0';resetSamples();set(index);});reset.textContent=L.center;
+      const reset=button(L.center,()=>{stop();bias=0;biasInput.value='0';resetSamples(true);set(index);});reset.textContent=L.center;
       const metrics=document.createElement('output');metrics.className='curiosity-lab-metrics';metrics.setAttribute('aria-live','polite');
       biasRow.append(biasLabel,biasValue,reset,metrics);
       const skewRow=document.createElement('div');skewRow.className='curiosity-lab-bias curiosity-lab-skew';skewRow.hidden=true;
@@ -160,7 +160,7 @@
       const skewInput=document.createElement('input');Object.assign(skewInput,{type:'range',min:'-60',max:'60',step:'20',value:'0'});
       skewInput.dataset.skew='true';skewInput.setAttribute('aria-label',L.balance);skewLabel.append(skewInput);
       const skewValue=document.createElement('output');skewValue.className='curiosity-lab-bias-value';
-      const skewReset=button(L.resetBalance,()=>{stop();skew=0;skewInput.value='0';resetSamples();set(index);});skewReset.textContent=L.resetBalance;
+      const skewReset=button(L.resetBalance,()=>{stop();skew=0;skewInput.value='0';resetSamples(true);set(index);});skewReset.textContent=L.resetBalance;
       const skewMetrics=document.createElement('output');skewMetrics.className='curiosity-lab-metrics';skewMetrics.setAttribute('aria-live','polite');
       skewRow.append(skewLabel,skewValue,skewReset,skewMetrics);
       const transferRow=document.createElement('div');transferRow.className='curiosity-lab-bias curiosity-lab-transfer';transferRow.hidden=true;
@@ -181,8 +181,13 @@
       const sampleActions=document.createElement('div');sampleActions.className='curiosity-lab-sample-actions';
       const drawOne=button(L.drawOne,()=>{stop();drawSamples(1);});drawOne.textContent=L.drawOne;
       const drawMany=button(L.drawMany,()=>{stop();drawSamples(20);});drawMany.textContent=L.drawMany;
-      const clear=button(L.clearSamples,()=>{stop();resetSamples();renderSamples();});clear.textContent=L.clearSamples;
-      sampleActions.append(drawOne,drawMany,clear);
+      const clear=button(L.clearSamples,()=>{stop();priorRun=null;resetSamples();renderSamples();});clear.textContent=L.clearSamples;
+      const newRun=button(L.newRun,()=>{
+        stop();
+        priorRun=sampleCount?{n:sampleCount,mean:sampleSum/(1000*sampleCount)}:null;
+        sampleRun++;resetSamples();drawSamples(20);
+      });newRun.textContent=L.newRun;
+      sampleActions.append(drawOne,drawMany,clear,newRun);
       const sampleStats=document.createElement('output');sampleStats.className='curiosity-lab-sample-stats';sampleStats.setAttribute('aria-live','polite');
       const sampleTrack=document.createElement('div');sampleTrack.className='curiosity-lab-sample-track';sampleTrack.setAttribute('role','img');
       const expectedMarker=document.createElement('span');expectedMarker.className='curiosity-lab-sample-expected';
@@ -197,9 +202,15 @@
       sampleRow.append(sampleTitle,sampleActions,sampleStats,sampleTrack,sampleLegend,sampleFrequency,trajectory,sampleHistory,sampleHint);
       controls.append(prev,play,next,seek,status,speed);host.replaceChildren(plot,controls,biasRow,skewRow,transferRow,sampleRow,note);
       transferInput.addEventListener('input',()=>{stop();transfer=Number(transferInput.value);set(index);});
-      biasInput.addEventListener('input',()=>{stop();bias=Number(biasInput.value);resetSamples();set(index);});
-      skewInput.addEventListener('input',()=>{stop();skew=Number(skewInput.value);resetSamples();set(index);});
-      function resetSamples(){sampleSeed=314159;sampleCount=0;sampleSum=0;sampleRecent=[];sampleTrace=[];sampleCounts=[0,0,0];}
+      biasInput.addEventListener('input',()=>{stop();bias=Number(biasInput.value);resetSamples(true);set(index);});
+      skewInput.addEventListener('input',()=>{stop();skew=Number(skewInput.value);resetSamples(true);set(index);});
+      function resetSamples(initial=false){
+        if(initial){sampleRun=1;priorRun=null;}
+        // Distinct deterministic LCG starts provide reproducible teaching replicates.
+        // Reset preserves the current seed so a run can be replayed exactly.
+        sampleSeed=(314159+Math.imul(sampleRun-1,2654435761))>>>0;
+        sampleCount=0;sampleSum=0;sampleRecent=[];sampleTrace=[];sampleCounts=[0,0,0];
+      }
       function drawSamples(count){
         if(kind!=='icm'||index<3)return;
         const dist=distribution(skew),prediction=[dist.center[0]+bias,dist.center[1]];
@@ -282,7 +293,7 @@
         sampleTrack.setAttribute('aria-label',`${L.expected}: ${expected.toFixed(3)}; ${L.sampleMean}: ${sampleCount?observed.toFixed(3):L.sampleNone}`);
         const losses=outcomes.map(([x,y])=>((x-dist.center[0]-bias)**2+(y-dist.center[1])**2)/1000);
         const lossSD=Math.sqrt(losses.reduce((sum,v,i)=>sum+dist.weights[i]*(v-expected)**2,0));
-        sampleStats.textContent=`${L.sampleCount}: ${sampleCount} · ${L.sampleMean}: ${sampleCount?observed.toFixed(3):'—'} · ${L.expected}: ${expected.toFixed(3)} · ${L.sampleSE}: ${sampleCount?(lossSD/Math.sqrt(sampleCount)).toFixed(3):'—'}`;
+        sampleStats.textContent=`${L.sampleCount}: ${sampleCount} · ${L.sampleMean}: ${sampleCount?observed.toFixed(3):'—'} · ${L.expected}: ${expected.toFixed(3)} · ${L.sampleSE}: ${sampleCount?(lossSD/Math.sqrt(sampleCount)).toFixed(3):'—'} · ${L.runLabel}: ${sampleRun}${priorRun?` · ${L.priorRun} (n=${priorRun.n}): ${priorRun.mean.toFixed(3)}`:''}`;
         clear.disabled=sampleCount===0;
         // Relative frequencies are the empirical counterpart of the fixed
         // categorical probabilities. They use *all* draws, not the 12 chips
@@ -370,7 +381,7 @@
           skewMetrics.textContent=`${L.weights}: ${d.weights.map(p=>(p*100).toFixed(1)+'%').join(' / ')}`;
         }
         sampleRow.hidden=kind!=='icm'||index<3;
-        if(sampleRow.hidden&&sampleCount)resetSamples();
+        if(sampleRow.hidden&&sampleCount)resetSamples(true);
         if(!sampleRow.hidden)renderSamples();
         transferRow.hidden=kind!=='rnd'||index<4;
         if(!transferRow.hidden){

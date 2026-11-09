@@ -45,7 +45,7 @@ def run():
                 set_range(page.locator('input[data-timeline]'), 3)
                 assert panel.is_visible()
                 buttons = panel.get_by_role('button')
-                assert buttons.count() == 3
+                assert buttons.count() == 4
                 stats = page.locator('.curiosity-lab-sample-stats')
                 assert page.locator('.curiosity-lab-sample-observed').is_hidden()
                 assert page.locator('.curiosity-lab-sample-trajectory').is_hidden()
@@ -120,7 +120,28 @@ def run():
                 assert page.locator('.curiosity-lab-sample-observed').is_hidden()
                 buttons.nth(0).click()
                 assert abs(float(stats.text_content().split(' · ')[1].split(': ')[1]) - first_mean) < .001
+                # Two independent 20-draw replicates use different deterministic
+                # streams under unchanged probabilities and analytic expectation.
+                buttons.nth(3).focus()
+                page.keyboard.press('Enter')
+                independent = stats.text_content()
+                assert ('Run: 2' in independent or '第幾輪: 2' in independent)
+                assert ('Previous run (n=1): 3.250' in independent
+                        or '上一輪 (n=1): 3.250' in independent)
+                assert '3.017' in independent
+                assert len(page.locator('[data-sample-means]').get_attribute('points').split()) == 20
+                second_mean = float(independent.split(' · ')[1].split(': ')[1])
+                assert abs(second_mean - first_mean) > 0.001
+                (OUT / f'icm_independent_run_{locale}_{width}.png').write_bytes(panel.screenshot())
+                # Reset preserves run-2's seed, so Draw 20 replays its path.
+                buttons.nth(2).focus()
+                page.keyboard.press('Enter')
+                assert ('Run: 2' in stats.text_content() or '第幾輪: 2' in stats.text_content())
+                assert 'Previous run' not in stats.text_content() and '上一輪' not in stats.text_content()
+                buttons.nth(1).click()
+                assert abs(float(stats.text_content().split(' · ')[1].split(': ')[1]) - second_mean) < .0001
                 set_range(page.locator('input[data-skew]'), 60)
+                assert ('Run: 1' in stats.text_content() or '第幾輪: 1' in stats.text_content())
                 assert page.locator('.curiosity-lab-sample-chip').count() == 0
                 assert '2.649' in stats.text_content()
                 buttons.nth(1).click()
