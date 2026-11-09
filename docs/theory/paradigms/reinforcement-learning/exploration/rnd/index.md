@@ -32,6 +32,20 @@ r^{\text{int}}_t = \lVert \hat f_\theta(s_t) - f(s_t) \rVert^2 .
 
 The predictor parameters \(\theta\) are updated to minimise this error on the visited states, and the agent maximises the sum of extrinsic and intrinsic returns.
 
+### Two discounted reward streams and value heads
+
+In the RND implementation of PPO, extrinsic and intrinsic rewards have **separate value estimates** and may use different discount factors. For a fixed illustrative four-step sequence, the two discounted-return targets are
+
+\[
+G_t^{\mathrm{ext}}=\sum_{k=0}^{3}(\gamma_{\mathrm{ext}})^k r_{t+k}^{\mathrm{ext}},
+\qquad
+G_t^{\mathrm{int}}=\sum_{k=0}^{3}(\gamma_{\mathrm{int}})^k r_{t+k}^{\mathrm{int}}.
+\]
+
+<img src="../../../../../assets/concept-animations/rnd-dual-value-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-dual-value-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-dual-value-still.svg" width="520" loading="lazy" alt="For the same four time steps, delayed extrinsic reward and earlier intrinsic rewards are discounted differently; the running sums target separate value heads." />
+
+*Original instructional SVG/SMIL animation (CC BY-SA 4.0).* The blue **extrinsic** and amber **intrinsic** lanes scan the **same time steps**. At each step, the corresponding discounted contribution appears and its running sum updates. The toy extrinsic rewards \((0,0,0,1)\), with \(\gamma_{\mathrm{ext}}=0.90\), yield \(G^{\mathrm{ext}}=0.90^3=0.729\). The toy intrinsic rewards \((1,0.6,0.3,0)\), with \(\gamma_{\mathrm{int}}=0.60\), yield \(G^{\mathrm{int}}=1+0.60(0.6)+0.60^2(0.3)=1.468\). These **returns are illustrative training targets**, not the predictions of either value head, and the shown rewards/discounts are **not** the paper's hyperparameters or measured RND values. This visual isolates the two critic targets; it does not depict the full advantage normalization or policy update. Use Play/Pause on MkDocs; [GitHub and no-script static preview](../../../../../assets/concept-animations/rnd-dual-value-still.svg). The distinction between value heads follows [Burda et al. (2018)](https://arxiv.org/abs/1810.12894).
+
 ## Instructional animation
 
 ![RND process: the same observation enters a frozen random target and a trainable predictor; their feature distance and the intrinsic bonus shrink as the predictor is fitted on a visited state](../../../../../assets/concept-animations/rnd-prediction-error-motion.svg)

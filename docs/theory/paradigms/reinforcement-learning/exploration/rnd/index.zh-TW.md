@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-11-09
+translation_reviewed: 2026-11-10
 ---
 
 # 隨機網路蒸餾（Burda 等人，2018）
@@ -29,6 +29,20 @@ r^{\text{int}}_t = \lVert \hat f_\theta(s_t) - f(s_t) \rVert^2 .
 \]
 
 預測器參數 \(\theta\) 被更新，以最小化在已造訪狀態上的誤差；智能體則最大化外在與內在回報的總和。
+
+### 兩種折扣回報與雙價值頭
+
+RND 使用的修改版 PPO 對**外在獎勵**與**內在獎勵**分別估計價值，並允許使用不同的折扣率。對固定的四步驟示意序列，兩種折扣回報目標為
+
+\[
+G_t^{\mathrm{ext}}=\sum_{k=0}^{3}(\gamma_{\mathrm{ext}})^k r_{t+k}^{\mathrm{ext}},
+\qquad
+G_t^{\mathrm{int}}=\sum_{k=0}^{3}(\gamma_{\mathrm{int}})^k r_{t+k}^{\mathrm{int}}.
+\]
+
+<img src="../../../../../assets/concept-animations/rnd-dual-value-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-dual-value-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-dual-value-still.svg" width="520" loading="lazy" alt="同一段四個時間步驟中，較晚出現的外在獎勵與較早出現的內在獎勵使用不同折扣率，折扣貢獻逐步累積並分別作為雙價值頭的學習目標。" />
+
+*原創 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 藍色的**外在獎勵**與橘色的**內在獎勵**沿著**相同時間步驟**逐步掃描；每一步顯示對應的折扣貢獻與更新後的累積總和。假設外在獎勵為 \((0,0,0,1)\)、\(\gamma_{\mathrm{ext}}=0.90\)，得到 \(G^{\mathrm{ext}}=0.90^3=0.729\)；內在獎勵為 \((1,0.6,0.3,0)\)、\(\gamma_{\mathrm{int}}=0.60\)，得到 \(G^{\mathrm{int}}=1+0.60(0.6)+0.60^2(0.3)=1.468\)。這兩種**回報是價值函數的示意學習目標**，並非兩個價值頭已經預測出的數值；圖中獎勵與折扣率**不是**論文採用的超參數，也非 RND 模型實測資料。本圖僅聚焦雙價值頭的目標，不包含完整的優勢正規化或策略更新。MkDocs 網站可播放／暫停；GitHub 和未執行 JavaScript 時使用[靜態回退圖](../../../../../assets/concept-animations/rnd-dual-value-still.svg)。雙價值頭的架構依據：[Burda 等人（2018）](https://arxiv.org/abs/1810.12894)。
 
 ## 教學動畫
 
