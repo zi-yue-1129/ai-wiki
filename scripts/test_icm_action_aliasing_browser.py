@@ -41,6 +41,33 @@ def run():
                 page.locator('svg').evaluate("svg => {svg.style.width='100%';svg.style.height='auto'}")
                 assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
                 page.close()
+            # Exercise the repository's real shared MkDocs player (not a mock):
+            # button click, keyboard activation and reduced-motion static mode.
+            player = ASSETS.parents[1] / 'javascripts/concept-motion.js'
+            assert player.is_file()
+            uri = 'http://127.0.0.1:9/docs/assets/concept-animations/icm-action-aliasing'
+            for reduced in (False, True):
+                ctx = browser.new_context(viewport={'width': 320, 'height': 800},
+                                          reduced_motion='reduce' if reduced else 'no-preference')
+                page = ctx.new_page()
+                page.set_content(f'<img alt="ICM aliasing" src="{uri}-still.svg" '
+                                 f'data-motion-src="{uri}-motion.svg" '
+                                 f'data-still-src="{uri}-still.svg">')
+                page.add_script_tag(content=player.read_text(encoding='utf-8'))
+                img = page.locator('img')
+                if reduced:
+                    assert img.get_attribute('src').endswith('-still.svg')
+                    page.get_by_role('button', name='Play concept animation').focus()
+                    page.keyboard.press('Enter')
+                    assert img.get_attribute('src').endswith('-motion.svg')
+                else:
+                    assert img.get_attribute('src').endswith('-motion.svg')
+                    page.get_by_role('button', name='Pause concept animation').click()
+                    assert img.get_attribute('src').endswith('-still.svg')
+                    page.get_by_role('button', name='Play concept animation').focus()
+                    page.keyboard.press('Enter')
+                    assert img.get_attribute('src').endswith('-motion.svg')
+                ctx.close()
         finally:
             browser.close()
     print('PASS ICM action aliasing: 4 widths, two action phases, static reduced-motion fallback')
