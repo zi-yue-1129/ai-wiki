@@ -36,7 +36,7 @@ def run():
             page.set_content(html)
             page.add_script_tag(content=JS.read_text())
             assert page.locator("svg").count() == 2
-            assert page.locator("button").count() == 10
+            assert page.locator("button").count() == 11
             for kind, states in (("rnd", (0,2,3,4,6,7)), ("icm", (0,2,3,4,5))):
                 host = page.locator('[data-curiosity-lab="' + kind + '"]')
                 for state in states:
