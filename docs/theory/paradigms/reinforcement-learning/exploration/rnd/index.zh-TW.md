@@ -2,6 +2,7 @@
 status: complete
 last_reviewed: 2026-10-28
 translation_reviewed: 2026-11-10
+translation_reviewed: 2026-11-10
 ---
 
 # 隨機網路蒸餾（Burda 等人，2018）
@@ -79,13 +80,13 @@ G_t^{\mathrm{int}}=\sum_{k=0}^{3}(\gamma_{\mathrm{int}})^k r_{t+k}^{\mathrm{int}
 
 論文指出，若只最大化 RND 獎勵、不使用外在獎勵，智能體能穩定地找到《蒙特祖瑪的復仇》中超過一半的房間。完整方法搭配雙頭 PPO，通常能在第一關找到 24 個房間中的 22 個，並偶爾（但不常）通過第一關。摘要報告，此方法在 Venture、Gravitar 與《蒙特祖瑪的復仇》上達到當時最先進的效能。對於 Gravitar，論文指出 RND 並非每次都勝過 PPO，但它超越了先前的最先進結果。
 
-### 隨機干擾：重複造訪同一來源，不代表觀測相同
+### 隨機觀測干擾：輸入雜訊與預測器泛化
 
-預測誤差式探索的一項限制，是**反覆造訪同一個隨機來源**，不一定會得到**相同的觀測內容**。下圖上半部重複呈現相同的視覺圖樣六次，示意預測器逐漸擬合該觀測；下半部每次造訪都產生不同的像素圖樣。如果預測器無法對這些變化充分泛化，其特徵平方誤差（亦即 RND 的內在獎勵依據）便可能持續偏高，即使智能體其實沒有探索到有意義的新區域。
+重複造訪**同一個隨機來源**，不代表每次都看到相同的像素；但 RND 是否持續給予高獎勵，也取決於預測器是否能在不同觀測之間**泛化**。三軌動畫把輸入的隨機變化與預測器的跨觀測學習能力分開比較。
 
-<img src="../../../../../assets/concept-animations/rnd-stochastic-distractor-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-stochastic-distractor-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-stochastic-distractor-still.svg" width="360" loading="lazy" alt="兩條各六次造訪的對照序列：上方藍色觀測圖樣固定，示意預測誤差長條逐步降低；下方橘色觀測圖樣每次不同，示意預測誤差可能維持較高。" />
+<img src="../../../../../assets/concept-animations/rnd-stochastic-distractor-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-stochastic-distractor-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-stochastic-distractor-still.svg" width="360" loading="lazy" alt="三組各六次造訪的對照：上方重複相同藍色觀測，假設性誤差逐步降低；下方兩組使用完全相同的六種橘色變動觀測，但泛化不足時誤差可能維持偏高，泛化較強時則可能逐步降低。" />
 
-*原創九秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 每次離散更新會讓**兩條序列各增加一次造訪**。固定觀測的示意誤差依序為 `(0.96, 0.61, 0.37, 0.21, 0.11, 0.06)`；變動觀測的示意誤差依序為 `(0.96, 0.78, 0.91, 0.75, 0.88, 0.81)`。這些值僅是**人工設定的相對長條高度，不是模型實測結果、已校準的內在獎勵，也不代表梯度最佳化必然單調**。隨機目標網路的**權重**固定，但對不同輸入的輸出不必相同。預測器仍可能學會或泛化，因此隨機性**不保證** RND 獎勵持續偏高；本圖呈現的是一種可能失效情境，而非必然結果。RND 處理的是**當下觀測的特徵預測誤差**，不是直接預測下一影格。MkDocs 網站可播放／暫停；GitHub 或停用指令碼時可閱讀[完整六步驟靜態回退圖](../../../../../assets/concept-animations/rnd-stochastic-distractor-still.svg)。參考：[Burda 等人《Large-Scale Study of Curiosity-Driven Learning》（2018）](https://arxiv.org/abs/1808.04355)對隨機環境的限制分析，以及 [RND 原論文（2018）](https://arxiv.org/abs/1810.12894)。
+*原創九秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 每次揭露都讓**三組情境各增加一次造訪**。上方固定同一觀測，示意誤差可能降低；下方兩組使用**完全相同的六種變動圖樣**，但假設預測器的泛化能力不同：跨觀測泛化不足，誤差可能持續偏高；若泛化較強，即使像素改變，誤差也可能降低。三組人工誤差序列分別是 (0.96, 0.61, 0.37, 0.21, 0.11, 0.06)、(0.96, 0.78, 0.91, 0.75, 0.88, 0.81) 與 (0.96, 0.69, 0.44, 0.25, 0.14, 0.08)。這些只是**人工設定的相對長條高度**，並非 RND 真實內在獎勵、模型訓練測量或必然單調收斂的軌跡。隨機目標網路的**權重固定**，但其特徵輸出會依輸入而變；RND 預測的是**當下觀測的目標特徵**，不是下一影格。下方兩軌是**不同假設預測器的反事實結果**，不是同一模型同時輸出的兩個獎勵。因此，隨機性可能造成探索失效，卻**不保證好奇心獎勵一定維持高值**。MkDocs 網站可播放／暫停；[GitHub／無指令碼靜態回退](../../../../../assets/concept-animations/rnd-stochastic-distractor-still.svg)顯示完整十八格。參考 [Burda 等人（2018）《Large-Scale Study of Curiosity-Driven Learning》](https://arxiv.org/abs/1808.04355)及 [RND 原論文](https://arxiv.org/abs/1810.12894)。
 
 ## 限制
 

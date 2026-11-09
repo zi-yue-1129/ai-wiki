@@ -10,10 +10,11 @@ def run():
     motion = (BASE / 'rnd-stochastic-distractor-motion.svg').read_text(encoding='utf-8')
     still = (BASE / 'rnd-stochastic-distractor-still.svg').read_text(encoding='utf-8')
     for source in (motion, still):
-        assert ET.fromstring(source).get('viewBox') == '0 0 360 608'
+        assert ET.fromstring(source).get('viewBox') == '0 0 360 764'
         assert '<script' not in source and 'href=' not in source and 'onload=' not in source
     assert motion.count('repeatCount="indefinite"') == 6
     assert '<animate ' not in still
+    assert 'Noisy · strong transfer' in still
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True, executable_path=(
             '/usr/bin/chromium' if Path('/usr/bin/chromium').exists() else None), args=['--no-sandbox'])
@@ -46,7 +47,8 @@ def run():
                 page.set_content('<body style="margin:0"><div style="width:100%;max-width:460px">'
                                  + still + '</div></body>')
                 assert page.locator('g[data-row="fixed"]').count() == 6
-                assert page.locator('g[data-row="stochastic"]').count() == 6
+                assert page.locator('g[data-row="noise"]').count() == 6
+                assert page.locator('g[data-row="transfer"]').count() == 6
                 assert not page.evaluate('document.documentElement.scrollWidth > innerWidth + 1')
                 context.close()
         finally:
