@@ -47,18 +47,32 @@ def run():
                 assert buttons.count() == 3
                 stats = page.locator('.curiosity-lab-sample-stats')
                 assert page.locator('.curiosity-lab-sample-observed').is_hidden()
+                assert page.locator('.curiosity-lab-sample-trajectory').is_hidden()
                 buttons.nth(0).click()
                 assert page.locator('.curiosity-lab-sample-chip').count() == 1
+                assert len(page.locator('[data-sample-means]').get_attribute('points').split()) == 1
                 first_mean = float(stats.text_content().split(' · ')[1].split(': ')[1])
                 assert abs(first_mean - 3.250) < .001
                 buttons.nth(1).click()
                 assert '21' in stats.text_content()
+                trace = page.locator('[data-sample-means]')
+                assert len(trace.get_attribute('points').split()) == 21
+                running = float(stats.text_content().split(' · ')[1].split(': ')[1])
+                bounds = page.locator('.curiosity-lab-sample-trajectory')
+                y_min = float(bounds.get_attribute('data-y-min'))
+                y_max = float(bounds.get_attribute('data-y-max'))
+                assert y_max > y_min
+                last_y = float(trace.get_attribute('points').split()[-1].split(',')[1])
+                assert abs(last_y - (122 - (running - y_min) * 90 / (y_max - y_min))) < .02
+                expected_y = float(page.locator('.curiosity-lab-sample-trajectory line[stroke="#775fb0"]').first.get_attribute('y1'))
+                assert abs(expected_y - (122 - (3.017 - y_min) * 90 / (y_max - y_min))) < .02
                 assert page.locator('.curiosity-lab-sample-chip').count() == 12
                 assert page.locator('.curiosity-lab-sample-observed').is_visible()
                 assert '3.017' in stats.text_content()
                 (OUT / f'icm_sampling_{locale}_{width}_21.png').write_bytes(panel.screenshot())
                 buttons.nth(2).click()
                 assert page.locator('.curiosity-lab-sample-chip').count() == 0
+                assert page.locator('.curiosity-lab-sample-trajectory').is_hidden()
                 assert page.locator('.curiosity-lab-sample-observed').is_hidden()
                 buttons.nth(0).click()
                 assert abs(float(stats.text_content().split(' · ')[1].split(': ')[1]) - first_mean) < .001
@@ -73,7 +87,15 @@ def run():
                 assert '4.249' in stats.text_content()
                 buttons.nth(1).click()
                 assert page.locator('.curiosity-lab-sample-chip').count() == 12
-                assert page.locator('.curiosity-lab svg').count() == 1
+                assert page.locator('.curiosity-lab-plot svg').count() == 1
+                assert page.locator('.curiosity-lab-sample-trajectory svg').count() == 1
+                for _ in range(7):
+                    buttons.nth(1).click()
+                trace = page.locator('[data-sample-means]')
+                assert len(trace.get_attribute('points').split()) == 120
+                assert int(page.locator('.curiosity-lab-sample-trajectory').get_attribute('data-window-start')) > 1
+                assert int(page.locator('.curiosity-lab-sample-trajectory').get_attribute('data-total-draws')) == 160
+                assert page.locator('.curiosity-lab-sample-trajectory svg').get_attribute('aria-label')
                 (OUT / f'icm_sampling_{locale}_{width}_bias.png').write_bytes(panel.screenshot())
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), (width, locale)
                 assert page.locator('.curiosity-lab-sample-track').get_attribute('aria-label')
