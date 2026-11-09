@@ -37,6 +37,28 @@ def verify_frequency_motion(browser):
     assert all(node.attrib.get('repeatCount') == 'indefinite' for node in animations)
     assert all(len(node.attrib['keyTimes'].split(';')) == len(node.attrib['values'].split(';')) for node in animations)
     assert not list(still.iter(svg_ns + 'animate'))
+    # The analytic standard-error funnel is an exact geometry at every n,
+    # independently of the path taken by this synthetic draw sequence.
+    losses = [3.866, 1.936, 3.250]
+    expected = sum(losses) / len(losses)
+    sd = sqrt(sum((value - expected)**2 for value in losses) / len(losses))
+    for svg, expected_count in ((root, 2), (still, 1)):
+        bands = [element for element in svg.iter(svg_ns + 'polygon')
+                 if 'data-analytic-se-band' in element.attrib]
+        assert len(bands) == expected_count
+        for band in bands:
+            points = [tuple(map(float, xy.split(','))) for xy in band.attrib['points'].split()]
+            assert len(points) == 40
+            for n in range(1, 21):
+                x = 62 + (n - 1) * 316 / 19
+                upper = 381 - (expected + sd / sqrt(n) - 2) * 52
+                lower = 381 - (expected - sd / sqrt(n) - 2) * 52
+                assert abs(points[n-1][0] - x) < 0.02
+                assert abs(points[n-1][1] - upper) < 0.02
+                assert abs(points[40-n][0] - x) < 0.02
+                assert abs(points[40-n][1] - lower) < 0.02
+    assert any(el.attrib.get('id') == 'icm-se-reveal'
+               for el in root.iter(svg_ns + 'clipPath'))
     assert len(list(still.iter(svg_ns + 'polyline'))) == 1
     assert len(list(root.iter(svg_ns + 'polyline'))) == 1
     source = MOTION_PREVIEW.read_text(encoding='utf-8')
@@ -60,9 +82,22 @@ def verify_frequency_motion(browser):
             assert abs(page.locator('g.motion rect[fill="#319d91"]').evaluate('e=>e.getBBox().width') - 120) < 0.1  # 8/20
             assert abs(page.locator('g.motion rect[fill="#8672b4"]').evaluate('e=>e.getBBox().width') - 150) < 0.1  # 10/20
             assert page.locator('g.motion').first.evaluate('e=>getComputedStyle(e).display') != 'none'
+            # Browser must animate the clipped SE envelope with the draw
+            # count, not display a completed funnel at time zero.
+            for n in (0, 1, 5, 10, 20):
+                timestamp = n * 13.2 / 21 + 0.04
+                page.evaluate('(t)=>{const svg=document.querySelector("svg");'
+                              'svg.pauseAnimations();svg.setCurrentTime(t)}', timestamp)
+                actual = page.locator('#icm-se-reveal rect').evaluate(
+                    'e=>e.width.animVal.value')
+                expected_width = 0 if n == 0 else (n - 1) * 316 / 19 + 1
+                assert abs(actual - expected_width) < 0.1
+            page.evaluate('(t)=>{const svg=document.querySelector("svg");'
+                          'svg.setCurrentTime(t)}', 12.6)
         else:
             assert page.locator('g.still').first.evaluate('e=>getComputedStyle(e).display') != 'none'
             assert page.locator('g.motion').first.evaluate('e=>getComputedStyle(e).display') == 'none'
+            assert page.locator('g.still [data-analytic-se-band]').count() == 1
         assert page.locator('svg').get_attribute('aria-labelledby') == 'title desc'
         (OUT / f'icm_frequency_motion_{width}.png').write_bytes(page.locator('svg').screenshot())
         context.close()
