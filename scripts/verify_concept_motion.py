@@ -173,9 +173,9 @@ def main() -> int:
                     "rnd-prediction-error", "rnd-state-novelty",
                     "icm-forward-inverse", "icm-predictable-stochastic"
                 }:
-                    for tag in re.findall(r"<img\\b[^>]*>", text):
+                    for tag in re.findall(r"<img\b[^>]*>", text):
                         attrs = dict(re.findall(
-                            r'(?:^|\\s)(src|data-motion-src|data-still-src)="([^"]+)"',
+                            r'(?:^|\s)(src|data-motion-src|data-still-src)="([^"]+)"',
                             tag,
                         ))
                         if all(name in attrs for name in (
