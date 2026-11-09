@@ -50,6 +50,14 @@ r^{\text{int}}_t = \tfrac{\eta}{2}\,\lVert \hat\phi(\phi(s_t), a_t) - \phi(s_{t+
 
 其中 \(\eta\) 是縮放係數。編碼器、前向模型與逆模型聯合訓練，策略則最大化內在獎勵與外在獎勵的總和。
 
+### 兩種輔助梯度與一種獎勵訊號
+
+前向模型預測下一狀態的特徵；逆動態模型由一對編碼後的觀測預測實際動作。在**聯合訓練目標**下，前向與逆動態損失除了更新各自的模型參數，也都可以影響**共用編碼器**。但圖中的好奇心獎勵只由**前向預測誤差**決定。策略則透過包含這項內在獎勵（及可能的外在獎勵）的強化學習回報來更新，而非直接沿著任何一個輔助損失的梯度更新策略。
+
+<img src="../../../../../assets/concept-animations/icm-auxiliary-gradients-still.svg" data-motion-src="../../../../../assets/concept-animations/icm-auxiliary-gradients-motion.svg" data-still-src="../../../../../assets/concept-animations/icm-auxiliary-gradients-still.svg" width="360" loading="lazy" alt="兩個觀測通過共用編碼器，前向與逆動態訓練目標分別以橘色和紫色梯度回傳至編碼器；只有前向損失衍生的好奇心獎勵沿另一條強化學習路徑送給策略。" />
+
+*原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 藍色訊號代表觀測編碼與兩條前向運算分支；**橘色與紫色虛線**代表兩種輔助目標對同一編碼器可能產生的參數梯度貢獻，**不是量測到的梯度大小**。**綠色虛線**是供強化學習使用的**獎勵輸入**，並非把 ICM 損失直接反向傳播到策略。前向分支使用 $\phi(s_t)$ 與 $a_t$ 預測 $\phi(s_{t+1})$；逆動態分支使用兩個已觀測特徵推斷 $a_t$。為保持清楚，圖中省略了兩損失的相對權重與策略自身的訓練目標，因此**不是完整計算圖**。MkDocs 提供鍵盤可操作的播放／暫停；亦可閱讀 [GitHub／無指令碼靜態回退](../../../../../assets/concept-animations/icm-auxiliary-gradients-still.svg)。參考 [Pathak 等人（2017）](https://proceedings.mlr.press/v70/pathak17a.html)。
+
 ## 教學動畫
 
 ![ICM 流程：前向與逆動態模型接收各自的特徵輸入；比較預測與實際特徵後，更新訊號回傳前向模型，再示意訓練後誤差下降](../../../../../assets/concept-animations/icm-forward-inverse-motion.svg)

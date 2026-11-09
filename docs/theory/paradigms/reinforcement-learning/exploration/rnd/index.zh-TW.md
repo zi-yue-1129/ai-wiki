@@ -31,6 +31,14 @@ r^{\text{int}}_t = \lVert \hat f_\theta(s_t) - f(s_t) \rVert^2 .
 
 預測器參數 \(\theta\) 被更新，以最小化在已造訪狀態上的誤差；智能體則最大化外在與內在回報的總和。
 
+### 預測器梯度與策略獎勵是不同訊號
+
+隨機目標網路 $f$ 的權重**固定不更新**。預測器 $\hat f_\theta$ 以**當前觀測**的特徵平方誤差作為學習損失；策略則透過強化學習目標使用該誤差形成的**內在獎勵**來更新，並不是直接把預測器的平方誤差梯度反向傳播到策略參數。
+
+<img src="../../../../../assets/concept-animations/rnd-learning-paths-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-learning-paths-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-learning-paths-still.svg" width="360" loading="lazy" alt="同一個當前狀態分別輸入固定的目標網路與可訓練預測器。橘色的預測損失梯度只更新預測器；綠色獎勵訊號透過另一條路徑送至強化學習策略更新。" />
+
+*原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 藍色訊號代表當前觀測與特徵計算；橘色虛線回傳的是**預測器損失的反向傳播梯度**，不會更新固定目標網路。綠色路徑則把誤差轉換的獎勵送到**策略的強化學習目標**，不是從獎勵計算圖直接流入策略的可微分梯度。更新訊號後變短的誤差長條只示範下一次可能擬合得更好的情況，其高度與時間皆為**人工示意，並非模型實測或必然單調改善的學習曲線**。MkDocs 提供可用鍵盤操作的播放／暫停控制；[GitHub／無指令碼靜態回退](../../../../../assets/concept-animations/rnd-learning-paths-still.svg)仍能閱讀完整依賴關係。參考 [Burda 等人（2018）](https://arxiv.org/abs/1810.12894)。
+
 ### 兩種折扣回報與雙價值頭
 
 RND 使用的修改版 PPO 對**外在獎勵**與**內在獎勵**分別估計價值，並允許使用不同的折扣率。對固定的四步驟示意序列，兩種折扣回報目標為

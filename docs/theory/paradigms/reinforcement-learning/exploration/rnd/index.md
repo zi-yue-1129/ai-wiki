@@ -32,6 +32,14 @@ r^{\text{int}}_t = \lVert \hat f_\theta(s_t) - f(s_t) \rVert^2 .
 
 The predictor parameters \(\theta\) are updated to minimise this error on the visited states, and the agent maximises the sum of extrinsic and intrinsic returns.
 
+### Predictor gradient and policy reward are different signals
+
+The target network $f$ is **frozen**. The predictor $\hat f_\theta$ is fitted to the *current observation* by minimising a squared feature discrepancy, whereas the policy is updated using a reinforcement-learning objective with this discrepancy as an **intrinsic reward**. The policy is not directly optimised by backpropagating the predictor's squared-error gradient into policy parameters.
+
+<img src="../../../../../assets/concept-animations/rnd-learning-paths-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-learning-paths-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-learning-paths-still.svg" width="360" loading="lazy" alt="Current state feeds a frozen target and a trainable predictor. The orange prediction-loss gradient updates only the predictor; a separate green reward path reaches the reinforcement-learning policy update." />
+
+*Original ten-second SVG/SMIL teaching animation (CC BY-SA 4.0).* Blue pulses show the current observation and feature computations. The orange dashed return path represents **predictor-loss backpropagation**, which does not update the frozen target. The green path delivers the error-derived bonus to the **policy's RL learning objective**, not a differentiable gradient from the bonus computation to the policy. A hypothetical error bar becomes shorter after the update cue only to illustrate a possible later fit; its height and timing are schematic, **not a measured training curve or a guarantee of monotonic improvement**. Pause/resume with the keyboard-accessible control on MkDocs; [GitHub/no-script fallback](../../../../../assets/concept-animations/rnd-learning-paths-still.svg) shows all dependencies without animation. This separation follows [Burda et al. (2018)](https://arxiv.org/abs/1810.12894).
+
 ### Two discounted reward streams and value heads
 
 In the RND implementation of PPO, extrinsic and intrinsic rewards have **separate value estimates** and may use different discount factors. For a fixed illustrative four-step sequence, the two discounted-return targets are

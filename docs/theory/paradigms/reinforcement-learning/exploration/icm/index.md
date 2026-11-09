@@ -53,6 +53,14 @@ r^{\text{int}}_t = \tfrac{\eta}{2}\,\lVert \hat\phi(\phi(s_t), a_t) - \phi(s_{t+
 
 where \(\eta\) is a scaling factor. The encoder, forward model and inverse model are trained jointly, and the policy maximises the sum of the intrinsic and extrinsic rewards.
 
+### Two auxiliary gradients and one reward signal
+
+The forward model predicts the next-state feature; the inverse model predicts the taken action from a pair of encoded observations. In the **joint training objective**, both forward and inverse losses can shape the **shared encoder**, in addition to updating their respective model parameters. Only the **forward prediction discrepancy** defines the depicted curiosity bonus. The policy instead learns to maximise returns using this bonus (and any extrinsic rewards), not by directly following either auxiliary-loss gradient.
+
+<img src="../../../../../assets/concept-animations/icm-auxiliary-gradients-still.svg" data-motion-src="../../../../../assets/concept-animations/icm-auxiliary-gradients-motion.svg" data-still-src="../../../../../assets/concept-animations/icm-auxiliary-gradients-still.svg" width="360" loading="lazy" alt="Two observations pass through a shared encoder; forward and inverse objectives send distinct orange and violet gradient signals back to the encoder, while only the forward-loss-derived curiosity bonus reaches the policy through a separate reinforcement-learning route." />
+
+*Original ten-second SVG/SMIL teaching animation (CC BY-SA 4.0).* Blue pulses represent observation encoding and the two computational branches. The **orange and violet dashed paths** depict possible parameter-gradient contributions from the two auxiliary objectives to the same encoder, *not measured gradient magnitudes*. The **green dashed route** is a **reward input to RL**, not direct backpropagation of the ICM loss into the policy. The forward branch uses $\phi(s_t)$ and $a_t$ to forecast $\phi(s_{t+1})$; the inverse branch uses both observed features to predict $a_t$. The figure omits the relative loss weights and the policy's own objective for clarity, so it is **not a complete computation graph**. Use MkDocs Play/Pause (keyboard accessible), or the [GitHub/no-script static fallback](../../../../../assets/concept-animations/icm-auxiliary-gradients-still.svg). See [Pathak et al. (2017)](https://proceedings.mlr.press/v70/pathak17a.html).
+
 ## Instructional animation
 
 ![ICM process: current and next features feed forward and inverse dynamics; after comparison, a loss-driven update cue precedes forward prediction improvement](../../../../../assets/concept-animations/icm-forward-inverse-motion.svg)
