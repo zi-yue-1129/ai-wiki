@@ -25,6 +25,16 @@ ICM has three networks:
 
 The intrinsic reward is the squared error of the forward model in the feature space. Ideally, the learned representation deemphasises uncontrollable visual changes, but unpredictable factors may remain and can still contribute to the bonus. The agent is rewarded for visiting states where its own actions have consequences it cannot yet predict.
 
+### How inverse dynamics can shape the feature space
+
+The inverse-dynamics objective uses the *pair* of encoded observations to infer the action between them. The original illustration below separates an action-driven blue object displacement from unrelated orange visual distractors. Its hypothetical **Motion** channel becomes more prominent while **Noise** is down-weighted as an action-decodable representation develops.
+
+<img src="../../../../../assets/concept-animations/icm-inverse-feature-still.svg" data-motion-src="../../../../../assets/concept-animations/icm-inverse-feature-motion.svg" data-still-src="../../../../../assets/concept-animations/icm-inverse-feature-still.svg" width="480" loading="lazy" alt="Two consecutive observations show action-related blue-object motion and unrelated orange distractors. During an illustrative inverse-dynamics training trajectory, the motion-feature bar grows, the noise-feature bar shrinks, and the action-decoding signal increases." />
+
+*Original eight-second SVG/SMIL teaching animation (CC BY-SA 4.0).* On MkDocs, use **Play/Pause** (also operable by keyboard); [GitHub and no-script static fallback](../../../../../assets/concept-animations/icm-inverse-feature-still.svg) shows the final illustrative state. Bar lengths and colour-coded features are **schematic, not model measurements, probabilities, or a recorded training trajectory**.
+
+**Important limitation:** inverse-dynamics training *encourages* action-informative features; it does **not guarantee** that all uncontrollable variations disappear. Distractors correlated with actions can survive, and a single transition may not identify its action unambiguously. The diagram illustrates one possible representation-learning outcome rather than a theorem or a claim about the original paper's experimental values. See [Pathak et al. (2017)](https://arxiv.org/abs/1705.05363).
+
 ## Equation or algorithm
 
 With the forward model \(\hat\phi\), the intrinsic reward is
