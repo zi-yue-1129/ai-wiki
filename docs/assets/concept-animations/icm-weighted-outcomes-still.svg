@@ -19,7 +19,7 @@
 <circle cx="214.40" cy="172.39" r="15" fill="none" stroke="#775fb0" stroke-width="2" stroke-dasharray="3 4"/>
 <circle cx="214.40" cy="172.39" r="6" fill="#e19748" stroke="#fff" stroke-width="2"/>
 <path d="M29 211H391" stroke="#e2eaf0"/>
-<text x="30" y="227" font-family="Arial,sans-serif" font-size="14" fill="#456176">Circle size = probability; violet ring = mean</text>
+<text x="30" y="227" font-family="Arial,sans-serif" font-size="14" fill="#456176">Larger circle = higher P; ring = mean</text>
 <rect x="12" y="252" width="396" height="222" rx="17" fill="#f7fafc" stroke="#c3d5e1"/>
 <text x="29" y="284" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#263e55">Equal</text>
 <text x="278" y="283" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#7759a7">Var 3.02</text>
@@ -37,7 +37,7 @@
 <circle cx="239.00" cy="410.43" r="15" fill="none" stroke="#775fb0" stroke-width="2" stroke-dasharray="3 4"/>
 <circle cx="239.00" cy="410.43" r="6" fill="#e19748" stroke="#fff" stroke-width="2"/>
 <path d="M29 451H391" stroke="#e2eaf0"/>
-<text x="30" y="467" font-family="Arial,sans-serif" font-size="14" fill="#456176">Circle size = probability; violet ring = mean</text>
+<text x="30" y="467" font-family="Arial,sans-serif" font-size="14" fill="#456176">Larger circle = higher P; ring = mean</text>
 <rect x="12" y="492" width="396" height="222" rx="17" fill="#f7fafc" stroke="#c3d5e1"/>
 <text x="29" y="524" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#263e55">Favor 1</text>
 <text x="278" y="523" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#7759a7">Var 2.65</text>
@@ -55,5 +55,5 @@
 <circle cx="263.60" cy="648.47" r="15" fill="none" stroke="#775fb0" stroke-width="2" stroke-dasharray="3 4"/>
 <circle cx="263.60" cy="648.47" r="6" fill="#e19748" stroke="#fff" stroke-width="2"/>
 <path d="M29 691H391" stroke="#e2eaf0"/>
-<text x="30" y="707" font-family="Arial,sans-serif" font-size="14" fill="#456176">Circle size = probability; violet ring = mean</text>
+<text x="30" y="707" font-family="Arial,sans-serif" font-size="14" fill="#456176">Larger circle = higher P; ring = mean</text>
 </svg>
