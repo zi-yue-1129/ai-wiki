@@ -166,7 +166,7 @@ def run():
                 assert abs(scaled_total - 344 * expected_var / 6000) < 0.05
                 for i in range(3):
                     assert segments.nth(i).get_attribute("data-contribution") == str(i + 1)
-                assert "Σ " + format(expected_var / 1000, ".2f") in icm.locator("svg").text_content()
+                assert "Σ " + format(expected_var / 1000, ".3f") in icm.locator("svg").text_content()
                 (OUT / f"icm_weighted_{width}_{skew_value}.png").write_bytes(icm.screenshot())
             # Combining hypothetical probability reweighting and prediction bias:
             # the expected squared error gains exactly bias**2.

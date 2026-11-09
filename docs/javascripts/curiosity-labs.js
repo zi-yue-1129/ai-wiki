@@ -40,6 +40,7 @@
       shift:'預測位置偏移',center:'回到條件平均值',balance:'結果機率偏重',resetBalance:'恢復等機率',weights:'P(1/2/3)',expected:'期望值',biasSquared:'偏差平方',variance:'變異數',transfer:'對 B 的泛化程度',noTransfer:'重設泛化',bonus:'平方誤差'}
   };
   const fmt=v=>(v/1000).toFixed(2);
+  const fmtTerm=v=>(v/1000).toFixed(3);
   function svg(kind,n,zh,bias=0,transfer=0,skew=0) {
     const isRnd=kind==='rnd', row=rnd[n], stochastic=!isRnd&&n>=3;
     const sampled=stochastic?outcomes[n-3]:mean;
@@ -73,7 +74,7 @@
       const left=28+terms.slice(0,i).reduce((a,v)=>a+v,0)*termScale;
       return `<rect data-contribution="${i+1}" x="${left.toFixed(2)}" y="370" width="${(term*termScale).toFixed(2)}" height="16" fill="${termColours[i]}"/>`;
     }).join(''):'';
-    const termLabels=stochastic?terms.map((term,i)=>`<rect x="${28+i*121}" y="399" width="11" height="11" rx="2" fill="${termColours[i]}"/><text x="${44+i*121}" y="409" font-size="13" fill="#344a5d">${i+1}: ${fmt(term)}</text>`).join(''):'';
+    const termLabels=stochastic?terms.map((term,i)=>`<rect x="${28+i*121}" y="399" width="11" height="11" rx="2" fill="${termColours[i]}"/><text x="${44+i*121}" y="409" font-size="13" fill="#344a5d">${i+1}: ${fmtTerm(term)}</text>`).join(''):'';
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 ${stochastic?422:340}" role="img" aria-label="${zh ? `特徵空間示意：${tag}，比較平方預測誤差` : `${tag}: schematic feature-space squared-error comparison`}">
       <title>${isRnd?'RND fixed target and trained predictor':'ICM sample error and conditional expected error'}</title>
       <desc>${zh ? "示意座標，非訓練實測結果。" : "Illustrative coordinates; not measured training results."}</desc>
@@ -97,7 +98,7 @@
       <text x="326" y="316" font-size="17" font-weight="700" fill="#8a551c">${fmt(err)}</text>
       ${stochastic?`<path d="M28 333H382" stroke="#d3e0e7" stroke-width="1.5"/>
       <text x="28" y="355" font-size="15" font-weight="600" fill="#344a5d">Weighted p × gap²</text>
-      <text x="327" y="355" font-size="15" font-weight="700" fill="#7357a2">Σ ${fmt(conditionalMse)}</text>
+      <text x="327" y="355" font-size="15" font-weight="700" fill="#7357a2">Σ ${fmtTerm(conditionalMse)}</text>
       <rect x="28" y="370" width="344" height="16" rx="3" fill="#e0eaf0"/>
       ${termBars}
       ${termLabels}`:''}
