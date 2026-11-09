@@ -470,6 +470,48 @@ def check_rnd_transfer_motion(browser) -> None:
                 context.close()
     print('PASS RND transfer: mobile/desktop animation, quadratic bonus, player fallback')
 
+
+def check_primary_squared_bonus_geometry(browser) -> None:
+    """Compare real Chromium SVG geometry with the squared error at intermediate times."""
+    cases = (
+        ('rnd-prediction-error', (581, 138), 406, 19429),
+        ('icm-forward-inverse', (604, 143), 132, 10312),
+    )
+    for stem, target, full_width, initial_sq in cases:
+        source = (ASSETS / f'{stem}-motion.svg').read_text(encoding='utf-8')
+        ET.fromstring(source)
+        for width in (360, 720, 1024):
+            ctx = browser.new_context(viewport={'width': width + 32, 'height': 620})
+            try:
+                page = ctx.new_page()
+                page.set_content(
+                    '<style>body{margin:0}svg{display:block;width:'
+                    + str(width) + 'px;height:auto}</style>' + source)
+                for t in (0, 0.91, 1.44, 2.33, 3.35, 4.21, 5.39, 6.37, 7.13, 7.97):
+                    px, py, shown = page.evaluate("""(time) => {
+                        const svg = document.querySelector('svg');
+                        svg.pauseAnimations();
+                        svg.setCurrentTime(time);
+                        const point = svg.querySelector('g.animated circle');
+                        const bar = svg.querySelector('rect.animated');
+                        return [point.cx.animVal.value, point.cy.animVal.value,
+                                bar.width.animVal.value];
+                    }""", t)
+                    true_sq = (px - target[0])**2 + (py - target[1])**2
+                    expected = full_width * true_sq / initial_sq
+                    assert abs(shown - expected) < 0.65, (
+                        stem, width, t, shown, expected)
+                    if t == 7.97:
+                        assert shown < .011 * full_width, (
+                            stem, 'end of replay wrongly reverses predictor learning')
+                    if t in (0, 2.33, 4.21, 6.37, 7.97):
+                        (REVIEW / f'{stem}_{width}_squared_{t:.2f}.png').write_bytes(
+                            page.locator('svg').screenshot(animations='allow'))
+                assert page.locator('svg').bounding_box()['width'] <= width + 1
+            finally:
+                ctx.close()
+    print('PASS original RND/ICM: squared error geometry and nonreversing replay')
+
 def run() -> None:
     REVIEW.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as runtime:
@@ -768,6 +810,7 @@ def run() -> None:
                 ctx.close()
             print('PASS RND novelty: state-dependent target, reward shift, reduced-motion')
 
+            check_primary_squared_bonus_geometry(browser)
             check_rnd_transfer_motion(browser)
             check_rnd_desktop_squared_bonus(browser)
             check_icm_stochastic_comparison(browser)
