@@ -132,6 +132,48 @@ def run():
             numbers = icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
             assert all(v in numbers for v in ("4.62", "1.60", "3.02"))
             (OUT / f"probe_icm_bias_{width}_p40.png").write_bytes(icm.screenshot())
+            # Reweight three stochastic outcomes without moving the possible outcomes.
+            # Weighted conditional mean changes, while the mean predictor remains
+            # optimal at zero additional bias; a selected sample can get larger error.
+            bias_slider.evaluate(
+                "(e) => {e.value='0';e.dispatchEvent(new Event('input',{bubbles:true}));}"
+            )
+            skew_slider = icm.locator('input[data-skew]')
+            assert skew_slider.count() == 1 and icm.locator(".curiosity-lab-skew").is_visible()
+            for skew_value, mean_x, mean_y, expected_var, p_text in (
+                (-60,288,132.8,2402.293333333333,"13.3% / 33.3% / 53.3%"),
+                (0,310,130,3017.333333333333,"33.3% / 33.3% / 33.3%"),
+                (60,332,127.2,2648.693333333333,"53.3% / 33.3% / 13.3%")
+            ):
+                skew_slider.evaluate(
+                    "(e,v) => {e.value=String(v);e.dispatchEvent(new Event('input',{bubbles:true}));}", skew_value
+                )
+                mean_ring=icm.locator('svg circle[stroke="#775fb0"]')
+                assert abs(float(mean_ring.get_attribute("cx"))-mean_x)<.02
+                assert abs(float(mean_ring.get_attribute("cy"))-mean_y)<.02
+                predictor=icm.locator('svg circle[fill="#e19748"]')
+                assert abs(float(predictor.get_attribute("cx"))-mean_x)<.02
+                assert abs(float(predictor.get_attribute("cy"))-mean_y)<.02
+                expected_tick=icm.locator('svg path[stroke="#775fb0"]').first.get_attribute("d")
+                tick_position=float(expected_tick.split(" ")[0][1:])
+                assert abs(tick_position-(128+244*expected_var/10000))<.05
+                assert p_text in icm.locator(".curiosity-lab-skew .curiosity-lab-metrics").text_content()
+                (OUT / f"icm_weighted_{width}_{skew_value}.png").write_bytes(icm.screenshot())
+            # Combining hypothetical probability reweighting and prediction bias:
+            # the expected squared error gains exactly bias**2.
+            bias_slider.evaluate(
+                "(e) => {e.value='40';e.dispatchEvent(new Event('input',{bubbles:true}));}"
+            )
+            assert abs(float(icm.locator('svg circle[fill="#e19748"]').get_attribute('cx'))-372)<.02
+            assert "4.25" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
+            icm.get_by_role("button",name="恢復等機率").click()
+            assert skew_slider.input_value()=="0"
+            assert "4.62" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
+            # Arrow-key slider adjustment remains available without pointer input.
+            skew_slider.focus()
+            page.keyboard.press("ArrowLeft")
+            assert skew_slider.input_value()=="-20"
+            icm.get_by_role("button",name="恢復等機率").click()
             # A keyboard nudge and the accessible reset button must recompute
             # the prediction and expected error, without touching the sample.
             bias_slider.focus()
