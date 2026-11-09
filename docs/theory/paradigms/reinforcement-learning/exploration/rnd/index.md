@@ -54,6 +54,20 @@ G_t^{\mathrm{int}}=\sum_{k=0}^{3}(\gamma_{\mathrm{int}})^k r_{t+k}^{\mathrm{int}
 
 *Original instructional SVG/SMIL animation (CC BY-SA 4.0).* The blue **extrinsic** and amber **intrinsic** lanes scan the **same time steps**. At each step, the corresponding discounted contribution appears and its running sum updates. The toy extrinsic rewards \((0,0,0,1)\), with \(\gamma_{\mathrm{ext}}=0.90\), yield \(G^{\mathrm{ext}}=0.90^3=0.729\). The toy intrinsic rewards \((1,0.6,0.3,0)\), with \(\gamma_{\mathrm{int}}=0.60\), yield \(G^{\mathrm{int}}=1+0.60(0.6)+0.60^2(0.3)=1.468\). These **returns are illustrative training targets**, not the predictions of either value head, and the shown rewards/discounts are **not** the paper's hyperparameters or measured RND values. This visual isolates the two critic targets; it does not depict the full advantage normalization or policy update. Use Play/Pause on MkDocs; [GitHub and no-script static preview](../../../../../assets/concept-animations/rnd-dual-value-still.svg). The distinction between value heads follows [Burda et al. (2018)](https://arxiv.org/abs/1810.12894).
 
+
+### Normalizing RND intrinsic rewards by return variability
+
+RND's feature-prediction error can have very different scales across environments and training phases. Burda et al. divide the intrinsic reward by a running estimate of the **standard deviation of intrinsic discounted returns**, without mean-centring the reward. This is **not** the variance of the target feature vector:
+
+\[
+\widetilde r_t^{\mathrm{int}} =
+\frac{r_t^{\mathrm{int}}}{\widehat\sigma(R^{\mathrm{int}})}.
+\]
+
+<img src="../../../../../assets/concept-animations/rnd-return-scale-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-return-scale-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-return-scale-still.svg" width="380" loading="lazy" alt="The same illustrative raw prediction error four is scaled by alternative return standard deviations one, two and four, producing normalized rewards four, two and one." />
+
+*Original nine-second SVG/SMIL illustration (CC BY-SA 4.0).* The orange raw error remains **4** while **three hypothetical, alternative return histories** supply standard deviations **1, 2 and 4**. The green scaled bonus changes to **4, 2 and 1**. These numbers are **counterfactual inputs, not measured RND statistics or a sequence of training updates**. The graphic isolates the scaling operation, not the variance estimator. On MkDocs use the keyboard-accessible Play/Pause control; the [GitHub/no-script preview](../../../../../assets/concept-animations/rnd-return-scale-still.svg) shows all cases. See [Burda et al. (2018), Section 2.4](https://arxiv.org/abs/1810.12894).
+
 ## Instructional animation
 
 ![RND process: the same observation enters a frozen random target and a trainable predictor; their feature distance and the intrinsic bonus shrink as the predictor is fitted on a visited state](../../../../../assets/concept-animations/rnd-prediction-error-motion.svg)

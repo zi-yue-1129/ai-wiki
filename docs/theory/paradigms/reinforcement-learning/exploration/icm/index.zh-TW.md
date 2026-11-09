@@ -58,6 +58,21 @@ r^{\text{int}}_t = \tfrac{\eta}{2}\,\lVert \hat\phi(\phi(s_t), a_t) - \phi(s_{t+
 
 *原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 藍色訊號代表觀測編碼與兩條前向運算分支；**橘色與紫色虛線**代表兩種輔助目標對同一編碼器可能產生的參數梯度貢獻，**不是量測到的梯度大小**。**綠色虛線**是供強化學習使用的**獎勵輸入**，並非把 ICM 損失直接反向傳播到策略。前向分支使用 $\phi(s_t)$ 與 $a_t$ 預測 $\phi(s_{t+1})$；逆動態分支使用兩個已觀測特徵推斷 $a_t$。為保持清楚，圖中省略了兩損失的相對權重與策略自身的訓練目標，因此**不是完整計算圖**。MkDocs 提供鍵盤可操作的播放／暫停；亦可閱讀 [GitHub／無指令碼靜態回退](../../../../../assets/concept-animations/icm-auxiliary-gradients-still.svg)。參考 [Pathak 等人（2017）](https://proceedings.mlr.press/v70/pathak17a.html)。
 
+
+### 兩種輔助損失的梯度權重
+
+Pathak 等人以 $(1-\beta)$ 加權逆動態損失 $L_I$，以 $\beta$ 加權前向動態損失 $L_F$。對共用編碼器參數 $\theta_\phi$，**輔助損失對編碼器的梯度貢獻**為
+
+\[
+\nabla_{\theta_\phi}L_{\mathrm{aux}} =
+(1-\beta)\nabla_{\theta_\phi}L_I +
+\beta\nabla_{\theta_\phi}L_F,\qquad 0\le\beta\le1.
+\]
+
+<img src="../../../../../assets/concept-animations/icm-loss-blend-still.svg" data-motion-src="../../../../../assets/concept-animations/icm-loss-blend-motion.svg" data-still-src="../../../../../assets/concept-animations/icm-loss-blend-still.svg" width="380" loading="lazy" alt="在假設性的共用編碼器二維梯度切面中，紫色逆動態與橘色前向動態梯度，隨 beta 為零、二分之一或一而改變綠色合成向量的方向。" />
+
+*原創九秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 紫色與橘色箭頭是**加權梯度分量**，綠色箭頭是其**向量和**。三種 $\beta$ 選擇套用在**同一組固定的假設性梯度**，並不是連續的最佳化步驟。所有方向、長度**均為人工示意，並非模型量測**。本圖只呈現兩個輔助損失，省略完整目標中由 $\lambda$ 加權的策略項；也不代表好奇心獎勵會直接對策略反向傳播。MkDocs 可鍵盤播放／暫停，亦有 [GitHub／停用指令碼三情境回退圖](../../../../../assets/concept-animations/icm-loss-blend-still.svg)。參考 [Pathak 等人（2017）式（7）](https://proceedings.mlr.press/v70/pathak17a.html)。
+
 ## 教學動畫
 
 ![ICM 流程：前向與逆動態模型接收各自的特徵輸入；比較預測與實際特徵後，更新訊號回傳前向模型，再示意訓練後誤差下降](../../../../../assets/concept-animations/icm-forward-inverse-motion.svg)

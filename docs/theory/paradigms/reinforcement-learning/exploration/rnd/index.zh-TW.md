@@ -53,6 +53,20 @@ G_t^{\mathrm{int}}=\sum_{k=0}^{3}(\gamma_{\mathrm{int}})^k r_{t+k}^{\mathrm{int}
 
 *原創 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 藍色的**外在獎勵**與橘色的**內在獎勵**沿著**相同時間步驟**逐步掃描；每一步顯示對應的折扣貢獻與更新後的累積總和。假設外在獎勵為 \((0,0,0,1)\)、\(\gamma_{\mathrm{ext}}=0.90\)，得到 \(G^{\mathrm{ext}}=0.90^3=0.729\)；內在獎勵為 \((1,0.6,0.3,0)\)、\(\gamma_{\mathrm{int}}=0.60\)，得到 \(G^{\mathrm{int}}=1+0.60(0.6)+0.60^2(0.3)=1.468\)。這兩種**回報是價值函數的示意學習目標**，並非兩個價值頭已經預測出的數值；圖中獎勵與折扣率**不是**論文採用的超參數，也非 RND 模型實測資料。本圖僅聚焦雙價值頭的目標，不包含完整的優勢正規化或策略更新。MkDocs 網站可播放／暫停；GitHub 和未執行 JavaScript 時使用[靜態回退圖](../../../../../assets/concept-animations/rnd-dual-value-still.svg)。雙價值頭的架構依據：[Burda 等人（2018）](https://arxiv.org/abs/1810.12894)。
 
+
+### 內在獎勵的回報標準差正規化
+
+RND 的特徵預測誤差，在不同環境及訓練階段可能具有不同尺度。Burda 等人以**內在折扣回報的標準差之滾動估計值**縮放內在獎勵，而且**不會先扣除獎勵平均值**；這不是目標網路的特徵座標變異數：
+
+\[
+\widetilde r_t^{\mathrm{int}} =
+\frac{r_t^{\mathrm{int}}}{\widehat\sigma(R^{\mathrm{int}})}.
+\]
+
+<img src="../../../../../assets/concept-animations/rnd-return-scale-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-return-scale-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-return-scale-still.svg" width="380" loading="lazy" alt="同一個人工示意原始誤差為四，分別以一、二、四三種假設性回報標準差縮放，得到四、二、一的內在獎勵。" />
+
+*原創九秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 橘色原始誤差固定為 **4**，三組**不同的假設性回報歷史**分別提供標準差 **1、2、4**，綠色獎勵因此為 **4、2、1**。這是**反事實尺度比較，並非 RND 實測或連續三次訓練更新**，也不代表滾動變異數的估計過程。MkDocs 可透過鍵盤操作播放／暫停；[GitHub／無指令碼靜態圖](../../../../../assets/concept-animations/rnd-return-scale-still.svg)同時呈現三組。參考 [Burda 等人（2018）第 2.4 節](https://arxiv.org/abs/1810.12894)。
+
 ## 教學動畫
 
 ![RND 流程：相同觀測分別進入固定的隨機目標網路與可訓練預測器；反覆學習同一已造訪狀態時，特徵距離與內在獎勵逐漸減小](../../../../../assets/concept-animations/rnd-prediction-error-motion.svg)

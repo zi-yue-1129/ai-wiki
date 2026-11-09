@@ -61,6 +61,21 @@ The forward model predicts the next-state feature; the inverse model predicts th
 
 *Original ten-second SVG/SMIL teaching animation (CC BY-SA 4.0).* Blue pulses represent observation encoding and the two computational branches. The **orange and violet dashed paths** depict possible parameter-gradient contributions from the two auxiliary objectives to the same encoder, *not measured gradient magnitudes*. The **green dashed route** is a **reward input to RL**, not direct backpropagation of the ICM loss into the policy. The forward branch uses $\phi(s_t)$ and $a_t$ to forecast $\phi(s_{t+1})$; the inverse branch uses both observed features to predict $a_t$. The figure omits the relative loss weights and the policy's own objective for clarity, so it is **not a complete computation graph**. Use MkDocs Play/Pause (keyboard accessible), or the [GitHub/no-script static fallback](../../../../../assets/concept-animations/icm-auxiliary-gradients-still.svg). See [Pathak et al. (2017)](https://proceedings.mlr.press/v70/pathak17a.html).
 
+
+### Balancing ICM's auxiliary gradients
+
+Pathak et al. weight the inverse-dynamics loss $L_I$ by $(1-\beta)$ and forward-dynamics loss $L_F$ by $\beta$. For shared encoder parameters $\theta_\phi$, their **auxiliary-loss gradient** is
+
+\[
+\nabla_{\theta_\phi}L_{\mathrm{aux}} =
+(1-\beta)\nabla_{\theta_\phi}L_I +
+\beta\nabla_{\theta_\phi}L_F,\qquad 0\le\beta\le1.
+\]
+
+<img src="../../../../../assets/concept-animations/icm-loss-blend-still.svg" data-motion-src="../../../../../assets/concept-animations/icm-loss-blend-motion.svg" data-still-src="../../../../../assets/concept-animations/icm-loss-blend-still.svg" width="380" loading="lazy" alt="In a hypothetical two-dimensional encoder gradient slice, violet inverse and orange forward gradient components combine into a green resultant that changes direction for beta zero, one-half and one." />
+
+*Original nine-second SVG/SMIL illustration (CC BY-SA 4.0).* The violet and orange arrows are **weighted gradient components** and green is their **vector sum**. The three $\beta$ settings are **alternative choices for the same fixed, hypothetical gradients**, not consecutive optimizer steps. All directions and lengths are **schematic, never model measurements**. This isolates the auxiliary losses; the $\lambda$-weighted policy component of the full objective is omitted, and the arrows do **not** imply differentiating curiosity reward directly into policy parameters. MkDocs offers keyboard-operable Play/Pause; the [GitHub/no-script three-case fallback](../../../../../assets/concept-animations/icm-loss-blend-still.svg) is readable without animation. Source: [Pathak et al. (2017), Eq. 7](https://proceedings.mlr.press/v70/pathak17a.html).
+
 ## Instructional animation
 
 ![ICM process: current and next features feed forward and inverse dynamics; after comparison, a loss-driven update cue precedes forward prediction improvement](../../../../../assets/concept-animations/icm-forward-inverse-motion.svg)
