@@ -31,14 +31,14 @@
       icm:['Before update','Train forward','Predictable fitted','Sample 1','Sample 2','Sample 3'],
       rndNote:'RND measures predictor error, not a visit count. After A training, a never-seen B can have low error through generalisation. The Transfer slider compares hypothetical B predictions without any parameter update. Coordinates and bonuses are schematic, not measured.',
       icmNote:'For the repeatable outcome, the toy forward prediction fits its fixed target; then three initially equally likely outcomes illustrate residual sample error. Reweight the possible outcomes to move the conditional mean, or shift the prediction away from it to increase expected squared error. Not measured data.',
-      sampleTitle:'Sample outcomes',drawOne:'Draw 1',drawMany:'Draw 20',clearSamples:'Reset samples',sampleMean:'Running mean',sampleCount:'Draws',sampleHint:'Independent toy draws: the running mean need not approach the expectation monotonically. The trace uses a fixed y-range for each slider setting (see its axis ticks), unlike the separate 0–16 marker strip.',sampleNone:'No samples yet',sampleRecent:'Most recent outcomes',sampleCurve:'Running-mean trace',sampleAxis:'Draws',
+      sampleTitle:'Sample outcomes',drawOne:'Draw 1',drawMany:'Draw 20',clearSamples:'Reset samples',sampleMean:'Running mean',sampleCount:'Draws',sampleHint:'Independent toy draws: the running mean need not approach the expectation monotonically. The shaded ±1 SE reference is computed from the exact three-outcome loss distribution (not fitted from draws); it shrinks as 1/√n. It is not a 95% confidence interval and does not contain every sample mean. The trace and shade use a fixed y-range for each slider setting, unlike the separate 0–16 marker strip.',sampleNone:'No samples yet',sampleRecent:'Most recent outcomes',sampleCurve:'Running-mean trace',sampleAxis:'Draws',sampleSE:'Analytic SE',
       shift:'Prediction shift',center:'Reset to mean',balance:'Outcome balance',resetBalance:'Equal weights',weights:'P(1/2/3)',expected:'Expected',biasSquared:'Bias²',variance:'Variance',transfer:'Transfer to B',noTransfer:'Reset transfer',bonus:'Squared gap'},
     zh:{prev:'上一步',next:'下一步',play:'播放',pause:'暫停',seek:'進度',speed:'速度',step:'步驟',
       rnd:['觀測 A','訓練 A','訓練 A','熟悉 A','切換到 B','訓練 B','訓練 B','熟悉 B'],
       icm:['更新前','訓練前向模型','已擬合可預測結果','取樣 1','取樣 2','取樣 3'],
       rndNote:'RND 衡量預測誤差，而非造訪次數。訓練 A 後，即使未曾看過 B，泛化也可能使 B 的誤差很低。遷移滑桿比較假設性的 B 預測，不會執行參數更新；座標與獎勵均非實測。',
       icmNote:'可重複轉移的固定目標與前向預測會逐步接近；三個初始等機率結果呈現殘餘樣本誤差。調整結果權重可移動條件平均值；再偏移預測點，可觀察期望平方誤差如何增加。非模型實測。',
-      sampleTitle:'重複抽樣',drawOne:'抽取 1 次',drawMany:'抽取 20 次',clearSamples:'重設樣本',sampleMean:'樣本平均',sampleCount:'抽樣次數',sampleHint:'從選定條件分布獨立進行示意抽樣；樣本平均不保證單調接近期望值。折線圖的縱軸依目前滑桿設定固定範圍，請依圖上刻度閱讀；上方標記帶另採 0–16 比例。',sampleNone:'尚未抽樣',sampleRecent:'最近抽到的結果',sampleCurve:'累積樣本平均軌跡',sampleAxis:'抽樣次數',
+      sampleTitle:'重複抽樣',drawOne:'抽取 1 次',drawMany:'抽取 20 次',clearSamples:'重設樣本',sampleMean:'樣本平均',sampleCount:'抽樣次數',sampleHint:'從選定條件分布獨立進行示意抽樣；樣本平均不保證單調接近期望值。淡紫色 ±1 SE 區域是用三種結果的精確損失分布計算的理論標準誤範圍，會依 1/√n 收縮，並非從抽樣估計、95% 信賴區間或每次樣本平均都必須落入的範圍。軌跡與區域的縱軸依滑桿設定固定，與上方 0–16 標記帶不同。',sampleNone:'尚未抽樣',sampleRecent:'最近抽到的結果',sampleCurve:'累積樣本平均軌跡',sampleAxis:'抽樣次數',sampleSE:'解析標準誤',
       shift:'預測位置偏移',center:'回到條件平均值',balance:'結果機率偏重',resetBalance:'恢復等機率',weights:'P(1/2/3)',expected:'期望值',biasSquared:'偏差平方',variance:'變異數',transfer:'對 B 的泛化程度',noTransfer:'重設泛化',bonus:'平方誤差'}
   };
   const fmt=v=>(v/1000).toFixed(2);
@@ -227,8 +227,12 @@
         // never on the observed draws, so successive draws cannot rescale it.
         const dist=distribution(skew),px=dist.center[0]+bias,py=dist.center[1];
         const possible=outcomes.map(([x,y])=>((x-px)**2+(y-py)**2)/1000);
-        const minY=Math.max(0,Math.floor(Math.min(...possible,expected)-.4));
-        const maxY=Math.max(minY+2,Math.ceil(Math.max(...possible,expected)+.4));
+        // Exact SD of *sample loss* under fixed categorical probabilities;
+        // the mean of n i.i.d. losses has theoretical SE = SD / sqrt(n).
+        // This is a one-SE reference, NOT a confidence interval for ICM.
+        const lossSD=Math.sqrt(possible.reduce((sum,loss,i)=>sum+dist.weights[i]*(loss-expected)**2,0));
+        const minY=Math.max(0,Math.floor(Math.min(...possible,expected-lossSD)-.4));
+        const maxY=Math.max(minY+2,Math.ceil(Math.max(...possible,expected+lossSD)+.4));
         const x0=44,x1=394,y0=122,ySpan=90;
         const xx=i=>x0+(sampleTrace.length>1?i/(sampleTrace.length-1):0)*(x1-x0);
         const yy=v=>y0-(v-minY)/(maxY-minY)*ySpan;
@@ -236,24 +240,31 @@
         const expectedY=yy(expected).toFixed(2);
         const latest=points[points.length-1].split(',');
         const start=sampleCount-sampleTrace.length+1;
+        const upper=sampleTrace.map((_,i)=>`${xx(i).toFixed(2)},${yy(expected+lossSD/Math.sqrt(start+i)).toFixed(2)}`);
+        const lower=sampleTrace.map((_,i)=>`${xx(i).toFixed(2)},${yy(expected-lossSD/Math.sqrt(start+i)).toFixed(2)}`).reverse();
+        const oneSE=lossSD/Math.sqrt(sampleCount);
         // Controlled numeric inputs only; no user-supplied markup enters this SVG.
-        trajectory.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 154" role="img" aria-label="${L.sampleCurve}: ${sampleCount} ${L.sampleAxis}; ${L.sampleMean} ${(sampleSum/(1000*sampleCount)).toFixed(3)}; ${L.expected} ${expected.toFixed(3)}">
+        trajectory.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 154" role="img" aria-label="${L.sampleCurve}: ${sampleCount} ${L.sampleAxis}; ${L.sampleMean} ${(sampleSum/(1000*sampleCount)).toFixed(3)}; ${L.expected} ${expected.toFixed(3)}; ${L.sampleSE} ${oneSE.toFixed(3)}">
           <rect x="1" y="1" width="408" height="152" rx="9" fill="#f7fafc" stroke="#ccdae5"/>
           <path d="M44 32H394 M44 77H394 M44 122H394" stroke="#dce7ed" stroke-width="1"/>
           <path d="M44 32V122H394" stroke="#91a9b8" stroke-width="1.4" fill="none"/>
           <text x="34" y="36" text-anchor="end" font-size="12" fill="#496174">${maxY}</text>
           <text x="34" y="81" text-anchor="end" font-size="12" fill="#496174">${Number(((maxY+minY)/2).toFixed(1))}</text>
           <text x="34" y="126" text-anchor="end" font-size="12" fill="#496174">${minY}</text>
+          ${sampleTrace.length>1?`<polygon data-sample-se-band="true" points="${upper.concat(lower).join(' ')}" fill="#b8a5da" fill-opacity=".4"/>`:`<line data-sample-se-band="true" x1="44" x2="44" y1="${yy(expected+lossSD).toFixed(2)}" y2="${yy(expected-lossSD).toFixed(2)}" stroke="#b8a5da" stroke-width="7"/>`}
           <line x1="44" y1="${expectedY}" x2="394" y2="${expectedY}" stroke="#775fb0" stroke-width="2" stroke-dasharray="6 4"/>
           <polyline data-sample-means="true" points="${points.join(' ')}" stroke="#b36b25" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
           <circle data-sample-latest="true" cx="${latest[0]}" cy="${latest[1]}" r="4.3" fill="#b36b25" stroke="white" stroke-width="1.5"/>
           <line x1="80" y1="15" x2="100" y2="15" stroke="#b36b25" stroke-width="3"/>
           <text x="106" y="19" font-size="13" fill="#7b4818">Mean</text>
+          <rect x="155" y="10" width="14" height="10" rx="2" fill="#b8a5da" fill-opacity=".65"/>
+          <text x="173" y="19" font-size="12" fill="#654e8d">±1 SE</text>
           <line x1="232" y1="15" x2="252" y2="15" stroke="#775fb0" stroke-dasharray="5 3" stroke-width="2.4"/>
           <text x="258" y="19" font-size="13" fill="#5d448d">Expected</text>
           <text x="44" y="141" font-size="12" fill="#496174" text-anchor="middle">${start}</text>
           ${sampleCount>start?`<text x="394" y="141" font-size="12" fill="#496174" text-anchor="middle">${sampleCount}</text>`:''}
         </svg>`;
+        trajectory.dataset.standardError=String(oneSE);
         trajectory.dataset.yMin=String(minY);
         trajectory.dataset.yMax=String(maxY);
         trajectory.dataset.windowStart=String(start);
@@ -267,7 +278,9 @@
         observedMarker.hidden=sampleCount===0;
         if(sampleCount)observedMarker.style.left=`${Math.min(100,100*observed/16).toFixed(2)}%`;
         sampleTrack.setAttribute('aria-label',`${L.expected}: ${expected.toFixed(3)}; ${L.sampleMean}: ${sampleCount?observed.toFixed(3):L.sampleNone}`);
-        sampleStats.textContent=`${L.sampleCount}: ${sampleCount} · ${L.sampleMean}: ${sampleCount?observed.toFixed(3):'—'} · ${L.expected}: ${expected.toFixed(3)}`;
+        const losses=outcomes.map(([x,y])=>((x-dist.center[0]-bias)**2+(y-dist.center[1])**2)/1000);
+        const lossSD=Math.sqrt(losses.reduce((sum,v,i)=>sum+dist.weights[i]*(v-expected)**2,0));
+        sampleStats.textContent=`${L.sampleCount}: ${sampleCount} · ${L.sampleMean}: ${sampleCount?observed.toFixed(3):'—'} · ${L.expected}: ${expected.toFixed(3)} · ${L.sampleSE}: ${sampleCount?(lossSD/Math.sqrt(sampleCount)).toFixed(3):'—'}`;
         clear.disabled=sampleCount===0;
         renderTrajectory(expected);
         sampleHistory.replaceChildren(...sampleRecent.map(i=>{

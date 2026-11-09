@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Chromium integration: seeded ICM samples versus analytic expectation."""
 from pathlib import Path
+from math import sqrt
 import xml.etree.ElementTree as ET
 from playwright.sync_api import sync_playwright
 
@@ -62,6 +63,19 @@ def run():
                 y_min = float(bounds.get_attribute('data-y-min'))
                 y_max = float(bounds.get_attribute('data-y-max'))
                 assert y_max > y_min
+                # Exact loss variability, not the feature-space variance:
+                # SD(loss) / sqrt(n) is the theoretical SE of the sample mean.
+                outcomes = ((365, 101), (310, 174), (255, 115))
+                losses = [((x-310)**2+(y-130)**2)/1000 for x,y in outcomes]
+                analytic = sum(losses)/3
+                sd = sqrt(sum((v-analytic)**2 for v in losses)/3)
+                se = float(bounds.get_attribute('data-standard-error'))
+                assert abs(se-sd/sqrt(21)) < 1e-9
+                assert page.locator('[data-sample-se-band]').evaluate('(el)=>el.tagName') == 'polygon'
+                envelope = [tuple(map(float, point.split(','))) for point in page.locator('[data-sample-se-band]').get_attribute('points').split()]
+                assert len(envelope) == 42
+                assert abs(envelope[20][1] - (122-(analytic+se-y_min)*90/(y_max-y_min))) < .02
+                assert abs(envelope[21][1] - (122-(analytic-se-y_min)*90/(y_max-y_min))) < .02
                 last_y = float(trace.get_attribute('points').split()[-1].split(',')[1])
                 assert abs(last_y - (122 - (running - y_min) * 90 / (y_max - y_min))) < .02
                 expected_y = float(page.locator('.curiosity-lab-sample-trajectory line[stroke="#775fb0"]').first.get_attribute('y1'))
@@ -93,6 +107,8 @@ def run():
                     buttons.nth(1).click()
                 trace = page.locator('[data-sample-means]')
                 assert len(trace.get_attribute('points').split()) == 120
+                assert len(page.locator('[data-sample-se-band]').get_attribute('points').split()) == 240
+                assert float(page.locator('.curiosity-lab-sample-trajectory').get_attribute('data-standard-error')) > 0
                 assert int(page.locator('.curiosity-lab-sample-trajectory').get_attribute('data-window-start')) > 1
                 assert int(page.locator('.curiosity-lab-sample-trajectory').get_attribute('data-total-draws')) == 160
                 assert page.locator('.curiosity-lab-sample-trajectory svg').get_attribute('aria-label')
