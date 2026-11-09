@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-11-09
+translation_reviewed: 2026-11-10
 ---
 
 # 內在好奇心模組（Pathak 等人，2017）
