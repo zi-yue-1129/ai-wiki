@@ -102,8 +102,11 @@ def main():
                             assert img.get_attribute("src").endswith(ending)
                             if mobile:
                                 page.set_viewport_size({"width": 1024, "height": 900})
-                                assert img.get_attribute("src").endswith("-still.svg")
-                                assert not img.get_attribute("src").endswith("-mobile-still.svg")
+                                # Media-query listeners update asynchronously after resizing.
+                                page.wait_for_function(
+                                    '() => {const s=document.querySelector("img").getAttribute("src");'
+                                    'return s.endsWith("-still.svg") && !s.endsWith("-mobile-still.svg")}'
+                                )
                             ctx.close()
         finally:
             browser.close()
