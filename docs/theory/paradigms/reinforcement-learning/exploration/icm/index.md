@@ -35,6 +35,14 @@ The inverse-dynamics objective uses the *pair* of encoded observations to infer 
 
 **Important limitation:** inverse-dynamics training *encourages* action-informative features; it does **not guarantee** that all uncontrollable variations disappear. Distractors correlated with actions can survive, and a single transition may not identify its action unambiguously. The diagram illustrates one possible representation-learning outcome rather than a theorem or a claim about the original paper's experimental values. See [Pathak et al. (2017)](https://arxiv.org/abs/1705.05363).
 
+### Action aliasing: when the inverse target is ambiguous
+
+An inverse dynamics classifier cannot always reconstruct an action from a state transition. Consider two **separate trials** that start from exactly the same observation: one action attempts to move left, the other right. Both are blocked by walls, so the next observation is identical. The two commands are distinct even though their **visible consequence is the same**.
+
+<img src="../../../../../assets/concept-animations/icm-action-aliasing-still.svg" data-motion-src="../../../../../assets/concept-animations/icm-action-aliasing-motion.svg" data-still-src="../../../../../assets/concept-animations/icm-action-aliasing-still.svg" width="480" loading="lazy" alt="Two independent blocked-movement trials: different left and right actions lead to the identical next observation; the inverse classifier remains 50/50 under balanced action sampling, while forward prediction can be correct for both." />
+
+*Original eight-second SVG/SMIL teaching animation (CC BY-SA 4.0).* Each highlighted lane is **a separate trial**, not sequential moves. The action cue presses against a barrier while the blue agent and next observation remain stationary. Under a toy **50/50 action-sampling policy**, with no action-identifying information in either observation, the Bayes-optimal inverse classifier assigns (p(a_t=\mathrm{left}\mid s_t,s_{t+1})=p(a_t=\mathrm{right}\mid s_t,s_{t+1})=1/2), and its minimum expected cross-entropy is (ln 2) nats. Yet a deterministic forward predictor can correctly predict the same next observation **for either action**, yielding zero idealised feature prediction error. Thus **inverse-action ambiguity does not imply a large forward-model curiosity bonus**. These are constructed counterfactual conditions, not measured ICM results or the original paper's environment. Use Play/Pause on MkDocs; [GitHub/no-script static preview](../../../../../assets/concept-animations/icm-action-aliasing-still.svg). See [Pathak et al. (2017)](https://proceedings.mlr.press/v70/pathak17a.html) for the inverse and forward objectives.
+
 ## Equation or algorithm
 
 With the forward model \(\hat\phi\), the intrinsic reward is

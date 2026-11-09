@@ -32,6 +32,14 @@ ICM 包含三個網路：
 
 **重要限制：** 逆動態學習只是**鼓勵**表示保留與動作有關的資訊，**不保證**能完全移除無法控制的變化。與動作相關的干擾仍可能被保留，而且單次狀態轉移未必足以唯一推斷動作。此動畫展示一種可能的表示學習結果，而非理論保證或原論文實測數據。參考：[Pathak 等人（2017）](https://arxiv.org/abs/1705.05363)。
 
+### 動作別名問題：逆動態目標不一定能唯一辨識
+
+逆動態分類器不一定能從狀態轉移反推出唯一的動作。想像兩次**彼此獨立的實驗**，從完全相同的觀測開始：第一次向左移動，第二次向右移動。兩側都有障礙物，兩個動作都被阻擋，因此下一個觀測完全相同。**動作不同，不代表可觀測的結果一定不同。**
+
+<img src="../../../../../assets/concept-animations/icm-action-aliasing-still.svg" data-motion-src="../../../../../assets/concept-animations/icm-action-aliasing-motion.svg" data-still-src="../../../../../assets/concept-animations/icm-action-aliasing-still.svg" width="480" loading="lazy" alt="兩次獨立的受阻移動實驗：向左與向右動作都產生相同的下一觀測；若動作取樣各占一半，逆動態分類器無法排除任一動作，但前向預測仍可正確。" />
+
+*原創八秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 高亮的兩條路徑代表**兩次不同實驗**，而非連續執行的兩步。動作指示撞上障礙，但藍色智能體位置與下一個觀測都維持不變。若假設策略以 **50/50** 機率選擇兩個動作，而且前後觀測不含其他辨識動作的線索，則最佳逆動態分類器仍只能給出 (p(a_t=\mathrm{left}\mid s_t,s_{t+1})=p(a_t=\mathrm{right}\mid s_t,s_{t+1})=1/2)，其最低期望交叉熵為 (ln 2) nats。然而確定性的前向模型可以對**兩個動作**都預測正確的下一觀測，在理想化特徵空間中具有零預測誤差。因此**逆動態分類的不確定性，不等於前向模型一定產生高的好奇心獎勵**。條件與數值都是人工構造的教學反例，不是 ICM 實測或論文採用的環境。MkDocs 可透過鍵盤操作播放／暫停；[GitHub／未執行 JavaScript 的靜態預覽](../../../../../assets/concept-animations/icm-action-aliasing-still.svg)。原始研究：[Pathak 等人（2017）](https://proceedings.mlr.press/v70/pathak17a.html)。
+
 ## 方程式與演算法
 
 設前向模型為 \(\hat\phi\)，內在獎勵為

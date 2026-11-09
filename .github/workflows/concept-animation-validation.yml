@@ -12,6 +12,7 @@ on:
       - "scripts/test_rnd_dual_value_browser.py"
       - "scripts/test_rnd_stochastic_distractor_browser.py"
       - "scripts/test_icm_inverse_feature_browser.py"
+      - "scripts/test_icm_action_aliasing_browser.py"
       - "scripts/test_curiosity_labs_browser.py"
       - "scripts/test_curiosity_sampling_browser.py"
       - "docs/javascripts/concept-motion.js"
@@ -87,6 +88,8 @@ jobs:
         run: python scripts/test_rnd_stochastic_distractor_browser.py
       - name: Chromium ICM inverse-dynamics feature-selection motion
         run: python scripts/test_icm_inverse_feature_browser.py
+      - name: Chromium ICM action-aliasing and inverse ambiguity
+        run: python scripts/test_icm_action_aliasing_browser.py
       - name: Chromium RND/ICM timeline probes, bilingual controls and reduced motion
         run: python scripts/test_curiosity_labs_browser.py
       - name: Chromium ICM repeated sampling, bilingual expectations and reduced motion
