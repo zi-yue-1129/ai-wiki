@@ -81,6 +81,17 @@ Use **Previous/Next**, the timeline slider, or Play/Pause with 0.5×–2× speed
 
 *Original three-case GitHub-safe fallback (CC BY-SA 4.0).* All three panels share the same three possible next-feature locations; circle size encodes their **hypothetical probability**, the violet ring marks the resulting weighted conditional mean, and the orange point is a forecast at that mean. The values 2.40, 3.02 and 2.65 are **illustrative conditional variances** in arbitrary display units, not observed rewards. This summary is static only to support GitHub/no-script readers; the **Outcome balance** and **Prediction shift** sliders on MkDocs provide continuous, keyboard-operable counterfactual experiments.
 
+
+### Monte Carlo samples versus the conditional expectation
+
+The **Sample outcomes** controls on stochastic steps 4–6 repeatedly draw one of the *three fixed possible next features* under the currently selected hypothetical probabilities. **Draw 1** and **Draw 20** update the orange running mean of sampled squared errors; the violet analytic expected error remains fixed for the chosen distribution and predictor. The most recent outcomes appear as small colour-coded tokens. The displayed units are squared feature-coordinate distances divided by 1,000, and the live sample-error comparison has its own labelled 0–16 axis.
+
+For draws \(I_j\sim\mathrm{Categorical}(p_1,p_2,p_3)\) under an unchanged distribution and predictor, the empirical mean is \(\bar L_n = n^{-1}\sum_{j=1}^{n}\|Y_{I_j}-\hat\phi(z)\|^2/1000\), whereas the exact conditional expectation is \(L=\sum_i p_i\|Y_i-\hat\phi(z)\|^2/1000\). A finite sample mean can move **away** from the expectation before approaching it; convergence is not monotonic or guaranteed at any finite sample count. Changing **Outcome balance** or **Prediction shift** clears the samples so unlike distributions are never pooled. The draws use a **reproducible pseudo-random sequence**, not real environment transitions or empirical ICM rewards.
+
+![ICM three snapshots after one, five and twenty toy outcome draws; the running sampled mean can move further from the fixed expectation before returning nearer](../../../../../assets/concept-animations/icm-sample-mean-still.svg)
+
+*Original GitHub/no-script fallback (CC BY-SA 4.0).* At equal weights and zero prediction shift, the exact expectation is **3.017**, while the seeded sample means are **3.250**, **3.373** and **2.786** after 1, 5 and 20 draws. The diagram's axis runs from 0 to 6 (the live chart uses 0 to 16 to accommodate all supported slider settings): compare the **numbers**, not the lengths of marks between the two views. Orange is the empirical mean and violet the analytic expectation. These are deliberately constructed teaching values, **not trained-model measurements**.
+
 <div data-curiosity-lab="icm" data-locale="en"><p>This interactive step-through is available on the MkDocs site; the SVG animations and GitHub-safe static previews above remain available without scripts.</p></div>
 
 ## Results

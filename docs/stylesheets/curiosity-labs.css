@@ -19,3 +19,22 @@
 .curiosity-lab-bias button:disabled{opacity:.45}
 .curiosity-lab-bias button:focus-visible,.curiosity-lab-bias input:focus-visible{outline:3px solid var(--md-accent-fg-color,#30819b);outline-offset:2px}
 .curiosity-lab-metrics{flex:1 1 100%;font-variant-numeric:tabular-nums;line-height:1.5;color:var(--md-default-fg-color,#354d60)}
+
+/* A reproducible Monte Carlo contrast to the analytic expectation; no motion required. */
+.curiosity-lab-samples{border-top:1px solid #d7e3eb;margin-top:.55rem;padding:.65rem .1rem .3rem;font-size:.78rem}
+.curiosity-lab-samples[hidden]{display:none}
+.curiosity-lab-sample-actions{display:flex;gap:.4rem;flex-wrap:wrap;margin:.35rem 0}
+.curiosity-lab-sample-actions button{border:1px solid #b6c9d3;background:transparent;color:inherit;border-radius:.35rem;padding:.25rem .55rem;font:inherit;cursor:pointer}
+.curiosity-lab-sample-actions button:disabled{opacity:.45;cursor:not-allowed}
+.curiosity-lab-sample-actions button:focus-visible{outline:3px solid var(--md-accent-fg-color,#30819b);outline-offset:2px}
+.curiosity-lab-sample-stats{display:block;font-variant-numeric:tabular-nums;line-height:1.5;overflow-wrap:anywhere}
+.curiosity-lab-sample-track{height:34px;position:relative;background:linear-gradient(180deg,#f7fafc,#eaf1f5);border:1px solid #ccdae5;border-radius:6px;margin:.55rem 7px .1rem}
+.curiosity-lab-sample-expected,.curiosity-lab-sample-observed{position:absolute;top:0;height:100%;width:3px;transform:translateX(-50%);background:#775fb0}
+.curiosity-lab-sample-observed{background:#d28a3e;width:5px}
+.curiosity-lab-sample-observed[hidden]{display:none}
+.curiosity-lab-sample-expected::after,.curiosity-lab-sample-observed::after{content:'';position:absolute;bottom:5px;left:-4px;width:11px;height:11px;border-radius:50%;background:inherit;box-shadow:0 0 0 2px white}
+.curiosity-lab-sample-legend{font-size:.7rem;color:var(--md-default-fg-color--light,#536b80)}
+.curiosity-lab-sample-history{display:flex;flex-wrap:wrap;gap:4px;margin:.4rem 0;min-height:19px}
+.curiosity-lab-sample-chip{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:5px;color:white;font-size:.68rem;font-weight:700}
+.curiosity-lab-sample-chip-1{background:#267f9f}.curiosity-lab-sample-chip-2{background:#319d91}.curiosity-lab-sample-chip-3{background:#8672b4}
+.curiosity-lab-sample-hint{font-size:.7rem;line-height:1.5;margin:.25rem 0 0;color:var(--md-default-fg-color--light,#536b80)}

@@ -31,12 +31,14 @@
       icm:['Before update','Train forward','Predictable fitted','Sample 1','Sample 2','Sample 3'],
       rndNote:'RND measures predictor error, not a visit count. After A training, a never-seen B can have low error through generalisation. The Transfer slider compares hypothetical B predictions without any parameter update. Coordinates and bonuses are schematic, not measured.',
       icmNote:'For the repeatable outcome, the toy forward prediction fits its fixed target; then three initially equally likely outcomes illustrate residual sample error. Reweight the possible outcomes to move the conditional mean, or shift the prediction away from it to increase expected squared error. Not measured data.',
+      sampleTitle:'Sample outcomes',drawOne:'Draw 1',drawMany:'Draw 20',clearSamples:'Reset samples',sampleMean:'Running mean',sampleCount:'Draws',sampleHint:'Independent toy draws from the selected distribution; the running error need not approach the expected error monotonically.',sampleNone:'No samples yet',sampleRecent:'Most recent outcomes',
       shift:'Prediction shift',center:'Reset to mean',balance:'Outcome balance',resetBalance:'Equal weights',weights:'P(1/2/3)',expected:'Expected',biasSquared:'Bias²',variance:'Variance',transfer:'Transfer to B',noTransfer:'Reset transfer',bonus:'Squared gap'},
     zh:{prev:'上一步',next:'下一步',play:'播放',pause:'暫停',seek:'進度',speed:'速度',step:'步驟',
       rnd:['觀測 A','訓練 A','訓練 A','熟悉 A','切換到 B','訓練 B','訓練 B','熟悉 B'],
       icm:['更新前','訓練前向模型','已擬合可預測結果','取樣 1','取樣 2','取樣 3'],
       rndNote:'RND 衡量預測誤差，而非造訪次數。訓練 A 後，即使未曾看過 B，泛化也可能使 B 的誤差很低。遷移滑桿比較假設性的 B 預測，不會執行參數更新；座標與獎勵均非實測。',
       icmNote:'可重複轉移的固定目標與前向預測會逐步接近；三個初始等機率結果呈現殘餘樣本誤差。調整結果權重可移動條件平均值；再偏移預測點，可觀察期望平方誤差如何增加。非模型實測。',
+      sampleTitle:'重複抽樣',drawOne:'抽取 1 次',drawMany:'抽取 20 次',clearSamples:'重設樣本',sampleMean:'樣本平均',sampleCount:'抽樣次數',sampleHint:'從選定條件分布獨立進行示意抽樣；樣本平均誤差不保證單調接近期望值。',sampleNone:'尚未抽樣',sampleRecent:'最近抽到的結果',
       shift:'預測位置偏移',center:'回到條件平均值',balance:'結果機率偏重',resetBalance:'恢復等機率',weights:'P(1/2/3)',expected:'期望值',biasSquared:'偏差平方',variance:'變異數',transfer:'對 B 的泛化程度',noTransfer:'重設泛化',bonus:'平方誤差'}
   };
   const fmt=v=>(v/1000).toFixed(2);
@@ -132,6 +134,7 @@
       const L=words[host.dataset.locale==='zh-TW'?'zh':'en'];
       const last=kind==='rnd'?7:5;
       let index=0,timer=0,bias=0,transfer=0,skew=0;
+      let sampleSeed=314159,sampleCount=0,sampleSum=0,sampleRecent=[];
       const plot=document.createElement('div');plot.className='curiosity-lab-plot';
       const controls=document.createElement('div');controls.className='curiosity-lab-toolbar';
       const button=(text,cb)=>{const el=document.createElement('button');el.type='button';el.setAttribute('aria-label',text);el.addEventListener('click',cb);return el;};
@@ -149,7 +152,7 @@
       biasInput.dataset.bias='true';biasInput.setAttribute('aria-label',L.shift);
       biasLabel.append(biasInput);
       const biasValue=document.createElement('output');biasValue.className='curiosity-lab-bias-value';
-      const reset=button(L.center,()=>{bias=0;biasInput.value='0';set(index);});reset.textContent=L.center;
+      const reset=button(L.center,()=>{stop();bias=0;biasInput.value='0';resetSamples();set(index);});reset.textContent=L.center;
       const metrics=document.createElement('output');metrics.className='curiosity-lab-metrics';metrics.setAttribute('aria-live','polite');
       biasRow.append(biasLabel,biasValue,reset,metrics);
       const skewRow=document.createElement('div');skewRow.className='curiosity-lab-bias curiosity-lab-skew';skewRow.hidden=true;
@@ -157,7 +160,7 @@
       const skewInput=document.createElement('input');Object.assign(skewInput,{type:'range',min:'-60',max:'60',step:'20',value:'0'});
       skewInput.dataset.skew='true';skewInput.setAttribute('aria-label',L.balance);skewLabel.append(skewInput);
       const skewValue=document.createElement('output');skewValue.className='curiosity-lab-bias-value';
-      const skewReset=button(L.resetBalance,()=>{skew=0;skewInput.value='0';set(index);});skewReset.textContent=L.resetBalance;
+      const skewReset=button(L.resetBalance,()=>{stop();skew=0;skewInput.value='0';resetSamples();set(index);});skewReset.textContent=L.resetBalance;
       const skewMetrics=document.createElement('output');skewMetrics.className='curiosity-lab-metrics';skewMetrics.setAttribute('aria-live','polite');
       skewRow.append(skewLabel,skewValue,skewReset,skewMetrics);
       const transferRow=document.createElement('div');transferRow.className='curiosity-lab-bias curiosity-lab-transfer';transferRow.hidden=true;
@@ -169,10 +172,63 @@
       const transferReset=button(L.noTransfer,()=>{transfer=0;transferInput.value='0';set(index);});transferReset.textContent=L.noTransfer;
       const transferMetrics=document.createElement('output');transferMetrics.className='curiosity-lab-metrics';transferMetrics.setAttribute('aria-live','polite');
       transferRow.append(transferLabel,transferValue,transferReset,transferMetrics);
-      controls.append(prev,play,next,seek,status,speed);host.replaceChildren(plot,controls,biasRow,skewRow,transferRow,note);
+      // Monte Carlo probe: independently draw next features from the current
+      // hypothetical conditional distribution. Its analytical expectation is
+      // not estimated by the sampler; only the orange running mean is sampled.
+      const sampleRow=document.createElement('section');sampleRow.className='curiosity-lab-samples';sampleRow.hidden=true;
+      sampleRow.setAttribute('role','group');sampleRow.setAttribute('aria-label',L.sampleTitle);
+      const sampleTitle=document.createElement('strong');sampleTitle.textContent=L.sampleTitle;
+      const sampleActions=document.createElement('div');sampleActions.className='curiosity-lab-sample-actions';
+      const drawOne=button(L.drawOne,()=>{stop();drawSamples(1);});drawOne.textContent=L.drawOne;
+      const drawMany=button(L.drawMany,()=>{stop();drawSamples(20);});drawMany.textContent=L.drawMany;
+      const clear=button(L.clearSamples,()=>{stop();resetSamples();renderSamples();});clear.textContent=L.clearSamples;
+      sampleActions.append(drawOne,drawMany,clear);
+      const sampleStats=document.createElement('output');sampleStats.className='curiosity-lab-sample-stats';sampleStats.setAttribute('aria-live','polite');
+      const sampleTrack=document.createElement('div');sampleTrack.className='curiosity-lab-sample-track';sampleTrack.setAttribute('role','img');
+      const expectedMarker=document.createElement('span');expectedMarker.className='curiosity-lab-sample-expected';
+      const observedMarker=document.createElement('span');observedMarker.className='curiosity-lab-sample-observed';
+      sampleTrack.append(expectedMarker,observedMarker);
+      const sampleLegend=document.createElement('div');sampleLegend.className='curiosity-lab-sample-legend';
+      sampleLegend.textContent=`${L.expected} · ${L.sampleMean}  |  0 — 16.00`;
+      const sampleHistory=document.createElement('div');sampleHistory.className='curiosity-lab-sample-history';sampleHistory.setAttribute('aria-label',L.sampleRecent);
+      const sampleHint=document.createElement('p');sampleHint.className='curiosity-lab-sample-hint';sampleHint.textContent=L.sampleHint;
+      sampleRow.append(sampleTitle,sampleActions,sampleStats,sampleTrack,sampleLegend,sampleHistory,sampleHint);
+      controls.append(prev,play,next,seek,status,speed);host.replaceChildren(plot,controls,biasRow,skewRow,transferRow,sampleRow,note);
       transferInput.addEventListener('input',()=>{stop();transfer=Number(transferInput.value);set(index);});
-      biasInput.addEventListener('input',()=>{stop();bias=Number(biasInput.value);set(index);});
-      skewInput.addEventListener('input',()=>{stop();skew=Number(skewInput.value);set(index);});
+      biasInput.addEventListener('input',()=>{stop();bias=Number(biasInput.value);resetSamples();set(index);});
+      skewInput.addEventListener('input',()=>{stop();skew=Number(skewInput.value);resetSamples();set(index);});
+      function resetSamples(){sampleSeed=314159;sampleCount=0;sampleSum=0;sampleRecent=[];}
+      function drawSamples(count){
+        if(kind!=='icm'||index<3)return;
+        const dist=distribution(skew),prediction=[dist.center[0]+bias,dist.center[1]];
+        for(let n=0;n<count;n++){
+          // Seeded synthetic draws keep this demonstration reproducible.
+          sampleSeed=(Math.imul(1664525,sampleSeed)+1013904223)>>>0;
+          const u=sampleSeed/4294967296;
+          const outcome=u<dist.weights[0]?0:u<dist.weights[0]+dist.weights[1]?1:2;
+          const point=outcomes[outcome];
+          sampleSum+=(point[0]-prediction[0])**2+(point[1]-prediction[1])**2;
+          sampleCount++;
+          sampleRecent.push(outcome+1);
+          if(sampleRecent.length>12)sampleRecent.shift();
+        }
+        renderSamples();
+      }
+      function renderSamples(){
+        if(sampleRow.hidden)return;
+        const dist=distribution(skew),expected=(dist.variance+bias*bias)/1000;
+        const observed=sampleCount?sampleSum/(1000*sampleCount):0;
+        expectedMarker.style.left=`${Math.min(100,100*expected/16).toFixed(2)}%`;
+        observedMarker.hidden=sampleCount===0;
+        if(sampleCount)observedMarker.style.left=`${Math.min(100,100*observed/16).toFixed(2)}%`;
+        sampleTrack.setAttribute('aria-label',`${L.expected}: ${expected.toFixed(3)}; ${L.sampleMean}: ${sampleCount?observed.toFixed(3):L.sampleNone}`);
+        sampleStats.textContent=`${L.sampleCount}: ${sampleCount} · ${L.sampleMean}: ${sampleCount?observed.toFixed(3):'—'} · ${L.expected}: ${expected.toFixed(3)}`;
+        clear.disabled=sampleCount===0;
+        sampleHistory.replaceChildren(...sampleRecent.map(i=>{
+          const el=document.createElement('span');el.className=`curiosity-lab-sample-chip curiosity-lab-sample-chip-${i}`;
+          el.textContent=String(i);return el;
+        }));
+      }
       function sync(){prev.textContent='←';next.textContent='→';play.textContent=timer?'Ⅱ':'▶';play.setAttribute('aria-label',timer?L.pause:L.play);play.disabled=reduced.matches;prev.disabled=index===0;next.disabled=index===last;seek.value=String(index);status.textContent=`${L.step} ${index+1}/${last+1} · ${L[kind][index]}`;}
       function set(n){
         index=Math.min(last,Math.max(0,n));
@@ -191,6 +247,9 @@
           skewReset.disabled=skew===0;
           skewMetrics.textContent=`${L.weights}: ${d.weights.map(p=>(p*100).toFixed(1)+'%').join(' / ')}`;
         }
+        sampleRow.hidden=kind!=='icm'||index<3;
+        if(sampleRow.hidden&&sampleCount)resetSamples();
+        if(!sampleRow.hidden)renderSamples();
         transferRow.hidden=kind!=='rnd'||index<4;
         if(!transferRow.hidden){
           transferValue.textContent=`${transfer}%`;
