@@ -38,3 +38,4 @@
 .curiosity-lab-sample-chip{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:5px;color:white;font-size:.68rem;font-weight:700}
 .curiosity-lab-sample-chip-1{background:#267f9f}.curiosity-lab-sample-chip-2{background:#319d91}.curiosity-lab-sample-chip-3{background:#8672b4}
 .curiosity-lab-sample-hint{font-size:.7rem;line-height:1.5;margin:.25rem 0 0;color:var(--md-default-fg-color--light,#536b80)}
+.curiosity-lab-sample-chip-2,.curiosity-lab-sample-chip-3{color:#172c3a}
