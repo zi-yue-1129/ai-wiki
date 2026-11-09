@@ -902,6 +902,10 @@ def check_icm_weighted_probability_sweep(browser) -> None:
                 forecast: [point('icm-weighted-forecast').cx.animVal.value,
                            point('icm-weighted-forecast').cy.animVal.value],
                 variance: point('icm-weighted-variance').width.animVal.value,
+                contributions: [1,2,3].map(i => ({
+                  x: point('icm-variance-term-'+i).x.animVal.value,
+                  width: point('icm-variance-term-'+i).width.animVal.value
+                })),
                 overflow: document.documentElement.scrollWidth > innerWidth + 1
               };
             }""", t)
@@ -914,6 +918,20 @@ def check_icm_weighted_probability_sweep(browser) -> None:
                     data[key])) < .2, (width, t, key, data)
             assert abs(data["variance"] - 326 * variance / 4000) < .2, (
                 width, t, variance, data)
+            # The three color-coded terms must remain contiguous and add to the
+            # moving irreducible risk. Each term is p_i * ||Y_i - mean||².
+            component_widths = []
+            for i, ((x, y), p) in enumerate(zip(points, probabilities)):
+                expected_term = 326 * p * ((x - mean_x) ** 2 + (y - mean_y) ** 2) / 4000
+                part = data["contributions"][i]
+                assert abs(part["width"] - expected_term) < .2, (width, t, i, part)
+                assert abs(part["x"] - (37 + sum(component_widths))) < .2, (
+                    width, t, i, "noncontiguous weighted terms", part
+                )
+                component_widths.append(part["width"])
+            assert abs(sum(component_widths) - data["variance"]) < .2, (
+                width, t, "component total differs from variance floor", data
+            )
             assert not data["overflow"], (width, t, "horizontal overflow")
             if idx in (0, 2, 4, 6, 8):
                 (REVIEW / (name + "_" + str(width) + "_" + str(idx) + ".png")).write_bytes(
