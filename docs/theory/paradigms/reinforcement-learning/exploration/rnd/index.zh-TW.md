@@ -2,7 +2,6 @@
 status: complete
 last_reviewed: 2026-10-28
 translation_reviewed: 2026-11-10
-translation_reviewed: 2026-11-10
 ---
 
 # 隨機網路蒸餾（Burda 等人，2018）
@@ -66,6 +65,14 @@ RND 的特徵預測誤差，在不同環境及訓練階段可能具有不同尺�
 <img src="../../../../../assets/concept-animations/rnd-return-scale-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-return-scale-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-return-scale-still.svg" width="380" loading="lazy" alt="同一個人工示意原始誤差為四，分別以一、二、四三種假設性回報標準差縮放，得到四、二、一的內在獎勵。" />
 
 *原創九秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 橘色原始誤差固定為 **4**，三組**不同的假設性回報歷史**分別提供標準差 **1、2、4**，綠色獎勵因此為 **4、2、1**。這是**反事實尺度比較，並非 RND 實測或連續三次訓練更新**，也不代表滾動變異數的估計過程。MkDocs 可透過鍵盤操作播放／暫停；[GitHub／無指令碼靜態圖](../../../../../assets/concept-animations/rnd-return-scale-still.svg)同時呈現三組。參考 [Burda 等人（2018）第 2.4 節](https://arxiv.org/abs/1810.12894)。
+
+### RND 固定目標與 ICM 表徵漂移
+
+即使**原始觀測完全相同**，兩種探索方法的特徵目標也不一定同樣穩定。RND 的隨機初始化目標網路不參與訓練，因此 $f(s)$ 保持固定；ICM 的前向目標 $\phi(s_{t+1})$ 則由**共同學習的編碼器**提供。編碼器更新可能讓同一個原始下一觀測對應到不同的特徵目標。這種誤差變化**本身不代表又探索到新狀態**。實際 ICM 訓練中，前向模型的編碼輸入和預測器也可能一起改變。
+
+<img src="../../../../../assets/concept-animations/rnd-icm-target-drift-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-icm-target-drift-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-icm-target-drift-still.svg" width="360" loading="lazy" alt="對同一輸入，RND 的固定目標特徵保持不動；ICM 的下一狀態特徵目標可能在編碼器更新後移動；接著預測器分別靠近各自目標，讓特徵差距縮小。" />
+
+*原創 12 秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* **Encoder** 階段特意固定兩個預測輸出，只呈現 ICM 目標可能漂移的**假想反事實狀況**；**Predictor** 階段再更新兩個預測。這些拆開的示範步驟**不是 ICM 真正的聯合最佳化順序**。座標與差距純為教學示意，**不是模型實測、造訪次數或獎勵數值**。MkDocs 支援鍵盤操作播放／暫停；[GitHub／停用指令碼三狀態回退圖](../../../../../assets/concept-animations/rnd-icm-target-drift-still.svg)。依據：[Burda 等人（2018）](https://arxiv.org/abs/1810.12894)、[Pathak 等人（2017）](https://proceedings.mlr.press/v70/pathak17a.html)。
 
 ## 教學動畫
 

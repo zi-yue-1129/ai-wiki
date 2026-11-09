@@ -87,3 +87,79 @@ def run():
 
 if __name__ == "__main__":
     run()
+
+
+
+def check_target_drift():
+    """Check isolated updates, responsive snapshots, and shared player controls."""
+    from xml.etree import ElementTree as ET
+    name = "rnd-icm-target-drift"
+    motion = (ASSETS / (name + "-motion.svg")).read_text(encoding="utf-8")
+    still = (ASSETS / (name + "-still.svg")).read_text(encoding="utf-8")
+    for body in (motion, still):
+        root = ET.fromstring(body)
+        assert root.attrib["role"] == "img"
+        assert root.attrib["viewBox"].startswith("0 0 360 ")
+        assert "<script" not in body and "href=" not in body and "onload=" not in body
+        assert "https://" not in body and "http://" not in body.replace("http://www.w3.org/2000/svg", "")
+    assert len(ET.fromstring(motion).findall(".//{*}animate")) >= 8
+    assert len(ET.fromstring(still).findall(".//{*}animate")) == 0
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True,
+            executable_path="/usr/bin/chromium" if Path("/usr/bin/chromium").exists() else None,
+            args=["--no-sandbox"])
+        for width in (320, 360, 720, 1024):
+            page = browser.new_page(viewport={"width": width, "height": 1050})
+            page.set_content('<main style="max-width:360px">' + motion + "</main>")
+            def coords(t):
+                return page.evaluate("""t => {const s=document.querySelector('svg');
+                    s.setCurrentTime(t);s.pauseAnimations();
+                    const a=s.querySelectorAll('g.live circle.target');
+                    const b=s.querySelectorAll('g.live rect.predict');
+                    return [a[0].cx.animVal.value,a[1].cx.animVal.value,
+                            b[0].x.animVal.value,b[1].x.animVal.value];}""", t)
+            initial, drifted, fitted = coords(1), coords(5.8), coords(10.5)
+            assert initial[0] == drifted[0] == fitted[0]  # frozen RND target
+            assert drifted[1] > initial[1] + 40  # movable ICM target
+            assert initial[2:] == drifted[2:]  # no predictor update yet
+            assert fitted[2] > drifted[2] + 90 and fitted[3] > drifted[3] + 130
+            for t in (1, 4, 6.2, 9.4, 11):
+                coords(t)
+                page.locator('svg').screenshot(path=str(REVIEW / f"{name}-{width}-{str(t).replace('.', '_')}.png"))
+            assert not page.evaluate("document.documentElement.scrollWidth > innerWidth + 1")
+            page.close()
+            page = browser.new_page(viewport={"width": width, "height": 1050}, reduced_motion="reduce")
+            page.set_content("<main>" + motion + "</main>")
+            assert page.locator("g.live").evaluate("e=>getComputedStyle(e).display") == "none"
+            assert page.locator("g.reduced-frame").evaluate("e=>getComputedStyle(e).display") != "none"
+            page.locator("svg").screenshot(path=str(REVIEW / f"{name}-{width}-reduced.png"))
+            page.close()
+            page = browser.new_page(viewport={"width": width, "height": 1050})
+            page.set_content("<main>" + still + "</main>")
+            page.locator("svg").screenshot(path=str(REVIEW / f"{name}-{width}-still.png"))
+            page.close()
+        player = (DOCS / "javascripts/concept-motion.js").read_text(encoding="utf-8")
+        uri = "http://127.0.0.1:9/docs/assets/concept-animations/" + name
+        for reduced in (False, True):
+            page = browser.new_page(viewport={"width": 320, "height": 900},
+                reduced_motion="reduce" if reduced else "no-preference")
+            page.set_content(f'<img alt="Target comparison" src="{uri}-still.svg" '
+                f'data-motion-src="{uri}-motion.svg" data-still-src="{uri}-still.svg">')
+            page.add_script_tag(content=player)
+            im = page.locator("img")
+            if reduced:
+                assert im.get_attribute("src").endswith("-still.svg")
+            else:
+                assert im.get_attribute("src").endswith("-motion.svg")
+                page.get_by_role("button", name="Pause concept animation").click()
+                assert im.get_attribute("src").endswith("-still.svg")
+            page.get_by_role("button", name="Play concept animation").focus()
+            page.keyboard.press("Enter")
+            assert im.get_attribute("src").endswith("-motion.svg")
+            page.close()
+        browser.close()
+    print("PASS: target drift, 4 widths, 5 phases, reduced motion, static fallback, keyboard player")
+
+
+if __name__ == "__main__":
+    check_target_drift()

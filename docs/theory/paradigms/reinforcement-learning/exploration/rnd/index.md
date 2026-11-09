@@ -68,6 +68,14 @@ RND's feature-prediction error can have very different scales across environment
 
 *Original nine-second SVG/SMIL illustration (CC BY-SA 4.0).* The orange raw error remains **4** while **three hypothetical, alternative return histories** supply standard deviations **1, 2 and 4**. The green scaled bonus changes to **4, 2 and 1**. These numbers are **counterfactual inputs, not measured RND statistics or a sequence of training updates**. The graphic isolates the scaling operation, not the variance estimator. On MkDocs use the keyboard-accessible Play/Pause control; the [GitHub/no-script preview](../../../../../assets/concept-animations/rnd-return-scale-still.svg) shows all cases. See [Burda et al. (2018), Section 2.4](https://arxiv.org/abs/1810.12894).
 
+### Frozen RND targets versus moving ICM features
+
+For an **unchanged raw observation**, the RND target $f(s)$ remains fixed because the randomly initialised target network is never trained. ICM instead uses a jointly learned encoder $\phi$ to form the forward target $\phi(s_{t+1})$. Updating this encoder can shift that target **even when the raw observation has not changed**. The resulting prediction-error change is not, by itself, evidence of additional exploration. In full ICM training, the encoded forward input and predictor may change as well.
+
+<img src="../../../../../assets/concept-animations/rnd-icm-target-drift-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-icm-target-drift-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-icm-target-drift-still.svg" width="360" loading="lazy" alt="The same input enters RND and ICM. RND's frozen feature target stays fixed, while ICM's next-feature target shifts after a hypothetical encoder update. Subsequent predictor updates reduce both feature gaps." />
+
+*Original 12-second SVG/SMIL instructional comparison (CC BY-SA 4.0).* The **Encoder** phase holds the two predictions fixed to isolate a *hypothetical* ICM encoder update; the **Predictor** phase then adjusts both predictions. These deliberately isolated counterfactual phases **do not describe ICM's actual simultaneous optimization schedule**. All feature coordinates and gap lengths are schematic, **not model measurements, visitation counts, or rewards**. MkDocs supports keyboard-operated Play/Pause; [GitHub/no-script three-state preview](../../../../../assets/concept-animations/rnd-icm-target-drift-still.svg). Sources: [Burda et al. (2018)](https://arxiv.org/abs/1810.12894) and [Pathak et al. (2017)](https://proceedings.mlr.press/v70/pathak17a.html).
+
 ## Instructional animation
 
 ![RND process: the same observation enters a frozen random target and a trainable predictor; their feature distance and the intrinsic bonus shrink as the predictor is fitted on a visited state](../../../../../assets/concept-animations/rnd-prediction-error-motion.svg)

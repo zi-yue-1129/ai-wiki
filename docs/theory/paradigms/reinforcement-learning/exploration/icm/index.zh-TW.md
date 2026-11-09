@@ -73,6 +73,14 @@ Pathak 等人以 $(1-\beta)$ 加權逆動態損失 $L_I$，以 $\beta$ 加權前
 
 *原創九秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 紫色與橘色箭頭是**加權梯度分量**，綠色箭頭是其**向量和**。三種 $\beta$ 選擇套用在**同一組固定的假設性梯度**，並不是連續的最佳化步驟。所有方向、長度**均為人工示意，並非模型量測**。本圖只呈現兩個輔助損失，省略完整目標中由 $\lambda$ 加權的策略項；也不代表好奇心獎勵會直接對策略反向傳播。MkDocs 可鍵盤播放／暫停，亦有 [GitHub／停用指令碼三情境回退圖](../../../../../assets/concept-animations/icm-loss-blend-still.svg)。參考 [Pathak 等人（2017）式（7）](https://proceedings.mlr.press/v70/pathak17a.html)。
 
+### 學到的前向特徵目標未必固定
+
+RND 的隨機目標 $f(s)$ 保持固定，但 ICM 的前向模型要預測的是**持續學習中的表徵** $\phi(s_{t+1})$。編碼器透過輔助損失更新，所以**同一個原始下一觀測**在不同更新步驟後，可能具有不同的特徵目標。前向預測誤差改變，不一定表示環境出現新的轉移。在實際 ICM 聯合訓練中，當前狀態的編碼特徵 $\phi(s_t)$ 與預測器也會改變；圖中刻意只隔離目標漂移這項因素。
+
+<img src="../../../../../assets/concept-animations/rnd-icm-target-drift-still.svg" data-motion-src="../../../../../assets/concept-animations/rnd-icm-target-drift-motion.svg" data-still-src="../../../../../assets/concept-animations/rnd-icm-target-drift-still.svg" width="360" loading="lazy" alt="比較固定的 RND 隨機目標與可學習的 ICM 下一狀態特徵目標：同一輸入下 ICM 目標可能先移動，隨後兩種預測器再分別擬合各自目標。" />
+
+*原創 12 秒 SVG／SMIL 對照動畫（CC BY-SA 4.0）。* **Encoder** 階段是受控的反事實示範：只讓 ICM 特徵目標移動，兩個預測仍保持固定；**Predictor** 階段才調整兩個預測。這**不是 ICM 真實聯合訓練的更新順序，也不是實測曲線**。全部座標都是人工設定，差距不等於量測獎勵，也不保證單調收斂。MkDocs 提供鍵盤可操作的播放／暫停；[GitHub／停用指令碼三狀態回退圖](../../../../../assets/concept-animations/rnd-icm-target-drift-still.svg)。依據：[Pathak 等人（2017）](https://proceedings.mlr.press/v70/pathak17a.html)、[Burda 等人（2018）](https://arxiv.org/abs/1810.12894)。
+
 ## 教學動畫
 
 ![ICM 流程：前向與逆動態模型接收各自的特徵輸入；比較預測與實際特徵後，更新訊號回傳前向模型，再示意訓練後誤差下降](../../../../../assets/concept-animations/icm-forward-inverse-motion.svg)
