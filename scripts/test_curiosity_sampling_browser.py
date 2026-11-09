@@ -10,12 +10,62 @@ JS = (ROOT / 'docs/javascripts/curiosity-labs.js').read_text()
 CSS = (ROOT / 'docs/stylesheets/curiosity-labs.css').read_text()
 PREVIEW = ROOT / 'docs/assets/concept-animations/icm-sample-mean-still.svg'
 RUNS_PREVIEW = ROOT / 'docs/assets/concept-animations/icm-independent-runs-still.svg'
+MOTION_PREVIEW = ROOT / 'docs/assets/concept-animations/icm-sampling-frequency-motion.svg'
+MOTION_STILL = ROOT / 'docs/assets/concept-animations/icm-sampling-frequency-still.svg'
 OUT = ROOT / 'artifacts/rnd-icm-motion'
 OUT.mkdir(parents=True, exist_ok=True)
 
 
 def set_range(el, value):
     el.evaluate('(e,v)=>{e.value=String(v);e.dispatchEvent(new Event("input",{bubbles:true}));}', value)
+
+
+def verify_frequency_motion(browser):
+    """Validate synthetic 20-draw motion and its GitHub-safe no-script fallback."""
+    svg_ns = '{http://www.w3.org/2000/svg}'
+    root = ET.parse(MOTION_PREVIEW).getroot()
+    still = ET.parse(MOTION_STILL).getroot()
+    assert root.attrib['viewBox'] == still.attrib['viewBox'] == '0 0 420 438'
+    assert 0 < MOTION_PREVIEW.stat().st_size < 50 * 1024
+    assert 0 < MOTION_STILL.stat().st_size < 50 * 1024
+    for diagram in (root, still):
+        assert diagram.find(svg_ns + 'title') is not None
+        assert diagram.find(svg_ns + 'desc') is not None
+        assert not any(node.tag in {svg_ns+'script', svg_ns+'foreignObject', svg_ns+'image'} for node in diagram.iter())
+    animations = list(root.iter(svg_ns + 'animate'))
+    assert len(animations) > 40
+    assert all(node.attrib.get('repeatCount') == 'indefinite' for node in animations)
+    assert all(len(node.attrib['keyTimes'].split(';')) == len(node.attrib['values'].split(';')) for node in animations)
+    assert not list(still.iter(svg_ns + 'animate'))
+    assert len(list(still.iter(svg_ns + 'polyline'))) == 1
+    assert len(list(root.iter(svg_ns + 'polyline'))) == 1
+    source = MOTION_PREVIEW.read_text(encoding='utf-8')
+    for width in (320, 360, 720, 1024):
+        context = browser.new_context(
+            viewport={'width': width, 'height': 850},
+            reduced_motion='reduce' if width == 360 else 'no-preference',
+        )
+        page = context.new_page()
+        page.set_content(
+            '<html><head><meta name="viewport" content="width=device-width,initial-scale=1">'
+            '<style>body{margin:0}svg{display:block;max-width:420px;width:100%;height:auto}</style>'
+            '</head><body>' + source + '</body></html>'
+        )
+        assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+        page.evaluate('(t)=>{const svg=document.querySelector("svg");svg.pauseAnimations();svg.setCurrentTime(t)}', 12.6)
+        if width != 360:
+            active = page.locator('g.motion rect[fill="#267f9f"]')
+            assert active.count() == 1
+            assert abs(active.evaluate('e=>e.getBBox().width') - 30) < 0.1  # 2/20
+            assert abs(page.locator('g.motion rect[fill="#319d91"]').evaluate('e=>e.getBBox().width') - 120) < 0.1  # 8/20
+            assert abs(page.locator('g.motion rect[fill="#8672b4"]').evaluate('e=>e.getBBox().width') - 150) < 0.1  # 10/20
+            assert page.locator('g.motion').first.evaluate('e=>getComputedStyle(e).display') != 'none'
+        else:
+            assert page.locator('g.still').first.evaluate('e=>getComputedStyle(e).display') != 'none'
+            assert page.locator('g.motion').first.evaluate('e=>getComputedStyle(e).display') == 'none'
+        assert page.locator('svg').get_attribute('aria-labelledby') == 'title desc'
+        (OUT / f'icm_frequency_motion_{width}.png').write_bytes(page.locator('svg').screenshot())
+        context.close()
 
 
 def run():
@@ -36,6 +86,7 @@ def run():
         assert abs(float(points[-1].split(',')[1]) - target_y) < .02
     with sync_playwright() as p:
         browser = p.chromium.launch()
+        verify_frequency_motion(browser)
         for width in (320, 360, 720, 1024):
             for locale in ('en', 'zh-TW'):
                 context = browser.new_context(
