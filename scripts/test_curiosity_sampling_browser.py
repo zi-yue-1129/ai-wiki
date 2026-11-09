@@ -68,10 +68,19 @@ def run():
                 assert gap_rows.count() == 3
                 contributions = [float(gap_rows.nth(i).get_attribute('data-gap-term')) for i in range(3)]
                 toy_losses = [3.866, 1.936, 3.250]
+                expected_loss = sum(toy_losses) / 3
                 for i, contribution in enumerate(contributions):
-                    expected_term = (sample_counts[i] / 21 - 1 / 3) * toy_losses[i]
+                    frequency_gap = sample_counts[i] / 21 - 1 / 3
+                    centered_loss = toy_losses[i] - expected_loss
+                    expected_term = frequency_gap * centered_loss
                     assert abs(contribution - expected_term) < 1e-10
+                    assert abs(float(gap_rows.nth(i).get_attribute('data-centered-loss')) - centered_loss) < 1e-10
                     assert gap_rows.nth(i).get_attribute('aria-label')
+                    # Adding a constant baseline to every loss cannot change
+                    # a centered outcome attribution, unlike raw-loss bars.
+                    shifted_losses = [value + 7.5 for value in toy_losses]
+                    shifted_center = sum(shifted_losses) / 3
+                    assert abs(frequency_gap * (shifted_losses[i] - shifted_center) - contribution) < 1e-10
                 gap_total = float(page.locator('[data-gap-total]').get_attribute('data-gap-total'))
                 assert abs(sum(contributions) - gap_total) < 1e-10
                 assert gap_rows.nth(0).locator('.curiosity-lab-gap-fill').count() == 1
