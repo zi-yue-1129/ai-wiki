@@ -165,7 +165,31 @@ def main() -> int:
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif animated_path.resolve() not in linked_images:
-                errors.append(f"{page}: missing or incorrect animated SVG link")
+                # Paired HTML is intentional for GitHub: <img src> is a
+                # readable still, while data-motion-src enables playback on
+                # MkDocs. Accept it only when *both* resolved paths match.
+                paired = False
+                if stem in {
+                    "rnd-prediction-error", "rnd-state-novelty",
+                    "icm-forward-inverse", "icm-predictable-stochastic"
+                }:
+                    for tag in re.findall(r"<img\\b[^>]*>", text):
+                        attrs = dict(re.findall(
+                            r'(?:^|\\s)(src|data-motion-src|data-still-src)="([^"]+)"',
+                            tag,
+                        ))
+                        if all(name in attrs for name in (
+                            "src", "data-motion-src", "data-still-src"
+                        )):
+                            paired = (
+                                (page.parent / attrs["src"]).resolve() == static_path.resolve()
+                                and (page.parent / attrs["data-still-src"]).resolve() == static_path.resolve()
+                                and (page.parent / attrs["data-motion-src"]).resolve() == animated_path.resolve()
+                            )
+                            if paired:
+                                break
+                if not paired:
+                    errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "rnd-prediction-error", "rnd-state-novelty", "icm-forward-inverse", "icm-predictable-stochastic", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
