@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="t d">
+<title id="t">Sampling gap from categorical frequency imbalance</title>
+<desc id="d">Twenty illustrative draws have empirical frequencies 10, 40 and 50 percent versus one third each. Signed contributions to sample mean minus expected loss are minus 0.902, plus 0.129 and plus 0.542. They sum to minus 0.231 in illustrative units. Zero is the dark vertical center line.</desc>
+<rect x="1" y="1" width="418" height="258" rx="15" fill="#f7fafc" stroke="#c6d6e2"/>
+<text x="20" y="33" font-size="20" font-family="Arial,sans-serif" font-weight="700" fill="#223e53">Sampling gap</text>
+<rect x="336" y="13" width="65" height="29" rx="8" fill="#e4edf7"/><text x="369" y="32" text-anchor="middle" font-size="14" font-family="Arial,sans-serif" fill="#314e68">n = 20</text>
+<text x="20" y="57" font-size="13" font-family="Arial,sans-serif" fill="#566e80">(Observed − assumed) × loss</text>
+<path d="M20 68H400" stroke="#d6e3ec"/>
+<rect x="80" y="83" width="263" height="19" rx="4" fill="#e8eef3"/>
+<rect x="80" y="128" width="263" height="19" rx="4" fill="#e8eef3"/>
+<rect x="80" y="173" width="263" height="19" rx="4" fill="#e8eef3"/>
+<path d="M212 77V198" stroke="#263d51" stroke-width="2"/>
+<text x="23" y="99" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#267f9f">1</text>
+<text x="23" y="144" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#319d91">2</text>
+<text x="23" y="189" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#8672b4">3</text>
+<rect x="102" y="85" width="110" height="15" rx="3" fill="#267f9f"/>
+<rect x="212" y="130" width="16" height="15" rx="3" fill="#319d91"/>
+<rect x="212" y="175" width="66" height="15" rx="3" fill="#8672b4"/>
+<text x="352" y="99" font-size="14" font-family="Arial,sans-serif" fill="#304b60">−0.902</text>
+<text x="352" y="144" font-size="14" font-family="Arial,sans-serif" fill="#304b60">+0.129</text>
+<text x="352" y="189" font-size="14" font-family="Arial,sans-serif" fill="#304b60">+0.542</text>
+<path d="M20 208H400" stroke="#d6e3ec"/>
+<text x="20" y="230" font-size="15" font-family="Arial,sans-serif" font-weight="700" fill="#263e52">Mean − expected</text>
+<text x="399" y="230" text-anchor="end" font-size="18" font-family="Arial,sans-serif" font-weight="700" fill="#ac613b">−0.231</text>
+<text x="20" y="250" font-size="11" font-family="Arial,sans-serif" fill="#5e7383">Illustrative draws · not model data</text>
+</svg>

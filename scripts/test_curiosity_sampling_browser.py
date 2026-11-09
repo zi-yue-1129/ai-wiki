@@ -64,6 +64,17 @@ def run():
                 # the frequency bars must match all 21 draws, not the 12 chips.
                 sample_counts = [round(21 * v) for v in shares]
                 assert sum(sample_counts) == 21
+                gap_rows = page.locator('[data-gap-outcome]')
+                assert gap_rows.count() == 3
+                contributions = [float(gap_rows.nth(i).get_attribute('data-gap-term')) for i in range(3)]
+                toy_losses = [3.866, 1.936, 3.250]
+                for i, contribution in enumerate(contributions):
+                    expected_term = (sample_counts[i] / 21 - 1 / 3) * toy_losses[i]
+                    assert abs(contribution - expected_term) < 1e-10
+                    assert gap_rows.nth(i).get_attribute('aria-label')
+                gap_total = float(page.locator('[data-gap-total]').get_attribute('data-gap-total'))
+                assert abs(sum(contributions) - gap_total) < 1e-10
+                assert gap_rows.nth(0).locator('.curiosity-lab-gap-fill').count() == 1
                 assert all(abs(float(frequency.nth(i).locator('.curiosity-lab-frequency-target').get_attribute('data-probability')) - 1/3) < 1e-10 for i in range(3))
                 assert all(frequency.nth(i).get_attribute('aria-label') for i in range(3))
                 trace = page.locator('[data-sample-means]')

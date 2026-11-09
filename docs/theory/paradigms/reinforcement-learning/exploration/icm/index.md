@@ -99,6 +99,18 @@ $
 
 The difference between the two means comes from how the empirical frequencies differ from the assumed distribution, not from an ICM training update. In the seeded **20-draw** equal-weight example, the frequencies are **2/20, 8/20, 10/20** (10%, 40%, 50%), while the assumed probabilities remain **1/3 each**; the sample mean is **2.786** versus the analytic **3.017**. More draws do not guarantee that each empirical bar approaches its marker monotonically. Both slider changes and Reset samples clear the counts. The numbers are hypothetical, not environment observations or model measurements.
 
+**Why is the sampled mean different? Signed frequency contributions (MkDocs).** A new zero-centred, three-colour chart decomposes the *sampling gap* rather than the loss itself:
+
+\[
+\bar L_n-L=\sum_{i=1}^{3}\left(\frac{N_i}{n}-p_i\right)\ell_i.
+\]
+
+Bars extending left are negative contributions and bars extending right are positive; the outcome colours match the frequency chart. The three signed terms add to **running mean − analytic expectation**, not to either mean separately. With the illustrative seeded 20 draws, the terms are **−0.902, +0.129, +0.542**, totalling **−0.231** (display rounding). Because both the categorical probabilities and per-outcome losses remain fixed during a sequence of draws, the signed-bar scale remains fixed as samples accumulate. Resetting or changing either slider clears these terms along with the samples. This is a **finite-sample accounting identity**, not an estimator of ICM parameters, an intrinsic-reward training curve or an additional model loss.
+
+![ICM signed contributions of three sampled outcomes to the difference between the sample mean and analytic expected error](../../../../../assets/concept-animations/icm-sampling-gap-still.svg)
+
+*Original GitHub/no-script fallback (CC BY-SA 4.0).* The bars show the **20-draw hypothetical example**; the central line is zero and the numbers are schematic loss units, **not model measurements**. The live MkDocs chart updates after every draw and includes keyboard-operable sampling controls, screen-reader labels and reduced-motion support.
+
 ![ICM illustration comparing twenty sampled outcome frequencies with three assumed equal probabilities; vertical marks denote the assumed shares](../../../../../assets/concept-animations/icm-outcome-frequency-still.svg)
 
 *Original static GitHub/no-script fallback (CC BY-SA 4.0).* This snapshot illustrates the frequency comparison after 20 seeded hypothetical draws. The fully interactive version, including frequency updates and a bilingual accessible label for each outcome, is available on MkDocs; the static file does not simulate sampling.
