@@ -10,6 +10,7 @@ JS = (ROOT / 'docs/javascripts/curiosity-labs.js').read_text()
 CSS = (ROOT / 'docs/stylesheets/curiosity-labs.css').read_text()
 PREVIEW = ROOT / 'docs/assets/concept-animations/icm-sample-mean-still.svg'
 RUNS_PREVIEW = ROOT / 'docs/assets/concept-animations/icm-independent-runs-still.svg'
+RUNS_MOTION = ROOT / 'docs/assets/concept-animations/icm-independent-runs-motion.svg'
 MOTION_PREVIEW = ROOT / 'docs/assets/concept-animations/icm-sampling-frequency-motion.svg'
 MOTION_STILL = ROOT / 'docs/assets/concept-animations/icm-sampling-frequency-still.svg'
 OUT = ROOT / 'artifacts/rnd-icm-motion'
@@ -103,6 +104,72 @@ def verify_frequency_motion(browser):
         context.close()
 
 
+
+def verify_independent_runs_motion(browser):
+    """Two seeded runs must reveal one draw at a time and pause to the still fallback."""
+    ns = '{http://www.w3.org/2000/svg}'
+    root = ET.parse(RUNS_MOTION).getroot()
+    assert root.attrib['viewBox'] == '0 0 420 294'
+    assert RUNS_MOTION.stat().st_size < 12 * 1024
+    animations = list(root.iter(ns + 'animate'))
+    assert len(animations) == 7
+    assert all(a.attrib.get('repeatCount') == 'indefinite' for a in animations)
+    assert all(len(a.attrib['values'].split(';')) == len(a.attrib['keyTimes'].split(';')) == 22 for a in animations)
+    assert not any(e.tag in (ns+'script', ns+'foreignObject', ns+'image') for e in root.iter())
+    assert len(list(root.iter(ns + 'polyline'))) == 4  # two still, two animated traces
+    source = RUNS_MOTION.read_text(encoding='utf-8')
+    js = (ROOT / 'docs/javascripts/concept-motion.js').read_text(encoding='utf-8')
+    for width in (320, 360, 720, 1024):
+        for reduced in (False, True):
+            context = browser.new_context(
+                viewport={'width': width, 'height': 500},
+                reduced_motion='reduce' if reduced else 'no-preference',
+            )
+            page = context.new_page()
+            page.set_content(
+                '<html><head><meta name="viewport" content="width=device-width,initial-scale=1">'
+                '<style>html,body{margin:0}svg{display:block;max-width:420px;width:100%;height:auto}</style>'
+                '</head><body>' + source + '</body></html>'
+            )
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+            if reduced:
+                assert page.locator('g.still').first.evaluate('e=>getComputedStyle(e).display') != 'none'
+                assert page.locator('g.motion').first.evaluate('e=>getComputedStyle(e).display') == 'none'
+            else:
+                assert page.locator('g.motion').first.evaluate('e=>getComputedStyle(e).display') != 'none'
+                for n in (0, 1, 5, 10, 20):
+                    page.locator('svg').evaluate(
+                        '(el,t)=>{el.pauseAnimations();el.setCurrentTime(t)}', n * .6 + .04)
+                    actual = page.locator('#run-trace-window rect').evaluate('e=>e.width.animVal.value')
+                    expected = 0 if n == 0 else 2 + (n - 1) * 338 / 19
+                    assert abs(actual - expected) < .1, (width, n, actual, expected)
+                dots = page.locator('g.motion circle')
+                assert dots.count() == 2
+                assert all(abs(float(dots.nth(i).evaluate('e=>e.cx.animVal.value')) - 389) < .1 for i in range(2))
+            (OUT / f'icm_independent_motion_{width}_{"reduced" if reduced else "end"}.png').write_bytes(
+                page.locator('svg').screenshot())
+            context.close()
+    # In MkDocs the image starts as GitHub-safe still and is upgraded by the shared player.
+    context = browser.new_context(viewport={'width': 720, 'height': 500})
+    page = context.new_page()
+    page.set_content(
+        '<html><body><img src="/assets/concept-animations/icm-independent-runs-still.svg" '
+        'data-motion-src="/assets/concept-animations/icm-independent-runs-motion.svg" '
+        'data-still-src="/assets/concept-animations/icm-independent-runs-still.svg" '
+        'alt="Two seeded independent Monte Carlo runs"></body></html>'
+    )
+    page.add_script_tag(content=js)
+    assert page.locator('.concept-motion-player').count() == 1
+    image = page.locator('.concept-motion-player img')
+    assert image.get_attribute('src').endswith('icm-independent-runs-motion.svg')
+    toggle = page.locator('.concept-motion-toggle')
+    toggle.focus()
+    page.keyboard.press('Enter')
+    assert image.get_attribute('src').endswith('icm-independent-runs-still.svg')
+    page.keyboard.press('Enter')
+    assert image.get_attribute('src').endswith('icm-independent-runs-motion.svg')
+    context.close()
+
 def run():
     root = ET.parse(PREVIEW).getroot()
     assert root.tag == '{http://www.w3.org/2000/svg}svg'
@@ -122,6 +189,7 @@ def run():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         verify_frequency_motion(browser)
+        verify_independent_runs_motion(browser)
         for width in (320, 360, 720, 1024):
             for locale in ('en', 'zh-TW'):
                 context = browser.new_context(
