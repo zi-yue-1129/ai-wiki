@@ -30,6 +30,10 @@ TOPICS = {
     "disaggregated-handoff": "engineering/inference-optimization/disaggregated-serving",
     "streaming-kv-eviction": "engineering/inference-optimization/kv-cache-compression",
     "mcts-search-cycle": "theory/paradigms/reinforcement-learning/mcts-and-self-play/index",
+    "rnd-prediction-error": "theory/paradigms/reinforcement-learning/exploration/rnd/index",
+    "rnd-state-novelty": "theory/paradigms/reinforcement-learning/exploration/rnd/index",
+    "icm-forward-inverse": "theory/paradigms/reinforcement-learning/exploration/icm/index",
+    "icm-predictable-stochastic": "theory/paradigms/reinforcement-learning/exploration/icm/index",
     "dqn-target-sync": "theory/paradigms/reinforcement-learning/deep-q-networks/index",
     "adamw-decoupled-paths": "theory/optimization/adaptive/adamw",
     "td3-delayed-twin-critics": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/td3/index",
@@ -84,7 +88,14 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    if root.tag != NS + "svg" or root.get("viewBox") != "0 0 640 360":
+    expected_viewbox = (
+        "0 0 380 660" if path.name.startswith("rnd-state-novelty-mobile-")
+        else "0 0 380 770" if path.name.startswith("icm-predictable-stochastic-mobile-")
+        else "0 0 760 390" if path.name.startswith("icm-predictable-stochastic-")
+        else "0 0 680 370" if path.name.startswith(("rnd-prediction-error-", "rnd-state-novelty-", "icm-forward-inverse-"))
+        else "0 0 640 360"
+    )
+    if root.tag != NS + "svg" or root.get("viewBox") != expected_viewbox:
         errors.append(f"{path}: invalid SVG root/viewBox")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
@@ -124,6 +135,15 @@ def main() -> int:
         errors.extend(verify_svg(static_path, False))
         if stem == "moe-top2-routing":
             errors.extend(verify_svg(ASSETS / "moe-top2-routing-token-b.svg", False))
+        if stem == "rnd-state-novelty":
+            # A mobile-first stacked diagram; require both motion and fallback.
+            errors.extend(verify_svg(ASSETS / f"{stem}-mobile-motion.svg", True))
+            errors.extend(verify_svg(ASSETS / f"{stem}-mobile-still.svg", False))
+        if stem == "icm-predictable-stochastic":
+            # The MkDocs player selects this legible stacked layout on narrow
+            # screens. Both variants must be valid, self-contained and accessible.
+            errors.extend(verify_svg(ASSETS / f"{stem}-mobile-motion.svg", True))
+            errors.extend(verify_svg(ASSETS / f"{stem}-mobile-still.svg", False))
         for suffix in (".md", ".zh-TW.md"):
             page = DOCS / (page_stem + suffix)
             if not page.is_file():
@@ -145,8 +165,32 @@ def main() -> int:
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif animated_path.resolve() not in linked_images:
-                errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
+                # Paired HTML is intentional for GitHub: <img src> is a
+                # readable still, while data-motion-src enables playback on
+                # MkDocs. Accept it only when *both* resolved paths match.
+                paired = False
+                if stem in {
+                    "rnd-prediction-error", "rnd-state-novelty",
+                    "icm-forward-inverse", "icm-predictable-stochastic"
+                }:
+                    for tag in re.findall(r"<img\b[^>]*>", text):
+                        attrs = dict(re.findall(
+                            r'(?:^|\s)(src|data-motion-src|data-still-src)="([^"]+)"',
+                            tag,
+                        ))
+                        if all(name in attrs for name in (
+                            "src", "data-motion-src", "data-still-src"
+                        )):
+                            paired = (
+                                (page.parent / attrs["src"]).resolve() == static_path.resolve()
+                                and (page.parent / attrs["data-still-src"]).resolve() == static_path.resolve()
+                                and (page.parent / attrs["data-motion-src"]).resolve() == animated_path.resolve()
+                            )
+                            if paired:
+                                break
+                if not paired:
+                    errors.append(f"{page}: missing or incorrect animated SVG link")
+            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "rnd-prediction-error", "rnd-state-novelty", "icm-forward-inverse", "icm-predictable-stochastic", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 370" role="img" aria-labelledby="rnd-title rnd-desc">
+<title id="rnd-title">Random network distillation: predictor error falls after learning on a visited state (initial state)</title>
+<desc id="rnd-desc">The fixed target receives the same state as a trainable predictor. The predictor output approaches the unchanged target feature, shortening their error and the intrinsic bonus. Positions are illustrative, not measured model outputs. Static first-frame preview; no motion is required to understand the pipeline.</desc>
+<style>
+  text{font-family:Arial,Helvetica,sans-serif}
+  .small{font-size:16px;fill:#45556c;font-weight:600}
+  .resting{display:none}
+  .link{stroke:#8395ad;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  @media(prefers-reduced-motion:reduce){.animated{display:none}.resting{display:inline}}
+</style>
+<defs><marker id="rnd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8395ad"/></marker></defs>
+<rect width="680" height="370" rx="16" fill="#fff"/>
+<text x="28" y="37" font-size="23" font-weight="700" fill="#142238">RND · prediction error</text>
+<text x="28" y="61" font-size="15" fill="#53677f">Repeated visits to the same state</text>
+<rect x="24" y="92" width="134" height="176" rx="15" fill="#f3f7fc" stroke="#d6e1ec" stroke-width="2"/>
+<text x="90" y="126" font-size="18" text-anchor="middle" font-weight="700" fill="#26374b">State</text>
+<rect x="53" y="152" width="76" height="76" rx="12" fill="#dce7f3"/>
+<path d="M65 188h51M90 164v48" stroke="#9db3cf" stroke-width="2"/>
+<rect x="74" y="172" width="31" height="31" rx="7" fill="#4275b9"/>
+<path class="link" d="M158 164H199V131H224" marker-end="url(#rnd-arrow)"/>
+<path class="link" d="M158 212H199V230H224" marker-end="url(#rnd-arrow)"/>
+<rect x="225" y="98" width="145" height="76" rx="13" fill="#e8f6f2" stroke="#8dcdbc" stroke-width="2"/>
+<text x="297" y="131" class="small" text-anchor="middle" fill="#087668">Fixed target</text>
+<g fill="#138b79"><rect x="263" y="145" width="12" height="13" rx="2"/><rect x="284" y="141" width="12" height="17" rx="2"/><rect x="305" y="148" width="12" height="10" rx="2"/><rect x="326" y="136" width="12" height="22" rx="2"/></g>
+<rect x="225" y="192" width="145" height="76" rx="13" fill="#fff2e7" stroke="#edbb8b" stroke-width="2"/>
+<text x="297" y="225" class="small" text-anchor="middle" fill="#a95822">Predictor</text>
+<g fill="#d27b3f"><rect x="263" y="246" width="12" height="6" rx="2"/><rect x="284" y="227" width="12" height="25" rx="2"/><rect x="305" y="247" width="12" height="5" rx="2"/><rect x="326" y="222" width="12" height="30" rx="2"/></g>
+<path class="link" d="M370 135H407" marker-end="url(#rnd-arrow)"/>
+<path class="link" d="M370 232H407" marker-end="url(#rnd-arrow)"/>
+<rect x="417" y="86" width="237" height="202" rx="15" fill="#f8fafc" stroke="#d6e1ec" stroke-width="2"/>
+<text x="434" y="112" class="small">Feature space</text>
+<path d="M438 254H630M438 254V124" stroke="#c8d3df" stroke-width="2"/>
+<path d="M438 209H630M438 165H630M483 125V254M540 125V254M596 125V254" stroke="#e3eaf2" stroke-width="1.5"/>
+<path d="M479 233L581 138" stroke="#dd925c" stroke-width="2" stroke-dasharray="4 7" opacity=".35"/>
+<circle cx="581" cy="138" r="10" fill="#087e70" stroke="#fff" stroke-width="3"/>
+<text x="595" y="144" font-size="14" fill="#087e70" font-weight="700">f(s)</text>
+<g>
+ <line x1="581" y1="138" x2="479" y2="233" stroke="#db7c3b" stroke-width="3" stroke-dasharray="6 5">
+ </line>
+ <circle cx="479" cy="233" r="10" fill="#d57533" stroke="#fff" stroke-width="3">
+ </circle>
+</g>
+<text x="28" y="317" class="small">Intrinsic bonus</text>
+<rect x="180" y="298" width="466" height="25" rx="12" fill="#edf1f6"/>
+<rect x="183" y="301" width="406" height="19" rx="9" fill="#d98a4a">
+</rect>
+<text x="28" y="352" font-size="13" fill="#66788e">Schematic feature coordinates and bonus; target parameters remain fixed.</text>
+</svg>

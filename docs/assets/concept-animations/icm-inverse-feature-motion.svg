@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 558" role="img" aria-labelledby="title desc">
+<title id="title">ICM inverse-dynamics feature selection</title>
+<desc id="desc">Two consecutive observations share action-driven object movement but have unrelated visual noise. An illustrative encoder retains the motion channel while down-weighting a nuisance channel; an inverse action head becomes more informative. This is hypothetical, not a guaranteed training result.</desc>
+<rect width="480" height="558" rx="20" fill="#f8fafc"/>
+<g font-family="Arial, sans-serif"><text x="25" y="35" fill="#334155" font-size="18" font-weight="bold" letter-spacing=".7">INVERSE DYNAMICS</text>
+<g fill="#ffffff" stroke="#cbd5e1" stroke-width="1.6"><rect x="22" y="57" width="436" height="115" rx="15"/><rect x="22" y="198" width="436" height="115" rx="15"/><rect x="22" y="340" width="436" height="123" rx="15"/><rect x="22" y="483" width="436" height="56" rx="14"/></g>
+<g fill="#334155" font-size="17" font-weight="bold"><text x="42" y="82">s(t)</text><text x="42" y="224">s(t+1)</text><text x="43" y="368">ENCODER</text><text x="43" y="518">INVERSE</text></g>
+<g stroke="#d1dbe5" stroke-width="1.5" stroke-dasharray="4 5"><path d="M 48 147 H 434"/><path d="M 48 288 H 434"/></g>
+<rect x="113" y="106" width="39" height="39" rx="7" fill="#2784c7"/><rect x="290" y="247" width="39" height="39" rx="7" fill="#2784c7"/>
+<g fill="#e99a40"><circle cx="274" cy="110" r="9"/><circle cx="362" cy="135" r="7"/><circle cx="127" cy="257" r="9"/><circle cx="407" cy="238" r="7"/></g>
+<g fill="#e99a40" opacity=".9"><circle cx="224" cy="135" r="7"><animate attributeName="opacity" values=".9;.2;.8;.2;.9" keyTimes="0;.16;.5;.78;1" dur="8s" repeatCount="indefinite"/></circle><circle cx="216" cy="250" r="8"><animate attributeName="opacity" values=".2;.85;.16;.8;.2" keyTimes="0;.16;.5;.78;1" dur="8s" repeatCount="indefinite"/></circle></g>
+<path d="M 406 175 V 196" stroke="#6480a0" stroke-width="2.5"/><path d="M 399 189 L 406 197 L 413 189" stroke="#6480a0" stroke-width="2.5" fill="none"/>
+<text x="327" y="189" fill="#47627b" font-size="15" font-weight="bold">action</text>
+<circle cx="406" cy="177" r="5" fill="#2784c7"><animate attributeName="cy" values="177;193;193;177;177" keyTimes="0;.26;.51;.56;1" dur="8s" repeatCount="indefinite"/></circle>
+<g stroke="#9aaebf" stroke-width="2"><path d="M 240 315 V 337"/><path d="M 240 465 V 482"/></g>
+<g fill="#52667a" font-size="15"><text x="43" y="399">Motion</text><text x="43" y="438">Noise</text></g>
+<rect x="140" y="382" width="293" height="18" rx="8" fill="#e2e8f0"/>
+<rect x="140" y="421" width="293" height="18" rx="8" fill="#e2e8f0"/>
+<rect id="motion-bar" x="140" y="382" width="89" height="18" rx="8" fill="#2784c7"><animate attributeName="width" values="89;89;220;260;260" keyTimes="0;.1;.75;.92;1" dur="8s" repeatCount="indefinite"/></rect>
+<rect id="noise-bar" x="140" y="421" width="249" height="18" rx="8" fill="#e99a40"><animate attributeName="width" values="249;249;83;27;27" keyTimes="0;.1;.75;.92;1" dur="8s" repeatCount="indefinite"/></rect>
+<text x="249" y="518" text-anchor="middle" font-size="26" font-weight="bold" fill="#2784c7">→</text>
+<rect x="287" y="505" width="137" height="12" rx="6" fill="#e2e8f0"/>
+<rect id="inverse-bar" x="287" y="505" width="30" height="12" rx="6" fill="#2784c7"><animate attributeName="width" values="30;30;98;124;124" keyTimes="0;.1;.75;.92;1" dur="8s" repeatCount="indefinite"/></rect>
+</g></svg>

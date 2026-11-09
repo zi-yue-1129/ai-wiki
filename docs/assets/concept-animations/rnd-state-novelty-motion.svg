@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 370" role="img" aria-labelledby="novel-title novel-desc">
+<title id="novel-title">RND novelty: prediction error can rise on an unseen observation</title>
+<desc id="novel-desc">For repeatedly observed A, the predictor approaches the fixed-weight target output and its error falls. Switching to a distinct observation B can raise the error because both networks produce input-dependent features. Further predictor training on B then reduces that error while the target parameters stay fixed. Blue and amber input pulses indicate that A and B each pass into both networks before the corresponding feature outputs are compared. The A-to-B response changes together after both amber input traces arrive, rather than depicting intermediate observations. The orange bonus bar is a normalized squared distance between the two shown feature dots at sampled times. Loop reset is instantaneous; training steps, features and reward scale are illustrative, not measurements.</desc>
+<style>
+ text{font-family:Arial,Helvetica,sans-serif}
+ .lbl{font-size:16px;font-weight:700;fill:#253950}
+ .edge{fill:none;stroke:#879ab0;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+ .resting{display:none}
+ @media(prefers-reduced-motion:reduce){.animated{display:none}.resting{display:inline}}
+</style>
+<defs><marker id="novel-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#879ab0"/></marker></defs>
+<rect width="680" height="370" rx="16" fill="#fff"/>
+<text x="26" y="37" font-size="23" font-weight="700" fill="#17263b">RND · familiar vs unseen</text>
+<text x="26" y="60" font-size="15" fill="#596e85">Frozen target weights · state-dependent features</text>
+<rect x="24" y="96" width="138" height="170" rx="15" fill="#f3f7fc" stroke="#cbd9ea" stroke-width="2"/>
+<text x="93" y="126" class="lbl" text-anchor="middle">Observation</text>
+<rect x="48" y="146" width="90" height="84" rx="12" fill="#dce8f6"/>
+<g class="animated"><text x="93" y="201" text-anchor="middle" font-size="47" font-weight="700" fill="#376aa9">A<animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.711;.712;.999;1" calcMode="discrete" dur="10s" repeatCount="indefinite"/></text><text x="93" y="201" text-anchor="middle" font-size="47" font-weight="700" fill="#c67b36" opacity="0">B<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.711;.712;.999;1" calcMode="discrete" dur="10s" repeatCount="indefinite"/></text></g>
+<g class="resting"><text x="93" y="201" text-anchor="middle" font-size="47" font-weight="700" fill="#376aa9">A</text></g>
+<path class="edge" d="M162 168H199V140H226" marker-end="url(#novel-arrow)"/>
+<path class="edge" d="M162 215H199V233H226" marker-end="url(#novel-arrow)"/>
+<!-- Both observations pass through the fixed target and the trainable predictor. -->
+<g class="animated" aria-hidden="true">
+ <circle r="5" fill="#376aa9" stroke="#fff" stroke-width="1.2" opacity="0">
+  <animateMotion path="M162 168H199V140H226" keyPoints="0;0;1;1" keyTimes="0;.012;.12;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.006;.012;.12;.13;1" dur="10s" repeatCount="indefinite"/>
+ </circle>
+ <circle r="5" fill="#376aa9" stroke="#fff" stroke-width="1.2" opacity="0">
+  <animateMotion path="M162 215H199V233H226" keyPoints="0;0;1;1" keyTimes="0;.012;.12;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.006;.012;.12;.13;1" dur="10s" repeatCount="indefinite"/>
+ </circle>
+ <circle r="5" fill="#c67b36" stroke="#fff" stroke-width="1.2" opacity="0">
+  <animateMotion path="M162 168H199V140H226" keyPoints="0;0;1;1" keyTimes="0;.665;.705;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.655;.665;.705;.715;1" dur="10s" repeatCount="indefinite"/>
+ </circle>
+ <circle r="5" fill="#c67b36" stroke="#fff" stroke-width="1.2" opacity="0">
+  <animateMotion path="M162 215H199V233H226" keyPoints="0;0;1;1" keyTimes="0;.665;.705;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.655;.665;.705;.715;1" dur="10s" repeatCount="indefinite"/>
+ </circle>
+</g>
+<rect x="227" y="105" width="150" height="70" rx="12" fill="#e8f6f2" stroke="#8dcbbb" stroke-width="2"/>
+<text x="302" y="132" class="lbl" text-anchor="middle">Frozen target</text>
+<path d="M273 153L300 145L332 153" stroke="#73b9ac" stroke-width="2" fill="none"/><g fill="#148978"><circle cx="273" cy="153" r="6"/><circle cx="300" cy="145" r="6"/><circle cx="332" cy="153" r="6"/></g>
+<rect x="227" y="198" width="150" height="70" rx="12" fill="#fff2e6" stroke="#ebbc90" stroke-width="2"/>
+<text x="302" y="225" class="lbl" text-anchor="middle">Predictor</text>
+<path d="M273 245L300 236L332 245" stroke="#edb587" stroke-width="2" fill="none"/><g fill="#d5813c"><circle cx="273" cy="245" r="6"/><circle cx="300" cy="236" r="6"/><circle cx="332" cy="245" r="6"/></g>
+<path class="edge" d="M377 140H419" marker-end="url(#novel-arrow)"/>
+<path class="edge" d="M377 232H419" marker-end="url(#novel-arrow)"/>
+<rect x="430" y="94" width="226" height="190" rx="14" fill="#f8fafc" stroke="#d7e2ed" stroke-width="2"/>
+<text x="445" y="117" class="lbl">Feature space</text>
+<path d="M448 255H634M448 255V130" stroke="#c0d0df" stroke-width="2"/>
+<path d="M448 213H634M448 171H634M500 130V255M558 130V255" stroke="#e3eaf1" stroke-width="1.5"/>
+<g class="animated">
+<line x1="589" y1="145" x2="470" y2="235" stroke="#d67b37" stroke-width="3" stroke-dasharray="6 5"><animate attributeName="x1" values="589;589;589;550;550;550;550" keyTimes="0;.70;.711;.712;.96;.999;1" dur="10s" repeatCount="indefinite"/><animate attributeName="y1" values="145;145;145;202;202;202;202" keyTimes="0;.70;.711;.712;.96;.999;1" dur="10s" repeatCount="indefinite"/><animate attributeName="x2" values="470;470;572;572;621;621;572;572;572" keyTimes="0;.16;.64;.711;.712;.78;.96;.999;1" dur="10s" repeatCount="indefinite"/><animate attributeName="y2" values="235;235;158;158;139;139;187;187;187" keyTimes="0;.16;.64;.711;.712;.78;.96;.999;1" dur="10s" repeatCount="indefinite"/></line>
+<circle cx="589" cy="145" r="9" fill="#138978" stroke="#fff" stroke-width="3"><animate attributeName="cx" values="589;589;589;550;550;550;550" keyTimes="0;.70;.711;.712;.96;.999;1" dur="10s" repeatCount="indefinite"/><animate attributeName="cy" values="145;145;145;202;202;202;202" keyTimes="0;.70;.711;.712;.96;.999;1" dur="10s" repeatCount="indefinite"/></circle>
+<circle cx="470" cy="235" r="9" fill="#d5813c" stroke="#fff" stroke-width="3"><animate attributeName="cx" values="470;470;572;572;621;621;572;572;572" keyTimes="0;.16;.64;.711;.712;.78;.96;.999;1" dur="10s" repeatCount="indefinite"/><animate attributeName="cy" values="235;235;158;158;139;139;187;187;187" keyTimes="0;.16;.64;.711;.712;.78;.96;.999;1" dur="10s" repeatCount="indefinite"/></circle>
+</g>
+<g class="resting"><line x1="589" y1="145" x2="572" y2="158" stroke="#d67b37" stroke-width="3" stroke-dasharray="6 5"/><circle cx="589" cy="145" r="9" fill="#138978" stroke="#fff" stroke-width="3"/><circle cx="572" cy="158" r="9" fill="#d5813c" stroke="#fff" stroke-width="3"/></g>
+<text x="26" y="308" class="lbl">Intrinsic bonus</text>
+<rect x="177" y="293" width="466" height="26" rx="13" fill="#edf2f7"/>
+<rect x="180" y="296" width="390" height="20" rx="9" fill="#d5813c" class="animated"><animate attributeName="width" values="390;390;369;349;330;311;293;275;258;241;225;209;194;180;166;152;140;127;116;105;94;84;75;66;58;50;43;36;30;24;20;15;11;8;8;158;158;148;139;131;122;114;106;98;91;84;77;71;65;59;53;48;43;38;33;29;25;22;18;15;12;12;12" keyTimes="0;0.16;0.175;0.19;0.205;0.22;0.235;0.25;0.265;0.28;0.295;0.31;0.325;0.34;0.355;0.37;0.385;0.4;0.415;0.43;0.445;0.46;0.475;0.49;0.505;0.52;0.535;0.55;0.565;0.58;0.595;0.61;0.625;0.64;0.711;0.712;0.78;0.7875;0.795;0.8025;0.81;0.8175;0.825;0.8325;0.84;0.8475;0.855;0.8625;0.87;0.8775;0.885;0.8925;0.9;0.9075;0.915;0.9225;0.93;0.9375;0.945;0.9525;0.96;0.999;1" dur="10s" repeatCount="indefinite"/></rect>
+<rect x="180" y="296" width="36" height="20" rx="9" fill="#d5813c" class="resting"/>
+<text x="26" y="349" font-size="13" fill="#61768e">Schematic · fixed weights, state-dependent outputs</text>
+</svg>

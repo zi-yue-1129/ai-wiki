@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 370" role="img" aria-labelledby="icm-title icm-desc">
+<title id="icm-title">Intrinsic curiosity module: forward prediction error and inverse action training</title>
+<desc id="icm-desc">State and next-state observations pass through an encoder. A forward model uses the current feature and action to predict the next feature, which approaches the encoded actual next feature as training proceeds. A separate inverse model learns to recover the action from the two features. Four input pulses trace the forward and inverse dependencies. A return pulse indicates a schematic loss-driven update of the forward model, after which the prediction improves over training iterations. Green and orange pulses distinguish the encoded next feature from the forward prediction before the comparison changes. A separate purple pulse exits the inverse model as a predicted action, not a target or reward. All positions are schematic.</desc>
+<style>
+ text{font-family:Arial,Helvetica,sans-serif}
+ .lbl{font-size:15px;fill:#263b52;font-weight:700}
+ .edge{fill:none;stroke:#8497ad;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+ .resting{display:none}
+ @media(prefers-reduced-motion:reduce){.animated{display:none}.resting{display:inline}}
+</style>
+<defs><marker id="icm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8497ad"/></marker><marker id="icm-update-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#b77736"/></marker></defs>
+<rect width="680" height="370" rx="16" fill="#fff"/>
+<text x="27" y="38" font-size="23" font-weight="700" fill="#142238">ICM · curiosity in feature space</text>
+<text x="27" y="61" font-size="15" fill="#53677f">Forward: next feature  ·  Inverse: action</text>
+<!-- current observation, action, next observation -->
+<rect x="27" y="104" width="93" height="52" rx="10" fill="#eff5fa" stroke="#c5d4e5" stroke-width="2"/>
+<text x="73" y="136" font-size="22" font-weight="700" fill="#33577a" text-anchor="middle">s<tspan font-size="14" baseline-shift="sub">t</tspan></text>
+<rect x="27" y="267" width="93" height="52" rx="10" fill="#eff5fa" stroke="#c5d4e5" stroke-width="2"/>
+<text x="73" y="299" font-size="22" font-weight="700" fill="#33577a" text-anchor="middle">s<tspan font-size="14" baseline-shift="sub">t+1</tspan></text>
+<rect x="252" y="192" width="88" height="46" rx="10" fill="#fff3e7" stroke="#efc698" stroke-width="2"/>
+<text x="296" y="221" font-size="19" font-weight="700" fill="#9b5e2a" text-anchor="middle">Action</text>
+<path class="edge" d="M120 130H146" marker-end="url(#icm-arrow)"/>
+<path class="edge" d="M120 292H146" marker-end="url(#icm-arrow)"/>
+<rect x="148" y="103" width="99" height="54" rx="11" fill="#e8f1fb" stroke="#97b6d9" stroke-width="2"/>
+<rect x="148" y="266" width="99" height="54" rx="11" fill="#e8f1fb" stroke="#97b6d9" stroke-width="2"/>
+<text x="197" y="136" class="lbl" text-anchor="middle">Encoder</text>
+<text x="197" y="298" class="lbl" text-anchor="middle">Encoder</text>
+<path class="edge" d="M247 130H288" marker-end="url(#icm-arrow)"/>
+<path class="edge" d="M247 292H288" marker-end="url(#icm-arrow)"/>
+<circle cx="306" cy="130" r="13" fill="#3f73b1" stroke="#fff" stroke-width="3"/>
+<circle cx="306" cy="292" r="13" fill="#3f73b1" stroke="#fff" stroke-width="3"/>
+<text x="301" y="111" font-size="14" fill="#355e8e" text-anchor="middle">φ<tspan font-size="11" baseline-shift="sub">t</tspan></text>
+<text x="307" y="331" font-size="14" fill="#355e8e" text-anchor="middle">φ<tspan font-size="11" baseline-shift="sub">t+1</tspan></text>
+<!-- forward depends on feature and action -->
+<path class="edge" d="M320 129H363" marker-end="url(#icm-arrow)"/>
+<path class="edge" d="M340 214H364V150" marker-end="url(#icm-arrow)"/>
+<rect x="367" y="101" width="111" height="62" rx="12" fill="#edf7f4" stroke="#9ed3c4" stroke-width="2"/>
+<text x="423" y="137" class="lbl" text-anchor="middle" fill="#097464">Forward</text>
+<!-- inverse consumes both features and predicts action -->
+<path class="edge" d="M328 130V181H367V271" stroke-dasharray="5 5" marker-end="url(#icm-arrow)"/>
+<path class="edge" d="M321 292H367" marker-end="url(#icm-arrow)"/>
+<rect x="369" y="268" width="108" height="50" rx="12" fill="#f3effb" stroke="#c3b5e1" stroke-width="2"/>
+<text x="423" y="299" class="lbl" text-anchor="middle" fill="#7358a5">Inverse</text>
+<!-- Inverse action prediction is separate from the forward next-feature target. -->
+<path d="M477 293H499" fill="none" stroke="#8a69b7" stroke-width="2" stroke-linecap="round"/>
+<path d="M494 289L500 293L494 297" fill="none" stroke="#8a69b7" stroke-width="2" stroke-linejoin="round"/>
+<text x="504" y="299" font-size="14" fill="#7358a5" font-weight="700">â</text>
+<!-- comparison window -->
+<path class="edge" d="M478 132H505" marker-end="url(#icm-arrow)"/>
+<path class="edge" d="M321 292V334H501V239" marker-end="url(#icm-arrow)"/>
+<rect x="510" y="84" width="147" height="186" rx="13" fill="#f8fafc" stroke="#d9e2ec" stroke-width="2"/>
+<!-- Schematic loss-to-forward-model update: error must be observed before fitting improves. -->
+<path d="M510 123V89H423V100" fill="none" stroke="#b77736" stroke-width="2.1" stroke-dasharray="4 5" marker-end="url(#icm-update-arrow)"/>
+<text x="462" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="#945b2a">update</text>
+<text x="583" y="108" font-size="15" text-anchor="middle" font-weight="700" fill="#354860">Next feature</text>
+<path d="M528 244H637M528 244V122" stroke="#c7d3e1" stroke-width="2"/>
+<path d="M528 202H637M528 160H637M569 122V244M612 122V244" stroke="#e4ebf2" stroke-width="1.5"/>
+<circle cx="604" cy="143" r="9" fill="#167e71" stroke="#fff" stroke-width="3"/>
+<path d="M550 229L604 143" stroke="#db8c53" stroke-width="2" stroke-dasharray="4 7" opacity=".3"/>
+<g class="resting"><line x1="550" y1="229" x2="604" y2="143" stroke="#d67737" stroke-width="3" stroke-dasharray="5 5"/><circle cx="550" cy="229" r="9" fill="#d67737" stroke="#fff" stroke-width="3"/></g>
+<g class="animated">
+ <line x1="604" y1="143" x2="550" y2="229" stroke="#d67737" stroke-width="3" stroke-dasharray="5 5">
+  <animate attributeName="x2" values="550;550;573;591;598;598;598" keyTimes="0;.53;.69;.80;.86;.94;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="y2" values="229;229;190;162;151;151;151" keyTimes="0;.53;.69;.80;.86;.94;1" dur="8s" repeatCount="indefinite"/>
+ </line>
+ <circle cx="550" cy="229" r="9" fill="#d67737" stroke="#fff" stroke-width="3">
+  <animate attributeName="cx" values="550;550;573;591;598;598;598" keyTimes="0;.53;.69;.80;.86;.94;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="229;229;190;162;151;151;151" keyTimes="0;.53;.69;.80;.86;.94;1" dur="8s" repeatCount="indefinite"/>
+ </circle>
+</g>
+<text x="516" y="288" font-size="13" font-weight="700" fill="#53677f">Error → reward</text>
+<rect x="516" y="302" width="138" height="16" rx="8" fill="#e8edf3"/>
+<!-- Reward bar tracks the plotted squared feature error under one fixed scale. -->
+<rect x="518" y="304" width="132" height="12" rx="6" fill="#d98a4a" class="animated">
+ <animate attributeName="width" values="132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;132.0000;124.7485;117.7021;110.8607;104.2243;97.7928;91.5664;85.5450;79.7287;74.1173;68.7109;63.5096;58.5132;53.7219;49.1356;44.7543;40.5780;36.3337;32.3238;28.5483;25.0073;21.7008;18.6286;15.7909;13.1876;10.8187;8.6843;6.7843;5.5647;4.4660;3.4882;2.6312;1.8952;1.2801;1.2801;1.2801;1.2801;1.2801;1.2801;1.2801;1.2801;1.2801;1.2801;1.2801;1.2801;1.2801;1.2801;1.2801" keyTimes="0;0.01;0.02;0.03;0.04;0.05;0.06;0.07;0.08;0.09;0.1;0.11;0.12;0.13;0.14;0.15;0.16;0.17;0.18;0.19;0.2;0.21;0.22;0.23;0.24;0.25;0.26;0.27;0.28;0.29;0.3;0.31;0.32;0.33;0.34;0.35;0.36;0.37;0.38;0.39;0.4;0.41;0.42;0.43;0.44;0.45;0.46;0.47;0.48;0.49;0.5;0.51;0.52;0.53;0.54;0.55;0.56;0.57;0.58;0.59;0.6;0.61;0.62;0.63;0.64;0.65;0.66;0.67;0.68;0.69;0.7;0.71;0.72;0.73;0.74;0.75;0.76;0.77;0.78;0.79;0.8;0.81;0.82;0.83;0.84;0.85;0.86;0.87;0.88;0.89;0.9;0.91;0.92;0.93;0.94;0.95;0.96;0.97;0.98;0.99;1" dur="8s" repeatCount="indefinite"/>
+</rect>
+<rect x="518" y="304" width="132" height="12" rx="6" fill="#d98a4a" class="resting"/>
+
+<g class="animated" aria-hidden="true">
+<circle r="4.5" fill="#2f80bc" stroke="#fff" stroke-width="1.5" opacity="0">
+ <animateMotion path="M320 129H363" keyPoints="0;0;1;1" keyTimes="0;0.080;0.220;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.055;0.080;0.220;0.245;1" dur="8s" repeatCount="indefinite"/>
+</circle>
+<circle r="4.5" fill="#d47c35" stroke="#fff" stroke-width="1.5" opacity="0">
+ <animateMotion path="M340 214H364V150" keyPoints="0;0;1;1" keyTimes="0;0.220;0.360;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.195;0.220;0.360;0.385;1" dur="8s" repeatCount="indefinite"/>
+</circle>
+<circle r="4.5" fill="#8a69b7" stroke="#fff" stroke-width="1.5" opacity="0">
+ <animateMotion path="M328 130V181H367V271" keyPoints="0;0;1;1" keyTimes="0;0.420;0.600;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.395;0.420;0.600;0.625;1" dur="8s" repeatCount="indefinite"/>
+</circle>
+<circle r="4.5" fill="#8a69b7" stroke="#fff" stroke-width="1.5" opacity="0">
+ <animateMotion path="M321 292H367" keyPoints="0;0;1;1" keyTimes="0;0.420;0.600;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+ <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.395;0.420;0.600;0.625;1" dur="8s" repeatCount="indefinite"/>
+</circle>
+</g>
+<!-- Two distinct routes converge at the forward-error comparison: prediction vs encoded next feature. -->
+<g class="animated" aria-hidden="true">
+ <circle r="4.7" fill="#d67737" stroke="#fff" stroke-width="1.5" opacity="0">
+  <animateMotion path="M478 132H505" keyPoints="0;0;1;1" keyTimes="0;.37;.44;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.35;.37;.44;.46;1" dur="8s" repeatCount="indefinite"/>
+ </circle>
+ <circle r="4.7" fill="#167e71" stroke="#fff" stroke-width="1.5" opacity="0">
+  <animateMotion path="M321 292V334H501V239" keyPoints="0;0;1;1" keyTimes="0;.20;.44;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.18;.20;.44;.46;1" dur="8s" repeatCount="indefinite"/>
+ </circle>
+</g>
+<g class="animated" aria-hidden="true">
+ <circle r="3.6" fill="#8a69b7" stroke="#fff" stroke-width="1" opacity="0">
+  <animateMotion path="M479 293H498" keyPoints="0;0;1;1" keyTimes="0;.63;.75;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.61;.63;.75;.77;1" dur="8s" repeatCount="indefinite"/>
+ </circle>
+</g>
+<!-- Gradient-update cue arrives before any illustrated improvement in prediction. -->
+<g class="animated" aria-hidden="true">
+ <circle r="4.4" fill="#b77736" stroke="#fff" stroke-width="1.2" opacity="0">
+  <animateMotion path="M510 123V89H423V100" keyPoints="0;0;1;1" keyTimes="0;.45;.52;1" calcMode="linear" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.445;.45;.52;.525;1" dur="8s" repeatCount="indefinite"/>
+ </circle>
+</g>
+</svg>
