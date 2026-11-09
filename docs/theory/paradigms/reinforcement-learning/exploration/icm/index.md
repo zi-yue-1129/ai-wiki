@@ -90,6 +90,19 @@ For draws \(I_j\sim\mathrm{Categorical}(p_1,p_2,p_3)\) under an unchanged distri
 
 **Analytic sampling uncertainty (MkDocs).** The shaded violet **±1 SE** reference surrounds the exact expected loss \(L\) and narrows with draw count \(n\). Let \(\ell_i=\lVert Y_i-\hat\phi(z)\rVert^2/1000\) be the loss for outcome \(i\), and let \(\sigma_\ell^2=\sum_i p_i(\ell_i-L)^2\). Then \(\operatorname{SE}(\bar L_n)=\sigma_\ell/\sqrt n\) for independent draws from a fixed distribution. This is the **theoretical standard error of the running mean of losses**, not the variance of next-state feature vectors, a fitted uncertainty estimate, a confidence interval, or a guarantee that the orange trace lies inside the shaded area. The chart's axis includes the n=1 reference range and remains fixed as new draws arrive. Sliders reset the sequence and recompute the analytic band. All numbers are schematic.
 
+**Outcome-frequency experiment (MkDocs).** The three live bars now show the *empirical* relative frequencies `N_i/n` of outcomes 1–3, each compared with a dark vertical marker for its fixed *assumed* conditional probability `p_i`. The readout beside each bar is **observed / assumed**. The same colours identify the outcomes in the feature-space and weighted-error plots. These bars use **all draws**, even when the recent-outcome chips show only 12 results and the running-mean trace retains only 120 points. Consequently, for fixed current prediction and loss values, the displayed sampled mean can also be reconstructed exactly as
+
+$
+\\bar L_n=\\sum_{i=1}^3\\frac{N_i}{n}\\ell_i,\\qquad
+L=\\sum_{i=1}^3 p_i\\ell_i.
+$
+
+The difference between the two means comes from how the empirical frequencies differ from the assumed distribution, not from an ICM training update. In the seeded **20-draw** equal-weight example, the frequencies are **2/20, 8/20, 10/20** (10%, 40%, 50%), while the assumed probabilities remain **1/3 each**; the sample mean is **2.786** versus the analytic **3.017**. More draws do not guarantee that each empirical bar approaches its marker monotonically. Both slider changes and Reset samples clear the counts. The numbers are hypothetical, not environment observations or model measurements.
+
+![ICM illustration comparing twenty sampled outcome frequencies with three assumed equal probabilities; vertical marks denote the assumed shares](../../../../../assets/concept-animations/icm-outcome-frequency-still.svg)
+
+*Original static GitHub/no-script fallback (CC BY-SA 4.0).* This snapshot illustrates the frequency comparison after 20 seeded hypothetical draws. The fully interactive version, including frequency updates and a bilingual accessible label for each outcome, is available on MkDocs; the static file does not simulate sampling.
+
 ![ICM three snapshots after one, five and twenty toy outcome draws; the running sampled mean can move further from the fixed expectation before returning nearer](../../../../../assets/concept-animations/icm-sample-mean-still.svg)
 
 *Original GitHub/no-script fallback (CC BY-SA 4.0).* At equal weights and zero prediction shift, the exact expectation is **3.017**, while the seeded sample means are **3.250**, **3.373** and **2.786** after 1, 5 and 20 draws. The diagram's axis runs from 0 to 6; the MkDocs marker strip uses 0–16 and the new prefix-mean trajectory explicitly labels its own vertical range. **Compare labelled numbers, not marker distances across plots with different axes.** Orange is the empirical mean and violet the analytic expectation. These are deliberately constructed teaching values, **not trained-model measurements**.

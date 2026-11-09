@@ -56,6 +56,16 @@ def run():
                 assert abs(first_mean - 3.250) < .001
                 buttons.nth(1).click()
                 assert '21' in stats.text_content()
+                frequency = page.locator('.curiosity-lab-frequency-row')
+                assert frequency.count() == 3
+                shares = [float(frequency.nth(i).locator('.curiosity-lab-frequency-fill').get_attribute('data-observed')) for i in range(3)]
+                assert abs(sum(shares)-1.0) < 1e-12
+                # The seeded 20-draw result after an initial independent draw:
+                # the frequency bars must match all 21 draws, not the 12 chips.
+                sample_counts = [round(21 * v) for v in shares]
+                assert sum(sample_counts) == 21
+                assert all(abs(float(frequency.nth(i).locator('.curiosity-lab-frequency-target').get_attribute('data-probability')) - 1/3) < 1e-10 for i in range(3))
+                assert all(frequency.nth(i).get_attribute('aria-label') for i in range(3))
                 trace = page.locator('[data-sample-means]')
                 assert len(trace.get_attribute('points').split()) == 21
                 running = float(stats.text_content().split(' · ')[1].split(': ')[1])
@@ -98,6 +108,9 @@ def run():
                 (OUT / f'icm_sampling_{locale}_{width}_skew.png').write_bytes(page.locator('.curiosity-lab').screenshot())
                 set_range(page.locator('input[data-bias]'), 40)
                 assert page.locator('.curiosity-lab-sample-observed').is_hidden()
+                # Distribution changes reset counts and move all three targets.
+                assert all(float(frequency.nth(i).locator('.curiosity-lab-frequency-fill').get_attribute('data-observed')) == 0 for i in range(3))
+                assert abs(float(frequency.nth(0).locator('.curiosity-lab-frequency-target').get_attribute('data-probability')) - 160/300) < 1e-10
                 assert '4.249' in stats.text_content()
                 buttons.nth(1).click()
                 assert page.locator('.curiosity-lab-sample-chip').count() == 12
@@ -111,6 +124,7 @@ def run():
                 assert float(page.locator('.curiosity-lab-sample-trajectory').get_attribute('data-standard-error')) > 0
                 assert int(page.locator('.curiosity-lab-sample-trajectory').get_attribute('data-window-start')) > 1
                 assert int(page.locator('.curiosity-lab-sample-trajectory').get_attribute('data-total-draws')) == 160
+                assert abs(sum(float(frequency.nth(i).locator('.curiosity-lab-frequency-fill').get_attribute('data-observed')) for i in range(3))-1) < 1e-12
                 assert page.locator('.curiosity-lab-sample-trajectory svg').get_attribute('aria-label')
                 (OUT / f'icm_sampling_{locale}_{width}_bias.png').write_bytes(panel.screenshot())
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), (width, locale)
