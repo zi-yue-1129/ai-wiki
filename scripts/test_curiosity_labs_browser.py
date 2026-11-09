@@ -119,7 +119,7 @@ def run():
             choose(icm, 3)
             bias_slider = icm.locator('input[data-bias]')
             assert bias_slider.count() == 1
-            assert "3.02" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
+            assert "3.02" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer):not(.curiosity-lab-skew) .curiosity-lab-metrics").text_content()
             assert icm.locator('input[data-timeline]').count() == 1
             bias_slider.evaluate(
                 "(e) => {e.value='40';e.dispatchEvent(new Event('input',{bubbles:true}));}"
@@ -129,7 +129,7 @@ def run():
             assert abs(width_bar - 244*1066/10000) < .02
             tick = icm.locator('svg path[stroke="#775fb0"]').first.get_attribute("d")
             assert abs(float(tick.split(" ")[0][1:]) - (128+244*(3017.3333333333+1600)/10000)) < .05
-            numbers = icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
+            numbers = icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer):not(.curiosity-lab-skew) .curiosity-lab-metrics").text_content()
             assert all(v in numbers for v in ("4.62", "1.60", "3.02"))
             (OUT / f"probe_icm_bias_{width}_p40.png").write_bytes(icm.screenshot())
             # Reweight three stochastic outcomes without moving the possible outcomes.
@@ -165,10 +165,10 @@ def run():
                 "(e) => {e.value='40';e.dispatchEvent(new Event('input',{bubbles:true}));}"
             )
             assert abs(float(icm.locator('svg circle[fill="#e19748"]').get_attribute('cx'))-372)<.02
-            assert "4.25" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
+            assert "4.25" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer):not(.curiosity-lab-skew) .curiosity-lab-metrics").text_content()
             icm.get_by_role("button",name="恢復等機率").click()
             assert skew_slider.input_value()=="0"
-            assert "4.62" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
+            assert "4.62" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer):not(.curiosity-lab-skew) .curiosity-lab-metrics").text_content()
             # Arrow-key slider adjustment remains available without pointer input.
             skew_slider.focus()
             page.keyboard.press("ArrowLeft")
@@ -181,7 +181,7 @@ def run():
             assert bias_slider.input_value() == "30"
             icm.get_by_role("button", name="回到條件平均值").click()
             assert bias_slider.input_value() == "0"
-            assert "3.02" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
+            assert "3.02" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer):not(.curiosity-lab-skew) .curiosity-lab-metrics").text_content()
             # Real mouse and keyboard actions, not just DOM existence.
             host=page.locator('[data-curiosity-lab="rnd"]')
             choose(host,2)
@@ -214,7 +214,7 @@ def run():
         icm.locator('input[data-bias]').evaluate(
             "(e) => {e.value='-40';e.dispatchEvent(new Event('input',{bubbles:true}));}"
         )
-        assert "4.62" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer) .curiosity-lab-metrics").text_content()
+        assert "4.62" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer):not(.curiosity-lab-skew) .curiosity-lab-metrics").text_content()
         context.close()
         browser.close()
     print("PASS curiosity probes: responsive renders, arithmetic, keyboard, timeline, reduced motion")
