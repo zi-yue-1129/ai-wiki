@@ -63,10 +63,21 @@
     const tag=isRnd?'Obs '+row[0]:stochastic?'Stochastic':'Predictable';
     const dots=!isRnd&&stochastic?outcomes.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="16" fill="none" stroke="#319d7a" stroke-width="${(1+4*dist.weights[i]).toFixed(2)}" stroke-dasharray="3 5" opacity="${i===n-3?'1':'.65'}"/><text x="${x+(i===0?15:-20)}" y="${y-18}" font-size="13" fill="#167359">${i+1}</text>`).join(''):'';
     const badge=isRnd&&row[0]==='B'?'#fff0db':'#e4f1fa';
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 340" role="img" aria-label="${zh ? `特徵空間示意：${tag}，比較平方預測誤差` : `${tag}: schematic feature-space squared-error comparison`}">
+    // Each coloured contribution is p_i * ||Y_i - prediction||². Their
+    // sum is the violet expected-error tick, not an average of three
+    // equally weighted samples after Outcome balance has been changed.
+    const terms=stochastic?outcomes.map(([x,y],i)=>dist.weights[i]*((x-px)**2+(y-py)**2)):[];
+    const termColours=['#287da1','#49a7b1','#8770b5'];
+    const termScale=344/6000;
+    const termBars=stochastic?terms.map((term,i)=>{
+      const left=28+terms.slice(0,i).reduce((a,v)=>a+v,0)*termScale;
+      return `<rect data-contribution="${i+1}" x="${left.toFixed(2)}" y="370" width="${(term*termScale).toFixed(2)}" height="16" fill="${termColours[i]}"/>`;
+    }).join(''):'';
+    const termLabels=stochastic?terms.map((term,i)=>`<rect x="${28+i*121}" y="399" width="11" height="11" rx="2" fill="${termColours[i]}"/><text x="${44+i*121}" y="409" font-size="13" fill="#344a5d">${i+1}: ${fmt(term)}</text>`).join(''):'';
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 ${stochastic?422:340}" role="img" aria-label="${zh ? `特徵空間示意：${tag}，比較平方預測誤差` : `${tag}: schematic feature-space squared-error comparison`}">
       <title>${isRnd?'RND fixed target and trained predictor':'ICM sample error and conditional expected error'}</title>
       <desc>${zh ? "示意座標，非訓練實測結果。" : "Illustrative coordinates; not measured training results."}</desc>
-      <rect x="1" y="1" width="408" height="338" rx="16" fill="#f7fafc" stroke="#bed0dc"/>
+      <rect x="1" y="1" width="408" height="${stochastic?420:338}" rx="16" fill="#f7fafc" stroke="#bed0dc"/>
       <rect x="18" y="15" width="150" height="39" rx="11" fill="${badge}"/>
       <text x="31" y="40" font-size="20" font-weight="700" fill="#223d52">${tag}</text>
       <text x="295" y="39" font-size="17" fill="#537084">Feature space</text>
@@ -84,6 +95,12 @@
       <rect x="128" y="275" width="${width.toFixed(2)}" height="12" rx="6" fill="#d28a3e"/>
       ${isRnd?'':`<path d="M${tick} 270v23" stroke="#775fb0" stroke-width="3"/><text x="28" y="316" font-size="16" fill="#7357a2">Expected</text><text x="112" y="316" font-size="15" fill="#7357a2">${fmt(conditionalMse)}</text>`}
       <text x="326" y="316" font-size="17" font-weight="700" fill="#8a551c">${fmt(err)}</text>
+      ${stochastic?`<path d="M28 333H382" stroke="#d3e0e7" stroke-width="1.5"/>
+      <text x="28" y="355" font-size="15" font-weight="600" fill="#344a5d">Weighted p × gap²</text>
+      <text x="327" y="355" font-size="15" font-weight="700" fill="#7357a2">Σ ${fmt(conditionalMse)}</text>
+      <rect x="28" y="370" width="344" height="16" rx="3" fill="#e0eaf0"/>
+      ${termBars}
+      ${termLabels}`:''}
       </svg>`;
   }
   function enhance(){

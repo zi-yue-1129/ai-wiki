@@ -158,6 +158,15 @@ def run():
                 tick_position=float(expected_tick.split(" ")[0][1:])
                 assert abs(tick_position-(128+244*expected_var/10000))<.05
                 assert p_text in icm.locator(".curiosity-lab-skew .curiosity-lab-metrics").text_content()
+                # The live coloured strip is a probability-weighted sum of
+                # *three separate sample gaps*, not three unweighted errors.
+                segments = icm.locator('svg rect[data-contribution]')
+                assert segments.count() == 3
+                scaled_total = sum(float(segments.nth(i).get_attribute("width")) for i in range(3))
+                assert abs(scaled_total - 344 * expected_var / 6000) < 0.05
+                for i in range(3):
+                    assert segments.nth(i).get_attribute("data-contribution") == str(i + 1)
+                assert "Σ " + format(expected_var / 1000, ".2f") in icm.locator("svg").text_content()
                 (OUT / f"icm_weighted_{width}_{skew_value}.png").write_bytes(icm.screenshot())
             # Combining hypothetical probability reweighting and prediction bias:
             # the expected squared error gains exactly bias**2.
@@ -166,6 +175,11 @@ def run():
             )
             assert abs(float(icm.locator('svg circle[fill="#e19748"]').get_attribute('cx'))-372)<.02
             assert "4.25" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer):not(.curiosity-lab-skew) .curiosity-lab-metrics").text_content()
+            # Reweighting and shifting the prediction must recompute *each*
+            # contribution, not merely move the expected-error marker.
+            combined = icm.locator('svg rect[data-contribution]')
+            assert abs(sum(float(combined.nth(i).get_attribute("width")) for i in range(3))
+                       - 344 * (2648.693333333333 + 1600) / 6000) < 0.05
             icm.get_by_role("button",name="恢復等機率").click()
             assert skew_slider.input_value()=="0"
             assert "4.62" in icm.locator(".curiosity-lab-bias:not(.curiosity-lab-transfer):not(.curiosity-lab-skew) .curiosity-lab-metrics").text_content()
