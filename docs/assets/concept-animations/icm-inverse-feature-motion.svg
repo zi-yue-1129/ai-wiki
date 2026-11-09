@@ -17,9 +17,9 @@
 <g fill="#52667a" font-size="15"><text x="43" y="399">Motion</text><text x="43" y="438">Noise</text></g>
 <rect x="140" y="382" width="293" height="18" rx="8" fill="#e2e8f0"/>
 <rect x="140" y="421" width="293" height="18" rx="8" fill="#e2e8f0"/>
-<rect id="motion-bar" x="140" y="382" width="89" height="18" rx="8" fill="#2784c7"><animate attributeName="width" values="89;89;220;260;260" keyTimes="0;.1;.75;.92;1" dur="8s" repeatCount="indefinite" calcMode="linear"/></rect>
-<rect id="noise-bar" x="140" y="421" width="249" height="18" rx="8" fill="#e99a40"><animate attributeName="width" values="249;249;83;27;27" keyTimes="0;.1;.75;.92;1" dur="8s" repeatCount="indefinite" calcMode="linear"/></rect>
+<rect id="motion-bar" x="140" y="382" width="89" height="18" rx="8" fill="#2784c7"><animate attributeName="width" values="89;89;220;260;260" keyTimes="0;.1;.75;.92;1" dur="8s" repeatCount="indefinite"/></rect>
+<rect id="noise-bar" x="140" y="421" width="249" height="18" rx="8" fill="#e99a40"><animate attributeName="width" values="249;249;83;27;27" keyTimes="0;.1;.75;.92;1" dur="8s" repeatCount="indefinite"/></rect>
 <text x="249" y="518" text-anchor="middle" font-size="26" font-weight="bold" fill="#2784c7">→</text>
 <rect x="287" y="505" width="137" height="12" rx="6" fill="#e2e8f0"/>
-<rect id="inverse-bar" x="287" y="505" width="30" height="12" rx="6" fill="#2784c7"><animate attributeName="width" values="30;30;98;124;124" keyTimes="0;.1;.75;.92;1" dur="8s" repeatCount="indefinite" calcMode="linear"/></rect>
+<rect id="inverse-bar" x="287" y="505" width="30" height="12" rx="6" fill="#2784c7"><animate attributeName="width" values="30;30;98;124;124" keyTimes="0;.1;.75;.92;1" dur="8s" repeatCount="indefinite"/></rect>
 </g></svg>
