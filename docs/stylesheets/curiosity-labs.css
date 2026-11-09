@@ -39,3 +39,8 @@
 .curiosity-lab-sample-chip-1{background:#267f9f}.curiosity-lab-sample-chip-2{background:#319d91}.curiosity-lab-sample-chip-3{background:#8672b4}
 .curiosity-lab-sample-hint{font-size:.7rem;line-height:1.5;margin:.25rem 0 0;color:var(--md-default-fg-color--light,#536b80)}
 .curiosity-lab-sample-chip-2,.curiosity-lab-sample-chip-3{color:#172c3a}
+
+/* The trace is a sequence of prefix means (not a training or reward trace). */
+.curiosity-lab-sample-trajectory{margin:.5rem 0 .2rem;width:100%}
+.curiosity-lab-sample-trajectory[hidden]{display:none}
+.curiosity-lab-sample-trajectory svg{width:100%;height:auto;display:block;max-width:410px;margin:auto}
