@@ -30,6 +30,10 @@ MAPPO is the PPO algorithm of [Proximal Policy Optimisation](../../proximal-poli
 
 The paper also finds that performance degrades when samples are reused too often in multi-agent domains.
 
+![MAPPO local observations pass through a shared policy; training-only global value estimates support advantages and the PPO parameter update](../../../../../assets/concept-animations/mappo-shared-advantage-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* **Blue pulses** show two homogeneous agents applying the **same policy parameters** to their separate local observations. During training, the **teal path** summarises how a centralised \(V(s)\) supports generalised advantage estimation (GAE), while the **orange/pink path** depicts the clipped PPO objective updating the shared policy. GAE additionally requires rewards and rollout data (not drawn); the critic is **not an execution-time input** to the actors. Example \(A_1=+0.8\) and \(A_2=-0.3\) are **invented teaching values**, not measured advantages or precise optimiser steps. On MkDocs, use Play/Pause; see the [GitHub-readable static fallback](../../../../../assets/concept-animations/mappo-shared-advantage-still.svg). The methodology follows Yu et al. (2022) and Schulman et al. (2017), listed in References.
+
 ## Results
 
 - **SMAC.** On the 6h_vs_8z map, MAPPO with feature pruning reaches a median win rate of 88.3%, against 9.4% for QMIX (Table 1).
