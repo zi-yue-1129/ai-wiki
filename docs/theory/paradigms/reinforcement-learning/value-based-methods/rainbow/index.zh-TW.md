@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 aliases:
   - Rainbow
   - 彩虹 DQN
@@ -31,6 +31,24 @@ Rainbow 以 DQN 智能體為基礎，整合六個組件，每個來自一個不�
 ## 方程式與演算法
 
 Rainbow 保留 DQN 的回放、目標網路與小批次更新的結構，只改寫上述各部分。輸出是 51 個原子上的回報分布；多步組件使用 \(n = 3\)，這是論文比較 \(n = 1, 3, 5\) 後表現最好的設定。完整的損失函數、虛擬碼與超參數表載於論文中，實作時應以原論文為準。
+
+## 兩項動態運算：類別分布投影與 Dueling 聚合
+
+### C51：將機率質量投影回固定原子
+
+C51 的分布式 Bellman 更新先用觀察到的獎勵與折扣率移動下一狀態的回報支撐點，再將機率質量**投影回固定的類別支撐點**。落在兩個相鄰原子之間的質量，會依距離做線性分配。模型以類別分布損失訓練，但動作仍依**預期回報**選取，而不是把機率最大的原子直接當作動作價值。[^rainbow-c51]
+
+<img alt="C51 分布投影動畫：五個位移後的回報原子，數值 2 的質量以六比四分配到固定原子 0 與 5，最後形成機率長條。" src="../../../../../assets/concept-animations/rainbow-c51-projection-still.svg" data-motion-src="../../../../../assets/concept-animations/rainbow-c51-projection-motion.svg" data-still-src="../../../../../assets/concept-animations/rainbow-c51-projection-still.svg">
+
+*原創教學動畫（CC BY-SA 4.0）。* 圖中僅使用**五個原子的人工示意**，並非 Rainbow 實際使用的 51 個原子，也不是模型輸出。固定原子 $z=(-10,-5,0,5,10)$，起始機率為 $(0.1,0.2,0.4,0.2,0.1)$；人工設定獎勵 $r=2$、折扣率 $\gamma=0.5$，位移後的位置為 $(-3,-0.5,2,4.5,7)$。投影後的機率為 $(0,0.08,0.48,0.40,0.04)$，總和仍為 $1$。其中位於 $2$ 的質量，以 $0.6$ 的權重分配至 $0$，以 $0.4$ 分配至 $5$。動畫只隔離投影運算，**不代表**參數更新、終止狀態處理或超出支撐範圍時的裁切。MkDocs 可播放／暫停（Enter／Space 鍵也可操作）；GitHub 顯示完整靜態回退。
+
+### Dueling 網路：狀態價值、動作優勢與聚合
+
+Dueling 架構從共用特徵分出純量狀態價值 $V(s)$ 及每個動作的優勢值 $A(s,a)$。Rainbow 採用**減去動作優勢平均值**的聚合方式：$Q(s,a)=V(s)+A(s,a)-\frac{1}{|\mathcal A|}\sum_b A(s,b)$。這使各動作 $Q$ 的平均值等於 $V$，避免直接相加時無法唯一區分兩條分支的加法偏移。[^rainbow-dueling]
+
+<img alt="Dueling Q 分支動畫：共用特徵分成價值 V 等於 3，以及優勢值 2、0、負 1；中心化後產生三個動作的 Q 值。" src="../../../../../assets/concept-animations/rainbow-dueling-head-still.svg" data-motion-src="../../../../../assets/concept-animations/rainbow-dueling-head-motion.svg" data-still-src="../../../../../assets/concept-animations/rainbow-dueling-head-still.svg">
+
+*原創教學動畫（CC BY-SA 4.0）。* 人工示意的兩條分支為 $V=3$、$A=(2,0,-1)$；優勢平均為 $1/3$，三個輸出約為 $(4.67,2.67,1.67)$。動畫強調聚合路徑與計算結果，**不是**神經元實際活化值、基準測試成績或梯度流。MkDocs 可播放／暫停，GitHub 則直接顯示靜態回退；兩種語言共用相同動畫資產與現有播放器。
 
 ## 結果
 
@@ -68,6 +86,9 @@ Rainbow 保留 DQN 的回放、目標網路與小批次更新的結構，只改�
 
 ### 開創性論文
 
+- Bellemare、Dabney 與 Munos（2017），"A Distributional Perspective on Reinforcement Learning"，*ICML 2017*。https://proceedings.mlr.press/v70/bellemare17a — 定義類別分布 Bellman 投影與 C51 演算法。
+- Wang 等人（2016），"Dueling Network Architectures for Deep Reinforcement Learning"，*ICML 2016*。https://proceedings.mlr.press/v48/wangf16 — 提出共用特徵、狀態價值分支與優勢分支，以及聚合方式。
+
 - Hessel 等人（2018），"Rainbow: Combining improvements in deep reinforcement learning"，[arXiv:1710.02298](https://arxiv.org/abs/1710.02298) — Rainbow 原始論文，包含六組件的消融研究與報告的 Atari 結果。
 - van Hasselt、Guez 與 Silver（2016），"Deep reinforcement learning with double Q-learning"，[arXiv:1509.06461](https://arxiv.org/abs/1509.06461)（2015 年提交至 arXiv）— 雙 Q 學習組件，可降低高估。
 - Mnih 等人（2015），"Human-level control through deep reinforcement learning"，*Nature* 518, 529–533。https://doi.org/10.1038/nature14236 — Rainbow 所擴充的基礎 DQN 智能體。
@@ -76,3 +97,5 @@ Rainbow 保留 DQN 的回放、目標網路與小批次更新的結構，只改�
 ### 綜述與教科書
 
 - Sutton, R. S. & Barto, A. G. *Reinforcement Learning: An Introduction*，第 2 版。MIT Press, 2018。http://incompleteideas.net/book/the-book-2nd.html — 多步回報與時序差分學習的背景知識。
+[^rainbow-c51]: Bellemare、Dabney 與 Munos（2017），[ICML 原始論文](https://proceedings.mlr.press/v70/bellemare17a)；Hessel 等人（2018），[Rainbow 原始論文](https://arxiv.org/abs/1710.02298)。
+[^rainbow-dueling]: Wang 等人（2016），[ICML 原始論文](https://proceedings.mlr.press/v48/wangf16)；Hessel 等人（2018），[Rainbow 原始論文](https://arxiv.org/abs/1710.02298)。
