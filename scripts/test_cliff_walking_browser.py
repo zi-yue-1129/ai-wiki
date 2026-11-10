@@ -64,7 +64,8 @@ def main() -> None:
             page = browser.new_page(viewport={"width": width, "height": max(820, 2*width)})
             page.set_content('<style>body{margin:0}svg{display:block;width:100%;height:auto}</style>' + still.read_text())
             assert page.locator("#q-route").is_visible() and page.locator("#s-route").is_visible()
-            assert page.locator("#slip-arrow").is_visible()
+            assert page.locator("#slip-arrow").count() == 1
+            assert page.locator("#slip-arrow").evaluate("e => e.getBBox().height > 25")
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
             page.locator("svg").screenshot(path=str(OUT / f"still-{width}.png"))
             page.close()
