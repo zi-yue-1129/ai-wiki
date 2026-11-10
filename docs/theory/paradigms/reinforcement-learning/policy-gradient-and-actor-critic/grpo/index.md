@@ -30,6 +30,16 @@ The GRPO objective averages, over the group and the tokens of each output, the m
 
 The paper also describes an outcome-supervision and a process-supervision version. The outcome version assigns one reward per output, as above.
 
+
+## Teaching animation: group-relative reward normalisation
+
+![GRPO four completions are scored, centred on the group mean, and converted into signed standardised advantages](../../../../../assets/concept-animations/grpo-group-advantages-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* Four sampled completions for **one prompt** receive invented outcome rewards $(1,3,0,2)$. Their group mean is $\mu=1.5$ and, under the **population-standard-deviation convention used in this example**, $\sigma=\sqrt{1.25}\approx1.118$. The resulting advantages are approximately $(-0.447,+1.342,-1.342,+0.447)$. The animated bars first show the reward group and then reveal how positive and negative relative advantages emerge; these are **not experimental scores**. In outcome-supervised GRPO, a completion-level advantage is shared across its generated tokens, but the full training objective also includes clipped probability ratios and a reference-policy KL term. The picture isolates the reward-to-advantage conversion, **not** the complete GRPO policy update. If all rewards are identical, the normalisation needs an explicit zero-variance convention.
+
+On MkDocs, use the accessible Play/Pause button (Enter or Space); reduced-motion preference selects the still view. [GitHub-readable still preview](../../../../../assets/concept-animations/grpo-group-advantages-still.svg). Based on [Shao et al. (2024)](https://arxiv.org/abs/2402.03300).
+
+
 ## Results
 
 The paper reports results for a 7B model trained with GRPO, DeepSeekMath-RL, against its instruction-tuned starting point, DeepSeekMath-Instruct 7B, using chain-of-thought prompting:

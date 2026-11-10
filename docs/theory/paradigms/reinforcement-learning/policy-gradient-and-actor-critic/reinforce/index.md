@@ -34,6 +34,16 @@ where \(G_t\) is the return from step \(t\) and \(b\) is a baseline. The procedu
 4. Update \(\theta \leftarrow \theta + \alpha \sum_t \nabla_\theta \log \pi_\theta(a_t \mid s_t)\,(G_t - b)\).
 5. Repeat from step 2.
 
+
+## Teaching animation: reward-to-go and baseline
+
+![REINFORCE reward-to-go computed backward over three time steps, followed by signed policy-gradient advantage weights](../../../../../assets/concept-animations/reinforce-reward-to-go-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* The return is accumulated **backward**, not propagated as a neural-network gradient. For illustrative rewards $(r_0,r_1,r_2)=(1,0,2)$, discount $\gamma=0.9$, and a terminal state after $t=2$, the computed returns are $G_2=2$, $G_1=1.8$, and $G_0=2.62$. Subtracting the *action-independent* baseline $b=1.9$ produces weights $(G_t-b)=(+0.72,-0.10,+0.10)$ for the sampled log-probability gradients. Thus the second sampled action is discouraged *relative to the baseline* in a gradient-ascent step; the figure does not assert any measured learning outcome. Values and animation timing are invented for teaching, **not model measurements**.
+
+On the MkDocs site, use the Play/Pause button (keyboard Enter or Space). Reduced-motion settings show the static view. [GitHub-readable still preview](../../../../../assets/concept-animations/reinforce-reward-to-go-still.svg). See [Williams (1992)](https://doi.org/10.1007/BF00992696).
+
+
 ## Results
 
 Williams's paper gives a derivation and a theorem rather than a benchmark. Its contribution is the general class of update rules, which underlies the policy-gradient methods that followed.
