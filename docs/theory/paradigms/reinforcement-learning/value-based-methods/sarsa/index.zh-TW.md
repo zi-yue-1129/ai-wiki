@@ -61,6 +61,14 @@ $
 
 *原創十一秒 SVG／SMIL 動畫（CC BY-SA 4.0）。* 在**另一個純示意的兩動作情境**中，令唯一貪婪動作 L 的 $Q(s',L)=5$、動作 R 的 $Q(s',R)=2$。$\varepsilon=0.20$ 的 ε-貪婪策略，會在探索時對**全部兩個動作**均勻抽樣，所以選 L 的機率為 $0.90$，選 R 為 $0.10$。固定 Q 表，並令 $r=1$、$\gamma=0.9$，單次**抽樣 SARSA** 會依下一動作得到 $5.50$（L）或 $2.80$（R）的 TD 目標。若對行為策略取期望，則為 $0.90(5.50)+0.10(2.80)=\mathbf{5.23}$；**Expected SARSA** 直接使用這個機率加權目標，而非只抽一個 $a'$。相較之下，**Q-learning** 一律使用最大值目標 $5.50$。動畫逐段強調的是**不同計算路徑**，不是模擬訓練軌跡，也不是依照 90%／10% 的時間比例播放；期望值只在給定 Q 估計與策略的條件下成立，不保證是最佳動作價值的無偏估計。全部數值都是人工示意，非模型實測。MkDocs 提供鍵盤播放／暫停與減少動態效果回退；[GitHub 靜態預覽](../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg)可同時看見各種結果。定義參考文末 Sutton 與 Barto（2018）第 6 章。
 
+### 真正終止與外部時間限制截斷的 TD 備份
+
+<img src="../../../../../assets/concept-animations/td-terminal-truncation-still.svg" data-motion-src="../../../../../assets/concept-animations/td-terminal-truncation-motion.svg" data-still-src="../../../../../assets/concept-animations/td-terminal-truncation-still.svg" width="440" loading="lazy" alt="真正終止時，Q-learning 與 SARSA 都不使用下一狀態價值，目標為 1.00。外部時間限制截斷時，Q-learning 以最終觀測的最大動作價值四進行備份，得到 4.60；SARSA 以延續策略抽出的下一動作價值二進行備份，得到 2.80。" />
+
+*原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。***回合停止不等於 MDP 真正終止。**若任務已達到真正終止狀態（包含有限時域任務內生的終點），TD 目標就不再加上下一狀態價值；若只是*持續性任務*被外部 TimeLimit 強制截斷，則仍須從**重設前最後一筆觀測**進行 bootstrap，而非使用下一個回合的重設觀測。Pardo 等人（2018）分析了這個差異；Gymnasium 的 `terminated` 和 `truncated` 分別表達這兩種訊號。
+
+假設人工示意 $r=1$、$\gamma=0.9$、$\max_a Q(s',a)=4$，而 SARSA 在最後觀測下的延續動作估計 $Q(s',a')=2$。**真正終止**時，兩種方法的 TD 目標都是 **1.00**；**外部截斷**時，Q-learning 的目標為 **4.60**，SARSA 的延續動作備份為 **2.80**。由於截斷後不一定真的執行下一動作，SARSA 可在最後觀測依其策略**假設性抽樣延續動作**，不能取用重設狀態所抽的動作。這是人工建構的計算案例，**不是模型實測**。動畫中的叉號代表真正終止時移除 bootstrap，虛線時間界線則保留延續價值路徑。MkDocs 可用鍵盤播放／暫停、支援減少動態效果；[GitHub 靜態回退](../../../../../assets/concept-animations/td-terminal-truncation-still.svg)同時呈現兩個條件。依據文末 Pardo 等人（2018）的原始論文。
+
 ## 結果
 
 SARSA 沒有單一的代表性基準。Rummery 與 Niranjan（1994）研究了具有線上更新的連接主義 Q 學習變體。他們的報告提出了與 SARSA 密切相關的更新規則 MCQ-L；在一個必須在障礙物間抵達目標的模擬移動機器人上，他們發現線上學習對訓練參數的選擇比倒序回放（backward replay）更不敏感。
@@ -94,6 +102,8 @@ SARSA 沒有單一的代表性基準。Rummery 與 Niranjan（1994）研究了�
 - Watkins 與 Dayan（1992），"Q-learning"，*Machine Learning* 8(3–4), 279–292。https://doi.org/10.1007/bf00992698 — 離策略的對應方法，附其收斂定理。
 - Mnih 等人（2015），"Human-level control through deep reinforcement learning"，*Nature* 518, 529–533。https://doi.org/10.1038/nature14236 — 深度離策略價值學習器，與 SARSA 的同策略目標形成對照。
 - Schulman 等人（2017），"Proximal policy optimization algorithms"，[arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — 同樣從當前策略收集資料學習的深度同策略方法。
+
+- Pardo、Tavakoli、Levdik 與 Kormushev（2018），*Time Limits in Reinforcement Learning*，ICML，PMLR 80:4045–4054。https://proceedings.mlr.press/v80/pardo18a.html — 區分有限時域任務的真正終止與外部訓練時間限制，說明應從截斷時最後觀測延續價值估計。
 
 ### 綜述與教科書
 
