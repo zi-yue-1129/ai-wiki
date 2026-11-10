@@ -43,6 +43,21 @@ The network proposes moves and judges positions. Monte Carlo tree search, guided
 
 Here \(p\) and \(v\) are the network's move probabilities and value for a position, and \(c\) controls weight regularisation.
 
+### PUCT: choosing the next edge to explore
+
+At a search node, AlphaZero balances an action's estimated value \(Q\) and its prior-weighted exploration bonus \(U\). A common PUCT-style form is
+
+\[
+a^*=\arg\max_a\{Q(s,a)+U(s,a)\},\qquad
+U(s,a)=cP(s,a)\frac{\sqrt{\sum_b N(s,b)}}{1+N(s,a)}.
+\]
+
+The **constructed snapshot** uses \(Q=(0.60,0.48,0.30)\), \(P=(0.20,0.65,0.15)\), \(N=(9,4,3)\), and illustrative \(c=1.5\). With 16 total visits, \(U=(0.12,0.78,0.225)\); the totals \((0.72,1.26,0.525)\) select **B**, although Q alone favors **A**. The animation adds U to Q before highlighting the selected action.
+
+![PUCT action values combine with prior-weighted exploration bonuses to select the next search edge](../../../../assets/concept-animations/alphazero-puct-select-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* Arithmetic is exact for the chosen synthetic parameters, but the figure rounds U and total scores to two decimal places. **These are not measured AlphaZero search statistics**; the fixed \(c\) is a pedagogical simplification, not a claim about the full published exploration schedule. Use Play/Pause on MkDocs or the [GitHub PUCT static fallback](../../../../assets/concept-animations/alphazero-puct-select-still.svg). See the search mechanism in [Silver et al. (2018)](https://doi.org/10.1126/science.aar6404).
+
 ### Search visits as a policy-improvement target
 
 The network prior \(p=(0.60,0.30,0.10)\) initially guides tree search. In the hypothetical 100-visit example below, the search instead allocates \(N=(12,54,34)\) visits to moves A, B, and C. AlphaZero converts these search counts into a policy target; for temperature \(\tau=1\), it is simply \(\pi=(0.12,0.54,0.34)\):
@@ -62,6 +77,14 @@ During a game, every searched position provides an MCTS visit-distribution targe
 ![AlphaZero self-play positions receive search policies before their terminal outcome value labels](../../../../assets/concept-animations/alphazero-selfplay-labels-motion.svg)
 
 *Original teaching animation (CC BY-SA 4.0).* The mini-bars are illustrative policy distributions, and the terminal result propagates to historical positions only once the game ends; this is **not a recorded match, measured network prediction, or gradient propagation across moves**. Use Play/Pause on MkDocs or the [GitHub-readable terminal-target overview](../../../../assets/concept-animations/alphazero-selfplay-labels-still.svg). The tuples \((s_t,\pi_t,z_t)\) provide the policy and value targets used in the combined training objective described above.
+
+### Backing up values across alternating players
+
+The two-player zero-sum value is interpreted from the perspective of the **player to move**. In a search tree, that perspective changes after each ply; when values are stored for each parent state's actor, a returned leaf evaluation changes sign with each step toward the root. This is **not** backpropagation of neural-network gradients through played moves.
+
+![Black and White alternate viewpoints as a leaf evaluation propagates toward the search root](../../../../assets/concept-animations/alphazero-value-backup-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* In a **hypothetical** White–Black–White–Black path, the Black-to-move leaf has \(v=+0.60\); from the parent toward the root, the White, Black and White actor viewpoints receive \(-0.60,+0.60,-0.60\). If the chosen root edge previously had \(N=4\), \(Q=0.20\), its updated mean is \(N=5\), \(Q=(4\cdot0.20-0.60)/5=0.04\). These exact synthetic values are **not model measurements**. MkDocs provides Play/Pause; GitHub uses the [static value-backup fallback](../../../../assets/concept-animations/alphazero-value-backup-still.svg). Implementations may differ in how values are stored; here each action value uses its parent player's perspective.
 
 ## Results
 

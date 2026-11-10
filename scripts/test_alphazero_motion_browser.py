@@ -9,7 +9,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path.cwd()
 ASSETS = ROOT / "docs/assets/concept-animations"
 OUTPUT = ROOT / "artifacts/alphazero-motion"
-STEMS = ("alphazero-policy-target", "alphazero-selfplay-labels")
+STEMS = ("alphazero-policy-target", "alphazero-selfplay-labels", "alphazero-puct-select", "alphazero-value-backup")
 WIDTHS = (320, 360, 720, 1024)
 TIMES = (0.5, 3.4, 6.8, 10.2)
 
@@ -81,7 +81,7 @@ def main():
                 for reduced in (False, True):
                     exercise_player(browser, stem, lang, reduced)
         browser.close()
-    print("PASS: 40 responsive SVG screenshots; 8 bilingual keyboard/reduced-motion player checks")
+    print("PASS: 80 responsive SVG screenshots; 16 bilingual keyboard/reduced-motion player checks")
 
 if __name__ == "__main__":
     main()
