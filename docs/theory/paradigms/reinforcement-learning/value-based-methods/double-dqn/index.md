@@ -34,6 +34,12 @@ Y_t^{\text{DoubleDQN}} = R_{t+1} + \gamma\, Q\big(S_{t+1}, \arg\max_a Q(S_{t+1},
 
 Here \(\theta\) are the online parameters and \(\theta^-\) the target parameters. Everything else in the DQN training procedure, including replay and the squared loss, stays the same. Only the target changes.
 
+### How Double DQN separates choice from evaluation
+
+<img src="../../../../../assets/concept-animations/double-dqn-selector-still.svg" data-motion-src="../../../../../assets/concept-animations/double-dqn-selector-motion.svg" data-still-src="../../../../../assets/concept-animations/double-dqn-selector-still.svg" width="440" loading="lazy" alt="Two fixed estimators disagree: online Q values L six and R five, while target Q values L three and R seven. DQN chooses the target-network maximum R, producing 7.30; Double DQN chooses L using the online network and evaluates L using the target network, producing 3.70." />
+
+*Original ten-second SVG/SMIL teaching animation (CC BY-SA 4.0).* Hold both networks' estimates **fixed** for one illustrative next state: $Q_{\theta}(s',L)=6$, $Q_{\theta}(s',R)=5$, while $Q_{\theta^-}(s',L)=3$ and $Q_{\theta^-}(s',R)=7$. The online network would select **L**, but the target network's maximum is **R**. With $r=1$ and $\gamma=0.9$, standard DQN maximises over the **target-network** estimates and obtains $1+0.9(7)=\mathbf{7.30}$. Double DQN selects $\arg\max_a Q_{\theta}(s',a)=L$ **online**, then evaluates this **same action L** using the target network, obtaining $1+0.9(3)=\mathbf{3.70}$. The animation successively highlights the differing selections and reveals their TD targets; on MkDocs the existing keyboard-operable Play/Pause control and reduced-motion fallback apply. The [GitHub-compatible static view](../../../../../assets/concept-animations/double-dqn-selector-still.svg) retains both paths. These are **constructed, frozen estimates**, not a training run, observed bias, or evidence that Double DQN must yield a smaller target on every transition. Decoupling selection and evaluation *reduces overestimation on average under relevant estimation-error conditions*; it does not guarantee accurate or unbiased targets. Source: van Hasselt, Guez & Silver (2016), already in References.
+
 ## Results
 
 The paper reports results on 49 Atari games, using the same evaluation as DQN:

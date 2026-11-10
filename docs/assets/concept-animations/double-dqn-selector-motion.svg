@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 634" width="440" height="634" role="img" aria-labelledby="diagram-title diagram-desc"><title id="diagram-title">DQN and Double DQN action selection versus evaluation</title><desc id="diagram-desc">Illustrative online values L six, R five select L. Target values L three, R seven prefer R. Standard DQN uses the target network maximum R seven, giving a target of 7.30. Double DQN selects L online and evaluates L using the target network at three, giving a target of 3.70. The contrast is one frozen synthetic example, not measured bias.</desc><defs><style>text{font-family:Inter,Arial,DejaVu Sans,sans-serif}.title{font-size:23px;font-weight:760;fill:#152A44}.sub{font-size:13px;fill:#566B82}.cardTitle{font-size:18px;font-weight:730;fill:#243C57}.small{font-size:13px;fill:#455B72}.num{font-size:22px;font-weight:760;fill:#203B5B}.box{stroke:#C9D7E8;stroke-width:1.3;fill:#fff}.label{font-size:15px;font-weight:750;fill:#183657}</style></defs>
+<rect width="440" height="634" rx="18" fill="#F5F8FD"/><rect x="1" y="1" width="438" height="632" rx="17" fill="none" stroke="#CEDDEC" stroke-width="2"/>
+<text x="22" y="36" class="title">Selection ≠ evaluation</text><text x="22" y="58" class="sub">Same next state · two fixed estimators</text>
+<rect x="22" y="77" width="193" height="185" rx="13" class="box"/><rect x="225" y="77" width="193" height="185" rx="13" class="box"/>
+<rect x="22" y="77" width="193" height="6" rx="3" fill="#3677CD"/><rect x="225" y="77" width="193" height="6" rx="3" fill="#D68B45"/>
+<text x="35" y="107" class="cardTitle">Online Q</text><text x="238" y="107" class="cardTitle">Target Q</text>
+<text x="35" y="128" class="sub">select action</text><text x="238" y="128" class="sub">evaluate action</text>
+<text x="38" y="157" class="small">L</text><text x="38" y="204" class="small">R</text>
+<rect x="66" y="142" width="98" height="16" rx="6" fill="#E9F0FA"/><rect x="66" y="189" width="98" height="16" rx="6" fill="#E9F0FA"/>
+<rect x="66" y="142" width="84" height="16" rx="6" fill="#3677CD"/><rect x="66" y="189" width="70" height="16" rx="6" fill="#8FA8C6"/>
+<text x="176" y="157" class="num" font-size="19">6</text><text x="176" y="204" class="num">5</text>
+<text x="241" y="157" class="small">L</text><text x="241" y="204" class="small">R</text>
+<rect x="267" y="142" width="98" height="16" rx="6" fill="#F7EDE3"/><rect x="267" y="189" width="98" height="16" rx="6" fill="#F7EDE3"/>
+<rect x="267" y="142" width="42" height="16" rx="6" fill="#E7B786"/><rect x="267" y="189" width="98" height="16" rx="6" fill="#D68B45"/>
+<text x="382" y="157" class="num">3</text><text x="382" y="204" class="num">7</text>
+<text x="35" y="241" class="sub">greedy: L</text><text x="238" y="241" class="sub">greedy: R</text>
+<rect x="29" y="134" width="173" height="35" rx="9" fill="none" stroke="#3677CD" stroke-width="3" id="online-choice" opacity=".14"><animate attributeName="opacity" values=".14;1;1;.14;1;1;.14" keyTimes="0;.08;.19;.34;.48;.76;1" dur="10s" repeatCount="indefinite"/></rect>
+<rect x="232" y="181" width="173" height="35" rx="9" fill="none" stroke="#D68B45" stroke-width="3" id="target-greedy" opacity=".14"><animate attributeName="opacity" values=".14;.14;1;1;.14;.14" keyTimes="0;.19;.32;.46;.55;1" dur="10s" repeatCount="indefinite"/></rect>
+<rect x="232" y="134" width="173" height="35" rx="9" fill="none" stroke="#1B947F" stroke-width="3" id="target-evaluation" opacity=".14"><animate attributeName="opacity" values=".14;.14;.14;1;1;.14" keyTimes="0;.40;.51;.57;.81;1" dur="10s" repeatCount="indefinite"/></rect>
+<rect x="22" y="283" width="396" height="74" rx="12" fill="#fff" stroke="#C9D7E8" stroke-width="1.3"/>
+<text x="38" y="309" class="label">Pick</text><rect x="89" y="290" width="132" height="27" rx="7" fill="#EAF2FF"/><text x="102" y="309" font-size="14" font-weight="730" fill="#2269B8">Online → L</text>
+<text x="38" y="344" class="label">Max</text><rect x="89" y="324" width="132" height="27" rx="7" fill="#FFF1E3"/><text x="102" y="344" font-size="14" font-weight="730" fill="#A66127">Target → R</text>
+<text x="238" y="309" class="small">argmax Q</text><text x="238" y="344" class="small">argmax Q⁻</text>
+<rect x="23" y="377" width="394" height="91" rx="13" fill="#FFF8F1" stroke="#E8CBAE" stroke-width="1.5"/>
+<rect x="23" y="377" width="7" height="91" rx="3.5" fill="#CF8540"/>
+<text x="42" y="406" class="cardTitle">Standard DQN</text><text x="42" y="430" class="small">max target Q⁻ = 7 (R)</text><text x="42" y="452" class="sub">1 + 0.9 × 7</text><text x="315" y="449" font-size="29" font-weight="760" fill="#A95D25" id="dqn-target" opacity="0.15"><animate attributeName="opacity" values=".15;.15;1;1" keyTimes="0;.27;.35;1" dur="10s" repeatCount="indefinite"/>7.30</text>
+<rect x="35" y="385" width="375" height="76" rx="10" fill="none" stroke="#C87934" stroke-width="3" opacity=".14" id="dqn-highlight"><animate attributeName="opacity" values=".14;.14;1;1;.14;.14" keyTimes="0;.18;.32;.46;.6;1" dur="10s" repeatCount="indefinite"/></rect>
+<rect x="23" y="482" width="394" height="100" rx="13" fill="#F0FAF7" stroke="#AEDBD0" stroke-width="1.5"/>
+<rect x="23" y="482" width="7" height="100" rx="3.5" fill="#208F78"/>
+<text x="42" y="511" class="cardTitle">Double DQN</text><text x="42" y="535" class="small">online picks L · target scores L</text><text x="42" y="558" class="sub">1 + 0.9 × 3</text><text x="315" y="557" font-size="29" font-weight="760" fill="#157762" id="double-target" opacity="0.15"><animate attributeName="opacity" values=".15;.15;1;1" keyTimes="0;.60;.68;1" dur="10s" repeatCount="indefinite"/>3.70</text>
+<rect x="35" y="490" width="375" height="85" rx="10" fill="none" stroke="#168F79" stroke-width="3" opacity=".14" id="double-highlight"><animate attributeName="opacity" values=".14;.14;.14;1;1;.14" keyTimes="0;.38;.52;.72;.86;1" dur="10s" repeatCount="indefinite"/></rect>
+<text x="220" y="610" font-size="12" text-anchor="middle" fill="#60768D">Illustrative estimates · not observed training data</text>
+</svg>

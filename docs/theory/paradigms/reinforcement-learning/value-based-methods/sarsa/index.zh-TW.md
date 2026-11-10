@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 aliases:
   - SARSA
   - 同策略時序差分控制
@@ -36,6 +36,75 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \left[ r_{t+1} + \gamma Q(s_{t+1}, a
 
 與 Q 學習的唯一差別在第 4 步：Q 學習以 \(\max_b Q(s', b)\) 取代 \(Q(s', a')\)。
 
+### 為何 SARSA 要用實際抽樣的下一動作？
+
+<img src="../../../../../assets/concept-animations/q-sarsa-backup-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-backup-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-backup-still.svg" width="640" loading="lazy" alt="同一筆示意轉移中，下一狀態的貪婪 Left 動作價值為五，實際抽樣執行的 Right 動作價值為二；Q-learning 使用目標 5.5 更新為 3.75，SARSA 使用目標 2.8 更新為 2.40。" />
+
+*原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 從**同一筆假想經驗**比較兩種 TD 備份：$Q(s,a)=2$、$r=1$、$\gamma=0.9$、$\alpha=0.5$。到達 $s'$ 後，貪婪動作 **Left** 的價值為 5，行為策略實際選擇的 **Right** 價值為 2。SARSA 必須先確定這個**實際將執行的** $a'$，再計算：
+
+$
+y_{\mathrm{SARSA}}=1+0.9(2)=2.8,\qquad
+Q_{\mathrm{new}}=2+0.5(2.8-2)=2.40.
+$
+
+相對地，Q-learning 的備份目標**不使用這次抽到的下一動作**，而是 $y_{\mathrm{Q}}=1+0.9(5)=5.5$，使 $Q_{\mathrm{new}}=3.75$。這是固定起始 Q 值下的**反事實單步比較**，不是模型實測，也不表示 SARSA 的價值永遠較低；圖中的色彩代表備份訊號來源，並非動作機率。MkDocs 提供可用鍵盤操作的播放／暫停並遵守減少動態效果偏好；GitHub 可顯示[不需指令碼的靜態回退](../../../../../assets/concept-animations/q-sarsa-backup-still.svg)。對應公式可參考文末既有的 Sutton 與 Barto（2018）及 Watkins 與 Dayan（1992）。
+
+### 分離「取最大值」與「使用實際下一動作」的效果
+
+<img src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg" width="440" loading="lazy" alt="四種等機率的 A、B 動作價值雜訊組合。取最大值的平均 bootstrap 為 4.5；在此受控案例中使用預先獨立選定的下一動作 B，平均為四。" />
+
+這組動畫用另一個角度比較**離策略與同策略的備份目標**。令下一狀態中兩個動作的真實價值都是 4，各自的估計誤差為獨立、等機率的 $\pm1$。四個等機率組合 $(5,5),(5,3),(3,5),(3,3)$ 中，**取最大值**得到 $(5,5,5,3)$，平均為 **4.5**；**使用已選定的動作 B** 得到 $(5,3,5,3)$，平均為 **4.0**。此處特別假設行為策略選擇 B 的決策與估計雜訊**互相獨立**，只為隔離最大值選擇造成的偏差，**不能推論 SARSA 一般情況下一定無偏**，亦非模型實測或連續訓練。圖中比較的是還沒加入獎勵與折扣率的 bootstrap 值，英文字標籤由雙語教材共用；[GitHub 靜態回退](../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg)保留完整四組資料。相關概念參考文末既有的 Sutton 與 Barto（2018）。
+
+### ε-貪婪探索如何改變 SARSA 的備份目標
+
+<img src="../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-epsilon-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg" width="440" loading="lazy" alt="下一狀態的動作 L 價值五、R 價值二，epsilon 為 0.2 時，ε-貪婪策略選 L 的機率為九成、R 為一成。Q-learning 固定使用 5.5 作為目標；SARSA 根據抽到的動作得到 5.5 或 2.8，而 Expected SARSA 的機率加權目標為 5.23。" />
+
+*原創十一秒 SVG／SMIL 動畫（CC BY-SA 4.0）。* 在**另一個純示意的兩動作情境**中，令唯一貪婪動作 L 的 $Q(s',L)=5$、動作 R 的 $Q(s',R)=2$。$\varepsilon=0.20$ 的 ε-貪婪策略，會在探索時對**全部兩個動作**均勻抽樣，所以選 L 的機率為 $0.90$，選 R 為 $0.10$。固定 Q 表，並令 $r=1$、$\gamma=0.9$，單次**抽樣 SARSA** 會依下一動作得到 $5.50$（L）或 $2.80$（R）的 TD 目標。若對行為策略取期望，則為 $0.90(5.50)+0.10(2.80)=\mathbf{5.23}$；**Expected SARSA** 直接使用這個機率加權目標，而非只抽一個 $a'$。相較之下，**Q-learning** 一律使用最大值目標 $5.50$。動畫逐段強調的是**不同計算路徑**，不是模擬訓練軌跡，也不是依照 90%／10% 的時間比例播放；期望值只在給定 Q 估計與策略的條件下成立，不保證是最佳動作價值的無偏估計。全部數值都是人工示意，非模型實測。MkDocs 提供鍵盤播放／暫停與減少動態效果回退；[GitHub 靜態預覽](../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg)可同時看見各種結果。定義參考文末 Sutton 與 Barto（2018）第 6 章。
+
+### 真正終止與外部時間限制截斷的 TD 備份
+
+<img src="../../../../../assets/concept-animations/td-terminal-truncation-still.svg" data-motion-src="../../../../../assets/concept-animations/td-terminal-truncation-motion.svg" data-still-src="../../../../../assets/concept-animations/td-terminal-truncation-still.svg" width="440" loading="lazy" alt="真正終止時，Q-learning 與 SARSA 都不使用下一狀態價值，目標為 1.00。外部時間限制截斷時，Q-learning 以最終觀測的最大動作價值四進行備份，得到 4.60；SARSA 以延續策略抽出的下一動作價值二進行備份，得到 2.80。" />
+
+*原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。***回合停止不等於 MDP 真正終止。**若任務已達到真正終止狀態（包含有限時域任務內生的終點），TD 目標就不再加上下一狀態價值；若只是*持續性任務*被外部 TimeLimit 強制截斷，則仍須從**重設前最後一筆觀測**進行 bootstrap，而非使用下一個回合的重設觀測。Pardo 等人（2018）分析了這個差異；Gymnasium 的 `terminated` 和 `truncated` 分別表達這兩種訊號。
+
+假設人工示意 $r=1$、$\gamma=0.9$、$\max_a Q(s',a)=4$，而 SARSA 在最後觀測下的延續動作估計 $Q(s',a')=2$。**真正終止**時，兩種方法的 TD 目標都是 **1.00**；**外部截斷**時，Q-learning 的目標為 **4.60**，SARSA 的延續動作備份為 **2.80**。由於截斷後不一定真的執行下一動作，SARSA 可在最後觀測依其策略**假設性抽樣延續動作**，不能取用重設狀態所抽的動作。這是人工建構的計算案例，**不是模型實測**。動畫中的叉號代表真正終止時移除 bootstrap，虛線時間界線則保留延續價值路徑。MkDocs 可用鍵盤播放／暫停、支援減少動態效果；[GitHub 靜態回退](../../../../../assets/concept-animations/td-terminal-truncation-still.svg)同時呈現兩個條件。依據文末 Pardo 等人（2018）的原始論文。
+
+### 懸崖行走：學習目標與探索行為評估的是哪個策略？
+
+<img src="../../../../../assets/concept-animations/cliff-walking-still.svg" data-motion-src="../../../../../assets/concept-animations/cliff-walking-motion.svg" data-still-src="../../../../../assets/concept-animations/cliff-walking-still.svg" width="440" loading="lazy" alt="示意格子世界中，起點與終點之間有懸崖。橘色的 Q-learning 短路徑緊貼懸崖，探索性動作可能使智能體掉落並回到起點；綠色 SARSA 路徑較遠離懸崖，反映同策略學習可能考慮持續探索的風險。" />
+
+*原創 12 秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 在 Sutton 與 Barto（2018，第 6 章）的經典 **Cliff Walking（懸崖行走）** 情境中，一般移動會得到小幅負獎勵，掉入懸崖則承受很大的懲罰並回到起點。如果智能體**持續使用 ε-greedy 探索**，Q-learning 即使實際上仍會探索，也以**下一狀態的貪婪動作價值**更新，所偏好的最短路線可能緊貼懸崖。SARSA 則以**探索策略實際抽出的下一動作價值**更新，因此靠近懸崖的路徑價值會納入探索時誤踩懸崖的風險，可能偏好較長但離懸崖較遠的路線。
+
+圖中比較的是**兩種可能的策略偏好**，不代表 SARSA 一定採用綠色路線，或 Q-learning 一定掉落；兩者執行時都可能因探索而失誤。若 ε 逐漸降低、轉移機率或獎勵設定不同，偏好路徑也可能改變。圖中的**七欄地圖刻意簡化**，不是教科書原始地圖，也不是模型實測軌跡；移動圓點與紅色掉落僅示意因果過程，動畫的停留時間不代表 ε 的抽樣機率。MkDocs 提供可用鍵盤操作的播放／暫停；[GitHub／無 JavaScript 靜態預覽](../../../../../assets/concept-animations/cliff-walking-still.svg)完整保留兩條路線及失足風險。原理依據文末既有的 Sutton 與 Barto（2018）教材。
+
+
+### 前向觀點：多步備份與截斷 λ-return
+
+<img src="../../../../../assets/concept-animations/nstep-lambda-forward-still.svg" data-motion-src="../../../../../assets/concept-animations/nstep-lambda-forward-motion.svg" data-still-src="../../../../../assets/concept-animations/nstep-lambda-forward-still.svg" width="520" loading="lazy" alt="三次獎勵的 SARSA 示意軌跡：一步、兩步、三步的自助式報酬分別為 3.700、0.910、4.798。截斷 λ 報酬再以 0.20、0.16、0.64 加權得到 3.95632。" />
+
+*原創十二秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* **前向觀點（forward view）**的多步 SARSA 報酬先累加 $n$ 步實際獎勵，再以該時點**依策略抽樣的延續動作**進行自助式估計。下列數值皆使用**固定的人工示意 Q 表**：
+
+$$
+G_{t:t+n}=\sum_{k=1}^{n}\gamma^{k-1}r_{t+k}+\gamma^n Q(s_{t+n},a_{t+n}).
+$$
+
+假設獎勵依序為 $(+1,-1,+4)$、折扣率 $\gamma=0.9$，各後續狀態中抽樣動作的價值 $Q_1=3$、$Q_2=1$、$Q_3=2$。同一個起始決策可形成不同備份目標：一步 $G^{(1)}=1+0.9(3)=\mathbf{3.700}$；兩步 $G^{(2)}=1-0.9+0.9^2(1)=\mathbf{0.910}$；三步 $G^{(3)}=1-0.9+0.9^2(4)+0.9^3(2)=\mathbf{4.798}$。它們是**使用同一組凍結估計值的替代目標**，不是連續更新 Q 表。
+
+取 $\lambda=0.8$，三個期限的**截斷前向 λ-return** 權重為 $(1-\lambda,\;(1-\lambda)\lambda,\;\lambda^2)=(0.20,0.16,0.64)$，加權結果 $G^\lambda_{t:t+3}=0.20(3.700)+0.16(0.910)+0.64(4.798)=\mathbf{3.95632}$；權重總和為 1。第三步的狀態**仍非終止狀態**，所以保留自助式估計；這不是完整回合的蒙地卡羅報酬，也不是實際模型測量值。若第三步確實終止，該步的延續價值就應設為零。這種有限期限前向建構有助理解下方資格跡的信用分配，但**不能直接視為任意線上累積資格跡實作都與它完全等價**。圖中以連續進度呈現各期限後，再融合權重；MkDocs 可用鍵盤操作播放／暫停，GitHub 或無腳本時使用[完整靜態回退圖](../../../../../assets/concept-animations/nstep-lambda-forward-still.svg)。依據文末 Sutton 與 Barto（2018）第 7、12 章。
+
+
+### 資格跡：跨時間信用分配與非貪婪動作的截斷
+
+<img src="../../../../../assets/concept-animations/eligibility-trace-cut-still.svg" data-motion-src="../../../../../assets/concept-animations/eligibility-trace-cut-motion.svg" data-still-src="../../../../../assets/concept-animations/eligibility-trace-cut-still.svg" width="440" loading="lazy" alt="資格跡如何隨時間衰減，以及當 C 是非貪婪動作時，SARSA lambda 保留過往 A、B 的資格跡，而 Watkins Q lambda 將其切斷的對比。" />
+
+*原創 12 秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 單步 SARSA 備份可以透過**資格跡（eligibility trace）**，讓目前的 TD 誤差同時更新先前走過的多個狀態－動作對。SARSA($\lambda$) 即使遇到非貪婪的實際動作，仍保留先前資格跡並使其衰減，因為這些動作屬於它正在評估的行為策略。 圖中以三個依序出現、**彼此不同**的狀態－動作對 A、B、C，比較兩種機制：A 與 B 都是貪婪選擇，C 則刻意選為**非貪婪動作**；必須注意，「由探索分支抽樣」不代表抽出的動作一定不是貪婪動作。使用初值為零的表格式**累積資格跡**，且不重複造訪同一個狀態－動作對。設 $\gamma=0.9$、$\lambda=0.8$，因此 $\gamma\lambda=0.72$。
+
+在 SARSA($\lambda$) 中，舊資格跡每步乘上 $\gamma\lambda$，目前造訪的狀態－動作對額外加 1。執行 C 時，$e(A)=0.72^2=0.5184\approx\mathbf{0.52}$、$e(B)=\mathbf{0.72}$、$e(C)=\mathbf{1.00}$。之後的 TD 誤差 $\delta_t^{\mathrm{SARSA}}=r_{t+1}+\gamma Q(s_{t+1},a_{t+1})-Q(s_t,a_t)$，會透過 $\alpha\delta_t e_t(s,a)$ 將更新量分配給包含 A、B 在內的歷史動作。
+
+在 **Watkins $Q(\lambda)$** 中，當 C 為非貪婪動作，先將歷史資格跡**截斷歸零**，再建立目前的 C 資格跡，因此 $e(A)=e(B)=0$、$e(C)=1$。其 TD 誤差仍以貪婪最大動作價值進行 Bootstrap；截斷資格跡**不等於忽略 C 的單步更新**。圖中顯示的是此時的資格跡，不是 Q 值訓練曲線或實測報酬；其他離策略資格跡方法（例如 Tree-backup）也不必採取相同截斷規則。
+
+動畫展現舊資格跡衰減與非貪婪動作造成的截斷；[GitHub／無腳本靜態預覽](../../../../../assets/concept-animations/eligibility-trace-cut-still.svg) 保留最後一個時間點的數值。MkDocs 提供可用鍵盤操作的播放／暫停及 Reduced Motion 回退。**所有數值均為教學示意，並非模型實測。**概念依據本頁參考文獻已列的 Sutton 與 Barto（2018）第 12 章。
+
 ## 結果
 
 SARSA 沒有單一的代表性基準。Rummery 與 Niranjan（1994）研究了具有線上更新的連接主義 Q 學習變體。他們的報告提出了與 SARSA 密切相關的更新規則 MCQ-L；在一個必須在障礙物間抵達目標的模擬移動機器人上，他們發現線上學習對訓練參數的選擇比倒序回放（backward replay）更不敏感。
@@ -69,6 +138,8 @@ SARSA 沒有單一的代表性基準。Rummery 與 Niranjan（1994）研究了�
 - Watkins 與 Dayan（1992），"Q-learning"，*Machine Learning* 8(3–4), 279–292。https://doi.org/10.1007/bf00992698 — 離策略的對應方法，附其收斂定理。
 - Mnih 等人（2015），"Human-level control through deep reinforcement learning"，*Nature* 518, 529–533。https://doi.org/10.1038/nature14236 — 深度離策略價值學習器，與 SARSA 的同策略目標形成對照。
 - Schulman 等人（2017），"Proximal policy optimization algorithms"，[arXiv:1707.06347](https://arxiv.org/abs/1707.06347) — 同樣從當前策略收集資料學習的深度同策略方法。
+
+- Pardo、Tavakoli、Levdik 與 Kormushev（2018），*Time Limits in Reinforcement Learning*，ICML，PMLR 80:4045–4054。https://proceedings.mlr.press/v80/pardo18a.html — 區分有限時域任務的真正終止與外部訓練時間限制，說明應從截斷時最後觀測延續價值估計。
 
 ### 綜述與教科書
 

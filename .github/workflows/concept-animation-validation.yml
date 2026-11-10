@@ -28,6 +28,13 @@ on:
       - "scripts/test_ssl_ema_trajectory_browser.py"
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
+      - "scripts/test_q_sarsa_motion_browser.py"
+      - "scripts/test_q_sarsa_epsilon_browser.py"
+      - "scripts/test_double_dqn_selector_browser.py"
+      - "scripts/test_td_terminal_truncation_browser.py"
+      - "scripts/test_cliff_walking_browser.py"
+      - "scripts/test_eligibility_trace_cut_browser.py"
+      - "scripts/test_nstep_lambda_forward_browser.py"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
@@ -73,6 +80,22 @@ jobs:
           python -m playwright install chromium
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
+      - name: Chromium Q-learning vs SARSA backup, controls and reduced motion
+        run: python scripts/test_q_sarsa_motion_browser.py
+      - name: Chromium Q/SARSA noisy max vs sampled backup
+        run: python scripts/test_q_sarsa_noisy_backups_browser.py
+      - name: Chromium epsilon-greedy SARSA targets and accessibility
+        run: python scripts/test_q_sarsa_epsilon_browser.py
+      - name: Chromium Double DQN selection versus evaluation and fallback
+        run: python scripts/test_double_dqn_selector_browser.py
+      - name: Chromium terminated versus time-limit truncated TD targets
+        run: python scripts/test_td_terminal_truncation_browser.py
+      - name: Chromium cliff walking policy risk, geometry and accessible controls
+        run: python scripts/test_cliff_walking_browser.py
+      - name: Chromium eligibility trace decay and Watkins cutoff
+        run: python scripts/test_eligibility_trace_cut_browser.py
+      - name: Chromium forward n-step SARSA and lambda-return arithmetic
+        run: python scripts/test_nstep_lambda_forward_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -90,6 +113,14 @@ jobs:
           name: self-supervised-lab-browser-review
           path: |
             artifacts/self-supervised-labs/*.png
+            artifacts/q-sarsa-backup/*.png
+            artifacts/q-sarsa-noisy-backups/*.png
+            artifacts/q-sarsa-epsilon/*.png
+            artifacts/double-dqn-selector/*.png
+            artifacts/td-terminal-truncation/*.png
+            artifacts/cliff-walking/*.png
+            artifacts/eligibility-trace-cut/*.png
+            artifacts/nstep-lambda-forward/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
             artifacts/ssl-gradient/*.png

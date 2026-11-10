@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 aliases:
   - Double DQN
   - 雙深度 Q 網路
@@ -34,6 +34,12 @@ Y_t^{\text{DoubleDQN}} = R_{t+1} + \gamma\, Q\big(S_{t+1}, \arg\max_a Q(S_{t+1},
 \]
 
 其中 \(\theta\) 是線上參數，\(\theta^-\) 是目標參數。DQN 訓練流程的其他部分，包括回放與平方損失，維持不變，只有目標改變。
+
+### Double DQN 如何分離動作選擇與評估
+
+<img src="../../../../../assets/concept-animations/double-dqn-selector-still.svg" data-motion-src="../../../../../assets/concept-animations/double-dqn-selector-motion.svg" data-still-src="../../../../../assets/concept-animations/double-dqn-selector-still.svg" width="440" loading="lazy" alt="兩組固定估計並不一致：線上網路對左、右動作的價值分別為六與五，目標網路則為三與七。DQN 取目標網路的右動作最大值，目標為 7.30；Double DQN 用線上網路選左動作，再以目標網路評估左動作，目標為 3.70。" />
+
+*原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 在同一個**人工示意的下一狀態**，先固定兩個網路的估計值：$Q_{\theta}(s',L)=6$、$Q_{\theta}(s',R)=5$，但 $Q_{\theta^-}(s',L)=3$、$Q_{\theta^-}(s',R)=7$。線上網路的貪婪動作是 **L**，目標網路最大值對應的動作卻是 **R**。取 $r=1$、$\gamma=0.9$，標準 DQN 在**目標網路**的價值中直接取最大，得到 $1+0.9(7)=\mathbf{7.30}$；Double DQN 先由**線上網路**選 $\arg\max_a Q_{\theta}(s',a)=L$，再讓目標網路評估**同一個 L 動作**，得到 $1+0.9(3)=\mathbf{3.70}$。動畫依序指出兩條選擇路徑並揭露 TD 目標。MkDocs 沿用可透過鍵盤操作的播放／暫停與減少動態效果支援；[GitHub 靜態預覽](../../../../../assets/concept-animations/double-dqn-selector-still.svg)同時保留兩條結果。這些都是**固定的人工數值**，不是訓練過程、實測高估幅度或「Double DQN 每次目標必定較低」的證據。分離選擇與評估可在適當的估計誤差條件下**降低平均高估傾向**，但不保證估計無偏或完全準確。依據文末既有 van Hasselt、Guez 與 Silver（2016）的原始論文。
 
 ## 結果
 

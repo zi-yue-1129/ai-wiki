@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 626" role="img" aria-labelledby="title desc">
+ <title id="title">One to three step SARSA returns and truncated lambda mixture</title>
+ <desc id="desc">A four-state trajectory with rewards plus one, minus one and plus four. One, two and three step returns use increasingly distant bootstrap action values. A lambda weighted combination uses weights point two, point one six and point six four; all numbers are illustrative.</desc>
+ <rect width="520" height="626" rx="22" fill="#f4f7fc"/>
+ <rect x="12" y="12" width="496" height="602" rx="19" fill="white" stroke="#dce5f0"/>
+ <text x="28" y="47" fill="#213047" font-size="24" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" >Multi-step TD</text>
+ <rect x="318" y="24" width="176" height="31" rx="15" fill="#e7f0ff"/>
+ <text x="406" y="45" fill="#46648a" font-size="14" font-weight="700" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">γ = 0.9  ·  λ = 0.8</text>
+ <text x="29" y="80" fill="#8294ac" font-size="12" font-weight="750" font-family="Inter,Segoe UI,Arial,sans-serif" >Trajectory</text>
+ <path d="M68 120 H451" stroke="#d7e1ef" stroke-width="7" stroke-linecap="round"/>
+ <path d="M68 120 H451" stroke="#a8bed6" stroke-width="2" stroke-dasharray="5 8"/>
+ <circle cx="68" cy="120" r="22" fill="#fff" stroke="#4079b8" stroke-width="3"/><text x="68" y="126" fill="#346b9f" font-size="17" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">s0</text><circle cx="195" cy="120" r="22" fill="#fff" stroke="#4079b8" stroke-width="3"/><text x="195" y="126" fill="#346b9f" font-size="17" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">s1</text><circle cx="322" cy="120" r="22" fill="#fff" stroke="#4079b8" stroke-width="3"/><text x="322" y="126" fill="#346b9f" font-size="17" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">s2</text><circle cx="449" cy="120" r="22" fill="#fff" stroke="#2c9d85" stroke-width="3"/><text x="449" y="126" fill="#218873" font-size="17" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">s3</text>
+ <text x="131.5" y="104" fill="#be7130" font-size="14" font-weight="750" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">+1</text><text x="258.5" y="104" fill="#be7130" font-size="14" font-weight="750" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">−1</text><text x="385.5" y="104" fill="#be7130" font-size="14" font-weight="750" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">+4</text>
+ <text x="195" y="170" fill="#2a977e" font-size="13" font-weight="700" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">Q1 = 3</text><text x="322" y="170" fill="#2a977e" font-size="13" font-weight="700" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">Q2 = 1</text><text x="449" y="170" fill="#2a977e" font-size="13" font-weight="700" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">Q3 = 2</text>
+ <circle cx="68" cy="83" r="5" fill="#ec9348" opacity="0"></circle>
+ <text x="29" y="207" fill="#8294ac" font-size="12" font-weight="750" font-family="Inter,Segoe UI,Arial,sans-serif" >Backup horizon</text>
+ <g opacity="1">
+ <rect x="25" y="220" width="470" height="72" rx="13" fill="#f8faff" stroke="#dbe6f1"/>
+ <rect x="38" y="233" width="50" height="28" rx="14" fill="#3285c5" opacity=".14"/>
+ <text x="63" y="253" fill="#3285c5" font-size="15" font-weight="750" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">n=1</text>
+ <text x="107" y="249" fill="#344b67" font-size="16" font-weight="600" font-family="Inter,Segoe UI,Arial,sans-serif" >1 + 0.9 × 3</text>
+ <rect x="107" y="266" width="286" height="9" rx="4.5" fill="#e6eef8"/>
+ <rect x="107" y="266" width="92" height="9" rx="4.5" fill="#3285c5"></rect>
+ <text x="472" y="275" fill="#3285c5" font-size="18" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="end">3.700</text>
+ </g>
+ <g opacity="1">
+ <rect x="25" y="300" width="470" height="72" rx="13" fill="#f8faff" stroke="#dbe6f1"/>
+ <rect x="38" y="313" width="50" height="28" rx="14" fill="#7765c6" opacity=".14"/>
+ <text x="63" y="333" fill="#7765c6" font-size="15" font-weight="750" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">n=2</text>
+ <text x="107" y="329" fill="#344b67" font-size="16" font-weight="600" font-family="Inter,Segoe UI,Arial,sans-serif" >1 − 0.9 + 0.81 × 1</text>
+ <rect x="107" y="346" width="286" height="9" rx="4.5" fill="#e6eef8"/>
+ <rect x="107" y="346" width="188" height="9" rx="4.5" fill="#7765c6"></rect>
+ <text x="472" y="355" fill="#7765c6" font-size="18" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="end">0.910</text>
+ </g>
+ <g opacity="1">
+ <rect x="25" y="380" width="470" height="72" rx="13" fill="#f8faff" stroke="#dbe6f1"/>
+ <rect x="38" y="393" width="50" height="28" rx="14" fill="#259985" opacity=".14"/>
+ <text x="63" y="413" fill="#259985" font-size="15" font-weight="750" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">n=3</text>
+ <text x="107" y="409" fill="#344b67" font-size="16" font-weight="600" font-family="Inter,Segoe UI,Arial,sans-serif" >1 − 0.9 + 3.24 + 1.458</text>
+ <rect x="107" y="426" width="286" height="9" rx="4.5" fill="#e6eef8"/>
+ <rect x="107" y="426" width="286" height="9" rx="4.5" fill="#259985"></rect>
+ <text x="472" y="435" fill="#259985" font-size="18" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="end">4.798</text>
+ </g>
+ <text x="29" y="486" fill="#344b67" font-size="14" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" >Truncated λ-return</text>
+ <g opacity="1">
+ <rect x="37" y="500" width="446" height="61" rx="12" fill="#f8faff" stroke="#dbe6f1"/>
+ <rect x="48" y="513" width="84" height="30" rx="6" fill="#3285c5"/><text x="90" y="534" fill="white" font-size="15" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">0.20</text>
+ <rect x="136" y="513" width="69" height="30" rx="6" fill="#7765c6"/><text x="170" y="534" fill="white" font-size="15" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">0.16</text>
+ <rect x="209" y="513" width="262" height="30" rx="6" fill="#259985"/><text x="340" y="534" fill="white" font-size="15" font-weight="800" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">0.64</text>
+ </g>
+ <path d="M258 560 V572" stroke="#9eb1ca" stroke-width="2" stroke-linecap="round"/>
+ <path d="M252 568 L258 576 L264 568" fill="none" stroke="#9eb1ca" stroke-width="2"/>
+ <g opacity="1">
+ <rect x="116" y="581" width="288" height="29" rx="14.5" fill="#e9f7f2" stroke="#b4dfd0"/>
+ <text x="260" y="601" fill="#187e6a" font-size="19" font-weight="850" font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">Gλ = 3.95632</text>
+ </g>
+ </svg>
