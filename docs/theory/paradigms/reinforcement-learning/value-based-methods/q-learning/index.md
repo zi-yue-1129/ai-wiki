@@ -49,6 +49,19 @@ $
 
 SARSA instead uses the **sampled next action**: $y_{\mathrm{SARSA}}=1+0.9(2)=2.8$ and $Q_{\mathrm{new}}=2+0.5(2.8-2)=2.40$. The two animated routes distinguish the **off-policy greedy backup** from the **on-policy sampled-action backup**; they are **alternative one-step updates from the same fixed example**, not two consecutive updates to one table or measured learning curves. The numeric values and action choice are artificial teaching data. On MkDocs, use Play/Pause (keyboard operable); [GitHub and no-script static preview](../../../../../assets/concept-animations/q-sarsa-backup-still.svg) retains both complete calculations. The update rules follow Watkins & Dayan (1992) and Sutton & Barto (2018), already cited in References.
 
+### When a greedy maximum amplifies unbiased noise
+
+<img src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg" width="440" loading="lazy" alt="Four equally likely pairs of noisy action-value estimates around the true value four. The Q-learning maximum averages 4.5, whereas a fixed next action B, selected independently of the noise, averages four." />
+
+*Original 10-second SVG/SMIL illustration (CC BY-SA 4.0).* Consider two actions at the same next state with **equal true action values of 4**. Each estimate has independent, equally likely noise of $+1$ or $-1$, so neither action-value estimator is biased. The four equiprobable estimate pairs are $(5,5)$, $(5,3)$, $(3,5)$ and $(3,3)$. The animation reveals each backup and then the exact ensemble means:
+
+$
+\mathbb{E}[\max(\hat Q_A,\hat Q_B)]=\tfrac{5+5+5+3}{4}=\mathbf{4.5},\qquad
+\mathbb{E}[\hat Q_B]=\tfrac{5+3+5+3}{4}=\mathbf{4}.
+$
+
+The blue backup **selects the maximum from the same noisy estimates**; the orange comparison uses action B, chosen independently of these estimation errors. This isolates *maximisation bias* in the bootstrapped value, **not** the complete $r+\gamma(\cdot)$ TD target. Taking B is a SARSA-compatible sampled-action backup under this controlled behaviour policy, **not a claim that SARSA is generally unbiased**: its learned estimates, policy-dependent sampling and function approximation can introduce other biases. The four cases are an exhaustive artificial probability example, **not four successive training updates or model measurements**. On MkDocs use the keyboard-operable Play/Pause button; the [GitHub static fallback](../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg) includes all cases and both means. See van Hasselt et al. (2016) and Sutton & Barto (2018) in References.
+
 ## Results
 
 Watkins and Dayan's contribution is a convergence theorem, not an empirical benchmark. Its practical reach came through function approximation. Deep Q-networks use the same max-target with a neural network, and reach human-level play on many Atari games (Mnih et al., 2015).

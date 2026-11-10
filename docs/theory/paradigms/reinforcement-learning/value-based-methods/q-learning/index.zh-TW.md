@@ -50,6 +50,19 @@ $
 
 SARSA 則使用**實際抽樣的下一動作**：$y_{\mathrm{SARSA}}=1+0.9(2)=2.8$，得到 $Q_{\mathrm{new}}=2+0.5(2.8-2)=2.40$。兩條動態路徑區分**離策略的貪婪備份**與**同策略的實際動作備份**。圖中是同一組起始 Q 值下的**兩種替代更新**，不是連續更新同一張 Q 表，也不是實際訓練曲線。數值與動作均為人工示意。MkDocs 支援鍵盤操作的播放／暫停，GitHub 或無 JavaScript 時可查看[完整靜態回退圖](../../../../../assets/concept-animations/q-sarsa-backup-still.svg)。更新規則參考已列於文末的 Watkins 與 Dayan（1992）、Sutton 與 Barto（2018）。
 
+### 為什麼取最大值會放大無偏估計的雜訊？
+
+<img src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg" width="440" loading="lazy" alt="四種等機率的動作價值估計誤差組合，兩個動作的真實價值皆為四。Q-learning 選最大值後的期望為 4.5，獨立於估計雜訊而選定動作 B 的期望則為四。" />
+
+*原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 假設下一狀態中兩個動作的**真實價值都等於 4**。兩個估計值分別受到互相獨立、機率各半的 $+1$ 或 $-1$ 雜訊影響，故單獨看每個動作的估計器都是無偏的。四種等機率的估計組合為 $(5,5)$、$(5,3)$、$(3,5)$、$(3,3)$。動畫依序展示每個備份，再顯示精確的枚舉期望：
+
+$
+\mathbb{E}[\max(\hat Q_A,\hat Q_B)]=\tfrac{5+5+5+3}{4}=\mathbf{4.5},\qquad
+\mathbb{E}[\hat Q_B]=\tfrac{5+3+5+3}{4}=\mathbf{4}.
+$
+
+藍色路徑對**同一組含雜訊估計取最大值**，橘色路徑則比較與估計誤差**獨立決定**的下一動作 B；這是刻意隔離 Q-learning 的**最大化偏差（maximisation bias）**，比較的僅是 bootstrap 價值，尚未加入 $r+\gamma(\cdot)$。在這個受控行為策略下，動作 B 可以作為 SARSA 的實際下一動作，但**不表示 SARSA 一般情況下一定無偏**；學習、策略依賴的抽樣或函數近似仍可能帶來其他偏差。四種情況是**人工建構的完整機率枚舉**，不是連續四次更新或模型實測。MkDocs 可用鍵盤操作播放／暫停；[GitHub 靜態回退](../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg)保留所有案例與平均值。依據文末的 van Hasselt 等人（2016）及 Sutton 與 Barto（2018）。
+
 ## 結果
 
 Watkins 與 Dayan 的貢獻是收斂定理，而非實證基準。它的實際影響來自函數逼近：深度 Q 網路以神經網路使用相同的最大值目標，並在許多 Atari 遊戲上達到人類水準（Mnih 等人，2015）。

@@ -76,6 +76,8 @@ jobs:
         run: python scripts/test_self_supervised_browser.py
       - name: Chromium Q-learning vs SARSA backup, controls and reduced motion
         run: python scripts/test_q_sarsa_motion_browser.py
+      - name: Chromium Q/SARSA noisy max vs sampled backup
+        run: python scripts/test_q_sarsa_noisy_backups_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -94,6 +96,7 @@ jobs:
           path: |
             artifacts/self-supervised-labs/*.png
             artifacts/q-sarsa-backup/*.png
+            artifacts/q-sarsa-noisy-backups/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
             artifacts/ssl-gradient/*.png

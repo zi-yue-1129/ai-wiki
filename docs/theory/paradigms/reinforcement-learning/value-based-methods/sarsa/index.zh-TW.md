@@ -49,6 +49,12 @@ $
 
 相對地，Q-learning 的備份目標**不使用這次抽到的下一動作**，而是 $y_{\mathrm{Q}}=1+0.9(5)=5.5$，使 $Q_{\mathrm{new}}=3.75$。這是固定起始 Q 值下的**反事實單步比較**，不是模型實測，也不表示 SARSA 的價值永遠較低；圖中的色彩代表備份訊號來源，並非動作機率。MkDocs 提供可用鍵盤操作的播放／暫停並遵守減少動態效果偏好；GitHub 可顯示[不需指令碼的靜態回退](../../../../../assets/concept-animations/q-sarsa-backup-still.svg)。對應公式可參考文末既有的 Sutton 與 Barto（2018）及 Watkins 與 Dayan（1992）。
 
+### 分離「取最大值」與「使用實際下一動作」的效果
+
+<img src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg" width="440" loading="lazy" alt="四種等機率的 A、B 動作價值雜訊組合。取最大值的平均 bootstrap 為 4.5；在此受控案例中使用預先獨立選定的下一動作 B，平均為四。" />
+
+這組動畫用另一個角度比較**離策略與同策略的備份目標**。令下一狀態中兩個動作的真實價值都是 4，各自的估計誤差為獨立、等機率的 $\pm1$。四個等機率組合 $(5,5),(5,3),(3,5),(3,3)$ 中，**取最大值**得到 $(5,5,5,3)$，平均為 **4.5**；**使用已選定的動作 B** 得到 $(5,3,5,3)$，平均為 **4.0**。此處特別假設行為策略選擇 B 的決策與估計雜訊**互相獨立**，只為隔離最大值選擇造成的偏差，**不能推論 SARSA 一般情況下一定無偏**，亦非模型實測或連續訓練。圖中比較的是還沒加入獎勵與折扣率的 bootstrap 值，英文字標籤由雙語教材共用；[GitHub 靜態回退](../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg)保留完整四組資料。相關概念參考文末既有的 Sutton 與 Barto（2018）。
+
 ## 結果
 
 SARSA 沒有單一的代表性基準。Rummery 與 Niranjan（1994）研究了具有線上更新的連接主義 Q 學習變體。他們的報告提出了與 SARSA 密切相關的更新規則 MCQ-L；在一個必須在障礙物間抵達目標的模擬移動機器人上，他們發現線上學習對訓練參數的選擇比倒序回放（backward replay）更不敏感。
