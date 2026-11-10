@@ -55,6 +55,12 @@ $
 
 這組動畫用另一個角度比較**離策略與同策略的備份目標**。令下一狀態中兩個動作的真實價值都是 4，各自的估計誤差為獨立、等機率的 $\pm1$。四個等機率組合 $(5,5),(5,3),(3,5),(3,3)$ 中，**取最大值**得到 $(5,5,5,3)$，平均為 **4.5**；**使用已選定的動作 B** 得到 $(5,3,5,3)$，平均為 **4.0**。此處特別假設行為策略選擇 B 的決策與估計雜訊**互相獨立**，只為隔離最大值選擇造成的偏差，**不能推論 SARSA 一般情況下一定無偏**，亦非模型實測或連續訓練。圖中比較的是還沒加入獎勵與折扣率的 bootstrap 值，英文字標籤由雙語教材共用；[GitHub 靜態回退](../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg)保留完整四組資料。相關概念參考文末既有的 Sutton 與 Barto（2018）。
 
+### ε-貪婪探索如何改變 SARSA 的備份目標
+
+<img src="../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-epsilon-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg" width="440" loading="lazy" alt="下一狀態的動作 L 價值五、R 價值二，epsilon 為 0.2 時，ε-貪婪策略選 L 的機率為九成、R 為一成。Q-learning 固定使用 5.5 作為目標；SARSA 根據抽到的動作得到 5.5 或 2.8，而 Expected SARSA 的機率加權目標為 5.23。" />
+
+*原創十一秒 SVG／SMIL 動畫（CC BY-SA 4.0）。* 在**另一個純示意的兩動作情境**中，令唯一貪婪動作 L 的 $Q(s',L)=5$、動作 R 的 $Q(s',R)=2$。$\varepsilon=0.20$ 的 ε-貪婪策略，會在探索時對**全部兩個動作**均勻抽樣，所以選 L 的機率為 $0.90$，選 R 為 $0.10$。固定 Q 表，並令 $r=1$、$\gamma=0.9$，單次**抽樣 SARSA** 會依下一動作得到 $5.50$（L）或 $2.80$（R）的 TD 目標。若對行為策略取期望，則為 $0.90(5.50)+0.10(2.80)=\mathbf{5.23}$；**Expected SARSA** 直接使用這個機率加權目標，而非只抽一個 $a'$。相較之下，**Q-learning** 一律使用最大值目標 $5.50$。動畫逐段強調的是**不同計算路徑**，不是模擬訓練軌跡，也不是依照 90%／10% 的時間比例播放；期望值只在給定 Q 估計與策略的條件下成立，不保證是最佳動作價值的無偏估計。全部數值都是人工示意，非模型實測。MkDocs 提供鍵盤播放／暫停與減少動態效果回退；[GitHub 靜態預覽](../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg)可同時看見各種結果。定義參考文末 Sutton 與 Barto（2018）第 6 章。
+
 ## 結果
 
 SARSA 沒有單一的代表性基準。Rummery 與 Niranjan（1994）研究了具有線上更新的連接主義 Q 學習變體。他們的報告提出了與 SARSA 密切相關的更新規則 MCQ-L；在一個必須在障礙物間抵達目標的模擬移動機器人上，他們發現線上學習對訓練參數的選擇比倒序回放（backward replay）更不敏感。
