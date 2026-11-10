@@ -56,45 +56,54 @@ def main() -> None:
                         count += 1
                 page.close()
         assert count == 80, count
-        # Inline the repository's actual player JS; intercept only image requests.
+        # Exercise the repository's actual shared player on all four real asset pairs,
+        # in both languages and with motion preferences explicitly selected.
         script = (ROOT / "docs/javascripts/concept-motion.js").read_text(encoding="utf-8")
-        html = (
-            '<html><body><img alt="PETS particle illustration" '
-            'src="https://wiki.test/assets/concept-animations/pets-ensemble-particles-motion.svg">'
-            '<script>' + script + '</script></body></html>'
-        )
 
         def serve(route):
             name = urlsplit(route.request.url).path.rsplit("/", 1)[-1]
             route.fulfill(status=200, content_type="image/svg+xml",
                           body=(ASSETS / name).read_text(encoding="utf-8"))
 
-        page = browser.new_page(viewport={"width": 360, "height": 600}, reduced_motion="no-preference")
-        page.route("https://wiki.test/**", serve)
-        page.set_content(html)
-        toggle = page.locator(".concept-motion-toggle")
-        assert toggle.count() == 1
-        assert "Pause" in toggle.inner_text()
-        toggle.click()
-        assert "Play" in toggle.inner_text()
-        assert page.locator("img").get_attribute("src").endswith("pets-ensemble-particles-still.svg")
-        toggle.focus()
-        toggle.press("Enter")
-        assert "Pause" in toggle.inner_text()
-        toggle.press("Space")
-        assert "Play" in toggle.inner_text()
-        page.close()
-        reduced = browser.new_page(viewport={"width": 320, "height": 600}, reduced_motion="reduce")
-        reduced.route("https://wiki.test/**", serve)
-        reduced.set_content(html)
-        btn = reduced.locator(".concept-motion-toggle")
-        assert "Play" in btn.inner_text()
-        assert reduced.locator("img").get_attribute("src").endswith("pets-ensemble-particles-still.svg")
-        btn.click()
-        assert "Pause" in btn.inner_text()
-        reduced.close()
+        for stem in STEMS:
+            for chinese in (False, True):
+                alt = "模型動畫：探索轉換過程" if chinese else "Model-based planning animation"
+                html = (
+                    f'<html><body><img alt="{alt}" '
+                    f'src="https://wiki.test/assets/concept-animations/{stem}-motion.svg">'
+                    '<script>' + script + '</script></body></html>'
+                )
+                for reduced_motion in ("no-preference", "reduce"):
+                    page = browser.new_page(
+                        viewport={"width": 360, "height": 600}, reduced_motion=reduced_motion
+                    )
+                    page.route("https://wiki.test/**", serve)
+                    page.set_content(html)
+                    toggle = page.locator(".concept-motion-toggle")
+                    assert toggle.count() == 1, (stem, chinese, reduced_motion)
+                    paused_label = "播放" if chinese else "Play"
+                    running_label = "暫停" if chinese else "Pause"
+                    if reduced_motion == "reduce":
+                        assert paused_label in toggle.inner_text()
+                        assert page.locator("img").get_attribute("src").endswith(f"{stem}-still.svg")
+                        toggle.click()
+                        assert running_label in toggle.inner_text()
+                        toggle.focus()
+                        toggle.press("Space")
+                        assert paused_label in toggle.inner_text()
+                    else:
+                        assert running_label in toggle.inner_text()
+                        toggle.click()
+                        assert paused_label in toggle.inner_text()
+                        assert page.locator("img").get_attribute("src").endswith(f"{stem}-still.svg")
+                        toggle.focus()
+                        toggle.press("Enter")
+                        assert running_label in toggle.inner_text()
+                        toggle.press("Space")
+                        assert paused_label in toggle.inner_text()
+                    page.close()
         browser.close()
-    print(f"PASS: {count} Chromium frames, SVG text bounds and MkDocs keyboard/reduced-motion player")
+    print(f"PASS: {count} Chromium frames plus 16 bilingual/motion-preference MkDocs player checks")
 
 
 if __name__ == "__main__":
