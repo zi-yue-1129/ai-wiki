@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 ---
 
 # RIAL 與 DIAL（Foerster 等人，2016）
@@ -28,6 +28,28 @@ Q_a(h_t, u_t) \leftarrow r_t + \gamma \max_{u'} Q_a(h_{t+1}, u') ,
 \]
 
 其中 \(h_t\) 是該智能體的循環隱藏狀態。對於 DIAL，訓練時訊息 \(m\) 以 \(\mathrm{DRU}(m) = \mathrm{Logistic}(\mathcal{N}(m, \sigma))\) 正則化，使梯度能從接收者穿過通道回到傳送者。
+
+### 通訊訊息的信用分配（動畫）
+
+![比較 RIAL 的離散訊息動作與 DIAL 的前向訊息及跨智能體反向梯度](../../../../../../assets/concept-animations/rial-dial-credit-path-motion.svg)
+
+[GitHub 靜態回退預覽：RIAL 與 DIAL 的訊息信用路徑](../../../../../../assets/concept-animations/rial-dial-credit-path-still.svg)
+
+藍色光點代表訊息由傳送者傳至接收者。**RIAL** 將離散訊息當成動作，透過共享獎勵產生的時間差分更新學習訊息，而非對接收者進行端到端微分。**DIAL** 在**集中式訓練**期間使用加入雜訊的可微分離散化／正則化單元（DRU），讓接收者的損失梯度（粉紅色）穿過通訊通道回傳至傳送者。去中心化執行時 DRU 會將訊息離散化；粉紅色路徑**不是**執行期間的回饋通道。光點僅表示計算依賴，並非模型量測的梯度或真實訓練軌跡。[^comm-credit]
+
+MkDocs 播放器支援**播放／暫停**及鍵盤 **Enter／Space**；偏好減少動態效果的讀者預設看到靜態回退。原創圖由 AI Wiki 貢獻者製作，採 **CC BY-SA 4.0** 授權。
+
+[^comm-credit]: Foerster 等人（2016），[*Learning to Communicate with Deep Multi-Agent Reinforcement Learning*](https://arxiv.org/abs/1605.06676)，詳見參考文獻。
+
+### DIAL 的 DRU：訓練時可微分、執行時離散化（動畫）
+
+![DIAL 訓練時以含雜訊的連續訊息傳遞梯度，執行時則傳送離散位元且沒有跨智能體反向梯度](../../../../../../assets/concept-animations/dial-dru-train-execute-motion.svg)
+
+[GitHub 靜態回退預覽：DIAL 的兩種通道模式](../../../../../../assets/concept-animations/dial-dru-train-execute-still.svg)
+
+**離散化／正則化單元（DRU）**在不同階段有不同作用。集中式訓練時加入雜訊並經過平滑的 Logistic 轉換，使接收者的損失能對傳送者的訊息微分；去中心化執行時輸出離散位元，沒有跨智能體梯度路徑。本圖使用**人工構造的一維範例**：傳送端激活值 \(m=0.40\) 與一筆假設雜訊 \(\varepsilon=-0.10\)，訓練時得到 \(\sigma(0.30)\approx0.574\)；執行時正激活值以零閾值離散化為位元 \(1\)。圖中流程**不是模型實測、真實雜訊抽樣或訓練軌跡**，也不代表執行期間可以跨智能體傳遞梯度。[^comm-credit]
+
+MkDocs 播放器支援滑鼠**播放／暫停**及鍵盤 **Enter／Space**；偏好減少動態效果與 GitHub Markdown 讀者可使用靜態回退圖。AI Wiki 貢獻者原創圖，採 **CC BY-SA 4.0** 授權。
 
 ## 結果
 

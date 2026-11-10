@@ -35,6 +35,28 @@ Q_a(h_t, u_t) \leftarrow r_t + \gamma \max_{u'} Q_a(h_{t+1}, u') ,
 
 where \(h_t\) is the recurrent hidden state of the agent. For DIAL, the message \(m\) is regularised as \(\mathrm{DRU}(m) = \mathrm{Logistic}(\mathcal{N}(m, \sigma))\) during training, so that the gradient can pass through the channel from receiver to sender.
 
+### Communication credit paths (animated)
+
+![RIAL discrete message actions compared with DIAL forward messages and reverse cross-agent gradients](../../../../../../assets/concept-animations/rial-dial-credit-path-motion.svg)
+
+[Static GitHub fallback: RIAL and DIAL credit paths](../../../../../../assets/concept-animations/rial-dial-credit-path-still.svg)
+
+The blue pulses represent messages from a sender to a receiver. **RIAL** treats a discrete message as an action, so its message choice is trained through a reward-based temporal-difference update, not by differentiating through the receiver. **DIAL**, during *centralised training*, uses the noisy differentiable discretise/regularise unit (DRU), allowing the receiver's loss gradient (pink) to reach the sender through the message channel. During decentralised execution, the DRU discretises the message; the pink path is **not** an execution-time feedback channel. The moving markers represent dependencies, not measured gradients or an observed training trajectory. [^comm-credit]
+
+The MkDocs player supports **Play/Pause** and keyboard **Enter/Space**; readers who prefer reduced motion initially see the static fallback. Original diagram by AI Wiki contributors, **CC BY-SA 4.0**.
+
+[^comm-credit]: Foerster et al. (2016), [*Learning to Communicate with Deep Multi-Agent Reinforcement Learning*](https://arxiv.org/abs/1605.06676), as listed in References.
+
+### DIAL's DRU: differentiable during training, binary at execution (animated)
+
+![DIAL training uses a noisy continuous message with a receiver-to-sender gradient, while execution sends a binary bit without cross-agent backpropagation](../../../../../../assets/concept-animations/dial-dru-train-execute-motion.svg)
+
+[Static GitHub fallback: DIAL's two channel modes](../../../../../../assets/concept-animations/dial-dru-train-execute-still.svg)
+
+The **discretise/regularise unit (DRU)** has two different roles. During centralised training, it applies noise and a smooth logistic transformation, so the receiver's loss is differentiable with respect to the sender's message. During decentralised execution it emits a discrete bit, without a cross-agent gradient path. In this **constructed scalar example**, a sender activation \(m=0.40\) and one hypothetical noise sample \(\varepsilon=-0.10\) give \(\sigma(0.30)\approx0.574\) in training; the corresponding positive activation yields bit \(1\) under a zero threshold at execution. The drawn path is schematic, **not a sampled training trace or a measured model activation**. It also must not be interpreted as claiming an execution-time gradient. [^comm-credit]
+
+The MkDocs player offers **Play/Pause** via mouse or **Enter/Space**. Reduced-motion preference and GitHub Markdown use the linked static overview. Original figure by AI Wiki contributors, **CC BY-SA 4.0**.
+
 ## Results
 
 In the switch riddle with three agents, all four variants (RIAL and DIAL, each with and without parameter sharing) learn an optimal policy within about 5,000 episodes, as the paper's text states. DIAL with parameter sharing reaches it faster than RIAL. With four agents, RIAL without parameter sharing does not beat the no-communication baseline. In the multi-step and colour-digit MNIST tasks, DIAL substantially outperforms the other methods on both games, and RIAL fails to learn the multi-step task. The results are shown as curves normalised to an oracle baseline, so the exact values are in the figures.

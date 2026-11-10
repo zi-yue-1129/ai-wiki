@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 ---
 
 # CommNet（Sukhbaatar 等人，2016）
@@ -25,6 +25,28 @@ c_j^{i+1} = \frac{1}{J-1}\sum_{j' \neq j} h_{j'}^{i+1}
 \]
 
 接著，每個智能體由自身狀態與此輸入更新隱藏狀態：\(h_j^{i+1} = f^i(h_j^i, c_j^i)\)。線性情形為 \(h_j^{i+1} = \sigma(H^i h_j^i + C^i c_j^i)\)。局部連接的變體只對範圍內的智能體取平均。所有智能體共享同一獎勵。
+
+### 排除自身訊息的平均通訊（動畫）
+
+![CommNet 將 A 與 C 的訊息傳給接收者 B 計算排除自身的平均值，B 本身的訊息不納入](../../../../../../assets/concept-animations/commnet-leave-one-out-motion.svg)
+
+[GitHub 靜態回退預覽：CommNet 排除自身的平均通訊](../../../../../../assets/concept-animations/commnet-leave-one-out-still.svg)
+
+**智能體 B** 接收的通訊向量是**其他**智能體的平均值，不包含自己的隱藏狀態。以人工設定的一維座標為例，令 \(h_A=0.20\)、\(h_B=0.80\)、\(h_C=0.60\)，因此 \(c_B=(0.20+0.60)/2=0.40\)。橘色叉號表示 \(h_B\) 不參與此次通訊平均；但 **B 在更新下一層時仍會另外使用自己的隱藏狀態**。實際 CommNet 傳送的是向量，平均運算逐座標進行。光點移動與數值皆為教學示意，**不是模型實測結果**。[^comm-mean]
+
+MkDocs 播放器支援**播放／暫停**及鍵盤 **Enter／Space**；減少動態效果模式預設顯示靜態回退。原創圖由 AI Wiki 貢獻者製作，採 **CC BY-SA 4.0** 授權。
+
+[^comm-mean]: Sukhbaatar、Szlam 與 Fergus（2016），[*Learning Multiagent Communication with Backpropagation*](https://arxiv.org/abs/1605.07736)，詳見參考文獻。
+
+### 跨智能體多層通訊與狀態更新（動畫）
+
+![CommNet 每一層取其他智能體的平均訊息，再與自身隱藏狀態混合，連續展示兩層的更新](../../../../../../assets/concept-animations/commnet-layer-iterations-motion.svg)
+
+[GitHub 靜態回退預覽：CommNet 的連續兩層更新](../../../../../../assets/concept-animations/commnet-layer-iterations-still.svg)
+
+CommNet 並非只計算一次廣播平均值：後續層可用**更新後的隱藏狀態重新通訊**。本圖使用**人工構造的一維教學範例**，初始 \((h_A^0,h_B^0,h_C^0)=(0.20,0.80,0.60)\)，刻意以簡單的 \(h_j^{\ell+1}=0.5h_j^\ell+0.5c_j^\ell\) 取代實際學得的非線性更新，其中 \(c_j^\ell\) 是在第 \(\ell\) 層對其他智能體的平均。第一層 \(c_B^0=(0.20+0.60)/2=0.40\)，因此 \(h_B^1=0.60\)，同時 \(h_A^1=0.45\)、\(h_C^1=0.55\)。下一層 \(c_B^1=(0.45+0.55)/2=0.50\)，使 \(h_B^2=0.55\)；其餘 \(h_A^2\approx0.51\)、\(h_C^2\approx0.54\) 亦由相同的示意規則算得。**這些數值不是原始 CommNet 的學習權重或模型實測結果**。[^comm-mean]
+
+藍色與青綠色路徑代表其他智能體資訊，橘色代表接收者自身狀態參與混合。MkDocs 播放器支援**播放／暫停**、鍵盤 **Enter／Space** 及減少動態效果的靜態回退。AI Wiki 貢獻者原創圖，採 **CC BY-SA 4.0** 授權。
 
 ## 結果
 
