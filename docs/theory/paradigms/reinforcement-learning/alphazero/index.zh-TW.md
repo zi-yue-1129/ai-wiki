@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 related:
   - applications/games
 tags:
@@ -43,6 +43,26 @@ AlphaZero 之前，強大的棋類程式各自針對一種遊戲設計，使用�
 ```
 
 其中 \(p\) 與 \(v\) 分別是網路對某局面輸出的走法機率與價值，\(c\) 控制權重正則化的強度。
+
+### 搜尋造訪次數如何形成策略改進目標
+
+網路原始策略先驗 \(p=(0.60,0.30,0.10)\) 會引導樹搜尋，但不等於搜尋後的著手分布。下方使用人工設定的 100 次造訪，假設 A、B、C 的造訪次數為 \(N=(12,54,34)\)。當溫度參數 \(\tau=1\) 時，搜尋策略目標就是正規化後的 \(\pi=(0.12,0.54,0.34)\)：
+
+\[
+\pi(a\mid s)=\frac{N(s,a)^{1/\tau}}{\sum_b N(s,b)^{1/\tau}}.
+\]
+
+![AlphaZero 由策略先驗、搜尋造訪次數到策略訓練目標的逐步動畫](../../../../assets/concept-animations/alphazero-policy-target-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 長條隨時間改變，呈現搜尋資源可能如何重新分配。先驗、造訪次數、過程中的長條高度與策略目標都是**人工示意，並非 AlphaZero 實測資料**；動畫中間影格為流程示意，最後顯示的造訪次數與 \(\tau=1\) 的正規化結果則精確對應。MkDocs 網站可使用播放／暫停；GitHub 可查看[靜態策略目標總覽](../../../../assets/concept-animations/alphazero-policy-target-still.svg)。此圖對應 [Silver 等人（2018）](https://doi.org/10.1126/science.aar6404)的搜尋轉策略目標機制，不代表每次搜尋都必然改善策略。
+
+### 自我對弈的搜尋策略標籤與終局價值標籤
+
+每個對弈局面都可以在搜尋完成後取得造訪分布 \(\pi_t\)，但價值標籤 \(z_t\) 必須等**整場對局結束後**才能確定，並以當前輪到的玩家為觀點。下方假設三個局面依序由白方、黑方、白方行動，而最終由白方獲勝；因此三個價值目標分別為 \(+1,-1,+1\)。西洋棋與將棋的和局目標可為 \(0\)。
+
+![AlphaZero 自我對弈中先形成搜尋策略標籤，再於終局後回填價值標籤](../../../../assets/concept-animations/alphazero-selfplay-labels-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 小型長條代表假設的策略分布，終局後才將勝負結果對應至歷史局面；這**不是實際棋譜、模型輸出或跨回合的梯度反向傳播**。MkDocs 可使用播放／暫停；GitHub 可查看[終局價值標籤靜態總覽](../../../../assets/concept-animations/alphazero-selfplay-labels-still.svg)。\((s_t,\pi_t,z_t)\) 分別提供上方綜合損失函數所需要的策略與價值訓練目標。
 
 ## 結果
 

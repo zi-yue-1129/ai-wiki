@@ -43,6 +43,26 @@ The network proposes moves and judges positions. Monte Carlo tree search, guided
 
 Here \(p\) and \(v\) are the network's move probabilities and value for a position, and \(c\) controls weight regularisation.
 
+### Search visits as a policy-improvement target
+
+The network prior \(p=(0.60,0.30,0.10)\) initially guides tree search. In the hypothetical 100-visit example below, the search instead allocates \(N=(12,54,34)\) visits to moves A, B, and C. AlphaZero converts these search counts into a policy target; for temperature \(\tau=1\), it is simply \(\pi=(0.12,0.54,0.34)\):
+
+\[
+\pi(a\mid s)=\frac{N(s,a)^{1/\tau}}{\sum_b N(s,b)^{1/\tau}}.
+\]
+
+![AlphaZero policy prior, growing search-visit counts, and the resulting policy training target](../../../../assets/concept-animations/alphazero-policy-target-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* The changing bars trace how a search may reallocate simulations away from the network prior. The prior, counts, intermediate bar heights, and target are **constructed examples, not AlphaZero measurements**; intermediate animated bars are schematic, while the printed final counts and target are exactly normalised at \(\tau=1\). On MkDocs use Play/Pause; on GitHub consult the [static policy-target overview](../../../../assets/concept-animations/alphazero-policy-target-still.svg). This illustrates the search-to-policy step in [Silver et al. (2018)](https://doi.org/10.1126/science.aar6404), not a guarantee that each search improves a move distribution.
+
+### Self-play policy targets and terminal value labels
+
+During a game, every searched position provides an MCTS visit-distribution target \(\pi_t\). The value label \(z_t\), by contrast, is only available **after the game terminates** and is interpreted from the player-to-move perspective. In the three-position hypothetical sequence below, White eventually wins; the value targets for White, Black and White to move are \(+1,-1,+1\), respectively. A draw would correspond to \(0\) in chess or shogi.
+
+![AlphaZero self-play positions receive search policies before their terminal outcome value labels](../../../../assets/concept-animations/alphazero-selfplay-labels-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* The mini-bars are illustrative policy distributions, and the terminal result propagates to historical positions only once the game ends; this is **not a recorded match, measured network prediction, or gradient propagation across moves**. Use Play/Pause on MkDocs or the [GitHub-readable terminal-target overview](../../../../assets/concept-animations/alphazero-selfplay-labels-still.svg). The tuples \((s_t,\pi_t,z_t)\) provide the policy and value targets used in the combined training objective described above.
+
 ## Results
 
 - **Chess**: against Stockfish, the 2016 TCEC champion, the paper's text reports no losses for AlphaZero across its matches.
