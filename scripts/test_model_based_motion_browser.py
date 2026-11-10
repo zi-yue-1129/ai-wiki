@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs/assets/concept-animations"
 OUT = ROOT / "artifacts/model-based-motion"
-STEMS = ("pets-ensemble-particles", "mbpo-short-branches")
+STEMS = ("pets-ensemble-particles", "mbpo-short-branches", "pets-cem-refit", "mbpo-horizon-error")
 WIDTHS = (320, 360, 720, 1024)
 TIMES = (0.4, 2.8, 5.4, 8.8)
 
@@ -55,7 +55,7 @@ def main() -> None:
                         page.locator(".figure").screenshot(path=str(OUT / name), animations="allow")
                         count += 1
                 page.close()
-        assert count == 40, count
+        assert count == 80, count
         # Inline the repository's actual player JS; intercept only image requests.
         script = (ROOT / "docs/javascripts/concept-motion.js").read_text(encoding="utf-8")
         html = (

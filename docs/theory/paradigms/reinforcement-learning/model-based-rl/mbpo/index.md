@@ -30,6 +30,12 @@ The policy is trained with a model-free algorithm, here soft actor-critic, on a 
 
 *Original animated teaching schematic (CC BY-SA 4.0).* Highlighted **real replay states** seed multiple model-generated branches. Each illustrated branch contains only **two imagined transitions** (an example $k=2$); the synthetic transitions feed **model replay** and then off-policy **policy updates**, together with real data. The faint continuation beyond the cutoff is intentionally *not used*. Coordinates, branch geometry and sample counts are schematic rather than measured model errors or training observations. The method does **not** run long model rollouts from scratch. Use **Play/Pause** on MkDocs; GitHub readers can open the [static two-step branch overview](../../../../../assets/concept-animations/mbpo-short-branches-still.svg). See [Janner et al. (2019)](https://arxiv.org/abs/1906.08253).
 
+### Visualising model-error accumulation and the rollout cutoff
+
+![MBPO schematic model error grows over imagined steps, with a short k equals two rollout cutoff](../../../../../assets/concept-animations/mbpo-horizon-error-motion.svg)
+
+*Original animated teaching schematic (CC BY-SA 4.0).* To isolate why a shorter imagined horizon may be useful, consider a **constructed scalar system** with $s_{t+1}=s_t+1$, while an imperfect learned model predicts $\hat s_{t+1}=\hat s_t+1.2$ from the same real seed $s_0=\hat s_0=0$. With no corrective real observations, absolute state error becomes $0,0.2,0.4,0.6,0.8$ across steps $0$–$4$. The teal prefix ends at illustrative rollout length $k=2$, while the orange continuation is **counterfactual and excluded** from model replay. This is not an empirical MBPO error curve or a guarantee that model error grows monotonically: stochastic and state-dependent errors can compound, cancel or vary. MBPO draws fresh seeds from real replay and uses short synthetic transitions for off-policy training. Use **Play/Pause** on MkDocs; [GitHub static overview](../../../../../assets/concept-animations/mbpo-horizon-error-still.svg). Source: [Janner et al. (2019)](https://arxiv.org/abs/1906.08253).
+
 ## Equation or algorithm
 
 The procedure repeats the following steps:
