@@ -84,7 +84,7 @@ jobs:
         run: python scripts/test_ssl_ema_trajectory_browser.py
       - name: Chromium FIFO lifetime and EMA historical attribution
         run: python scripts/test_ssl_temporal_provenance_browser.py
-      - name: Chromium Rainbow C51 projection and dueling-head geometry, keyboard and reduced motion
+      - name: Chromium Rainbow C51, dueling, n-step and NoisyNet geometry, keyboard and reduced motion
         run: python scripts/test_rainbow_motion_browser.py
       - name: Keep rendered review screenshots
         if: always()

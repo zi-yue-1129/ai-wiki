@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'docs/assets/concept-animations'
 OUT = ROOT / 'artifacts/rainbow-motion'
 NS = '{http://www.w3.org/2000/svg}'
-STEMS = ('rainbow-c51-projection', 'rainbow-dueling-head')
+STEMS = ('rainbow-c51-projection', 'rainbow-dueling-head', 'rainbow-nstep-returns', 'rainbow-noisynet-samples')
 
 def main() -> None:
     for stem in STEMS:
@@ -42,6 +42,11 @@ def main() -> None:
     assert all(abs(a-b) < 1e-9 for a,b in zip(projected,[0,.08,.48,.40,.04]))
     q = [3 + a - (2+0-1)/3 for a in (2,0,-1)]
     assert all(abs(a-b)<.005 for a,b in zip(q,(4.67,2.67,1.67)))
+
+    gamma=.9
+    assert abs((1 + gamma*4)-4.60)<1e-9
+    assert abs((1 + gamma*2 + gamma**2*(-1) + gamma**3*5)-5.635)<1e-9
+    assert (.7+.2)>(.6-.2) and (.7-.25)<(.6+.2)
 
     OUT.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as p:
@@ -87,7 +92,7 @@ def main() -> None:
                     assert expected in page.locator('img').get_attribute('src')
                     context.close()
         browser.close()
-    print('PASS: C51 projection and dueling numeric invariants; 40 Chromium screenshots; bilingual keyboard and reduced-motion player')
+    print('PASS: C51, dueling, n-step and NoisyNet numeric invariants; 80 Chromium screenshots; bilingual keyboard and reduced-motion player')
 
 if __name__ == '__main__':
     main()

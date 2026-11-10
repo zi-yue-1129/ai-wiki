@@ -32,7 +32,7 @@ Rainbow 以 DQN 智能體為基礎，整合六個組件，每個來自一個不�
 
 Rainbow 保留 DQN 的回放、目標網路與小批次更新的結構，只改寫上述各部分。輸出是 51 個原子上的回報分布；多步組件使用 \(n = 3\)，這是論文比較 \(n = 1, 3, 5\) 後表現最好的設定。完整的損失函數、虛擬碼與超參數表載於論文中，實作時應以原論文為準。
 
-## 兩項動態運算：類別分布投影與 Dueling 聚合
+## 動態運算：分布、價值、回報與探索
 
 ### C51：將機率質量投影回固定原子
 
@@ -49,6 +49,22 @@ Dueling 架構從共用特徵分出純量狀態價值 $V(s)$ 及每個動作的�
 <img alt="Dueling Q 分支動畫：共用特徵分成價值 V 等於 3，以及優勢值 2、0、負 1；中心化後產生三個動作的 Q 值。" src="../../../../../assets/concept-animations/rainbow-dueling-head-still.svg" data-motion-src="../../../../../assets/concept-animations/rainbow-dueling-head-motion.svg" data-still-src="../../../../../assets/concept-animations/rainbow-dueling-head-still.svg">
 
 *原創教學動畫（CC BY-SA 4.0）。* 人工示意的兩條分支為 $V=3$、$A=(2,0,-1)$；優勢平均為 $1/3$，三個輸出約為 $(4.67,2.67,1.67)$。動畫強調聚合路徑與計算結果，**不是**神經元實際活化值、基準測試成績或梯度流。MkDocs 可播放／暫停，GitHub 則直接顯示靜態回退；兩種語言共用相同動畫資產與現有播放器。
+
+### 多步回報：先累積獎勵，再進行自舉
+
+Rainbow 的三步回報先累積連續三次觀察到的獎勵，再從**第三次轉移後的狀態**進行自舉，而不是只從第一個下一狀態取值。未終止的三步序列為 $G_t^{(3)}=r_t+\gamma r_{t+1}+\gamma^2r_{t+2}+\gamma^3 V(s_{t+3})$。在分布式 Rainbow 中，演算法會將對應的**回報分布**投影回固定原子支撐點，而非只擬合示意的純量期望目標。[^rainbow-nstep]
+
+<img alt="單步與三步 TD 回報動畫：依序加入獎勵項與折扣後的自舉值，三步目標由 1.000 累積到 5.635。" src="../../../../../assets/concept-animations/rainbow-nstep-returns-still.svg" data-motion-src="../../../../../assets/concept-animations/rainbow-nstep-returns-motion.svg" data-still-src="../../../../../assets/concept-animations/rainbow-nstep-returns-still.svg">
+
+*原創教學動畫（CC BY-SA 4.0）。* 這是**人工構造的純量價值範例**：$r=(1,2,-1)$、$\gamma=0.9$、$V(s_{t+1})=4$、$V(s_{t+3})=5$。單步目標為 $1+0.9(4)=4.60$；三步目標為 $1+1.8-0.81+3.645=5.635$。畫面逐項揭露獎勵與自舉值，**不是**三次最佳化更新、實測數據或 Rainbow 完整的類別分布投影。若途中真正終止，必須停止或遮蔽後續自舉。MkDocs 可播放／暫停（Enter／Space）；GitHub 顯示完整靜態比較。
+
+### NoisyNet：參數擾動如何改變貪婪動作
+
+Rainbow 的 NoisyNet 在權重與偏置中加入可學習尺度的雜訊。每次抽取的參數雜訊會先改變動作價值函數，再從擾動後的價值選取貪婪動作，探索因此來自**參數空間**，而非獨立的 $\varepsilon$-greedy 動作覆寫。下圖使用相同輸入的兩次獨立雜訊樣本展示貪婪動作**可能**改變，不代表每次抽樣都會換動作。[^rainbow-noisy]
+
+<img alt="NoisyNet 參數雜訊動畫：同一輸入與基準動作價值，在不同擾動下先選 A、再選 B，以長條呈現各自分數。" src="../../../../../assets/concept-animations/rainbow-noisynet-samples-still.svg" data-motion-src="../../../../../assets/concept-animations/rainbow-noisynet-samples-motion.svg" data-still-src="../../../../../assets/concept-animations/rainbow-noisynet-samples-still.svg">
+
+*原創教學動畫（CC BY-SA 4.0）。* 設一維輸入 $x=1$，基準動作分數為 $(0.70,0.60)$。第一組人工擾動 $(+0.20,-0.20)$ 產生 $(0.90,0.40)$，選 A；**重新抽樣** $(-0.25,+0.20)$ 後產生 $(0.45,0.80)$，改選 B。這些是人工設定的有效分數偏移，**不是**實際學到的參數、factorized Gaussian 抽樣、軌跡統計或模型量測。Rainbow 真正的 NoisyNet 也會學習雜訊的尺度；此圖只隔離動作選擇的影響。MkDocs 可播放／暫停及鍵盤操作；GitHub 會同時顯示兩次抽樣的靜態比較。
 
 ## 結果
 
@@ -85,9 +101,14 @@ Dueling 架構從共用特徵分出純量狀態價值 $V(s)$ 及每個動作的�
 [^rainbow-c51]: Bellemare、Dabney 與 Munos（2017），[ICML 原始論文](https://proceedings.mlr.press/v70/bellemare17a)；Hessel 等人（2018），[Rainbow 原始論文](https://arxiv.org/abs/1710.02298)。
 [^rainbow-dueling]: Wang 等人（2016），[ICML 原始論文](https://proceedings.mlr.press/v48/wangf16)；Hessel 等人（2018），[Rainbow 原始論文](https://arxiv.org/abs/1710.02298)。
 
+[^rainbow-nstep]: Hessel 等人（2018），[Rainbow 原始論文](https://ojs.aaai.org/index.php/AAAI/article/view/11796)；Sutton 與 Barto（2018），[《Reinforcement Learning》第七章](http://incompleteideas.net/book/the-book-2nd.html)。
+[^rainbow-noisy]: Fortunato 等人（2018），[Noisy Networks for Exploration 原始論文](https://arxiv.org/abs/1706.10295)；Hessel 等人（2018），[Rainbow 原始論文](https://ojs.aaai.org/index.php/AAAI/article/view/11796)。
+
 ## 參考文獻
 
 ### 開創性論文
+
+- Fortunato 等人（2018），*Noisy Networks for Exploration*，[arXiv:1706.10295](https://arxiv.org/abs/1706.10295) — 以可學習的參數雜訊取代動作層級的啟發式探索。
 
 - Bellemare、Dabney 與 Munos（2017），"A Distributional Perspective on Reinforcement Learning"，*ICML 2017*。https://proceedings.mlr.press/v70/bellemare17a — 定義類別分布 Bellman 投影與 C51 演算法。
 - Wang 等人（2016），"Dueling Network Architectures for Deep Reinforcement Learning"，*ICML 2016*。https://proceedings.mlr.press/v48/wangf16 — 提出共用特徵、狀態價值分支與優勢分支，以及聚合方式。
