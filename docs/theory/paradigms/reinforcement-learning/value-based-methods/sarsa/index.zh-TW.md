@@ -77,6 +77,19 @@ $
 
 圖中比較的是**兩種可能的策略偏好**，不代表 SARSA 一定採用綠色路線，或 Q-learning 一定掉落；兩者執行時都可能因探索而失誤。若 ε 逐漸降低、轉移機率或獎勵設定不同，偏好路徑也可能改變。圖中的**七欄地圖刻意簡化**，不是教科書原始地圖，也不是模型實測軌跡；移動圓點與紅色掉落僅示意因果過程，動畫的停留時間不代表 ε 的抽樣機率。MkDocs 提供可用鍵盤操作的播放／暫停；[GitHub／無 JavaScript 靜態預覽](../../../../../assets/concept-animations/cliff-walking-still.svg)完整保留兩條路線及失足風險。原理依據文末既有的 Sutton 與 Barto（2018）教材。
 
+
+### 資格跡：跨時間信用分配與非貪婪動作的截斷
+
+<img src="../../../../../assets/concept-animations/eligibility-trace-cut-still.svg" data-motion-src="../../../../../assets/concept-animations/eligibility-trace-cut-motion.svg" data-still-src="../../../../../assets/concept-animations/eligibility-trace-cut-still.svg" width="440" loading="lazy" alt="資格跡如何隨時間衰減，以及當 C 是非貪婪動作時，SARSA lambda 保留過往 A、B 的資格跡，而 Watkins Q lambda 將其切斷的對比。" />
+
+*原創 12 秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 單步 SARSA 備份可以透過**資格跡（eligibility trace）**，讓目前的 TD 誤差同時更新先前走過的多個狀態－動作對。SARSA($\lambda$) 即使遇到非貪婪的實際動作，仍保留先前資格跡並使其衰減，因為這些動作屬於它正在評估的行為策略。 圖中以三個依序出現、**彼此不同**的狀態－動作對 A、B、C，比較兩種機制：A 與 B 都是貪婪選擇，C 則刻意選為**非貪婪動作**；必須注意，「由探索分支抽樣」不代表抽出的動作一定不是貪婪動作。使用初值為零的表格式**累積資格跡**，且不重複造訪同一個狀態－動作對。設 $\gamma=0.9$、$\lambda=0.8$，因此 $\gamma\lambda=0.72$。
+
+在 SARSA($\lambda$) 中，舊資格跡每步乘上 $\gamma\lambda$，目前造訪的狀態－動作對額外加 1。執行 C 時，$e(A)=0.72^2=0.5184\approx\mathbf{0.52}$、$e(B)=\mathbf{0.72}$、$e(C)=\mathbf{1.00}$。之後的 TD 誤差 $\delta_t^{\mathrm{SARSA}}=r_{t+1}+\gamma Q(s_{t+1},a_{t+1})-Q(s_t,a_t)$，會透過 $\alpha\delta_t e_t(s,a)$ 將更新量分配給包含 A、B 在內的歷史動作。
+
+在 **Watkins $Q(\lambda)$** 中，當 C 為非貪婪動作，先將歷史資格跡**截斷歸零**，再建立目前的 C 資格跡，因此 $e(A)=e(B)=0$、$e(C)=1$。其 TD 誤差仍以貪婪最大動作價值進行 Bootstrap；截斷資格跡**不等於忽略 C 的單步更新**。圖中顯示的是此時的資格跡，不是 Q 值訓練曲線或實測報酬；其他離策略資格跡方法（例如 Tree-backup）也不必採取相同截斷規則。
+
+動畫展現舊資格跡衰減與非貪婪動作造成的截斷；[GitHub／無腳本靜態預覽](../../../../../assets/concept-animations/eligibility-trace-cut-still.svg) 保留最後一個時間點的數值。MkDocs 提供可用鍵盤操作的播放／暫停及 Reduced Motion 回退。**所有數值均為教學示意，並非模型實測。**概念依據本頁參考文獻已列的 Sutton 與 Barto（2018）第 12 章。
+
 ## 結果
 
 SARSA 沒有單一的代表性基準。Rummery 與 Niranjan（1994）研究了具有線上更新的連接主義 Q 學習變體。他們的報告提出了與 SARSA 密切相關的更新規則 MCQ-L；在一個必須在障礙物間抵達目標的模擬移動機器人上，他們發現線上學習對訓練參數的選擇比倒序回放（backward replay）更不敏感。

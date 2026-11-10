@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 598" role="img" aria-labelledby="ttl dsc">
+<title id="ttl">SARSA lambda eligibility and Watkins Q lambda trace cut</title>
+<desc id="dsc">A sequence of three distinct state-action pairs. The third action is non-greedy. With gamma lambda point seven two, SARSA retains decayed traces of earlier actions, while Watkins Q lambda clears the preceding traces when exploration occurs.</desc>
+<rect width="440" height="598" rx="20" fill="#f5f8fd"/>
+<rect x="12" y="12" width="416" height="574" rx="18" fill="#fff" stroke="#dce5f0"/>
+<text x="26" y="45" font-size="20" font-weight="750" fill="#203049" font-family='Inter,Segoe UI,Arial,sans-serif'>Eligibility traces</text>
+<rect x="285" y="24" rx="12" width="134" height="28" fill="#eaf2fc"/>
+<text x="351" y="43" text-anchor="middle" font-size="13" font-weight="650" fill="#425a7a" font-family='Inter,Segoe UI,Arial,sans-serif'>γλ = 0.72</text>
+<path d="M88 112 H352" stroke="#d0deec" stroke-width="8" stroke-linecap="round"/>
+<path d="M88 112 H352" stroke="#95acc9" stroke-width="2" stroke-dasharray="5 11"/>
+
+<circle cx="88" cy="112" r="24" fill="#ffffff" stroke="#159f89" stroke-width="3"/>
+<text x="88" y="119" font-size="19" text-anchor="middle" font-weight="800" fill="#159f89" font-family='Inter,Segoe UI,Arial,sans-serif'>A</text>
+<text x="88" y="153" font-size="14" text-anchor="middle" fill="#687991" font-family='Inter,Segoe UI,Arial,sans-serif'>Greedy</text>
+<circle cx="220" cy="112" r="24" fill="#ffffff" stroke="#159f89" stroke-width="3"/>
+<text x="220" y="119" font-size="19" text-anchor="middle" font-weight="800" fill="#159f89" font-family='Inter,Segoe UI,Arial,sans-serif'>B</text>
+<text x="220" y="153" font-size="14" text-anchor="middle" fill="#687991" font-family='Inter,Segoe UI,Arial,sans-serif'>Greedy</text>
+<circle cx="352" cy="112" r="24" fill="#ffffff" stroke="#aa5ac5" stroke-width="3"/>
+<text x="352" y="119" font-size="19" text-anchor="middle" font-weight="800" fill="#aa5ac5" font-family='Inter,Segoe UI,Arial,sans-serif'>C</text>
+<text x="352" y="153" font-size="14" text-anchor="middle" fill="#687991" font-family='Inter,Segoe UI,Arial,sans-serif'>Non-greedy</text>
+<circle cx="352" cy="112" r="34" fill="none" stroke="#aa5ac5" stroke-width="3" opacity="0">
+ <animate attributeName="opacity" values="0;0;0;0;0.85;0.85;0" keyTimes="0;0.58;0.64;0.67;0.73;0.97;1" dur="12s" repeatCount="indefinite"/></circle>
+<circle cy="79" cx="88" r="5" fill="#183253"><animate attributeName="cx" values="88;88;220;220;352;352;88" keyTimes="0;0.24;0.34;0.58;0.68;0.97;1" dur="12s" repeatCount="indefinite"/></circle>
+<rect x="18" y="174" width="404" height="188" rx="16" fill="#f9fbff" stroke="#dae3ef"/>
+<rect x="34" y="189" width="6" height="24" rx="3" fill="#159f89"/>
+<text x="50" y="209" font-size="19" font-weight="750" fill="#26374f" font-family='Inter,Segoe UI,Arial,sans-serif'>SARSA(λ)</text>
+<text x="44" y="245" font-size="17" font-weight="750" fill="#4c617b" font-family='Inter,Segoe UI,Arial,sans-serif'>A</text>
+<rect x="85" y="229" width="254" height="19" rx="9.5" fill="#e6edf6"/>
+<rect x="85" y="229" width="254" height="19" rx="9.5" fill="#159f89"><animate attributeName="width" values="254.00;254.00;182.88;182.88;131.67;131.67;254.00" keyTimes="0;0.24;0.34;0.58;0.68;0.97;1" dur="12s" repeatCount="indefinite"/></rect>
+<text x="44" y="286" font-size="17" font-weight="750" fill="#4c617b" font-family='Inter,Segoe UI,Arial,sans-serif'>B</text>
+<rect x="85" y="270" width="254" height="19" rx="9.5" fill="#e6edf6"/>
+<rect x="85" y="270" width="0" height="19" rx="9.5" fill="#159f89"><animate attributeName="width" values="0.00;0.00;254.00;254.00;182.88;182.88;0.00" keyTimes="0;0.24;0.34;0.58;0.68;0.97;1" dur="12s" repeatCount="indefinite"/></rect>
+<text x="44" y="327" font-size="17" font-weight="750" fill="#4c617b" font-family='Inter,Segoe UI,Arial,sans-serif'>C</text>
+<rect x="85" y="311" width="254" height="19" rx="9.5" fill="#e6edf6"/>
+<rect x="85" y="311" width="0" height="19" rx="9.5" fill="#159f89"><animate attributeName="width" values="0.00;0.00;0.00;0.00;254.00;254.00;0.00" keyTimes="0;0.24;0.34;0.58;0.68;0.97;1" dur="12s" repeatCount="indefinite"/></rect>
+<text x="44" y="352" font-size="14" fill="#5e7189" font-family='Inter,Segoe UI,Arial,sans-serif'>Decay and retain</text>
+<rect x="18" y="374" width="404" height="188" rx="16" fill="#f9fbff" stroke="#dae3ef"/>
+<rect x="34" y="389" width="6" height="24" rx="3" fill="#e49a39"/>
+<text x="50" y="409" font-size="19" font-weight="750" fill="#26374f" font-family='Inter,Segoe UI,Arial,sans-serif'>Watkins Q(λ)</text>
+<text x="44" y="445" font-size="17" font-weight="750" fill="#4c617b" font-family='Inter,Segoe UI,Arial,sans-serif'>A</text>
+<rect x="85" y="429" width="254" height="19" rx="9.5" fill="#e6edf6"/>
+<rect x="85" y="429" width="254" height="19" rx="9.5" fill="#e49a39"><animate attributeName="width" values="254.00;254.00;182.88;182.88;0.00;0.00;254.00" keyTimes="0;0.24;0.34;0.58;0.68;0.97;1" dur="12s" repeatCount="indefinite"/></rect>
+<text x="44" y="486" font-size="17" font-weight="750" fill="#4c617b" font-family='Inter,Segoe UI,Arial,sans-serif'>B</text>
+<rect x="85" y="470" width="254" height="19" rx="9.5" fill="#e6edf6"/>
+<rect x="85" y="470" width="0" height="19" rx="9.5" fill="#e49a39"><animate attributeName="width" values="0.00;0.00;254.00;254.00;0.00;0.00;0.00" keyTimes="0;0.24;0.34;0.58;0.68;0.97;1" dur="12s" repeatCount="indefinite"/></rect>
+<text x="44" y="527" font-size="17" font-weight="750" fill="#4c617b" font-family='Inter,Segoe UI,Arial,sans-serif'>C</text>
+<rect x="85" y="511" width="254" height="19" rx="9.5" fill="#e6edf6"/>
+<rect x="85" y="511" width="0" height="19" rx="9.5" fill="#e49a39"><animate attributeName="width" values="0.00;0.00;0.00;0.00;254.00;254.00;0.00" keyTimes="0;0.24;0.34;0.58;0.68;0.97;1" dur="12s" repeatCount="indefinite"/></rect>
+<text x="44" y="552" font-size="14" fill="#99551c" font-family='Inter,Segoe UI,Arial,sans-serif'>Non-greedy → clear</text>
+</svg>
