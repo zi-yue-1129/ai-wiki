@@ -82,6 +82,9 @@ Dueling 架構從共用特徵分出純量狀態價值 $V(s)$ 及每個動作的�
 - 在更大規模下訓練出複雜智能體後，哪些組件仍然有用。
 - 此結果在多大程度上能轉移到連續控制與遊戲以外的領域。
 
+[^rainbow-c51]: Bellemare、Dabney 與 Munos（2017），[ICML 原始論文](https://proceedings.mlr.press/v70/bellemare17a)；Hessel 等人（2018），[Rainbow 原始論文](https://arxiv.org/abs/1710.02298)。
+[^rainbow-dueling]: Wang 等人（2016），[ICML 原始論文](https://proceedings.mlr.press/v48/wangf16)；Hessel 等人（2018），[Rainbow 原始論文](https://arxiv.org/abs/1710.02298)。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -97,5 +100,3 @@ Dueling 架構從共用特徵分出純量狀態價值 $V(s)$ 及每個動作的�
 ### 綜述與教科書
 
 - Sutton, R. S. & Barto, A. G. *Reinforcement Learning: An Introduction*，第 2 版。MIT Press, 2018。http://incompleteideas.net/book/the-book-2nd.html — 多步回報與時序差分學習的背景知識。
-[^rainbow-c51]: Bellemare、Dabney 與 Munos（2017），[ICML 原始論文](https://proceedings.mlr.press/v70/bellemare17a)；Hessel 等人（2018），[Rainbow 原始論文](https://arxiv.org/abs/1710.02298)。
-[^rainbow-dueling]: Wang 等人（2016），[ICML 原始論文](https://proceedings.mlr.press/v48/wangf16)；Hessel 等人（2018），[Rainbow 原始論文](https://arxiv.org/abs/1710.02298)。
