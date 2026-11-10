@@ -36,6 +36,10 @@ The critic is trained with a temporal-difference target built from the target ac
 4. Update each actor \(\mu_i\) with the gradient through its critic.
 5. Update target networks slowly and repeat.
 
+![MADDPG centralised critic receives the joint actions and observations, and the actor gradient returns only to agent one](../../../../../assets/concept-animations/maddpg-actor-gradient-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* Follow the **blue and teal forward pulses** from the two local actors into agent 1's centralised critic. The **magenta reverse pulse** represents the derivative of \(Q_1\) with respect to agent 1's action, which updates \(\mu_1\); it does **not** update \(\mu_2\) through this actor-gradient path. The bottom row shows the execution-time path, when agent 1 needs only its own observation and actor, not the centralised critic. The diagram omits replay sampling, target critics and optimisers; the pulses are explanatory paths, **not measured gradients or learned activations**. On MkDocs, use Play/Pause; the [GitHub-readable static fallback](../../../../../assets/concept-animations/maddpg-actor-gradient-still.svg) shows the complete flow. See Lowe et al. (2017) in References.
+
 ## Results
 
 The paper evaluates on six multi-agent environments: cooperative communication, cooperative navigation, keep-away, physical deception, predator–prey, and covert communication.
