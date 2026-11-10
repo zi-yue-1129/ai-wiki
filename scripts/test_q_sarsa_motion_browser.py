@@ -57,8 +57,8 @@ def run():
             for mode in ("no-preference","reduce"):
                 cx=b.new_context(reduced_motion=mode)
                 pg=cx.new_page()
-                host="https://local.invalid/assets/"
-                pg.route("https://local.invalid/assets/**",lambda route:route.fulfill(body=m if "-motion.svg" in route.request.url else s,content_type="image/svg+xml"))
+                host="https://local.invalid/concept-animations/"
+                pg.route("https://local.invalid/concept-animations/**",lambda route:route.fulfill(body=m if "-motion.svg" in route.request.url else s,content_type="image/svg+xml"))
                 pg.set_content(f'<img alt="{alt}" src="{host}q-sarsa-backup-still.svg" data-motion-src="{host}q-sarsa-backup-motion.svg" data-still-src="{host}q-sarsa-backup-still.svg">')
                 pg.add_script_tag(content=PLAYER.read_text())
                 button=pg.locator(".concept-motion-toggle")
