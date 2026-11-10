@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'docs/assets/concept-animations'
 ART = ROOT / 'artifacts/ddpg-motion'
 ART.mkdir(parents=True, exist_ok=True)
-TOPICS = ('ddpg-actor-gradient', 'ddpg-polyak-target')
+TOPICS = ('ddpg-actor-gradient', 'ddpg-polyak-target', 'ddpg-replay-bootstrap', 'ddpg-ou-noise')
 WIDTHS = (320, 360, 720, 1024)
 TIMES = (0.3, 3.2, 6.1, 9.4)
 
@@ -52,13 +52,18 @@ def main():
                     page.close()
                 page=browser.new_page(reduced_motion='reduce', viewport={'width':640,'height':360})
                 page.set_content(embed(motion))
-                assert page.locator('.moving').first.evaluate('(e)=>getComputedStyle(e).display')=='none'
-                assert page.locator('.complete').first.evaluate('(e)=>getComputedStyle(e).display')!='none'
+                if page.locator('.moving').count():
+                    assert page.locator('.moving').first.evaluate('(e)=>getComputedStyle(e).display')=='none'
+                if page.locator('.complete').count():
+                    assert page.locator('.complete').first.evaluate('(e)=>getComputedStyle(e).display')!='none'
+                else:
+                    assert page.locator('.reveal').count() > 0
+                    assert all(v=='1' for v in page.locator('.reveal').evaluate_all('(els)=>els.map(e=>getComputedStyle(e).opacity)'))
                 if name=='ddpg-polyak-target':
                     assert all(x=='1' for x in page.locator('.reveal').evaluate_all('(els)=>els.map(e=>getComputedStyle(e).opacity)'))
                 page.screenshot(path=str(ART/f'{name}-reduced-motion.png'))
                 page.close()
-            print('DDPG Chromium: 40 screenshots, no visible text overlaps/cropping; pause/seek/reduced-motion passed')
+            print('DDPG Chromium: 80 screenshots, no visible text overlaps/cropping; pause/seek/reduced-motion passed')
         finally:
             browser.close()
 

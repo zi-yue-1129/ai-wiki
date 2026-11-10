@@ -33,6 +33,8 @@ TOPICS = {
     "dqn-target-sync": "theory/paradigms/reinforcement-learning/deep-q-networks/index",
     "adamw-decoupled-paths": "theory/optimization/adaptive/adamw",
     "ddpg-actor-gradient": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/ddpg/index",
+    "ddpg-replay-bootstrap": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/ddpg/index",
+    "ddpg-ou-noise": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/ddpg/index",
     "ddpg-polyak-target": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/ddpg/index",
     "td3-delayed-twin-critics": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/td3/index",
     "ppo-clipped-objective": "theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index",

@@ -48,6 +48,18 @@ y_i = r_i + \gamma\, Q'\big(s_{i+1}, \mu'(s_{i+1} \mid \theta^{\mu'}) \mid \thet
 
 *原創教學動畫（CC BY-SA 4.0）。* **青綠色線上參數**隨最佳化跳動；**洋紅色目標參數**按加權平均追蹤，不直接複製新參數。人工設定的純量線上參數為步驟 0–4 的 \(\theta=(0,1,-0.2,0.8,0.4)\)，令 \(\theta'_0=0\)，刻意放大的示意係數 **\(\tau=0.2\)** 產生 \(\theta'=(0,0.2,0.12,0.256,0.2848)\)。**原始 DDPG 論文使用 \(\tau=0.001\)**；圖中的追蹤速度和數值不是論文實測或實際訓練設定。這項軟更新分別應用於目標演員與目標評論家，而連續移動是兩次離散更新間的視覺插值，不代表更新期間的實際參數演變。下方的數值依步驟逐漸揭露。使用網站播放／暫停，或查看 [GitHub 靜態完整預覽](../../../../../assets/concept-animations/ddpg-polyak-target-still.svg)。依據 [Lillicrap 等人（2016）](https://arxiv.org/abs/1509.02971)。
 
+### 動態教學：經驗回放與終止狀態的 Bootstrap Mask
+
+![DDPG 從經驗回放抽取樣本，非終止轉換經目標演員與目標評論家形成目標值，而終止轉換不進行 Bootstrap 的動畫](../../../../../assets/concept-animations/ddpg-replay-bootstrap-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 回放緩衝區提供離策略轉換資料 `(s, a, r, s', done)`。對**非終止**轉換，**目標演員**產生下一動作，再由**目標評論家**估值；終止旗標則會遮罩 Bootstrap 項：\(y=r+\gamma(1-d)Q'(s',\mu'(s'))\)。使用**人工教學示意數值，並非模型實測**：\(\gamma=0.9\)、\(Q'=1.50\)；樣本 A 的 \(r=0.40,d=0\)，得到 \(y=1.75\)；終止樣本 B 的 \(r=1.20,d=1\)，則 \(y=1.20\)。動畫聚焦於目標值的形成，並未呈現後續線上評論家的平方誤差最小化。網站可使用 Play／Pause（聚焦後按 Enter／空白鍵），GitHub 可查看[靜態完整預覽](../../../../../assets/concept-animations/ddpg-replay-bootstrap-still.svg)。依據 [Lillicrap 等人（2016）](https://arxiv.org/abs/1509.02971)。
+
+### 動態教學：OU 時間相關探索與獨立噪聲
+
+![DDPG 確定性演員在資料蒐集時加入探索噪聲，對比 OU 保留前一步噪聲與獨立取樣不保留歷史的動畫](../../../../../assets/concept-animations/ddpg-ou-noise-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 確定性演員在蒐集資料時需要另外加入探索機制。圖中比較 Ornstein–Uhlenbeck（OU）噪聲 \(\epsilon_{t+1}=(1-\theta)\epsilon_t+\sigma\xi_t\)（單位時間步、平均數為零）與獨立取樣噪聲 \(\epsilon_{t+1}=\sigma\xi_t\)。兩邊使用**相同、人工指定的擾動序列**與**示意參數** \(\theta=0.25,\sigma=0.20\)，讓讀者觀察 OU 如何保留前一步的影響；曲線不是模型實測結果，也不能據此判定哪種噪聲的效能較佳。原始 DDPG 實驗採用時間相關的 OU 探索，獨立高斯動作噪聲則是常見、較簡單的替代方案。探索噪聲用於環境互動時的動作，不應混為 DDPG 目標評論家計算所使用的確定性目標演員。可使用網站 Play／Pause，或查看 [GitHub 靜態完整預覽](../../../../../assets/concept-animations/ddpg-ou-noise-still.svg)。依據 [Lillicrap 等人（2016）](https://arxiv.org/abs/1509.02971)。
+
 ## 結果
 
 摘要指出，此演算法能以同一套學習演算法、同一種架構與同一組超參數，「穩健地解決超過 20 個模擬物理任務」。論文也指出，在許多任務上，此方法能直接從原始像素輸入端到端地學習策略。

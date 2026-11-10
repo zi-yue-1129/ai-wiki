@@ -74,7 +74,7 @@ jobs:
           python -m playwright install chromium
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
-      - name: Chromium DDPG gradient and Polyak timing, mobile/desktop text and reduced-motion
+      - name: Chromium DDPG gradient, target tracking, replay/bootstrap and OU noise
         run: python scripts/test_ddpg_motion_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
