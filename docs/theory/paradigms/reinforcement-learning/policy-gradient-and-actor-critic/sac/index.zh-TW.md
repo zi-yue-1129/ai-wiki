@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 aliases:
   - SAC
   - 軟演員–評論家
@@ -35,6 +35,32 @@ J(\pi) = \sum_t \mathbb{E}\left[r(s_t, a_t) + \alpha\, \mathcal{H}\big(\pi(\cdot
 4. 以速率 \(\tau\) 更新目標價值網路，然後重複。
 
 論文省略了演算法中的溫度，並指出獎勵尺度是唯一需要調整的超參數。
+
+
+### 現代版 SAC：熵正則化雙評論家目標
+
+上文介紹的 2018 年原始 SAC 實作使用獨立的狀態價值網路；後續 *SAC Algorithms and Applications*（2018b）改為**直接使用兩個目標 Q 函數**構造抽樣的軟 Bellman 目標，而不再另外訓練該價值網路：
+
+$
+y_t = r_t + \gamma(1-d_t)\left[
+\min_{i=1,2}Q_{\bar\theta_i}(s_{t+1},a_{t+1})
+- \alpha\log\pi_{\phi}(a_{t+1}\mid s_{t+1})
+\right],\quad a_{t+1}\sim\pi_\phi(\cdot\mid s_{t+1}).
+$
+
+其中 $-\alpha\log\pi$ 是軟目標中的熵獎勵，取兩個目標評論家之最小值則用於抑制樂觀的 Q 值估計。使用**人工設定、非模型實測**的 $r=1$、$\gamma=0.9$、$d=0$、$(Q_1,Q_2)=(4.2,3.8)$、$\alpha=0.20$ 及抽樣動作對數密度 $\log\pi=-0.70$，得到 $1+0.9[3.8-0.20(-0.70)]=4.546$；若不含熵獎勵則為 $4.420$。若轉移已終止（$d=1$），就不含 Bootstrap 項。
+
+![SAC 軟目標動畫：取較小目標 Q 值，再加上熵獎勵，最後形成折扣 Bellman 目標](../../../../../assets/concept-animations/sac-soft-target-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 青綠色路徑傳遞雙評論家最小值估計，橘色路徑傳遞 $-\alpha\log\pi$，最後在下方形成折扣目標。全部數值都是人工教學示例，不代表實際演員或評論家的預測。**MkDocs：**使用播放／暫停控制；**GitHub：**參見[靜態完整圖](../../../../../assets/concept-animations/sac-soft-target-still.svg)。來源：[Haarnoja 等人（2018b）](https://arxiv.org/abs/1812.05905)。
+
+### 自動調整熵溫度（2018b）
+
+後續 SAC 透過**最低期望熵限制**最佳化 $\alpha$。固定目標熵 $\mathcal H_*$ 時，策略熵**低於**目標會使對偶更新傾向提高 $\alpha$、強化探索項；**高於**目標則傾向降低 $\alpha$。這是對偶更新方向，**不保證策略熵立即改變**。連續動作的微分熵可能為負；動畫中的正值僅為教學示意。
+
+![SAC 熵溫度回饋動畫：低於目標熵時提高 alpha，高於目標熵時降低 alpha](../../../../../assets/concept-animations/sac-temperature-feedback-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 紫色標記是兩個面板共用的目標熵 $\mathcal H_*=1.0$。左面板以 $\mathcal H=0.50$ 示意 $\alpha:0.20\to0.27$；右面板以 $\mathcal H=1.40$ 示意 $\alpha:0.27\to0.22$。這些數值**僅呈現調整方向**，不是實際最佳化梯度步驟或模型訓練軌跡。**MkDocs：**使用播放／暫停控制；**GitHub：**參見[靜態完整圖](../../../../../assets/concept-animations/sac-temperature-feedback-still.svg)。來源：[Haarnoja 等人（2018b）](https://arxiv.org/abs/1812.05905)。
 
 ## 結果
 
