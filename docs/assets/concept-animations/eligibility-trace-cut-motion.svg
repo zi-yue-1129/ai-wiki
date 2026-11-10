@@ -11,14 +11,14 @@
 
 <circle cx="88" cy="112" r="24" fill="#ffffff" stroke="#159f89" stroke-width="3"/>
 <text x="88" y="119" font-size="19" text-anchor="middle" font-weight="800" fill="#159f89" font-family='Inter,Segoe UI,Arial,sans-serif'>A</text>
-<text x="88" y="153" font-size="14" text-anchor="middle" fill="#687991" font-family='Inter,Segoe UI,Arial,sans-serif'>Greedy</text>
+<text x="88" y="160" font-size="14" text-anchor="middle" fill="#687991" font-family='Inter,Segoe UI,Arial,sans-serif'>Greedy</text>
 <circle cx="220" cy="112" r="24" fill="#ffffff" stroke="#159f89" stroke-width="3"/>
 <text x="220" y="119" font-size="19" text-anchor="middle" font-weight="800" fill="#159f89" font-family='Inter,Segoe UI,Arial,sans-serif'>B</text>
-<text x="220" y="153" font-size="14" text-anchor="middle" fill="#687991" font-family='Inter,Segoe UI,Arial,sans-serif'>Greedy</text>
+<text x="220" y="160" font-size="14" text-anchor="middle" fill="#687991" font-family='Inter,Segoe UI,Arial,sans-serif'>Greedy</text>
 <circle cx="352" cy="112" r="24" fill="#ffffff" stroke="#aa5ac5" stroke-width="3"/>
 <text x="352" y="119" font-size="19" text-anchor="middle" font-weight="800" fill="#aa5ac5" font-family='Inter,Segoe UI,Arial,sans-serif'>C</text>
-<text x="352" y="153" font-size="14" text-anchor="middle" fill="#687991" font-family='Inter,Segoe UI,Arial,sans-serif'>Non-greedy</text>
-<circle cx="352" cy="112" r="34" fill="none" stroke="#aa5ac5" stroke-width="3" opacity="0">
+<text x="352" y="160" font-size="14" text-anchor="middle" fill="#687991" font-family='Inter,Segoe UI,Arial,sans-serif'>Non-greedy</text>
+<circle cx="352" cy="112" r="29" fill="none" stroke="#aa5ac5" stroke-width="3" opacity="0">
  <animate attributeName="opacity" values="0;0;0;0;0.85;0.85;0" keyTimes="0;0.58;0.64;0.67;0.73;0.97;1" dur="12s" repeatCount="indefinite"/></circle>
 <circle cy="79" cx="88" r="5" fill="#183253"><animate attributeName="cx" values="88;88;220;220;352;352;88" keyTimes="0;0.24;0.34;0.58;0.68;0.97;1" dur="12s" repeatCount="indefinite"/></circle>
 <rect x="18" y="174" width="404" height="188" rx="16" fill="#f9fbff" stroke="#dae3ef"/>
