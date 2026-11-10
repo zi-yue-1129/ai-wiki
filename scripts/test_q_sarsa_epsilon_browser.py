@@ -35,13 +35,13 @@ def run():
             launch['executable_path'] = os.environ['CHROMIUM_EXECUTABLE']
         browser = p.chromium.launch(**launch)
         for width in (320, 360, 720, 1024):
-            for variant, seconds in [('motion', .5), ('motion', 2.5), ('motion', 4.5), ('motion', 6.9), ('motion', 9.4), ('still', 0)]:
+            for variant, seconds in [('motion', .5), ('motion', 2.5), ('motion', 5.3), ('motion', 7.5), ('motion', 9.65), ('still', 0)]:
                 page = browser.new_page(viewport={'width': width, 'height': max(750, width * 2)})
                 file = motion if variant == 'motion' else still
                 page.set_content('<style>html,body{margin:0}svg{display:block;width:100%;height:auto}</style>' + file.read_text())
                 if variant == 'motion':
                     page.locator('svg').evaluate('(e,t) => {e.pauseAnimations();e.setCurrentTime(t)}', seconds)
-                    target = ('#q-highlight rect' if seconds == 2.5 else '#l-highlight rect' if seconds == 4.5 else '#r-highlight rect' if seconds == 6.9 else '#expected-highlight rect' if seconds == 9.4 else None)
+                    target = ('#q-highlight rect' if seconds == 2.5 else '#l-highlight rect' if seconds == 5.3 else '#r-highlight rect' if seconds == 7.5 else '#expected-highlight rect' if seconds == 9.65 else None)
                     if target:
                         opacity = float(page.locator(target).evaluate('e => getComputedStyle(e).opacity'))
                         assert opacity > .8, (target, seconds, opacity)
