@@ -62,8 +62,33 @@ def run() -> None:
             assert page.locator("#mean-sample").is_visible()
             page.locator("svg").screenshot(path=str(OUT / f"still-{width}.png"))
             page.close()
+        # Test this exact asset pair through the existing MkDocs enhancement.
+        player = ROOT / "docs/javascripts/concept-motion.js"
+        assert player.exists()
+        host = "https://local.invalid/concept-animations/"
+        for alt in ("Noisy Q-value backup comparison", "含雜訊估計的 Q 值備份比較"):
+            for mode in ("no-preference", "reduce"):
+                cx = browser.new_context(reduced_motion=mode)
+                pg = cx.new_page()
+                pg.route(host + "**", lambda route: route.fulfill(
+                    body=motion.read_text() if "-motion.svg" in route.request.url else still.read_text(),
+                    content_type="image/svg+xml"))
+                pg.set_content(f'<img alt="{alt}" src="{host}q-sarsa-noisy-backups-still.svg" data-motion-src="{host}q-sarsa-noisy-backups-motion.svg" data-still-src="{host}q-sarsa-noisy-backups-still.svg">')
+                # The static asset is already the no-JavaScript fallback.
+                assert pg.locator("img").get_attribute("src").endswith("-still.svg")
+                pg.add_script_tag(content=player.read_text())
+                toggle = pg.locator(".concept-motion-toggle")
+                toggle.wait_for(state="visible", timeout=5000)
+                assert ("-still.svg" if mode == "reduce" else "-motion.svg") in pg.locator("img").get_attribute("src")
+                toggle.focus()
+                pg.keyboard.press("Enter")
+                assert ("-motion.svg" if mode == "reduce" else "-still.svg") in pg.locator("img").get_attribute("src")
+                toggle.focus()
+                pg.keyboard.press("Space")
+                assert ("-still.svg" if mode == "reduce" else "-motion.svg") in pg.locator("img").get_attribute("src")
+                cx.close()
         browser.close()
-    print("PASS: 24 responsive screenshots, four exhaustive noise cases, SMIL stages, safety and fallback")
+    print("PASS: 24 responsive screenshots, four noise cases, SMIL, fallback, keyboard and reduced motion")
 
 
 if __name__ == "__main__":
