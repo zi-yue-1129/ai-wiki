@@ -30,6 +30,24 @@ MAPPO is the PPO algorithm of [Proximal Policy Optimisation](../../proximal-poli
 
 The paper also finds that performance degrades when samples are reused too often in multi-agent domains.
 
+![MAPPO local observations pass through a shared policy; training-only global value estimates support advantages and the PPO parameter update](../../../../../assets/concept-animations/mappo-shared-advantage-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* **Blue pulses** show two homogeneous agents applying the **same policy parameters** to their separate local observations. During training, the **teal path** summarises how a centralised \(V(s)\) supports generalised advantage estimation (GAE), while the **orange/pink path** depicts the clipped PPO objective updating the shared policy. GAE additionally requires rewards and rollout data (not drawn); the critic is **not an execution-time input** to the actors. Example \(A_1=+0.8\) and \(A_2=-0.3\) are **invented teaching values**, not measured advantages or precise optimiser steps. On MkDocs, use Play/Pause; see the [GitHub-readable static fallback](../../../../../assets/concept-animations/mappo-shared-advantage-still.svg). The methodology follows Yu et al. (2022) and Schulman et al. (2017), listed in References.
+
+
+### GAE unfolds backwards through a centralised value critic
+
+For one representative agent's rollout, the training-only centralised critic supplies \(V(s_t)\). A standard PPO-style GAE recursion is
+\[
+\delta_t=r_t+\gamma(1-d_t)V(s_{t+1})-V(s_t),\qquad
+\hat A_t=\delta_t+\gamma\lambda(1-d_t)\hat A_{t+1}.
+\]
+The display sets \(\gamma=0.9\), \(\lambda=0.8\), rewards \((0.2,0.4,0.6)\), critic values \((1.0,0.8,0.5,0)\), and a terminal final step. It obtains \(\delta=(-0.08,0.05,0.10)\), then **backwards** \(\hat A_2=0.10\), \(\hat A_1=0.122\), \(\hat A_0=0.00784\). This uses the global-value conditioning of MAPPO alongside standard GAE; it does **not** claim that these numbers arose from a trained policy or represent all agents' rewards.
+
+![MAPPO centralised value-based TD residuals and backward GAE recursion across three rollout steps](../../../../../assets/concept-animations/mappo-backward-gae-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* Read each time column's reward and critic value first, then follow the amber pulses from the latest advantage back to earlier steps. The changing outlines mark the recursion's dependency order rather than a four-frame slide deck. All values are **invented teaching values**, not learned estimates. MkDocs supports Play/Pause; the [GitHub-readable static fallback](../../../../../assets/concept-animations/mappo-backward-gae-still.svg) contains every computed result. See Yu et al. (2022) and Schulman et al. (2017) in References.
+
 ## Results
 
 - **SMAC.** On the 6h_vs_8z map, MAPPO with feature pruning reaches a median win rate of 88.3%, against 9.4% for QMIX (Table 1).

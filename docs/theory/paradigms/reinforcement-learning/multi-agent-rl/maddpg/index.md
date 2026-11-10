@@ -36,6 +36,24 @@ The critic is trained with a temporal-difference target built from the target ac
 4. Update each actor \(\mu_i\) with the gradient through its critic.
 5. Update target networks slowly and repeat.
 
+![MADDPG centralised critic receives the joint actions and observations, and the actor gradient returns only to agent one](../../../../../assets/concept-animations/maddpg-actor-gradient-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* Follow the **blue and teal forward pulses** from the two local actors into agent 1's centralised critic. The **magenta reverse pulse** represents the derivative of \(Q_1\) with respect to agent 1's action, which updates \(\mu_1\); it does **not** update \(\mu_2\) through this actor-gradient path. The bottom row shows the execution-time path, when agent 1 needs only its own observation and actor, not the centralised critic. The diagram omits replay sampling, target critics and optimisers; the pulses are explanatory paths, **not measured gradients or learned activations**. On MkDocs, use Play/Pause; the [GitHub-readable static fallback](../../../../../assets/concept-animations/maddpg-actor-gradient-still.svg) shows the complete flow. See Lowe et al. (2017) in References.
+
+
+### Joint target bootstrap (agent 1)
+
+For a sampled joint transition, each **slow target actor** computes its next action from its own next observation. The target critic then evaluates the *joint* next action:
+\[
+a'_j=\mu'_j(o'_j),\qquad
+y_1=r_1+\gamma(1-d)Q'_1(x',a'_1,\ldots,a'_N).
+\]
+Here \(d=1\) denotes a terminal transition, so the bootstrap term vanishes. The example below is deliberately constructed: \(r_1=0.50\), \(\gamma=0.90\), \(d=0\), target critic output \(Q'_1=1.80\), and online critic output \(Q_1=1.40\). Thus \(y_1=2.12\) and the signed residual \(y_1-Q_1=0.72\). The illustration follows the original MADDPG target-network construction (Lowe et al., 2017, in References), not a recorded training run.
+
+![MADDPG joint replay observation flows through target actors to the target critic and Bellman residual](../../../../../assets/concept-animations/maddpg-joint-bootstrap-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* Follow the coloured pulses from replayed next observations through the two **target** actors, the joint target critic, then the bootstrapped target and residual. The glow progresses through the actual dependency order; the values are fixed **schematic examples, not measured neural outputs**. On the MkDocs website use Play/Pause; the [GitHub-readable static fallback](../../../../../assets/concept-animations/maddpg-joint-bootstrap-still.svg) retains every operation. The critic loss averages squared TD errors over a minibatch; the pictured residual is one sample, not the entire optimiser update.
+
 ## Results
 
 The paper evaluates on six multi-agent environments: cooperative communication, cooperative navigation, keep-away, physical deception, predator–prey, and covert communication.
