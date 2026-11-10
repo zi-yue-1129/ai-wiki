@@ -71,6 +71,14 @@ $
 
 *原創十一秒 SVG／SMIL 動畫（CC BY-SA 4.0）。* 前一張圖固定下一個實際動作；這張圖則用**另一個人工建構的情境**，把下一動作的隨機選擇明確呈現。假設 $Q(s',L)=5$、$Q(s',R)=2$，L 是**唯一**的貪婪動作，$\varepsilon$-貪婪策略以均勻機率探索兩個動作，且 $\varepsilon=0.20$。則 $\pi(L\mid s')=1-\varepsilon+\varepsilon/2=0.90$，$\pi(R\mid s')=\varepsilon/2=0.10$。在 $r=1$、$\gamma=0.9$ 下，**Q-learning** 無論行為策略選哪個動作，都使用 $1+0.9(5)=\mathbf{5.50}$ 作為備份目標；**SARSA** 依實際抽到的動作，可能得到 $5.50$（機率 $0.90$）或 $2.80$（機率 $0.10$）。若不抽一個動作，而是對行為策略取期望，**Expected SARSA** 的目標為 $0.9(5.50)+0.1(2.80)=\mathbf{5.23}$。這是**固定 Q 表下 SARSA 單步目標的條件期望**，不是 SARSA 第三種可能的抽樣結果，也不代表後續訓練的整體表現必然較好。動畫依序強調不同備份路徑，**畫面出現的時間比例不代表實際抽樣機率**；全部數值均為示意，非模型實測。MkDocs 可鍵盤操作播放／暫停並支援減少動態效果；[GitHub 靜態回退](../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg)可一次閱讀所有路徑。公式依據文末 Sutton 與 Barto（2018）第 6 章。
 
+### 真正終止與外部時間限制截斷的 TD 備份
+
+<img src="../../../../../assets/concept-animations/td-terminal-truncation-still.svg" data-motion-src="../../../../../assets/concept-animations/td-terminal-truncation-motion.svg" data-still-src="../../../../../assets/concept-animations/td-terminal-truncation-still.svg" width="440" loading="lazy" alt="真正終止時，Q-learning 與 SARSA 都不使用下一狀態價值，目標為 1.00。外部時間限制截斷時，Q-learning 以最終觀測的最大動作價值四進行備份，得到 4.60；SARSA 以延續策略抽出的下一動作價值二進行備份，得到 2.80。" />
+
+*原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。***回合停止不等於 MDP 真正終止。**若任務已達到真正終止狀態（包含有限時域任務內生的終點），TD 目標就不再加上下一狀態價值；若只是*持續性任務*被外部 TimeLimit 強制截斷，則仍須從**重設前最後一筆觀測**進行 bootstrap，而非使用下一個回合的重設觀測。Pardo 等人（2018）分析了這個差異；Gymnasium 的 `terminated` 和 `truncated` 分別表達這兩種訊號。
+
+假設人工示意 $r=1$、$\gamma=0.9$、$\max_a Q(s',a)=4$，而 SARSA 在最後觀測下的延續動作估計 $Q(s',a')=2$。**真正終止**時，兩種方法的 TD 目標都是 **1.00**；**外部截斷**時，Q-learning 的目標為 **4.60**，SARSA 的延續動作備份為 **2.80**。由於截斷後不一定真的執行下一動作，SARSA 可在最後觀測依其策略**假設性抽樣延續動作**，不能取用重設狀態所抽的動作。這是人工建構的計算案例，**不是模型實測**。動畫中的叉號代表真正終止時移除 bootstrap，虛線時間界線則保留延續價值路徑。MkDocs 可用鍵盤播放／暫停、支援減少動態效果；[GitHub 靜態回退](../../../../../assets/concept-animations/td-terminal-truncation-still.svg)同時呈現兩個條件。依據文末 Pardo 等人（2018）的原始論文。
+
 ## 結果
 
 Watkins 與 Dayan 的貢獻是收斂定理，而非實證基準。它的實際影響來自函數逼近：深度 Q 網路以神經網路使用相同的最大值目標，並在許多 Atari 遊戲上達到人類水準（Mnih 等人，2015）。
@@ -106,6 +114,8 @@ Watkins 與 Dayan 的貢獻是收斂定理，而非實證基準。它的實際�
 - Mnih 等人（2015），"Human-level control through deep reinforcement learning"，*Nature* 518, 529–533。https://doi.org/10.1038/nature14236 — Q 學習的深度版本，包含回放與目標網路。
 - van Hasselt、Guez 與 Silver（2016），"Deep reinforcement learning with double Q-learning"，[arXiv:1509.06461](https://arxiv.org/abs/1509.06461)（2015 年提交至 arXiv）— 顯示 DQN 會高估動作價值，並降低此偏差。
 - Mnih 等人（2013），"Playing Atari with deep reinforcement learning"，[arXiv:1312.5602](https://arxiv.org/abs/1312.5602) — 早期預印本，將以 Q 學習為基礎的網路應用於原始 Atari 畫面。
+
+- Pardo、Tavakoli、Levdik 與 Kormushev（2018），*Time Limits in Reinforcement Learning*，ICML，PMLR 80:4045–4054。https://proceedings.mlr.press/v80/pardo18a.html — 區分有限時域任務的真正終止與外部訓練時間限制，說明應從截斷時最後觀測延續價值估計。
 
 ### 綜述與教科書
 
