@@ -35,6 +35,32 @@ The soft Q target is \(\hat{Q}(s_t, a_t) = r(s_t, a_t) + \gamma\, \mathbb{E}\big
 
 The paper omits the temperature from its algorithm, and reports reward scale as the only hyperparameter that requires tuning.
 
+
+### Modern SAC: entropy-regularised twin-critic target
+
+The original 2018 SAC implementation described above uses a separate state-value network. The later *SAC Algorithms and Applications* formulation (2018b) removes that extra value network and forms a sampled soft Bellman target directly from **two target Q-functions**:
+
+$
+y_t = r_t + \gamma(1-d_t)\left[
+\min_{i=1,2}Q_{\bar\theta_i}(s_{t+1},a_{t+1})
+- \alpha\log\pi_{\phi}(a_{t+1}\mid s_{t+1})
+\right],\quad a_{t+1}\sim\pi_\phi(\cdot\mid s_{t+1}).
+$
+
+The term $-\alpha\log\pi$ provides the soft target's entropy bonus, while the minimum of two target critics mitigates optimistic Q estimates. With **illustrative, non-measured** values $r=1$, $\gamma=0.9$, $d=0$, $(Q_1,Q_2)=(4.2,3.8)$, $\alpha=0.20$ and a sampled action log-density $\log\pi=-0.70$, the target is $1+0.9[3.8-0.20(-0.70)]=4.546$. Without the entropy bonus, it would be $4.420$. A terminal transition ($d=1$) has no bootstrap term.
+
+![Animated SAC soft target: the smaller target critic combines with an entropy bonus to form the discounted Bellman target](../../../../../assets/concept-animations/sac-soft-target-motion.svg)
+
+*Original animated teaching schematic (CC BY-SA 4.0).* Teal carries the smaller target-critic estimate; orange carries $-\alpha\log\pi$. Both feed the discounted target below. All values are hand-crafted examples, not measured critic or actor outputs. On MkDocs use the **Play/Pause** control; on GitHub see the [static complete overview](../../../../../assets/concept-animations/sac-soft-target-still.svg). Source: [Haarnoja et al. (2018b)](https://arxiv.org/abs/1812.05905).
+
+### Automatic entropy-temperature adjustment (2018b)
+
+The later SAC formulation also optimises $\alpha$ via a **minimum expected entropy constraint**. With target entropy $\mathcal H_*$, entropy *below* the target pushes the dual update to increase $\alpha$, strengthening the exploration term; entropy *above* target pushes it to decrease $\alpha$. This is the direction of the dual update, **not a guarantee of an immediate entropy change**. Continuous-action differential entropy need not be positive: the positive values illustrated here are deliberately schematic.
+
+![Animated SAC temperature feedback: entropy below the target increases alpha and entropy above the target decreases alpha](../../../../../assets/concept-animations/sac-temperature-feedback-motion.svg)
+
+*Original animated teaching schematic (CC BY-SA 4.0).* Both panels use the purple target marker $\mathcal H_*=1.0$. The left panel illustrates $\mathcal H=0.50$ with $\alpha:0.20\to0.27$; the right illustrates $\mathcal H=1.40$ with $\alpha:0.27\to0.22$. These values illustrate **adjustment direction only**, not numerical optimiser steps or measured training dynamics. On MkDocs use **Play/Pause**; on GitHub see the [static complete overview](../../../../../assets/concept-animations/sac-temperature-feedback-still.svg). Source: [Haarnoja et al. (2018b)](https://arxiv.org/abs/1812.05905).
+
 ## Results
 
 The paper states that SAC "attains a substantial improvement in both performance and sample efficiency over both off-policy and on-policy prior methods". In the related-work section it says SAC "does in fact exceed the performance of prior state-of-the-art off-policy deep RL methods by a wide margin". On the Gym MuJoCo tasks, Figure 1 compares SAC with DDPG, PPO, soft Q-learning (SQL) and TD3. The paper reports that DDPG "fails to make any progress on Ant-v1". Each algorithm is trained in five instances with different random seeds.
