@@ -34,6 +34,19 @@ y_i = r_i + \gamma\, Q'\big(s_{i+1}, \mu'(s_{i+1} \mid \theta^{\mu'}) \mid \thet
 
 and the target networks are updated as \(\theta' \leftarrow \tau\theta + (1 - \tau)\theta'\), with \(\tau = 0.001\) in the paper. The replay buffer holds \(10^6\) transitions, and the minibatch size is 64 for low-dimensional states and 16 when learning from pixels. The discount is \(\gamma = 0.99\).
 
+
+### Visual walkthrough: actor gradient through a deterministic action
+
+![Animated DDPG actor evaluation and critic-to-actor gradient flow, with a one-dimensional illustrative Q landscape](../../../../../assets/concept-animations/ddpg-actor-gradient-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* The **teal** trace evaluates \(s \rightarrow \mu_{\theta^\mu}(s) \rightarrow Q_{\theta^Q}(s,a)\). The **magenta** trace represents \(\nabla_a Q\) flowing through \(\nabla_{\theta^\mu}\mu\) to update the *actor parameters*, not to train the critic from the actor loss. The **amber** point moves uphill on an **invented one-dimensional Q slice** only to illustrate the intended local policy improvement; it is not a measured learning trajectory and cannot guarantee global optimality. The critic remains fixed during this conceptual actor-gradient step. Use the site's Play/Pause button (Enter or Space when focused); [GitHub-readable static overview](../../../../../assets/concept-animations/ddpg-actor-gradient-still.svg). See [Silver et al. (2014)](https://proceedings.mlr.press/v32/silver14.html) and [Lillicrap et al. (2016)](https://arxiv.org/abs/1509.02971).
+
+### Visual walkthrough: slow target-network tracking
+
+![Animated online and target DDPG parameter tracks and successive Polyak updates](../../../../../assets/concept-animations/ddpg-polyak-target-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* The **teal online parameter** jumps as optimisation changes it; the **magenta target parameter** follows a weighted average rather than copying the new value. The toy scalar values are \(\theta=(0,1,-0.2,0.8,0.4)\) at steps 0–4. With \(\theta'_0=0\), an intentionally exaggerated illustrative rate **\(\tau=0.2\)** yields \(\theta'=(0,0.2,0.12,0.256,0.2848)\). In the actual DDPG paper **\(\tau=0.001\)**; the displayed speed and numbers are neither its training hyperparameters nor measured model parameters. This mechanism applies separately to actor and critic target networks, and the smooth travel between discrete updates is a visual interpolation only. The lower row reveals each completed step over time. Use Play/Pause, or see the [GitHub-readable static overview](../../../../../assets/concept-animations/ddpg-polyak-target-still.svg). See [Lillicrap et al. (2016)](https://arxiv.org/abs/1509.02971).
+
 ## Results
 
 The abstract reports that the algorithm "robustly solves more than 20 simulated physics tasks" with one learning algorithm, one architecture and one set of hyperparameters. The paper also reports that for many of the tasks the method can learn policies end-to-end, directly from raw pixel inputs.
