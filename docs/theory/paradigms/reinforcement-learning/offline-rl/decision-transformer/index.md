@@ -30,6 +30,26 @@ The model is trained to maximise the likelihood of the logged actions, each cond
 
 where \(\hat{R}_t = \sum_{t' \ge t} r_{t'}\) is the return-to-go of the logged trajectory and \(K\) is the context length. At evaluation, the first return-to-go is set to the desired return, and it is reduced by each observed reward.
 
+### Return-to-go conditioning as an online budget
+
+<img src="../../../../../assets/concept-animations/dt-return-budget-still.svg" data-motion-src="../../../../../assets/concept-animations/dt-return-budget-motion.svg" data-still-src="../../../../../assets/concept-animations/dt-return-budget-still.svg" width="640" loading="lazy" alt="Decision Transformer rollout with a desired return budget of six. After illustrative observed rewards two, one and three, the remaining target successively becomes four, three and zero; the state and action tokens expand with each timestep." />
+
+*Original 12-second SVG/SMIL teaching animation (CC BY-SA 4.0).* The model is initially conditioned on **desired** return $G_0=6$. After taking an action and observing reward $r_t$, the next **desired** return token is updated by
+
+$
+G_{t+1}=G_t-r_t.
+$
+
+For the artificial reward sequence $(r_0,r_1,r_2)=(2,1,3)$, the target evolves as $6\rightarrow4\rightarrow3\rightarrow0$. Each generated action is appended to the context, and the next observation is supplied before predicting another action. **The initial target is a conditioning request, not a guaranteed achieved return, and the rewards and actions are not trained model measurements.** This test-time recurrence differs from training, where the return-to-go tokens are computed retrospectively from recorded future rewards. The animation highlights the update order rather than showing actual policy inference latency. On MkDocs, Play/Pause (keyboard Enter or Space) and reduced-motion settings use the shared player; the [GitHub-readable static fallback](../../../../../assets/concept-animations/dt-return-budget-still.svg) shows the complete recurrence.
+
+### Causal masking during action prediction
+
+<img src="../../../../../assets/concept-animations/dt-causal-prefix-still.svg" data-motion-src="../../../../../assets/concept-animations/dt-causal-prefix-motion.svg" data-still-src="../../../../../assets/concept-animations/dt-causal-prefix-still.svg" width="640" loading="lazy" alt="Three causal action-prediction queries. Predicting a0 can use G0 and s0, predicting a1 can additionally use a0, G1 and s1, and predicting a2 can use the full history through G2 and s2; future tokens are masked." />
+
+*Original 12-second SVG/SMIL teaching animation (CC BY-SA 4.0).* The input sequence interleaves desired returns, observed states and **previous** actions. To predict $a_0$, only $(G_0,s_0)$ is known; to predict $a_1$, the accessible prefix is $(G_0,s_0,a_0,G_1,s_1)$; to predict $a_2$, the accessible prefix extends through $(G_2,s_2)$. The moving outline marks which tokens are *eligible* as causal context. **It does not visualize learned attention coefficients, prove that every allowed token receives nonzero attention, or reveal future rewards.** In actual implementations, actions are predicted from the corresponding state-token representation under a causal attention mask. The static [GitHub fallback](../../../../../assets/concept-animations/dt-causal-prefix-still.svg) displays all three allowable prefixes simultaneously; MkDocs supplies Play/Pause and a keyboard-accessible reduced-motion fallback.
+
+These two schematic mechanisms follow the trajectory representation and test-time generation procedure of [Chen et al. (2021)](https://arxiv.org/abs/2106.01345), already listed in References. Neither illustration represents a measured policy rollout.
+
 ## Results
 
 The abstract reports that Decision Transformer "matches or exceeds the performance of state-of-the-art model-free offline RL baselines on Atari, OpenAI Gym, and Key-to-Door tasks". The paper evaluates on these benchmarks against conservative and value-based offline methods.
