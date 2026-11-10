@@ -62,6 +62,7 @@ def run():
                 pg.set_content(f'<img alt="{alt}" src="{host}q-sarsa-backup-still.svg" data-motion-src="{host}q-sarsa-backup-motion.svg" data-still-src="{host}q-sarsa-backup-still.svg">')
                 pg.add_script_tag(content=PLAYER.read_text())
                 button=pg.locator(".concept-motion-toggle")
+                button.wait_for(state="visible", timeout=5000)
                 assert button.count()==1
                 assert ("-still.svg" if mode=="reduce" else "-motion.svg") in pg.locator("img").get_attribute("src")
                 button.focus();pg.keyboard.press("Enter")
