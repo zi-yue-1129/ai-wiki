@@ -88,6 +88,15 @@ $
 圖中比較的是**兩種可能的策略偏好**，不代表 SARSA 一定採用綠色路線，或 Q-learning 一定掉落；兩者執行時都可能因探索而失誤。若 ε 逐漸降低、轉移機率或獎勵設定不同，偏好路徑也可能改變。圖中的**七欄地圖刻意簡化**，不是教科書原始地圖，也不是模型實測軌跡；移動圓點與紅色掉落僅示意因果過程，動畫的停留時間不代表 ε 的抽樣機率。MkDocs 提供可用鍵盤操作的播放／暫停；[GitHub／無 JavaScript 靜態預覽](../../../../../assets/concept-animations/cliff-walking-still.svg)完整保留兩條路線及失足風險。原理依據文末既有的 Sutton 與 Barto（2018）教材。
 
 
+### 多步備份期限與一步貪婪目標的區別
+
+<img src="../../../../../assets/concept-animations/nstep-lambda-forward-still.svg" data-motion-src="../../../../../assets/concept-animations/nstep-lambda-forward-motion.svg" data-still-src="../../../../../assets/concept-animations/nstep-lambda-forward-still.svg" width="520" loading="lazy" alt="同一個人工軌跡的 SARSA 一步、兩步、三步同策略報酬，以及依權重組成的截斷 λ 報酬。延續價值來自抽樣動作，不是 Q 學習的貪婪最大值。" />
+
+*原創十二秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 這個比較呈現一個有別於 **Q 學習下一步取最大值**的設計選擇：在自助式估計之前，先累積**多少步獎勵**。以人工設定的三次獎勵 $(1,-1,4)$、折扣率 $\gamma=0.9$，以及後續**抽樣動作**的價值 $(3,1,2)$ 為例，一步、兩步、三步 **SARSA** 目標依序為 $3.700$、$0.910$、$4.798$。若使用截斷的 $\lambda=0.8$ 前向報酬，可用權重 $0.20$、$0.16$、$0.64$ 加權得到 $3.95632$。動畫依序沿不同期限傳遞，再合併目標；所有值為**固定的教學示意**，不是訓練實測。
+
+**重要區別：** 圖中是**同策略 n-step SARSA**，**不是離策略 n-step Q 學習**。一步 Q 學習會對下一狀態取 $\max_a Q(s_{t+1},a)$；要延伸為多步離策略方法，須明確指定目標策略的修正或其他備份算子。直接把上述抽樣動作報酬代入 Q 學習會改變演算法。GitHub 與無腳本模式可查看[完整靜態回退圖](../../../../../assets/concept-animations/nstep-lambda-forward-still.svg)，MkDocs 則沿用鍵盤可操作的播放／暫停與 Reduced Motion 支援。參見文末 Sutton 與 Barto（2018）第 7、12 章。
+
+
 ### 資格跡：跨時間信用分配與非貪婪動作的截斷
 
 <img src="../../../../../assets/concept-animations/eligibility-trace-cut-still.svg" data-motion-src="../../../../../assets/concept-animations/eligibility-trace-cut-motion.svg" data-still-src="../../../../../assets/concept-animations/eligibility-trace-cut-still.svg" width="440" loading="lazy" alt="三個連續且互不重複的狀態動作對 A、B、C，C 為非貪婪動作。SARSA lambda 保留 A 的 0.52、B 的 0.72、C 的 1.00；Watkins Q lambda 將歷史 A、B 的資格跡清為零，保留 C 的 1.00。" />

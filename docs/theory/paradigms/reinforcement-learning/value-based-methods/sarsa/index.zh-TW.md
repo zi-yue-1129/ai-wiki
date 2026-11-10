@@ -78,6 +78,21 @@ $
 圖中比較的是**兩種可能的策略偏好**，不代表 SARSA 一定採用綠色路線，或 Q-learning 一定掉落；兩者執行時都可能因探索而失誤。若 ε 逐漸降低、轉移機率或獎勵設定不同，偏好路徑也可能改變。圖中的**七欄地圖刻意簡化**，不是教科書原始地圖，也不是模型實測軌跡；移動圓點與紅色掉落僅示意因果過程，動畫的停留時間不代表 ε 的抽樣機率。MkDocs 提供可用鍵盤操作的播放／暫停；[GitHub／無 JavaScript 靜態預覽](../../../../../assets/concept-animations/cliff-walking-still.svg)完整保留兩條路線及失足風險。原理依據文末既有的 Sutton 與 Barto（2018）教材。
 
 
+### 前向觀點：多步備份與截斷 λ-return
+
+<img src="../../../../../assets/concept-animations/nstep-lambda-forward-still.svg" data-motion-src="../../../../../assets/concept-animations/nstep-lambda-forward-motion.svg" data-still-src="../../../../../assets/concept-animations/nstep-lambda-forward-still.svg" width="520" loading="lazy" alt="三次獎勵的 SARSA 示意軌跡：一步、兩步、三步的自助式報酬分別為 3.700、0.910、4.798。截斷 λ 報酬再以 0.20、0.16、0.64 加權得到 3.95632。" />
+
+*原創十二秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* **前向觀點（forward view）**的多步 SARSA 報酬先累加 $n$ 步實際獎勵，再以該時點**依策略抽樣的延續動作**進行自助式估計。下列數值皆使用**固定的人工示意 Q 表**：
+
+$$
+G_{t:t+n}=\sum_{k=1}^{n}\gamma^{k-1}r_{t+k}+\gamma^n Q(s_{t+n},a_{t+n}).
+$$
+
+假設獎勵依序為 $(+1,-1,+4)$、折扣率 $\gamma=0.9$，各後續狀態中抽樣動作的價值 $Q_1=3$、$Q_2=1$、$Q_3=2$。同一個起始決策可形成不同備份目標：一步 $G^{(1)}=1+0.9(3)=\mathbf{3.700}$；兩步 $G^{(2)}=1-0.9+0.9^2(1)=\mathbf{0.910}$；三步 $G^{(3)}=1-0.9+0.9^2(4)+0.9^3(2)=\mathbf{4.798}$。它們是**使用同一組凍結估計值的替代目標**，不是連續更新 Q 表。
+
+取 $\lambda=0.8$，三個期限的**截斷前向 λ-return** 權重為 $(1-\lambda,\;(1-\lambda)\lambda,\;\lambda^2)=(0.20,0.16,0.64)$，加權結果 $G^\lambda_{t:t+3}=0.20(3.700)+0.16(0.910)+0.64(4.798)=\mathbf{3.95632}$；權重總和為 1。第三步的狀態**仍非終止狀態**，所以保留自助式估計；這不是完整回合的蒙地卡羅報酬，也不是實際模型測量值。若第三步確實終止，該步的延續價值就應設為零。這種有限期限前向建構有助理解下方資格跡的信用分配，但**不能直接視為任意線上累積資格跡實作都與它完全等價**。圖中以連續進度呈現各期限後，再融合權重；MkDocs 可用鍵盤操作播放／暫停，GitHub 或無腳本時使用[完整靜態回退圖](../../../../../assets/concept-animations/nstep-lambda-forward-still.svg)。依據文末 Sutton 與 Barto（2018）第 7、12 章。
+
+
 ### 資格跡：跨時間信用分配與非貪婪動作的截斷
 
 <img src="../../../../../assets/concept-animations/eligibility-trace-cut-still.svg" data-motion-src="../../../../../assets/concept-animations/eligibility-trace-cut-motion.svg" data-still-src="../../../../../assets/concept-animations/eligibility-trace-cut-still.svg" width="440" loading="lazy" alt="資格跡如何隨時間衰減，以及當 C 是非貪婪動作時，SARSA lambda 保留過往 A、B 的資格跡，而 Watkins Q lambda 將其切斷的對比。" />

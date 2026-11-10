@@ -77,6 +77,21 @@ With an illustrative reward $r=1$, discount $\gamma=0.9$, next-state greedy valu
 This diagram contrasts **two possible policy preferences**, not a theorem that SARSA always chooses the green path or that Q-learning always falls. Both agents can make exploratory mistakes; reducing ε or changing the transition or reward structure can change their preferred routes. The **seven-column grid is deliberately schematic**, not the book's exact grid or measured agent trajectories. The moving marker and red drop are illustrative scenarios, not empirical outcomes or simulated ε frequencies. On MkDocs use keyboard-operable Play/Pause; the [GitHub/no-script static preview](../../../../../assets/concept-animations/cliff-walking-still.svg) retains both routes and the possible cliff fall. See the existing Sutton & Barto (2018) textbook in References.
 
 
+### Forward-view backup horizons and the truncated λ-return
+
+<img src="../../../../../assets/concept-animations/nstep-lambda-forward-still.svg" data-motion-src="../../../../../assets/concept-animations/nstep-lambda-forward-motion.svg" data-still-src="../../../../../assets/concept-animations/nstep-lambda-forward-still.svg" width="520" loading="lazy" alt="A three-reward SARSA trajectory. One-, two- and three-step bootstrapped returns are 3.700, 0.910 and 4.798. Truncated lambda-return weights 0.20, 0.16 and 0.64 combine them into 3.95632." />
+
+*Original 12-second SVG/SMIL instructional animation (CC BY-SA 4.0).* A **forward-view** multi-step SARSA return accumulates actual rewards for $n$ steps and then bootstraps from the *sampled continuation action* at that horizon, using a **fixed illustrative** action-value table:
+
+$$
+G_{t:t+n}=\sum_{k=1}^{n}\gamma^{k-1}r_{t+k}+\gamma^n Q(s_{t+n},a_{t+n}).
+$$
+
+For rewards $(+1,-1,+4)$, $\gamma=0.9$, and sampled-action values $Q_1=3$, $Q_2=1$, $Q_3=2$ at the successive next states, the alternative targets are $G^{(1)}=1+0.9(3)=\mathbf{3.700}$, $G^{(2)}=1-0.9+0.9^2(1)=\mathbf{0.910}$, and $G^{(3)}=1-0.9+0.9^2(4)+0.9^3(2)=\mathbf{4.798}$. Each target is computed **from the same frozen estimates at the same starting decision**, not sequential parameter updates.
+
+With $\lambda=0.8$, the **three-horizon truncated forward-view mixture** uses weights $(1-\lambda,\;(1-\lambda)\lambda,\;\lambda^2)=(0.20,0.16,0.64)$, giving $G^\lambda_{t:t+3}=0.20(3.700)+0.16(0.910)+0.64(4.798)=\mathbf{3.95632}$. The weights sum to one. The third horizon **still bootstraps** at a nonterminal observation; this is neither a complete-episode Monte Carlo return nor a measured learning result. If that state were terminal, its bootstrap term would instead be zero. This finite-horizon forward construction helps explain the credit assignment behind eligibility traces, but does **not** assert exact equivalence with arbitrary online accumulating-trace implementations. Compare the separate **backward-view trace decay and Watkins Q(λ) cutoff** illustration below. On MkDocs, use the keyboard-operable Play/Pause control; the [GitHub/no-script static fallback](../../../../../assets/concept-animations/nstep-lambda-forward-still.svg) preserves every horizon and mixture coefficient. See Sutton & Barto (2018), Chapters 7 and 12, in References.
+
+
 ### Eligibility traces: temporal credit and non-greedy trace cutting
 
 <img src="../../../../../assets/concept-animations/eligibility-trace-cut-still.svg" data-motion-src="../../../../../assets/concept-animations/eligibility-trace-cut-motion.svg" data-still-src="../../../../../assets/concept-animations/eligibility-trace-cut-still.svg" width="440" loading="lazy" alt="Illustrative action eligibility traces: previous greedy A and B retain values 0.52 and 0.72 with SARSA lambda at non-greedy C, but are reset to zero in Watkins Q lambda." />

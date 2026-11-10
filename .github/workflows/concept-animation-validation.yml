@@ -34,6 +34,7 @@ on:
       - "scripts/test_td_terminal_truncation_browser.py"
       - "scripts/test_cliff_walking_browser.py"
       - "scripts/test_eligibility_trace_cut_browser.py"
+      - "scripts/test_nstep_lambda_forward_browser.py"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
@@ -93,6 +94,8 @@ jobs:
         run: python scripts/test_cliff_walking_browser.py
       - name: Chromium eligibility trace decay and Watkins cutoff
         run: python scripts/test_eligibility_trace_cut_browser.py
+      - name: Chromium forward n-step SARSA and lambda-return arithmetic
+        run: python scripts/test_nstep_lambda_forward_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -117,6 +120,7 @@ jobs:
             artifacts/td-terminal-truncation/*.png
             artifacts/cliff-walking/*.png
             artifacts/eligibility-trace-cut/*.png
+            artifacts/nstep-lambda-forward/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
             artifacts/ssl-gradient/*.png
