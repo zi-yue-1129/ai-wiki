@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 aliases:
   - TRPO
   - 信賴域策略最佳化
@@ -35,6 +35,20 @@ TRPO 最佳化期望回報的局部替代目標，它使用舊策略的狀態訪
 4. 令 \(\theta_{\text{old}} \leftarrow \theta\)，然後重複。
 
 論文所有實驗都使用 \(\delta = 0.01\)。
+
+
+## 教學動畫：信賴區域與回溯線搜尋
+
+![TRPO 先提出超出信賴區域的策略更新，再依平均 KL 約束回溯縮小步幅](../../../../../assets/concept-animations/trpo-kl-backtracking-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 候選策略從舊策略沿更新方向移動；**人工示意**的平均 KL 比值為 \(1.8\delta\)，超出約束，因此透過回溯線搜尋縮小步幅，得到比值為 \(0.55\delta\) 的可行候選點。實際 TRPO 線搜尋還須檢查**替代目標的改善**，不能只滿足 KL 上限就直接接受。橢圓只是局部二維策略幾何的近似示意，**不是精確 KL 等高線或模型實測**。MkDocs 提供播放／暫停；GitHub 可閱讀[靜態回退圖](../../../../../assets/concept-animations/trpo-kl-backtracking-still.svg)。依據 [Schulman 等人（2015）](https://arxiv.org/abs/1502.05477)。
+
+## 教學動畫：重要性比率加權的替代目標
+
+![TRPO 將每筆樣本的優勢乘上新舊策略的動作機率比率，再彙整正負貢獻](../../../../../assets/concept-animations/trpo-ratio-surrogate-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 在舊策略的取樣分布下，替代目標使用 $L(\theta)=\mathbb{E}_{\pi_{\mathrm{old}}}[r_t(\theta)A_t]$，其中 $r_t=\pi_\theta(a_t\mid s_t)/\pi_{\mathrm{old}}(a_t\mid s_t)$。人工示例採用 $A=(1,-0.5,0.4)$ 與 $r=(1.2,0.8,1.1)$，逐項乘積為 $(1.2,-0.4,0.44)$，樣本平均約 $0.413$，高於舊策略的樣本平均 $0.300$。然而，**替代目標增加不代表已滿足平均 KL 約束，也不能單憑此保證真實回報單調改善**。所有數值及正負長條為教學示意，並非實測模型分布。MkDocs 可播放／暫停；[GitHub 靜態回退圖](../../../../../assets/concept-animations/trpo-ratio-surrogate-still.svg)。依據 [Schulman 等人（2015）](https://arxiv.org/abs/1502.05477)。
+
 
 ## 結果
 

@@ -35,6 +35,20 @@ where \(L\) is the surrogate and \(\bar{D}_{\text{KL}}\) is the average KL diver
 
 The paper uses \(\delta = 0.01\) in all of its experiments.
 
+
+## Teaching animation: the trust-region line search
+
+![TRPO policy update proposes an out-of-bound step, checks the KL limit and backtracks to an accepted step](../../../../../assets/concept-animations/trpo-kl-backtracking-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* A candidate moves away from the old policy; its **illustrative** average KL ratio is \(1.8\delta\), which violates the budget. Backtracking shrinks the step toward a point with ratio \(0.55\delta\), inside the constraint. A practical TRPO line search also checks **surrogate improvement**; the KL bound by itself is not an acceptance rule. The ellipse approximates local two-dimensional policy geometry, **not an exact contour or empirical estimate**. Play/Pause is available on MkDocs; [view the static GitHub fallback](../../../../../assets/concept-animations/trpo-kl-backtracking-still.svg). See [Schulman et al. (2015)](https://arxiv.org/abs/1502.05477).
+
+## Teaching animation: importance-weighted surrogate
+
+![TRPO multiplies per-sample advantages by new-over-old action-probability ratios and aggregates their contributions](../../../../../assets/concept-animations/trpo-ratio-surrogate-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* Under the old-policy sample distribution, the policy-dependent surrogate uses $L(\theta)=\mathbb{E}_{\pi_{\mathrm{old}}}[r_t(\theta)A_t]$ with $r_t=\pi_\theta(a_t\mid s_t)/\pi_{\mathrm{old}}(a_t\mid s_t)$. Three **invented** examples pair $A=(1,-0.5,0.4)$ with $r=(1.2,0.8,1.1)$, giving contributions $(1.2,-0.4,0.44)$ and a mean of approximately $0.413$, compared with the old-policy sample mean $0.300$. Increasing this empirical surrogate **does not by itself satisfy the KL constraint or guarantee monotonic improvement**. The bars are schematic signed contributions, not measured probability distributions. MkDocs offers Play/Pause; [static GitHub fallback](../../../../../assets/concept-animations/trpo-ratio-surrogate-still.svg). Based on [Schulman et al. (2015)](https://arxiv.org/abs/1502.05477).
+
+
 ## Results
 
 - **Simulated locomotion.** Single-path and vine TRPO are trained on the three MuJoCo tasks, Swimmer, Hopper and Walker. The learning curves are averaged over five runs per algorithm, with random initialisations.
