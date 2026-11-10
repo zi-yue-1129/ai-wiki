@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 ---
 
 # 隱式 Q 學習（Kostrikov 等人，2021）
@@ -27,6 +27,14 @@ L_V(\psi) = \mathbb{E}_{(s,a) \sim \mathcal{D}}\left[ L_2^\tau\big(Q_{\hat\theta
 \]
 
 Q 函數以貝爾曼目標 \(r + \gamma V_\psi(s')\) 訓練，只使用資料中的動作。策略隨後以加權行為複製擬合，資料轉移的權重為 \(\exp(\beta(Q(s,a) - V(s)))\)。
+
+## 動態計算：上期望分位數與策略擷取
+
+上方三個長條代表**同一狀態下，資料集中已有的動作**，示意價值為 (Q(s,A)=1)、(Q(s,B)=2)、(Q(s,C)=4)。橘色參考線從一般平均值 2.33 移至 (	au=0.8) 的**上期望分位數（upper expectile）**。在這個三樣本案例中，不對稱平方損失的最小值滿足 (0.8(4-V)=0.2(V-1)+0.2(V-2))，因此 (V=19/6approx3.17)。下方長條接著展示優勢加權行為複製如何重新加權**相同的資料內動作**，不需要查詢任何資料外動作。[^iql-motion]
+
+<img alt="IQL 動態示範：資料內三個動作價值為 1、2、4；上期望分位數參考線從平均值 2.33 移至 3.17；優勢加權行為複製更偏好動作 C。" src="../../../../../assets/concept-animations/offline-iql-expectile-still.svg" data-motion-src="../../../../../assets/concept-animations/offline-iql-expectile-motion.svg" data-still-src="../../../../../assets/concept-animations/offline-iql-expectile-still.svg">
+
+*原創教學動畫（CC BY-SA 4.0）。* 設 (eta=0.5)，並假設三個資料內動作各出現一次，將 (exp[eta(Q(s,a)-V(s))]) 正規化後，示意權重約為 **14%、23%、63%**。這些數值、樣本數與動畫進程均為**教學假設**，不是 IQL 的實際訓練參數、行動頻率或實測曲線。MkDocs 可使用播放／暫停（聚焦按鈕後按 Enter 或 Space）；GitHub 顯示完整靜態對照。偏好減少動態效果時，預設顯示靜態圖。
 
 ## 結果
 
@@ -54,6 +62,8 @@ Q 函數以貝爾曼目標 \(r + \gamma V_\psi(s')\) 訓練，只使用資料中
 
 - 如何在不做線上調整的情況下設定期望分位數與溫度。
 - 如何把此方法延伸到資料集非常狹窄的設定。
+
+[^iql-motion]: Kostrikov、Nair 與 Levine（2021），[*Offline Reinforcement Learning with Implicit Q-Learning*](https://arxiv.org/abs/2110.06169)，提出上期望分位數回歸與優勢加權行為複製。
 
 ## 參考文獻
 

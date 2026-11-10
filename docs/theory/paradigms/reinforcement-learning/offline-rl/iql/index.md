@@ -30,6 +30,14 @@ L_V(\psi) = \mathbb{E}_{(s,a) \sim \mathcal{D}}\left[ L_2^\tau\big(Q_{\hat\theta
 
 The Q-function is trained with the Bellman target \(r + \gamma V_\psi(s')\), which uses only dataset actions. The policy is then fitted by weighted behaviour cloning, with weights \(\exp(\beta(Q(s,a) - V(s)))\) on dataset transitions.
 
+## Animated computation: upper expectile and policy extraction
+
+The three bars represent **dataset actions at the same state** with illustrative values (Q(s,A)=1), (Q(s,B)=2), and (Q(s,C)=4). The orange guide moves from their ordinary mean (2.33) to the **upper expectile** at (	au=0.8). In this three-sample example, the asymmetric least-squares optimum satisfies (0.8(4-V)=0.2(V-1)+0.2(V-2)), giving (V=19/6approx3.17). The lower bars then show how advantage-weighted behavioural cloning reweights **those same observed actions**, without ever querying an unseen one.[^iql-motion]
+
+<img alt="Animated IQL example: three observed action values 1, 2 and 4; an upper-expectile guide moves from mean 2.33 to value 3.17; advantage-weighted cloning increasingly favours action C." src="../../../../../assets/concept-animations/offline-iql-expectile-still.svg" data-motion-src="../../../../../assets/concept-animations/offline-iql-expectile-motion.svg" data-still-src="../../../../../assets/concept-animations/offline-iql-expectile-still.svg">
+
+*Original instructional animation (CC BY-SA 4.0).* For (eta=0.5), normalising (exp[eta(Q(s,a)-V(s))]) across these three equally represented dataset actions produces approximately **14%, 23%, and 63%**. These numbers, the equal sample counts and the animated progression are **constructed for instruction**, not fitted IQL parameters, empirical action frequencies or training traces. On MkDocs, use Play/Pause (Enter or Space when focused); GitHub displays the complete static comparison. A reduced-motion preference defaults to that still.
+
 ## Results
 
 The paper evaluates IQL on the D4RL offline benchmarks, which include the AntMaze navigation tasks, and compares it with other offline methods. The abstract reports state-of-the-art performance on D4RL, and strong performance when the offline-trained policy is fine-tuned with online interaction.
@@ -56,6 +64,8 @@ The paper evaluates IQL on the D4RL offline benchmarks, which include the AntMaz
 
 - How to set the expectile and temperature without online tuning.
 - How to extend the method to settings where the dataset is very narrow.
+
+[^iql-motion]: Kostrikov, Nair & Levine (2021), [*Offline Reinforcement Learning with Implicit Q-Learning*](https://arxiv.org/abs/2110.06169), describe upper expectile regression and advantage-weighted behavioural cloning.
 
 ## References
 
