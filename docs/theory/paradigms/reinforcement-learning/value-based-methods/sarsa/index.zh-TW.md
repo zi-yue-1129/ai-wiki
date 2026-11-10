@@ -69,6 +69,14 @@ $
 
 假設人工示意 $r=1$、$\gamma=0.9$、$\max_a Q(s',a)=4$，而 SARSA 在最後觀測下的延續動作估計 $Q(s',a')=2$。**真正終止**時，兩種方法的 TD 目標都是 **1.00**；**外部截斷**時，Q-learning 的目標為 **4.60**，SARSA 的延續動作備份為 **2.80**。由於截斷後不一定真的執行下一動作，SARSA 可在最後觀測依其策略**假設性抽樣延續動作**，不能取用重設狀態所抽的動作。這是人工建構的計算案例，**不是模型實測**。動畫中的叉號代表真正終止時移除 bootstrap，虛線時間界線則保留延續價值路徑。MkDocs 可用鍵盤播放／暫停、支援減少動態效果；[GitHub 靜態回退](../../../../../assets/concept-animations/td-terminal-truncation-still.svg)同時呈現兩個條件。依據文末 Pardo 等人（2018）的原始論文。
 
+### 懸崖行走：學習目標與探索行為評估的是哪個策略？
+
+<img src="../../../../../assets/concept-animations/cliff-walking-still.svg" data-motion-src="../../../../../assets/concept-animations/cliff-walking-motion.svg" data-still-src="../../../../../assets/concept-animations/cliff-walking-still.svg" width="440" loading="lazy" alt="示意格子世界中，起點與終點之間有懸崖。橘色的 Q-learning 短路徑緊貼懸崖，探索性動作可能使智能體掉落並回到起點；綠色 SARSA 路徑較遠離懸崖，反映同策略學習可能考慮持續探索的風險。" />
+
+*原創 12 秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 在 Sutton 與 Barto（2018，第 6 章）的經典 **Cliff Walking（懸崖行走）** 情境中，一般移動會得到小幅負獎勵，掉入懸崖則承受很大的懲罰並回到起點。如果智能體**持續使用 ε-greedy 探索**，Q-learning 即使實際上仍會探索，也以**下一狀態的貪婪動作價值**更新，所偏好的最短路線可能緊貼懸崖。SARSA 則以**探索策略實際抽出的下一動作價值**更新，因此靠近懸崖的路徑價值會納入探索時誤踩懸崖的風險，可能偏好較長但離懸崖較遠的路線。
+
+圖中比較的是**兩種可能的策略偏好**，不代表 SARSA 一定採用綠色路線，或 Q-learning 一定掉落；兩者執行時都可能因探索而失誤。若 ε 逐漸降低、轉移機率或獎勵設定不同，偏好路徑也可能改變。圖中的**七欄地圖刻意簡化**，不是教科書原始地圖，也不是模型實測軌跡；移動圓點與紅色掉落僅示意因果過程，動畫的停留時間不代表 ε 的抽樣機率。MkDocs 提供可用鍵盤操作的播放／暫停；[GitHub／無 JavaScript 靜態預覽](../../../../../assets/concept-animations/cliff-walking-still.svg)完整保留兩條路線及失足風險。原理依據文末既有的 Sutton 與 Barto（2018）教材。
+
 ## 結果
 
 SARSA 沒有單一的代表性基準。Rummery 與 Niranjan（1994）研究了具有線上更新的連接主義 Q 學習變體。他們的報告提出了與 SARSA 密切相關的更新規則 MCQ-L；在一個必須在障礙物間抵達目標的模擬移動機器人上，他們發現線上學習對訓練參數的選擇比倒序回放（backward replay）更不敏感。
