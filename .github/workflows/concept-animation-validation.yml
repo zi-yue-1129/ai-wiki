@@ -30,6 +30,7 @@ on:
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_q_sarsa_motion_browser.py"
       - "scripts/test_q_sarsa_epsilon_browser.py"
+      - "scripts/test_double_dqn_selector_browser.py"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
@@ -81,6 +82,8 @@ jobs:
         run: python scripts/test_q_sarsa_noisy_backups_browser.py
       - name: Chromium epsilon-greedy SARSA targets and accessibility
         run: python scripts/test_q_sarsa_epsilon_browser.py
+      - name: Chromium Double DQN selection versus evaluation and fallback
+        run: python scripts/test_double_dqn_selector_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -101,6 +104,7 @@ jobs:
             artifacts/q-sarsa-backup/*.png
             artifacts/q-sarsa-noisy-backups/*.png
             artifacts/q-sarsa-epsilon/*.png
+            artifacts/double-dqn-selector/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
             artifacts/ssl-gradient/*.png
