@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 ---
 
 # CommNet（Sukhbaatar 等人，2016）
@@ -25,6 +25,18 @@ c_j^{i+1} = \frac{1}{J-1}\sum_{j' \neq j} h_{j'}^{i+1}
 \]
 
 接著，每個智能體由自身狀態與此輸入更新隱藏狀態：\(h_j^{i+1} = f^i(h_j^i, c_j^i)\)。線性情形為 \(h_j^{i+1} = \sigma(H^i h_j^i + C^i c_j^i)\)。局部連接的變體只對範圍內的智能體取平均。所有智能體共享同一獎勵。
+
+### 排除自身訊息的平均通訊（動畫）
+
+![CommNet 將 A 與 C 的訊息傳給接收者 B 計算排除自身的平均值，B 本身的訊息不納入](../../../../../../assets/concept-animations/commnet-leave-one-out-motion.svg)
+
+[GitHub 靜態回退預覽：CommNet 排除自身的平均通訊](../../../../../../assets/concept-animations/commnet-leave-one-out-still.svg)
+
+**智能體 B** 接收的通訊向量是**其他**智能體的平均值，不包含自己的隱藏狀態。以人工設定的一維座標為例，令 \(h_A=0.20\)、\(h_B=0.80\)、\(h_C=0.60\)，因此 \(c_B=(0.20+0.60)/2=0.40\)。橘色叉號表示 \(h_B\) 不參與此次通訊平均；但 **B 在更新下一層時仍會另外使用自己的隱藏狀態**。實際 CommNet 傳送的是向量，平均運算逐座標進行。光點移動與數值皆為教學示意，**不是模型實測結果**。[^comm-mean]
+
+MkDocs 播放器支援**播放／暫停**及鍵盤 **Enter／Space**；減少動態效果模式預設顯示靜態回退。原創圖由 AI Wiki 貢獻者製作，採 **CC BY-SA 4.0** 授權。
+
+[^comm-mean]: Sukhbaatar、Szlam 與 Fergus（2016），[*Learning Multiagent Communication with Backpropagation*](https://arxiv.org/abs/1605.07736)，詳見參考文獻。
 
 ## 結果
 

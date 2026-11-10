@@ -30,6 +30,18 @@ c_j^{i+1} = \frac{1}{J-1}\sum_{j' \neq j} h_{j'}^{i+1}
 
 Each agent then updates its hidden state from its own state and this input, \(h_j^{i+1} = f^i(h_j^i, c_j^i)\). In the linear case the update is \(h_j^{i+1} = \sigma(H^i h_j^i + C^i c_j^i)\). A variant with local connectivity averages only over the agents in range. The reward is shared by all agents.
 
+### Excluding self from the communication mean (animated)
+
+![CommNet sends A and C messages into B's incoming leave-one-out mean while excluding B itself](../../../../../../assets/concept-animations/commnet-leave-one-out-motion.svg)
+
+[Static GitHub fallback: CommNet leave-one-out mean](../../../../../../assets/concept-animations/commnet-leave-one-out-still.svg)
+
+The incoming message of **agent B** averages the *other* agents, not its own hidden state. For a schematic one-dimensional coordinate, let \(h_A=0.20\), \(h_B=0.80\) and \(h_C=0.60\). The incoming value is therefore \(c_B=(0.20+0.60)/2=0.40\). The orange exclusion prevents \(h_B\) from being included in this communication average; **B's own hidden state is still used separately** when it computes its next layer. In the actual CommNet model these are vectors, with averaging performed coordinate-wise. The pulse animation and values are constructed illustrations, not model measurements. [^comm-mean]
+
+The MkDocs player supports **Play/Pause** and keyboard **Enter/Space**; reduced-motion mode starts from the static fallback. Original diagram by AI Wiki contributors, **CC BY-SA 4.0**.
+
+[^comm-mean]: Sukhbaatar, Szlam & Fergus (2016), [*Learning Multiagent Communication with Backpropagation*](https://arxiv.org/abs/1605.07736), as listed in References.
+
 ## Results
 
 The paper evaluates CommNet on several cooperative tasks, including a lever-pulling task, a traffic junction in which cars must pass through without colliding, and a combat task. The abstract reports that agents "learn to communicate amongst themselves, yielding improved performance over non-communicative agents and baselines". In some cases, the learned language can be interpreted, revealing simple strategies for solving the task.
