@@ -23,6 +23,12 @@ PETS has two components:
 
 The agent re-plans at every step (model-predictive control), and it uses only the first action of the chosen sequence.
 
+### Visualising ensemble trajectory sampling
+
+![PETS particle paths fan out through a four-step imagined horizon, followed by the first-action decision](../../../../../assets/concept-animations/pets-ensemble-particles-motion.svg)
+
+*Original animated teaching schematic (CC BY-SA 4.0).* Teal and violet paths illustrate multiple stochastic trajectory particles associated with two ensemble members for **one candidate action sequence**. A planner evaluates **many** candidate sequences using particle-averaged predicted returns, executes only the first action of its selected sequence, observes the next real state and replans. This picture does not specify PETS's model-resampling variant. Particle coordinates, spread and colours are schematic—not measured predictions, calibrated uncertainties or optimisation results. Use **Play/Pause** on MkDocs; GitHub readers can open the [static particle-and-decision overview](../../../../../assets/concept-animations/pets-ensemble-particles-still.svg). See [Chua et al. (2018)](https://arxiv.org/abs/1805.12114).
+
 ## Equation or algorithm
 
 For each planning step, the agent:

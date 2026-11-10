@@ -24,6 +24,12 @@ The method combines three parts:
 
 The policy is trained with a model-free algorithm, here soft actor-critic, on a mix of real and model-generated transitions. The model is used only for short rollouts, so model error has little time to compound.
 
+### Visualising short branched rollouts
+
+![MBPO imagined two-step rollout branches originate from observed replay states and feed a separate model buffer](../../../../../assets/concept-animations/mbpo-short-branches-motion.svg)
+
+*Original animated teaching schematic (CC BY-SA 4.0).* Highlighted **real replay states** seed multiple model-generated branches. Each illustrated branch contains only **two imagined transitions** (an example $k=2$); the synthetic transitions feed **model replay** and then off-policy **policy updates**, together with real data. The faint continuation beyond the cutoff is intentionally *not used*. Coordinates, branch geometry and sample counts are schematic rather than measured model errors or training observations. The method does **not** run long model rollouts from scratch. Use **Play/Pause** on MkDocs; GitHub readers can open the [static two-step branch overview](../../../../../assets/concept-animations/mbpo-short-branches-still.svg). See [Janner et al. (2019)](https://arxiv.org/abs/1906.08253).
+
 ## Equation or algorithm
 
 The procedure repeats the following steps:
