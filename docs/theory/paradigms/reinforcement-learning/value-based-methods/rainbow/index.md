@@ -81,6 +81,9 @@ The ablation study finds that prioritised replay and multi-step learning are the
 - Which components remain useful once a sophisticated agent is trained at larger scale.
 - How much of the result transfers to continuous control and to domains beyond games.
 
+[^rainbow-c51]: Bellemare, Dabney & Munos (2017), [ICML original paper](https://proceedings.mlr.press/v70/bellemare17a); Hessel et al. (2018), [Rainbow original paper](https://arxiv.org/abs/1710.02298).
+[^rainbow-dueling]: Wang et al. (2016), [ICML original paper](https://proceedings.mlr.press/v48/wangf16); Hessel et al. (2018), [Rainbow original paper](https://arxiv.org/abs/1710.02298).
+
 ## References
 
 ### Seminal papers
@@ -96,5 +99,3 @@ The ablation study finds that prioritised replay and multi-step learning are the
 ### Surveys and textbooks
 
 - Sutton, R. S. & Barto, A. G. *Reinforcement Learning: An Introduction*, 2nd ed. MIT Press, 2018. http://incompleteideas.net/book/the-book-2nd.html — Background on multi-step returns and temporal-difference learning.
-[^rainbow-c51]: Bellemare, Dabney & Munos (2017), [ICML original paper](https://proceedings.mlr.press/v70/bellemare17a); Hessel et al. (2018), [Rainbow original paper](https://arxiv.org/abs/1710.02298).
-[^rainbow-dueling]: Wang et al. (2016), [ICML original paper](https://proceedings.mlr.press/v48/wangf16); Hessel et al. (2018), [Rainbow original paper](https://arxiv.org/abs/1710.02298).
