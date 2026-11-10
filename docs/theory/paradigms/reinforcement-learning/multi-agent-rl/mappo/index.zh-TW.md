@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 ---
 
 # 多智能體 PPO（Yu 等人，2022）
@@ -25,6 +25,10 @@ MAPPO 即[近端策略最佳化](../../proximal-policy-optimisation/index.md)的
 - **大批次**，依樣本效率調整，論文未給出固定數值。
 
 論文也發現，在多智能體領域中，若樣本重複使用過於頻繁，表現會下降。
+
+![MAPPO 兩個局部觀測經過參數共享策略，訓練期的全域價值估計產生優勢並更新共同參數](../../../../../assets/concept-animations/mappo-shared-advantage-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* **藍色光點**展示兩個同質智能體如何使用**相同策略參數**，分別根據自身的局部觀測產生動作。訓練期間，**青綠色路徑**簡化呈現集中式 \(V(s)\) 如何支援廣義優勢估計（GAE），**橘色及洋紅色路徑**則表示 PPO 的裁剪目標更新共享策略。GAE 還需要獎勵與軌跡資料（圖中省略）；集中式評論家**不是執行階段演員的輸入**。圖中的 \(A_1=+0.8\)、\(A_2=-0.3\) 是**人工設定的教學數值**，並非實測優勢或精確的最佳化過程。MkDocs 可使用播放／暫停；[GitHub 可閱讀的靜態回退圖](../../../../../assets/concept-animations/mappo-shared-advantage-still.svg)保留全部路徑。研究依據為參考文獻中的 Yu 等人（2022）及 Schulman 等人（2017）。
 
 ## 結果
 
