@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 aliases:
   - TRPO
   - 信賴域策略最佳化
@@ -35,6 +35,13 @@ TRPO 最佳化期望回報的局部替代目標，它使用舊策略的狀態訪
 4. 令 \(\theta_{\text{old}} \leftarrow \theta\)，然後重複。
 
 論文所有實驗都使用 \(\delta = 0.01\)。
+
+
+## 教學動畫：信賴區域與回溯線搜尋
+
+![TRPO 先提出超出信賴區域的策略更新，再依平均 KL 約束回溯縮小步幅](../../../../../assets/concept-animations/trpo-kl-backtracking-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 候選策略從舊策略沿更新方向移動；**人工示意**的平均 KL 比值為 \(1.8\delta\)，超出約束，因此透過回溯線搜尋縮小步幅，得到比值為 \(0.55\delta\) 的可行候選點。實際 TRPO 線搜尋還須檢查**替代目標的改善**，不能只滿足 KL 上限就直接接受。橢圓只是局部二維策略幾何的近似示意，**不是精確 KL 等高線或模型實測**。MkDocs 提供播放／暫停；GitHub 可閱讀[靜態回退圖](../../../../../assets/concept-animations/trpo-kl-backtracking-still.svg)。依據 [Schulman 等人（2015）](https://arxiv.org/abs/1502.05477)。
 
 ## 結果
 

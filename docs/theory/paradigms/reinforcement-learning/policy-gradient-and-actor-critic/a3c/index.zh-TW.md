@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 aliases:
   - A3C
   - 異步優勢演員–評論家
@@ -36,6 +36,13 @@ DQN 式的智能體需要經驗回放緩衝區，而在論文所報告的設定�
 5. 非同步地把累積的梯度套用到共用參數，然後重複。
 
 Atari 實驗使用 \(t_{\max} = 5\)，熵權重 \(\beta = 0.01\)。
+
+
+## 教學動畫：非同步梯度抵達順序
+
+![A3C 兩個工作者以局部參數副本收集軌跡，並在不同時間將梯度套用至共用參數](../../../../../assets/concept-animations/a3c-async-gradient-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 藍色與青綠色工作者從相同共用策略取得**各自的局部參數副本**，在不同環境軌跡中收集資料，再於**不同時間**把梯度套用到共用參數。第一個更新將全域參數從 \(\theta_0\) 變成 \(\theta_1\)；第二個工作者的梯度卻可能仍是根據 \(\theta_0\) 的快照計算。套用過時梯度並不代表以舊參數覆蓋全域參數。光點時間與參數編號均為**教學示意，並非實測訓練紀錄**。在 MkDocs 可使用播放／暫停控制；GitHub 可閱讀[靜態回退圖](../../../../../assets/concept-animations/a3c-async-gradient-still.svg)。依據 [Mnih 等人（2016）](https://arxiv.org/abs/1602.01783)。
 
 ## 結果
 

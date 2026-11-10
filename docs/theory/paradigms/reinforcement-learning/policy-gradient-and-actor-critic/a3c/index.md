@@ -36,6 +36,13 @@ where \(R_t\) is the discounted \(n\)-step return and \(H\) is the policy entrop
 
 The Atari experiments use \(t_{\max} = 5\) and an entropy weight \(\beta = 0.01\).
 
+
+## Teaching animation: asynchronous gradient arrival
+
+![A3C parallel workers collecting trajectories and asynchronously applying gradients to shared parameters](../../../../../assets/concept-animations/a3c-async-gradient-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* The blue and teal workers start with **separate local parameter copies** of the same shared policy, roll out different trajectories, and send gradients to shared parameters **at different times**. The first update changes the global weights to \(\theta_1\); the second gradient was still computed from a snapshot of \(\theta_0\). Applying a stale gradient is not the same as replacing the global weights with the old snapshot. The coloured markers represent **illustrative timing, not measured training events**. The MkDocs viewer offers Play/Pause; [view the static GitHub fallback](../../../../../assets/concept-animations/a3c-async-gradient-still.svg). See [Mnih et al. (2016)](https://arxiv.org/abs/1602.01783).
+
 ## Results
 
 The paper reports human-normalised Atari results (Table 1). Its A3C feedforward agent trained for 4 days on CPU reaches a mean of 496.8% and a median of 116.6%. The LSTM variant reaches a mean of 623.0% and a median of 112.6%. A dueling DDQN trained for 8 days on GPU reaches a mean of 343.8% and a median of 117.1%. The abstract states that A3C surpasses the state of the art on Atari while training in half the time, on a single multi-core CPU with no GPU. The advantage is clearest in the mean; the medians are close.

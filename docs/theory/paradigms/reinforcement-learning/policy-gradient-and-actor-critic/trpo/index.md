@@ -35,6 +35,13 @@ where \(L\) is the surrogate and \(\bar{D}_{\text{KL}}\) is the average KL diver
 
 The paper uses \(\delta = 0.01\) in all of its experiments.
 
+
+## Teaching animation: the trust-region line search
+
+![TRPO policy update proposes an out-of-bound step, checks the KL limit and backtracks to an accepted step](../../../../../assets/concept-animations/trpo-kl-backtracking-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* A candidate moves away from the old policy; its **illustrative** average KL ratio is \(1.8\delta\), which violates the budget. Backtracking shrinks the step toward a point with ratio \(0.55\delta\), inside the constraint. A practical TRPO line search also checks **surrogate improvement**; the KL bound by itself is not an acceptance rule. The ellipse approximates local two-dimensional policy geometry, **not an exact contour or empirical estimate**. Play/Pause is available on MkDocs; [view the static GitHub fallback](../../../../../assets/concept-animations/trpo-kl-backtracking-still.svg). See [Schulman et al. (2015)](https://arxiv.org/abs/1502.05477).
+
 ## Results
 
 - **Simulated locomotion.** Single-path and vine TRPO are trained on the three MuJoCo tasks, Swimmer, Hopper and Walker. The learning curves are averaged over five runs per algorithm, with random initialisations.
