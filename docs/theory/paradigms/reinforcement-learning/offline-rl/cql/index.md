@@ -30,6 +30,14 @@ The Q-function update minimises the Bellman error plus a conservative penalty, o
 
 where \(\alpha\) controls the strength of the penalty, \(\hat{\pi}_\beta\) is the behaviour policy estimated from the data, and \(\hat{\mathcal{B}}^\pi\) is the Bellman operator for the current policy. The first term lowers the values of actions the dataset does not favour, and the second term keeps the Q-function consistent with the data.
 
+## Animated computation: conservative action values
+
+The two bars depict a **toy discrete-action objective** at one state: A is the dataset action and B is *unseen*. Dashed outlines record their initial (Q_A=2), (Q_B=5). The moving bars illustrate the effect of the log-sum-exp conservative regulariser, which assigns an upward gradient to the unsupported action's Q-value and a downward gradient to the dataset action's Q-value in the loss. Together with a Bellman fit to observed data, gradient **descent** tends to shrink the gap.[^cql-motion]
+
+<img alt="CQL animated toy example: a dataset action begins with Q 2 and an unseen action with Q 5; conservative regularization lowers the unseen value to about 3.32 and adjusts the observed value to about 2.73, compared with dashed original bars." src="../../../../../assets/concept-animations/offline-cql-conservative-still.svg" data-motion-src="../../../../../assets/concept-animations/offline-cql-conservative-motion.svg" data-still-src="../../../../../assets/concept-animations/offline-cql-conservative-still.svg">
+
+*Original instructional animation (CC BY-SA 4.0).* Specifically, use the two-action simplification (L=log(e^{Q_A}+e^{Q_B})-Q_A+	frac12(Q_A-2)^2), with conservative weight (alpha=1), Bellman target 2, and learning rate 0.5. Four simultaneous gradient steps from ((2,5)) yield approximately ((2.73,3.32)), and the conservative term decreases from 3.05 to 1.03. The animation **interpolates between these illustrative snapshots**; intermediate screen positions are not exact optimiser iterates. This is **not** a trained critic, a guarantee that every unseen action is always lower, or CQL's full continuous-action algorithm. On MkDocs use Play/Pause (keyboard Enter/Space); GitHub shows the static before/after fallback. Reduced motion defaults to the still.
+
 ## Results
 
 The paper evaluates CQL on offline benchmarks with both discrete and continuous actions, and compares it with off-policy methods, which can fail on offline data because of overestimation. The abstract reports that CQL often learns policies that attain two to five times higher final return than prior offline methods, especially when the data come from complex, multi-modal distributions.
@@ -56,6 +64,8 @@ The paper evaluates CQL on offline benchmarks with both discrete and continuous 
 
 - How to choose the penalty weight without online evaluation.
 - How to combine pessimism with the need to improve beyond the data.
+
+[^cql-motion]: Kumar, Zhou, Tucker & Levine (2020), [*Conservative Q-Learning for Offline Reinforcement Learning*](https://arxiv.org/abs/2006.04779), develop the conservative Q regulariser and its offline-RL motivation.
 
 ## References
 
