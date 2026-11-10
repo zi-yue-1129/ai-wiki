@@ -45,13 +45,17 @@ def main():
             browser=playwright.chromium.launch(headless=True)
             for stem in STEMS:
                 for width in (320,360,720,1024):
-                    for time in (0.2,1.8,4.2,6.7,None):
+                    for time in (0.2,4.2,6.7,9.5,None):
                         page=browser.new_page(viewport={"width":width,"height":440})
                         file=ASSETS / f'{stem}-{"still" if time is None else "motion"}.svg'
                         svg=file.read_text(encoding="utf-8")
                         page.set_content(f'<html><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{{margin:0}}svg{{display:block;width:100vw;max-width:640px;height:auto}}</style>{svg}</html>')
                         if time is not None:
                             page.eval_on_selector("svg","(el,t)=>{el.pauseAnimations();el.setCurrentTime(t)}",time)
+                        if stem == "commnet-layer-iterations" and time in (0.2, 6.7, 9.5):
+                            reveals = page.eval_on_selector_all('svg > g[opacity="0"]', 'els=>els.map(e=>Number(getComputedStyle(e).opacity))')
+                            expected = {0.2: [0, 0], 6.7: [1, 0], 9.5: [1, 1]}[time]
+                            assert reveals == expected, (time, reveals, expected)
                         assert page.eval_on_selector("svg","el=>el.getBoundingClientRect().width") <= width+0.1
                         clipped=page.eval_on_selector_all("svg text", """nodes=>nodes.filter(el=>{const b=el.getBBox();return b.x < -1 || b.y < -1 || b.x+b.width>641 || b.y+b.height>361}).map(el=>el.textContent)""")
                         assert not clipped,(stem,width,time,clipped)
