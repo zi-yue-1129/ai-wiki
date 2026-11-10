@@ -33,6 +33,14 @@ The combined loss is
 
 where \(z_s\) and \(z_t\) are the student and teacher logits, \(\sigma\) is the softmax, \(T\) is the temperature and \(\alpha\) weights the two terms. The factor \(T^2\) keeps the gradient sizes comparable across temperatures.
 
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Temperature-softened teacher to student probability alignment">
+<div style="width:720px">
+<img src="../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg" data-motion-src="../../../../../assets/concept-animations/kd-soft-target-alignment-motion.svg" data-still-src="../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg" alt="Three teacher class probabilities become less peaked as temperature rises from one to three; arrows convey the resulting soft targets and the student bars approach the teacher bars." width="720" height="400">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* The **teacher logits (3, 1, 0)** produce probabilities about **(0.844, 0.114, 0.042)** at \(T=1\), and **(0.532, 0.273, 0.196)** at \(T=3\). The purple student's illustrative initial \(T=3\) distribution **(0.48, 0.30, 0.22)** moves toward the softened teacher distribution. The interpolated bars illustrate target alignment, **not a measured optimisation trajectory, gradient step or model benchmark**. On MkDocs, use the accessible Play/Pause button; GitHub displays the [static fallback](../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg). Both teacher and student probabilities in the distillation loss are computed at the *same* temperature; hard-label CE still uses the unsoftened student predictions. [Original source](https://arxiv.org/abs/1503.02531).
+
 The paper also gives a useful analysis. When the temperature is high relative to the logit magnitudes, the gradient of the soft-target term with respect to each student logit \(z_i\) is approximately
 
 \[
