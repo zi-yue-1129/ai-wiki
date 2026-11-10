@@ -28,6 +28,7 @@ on:
       - "scripts/test_ssl_ema_trajectory_browser.py"
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
+      - "scripts/test_q_sarsa_motion_browser.py"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
@@ -73,6 +74,8 @@ jobs:
           python -m playwright install chromium
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
+      - name: Chromium Q-learning vs SARSA backup, controls and reduced motion
+        run: python scripts/test_q_sarsa_motion_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -90,6 +93,7 @@ jobs:
           name: self-supervised-lab-browser-review
           path: |
             artifacts/self-supervised-labs/*.png
+            artifacts/q-sarsa-backup/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
             artifacts/ssl-gradient/*.png

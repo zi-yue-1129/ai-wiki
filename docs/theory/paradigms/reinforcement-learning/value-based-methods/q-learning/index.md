@@ -37,6 +37,18 @@ for the pair \((x, a)\) visited at step \(n\), and no change for other pairs. Th
 
 **Convergence.** Watkins and Dayan show that \(Q_n\) converges to \(Q^*\) with probability one, provided every state–action pair is visited infinitely often, rewards are bounded, \(0 \le \alpha_n < 1\) with \(\sum_n \alpha_n = \infty\) and \(\sum_n \alpha_n^2 < \infty\) for each pair, and \(0 < \gamma < 1\). Tsitsiklis (1994) proves the same convergence through asynchronous stochastic approximation.
 
+### One observed transition, two different backups
+
+<img src="../../../../../assets/concept-animations/q-sarsa-backup-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-backup-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-backup-still.svg" width="640" loading="lazy" alt="For the same illustrative transition, the next-state greedy Left action has Q value five while the actual sampled Right action has Q value two. Q-learning computes backup target 5.5 and updates to 3.75; SARSA uses target 2.8 and updates to 2.40." />
+
+*Original ten-second SVG/SMIL instructional animation (CC BY-SA 4.0).* Both branches start from the **same illustrative** transition with $Q(s,a)=2$, reward $r=1$, discount $\gamma=0.9$, learning rate $\alpha=0.5$, and next-state values $Q(s',\mathrm{Left})=5$, $Q(s',\mathrm{Right})=2$. The behaviour policy actually chooses **Right** next, whereas **Left** is greedy. Q-learning bootstraps from **the maximum**, even when the behaviour takes Right:
+
+$
+y_{\mathrm{Q}}=1+0.9(5)=5.5,\qquad Q_{\mathrm{new}}=2+0.5(5.5-2)=3.75.
+$
+
+SARSA instead uses the **sampled next action**: $y_{\mathrm{SARSA}}=1+0.9(2)=2.8$ and $Q_{\mathrm{new}}=2+0.5(2.8-2)=2.40$. The two animated routes distinguish the **off-policy greedy backup** from the **on-policy sampled-action backup**; they are **alternative one-step updates from the same fixed example**, not two consecutive updates to one table or measured learning curves. The numeric values and action choice are artificial teaching data. On MkDocs, use Play/Pause (keyboard operable); [GitHub and no-script static preview](../../../../../assets/concept-animations/q-sarsa-backup-still.svg) retains both complete calculations. The update rules follow Watkins & Dayan (1992) and Sutton & Barto (2018), already cited in References.
+
 ## Results
 
 Watkins and Dayan's contribution is a convergence theorem, not an empirical benchmark. Its practical reach came through function approximation. Deep Q-networks use the same max-target with a neural network, and reach human-level play on many Atari games (Mnih et al., 2015).

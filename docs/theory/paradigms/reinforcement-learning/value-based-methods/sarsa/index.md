@@ -35,6 +35,19 @@ The procedure:
 
 The only difference from Q-learning is step 4: Q-learning uses \(\max_b Q(s', b)\) in place of \(Q(s', a')\).
 
+### Why the next *sampled* action matters
+
+<img src="../../../../../assets/concept-animations/q-sarsa-backup-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-backup-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-backup-still.svg" width="640" loading="lazy" alt="For the same illustrative transition, the next-state greedy Left action has Q value five while the actual sampled Right action has Q value two. Q-learning computes backup target 5.5 and updates to 3.75; SARSA uses target 2.8 and updates to 2.40." />
+
+*Original ten-second SVG/SMIL instructional animation (CC BY-SA 4.0).* Start both methods from an identical, **hypothetical** experience: $Q(s,a)=2$, $r=1$, $\gamma=0.9$, $\alpha=0.5$. At $s'$, the greedy **Left** has $Q=5$ but the behaviour policy chooses **Right** with $Q=2$. SARSA must first identify that **actually selected** $a'$ before computing its target:
+
+$
+y_{\mathrm{SARSA}}=1+0.9(2)=2.8,\qquad
+Q_{\mathrm{new}}=2+0.5(2.8-2)=2.40.
+$
+
+For comparison, Q-learning ignores this sampled next action **for its backup**: $y_{\mathrm{Q}}=1+0.9(5)=5.5$ and $Q_{\mathrm{new}}=3.75$. This is one controlled counterfactual comparison of **alternative updates**, not an empirical training trace or evidence that SARSA always yields smaller action values. Colours indicate the backup sources, not actual behaviour-policy probabilities. MkDocs offers keyboard-operable Play/Pause and honours reduced-motion preferences; [GitHub/no-script static preview](../../../../../assets/concept-animations/q-sarsa-backup-still.svg) shows both results. See the existing Sutton & Barto (2018) and Watkins & Dayan (1992) references.
+
 ## Results
 
 SARSA has no single headline benchmark. Rummery and Niranjan (1994) studied connectionist Q-learning variants with on-line updating. Their report introduces MCQ-L, an update rule closely related to SARSA, and on a simulated mobile robot that must reach a goal among obstacles, it finds that on-line learning is less sensitive to the choice of training parameters than backward replay.

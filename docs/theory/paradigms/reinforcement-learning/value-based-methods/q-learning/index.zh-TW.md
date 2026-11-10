@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 aliases:
   - Q-learning
   - Q 學習
@@ -37,6 +37,18 @@ Q_n(x,a) = (1 - \alpha_n)\, Q_{n-1}(x,a) + \alpha_n \left[ r_n + \gamma \max_b Q
 6. 令 \(s \leftarrow s'\)，重複直到回合結束。
 
 **收斂。** Watkins 與 Dayan 證明，若滿足以下條件，\(Q_n\) 以機率 1 收斂到 \(Q^*\)：每個狀態–動作配對都被無限次造訪；獎勵有界；每個配對的學習率滿足 \(0 \le \alpha_n < 1\)、\(\sum_n \alpha_n = \infty\) 且 \(\sum_n \alpha_n^2 < \infty\)；且 \(0 < \gamma < 1\)。Tsitsiklis（1994）以非同步隨機逼近證明了相同的收斂性。
+
+### 同一筆轉移，兩種不同的 TD 備份目標
+
+<img src="../../../../../assets/concept-animations/q-sarsa-backup-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-backup-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-backup-still.svg" width="640" loading="lazy" alt="同一筆示意轉移中，下一狀態的貪婪 Left 動作價值為五，實際抽樣執行的 Right 動作價值為二；Q-learning 使用目標 5.5 更新為 3.75，SARSA 使用目標 2.8 更新為 2.40。" />
+
+*原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 兩種方法使用**相同的人工示意轉移**：$Q(s,a)=2$、即時獎勵 $r=1$、折扣率 $\gamma=0.9$、學習率 $\alpha=0.5$；下一狀態有 $Q(s',\mathrm{Left})=5$ 與 $Q(s',\mathrm{Right})=2$。行為策略實際選擇下一動作 **Right**，但貪婪動作是 **Left**。Q-learning 的離策略更新依據**最大動作價值**，即使智能體下一步實際採取 Right 也不改變這個 TD 目標：
+
+$
+y_{\mathrm{Q}}=1+0.9(5)=5.5,\qquad Q_{\mathrm{new}}=2+0.5(5.5-2)=3.75.
+$
+
+SARSA 則使用**實際抽樣的下一動作**：$y_{\mathrm{SARSA}}=1+0.9(2)=2.8$，得到 $Q_{\mathrm{new}}=2+0.5(2.8-2)=2.40$。兩條動態路徑區分**離策略的貪婪備份**與**同策略的實際動作備份**。圖中是同一組起始 Q 值下的**兩種替代更新**，不是連續更新同一張 Q 表，也不是實際訓練曲線。數值與動作均為人工示意。MkDocs 支援鍵盤操作的播放／暫停，GitHub 或無 JavaScript 時可查看[完整靜態回退圖](../../../../../assets/concept-animations/q-sarsa-backup-still.svg)。更新規則參考已列於文末的 Watkins 與 Dayan（1992）、Sutton 與 Barto（2018）。
 
 ## 結果
 

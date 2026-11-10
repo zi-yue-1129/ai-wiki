@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 aliases:
   - SARSA
   - 同策略時序差分控制
@@ -35,6 +35,19 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \left[ r_{t+1} + \gamma Q(s_{t+1}, a
 6. 令 \(s \leftarrow s'\)、\(a \leftarrow a'\)，然後重複直到回合結束。
 
 與 Q 學習的唯一差別在第 4 步：Q 學習以 \(\max_b Q(s', b)\) 取代 \(Q(s', a')\)。
+
+### 為何 SARSA 要用實際抽樣的下一動作？
+
+<img src="../../../../../assets/concept-animations/q-sarsa-backup-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-backup-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-backup-still.svg" width="640" loading="lazy" alt="同一筆示意轉移中，下一狀態的貪婪 Left 動作價值為五，實際抽樣執行的 Right 動作價值為二；Q-learning 使用目標 5.5 更新為 3.75，SARSA 使用目標 2.8 更新為 2.40。" />
+
+*原創十秒 SVG／SMIL 教學動畫（CC BY-SA 4.0）。* 從**同一筆假想經驗**比較兩種 TD 備份：$Q(s,a)=2$、$r=1$、$\gamma=0.9$、$\alpha=0.5$。到達 $s'$ 後，貪婪動作 **Left** 的價值為 5，行為策略實際選擇的 **Right** 價值為 2。SARSA 必須先確定這個**實際將執行的** $a'$，再計算：
+
+$
+y_{\mathrm{SARSA}}=1+0.9(2)=2.8,\qquad
+Q_{\mathrm{new}}=2+0.5(2.8-2)=2.40.
+$
+
+相對地，Q-learning 的備份目標**不使用這次抽到的下一動作**，而是 $y_{\mathrm{Q}}=1+0.9(5)=5.5$，使 $Q_{\mathrm{new}}=3.75$。這是固定起始 Q 值下的**反事實單步比較**，不是模型實測，也不表示 SARSA 的價值永遠較低；圖中的色彩代表備份訊號來源，並非動作機率。MkDocs 提供可用鍵盤操作的播放／暫停並遵守減少動態效果偏好；GitHub 可顯示[不需指令碼的靜態回退](../../../../../assets/concept-animations/q-sarsa-backup-still.svg)。對應公式可參考文末既有的 Sutton 與 Barto（2018）及 Watkins 與 Dayan（1992）。
 
 ## 結果
 
