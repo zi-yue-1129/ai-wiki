@@ -8,6 +8,7 @@ on:
       - "scripts/verify_concept_motion.py"
       - "scripts/verify_concept_svgs.py"
       - "scripts/test_uncertainty_motion_semantics.py"
+      - "scripts/test_ddpg_motion_browser.py"
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
@@ -73,6 +74,8 @@ jobs:
           python -m playwright install chromium
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
+      - name: Chromium DDPG gradient and Polyak timing, mobile/desktop text and reduced-motion
+        run: python scripts/test_ddpg_motion_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -95,6 +98,7 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/ddpg-motion/*.png
           if-no-files-found: ignore
           retention-days: 7
 
