@@ -63,6 +63,12 @@ $
 
 藍色路徑對**同一組含雜訊估計取最大值**，橘色路徑則比較與估計誤差**獨立決定**的下一動作 B；這是刻意隔離 Q-learning 的**最大化偏差（maximisation bias）**，比較的僅是 bootstrap 價值，尚未加入 $r+\gamma(\cdot)$。在這個受控行為策略下，動作 B 可以作為 SARSA 的實際下一動作，但**不表示 SARSA 一般情況下一定無偏**；學習、策略依賴的抽樣或函數近似仍可能帶來其他偏差。四種情況是**人工建構的完整機率枚舉**，不是連續四次更新或模型實測。MkDocs 可用鍵盤操作播放／暫停；[GitHub 靜態回退](../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg)保留所有案例與平均值。依據文末的 van Hasselt 等人（2016）及 Sutton 與 Barto（2018）。
 
+### 探索機率如何影響實際抽樣的備份目標
+
+<img src="../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-epsilon-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg" width="440" loading="lazy" alt="下一狀態的動作 L 價值五、R 價值二，epsilon 為 0.2 時，ε-貪婪策略選 L 的機率為九成、R 為一成。Q-learning 固定使用 5.5 作為目標；SARSA 根據抽到的動作得到 5.5 或 2.8，而 Expected SARSA 的機率加權目標為 5.23。" />
+
+*原創十一秒 SVG／SMIL 動畫（CC BY-SA 4.0）。* 前一張圖固定下一個實際動作；這張圖則用**另一個人工建構的情境**，把下一動作的隨機選擇明確呈現。假設 $Q(s',L)=5$、$Q(s',R)=2$，L 是**唯一**的貪婪動作，$\varepsilon$-貪婪策略以均勻機率探索兩個動作，且 $\varepsilon=0.20$。則 $\pi(L\mid s')=1-\varepsilon+\varepsilon/2=0.90$，$\pi(R\mid s')=\varepsilon/2=0.10$。在 $r=1$、$\gamma=0.9$ 下，**Q-learning** 無論行為策略選哪個動作，都使用 $1+0.9(5)=\mathbf{5.50}$ 作為備份目標；**SARSA** 依實際抽到的動作，可能得到 $5.50$（機率 $0.90$）或 $2.80$（機率 $0.10$）。若不抽一個動作，而是對行為策略取期望，**Expected SARSA** 的目標為 $0.9(5.50)+0.1(2.80)=\mathbf{5.23}$。這是**固定 Q 表下 SARSA 單步目標的條件期望**，不是 SARSA 第三種可能的抽樣結果，也不代表後續訓練的整體表現必然較好。動畫依序強調不同備份路徑，**畫面出現的時間比例不代表實際抽樣機率**；全部數值均為示意，非模型實測。MkDocs 可鍵盤操作播放／暫停並支援減少動態效果；[GitHub 靜態回退](../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg)可一次閱讀所有路徑。公式依據文末 Sutton 與 Barto（2018）第 6 章。
+
 ## 結果
 
 Watkins 與 Dayan 的貢獻是收斂定理，而非實證基準。它的實際影響來自函數逼近：深度 Q 網路以神經網路使用相同的最大值目標，並在許多 Atari 遊戲上達到人類水準（Mnih 等人，2015）。
