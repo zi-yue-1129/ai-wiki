@@ -31,6 +31,40 @@ The paper also combines these into a single learning procedure, which is what ma
 
 Rainbow keeps the DQN structure of replay, a target network and minibatch updates, and changes the parts described above. The output is a distribution over returns on 51 atoms, and the multi-step component uses \(n = 3\), which the paper found to perform best after comparing \(n = 1, 3\) and \(5\). The full loss, pseudocode and hyperparameter table are in the paper, which should be read for implementation.
 
+## Animated computations: distribution, value, returns and exploration
+
+### C51: how probability mass returns to fixed atoms
+
+C51's distributional Bellman update first shifts the next-state return support by a sampled reward and discount, then **projects** the shifted probability mass back onto a fixed categorical support. For an interior shifted value, the mass is split linearly between the two neighbouring atoms. The distribution is trained using a categorical loss, while an action is still selected from the **expected** return, not by treating the most probable atom as the action value.[^rainbow-c51]
+
+<img alt="C51 projection animation: five shifted return atoms, a 60/40 split from value 2 onto fixed atoms 0 and 5, then the resulting probability bars." src="../../../../../assets/concept-animations/rainbow-c51-projection-still.svg" data-motion-src="../../../../../assets/concept-animations/rainbow-c51-projection-motion.svg" data-still-src="../../../../../assets/concept-animations/rainbow-c51-projection-still.svg">
+
+*Original instructional motion (CC BY-SA 4.0).* The animation uses a **five-atom toy distribution**, not Rainbow's 51 atoms or learned model outputs. Starting with fixed atoms $z=(-10,-5,0,5,10)$ and probabilities $(0.1,0.2,0.4,0.2,0.1)$, the illustrative reward $r=2$ and discount $\gamma=0.5$ give shifted locations $(-3,-0.5,2,4.5,7)$. The fixed-support projection yields $(0,0.08,0.48,0.40,0.04)$, preserving total mass $1$. The highlighted mass at $2$ goes to $0$ with weight $0.6$ and to $5$ with weight $0.4$. The visual isolates projection; it does **not** simulate parameter updates, terminal-state handling, or support clipping. MkDocs provides Play/Pause (also keyboard Enter/Space); GitHub shows the complete static fallback.
+
+### Dueling head: value, advantages, and identifiability
+
+A dueling network computes a scalar state value $V(s)$ and per-action advantages $A(s,a)$ from a shared feature representation. Rainbow uses the **mean-centred aggregation**, $Q(s,a)=V(s)+A(s,a)-\frac{1}{|\mathcal A|}\sum_b A(s,b)$. Subtracting the action-mean makes the aggregate's mean equal to $V$ and resolves the additive-offset ambiguity of simply summing $V$ and $A$.[^rainbow-dueling]
+
+<img alt="Dueling Q-head animation: shared features split into value V=3 and advantages +2, 0, minus 1; centering gives a three-action Q vector." src="../../../../../assets/concept-animations/rainbow-dueling-head-still.svg" data-motion-src="../../../../../assets/concept-animations/rainbow-dueling-head-motion.svg" data-still-src="../../../../../assets/concept-animations/rainbow-dueling-head-still.svg">
+
+*Original instructional motion (CC BY-SA 4.0).* The **illustrative** streams are $V=3$ and $A=(2,0,-1)$; the advantage mean is $1/3$, so the three output values are approximately $(4.67,2.67,1.67)$. The highlighted arrows and growing bars show aggregation, **not** actual neuron activations, benchmark performance, or a gradient path. In MkDocs use Play/Pause; GitHub shows the static fallback. No extra JavaScript is required beyond the existing concept-motion player.
+
+### Multi-step targets: reveal each reward before bootstrapping
+
+Rainbow's three-step return aggregates the first three observed rewards and bootstraps from the state reached **after** those rewards, rather than from the first successor state. For a non-terminal three-step sequence, $G_t^{(3)}=r_t+\gamma r_{t+1}+\gamma^2r_{t+2}+\gamma^3 V(s_{t+3})$; in distributional Rainbow the corresponding return *distribution* is projected onto the categorical support, instead of simply fitting this expected scalar target.[^rainbow-nstep]
+
+<img alt="One-step and three-step TD animation: successive reward terms plus discounted bootstrap enter the return; the three-step target builds from 1.000 to 5.635." src="../../../../../assets/concept-animations/rainbow-nstep-returns-still.svg" data-motion-src="../../../../../assets/concept-animations/rainbow-nstep-returns-motion.svg" data-still-src="../../../../../assets/concept-animations/rainbow-nstep-returns-still.svg">
+
+*Original instructional motion (CC BY-SA 4.0).* In this **constructed scalar-value example**, $r=(1,2,-1)$, $\gamma=0.9$, $V(s_{t+1})=4$, and $V(s_{t+3})=5$. The one-step target is $1+0.9(4)=4.60$. The three-step target accumulates $1+1.8-0.81+3.645=5.635$. The stages demonstrate the order of rewards and bootstrap; they **do not** represent three optimizer updates, an empirical result, or Rainbow's full categorical projection. Terminal transitions would require masking or stopping the bootstrap at termination. MkDocs provides Play/Pause (Enter/Space); GitHub shows the static final comparison.
+
+### NoisyNet: parameter perturbation changes the greedy action
+
+In Rainbow's NoisyNet layers, weights and biases contain learnable noise scales. A sample of parameter noise changes the action-value function before the greedy action is selected, so exploration is induced through parameter perturbations rather than an independent $\varepsilon$-greedy action override. The illustrated change of greedy action between **two independent samples on the same fixed input** is possible, not guaranteed.[^rainbow-noisy]
+
+<img alt="NoisyNet parameter-noise animation: the same input and base action values produce action A under one perturbation and action B under another, with score bars showing both samples." src="../../../../../assets/concept-animations/rainbow-noisynet-samples-still.svg" data-motion-src="../../../../../assets/concept-animations/rainbow-noisynet-samples-motion.svg" data-still-src="../../../../../assets/concept-animations/rainbow-noisynet-samples-still.svg">
+
+*Original instructional motion (CC BY-SA 4.0).* For a toy one-dimensional input $x=1$, let unperturbed action scores be $(0.70,0.60)$. First illustrative perturbation $(+0.20,-0.20)$ yields $(0.90,0.40)$ and greedy action A; a **new** sample $(-0.25,+0.20)$ yields $(0.45,0.80)$ and B. These are hand-set effective score changes, **not** learned parameters, actual factorized Gaussian draws, rollout frequencies or measurements. Rainbow's real NoisyNet also learns each layer's noise magnitude; this example isolates its effect on action selection. MkDocs provides Play/Pause and keyboard operation; GitHub shows both samples together.
+
 ## Results
 
 Across the 57 Atari games evaluated in the paper:
@@ -63,9 +97,20 @@ The ablation study finds that prioritised replay and multi-step learning are the
 - Which components remain useful once a sophisticated agent is trained at larger scale.
 - How much of the result transfers to continuous control and to domains beyond games.
 
+[^rainbow-c51]: Bellemare, Dabney & Munos (2017), [ICML original paper](https://proceedings.mlr.press/v70/bellemare17a); Hessel et al. (2018), [Rainbow original paper](https://arxiv.org/abs/1710.02298).
+[^rainbow-dueling]: Wang et al. (2016), [ICML original paper](https://proceedings.mlr.press/v48/wangf16); Hessel et al. (2018), [Rainbow original paper](https://arxiv.org/abs/1710.02298).
+
+[^rainbow-nstep]: Hessel et al. (2018), [original Rainbow paper](https://ojs.aaai.org/index.php/AAAI/article/view/11796); Sutton & Barto (2018), [Reinforcement Learning, chapter 7](http://incompleteideas.net/book/the-book-2nd.html).
+[^rainbow-noisy]: Fortunato et al. (2018), [Noisy Networks for Exploration](https://arxiv.org/abs/1706.10295); Hessel et al. (2018), [original Rainbow paper](https://ojs.aaai.org/index.php/AAAI/article/view/11796).
+
 ## References
 
 ### Seminal papers
+
+- Fortunato et al. (2018), *Noisy Networks for Exploration*, [arXiv:1706.10295](https://arxiv.org/abs/1706.10295) — Introduces trainable parameter noise for exploration instead of action-level heuristic randomness.
+
+- Bellemare, Dabney & Munos (2017), "A Distributional Perspective on Reinforcement Learning", *ICML 2017*. https://proceedings.mlr.press/v70/bellemare17a — Defines categorical distributional Bellman projection and the C51 algorithm.
+- Wang et al. (2016), "Dueling Network Architectures for Deep Reinforcement Learning", *ICML 2016*. https://proceedings.mlr.press/v48/wangf16 — Introduces shared features with separate state-value and advantage streams and aggregation.
 
 - Hessel et al. (2018), "Rainbow: Combining improvements in deep reinforcement learning", [arXiv:1710.02298](https://arxiv.org/abs/1710.02298) — The Rainbow paper, with its six-component ablation and the reported Atari results.
 - van Hasselt, Guez & Silver (2016), "Deep reinforcement learning with double Q-learning", [arXiv:1509.06461](https://arxiv.org/abs/1509.06461) (submitted 2015) — The double Q-learning component, which reduces overestimation.
