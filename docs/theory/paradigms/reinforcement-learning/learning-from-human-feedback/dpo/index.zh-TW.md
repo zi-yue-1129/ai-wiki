@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 ---
 
 # 直接偏好最佳化（Rafailov 等人，2023）
@@ -30,6 +30,12 @@ translation_reviewed: 2026-10-28
 2. 分別在策略與凍結的參考模型下，計算每個回應的對數機率。
 3. 對上式損失做一次梯度更新。
 4. 重複直到策略收斂。訓練時不需要從策略取樣。
+
+### 動態示範：參考策略校正後的偏好差距
+
+![DPO 動畫呈現固定的參考策略，以及偏好與非偏好回應的策略機率如何改變，進而影響偏好機率](../../../../../assets/concept-animations/rlhf-dpo-margin-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 在這個**僅有兩種回應的人工示例**中，凍結的參考策略對兩個回應各給 0.50。訓練策略對偏好回應的機率由 0.50 變為 0.75，非偏好回應則由 0.50 變為 0.25。設定 \(\beta=1\)，參考策略校正後的差距由零增至 \(\log(0.75/0.50)-\log(0.25/0.50)=\log 3\)，Bradley–Terry 偏好概似 \(\sigma(\log 3)\) 從 0.50 升至 **0.75**，單筆 DPO 損失則由 \(\log 2\approx0.693\) 降至 \(-\log 0.75\approx0.288\)。長條連續移動是**示意插值，不是模型實測最佳化歷程**，也不能直接視為特定人類偏好的已校準預測。在 MkDocs 可使用**播放／暫停**；GitHub 可檢視[靜態重點圖](../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg)。推導依據 [Rafailov 等人（2023）](https://arxiv.org/abs/2305.18290)。
 
 ## 結果
 

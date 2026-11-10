@@ -33,6 +33,12 @@ where \(y_w\) is the preferred completion, \(y_l\) the dispreferred one, and \(\
 3. Take a gradient step on the loss above.
 4. Repeat until the policy converges. No sampling from the policy during training is needed.
 
+### Animated example: reference-adjusted preference margin
+
+![DPO animation showing fixed reference probabilities, changing chosen and rejected policy probabilities, and the resulting preference probability](../../../../../assets/concept-animations/rlhf-dpo-margin-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* In this **illustrative two-completion example**, the frozen reference assigns probability 0.50 to each completion. The policy moves from equal 0.50 probabilities to 0.75 for the chosen completion and 0.25 for the rejected completion. With \(\beta=1\), the reference-adjusted margin moves from zero to \(\log(0.75/0.50)-\log(0.25/0.50)=\log 3\). The implied Bradley–Terry preference likelihood \(\sigma(\log 3)\) rises from 0.50 to **0.75** while the per-pair DPO loss falls from \(\log 2\approx0.693\) to \(-\log 0.75\approx0.288\). The moving bars are **schematic interpolation, not measured optimisation dynamics** or a calibrated prediction of a specific human's preference. Use MkDocs **Play/Pause**, or view the [GitHub-readable static summary](../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg). The derivation follows [Rafailov et al. (2023)](https://arxiv.org/abs/2305.18290).
+
 ## Results
 
 The paper compares DPO with PPO-based RLHF on several tasks:

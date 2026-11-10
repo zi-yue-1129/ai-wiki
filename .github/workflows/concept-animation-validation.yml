@@ -29,6 +29,7 @@ on:
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
+      - "scripts/test_rlhf_motion_browser.py"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
@@ -71,6 +72,8 @@ jobs:
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
+      - name: Chromium RLHF preference animations and bilingual keyboard controls
+        run: python scripts/test_rlhf_motion_browser.py
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
@@ -95,6 +98,15 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Keep RLHF concept-motion screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rlhf-motion-browser-review
+          path: artifacts/rlhf-motion/*.png
           if-no-files-found: ignore
           retention-days: 7
 
