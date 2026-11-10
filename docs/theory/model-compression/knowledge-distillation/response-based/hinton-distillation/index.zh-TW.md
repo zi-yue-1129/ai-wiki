@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 ---
 
 # Hinton 蒸餾
@@ -23,6 +23,14 @@ Hinton、Vinyals 與 Dean 在 2015 年的論文是現代知識蒸餾的起點。
 \]
 
 其中 \(z_s\) 與 \(z_t\) 分別是學生與教師的 logits，\(\sigma\) 是 softmax，\(T\) 是溫度，\(\alpha\) 為兩項的權重。因子 \(T^2\) 使不同溫度下的梯度大小保持相近。
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="溫度軟化與教師學生機率對齊動畫">
+<div style="width:720px">
+<img src="../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg" data-motion-src="../../../../../assets/concept-animations/kd-soft-target-alignment-motion.svg" data-still-src="../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg" alt="教師三類機率隨溫度由一上升至三而變得較平坦；箭頭傳遞軟目標，學生機率長條逐漸接近教師的分布。" width="720" height="400">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 固定**教師 logits (3, 1, 0)**，在 \(T=1\) 時的類別機率約為 **(0.844, 0.114, 0.042)**，於 \(T=3\) 則為 **(0.532, 0.273, 0.196)**。紫色學生長條由人工設定的 \(T=3\) 起始分布 **(0.48, 0.30, 0.22)** 逐漸靠近教師軟目標。中間影格是**教學插值，不是實測訓練軌跡、單步梯度更新或模型性能**。MkDocs 可使用支援鍵盤操作的播放／暫停按鈕；GitHub 可直接看[靜態回退圖](../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg)。蒸餾損失中的教師與學生機率必須使用**相同溫度**，而真實標籤的交叉熵仍採用未軟化的學生輸出。參見[原始論文](https://arxiv.org/abs/1503.02531)。
 
 論文還給出一項分析。當溫度相對於 logits 的大小很高時，軟目標項對每個學生 logit \(z_i\) 的梯度近似為
 

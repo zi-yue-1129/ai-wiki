@@ -35,6 +35,14 @@ where $f_T$ and $f_S$ are the teacher and student features at the chosen layers,
 
 To keep the regressor's parameter count small, the paper uses a convolutional regressor in place of a fully connected one, so that its output has the same spatial size as the hint.
 
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="FitNets two-stage hint and output distillation">
+<div style="width:720px">
+<img src="../../../../../assets/concept-animations/fitnets-hint-then-output-still.svg" data-motion-src="../../../../../assets/concept-animations/fitnets-hint-then-output-motion.svg" data-still-src="../../../../../assets/concept-animations/fitnets-hint-then-output-still.svg" alt="During hint training the regressor-projected student feature r(f_S) approaches a frozen teacher hint; in the second stage hint matching fades and output-logit distillation is highlighted." width="720" height="400">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* The illustrative three-by-three cells visualise the **regressor-projected student hint \(r(f_S)\) matching a frozen teacher feature \(f_T\)** in stage one. The grid is the projected feature, **not raw student activations**. In stage two, the regressor is faded to indicate that it is **discarded**, while the whole student is optimised with output-level distillation. The coloured cells **are not actual feature maps, training losses or measured activations**: interpolation represents the intended training objective rather than a faithful gradient trajectory. MkDocs adds keyboard-accessible Play/Pause; GitHub shows the [static fallback](../../../../../assets/concept-animations/fitnets-hint-then-output-still.svg). [Original FitNets paper](https://arxiv.org/abs/1412.6550).
+
 ## Results
 
 The abstract reports that on CIFAR-10 a deep student with almost 10.4 times fewer parameters than the teacher outperforms the larger, deeper teacher network. The paper also evaluates on MNIST, CIFAR-100, SVHN and AFLW, and reports that the method matches or outperforms standard distillation on these benchmarks.
