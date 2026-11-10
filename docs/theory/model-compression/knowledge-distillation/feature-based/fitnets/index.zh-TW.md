@@ -32,11 +32,11 @@ $$
 
 <div style="max-width:100%;overflow-x:auto" role="group" aria-label="FitNets 特徵提示與輸出蒸餾兩階段動畫">
 <div style="width:720px">
-<img src="../../../../../assets/concept-animations/fitnets-hint-then-output-still.svg" data-motion-src="../../../../../assets/concept-animations/fitnets-hint-then-output-motion.svg" data-still-src="../../../../../assets/concept-animations/fitnets-hint-then-output-still.svg" alt="第一階段中學生特徵經由學習得到的回歸器逐步接近凍結教師的提示特徵；第二階段回歸器淡出，轉而凸顯輸出 logits 蒸餾。" width="720" height="400">
+<img src="../../../../../assets/concept-animations/fitnets-hint-then-output-still.svg" data-motion-src="../../../../../assets/concept-animations/fitnets-hint-then-output-motion.svg" data-still-src="../../../../../assets/concept-animations/fitnets-hint-then-output-still.svg" alt="第一階段中學生經回歸器投影後的特徵 r(f_S) 逐步接近凍結教師的提示特徵；第二階段提示比對淡出，轉而凸顯輸出 logits 蒸餾。" width="720" height="400">
 </div>
 </div>
 
-*原創 12 秒教學動畫（CC BY-SA 4.0）。* 三乘三色塊是**人工示意特徵**：第一階段由學生的引導層透過學習的回歸器對齊**凍結教師的提示層**；第二階段淡出已**不再使用的回歸器**，改以輸出層蒸餾訓練完整學生。色塊並非真實特徵圖、損失或實測激活值；中間影格是教學插值，**不表示實際的梯度更新軌跡**。MkDocs 提供支援鍵盤操作的播放／暫停按鈕；GitHub 顯示[靜態回退圖](../../../../../assets/concept-animations/fitnets-hint-then-output-still.svg)。研究依據為 [FitNets 原始論文](https://arxiv.org/abs/1412.6550)。
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 三乘三色塊是**人工示意的回歸器投影特徵 \(r(f_S)\)**，**不是學生引導層的原始激活值**：第一階段對齊**凍結教師的提示層 \(f_T\)**；第二階段淡出已**不再使用的回歸器**，改以輸出層蒸餾訓練完整學生。色塊並非真實特徵圖、損失或實測激活值；中間影格是教學插值，**不表示實際的梯度更新軌跡**。MkDocs 提供支援鍵盤操作的播放／暫停按鈕；GitHub 顯示[靜態回退圖](../../../../../assets/concept-animations/fitnets-hint-then-output-still.svg)。研究依據為 [FitNets 原始論文](https://arxiv.org/abs/1412.6550)。
 
 ## 結果
 
