@@ -31,6 +31,12 @@ For two segments, the preference probability is a softmax over their summed pred
 
 In the text setting, the policy is also penalised for a KL divergence from the supervised model, which keeps it near outputs the reward model has seen (Stiennon et al., 2020).
 
+### Animated example: segment rewards and preference likelihood
+
+![Animation accumulating three stepwise reward-model scores for two segments then forming their Bradley–Terry preference likelihood](../../../../../assets/concept-animations/rlhf-reward-sums-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* Two **illustrative** three-step segments have predicted step scores \(A=(1,2,1)\) and \(B=(1,0,1)\). The moving markers follow the additions: their summed scores are \(R(A)=4\) and \(R(B)=2\). Under Bradley–Terry, \(P(A\succ B)=\exp(4)/(\exp(4)+\exp(2))=\sigma(2)\approx\mathbf{0.881}\). The step scores and probability are **constructed values, not human judgments or measured model outputs**. The probability-bar transition is a teaching interpolation: the final probability is computed from the *complete* segments, not a claim that humans decide at each timestep. Use MkDocs **Play/Pause**, or view the [GitHub-readable static summary](../../../../../assets/concept-animations/rlhf-reward-sums-still.svg). Based on [Christiano et al. (2017)](https://arxiv.org/abs/1706.03741).
+
 ## Results
 
 - **Atari.** Christiano et al. use 5,500 comparisons across seven games. They report that their method has more difficulty than reinforcement learning with the true reward in these environments, although it matches or exceeds it on some.

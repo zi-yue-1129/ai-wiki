@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 ---
 
 # 從人類比較建立獎勵模型（Christiano 等人，2017）
@@ -27,6 +27,12 @@ translation_reviewed: 2026-10-28
 5. 從改進後的策略持續取樣新的成對行為並重複，使人類標籤能涵蓋策略目前產生的行為。
 
 在文字設定中，策略還會因與監督模型的 KL 散度而受到懲罰，使其輸出接近獎勵模型見過的範圍（Stiennon 等人，2020）。
+
+### 動態示範：軌跡片段的分數累加與偏好概似
+
+![動畫逐步累加兩段軌跡各三個時間步的獎勵模型分數，再計算 Bradley–Terry 偏好概似](../../../../../assets/concept-animations/rlhf-reward-sums-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 兩段各三步的軌跡使用**人工設定**的模型預測分數 \(A=(1,2,1)\)、\(B=(1,0,1)\)。移動標記依序顯示分數累加，得到 \(R(A)=4\) 與 \(R(B)=2\)。依 Bradley–Terry 模型，\(P(A\succ B)=\exp(4)/(\exp(4)+\exp(2))=\sigma(2)\approx\mathbf{0.881}\)。每步分數與機率都是**人工示意值，不是人類評分或模型實測輸出**；偏好機率長條的動態變化只是教學插值，最終機率由完整片段的總分決定，不代表人類每一步都重新判斷。在 MkDocs 可使用**播放／暫停**；GitHub 可檢視[靜態重點圖](../../../../../assets/concept-animations/rlhf-reward-sums-still.svg)。參考 [Christiano 等人（2017）](https://arxiv.org/abs/1706.03741)。
 
 ## 結果
 
