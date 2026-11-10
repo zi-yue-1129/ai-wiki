@@ -38,6 +38,16 @@ MkDocs 播放器支援**播放／暫停**及鍵盤 **Enter／Space**；減少動
 
 [^comm-mean]: Sukhbaatar、Szlam 與 Fergus（2016），[*Learning Multiagent Communication with Backpropagation*](https://arxiv.org/abs/1605.07736)，詳見參考文獻。
 
+### 跨智能體多層通訊與狀態更新（動畫）
+
+![CommNet 每一層取其他智能體的平均訊息，再與自身隱藏狀態混合，連續展示兩層的更新](../../../../../../assets/concept-animations/commnet-layer-iterations-motion.svg)
+
+[GitHub 靜態回退預覽：CommNet 的連續兩層更新](../../../../../../assets/concept-animations/commnet-layer-iterations-still.svg)
+
+CommNet 並非只計算一次廣播平均值：後續層可用**更新後的隱藏狀態重新通訊**。本圖使用**人工構造的一維教學範例**，初始 \((h_A^0,h_B^0,h_C^0)=(0.20,0.80,0.60)\)，刻意以簡單的 \(h_j^{\ell+1}=0.5h_j^\ell+0.5c_j^\ell\) 取代實際學得的非線性更新，其中 \(c_j^\ell\) 是在第 \(\ell\) 層對其他智能體的平均。第一層 \(c_B^0=(0.20+0.60)/2=0.40\)，因此 \(h_B^1=0.60\)，同時 \(h_A^1=0.45\)、\(h_C^1=0.55\)。下一層 \(c_B^1=(0.45+0.55)/2=0.50\)，使 \(h_B^2=0.55\)；其餘 \(h_A^2\approx0.51\)、\(h_C^2\approx0.54\) 亦由相同的示意規則算得。**這些數值不是原始 CommNet 的學習權重或模型實測結果**。[^comm-mean]
+
+藍色與青綠色路徑代表其他智能體資訊，橘色代表接收者自身狀態參與混合。MkDocs 播放器支援**播放／暫停**、鍵盤 **Enter／Space** 及減少動態效果的靜態回退。AI Wiki 貢獻者原創圖，採 **CC BY-SA 4.0** 授權。
+
 ## 結果
 
 論文在數個合作任務上評估 CommNet，包括拉桿任務、車輛必須不相撞地通過的交通路口任務，以及戰鬥任務。摘要報告，智能體「學會彼此通訊，表現優於不通訊的智能體與基準」。在某些情況下，學到的語言可以被解讀，揭示解決任務的簡單策略。

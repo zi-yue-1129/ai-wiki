@@ -42,6 +42,16 @@ The MkDocs player supports **Play/Pause** and keyboard **Enter/Space**; reduced-
 
 [^comm-mean]: Sukhbaatar, Szlam & Fergus (2016), [*Learning Multiagent Communication with Backpropagation*](https://arxiv.org/abs/1605.07736), as listed in References.
 
+### Repeated cross-agent communication layers (animated)
+
+![CommNet averages other agents' states at each communication layer, mixing with an agent's own state to update the next layer twice](../../../../../../assets/concept-animations/commnet-layer-iterations-motion.svg)
+
+[Static GitHub fallback: CommNet's two layer updates](../../../../../../assets/concept-animations/commnet-layer-iterations-still.svg)
+
+A CommNet layer does **not** merely broadcast one average once: later layers can communicate again using the newly updated hidden states. For a **synthetic scalar teaching example**, start from \((h_A^0,h_B^0,h_C^0)=(0.20,0.80,0.60)\) and replace the learned nonlinear update with the deliberately simple function \(h_j^{\ell+1}=0.5h_j^\ell+0.5c_j^\ell\), where \(c_j^\ell\) averages all *other* agents at layer \(\ell\). First, \(c_B^0=(0.20+0.60)/2=0.40\), yielding \(h_B^1=0.60\), while \(h_A^1=0.45\) and \(h_C^1=0.55\). Next, \(c_B^1=(0.45+0.55)/2=0.50\), yielding \(h_B^2=0.55\). The final rounded values \(h_A^2\approx0.51\) and \(h_C^2\approx0.54\) follow from the same toy update. This is **neither the original CommNet's learned weights nor measured model behaviour**. [^comm-mean]
+
+Blue and teal paths carry peer information; orange shows the receiver's own state in the mixing step. The MkDocs player supports **Play/Pause**, **Enter/Space**, and reduced-motion static fallback. Original figure by AI Wiki contributors, **CC BY-SA 4.0**.
+
 ## Results
 
 The paper evaluates CommNet on several cooperative tasks, including a lever-pulling task, a traffic junction in which cars must pass through without colliding, and a combat task. The abstract reports that agents "learn to communicate amongst themselves, yielding improved performance over non-communicative agents and baselines". In some cases, the learned language can be interpreted, revealing simple strategies for solving the task.

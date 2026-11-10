@@ -47,6 +47,16 @@ The MkDocs player supports **Play/Pause** and keyboard **Enter/Space**; readers 
 
 [^comm-credit]: Foerster et al. (2016), [*Learning to Communicate with Deep Multi-Agent Reinforcement Learning*](https://arxiv.org/abs/1605.06676), as listed in References.
 
+### DIAL's DRU: differentiable during training, binary at execution (animated)
+
+![DIAL training uses a noisy continuous message with a receiver-to-sender gradient, while execution sends a binary bit without cross-agent backpropagation](../../../../../../assets/concept-animations/dial-dru-train-execute-motion.svg)
+
+[Static GitHub fallback: DIAL's two channel modes](../../../../../../assets/concept-animations/dial-dru-train-execute-still.svg)
+
+The **discretise/regularise unit (DRU)** has two different roles. During centralised training, it applies noise and a smooth logistic transformation, so the receiver's loss is differentiable with respect to the sender's message. During decentralised execution it emits a discrete bit, without a cross-agent gradient path. In this **constructed scalar example**, a sender activation \(m=0.40\) and one hypothetical noise sample \(\varepsilon=-0.10\) give \(\sigma(0.30)\approx0.574\) in training; the corresponding positive activation yields bit \(1\) under a zero threshold at execution. The drawn path is schematic, **not a sampled training trace or a measured model activation**. It also must not be interpreted as claiming an execution-time gradient. [^comm-credit]
+
+The MkDocs player offers **Play/Pause** via mouse or **Enter/Space**. Reduced-motion preference and GitHub Markdown use the linked static overview. Original figure by AI Wiki contributors, **CC BY-SA 4.0**.
+
 ## Results
 
 In the switch riddle with three agents, all four variants (RIAL and DIAL, each with and without parameter sharing) learn an optimal policy within about 5,000 episodes, as the paper's text states. DIAL with parameter sharing reaches it faster than RIAL. With four agents, RIAL without parameter sharing does not beat the no-communication baseline. In the multi-step and colour-digit MNIST tasks, DIAL substantially outperforms the other methods on both games, and RIAL fails to learn the multi-step task. The results are shown as curves normalised to an oracle baseline, so the exact values are in the figures.

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 ASSETS = DOCS / "assets" / "concept-animations"
 OUT = ROOT / "artifacts" / "emergent-communication"
-STEMS = ("rial-dial-credit-path", "commnet-leave-one-out")
+STEMS = ("rial-dial-credit-path", "commnet-leave-one-out", "dial-dru-train-execute", "commnet-layer-iterations")
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -26,6 +26,8 @@ class Handler(SimpleHTTPRequestHandler):
 <link rel="stylesheet" href="/stylesheets/concept-motion.css"><main>
 <img alt="RIAL versus DIAL communication paths" src="/assets/concept-animations/rial-dial-credit-path-motion.svg">
 <img alt="CommNet 排除自身訊息後的平均通訊" src="/assets/concept-animations/commnet-leave-one-out-motion.svg">
+<img alt="DIAL 訓練與執行期間的訊息處理" src="/assets/concept-animations/dial-dru-train-execute-motion.svg">
+<img alt="CommNet 多層訊息傳遞" src="/assets/concept-animations/commnet-layer-iterations-motion.svg">
 </main><script src="/javascripts/concept-motion.js"></script></html>"""
             data=html.encode("utf-8")
             self.send_response(200);self.send_header("Content-Type","text/html;charset=utf-8")
@@ -62,8 +64,8 @@ def main():
                 page=browser.new_page(viewport={"width":320,"height":800},reduced_motion="reduce" if reduced else "no-preference")
                 page.goto(url)
                 page.locator("button.concept-motion-toggle").first.wait_for()
-                assert page.locator(".concept-motion-player").count()==2
-                for i in range(2):
+                assert page.locator(".concept-motion-player").count()==4
+                for i in range(len(STEMS)):
                     img=page.locator(".concept-motion-player img").nth(i)
                     button=page.locator("button.concept-motion-toggle").nth(i)
                     assert (img.get_attribute("src") or "").endswith("-still.svg" if reduced else "-motion.svg")
@@ -78,7 +80,7 @@ def main():
             browser.close()
     finally:
         server.shutdown();server.server_close()
-    print(f"PASS: {checks} rendered/interactivity checks, including 40 screenshots")
+    print(f"PASS: {checks} rendered/interactivity checks, including 80 screenshots")
 
 if __name__=="__main__":
     main()
