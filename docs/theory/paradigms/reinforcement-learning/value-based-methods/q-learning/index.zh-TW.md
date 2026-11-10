@@ -63,6 +63,8 @@ $
 
 藍色路徑對**同一組含雜訊估計取最大值**，橘色路徑則比較與估計誤差**獨立決定**的下一動作 B；這是刻意隔離 Q-learning 的**最大化偏差（maximisation bias）**，比較的僅是 bootstrap 價值，尚未加入 $r+\gamma(\cdot)$。在這個受控行為策略下，動作 B 可以作為 SARSA 的實際下一動作，但**不表示 SARSA 一般情況下一定無偏**；學習、策略依賴的抽樣或函數近似仍可能帶來其他偏差。四種情況是**人工建構的完整機率枚舉**，不是連續四次更新或模型實測。MkDocs 可用鍵盤操作播放／暫停；[GitHub 靜態回退](../../../../../assets/concept-animations/q-sarsa-noisy-backups-still.svg)保留所有案例與平均值。依據文末的 van Hasselt 等人（2016）及 Sutton 與 Barto（2018）。
 
+若想進一步對照「用線上網路選動作、用目標網路評估」的解耦運算，可參考[雙 DQN 動畫](../double-dqn/index.zh-TW.md)。Double DQN 仍以線上網路的 argmax 選動作，並非像這裡的受控 SARSA 案例一樣，將下一動作獨立於估計雜訊而事先固定。
+
 ### 探索機率如何影響實際抽樣的備份目標
 
 <img src="../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg" data-motion-src="../../../../../assets/concept-animations/q-sarsa-epsilon-motion.svg" data-still-src="../../../../../assets/concept-animations/q-sarsa-epsilon-still.svg" width="440" loading="lazy" alt="下一狀態的動作 L 價值五、R 價值二，epsilon 為 0.2 時，ε-貪婪策略選 L 的機率為九成、R 為一成。Q-learning 固定使用 5.5 作為目標；SARSA 根據抽到的動作得到 5.5 或 2.8，而 Expected SARSA 的機率加權目標為 5.23。" />
