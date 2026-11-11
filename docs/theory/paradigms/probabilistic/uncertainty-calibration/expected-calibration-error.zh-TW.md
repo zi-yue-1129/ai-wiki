@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 期望校準誤差
@@ -26,6 +26,15 @@ translation_reviewed: 2026-10-28
 \]
 
 其中 \(\mathrm{acc}(B_b)\) 為該箱的準確率，\(\mathrm{conf}(B_b)\) 為平均信心。數值為零表示每箱的準確率都等於其平均信心。Guo 等人（2017）在實驗中使用 15 個等寬的箱。
+
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="期望校準誤差分箱加權動畫">
+<div style="width:720px">
+<img src="../../../../assets/concept-animations/ece-binned-calibration-still.svg" data-motion-src="../../../../assets/concept-animations/ece-binned-calibration-motion.svg" alt="三個信心區間依序反白平均信心與實際準確率的差距，按樣本數加權後貢獻 0.0125、0.0750、0.0625，最後 ECE 為 0.1500。" width="720" height="400">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 本圖為**人工示意資料，並非模型實測**。40 筆預測分為 10、20、10 筆三箱，各有 2、8、6 筆正確；平均信心為 0.25、0.55、0.85，實際準確率為 0.20、0.40、0.60。紅色括號依序指出各箱的絕對校準差距（0.05、0.15、0.25），再按照樣本數佔比得到 0.0125 + 0.0750 + 0.0625 = **ECE 0.1500**。動畫演示的是分箱摘要的加權計算，而非個別樣本的時間軌跡。MkDocs 網站可使用 Play／Pause；[GitHub 靜態預覽](../../../../assets/concept-animations/ece-binned-calibration-still.svg)呈現完整計算，窄螢幕可水平捲動。依據 References 中的 Guo 等人（2017）。
 
 ## 變體
 

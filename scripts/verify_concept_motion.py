@@ -14,6 +14,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "ece-binned-calibration": "theory/paradigms/probabilistic/uncertainty-calibration/expected-calibration-error",
+    "deep-ensemble-spread": "theory/paradigms/probabilistic/uncertainty-calibration/deep-ensembles",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
@@ -84,7 +86,12 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    if root.tag != NS + "svg" or root.get("viewBox") != "0 0 640 360":
+    expected_viewbox = (
+        "0 0 720 400"
+        if path.stem.startswith(("ece-binned-calibration", "deep-ensemble-spread"))
+        else "0 0 640 360"
+    )
+    if root.tag != NS + "svg" or root.get("viewBox") != expected_viewbox:
         errors.append(f"{path}: invalid SVG root/viewBox")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
@@ -132,6 +139,7 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
+            linked_images.update((page.parent / link).resolve() for link in re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             if stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
@@ -146,7 +154,7 @@ def main() -> int:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
+            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory", "ece-binned-calibration", "deep-ensemble-spread"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)
