@@ -39,6 +39,12 @@ Apply a layer normalisation to the query and key vectors of each head before the
 
 The modification is local to attention, and the cost is one normalisation per head for queries and keys.
 
+### Visual walkthrough: amplitude growth versus QK normalisation
+
+![Looping QK-normalisation comparison: increasing query/key amplitude saturates raw softmax probabilities while per-head normalisation preserves the probability profile.](../../../assets/concept-animations/qk-norm-scale-sweep-motion.svg)
+
+*Original interactive-site SVG motion, CC BY-SA 4.0.* The illustration scales the same centred query and three key vectors by a shared positive factor $s$ from 1 to 4, and then back. Raw attention logits increase as $s^2$, making one softmax probability dominate; applying separate Q/K layer normalisation removes this common scale. For an explicitly simplified example, take $q=(1,-1,0)$ and keys $k_A=(1,-1,0)$, $k_B=(1,0,-1)$, and $k_C=(-1,1,0)$. The raw logits before scaling are $(2,1,-2)/\sqrt{3}$. The static preview shows the largest scale. In the illustration, LayerNorm has unit gain, zero bias and zero \(\epsilon\); real implementations have learned affine parameters and nonzero \(\epsilon\), so exact invariance is not unconditional. All vectors and probabilities are **computed illustrative values, not measured model behaviour**. The website's existing motion player allows pausing; reduced-motion users see a fixed frame. [GitHub-readable static preview](../../../assets/concept-animations/qk-norm-scale-sweep-still.svg). The method is described by [Dehghani et al. (2023)](https://proceedings.mlr.press/v202/dehghani23a.html).
+
 ## Results
 
 Wortsman et al. (2023) reproduce attention-logit growth at small scale and test query-key layer normalisation as a remedy. They report that it prevents divergence at the model sizes they tested, and that learning-rate sensitivity still increases with model scale. Output-logit divergence is a separate instability, which they address with z-loss rather than with this normalisation. The exact figures should be taken from the paper.

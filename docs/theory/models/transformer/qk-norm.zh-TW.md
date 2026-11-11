@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 tags:
   - transformer
   - attention
@@ -35,6 +35,12 @@ QK 正規化在每個注意力頭做內積之前，先對其查詢（query）與
 4. 值的投影與區塊的其餘部分維持不變。
 
 這項修改只限於注意力內部，代價是每個頭對查詢與鍵各多一次正規化。
+
+### 動態示範：查詢與鍵的尺度增加時，注意力如何改變
+
+![QK 正規化循環動畫：隨著查詢與鍵的共同尺度增加，未正規化的 Softmax 機率逐漸集中；各注意力頭先正規化後，機率分布保持一致。](../../../assets/concept-animations/qk-norm-scale-sweep-motion.svg)
+
+*原創 SVG 教學動畫，採 CC BY-SA 4.0 授權。* 圖中將同一個經中心化的 Query 與三個 Key 同時乘上正純量 $s$，由 1 增至 4 後再縮回。未正規化的注意力 Logit 隨 $s^2$ 放大，使 Softmax 越來越集中；在點積前分別對 Q、K 套用 LayerNorm，則可消除這種共同尺度變化。此例使用 $q=(1,-1,0)$，以及 $k_A=(1,-1,0)$、$k_B=(1,0,-1)$、$k_C=(-1,1,0)$，原始 Logit 為 $(2,1,-2)/\sqrt{3}$。圖內以單位增益、零偏置及零 \(\epsilon\) 簡化 LayerNorm；實務上有可學習仿射參數與非零 \(\epsilon\)，因此不能將完全不變性視為無條件保證。**向量與機率皆為依數學公式計算的教學示意，非模型實測。** 靜態回退顯示最大尺度，網站沿用可暫停播放器，偏好減少動態效果者會看到固定畫面。[GitHub 可讀的靜態預覽](../../../assets/concept-animations/qk-norm-scale-sweep-still.svg)。研究來源：[Dehghani 等人（2023）](https://proceedings.mlr.press/v202/dehghani23a.html)。
 
 ## 結果
 

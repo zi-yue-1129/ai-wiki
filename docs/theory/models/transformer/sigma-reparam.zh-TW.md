@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 tags:
   - transformer
   - attention
@@ -33,6 +33,12 @@ Zhai 等人指出，注意力分布的熵有一個下界，該下界隨注意力
 2. 計算重參數化後的權重 \(\hat W = (\gamma/\sigma(W))\,W\)，每層有一個可學習的 \(\gamma\)。
 3. 在前向傳播中使用 \(\hat W\)，讓最佳化器更新 \(W\) 與 \(\gamma\)。
 4. 訓練中監測注意力熵，因為此方法的動機正是來自它。
+
+### 動態示範：權重尺度與有效譜範數
+
+![σReparam 循環動畫：原始權重的兩個奇異值隨尺度增加而變長，重參數化後的奇異值則由固定的 Gamma 控制。](../../../assets/concept-animations/sigma-reparam-spectral-gain-motion.svg)
+
+*原創 10 秒 SVG 教學動畫，採 CC BY-SA 4.0 授權。* 採用刻意簡化的二維對角矩陣 \(W(s)=\operatorname{diag}(2s,0.5s)\)，令 \(1\leq s\leq4\)，其奇異值為 \((2s,0.5s)\)。當 \(\gamma=1.2\) 固定時，重參數化結果為 \(\widehat W=\gamma W/\sigma(W)=\operatorname{diag}(1.2,0.3)\)，因此兩個有效奇異值不隨 \(s\) 改變。長條表示奇異值大小，**是依公式計算的人工示意，不是訓練過程或注意力熵的實測曲線**。實際訓練時 \(\gamma\) 會被學習、\(\sigma(W)\) 常以迭代近似，所以此動畫不代表跨訓練步驟的譜範數一定固定。可在網站播放器暫停，偏好減少動態效果者看到靜態畫面。[GitHub 可讀的靜態預覽](../../../assets/concept-animations/sigma-reparam-spectral-gain-still.svg)。研究來源：[Zhai 等人（2023）](https://proceedings.mlr.press/v202/zhai23a.html)。
 
 ## 結果
 
