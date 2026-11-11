@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/supervised/trees-and-ensembles
   - theory/paradigms/supervised/loss-functions-and-optimization
@@ -34,6 +34,15 @@ related:
    - 更新 \(F_m = F_{m-1} + \nu\, h_m\)。
 
 對平方損失而言，偽殘差就是一般的殘差，因此每棵樹擬合的是集成仍然預測錯誤的部分。對其他損失，只要知道梯度，同樣的步驟也適用。樹的數量 \(M\) 與學習率通常以驗證集選定，因為樹太多會擬合雜訊。
+
+
+## 動畫解讀：擬合殘差並逐輪修正預測
+
+<img src="../../../../assets/concept-animations/boosting-residual-steps-still.svg" data-motion-src="../../../../assets/concept-animations/boosting-residual-steps-motion.svg" alt="六筆迴歸目標值固定不動，青綠色的分段常數預測從全域平均開始，經過兩次殘差擬合而連續變動；橘色虛線顯示殘差差距隨預測更新而改變。" loading="lazy" />
+
+*原創教學動畫，CC BY-SA 4.0。* 可[開啟完整 SVG 動畫](../../../../assets/concept-animations/boosting-residual-steps-motion.svg)，或[查看 GitHub 可顯示的靜態預覽](../../../../assets/concept-animations/boosting-residual-steps-still.svg)。MkDocs 播放器支援可用鍵盤操作的**播放／暫停**，減少動態效果模式會顯示靜態圖。深藍色圓點是固定目標值，青綠色線是加法模型預測，橘色線段表示平方損失 $L=\tfrac12(y-F)^2$ 的殘差；其負梯度為 $y-F$。
+
+**可重現的人工示例**採用 $y=(1,2,1,4,5,4)$，固定在第三筆之後分裂成兩個葉節點，學習率為 $\nu=0.6$。起始平均 $F_0=17/6\approx2.833$；第一輪擬合兩組殘差平均 $(-1.5,+1.5)$，得到 $F_1\approx(1.933,3.733)$；下一輪擬合 $(-0.6,+0.6)$，得到 $F_2\approx(1.573,4.093)$。動畫在這些正確數值的階段之間做平滑內插，**中間影格不代表獨立的最佳化迭代**。範例不涉及實測效能，並省略分裂搜尋、正則化與線搜尋。它對應參考文獻中 Friedman（2001）方法的平方損失特例。
 
 ## 關鍵方法
 

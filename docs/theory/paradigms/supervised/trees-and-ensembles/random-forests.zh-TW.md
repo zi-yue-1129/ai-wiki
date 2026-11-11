@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/supervised/trees-and-ensembles
   - theory/paradigms/supervised/kernel-methods-svm
@@ -38,6 +38,15 @@ related:
 \]
 
 Breiman 的論文主張，增加樹的數量不會使森林過擬合。由於增加樹不會造成傷害，樹的數量可以設得較大，而不必像提升法那樣為了提前停止而調校。
+
+
+## 動畫解讀：自助抽樣、樹的差異與投票
+
+<img src="../../../../assets/concept-animations/forest-bootstrap-vote-still.svg" data-motion-src="../../../../assets/concept-animations/forest-bootstrap-vote-motion.svg" alt="六筆訓練資料流入三組自助抽樣資料，重複抽到的資料編號會被強調；每棵樹展示一組示意特徵子集，三個 A、B、A 預測以多數決得到 A。" loading="lazy" />
+
+*原創教學動畫，CC BY-SA 4.0。* 可[開啟完整 SVG 動畫](../../../../assets/concept-animations/forest-bootstrap-vote-motion.svg)，或[查看 GitHub 可顯示的靜態預覽](../../../../assets/concept-animations/forest-bootstrap-vote-still.svg)。MkDocs 網站提供可用鍵盤操作的**播放／暫停**控制；偏好減少動態效果的讀者會看到靜態版本。移動的彩色訊號代表重抽樣，重複的資料編號則凸顯**有放回抽樣**。三組示意抽樣索引依序為 `[1,1,3,4,5,6]`、`[2,2,3,4,5,5]` 與 `[1,2,4,4,6,6]`。`f1, f3` 等標籤只示範**某次分裂可考慮的特徵子集**，並非整棵樹的分裂紀錄。
+
+`A、B、A` 與多數決 `A` 都是**人工設定的預測結果**，不是對這些抽樣資料實際訓練後的模型輸出。此圖不計算袋外誤差，也不主張森林中的樹彼此在統計上獨立。自助抽樣與隨機選特徵的機制參照參考文獻中的 Breiman（2001）。
 
 ## 關鍵方法
 

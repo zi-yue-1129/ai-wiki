@@ -48,6 +48,15 @@ Then combine the trees. For classification, take a majority vote. For regression
 
 Breiman's paper argues that adding trees does not make the forest overfit. Because more trees do not hurt, the number of trees can be set large instead of being tuned for early stopping as in boosting.
 
+
+## Animated walkthrough: bootstrap diversity and voting
+
+<img src="../../../../assets/concept-animations/forest-bootstrap-vote-still.svg" data-motion-src="../../../../assets/concept-animations/forest-bootstrap-vote-motion.svg" alt="Six training rows feed three bootstrap samples; duplicate row indices are highlighted, one illustrative feature subset is shown for each tree, and three predictions A, B, A form a majority vote for A." loading="lazy" />
+
+*Original teaching animation, CC BY-SA 4.0.* [Open the animated SVG](../../../../assets/concept-animations/forest-bootstrap-vote-motion.svg) or [view the GitHub-safe static preview](../../../../assets/concept-animations/forest-bootstrap-vote-still.svg). On the MkDocs site, use the adjacent **Play/Pause** control (also keyboard accessible); reduced-motion preferences display the still image. The colored moving tokens indicate resampling, while highlighted duplicate row indices make **sampling with replacement** visible. The three displayed bootstrap index sequences are `[1,1,3,4,5,6]`, `[2,2,3,4,5,5]` and `[1,2,4,4,6,6]`. The `f1, f3`-style labels are **example feature subsets at one split**, not the entire tree's split history.
+
+The votes `A, B, A` and the resulting majority `A` are **schematic predictions**, not outputs from trees actually trained on those samples. The animation does not estimate out-of-bag error or imply that forest trees are statistically independent. The bootstrap-and-random-feature mechanism follows Breiman (2001), cited in References.
+
 ## Key methods
 
 ### Random Forests (Breiman, 2001)
