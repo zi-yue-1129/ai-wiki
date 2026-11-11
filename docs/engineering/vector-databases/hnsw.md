@@ -28,14 +28,15 @@ A query needs the stored vectors closest to it. A graph index links each vector 
 
 ## How it works
 
-```mermaid
-flowchart TD
-  Q[Query vector] --> T[Top layer: few long links]
-  T --> M[Middle layers: greedy descent]
-  M --> B[Bottom layer: all points, short links]
-  B --> K[Candidate list of size efSearch]
-  K --> R[k nearest neighbours]
-```
+![HNSW traversal across sparse upper and dense lower proximity graph layers](../../assets/concept-animations/hnsw-layer-descent-motion.svg)
+
+[GitHub-compatible static preview](../../assets/concept-animations/hnsw-layer-descent-still.svg).
+
+This **12-second schematic** moves a query cursor greedily across connected vertices in the sparse upper layer (L2), then descends through L1 to the dense L0 layer. The teal ring is the illustrated endpoint. The horizontal coordinates and graph edges are pedagogical, **not measured embedding distances**.
+
+The drawing isolates *layer descent*. Real HNSW search at L0 uses a bounded candidate set governed by `efSearch` and may explore more than one promising route. Returned neighbours are approximate; an exact global nearest neighbour is **not guaranteed**. Algorithm: [Malkov and Yashunin (2016)](https://arxiv.org/abs/1603.09320).
+
+The MkDocs site adds a keyboard-accessible **Play/Pause** button, with this still image shown on pause and under reduced-motion settings. Original illustration, **CC BY-SA 4.0**.
 
 ## Key ideas
 

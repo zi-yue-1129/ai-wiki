@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-11-12
 related:
 - engineering/vector-databases
 - engineering/hardware
@@ -29,13 +30,21 @@ IVF-PQ 結合了倒排檔案索引與乘積量化。它保存壓縮後的向量�
 
 ## 運作方式
 
-```mermaid
-flowchart LR
-  X[查詢向量] --> C[粗量化器挑出最近的區格]
-  C --> P[只掃描被探查的區格]
-  P --> L[用 PQ 查找表估計距離]
-  L --> R[以精確距離重新排序前幾名候選]
-```
+![IVF-PQ 先探查兩個粗量化區格，再加總殘差 PQ 查找表距離的示意動畫](../../assets/concept-animations/ivfpq-probe-pq-lookup-motion.svg)
+
+[GitHub 可預覽的靜態版本](../../assets/concept-animations/ivfpq-probe-pq-lookup-still.svg)。
+
+圖中先探查**兩個粗量化倒排清單**（`nprobe = 2`，青綠色虛線圓環），再逐一強調**某筆示意殘差編碼**的三個 PQ 查找表距離。人工設定的數值加總為 `0.09 + 0.16 + 0.04 = 0.29`，**不是 FAISS 實測結果**；圓形區格也不是精確的 Voronoi 分區。
+
+殘差 IVF-PQ 會相對於粗質心 $c_\ell$ 編碼 $r=x-c_\ell$，查詢則使用 $q-c_\ell$，得到非對稱平方距離的近似估計：
+
+$
+\widehat D(q,x)=\sum_{j=1}^{m}\left\|(q-c_\ell)_j-d_{j,k_j}\right\|^2.
+$
+
+不同的探查清單可能需要各自的查詢殘差查找表。PQ 為近似距離，只檢查兩個清單不保證精確最近鄰召回率；若要以**精確距離**重排，也必須保有原始向量或其他能還原精確距離的表示。參考 [Johnson、Douze 與 Jégou（2017）](https://arxiv.org/abs/1702.08734)。
+
+MkDocs 網站提供可用鍵盤操作的**播放／暫停**，暫停與減少動態效果模式均顯示靜態圖。原創圖像，**CC BY-SA 4.0** 授權。
 
 ## 關鍵想法
 
