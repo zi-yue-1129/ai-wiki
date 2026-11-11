@@ -61,6 +61,14 @@ by gradient descent with gradient
 
 The paper's optimisation settings for its visualisations are: the \(p_{ij}\) are multiplied by 4 (early exaggeration) for the first 50 iterations; there are 1000 iterations in total; momentum is 0.5 before iteration 250 and 0.8 after; and the data are reduced to 30 dimensions with PCA first.
 
+### Animated walkthrough: fixed affinities guide embedding updates
+
+![Six synthetic points move under a t-SNE KL gradient while fixed high-dimensional affinities remain visible](../../../../assets/concept-animations/tsne-kl-embedding-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* [Static GitHub preview](../../../../assets/concept-animations/tsne-kl-embedding-still.svg). On the MkDocs site use **Play/Pause** (keyboard: Tab and Enter); reduced-motion settings show the final static configuration.
+
+The left panel shows fixed pairwise affinities $P$ calculated from six **synthetic three-dimensional points** with a common Gaussian bandwidth $\sigma=1$ and subsequent symmetrisation. The right panel visualises Student-t affinities $Q$ and applies the t-SNE KL gradient with a fixed illustrative learning rate $\eta=3$ for 120 iterations; positions between sampled iterations are interpolated to animate the transition. This example reduces $\mathrm{KL}(P\|Q)$ from approximately **1.130 to 0.035**, but does not establish a general convergence guarantee. It deliberately **omits perplexity-based bandwidth selection, PCA preprocessing, early exaggeration and momentum**. These are computed synthetic teaching values, **not measured model outputs or a benchmark**. The similarity and gradient equations follow van der Maaten and Hinton (2008), cited in References.
+
 ## Key methods
 
 ### Visualizing Data using t-SNE (van der Maaten & Hinton, 2008)
