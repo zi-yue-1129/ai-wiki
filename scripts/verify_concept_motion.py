@@ -61,6 +61,8 @@ TOPICS = {
     "reverse-ad-vjp": "theory/math/automatic-differentiation/reverse-mode",
     "gcn-aggregation": "theory/models/gnn/message-passing/gcn/index",
     "gat-aggregation": "theory/models/gnn/message-passing/gat/index",
+    "gin-multiset-counts": "theory/models/gnn/message-passing/gin/index",
+    "graphsage-sample-aggregate": "theory/models/gnn/message-passing/graphsage/index",
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
