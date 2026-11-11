@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-11
 last_reviewed: 2026-11-04
 related:
   - theory/models/transformer/kv-cache
@@ -28,6 +28,17 @@ KIVI 是一種無需調校的方法，把 KV 快取量化為 2 位元。它保�
 ## 核心想法
 
 作者分析 key 與 value 後發現，少數固定的 key 通道數值非常大。因此 KIVI 依通道量化 key，讓每個通道使用自己的縮放係數，使離群值不會擴散到其他通道。它依 token 量化 value。這個方案是非對稱的，每組都有零點，而且無需調校，因此可以直接套用到既有模型上。
+
+### 動態示範：Key 依通道、Value 依 Token 量化
+
+![KIVI 動畫以直向掃描顯示 Key 逐通道分組，橫向掃描顯示 Value 逐 Token 分組量化](../../assets/concept-animations/kivi-quantization-axis-motion.svg)
+
+[GitHub 靜態回退預覽](../../assets/concept-animations/kivi-quantization-axis-still.svg) · 在 MkDocs 網站可使用 **播放／暫停**（支援鍵盤按鈕操作）。
+
+動畫中的**直向選取帶**掃描相同通道在不同 Token 上的 Key；**橫向選取帶**則掃描單一 Token 跨通道的 Value。兩者都映射到四個 2-bit 量化層級，但**縮放係數與零點的分組方向不同**。圖中的五個 Token、四個通道與顏色皆為人工示意，並非 KIVI 模型實測值。實際實作還會保留近期 Token 的全精度 residual，並在注意力運算讀取時反量化區塊。KIVI 保留 Token，與 H2O 淘汰 Token 的策略不同。依據參考文獻中的 Liu et al.（2024）。
+
+*原創教學視覺，CC BY-SA 4.0。*
+
 
 ## 程序
 

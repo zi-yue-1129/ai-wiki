@@ -28,6 +28,17 @@ The cache of a decoder grows by one entry per layer and head for every generated
 
 The authors observe that attention is sparse: a small subset of tokens receives most of the attention mass across the layers. They call these tokens heavy hitters. H2O tracks the accumulated attention each token has received, keeps the heavy hitters and the most recent tokens within a fixed budget, and evicts the others. The authors frame the choice of which tokens to keep as a submodular selection problem, and they give a theoretical guarantee under mild assumptions.
 
+### Visual walkthrough: cumulative attention and cache selection
+
+![H2O ranks accumulated token attention and retains heavy hitters plus a recent window](../../assets/concept-animations/h2o-heavy-hitter-selection-motion.svg)
+
+[GitHub static preview](../../assets/concept-animations/h2o-heavy-hitter-selection-still.svg) · Use **Play/Pause** on the MkDocs site (the button is keyboard accessible).
+
+The bars represent **illustrative cumulative attention scores** for eight tokens: `[2, 1, 9, 3, 7, 2, 1, 0]`. With a **four-entry budget**, this simplified example selects two heavy hitters (`t3`, `t5`) and two recent tokens (`t7`, `t8`), then discards the others. The scores, split, and token choices are hand-authored teaching data, **not real attention statistics or H2O benchmark results**. In practice, scores update with each decoding step and the available cache; an evicted entry cannot be retrieved by this policy. H2O uses a local approximate selection rule rather than knowing future attention. See Zhang et al. (2023) in References.
+
+*Original instructional diagram, CC BY-SA 4.0.*
+
+
 ## Procedure
 
 1. Fix a cache budget, for example a share of the sequence length.
