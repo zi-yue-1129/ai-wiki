@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - theory/models/multimodal
   - theory/models/llm
@@ -19,6 +19,16 @@ Kim 等人發表了 OpenVLA，這是一個擁有 70 億參數、開源的視覺�
 ## 核心想法
 
 OpenVLA 建立在 Prismatic-7B 視覺語言模型上。它的視覺編碼器把 DINOv2 與 SigLIP 特徵依通道串接，由兩層 MLP 投影到語言模型中，再由 70 億參數的 Llama 2 骨幹生成動作 token（第 3.1 節）。論文拿它與擁有 550 億參數的封閉模型 RT-2-X 比較，報告 OpenVLA 在 29 項任務上的絕對成功率高出 16.5%（摘要）。
+
+## 教學動畫：視覺特徵融合與動作離散化
+
+![OpenVLA 教學動畫：同一張影像分別進入 DINOv2 與 SigLIP 編碼器，對應區塊特徵沿通道維度串接，再由 MLP 投影至 Llama 2](../../../assets/concept-animations/openvla-dual-encoder-fusion-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* **同一張相機觀察影像**分別進入 DINOv2 與 SigLIP 兩條特徵路徑。相對應的影像區塊特徵會**沿通道維度串接**，再由兩層 MLP 投影成 Llama 2 骨幹處理的視覺 token。移動標記用來展示資料流向，並非實測神經元活化值，也不表示兩個編碼器輸出相同的特徵。MkDocs 網站可使用播放／暫停按鈕（焦點在按鈕時按 Enter 或空白鍵），也可查看 [GitHub 靜態融合預覽](../../../assets/concept-animations/openvla-dual-encoder-fusion-still.svg)。這是**架構示意而非實際前向傳播紀錄**。依據 [Kim 等人（2024）](https://arxiv.org/abs/2406.09246) 第 3.1 節。
+
+![OpenVLA 教學動畫：示意動作數值限制在訓練資料第 1 與第 99 百分位數之間，再映射至 256 個離散動作區間](../../../assets/concept-animations/openvla-percentile-action-bins-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* **七個連續動作維度會各自獨立離散化**。對其中一維，先將動作值限制在訓練資料第 1 與第 99 百分位數之間，再把區間均分成 **256 個等寬的區間**。圖內短刻度是視覺簡化，**不代表實際只有 32 個區間**。若採用*人工設定*的上下界 $[-1,+1]$，示例動作值 $-1.40$、$+0.40$ 和 $+1.60$ 依序得到索引 $0$、$179$ 和 $255$，其公式為 $b=\min(255,\lfloor 256(a_{\mathrm{clip}}+1)/2\rfloor)$。原始 OpenVLA 將 Llama tokenizer 最少使用的 256 個 token 重指定為動作 token，以 next-token cross entropy 訓練其預測。**圖中所有數值、直方圖和 token 結果均為人工教學示例，非模型輸出或機器人實測值。**網站可用播放／暫停按鈕，GitHub 讀者可查看[完整靜態離散化示例](../../../assets/concept-animations/openvla-percentile-action-bins-still.svg)。依據 [Kim 等人（2024）](https://arxiv.org/abs/2406.09246) 第 3.2 節。
 
 ## 程序
 
