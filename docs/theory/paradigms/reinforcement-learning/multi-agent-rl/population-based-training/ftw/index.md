@@ -28,6 +28,13 @@ The maps are procedurally generated, indoor and outdoor, and the team with the m
 
 The paper does not reduce the method to one equation. Each agent is trained with reinforcement learning on its own reward, which combines the game's sparse win signal with a learned internal reward. The outer loop of population-based training adapts those internal rewards and the hyperparameters of every agent during training.
 
+
+### Visual walkthrough: two-tier population learning
+
+![FTW population samples teammates and opponents, plays a match, receives sparse and internal rewards, then updates agents in inner reinforcement learning and outer population-based training](../../../../../../assets/concept-animations/ftw-two-level-learning-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* A population samples different **teammates and opponents** for a match. Game outcomes supply a sparse external signal; each agent also learns an **internal reward signal**. The **inner reinforcement-learning loop** updates each agent's policy while the **outer population-based loop** adapts internal rewards and training hyperparameters. Colored agents and match paths are **schematic, not logged games, measured rewards, or a fixed matchmaking rule**. The population trains across many parallel matches; the motion isolates one causal loop. Play or pause on MkDocs; GitHub readers can open the [static fallback](../../../../../../assets/concept-animations/ftw-two-level-learning-still.svg). Source: [Jaderberg et al. (2018 preprint; 2019 publication)](https://arxiv.org/abs/1807.01281).
+
 ## Results
 
 The paper evaluates the trained agents in a tournament-style setting. The abstract reports that the agents "exceeded the winrate of strong human players both as teammates and opponents" and "proved far stronger than existing state-of-the-art agents". The paper's "strong" humans are the top 20% of its 40 participants, and the abstract gives no numeric win rate against them. Skill is estimated online with Elo scores, borrowed from chess. The agents were trained for two billion steps, about 450,000 games. The learned representations encode a wide variety of game knowledge, which the paper measures with linear probes. The behaviours it describes include navigating, following and defending, and following was discarded midway through training.
