@@ -29,6 +29,17 @@ Eviction reduces the cache by dropping tokens, which can remove content that a l
 
 The authors analyse the keys and values and find that a few fixed key channels have very large magnitudes. KIVI therefore quantises keys per channel, so that each channel uses its own scale and the outliers do not spread to the rest. It quantises values per token. The scheme is asymmetric, with a zero point per group, and needs no tuning, so it can be applied to an existing model directly.
 
+### Visual walkthrough: key channels versus value tokens
+
+![KIVI quantises key columns and value rows with separate 2-bit groups](../../assets/concept-animations/kivi-quantization-axis-motion.svg)
+
+[GitHub static preview](../../assets/concept-animations/kivi-quantization-axis-still.svg) · Use **Play/Pause** on the MkDocs site (the button is keyboard accessible).
+
+The moving **vertical band** highlights one key channel across token positions, whereas the **horizontal band** highlights one value token across channels. Both are packed into four 2-bit levels, but their **scale and zero-point groups differ**. The toy matrix has five tokens and four channels solely to reveal grouping: cell colours and quantised values are hand-designed, not a KIVI inference run. The actual implementation also retains a full-precision residual for recent tokens and dequantises blocks when attention reads them. KIVI preserves token positions; unlike H2O, it does not evict them. See Liu et al. (2024) in References.
+
+*Original instructional diagram, CC BY-SA 4.0.*
+
+
 ## Procedure
 
 1. Keep a residual of the most recent tokens in full precision.
