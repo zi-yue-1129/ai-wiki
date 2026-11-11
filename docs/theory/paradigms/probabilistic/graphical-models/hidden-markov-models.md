@@ -47,6 +47,29 @@ Rabiner (1989) organises the standard problems into three:
 
 The **forward–backward** algorithm combines the forward pass with a backward pass, \(\beta_t\), to give the posterior \(p(z_t\mid x_{1:T})\) for every time step. It is an instance of [belief propagation](belief-propagation.md) on a chain.
 
+
+### Animated walkthrough: forward summation and filtering
+
+![HMM forward filter: all four state transitions contribute to each new state, followed by normalisation of A and B across three observations](../../../../assets/concept-animations/hmm-forward-filtering-motion.svg)
+
+*Original instructional motion (CC BY-SA 4.0).* [GitHub static preview](../../../../assets/concept-animations/hmm-forward-filtering-still.svg). On the MkDocs site, use **Play/Pause** (also via Tab and Enter); reduced-motion settings show the fully computed diagram.
+
+The moving particles follow **all incoming transitions**, not just the best predecessor. After multiplying the sum by the emission likelihood, the diagram reports the **normalised** filtering distribution $p(z_t\mid x_{1:t})$; the circles are **not** raw $\alpha_t$ scores. This is the same deliberately **illustrative, non-measured** two-state example used by the Viterbi diagram below: $\pi=(0.6,0.4)$, $A=\left[\begin{smallmatrix}0.7&0.3\\0.4&0.6\end{smallmatrix}\right]$, and observation likelihood pairs $(0.8,0.3)$, $(0.2,0.9)$, $(0.7,0.4)$. The unnormalised forward vectors are $\alpha_1=(0.48,0.12)$, $\alpha_2=(0.0768,0.1944)$ and $\alpha_3=(0.092064,0.055872)$; thus $p(x_{1:3})=0.147936$. The shown state-A filtering probabilities are approximately **0.800, 0.283, 0.622** (Rabiner, 1989). Unlike Viterbi, filtering marginalises over alternative paths.
+
+### Animated walkthrough: backward evidence and smoothing
+
+![HMM forward backward smoothing: a backward signal carries future evidence from t3 through t2 to t1, comparing filtered and smoothed state-A probabilities](../../../../assets/concept-animations/hmm-backward-smoothing-motion.svg)
+
+*Original instructional motion (CC BY-SA 4.0).* [GitHub static preview](../../../../assets/concept-animations/hmm-backward-smoothing-still.svg). The moving amber marker travels **backward in time**. The outlines successively highlight the final-time, middle-time, then first-time smoothed distributions. Use the same accessible Play/Pause control; reduced-motion settings show the complete comparison.
+
+The backward messages obey $\beta_T(j)=1$ and $\beta_t(i)=\sum_j A_{ij}B_j(x_{t+1})\beta_{t+1}(j)$. For the illustrative example above, $\beta_2=(0.61,0.52)$ and $\beta_1=(0.2258,0.3296)$. Combining the forward and backward messages,
+
+\[
+p(z_t=j\mid x_{1:T})=\frac{\alpha_t(j)\beta_t(j)}{p(x_{1:T})}.
+\]
+
+This changes $p(z_1=A)$ from **0.800** given $x_1$ alone to approximately **0.733** given all three observations; at $t=2$ the value changes from **0.283** to **0.317**. At $t=3$ filtering and smoothing coincide (**0.622**) because no future observation remains. The numbers are calculated from a **small schematic HMM, not measured model outputs**. Smoothing estimates individual state marginals; it is **not** the same as Viterbi's globally best joint path (Rabiner, 1989; Kschischang et al., 2001).
+
 ### Animated walkthrough: Viterbi decoding
 
 ![Four-stage Viterbi trellis showing max-product scores and the A–B–A traceback](../../../../assets/concept-animations/viterbi-trellis-motion.svg)

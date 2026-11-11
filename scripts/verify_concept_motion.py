@@ -56,6 +56,8 @@ TOPICS = {
     "astar-frontier": "theory/paradigms/symbolic-ai/search/a-star",
     "dpll-backtrack": "theory/paradigms/symbolic-ai/theorem-proving/dpll",
     "viterbi-trellis": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
+    "hmm-forward-filtering": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
+    "hmm-backward-smoothing": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "tree-belief-propagation": "theory/paradigms/probabilistic/graphical-models/belief-propagation",
     "forward-ad-jvp": "theory/math/automatic-differentiation/forward-mode",
     "reverse-ad-vjp": "theory/math/automatic-differentiation/reverse-mode",
