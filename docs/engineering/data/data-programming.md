@@ -25,15 +25,9 @@ Hand labelling is slow and expensive, and crowdsourced labels are noisy. Many do
 
 Labelling functions vote on each example. The generative model combines the votes into a probabilistic label, and the downstream classifier is trained on those labels. Writing new functions and checking coverage and conflict is the loop in which people spend their time.
 
-```mermaid
-flowchart LR
-  X[Unlabelled examples] --> F[Labelling functions vote or abstain]
-  F --> G[Generative label model]
-  G --> P[Probabilistic labels]
-  P --> C[Train discriminative model]
-  C --> E[Error analysis]
-  E -->|write new functions| F
-```
+![Animated weak-supervision voting matrix with abstentions, conflicting votes and probabilistic labels.](../../assets/concept-animations/weak-supervision-vote-fusion-motion.svg)
+
+*Original educational animation, CC BY-SA 4.0.* Columns E1–E4 are four fictional examples; rows LF1–LF3 vote positive (+), negative (−), or abstain (–). The moving highlight follows a column to its soft label. The bars show \(P(y=+)\) of approximately **0.93, 0.71, 0.13, 0.65**. To make these illustrative values internally consistent, suppose a binary class prior of 0.5 and *known*, symmetric, conditionally independent labelling-function accuracies of 0.85, 0.70, and 0.75; abstentions contribute no likelihood ratio. For example E2 has opposing LF1/LF2 votes, so its positive odds are \((0.85/0.15)(0.30/0.70)\), giving \(P(y=+)\approx0.71\). **The figure does not fit a label model from four samples:** actual data programming estimates source accuracies/dependencies from many unlabelled examples under modelling assumptions, and correlated functions require special care. MkDocs offers Play/Pause and reduced motion; [view the static vote-to-label overview](../../assets/concept-animations/weak-supervision-vote-fusion-still.svg) on GitHub.
 
 ## Key methods
 
