@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-11-12
 related:
 - engineering/vector-databases
 - engineering/rag
@@ -28,14 +29,15 @@ HNSW 是一種以圖結構為基礎的近似最近鄰索引。它是向量資料
 
 ## 運作方式
 
-```mermaid
-flowchart TD
-  Q[查詢向量] --> T[最上層：少量長距離連結]
-  T --> M[中間層：貪婪下降]
-  M --> B[最底層：所有點，短距離連結]
-  B --> K[大小為 efSearch 的候選清單]
-  K --> R[k 個最近鄰]
-```
+![HNSW 查詢沿稀疏上層與稠密底層鄰近圖逐層搜尋的示意動畫](../../assets/concept-animations/hnsw-layer-descent-motion.svg)
+
+[GitHub 可預覽的靜態版本](../../assets/concept-animations/hnsw-layer-descent-still.svg)。
+
+這段**12 秒的示意動畫**讓查詢游標在稀疏上層 L2 沿相鄰節點貪婪移動，再依序下降至 L1 與稠密的 L0。青綠色圓環是示例結果；水平座標與連線是教學設計，**不是實際嵌入向量的距離量測**。
+
+動畫聚焦**逐層下降**。真正的 HNSW 在底層會維護由 `efSearch` 控制大小的候選集合，也可能擴展多條有希望的路徑。回傳的是近似鄰居，**不保證精確的全域最近鄰**。演算法依據：[Malkov 與 Yashunin（2016）](https://arxiv.org/abs/1603.09320)。
+
+MkDocs 網站提供可用鍵盤操作的**播放／暫停**按鈕，暫停或偏好減少動態效果時顯示靜態圖。原創圖像，**CC BY-SA 4.0** 授權。
 
 ## 關鍵想法
 

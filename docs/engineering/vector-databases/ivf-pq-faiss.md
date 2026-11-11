@@ -29,13 +29,21 @@ Full-precision vectors take a lot of memory, and scanning them takes time propor
 
 ## How it works
 
-```mermaid
-flowchart LR
-  X[Query vector] --> C[Coarse quantiser picks nearest cells]
-  C --> P[Scan only the probed cells]
-  P --> L[Estimate distances with PQ lookup tables]
-  L --> R[Re-rank top candidates with exact distances]
-```
+![IVF-PQ coarse-cell probing followed by residual PQ lookup distance accumulation](../../assets/concept-animations/ivfpq-probe-pq-lookup-motion.svg)
+
+[GitHub-compatible static preview](../../assets/concept-animations/ivfpq-probe-pq-lookup-still.svg).
+
+The diagram probes **two coarse posting lists** (`nprobe = 2`, teal rings), then highlights the three PQ lookup terms for **one illustrative residual code**. Its chosen toy contributions add to `0.09 + 0.16 + 0.04 = 0.29`. These numbers are **not FAISS measurements**, and the drawn circular cells are not exact Voronoi regions.
+
+For residual IVF-PQ, the vector is encoded relative to its coarse centroid $c_\ell$: $r=x-c_\ell$. The query uses $q-c_\ell$, giving the asymmetric squared-distance estimate
+
+$
+\widehat D(q,x)=\sum_{j=1}^{m}\left\|(q-c_\ell)_j-d_{j,k_j}\right\|^2.
+$
+
+Each probed list can require a distinct query-residual lookup table. PQ is approximate; examining only two lists does not guarantee exact recall. **Exact** reranking also requires access to the original vectors or another exact representation. See [Johnson, Douze and Jégou (2017)](https://arxiv.org/abs/1702.08734).
+
+The MkDocs site adds keyboard-operable **Play/Pause**, with a non-animated fallback on pause and for reduced motion. Original illustration, **CC BY-SA 4.0**.
 
 ## Key ideas
 
