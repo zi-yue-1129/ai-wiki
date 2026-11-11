@@ -21,6 +21,8 @@ TOPICS = {
     "gibbs-coordinate-sweeps": "theory/paradigms/probabilistic/mcmc/gibbs-sampling",
     "mean-field-coordinate-ascent": "theory/paradigms/probabilistic/variational-inference/mean-field",
     "moe-top2-routing": "theory/models/mixture-of-experts/index",
+    "ddpm-progressive-noising": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm",
+    "ddim-strided-sampling": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
     "cfg-extrapolation": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance",
     "gradient-norm-clipping": "theory/optimization/norm-clipping",
     "swin-shifted-windows": "theory/models/transformer/vision-transformer/swin/index",

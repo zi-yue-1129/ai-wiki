@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 ---
 
 # DDIM：去噪擴散隱式模型
@@ -33,6 +33,12 @@ x_{t_{\text{prev}}} = \sqrt{\bar\alpha_{t_{\text{prev}}}}\,\hat x_0 + \sqrt{1-\b
 \]
 
 其中 \(t_{\text{prev}}\) 是子序列中的前一步。論文的記號中，\(\alpha_t\) 表示累積乘積，因此這裡的 \(\alpha_t\) 就是上面的 \(\bar\alpha_t\)。當 \(\sigma = 0\) 時，更新是確定性的。論文指出，這個更新類似常微分方程的歐拉積分一步，這也是它與神經 ODE 相關的基礎。
+
+## 教學動畫：確定性跨步取樣
+
+![上排凸顯環逐步走訪所有 DDPM 去噪時間步，下排只走訪 DDIM 子序列中隔一個選取的時間步。](../../../../../assets/concept-animations/ddim-strided-sampling-motion.svg)
+
+*原創循環式 SVG 教學動畫，CC BY-SA 4.0。* 上排示意 DDPM 的八次連續去噪網路評估；下排使用**同一個已訓練的雜訊預測網路**，跳過部分訓練時間索引，顯示 $\eta=0$ 時四次確定性 DDIM 更新（參見 Song、Meng 與 Ermon，2021）。在此設定下，DDIM 的每次轉移不會再注入一份獨立抽取的高斯雜訊，與隨機的 DDPM 祖先取樣有所不同。**八次與四次只是人工設定的教學例子**，並非實際加速倍數或生成品質實測；減少更新次數也不保證品質相同。MkDocs 網站提供鍵盤可操作的**播放／暫停**控制及減少動態效果的靜態顯示。[GitHub 靜態預覽](../../../../../assets/concept-animations/ddim-strided-sampling-still.svg)。
 
 ## 結果
 
