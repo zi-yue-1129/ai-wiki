@@ -39,6 +39,16 @@ Draw \(X_0\sim\pi_0\) and \(X_1\sim\pi_1\) independently, form \(X_t\) as above,
 
 Reflow then takes a trained flow with \(k\) rounds, simulates it from \(\pi_0\) to obtain endpoint pairs \((Z^k_0, Z^k_1)\), and trains a new rectified flow on those pairs, giving \(Z^{k+1} = \mathrm{RectFlow}\big((Z^k_0, Z^k_1)\big)\). Each round makes the paths straighter. The paper cautions that too many rounds accumulate estimation error.
 
+
+## Visual walkthrough: endpoint coupling for reflow
+
+![Two curved schematic trajectories from a previous transport supply new endpoint pairs whose straight chords become the next reflow training targets.](../../../../../../assets/concept-animations/rectified-reflow-coupling-motion.svg)
+
+*Original teaching visual, CC BY-SA 4.0.* [GitHub-readable static fallback](../../../../../../assets/concept-animations/rectified-reflow-coupling-still.svg). The MkDocs **Play/Pause** control is keyboard accessible; reduced-motion preferences show the static figure.
+
+The left panel depicts **hypothetical** trajectories from a previously trained ODE. The dashed lines are endpoint chords, **not** literal Euler updates. Reflow simulates the prior model, retains its start/end coupling, and uses straight interpolation between those paired endpoints as regression targets in the next round; the right panel illustrates those new targets. Reflow seeks straighter learned paths, but the right-hand line is a *training target*, not a guarantee that the next learned ODE exactly follows it. Geometry and trajectories are schematic, with no trained model or measured sampling speed. See Liu, Gong and Liu (2022) in References.
+
+
 ## Key methods
 
 ### Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow (Liu, Gong & Liu, 2022)

@@ -40,6 +40,16 @@ The flow matching loss \(\mathcal L_{\text{FM}}(\theta) = \mathbb E_{t, x\sim p_
 
 The paper's Theorem 2 states that \(\mathcal L_{\text{FM}}\) and \(\mathcal L_{\text{CFM}}\) differ by a constant that does not depend on \(\theta\), so they have identical gradients. Minimising the tractable loss therefore trains the same model. Sampling draws \(x_0\sim\mathcal N(0,I)\) and integrates \(\mathrm{d}x/\mathrm{d}t = v_\theta(t,x)\) from \(t=0\) to \(t=1\) with a standard ODE solver.
 
+
+## Visual walkthrough: interpolated pairs and velocity targets
+
+![Three conditional paths progress continuously from hand-selected noise values to data values, with the corresponding velocity directions shown on the right.](../../../../../../assets/concept-animations/cfm-conditional-bridge-motion.svg)
+
+*Original teaching visual, CC BY-SA 4.0.* [GitHub-readable static fallback](../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg). On the MkDocs site, use **Play/Pause** (or Enter/Space when the button has focus); reduced-motion preferences show the static image.
+
+The horizontal coordinate is time and the vertical coordinate is a **one-dimensional illustrative state**. For each paired sample, the moving marker obeys \(x_t=(1-t)x_0+t x_1\) at \(\sigma_{\min}=0\), with a constant **conditional** target \(u_t=x_1-x_0\). The right-hand arrows indicate the *sign*, not the magnitude, of each sample's velocity. The paths may cross: this is not a single learned ODE trajectory field; at an intersecting \((t,x)\), the marginal regression target averages conditional velocities according to their conditional probabilities. All states and paths are hand chosen—not model predictions, empirical transport trajectories, or measured results. See Lipman et al. (2023) in References.
+
+
 ## Key methods
 
 ### Flow Matching for Generative Modeling (Lipman et al., 2023)

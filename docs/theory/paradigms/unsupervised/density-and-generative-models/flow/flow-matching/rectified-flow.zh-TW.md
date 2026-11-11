@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching
   - theory/paradigms/unsupervised/density-and-generative-models/flow
@@ -29,6 +29,16 @@ related:
 \]
 
 修正時，取第 \(k\) 輪訓練好的流，從 \(\pi_0\) 模擬得到端點配對 \((Z^k_0, Z^k_1)\)，再於這些配對上訓練新的修正流，即 \(Z^{k+1} = \mathrm{RectFlow}\big((Z^k_0, Z^k_1)\big)\)。每一輪都讓路徑更直。論文提醒，修正輪數太多會累積估計誤差。
+
+
+## 動態圖解：Reflow 的端點配對
+
+![左側兩條示意的彎曲 ODE 軌跡產生端點配對，右側顯示下一輪 Reflow 對同一批端點使用的直線訓練目標。](../../../../../../assets/concept-animations/rectified-reflow-coupling-motion.svg)
+
+*原創教學圖，CC BY-SA 4.0。* [GitHub 可讀的靜態回退圖](../../../../../../assets/concept-animations/rectified-reflow-coupling-still.svg)。MkDocs 網站可使用具鍵盤操作能力的**播放／暫停**控制；偏好減少動態效果時顯示靜態圖。
+
+左側為**假設性**的前一輪 ODE 傳輸軌跡，虛線是連接端點的弦，**不代表**真實 Euler 更新步驟。Reflow 先模擬上一個模型，保留其起點與終點的配對，再以這些端點之間的線性內插作為下一輪回歸目標；右側呈現的就是這些新目標。Reflow 旨在使學到的路徑更直，但右側直線是**訓練目標**，並不保證下一個模型學出的 ODE 軌跡完全筆直。圖中幾何及軌跡均屬示意，**不是模型實測或取樣加速數據**。研究依據見參考文獻 Liu、Gong 與 Liu（2022）。
+
 
 ## 關鍵方法
 

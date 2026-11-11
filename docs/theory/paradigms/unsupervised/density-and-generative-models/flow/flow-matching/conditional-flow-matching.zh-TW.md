@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching
   - theory/paradigms/unsupervised/density-and-generative-models/flow
@@ -30,6 +30,16 @@ related:
 \]
 
 論文的定理 2 指出 \(\mathcal L_{\text{FM}}\) 與 \(\mathcal L_{\text{CFM}}\) 只相差一個與 \(\theta\) 無關的常數，因此梯度相同。最小化可計算的損失，就等於訓練同一個模型。抽樣時取 \(x_0\sim\mathcal N(0,I)\)，並以標準 ODE 解法從 \(t=0\) 積分 \(\mathrm{d}x/\mathrm{d}t = v_\theta(t,x)\) 到 \(t=1\)。
+
+
+## 動態圖解：條件內插與速度目標
+
+![三條人工設定的雜訊至資料條件路徑隨時間連續移動，右側以箭頭顯示每對樣本的速度方向。](../../../../../../assets/concept-animations/cfm-conditional-bridge-motion.svg)
+
+*原創教學圖，CC BY-SA 4.0。* [GitHub 可讀的靜態回退圖](../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg)。在 MkDocs 網站可使用**播放／暫停**按鈕；按鈕聚焦後可用 Enter／空白鍵操作，偏好減少動態效果時顯示靜態圖。
+
+橫軸是時間，縱軸是**人工示意的一維狀態**。每對樣本的移動點依 \(x_t=(1-t)x_0+t x_1\) 內插，此處設定 \(\sigma_{\min}=0\)，條件速度目標 \(u_t=x_1-x_0\) 沿單一路徑保持不變。右側箭頭只顯示速度**正負方向**，不表示大小。條件路徑可能交叉；圖中的直線不是單一已學得 ODE 速度場的軌跡。當不同條件樣本落在同一個 \((t,x)\)，邊際回歸目標會依條件機率平均速度。圖中數值與路徑均為人工設定，**不是模型預測、實際傳輸路徑或實測結果**。研究來源見參考文獻的 Lipman 等人（2023）。
+
 
 ## 關鍵方法
 
