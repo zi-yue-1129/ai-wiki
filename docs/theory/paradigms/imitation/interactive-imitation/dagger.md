@@ -31,6 +31,14 @@ Behavioural cloning fits a policy to expert demonstrations, but the learned poli
 - **Aggregated dataset**: the union of labelled states from all iterations, not only the latest one. Keeping all earlier data is what lets the policy learn from the distribution of every earlier policy.
 - **Expert labels**: the expert's action \(\pi^*(s)\) at each state the learner visits. The method assumes the expert can give this label for any state.
 
+### Interactive data aggregation — visual walkthrough
+
+![DAgger animation: learner deviates from expert route, expert labels visited states, data accumulate, and the updated learner returns toward the expert route](../../../../assets/concept-animations/dagger-dataset-aggregation-motion.svg)
+
+[GitHub-readable static diagram](../../../../assets/concept-animations/dagger-dataset-aggregation-still.svg). The coral trajectory is a rollout from the **learner-induced state distribution**, not a second expert demonstration. Blue markers transfer sampled visited states into expert-labelled pairs; the dataset retains previous rounds, and the green path illustrates a **possible** later policy after retraining. The path geometries, number of samples and apparent improvement are **schematic, not outputs from a trained agent or guaranteed DAgger behaviour**. DAgger's expert is queried about the action to take **at the learner's visited state**; the figure does not imply that the expert executed the learner's rollout. On the wiki, use Play/Pause to examine the 12-second loop. Reduced-motion settings expose the complete static state.
+
+*Original teaching diagram, CC BY-SA 4.0. Based on Ross, Gordon & Bagnell (2011), cited in References.*
+
 ## How it works
 
 With \(\pi^*\) the expert, the algorithm is:
