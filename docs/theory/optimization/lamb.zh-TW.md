@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 ---
 
 # LAMB
@@ -26,6 +26,14 @@ LARS 以信任比縮放每一層的步長，但它只適用於 SGD 類的更新�
 2. 更新 \(x_{t+1} = x_t - \eta_t\,\dfrac{\phi(\|x_t\|)}{\|r_t+\lambda x_t\|}\,(r_t+\lambda x_t)\)。
 
 此更新式已對照論文全文核對。
+
+
+## 動態演示
+
+![LAMB 動畫：逐步顯示兩層 Adam 更新方向、信任比，以及縮放後的更新向量。](../../assets/concept-animations/lamb-adam-layer-trust-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 假設兩層經 Adam 預調整後的方向範數都為 1，但權重範數分別為 2 與 5。設定 \(\lambda=0\)、\(\phi(z)=z\)（不裁剪）及學習率 \(0.1\)，則逐層信任比分別為 2 與 5，更新範數為 \(0.2\) 與 \(0.5\)。藍色箭頭代表原本的 Adam 方向，青綠色箭頭代表縮放後的更新。**逐層縮放保留 Adam 的更新方向，改變的是整層更新幅度。** 圖中向量及數字是人工示意，並非 BERT 訓練實測；實際 LAMB 仍需計算一、二階動量，亦可能包含權重衰減及裁剪。可使用 MkDocs 播放／暫停控制；GitHub 提供[靜態回退預覽](../../assets/concept-animations/lamb-adam-layer-trust-still.svg)。
+
 
 ## 結果
 
