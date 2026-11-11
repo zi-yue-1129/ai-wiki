@@ -44,6 +44,12 @@ x_{t_{\text{prev}}} = \sqrt{\bar\alpha_{t_{\text{prev}}}}\,\hat x_0 + \sqrt{1-\b
 
 Here \(t_{\text{prev}}\) is the previous step in the subsequence. In the paper's notation \(\alpha_t\) denotes the cumulative product, so \(\alpha_t\) here is the \(\bar\alpha_t\) used above. With \(\sigma = 0\) the update is deterministic. The paper notes that this update resembles an Euler integration step of an ordinary differential equation, which is the basis of its connection to neural ODEs.
 
+## Animated walkthrough: deterministic strided sampling
+
+![A highlighted ring advances through every DDPM time step above and through every second step of a shorter DDIM subsequence below.](../../../../../assets/concept-animations/ddim-strided-sampling-motion.svg)
+
+*Original looping instructional SVG, CC BY-SA 4.0.* The top row illustrates eight successive DDPM denoiser evaluations. The bottom row reuses **the same trained noise-prediction network** but skips intermediate training indices, showing four deterministic DDIM updates with $\eta=0$.[^1] In this setting the DDIM transition does not add a fresh independent Gaussian noise draw; this differs from a stochastic ancestral DDPM sampler. The **8-vs-4 evaluations are an invented teaching schedule**, not a speed-up or quality measurement, and fewer evaluations do not guarantee equal sample fidelity. The MkDocs page supplies keyboard-accessible **Play/Pause** controls and a reduced-motion still. [Static preview for GitHub](../../../../../assets/concept-animations/ddim-strided-sampling-still.svg).
+
 ## Results
 
 The paper's Table 1 reports FID on unconditional CIFAR-10 as the number of steps \(S\) varies. Here \(\eta\) is the paper's name for \(\sigma\): \(\eta = 0\) is DDIM and \(\eta = 1\) is DDPM.

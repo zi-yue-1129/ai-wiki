@@ -53,6 +53,12 @@ The paper fixes \(\sigma_t^2\) to a constant, either \(\beta_t\) or \(\tilde\bet
 
 **Settings:** \(T = 1000\) steps, with a linear schedule of \(\beta_t\) from \(10^{-4}\) to \(0.02\). The denoiser is a U-Net with time-step conditioning, adapted from PixelCNN++.
 
+## Animated walkthrough: forward noising
+
+![The clean abstract pixel pattern is progressively mixed with a fixed schematic noise pattern, while the signal and noise contribution bars move in opposite directions.](../../../../../assets/concept-animations/ddpm-progressive-noising-motion.svg)
+
+*Original looping instructional SVG, CC BY-SA 4.0.* The stationary clean motif, noisy state $x_t$, and noise reference illustrate the DDPM marginal $x_t = \sqrt{\bar\alpha_t}x_0 + \sqrt{1-\bar\alpha_t}\epsilon$.[^1] As $t$ increases, the signal coefficient decreases and the noise coefficient increases. The bars and pixel colors are **qualitative, schematic illustrations**, not exact coefficients from a specific $\beta_t$ schedule, Gaussian pixel samples, or model-generated results. This forward corruption is fixed; the learned reverse sampler described above is generally stochastic. The MkDocs page adds keyboard-accessible **Play/Pause** controls, and reduced-motion preferences show a still. [Static preview for GitHub](../../../../../assets/concept-animations/ddpm-progressive-noising-still.svg).
+
 ## Results
 
 The paper's Table 2 compares training objectives on unconditional CIFAR-10. FID is computed against the training set.
