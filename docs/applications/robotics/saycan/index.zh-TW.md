@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - theory/models/llm
   - theory/paradigms/reinforcement-learning
@@ -20,6 +20,12 @@ Ahn 等人想知道：一個對世界知識豐富、卻沒有身體經驗的語�
 ## 核心想法
 
 機器人擁有一組預訓練的技能。每個技能都有一個價值函數，論文將其視為可供性函數（affordance function），即技能從當前狀態出發成功的機率。SayCan 把語言模型對某技能的分數乘上該技能的可供性。語言模型提供任務層級的計畫，而技能與其價值函數則把這個計畫落實到實體場景中。
+
+## 視覺解說：語言相關性 × 實體可行性
+
+![SayCan 動畫：依序展示三個候選技能的語言相關性、當前場景成功可供性以及兩者乘積，最後標出最高分技能](../../../assets/concept-animations/saycan-skill-grounding-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 青綠色長條代表語言模型判斷技能與任務的相關性，橘色代表技能在目前狀態的成功可供性，紫色代表兩者乘積。**Fetch drink** 的語言分數最高（0.80），但可供性只有 0.20；**Go to table** 的語言分數雖較低，其乘積卻最高（0.55 × 0.85 = 0.4675，圖中四捨五入為 0.468），因此被選中。這三個技能及分數均為**人工教學示例，非模型預測或機器人實測成功率**。乘積是技能選擇分數，不等於整項任務經校準的成功機率。動畫先揭露兩個因子，再形成乘積並標出勝出技能。MkDocs 網站可透過支援鍵盤的播放／暫停控制操作；GitHub 可查看[完整靜態排序圖](../../../assets/concept-animations/saycan-skill-grounding-still.svg)。此流程對應 [Ahn 等人（2022）](https://arxiv.org/abs/2204.01691)的選擇規則。
 
 ## 方程式
 
