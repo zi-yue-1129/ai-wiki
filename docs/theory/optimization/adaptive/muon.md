@@ -42,6 +42,11 @@ W_t = W_{t-1} - \eta_t\big(0.2\, O_t \sqrt{\max(A, B)} + \lambda W_{t-1}\big).
 
 The paper uses a pre-training weight decay of 0.1.
 
+
+![Muon matrix spectral balancing: two unequal singular values move toward one over six illustrative cubic Newton–Schulz iterations](../../../assets/concept-animations/muon-spectral-balancing-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* For the **artificial diagonal momentum matrix** $M=\operatorname{diag}(1.5,0.3)$, the two coloured bars show singular values during six iterations of the **classical cubic polar Newton–Schulz update**, $X_{k+1}=\tfrac12 X_k(3I-X_k^\top X_k)$. This particular $2\times2$ illustration is chosen so that the singular values converge towards $1$; the display is an **exact numerical calculation of the stated toy recurrence**, not measured Muon training. **Production Muon is not the cubic iteration shown**: Liu et al. describe a Nesterov-style momentum input, a different fixed-coefficient polynomial, and update scaling with weight decay. The illustration isolates the spectral-balancing principle, not the complete optimiser. On the MkDocs site use Play/Pause (keyboard accessible); the [static fallback](../../../assets/concept-animations/muon-spectral-balancing-still.svg) shows the final illustrative state. See the [original scalability paper](https://arxiv.org/abs/2502.16982) for the actual update.
+
 ## Key results
 
 The abstract reports about 2× computational efficiency compared with AdamW under compute-optimal training, based on scaling-law experiments. The authors also introduce Moonlight, a 3B/16B mixture-of-experts model trained on 5.7 trillion tokens with Muon, which they report reaches better performance with fewer training FLOPs than prior models.
