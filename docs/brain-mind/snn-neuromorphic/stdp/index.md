@@ -49,6 +49,14 @@ A common form uses an exponential window for each sign of the time difference:
 
 where \(A_+\) and \(A_-\) set the sizes of potentiation and depression, and \(\tau_+\) and \(\tau_-\) set the windows, typically in the range of tens of milliseconds. The rule is applied each time a spike pair occurs.
 
+## Animated walkthrough: the signed STDP window
+
+![Presynaptic spike stays fixed as postsynaptic timing moves from before to after it; the plotted synaptic update switches from depression to potentiation](../../../assets/concept-animations/stdp-spike-timing-motion.svg)
+
+[Static timing-window preview for GitHub and reduced-motion readers](../../../assets/concept-animations/stdp-spike-timing-still.svg). On the MkDocs site use **Play animation / Pause animation**; the buttons also work with Tab and Enter or Space. The teal presynaptic spike remains at a fixed time, while the orange postsynaptic spike passes from before to after it. Negative \(\Delta t=t_{post}-t_{pre}\) corresponds to depression (purple); positive \(\Delta t\) corresponds to potentiation (green). The discontinuity at \(\Delta t=0\) is a feature of the idealised pair rule, not a measured value at exact simultaneity. The curve shapes and spike times are **schematic teaching examples, not a fitted experimental STDP window**; see Bi and Poo (1998) and the review by Caporale and Dan (2008) below.
+
+*Original instructional motion and GitHub fallback: CC BY-SA 4.0.*
+
 ## Results
 
 The original experiments on cultured hippocampal neurons (Bi & Poo, 1998) measured the change in synaptic strength as a function of the timing of paired spikes, and found the asymmetric window described above. Markram et al. (1997) reported a related dependence of synaptic efficacy on the timing of postsynaptic action potentials and synaptic inputs in cortical pyramidal neurons. The rule's form is taken from these measurements, and the numerical windows vary between preparations.

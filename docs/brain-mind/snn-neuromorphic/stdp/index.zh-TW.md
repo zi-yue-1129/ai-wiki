@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
 - brain-mind/neuroscience
 - brain-mind/computational-neuroscience
@@ -47,6 +47,14 @@ Hebb 原則沒有說明，在短時間內突觸何時應該改變。對皮質與
 \]
 
 其中 \(A_+\) 與 \(A_-\) 設定增強與減弱的大小，\(\tau_+\) 與 \(\tau_-\) 設定時間窗，通常在數十毫秒的範圍內。每次出現一對脈衝時就套用此規則。
+
+## 動態解讀：具有正負號的 STDP 時間窗
+
+![固定的突觸前脈衝與移動的突觸後脈衝，依先後順序切換突觸減弱與增強，並對應下方 STDP 曲線](../../../assets/concept-animations/stdp-spike-timing-motion.svg)
+
+[GitHub 及減少動態效果模式可閱讀的靜態時間窗預覽](../../../assets/concept-animations/stdp-spike-timing-still.svg)。在 MkDocs 網站可使用**播放動畫／暫停動畫**，也支援 Tab 配合 Enter 或空白鍵操作。青綠色為時間固定的突觸前脈衝，橘色為移動的突觸後脈衝。\(\Delta t=t_{post}-t_{pre}<0\) 對應紫色的突觸減弱，\(\Delta t>0\) 則對應綠色的突觸增強。\(\Delta t=0\) 附近的跳變來自理想化成對規則，不代表實驗中精確同時放電的量測值。曲線及脈衝時間均為**人工教學示意，並非實驗資料擬合**；研究依據見下方 Bi 與 Poo（1998）及 Caporale 與 Dan（2008）。
+
+*原創教學動畫與 GitHub 回退圖：CC BY-SA 4.0。*
 
 ## 結果
 
