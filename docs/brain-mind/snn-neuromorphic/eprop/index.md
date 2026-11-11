@@ -47,6 +47,14 @@ The weight update sums, over time, the learning signal multiplied by the eligibi
 
 where \(L_j(t)\) is the learning signal for neuron j and \(e_{ji}(t)\) is the eligibility trace of the synapse from neuron i to neuron j. The trace is updated at each time step from local quantities, so the rule needs no stored history.
 
+## Animated walkthrough: local eligibility meets a learning signal
+
+![A forward-growing eligibility trace combines with delayed positive and negative learning signals to produce local synaptic update contributions](../../../assets/concept-animations/eprop-local-credit-motion.svg)
+
+[Static eligibility-and-learning-signal preview for GitHub and reduced-motion readers](../../../assets/concept-animations/eprop-local-credit-still.svg). In MkDocs, use **Play animation / Pause animation** (Tab, Enter or Space work). The blue curve represents a forward-computed synaptic trace; the orange and purple signals are supplied at the neuron, and their products create the green positive and purple negative update contributions. In a deliberately simplified **toy leaky trace** \(e_t=0.7e_{t-1}+x_t\), with \(e_0=0\), \(x_1=x_4=1\) and zero input otherwise, \(e_3=0.49\) and \(e_5=0.9401\). Taking \(L_3=+1.2\) and \(L_5=-0.4\) gives \(L_3e_3=+0.588\), \(L_5e_5=-0.37604\), and a signed sum of approximately \(+0.212\). This is an **illustration, not an experiment or the full e-prop eligibility recurrence**: actual e-prop traces depend on recurrent neuron dynamics and pseudoderivatives, and the parameter-update sign depends on the chosen gradient-descent convention. See Bellec et al. (2020) below.
+
+*Original instructional motion and GitHub fallback: CC BY-SA 4.0.*
+
 ## Results
 
 The authors report that the online rule performs close to backpropagation through time on the tasks they test, which include the spiking-network tasks described in the paper. The comparison is against BPTT on the same networks, so it measures how much accuracy the approximation costs.
