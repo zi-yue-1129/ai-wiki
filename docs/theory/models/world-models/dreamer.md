@@ -53,6 +53,24 @@ and the world model maximises a variational lower bound made of observation, rew
 J_{\text{REC}} = \mathbb{E}_p\Big[\sum_t \big(\ln q(o_t\mid s_t) + \ln q(r_t\mid s_t) - \beta\,\mathrm{KL}[\,p(s_t\mid s_{t-1},a_{t-1},o_t)\,\|\,q(s_t\mid s_{t-1},a_{t-1})\,]\big)\Big] + \text{const}
 \]
 
+### Visual walkthrough: posterior conditioning versus prior imagination
+
+![Dreamer posterior state inferred from a real observation, followed by prior-only imagined latent transitions](../../../assets/concept-animations/dreamer-posterior-prior-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* On the upper rail, the representation **posterior** receives a real observation and yields a latent state used to train the world model (including observation reconstruction). The lower rail starts from that inferred state: the learned transition **prior** advances through imagined states under actor actions, predicting rewards **without observing future images**. The recurrent deterministic state is omitted for legibility. The animation is a schematic process, not a measured rollout. On MkDocs use Play/Pause; the [GitHub static overview](../../../assets/concept-animations/dreamer-posterior-prior-still.svg) contains both pathways. This distinction follows Hafner et al. (2020) in References.
+
+### Visual walkthrough: backward λ-return from imagined rewards
+
+![Dreamer imagined rewards and critic bootstrap combined into lambda returns from right to left](../../../assets/concept-animations/dreamer-lambda-bootstrap-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* The value at the horizon bootstraps the backward recursion. For a **three-step, nonterminal, illustrative** imagined trajectory, take \(\hat r_{1:3}=(1,0,2)\), \(\gamma=0.9\), \(\lambda=0.8\), and \(v(s_1)=0.8,\ v(s_2)=1.1,\ v(s_3)=1.5\). With \(G_3^\lambda=v(s_3)\),
+
+\[
+G_t^\lambda=\hat r_{t+1}+\gamma\bigl[(1-\lambda)v(s_{t+1})+\lambda G_{t+1}^\lambda\bigr],
+\]
+
+we get \(G_2^\lambda=3.350\), \(G_1^\lambda=2.610\), and \(G_0^\lambda=3.0232\) (the figure rounds to 3.023). This **backward return recursion is not neural-network backpropagation**; the DreamerV1 actor subsequently differentiates predicted values through the imagined dynamics. All numbers are hand-selected, **not training results**. Use MkDocs Play/Pause or the [GitHub static overview](../../../assets/concept-animations/dreamer-lambda-bootstrap-still.svg). See Hafner et al. (2020) in References.
+
 ## Key methods
 
 ### DreamerV1 (Hafner et al., 2020)
