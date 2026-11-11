@@ -33,14 +33,14 @@ aliases:
 
 ## 運作方式
 
-對於權重變異數為 $\sigma^2$ 的隨機線性層，輸出的變異數按 $n\sigma^2$ 成長，其中 $n$ 是扇入。Glorot 與 Bengio 選擇了一個能平衡前向訊號與反向梯度的變異數，使用扇入與扇出的平均值 [(Glorot and Bengio, 2010)](https://proceedings.mlr.press/v9/glorot10a.html)。對於整流線性單元，有一半的輸入會被設為零，因此變異數必須加倍。He 等人為此情況推導出一種初始化方式，使非常深的整流網路得以訓練 [(He et al., 2015)](https://arxiv.org/abs/1502.01852)。
+對於權重變異數為 $\sigma^2$ 的隨機線性層，輸出的變異數按 $n\sigma^2$ 成長，其中 $n$ 是扇入。Glorot 與 Bengio 選擇了一個能平衡前向訊號與反向梯度的變異數，使用扇入與扇出的平均值 [(Glorot and Bengio, 2010)](https://proceedings.mlr.press/v9/glorot10a.html)。若激活函數之前的分布以零為中心對稱，ReLU 會使二階矩減半。補償此變化後，扇入為 $n$ 時的權重變異數為 $2/n$。He 等人為此情況推導出一種初始化方式，使非常深的整流網路得以訓練 [(He et al., 2015)](https://arxiv.org/abs/1502.01852)。
 
 Saxe 等人研究了深度線性網路的學習動態，並在某些初始條件下找到學習過程隨時間變化的精確解 [(Saxe, McClelland and Ganguli, 2013)](https://arxiv.org/abs/1312.6120)。Schoenholz 等人以平均場理論研究隨機網路中的訊號如何傳播，並找出輸入之間相關性消失所經過的深度尺度，這是混沌邊緣觀點的基礎 [(Schoenholz et al., 2016)](https://arxiv.org/abs/1611.01232)。
 
 ## 關鍵方法
 
 - [Glorot（Xavier）初始化](glorot-initialisation.zh-TW.md)：選擇能平衡前向與反向訊號的變異數。
-- [He 初始化](he-initialisation.zh-TW.md)：為整流激活調整的變異數。
+- [He 初始化](he-initialisation.zh-TW.md)依整流函數選擇增益，使激活值的平方期望保持穩定。
 - [最大更新參數化（muP）](mup.zh-TW.md)：一種參數化方式，使最佳超參數在寬度增加時保持穩定。
 
 ## 殘差連接與正規化
