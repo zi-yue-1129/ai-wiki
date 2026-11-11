@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - theory/models/multimodal
   - theory/models/llm
@@ -20,6 +20,12 @@ Brohan 等人想知道：在網路資料上預訓練的視覺語言模型，能�
 ## 核心想法
 
 RT-2 把網路預訓練的視覺語言模型，與機器人軌跡以及一般的視覺語言任務（例如視覺問答）一起共同微調（co-fine-tuning）。機器人動作寫成文字 token，因此與語言共用同一種格式。作者把這類模型稱為視覺語言動作（VLA）模型。
+
+## 視覺解說：從動作 token 到機器人控制
+
+![RT-2 動畫：相機觀察與文字指令輸入視覺語言模型，依序產生八個示意動作 token，再解碼成機器人指令](../../../assets/concept-animations/rt2-action-token-decoding-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 相機影像及文字指令作為視覺語言模型的條件輸入，模型**自迴歸產生八個整數動作 token**：一個終止旗標、六個末端執行器姿態位移分量，以及一個夾爪分量。其中七個連續動作維度分別量化為 **256 個區間**；終止旗標另行表示，**並不是第八個以 256 區間量化的連續軸**。動畫由左至右顯示 token 序列，再示意將索引解碼為機器人動作指令；模型不是直接輸出連續的關節扭矩。`128`、`178`、`220` 等都是**人工示意 token，不是 RT-2 實際推論輸出或量測動作**，實際物理單位取決於機器人與動作尺度。MkDocs 網站可透過支援鍵盤的播放／暫停控制操作，GitHub 則可查看[完整靜態 token 序列](../../../assets/concept-animations/rt2-action-token-decoding-still.svg)。實際編碼與共同微調方式參見 [Brohan 等人（2023）](https://arxiv.org/abs/2307.15818)。
 
 ## 程序
 

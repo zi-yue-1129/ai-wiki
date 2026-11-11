@@ -22,6 +22,12 @@ A language model can suggest plausible steps for a task, such as "bring me a dri
 
 The robot has a library of pretrained skills. Each skill has a value function, which the paper treats as an affordance function: the probability that the skill succeeds from the current state. SayCan multiplies the language model's score for a skill by that affordance. The language model supplies the task-level plan, while the skills and their value functions ground that plan in the physical scene.
 
+## Visual walkthrough: language relevance × affordance
+
+![Animated SayCan skill ranking: language likelihood, current-scene affordance and their product grow in sequence for three candidate skills](../../../assets/concept-animations/saycan-skill-grounding-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* The teal bars represent language-model task relevance, orange bars represent skill success affordance in the current state, and purple bars represent their products. The language model ranks **Fetch drink** highest (0.80), yet its affordance is only 0.20. **Go to table** instead wins the product comparison (0.55 × 0.85 = 0.4675, displayed rounded to 0.468), despite lower language relevance. The three skills and scores are **hand-authored illustrative examples, not model predictions or measured robot success rates**. This product is a *selection score*, not a calibrated whole-task success probability. The animation exposes each factor before the product and selected skill. On MkDocs use the keyboard-accessible Play/Pause control; GitHub users can open the [static, complete ranking](../../../assets/concept-animations/saycan-skill-grounding-still.svg). This follows the selection rule in [Ahn et al. (2022)](https://arxiv.org/abs/2204.01691).
+
 ## Equation
 
 Let *i* be the instruction, *s* the current state, and ℓπ the language description of skill π. The language model gives p(ℓπ | i), and the affordance function gives p(cπ | s, ℓπ), the probability that skill π completes successfully from s. SayCan selects

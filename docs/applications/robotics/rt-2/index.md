@@ -22,6 +22,12 @@ Robots trained only on robot data know little about the objects, concepts and re
 
 RT-2 co-fine-tunes a web-pretrained vision-language model on robot trajectories together with general vision-language tasks, such as visual question answering. Robot actions are written as text tokens, so they share a format with language. The authors call such models vision-language-action (VLA) models.
 
+## Visual walkthrough: tokens become robot control
+
+![RT-2 animation: camera image and language instruction condition a VLM, which progressively emits eight example action tokens before decoding to a robot command](../../../assets/concept-animations/rt2-action-token-decoding-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* The image and instruction condition the vision-language model, which **autoregressively emits eight integer action tokens**: a termination indicator, six end-effector pose-displacement components and a gripper component. Each of the seven continuous action dimensions is discretised into **256 bins**; the termination indicator is a separate flag, **not another uniformly discretised continuous axis**. The diagram reveals tokens from left to right before their indices are decoded into a robot command; the model does not directly emit continuous joint torques. Values such as `128`, `178` and `220` are **schematic token values, not outputs from RT-2 or measured motions**; physical units depend on the robot and action scaling. On MkDocs use Play/Pause (keyboard accessible), or see the [complete GitHub static token sequence](../../../assets/concept-animations/rt2-action-token-decoding-still.svg). See [Brohan et al. (2023)](https://arxiv.org/abs/2307.15818) for the actual representation and co-fine-tuning.
+
 ## Procedure
 
 1. Start from a vision-language model pretrained on web-scale image and text data. The paper uses PaLI-X and PaLM-E.
