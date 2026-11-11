@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 ---
 
 # AdaGrad
@@ -17,6 +17,10 @@ AdaGrad 是最早被廣泛使用的逐座標自適應方法。後來的變體 RM
 ## 核心想法
 
 為每個座標 \(i\) 保存其平方梯度的累加和。該座標的步長除以此總和的平方根。梯度歷史大的座標步長較小，歷史少的座標則保持接近基礎學習率的步長。
+
+![AdaGrad 六次觀測中頻繁與稀疏座標的梯度、累積平方梯度及縮放增益隨時間逐步出現的教學動畫](../../../assets/concept-animations/adagrad-coordinate-gain-motion.svg)
+
+*原創連續動態教學圖（CC BY-SA 4.0）。* 橘色圓點表示六次**人工設定**的梯度觀測：頻繁更新的座標為 `g = (1, 1, 1, 1, 1, 1)`，稀疏座標為 `g = (1, 0, 0, 0, 1, 0)`。長條代表累積平方梯度 `G_t = Σ g_s²`，折線則代表每一步觀測後的 `1 / √G_t` 縮放增益。前者的增益持續下降，後者直到下一次非零梯度才下降。**縮放增益並不等於實際參數更新量：梯度為零時，更新量仍然是零。** 範例為了呈現趨勢，設定 `η = 1` 並在圖中省略 `ε`，不是模型實測訓練軌跡。可使用 MkDocs 的 Play/Pause 控制，或查看 [GitHub 可閱讀的靜態比較圖](../../../assets/concept-animations/adagrad-coordinate-gain-still.svg)。根據 [Duchi 等人（2011）](https://jmlr.org/papers/v12/duchi11a.html) 的更新規則。
 
 ## 演算法
 
