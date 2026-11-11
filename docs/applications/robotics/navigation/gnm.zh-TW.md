@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - applications/robotics/navigation
   - theory/models/world-models
@@ -38,6 +38,12 @@ GNM 由 Shah、Sridhar、Bhorkar、Hirose 與 Levine（2022）提出，是一個
 3. **正規化路點。** 第二個頭預測五個未來路點，每個路點包含相對位置與偏航角變化，並依機器人的最高速度縮放。它只以正例配對訓練，使用迴歸損失。
 
 論文使用五個過去觀測作為上下文。兩個頭之間損失的權重，在本頁所讀的正文中未說明。
+
+## 動畫解讀：跨機器人共享的正規化動作空間
+
+![GNM 將不同機器人的實際位移依最高速度正規化，逐步呈現相同的 0.50 動作指令](../../../assets/concept-animations/gnm-speed-normalization-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 在**人工設定的一秒時間間隔**中，機器人 A 的最高速度是 1.0 m/s，前進 0.5 m；機器人 B 的最高速度是 2.0 m/s，前進 1.0 m。以實際位移除以「最高速度 × 經過時間」，兩者都得到無因次的前進指令 `0.5`：`0.5/(1.0 × 1) = 1.0/(2.0 × 1) = 0.5`。動畫先呈現不同的**物理位移**，再形成相同的**正規化動作**，幫助理解 GNM 跨平台共享動作表示的原理；**不代表不同機器人的動力學完全相同**。數值均為人工示例，**不是訓練資料、模型輸出或實際效能量測**。MkDocs 網站可使用播放／暫停控制；在 GitHub 請參考[完整結果靜態預覽](../../../assets/concept-animations/gnm-speed-normalization-still.svg)。相關研究見參考文獻 Shah 等人（2022）。
 
 ## 結果
 
