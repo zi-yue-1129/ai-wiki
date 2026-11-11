@@ -86,7 +86,8 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    if root.tag != NS + "svg" or root.get("viewBox") not in {"0 0 640 360", "0 0 760 410"}:
+    expected_viewbox = ("0 0 760 410" if path.stem.startswith(("cfm-conditional-bridge", "rectified-reflow-coupling")) else "0 0 640 360")
+    if root.tag != NS + "svg" or root.get("viewBox") != expected_viewbox:
         errors.append(f"{path}: invalid SVG root/viewBox")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
