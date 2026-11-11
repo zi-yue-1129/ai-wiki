@@ -39,6 +39,15 @@ Let there be \(n\) predictions, split into \(B\) bins \(B_b\), each containing \
 
 where \(\mathrm{acc}(B_b)\) is the accuracy in the bin and \(\mathrm{conf}(B_b)\) the average confidence. A value of zero means every bin's accuracy equals its average confidence. Guo et al. (2017) use 15 equal-width bins in their experiments.
 
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="ECE bin aggregation animation">
+<div style="width:720px">
+<img src="../../../../assets/concept-animations/ece-binned-calibration-still.svg" data-motion-src="../../../../assets/concept-animations/ece-binned-calibration-motion.svg" alt="Three confidence bins show average confidence versus observed accuracy. Their highlighted gaps contribute 0.0125, 0.0750 and 0.0625 to an expected calibration error of 0.1500." width="720" height="400">
+</div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* This **schematic, not model-measured**, example has 40 predictions: the three bins contain 10, 20 and 10 predictions, with respectively 2, 8 and 6 correct labels. Mean confidences are 0.25, 0.55 and 0.85; accuracies are 0.20, 0.40 and 0.60. The red brackets show absolute gaps (0.05, 0.15 and 0.25), while the animation highlights their **count-weighted** terms: 0.0125 + 0.0750 + 0.0625 = **ECE 0.1500**. Bin summaries, not individual prediction trajectories, are visualised. On the MkDocs site use Play/Pause; [GitHub's static preview](../../../../assets/concept-animations/ece-binned-calibration-still.svg) shows the complete calculation. Scroll horizontally on a narrow display. See Guo et al. (2017) in References.
+
 ## Variants
 
 - **Maximum calibration error** takes the largest bin gap instead of the weighted average, which emphasises the worst bin.

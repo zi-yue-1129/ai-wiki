@@ -34,6 +34,15 @@ Train \(M\) networks on the same data, each with different random seeds. For a n
 
 Fort, Hu and Lakshminarayanan (2019) argue that the diversity of ensemble members comes from their different basins in the loss landscape, which explains why independently trained networks disagree more than networks from a single run.
 
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Deep ensemble probability aggregation animation">
+<div style="width:720px">
+<img src="../../../../assets/concept-animations/deep-ensemble-spread-still.svg" data-motion-src="../../../../assets/concept-animations/deep-ensemble-spread-motion.svg" alt="Three illustrative classifiers send probabilities to a shared axis. Close predictions of 0.72, 0.76, 0.80 average to 0.76, while dispersed predictions of 0.20, 0.50, 0.80 average to 0.50." width="720" height="400">
+</div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* The coloured points represent **independent members' predictions, not training trajectories**. For one hypothetical input, (0.72, 0.76, 0.80) averages to 0.76 with little disagreement; for another, (0.20, 0.50, 0.80) averages to 0.50 with more disagreement. Each point travels to its reported class probability, then the spread and mixture mean are highlighted. **All values are invented schematic outputs, not empirical model measurements.** Larger member spread is a useful heuristic for uncertainty, not a calibrated epistemic posterior or a guarantee of out-of-distribution detection. On MkDocs use Play/Pause; [GitHub's static preview](../../../../assets/concept-animations/deep-ensemble-spread-still.svg) shows both completed aggregations. Scroll horizontally on narrow screens. See Lakshminarayanan et al. (2017) in References.
+
 ## Variants
 
 - **Snapshot ensembles** collect models from different points along one training run, which costs less but gives less diversity.
