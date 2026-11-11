@@ -42,6 +42,14 @@ The Hessian's eigenvalues decide the behaviour. Directions with large eigenvalue
 
 Logistic regression is the classic example where the Newton method is practical, because the parameter count is small. Bishop (2006) shows the resulting iterative reweighted least squares update.
 
+## Animated example: curvature-adjusted updates
+
+<img src="../../../assets/concept-animations/newton-curvature-steps-still.svg" data-motion-src="../../../assets/concept-animations/newton-curvature-steps-motion.svg" data-still-src="../../../assets/concept-animations/newton-curvature-steps-still.svg" alt="Newton steps on a convex quartic: a moving iterate approaches the minimum while a dashed local quadratic changes with the Hessian." loading="lazy" />
+
+*Original continuous teaching visual, CC BY-SA 4.0. GitHub displays the static frame; the wiki player provides keyboard-accessible Play/Pause and respects reduced-motion preferences.*
+
+For the **illustrative function** $f(x)=x^4/4+x^2/2$, $f'(x)=x^3+x$ and $f''(x)=3x^2+1>0$. Starting at $x_0=2.2$, exact full Newton steps produce approximately $2.2\to1.3722\to0.7772\to0.3339\to0.0558\to0.00034$. The amber dashed parabola is the second-order Taylor approximation around the current iterate, not a globally identical objective; the teal dot moves continuously **only for illustration**, whereas the algorithm updates at discrete iterates. All values are analytic teaching calculations, **not model measurements**. See Boyd and Vandenberghe (2004) in References.
+
 ## Key methods
 
 - [Gradient descent](../../optimization/index.md): the first-order alternative, cheaper per step and slower near a minimum.

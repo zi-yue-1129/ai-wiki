@@ -43,6 +43,14 @@ Geometrically, at the optimum the gradient of the objective is parallel to the g
 
 Lagrange multipliers also appear in deep learning as penalty terms with fixed or adaptive weights, when an inequality constraint is enforced by a penalty rather than solved exactly.
 
+## Animated example: tangency on a feasible circle
+
+<img src="../../../assets/concept-animations/lagrange-tangency-still.svg" data-motion-src="../../../assets/concept-animations/lagrange-tangency-motion.svg" data-still-src="../../../assets/concept-animations/lagrange-tangency-still.svg" alt="A constrained point travels around a circle while objective contours contract; at the optimum the two gradients are antiparallel." loading="lazy" />
+
+*Original continuous mathematical teaching animation, CC BY-SA 4.0. GitHub shows its static fallback; the wiki player adds keyboard-accessible Play/Pause and reduced-motion fallback.*
+
+Let $f(x,y)=(x-2)^2+(y-1)^2$ with equality constraint $g(x,y)=x^2+y^2-1=0$. The orange dashed circle is a level set of $f$ centred at $(2,1)$, while the blue circle is the feasible set. Minimising distance on the unit circle gives the analytic solution $(x^*,y^*)=(2/\sqrt5,1/\sqrt5)$. There $\nabla f=2((x^*,y^*)-(2,1))$ and $\nabla g=2(x^*,y^*)$ are oppositely directed; $\nabla f+\lambda\nabla g=0$ holds for $\lambda=\sqrt5-1$. The animated passage between feasible points is a **geometric sweep, not an optimisation algorithm or learned trajectory**. Contours and gradients use illustrative exact arithmetic, not empirical results. See Boyd and Vandenberghe (2004) in References.
+
 ## Key methods
 
 - [Newton's method](newtons-method.md): a second-order method that can be applied to the Lagrangian's stationarity conditions, as an alternative to the first-order KKT approach.

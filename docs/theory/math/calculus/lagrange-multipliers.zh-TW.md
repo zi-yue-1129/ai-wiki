@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 拉格朗日乘數法
@@ -29,6 +29,14 @@ translation_reviewed: 2026-10-28
 幾何上，在最佳點目標函數的梯度與約束的梯度平行。對不等式約束，KKT 條件另外加入 \(\mu\ge 0\) 與 \(\mu\,h(x)=0\)。支持向量機是經典例子：其對偶問題只涉及位於間隔邊界上的訓練點，這些點的乘數非零（Cortes & Vapnik, 1995）。
 
 拉格朗日乘數也會以懲罰項的形式出現在深度學習中：當一個不等式約束以懲罰而非精確求解來實施時，就會用到權重固定或自適應的乘數。
+
+## 教學動畫：約束集合上的切觸條件
+
+<img src="../../../assets/concept-animations/lagrange-tangency-still.svg" data-motion-src="../../../assets/concept-animations/lagrange-tangency-motion.svg" data-still-src="../../../assets/concept-animations/lagrange-tangency-still.svg" alt="可行點沿圓形約束移動，目標等高線逐漸縮小；在最優點，目標梯度與約束梯度方向相反。" loading="lazy" />
+
+*原創連續數學教學動畫，CC BY-SA 4.0。GitHub 顯示靜態預覽；Wiki 網站提供鍵盤可操作的播放／暫停，以及減少動態效果回退。*
+
+設 $f(x,y)=(x-2)^2+(y-1)^2$，等式約束為 $g(x,y)=x^2+y^2-1=0$。橘色虛線圓是以 $(2,1)$ 為中心的目標函數等高線，藍色圓則是可行集合。單位圓上距離 $(2,1)$ 最近的解析解是 $(x^*,y^*)=(2/\sqrt5,1/\sqrt5)$。此處 $\nabla f=2((x^*,y^*)-(2,1))$ 與 $\nabla g=2(x^*,y^*)$ 方向相反，並以 $\lambda=\sqrt5-1$ 滿足 $\nabla f+\lambda\nabla g=0$。動畫沿可行集合的連續移動是**幾何掃描，並非最佳化演算法或學習軌跡**；所有等高線與梯度皆為解析示例，非實測數值。參見參考文獻 Boyd 與 Vandenberghe（2004）。
 
 ## 主要方法
 

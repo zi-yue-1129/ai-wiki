@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 牛頓法
@@ -30,6 +30,14 @@ translation_reviewed: 2026-10-28
 海森矩陣的特徵值決定其行為。特徵值大的方向較陡，牛頓步在該方向縮小移動；特徵值小的方向較平，步長則放大。因此純牛頓步可能衝過頭，或走向鞍點，這就是實務版本加入阻尼或線搜尋的原因。
 
 邏輯斯回歸是牛頓法實用的典型例子，因為參數數量少。Bishop（2006）展示了由此得到的迭代加權最小平方更新。
+
+## 教學動畫：曲率調整的牛頓更新
+
+<img src="../../../assets/concept-animations/newton-curvature-steps-still.svg" data-motion-src="../../../assets/concept-animations/newton-curvature-steps-motion.svg" data-still-src="../../../assets/concept-animations/newton-curvature-steps-still.svg" alt="牛頓法在凸四次函數上的迭代：當前位置沿曲線趨近極小值，局部二次近似隨海森資訊改變。" loading="lazy" />
+
+*原創連續教學動畫，CC BY-SA 4.0。GitHub 顯示靜態預覽；Wiki 網站提供可用鍵盤操作的播放／暫停按鈕，並遵循減少動態效果偏好。*
+
+取**人工示範函數** $f(x)=x^4/4+x^2/2$，可得 $f'(x)=x^3+x$、$f''(x)=3x^2+1>0$。由 $x_0=2.2$ 開始，完整牛頓步的數值約為 $2.2\to1.3722\to0.7772\to0.3339\to0.0558\to0.00034$。琥珀色虛線表示目前迭代點的二階泰勒近似，並非整體損失函數；青綠色圓點的連續移動**只是視覺插值**，實際演算法仍在離散位置更新。上述為解析計算示意，**不是模型實測結果**。理論依據見參考文獻 Boyd 與 Vandenberghe（2004）。
 
 ## 主要方法
 
