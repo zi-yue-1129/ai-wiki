@@ -29,6 +29,20 @@ The paper models the visuomotor policy as a conditional denoising diffusion proc
 
 Table 7 gives the CNN variant's horizons for most simulated tasks as an observation horizon of 2, a prediction horizon of 16 and an execution horizon of 8. The paper finds an execution horizon of 8 best for most tasks, which trades temporal consistency against responsiveness (Sec. 5.3, Fig. 5).
 
+## Animated process walkthroughs
+
+### Observation-conditioned action denoising
+
+![Animated Diffusion Policy denoising a candidate action sequence while the observed robot state stays fixed](../../../assets/concept-animations/diffusion-policy-denoising-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* The dashed amber candidate is an artificial high-noise action vector; the turquoise curve changes gradually as the denoiser conditions on the **same observation**. The observation is input context, **not** part of the state being denoised. This schematic interpolates illustrative trajectories and is **not a model-generated sample, a measured noise schedule, or a performance trace**. On the MkDocs site use Play/Pause; the [GitHub-readable still](../../../assets/concept-animations/diffusion-policy-denoising-still.svg) compares the initial noisy and final action trajectories. Based on [Chi et al. (2023)](https://arxiv.org/abs/2303.04137), Sec. 2.3.
+
+### Receding-horizon plan, execute, observe, replan
+
+![Animated overlapping Diffusion Policy action chunks and the executed subset of each plan](../../../assets/concept-animations/diffusion-policy-receding-horizon-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* Each row predicts **8** future actions, but only the **first 3** (turquoise cells) execute before the observation is refreshed and the plan is recomputed. Grey cells are discarded, not queued for later execution; the moving dot illustrates closed-loop progress. The 8/3 horizons are **schematic**, selected for legibility, **not a reported benchmark configuration**. The paper's common CNN setup is observation horizon 2, prediction horizon 16, execution horizon 8 (Table 7). On MkDocs use Play/Pause; the [GitHub-readable still](../../../assets/concept-animations/diffusion-policy-receding-horizon-still.svg) shows all three rolling windows. See [Chi et al. (2023)](https://arxiv.org/abs/2303.04137), Secs. 2.3 and 5.3.
+
 ## Architectures
 
 - **CNN:** a 1D temporal convolutional network with FiLM conditioning on the observation and denoising step (Sec. 3.1). The paper recommends starting here.
