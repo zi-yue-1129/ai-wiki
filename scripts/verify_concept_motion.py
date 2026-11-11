@@ -14,6 +14,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "diffusion-policy-noise-training": "applications/robotics/diffusion-policy/index",
+    "diffusion-policy-multimodal-actions": "applications/robotics/diffusion-policy/index",
     "diffusion-policy-denoising": "applications/robotics/diffusion-policy/index",
     "diffusion-policy-receding-horizon": "applications/robotics/diffusion-policy/index",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",

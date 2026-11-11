@@ -31,6 +31,20 @@ Table 7 gives the CNN variant's horizons for most simulated tasks as an observat
 
 ## Animated process walkthroughs
 
+### Forward noising and noise-prediction training
+
+![Animated Diffusion Policy training: gradually corrupt a demonstrated action chunk and predict the injected Gaussian noise conditioned on observations](../../../assets/concept-animations/diffusion-policy-noise-training-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* The teal sequence is a clean demonstrated action chunk \(A^{(0)}\); the amber sequence depicts increasing corruption at a sampled diffusion timestep \(k\). The model receives the noisy chunk, observation \(O_t\), and timestep \(k\), and predicts the injected noise \(\epsilon\) with a mean-squared-error objective:
+
+$
+A^{(k)}=\sqrt{\bar{\alpha}_k}A^{(0)}+\sqrt{1-\bar{\alpha}_k}\epsilon,\qquad
+\mathcal L=\mathbb E_{A^{(0)},O_t,k,\epsilon}
+\left[\|\epsilon-\epsilon_\theta(A^{(k)},O_t,k)\|_2^2\right].
+$
+
+The animated curve is an **illustrative perturbation**, not a numerically exact noise schedule, training trace, or measured model output. Training predicts noise added to the **action sequence**, whereas inference starts from noise and denoises actions. On MkDocs use Play/Pause; the [GitHub-readable still](../../../assets/concept-animations/diffusion-policy-noise-training-still.svg) shows the two signals. See [Chi et al. (2023)](https://arxiv.org/abs/2303.04137), Sec. 2.3.
+
 ### Observation-conditioned action denoising
 
 ![Animated Diffusion Policy denoising a candidate action sequence while the observed robot state stays fixed](../../../assets/concept-animations/diffusion-policy-denoising-motion.svg)
@@ -42,6 +56,12 @@ Table 7 gives the CNN variant's horizons for most simulated tasks as an observat
 ![Animated overlapping Diffusion Policy action chunks and the executed subset of each plan](../../../assets/concept-animations/diffusion-policy-receding-horizon-motion.svg)
 
 *Original instructional animation (CC BY-SA 4.0).* Each row predicts **8** future actions, but only the **first 3** (turquoise cells) execute before the observation is refreshed and the plan is recomputed. Grey cells are discarded, not queued for later execution; the moving dot illustrates closed-loop progress. The 8/3 horizons are **schematic**, selected for legibility, **not a reported benchmark configuration**. The paper's common CNN setup is observation horizon 2, prediction horizon 16, execution horizon 8 (Table 7). On MkDocs use Play/Pause; the [GitHub-readable still](../../../assets/concept-animations/diffusion-policy-receding-horizon-still.svg) shows all three rolling windows. See [Chi et al. (2023)](https://arxiv.org/abs/2303.04137), Secs. 2.3 and 5.3.
+
+### Multimodal actions versus a pointwise regression mean
+
+![Animated illustration of two demonstrated paths around an obstacle and distinct conditional diffusion action samples instead of their obstructed pointwise mean](../../../assets/concept-animations/diffusion-policy-multimodal-actions-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* Two demonstrated paths avoid the obstacle in different ways. Their **constructed pointwise mean** (red dashed) passes through the obstacle; averaging the action trajectories is therefore not necessarily safe or representative. On the right, one sample progressively traces an upper mode, followed by a distinct lower-mode sample—**the two modes are not continuously interpolated into each other**. This is a deliberately simplified illustration of multimodality, **not a measured action distribution, a run of Diffusion Policy, or a guarantee that all diffusion samples are feasible**. On MkDocs use Play/Pause; the [GitHub-readable still](../../../assets/concept-animations/diffusion-policy-multimodal-actions-still.svg) shows both modes. See [Chi et al. (2023)](https://arxiv.org/abs/2303.04137), Sec. 1.
 
 ## Architectures
 

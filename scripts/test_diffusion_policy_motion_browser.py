@@ -20,7 +20,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSET = ROOT / "docs/assets/concept-animations"
 PLAYER = ROOT / "docs/javascripts/concept-motion.js"
 OUTPUT = ROOT / "artifacts/diffusion-policy-motion"
-STEMS = ("diffusion-policy-denoising", "diffusion-policy-receding-horizon")
+STEMS = ("diffusion-policy-denoising", "diffusion-policy-receding-horizon",
+         "diffusion-policy-noise-training", "diffusion-policy-multimodal-actions")
 WIDTHS = (320, 360, 720, 1024)
 TIMES = (0.1, 2.3, 4.7, 7.1, 9.6)
 NS = "{http://www.w3.org/2000/svg}"
@@ -168,7 +169,8 @@ async def main():
                 await browser.close()
     finally:
         server.shutdown()
-    print("PASS: 48 SVG frames, 16 bilingual player cases, 2 media-change cases")
+    print(f"PASS: {len(STEMS) * len(WIDTHS) * (len(TIMES) + 1)} SVG frames, "
+          f"{len(STEMS) * 2 * 2 * 2} bilingual player cases, {len(STEMS)} media-change cases")
 
 
 if __name__ == "__main__":
