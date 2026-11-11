@@ -49,6 +49,15 @@ This framing makes it possible to use many losses, from squared error for regres
 
 For squared loss, the pseudo-residuals are the plain residuals, so each tree fits what the ensemble still gets wrong. For other losses, the same recipe applies once the gradient is known. The number of trees \(M\) and the learning rate are normally chosen with a validation set, because too many trees fit noise.
 
+
+## Animated walkthrough: fit the residual, then update
+
+<img src="../../../../assets/concept-animations/boosting-residual-steps-still.svg" data-motion-src="../../../../assets/concept-animations/boosting-residual-steps-motion.svg" alt="Six observed regression targets remain fixed as a teal piecewise-constant prediction changes continuously from a global mean to two successive residual-fitting updates; dashed orange residual gaps change with the predictions." loading="lazy" />
+
+*Original teaching animation, CC BY-SA 4.0.* [Open the animated SVG](../../../../assets/concept-animations/boosting-residual-steps-motion.svg) or [view the GitHub-safe static preview](../../../../assets/concept-animations/boosting-residual-steps-still.svg). The MkDocs player offers keyboard-accessible **Play/Pause** and a reduced-motion still. The fixed navy circles are targets; the teal line is the additive prediction; orange segments are residuals for the squared-error loss $L=\tfrac12(y-F)^2$, whose negative gradient is $y-F$.
+
+The reproducible **illustrative** targets are $y=(1,2,1,4,5,4)$, with a fixed two-leaf split after the third item and learning rate $\nu=0.6$. The initial mean is $F_0=17/6\approx2.833$. The first weak learner fits group residual means $(-1.5,+1.5)$, yielding group predictions $F_1\approx(1.933,3.733)$. Refitting residual group means $(-0.6,+0.6)$ yields $F_2\approx(1.573,4.093)$. A smooth interpolation between these exact stages helps visualize their change; **intermediate frames are not separate optimizer iterations**. The fixed split, numbers and residuals are not model benchmarks, and the figure omits split search, regularization and line search. This is the squared-loss case of Friedman's (2001) functional gradient procedure cited in References.
+
 ## Key methods
 
 ### Greedy function approximation: a gradient boosting machine (Friedman, 2001)
