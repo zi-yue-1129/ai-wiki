@@ -43,6 +43,12 @@ The architecture has four main parts:
 
 For adaptation, the whole model is fine-tuned end to end with a learning rate of 10⁻⁴ for five epochs. A learned goal token can replace the image goal encoder so that the model accepts other goal types, such as GPS waypoints or routing commands.
 
+## Visual walkthrough: goal-conditioned waypoint prediction
+
+![ViNT observation history and a goal image yield a temporal-distance estimate and progressively drawn local waypoints](../../../assets/concept-animations/vint-goal-waypoint-flow-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* The observation-history frames and goal image condition the shared ViNT backbone. Its distance head predicts **temporal distance**, while its waypoint head predicts **five relative local waypoints**. The path is revealed over time to distinguish one local prediction from the separate long-range subgoal search; it does **not** show a real robot rollout. The displayed `d = 6` and route are invented teaching values, **not measurements or a trained model's output**. On the MkDocs site, use Play/Pause to inspect the order; the [GitHub-readable final-state preview](../../../assets/concept-animations/vint-goal-waypoint-flow-still.svg) shows the full output. See Shah et al. (2023) in References.
+
 ## Results
 
 The main text describes the training data as eleven datasets from eight robotic platforms, with over 100 hours of trajectories. Other totals appear in the paper's tables and captions, so the exact amount should be taken from the paper's data table. For undirected goal reaching, ViNT scores 0.94 indoors and 1.00 outdoors, against 0.72 and 0.44 for end-to-end behaviour cloning and 0.19 and 0.23 for RECON on the same settings (Shah et al., 2023, Table 1).
