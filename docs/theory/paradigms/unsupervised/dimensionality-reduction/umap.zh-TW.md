@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/unsupervised/dimensionality-reduction
   - theory/paradigms/unsupervised/clustering
@@ -47,6 +47,14 @@ C = \sum_{i\ne j}\Big[v_{ij}\log\frac{v_{ij}}{w_{ij}} + (1-v_{ij})\log\frac{1-v_
 \]
 
 吸引項把相連的點拉近，排斥項則把不相連的點推開。
+
+### 動畫示範：非對稱鄰居關係如何形成模糊聯集
+
+![UMAP 的雙向鄰居強度逐步合併，形成較粗的無向模糊聯集邊](../../../../assets/concept-animations/umap-fuzzy-union-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態預覽](../../../../assets/concept-animations/umap-fuzzy-union-still.svg)。MkDocs 網站支援**播放／暫停**（鍵盤 Tab、Enter）；啟用減少動態效果設定時會顯示最終的無向邊。
+
+青綠色與琥珀色光點表示相反方向的**鄰居隸屬強度**，而非正在移動的資料樣本。人工示例中，A/B 的 $v_{B\mid A}=0.35$、$v_{A\mid B}=0.70$，經模糊聯集得到 $v_{AB}=0.35+0.70-(0.35)(0.70)=\mathbf{0.805}$；C/D 的 0.20 與 0.50 則合成 **0.60**。無向邊粗細表示合併後的權重，**不能將模糊聯集誤解為算術平均**。所有隸屬強度均是**人工指定而非資料集實測**；圖中未呈現近鄰搜尋、局部尺度估計、負採樣或嵌入佈局最佳化。運算規則依據參考文獻中的 McInnes、Healy 與 Melville（2018）。
 
 ## 關鍵方法
 
