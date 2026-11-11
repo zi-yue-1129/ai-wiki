@@ -37,6 +37,12 @@ Reparameterise every linear layer so that its spectral norm is set by one learne
 3. Use \(\hat W\) in the forward pass, and let the optimiser update \(W\) and \(\gamma\).
 4. Monitor the attention entropy during training, since the method is motivated by it.
 
+### Visual walkthrough: spectral scaling and the effective weight
+
+![Looping spectral reparameterisation animation: raw singular-value bars grow with weight scale while the two effective singular values remain fixed by gamma.](../../../assets/concept-animations/sigma-reparam-spectral-gain-motion.svg)
+
+*Original 10-second SVG motion, CC BY-SA 4.0.* For a deliberately diagonal two-dimensional example, \(W(s)=\operatorname{diag}(2s,0.5s)\) with \(1\leq s\leq4\), its singular values are \((2s,0.5s)\). With fixed \(\gamma=1.2\), the reparameterised matrix \(\widehat W=\gamma W/\sigma(W)=\operatorname{diag}(1.2,0.3)\) has the same singular values at every \(s\). The bars encode singular-value magnitudes, not optimisation convergence or attention entropy. **This is an analytical toy example, not a training trace.** In actual training \(\gamma\) is learned and \(\sigma(W)\) is generally estimated, so a fixed spectral norm across optimiser steps is not promised. Pause the motion in the website player, or use its reduced-motion fallback. [GitHub-readable static preview](../../../assets/concept-animations/sigma-reparam-spectral-gain-still.svg). See [Zhai et al. (2023)](https://proceedings.mlr.press/v202/zhai23a.html).
+
 ## Results
 
 The paper reports that σReparam gives competitive performance without warm-up, weight decay, layer normalisation or adaptive optimisers. The experiments, tasks and figures are in the paper and should be checked there before any number is reused.
