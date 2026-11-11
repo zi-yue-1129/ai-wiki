@@ -34,6 +34,13 @@ Each worker repeats the following loop:
 
 The paper uses \(\text{exploit}\) to select a member with higher recorded performance, and \(\text{explore}\) to perturb hyperparameters or resample them from the prior. In the experiments, truncation selection copies a member of the top 20% into a bottom-20% worker, and reinforcement-learning runs use a t-test on recent rewards. Each hyperparameter is perturbed by a factor of 1.2 or 0.8 in most experiments, and the GAN experiments use factors of 2.0 or 0.5.
 
+
+### Visual walkthrough: exploit, explore, resume
+
+![PBT population showing worker score comparisons, transfer of model weights and hyperparameters, learning-rate perturbation, and resuming training](../../../../../../assets/concept-animations/pbt-exploit-explore-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* Each worker first trains and is evaluated. An underperforming worker (W4) **copies both model weights and hyperparameters** from a better worker (W1), then **perturbs a hyperparameter before resuming gradient updates**. The displayed scores (0.92, 0.74, 0.61, 0.40) and learning rate (0.010 → 0.012, a 1.2× perturbation) are **illustrative, not experimental measurements**. Copying weights does not imply the future evaluation score becomes identical to the source's. The animation depicts a single worker's cycle, not a global synchronization barrier: PBT can operate asynchronously. Play or pause on MkDocs; GitHub readers can open the [static fallback](../../../../../../assets/concept-animations/pbt-exploit-explore-still.svg). Source: [Jaderberg et al. (2017)](https://arxiv.org/abs/1711.09846).
+
 ## Results
 
 The paper applies PBT to deep reinforcement learning, supervised learning for machine translation, and generative adversarial networks. For reinforcement learning, it tunes UNREAL on DeepMind Lab levels, Feudal Networks on Atari games, and A3C agents on StarCraft II. The Introduction states that PBT "can match and even outperform heavily tuned hyperparameter schedules". The abstract reports faster wall-clock convergence and higher final performance. The reinforcement-learning comparisons are made at the same number of steps, so the paper does not measure wall-clock speed for them. For translation, the paper reports BLEU gains from 23.71 to 24.23 on validation and from 22.30 to 22.65 on test.
