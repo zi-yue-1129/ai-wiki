@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - theory/paradigms/imitation
   - theory/paradigms/unsupervised/density-and-generative-models/diffusion
@@ -27,6 +27,40 @@ Chi 等人提出以去噪擴散模型生成機器人行為。策略不是從觀�
 3. **推論**：從雜訊出發，經過去噪步驟取樣出一段動作序列，然後只執行其中一部分。這是接收視界控制：策略預測一段序列，執行前幾個動作，再重新預測。
 
 表 7 給出 CNN 變體在多數模擬任務上的視界設定：觀察視界為 2、預測視界為 16、執行視界為 8。論文發現執行視界為 8 對多數任務最佳，這是在時間一致性與反應速度之間的取捨（第 5.3 節，圖 5）。
+
+## 動態運作示範
+
+### 正向加噪與雜訊預測訓練
+
+![Diffusion Policy 教學動畫：對示範動作序列逐步加入雜訊，再結合觀察資訊預測注入的高斯雜訊](../../../assets/concept-animations/diffusion-policy-noise-training-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 青綠色為乾淨的示範動作序列 \(A^{(0)}\)，琥珀色表示在取樣擴散時間步 \(k\) 下受到擾動的動作。模型接收含雜訊序列、觀察 \(O_t\) 與步數 \(k\)，透過均方誤差學習預測注入的 \(\epsilon\)：
+
+$
+A^{(k)}=\sqrt{\bar{\alpha}_k}A^{(0)}+\sqrt{1-\bar{\alpha}_k}\epsilon,\qquad
+\mathcal L=\mathbb E_{A^{(0)},O_t,k,\epsilon}
+\left[\|\epsilon-\epsilon_\theta(A^{(k)},O_t,k)\|_2^2\right].
+$
+
+曲線變化是**人工擾動示意**，並未精確重現擴散雜訊排程，也不是訓練過程或模型量測結果。訓練階段學習預測**動作序列**中加入的雜訊；推論則由雜訊開始逐步產生動作。網站可播放／暫停；[GitHub 靜態預覽](../../../assets/concept-animations/diffusion-policy-noise-training-still.svg)呈現乾淨與含雜訊序列。參見 [Chi 等人（2023）](https://arxiv.org/abs/2303.04137)第 2.3 節。
+
+### 觀察條件下的動作序列去噪
+
+![Diffusion Policy 動態示意：在固定機器人觀察條件下逐次修正含雜訊的候選動作序列](../../../assets/concept-animations/diffusion-policy-denoising-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 琥珀色虛線代表人工設定的高雜訊動作軌跡，青綠色曲線則隨去噪步驟逐漸調整；**觀察資訊始終固定，作為條件輸入，而不是被去噪的資料**。所有曲線、變化幅度及時間比例都是**教學示意**，不是實際模型輸出、量測所得雜訊排程或效能數據。在 MkDocs 網站可使用播放／暫停控制；[GitHub 靜態預覽](../../../assets/concept-animations/diffusion-policy-denoising-still.svg)呈現初始雜訊與最終動作規劃的差異。依據 [Chi 等人（2023）](https://arxiv.org/abs/2303.04137)第 2.3 節。
+
+### 滾動視界：規劃、執行、重新觀察
+
+![Diffusion Policy 動態示意：三次重疊的動作規劃視界與各次實際執行的前段動作](../../../assets/concept-animations/diffusion-policy-receding-horizon-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 每次規劃 **8** 個未來動作，但只執行**最前面 3** 個青綠色格子，接著取得新觀察並重新規劃。灰色的剩餘動作會捨棄，不會排入佇列等待執行；移動圓點表示機器人的閉迴路進展。圖中的 **8/3 是為便於理解而設的示意數值，不是論文的實驗設定**。原論文對多數模擬任務的 CNN 設定為觀察視界 2、預測視界 16、執行視界 8（表 7）。網站可使用播放／暫停；[GitHub 靜態預覽](../../../assets/concept-animations/diffusion-policy-receding-horizon-still.svg)可直接閱讀重疊的三次規劃。參見 [Chi 等人（2023）](https://arxiv.org/abs/2303.04137)第 2.3、5.3 節。
+
+### 多模態動作與逐點迴歸平均
+
+![Diffusion Policy 教學動畫：兩條繞過障礙的示範路徑，其逐點平均穿過障礙；條件式擴散則示意取樣兩種不同路徑](../../../assets/concept-animations/diffusion-policy-multimodal-actions-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 左側兩條示範路徑從不同方向繞過障礙物，其**人工構造的逐點平均**（紅色虛線）卻會穿過障礙。直接平均動作序列不一定安全，也可能無法代表任一示範模式。右側先逐步繪出上方模式，再顯示另一個下方模式的取樣結果；**動畫沒有在兩種模式之間連續內插**。這僅是便於理解多模態的幾何示意，**不是 Diffusion Policy 實際產生的取樣分布、機器人實測軌跡，也不保證生成動作均可行**。網站可播放／暫停；[GitHub 靜態預覽](../../../assets/concept-animations/diffusion-policy-multimodal-actions-still.svg)可直接比較兩條模式。參見 [Chi 等人（2023）](https://arxiv.org/abs/2303.04137)第 1 節。
 
 ## 架構
 
