@@ -26,6 +26,14 @@ Which aggregation schemes give a GNN the discriminative power of the Weisfeilerâ
 
 A maximally powerful GNN must map different neighbourhoods to different representations, which requires an injective aggregation. Sum aggregation can represent injective functions over multisets, while mean and max cannot in general.
 
+### Animated walkthrough: why neighbour counts matter
+
+![Two incoming feature multisets: the mean is identical, but summation distinguishes two and three copies of the same feature.](../../../../../assets/concept-animations/gin-multiset-counts-motion.svg)
+
+*Original CC BY-SA 4.0 teaching animation based on Xu et al. (2018; see References). The MkDocs **Play/Pause** control supports keyboard input; a reduced-motion preference selects the [GitHub-readable static overview](../../../../../assets/concept-animations/gin-multiset-counts-still.svg). [Open the animated SVG](../../../../../assets/concept-animations/gin-multiset-counts-motion.svg).*
+
+The two toy neighbourhoods are $A=\{1,1\}$ and $B=\{1,1,1\}$. Both have mean $1$, but their sums are $2$ and $3$. The moving dots represent individual incoming messages; the right-hand values are **pre-MLP aggregates**, not learned node embeddings. For a GIN-0 illustration, hold the central feature at $0$ in both cases, so its self term does not change the comparison. This example demonstrates one information loss of the mean; it **does not prove that arbitrary sums of continuous-valued multisets are injective**, nor show a trained model's predictions. The paper's expressivity claims rely on assumptions on the input feature domain and the ability of the functions to represent the necessary mappings ([Xu et al., 2018](https://arxiv.org/abs/1810.00826)).
+
 ## Equation or algorithm
 
 Each layer updates a node by summing its own feature, scaled by (1 + Îµ), with its neighbours' features, and passing the result through an MLP:

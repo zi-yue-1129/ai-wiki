@@ -25,6 +25,14 @@ Earlier node-embedding methods are transductive. They learn an embedding for eve
 
 Each node's representation is built layer by layer. At each depth, the node combines its own representation from the previous depth with an aggregate of its sampled neighbours' representations, using learned weights that are shared across all nodes. Because the parameters are functions rather than per-node tables, an unseen node can be embedded by applying the same functions to its features and neighbourhood. Neighbours are drawn as a fixed-size uniform sample, which keeps the cost of each batch fixed whatever the node's degree. The paper notes that the mean aggregator is close to a convolutional layer, and that concatenating the node's own representation acts as a simple skip connection.
 
+### Animated walkthrough: sample, aggregate, concatenate
+
+![GraphSAGE chooses three neighbours out of six, averages their example features, and concatenates that result with the target node feature.](../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg)
+
+*Original CC BY-SA 4.0 teaching animation based on Hamilton et al. (2017; see References). The MkDocs **Play/Pause** control is keyboard accessible; reduced-motion preferences select the [GitHub-readable static overview](../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg). [Open the animated SVG](../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg).*
+
+One schematic node has feature $h_v=4$ and six neighbours with scalar features $\{1,3,2,4,5,6\}$. A **single fixed sample** of three neighbours, $\{1,2,5\}$, gives $\operatorname{mean}=8/3\approx2.67$. The general sample-and-aggregate update can concatenate $[4,8/3]$ before the shared transformation $\sigma(W^k[\cdot])$. The paper also studies a **mean-convolution variant that omits concatenation**; this diagram depicts the general concatenating update with a mean neighbourhood aggregate, not that variant. Real GraphSAGE learns vector-valued transforms and may resample neighbours across iterations. Every number and edge selection here is illustrative, not a trained embedding or measured sampling outcome.
+
 ## Equation or algorithm
 
 For each depth \(k = 1, \dots, K\), each node \(v\) first aggregates its sampled neighbours, then combines the result with its own previous representation:
