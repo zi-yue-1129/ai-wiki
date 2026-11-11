@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/unsupervised/dimensionality-reduction
   - theory/paradigms/unsupervised/clustering
@@ -32,6 +32,22 @@ w_1 = \arg\max_{\|w\|=1}\ w^\top S\, w,
 它是 \(S\) 中最大特徵值對應的特徵向量。後續方向依序為次大的特徵向量，且與前面的方向正交。
 
 等價地，對 \(X = U\Sigma V^\top\) 做奇異值分解。\(V\) 的各欄即為主方向，秩為 \(k\) 的重建為 \(X_k = U_k\Sigma_k V_k^\top\)。它是在平方 Frobenius 範數下，\(X\) 的最佳秩 \(k\) 近似，即 Eckart–Young 定理（[Eckart 與 Young，1936](#參考文獻)）。降到 \(k\) 維的投影為 \(Z = XV_k\)。
+
+## 教學動畫：最大變異方向與秩一重建
+
+### 1. 旋轉候選方向，觀察投影變異數
+
+![橘色候選投影軸在中心化二維資料之間持續旋轉，右側曲線同步呈現投影變異數；青綠色直線標示第一主成分。](../../../../assets/concept-animations/pca-variance-axis-motion.svg)
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 橘色候選方向旋轉 180 度，右側游標依 $w^\top S w$ 改變位置。**青綠色 PC1** 是投影變異數最大的固定方向；當兩條方向重合時，右側曲線達到最大值。此圖是在掃描幾何方向，**並不是 PCA 透過梯度逐步訓練的動畫**。MkDocs 網站可播放／暫停；GitHub 可[查看靜態回退預覽](../../../../assets/concept-animations/pca-variance-axis-still.svg)。
+
+### 2. 投影至 PC1，對照重建殘差
+
+![橘色重建點從原始點連續移向 PC1 上的正交投影位置；虛線顯示殘差，右側比較平方殘差總和。](../../../../assets/concept-animations/pca-rank1-reconstruction-motion.svg)
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 每個橘色重建點朝 PC1 上的正交投影位置（青綠色）移動；虛線是原始點到重建點的殘差。本例採用 **12 個人工生成且已中心化的點**：先在座標系中取 $u=\pm3,\pm1.6,\pm0.5$ 與對應的 $v=\pm0.6,\pm0.8,\pm0.3$，每組取四種正負號組合，再整體旋轉 28 度。因此 $\sum u_i^2=47.24$、$\sum v_i^2=4.36$，PC1 的**解釋變異比例為 91.55%**、秩一重建平方殘差總和為 **4.36**；另一條與 PC1 相差 35 度的候選軸，平方殘差總和約為 **18.47**。這些是人工示例的**數學計算結果，並非模型實測或效能指標**。橘色點的移動展示幾何投影，**不是最佳化迭代軌跡**。GitHub 可[查看靜態回退預覽](../../../../assets/concept-animations/pca-rank1-reconstruction-still.svg)。
+
+兩個動畫都能以網站播放器或鍵盤播放／暫停；啟用減少動態效果偏好時，則以已驗收的靜態畫面呈現。對中心化資料，最大化投影變異數與最小化平方重建誤差等價，推導與參考文獻見上文及下方參考文獻。
 
 ## 關鍵方法
 
