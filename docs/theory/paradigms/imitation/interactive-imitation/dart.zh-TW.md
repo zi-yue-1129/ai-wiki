@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - theory/paradigms/imitation/behavioural-cloning
   - theory/paradigms/imitation/interactive-imitation/dagger.md
@@ -26,6 +26,14 @@ DART 是一種模仿學習方法，讓專家示範中包含恢復行為。在收
 - **實際執行與記錄的動作**：機器人執行的是專家動作加上雜訊，而訓練標籤是專家的乾淨動作。學習者因此能看到專家在一個它自己不會到達的狀態上如何回應。
 - **恢復資料**：被擾動的狀態與其乾淨標籤，展示了在出錯後如何回到專家的路徑。
 - **雜訊大小**：依據目前學到的策略的誤差來設定，使被擾動的狀態接近學習者之後會造訪的狀態。論文的雜訊為高斯分布，其共變異數會縮放到預期的誤差水準 \(\alpha\)。
+
+### 加噪執行與乾淨專家標籤：動態示意
+
+![DART 動畫：專家示範的實際執行動作受到雜訊擾動，但訓練資料仍記錄每個造訪狀態下專家的乾淨動作](../../../../assets/concept-animations/dart-noisy-expert-recovery-motion.svg)
+
+[GitHub 可閱讀的靜態預覽](../../../../assets/concept-animations/dart-noisy-expert-recovery-still.svg)。珊瑚色軌跡代表加入雜訊後**實際執行的控制**，青綠色箭頭則是專家在**同一個被造訪的狀態**所給的乾淨動作。儲存的訓練配對為 `(s, π*(s))`，而非 `(s, u)`；真正改變機器人狀態的控制量為 `u = π*(s) + ε`。路徑與箭頭均為**人工教學示意**，不是論文高斯共變異數的實際抽樣軌跡，也不是復原成功率的實測。DART 在收集示範階段仍需要專家，避免的是後續學習者 rollout 的**線上專家查詢**。Wiki 網站可播放／暫停 12 秒循環；減少動態效果偏好下顯示完整靜態狀態。
+
+*原創教學示意圖，CC BY-SA 4.0；研究依據為參考文獻中的 Laskey 等人（2017）。*
 
 ## 運作方式
 

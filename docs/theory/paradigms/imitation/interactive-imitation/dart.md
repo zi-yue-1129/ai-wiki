@@ -29,6 +29,14 @@ DART is a method for imitation learning that makes the expert's demonstrations c
 - **Recovery data**: the perturbed states and their clean labels, which show how to return to the expert's path after an error.
 - **Noise level**: the amount of noise is set from the error of the current learned policy, so the perturbed states resemble those the learner will visit. The paper's noise is Gaussian, with a covariance that is scaled to an anticipated error level \(\alpha\).
 
+### Noisy execution versus clean expert label — visual walkthrough
+
+![DART animation: injected action noise moves an expert demonstration away from the reference route while labels record the clean action at each visited state](../../../../assets/concept-animations/dart-noisy-expert-recovery-motion.svg)
+
+[GitHub-readable static diagram](../../../../assets/concept-animations/dart-noisy-expert-recovery-still.svg). The coral trace represents the **perturbed executed controls**, while teal arrows represent the **unperturbed expert actions evaluated at those same visited states**. The saved sample is `(s, π*(s))` — **not** `(s, u)` — even though `u = π*(s) + ε` is what changes the robot state. The reference route and curves are **schematic**: they are not draws from the paper's calibrated Gaussian covariance, nor measured recovery success. This collection stage requires the expert; the method avoids **subsequent online queries during learner-policy rollouts**, not expert participation altogether. Play/Pause controls the 12-second loop on the wiki; reduced-motion settings show the complete static state.
+
+*Original teaching diagram, CC BY-SA 4.0. Based on Laskey et al. (2017), cited in References.*
+
 ## How it works
 
 Let \(\pi^*\) be the expert and \(x_t\) the state at step \(t\). During demonstration, the executed control is drawn as

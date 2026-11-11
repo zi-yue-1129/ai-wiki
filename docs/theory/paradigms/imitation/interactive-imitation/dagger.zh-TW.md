@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - theory/paradigms/imitation/behavioural-cloning
   - theory/paradigms/imitation/interactive-imitation/dart.md
@@ -29,6 +29,14 @@ DAgger 是一種互動式模仿學習演算法。學習者執行自己的策略�
 - **混合執行**：在早期幾輪，實際執行的策略可以是專家與學習者的混合，由隨迭代遞減的機率 \(\beta_i\) 控制。
 - **合併資料集**：所有迭代中被標註狀態的聯集，而非只有最新一輪。保留所有較早的資料，才能讓策略學到每個先前策略所誘導的分布。
 - **專家標註**：在學習者造訪的每個狀態上，專家給出的動作 \(\pi^*(s)\)。此方法假設專家可以對任何狀態給出這樣的標註。
+
+### 資料聚合與分布修正：動態示意
+
+![DAgger 動畫：學習者偏離專家路徑，專家標註學習者造訪的狀態，資料逐輪聚合後重新訓練策略](../../../../assets/concept-animations/dagger-dataset-aggregation-motion.svg)
+
+[GitHub 可閱讀的靜態預覽](../../../../assets/concept-animations/dagger-dataset-aggregation-still.svg)。珊瑚色軌跡代表**學習者自身策略誘導的狀態分布**，而非另一條專家示範；藍色標記代表學習者造訪的狀態送交專家提供動作標籤，與前幾輪的資料一起保留。綠色路徑僅示意重新訓練後**可能**更接近專家路徑，並不保證每輪都會改善。路徑、樣本數與改善程度皆為**人工示意，並非模型實測**。專家是在學習者**實際造訪的狀態**提供動作標籤，並非替學習者執行那段軌跡。Wiki 網站可使用播放／暫停檢視 12 秒循環；偏好減少動態效果時顯示完整靜態狀態。
+
+*原創教學示意圖，CC BY-SA 4.0；研究依據為參考文獻中的 Ross、Gordon 與 Bagnell（2011）。*
 
 ## 運作方式
 
