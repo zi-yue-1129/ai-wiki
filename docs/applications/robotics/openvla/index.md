@@ -21,6 +21,16 @@ The strongest robot vision-language-action models were closed, so most labs coul
 
 OpenVLA is built on the Prismatic-7B vision-language model. Its visual encoder concatenates DINOv2 and SigLIP features channel-wise, a two-layer MLP projects them into the language model, and a 7B Llama 2 backbone generates the action tokens (Sec. 3.1). The paper compares it with RT-2-X, which has 55 billion parameters, and reports that OpenVLA achieves a 16.5% higher absolute success rate across 29 tasks (abstract).
 
+## Visual walkthrough: perception fusion and action discretisation
+
+![OpenVLA instructional animation: one camera observation branches into DINOv2 and SigLIP, patch-aligned channel concatenation, an MLP projection and the Llama 2 backbone](../../../assets/concept-animations/openvla-dual-encoder-fusion-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* **One camera observation** supplies both DINOv2 and SigLIP feature branches. Corresponding patch features are **concatenated along the channel dimension**, then a two-layer MLP projects the visual representation into tokens processed by the Llama 2 backbone. The moving markers indicate information flow, not measured network activations or identical feature values from the two encoders. Use the site's Play/Pause button (Enter or Space when focused), or examine the [GitHub static fusion preview](../../../assets/concept-animations/openvla-dual-encoder-fusion-still.svg). This is a schematic architecture, **not a recorded model forward pass**. See [Kim et al. (2024)](https://arxiv.org/abs/2406.09246), Section 3.1.
+
+![OpenVLA instructional animation: example scalar actions clip to the 1st and 99th training percentiles before mapping into 256 action bins](../../../assets/concept-animations/openvla-percentile-action-bins-motion.svg)
+
+*Original instructional animation (CC BY-SA 4.0).* **Each of the seven continuous action dimensions is discretised independently.** For one dimension, first clamp to its training-data 1st- and 99th-percentile bounds and divide that interval into **256 equal-width bins**. The repeated short ticks in the drawing are a visual shorthand; **they do not indicate only 32 bins**. With *illustrative* bounds $[-1,+1]$, scalar examples $-1.40$, $+0.40$ and $+1.60$ map to indices $0$, $179$ and $255$: use $b=\min(255,\lfloor 256(a_{\mathrm{clip}}+1)/2\rfloor)$. The original model repurposes 256 least-used Llama tokenizer entries for action tokens, training their next-token prediction with cross entropy. **All values, histogram bars and outputs in the diagram are hand-crafted teaching examples, not measurements or actual OpenVLA outputs.** Use the site's Play/Pause button, or view the [GitHub static quantisation example](../../../assets/concept-animations/openvla-percentile-action-bins-still.svg). See [Kim et al. (2024)](https://arxiv.org/abs/2406.09246), Section 3.2.
+
 ## Procedure
 
 1. **Data:** curate 970k real-world robot demonstrations from Open X-Embodiment, which had more than 2 million trajectories across 70+ datasets at the time. Only manipulation datasets with a third-person camera and single-arm end-effector control are kept. The final mixture has 27 datasets (Sec. 3.3, Table 3). DROID is included at 10% weight and removed for the final third of training.
