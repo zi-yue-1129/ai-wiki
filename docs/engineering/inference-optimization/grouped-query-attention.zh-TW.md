@@ -16,19 +16,19 @@
 
 每個 token 的隱藏狀態會產生 $H$ 個查詢向量，以及 $G$ 個 key 與 value 向量。第 $g$ 組的查詢頭都對第 $g$ 組的 key 與 value 做注意力。解碼時，快取每個 token 儲存 $G$ 組 key-value。
 
-```mermaid
-flowchart LR
-  X[token 隱藏狀態] --> Q[H 個查詢頭]
-  X --> K[G 個 key 頭]
-  X --> V[G 個 value 頭]
-  Q --> A[每組查詢頭使用自己組的 K 與 V]
-  K --> A
-  V --> A
-```
+![八個查詢頭分成兩組，藍色與琥珀色動態訊號分別匯向兩組共用的鍵和值頭。](../../assets/concept-animations/gqa-head-sharing-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 八個查詢頭（$H=8$）分成兩組（$G=2$），每組四個查詢頭共用同一組 **Key／Value 頭**；**查詢頭本身不會被平均**。在每個頭的維度及其他快取條件相同時，每個 Token 從 MHA 的八組 KV 降為兩組，即 **KV 頭數降低為四分之一**，但不代表實測推論速度增加四倍。MkDocs 提供可用鍵盤操作的**播放／暫停**；偏好減少動態效果時先顯示靜態圖。[GitHub 可直接閱讀的靜態圖](../../assets/concept-animations/gqa-head-sharing-still.svg)。
 
 ## 關鍵方法
 
 這個方法是把頭分組，加上向上訓練的做法。論文的貢獻在於：多頭檢查點可以用其原始預訓練運算量的一小部分完成轉換。
+
+### 從 MHA 檢查點轉換為 GQA
+
+![四組原始鍵與值投影權重各自在組內取平均，得到兩組共用權重後進一步預訓練。](../../assets/concept-animations/gqa-uptraining-pooling-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* 首先將**每組的 Key 與 Value 投影矩陣分別取平均**，再以額外預訓練讓轉換後的模型適應共用結構。若每組包含 $h=H/G$ 個原始頭，則 $\bar W_{K,g}=\frac{1}{h}\sum_{i\in g}W_{K,i}$，$W_V$ 亦然。動畫的 $0.2$、$0.6$ 平均成 $0.4$ 等純量只是**投影矩陣的教學替身**，並非訓練權重或模型實測結果。最右側循環代表轉換後模型的額外預訓練，不代表只有 KV 投影會更新。依據 [Ainslie et al.（2023）](https://aclanthology.org/2023.emnlp-main.298/)。MkDocs 提供鍵盤可操作的**播放／暫停**及減少動態效果回退。[GitHub 可直接閱讀的靜態圖](../../assets/concept-animations/gqa-uptraining-pooling-still.svg)。
 
 ## 結果
 

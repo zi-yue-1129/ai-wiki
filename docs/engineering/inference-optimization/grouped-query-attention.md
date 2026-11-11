@@ -24,19 +24,19 @@ Multi-query attention saves the most memory but can lose quality, because one ke
 
 Each token's hidden state produces $H$ query vectors and $G$ key and value vectors. Query heads in group $g$ all attend over the keys and values of group $g$. During decoding, the cache stores $G$ key-value pairs per token.
 
-```mermaid
-flowchart LR
-  X[Token hidden state] --> Q[H query heads]
-  X --> K[G key heads]
-  X --> V[G value heads]
-  Q --> A[Each group of query heads uses its own K and V]
-  K --> A
-  V --> A
-```
+![Eight query heads feeding two shared key-value groups; blue and amber pulses follow the sharing paths.](../../assets/concept-animations/gqa-head-sharing-motion.svg)
+
+*Original animated teaching diagram (CC BY-SA 4.0).* Eight query heads ($H=8$) are partitioned into two groups ($G=2$). Each group's four queries read from the same **key and value head**; **the queries themselves are not averaged**. With the head dimension and other cache factors held fixed, a token stores two KV pairs here instead of eight in MHA—a **4× reduction in KV-head count**, not a measured 4× speedup. Follow the moving pulses on MkDocs using the keyboard-operable **Play/Pause** button. Reduced-motion users see the static diagram first. [GitHub-compatible static overview](../../assets/concept-animations/gqa-head-sharing-still.svg).
 
 ## Key methods
 
 The method is the grouping of heads and the uptraining recipe. The paper's contribution is showing that a multi-head checkpoint can be converted with a small fraction of its original pre-training compute.
+
+### From an MHA checkpoint to GQA
+
+![Four pairs of original key/value projection weights are pooled into two groups, followed by additional pretraining.](../../assets/concept-animations/gqa-uptraining-pooling-motion.svg)
+
+*Original animated teaching diagram (CC BY-SA 4.0).* First, **mean-pool key and value projection matrices separately within each group**; then continue pretraining the converted checkpoint so it can adapt to the new sharing structure. For a group of $h=H/G$ original heads, $\bar W_{K,g}=\frac{1}{h}\sum_{i\in g}W_{K,i}$, and likewise for $W_V$. The scalar samples in the drawing (such as $0.2$ and $0.6$ averaging to $0.4$) stand in for *matrices*, not trained weights or model measurements. The training loop represents additional pretraining of the converted model, not a claim that only KV projections receive updates. See [Ainslie et al. (2023)](https://aclanthology.org/2023.emnlp-main.298/). The MkDocs player supports keyboard **Play/Pause** and reduced-motion fallback. [GitHub-compatible static overview](../../assets/concept-animations/gqa-uptraining-pooling-still.svg).
 
 ## Results
 
