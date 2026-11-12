@@ -36,6 +36,12 @@ flowchart LR
   I --> S --> K[Top-k passages]
 ```
 
+### Visual walkthrough: dot-product ranking
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="DPR illustration; scroll horizontally on narrow screens"><div class="concept-motion-fixed"><img src="../../assets/concept-animations/dpr-dot-product-sweep-still.svg" data-motion-src="../../assets/concept-animations/dpr-dot-product-sweep-motion.svg" alt="As the orange query vector rotates from passage A toward passage B, two inner-product score bars change continuously and the higher-ranked passage switches."></div></div>
+
+*Original teaching animation, CC BY-SA 4.0.* A deliberately **two-dimensional, unit-length toy example** fixes passage vectors $p_A=(1,0)$ and $p_B=(0,1)$ and rotates $q(\theta)=(\cos\theta,\sin\theta)$ from $5^\circ$ to $85^\circ$ and back. Thus $s_A=\cos\theta$ and $s_B=\sin\theta$: their ranking flips at $\theta=45^\circ$, even though the passage vectors do not move. The diagram isolates **maximum inner-product retrieval after encoding**; it does not animate encoder training, ANN index traversal, or measured DPR embeddings. On MkDocs use Play/Pause (keyboard-operable); with reduced motion, or in GitHub Markdown, the [static snapshot](../../assets/concept-animations/dpr-dot-product-sweep-still.svg) remains available.
+
 ## Key ideas
 
 - **Problem:** sparse keyword retrieval such as BM25 misses paraphrases and relevant passages with different wording.

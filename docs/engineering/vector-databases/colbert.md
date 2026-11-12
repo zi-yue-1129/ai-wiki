@@ -39,6 +39,12 @@ flowchart LR
   S --> R[Ranked passages]
 ```
 
+### Visual walkthrough: MaxSim token selection
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="ColBERT MaxSim illustration; scroll horizontally on narrow screens"><div class="concept-motion-fixed"><img src="../../assets/concept-animations/colbert-maxsim-switch-still.svg" data-motion-src="../../assets/concept-animations/colbert-maxsim-switch-motion.svg" alt="Six token-level similarity bars vary; each query token selects the brightest matching passage token and the two row maxima determine the overall ColBERT score."></div></div>
+
+*Original teaching animation, CC BY-SA 4.0.* The **illustrative similarity matrix**, not measured ColBERT embeddings, is $S(t)=\begin{bmatrix}0.88-0.58t & 0.22+0.62t & 0.12+0.18t \\ 0.10+0.12t & 0.28+0.52t & 0.79-0.40t\end{bmatrix}$, with $t$ swept from 0 to 1 and back. Each gold outline marks $\arg\max_j S_{ij}$; the teal and purple bars represent the **row maxima**, and the orange bar is $\max_j S_{1j}+\max_j S_{2j}$. Both winners switch from different passage tokens to token $p_2$ around $t\approx0.55$, showing that MaxSim changes which token contributes to the score. The changing values are hypothetical dot products, **not** training updates, a real document, or search accuracy. On MkDocs use keyboard-accessible Play/Pause; GitHub and reduced-motion readers get the [static fallback](../../assets/concept-animations/colbert-maxsim-switch-still.svg).
+
 ## Key ideas
 
 - **Problem:** a single vector per passage can lose fine details, so a passage that matches a question in a specific phrase may be ranked below a less relevant one.
