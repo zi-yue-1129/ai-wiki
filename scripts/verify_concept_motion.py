@@ -139,7 +139,7 @@ def main() -> int:
                 # GitHub gets a script-free static img; the MkDocs player upgrades
                 # the same HTML img via data-motion-src when JavaScript is enabled.
                 pairs = re.findall(
-                    r'<img\\b[^>]*\\bsrc="([^"]+\\.svg)"[^>]*\\bdata-motion-src="([^"]+\\.svg)"',
+                    r'<img\b[^>]*\bsrc="([^"]+\.svg)"[^>]*\bdata-motion-src="([^"]+\.svg)"',
                     text, re.S,
                 )
                 if not any(
