@@ -32,6 +32,14 @@ A language agent that interacts with an environment, such as a game, a compiler 
 
 Reflexion has three roles. An actor produces a trajectory of actions in the environment. An evaluator scores the trajectory, using a signal that can be a scalar value or free-form language, from an external source or from a simulated check. A self-reflection step then writes a short verbal analysis of what went wrong and what to try next. The reflection is kept in an episodic memory buffer, and the actor reads it at the start of the next trial. The paper states that the feedback can be scalar or language and can come from outside the agent or be simulated inside it.
 
+## Animated walkthrough
+
+<div style="max-width:100%;overflow-x:auto;" tabindex="0" role="region" aria-label="Scrollable instructional concept diagram"><div style="width:640px;min-width:640px;"><img src="../../assets/concept-animations/reflexion-memory-feedback-still.svg" data-motion-src="../../assets/concept-animations/reflexion-memory-feedback-motion.svg" data-still-src="../../assets/concept-animations/reflexion-memory-feedback-still.svg" width="640" height="360" alt="Reflexion: a failed attempt is evaluated, reflected on, saved in episodic memory, and used to condition the next attempt without changing model weights." loading="lazy"></div></div>
+
+*Original instructional visualisation, CC BY-SA 4.0.* **Verbal feedback changes context, not weights.** After an actor's first attempt fails evaluation, a reflection summarizes the failure and is saved in episodic memory. The next attempt is conditioned on the saved lesson before another evaluation. The illustrated second attempt passes, but **Reflexion does not guarantee a successful retry**. This is a schematic example of context-based adaptation rather than a gradient update or measured trial trajectory.
+
+On MkDocs, the Play/Pause control supports keyboard input; `prefers-reduced-motion` defaults to the static frame. GitHub shows the complete [static fallback](../../assets/concept-animations/reflexion-memory-feedback-still.svg).
+
 ## Equation or algorithm
 
 For each task, repeat for a fixed number of trials:
