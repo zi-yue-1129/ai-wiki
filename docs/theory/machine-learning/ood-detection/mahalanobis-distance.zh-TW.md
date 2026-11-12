@@ -53,6 +53,16 @@ $$
 
 門檻與數字僅供說明，並非模型測量結果。沿第一軸移動兩個單位，對平方距離的貢獻是 $1$；沿第二軸移動相同距離，貢獻則為 $4$。共變異數改變了幾何，而不只是測量一般歐幾里得長度。若最近類別出現平手，任選一個索引都會得到相同的未擾動分數。
 
+### 視覺示範：共變異數決定的接受邊界
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="馬氏距離特徵空間動畫">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/mahalanobis-ellipse-threshold-still.svg" data-motion-src="../../../assets/concept-animations/mahalanobis-ellipse-threshold-motion.svg" width="640" height="360" alt="兩個類別均值為 (0,0) 和 (4,0)，共享共變異數形成兩個等距橢圓；特徵從 (2,1) 移至 (0,2)，使最小平方馬氏距離從 2 增加至 4，跨越門檻 3。">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 採用前述**人工假設**的類別均值及共變異數；紫色虛線橢圓表示 \(D_c^2=3\) 的等距輪廓，**不是實際抽樣的特徵密度**。示意特徵沿 \(z(t)=(2-2t,1+t)\) 移動，\(0\le t\le1\)，最小平方距離為 \(D_{\min}^2(t)=2+2t^2\)。因此在任意設定的 \(D_{\min}^2<3\) 規則下，從 **2（接受）**移至 **4（拒絕）**，在 \(t>1/\sqrt{2}\) 時跨越邊界。動態位置是解析路徑的插值呈現，並非模型實測特徵或 OOD 偵測率。MkDocs 網站支援播放／暫停；[GitHub 靜態預覽](../../../assets/concept-animations/mahalanobis-ellipse-threshold-still.svg) 同時顯示兩個端點。手機可水平捲動。原始方法見 References 的 Lee 等人（2018）。
+
 ## 輸入前處理與多層特徵
 
 演算法 1 在每層選出最近類別，朝**降低平方距離**的方向進行輸入梯度步伐，再重新計算最大負距離。各層分數以在驗證樣本上擬合的邏輯斯迴歸權重結合。[^lee] 微分時固定選出的類別，步伐為
