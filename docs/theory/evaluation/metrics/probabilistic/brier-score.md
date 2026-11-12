@@ -19,6 +19,22 @@ $$\text{Brier} = \frac{1}{n} \sum_{i=1}^{n} (p_i - y_i)^2$$
 
 Lower is better. Predicting $p = 0.5$ everywhere gives 0.25, a simple baseline. The score is 0 only when every prediction is correct and fully confident.
 
+## Animated explanation: expected Brier risk
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Brier score animation: focus here and scroll horizontally on narrow screens">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/brier-expected-risk-still.svg" data-motion-src="../../../../assets/concept-animations/brier-expected-risk-motion.svg" data-still-src="../../../../assets/concept-animations/brier-expected-risk-still.svg" alt="Three Brier-loss curves for a binary event: observed positive, observed negative, and expected loss. A forecast cursor sweeps toward the expected-risk minimum at probability 0.70.">
+</div>
+</div>
+
+*Original instructional animation, CC BY-SA 4.0. On the MkDocs site, use Play/Pause; the image can be scrolled horizontally with keyboard focus on narrow screens. GitHub displays the complete static plot.* [Full SVG animation](../../../../assets/concept-animations/brier-expected-risk-motion.svg).
+
+For a **schematic** Bernoulli event with true event rate $q=0.70$, the two observed-outcome squared losses are $(1-p)^2$ and $p^2$. The purple curve averages them using the **outcome probabilities**, not an observed dataset:
+
+$\mathbb E[L(p,Y)] = 0.7(1-p)^2+0.3p^2 = (p-0.7)^2+0.21.$
+
+The moving forecast $p$ changes both possible losses at once. The minimum at $p=q=0.70$ is **0.21**, not zero: the residual $q(1-q)$ is the irreducible variability of the binary outcome. No model was trained or evaluated to produce these numbers.
+
 ## Interpretation
 
 Because the squared error is bounded, a confident mistake costs at most 1 for that sample, while log-loss has no upper limit. The Brier score is a proper scoring rule, so it is minimised by reporting true probabilities.

@@ -160,6 +160,31 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+    # GitHub's static previews and MkDocs's bilingual motion enhancement.
+    for stem, page in {
+        "brier-expected-risk": "brier-score",
+        "log-loss-tail-penalty": "log-loss",
+    }.items():
+        moving = ASSETS / f"{stem}-motion.svg"
+        still = ASSETS / f"{stem}-still.svg"
+        errors.extend(verify_svg(moving, True))
+        errors.extend(verify_svg(still, False))
+        for locale in (".md", ".zh-TW.md"):
+            doc = DOCS / "theory/evaluation/metrics/probabilistic" / (page + locale)
+            if not doc.is_file():
+                errors.append(f"{doc}: missing translation")
+                continue
+            body = doc.read_text(encoding="utf-8")
+            relative = "../../../../assets/concept-animations/"
+            if f'src="{relative}{still.name}"' not in body:
+                errors.append(f"{doc}: missing actual GitHub static image src")
+            if f'data-motion-src="{relative}{moving.name}"' not in body:
+                errors.append(f"{doc}: missing animated source")
+            if f'data-still-src="{relative}{still.name}"' not in body:
+                errors.append(f"{doc}: missing reduced-motion fallback")
+            if "CC BY-SA 4.0" not in body:
+                errors.append(f"{doc}: missing original-art attribution")
+
     # The two reviewed process animations must show interpolated intermediate states,
     # not four discrete slides masquerading as motion.
     for stem in ("mae-visible-patch-reconstruction", "dinov2-dual-objective-ema"):

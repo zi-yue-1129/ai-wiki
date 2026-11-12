@@ -19,6 +19,18 @@ $$L_{\log}(y, p) = -\big(y \log p + (1 - y) \log(1 - p)\big)$$
 
 The reported value is the mean over all samples. It is the same quantity that logistic regression and neural classifiers minimise during training.
 
+## Animated explanation: a confident mistake
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Log loss comparison animation: focus here and scroll horizontally on narrow screens">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" data-motion-src="../../../../assets/concept-animations/log-loss-tail-penalty-motion.svg" data-still-src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" alt="For a true positive, log loss and Brier penalty appear on one vertical scale. As the predicted positive probability approaches zero, the moving red log-loss marker rises sharply while the Brier marker stays below one.">
+</div>
+</div>
+
+*Original instructional animation, CC BY-SA 4.0. The MkDocs player supports Play/Pause; keyboard-focus the illustration to scroll on mobile. GitHub shows the complete static curves.* [Full SVG animation](../../../../assets/concept-animations/log-loss-tail-penalty-motion.svg).
+
+For one **illustrative** positive observation ($y=1$), the chart compares $-\ln p$ with $(1-p)^2$ on the **same vertical scale** as the predicted positive probability $p$ falls from 0.95 to 0.01. At $p=0.10$, log loss is $2.303$ while Brier is $0.81$; at $p=0.01$, they are $4.605$ and $0.9801$ respectively. Neither score is rescaled to make the curves look different. The plot stops at $p=0.01$ because $-\ln p\to\infty$ as $p\to0^+$, whereas Brier remains at most 1. These are analytical calculations, **not measured model outcomes**.
+
 ## Interpretation
 
 Predicting $p = 0.5$ for every sample gives a log-loss of $\log 2 \approx 0.693$, a useful baseline. A confident wrong prediction, such as $p = 0.01$ for a true positive, costs $-\log 0.01 \approx 4.6$ on its own, so a few such cases can dominate the average. Lower is better, and the value depends on the class balance as well as on the model.
