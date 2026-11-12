@@ -168,6 +168,44 @@ def main() -> int:
         if len(animations) < 10 or any(node.get("calcMode") == "discrete" for node in animations):
             errors.append(f"{stem}: continuous interpolation required; discrete slides are not sufficient")
 
+    # Newer pages keep a GitHub-readable <img src="...-still.svg"> and
+    # expose the animated variant to the MkDocs player through data-motion-src.
+    # Check both paths rather than accepting the data attribute as the fallback.
+    html_motion_topics = {
+        "odin-gradient-perturbation": "theory/machine-learning/ood-detection/odin",
+        "mahalanobis-ellipse-threshold": "theory/machine-learning/ood-detection/mahalanobis-distance",
+    }
+    for stem, page_stem in html_motion_topics.items():
+        motion = ASSETS / f"{stem}-motion.svg"
+        still = ASSETS / f"{stem}-still.svg"
+        errors.extend(verify_svg(motion, True))
+        errors.extend(verify_svg(still, False))
+        for suffix in (".md", ".zh-TW.md"):
+            page = DOCS / (page_stem + suffix)
+            if not page.exists():
+                errors.append(f"{page}: bilingual chapter missing")
+                continue
+            chapter = page.read_text(encoding="utf-8")
+            image_tags = re.findall(r"<img\\b[^>]*>", chapter)
+            found = False
+            for tag in image_tags:
+                src = re.search(r'\\ssrc="([^"]+)"', tag)
+                data = re.search(r'\\sdata-motion-src="([^"]+)"', tag)
+                if not src or not data:
+                    continue
+                static_path = (page.parent / src.group(1)).resolve()
+                motion_path = (page.parent / data.group(1)).resolve()
+                if static_path == still.resolve() and motion_path == motion.resolve():
+                    found = True
+                    break
+            if not found:
+                errors.append(f"{page}: no matching real HTML still/motion source pair")
+            if "CC BY-SA 4.0" not in chapter:
+                errors.append(f"{page}: original visual attribution missing")
+        print(f"HTML motion pair {stem}: "
+              f"{motion.stat().st_size if motion.exists() else '-'} / "
+              f"{still.stat().st_size if still.exists() else '-'} bytes")
+
     config = Path("mkdocs.yml").read_text(encoding="utf-8")
     for path in (
         "javascripts/concept-motion.js",
