@@ -64,6 +64,16 @@ $$
 
 The threshold and numbers are illustrative, not model measurements. A displacement of two units along the first axis contributes $1$ to squared distance; the same displacement along the second contributes $4$. The covariance changes the geometry rather than simply measuring ordinary Euclidean length. At a tie, either nearest-class index gives the same unperturbed score.
 
+### Visual walkthrough: covariance-shaped decision boundary
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mahalanobis feature-space distance animation">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/mahalanobis-ellipse-threshold-still.svg" data-motion-src="../../../assets/concept-animations/mahalanobis-ellipse-threshold-motion.svg" width="640" height="360" alt="Two shared-covariance Mahalanobis ellipses surround class centres (0,0) and (4,0). A feature moves from (2,1) to (0,2), raising the minimum squared distance from 2 to 4 across a threshold at 3.">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* With the **invented** class means and covariance above, the dashed ellipses are the \(D_c^2=3\) contours, **not sampled densities**. The illustrative feature follows \(z(t)=(2-2t,1+t)\) for \(0\le t\le1\); its nearest-class squared distance is \(D_{\min}^2(t)=2+2t^2\). It therefore moves from **2** (accept) to **4** (reject) at the arbitrary rule \(D_{\min}^2<3\), crossing the boundary when \(t>1/\sqrt{2}\). Animated intermediate positions approximate this analytic path by interpolation, rather than showing actual model features or an empirical OOD decision rate. Use Play/Pause on MkDocs; the [static GitHub preview](../../../assets/concept-animations/mahalanobis-ellipse-threshold-still.svg) shows both endpoints. On mobile, scroll horizontally. See Lee et al. (2018) in References.
+
 ## Input preprocessing and multiple layers
 
 Algorithm 1 selects the nearest class at each layer, takes an input-gradient step intended to **reduce squared distance**, then recomputes the maximum negative distance. Layer scores are combined with logistic-regression weights fitted on validation samples.[^lee] With the selected class held fixed for differentiation, the step is
