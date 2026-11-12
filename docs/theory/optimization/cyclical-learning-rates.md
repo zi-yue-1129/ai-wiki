@@ -43,6 +43,18 @@ so the rate rises and falls linearly, once per \(2s\) iterations. The *triangula
 
 **Step size.** The paper finds results "quite robust" to the cycle length, and suggests a step size of 2 to 10 times the number of iterations in an epoch. For CIFAR-10 with 500 iterations per epoch it uses a step size of 2,000 (a 4,000-iteration cycle). For AlexNet and GoogLeNet on ImageNet it uses 30,000 iterations.
 
+### Visual walkthrough: triangular versus triangular2
+
+<div class="concept-motion-scroll" role="region" aria-label="Horizontally scrollable cyclical learning-rate diagram" tabindex="0" style="overflow-x:auto;max-width:100%">
+<img src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" width="640" style="min-width:640px" data-motion-src="../../assets/concept-animations/clr-triangular2-sweep-motion.svg" data-still-src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" alt="Cyclical learning-rate schedule: triangular repeats three identical peaks, while triangular2 halves the peak amplitude after every cycle; an animated cursor follows both curves.">
+</div>
+
+*Original instructional visualisation, CC BY-SA 4.0.* With illustrative bounds $\eta_{\min}=0.10$ and $\eta_{\max}=1.00$, a half-cycle step size $s=2$, and **three four-step cycles**, the teal triangular policy reaches the same peak of $1.00$ every cycle. The orange triangular2 policy halves its **amplitude above the lower bound** after each cycle: its peaks are $1.00$, $0.55$, and $0.325$. The scan line advances in schedule time, while both markers track their respective learning rates.
+
+The original [CLR paper](https://arxiv.org/abs/1506.01186) defines these policies. The continuous line reveal interpolates *learning-rate values*, not learned model weights or observed accuracy; no model was trained for this figure.
+
+On MkDocs use **Play/Pause**, including Tab, Enter and Space keyboard controls. Reduced-motion users start with the static diagram. GitHub provides the [static fallback preview](../../assets/concept-animations/clr-triangular2-sweep-still.svg) and a browser can open the [complete SVG animation](../../assets/concept-animations/clr-triangular2-sweep-motion.svg). **All values are illustrative, not empirical model results.**
+
 ## Results
 
 - **CIFAR-10, Caffe.** With a fixed rate, accuracy reaches 81.4% at 70,000 iterations. The triangular2 policy reaches 81.4% at 25,000 iterations.

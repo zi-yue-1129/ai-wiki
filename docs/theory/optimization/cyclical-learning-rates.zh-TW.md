@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 循環學習率
@@ -31,6 +31,18 @@ translation_reviewed: 2026-10-28
 學習率因此每 \(2s\) 次迭代線性上升並下降一次。*三角2*策略在每個循環後將振幅減半。*exp_range* 策略則讓上下界隨時間指數式縮小。論文指出，視窗形狀的選擇影響不大，因此採用最簡單的三角視窗。
 
 **步長。** 論文發現結果對循環長度「相當穩健」，並建議步長為每個 epoch 迭代次數的 2 至 10 倍。對於每個 epoch 有 500 次迭代的 CIFAR-10，步長設為 2,000（即 4,000 次迭代的循環）。對於 ImageNet 上的 AlexNet 與 GoogLeNet，步長則為 30,000 次迭代。
+
+### 動態圖解：三角策略與 triangular2
+
+<div class="concept-motion-scroll" role="region" aria-label="可水平捲動的循環學習率教學圖" tabindex="0" style="overflow-x:auto;max-width:100%">
+<img src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" width="640" style="min-width:640px" data-motion-src="../../assets/concept-animations/clr-triangular2-sweep-motion.svg" data-still-src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" alt="循環學習率示意：triangular 的峰值每輪相同，triangular2 每輪將峰值相對下界的振幅減半；動畫游標沿兩條曲線移動。">
+</div>
+
+*Original instructional visualisation, CC BY-SA 4.0.* 以人工設定的上下界 $\eta_{\min}=0.10$、$\eta_{\max}=1.00$，半週期步長 $s=2$，以及**三個各四步的週期**為例：青綠色 triangular 每輪都回到 $1.00$；橘色 triangular2 則在每輪後將**相對下界的振幅減半**，三個峰值依序為 $1.00$、$0.55$、$0.325$。掃描線隨排程時間前進，兩個游標分別追蹤當前的學習率。
+
+此圖依據[循環學習率原始論文](https://arxiv.org/abs/1506.01186)的策略公式。曲線的連續揭露代表*學習率的變化*，不代表權重學習軌跡或觀測到的準確率；圖中沒有執行模型訓練。
+
+在 MkDocs 網站可使用**播放／暫停**，並以 Tab、Enter 或 Space 操作；偏好減少動態效果時，初始顯示靜態圖。GitHub 可閱讀 [靜態回退預覽](../../assets/concept-animations/clr-triangular2-sweep-still.svg)；瀏覽器亦可開啟 [完整 SVG 動畫](../../assets/concept-animations/clr-triangular2-sweep-motion.svg)。**所有數值皆為人工示意，不是模型實測結果。**
 
 ## 結果
 
