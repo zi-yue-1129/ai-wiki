@@ -29,6 +29,17 @@ MAP is high when relevant items are placed early and consistently. It rewards fi
 
 Use MAP for information retrieval benchmarks where relevance is yes or no and every relevant item matters. Use [NDCG](ndcg.md) when relevance has several levels or only the top results count.
 
+
+## Visual walkthrough: from per-query AP to MAP
+
+<div role="region" tabindex="0" aria-label="Horizontally scrollable ranking metric illustration" style="width:100%;overflow-x:auto">
+  <img src="../../../../assets/concept-animations/map-precision-at-hits-still.svg" data-motion-src="../../../../assets/concept-animations/map-precision-at-hits-motion.svg" data-still-src="../../../../assets/concept-animations/map-precision-at-hits-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="MAP: two binary-relevance rankings, scanning the precision of relevant hits and accumulating AP per query.">
+</div>
+
+*Original educational visual, CC BY-SA 4.0.* This original continuous animation evaluates **two queries**, not just one AP. Query A has relevance $(1,0,1,0,0,1)$: precisions at relevant ranks 1, 3, and 6 are $1$, $2/3$, and $1/2$, giving $\mathrm{AP}_A=0.722$. Query B has relevance $(0,1,1,0,1,0)$: precisions at ranks 2, 3, and 5 are $1/2$, $2/3$, and $3/5$, giving $\mathrm{AP}_B=0.589$. Equal weighting yields $\mathrm{MAP}=(\mathrm{AP}_A+\mathrm{AP}_B)/2=0.656$. The amber cursor sweeps across ranks; only relevant hits contribute to the growing AP bar. **AP numbers next to the bars are final values**, not instantaneous partial scores. All ranks and values are explicitly constructed examples, not model measurements.
+
+On the website, use the Play/Pause button (keyboard Enter/Space). Reduced-motion preference defaults to the static fallback. On narrow screens, focus this scrollable figure and use arrow keys to pan. GitHub directly displays the static preview. [GitHub-readable static SVG](../../../../assets/concept-animations/map-precision-at-hits-still.svg); [continuous SVG animation](../../../../assets/concept-animations/map-precision-at-hits-motion.svg).
+
 ## Worked example
 
 Take one query whose ranked list has binary labels $(1, 0, 1, 0, 0, 1)$, where 1 means relevant. Precision at the three relevant positions is $1/1$, $2/3$ and $3/6$. Average precision is $(1 + 2/3 + 1/2) / 3 \approx 0.72$. MAP over several queries is the mean of such values.

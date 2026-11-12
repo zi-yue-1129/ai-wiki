@@ -29,6 +29,17 @@ $$\text{AP} = \frac{1}{R} \sum_{k=1}^{N} P(k)\, \text{rel}(k)$$
 
 在相關性為是或否、且每個相關項目都重要的資訊檢索基準中，使用 MAP。當相關性有多個等級，或只有前幾名結果重要時，應改用 [NDCG](ndcg.md)。
 
+
+## 視覺解讀：由兩個查詢得到 MAP
+
+<div role="region" tabindex="0" aria-label="可水平捲動的排序指標視覺示範" style="width:100%;overflow-x:auto">
+  <img src="../../../../assets/concept-animations/map-precision-at-hits-still.svg" data-motion-src="../../../../assets/concept-animations/map-precision-at-hits-motion.svg" data-still-src="../../../../assets/concept-animations/map-precision-at-hits-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="MAP：兩個查詢的二元相關性排序，掃描相關項目的精確率並累積各查詢 AP。">
+</div>
+
+*原創教學視覺，CC BY-SA 4.0。* 此原創連續動畫不只顯示單一 AP，而是計算兩個查詢後再取平均。查詢 A 的二元相關性為 $(1,0,1,0,0,1)$，相關位置 1、3、6 的精確率為 $1$、$2/3$、$1/2$，所以 $\mathrm{AP}_A=0.722$。查詢 B 為 $(0,1,1,0,1,0)$，相關位置 2、3、5 的精確率為 $1/2$、$2/3$、$3/5$，故 $\mathrm{AP}_B=0.589$，而 $\mathrm{MAP}=(\mathrm{AP}_A+\mathrm{AP}_B)/2=0.656$。橘色外框隨名次移動；只有相關項目才增加 AP 的貢獻，灰色不相關項目不加分。每個查詢右側標示的是**最終 AP**；長條依序累積。所有資料與數值皆為人工設計、由公式驗算的教材示例，並非模型輸出。
+
+網站可使用播放／暫停按鈕（鍵盤 Enter／Space），啟用降低動態效果偏好時預設顯示靜態預覽；手機可聚焦圖像區後以方向鍵橫向捲動。GitHub 直接顯示靜態圖。 [靜態 SVG 預覽](../../../../assets/concept-animations/map-precision-at-hits-still.svg)；[完整 SVG 動畫](../../../../assets/concept-animations/map-precision-at-hits-motion.svg)。
+
 ## 範例
 
 取一個查詢，排序後的二元相關性標籤為 $(1, 0, 1, 0, 0, 1)$，其中 1 表示相關。在三個相關位置上的精確率分別為 $1/1$、$2/3$ 與 $3/6$。平均精確率為 $(1 + 2/3 + 1/2) / 3 \approx 0.72$。多個查詢的 MAP 就是這些值的平均。

@@ -25,6 +25,17 @@ NDCG 為 1.0 表示排序已是理想的。由於每個位置都有折損，把�
 
 在搜尋與推薦中比較排序時使用 NDCG，特別是當相關性有多個等級，或只有前幾名結果重要時。此時應設定截斷值 $k$，並一併報告。
 
+
+## 視覺解讀：逐名次累積 NDCG
+
+<div role="region" tabindex="0" aria-label="可水平捲動的排序指標視覺示範" style="width:100%;overflow-x:auto">
+  <img src="../../../../assets/concept-animations/ndcg-position-discount-still.svg" data-motion-src="../../../../assets/concept-animations/ndcg-position-discount-motion.svg" data-still-src="../../../../assets/concept-animations/ndcg-position-discount-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="NDCG：左右比較模型排序與理想排序，依序顯示每個名次的折損增益貢獻。">
+</div>
+
+*原創教學視覺，CC BY-SA 4.0。* 此原創連續動畫使用與上方範例相同的六個相關性等級 $(3,2,3,0,1,2)$。藍色長條是模型排序在各名次的線性折損貢獻 $\mathrm{rel}_i/\log_2(i+1)$；綠色是理想排序 $(3,3,2,2,1,0)$。橘色指示器沿名次移動，長條逐步伸展，最後得到 $\mathrm{DCG}=6.861$、$\mathrm{IDCG}=7.141$ 與 $\mathrm{NDCG}\approx0.961$。畫面底部顯示的是完整排序的**最終分數**，不是每一影格的中途累積值。這些數值是人工設計且可由公式重算的示意數值，並非實際搜尋系統的評測結果。
+
+網站可使用播放／暫停按鈕（鍵盤 Enter／Space），啟用降低動態效果偏好時預設顯示靜態預覽；手機可聚焦圖像區後以方向鍵橫向捲動。GitHub 直接顯示靜態圖。 [靜態 SVG 預覽](../../../../assets/concept-animations/ndcg-position-discount-still.svg)；[完整 SVG 動畫](../../../../assets/concept-animations/ndcg-position-discount-motion.svg)。
+
 ## 範例
 
 取六個項目，依模型排序後的分級相關性為 $(3, 2, 3, 0, 1, 2)$。折扣累積增益為 $\mathrm{DCG} = \sum_{i=1}^{6} \mathrm{rel}_i / \log_2(i + 1) \approx 6.86$。理想排序 $(3, 3, 2, 2, 1, 0)$ 的值為 $\mathrm{IDCG} \approx 7.14$，因此 NDCG 為 $6.86 / 7.14 \approx 0.96$。
