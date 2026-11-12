@@ -49,7 +49,7 @@ Because the oldest member is removed rather than the worst, a model that scored 
 
 *Original instructional SVG, CC BY-SA 4.0.* GitHub renders the reviewed final population; MkDocs adds keyboard-accessible Play/Pause and a reduced-motion fallback. [Open the static end state](../../../assets/concept-animations/aging-evolution-queue-still.svg).
 
-The **schematic validation scores** in arrival order are \(A=0.94,\ B=0.71,\ C=0.86,\ D=0.82,\ E=0.75\). A tournament samples \(\{B,C,E\}\), so \(C\) wins with \(0.86\). A *hypothetical* mutation produces \(F\) with score \(0.88\); the queue then drops **oldest** \(A\), even though \(A\) scored highest, and becomes \((B,C,D,E,F)\). These values are illustrative and **not results of training or measured validation accuracies**. The motion depicts one update of the age-ordered queue, not an accuracy-improvement guarantee; it follows the replacement rule of Real et al. (2019, in References).
+The **schematic validation scores** in arrival order are \(A=0.94,\ B=0.71,\ C=0.86,\ D=0.82,\ E=0.75\). A tournament samples \(\{B,C,E\}\), so \(C\) wins with \(0.86\). A *hypothetical* mutation creates \(F\); after training and validation, suppose it receives score \(0.88\). The child is then added; the queue then drops **oldest** \(A\), even though \(A\) scored highest, and becomes \((B,C,D,E,F)\). These values are illustrative and **not results of training or measured validation accuracies**. The motion depicts one update of the age-ordered queue, not an accuracy-improvement guarantee; it follows the replacement rule of Real et al. (2019, in References).
 
 ## Key methods
 
