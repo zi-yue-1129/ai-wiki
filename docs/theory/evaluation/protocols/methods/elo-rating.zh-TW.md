@@ -17,7 +17,7 @@ Elo 評分與競技場從成對結果為系統排名：評審（人類或模型�
 
 每一次比較記錄勝者或平手。強度的擬合目標，是讓預測的勝率與觀察到的結果相符；Elo 尺度只是呈現方式之一。系統通常隨機配對，有時也會偏重勢均力敵的比賽，以有效運用資料。信賴區間可由重抽樣比較結果得到，這是 [配對自助法](paired-bootstrap.md) 所述自助法的一個例子。
 
-### Visual walkthrough / 動態示意
+### 動態示意
 
 <div tabindex="0" role="region" aria-label="可用鍵盤聚焦與水平捲動的 Elo 分數更新示意圖" style="max-width:100%;overflow-x:auto;">
   <img src="../../../../assets/concept-animations/elo-online-update-still.svg" data-motion-src="../../../../assets/concept-animations/elo-online-update-motion.svg" data-still-src="../../../../assets/concept-animations/elo-online-update-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="Elo 線上更新示意：A 擊敗 B 後，A 的分數由 1500 升至 1532，B 降至 1468，A 下次的預期勝率從 0.5 上升到約 0.591。">

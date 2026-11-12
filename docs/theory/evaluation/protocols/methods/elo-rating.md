@@ -16,7 +16,7 @@ Elo rating and arenas rank systems from pairwise outcomes: a judge, human or mod
 
 Each comparison records a winner or a tie. The strengths are fitted so that the predicted win probabilities match the observed outcomes, and the Elo scale is one way to present them. Systems are often paired at random, and pairs are sometimes weighted towards close contests to use the data efficiently. Confidence intervals come from resampling the comparisons, which is a case of the bootstrap described in [paired bootstrap](paired-bootstrap.md).
 
-### Visual walkthrough / 動態示意
+### Visual walkthrough
 
 <div tabindex="0" role="region" aria-label="Horizontally scrollable Elo update teaching diagram" style="max-width:100%;overflow-x:auto;">
   <img src="../../../../assets/concept-animations/elo-online-update-still.svg" data-motion-src="../../../../assets/concept-animations/elo-online-update-motion.svg" data-still-src="../../../../assets/concept-animations/elo-online-update-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="Illustrative online Elo update: after A beats B, A moves from 1500 to 1532, B from 1500 to 1468, and the next expected win probability for A rises from 0.5 to about 0.591.">

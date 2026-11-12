@@ -17,7 +17,7 @@ tags:
 
 若測試集有 n 個範例，就記錄每個方法在每個範例上的分數。以放回方式抽出 n 個範例，計算重抽樣上的平均分數差，重複很多次，通常至少 1,000 次。中間 95% 的差異即為區間。若區間不包含零，這個差異就不太可能只是由測試集中恰好出現哪些範例所造成。
 
-### Visual walkthrough / 動態示意
+### 動態示意
 
 <div tabindex="0" role="region" aria-label="可用鍵盤聚焦與水平捲動的配對自助法示意圖" style="max-width:100%;overflow-x:auto;">
   <img src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" data-motion-src="../../../../assets/concept-animations/paired-bootstrap-resampling-motion.svg" data-still-src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="配對自助法示意：五筆 A 減 B 差值以整筆成對資料重抽樣，第 4 筆在同一輪出現兩次。">

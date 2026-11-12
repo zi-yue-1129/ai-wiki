@@ -16,7 +16,7 @@ The paired bootstrap estimates how uncertain a difference between two methods is
 
 For a test set of n examples, record the score of each method on every example. Draw n examples with replacement, compute the difference in the mean score on the resample, and repeat many times, commonly 1,000 or more. The middle 95 per cent of these differences gives an interval. If the interval excludes zero, the difference is unlikely to be explained by which examples happened to be in the test set.
 
-### Visual walkthrough / 動態示意
+### Visual walkthrough
 
 <div tabindex="0" role="region" aria-label="Horizontally scrollable paired-bootstrap teaching diagram" style="max-width:100%;overflow-x:auto;">
   <img src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" data-motion-src="../../../../assets/concept-animations/paired-bootstrap-resampling-motion.svg" data-still-src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="Paired bootstrap: the original five A-minus-B differences are resampled in matched pairs, with example 4 appearing twice in one draw.">
