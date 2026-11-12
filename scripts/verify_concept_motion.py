@@ -137,9 +137,9 @@ def main() -> int:
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
             if stem in HTML_MOTION_TOPICS:
-                html_tags = re.findall(r"<img\\b[^>]*>", text)
-                still_candidates = re.findall(r'src="([^"]+\\.svg)"', " ".join(html_tags))
-                motion_candidates = re.findall(r'data-motion-src="([^"]+\\.svg)"', " ".join(html_tags))
+                html_tags = re.findall(r"<img\b[^>]*>", text)
+                still_candidates = re.findall(r'src="([^"]+\.svg)"', " ".join(html_tags))
+                motion_candidates = re.findall(r'data-motion-src="([^"]+\.svg)"', " ".join(html_tags))
                 still_resolved = {(page.parent / link).resolve() for link in still_candidates}
                 motion_resolved = {(page.parent / link).resolve() for link in motion_candidates}
                 if static_path.resolve() not in still_resolved:
