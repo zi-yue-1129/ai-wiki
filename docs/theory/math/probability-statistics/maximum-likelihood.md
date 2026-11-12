@@ -42,6 +42,12 @@ For most models the maximum has no closed form, so it is found numerically. Grad
 
 Fisher (1922) gave the method its modern form and introduced the properties of consistency, efficiency and sufficiency for estimators. Bishop (2006) and Murphy (2022) explain the same material in the machine-learning setting.
 
+### Animated example: likelihood after each trial
+
+![As twelve binary Bernoulli observations arrive from left to right, the likelihood curve changes and a cyan MLE marker moves along the success-probability axis.](../../../assets/concept-animations/mle-bernoulli-likelihood-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../assets/concept-animations/mle-bernoulli-likelihood-motion.svg" data-still-src="../../../../assets/concept-animations/mle-bernoulli-likelihood-still.svg" width="640" height="360" }
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* The binary observations arrive sequentially as `1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1`. After trial (n) with (s_n) successes, the Bernoulli likelihood is proportional to (p^{s_n}(1-p)^{n-s_n}) and its MLE is (hat p=s_n/n). Each curve is **independently scaled to peak 1** to reveal the changing shape; its height is *not* a posterior density or a measure of certainty. After 12 trials there are 8 successes, giving (hat p_{mathrm{MLE}}=8/12=2/3). The animation shows discrete updates when a new observation arrives, not gradient-descent training. These are **invented observations, not measured model outputs**. On MkDocs, use Play/Pause; keyboard users can focus the visual, and narrow screens can scroll horizontally. GitHub displays the [static fallback](../../../assets/concept-animations/mle-bernoulli-likelihood-still.svg). Compare the same observations with a [Beta-prior MAP estimate](maximum-a-posteriori.md).
+
 ## Key methods
 
 - [Maximum a posteriori estimation](maximum-a-posteriori.md): adds a log-prior to the log-likelihood. It reduces to MLE when the prior is flat.

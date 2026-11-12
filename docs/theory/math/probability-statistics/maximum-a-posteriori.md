@@ -52,6 +52,12 @@ $$
 
 For a $\operatorname{Beta}(3,3)$ prior and two successes in two trials, the posterior is $\operatorname{Beta}(5,3)$. The MLE is $1$, the MAP estimate is $2/3$, and the posterior mean is $5/8$. The posterior predictive probability of success on the next trial is also $5/8$, since averaging the Bernoulli success probability over the posterior gives its mean.[^gelman] The interior-mode formula assumes both shape parameters exceed one. Other shapes can peak at a boundary or have no unique mode.
 
+### Animated example: prior and successive posterior modes
+
+![A symmetric Beta prior and a progressively updated posterior density are shown as twelve Bernoulli trials arrive; vertical purple MAP and dashed amber MLE markers can be compared.](../../../assets/concept-animations/map-beta-posterior-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../assets/concept-animations/map-beta-posterior-motion.svg" data-still-src="../../../../assets/concept-animations/map-beta-posterior-still.svg" width="640" height="360" }
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* This **separate illustrative sequence** uses the same 12 observations as the [MLE animation](maximum-likelihood.md) and a fixed (operatorname{Beta}(3,3)) prior, also used in the two-success worked example above. With (s_n) successes in (n) observations, the posterior is (operatorname{Beta}(3+s_n,3+n-s_n)), whose interior mode is (hat p_{mathrm{MAP}}=(s_n+2)/(n+4)). The dashed grey curve is the prior; purple is the posterior, and the amber marker is the MLE (s_n/n). **Prior and posterior curves are each scaled to peak 1**, so their relative heights do not compare probability masses. At (n=2,s_n=2), MAP is (2/3) and MLE is (1), matching the calculation above. At (n=12,s_n=8), MAP is (10/16=0.625) versus MLE (8/12approx0.667). The sample sequence is constructed for teaching, **not a measured result**. MkDocs has Play/Pause and a reduced-motion fallback; GitHub shows the [static preview](../../../assets/concept-animations/map-beta-posterior-still.svg).
+
 ### Connection to ridge and lasso
 
 For linear regression with response vector $\mathbf{y}$, design matrix $X$, coefficient vector $\mathbf{w}$, and independent Gaussian errors of fixed variance $\sigma^2$, the MAP objective has the following form up to an additive constant.[^bishop]

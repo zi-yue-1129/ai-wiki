@@ -31,6 +31,12 @@ MLE 求解
 
 Fisher（1922）給出此方法的現代形式，並提出估計量的一致性、效率與充分性等性質。Bishop（2006）與 Murphy（2022）則以機器學習的角度說明同一內容。
 
+### 動態示例：逐筆觀測更新概似
+
+![12 次伯努利試驗的二元結果依序加入，概似曲線逐次更新，青色 MLE 標記沿成功機率軸移動。](../../../assets/concept-animations/mle-bernoulli-likelihood-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../assets/concept-animations/mle-bernoulli-likelihood-motion.svg" data-still-src="../../../../assets/concept-animations/mle-bernoulli-likelihood-still.svg" width="640" height="360" }
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 示意觀測依序為 `1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1`。當第 (n) 次試驗後累計 (s_n) 次成功，概似與 (p^{s_n}(1-p)^{n-s_n}) 成正比，最大概似解為 (hat p=s_n/n)。為了清楚比較形狀，**每個時間點的曲線都各自將峰值正規化為 1**；高度不是參數的後驗密度，也不能直接當作不確定性的量度。12 次試驗中有 8 次成功，故 (hat p_{mathrm{MLE}}=8/12=2/3)。動畫展示每筆觀測加入後的離散更新，**不是實際模型訓練或量測資料**。MkDocs 可播放／暫停，鍵盤可聚焦圖示，窄螢幕可水平捲動；GitHub 顯示[靜態回退預覽](../../../assets/concept-animations/mle-bernoulli-likelihood-still.svg)。可以與[同一資料的 Beta 先驗 MAP 估計](maximum-a-posteriori.zh-TW.md)對照。
+
 ## 主要方法
 
 - [最大後驗估計](maximum-a-posteriori.md)：在對數概似上加上對數先驗。先驗為平坦時即退化為 MLE。
