@@ -52,6 +52,14 @@ Each training step follows these stages:
 
 The arithmetic and the stored activations run at the lower width, which is where the memory and bandwidth saving comes from. The master weights and the update remain at full width, which keeps small changes from being rounded away.
 
+### Why loss scaling matters: continuous FP16 example
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable FP16 loss-scaling figure">
+<img src="../../assets/concept-animations/fp16-loss-scaling-still.svg" data-motion-src="../../assets/concept-animations/fp16-loss-scaling-motion.svg" data-still-src="../../assets/concept-animations/fp16-loss-scaling-still.svg" width="640" height="360" style="display:block;width:640px;max-width:none" alt="A schematic gradient of 2 to the minus 27 rounds to zero on direct IEEE FP16 casting. Multiplying by 1024 produces 2 to the minus 17 in FP16, and unscaling in FP32 restores the gradient." />
+</div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* This **analytical** example uses a gradient $g=2^{-27}\approx7.45\times10^{-9}$, below IEEE binary16's smallest positive subnormal value $2^{-24}$. A direct FP16 cast rounds it to **zero**; applying loss scale $S=2^{10}=1024$ **before backpropagation** yields the representable scaled gradient $Sg=2^{-17}$. Converting to FP32 and unscaling gives $g=(Sg)/S=2^{-27}$ for the FP32 optimiser/master-weight update. These values are **not model measurements**. In a real system the scale must also avoid **overflow**, and exact recovery is not guaranteed for arbitrary gradients because of rounding and possible subnormal flushing. The figure isolates a single gradient; it does not imply that all operations in mixed-precision training are FP16. MkDocs provides the existing keyboard-accessible Play/Pause and reduced-motion fallback; on narrow screens, scroll horizontally. [View the SVG animation](../../assets/concept-animations/fp16-loss-scaling-motion.svg) · [GitHub-readable still](../../assets/concept-animations/fp16-loss-scaling-still.svg).
+
 ## Results
 
 Micikevicius et al. (2017) report that using this approach reduces the memory consumption of deep learning models by nearly two times. They recommend keeping a single-precision copy of the weights that accumulates the gradients after each optimiser step, and scaling the loss to handle the loss of information in half-precision gradients. They tested convolutional, recurrent and generative adversarial networks.
