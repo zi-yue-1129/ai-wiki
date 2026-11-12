@@ -48,6 +48,8 @@ TOPICS = {
     "cmaes-distribution-adaptation": "theory/optimization/cma-es",
     "spsa-two-evaluations": "theory/optimization/spsa",
     "batch-norm-train-infer": "theory/deep-learning/normalisation/batch-normalisation",
+    "group-norm-statistics": "theory/deep-learning/normalisation/group-normalisation",
+    "rmsnorm-shift-response": "theory/deep-learning/normalisation/rms-normalisation",
     "stochastic-depth-paths": "theory/deep-learning/dropout/stochastic-depth",
     "vae-reparameterisation": "theory/paradigms/unsupervised/density-and-generative-models/vae/index",
     "realnvp-affine-coupling": "theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/realnvp",
@@ -70,6 +72,7 @@ GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
     "byol-online-target": "byol-momentum-preview.gif",
 }
+HTML_STILL_FALLBACKS = {"group-norm-statistics", "rmsnorm-shift-response"}
 FORBIDDEN = {"script", "foreignObject", "iframe", "image"}
 LIMIT = 50 * 1024
 
@@ -132,7 +135,22 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in GITHUB_GIF_PREVIEWS:
+            if stem in HTML_STILL_FALLBACKS:
+                # GitHub gets a script-free static img; the MkDocs player upgrades
+                # the same HTML img via data-motion-src when JavaScript is enabled.
+                pairs = re.findall(
+                    r'<img\\b[^>]*\\bsrc="([^"]+\\.svg)"[^>]*\\bdata-motion-src="([^"]+\\.svg)"',
+                    text, re.S,
+                )
+                if not any(
+                    (page.parent / still).resolve() == static_path.resolve()
+                    and (page.parent / motion).resolve() == animated_path.resolve()
+                    for still, motion in pairs
+                ):
+                    errors.append(f"{page}: missing linked HTML static/motion pair")
+                if 'tabindex="0"' not in text:
+                    errors.append(f"{page}: missing keyboard-scrollable fallback")
+            elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.

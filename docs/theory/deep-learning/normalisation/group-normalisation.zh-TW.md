@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/deep-learning/normalisation
 tags:
@@ -37,6 +37,15 @@ aliases:
 $$\mu_i = \frac{1}{|\mathcal{S}_i|}\sum_{k \in \mathcal{S}_i} x_k, \qquad \sigma_i^2 = \frac{1}{|\mathcal{S}_i|}\sum_{k \in \mathcal{S}_i}(x_k - \mu_i)^2$$
 
 集合 $\mathcal{S}_i$ 包含單一樣本內第 $i$ 群組的位置與通道。令 $G = 1$ 得到通道與位置上的層正規化，令 $G = C$ 則得到實例正規化。
+
+
+### 圖解：各群組獨立計算統計量
+
+<div class="concept-motion-scroll" tabindex="0" role="region" aria-label="可水平捲動的群組正規化教學動畫" style="overflow-x:auto;max-width:100%;">
+  <img src="../../../assets/concept-animations/group-norm-statistics-still.svg" data-motion-src="../../../assets/concept-animations/group-norm-statistics-motion.svg" data-still-src="../../../assets/concept-animations/group-norm-statistics-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="同一樣本內的兩組通道各自計算平均值與標準差，移動的圓點示意數值流向個別群組的正規化結果。">
+</div>
+
+*原創教學動畫與 GitHub 靜態預覽，CC BY-SA 4.0。* 此處為**人工設定的計算示例**：將同一樣本、同一空間位置的八個通道數值分為兩組，第一組 $(2,4,6,8)$ 的平均值為 $5$；第二組 $(12,14,16,18)$ 的平均值為 $15$。兩組的**母體變異數**皆為 $5$，因此在可學習參數 $\\gamma$、$\\beta$ 之前，兩組均得到 $( -3,-1,1,3 )/\\sqrt{5}\\approx(-1.34,-0.45,0.45,1.34)$。本非零示例為簡化而取 $\\epsilon=0$；實際特徵圖還會在每組的空間位置上彙總統計量，**不會跨其他批次樣本**。移動的圓點代表概念性的資料流向，不是最佳化迭代或模型實測激活值。MkDocs 網站可使用播放／暫停按鈕，按鈕聚焦後可用 Enter／Space 操作；減少動態效果偏好顯示靜態圖，手機可水平捲動。[開啟完整循環 SVG](../../../assets/concept-animations/group-norm-statistics-motion.svg)或[查看 GitHub 靜態圖](../../../assets/concept-animations/group-norm-statistics-still.svg)。研究依據為下方參考文獻所列 Wu 與 He（2018）。
 
 ## 結果
 
