@@ -65,6 +65,8 @@ TOPICS = {
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
+    "ant-colony-pheromone": "theory/paradigms/evolutionary/ant-colony",
+    "particle-swarm-best": "theory/paradigms/evolutionary/particle-swarm",
 }
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
@@ -144,6 +146,23 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
+            elif stem in {"ant-colony-pheromone", "particle-swarm-best"}:
+                # GitHub receives an immediately legible static <img>; the existing
+                # MkDocs player progressively enhances it via data-motion-src.
+                motion_sources = re.findall(r'data-motion-src="([^"]+\.svg)"', text)
+                static_sources = re.findall(r'<img\s+src="([^"]+\.svg)"', text)
+                for label, sources, expected in (
+                    ("motion", motion_sources, animated_path),
+                    ("GitHub static fallback", static_sources, static_path),
+                ):
+                    resolved = {(page.parent / source).resolve() for source in sources}
+                    if expected.resolve() not in resolved:
+                        errors.append(f"{page}: missing {label} SVG source")
+                linked_previews = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in linked_previews
+                }:
+                    errors.append(f"{page}: missing linked static GitHub preview")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:

@@ -39,6 +39,18 @@ v_i \leftarrow \omega\, v_i + c_1 r_1 (p_i - x_i) + c_2 r_2 (g - x_i), \qquad x_
 
 其中 \(\omega\) 是慣性權重，\(c_1\) 與 \(c_2\) 分別權衡朝個體最佳與鄰域最佳移動的拉力。每次移動後，若新位置更好，就更新 \(p_i\) 與 \(g\)。此方法一般不保證收斂；實務上，群體會停留在搜尋到的最佳區域附近。慣性項由 Shi 與 Eberhart（1998）後來加入；1995 年的原始形式沒有這一項。
 
+## 動態圖解：個體最佳與全域最佳記憶
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="粒子群個體最佳與全域最佳記憶動畫" tabindex="0">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/particle-swarm-best-still.svg" data-motion-src="../../../assets/concept-animations/particle-swarm-best-motion.svg" alt="三個粒子在二維二次目標函數上移動，虛線圓環保留各粒子的個體最佳位置，青綠色光環標示全域最佳位置，旁邊的最佳目標值隨迭代降低。" width="640" height="360">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* [GitHub 與減少動態效果模式的靜態預覽](../../../assets/concept-animations/particle-swarm-best-still.svg)。MkDocs 網站提供**播放動畫／暫停動畫**（鍵盤 Enter 或 Space）；窄螢幕可水平捲動圖片。
+
+圖中的**實心粒子**為目前位置 $x_i$，**虛線圓環**保留個體歷史最佳位置 $p_i$，**青綠色圓環**標示群體全域最佳 $g$。背景橢圓是教學目標函數 $f(x,y)=(x-4)^2+(y-3)^2$ 的等高線，並非實測反應曲面。此例固定 $\omega=0.6$ 與兩項**有效吸引係數** $c_1r_1=c_2r_2=0.7$，以產生可重現的軌跡；一般 PSO 會重新抽樣隨機乘數。初始全域最佳目標值為 $5.20$，後續示意值包含 $1.27$ 與 $0.51$（四捨五入）。只有迭代邊界的離散位置才是 PSO 更新；中間的連續移動只是視覺內插。**所有粒子位置及數值均為人工示意，非實際最佳化基準測試。**原始方法見參考文獻中的 Kennedy 與 Eberhart（1995）、Shi 與 Eberhart（1998）。
+
 ## 關鍵結果
 
 本頁不引用 Kennedy 與 Eberhart（1995）的結果，因為尚未對照全文查核。

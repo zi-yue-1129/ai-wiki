@@ -40,6 +40,25 @@ p_{ij} = \frac{\tau_{ij}^{\alpha}\, \eta_{ij}^{\beta}}{\sum_{k \in \mathcal{N}_i
 
 where \(\tau_{ij}\) is the pheromone on the edge, \(\eta_{ij}\) is the heuristic value, \(\alpha\) and \(\beta\) weight them, and \(\mathcal{N}_i\) is the set of unvisited neighbours. After each iteration, pheromone is updated as \(\tau_{ij} \leftarrow (1-\rho)\,\tau_{ij} + \Delta\tau_{ij}\), where \(\rho\) is the evaporation rate and \(\Delta\tau_{ij}\) is the amount deposited by ants whose tours use edge \((i,j)\).
 
+## Animated walkthrough: pheromone feedback
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Ant colony pheromone feedback animation" tabindex="0">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/ant-colony-pheromone-still.svg" data-motion-src="../../../assets/concept-animations/ant-colony-pheromone-motion.svg" alt="Two alternative S-to-G routes. Ants traverse both branches, after which evaporation and length-weighted pheromone deposits strengthen the shorter route more." width="640" height="360">
+</div>
+</div>
+
+*Original CC BY-SA 4.0 teaching animation.* [Static GitHub and reduced-motion preview](../../../assets/concept-animations/ant-colony-pheromone-still.svg). On MkDocs, use **Play animation / Pause animation**; both buttons accept Enter or Space. On narrow screens, focus and scroll the image horizontally.
+
+In this deliberately small **two-route** example, the upper path has length $L_s=4$ and the lower path $L_l=6$. Each route starts with pheromone $\tau=1$. One artificial ant follows each route, then a single update evaporates $\rho=0.25$ and deposits $Q/L$ with $Q=4$:
+
+$
+\tau_s'=0.75\cdot 1+4/4=1.75,\qquad
+\tau_l'=0.75\cdot 1+4/6\approx1.42.
+$
+
+The moving dots trace the two chosen routes; line thickness and bars then show how the shorter route gains a stronger pheromone signal for *subsequent* decisions. This example fixes the routes instead of sampling them from $p_{ij}$, and omits the full-tour constraints of the travelling-salesperson problem. Continuous transitions are for explanation, **not extra ACO iterations or experimental measurements**. See Dorigo et al. (1996) in References.
+
 ## Key results
 
 Dorigo et al. (1996) introduce the Ant System, applied to the travelling salesman problem. This page does not quote numerical results from the paper.

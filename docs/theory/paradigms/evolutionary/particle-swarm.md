@@ -40,6 +40,18 @@ v_i \leftarrow \omega\, v_i + c_1 r_1 (p_i - x_i) + c_2 r_2 (g - x_i), \qquad x_
 
 where \(\omega\) is an inertia weight, and \(c_1\) and \(c_2\) weight the pull toward personal and neighbourhood bests. The inertia term was added later by Shi and Eberhart (1998); the original 1995 formulation has no such weight. After each move, \(p_i\) and \(g\) are updated if the new position is better. The method is not guaranteed to converge; in practice the swarm settles near the best region found.
 
+## Animated walkthrough: personal and global bests
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Particle swarm best-position memory animation" tabindex="0">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/particle-swarm-best-still.svg" data-motion-src="../../../assets/concept-animations/particle-swarm-best-motion.svg" alt="Three particles move over a two-dimensional quadratic objective. Dashed rings retain each particle's personal best, a teal halo marks the swarm's global best, and the best objective value decreases over iterations." width="640" height="360">
+</div>
+</div>
+
+*Original CC BY-SA 4.0 teaching animation.* [Static GitHub and reduced-motion preview](../../../assets/concept-animations/particle-swarm-best-still.svg). On MkDocs, use **Play animation / Pause animation** (keyboard Enter or Space); horizontally scroll the figure on narrow screens.
+
+The **solid particles** are current positions $x_i$, the **dashed rings** retain each personal best $p_i$, and the **teal ring** tracks the global best $g$. The background ellipses are level sets of the illustrative objective $f(x,y)=(x-4)^2+(y-3)^2$, not a fitted response surface. The example holds $\omega=0.6$ and the two *effective* pull coefficients $c_1r_1=c_2r_2=0.7$ fixed to make one reproducible trajectory; normal PSO resamples the random multipliers. The initial best objective is $5.20$; subsequent illustrated best values include $1.27$ and $0.51$ (rounded). Only the discrete positions at iteration boundaries are PSO updates; the smooth travel between them is a visual interpolation. **All positions and values are synthetic, not an empirical optimisation benchmark.** See Kennedy and Eberhart (1995) and Shi and Eberhart (1998) in References.
+
 ## Key results
 
 This page does not quote results from Kennedy and Eberhart (1995), since the paper was not checked against its full text.
