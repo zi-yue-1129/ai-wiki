@@ -160,6 +160,30 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+
+    # New quantisation animations use GitHub-visible HTML <img> stills,
+    # progressively enhanced by the existing MkDocs motion player.
+    for stem, page_stem in (
+        ("qat-fake-quant-ste", "theory/model-compression/quantisation/quantisation-aware-training/index"),
+        ("lsq-step-size-sweep", "theory/model-compression/quantisation/quantisation-aware-training/lsq/index"),
+    ):
+        errors.extend(verify_svg(ASSETS / f"{stem}-motion.svg", True))
+        errors.extend(verify_svg(ASSETS / f"{stem}-still.svg", False))
+        for suffix in (".md", ".zh-TW.md"):
+            page = DOCS / f"{page_stem}{suffix}"
+            if not page.is_file():
+                errors.append(f"{page}: missing")
+                continue
+            body = page.read_text(encoding="utf-8")
+            rel = "../../../../" if stem == "qat-fake-quant-ste" else "../../../../../"
+            prefix = rel + "assets/concept-animations/" + stem
+            if f'src="{prefix}-still.svg"' not in body:
+                errors.append(f"{page}: missing GitHub-visible still")
+            if f'data-motion-src="{prefix}-motion.svg"' not in body:
+                errors.append(f"{page}: missing MkDocs animation source")
+            if "CC BY-SA 4.0" not in body:
+                errors.append(f"{page}: missing artwork attribution")
+
     # The two reviewed process animations must show interpolated intermediate states,
     # not four discrete slides masquerading as motion.
     for stem in ("mae-visible-patch-reconstruction", "dinov2-dual-objective-ema"):

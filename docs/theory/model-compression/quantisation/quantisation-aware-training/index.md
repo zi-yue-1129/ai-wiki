@@ -19,6 +19,14 @@ Quantisation-aware training (QAT) trains a network while simulating the rounding
 
 In QAT, the forward pass applies fake quantisation: each weight or activation is rounded to the grid and mapped back to a real number, so the loss sees the rounding error. The backward pass cannot differentiate rounding, which is a step function with zero gradient almost everywhere. The standard fix is the **straight-through estimator** (STE): the gradient of the rounding operation is taken to be one, so gradients pass through as if no rounding happened. The same device is used by [BinaryConnect](../binary-and-ternary/binaryconnect/index.md) for binary weights.
 
+## Instructional animation: fake quantisation and straight-through gradient
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Horizontally scrollable quantisation figure">
+  <img src="../../../../assets/concept-animations/qat-fake-quant-ste-still.svg" data-motion-src="../../../../assets/concept-animations/qat-fake-quant-ste-motion.svg" alt="The orange floating-point input moves continuously while the teal two-bit fake-quantised value snaps to grid levels; a purple arrow represents the straight-through surrogate gradient." style="width:640px;max-width:none;height:auto" loading="lazy">
+</div>
+
+*Original 12-second instructional animation (CC BY-SA 4.0). For a synthetic unsigned 2-bit quantiser with $s=1$, the forward mapping is $q(x)=\operatorname{clip}(\operatorname{round}(x),0,3)$: e.g., 1.49 maps to 1 and 1.51 maps to 2. In backpropagation, the STE **approximates** $\partial q/\partial x\approx1$ within the unclipped range; rounding does not genuinely have that derivative, and the saturated region is treated separately. All numbers are illustrative, not model measurements.* MkDocs adds keyboard-operable Play/Pause; reduced-motion mode starts with a still image, and the focusable figure can be scrolled horizontally on mobile. [View complete animated SVG](../../../../assets/concept-animations/qat-fake-quant-ste-motion.svg); [GitHub-readable still](../../../../assets/concept-animations/qat-fake-quant-ste-still.svg).
+
 ## Key concepts
 
 - **Fake quantisation.** Rounding applied during training, keeping activations in floating point so that the computation is still differentiable through the STE.
