@@ -150,8 +150,8 @@ def main() -> int:
                 # GitHub renders the static IMG src; MkDocs upgrades it from data-motion-src.
                 # Validate both paths and localised alt text without requiring active SVG
                 # as a Markdown image (GitHub sanitises embedded SVG animation).
-                html_motion = re.findall(r'data-motion-src="([^"]+\\.svg)"', text)
-                html_still = re.findall(r'<img[^>]+src="([^"]+\\.svg)"', text)
+                html_motion = re.findall(r'data-motion-src="([^"]+\.svg)"', text)
+                html_still = re.findall(r'<img[^>]+src="([^"]+\.svg)"', text)
                 if animated_path.resolve() not in {
                     (page.parent / link).resolve() for link in html_motion
                 } or static_path.resolve() not in {
