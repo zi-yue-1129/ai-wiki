@@ -40,7 +40,11 @@ The paper does not introduce an optimiser. The method is a rule for choosing the
 
 ## Motion: learning rate and batch-size noise scaling
 
-<img src="../../assets/concept-animations/sgd-noise-batch-still.svg" data-motion-src="../../assets/concept-animations/sgd-noise-batch-motion.svg" data-still-src="../../assets/concept-animations/sgd-noise-batch-still.svg" alt="The analytic SGD noise-scale curve decreases as batch size rises from four to sixty-four; schematic gradient-noise scatter narrows alongside it." width="640">
+<div role="region" tabindex="0" aria-label="Teaching animation: use arrow keys to scroll horizontally; Play/Pause controls follow" style="max-width:100%;overflow-x:auto;">
+  <div style="width:640px;max-width:none;">
+    <img src="../../assets/concept-animations/sgd-noise-batch-still.svg" data-motion-src="../../assets/concept-animations/sgd-noise-batch-motion.svg" data-still-src="../../assets/concept-animations/sgd-noise-batch-still.svg" alt="The analytic SGD noise-scale curve decreases as batch size rises from four to sixty-four; schematic gradient-noise scatter narrows alongside it." width="640">
+  </div>
+</div>
 
 *Original continuous teaching animation, CC BY-SA 4.0.* [GitHub-readable static SVG](../../assets/concept-animations/sgd-noise-batch-still.svg). The orange cursor follows $g=\epsilon(N/B-1)$ with **illustrative** $N=128$, $\epsilon=0.1$ and $B=4\ldots64$: the endpoints have $g=3.1$ and $g=0.1$. The right cloud's spread is drawn proportional to $1/\sqrt B$ to visualise standard-error scaling for independent, similarly distributed gradients; its dots are **not sampled gradients, model measurements, or a proof of Gaussian noise**. Keeping $g$ constant while changing $\epsilon$ would require changing $B$ accordingly, subject to finite-data and optimiser assumptions. MkDocs offers Play/Pause and a reduced-motion static view.
 

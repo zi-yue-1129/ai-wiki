@@ -43,7 +43,11 @@ Unrolled, the step is a weighted sum of all past gradients with weights that dec
 
 ## Motion: why momentum overshoots
 
-<img src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" data-motion-src="../../../assets/concept-animations/heavy-ball-overshoot-motion.svg" data-still-src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" alt="A computed twelve-step comparison on a one-dimensional quadratic: momentum crosses the optimum, while gradient descent approaches it monotonically." width="640">
+<div role="region" tabindex="0" aria-label="Teaching animation: use arrow keys to scroll horizontally; Play/Pause controls follow" style="max-width:100%;overflow-x:auto;">
+  <div style="width:640px;max-width:none;">
+    <img src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" data-motion-src="../../../assets/concept-animations/heavy-ball-overshoot-motion.svg" data-still-src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" alt="A computed twelve-step comparison on a one-dimensional quadratic: momentum crosses the optimum, while gradient descent approaches it monotonically." width="640">
+  </div>
+</div>
 
 *Original continuous teaching animation, CC BY-SA 4.0.* [GitHub-readable static SVG](../../../assets/concept-animations/heavy-ball-overshoot-still.svg). The moving points follow the **exact discrete recurrence** above for $f(\theta)=\theta^2/2$, $\theta_0=3$, $v_0=0$, $\eta=0.2$, and $\beta=0.7$; the lines interpolate between discrete updates for readability. In this example momentum first crosses zero at update 4, while plain gradient descent stays positive. The comparison is **illustrative, not a training measurement or a guarantee that momentum always converges faster**. On the MkDocs site, use Play/Pause; reduced-motion preference displays the static state.
 
