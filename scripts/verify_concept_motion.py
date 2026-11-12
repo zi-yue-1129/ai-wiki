@@ -177,6 +177,24 @@ def main() -> int:
     ):
         if path not in config or not (DOCS / path).exists():
             errors.append(f"Missing registered player asset: {path}")
+    # Independent review gate for paired-bootstrap and Elo process animations.
+    # Markdown uses HTML img src for GitHub-safe stills and data-motion-src for MkDocs.
+    for stem, page_stem in {
+        "paired-bootstrap-resampling": "theory/evaluation/protocols/methods/paired-bootstrap",
+        "elo-online-update": "theory/evaluation/protocols/methods/elo-rating",
+    }.items():
+        errors.extend(verify_svg(ASSETS / f"{stem}-motion.svg", True))
+        errors.extend(verify_svg(ASSETS / f"{stem}-still.svg", False))
+        for suffix in (".md", ".zh-TW.md"):
+            page = DOCS / (page_stem + suffix)
+            if not page.exists():
+                errors.append(f"{page}: missing bilingual teaching page")
+                continue
+            content = page.read_text(encoding="utf-8")
+            if f'{stem}-still.svg' not in content or f'{stem}-motion.svg' not in content:
+                errors.append(f"{page}: missing GitHub still or website motion source")
+            if 'CC BY-SA 4.0' not in content:
+                errors.append(f"{page}: missing visual attribution")
     for error in errors:
         print(f"ERROR: {error}", file=sys.stderr)
     print(f"Checked {len(TOPICS)} motion/still pairs and bilingual pages: {len(errors)} error(s)")
