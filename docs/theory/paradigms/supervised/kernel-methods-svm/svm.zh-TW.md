@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/supervised/kernel-methods-svm
   - theory/paradigms/supervised/linear-models
