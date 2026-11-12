@@ -10,7 +10,7 @@
 
 /* Readable mobile layout for 640px sequential probability animations. */
 .md-typeset p:has(> img.concept-motion-wide),
-.md-typeset p:has(> .concept-motion-player) { max-width: 100%; overflow-x: auto; }
+.md-typeset p:has(> .concept-motion-player img.concept-motion-wide) { max-width: 100%; overflow-x: auto; }
 .md-typeset img.concept-motion-wide,
 .md-typeset .concept-motion-player img.concept-motion-wide { display: block; width: 640px; min-width: 640px; max-width: none; height: 360px; }
 .md-typeset .concept-motion-player:has(img.concept-motion-wide) { width: 640px; min-width: 640px; max-width: none; }
