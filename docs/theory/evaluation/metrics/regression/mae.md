@@ -17,6 +17,18 @@ $$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |\hat{y}_i - y_i|$$
 
 A perfect model scores 0. The value is a typical size of error, so an MAE of 2 means predictions are off by 2 units on average.
 
+## Animated explanation: linear versus squared error response
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="MAE versus RMSE animation; focus this image and scroll horizontally if needed">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="Five residual bars: four stay at one, while the fifth rises from one to six. The MAE score grows more slowly than RMSE.">
+</div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0. GitHub shows the informative static end state; on MkDocs select Play/Pause. Focus the figure and scroll horizontally on narrow screens.* [Full SVG animation](../../../../assets/concept-animations/outlier-mae-rmse-motion.svg).
+
+In this **schematic** five-case example, four absolute residuals remain at 1 while the fifth changes continuously from 1 to 6 and back. MAE rises linearly, from $1$ to $(4+6)/5=2$, whereas RMSE rises from $1$ to $\sqrt{(4+6^2)/5}=\sqrt 8\approx2.83$. The labels at the right of the bars show **peak** scores, not continuously measured values. This is calculated from artificial residuals, not fitted-model performance.
+
 ## Interpretation
 
 Because MAE grows linearly with each error, a few very large errors have a proportionate effect rather than a dominant one. Its minimiser is the median of the errors, so a model trained to minimise MAE predicts something close to the conditional median rather than the mean. Willmott and Matsuura (2005) argue that this makes MAE the more natural measure of average model performance.

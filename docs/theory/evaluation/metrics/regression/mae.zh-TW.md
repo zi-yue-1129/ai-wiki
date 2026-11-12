@@ -17,6 +17,18 @@ $$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |\hat{y}_i - y_i|$$
 
 完美的模型得分為 0。這個數值代表典型的誤差大小，因此 MAE 為 2 表示預測平均差 2 個單位。
 
+## 動畫解讀：線性誤差與平方誤差的差異
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="MAE 與 RMSE 動畫；可聚焦此圖並在窄螢幕水平捲動">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="五個絕對殘差中，四個固定為一，第五個從一增加到六再返回；MAE 的增幅小於 RMSE。">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。GitHub 顯示高誤差狀態的靜態圖；MkDocs 網站可播放或暫停，手機版可聚焦後水平捲動。* [完整 SVG 動畫](../../../../assets/concept-animations/outlier-mae-rmse-motion.svg)。
+
+在**人工示意**的五筆資料中，四個絕對殘差固定為 1，最後一筆從 1 連續增加到 6，再返回 1。MAE 由 $1$ 線性上升至 $(4+6)/5=2$；RMSE 則從 $1$ 上升至 $\sqrt{(4+6^2)/5}=\sqrt8\approx2.83$。右側數字是**峰值**，不是即時量測讀值；此處沒有訓練或評測模型。
+
 ## 解讀
 
 由於 MAE 隨每個誤差線性增長，少數非常大的誤差只會按比例影響結果，而不會佔主導地位。它的最小化者是誤差的中位數，因此以 MAE 訓練的模型會預測接近條件中位數的值，而不是平均值。Willmott 與 Matsuura（2005）主張，這使 MAE 成為衡量平均模型表現較自然的指標。

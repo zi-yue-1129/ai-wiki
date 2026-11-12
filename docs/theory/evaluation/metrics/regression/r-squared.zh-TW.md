@@ -17,6 +17,18 @@ $$R^2 = 1 - \frac{\sum_{i}(y_i - \hat{y}_i)^2}{\sum_{i}(y_i - \bar{y})^2}$$
 
 其中 $\bar{y}$ 是真實值的平均數。完美的模型得分為 1.0。一個永遠預測 $\bar{y}$ 的模型得分為 0.0，比它還差的模型得分為負數。scikit-learn 的文件給出一個例子：預測值與真實值完全相反時，得分為 −3.0（見參考文獻）。
 
+## 動畫解讀：與預測平均數的基準相比
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="R 平方與平均數基準的比較動畫；可聚焦並水平捲動">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" data-motion-src="../../../../assets/concept-animations/r2-mean-baseline-motion.svg" data-still-src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" alt="四個真實值維持固定，預測值移動；殘差平方和超過平均數基準平方和後，R 平方變為負數。">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。GitHub 顯示比平均數基準更差的靜態狀態；MkDocs 提供播放／暫停與鍵盤可聚焦的水平捲動。* [完整 SVG 動畫](../../../../assets/concept-animations/r2-mean-baseline-motion.svg)。
+
+取**人工設定**的目標值 $y=(1,2,3,4)$，其平均數為 $\bar y=2.5$，因此 $\mathrm{TSS}=5$。預測值 $\hat y_i=y_i+k(\bar y-y_i)$ 由平均數基準（$k=1$、$R^2=0$）移向完美預測（$k=0$、$R^2=1$），再變成比基準更差的預測（$k=1.5$、$\mathrm{RSS}=11.25$、$R^2=-1.25$），最後返回。由於 $\mathrm{RSS}=5k^2$，因此 $R^2=1-k^2$，下方指示點隨公式移動。本動畫不是模型訓練軌跡，也不是實測評分。
+
 ## 解讀
 
 $R^2$ 回答的問題與 MAE 或 RMSE 不同。後兩者說明誤差有多大；$R^2$ 說明模型是否比平均值做得更好。當目標值的變異很小時，即使 RMSE 也很小，$R^2$ 仍可能很低，因此兩者應一起解讀。
