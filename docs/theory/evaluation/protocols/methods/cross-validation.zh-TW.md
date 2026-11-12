@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-11-12
 related:
   - engineering/evaluation
   - theory/evaluation/protocols/index.md
@@ -15,6 +16,16 @@ tags:
 ## 程序
 
 在 k 摺交叉驗證中，資料被分成 k 摺。每一摺輪流作為測試集，模型在其餘各摺上訓練，最後把 k 個分數取平均。分層摺會讓每一摺的類別比例相同，這在類別不平衡時很重要。分群摺則讓同一單位（例如同一位病人）的所有範例都留在同一摺。
+
+## 五摺交叉驗證動畫
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可水平捲動的教學動畫"><div style="width:640px">
+<img src="../../../../assets/concept-animations/cv-fold-rotation-still.svg" data-motion-src="../../../../assets/concept-animations/cv-fold-rotation-motion.svg" data-still-src="../../../../assets/concept-animations/cv-fold-rotation-still.svg" width="640" height="360" alt="五摺交叉驗證矩陣：每輪一個青綠色驗證摺、其餘藍色訓練摺，旁邊依序顯示示意分數。">
+</div></div>
+
+F1–F5 是互不重疊的資料分割，**每列代表重新訓練的一個模型**：青綠色格子是本輪保留的驗證摺，另外四個藍色格子是訓練資料。掃描指示器依序移動代表五次獨立的訓練／評估，**不是**同一個模型跨列累積訓練。示意分數 $0.82、0.85、0.79、0.88、0.84$ 的平均為 $0.836$，**不是模型實測成績**。若透過交叉驗證選擇超參數，應另外使用外層評估迴圈（巢狀交叉驗證），不能把選參的最佳分數當作無偏測試表現。MkDocs 支援鍵盤 Play/Pause；小螢幕可水平捲動。
+
+[查看 GitHub 可顯示的靜態預覽](../../../../assets/concept-animations/cv-fold-rotation-still.svg). *原創教學視覺，CC BY-SA 4.0。*
 
 ## 選擇超參數
 

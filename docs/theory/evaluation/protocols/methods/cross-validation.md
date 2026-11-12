@@ -16,6 +16,16 @@ Cross-validation estimates how well a model generalises by training and testing 
 
 In k-fold cross-validation, the data is divided into k folds. Each fold is held out once as the test set while the model trains on the others, and the k scores are averaged. Stratified folds keep the class proportions the same in every fold, which matters when classes are imbalanced. Group folds keep all examples from one unit, such as one patient, in the same fold.
 
+## Animated five-fold walkthrough
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable instructional animation"><div style="width:640px">
+<img src="../../../../assets/concept-animations/cv-fold-rotation-still.svg" data-motion-src="../../../../assets/concept-animations/cv-fold-rotation-motion.svg" data-still-src="../../../../assets/concept-animations/cv-fold-rotation-still.svg" width="640" height="360" alt="Five-fold cross-validation matrix with one green held-out fold per fit, blue training folds and progressively revealed example scores.">
+</div></div>
+
+Columns F1–F5 represent disjoint data partitions and **each row is a freshly fitted model**: the teal cell is its held-out validation fold, while the four blue cells supply training data. The scan marker moves through five separate fits; it does **not** mean one model trains incrementally across the rows. Illustrative fold scores $0.82, 0.85, 0.79, 0.88, 0.84$ average to $0.836$; they are **not measured scores**. When cross-validation is used for hyperparameter selection, use a separate outer evaluation loop (nested CV) rather than reporting the selection score as unbiased test performance. Play/Pause works with keyboard controls on MkDocs; the 640-pixel figure can be scrolled on narrow screens.
+
+[Open GitHub-readable static fallback](../../../../assets/concept-animations/cv-fold-rotation-still.svg). *Original instructional figure, CC BY-SA 4.0.*
+
 ## Choosing hyperparameters
 
 Cross-validation is also used to choose settings. When that is done, the outer loop must be separate from the inner loop that selects settings, or the reported score will be optimistic. A nested design uses an inner loop for selection and an outer loop for the final estimate.

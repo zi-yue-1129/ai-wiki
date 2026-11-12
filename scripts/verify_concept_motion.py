@@ -14,6 +14,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "svm-margin-hinge": "theory/paradigms/supervised/kernel-methods-svm/svm",
+    "cv-fold-rotation": "theory/evaluation/protocols/methods/cross-validation",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
@@ -132,7 +134,18 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in GITHUB_GIF_PREVIEWS:
+            if stem in {"svm-margin-hinge", "cv-fold-rotation"}:
+                motion_sources = re.findall(r'data-motion-src="([^"]+\.svg)"', text)
+                static_sources = re.findall(r'<img[^>]+src="([^"]+-still\.svg)"', text)
+                if animated_path.resolve() not in {
+                    (page.parent / link).resolve() for link in motion_sources
+                }:
+                    errors.append(f"{page}: missing HTML motion source")
+                if static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in static_sources
+                }:
+                    errors.append(f"{page}: missing GitHub static image fallback")
+            elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.
