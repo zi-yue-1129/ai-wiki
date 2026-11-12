@@ -149,8 +149,8 @@ def main() -> int:
             elif stem in {"roofline-ridge-sweep", "fp8-scale-range"}:
                 # These pages display a GitHub-safe still via HTML img and
                 # activate the motion source in the MkDocs player.
-                still_sources = re.findall(r'<img\\b[^>]*\\bsrc="([^"]+)"', text)
-                motion_sources = re.findall(r'<img\\b[^>]*\\bdata-motion-src="([^"]+)"', text)
+                still_sources = re.findall(r'<img\b[^>]*\bsrc="([^"]+)"', text)
+                motion_sources = re.findall(r'<img\b[^>]*\bdata-motion-src="([^"]+)"', text)
                 if static_path.resolve() not in {
                     (page.parent / link).resolve() for link in still_sources
                 }:
