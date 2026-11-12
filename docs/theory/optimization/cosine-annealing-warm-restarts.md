@@ -40,6 +40,18 @@ Let \(T_i\) be the length of run \(i\) in epochs, and let \(T_{\mathrm{cur}}\) b
 
 The rate equals \(\eta^i_{\max}\) at a restart and falls to \(\eta^i_{\min}\) at the end of the run. The paper keeps the bounds fixed across restarts and sets \(T_{i+1} = T_{\mathrm{mult}}\, T_i\). A setting with \(T_{\mathrm{mult}} = 1\) gives runs of equal length. The paper takes snapshots at the ends of runs and combines them in an ensemble.
 
+### Visual walkthrough: cosine decay and warm restarts
+
+<div class="concept-motion-scroll" role="region" aria-label="Horizontally scrollable cosine-restart learning-rate diagram" tabindex="0" style="overflow-x:auto;max-width:100%">
+<img src="../../assets/concept-animations/sgdr-cosine-restart-still.svg" width="640" style="min-width:640px" data-motion-src="../../assets/concept-animations/sgdr-cosine-restart-motion.svg" data-still-src="../../assets/concept-animations/sgdr-cosine-restart-still.svg" alt="Cosine warm-restart schedule showing three cosine decays lasting two, four, and eight steps, with learning-rate resets at steps two and six.">
+</div>
+
+*Original instructional visualisation, CC BY-SA 4.0.* Using **illustrative, not measured**, values $\eta_{\min}=0.10$, $\eta_{\max}=1.00$, $T_0=2$, and $T_{\mathrm{mult}}=2$, the plot reveals three cosine intervals of **2, 4, and 8** steps. At steps **2** and **6**, the rate returns from the minimum to the maximum, while the optimiser's model parameters are **not** reinitialised. Orange dashed vertical boundaries mark the abrupt schedule resets; the progressively longer bands show the next cycle's duration.
+
+The schedule is based on the original [SGDR paper](https://arxiv.org/abs/1608.03983). The moving point represents *the prescribed learning rate*, not loss, accuracy, optimiser position, or an observed training run. The final step at 14 is the end of the illustrated budget, not another restart.
+
+On MkDocs use **Play/Pause**, including Tab, Enter and Space keyboard controls. Reduced-motion users start with the static diagram. GitHub provides the [static fallback preview](../../assets/concept-animations/sgdr-cosine-restart-still.svg) and a browser can open the [complete SVG animation](../../assets/concept-animations/sgdr-cosine-restart-motion.svg). **All values are illustrative, not empirical model results.**
+
 ## Results
 
 - **Headline error rates.** With a WRN-28-10 network, the paper reports 3.14% error on CIFAR-10 and 16.21% on CIFAR-100. These figures come from an ensemble of 16 runs with 3 snapshots per run, not from a single model.

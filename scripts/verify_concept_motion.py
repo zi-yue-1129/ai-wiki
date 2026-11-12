@@ -31,6 +31,8 @@ TOPICS = {
     "streaming-kv-eviction": "engineering/inference-optimization/kv-cache-compression",
     "mcts-search-cycle": "theory/paradigms/reinforcement-learning/mcts-and-self-play/index",
     "dqn-target-sync": "theory/paradigms/reinforcement-learning/deep-q-networks/index",
+    "clr-triangular2-sweep": "theory/optimization/cyclical-learning-rates",
+    "sgdr-cosine-restart": "theory/optimization/cosine-annealing-warm-restarts",
     "adamw-decoupled-paths": "theory/optimization/adaptive/adamw",
     "td3-delayed-twin-critics": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/td3/index",
     "ppo-clipped-objective": "theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index",
@@ -144,15 +146,24 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif animated_path.resolve() not in linked_images:
+            elif animated_path.resolve() not in linked_images | {
+                (page.parent / link).resolve()
+                for link in re.findall(r'data-motion-src="([^"]+[.]svg)"', text)
+            }:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
+            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory", "clr-triangular2-sweep", "sgdr-cosine-restart"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)
                 for fallback in fallbacks:
                     if fallback.resolve() not in linked:
                         errors.append(f"{page}: missing GitHub-readable fallback link {fallback.name}")
+            if stem in {"clr-triangular2-sweep", "sgdr-cosine-restart"}:
+                html_static = re.findall(r'<img[^>]*\ssrc="([^"]+[.]svg)"', text)
+                if static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in html_static
+                }:
+                    errors.append(f"{page}: missing inline GitHub-compatible still image")
             if "CC BY-SA 4.0" not in text:
                 errors.append(f"{page}: missing original-diagram attribution")
         print(
