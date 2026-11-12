@@ -34,6 +34,19 @@ P_{\text{attainable}} = \min\left(P_{\text{peak}},\; B \cdot I\right)
 
 上限針對每台機器計算一次，而非針對每個核心。同一台機器上的所有核心，都以同樣的兩條線來衡量。
 
+### 動態解說：跨越屋脊點
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Roofline 運算強度動畫；小螢幕可聚焦並水平捲動">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" data-motion-src="../../../assets/concept-animations/roofline-ridge-sweep-motion.svg" data-still-src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" alt="對數座標 Roofline 圖：游標沿頻寬上限持續上升，在每位元組八次浮點運算的屋脊點後轉為水平運算上限。">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。GitHub 顯示[靜態 SVG](../../../assets/concept-animations/roofline-ridge-sweep-still.svg)；網站提供播放／暫停與鍵盤水平捲動。* [完整 SVG 動畫](../../../assets/concept-animations/roofline-ridge-sweep-motion.svg)。
+
+這是**人工設定、非設備實測**的示例：持續頻寬 $B=4\,\mathrm{GB/s}$，運算上限 $P_{\mathrm{peak}}=32\,\mathrm{GFLOP/s}$，因此屋脊點為 $I^*=8\,\mathrm{FLOP/byte}$。游標連續沿 $P_{\mathrm{bound}}=\min(32,4I)$ 移動：$I=2$ 時的頻寬上限是 $8\,\mathrm{GFLOP/s}$；$I=16$ 時仍受運算上限 $32\,\mathrm{GFLOP/s}$ 約束。右移表示增加資料重複使用量，**不是實測加速**。圖中的線是理論上界，真實程式可能位於其下。
+
+
 ## 關鍵方法
 
 ### Roofline（Williams 等人，2009）

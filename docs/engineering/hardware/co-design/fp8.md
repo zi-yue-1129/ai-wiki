@@ -47,6 +47,19 @@ The paper simulates FP8 training by rounding the inputs of each matrix multiplic
 
 Scaling is done in software. Each tensor is multiplied by a scaling factor before the cast, and some networks need a separate factor for each tensor. The paper also notes that the skip-the-update response to overflow used in 16-bit mixed-precision training is a poor fit for FP8, because overflows are much more common at this width.
 
+### Animated explanation: FP8 representable windows under tensor scaling
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="FP8 range shifting under scaling; focus and scroll horizontally on smaller screens">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/fp8-scale-range-still.svg" data-motion-src="../../../assets/concept-animations/fp8-scale-range-motion.svg" data-still-src="../../../assets/concept-animations/fp8-scale-range-still.svg" alt="E4M3 and E5M2 nonzero finite input-magnitude windows shift left as the tensor scaling factor rises, against two fixed sample magnitudes.">
+</div>
+</div>
+
+*Original educational animation, CC BY-SA 4.0. GitHub shows the [static SVG](../../../assets/concept-animations/fp8-scale-range-still.svg); the website offers Play/Pause and keyboard-accessible scrolling.* [Full SVG animation](../../../assets/concept-animations/fp8-scale-range-motion.svg).
+
+The coloured bands show the **positive magnitudes** of finite, nonzero values representable by a format after the pre-cast multiplication $s\lvert x\rvert$, mapped back to unscaled input units. With subnormals supported, E4M3 has $[2^{-9}/s,448/s]$ and E5M2 has $[2^{-16}/s,57344/s]$. As **illustrative** $s$ moves continuously from 1 to 16 and back, both bands slide left on a logarithmic axis. Two fixed schematic inputs are $\lvert x_{\mathrm{low}}\rvert=5\times10^{-4}$ and $\lvert x_{\mathrm{high}}\rvert=10^3$. Larger $s$ brings the low input into E4M3's nonzero range but places more large values above its finite maximum. The wide E5M2 band is a *range* comparison only: this picture does not show per-bin rounding, numerical error or model accuracy, and exact underflow/overflow behaviour depends on conversion rules.
+
+
 ## Results
 
 The paper reports that FP8 training effectively matches 16-bit training on a range of image and language tasks, with hyperparameters unchanged. The models include convolutional networks, recurrent networks and Transformers, with language models up to 175 billion parameters.

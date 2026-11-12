@@ -32,6 +32,19 @@ FP8 是一種用於深度學習的 8 位元浮點格式。Micikevicius 等人（
 
 縮放在軟體中完成。每個張量在轉換前乘上一個縮放因子，有些網路需要為每個張量分別設定因子。論文也指出，16 位元混合精度訓練中遇到溢位時跳過權重更新的做法，不適合用於 FP8，因為在這個寬度下溢位要常見得多。
 
+### 動態解說：縮放如何移動 FP8 的可表示區間
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="FP8 縮放與可表示範圍動畫；小螢幕可聚焦並水平捲動">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/fp8-scale-range-still.svg" data-motion-src="../../../assets/concept-animations/fp8-scale-range-motion.svg" data-still-src="../../../assets/concept-animations/fp8-scale-range-still.svg" alt="E4M3 與 E5M2 的非零有限值區間隨張量縮放係數增加往左移動，並與兩個固定的輸入量值比較。">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。GitHub 顯示[靜態 SVG](../../../assets/concept-animations/fp8-scale-range-still.svg)；網站提供播放／暫停與鍵盤水平捲動。* [完整 SVG 動畫](../../../assets/concept-animations/fp8-scale-range-motion.svg)。
+
+色帶表示經過 $s\lvert x\rvert$ 縮放後，**正量值**可被格式表示成非零有限數的範圍，再換算回原始輸入單位。假設支援次正規數（subnormal），E4M3 的區間為 $[2^{-9}/s,448/s]$，E5M2 為 $[2^{-16}/s,57344/s]$。當**人工設定**的 $s$ 由 1 連續升至 16 再返回時，兩個區間沿對數軸向左移。兩個固定示意輸入是 $\lvert x_{\mathrm{low}}\rvert=5\times10^{-4}$ 與 $\lvert x_{\mathrm{high}}\rvert=10^3$。增加 $s$ 能讓較小的輸入落入 E4M3 非零範圍，但更多大值也會超出其有限上限。E5M2 色帶較寬僅比較**動態範圍**，並未表示量化格點、捨入誤差或模型準確率；實際下溢及溢位行為亦取決於轉換規則。
+
+
 ## 結果
 
 論文報告，在多種影像與語言任務上，FP8 訓練的結果實質上與 16 位元訓練相當，且超參數不變。涵蓋的模型包括卷積網路、循環網路與 Transformer，其中語言模型最大達 1750 億參數。
