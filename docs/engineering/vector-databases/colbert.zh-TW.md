@@ -39,6 +39,12 @@ flowchart LR
   S --> R[排序後的段落]
 ```
 
+### 動態解說：MaxSim 的逐詞元選取
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="ColBERT MaxSim 示意圖；小螢幕可水平捲動"><div class="concept-motion-fixed"><img src="../../assets/concept-animations/colbert-maxsim-switch-still.svg" data-motion-src="../../assets/concept-animations/colbert-maxsim-switch-motion.svg" alt="六個詞元相似度長條連續改變；每個查詢詞元以金色外框標出最高分的段落詞元，兩列最大值相加成為 ColBERT 分數。"></div></div>
+
+*原創教學動畫，CC BY-SA 4.0。* 此圖使用**人工設定的相似度矩陣**（不是實測 ColBERT 嵌入）$S(t)=\begin{bmatrix}0.88-0.58t & 0.22+0.62t & 0.12+0.18t \\ 0.10+0.12t & 0.28+0.52t & 0.79-0.40t\end{bmatrix}$，其中 $t$ 從 0 增加至 1 再返回。金色外框指出每一列的 $\arg\max_j S_{ij}$；青綠與紫色長條代表**各查詢詞元的最大相似度**，橘色長條則為 $\max_j S_{1j}+\max_j S_{2j}$。約在 $t=0.55$ 時，兩列選取的最佳段落詞元都改為 $p_2$，說明 MaxSim 如何隨局部相似度變化改變分數貢獻者。數值是示意內積，**不是**模型訓練更新、真實文件或檢索準確率。MkDocs 可用播放／暫停及鍵盤操作；GitHub 與偏好減少動態效果的讀者可觀看[靜態回退圖](../../assets/concept-animations/colbert-maxsim-switch-still.svg)。
+
 ## 關鍵想法
 
 - **問題**：每個段落只有一個向量時，可能遺失細節，因此以某個特定片語回答問題的段落，可能排在相關性較低的段落之後。

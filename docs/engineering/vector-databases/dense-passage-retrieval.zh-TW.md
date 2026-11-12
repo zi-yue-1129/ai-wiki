@@ -36,6 +36,12 @@ flowchart LR
   I --> S --> K[前 k 個段落]
 ```
 
+### 動態解說：內積排序如何改變
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="DPR 示意圖；小螢幕可水平捲動"><div class="concept-motion-fixed"><img src="../../assets/concept-animations/dpr-dot-product-sweep-still.svg" data-motion-src="../../assets/concept-animations/dpr-dot-product-sweep-motion.svg" alt="橘色查詢向量由段落 A 朝段落 B 旋轉，兩個內積分數長條連續變化，排名較高的段落隨之切換。"></div></div>
+
+*原創教學動畫，CC BY-SA 4.0。* 使用**二維、單位長度的人工範例**：固定段落向量 $p_A=(1,0)$、$p_B=(0,1)$，讓查詢向量 $q(\theta)=(\cos\theta,\sin\theta)$ 由 $5^\circ$ 旋轉至 $85^\circ$ 再返回。因此 $s_A=\cos\theta$、$s_B=\sin\theta$，兩者在 $\theta=45^\circ$ 時同分並交換排名，段落向量本身則維持不動。此圖僅用來說明**編碼完成後的最大內積排序**，並非編碼器訓練過程、ANN 索引走訪或實測 DPR 嵌入。MkDocs 可用播放／暫停按鈕及鍵盤操作；偏好減少動態效果或在 GitHub Markdown 中可直接觀看[靜態預覽](../../assets/concept-animations/dpr-dot-product-sweep-still.svg)。
+
 ## 關鍵想法
 
 - **問題**：BM25 等稀疏關鍵字檢索會漏掉改寫過的說法，以及用詞不同的相關段落。
