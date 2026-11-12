@@ -168,6 +168,35 @@ def main() -> int:
         if len(animations) < 10 or any(node.get("calcMode") == "discrete" for node in animations):
             errors.append(f"{stem}: continuous interpolation required; discrete slides are not sufficient")
 
+    # These sections show an explicit GitHub-safe static SVG, enhanced in MkDocs
+    # by the existing keyboard-accessible concept-motion.js player.
+    enhanced_topics = {
+        "roc-threshold-sweep": "theory/evaluation/metrics/classification/roc-auc",
+        "pr-threshold-sweep": "theory/evaluation/metrics/classification/pr-auc",
+    }
+    for stem, page_stem in enhanced_topics.items():
+        motion = ASSETS / f"{stem}-motion.svg"
+        still = ASSETS / f"{stem}-still.svg"
+        errors.extend(verify_svg(motion, True))
+        errors.extend(verify_svg(still, False))
+        for suffix in (".md", ".zh-TW.md"):
+            page = DOCS / (page_stem + suffix)
+            if not page.is_file():
+                errors.append(f"{page}: bilingual page missing")
+                continue
+            body = page.read_text(encoding="utf-8")
+            prefix = "../../../../assets/concept-animations/"
+            required = (
+                f'src="{prefix}{stem}-still.svg"',
+                f'data-motion-src="{prefix}{stem}-motion.svg"',
+                f']({prefix}{stem}-still.svg)',
+                "CC BY-SA 4.0",
+            )
+            for pattern in required:
+                if pattern not in body:
+                    errors.append(f"{page}: missing linked static preview or motion: {pattern}")
+        print(f"Enhanced {stem}: {motion.stat().st_size if motion.exists() else '-'} / {still.stat().st_size if still.exists() else '-'} bytes")
+
     config = Path("mkdocs.yml").read_text(encoding="utf-8")
     for path in (
         "javascripts/concept-motion.js",
