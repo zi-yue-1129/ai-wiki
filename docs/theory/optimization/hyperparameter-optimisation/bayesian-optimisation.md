@@ -45,6 +45,20 @@ For minimisation, the expected-improvement acquisition is the expected amount by
 
 where \(\Phi\) and \(\phi\) are the standard normal cumulative distribution function and density. Large \(\mathrm{EI}\) comes from a low predicted mean, or from high uncertainty, or from both.
 
+### GP conditioning: how evidence changes the posterior
+
+<img src="../../../assets/concept-animations/bo-gp-conditioning-still.svg" data-motion-src="../../../assets/concept-animations/bo-gp-conditioning-motion.svg" data-still-src="../../../assets/concept-animations/bo-gp-conditioning-still.svg" alt="Animated Gaussian-process prior and four successive posterior updates. The mean moves through sampled points and the uncertainty interval contracts near observations." width="640" height="360" loading="lazy">
+
+*Original teaching motion, CC BY-SA 4.0.* Each new observation conditions a Gaussian-process surrogate; the shaded **95% posterior interval** narrows near observed inputs, but remains wider where the search has less information. This is a deterministic **illustration, not results from trained models**. We use a one-dimensional zero-mean GP with squared-exponential kernel (length scale **0.92**, prior variance **1**) and illustrative observation-noise standard deviation **0.06**. Evaluations at \(x=0.80,2.30,4.70\) have scores approximately \(0.092,-0.269,0.304\), and the fourth point \(x=3.24\) has score \(-0.876\). Smooth in-between frames depict the visual transition between posterior fits, **not extra GP observations or optimisation steps**. The MkDocs figure has keyboard-operable Play/Pause; for static reading, [view the GitHub fallback](../../../assets/concept-animations/bo-gp-conditioning-still.svg) or [open the motion SVG](../../../assets/concept-animations/bo-gp-conditioning-motion.svg).[^bo-visual]
+
+### Expected improvement: where to evaluate next
+
+<img src="../../../assets/concept-animations/bo-expected-improvement-still.svg" data-motion-src="../../../assets/concept-animations/bo-expected-improvement-motion.svg" data-still-src="../../../assets/concept-animations/bo-expected-improvement-still.svg" alt="Animated scan of the expected-improvement acquisition along a one-dimensional search domain. A marker moves across the curve and identifies x equals 3.24 as its peak." width="640" height="360" loading="lazy">
+
+*Original teaching motion, CC BY-SA 4.0.* With only the **first three** observations above, the incumbent for minimisation is \(f^*\approx -0.269\). At each candidate, we evaluate the **plug-in expected improvement** from the fixed Gaussian-process posterior; the scanning marker follows \(\mathrm{EI}(x)\), then highlights \(x\approx3.24\) with \(\mathrm{EI}\approx0.222\) on a **0.06-spaced grid**. This is an acquisition maximum—not a claim that the true function minimiser is there. The example treats the observed incumbent as fixed although its GP fit has a small illustrative noise term, rather than implementing a noise-aware EI policy. The subsequent synthetic outcome at \(x=3.24\) appears in the first animation. No predictive or optimisation benchmark was measured. On MkDocs use Play/Pause, or [view the GitHub static preview](../../../assets/concept-animations/bo-expected-improvement-still.svg).[^bo-visual]
+
+[^bo-visual]: See Snoek, Larochelle & Adams (2012) and Frazier (2018) in References for Gaussian-process Bayesian optimisation and expected improvement; all trajectories and numerical values in these figures are newly constructed examples.
+
 ## Key methods
 
 This page covers one method: a Gaussian-process surrogate with expected improvement, as set out by Snoek et al. (2012).
