@@ -14,6 +14,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "ndcg-position-discount": "theory/evaluation/metrics/ranking/ndcg",
+    "map-precision-at-hits": "theory/evaluation/metrics/ranking/map",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
@@ -132,7 +134,13 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in GITHUB_GIF_PREVIEWS:
+            if stem in {"ndcg-position-discount", "map-precision-at-hits"}:
+                expected = "../../../../assets/concept-animations/" + stem
+                if (f'src="{expected}-still.svg"' not in text or
+                        f'data-motion-src="{expected}-motion.svg"' not in text or
+                        f'data-still-src="{expected}-still.svg"' not in text):
+                    errors.append(f"{page}: missing matching GitHub still and website motion sources")
+            elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.

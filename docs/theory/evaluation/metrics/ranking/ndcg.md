@@ -25,6 +25,17 @@ An NDCG of 1.0 means the ordering is ideal. Because each position is discounted,
 
 Use NDCG to compare rankings in search and recommendation, especially when relevance has several levels or when only the top results matter, in which case set a cut-off $k$ and report it.
 
+
+## Visual walkthrough: ranking discounts and NDCG
+
+<div role="region" tabindex="0" aria-label="Horizontally scrollable ranking metric illustration" style="width:100%;overflow-x:auto">
+  <img src="../../../../assets/concept-animations/ndcg-position-discount-still.svg" data-motion-src="../../../../assets/concept-animations/ndcg-position-discount-motion.svg" data-still-src="../../../../assets/concept-animations/ndcg-position-discount-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="NDCG: model and ideal rankings side by side, with position-discounted gains revealed in order.">
+</div>
+
+*Original educational visual, CC BY-SA 4.0.* This original continuous animation uses the worked example's six graded relevance labels $(3,2,3,0,1,2)$. Blue bars reveal each model-ranked item's linear discounted contribution $\mathrm{rel}_i/\log_2(i+1)$; green bars show the ideal ordering $(3,3,2,2,1,0)$. The amber markers sweep down the ranks while contributions expand. The final reference totals are $\mathrm{DCG}=6.861$, $\mathrm{IDCG}=7.141$, and $\mathrm{NDCG}\approx0.961$. **Numbers printed in the footer are final totals**, not the running total at an intermediate animation instant. These are calculated teaching values, not measurements from a search system.
+
+On the website, use the Play/Pause button (keyboard Enter/Space). Reduced-motion preference defaults to the static fallback. On narrow screens, focus this scrollable figure and use arrow keys to pan. GitHub directly displays the static preview. [GitHub-readable static SVG](../../../../assets/concept-animations/ndcg-position-discount-still.svg); [continuous SVG animation](../../../../assets/concept-animations/ndcg-position-discount-motion.svg).
+
 ## Worked example
 
 Take six items whose graded relevance, in the order the model ranks them, is $(3, 2, 3, 0, 1, 2)$. The discounted cumulative gain is $\mathrm{DCG} = \sum_{i=1}^{6} \mathrm{rel}_i / \log_2(i + 1) \approx 6.86$. The ideal order $(3, 3, 2, 2, 1, 0)$ gives $\mathrm{IDCG} \approx 7.14$, so NDCG is $6.86 / 7.14 \approx 0.96$.
