@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 混合精度訓練
@@ -38,6 +38,14 @@ translation_reviewed: 2026-10-28
 4. 把更新套用到單精度的主權重上。
 
 運算與儲存的激活值都以較低的寬度執行，這正是記憶體與頻寬節省的來源。主權重與更新仍以完整寬度進行，因此微小的變化不會被捨入掉。
+
+### 損失縮放如何避免 FP16 下溢：連續動畫
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可水平捲動的 FP16 損失縮放概念動畫">
+<img src="../../../assets/concept-animations/fp16-loss-scaling-still.svg" data-motion-src="../../../assets/concept-animations/fp16-loss-scaling-motion.svg" data-still-src="../../../assets/concept-animations/fp16-loss-scaling-still.svg" width="640" height="360" style="display:block;width:640px;max-width:none" alt="人工梯度二的負二十七次方若直接轉成 IEEE FP16 會下溢為零；先乘上 1024 得到可表示的二的負十七次方，再於 FP32 除回縮放係數，可保留原梯度。" />
+</div>
+
+*原創連續教學動畫，CC BY-SA 4.0。* 人工設定的梯度為 $g=2^{-27}\approx7.45\times10^{-9}$，小於 IEEE binary16 的最小正規格外（subnormal）數值 $2^{-24}$，直接轉成 FP16 會捨入為 **0**。若先在反向傳播前把 loss 乘上 $S=2^{10}=1024$，縮放後梯度 $Sg=2^{-17}$ 就能以 FP16 表示；轉回 FP32 再除以 $S$，可得到供 FP32 主權重更新的 $g=2^{-27}$。此為**可驗算的教學示意數值，不是模型實測**。實際訓練仍須避免縮放溢位，且任意梯度不保證都能精確還原，因為仍可能發生捨入或非正規數沖零（flush-to-zero）。圖中只示範單一梯度，並不表示混合精度訓練中的所有運算皆用 FP16。MkDocs 沿用鍵盤可操作的播放／暫停與減少動態效果回退，手機可水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/fp16-loss-scaling-motion.svg) · [GitHub 靜態預覽](../../../assets/concept-animations/fp16-loss-scaling-still.svg)。
 
 ## 結果
 

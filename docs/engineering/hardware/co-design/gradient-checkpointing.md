@@ -51,6 +51,14 @@ The paper's √n scheme works as follows:
 The stored feature maps then take about √n boundary tensors, plus the activations of the largest segment while it is being recomputed. That gives O(√n) memory, at the cost of about one extra forward pass per mini-batch.
 The paper also describes a recursive version, in which each segment is handled by the same strategy. Memory then grows as O(log n), but the extra forward computation rises to O(n log n), which is far more expensive than the √n scheme.
 
+### Activation storage and recomputation: animated walkthrough
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable activation-checkpointing figure">
+<img src="../../../assets/concept-animations/checkpoint-recompute-still.svg" data-motion-src="../../../assets/concept-animations/checkpoint-recompute-motion.svg" data-still-src="../../../assets/concept-animations/checkpoint-recompute-still.svg" width="640" height="360" style="display:block;width:640px;max-width:none" alt="Eight layers yield activations A0 to A8. A0, A4, and A8 remain as checkpoints, while the internal activations of each segment are reconstructed just before its backward pass." />
+</div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* The illustrative eight-layer chain keeps boundary tensors **A0, A4 and A8** (cyan). After the forward sweep, each segment's discarded internal activations (amber) are reconstructed from its preceding checkpoint, starting with **A5–A7** and then **A1–A3** during the reverse traversal. The violet cursor represents **backward processing**, not an optimisation step. Three persistent boundary tensors out of nine are shown **only as a schematic storage example**, not as peak device memory: temporary recomputation buffers, gradients, parameters and optimiser states also occupy memory. On MkDocs, the existing Play/Pause button supports keyboard operation and reduced-motion preferences; the image can scroll horizontally on narrow displays. [View the complete SVG animation](../../../assets/concept-animations/checkpoint-recompute-motion.svg) · [GitHub-readable still](../../../assets/concept-animations/checkpoint-recompute-still.svg).
+
 ## Results
 
 The abstract reports that, for a 1,000-layer residual network on ImageNet, memory falls from about 48 GB to 7 GB, with roughly 30% more running time. The body reports that its ResNet experiments used batch size 32, 224 × 224 inputs, MXNet on a single Titan X GPU, and counted each conv-bn-relu block as one layer. The abstract also reports a significant memory reduction when training complex recurrent networks.
