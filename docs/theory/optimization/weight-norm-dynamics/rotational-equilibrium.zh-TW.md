@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 tags:
   - optimization
   - weight decay
@@ -32,6 +32,12 @@ Kosson、Messmer 與 Jaggi（2023）研究權重衰減如何影響個別神經�
 平衡時每步期望旋轉約為 \(\sqrt{2\eta\lambda(1-\beta_1)/(1+\beta_1)}\)，其中 \(\beta_1\) 為動量係數。平方範數以每步 \((1-\eta\lambda)^2\) 的倍率向平衡收縮，因此時間尺度約為 \(1/(\eta\lambda)\) 步。論文把這個收縮視為近似。
 
 依此說法，衰減太小時，時間尺度會遠長於訓練長度。權重因此可能到不了平衡，範數持續增長。衰減較大則縮短時間尺度，使旋轉在訓練中達到穩定值。
+
+## 動態圖解
+
+<div style="overflow-x:auto;max-width:100%;" tabindex="0"><img src="../../../assets/concept-animations/rotational-norm-balance-still.svg" data-motion-src="../../../assets/concept-animations/rotational-norm-balance-motion.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="解析式向量隨迭代旋轉：施加衰減時權重範數逐漸接近平衡半徑；不施加衰減時範數持續增加。" /></div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 青綠色向量含權重衰減，橘色向量則在相同的**正交更新幅度**下不施加衰減。兩者使用簡化的切向更新遞迴式 $w_{t+1}=a w_t+u v_t$，其中 $v_t$ 為垂直於 $w_t$ 的單位向量，$a=1-\eta\lambda$、$u=0.17$，且 $\lVert w_0\rVert=0.30$。因此 $r_{t+1}^2=a^2r_t^2+u^2$。取 $a=0.96$ 時，$r_\infty=u/\sqrt{1-a^2}\approx0.607$；第 24 步的範數約 **0.574**，而不施加衰減時約為 **0.885**。青綠色虛線圓表示極限平衡半徑。此為**解析式示意，並非實際 AdamW 訓練軌跡或論文的 AdamW 平衡範數公式**；圖中特意省略自適應動量統計與動量項，以隔離切向更新和徑向收縮的關係。MkDocs 網站可使用播放／暫停按鈕（聚焦後按 Enter 或空白鍵），偏好減少動態效果時會顯示靜態圖。[GitHub 可讀的靜態預覽](../../../assets/concept-animations/rotational-norm-balance-still.svg)。
 
 ## 運作方式
 

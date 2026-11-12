@@ -28,6 +28,12 @@ Practitioners often transfer a decay value from one model or dataset size to ano
 
 The paper's main finding is that the optimal timescale, measured in epochs, is roughly constant as the model and dataset change. If that holds, the decay follows directly from the learning rate and the number of iterations per epoch. The paper's directions are that the optimal weight decay should increase as the model size grows, and should fall as the dataset size grows.
 
+## Visual explanation
+
+<div style="overflow-x:auto;max-width:100%;" tabindex="0"><img src="../../../assets/concept-animations/adamw-epoch-timescale-still.svg" data-motion-src="../../../assets/concept-animations/adamw-epoch-timescale-motion.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="Decay-only curves compare weight retention over six epochs for 8 versus 32 steps per epoch, first with fixed decay, then with decay scaled inversely with steps per epoch." /></div>
+
+*Original continuously animated teaching example (CC BY-SA 4.0).* The dot advances through six epochs; teal represents **8 steps per epoch** and orange **32 steps per epoch**, both at fixed $\eta=0.1$. The plotted quantity is only the **decoupled decay retention factor**, $q(e)=(1-\eta\lambda)^{eS}$, with $S$ steps per epoch; **gradient updates are excluded**. Choose the illustrative target $\tau_{\mathrm{epoch}}=3$ and $\lambda_{8}=1/(0.1\cdot8\cdot3)\approx0.417$. On the left the same $\lambda_{8}$ for $S=32$ gives $q(6)\approx0.00028$, versus **0.130** at $S=8$. On the right, rescaling to $\lambda_{32}=1/(0.1\cdot32\cdot3)\approx0.104$ gives $q(6)\approx0.134$, almost aligning the curves; the small difference comes from discrete rather than continuous exponential decay. **These are analytical toy values, not empirically optimal hyperparameters or measured training results.** The paper's roughly constant optimal epoch-timescale is an empirical finding, not a general guarantee. On MkDocs, use the keyboard-accessible Play/Pause control; reduced-motion users receive the still. [GitHub-readable static preview](../../../assets/concept-animations/adamw-epoch-timescale-still.svg).
+
 ## How it works
 
 1. Fix a target timescale \(\tau\) in epochs, based on a small-scale sweep.

@@ -36,6 +36,12 @@ and the expected rotation per step in equilibrium is approximately \(\sqrt{2\eta
 
 Under this account, a decay that is too small gives a timescale much longer than the training run. The weights then may not reach equilibrium, and the norm keeps growing. A larger decay shortens the timescale, and the rotation reaches its steady value within the run.
 
+## Visual explanation
+
+<div style="overflow-x:auto;max-width:100%;" tabindex="0"><img src="../../../assets/concept-animations/rotational-norm-balance-still.svg" data-motion-src="../../../assets/concept-animations/rotational-norm-balance-motion.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="Analytical weight vectors rotate step by step: with decay the norm approaches a stable radius, while without decay it keeps increasing." /></div>
+
+*Original continuously animated teaching example (CC BY-SA 4.0).* The teal vector includes decay; the orange vector uses the same **orthogonal update magnitude** without decay. Both are calculated from the deliberately simplified tangent-step recurrence $w_{t+1}=a w_t+u v_t$, where $v_t$ is a unit vector orthogonal to $w_t$, $a=1-\eta\lambda$, $u=0.17$ and $\lVert w_0\rVert=0.30$. The squared norm obeys $r_{t+1}^2=a^2r_t^2+u^2$. With $a=0.96$, $r_\infty=u/\sqrt{1-a^2}\approx0.607$; after 24 steps, the norm is approximately **0.574**, compared with **0.885** without decay. The dashed teal circle marks the asymptotic radius. This is **not** a measured AdamW trajectory or the paper's AdamW equilibrium-norm formula: it isolates radial shrinkage and tangent motion while omitting adaptive moment statistics and momentum. On MkDocs, use the Play/Pause control (Enter or Space when focused); reduced-motion preferences display the still. [GitHub-readable static preview](../../../assets/concept-animations/rotational-norm-balance-still.svg).
+
 ## How it works
 
 1. Choose the learning rate \(\eta\) and decay \(\lambda\), and compute the timescale \(1/(\eta\lambda)\) in steps.
