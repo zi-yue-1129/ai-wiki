@@ -31,6 +31,16 @@ Use PR-AUC when positives are rare, as in fraud or fault detection, and when the
 
 Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (negative), 0.6 (positive), 0.3 (negative). Precision at the two positives is $1/1$ and $2/3$, so average precision is $(1 + 2/3) / 2 \approx 0.83$, which matches the value `average_precision_score` returns. A random ranking would score 0.5 here, the prevalence of positives.
 
+## Animated ranking and average precision
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Precision-recall threshold sweep animation">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/pr-threshold-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/pr-threshold-sweep-motion.svg" alt="Ten illustrative ranked prediction scores, three positive and seven negative. Lowering the threshold adds cases; negative cases decrease precision without changing recall, while positive cases increase recall. The prevalence baseline is 0.30." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* This invented example uses the **same ten ranked scores as the ROC animation**: positives at ranks **1, 3, 6** and seven negatives. Each accepted positive increases recall by $1/3$; each accepted negative decreases precision while recall stays fixed. Precision at the three positive ranks is $1$, $2/3$ and $3/6$, giving **non-interpolated average precision $AP=(1+2/3+1/2)/3=13/18 \approx 0.722$**. The dashed line marks the positive prevalence $3/10=0.30$, also the expected baseline for random rankings. The displayed polyline connects threshold operating points; **AP is the recall-increment-weighted mean of precisions, not the trapezoidal area underneath those segments** (see the scikit-learn reference). All scores and labels are **synthetic, not empirical model predictions**. MkDocs provides a keyboard-operable Play/Pause button and a reduced-motion still fallback; [GitHub static preview](../../../../assets/concept-animations/pr-threshold-sweep-still.svg) and [complete SVG animation](../../../../assets/concept-animations/pr-threshold-sweep-motion.svg) are also available. On narrow screens, scroll horizontally.
+
 ## Properties and variants
 
 - **Baseline.** A random ranking gives PR-AUC equal to the prevalence, so the value should be read against that baseline, as described in the interpretation section.
