@@ -135,7 +135,7 @@ def main() -> int:
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
             html_motion = re.findall(r'data-motion-src="([^"]+\.svg)"', text)
-            html_still = re.findall(r'<img[^>]+src="([^"]+\.svg)"', text)
+            html_still = re.findall(r'<img\s+src="([^"]+\.svg)"', text)
             html_motion_paths = {(page.parent / link).resolve() for link in html_motion}
             html_still_paths = {(page.parent / link).resolve() for link in html_still}
             if stem in GITHUB_GIF_PREVIEWS:
