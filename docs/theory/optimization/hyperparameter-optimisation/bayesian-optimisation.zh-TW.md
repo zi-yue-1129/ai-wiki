@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 貝氏最佳化（Snoek 等人，2012）
@@ -32,6 +32,20 @@ Snoek、Larochelle 與 Adams（2012）把這個想法應用於機器學習演算
 \]
 
 其中 \(\Phi\) 與 \(\phi\) 分別為標準常態的累積分布函數與機率密度函數。\(\mathrm{EI}\) 大，來自低的預測平均值、高的不確定性，或兩者兼具。
+
+### 高斯過程條件化：觀測如何改變後驗分布
+
+<img src="../../../assets/concept-animations/bo-gp-conditioning-still.svg" data-motion-src="../../../assets/concept-animations/bo-gp-conditioning-motion.svg" data-still-src="../../../assets/concept-animations/bo-gp-conditioning-still.svg" alt="高斯過程先驗和四次依序加入觀測後的後驗動畫。平均值曲線會貼近觀測點，觀測位置附近的信賴帶隨條件化縮小。" width="640" height="360" loading="lazy">
+
+*原創教學動畫，CC BY-SA 4.0。* 每加入一筆觀測就重新條件化高斯過程代理模型。陰影代表 **95% 後驗區間**，在已觀測的位置附近縮小，沒有資料的區域則維持較大不確定性。數值均是**人工構造的數學示例，不是實際訓練模型的結果**。設定一維零均值高斯過程、平方指數核（長度尺度 **0.92**、先驗變異數 **1**）和示意觀測雜訊標準差 **0.06**。在 \(x=0.80,2.30,4.70\) 的分數約為 \(0.092,-0.269,0.304\)，第四點 \(x=3.24\) 的分數為 \(-0.876\)。平滑過渡影格只是不同後驗擬合之間的視覺插值，**不是額外的觀測或最佳化步驟**。MkDocs 提供可透過鍵盤操作的播放／暫停按鈕；亦可[觀看 GitHub 靜態版本](../../../assets/concept-animations/bo-gp-conditioning-still.svg)或[開啟完整動態 SVG](../../../assets/concept-animations/bo-gp-conditioning-motion.svg)。[^bo-visual]
+
+### 期望改進：下一次應評估哪個設定
+
+<img src="../../../assets/concept-animations/bo-expected-improvement-still.svg" data-motion-src="../../../assets/concept-animations/bo-expected-improvement-motion.svg" data-still-src="../../../assets/concept-animations/bo-expected-improvement-still.svg" alt="一維搜尋空間的期望改進獲取函數掃描動畫。掃描游標沿曲線移動，最後標示最大值所在的 x 約等於 3.24。" width="640" height="360" loading="lazy">
+
+*原創教學動畫，CC BY-SA 4.0。* 僅使用上圖**前三筆**觀測，最小化問題的已知最佳值為 \(f^*\approx-0.269\)。對每個候選點計算固定高斯過程後驗下的**代入式期望改進（plug-in EI）**，掃描游標最後標出 \(x\approx3.24\)、\(\mathrm{EI}\approx0.222\)；搜尋使用間距 **0.06** 的離散格點。這是獲取函數的最大值，**不代表未知真實目標函數的最小值必定在此**。雖然高斯過程擬合使用少量示意雜訊，這個公式仍把已觀察最佳值視為固定，並未實作完整考慮觀測雜訊的 EI。下一筆合成結果則在第一組動畫中顯示。本例不是效能實測。MkDocs 可播放／暫停，也可[查看 GitHub 靜態預覽](../../../assets/concept-animations/bo-expected-improvement-still.svg)。[^bo-visual]
+
+[^bo-visual]: 高斯過程貝氏最佳化與期望改進的理論依據，請見 References 中的 Snoek、Larochelle 與 Adams（2012）及 Frazier（2018）；圖中軌跡與數值均為本頁新製作的示例。
 
 ## 主要方法
 

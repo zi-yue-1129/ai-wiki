@@ -39,6 +39,8 @@ TOPICS = {
     "lbfgs-two-loop": "theory/optimization/lbfgs",
     "nesterov-lookahead": "theory/optimization/sgd-and-momentum/nesterov",
     "hyperband-budget": "theory/optimization/hyperparameter-optimisation/hyperband",
+    "bo-gp-conditioning": "theory/optimization/hyperparameter-optimisation/bayesian-optimisation",
+    "bo-expected-improvement": "theory/optimization/hyperparameter-optimisation/bayesian-optimisation",
     "qmix-monotonic-greedy": "theory/paradigms/reinforcement-learning/multi-agent-rl/qmix/index",
     "muzero-latent-planning": "theory/paradigms/reinforcement-learning/model-based-rl/muzero/index",
     "gru-gate-flow": "theory/models/rnn/gated-cells/gru/index",
@@ -144,6 +146,18 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
+            elif stem in {"bo-gp-conditioning", "bo-expected-improvement"}:
+                # GitHub renders the static IMG src; MkDocs upgrades it from data-motion-src.
+                # Validate both paths and localised alt text without requiring active SVG
+                # as a Markdown image (GitHub sanitises embedded SVG animation).
+                html_motion = re.findall(r'data-motion-src="([^"]+\\.svg)"', text)
+                html_still = re.findall(r'<img[^>]+src="([^"]+\\.svg)"', text)
+                if animated_path.resolve() not in {
+                    (page.parent / link).resolve() for link in html_motion
+                } or static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in html_still
+                }:
+                    errors.append(f"{page}: missing GitHub-safe still + MkDocs motion IMG")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
