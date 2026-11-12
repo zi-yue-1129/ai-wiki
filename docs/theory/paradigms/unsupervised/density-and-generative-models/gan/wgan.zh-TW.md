@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/unsupervised/density-and-generative-models/flow
 tags:
@@ -43,6 +43,12 @@ L_{\text{critic}} = \mathbb E_{z}[f_w(g_\theta(z))] - \mathbb E_{x}[f_w(x)], \qq
 \]
 
 在論文的演算法中，每次生成器更新前，評論家會更新數次（預設為五次），每一步之後都裁剪其權重，並建議使用 RMSProp，作者發現以動量為基礎的最佳化器較不穩定。論文的預設值為學習率 0.00005、裁剪常數 c = 0.01，以及每次生成器更新對應五次評論家更新（n_critic = 5）。
+
+### 權重裁剪的動態示意
+
+<img src="../../../../../assets/concept-animations/wgan-weight-clip-still.svg" data-motion-src="../../../../../assets/concept-animations/wgan-weight-clip-motion.svg" data-still-src="../../../../../assets/concept-animations/wgan-weight-clip-still.svg" alt="五個評論家參數被逐一裁剪到允許區間，超出上下界的權重分別移至正負 c。" width="640" height="360">
+
+*原創示意動畫，CC BY-SA 4.0。* 青綠色點顯示評論家更新後的權重裁剪結果，橘色點保留裁剪前的位置。此處以五個人工權重 \((-0.055,-0.041,-0.012,0.046,0.057)\) 和 \(c=0.030\) 示範，裁剪後成為 \((-0.030,-0.030,-0.012,0.030,0.030)\)。**這不是實際訓練紀錄**。逐元素限制參數**並不能直接保證**任意多層評論家的全域 Lipschitz 常數就是一；權重裁剪只是近似實施此限制，而且原始論文預設的 \(c=0.01\) 與圖中的示意值不同。GitHub 顯示可閱讀的靜態結果；MkDocs 可使用播放／暫停與鍵盤 Enter、Space 對照更新前後。[開啟完整 SVG 動畫](../../../../../assets/concept-animations/wgan-weight-clip-motion.svg)。
 
 ## 關鍵方法
 

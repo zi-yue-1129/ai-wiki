@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/models/cnn
 tags:
@@ -35,6 +35,12 @@ L_{\text{critic}} = \mathbb E_{\tilde x}[f_w(\tilde x)] - \mathbb E_{x}[f_w(x)] 
 \]
 
 生成器損失與 WGAN 相同，即 \(-\mathbb E_z[f_w(g_\theta(z))]\)。由於懲罰項需要評論家的梯度，每一步評論家更新都要計算梯度的梯度。論文直接在評論家中省略批次正規化，並報告不用它也有良好表現。論文的預設值為 Adam，學習率 0.0001，\(\beta_1 = 0\)，\(\beta_2 = 0.9\)。
+
+### 內插樣本與梯度懲罰的動態示意
+
+<img src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" data-motion-src="../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg" data-still-src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" alt="內插點由生成樣本移向真實樣本，右側梯度範數跨過目標值一，平方懲罰先降為零再上升。" width="640" height="360">
+
+*原創示意動畫，CC BY-SA 4.0。* 移動中的點代表內插輸入 \(\hat x=(1-\epsilon)\tilde x+\epsilon x\)。右上曲線是沿單位長度內插座標 \(s=\epsilon\) 人工定義的**一維評論家** \(f(s)=0.6s+0.4s^2\)，不是實際訓練的影像評論家。其梯度大小為 \(\lvert f'(s)\rvert=0.6+0.8s\)，取示意 \(\lambda=10\)，則懲罰為 \(10(0.8s-0.4)^2\)：兩端均為 1.6，中點 \(s=0.5\) 為零。此梯度是**對輸入**求導，而不是對評論家權重求導。懲罰施加於取樣的內插點，**不保證所有位置**都符合限制；全部數值為解析示例，並非模型實測。MkDocs 可播放／暫停，GitHub 則保留靜態圖。[開啟完整 SVG 動畫](../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg)。
 
 ## 關鍵方法
 
