@@ -37,6 +37,10 @@ Each trial draws a setting \(x\) from the sampling distribution and records the 
 
 For a region of the search space that holds a fraction \(p\) of the sampling mass, the probability that none of \(n\) independent trials falls inside it is \((1-p)^n\). So the chance of landing in that region is \(1-(1-p)^n\). For example, with \(n = 60\) trials and \(p = 0.05\), the chance is about \(1 - 0.95^{60} \approx 0.95\).
 
+![Continuous random-search animation: sixteen schematic random trials appear and project onto sixteen distinct x positions.](../../../assets/concept-animations/random-search-x-coverage-motion.svg)
+
+*Original continuous SVG teaching animation, CC BY-SA 4.0.* A fixed, illustrative sequence of 16 independently sampled configurations appears one trial at a time. Their projected x-values cover many more distinct positions than a 4 × 4 grid with the same number of evaluations; this particular draw has 16 distinct x-values, but random search does not guarantee that outcome. The green strip is an invented narrow target interval x ∈ [0.68, 0.80], not a measured validation score or tuning result. This fixed **16-trial** illustration shows sampling coverage, not a guarantee that random search wins on any given problem. MkDocs provides keyboard-accessible Play/Pause and a reduced-motion static fallback; [GitHub-readable static preview](../../../assets/concept-animations/random-search-x-coverage-still.svg).
+
 ## Key methods
 
 This page covers one method: independent sampling from a distribution over the space, keeping the best trial.
