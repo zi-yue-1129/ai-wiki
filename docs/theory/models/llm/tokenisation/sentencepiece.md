@@ -49,17 +49,13 @@ For subword regularisation, a segmentation is sampled instead of taken as the ma
 
 ### Visual walkthrough: Viterbi over a unigram segmentation lattice
 
-<div class="tokenisation-motion" tabindex="0" role="region" aria-label="Scrollable teaching animation">
-  <img src="../../../../assets/concept-animations/unigram-viterbi-lattice-still.svg" data-motion-src="../../../../assets/concept-animations/unigram-viterbi-lattice-motion.svg" data-still-src="../../../../assets/concept-animations/unigram-viterbi-lattice-still.svg" width="640" height="360" loading="lazy" alt="Toy unigram lattice for abab: the maximum-likelihood path ab plus ab has score 0.16; the one-piece path abab has score 0.05. An animated cursor traverses the winning path.">
-</div>
+![Toy unigram lattice for abab: the maximum-likelihood path ab plus ab has score 0.16; the one-piece path abab has score 0.05. An animated cursor traverses the winning path.](../../../../assets/concept-animations/unigram-viterbi-lattice-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../../assets/concept-animations/unigram-viterbi-lattice-motion.svg" data-still-src="../../../../../assets/concept-animations/unigram-viterbi-lattice-still.svg" }
 
 *Original animated teaching figure, CC BY-SA 4.0.* For the illustrative input `abab`, assign piece probabilities `p(ab)=0.40`, `p(abab)=0.05`, `p(a)=p(b)=0.10`, and `p(aba)=p(bab)=0.08`; the remaining probability mass 0.19 belongs to unrelated vocabulary pieces. The Viterbi dynamic program finds `DP[2]=0.40` and `DP[4]=0.40 × 0.40 = 0.16`, so the two-piece segmentation **`ab | ab`** outranks the single piece `abab` (0.05). The dashed line shows that alternative; the green arcs and moving cursor trace the maximum-product path. Only selected lattice edges are drawn, not the full search graph.
 
 ### Visual walkthrough: subword sampling and the smoothing exponent
 
-<div class="tokenisation-motion" tabindex="0" role="region" aria-label="Scrollable teaching animation">
-  <img src="../../../../assets/concept-animations/unigram-sampling-alpha-still.svg" data-motion-src="../../../../assets/concept-animations/unigram-sampling-alpha-motion.svg" data-still-src="../../../../assets/concept-animations/unigram-sampling-alpha-still.svg" width="640" height="360" loading="lazy" alt="Four animated probability bars for the seven complete segmentations of abab: as alpha rises, the probability of ab plus ab increases and the sampling distribution becomes more concentrated.">
-</div>
+![Four animated probability bars for the seven complete segmentations of abab: as alpha rises, the probability of ab plus ab increases and the sampling distribution becomes more concentrated.](../../../../assets/concept-animations/unigram-sampling-alpha-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../../assets/concept-animations/unigram-sampling-alpha-motion.svg" data-still-src="../../../../../assets/concept-animations/unigram-sampling-alpha-still.svg" }
 
 *Original animated teaching figure, CC BY-SA 4.0.* The same toy vocabulary admits **seven** complete segmentations, with unnormalised scores `0.16, 0.05, 0.008, 0.008, 0.004, 0.004, 0.0001`. The bars show three explicit paths (`ab | ab`, `abab`, and `a | bab`) plus the aggregate of the other four. For each smoothing exponent `α`, their probabilities are obtained from the full seven-path normalisation:
 

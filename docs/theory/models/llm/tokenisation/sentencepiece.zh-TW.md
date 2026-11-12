@@ -38,17 +38,13 @@ p(\mathbf{x}) = \prod_{i=1}^{M} p(x_i), \qquad \sum_{x\in V} p(x) = 1.
 
 ### 動畫解說：Unigram 切分格上的 Viterbi 搜尋
 
-<div class="tokenisation-motion" tabindex="0" role="region" aria-label="可水平捲動的教學動畫">
-  <img src="../../../../assets/concept-animations/unigram-viterbi-lattice-still.svg" data-motion-src="../../../../assets/concept-animations/unigram-viterbi-lattice-motion.svg" data-still-src="../../../../assets/concept-animations/unigram-viterbi-lattice-still.svg" width="640" height="360" loading="lazy" alt="示意字串 abab 的 unigram 切分格：最佳路徑 ab 加 ab 的分數為 0.16，單片段 abab 的分數為 0.05；游標依序走過最佳路徑。">
-</div>
+![示意字串 abab 的 unigram 切分格：最佳路徑 ab 加 ab 的分數為 0.16，單片段 abab 的分數為 0.05；游標依序走過最佳路徑。](../../../../assets/concept-animations/unigram-viterbi-lattice-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../../assets/concept-animations/unigram-viterbi-lattice-motion.svg" data-still-src="../../../../../assets/concept-animations/unigram-viterbi-lattice-still.svg" }
 
 *原創動態教學圖，CC BY-SA 4.0。* 以人工設定的字串 `abab` 為例，令 `p(ab)=0.40`、`p(abab)=0.05`、`p(a)=p(b)=0.10`，以及 `p(aba)=p(bab)=0.08`；其餘 0.19 的機率質量分配給示例字串不會用到的其他詞彙片段。Viterbi 動態規劃得到 `DP[2]=0.40`、`DP[4]=0.40 × 0.40 = 0.16`，因此兩個片段的 **`ab | ab`**，分數高於單一片段 `abab` 的 0.05。虛線是備選路徑，綠色弧線與移動游標代表最大乘積路徑。圖中只畫出部分切分邊，並未完整展開搜尋格。
 
 ### 動畫解說：子詞取樣與平滑指數
 
-<div class="tokenisation-motion" tabindex="0" role="region" aria-label="可水平捲動的教學動畫">
-  <img src="../../../../assets/concept-animations/unigram-sampling-alpha-still.svg" data-motion-src="../../../../assets/concept-animations/unigram-sampling-alpha-motion.svg" data-still-src="../../../../assets/concept-animations/unigram-sampling-alpha-still.svg" width="640" height="360" loading="lazy" alt="七種 abab 完整切分方式的機率長條圖；當 alpha 增加時，ab 加 ab 的取樣機率上升，分布逐漸集中。">
-</div>
+![七種 abab 完整切分方式的機率長條圖；當 alpha 增加時，ab 加 ab 的取樣機率上升，分布逐漸集中。](../../../../assets/concept-animations/unigram-sampling-alpha-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../../assets/concept-animations/unigram-sampling-alpha-motion.svg" data-still-src="../../../../../assets/concept-animations/unigram-sampling-alpha-still.svg" }
 
 *原創動態教學圖，CC BY-SA 4.0。* 同一示意詞彙表可以形成 **七種**完整切分，其未正規化分數為 `0.16、0.05、0.008、0.008、0.004、0.004、0.0001`。長條分別顯示 `ab | ab`、`abab`、`a | bab`，以及其餘四種切分的合計機率。對每個平滑指數 `α`，都以全部七種切分正規化：
 
