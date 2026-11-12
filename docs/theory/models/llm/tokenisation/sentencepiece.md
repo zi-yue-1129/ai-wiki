@@ -47,6 +47,24 @@ Training starts from a large candidate vocabulary. It fits the piece probabiliti
 
 For subword regularisation, a segmentation is sampled instead of taken as the maximum. Kudo (2018) samples from \(P(\mathbf{x}\mid X) \propto p(\mathbf{x})^{\alpha}\), where \(\alpha\) controls how much the sampling favours likely segmentations.
 
+### Visual walkthrough: Viterbi over a unigram segmentation lattice
+
+![Toy unigram lattice for abab: the maximum-likelihood path ab plus ab has score 0.16; the one-piece path abab has score 0.05. An animated cursor traverses the winning path.](../../../../assets/concept-animations/unigram-viterbi-lattice-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../../assets/concept-animations/unigram-viterbi-lattice-motion.svg" data-still-src="../../../../../assets/concept-animations/unigram-viterbi-lattice-still.svg" }
+
+*Original animated teaching figure, CC BY-SA 4.0.* For the illustrative input `abab`, assign piece probabilities `p(ab)=0.40`, `p(abab)=0.05`, `p(a)=p(b)=0.10`, and `p(aba)=p(bab)=0.08`; the remaining probability mass 0.19 belongs to unrelated vocabulary pieces. The Viterbi dynamic program finds `DP[2]=0.40` and `DP[4]=0.40 × 0.40 = 0.16`, so the two-piece segmentation **`ab | ab`** outranks the single piece `abab` (0.05). The dashed line shows that alternative; the green arcs and moving cursor trace the maximum-product path. Only selected lattice edges are drawn, not the full search graph.
+
+### Visual walkthrough: subword sampling and the smoothing exponent
+
+![Four animated probability bars for the seven complete segmentations of abab: as alpha rises, the probability of ab plus ab increases and the sampling distribution becomes more concentrated.](../../../../assets/concept-animations/unigram-sampling-alpha-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../../assets/concept-animations/unigram-sampling-alpha-motion.svg" data-still-src="../../../../../assets/concept-animations/unigram-sampling-alpha-still.svg" }
+
+*Original animated teaching figure, CC BY-SA 4.0.* The same toy vocabulary admits **seven** complete segmentations, with unnormalised scores `0.16, 0.05, 0.008, 0.008, 0.004, 0.004, 0.0001`. The bars show three explicit paths (`ab | ab`, `abab`, and `a | bab`) plus the aggregate of the other four. For each smoothing exponent `α`, their probabilities are obtained from the full seven-path normalisation:
+
+$
+P(s\mid X,\alpha)=\frac{p(s)^\alpha}{\sum_{s'\in S(X)}p(s')^\alpha}.
+$
+
+The lower-`α` distribution is flatter; increasing `α` concentrates mass on the best-scoring segmentation. The animation sweeps `α` between 0.3 and 3.0, **without actually drawing a random sample**. This is a deterministic visualisation of a toy sampling distribution, not a measured SentencePiece model, and follows the subword regularisation formulation of [Kudo (2018)](https://aclanthology.org/P18-1007/). On the MkDocs site, use Play/Pause (also by keyboard), and on narrow screens scroll the diagram horizontally. GitHub shows the static fallback for each animation.
+
 ## Key methods
 
 - **BPE mode**: SentencePiece also implements byte-pair encoding on raw text, so the same tool can produce either kind of vocabulary. See [Byte-pair encoding](byte-pair-encoding.md).
