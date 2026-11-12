@@ -148,7 +148,7 @@ def main() -> int:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif animated_path.resolve() not in linked_images | {
                 (page.parent / link).resolve()
-                for link in re.findall(r'data-motion-src="([^"]+\\.svg)"', text)
+                for link in re.findall(r'data-motion-src="([^"]+[.]svg)"', text)
             }:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory", "clr-triangular2-sweep", "sgdr-cosine-restart"}:
@@ -159,7 +159,7 @@ def main() -> int:
                     if fallback.resolve() not in linked:
                         errors.append(f"{page}: missing GitHub-readable fallback link {fallback.name}")
             if stem in {"clr-triangular2-sweep", "sgdr-cosine-restart"}:
-                html_static = re.findall(r'<img[^>]+src="([^"]+\\.svg)"', text)
+                html_static = re.findall(r'<img[^>]+src="([^"]+[.]svg)"', text)
                 if static_path.resolve() not in {
                     (page.parent / link).resolve() for link in html_static
                 }:
