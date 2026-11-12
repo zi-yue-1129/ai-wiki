@@ -38,7 +38,7 @@ translation_reviewed: 2026-11-12
 <img src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" width="640" style="min-width:640px" data-motion-src="../../assets/concept-animations/clr-triangular2-sweep-motion.svg" data-still-src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" alt="循環學習率示意：triangular 的峰值每輪相同，triangular2 每輪將峰值相對下界的振幅減半；動畫游標沿兩條曲線移動。">
 </div>
 
-*Original instructional visualisation, CC BY-SA 4.0.* 以人工設定的上下界 $\eta_{\min}=0.10$、$\eta_{\max}=1.00$，半週期步長 $s=2$，以及**三個各四步的週期**為例：青綠色 triangular 每輪都回到 $1.00$；橘色 triangular2 則在每輪後將**相對下界的振幅減半**，三個峰值依序為 $1.00$、$0.55$、$0.325$。掃描線隨排程時間前進，兩個游標分別追蹤當前的學習率。
+*原創教學動畫，採 CC BY-SA 4.0 授權。* 以人工設定的上下界 $\eta_{\min}=0.10$、$\eta_{\max}=1.00$，半週期步長 $s=2$，以及**三個各四步的週期**為例：青綠色 triangular 每輪都回到 $1.00$；橘色 triangular2 則在每輪後將**相對下界的振幅減半**，三個峰值依序為 $1.00$、$0.55$、$0.325$。掃描線隨排程時間前進，兩個游標分別追蹤當前的學習率。
 
 此圖依據[循環學習率原始論文](https://arxiv.org/abs/1506.01186)的策略公式。曲線的連續揭露代表*學習率的變化*，不代表權重學習軌跡或觀測到的準確率；圖中沒有執行模型訓練。
 

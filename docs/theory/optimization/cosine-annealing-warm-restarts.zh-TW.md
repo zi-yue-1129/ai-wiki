@@ -34,7 +34,7 @@ translation_reviewed: 2026-11-12
 <img src="../../assets/concept-animations/sgdr-cosine-restart-still.svg" width="640" style="min-width:640px" data-motion-src="../../assets/concept-animations/sgdr-cosine-restart-motion.svg" data-still-src="../../assets/concept-animations/sgdr-cosine-restart-still.svg" alt="餘弦暖重啟示意：三輪餘弦衰減分別持續二、四、八步，並在第二與第六步將學習率跳回上界。">
 </div>
 
-*Original instructional visualisation, CC BY-SA 4.0.* 使用**人工設定、非實測**的 $\eta_{\min}=0.10$、$\eta_{\max}=1.00$、$T_0=2$、$T_{\mathrm{mult}}=2$，曲線依序顯示長度為 **2、4、8 步**的三輪餘弦衰減。在第 **2** 與第 **6** 步，學習率由下界跳回上界，但最佳化器持有的**模型參數不會重新初始化**。橘色虛線標出學習率重啟的位置，底部區間則凸顯各輪長度逐漸增加。
+*原創教學動畫，採 CC BY-SA 4.0 授權。* 使用**人工設定、非實測**的 $\eta_{\min}=0.10$、$\eta_{\max}=1.00$、$T_0=2$、$T_{\mathrm{mult}}=2$，曲線依序顯示長度為 **2、4、8 步**的三輪餘弦衰減。在第 **2** 與第 **6** 步，學習率由下界跳回上界，但最佳化器持有的**模型參數不會重新初始化**。橘色虛線標出學習率重啟的位置，底部區間則凸顯各輪長度逐漸增加。
 
 排程根據[SGDR 原始論文](https://arxiv.org/abs/1608.03983)。移動的游標代表*預先指定的學習率*，而不是損失、準確率、參數位置或實際訓練結果。最後的第 14 步僅表示示意訓練預算結束，不代表再次重啟。
 

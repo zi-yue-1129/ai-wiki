@@ -159,7 +159,7 @@ def main() -> int:
                     if fallback.resolve() not in linked:
                         errors.append(f"{page}: missing GitHub-readable fallback link {fallback.name}")
             if stem in {"clr-triangular2-sweep", "sgdr-cosine-restart"}:
-                html_static = re.findall(r'<img[^>]+src="([^"]+[.]svg)"', text)
+                html_static = re.findall(r'<img[^>]*\ssrc="([^"]+[.]svg)"', text)
                 if static_path.resolve() not in {
                     (page.parent / link).resolve() for link in html_static
                 }:
