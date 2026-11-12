@@ -148,8 +148,8 @@ def main() -> int:
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in HTML_STATIC_MOTION:
-                motion_sources = re.findall(r'data-motion-src="([^"]+\\.svg)"', text)
-                still_sources = re.findall(r'<img[^>]*src="([^"]+\\.svg)"', text)
+                motion_sources = re.findall(r'data-motion-src="([^"]+\.svg)"', text)
+                still_sources = re.findall(r'<img[^>]*src="([^"]+\.svg)"', text)
                 if animated_path.resolve() not in {(page.parent / src).resolve() for src in motion_sources}:
                     errors.append(f"{page}: missing HTML motion source")
                 if static_path.resolve() not in {(page.parent / src).resolve() for src in still_sources}:
