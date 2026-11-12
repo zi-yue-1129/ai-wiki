@@ -40,6 +40,16 @@ $$
 
 where $\lVert f(x) \rVert_0$ counts the active features. The threshold is discontinuous, so the gradient of the count penalty with respect to the thresholds is zero almost everywhere. The paper handles this with a straight-through estimator, which passes gradients through the threshold as if it were a smooth function, so that the thresholds can be learned.
 
+### Visual walkthrough: a discontinuous feature threshold
+
+<div class="concept-motion-scroll" role="region" aria-label="Horizontally scrollable instructional diagram" tabindex="0">
+<img src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" width="640" data-motion-src="../../assets/concept-animations/jumprelu-threshold-jump-motion.svg" data-still-src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" alt="JumpReLU activation curve: an input cursor crosses threshold 1.5, making the output jump from zero to its unsuppressed positive input value.">
+</div>
+
+*Original instructional animation, CC BY-SA 4.0.* For a **single illustrative feature** with fixed $\theta=1.5$, the activation is zero for $z\leq1.5$ and equals the **full pre-activation $z$** for $z>1.5$. The orange marker sweeps the input range; the teal output jumps abruptly at the orange threshold line, rather than rising gradually from zero as a shifted ReLU would. The open circle on the upper branch emphasises the strict inequality. This is a one-dimensional activation function, **not an observed training trajectory or a demonstration of the straight-through gradient estimator**.
+
+On MkDocs, **Play/Pause** controls the sweep; the [static SVG preview](../../assets/concept-animations/jumprelu-threshold-jump-still.svg) remains legible on GitHub and when reduced motion is preferred. The threshold and input sweep are **illustrative, not fitted or measured model values**.
+
 ## Results
 
 The abstract reports state-of-the-art reconstruction fidelity at a given sparsity level, compared with other recent sparse autoencoder architectures, including Gated and TopK SAEs. The experiments use activations from the Gemma 2 9B language model. The abstract does not give numerical results, so the comparison numbers are in the paper and are not repeated here.

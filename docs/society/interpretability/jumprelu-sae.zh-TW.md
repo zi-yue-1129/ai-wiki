@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/models/transformer
 tags:
@@ -40,6 +40,16 @@ $$
 $$
 
 其中 $\lVert f(x) \rVert_0$ 計算活躍特徵的數量。閾值是不連續的，因此計數懲罰對閾值的梯度幾乎處處為零。論文以直通估計器（straight-through estimator）處理這個問題，讓梯度穿過閾值，如同它是平滑函數一樣，使閾值可以被學習。
+
+### 動態圖解：跨過閾值時的激活跳躍
+
+<div class="concept-motion-scroll" role="region" aria-label="可水平捲動的教學概念圖" tabindex="0">
+<img src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" width="640" data-motion-src="../../assets/concept-animations/jumprelu-threshold-jump-motion.svg" data-still-src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" alt="JumpReLU 激活曲線：輸入游標跨過閾值 1.5 時，輸出由零直接跳到未縮減的正輸入值。">
+</div>
+
+*Original instructional animation, CC BY-SA 4.0.* 針對**單一人工示例特徵**，固定 $\theta=1.5$；當 $z\leq1.5$ 時輸出為零，當 $z>1.5$ 時輸出則是**完整的前激活值 $z$**。橘色游標連續掃過輸入區間，青綠色輸出在閾值處不連續地跳升，而非像平移 ReLU 一樣從零逐漸增加。上方分支使用空心圓，提醒讀者條件是嚴格大於。此圖只呈現一維激活函數，**不是模型訓練軌跡，也沒有模擬直通梯度估計器**。
+
+MkDocs 網站可透過**播放／暫停**操作；GitHub 或偏好減少動態效果的讀者可查看[靜態 SVG 預覽](../../assets/concept-animations/jumprelu-threshold-jump-still.svg)。閾值與輸入掃描均為**人工示意值，非模型實測或擬合結果**。
 
 ## 結果
 
