@@ -21,7 +21,7 @@
       const originalName = originalSource.split(/[?#]/, 1)[0].split('/').pop();
       const isStaticFirst = staticFirst.has(originalName);
       const animated = isStaticFirst
-        ? originalSource.replace(/-still\\.svg(?=$|[?#])/, '-motion.svg')
+        ? originalSource.replace(/-still\.svg(?=$|[?#])/, '-motion.svg')
         : (img.dataset.motionSrc || originalSource);
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
