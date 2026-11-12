@@ -47,6 +47,19 @@ To use the chart, a kernel is measured and plotted as a point:
 
 The ceilings are computed once for each machine, not once for each kernel. Every kernel on that machine is then judged against the same two lines.
 
+### Animated explanation: crossing the ridge point
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Roofline intensity sweep; focus and scroll horizontally on smaller screens">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" data-motion-src="../../../assets/concept-animations/roofline-ridge-sweep-motion.svg" data-still-src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" alt="Log-log Roofline graph. A moving marker follows the bandwidth ceiling then levels off at the compute ceiling; the ridge is at eight FLOP per byte.">
+</div>
+</div>
+
+*Original educational animation, CC BY-SA 4.0. GitHub shows the [static SVG](../../../assets/concept-animations/roofline-ridge-sweep-still.svg); the website offers Play/Pause and keyboard-accessible scrolling.* [Full SVG animation](../../../assets/concept-animations/roofline-ridge-sweep-motion.svg).
+
+For a **schematic, not measured** device with sustained bandwidth $B=4\,\mathrm{GB/s}$ and compute ceiling $P_{\mathrm{peak}}=32\,\mathrm{GFLOP/s}$, the ridge is $I^*=8\,\mathrm{FLOP/byte}$. The marker continuously follows $P_{\mathrm{bound}}=\min(32,4I)$: at $I=2$ the bandwidth ceiling is $8\,\mathrm{GFLOP/s}$; at $I=16$ the compute ceiling remains $32\,\mathrm{GFLOP/s}$. Moving right depicts increasing data reuse, **not a measured speedup**. The point is on an ideal upper bound: actual kernels may perform below it.
+
+
 ## Key methods
 
 ### Roofline (Williams et al., 2009)
