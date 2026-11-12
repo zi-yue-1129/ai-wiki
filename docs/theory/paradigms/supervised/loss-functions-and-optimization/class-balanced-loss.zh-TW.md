@@ -26,6 +26,14 @@ $$E_n = \frac{1 - \beta^n}{1 - \beta},$$
 
 其中 $n$ 是該類別的樣本數，$\beta \in [0, 1)$ 是超參數。類別權重與 $1/E_n$ 成正比，得到類別平衡損失。
 
+### 有效樣本數的增長與邊際效益遞減
+
+<div style="max-width:100%;overflow-x:auto;" role="region" tabindex="0" aria-label="可水平捲動的有效樣本數動畫">
+  <img src="../../../../assets/concept-animations/effective-number-growth-still.svg" data-motion-src="../../../../assets/concept-animations/effective-number-growth-motion.svg" data-still-src="../../../../assets/concept-animations/effective-number-growth-still.svg" alt="隨樣本數從一增加至二十，Beta 等於零點九時有效樣本數成長較慢，虛線表示原始數量。" width="640" height="360" style="width:640px;max-width:none;">
+</div>
+
+*原創十秒循環教學動畫，CC BY-SA 4.0。* 青綠色圓點逐步呈現樣本數量的增加，琥珀色游標沿有效樣本數曲線移動。這是**人工設定的解析式示例**：當 beta = 0.9，樣本數由 1 增至 20，有效樣本數 E(20) = (1 - 0.9^20) / 0.1 ≈ **8.784**，不是 20。對應未正規化的有效數倒數權重約為 0.114，大於直接使用原始數量倒數的 0.05。這些圓點**不代表實際量測到的特徵重疊、真實資料或模型訓練歷程**；有效樣本數公式是一種邊際涵蓋量遞減的理論模型。參考 [Cui 等人（2019）](https://openaccess.thecvf.com/content_CVPR_2019/html/Cui_Class-Balanced_Loss_Based_on_Effective_Number_of_Samples_CVPR_2019_paper.html)。MkDocs 網站支援播放／暫停；窄螢幕可用觸控或鍵盤水平捲動，減少動態效果模式使用靜態圖。[完整連續動畫](../../../../assets/concept-animations/effective-number-growth-motion.svg)及 [GitHub 靜態預覽](../../../../assets/concept-animations/effective-number-growth-still.svg)。
+
 ## 運作方式
 
 1. 統計每個類別 $c$ 的樣本數 $n_c$。

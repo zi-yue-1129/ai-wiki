@@ -23,6 +23,14 @@ A classifier trained on long-tailed data learns scores that favour the head clas
 
 Menon et al. shift each class's logit by $-\tau \log \pi_y$ at prediction time, where $\pi_y$ is the class prior and $\tau > 0$ is a scalar (their Equation 9). The same offset can also be built into the training loss. Subtracting the log-prior before choosing the largest score makes the decision rule behave as if the classes were balanced. The method changes the margin between rare and dominant labels rather than the learned features.
 
+### Visualising prior-dependent decision reversal
+
+<div style="max-width:100%;overflow-x:auto;" role="region" tabindex="0" aria-label="Scrollable logit adjustment animation">
+  <img src="../../../../assets/concept-animations/logit-prior-decision-still.svg" data-motion-src="../../../../assets/concept-animations/logit-prior-decision-motion.svg" data-still-src="../../../../assets/concept-animations/logit-prior-decision-still.svg" alt="Head-class logit initially exceeds tail; subtracting log-priors reverses the highest adjusted score as tau grows." width="640" height="360" style="width:640px;max-width:none;">
+</div>
+
+*Original ten-second looping teaching animation, CC BY-SA 4.0.* Blue and amber curves track adjusted **logits**, not measured or calibrated probabilities. Consider **invented raw logits** of 2.0 (head) and 0.5 (tail), with class priors 0.9 and 0.1. Under the post-hoc rule z'_c = z_c − τ log π_c, the top-scoring class changes at τ = 1.5/log(9) ≈ **0.683**. At τ = 1 the adjusted logits are approximately 2.105 (head) and 2.803 (tail). This is a fixed classifier's mathematical decision rule, **not a retraining trajectory or an empirical gain in accuracy**. The target class prior and τ need task-specific validation. See [Menon et al. (2021)](https://arxiv.org/abs/2007.07314). On MkDocs use Play/Pause; reduced-motion mode shows the still and narrow screens support keyboard-focusable horizontal scrolling. [View the animation](../../../../assets/concept-animations/logit-prior-decision-motion.svg) or the [GitHub-compatible static preview](../../../../assets/concept-animations/logit-prior-decision-still.svg).
+
 ## How it works
 
 1. Estimate the class priors $\pi_y$ from the training labels.

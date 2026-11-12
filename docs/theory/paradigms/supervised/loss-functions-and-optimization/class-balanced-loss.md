@@ -27,6 +27,14 @@ $$E_n = \frac{1 - \beta^n}{1 - \beta},$$
 
 where $n$ is the number of samples in the class and $\beta \in [0, 1)$ is a hyperparameter. The class weight is set proportional to $1/E_n$, which gives the class-balanced loss.
 
+### Visualising the diminishing effective count
+
+<div style="max-width:100%;overflow-x:auto;" role="region" tabindex="0" aria-label="Scrollable effective-number animation">
+  <img src="../../../../assets/concept-animations/effective-number-growth-still.svg" data-motion-src="../../../../assets/concept-animations/effective-number-growth-motion.svg" data-still-src="../../../../assets/concept-animations/effective-number-growth-still.svg" alt="Successive samples reveal the effective-number curve growing more slowly than the dashed raw count at beta 0.9." width="640" height="360" style="width:640px;max-width:none;">
+</div>
+
+*Original ten-second looping teaching animation, CC BY-SA 4.0.* The teal sample dots appear in increasing numbers, and the amber cursor traces the effective count. For the **constructed analytic example** with beta = 0.9, the effective number rises from 1 to E(20) = (1 - 0.9^20) / 0.1 ≈ **8.784**, whereas the raw sample count is 20. Its unnormalised inverse-effective weight, approximately 0.114, exceeds the raw inverse-frequency weight 0.05. The dots are **not measured feature overlap, real observations or a training run**: the effective count is a model of diminishing marginal coverage. See [Cui et al. (2019)](https://openaccess.thecvf.com/content_CVPR_2019/html/Cui_Class-Balanced_Loss_Based_on_Effective_Number_of_Samples_CVPR_2019_paper.html). On MkDocs use Play/Pause; narrow screens allow keyboard-focusable horizontal scrolling, and reduced-motion mode shows the still. [View the animation](../../../../assets/concept-animations/effective-number-growth-motion.svg) or the [GitHub-compatible static preview](../../../../assets/concept-animations/effective-number-growth-still.svg).
+
 ## How it works
 
 1. Count the samples $n_c$ in each class $c$.
