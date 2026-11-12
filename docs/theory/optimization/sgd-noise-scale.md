@@ -38,6 +38,12 @@ The paper does not introduce an optimiser. The method is a rule for choosing the
 3. Prefer a batch size at which \(g\) is in the range that the experiments identify as best.
 4. When the learning rate changes, scale the batch size with it, so that \(g\) stays fixed.
 
+## Motion: learning rate and batch-size noise scaling
+
+<img src="../../assets/concept-animations/sgd-noise-batch-still.svg" data-motion-src="../../assets/concept-animations/sgd-noise-batch-motion.svg" data-still-src="../../assets/concept-animations/sgd-noise-batch-still.svg" alt="The analytic SGD noise-scale curve decreases as batch size rises from four to sixty-four; schematic gradient-noise scatter narrows alongside it." width="640">
+
+*Original continuous teaching animation, CC BY-SA 4.0.* [GitHub-readable static SVG](../../assets/concept-animations/sgd-noise-batch-still.svg). The orange cursor follows $g=\epsilon(N/B-1)$ with **illustrative** $N=128$, $\epsilon=0.1$ and $B=4\ldots64$: the endpoints have $g=3.1$ and $g=0.1$. The right cloud's spread is drawn proportional to $1/\sqrt B$ to visualise standard-error scaling for independent, similarly distributed gradients; its dots are **not sampled gradients, model measurements, or a proof of Gaussian noise**. Keeping $g$ constant while changing $\epsilon$ would require changing $B$ accordingly, subject to finite-data and optimiser assumptions. MkDocs offers Play/Pause and a reduced-motion static view.
+
 ## Results
 
 - The abstract states that the optimal batch size scales with both the learning rate and the training set size, and that the authors verify this empirically.

@@ -41,6 +41,12 @@ v_t &= \beta\, v_{t-1} + g_t \\
 
 Unrolled, the step is a weighted sum of all past gradients with weights that decay geometrically at rate \(\beta\). This is why it is an exponential moving average of gradients, and why it damps oscillation. Polyak's analysis on quadratic objectives shows the best choice of \(\eta\) and \(\beta\) gives a convergence rate better than plain gradient descent for the same conditioning.
 
+## Motion: why momentum overshoots
+
+<img src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" data-motion-src="../../../assets/concept-animations/heavy-ball-overshoot-motion.svg" data-still-src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" alt="A computed twelve-step comparison on a one-dimensional quadratic: momentum crosses the optimum, while gradient descent approaches it monotonically." width="640">
+
+*Original continuous teaching animation, CC BY-SA 4.0.* [GitHub-readable static SVG](../../../assets/concept-animations/heavy-ball-overshoot-still.svg). The moving points follow the **exact discrete recurrence** above for $f(\theta)=\theta^2/2$, $\theta_0=3$, $v_0=0$, $\eta=0.2$, and $\beta=0.7$; the lines interpolate between discrete updates for readability. In this example momentum first crosses zero at update 4, while plain gradient descent stays positive. The comparison is **illustrative, not a training measurement or a guarantee that momentum always converges faster**. On the MkDocs site, use Play/Pause; reduced-motion preference displays the static state.
+
 ## Key methods
 
 ### Heavy-ball method (Polyak, 1964)
