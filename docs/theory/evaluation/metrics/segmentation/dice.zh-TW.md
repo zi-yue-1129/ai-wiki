@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-11-12
 related:
   - engineering/evaluation
 tags:
@@ -18,6 +19,14 @@ Dice 係數衡量預測區域與參考區域之間的重疊程度，並經過縮
 $$\text{Dice} = \frac{2\,|A \cap B|}{|A| + |B|}$$
 
 在二元遮罩上，若逐像素計算 $TP$、$FP$ 與 $FN$，則等於 $\frac{2\,TP}{2\,TP + FP + FN}$，也就是正例類別的 [F1 分數](../classification/f1.md)。正因為這個恆等式，兩者常被視為同一個量來報告。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="分割重疊指標教學動畫">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/dice-overlap-response-still.svg" data-motion-src="../../../../assets/concept-animations/dice-overlap-response-motion.svg" alt="移動預測矩形時，Dice 與 IoU 曲線同步追蹤兩個遮罩的重疊程度，顯示部分重疊時 Dice 大於 IoU。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）.* 兩個人工設定的 108 × 105 矩形遮罩，當水平位移 0 ≤ d ≤ 108 時，共有寬度為 108 − d，因此 Dice = (108 − d)/108，而 IoU = (108 − d)/(108 + d)。在 d = 54 時，Dice = 0.50、IoU = 1/3；完全重合時兩者皆為 1，無交集時皆為 0。此為精確的幾何示例，不是分割模型實測分數。 MkDocs 網站可使用播放／暫停控制；GitHub 顯示靜態預覽。
 
 ## 解讀
 

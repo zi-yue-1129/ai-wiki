@@ -19,6 +19,14 @@ $$\text{Dice} = \frac{2\,|A \cap B|}{|A| + |B|}$$
 
 On binary masks, with $TP$, $FP$ and $FN$ counted pixel by pixel, this equals $\frac{2\,TP}{2\,TP + FP + FN}$, which is the [F1 score](../classification/f1.md) for the positive class. That identity is why the two are often reported as the same measure.
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Segmentation overlap metric animation">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/dice-overlap-response-still.svg" data-motion-src="../../../../assets/concept-animations/dice-overlap-response-motion.svg" alt="Moving prediction rectangle and linked Dice and IoU curves show Dice remains larger for partial overlap of equal-area masks." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* For two 108 × 105 illustrative masks separated horizontally by 0 ≤ d ≤ 108, their shared width is 108 − d. Hence Dice = (108 − d)/108, while IoU = (108 − d)/(108 + d). At d = 54, Dice = 0.50 and IoU = 1/3; both reach 1 at full alignment and 0 when disjoint. These are exact geometric examples, not empirical segmentation scores. The MkDocs site supports Play/Pause, while GitHub displays the static preview.
+
 ## Interpretation
 
 Dice is 1 for identical regions and 0 for no overlap. Since $\text{Dice} = 2\,\text{IoU} / (1 + \text{IoU})$, Dice is always at least as large as [IoU](iou.md) for the same masks, so a Dice of 0.8 corresponds to an IoU of about 0.67. Comparing a Dice value with an IoU value from another paper requires converting one of them.

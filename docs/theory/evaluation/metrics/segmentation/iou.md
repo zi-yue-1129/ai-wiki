@@ -19,6 +19,14 @@ $$\text{IoU} = \frac{|A \cap B|}{|A \cup B|}$$
 
 IoU is 1 when the regions are identical and 0 when they do not overlap. scikit-learn's `jaccard_score` computes the same quantity for label sets, so for a binary mask it gives the IoU of the positive class (see References).
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Segmentation overlap metric animation">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/iou-overlap-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/iou-overlap-sweep-motion.svg" alt="Two equal-area rectangular masks slide together and apart, showing the green intersection and continuously changing IoU ratio." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* For two 140 × 115 illustrative masks displaced by d horizontally, the overlap width is max(0, 140 − d), and IoU is overlap / (280 − overlap) while the rectangles are aligned vertically. At d = 70, IoU = 70 / 210 = 1/3; identical masks give 1 and disjoint masks give 0. The colour and slider encode area, not a model prediction or measured result. The MkDocs site supports Play/Pause, while GitHub displays the static preview.
+
 ## Interpretation
 
 Because the union appears in the denominator, IoU penalises both missing pixels and extra pixels. A prediction that covers the right region but is twice its size scores 0.5, not 1.0. For small objects, a few pixels of boundary error can change IoU a lot, so results on small objects can look worse than the model's visual quality suggests.

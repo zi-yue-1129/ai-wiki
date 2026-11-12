@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-11-12
 related:
   - engineering/evaluation
 tags:
@@ -18,6 +19,14 @@ tags:
 $$\text{IoU} = \frac{|A \cap B|}{|A \cup B|}$$
 
 當兩個區域完全相同時，IoU 為 1；沒有重疊時為 0。scikit-learn 的 `jaccard_score` 對標籤集合計算同樣的量，因此對二元遮罩而言，它給出的是正例類別的 IoU（見參考文獻）。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="分割重疊指標教學動畫">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/iou-overlap-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/iou-overlap-sweep-motion.svg" alt="兩個等面積矩形遮罩連續靠近與分離，交集以綠色標示，IoU 比值隨重疊面積變化。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）.* 兩個人工設定的 140 × 115 矩形遮罩水平相距 d 時，重疊寬度為 max(0, 140 − d)，IoU 等於重疊寬度 / (280 − 重疊寬度)。當 d = 70，IoU = 70 / 210 = 1/3；完全重合為 1，互不重疊為 0。顏色與分數軌道僅呈現幾何面積關係，非模型實測。 MkDocs 網站可使用播放／暫停控制；GitHub 顯示靜態預覽。
 
 ## 解讀
 

@@ -65,6 +65,8 @@ TOPICS = {
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
+    "iou-overlap-sweep": "theory/evaluation/metrics/segmentation/iou",
+    "dice-overlap-response": "theory/evaluation/metrics/segmentation/dice",
 }
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
@@ -132,7 +134,18 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in GITHUB_GIF_PREVIEWS:
+            if stem in {"iou-overlap-sweep", "dice-overlap-response"}:
+                # GitHub gets the static image; MkDocs enhances it via data-motion-src.
+                match = re.search(r'<img\s+[^>]*src="([^"]+)"\s+data-motion-src="([^"]+)"', text)
+                if not match:
+                    errors.append(f"{page}: missing HTML static/motion pair")
+                else:
+                    still_link, motion_link = match.groups()
+                    if (page.parent / still_link).resolve() != static_path.resolve():
+                        errors.append(f"{page}: invalid GitHub static fallback")
+                    if (page.parent / motion_link).resolve() != animated_path.resolve():
+                        errors.append(f"{page}: invalid MkDocs motion link")
+            elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.
