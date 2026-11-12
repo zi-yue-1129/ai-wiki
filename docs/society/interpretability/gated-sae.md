@@ -49,7 +49,9 @@ The last term is an auxiliary reconstruction that passes through a frozen copy o
 
 ### Visual walkthrough: gate versus magnitude
 
-<img src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" data-motion-src="../../assets/concept-animations/gated-sae-gate-magnitude-motion.svg" data-still-src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" alt="Gated sparse autoencoder: negative gate blocks feature A even with positive magnitude, while positive gates transmit B and C magnitudes.">
+<div class="concept-motion-scroll" role="region" aria-label="Horizontally scrollable instructional diagram" tabindex="0">
+<img src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" width="640" data-motion-src="../../assets/concept-animations/gated-sae-gate-magnitude-motion.svg" data-still-src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" alt="Gated sparse autoencoder: negative gate blocks feature A even with positive magnitude, while positive gates transmit B and C magnitudes.">
+</div>
 
 *Original instructional animation, CC BY-SA 4.0.* In this **illustrative forward pass**, three gate pre-activations are $(-0.7, 0.6, 0.9)$ and the corresponding magnitude pre-activations are $(1.5, 2.0, 0.7)$. The gate indicators are $(0,1,1)$, so the final sparse code is **$(0,2.0,0.7)$**. The gate controls *whether* a feature fires; the magnitude branch controls *how much* passes. The animation reveals the gate values, then the magnitude values, then the masked result. It does not portray fitted weights, a training trajectory, the tied encoder parametrisation, or the auxiliary reconstruction loss.
 

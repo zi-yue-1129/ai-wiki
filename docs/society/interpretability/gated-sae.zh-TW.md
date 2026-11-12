@@ -50,7 +50,9 @@ $$
 
 ### 動態圖解：門控與幅度的分工
 
-<img src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" data-motion-src="../../assets/concept-animations/gated-sae-gate-magnitude-motion.svg" data-still-src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" alt="門控稀疏自編碼器：特徵 A 的門控為負，因此即使幅度為正也會遭到遮罩；B 與 C 的正門控則讓幅度通過。">
+<div class="concept-motion-scroll" role="region" aria-label="可水平捲動的教學概念圖" tabindex="0">
+<img src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" width="640" data-motion-src="../../assets/concept-animations/gated-sae-gate-magnitude-motion.svg" data-still-src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" alt="門控稀疏自編碼器：特徵 A 的門控為負，因此即使幅度為正也會遭到遮罩；B 與 C 的正門控則讓幅度通過。">
+</div>
 
 *Original instructional animation, CC BY-SA 4.0.* 這是一個**人工設定的前向傳播示例**：三個門控前激活為 $(-0.7,0.6,0.9)$，對應的幅度前激活為 $(1.5,2.0,0.7)$。門控指示值為 $(0,1,1)$，因此最後的稀疏特徵向量是 **$(0,2.0,0.7)$**。門控決定特徵*是否*啟用，幅度分支決定*啟用後的強度*。動畫依序呈現門控、幅度與遮罩後的輸出；它不代表實際學得的權重、訓練軌跡、權重共用參數化或輔助重建損失的完整運作。
 

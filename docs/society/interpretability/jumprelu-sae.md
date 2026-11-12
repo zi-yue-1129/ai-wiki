@@ -42,7 +42,9 @@ where $\lVert f(x) \rVert_0$ counts the active features. The threshold is discon
 
 ### Visual walkthrough: a discontinuous feature threshold
 
-<img src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" data-motion-src="../../assets/concept-animations/jumprelu-threshold-jump-motion.svg" data-still-src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" alt="JumpReLU activation curve: an input cursor crosses threshold 1.5, making the output jump from zero to its unsuppressed positive input value.">
+<div class="concept-motion-scroll" role="region" aria-label="Horizontally scrollable instructional diagram" tabindex="0">
+<img src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" width="640" data-motion-src="../../assets/concept-animations/jumprelu-threshold-jump-motion.svg" data-still-src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" alt="JumpReLU activation curve: an input cursor crosses threshold 1.5, making the output jump from zero to its unsuppressed positive input value.">
+</div>
 
 *Original instructional animation, CC BY-SA 4.0.* For a **single illustrative feature** with fixed $\theta=1.5$, the activation is zero for $z\leq1.5$ and equals the **full pre-activation $z$** for $z>1.5$. The orange marker sweeps the input range; the teal output jumps abruptly at the orange threshold line, rather than rising gradually from zero as a shifted ReLU would. The open circle on the upper branch emphasises the strict inequality. This is a one-dimensional activation function, **not an observed training trajectory or a demonstration of the straight-through gradient estimator**.
 
