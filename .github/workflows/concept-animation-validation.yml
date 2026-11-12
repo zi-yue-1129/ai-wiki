@@ -73,6 +73,8 @@ jobs:
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
+      - name: Chromium OOD bilingual playback, keyboard and reduced motion
+        run: python scripts/test_ood_motion_browser.py
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
@@ -97,6 +99,7 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/ood-motion/*.png
           if-no-files-found: ignore
           retention-days: 7
 
