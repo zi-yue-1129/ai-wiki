@@ -28,6 +28,14 @@ Make the step size a parameter of each quantiser, and update it from the loss in
 
 The quantised value is \(\hat{x} = s \cdot \operatorname{round}(\operatorname{clip}(x/s, -Q_n, Q_p))\), where \(s\) is the learned step size and \(Q_n\), \(Q_p\) set the integer range for the bit-width. The gradient with respect to \(s\) is taken through the rounding with the straight-through estimator. The paper scales this gradient by \(g = 1/\sqrt{N Q_p}\), where \(N\) is the number of weights (or features) in the layer, so that the step size learns at a sensible rate relative to the weights.
 
+## Instructional animation: step-size sweep and rounding error
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Horizontally scrollable quantisation figure">
+  <img src="../../../../../assets/concept-animations/lsq-step-size-sweep-still.svg" data-motion-src="../../../../../assets/concept-animations/lsq-step-size-sweep-motion.svg" alt="Four fixed float weights and snapped teal values on a quantisation grid as step size moves from 1.0 to 0.6; orange dotted segments show rounding error." style="width:640px;max-width:none;height:auto" loading="lazy">
+</div>
+
+*Original 10-second instructional animation (CC BY-SA 4.0). The four fixed synthetic weights are $(-1.1,-0.6,0.7,1.7)$ in a signed 3-bit grid $[-4,3]$. Sweeping $s$ from 1.0 to 0.6 changes quantised values from $(-1,-1,1,2)$ to $(-1.2,-0.6,0.6,1.8)$, reducing their illustrative summed squared rounding error from $0.35$ to $0.03$. This is a **fixed-weight sweep**, not an observed LSQ gradient-descent trajectory; smaller quantisation error does not guarantee lower task loss.* MkDocs adds keyboard-operable Play/Pause; reduced-motion mode starts with a still image, and the focusable figure can be scrolled horizontally on mobile. [View complete animated SVG](../../../../../assets/concept-animations/lsq-step-size-sweep-motion.svg); [GitHub-readable still](../../../../../assets/concept-animations/lsq-step-size-sweep-still.svg).
+
 ## Results
 
 The abstract says the method achieves the highest accuracy to date on ImageNet for models quantised to 2, 3 and 4 bits, and that 3-bit models reach full-precision baseline accuracy.

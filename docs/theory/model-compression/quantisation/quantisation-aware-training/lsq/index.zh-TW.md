@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 可學習步長量化（LSQ）
@@ -17,6 +17,14 @@ translation_reviewed: 2026-10-28
 ## 公式或演算法
 
 量化值為 \(\hat{x} = s \cdot \operatorname{round}(\operatorname{clip}(x/s, -Q_n, Q_p))\)，其中 \(s\) 是學習得到的步長，\(Q_n\)、\(Q_p\) 依位元寬度設定整數範圍。對 \(s\) 的梯度以直通估計器穿過捨入運算取得。論文以 \(g = 1/\sqrt{N Q_p}\) 縮放此梯度，其中 \(N\) 為該層權重（或特徵）的數量，使步長相對於權重以合理的速度學習。
+
+## 教學動畫：步長改變與量化誤差
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可水平捲動的量化教學圖">
+  <img src="../../../../../assets/concept-animations/lsq-step-size-sweep-still.svg" data-motion-src="../../../../../assets/concept-animations/lsq-step-size-sweep-motion.svg" alt="四個固定浮點權重與會隨量化步長由 1.0 變為 0.6 而移動的青綠色量化點，橘色虛線標示捨入誤差。" style="width:640px;max-width:none;height:auto" loading="lazy">
+</div>
+
+*原創 10 秒連續教學動畫（CC BY-SA 4.0）。四個固定的人工權重為 $(-1.1,-0.6,0.7,1.7)$。3-bit signed 範圍為 $[-4,3]$，當步長由 $s=1.0$ 改為 $s=0.6$，量化值由 $(-1,-1,1,2)$ 變為 $(-1.2,-0.6,0.6,1.8)$，此例的捨入平方誤差總和由 $0.35$ 變為 $0.03$。這是**固定權重的步長掃描**，不是 LSQ 的梯度下降訓練軌跡；減少捨入誤差也不保證降低任務損失。* 網站支援使用鍵盤操作的播放／暫停，若啟用減少動態效果則預設顯示靜態圖；手機可聚焦圖片區域並左右捲動。 [檢視完整 SVG 動畫](../../../../../assets/concept-animations/lsq-step-size-sweep-motion.svg)；[GitHub 靜態預覽](../../../../../assets/concept-animations/lsq-step-size-sweep-still.svg).
 
 ## 結果
 

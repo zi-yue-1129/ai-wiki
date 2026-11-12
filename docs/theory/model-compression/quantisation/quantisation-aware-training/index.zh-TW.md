@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 量化感知訓練
@@ -9,6 +9,14 @@ translation_reviewed: 2026-10-28
 ## 概述
 
 在 QAT 中，前向傳播套用假量化：每個權重或激活值被捨入到網格上，再映回實數，使損失函數能看見捨入誤差。反向傳播無法對捨入微分，因為捨入是幾乎處處梯度為零的階梯函數。標準的解法是**直通估計器**（STE）：把捨入運算的梯度視為一，讓梯度直接穿過，就像沒有捨入一樣。[BinaryConnect](../binary-and-ternary/binaryconnect/index.zh-TW.md) 對二值權重也使用同一個估計器。
+
+## 教學動畫：假量化與直通梯度
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可水平捲動的量化教學圖">
+  <img src="../../../../assets/concept-animations/qat-fake-quant-ste-still.svg" data-motion-src="../../../../assets/concept-animations/qat-fake-quant-ste-motion.svg" alt="橘色浮點輸入沿數線連續移動，青綠色二位元假量化值跳到最近網格點；下方紫色箭頭顯示反向傳播的直通估計梯度。" style="width:640px;max-width:none;height:auto" loading="lazy">
+</div>
+
+*原創 12 秒連續教學動畫（CC BY-SA 4.0）。假設 unsigned 2-bit、步長 $s=1$，前向 $q(x)=\operatorname{clip}(\operatorname{round}(x),0,3)$；因此例如 $x=1.49$ 映射為 1，$x=1.51$ 映射為 2。反向的 STE **近似**令非飽和區段的 $\partial q/\partial x\approx1$，不是宣稱捨入在數學上可微；裁剪範圍外需另考慮飽和梯度。數值是人工示意，非模型量測。* 網站支援使用鍵盤操作的播放／暫停，若啟用減少動態效果則預設顯示靜態圖；手機可聚焦圖片區域並左右捲動。 [檢視完整 SVG 動畫](../../../../assets/concept-animations/qat-fake-quant-ste-motion.svg)；[GitHub 靜態預覽](../../../../assets/concept-animations/qat-fake-quant-ste-still.svg).
 
 ## 關鍵概念
 
