@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # Shampoo
@@ -33,6 +33,19 @@ W_{t+1} = W_t - \eta\, L_t^{-1/4}\, G_t\, R_t^{-1/4}
 $$
 
 論文採用延遲更新：每 20 到 100 步才重新計算一次逆根，並報告這對精度幾乎沒有影響，同時降低了每步的平均成本。此規則可推廣到張量，做法是對每個維度套用一個這樣的矩陣。
+
+
+### 觀察雙側預條件子隨時間改變
+
+<img src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-motion-src="../../assets/concept-animations/shampoo-eigenmode-motion.svg" data-still-src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-motion-scroll="true" tabindex="0" alt="重複的二乘二梯度逐步累積 Shampoo 左右兩側的矩陣統計量，預條件後的更新對較大特徵模態有更強的相對抑制。" width="640" height="360" />
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 使用刻意簡化的**解析式示例**：每一步皆套用 $G=\begin{psmallmatrix}2&1\\1&2\end{psmallmatrix}$，初始 $L_0=R_0=I$，因此 $t=0,\ldots,6$ 時有 $L_t=R_t=I+tG^2$。由於 $G$ 對稱，特徵值為 3 與 1，經雙側預條件後的 $U_t=L_t^{-1/4}G R_t^{-1/4}$ 兩個特徵值為
+
+$
+\sigma_1(U_t)=\frac{3}{\sqrt{1+9t}},\qquad \sigma_2(U_t)=\frac{1}{\sqrt{1+t}}.
+$
+
+藍色格子的顏色隨累積統計量加深；橘色更新矩陣與下方兩個模態長條同步縮小，其中較大模態相對於原始值受到更強的壓縮。整數步的數值由公式計算，步與步間僅為動畫插值。**重複相同梯度是教學假設，並非模型訓練、運算吞吐量或收斂速度的實測數據。** MkDocs 可使用支援鍵盤的播放／暫停，減少動態效果的偏好設定則顯示靜態圖；GitHub 可直接查看[靜態預覽](../../assets/concept-animations/shampoo-eigenmode-still.svg)。
 
 ## 結果
 

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # 自適應銳度感知最小化（ASAM）
@@ -33,6 +33,13 @@ ASAM 以正規化運算子 \(T_w\) 定義自適應銳度。論文採用的逐元
 \]
 
 訓練步驟接著在擾動後的點上取梯度，\(g = \nabla_w L_B\big(w + \hat\varepsilon(w)\big)\)，與 SAM 完全相同。論文也為卷積層提供逐濾波器的 \(T_w\) 選擇：某個濾波器的對角元素使用該濾波器的 \(\ell_2\) 範數，其餘權重則使用絕對值。
+
+
+### 自適應擾動鄰域的動態比較
+
+<img src="../../assets/concept-animations/asam-neighborhood-still.svg" data-motion-src="../../assets/concept-animations/asam-neighborhood-motion.svg" data-still-src="../../assets/concept-animations/asam-neighborhood-still.svg" data-motion-scroll="true" tabindex="0" alt="梯度方向連續旋轉時，SAM 的固定半徑圓形擾動與 ASAM 的權重縮放橢圓擾動，對應不同的最大一階損失增加方向與位移。" width="640" height="360" />
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 灰色虛線代表梯度方向，橘色箭頭是各自擾動鄰域內，使一階損失增量最大的位移。使用**人工解析示例** $w=(2,1)$、$\rho=0.8$、$T_w=\operatorname{diag}(2,1)$，SAM 的圓形半徑為 $0.8$，ASAM 橢圓的半軸長為 $1.6$ 與 $0.8$。當梯度 $g=(1,1)$ 時，SAM 位移約 $(0.566,0.566)$，ASAM 位移約 $(1.431,0.358)$。梯度角度在 $0^\circ$ 與 $90^\circ$ 間來回變化；每個取樣角度的端點依一階公式計算，角度之間以插值呈現移動。**這不是實際訓練軌跡或泛化效能實測。** MkDocs 網站提供可用鍵盤操作的播放／暫停與偏好減少動態效果時的靜態回退；GitHub 可直接查看[靜態比較圖](../../assets/concept-animations/asam-neighborhood-still.svg)。
 
 ## 主要結果
 

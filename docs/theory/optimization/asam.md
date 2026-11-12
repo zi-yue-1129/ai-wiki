@@ -46,6 +46,13 @@ where \(1 \le p \le \infty\). Its first-order approximation for \(p = 2\) gives 
 
 The training step then uses the gradient at the perturbed point, \(g = \nabla_w L_B\big(w + \hat\varepsilon(w)\big)\), exactly as in SAM. The paper also gives a filter-wise choice of \(T_w\) for convolutional layers, in which the diagonal entries for a filter use that filter's \(\ell_2\) norm and the remaining weights use absolute values.
 
+
+### Visualising the adaptive neighbourhood
+
+<img src="../../assets/concept-animations/asam-neighborhood-still.svg" data-motion-src="../../assets/concept-animations/asam-neighborhood-motion.svg" data-still-src="../../assets/concept-animations/asam-neighborhood-still.svg" data-motion-scroll="true" tabindex="0" alt="A rotating gradient direction produces a circular SAM perturbation and a weight-scaled elliptical ASAM perturbation; the maximum first-order steps differ." width="640" height="360" />
+
+*Original continuous teaching animation (CC BY-SA 4.0).* The dashed ray is a gradient direction; the orange arrow is the maximiser of its first-order loss increase over each neighbourhood. For the **illustrative** weights $w=(2,1)$, radius $\rho=0.8$, and $T_w=\operatorname{diag}(2,1)$, the SAM ball has radius $0.8$ and the ASAM ellipse has semiaxes $1.6$ and $0.8$. For gradient $g=(1,1)$, the SAM displacement is $(0.566,0.566)$ while ASAM gives $(1.431,0.358)$ (rounded). The angle sweeps between $0^\circ$ and $90^\circ$; the endpoints follow the respective first-order solutions, with interpolated motion between sample angles. These are **analytic toy values, not a training trajectory or a measured generalisation result**. The MkDocs player provides Play/Pause with keyboard access and a reduced-motion still; the [GitHub-readable static comparison](../../assets/concept-animations/asam-neighborhood-still.svg) works without scripting.
+
 ## Key results
 
 The paper reports mean and standard deviation over several runs, for maximum test accuracy:
