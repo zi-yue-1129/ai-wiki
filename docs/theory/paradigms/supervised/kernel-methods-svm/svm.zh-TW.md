@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/supervised/kernel-methods-svm
   - theory/paradigms/supervised/linear-models
@@ -51,6 +51,16 @@ f(x) = \operatorname{sign}\Big(\sum_{i} \alpha_i\, y_i\, k(x_i, x) + b\Big)
 - 線性：\(k(x, x') = x^\top x'\)。
 - 多項式：\(k(x, x') = (x^\top x' + c)^p\)。
 - 高斯（RBF）：\(k(x, x') = \exp(-\gamma\lVert x - x'\rVert^2)\)。
+
+## 間隔與合頁損失動畫
+
+![SVM 間隔與合頁損失動畫：正類樣本移入間隔、跨過決策邊界，右側游標同步呈現合頁損失。](../../../../assets/concept-animations/svm-margin-hinge-still.svg)
+
+[查看原創連續 SVG 動畫](../../../../assets/concept-animations/svm-margin-hinge-motion.svg)
+
+藍色與青綠色資料點均為**人工示意**，其中只有橘色正類樣本移動；分類器與兩條間隔邊界保持固定。圖中以示意座標定義**帶符號函數間隔** $yf(x)=(x-164)/45$，合頁損失 $\max(0,1-yf(x))$ 在正類樣本達到單位間隔時為零；一旦違反間隔便開始線性增加。這是**移動輸入樣本的假設性掃描**，不是 SVM 訓練軌跡或模型實測。MkDocs 可透過 Play/Pause 控制，支援鍵盤操作；手機可水平捲動查看。
+
+[查看 GitHub 可顯示的靜態預覽](../../../../assets/concept-animations/svm-margin-hinge-still.svg). *原創教學視覺，CC BY-SA 4.0。*
 
 ## 關鍵方法
 
