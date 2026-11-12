@@ -30,6 +30,16 @@ v_t &= \beta\, v_{t-1} + g_t \\
 
 展開後，步長是所有過去梯度的加權和，權重以 \(\beta\) 的速率幾何遞減。這就是它為何是梯度的指數移動平均，也是它為何能抑制震盪。Polyak 在二次目標上的分析顯示，選擇適當的 \(\eta\) 與 \(\beta\) 時，在相同條件數下收斂速率優於普通梯度下降。
 
+## 動態示範：動量為何會超越最佳點
+
+<div role="region" tabindex="0" aria-label="動畫圖：可用左右方向鍵水平捲動，圖下方有播放與暫停控制" style="max-width:100%;overflow-x:auto;">
+  <div style="width:640px;max-width:none;">
+    <img src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" data-motion-src="../../../assets/concept-animations/heavy-ball-overshoot-motion.svg" data-still-src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" alt="一維二次函數的十二步精確遞迴比較：動量法跨越最佳點，普通梯度下降則單調接近最佳點。" width="640">
+  </div>
+</div>
+
+*原創連續教學動畫，CC BY-SA 4.0。* [GitHub 可檢視的靜態 SVG](../../../assets/concept-animations/heavy-ball-overshoot-still.svg)。移動點依照上述遞迴式計算，使用 $f(\theta)=\theta^2/2$、$\theta_0=3$、$v_0=0$、$\eta=0.2$ 與 $\beta=0.7$。曲線為方便觀察而在離散更新點之間插值；在此示例中，重球動量於第 4 步首次跨越零點，普通梯度下降則始終為正。**這是解析式示例，不是模型訓練實測，也不代表動量法必然較快收斂。** MkDocs 網站可用播放／暫停操作；偏好減少動態效果時會顯示靜態版本。
+
 ## 關鍵方法
 
 ### Heavy-ball method（Polyak，1964）

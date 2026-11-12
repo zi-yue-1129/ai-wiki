@@ -27,6 +27,16 @@ SGD 雜訊尺度是一個量 \(g = \epsilon\,(N/B - 1) \approx \epsilon N/B\)，
 3. 偏好使 \(g\) 落在實驗所認定之最佳範圍內的批次大小。
 4. 學習率改變時，批次大小也依比例改變，使 \(g\) 保持不變。
 
+## 動態示範：批次大小與 SGD 雜訊尺度
+
+<div role="region" tabindex="0" aria-label="動畫圖：可用左右方向鍵水平捲動，圖下方有播放與暫停控制" style="max-width:100%;overflow-x:auto;">
+  <div style="width:640px;max-width:none;">
+    <img src="../../assets/concept-animations/sgd-noise-batch-still.svg" data-motion-src="../../assets/concept-animations/sgd-noise-batch-motion.svg" data-still-src="../../assets/concept-animations/sgd-noise-batch-still.svg" alt="當批次大小從四增加到六十四時，SGD 雜訊尺度的解析曲線下降，右側示意雜訊點雲也同步收窄。" width="640">
+  </div>
+</div>
+
+*原創連續教學動畫，CC BY-SA 4.0。* [GitHub 可檢視的靜態 SVG](../../assets/concept-animations/sgd-noise-batch-still.svg)。橘色游標遵循 $g=\epsilon(N/B-1)$，採用**人工示意參數** $N=128$、$\epsilon=0.1$、$B=4\ldots64$；兩端分別為 $g=3.1$ 與 $g=0.1$。右側點雲以 $1/\sqrt B$ 收窄，用來說明在樣本梯度近似獨立、同分布時的標準誤尺度；**點雲並非抽樣所得的模型梯度，也沒有實際驗證高斯分布。** 調整學習率時若要保持 $g$ 固定，必須相應調整批次大小，且仍受有限資料與最佳化器假設限制。MkDocs 網站可播放／暫停，Reduced Motion 會使用靜態畫面。
+
 ## 結果
 
 - 摘要指出，最佳批次大小同時隨學習率與訓練集大小而成長，作者以實驗驗證了這一點。
