@@ -96,7 +96,7 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         name = element.tag.split("}")[-1]
         if name in FORBIDDEN:
             errors.append(f"{path}: prohibited {name}")
-        if name in ("animate", "animateMotion"):
+        if name in ("animate", "animateMotion", "animateTransform"):
             motions.append(element)
             if element.get("repeatCount") != "indefinite":
                 errors.append(f"{path}: animation must loop indefinitely")
