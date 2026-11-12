@@ -39,7 +39,11 @@ The generator loss is unchanged from WGAN, \(-\mathbb E_z[f_w(g_\theta(z))]\). B
 
 ### Interpolation and penalty in motion
 
+<div role="region" aria-label="Scrollable teaching animation and static preview" tabindex="0" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
 <img src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" data-motion-src="../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg" data-still-src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" alt="An interpolation point moves from fake to real, while the gradient-norm indicator crosses the target of one and the gradient penalty decreases to zero then increases." width="640" height="360">
+</div>
+</div>
 
 *Original schematic animation, CC BY-SA 4.0.* The moving marker is an interpolated input \(\hat x=(1-\epsilon)\tilde x+\epsilon x\). The upper plot shows a **constructed one-dimensional** critic \(f(s)=0.6s+0.4s^2\) along the unit-length interpolation coordinate \(s=\epsilon\), not a learned image critic. Its gradient magnitude is \(\lvert f'(s)\rvert=0.6+0.8s\), so with the illustrative \(\lambda=10\) the penalty is \(10(0.8s-0.4)^2\): it is 1.6 at either end and zero at \(s=0.5\). The penalty is computed **with respect to the input**, not the critic's weights. It is applied at sampled interpolations, **not guaranteed everywhere**. Numbers are analytic examples, not measured training results. On MkDocs use Play/Pause, with a static GitHub fallback. [View the standalone motion SVG](../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg).
 

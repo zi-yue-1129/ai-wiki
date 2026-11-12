@@ -38,7 +38,11 @@ L_{\text{critic}} = \mathbb E_{\tilde x}[f_w(\tilde x)] - \mathbb E_{x}[f_w(x)] 
 
 ### 內插樣本與梯度懲罰的動態示意
 
+<div role="region" aria-label="可用方向鍵水平捲動的教學動畫與靜態預覽" tabindex="0" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
 <img src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" data-motion-src="../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg" data-still-src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" alt="內插點由生成樣本移向真實樣本，右側梯度範數跨過目標值一，平方懲罰先降為零再上升。" width="640" height="360">
+</div>
+</div>
 
 *原創示意動畫，CC BY-SA 4.0。* 移動中的點代表內插輸入 \(\hat x=(1-\epsilon)\tilde x+\epsilon x\)。右上曲線是沿單位長度內插座標 \(s=\epsilon\) 人工定義的**一維評論家** \(f(s)=0.6s+0.4s^2\)，不是實際訓練的影像評論家。其梯度大小為 \(\lvert f'(s)\rvert=0.6+0.8s\)，取示意 \(\lambda=10\)，則懲罰為 \(10(0.8s-0.4)^2\)：兩端均為 1.6，中點 \(s=0.5\) 為零。此梯度是**對輸入**求導，而不是對評論家權重求導。懲罰施加於取樣的內插點，**不保證所有位置**都符合限制；全部數值為解析示例，並非模型實測。MkDocs 可播放／暫停，GitHub 則保留靜態圖。[開啟完整 SVG 動畫](../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg)。
 
