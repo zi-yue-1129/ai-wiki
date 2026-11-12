@@ -151,10 +151,10 @@ def main() -> int:
             elif stem in HTML_STILL_PREVIEWS:
                 # GitHub renders the still; MkDocs progressively enhances the
                 # same img via data-motion-src using the shared player.
-                candidates = re.findall(r"<img\\b[^>]*>", text)
+                candidates = re.findall(r"<img\b[^>]*>", text)
                 matched = False
                 for tag in candidates:
-                    attrs = dict(re.findall(r'([\\w-]+)="([^"]*)"', tag))
+                    attrs = dict(re.findall(r'([\w-]+)="([^"]*)"', tag))
                     if (
                         (page.parent / attrs.get("src", "")).resolve() == static_path.resolve()
                         and (page.parent / attrs.get("data-still-src", "")).resolve() == static_path.resolve()
