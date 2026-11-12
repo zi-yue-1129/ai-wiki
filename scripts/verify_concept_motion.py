@@ -138,8 +138,8 @@ def main() -> int:
                 # GitHub renders an inline static SVG; MkDocs enhances it using
                 # data-motion-src. Check both independently rather than treating
                 # the fallback image as a motion source.
-                motion_urls = re.findall(r'data-motion-src="([^"]+\\.svg)"', text)
-                still_urls = re.findall(r'<img\\b[^>]*\\bsrc="([^"]+\\.svg)"', text)
+                motion_urls = re.findall(r'data-motion-src="([^"]+\.svg)"', text)
+                still_urls = re.findall(r'<img\b[^>]*\bsrc="([^"]+\.svg)"', text)
                 if animated_path.resolve() not in {
                     (page.parent / url).resolve() for url in motion_urls
                 }:
