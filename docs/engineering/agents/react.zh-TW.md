@@ -30,6 +30,14 @@ ReAct 是一種提示方法，讓語言模型在同一段交錯的序列中寫�
 
 在每一步，模型先寫一段簡短的思考，也就是對目前狀態的推理，然後寫出一個行動，也就是對外部來源或環境的呼叫。行動所回傳的觀察結果會加入上下文，下一段思考會利用它。思考幫助模型推導、追蹤與更新計畫，並處理例外狀況；行動則讓它取得權重中沒有的知識或狀態。論文把這套方法應用在一個簡單的維基百科 API 上，用於問答與事實驗證。
 
+## 動態流程示意
+
+<div style="max-width:100%;overflow-x:auto;" tabindex="0" role="region" aria-label="可水平捲動的教學概念圖"><div style="width:640px;min-width:640px;"><img src="../../assets/concept-animations/react-evidence-loop-still.svg" data-motion-src="../../assets/concept-animations/react-evidence-loop-motion.svg" data-still-src="../../assets/concept-animations/react-evidence-loop-still.svg" width="640" height="360" alt="ReAct 的兩輪循環：第一次思考導向搜尋與證據 A，下一次思考利用 A 進行查核，再取得證據 B 並作答。" loading="lazy"></div></div>
+
+這是原創教學視覺，授權 CC BY-SA 4.0。**觀察結果如何改變下一個動作。** 動畫以兩輪示意流程呈現：模型產生思考、呼叫搜尋動作、接收觀察結果，再利用觀察結果修正下一段思考。觀察結果會加入上下文，但**不會直接更新模型參數**。證據 A、B 為人工教學標籤，**並非真實 Agent 執行紀錄、基準測試或實測結果**；移動標記代表資訊路徑，不代表實際執行時間。
+
+在 MkDocs 網站可以透過支援鍵盤的播放／暫停按鈕觀察流程；啟用 `prefers-reduced-motion` 時預設靜態畫面。GitHub 提供[完整靜態預覽](../../assets/concept-animations/react-evidence-loop-still.svg)。
+
 ## 方程式或演算法
 
 這個程序是對三種文字的迴圈：

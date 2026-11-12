@@ -31,6 +31,14 @@ A model that answers from memory alone hallucinates, and a chain of reasoning th
 
 At each step the model writes a short thought, which is a piece of reasoning about the current state, and then an action, which is a call to an external source or the environment. The observation returned by the action is added to the context, and the next thought uses it. The thoughts help the model induce, track and update its plan and handle exceptions. The actions let it reach knowledge or state that is not in its weights. The paper applies this to a simple Wikipedia API for question answering and fact verification.
 
+## Animated walkthrough
+
+<div style="max-width:100%;overflow-x:auto;" tabindex="0" role="region" aria-label="Scrollable instructional concept diagram"><div style="width:640px;min-width:640px;"><img src="../../assets/concept-animations/react-evidence-loop-still.svg" data-motion-src="../../assets/concept-animations/react-evidence-loop-motion.svg" data-still-src="../../assets/concept-animations/react-evidence-loop-still.svg" width="640" height="360" alt="Two ReAct cycles: a thought leads to search and Evidence A; the next thought uses A, verifies, and receives Evidence B before answering." loading="lazy"></div></div>
+
+*Original instructional visualisation, CC BY-SA 4.0.* **How observations change the next action.** Two schematic cycles show a model producing a thought, issuing a search action, receiving an observation, and using that observation in the next thought. An observation is appended to context; it does **not** update the model parameters. Evidence A and B are invented labels for teaching, **not an actual agent trace, benchmark, or measured result**. The moving marker follows the information path, not measured execution time.
+
+On MkDocs, the Play/Pause control supports keyboard input; `prefers-reduced-motion` defaults to the static frame. GitHub shows the complete [static fallback](../../assets/concept-animations/react-evidence-loop-still.svg).
+
 ## Equation or algorithm
 
 The procedure is a loop over three kinds of text:
