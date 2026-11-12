@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-11-04
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-12
 related:
   - theory/deep-learning/dropout
 tags:
@@ -31,6 +31,14 @@ $$
 在單標籤分類中，$y_i$ 與 $y_j$ 是獨熱類別向量。混合後是機率向量，而非內插後的整數類別編號。合成目標表達的是訓練約束，並非對自然樣本真實類別機率的測量。
 
 混合增強偏好樣本之間近似線性的預測，並不強制所有訓練後的模型都精確滿足 $f(\tilde{x})=\lambda f(x_i)+(1-\lambda)f(x_j)$。[^mixup]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup 教學動畫，可以使用鍵盤左右捲動圖像">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-motion-src="../../../assets/concept-animations/mixup-paired-interpolation-motion.svg" alt="同一個 λ 使輸入在 A 與 B 兩個二維向量之間移動，同時將軟目標的 A 類與 B 類權重調整為 λ 與 1 − λ。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 紫色點依 $\lambda$ 在人工輸入 $x_A=(1,0)$ 與 $x_B=(0,1)$ 之間移動，右側類別 A、B 的軟目標權重分別為 $\lambda$、$1-\lambda$。這些是解析式示意值，**不是模型預測或實際影像混合結果**。MkDocs 網站提供播放／暫停及 Enter／Space 鍵盤操作；GitHub 顯示靜態回退，偏好減少動態效果時預設不播放。
 
 ## 軟目標與損失
 
@@ -72,6 +80,14 @@ $$
 | 較大的 $\alpha$ | 係數集中在 $1/2$ 附近，偏向混合較強的中點樣本。 |
 
 論文在不同實驗中採用不同設定，並在 ImageNet 研究中報告較大的 $\alpha$ 會導致欠擬合。較大數值並非普遍較好。[^settings] 恰好 $\alpha=0$ 不在 Beta 分布的參數定義域內；若實作以零表示「停用混合增強」，就需要明確略過抽樣。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup 教學動畫，可以使用鍵盤左右捲動圖像">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-motion-src="../../../assets/concept-animations/mixup-beta-strength-motion.svg" alt="對稱 Beta 分布的係數密度在 alpha 為 0.35、1 與 5 時，分別呈現兩端較高、均勻與中間較高的形狀。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 三個標示時點的曲線分別是 $\mathrm{Beta}(0.35,0.35)$、$\mathrm{Beta}(1,1)$、$\mathrm{Beta}(5,5)$ 的**理論機率密度**，繪製範圍為 $\lambda\in[0.02,0.98]$。過渡影格僅將曲線作視覺內插，**並非其他 $\alpha$ 值的精確密度，也不是實際抽樣或訓練結果**。這三個分布的平均數均為 0.5，但變異數依序下降。MkDocs 支援播放／暫停與減少動態效果回退；GitHub 顯示靜態預覽。
 
 ## 訓練與評估程序
 

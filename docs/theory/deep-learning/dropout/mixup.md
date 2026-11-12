@@ -31,6 +31,14 @@ In single-label classification, $y_i$ and $y_j$ are one-hot class vectors. Their
 
 Mixup favours approximately linear predictions between examples. It does not impose the exact identity $f(\tilde{x})=\lambda f(x_i)+(1-\lambda)f(x_j)$ on every trained model.[^mixup]
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup instructional visual; keyboard-scrollable image">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-motion-src="../../../assets/concept-animations/mixup-paired-interpolation-motion.svg" alt="The same mixing coefficient moves a two-dimensional input between examples A and B while adjusting the two soft-target class weights." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* The purple point interpolates between invented inputs $x_A=(1,0)$ and $x_B=(0,1)$ using $\lambda$. The two soft-label weights are $\lambda$ and $1-\lambda$. These are **analytic teaching inputs and targets, not model predictions or actual blended photographs**. MkDocs supports Play/Pause via button, Enter or Space; GitHub shows a static fallback, which is also the default when reduced motion is preferred.
+
 ## Soft targets and the loss
 
 Let $p=f_\theta(\tilde{x})$ be the class probabilities predicted **at the mixed input**. Ordinary unweighted cross-entropy is linear in its target:
@@ -71,6 +79,14 @@ The symmetric Beta distribution has mean $1/2$ for every positive $\alpha$. Its 
 | Large $\alpha$ | Coefficients concentrate near $1/2$, favouring stronger midpoint mixtures. |
 
 The paper uses different settings across experiments and reports underfitting for large $\alpha$ in its ImageNet study. A larger value is not a universal improvement.[^settings] Exactly $\alpha=0$ is outside the Beta distribution's parameter domain; an implementation offering “mixup off” at zero needs an explicit bypass.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup instructional visual; keyboard-scrollable image">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-motion-src="../../../assets/concept-animations/mixup-beta-strength-motion.svg" alt="Symmetric Beta densities at alpha 0.35, 1 and 5 change from edge-weighted to uniform to centre-weighted." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* The three labelled states plot **analytic probability densities** for $\mathrm{Beta}(0.35,0.35)$, $\mathrm{Beta}(1,1)$ and $\mathrm{Beta}(5,5)$ over $\lambda\in[0.02,0.98]$. Intermediate frames **visually morph these exact curves; they are not exact distributions for intermediate alpha values, random draws, or training measurements**. Their common mean is 0.5 while their variance decreases. MkDocs supports Play/Pause and reduced-motion fallback; GitHub shows the still preview.
 
 ## Training and evaluation procedure
 
