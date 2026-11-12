@@ -36,6 +36,13 @@ The base model's weights are stored in NF4 and frozen. Each adapted layer comput
 
 The paper finetunes more than 1,000 models across 8 instruction datasets, with LLaMA and T5 models, including sizes of 33 and 65 billion parameters.
 
+
+### Visualising frozen NF4 storage and adapter updates
+
+![QLoRA computation schematic showing frozen NF4 weights, dequantisation for matmul, low-rank adapter contribution and backward adapter updates](../../../../assets/concept-animations/qlora-frozen-flow-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../../assets/concept-animations/qlora-frozen-flow-motion.svg" data-still-src="../../../../../assets/concept-animations/qlora-frozen-flow-still.svg" }
+
+*Original continuous teaching animation (CC BY-SA 4.0).* The left grid represents **frozen four-bit NF4 codes**, not a matrix of measured weights or the actual NF4 quantile codebook. Amber pulses follow the **forward computation**: stored codes are dequantised for computation, and the \(BA\) adapter branch contributes to the sum. Purple pulses follow the **parameter-update path**: gradients train the adapters, while the stored base weights remain frozen. Gradients can still propagate *through* the frozen computation to other differentiable inputs; frozen does not mean removing the base from backpropagation. The diagram omits double quantisation, paged optimiser transfers and detailed precision kernels. MkDocs adds keyboard-accessible Play/Pause; GitHub displays the static fallback above. On a phone, focus and horizontally scroll the full-size diagram. This is **schematic, not measured memory or training performance**; see [Dettmers et al. (2023)](https://arxiv.org/abs/2305.14314).
+
 ## Results
 
 The abstract reports that the method makes it possible to fine-tune a 65-billion-parameter model on a single 48 GB GPU while preserving full 16-bit fine-tuning performance. The best model family, Guanaco, reaches 99.3% of ChatGPT's performance level on the Vicuna benchmark, according to the paper, and needs about 24 hours of fine-tuning on one GPU.

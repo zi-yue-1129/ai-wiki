@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # DoRA
@@ -25,6 +25,13 @@ W' = m \cdot \frac{W_0 + BA}{\lVert W_0 + BA \rVert_c}
 \]
 
 訓練後，結果可合併成單一權重矩陣，因此推論成本與原模型相同。
+
+
+### 圖解方向與大小的獨立更新
+
+![DoRA 權重向量先旋轉方向、再獨立增加大小的教學圖；藍色是凍結權重，青綠色是適應後的權重](../../../../assets/concept-animations/dora-independent-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../../assets/concept-animations/dora-independent-motion.svg" data-still-src="../../../../../assets/concept-animations/dora-independent-still.svg" }
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 藍色為固定的預訓練權重欄向量，青綠色為調整後的欄向量。動畫**先改變方向，再獨立調整大小**，突顯 DoRA 將兩個自由度分開訓練的概念。使用**人工示意、非模型實測**的 \(W_0=(3,4)\)、\(BA=(1,-1)\)，可得 \(V=(4,3)\)；若獨立學習的大小由 \(5\) 增至 \(6\)，則 \(W'=(4.8,3.6)\)。畫面僅在解析式端點間插值，**不是實際最佳化器的梯度或訓練軌跡**。MkDocs 網站提供支援鍵盤的播放／暫停；GitHub 直接顯示上述靜態預覽。手機可聚焦圖片並水平捲動，以完整尺寸閱讀。詳見 [DoRA 原始論文](https://arxiv.org/abs/2402.09353)。
 
 ## 結果
 
