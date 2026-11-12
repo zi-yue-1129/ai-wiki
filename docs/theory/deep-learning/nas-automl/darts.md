@@ -49,6 +49,14 @@ where \(\mathcal O\) is the set of candidate operations. The search is a bilevel
 
 The inner problem is approximated by one gradient step, \(w' = w - \xi \nabla_w \mathcal L_{\text{train}}(w,\alpha)\), which gives a first-order or second-order update to \(\alpha\). After the search, each edge keeps the operation with the largest \(\alpha\), and each node keeps its two strongest incoming edges.
 
+## Animated example: relaxed operation selection
+
+<img src="../../../assets/concept-animations/darts-soft-operations-still.svg" data-motion-src="../../../assets/concept-animations/darts-soft-operations-motion.svg" data-still-src="../../../assets/concept-animations/darts-soft-operations-still.svg" alt="Three candidate operations on one edge share the same input while their softmax mixing weights shift continuously toward a convolution; a fixed argmax produces a discrete operation." loading="lazy" />
+
+*Original instructional SVG, CC BY-SA 4.0.* GitHub shows the reviewed static endpoint; on MkDocs use the keyboard-accessible Play/Pause control. A [non-animated preview](../../../assets/concept-animations/darts-soft-operations-still.svg) is also available when motion is disabled.
+
+For an **illustrative single edge**, suppose the three operation outputs are (o_{mathrm{skip}}(x)=1), (o_{mathrm{conv}}(x)=2), and (o_{mathrm{pool}}(x)=0.5). Softmax probabilities move schematically from ((0.33,0.33,0.34)) to ((0.10,0.75,0.15)), so the mixed output changes from (1.16) to (1.675), while the final discrete choice is the convolution with the largest architecture logit. The continuous interpolation is a **pedagogical parameter sweep**, not an actual gradient-descent trajectory or a benchmark. In DARTS, the network weights (w) are trained on the training split and architecture logits (alpha) are updated on the validation split before discretisation (Liu et al., 2019, in References).
+
 ## Key methods
 
 This page covers one method: a bilevel gradient search over a relaxed cell, with discretisation at the end.

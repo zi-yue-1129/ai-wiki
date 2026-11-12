@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # DARTS：可微分架構搜尋（Liu 等人，2019）
@@ -37,6 +37,14 @@ DARTS 把一個單元（cell）中運算的離散選擇放寬為加權和，使�
 \]
 
 內層問題以一步梯度近似，\(w' = w - \xi \nabla_w \mathcal L_{\text{train}}(w,\alpha)\)，由此得到對 \(\alpha\) 的一階或二階更新。搜尋結束後，每條邊保留 \(\alpha\) 最大的運算，每個節點保留兩條最強的入邊。
+
+## 教學動畫：連續放寬與運算選擇
+
+<img src="../../../assets/concept-animations/darts-soft-operations-still.svg" data-motion-src="../../../assets/concept-animations/darts-soft-operations-motion.svg" data-still-src="../../../assets/concept-animations/darts-soft-operations-still.svg" alt="相同輸入分別經過三種候選運算，Softmax 混合權重逐步轉向卷積，最後以最大架構權重挑選離散運算。" loading="lazy" />
+
+*原創 SVG 教學動畫，CC BY-SA 4.0。GitHub 提供靜態終點預覽；MkDocs 網站提供可用鍵盤操作的播放／暫停按鈕。亦可查看[非動畫預覽](../../../assets/concept-animations/darts-soft-operations-still.svg)。*
+
+以**單一邊的人工示例**說明：跳接、卷積、池化的輸出分別設為 (1)、(2)、(0.5)。Softmax 機率由 ((0.33,0.33,0.34)) 示意變為 ((0.10,0.75,0.15))，混合輸出因此由 (1.16) 變為 (1.675)；離散化則選擇架構 logit 最大的卷積。畫面中的連續變化僅是**教學用參數掃描**，不是實際梯度下降、模型訓練軌跡或基準測試結果。正式 DARTS 以訓練切分更新 (w)，以驗證切分更新 (alpha)，再進行離散化（Liu 等人，2019；見參考文獻）。
 
 ## 主要方法
 
