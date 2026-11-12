@@ -41,10 +41,10 @@ translation_reviewed: 2026-11-12
 ### 激活值保留與重算：教學動畫
 
 <div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可水平捲動的梯度檢查點概念動畫">
-<img src="../../assets/concept-animations/checkpoint-recompute-still.svg" data-motion-src="../../assets/concept-animations/checkpoint-recompute-motion.svg" data-still-src="../../assets/concept-animations/checkpoint-recompute-still.svg" width="640" height="360" style="display:block;width:640px;max-width:none" alt="八層網路的激活值 A0 至 A8，其中 A0、A4、A8 作為長期保留的檢查點；其餘區段內的激活值在反向傳播前重新計算。" />
+<img src="../../../assets/concept-animations/checkpoint-recompute-still.svg" data-motion-src="../../../assets/concept-animations/checkpoint-recompute-motion.svg" data-still-src="../../../assets/concept-animations/checkpoint-recompute-still.svg" width="640" height="360" style="display:block;width:640px;max-width:none" alt="八層網路的激活值 A0 至 A8，其中 A0、A4、A8 作為長期保留的檢查點；其餘區段內的激活值在反向傳播前重新計算。" />
 </div>
 
-*原創連續教學動畫，CC BY-SA 4.0。* 此人工設定的八層鏈僅長期保留 **A0、A4、A8** 三個邊界張量（青綠色）。前向掃描完成後，反向傳播從最後一段開始，先由檢查點重新計算 **A5–A7**，再處理 **A1–A3**（琥珀色）；紫色游標表示**反向處理順序**，不是最佳化器更新。圖中的「九個激活值只保留三個邊界」僅示範**長期保存的張量數量**，**並非 GPU 峰值記憶體的實測值**，也未計入重算暫存、梯度、參數或最佳化器狀態。MkDocs 沿用鍵盤可操作的播放／暫停與減少動態效果回退；窄螢幕可水平捲動。[完整 SVG 動畫](../../assets/concept-animations/checkpoint-recompute-motion.svg) · [GitHub 靜態預覽](../../assets/concept-animations/checkpoint-recompute-still.svg)。
+*原創連續教學動畫，CC BY-SA 4.0。* 此人工設定的八層鏈僅長期保留 **A0、A4、A8** 三個邊界張量（青綠色）。前向掃描完成後，反向傳播從最後一段開始，先由檢查點重新計算 **A5–A7**，再處理 **A1–A3**（琥珀色）；紫色游標表示**反向處理順序**，不是最佳化器更新。圖中的「九個激活值只保留三個邊界」僅示範**長期保存的張量數量**，**並非 GPU 峰值記憶體的實測值**，也未計入重算暫存、梯度、參數或最佳化器狀態。MkDocs 沿用鍵盤可操作的播放／暫停與減少動態效果回退；窄螢幕可水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/checkpoint-recompute-motion.svg) · [GitHub 靜態預覽](../../../assets/concept-animations/checkpoint-recompute-still.svg)。
 
 ## 結果
 
