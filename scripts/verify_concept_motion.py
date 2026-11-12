@@ -14,6 +14,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "wgan-weight-clip": "theory/paradigms/unsupervised/density-and-generative-models/gan/wgan",
+    "wgan-gp-interpolation": "theory/paradigms/unsupervised/density-and-generative-models/gan/wgan-gp",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
@@ -66,6 +68,8 @@ TOPICS = {
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
 }
+HTML_STILL_PREVIEWS = {"wgan-weight-clip", "wgan-gp-interpolation"}
+
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
     "byol-online-target": "byol-momentum-preview.gif",
@@ -144,6 +148,23 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
+            elif stem in HTML_STILL_PREVIEWS:
+                # GitHub renders the still; MkDocs progressively enhances the
+                # same img via data-motion-src using the shared player.
+                candidates = re.findall(r"<img\b[^>]*>", text)
+                matched = False
+                for tag in candidates:
+                    attrs = dict(re.findall(r'([\w-]+)="([^"]*)"', tag))
+                    if (
+                        (page.parent / attrs.get("src", "")).resolve() == static_path.resolve()
+                        and (page.parent / attrs.get("data-still-src", "")).resolve() == static_path.resolve()
+                        and (page.parent / attrs.get("data-motion-src", "")).resolve() == animated_path.resolve()
+                        and attrs.get("alt", "").strip()
+                    ):
+                        matched = True
+                        break
+                if not matched:
+                    errors.append(f"{page}: missing linked HTML static fallback, motion source, or alt text")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
