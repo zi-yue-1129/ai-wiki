@@ -16,6 +16,14 @@ The paired bootstrap estimates how uncertain a difference between two methods is
 
 For a test set of n examples, record the score of each method on every example. Draw n examples with replacement, compute the difference in the mean score on the resample, and repeat many times, commonly 1,000 or more. The middle 95 per cent of these differences gives an interval. If the interval excludes zero, the difference is unlikely to be explained by which examples happened to be in the test set.
 
+### Visual walkthrough
+
+<div tabindex="0" role="region" aria-label="Horizontally scrollable paired-bootstrap teaching diagram" style="max-width:100%;overflow-x:auto;">
+  <img src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" data-motion-src="../../../../assets/concept-animations/paired-bootstrap-resampling-motion.svg" data-still-src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="Paired bootstrap: the original five A-minus-B differences are resampled in matched pairs, with example 4 appearing twice in one draw.">
+</div>
+
+*Original continuous teaching diagram, CC BY-SA 4.0. On the website use Play/Pause (or Enter/Space on the button). The two colours travel **together as one paired observation** into each destination. One illustrative draw selects original example indices (4, 2, 4, 1, 5), giving the differences (+0.5, −0.1, +0.5, +0.3, −0.2) and a mean difference of +0.20, compared with +0.14 for all five original observations. The duplicate index demonstrates replacement. **These are constructed numbers, not benchmark/model measurements.** One draw is *not* a confidence interval: an interval requires many resamples and an explicit interval rule. A cluster-aware analysis would resample independent clusters instead. [GitHub-readable still](../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg).*
+
 ## When it applies
 
 The unit of resampling must match how the data depends on itself. Several turns in one conversation, or several questions about one document, are not independent, so they should be resampled together. SciPy's bootstrap implementation provides the general resampling machinery (SciPy contributors).

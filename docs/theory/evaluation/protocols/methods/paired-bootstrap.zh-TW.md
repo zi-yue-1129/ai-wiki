@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-11-13
 related:
   - engineering/evaluation
   - theory/evaluation/protocols/index.md
@@ -15,6 +16,14 @@ tags:
 ## 程序
 
 若測試集有 n 個範例，就記錄每個方法在每個範例上的分數。以放回方式抽出 n 個範例，計算重抽樣上的平均分數差，重複很多次，通常至少 1,000 次。中間 95% 的差異即為區間。若區間不包含零，這個差異就不太可能只是由測試集中恰好出現哪些範例所造成。
+
+### 動態示意
+
+<div tabindex="0" role="region" aria-label="可用鍵盤聚焦與水平捲動的配對自助法示意圖" style="max-width:100%;overflow-x:auto;">
+  <img src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" data-motion-src="../../../../assets/concept-animations/paired-bootstrap-resampling-motion.svg" data-still-src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="配對自助法示意：五筆 A 減 B 差值以整筆成對資料重抽樣，第 4 筆在同一輪出現兩次。">
+</div>
+
+*原創連續教學動畫，CC BY-SA 4.0。網站可用播放／暫停按鈕及 Enter／Space 操作。青綠色與橘色標記**一同移動**，代表 A、B 在同一筆樣本上保持配對。這輪人工抽樣的原始索引為（4、2、4、1、5），差值為（+0.5、−0.1、+0.5、+0.3、−0.2），均值 +0.20；原始五筆資料的差值均值為 +0.14。重複第 4 筆表示**有放回抽樣**。**以上數值純屬教學設定，不是模型實測。** 單次重抽樣不能構成信賴區間，必須經多輪抽樣並指定區間方法；有群聚相依時應以獨立群集為單位抽樣。[GitHub 靜態預覽](../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg)。*
 
 ## 適用時機
 
