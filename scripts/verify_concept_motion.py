@@ -65,7 +65,11 @@ TOPICS = {
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
+    "rotational-norm-balance": "theory/optimization/weight-norm-dynamics/rotational-equilibrium",
+    "adamw-epoch-timescale": "theory/optimization/weight-norm-dynamics/adamw-weight-decay-scaling",
 }
+HTML_MOTION_TOPICS = {"rotational-norm-balance", "adamw-epoch-timescale"}
+
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
     "byol-online-target": "byol-momentum-preview.gif",
@@ -132,7 +136,17 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in GITHUB_GIF_PREVIEWS:
+            if stem in HTML_MOTION_TOPICS:
+                html_tags = re.findall(r"<img\b[^>]*>", text)
+                still_candidates = re.findall(r'src="([^"]+\.svg)"', " ".join(html_tags))
+                motion_candidates = re.findall(r'data-motion-src="([^"]+\.svg)"', " ".join(html_tags))
+                still_resolved = {(page.parent / link).resolve() for link in still_candidates}
+                motion_resolved = {(page.parent / link).resolve() for link in motion_candidates}
+                if static_path.resolve() not in still_resolved:
+                    errors.append(f"{page}: missing GitHub static image source")
+                if animated_path.resolve() not in motion_resolved:
+                    errors.append(f"{page}: missing MkDocs dynamic SVG source")
+            elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.
