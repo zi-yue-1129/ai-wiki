@@ -37,6 +37,15 @@ $$\mu_i = \frac{1}{|\mathcal{S}_i|}\sum_{k \in \mathcal{S}_i} x_k, \qquad \sigma
 
 The set $\mathcal{S}_i$ contains the positions and channels of group $i$ within one sample. Setting $G = 1$ gives layer normalisation over channels and positions, and setting $G = C$ gives instance normalisation.
 
+
+### Visual walkthrough: separate group statistics
+
+<div class="concept-motion-scroll" tabindex="0" role="region" aria-label="Scrollable group-normalisation teaching animation" style="overflow-x:auto;max-width:100%;">
+  <img src="../../../assets/concept-animations/group-norm-statistics-still.svg" data-motion-src="../../../assets/concept-animations/group-norm-statistics-motion.svg" data-still-src="../../../assets/concept-animations/group-norm-statistics-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="Two channel groups in one sample are each centred and scaled using separate means and standard deviations. Animated dots track the transformation.">
+</div>
+
+*Original instructional motion and GitHub-readable still, CC BY-SA 4.0.* In this **constructed calculation**, eight scalar activations represent eight channels at one spatial location, divided into two disjoint groups. The first group $(2,4,6,8)$ has mean $5$; the second $(12,14,16,18)$ has mean $15$. Both have **population** variance $5$, so each gives $( -3,-1,1,3 )/\sqrt{5}\approx(-1.34,-0.45,0.45,1.34)$ before learnable $\gamma$ and $\beta$, with $\epsilon=0$ only for this nonzero illustrative calculation. For a real feature map, group statistics also aggregate spatial positions; **no other batch examples are included**. The moving dots show conceptual data flow, not separate optimisation steps or measured activations. On the MkDocs site, use Play/Pause (Enter/Space with the button focused); reduced-motion settings show the still. The image region scrolls horizontally on narrow screens. [Open the full looping SVG](../../../assets/concept-animations/group-norm-statistics-motion.svg) or [view the GitHub-safe still](../../../assets/concept-animations/group-norm-statistics-still.svg). This is a visual interpretation of the method in Wu and He (2018), cited below.
+
 ## Results
 
 The abstract reports that, on ResNet-50 trained on ImageNet, group normalisation has 10.6% lower error than batch normalisation at a batch size of 2. Comparisons at other batch sizes are in the paper [(Wu and He, 2018)](https://arxiv.org/abs/1803.08494).

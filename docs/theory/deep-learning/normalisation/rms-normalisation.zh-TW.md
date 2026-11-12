@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-11-05
-translation_reviewed: 2026-11-05
+translation_reviewed: 2026-11-12
 related:
   - theory/deep-learning/normalisation
   - theory/models/transformer
@@ -75,6 +75,15 @@ $$
 將 $(1,3)$ 加倍，不會改變理想均方根正規化輸出。每個特徵加 2 則會改變該輸出，但中心化的 LayerNorm 輸出不變。這兩種變換測試的是不同不變性。
 
 對非零常數向量與正的 epsilon，LayerNorm 在仿射參數之前的中心化輸出為零；RMSNorm 則保留非零訊號。對零向量，正的 epsilon 使兩者都有有限分母與零輸出。
+
+
+### 圖解：共同平移輸入後的差異
+
+<div class="concept-motion-scroll" tabindex="0" role="region" aria-label="可水平捲動的 RMSNorm 與 LayerNorm 教學動畫" style="overflow-x:auto;max-width:100%;">
+  <img src="../../../assets/concept-animations/rmsnorm-shift-response-still.svg" data-motion-src="../../../assets/concept-animations/rmsnorm-shift-response-motion.svg" data-still-src="../../../assets/concept-animations/rmsnorm-shift-response-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="兩個輸入特徵同時增加相同偏移量時，RMSNorm 的輸出長條隨之變化，但 LayerNorm 維持負一與正一。">
+</div>
+
+*原創連續變化示意，CC BY-SA 4.0。* 使用**人工設定**的兩維輸入 $x(b)=(1+b,3+b)$，令偏移量 $b$ 從 $0\to2\to0$。對這個非零輸入，簡化設定為單位增益、無偏置且 $\epsilon=0$；LayerNorm 始終輸出 $(-1,1)$，但 RMSNorm 從 $(1,3)/\sqrt5\approx(0.447,1.342)$ 變成 $(3,5)/\sqrt{17}\approx(0.728,1.213)$。三個面板的**縱軸比例不同**，應觀察各面板內部如何改變，不應直接比較面板間長條的絕對高度。這是在比較加法平移不變性，而非尺度不變性，也不是模型訓練量測。MkDocs 網站支援播放／暫停與按鈕的 Enter／Space 操作；減少動態效果設定顯示靜態圖，手機可使用鍵盤水平捲動。[開啟完整循環 SVG](../../../assets/concept-animations/rmsnorm-shift-response-motion.svg)或[查看 GitHub 靜態圖](../../../assets/concept-animations/rmsnorm-shift-response-still.svg)。原理參考下方 Zhang 與 Sennrich（2019）論文。
 
 ## 尺度不變性與 epsilon
 
