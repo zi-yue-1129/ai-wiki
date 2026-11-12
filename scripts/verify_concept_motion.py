@@ -148,7 +148,7 @@ def main() -> int:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"mixup-paired-interpolation", "mixup-beta-strength"}:
                 # GitHub must show the static <img src>; MkDocs upgrades data-motion-src.
-                static_sources = re.findall(r'<img\b[^>]*\bsrc="([^"]+\.svg)"', text)
+                static_sources = re.findall(r'<img\b[^>]*?\ssrc="([^"]+\.svg)"', text)
                 animated_sources = re.findall(r'\bdata-motion-src="([^"]+\.svg)"', text)
                 actual_static = {(page.parent / src).resolve() for src in static_sources}
                 actual_motion = {(page.parent / src).resolve() for src in animated_sources}
