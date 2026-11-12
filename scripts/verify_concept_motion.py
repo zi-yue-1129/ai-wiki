@@ -137,7 +137,7 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if stem in HTML_FALLBACK_STEMS:
                 # GitHub displays the static src; MkDocs enhances using data-motion-src.
-                pattern = rf'<img\\s+src="([^"]+{stem}-still\\.svg)"\\s+data-motion-src="([^"]+{stem}-motion\\.svg)"\\s+data-still-src="([^"]+{stem}-still\\.svg)"'
+                pattern = rf'<img\s+src="([^"]+{stem}-still\.svg)"\s+data-motion-src="([^"]+{stem}-motion\.svg)"\s+data-still-src="([^"]+{stem}-still\.svg)"'
                 match = re.search(pattern, text)
                 if not match:
                     errors.append(f"{page}: missing GitHub static image / MkDocs motion pair")
