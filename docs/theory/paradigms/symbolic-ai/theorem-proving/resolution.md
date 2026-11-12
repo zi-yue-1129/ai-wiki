@@ -44,6 +44,15 @@ eg p\lor q\) and \(p\), together with the negated goal \(
 eg q\). Resolving the first two on \(p\) gives \(q\), and resolving \(q\) with \(
 eg q\) gives the empty clause, so the goal \(q\) is proved. This schematic example is not from a particular system.
 
+
+### Animated walkthrough: a three-step refutation
+
+<img src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="Three rows of propositional resolution: eliminate P from P or Q and not P or R to obtain Q or R; eliminate Q with not Q to obtain R; eliminate R with not R to obtain the empty clause." width="640" height="360" loading="lazy">
+
+Each row takes **two parent clauses** on the left and produces a **resolvent** on the right. The purple cursor traces the elimination: \((P\lor Q)\) and \((\neg P\lor R)\) yield \(Q\lor R\); resolving with \(\neg Q\) yields \(R\); resolving with \(\neg R\) yields the **empty clause** \(\square\). The empty clause shows that the *entire conjunction of the four starting clauses is unsatisfiable*. A derived clause is reused as a parent on the following row.
+
+This is a **hand-constructed propositional proof**, not a prover execution, benchmark or demonstration of first-order unification. On MkDocs use **Play/Pause** (mouse or keyboard); reduced-motion mode and GitHub display the complete static refutation. Original **CC BY-SA 4.0** illustration of Robinson's resolution rule (1965), cited below.
+
 ## Variants
 
 - **Factoring** merges literals that are identical after unification within a single clause.

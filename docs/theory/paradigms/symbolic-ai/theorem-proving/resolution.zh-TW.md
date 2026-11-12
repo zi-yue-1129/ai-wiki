@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-12
 ---
 
 # 歸結
@@ -29,6 +29,15 @@ translation_reviewed: 2026-11-04
 從公理的子句與否定的目標子句出發，證明器反覆加入歸結式。當導出空子句時證明成功。策略控制要歸結哪些配對。支持集（set-of-support）策略只允許涉及否定目標的配對，線性歸結則延伸最近的子句。兩者都能使搜尋聚焦，同時保持完備性。
 
 **示例。**取子句 \(\neg p\lor q\) 與 \(p\)，以及否定的目標 \(\neg q\)。前兩個子句在 \(p\) 上歸結得到 \(q\)，再由 \(q\) 與 \(\neg q\) 歸結得到空子句，因此目標 \(q\) 得證。這是示意性的例子，並非來自特定系統。
+
+
+### 動畫解說：三次歸結導出空子句
+
+<img src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="命題歸結的三列推導：P 或 Q 與非 P 或 R 消去 P 得到 Q 或 R；搭配非 Q 消去 Q 得到 R；再搭配非 R 導出空子句。" width="640" height="360" loading="lazy">
+
+每一列左側是**兩個父子句**，右側是**歸結後的子句**。紫色游標依序示範消去互補文字：\((P\lor Q)\) 與 \((\neg P\lor R)\) 得到 \(Q\lor R\)；再和 \(\neg Q\) 歸結得到 \(R\)；最後和 \(\neg R\) 歸結得到**空子句** \(\square\)。因此四個起始子句的**合取不可滿足**。上一列推得的子句會在下一列重複用作父子句。
+
+這是**人工設計的命題邏輯證明**，不是實際證明器執行軌跡、效能數據，也沒有展示一階邏輯的合一程序。MkDocs 版支援滑鼠或鍵盤操作**播放／暫停**；降低動態效果與 GitHub Markdown 會顯示完整的靜態反駁過程。本原創圖以 **CC BY-SA 4.0** 授權，對應下方 Robinson（1965）的歸結規則文獻。
 
 ## 變體
 
