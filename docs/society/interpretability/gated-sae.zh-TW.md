@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/models/transformer
 tags:
@@ -47,6 +47,14 @@ $$
 $$
 
 最後一項是輔助重建，經過解碼器的凍結副本，因此其梯度不會回傳到解碼器。論文的消融實驗指出，凍結此副本很重要。
+
+### 動態圖解：門控與幅度的分工
+
+<img src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" data-motion-src="../../assets/concept-animations/gated-sae-gate-magnitude-motion.svg" data-still-src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" alt="門控稀疏自編碼器：特徵 A 的門控為負，因此即使幅度為正也會遭到遮罩；B 與 C 的正門控則讓幅度通過。">
+
+*Original instructional animation, CC BY-SA 4.0.* 這是一個**人工設定的前向傳播示例**：三個門控前激活為 $(-0.7,0.6,0.9)$，對應的幅度前激活為 $(1.5,2.0,0.7)$。門控指示值為 $(0,1,1)$，因此最後的稀疏特徵向量是 **$(0,2.0,0.7)$**。門控決定特徵*是否*啟用，幅度分支決定*啟用後的強度*。動畫依序呈現門控、幅度與遮罩後的輸出；它不代表實際學得的權重、訓練軌跡、權重共用參數化或輔助重建損失的完整運作。
+
+在 MkDocs 網站可使用**播放／暫停**檢視過程；不執行腳本時仍可在 GitHub 查看[靜態示意圖](../../assets/concept-animations/gated-sae-gate-magnitude-still.svg)。圖內數值均為教學用示意，**不是模型實測結果**。
 
 ## 結果
 
