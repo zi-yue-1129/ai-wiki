@@ -63,9 +63,12 @@ TOPICS = {
     "gat-aggregation": "theory/models/gnn/message-passing/gat/index",
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
+    "darts-soft-operations": "theory/deep-learning/nas-automl/darts",
+    "aging-evolution-queue": "theory/deep-learning/nas-automl/regularized-evolution",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
 }
+HTML_FALLBACK_STEMS = {"darts-soft-operations", "aging-evolution-queue"}
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
     "byol-online-target": "byol-momentum-preview.gif",
@@ -132,7 +135,17 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in GITHUB_GIF_PREVIEWS:
+            if stem in HTML_FALLBACK_STEMS:
+                # GitHub displays the static src; MkDocs enhances using data-motion-src.
+                pattern = rf'<img\s+src="([^"]+{stem}-still\.svg)"\s+data-motion-src="([^"]+{stem}-motion\.svg)"\s+data-still-src="([^"]+{stem}-still\.svg)"'
+                match = re.search(pattern, text)
+                if not match:
+                    errors.append(f"{page}: missing GitHub static image / MkDocs motion pair")
+                else:
+                    for link, expected in zip(match.groups(), (static_path, animated_path, static_path)):
+                        if (page.parent / link).resolve() != expected.resolve():
+                            errors.append(f"{page}: incorrect player path {link}")
+            elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.
