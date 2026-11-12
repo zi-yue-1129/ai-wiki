@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 格點搜尋
@@ -23,6 +23,10 @@ translation_reviewed: 2026-10-28
 ## 運作方式
 
 若超參數的候選集合大小為 \(n_1, \dots, n_d\)，則格點的點數為 \(|\mathcal G| = \prod_{i=1}^{d} n_i\)。每個點都經過訓練並評分，回傳最好的一點。因此執行次數隨超參數數目 \(d\) 呈指數成長，若每個超參數有 \(n\) 個值，則執行次數為 \(n^d\)。
+
+![格點搜尋連續動畫：16 個格點試驗依序出現，並投影到右側四個重複使用的 x 位置。](../../../assets/concept-animations/grid-search-x-coverage-motion.svg)
+
+*原創連續 SVG 教學動畫，CC BY-SA 4.0。* 格點搜尋逐一評估 4 × 4 的格點。左側逐次出現新的試驗，右側累積其 x 維度投影。即使 x 是真正重要的參數，16 次試驗仍只反覆使用四種 x 值。 綠色直條為人工設定的狹窄目標區間 x ∈ [0.68, 0.80]，不代表真實模型分數或調參成果。本圖僅展示**固定 16 次試驗**下的取樣覆蓋率，不能推論隨機搜尋在每個問題都較好。MkDocs 網站提供鍵盤可操作的播放／暫停與減少動態效果時的靜態回退；[GitHub 靜態預覽](../../../assets/concept-animations/grid-search-x-coverage-still.svg)。
 
 ## 主要方法
 
