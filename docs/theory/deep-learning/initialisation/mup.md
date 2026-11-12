@@ -37,6 +37,18 @@ The multiplier form for Adam, with $\text{fan\_in}$ the input width of a layer, 
 - output layer: output multiplier $1/\text{fan\_in}$, with Adam learning rate 1;
 - input layer: Adam learning rate 1.
 
+## Width-dependent Adam multipliers
+
+<div tabindex="0" role="region" aria-label="MuP width scaling animation; scroll horizontally on narrow screens." style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img src="../../../assets/concept-animations/mup-width-multipliers-still.svg" data-motion-src="../../../assets/concept-animations/mup-width-multipliers-motion.svg" data-still-src="../../../assets/concept-animations/mup-width-multipliers-still.svg" alt="MuP schematic Adam multiplier scaling across fan-in width 128 to 1024: hidden-weight learning-rate and output scaling fall inversely with width; input and output Adam learning-rate factors remain constant." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* This diagram normalises the selected multipliers to one at a reference hidden-layer fan-in $n_0=128$. For a representative width $n$ increasing to 1024, the **hidden-weight Adam learning-rate factor** and the **output multiplier** both scale as $n_0/n$, hence fall to **1/8**; the **input/output-layer Adam learning-rate factors** remain at one under the specific multiplier-form recipe described above.[^mup-motion] Each quantity denotes a different part of the parametrisation: the output multiplier is **not** the output-layer Adam learning rate. These are **schematic scaling factors**, not learning curves, measured gradients or proof of hyperparameter transfer.
+
+The wiki site provides **Play/Pause** (Enter/Space when focused), an initial static image for reduced motion, and horizontal keyboard scrolling on narrow screens. [Open the continuous SVG](../../../assets/concept-animations/mup-width-multipliers-motion.svg) · [View the static fallback](../../../assets/concept-animations/mup-width-multipliers-still.svg).
+
+[^mup-motion]: Yang et al. (2022), *Tensor Programs V*, the Adam multiplier form and zero-shot hyperparameter transfer; see the original paper in References.
+
 ## Results
 
 The abstract reports that hyperparameters tuned on a small model can be used on a much larger one, and that this holds for Transformer and ResNet models. Two examples are given. Transferring from a 13M-parameter model gives pretraining hyperparameters that outperform the published BERT-large numbers, at a tuning cost equal to pretraining BERT-large once. Transferring from a 40M-parameter model outperforms the published 6.7B GPT-3 model, with a tuning cost of only 7% of its total pretraining cost [(Yang et al., 2022)](https://arxiv.org/abs/2203.03466).

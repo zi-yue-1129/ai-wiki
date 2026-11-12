@@ -14,6 +14,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "glorot-fan-tradeoff": "theory/deep-learning/initialisation/glorot-initialisation",
+    "mup-width-multipliers": "theory/deep-learning/initialisation/mup",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
@@ -132,7 +134,18 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in GITHUB_GIF_PREVIEWS:
+            if stem in {"glorot-fan-tradeoff", "mup-width-multipliers"}:
+                # GitHub renders a static img; MkDocs enhances via data-motion-src.
+                img_tags = re.findall(r"<img\b[^>]*>", text, flags=re.DOTALL)
+                wanted_still = f"{stem}-still.svg"
+                wanted_motion = f"{stem}-motion.svg"
+                if not any(wanted_still in tag and wanted_motion in tag
+                           and "data-motion-src=" in tag and "data-still-src=" in tag
+                           for tag in img_tags):
+                    errors.append(f"{page}: missing HTML static image + dynamic enhancement")
+                if not any(wanted_still in tag and "src=" in tag for tag in img_tags):
+                    errors.append(f"{page}: missing GitHub static fallback")
+            elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.
