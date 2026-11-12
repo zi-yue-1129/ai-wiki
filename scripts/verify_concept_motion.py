@@ -136,7 +136,7 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if stem in {"glorot-fan-tradeoff", "mup-width-multipliers"}:
                 # GitHub renders a static img; MkDocs enhances via data-motion-src.
-                img_tags = re.findall(r"<img\\b[^>]*>", text, flags=re.DOTALL)
+                img_tags = re.findall(r"<img\b[^>]*>", text, flags=re.DOTALL)
                 wanted_still = f"{stem}-still.svg"
                 wanted_motion = f"{stem}-motion.svg"
                 if not any(wanted_still in tag and wanted_motion in tag
