@@ -54,9 +54,9 @@ f(x) = \operatorname{sign}\Big(\sum_{i} \alpha_i\, y_i\, k(x_i, x) + b\Big)
 
 ## 間隔與合頁損失動畫
 
-<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可水平捲動的教學動畫"><div style="width:640px">
-<img src="../../../../assets/concept-animations/svm-margin-hinge-still.svg" data-motion-src="../../../../assets/concept-animations/svm-margin-hinge-motion.svg" data-still-src="../../../../assets/concept-animations/svm-margin-hinge-still.svg" width="640" height="360" alt="SVM 間隔與合頁損失動畫：正類樣本移入間隔、跨過決策邊界，右側游標同步呈現合頁損失。">
-</div></div>
+![SVM 間隔與合頁損失動畫：正類樣本移入間隔、跨過決策邊界，右側游標同步呈現合頁損失。](../../../../assets/concept-animations/svm-margin-hinge-still.svg)
+
+[查看原創連續 SVG 動畫](../../../../assets/concept-animations/svm-margin-hinge-motion.svg)
 
 藍色與青綠色資料點均為**人工示意**，其中只有橘色正類樣本移動；分類器與兩條間隔邊界保持固定。圖中以示意座標定義**帶符號函數間隔** $yf(x)=(x-164)/45$，合頁損失 $\max(0,1-yf(x))$ 在正類樣本達到單位間隔時為零；一旦違反間隔便開始線性增加。這是**移動輸入樣本的假設性掃描**，不是 SVM 訓練軌跡或模型實測。MkDocs 可透過 Play/Pause 控制，支援鍵盤操作；手機可水平捲動查看。
 

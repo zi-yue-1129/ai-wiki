@@ -65,9 +65,9 @@ The usual kernels are linear, polynomial and Gaussian (RBF):
 
 ## Margin-to-hinge visual walkthrough
 
-<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable instructional animation"><div style="width:640px">
-<img src="../../../../assets/concept-animations/svm-margin-hinge-still.svg" data-motion-src="../../../../assets/concept-animations/svm-margin-hinge-motion.svg" data-still-src="../../../../assets/concept-animations/svm-margin-hinge-still.svg" width="640" height="360" alt="Animated SVM margin example with a positive point crossing the unit-margin and a linked hinge-loss cursor.">
-</div></div>
+![Animated SVM margin example with a positive point crossing the unit-margin and a linked hinge-loss cursor.](../../../../assets/concept-animations/svm-margin-hinge-still.svg)
+
+[View original continuously animated SVG](../../../../assets/concept-animations/svm-margin-hinge-motion.svg)
 
 The blue and teal points are **fixed, synthetic examples**. Only the orange positive-class point moves, while the classifier and its supporting hyperplanes remain fixed. Its *signed functional margin* is illustrated by $yf(x)=(x-164)/45$ in diagram coordinates; the hinge penalty $\max(0,1-yf(x))$ stays zero at or beyond the positive-class unit margin, then grows linearly when that margin is violated. This is a **what-if sweep of an input sample**, not an SVM training trajectory or a measured dataset. The MkDocs Play/Pause control supports keyboard activation. On phones, scroll the figure horizontally.
 

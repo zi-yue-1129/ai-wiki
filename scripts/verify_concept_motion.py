@@ -135,16 +135,13 @@ def main() -> int:
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
             if stem in {"svm-margin-hinge", "cv-fold-rotation"}:
-                motion_sources = re.findall(r'data-motion-src="([^"]+\.svg)"', text)
-                static_sources = re.findall(r'<img[^>]+src="([^"]+-still\.svg)"', text)
+                motion_links = re.findall(r'\[[^]]+\]\(([^)]+-motion\.svg)\)', text)
                 if animated_path.resolve() not in {
-                    (page.parent / link).resolve() for link in motion_sources
+                    (page.parent / link).resolve() for link in motion_links
                 }:
-                    errors.append(f"{page}: missing HTML motion source")
-                if static_path.resolve() not in {
-                    (page.parent / link).resolve() for link in static_sources
-                }:
-                    errors.append(f"{page}: missing GitHub static image fallback")
+                    errors.append(f"{page}: missing original motion link")
+                if static_path.resolve() not in linked_images:
+                    errors.append(f"{page}: missing static-first GitHub image")
             elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
