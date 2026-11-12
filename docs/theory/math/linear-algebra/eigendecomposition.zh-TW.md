@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 特徵值分解
@@ -34,6 +34,19 @@ A = Q\Lambda Q^\top, \qquad \Lambda = \operatorname{diag}(\lambda_1, \dots, \lam
 因此每個特徵值就是該二次函數在其自身方向上的曲率。這是海森矩陣的特徵值對最佳化很重要的原因：大的特徵值標示陡峭方向，小的則標示平坦方向（見[微積分與最佳化](../calculus/index.md)）。
 
 求主特徵向量的一個標準方法是冪迭代，即反覆套用 \(A\) 並正規化結果。當主特徵值與其他特徵值有明顯間隔時，它會收斂到絕對值最大特徵值所對應的特徵向量（見 [Golub 與 Van Loan](index.md)）。
+
+### 動態範例：冪迭代逐步靠近主特徵向量
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img src="../../../assets/concept-animations/power-iteration-convergence-still.svg" data-motion-src="../../../assets/concept-animations/power-iteration-convergence-motion.svg" data-still-src="../../../assets/concept-animations/power-iteration-convergence-still.svg" alt="對稱矩陣反覆作用於向量，經正規化後逐步靠近最大特徵值所對應的特徵向量，右側角度誤差逐輪縮小。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀的冪迭代靜態預覽](../../../assets/concept-animations/power-iteration-convergence-still.svg)
+
+
+設定**人工合成的正定矩陣** $A=Q\operatorname{diag}(3,1)Q^\top$，其中 $Q=R(25^\circ)$。初始單位向量 $x_0$ 位於 97°，與主特徵向量 $q_1$ 相差 **72°**。每次先計算 $Ax_k$（橘色箭頭會暫時伸長），再依 $x_{k+1}=Ax_k/\|Ax_k\|_2$ 正規化。角度誤差遵循 $\tan\delta_k=\tan(72^\circ)/3^k$；前五次更新後，誤差依序約為 **45.7°、18.9°、6.5°、2.2°、0.7°**。右側長條表示此人工例子的角度誤差，並非訓練損失。
+
+此收斂需要起始向量在唯一、絕對值最大的特徵值所對應方向具有非零分量；條件不成立時，結果可能不同。動畫中連接精確迭代點的過渡影格只是幾何示意，**不代表額外計算步驟或實測執行時間**。MkDocs 提供**播放／暫停**控制；GitHub 可直接查看靜態版本。窄螢幕可以水平捲動。原創圖像，**CC BY-SA 4.0**。
 
 ## 主要方法
 
