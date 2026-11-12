@@ -5,6 +5,7 @@ tags:
   - evaluation
   - metrics
   - calibration
+translation_reviewed: 2026-11-12
 ---
 
 # 對數損失
@@ -18,6 +19,18 @@ tags:
 $$L_{\log}(y, p) = -\big(y \log p + (1 - y) \log(1 - p)\big)$$
 
 回報的數值是所有樣本的平均。邏輯迴歸與神經網路分類器在訓練時最小化的，正是這個量。
+
+## 動態解說：過度自信的錯誤
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="對數損失比較動畫；窄螢幕可聚焦此區域並水平捲動">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" data-motion-src="../../../../assets/concept-animations/log-loss-tail-penalty-motion.svg" data-still-src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" alt="同一垂直刻度下，對真正例的對數損失與 Brier 平方損失。預測正例機率接近零時，紅色對數損失標記急遽上升，而 Brier 標記維持在一以下。">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。MkDocs 播放器支援播放／暫停；手機可將圖像區域設為鍵盤焦點並水平捲動。GitHub 顯示完整靜態曲線。* [查看完整 SVG 動畫](../../../../assets/concept-animations/log-loss-tail-penalty-motion.svg)。
+
+對單筆**人工示意**的真正例（$y=1$），圖中以**相同的縱軸刻度**比較 $-\ln p$ 與 $(1-p)^2$，並讓預測正例機率 $p$ 從 0.95 降到 0.01。在 $p=0.10$ 時，對數損失為 $2.303$、Brier 損失為 $0.81$；在 $p=0.01$ 時則分別為 $4.605$ 與 $0.9801$。兩條曲線沒有另外縮放以誇大差異。圖形止於 $p=0.01$，因為 $p\to0^+$ 時 $-\ln p\to\infty$，Brier 損失則不超過 1。所有數字均為解析式計算，**不是模型實測結果**。
 
 ## 解讀
 

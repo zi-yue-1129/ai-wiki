@@ -5,6 +5,7 @@ tags:
   - evaluation
   - metrics
   - calibration
+translation_reviewed: 2026-11-12
 ---
 
 # Brier 分數
@@ -18,6 +19,22 @@ Brier 分數是每個預測機率與觀察到的結果之間的平均平方差�
 $$\text{Brier} = \frac{1}{n} \sum_{i=1}^{n} (p_i - y_i)^2$$
 
 數值越低越好。對每個樣本都預測 $p = 0.5$，得分為 0.25，這是一個簡單的基準。只有當每個預測都正確且完全確定時，分數才為 0。
+
+## 動態解說：Brier 期望風險
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Brier 分數動畫；窄螢幕可聚焦此區域並水平捲動">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/brier-expected-risk-still.svg" data-motion-src="../../../../assets/concept-animations/brier-expected-risk-motion.svg" data-still-src="../../../../assets/concept-animations/brier-expected-risk-still.svg" alt="二元事件的三條 Brier 損失曲線：正例、負例，以及加權的期望損失。預測機率游標沿曲線移動，期望風險在 0.70 最低。">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。MkDocs 網站可播放／暫停；窄螢幕可將圖像區域設為鍵盤焦點並水平捲動。GitHub 顯示完整靜態圖。* [查看完整 SVG 動畫](../../../../assets/concept-animations/brier-expected-risk-motion.svg)。
+
+以真實事件機率 $q=0.70$ 的**人工伯努利示例**而言，正例與負例的平方損失分別是 $(1-p)^2$ 和 $p^2$。紫色曲線按照**結果機率**加權，而非從資料集量測：
+
+$\mathbb E[L(p,Y)] = 0.7(1-p)^2+0.3p^2 = (p-0.7)^2+0.21.$
+
+預測機率 $p$ 移動時，兩種可能結果的損失同步改變。期望值在 $p=q=0.70$ 時最小，為 **0.21**，而不是零；剩餘的 $q(1-q)$ 是二元結果本身無法消除的變異。這些數字並非模型訓練或實測結果。
 
 ## 解讀
 
