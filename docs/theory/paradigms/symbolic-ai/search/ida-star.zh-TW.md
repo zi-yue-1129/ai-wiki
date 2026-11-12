@@ -29,11 +29,15 @@ IDA\* 是一種最佳的啟發式搜尋演算法，它以逐步放寬的成本�
 
 ### 動畫解說：逐步放寬 f 上界與重複深度優先搜尋
 
-<img src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-still-src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-motion-src="../../../../assets/concept-animations/ida-bound-reexpansion-motion.svg" alt="IDA 星號搜尋示意樹：紫色游標在 f 上界依序為 4、6、7、8 時重走深度優先路徑，最後抵達目標 G。" width="640" height="360" loading="lazy">
+<div role="region" tabindex="0" aria-label="可水平捲動的概念動畫" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
+<img src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-still-src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-motion-src="../../../../assets/concept-animations/ida-bound-reexpansion-motion.svg" alt="IDA 星號搜尋示意樹：紫色游標在 f 上界依序為 4、6、7、8 時重走深度優先路徑，最後抵達目標 G。" width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
+</div>
 
 紫色游標表示**深度優先走訪順序**。若節點的 \(f=g+h\) 超過當前上界，就只會**檢查並截斷，不會展開其子節點**。下一輪上界取所有被截斷節點中最小的 \(f\) 值。本例的上界依序為 **4 → 6 → 7 → 8**；前幾輪必須重新走訪既有路徑，直到上界為 8 才能找到目標 **S → A → C → G**。
 
 分數均為**人工設計的教學數值，非演算法效能實測**。成功路徑的邊成本分別為 \(2,2,4\)，配上可容許的剩餘成本估計 \(h(S)=4,h(A)=4,h(C)=3,h(G)=0\)，可得 \(f(S)=4,f(A)=6,f(C)=7,f(G)=8\)，總路徑成本為 8；其他分支無更便宜的目標。圖中只呈現**樹狀搜尋**，不示範圖搜尋中的重複狀態偵測。
+
+手機閱讀時可聚焦圖像區塊並水平捲動，避免把圖內標籤縮到難以辨識。
 
 MkDocs 版可透過**播放／暫停**按鈕操作，支援鍵盤 Enter／Space；偏好降低動態效果時會顯示同一份已驗收的靜態圖。GitHub 直接呈現靜態預覽，不仰賴指令碼。本原創視覺以 **CC BY-SA 4.0** 授權，依據下方 Korf（1985）的參考文獻。
 

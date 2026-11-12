@@ -33,11 +33,15 @@ translation_reviewed: 2026-11-12
 
 ### 動畫解說：三次歸結導出空子句
 
-<img src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="命題歸結的三列推導：P 或 Q 與非 P 或 R 消去 P 得到 Q 或 R；搭配非 Q 消去 Q 得到 R；再搭配非 R 導出空子句。" width="640" height="360" loading="lazy">
+<div role="region" tabindex="0" aria-label="可水平捲動的概念動畫" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
+<img src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="命題歸結的三列推導：P 或 Q 與非 P 或 R 消去 P 得到 Q 或 R；搭配非 Q 消去 Q 得到 R；再搭配非 R 導出空子句。" width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
+</div>
 
 每一列左側是**兩個父子句**，右側是**歸結後的子句**。紫色游標依序示範消去互補文字：\((P\lor Q)\) 與 \((\neg P\lor R)\) 得到 \(Q\lor R\)；再和 \(\neg Q\) 歸結得到 \(R\)；最後和 \(\neg R\) 歸結得到**空子句** \(\square\)。因此四個起始子句的**合取不可滿足**。上一列推得的子句會在下一列重複用作父子句。
 
-這是**人工設計的命題邏輯證明**，不是實際證明器執行軌跡、效能數據，也沒有展示一階邏輯的合一程序。MkDocs 版支援滑鼠或鍵盤操作**播放／暫停**；降低動態效果與 GitHub Markdown 會顯示完整的靜態反駁過程。本原創圖以 **CC BY-SA 4.0** 授權，對應下方 Robinson（1965）的歸結規則文獻。
+這是**人工設計的命題邏輯證明**，不是實際證明器執行軌跡、效能數據，也沒有展示一階邏輯的合一程序。手機閱讀時可聚焦圖像區塊並水平捲動，避免把圖內標籤縮到難以辨識。
+
+MkDocs 版支援滑鼠或鍵盤操作**播放／暫停**；降低動態效果與 GitHub Markdown 會顯示完整的靜態反駁過程。本原創圖以 **CC BY-SA 4.0** 授權，對應下方 Robinson（1965）的歸結規則文獻。
 
 ## 變體
 

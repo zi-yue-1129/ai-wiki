@@ -47,11 +47,15 @@ eg q\) gives the empty clause, so the goal \(q\) is proved. This schematic examp
 
 ### Animated walkthrough: a three-step refutation
 
-<img src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="Three rows of propositional resolution: eliminate P from P or Q and not P or R to obtain Q or R; eliminate Q with not Q to obtain R; eliminate R with not R to obtain the empty clause." width="640" height="360" loading="lazy">
+<div role="region" tabindex="0" aria-label="Scrollable concept diagram" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
+<img src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="Three rows of propositional resolution: eliminate P from P or Q and not P or R to obtain Q or R; eliminate Q with not Q to obtain R; eliminate R with not R to obtain the empty clause." width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
+</div>
 
 Each row takes **two parent clauses** on the left and produces a **resolvent** on the right. The purple cursor traces the elimination: \((P\lor Q)\) and \((\neg P\lor R)\) yield \(Q\lor R\); resolving with \(\neg Q\) yields \(R\); resolving with \(\neg R\) yields the **empty clause** \(\square\). The empty clause shows that the *entire conjunction of the four starting clauses is unsatisfiable*. A derived clause is reused as a parent on the following row.
 
-This is a **hand-constructed propositional proof**, not a prover execution, benchmark or demonstration of first-order unification. On MkDocs use **Play/Pause** (mouse or keyboard); reduced-motion mode and GitHub display the complete static refutation. Original **CC BY-SA 4.0** illustration of Robinson's resolution rule (1965), cited below.
+This is a **hand-constructed propositional proof**, not a prover execution, benchmark or demonstration of first-order unification. On narrow screens, focus and scroll the diagram horizontally rather than shrinking its labels.
+
+On MkDocs use **Play/Pause** (mouse or keyboard); reduced-motion mode and GitHub display the complete static refutation. Original **CC BY-SA 4.0** illustration of Robinson's resolution rule (1965), cited below.
 
 ## Variants
 
