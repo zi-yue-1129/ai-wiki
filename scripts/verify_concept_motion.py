@@ -136,7 +136,7 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if stem in {"iou-overlap-sweep", "dice-overlap-response"}:
                 # GitHub gets the static image; MkDocs enhances it via data-motion-src.
-                match = re.search(r'<img\\s+[^>]*src="([^"]+)"\\s+data-motion-src="([^"]+)"', text)
+                match = re.search(r'<img\s+[^>]*src="([^"]+)"\s+data-motion-src="([^"]+)"', text)
                 if not match:
                     errors.append(f"{page}: missing HTML static/motion pair")
                 else:
