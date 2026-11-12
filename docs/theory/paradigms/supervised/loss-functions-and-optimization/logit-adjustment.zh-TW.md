@@ -22,6 +22,14 @@ aliases:
 
 Menon 等人在預測時把每個類別的 logit 平移 $-\tau \log \pi_y$，其中 $\pi_y$ 是類別先驗，$\tau > 0$ 為純量（見原論文第 4.1 節的式 9）。同一個偏移也可以直接放進訓練損失。在取最大分數之前減去對數先驗，決策規則的行為就像類別是平衡的。此方法改變的是稀有與主流標籤之間的邊界，而不是學到的特徵。
 
+### 類別先驗如何翻轉預測結果
+
+<div style="max-width:100%;overflow-x:auto;" role="region" tabindex="0" aria-label="可水平捲動的類別先驗修正動畫">
+  <img src="../../../../assets/concept-animations/logit-prior-decision-still.svg" data-motion-src="../../../../assets/concept-animations/logit-prior-decision-motion.svg" data-still-src="../../../../assets/concept-animations/logit-prior-decision-still.svg" alt="類別先驗校正後，頭部類別原本較高的分數隨著調整參數增加而被尾部類別超越。" width="640" height="360" style="width:640px;max-width:none;">
+</div>
+
+*原創十秒循環教學動畫，CC BY-SA 4.0。* 藍色與琥珀色曲線呈現**經校正的 logit，而非實測或校準機率**。此處使用**人工設定的原始 logit**：頭部類別 2.0、尾部類別 0.5，類別先驗分別為 0.9、0.1。事後修正規則 z'_c = z_c − τ log π_c 使最高分的類別在 τ = 1.5/log(9) ≈ **0.683** 時翻轉；當 τ = 1，頭部與尾部校正分數約為 2.105 與 2.803。此圖示範**固定分類器的決策規則**，不是重新訓練軌跡，也不代表實際準確率改善。目標分布與 τ 應依任務另外驗證。參考 [Menon 等人（2021）](https://arxiv.org/abs/2007.07314)。MkDocs 網站可播放／暫停，減少動態效果模式顯示靜態圖，窄螢幕可用鍵盤聚焦後水平捲動。[完整連續動畫](../../../../assets/concept-animations/logit-prior-decision-motion.svg)及 [GitHub 靜態預覽](../../../../assets/concept-animations/logit-prior-decision-still.svg)。
+
 ## 運作方式
 
 1. 從訓練標籤估計類別先驗 $\pi_y$。

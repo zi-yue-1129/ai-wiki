@@ -177,6 +177,29 @@ def main() -> int:
     ):
         if path not in config or not (DOCS / path).exists():
             errors.append(f"Missing registered player asset: {path}")
+
+    # The additional static-first HTML players support GitHub fallback and MkDocs motion.
+    for stem, source in {
+        "effective-number-growth": "theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss",
+        "logit-prior-decision": "theory/paradigms/supervised/loss-functions-and-optimization/logit-adjustment",
+    }.items():
+        errors.extend(verify_svg(ASSETS / f"{stem}-motion.svg", True))
+        errors.extend(verify_svg(ASSETS / f"{stem}-still.svg", False))
+        for suffix in (".md", ".zh-TW.md"):
+            page = DOCS / f"{source}{suffix}"
+            if not page.is_file():
+                errors.append(f"{page}: missing bilingual page")
+                continue
+            body = page.read_text(encoding="utf-8")
+            rel = "../../../../assets/concept-animations/"
+            if f'src="{rel}{stem}-still.svg"' not in body:
+                errors.append(f"{page}: no GitHub static img src")
+            if f'data-motion-src="{rel}{stem}-motion.svg"' not in body:
+                errors.append(f"{page}: no MkDocs animation data-motion-src")
+            if f'data-still-src="{rel}{stem}-still.svg"' not in body:
+                errors.append(f"{page}: no paused fallback data-still-src")
+            if 'tabindex="0"' not in body or 'CC BY-SA 4.0' not in body:
+                errors.append(f"{page}: missing accessible scroll container or attribution")
     for error in errors:
         print(f"ERROR: {error}", file=sys.stderr)
     print(f"Checked {len(TOPICS)} motion/still pairs and bilingual pages: {len(errors)} error(s)")
