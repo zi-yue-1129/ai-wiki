@@ -44,6 +44,19 @@ $$
 
 The paper uses a delayed update: it recomputes the inverse roots once every 20 to 100 steps, and reports that this had almost no impact on accuracy while lowering the amortised cost per step. The rule generalises to tensors by applying one such matrix to each dimension.
 
+
+### Seeing the two-sided preconditioner evolve
+
+<img src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-motion-src="../../assets/concept-animations/shampoo-eigenmode-motion.svg" data-still-src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-motion-scroll="true" tabindex="0" alt="A repeated two-by-two gradient builds left and right Shampoo accumulators while the preconditioned update attenuates the dominant eigenmode more strongly." width="640" height="360" />
+
+*Original continuous teaching animation (CC BY-SA 4.0).* In a deliberately small **analytic** example, each step reuses $G=\begin{psmallmatrix}2&1\\1&2\end{psmallmatrix}$, starting with $L_0=R_0=I$. Thus $L_t=R_t=I+tG^2$ for $t=0,\ldots,6$. Because $G$ is symmetric with eigenvalues $3$ and $1$, the eigenvalues of the preconditioned update $U_t=L_t^{-1/4}G R_t^{-1/4}$ are
+
+$
+\sigma_1(U_t)=\frac{3}{\sqrt{1+9t}},\qquad \sigma_2(U_t)=\frac{1}{\sqrt{1+t}}.
+$
+
+The blue accumulator cells darken as statistics build, while the orange update and the two mode bars shrink; the larger mode is reduced more strongly relative to its original size. Values at whole-number steps are analytic, with interpolation used only for legible movement. **Repeated identical gradients and the pictured magnitudes are teaching assumptions, not observed training data, throughput or convergence results.** On MkDocs, use Play/Pause (keyboard supported) or the reduced-motion still. [GitHub-readable static view](../../assets/concept-animations/shampoo-eigenmode-still.svg).
+
 ## Results
 
 The abstract reports that the per-step runtime of Shampoo is "comparable to that of simple gradient methods such as SGD, AdaGrad, and Adam", even though the update rule is more complex. In experiments with state-of-the-art deep learning models, the paper reports Shampoo "converging considerably faster than commonly used optimizers". The abstract gives no numeric figures, so comparisons should be taken from the paper's experiments.
