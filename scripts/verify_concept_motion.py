@@ -150,8 +150,8 @@ def main() -> int:
                 # GitHub sees the still as the img src. MkDocs reads data-motion-src
                 # and replaces it with the accessible, controllable motion pair.
                 paired = False
-                for tag in re.findall(r"<img\\b[^>]*>", text, re.IGNORECASE):
-                    attrs = dict(re.findall(r'([\\w-]+)="([^"]*)"', tag))
+                for tag in re.findall(r"<img\b[^>]*>", text, re.IGNORECASE):
+                    attrs = dict(re.findall(r'([\w-]+)="([^"]*)"', tag))
                     if not attrs.get("alt", "").strip():
                         continue
                     try:
