@@ -40,6 +40,19 @@ $$
 
 The right and left vectors thus come from the two Gram matrices, with eigenvalues given by squared singular values and any additional zeros required by the shapes. The products $\Sigma^\top\Sigma$ and $\Sigma\Sigma^\top$ are square even when $\Sigma$ is rectangular. In numerical work, dense SVD routines such as LAPACK's xGESVD reduce $A$ directly to bidiagonal form and compute the SVD of the bidiagonal matrix.[^svd]
 
+### Animated geometry: rotations and singular-value scaling
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img src="../../../assets/concept-animations/svd-unit-circle-still.svg" data-motion-src="../../../assets/concept-animations/svd-unit-circle-motion.svg" data-still-src="../../../assets/concept-animations/svd-unit-circle-still.svg" alt="A unit circle is successively rotated by V transpose, stretched along two singular directions, and rotated by U to produce an ellipse." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static SVD diagram](../../../assets/concept-animations/svd-unit-circle-still.svg)
+
+
+In this **chosen two-dimensional example**, $A=R(30^\circ)\operatorname{diag}(2,0.65)R(-35^\circ)$. The first operation, $V^\top$, rotates the unit circle's marked basis while preserving the circle. The diagonal map stretches its principal semiaxes by factors **2** and **0.65**; $U$ then rotates the resulting ellipse by **30°**. Its long and short semiaxes therefore have lengths 2 and 0.65 in input-unit coordinates. The marked basis vectors disambiguate the first rotation, which would otherwise leave an unmarked circle looking identical.
+
+The intermediate animation interpolates the operations for visual explanation; it does **not** depict how an SVD solver learns or computes its factors. All numbers are illustrative, not measured neural-network weights. On MkDocs, use the keyboard-accessible **Play/Pause** button; on narrow screens, focus and horizontally scroll the illustration. The static diagram remains visible in GitHub Markdown and under reduced-motion settings. Original illustration, **CC BY-SA 4.0**.
+
 ## Truncation and error
 
 For $0\le k<r$, retain the first $k$ rank-one terms to construct $A_k$. The Eckart–Young–Mirsky result states that $A_k$ minimises both errors over matrices of rank at most $k$.[^ey][^approx]

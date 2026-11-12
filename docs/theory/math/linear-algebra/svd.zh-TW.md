@@ -27,6 +27,19 @@ $$
 
 右、左奇異向量因此分別來自兩個 Gram 矩陣，特徵值為奇異值的平方，並依矩陣尺寸補足所需的零。即使 $\Sigma$ 是非方陣，$\Sigma^\top\Sigma$ 與 $\Sigma\Sigma^\top$ 仍是方陣。數值計算中，LAPACK 的 xGESVD 等稠密 SVD 程序會直接把 $A$ 化為雙對角矩陣，再利用該結構求解。[^svd]
 
+### 動態幾何示範：旋轉與奇異值縮放
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img src="../../../assets/concept-animations/svd-unit-circle-still.svg" data-motion-src="../../../assets/concept-animations/svd-unit-circle-motion.svg" data-still-src="../../../assets/concept-animations/svd-unit-circle-still.svg" alt="單位圓先經右奇異向量的轉置旋轉，再依兩個奇異值拉伸，最後經左奇異向量旋轉成橢圓。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀的 SVD 靜態預覽](../../../assets/concept-animations/svd-unit-circle-still.svg)
+
+
+此例採用**人工設定的二維矩陣** $A=R(30^\circ)\operatorname{diag}(2,0.65)R(-35^\circ)$。先以 $V^\top$ 旋轉單位圓與標示的基底方向；旋轉不會改變圓形本身。接著 $\Sigma$ 沿兩個主軸分別縮放 **2** 與 **0.65** 倍，最後 $U$ 將橢圓再旋轉 **30°**。因此，相對於單位圓，橢圓的長、短半軸分別為 2 與 0.65。圖中的基底箭頭用來辨識第一步的旋轉，否則沒有標記的圓看起來不會改變。
+
+動畫的中間影格是為了顯示連續幾何變化，**不是** SVD 分解器的計算或訓練過程。所有數值均為教學示意，非神經網路權重的實測結果。在 MkDocs 可使用支援鍵盤操作的**播放／暫停**按鈕；窄螢幕可聚焦並水平捲動圖像。GitHub Markdown 與減少動態效果模式會保留靜態預覽。原創圖像，**CC BY-SA 4.0**。
+
 ## 截斷與誤差
 
 對 $0\le k<r$，保留前 $k$ 個秩一項以構成 $A_k$。Eckart–Young–Mirsky 定理指出，在秩至多為 $k$ 的矩陣中，$A_k$ 可將兩種誤差都降到最小。[^ey][^approx]

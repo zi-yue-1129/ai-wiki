@@ -48,6 +48,19 @@ So each eigenvalue is the curvature of the quadratic in its own direction. This 
 
 A standard way to find the dominant eigenvector is power iteration, which repeatedly applies \(A\) and normalises the result. It converges to the eigenvector of the largest-magnitude eigenvalue when that eigenvalue is well separated from the rest (see Golub and Van Loan).
 
+### Animated example: power iteration follows the dominant eigenvector
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img src="../../../assets/concept-animations/power-iteration-convergence-still.svg" data-motion-src="../../../assets/concept-animations/power-iteration-convergence-motion.svg" data-still-src="../../../assets/concept-animations/power-iteration-convergence-still.svg" alt="A normalized vector repeatedly grows under a symmetric matrix, is normalized, and approaches the leading eigenvector as its angular error shrinks." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static power-iteration diagram](../../../assets/concept-animations/power-iteration-convergence-still.svg)
+
+
+Choose the **synthetic positive-definite matrix** $A=Q\operatorname{diag}(3,1)Q^\top$ with $Q=R(25^\circ)$. Start from a unit vector $x_0$ at angle 97°, which differs from the dominant eigenvector $q_1$ by **72°**. Each iteration applies $Ax_k$ (the orange arrow briefly extends) and then normalizes it to $x_{k+1}=Ax_k/\|Ax_k\|_2$. The error consequently contracts as $\tan\delta_k=\tan(72^\circ)/3^k$: after five updates the approximate errors are **45.7°, 18.9°, 6.5°, 2.2°, and 0.7°**. The shrinking bars show the exact chosen example's angle errors, not a training loss.
+
+This convergence assumes a nonzero starting component along the unique largest-magnitude eigenvector; convergence can fail or differ without that assumption. Animated transitions between exact iterates are illustrative, not extra numerical steps or empirical timing. Use the MkDocs **Play/Pause** button, or inspect the GitHub-safe static diagram. On narrow screens the figure can be horizontally scrolled. Original illustration, **CC BY-SA 4.0**.
+
 ## Key methods
 
 Eigendecomposition is one of the two landmark matrix factorisations of linear algebra. The other is the singular value decomposition.
