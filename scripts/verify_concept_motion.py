@@ -186,11 +186,11 @@ def main() -> int:
                 errors.append(f"{page}: bilingual chapter missing")
                 continue
             chapter = page.read_text(encoding="utf-8")
-            image_tags = re.findall(r"<img\\b[^>]*>", chapter)
+            image_tags = re.findall(r"<img\b[^>]*>", chapter)
             found = False
             for tag in image_tags:
-                src = re.search(r'\\ssrc="([^"]+)"', tag)
-                data = re.search(r'\\sdata-motion-src="([^"]+)"', tag)
+                src = re.search(r'\ssrc="([^"]+)"', tag)
+                data = re.search(r'\sdata-motion-src="([^"]+)"', tag)
                 if not src or not data:
                     continue
                 static_path = (page.parent / src.group(1)).resolve()
