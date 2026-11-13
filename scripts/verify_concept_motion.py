@@ -149,7 +149,7 @@ def main() -> int:
             elif stem in {"rao-ballard-residual", "predictive-local-settling"}:
                 # GitHub displays the still SVG; MkDocs enhances the same img via data-motion-src.
                 html_pairs = re.findall(
-                    r'<img[^>]+src="([^"]+\\.svg)"[^>]+data-motion-src="([^"]+\\.svg)"',
+                    r'<img[^>]+src="([^"]+\.svg)"[^>]+data-motion-src="([^"]+\.svg)"',
                     text,
                 )
                 if not any(
@@ -158,7 +158,7 @@ def main() -> int:
                     for still, motion in html_pairs
                 ):
                     errors.append(f"{page}: missing valid static + motion HTML image pair")
-                static_links = re.findall(r"\\[[^]]+\\]\\(([^)]+\\.svg)\\)", text)
+                static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {
                     (page.parent / link).resolve() for link in static_links
                 }:
