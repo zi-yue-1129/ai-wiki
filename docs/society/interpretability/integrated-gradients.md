@@ -33,6 +33,13 @@ $$
 
 In practice the integral is approximated by a sum over a finite number of steps.
 
+
+### Visual walkthrough
+
+<div role="region" tabindex="0" aria-label="Scrollable animated integrated-gradient illustration" style="overflow-x:auto;max-width:100%"><img src="../../assets/concept-animations/integrated-gradients-path-still.svg" data-motion-src="../../assets/concept-animations/integrated-gradients-path-motion.svg" data-still-src="../../assets/concept-animations/integrated-gradients-path-still.svg" width="640" height="360" style="width:640px;max-width:none" alt="A marker travels from baseline zero to input one as the area beneath the derivative curve accumulates, recovering a large integrated gradient despite a small endpoint derivative."></div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* The orange marker traces the baseline-to-input path while the shaded area accumulates the gradients. For the **synthetic analytic example** $F(x)=1-e^{-4x}$ with baseline $0$ and input $1$, the endpoint derivative is $F'(1)=4e^{-4}\approx0.073$ but the integral is $\mathrm{IG}=F(1)-F(0)=1-e^{-4}\approx0.982$. In one dimension the path integral equals the output difference; this does **not** validate any attribution as a real-world causal explanation. MkDocs adds Play/Pause and a reduced-motion fallback; narrow screens can be scrolled horizontally. [GitHub-readable static overview](../../assets/concept-animations/integrated-gradients-path-still.svg).
+
 ## Results
 
 The paper uses two axioms to design the method. Sensitivity says that a feature which changes the output must receive a non-zero attribution. Implementation invariance says that functionally equivalent networks must receive identical attributions. The authors argue that most earlier attribution methods break at least one of these axioms. They apply integrated gradients to two image models, including a GoogLeNet ImageNet classifier and a diabetic retinopathy network, to two text models, and to a molecular graph model. The examples are illustrative; the paper does not establish that the attributions are correct for every use.

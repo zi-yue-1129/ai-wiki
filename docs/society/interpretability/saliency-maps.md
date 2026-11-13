@@ -33,6 +33,13 @@ $$
 M_c(I)_{ij} = \left|\frac{\partial S_c}{\partial I_{ij}}\right|.
 $$
 
+
+### Visual walkthrough
+
+<div role="region" tabindex="0" aria-label="Scrollable animated saliency illustration" style="overflow-x:auto;max-width:100%"><img src="../../assets/concept-animations/saliency-local-gradient-still.svg" data-motion-src="../../assets/concept-animations/saliency-local-gradient-motion.svg" data-still-src="../../assets/concept-animations/saliency-local-gradient-still.svg" width="640" height="360" style="width:640px;max-width:none" alt="Synthetic saturating score F(x): a moving input and its local tangent correspond to the instantaneous gradient magnitude, which shrinks near x=1."></div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* The orange tangent follows the current input on the blue score curve; its slope corresponds to the marker on the green derivative curve. This is an **analytic one-dimensional illustration**, not an image classifier or measured saliency map. For $F(x)=1-e^{-4x}$, the derivative drops from about $2.68$ at $x=0.1$ to about $0.073$ at $x=1$, even though the output has changed substantially. The figure demonstrates *local sensitivity*, not causal importance. MkDocs adds Play/Pause controls and respects reduced-motion preferences. On narrow screens, scroll horizontally with touch or the keyboard. [GitHub-readable static overview](../../assets/concept-animations/saliency-local-gradient-still.svg).
+
 ## Results
 
 The paper presents saliency maps as visualisations of individual images, computed from one backward pass per image. It also evaluates a saliency-based weakly supervised object-localisation pipeline on ILSVRC 2013, which measures localisation performance. That is separate from explanation faithfulness: whether the maps reflect the model's computation is a different question, which later work tests directly (see Limitations).
