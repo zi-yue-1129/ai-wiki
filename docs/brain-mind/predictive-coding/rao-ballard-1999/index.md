@@ -36,6 +36,16 @@ The steps were:
 
 The key assumption is that the error units and the prediction units are separate populations, so that the model makes a testable claim about which neurons should show which effects.
 
+### Visual walkthrough: prediction correction
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Prediction error correction illustration">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/rao-ballard-residual-still.svg" data-motion-src="../../../assets/concept-animations/rao-ballard-residual-motion.svg" alt="Schematic scalar input stays fixed at 0.85 as a top-down prediction increases from 0.25 to 0.80 and its upward residual decreases from 0.60 to 0.05." width="640" height="360">
+</div>
+</div>
+
+*Original AI Wiki teaching animation, CC BY-SA 4.0.* For this **artificial scalar example**, the sensory input is fixed at \(x=0.85\), while an illustrative prediction changes from \(\hat x=0.25\) to \(0.80\); the signed residual \(e=x-\hat x\) therefore changes from \(0.60\) to \(0.05\). Continuous interpolation depicts successive correction, **not** Rao and Ballard's trained network, neural recordings or numerical results from the paper. On MkDocs use Play/Pause (keyboard-accessible); with reduced motion or in GitHub the [static fallback](../../../assets/concept-animations/rao-ballard-residual-still.svg) shows the corrected value and dashed initial outlines. On narrow screens, scroll horizontally. See Rao and Ballard (1999) in References.
+
 ## Results
 
 The abstract reports that the trained network developed simple-cell-like receptive fields, and that a subset of the error-carrying units showed endstopping and other extra-classical effects. These results are qualitative. The abstract does not give a numerical measure of fit to recorded neurons, so this page does not quote one.

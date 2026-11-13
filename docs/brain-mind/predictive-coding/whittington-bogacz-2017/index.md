@@ -35,6 +35,16 @@ The steps were:
 
 Step 1 is what makes the scheme local. The hidden activity does the work that the backward pass does in backpropagation, and the error is available at each layer without being sent from elsewhere.
 
+### Visual walkthrough: settling precedes local plasticity
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Predictive coding local inference illustration">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/predictive-local-settling-still.svg" data-motion-src="../../../assets/concept-animations/predictive-local-settling-motion.svg" alt="Schematic scalar hidden state relaxes from 0.20 toward 0.50 between fixed input 0.20 and target 0.80; opposing local errors become balanced before a local synaptic update cue." width="640" height="360">
+</div>
+</div>
+
+*Original AI Wiki teaching animation, CC BY-SA 4.0.* This is a **one-dimensional analogy**, not the layer equations or a numerical reproduction of Whittington and Bogacz (2017). With fixed endpoints \(x=0.20\) and \(y=0.80\), minimise \(E(z)=\tfrac12(z-x)^2+\tfrac12(z-y)^2\). The hidden variable relaxes from \(z=0.20\) toward \(z^*=(x+y)/2=0.50\). The two absolute error magnitudes converge to \(0.30\) **rather than both vanishing**; opposing signed contributions balance, so net descent drive tends to zero. Only after settling does the orange pulse indicate a separate local synaptic update, schematically proportional to presynaptic activity times local error. No claim of exact backpropagation equivalence, biophysical timing or measured MNIST dynamics is made. Use Play/Pause on MkDocs; the [static GitHub preview](../../../assets/concept-animations/predictive-local-settling-still.svg) remains readable without scripts. See Whittington and Bogacz (2017) in References.
+
 ## Results
 
 The authors show that, with suitable parameters, the weight updates converge to those of backpropagation. Under those conditions the network performs much like a standard network on MNIST digit recognition.
