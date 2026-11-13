@@ -44,7 +44,7 @@ def main() -> None:
                         alt = "示意快取轉換動畫" if chinese else "Schematic cache transition"
                         page.set_content(
                             f'<style>{STYLES}</style>'
-                            f'<img src="{still}" data-motion-src="{motion}" alt="{alt}">'
+                            f'<img src="{still}" alt="{alt}">'
                         )
                         page.add_script_tag(content=JAVASCRIPT)
                         image = page.locator("img")
