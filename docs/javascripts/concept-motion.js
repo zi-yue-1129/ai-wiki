@@ -28,6 +28,9 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
+      host.tabIndex = 0;
+      host.setAttribute('role', 'region');
+      host.setAttribute('aria-label', chinese ? '概念動畫，可在手機上水平捲動' : 'Concept animation, horizontally scrollable on small screens');
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';

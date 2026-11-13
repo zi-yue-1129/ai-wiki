@@ -35,6 +35,13 @@ The paper is also a survey of choices. It compares pre-training objectives, arch
 
 ## How it works
 
+### Span-corruption teaching animation
+
+<img src="../../../../../assets/concept-animations/t5-span-corruption-still.svg" data-motion-src="../../../../../assets/concept-animations/t5-span-corruption-motion.svg" data-still-src="../../../../../assets/concept-animations/t5-span-corruption-still.svg" alt="Original sequence A–J, with B–C and H–I replaced by unique sentinel tokens in the encoder input; the decoder generates S0, B, C, S1, H, I, S2 in order." />
+
+*Original CC BY-SA 4.0 teaching animation. The sequence uses **four masked tokens out of ten (40%)** to make two spans visible; this is a schematic example, not the T5 paper's usual **15% corruption rate** and not an observed model output. S0 and S1 stand for distinct sentinel tokens, while S2 marks the final target sentinel in the common T5 format. On MkDocs, use **Play/Pause** (or keyboard Enter/Space); on narrow screens, scroll the diagram horizontally. [GitHub-readable overview](../../../../../assets/concept-animations/t5-span-corruption-still.svg) · [Full animation](../../../../../assets/concept-animations/t5-span-corruption-motion.svg). The animation shows token removal, sentinel substitution, and ordered target generation, not gradient descent (Raffel et al., 2020; see References).*
+
+
 The encoder reads the corrupted input with bidirectional self-attention. The decoder generates the target sequence token by token, with causal self-attention and cross-attention to the encoder output. The loss is the usual cross-entropy on the target tokens.
 
 In span corruption, the paper drops 15% of input tokens and replaces each consecutive span of dropped tokens with one sentinel token. The target is the sequence of dropped spans, each preceded by its sentinel. This differs from the BERT-style masked language model. The target is the dropped spans rather than the masked tokens in place, and a decoder generates them.
