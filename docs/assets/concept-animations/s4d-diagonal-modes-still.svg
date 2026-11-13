@@ -8,7 +8,7 @@
 <rect x="432" y="60" width="404" height="342" rx="14" fill="#ffffff" stroke="#dce5ef" stroke-width="1.2" />
 <text x="44" y="87" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#65758d" >DECAYING MODES</text>
 <text x="452" y="87" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#65758d" >IMPULSE RESPONSE</text>
-<text x="51" y="119" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2563eb" >Mode A</text>
+<text x="145" y="119" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2563eb" >Mode A</text>
 <line x1="51" y1="165" x2="392" y2="165" stroke="#dce5ef" stroke-width="1.4" />
 <line x1="51.0" y1="95" x2="51.0" y2="225" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
 <line x1="141.93333333333334" y1="95" x2="141.93333333333334" y2="225" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
