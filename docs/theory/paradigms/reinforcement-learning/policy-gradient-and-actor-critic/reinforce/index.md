@@ -34,6 +34,14 @@ where \(G_t\) is the return from step \(t\) and \(b\) is a baseline. The procedu
 4. Update \(\theta \leftarrow \theta + \alpha \sum_t \nabla_\theta \log \pi_\theta(a_t \mid s_t)\,(G_t - b)\).
 5. Repeat from step 2.
 
+### Visual walkthrough: return-weighted actions
+
+<div role="region" tabindex="0" aria-label="Scroll horizontally to inspect the complete teaching visual" style="max-width:100%;overflow-x:auto">
+  <img style="width:760px;max-width:none;height:auto" src="../../../../../assets/concept-animations/reinforce-return-credit-still.svg" data-motion-src="../../../../../assets/concept-animations/reinforce-return-credit-motion.svg" data-still-src="../../../../../assets/concept-animations/reinforce-return-credit-still.svg" alt="REINFORCE episode with three sampled actions, a delayed terminal reward, and return-weighted policy-gradient contributions.">
+</div>
+
+*Original continuous teaching animation (CC BY-SA 4.0).* A three-action **synthetic episode** has step rewards `(0, 0, 4)`, discount `γ = 0.8`, and a fixed baseline `b = 2`. Discounted returns are `G = (2.56, 3.2, 4)`; subtracting the baseline produces advantage weights `(0.56, 1.2, 2)` on the corresponding **log-policy gradients**. The animation moves forward while sampling actions, then backward to illustrate reward-to-go assignment. The bars are *weights*, **not** trained parameters, gradient magnitudes, or empirical learning curves; each sampled action has its own log-probability gradient direction. These are hand-chosen values, not model measurements. Use the MkDocs Play/Pause button (also operable with Enter or Space) or the [GitHub static preview](../../../../../assets/concept-animations/reinforce-return-credit-still.svg). The derivation is in [Williams (1992)](https://doi.org/10.1007/bf00992696).
+
 ## Results
 
 Williams's paper gives a derivation and a theorem rather than a benchmark. Its contribution is the general class of update rules, which underlies the policy-gradient methods that followed.

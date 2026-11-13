@@ -65,6 +65,8 @@ TOPICS = {
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
+    "reinforce-return-credit": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index",
+    "grpo-group-advantages": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index",
 }
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
@@ -84,7 +86,7 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    if root.tag != NS + "svg" or root.get("viewBox") != "0 0 640 360":
+    if root.tag != NS + "svg" or root.get("viewBox") not in ("0 0 640 360", "0 0 760 400"):
         errors.append(f"{path}: invalid SVG root/viewBox")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
@@ -132,7 +134,16 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in GITHUB_GIF_PREVIEWS:
+            if stem in {"reinforce-return-credit", "grpo-group-advantages"}:
+                # GitHub sees a static img, while MkDocs enhances its data-motion-src.
+                # Resolve the three HTML attributes relative to the bilingual page.
+                for attr, asset in (("src", static_path),
+                                    ("data-motion-src", animated_path),
+                                    ("data-still-src", static_path)):
+                    found = re.search(r"\s" + re.escape(attr) + r'="([^"]+)"', text)
+                    if not found or (page.parent / found.group(1)).resolve() != asset.resolve():
+                        errors.append(f"{page}: missing or incorrect HTML {attr} for {stem}")
+            elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.
