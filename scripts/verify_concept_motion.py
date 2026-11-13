@@ -25,6 +25,8 @@ TOPICS = {
     "gradient-norm-clipping": "theory/optimization/norm-clipping",
     "swin-shifted-windows": "theory/models/transformer/vision-transformer/swin/index",
     "deformable-sampling": "theory/models/cnn/convolution-variants/deformable-convolution/index",
+    "paged-block-mapping": "engineering/inference-optimization/paged-attention",
+    "expert-cache-miss": "engineering/inference-optimization/expert-offloading",
     "speculative-decoding": "engineering/inference-optimization/speculative-decoding",
     "orca-continuous-batching": "engineering/inference-optimization/orca",
     "disaggregated-handoff": "engineering/inference-optimization/disaggregated-serving",
@@ -144,9 +146,17 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
+            elif stem in {"paged-block-mapping", "expert-cache-miss"}:
+                # GitHub renders the Markdown still. The scoped MkDocs enhancement
+                # recognises this exact filename and swaps in the motion version.
+                if static_path.resolve() not in linked_images:
+                    errors.append(f"{page}: missing GitHub-readable Markdown still")
+                player = (DOCS / "javascripts" / "concept-motion.js").read_text(encoding="utf-8")
+                if f"'{stem}-still.svg'" not in player:
+                    errors.append(f"{page}: static-first animation not registered in player")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
+            if stem in {"paged-block-mapping", "expert-cache-miss", "mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)

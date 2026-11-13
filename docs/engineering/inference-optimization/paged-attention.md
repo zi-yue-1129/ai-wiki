@@ -24,16 +24,9 @@ A serving system must keep the keys and values of every active request in memory
 
 When a request starts, the system allocates blocks for its prompt. During decoding, a new block is allocated only when the current one fills. The attention kernel reads keys and values by following the block table, so it gathers them from scattered blocks. When memory runs short, the scheduler can preempt a request and swap or recompute its blocks.
 
-```mermaid
-flowchart LR
-  R[Request] --> T[Block table]
-  T --> B1[Block 1]
-  T --> B2[Block 2]
-  T --> B3[Block 3]
-  B1 -.-> P[Physical memory pool]
-  B2 -.-> P
-  B3 -.-> P
-```
+![Three logical KV blocks appear as tokens arrive. The block table maps them to noncontiguous physical blocks P2, P0, and P3, leaving P1 available.](../../assets/concept-animations/paged-block-mapping-still.svg)
+
+*Original instructional animation, CC BY-SA 4.0.* Each coloured path is a **logical-to-physical block-table entry**; the moving dots represent cache access or allocation along the mapping, not literal GPU data movement or measured latency. The example assumes **two toy tokens per block** and assigns three logical blocks to physical P2, P0, and P3, leaving P1 unused. A new block is acquired only as another two-token block is needed; physical indices need not follow token order. The illustration omits attention-kernel details, sharing, and preemption. On MkDocs use **Play/Pause** (Enter or Space), or the keyboard-focusable horizontal viewport on narrow screens. Reduced-motion mode starts paused. [GitHub-readable final mapping](../../assets/concept-animations/paged-block-mapping-still.svg).
 
 ## Key methods
 
