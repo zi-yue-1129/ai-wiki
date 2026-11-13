@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 related:
   - theory/models/rnn/index.md
 ---
@@ -34,11 +34,11 @@ related:
 
 ## 關鍵方法
 
-簡要比較。上面提到的每個方法都可以有自己的方法頁面；這些頁面尚未撰寫，因此目前在本節提供細節。
+以下三個代表性方法在此作簡要比較。每個方法都有自己的頁面，提供問題、核心想法、方程式、結果與限制。
 
-- **DeepAR（機率式循環）**：在許多序列上訓練的自迴歸循環網路，輸出為分布。適合處理不確定性，推論時是逐步進行的。
-- **N-BEATS（殘差基底展開）**：沒有遞迴或注意力；可解釋或通用。在單變量基準上表現強勁。
-- **Informer（有效率的注意力）**：為長預測期設計的 Transformer 變體，採用成本較低的注意力機制。
+- [DeepAR](deepar.md)：在許多序列上訓練的自迴歸循環網路，輸出為分布。適合處理不確定性，推論時是逐步進行的。
+- [N-BEATS](n-beats.md)：堆疊的殘差區塊，其輸出為基函數展開，沒有遞迴或注意力。可解釋或通用，在單變量基準上表現強勁。
+- [Informer](informer.md)：為長預測期設計的 Transformer 變體，採用成本較低的注意力機制，並以一次預測整個預測期的解碼器運作。它相對於簡單基準的優勢，已受到質疑。
 
 ## 關聯
 
@@ -71,3 +71,5 @@ related:
 
 - Lim, B. & Zohren, S. (2020). *Time Series Forecasting With Deep Learning: A Survey*. arXiv. https://arxiv.org/abs/2004.13408 — 綜述用於單步與多步預測的編碼器與解碼器設計。
 - Hyndman, R. J. & Athanasopoulos, G. *Forecasting: Principles and Practice*, 第 3 版. OTexts. https://otexts.com/fpp3/ — 涵蓋經典與現代預測方法的教科書，可免費線上閱讀。該頁面未註明出版年份。
+- Makridakis, S., Spiliotis, E. & Assimakopoulos, V. (2020). The M4 Competition: 100,000 time series and 61 forecasting methods. *International Journal of Forecasting*, 36, 54–74. doi:[10.1016/j.ijforecast.2019.04.014](https://doi.org/10.1016/j.ijforecast.2019.04.014) — 後來的深度預測方法（包括 N-BEATS）所採用的大型基準。
+- Zeng, A., Chen, M., Zhang, L. & Xu, Q. (2023). Are Transformers effective for time series forecasting? *Proceedings of the AAAI Conference on Artificial Intelligence*, 37(9), 11121–11128. doi:[10.1609/aaai.v37i9.26317](https://doi.org/10.1609/aaai.v37i9.26317) — 批評文章，指出簡單線性模型在常見基準上能與數個 Transformer 預測器（包括 Informer）相當，甚至更好。
