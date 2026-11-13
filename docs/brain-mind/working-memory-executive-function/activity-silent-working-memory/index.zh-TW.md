@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-14
 status: complete
 last_reviewed: 2026-11-04
 related:
@@ -50,6 +50,16 @@ aliases:
 3. 以放電進行的刷新會讀出記憶並重新裝載鈣。
 
 這些步驟描述的是簡化模型。其他隱藏狀態機制也有可能，而 Stokes（2015）更一般地討論活動靜默狀態。
+
+### 教學動畫：放電、靜默延遲與突觸刷新
+
+<div class="wm-motion-pan" tabindex="0" role="region" aria-label="活動靜默工作記憶：比較放電與隱藏的突觸痕跡">
+<img src="../../../assets/concept-animations/activity-silent-trace-still.svg" data-motion-src="../../../assets/concept-animations/activity-silent-trace-motion.svg" width="640" alt="示意時間軌跡：起始的短暫神經放電形成突觸易化痕跡；延遲期間放電趨於安靜，但痕跡緩慢衰減並仍保留；隨後的刷新放電再次提高痕跡。">
+</div>
+
+上方時間軌跡呈現**短暫的神經放電**與中間的**安靜延遲期**；下方則是延遲期間持續高於起始狀態、緩慢衰減的**隱藏突觸易化痕跡**，後續放電又將其刷新。移動游標讓讀者沿同一時間軸對照兩種訊號。重點是**不需要持續可見的放電也可能維持資訊**，並非宣稱所有神經活動都消失。波形、衰減形狀與時間均為**人工示意**，不是鈣濃度、突觸效能或放電的實測資料，也不是 Mongillo 等人（2008）模型的數值重現；這只是工作記憶的其中一種解釋，不能據此否定其他任務中的持續放電（見 Stokes，2015）。
+
+MkDocs 網站支援**播放／暫停**，按鈕聚焦後可用 **Enter／Space** 操作；啟用減少動態效果偏好時呈現靜態圖。手機可將圖區聚焦後水平捲動；GitHub 顯示完整的靜態時間序列。兩份視覺資產皆為原創 **CC BY-SA 4.0** 教材。
 
 ## 結果
 
