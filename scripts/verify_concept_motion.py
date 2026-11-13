@@ -140,7 +140,7 @@ def main() -> int:
                 for attr, asset in (("src", static_path),
                                     ("data-motion-src", animated_path),
                                     ("data-still-src", static_path)):
-                    found = re.search(r"\\s" + re.escape(attr) + r'="([^"]+)"', text)
+                    found = re.search(r"\s" + re.escape(attr) + r'="([^"]+)"', text)
                     if not found or (page.parent / found.group(1)).resolve() != asset.resolve():
                         errors.append(f"{page}: missing or incorrect HTML {attr} for {stem}")
             elif stem in GITHUB_GIF_PREVIEWS:
