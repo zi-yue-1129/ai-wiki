@@ -134,6 +134,16 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
+            # HTML <img src="...-still.svg" data-motion-src="...-motion.svg">
+            # preserves a visible GitHub fallback while MkDocs enhances playback.
+            html_image_sources = re.findall(
+                r'<img\\b[^>]*?\\b(?:src|data-motion-src|data-still-src)=["\\\']([^"\\\']+\\.svg)["\\\']',
+                text,
+                flags=re.IGNORECASE | re.DOTALL,
+            )
+            linked_images.update(
+                (page.parent / link).resolve() for link in html_image_sources
+            )
             if stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and

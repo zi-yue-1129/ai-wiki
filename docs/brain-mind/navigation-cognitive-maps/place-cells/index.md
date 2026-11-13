@@ -48,7 +48,7 @@ where \(x\) is the animal's position, \(r_{\max}\) is the peak rate, and \(\sigm
 
 ### Animated place-field walkthrough
 
-![A position marker moves through three Gaussian place fields while the corresponding normalized firing-rate bars change](../../../assets/concept-animations/place-cell-firing-motion.svg)
+<img src="../../../assets/concept-animations/place-cell-firing-still.svg" data-motion-src="../../../assets/concept-animations/place-cell-firing-motion.svg" data-still-src="../../../assets/concept-animations/place-cell-firing-still.svg" alt="A position marker moves through three Gaussian place fields while the corresponding normalized firing-rate bars change">
 
 *Original teaching animation (CC BY-SA 4.0).* The orange marker follows a continuous loop; the blue, teal and purple bars show the instantaneous **normalized** Gaussian tuning of three independent model place cells, with $r_i(x)/r_{\max}=\exp(-\lVert x-c_i\rVert^2/(2\sigma^2))$ and $\sigma=49$ arbitrary diagram units. These curves illustrate location tuning, **not observed spikes, firing-rate recordings, remapping, or a navigation experiment**. On MkDocs, use Play/Pause; the [GitHub-readable static preview](../../../assets/concept-animations/place-cell-firing-still.svg) remains available when motion is disabled.
 

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 status: complete
 last_reviewed: 2026-10-28
 tags:
@@ -49,7 +49,7 @@ aliases:
 
 ### 位置場動態示範
 
-![橘色位置標記沿環形路徑移動，三個高斯位置場對應的正規化放電率長條隨距離連續改變](../../../assets/concept-animations/place-cell-firing-motion.svg)
+<img src="../../../assets/concept-animations/place-cell-firing-still.svg" data-motion-src="../../../assets/concept-animations/place-cell-firing-motion.svg" data-still-src="../../../assets/concept-animations/place-cell-firing-still.svg" alt="橘色位置標記沿環形路徑移動，三個高斯位置場對應的正規化放電率長條隨距離連續改變">
 
 *原創教學動畫（CC BY-SA 4.0）。* 橘色標記沿連續路徑移動；藍色、青綠色與紫色長條呈現三個模型位置細胞在當下位置的**正規化高斯調諧值**，使用 $r_i(x)/r_{\max}=\exp(-\lVert x-c_i\rVert^2/(2\sigma^2))$，其中 $\sigma=49$ 為圖上的任意距離單位。這是位置調諧的解析示意，**不是觀測到的動作電位、放電率紀錄、重映射或導航實驗結果**。在 MkDocs 網站可使用播放／暫停；關閉動態效果時可查看 [GitHub 靜態預覽](../../../assets/concept-animations/place-cell-firing-still.svg)。
 
