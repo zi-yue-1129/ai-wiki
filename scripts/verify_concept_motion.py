@@ -147,17 +147,13 @@ def main() -> int:
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"paged-block-mapping", "expert-cache-miss"}:
-                # GitHub uses the final-state static image; MkDocs reads data-motion-src.
-                pairs = re.findall(
-                    r'<img[^>]+src="([^"]+\.svg)"[^>]+data-motion-src="([^"]+\.svg)"',
-                    text,
-                )
-                if not any(
-                    (page.parent / still).resolve() == static_path.resolve()
-                    and (page.parent / motion).resolve() == animated_path.resolve()
-                    for still, motion in pairs
-                ):
-                    errors.append(f"{page}: missing HTML static/animated image pair")
+                # GitHub renders the Markdown still. The scoped MkDocs enhancement
+                # recognises this exact filename and swaps in the motion version.
+                if static_path.resolve() not in linked_images:
+                    errors.append(f"{page}: missing GitHub-readable Markdown still")
+                player = (DOCS / "javascripts" / "concept-motion.js").read_text(encoding="utf-8")
+                if f"'{stem}-still.svg'" not in player:
+                    errors.append(f"{page}: static-first animation not registered in player")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"paged-block-mapping", "expert-cache-miss", "mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
