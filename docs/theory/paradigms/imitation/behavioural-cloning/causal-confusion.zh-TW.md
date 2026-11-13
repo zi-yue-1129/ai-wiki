@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 related:
   - theory/paradigms/imitation/behavioural-cloning
   - theory/paradigms/imitation/interactive-imitation/dagger.md
@@ -22,6 +22,12 @@ aliases:
 ## 概述
 
 被克隆的策略以觀測預測專家動作來進行訓練。在示範上的預測準確度，並不能告訴學習者專家實際回應的是哪些觀測。當某個虛假觀測與專家動作之間的關係在測試時改變，策略就會失敗，即使它的訓練損失很低。論文主張，根本原因在於行為克隆忽略了連結專家、環境與觀測的因果結構。
+
+## 視覺示例：介入煞車燈訊號
+
+![危險狀態與專家煞車動作維持不變，煞車燈被抑制時，依賴燈號的捷徑策略反應同步降低](../../../../assets/concept-animations/causal-lamp-intervention-still.svg)
+
+*原創教學示意（CC BY-SA 4.0）。* 玩具因果鏈為「**危險狀態 → 專家煞車 → 煞車燈**」。介入只抑制燈號，不改變危險狀態或專家動作。依賴危險狀態的策略仍會煞車；錯將燈號當成決策依據的捷徑策略，反應則隨燈號下降。長條代表**人工設定的正規化訊號**，不是已訓練策略的量測值，也不是論文實驗結果。MkDocs 支援播放／暫停；GitHub 則顯示[完整靜態預覽](../../../../assets/concept-animations/causal-lamp-intervention-still.svg)，亦可[開啟連續 SVG 動畫](../../../../assets/concept-animations/causal-lamp-intervention-motion.svg)。
 
 ## 核心概念
 
@@ -55,6 +61,10 @@ aliases:
 ## 相關失誤：複製型策略
 
 Wen 等人（2020）研究 *copycat agents*，也就是從觀測歷史做行為克隆時，策略預測的是前一個專家動作而非下一個動作。由於專家動作在時間上常高度相關，複製上一個動作是降低訓練損失的簡單方法。這是同一機制的具體例子：一個捷徑特徵在示範上能很好地預測目標，卻不反映真正想學的行為。
+
+![八個時間步的專家與複製型策略動作對照；紅框標出 t3 與 t6 轉換時的一步延遲錯誤](../../../../assets/concept-animations/copycat-action-lag-still.svg)
+
+*原創教學示意（CC BY-SA 4.0）。* 專家動作依序為 GO、GO、GO、STOP、STOP、STOP、GO、GO。人工設計的複製型策略在 \(t=0\) 初始化為 GO，之後使用 \(\hat a_t=a^{\mathrm{expert}}_{t-1}\)（\(t\ge1\)），直接複製前一個時間步的專家動作。連續動作時看似準確，但在 \(t=3\) 與 \(t=6\) 切換時延遲一步（紅框）；游標連續掃過八個時間點。這是**確定性的人工教學序列，不是訓練或評估結果**。MkDocs 支援播放／暫停；可另看 [SVG 動畫](../../../../assets/concept-animations/copycat-action-lag-motion.svg)及 [GitHub 靜態預覽](../../../../assets/concept-animations/copycat-action-lag-still.svg)。
 
 ## 關聯
 
