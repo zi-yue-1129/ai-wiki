@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # 特徵值分解
@@ -34,6 +34,14 @@ A = Q\Lambda Q^\top, \qquad \Lambda = \operatorname{diag}(\lambda_1, \dots, \lam
 因此每個特徵值就是該二次函數在其自身方向上的曲率。這是海森矩陣的特徵值對最佳化很重要的原因：大的特徵值標示陡峭方向，小的則標示平坦方向（見[微積分與最佳化](../calculus/index.md)）。
 
 求主特徵向量的一個標準方法是冪迭代，即反覆套用 \(A\) 並正規化結果。當主特徵值與其他特徵值有明顯間隔時，它會收斂到絕對值最大特徵值所對應的特徵向量（見 [Golub 與 Van Loan](index.md)）。
+
+### 冪迭代動態示範
+
+<div role="group" aria-label="冪迭代教學動畫；窄螢幕可水平捲動" tabindex="0" style="max-width:100%;overflow-x:auto">
+  <img src="../../../assets/concept-animations/power-iteration-convergence-still.svg" data-motion-src="../../../assets/concept-animations/power-iteration-convergence-motion.svg" alt="冪迭代將單位向量逐次轉向主特徵向量；右側長條同步呈現主方向投影增加、正交方向投影下降。" style="display:block;width:640px;min-width:640px;height:auto">
+</div>
+
+*原創幾何教學動畫，CC BY-SA 4.0。* 此例使用二維對稱矩陣 \(A=Q\operatorname{diag}(1.60,0.45)Q^\top\)，其中主特徵向量與水平軸夾角為 28 度，並反覆計算 \(v_{k+1}=Av_k/\|Av_k\|_2\)。初始方向為 -44 度時，\(|q_1^\top v_k|\) 從約 0.309 上升至第三次迭代後約 0.998，正交方向投影則逐漸降低。離散迭代點之間的動態僅為視覺插值，**不是連續時間演算法，也不是模型實測軌跡**；動畫反向返回起點只是循環示範，並非冪迭代具有反向步驟。要收斂至唯一主方向，通常需要適當的特徵值絕對值間隔，以及初始向量在該方向有非零投影。Wiki 網站支援播放／暫停與鍵盤操作；GitHub 顯示靜態回退畫面。數值方法的依據見本頁參考文獻。
 
 ## 主要方法
 

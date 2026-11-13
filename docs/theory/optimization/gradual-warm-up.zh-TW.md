@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # 漸進式預熱與線性縮放
@@ -33,6 +33,14 @@ translation_reviewed: 2026-10-28
 \]
 
 論文設定 \(\mathrm{warmup\_steps} = 4000\)，基準模型的 \(d_{\mathrm{model}} = 512\)。學習率在前 4,000 步線性上升，之後與步數的平方根成反比下降。
+
+### 大批次學習率預熱動態示範
+
+<div role="group" aria-label="大批次學習率預熱教學動畫；窄螢幕可水平捲動" tabindex="0" style="max-width:100%;overflow-x:auto">
+  <img src="../../assets/concept-animations/large-batch-warmup-ramp-still.svg" data-motion-src="../../assets/concept-animations/large-batch-warmup-ramp-motion.svg" alt="批次大小增加四倍後，橘線直接採用 0.4 學習率；青綠線在五個 epoch 內從 0.1 逐步升至 0.4，右側固定梯度的更新幅度同步增加。" style="display:block;width:640px;min-width:640px;height:auto">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 在**人工示例**中，批次大小增加四倍，基準學習率為 0.1，目標學習率為 0.4。橘線一開始便採用 0.4；青綠線使用 \(\eta(e)=0.1+0.3\min(e/5,1)\)，因此第 2.5 個 epoch 為 0.25，第 5 個 epoch 達到 0.4。右側長條只在**固定梯度**的假設下比較 \(\|\Delta\theta\|=\eta\|g\|\)，藉此單獨呈現排程對步長的影響。圖中第 5 個 epoch 之後保持常數，是為了隔離預熱效果；實際訓練通常還會接續衰減。以上學習率與步長均**不是模型實測，也不代表預熱保證穩定**。返回初始 epoch 只為了循環播放，並非真實訓練重啟。Wiki 網站沿用共用播放器與減少動態效果設定；GitHub 可直接閱讀靜態畫面。參見參考文獻中的 Goyal 等人（2017）。
 
 ## 結果
 

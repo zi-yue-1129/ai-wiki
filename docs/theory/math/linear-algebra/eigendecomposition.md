@@ -48,6 +48,14 @@ So each eigenvalue is the curvature of the quadratic in its own direction. This 
 
 A standard way to find the dominant eigenvector is power iteration, which repeatedly applies \(A\) and normalises the result. It converges to the eigenvector of the largest-magnitude eigenvalue when that eigenvalue is well separated from the rest (see Golub and Van Loan).
 
+### Power iteration in motion
+
+<div role="group" aria-label="Power iteration animation; scroll horizontally on narrow screens" tabindex="0" style="max-width:100%;overflow-x:auto">
+  <img src="../../../assets/concept-animations/power-iteration-convergence-still.svg" data-motion-src="../../../assets/concept-animations/power-iteration-convergence-motion.svg" alt="Power iteration repeatedly rotates a unit vector toward the dominant eigenvector; synchronized bars show the leading projection increase and the orthogonal projection decrease." style="display:block;width:640px;min-width:640px;height:auto">
+</div>
+
+*Original geometric teaching animation, CC BY-SA 4.0.* The example applies \(v_{k+1}=Av_k/\|Av_k\|_2\) to a two-dimensional symmetric matrix \(A=Q\operatorname{diag}(1.60,0.45)Q^\top\), with its leading eigenvector 28 degrees above the horizontal. From an initial direction of -44 degrees, \(|q_1^\top v_k|\) rises from approximately 0.309 to 0.998 after three iterations, while \(|q_2^\top v_k|\) decreases. The line connecting discrete iterates is a visual interpolation, **not a continuous-time algorithm or a measured model trajectory**. The reverse motion only resets this looping illustration; power iteration itself does not run backwards. Convergence to a unique dominant direction requires a suitable eigenvalue magnitude gap and a nonzero starting component in that eigendirection. On the wiki website, use Play/Pause or keyboard activation; the static view remains readable on GitHub. See the numerical-linear-algebra texts in References.
+
 ## Key methods
 
 Eigendecomposition is one of the two landmark matrix factorisations of linear algebra. The other is the singular value decomposition.
