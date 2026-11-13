@@ -50,6 +50,16 @@ No single equation summarises the framework, and the mechanism is written here a
 
 The steps describe a simplified model. Other hidden-state mechanisms are possible, and Stokes (2015) discusses activity-silent states more generally.
 
+### Teaching animation: spiking, silent delay and synaptic refresh
+
+<div class="wm-motion-pan" tabindex="0" role="region" aria-label="Activity-silent memory: compare spiking and a hidden synaptic trace">
+<img src="../../../assets/concept-animations/activity-silent-trace-still.svg" data-motion-src="../../../assets/concept-animations/activity-silent-trace-motion.svg" width="640" alt="Schematic temporal traces: an initial burst of spikes loads a transient synaptic trace, the trace decays slowly while spiking is quiet, and a later refresh burst increases it again.">
+</div>
+
+The top track displays **brief spiking bursts**, separated by a **quiet delay**. The lower track shows a **hidden, decaying synaptic facilitation trace** that remains above its initial level during that delay, before a later burst refreshes it. The moving cursor reveals the two signals along a shared illustrative timeline. The key distinction is *maintenance without continuous visible spiking*, not complete absence of neural activity. The waveform, decay profile and times are **schematic and not measured calcium, synaptic efficacy or firing data**, nor a numerical reproduction of Mongillo et al. (2008). Activity-silent memory is one account, not a claim that all working-memory tasks suppress persistent firing (see Stokes, 2015).
+
+On the MkDocs site, use **Play/Pause** or **Enter/Space** when the button is focused; reduced-motion preferences show the still figure. The diagram region can be focused and scrolled on narrow screens. GitHub displays the complete static sequence. Both visuals are original **CC BY-SA 4.0** teaching illustrations.
+
 ## Results
 
 - **Synaptic model.** Mongillo et al. (2008) propose that a memory can be sustained by calcium-mediated synaptic facilitation, refreshed by spiking. This page does not summarise the paper's quantitative results, which should be read from the paper.

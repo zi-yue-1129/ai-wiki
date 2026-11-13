@@ -48,6 +48,16 @@ The paper gives the full learning rule. This page gives the outline as numbered 
 3. The task produces an outcome. The critic compares its prediction with what happened. The difference is a prediction error of the kind described in the [dopamine reward prediction error](../../neuroscience/dopamine-reward-prediction-error/index.md) page, and it plays the same role as in the actor–critic methods covered in [Reinforcement Learning](../../../theory/paradigms/reinforcement-learning/index.md).
 4. The prediction error trains the critic and the actor. Future gating decisions then favour updates that proved useful.
 
+### Teaching animation: selective working-memory gating
+
+<div class="wm-motion-pan" tabindex="0" role="region" aria-label="PBWM: inspect gating and memory contents">
+<img src="../../../assets/concept-animations/pbwm-gate-still.svg" data-motion-src="../../../assets/concept-animations/pbwm-gate-motion.svg" width="640" alt="PBWM walkthrough: cue A opens the basal-ganglia gate and enters PFC memory, distractor X is blocked while A is retained, then cue B opens the gate and replaces A.">
+</div>
+
+The **blue cue A** is admitted when the gate opens; the **orange distractor X** reaches a closed gate while the PFC store still holds A; a subsequent **teal cue B** passes through an open gate and updates the store. The task-relevant/irrelevant distinction and all three gate choices were assigned **by hand** to make the update rule visible. This is **not** a simulated learning run, an anatomical circuit diagram, or neural recording. See the O'Reilly and Frank (2006) model in References.
+
+On the MkDocs site, use **Play/Pause** (or focus the button and press **Enter/Space**); the image remains static when reduced motion is requested. On a narrow screen, focus the illustration region and scroll horizontally. GitHub displays the static three-state comparison. Both assets are original **CC BY-SA 4.0** teaching illustrations.
+
 ## Results
 
 The paper tests the learning rule on working memory tasks, including the 1-2-AX task. This page does not report the comparison results, which should be read from the paper.
