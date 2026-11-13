@@ -65,11 +65,14 @@ TOPICS = {
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
+    "self-instruct-filter-loop": "engineering/synthetic-data/self-instruct",
+    "recursive-tail-loss": "engineering/synthetic-data/model-collapse",
 }
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
     "byol-online-target": "byol-momentum-preview.gif",
 }
+HTML_MOTION_STEMS = {"self-instruct-filter-loop", "recursive-tail-loss"}
 FORBIDDEN = {"script", "foreignObject", "iframe", "image"}
 LIMIT = 50 * 1024
 
@@ -144,6 +147,18 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
+            elif stem in HTML_MOTION_STEMS:
+                # GitHub-safe static <img> is enhanced to the animated SVG by MkDocs JS.
+                matches = re.findall(
+                    r'<img[^>]*src="([^"]+\.svg)"[^>]*data-motion-src="([^"]+\.svg)"[^>]*>',
+                    text,
+                )
+                if not any(
+                    (page.parent / still).resolve() == static_path.resolve()
+                    and (page.parent / animated).resolve() == animated_path.resolve()
+                    for still, animated in matches
+                ):
+                    errors.append(f"{page}: missing GitHub static img or MkDocs motion source")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:

@@ -31,6 +31,12 @@ flowchart LR
   M3 -->|samples| X[Tails lost, typical content dominates]
 ```
 
+### Teaching animation: rare-category extinction in finite resampling
+
+<img src="../../assets/concept-animations/recursive-tail-loss-still.svg" data-motion-src="../../assets/concept-animations/recursive-tail-loss-motion.svg" width="640" height="360" alt="Six-category toy multinomial data: reference counts remain fixed while a new sample of 30 observations is drawn from each preceding generation; categories E and F disappear by generation three." loading="lazy" />
+
+*Original teaching animation, CC BY-SA 4.0.* The grey bars hold the original six-category empirical distribution **(12, 9, 5, 2, 1, 1)** fixed, while coloured bars show one **finite multinomial resampling** trajectory with 30 draws per generation. In this fixed illustrative resampling sequence, the counts go from **G0: (12, 9, 5, 2, 1, 1)** to **G4: (9, 21, 0, 0, 0, 0)**; the rare E/F count reaches zero at G3 and cannot reappear under pure replacement sampling once absent. The bars interpolate between *discrete* generations only for readability. This is **not a fitted neural model, an experiment from the paper, or a claim that every run collapses this way**. The animation isolates finite-sample tail loss, one mechanism discussed in the cited Nature study. On MkDocs, use **Play/Pause** (also keyboard accessible); GitHub shows the static SVG above. [Animated version](../../assets/concept-animations/recursive-tail-loss-motion.svg).
+
 ## Key methods
 
 The paper's central experiment trains successive generations on the outputs of the previous generation, then measures how the distribution changes. The authors analyse this as an accumulation of estimation error over generations.

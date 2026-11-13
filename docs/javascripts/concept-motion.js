@@ -28,6 +28,14 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
+      // Optional data-motion-src images keep a readable 640px graphic on narrow screens.
+      // The focusable region supports arrow-key horizontal scrolling without shrinking labels.
+      if (img.dataset.motionSrc) {
+        host.classList.add('concept-motion-scroll');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫' : 'Horizontally scrollable concept animation');
+      }
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';
