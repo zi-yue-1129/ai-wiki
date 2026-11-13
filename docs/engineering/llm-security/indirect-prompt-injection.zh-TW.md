@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-11-13
 related:
 - engineering/llm-security
 - engineering/rag
@@ -29,14 +30,12 @@ aliases:
 
 ## 運作方式
 
-```mermaid
-flowchart LR
-  A[攻擊者在網頁或文件中寫入文字] --> R[應用程式檢索該內容]
-  R --> M[模型把它當作上下文的一部分讀取]
-  M --> T[模型呼叫工具或渲染輸出]
-  T --> E[後果：資料外流，或執行動作]
-  G[防護：信任等級、最小權限、輸出檢查] -. 限制 .-> T
-```
+
+### 教學動畫：檢索資料如何跨越信任邊界
+
+![連續動畫對照未加防護時惡意檢索內容可能影響工具呼叫，以及應用層權限檢查只容許一般資料通過的路徑](../../assets/concept-animations/prompt-injection-boundary-motion.svg)
+
+*原創教學動畫（CC BY-SA 4.0）。* **上方顯示一種可能的失敗路徑**：檢索頁面的惡意指示被錯誤提升為具有權限的指令，進而影響工具呼叫。**下方是應用程式層級的防護示意**：透過工具權限與輸出檢查，阻擋未授權操作，但仍允許一般檢索事實用於回答。此圖**不是**宣稱僅靠模型提示就能可靠隔離惡意文字。MkDocs 可利用支援鍵盤的播放／暫停控制及減少動態效果的回退；GitHub 可閱讀[靜態信任邊界圖](../../assets/concept-animations/prompt-injection-boundary-still.svg)。圖中是威脅模型示意，**非實測攻擊成功率或防護保證**。
 
 ## 關鍵想法
 
