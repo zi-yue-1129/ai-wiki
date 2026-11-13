@@ -24,6 +24,12 @@ Causal confusion is a failure of [behavioural cloning](index.md) in which the le
 
 A cloned policy is trained to predict expert actions from observations. Predictive accuracy on the demonstrations does not tell the learner which observations the expert actually responds to. When the relation between a spurious observation and the expert's action changes at test time, the policy fails even though its training loss was low. The paper argues that the root cause is that behavioural cloning ignores the causal structure linking the expert, the environment and the observations.
 
+## Visual example: brake-lamp intervention
+
+![A fixed hazard and expert braking remain while the brake lamp is suppressed, revealing a spurious shortcut policy](../../../../assets/concept-animations/causal-lamp-intervention-still.svg)
+
+*Original teaching schematic (CC BY-SA 4.0).* The toy causal chain is **hazard → expert braking → brake lamp**. An intervention suppresses the lamp while keeping the hazard and expert action fixed. A policy using the hazard keeps its braking response; the shortcut policy incorrectly using the lamp loses its response as the lamp fades. The three bars are *synthetic normalized signals*, not trained-policy measurements or paper results. MkDocs supports Play/Pause, while GitHub displays the full [static preview](../../../../assets/concept-animations/causal-lamp-intervention-still.svg). [View continuous SVG animation](../../../../assets/concept-animations/causal-lamp-intervention-motion.svg).
+
 ## Key concepts
 
 - **Causal versus spurious feature**: a feature is causal if the expert's decision depends on it, and spurious if it is only correlated with the decision through some other variable, such as the consequence of the action.
@@ -56,6 +62,10 @@ Written as a standard cloning objective, the baseline minimises \(\sum_{(o,a)\in
 ## Related failure: copycat policies
 
 Wen et al. (2020) study *copycat agents*, cloned policies trained from observation histories that predict the previous expert action rather than the next one. Because expert actions are often strongly correlated over time, copying the last action is an easy way to reduce the training loss. It is a concrete case of the same mechanism: a shortcut feature that predicts the target well on the demonstrations but does not reflect the intended behaviour.
+
+![Eight expert action slots versus a one-step-lag copycat; red outlines mark incorrect switching responses at t3 and t6](../../../../assets/concept-animations/copycat-action-lag-still.svg)
+
+*Original teaching schematic (CC BY-SA 4.0).* The expert action sequence is GO, GO, GO, STOP, STOP, STOP, GO, GO. A toy copycat starts at GO for \(t=0\), and for \(t\ge1\) follows \(\hat a_t=a^{\mathrm{expert}}_{t-1}\). It predicts correctly on sustained actions but makes one-step-late predictions at the two switches (red outlines). The cursor traverses the eight slots continuously. This is a deterministic **constructed sequence, not learned model behaviour or empirical performance**. On MkDocs, use Play/Pause; [view animated SVG](../../../../assets/concept-animations/copycat-action-lag-motion.svg) or [static GitHub preview](../../../../assets/concept-animations/copycat-action-lag-still.svg).
 
 ## Connections
 

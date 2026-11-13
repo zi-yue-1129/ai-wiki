@@ -10,24 +10,37 @@
     'flashattention-streaming-tiles.svg': 'flashattention-streaming-tiles-still.svg',
     'lstm-write-retain-read.svg': 'lstm-write-retain-read-still.svg',
   };
+  // Static-first Markdown is safely upgraded only for these approved motion pairs.
+  const staticMotionPairs = {
+    'causal-lamp-intervention-still.svg': 'causal-lamp-intervention-motion.svg',
+    'copycat-action-lag-still.svg': 'copycat-action-lag-motion.svg',
+  };
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
-      const animated = img.dataset.motionSrc || img.getAttribute('src') || '';
+      const originalSrc = img.dataset.motionSrc || img.getAttribute('src') || '';
+      const originalFile = originalSrc.split(/[?#]/, 1)[0].split('/').pop();
+      const staticFirst = Boolean(staticMotionPairs[originalFile]);
+      const animated = staticFirst ? originalSrc.replace(originalFile, staticMotionPairs[originalFile]) : originalSrc;
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
-      const still = img.dataset.stillSrc || (pairedStill
+      const still = img.dataset.stillSrc || (staticFirst ? originalSrc : (pairedStill
         ? animated.replace(fileName, pairedStill)
-        : animated.replace(suffix, '-still.svg'));
+        : animated.replace(suffix, '-still.svg')));
       const isMoe = moeSuffix.test(animated);
       const tokenB = isMoe ? animated.replace(suffix, '-token-b.svg') : '';
       const chinese = /[\u3400-\u9fff]/.test(img.alt || '');
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
+      if (staticFirst) {
+        host.classList.add('causal-imitation-motion');
+        host.tabIndex = 0;
+        host.setAttribute('aria-label', chinese ? '可使用方向鍵水平捲動教學圖' : 'Scroll the teaching diagram horizontally with arrow keys');
+      }
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';

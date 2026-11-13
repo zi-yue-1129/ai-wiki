@@ -50,7 +50,7 @@ jobs:
         run: python scripts/verify_concept_animations.py
 
   validate-motion:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -58,6 +58,8 @@ jobs:
           python-version: "3.12"
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
+      - name: Validate bilingual causal-imitation motion pairs
+        run: python scripts/verify_causal_imitation_motion.py
       - name: Check uncertainty motion numerical semantics
         run: python scripts/test_uncertainty_motion_semantics.py
       - name: Exercise bilingual guided motion controls and fallback
