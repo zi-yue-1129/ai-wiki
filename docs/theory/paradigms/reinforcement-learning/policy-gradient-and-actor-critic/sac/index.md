@@ -41,13 +41,13 @@ The paper omits the temperature from its algorithm, and reports reward scale as 
 <img src="../../../../../assets/concept-animations/sac-entropy-temperature-still.svg" data-motion-src="../../../../../assets/concept-animations/sac-entropy-temperature-motion.svg" alt="Three action-probability bars move as the softmax temperature decreases, while an entropy-versus-temperature curve traces the change in entropy." loading="lazy">
 </div>
 
-*Original vector teaching animation (CC BY-SA 4.0).* For **fixed**, schematic action values (Q=[2,1,0]), the finite-action maximum-entropy optimum is
+*Original vector teaching animation (CC BY-SA 4.0).* For **fixed**, schematic action values \(Q=[2,1,0]\), the finite-action maximum-entropy optimum is
 
-[
-pi_{alpha}(amid s)=rac{exp(Q(s,a)/alpha)}{sum_{a'}exp(Q(s,a')/alpha)}.
-]
+\[
+\pi_{\alpha}(a\mid s)=\frac{\exp(Q(s,a)/\alpha)}{\sum_{a'}\exp(Q(s,a')/\alpha)}.
+\]
 
-At (alpha=2), probabilities are approximately ((0.506,0.307,0.186)) and entropy is (1.020) nats. At (alpha=0.5), they become approximately ((0.867,0.117,0.016)) and entropy falls to (0.441) nats. The pale outlines retain the high-temperature comparison, while the orange cursor follows the analytic entropy curve. **This is an explanatory three-action analogue, not SAC's continuous-action actor, an optimiser trajectory, or measured policy outputs.** On the MkDocs website use **Play/Pause**, or the keyboard with Enter/Space; reduced-motion users see the static endpoint. The image remains readable without scripts. See [Haarnoja et al. (2018)](https://arxiv.org/abs/1801.01290).
+At \(\alpha=2\), probabilities are approximately \((0.506,0.307,0.186)\) and entropy is \(1.020\) nats. At \(\alpha=0.5\), they become approximately \((0.867,0.117,0.016)\) and entropy falls to \(0.441\) nats. The pale outlines retain the high-temperature comparison, while the orange cursor follows the analytic entropy curve. **This is an explanatory three-action analogue, not SAC's continuous-action actor, an optimiser trajectory, or measured policy outputs.** On the MkDocs website use **Play/Pause** or Enter/Space; reduced-motion users see the static endpoint. The image remains readable without scripts. See [Haarnoja et al. (2018)](https://arxiv.org/abs/1801.01290).
 
 ## Results
 

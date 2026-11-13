@@ -37,14 +37,14 @@ translation_reviewed: 2026-11-14
 <img src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" data-motion-src="../../../../../assets/concept-animations/dpo-preference-margin-motion.svg" alt="在固定參考模型下，偏好與拒絕回應的策略機率持續改變，橘色游標隨偏好差距移動於 DPO 邏輯損失曲線。" loading="lazy">
 </div>
 
-*原創向量教學動畫（CC BY-SA 4.0）。* 考慮只有兩個回應的**人工示例**，令 (pi_{mathrm{ref}}(y_wmid x)=pi_{mathrm{ref}}(y_lmid x)=0.5)，相對參考模型的偏好差距與 DPO 損失為：
+*原創向量教學動畫（CC BY-SA 4.0）。* 考慮只有兩個回應的**人工示例**，令 \(\pi_{\mathrm{ref}}(y_w\mid x)=\pi_{\mathrm{ref}}(y_l\mid x)=0.5\)，相對參考模型的偏好差距與 DPO 損失為：
 
-[
-Delta=lograc{pi_	heta(y_wmid x)}{pi_{mathrm{ref}}(y_wmid x)}-lograc{pi_	heta(y_lmid x)}{pi_{mathrm{ref}}(y_lmid x)},qquad
-ell_{mathrm{DPO}}=-logsigma(etaDelta).
-]
+\[
+\Delta=\log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)}-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)},\qquad
+\ell_{\mathrm{DPO}}=-\log\sigma(\beta\Delta).
+\]
 
-取 (eta=1)，將**構造的**差距從 (-1.6) 掃描到 (+1.6) 時，偏好回應的策略機率從 (0.168) 增至 (0.832)，損失由 (1.784) 降至 (0.184)。虛線長條是固定參考機率；橘色游標沿解析式損失曲線移動。**這是跨假設策略的連續視覺插值，不是梯度下降歷程、獎勵模型輸出或訓練實測資料。** MkDocs 網站支援播放／暫停及 Enter／Space，靜態與減少動態效果版本保留正差距端點。詳見 [Rafailov 等人（2023）](https://arxiv.org/abs/2305.18290)。
+取 \(\beta=1\)，將**構造的**差距從 \(-1.6\) 掃描到 \(+1.6\) 時，偏好回應的策略機率從 \(0.168\) 增至 \(0.832\)，損失由 \(1.784\) 降至 \(0.184\)。虛線長條是固定參考機率；橘色游標沿解析式損失曲線移動。**這是跨假設策略的連續視覺插值，不是梯度下降歷程、獎勵模型輸出或訓練實測資料。** MkDocs 網站支援播放／暫停及 Enter／Space，靜態與減少動態效果版本保留正差距端點。詳見 [Rafailov 等人（2023）](https://arxiv.org/abs/2305.18290)。
 
 ## 結果
 

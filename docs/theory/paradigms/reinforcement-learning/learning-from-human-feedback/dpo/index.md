@@ -39,14 +39,14 @@ where \(y_w\) is the preferred completion, \(y_l\) the dispreferred one, and \(\
 <img src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" data-motion-src="../../../../../assets/concept-animations/dpo-preference-margin-motion.svg" alt="Preferred and rejected policy probabilities change against a fixed reference, while a point travels along the DPO logistic-loss curve as the preference margin increases." loading="lazy">
 </div>
 
-*Original vector teaching animation (CC BY-SA 4.0).* In a **two-completion schematic** with (pi_{mathrm{ref}}(y_wmid x)=pi_{mathrm{ref}}(y_lmid x)=0.5), define the reference-adjusted margin
+*Original vector teaching animation (CC BY-SA 4.0).* In a **two-completion schematic** with \(\pi_{\mathrm{ref}}(y_w\mid x)=\pi_{\mathrm{ref}}(y_l\mid x)=0.5\), define the reference-adjusted margin
 
-[
-Delta=lograc{pi_	heta(y_wmid x)}{pi_{mathrm{ref}}(y_wmid x)}-lograc{pi_	heta(y_lmid x)}{pi_{mathrm{ref}}(y_lmid x)},qquad
-ell_{mathrm{DPO}}=-logsigma(etaDelta).
-]
+\[
+\Delta=\log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)}-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)},\qquad
+\ell_{\mathrm{DPO}}=-\log\sigma(\beta\Delta).
+\]
 
-With (eta=1), sweeping the **constructed** margin from (-1.6) to (+1.6) raises the preferred policy probability from (0.168) to (0.832) and lowers the loss from (1.784) to (0.184). Dashed bars show the fixed reference; the orange cursor tracks the exact logistic-loss curve. **The continuous sweep is visual interpolation across hypothetical policies, not gradient descent, reward-model predictions, or measured training data.** On the MkDocs website use **Play/Pause** or Enter/Space; static and reduced-motion views retain the positive-margin endpoint. See [Rafailov et al. (2023)](https://arxiv.org/abs/2305.18290).
+With \(\beta=1\), sweeping the **constructed** margin from \(-1.6\) to \(+1.6\) raises the preferred policy probability from \(0.168\) to \(0.832\) and lowers the loss from \(1.784\) to \(0.184\). Dashed bars show the fixed reference; the orange cursor tracks the exact logistic-loss curve. **The continuous sweep is visual interpolation across hypothetical policies, not gradient descent, reward-model predictions, or measured training data.** On the MkDocs website use **Play/Pause** or Enter/Space; static and reduced-motion views retain the positive-margin endpoint. See [Rafailov et al. (2023)](https://arxiv.org/abs/2305.18290).
 
 ## Results
 
