@@ -37,6 +37,10 @@ aliases:
 4. 載入所有被選中、但不在裝置上的專家。
 5. 依該方法定義的快取策略淘汰一個已快取的專家以騰出空間，然後繼續生成。
 
+<img src="../../assets/concept-animations/expert-cache-miss-still.svg" data-motion-src="../../assets/concept-animations/expert-cache-miss-motion.svg" alt="當路由器選中 E2 時，兩格 GPU 快取並未保存它；系統從主機記憶體載入 E2 並替換 E1，之後再次選中 E2 就會快取命中。">
+
+*原創教學動畫，CC BY-SA 4.0。* 圖中是**只有兩個位置的示意快取**，並非推論效能實測，也不代表原始論文特定的替換策略。起初 GPU 存有 E0 與 E1，但路由器選中 E2，因此必須從主機記憶體載入 E2，並移除 GPU 上的 E1 副本。下一次再選中 E2 時便會**快取命中**，不必重新傳輸。虛線與移動圓點只示意傳輸，並非實際硬體追蹤；淘汰對象、時間與專家選擇均為人工設定。MkDocs 可使用**播放／暫停**（Enter 或 Space），偏好減少動態效果時顯示靜態圖；窄螢幕可聚焦圖像區域並以鍵盤水平捲動。[GitHub 可閱讀的載入後狀態](../../assets/concept-animations/expert-cache-miss-still.svg)。
+
 ## 結果
 
 摘要報告，此策略可讓 Mixtral-8x7B 以混合量化在桌上型硬體與免費的 Google Colab 執行個體上執行。摘要未給出具體的速度數字，因此本頁不報告速度。需要這些數字的讀者，應在目標硬體上，以所用的快取大小與量化方式進行量測。
