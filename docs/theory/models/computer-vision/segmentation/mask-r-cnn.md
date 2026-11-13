@@ -34,6 +34,20 @@ Two design choices matter most.
 - **Per-class binary masks.** The mask head outputs one binary mask for each class, and the loss uses only the mask of the RoI's ground-truth class. Each class has its own sigmoid, so masks do not compete with one another as they do under the per-pixel softmax of FCN. Classification is handled by the separate class branch.
 - **RoIAlign.** Faster R-CNN extracts the features of each RoI with RoIPool, which rounds the RoI boundaries and bins to the feature-map grid. The paper argues that this misalignment has a large negative effect on pixel-accurate masks. RoIAlign removes the quantisation: it samples the feature map at regularly spaced points inside each bin and combines them by bilinear interpolation.
 
+## Animated walkthrough: rounded versus aligned sampling
+
+<div style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable RoI sampling comparison">
+<div style="width:800px">
+<img src="../../../../assets/concept-animations/roi-align-sampling-still.svg" data-motion-src="../../../../assets/concept-animations/roi-align-sampling-motion.svg" data-still-src="../../../../assets/concept-animations/roi-align-sampling-still.svg" width="800" height="460" alt="Two matching feature grids: an orange target moves continuously, while rounded RoIPool-style sampling jumps and RoIAlign-style bilinear sampling varies smoothly.">
+</div>
+</div>
+
+**What changes?** The orange marker moves through the same invented feature grid in both panels. The teal sample on the left snaps between positions, producing an abrupt output-bar change; on the right the sample follows the continuous coordinate and the output bar changes smoothly. The illustration deliberately reduces RoIPool-style coordinate quantisation to a **single nearest-grid read**, not the full RoIPool max-pooling algorithm. Real RoIAlign evaluates **bilinearly interpolated feature values at locations inside every RoI bin**, then aggregates them. This is a schematic one-dimensional slice, not a measured feature map or the numerical result of [Mask R-CNN](https://arxiv.org/abs/1703.06870).
+
+GitHub shows the reviewed **static fallback** directly. On MkDocs, the same asset gains an accessible **Play/Pause** button (Tab, Enter or Space), plus reduced-motion fallback. On a narrow screen, focus the diagram region and scroll horizontally to retain readable labels.
+
+*Original concept animation and static fallback, CC BY-SA 4.0.*
+
 ## Equation and procedure
 
 Each sampled RoI carries a multi-task loss

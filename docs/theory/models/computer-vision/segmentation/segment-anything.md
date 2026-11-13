@@ -36,6 +36,20 @@ The paper proposes three linked parts.
 
 The image encoder is a Vision Transformer (ViT-H/16) initialised with masked autoencoder pretraining, and adapted with minimal changes to high-resolution inputs. Because the heavy encoder runs once per image, the decoder can run interactively for each prompt.
 
+## Animated walkthrough: ambiguous prompt, several valid masks
+
+<div style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable SAM prompt-and-mask illustration">
+<div style="width:800px">
+<img src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" data-motion-src="../../../../assets/concept-animations/sam-prompt-ambiguity-motion.svg" data-still-src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" width="800" height="460" alt="A single point on a nested shape yields whole, part, and subpart mask candidates; adding a box prompt illustrates a narrower, single-mask response.">
+</div>
+</div>
+
+A single point in the nested object is consistent with several mask granularities: **whole**, **part**, or **subpart**. The three candidate silhouettes on the right are **distinct plausible outputs**, not a categorical softmax or three segmentation class labels. When an additional box prompt appears, the diagram highlights one constrained response; in the original [Segment Anything study](https://arxiv.org/abs/2304.02643), **ambiguous single prompts can yield three masks**, while multiple prompts use a single output mask. The silhouettes and their timing are **constructed illustrations**, not actual SAM predictions, confidence estimates, or recorded decoder attention.
+
+GitHub displays the reviewed static SVG without executing scripts. On MkDocs, Play/Pause (Tab, Enter or Space) and reduced-motion fallback reuse the same shared assets. Focus and scroll the figure horizontally on narrow screens.
+
+*Original concept animation and static fallback, CC BY-SA 4.0.*
+
 ## Equation and procedure
 
 Masks are predicted with a linear combination of focal loss and dice loss, weighted 20 to 1 in favour of focal loss. A separate head predicts the quality of each mask as its IoU with the ground truth, and is trained with mean-squared error. Writing $\mathcal{L}_{\text{focal}}$ and $\mathcal{L}_{\text{dice}}$ for the two mask losses and $\mathcal{L}_{\text{IoU}}$ for the quality term,

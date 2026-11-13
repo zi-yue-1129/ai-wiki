@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-14
 related:
   - theory/models/computer-vision/object-detection
 ---
@@ -23,6 +23,20 @@ related:
 - **資料引擎。** 一個迴圈，其中當前模型協助標註者標註遮罩，新標註的遮罩再用來訓練下一個模型。此迴圈分為三個階段，詳見下文。
 
 影像編碼器是以遮罩自編碼器（masked autoencoder）預訓練初始化的 Vision Transformer（ViT-H/16），並以最小改動調整為可處理高解析度輸入。由於沉重的編碼器只需對每張影像執行一次，解碼器便能對每個提示互動式地執行。
+
+## 動態示範：單一提示的遮罩歧義
+
+<div style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="SAM 點提示與多個候選遮罩的教學圖，可水平捲動">
+<div style="width:800px">
+<img src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" data-motion-src="../../../../assets/concept-animations/sam-prompt-ambiguity-motion.svg" data-still-src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" width="800" height="460" alt="單一點提示落在具有整體、部分和子部分的巢狀形狀上，右側展示三種有效遮罩候選；額外框提示出現後，示意聚焦於整體遮罩。">
+</div>
+</div>
+
+位於巢狀物體內的單一點提示，同時可能對應**整體（whole）**、**部分（part）**與**子部分（subpart）**等多種合理遮罩。右側展示的是**不同粒度的有效候選**，不是類別 softmax，也不是三種語意分類標籤。當畫面加入框提示時，示意聚焦於一個受額外條件限制的輸出。原始 [Segment Anything 論文](https://arxiv.org/abs/2304.02643)在有歧義的單一提示下可輸出三張候選遮罩，多個提示時則輸出一張遮罩。**圖中的形狀與時間轉場全是人工示意**，並非 SAM 模型實際推論、信心分數或注意力量測。
+
+GitHub 不執行腳本時會直接顯示已檢查的靜態 SVG；MkDocs 則使用同一組共用資產，提供播放／暫停（Tab、Enter 或空白鍵）及減少動態效果回退。窄螢幕可聚焦圖面並水平捲動。
+
+*原創教學動畫及靜態回退圖，CC BY-SA 4.0。*
 
 ## 方程式與流程
 

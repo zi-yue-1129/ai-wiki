@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-14
 related:
   - theory/models/computer-vision/object-detection
 ---
@@ -22,6 +22,20 @@ Mask R-CNN 保留 Faster R-CNN 的兩階段結構。區域提議網路先提出�
 
 - **每類別一張二元遮罩。** 遮罩頭為每個類別輸出一張二元遮罩，損失只使用 RoI 真實類別的遮罩。每個類別有自己的 sigmoid，因此遮罩之間不像 FCN 的逐像素 softmax 那樣相互競爭。分類由獨立的類別分支負責。
 - **RoIAlign。** Faster R-CNN 以 RoIPool 擷取每個 RoI 的特徵，它會把 RoI 的邊界與分格取整到特徵圖的網格上。論文主張，這種錯位會對像素級精確的遮罩產生很大的負面影響。RoIAlign 去除了取整：它在每個分格內以規則間隔取樣特徵圖，並以雙線性插值合併。
+
+## 動態示範：取整取樣與對齊取樣
+
+<div style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="RoIAlign 與 RoIPool 取樣差異的教學圖，可水平捲動">
+<div style="width:800px">
+<img src="../../../../assets/concept-animations/roi-align-sampling-still.svg" data-motion-src="../../../../assets/concept-animations/roi-align-sampling-motion.svg" data-still-src="../../../../assets/concept-animations/roi-align-sampling-still.svg" width="800" height="460" alt="左右並列兩張特徵網格：橘色分數取樣位置連續移動；RoIPool 的取整位置和示意取樣值跳變，RoIAlign 依雙線性插值平滑改變。">
+</div>
+</div>
+
+**觀察重點：** 橘色標記在兩張人工構造的特徵網格上連續移動。左側青綠色取樣位置在格點間跳變，使下方輸出長條突然改變；右側則以連續座標取得插值，輸出長條平滑變化。此圖刻意將 RoIPool 式座標量化簡化成**單一格點取樣**，並非完整的 RoIPool 最大池化計算。實際 RoIAlign 在每個 RoI 分格內對多個位置進行**雙線性插值**並聚合特徵。畫面是教學用的一維截面示意，並非真實影像的特徵圖或 [Mask R-CNN 論文](https://arxiv.org/abs/1703.06870)的實驗數值。
+
+GitHub 直接顯示已檢查的**靜態回退圖**；MkDocs 則提供播放／暫停按鈕（Tab、Enter 或空白鍵），並支援減少動態效果偏好。手機可聚焦圖面區域，水平捲動以保留清楚的英文標籤。
+
+*原創教學動畫及靜態回退圖，CC BY-SA 4.0。*
 
 ## 方程式與流程
 
