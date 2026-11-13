@@ -163,3 +163,12 @@ body.km-lock { overflow: hidden; }
     max-width: none;
   }
 }
+
+/* Decision-science visualizations: preserve SVG labels at native size on phones. */
+.decision-motion-scroll { max-width: 640px; overflow-x: auto; overscroll-behavior-x: contain; margin: .4rem auto .7rem; }
+.decision-motion-scroll:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
+@media (max-width: 680px) {
+  .decision-motion-scroll .concept-motion-player { width: 640px; max-width: none; }
+  .decision-motion-scroll .concept-motion-player img,
+  .decision-motion-scroll > img { width: 640px; min-width: 640px; max-width: none; }
+}

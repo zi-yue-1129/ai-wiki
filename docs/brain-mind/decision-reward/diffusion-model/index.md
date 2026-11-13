@@ -42,13 +42,11 @@ dx = v dt + s dW
 
 where v is the drift rate, s the scale of the noise, and dW a small increment of a Wiener process. The decision is made when x first reaches 0 or a. The response time is the time to reach a boundary plus the non-decision time. Choice and response time together then determine the predicted data, and fitting the parameters to the observed distribution of response times is what separates the components.
 
-```mermaid
-flowchart LR
-  S[Starting point z] --> X[Noisy evidence x<br/>drift v, noise s]
-  X -->|x reaches 0| L[Choose option 0]
-  X -->|x reaches a| R[Choose option 1]
-  X --> T[Response time =<br/>crossing time +<br/>non-decision time]
-```
+<div class="decision-motion-scroll" role="region" tabindex="0" aria-label="Scrollable teaching illustration">
+<img src="../../../assets/concept-animations/ddm-first-passage-still.svg" data-motion-src="../../../assets/concept-animations/ddm-first-passage-motion.svg" data-still-src="../../../assets/concept-animations/ddm-first-passage-still.svg" alt="Illustrative evidence path: narrow thresholds are reached at step seven, wide thresholds at step fifteen." loading="lazy">
+</div>
+
+*Original continuous teaching animation (CC BY-SA 4.0).* The same **constructed** evidence trace is revealed against two symmetric boundary pairs, ±0.40 (teal) and ±0.78 (purple). Its first sampled upper crossing occurs at steps 7 and 15, respectively. The timeline uses **arbitrary sample steps**, not seconds; it is **not a sampled Wiener-process simulation, a fitted participant trajectory, or a prediction of aggregate accuracy**. A single path illustrates first passage, not the statistical speed–accuracy trade-off; that requires a distribution of noisy paths. On the MkDocs site use **Play/Pause animation** (Tab then Enter or Space); a static fallback is available for GitHub and reduced-motion settings. The model and its link to response-time distributions are reviewed by [Ratcliff and McKoon (2008)](https://doi.org/10.1162/neco.2008.12-06-420).
 
 The model's form is a continuous version of sequential sampling, in which evidence is gathered one sample at a time until a threshold is reached. Its continuous form makes the predicted distributions of response times analytical, which is why it can be fitted to large datasets.
 

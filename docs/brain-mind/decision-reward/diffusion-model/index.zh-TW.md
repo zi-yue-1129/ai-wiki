@@ -41,13 +41,11 @@ dx = v dt + s dW
 
 其中 v 為漂移率，s 為雜訊的尺度，dW 為 Wiener 過程的一個小增量。當 x 首次到達 0 或 a 時做出決定。反應時間為到達邊界所需的時間，加上非決策時間。選擇與反應時間共同決定預測的資料，而把參數擬合到觀察到的反應時間分布，正是分離各個成分的方法。
 
-```mermaid
-flowchart LR
-  S[起始點 z] --> X[有雜訊的證據 x<br/>漂移率 v、雜訊 s]
-  X -->|x 到達 0| L[選擇選項 0]
-  X -->|x 到達 a| R[選擇選項 1]
-  X --> T[反應時間 =<br/>跨越邊界的時間 +<br/>非決策時間]
-```
+<div class="decision-motion-scroll" role="region" tabindex="0" aria-label="可水平捲動的教學動畫">
+<img src="../../../assets/concept-animations/ddm-first-passage-still.svg" data-motion-src="../../../assets/concept-animations/ddm-first-passage-motion.svg" data-still-src="../../../assets/concept-animations/ddm-first-passage-still.svg" alt="示意證據累積軌跡：較窄門檻於第七步首次到達，較寬門檻於第十五步首次到達。" loading="lazy">
+</div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 同一條**人工構造的**證據軌跡，分別對照 ±0.40（青綠色）與 ±0.78（紫色）兩組對稱邊界；首次跨越上界的離散樣本點分別在第 7 步與第 15 步。時間軸使用**任意離散步數，不是秒數**；圖中**並非 Wiener 過程的實際模擬樣本、受試者擬合軌跡或整體準確率預測**。單一路徑只能展示首次穿越，若要評估速度–準確度取捨，仍須分析大量帶雜訊路徑所形成的選擇與反應時間分布。在 MkDocs 網站可使用**播放／暫停動畫**（Tab 聚焦後按 Enter 或空白鍵）；GitHub 與減少動態效果設定使用靜態回退。[Ratcliff 與 McKoon（2008）](https://doi.org/10.1162/neco.2008.12-06-420)回顧此模型及反應時間分布的關係。
 
 這個模型是序列抽樣（sequential sampling）的連續版本：證據一次取一個樣本，直到達到門檻。連續形式使反應時間的預測分布可以用解析方式求得，因此能擬合大型資料集。
 
