@@ -8,6 +8,7 @@ on:
       - "scripts/verify_concept_motion.py"
       - "scripts/verify_concept_svgs.py"
       - "scripts/test_uncertainty_motion_semantics.py"
+      - "scripts/test_predictive_coding_motion_browser.py"
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
@@ -73,6 +74,8 @@ jobs:
           python -m playwright install chromium
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
+      - name: Predictive-coding SVG, bilingual controls and reduced motion in Chromium
+        run: python scripts/test_predictive_coding_motion_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -89,6 +92,7 @@ jobs:
         with:
           name: self-supervised-lab-browser-review
           path: |
+            artifacts/predictive-coding-motion/*.png
             artifacts/self-supervised-labs/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
