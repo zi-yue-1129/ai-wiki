@@ -29,7 +29,12 @@
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
       img.before(host);
-      host.append(img);
+      const viewport = document.createElement('span');
+      viewport.className = 'concept-motion-viewport';
+      viewport.tabIndex = 0; // Keep scroll focus separate from the always-visible controls.
+      viewport.setAttribute('aria-label', chinese ? '概念動畫：可使用方向鍵水平捲動' : 'Concept animation: use arrow keys to scroll horizontally');
+      host.append(viewport);
+      viewport.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';
 
       const controls = document.createElement('span');

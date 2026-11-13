@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 status: complete
 last_reviewed: 2026-10-28
 tags:
@@ -49,6 +49,13 @@ Dayan（1993）示範了如何用 TD 機制學習一種表徵，其中每個狀�
 \(M(s,\cdot) \leftarrow M(s,\cdot) + \alpha\,[\mathbf{1}_{s} + \gamma\, M(s',\cdot) - M(s,\cdot)]\)
 
 其中 \(\alpha\) 為學習率。獎勵權重 \(R\) 則另外從各狀態觀察到的獎勵中估計。由於 \(M\) 由智慧體的策略定義，改變策略就會改變 \(M\)。
+
+
+### 折扣佔據與獎勵重估的動態示範
+
+<img src="../../../assets/concept-animations/successor-occupancy-still.svg" data-motion-src="../../../assets/concept-animations/successor-occupancy-motion.svg" data-still-src="../../../assets/concept-animations/successor-occupancy-still.svg" alt="橘色標記依序走過五個狀態，折扣造訪長條累積；紫色獎勵標記改變位置後，狀態價值改變但佔據權重不變">
+
+*原創教學動畫（CC BY-SA 4.0）。* 在**確定性、單回合且固定策略**的鏈狀環境中，代理人依序造訪 $S_0\rightarrow S_1\rightarrow S_2\rightarrow S_3\rightarrow S_4$，並在 $S_4$ 終止。令 $\gamma=0.7$，因此 $M(S_0,S_j)=\gamma^j$（$j=0,\ldots,4$）；終止後不再計算吸收狀態的重複造訪。橘色標記沿狀態前進，青綠色長條依序累積折扣造訪量。紫色標記起初位於 $S_4$ 且 $R(S_4)=1$，因此 $V(S_0)=0.7^4=0.2401$；改將獎勵設於 $S_2$ 後，$V(S_0)=0.7^2=0.49$，而 **$M$ 保持不變**。此結果以轉移機率與策略不變為前提。全部數值皆為人工解析示意，並非動物行為或神經活動的實測值。在 MkDocs 可播放／暫停；亦有 [GitHub 靜態預覽](../../../assets/concept-animations/successor-occupancy-still.svg)。
 
 ## 結果
 
