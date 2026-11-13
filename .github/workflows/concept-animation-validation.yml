@@ -27,6 +27,7 @@ on:
       - "scripts/test_ssl_gradient_browser.py"
       - "scripts/test_ssl_ema_trajectory_browser.py"
       - "scripts/test_ssl_temporal_provenance_browser.py"
+      - "scripts/test_inference_concept_motion_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
@@ -72,6 +73,8 @@ jobs:
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
+      - name: Chromium bilingual inference diagrams, keyboard pause and mobile scroll
+        run: python scripts/test_inference_concept_motion_browser.py
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
