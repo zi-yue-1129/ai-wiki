@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # AWQ
@@ -13,6 +13,19 @@ AWQ（激活感知權重量化）是大型語言模型僅權重量化的訓練�
 ## 核心想法
 
 依激活統計量找出顯著通道。量化前先放大這些通道的尺度，使它們的相對捨入誤差下降。反向的尺度會併入前一個運算，因此在完整精度下網路在數學上不變。
+
+
+### 教學動畫：顯著通道縮放與捨入誤差
+
+<div class="concept-motion-horizontal-scroll" tabindex="0" role="group" aria-label="使用方向鍵左右捲動教學動畫">
+<img src="../../../../../assets/concept-animations/awq-salient-scaling-still.svg" data-motion-src="../../../../../assets/concept-animations/awq-salient-scaling-motion.svg" alt="顯著通道的權重隨縮放係數變化而跨越量化格點，量化後位置與輸出誤差也跟著改變。">
+</div>
+
+[GitHub 可閱讀靜態預覽](../../../../../assets/concept-animations/awq-salient-scaling-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/awq-salient-scaling-motion.svg)
+
+此**單一通道的解析示例**假設激活值 $x=4$、權重 $w=0.37$，量化格點間距固定為**示意值** $\Delta=0.25$。未縮放時，$Q(0.37)=0.25$，輸出誤差 $|4(0.25-0.37)|=0.48$。若 $s=2$，全精度運算仍滿足 $(x/s)(sw)=xw$，而相同示意格點上的 $Q(0.74)=0.75$，使誤差成為 $|(4/2)(0.75-0.74)|=0.02$。動畫讓 $s$ 從 1 連續增至 2 再返回，且捨入會在格點邊界**跳變**，誤差並**不保證單調下降**。此圖只隔離 Lin 等人（2023）激活感知保護的動機，**不是**實際 AWQ 的群組量化器或校準搜尋，數值亦**非模型量測**。
+
+MkDocs 可用**播放／暫停**（Enter／Space）觀察浮點與捨入位置、誤差長條的變化；GitHub 與偏好減少動態效果的讀者看到最終靜態比較。原創圖像授權 **CC BY-SA 4.0**。
 
 ## 公式或演算法
 

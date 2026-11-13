@@ -7,3 +7,10 @@
 .concept-motion-toggle:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 3px; }
 .concept-motion-status { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 @media (prefers-reduced-motion: reduce) { .concept-motion-toggle { transition: none !important; } }
+
+/* Preserve legible 640px diagrams on narrow displays; keyboard-scroll accessible. */
+.concept-motion-horizontal-scroll { display: block; max-width: 640px; margin: .5rem auto 1rem; overflow-x: auto; overscroll-behavior-x: contain; }
+.concept-motion-horizontal-scroll:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
+.concept-motion-horizontal-scroll .concept-motion-player { width: 640px; max-width: none; margin: 0; }
+.concept-motion-horizontal-scroll img,
+.concept-motion-horizontal-scroll .concept-motion-player img { display: block; width: 640px; max-width: none; height: auto; }
