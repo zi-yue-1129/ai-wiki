@@ -37,6 +37,12 @@ Given an input \(x\), label \(y\), loss \(J(\theta,x,y)\) and parameters \(\thet
 
 Clipping \(\tilde{x}\) to the valid input range, such as \([0,1]\) for images, keeps the example a valid input. Goodfellow et al. (2015) show that a linear model is especially vulnerable, because the perturbation adds up across many input dimensions and changes the output by \(\epsilon\|w\|_1\).
 
+### Visual walkthrough
+
+<div role="region" tabindex="0" aria-label="Scrollable FGSM sign-gradient illustration" style="overflow-x:auto;max-width:100%"><img src="../../../assets/concept-animations/fgsm-sign-step-still.svg" data-motion-src="../../../assets/concept-animations/fgsm-sign-step-motion.svg" data-still-src="../../../assets/concept-animations/fgsm-sign-step-still.svg" width="640" height="360" style="width:640px;max-width:none" alt="The gradient points northeast in a two-dimensional input space, while the FGSM sign step moves diagonally to the corner of the L-infinity perturbation budget. A linked marker shows the increasing first-order loss."></div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* This **analytic, two-coordinate illustration** uses a constant loss gradient $g=(0.90,0.45)$, an $\ell_\infty$ budget $\epsilon=1$ and a linearized change $\Delta J\approx g^\top\delta$. The orange arrow is the actual gradient direction, while the teal displacement uses **only its signs**: $\delta(t)=t(1,1)$ for $0\leq t\leq1$. Consequently, the linearized loss gain increases from zero to $\Delta J(1)=0.90+0.45=1.35$. The sign step is the exact maximizer **of this local linear approximation** under the stated unconstrained-input box; it need not maximize the nonlinear model loss, and clipping to valid image intensities can shorten the step. Values are selected for instruction, **not measured model gradients or attack success rates**. The MkDocs site provides Play/Pause and a reduced-motion static fallback; on a narrow screen, scroll the figure horizontally using touch or keyboard. [GitHub-readable static preview](../../../assets/concept-animations/fgsm-sign-step-still.svg).
+
 ## Variants
 
 - **Targeted FGSM** moves the input toward a chosen wrong label rather than away from the true label.

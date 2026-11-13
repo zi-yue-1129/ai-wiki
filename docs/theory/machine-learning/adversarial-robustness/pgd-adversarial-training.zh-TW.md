@@ -26,6 +26,12 @@ x^{(t+1)}=\Pi_{\mathcal{B}_\epsilon(x)}\!\Big(x^{(t)}+\alpha\,\mathrm{sign}\big(
 
 其中 \(\Pi\) 為投影到球上，\(\alpha\) 為步長。對抗訓練在每個小批次上計算這個內層最大化，並以得到的樣本更新參數。此方法成本高，因為每個訓練步需要多次計算梯度。
 
+### 動畫解說
+
+<div role="region" tabindex="0" aria-label="可水平捲動的 PGD 投影步驟示意圖" style="overflow-x:auto;max-width:100%"><img src="../../../assets/concept-animations/pgd-projection-path-still.svg" data-motion-src="../../../assets/concept-animations/pgd-projection-path-motion.svg" data-still-src="../../../assets/concept-animations/pgd-projection-path-still.svg" width="640" height="360" style="width:640px;max-width:none" alt="PGD 連續執行多次符號梯度上升，在方形擾動預算內移動；當候選點超出右側邊界時，投影回合法集合，右側同步呈現累積步驟的損失變化。"></div>
+
+*原創逐步教學動畫，CC BY-SA 4.0。* 青綠色標記代表**投影後的擾動位置**，不是模型權重更新。為了單獨展示投影機制，使用人工設定的二維凹函數 $J(\delta)=2-0.6(\delta_1-1.3)^2-1.1(\delta_2-0.55)^2$，限制 $\delta\in[-1,1]^2$，步長 $\alpha=0.4$，起點 $\delta^{(0)}=(-0.85,-0.85)$。每步執行 $\delta^{(k+1)}=\Pi_{[-1,1]^2}(\delta^{(k)}+0.4\,\mathrm{sign}(\nabla J(\delta^{(k)})))$。第 5 步時第一個座標的候選值為 $1.15$，因此投影回 $1$；粉紅色空心標記是**投影前的候選位置**。選定示例的損失從約 $-2.93$ 增加至第 5 步的 $1.90$，但一般 PGD **不保證每一步都使損失單調上升**。等值線、路徑與數值全是人工解析式示意，**不是分類器實測結果、認證穩健性或最優解證明**。MkDocs 網站提供播放／暫停及偏好減少動態效果時的靜態回退；手機可用觸控或鍵盤水平捲動。[GitHub 可閱讀的靜態預覽](../../../assets/concept-animations/pgd-projection-path-still.svg)。
+
 ## 威脅模型與可行集合
 
 擾動範數與半徑是安全性主張的一部分，而不是可任意互換的超參數。典型影像分類設定假設攻擊者能取得模型與標籤，並在指定範數球及合法像素範圍內選擇擾動。\(\ell_\infty\) 預算限制每個座標的最大變動；\(\ell_2\) 預算則限制整體歐氏距離。在某個半徑下測得的穩健性，不能直接推論到另一個半徑、空間變換或改變任務語意的輸入。
