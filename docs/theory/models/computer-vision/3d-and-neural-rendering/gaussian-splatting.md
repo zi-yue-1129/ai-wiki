@@ -43,7 +43,7 @@ Here $c_i$ is the view-dependent colour of Gaussian $i$, and $\alpha_i$ is its o
 
 ### Visual walkthrough: depth-ordered alpha compositing
 
-![Animated Gaussian splatting: three sorted projected splats accumulate premultiplied pixel-contribution weights from near to far.](../../../../assets/concept-animations/gaussian-splat-alpha-composite-motion.svg)
+<img src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg" data-motion-src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-motion.svg" alt="Animated Gaussian splatting: three sorted projected splats accumulate premultiplied pixel-contribution weights from near to far.">
 
 [Static Gaussian splatting compositing overview for GitHub](../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg)
 
