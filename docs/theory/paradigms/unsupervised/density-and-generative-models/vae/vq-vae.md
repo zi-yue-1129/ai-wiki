@@ -43,7 +43,7 @@ For ImageNet at 128 by 128 by 3, the paper compresses each image into a 32 by 32
 
 ### Visual walkthrough: hard codebook assignment
 
-![Animated VQ-VAE codebook: a moving encoder vector switches between nearest discrete entries as it crosses a selection boundary.](../../../../../assets/concept-animations/vqvae-codebook-snap-motion.svg)
+<img src="../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg" data-motion-src="../../../../../assets/concept-animations/vqvae-codebook-snap-motion.svg" alt="Animated VQ-VAE codebook: a moving encoder vector switches between nearest discrete entries as it crosses a selection boundary.">
 
 [Static VQ-VAE codebook overview for GitHub](../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg)
 
