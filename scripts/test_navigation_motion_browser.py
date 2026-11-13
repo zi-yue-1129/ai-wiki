@@ -35,7 +35,7 @@ def exercise_player(browser, name, language, reduced, width):
     )
     page.add_script_tag(content=JS)
     page.wait_for_timeout(50)
-    host = page.locator(".concept-motion-player")
+    host = page.locator(".concept-motion-viewport")
     button = page.locator(".concept-motion-toggle")
     img = page.locator("main img")
     assert host.count() == 1 and button.count() == 1

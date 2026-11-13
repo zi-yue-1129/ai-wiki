@@ -1,5 +1,6 @@
 /* Shared accessible player for looped teaching diagrams. */
 .concept-motion-player { display: block; max-width: 640px; margin: .5rem auto 1rem; }
+.concept-motion-viewport { display: block; max-width: 100%; }
 .concept-motion-player img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: .55rem; }
 .concept-motion-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-top: .35rem; }
 .concept-motion-toggle { padding: .32rem .72rem; border: 1px solid var(--md-default-fg-color--lighter, #9cafbe); border-radius: .45rem; font: inherit; font-size: .72rem; line-height: 1.5; color: var(--md-default-fg-color, #24394c); background: var(--md-default-bg-color, #fff); cursor: pointer; }
@@ -10,7 +11,7 @@
 
 /* Preserve readable SVG labels on narrow screens; keyboard focus stays visible. */
 @media (max-width: 640px) {
-  .concept-motion-player { overflow-x: auto; max-width: 100%; scroll-behavior: auto; }
+  .concept-motion-viewport { overflow-x: auto; max-width: 100%; scroll-behavior: auto; }
   .concept-motion-player img { width: 640px; max-width: none; }
-  .concept-motion-player:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
+  .concept-motion-viewport:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
 }
