@@ -38,6 +38,12 @@ Good solutions tend to share useful building blocks. Crossover combines parts of
 5. Apply mutation to each child, flipping each bit with probability \(p_m\).
 6. Replace the population with the children, keeping the best member if elitism is used, and repeat.
 
+### Visual walkthrough: crossover and mutation
+
+<img src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" data-motion-src="../../../assets/concept-animations/genetic-crossover-mutation-motion.svg" data-still-src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" alt="One-point crossover from two selected eight-bit parents followed by a single mutation of the seventh offspring bit." loading="lazy">
+
+*Original teaching visual, CC BY-SA 4.0.* Blue tiles denote 1 and pale tiles denote 0. In this **schematic**, parent A is `11011010` and parent B is `00100101`; one-point crossover after position four produces `11010101`, and flipping the seventh bit produces `11010111`. Tile copying and the single mutation are shown over time; these are deliberately chosen example operations, **not observed fitness, selection probabilities or measured convergence**. On the MkDocs site, Play/Pause controls the animation, with a static fallback for reduced-motion preferences. On GitHub, this image is the meaningful static end-state; [open the animated process](../../../assets/concept-animations/genetic-crossover-mutation-motion.svg).
+
 In Holland's schema analysis, a schema \(H\) is a template over bit strings, with some positions fixed and the rest wildcards. Its expected number of copies in the next generation is bounded below by
 
 \[

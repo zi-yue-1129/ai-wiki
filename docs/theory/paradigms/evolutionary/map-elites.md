@@ -35,6 +35,12 @@ Mouret and Clune define a grid over a space of behavioural descriptors. Each can
 2. Place each candidate in the cell \(c(b)\). Keep it if the cell is empty or if \(f\) beats the cell's current fitness.
 3. Repeat: pick an elite uniformly at random from the archive, mutate it (and optionally recombine it with another elite), evaluate the offspring, and insert it as in step 2.
 
+### Visual walkthrough: archive replacement
+
+<img src="../../../assets/concept-animations/map-elites-archive-still.svg" data-motion-src="../../../assets/concept-animations/map-elites-archive-motion.svg" data-still-src="../../../assets/concept-animations/map-elites-archive-still.svg" alt="MAP-Elites archive of behavioural niches: empty-cell insertion, rejecting a worse candidate, replacing an elite, and adding another niche." loading="lazy">
+
+*Original teaching visual, CC BY-SA 4.0.* The 6 × 4 grid has **24 schematic behavioural niches**, initially three occupied. A candidate at descriptor cell (3, 1) with illustrative fitness **0.82** enters the empty cell; a candidate scoring **0.61** in the same cell is rejected; one scoring **0.93** replaces the incumbent; a candidate scoring **0.75** fills the new cell (2, 3). Coverage grows from **3/24 to 5/24** without preserving a globally single best solution. Colours encode per-cell quality, not a fitted probability. These values are constructed to show the insertion rule, **not measured MAP-Elites performance**. MkDocs adds Play/Pause and respects reduced-motion preferences; GitHub shows the static final archive and a [link to the full motion](../../../assets/concept-animations/map-elites-archive-motion.svg).
+
 The archive, not a population, is the output. Its coverage (how many cells are filled) and its best-per-cell values are both reported.
 
 ## Key results

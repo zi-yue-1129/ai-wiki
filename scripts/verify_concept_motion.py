@@ -14,6 +14,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "genetic-crossover-mutation": "theory/paradigms/evolutionary/genetic-algorithms",
+    "map-elites-archive": "theory/paradigms/evolutionary/map-elites",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
@@ -66,6 +68,7 @@ TOPICS = {
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
 }
+HTML_FALLBACK_PREVIEWS = {"genetic-crossover-mutation", "map-elites-archive"}
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
     "byol-online-target": "byol-momentum-preview.gif",
@@ -132,7 +135,13 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in GITHUB_GIF_PREVIEWS:
+            if stem in HTML_FALLBACK_PREVIEWS:
+                relative = "../../../assets/concept-animations/"
+                still_ref = f'src="{relative}{stem}-still.svg"'
+                motion_ref = f'data-motion-src="{relative}{stem}-motion.svg"'
+                if still_ref not in text or motion_ref not in text:
+                    errors.append(f"{page}: missing GitHub-safe HTML static preview or MkDocs animation")
+            elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.

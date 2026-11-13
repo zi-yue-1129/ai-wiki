@@ -34,6 +34,12 @@ Mouret 與 Clune 在行為描述子的空間上定義一個網格。每個候選
 2. 將每個候選放入格子 \(c(b)\)。若格子為空，或 \(f\) 優於該格現有的適應度，就保留它。
 3. 重複：從檔案庫中均勻隨機抽取一個菁英，對它做突變（也可選擇與另一個菁英重組），評估後代，並依步驟 2 插入。
 
+### 視覺解說：檔案庫更新與菁英替換
+
+<img src="../../../assets/concept-animations/map-elites-archive-still.svg" data-motion-src="../../../assets/concept-animations/map-elites-archive-motion.svg" data-still-src="../../../assets/concept-animations/map-elites-archive-still.svg" alt="MAP-Elites 行為格網依序展示空格插入、淘汰較差候選、以較優候選取代菁英及填入另一格。" loading="lazy">
+
+*原創教學視覺，CC BY-SA 4.0。* **人工示意**的 6 × 4 行為描述子網格有 24 格，起初占用 3 格。描述子位於 (3, 1) 且示意適應度為 **0.82** 的候選首先填入空格；同格適應度 **0.61** 的候選被拒絕；**0.93** 的候選取代原有菁英；**0.75** 的候選接著填入新格 (2, 3)。覆蓋率由 **3/24 增至 5/24**，不是只追蹤全域單一最佳解。顏色表示格內的相對品質，並非機率；上述數字**不是 MAP-Elites 的實測結果**。MkDocs 提供播放／暫停與減少動態效果回退；GitHub 顯示最終檔案庫靜態圖，亦可[開啟完整動畫](../../../assets/concept-animations/map-elites-archive-motion.svg)。
+
 輸出是檔案庫本身，而非族群。會回報其覆蓋率（有多少格子被填滿）以及每格的最佳值。
 
 ## 關鍵結果
