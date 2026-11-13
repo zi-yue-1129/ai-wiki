@@ -33,7 +33,7 @@ async def main():
     for stem in STEMS:
         for kind in ('motion','still'):
             assert (assets/f'{stem}-{kind}.svg').is_file(),stem
-    handler=partial(SimpleHTTPRequestHandler,directory=str(assets))
+    handler=partial(SimpleHTTPRequestHandler,directory=str(assets.parent))
     server=ThreadingHTTPServer(('127.0.0.1',0),handler)
     thread=Thread(target=server.serve_forever,daemon=True);thread.start()
     port=server.server_address[1]
@@ -44,8 +44,8 @@ async def main():
             for lang in ('en','zh'):
                 for width in SIZES:
                     page=await browser.new_page(viewport={'width':width,'height':560}, device_scale_factor=1, reduced_motion='reduce' if lang=='zh' else 'no-preference')
-                    still=f'http://127.0.0.1:{port}/{stem}-still.svg'
-                    motion=f'http://127.0.0.1:{port}/{stem}-motion.svg'
+                    still=f'http://127.0.0.1:{port}/{assets.name}/{stem}-still.svg'
+                    motion=f'http://127.0.0.1:{port}/{assets.name}/{stem}-motion.svg'
                     alt='狀態空間模型動畫說明' if lang=='zh' else 'State space model illustration'
                     html=f'''<!doctype html><html><head><meta charset="utf-8"><style>
                     body{{margin:0;padding:12px;background:#fff;font-family:Arial}}
