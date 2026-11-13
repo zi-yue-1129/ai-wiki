@@ -38,7 +38,7 @@
         host.classList.add('concept-motion-wide');
         host.tabIndex = 0;
         host.setAttribute('role', 'region');
-        host.setAttribute('aria-label', /[\\u3400-\\u9fff]/.test(img.alt || '')
+        host.setAttribute('aria-label', /[\u3400-\u9fff]/.test(img.alt || '')
           ? '可水平捲動的教學動畫圖' : 'Scrollable teaching animation');
       }
       img.before(host);
