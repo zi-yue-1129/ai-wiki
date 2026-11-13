@@ -24,6 +24,14 @@ Two brain areas can be densely connected, yet a receiving area is driven by many
 
 Fries (2005) proposed that neuronal communication is carried by neuronal coherence, so that a flexible pattern of coherence defines a flexible communication structure. The later review by the same author (Fries, 2015) describes gamma-band synchronisation as shaping how the signal from one group reaches the next, and how attention acts on it. Because the phase relation can change, the same anatomical connection can carry different signals at different times.
 
+### Visual intuition: phase alignment and a toy communication gate
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Scroll the teaching diagram horizontally" style="max-width:100%;overflow-x:auto">
+<img src="../../../assets/concept-animations/coherence-phase-gating-still.svg" data-motion-src="../../../assets/concept-animations/coherence-phase-gating-motion.svg" data-still-src="../../../assets/concept-animations/coherence-phase-gating-still.svg" alt="Sender and receiver rhythmic signals shift from aligned to opposite phase and back, while a separate illustrative gain bar decreases and recovers." width="640" height="360" style="min-width:640px;display:block">
+</div>
+
+*Original animated teaching visual, CC BY-SA 4.0.* The fixed sender rhythm and moving receiver rhythm illustrate a phase offset \(\Delta\phi\) swept from 0 to \(\pi\) and back. The turquoise bar uses the **toy**, bounded proxy \(g_{demo}=[1+\cos(\Delta\phi)]/2\): alignment raises the proxy and antiphase suppresses it. The formula is **not a physiological transfer function, measured coherence, or experimental effect size**. Actual coherence depends on consistent relative phase across time or trials; demonstrating causal communication requires more than this phase shift. MkDocs provides Play/Pause (Enter or Space); the [static GitHub preview](../../../assets/concept-animations/coherence-phase-gating-still.svg) is also readable. Narrow screens can scroll horizontally.
+
 ## Equation or algorithm
 
 The method is a measurement procedure rather than a single equation:
