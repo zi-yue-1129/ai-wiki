@@ -40,6 +40,16 @@ L = \log p(x \mid z_q(x)) + \lVert \operatorname{sg}[z_e(x)] - e \rVert_2^2 + \b
 
 對於 128 乘 128 乘 3 的 ImageNet 影像，論文以 \(K = 512\) 個編碼，把每張影像壓縮為 32 乘 32 乘 1 的離散潛在變數。接著 PixelCNN 以自迴歸方式對此潛在網格建模，因此取樣得到的潛在變數可以解碼為影像。
 
+### 視覺化說明：碼本的離散選擇
+
+![VQ-VAE 動畫：編碼器向量在潛在空間移動，跨過最近鄰邊界後，離散編碼從第一個碼本向量跳換為第二個。](../../../../../assets/concept-animations/vqvae-codebook-snap-motion.svg)
+
+[GitHub 可閱讀的 VQ-VAE 靜態預覽](../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg)
+
+外框圓點代表連續的編碼器輸出 \(z_e\)，三個彩色圓點代表固定的碼本向量。當輸出跨越最近鄰的分界線，量化結果 \(z_q=e_{k^*}\) 會從 \(e_1\) **不連續地切換**到 \(e_2\)，而不是對兩個嵌入向量做線性內插。動畫展示的是**前向量化**，不是碼本訓練軌跡；訓練時的直通估計量將解碼器梯度複製給編碼器，而碼本損失及承諾損失各自處理不同的參數更新。
+
+所有二維座標、移動路徑與分界線均為**人工教學示意，並非模型學得的表徵或實測輸出**。MkDocs 網站提供可用鍵盤操作的**播放／暫停**按鈕來控制 12 秒循環；GitHub 則可閱讀連結中的靜態圖。原創視覺，**CC BY-SA 4.0**；機制參考下方 van den Oord 等人（2017）的文獻。
+
 ## 關鍵方法
 
 ### Neural Discrete Representation Learning（van den Oord 等人，2017）

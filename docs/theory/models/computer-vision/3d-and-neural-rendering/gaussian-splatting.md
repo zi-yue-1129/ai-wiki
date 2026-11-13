@@ -41,6 +41,16 @@ $$C = \sum_{i \in N} c_i \,\alpha_i \prod_{j=1}^{i-1}(1 - \alpha_j)$$
 
 Here $c_i$ is the view-dependent colour of Gaussian $i$, and $\alpha_i$ is its opacity after the two-dimensional projection has been evaluated at the pixel.
 
+### Visual walkthrough: depth-ordered alpha compositing
+
+![Animated Gaussian splatting: three sorted projected splats accumulate premultiplied pixel-contribution weights from near to far.](../../../../assets/concept-animations/gaussian-splat-alpha-composite-motion.svg)
+
+[Static Gaussian splatting compositing overview for GitHub](../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg)
+
+The ellipses represent **schematic projected splat footprints** at a single pixel, ordered from near to far. Given fixed *effective pixel opacities* \(\alpha=(0.50,0.60,0.80)\), front-to-back compositing assigns weights \(w_1=0.50\), \(w_2=(1-0.50)(0.60)=0.30\), and \(w_3=(1-0.50)(1-0.60)(0.80)=0.16\), leaving transmittance \(T_3=0.04\). The coloured sections in the right panel depict **contribution weights**, *not* the literal final RGB mixture. The rendered colour is \(C=\sum_i w_i c_i+T_3 C_{\mathrm{bg}}\), where the background term vanishes for black.
+
+All alphas, colours and splats are **chosen teaching values, not fitted scene parameters or measured pixels**. This isolates the visibility-aware blending step; real 3D Gaussian splatting additionally projects anisotropic covariances and evaluates view-dependent colours. On MkDocs use the keyboard-accessible **Play/Pause** control; GitHub displays the linked static fallback. Original diagram, **CC BY-SA 4.0**; see Kerbl et al. (2023) in References.
+
 ## Results
 
 The abstract reports real-time rendering at 1080p, at least 30 frames per second, with competitive training times and quality. The paper's tables give the comparisons.
