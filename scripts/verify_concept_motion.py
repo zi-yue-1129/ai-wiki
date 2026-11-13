@@ -148,14 +148,14 @@ def main() -> int:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif animated_path.resolve() not in linked_images:
                 # GitHub sees the still image, while MkDocs reads data-motion-src.
-                html_motion = re.findall(r'<img\\b[^>]*data-motion-src="([^"]+\\.svg)"', text)
+                html_motion = re.findall(r'<img\b[^>]*data-motion-src="([^"]+\.svg)"', text)
                 motion_targets = {(page.parent / url).resolve() for url in html_motion}
                 if animated_path.resolve() not in motion_targets:
                     errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"vqvae-codebook-snap", "gaussian-splat-alpha-composite"}:
                 # Unlike a mere link, the GitHub Markdown preview must render
                 # the static fallback directly as the image src.
-                html_stills = re.findall(r'<img\\b[^>]*src="([^"]+-still\\.svg)"', text)
+                html_stills = re.findall(r'<img\b[^>]*src="([^"]+-still\.svg)"', text)
                 still_targets = {(page.parent / url).resolve() for url in html_stills}
                 if static_path.resolve() not in still_targets:
                     errors.append(f"{page}: missing visible GitHub static fallback image")
