@@ -26,8 +26,11 @@ async def run():
                         still=data_svg('still')
                         alt='量化編碼動態演示' if lang=='zh' else 'Animated codebook walkthrough'
                         css=(DOCS/'stylesheets/concept-motion.css').read_text()
-                        html=f'<meta charset="utf-8"><style>{css}</style><main><img alt="{alt}" src="{img}" data-still-src="{still}"></main>'
+                        html=f'<meta charset="utf-8"><style>{css}</style><main><img alt="{alt}" src="{still}" data-motion-src="{img}" data-still-src="{still}"></main>'
                         await page.set_content(html)
+                        # Without JavaScript (including GitHub's sanitised Markdown),
+                        # this element must directly show the static fallback.
+                        assert '-still.svg' in await page.locator('img').get_attribute('src')
                         await page.add_script_tag(content=(DOCS/'javascripts/concept-motion.js').read_text())
                         await page.wait_for_selector('.concept-motion-toggle')
                         button=page.locator('.concept-motion-toggle')
