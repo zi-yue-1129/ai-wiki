@@ -27,6 +27,7 @@ on:
       - "scripts/test_ssl_gradient_browser.py"
       - "scripts/test_ssl_ema_trajectory_browser.py"
       - "scripts/test_ssl_temporal_provenance_browser.py"
+      - "scripts/test_working_memory_motion_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
@@ -80,6 +81,8 @@ jobs:
         run: python scripts/test_ssl_causal_previews_browser.py
       - name: Chromium gradient sensitivity, bilingual responsive layout
         run: python scripts/test_ssl_gradient_browser.py
+      - name: Chromium working-memory bilingual, keyboard, reduced-motion and mobile fallbacks
+        run: python scripts/test_working_memory_motion_browser.py
       - name: Chromium discrete EMA trajectory integration
         run: python scripts/test_ssl_ema_trajectory_browser.py
       - name: Chromium FIFO lifetime and EMA historical attribution
