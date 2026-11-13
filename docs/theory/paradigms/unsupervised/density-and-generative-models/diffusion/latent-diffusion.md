@@ -30,6 +30,15 @@ Diffusion models in pixel space were state of the art on image synthesis, but th
 
 Train a perceptual autoencoder once to compress images into a latent \(z = E(x)\), then train a diffusion model on the latents. The denoiser contains cross-attention layers, so that the image features attend to an encoding of any condition. The paper studies several downsampling factors \(f\) and finds that moderate compression gives the best trade-off between efficiency and quality.
 
+
+### Visual walkthrough: sampling in latent space
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="Scrollable teaching diagram and animation">
+  <img src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" data-motion-src="../../../../../assets/concept-animations/latent-space-denoise-motion.svg" data-still-src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" alt="Left: image-to-latent encoding during training; right: denoise noisy latent and decode once during generation.">
+</div>
+
+*Original teaching visual (CC BY-SA 4.0).* **Left:** during training, a pretrained encoder $E$ compresses an image $x$ into $z_0$. **Right:** synthesis starts with random latent $z_T$, repeatedly denoises to $z_0$, and **decodes only once** using $D$. Colours and changes are **constructed examples, not learned latents, generated samples, or speed measurements**. Unconditional synthesis does not first require encoding an input image. See [Rombach et al. (2022)](https://arxiv.org/abs/2112.10752). The website provides Play/Pause with Enter/Space, a static still for reduced-motion preferences, and horizontally scrollable diagrams on narrow screens. [Open the animated SVG](../../../../../assets/concept-animations/latent-space-denoise-motion.svg).
+
 ## Algorithm
 
 Training has two stages. First the autoencoder \(E, D\) is trained, or reused, to compress images. Then a diffusion model is trained on latents with the noise-prediction loss:

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 ---
 
 # 潛在擴散模型
@@ -17,6 +17,15 @@ translation_reviewed: 2026-10-28
 ## 核心想法
 
 先訓練一次感知自編碼器，把影像壓縮為潛在表徵 \(z = E(x)\)，然後在潛在表徵上訓練擴散模型。去噪器包含交叉注意力層，使影像特徵能夠關注任何條件的編碼。論文研究了多種下採樣因子 \(f\)，發現適度的壓縮能在效率與品質之間取得最好的平衡。
+
+
+### 教學動畫：在潛在空間取樣
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="可水平捲動的教學圖與動畫">
+  <img src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" data-motion-src="../../../../../assets/concept-animations/latent-space-denoise-motion.svg" data-still-src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" alt="左側示意訓練時影像編碼為潛在表徵，右側示意生成時潛在去噪並只在最後解碼。">
+</div>
+
+*原創教學視覺（CC BY-SA 4.0）.* **左側**說明訓練階段以自編碼器 $E$ 將影像 $x$ 壓縮成潛在表徵 $z_0$；**右側**示意取樣從隨機雜訊 $z_T$ 開始，經過潛在空間的多步去噪得到 $z_0$，最後才用解碼器 $D$ 產生影像。色塊與過渡都是**人工示意而非學得的潛在值、模型輸出或實測速度**，亦不表示生成前需要先編碼一張影像。參見 [Rombach 等人（2022）](https://arxiv.org/abs/2112.10752)。 網站版可播放或暫停動畫，使用 Enter／Space 操作按鈕；偏好減少動態時顯示靜態圖。手機可用鍵盤或觸控左右捲動。 [開啟完整 SVG 動畫](../../../../../assets/concept-animations/latent-space-denoise-motion.svg).
 
 ## 演算法
 

@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
   - theory/models/computer-vision/video
   - theory/paradigms/unsupervised/density-and-generative-models
@@ -30,6 +30,15 @@ aliases:
 ## 核心想法
 
 Ho 等人把影像擴散模型擴展到影片：以包含時間注意力或時間卷積的網路對一串影格去噪，並顯示同一目標可以產生連貫的短片段 [(Ho et al., 2022)](https://arxiv.org/abs/2204.03458)。Imagen Video 採用影片擴散模型的串接：從低解析度的基礎模型開始，再經過高解析度的超解析度階段，每一階段都以文字為條件 [(Ho et al., 2022b)](https://arxiv.org/abs/2210.02303)。潛在影片擴散（如 Align your Latents）則在自編碼器產生的壓縮潛在空間中執行擴散過程，降低生成長時間、高解析度片段所需的計算 [(Blattmann et al., 2023)](https://arxiv.org/abs/2304.08818)。
+
+
+### 教學動畫：跨影格聯合去噪
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="可水平捲動的教學圖與動畫">
+  <img src="../../../../assets/concept-animations/video-joint-denoising-still.svg" data-motion-src="../../../../assets/concept-animations/video-joint-denoising-motion.svg" data-still-src="../../../../assets/concept-animations/video-joint-denoising-still.svg" alt="四個影格共同去噪：人造雜訊逐漸淡去，橘色物件在影格間保持連續運動。">
+</div>
+
+*原創教學視覺（CC BY-SA 4.0）.* 四個影格組成**共同去噪的影片張量**，不是逐格各自生成。橘色路徑表示影格間的時間關聯；彩色雜訊覆蓋層代表逆擴散過程中逐步降低的雜訊。這些影格、移動軌跡與轉場全是**人工教學示意，非模型輸出或實測結果**。聯合去噪也不保證長時間的完美一致性。參見 [Ho 等人（2022）](https://arxiv.org/abs/2204.03458)。 網站版可播放或暫停動畫，使用 Enter／Space 操作按鈕；偏好減少動態時顯示靜態圖。手機可用鍵盤或觸控左右捲動。 [開啟完整 SVG 動畫](../../../../assets/concept-animations/video-joint-denoising-motion.svg).
 
 ## 方程式
 
