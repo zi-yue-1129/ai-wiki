@@ -51,7 +51,7 @@ alt="{alt}" width="640" height="360">
                         assert button.count() == 1, (stem, zh, width, reduce, "missing control")
                         expected = "-still.svg" if reduce else "-motion.svg"
                         assert img.get_attribute("src").endswith(expected), (stem, reduce, "initial fallback")
-                        assert img.evaluate("el => el.decode().then(() => el.naturalWidth)") == 640
+                        assert img.evaluate("el => el.decode().then(() => el.naturalWidth > 0 && Math.round(el.getBoundingClientRect().width) === 640)")
                         button.click()
                         expected = "-motion.svg" if reduce else "-still.svg"
                         assert img.get_attribute("src").endswith(expected), (stem, reduce, "click")
@@ -62,7 +62,7 @@ alt="{alt}" width="640" height="360">
                         page.keyboard.press("Enter")
                         expected = "-motion.svg" if reduce else "-still.svg"
                         assert img.get_attribute("src").endswith(expected), (stem, reduce, "Enter")
-                        assert img.evaluate("el => el.decode().then(() => el.naturalWidth)") == 640
+                        assert img.evaluate("el => el.decode().then(() => el.naturalWidth > 0 && Math.round(el.getBoundingClientRect().width) === 640)")
                         if width < 640:
                             scroll = page.locator("#scroll")
                             assert scroll.evaluate("el => el.scrollWidth > el.clientWidth"), (stem, width)
