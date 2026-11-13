@@ -21,6 +21,23 @@ Regret compares the total reward with that of always playing the best arm. Lai a
 - **Thompson sampling**: sample each arm's mean from its posterior and play the best sample, which is simple and often works well in practice.
 - **Explore-then-commit and epsilon-greedy**: simpler schemes with weaker guarantees, still common as baselines.
 
+## Visual walkthrough: uncertainty and posterior sampling
+
+### UCB1 — optimism can change the selected arm
+
+<div class="bandit-motion-viewport" role="region" tabindex="0" aria-label="Horizontally scrollable UCB1 teaching animation">
+  <img src="../../../../assets/concept-animations/ucb1-optimism-switch-still.svg" data-motion-src="../../../../assets/concept-animations/ucb1-optimism-switch-motion.svg" data-still-src="../../../../assets/concept-animations/ucb1-optimism-switch-still.svg" alt="Three UCB1 arms, each with an empirical mean and an uncertainty bonus: arm B is chosen twice before its zero rewards lower its score enough for arm A to lead." />
+</div>
+
+*Original continuous teaching animation (CC BY-SA 4.0).* For each arm $i$, UCB1 scores $\bar X_i+\sqrt{2\ln(t)/n_i}$ and selects the largest value. The illustrated snapshot starts at $t=16$ with counts $(6,2,8)$ and empirical means $(0.65,0.45,0.60)$. Two **hypothetical zero rewards** after selecting B raise its sample count from 2 to 4 and lower its mean from 0.45 to 0.225; the winning score switches from B to A. Bars show the mean (blue) plus confidence bonus (orange), while the green ring identifies the optimistic winner. Intermediate motion interpolates between discrete decision snapshots, **not a continuous training trajectory or measured experiment**. No reward is inferred for unplayed arms. In MkDocs, use **Play/Pause** (keyboard **Enter/Space**); on narrow screens, scroll the focusable illustration horizontally. GitHub shows a [static fallback](../../../../assets/concept-animations/ucb1-optimism-switch-still.svg). See Auer, Cesa-Bianchi & Fischer (2002) in References.
+
+### Thompson sampling — posterior draws and a local update
+
+<div class="bandit-motion-viewport" role="region" tabindex="0" aria-label="Horizontally scrollable Thompson sampling teaching animation">
+  <img src="../../../../assets/concept-animations/thompson-beta-posterior-draws-still.svg" data-motion-src="../../../../assets/concept-animations/thompson-beta-posterior-draws-motion.svg" data-still-src="../../../../assets/concept-animations/thompson-beta-posterior-draws-still.svg" alt="Three Beta posterior densities and one candidate-probability draw per arm; a first draw favours C, then one hypothetical C success updates only its posterior before a new draw favours A." />
+</div>
+
+*Original continuous teaching animation (CC BY-SA 4.0).* In the **Bernoulli** reward example, independent posterior models are $A\sim\operatorname{Beta}(3,3)$, $B\sim\operatorname{Beta}(2,5)$ and $C\sim\operatorname{Beta}(4,3)$. One **constructed draw per arm**, $(0.47,0.22,0.71)$, chooses C. A hypothetical successful observation for **C only** updates $C$ to $\operatorname{Beta}(5,3)$; new illustrative draws $(0.57,0.38,0.52)$ choose A. The moving dots are **example posterior draws**, not inferred means, predicted confidence scores, a recorded random seed or empirical algorithm output. The shape change is an interpolation between distinct Bayesian posteriors. MkDocs supports **Play/Pause** and keyboard **Enter/Space**; use the [GitHub static fallback](../../../../assets/concept-animations/thompson-beta-posterior-draws-still.svg) when motion is unavailable. See Agrawal & Goyal (2012) and Russo et al. (2018) in References.
 ## Connections
 
 Bandits are the one-step case of [reinforcement learning](../../reinforcement-learning/index.md), with no state transitions. The posterior sampling of Thompson sampling is the same Bayesian reasoning used in [probabilistic models](../../supervised/instance-based-and-probabilistic/index.md). The contextual extension is covered in [contextual bandits](../contextual-bandits/index.md).

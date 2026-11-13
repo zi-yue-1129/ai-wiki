@@ -29,6 +29,8 @@ on:
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
+      - "scripts/test_bandit_motion_browser.py"
+      - "scripts/verify_bandit_motion.py"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
@@ -50,7 +52,7 @@ jobs:
         run: python scripts/verify_concept_animations.py
 
   validate-motion:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -83,6 +85,10 @@ jobs:
         run: python scripts/test_ssl_ema_trajectory_browser.py
       - name: Chromium FIFO lifetime and EMA historical attribution
         run: python scripts/test_ssl_temporal_provenance_browser.py
+      - name: Validate bilingual bandit motion and numerical semantics
+        run: python scripts/verify_bandit_motion.py
+      - name: Chromium bandit controls, reduced-motion and native-size mobile scroll
+        run: python scripts/test_bandit_motion_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
