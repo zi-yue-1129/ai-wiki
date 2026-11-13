@@ -34,6 +34,13 @@ Full fine-tuning updates every parameter of a generation model, and it stores a 
 
 For each task, a prefix is trained by gradient descent on the task's objective while the language model's parameters stay fixed. The paper's main table-to-text setup uses a prefix length of 10. After training, the prefix is stored for the task, and one frozen model serves all tasks by swapping in the matching prefix. Tuning only the input embedding layer performs notably worse than tuning the prefix at every layer.
 
+
+### Virtual-prefix attention process animation
+
+![Attention shifts from real tokens toward learned virtual prefix key/value positions while the query stays fixed](../../../../assets/concept-animations/prefix-kv-attention-motion.svg)
+
+*Original instructional animation, CC BY-SA 4.0.* Orange dashed slots are **trainable virtual prefix key/value positions**; blue slots are ordinary input tokens. A fixed query attends to both. For **synthetic** scores \(s(t)=(-1.8+4.8t,-1.4+2.6t,1.2,0.4)\), the bars show \(a_i(t)=\exp(s_i(t))/\sum_j\exp(s_j(t))\). As \(t\) goes from 0 to 1 and returns, the first virtual slot increases from approximately 0.032 to 0.712 of the attention weight, although ordinary-token scores stay fixed. This is a **controlled logit interpolation**, not a learned-model attention trace or training trajectory. Actual prefix tuning learns per-layer key/value activations without changing the frozen backbone. MkDocs provides Play/Pause and reduced-motion fallback; GitHub readers can view the [final-state static preview](../../../../assets/concept-animations/prefix-kv-attention-still.svg).
+
 ## Results
 
 On table-to-text with GPT-2, prefix tuning trains about 0.1% of the parameters and is roughly on par with full fine-tuning across E2E, WebNLG and DART; on E2E with GPT-2 Medium it scores slightly higher on BLEU (69.7 against 68.2). On summarisation with BART-Large, full fine-tuning reaches ROUGE-L 37.25, while prefix tuning reaches 36.05 with 2% of the parameters and 35.05 with 0.1%, so it is slightly worse there.

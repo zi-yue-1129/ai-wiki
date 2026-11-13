@@ -34,6 +34,13 @@ In-context learning adapts a model by putting a few labelled examples in its inp
 
 For each task, the scaling vectors are trained on the task's labelled examples while the model's weights stay fixed. At inference, the activations are multiplied by these vectors. Because the change is an element-wise scaling, it adds little computation, and a task is stored as a small set of vectors.
 
+
+### Activation-gain process animation
+
+![Four fixed input channels pass through learned multiplicative gains, continuously changing their adapted outputs](../../../../assets/concept-animations/ia3-channel-gates-motion.svg)
+
+*Original instructional animation, CC BY-SA 4.0.* The blue inputs stay fixed, orange markers denote task-specific gains, and teal bars are the outputs. For **synthetic** \(h=(0.70,0.90,0.50,0.80)\) and target gains \(g^*=(1.30,0.60,1.10,0.40)\), the visual sweeps \(g(t)=\mathbf{1}+t(g^*-\mathbf{1})\) and \(h'(t)=g(t)\odot h\) as \(t\in[0,1]\) moves forward and back. The adapted endpoint is \((0.91,0.54,0.55,0.32)\). This is a **controlled parameter sweep**, not measured training progress or a benchmark. The actual (IA)³ method scales attention keys and values and feed-forward intermediate activations, keeping pretrained weights frozen. MkDocs supplies Play/Pause and reduced-motion fallback; GitHub shows the [final-state static preview](../../../../assets/concept-animations/ia3-channel-gates-still.svg).
+
 T-Few is the recipe built around the method. It uses the T0 model as the backbone and sums three losses: standard language modelling, unlikelihood, and length-normalised. In the paper's design experiments on T0-3B, length normalisation raises accuracy from 60.7% to 62.7%, and adding the unlikelihood loss brings it to 63.3%.
 
 ## Results
