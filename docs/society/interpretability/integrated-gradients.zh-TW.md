@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 related:
   - society/interpretability
 tags:
@@ -33,6 +33,13 @@ $$
 $$
 
 實務上，積分以有限步數的和近似。
+
+
+### 動態示意
+
+<div role="region" tabindex="0" aria-label="可水平捲動的積分梯度動畫" style="overflow-x:auto;max-width:100%"><img src="../../assets/concept-animations/integrated-gradients-path-still.svg" data-motion-src="../../assets/concept-animations/integrated-gradients-path-motion.svg" data-still-src="../../assets/concept-animations/integrated-gradients-path-still.svg" width="640" height="360" style="width:640px;max-width:none" alt="橘色標記沿著零基準到輸入一的路徑移動，右側導數曲線下方的著色面積逐步累積；即使終點導數很小，累積積分仍然很大。"></div>
+
+*原創連續教學動畫，CC BY-SA 4.0。* 橘色標記沿基準到輸入的路徑移動，右側著色面積表示已累積的梯度。對**人工解析式示例** $F(x)=1-e^{-4x}$，基準為 $0$、輸入為 $1$，終點導數 $F'(1)=4e^{-4}\approx0.073$，但積分梯度 $\mathrm{IG}=F(1)-F(0)=1-e^{-4}\approx0.982$。在一維情況，路徑積分等於輸出差值；這**不能證明歸因具有現實世界的因果意義**。MkDocs 提供播放／暫停與減少動態效果時的靜態回退；窄螢幕可水平捲動。[GitHub 可閱讀的靜態預覽](../../assets/concept-animations/integrated-gradients-path-still.svg)。
 
 ## 結果
 
