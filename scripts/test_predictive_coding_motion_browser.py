@@ -78,7 +78,7 @@ def main() -> None:
             for lang in (".md", ".zh-TW.md"):
                 path = DOCS / (page_path + lang)
                 markdown = path.read_text(encoding="utf-8")
-                match = re.search(r'<img\\s+[^>]*data-motion-src=[^>]*>', markdown)
+                match = re.search(r'<img\s+[^>]*data-motion-src=[^>]*>', markdown)
                 assert match and f"{stem}-still.svg" in match.group()
                 assert f"{stem}-motion.svg" in match.group() and "CC BY-SA 4.0" in markdown
                 image = match.group()
