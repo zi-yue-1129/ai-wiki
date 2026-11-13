@@ -38,6 +38,16 @@ Let \(s\) be a state, a set of facts, and let an action \(a\) have precondition 
 
 A plan is a sequence of applicable actions that leads from the initial state to a state containing the goal facts. A forward planner applies this rule from the initial state, and a backward planner regresses the goal through the actions. Both are usually guided by a heuristic. For example, a robot action that moves it from room 1 to room 2 might have the precondition `At(robot, room1)`, add `At(robot, room2)` and delete `At(robot, room1)`.
 
+### Animated walkthrough: applicability, effects and persistence
+
+![STRIPS transition: checking At(A), removing that fact, adding At(B), and preserving the unchanged Charged fact. ](../../../../assets/concept-animations/strips-state-effects-motion.svg)
+
+[GitHub-readable static preview](../../../../assets/concept-animations/strips-state-effects-still.svg)
+
+The schematic state is \(s_0=\{\mathrm{At}(A),\mathrm{Charged}\}\). **Move(A,B)** requires \(\mathrm{At}(A)\), deletes \(\mathrm{At}(A)\), and adds \(\mathrm{At}(B)\), giving \(s_1=\{\mathrm{At}(B),\mathrm{Charged}\}\). The moving marker tracks this state update; **Charged** is unchanged because it appears in neither effect list. The diagram separates *testing the precondition* from *applying the effects*: the add/delete lists are not executed if the precondition fails. The two states and travel path are **invented teaching examples, not a robot trace or benchmark**.
+
+On MkDocs, use the keyboard-accessible **Play/Pause** button; selecting Pause shows the static overview. Readers with reduced-motion settings initially see the still. This is an original **CC BY-SA 4.0** illustration based on the STRIPS transition semantics of Fikes and Nilsson (1971), cited below.
+
 ## Variants
 
 - **Propositional STRIPS** uses ground facts only. It is the simplest form.

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-13
 ---
 
 # GraphPlan
@@ -27,6 +27,16 @@ GraphPlan 是一種古典規劃器，它建立分層的規劃圖，記錄可能�
 擴展在所有目標事實都出現的層停止，因此搜尋範圍是圖所顯示的最少平行步數。由於每一層可能包含多個平行執行的動作，計畫長度計的是層數，而非動作數。
 
 *示意。*設有兩個動作 `move(A,B)` 與 `move(B,C)`，目標是從 `at(A)` 出發到達 `at(C)`。第一個事實層包含 `at(A)`，下一層加入 `at(B)`，第三層加入 `at(C)`。因此目標在兩個動作層之後出現，並抽取出一個兩步計畫。這個範例為示意，不是基準測試結果。
+
+### 教學動畫：事實層擴展與反向計畫抽取
+
+![Graphplan 逐層擴展 F0、F1、F2，標示 F1 的互斥事實，最後向後追溯支持目標的兩個動作。](../../../../assets/concept-animations/graphplan-layer-extraction-motion.svg)
+
+[GitHub 可直接閱讀的靜態規劃圖](../../../../assets/concept-animations/graphplan-layer-extraction-still.svg)
+
+從 \(F_0=\{\mathrm{At}(A)\}\) 開始，**Move(A,B)** 讓 \(F_1\) 可能出現 \(\mathrm{At}(B)\)，而保持事實的 no-op 動作使 \(\mathrm{At}(A)\) 仍是**另一個可能成立的事實**。但 \(F_1\) 的這兩個事實互斥（mutex）：移動動作會刪除 \(\mathrm{At}(A)\)，所以兩種支持動作不能同時選取。下一次擴展透過 **Move(B,C)** 使 \(\mathrm{At}(C)\) 出現在 \(F_2\)。橘色反向軌跡依序沿 \(\mathrm{At}(C)\leftarrow\mathrm{Move}(B,C)\leftarrow\mathrm{At}(B)\leftarrow\mathrm{Move}(A,B)\leftarrow\mathrm{At}(A)\) 抽取計畫。虛線示意保持事實的支持關係；**為維持可讀性，圖中省略部分 no-op 動作與互斥邊**。規劃圖的事實層代表「可能成立的事實」聯集，**並非一個可同時成立的世界狀態**。
+
+圖中事實、連線與時間都是**人工教學示意，並非規劃器效能實測**。MkDocs 網站提供支援鍵盤的**播放／暫停**按鈕；偏好減少動態效果者預設看到靜態圖。本圖為原創 **CC BY-SA 4.0** 教學視覺，依據下方 Blum 與 Furst（1997）的原始論文製作。
 
 ## 變體
 
