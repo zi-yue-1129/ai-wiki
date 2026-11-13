@@ -26,6 +26,12 @@ flowchart LR
   F -->|淘汰| X[丟棄]
 ```
 
+### 教學動畫：候選任務篩選與任務池擴增
+
+<img src="../../assets/concept-animations/self-instruct-filter-loop-still.svg" data-motion-src="../../assets/concept-animations/self-instruct-filter-loop-motion.svg" width="640" height="360" alt="Self-Instruct 示意流程：從任務池抽取範例、生成候選，依新穎性篩選；通過的任務回到任務池，過於相似的任務則丟棄。" loading="lazy" />
+
+*原創教學動畫，CC BY-SA 4.0。* 青綠色候選通過檢查後回到任務池，供下一輪抽樣；紅色候選因示意的相似度條件遭到丟棄。只有接受候選返回時，任務池才多出第四條資料。此動畫說明**篩選與回饋的因果關係**，不是實際語言模型生成紀錄、量測的接受率，也不代表論文的完整提示模板。MkDocs 可透過支援鍵盤的**播放／暫停**控制操作；GitHub 顯示上方靜態 SVG。[查看動態版本](../../assets/concept-animations/self-instruct-filter-loop-motion.svg)。
+
 ## 關鍵方法
 
 方法本身就是上面的迴圈。論文的核心主張是：過濾後的生成資料，拿來微調基礎模型時，能改善指令遵循能力，優於未經微調的基礎模型。

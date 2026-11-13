@@ -32,6 +32,12 @@ flowchart LR
   F -->|rejected| X[Discard]
 ```
 
+### Teaching animation: candidate acceptance and task-pool growth
+
+<img src="../../assets/concept-animations/self-instruct-filter-loop-still.svg" data-motion-src="../../assets/concept-animations/self-instruct-filter-loop-motion.svg" width="640" height="360" alt="Schematic Self-Instruct round: a task pool provides examples, generated candidates are filtered for novelty, accepted tasks return to the pool and similar tasks are discarded." loading="lazy" />
+
+*Original teaching animation, CC BY-SA 4.0.* The green candidate is retained and returns to the task pool for later rounds, while the red candidate fails the illustrative similarity check and is discarded. The fourth pool bar appears only after the accepted candidate returns. This explains **data selection and feedback**, not a measured filtering rate, a real language-model trace, or the paper's exact prompt templates. On MkDocs, use the keyboard-accessible **Play/Pause** control; GitHub displays the static SVG above. [Animated version](../../assets/concept-animations/self-instruct-filter-loop-motion.svg).
+
 ## Key methods
 
 The method itself is the loop above. The paper's central claim is that the generated data, once filtered, improves instruction following when used to fine-tune a base model, relative to that base model without tuning.
