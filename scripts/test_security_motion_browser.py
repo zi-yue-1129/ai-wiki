@@ -64,11 +64,11 @@ def main() -> None:
                         button = page.locator(".concept-motion-toggle")
                         assert button.count() == 1, f"missing player button: {stem} {lang}"
                         img = page.locator(".concept-motion-player img")
-                        assert img.evaluate("e => e.complete && e.naturalWidth > 0")
+                        page.wait_for_function("() => { const i = document.querySelector('.concept-motion-player img'); return i && i.complete && i.naturalWidth > 0; }")
                         assert img.get_attribute("src").endswith("-motion.svg")
                         button.click()
                         assert img.get_attribute("src").endswith("-still.svg")
-                        assert img.evaluate("e => e.complete && e.naturalWidth > 0")
+                        page.wait_for_function("() => { const i = document.querySelector('.concept-motion-player img'); return i && i.complete && i.naturalWidth > 0; }")
                         button.focus()
                         page.keyboard.press("Enter")
                         assert img.get_attribute("src").endswith("-motion.svg")
