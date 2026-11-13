@@ -49,6 +49,18 @@ The paper uses mean squared error on the softmax outputs as the consistency cost
 
 Each step computes the student's and the teacher's outputs on the same batch with different noise, computes the loss, takes a gradient step on the student only, and then updates the teacher by the EMA.
 
+## Visual walkthrough: teacher follows by EMA, not by gradients
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Mean Teacher weight-averaging animation" tabindex="0">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/mean-teacher-ema-tracking-still.svg" data-motion-src="../../../../assets/concept-animations/mean-teacher-ema-tracking-motion.svg" alt="Illustrative scalar student weights jump after gradient updates, while a teacher's weight follows the student's exponential moving average with alpha 0.75 and no gradient." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* The blue trace is a hand-constructed **scalar student parameter** at steps 0–4: (0.15, 0.85, 0.35, 0.95, 0.50). With an intentionally exaggerated **α=0.75** for visibility and teacher initialised at 0.15, the teal exponential moving average is (0.150, 0.325, 0.331, 0.486, 0.489) after rounding. The moving cursor traces how the teacher **smooths and lags the student's updates**. The line segments between training steps are a visual interpolation, **not continuous-time gradient dynamics**. Real Mean Teacher experiments often use larger α; the sample trajectory is **not model measurements**. In the algorithm, only the student receives the consistency and supervised gradients; the teacher is updated from the student's weights **after** that step.
+
+On the MkDocs site, use **Play/Pause** (or Enter/Space on the control). GitHub and reduced-motion readers see the same explanatory still. [Static fallback](../../../../assets/concept-animations/mean-teacher-ema-tracking-still.svg).
+
 ## Key methods
 
 ### Mean teachers are better role models (Tarvainen & Valpola, 2017)
