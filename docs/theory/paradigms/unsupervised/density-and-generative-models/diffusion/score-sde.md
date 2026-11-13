@@ -42,6 +42,12 @@ dx = \big[f(x,t) - \tfrac{1}{2} g(t)^2 \nabla_x \log p_t(x)\big]\,dt
 \]
 has the same marginal densities \(p_t\) as the SDE. Because it is an ODE, it gives exact likelihoods when the score is a neural network, and it allows fast deterministic sampling.
 
+### Visualising SDE versus probability-flow ODE
+
+![Animated comparison: multiple stochastic reverse SDE paths can diverge from an initial point; probability-flow ODE paths are deterministic for a fixed initial state. Both describe the same time-marginal probability densities.](../../../../../assets/concept-animations/score-sde-flow-still.svg)
+
+*Original 12-second looping schematic (CC BY-SA 4.0).* The upper trajectories vary with sampled reverse-time noise; the lower ODE trajectories start at **different** inputs and follow fixed curves. The matching pale cross-sections only **symbolise** the theoretical equality of time-marginal densities, not an empirical density estimate or a numerical SDE/ODE solution. Equal marginals do **not** imply that the same initial sample follows the same trajectory under the two processes. The website offers Play/Pause; the still image is readable on GitHub and under reduced-motion preferences. See Song et al. (2021) in References.
+
 ### Two special cases
 
 | SDE | Drift \(f\) | Diffusion \(g\) | Continuous limit of |

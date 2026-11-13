@@ -4,6 +4,9 @@
 (() => {
   'use strict';
   const suffix = /-motion\.svg(?=$|[?#])/;
+  // These two diagrams use GitHub-readable stills as their canonical Markdown sources.
+  const staticFirst = /(?:score-sde-flow|consistency-trajectory-map)-still\.svg(?=$|[?#])/;
+  const wideDiagram = /(?:score-sde-flow|consistency-trajectory-map)-motion\.svg(?=$|[?#])/;
   const moeSuffix = /moe-top2-routing-motion\.svg(?=$|[?#])/;
   // Earlier CSS-animated diagrams keep their original filenames.
   const standalonePairs = {
@@ -15,11 +18,14 @@
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
-      const animated = img.dataset.motionSrc || img.getAttribute('src') || '';
+      const originalSrc = img.getAttribute('src') || '';
+      const animated = img.dataset.motionSrc || (staticFirst.test(originalSrc)
+        ? originalSrc.replace('-still.svg', '-motion.svg') : originalSrc);
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
-      const still = img.dataset.stillSrc || (pairedStill
+      const still = img.dataset.stillSrc || (staticFirst.test(originalSrc)
+        ? originalSrc : pairedStill
         ? animated.replace(fileName, pairedStill)
         : animated.replace(suffix, '-still.svg'));
       const isMoe = moeSuffix.test(animated);
@@ -28,6 +34,13 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
+      if (wideDiagram.test(animated)) {
+        host.classList.add('concept-motion-wide');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', /[\u3400-\u9fff]/.test(img.alt || '')
+          ? '可水平捲動的教學動畫圖' : 'Scrollable teaching animation');
+      }
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';
