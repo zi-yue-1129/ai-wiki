@@ -139,6 +139,8 @@ def main() -> int:
                 relative = "../../../assets/concept-animations/"
                 still_ref = f'src="{relative}{stem}-still.svg"'
                 motion_ref = f'data-motion-src="{relative}{stem}-motion.svg"'
+                if 'class="concept-motion-wide"' not in text:
+                    errors.append(f"{page}: missing focusable mobile scroll wrapper")
                 if still_ref not in text or motion_ref not in text:
                     errors.append(f"{page}: missing GitHub-safe HTML static preview or MkDocs animation")
             elif stem in GITHUB_GIF_PREVIEWS:

@@ -41,7 +41,7 @@ aliases:
 
 ### 視覺解說：交叉與突變
 
-<img src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" data-motion-src="../../../assets/concept-animations/genetic-crossover-mutation-motion.svg" data-still-src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" alt="兩條八位元親代經選擇與單點交叉，子代第七個位元接著發生突變。" loading="lazy">
+<div class="concept-motion-wide" tabindex="0" role="region" aria-label="可使用鍵盤水平捲動的概念動畫"><img src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" data-motion-src="../../../assets/concept-animations/genetic-crossover-mutation-motion.svg" data-still-src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" alt="兩條八位元親代經選擇與單點交叉，子代第七個位元接著發生突變。" loading="lazy"></div>
 
 *原創教學視覺，CC BY-SA 4.0。* 藍色方塊表示 1，淺色方塊表示 0。此**人工示意例子**使用親代 A `11011010`、親代 B `00100101`，在第四位元後進行單點交叉，得到 `11010101`；接著翻轉第七位元，得到 `11010111`。動畫依序呈現位元繼承與一次突變，**不代表真實適應度、選擇機率或收斂實測**。MkDocs 網站可使用播放／暫停，並支援減少動態效果的靜態回退；GitHub 顯示完成狀態的靜態圖，也可[開啟完整動畫](../../../assets/concept-animations/genetic-crossover-mutation-motion.svg)。
 

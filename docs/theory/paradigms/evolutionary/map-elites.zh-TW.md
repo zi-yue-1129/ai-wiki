@@ -36,7 +36,7 @@ Mouret 與 Clune 在行為描述子的空間上定義一個網格。每個候選
 
 ### 視覺解說：檔案庫更新與菁英替換
 
-<img src="../../../assets/concept-animations/map-elites-archive-still.svg" data-motion-src="../../../assets/concept-animations/map-elites-archive-motion.svg" data-still-src="../../../assets/concept-animations/map-elites-archive-still.svg" alt="MAP-Elites 行為格網依序展示空格插入、淘汰較差候選、以較優候選取代菁英及填入另一格。" loading="lazy">
+<div class="concept-motion-wide" tabindex="0" role="region" aria-label="可使用鍵盤水平捲動的概念動畫"><img src="../../../assets/concept-animations/map-elites-archive-still.svg" data-motion-src="../../../assets/concept-animations/map-elites-archive-motion.svg" data-still-src="../../../assets/concept-animations/map-elites-archive-still.svg" alt="MAP-Elites 行為格網依序展示空格插入、淘汰較差候選、以較優候選取代菁英及填入另一格。" loading="lazy"></div>
 
 *原創教學視覺，CC BY-SA 4.0。* **人工示意**的 6 × 4 行為描述子網格有 24 格，起初占用 3 格。描述子位於 (3, 1) 且示意適應度為 **0.82** 的候選首先填入空格；同格適應度 **0.61** 的候選被拒絕；**0.93** 的候選取代原有菁英；**0.75** 的候選接著填入新格 (2, 3)。覆蓋率由 **3/24 增至 5/24**，不是只追蹤全域單一最佳解。顏色表示格內的相對品質，並非機率；上述數字**不是 MAP-Elites 的實測結果**。MkDocs 提供播放／暫停與減少動態效果回退；GitHub 顯示最終檔案庫靜態圖，亦可[開啟完整動畫](../../../assets/concept-animations/map-elites-archive-motion.svg)。
 
