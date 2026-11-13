@@ -26,6 +26,12 @@ translation_reviewed: 2026-10-28
 
 將 \(\tilde{x}\) 裁剪到有效的輸入範圍內（例如影像的 \([0,1]\)），可使樣本維持為有效輸入。Goodfellow 等人（2015）顯示，線性模型特別脆弱，因為擾動會在許多輸入維度上累加，使輸出改變 \(\epsilon\|w\|_1\)。
 
+### 動畫解說
+
+<div role="region" tabindex="0" aria-label="可水平捲動的 FGSM 梯度符號示意圖" style="overflow-x:auto;max-width:100%"><img src="../../../assets/concept-animations/fgsm-sign-step-still.svg" data-motion-src="../../../assets/concept-animations/fgsm-sign-step-motion.svg" data-still-src="../../../assets/concept-animations/fgsm-sign-step-still.svg" width="640" height="360" style="width:640px;max-width:none" alt="二維輸入空間中的梯度指向右上方，而 FGSM 取符號後沿兩個座標等幅移動至無窮範數擾動方框的角落，右側同步顯示一階損失增量。"></div>
+
+*原創連續教學動畫，CC BY-SA 4.0。* 此**二維解析式示例**假設損失梯度為 $g=(0.90,0.45)$、$\ell_\infty$ 預算為 $\epsilon=1$，並使用一階近似 $\Delta J\approx g^\top\delta$。橘色箭頭代表實際梯度方向；青綠色位移**只取梯度各分量的符號**，因此 $\delta(t)=t(1,1)$，其中 $0\leq t\leq1$。一階近似的損失增量從 0 增加至 $1.35$。在此局部線性近似與單純方框限制下，符號步是精確的最大化方向；但它不保證最大化非線性模型的真實損失，合法像素範圍的裁切也可能縮短步長。**數值並非模型實測梯度或攻擊成功率。** MkDocs 網站提供播放／暫停與減少動態效果的靜態回退；窄螢幕可使用觸控或鍵盤左右捲動。[GitHub 可閱讀的靜態預覽](../../../assets/concept-animations/fgsm-sign-step-still.svg)。
+
 ## 變體
 
 - **目標式 FGSM** 把輸入推向選定的錯誤標籤，而非遠離真實標籤。
