@@ -42,6 +42,18 @@ Here \(i\) and \(j\) are the two views of the same image, and the denominator co
 
 Training uses the LARS optimizer. The paper trains with batch sizes from 256 to 8192. Its default is batch size 4096 for 100 epochs, and its main ImageNet comparison uses 1000 epochs. The crop area is sampled uniformly from 0.08 to 1.0 of the image, followed by a random horizontal flip half the time. Colour distortion has strength \(s\) (default 1.0), with jitter \(0.8s\) for brightness, contrast and saturation and \(0.2s\) for hue. It is applied with probability 0.8, with grayscale with probability 0.2. Gaussian blur is applied to half of the images.
 
+## Visual walkthrough: NT-Xent temperature competition
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="SimCLR temperature comparison">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/simclr-temperature-competition-still.svg" data-motion-src="../../../../assets/concept-animations/simclr-temperature-competition-motion.svg" alt="One SimCLR anchor has one positive and four negative views; as softmax temperature falls, the positive-pair weight grows while other candidate weights shrink." width="640" height="360">
+</div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* For **three original images** and two augmented views per image, each anchor has **one positive plus four negative candidates**; the anchor itself is excluded from the denominator. The example fixes cosine similarities at **0.8** (positive) and **0.4, 0.1, −0.2, −0.4** (negatives), and varies only the softmax temperature from **τ = 1.0** to **τ = 0.2**. The positive candidate's normalized weight changes from approximately **0.353** to **0.851** while the gray dashed outlines retain the τ = 1 baseline. Lowering temperature sharpens this **fixed-score distribution**; the animation does **not** simulate training, learned embeddings, or empirical classification confidence. The probability shown is one NT-Xent softmax term, not an ImageNet accuracy or estimated true-class probability.
+
+On MkDocs, use **Play/Pause** (also Enter/Space when the button has focus). The animation is disabled by default for reduced-motion preferences. GitHub displays the [static comparison](../../../../assets/concept-animations/simclr-temperature-competition-still.svg) even without scripts; for the [animated SVG](../../../../assets/concept-animations/simclr-temperature-competition-motion.svg) use an SVG-capable viewer.
+
 ## Key methods
 
 ### A Simple Framework for Contrastive Learning of Visual Representations (Chen, Kornblith, Norouzi & Hinton, 2020)

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 related:
   - theory/paradigms/self-supervised
   - theory/paradigms/self-supervised/non-contrastive-methods
@@ -34,6 +34,18 @@ Chen、Kornblith、Norouzi 與 Hinton（2020）研究對比學習配方中哪些
 這裡 \(i\) 與 \(j\) 是同一張影像的兩個視角，分母涵蓋批次中所有其他視角。批次損失由這些逐對項組成。下游任務使用 \(h\)，投影頭則被丟棄。
 
 訓練使用 LARS 最佳化器。論文使用的批次大小從 256 到 8192。預設為批次大小 4096、訓練 100 個 epoch，其主要的 ImageNet 比較則使用 1000 個 epoch。裁切面積在影像的 0.08 到 1.0 之間均勻抽樣，之後有一半的機率做隨機水平翻轉。色彩扭曲的強度為 \(s\)（預設 1.0），亮度、對比與飽和度的抖動為 \(0.8s\)，色相為 \(0.2s\)。它以機率 0.8 套用，灰階化以機率 0.2 套用。高斯模糊則套用於一半的影像。
+
+## 動態圖解：NT-Xent 溫度與候選樣本競爭
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="SimCLR 溫度變化的對比式學習圖解">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/simclr-temperature-competition-still.svg" data-motion-src="../../../../assets/concept-animations/simclr-temperature-competition-motion.svg" alt="SimCLR 錨點具有一個正樣本視角與四個負樣本視角；當 Softmax 溫度下降，正樣本對的權重增加，其他候選樣本的權重下降。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 假設一個批次有 **3 張原始影像**，每張建立兩個增強視角。對單一錨點而言，分母涵蓋**一個正樣本與四個負樣本**，不包含錨點本身。圖中固定餘弦相似度為正樣本 **0.8**、負樣本 **0.4、0.1、−0.2、−0.4**，僅將 Softmax 溫度從 **τ = 1.0** 調降至 **τ = 0.2**。正樣本在候選分布中的權重約從 **0.353** 增加至 **0.851**；灰色虛線保留 τ = 1 時的參考寬度。此處展示的是**固定分數的數值正規化**，不是模型訓練、特徵更新、真實類別機率或 ImageNet 實驗結果；所示權重是 NT-Xent 的其中一個 Softmax 項。
+
+MkDocs 網站可使用**播放／暫停**，聚焦按鈕後也可按 Enter／Space。使用「減少動態效果」設定時預設顯示靜態圖。GitHub 可直接顯示[靜態回退圖](../../../../assets/concept-animations/simclr-temperature-competition-still.svg)，[完整 SVG 動畫](../../../../assets/concept-animations/simclr-temperature-competition-motion.svg)可在支援 SVG 動畫的檢視器播放。
 
 ## 關鍵方法
 
