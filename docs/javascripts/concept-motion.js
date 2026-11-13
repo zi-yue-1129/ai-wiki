@@ -28,6 +28,16 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
+      // Planning timelines use a fixed legible canvas on narrow screens;
+      // the focusable player region supports touch and arrow-key scrolling.
+      if (/(?:strips-state-effects|graphplan-layer-extraction)-motion\.svg/.test(animated)) {
+        host.classList.add('concept-motion-wide');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', chinese
+          ? '可水平捲動的教學規劃動畫'
+          : 'Horizontally scrollable planning animation');
+      }
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';

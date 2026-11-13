@@ -39,6 +39,16 @@ The expansion stops at a layer where all goal facts appear, so the search is ove
 
 *Illustration.* Suppose one action `move(A,B)` and another `move(B,C)` are available, and the goal is `at(C)` starting from `at(A)`. The first fact layer contains `at(A)`, the next adds `at(B)`, and the third adds `at(C)`. The goal therefore appears after two action layers, and a two-step plan is extracted. This schematic example is not a benchmark result.
 
+### Animated walkthrough: expand fact layers, then extract a plan
+
+![Graphplan expands F0, F1 and F2 fact layers, marks a mutex pair at F1, and traces the supporting actions backward. ](../../../../assets/concept-animations/graphplan-layer-extraction-motion.svg)
+
+[GitHub-readable static planning graph](../../../../assets/concept-animations/graphplan-layer-extraction-still.svg)
+
+Start from \(F_0=\{\mathrm{At}(A)\}\). **Move(A,B)** can introduce \(\mathrm{At}(B)\) at \(F_1\), while persistence (no-op) support keeps \(\mathrm{At}(A)\) available as an **alternative possibility**. The two facts are **mutex** at \(F_1\): the move deletes \(\mathrm{At}(A)\), so those supports cannot be selected together. The next expansion introduces \(\mathrm{At}(C)\) through **Move(B,C)** at \(F_2\). A backward trace then chooses \(\mathrm{At}(C)\leftarrow\mathrm{Move}(B,C)\leftarrow\mathrm{At}(B)\leftarrow\mathrm{Move}(A,B)\leftarrow\mathrm{At}(A)\). Dotted lines schematically indicate persistence support; **not every no-op action or mutex edge is drawn**. A planning-graph fact layer is the union of *possibly true* facts, **not a single reachable world state**.
+
+These facts, arrows and timings are **schematic, not measured planner performance**. On MkDocs the **Play/Pause** button (also keyboard accessible) switches to a static explanation; reduced-motion users receive the still by default. Original **CC BY-SA 4.0** figure based on Blum and Furst (1997), already cited below.
+
 ## Variants
 
 - **Parallel plans**: the standard GraphPlan finds a plan with the fewest parallel steps, not the fewest actions.

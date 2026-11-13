@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-13
 ---
 
 # STRIPS
@@ -26,6 +26,16 @@ STRIPS 是古典規劃的一種表示法，每個動作有前置條件列表、�
 \]
 
 計畫是一串可套用的動作，能從初始狀態導向包含目標事實的狀態。前向規劃器從初始狀態套用此規則，後向規劃器則透過動作對目標進行回推。兩者通常都由啟發式引導。例如，讓機器人從房間 1 移到房間 2 的動作，其前置條件可為 `At(robot, room1)`，新增 `At(robot, room2)`，刪除 `At(robot, room1)`。
+
+### 教學動畫：檢查前置條件、套用效果與保持未變事實
+
+![STRIPS 狀態轉換：確認 At(A) 前置條件、移除 At(A)、加入 At(B)，而 Charged 事實維持不變。](../../../../assets/concept-animations/strips-state-effects-motion.svg)
+
+[GitHub 可直接閱讀的靜態預覽](../../../../assets/concept-animations/strips-state-effects-still.svg)
+
+示意初始狀態為 \(s_0=\{\mathrm{At}(A),\mathrm{Charged}\}\)。**Move(A,B)** 要求 \(\mathrm{At}(A)\) 成立，並刪除 \(\mathrm{At}(A)\)、加入 \(\mathrm{At}(B)\)，得到 \(s_1=\{\mathrm{At}(B),\mathrm{Charged}\}\)。移動標記對應這次狀態更新；**Charged** 未列於新增或刪除效果，因此維持不變。圖中刻意區分「檢查前置條件」與「執行效果」；若前置條件不成立，就不能套用此動作。狀態與路徑都是**人工設計的教學示例，不是機器人真實軌跡或基準測試**。
+
+MkDocs 網站可使用支援鍵盤的**播放／暫停**按鈕；暫停或偏好減少動態效果時可閱讀靜態畫面。本圖為原創 **CC BY-SA 4.0** 教學視覺，依據下方 Fikes 與 Nilsson（1971）的 STRIPS 狀態轉移語義製作。
 
 ## 變體
 
