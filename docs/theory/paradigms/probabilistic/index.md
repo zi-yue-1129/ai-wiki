@@ -32,7 +32,7 @@ Graphs encode conditional dependencies so high-dimensional joint distributions b
 | Kalman filter | Linear-Gaussian state space | Tracking, navigation |
 | Topic model (LDA) | Hierarchical | Document topics |
 
-Detailed pages: [Probabilistic graphical models](graphical-models/index.md), with [belief propagation](graphical-models/belief-propagation.md) and [hidden Markov models](graphical-models/hidden-markov-models.md).
+Detailed pages: [Probabilistic graphical models](graphical-models/index.md), with [belief propagation](graphical-models/belief-propagation.md), [hidden Markov models](graphical-models/hidden-markov-models.md), [Kalman filtering](graphical-models/kalman-filter.md), and [particle filtering](graphical-models/particle-filter.md).
 
 ## Inference
 

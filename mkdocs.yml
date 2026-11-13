@@ -1461,6 +1461,8 @@ nav:
                   - theory/paradigms/probabilistic/graphical-models/index.md
                   - Belief Propagation: theory/paradigms/probabilistic/graphical-models/belief-propagation.md
                   - Hidden Markov Models: theory/paradigms/probabilistic/graphical-models/hidden-markov-models.md
+                  - Kalman Filter: theory/paradigms/probabilistic/graphical-models/kalman-filter.md
+                  - Particle Filter: theory/paradigms/probabilistic/graphical-models/particle-filter.md
               - Variational Inference:
                   - theory/paradigms/probabilistic/variational-inference/index.md
                   - Mean-Field Variational Inference: theory/paradigms/probabilistic/variational-inference/mean-field.md
