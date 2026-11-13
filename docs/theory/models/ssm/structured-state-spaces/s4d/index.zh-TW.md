@@ -10,7 +10,7 @@ tags:
   - state-space models
   - long-range memory
   - initialisation
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 ---
 
 # S4D：S4 的對角版本
@@ -42,6 +42,17 @@ S4D 把 S4 的計算方式與參數化，和 DSS 的初始化結合起來。它�
 \[
 A_n^{\text{Inv}} = -\tfrac{1}{2} + i\,\tfrac{N}{\pi}\left(\tfrac{N}{2n+1} - 1\right), \qquad A_n^{\text{Lin}} = -\tfrac{1}{2} + i\pi n .
 \]
+
+
+## 動態圖解：由對角模態組合成卷積核
+
+<div class="ssm-motion-viewport" tabindex="0" role="group" aria-label="S4D 對角模態脈衝響應示意">
+  <img src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" data-motion-src="../../../../../assets/concept-animations/s4d-diagonal-modes-motion.svg" data-still-src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" alt="藍色與青綠色兩組衰減振盪的對角模態，隨時間延遲從零增加至十五，逐步組合成橘色的實數脈衝響應卷積核。" />
+</div>
+
+移動的圓點沿著**延遲（lag）** $\ell=0,\ldots,15$ 前進：兩組複數共軛模態各自產生實數的衰減振盪，兩者相加得到卷積核。此處**僅為人工構造的純量範例**：$k_A[\ell]=0.79^\ell\cos(0.96\ell)$、$k_B[\ell]=0.63(0.93)^\ell\cos(0.32\ell)$，因此 $K[\ell]=k_A[\ell]+k_B[\ell]$。每個實數餘弦項都能表示為一組複數共軛對角特徵值與共軛係數，符合 S4D 的 Vandermonde 卷積核形式。
+
+圖中數值**不是訓練得到的 S4D 參數，也不是實測結果**；省略了雙線性離散化及論文特定的 HiPPO 初始化。淡色虛線只是尚未掃描到的後續延遲，不是額外的模型預測。原創視覺採 CC BY-SA 4.0，科學基礎見下方 S4D 原始論文。GitHub 直接顯示完整靜態圖，亦可[開啟 12 秒循環 SVG 動畫](../../../../../assets/concept-animations/s4d-diagonal-modes-motion.svg)；MkDocs 可用**播放／暫停**按鈕（支援 Enter／Space），偏好減少動態效果時會先顯示靜態圖。
 
 ## 結果
 

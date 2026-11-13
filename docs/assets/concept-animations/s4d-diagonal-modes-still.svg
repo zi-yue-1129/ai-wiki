@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="440" viewBox="0 0 860 440" role="img" aria-label="S4D  /  Diagonal modes">
+<title>S4D  /  Diagonal modes</title>
+<desc>Schematic complex-conjugate mode pairs. Original schematic illustration with explanatory text in the corresponding article.</desc>
+<rect x="0" y="0" width="860" height="440" rx="0" fill="#f8fafc" stroke="#f8fafc" stroke-width="0" />
+<text x="26" y="37" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#17243d" >S4D  /  Diagonal modes</text>
+<text x="834" y="36" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#65758d" text-anchor="end" >Schematic complex-conjugate mode pairs</text>
+<rect x="24" y="60" width="395" height="342" rx="14" fill="#ffffff" stroke="#dce5ef" stroke-width="1.2" />
+<rect x="432" y="60" width="404" height="342" rx="14" fill="#ffffff" stroke="#dce5ef" stroke-width="1.2" />
+<text x="44" y="87" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#65758d" >DECAYING MODES</text>
+<text x="452" y="87" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#65758d" >IMPULSE RESPONSE</text>
+<text x="51" y="119" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2563eb" >Mode A</text>
+<line x1="51" y1="165" x2="392" y2="165" stroke="#dce5ef" stroke-width="1.4" />
+<line x1="51.0" y1="95" x2="51.0" y2="225" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="141.93333333333334" y1="95" x2="141.93333333333334" y2="225" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="232.86666666666667" y1="95" x2="232.86666666666667" y2="225" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="323.8" y1="95" x2="323.8" y2="225" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="392.0" y1="95" x2="392.0" y2="225" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<path d="M 51.00 97.00 L 73.73 134.19 L 96.47 179.52 L 119.20 197.39 L 141.93 185.28 L 164.67 163.17 L 187.40 150.68 L 210.13 153.17 L 232.87 163.21 L 255.60 170.77 L 278.33 171.34 L 301.07 167.15 L 323.80 162.99 L 346.53 161.84 L 369.27 163.39 L 392.00 165.51" fill="none" stroke="#2563eb" stroke-opacity=".22" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round"/>
+<path d="M 51.00 97.00 L 73.73 134.19 L 96.47 179.52 L 119.20 197.39 L 141.93 185.28 L 164.67 163.17 L 187.40 150.68 L 210.13 153.17 L 232.87 163.21 L 255.60 170.77 L 278.33 171.34 L 301.07 167.15 L 323.80 162.99 L 346.53 161.84 L 369.27 163.39 L 392.00 165.51" fill="none" stroke="#2563eb" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="392.0" cy="165.51473469388657" r="6" fill="#ffffff" stroke="#2563eb" stroke-width="3" />
+<text x="51" y="245" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#0d9488" >Mode B</text>
+<line x1="51" y1="328" x2="392" y2="328" stroke="#dce5ef" stroke-width="1.4" />
+<line x1="51.0" y1="258" x2="51.0" y2="388" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="141.93333333333334" y1="258" x2="141.93333333333334" y2="388" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="232.86666666666667" y1="258" x2="232.86666666666667" y2="388" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="323.8" y1="258" x2="323.8" y2="388" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="392.0" y1="258" x2="392.0" y2="388" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<path d="M 51.00 285.16 L 73.73 290.18 L 96.47 298.28 L 119.20 308.24 L 141.93 318.81 L 164.67 328.87 L 187.40 337.48 L 210.13 343.99 L 232.87 348.03 L 255.60 349.54 L 278.33 348.70 L 301.07 345.92 L 323.80 341.73 L 346.53 336.75 L 369.27 331.57 L 392.00 326.74" fill="none" stroke="#0d9488" stroke-opacity=".22" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round"/>
+<path d="M 51.00 285.16 L 73.73 290.18 L 96.47 298.28 L 119.20 308.24 L 141.93 318.81 L 164.67 328.87 L 187.40 337.48 L 210.13 343.99 L 232.87 348.03 L 255.60 349.54 L 278.33 348.70 L 301.07 345.92 L 323.80 341.73 L 346.53 336.75 L 369.27 331.57 L 392.00 326.74" fill="none" stroke="#0d9488" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="392.0" cy="326.73789148173825" r="6" fill="#ffffff" stroke="#0d9488" stroke-width="3" />
+<text x="454" y="123" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#e58b2b" >Kernel</text>
+<line x1="454" y1="261" x2="806" y2="261" stroke="#dce5ef" stroke-width="1.4" />
+<line x1="454.0" y1="191" x2="454.0" y2="321" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="547.8666666666667" y1="191" x2="547.8666666666667" y2="321" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="641.7333333333333" y1="191" x2="641.7333333333333" y2="321" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="735.6" y1="191" x2="735.6" y2="321" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<line x1="806.0" y1="191" x2="806.0" y2="321" stroke="#e7edf5" stroke-width="0.7" stroke-dasharray="3 5" />
+<path d="M 454.00 143.64 L 477.47 188.33 L 500.93 244.91 L 524.40 274.37 L 547.87 272.75 L 571.33 259.98 L 594.80 255.88 L 618.27 265.40 L 641.73 280.32 L 665.20 289.91 L 688.67 289.63 L 712.13 282.24 L 735.60 273.41 L 759.07 266.92 L 782.53 263.08 L 806.00 260.21" fill="none" stroke="#e58b2b" stroke-opacity=".22" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round"/>
+<path d="M 454.00 143.64 L 477.47 188.33 L 500.93 244.91 L 524.40 274.37 L 547.87 272.75 L 571.33 259.98 L 594.80 255.88 L 618.27 265.40 L 641.73 280.32 L 665.20 289.91 L 688.67 289.63 L 712.13 282.24 L 735.60 273.41 L 759.07 266.92 L 782.53 263.08 L 806.00 260.21" fill="none" stroke="#e58b2b" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="806.0" cy="260.2086630094851" r="6" fill="#ffffff" stroke="#e58b2b" stroke-width="3" />
+<text x="452" y="371" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#65758d" >lag</text>
+<text x="803" y="371" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="500" fill="#65758d" text-anchor="end" >15</text>
+<text x="51" y="389" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#65758d" >Conjugate modes combine to form a real kernel</text>
+<text x="452" y="389" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#17243d" >K[l] = Σ  cₙ bₙ aₙˡ</text>
+<rect x="682" y="71" width="134" height="31" rx="16" fill="#eef6ff" stroke="none" stroke-width="0" />
+<text x="695" y="92" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2563eb" >lag  0 → 15</text>
+</svg>

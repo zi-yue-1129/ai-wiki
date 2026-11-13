@@ -12,7 +12,7 @@ tags:
   - structured matrices
   - attention duality
   - hardware-efficient training
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 ---
 
 # Mamba-2
@@ -42,6 +42,17 @@ M_{ji} = (a_j a_{j-1}\cdots a_{i+1})\,(C_j^{\top} B_i) \qquad (j \ge i)。
 \]
 
 以矩陣形式寫成 \(M = L \circ (C B^{\top})\)，其中 \(L\) 是由 \(a_t\) 的累積乘積構成的下三角遮罩。對偶的二次形式為 \((L \circ QK^{\top})V\)，其中 \(Q = C\)、\(K = B\)、\(V = X\)。分塊演算法以此二次形式計算 \(M\) 的對角區塊；非對角區塊則以低秩因子分三步處理：每個區塊從零初始狀態算出其最終狀態，一段跨區塊的短掃描傳播真正的狀態，最後每個區塊把進入的狀態映射為輸出。
+
+
+## 動態圖解：遞迴與因果矩陣是同一個映射
+
+<div class="ssm-motion-viewport" tabindex="0" role="group" aria-label="Mamba-2 結構化狀態空間對偶示意">
+  <img src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg" data-motion-src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-motion.svg" data-still-src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg" alt="左側四個遞迴狀態更新，與右側依序亮起的下三角因果矩陣各列，計算出完全相同的四個輸出數值。" />
+</div>
+
+動畫逐一追蹤四個輸出；左側青綠色的狀態光圈，與右側亮起的矩陣列，代表**同一個計算的兩種表示方式**。人工構造的一維範例取 $B_t=C_t=1$、$h_0=0$、輸入 $x=(1,0.7,-0.6,1.1)$，轉移係數 $(a_2,a_3,a_4)=(0.8,0.7,0.9)$。純量遞迴 $h_t=a_th_{t-1}+x_t$ 得到 $y=h=(1,1.5,0.45,1.505)$，與矩陣表示 $y=Mx$ 完全相同。例如 $M_{4,1}=0.8\cdot0.7\cdot0.9=0.504$。空白的上三角表示**因果性**，不是 softmax 產生的零值。
+
+此圖僅展示 SSD 的純量轉移與單頭概念；**不是**完整的 Mamba-2 網路區塊、分塊 GPU 演算法、softmax 注意力圖或實測模型激活值。移動的橘色標記象徵掃描順序，而非實際傳送的資料封包。原創圖採 CC BY-SA 4.0，依據下方 Dao 與 Gu（2024）的原始論文。GitHub 可直接閱讀[完整靜態預覽](../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg)，也可[開啟 12 秒循環 SVG 動畫](../../../../../assets/concept-animations/mamba2-ssd-causal-map-motion.svg)；MkDocs 支援**播放／暫停**（Enter／Space），減少動態效果偏好會先顯示靜態圖。
 
 ## 結果
 
