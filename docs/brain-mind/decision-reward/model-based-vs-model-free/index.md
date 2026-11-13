@@ -26,7 +26,9 @@ Consider choosing between two routes to work after a road closure. A model-free 
 
 ## Revaluation: planning versus cached values
 
+<div class="decision-motion-scroll" role="region" tabindex="0" aria-label="Scrollable teaching illustration">
 <img src="../../../assets/concept-animations/mbmf-revaluation-still.svg" data-motion-src="../../../assets/concept-animations/mbmf-revaluation-motion.svg" data-still-src="../../../assets/concept-animations/mbmf-revaluation-still.svg" alt="A reward change makes model-based planning immediately prefer Route B, while model-free cached values initially keep Route A until feedback arrives." loading="lazy">
+</div>
 
 *Original continuous teaching animation (CC BY-SA 4.0).* In a **constructed one-step decision task**, Route A initially rewards +5 and Route B +2. After A is **externally devalued to zero**, the model-based agent is **given that updated reward model**: its planned values change from ((5,2)) to ((0,2)), and it switches to B without sampling A again. The model-free agent initially retains cached values ((5,2)) and chooses A; **after observing the zero reward**, a hypothetical update (Q_A\leftarrow(1-\alpha)Q_A+\alpha r), with (\alpha=0.7), changes its estimate to 1.5, below (Q_B=2). All numbers and timings are illustrative, **not behavioural data or proof that any particular brain region implements a separate controller**. On MkDocs use **Play/Pause animation** (Tab plus Enter/Space); GitHub and reduced-motion readers see the immediate post-change contrast. The distinction and arbitration proposal are discussed by [Daw, Niv and Dayan (2005)](https://doi.org/10.1038/nn1560).
 

@@ -25,7 +25,9 @@ aliases:
 
 ## 獎勵重估：重新規劃與快取價值
 
+<div class="decision-motion-scroll" role="region" tabindex="0" aria-label="可水平捲動的教學動畫">
 <img src="../../../assets/concept-animations/mbmf-revaluation-still.svg" data-motion-src="../../../assets/concept-animations/mbmf-revaluation-motion.svg" data-still-src="../../../assets/concept-animations/mbmf-revaluation-still.svg" alt="獎勵變動後，有模型控制器立即改選路線 B，無模型控制器仍沿用路線 A 的舊價值，直到收到回饋才更新。" loading="lazy">
+</div>
 
 *原創連續教學動畫（CC BY-SA 4.0）。* 在**人工設計的單步決策任務**中，路線 A、B 的初始獎勵分別為 +5、+2。當外部資訊通知 A 的獎勵**降為 0**，且有模型代理人**已取得更新後的獎勵模型**時，規劃價值由 ((5,2)) 變為 ((0,2))，因此無須再次走 A 就能改選 B。無模型代理人原先仍沿用快取價值 ((5,2))，會先選擇 A；**收到獎勵為 0 的回饋後**，示意更新 (Q_A\leftarrow(1-\alpha)Q_A+\alpha r)，令 (\alpha=0.7)，便得到 (Q_A=1.5<Q_B=2)。全部數值與時間順序均為教學示意，**不是行為實測值，也不能證明特定腦區實作了兩套獨立控制器**。MkDocs 網站可用**播放／暫停動畫**（Tab 聚焦後按 Enter 或空白鍵）；GitHub 與減少動態效果的讀者會看到重估後、收到回饋前的靜態對照。[Daw、Niv 與 Dayan（2005）](https://doi.org/10.1038/nn1560)提出了兩類控制系統及仲裁的理論。
 
