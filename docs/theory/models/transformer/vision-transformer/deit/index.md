@@ -32,6 +32,13 @@ The [original ViT](../index.md) reached its best results only after pre-training
 
 ## How it works
 
+### Distillation-token teaching animation
+
+<img src="../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg" data-motion-src="../../../../../assets/concept-animations/deit-dual-head-distillation-motion.svg" data-still-src="../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg" alt="Image patches feed a student Vision Transformer and separate CNN teacher. The class-token head receives a ground-truth supervision signal; the distillation-token head receives the teacher's hard label, forming two training losses." />
+
+*Original CC BY-SA 4.0 teaching animation. The two coloured branches show **separate supervision signals**, not measured activations or an optimisation trajectory. The teacher generates a hard target and **does not receive the student's loss gradients**. Both supervised heads train the student; at inference, the original DeiT method combines their probability predictions. On MkDocs use **Play/Pause** (Enter/Space by keyboard); narrow screens can scroll horizontally. [GitHub-readable overview](../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg) · [Full animation](../../../../../assets/concept-animations/deit-dual-head-distillation-motion.svg) (Touvron et al., 2021; see References).*
+
+
 The input to the encoder is the patch embeddings with two extra tokens, the class token and the distillation token. Each token has its own output head. The class head is trained against the true label \(y\). The distillation head is trained against the teacher's hard label \(y_t\), and the training loss is the equal-weight sum of the two cross-entropy terms:
 
 \[

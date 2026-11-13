@@ -33,6 +33,13 @@ DeiT（Data-efficient image Transformer，資料高效影像 Transformer）只�
 
 ## 運作方式
 
+### 蒸餾 token 教學動畫
+
+<img src="../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg" data-motion-src="../../../../../assets/concept-animations/deit-dual-head-distillation-motion.svg" data-still-src="../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg" alt="影像區塊同時輸入學生視覺 Transformer 與獨立的 CNN 教師。類別 token 輸出頭接受真實標籤監督；蒸餾 token 輸出頭接受教師預測的硬標籤監督，形成兩個訓練損失。" />
+
+*原創 CC BY-SA 4.0 教學動畫。兩條不同顏色的路徑表示**不同監督訊號**，不是模型實測激活值或最佳化軌跡。教師提供硬標籤，**不接收學生損失的梯度**；兩個輸出頭共同訓練學生，原始 DeiT 的推論則融合兩個輸出頭的機率預測。MkDocs 支援**播放／暫停**及 Enter／Space 鍵盤操作；手機可水平捲動。[GitHub 可閱讀的靜態概覽](../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg) · [完整動畫](../../../../../assets/concept-animations/deit-dual-head-distillation-motion.svg)（Touvron 等人，2021；參見參考文獻）。*
+
+
 編碼器的輸入是區塊嵌入，外加兩個額外 token：類別 token 與蒸餾 token。兩者各有自己的輸出頭。類別頭以真實標籤 \(y\) 訓練，蒸餾頭以教師的硬標籤 \(y_t\) 訓練，訓練損失是兩個交叉熵項的等權重和：
 
 \[
