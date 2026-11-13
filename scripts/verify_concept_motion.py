@@ -148,7 +148,7 @@ def main() -> int:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"pbwm-gate", "activity-silent-trace"}:
                 # GitHub sees the static image directly; MkDocs enhances it via data-motion-src.
-                image = re.search(r'<img\\s+[^>]*src="([^"]+)"\\s+data-motion-src="([^"]+)"', text)
+                image = re.search(r'<img\s+[^>]*src="([^"]+)"\s+data-motion-src="([^"]+)"', text)
                 if not image or (page.parent / image.group(1)).resolve() != static_path.resolve() or (page.parent / image.group(2)).resolve() != animated_path.resolve():
                     errors.append(f"{page}: missing static-first image with correct motion enhancement")
             elif animated_path.resolve() not in linked_images:
