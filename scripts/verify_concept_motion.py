@@ -136,11 +136,11 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             # HTML <img src="...-still.svg" data-motion-src="...-motion.svg">
             # preserves a visible GitHub fallback while MkDocs enhances playback.
-            html_image_sources = re.findall(
-                r'<img\\b[^>]*?\\b(?:src|data-motion-src|data-still-src)=["\\\']([^"\\\']+\\.svg)["\\\']',
-                text,
-                flags=re.IGNORECASE | re.DOTALL,
-            )
+            html_image_sources = []
+            for html_img in re.findall(r"<img\b[^>]*>", text, flags=re.IGNORECASE | re.DOTALL):
+                html_image_sources.extend(
+                    re.findall(r'(?:src|data-motion-src|data-still-src)="([^"]+\.svg)"', html_img)
+                )
             linked_images.update(
                 (page.parent / link).resolve() for link in html_image_sources
             )
