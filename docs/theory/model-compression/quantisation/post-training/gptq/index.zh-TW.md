@@ -17,7 +17,9 @@ GPTQ 是一種訓練後方法，把大型語言模型的權重量化為 3 或 4 
 
 ### 教學動畫：二階捨入補償
 
+<div class="concept-motion-horizontal-scroll" tabindex="0" role="group" aria-label="使用方向鍵左右捲動教學動畫">
 <img src="../../../../../assets/concept-animations/gptq-error-compensation-still.svg" data-motion-src="../../../../../assets/concept-animations/gptq-error-compensation-motion.svg" alt="兩維權重先捨入第一個座標，再沿傾斜的二次誤差等值線補償第二個座標，最後與獨立捨入結果比較。">
+</div>
 
 [GitHub 可閱讀靜態預覽](../../../../../assets/concept-animations/gptq-error-compensation-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/gptq-error-compensation-motion.svg)
 

@@ -26,7 +26,9 @@ Identify salient channels from activation statistics. Scale those channels up be
 
 ### Visual walkthrough: salient-channel scaling
 
+<div class="concept-motion-horizontal-scroll" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
 <img src="../../../../../assets/concept-animations/awq-salient-scaling-still.svg" data-motion-src="../../../../../assets/concept-animations/awq-salient-scaling-motion.svg" alt="As the salient channel is rescaled, a floating-point weight crosses quantisation grid boundaries, changing its rounded value and output error.">
+</div>
 
 [GitHub-readable fallback](../../../../../assets/concept-animations/awq-salient-scaling-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/awq-salient-scaling-motion.svg)
 

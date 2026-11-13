@@ -17,7 +17,9 @@ AWQ（激活感知權重量化）是大型語言模型僅權重量化的訓練�
 
 ### 教學動畫：顯著通道縮放與捨入誤差
 
+<div class="concept-motion-horizontal-scroll" tabindex="0" role="group" aria-label="使用方向鍵左右捲動教學動畫">
 <img src="../../../../../assets/concept-animations/awq-salient-scaling-still.svg" data-motion-src="../../../../../assets/concept-animations/awq-salient-scaling-motion.svg" alt="顯著通道的權重隨縮放係數變化而跨越量化格點，量化後位置與輸出誤差也跟著改變。">
+</div>
 
 [GitHub 可閱讀靜態預覽](../../../../../assets/concept-animations/awq-salient-scaling-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/awq-salient-scaling-motion.svg)
 

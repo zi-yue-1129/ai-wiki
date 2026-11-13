@@ -25,7 +25,9 @@ Quantise the weights of one layer one column at a time. After each column is rou
 
 ### Visual walkthrough: second-order error compensation
 
+<div class="concept-motion-horizontal-scroll" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
 <img src="../../../../../assets/concept-animations/gptq-error-compensation-still.svg" data-motion-src="../../../../../assets/concept-animations/gptq-error-compensation-motion.svg" alt="A two-weight vector is rounded in one coordinate, then compensated and rounded in the other; tilted quadratic contours and the naive rounding point remain visible.">
+</div>
 
 [GitHub-readable fallback](../../../../../assets/concept-animations/gptq-error-compensation-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/gptq-error-compensation-motion.svg)
 
