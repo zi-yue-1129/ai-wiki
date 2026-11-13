@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # 隨機變分推論
@@ -28,6 +28,17 @@ translation_reviewed: 2026-10-28
 其中 \(\lambda\) 為全域變分參數，\(\hat\lambda_t\) 為由小批次得到的最佳值估計。更新是當前值與小批次估計之間的加權平均。
 
 對於非共軛模型，SVI 可以改用黑箱梯度估計量，以精確性換取一般性（Ranganath et al., 2014）。
+
+
+### 教學動畫：小批次如何更新全域參數
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="隨機變分推論教學動畫">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/svi-minibatch-global-still.svg" data-motion-src="../../../../assets/concept-animations/svi-minibatch-global-motion.svg" alt="從十二筆資料依次抽出三組不同顏色的小批次，計算示意的縮放估計，再讓共用的全域變分參數逐次朝估計值移動。" width="640" height="360">
+</div>
+</div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 十二筆資料僅用於說明抽樣：每批 $B=3$，對全資料充分統計量的估計須依 $N/B=4$ 縮放。三個**人工設定**的提議值 $\hat\lambda_t=(0.8,0.5,0.65)$，搭配步長 $\rho_t=(0.25,0.30,0.20)$，使單一參數座標依 $\lambda_{t+1}=(1-\rho_t)\lambda_t+\rho_t\hat\lambda_t$，由 $0.20$ 依序更新為 $0.35$、$0.395$、$0.446$。此圖僅呈現局部最佳化之後，**全域參數其中一個座標**的共軛自然梯度示意更新，不是實測訓練軌跡，也不代表任何模型均保證 ELBO 收斂。畫面三個小批次是示意的獨立抽樣，並非必須不重複取樣。MkDocs 可播放／暫停；[GitHub 靜態回退圖](../../../../assets/concept-animations/svi-minibatch-global-still.svg)保留各次更新結果。偏好減少動態效果時預設暫停；手機可水平捲動。理論依據見 Hoffman 等人（2013）。
 
 ## 主要方法
 

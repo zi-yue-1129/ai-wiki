@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # SOAP
@@ -21,6 +21,17 @@ Shampoo 的更新使用矩陣統計量的逆根，計算成本高，而且對重
 ## 演算法
 
 令 \(L\) 與 \(R\) 為矩陣參數的 Shampoo 統計量，其特徵向量分別為 \(Q_L\) 與 \(Q_R\)，並定期重算。梯度 \(G\) 旋轉為 \(\tilde G = Q_L^\top G\, Q_R\)。對 \(\tilde G\) 執行 Adam，再把所得更新旋轉回去。特徵基的更新頻率低於梯度，與 Shampoo 相同。
+
+
+### 教學動畫：在 Shampoo 特徵基中執行 Adam
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="SOAP 特徵基與 Adam 教學動畫">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/soap-eigenbasis-adam-still.svg" data-motion-src="../../../assets/concept-animations/soap-eigenbasis-adam-motion.svg" alt="二乘二梯度矩陣先旋轉到 Shampoo 的特徵基，經過示意的 Adam 逐座標縮放，再轉回原本的參數座標系。" width="640" height="360">
+</div>
+</div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* **人工設定**的二維範例以 $G=\left[\begin{smallmatrix}3&1\\1&3\end{smallmatrix}\right]$ 與正交基底 $Q=2^{-1/2}\left[\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right]$ 表示，因此 $Q^\top GQ=\operatorname{diag}(4,2)$。在旋轉座標中的**示意**自適應更新取 $\tilde U=\operatorname{diag}(1,1.6)$；轉回原座標可得 $U=Q\tilde UQ^\top=\left[\begin{smallmatrix}1.3&-0.3\\-0.3&1.3\end{smallmatrix}\right]$。中間的更新矩陣**不是**從完整指定的 Adam 動量歷史推導而來，也不是模型實測或建議步長。動畫聚焦於座標轉換，而非 Shampoo 特徵基更新頻率、Adam 偏差校正等細節；最終參數更新須沿**負方向**套用。MkDocs 可播放／暫停並支援減少動態效果；GitHub 可檢視[靜態總覽](../../../assets/concept-animations/soap-eigenbasis-adam-still.svg)。參考 Vyas 等人（2024）。
 
 ## 主要結果
 
