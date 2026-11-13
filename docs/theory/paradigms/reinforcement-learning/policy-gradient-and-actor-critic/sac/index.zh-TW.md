@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 aliases:
   - SAC
   - 軟演員–評論家
@@ -35,6 +35,20 @@ J(\pi) = \sum_t \mathbb{E}\left[r(s_t, a_t) + \alpha\, \mathcal{H}\big(\pi(\cdot
 4. 以速率 \(\tau\) 更新目標價值網路，然後重複。
 
 論文省略了演算法中的溫度，並指出獎勵尺度是唯一需要調整的超參數。
+
+### 教學動畫：溫度與策略熵
+
+<div class="concept-motion-wide" tabindex="0" role="region" aria-label="SAC 溫度與熵示意圖；窄螢幕可水平捲動">
+<img src="../../../../../assets/concept-animations/sac-entropy-temperature-still.svg" data-motion-src="../../../../../assets/concept-animations/sac-entropy-temperature-motion.svg" alt="三個動作的機率長條隨 Softmax 溫度下降而重新分配，旁邊的熵與溫度曲線同步標示策略熵。" loading="lazy">
+</div>
+
+*原創向量教學動畫（CC BY-SA 4.0）。* 固定**人工設定**的三個離散動作價值 (Q=[2,1,0])，有限動作集合的最大熵最佳策略可寫為：
+
+[
+pi_{alpha}(amid s)=rac{exp(Q(s,a)/alpha)}{sum_{a'}exp(Q(s,a')/alpha)}.
+]
+
+在 (alpha=2) 時，動作機率約為 ((0.506,0.307,0.186))，熵為 (1.020) nats；當 (alpha=0.5)，機率約變為 ((0.867,0.117,0.016))，熵降至 (0.441) nats。淡色外框保留高溫分布，橘色游標沿解析式熵曲線移動。**這是三動作的概念類比，不是 SAC 連續動作演員的真實輸出，也不是最佳化訓練軌跡或模型實測結果。** MkDocs 網站可使用播放／暫停，或以 Enter／Space 鍵操作；偏好減少動態效果的讀者可看到靜態畫面。無腳本時仍可閱讀圖像。參考 [Haarnoja 等人（2018）](https://arxiv.org/abs/1801.01290)。
 
 ## 結果
 
