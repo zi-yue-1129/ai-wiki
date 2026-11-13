@@ -37,6 +37,10 @@ The method keeps the non-expert parts of the model and a cache of experts on the
 4. Load any selected expert that is not on the device.
 5. Evict a cached expert to make room, using the cache policy of the method, and continue generation.
 
+<img src="../../assets/concept-animations/expert-cache-miss-still.svg" data-motion-src="../../assets/concept-animations/expert-cache-miss-motion.svg" alt="Expert E2 is selected but missing from a two-slot GPU cache. It is transferred from host memory, replacing E1, and a later request for E2 hits the resident cache.">
+
+*Original instructional animation, CC BY-SA 4.0.* This is a **two-slot schematic cache**, not a measured inference trace or a claim about the original paper's cache policy. Initially the GPU holds E0 and E1 while the router selects E2; E2 must be loaded from host memory and E1's GPU copy is evicted. The following selection of E2 is a **cache hit** and needs no repeated transfer. The dashed path and moving dot depict a conceptual transfer, not a GPU hardware trace. The specific victim, timing, and expert choices are illustrative. On MkDocs use **Play/Pause** (Enter or Space); reduced-motion preferences show the still, and the image can be scrolled horizontally by keyboard on narrow screens. [GitHub-readable post-load state](../../assets/concept-animations/expert-cache-miss-still.svg).
+
 ## Results
 
 The abstract reports that the strategy allows Mixtral-8x7B to run with mixed quantisation on desktop hardware and on free-tier Google Colab instances. The abstract does not give specific speed figures, so this page reports none. A reader who needs them should measure the method on the target hardware, with its cache size and quantisation.
