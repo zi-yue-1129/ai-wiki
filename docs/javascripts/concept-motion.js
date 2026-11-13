@@ -10,12 +10,18 @@
     'flashattention-streaming-tiles.svg': 'flashattention-streaming-tiles-still.svg',
     'lstm-write-retain-read.svg': 'lstm-write-retain-read-still.svg',
   };
+  // These two chapters intentionally show a readable still in GitHub Markdown.
+  // MkDocs upgrades that exact preview to the matching loop automatically.
+  const stillFirstPairs = new Set(['paged-block-mapping-still.svg', 'expert-cache-miss-still.svg']);
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
-      const animated = img.dataset.motionSrc || img.getAttribute('src') || '';
+      const source = img.getAttribute('src') || '';
+      const sourceName = source.split(/[?#]/, 1)[0].split('/').pop();
+      const animated = img.dataset.motionSrc || (stillFirstPairs.has(sourceName)
+        ? source.replace(/-still\.svg(?=$|[?#])/, '-motion.svg') : source);
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
