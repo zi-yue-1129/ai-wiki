@@ -42,7 +42,7 @@ L = \log p(x \mid z_q(x)) + \lVert \operatorname{sg}[z_e(x)] - e \rVert_2^2 + \b
 
 ### 視覺化說明：碼本的離散選擇
 
-![VQ-VAE 動畫：編碼器向量在潛在空間移動，跨過最近鄰邊界後，離散編碼從第一個碼本向量跳換為第二個。](../../../../../assets/concept-animations/vqvae-codebook-snap-motion.svg)
+<img src="../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg" data-motion-src="../../../../../assets/concept-animations/vqvae-codebook-snap-motion.svg" alt="VQ-VAE 動畫：編碼器向量在潛在空間移動，跨過最近鄰邊界後，離散編碼從第一個碼本向量跳換為第二個。">
 
 [GitHub 可閱讀的 VQ-VAE 靜態預覽](../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg)
 
