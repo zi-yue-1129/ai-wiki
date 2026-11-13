@@ -49,6 +49,13 @@ where \(\gamma\) is the discount factor. After an observed transition from \(s\)
 
 with learning rate \(\alpha\). The reward weights \(R\) are estimated separately, from the rewards observed in each state. Because \(M\) is defined by the agent's policy, a change of policy changes \(M\).
 
+
+### Animated occupancy and reward revaluation
+
+![A token visits a five-state terminal chain as discounted occupancy bars accumulate; moving the reward marker changes value but not occupancy](../../../assets/concept-animations/successor-occupancy-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* A **deterministic, episodic, fixed-policy** chain visits $S_0\rightarrow S_1\rightarrow S_2\rightarrow S_3\rightarrow S_4$ exactly once, then terminates. With $\gamma=0.7$, $M(S_0,S_j)=\gamma^j$ for $j=0,\ldots,4$; this is an *undiscounted-count-free terminal example*, not the infinite revisits of an absorbing state. The orange marker traverses states while teal bars accumulate the corresponding discounted visits. The purple reward marker first gives $R(S_4)=1$, hence $V(S_0)=0.7^4=0.2401$; then reward is reassigned to $S_2$, giving $V(S_0)=0.7^2=0.49$ **without changing $M$**. This holds only while the transition dynamics and policy remain fixed. All numbers are schematic, not fitted animal behavior or empirical neural data. On MkDocs, use Play/Pause; see the [GitHub static preview](../../../assets/concept-animations/successor-occupancy-still.svg).
+
 ## Results
 
 Dayan (1993) illustrates the approach with a navigation task, and the abstract describes the result as appropriately distributed across states. The abstract presents this as an illustration of the method, not as evidence about brains.

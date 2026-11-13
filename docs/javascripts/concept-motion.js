@@ -28,6 +28,8 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
+      host.tabIndex = 0; // Keyboard-accessible horizontal panning on narrow screens.
+      host.setAttribute('aria-label', chinese ? '概念動畫：可使用方向鍵水平捲動' : 'Concept animation: use arrow keys to scroll horizontally');
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';
