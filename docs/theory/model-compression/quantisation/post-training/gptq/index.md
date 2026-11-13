@@ -22,6 +22,17 @@ Rounding each weight to the nearest grid value, as in round-to-nearest quantisat
 
 Quantise the weights of one layer one column at a time. After each column is rounded, the rounding error is compensated by updating the not-yet-quantised columns, using approximate second-order information from the calibration inputs.
 
+
+### Visual walkthrough: second-order error compensation
+
+<img src="../../../../../assets/concept-animations/gptq-error-compensation-still.svg" data-motion-src="../../../../../assets/concept-animations/gptq-error-compensation-motion.svg" alt="A two-weight vector is rounded in one coordinate, then compensated and rounded in the other; tilted quadratic contours and the naive rounding point remain visible.">
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/gptq-error-compensation-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/gptq-error-compensation-motion.svg)
+
+A **two-weight analytic example** uses $w=(0.37,0.37)$ and $H=\begin{bmatrix}1&0.8\\0.8&1\end{bmatrix}$ (positive definite). The illustrated contours are level sets of $(\hat w-w)^\top H(\hat w-w)$, a **toy quadratic reconstruction loss**, not a measured LLM Hessian. First round $w_1$ to $0.25$ (error $e_1=-0.12$). Minimising this quadratic with that first coordinate fixed gives $w_2'=0.37-(H_{21}/H_{22})e_1=0.466$, which then rounds to $0.50$. The compensated final point $(0.25,0.50)$ has squared error **0.00634**, compared with **0.05184** for independent rounding to $(0.25,0.25)$. This isolates the coupling that motivates Frantar et al. (2022); it omits GPTQ's blockwise updates and Cholesky implementation. **No values are model measurements.**
+
+On MkDocs use **Play/Pause** (Enter/Space); the path traverses rounding, compensation and the second rounding. GitHub/reduced-motion fallback shows the completed path. Original diagram, **CC BY-SA 4.0**.
+
 ## Equation or algorithm
 
 The method follows the optimal brain quantisation framework, which uses the inverse Hessian \(H^{-1}\) of the layer's squared error \(\lVert WX - \hat{W}X \rVert^2\) to decide which weight to round and how to update the rest. GPTQ makes this efficient for billions of parameters by processing columns in blocks and using a Cholesky decomposition.

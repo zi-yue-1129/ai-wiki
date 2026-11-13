@@ -23,6 +23,17 @@ Weights that matter most are not the largest in magnitude. Quantising all weight
 
 Identify salient channels from activation statistics. Scale those channels up before quantisation, so that their relative rounding error falls. The inverse scale is absorbed into the previous operation, so the network is mathematically unchanged in full precision.
 
+
+### Visual walkthrough: salient-channel scaling
+
+<img src="../../../../../assets/concept-animations/awq-salient-scaling-still.svg" data-motion-src="../../../../../assets/concept-animations/awq-salient-scaling-motion.svg" alt="As the salient channel is rescaled, a floating-point weight crosses quantisation grid boundaries, changing its rounded value and output error.">
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/awq-salient-scaling-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/awq-salient-scaling-motion.svg)
+
+This **analytic, single-channel example** uses activation $x=4$, weight $w=0.37$ and a **fixed schematic** quantisation step $\Delta=0.25$. Without scaling, $Q(0.37)=0.25$, giving output error $|4(0.25-0.37)|=0.48$. With $s=2$, the full-precision product remains unchanged: $(x/s)(sw)=xw$. On the **same illustrative grid**, $Q(0.74)=0.75$, and the error is only $|(4/2)(0.75-0.74)|=0.02$. The animation continuously sweeps $s$ from 1 to 2 and back, including discontinuous grid rounding: error is **not necessarily monotone**. This isolates the motivation for activation-aware protection in Lin et al. (2023); it is **not** AWQ's production grouped quantizer or calibration search, and the numbers are **not model measurements**.
+
+On MkDocs, use **Play/Pause** (Enter/Space) to inspect floating and rounded positions and the error indicator. GitHub and reduced-motion readers see the final static comparison. Original diagram, **CC BY-SA 4.0**.
+
 ## Equation or algorithm
 
 For a channel with scale \(s\), the layer computes \((W\,\mathrm{diag}(s)) \cdot (\mathrm{diag}(s)^{-1}X)\). The scales are chosen by a grid search that minimises the output error on calibration data.
