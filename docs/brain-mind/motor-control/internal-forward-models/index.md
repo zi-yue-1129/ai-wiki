@@ -48,6 +48,14 @@ Here \(y_{t+1}\) is the observed sensory feedback, \(\hat{y}_{t+1}\) is the pred
 
 Learning is often described as error-driven. The mismatch between predicted and actual sensory feedback is used to adjust the forward model.
 
+### Worked motion: prediction, delayed feedback, and correction
+
+![Static overview of forward-model predicted state, delayed sensory feedback, and corrected estimate](../../../assets/concept-animations/forward-prediction-correction-still.svg)
+
+*Original instructional illustration (CC BY-SA 4.0).* On MkDocs, the static GitHub preview becomes a **12-second continuous animation** with Play/Pause, keyboard operation and reduced-motion support. The blue prediction advances before the orange delayed observation appears; the teal corrected estimate then moves partway toward the observation. [View the animated SVG directly](../../../assets/concept-animations/forward-prediction-correction-motion.svg).
+
+For the deliberately **one-dimensional, illustrative** example, a prediction of 0.60 and an observation of 0.90 produce a sensory prediction error of +0.30. With scalar gain \(K=0.50\), the corrected estimate is \(0.60+0.50(0.90-0.60)=0.75\). These values are **not human neural recordings or estimates of physiological gain**. The diagram isolates the measurement-update step rather than the entire recurrent motor controller. This is consistent with the state-estimation framework discussed by Wolpert, Ghahramani and Jordan (1995), already cited below.
+
 ## Results
 
 The experimental evidence for forward models is indirect. The forward model is not observed directly, so its existence is inferred from behaviour. Wolpert, Ghahramani and Jordan (1995) argue for an internal model of sensorimotor integration, and Wolpert, Miall and Kawato (1998) review internal models in the cerebellum.

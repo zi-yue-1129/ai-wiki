@@ -4,6 +4,7 @@
 (() => {
   'use strict';
   const suffix = /-motion\.svg(?=$|[?#])/;
+  const motorStill = /(?:forward-prediction-correction|ofc-selective-feedback)-still\.svg(?=$|[?#])/;
   const moeSuffix = /moe-top2-routing-motion\.svg(?=$|[?#])/;
   // Earlier CSS-animated diagrams keep their original filenames.
   const standalonePairs = {
@@ -15,7 +16,8 @@
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
-      const animated = img.dataset.motionSrc || img.getAttribute('src') || '';
+      const source = img.dataset.motionSrc || img.getAttribute('src') || '';
+      const animated = motorStill.test(source) ? source.replace('-still.svg', '-motion.svg') : source;
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
@@ -30,6 +32,11 @@
       host.className = 'concept-motion-player';
       img.before(host);
       host.append(img);
+      if (motorStill.test(still)) {
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫' : 'Scrollable concept animation');
+      }
       img.dataset.conceptMotionEnhanced = 'yes';
 
       const controls = document.createElement('span');

@@ -44,6 +44,14 @@ Here \(c\) is the cost, combining task error and effort, \(f\) is the body's dyn
 
 In the linear-quadratic-Gaussian case, the optimal control law is a linear feedback rule, \(u_t = -L_t \hat{x}_t\), where \(\hat{x}_t\) is the estimated state and the gain \(L_t\) follows from the cost and the dynamics. The gain is larger in directions where errors affect the cost, and smaller where they do not. That is the mechanism behind the selective correction described above.
 
+### Worked motion: task-relevant versus irrelevant perturbations
+
+![Static comparison of feedback correcting a task-relevant y perturbation while retaining an irrelevant x displacement](../../../assets/concept-animations/ofc-selective-feedback-still.svg)
+
+*Original instructional illustration (CC BY-SA 4.0).* GitHub shows the completed comparison; on MkDocs the **12-second continuous animation** exposes the perturbation and subsequent recovery. The orange point departs from, then returns toward, the green **goal manifold** \(y=0\); the blue point is displaced only in \(x\) and is not pushed back. Play/Pause and reduced-motion/keyboard support are available on the website. [View the animated SVG directly](../../../assets/concept-animations/ofc-selective-feedback-motion.svg).
+
+For a **schematic** controller with task cost \(c(x,y,u)=q y^2+r\lVert u\rVert^2\) and no penalty on \(x\) itself, feedback can correct \(y\)-error while leaving an \(x\)-only deviation. The paths are deliberately drawn for conceptual clarity, **not integrated from a particular LQG controller or measured human trajectories**. Real feedback gains depend on the assumed body dynamics, task cost and uncertainty. This illustrates the minimal-intervention principle in Todorov and Jordan (2002), cited below.
+
 ## Results
 
 The predicted pattern is that variability is allowed in redundant, task-irrelevant directions, while deviations that affect the task outcome are corrected. This page does not quote numbers from the 2002 paper's experiments. The key evidence for the theory is the match between this predicted pattern and observed movement variability, and such a match does not by itself show that the brain runs this exact algorithm.
