@@ -26,6 +26,14 @@ Lisman 與 Idiart（1995）主張，每個項目被指派到一個不同的快�
 
 後來在人類身上的記錄報告了這種耦合。Canolty et al.（2006）報告，在人類新皮質中，高 gamma 功率與 theta 相位鎖定，記錄方式為皮質電圖（ECoG）。Lisman 與 Jensen（2013）把這個提議發展為更廣的 θ–γ 神經編碼：一個 theta 週期內的 gamma 子週期承載項目的有序序列，他們並回顧了這方面的證據，主要來自海馬迴。
 
+### 動態示意：慢速相位與快速振幅
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="可水平捲動的教學動畫" style="max-width:100%;overflow-x:auto">
+<img src="../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg" data-motion-src="../../../assets/concept-animations/theta-gamma-phase-amplitude-motion.svg" data-still-src="../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg" alt="慢速 theta 波形與隨相位移動的游標；快速 gamma 載波的振幅包絡在 theta 波峰附近較大。" width="640" height="360" style="min-width:640px;display:block">
+</div>
+
+*原創動態教學圖，CC BY-SA 4.0。* 藍色 theta 曲線、橘色八週期 gamma 載波是**解析式示意訊號**：\(\theta(u)=\sin(2\pi u-\pi/2)\)，\(A(u)=8+13[1+\theta(u)]\)。紫色游標向前移動時，青綠色虛線包絡顯示 gamma 振幅隨 theta 相位改變。**這不是神經生理實測**；畫出八個載波週期不代表量測到八個記憶項目，僅有相位與振幅相關也不能證明項目編碼。MkDocs 提供播放／暫停按鈕（可用 Enter 或空白鍵），GitHub 可直接觀看[靜態預覽](../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg)；手機可水平捲動。
+
 ## 方程式或演算法
 
 測量耦合是一套程序。Tort et al.（2010）描述了一種常見的做法：

@@ -27,6 +27,14 @@ Lisman and Idiart (1995) proposed that each item is assigned to a different fast
 
 Later recordings in humans reported the coupling directly. Canolty et al. (2006) report that high-gamma power in human neocortex is phase-locked to theta, recorded with electrocorticography (ECoG). Lisman and Jensen (2013) develop the proposal into a broader theta–gamma neural code, in which the gamma subcycles within a theta cycle carry an ordered sequence of items, and they review the evidence for it, mainly from the hippocampus.
 
+### Visual intuition: slow phase, fast amplitude
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Scroll the teaching diagram horizontally" style="max-width:100%;overflow-x:auto">
+<img src="../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg" data-motion-src="../../../assets/concept-animations/theta-gamma-phase-amplitude-motion.svg" data-still-src="../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg" alt="Slow theta wave scanned by a vertical phase cursor; a faster gamma carrier has a larger amplitude envelope at the theta peak." width="640" height="360" style="min-width:640px;display:block">
+</div>
+
+*Original animated teaching visual, CC BY-SA 4.0.* The blue theta trace and orange eight-cycle carrier use an **illustrative analytic signal**: \(\theta(u)=\sin(2\pi u-\pi/2)\) and \(A(u)=8+13[1+\theta(u)]\), so gamma amplitude follows theta phase as the violet cursor moves. Cyan dashed lines mark the envelope. This is **not a neural recording**; eight visible carrier cycles do not establish eight memory items, and phase–amplitude dependence alone cannot demonstrate item coding. On MkDocs, use Play/Pause (Enter or Space on the control); the static [GitHub preview](../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg) remains readable without animation. Narrow screens can scroll the figure horizontally.
+
 ## Equation or algorithm
 
 Measuring coupling is a procedure. Tort et al. (2010) describe one common version:

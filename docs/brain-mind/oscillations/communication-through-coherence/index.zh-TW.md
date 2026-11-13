@@ -23,6 +23,14 @@ aliases:
 
 Fries（2005）主張神經元之間的溝通是經由神經元的相干性進行的，因此相干性的彈性模式定義了彈性的溝通結構。同一作者後來的綜述（Fries, 2015）更具體地描述 gamma 頻段的同步如何塑造一個群體到下一個群體的訊號傳遞，以及注意力如何作用於它。由於相位關係會改變，同一條解剖連結在不同時間可以攜帶不同的訊號。
 
+### 動態示意：相位對齊與假設性通訊閘門
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="可水平捲動的教學動畫" style="max-width:100%;overflow-x:auto">
+<img src="../../../assets/concept-animations/coherence-phase-gating-still.svg" data-motion-src="../../../assets/concept-animations/coherence-phase-gating-motion.svg" data-still-src="../../../assets/concept-animations/coherence-phase-gating-still.svg" alt="發送端與接收端的節律從同相逐漸移到反相再返回；右側示意性的通訊增益長條隨之下降與恢復。" width="640" height="360" style="min-width:640px;display:block">
+</div>
+
+*原創動態教學圖，CC BY-SA 4.0。* 固定的發送端節律與移動中的接收端節律，展示相位差 \(\Delta\phi\) 從 0 變至 \(\pi\) 再返回。青綠色長條採用**教學用代理函數** \(g_{demo}=[1+\cos(\Delta\phi)]/2\)：同相時較高，反相時較低。這個公式**不是神經生理傳輸函數，也不是實測相干性或實驗效果量**。真正的相干性要求相對相位在一段時間或多次試驗中維持一致；要推論因果通訊，不能只看兩條波形的相位差。MkDocs 提供播放／暫停與 Enter／空白鍵操作，GitHub 可觀看[靜態預覽](../../../assets/concept-animations/coherence-phase-gating-still.svg)；手機可水平捲動。
+
 ## 方程式或演算法
 
 這個方法是一套測量程序，而不是單一的方程式：
