@@ -43,6 +43,12 @@ Consistency models take the third route. Song et al. (2023) describe them as sup
 
 **Consistency models.** Song et al. (2023) train a network $f_\theta(x_t, t)$ so that all points on one trajectory of the diffusion process map to the same output, which is the trajectory's clean data point. A consistency model can then produce a sample in one step by evaluating $f_\theta(x_T, T)$ at the noise level $T$. Two training routes are described in the paper: distilling a pre-trained diffusion model, and training the consistency model directly from data. Refining the sample with additional steps, which trades a little time for quality, is also supported. The abstract reports a FID of 3.55 on CIFAR-10 and 6.20 on ImageNet 64×64 for one-step generation, described there as the new state of the art for that setting [(Song et al., 2023)](https://arxiv.org/abs/2303.01469).
 
+### Visualising the consistency map
+
+<div tabindex="0" role="region" aria-label="Scrollable teaching diagram" style="max-width:100%; overflow-x:auto"><img src="../../../../../assets/concept-animations/consistency-trajectory-map-still.svg" data-motion-src="../../../../../assets/concept-animations/consistency-trajectory-map-motion.svg" data-still-src="../../../../../assets/concept-animations/consistency-trajectory-map-still.svg" alt="Animation: three states at different noise levels along a single schematic diffusion trajectory are mapped, one after another, to the same clean endpoint by a consistency function." width="800" height="420" style="width:800px;max-width:none" loading="lazy"></div>
+
+*Original 12-second looping schematic (CC BY-SA 4.0).* The blue, amber and teal points represent three noise levels along **one** illustrative trajectory; successive moving dots trace each learned mapping \(f_\theta(x_t,t)\) directly to the same \(x_0\). These are **not** denoising integration steps, measured latent coordinates, or actual model outputs. The defining property holds ideally for states on the same probability-flow ODE trajectory; practical learned models approximate it. A single network evaluation can map from \(x_T\) to the endpoint, while optional multiple-step refinement is a separate sampling procedure. On the website, Play/Pause is available; GitHub and reduced-motion users see the reviewed still. See Song et al. (2023) in References.
+
 ## Key methods
 
 Brief comparison. DDPM and DDIM have their own pages. DPM-Solver, progressive distillation and consistency models are described on this page for now; their own method pages are still to be written.

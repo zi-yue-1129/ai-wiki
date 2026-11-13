@@ -42,6 +42,12 @@ dx = \big[f(x,t) - \tfrac{1}{2} g(t)^2 \nabla_x \log p_t(x)\big]\,dt
 \]
 與 SDE 具有相同的邊際密度 \(p_t\)。因為它是 ODE，當分數由神經網路表示時，可以給出精確的概似，並允許快速的確定性取樣。
 
+### 視覺化：逆時 SDE 與機率流 ODE
+
+<div tabindex="0" role="region" aria-label="Scrollable teaching diagram" style="max-width:100%; overflow-x:auto"><img src="../../../../../assets/concept-animations/score-sde-flow-still.svg" data-motion-src="../../../../../assets/concept-animations/score-sde-flow-motion.svg" data-still-src="../../../../../assets/concept-animations/score-sde-flow-still.svg" alt="逆時 SDE 與機率流 ODE 的動態對照：上方的隨機軌跡可由相同初始狀態分岔；下方的確定性軌跡由不同初始狀態出發，各自沿固定曲線演進。兩者的時間邊際機率密度相同。" width="800" height="420" style="width:800px;max-width:none" loading="lazy"></div>
+
+*原創 12 秒循環示意動畫（CC BY-SA 4.0）。* 上方的逆時 SDE 隨取樣雜訊產生不同路徑；下方 ODE 的兩條曲線從**不同初值**出發，同一初值在固定向量場下不會隨機分岔。淡色截面僅用來**象徵**兩種過程在相同時間的邊際密度一致，不是數值解、實測軌跡或密度估計；邊際分布相同也**不代表單一路徑相同**。MkDocs 網站支援播放／暫停及減少動態效果的靜態回退，GitHub 可直接閱讀靜態圖。參見參考文獻 Song 等人（2021）。
+
 ### 兩個特例
 
 | SDE | 漂移 \(f\) | 擴散 \(g\) | 連續極限來源 |
