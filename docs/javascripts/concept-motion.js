@@ -28,6 +28,10 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
+      // These wide PEFT diagrams retain legible labels on narrow screens.
+      if (/\/(?:ia3-channel-gates|prefix-kv-attention)-(?:motion|still)\.svg(?:[?#]|$)/.test(animated)) {
+        host.tabIndex = 0;
+      }
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';
