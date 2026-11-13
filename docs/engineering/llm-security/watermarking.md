@@ -38,6 +38,18 @@ Watermarking methods typically modify the probability distribution used when sam
 
 Passive detection is also studied. Mitchell et al. (2023) propose DetectGPT, which decides whether a passage came from a model using its log probabilities, without training a classifier or watermarking. Sadasivan et al. (2023) ask whether AI-generated text can be reliably detected at all.
 
+### Animated example: token greenlist and accumulated evidence
+
+![A sixteen-token keyed greenlist example appearing sequentially while the cumulative standardized green-token excess changes](../../assets/concept-animations/watermark-greenlist-score-motion.svg)
+
+*Original analytic teaching animation (CC BY-SA 4.0).* Each highlighted tile represents a **schematic** token classified with a key-derived greenlist; the curve accumulates evidence from the count, **not** the model's raw token probability. With a simplified independent null model, a fixed greenlist fraction γ=0.5 and τ=16 tokens, the constructed example has 13 green tokens and a final statistic
+
+\[
+z_t=\frac{G_t-\gamma t}{\sqrt{t\gamma(1-\gamma)}},\qquad z_{16}=\frac{13-8}{\sqrt4}=2.50.
+\]
+
+The dashed \(z=2\) guide is **illustrative**, not a calibrated decision threshold or false-positive guarantee. Real watermark detectors account for the actual token-selection procedure, repeated contexts and dependencies; neither this sequence nor its statistic was measured from an LLM. MkDocs provides accessible Play/Pause and reduced-motion display. GitHub has a [static token and score preview](../../assets/concept-animations/watermark-greenlist-score-still.svg).
+
 ## Limitations
 
 - **Removal by rewriting.** Krishna et al. (2023) show that paraphrasing can evade several detectors, including a watermark, and that a retrieval-based defence works better against paraphrase.
