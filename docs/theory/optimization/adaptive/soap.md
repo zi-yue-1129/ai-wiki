@@ -33,6 +33,17 @@ Compute the eigenbasis of Shampoo's left and right preconditioner matrices. Tran
 
 Let \(L\) and \(R\) be the Shampoo statistics for a matrix parameter, with eigenvectors \(Q_L\) and \(Q_R\), refreshed periodically. The gradient \(G\) is rotated to \(\tilde G = Q_L^\top G\, Q_R\). Adam is applied to \(\tilde G\), and the resulting update is rotated back. The eigenbases are updated at a lower frequency, as in Shampoo.
 
+
+### Animated walkthrough: Adam in the Shampoo eigenbasis
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="SOAP eigenbasis and Adam animation">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/soap-eigenbasis-adam-still.svg" data-motion-src="../../../assets/concept-animations/soap-eigenbasis-adam-motion.svg" alt="A two-by-two gradient matrix is rotated to a Shampoo eigenbasis, rescaled by an illustrative Adam update, and rotated back to the original parameter coordinates." width="640" height="360">
+</div>
+</div>
+
+*Original continuous teaching animation (CC BY-SA 4.0).* The **constructed** two-dimensional example uses $G=\left[\begin{smallmatrix}3&1\\1&3\end{smallmatrix}\right]$ and the orthogonal basis $Q=2^{-1/2}\left[\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right]$, giving $Q^\top GQ=\operatorname{diag}(4,2)$. An **illustrative**, coordinate-wise adapted update in that basis, $\tilde U=\operatorname{diag}(1,1.6)$, is transformed back into $U=Q\tilde UQ^\top=\left[\begin{smallmatrix}1.3&-0.3\\-0.3&1.3\end{smallmatrix}\right]$. The middle matrix is not derived from a specified Adam moment history, and these numbers are **not model measurements or recommended update magnitudes**. The animation focuses on the coordinate transforms, not Shampoo's eigenbasis-refresh schedule or Adam bias correction; the parameter step is applied in the negative update direction. MkDocs offers Play/Pause and a reduced-motion still; [GitHub static overview](../../../assets/concept-animations/soap-eigenbasis-adam-still.svg). See Vyas et al. (2024) in References.
+
 ## Key results
 
 In the large-batch regime, the abstract reports that SOAP reduces the number of iterations by over 40% and the wall-clock time by over 35% compared with AdamW. It reports about 20% improvements in both measures compared with Shampoo. The abstract does not describe the models in detail, so this page quotes only these figures.

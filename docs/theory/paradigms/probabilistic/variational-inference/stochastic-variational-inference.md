@@ -40,6 +40,17 @@ where \(\lambda\) are the global variational parameters and \(\hat\lambda_t\) is
 
 For models that are not conjugate, SVI can use black-box gradient estimators in its place, which trades exactness for generality (Ranganath et al., 2014).
 
+
+### Animated walkthrough: minibatch updates of a global parameter
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Stochastic variational inference animation">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/svi-minibatch-global-still.svg" data-motion-src="../../../../assets/concept-animations/svi-minibatch-global-motion.svg" alt="Three differently coloured batches of a twelve-point dataset provide scaled stochastic estimates, and the shared global variational parameter moves gradually towards each estimate." width="640" height="360">
+</div>
+</div>
+
+*Original continuous teaching animation (CC BY-SA 4.0).* Twelve observations are shown only to explain sampling: each randomly selected batch has $B=3$, so the minibatch contribution to a full-data sufficient statistic is scaled by $N/B=4$. The three **constructed** proposals $\hat\lambda_t=(0.8,0.5,0.65)$ and step sizes $\rho_t=(0.25,0.30,0.20)$ move a scalar coordinate from $\lambda_0=0.20$ to $0.35$, $0.395$ and $0.446$ by $\lambda_{t+1}=(1-\rho_t)\lambda_t+\rho_t\hat\lambda_t$. The diagram visualises a **single global coordinate** of the conjugate natural-gradient update after local optimisation, not an empirical training trajectory or a general ELBO convergence guarantee. The three displayed batches are illustrative independently chosen samples; the diagram does not mean that data must be visited without replacement. On MkDocs use Play/Pause; the [GitHub-readable still](../../../../assets/concept-animations/svi-minibatch-global-still.svg) displays the global update history. Reduced-motion settings start paused; narrow screens may scroll horizontally. See Hoffman et al. (2013) in References.
+
 ## Key methods
 
 - [Mean-field variational inference](mean-field.md): the full-batch method whose updates SVI approximates with minibatches.
