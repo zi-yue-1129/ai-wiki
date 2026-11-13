@@ -40,6 +40,11 @@
         host.classList.add('causal-imitation-motion');
         host.tabIndex = 0;
         host.setAttribute('aria-label', chinese ? '可使用方向鍵水平捲動教學圖' : 'Scroll the teaching diagram horizontally with arrow keys');
+        host.addEventListener('keydown', event => {
+          if (event.target !== host || (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft')) return;
+          event.preventDefault();
+          host.scrollLeft += event.key === 'ArrowRight' ? 120 : -120;
+        });
       }
       img.before(host);
       host.append(img);
