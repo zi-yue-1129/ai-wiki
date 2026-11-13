@@ -150,7 +150,7 @@ def main() -> int:
             elif stem in HTML_MOTION_STEMS:
                 # GitHub-safe static <img> is enhanced to the animated SVG by MkDocs JS.
                 matches = re.findall(
-                    r'<img[^>]*src="([^"]+\\.svg)"[^>]*data-motion-src="([^"]+\\.svg)"[^>]*>',
+                    r'<img[^>]*src="([^"]+\.svg)"[^>]*data-motion-src="([^"]+\.svg)"[^>]*>',
                     text,
                 )
                 if not any(
