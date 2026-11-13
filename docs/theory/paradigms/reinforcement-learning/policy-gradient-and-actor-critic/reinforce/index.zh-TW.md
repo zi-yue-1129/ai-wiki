@@ -37,7 +37,9 @@ aliases:
 
 ### 視覺化解讀：回報加權的動作更新
 
-<img src="../../../../../assets/concept-animations/reinforce-return-credit-still.svg" data-motion-src="../../../../../assets/concept-animations/reinforce-return-credit-motion.svg" data-still-src="../../../../../assets/concept-animations/reinforce-return-credit-still.svg" alt="REINFORCE 的三個取樣動作、延遲終點獎勵，以及根據折扣回報計算的策略梯度權重。">
+<div role="region" tabindex="0" aria-label="水平捲動以檢視完整概念圖" style="max-width:100%;overflow-x:auto">
+  <img style="width:760px;max-width:none;height:auto" src="../../../../../assets/concept-animations/reinforce-return-credit-still.svg" data-motion-src="../../../../../assets/concept-animations/reinforce-return-credit-motion.svg" data-still-src="../../../../../assets/concept-animations/reinforce-return-credit-still.svg" alt="REINFORCE 的三個取樣動作、延遲終點獎勵，以及根據折扣回報計算的策略梯度權重。">
+</div>
 
 *原創連續教學動畫（CC BY-SA 4.0）。* 在**人工設定的回合**中，三個時間步的獎勵為 `(0, 0, 4)`，折扣率 `γ = 0.8`，固定基線 `b = 2`。從每個時間步算出的折扣回報為 `G = (2.56, 3.2, 4)`，扣除基線得到優勢權重 `(0.56, 1.2, 2)`，分別乘上各動作的**對數策略梯度**。動畫先向前取樣動作，再反向示意回報的歸屬。長條代表*梯度加權係數*，**不是**訓練後的參數、梯度大小或實測學習曲線；不同動作仍有各自的對數機率梯度方向。全部數值均為教學示意，非模型量測值。可在 MkDocs 使用播放／暫停按鈕（也支援 Enter 與空白鍵），或查看 [GitHub 靜態預覽](../../../../../assets/concept-animations/reinforce-return-credit-still.svg)。推導見 [Williams（1992）](https://doi.org/10.1007/bf00992696)。
 

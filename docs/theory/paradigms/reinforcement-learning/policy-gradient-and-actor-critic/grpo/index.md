@@ -32,7 +32,9 @@ The paper also describes an outcome-supervision and a process-supervision versio
 
 ### Visual walkthrough: group-relative rewards
 
-<img src="../../../../../assets/concept-animations/grpo-group-advantages-still.svg" data-motion-src="../../../../../assets/concept-animations/grpo-group-advantages-motion.svg" data-still-src="../../../../../assets/concept-animations/grpo-group-advantages-still.svg" alt="GRPO group of four outputs showing synthetic rewards, a shared mean, and negative or positive normalised advantages.">
+<div role="region" tabindex="0" aria-label="Scroll horizontally to inspect the complete teaching visual" style="max-width:100%;overflow-x:auto">
+  <img style="width:760px;max-width:none;height:auto" src="../../../../../assets/concept-animations/grpo-group-advantages-still.svg" data-motion-src="../../../../../assets/concept-animations/grpo-group-advantages-motion.svg" data-still-src="../../../../../assets/concept-animations/grpo-group-advantages-still.svg" alt="GRPO group of four outputs showing synthetic rewards, a shared mean, and negative or positive normalised advantages.">
+</div>
 
 *Original continuous teaching animation (CC BY-SA 4.0).* For **one prompt** with four illustrative sampled outputs, rewards `r = (1, 2, 4, 5)` give group mean `μ = 3` and **population** standard deviation `σ = √2.5 ≈ 1.581`. Standardised advantages `(rᵢ − μ)/σ` are approximately `(−1.26, −0.63, +0.63, +1.26)`. Blue bars show raw rewards, the orange line shows their shared baseline, and the lower bars change sign relative to the mean. This isolates the **group-normalisation step** of the outcome-supervised variant: it does **not** depict PPO-style ratio clipping, reference-policy KL penalties, token-level updates, or measured model outputs. Standard-deviation conventions can differ across implementations. On MkDocs, use Play/Pause or the keyboard; [GitHub static preview](../../../../../assets/concept-animations/grpo-group-advantages-still.svg). See [Shao et al. (2024)](https://arxiv.org/abs/2402.03300).
 
