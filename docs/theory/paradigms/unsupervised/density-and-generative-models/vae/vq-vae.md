@@ -41,6 +41,16 @@ where \(\operatorname{sg}\) is the stop-gradient operator. The first term is rec
 
 For ImageNet at 128 by 128 by 3, the paper compresses each image into a 32 by 32 by 1 discrete latent with \(K = 512\) codes. A PixelCNN then models that latent grid autoregressively, so sampling produces latents that are decoded to images.
 
+### Visual walkthrough: hard codebook assignment
+
+<img src="../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg" data-motion-src="../../../../../assets/concept-animations/vqvae-codebook-snap-motion.svg" alt="Animated VQ-VAE codebook: a moving encoder vector switches between nearest discrete entries as it crosses a selection boundary.">
+
+[Static VQ-VAE codebook overview for GitHub](../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg)
+
+The moving outlined dot is a continuous encoder output \(z_e\); the coloured dots are three fixed codebook embeddings. Its nearest-neighbour assignment \(z_q=e_{k^*}\) changes **discontinuously** from \(e_1\) to \(e_2\) on crossing the dividing boundary, rather than blending their embeddings. This shows the **forward quantisation step**, not a codebook-training trajectory: the straight-through estimator copies the decoder gradient to the encoder, whereas separate codebook and commitment losses update their respective quantities.
+
+The two-dimensional vectors, path and boundary are **schematic, not trained representations or measured output**. In MkDocs, the keyboard-operable **Play/Pause** button controls the 12-second loop; the linked static diagram remains readable on GitHub. Original diagram, **CC BY-SA 4.0**, based on van den Oord et al. (2017) in References.
+
 ## Key methods
 
 ### Neural Discrete Representation Learning (van den Oord et al., 2017)

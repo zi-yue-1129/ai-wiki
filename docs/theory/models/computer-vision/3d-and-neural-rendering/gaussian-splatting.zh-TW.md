@@ -42,6 +42,16 @@ $$C = \sum_{i \in N} c_i \,\alpha_i \prod_{j=1}^{i-1}(1 - \alpha_j)$$
 
 這裡 $c_i$ 是高斯 $i$ 依觀看方向而變的顏色，$\alpha_i$ 是在像素處評估其二維投影後的不透明度。
 
+### 視覺化說明：依深度排序的 Alpha 合成
+
+<img src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg" data-motion-src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-motion.svg" alt="3D Gaussian Splatting 動畫：三個按深度排序的高斯投影，在同一像素由近至遠逐層累積顏色貢獻權重。">
+
+[GitHub 可閱讀的高斯潑濺靜態預覽](../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg)
+
+左側橢圓是**單一像素上的高斯投影形狀示意**，依由近至遠排列。令固定的*像素有效不透明度*為 \(\alpha=(0.50,0.60,0.80)\)，由前往後合成的權重依序為 \(w_1=0.50\)、\(w_2=(1-0.50)(0.60)=0.30\) 與 \(w_3=(1-0.50)(1-0.60)(0.80)=0.16\)，剩餘透射率 \(T_3=0.04\)。右側色帶代表的是**各層貢獻權重**，**不是**最後像素 RGB 的真實混色值；合成顏色為 \(C=\sum_i w_i c_i+T_3 C_{\mathrm{bg}}\)，黑色背景時最後一項為零。
+
+所有不透明度、色彩與橢圓均屬**人工教學示意，並非經訓練的場景參數或實測像素**。此圖單獨說明遮蔽感知的合成步驟；完整 3D Gaussian Splatting 還包含非等向共變異數投影及視角相關的色彩計算。MkDocs 可透過鍵盤操作的**播放／暫停**控制；GitHub 以靜態圖回退顯示。原創視覺，**CC BY-SA 4.0**，參照下方 Kerbl 等人（2023）文獻。
+
 ## 結果
 
 摘要報告，在 1080p 下可以至少每秒 30 幀即時渲染，並具有具競爭力的訓練時間與品質。比較數字見論文的表格。
