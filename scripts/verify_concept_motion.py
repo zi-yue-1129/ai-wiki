@@ -65,6 +65,8 @@ TOPICS = {
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
+    "t5-span-corruption": "theory/models/transformer/architecture-families/t5/index",
+    "deit-dual-head-distillation": "theory/models/transformer/vision-transformer/deit/index",
 }
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
@@ -132,7 +134,25 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in GITHUB_GIF_PREVIEWS:
+            if stem in {"t5-span-corruption", "deit-dual-head-distillation"}:
+                # GitHub shows the static <img>; MkDocs reads data-motion-src.
+                tags = [
+                    tag for tag in re.findall(r"<img\b[^>]+>", text)
+                    if stem in tag
+                ]
+                if len(tags) != 1:
+                    errors.append(f"{page}: expected exactly one static-first motion image")
+                else:
+                    for name, expected in (
+                        ("src", static_path), ("data-motion-src", animated_path),
+                        ("data-still-src", static_path),
+                    ):
+                        match = re.search(rf'\b{name}="([^"]+)"', tags[0])
+                        if not match or (page.parent / match.group(1)).resolve() != expected.resolve():
+                            errors.append(f"{page}: invalid {name} asset link")
+                if not any(f"{stem}-still.svg" in link for link in re.findall(r"\]\(([^)]+)\)", text)):
+                    errors.append(f"{page}: missing GitHub-readable still fallback link")
+            elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.
