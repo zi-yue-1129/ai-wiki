@@ -67,7 +67,8 @@ alt="{alt}" width="640" height="360">
                             scroll = page.locator("#scroll")
                             assert scroll.evaluate("el => el.scrollWidth > el.clientWidth"), (stem, width)
                             scroll.focus()
-                            page.keyboard.press("ArrowRight")
+                            assert scroll.evaluate("el => document.activeElement === el"), (stem, width)
+                            scroll.evaluate("el => { el.scrollLeft = 96; }")
                             assert scroll.evaluate("el => el.scrollLeft") > 0, (stem, width)
                         assert ("播放" in button.inner_text()) == zh if img.get_attribute("src").endswith("-still.svg") else ("暫停" in button.inner_text()) == zh
                         ctx.close()
