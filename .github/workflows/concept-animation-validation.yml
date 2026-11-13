@@ -74,6 +74,8 @@ jobs:
           python -m playwright install chromium
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
+      - name: Chromium oscillation phase motion, accessible controls and bilingual fallback
+        run: python scripts/test_oscillation_motion_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -96,6 +98,7 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/oscillation-motion/*.png
           if-no-files-found: ignore
           retention-days: 7
 
