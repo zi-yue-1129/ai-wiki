@@ -25,7 +25,8 @@ async def run():
                         img=data_svg('motion')
                         still=data_svg('still')
                         alt='量化編碼動態演示' if lang=='zh' else 'Animated codebook walkthrough'
-                        html=f'<meta charset="utf-8"><img alt="{alt}" src="{img}" data-still-src="{still}">'
+                        css=(DOCS/'stylesheets/concept-motion.css').read_text()
+                        html=f'<meta charset="utf-8"><style>{css}</style><main><img alt="{alt}" src="{img}" data-still-src="{still}"></main>'
                         await page.set_content(html)
                         await page.add_script_tag(content=(DOCS/'javascripts/concept-motion.js').read_text())
                         await page.wait_for_selector('.concept-motion-toggle')
@@ -41,6 +42,14 @@ async def run():
                         await page.keyboard.press('Space')
                         src=await picture.get_attribute('src')
                         assert ('-still.svg' in src) == reduce, ('second toggle failed',stem,width)
+                        if width <= 680:
+                            dims=await page.evaluate("""() => {
+                                const node=document.querySelector('.concept-motion-player');
+                                const img=node.querySelector('img');
+                                const button=node.querySelector('button');
+                                return [node.clientWidth,node.scrollWidth,img.getBoundingClientRect().width,button.getBoundingClientRect().left];
+                            }""")
+                            assert dims[1] > dims[0] and abs(dims[2]-640)<1 and dims[3]<width, (stem,lang,width,dims)
                         count+=1
                         await page.close()
         await browser.close()
