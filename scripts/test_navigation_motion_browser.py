@@ -80,11 +80,10 @@ def exercise_motion(browser, name):
     if name == "place-cell-firing":
         a = page.locator('animate[attributeName="width"]')
         assert a.count() == 3, "each place-cell rate requires independent movement"
-        rect = a.first.evaluate("(el)=>el.parentNode")
         page.evaluate("document.querySelector('svg').setCurrentTime(0)")
-        first = rect.evaluate("(el)=>el.width.baseVal.value")
+        first = a.first.evaluate("(el)=>el.parentNode.width.animVal.value")
         page.evaluate("document.querySelector('svg').setCurrentTime(6)")
-        later = rect.evaluate("(el)=>el.width.animVal.value")
+        later = a.first.evaluate("(el)=>el.parentNode.width.animVal.value")
         assert first > 80 and later < 10, (first, later)
     else:
         bars = page.locator('animate[attributeName="height"]')
