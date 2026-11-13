@@ -134,7 +134,7 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
-            links.extend(re.findall(r'data-motion-src="([^"]+\\.svg)"', text))
+            links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
             if stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
