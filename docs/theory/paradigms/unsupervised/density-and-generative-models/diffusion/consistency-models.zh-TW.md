@@ -34,7 +34,7 @@ related:
 
 ### 視覺化：沿軌跡的一致性映射
 
-<div tabindex="0" role="region" aria-label="Scrollable teaching diagram" style="max-width:100%; overflow-x:auto"><img src="../../../../../assets/concept-animations/consistency-trajectory-map-still.svg" data-motion-src="../../../../../assets/concept-animations/consistency-trajectory-map-motion.svg" data-still-src="../../../../../assets/concept-animations/consistency-trajectory-map-still.svg" alt="一致性模型動畫：同一條示意擴散軌跡上三個不同雜訊水準的狀態，依序透過一致性函數映射到同一個乾淨端點。" width="800" height="420" style="width:800px;max-width:none" loading="lazy"></div>
+![一致性模型動畫：同一條示意擴散軌跡上三個不同雜訊水準的狀態，依序透過一致性函數映射到同一個乾淨端點。](../../../../../assets/concept-animations/consistency-trajectory-map-still.svg)
 
 *原創 12 秒循環示意動畫（CC BY-SA 4.0）。* 藍、橘、青綠三點表示**同一條**示意軌跡上的不同雜訊水準；移動標記依序顯示 \(f_\theta(x_t,t)\) 將各點直接映射至共同的 \(x_0\)。這**不是**逐步去噪積分、量測潛在座標或模型實際輸出。理想的一致性對同一條機率流 ODE 軌跡上的點成立，實務上模型只會近似此性質。從 \(x_T\) 到端點可只需一次網路評估，額外多步精煉則是不同的取樣程序。網站支援播放／暫停，GitHub 與減少動態效果的使用者可閱讀靜態圖。參見 Song 等人（2023）原始論文。
 
