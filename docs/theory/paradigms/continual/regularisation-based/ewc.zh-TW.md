@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
   - theory/paradigms/continual/regularisation-based
   - theory/paradigms/continual/replay-and-memory
@@ -33,6 +33,17 @@ L(\theta) = L_B(\theta) + \sum_i \frac{\lambda}{2}\,F_i\,(\theta_i - \theta^*_{A
 每個權重都像一根連在舊值上的彈簧，剛度為 \(\lambda F_i\)。費雪值小的權重可以自由移動，費雪值大的權重則留在任務 A 結束時的位置附近。任務 A 學完後，會計算對角費雪值，並與錨點一起儲存。有更多任務時，每個較早的任務各加一項懲罰，並把這些懲罰加總。
 
 在 Atari 實驗中，論文在每次切換任務時，用重播緩衝區中的 100 個小批次重新計算對角費雪值。正文並未說明費雪值是由模型的抽樣預測估計，還是由經驗梯度估計。
+
+
+## 動畫解讀：受約束的新任務適應
+
+![兩個舊任務重要性不同的 EWC 參數，從共同錨點移向不同的新任務正則化最佳值](../../../../assets/concept-animations/ewc-fisher-springs-motion.svg)
+
+[GitHub 靜態與減少動態效果預覽](../../../../assets/concept-animations/ewc-fisher-springs-still.svg)。在 MkDocs 網站可操作**播放／暫停**控制；鍵盤可按 Tab 聚焦，再按 Enter 或空白鍵操作。
+
+這是**人工建構、各維度可分離的二次損失**：舊任務參數錨點為 \(\theta_A^*=0\)，新任務每個座標的損失為 \(L_B(\theta)=\tfrac12(\theta-1)^2\)，EWC 額外懲罰為 \(\tfrac{\lambda F}{2}\theta^2\)。因此最佳值為 \(\theta^*=1/(1+\lambda F)\)。高重要性參數 \(\lambda F=4\) 停在 **0.20**，較低重要性參數 \(\lambda F=0.25\) 可移至 **0.80**。圓點的連續移動只是便於理解的插值，**不是梯度下降實際迭代、Fisher 實測值或論文實驗曲線**。對角 Fisher 近似也未捕捉參數間的耦合。此圖對應下方 Kirkpatrick 等人（2017）提出的正則化項。
+
+*原創教學動畫與靜態回退，CC BY-SA 4.0。*
 
 ## 關鍵方法
 

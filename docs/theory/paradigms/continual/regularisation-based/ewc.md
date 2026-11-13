@@ -43,6 +43,17 @@ Each weight behaves like a spring attached to its old value, with stiffness \(\l
 
 For the Atari experiments, the paper recomputes the Fisher diagonal at each task switch, using 100 mini-batches from the replay buffer. The main text does not say whether the Fisher is estimated from sampled model predictions or from empirical gradients.
 
+
+## Animated walkthrough: constrained adaptation
+
+![Two Fisher-weighted EWC coordinates move from an old-task anchor to different regularised task-B optima](../../../../assets/concept-animations/ewc-fisher-springs-motion.svg)
+
+[Static GitHub and reduced-motion preview](../../../../assets/concept-animations/ewc-fisher-springs-still.svg). On MkDocs, the accessible **Play/Pause** control (Tab, then Enter or Space) switches between the looping motion and a complete still.
+
+This **constructed, separable quadratic** example makes the regularisation effect calculable. Let the old-task anchor be \(\theta_A^*=0\), the new-task loss for each coordinate be \(L_B(\theta)=\tfrac12(\theta-1)^2\), and the EWC penalty be \(\tfrac{\lambda F}{2}\theta^2\). Then the optimum is \(\theta^*=1/(1+\lambda F)\): a high-importance coordinate with \(\lambda F=4\) stops at **0.20**, while a lower-importance coordinate with \(\lambda F=0.25\) reaches **0.80**. The dots interpolate between anchor and optimum **for teaching only**; they are not gradient-descent iterates, measured Fisher values, or reported experiments. A diagonal Fisher approximation does not capture cross-parameter interactions. The quadratic construction illustrates the penalty introduced by Kirkpatrick et al. (2017), already cited below.
+
+*Original instructional animation and static fallback, CC BY-SA 4.0.*
+
 ## Key methods
 
 ### Overcoming catastrophic forgetting in neural networks (Kirkpatrick et al., 2017)

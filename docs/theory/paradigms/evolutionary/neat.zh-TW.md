@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
   - theory/paradigms/evolutionary
   - theory/models/mlp
@@ -41,6 +41,17 @@ NEAT 同時演化神經網路的連結權重與拓撲結構。它從沒有隱藏
 \]
 
 其中 \(E\) 與 \(D\) 分別為多出與不相交基因的數目，\(\bar W\) 為配對基因的平均權重差，\(N\) 為較大基因組的大小，\(c_1, c_2, c_3\) 為係數。距離低於門檻的基因組被歸入同一物種。
+
+
+## 動畫解讀：新增節點的結構突變
+
+![NEAT 將一條連結拆開、停用原始基因，並新增隱藏節點及兩個創新編號](../../../assets/concept-animations/neat-add-node-innovation-motion.svg)
+
+[GitHub 靜態與減少動態效果預覽](../../../assets/concept-animations/neat-add-node-innovation-still.svg)。MkDocs 網站提供**播放／暫停**按鈕，鍵盤可透過 Tab 及 Enter 或空白鍵操作；靜態圖可同時比較突變前後的網路與基因狀態。
+
+左側只有一條從輸入連到輸出的有效連結，其創新編號為 **#3**。右側的*新增節點突變*會**停用 #3**、插入隱藏節點，並產生兩條新連結，編號示意為 **#8** 與 **#9**。橘色標記沿著新路徑移動。這些編號僅為說明歷史標記的**人工編號**，沒有特定數值意義；圖中是**單次結構突變，不是世代適應度或模型訓練軌跡**。在完整的 NEAT 族群中，具有相同歷史來源的結構創新會沿用對應編號，以協助交叉時對齊基因。原始方法見下方 Stanley 與 Miikkulainen（2002）。
+
+*原創教學動畫與靜態回退，CC BY-SA 4.0。*
 
 ## 主要結果
 

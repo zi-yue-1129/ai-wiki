@@ -41,6 +41,17 @@ Crossover aligns the two genomes by innovation number. Matching genes are inheri
 
 where \(E\) and \(D\) count excess and disjoint genes, \(\bar W\) is the mean weight difference of matching genes, \(N\) is the size of the larger genome, and \(c_1, c_2, c_3\) are coefficients. Genomes whose distance falls below a threshold are placed in the same species.
 
+
+## Animated walkthrough: add-node mutation
+
+![NEAT splits a connection, disables its historical gene and introduces a hidden node with two new innovation IDs](../../../assets/concept-animations/neat-add-node-innovation-motion.svg)
+
+[Static GitHub and reduced-motion preview](../../../assets/concept-animations/neat-add-node-innovation-still.svg). On MkDocs, use **Play/Pause** (Tab and Enter or Space); the still shows both topologies and the post-mutation genome.
+
+The left graph has a single enabled input-to-output connection with innovation ID **#3**. On the right, the *add-node* mutation **disables #3**, creates a hidden node, and introduces two enabled links with new innovation IDs **#8** and **#9**. The moving amber marker traces the new route after the structural edit. The ID values are invented to make historical marking visible; their particular magnitudes are not meaningful. This is **one mutation event, not a generational fitness or training trajectory**. In a full NEAT population, identical historical structural innovations share IDs for crossover alignment; each new structural innovation receives an appropriate innovation identifier. The underlying mechanism is described in Stanley and Miikkulainen (2002), already cited below.
+
+*Original instructional animation and static fallback, CC BY-SA 4.0.*
+
 ## Key results
 
 The full text was not retrieved in this check, because the publisher page and the author's site refused access. This page therefore quotes no results. Its statements about the experiments, namely double pole balancing and growth from minimal networks, still need checking against the paper's experiment section.
