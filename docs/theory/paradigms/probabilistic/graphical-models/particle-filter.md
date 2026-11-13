@@ -63,7 +63,7 @@ The animation moves each selected descendant from its ancestor to the lower row;
 
 ### Seminal papers
 
-- Gordon, N. J., Salmond, D. J. & Smith, A. F. M. (1993). *Novel approach to nonlinear/non-Gaussian Bayesian state estimation*. IEE Proceedings F. https://doi.org/10.1049/ip-f-2.1993.0015 — Introduces the bootstrap particle filter.
+- Gordon, N. J., Salmond, D. J. & Smith, A. F. M. (1993). *Novel approach to nonlinear/non-Gaussian Bayesian state estimation*. IEE Proceedings F. https://doi.org/10.1049/ip-f-2.1993.0015 — Introduces the bootstrap particle filter for sequential Bayesian state estimation.
 - Kitagawa, G. (1996). *Monte Carlo Filter and Smoother for Non-Gaussian Nonlinear State Space Models*. Journal of Computational and Graphical Statistics. https://doi.org/10.1080/10618600.1996.10474692 — Develops Monte Carlo filtering and smoothing of nonlinear systems.
 
 ### Surveys and textbooks

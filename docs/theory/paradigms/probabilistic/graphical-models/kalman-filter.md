@@ -84,8 +84,8 @@ The dashed curves show the prior and a likelihood-shaped observation profile; th
 
 ### Seminal papers
 
-- Kalman, R. E. (1960). *A New Approach to Linear Filtering and Prediction Problems*. Journal of Basic Engineering. https://doi.org/10.1115/1.3662552 — Defines the state-space filtering recursion.
-- Kalman, R. E. & Bucy, R. S. (1961). *New Results in Linear Filtering and Prediction Theory*. Journal of Basic Engineering. https://doi.org/10.1115/1.3658902 — Derives the continuous-time covariance equation.
+- Kalman, R. E. (1960). *A New Approach to Linear Filtering and Prediction Problems*. Journal of Basic Engineering. https://doi.org/10.1115/1.3662552 — Derives recursive state-space filtering from dynamic models and covariance propagation.
+- Kalman, R. E. & Bucy, R. S. (1961). *New Results in Linear Filtering and Prediction Theory*. Journal of Basic Engineering. https://doi.org/10.1115/1.3658902 — Derives the continuous-time covariance equation for optimal linear filters.
 - Gordon, N. J., Salmond, D. J. & Smith, A. F. M. (1993). *Novel approach to nonlinear/non-Gaussian Bayesian state estimation*. IEE Proceedings F. https://doi.org/10.1049/ip-f-2.1993.0015 — Introduces a sampling alternative for non-Gaussian filtering.
 
 ### Surveys and textbooks
