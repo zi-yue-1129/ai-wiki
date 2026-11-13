@@ -28,6 +28,11 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
+      // The diagram stays at a legible native width on narrow viewports.
+      // Make the overflow region reachable with keyboard arrow keys.
+      host.tabIndex = 0;
+      host.setAttribute('role', 'region');
+      host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫' : 'Scrollable concept animation');
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';
