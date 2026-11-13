@@ -44,7 +44,7 @@ $$C = \sum_{i \in N} c_i \,\alpha_i \prod_{j=1}^{i-1}(1 - \alpha_j)$$
 
 ### 視覺化說明：依深度排序的 Alpha 合成
 
-![3D Gaussian Splatting 動畫：三個按深度排序的高斯投影，在同一像素由近至遠逐層累積顏色貢獻權重。](../../../../assets/concept-animations/gaussian-splat-alpha-composite-motion.svg)
+<img src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg" data-motion-src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-motion.svg" alt="3D Gaussian Splatting 動畫：三個按深度排序的高斯投影，在同一像素由近至遠逐層累積顏色貢獻權重。">
 
 [GitHub 可閱讀的高斯潑濺靜態預覽](../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg)
 
