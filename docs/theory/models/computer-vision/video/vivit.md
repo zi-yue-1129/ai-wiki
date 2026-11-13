@@ -34,6 +34,12 @@ A clip is cut into non-overlapping tubelets, and each is embedded as a token. Th
 - **Factorised self-attention (Model 3):** each block applies multi-head self-attention across the spatial tokens, then across the temporal tokens.
 - **Factorised dot-product attention (Model 4):** half of the attention heads attend over space and half over time.
 
+### Visual walkthrough: factorised attention
+
+![Two illustrated token grids: spatial attention connects patches inside a single frame; temporal attention connects the same spatial position across three frames](../../../../assets/concept-animations/vivit-factorised-attention-still.svg)
+
+*Original teaching visual (CC BY-SA 4.0).* **Orange** traces spatial token mixing within one frame; **teal** traces temporal mixing for a fixed spatial location across frames. In **ViViT Model 3**, the two kinds of attention are applied sequentially within a Transformer block. The diagram isolates one row and one column of token connectivity rather than drawing all heads or learned attention weights. These positions and moving highlights are schematic, **not measured attention scores or model inference**. MkDocs automatically enhances the static GitHub preview with Play/Pause (including keyboard and reduced-motion support). [Open the animated SVG](../../../../assets/concept-animations/vivit-factorised-attention-motion.svg). For the actual architecture, see [Arnab et al. (2021)](https://arxiv.org/abs/2103.15691).
+
 ## Equation
 
 The per-layer computations of the factorised self-attention model are given in Eqs. 4–6 of the paper, which this page does not restate. The attention itself is the standard scaled dot-product form from the Transformer paper.

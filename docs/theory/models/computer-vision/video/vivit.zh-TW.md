@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
   - theory/models/computer-vision/video
   - theory/models/transformer
@@ -34,6 +34,12 @@ ViViT 是由 Transformer 層構成的影片分類模型。它把一段片段轉�
 - **分解式編碼器（Model 2）：**先執行空間 Transformer 編碼器，再對其輸出執行時間編碼器。
 - **分解式自注意力（Model 3）：**每個區塊先在空間詞元上做多頭自注意力，再在時間詞元上做多頭自注意力。
 - **分解式點積注意力（Model 4）：**一半的注意力頭關注空間，另一半關注時間。
+
+### 視覺解說：空間與時間注意力分解
+
+![兩組時空詞元網格：橘色連線顯示單一影格內的空間注意力，青綠色連線顯示跨三個影格相同空間位置的時間注意力](../../../../assets/concept-animations/vivit-factorised-attention-still.svg)
+
+*原創教學視覺（CC BY-SA 4.0）。* **橘色**追蹤單一影格內的空間詞元混合，**青綠色**追蹤固定空間位置跨影格的時間混合。在 **ViViT Model 3** 中，這兩種注意力會在 Transformer 區塊內依序執行。圖中僅選出一列與一行的連結關係，並未畫出所有注意力頭或學得的權重。詞元位置與移動標記均為**教學示意，不是模型實測注意力分數或推論結果**。MkDocs 會將 GitHub 的靜態預覽增強為支援播放／暫停、鍵盤操作及減少動態效果設定的播放器。[檢視 SVG 動畫](../../../../assets/concept-animations/vivit-factorised-attention-motion.svg)。原始架構請參見 [Arnab 等人（2021）](https://arxiv.org/abs/2103.15691)。
 
 ## 方程式
 

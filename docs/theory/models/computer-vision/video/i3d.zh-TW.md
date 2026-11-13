@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
   - theory/models/computer-vision/video
 tags:
@@ -29,6 +29,12 @@ I3D 是一個影片動作辨識模型，它把二維影像濾波器膨脹為三�
 ## 核心想法
 
 每個二維濾波器沿時間軸膨脹。它的權重沿時間重複，並除以時間長度，得到三維濾波器。論文指出，對於由相同影格組成的「無聊影片」，膨脹後的網路給出的響應，與把影像網路套用到單一影格時相同。論文稱之為無聊影片的不動點。
+
+### 視覺解說：複製、縮放與累加
+
+![一個帶正負權重的二維卷積核，沿時間軸膨脹為三個權重縮小至三分之一的切片，最後累加回原始響應](../../../../assets/concept-animations/i3d-filter-inflation-still.svg)
+
+*原創教學視覺（CC BY-SA 4.0）。* 將示意性的二維空間卷積核 \(W\) 複製到三個時間切片，每個權重縮小為 \(1/3\)。當**三個輸入影格完全相同**且不考慮時間邊界補零時，三份線性卷積貢獻相加會還原原本的二維響應 \(R\)，即 \(3(R/3)=R\)。動畫中的發光邊框與累加長條顯示的是**三個概念性貢獻**，不是量測到的激活時間序列或訓練軌跡。後續訓練仍能讓三個時間切片的權重產生差異。MkDocs 提供播放／暫停、鍵盤操作及減少動態效果時的靜態顯示。[檢視 SVG 動畫](../../../../assets/concept-animations/i3d-filter-inflation-motion.svg)。詳見 [Carreira 與 Zisserman（2017）](https://arxiv.org/abs/1705.07750)。
 
 ## 方程式
 

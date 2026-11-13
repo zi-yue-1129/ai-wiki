@@ -29,6 +29,12 @@ Three-dimensional convolutional networks can learn motion directly, but training
 
 Each two-dimensional filter is inflated along the temporal axis. Its weights are repeated across time and divided by the temporal size, which gives a three-dimensional filter. The paper notes that for a boring video of identical frames, the inflated network gives the same response as the image network applied to a single frame. The paper calls this a fixed point for boring video.
 
+### Visual walkthrough: repeat, rescale and accumulate
+
+![One signed 2D kernel inflated into three temporally repeated slices of one-third magnitude, with a final response bar recovering the original magnitude](../../../../assets/concept-animations/i3d-filter-inflation-still.svg)
+
+*Original teaching visual (CC BY-SA 4.0).* A schematic signed spatial filter \(W\) is copied into three temporal slices, each scaled by \(1/3\). For **three identical input frames**, the three linear convolution contributions sum to the original 2D response \(R\), away from temporal padding boundaries: \(3(R/3)=R\). The moving border and accumulation bar show the **three conceptual contributions**, not a measured activation time series or training trajectory. Learned 3D weights can subsequently diverge across temporal positions. MkDocs provides Play/Pause, keyboard control and a static reduced-motion view. [Open the animated SVG](../../../../assets/concept-animations/i3d-filter-inflation-motion.svg). See [Carreira and Zisserman (2017)](https://arxiv.org/abs/1705.07750).
+
 ## Equation
 
 For an $N \times N$ filter $W$, the paper repeats it $N$ times along time and divides by $N$, giving an $N \times N \times N$ filter:
