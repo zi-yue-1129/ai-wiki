@@ -66,6 +66,11 @@ TOPICS = {
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
 }
+HTML_MOTION_TOPICS = {
+    "power-iteration-convergence": "theory/math/linear-algebra/eigendecomposition",
+    "large-batch-warmup-ramp": "theory/optimization/gradual-warm-up",
+}
+
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
     "byol-online-target": "byol-momentum-preview.gif",
@@ -117,6 +122,25 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
 
 def main() -> int:
     errors = []
+
+    # HTML-based pages show the still directly on GitHub; MkDocs adds a
+    # Play/Pause-enhanced motion source. Check both bilingual paths explicitly.
+    for stem, page_stem in HTML_MOTION_TOPICS.items():
+        errors.extend(verify_svg(ASSETS / f"{stem}-motion.svg", True))
+        errors.extend(verify_svg(ASSETS / f"{stem}-still.svg", False))
+        for suffix in (".md", ".zh-TW.md"):
+            page = DOCS / (page_stem + suffix)
+            if not page.is_file():
+                errors.append(f"{page}: missing translation")
+                continue
+            content = page.read_text(encoding="utf-8")
+            for name in (f"{stem}-motion.svg", f"{stem}-still.svg"):
+                if name not in content:
+                    errors.append(f"{page}: missing SVG reference {name}")
+            if 'data-motion-src=' not in content or 'CC BY-SA 4.0' not in content:
+                errors.append(f"{page}: missing motion enhancement or attribution")
+        print(f"HTML motion pair {stem}: checked")
+
     for stem, page_stem in TOPICS.items():
         animated_path = ASSETS / f"{stem}-motion.svg"
         static_path = ASSETS / f"{stem}-still.svg"

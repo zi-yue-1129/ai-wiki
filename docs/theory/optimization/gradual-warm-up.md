@@ -46,6 +46,14 @@ For Transformers, Vaswani et al. (2017) use a related warm-up followed by an inv
 
 The paper sets \(\mathrm{warmup\_steps} = 4000\) and uses \(d_{\mathrm{model}} = 512\) for the base model. The rate rises linearly for the first 4,000 steps, then falls in proportion to the inverse square root of the step number.
 
+### Large-batch warm-up in motion
+
+<div role="group" aria-label="Large-batch warm-up animation; scroll horizontally on narrow screens" tabindex="0" style="max-width:100%;overflow-x:auto">
+  <img src="../../assets/concept-animations/large-batch-warmup-ramp-still.svg" data-motion-src="../../assets/concept-animations/large-batch-warmup-ramp-motion.svg" alt="A fourfold batch-size scaling immediately uses learning rate 0.4 in orange, while a teal warm-up gradually raises the rate from 0.1 to 0.4 over five epochs; a fixed-gradient step bar grows in synchrony." style="display:block;width:640px;min-width:640px;height:auto">
+</div>
+
+*Original instructional animation, CC BY-SA 4.0.* For an **illustrative** fourfold batch-size increase, the target learning rate is 0.4 from a baseline of 0.1. The orange line applies that rate immediately; the teal line uses \(\eta(e)=0.1+0.3\min(e/5,1)\), so its rate is 0.25 after 2.5 epochs and reaches 0.4 at epoch 5. The right-hand bars compare \(\|\Delta\theta\|=\eta\|g\|\) **only with the gradient held fixed** to isolate the schedule. The flat portion after epoch 5 is for this comparison; real recipes subsequently decay the learning rate. These rates and step sizes are **schematic, not model measurements or evidence that warm-up guarantees stability**. The animation returns to epoch zero solely to loop. On the wiki website, Play/Pause and reduced-motion support use the shared player; GitHub shows the still. See Goyal et al. (2017) in References.
+
 ## Results
 
 - **Accuracy at large batches.** The abstract reports no loss of accuracy with minibatch sizes up to 8,192 images. In the paper's table, the 8k run with gradual warm-up has 23.74% top-1 error (±0.09), against 23.60% (±0.12) for the 256-image baseline.
