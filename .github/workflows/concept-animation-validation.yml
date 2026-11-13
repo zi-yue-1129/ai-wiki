@@ -85,6 +85,8 @@ jobs:
         run: python scripts/test_ssl_ema_trajectory_browser.py
       - name: Chromium FIFO lifetime and EMA historical attribution
         run: python scripts/test_ssl_temporal_provenance_browser.py
+      - name: Test causal imitation player in Chromium (mobile, bilingual, reduced motion)
+        run: python scripts/test_causal_imitation_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
