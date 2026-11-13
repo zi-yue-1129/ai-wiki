@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-14
 status: complete
 last_reviewed: 2026-11-04
 related:
@@ -48,6 +48,16 @@ PBWM 有三個協同運作的部分。
 2. 若閘門開啟，前額葉表徵被覆寫；若閘門關閉，先前的內容會保留，因此資訊能撐過干擾。
 3. 任務產生結果。評論者比較它的預測與實際發生的情況，其差值即為預測誤差，性質與[多巴胺的獎勵預測誤差](../../neuroscience/dopamine-reward-prediction-error/index.md)頁所述相同，並在[強化學習](../../../theory/paradigms/reinforcement-learning/index.md)所涵蓋的行動者—評論者方法中扮演相同角色。
 4. 預測誤差同時訓練評論者與行動者。之後的閘控決策會偏好那些曾經有用的更新。
+
+### 教學動畫：工作記憶的選擇性閘控
+
+<div class="wm-motion-pan" tabindex="0" role="region" aria-label="PBWM：檢視閘控與記憶內容">
+<img src="../../../assets/concept-animations/pbwm-gate-still.svg" data-motion-src="../../../assets/concept-animations/pbwm-gate-motion.svg" width="640" alt="PBWM 閘控過程：提示 A 通過開啟的基底核閘門進入前額葉記憶；干擾 X 被關閉的閘門阻擋，A 維持不變；接著提示 B 通過閘門並取代 A。">
+</div>
+
+**藍色提示 A** 通過開啟的閘門，寫入前額葉儲存區；**橘色干擾 X** 遇到關閉的閘門，原有記憶 A 仍被保留；之後 **青綠色提示 B** 通過開啟的閘門，更新記憶。哪些提示對任務有用，以及三次閘門的開關決策，均是**人工設定**，只為示範更新規則；**不是**模型的實際學習軌跡、解剖迴路圖或神經記錄。科學依據請參閱參考文獻中的 O'Reilly 與 Frank（2006）。
+
+在 MkDocs 網站可使用**播放／暫停**按鈕，聚焦後按 **Enter／Space** 操作；偏好減少動態效果時，圖會維持靜態。手機可將圖區聚焦後水平捲動；GitHub 直接顯示三個狀態的靜態比較。兩份視覺資產均為原創 **CC BY-SA 4.0** 教材。
 
 ## 結果
 
