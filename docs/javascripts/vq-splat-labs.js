@@ -108,7 +108,7 @@
     for(const input of root.querySelectorAll('[data-param]')) input.addEventListener('input',()=>{const i=Number(input.dataset.param);config.values[i]=Number(input.value);root.querySelector(`[data-value="${i}"]`).textContent=config.values[i].toFixed(2);stop();render();});
     control('prev').addEventListener('click',()=>{stop();setStep(config.step-1);});
     control('next').addEventListener('click',()=>{stop();setStep(config.step+1);});
-    control('seek').addEventListener('input',e=>{stop();setStep(Number(e.target.value));});
+    control('seek').addEventListener('input',e=>{const requested=Number(e.target.value);stop();setStep(requested);});
     control('play').addEventListener('click',start);
     control('speed').addEventListener('change',e=>{const was=config.playing;stop();config.speed=Number(e.target.value);if(was)start();});
     control('reset').addEventListener('click',()=>{stop();config.values=[...defaults];config.step=0;config.speed=1;control('speed').value='1';root.querySelectorAll('[data-param]').forEach((el,i)=>{el.value=String(defaults[i]);root.querySelector(`[data-value="${i}"]`).textContent=defaults[i].toFixed(2);});render();});

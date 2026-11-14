@@ -38,7 +38,7 @@ with sync_playwright() as playwright:
                     end='5' if lab=='vq' else '3'
                     scope.locator('[data-action=next]').click()
                     assert scope.locator('[data-action=seek]').input_value()=='1'
-                    scope.locator('[data-action=seek]').fill(end)
+                    scope.locator('[data-action=seek]').evaluate("(el, value) => { el.value = value; el.dispatchEvent(new Event('input', {bubbles: true})); }", end)
                     assert scope.locator('[data-action=seek]').input_value()==end
                     assert scope.locator('[role=status]').inner_text()
                     if width==1024 and not reduced: page.screenshot(path=str(OUT/f'{lang}-{lab}-final.png'),full_page=True)
