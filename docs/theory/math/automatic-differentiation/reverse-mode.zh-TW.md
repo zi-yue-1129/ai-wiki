@@ -49,7 +49,7 @@ $$\bar{x} = J^{\top} \bar{y}$$
 
 ## 執行模型：具體的反向掃描
 
-考慮 $u=xy$、$v=x+x$、$L=u+v$，在 $x=2$、$y=3$ 時，前向計算得到 $u=6$、$v=4$、$L=10$。設定 $\\bar L=1$，加法節點把敏感度各傳給 $u$ 與 $v$；乘法節點對 $x$ 貢獻 $y\\bar u=3$，對 $y$ 貢獻 $x\\bar u=2$；$v$ 中兩次使用 $x$ 再各貢獻一個單位。因此累積得到 $\\bar x=5$、$\\bar y=2$。
+考慮 $u=xy$、$v=x+x$、$L=u+v$，在 $x=2$、$y=3$ 時，前向計算得到 $u=6$、$v=4$、$L=10$。設定 $\bar L=1$，加法節點把敏感度各傳給 $u$ 與 $v$；乘法節點對 $x$ 貢獻 $y\bar u=3$，對 $y$ 貢獻 $x\bar u=2$；$v$ 中兩次使用 $x$ 再各貢獻一個單位。因此累積得到 $\bar x=5$、$\bar y=2$。
 
 這也說明計算圖不一定是樹：同一個輸入可能被多個下游運算使用。反向實作必須**累加**所有路徑的 cotangent，而不是覆寫前一次貢獻。對張量節點則以局部向量－雅可比積（VJP）取代純量偏導數。若輸出為向量，反向傳播的初始 cotangent 也可以是指定向量，而不一定是純量一。
 
@@ -74,7 +74,7 @@ return cotangent[inputs]
 
 反向模式的主要代價之一是保存前向中間值。Pullback 可能需要原始輸入、輸出、遮罩或其他 activation。完整保存時，即使最終梯度很小，尖峰記憶體仍可能隨展開後的計算長度成長。Activation checkpointing 只保存部分邊界，反向時重新計算其餘中間值，以額外運算換取記憶體；最佳效果取決於圖結構與重算排程。[^3]
 
-對 $f: \\mathbb{R}^n\\to\\mathbb{R}^m$，一次反向掃描計算的是指定 $v\\in\\mathbb{R}^m$ 的 $J_f(x)^\\top v$。若要建立**完整**雅可比矩陣，可能需要最多 $m$ 次反向掃描。前向模式則對指定 $u$ 計算 $J_f(x)u$。選擇哪種模式應取決於目標導數的形狀，而非只看程式是否為神經網路。[^1]
+對 $f: \mathbb{R}^n\to\mathbb{R}^m$，一次反向掃描計算的是指定 $v\in\mathbb{R}^m$ 的 $J_f(x)^\top v$。若要建立**完整**雅可比矩陣，可能需要最多 $m$ 次反向掃描。前向模式則對指定 $u$ 計算 $J_f(x)u$。選擇哪種模式應取決於目標導數的形狀，而非只看程式是否為神經網路。[^1]
 
 ## 可微分契約與常見失敗模式
 
@@ -82,7 +82,7 @@ return cotangent[inputs]
 
 原地修改可能破壞 pullback 所需的儲存值；detach 會刻意切斷梯度路徑；誤把參數當常數或把中間結果轉為不可微表示，也可能在沒有語法錯誤的情況下造成梯度缺失。訓練流程應確認預期參數確實收到有限梯度，並區分「沒有梯度」與「梯度數值為零」。[^2]
 
-在小型、平滑的測試函數上，可用不同步長的中央有限差分檢查反向結果，或比較方向導數 $u^\\top\\nabla f(x)$ 與沿 $u$ 的擾動結果。不過有限差分只是診斷工具，會受截斷誤差與浮點抵消影響。測試應避開不可微點、隨機非決定性與具有狀態副作用的運算。[^1]
+在小型、平滑的測試函數上，可用不同步長的中央有限差分檢查反向結果，或比較方向導數 $u^\top\nabla f(x)$ 與沿 $u$ 的擾動結果。不過有限差分只是診斷工具，會受截斷誤差與浮點抵消影響。測試應避開不可微點、隨機非決定性與具有狀態副作用的運算。[^1]
 
 ## Key methods
 
@@ -118,6 +118,11 @@ return cotangent[inputs]
 - 對於無法儲存完整前向傳播的極長序列，反向模式應如何組織？
 - 對於具有動態結構與離散選擇的程式，能否有效率地建構圖並微分？
 
+[^1]: Baydin 等人（2018），*Automatic differentiation in machine learning: a survey*，連結見參考文獻。
+[^2]: Paszke 等人（2019），*PyTorch*，連結見參考文獻。
+[^3]: Griewank 與 Walther（2008），*Evaluating Derivatives*，連結見參考文獻。
+[^4]: Goodfellow 等人（2016），*Deep Learning*，連結見參考文獻。
+
 ## 參考文獻
 
 ### 奠基性論文
@@ -134,8 +139,3 @@ return cotangent[inputs]
 ### 文章與文件
 
 - Paszke 等人，*PyTorch: An Imperative Style, High-Performance Deep Learning Library*（2019）。https://arxiv.org/abs/1912.01703 — 說明一個在前向傳播時記錄圖、並以反向方式執行的框架。
-
-[^1]: Baydin 等人（2018），*Automatic differentiation in machine learning: a survey*，連結見參考文獻。
-[^2]: Paszke 等人（2019），*PyTorch*，連結見參考文獻。
-[^3]: Griewank 與 Walther（2008），*Evaluating Derivatives*，連結見參考文獻。
-[^4]: Goodfellow 等人（2016），*Deep Learning*，連結見參考文獻。

@@ -48,7 +48,7 @@ For a layer $y = Wx + b$ with a loss $L$, this gives $\bar{W} = \bar{y}\, x^{\to
 
 ## Execution model: a concrete reverse sweep
 
-Consider the straight-line program $u=xy$, $v=x+x$, and $L=u+v$. At $x=2$, $y=3$, the primal trace records $u=6$, $v=4$, and $L=10$. Initialise the output cotangent to $\\bar L=1$. The addition node sends one unit to both $u$ and $v$. The multiplication node sends $y\\bar u=3$ to $x$ and $x\\bar u=2$ to $y$; the two uses of $x$ in $v$ send two further units to $x$. Thus the accumulated cotangents are $\\bar x=5$ and $\\bar y=2$.
+Consider the straight-line program $u=xy$, $v=x+x$, and $L=u+v$. At $x=2$, $y=3$, the primal trace records $u=6$, $v=4$, and $L=10$. Initialise the output cotangent to $\bar L=1$. The addition node sends one unit to both $u$ and $v$. The multiplication node sends $y\bar u=3$ to $x$ and $x\bar u=2$ to $y$; the two uses of $x$ in $v$ send two further units to $x$. Thus the accumulated cotangents are $\bar x=5$ and $\bar y=2$.
 
 This example exposes an important implementation distinction: a computational graph is not necessarily a tree. An input can feed several downstream operations. A reverse implementation must **sum** cotangents from all uses, rather than overwriting an earlier contribution. For tensor-valued nodes, the same rule holds with local vector-Jacobian products (VJPs) instead of scalar partial derivatives. The output seed may also be a non-unit vector when differentiating a vector-valued function against a chosen output cotangent.
 
@@ -73,7 +73,7 @@ Let $C_f$ denote the cost of evaluating a differentiable scalar-output program a
 
 Reverse mode also changes the space budget. A pullback may require an input, an output, a mask, or other intermediate information from the forward execution. Keeping all saved tensors alive can make peak activation memory grow with the unrolled computation, even when the final gradient tensor is small. Activation checkpointing retains selected boundaries and recomputes discarded intermediate activations on demand. It reduces storage at the expense of additional forward work, and its effectiveness depends on the graph structure and recomputation schedule.[^3]
 
-For a function $f: \\mathbb{R}^n\\to\\mathbb{R}^m$, one reverse sweep computes $J_f(x)^\\top v$ for a chosen $v\\in\\mathbb{R}^m$. Constructing the **entire** Jacobian may require up to $m$ reverse sweeps, not one. Conversely, forward mode computes $J_f(x)u$ for a chosen input direction $u$. The appropriate mode therefore depends on the shape of the requested derivative, not simply on whether a neural network is involved.[^1]
+For a function $f: \mathbb{R}^n\to\mathbb{R}^m$, one reverse sweep computes $J_f(x)^\top v$ for a chosen $v\in\mathbb{R}^m$. Constructing the **entire** Jacobian may require up to $m$ reverse sweeps, not one. Conversely, forward mode computes $J_f(x)u$ for a chosen input direction $u$. The appropriate mode therefore depends on the shape of the requested derivative, not simply on whether a neural network is involved.[^1]
 
 ## Differentiability contracts and failure modes
 
@@ -81,7 +81,7 @@ A numerical program may contain operations whose mathematical derivatives are un
 
 In-place mutation can invalidate values saved for a pullback. Detaching a tensor intentionally severs a gradient path. Accidentally treating a parameter as a constant, or silently converting an intermediate to a non-differentiable representation, can likewise produce missing gradients without a syntax error. A robust training pipeline should check that expected parameters receive finite gradients, and should distinguish an intentionally absent gradient from a numerical zero.[^2]
 
-Gradient checking is useful for small smooth examples: compare the reverse-mode result with central finite differences over several step sizes, or compare a directional derivative $u^\\top\\nabla f(x)$ against a perturbation along $u$. Finite differences are a diagnostic, not a ground truth: truncation and floating-point cancellation can disagree with correct automatic derivatives. Tests should avoid non-smooth points, stochastic nondeterminism, and operations with stateful side effects.[^1]
+Gradient checking is useful for small smooth examples: compare the reverse-mode result with central finite differences over several step sizes, or compare a directional derivative $u^\top\nabla f(x)$ against a perturbation along $u$. Finite differences are a diagnostic, not a ground truth: truncation and floating-point cancellation can disagree with correct automatic derivatives. Tests should avoid non-smooth points, stochastic nondeterminism, and operations with stateful side effects.[^1]
 
 ## Key methods
 
@@ -117,6 +117,11 @@ Training neural networks of any architecture, gradient-based optimisation of sim
 - How should reverse mode be organised for very long sequences, where storing the forward pass is infeasible?
 - Can the graph be built and differentiated efficiently for programs with dynamic structure and discrete choices?
 
+[^1]: Baydin et al. (2018), *Automatic differentiation in machine learning: a survey*, linked in References.
+[^2]: Paszke et al. (2019), *PyTorch*, linked in References.
+[^3]: Griewank and Walther (2008), *Evaluating Derivatives*, linked in References.
+[^4]: Goodfellow et al. (2016), *Deep Learning*, linked in References.
+
 ## References
 
 ### Seminal papers
@@ -133,8 +138,3 @@ Training neural networks of any architecture, gradient-based optimisation of sim
 ### Articles and documentation
 
 - Paszke et al., *PyTorch: An Imperative Style, High-Performance Deep Learning Library* (2019). https://arxiv.org/abs/1912.01703 — Describes a framework that records the graph during the forward pass and replays it in reverse.
-
-[^1]: Baydin et al. (2018), *Automatic differentiation in machine learning: a survey*, linked in References.
-[^2]: Paszke et al. (2019), *PyTorch*, linked in References.
-[^3]: Griewank and Walther (2008), *Evaluating Derivatives*, linked in References.
-[^4]: Goodfellow et al. (2016), *Deep Learning*, linked in References.
