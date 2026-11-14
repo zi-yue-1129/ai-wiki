@@ -38,6 +38,17 @@ The paper also describes an outcome-supervision and a process-supervision versio
 
 *Original continuous teaching animation (CC BY-SA 4.0).* For **one prompt** with four illustrative sampled outputs, rewards `r = (1, 2, 4, 5)` give group mean `μ = 3` and **population** standard deviation `σ = √2.5 ≈ 1.581`. Standardised advantages `(rᵢ − μ)/σ` are approximately `(−1.26, −0.63, +0.63, +1.26)`. Blue bars show raw rewards, the orange line shows their shared baseline, and the lower bars change sign relative to the mean. This isolates the **group-normalisation step** of the outcome-supervised variant: it does **not** depict PPO-style ratio clipping, reference-policy KL penalties, token-level updates, or measured model outputs. Standard-deviation conventions can differ across implementations. On MkDocs, use Play/Pause or the keyboard; [GitHub static preview](../../../../../assets/concept-animations/grpo-group-advantages-still.svg). See [Shao et al. (2024)](https://arxiv.org/abs/2402.03300).
 
+
+### Interactive lab: group baselines and the zero-variance boundary
+
+<div data-policy-lab="grpo" data-lang="en">
+  <p>The original static SVG above remains the GitHub and no-script fallback.</p>
+</div>
+
+The interactive lab recalculates a **single prompt's synthetic four-output group** \(r=(1,r_B,4,r_D)\). Adjust two rewards independently and inspect each stage: raw rewards, shared mean \(\mu=\frac14\sum_i r_i\), centred rewards \(r_i-\mu\), then standardised advantages \(A_i=(r_i-\mu)/\sigma\), where \(\sigma=\sqrt{\frac14\sum_i(r_i-\mu)^2}\) is the **population** standard deviation. For \(r_B=2\) and \(r_D=5\), \(\mu=3\), \(\sigma\approx1.581\), and \(A\approx(-1.265,-0.632,0.632,1.265)\). Changing one reward shifts the baseline and thus **every member's advantage**, even if the other rewards are unchanged.
+
+The **Equal rewards** option exposes \(\sigma=0\): normalised advantages are mathematically undefined, so the display uses zeros solely as a safe interface convention, **not a canonical GRPO update rule**. The lab isolates the outcome-supervised group advantage, not PPO clipping, KL regularisation, token-level optimisation or measured model outputs. Step, seek, speed, keyboard and reduced-motion controls share the accessible player above. See Shao et al. (2024) in References.
+
 ## Results
 
 The paper reports results for a 7B model trained with GRPO, DeepSeekMath-RL, against its instruction-tuned starting point, DeepSeekMath-Instruct 7B, using chain-of-thought prompting:

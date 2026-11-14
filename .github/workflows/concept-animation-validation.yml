@@ -9,6 +9,9 @@ on:
       - "scripts/verify_concept_svgs.py"
       - "scripts/test_uncertainty_motion_semantics.py"
       - "scripts/test_policy_gradient_motion_browser.py"
+      - "scripts/test_policy_credit_labs_browser.py"
+      - "docs/javascripts/policy-credit-labs.js"
+      - "docs/stylesheets/policy-credit-labs.css"
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
@@ -72,6 +75,8 @@ jobs:
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
+      - name: Chromium deterministic REINFORCE / GRPO interactive labs
+        run: python scripts/test_policy_credit_labs_browser.py
       - name: Chromium REINFORCE and GRPO visual + accessible player QA
         run: python scripts/test_policy_gradient_motion_browser.py
       - name: Chromium mobile/desktop playback, pause and geometry
@@ -98,6 +103,7 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/policy-credit-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 

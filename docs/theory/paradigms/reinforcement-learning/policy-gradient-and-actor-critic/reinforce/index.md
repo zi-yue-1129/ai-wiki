@@ -42,6 +42,17 @@ where \(G_t\) is the return from step \(t\) and \(b\) is a baseline. The procedu
 
 *Original continuous teaching animation (CC BY-SA 4.0).* A three-action **synthetic episode** has step rewards `(0, 0, 4)`, discount `γ = 0.8`, and a fixed baseline `b = 2`. Discounted returns are `G = (2.56, 3.2, 4)`; subtracting the baseline produces advantage weights `(0.56, 1.2, 2)` on the corresponding **log-policy gradients**. The animation moves forward while sampling actions, then backward to illustrate reward-to-go assignment. The bars are *weights*, **not** trained parameters, gradient magnitudes, or empirical learning curves; each sampled action has its own log-probability gradient direction. These are hand-chosen values, not model measurements. Use the MkDocs Play/Pause button (also operable with Enter or Space) or the [GitHub static preview](../../../../../assets/concept-animations/reinforce-return-credit-still.svg). The derivation is in [Williams (1992)](https://doi.org/10.1007/bf00992696).
 
+
+### Interactive lab: delayed credit and baseline sign
+
+<div data-policy-lab="reinforce" data-lang="en">
+  <p>The script-free SVG and computation explanation above remain readable on GitHub.</p>
+</div>
+
+The lab recomputes the **actual three-step reward-to-go arithmetic** for synthetic rewards \(r=(0,0,R)\). Move the terminal reward \(R\), discount \(\gamma\), and constant baseline \(b\) independently. Step from the sampled episode to the discounted returns \(G_t=\gamma^{2-t}R\), then to the signed coefficients \(G_t-b\) that multiply each action's **own** log-policy gradient. With \(R=4\), \(\gamma=0.8\), \(b=2\), these weights are \((0.56,1.20,2.00)\). Raising the baseline can make earlier weights negative **without changing the sampled rewards**. Negative coefficients reverse a local log-probability gradient's contribution, but the figure does **not** specify the gradient vector or a policy parameter update.
+
+Use **Previous/Next, Play/Pause, seek, playback speed and Reset** to inspect discrete stages. The dark SVG plot uses a keyboard-focusable horizontal scroller on narrow screens; the controls use native keyboard events. Reduced-motion preference disables autoplay while retaining manual stepping. This is a deterministic constructed example, **not measured training**. See Williams (1992) in References.
+
 ## Results
 
 Williams's paper gives a derivation and a theorem rather than a benchmark. Its contribution is the general class of update rules, which underlies the policy-gradient methods that followed.
