@@ -46,6 +46,7 @@ hooks:
   - hooks/related.py
   - hooks/knowledge_map.py
   - hooks/search_aliases.py
+  - hooks/source_asset_urls.py
 
 plugins:
   # Keeps Material's header search button. The dialog itself is Pagefind
