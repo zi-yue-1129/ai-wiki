@@ -54,6 +54,13 @@ The animation follows four outputs: the cyan state halo and causal matrix row id
 
 This small real-valued example illustrates the scalar-transition, single-head part of SSD. It is **not** a complete Mamba-2 block, its chunked GPU algorithm, a softmax attention map, or measured model activations. The orange travelling dot represents scan order rather than a literal data packet. Original CC BY-SA 4.0 artwork, grounded in Dao and Gu (2024) in References. GitHub shows all four causal rows in the [static preview](../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg); [open the 12-second animated SVG](../../../../../assets/concept-animations/mamba2-ssd-causal-map-motion.svg). On MkDocs use **Play/Pause** (keyboard Enter/Space); reduced-motion mode initially displays the static view.
 
+
+### Explore the recurrent / matrix equivalence
+
+<div class="ssm-lab" data-ssm-lab="ssd" data-lang="en"></div>
+
+Adjust the scalar transitions $a_2,a_3,a_4$ or final input $x_4$, then step through the four outputs. The **left recurrence** and the **highlighted causal matrix row** recompute separately from the same parameters, while the displayed maximum absolute difference checks their equality. Use **Previous / Next, Play / Pause, Seek, speed (0.5×/1×/2×), or Reset**. Upper-triangular cells are structurally excluded by causality, not learned attention weights. This is a deterministic one-dimensional SSD illustration, **not a trained Mamba-2 activation, a softmax-attention map, or measured throughput**; the existing GitHub-safe SVG remains the no-script fallback.
+
 ## Results
 
 The abstract reports that the SSD layer is "2-8X faster" than the optimized selective-scan implementation of Mamba. The paper reports that the recurrent state can be "8× the size of Mamba or even higher, with minimal slowdown". Against FlashAttention-2, the paper reports that its SSD implementation is competitive, crossing over at sequence length about 2K and running 6 times faster at sequence length 16K. On the Pile, Mamba-2 with 2.7B parameters trained on 300B tokens outperforms Mamba-2.8B, Pythia-2.8B and Pythia-6.9B trained on the same data. The paper also claims that Mamba-2 Pareto-dominates Mamba and Transformer++ in perplexity and wall-clock time under Chinchilla-style scaling; the experimental details for that claim were not checked for this page.

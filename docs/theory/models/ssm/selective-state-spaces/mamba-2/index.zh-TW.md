@@ -54,6 +54,13 @@ M_{ji} = (a_j a_{j-1}\cdots a_{i+1})\,(C_j^{\top} B_i) \qquad (j \ge i)。
 
 此圖僅展示 SSD 的純量轉移與單頭概念；**不是**完整的 Mamba-2 網路區塊、分塊 GPU 演算法、softmax 注意力圖或實測模型激活值。移動的橘色標記象徵掃描順序，而非實際傳送的資料封包。原創圖採 CC BY-SA 4.0，依據下方 Dao 與 Gu（2024）的原始論文。GitHub 可直接閱讀[完整靜態預覽](../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg)，也可[開啟 12 秒循環 SVG 動畫](../../../../../assets/concept-animations/mamba2-ssd-causal-map-motion.svg)；MkDocs 支援**播放／暫停**（Enter／Space），減少動態效果偏好會先顯示靜態圖。
 
+
+### 互動實驗：對照遞迴狀態與因果矩陣
+
+<div class="ssm-lab" data-ssm-lab="ssd" data-lang="zh"></div>
+
+調整純量轉移係數 $a_2,a_3,a_4$ 或最後的輸入 $x_4$，再依序檢查四個輸出。**左側遞迴**與**右側亮起的因果矩陣列**會使用相同參數各自重新計算，並顯示最大絕對差以檢查等價性。可用**上一步／下一步、播放／暫停、進度滑桿、0.5×／1×／2× 速度及重設**操作。上三角區域因因果限制而不存在，並非學得的注意力權重。此為確定性、單一維度的 SSD 人工範例，**不是訓練所得 Mamba-2 活化值、softmax 注意力圖或效能實測**；GitHub 與停用指令碼時可閱讀上方靜態 SVG。
+
 ## 結果
 
 摘要指出，SSD 層比 Mamba 最佳化過的選擇性掃描實作快 "2-8X"（2 至 8 倍）。論文指出，其循環狀態可以是 Mamba 的 "8× the size of Mamba or even higher"（8 倍大小或更大），且 "with minimal slowdown"（速度僅有極小下降）。與 FlashAttention-2 相比，論文指出 SSD 實作具競爭力：在序列長度約 2K 時交叉，在長度 16K 時快 6 倍。在 Pile 上，2.7B 參數、訓練 300B token 的 Mamba-2，勝過在相同資料上訓練的 Mamba-2.8B、Pythia-2.8B 與 Pythia-6.9B。論文也主張，在 Chinchilla 式的擴展下，Mamba-2 在困惑度與牆鐘時間上帕累托支配 Mamba 與 Transformer++；但此主張的實驗細節未在本頁核對。

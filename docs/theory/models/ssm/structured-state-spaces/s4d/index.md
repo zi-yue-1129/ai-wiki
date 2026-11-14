@@ -54,6 +54,13 @@ The moving dots sweep over **lag** $\ell=0,\ldots,15$: two complex-conjugate mod
 
 These numbers are **illustrative, not measured or learned S4D parameters**; the picture omits bilinear discretisation and the paper's specific HiPPO-derived initialisations. The dotted continuation shows later lags before the cursor reaches them; it is not an additional prediction. Original CC BY-SA 4.0 artwork, based on the S4D paper already cited in References. GitHub shows the complete static kernel; [open the 12-second animated SVG](../../../../../assets/concept-animations/s4d-diagonal-modes-motion.svg). On MkDocs use **Play/Pause** (including Enter/Space on the button); a reduced-motion preference selects the static overview.
 
+
+### Explore the diagonal-mode kernel
+
+<div class="ssm-lab" data-ssm-lab="s4d" data-lang="en"></div>
+
+The interactive laboratory recalculates **all 16 lags** from the two explicit real-valued modal contributions above. Move the decay or oscillation-frequency slider to see how the kernel changes; use **Previous / Next, Play / Pause, Seek, speed (0.5×/1×/2×), or Reset** to inspect the two summands and their total at any lag. Each point is recomputed analytically, not interpolated between measured model states. This is a deterministic constructed example, **not trained S4D weights**. The original static SVG above remains available in GitHub and without JavaScript.
+
 ## Results
 
 The abstract states that S4D averages 85% on the Long Range Arena (LRA). The LRA table gives 85.50 for S4D-Inv, 84.89 for S4D-LegS, and 80.48 for the original S4. On Speech Commands at 8 kHz, S4D-Inv scores 91.80 and S4-LegS scores 91.32. On sCIFAR, S4-LegS scores 91.80, against 90.69 for S4D-Inv and 90.42 for S4D-Lin. The paper reports that, under its LRA settings, only S4D-Inv achieves above random chance on Path-X.

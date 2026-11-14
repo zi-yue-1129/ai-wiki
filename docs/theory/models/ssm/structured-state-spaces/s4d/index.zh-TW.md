@@ -54,6 +54,13 @@ A_n^{\text{Inv}} = -\tfrac{1}{2} + i\,\tfrac{N}{\pi}\left(\tfrac{N}{2n+1} - 1\ri
 
 圖中數值**不是訓練得到的 S4D 參數，也不是實測結果**；省略了雙線性離散化及論文特定的 HiPPO 初始化。淡色虛線只是尚未掃描到的後續延遲，不是額外的模型預測。原創視覺採 CC BY-SA 4.0，科學基礎見下方 S4D 原始論文。GitHub 直接顯示完整靜態圖，亦可[開啟 12 秒循環 SVG 動畫](../../../../../assets/concept-animations/s4d-diagonal-modes-motion.svg)；MkDocs 可用**播放／暫停**按鈕（支援 Enter／Space），偏好減少動態效果時會先顯示靜態圖。
 
+
+### 互動實驗：觀察對角模態如何組成卷積核
+
+<div class="ssm-lab" data-ssm-lab="s4d" data-lang="zh"></div>
+
+互動實驗會依上方兩組人工模態的數學式，重新計算**全部 16 個延遲**。調整衰減係數或振盪頻率，可觀察各模態與總卷積核如何變化；使用**上一步／下一步、播放／暫停、進度滑桿、0.5×／1×／2× 速度與重設**檢查每個延遲的兩個加數及總值。所有點均由解析式重新計算，並非模型實測軌跡之間的插值；也**不是訓練得到的 S4D 權重**。GitHub 與停用 JavaScript 時仍可閱讀上方靜態圖。
+
 ## 結果
 
 摘要指出，S4D 在 Long Range Arena（LRA）上的平均為 85%。LRA 表格中，S4D-Inv 為 85.50，S4D-LegS 為 84.89，原始 S4 為 80.48。在 8 kHz 的 Speech Commands 上，S4D-Inv 為 91.80，S4-LegS 為 91.32。在 sCIFAR 上，S4-LegS 為 91.80，S4D-Inv 為 90.69，S4D-Lin 為 90.42。論文報告，在其 LRA 設定下，只有 S4D-Inv 在 Path-X 上高於隨機水準。
