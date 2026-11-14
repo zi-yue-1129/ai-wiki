@@ -163,3 +163,10 @@ body.km-lock { overflow: hidden; }
     max-width: none;
   }
 }
+
+/* State-space teaching diagrams preserve readable labels on narrow screens.
+   The containing element is focusable, so keyboard users can pan horizontally. */
+.ssm-motion-viewport { max-width: 100%; overflow-x: auto; overflow-y: hidden; margin: .8rem 0; border-radius: .55rem; }
+.ssm-motion-viewport:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 3px; }
+.ssm-motion-viewport .concept-motion-player { width: 860px; max-width: none; margin: 0; }
+.ssm-motion-viewport img, .ssm-motion-viewport .concept-motion-player img { display: block; width: 860px; max-width: none; height: auto; }

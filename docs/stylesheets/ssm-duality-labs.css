@@ -1,0 +1,26 @@
+/* Original responsive SSM teaching lab. Native keyboard controls; no external assets. */
+.ssm-lab{max-width:100%;margin:1rem 0 1.45rem;color:var(--md-default-fg-color,#263d50);}
+.ssm-lab-card{border:1px solid var(--md-default-fg-color--lightest,#cbd5df);border-radius:14px;background:var(--md-default-bg-color,#fff);padding:clamp(10px,2vw,20px);box-shadow:0 4px 16px #2139520c;}
+.ssm-lab-intro{display:flex;justify-content:space-between;gap:.7rem;align-items:baseline;flex-wrap:wrap;margin-bottom:.8rem;}
+.ssm-lab-intro strong{font-size:.94rem;}
+.ssm-lab-intro span{font-size:.68rem;color:var(--md-default-fg-color--light,#617285);}
+.ssm-lab-parameters{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,185px),1fr));gap:.8rem 1rem;margin-bottom:.8rem;}
+.ssm-lab-field{display:flex;flex-direction:column;gap:.25rem;font-size:.72rem;min-width:0;}
+.ssm-lab-field span{display:flex;justify-content:space-between;gap:.5rem;}
+.ssm-lab-field output{font-variant-numeric:tabular-nums;font-weight:700;}
+.ssm-lab input[type=range]{width:100%;accent-color:#168d87;cursor:pointer;}
+.ssm-lab-viewport{max-width:100%;overflow-x:auto;overflow-y:hidden;border:1px solid #d7e2eb;border-radius:12px;background:#f8fafc;}
+.ssm-lab-viewport [data-role=figure],.ssm-lab-viewport svg{display:block;width:760px;max-width:none;height:340px;}
+.ssm-lab-viewport:focus-visible,.ssm-lab button:focus-visible,.ssm-lab input:focus-visible{outline:3px solid #228bd0;outline-offset:2px;}
+.ssm-lab-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem;margin-top:.6rem;}
+.ssm-lab-metrics>div{background:var(--md-code-bg-color,#f2f5f8);padding:.45rem .55rem;border-radius:7px;display:flex;gap:.2rem;flex-direction:column;min-width:0;}
+.ssm-lab-metrics span{font-size:.65rem;color:var(--md-default-fg-color--light,#576c7d);}
+.ssm-lab-metrics strong{font-variant-numeric:tabular-nums;font-size:.82rem;overflow-wrap:anywhere;}
+.ssm-lab-equation{font-family:ui-monospace,Consolas,monospace;font-size:.7rem;overflow-wrap:anywhere;margin:.6rem 0;}
+.ssm-lab-controls{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;}
+.ssm-lab-controls button{border:1px solid var(--md-default-fg-color--lighter,#9fb1be);background:var(--md-default-bg-color,#fff);padding:.35rem .65rem;border-radius:7px;cursor:pointer;font:inherit;font-size:.72rem;min-height:36px;}
+.ssm-lab-controls button:hover{border-color:#168d87;}
+.ssm-lab-timeline{flex:1 1 125px;min-width:100px;display:flex;align-items:center;gap:.35rem;font-size:.68rem;}
+.ssm-lab-status{font-size:.65rem;line-height:1.5;color:var(--md-default-fg-color--light,#607181);margin:.5rem 0 0;overflow-wrap:anywhere;}
+@media(max-width:480px){.ssm-lab-metrics>div{padding:.36rem}.ssm-lab-controls button{font-size:.67rem;padding:.32rem .45rem}.ssm-lab-parameters{gap:.5rem}}
+@media(prefers-reduced-motion:reduce){.ssm-lab *{scroll-behavior:auto!important;transition:none!important;animation:none!important;}}

@@ -10,7 +10,7 @@ tags:
   - state-space models
   - long-range memory
   - initialisation
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-14
 ---
 
 # S4D: A Diagonal Version of S4
@@ -42,6 +42,24 @@ The two named initialisations use these diagonal entries:
 \[
 A_n^{\text{Inv}} = -\tfrac{1}{2} + i\,\tfrac{N}{\pi}\left(\tfrac{N}{2n+1} - 1\right), \qquad A_n^{\text{Lin}} = -\tfrac{1}{2} + i\pi n .
 \]
+
+
+## Visual walkthrough: diagonal modes build a convolution kernel
+
+<div class="ssm-motion-viewport" tabindex="0" role="group" aria-label="S4D diagonal-mode impulse response visualisation">
+  <img src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" data-motion-src="../../../../../assets/concept-animations/s4d-diagonal-modes-motion.svg" data-still-src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" alt="Two decaying oscillatory diagonal modes, shown in blue and teal, contribute to one real-valued orange impulse-response kernel as the lag increases from zero to fifteen." />
+</div>
+
+The moving dots sweep over **lag** $\ell=0,\ldots,15$: two complex-conjugate mode pairs contribute real decaying oscillations whose sum yields a convolution kernel. For this **constructed scalar illustration only**, the mode contributions are $k_A[\ell]=0.79^\ell\cos(0.96\ell)$ and $k_B[\ell]=0.63(0.93)^\ell\cos(0.32\ell)$, with $K[\ell]=k_A[\ell]+k_B[\ell]$. Each real cosine can be represented by a conjugate pair of complex diagonal eigenvalues and conjugate coefficients in S4D's Vandermonde kernel.
+
+These numbers are **illustrative, not measured or learned S4D parameters**; the picture omits bilinear discretisation and the paper's specific HiPPO-derived initialisations. The dotted continuation shows later lags before the cursor reaches them; it is not an additional prediction. Original CC BY-SA 4.0 artwork, based on the S4D paper already cited in References. GitHub shows the complete static kernel; [open the 12-second animated SVG](../../../../../assets/concept-animations/s4d-diagonal-modes-motion.svg). On MkDocs use **Play/Pause** (including Enter/Space on the button); a reduced-motion preference selects the static overview.
+
+
+### Explore the diagonal-mode kernel
+
+<div class="ssm-lab" data-ssm-lab="s4d" data-lang="en"></div>
+
+The interactive laboratory recalculates **all 16 lags** from the two explicit real-valued modal contributions above. Move the decay or oscillation-frequency slider to see how the kernel changes; use **Previous / Next, Play / Pause, Seek, speed (0.5×/1×/2×), or Reset** to inspect the two summands and their total at any lag. Each point is recomputed analytically, not interpolated between measured model states. This is a deterministic constructed example, **not trained S4D weights**. The original static SVG above remains available in GitHub and without JavaScript.
 
 ## Results
 

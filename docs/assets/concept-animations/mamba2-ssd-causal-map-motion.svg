@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="440" viewBox="0 0 860 440" role="img" aria-label="MAMBA-2  /  State-space duality">
+<title>MAMBA-2  /  State-space duality</title>
+<desc>One causal map · two evaluation views. Original schematic illustration with explanatory text in the corresponding article.</desc>
+<rect x="0" y="0" width="860" height="440" rx="0" fill="#f8fafc" stroke="#f8fafc" stroke-width="0" />
+<text x="26" y="37" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#17243d" >MAMBA-2  /  State-space duality</text>
+<text x="834" y="36" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#65758d" text-anchor="end" >One causal map · two evaluation views</text>
+<rect x="24" y="60" width="392" height="342" rx="14" fill="#ffffff" stroke="#dce5ef" stroke-width="1.2" />
+<rect x="430" y="60" width="406" height="342" rx="14" fill="#ffffff" stroke="#dce5ef" stroke-width="1.2" />
+<text x="44" y="87" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#65758d" >RECURRENT SCAN</text>
+<text x="450" y="87" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#65758d" >CAUSAL STRUCTURED MATRIX</text>
+<text x="44" y="113" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#65758d" >state = a × previous + input</text>
+<text x="450" y="113" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#65758d" >M[j,i] = product of transitions</text>
+<text x="77" y="144" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#65758d" text-anchor="middle" >x1</text>
+<circle cx="77" cy="183" r="21" fill="#ffffff" stroke="#93abc6" stroke-width="2" />
+<text x="77" y="188" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#17243d" text-anchor="middle" >h1</text>
+<text x="77" y="226" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2563eb" text-anchor="middle" >1</text>
+<circle cx="77" cy="183" r="27" fill="none" stroke="#0d9488" stroke-width="2.8"><animate attributeName="opacity" values="1;.05;.05;.05;.05" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></circle>
+<line x1="98" y1="183" x2="151" y2="183" stroke="#a4b3c7" stroke-width="3" />
+<path d="M145 178 l9 5 -9 5" fill="none" stroke="#a4b3c7" stroke-width="2" stroke-linecap="round"/>
+<text x="172" y="144" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#65758d" text-anchor="middle" >x2</text>
+<circle cx="172" cy="183" r="21" fill="#ffffff" stroke="#93abc6" stroke-width="2" />
+<text x="172" y="188" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#17243d" text-anchor="middle" >h2</text>
+<text x="172" y="226" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2563eb" text-anchor="middle" >1.5</text>
+<circle cx="172" cy="183" r="27" fill="none" stroke="#0d9488" stroke-width="2.8"><animate attributeName="opacity" values=".05;1;.05;.05;.05" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></circle>
+<line x1="193" y1="183" x2="246" y2="183" stroke="#a4b3c7" stroke-width="3" />
+<path d="M240 178 l9 5 -9 5" fill="none" stroke="#a4b3c7" stroke-width="2" stroke-linecap="round"/>
+<text x="267" y="144" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#65758d" text-anchor="middle" >x3</text>
+<circle cx="267" cy="183" r="21" fill="#ffffff" stroke="#93abc6" stroke-width="2" />
+<text x="267" y="188" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#17243d" text-anchor="middle" >h3</text>
+<text x="267" y="226" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2563eb" text-anchor="middle" >0.45</text>
+<circle cx="267" cy="183" r="27" fill="none" stroke="#0d9488" stroke-width="2.8"><animate attributeName="opacity" values=".05;.05;1;.05;.05" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></circle>
+<line x1="288" y1="183" x2="341" y2="183" stroke="#a4b3c7" stroke-width="3" />
+<path d="M335 178 l9 5 -9 5" fill="none" stroke="#a4b3c7" stroke-width="2" stroke-linecap="round"/>
+<text x="362" y="144" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#65758d" text-anchor="middle" >x4</text>
+<circle cx="362" cy="183" r="21" fill="#ffffff" stroke="#93abc6" stroke-width="2" />
+<text x="362" y="188" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#17243d" text-anchor="middle" >h4</text>
+<text x="362" y="226" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2563eb" text-anchor="middle" >1.505</text>
+<circle cx="362" cy="183" r="27" fill="none" stroke="#0d9488" stroke-width="2.8"><animate attributeName="opacity" values=".05;.05;.05;1;.05" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></circle>
+<text x="44" y="284" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#65758d" >Outputs</text>
+<rect x="57" y="303" width="40" height="55" rx="6" fill="#dbe9ff" stroke="none" stroke-width="0" />
+<rect x="61" y="307" width="32" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.20"/>
+<text x="77" y="379" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >y1</text>
+<circle cx="77" cy="305" r="4" fill="#0d9488" stroke="none" stroke-width="0"><animate attributeName="opacity" values="1;.1;.1;.1;.1" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></circle>
+<rect x="152" y="288.0" width="40" height="70.0" rx="6" fill="#dbe9ff" stroke="none" stroke-width="0" />
+<rect x="156" y="292.0" width="32" height="66.0" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.37"/>
+<text x="172" y="379" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >y2</text>
+<circle cx="172" cy="290.0" r="4" fill="#0d9488" stroke="none" stroke-width="0"><animate attributeName="opacity" values=".1;1;.1;.1;.1" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></circle>
+<rect x="247" y="319.5" width="40" height="38.49999999999999" rx="6" fill="#dbe9ff" stroke="none" stroke-width="0" />
+<rect x="251" y="323.5" width="32" height="34.49999999999999" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.54"/>
+<text x="267" y="379" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >y3</text>
+<circle cx="267" cy="321.5" r="4" fill="#0d9488" stroke="none" stroke-width="0"><animate attributeName="opacity" values=".1;.1;1;.1;.1" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></circle>
+<rect x="342" y="287.85" width="40" height="70.15" rx="6" fill="#dbe9ff" stroke="none" stroke-width="0" />
+<rect x="346" y="291.85" width="32" height="66.15" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.71"/>
+<text x="362" y="379" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >y4</text>
+<circle cx="362" cy="289.85" r="4" fill="#0d9488" stroke="none" stroke-width="0"><animate attributeName="opacity" values=".1;.1;.1;1;.1" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></circle>
+<text x="450" y="146" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#65758d" >y</text>
+<text x="533.5" y="135" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >x1</text>
+<text x="486" y="174.5" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >y1</text>
+<text x="588.5" y="135" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >x2</text>
+<text x="486" y="229.5" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >y2</text>
+<text x="643.5" y="135" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >x3</text>
+<text x="486" y="284.5" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >y3</text>
+<text x="698.5" y="135" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >x4</text>
+<text x="486" y="339.5" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#65758d" text-anchor="middle" >y4</text>
+<rect x="507" y="144" width="51" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.820"/>
+<text x="533.5" y="174.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle" >1.00</text>
+<rect x="562" y="144" width="51" height="51" rx="5" fill="#e9edf2" stroke="none" stroke-width="0" opacity=".4"/>
+<rect x="617" y="144" width="51" height="51" rx="5" fill="#e9edf2" stroke="none" stroke-width="0" opacity=".4"/>
+<rect x="672" y="144" width="51" height="51" rx="5" fill="#e9edf2" stroke="none" stroke-width="0" opacity=".4"/>
+<rect x="502" y="140" width="224" height="57" rx="7" fill="none" stroke="#0d9488" stroke-width="2.5"><animate attributeName="opacity" values="1;0;0;0;0" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></rect>
+<rect x="507" y="199" width="51" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.692"/>
+<text x="533.5" y="229.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle" >0.80</text>
+<rect x="562" y="199" width="51" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.820"/>
+<text x="588.5" y="229.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle" >1.00</text>
+<rect x="617" y="199" width="51" height="51" rx="5" fill="#e9edf2" stroke="none" stroke-width="0" opacity=".4"/>
+<rect x="672" y="199" width="51" height="51" rx="5" fill="#e9edf2" stroke="none" stroke-width="0" opacity=".4"/>
+<rect x="502" y="195" width="224" height="57" rx="7" fill="none" stroke="#0d9488" stroke-width="2.5"><animate attributeName="opacity" values="0;1;0;0;0" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></rect>
+<rect x="507" y="254" width="51" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.538"/>
+<text x="533.5" y="284.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#17243d" text-anchor="middle" >0.56</text>
+<rect x="562" y="254" width="51" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.628"/>
+<text x="588.5" y="284.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle" >0.70</text>
+<rect x="617" y="254" width="51" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.820"/>
+<text x="643.5" y="284.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle" >1.00</text>
+<rect x="672" y="254" width="51" height="51" rx="5" fill="#e9edf2" stroke="none" stroke-width="0" opacity=".4"/>
+<rect x="502" y="250" width="224" height="57" rx="7" fill="none" stroke="#0d9488" stroke-width="2.5"><animate attributeName="opacity" values="0;0;1;0;0" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></rect>
+<rect x="507" y="309" width="51" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.503"/>
+<text x="533.5" y="339.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#17243d" text-anchor="middle" >0.50</text>
+<rect x="562" y="309" width="51" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.583"/>
+<text x="588.5" y="339.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle" >0.63</text>
+<rect x="617" y="309" width="51" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.756"/>
+<text x="643.5" y="339.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle" >0.90</text>
+<rect x="672" y="309" width="51" height="51" rx="5" fill="#2563eb" stroke="none" stroke-width="0" opacity="0.820"/>
+<text x="698.5" y="339.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle" >1.00</text>
+<rect x="502" y="305" width="224" height="57" rx="7" fill="none" stroke="#0d9488" stroke-width="2.5"><animate attributeName="opacity" values="0;0;0;1;0" dur="12s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.25;.5;.75;1"/></rect>
+<text x="450" y="385" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#65758d" >Lower triangle = causal dependence</text>
+<line x1="77" y1="251" x2="362" y2="251" stroke="#dce5ef" stroke-width="2" stroke-dasharray="3 7" />
+<circle cx="77" cy="251" r="6" fill="#e58b2b" stroke="#ffffff" stroke-width="1.5"><animate attributeName="cx" values="77;172;267;362;362" dur="12s" repeatCount="indefinite" calcMode="linear" keyTimes="0;.25;.5;.75;1"/><animate attributeName="opacity" values="1;1;1;1;0" dur="12s" repeatCount="indefinite" calcMode="linear" keyTimes="0;.24;.49;.74;1"/></circle>
+</svg>
