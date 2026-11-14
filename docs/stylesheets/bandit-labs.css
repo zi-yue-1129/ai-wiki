@@ -40,3 +40,7 @@
 .bandit-lab-boundary-scroll:focus-visible { outline:3px solid #1582bf; outline-offset:2px; }
 .bandit-lab-boundary svg { display:block; width:330px; min-width:330px; height:228px; }
 .bandit-lab-boundary-note { font:500 .73rem system-ui,sans-serif; margin:.35rem .15rem .1rem!important; }
+
+/* The analytical decision map is a pointer target; sliders remain its keyboard alternative. */
+.bandit-lab-boundary svg { cursor:crosshair; }
+.bandit-lab-boundary-hint { font:400 .7rem/1.45 system-ui,sans-serif; margin:.35rem .15rem .1rem!important; color:var(--md-default-fg-color--light,#586c80); }
