@@ -26,6 +26,7 @@ A CNN backbone is the stack of layers that turns raw pixels into features, which
 | Deep stacks of convolutions | AlexNet, VGG | Learning features end to end at scale |
 | Residual connections | ResNet | Training very deep networks |
 | Compound scaling | EfficientNet | Choosing depth, width and resolution together |
+| Depthwise separable convolutions | MobileNets | Accuracy within a small compute and latency budget |
 | Modernised convolutions | ConvNeXt | Matching Transformer baselines with a pure CNN |
 
 ## Approaches
@@ -49,6 +50,7 @@ Liu et al. (2022) started from a ResNet and changed its design step by step, bor
 | AlexNet | 2012 | A large deep convolutional network trained on GPUs | [AlexNet](alexnet/index.md) |
 | Deep residual learning (ResNet) | 2015 | Shortcut connections make very deep networks trainable | [ResNet](resnet/index.md) |
 | Compound scaling (EfficientNet) | 2019 | One coefficient scales depth, width and resolution together | [EfficientNet](efficientnet/index.md) |
+| MobileNets | 2017 | Depthwise separable convolutions, with width and resolution multipliers | [MobileNets](mobilenet/index.md) |
 | VGG | 2015 | A plain deep design built from stacks of small 3×3 convolutions | [VGG](vgg/index.md) |
 | ConvNeXt | 2022 | A ResNet modernised step by step to match Transformer baselines | [ConvNeXt](convnext/index.md) |
 

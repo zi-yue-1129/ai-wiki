@@ -40,6 +40,8 @@ A typical bound has the form $R(f)\le\hat R(f)+O\big(\sqrt{(\text{complexity}+\l
 
 No learner beats another across all possible problems; learning works because real data has structure (smoothness, compositionality, low dimension). This is the **inductive bias** that architectures such as convolution encode.
 
+The empirical puzzle that large networks fit random labels yet still generalise is set out in [Rethinking Generalization](rethinking-generalization.md) (Zhang et al., 2017).
+
 ## Connections
 
 Distribution shift breaks the i.i.d. assumption; see [transfer theory](../../transfer/index.md) and [online learning](../../online/index.md) for guarantees without it.

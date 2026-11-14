@@ -53,6 +53,8 @@ Large language models changed the problem. Retraining them is costly, so recent 
 | N:M sparsity | Blocks of M weights | Training or after training | Hardware that supports the pattern | [N:M sparsity](n-m-sparsity/index.md) |
 | One-shot LLM pruning | Individual weights | One shot, no retraining | Sparse kernels for speed | [One-shot LLM pruning](one-shot-llm-pruning/index.md) |
 
+For a survey of the whole area, including the trade-offs between unstructured and structured sparsity, see [Sparsity in deep learning](sparsity-survey.md) (Hoefler et al., 2021).
+
 Structured pruning gives speed-ups on dense hardware with no special kernels. N:M sparsity gives speed-ups only where hardware such as Sparse Tensor Cores supports the pattern. Unstructured methods usually reach higher sparsity at the same accuracy, but they need sparse support to run faster.
 
 ## Trade-offs

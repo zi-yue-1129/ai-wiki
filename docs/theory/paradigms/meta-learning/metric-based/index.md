@@ -17,7 +17,7 @@ A network embeds all inputs. A class is represented by its support examples, for
 
 ## Main methods
 
-- **Matching networks**: classify by attention over the support set, with a soft nearest-neighbour rule.
+- **[Matching networks](matching-networks.md)**: classify by attention over the support set, with a soft nearest-neighbour rule.
 - **Prototypical networks**: represent each class by the mean of its embeddings and use squared Euclidean distance.
 - **Relation networks**: learn the similarity function itself with a small network, rather than fixing it as a distance.
 - **Graph-based few-shot learning**: treat the support and query examples as a graph and propagate labels through it.

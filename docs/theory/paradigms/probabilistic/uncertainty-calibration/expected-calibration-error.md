@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/probabilistic/uncertainty-calibration
 tags:
@@ -42,13 +42,13 @@ where \(\mathrm{acc}(B_b)\) is the accuracy in the bin and \(\mathrm{conf}(B_b)\
 ## Variants
 
 - **Maximum calibration error** takes the largest bin gap instead of the weighted average, which emphasises the worst bin.
-- **Adaptive binning** chooses bins with equal numbers of predictions, which reduces the variance in sparse bins.
-- **Class-wise ECE** computes the gap for each class separately, which catches miscalibration on rare classes.
+- **Adaptive binning** chooses bins with equal numbers of predictions, which reduces the variance in sparse bins (Nixon et al., 2019).
+- **Class-wise ECE** computes the gap for each class separately, which catches miscalibration on rare classes (Nixon et al., 2019).
 
 ## Results and limits
 
 - ECE is easy to compute and to explain, and it directly measures the gap that calibration aims to remove.
-- Its value depends on the number and placement of bins, so comparisons across papers need the same binning.
+- Its value depends on the number and placement of bins, so comparisons across papers need the same binning. Naeini et al. (2015) address the same binning problem with a Bayesian treatment of the bins.
 - It is biased in small samples, and bins with few predictions are noisy.
 - It does not measure sharpness or discrimination. A model that always predicts the base rate can have low ECE and be useless. The Brier score, which combines calibration and refinement, avoids this (Brier, 1950; DeGroot & Fienberg, 1983).
 
@@ -70,9 +70,11 @@ where \(\mathrm{acc}(B_b)\) is the accuracy in the bin and \(\mathrm{conf}(B_b)\
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — Uses ECE with reliability diagrams to show miscalibration of modern networks.
 - DeGroot, M. H. & Fienberg, S. E. (1983). The comparison and evaluation of forecasters. *The Statistician* 32(1/2), 12–22. https://doi.org/10.2307/2987588 — Defines calibration and the decomposition of forecast scores into calibration and refinement.
 - Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. *Monthly Weather Review* 78(1), 1–3. https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2 — Introduces the Brier score, an alternative measure that does not rely on binning.
+- Naeini, M. P., Cooper, G. F. & Hauskrecht, M. (2015). Obtaining well calibrated probabilities using Bayesian binning. In *Proceedings of the 29th AAAI Conference on Artificial Intelligence*. https://doi.org/10.1609/aaai.v29i1.9602 — Introduces Bayesian binning for calibrated probability estimates and discusses binning error.
 - Niculescu-Mizil, A. & Caruana, R. (2005). Predicting good probabilities with supervised learning. In *Proceedings of the 22nd International Conference on Machine Learning*, 625–632. https://doi.org/10.1145/1102351.1102430 — Evaluates classifiers' probabilities using calibration measures.
 
 ### Surveys and textbooks
 
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers calibration and proper scoring rules.
+- Nixon, J., Dusenberry, M. W., Jerfel, G. & Nguyen, T. (2019). Measuring calibration in deep learning. arXiv:1904.01685. https://arxiv.org/abs/1904.01685 — Proposes adaptive binning and class-wise calibration error variants of ECE.
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Repository for Murphy's textbook series; covers calibration and proper scoring rules.
 - Angelopoulos, A. N. & Bates, S. (2023). Conformal prediction: a gentle introduction. *Foundations and Trends in Machine Learning* 16(4), 494–591. https://doi.org/10.1561/2200000101 — Places calibration measures alongside coverage-based uncertainty methods.

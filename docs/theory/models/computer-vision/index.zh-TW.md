@@ -5,7 +5,7 @@
 | 任務 | 輸出 | 代表性模型 |
 |---|---|---|
 | 影像分類 | 類別 | ResNet、EfficientNet、ViT、ConvNeXt |
-| [物件偵測](object-detection/index.md) | 邊界框加類別 | Faster R-CNN、YOLO 系列、DETR、RT-DETR |
+| [物件偵測](object-detection/index.md) | 邊界框加類別 | [Faster R-CNN](object-detection/faster-r-cnn.md)、[YOLO](object-detection/yolo.md)、[RetinaNet](object-detection/retinanet.md)、[DETR](object-detection/detr.md)、RT-DETR |
 | [語意／實例／全景分割](segmentation/index.md) | 逐像素標籤 | U-Net、Mask R-CNN、Mask2Former |
 | 可提示的分割 | 任意物件的遮罩 | SAM、SAM 2（影片） |
 | 開放詞彙偵測 | 找出以文字描述的物件 | Grounding DINO、OWL-ViT |
@@ -58,7 +58,7 @@ Yamins et al.（2014）發現，在物件辨識上表現較好的 CNN，也更�
 
 ## 深入頁面
 
-兩個領域各有獨立的章節。[三維視覺與神經渲染](3d-and-neural-rendering/index.zh-TW.md)涵蓋 NeRF 與高斯潑濺，[影片理解與生成](video/index.zh-TW.md)涵蓋 I3D、ViViT 與影片擴散。
+兩個領域各有獨立的章節。[三維視覺與神經渲染](3d-and-neural-rendering/index.zh-TW.md)涵蓋 NeRF 與高斯潑濺，[影片理解與生成](video/index.zh-TW.md)涵蓋 I3D、ViViT 與影片擴散。[影像分割](segmentation/index.md)的 FCN、[U-Net](../cnn/unet/index.md)、[Mask R-CNN](segmentation/mask-r-cnn.md) 與[分割一切](segmentation/segment-anything.md)各有獨立頁面，並在該頁比較。
 
 ## 應用
 

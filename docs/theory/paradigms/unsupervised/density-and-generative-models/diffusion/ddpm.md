@@ -77,7 +77,7 @@ On 256×256 LSUN, Table 3 reports FID 6.36 (Bedroom), 7.89 (Church) and 19.75 (C
 - The faster sampler that reuses the same trained model is [DDIM](ddim.md).
 - The latent-space version is [Latent Diffusion](latent-diffusion.md), and its Transformer denoiser is [DiT](../../../../models/transformer/dit/index.md).
 - Conditioning on a class or a text prompt is done with [classifier-free guidance](classifier-free-guidance.md).
-- The continuous-time view, in which DDPM is a discretised stochastic differential equation, is covered by Song et al. (2021), cited below.
+- The continuous-time view, in which DDPM is a discretised stochastic differential equation, is covered on the [Score SDE](score-sde.md) page.
 
 ## Open questions
 

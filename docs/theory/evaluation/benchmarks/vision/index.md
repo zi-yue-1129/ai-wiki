@@ -28,6 +28,7 @@ Detection and segmentation needed a different kind of data. Microsoft COCO gathe
 | Benchmark | Task | Main metric |
 |---|---|---|
 | [ImageNet](imagenet.md) | Image classification | Top-1 and top-5 accuracy |
+| [ImageNetV2](imagenet-v2.md) | Image classification on a re-collected test set | Top-1 accuracy, compared with the original validation set |
 | [COCO](coco.md) | Detection and instance segmentation | Average precision over several overlap thresholds |
 
 Image classification asks what is in the picture, so one label per image is enough. Detection and segmentation ask where each object is and what its shape is, so the metric must account for localisation quality as well as the label. This is why the same model can rank differently on the two.
@@ -44,7 +45,7 @@ Compare models on the same test set, with the same metric and the same training 
 
 ## Common issues
 
-- **Test-set fit.** A test set can be fitted by repeated use. When Recht et al. (2019) collected a new test set by following the original process, they found accuracy drops of 3% to 15% on CIFAR-10 and 11% to 14% on ImageNet, and they attributed the drop to models failing on slightly harder images rather than to adaptivity.
+- **Test-set fit.** A test set can be fitted by repeated use. When [Recht et al. (2019)](imagenet-v2.md) collected a new test set by following the original process, they found accuracy drops of 3% to 15% on CIFAR-10 and 11% to 14% on ImageNet, and they attributed the drop to models failing on slightly harder images rather than to adaptivity.
 - **Robustness.** A high clean-data score can hide weakness to blur, noise and weather. ImageNet-C tests this with common corruptions (Hendrycks & Dietterich, 2019).
 - **Ambiguous labels.** Images can contain several valid labels or objects, which limits what any score can show.
 - **Saturation.** Top systems leave little room on the older sets, so differences need confidence intervals.

@@ -68,7 +68,7 @@ x_{t-1} = \frac{1}{\sqrt{\alpha_t}}\Big(x_t - \frac{\beta_t}{\sqrt{1-\bar\alpha_
 - 重用同一個已訓練模型、加速取樣的方法是 [DDIM](ddim.md)。
 - 潛在空間版本是[潛在擴散](latent-diffusion.md)，其 Transformer 去噪器是 [DiT](../../../../models/transformer/dit/index.md)。
 - 以類別或文字提示進行條件控制的方法，見[無分類器引導](classifier-free-guidance.md)。
-- 把 DDPM 視為離散化隨機微分方程的連續時間觀點，見下方引用的 Song 等人（2021）。
+- 把 DDPM 視為離散化隨機微分方程的連續時間觀點，見[基於 SDE 的分數模型](score-sde.md)頁面。
 
 ## 未解問題
 

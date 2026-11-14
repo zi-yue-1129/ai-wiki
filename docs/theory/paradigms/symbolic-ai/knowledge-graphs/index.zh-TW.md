@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 ---
 
 # 知識圖譜與知識表示
@@ -21,11 +21,17 @@ translation_reviewed: 2026-10-28
 
 知識圖譜有兩種用法。符號式用法是對明確的事實與本體進行查詢與推理，例如推論子類別會繼承父類別的屬性。統計式用法則把實體與關係轉為向量，並為候選三元組打分。第二種做法是[知識圖譜嵌入](transe.md)的基礎，這類方法從學得的表示來預測缺少的連結（Nickel 等人，2016）。
 
+## 符號式與統計式用法比較
+
+兩種用法的失敗方式不同。符號式查詢是精確的：無法從圖與本體推導出的事實就不會出現，也無法說明未列出的事實有多可能。統計式補全總會回傳排序的候選清單，適合建議新連結，但分數不是證明，高分也可能錯誤。許多系統結合兩者：先以統計方式補全圖，再把候選事實與本體對照後才加入。
+
 ## 主要方法
 
 - [TransE](transe.md)：把關係表示為實體嵌入之間的平移，使真實的三元組滿足「主體加關係接近客體」（Bordes 等人，2013）。
 
-其他嵌入模型使用不同的評分函數，例如複數值評分（Trouillon 等人，2016），並在綜述文獻中有摘要（Wang 等人，2017；Nickel 等人，2016）。
+- [ComplEx](complex-embeddings.md)：使用複數值向量與埃爾米特積，因此能表示非對稱關係（Trouillon 等人，2016）。
+
+其他嵌入模型使用不同的評分函數，並在綜述文獻中有摘要（Wang 等人，2017；Nickel 等人，2016）。
 
 ## 與其他頁面的連結
 
@@ -38,6 +44,7 @@ translation_reviewed: 2026-10-28
 - **搜尋與問答**：答案面板直接從圖中給出某實體的事實。
 - **推薦**：把使用者、項目與屬性連結起來的圖，用來解釋並排序推薦結果。
 - **生物醫學**：由基因、藥物與疾病組成的圖，用來提出值得研究的新假說。
+- **開放知識庫**：Wikidata 是一個由社群共同編輯的實體與陳述圖，其他系統把它當作事實來源（Vrandečić 與 Krötzsch，2014）。
 
 ## 開放問題
 
@@ -51,6 +58,7 @@ translation_reviewed: 2026-10-28
 
 - Bordes, A., Usunier, N., Garcia-Duran, A., Weston, J. & Yakhnenko, O. (2013). Translating embeddings for modeling multi-relational data. In *Advances in Neural Information Processing Systems* 26. https://proceedings.neurips.cc/paper/2013/hash/1cecc7a77928ca8133fa24680a88d2f9-Abstract.html — 提出用於知識圖譜嵌入的 TransE。
 - Trouillon, T., Welbl, J., Riedel, S., Gaussier, É. & Bouchard, G. (2016). Complex embeddings for simple link prediction. In *Proceedings of the 33rd International Conference on Machine Learning*, PMLR 48. https://proceedings.mlr.press/v48/trouillon16.html — 以複數值嵌入建模非對稱關係。
+- Vrandečić, D. & Krötzsch, M. (2014). Wikidata: a free collaborative knowledgebase. *Communications of the ACM* 57(10), 78–85. https://doi.org/10.1145/2629489 — 介紹 Wikidata，這是一個大型的公開共同編輯知識圖譜，也是上文資料導向路線的例子。
 
 ### 綜述與教科書
 

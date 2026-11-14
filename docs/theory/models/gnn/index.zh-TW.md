@@ -44,7 +44,7 @@ h_v^{(k+1)} = \text{UPDATE}\Big(h_v^{(k)},\; \text{AGG}_{u\in\mathcal{N}(v)}\, \
 | GraphSAGE | 鄰居取樣，可擴展到大圖、歸納式學習 |
 | GAT | 以注意力加權鄰居 |
 | GIN | 表達力等同 1-WL 圖同構測試 |
-| MPNN | 統一的訊息傳遞框架（量子化學） |
+| [MPNN](message-passing/mpnn.md) | 統一的訊息傳遞框架（量子化學） |
 | 等變 GNN（EGNN、NequIP、MACE） | 對 3D 旋轉平移等變，分子模擬 |
 | Graph Transformer | 全域注意力＋結構編碼 |
 

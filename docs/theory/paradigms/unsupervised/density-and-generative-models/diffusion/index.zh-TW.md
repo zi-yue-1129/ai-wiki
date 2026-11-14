@@ -55,6 +55,7 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 
 - [DDPM](ddpm.md)（Ho、Jain 與 Abbeel，2020）：雜訊預測目標，以及讓擴散模型在影像上變得實用的取樣器。
 - [DDIM](ddim.md)（Song、Meng 與 Ermon，2021）：非馬可夫取樣器，重用 DDPM 模型，以少得多的步數取樣。
+- [Score SDE](score-sde.md)（Song 等人，2021）：連續時間的 SDE 框架，含前向與逆時 SDE 及機率流 ODE，統一了 DDPM 與分數式模型。
 - [一致性模型與快速取樣器](consistency-models.md)（Song 等人，2023）：把軌跡上的任一點映射到其輸出，支援一步生成。
 - [潛在擴散](latent-diffusion.md)（Rombach 等人，2022）：在自編碼器的潛在空間中進行擴散，並以交叉注意力做條件化。
 - [DiT](../../../../models/transformer/dit/index.md)（Peebles 與 Xie，2023）：以 Transformer 取代 U-Net 的去噪器，且隨計算量擴展。
@@ -66,6 +67,7 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 |---|---|---|---|
 | [DDPM](ddpm.md) | 訓練目標與馬可夫取樣器 | U-Net | 時間步 |
 | [DDIM](ddim.md) | 同一個已訓練模型上的非馬可夫取樣器 | 與 DDPM 相同 | 與 DDPM 相同 |
+| [Score SDE](score-sde.md) | 含機率流 ODE 的連續時間 SDE 框架 | 分數網路（論文中的 NCSN++） | 雜訊水準（時間步） |
 | [潛在擴散](latent-diffusion.md) | 在自編碼器潛在空間中擴散 | U-Net | 交叉注意力 |
 | [DiT](../../../../models/transformer/dit/index.md) | 作用在潛在圖塊上的 Transformer 去噪器 | Transformer | 時間步與類別標籤，透過自適應層正規化 |
 | [無分類器引導](classifier-free-guidance.md) | 取樣時結合兩種預測 | 任意 | 引導權重 \(w\)；\(w = 0\) 即為單純的條件模型 |

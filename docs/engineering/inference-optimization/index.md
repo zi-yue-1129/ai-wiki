@@ -63,6 +63,8 @@ Methods that shrink the cache after training, rather than by design, are compare
 
 Serving is also split across machines. [Disaggregated prefill and decode](disaggregated-serving.md) runs the compute-bound prompt phase and the memory-bound token phase on separate pools, with [DistServe](distserve.md), [Splitwise](splitwise.md) and [Mooncake](mooncake.md) as the main designs. Mixture-of-experts models add their own serving problems, of expert placement and offloading, covered on [Serving mixture-of-experts models](moe-serving.md) with [GShard](gshard.md), [DeepSpeed-MoE](deepspeed-moe.md) and [expert offloading](expert-offloading.md).
 
+How a large model should be partitioned across chips, and which layout wins at each batch size, is set out in [Efficiently Scaling Transformer Inference](efficient-transformer-inference.md) (Pope et al., 2022).
+
 ## Connections
 
 - The KV cache itself is explained in [Transformer KV cache](../../theory/models/transformer/kv-cache/index.md); this page covers how serving systems manage it.

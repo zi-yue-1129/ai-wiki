@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 ---
 
 # 蒙地卡羅樹搜尋
@@ -26,13 +26,13 @@ translation_reviewed: 2026-10-28
 3. **模擬**：從新節點開始，通常以隨機著法模擬到終局，得到結果。
 4. **回傳**：更新路徑上每個節點的造訪次數與平均結果。
 
-完成預定次數的迭代後，選擇造訪次數最多（或平均結果最高）的著法。Coulom（2007）比較了圍棋中的回傳運算子，並報告 robust max 與平均的混合效果最佳。論文將此術語歸於 Chang、Fu 與 Marcus，而非 Coulom。
+完成預定次數的迭代後，選擇造訪次數最多（或平均結果最高）的著法。Coulom（2007）比較了不同的回傳運算子，也就是把子節點結果合併為父節點價值的規則，並應用於圍棋程式。
 
 ## 變體
 
 - **UCT** 是標準的選擇規則，大多數 MCTS 實作都採用。
-- **RAVE** 在樹上不同位置出現的相同著法之間共享統計量，能在圍棋中加速學習。
-- **學得的策略與價值**：AlphaGo 以神經網路引導選擇，並以價值估計取代隨機模擬（Silver 等人，2016）。
+- **RAVE**（快速動作價值估計）在樹上不同位置出現的相同著法之間共享統計量。它曾被用來加速圍棋程式早期的學習（Gelly 與 Silver，2011）。
+- **學得的策略與價值**：AlphaGo 以神經網路引導選擇，並與模擬一同估計價值（Silver 等人，2016）。AlphaGo Zero 之後僅從自我對弈學習，未使用人類棋譜（Silver 等人，2017）。
 
 ## 結果與限制
 
@@ -57,9 +57,11 @@ translation_reviewed: 2026-10-28
 
 ### 奠基性論文
 
-- Kocsis, L. & Szepesvári, C. (2006). Bandit based Monte-Carlo planning. In *Machine Learning: ECML 2006*, Lecture Notes in Computer Science, 282–293. https://doi.org/10.1007/11871842_29 — 提出 UCT（UCB 應用於樹）。論文證明有限期 MDP 下的一致性與有限樣本界，並在 P-game 樹上報告 UCT 的失敗率趨近於零；論文並未證明收斂到極小極大值。
-- Coulom, R. (2007). Efficient selectivity and backup operators in Monte-Carlo tree search. In *Computers and Games*, Lecture Notes in Computer Science, 72–83. https://doi.org/10.1007/978-3-540-75538-8_7 — 比較圍棋中的回傳運算子（平均、最大、robust max 與混合）。論文將此術語歸於 Chang、Fu 與 Marcus。
+- Kocsis, L. & Szepesvári, C. (2006). Bandit based Monte-Carlo planning. In *Machine Learning: ECML 2006*, Lecture Notes in Computer Science, 282–293. https://doi.org/10.1007/11871842_29 — 提出 UCT，即在搜尋樹的每個節點套用 UCB1 規則，並分析其在有限期問題上的收斂性。
+- Coulom, R. (2007). Efficient selectivity and backup operators in Monte-Carlo tree search. In *Computers and Games*, Lecture Notes in Computer Science, 72–83. https://doi.org/10.1007/978-3-540-75538-8_7 — 比較圍棋程式中的回傳運算子，即合併子節點結果的規則。
 - Auer, P., Cesa-Bianchi, N. & Fischer, P. (2002). Finite-time analysis of the multiarmed bandit problem. *Machine Learning* 47(2–3), 235–256. https://doi.org/10.1023/A:1013689704352 — 給出選擇規則所依據的 UCB1 界限。
+- Gelly, S. & Silver, D. (2011). Monte-Carlo tree search and rapid action value estimation in computer Go. *Artificial Intelligence* 175, 1856–1875. https://doi.org/10.1016/j.artint.2011.03.007 — 提出 RAVE，在樹上的不同位置之間共享著法統計量，並報告其在圍棋中的使用。
+- Silver, D. et al. (2017). Mastering the game of Go without human knowledge. *Nature* 550, 354–359. https://doi.org/10.1038/nature24270 — 僅透過自我對弈訓練圍棋程式，結合神經網路與樹搜尋。
 
 ### 綜述與教科書
 

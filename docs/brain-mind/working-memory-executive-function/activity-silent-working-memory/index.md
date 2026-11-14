@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
 - brain-mind/memory-learning
 tags:
@@ -37,7 +37,7 @@ If memory depended only on ongoing spiking, maintaining it would be costly and f
 
 Two linked ideas describe the account.
 
-1. **Synaptic storage.** Mongillo et al. (2008) propose that working memory is sustained by calcium-mediated synaptic facilitation in the recurrent connections of neocortical networks. Residual calcium in presynaptic terminals acts as a buffer. Spiking loads, refreshes and reads out this buffer. Because calcium decays slowly, the refresh can be infrequent, which makes the mechanism metabolically efficient and robust.
+1. **Synaptic storage.** Mongillo et al. (2008) propose that working memory is sustained by calcium-mediated synaptic facilitation in the recurrent connections of neocortical networks. Residual calcium in presynaptic terminals acts as a buffer. Spiking loads, refreshes and reads out this buffer. Because calcium decays slowly, the refresh can be infrequent.
 2. **Dynamic hidden states.** Stokes (2015) reviews evidence for activity-silent neural states and proposes a dynamic coding framework, in which memory is encoded in patterns of connectivity. Wolff et al. (2017) report evidence for hidden states in working-memory-guided behaviour.
 
 ## Equation or algorithm
@@ -47,13 +47,12 @@ No single equation summarises the framework, and the mechanism is written here a
 1. A brief burst of spiking in a population loads residual calcium into its recurrent synapses, which strengthens the connections within that population.
 2. Between refreshes the calcium decays slowly, so the synaptic facilitation, and the memory it encodes, persists without sustained spiking.
 3. A refresh by spiking reads out the memory and reloads the calcium.
-4. Spontaneous background activity regulates how long the memory lasts and how stable it is.
 
 The steps describe a simplified model. Other hidden-state mechanisms are possible, and Stokes (2015) discusses activity-silent states more generally.
 
 ## Results
 
-- **Synaptic model.** Mongillo et al. (2008) propose that a synaptic memory can be sustained with a low refresh rate and that its duration can be controlled by background activity. They describe the mechanism as robust and metabolically efficient.
+- **Synaptic model.** Mongillo et al. (2008) propose that a memory can be sustained by calcium-mediated synaptic facilitation, refreshed by spiking. This page does not summarise the paper's quantitative results, which should be read from the paper.
 
 ## Limitations
 
@@ -77,18 +76,22 @@ The steps describe a simplified model. Other hidden-state mechanisms are possibl
 ## Open questions
 
 - **Which mechanism holds the memory in a given task?** Synaptic storage, dynamic hidden states and persistent firing each have supporting evidence. The conditions that favour each are not clear.
-- **How are hidden states reactivated?** Mongillo et al. (2008) describe refresh by spiking, with background activity setting how long the memory lasts. The role of other triggers, such as stimuli or attention, is an open question.
+- **How are hidden states reactivated?** Mongillo et al. (2008) describe refresh by spiking. The role of other triggers, such as stimuli or attention, is an open question.
 - **How does storage relate to capacity?** Whether activity-silent storage explains the capacity limits reported by Cowan (2001) and by Ma et al. (2014) is an open question.
 
 ## References
 
 ### Seminal papers
 
-- Mongillo, G., Barak, O. & Tsodyks, M. (2008). Synaptic theory of working memory. *Science*. https://doi.org/10.1126/science.1150769 — Proposes that working memory is sustained by calcium-mediated synaptic facilitation, refreshed by spiking.
-- Wolff, M. J., Jochim, J., Akyürek, E. G. & Stokes, M. G. (2017). Dynamic hidden states underlying working-memory-guided behavior. *Nature Neuroscience*. https://doi.org/10.1038/nn.4546 — Reports evidence for hidden states underlying working-memory-guided behaviour.
-- Compte, A. et al. (2000). Synaptic mechanisms and network dynamics underlying spatial working memory in a cortical network model. *Cerebral Cortex*. https://doi.org/10.1093/cercor/10.9.910 — A cortical network model of spatial working memory in which persistent activity sustains the memory.
+- Mongillo, G., Barak, O. & Tsodyks, M. (2008). Synaptic theory of working memory. *Science* 319, 1543–1546. https://doi.org/10.1126/science.1150769 — Proposes that working memory is sustained by calcium-mediated synaptic facilitation, refreshed by spiking.
+- Wolff, M. J., Jochim, J., Akyürek, E. G. & Stokes, M. G. (2017). Dynamic hidden states underlying working-memory-guided behavior. *Nature Neuroscience* 20, 864–871. https://doi.org/10.1038/nn.4546 — Reports evidence for hidden states underlying working-memory-guided behaviour.
+- Compte, A. et al. (2000). Synaptic mechanisms and network dynamics underlying spatial working memory in a cortical network model. *Cerebral Cortex* 10, 910–923. https://doi.org/10.1093/cercor/10.9.910 — A cortical network model of spatial working memory in which persistent activity sustains the memory.
+
+- Funahashi, S., Bruce, C. J. & Goldman-Rakic, P. S. (1989). Mnemonic coding of visual space in the monkey's dorsolateral prefrontal cortex. *Journal of Neurophysiology* 61, 331–349. https://doi.org/10.1152/jn.1989.61.2.331 — Records delay-period activity in monkey dorsolateral prefrontal cortex, the persistent-firing evidence that the synaptic account is set against.
 
 ### Surveys and textbooks
 
-- Stokes, M. G. (2015). 'Activity-silent' working memory in prefrontal cortex: a dynamic coding framework. *Trends in Cognitive Sciences*. https://doi.org/10.1016/j.tics.2015.05.004 — Reviews evidence for activity-silent neural states in prefrontal working memory and proposes a dynamic coding framework.
-- Curtis, C. E. & D'Esposito, M. (2003). Persistent activity in the prefrontal cortex during working memory. *Trends in Cognitive Sciences*. https://doi.org/10.1016/S1364-6613(03)00197-9 — Reviews persistent delay activity in prefrontal cortex during working memory.
+- Stokes, M. G. (2015). 'Activity-silent' working memory in prefrontal cortex: a dynamic coding framework. *Trends in Cognitive Sciences* 19, 394–405. https://doi.org/10.1016/j.tics.2015.05.004 — Reviews evidence for activity-silent neural states in prefrontal working memory and proposes a dynamic coding framework.
+- Curtis, C. E. & D'Esposito, M. (2003). Persistent activity in the prefrontal cortex during working memory. *Trends in Cognitive Sciences* 7, 415–423. https://doi.org/10.1016/S1364-6613(03)00197-9 — Reviews persistent delay activity in prefrontal cortex during working memory.
+- Cowan, N. (2001). The magical number 4 in short-term memory: A reconsideration of mental storage capacity. *Behavioral and Brain Sciences* 24, 87–114. https://doi.org/10.1017/S0140525X01003922 — Reconsiders the capacity of working memory, a limit the activity-silent account must explain.
+- Ma, W. J., Husain, M. & Bays, P. M. (2014). Changing concepts of working memory. *Nature Neuroscience* 17, 347–356. https://doi.org/10.1038/nn.3655 — Reviews how working memory and its storage are conceived, and the evidence bearing on capacity.

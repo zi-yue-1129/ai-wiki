@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 ---
 
 # 歸結
@@ -8,7 +8,7 @@ translation_reviewed: 2026-10-28
 
 ## 概述
 
-邏輯陳述可以化為正規形式，也就是一組子句，每個子句是文字的析取。歸結就作用於這組子句。Robinson（1965）證明，單一規則加上變數的合一，對一階邏輯是完備的：若一組子句不可滿足，反覆歸結最終會導出空子句。這讓自動證明器有了單一、機械化的推理規則。
+邏輯陳述可以化為正規形式，也就是一組子句，每個子句是文字的析取。歸結就作用於這組子句。Robinson（1965）證明，單一規則加上變數的合一，對一階邏輯是反駁完備的：若一組子句不可滿足，反覆歸結最終會導出空子句。這讓自動證明器有了單一、機械化的推理規則。歸結仍是許多一階證明器的基礎，而子句形式至今仍是自動推理的標準輸入。
 
 ## 關鍵概念
 
@@ -16,6 +16,7 @@ translation_reviewed: 2026-10-28
 - **互補文字**：一對互為否定的文字，例如 \(p\) 與 \(\neg p\)。
 - **合一**：找出一組變數代換，使兩個原子相同。它使歸結能應用於一階子句。
 - **空子句**：不含任何文字的子句，為假。導出它即證明該組子句不可滿足。
+- **子句正規形式**：歸結之前，公式先化為合取範式，量詞以 skolem 化去除，再拆分為子句。這個轉換是證明器中標準的前處理步驟。
 
 ## 運作方式
 
@@ -26,6 +27,8 @@ translation_reviewed: 2026-10-28
 \]
 
 從公理的子句與否定的目標子句出發，證明器反覆加入歸結式。當導出空子句時證明成功。策略控制要歸結哪些配對。支持集（set-of-support）策略只允許涉及否定目標的配對，線性歸結則延伸最近的子句。兩者都能使搜尋聚焦，同時保持完備性。
+
+**示例。**取子句 \(\neg p\lor q\) 與 \(p\)，以及否定的目標 \(\neg q\)。前兩個子句在 \(p\) 上歸結得到 \(q\)，再由 \(q\) 與 \(\neg q\) 歸結得到空子句，因此目標 \(q\) 得證。這是示意性的例子，並非來自特定系統。
 
 ## 變體
 
@@ -63,4 +66,4 @@ translation_reviewed: 2026-10-28
 
 - de Moura, L. et al. (2015). The Lean theorem prover (system description). In *Automated Deduction — CADE-25*, Lecture Notes in Computer Science, 378–388. https://doi.org/10.1007/978-3-319-21401-6_26 — 描述結合互動式證明與自動化的現代證明器。
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — 歸結與一階推論的教科書說明。
-- Hales, T. et al. (2017). A formal proof of the Kepler conjecture. *Forum of Mathematics, Pi* 5. https://doi.org/10.1017/fmp.2017.1 — 大型形式證明，需要這類機械化推理。
+- Kovács, L. & Voronkov, A. (2013). First-order theorem proving and Vampire. In *Computer Aided Verification*, Lecture Notes in Computer Science, 1–35. https://doi.org/10.1007/978-3-642-39799-8_1 — 介紹基於歸結的一階證明器，以及使其有效率的搜尋策略。

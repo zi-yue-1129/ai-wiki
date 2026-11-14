@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
 - brain-mind/decision-reward
 tags:
@@ -25,8 +25,6 @@ This page is one method within [Working Memory and Executive Function](../index.
 
 Consider a task in which a cue must be remembered across a delay, and an unrelated distractor appears in the middle. Useful memory has to protect the cue from the distractor, but still let relevant new information replace old information. PBWM handles this by dividing the job. The prefrontal cortex is the store, and the basal ganglia act as a gate in front of it.
 
-O'Reilly and Frank describe their aim as deconstructing the "homunculus" of executive function: the idea that some inner agent decides what to hold, without any mechanism that explains how. PBWM gives that agent a mechanism that can be learned.
-
 ## Problem
 
 Executive control is often described as if a controller inside the brain decides what to hold and what to do with it. The mechanism behind that controller has been hard to specify. The question is how a system can learn to control its own working memory: which information to keep, when to overwrite it, and when to ignore input.
@@ -41,8 +39,6 @@ PBWM has three parts that work together.
 - **Basal ganglia.** Provide a dynamic gate that decides whether the current input updates a prefrontal representation.
 - **Dopamine-like learning.** The midbrain, basal ganglia and amygdala form an actor–critic architecture. The critic learns which prefrontal representations are task relevant and trains the actor, which supplies the gate.
 
-The authors say the learning mechanism is designed to solve both credit assignment problems at once.
-
 ## Equation or algorithm
 
 The paper gives the full learning rule. This page gives the outline as numbered steps rather than a single equation.
@@ -54,7 +50,7 @@ The paper gives the full learning rule. This page gives the outline as numbered 
 
 ## Results
 
-On the 1-2-AX working memory task and other benchmark working memory tasks, the authors report that PBWM performs favourably compared with standard backpropagation-based temporal learning mechanisms. The comparison is the paper's main evidence for the learning rule.
+The paper tests the learning rule on working memory tasks, including the 1-2-AX task. This page does not report the comparison results, which should be read from the paper.
 
 ## Limitations
 
@@ -72,7 +68,7 @@ On the 1-2-AX working memory task and other benchmark working memory tasks, the 
 
 ## Applications
 
-- **Modelling prefrontal tasks.** PBWM was tested on working memory benchmarks such as the 1-2-AX task. Related frontal models have been used to simulate performance on Stroop and Wisconsin card sorting, in both intact and frontally damaged people (Rougier et al., 2005).
+- **Modelling prefrontal tasks.** PBWM was tested on working memory benchmarks such as the 1-2-AX task. Rougier et al. (2005) present a related frontal model of flexible cognitive control; the tasks it simulates are described in that paper.
 - **Designing gated memory in AI.** Learned gates that protect a memory store are a core design in recurrent networks, as in the LSTM.
 
 ## Open questions
@@ -85,11 +81,11 @@ On the 1-2-AX working memory task and other benchmark working memory tasks, the 
 
 ### Seminal papers
 
-- O'Reilly, R. C. & Frank, M. J. (2006). Making working memory work: a computational model of learning in the prefrontal cortex and basal ganglia. *Neural Computation*. https://doi.org/10.1162/089976606775093909 — The original PBWM paper, which introduces the learned gate and the actor–critic learning rule.
-- Frank, M. J., Loughry, B. & O'Reilly, R. C. (2001). Interactions between frontal cortex and basal ganglia in working memory: a computational model. *Cognitive, Affective, & Behavioral Neuroscience*. https://doi.org/10.3758/CABN.1.2.137 — An earlier computational model of interactions between frontal cortex and basal ganglia in working memory, the same interaction that PBWM models.
-- Rougier, N. P., Noelle, D. C., Braver, T. S., Cohen, J. D. & O'Reilly, R. C. (2005). Prefrontal cortex and flexible cognitive control: rules without symbols. *Proceedings of the National Academy of Sciences*. https://doi.org/10.1073/pnas.0502455102 — Shows how a related PFC model forms abstract rule-like representations and simulates Stroop and card-sorting behaviour.
-- Hochreiter, S. & Schmidhuber, J. (1997). Long short-term memory. *Neural Computation*. https://doi.org/10.1162/neco.1997.9.8.1735 — Introduces the LSTM, whose multiplicative gate units learn to open and close access to a memory cell.
+- O'Reilly, R. C. & Frank, M. J. (2006). Making working memory work: a computational model of learning in the prefrontal cortex and basal ganglia. *Neural Computation* 18, 283–328. https://doi.org/10.1162/089976606775093909 — The original PBWM paper, which introduces the learned gate and the actor–critic learning rule.
+- Frank, M. J., Loughry, B. & O'Reilly, R. C. (2001). Interactions between frontal cortex and basal ganglia in working memory: a computational model. *Cognitive, Affective, & Behavioral Neuroscience* 1, 137–160. https://doi.org/10.3758/CABN.1.2.137 — An earlier computational model of interactions between frontal cortex and basal ganglia in working memory, the same interaction that PBWM models.
+- Rougier, N. P., Noelle, D. C., Braver, T. S., Cohen, J. D. & O'Reilly, R. C. (2005). Prefrontal cortex and flexible cognitive control: rules without symbols. *Proceedings of the National Academy of Sciences* 102, 7338–7343. https://doi.org/10.1073/pnas.0502455102 — Shows how a related PFC model forms abstract, rule-like representations in a model of flexible cognitive control.
+- Hochreiter, S. & Schmidhuber, J. (1997). Long short-term memory. *Neural Computation* 9, 1735–1780. https://doi.org/10.1162/neco.1997.9.8.1735 — Introduces the LSTM, whose multiplicative gate units learn to open and close access to a memory cell.
 
 ### Surveys and textbooks
 
-- Miller, E. K. & Cohen, J. D. (2001). An integrative theory of prefrontal cortex function. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev.neuro.24.1.167 — Reviews evidence for the PFC as a source of goal-directed bias signals, a framework that PBWM is consistent with.
+- Miller, E. K. & Cohen, J. D. (2001). An integrative theory of prefrontal cortex function. *Annual Review of Neuroscience* 24, 167–202. https://doi.org/10.1146/annurev.neuro.24.1.167 — Reviews evidence for the PFC as a source of goal-directed bias signals, a framework that PBWM is consistent with.

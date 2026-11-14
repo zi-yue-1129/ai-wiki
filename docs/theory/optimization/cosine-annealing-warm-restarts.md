@@ -34,13 +34,13 @@ Within run \(i\), the rate falls along a cosine curve from \(\eta^i_{\max}\) to 
 
 <div style="max-width:640px;width:100%" role="group" aria-label="Learning-rate schedule animation">
 <div style="width:100%">
-<img src="../../assets/concept-animations/sgdr-restart-still.svg" data-motion-src="../../assets/concept-animations/sgdr-restart-motion.svg" style="display:block;width:100%;height:auto" alt="Cosine learning-rate decay over successively longer cycles, with upward resets at each restart.">
+<img data-source-asset-urls src="../../assets/concept-animations/sgdr-restart-still.svg" data-motion-src="../../assets/concept-animations/sgdr-restart-motion.svg" style="display:block;width:100%;height:auto" alt="Cosine learning-rate decay over successively longer cycles, with upward resets at each restart.">
 </div>
 </div>
 
 *Original animation by AI Wiki, CC BY-SA 4.0.*
 
-The moving marker traces a schematic schedule with cycle lengths 1, 2 and 4 and fixed learning-rate bounds. At each restart the rate jumps back to its maximum; the optimizer parameters are **not** reset. Time and rates are normalized illustration values, not measurements from training.
+The moving marker traces a schematic schedule with cycle lengths 1, 2 and 4 and fixed learning-rate bounds. At each restart the rate jumps back to its maximum; the model weights are **not** reset. Time and rates are normalized illustration values, not measurements from training.
 
 ## Algorithm
 

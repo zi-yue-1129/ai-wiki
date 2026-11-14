@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-29
+translation_reviewed: 2026-11-04
 ---
 
 # DPLL
@@ -39,9 +39,9 @@ MkDocs 網站可使用**播放／暫停**或鍵盤控制；GitHub 讀者可開�
 
 ## 變體
 
-- **衝突驅動的子句學習（CDCL）**分析每個衝突，學得一個能防止同樣衝突的新子句，並直接跳回。現代 SAT 求解器即建立在其上。
+- **衝突驅動的子句學習（CDCL）**分析每個衝突，學得一個能防止同樣衝突的新子句，並直接跳回（Marques-Silva 與 Sakallah，1999；Moskewicz 等人，2001）。現代 SAT 求解器即建立在其上。
 - **重新啟動**會捨棄搜尋樹，帶著學得的資訊重新開始，有助於應付重尾的搜尋時間。
-- **監視文字**是一種資料結構，每個子句只檢查兩個文字，使單位傳播變得很快。
+- **監視文字**是一種資料結構，每個子句只檢查兩個文字，使單位傳播變得很快（Moskewicz 等人，2001）。
 
 ## 結果與限制
 
@@ -67,6 +67,8 @@ MkDocs 網站可使用**播放／暫停**或鍵盤控制；GitHub 讀者可開�
 
 - Davis, M. & Putnam, H. (1960). A computing procedure for quantification theory. *Journal of the ACM* 7(3), 201–215. https://doi.org/10.1145/321033.321034 — 提出 DPLL 所源自的基於歸結的程序。
 - Davis, M., Logemann, G. & Loveland, D. (1962). A machine program for theorem-proving. *Communications of the ACM* 5(7), 394–397. https://doi.org/10.1145/368273.368557 — 給出含單位傳播的回溯程序，即 DPLL 演算法。
+- Marques-Silva, J. P. & Sakallah, K. A. (1999). GRASP: a search algorithm for propositional satisfiability. *IEEE Transactions on Computers* 48(5), 506–521. https://doi.org/10.1109/12.769433 — 提出衝突驅動的子句學習與非時序回溯。
+- Moskewicz, M. W., Madigan, C. F., Zhao, Y., Zhang, L. & Malik, S. (2001). Chaff: engineering an efficient SAT solver. In *Proceedings of the 38th Design Automation Conference*, 530–535. https://doi.org/10.1145/378239.379017 — 介紹 Chaff 求解器，使雙監視文字與子句學習在實務上變得高效。
 - Robinson, J. A. (1965). A machine-oriented logic based on the resolution principle. *Journal of the ACM* 12(1), 23–41. https://doi.org/10.1145/321250.321253 — 提出歸結，產生證明的 SAT 求解器所依循的推理規則即以它為基礎。
 
 ### 綜述與教科書

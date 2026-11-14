@@ -36,6 +36,8 @@
 - **文化演化**：模仿加上選擇性複製，是人類跨世代累積知識的方式——有人主張 LLM 是一種新的文化傳承管道
 - **逆向規劃**：人類從行動推論他人目標的方式，可用貝氏逆向規劃很好地描述（Baker, Saxe & Tenenbaum, 2009），這是 IRL 的認知對應，也是[心智理論](../../../brain-mind/psychology/index.md)的基礎
 
+以行為複製與逆強化學習為組織的專書式論述，見[模仿學習的演算法觀點](algorithmic-perspective-survey.md)（Osa 等人，2018）。
+
 ## 延伸閱讀
 
 - Osa et al. (2018)，《An Algorithmic Perspective on Imitation Learning》。https://arxiv.org/abs/1811.06711

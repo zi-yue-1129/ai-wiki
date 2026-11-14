@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 tags:
 - motor control
 - optimal control
@@ -81,5 +81,5 @@ The predicted pattern is that variability is allowed in redundant, task-irreleva
 ### Surveys and textbooks
 
 - Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*, 7(9), 907–915. https://doi.org/10.1038/nn1309 — Discusses optimality principles in sensorimotor control, the framework that this method builds on.
-- Scott, S. H. (2004). Optimal feedback control and the neural basis of volitional motor control. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn1427 — Discusses optimal feedback control and its neural basis in volitional movement.
-- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — Reviews how sensory prediction errors drive motor adaptation and keep forward models calibrated.
+- Scott, S. H. (2004). Optimal feedback control and the neural basis of volitional motor control. *Nature Reviews Neuroscience* 5, 532–545. https://doi.org/10.1038/nrn1427 — Discusses optimal feedback control and its neural basis in volitional movement.
+- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience* 33, 89–108. https://doi.org/10.1146/annurev-neuro-060909-153135 — Reviews how sensory prediction errors drive motor adaptation and keep forward models calibrated.

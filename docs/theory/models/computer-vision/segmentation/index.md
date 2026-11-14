@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/evaluation/metrics/segmentation/index.md
 tags:
@@ -43,12 +43,12 @@ Quality is measured by overlap between predicted and reference masks, usually wi
 
 ## Key methods
 
-Brief comparison. Each method named above is a candidate for its own method page; those pages are not yet written, so the detail is given here for now.
+Each method has its own page with the problem, core idea, equation or procedure, results and limitations.
 
-- **FCN (semantic)**: dense prediction by converting a classifier. Simple and general, with coarse boundaries.
-- **U-Net (semantic, encoder–decoder)**: skip connections for precise boundaries, trained from few annotated images.
-- **Mask R-CNN (instance)**: a mask head on top of a two-stage detector, giving one mask per object.
-- **Segment Anything (promptable)**: prompt-driven masks with broad zero-shot transfer.
+- [FCN](fcn.md) (semantic): dense prediction by converting a classifier into a fully convolutional network, with skip fusion for finer boundaries.
+- [U-Net](../../cnn/unet/index.md) (semantic, encoder–decoder): a symmetric decoder with skip connections, trained from few annotated images.
+- [Mask R-CNN](mask-r-cnn.md) (instance): a mask branch on a two-stage detector, giving one mask per object.
+- [Segment Anything](segment-anything.md) (promptable): masks for any object indicated by a point, box or mask prompt, with broad zero-shot transfer.
 
 ## Connections
 

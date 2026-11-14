@@ -77,5 +77,5 @@ Rabiner（1989）把標準問題整理為三項：
 
 ### 綜述與教科書
 
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；有 HMM 推論與學習的章節。
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Murphy 教科書系列的儲存庫；有 HMM 推論與學習的章節。
 - Kschischang, F. R., Frey, B. J. & Loeliger, H.-A. (2001). Factor graphs and the sum-product algorithm. *IEEE Transactions on Information Theory* 47(2), 498–519. https://doi.org/10.1109/18.910572 — 說明前向–後向演算法即因子圖上的和積訊息傳遞。

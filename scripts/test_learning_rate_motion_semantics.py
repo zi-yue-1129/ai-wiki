@@ -170,6 +170,7 @@ def bilingual_fallbacks():
             assert asset + "-motion.svg" in content, str(page)
             assert "data-motion-src" in content, str(page)
             assert "concept-animations/" in content, str(page)
+            assert '<img data-source-asset-urls ' in content, str(page)
 
 
 

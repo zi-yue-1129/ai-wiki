@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai/planning
   - theory/paradigms/symbolic-ai/search
@@ -38,16 +37,18 @@ The algorithm alternates two steps.
 
 The expansion stops at a layer where all goal facts appear, so the search is over the smallest number of parallel steps the graph shows. Because each layer may contain several actions executed in parallel, the plan length counts layers and is not the same as the number of actions.
 
+*Illustration.* Suppose one action `move(A,B)` and another `move(B,C)` are available, and the goal is `at(C)` starting from `at(A)`. The first fact layer contains `at(A)`, the next adds `at(B)`, and the third adds `at(C)`. The goal therefore appears after two action layers, and a two-step plan is extracted. This schematic example is not a benchmark result.
+
 ## Variants
 
 - **Parallel plans**: the standard GraphPlan finds a plan with the fewest parallel steps, not the fewest actions.
-- **Graph-based heuristics**: the same planning graph can give estimates of the distance to the goal for heuristic search, a link to methods such as those in Bonet and Geffner (2001).
+- **Graph-based heuristics**: the same planning graph can give estimates of the distance to the goal for heuristic search, as in relaxed-plan heuristics (Bonet & Geffner, 2001; Hoffmann & Nebel, 2001).
 - **Later planning-graph planners** reuse the same idea with improved mutex reasoning and extraction.
 
 ## Results and limits
 
 - The planning graph is polynomial in size for a fixed number of layers, which avoids enumerating the full state space.
-- Blum and Furst (1997) report large speed-ups on benchmark domains compared with contemporary planners.
+- Blum and Furst (1997) report that GraphPlan solved benchmark problems much faster than the planners it was compared with.
 - The planning graph can still grow large in domains with many objects, and mutex computation is costly.
 - Plan optimality in terms of total actions is not guaranteed, because extraction minimises parallel steps.
 
@@ -73,4 +74,5 @@ The expansion stops at a layer where all goal facts appear, so the search is ove
 ### Surveys and textbooks
 
 - Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — Describes heuristics from relaxed problems, which are closely related to the relaxation a planning graph encodes.
+- Hoffmann, J. & Nebel, B. (2001). The FF planning system: fast plan generation through heuristic search. *Journal of Artificial Intelligence Research* 14, 253–302. https://doi.org/10.1613/jair.855 — Builds a relaxed planning graph to estimate distances to the goal, the same structure GraphPlan builds.
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — Textbook introduction to planning graphs and GraphPlan.

@@ -49,6 +49,8 @@ Named benchmarks, grouped by task with one page per benchmark, are in [Benchmark
 - **Uncertainty.** A gap of a few points on a small test set may be noise. Report the size of the test set and an interval.
 - **Comparability.** Two numbers can be compared only when their metrics and protocols match.
 
+Chollet's framework for measuring skill-acquisition efficiency, and the ARC benchmark, are covered in [On the Measure of Intelligence](measure-of-intelligence.md).
+
 ## Connections
 
 The psychometric tradition of reliability, validity and item response theory is the older source of many of these ideas. See [Psychology & AI](../../brain-mind/psychology/index.md) for the cognitive side.

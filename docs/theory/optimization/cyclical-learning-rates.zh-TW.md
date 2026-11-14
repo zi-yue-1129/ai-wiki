@@ -22,7 +22,7 @@ translation_reviewed: 2026-10-31
 
 <div style="max-width:640px;width:100%" role="group" aria-label="學習率排程動畫">
 <div style="width:100%">
-<img src="../../assets/concept-animations/clr-triangular2-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-motion.svg" style="display:block;width:100%;height:auto" alt="Triangular2 學習率排程的三個週期，每個週期的振幅依序減半。">
+<img data-source-asset-urls src="../../assets/concept-animations/clr-triangular2-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-motion.svg" style="display:block;width:100%;height:auto" alt="Triangular2 學習率排程的三個週期，每個週期的振幅依序減半。">
 </div>
 </div>
 

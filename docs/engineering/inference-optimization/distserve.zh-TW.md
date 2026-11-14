@@ -1,6 +1,6 @@
 ---
-translation_reviewed: 2026-10-28
-last_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
+last_reviewed: 2026-11-04
 related:
   - engineering/inference-optimization
   - engineering/hardware
@@ -26,7 +26,7 @@ DistServe 是一套服務系統，把 LLM 推論的預填充與解碼階段指�
 
 ## 核心想法
 
-DistServe 把預填充與解碼放在不同的 GPU 上，以消除干擾。如此每個階段都有自己的批次，每個資源池也能依自己的瓶頸來配置大小與平行化方式。系統透過搜尋，找出在目標延遲下能最大化有效吞吐的配置，從而決定每個階段的位置與平行度。提示處理完後，KV 快取會從預填充 GPU 搬到解碼 GPU。
+DistServe 把預填充與解碼放在不同的 GPU 上，以消除干擾。如此每個階段都有自己的批次，每個資源池也能依自己的瓶頸來配置大小與平行化方式。系統透過搜尋，找出在目標延遲下能最大化有效吞吐的配置，從而決定每個階段的位置與平行度，並考量叢集的頻寬。提示處理完後，KV 快取會從預填充 GPU 搬到解碼 GPU。
 
 ## 程序
 

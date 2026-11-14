@@ -33,7 +33,7 @@ Estimate two bounds, \(\eta_{\min}\) and \(\eta_{\max}\), with a learning-rate r
 
 <div style="max-width:640px;width:100%" role="group" aria-label="Learning-rate schedule animation">
 <div style="width:100%">
-<img src="../../assets/concept-animations/clr-triangular2-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-motion.svg" style="display:block;width:100%;height:auto" alt="Triangular2 learning-rate schedule over three cycles, each with half the preceding amplitude.">
+<img data-source-asset-urls src="../../assets/concept-animations/clr-triangular2-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-motion.svg" style="display:block;width:100%;height:auto" alt="Triangular2 learning-rate schedule over three cycles, each with half the preceding amplitude.">
 </div>
 </div>
 

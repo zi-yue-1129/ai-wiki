@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 tags:
 - neuroscience
 - neural oscillations
@@ -18,7 +18,7 @@ aliases:
 
 ## 問題
 
-人在短期記憶中一次只能保留少量項目。心理物理學測量將這個數字定在約七個（Lisman & Idiart, 1995）。問題在於，一個神經網路如何在同一時間把數個項目彼此區分開來，而每個項目都由共享群體中的活動所表徵。若每個項目都以相同方式持續發放，它們就會彼此干擾。
+人在短期記憶中一次只能保留少量項目。經典的心理物理研究將這個數字定在約七個，上下浮動二個（Miller, 1956）。問題在於，一個神經網路如何在同一時間把數個項目彼此區分開來，而每個項目都由共享群體中的活動所表徵。若每個項目都以相同方式持續發放，它們就會彼此干擾。
 
 ## 核心想法
 
@@ -72,6 +72,7 @@ Lisman 與 Idiart（1995）主張，每個項目被指派到一個不同的快�
 
 ### 開創性論文
 
+- Miller, G. A.（1956）。The magical number seven, plus or minus two: Some limits on our capacity for processing information. *Psychological Review* 63, 81–97。https://doi.org/10.1037/h0043158 — 短期記憶容量的經典估計，約七個項目，上下浮動二個。
 - Lisman, J. E. & Idiart, M. A. P.（1995）。Storage of 7 ± 2 short-term memories in oscillatory subcycles. *Science*, 267(5203), 1512–1515。https://doi.org/10.1126/science.7878473 — 最初的 θ–γ 記憶模型：慢週期內連續的 gamma 子週期中各自儲存不同的項目。
 - Lisman, J.（2005）。The theta/gamma discrete phase code occurring during the hippocampal phase precession may be a more general brain coding scheme. *Hippocampus*, 15(7), 913–922。https://doi.org/10.1002/hipo.20121 — 主張海馬迴相位進動中的 theta/gamma 離散相位編碼，可能是更一般的腦部編碼方式。
 - Canolty, R. T. et al.（2006）。High gamma power is phase-locked to theta oscillations in human neocortex. *Science*, 313(5793), 1626–1628。https://doi.org/10.1126/science.1128115 — 人類 ECoG 記錄，顯示高 gamma 功率與 theta 相位鎖定。

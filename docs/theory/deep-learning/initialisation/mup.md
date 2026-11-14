@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/deep-learning/initialisation
 tags:
@@ -27,11 +27,11 @@ In the standard parametrisation, the best learning rate tends to change with wid
 
 ## Core idea
 
-Yang et al. identify such a parametrisation and verify the transfer on Transformer and ResNet models. In the paper's multiplier form, the learning rate and output multiplier of each layer are set according to its width, as in the table below.
+Yang et al. identify such a parametrisation and verify the transfer on Transformer and ResNet models. In the paper's multiplier form, the learning rate and output multiplier of each layer are set according to its width, as listed below.
 
 ## Equation
 
-Table 8 of the paper gives the multiplier form for Adam, with $\text{fan\_in}$ the input width of a layer:
+The multiplier form for Adam, with $\text{fan\_in}$ the input width of a layer, is:
 
 - hidden weights: Adam learning rate proportional to $1/\text{fan\_in}$;
 - output layer: output multiplier $1/\text{fan\_in}$, with Adam learning rate 1;
@@ -39,11 +39,11 @@ Table 8 of the paper gives the multiplier form for Adam, with $\text{fan\_in}$ t
 
 ## Results
 
-The abstract reports that hyperparameters tuned on a small model can be used on a much larger one without tuning the large model, and that this holds for Transformer and ResNet models. The specific numbers are in the paper's results.
+The abstract reports that hyperparameters tuned on a small model can be used on a much larger one, and that this holds for Transformer and ResNet models. Two examples are given. Transferring from a 13M-parameter model gives pretraining hyperparameters that outperform the published BERT-large numbers, at a tuning cost equal to pretraining BERT-large once. Transferring from a 40M-parameter model outperforms the published 6.7B GPT-3 model, with a tuning cost of only 7% of its total pretraining cost [(Yang et al., 2022)](https://arxiv.org/abs/2203.03466).
 
 ## Limitations
 
-- The table entries are for Adam. Other optimisers need their own derivation, and this page does not cover them.
+- The multiplier entries given above are for Adam. Other optimisers need their own derivation, and this page does not cover them.
 - The verification in the paper covers Transformer and ResNet models, so other architectures need their own check.
 
 ## Connections

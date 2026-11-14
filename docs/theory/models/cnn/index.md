@@ -40,7 +40,7 @@ ResNet makes very deep backbones trainable, and EfficientNet chooses depth, widt
 ## Trade-offs
 
 - **Inductive bias.** Locality and weight sharing make CNNs data-efficient on images, but they can limit the modelling of long-range dependencies unless the receptive field is enlarged.
-- **Efficiency.** Depthwise separable designs cut computation sharply, which matters for mobile and embedded devices.
+- **Efficiency.** Depthwise separable designs cut computation sharply, as in [MobileNets](backbones-and-scaling/mobilenet/index.md), which matters for mobile and embedded devices.
 - **Versus Transformers.** Vision Transformers model global relations directly, but they usually need more data or pretraining. CNN and Transformer ideas now mix freely, as in ConvNeXt, which adopted Transformer design choices inside a convolutional network.
 
 ## Where it is used

@@ -36,6 +36,8 @@ Keep data close to where it is used, and reuse it as many times as possible befo
 | Off-chip high-bandwidth memory (HBM) or DRAM | Packages beside the chip | Large | Much slower than on-chip SRAM |
 | Host memory and storage | Across a host or network link | Very large | Far slower |
 
+[AI and the memory wall](ai-and-memory-wall.md) argues that memory bandwidth now limits large models more than compute (Gholami et al., 2024).
+
 Software decides how much of the work stays in the fast levels. Tiling a matrix multiplication so that each tile is reused in SRAM is the classic example.
 
 ## Equation or algorithm

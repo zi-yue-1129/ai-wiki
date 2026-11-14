@@ -71,6 +71,7 @@ Each named method has its own page with the problem, core idea, equations, resul
 
 - [DDPM](ddpm.md) (Ho, Jain & Abbeel, 2020): the noise-prediction objective and the sampler that made diffusion practical for images.
 - [DDIM](ddim.md) (Song, Meng & Ermon, 2021): a non-Markovian sampler that reuses the DDPM model in far fewer steps.
+- [Score SDE](score-sde.md) (Song et al., 2021): a continuous-time framework with forward and reverse SDEs and a probability flow ODE, which unifies DDPM and score-based models.
 - [Consistency models and fast samplers](consistency-models.md) (Song et al., 2023): models that map any point of a trajectory to its output, supporting one-step generation.
 - [Latent Diffusion](latent-diffusion.md) (Rombach et al., 2022): diffusion in the latent space of an autoencoder, with cross-attention conditioning.
 - [DiT](../../../../models/transformer/dit/index.md) (Peebles & Xie, 2023): a Transformer denoiser that replaces the U-Net and scales with compute.
@@ -82,6 +83,7 @@ Each named method has its own page with the problem, core idea, equations, resul
 |---|---|---|---|
 | [DDPM](ddpm.md) | Training objective and Markov sampler | U-Net | Time step |
 | [DDIM](ddim.md) | Non-Markovian sampler on the same trained model | Same as DDPM | Same as DDPM |
+| [Score SDE](score-sde.md) | Continuous-time SDE framework with a probability flow ODE | Score network (NCSN++ in the paper) | Noise level (time step) |
 | [Latent Diffusion](latent-diffusion.md) | Diffusion in an autoencoder latent | U-Net | Cross-attention |
 | [DiT](../../../../models/transformer/dit/index.md) | Transformer denoiser on latent patches | Transformer | Time step and class label, through adaptive layer norm |
 | [Classifier-free guidance](classifier-free-guidance.md) | Sampling-time combination of two predictions | Any | Guidance weight \(w\); \(w = 0\) gives the plain conditional model |

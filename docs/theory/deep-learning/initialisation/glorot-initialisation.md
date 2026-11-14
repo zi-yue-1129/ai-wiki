@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-03
 related:
   - theory/deep-learning/initialisation
 tags:
@@ -15,56 +15,116 @@ aliases:
 
 # Glorot (Xavier) initialisation
 
-Glorot initialisation chooses the variance of a linear layer's weights from the fan-in and fan-out, so that the signal in the forward pass and the gradient in the backward pass keep similar scales. It was proposed for networks with saturating activations such as the sigmoid and the hyperbolic tangent, and it became a default for many layers.
+Glorot initialisation scales random weights using both the number of inputs and the number of outputs of a layer. It balances approximate forward and backward signal propagation at initialisation; it does not guarantee that both variances stay constant in every layer.[^glorot]
 
-## Overview
+## Problem and scope
 
-The [chapter](index.md) covers initialisation in general. This page covers the Glorot rule. The paper analysed why deep networks trained poorly with standard random initialisations, and it proposed a scale that keeps activations and gradients in a useful range.
+The [initialisation chapter](index.md) compares the main schemes. This page explains the Glorot rule and its assumptions.
 
-## Problem
+Weights that are too small can shrink signals and gradients through a deep network; weights that are too large can amplify signals or push nonlinearities into saturation. Glorot and Bengio studied these effects in feedforward networks. Their analysis motivates a scale for activations that are approximately linear near zero, notably tanh. The paper also identifies the non-zero mean of the logistic sigmoid as a source of saturation: the rule is not a general cure for sigmoid networks.[^glorot]
 
-With weights drawn from a fixed distribution, the activations in deep networks with saturating nonlinearities drift towards the flat regions of the activation function, where gradients vanish. The paper asked how the variance of the weights should depend on the layer's size to avoid this.
+## Why fan-in and fan-out appear
 
-## Core idea
+For a dense layer, let $z=Wx$, where $W$ has shape $n_{\text{out}}\times n_{\text{in}}$. **Fan-in** $n_{\text{in}}$ counts inputs to each output; **fan-out** $n_{\text{out}}$ counts outputs receiving each input.
 
-Choose the weight variance so that the forward variance is preserved, which needs a variance involving the fan-in $n_{\text{in}}$, and the backward variance is preserved, which needs one involving the fan-out $n_{\text{out}}$. Glorot and Bengio use the average of the two. The weights are drawn uniformly or from a normal distribution with that variance.
+Assume independent, zero-mean weights with variance $\sigma_w^2$, independent of the inputs. With equally scaled, centred inputs of variance $q$, summing the input contributions gives
 
-## Equation
+$$
+\operatorname{Var}(z_j)\approx n_{\text{in}}\sigma_w^2 q.
+$$
 
-For a layer with $n_{\text{in}}$ inputs and $n_{\text{out}}$ outputs, the uniform form draws
+For the backward relation $\delta_x=W^\top\delta_z$, the analogous independence and equal-variance approximation gives
 
-$$W \sim \mathcal{U}\left[-\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}},\; \sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}}\right]$$
+$$
+\operatorname{Var}(\delta_{x,i})\approx n_{\text{out}}\sigma_w^2
+\operatorname{Var}(\delta_{z,j}).
+$$
 
-which has variance $2 / (n_{\text{in}} + n_{\text{out}})$. The normal form uses the same variance.
+Here $\delta$ denotes a loss gradient with respect to the named variable. Extending these relations through an activation assumes a derivative near one; correlations and nonlinear saturation can invalidate them. In particular, independence between weights and backward gradients is an approximation, not an identity for a trained network.[^glorot]
 
-## Results
+Forward preservation would require $\sigma_w^2=1/n_{\text{in}}$; backward preservation would require $\sigma_w^2=1/n_{\text{out}}$. When the widths differ, one shared weight variance cannot satisfy both. The Glorot compromise is
 
-The paper shows that the proposed scheme trains deep networks with sigmoid and tanh activations more reliably than the common fixed-scale initialisations of the time. Specific numbers are in its experiments.
+$$
+\sigma_w^2=\frac{2}{n_{\text{in}}+n_{\text{out}}}
+=\frac{1}{(n_{\text{in}}+n_{\text{out}})/2}.
+$$
 
-## Limitations
+This is the reciprocal of the average fan, **not** the arithmetic mean of the two target variances $1/n_{\text{in}}$ and $1/n_{\text{out}}$. Both preservation conditions coincide for a square layer.[^glorot]
 
-- The derivation assumes linear layers with activations that are roughly linear near zero, so it is less accurate for rectified activations. [He initialisation](he-initialisation.md) addresses that case.
-- It does not account for residual connections or normalisation, which change the scale of signals.
+## Uniform and normal forms
 
-## Connections
+The original paper proposes a uniform distribution. For a symmetric uniform variable on $[-a,a]$, the variance is $a^2/3$, so
 
-The rule is the starting point for [He initialisation](he-initialisation.md). The overall picture of signal propagation is in the [chapter](index.md). The gradient computations behind the variance argument are in [Automatic differentiation](../../math/automatic-differentiation/index.md).
+$$
+W_{ji}\sim\mathcal{U}(-a,a),\qquad
+a=\sqrt{\frac{6}{n_{\text{in}}+n_{\text{out}}}}.
+$$
 
-## Applications
+The commonly implemented normal form matches that variance:
 
-Default initialisation in many framework layers, especially for dense and recurrent layers with tanh or sigmoid activations.
+$$
+W_{ji}\sim\mathcal{N}(0,\sigma_w^2),\qquad
+\sigma_w=\sqrt{\frac{2}{n_{\text{in}}+n_{\text{out}}}}.
+$$
 
-## Open questions
+The normal distribution's scale parameter here is a **standard deviation**, not a variance. Equal variance does not make the two distributions identical: the uniform form is bounded, whereas the normal form is not.[^implementation]
 
-- How should Glorot-style scaling be generalised to attention and gated layers?
-- Is it still the right default for very wide models trained with modern optimisers?
+Some libraries expose a gain $g$: multiply $a$ or $\sigma_w$ by $g$, which multiplies the variance by $g^2$. The formulas above use $g=1$. PyTorch's Xavier functions default to that gain; its separately called gain helper recommends $5/3$ for tanh. Supplying that value explicitly changes the scale, rather than reproducing the unit-gain formula.[^implementation]
+
+## Worked example: a rectangular layer
+
+These are original calculations under the linear approximation, not measured network results. Define forward and backward variance multipliers as $m_f=n_{\text{in}}\sigma_w^2$ and $m_b=n_{\text{out}}\sigma_w^2$.
+
+| Fan-in | Fan-out | Glorot variance | $m_f$ | $m_b$ |
+|---|---|---|---|---|
+| 100 | 100 | 0.01 | 1 | 1 |
+| 100 | 400 | 0.004 | 0.4 | 1.6 |
+| 400 | 100 | 0.004 | 1.6 | 0.4 |
+
+For the 100-to-400 layer, $a=\sqrt{0.012}\approx0.10954$ and $\sigma_w=\sqrt{0.004}\approx0.06325$. Averaging the two preservation targets instead would yield $(0.01+0.0025)/2=0.00625$, a different rule.
+
+The rectangular examples show why “preserves variance in both directions” needs qualification. Even a correctly implemented Glorot layer can shrink forward variance and enlarge backward variance.
+
+## Practical use and checks
+
+1. Identify the actual linear operation and its input/output dimensions. Do not infer fan values from an unrelated flattened parameter count.
+2. Choose a scale for the surrounding nonlinearity and architecture. Record any gain rather than treating every “Xavier” call as the same configuration.
+3. Draw each weight independently from the selected distribution. For a basic dense-layer experiment, zero biases are a separate conventional choice, not a consequence of the weight-variance equation.
+4. On representative inputs, inspect activation and gradient scales across layers before a long training run. Record the random seed and check more than one draw; finite samples will not have exactly the target variance.
+
+PyTorch's documented dense-weight convention is $[n_{\text{out}},n_{\text{in}}]$, used as $xW^\top$. Transposing a two-dimensional matrix swaps the fans but leaves their sum unchanged, so unit-gain Xavier's scale is unchanged. This symmetry does **not** extend to schemes that choose only fan-in or fan-out.[^implementation]
+
+## Results and limitations
+
+The original study reports faster convergence and improved results for its normalised tanh initialisation. For five-hidden-layer networks in Table 1, CIFAR-10 test error changes from 55.9% for tanh to 52.92% for normalised tanh, a reduction of 2.98 percentage points. These are the paper's historical experimental settings, not a modern CIFAR-10 accuracy claim or an isolated guarantee for other architectures.[^results]
+
+- **Nonlinearities matter.** Logistic sigmoid has value $1/2$ and derivative $1/4$ at zero, unlike the centred, unit-slope approximation. For ReLU, [He initialisation](he-initialisation.md) accounts for rectification and gives the familiar forward scale $2/n_{\text{in}}$. Its derivation tracks second moments; ReLU outputs are not zero-mean.[^he]
+- **Depth and correlations matter.** Matching a scalar variance does not control every direction of a layer's Jacobian, the matrix of local derivatives. Saxe et al. study special initial conditions in deep linear networks, while Schoenholz et al. analyse signal and correlation propagation in random nonlinear networks.[^propagation]
+- **Architecture matters.** Residual additions, gates and [normalisation](../normalisation/index.md) alter signal propagation. Batch Normalization is a separate intervention during computation, not a proof that initial scale never matters.[^normalisation]
+
+## Connections and open questions
+
+The gradients in the derivation are computed by [automatic differentiation](../../math/automatic-differentiation/index.md). [He initialisation](he-initialisation.md) changes the scale for rectifiers, while [muP](mup.md) addresses a different question: how parametrisation and hyperparameters should change with width.
+
+For a new architecture, the useful question is which signals the scale should stabilise. Attention, gating and residual paths can require more than a single fan-based variance rule.
+
+[^glorot]: Glorot and Bengio (2010), sections 3–4, especially equations 10–16: saturation, forward/backward variance constraints and the compromise distribution.
+[^implementation]: PyTorch 2.15, *torch.nn.init*: Xavier uniform/normal formulas, gain helper and dense-weight layout note. This is a versioned implementation reference, not a claim about every framework default.
+[^results]: Glorot and Bengio (2010), section 5 and Table 1: five-hidden-layer comparisons and normalised tanh results.
+[^he]: He et al. (2015), section 2.2: rectifier-aware initialisation and forward/backward signal scaling.
+[^propagation]: Saxe et al. (2013), *Exact solutions*, and Schoenholz et al. (2016), *Deep Information Propagation*: complementary analyses of learning dynamics and signal propagation.
+[^normalisation]: Ioffe and Szegedy (2015), *Batch Normalization*: normalisation during training and reduced sensitivity to initialisation.
 
 ## References
 
 ### Seminal papers
 
-- Glorot and Bengio, *Understanding the difficulty of training deep feedforward neural networks*, Proceedings of the 13th International Conference on Artificial Intelligence and Statistics (2010). https://proceedings.mlr.press/v9/glorot10a.html — The original analysis and the fan-in and fan-out variance rule.
-- He, Zhang, Ren and Sun, *Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification* (2015). https://arxiv.org/abs/1502.01852 — The rectifier variant that corrects the Glorot scale for ReLU.
-- Schoenholz, Gilmer, Ganguli and Sohl-Dickstein, *Deep Information Propagation* (2016). https://arxiv.org/abs/1611.01232 — Mean-field analysis of how variance propagates in random deep networks.
-- Saxe, McClelland and Ganguli, *Exact solutions to the nonlinear dynamics of learning in deep linear neural networks* (2013). https://arxiv.org/abs/1312.6120 — Learning dynamics in deep linear networks, relevant to scale choices.
-- Ioffe and Szegedy, *Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift* (2015). https://arxiv.org/abs/1502.03167 — Normalisation that reduces dependence on the initial scale.
+- Glorot, X. & Bengio, Y. (2010). *Understanding the difficulty of training deep feedforward neural networks*. AISTATS, PMLR 9:249–256. https://proceedings.mlr.press/v9/glorot10a.html — Original variance constraints, uniform initialiser and experiments on saturation and convergence.
+- He, K., Zhang, X., Ren, S. & Sun, J. (2015). *Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification*. https://arxiv.org/abs/1502.01852 — Derives initialisation scales that explicitly account for rectifier nonlinearities.
+- Schoenholz, S. S., Gilmer, J., Ganguli, S. & Sohl-Dickstein, J. (2016). *Deep Information Propagation*. https://arxiv.org/abs/1611.01232 — Studies variance, correlations and trainable depth through mean-field analysis.
+- Saxe, A. M., McClelland, J. L. & Ganguli, S. (2013). *Exact solutions to the nonlinear dynamics of learning in deep linear neural networks*. https://arxiv.org/abs/1312.6120 — Analyses learning dynamics and special initial conditions in deep linear networks.
+- Ioffe, S. & Szegedy, C. (2015). *Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift*. https://arxiv.org/abs/1502.03167 — Introduces normalisation within the network and studies its training effects.
+
+### Articles and documentation
+
+- PyTorch contributors. *torch.nn.init*, PyTorch 2.15 documentation. https://docs.pytorch.org/docs/2.15/nn.init.html — Documents Xavier sampling, gain factors and weight-layout conventions for implementation.

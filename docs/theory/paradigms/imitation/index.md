@@ -52,6 +52,8 @@ If a policy makes an error with probability ε per step, errors compound so expe
 - [Adversarial imitation](adversarial-imitation/index.md): GAIL and AIRL, matching trajectories with a discriminator.
 - [Imitation in foundation models](../../models/llm/imitation-in-foundation-models/index.md): instruction tuning, robot foundation models and action chunking.
 
+For a monograph-length treatment organised around behavioural cloning and inverse reinforcement learning, see [An Algorithmic Perspective on Imitation Learning](algorithmic-perspective-survey.md) (Osa et al., 2018).
+
 ## Further reading
 
 

@@ -52,6 +52,8 @@ flowchart TD
 
 服務也會跨越多台機器。[預填充與解碼分離](disaggregated-serving.zh-TW.md)把受運算限制的提示階段，與受記憶體限制的 token 階段放在不同的資源池上執行，主要設計為 [DistServe](distserve.zh-TW.md)、[Splitwise](splitwise.zh-TW.md) 與 [Mooncake](mooncake.zh-TW.md)。混合專家模型還有自己的服務問題，包括專家的放置與卸載，見[混合專家模型的服務](moe-serving.zh-TW.md)，其中比較 [GShard](gshard.zh-TW.md)、[DeepSpeed-MoE](deepspeed-moe.zh-TW.md) 與[專家卸載](expert-offloading.zh-TW.md)。
 
+大型模型應如何切分到各晶片上，以及在各批次大小下哪種配置最佳，見[高效擴展 Transformer 推論](efficient-transformer-inference.md)（Pope 等人，2022）。
+
 ## 相關連結
 
 - KV 快取本身的說明見 [Transformer KV 快取](../../theory/models/transformer/kv-cache/index.zh-TW.md)；本頁說明服務系統如何管理它。

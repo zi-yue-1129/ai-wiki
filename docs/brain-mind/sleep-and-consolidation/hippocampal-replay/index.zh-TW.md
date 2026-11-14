@@ -1,7 +1,7 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
+translation_reviewed: 2026-11-04
 tags:
 - neuroscience
 - memory
