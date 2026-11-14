@@ -9,6 +9,9 @@ on:
       - "scripts/verify_concept_svgs.py"
       - "scripts/verify_video_motion.py"
       - "scripts/test_video_motion_browser.py"
+      - "scripts/test_video_architecture_labs_browser.py"
+      - "docs/javascripts/video-architecture-labs.js"
+      - "docs/stylesheets/video-architecture-labs.css"
       - "scripts/test_uncertainty_motion_semantics.py"
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
@@ -89,6 +92,8 @@ jobs:
         run: python scripts/test_ssl_temporal_provenance_browser.py
       - name: Chromium video motion, keyboard and reduced-motion
         run: python scripts/test_video_motion_browser.py
+      - name: Chromium interactive ViViT and I3D numerical demonstrations
+        run: python scripts/test_video_architecture_labs_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -102,6 +107,7 @@ jobs:
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
             artifacts/video-motion/*.png
+            artifacts/video-architecture-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 
