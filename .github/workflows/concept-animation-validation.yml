@@ -29,6 +29,11 @@ on:
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_vq_splat_motion_browser.py"
+      - "scripts/test_vq_splat_labs_browser.py"
+      - "docs/javascripts/vq-splat-labs.js"
+      - "docs/stylesheets/vq-splat-labs.css"
+      - "docs/theory/models/computer-vision/3d-and-neural-rendering/gaussian-splatting*"
+      - "docs/theory/paradigms/unsupervised/density-and-generative-models/vae/vq-vae*"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
@@ -51,6 +56,7 @@ jobs:
         run: python scripts/verify_concept_animations.py
 
   validate-motion:
+    # Playwright 1.55 supports Ubuntu 24.04, not the latest 26.04 image.
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -74,8 +80,10 @@ jobs:
           python -m playwright install chromium
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
-      - name: Chromium VQ-VAE and Gaussian-splatting real-player regression
+      - name: Chromium VQ-VAE and Gaussian splatting SVG motion
         run: python scripts/test_vq_splat_motion_browser.py
+      - name: Chromium VQ-VAE and Gaussian compositing numerical labs
+        run: python scripts/test_vq_splat_labs_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -98,6 +106,7 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/vq-splat-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 

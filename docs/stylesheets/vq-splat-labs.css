@@ -1,0 +1,18 @@
+/* Numerical teaching labs for VQ-VAE and alpha compositing. */
+.vq-splat-lab{margin:1.25rem 0;padding:1rem;border:1px solid var(--md-default-fg-color--lightest,#dce4eb);border-radius:12px;background:var(--md-default-bg-color,#fff)}
+.vq-splat-lab h4{margin:0 0 .7rem;font-size:1rem}
+.vq-splat-params{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:.7rem}
+.vq-splat-field{display:flex;flex-direction:column;gap:.2rem;font-size:.78rem;min-width:130px;flex:1}
+.vq-splat-field>span{display:flex;justify-content:space-between;gap:.6rem}
+.vq-splat-field input{width:100%;accent-color:#1e92a8}
+.vq-splat-scroll{overflow-x:auto;max-width:100%;outline-offset:3px;border-radius:.65rem}
+.vq-splat-scroll:focus-visible{outline:3px solid #2c859e}
+.vq-splat-scroll svg{width:720px;min-width:720px;max-width:none;height:auto;display:block;overflow:visible;background:#fff;border:1px solid #e1e8ee;border-radius:.65rem}
+.vq-splat-controls{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap;margin:.8rem 0}
+.vq-splat-controls button,.vq-splat-controls select{background:var(--md-default-bg-color,#fff);color:var(--md-default-fg-color,#27374a);border:1px solid var(--md-default-fg-color--lighter,#aab5c0);border-radius:6px;padding:.3rem .55rem;font:inherit;font-size:.73rem;cursor:pointer}
+.vq-splat-controls label{font-size:.75rem;display:inline-flex;align-items:center;gap:.35rem}
+.vq-splat-controls label input{max-width:120px;accent-color:#1e92a8}
+.vq-splat-controls :focus-visible{outline:3px solid #2c859e;outline-offset:2px}
+.vq-splat-status{font-size:.77rem;font-variant-numeric:tabular-nums;line-height:1.5;min-height:1.7em}
+.vq-splat-note{font-size:.75rem;color:var(--md-default-fg-color--light,#607183);margin:.45rem 0 0}
+@media(prefers-reduced-motion:reduce){.vq-splat-lab *{animation:none!important;transition:none!important}}

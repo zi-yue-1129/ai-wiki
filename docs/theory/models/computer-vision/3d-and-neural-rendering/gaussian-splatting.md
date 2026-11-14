@@ -51,6 +51,14 @@ The ellipses represent **schematic projected splat footprints** at a single pixe
 
 All alphas, colours and splats are **chosen teaching values, not fitted scene parameters or measured pixels**. This isolates the visibility-aware blending step; real 3D Gaussian splatting additionally projects anisotropic covariances and evaluates view-dependent colours. On MkDocs use the keyboard-accessible **Play/Pause** control; GitHub displays the linked static fallback. Original diagram, **CC BY-SA 4.0**; see Kerbl et al. (2023) in References.
 
+### Interactive alpha-compositing lab (MkDocs)
+
+<div data-vq-splat-lab="splat" data-lang="en">
+  <p>The static SVG above is the GitHub and no-script fallback for the same depth-ordered visibility calculation.</p>
+</div>
+
+Adjust the three **effective pixel opacities** and step from the near splat to the far splat with **Previous / Next**, **Play / Pause**, a seek slider, playback speed, or **Reset**. The display recomputes each visible contribution $w_i=\alpha_i \prod_{j<i}(1-\alpha_j)$, residual transmittance $T$, and the final pixel RGB using illustrative layer colours (235,93,98), (79,171,223), (239,193,100) and background (30,39,60). At intermediate steps, **the unprocessed depth layers are temporarily replaced by background**; the preview is not the fully composited result. For the original alphas $(0.50,0.60,0.80)$, the final weights are $(0.50,0.30,0.16)$ with $T=0.04$. This is an analytic toy demonstration of per-pixel alpha blending, not a measurement or a 3D Gaussian projection simulator.
+
 ## Results
 
 The abstract reports real-time rendering at 1080p, at least 30 frames per second, with competitive training times and quality. The paper's tables give the comparisons.

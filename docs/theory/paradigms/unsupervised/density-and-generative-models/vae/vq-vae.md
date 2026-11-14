@@ -51,6 +51,14 @@ The moving outlined dot is a continuous encoder output \(z_e\); the coloured dot
 
 The two-dimensional vectors, path and boundary are **schematic, not trained representations or measured output**. In MkDocs, the keyboard-operable **Play/Pause** button controls the 12-second loop; the linked static diagram remains readable on GitHub. Original diagram, **CC BY-SA 4.0**, based on van den Oord et al. (2017) in References.
 
+### Interactive codebook-distance lab (MkDocs)
+
+<div data-vq-splat-lab="vq" data-lang="en">
+  <p>The static SVG above explains the same nearest-code transition on GitHub and when JavaScript is disabled.</p>
+</div>
+
+Move the **Encoder x / y** controls to change a synthetic continuous latent point, then use **Previous / Next**, **Play / Pause**, the seek slider, **0.5× / 1× / 2×**, or **Reset**. The intermediate positions follow a straight line from (0.10, 0.35) to your selected point. Each step recalculates all three squared Euclidean distances, the selected code, and its quantisation error. The input moves continuously but **the chosen code jumps**, illustrating a discrete forward bottleneck. Codebook vectors are fixed at (0.20, 0.35), (0.75, 0.35), and (0.48, 0.82). These are synthetic examples, not learned vectors, straight-through gradients, or codebook training.
+
 ## Key methods
 
 ### Neural Discrete Representation Learning (van den Oord et al., 2017)
