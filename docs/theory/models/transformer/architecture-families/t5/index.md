@@ -42,6 +42,12 @@ The paper is also a survey of choices. It compares pre-training objectives, arch
 *Original CC BY-SA 4.0 teaching animation. The sequence uses **four masked tokens out of ten (40%)** to make two spans visible; this is a schematic example, not the T5 paper's usual **15% corruption rate** and not an observed model output. S0 and S1 stand for distinct sentinel tokens, while S2 marks the final target sentinel in the common T5 format. On MkDocs, use **Play/Pause** (or keyboard Enter/Space); on narrow screens, scroll the diagram horizontally. [GitHub-readable overview](../../../../../assets/concept-animations/t5-span-corruption-still.svg) · [Full animation](../../../../../assets/concept-animations/t5-span-corruption-motion.svg). The animation shows token removal, sentinel substitution, and ordered target generation, not gradient descent (Raffel et al., 2020; see References).*
 
 
+### Interactive span corruption: move both masked spans
+
+<div id="td-t5-en" class="t5-deit-lab" data-lab="t5" data-lang="en"></div>
+
+The controls change the **start and length of two non-overlapping spans** in the fixed ten-token sequence. At each step, inspect the unmodified input, the removed tokens, the **one-sentinel-per-span encoder input**, and the decoder target containing the removed spans in original order followed by the final sentinel. For the default spans B–C and H–I, the encoder receives `A S0 D E F G S1 J` and the target is `S0 B C S1 H I S2`. The resulting 40% masked fraction is deliberately schematic; the T5 pre-training procedure typically corrupts around 15% of tokens. These strings are constructed, not actual decoder predictions (Raffel et al., 2020; see References).
+
 The encoder reads the corrupted input with bidirectional self-attention. The decoder generates the target sequence token by token, with causal self-attention and cross-attention to the encoder output. The loss is the usual cross-entropy on the target tokens.
 
 In span corruption, the paper drops 15% of input tokens and replaces each consecutive span of dropped tokens with one sentinel token. The target is the sequence of dropped spans, each preceded by its sentinel. This differs from the BERT-style masked language model. The target is the dropped spans rather than the masked tokens in place, and a decoder generates them.
