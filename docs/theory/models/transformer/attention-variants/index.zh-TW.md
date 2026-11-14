@@ -40,7 +40,7 @@ translation_reviewed: 2026-11-14
 
 ![寬度為四的因果注意力視窗在十二個 token 上滑動，同步標示帶狀注意力遮罩中目前查詢所在的列。](../../../../assets/concept-animations/sliding-window-mask-still.svg)
 
-*原創 CC BY-SA 4.0 教學視覺。橘色查詢位置與最多四個可存取鍵的位置同步移動；在此 12-token、視窗寬度為 4 的因果遮罩中，第 (t) 列只可讀取 (\max(1,t-3)\le j\le t) 的鍵，沒有全域 token。token 索引之間的平滑位移只是**視覺插值**，不代表存在小數索引的計算。[開啟 SVG 動畫](../../../../assets/concept-animations/sliding-window-mask-motion.svg)。在 MkDocs 網站可用**播放／暫停**（也支援 Enter／Space），並尊重減少動態效果設定。顏色及視窗大小皆為示意，不是效能實測值（Beltagy 等人，2020；見參考文獻）。*
+*原創 CC BY-SA 4.0 教學視覺。橘色查詢位置與最多四個可存取鍵的位置同步移動；在此 12-token、視窗寬度為 4 的因果遮罩中，第 \(t\) 列只可讀取 \(\max(1,t-3)\le j\le t\) 的鍵，沒有全域 token。token 索引之間的平滑位移只是**視覺插值**，不代表存在小數索引的計算。[開啟 SVG 動畫](../../../../assets/concept-animations/sliding-window-mask-motion.svg)。在 MkDocs 網站可用**播放／暫停**（也支援 Enter／Space），並尊重減少動態效果設定。顏色及視窗大小皆為示意，不是效能實測值（Beltagy 等人，2020；見參考文獻）。*
 
 ### 線性注意力
 
@@ -50,7 +50,7 @@ translation_reviewed: 2026-11-14
 
 ![四個因果特徵映射更新持續累積緊湊的狀態 S 與 z，輸出隨之改變，無須重新讀取過往全部的鍵與值。](../../../../assets/concept-animations/linear-attention-recurrence-still.svg)
 
-*原創 CC BY-SA 4.0 教學視覺。在因果、**已正規化的核線性注意力**中，(S_t=S_{t-1}+\phi(k_t)v_t^{\top})、(z_t=z_{t-1}+\phi(k_t))，而 (y_t=\phi(q_t)^{\top}S_t/(\phi(q_t)^{\top}z_t))（假設分母非零）。純量示例固定 (\phi(q_t)=1)，鍵為 ((1,2,1,2))、值為 ((1,0,3,2))，累積的 ((S_t,z_t,y_t)) 依序是 ((1,1,1))、((1,3,1/3))、((4,4,1))、((8,6,4/3))。這種方法**改變注意力核**，不是一般 softmax 注意力的數值等價實作；流動與轉場也是教學插值，非實際模型紀錄。[開啟 SVG 動畫](../../../../assets/concept-animations/linear-attention-recurrence-motion.svg)；MkDocs 提供鍵盤可操作的**播放／暫停**及減少動態效果的靜態回退（Katharopoulos 等人，2020；見參考文獻）。*
+*原創 CC BY-SA 4.0 教學視覺。在因果、**已正規化的核線性注意力**中，\(S_t=S_{t-1}+\phi(k_t)v_t^{\top}\)、\(z_t=z_{t-1}+\phi(k_t)\)，而 \(y_t=\phi(q_t)^{\top}S_t/(\phi(q_t)^{\top}z_t)\)（假設分母非零）。純量示例固定 \(\phi(q_t)=1\)，鍵為 \((1,2,1,2)\)、值為 \((1,0,3,2)\)，累積的 \((S_t,z_t,y_t)\) 依序是 \((1,1,1)\)、\((1,3,1/3)\)、\((4,4,1)\)、\((8,6,4/3)\)。這種方法**改變注意力核**，不是一般 softmax 注意力的數值等價實作；流動與轉場也是教學插值，非實際模型紀錄。[開啟 SVG 動畫](../../../../assets/concept-animations/linear-attention-recurrence-motion.svg)；MkDocs 提供鍵盤可操作的**播放／暫停**及減少動態效果的靜態回退（Katharopoulos 等人，2020；見參考文獻）。*
 
 ### IO 感知的精確注意力
 
