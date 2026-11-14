@@ -54,8 +54,8 @@ def run() -> None:
                     shap.locator('input[type=range]').fill('4')
                     assert '0.085 / 0.085' in shap.locator('svg').text_content()
                     if reduced:
-                        shap.locator('button').nth(2).click()
-                        assert shap.locator('button').nth(2).inner_text() in ('Play', '播放')
+                        assert shap.locator('button').nth(2).is_disabled()
+                        assert '減少動態' in shap.locator('button').nth(2).get_attribute('title') or 'reduced-motion' in shap.locator('button').nth(2).get_attribute('title')
                     else:
                         shap.locator('button').nth(2).click()
                         assert shap.locator('button').nth(2).inner_text() in ('Pause', '暫停')
