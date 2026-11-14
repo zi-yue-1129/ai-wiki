@@ -29,6 +29,9 @@ on:
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_evolution_motion_browser.py"
+      - "scripts/test_evolution_labs_browser.py"
+      - "docs/javascripts/evolution-labs.js"
+      - "docs/stylesheets/evolution-labs.css"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
@@ -86,6 +89,8 @@ jobs:
         run: python scripts/test_ssl_temporal_provenance_browser.py
       - name: Chromium GA and MAP-Elites bilingual playback and mobile scroll
         run: python scripts/test_evolution_motion_browser.py
+      - name: Chromium GA and MAP-Elites numerical interaction labs
+        run: python scripts/test_evolution_labs_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -99,6 +104,7 @@ jobs:
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
             artifacts/evolution-motion/*.png
+            artifacts/evolution-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 
