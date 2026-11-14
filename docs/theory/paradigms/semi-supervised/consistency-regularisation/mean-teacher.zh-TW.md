@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-15
 related:
   - theory/paradigms/semi-supervised/consistency-regularisation
   - theory/paradigms/semi-supervised/pseudo-labelling-and-self-training
@@ -39,6 +39,24 @@ J_{\text{cons}}(\theta) = \mathbb E_{x,\eta,\eta'}\Big[\big\|f(x;\theta,\eta) - 
 論文在大多數實驗中以 softmax 輸出的均方誤差作為一致性代價。ImageNet 則使用 KL 散度。總代價是有標籤樣本的分類代價與所有樣本之一致性代價的加權和。論文沒有給出單一的方程式。一致性權重在訓練初期逐步上升。對於 ConvNet，附錄 B.1 給出在 40,000 步內的 S 形升溫。第 3 節寫的是「前 80 個 epoch」，與附錄不一致，因此本頁採用附錄的值。
 
 每個步驟在同一批次上以不同雜訊計算學生與教師的輸出，計算損失，只對學生做一次梯度更新，然後以 EMA 更新教師。
+
+## 動態圖解：教師以 EMA 追隨學生，而非接收梯度
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Mean Teacher 權重平均動畫" tabindex="0">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/mean-teacher-ema-tracking-still.svg" data-motion-src="../../../../assets/concept-animations/mean-teacher-ema-tracking-motion.svg" alt="示意的學生單一權重在梯度更新後起伏，教師權重以 0.75 的指數移動平均係數平滑追隨，教師本身不接收梯度。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 藍線是假設的**學生單一參數**在第 0–4 步之數值：(0.15, 0.85, 0.35, 0.95, 0.50)。為讓效果易於觀察，故意使用較小的示意係數 **α=0.75**，教師從 0.15 開始，其 EMA 更新依序約為 (0.150, 0.325, 0.331, 0.486, 0.489)。移動游標展示教師如何**平滑且延遲追隨學生參數的變動**。步驟之間的連線只是視覺插值，**不是連續時間的梯度動力學**；實際實驗通常使用更大的 α。這是**人工數值，不是模型實測訓練曲線**。演算法中僅學生接收監督與一致性損失的梯度，教師則在學生更新**之後**以 EMA 更新權重。
+
+MkDocs 網站提供**播放／暫停**（支援鍵盤 Enter／Space），GitHub 及偏好減少動態效果的讀者可直接閱讀相同的靜態圖。[靜態預覽](../../../../assets/concept-animations/mean-teacher-ema-tracking-still.svg)。
+
+## 互動數值實驗：EMA 權重更新
+
+調整 α，逐步檢視固定的人工學生純量參數序列 **[0.15, 0.85, 0.35, 0.95, 0.50, 0.72]**；教師初始值為 0.15。每步重新計算 **teacher[t] = α · teacher[t−1] + (1−α) · student[t]**。使用上一步／下一步、播放／暫停、步驟滑桿、速度與重設，區分延遲的權重平均與梯度下降。**教師不接受梯度更新**。兩條曲線都是**人工純量示意**，不是實測權重軌跡，也不是輸出的一致性損失。
+
+<div class="semi-process-lab" data-kind="teacher" data-lang="zh">MkDocs 網站提供可調參數的實驗；GitHub 保留上方完整靜態 SVG。</div>
 
 ## 關鍵方法
 

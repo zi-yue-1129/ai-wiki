@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-15
 related:
   - theory/paradigms/semi-supervised/consistency-regularisation
   - theory/paradigms/semi-supervised/pseudo-labelling-and-self-training
@@ -39,6 +39,24 @@ Sohn 等人（2020）提出 FixMatch。論文結合了半監督學習中常見�
 這裡 \(H\) 是交叉熵，\(p_m\) 是模型預測的分布。總損失為 \(\ell_s + \lambda_u \ell_u\)。論文在方程式中把門檻判斷寫成 \(\ge \tau\)，在演算法方框中寫成 \(> \tau\)。本頁依循方程式。
 
 ImageNet 方面，論文使用 \(\tau = 0.7\) 與 \(\lambda_u = 10\)（附錄 C）。其他資料集使用 \(\tau = 0.95\)。
+
+## 動態圖解：信心門檻
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="FixMatch 信心門檻動畫" tabindex="0">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/fixmatch-confidence-gate-still.svg" data-motion-src="../../../../assets/concept-animations/fixmatch-confidence-gate-motion.svg" alt="兩筆未標記樣本的弱增強信心分別為 0.97、0.82，與 0.95 門檻比較，只有通過者的強增強視角參與交叉熵損失。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 沿著移動標記觀察弱增強視角的類別信心如何進入門檻判斷；**只有通過門檻，才會進入強增強視角的無監督交叉熵損失**。人工樣本 A 的最大預測信心是 **0.97**，因此保留硬偽標籤；人工樣本 B 為 **0.82**，低於示意門檻 **τ=0.95**，因此其無監督損失貢獻為零。兩列是不同的假設樣本，**不是同一樣本在訓練中逐漸提高信心**。數值及抽象影像皆為**教學示意，而非模型實測結果**。圖中只呈現無監督損失路徑，未畫出監督損失或完整訓練回合。
+
+MkDocs 網站可透過**播放／暫停**控制（鍵盤 Enter／Space）檢視兩條路徑；GitHub 及偏好減少動態效果時均可閱讀靜態版本。[靜態預覽](../../../../assets/concept-animations/fixmatch-confidence-gate-still.svg)。
+
+## 互動數值實驗：信心門檻
+
+調整弱視角信心、門檻 τ 與強視角對偽標籤的預測機率。使用上一步／下一步、播放／暫停、步驟滑桿、速度與重設，逐步檢查**有門檻的無監督交叉熵**。最後一步只有弱視角信心至少達到 τ 時，才計入 **−ln(p_strong)**，否則該樣本的無監督貢獻為**零**。機率為**人工指定，非模型實測**；實驗不執行影像增強、不重新決定偽標籤類別，也不包含監督損失。
+
+<div class="semi-process-lab" data-kind="fixmatch" data-lang="zh">MkDocs 網站提供可調參數的實驗；GitHub 保留上方完整靜態 SVG。</div>
 
 ## 關鍵方法
 

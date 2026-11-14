@@ -49,6 +49,24 @@ Here \(H\) is cross-entropy and \(p_m\) is the model's predicted distribution. T
 
 For ImageNet, the paper uses \(\tau = 0.7\) and \(\lambda_u = 10\) (Appendix C). The other datasets use \(\tau = 0.95\).
 
+## Visual walkthrough: the confidence gate
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="FixMatch confidence-gate animation" tabindex="0">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/fixmatch-confidence-gate-still.svg" data-motion-src="../../../../assets/concept-animations/fixmatch-confidence-gate-motion.svg" alt="Two unlabelled examples have weak-view confidence 0.97 and 0.82 against a 0.95 gate; only the accepted example contributes a strong-view cross-entropy loss." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* Follow the moving marker from the weak augmentation's class probability to the threshold, then to the strong-view loss **only if the gate passes**. Example A has a synthetic maximum weak-view probability of **0.97**, so its hard pseudo-label is used as a target for the strong view. Example B has **0.82**, below the illustrative **τ=0.95** gate, so its unsupervised contribution is zero. Both examples are different hypothetical inputs, not one sample improving during training. The numbers and abstract image blocks are **schematic, not trained-model measurements**. The diagram isolates the unsupervised loss, not the supervised loss or a full training iteration.
+
+On the MkDocs site, use **Play/Pause** (or Enter/Space on the control) to review the two paths. The static illustration remains readable on GitHub and when reduced motion is requested. [Static fallback](../../../../assets/concept-animations/fixmatch-confidence-gate-still.svg).
+
+## Interactive numerical lab: confidence gate
+
+Adjust weak-view confidence, threshold τ and strong-view pseudo-label probability. Step through the eligibility decision and the **masked unsupervised cross-entropy** using Previous/Next, Play/Pause, the seek slider, speed and Reset. At the final step, the sample contributes **−ln(p_strong)** when its weak-view confidence is at least τ, and **zero** otherwise. These probabilities are synthetic inputs, **not model measurements**; this lab does not run augmentations, recompute the pseudo-label class or include supervised loss.
+
+<div class="semi-process-lab" data-kind="fixmatch" data-lang="en">The adjustable lab runs on MkDocs. GitHub retains the complete static SVG preview above.</div>
+
 ## Key methods
 
 ### FixMatch: Simplifying Semi-Supervised Learning with Consistency and Confidence (Sohn et al., 2020)
