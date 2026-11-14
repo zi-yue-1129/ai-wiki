@@ -49,6 +49,24 @@ with sync_playwright() as p:
                 assert 'B C' in page.locator('#t5 .td-state').inner_text()
                 page.locator('#t5 .td-seek').fill('3')
                 assert page.locator('#t5 [data-lane="Target"]').count()==1
+                # Keyboard step control, active playback speed and pause all remain operable.
+                seek = page.locator('#t5 .td-seek')
+                seek.fill('1')
+                seek.focus()
+                page.keyboard.press('ArrowRight')
+                expected_step = 'Construct encoder input' if lang == 'en' else '組成編碼器輸入'
+                assert expected_step in page.locator('#t5 .td-state').inner_text()
+                page.locator('#t5 [data-action="play"]').click()
+                assert (page.locator('#t5 [data-action="play"]').inner_text() == ('Pause' if lang == 'en' else '暫停'))
+                page.locator('#t5 .td-speed').select_option('0.5')
+                assert (page.locator('#t5 [data-action="play"]').inner_text() == ('Pause' if lang == 'en' else '暫停'))
+                page.locator('#t5 [data-action="play"]').click()
+                assert (page.locator('#t5 [data-action="play"]').inner_text() == ('Play' if lang == 'en' else '播放'))
+                # Swapping the teacher's fixed hard label changes CE(DIST), not student logits.
+                page.locator('#deit .td-params select').select_option('A')
+                assert 'CE(DIST) 0.511' in page.locator('#deit .td-state').inner_text()
+                page.locator('#deit .td-seek').fill('4')
+                assert 'Avg heads' in page.locator('#deit svg').text_content()
                 if width in (320,1024) and not reduce:
                     page.screenshot(path=str(OUT/f'{lang}-{width}.png'), full_page=True)
                 page.close();count+=1
