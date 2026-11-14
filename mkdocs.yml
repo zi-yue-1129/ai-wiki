@@ -1098,6 +1098,7 @@ extra_javascript:
   - javascripts/distributed-motion-controls.js
   - javascripts/distributed-parameter-explorers.js
   - javascripts/distributed-computation-probes.js
+  - javascripts/video-architecture-labs.js
   - javascripts/zoom.js
   - javascripts/mathjax.js
   - javascripts/knowledge-map.js
@@ -1114,6 +1115,7 @@ extra_css:
   - stylesheets/distributed-motion-controls.css
   - stylesheets/distributed-parameter-explorers.css
   - stylesheets/distributed-computation-probes.css
+  - stylesheets/video-architecture-labs.css
   - stylesheets/zoom.css
   - stylesheets/extra.css
 
