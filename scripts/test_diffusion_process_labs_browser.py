@@ -44,6 +44,14 @@ def exercise():
                     assert float(video.locator('[data-role="metrics"] strong').nth(1).inner_text())>0
                     video.locator('[data-action="reset"]').click()
                     assert video.locator('[data-role="alpha-out"]').inner_text()=='0.05'
+                    # Native range slider keyboard access: ArrowRight advances one discrete step.
+                    alpha_slider=video.locator('[data-role="alpha"]')
+                    alpha_slider.focus()
+                    page.keyboard.press('ArrowRight')
+                    assert video.locator('[data-role="alpha-out"]').inner_text()=='0.15'
+                    video.locator('[data-action="reset"]').focus()
+                    page.keyboard.press('Enter')
+                    assert video.locator('[data-role="alpha-out"]').inner_text()=='0.05'
                     latent.locator('[data-role="seek"]').fill('8')
                     assert '16:1' in latent.locator('[data-role="metrics"]').inner_text()
                     assert '16' in latent.locator('[data-role="metrics"]').inner_text()
