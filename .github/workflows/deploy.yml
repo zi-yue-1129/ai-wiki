@@ -27,7 +27,15 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
+      - name: Test asset URL handling
+        run: |
+          python scripts/test_built_asset_urls.py
+          python scripts/test_source_asset_urls.py
       - run: mkdocs build --strict
+      - name: Verify built asset URLs
+        run: |
+          site_url="$(python -c 'from mkdocs.config import load_config; print(load_config()["site_url"])')"
+          python scripts/verify_built_asset_urls.py --site-dir site --site-url "$site_url"
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
