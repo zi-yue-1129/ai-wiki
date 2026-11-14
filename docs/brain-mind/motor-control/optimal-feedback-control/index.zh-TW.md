@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 tags:
 - motor control
 - optimal control
@@ -80,5 +80,5 @@ Todorov 與 Jordan（2002）把運動協調視為隨機最優回饋控制。控�
 ### 綜述與教科書
 
 - Todorov, E. (2004). Optimality principles in sensorimotor control. *Nature Neuroscience*, 7(9), 907–915。https://doi.org/10.1038/nn1309 — 討論感覺運動控制中的最優性原理，這是最優回饋控制所依據的框架。
-- Scott, S. H. (2004). Optimal feedback control and the neural basis of volitional motor control. *Nature Reviews Neuroscience*. https://doi.org/10.1038/nrn1427 — 討論最優回饋控制及其在自主運動中的神經基礎。
-- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience*. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧感覺預測誤差如何驅動運動適應，並使前向模型保持校準。
+- Scott, S. H. (2004). Optimal feedback control and the neural basis of volitional motor control. *Nature Reviews Neuroscience* 5, 532–545. https://doi.org/10.1038/nrn1427 — 討論最優回饋控制及其在自主運動中的神經基礎。
+- Shadmehr, R., Smith, M. A. & Krakauer, J. W. (2010). Error correction, sensory prediction, and adaptation in motor control. *Annual Review of Neuroscience* 33, 89–108. https://doi.org/10.1146/annurev-neuro-060909-153135 — 回顧感覺預測誤差如何驅動運動適應，並使前向模型保持校準。

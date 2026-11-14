@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/models/mixture-of-experts
   - engineering/inference-optimization
@@ -39,7 +39,7 @@ The method keeps the non-expert parts of the model and a cache of experts on the
 
 ## Results
 
-The abstract reports that the strategy allows Mixtral-8x7B to run with mixed quantisation on desktop hardware. It also notes that MoE models generate tokens faster than dense counterparts of the same size, because only some layers are active for an input. The abstract does not give specific speed figures, so this page reports none. A reader who needs them should measure the method on the target hardware, with its cache size and quantisation.
+The abstract reports that the strategy allows Mixtral-8x7B to run with mixed quantisation on desktop hardware and on free-tier Google Colab instances. The abstract does not give specific speed figures, so this page reports none. A reader who needs them should measure the method on the target hardware, with its cache size and quantisation.
 
 ## Limitations
 
@@ -68,4 +68,4 @@ The abstract reports that the strategy allows Mixtral-8x7B to run with mixed qua
 - Shazeer, N. et al. (2017). *Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*. arXiv:1701.06538. https://arxiv.org/abs/1701.06538 — The sparsely gated layer whose unused experts offloading keeps off the device.
 - Rajbhandari, S. et al. (2022). *DeepSpeed-MoE: Advancing Mixture-of-Experts Inference and Training to Power Next-Generation AI Scale*. arXiv:2201.05596. https://arxiv.org/abs/2201.05596 — A compression-plus-system alternative for serving MoE models.
 - Lepikhin, D. et al. (2020). *GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding*. arXiv:2006.16668. https://arxiv.org/abs/2006.16668 — The sharding alternative that keeps experts on many devices.
-- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. Journal of Machine Learning Research. arXiv:2101.03961. https://arxiv.org/abs/2101.03961 — Top-1 routing, which limits how many experts each token needs.
+- Fedus, W., Zoph, B. & Shazeer, N. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity*. Journal of Machine Learning Research 23(120):1–39. arXiv:2101.03961. https://arxiv.org/abs/2101.03961 — Top-1 routing, which limits how many experts each token needs.

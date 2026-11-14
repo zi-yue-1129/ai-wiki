@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/probabilistic/uncertainty-calibration
 tags:
@@ -51,14 +51,15 @@ and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 20
 
 - **Split conformal** uses one calibration set, which is the simplest and most common form.
 - **Full conformal** refits the model for each candidate label, which is more expensive but uses the data more efficiently.
-- **Adaptive scores** change the nonconformity measure so that the sets are smaller where the model is confident.
+- **Adaptive scores** change the nonconformity measure so that the sets are smaller where the model is confident. Conformalized quantile regression (Romano et al., 2019) is a widely used example for intervals.
+- **Weighted calibration** reweights the calibration data to handle a known covariate shift (Tibshirani et al., 2019).
 
 ## Results and limits
 
 - The coverage guarantee holds in finite samples under exchangeability, without assumptions on the model. This is the main attraction of the method.
 - The guarantee is marginal. Coverage can be too high for some inputs and too low for others, including subgroups, which matters for fairness and medical use.
 - Set size depends on the quality of the underlying model. A poor model gives large, uninformative sets that still satisfy the guarantee.
-- Under distribution shift, the exchangeability assumption fails, and the guarantee no longer holds without adjustment.
+- Under distribution shift, the exchangeability assumption fails, and the guarantee no longer holds without adjustment. Barber et al. (2023) bound the loss of coverage when exchangeability is relaxed.
 
 ## Applications
 
@@ -76,6 +77,11 @@ and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 20
 
 ### Seminal papers
 
+- Vovk, V., Gammerman, A. & Shafer, G. (2005). *Algorithmic Learning in a Random World*. Springer. https://doi.org/10.1007/b106715 — Foundational book on conformal prediction and its validity theory.
+- Romano, Y., Patterson, E. & Candès, E. J. (2019). Conformalized quantile regression. In *Advances in Neural Information Processing Systems* 32. arXiv:1905.03222. https://arxiv.org/abs/1905.03222 — Combines quantile regression with split conformal calibration for adaptive intervals.
+- Tibshirani, R. J., Foygel Barber, R., Candès, E. J. & Ramdas, A. (2019). Conformal prediction under covariate shift. In *Advances in Neural Information Processing Systems* 32. arXiv:1904.06019. https://arxiv.org/abs/1904.06019 — Extends conformal coverage to known covariate shift by weighting.
+- Bates, S., Angelopoulos, A., Lei, L., Malik, J. & Jordan, M. (2021). Distribution-free, risk-controlling prediction sets. *Journal of the ACM* 68(6). https://doi.org/10.1145/3478535 — Extends distribution-free set guarantees to general risk control.
+- Barber, R. F., Candès, E. J., Ramdas, A. & Tibshirani, R. J. (2023). Conformal prediction beyond exchangeability. *The Annals of Statistics* 51(2), 816–845. https://doi.org/10.1214/23-aos2276 — Gives coverage bounds when exchangeability is relaxed.
 - Lei, J., G'Sell, M., Rinaldo, A., Tibshirani, R. J. & Wasserman, L. (2018). Distribution-free predictive inference for regression. *Journal of the American Statistical Association* 113(523), 1094–1111. https://doi.org/10.1080/01621459.2017.1307116 — Gives distribution-free prediction intervals for regression using split conformal methods.
 - Shafer, G. & Vovk, V. (2008). A tutorial on conformal prediction. *Journal of Machine Learning Research* 9. https://www.jmlr.org/papers/v9/shafer08a.html — Tutorial introducing the framework and its validity guarantees.
 
@@ -83,4 +89,4 @@ and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 20
 
 - Angelopoulos, A. N. & Bates, S. (2023). Conformal prediction: a gentle introduction. *Foundations and Trends in Machine Learning* 16(4), 494–591. https://doi.org/10.1561/2200000101 — Gentle introduction to conformal methods, including split and adaptive variants.
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — Documents the miscalibration of neural classifiers that motivates calibrated uncertainty alongside coverage guarantees.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; background on predictive uncertainty and intervals.
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Repository for Murphy's textbook series; background on predictive uncertainty and intervals.

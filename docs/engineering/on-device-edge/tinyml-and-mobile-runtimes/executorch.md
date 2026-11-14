@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - engineering/on-device-edge
   - engineering/frameworks
@@ -17,10 +16,10 @@ aliases:
 
 # ExecuTorch
 
+ExecuTorch is PyTorch's runtime for on-device inference. A PyTorch model is exported ahead of time to a compact program, which a small runtime loads and runs on the device through pluggable backends. The official documentation states three design goals: portability, performance and productivity. It describes portability as running "from high-end mobile to constrained microcontrollers."
+
 !!! info "Part of TinyML and Mobile Runtimes"
     This method page belongs to [TinyML and Mobile Runtimes](index.md). It explains ExecuTorch in detail; the parent page compares it with the other runtimes.
-
-ExecuTorch is PyTorch's runtime for on-device inference. A PyTorch model is exported ahead of time to a compact program, which a small runtime loads and runs on the device through pluggable backends. The official documentation states three design goals: portability, performance and productivity. Its backends include XNNPACK for CPUs, Core ML and Vulkan for GPUs, Qualcomm and MediaTek NPUs, and Arm Ethos-U and Cortex-M targets for microcontrollers.
 
 ## Problem
 
@@ -28,15 +27,19 @@ A team that trains in PyTorch needs to ship the same model to phones, laptops an
 
 ## Core idea
 
-Export the model with PyTorch's ahead-of-time tools into a graph that the runtime can execute without the Python interpreter. Lower the graph to the backend for the target device, which keeps the parts it supports and leaves the rest on a portable default. The runtime is small and has no dependency on a large framework, which suits devices with little memory.
+Export the model with PyTorch's ahead-of-time tools into a graph that the runtime can execute without the Python interpreter. Lower the graph to the backend for the target device, which keeps the parts that backend supports and leaves the rest on a portable default. The runtime is small and has no dependency on a large framework, which suits devices with little memory. The official documentation describes the runtime as offering hardware acceleration across CPU, GPU, NPU and DSP targets.
 
 ## Procedure
 
 1. Write and train the model in PyTorch.
-2. Export the model with the ahead-of-time tools, so that the graph is fixed.
+2. Export the model with the ahead-of-time tools, so that the graph is fixed. The export builds on the graph capture described in [torch.compile and TorchInductor](../../frameworks/compilers-and-kernels/torch-compile.md).
 3. Lower the exported graph to one or more backends for the target device.
 4. Serialise the program to a file that the device runtime loads.
 5. Run the program on the device and check its outputs against the PyTorch model.
+
+## Backends
+
+The official documentation lists a set of backends. Their names include XNNPACK, Core ML, Vulkan, Qualcomm AI Engine, MediaTek, OpenVINO, Arm Ethos-U and Arm Cortex-M. The documentation does not state the target hardware for every backend, so the backend page should be checked before a deployment relies on one.
 
 ## Results
 
@@ -64,11 +67,12 @@ The official documentation describes the design goals, the backends and the depl
 
 ### Seminal papers
 
+- Ansel, J. et al. (2024). *PyTorch 2: Faster Machine Learning Through Dynamic Python Bytecode Transformation and Graph Compilation*. ASPLOS 2024. https://doi.org/10.1145/3620665.3640366 — Describes the graph capture and compilation design that PyTorch's export tools build on.
 - Jacob, B. et al. (2017). *Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference*. arXiv:1712.05877. https://arxiv.org/abs/1712.05877 — Integer quantisation, which several ExecuTorch backends use for NPUs and microcontrollers.
-- Lin, J. et al. (2020). *MCUNet: Tiny Deep Learning on IoT Devices*. NeurIPS 2020. arXiv:2007.10319. https://arxiv.org/abs/2007.10319 — The microcontroller case, which the Cortex-M and Ethos-U backends address from the runtime side.
+- Lin, J. et al. (2020). *MCUNet: Tiny Deep Learning on IoT Devices*. arXiv:2007.10319. https://arxiv.org/abs/2007.10319 — The microcontroller case, which the Arm Cortex-M backend addresses from the runtime side.
 
 ### Articles and documentation
 
 - PyTorch. *ExecuTorch documentation*. https://docs.pytorch.org/executorch/stable/index.html — The official documentation of the runtime, its design goals, its backends and its deployment steps.
 - PyTorch. *torch.compiler: Compiling PyTorch models*. https://docs.pytorch.org/docs/2.14/user_guide/torch_compiler/torch.compiler.html — The PyTorch compiler documentation, which covers the graph capture that export builds on.
-- Google. *LiteRT: On-device AI runtime*. https://developers.google.com/edge/litert — The alternative mobile runtime, for comparison with ExecuTorch's backend model.
+- Google. *LiteRT: High-Performance On-Device Machine Learning Framework*. https://developers.google.com/edge/litert — The alternative mobile runtime, for comparison with ExecuTorch's backend model.

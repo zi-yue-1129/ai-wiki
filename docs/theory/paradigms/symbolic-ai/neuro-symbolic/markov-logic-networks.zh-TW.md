@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 ---
 
 # 馬可夫邏輯網路
@@ -16,6 +16,7 @@ translation_reviewed: 2026-10-28
 - **基底化（grounding）**：把物件的每種組合代入公式，得到命題公式。MLN 在基底化的原子上定義一個馬可夫網路。
 - **可能世界**：對所有基底化原子的真值指派。
 - **硬約束與軟約束**：權重為無限大的公式，必須在任何機率非零的世界中成立；有限權重則為軟約束。
+- **基底馬可夫網路**：對所有物件基底化全部公式所得到的馬可夫網路。其節點是基底原子，每個基底化的公式對其原子貢獻一個因子。
 
 ## 運作方式
 
@@ -63,4 +64,4 @@ P(X=x)=\frac{1}{Z}\exp\!\Big(\sum_i w_i\, n_i(x)\Big),
 ### 綜述與教科書
 
 - Garcez, A. d'A. & Lamb, L. C. (2023). Neurosymbolic AI: the 3rd wave. *Artificial Intelligence Review* 56(11), 12387–12406. https://doi.org/10.1007/s10462-023-10448-w — 把馬可夫邏輯網路置於神經符號研究的脈絡中。
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；提供 MLN 所用的馬可夫網路與近似推論背景。
+- Domingos, P. & Lowd, D. (2009). *Markov Logic: An Interface Layer for Artificial Intelligence*. Synthesis Lectures on Artificial Intelligence and Machine Learning. https://doi.org/10.2200/S00206ED1V01Y200907AIM007 — 馬可夫邏輯的短篇專著，涵蓋其語意、推論與權重學習。

@@ -72,6 +72,6 @@ translation_reviewed: 2026-10-29
 
 ### 綜述與教科書
 
-- Wainwright, M. J. & Jordan, M. I. (2008). Graphical models, exponential families, and variational inference. *Foundations and Trends in Machine Learning*. https://nowpublishers.com/article/Details/MAL-001 — 把訊息傳遞與變分近似連結起來。
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋樹與迴路圖上的信念傳播。
+- Wainwright, M. J. & Jordan, M. I. (2008). Graphical models, exponential families, and variational inference. *Foundations and Trends in Machine Learning*. https://doi.org/10.1561/2200000001 — 把訊息傳遞與變分近似連結起來。
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Murphy 教科書系列的儲存庫；涵蓋樹與迴路圖上的信念傳播。
 - Lauritzen, S. L. & Spiegelhalter, D. J. (1988). Local computations with probabilities on graphical structures and their application to expert systems. *Journal of the Royal Statistical Society, Series B* 50(2), 157–194. https://doi.org/10.1111/j.2517-6161.1988.tb01721.x — 在接合樹上的局部計算，是訊息傳遞精確推論的對應方法。

@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai/neuro-symbolic
   - theory/paradigms/probabilistic/graphical-models
@@ -28,6 +27,7 @@ Classical logic treats a formula as true or false, so one counter-example makes 
 - **Grounding**: substituting every combination of objects into a formula to get a propositional formula. The MLN defines a Markov network over the grounded atoms.
 - **Possible world**: an assignment of truth values to all grounded atoms.
 - **Hard and soft constraints**: a formula with infinite weight must hold in every world with non-zero probability. Finite weights make it a soft constraint.
+- **Ground Markov network**: the Markov network obtained by grounding all formulas over the objects. Its nodes are ground atoms, and each grounded formula contributes a factor over its atoms.
 
 ## How it works
 
@@ -75,4 +75,4 @@ where \(Z\) is the normalising partition function. Learning the weights from dat
 ### Surveys and textbooks
 
 - Garcez, A. d'A. & Lamb, L. C. (2023). Neurosymbolic AI: the 3rd wave. *Artificial Intelligence Review* 56(11), 12387–12406. https://doi.org/10.1007/s10462-023-10448-w — Places Markov logic networks within neuro-symbolic research.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; background on Markov networks and approximate inference used by MLNs.
+- Domingos, P. & Lowd, D. (2009). *Markov Logic: An Interface Layer for Artificial Intelligence*. Synthesis Lectures on Artificial Intelligence and Machine Learning. https://doi.org/10.2200/S00206ED1V01Y200907AIM007 — Short monograph on Markov logic, covering its semantics, inference and weight learning.

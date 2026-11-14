@@ -13,7 +13,7 @@ related:
 | Task | Output | Representative models |
 |---|---|---|
 | Image classification | Class | ResNet, EfficientNet, ViT, ConvNeXt |
-| [Object detection](object-detection/index.md) | Boxes + classes | Faster R-CNN, YOLO family, DETR, RT-DETR |
+| [Object detection](object-detection/index.md) | Boxes + classes | [Faster R-CNN](object-detection/faster-r-cnn.md), [YOLO](object-detection/yolo.md), [RetinaNet](object-detection/retinanet.md), [DETR](object-detection/detr.md), RT-DETR |
 | [Semantic / instance / panoptic segmentation](segmentation/index.md) | Per-pixel labels | U-Net, Mask R-CNN, Mask2Former |
 | Promptable segmentation | Masks for any object | SAM, SAM 2 (video) |
 | Open-vocabulary detection | Find objects described in text | Grounding DINO, OWL-ViT |
@@ -66,7 +66,7 @@ Yamins et al. (2014) found that CNNs that perform better at object recognition a
 
 ## Deeper pages
 
-Two areas have their own chapters. [3D vision and neural rendering](3d-and-neural-rendering/index.md) covers NeRF and Gaussian splatting, and [video understanding and generation](video/index.md) covers I3D, ViViT and video diffusion.
+Two areas have their own chapters. [3D vision and neural rendering](3d-and-neural-rendering/index.md) covers NeRF and Gaussian splatting, and [video understanding and generation](video/index.md) covers I3D, ViViT and video diffusion. The segmentation methods [FCN](segmentation/fcn.md), [U-Net](../cnn/unet/index.md), [Mask R-CNN](segmentation/mask-r-cnn.md) and [Segment Anything](segmentation/segment-anything.md) each have their own page, compared on the [Image segmentation](segmentation/index.md) overview.
 
 ## Applications
 

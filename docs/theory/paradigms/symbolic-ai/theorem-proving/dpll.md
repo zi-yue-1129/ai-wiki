@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai/theorem-proving
 tags:
@@ -51,9 +50,9 @@ On MkDocs, use **Play/Pause** or keyboard activation; GitHub readers can open th
 
 ## Variants
 
-- **Conflict-driven clause learning (CDCL)** analyses each conflict, learns a new clause that prevents the same conflict, and backjumps. Modern SAT solvers are built on it.
+- **Conflict-driven clause learning (CDCL)** analyses each conflict, learns a new clause that prevents the same conflict, and backjumps (Marques-Silva & Sakallah, 1999; Moskewicz et al., 2001). Modern SAT solvers are built on it.
 - **Restarts** discard the search tree and start again with learned information, which helps against heavy-tailed search times.
-- **Watched literals** is a data structure that makes unit propagation fast by inspecting only two literals per clause.
+- **Watched literals** is a data structure that makes unit propagation fast by inspecting only two literals per clause (Moskewicz et al., 2001).
 
 ## Results and limits
 
@@ -79,6 +78,8 @@ On MkDocs, use **Play/Pause** or keyboard activation; GitHub readers can open th
 
 - Davis, M. & Putnam, H. (1960). A computing procedure for quantification theory. *Journal of the ACM* 7(3), 201–215. https://doi.org/10.1145/321033.321034 — Introduces the resolution-based procedure from which DPLL descends.
 - Davis, M., Logemann, G. & Loveland, D. (1962). A machine program for theorem-proving. *Communications of the ACM* 5(7), 394–397. https://doi.org/10.1145/368273.368557 — Gives the backtracking procedure with unit propagation, the DPLL algorithm.
+- Marques-Silva, J. P. & Sakallah, K. A. (1999). GRASP: a search algorithm for propositional satisfiability. *IEEE Transactions on Computers* 48(5), 506–521. https://doi.org/10.1109/12.769433 — Introduces conflict-driven clause learning with non-chronological backtracking.
+- Moskewicz, M. W., Madigan, C. F., Zhao, Y., Zhang, L. & Malik, S. (2001). Chaff: engineering an efficient SAT solver. In *Proceedings of the 38th Design Automation Conference*, 530–535. https://doi.org/10.1145/378239.379017 — Describes the Chaff solver, which made the two-watched-literal scheme and clause learning efficient in practice.
 - Robinson, J. A. (1965). A machine-oriented logic based on the resolution principle. *Journal of the ACM* 12(1), 23–41. https://doi.org/10.1145/321250.321253 — Introduces resolution, the rule on which resolution-based proof traces are built.
 
 ### Surveys and textbooks

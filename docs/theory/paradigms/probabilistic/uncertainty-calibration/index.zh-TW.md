@@ -8,7 +8,7 @@ translation_reviewed: 2026-10-28
 
 ## 概述
 
-一個說「90% 有把握」的模型，在以這種把握程度做出的預測中，應該大約有九成是對的。現代神經網路常常無法通過這項檢驗：它們準確，但過度自信。通常會區分兩種不確定性。**偶然性（aleatoric）**不確定性來自資料中的雜訊，無法靠更多資料消除。**認知性（epistemic）**不確定性來自模型缺乏的知識，會隨資料增加而縮小。不確定性方法通常處理其中一種或兩種。
+一個說「90% 有把握」的模型，在以這種把握程度做出的預測中，應該大約有九成是對的。現代神經網路常常無法通過這項檢驗：它們準確，但過度自信。通常會區分兩種不確定性。**偶然性（aleatoric）**不確定性來自資料中的雜訊，無法靠更多資料消除。**認知性（epistemic）**不確定性來自模型缺乏的知識，會隨資料增加而縮小。不確定性方法通常處理其中一種或兩種（Hüllermeier 與 Waegeman，2021）。
 
 ## 關鍵概念
 
@@ -29,6 +29,15 @@ translation_reviewed: 2026-10-28
 - [溫度縮放](temperature-scaling.md)：以單一參數重新縮放 logits 以修正過度自信。
 - [深度集成](deep-ensembles.md)：獨立訓練多個網路並平均其預測。
 - [期望校準誤差](expected-calibration-error.md)：以分箱方式衡量校準偏差。
+
+## 主要方法比較
+
+| 方法 | 針對的目標 | 是否需要重新訓練 | 保證 | 主要成本 |
+|---|---|---|---|---|
+| [溫度縮放](temperature-scaling.md) | 信心校準 | 否，在保留資料上擬合 | 僅在擬合資料上的校準 | 一個參數與一組保留資料 |
+| [深度集成](deep-ensembles.md) | 預測分散與校準 | 是，每個成員都要訓練 | 無正式保證 | 訓練與推論成本約為數倍 |
+| [共形預測](conformal-prediction.md) | 預測集合的覆蓋率 | 否，可包裝任何預測器 | 在可交換性下的邊際覆蓋 | 校準集；弱模型會得到較大的集合 |
+| 以 dropout 為基礎的貝氏近似（Gal 與 Ghahramani，2016） | 認知性不確定性 | 是，以 dropout 訓練 | 近似，無覆蓋保證 | 數次隨機前向傳播 |
 
 ## 與其他頁面的連結
 
@@ -52,6 +61,7 @@ translation_reviewed: 2026-10-28
 
 ### 奠基性論文
 
+- Kendall, A. & Gal, Y. (2017). What uncertainties do we need in Bayesian deep learning for computer vision? In *Advances in Neural Information Processing Systems* 30. arXiv:1703.04977. https://arxiv.org/abs/1703.04977 — 在深度視覺模型中區分偶然性與認知性不確定性，並將兩者合併。
 - Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. *Monthly Weather Review* 78(1), 1–3. https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2 — 提出 Brier 分數，即機率預測的適當評分規則。
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). On calibration of modern neural networks. In *Proceedings of the 34th International Conference on Machine Learning*, PMLR 70. https://proceedings.mlr.press/v70/guo17a.html — 顯示現代網路校準不佳，並以溫度縮放加以修正。
 - Lakshminarayanan, B., Pritzel, A. & Blundell, C. (2017). Simple and scalable predictive uncertainty estimation using deep ensembles. In *Advances in Neural Information Processing Systems* 30. https://proceedings.neurips.cc/paper/2017/hash/9ef2ed4b7fd2c810847ffa5fa85bce38-Abstract.html — 提出以深度集成估計預測不確定性的可擴展方法。
@@ -59,6 +69,8 @@ translation_reviewed: 2026-10-28
 
 ### 綜述與教科書
 
+- Hüllermeier, E. & Waegeman, W. (2021). Aleatoric and epistemic uncertainty in machine learning: an introduction to concepts and methods. *Machine Learning* 110(3), 457–506. https://doi.org/10.1007/s10994-021-05946-3 — 綜述偶然性與認知性的區分及其量測方式。
+- Abdar, M., Pourpanah, F., Hussain, S., Rezazadegan, D. et al. (2021). A review of uncertainty quantification in deep learning: techniques, applications and challenges. *Information Fusion* 76, 243–297. https://doi.org/10.1016/j.inffus.2021.05.008 — 深度網路不確定性量化方法與應用的廣泛綜述。
 - DeGroot, M. H. & Fienberg, S. E. (1983). The comparison and evaluation of forecasters. *The Statistician* 32(1/2), 12–22. https://doi.org/10.2307/2987588 — 定義機率預測的校準，並分解預測分數。
 - Gal, Y. & Ghahramani, Z. (2016). Dropout as a Bayesian approximation: representing model uncertainty in deep learning. In *Proceedings of the 33rd International Conference on Machine Learning*, PMLR 48. https://proceedings.mlr.press/v48/gal16.html — 把 dropout 解釋為近似貝氏推論，以估計模型不確定性。
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋校準、適當評分規則與貝氏不確定性。
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Murphy 教科書系列的儲存庫；涵蓋校準、適當評分規則與貝氏不確定性。

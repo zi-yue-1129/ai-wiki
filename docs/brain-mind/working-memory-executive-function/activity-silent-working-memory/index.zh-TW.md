@@ -1,7 +1,7 @@
 ---
-translation_reviewed: 2026-10-28
-status: draft
-last_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
+status: complete
+last_reviewed: 2026-11-04
 related:
 - brain-mind/memory-learning
 tags:
@@ -38,7 +38,7 @@ aliases:
 
 這個觀點包含兩個相互連結的想法。
 
-1. **突觸儲存。** Mongillo 等人（2008）提出，工作記憶是由新皮質網路遞迴連結中、鈣介導的突觸易化所維持。突觸前的殘餘鈣作為緩衝。放電會裝載、刷新並讀出這個緩衝。由於鈣的衰減很慢，刷新可以不頻繁，因此此機制兼具代謝效率與穩健性。
+1. **突觸儲存。** Mongillo 等人（2008）提出，工作記憶是由新皮質網路遞迴連結中、鈣介導的突觸易化所維持。突觸前的殘餘鈣作為緩衝。放電會裝載、刷新並讀出這個緩衝。由於鈣的衰減很慢，刷新可以不頻繁。
 2. **動態隱藏狀態。** Stokes（2015）回顧活動靜默神經狀態的證據，並提出動態編碼框架，認為記憶編碼於連結模式之中。Wolff 等人（2017）報告了工作記憶引導行為中隱藏狀態的證據。
 
 ## 方程式或演算法
@@ -48,13 +48,12 @@ aliases:
 1. 某個群體的短暫放電會把殘餘鈣裝載進其遞迴突觸，使該群體內部的連結增強。
 2. 在兩次刷新之間，鈣緩慢衰減，因此突觸易化以及它所編碼的記憶得以在沒有持續放電的情況下延續。
 3. 以放電進行的刷新會讀出記憶並重新裝載鈣。
-4. 自發的背景活動決定記憶能持續多久、有多穩定。
 
 這些步驟描述的是簡化模型。其他隱藏狀態機制也有可能，而 Stokes（2015）更一般地討論活動靜默狀態。
 
 ## 結果
 
-- **突觸模型。** Mongillo 等人（2008）提出，突觸記憶可以在低刷新率下維持，且其持續時間可由背景活動控制。作者將此機制描述為穩健且代謝有效率。
+- **突觸模型。** Mongillo 等人（2008）提出，記憶可由鈣介導的突觸易化維持，並由放電刷新。本頁不摘要該論文的定量結果，請直接參閱原文。
 
 ## 限制
 
@@ -78,18 +77,22 @@ aliases:
 ## 未解問題
 
 - **在某個任務中，是哪一種機制保存記憶？** 突觸儲存、動態隱藏狀態與持續放電都有支持證據。有利於各者的條件尚不清楚。
-- **隱藏狀態如何被再活化？** Mongillo 等人（2008）描述以放電刷新，並由背景活動決定記憶持續多久。其他觸發因素，例如刺激或注意力，其角色是開放問題。
+- **隱藏狀態如何被再活化？** Mongillo 等人（2008）描述以放電刷新。其他觸發因素，例如刺激或注意力，其角色是開放問題。
 - **儲存與容量有何關係？** 活動靜默儲存能否解釋 Cowan（2001）與 Ma 等人（2014）所報告的容量限制，是開放問題。
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Mongillo, G., Barak, O. & Tsodyks, M. (2008). Synaptic theory of working memory. *Science*. https://doi.org/10.1126/science.1150769 — 提出工作記憶由鈣介導的突觸易化維持，並由放電刷新。
-- Wolff, M. J., Jochim, J., Akyürek, E. G. & Stokes, M. G. (2017). Dynamic hidden states underlying working-memory-guided behavior. *Nature Neuroscience*. https://doi.org/10.1038/nn.4546 — 報告工作記憶引導行為中隱藏狀態的證據。
-- Compte, A. et al. (2000). Synaptic mechanisms and network dynamics underlying spatial working memory in a cortical network model. *Cerebral Cortex*. https://doi.org/10.1093/cercor/10.9.910 — 以持續活動維持空間工作記憶的皮質網路模型。
+- Mongillo, G., Barak, O. & Tsodyks, M. (2008). Synaptic theory of working memory. *Science* 319, 1543–1546. https://doi.org/10.1126/science.1150769 — 提出工作記憶由鈣介導的突觸易化維持，並由放電刷新。
+- Wolff, M. J., Jochim, J., Akyürek, E. G. & Stokes, M. G. (2017). Dynamic hidden states underlying working-memory-guided behavior. *Nature Neuroscience* 20, 864–871. https://doi.org/10.1038/nn.4546 — 報告工作記憶引導行為中隱藏狀態的證據。
+- Compte, A. et al. (2000). Synaptic mechanisms and network dynamics underlying spatial working memory in a cortical network model. *Cerebral Cortex* 10, 910–923. https://doi.org/10.1093/cercor/10.9.910 — 以持續活動維持空間工作記憶的皮質網路模型。
+
+- Funahashi, S., Bruce, C. J. & Goldman-Rakic, P. S. (1989). Mnemonic coding of visual space in the monkey's dorsolateral prefrontal cortex. *Journal of Neurophysiology* 61, 331–349. https://doi.org/10.1152/jn.1989.61.2.331 — 記錄猴子背外側前額葉在延遲期的活動，是突觸觀點所對照的持續放電證據。
 
 ### 綜述與教科書
 
-- Stokes, M. G. (2015). 'Activity-silent' working memory in prefrontal cortex: a dynamic coding framework. *Trends in Cognitive Sciences*. https://doi.org/10.1016/j.tics.2015.05.004 — 回顧前額葉中活動靜默神經狀態的證據，並提出動態編碼框架。
-- Curtis, C. E. & D'Esposito, M. (2003). Persistent activity in the prefrontal cortex during working memory. *Trends in Cognitive Sciences*. https://doi.org/10.1016/S1364-6613(03)00197-9 — 回顧工作記憶期間前額葉的持續延遲活動。
+- Stokes, M. G. (2015). 'Activity-silent' working memory in prefrontal cortex: a dynamic coding framework. *Trends in Cognitive Sciences* 19, 394–405. https://doi.org/10.1016/j.tics.2015.05.004 — 回顧前額葉中活動靜默神經狀態的證據，並提出動態編碼框架。
+- Curtis, C. E. & D'Esposito, M. (2003). Persistent activity in the prefrontal cortex during working memory. *Trends in Cognitive Sciences* 7, 415–423. https://doi.org/10.1016/S1364-6613(03)00197-9 — 回顧工作記憶期間前額葉的持續延遲活動。
+- Cowan, N. (2001). The magical number 4 in short-term memory: A reconsideration of mental storage capacity. *Behavioral and Brain Sciences* 24, 87–114. https://doi.org/10.1017/S0140525X01003922 — 重新檢視工作記憶的容量，活動靜默的觀點必須解釋這項限制。
+- Ma, W. J., Husain, M. & Bays, P. M. (2014). Changing concepts of working memory. *Nature Neuroscience* 17, 347–356. https://doi.org/10.1038/nn.3655 — 回顧工作記憶及其儲存如何被理解，以及與容量相關的證據。

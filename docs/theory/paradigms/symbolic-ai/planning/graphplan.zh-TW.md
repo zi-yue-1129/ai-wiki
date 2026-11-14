@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 ---
 
 # GraphPlan
@@ -26,16 +26,18 @@ GraphPlan 是一種古典規劃器，它建立分層的規劃圖，記錄可能�
 
 擴展在所有目標事實都出現的層停止，因此搜尋範圍是圖所顯示的最少平行步數。由於每一層可能包含多個平行執行的動作，計畫長度計的是層數，而非動作數。
 
+*示意。*設有兩個動作 `move(A,B)` 與 `move(B,C)`，目標是從 `at(A)` 出發到達 `at(C)`。第一個事實層包含 `at(A)`，下一層加入 `at(B)`，第三層加入 `at(C)`。因此目標在兩個動作層之後出現，並抽取出一個兩步計畫。這個範例為示意，不是基準測試結果。
+
 ## 變體
 
 - **平行計畫**：標準 GraphPlan 找的是平行步數最少的計畫，而非動作數最少的計畫。
-- **以圖為基礎的啟發式**：同一個規劃圖可以為啟發式搜尋提供到目標距離的估計，與 Bonet 與 Geffner（2001）等方法相關。
+- **以圖為基礎的啟發式**：同一個規劃圖可以為啟發式搜尋提供到目標距離的估計，例如鬆弛計畫啟發式（Bonet 與 Geffner，2001；Hoffmann 與 Nebel，2001）。
 - **後續的規劃圖規劃器**沿用同樣的想法，並改進互斥推理與抽取方式。
 
 ## 結果與限制
 
 - 對固定的層數而言，規劃圖的大小是多項式的，因此避免了列舉完整的狀態空間。
-- Blum 與 Furst（1997）在基準領域中，相較當時的規劃器報告了很大的加速。
+- Blum 與 Furst（1997）報告 GraphPlan 解決基準問題的速度，明顯快於它所比較的規劃器。
 - 在物件很多的領域，規劃圖仍可能變得很大，而計算互斥關係的成本也高。
 - 以動作總數衡量的計畫最佳性無法保證，因為抽取是最小化平行步數。
 
@@ -61,4 +63,5 @@ GraphPlan 是一種古典規劃器，它建立分層的規劃圖，記錄可能�
 ### 綜述與教科書
 
 - Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — 說明由鬆弛問題導出的啟發式，與規劃圖所編碼的鬆弛密切相關。
+- Hoffmann, J. & Nebel, B. (2001). The FF planning system: fast plan generation through heuristic search. *Journal of Artificial Intelligence Research* 14, 253–302. https://doi.org/10.1613/jair.855 — 以鬆弛計畫建立規劃圖來估計到目標的距離，與 GraphPlan 所建立的結構相同。
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — 教科書對規劃圖與 GraphPlan 的介紹。

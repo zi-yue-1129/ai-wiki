@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai
   - theory/paradigms/symbolic-ai/neuro-symbolic
@@ -33,7 +32,7 @@ A theorem prover decides or searches for a proof in a formal system. Automated p
 
 ## How it works
 
-Two families are most widely used. Resolution-based provers refute a set of clauses by repeatedly combining clauses to derive new ones, until the empty clause appears. [Resolution](resolution.md) is the basic inference rule of this family (Robinson, 1965). For propositional problems, the [DPLL](dpll.md) procedure decides satisfiability by search with unit propagation and backtracking (Davis, Logemann & Loveland, 1962). Proof assistants such as Lean and Coq express statements in dependent type theory or related logics, and check proofs with a small trusted kernel (de Moura et al., 2015).
+Two families are most widely used. Resolution-based provers, such as the Vampire system (Kovács & Voronkov, 2013), refute a set of clauses by repeatedly combining clauses to derive new ones, until the empty clause appears. [Resolution](resolution.md) is the basic inference rule of this family (Robinson, 1965). For propositional problems, the [DPLL](dpll.md) procedure decides satisfiability by search with unit propagation and backtracking (Davis, Logemann & Loveland, 1962). Proof assistants such as Lean and Coq express statements in dependent type theory or related logics, and check proofs with a small trusted kernel (de Moura et al., 2015).
 
 ## Key methods
 
@@ -41,6 +40,10 @@ Two families are most widely used. Resolution-based provers refute a set of clau
 - [DPLL](dpll.md): the backtracking search for SAT, which is the core of modern SAT solvers.
 
 Proof assistants such as Lean are mentioned as systems and are not covered here as methods.
+
+## Why proofs matter for AI
+
+A conclusion reached by search or by learning is only as reliable as the process behind it. A proof assistant gives a different guarantee: every step is checked by a small, independent kernel, so a claim is accepted only when its proof checks. This separates the part of a system that proposes a result from the part that certifies it. A learned model can propose candidate proofs, lemmas or programs, while the checker stays simple enough to trust. The open question is how much of the proposing work can be automated without making the checking harder.
 
 ## Connections
 
@@ -71,5 +74,6 @@ Proof assistants such as Lean are mentioned as systems and are not covered here 
 
 ### Surveys and textbooks
 
+- Kovács, L. & Voronkov, A. (2013). First-order theorem proving and Vampire. In *Computer Aided Verification*, Lecture Notes in Computer Science, 1–35. https://doi.org/10.1007/978-3-642-39799-8_1 — Describes the Vampire prover, a resolution-based system with superposition and its search strategies.
 - Hales, T. et al. (2017). A formal proof of the Kepler conjecture. *Forum of Mathematics, Pi* 5. https://doi.org/10.1017/fmp.2017.1 — Reports a complete formal proof of a major theorem in a proof assistant.
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — Textbook background on logical inference and resolution.

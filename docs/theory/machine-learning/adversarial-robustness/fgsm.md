@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/machine-learning/adversarial-robustness
 tags:
@@ -40,13 +40,13 @@ Clipping \(\tilde{x}\) to the valid input range, such as \([0,1]\) for images, k
 ## Variants
 
 - **Targeted FGSM** moves the input toward a chosen wrong label rather than away from the true label.
-- **Iterative FGSM** repeats smaller steps, which gives a stronger attack and is the basis of PGD (see [PGD and adversarial training](pgd-adversarial-training.md)).
-- **Single-step adversarial training** trains on FGSM examples. It is cheap but can suffer from catastrophic overfitting to the single-step attack.
+- **Iterative FGSM** repeats smaller steps, which gives a stronger attack and is the basis of PGD (Kurakin et al., 2017; see [PGD and adversarial training](pgd-adversarial-training.md)).
+- **Single-step adversarial training** trains on FGSM examples. It is cheap but can suffer from catastrophic overfitting to the single-step attack, where robustness to multi-step attacks collapses during training (Wong et al., 2020).
 
 ## Results and limits
 
 - FGSM reduces the accuracy of undefended image classifiers sharply at small budgets, which is the result that drew attention to the problem (Goodfellow et al., 2015).
-- It is a weak attack for defended models, because one linear step can miss the adversarial region. Carlini and Wagner (2017) show that stronger attacks break many defences that resist FGSM.
+- It is a weak attack for defended models, because one linear step can miss the adversarial region. Carlini and Wagner (2017) show that stronger attacks break many defences that resist FGSM, and Athalye et al. (2018) show that some apparent robustness comes from gradient masking that disappears under adaptive attacks.
 - The sign operation is a heuristic for \(\ell_\infty\) attacks, and it does not directly give the smallest perturbation that changes the label.
 
 ## Applications
@@ -67,8 +67,11 @@ Clipping \(\tilde{x}\) to the valid input range, such as \([0,1]\) for images, k
 - Goodfellow, I. J., Shlens, J. & Szegedy, C. (2015). Explaining and harnessing adversarial examples. In *International Conference on Learning Representations*. arXiv:1412.6572. https://arxiv.org/abs/1412.6572 — Introduces FGSM and the linearity explanation.
 - Szegedy, C. et al. (2014). Intriguing properties of neural networks. arXiv:1312.6199. https://arxiv.org/abs/1312.6199 — The earlier demonstration that small perturbations change network outputs.
 - Carlini, N. & Wagner, D. (2017). Towards evaluating the robustness of neural networks. In *2017 IEEE Symposium on Security and Privacy*, 39–57. https://doi.org/10.1109/SP.2017.49 — Shows that stronger attacks defeat defences that resist FGSM.
+- Kurakin, A., Goodfellow, I. & Bengio, S. (2017). Adversarial machine learning at scale. In *International Conference on Learning Representations*. arXiv:1611.01236. https://arxiv.org/abs/1611.01236 — Proposes iterative FGSM-style attacks and adversarial training at ImageNet scale.
+- Athalye, A., Carlini, N. & Wagner, D. (2018). Obfuscated gradients give a false sense of security: circumventing defenses to adversarial examples. In *Proceedings of the 35th International Conference on Machine Learning*, PMLR 80. arXiv:1802.00420. https://arxiv.org/abs/1802.00420 — Shows how gradient masking hides weak robustness from FGSM-style gradient attacks.
+- Wong, E., Rice, L. & Kolter, J. Z. (2020). Fast is better than free: revisiting adversarial training. In *International Conference on Learning Representations*. arXiv:2001.03994. https://arxiv.org/abs/2001.03994 — Analyses catastrophic overfitting in single-step adversarial training.
 
 ### Surveys and textbooks
 
 - Madry, A., Makelov, A., Schmidt, L., Tsipras, D. & Vladu, A. (2018). Towards deep learning models resistant to adversarial attacks. In *International Conference on Learning Representations*. arXiv:1706.06083. https://arxiv.org/abs/1706.06083 — Uses iterated FGSM-style attacks to train robust models.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; background on gradient-based adversarial attacks.
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Repository for Murphy's textbook series; background on gradient-based adversarial attacks.

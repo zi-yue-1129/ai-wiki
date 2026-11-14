@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-04
 ---
 
 # 自動規劃
@@ -10,7 +10,7 @@ translation_reviewed: 2026-10-28
 
 規劃問題指定初始狀態、目標，以及一組動作模式。每個動作只有在其前置條件成立時才能套用，並透過效果改變狀態。規劃器在狀態空間或部分計畫的空間中搜尋，找出通往目標的路徑。古典規劃假設世界完全已知且具確定性，後來也擴展到不確定與階層式的情境。
 
-古典規劃的標準建模語言是 PDDL（Planning Domain Definition Language），它源自 STRIPS 表示法。以下兩種方法各有專頁。
+古典規劃的標準建模語言是 PDDL（Planning Domain Definition Language），它源自 STRIPS 表示法。以下方法各有專頁。
 
 ## 關鍵概念
 
@@ -21,14 +21,15 @@ translation_reviewed: 2026-10-28
 
 ## 運作方式
 
-多數規劃器採用搜尋。前向規劃器從初始狀態出發，展開前置條件成立的動作，並以啟發式引導搜尋。後向規劃器則從目標出發，透過動作進行回推。以圖為基礎的規劃器先建立一個緊湊的分層結構，再從中抽出計畫。表示法與搜尋策略的選擇，大致決定規劃器的效能。
+多數規劃器採用搜尋。前向規劃器從初始狀態出發，展開前置條件成立的動作，並以啟發式引導搜尋。後向規劃器則從目標出發，透過動作進行回推。以圖為基礎的規劃器先建立一個緊湊的分層結構，再從中抽出計畫。表示法與搜尋策略的選擇，大致決定規劃器的效能。即使是命題版本的問題，一般而言也很困難：Bylander（1994）證明命題式 STRIPS 規劃是 PSPACE 完全的。
 
 ## 主要方法
 
 - [STRIPS](strips.md)：以前置條件、新增表與刪除表表示動作的原始表示法，也是 PDDL 的基礎。
 - [GraphPlan](graphplan.md)：建立分層的規劃圖，並帶有互斥資訊，然後從後向前在圖上搜尋計畫。
+- [HTN 規劃](htn.md)：透過領域專屬的方法把任務分解為子任務。
 
-文獻中其他的規劃方法包括把規劃視為啟發式搜尋（Bonet 與 Geffner，2001），以及把任務分解為子任務的階層任務網路規劃。這些方法在此僅作摘要，沒有各自的頁面。
+文獻中其他的規劃方法包括把規劃視為啟發式搜尋（Bonet 與 Geffner，2001）、由鬆弛計畫導出的啟發式（Hoffmann 與 Nebel，2001）。這些方法在此僅作摘要，沒有各自的頁面。
 
 ## 不確定下的規劃
 
@@ -60,8 +61,10 @@ translation_reviewed: 2026-10-28
 - Blum, A. L. & Furst, M. L. (1997). Fast planning through planning graph analysis. *Artificial Intelligence* 90(1–2), 281–300. https://doi.org/10.1016/S0004-3702(96)00047-1 — 提出 GraphPlan，一種基於規劃圖的方法，在基準問題上明顯快於早期規劃器。
 - Bonet, B. & Geffner, H. (2001). Planning as heuristic search. *Artificial Intelligence* 129(1–2), 5–33. https://doi.org/10.1016/S0004-3702(01)00108-4 — 把古典規劃視為啟發式搜尋，並研究由鬆弛問題導出的啟發式。
 - Kaelbling, L. P., Littman, M. L. & Cassandra, A. R. (1998). Planning and acting in partially observable stochastic domains. *Artificial Intelligence* 101(1–2), 99–134. https://doi.org/10.1016/S0004-3702(98)00023-X — 以 POMDP 描述部分可觀測下的規劃與行動。
+- Bylander, T. (1994). The computational complexity of propositional STRIPS planning. *Artificial Intelligence* 69, 165–204. https://doi.org/10.1016/0004-3702(94)90081-7 — 證明命題式 STRIPS 規劃是 PSPACE 完全的。
 
 ### 綜述與教科書
 
+- Hoffmann, J. & Nebel, B. (2001). The FF planning system: fast plan generation through heuristic search. *Journal of Artificial Intelligence Research* 14, 253–302. https://doi.org/10.1613/jair.855 — 以鬆弛計畫的長度作為啟發式的規劃器，是後來許多規劃器的基礎。
 - Helmert, M. (2006). The Fast Downward planning system. *Journal of Artificial Intelligence Research* 26, 191–246. https://doi.org/10.1613/jair.1705 — 一套廣為使用、建立於啟發式搜尋之上的古典規劃器。
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. http://aima.cs.berkeley.edu/ — 教科書對古典規劃、規劃圖與不確定下規劃的說明。

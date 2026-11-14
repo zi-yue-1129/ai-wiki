@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-11-03
+last_reviewed: 2026-11-14
 tags:
   - computer vision
   - object detection
@@ -12,7 +12,7 @@ aliases:
 
 # YOLO (You Only Look Once)
 
-YOLO is a one-stage object detector that predicts boxes and class probabilities for the whole image in a single pass of one network. It treats detection as one regression problem rather than as a classification run over many proposals (Redmon et al., 2015). Its speed made real-time detection practical, and the family has continued through later versions.
+YOLO is a one-stage object detector that predicts boxes and class probabilities for the whole image in a single pass of one network. It treats detection as one regression problem rather than as a classification run over many proposals (Redmon et al., 2015).[^yolo] Its speed made real-time detection practical, and the family has continued through later versions.
 
 This page is part of [Object Detection](index.md).
 
@@ -20,7 +20,7 @@ This page is part of [Object Detection](index.md).
 
 Earlier detectors ran a classifier many times, once per proposal, and then combined the results. Those pipelines were accurate but slow, and their stages were trained separately. YOLO removes the proposal stage: one convolutional network looks at the image once and outputs all the boxes and classes together.
 
-The price is a coarser view of the image. Each prediction must cover a fixed grid cell, which limits how well the model handles crowds of small objects.
+The price is a coarser view of the image. Each object is assigned by its centre to one grid cell, although its predicted box can extend beyond that cell. The limited predictions per cell make crowds of small objects difficult.[^yolo]
 
 ## Key concepts
 
@@ -31,9 +31,9 @@ The price is a coarser view of the image. Each prediction must cover a fixed gri
 
 ## How it works
 
-For PASCAL VOC the paper uses S = 7, B = 2 and C = 20, so the network outputs a 7 × 7 × 30 tensor (7 × 7 × (B × 5 + C)). Training uses a sum-squared error with several parts. The error on box centres and on the square roots of box sizes is weighted by λcoord = 5, so that localisation matters. The confidence error for empty cells is down-weighted by λnoobj = 0.5, because most cells contain no object. Class errors are counted only in cells that do contain an object.
+For PASCAL VOC the paper uses S = 7, B = 2 and C = 20, so the network outputs a 7 × 7 × 30 tensor (7 × 7 × (B × 5 + C)). Training uses a sum-squared error with several parts. The error on box centres and on the square roots of box sizes is weighted by λcoord = 5, so that localisation matters. The confidence error for box predictors not responsible for an object is down-weighted by λnoobj = 0.5, because most cells contain no object. Class errors are counted only in cells that do contain an object.[^yolo]
 
-The paper takes square roots of the width and height so that an error on a small box costs more than the same error on a large one.
+The paper takes square roots of the width and height so that an error on a small box costs more than the same error on a large one.[^yolo]
 
 ## Key methods
 
@@ -45,13 +45,15 @@ This page is the detail for one of the landmark methods in the [Object Detection
 
 ## Results
 
-On PASCAL VOC 2007, the paper reports **63.4%** mAP at **45 frames per second** for YOLO, and **52.7%** mAP at **155 fps** for a smaller version, Fast YOLO. In the same table Fast R-CNN reaches 70.0% mAP but runs at about 0.5 fps. The paper's error analysis reports that 19.0% of YOLO's errors are localisation errors, against 8.6% for Fast R-CNN, while YOLO makes fewer background false positives (4.75% against 13.6%).
+On PASCAL VOC 2007 test, with training on VOC 2007+2012 trainval, the paper reports **63.4%** mAP at **45 frames per second** for YOLO, and **52.7%** mAP at **155 fps** for a smaller version, Fast YOLO. In the same table Fast R-CNN reaches 70.0% mAP but runs at about 0.5 fps. YOLO's speed was measured on a Titan X GPU without batching; the table is a comparison of published systems rather than a controlled same-hardware benchmark.[^yolo]
 
-The later YOLOv3 report (Redmon and Farhadi, 2018) gives 28.2 mAP for its 320-pixel model, which it says runs in 22 ms. The authors state that this matches SSD's accuracy at about three times the speed.
+The error analysis examines the top N detections per class, where N is the number of ground-truth objects of that class, then averages across the 20 classes. Localisation errors account for 19.0% of those detections for YOLO, against 8.6% for Fast R-CNN; background false positives account for 4.75% against 13.6%. These percentages use all top-N detections as the denominator, including correct ones, rather than only errors.[^yolo]
+
+The later YOLOv3 report (Redmon and Farhadi, 2018) gives **28.2 COCO AP** (averaged over IoU thresholds 0.50–0.95) for its 320-pixel model, which it says runs in 22 ms. This is a different benchmark and metric from the VOC scores above. Its Figure 1 compares that result with SSD321 at 28.0 AP and 61 ms; the authors describe this as about three times faster, using timings from M40 or Titan X GPUs rather than a single matched hardware setup.[^yolov3]
 
 ## Limitations
 
-The paper lists its own weaknesses:
+The original YOLO paper lists its own weaknesses; these apply to the original model described here, not automatically to later versions:[^yolo]
 
 - Each cell predicts only two boxes and one class, which limits how many nearby objects can be found. The paper gives groups of small objects, such as a flock of birds, as an example.
 - The model generalises poorly to objects with unusual shapes or aspect ratios.
@@ -68,8 +70,10 @@ YOLO is the one-stage counterpart of the two-stage line in the [Object Detection
 
 ### Seminal papers
 
-- Redmon, J., Divvala, S., Girshick, R. & Farhadi, A. (2015). *You Only Look Once: Unified, Real-Time Object Detection*. arXiv. https://arxiv.org/abs/1506.02640 — The original YOLO paper, with the grid design, the loss and the PASCAL VOC speed and accuracy results used above.
-- Redmon, J. & Farhadi, A. (2018). *YOLOv3: An Incremental Improvement*. arXiv. https://arxiv.org/abs/1804.02767 — The third version, with its speed and AP50 comparison against SSD and RetinaNet.
+[^yolo]: Redmon, J., Divvala, S., Girshick, R. & Farhadi, A. (2015). *You Only Look Once: Unified, Real-Time Object Detection*. arXiv. https://arxiv.org/abs/1506.02640 — The original YOLO paper, with the grid design, the loss and the PASCAL VOC speed and accuracy results used above.
+
+[^yolov3]: Redmon, J. & Farhadi, A. (2018). *YOLOv3: An Incremental Improvement*. arXiv. https://arxiv.org/abs/1804.02767 — The third version, with COCO AP, AP50, and speed comparisons against SSD and RetinaNet.
+
 - Liu, W., Anguelov, D., Erhan, D., Szegedy, C., Reed, S., Fu, C.-Y. & Berg, A. C. (2015). *SSD: Single Shot MultiBox Detector*. arXiv. https://arxiv.org/abs/1512.02325 — Another one-stage detector that predicts boxes on several feature maps, the comparison point for YOLOv3.
 - Ren, S., He, K., Girshick, R. & Sun, J. (2015). *Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks*. arXiv. https://arxiv.org/abs/1506.01497 — The two-stage system that YOLO's speed is measured against.
 

@@ -29,13 +29,13 @@ translation_reviewed: 2026-10-28
 ## 變體
 
 - **目標式 FGSM** 把輸入推向選定的錯誤標籤，而非遠離真實標籤。
-- **迭代式 FGSM** 重複較小的步伐，攻擊較強，也是 PGD 的基礎（見[投影梯度下降與對抗訓練](pgd-adversarial-training.md)）。
-- **單步對抗訓練** 以 FGSM 樣本進行訓練。它成本低，但可能因單步攻擊而出現災難性過擬合。
+- **迭代式 FGSM** 重複較小的步伐，攻擊較強，也是 PGD 的基礎（Kurakin 等人，2017；見[投影梯度下降與對抗訓練](pgd-adversarial-training.md)）。
+- **單步對抗訓練** 以 FGSM 樣本進行訓練。它成本低，但可能因單步攻擊而出現災難性過擬合，即訓練期間對多步攻擊的穩健性崩潰（Wong 等人，2020）。
 
 ## 結果與限制
 
 - 在小預算下，FGSM 使未防禦的影像分類器準確率大幅下降，這個結果引起了人們對此問題的注意（Goodfellow 等人，2015）。
-- 對於有防禦的模型，它是較弱的攻擊，因為單一線性步伐可能錯過對抗區域。Carlini 與 Wagner（2017）顯示，能抵抗 FGSM 的許多防禦會被更強的攻擊打破。
+- 對於有防禦的模型，它是較弱的攻擊，因為單一線性步伐可能錯過對抗區域。Carlini 與 Wagner（2017）顯示，能抵抗 FGSM 的許多防禦會被更強的攻擊打破；Athalye 等人（2018）則顯示，部分表面上的穩健性來自梯度遮蔽，在適應性攻擊下會消失。
 - 符號運算是 \(\ell_\infty\) 攻擊的啟發式作法，並不直接給出能改變標籤的最小擾動。
 
 ## 應用
@@ -56,8 +56,11 @@ translation_reviewed: 2026-10-28
 - Goodfellow, I. J., Shlens, J. & Szegedy, C. (2015). Explaining and harnessing adversarial examples. In *International Conference on Learning Representations*. arXiv:1412.6572. https://arxiv.org/abs/1412.6572 — 提出 FGSM 與線性解釋。
 - Szegedy, C. et al. (2014). Intriguing properties of neural networks. arXiv:1312.6199. https://arxiv.org/abs/1312.6199 — 較早展示小擾動會改變網路輸出。
 - Carlini, N. & Wagner, D. (2017). Towards evaluating the robustness of neural networks. In *2017 IEEE Symposium on Security and Privacy*, 39–57. https://doi.org/10.1109/SP.2017.49 — 顯示較強的攻擊能打破能抵抗 FGSM 的防禦。
+- Kurakin, A., Goodfellow, I. & Bengio, S. (2017). Adversarial machine learning at scale. In *International Conference on Learning Representations*. arXiv:1611.01236. https://arxiv.org/abs/1611.01236 — 提出迭代式 FGSM 風格的攻擊，並在 ImageNet 規模上進行對抗訓練。
+- Athalye, A., Carlini, N. & Wagner, D. (2018). Obfuscated gradients give a false sense of security: circumventing defenses to adversarial examples. In *Proceedings of the 35th International Conference on Machine Learning*, PMLR 80. arXiv:1802.00420. https://arxiv.org/abs/1802.00420 — 說明梯度遮蔽如何對 FGSM 式的梯度攻擊隱藏了薄弱的穩健性。
+- Wong, E., Rice, L. & Kolter, J. Z. (2020). Fast is better than free: revisiting adversarial training. In *International Conference on Learning Representations*. arXiv:2001.03994. https://arxiv.org/abs/2001.03994 — 分析單步對抗訓練中的災難性過擬合。
 
 ### 綜述與教科書
 
 - Madry, A., Makelov, A., Schmidt, L., Tsipras, D. & Vladu, A. (2018). Towards deep learning models resistant to adversarial attacks. In *International Conference on Learning Representations*. arXiv:1706.06083. https://arxiv.org/abs/1706.06083 — 以迭代的 FGSM 式攻擊訓練穩健模型。
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；介紹基於梯度的對抗攻擊。
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Murphy 教科書系列的儲存庫；基於梯度的對抗攻擊的一般背景。

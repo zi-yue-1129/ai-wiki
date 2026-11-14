@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching/conditional-flow-matching.md
 tags:
@@ -35,17 +35,17 @@ Consistency models take the third route. Song et al. (2023) describe them as sup
 
 ## How it works
 
-**Deterministic sampling.** Song, Meng and Ermon (2021) introduce denoising diffusion implicit models (DDIM), which use a non-Markovian process with the same training objective as DDPM. The abstract reports that DDIMs "can produce high quality samples 10× to 50× faster in terms of wall-clock time" than the original sampler. The method is deterministic, so it can trade sample diversity for speed and allows interpolation between samples. See [DDIM](ddim.md).
+**Deterministic sampling.** Song, Meng and Ermon (2021) introduce denoising diffusion implicit models (DDIM), which use a non-Markovian process with the same training objective as DDPM. The abstract reports that DDIMs "can produce high quality samples 10× to 50× faster in terms of wall-clock time compared to DDPMs". The method is deterministic, so it can trade sample diversity for speed and allows interpolation between samples. See [DDIM](ddim.md).
 
 **Higher-order ODE solvers.** Lu et al. (2022) treat sampling as solving an ODE and build a solver tailored to the diffusion process. The abstract reports that DPM-Solver "can generate high-quality samples in only 10 to 20 function evaluations", without retraining the model.
 
-**Progressive distillation.** Salimans and Ho (2022) train a student that takes half as many sampling steps as its teacher, and repeat the process to halve the steps again. The abstract describes the new model as one that "takes half as many sampling steps". Each round requires training, but the final sampler needs few steps.
+**Progressive distillation.** Salimans and Ho (2022) train a student that takes half as many sampling steps as its teacher, and repeat the process to halve the steps again. The abstract describes the new model as one that "takes half as many sampling steps". Each round requires training, but the final sampler needs few steps. The abstract reports a FID of 3.0 on CIFAR-10 in 4 steps [(Salimans and Ho, 2022)](https://arxiv.org/abs/2202.00512).
 
-**Consistency models.** Song et al. (2023) train a network $f_\theta(x_t, t)$ so that all points on one trajectory of the diffusion process map to the same output, which is the trajectory's clean data point. A consistency model can then produce a sample in one step by evaluating $f_\theta(x_T, T)$ at the noise level $T$. Two training routes are described in the paper: distilling a pre-trained diffusion model, and training the consistency model directly from data. Refining the sample with additional steps, which trades a little time for quality, is also supported.
+**Consistency models.** Song et al. (2023) train a network $f_\theta(x_t, t)$ so that all points on one trajectory of the diffusion process map to the same output, which is the trajectory's clean data point. A consistency model can then produce a sample in one step by evaluating $f_\theta(x_T, T)$ at the noise level $T$. Two training routes are described in the paper: distilling a pre-trained diffusion model, and training the consistency model directly from data. Refining the sample with additional steps, which trades a little time for quality, is also supported. The abstract reports a FID of 3.55 on CIFAR-10 and 6.20 on ImageNet 64×64 for one-step generation, described there as the new state of the art for that setting [(Song et al., 2023)](https://arxiv.org/abs/2303.01469).
 
 ## Key methods
 
-Brief comparison. Each named method is a candidate for its own method page; those pages are not yet written, so the detail is given in this section for now.
+Brief comparison. DDPM and DDIM have their own pages. DPM-Solver, progressive distillation and consistency models are described on this page for now; their own method pages are still to be written.
 
 - **DDIM (deterministic, non-Markovian)**: a change of sampler with the same trained model. Large speed-ups with modest loss in quality, and a clean path for interpolation.
 - **DPM-Solver (high-order ODE)**: a numerical solver for the same model, with 10 to 20 evaluations for good samples.

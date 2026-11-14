@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-03
+translation_reviewed: 2026-11-14
 related:
   - theory/evaluation/metrics/segmentation/iou.md
 ---
@@ -26,7 +26,7 @@ related:
 
 大多數偵測器共用同一條管線。卷積或 Transformer 骨幹網路擷取特徵；頭部在每個候選位置預測一個類別分數與一個框的修正量。訓練時把預測匹配到真實物件，推論時移除重複的偵測。各家族的差異在於候選如何產生，以及重複如何被移除。
 
-**兩階段偵測器。** R-CNN（Girshick 等人，2013）對來自獨立提案方法的區域提案執行 CNN，並報告相較於先前最佳結果，在 PASCAL VOC 2012 上的 mAP 相對提升超過 30%。Fast R-CNN（Girshick，2015）每張影像只計算一次卷積特徵，再為每個提案池化。論文指出，它訓練 VGG16 網路的速度是 R-CNN 的九倍。Faster R-CNN（Ren 等人，2015）以區域提案網路取代外部提案方法，此網路與偵測器共享卷積特徵，因此整個系統可以端到端訓練。
+**兩階段偵測器。** R-CNN（Girshick 等人，2013）對來自獨立提案方法的區域提案執行 CNN，並報告相較於先前最佳結果，在 PASCAL VOC 2012 上的 mAP 相對提升超過 30%。Fast R-CNN（Girshick，2015）每張影像只計算一次卷積特徵，再為每個提案池化。論文指出，它訓練 VGG16 網路的速度是 R-CNN 的九倍。Faster R-CNN（Ren 等人，2015）以區域提案網路取代外部提案方法，此網路與偵測器共享卷積特徵，並透過交替訓練或近似聯合訓練學習共享特徵。
 
 **單階段偵測器。** YOLO（Redmon 等人，2015）把偵測視為從影像到框與類別的單次迴歸。論文指出其基礎模型每秒可處理 45 張影像。SSD（Liu 等人，2015）在數個特徵圖上，一次預測一組固定預設框的分數與偏移量，並報告其準確率可與基於提案的方法相比，速度則快得多。RetinaNet（Lin 等人，2017）處理密集偵測器中前景與背景樣本極度不平衡的問題，並提出焦點損失（focal loss），降低已被正確分類樣本的權重，使訓練不被大量容易的背景位置主導。
 
@@ -36,7 +36,7 @@ related:
 
 四個代表性偵測器的簡要比較。每個偵測器都有自己的頁面，內容包括問題、核心想法、演算法、結果與限制（方法頁面目前僅有英文版，中文讀者會回退至英文）。
 
-- [Faster R-CNN（Ren 等人，2015）](faster-r-cnn.md)：由可學習的區域提議網路先提出候選區域，再逐區域分類與修正。準確，且能與共享特徵一起端到端訓練。
+- [Faster R-CNN（Ren 等人，2015）](faster-r-cnn.md)：由可學習的區域提議網路先提出候選區域，再逐區域分類與修正。為區域提議與偵測學習共享特徵。
 - [YOLO（Redmon 等人，2015）](yolo.md)：在格點上做一次迴歸。快很多，但定位準確度有所犧牲，小物件尤其明顯。
 - [RetinaNet（Lin 等人，2017）](retinanet.md)：單階段偵測器，焦點損失降低容易的背景樣本權重，縮小了與兩階段偵測器的準確率差距。
 - [DETR（Carion 等人，2020）](detr.md)：Transformer 解碼器搭配二分匹配，對一組固定數量的物件查詢做預測，沒有錨框，也沒有非極大值抑制。訓練週期較長，原論文中小物件的表現也較 Faster R-CNN 弱。
@@ -56,7 +56,7 @@ related:
 ## 開放問題
 
 - 小物件與擁擠場景的準確率，仍低於大型且孤立的物件。
-- 長尾的類別分布使稀有類別難以學習，這正是焦點損失所要解決的問題。
+- 長尾的物件類別分布使稀有類別難以學習。這與 RetinaNet 焦點損失原本針對的前景與背景不平衡問題不同。[^focal]
 - 開放詞彙偵測（以文字描述而非固定標籤集來尋找物件）是一個活躍的領域，其取捨不同於封閉集合的偵測器。
 - 速度與準確率必須在模型部署的硬體上取得平衡，而基準結果未必能轉移。
 
@@ -69,7 +69,8 @@ related:
 - Ren, S., He, K., Girshick, R. & Sun, J. (2015). *Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks*. arXiv. https://arxiv.org/abs/1506.01497 — 加入與偵測器共享特徵的區域提案網路，使提案生成成為可訓練網路的一部分。
 - Redmon, J., Divvala, S., Girshick, R. & Farhadi, A. (2015). *You Only Look Once: Unified, Real-Time Object Detection*. arXiv. https://arxiv.org/abs/1506.02640 — 把偵測表述為單一迴歸問題，並報告基礎模型每秒 45 張影像。
 - Liu, W., Anguelov, D., Erhan, D., Szegedy, C., Reed, S., Fu, C.-Y. & Berg, A. C. (2015). *SSD: Single Shot MultiBox Detector*. arXiv. https://arxiv.org/abs/1512.02325 — 在數個特徵圖上以單次前向傳遞，預測預設框的分數與偏移量。
-- Lin, T.-Y., Goyal, P., Girshick, R., He, K. & Dollár, P. (2017). *Focal Loss for Dense Object Detection*. arXiv. https://arxiv.org/abs/1708.02002 — 為密集單階段偵測器的類別不平衡問題提出焦點損失。
+[^focal]: Lin, T.-Y., Goyal, P., Girshick, R., He, K. & Dollár, P. (2017). *Focal Loss for Dense Object Detection*. arXiv. https://arxiv.org/abs/1708.02002 — 為密集單階段偵測器的類別不平衡問題提出焦點損失。
+
 - Carion, N., Massa, F., Synnaeve, G., Usunier, N., Kirillov, A. & Zagoruyko, S. (2020). *End-to-End Object Detection with Transformers*. arXiv. https://arxiv.org/abs/2005.12872 — 提出 DETR，以二分匹配預測一組物件，且不需要錨框或非極大值抑制。
 
 ### 綜述與基準

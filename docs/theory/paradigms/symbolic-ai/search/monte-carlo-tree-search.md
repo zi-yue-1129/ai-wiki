@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai/search
   - theory/paradigms/reinforcement-learning
@@ -39,13 +38,13 @@ Each iteration starts at the root and does four things:
 3. **Simulation**: play out the game from the new node, usually with random moves, to a terminal result.
 4. **Backpropagation**: update the visit count and mean outcome of every node on the path.
 
-After the budget of iterations, the move with the most visits, or the highest mean, is chosen. Coulom (2007) compares backup operators for Go and reports that a mix of robust max and mean works best. The paper attributes the term to Chang, Fu and Marcus, not to Coulom.
+After the budget of iterations, the move with the most visits, or the highest mean, is chosen. Coulom (2007) compares different backup operators, the rules for combining child results into a parent's value, in Go programs.
 
 ## Variants
 
 - **UCT** is the standard selection rule, and most MCTS implementations use it.
-- **RAVE** shares statistics between moves that appear at different points in the tree. It speeds up learning in Go.
-- **Learned policies and values**: AlphaGo used neural networks to guide selection and to replace random playouts with value estimates (Silver et al., 2016).
+- **RAVE** (rapid action value estimation) shares statistics between moves that appear at different points in the tree. It was used to speed up early learning in Go programs (Gelly & Silver, 2011).
+- **Learned policies and values**: AlphaGo used neural networks to guide selection and to estimate values alongside rollouts (Silver et al., 2016). AlphaGo Zero later trained from self-play without human game records (Silver et al., 2017).
 
 ## Results and limits
 
@@ -70,9 +69,11 @@ After the budget of iterations, the move with the most visits, or the highest me
 
 ### Seminal papers
 
-- Kocsis, L. & Szepesvári, C. (2006). Bandit based Monte-Carlo planning. In *Machine Learning: ECML 2006*, Lecture Notes in Computer Science, 282–293. https://doi.org/10.1007/11871842_29 — Introduces UCT (UCB applied to trees). The paper proves consistency and finite-sample bounds for finite-horizon MDPs, and reports on P-game trees that UCT's failure rate goes to zero. It does not prove convergence to the minimax value.
-- Coulom, R. (2007). Efficient selectivity and backup operators in Monte-Carlo tree search. In *Computers and Games*, Lecture Notes in Computer Science, 72–83. https://doi.org/10.1007/978-3-540-75538-8_7 — Compares backup operators for Go (mean, max, robust max and mix). The paper attributes the term to Chang, Fu and Marcus.
+- Kocsis, L. & Szepesvári, C. (2006). Bandit based Monte-Carlo planning. In *Machine Learning: ECML 2006*, Lecture Notes in Computer Science, 282–293. https://doi.org/10.1007/11871842_29 — Introduces UCT, which applies the UCB1 rule at every node of the tree, and analyses its convergence on finite-horizon problems.
+- Coulom, R. (2007). Efficient selectivity and backup operators in Monte-Carlo tree search. In *Computers and Games*, Lecture Notes in Computer Science, 72–83. https://doi.org/10.1007/978-3-540-75538-8_7 — Compares backup operators, the rules for combining child results, in Go programs.
 - Auer, P., Cesa-Bianchi, N. & Fischer, P. (2002). Finite-time analysis of the multiarmed bandit problem. *Machine Learning* 47(2–3), 235–256. https://doi.org/10.1023/A:1013689704352 — Gives the UCB1 bound that the selection rule depends on.
+- Gelly, S. & Silver, D. (2011). Monte-Carlo tree search and rapid action value estimation in computer Go. *Artificial Intelligence* 175, 1856–1875. https://doi.org/10.1016/j.artint.2011.03.007 — Introduces RAVE, which shares statistics between moves across the tree, and reports its use in Go.
+- Silver, D. et al. (2017). Mastering the game of Go without human knowledge. *Nature* 550, 354–359. https://doi.org/10.1038/nature24270 — Trains a Go program from self-play alone, combining a neural network with tree search.
 
 ### Surveys and textbooks
 

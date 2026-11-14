@@ -1,6 +1,5 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/symbolic-ai/planning
   - theory/paradigms/symbolic-ai/search
@@ -37,20 +36,20 @@ Let \(s\) be a state, a set of facts, and let an action \(a\) have precondition 
 \gamma(s,a) = \left(s\setminus \mathrm{del}(a)\right)\cup \mathrm{add}(a).
 \]
 
-A plan is a sequence of applicable actions that leads from the initial state to a state containing the goal facts. A forward planner applies this rule from the initial state, and a backward planner regresses the goal through the actions. Both are usually guided by a heuristic.
+A plan is a sequence of applicable actions that leads from the initial state to a state containing the goal facts. A forward planner applies this rule from the initial state, and a backward planner regresses the goal through the actions. Both are usually guided by a heuristic. For example, a robot action that moves it from room 1 to room 2 might have the precondition `At(robot, room1)`, add `At(robot, room2)` and delete `At(robot, room1)`.
 
 ## Variants
 
 - **Propositional STRIPS** uses ground facts only. It is the simplest form.
 - **ADL** (Action Description Language) allows conditional effects and quantified preconditions, and it is more expressive than STRIPS.
-- **PDDL** extends the STRIPS idea with typed objects, numeric fluents and durative actions, and it is used in planning competitions.
+- **PDDL** extends the STRIPS idea with typed objects, numeric fluents and durative actions, and it is used in planning competitions. Later planning languages keep the same action model with richer features.
 
 ## Results and limits
 
 - The representation is simple to read and to implement, and it supports general-purpose heuristics derived from relaxed versions of the problem (Bonet & Geffner, 2001).
 - The closed-world assumption means that every fact not in the state is false, which fits some domains but not those with incomplete knowledge.
 - Negative preconditions and conditional effects are not part of basic STRIPS, so some domains need extensions.
-- Plan existence in general is hard, and the search cost depends on the heuristic used.
+- Propositional STRIPS planning is PSPACE-complete (Bylander, 1994), and the search cost depends on the heuristic used.
 
 ## Applications
 
@@ -70,6 +69,7 @@ A plan is a sequence of applicable actions that leads from the initial state to 
 - Fikes, R. E. & Nilsson, N. J. (1971). STRIPS: A new approach to the application of theorem proving to problem solving. *Artificial Intelligence* 2(3–4), 189–208. https://doi.org/10.1016/0004-3702(71)90010-5 — Introduces the STRIPS representation and its planner.
 - Bonet, B. & Geffner, H. (2001). Planning as heuristic search. *Artificial Intelligence* 129(1–2), 5–33. https://doi.org/10.1016/S0004-3702(01)00108-4 — Shows how heuristics for STRIPS-style problems can be computed from relaxed problems.
 - Blum, A. L. & Furst, M. L. (1997). Fast planning through planning graph analysis. *Artificial Intelligence* 90(1–2), 281–300. https://doi.org/10.1016/S0004-3702(96)00047-1 — Plans for STRIPS-style problems with a planning graph, as an alternative to forward search.
+- Bylander, T. (1994). The computational complexity of propositional STRIPS planning. *Artificial Intelligence* 69, 165–204. https://doi.org/10.1016/0004-3702(94)90081-7 — Proves that propositional STRIPS planning is PSPACE-complete, so plan existence is hard in general.
 
 ### Surveys and textbooks
 

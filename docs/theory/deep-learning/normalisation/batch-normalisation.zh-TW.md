@@ -1,7 +1,7 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-29
+last_reviewed: 2026-11-04
+translation_reviewed: 2026-11-04
 related:
   - theory/deep-learning/normalisation
 tags:
@@ -44,7 +44,7 @@ $$\mu_B = \frac{1}{m}\sum_{i=1}^{m} x_i, \qquad \sigma_B^2 = \frac{1}{m}\sum_{i=
 
 ## 結果
 
-論文的主要成果是大型影像分類模型的訓練加速。確切的準確度與步數見其結果章節。
+論文的主要成果是先進影像分類模型的訓練加速：批次正規化達到相同準確度所需的訓練步數少了 14 倍 [(Ioffe and Szegedy, 2015)](https://arxiv.org/abs/1502.03167)。摘要也報告，批次正規化網路的集成在 ImageNet 分類上達到 4.9% top-5 驗證錯誤率與 4.8% 測試錯誤率。各項數字的實驗設定見論文的實驗章節。
 
 ## 限制
 

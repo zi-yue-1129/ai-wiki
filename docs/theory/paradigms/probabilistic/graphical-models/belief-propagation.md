@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-04
 related:
   - theory/paradigms/probabilistic/graphical-models
   - theory/math/probability-statistics
@@ -85,6 +85,6 @@ The binary factor tree is \(X_1-f_{12}-X_2-f_{23}-X_3\). For this **illustrative
 
 ### Surveys and textbooks
 
-- Wainwright, M. J. & Jordan, M. I. (2008). Graphical models, exponential families, and variational inference. *Foundations and Trends in Machine Learning*. https://nowpublishers.com/article/Details/MAL-001 — Connects message passing with variational approximations.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers belief propagation on trees and loopy graphs.
+- Wainwright, M. J. & Jordan, M. I. (2008). Graphical models, exponential families, and variational inference. *Foundations and Trends in Machine Learning*. https://doi.org/10.1561/2200000001 — Connects message passing with variational approximations.
+- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Repository for Murphy's textbook series; covers belief propagation on trees and loopy graphs.
 - Lauritzen, S. L. & Spiegelhalter, D. J. (1988). Local computations with probabilities on graphical structures and their application to expert systems. *Journal of the Royal Statistical Society, Series B* 50(2), 157–194. https://doi.org/10.1111/j.2517-6161.1988.tb01721.x — Local computation on junction trees, the exact-inference counterpart of message passing.
