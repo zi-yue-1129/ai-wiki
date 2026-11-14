@@ -52,7 +52,7 @@ PBWM 有三個協同運作的部分。
 ### 教學動畫：工作記憶的選擇性閘控
 
 <div class="wm-motion-pan" tabindex="0" role="region" aria-label="PBWM：檢視閘控與記憶內容">
-<img src="../../../assets/concept-animations/pbwm-gate-still.svg" data-motion-src="../../../assets/concept-animations/pbwm-gate-motion.svg" width="640" alt="PBWM 閘控過程：提示 A 通過開啟的基底核閘門進入前額葉記憶；干擾 X 被關閉的閘門阻擋，A 維持不變；接著提示 B 通過閘門並取代 A。">
+<img data-source-asset-urls src="../../../assets/concept-animations/pbwm-gate-still.svg" data-motion-src="../../../assets/concept-animations/pbwm-gate-motion.svg" data-still-src="../../../assets/concept-animations/pbwm-gate-still.svg" width="640" alt="PBWM 閘控過程：提示 A 通過開啟的基底核閘門進入前額葉記憶；干擾 X 被關閉的閘門阻擋，A 維持不變；接著提示 B 通過閘門並取代 A。">
 </div>
 
 **藍色提示 A** 通過開啟的閘門，寫入前額葉儲存區；**橘色干擾 X** 遇到關閉的閘門，原有記憶 A 仍被保留；之後 **青綠色提示 B** 通過開啟的閘門，更新記憶。哪些提示對任務有用，以及三次閘門的開關決策，均是**人工設定**，只為示範更新規則；**不是**模型的實際學習軌跡、解剖迴路圖或神經記錄。科學依據請參閱參考文獻中的 O'Reilly 與 Frank（2006）。
