@@ -1,0 +1,36 @@
+/* Local, dependency-free teaching-lab enhancement; static article SVGs survive without JS. */
+.ns-lab{max-width:100%;box-sizing:border-box;margin:1.25rem 0;padding:1rem;border:1px solid var(--md-default-fg-color--lightest,#cbd5e1);border-radius:14px;background:var(--md-code-bg-color,#fafafa);font-size:.83rem}
+.ns-lab h4{margin:.1rem 0 .45rem;font-size:1.02rem;font-weight:700}
+.ns-note{margin:.25rem 0 .75rem;color:var(--md-default-fg-color--light,#64748b)}
+.ns-toolbar{display:flex;flex-wrap:wrap;align-items:end;gap:.65rem .95rem;margin-bottom:.75rem}
+.ns-slider{display:flex;flex:1 1 168px;max-width:230px;flex-direction:column;gap:.12rem;font-weight:600}
+.ns-slider output{display:inline-block;font-variant-numeric:tabular-nums;color:var(--md-primary-fg-color,#2563eb)}
+.ns-slider input{width:100%;min-width:0;accent-color:#2563eb;cursor:pointer}
+.ns-choice{display:flex;flex-direction:column;gap:.2rem;font-weight:600}
+.ns-choice select{border:1px solid #94a3b8;background:var(--md-default-bg-color,#fff);color:var(--md-default-fg-color,#111);border-radius:7px;padding:.3rem;max-width:190px}
+.ns-button-row{display:flex;flex-wrap:wrap;gap:.3rem}
+.ns-button{border:1px solid #7186a6;background:var(--md-default-bg-color,#fff);color:var(--md-default-fg-color,#111);border-radius:7px;padding:.35rem .55rem;cursor:pointer;font:inherit}
+.ns-button:hover{border-color:#2563eb}
+.ns-button:disabled{opacity:.42;cursor:default}
+.ns-lab :is(button,input,select,.ns-graph-scroll):focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+.ns-graph-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-gutter:stable;border-radius:10px}
+.ns-svg{display:block;width:720px;height:auto;max-width:none;background:var(--md-default-bg-color,#fff);border:1px solid var(--md-default-fg-color--lightest,#e2e8f0);border-radius:10px}
+.ns-panel{fill:#f8fafc;stroke:#cbd5e1}
+.ns-gridline{stroke:#cbd5e1;stroke-width:1;stroke-dasharray:4 5}
+.ns-raw-line,.ns-norm-line,.ns-baseline-line{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.ns-raw-line{stroke:#e58b34}.ns-norm-line{stroke:#2676bc}.ns-baseline-line{stroke:#899cad;stroke-width:2;stroke-dasharray:5 5}
+.ns-raw-dot{fill:#f6a54d;stroke:#a55311;stroke-width:2}.ns-norm-dot{fill:#5eb6e8;stroke:#1d609f;stroke-width:2}
+.ns-svg text{font:500 14px/1.3 system-ui,sans-serif;fill:#1f2937}
+.ns-svg .ns-caption{font-size:15px;font-weight:700;text-anchor:middle}.ns-svg .ns-small{font-size:13px;font-weight:600}
+.ns-svg .ns-key,.ns-svg .ns-axis{font-size:12px;fill:#475569}
+.ns-token{fill:#e2e8f0;stroke:#94a3b8;stroke-width:1.5}.ns-token.ns-current{fill:#ffdaa1;stroke:#e58b34;stroke-width:3}.ns-token.ns-done{fill:#c6e9e3;stroke:#159e88}
+.ns-context{fill:#e2e8f0;stroke:#8aa1b4;stroke-width:1.5}.ns-context.ns-done{fill:#c6e9e3;stroke:#159e88;stroke-width:2}
+.ns-token-text{font-size:18px!important;font-weight:700!important}.ns-vector{font-size:12px!important;font-variant-numeric:tabular-nums}.ns-arrow{stroke:#64748b;stroke-width:2;fill:none;stroke-linecap:round}
+.ns-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:.5rem;margin-top:.65rem}
+.ns-metric{min-width:0;padding:.55rem .65rem;border-radius:8px;border:1px solid #cbd5e1;background:var(--md-default-bg-color,#fff)}
+.ns-metric span{display:block;color:var(--md-default-fg-color--light,#64748b);font-size:.73rem}
+.ns-metric strong{display:block;font-weight:700;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.ns-status{min-height:1.75rem;margin:.55rem 0 0;font-variant-numeric:tabular-nums;color:var(--md-default-fg-color--light,#64748b);font-size:.75rem}
+@media(prefers-reduced-motion:reduce){.ns-lab *, .ns-lab *::before,.ns-lab *::after{animation:none!important;transition:none!important}}
+@media(max-width:480px){.ns-lab{padding:.55rem}.ns-toolbar{gap:.5rem}.ns-button{padding:.3rem .43rem}}
+@media(prefers-color-scheme:dark){[data-md-color-scheme="slate"] .ns-panel{fill:#1e293b;stroke:#475569}[data-md-color-scheme="slate"] .ns-svg text{fill:#e2e8f0}[data-md-color-scheme="slate"] .ns-token{fill:#334155;stroke:#94a3b8}[data-md-color-scheme="slate"] .ns-context{fill:#334155}[data-md-color-scheme="slate"] .ns-token.ns-done,[data-md-color-scheme="slate"] .ns-context.ns-done{fill:#145a54}[data-md-color-scheme="slate"] .ns-token.ns-current{fill:#955e20}}
