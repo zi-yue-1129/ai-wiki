@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-11-14
+translation_reviewed: 2026-11-15
 related:
   - theory/paradigms/evolutionary
   - theory/models/mlp
