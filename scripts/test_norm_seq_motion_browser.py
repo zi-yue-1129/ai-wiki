@@ -36,7 +36,9 @@ def exercise(browser,stem,locale,width,reduced):
   assert img.get_attribute('alt')==alt
   assert (img.get_attribute('src') or '').endswith('-still.svg')==reduced
   page.wait_for_function("document.querySelector('img').complete && document.querySelector('img').naturalWidth > 0")
-  assert page.locator('.concept-motion-player img').evaluate('(i)=>i.naturalWidth')==860
+  # SVG viewBox defines its drawing coordinate system; naturalWidth may default to 300.
+  assert img.evaluate('(i)=>i.naturalWidth')>0
+  assert round(img.evaluate('(i)=>i.getBoundingClientRect().width'))==860
   if width in (320,360):
     assert host.evaluate('(h)=>h.scrollWidth>h.clientWidth'), 'mobile image unexpectedly shrank'
     assert img.evaluate('(i)=>Math.round(i.getBoundingClientRect().width)')==860
