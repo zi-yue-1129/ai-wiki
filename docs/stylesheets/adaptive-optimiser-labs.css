@@ -1,0 +1,39 @@
+/* Numeric teaching controls, independent of the GitHub-safe fallback figures. */
+.adaptive-lab { max-width: 730px; padding: 1.15rem; margin: 1.2rem 0 1.8rem; border: 1px solid var(--md-default-fg-color--lightest,#d9e3ec); border-radius: .8rem; background: var(--md-code-bg-color,#f8fbfe); color: var(--md-default-fg-color,#273f54); }
+.adaptive-lab-title { margin: 0 0 .25rem !important; font-size: 1rem; font-weight: 700; }
+.adaptive-lab-hint { margin: .15rem 0 1rem; font-size: .79rem; line-height: 1.5; }
+.adaptive-lab-figure { min-height: 162px; background: var(--md-default-bg-color,#fff); border-radius: .6rem; padding: .8rem; border: 1px solid var(--md-default-fg-color--lightest,#e0e8ef); }
+.adaptive-lab-stats { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; }
+.adaptive-lab-stat-card { min-width: 0; padding: .65rem; border-radius: .5rem; background: var(--md-code-bg-color,#f1f5fa); }
+.adaptive-lab-stat-title { font-weight: 650; font-size: .8rem; margin-bottom: .6rem; }
+.adaptive-lab-meter { height: 17px; background: var(--md-default-fg-color--lightest,#e5e9ed); border-radius: 4px; overflow: hidden; }
+.adaptive-lab-meter-fill { height: 100%; border-radius: 4px; transition: width .3s ease; }
+.adaptive-lab-blue { background: #477fc9; }.adaptive-lab-teal { background: #0b858a; }
+.adaptive-lab-values { font-variant-numeric: tabular-nums; font-size: .72rem; line-height: 1.6; margin-top: .65rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.adaptive-lab-factor-wrap { display: flex; align-items: center; gap: 1rem; min-height: 139px; }
+.adaptive-lab-matrix { display: grid; flex: 0 0 auto; grid-template-columns: repeat(4, 35px); grid-template-rows: repeat(3, 35px); gap: 4px; }
+.adaptive-lab-cell { display: grid; place-items: center; border: 2px solid transparent; border-radius: 6px; font-weight: 650; font-size: .72rem; background: color-mix(in srgb,#0b858a calc(var(--intensity)*70%),#e8f2f4); color: #183b4d; }
+.adaptive-lab-cell.adaptive-lab-cross { border-color: #87bac2; }
+.adaptive-lab-cell.adaptive-lab-selected { border-color: #df7b24; box-shadow: 0 0 0 2px #ffcc9e; }
+.adaptive-lab-equals { font-size: 1.45rem; font-weight: 700; color: #c07a35; }
+.adaptive-lab-factor-results { flex: 1; min-width: 0; font-variant-numeric: tabular-nums; font-size: .78rem; line-height: 1.7; }
+.adaptive-lab-rowcol { font-weight: 650; }
+.adaptive-lab-formula { color: var(--md-default-fg-color--light,#577184); }
+.adaptive-lab-answer { color: #087e84; font-weight: 750; font-size: .95rem; }
+.adaptive-lab-note { font-size: .73rem; overflow-wrap: anywhere; }
+.adaptive-lab-controls { display: flex; align-items: center; gap: .45rem .65rem; flex-wrap: wrap; margin-top: .7rem; }
+.adaptive-lab-button, .adaptive-lab-speed { font: inherit; font-size: .72rem; padding: .38rem .62rem; border: 1px solid var(--md-default-fg-color--lighter,#a2b2c1); background: var(--md-default-bg-color,#fff); color: inherit; border-radius: .4rem; cursor: pointer; }
+.adaptive-lab-button:disabled { opacity: .45; cursor: not-allowed; }
+.adaptive-lab-controls :is(button,input,select):focus-visible { outline: 3px solid var(--md-accent-fg-color,#0b858a); outline-offset: 2px; }
+.adaptive-lab-slider-label { display: flex; min-width: 135px; align-items: center; gap: .45rem; flex: 1 1 150px; font-size: .73rem; }
+.adaptive-lab-range { min-width: 70px; width: 100%; accent-color: #0b858a; }
+.adaptive-lab-speed-label { display: flex; align-items: center; gap: .35rem; font-size: .73rem; }
+.adaptive-lab-readout { min-height: 1.9em; margin-top: .55rem; font-size: .75rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
+@media (max-width: 460px) { .adaptive-lab { padding: .7rem; } .adaptive-lab-stats { grid-template-columns: 1fr; } .adaptive-lab-factor-wrap { gap: .5rem; } .adaptive-lab-matrix { grid-template-columns: repeat(4,27px); grid-template-rows: repeat(3,30px); gap: 3px; } .adaptive-lab-equals { font-size: 1.1rem; } .adaptive-lab-factor-results { font-size: .69rem; } .adaptive-lab-answer { font-size: .78rem; } }
+@media (prefers-reduced-motion: reduce) { .adaptive-lab-meter-fill { transition: none; } }
+/* Preserve full-size diagram labels at mobile widths. */
+.concept-motion-player:has(img[src*="adagrad-coordinate-gain"]),
+.concept-motion-player:has(img[src*="adafactor-factored-moments"]) { max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain; }
+.concept-motion-player img[src*="adagrad-coordinate-gain"],
+.concept-motion-player img[src*="adafactor-factored-moments"] { width:720px;max-width:none; }
+.concept-motion-player:focus-visible { outline:3px solid var(--md-accent-fg-color,#397da8);outline-offset:2px; }
