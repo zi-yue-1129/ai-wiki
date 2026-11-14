@@ -44,12 +44,21 @@ def main():
                     ucb = page.locator('[data-bandit-lab="ucb"]')
                     ts = page.locator('[data-bandit-lab="thompson"]')
                     assert ucb.locator('[data-role="svg"] rect').count() > 5
+                    # Analytic phase diagram is a real, focusable SVG and not a raster or sampled heatmap.
+                    boundary = ucb.locator('[data-role="boundary"]')
+                    assert boundary.locator('svg polygon').count() == 1
+                    assert boundary.locator('svg [data-role="reward-marker"]').count() == 1
+                    assert '0.818' in boundary.inner_text()
+                    initial_x = float(boundary.locator('[data-role="reward-marker"]').get_attribute('cx'))
+                    assert 'A' in boundary.locator('.bandit-lab-boundary-note').inner_text()
                     assert 'B' in ucb.locator('[data-role="metrics"]').inner_text()
                     ucb.locator('[data-role="seek"]').fill('2')
                     assert 'A' in ucb.locator('[data-role="metrics"]').inner_text()
                     assert '1.63' in ucb.locator('[data-role="metrics"]').inner_text()
                     # A single good reward can overturn the second-pull switch.
                     ucb.locator('[data-role="reward1"]').fill('1')
+                    assert float(boundary.locator('[data-role="reward-marker"]').get_attribute('cx')) > initial_x
+                    assert 'B' in boundary.locator('.bandit-lab-boundary-note').inner_text()
                     assert 'B' in ucb.locator('[data-role="metrics"]').inner_text()
                     assert '0.000' not in ucb.locator('[data-role="metrics"]').inner_text()
                     # The second reward must not affect the state after the first pull.
@@ -64,6 +73,7 @@ def main():
                     assert 'B' in ucb.locator('[data-role="metrics"]').inner_text()
                     ucb.locator('[data-role="reward2"]').fill('0')
                     assert 'A' in ucb.locator('[data-role="metrics"]').inner_text()
+                    assert 'A' in boundary.locator('.bandit-lab-boundary-note').inner_text()
                     assert 'Highest observed mean' in ucb.locator('[data-role="metrics"]').inner_text() or lang == 'zh-TW'
                     ucb.locator('[data-action="reset"]').click()
                     assert ucb.locator('[data-role="seek"]').input_value() == '0'
@@ -76,8 +86,11 @@ def main():
                     assert ts.locator('[role="meter"]').count() == 3
                     ts.locator('[data-action="next"]').click()
                     assert 'C' in ts.locator('[data-role="metrics"]').inner_text()
+                    assert ts.locator('[data-role="svg"] circle').count() == 3
                     ts.locator('[data-action="next"]').click()
                     assert '(5,3)' in ts.locator('[data-role="metrics"]').inner_text()
+                    # A sample dot from the old posterior must not be repositioned on the updated curve.
+                    assert ts.locator('[data-role="svg"] circle').count() == 0
                     success = float(probabilities.nth(2).get_attribute('data-prob'))
                     assert success > initial[2] and 0.66 < success < 0.67
                     ts.locator('[data-role="outcome"]').select_option('0')
@@ -86,6 +99,7 @@ def main():
                     assert 0.45 < failure < 0.46 and failure < initial[2]
                     ts.locator('[data-action="next"]').click()
                     assert 'A' in ts.locator('[data-role="metrics"]').inner_text()
+                    assert ts.locator('[data-role="svg"] circle').count() == 3
                     ts.locator('[data-action="reset"]').click()
                     assert '(4,3)' in ts.locator('[data-role="metrics"]').inner_text()
                     if width <= 360:
@@ -94,6 +108,7 @@ def main():
                         )
                         assert ucb.locator('.bandit-lab-scroll-hint').is_visible()
                         assert ts.locator('.bandit-lab-scroll-hint').is_visible()
+                        assert boundary.locator('.bandit-lab-boundary-scroll').is_visible()
                     if reduced:
                         ucb.locator('[data-action="toggle"]').click()
                         assert ucb.locator('[data-action="toggle"]').inner_text() in ('Play', '播放')
