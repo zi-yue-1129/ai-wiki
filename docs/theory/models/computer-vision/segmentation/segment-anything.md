@@ -50,6 +50,15 @@ GitHub displays the reviewed static SVG without executing scripts. On MkDocs, Pl
 
 *Original concept animation and static fallback, CC BY-SA 4.0.*
 
+## Interactive lab: nested masks and prompt ambiguity
+
+<div data-seg-lab="sam" data-lang="en"></div>
+<noscript>The reviewed static SVG above remains readable without JavaScript.</noscript>
+
+Choose a **predefined whole, part or subpart mask** and toggle a supplemental box prompt. Step through point placement, three plausible nested candidates and a **constructed box-filtering rule** using Previous/Next, seek, Play/Pause, speed and Reset. Native keyboard controls and reduced-motion preferences are supported. The binary masks, selection and timing are **hand-specified teaching data**, not learned SAM outputs, confidence scores or measured latency.
+
+The interaction demonstrates how the same point can belong to several object granularities and how spatial constraints can eliminate alternatives in an artificial example. **It does not imply real SAM deterministically chooses the smallest mask under a box prompt**; the original model predicts prompt-conditioned masks and estimated mask quality.
+
 ## Equation and procedure
 
 Masks are predicted with a linear combination of focal loss and dice loss, weighted 20 to 1 in favour of focal loss. A separate head predicts the quality of each mask as its IoU with the ground truth, and is trained with mean-squared error. Writing $\mathcal{L}_{\text{focal}}$ and $\mathcal{L}_{\text{dice}}$ for the two mask losses and $\mathcal{L}_{\text{IoU}}$ for the quality term,

@@ -28,6 +28,9 @@ on:
       - "scripts/test_ssl_ema_trajectory_browser.py"
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_segmentation_motion_browser.py"
+      - "scripts/test_segmentation_labs_browser.py"
+      - "docs/javascripts/segmentation-labs.js"
+      - "docs/stylesheets/segmentation-labs.css"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
@@ -86,6 +89,8 @@ jobs:
         run: python scripts/test_ssl_temporal_provenance_browser.py
       - name: Test bilingual segmentation SVGs, keyboard pause and reduced motion
         run: python scripts/test_segmentation_motion_browser.py
+      - name: Test interactive RoIAlign and SAM segmentation labs
+        run: python scripts/test_segmentation_labs_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -98,6 +103,7 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/segmentation-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 

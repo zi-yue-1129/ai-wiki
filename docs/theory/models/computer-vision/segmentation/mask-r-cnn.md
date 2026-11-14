@@ -48,6 +48,15 @@ GitHub shows the reviewed **static fallback** directly. On MkDocs, the same asse
 
 *Original concept animation and static fallback, CC BY-SA 4.0.*
 
+## Interactive lab: bilinear interpolation
+
+<div data-seg-lab="roi" data-lang="en"></div>
+<noscript>The reviewed static SVG above remains readable without JavaScript.</noscript>
+
+Adjust the continuous sample coordinates **x** and **y**. Previous/Next, a seek slider, Play/Pause, speed and Reset reveal four operations: select a location, identify its four neighbours, interpolate with weights that sum to one, and compare against a nearest-grid reading. Changing coordinates recomputes the values, rather than swapping decorative illustrations. Native keyboard controls and reduced-motion preferences are supported.
+
+This deliberately simplified, synthetic 4 × 4 feature map illustrates the **2D bilinear-interpolation operation** used by RoIAlign; it does **not** implement full RoI-bin aggregation or RoIPool max pooling. Nearest-grid reading is only a quantisation analogy, and the feature values are not measured Mask R-CNN activations.
+
 ## Equation and procedure
 
 Each sampled RoI carries a multi-task loss
