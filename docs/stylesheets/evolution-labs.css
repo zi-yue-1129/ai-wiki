@@ -1,0 +1,35 @@
+/* Numerical labs for evolutionary algorithms. Shared EN / zh-TW presentation. */
+.evo-lab { max-width:100%; margin:1.1rem 0 1.5rem; padding:.9rem; border:1px solid var(--md-default-fg-color--lightest,#cbd5e1); border-radius:.75rem; background:var(--md-code-bg-color,#f8fafc); }
+.evo-lab .evo-explanation,.evo-lab .evo-disclaimer {font-size:.76rem; line-height:1.5; margin:.1rem 0 .7rem;}
+.evo-lab .evo-disclaimer {margin:.6rem 0 0; opacity:.8;}
+.evo-parameters {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:.8rem;margin-bottom:.75rem;}
+.evo-slider {display:flex;flex-direction:column;gap:.25rem;font-size:.76rem;}
+.evo-slider-head {display:flex;justify-content:space-between;gap:.3rem;}
+.evo-slider-value {font-variant-numeric:tabular-nums;font-weight:700;}
+.evo-slider input,.evo-timeline input {width:100%;cursor:pointer;accent-color:#197f9a;min-width:0;}
+.evo-canvas {max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;border-radius:.55rem;background:var(--md-default-bg-color,#fff);border:1px solid var(--md-default-fg-color--lightest,#d9e2ec);padding:.9rem .7rem;outline-offset:2px;}
+.evo-canvas:focus-visible {outline:3px solid #209abc;}
+.evo-genome-row {display:grid;grid-template-columns:5rem auto;gap:.6rem;align-items:center;min-width:560px;margin-bottom:.6rem;}
+.evo-row-title {font-weight:700;font-size:.76rem;}
+.evo-bits {display:grid;grid-template-columns:repeat(8,1fr);gap:.32rem;}
+.evo-bit {height:2.5rem;display:grid;place-items:center;border-radius:.4rem;border:1px solid #c3d1da;font-size:.95rem;font-weight:700;font-variant-numeric:tabular-nums;color:#153245;}
+.evo-one {background:#79c7db;}
+.evo-zero {background:#eff3f6;}
+.evo-empty {background:repeating-linear-gradient(135deg,#f2f4f7,#f2f4f7 6px,#e9edf1 6px,#e9edf1 12px);color:#7b8995;}
+.evo-from-b:not(.evo-empty) {box-shadow:inset 0 -5px #bd866b;}
+.evo-focus {outline:3px solid #e59a37;outline-offset:1px;}
+.evo-message,.evo-numeric {min-width:0;margin:.4rem 0 0;font-size:.75rem;line-height:1.4;font-variant-numeric:tabular-nums;}
+.evo-message {font-weight:700;}
+.evo-map-cells {min-width:540px;max-width:660px;display:grid;grid-template-columns:repeat(6,minmax(75px,1fr));gap:.35rem;}
+.evo-niche {display:grid;place-items:center;min-height:3.2rem;border:1px dashed #bac6d1;border-radius:.4rem;color:#92a0ab;font-size:.8rem;font-weight:700;font-variant-numeric:tabular-nums;background:#f6f8fa;}
+.evo-filled {color:#14394a;background:color-mix(in srgb,#2ea4ae calc(30% + 55% * var(--evo-quality,0)),#fff);border:1px solid #5594a0;}
+.evo-target {outline:3px solid #e59a37;outline-offset:1px;}
+.evo-timeline {display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:.65rem 0 .3rem;}
+.evo-timeline button {font:inherit;font-size:.72rem;padding:.3rem .55rem;border-radius:.4rem;background:var(--md-default-bg-color,#fff);border:1px solid var(--md-default-fg-color--light,#b9c7d4);color:var(--md-default-fg-color,#2a3744);cursor:pointer;}
+.evo-timeline button:disabled {opacity:.45;cursor:not-allowed;}
+.evo-timeline button:focus-visible,.evo-slider input:focus-visible,.evo-timeline input:focus-visible {outline:3px solid #209abc;outline-offset:2px;}
+.evo-timeline input {flex:1 1 140px;max-width:270px;}
+.evo-step-status {font-size:.72rem;font-variant-numeric:tabular-nums;}
+@media(prefers-reduced-motion:reduce){.evo-lab *{transition:none!important;animation:none!important;}}
+
+.evo-feedback {margin:.5rem 0 .2rem;}
