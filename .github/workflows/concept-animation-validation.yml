@@ -8,6 +8,10 @@ on:
       - "scripts/verify_concept_motion.py"
       - "scripts/verify_concept_svgs.py"
       - "scripts/test_uncertainty_motion_semantics.py"
+      - "scripts/test_bayesian_filter_motion_browser.py"
+      - "scripts/test_bayesian_filter_labs_browser.py"
+      - "docs/javascripts/bayesian-filter-labs.js"
+      - "docs/stylesheets/bayesian-filter-labs.css"
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
@@ -50,7 +54,7 @@ jobs:
         run: python scripts/verify_concept_animations.py
 
   validate-motion:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -73,6 +77,10 @@ jobs:
           python -m playwright install chromium
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
+      - name: Chromium Bayesian filters, bilingual controls and static fallbacks
+        run: python scripts/test_bayesian_filter_motion_browser.py
+      - name: Chromium Kalman and particle numerical labs
+        run: python scripts/test_bayesian_filter_labs_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -95,6 +103,7 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/bayesian-filter-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 

@@ -28,6 +28,8 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
+      // The horizontally scrollable figure remains keyboard reachable on narrow screens.
+      host.tabIndex = 0;
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';
