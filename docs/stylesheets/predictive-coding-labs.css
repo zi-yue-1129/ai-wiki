@@ -1,0 +1,19 @@
+/* Original AI Wiki numerical teaching labs; CC BY-SA 4.0 */
+.pc-lab{max-width:780px;margin:1.1rem 0 1.6rem;border:1px solid var(--md-default-fg-color--lightest,#cfdae2);border-radius:12px;padding:1rem;background:var(--md-default-bg-color,#fff);color:var(--md-default-fg-color,#253b4a);font-size:.82rem}
+.pc-parameters{display:flex;flex-wrap:wrap;gap:.65rem 1.5rem;margin:0 0 .65rem}
+.pc-param{display:grid;gap:.15rem;min-width:155px;flex:1 1 180px}
+.pc-param span{font-weight:600}
+.pc-param input,.pc-seek-label input{width:100%;accent-color:#087f8c}
+.pc-scroll{max-width:100%;overflow-x:auto;border-radius:10px;outline-offset:3px}
+.pc-scroll:focus-visible,.pc-lab button:focus-visible,.pc-lab input:focus-visible,.pc-lab select:focus-visible{outline:3px solid #087f8c;outline-offset:2px}
+.pc-plot{display:block;width:660px;height:252px;max-width:none;font:12px system-ui,-apple-system,sans-serif}
+.pc-plot text{fill:#395466;font-size:12px}
+.pc-controls{display:flex;align-items:center;flex-wrap:wrap;gap:.35rem .55rem;margin-top:.55rem}
+.pc-controls button,.pc-controls select{font:inherit;line-height:1.5;border:1px solid #94a9b8;background:var(--md-default-bg-color,#fff);color:inherit;border-radius:6px;padding:.25rem .5rem;cursor:pointer}
+.pc-controls button:hover{border-color:#087f8c}
+.pc-seek-label{display:flex;align-items:center;gap:.35rem;flex:1 1 170px;min-width:125px}
+.pc-speed-label{display:flex;align-items:center;gap:.3rem}
+.pc-readout{font-variant-numeric:tabular-nums;font-weight:650;min-height:2.3em;margin:.65rem 0 .25rem!important;overflow-wrap:anywhere}
+.pc-note{font-size:.74rem;line-height:1.55;opacity:.83;margin:0!important}
+@media(max-width:390px){.pc-lab{padding:.65rem}.pc-controls{gap:.4rem}.pc-controls button{padding:.24rem .4rem}}
+@media(prefers-reduced-motion:reduce){.pc-lab *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
