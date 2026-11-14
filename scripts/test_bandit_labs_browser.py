@@ -55,6 +55,7 @@ def main():
                     assert abs(float(ucb.locator('[data-role="reward1"]').input_value())-.9)<1e-9
                     assert abs(float(ucb.locator('[data-role="reward2"]').input_value())-.9)<1e-9
                     assert 'B' in boundary.locator('.bandit-lab-boundary-note').inner_text()
+                    assert 'B.' in ucb.locator('[data-role="status"]').inner_text()
                     boundary.locator('svg').click(position={'x': 79, 'y': 163}) # r1=r2=.15
                     assert abs(float(ucb.locator('[data-role="reward1"]').input_value())-.15)<1e-9
                     assert 'A' in boundary.locator('.bandit-lab-boundary-note').inner_text()
