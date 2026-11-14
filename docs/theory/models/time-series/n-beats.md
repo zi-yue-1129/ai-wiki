@@ -57,7 +57,7 @@ The M4 and M3 models were also trained with MAPE and MASE, and the paper reports
 
 ## Results
 
-On the M4 competition data, the paper's ensemble reaches an average sMAPE of 11.135, against 11.374 for the M4 winner, a hybrid of exponential smoothing and recurrent networks. The abstract states that the design improves accuracy by 11% over a statistical benchmark and by 3% over the M4 winner. The generic and interpretable configurations are close in accuracy. The paper also reports results on the M3 and tourism datasets, where the same architecture is used without changes.
+On the M4 competition data, the combined generic-and-interpretable ensemble (N-BEATS-I+G) reaches an average sMAPE of 11.135, against 11.374 for the M4 winner, a hybrid of exponential smoothing and recurrent networks. The abstract reports 11% and 3% improvements, but these should not be read as reductions from the sMAPE values above. Table 1 reports OWA of 0.795 for N-BEATS-I+G versus 0.821 for the M4 winner, about a 3.2% reduction; its sMAPE reduction is about 2.1%. The generic and interpretable configurations are close in accuracy. The paper also reports results on the M3 and tourism datasets, where the same architecture is used without changes.
 
 ## Limitations
 

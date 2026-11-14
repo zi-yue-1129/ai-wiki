@@ -17,7 +17,7 @@ DeepAR is a forecasting method that trains one autoregressive recurrent network 
 
 ## Problem
 
-Classical forecasting fits a separate model to each series, usually with a few parameters chosen by hand. That approach struggles when a series is short, intermittent or similar to thousands of others. It also tends to report a single expected value, while many decisions depend on the risk of an extreme outcome. The motivating case is retail demand: a planner needs the probability that demand exceeds a stock level, for many products at once.
+Classical forecasting fits a separate model to each series, usually with a few parameters chosen by hand. That approach struggles when a series is short, intermittent or similar to thousands of others. Classical methods can also provide predictive distributions; DeepAR's distinguishing feature is learning a shared probabilistic model across many series. The motivating case is retail demand: a planner needs the probability that demand exceeds a stock level, for many products at once.
 
 ## Core idea
 
@@ -39,14 +39,14 @@ For count data the paper uses a negative binomial with mean $\mu$ and shape $\al
 Training maximises the sum of log-likelihoods over all series and all steps in the prediction range:
 
 $$
-\mathcal{L}(\theta) = \sum_{i}\sum_{t \ge t_0} \log \ell\!\left(z_{i,t} \mid \mu_{i,t}, \sigma_{i,t}\right)
+\mathcal{L}(\theta) = \sum_{i}\sum_{t=t_0}^{T} \log \ell\!\left(z_{i,t} \mid \vartheta(\mathbf{h}_{i,t})\right)
 $$
 
-Because the hidden states are deterministic functions of observed inputs, no latent-variable inference is needed. Ordinary backpropagation through time is enough.
+Here $\vartheta$ denotes the parameters of the chosen likelihood. The experiments also include likelihood terms from the conditioning range. Because the hidden states are deterministic functions of observed inputs, no latent-variable inference is needed. Ordinary backpropagation through time is enough.
 
 ## Training and forecasting
 
-Each training example is a window with two parts. The conditioning range, before a start point $t_0$, is observed. The prediction range, after $t_0$, is the target. The encoder and decoder share weights, and the state at $t_0$ comes from running the network over the conditioning range. Windows may start before a series begins, with the unobserved target padded with zeros.
+Each training example is a window with two parts. The conditioning range, before a start point $t_0$, is observed. The prediction range, from $t_0$ through $T$, is the target. The encoder and decoder share weights, and the decoder's initial state $\mathbf{h}_{i,t_0-1}$ comes from running the network over the conditioning range. Windows may start before a series begins, with the unobserved target padded with zeros.
 
 Values are divided by an item-specific scale $\nu_i = 1 + \frac{1}{t_0}\sum_{t=1}^{t_0} z_{i,t}$, and the scale also enters the output mean. Series are sampled for training windows with probability proportional to $\nu_i$. This choice gives large-volume series more weight, which counters the skewed volumes typical of retail data. The authors describe the scale as a heuristic that works well in practice.
 
@@ -54,13 +54,13 @@ Covariates include time features such as day of week and week of year, the age o
 
 ## Results
 
-The abstract reports accuracy improvements of around 15% over state-of-the-art methods on several real-world datasets. The main metric is the normalised $\rho$-risk, which is the quantile loss summed over series and divided by the summed targets. The tables report these values relative to a baseline for each dataset, so the gains are ratios rather than absolute errors. Point forecasts on electricity and traffic are compared with a matrix-factorisation baseline, using normalised deviation and RMSE. Those comparisons cover two datasets and one competitor only. The numbers quoted here come from the arXiv preprint, and the journal version may differ.
+The abstract reports accuracy improvements of around 15% over state-of-the-art methods on several real-world datasets. The main metric is the normalised $\rho$-risk, which is the quantile loss summed over series and divided by the summed targets. The tables report these values relative to a baseline for each dataset, so the gains are ratios rather than absolute errors. Point forecasts on electricity and traffic are compared with a matrix-factorisation baseline, using normalised deviation and normalised RMSE. Those comparisons cover two datasets and one competitor only. The numbers quoted here come from the arXiv preprint, and the journal version may differ.
 
 ## Limitations
 
 - The Gaussian likelihood fits heavy-tailed or strictly positive series poorly unless a more suitable likelihood is chosen.
 - The scaling rule is a heuristic. The authors note that it is hard to choose when data are missing or when variance differs widely across items.
-- Hyperparameter search is narrow, and the authors warn that selecting settings on overlapping windows can overfit. They call for evaluation on non-overlapping intervals as well.
+- Training uses observed previous values, whereas forecasting feeds sampled predictions back into the network. The authors report no adverse effects from this mismatch in their experiments, but this is not a general guarantee.
 - The paper reports differences as significant without a formal statistical test.
 - Forecasting is sequential and needs many sample paths for good quantile estimates. It is slower than a model that outputs the whole horizon in one pass.
 
