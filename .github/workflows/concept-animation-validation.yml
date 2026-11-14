@@ -74,7 +74,7 @@ jobs:
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
-      - name: Chromium symbolic proof labs: DFS state, resolution, keyboard and fallback
+      - name: "Chromium symbolic proof labs: DFS state, resolution, keyboard and fallback"
         run: python scripts/test_symbolic_proof_labs_browser.py --screenshots artifacts/symbolic-proof-labs
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
