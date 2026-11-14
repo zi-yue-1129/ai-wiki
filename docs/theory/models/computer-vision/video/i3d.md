@@ -35,6 +35,14 @@ Each two-dimensional filter is inflated along the temporal axis. Its weights are
 
 *Original teaching visual (CC BY-SA 4.0).* A schematic signed spatial filter \(W\) is copied into three temporal slices, each scaled by \(1/3\). For **three identical input frames**, the three linear convolution contributions sum to the original 2D response \(R\), away from temporal padding boundaries: \(3(R/3)=R\). The moving border and accumulation bar show the **three conceptual contributions**, not a measured activation time series or training trajectory. Learned 3D weights can subsequently diverge across temporal positions. MkDocs provides Play/Pause, keyboard control and a static reduced-motion view. [Open the animated SVG](../../../../assets/concept-animations/i3d-filter-inflation-motion.svg). See [Carreira and Zisserman (2017)](https://arxiv.org/abs/1705.07750).
 
+### Interactive lab: when the constant-video fixed point breaks
+
+This **constructed, single-position linear convolution** uses a two-by-two spatial kernel \(W=[1,-1,0.5,0.5]\) and reference input \(X=[2,1,3,2]\). Its 2D response is \(W\cdot X=3.5\). Each of three temporal taps is initialised to \(W/3\), so identical frames produce \(3.5\). Change only the first pixel of the middle frame by \(\Delta\), and the inflated 3D response becomes \(3.5+\Delta/3\). Step through the per-frame weighted contributions and observe how the final sum changes.
+
+<div class="video-arch-lab" data-lab="i3d" data-lang="en"></div>
+
+Use **Previous / Next, Play / Pause, Seek, Speed, Reset**, or arrow keys on the range controls. These small grids and response values are **illustrative arithmetic, not real I3D activations or model measurements**. They omit padding boundaries, learned temporal adaptation and network nonlinearities; the fixed-point equality here applies to the interior linear operation on an identical-frame clip.
+
 ## Equation
 
 For an $N \times N$ filter $W$, the paper repeats it $N$ times along time and divides by $N$, giving an $N \times N \times N$ filter:
