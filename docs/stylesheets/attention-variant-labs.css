@@ -1,0 +1,21 @@
+/* Original CC BY-SA 4.0 attention labs. */
+.attention-lab{box-sizing:border-box;border:1px solid var(--md-default-fg-color--lightest,#cbd5e1);border-radius:12px;padding:1rem;margin:1.2rem 0;background:var(--md-default-bg-color,#fff);color:var(--md-default-fg-color,#1e293b);font-size:.88rem}
+.attention-lab [hidden]{display:none!important}
+.attention-lab h4{font-size:1.04rem;margin:0 0 .7rem;font-weight:650}
+.attention-lab-controls,.attention-lab-actions{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin:.7rem 0}
+.attention-lab-range{display:flex;flex-direction:column;gap:.3rem;min-width:min(210px,100%);flex:1;max-width:320px;font-size:.85rem}
+.attention-lab-range input{width:100%;accent-color:#0d9488;cursor:pointer}
+.attention-lab-actions button{padding:.32rem .62rem;border:1px solid #94a3b8;border-radius:7px;background:var(--md-default-bg-color,#fff);color:inherit;font:inherit;cursor:pointer}
+.attention-lab-actions button:hover,.attention-lab-actions button:focus-visible{border-color:#0d9488;outline:2px solid #14b8a6;outline-offset:1px}
+.attention-lab-actions button:disabled{opacity:.4;cursor:not-allowed;outline:none}
+.attention-lab-stage{overflow-x:auto;max-width:100%;border-radius:8px;background:#fff;border:1px solid #e2e8f0;scrollbar-width:thin}
+.attention-lab-stage:focus-visible{outline:2px solid #0d9488;outline-offset:2px}
+.attention-lab-stage svg{width:650px;max-width:none;height:auto;display:block}
+.attention-lab-stats{font-variant-numeric:tabular-nums;font-weight:600;margin:.7rem 0 .3rem}
+.attention-lab-table{max-width:100%;overflow:auto}
+.attention-lab-table table{width:100%;font-size:.75rem;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.attention-lab-table td,.attention-lab-table th{padding:.3rem .45rem;border-bottom:1px solid #e2e8f0;text-align:right}
+.attention-lab-table .attention-lab-current{background:rgba(13,148,136,.13);font-weight:650}
+.attention-lab-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.attention-lab-note{font-size:.75rem;color:var(--md-default-fg-color--light,#64748b);margin:.4rem 0 0}
+@media(prefers-reduced-motion:reduce){.attention-lab *{animation:none!important;transition:none!important}}
