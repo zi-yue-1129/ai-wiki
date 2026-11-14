@@ -39,6 +39,14 @@ Ho and colleagues extend the image diffusion model to video by denoising a seque
 
 *Original teaching visual (CC BY-SA 4.0).* The four frames belong to a **jointly denoised video tensor**, not four independent frame samplers. The orange trajectory indicates temporal dependence; coloured tiles fade as corruption is removed. All frames, motion paths and transitions are **schematic rather than generated samples or measurements**. Joint denoising also does not guarantee perfect long-range coherence. See [Ho et al. (2022)](https://arxiv.org/abs/2204.03458). The website provides Play/Pause with Enter/Space, a static still for reduced-motion preferences, and horizontally scrollable diagrams on narrow screens. [Open the animated SVG](../../../../assets/concept-animations/video-joint-denoising-motion.svg).
 
+### Interactive lab: the forward video-noising equation
+
+<div data-diffusion-lab="video" data-lang="en">
+  <p>The GitHub-compatible static animation above remains available without JavaScript.</p>
+</div>
+
+This **deterministic toy calculation** constructs a four-frame, 12-by-8 grayscale clip and a fixed noise tensor. Scrub the signal-retention parameter `ᾱ` to recompute each noisy frame from `x_t = sqrt(ᾱ) x_0 + sqrt(1−ᾱ) ε`; the displayed **Noise RMS** is the root mean square of the injected term `sqrt(1−ᾱ) ε` over all 384 elements. The noise tensor remains fixed, so any visual change comes from the selected noise level rather than from resampling. A lower `ᾱ` means more corruption; the playable upward sweep merely removes synthetic corruption by changing the equation's parameter. **This is the forward corruption law, not the learned reverse diffusion trajectory**. Real video denoisers are trained to infer noise and preserve temporal dependencies; the lab does not model learned temporal attention or evaluate coherence. Use Previous/Next, Seek, Play/Pause, speed or Reset; native controls work with a keyboard. Reduced-motion preferences disable autoplay. All frames and numerical values are schematic and not model outputs.
+
 ## Equation
 
 The training objective is the denoising loss of the diffusion model, applied to a noised video $\mathbf{x}_t$:

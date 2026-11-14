@@ -39,6 +39,14 @@ Train a perceptual autoencoder once to compress images into a latent \(z = E(x)\
 
 *Original teaching visual (CC BY-SA 4.0).* **Left:** during training, a pretrained encoder $E$ compresses an image $x$ into $z_0$. **Right:** synthesis starts with random latent $z_T$, repeatedly denoises to $z_0$, and **decodes only once** using $D$. Colours and changes are **constructed examples, not learned latents, generated samples, or speed measurements**. Unconditional synthesis does not first require encoding an input image. See [Rombach et al. (2022)](https://arxiv.org/abs/2112.10752). The website provides Play/Pause with Enter/Space, a static still for reduced-motion preferences, and horizontally scrollable diagrams on narrow screens. [Open the animated SVG](../../../../../assets/concept-animations/latent-space-denoise-motion.svg).
 
+### Interactive lab: compressed latent grids and one final decode
+
+<div data-diffusion-lab="latent" data-lang="en">
+  <p>The no-script static SVG above remains readable on GitHub.</p>
+</div>
+
+Select a spatial factor `f ∈ {1, 2, 4, 8}` to **block-average a constructed 16×16 image** into a `(16/f)×(16/f)` latent grid. At the final step only, a nearest-neighbour toy decoder expands that grid back to 16×16, and **reconstruction MSE** compares it with the original image. The `f²:1` figure is a **spatial cell-count ratio with a fixed channel count**—not real autoencoder bit-rate, memory consumption, wall-clock speed or learned quality. Steps 0–8 interpolate a fixed synthetic noise grid toward the block-averaged grid solely to visualise intermediate latent states; they are **not diffusion steps or outputs from a trained denoiser**. The decoded panel stays pending until step 8, illustrating that an LDM typically applies the image decoder after the latent-space sampling sequence rather than after every denoising step. Use Previous/Next, Seek, Play/Pause, speed and Reset, with reduced-motion and keyboard support. The actual LDM uses learned compression and a learned denoiser, not block averaging.
+
 ## Algorithm
 
 Training has two stages. First the autoencoder \(E, D\) is trained, or reused, to compress images. Then a diffusion model is trained on latents with the noise-prediction loss:
