@@ -37,13 +37,38 @@ L(\theta) = L_B(\theta) + \sum_i \frac{\lambda}{2}\,F_i\,(\theta_i - \theta^*_{A
 
 ## 動畫解讀：受約束的新任務適應
 
-![兩個舊任務重要性不同的 EWC 參數，從共同錨點移向不同的新任務正則化最佳值](../../../../assets/concept-animations/ewc-fisher-springs-motion.svg)
+<div role="region" tabindex="0" aria-label="可左右捲動的教學動畫">
+  <img src="../../../../assets/concept-animations/ewc-fisher-springs-still.svg" data-motion-src="../../../../assets/concept-animations/ewc-fisher-springs-motion.svg" data-still-src="../../../../assets/concept-animations/ewc-fisher-springs-still.svg" alt="兩個舊任務重要性不同的 EWC 參數，從共同錨點移向不同的新任務正則化最佳值" />
+</div>
 
 [GitHub 靜態與減少動態效果預覽](../../../../assets/concept-animations/ewc-fisher-springs-still.svg)。在 MkDocs 網站可操作**播放／暫停**控制；鍵盤可按 Tab 聚焦，再按 Enter 或空白鍵操作。
 
 這是**人工建構、各維度可分離的二次損失**：舊任務參數錨點為 \(\theta_A^*=0\)，新任務每個座標的損失為 \(L_B(\theta)=\tfrac12(\theta-1)^2\)，EWC 額外懲罰為 \(\tfrac{\lambda F}{2}\theta^2\)。因此最佳值為 \(\theta^*=1/(1+\lambda F)\)。高重要性參數 \(\lambda F=4\) 停在 **0.20**，較低重要性參數 \(\lambda F=0.25\) 可移至 **0.80**。圓點的連續移動只是便於理解的插值，**不是梯度下降實際迭代、Fisher 實測值或論文實驗曲線**。對角 Fisher 近似也未捕捉參數間的耦合。此圖對應下方 Kirkpatrick 等人（2017）提出的正則化項。
 
 *原創教學動畫與靜態回退，CC BY-SA 4.0。*
+
+### 可重現的參數更新（人工二次損失）
+
+上方動畫只是移向解析駐點的插值，**沒有執行最佳化演算法**。若固定學習率 \(\eta=0.024\)，從兩個座標的 \(\theta_0=0\) 出發，可對相同二次損失執行真正的離散梯度下降：
+
+\[
+\theta_{k+1}=\theta_k-\eta\bigl[(\theta_k-1)+(\lambda F)\theta_k\bigr].
+\]
+
+令剛度 \(s=\lambda F\)，則 \(\theta_k=\tfrac{1}{1+s}[1-(1-\eta(1+s))^k]\)。同一個**固定學習率**會產生不同的參數軌跡：
+
+| 更新次數 \(k\) | 高剛度 \(s=4\) | 低剛度 \(s=0.25\) |
+| ---: | ---: | ---: |
+| 0 | 0.000 | 0.000 |
+| 1 | 0.024 | 0.024 |
+| 4 | 0.080 | 0.092 |
+| 8 | 0.128 | 0.173 |
+| 18 | 0.180 | 0.338 |
+| 極限 \(k\to\infty\) | 0.200 | 0.800 |
+
+極限位置取決於 Fisher 剛度，**收斂速度也受到學習率影響**。表中皆為人工計算，不是實際訓練網路的權重；此表與 SVG 的插值動畫是不同的示例。
+
+
 
 ## 關鍵方法
 
