@@ -163,6 +163,35 @@ def assert_document_fits(page, viewport):
     return size
 
 
+def check_math_rendering(page):
+    """Wait for real MathJax output and reject re-typeset accessibility MathML."""
+    page.evaluate("""async () => {
+        let timer;
+        try {
+            await Promise.race([window.MathJax.startup.promise, new Promise((_, reject) => {
+                timer = setTimeout(() => reject(new Error('MathJax startup did not settle')), 15000);
+            })]);
+        } finally { clearTimeout(timer); }
+    }""")
+    state = page.evaluate("""() => {
+        const article = document.querySelector('.md-content__inner');
+        const roots = Array.from(article.querySelectorAll('.arithmatex'));
+        return {
+            sourceRoots: roots.length,
+            unrendered: roots.filter(node => !node.querySelector('mjx-container')).length,
+            containers: article.querySelectorAll('mjx-container').length,
+            nestedAssistive: article.querySelectorAll('mjx-assistive-mml mjx-container').length,
+            assistiveMathML: article.querySelectorAll('mjx-assistive-mml > math').length,
+            trackedItems: MathJax.startup.document.getMathItemsWithin(article).length
+        };
+    }""")
+    assert state["unrendered"] == 0, ("unrendered math source", state)
+    assert state["nestedAssistive"] == 0, ("assistive MathML was typeset again", state)
+    assert state["assistiveMathML"] == state["containers"], ("missing assistive MathML", state)
+    assert state["trackedItems"] == state["containers"], ("rendered MathItems were forgotten", state)
+    return state
+
+
 OVERFLOW_DIAGNOSTICS_JS = r"""() => {
     const root = document.documentElement;
     const limit = root.clientWidth;
@@ -296,6 +325,7 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
         assert response and response.ok, f"Built page returned {response.status if response else 'no response'}"
         assert page.locator("html").get_attribute("lang") == target.locale
         assert page.evaluate("matchMedia('(prefers-reduced-motion: reduce)').matches") == reduced
+        result["math_rendering"] = check_math_rendering(page)
         # Wait for font layout before judging bounds or taking the review screenshots.
         page.evaluate("document.fonts.ready")
         result["images"] = []

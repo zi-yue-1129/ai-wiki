@@ -7,7 +7,7 @@ from types import SimpleNamespace
 import unittest
 
 from test_built_motion_browser import (
-    Images, MotionPage, assert_document_fits, check_built_page, discover_pages,
+    Images, MotionPage, assert_document_fits, check_built_page, check_math_rendering, discover_pages,
     record_failure_diagnostics, source_asset_url,
 )
 
@@ -152,6 +152,19 @@ class DiscoveryTests(unittest.TestCase):
         self.assertEqual(result["error"], "original failure")
         self.assertEqual(result["status"], "failed")
         self.assertEqual(json.loads((self.site / result["overflow_diagnostics"]).read_text()), diagnostic)
+
+    def test_math_rendering_rejects_nested_or_forgotten_assistive_output(self):
+        valid = {"sourceRoots": 1, "unrendered": 0, "containers": 1,
+                 "nestedAssistive": 0, "assistiveMathML": 1, "trackedItems": 1}
+        page = SimpleNamespace(evaluate=lambda _js: valid)
+        self.assertEqual(check_math_rendering(page), valid)
+        for changes, message in [({"nestedAssistive": 1}, "typeset again"),
+                                 ({"unrendered": 1}, "unrendered math"),
+                                 ({"assistiveMathML": 0}, "missing assistive"),
+                                 ({"trackedItems": 0}, "forgotten")]:
+            page.evaluate = lambda _js: {**valid, **changes}
+            with self.assertRaisesRegex(AssertionError, message):
+                check_math_rendering(page)
 
     def test_diagnostics_error_does_not_replace_original_failure(self):
         def fail(_js):
