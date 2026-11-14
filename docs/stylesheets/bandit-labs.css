@@ -19,3 +19,13 @@
 
 .bandit-lab-legend { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; font-size:.71rem; padding:.4rem .1rem .1rem; }
 .bandit-lab-swatch {display:inline-block;vertical-align:middle;width:.7rem;height:.7rem;border-radius:.13rem;margin-right:.25rem;}
+
+
+/* Exact posterior probability that each arm has the largest independent Beta draw. */
+.bandit-lab-probabilities { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.4rem .7rem; align-items:center; margin:.3rem .1rem .55rem; font-variant-numeric:tabular-nums; }
+.bandit-lab-prob-title { grid-column:1/-1; font-size:.75rem; color:var(--md-default-fg-color,#273649); }
+.bandit-lab-prob-row { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; column-gap:.3rem; min-width:0; font:600 .73rem system-ui,sans-serif; }
+.bandit-lab-prob-row output { min-width:3.3rem; text-align:right; font-weight:500; }
+.bandit-lab-prob-track { height:.45rem; overflow:hidden; background:var(--md-code-bg-color,#e2e8f0); border-radius:999px; min-width:0; }
+.bandit-lab-prob-fill { height:100%; border-radius:inherit; }
+@media(max-width:550px){.bandit-lab-probabilities{grid-template-columns:minmax(0,1fr)} .bandit-lab-prob-row{grid-template-columns:1rem minmax(0,1fr) 3.5rem} }
