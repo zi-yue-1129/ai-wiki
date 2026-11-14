@@ -34,7 +34,7 @@ Three broad approaches are used. **Collaborative filtering** predicts a user's p
 
 ## How it works
 
-**Neighbourhood methods.** Sarwar et al. (2001) study item-based collaborative filtering, which predicts a user's preference from the user's own ratings of similar items rather than from similar users. The method is simple and interpretable, and item similarities can be computed ahead of time. Its own page is still to be written.
+**Neighbourhood methods.** Sarwar et al. (2001) study item-based collaborative filtering, which predicts a user's preference from the user's own ratings of similar items rather than from similar users. The method is simple and interpretable, and item similarities can be computed ahead of time. See [Item-based Collaborative Filtering](item-based-cf.md) for similarity measures, prediction and edge cases.
 
 **Matrix factorisation.** Koren, Bell and Volinsky (2009) describe the factorisation approach that became standard in large rating-prediction problems. Each user and item receives a latent vector, and their inner product predicts the rating. The vectors are fitted to the observed ratings with regularisation, and the same vectors are reused as embeddings, see [Embeddings and Representation Learning](../embeddings/index.md). Details are on the [Matrix Factorization](matrix-factorization.md) page.
 
@@ -50,7 +50,7 @@ Brief comparison, with a link to each method's own page.
 - **[BPR (Rendle et al., 2012)](bpr.md)**: a pairwise ranking loss on implicit feedback, the standard starting point for top-N ranking.
 - **[Neural collaborative filtering (He et al., 2017)](neural-cf.md)**: a learned interaction function in place of the inner product. More flexible, with more to tune, and it is evaluated on top-N ranking.
 
-Item-based neighbourhood methods (Sarwar et al., 2001) are a separate family that needs no latent factors. They are mentioned above and are a candidate for a method page of their own.
+- **[Item-based collaborative filtering (Sarwar et al., 2001)](item-based-cf.md)**: explicit item neighbourhoods and weighted or regression-adjusted ratings, without latent factors.
 
 ## Connections
 
