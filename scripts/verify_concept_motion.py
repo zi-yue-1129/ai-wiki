@@ -138,8 +138,8 @@ def main() -> int:
             # paired motion asset via progressive enhancement. Validate all
             # three paths together, rather than accepting a stray data attribute.
             enhanced_pairs = set()
-            for img in re.findall(r"<img\\b[^>]*>", text, flags=re.IGNORECASE):
-                attrs = dict(re.findall(r'([\\w-]+)="([^"]*)"', img))
+            for img in re.findall(r"<img\b[^>]*>", text, flags=re.IGNORECASE):
+                attrs = dict(re.findall(r'([\w-]+)="([^"]*)"', img))
                 src = attrs.get("src")
                 motion = attrs.get("data-motion-src")
                 still = attrs.get("data-still-src")
