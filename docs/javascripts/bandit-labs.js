@@ -90,7 +90,7 @@
         <div class="bandit-lab-parameters">${kind==='ucb'?ui('0.25','reward1',tr.rewardFirst,0,1)+ui('0.25','reward2',tr.rewardSecond,0,1):ui('select','outcome',tr.outcome,0,0,[[1,tr.success],[0,tr.failure]])}</div>
         <div class="bandit-lab-canvas" tabindex="0" role="region" aria-label="${esc(kind==='ucb'?tr.graphA:tr.graphB)}"><svg viewBox="0 0 720 272" width="720" height="272" role="img" aria-label="${esc(kind==='ucb'?tr.graphA:tr.graphB)}" data-role="svg"></svg></div>
         <div class="bandit-lab-legend" data-role="legend"></div>
-        ${kind==='thompson'?'<div class="bandit-lab-probabilities" data-role="probabilities" aria-label="P(best)"></div>':''}
+        ${kind==='thompson'?'<div class="bandit-lab-probabilities" data-role="probabilities" aria-label="${esc(tr.chance)}"></div>':''}
         <div class="bandit-lab-metrics" data-role="metrics"></div>
         <p class="bandit-lab-note">${tr.note}</p>
         <p class="bandit-lab-live" role="status" aria-live="polite" aria-atomic="true" data-role="status"></p>`;
@@ -147,7 +147,7 @@
         }
         get('svg').innerHTML=svg;
         get('legend').innerHTML=arms.map((arm,i)=>`<span><i class="bandit-lab-swatch" style="background:${colors[i]}"></i>${arm}</span>`).join('');
-        get('probabilities').innerHTML=`<strong class="bandit-lab-prob-title">P(best)</strong>`+arms.map((arm,i)=>`<div class="bandit-lab-prob-row" data-prob="${chances[i].toFixed(6)}"><span>${arm}</span><div class="bandit-lab-prob-track" role="meter" aria-label="${arm} P(best)" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${(chances[i]*100).toFixed(1)}"><div class="bandit-lab-prob-fill" style="width:${(chances[i]*100).toFixed(2)}%;background:${colors[i]}"></div></div><output>${(chances[i]*100).toFixed(1)}%</output></div>`).join('');
+        get('probabilities').innerHTML=`<strong class="bandit-lab-prob-title">P(best)</strong>`+arms.map((arm,i)=>`<div class="bandit-lab-prob-row" data-prob="${chances[i].toFixed(6)}"><span>${arm}</span><div class="bandit-lab-prob-track" role="meter" aria-label="${arm} ${esc(tr.chance)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${(chances[i]*100).toFixed(1)}"><div class="bandit-lab-prob-fill" style="width:${(chances[i]*100).toFixed(2)}%;background:${colors[i]}"></div></div><output>${(chances[i]*100).toFixed(1)}%</output></div>`).join('');
         get('metrics').innerHTML=`<span>${esc(stages[state.step])}</span><span>${tr.selected}: <strong>${winner}</strong></span><span>${tr.sample}: <strong>${state.step>0?draws.map(round).join(' / '):'—'}</strong></span><span>${tr.posterior}: <strong>${posterior.map(p=>`(${p.join(',')})`).join(' / ')}</strong></span><span>${tr.postMean}: <strong>${means.map(round).join(' / ')}</strong></span>`;
         get('status').textContent=tr.tsStatus({stage:stages[state.step],winner,cpost:`Beta(${posterior[2].join(', ')})`});
       }
