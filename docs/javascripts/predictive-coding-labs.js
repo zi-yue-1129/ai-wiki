@@ -31,8 +31,8 @@
          {id:'eta',label:tr.rate,min:.1,max:1.3,step:.05,value:.55}];
     const inputs = params.map(p => `<label class="pc-param"><span>${p.label}: <output data-for="${p.id}">${fmt(p.value)}</output></span><input type="range" data-param="${p.id}" min="${p.min}" max="${p.max}" step="${p.step}" value="${p.value}"></label>`).join('');
     root.innerHTML = `<div class="pc-parameters">${inputs}</div>
-      <div class="pc-scroll" role="region" tabindex="0" aria-label="${settling?'State and error dynamics':'Prediction and residual dynamics'}">
-        <svg class="pc-plot" viewBox="0 0 660 252" role="img" aria-label="${settling?'Hidden state approaching midpoint':'Prediction approaching input'}"></svg>
+      <div class="pc-scroll" role="region" tabindex="0" aria-label="${settling ? (root.dataset.lang === 'zh' ? '隱藏狀態與誤差的動態' : 'State and error dynamics') : (root.dataset.lang === 'zh' ? '預測與殘差的動態' : 'Prediction and residual dynamics')}">
+        <svg class="pc-plot" viewBox="0 0 660 252" role="img" aria-label="${settling ? (root.dataset.lang === 'zh' ? '隱藏狀態接近端點平均值' : 'Hidden state approaching midpoint') : (root.dataset.lang === 'zh' ? '預測接近感覺輸入' : 'Prediction approaching input')}"></svg>
       </div><div class="pc-controls">
       <button type="button" data-action="prev">${tr.prev}</button><button type="button" data-action="toggle">${tr.play}</button>
       <button type="button" data-action="next">${tr.next}</button>
