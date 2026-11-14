@@ -32,3 +32,11 @@
 
 .bandit-lab-scroll-hint { display:none; margin:.25rem 0 .5rem!important; color:var(--md-default-fg-color--light,#64748b); font-size:.72rem; }
 @media(max-width:760px){.bandit-lab-scroll-hint{display:block}}
+
+
+/* Analytical UCB1 reward-pair decision boundary (t=18), no raster images. */
+.bandit-lab-boundary { margin:.7rem 0; max-width:390px; border:1px solid #d2dce6; border-radius:.6rem; background:#f8fafc; padding:.6rem; color:#263749; }
+.bandit-lab-boundary-scroll { max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; border-radius:.4rem; }
+.bandit-lab-boundary-scroll:focus-visible { outline:3px solid #1582bf; outline-offset:2px; }
+.bandit-lab-boundary svg { display:block; width:330px; min-width:330px; height:228px; }
+.bandit-lab-boundary-note { font:500 .73rem system-ui,sans-serif; margin:.35rem .15rem .1rem!important; }
