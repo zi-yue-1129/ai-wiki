@@ -7,3 +7,10 @@
 .concept-motion-toggle:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 3px; }
 .concept-motion-status { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 @media (prefers-reduced-motion: reduce) { .concept-motion-toggle { transition: none !important; } }
+
+/* Full-size, keyboard-focusable horizontal viewing for SAC and DPO concept motion. */
+.concept-motion-wide { display:block; max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; }
+.concept-motion-wide:focus-visible { outline:3px solid var(--md-accent-fg-color, #387e99); outline-offset:3px; }
+.concept-motion-wide .concept-motion-player { width:760px; max-width:none; margin:.5rem 0 1rem; }
+.concept-motion-wide .concept-motion-player img { display:block; width:760px; max-width:none; height:auto; }
+.concept-motion-wide > img { display:block; width:760px; max-width:none; height:auto; }
