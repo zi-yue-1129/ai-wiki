@@ -23,7 +23,7 @@ BERT 式的模型需要為每個任務加上專屬的輸出層，而分類、跨
 
 ### 跨度破壞教學動畫
 
-<img src="../../../../../assets/concept-animations/t5-span-corruption-still.svg" data-motion-src="../../../../../assets/concept-animations/t5-span-corruption-motion.svg" data-still-src="../../../../../assets/concept-animations/t5-span-corruption-still.svg" alt="原始序列 A 到 J，其中 B–C 與 H–I 兩段在編碼器輸入中被不同哨兵 token 取代；解碼器依序生成 S0、B、C、S1、H、I、S2。" />
+<img data-source-asset-urls src="../../../../../assets/concept-animations/t5-span-corruption-still.svg" data-motion-src="../../../../../assets/concept-animations/t5-span-corruption-motion.svg" data-still-src="../../../../../assets/concept-animations/t5-span-corruption-still.svg" alt="原始序列 A 到 J，其中 B–C 與 H–I 兩段在編碼器輸入中被不同哨兵 token 取代；解碼器依序生成 S0、B、C、S1、H、I、S2。" />
 
 *原創 CC BY-SA 4.0 教學動畫。為清楚展示兩個連續跨度，本例將十個 token 中的**四個移除（40%）**；這是人工示意，**不代表** T5 論文慣用的 **15% 破壞比例**，也不是模型實際輸出。S0、S1 代表不同的哨兵 token，S2 為常見 T5 格式中結束目標序列的哨兵。MkDocs 可透過**播放／暫停**按鈕或 Enter／Space 操作；手機可水平捲動。[GitHub 可閱讀的靜態概覽](../../../../../assets/concept-animations/t5-span-corruption-still.svg) · [完整動畫](../../../../../assets/concept-animations/t5-span-corruption-motion.svg)。動畫呈現移除跨度、哨兵替換、目標序列逐步生成，而非梯度下降過程（Raffel 等人，2020；參見參考文獻）。*
 
