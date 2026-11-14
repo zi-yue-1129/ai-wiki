@@ -49,6 +49,17 @@ def main():
                     assert boundary.locator('svg polygon').count() == 1
                     assert boundary.locator('svg [data-role="reward-marker"]').count() == 1
                     assert '0.818' in boundary.inner_text()
+                    # The phase plane itself selects the two counterfactual rewards.
+                    # It must agree with the sliders and recomputed analytic winner.
+                    boundary.locator('svg').click(position={'x': 199, 'y': 43})  # r1=r2=.9
+                    assert abs(float(ucb.locator('[data-role="reward1"]').input_value())-.9)<1e-9
+                    assert abs(float(ucb.locator('[data-role="reward2"]').input_value())-.9)<1e-9
+                    assert 'B' in boundary.locator('.bandit-lab-boundary-note').inner_text()
+                    boundary.locator('svg').click(position={'x': 79, 'y': 163}) # r1=r2=.15
+                    assert abs(float(ucb.locator('[data-role="reward1"]').input_value())-.15)<1e-9
+                    assert 'A' in boundary.locator('.bandit-lab-boundary-note').inner_text()
+                    # Restore the original state before independent slider tests.
+                    ucb.locator('[data-action="reset"]').click()
                     initial_x = float(boundary.locator('[data-role="reward-marker"]').get_attribute('cx'))
                     assert 'A' in boundary.locator('.bandit-lab-boundary-note').inner_text()
                     assert 'B' in ucb.locator('[data-role="metrics"]').inner_text()
@@ -86,15 +97,24 @@ def main():
                     assert ts.locator('[role="meter"]').count() == 3
                     ts.locator('[data-action="next"]').click()
                     assert 'C' in ts.locator('[data-role="metrics"]').inner_text()
+                    assert '0.5714' in ts.locator('[data-role="metrics"]').inner_text()
+                    assert '0.0306' in ts.locator('[data-role="metrics"]').inner_text()
                     assert ts.locator('[data-role="svg"] circle').count() == 3
                     ts.locator('[data-action="next"]').click()
                     assert '(5,3)' in ts.locator('[data-role="metrics"]').inner_text()
                     # A sample dot from the old posterior must not be repositioned on the updated curve.
                     assert ts.locator('[data-role="svg"] circle').count() == 0
+                    # An earlier draw cannot be reported as a sample from a revised posterior.
+                    selected_or_samples = ts.locator('[data-role="metrics"] span').all_inner_texts()
+                    assert any('—' in v and ('draw' in v.lower() or '抽樣' in v) for v in selected_or_samples), selected_or_samples
+                    assert '0.6250' in ts.locator('[data-role="metrics"]').inner_text()
+                    assert '0.0260' in ts.locator('[data-role="metrics"]').inner_text()
                     success = float(probabilities.nth(2).get_attribute('data-prob'))
                     assert success > initial[2] and 0.66 < success < 0.67
                     ts.locator('[data-role="outcome"]').select_option('0')
                     assert '(4,4)' in ts.locator('[data-role="metrics"]').inner_text()
+                    assert '0.5000' in ts.locator('[data-role="metrics"]').inner_text()
+                    assert '0.0278' in ts.locator('[data-role="metrics"]').inner_text()
                     failure = float(probabilities.nth(2).get_attribute('data-prob'))
                     assert 0.45 < failure < 0.46 and failure < initial[2]
                     ts.locator('[data-action="next"]').click()
