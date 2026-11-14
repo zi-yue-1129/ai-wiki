@@ -60,6 +60,12 @@ The displayed numbers are **exact for this constructed game**, not SHAP estimate
 
 *Original instructional artwork, CC BY-SA 4.0.*
 
+### Interactive coalition-credit lab (MkDocs)
+
+<div data-explanation-lab="shap" data-locale="en"></div>
+
+Choose A, B or C, then use **Previous / Next**, the coalition-count slider, or **Play / Pause** to accumulate its four weighted marginal contributions. Each choice uses the **same explicit three-feature game** given above, and the code recomputes $v(S\cup\{i\})-v(S)$ rather than showing canned numbers. The exact results are $\phi_A=0.240$, $\phi_B=0.225$ and $\phi_C=0.085$; their sum, $0.550$, equals $v(\{A,B,C\})-v(\varnothing)$. The row sequence is a **teaching traversal**, never a real causal or inference timeline. Native controls work with a keyboard; automatic stepping is disabled for reduced-motion readers, who can still advance manually. The original static SVG and motion links above are the no-script GitHub fallback.
+
 ## Results
 
 Lundberg and Lee show that their class of additive feature attribution methods unifies six existing methods: LIME, DeepLIFT, layer-wise relevance propagation, Shapley regression values, Shapley sampling values and quantitative input influence. Each of these uses an explanation model of the same linear form. The paper's claims concern this unification and the properties the resulting measures have. They do not establish that SHAP values are correct explanations of every model.
