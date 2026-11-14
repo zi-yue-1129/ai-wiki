@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-12
+translation_reviewed: 2026-11-14
 ---
 
 # IDA\* 搜尋
@@ -32,6 +32,17 @@ IDA\* 是一種最佳的啟發式搜尋演算法，它以逐步放寬的成本�
 <div role="region" tabindex="0" aria-label="可水平捲動的概念動畫" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
 <img src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-still-src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-motion-src="../../../../assets/concept-animations/ida-bound-reexpansion-motion.svg" alt="IDA 星號搜尋示意樹：紫色游標在 f 上界依序為 4、6、7、8 時重走深度優先路徑，最後抵達目標 G。" width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
 </div>
+
+
+#### 可操作實驗：上界、重訪與 DFS 路徑
+
+<div data-aiwiki-lab="ida" data-lang="zh-TW">
+<p>完整互動實驗請在 MkDocs 網站開啟；GitHub 上方保留可閱讀的靜態示意圖。</p>
+</div>
+
+實驗用**確定性的人工搜尋樹**，每次節點檢查都會增加計數。滑動時間軸可檢視截斷與重走路徑；**重訪**以不同迭代再次檢查同一節點為準，並非演算法效能實測。圖中子節點依左至右的順序走訪。
+
+控制：**播放／暫停、上一步、下一步、時間軸拖曳、0.5×／1×／2× 速度、重設**。原生控制可用鍵盤操作；偏好降低動態效果時預設靜止，可自行逐步檢視。
 
 紫色游標表示**深度優先走訪順序**。若節點的 \(f=g+h\) 超過當前上界，就只會**檢查並截斷，不會展開其子節點**。下一輪上界取所有被截斷節點中最小的 \(f\) 值。本例的上界依序為 **4 → 6 → 7 → 8**；前幾輪必須重新走訪既有路徑，直到上界為 8 才能找到目標 **S → A → C → G**。
 
