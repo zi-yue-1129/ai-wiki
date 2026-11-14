@@ -29,14 +29,14 @@ translation_reviewed: 2026-10-28
 - 均方誤差在變異數固定時，相當於高斯分布的負對數概似（相差常數）。
 - 計算 MAP 估計時，L2 權重正規化相當於對權重取高斯先驗。
 
-估計有兩條標準途徑。[最大概似估計](maximum-likelihood.md)選出使觀測資料機率最大的參數。[最大後驗估計](maximum-a-posteriori.md)在概似上加上對數先驗，使先驗扮演正規化的角色。完整的貝氏推理保留整個後驗分布，但通常無法精確計算，因此以[變分推論](../../paradigms/probabilistic/variational-inference/index.md)或[馬可夫鏈蒙地卡羅](../../paradigms/probabilistic/mcmc/index.md)近似。
+估計有兩條標準途徑。[最大概似估計](maximum-likelihood.md)選出使觀測資料機率最大的參數。[最大後驗估計](maximum-a-posteriori.zh-TW.md)最大化對數概似與對數先驗的總和，使先驗扮演正規化的角色。完整的貝氏推理保留整個後驗分布，但通常無法精確計算，因此以[變分推論](../../paradigms/probabilistic/variational-inference/index.md)或[馬可夫鏈蒙地卡羅](../../paradigms/probabilistic/mcmc/index.md)近似。
 
 ## 主要方法
 
 這個領域的兩種估計量是代表性的方法，各自有獨立的頁面。
 
 - [最大概似估計](maximum-likelihood.md)：選出使資料機率最大的參數，幾乎用於訓練所有參數模型。
-- [最大後驗估計](maximum-a-posteriori.md)：在概似上加上先驗。先驗為平坦時等於最大概似；高斯先驗等常見先驗則會轉化為正規化項。
+- [最大後驗估計](maximum-a-posteriori.zh-TW.md)找出後驗眾數。若先驗在相同的參數範圍內為常數，兩種方法得到相同的最大值位置。
 
 ## 與其他頁面的連結
 
