@@ -54,6 +54,12 @@ For this **one-dimensional teaching analogue**, the synthetic function is $f(x)=
 
 *Original instructional artwork, CC BY-SA 4.0.*
 
+### Interactive kernel-bandwidth lab (MkDocs)
+
+<div data-explanation-lab="lime" data-locale="en"></div>
+
+On the website, drag **Kernel bandwidth** between 0.08 and 0.32 to re-fit a weighted linear regression to the same **twelve fixed synthetic samples**. Their proximity weights are recomputed as $w_i=\exp[-(x_i-0.54)^2/(2\sigma^2)]$, and both the surrogate slope and weighted RMSE respond to the selected $\sigma$. Larger bandwidths admit more distant points and can change the apparent local explanation even though the black-box function is unchanged. The slider uses a native keyboard-operable control; the 640-pixel plot can scroll horizontally at mobile widths. All outputs are **analytical teaching values**, not observations of a trained model. Without JavaScript, the reviewed static SVG and full animated diagram above remain available.
+
 ## Results
 
 The paper reports simulated user experiments and human-subject experiments. The simulated experiments ask whether explanations help users decide whether to trust a prediction or a model. The human-subject studies, with Mechanical Turk workers and graduate students, ask whether explanations help people choose which of two classifiers to trust. These results support the usefulness of the explanations for those decisions. They do not show that the explanations are accurate descriptions of the model.
