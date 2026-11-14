@@ -38,6 +38,34 @@ $$
 
 The explanation for a prediction is $f(x) = \phi_0 + \sum_i \phi_i$, where $\phi_0$ is the expected output over the background data.
 
+## Animated walkthrough
+
+<div class="concept-motion-viewport" tabindex="0" aria-label="Scrollable SHAP coalition-accounting diagram">
+  <div class="concept-motion-fixed">
+    <img src="../../assets/concept-animations/shap-coalition-marginals-still.svg" data-motion-src="../../assets/concept-animations/shap-coalition-marginals-motion.svg" data-still-src="../../assets/concept-animations/shap-coalition-marginals-still.svg" alt="Four feature coalitions without A; adding A produces marginal credits 0.20, 0.32, 0.12 and 0.30, weighted into Shapley credit 0.240" />
+  </div>
+</div>
+
+[Open the continuous SVG animation](../../assets/concept-animations/shap-coalition-marginals-motion.svg) · [View the GitHub-safe static figure](../../assets/concept-animations/shap-coalition-marginals-still.svg).
+
+Each row fixes a coalition $S$ **without feature A** and shows the marginal gain $v(S\cup\{A\})-v(S)$ when A is added. The animation fills each bar, then grows the **weighted sum** at right. This is not a causal intervention or a temporal model-inference sequence: coalition order is only an aid to the Shapley accounting. On the MkDocs site, use **Play / Pause** (Tab, Enter or Space); on narrow screens, the diagram scrolls horizontally. The fallback is a complete, readable table even without animation.
+
+The explicitly **synthetic three-feature value function** is $v(S)=0.10+0.20A+0.12B+0.08C+0.12AB-0.08AC+0.05BC+0.06ABC$, where each uppercase feature indicator equals one when that feature is present in $S$. The four A-marginal contributions for $S=\varnothing,\{B\},\{C\},\{B,C\}$ are $(0.20,0.32,0.12,0.30)$. Their exact Shapley weights are $(1/3,1/6,1/6,1/3)$, giving
+
+$
+\phi_A=\frac{0.20}{3}+\frac{0.32}{6}+\frac{0.12}{6}+\frac{0.30}{3}=0.240.
+$
+
+The displayed numbers are **exact for this constructed game**, not SHAP estimates from a measured model. Real attributions depend on the chosen background/value function, and coalition evaluation can be expensive; see [Lundberg and Lee (2017)](https://arxiv.org/abs/1705.07874).
+
+*Original instructional artwork, CC BY-SA 4.0.*
+
+### Interactive coalition-credit lab (MkDocs)
+
+<div data-explanation-lab="shap" data-locale="en"></div>
+
+Choose A, B or C, then use **Previous / Next**, the coalition-count slider, or **Play / Pause** to accumulate its four weighted marginal contributions. Each choice uses the **same explicit three-feature game** given above, and the code recomputes $v(S\cup\{i\})-v(S)$ rather than showing canned numbers. The exact results are $\phi_A=0.240$, $\phi_B=0.225$ and $\phi_C=0.085$; their sum, $0.550$, equals $v(\{A,B,C\})-v(\varnothing)$. The row sequence is a **teaching traversal**, never a real causal or inference timeline. Native controls work with a keyboard; automatic stepping is disabled for reduced-motion readers, who can still advance manually. The original static SVG and motion links above are the no-script GitHub fallback.
+
 ## Results
 
 Lundberg and Lee show that their class of additive feature attribution methods unifies six existing methods: LIME, DeepLIFT, layer-wise relevance propagation, Shapley regression values, Shapley sampling values and quantitative input influence. Each of these uses an explanation model of the same linear form. The paper's claims concern this unification and the properties the resulting measures have. They do not establish that SHAP values are correct explanations of every model.

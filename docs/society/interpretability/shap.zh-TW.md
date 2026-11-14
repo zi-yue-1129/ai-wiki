@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
   - society/interpretability
 tags:
@@ -38,6 +38,34 @@ $$
 $$
 
 對一個預測的解釋為 $f(x) = \phi_0 + \sum_i \phi_i$，其中 $\phi_0$ 是背景資料上的期望輸出。
+
+## 動態教學示範
+
+<div class="concept-motion-viewport" tabindex="0" aria-label="可水平捲動的 SHAP 聯盟邊際貢獻圖">
+  <div class="concept-motion-fixed">
+    <img src="../../assets/concept-animations/shap-coalition-marginals-still.svg" data-motion-src="../../assets/concept-animations/shap-coalition-marginals-motion.svg" data-still-src="../../assets/concept-animations/shap-coalition-marginals-still.svg" alt="SHAP 對不包含 A 的四個特徵聯盟計算邊際貢獻 0.20、0.32、0.12、0.30，最後加權得到 0.240" />
+  </div>
+</div>
+
+[開啟連續 SVG 動畫](../../assets/concept-animations/shap-coalition-marginals-motion.svg) · [檢視 GitHub 靜態回退圖](../../assets/concept-animations/shap-coalition-marginals-still.svg)。
+
+每一列固定一個**不包含特徵 A** 的聯盟 $S$，顯示加入 A 後的邊際差值 $v(S\cup\{A\})-v(S)$。動畫先讓各列長條增長，再在右側累加**加權後的貢獻**。聯盟順序僅用於拆解 Shapley 計算，**不是因果介入，也不是模型推論的時間先後**。MkDocs 網站支援「**播放／暫停**」（Tab 聚焦後以 Enter 或空白鍵操作），手機版可水平捲動；不播放動畫時，靜態圖也保留完整的四列資訊。
+
+這裡明確採用**人工建構的三特徵價值函數** $v(S)=0.10+0.20A+0.12B+0.08C+0.12AB-0.08AC+0.05BC+0.06ABC$，其中大寫指示變數在特徵屬於 $S$ 時為 1。針對 $S=\varnothing,\{B\},\{C\},\{B,C\}$，特徵 A 的四個邊際貢獻依序為 $(0.20,0.32,0.12,0.30)$。精確的 Shapley 組合權重為 $(1/3,1/6,1/6,1/3)$，因此
+
+$
+\phi_A=\frac{0.20}{3}+\frac{0.32}{6}+\frac{0.12}{6}+\frac{0.30}{3}=0.240.
+$
+
+這些數值是**人工賽局中的精確計算**，不是實際模型估計的 SHAP 值。真實歸因仍取決於背景分布與價值函數的定義，計算所有聯盟的成本也可能很高；參見 [Lundberg 與 Lee（2017）](https://arxiv.org/abs/1705.07874)。
+
+*原創教學圖像，採 CC BY-SA 4.0 授權。*
+
+### 互動式聯盟歸因實驗（MkDocs）
+
+<div data-explanation-lab="shap" data-locale="zh"></div>
+
+選擇 A、B 或 C，使用「**上一步／下一步**」、聯盟數滑桿或「**播放／暫停**」，逐一累計其四個加權邊際貢獻。三個特徵都使用上方**同一個人工三特徵賽局**，每次皆重新計算 $v(S\cup\{i\})-v(S)$，而非僅切換預存答案。精確結果為 $\phi_A=0.240$、$\phi_B=0.225$、$\phi_C=0.085$，總和 $0.550$ 恰等於 $v(\{A,B,C\})-v(\varnothing)$。聯盟列的先後只是**教學遍歷順序**，不是實際因果介入或推論時間軸。控制元件皆支援鍵盤；偏好減少動態效果時不會自動播放，但仍可手動逐步操作。GitHub 或未啟用 JavaScript 時，上方靜態 SVG 與動畫連結仍可閱讀。
 
 ## 結果
 

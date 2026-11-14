@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
   - society/interpretability
 tags:
@@ -38,6 +38,28 @@ $$
 $$
 
 其中 $f$ 是分類器，$\pi_x$ 是圍繞 $x$ 的接近度加權，$\mathcal{L}$ 衡量 $g$ 在 $x$ 附近與 $f$ 的吻合程度差距，$\Omega(g)$ 則懲罰複雜度。
+
+## 動態教學示範
+
+<div class="concept-motion-viewport" tabindex="0" aria-label="可水平捲動的 LIME 局部模型圖">
+  <div class="concept-motion-fixed">
+    <img src="../../assets/concept-animations/lime-local-surrogate-still.svg" data-motion-src="../../assets/concept-animations/lime-local-surrogate-motion.svg" data-still-src="../../assets/concept-animations/lime-local-surrogate-still.svg" alt="LIME 的非線性黑箱函數、在目標附近的加權擾動樣本，以及擬合的局部線性替代模型" />
+  </div>
+</div>
+
+[開啟連續 SVG 動畫](../../assets/concept-animations/lime-local-surrogate-motion.svg) · [檢視 GitHub 靜態回退圖](../../assets/concept-animations/lime-local-surrogate-still.svg)。
+
+**藍線**為固定的黑箱函數，青綠色點是圍繞橘色輸入 $x_0$ 人工產生的擾動樣本，圓點大小表示**接近度核函數的權重**。橘線為加權最小平方法得到的局部替代模型，刻意只畫出目標附近的區段，**不能當成全域的 $f$**。在 MkDocs 網站可使用「**播放／暫停動畫**」（Tab 鍵聚焦後按 Enter 或空白鍵）。手機版保持可讀圖寬，並可水平捲動；GitHub 與降低動態效果偏好的讀者可直接查看靜態回退圖。
+
+此圖是**一維連續輸入的教學類比**：人工函數為 $f(x)=0.27+0.34x+0.15\sin(2\pi x)+0.13(x-0.55)^2$，$x_0=0.54$，高斯權重為 $\exp[-(x_i-x_0)^2/(2\cdot0.15^2)]$。十二個固定樣本經加權最小平方法擬合，得到約 $g(x)=0.598-0.314x$。移動的點只是呈現**擾動抽樣與加權流程**，不是真實資料的運動軌跡；線性擬合也不是受訓模型的實測解釋。完整 LIME 還包含可解釋特徵表示與模型複雜度懲罰，這裡僅單獨解釋**局部性與忠實度**，對應 [Ribeiro、Singh 與 Guestrin（2016）](https://arxiv.org/abs/1602.04938)。
+
+*原創教學圖像，採 CC BY-SA 4.0 授權。*
+
+### 互動式核函數頻寬實驗（MkDocs）
+
+<div data-explanation-lab="lime" data-locale="zh"></div>
+
+網站上可使用「**核函數頻寬**」滑桿（0.08 至 0.32），對相同的**十二個固定人工樣本**重新擬合加權線性回歸。接近度權重隨 $w_i=\exp[-(x_i-0.54)^2/(2\sigma^2)]$ 重新計算，並同步顯示局部斜率與加權 RMSE。頻寬越大，越遠的點也會影響結果，因此即使黑箱函數不變，得到的局部解釋仍可能改變。滑桿支援原生鍵盤操作，手機可水平捲動 640px 圖面。所有數值均為**解析式教學示例，非受訓模型的實測結果**。未啟用 JavaScript 時，仍可使用上方已審查的靜態 SVG 與完整動畫連結。
 
 ## 結果
 
