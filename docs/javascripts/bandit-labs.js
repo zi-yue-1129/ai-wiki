@@ -15,6 +15,7 @@
       graphA: 'UCB1 mean plus exploration bonus for three arms',
       graphB: 'Three Beta posterior density curves and constructed samples',
       predictive: 'C next-success probability', uncertainty: 'C posterior variance',
+      planeHint: 'Click or tap the decision plane to set both rewards; keyboard users can adjust the two sliders.',
       boundaryLabel: 'Counterfactual UCB1 third-decision reward map', futureChoice: 'Third decision if both B rewards were observed', cutoffLabel: 'Decision changes when r₁ + r₂ exceeds',
       scrollHint: 'Swipe the plot horizontally, or focus it and use arrow keys to inspect all three arms.',
       sample: 'Constructed draws', posterior: 'Beta parameters',
@@ -35,6 +36,7 @@
       graphA: '三個臂的 UCB1 經驗平均值與探索加分',
       graphB: '三個 Beta 後驗密度及人工指定的樣本值',
       predictive: 'C 下一次成功的預測機率', uncertainty: 'C 後驗變異數',
+      planeHint: '可點選決策平面，同時設定兩次獎勵；鍵盤使用者可操作兩個滑桿。',
       boundaryLabel: 'UCB1 第三次決策的反事實獎勵平面', futureChoice: '假設 B 兩次回饋都已發生，第三次會選擇', cutoffLabel: '決策分界為 r₁ + r₂ 大於',
       scrollHint: '可左右滑動圖表，或聚焦後使用方向鍵查看三個臂。',
       sample: '人工抽樣值', posterior: 'Beta 參數',
@@ -136,7 +138,7 @@
           <rect x='239' y='75' width='12' height='12' rx='2' fill='#8ebbd6'/><text x='258' y='86' font-size='13' fill='#365166'>A</text>
           <rect x='239' y='101' width='12' height='12' rx='2' fill='#e9b87e'/><text x='258' y='112' font-size='13' fill='#365166'>B</text>
         </svg>`;
-        get('boundary').innerHTML=`<div class='bandit-lab-boundary-scroll' tabindex='0' role='region' aria-label='${esc(tr.boundaryLabel)}'>${svg}</div><p class='bandit-lab-boundary-note'>${esc(tr.futureChoice)}: <strong>${winner}</strong>. ${esc(tr.cutoffLabel)} ${cutoff.toFixed(3)}.</p>`;
+        get('boundary').innerHTML=`<div class='bandit-lab-boundary-scroll' tabindex='0' role='region' aria-label='${esc(tr.boundaryLabel)}'>${svg}</div><p class='bandit-lab-boundary-note'>${esc(tr.futureChoice)}: <strong>${winner}</strong>. ${esc(tr.cutoffLabel)} ${cutoff.toFixed(3)}.</p><p class='bandit-lab-boundary-hint'>${esc(tr.planeHint)}</p>`;
       }
       // A pointer click sets both hypothetical rewards. Recreating the SVG on
       // render is intentional: use a click rather than a persistent drag handle.
