@@ -44,6 +44,13 @@ Good solutions tend to share useful building blocks. Crossover combines parts of
 
 *Original teaching visual, CC BY-SA 4.0.* Blue tiles denote 1 and pale tiles denote 0. In this **schematic**, parent A is `11011010` and parent B is `00100101`; one-point crossover after position four produces `11010101`, and flipping the seventh bit produces `11010111`. Tile copying and the single mutation are shown over time; these are deliberately chosen example operations, **not observed fitness, selection probabilities or measured convergence**. On the MkDocs site, Play/Pause controls the animation, with a static fallback for reduced-motion preferences. On GitHub, this image is the meaningful static end-state; [open the animated process](../../../assets/concept-animations/genetic-crossover-mutation-motion.svg).
 
+
+#### Interactive lab: per-bit crossover and mutation
+
+<div data-evolution-lab="ga" data-lang="en"><p>JavaScript enables the adjustable lab on the MkDocs site; the static diagram above remains available on GitHub and with scripting disabled.</p></div>
+
+Change the **crossover cut** to choose how many leading bits come from parent A; all remaining bits are copied from parent B. Select a **mutation bit**, then advance with **Next**, **Play**, or the seek slider. Steps 1–8 copy individual bits, and step 9 flips exactly the selected bit of the assembled offspring. With cut 4 and mutation bit 7, the intermediate child is `11010101` and the mutated child is `11010111`. This demonstrates deterministic operators on synthetic strings; selection pressure, population fitness, and convergence are **not** simulated.
+
 In Holland's schema analysis, a schema \(H\) is a template over bit strings, with some positions fixed and the rest wildcards. Its expected number of copies in the next generation is bounded below by
 
 \[
