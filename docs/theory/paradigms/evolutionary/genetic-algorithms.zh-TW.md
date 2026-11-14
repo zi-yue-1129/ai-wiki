@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-30
-translation_reviewed: 2026-10-30
+translation_reviewed: 2026-11-14
 related:
   - theory/paradigms/evolutionary
   - theory/optimization/zeroth-order-and-evolutionary
@@ -44,6 +44,13 @@ aliases:
 <div class="concept-motion-wide" tabindex="0" role="region" aria-label="可使用鍵盤水平捲動的概念動畫"><img src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" data-motion-src="../../../assets/concept-animations/genetic-crossover-mutation-motion.svg" data-still-src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" alt="兩條八位元親代經選擇與單點交叉，子代第七個位元接著發生突變。" loading="lazy"></div>
 
 *原創教學視覺，CC BY-SA 4.0。* 藍色方塊表示 1，淺色方塊表示 0。此**人工示意例子**使用親代 A `11011010`、親代 B `00100101`，在第四位元後進行單點交叉，得到 `11010101`；接著翻轉第七位元，得到 `11010111`。動畫依序呈現位元繼承與一次突變，**不代表真實適應度、選擇機率或收斂實測**。MkDocs 網站可使用播放／暫停，並支援減少動態效果的靜態回退；GitHub 顯示完成狀態的靜態圖，也可[開啟完整動畫](../../../assets/concept-animations/genetic-crossover-mutation-motion.svg)。
+
+
+#### 互動實驗：逐位元交叉與突變
+
+<div data-evolution-lab="ga" data-lang="zh"><p>在 MkDocs 網站啟用 JavaScript 後，可操作參數與逐步播放；GitHub 或停用指令碼時仍可閱讀上方靜態圖。</p></div>
+
+調整**交叉切點**，指定子代前幾個位元取自親代 A，剩餘位元由親代 B 複製；再選擇**突變位元**，用**下一步**、**播放**或時間滑桿觀察各步驟。第 1–8 步每次複製一個位元，第 9 步才翻轉組裝完成之子代的指定位置。預設切點為 4、突變位置為 7，中間子代為 `11010101`，最終為 `11010111`。這是以人工字串示範確定性的運算子，**沒有模擬族群適應度、選擇壓力或收斂結果**。
 
 在 Holland 的模式分析中，模式 \(H\) 是位元串上的一個模板，部分位置固定、其餘為萬用字元。它在下一代的期望複製數有以下下界：
 
