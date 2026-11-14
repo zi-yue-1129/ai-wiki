@@ -136,7 +136,7 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             # GitHub-safe image fallback with MkDocs-only motion enhancement.
             # Validate the attr's exact target, not merely a matching filename.
-            motion_attrs = re.findall(r'data-motion-src=["\\\']([^"\\\']+\\.svg)["\\\']', text)
+            motion_attrs = re.findall(r'data-motion-src="([^"]+\.svg)"', text)
             linked_motion_attrs = {(page.parent / link).resolve() for link in motion_attrs}
             if stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
