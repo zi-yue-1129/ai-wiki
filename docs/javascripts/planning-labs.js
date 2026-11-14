@@ -32,7 +32,13 @@
     let step=0,playing=false,speed=1,timer=null;
     let atA=true,charged=true,goal='C';
     const max=kind==='strips'?4:4;
-    host.innerHTML = `<div class="planning-parameters"></div><div class="planning-canvas" tabindex="0" role="region" aria-label="${kind==='strips'?'STRIPS':'Graphplan'} interactive visual (horizontal scroll)"><svg role="img" viewBox="0 0 720 250" xmlns="${NS}" aria-label="${kind==='strips'?'STRIPS state update':'Graphplan layer and mutex'}"></svg></div><div class="planning-controls"><button type="button" data-a="prev">${t.prev}</button><button type="button" data-a="next">${t.next}</button><button type="button" data-a="play">${t.play}</button><label>${t.step} <input data-a="seek" type="range" min="0" max="${max}" step="1" value="0"/></label><label>${t.speed} <select data-a="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><button type="button" data-a="reset">${t.reset}</button></div><p class="planning-status" role="status" aria-live="polite"></p>`;
+    const canvasLabel=lang==='zh'
+      ? (kind==='strips'?'STRIPS 互動狀態轉移圖（可水平捲動）':'Graphplan 互動事實層與互斥圖（可水平捲動）')
+      : (kind==='strips'?'STRIPS interactive state transition (horizontal scroll)':'Graphplan interactive layers and mutex (horizontal scroll)');
+    const svgLabel=lang==='zh'
+      ? (kind==='strips'?'STRIPS 狀態更新':'Graphplan 事實層與互斥')
+      : (kind==='strips'?'STRIPS state update':'Graphplan layers and mutex');
+    host.innerHTML = `<div class="planning-parameters"></div><div class="planning-canvas" tabindex="0" role="region" aria-label="${canvasLabel}"><svg role="img" viewBox="0 0 720 250" xmlns="${NS}" aria-label="${svgLabel}"></svg></div><div class="planning-controls"><button type="button" data-a="prev">${t.prev}</button><button type="button" data-a="next">${t.next}</button><button type="button" data-a="play">${t.play}</button><label>${t.step} <input data-a="seek" type="range" min="0" max="${max}" step="1" value="0"/></label><label>${t.speed} <select data-a="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><button type="button" data-a="reset">${t.reset}</button></div><p class="planning-status" role="status" aria-live="polite"></p>`;
     const svg=host.querySelector('svg'),params=host.querySelector('.planning-parameters');
     const status=host.querySelector('.planning-status'),play=host.querySelector('[data-a=play]'),seek=host.querySelector('[data-a=seek]');
     if(kind==='strips') params.innerHTML=`<label><input type="checkbox" data-p="atA" checked/> ${t.present}</label><label><input type="checkbox" data-p="charged" checked/> ${t.charged}</label>`;
@@ -95,6 +101,8 @@
   }
   const enhance=()=>document.querySelectorAll('[data-planning-lab]').forEach(init);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);else enhance();
-  document.addEventListener('DOMContentLoaded',enhance);
-  document.addEventListener('mkdocs:page',enhance);
+  // Material for MkDocs instant navigation swaps pages without reloading JS.
+  if (window.document$ && typeof window.document$.subscribe==='function') {
+    window.document$.subscribe(() => enhance());
+  }
 })();

@@ -21,6 +21,7 @@ with sync_playwright() as p:
         b=page.locator('[data-planning-lab=graphplan]')
         assert a.locator('svg text').count()>4
         assert b.locator('svg text').count()>4
+        assert ('可水平捲動' if lang=='zh-TW' else 'horizontal scroll') in b.locator('.planning-canvas').get_attribute('aria-label')
         assert a.locator('[role=status]').count()==1
         a.locator('[data-a=seek]').fill('4')
         assert 'At(B)' in a.locator('[role=status]').inner_text()
@@ -37,6 +38,11 @@ with sync_playwright() as p:
         a.locator('[data-a=next]').focus()
         page.keyboard.press('Enter')
         assert a.locator('[data-a=seek]').input_value()=='1'
+        a.locator('[data-a=play]').click()
+        assert a.locator('[data-a=play]').get_attribute('aria-pressed') == ('false' if reduced else 'true')
+        if not reduced:
+          a.locator('[data-a=play]').click()
+          assert a.locator('[data-a=play]').get_attribute('aria-pressed')=='false'
         assert page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')
         assert a.locator('.planning-canvas').evaluate('e => e.scrollWidth >= e.clientWidth')
         if width in (320,1024) and not reduced:
