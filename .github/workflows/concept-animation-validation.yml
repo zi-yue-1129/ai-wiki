@@ -29,6 +29,9 @@ on:
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_sac_dpo_motion_browser.py"
+      - "scripts/test_sac_dpo_labs_browser.py"
+      - "docs/javascripts/sac-dpo-labs.js"
+      - "docs/stylesheets/sac-dpo-labs.css"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
@@ -86,6 +89,8 @@ jobs:
         run: python scripts/test_ssl_temporal_provenance_browser.py
       - name: Chromium SAC and DPO bilingual motion and static fallback
         run: python scripts/test_sac_dpo_motion_browser.py
+      - name: Chromium SAC and DPO analytical interactive labs
+        run: python scripts/test_sac_dpo_labs_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -98,6 +103,7 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/sac-dpo-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 
