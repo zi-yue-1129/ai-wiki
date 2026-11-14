@@ -28,6 +28,10 @@ on:
       - "scripts/test_ssl_ema_trajectory_browser.py"
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
+      - "scripts/test_evolution_motion_browser.py"
+      - "scripts/test_evolution_labs_browser.py"
+      - "docs/javascripts/evolution-labs.js"
+      - "docs/stylesheets/evolution-labs.css"
       - "scripts/test_self_supervised_labs.cjs"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
@@ -50,7 +54,7 @@ jobs:
         run: python scripts/verify_concept_animations.py
 
   validate-motion:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -83,6 +87,10 @@ jobs:
         run: python scripts/test_ssl_ema_trajectory_browser.py
       - name: Chromium FIFO lifetime and EMA historical attribution
         run: python scripts/test_ssl_temporal_provenance_browser.py
+      - name: Chromium GA and MAP-Elites bilingual playback and mobile scroll
+        run: python scripts/test_evolution_motion_browser.py
+      - name: Chromium GA and MAP-Elites numerical interaction labs
+        run: python scripts/test_evolution_labs_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -95,6 +103,8 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/evolution-motion/*.png
+            artifacts/evolution-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 
