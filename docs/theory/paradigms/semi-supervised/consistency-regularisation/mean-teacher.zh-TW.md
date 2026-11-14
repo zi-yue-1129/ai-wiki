@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-13
+translation_reviewed: 2026-11-15
 related:
   - theory/paradigms/semi-supervised/consistency-regularisation
   - theory/paradigms/semi-supervised/pseudo-labelling-and-self-training
@@ -51,6 +51,12 @@ J_{\text{cons}}(\theta) = \mathbb E_{x,\eta,\eta'}\Big[\big\|f(x;\theta,\eta) - 
 *原創教學動畫（CC BY-SA 4.0）。* 藍線是假設的**學生單一參數**在第 0–4 步之數值：(0.15, 0.85, 0.35, 0.95, 0.50)。為讓效果易於觀察，故意使用較小的示意係數 **α=0.75**，教師從 0.15 開始，其 EMA 更新依序約為 (0.150, 0.325, 0.331, 0.486, 0.489)。移動游標展示教師如何**平滑且延遲追隨學生參數的變動**。步驟之間的連線只是視覺插值，**不是連續時間的梯度動力學**；實際實驗通常使用更大的 α。這是**人工數值，不是模型實測訓練曲線**。演算法中僅學生接收監督與一致性損失的梯度，教師則在學生更新**之後**以 EMA 更新權重。
 
 MkDocs 網站提供**播放／暫停**（支援鍵盤 Enter／Space），GitHub 及偏好減少動態效果的讀者可直接閱讀相同的靜態圖。[靜態預覽](../../../../assets/concept-animations/mean-teacher-ema-tracking-still.svg)。
+
+## 互動數值實驗：EMA 權重更新
+
+調整 α，逐步檢視固定的人工學生純量參數序列 **[0.15, 0.85, 0.35, 0.95, 0.50, 0.72]**；教師初始值為 0.15。每步重新計算 **teacher[t] = α · teacher[t−1] + (1−α) · student[t]**。使用上一步／下一步、播放／暫停、步驟滑桿、速度與重設，區分延遲的權重平均與梯度下降。**教師不接受梯度更新**。兩條曲線都是**人工純量示意**，不是實測權重軌跡，也不是輸出的一致性損失。
+
+<div class="semi-process-lab" data-kind="teacher" data-lang="zh">MkDocs 網站提供可調參數的實驗；GitHub 保留上方完整靜態 SVG。</div>
 
 ## 關鍵方法
 

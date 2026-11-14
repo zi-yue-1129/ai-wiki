@@ -61,6 +61,12 @@ Each step computes the student's and the teacher's outputs on the same batch wit
 
 On the MkDocs site, use **Play/Pause** (or Enter/Space on the control). GitHub and reduced-motion readers see the same explanatory still. [Static fallback](../../../../assets/concept-animations/mean-teacher-ema-tracking-still.svg).
 
+## Interactive numerical lab: EMA weight update
+
+Adjust α and walk through the fixed student scalar sequence **[0.15, 0.85, 0.35, 0.95, 0.50, 0.72]**, with the teacher initially at 0.15. At each step, the lab recomputes **teacher[t] = α · teacher[t−1] + (1−α) · student[t]**. Use Previous/Next, Play/Pause, seek, speed and Reset to distinguish delayed parameter averaging from gradient descent. **The teacher has no gradient update.** Both traces are synthetic scalars, not a trained network's trajectory or its output consistency loss.
+
+<div class="semi-process-lab" data-kind="teacher" data-lang="en">The adjustable lab runs on MkDocs. GitHub retains the complete static SVG preview above.</div>
+
 ## Key methods
 
 ### Mean teachers are better role models (Tarvainen & Valpola, 2017)

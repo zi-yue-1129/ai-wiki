@@ -30,6 +30,9 @@ on:
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
+      - "scripts/test_semi_process_labs_browser.py"
+      - "docs/javascripts/semi-supervised-process-labs.js"
+      - "docs/stylesheets/semi-supervised-process-labs.css"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
@@ -74,6 +77,8 @@ jobs:
           python -m playwright install chromium
       - name: Chromium FixMatch and Mean Teacher player/fallback/keyboard QA
         run: python scripts/test_semi_supervised_motion_browser.py
+      - name: Chromium FixMatch and Mean Teacher arithmetic interaction QA
+        run: python scripts/test_semi_process_labs_browser.py
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
@@ -97,6 +102,7 @@ jobs:
             artifacts/ssl-causal-previews/*.png
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
+            artifacts/semi-supervised-process-labs/*.png
             artifacts/ssl-temporal-provenance/*.png
           if-no-files-found: ignore
           retention-days: 7
