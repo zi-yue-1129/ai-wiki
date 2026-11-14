@@ -43,7 +43,7 @@
     const previous=button(L.prev,'←',()=>{stop();step=clamp(step-1,0,final);render();});
     const play=button(L.play,'▶',()=>{if(playing){stop();return;}if(reduce.matches)return;if(step===final)step=0;playing=true;last=0;progress=0;raf=requestAnimationFrame(tick);render();});
     const next=button(L.next,'→',()=>{stop();step=clamp(step+1,0,final);render();});
-    const reset=button(L.reset,'↺',()=>{stop();step=0;gamma=.8;reward=4;base=2;rb=2;rd=5;allEqual=false;host.querySelectorAll('input[type="range"]').forEach(i=>{const label=i.closest('.pcl-field');const init=i.getAttribute('data-default');i.value=init;label.querySelector('output').textContent=init;});const c=host.querySelector('.pcl-check input');if(c)c.checked=false;seek.value='0';rate.value='1';render();});
+    const reset=button(L.reset,'↺',()=>{stop();step=0;gamma=.8;reward=4;base=2;rb=2;rd=5;allEqual=false;fields.querySelectorAll('input[type="range"]').forEach(i=>{const label=i.closest('.pcl-field');const init=i.getAttribute('data-default');i.value=init;label.querySelector('output').textContent=init;});const c=host.querySelector('.pcl-check input');if(c)c.checked=false;seek.value='0';rate.value='1';render();});
     const seek=n('input','pcl-seek');seek.type='range';seek.min='0';seek.max=String(final);seek.step='1';seek.value='0';seek.setAttribute('aria-label',L.status);seek.addEventListener('input',()=>{const target=+seek.value;stop();step=target;render();});
     const rate=n('select','pcl-rate');rate.setAttribute('aria-label',L.speed);
     for(const v of [.5,1,2]){const o=n('option','',`${v}×`);o.value=String(v);if(v===1)o.selected=true;rate.append(o);}
@@ -71,7 +71,7 @@
     function render(){
       if(type==='reinforce'){
         const gs=[gamma*gamma*reward,gamma*reward,reward], adv=gs.map(v=>v-base);
-        const labels=['a₀','a₁','a₂'];const phase=[L.initial,L.returns,L.weights][step];const xs=drawBase(`REINFORCE · ${phase}`,labels);
+        const labels=['a₀','a₁','a₂'];const phase=[words.en.initial,words.en.returns,words.en.weights][step];const xs=drawBase(`REINFORCE · ${phase}`,labels);
         const values=step===0?[0,0,reward]:step===1?gs:adv;
         xs.forEach((x,i)=>bar(x,values[i],24,step===2?(adv[i]>=0?'#2ac5a4':'#ef8a6e'):'#60aaf4',fmt(values[i]),false));
         plot.append(el('text',{x:42,y:322,fill:'#8aa2c0','font-size':12},step===0?'r = [0, 0, R]':step===1?'Gₜ = γ⁽²⁻ᵗ⁾ R':'wₜ = Gₜ − b'));
@@ -80,7 +80,7 @@
         const rewards=allEqual?[3,3,3,3]:[1,rb,4,rd];const mean=rewards.reduce((a,b)=>a+b,0)/4;
         const variance=rewards.reduce((a,v)=>a+(v-mean)**2,0)/4;const sigma=Math.sqrt(variance);
         const centered=rewards.map(v=>v-mean), adv=centered.map(v=>sigma>1e-12?v/sigma:0);
-        const phase=[L.group,L.group,L.centered,L.normalized][step];const xs=drawBase(`GRPO · ${phase}`,['A','B','C','D']);
+        const phase=[words.en.group,words.en.group,words.en.centered,words.en.normalized][step];const xs=drawBase(`GRPO · ${phase}`,['A','B','C','D']);
         const values=step<=1?rewards:step===2?centered:adv;const scale=step<=1?19:step===2?27:53;
         if(step===1)plot.append(el('line',{x1:48,x2:652,y1:178-mean*scale,y2:178-mean*scale,stroke:'#f1be66','stroke-width':2,'stroke-dasharray':'8 6'}));
         xs.forEach((x,i)=>bar(x,values[i],scale,step>=2?(values[i]>=0?'#2ac5a4':'#ef8a6e'):'#60aaf4',fmt(values[i]),false));

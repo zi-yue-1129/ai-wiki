@@ -19,12 +19,14 @@ def html(locale):
     return '''<!doctype html><html lang="%s"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>body{margin:0;padding:14px;font:16px system-ui,sans-serif;background:#f8fafc;color:#17283a;max-width:900px;}main{width:100%%;max-width:900px;} h2{font-size:1.2rem} %s</style><main><h2>REINFORCE</h2><div data-policy-lab="reinforce" data-lang="%s"><p>Fallback</p></div><h2>GRPO</h2><div data-policy-lab="grpo" data-lang="%s"><p>Fallback</p></div></main><script>%s</script></html>''' % (locale,css,locale,locale,js)
 
 with sync_playwright() as pw:
-    browser=pw.chromium.launch(headless=True,executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+    browser=pw.chromium.launch(headless=True, **({'executable_path':'/usr/bin/chromium'} if Path('/usr/bin/chromium').exists() else {}), args=['--no-sandbox'])
     count=0
     for locale in ['en','zh']:
       for width in [320,360,720,1024]:
        for reduced in [False,True]:
         page=browser.new_page(viewport={'width':width,'height':900}, reduced_motion='reduce' if reduced else 'no-preference')
+        errors=[]
+        page.on('pageerror', lambda exc: errors.append(str(exc)))
         page.set_content(html(locale))
         hosts=page.locator('[data-policy-lab]')
         assert hosts.count()==2
@@ -40,16 +42,20 @@ with sync_playwright() as pw:
         assert 'G−b=[-1.440, -0.800, 0.000]' in page.locator('.pcl-read').first.inner_text()
         page.locator('[data-policy-lab="reinforce"] .pcl-btn[aria-label="'+('Reset' if locale=='en' else '重設')+'" ]').click()
         assert 'G=[2.560, 3.200, 4.000]' in page.locator('.pcl-read').first.inner_text()
+        assert page.locator('[data-policy-lab="reinforce"] .pcl-stage').inner_text().endswith('0/2'), 'Reset failed to restore step'
+        assert page.locator('[data-policy-lab="reinforce"] input[type="range"]').nth(2).input_value()=='2', 'Reset failed to restore baseline'
         page.locator('.pcl-check input').check()
         assert 'σ=0.000' in page.locator('.pcl-read').last.inner_text()
         assert '[0.000, 0.000, 0.000, 0.000]' in page.locator('.pcl-read').last.inner_text()
         if reduced:
             assert page.locator('[data-policy-lab="reinforce"] .pcl-btn[aria-label="'+('Play' if locale=='en' else '播放')+'" ]').is_disabled()
         # Check SVG label positions remain inside the 700x328 viewbox.
+        assert page.locator('svg').evaluate_all('xs => xs.every(x => !/[\u3400-\u9fff]/u.test(x.textContent))'), 'SVG must use English-only labels'
         boxes=page.locator('svg text').evaluate_all('els=>els.map(el=>{const b=el.getBBox();return [b.x,b.y,b.x+b.width,b.y+b.height]})')
         assert all(b[0]>=-0.5 and b[1]>=-0.5 and b[2]<=700.5 and b[3]<=328.5 for b in boxes),boxes
         if width in (320,1024) and not reduced:
             page.screenshot(path=str(OUT/f'qa-{locale}-{width}.png'),full_page=True)
+        assert not errors, errors
         count+=1
         page.close()
     browser.close()
