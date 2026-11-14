@@ -10,7 +10,7 @@ tags:
   - normalisation
   - feedforward networks
   - sequence models
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 ---
 
 # 層正規化
@@ -35,6 +35,13 @@ translation_reviewed: 2026-10-28
 \]
 
 接著，每個單元的正規化激活值以其增益做縮放，並以其偏置做平移。
+
+### 視覺化解析：同一樣本的平移不變性
+
+![LayerNorm 特徵平移示意：五個原始特徵值和同時加二的變化，相對於保持不變的標準化輸出。](../../../../assets/concept-animations/layernorm-feature-shift-still.svg)
+
+*原創教學視覺（CC BY-SA 4.0）。* MkDocs 網站可透過**播放／暫停**，觀察五個原始特徵與樣本平均值一起增加 **2**，而標準化後的五個輸出維持不變。圖中使用人工向量 \(x=[1,3,5,7,9]\)、平均值 \(5\)、母體標準差 \(\sqrt{8}\)。每個元素同時加二之後，平均值變成 \(7\)，標準差與標準化向量都不改變；並設定 \(\gamma=1,\beta=0\)。這是**單一樣本內特徵軸**的示意計算，不是批次正規化，也不是模型實測激活值。GitHub 直接顯示靜態比較；網站提供逐漸變化的動畫、鍵盤可操作的暫停及減少動態效果模式。其計算依據下方 Ba、Kiros 與 Hinton（2016）的層正規化定義。
+
 
 ## 結果
 

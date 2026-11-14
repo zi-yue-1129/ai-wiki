@@ -35,6 +35,13 @@ p(y_1,\dots,y_{T'} \mid x_1,\dots,x_T) = \prod_{t} p(y_t \mid v,\, y_1,\dots,y_{
 
 where \(v\) is the fixed vector produced by the encoder, and each factor is a softmax over the vocabulary.
 
+### Visual walkthrough: a single context handoff
+
+![Original sequence-to-sequence encoder decoder: four source tokens are read in reverse order into one context vector, then three target tokens are generated autoregressively.](../../../../../assets/concept-animations/seq2seq-context-handoff-still.svg)
+
+*Original instructional visual (CC BY-SA 4.0).* On MkDocs, **Play/Pause** traces successive source-token updates through the encoder, the **single fixed-size vector** \(v\), and autoregressive decoder steps \(y_1,y_2,y_3\). The illustration follows the reversed-source encoder convention from Sutskever, Vinyals and Le (2014); **the decoder receives the context only through its initial state, with no per-step cross-attention**. The token symbols and flow timing are schematic, not a measured translation, attention map or learned representation. The GitHub static fallback shows the complete dependency structure; the website provides keyboard-accessible play/pause and reduced-motion fallback.
+
+
 ## Results
 
 On WMT'14 English-to-French (the ntst14 test set), an ensemble of five reversed LSTMs with beam size 12 reached BLEU 34.81, against 33.30 for the phrase-based SMT baseline. Reversing the source raised a single model's BLEU from 25.9 to 30.6.

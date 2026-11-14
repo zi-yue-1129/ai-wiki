@@ -36,6 +36,13 @@ With \(H\) hidden units and summed inputs \(a_i\), the layer computes the mean a
 
 Each unit's normalised activation is then scaled by its gain and shifted by its bias.
 
+### Visual walkthrough: shift invariance within one sample
+
+![LayerNorm feature shift: five raw feature activations and a two-unit common shift are compared against unchanged standardised outputs.](../../../../assets/concept-animations/layernorm-feature-shift-still.svg)
+
+*Original instructional visual (CC BY-SA 4.0).* On the MkDocs site, **Play/Pause** moves every raw feature and the sample mean together by **+2**, while the five standardised activations stay fixed. The figure uses the illustrative vector \(x=[1,3,5,7,9]\), mean \(5\), and population standard deviation \(\sqrt{8}\). After the common shift, the mean becomes \(7\) and the standard deviation and normalised vector do not change; the learned affine parameters are set to \(\gamma=1,\beta=0\). This is a single-sample feature-axis calculation, **not batch normalisation or model-measured activations**. GitHub displays the directly readable static comparison; the website progressively animates the shift and supports keyboard-accessible pause and reduced motion. The calculation illustrates the feature-wise definition in Ba, Kiros and Hinton (2016), cited in References.
+
+
 ## Results
 
 On order embeddings for MSCOCO, caption retrieval R@1 rose from 46.6 to 48.5 and image retrieval R@1 rose from 37.8 to 38.9. The model reached its best validation result in 60% of the baseline's training time. On binarised MNIST with DRAW, the layer-normalised model reached 82.09 nats after 200 epochs, against 82.36 for the baseline.

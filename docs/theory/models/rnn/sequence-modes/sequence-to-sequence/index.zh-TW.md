@@ -10,7 +10,7 @@ tags:
   - recurrent networks
   - sequence modelling
   - machine translation
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 ---
 
 # 序列到序列學習
@@ -34,6 +34,13 @@ p(y_1,\dots,y_{T'} \mid x_1,\dots,x_T) = \prod_{t} p(y_t \mid v,\, y_1,\dots,y_{
 \]
 
 其中 \(v\) 是編碼器產生的固定向量，每個因子都是對詞彙表的 softmax。
+
+### 視覺化解析：單一脈絡向量的交接
+
+![原始序列到序列編碼器與解碼器示意：四個來源詞元反向輸入，彙整成固定向量，再自回歸產生三個目標詞元。](../../../../../assets/concept-animations/seq2seq-context-handoff-still.svg)
+
+*原創教學視覺（CC BY-SA 4.0）。* MkDocs 網站可透過**播放／暫停**，依序追蹤編碼器讀取來源詞元、將資訊壓縮到**單一固定維度向量** \(v\)，以及解碼器自回歸產生 \(y_1,y_2,y_3\) 的過程。此示意依循 Sutskever、Vinyals 與 Le（2014）反轉來源序列的慣例；**解碼器僅透過初始狀態取得脈絡資訊，沒有逐步交叉注意力**。詞元代號與訊號移動時間都是教學構造，並非實際翻譯、注意力權重或學得的表徵。GitHub 靜態回退能直接看出完整依賴結構，網站則支援鍵盤播放／暫停與減少動態效果。
+
 
 ## 結果
 
