@@ -60,6 +60,16 @@ The top track displays **brief spiking bursts**, separated by a **quiet delay**.
 
 On the MkDocs site, use **Play/Pause** or **Enter/Space** when the button is focused; reduced-motion preferences show the still figure. The diagram region can be focused and scrolled on narrow screens. GitHub displays the complete static sequence. Both visuals are original **CC BY-SA 4.0** teaching illustrations.
 
+
+### Interactive lab: decay through a silent delay and a refresh burst
+
+<div data-wm-lab="silent" data-lang="en"></div>
+
+Adjust the **trace time constant** $\tau$ and toggle the optional **refresh burst** at step 4. The illustrative dimensionless state follows $s_0=1$ and $s_t=e^{-1/\tau}s_{t-1}+b_t$, where $b_4=0.55$ when the refresh is enabled and all other $b_t=0$. For example, at $\tau=4$, step 4 gives $s_4=e^{-1}+0.55\approx0.918$ with refresh versus $e^{-1}\approx0.368$ without it. The trace can persist while no spike marker appears.
+
+This is an **invented scalar exponential-decay demonstration**, not a quantitative implementation of Mongillo et al.'s calcium-mediated synaptic model, a neural measurement or evidence that all working memory becomes silent. The time steps and refresh amplitude are arbitrary. The GitHub-safe static figure above remains readable with JavaScript disabled; all interactive controls also work with a keyboard.
+
+
 ## Results
 
 - **Synaptic model.** Mongillo et al. (2008) propose that a memory can be sustained by calcium-mediated synaptic facilitation, refreshed by spiking. This page does not summarise the paper's quantitative results, which should be read from the paper.

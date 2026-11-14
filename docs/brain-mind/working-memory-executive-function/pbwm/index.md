@@ -58,6 +58,16 @@ The **blue cue A** is admitted when the gate opens; the **orange distractor X** 
 
 On the MkDocs site, use **Play/Pause** (or focus the button and press **Enter/Space**); the image remains static when reduced motion is requested. On a narrow screen, focus the illustration region and scroll horizontally. GitHub displays the static three-state comparison. Both assets are original **CC BY-SA 4.0** teaching illustrations.
 
+
+### Interactive lab: gate decisions and overwritten memory
+
+<div data-wm-lab="gate" data-lang="en"></div>
+
+Use **Next / Previous**, the step slider, or **Play / Pause** to inspect the sequence A → X → B. Turn on **Admit distractor X** at step 2: the previously retained A is now overwritten by X. Turn off **Admit replacement B** at step 3 to keep the earlier memory instead of writing B. The symbolic update is $m_t=u_t$ when the gate is open and $m_t=m_{t-1}$ otherwise.
+
+This is a **hand-controlled categorical state machine**, not basal-ganglia activity or a learned PBWM gating policy. The inputs, gate choices, and memory symbols are fabricated. The plot and controls share one implementation with the Traditional Chinese page; all in-figure labels are English. On GitHub, the preceding reviewed SVG still supplies the no-script explanation. All controls are keyboard accessible; motion can be paused or stepped through manually.
+
+
 ## Results
 
 The paper tests the learning rule on working memory tasks, including the 1-2-AX task. This page does not report the comparison results, which should be read from the paper.
