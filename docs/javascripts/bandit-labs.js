@@ -14,6 +14,7 @@
       selected: 'Selected arm', note: 'Illustrative values, not empirical measurements or reproducible random draws.',
       graphA: 'UCB1 mean plus exploration bonus for three arms',
       graphB: 'Three Beta posterior density curves and constructed samples',
+      predictive: 'C next-success probability', uncertainty: 'C posterior variance',
       boundaryLabel: 'Counterfactual UCB1 third-decision reward map', futureChoice: 'Third decision if both B rewards were observed', cutoffLabel: 'Decision changes when r₁ + r₂ exceeds',
       scrollHint: 'Swipe the plot horizontally, or focus it and use arrow keys to inspect all three arms.',
       sample: 'Constructed draws', posterior: 'Beta parameters',
@@ -33,6 +34,7 @@
       selected: '選擇的臂', note: '所有數值皆為人工教學示意，非實測結果或可重現的隨機抽樣。',
       graphA: '三個臂的 UCB1 經驗平均值與探索加分',
       graphB: '三個 Beta 後驗密度及人工指定的樣本值',
+      predictive: 'C 下一次成功的預測機率', uncertainty: 'C 後驗變異數',
       boundaryLabel: 'UCB1 第三次決策的反事實獎勵平面', futureChoice: '假設 B 兩次回饋都已發生，第三次會選擇', cutoffLabel: '決策分界為 r₁ + r₂ 大於',
       scrollHint: '可左右滑動圖表，或聚焦後使用方向鍵查看三個臂。',
       sample: '人工抽樣值', posterior: 'Beta 參數',
@@ -91,7 +93,7 @@
           ${ui('select','speed',tr.speed,0,0,[[0.5,'0.5×'],[1,'1×'],[2,'2×']])}
           <button type="button" data-action="reset">${tr.reset}</button>
         </div>
-        <div class="bandit-lab-parameters">${kind==='ucb'?ui('0.25','reward1',tr.rewardFirst,0,1)+ui('0.25','reward2',tr.rewardSecond,0,1):ui('select','outcome',tr.outcome,0,0,[[1,tr.success],[0,tr.failure]])}</div>
+        <div class="bandit-lab-parameters">${kind==='ucb'?ui('0.05','reward1',tr.rewardFirst,0,1)+ui('0.05','reward2',tr.rewardSecond,0,1):ui('select','outcome',tr.outcome,0,0,[[1,tr.success],[0,tr.failure]])}</div>
         <div class="bandit-lab-canvas" tabindex="0" role="region" aria-label="${esc(kind==='ucb'?tr.graphA:tr.graphB)}"><svg viewBox="0 0 720 272" width="720" height="272" role="img" aria-label="${esc(kind==='ucb'?tr.graphA:tr.graphB)}" data-role="svg"></svg></div>
         <p class="bandit-lab-scroll-hint">${esc(tr.scrollHint)}</p>
         ${kind==='ucb'?'<div class="bandit-lab-boundary" data-role="boundary"></div>':''}
@@ -136,6 +138,23 @@
         </svg>`;
         get('boundary').innerHTML=`<div class='bandit-lab-boundary-scroll' tabindex='0' role='region' aria-label='${esc(tr.boundaryLabel)}'>${svg}</div><p class='bandit-lab-boundary-note'>${esc(tr.futureChoice)}: <strong>${winner}</strong>. ${esc(tr.cutoffLabel)} ${cutoff.toFixed(3)}.</p>`;
       }
+      // A pointer click sets both hypothetical rewards. Recreating the SVG on
+      // render is intentional: use a click rather than a persistent drag handle.
+      // Keyboard-only readers control exactly the same state via both sliders.
+      if(kind==='ucb') get('boundary').addEventListener('click',event=>{
+        const image=event.target.closest('svg');
+        if(!image || !get('boundary').contains(image))return;
+        const bounds=image.getBoundingClientRect();
+        const x=(event.clientX-bounds.left)*330/bounds.width;
+        const y=(event.clientY-bounds.top)*228/bounds.height;
+        if(x<55||x>215||y<27||y>187)return;
+        const quantise=value=>Math.max(0,Math.min(1,Math.round(value*20)/20));
+        state.reward1=quantise((x-55)/160);
+        state.reward2=quantise((187-y)/160);
+        get('reward1').value=state.reward1.toFixed(2);
+        get('reward2').value=state.reward2.toFixed(2);
+        render();
+      });
       function ucb() {
         const counts=[6,2+state.step,8], sums=[3.9,0.9+(state.step>=1?state.reward1:0)+(state.step>=2?state.reward2:0),4.8], t=counts.reduce((a,b)=>a+b,0);
         const means=counts.map((n,i)=>sums[i]/n);
@@ -164,10 +183,13 @@
         const posterior=[[3,3],[2,5],[4+(state.step>=2&&state.outcome===1?1:0),3+(state.step>=2&&state.outcome===0?1:0)]];
         const first=[0.47,0.22,0.71], second=[0.57,0.38,0.52];
         const draws=state.step===3?second:first;
-        const winner=state.step===0?'—':arms[draws.indexOf(Math.max(...draws))];
+        const showDraw=state.step===1 || state.step===3;
+        const winner=showDraw?arms[draws.indexOf(Math.max(...draws))]:'—';
         const stages=[tr.initial,tr.draw,tr.update,tr.redraw];
         const chances=arms.map((_,i)=>probabilityBest(posterior,i));
         const means=posterior.map(([a,b])=>a/(a+b));
+        const [ca,cb]=posterior[2], nextSuccess=ca/(ca+cb);
+        const cVariance=ca*cb/((ca+cb)**2*(ca+cb+1));
         let svg=`<rect x="0" y="0" width="720" height="272" rx="12" fill="#f8fafc"/><text x="24" y="26" class="bandit-lab-svg-title">Thompson</text>`;
         for (let j=0;j<=4;j++) {
           const y=224-j*46;
@@ -185,12 +207,12 @@
           svg+=`<text x="${364+i*94}" y="25" class="bandit-lab-svg-small" style="fill:${colors[i]}">${arms[i]}</text>`;
           // Previously drawn samples belong to the old posterior; never relocate
           // them onto an updated density during the observation-only stage.
-          if(state.step===1 || state.step===3){const x=draws[i],den=betaPDF(x,...posterior[i]);svg+=`<circle cx="${70+x*590}" cy="${224-den*46}" r="7" fill="${colors[i]}" stroke="#fff" stroke-width="2.5"/>`;}
+          if(showDraw){const x=draws[i],den=betaPDF(x,...posterior[i]);svg+=`<circle cx="${70+x*590}" cy="${224-den*46}" r="7" fill="${colors[i]}" stroke="#fff" stroke-width="2.5"/>`;}
         }
         get('svg').innerHTML=svg;
         get('legend').innerHTML=arms.map((arm,i)=>`<span><i class="bandit-lab-swatch" style="background:${colors[i]}"></i>${arm}</span>`).join('');
         get('probabilities').innerHTML=`<strong class="bandit-lab-prob-title">P(best)</strong>`+arms.map((arm,i)=>`<div class="bandit-lab-prob-row" data-prob="${chances[i].toFixed(6)}"><span>${arm}</span><div class="bandit-lab-prob-track" role="meter" aria-label="${arm} ${esc(tr.chance)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${(chances[i]*100).toFixed(1)}"><div class="bandit-lab-prob-fill" style="width:${(chances[i]*100).toFixed(2)}%;background:${colors[i]}"></div></div><output>${(chances[i]*100).toFixed(1)}%</output></div>`).join('');
-        get('metrics').innerHTML=`<span>${esc(stages[state.step])}</span><span>${tr.selected}: <strong>${winner}</strong></span><span>${tr.sample}: <strong>${state.step>0?draws.map(round).join(' / '):'—'}</strong></span><span>${tr.posterior}: <strong>${posterior.map(p=>`(${p.join(',')})`).join(' / ')}</strong></span><span>${tr.postMean}: <strong>${means.map(round).join(' / ')}</strong></span>`;
+        get('metrics').innerHTML=`<span>${esc(stages[state.step])}</span><span>${tr.selected}: <strong>${winner}</strong></span><span>${tr.sample}: <strong>${showDraw?draws.map(round).join(' / '):'—'}</strong></span><span>${tr.posterior}: <strong>${posterior.map(p=>`(${p.join(',')})`).join(' / ')}</strong></span><span>${tr.postMean}: <strong>${means.map(round).join(' / ')}</strong></span><span>${tr.predictive}: <strong>${nextSuccess.toFixed(4)}</strong></span><span>${tr.uncertainty}: <strong>${cVariance.toFixed(4)}</strong></span>`;
         get('status').textContent=tr.tsStatus({stage:stages[state.step],winner,cpost:`Beta(${posterior[2].join(', ')})`});
       }
       function render() {
