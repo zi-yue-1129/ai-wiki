@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-12
+translation_reviewed: 2026-11-14
 ---
 
 # 歸結
@@ -36,6 +36,17 @@ translation_reviewed: 2026-11-12
 <div role="region" tabindex="0" aria-label="可水平捲動的概念動畫" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
 <img src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="命題歸結的三列推導：P 或 Q 與非 P 或 R 消去 P 得到 Q 或 R；搭配非 Q 消去 Q 得到 R；再搭配非 R 導出空子句。" width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
 </div>
+
+
+#### 可操作實驗：逐次消去互補文字
+
+<div data-aiwiki-lab="resolution" data-lang="zh-TW">
+<p>完整互動推導請在 MkDocs 網站開啟；GitHub 上方保留完整靜態反駁圖。</p>
+</div>
+
+本實驗以原始子句 \((P\lor Q),\ (\neg P\lor R),\ (\neg Q),\ (\neg R)\) 做**命題歸結**。每一步由程式實際移除選定的互補文字並組合剩餘文字；空子句代表整個原始子句集合無法同時滿足，**不**是測量證明器的搜尋時間，也不展示一階合一。
+
+控制：**播放／暫停、上一步、下一步、時間軸拖曳、0.5×／1×／2× 速度、重設**。原生控制可用鍵盤操作；偏好降低動態效果時預設靜止，可自行逐步檢視。
 
 每一列左側是**兩個父子句**，右側是**歸結後的子句**。紫色游標依序示範消去互補文字：\((P\lor Q)\) 與 \((\neg P\lor R)\) 得到 \(Q\lor R\)；再和 \(\neg Q\) 歸結得到 \(R\)；最後和 \(\neg R\) 歸結得到**空子句** \(\square\)。因此四個起始子句的**合取不可滿足**。上一列推得的子句會在下一列重複用作父子句。
 
