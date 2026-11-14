@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-13
+translation_reviewed: 2026-11-14
 related:
 - brain-mind/neuroai
 - brain-mind/visual-perception
