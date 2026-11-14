@@ -42,6 +42,15 @@ Instead of attending to all earlier tokens, sparse attention restricts each quer
 
 *Original CC BY-SA 4.0 teaching visual. The orange query and its last four accessible keys move together across a 12-token, width-4 causal mask. Row \(t\) can read only keys \(j\in[\max(1,t-3),t]\); there are no global tokens in this example. The continuous positions between token indices are **visual interpolation**, not fractional token computation. [Open the motion SVG](../../../../assets/concept-animations/sliding-window-mask-motion.svg). On MkDocs, **Play/Pause** (also Enter/Space) switches between motion and a readable still, with reduced-motion settings respected. The colours and width are illustrative, not benchmark measurements (Beltagy et al., 2020; see References).*
 
+
+<div class="attention-lab" data-lab="window" data-lang="en">
+
+The static concept image above remains available without JavaScript. The interactive calculation is enhanced on the MkDocs site.
+
+</div>
+
+*Interactive exercise: change query index and window width; the mask, visible keys, and exact permitted-pair count update together. Use Previous/Next, the seek slider, Play/Pause, Speed and Reset. For 12 tokens and window width 4 there are **42** permitted causal pairs versus **78** in full causal attention. This is an analytic pattern count, not a measured runtime.*
+
 ### Linear attention
 
 Linear attention replaces the softmax with a kernel feature map \(\phi\), so that the product can be reordered as \(\phi(Q)\,(\phi(K)^\top V)\). The expression \(\phi(K)^\top V\) can be accumulated as a running state, which turns attention into a recurrent update with constant cost per token. Katharopoulos et al. (2020) showed this equivalence and its autoregressive form. Performers approximate the softmax kernel with random features (FAVOR+), so that the approximation can be made as accurate as needed by using more features.
@@ -51,6 +60,15 @@ Linear attention replaces the softmax with a kernel feature map \(\phi\), so tha
 ![Four causal feature-map updates accumulate a compact recurrent state S and z; the normalised output changes without replaying earlier keys and values.](../../../../assets/concept-animations/linear-attention-recurrence-still.svg)
 
 *Original CC BY-SA 4.0 teaching visual. In causal **normalised kernel linear attention**, \(S_t=S_{t-1}+\phi(k_t)v_t^{\top}\), \(z_t=z_{t-1}+\phi(k_t)\), and \(y_t=\phi(q_t)^{\top}S_t/(\phi(q_t)^{\top}z_t)\), assuming a nonzero denominator. The scalar illustration fixes \(\phi(q_t)=1\), keys \((1,2,1,2)\) and values \((1,0,3,2)\). Its cumulative \((S_t,z_t,y_t)\) are \((1,1,1)\), \((1,3,1/3)\), \((4,4,1)\), \((8,6,4/3)\). This **changes the attention kernel**; it is not equivalent to standard softmax attention, and the token-flow interpolation is not a measured model trace. [Open the motion SVG](../../../../assets/concept-animations/linear-attention-recurrence-motion.svg); MkDocs adds keyboard-accessible **Play/Pause**, with a still fallback for reduced motion (Katharopoulos et al., 2020; see References).*
+
+
+<div class="attention-lab" data-lab="linear" data-lang="en">
+
+The static concept image above remains available without JavaScript. The interactive calculation is enhanced on the MkDocs site.
+
+</div>
+
+*Interactive exercise: step through the exact scalar recurrence and change the third value from 3 to 5. The final state changes from \(S_4=8,z_4=6,y_4=4/3\) to \(S_4=10,z_4=6,y_4=5/3\). This uses \(\phi(q)=1\) and positive mapped keys; it is a toy calculation, not a trained model or softmax-equivalent computation.*
 
 ### IO-aware exact attention
 
