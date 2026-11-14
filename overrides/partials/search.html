@@ -17,7 +17,7 @@
         {% include ".icons/" ~ icon ~ ".svg" %}
       </label>
       <nav class="md-search__options" aria-label="Search">
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear">
           {% set icon = config.theme.icon.close or "material/close" %}
           {% include ".icons/" ~ icon ~ ".svg" %}
         </button>
@@ -45,17 +45,22 @@
     var zh = document.documentElement.lang === "zh-TW";
     var text = zh ? {
       placeholder: "搜尋本站",
+      clear: "清除搜尋",
       start: "輸入關鍵字開始搜尋",
       none: "找不到符合的頁面",
       found: function (n) { return "找到 " + n + " 筆結果"; },
       unavailable: "搜尋索引尚未建置"
     } : {
       placeholder: "Search",
+      clear: "Clear search",
       start: "Type to start searching",
       none: "No matching pages",
       found: function (n) { return n + (n === 1 ? " matching page" : " matching pages"); },
       unavailable: "Search index is not built"
     };
+    var clear = form.querySelector("button[type=reset]");
+    clear.title = text.clear;
+    clear.setAttribute("aria-label", text.clear);
     input.placeholder = text.placeholder;
     input.setAttribute("aria-label", text.placeholder);
     meta.textContent = text.start;
@@ -82,7 +87,6 @@
         a.className = "md-search-result__link";
         // Pagefind stores each page's canonical URL, which includes site_url's path.
         a.href = item.url;
-        a.tabIndex = -1;
         a.innerHTML = '<article class="md-search-result__article md-typeset">' +
           '<h1 class="md-search-result__title"></h1>' +
           '<p class="md-search-result__teaser"></p></article>';
@@ -122,11 +126,11 @@
     var toggle = document.getElementById("__search");
     input.addEventListener("focus", function () { toggle.checked = true; });
     input.addEventListener("input", function () { search(input.value.trim()); });
-    form.addEventListener("reset", function () { ++run; list.innerHTML = ""; meta.textContent = text.start; });
+    form.addEventListener("reset", function () { ++run; list.innerHTML = ""; meta.textContent = text.start; input.focus(); });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && toggle.checked) {
         toggle.checked = false;
-        input.blur();
+        if (document.activeElement && document.activeElement.closest(".md-search")) document.activeElement.blur();
         return;
       }
       // "/" focuses the search box, as Material's built-in search does.
