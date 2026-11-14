@@ -13,6 +13,7 @@
       subtotal: 'Weighted subtotal', total: 'Exact credit', prev: 'Previous', next: 'Next',
       play: 'Play', pause: 'Pause', reset: 'Reset',
       shapHint: 'Select a feature and accumulate the four weighted marginal contributions. Order is only instructional.',
+      reducedHint: 'Automatic playback disabled by reduced-motion preference; use Previous / Next or the slider.',
       modelNote: 'Constructed numerical example, not measured model output.',
       chartLime: 'Black-box curve, fixed samples, kernel weights and fitted local surrogate',
       chartShap: 'Four coalition marginal contributions and running weighted credit'
@@ -24,6 +25,7 @@
       subtotal: '加權累計', total: '精確貢獻', prev: '上一步', next: '下一步',
       play: '播放', pause: '暫停', reset: '重設',
       shapHint: '切換特徵，逐列累計四組加權邊際貢獻。列的順序僅供教學使用。',
+      reducedHint: '已依減少動態效果偏好停用自動播放；仍可使用上一步、下一步或滑桿。',
       modelNote: '人工建構的數值示例，並非模型實測輸出。',
       chartLime: '黑箱曲線、固定樣本、核函數權重與局部替代模型',
       chartShap: '四組聯盟邊際貢獻及累計加權值'
@@ -104,6 +106,8 @@
     const stats=el('div',{class:'explanation-lab-stats','aria-live':'polite'});
     controls.append(label,back,forward,play,stepLabel);host.append(title,hint,area,controls,stats,el('p',{class:'explanation-lab-note'},t.modelNote));
     let timer=null;
+    function motionPreference(){play.disabled=reduced.matches;play.title=reduced.matches?t.reducedHint:'';}
+    motionPreference();
     function stop(){if(timer!==null){clearInterval(timer);timer=null;}play.textContent=t.play;}
     function update(){
       const rows=calcShap(feature.value),n=Number(slider.value),total=rows.reduce((s,r)=>s+r.contribution*r.weight,0),sum=rows.slice(0,n).reduce((s,r)=>s+r.contribution*r.weight,0);
@@ -137,7 +141,7 @@
       play.textContent=t.pause;
     });
     document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
-    reduced.addEventListener('change',()=>stop());
+    reduced.addEventListener('change',()=>{stop();motionPreference();});
     update();
   }
   function boot(root=document){for(const host of root.querySelectorAll('[data-explanation-lab]')){
