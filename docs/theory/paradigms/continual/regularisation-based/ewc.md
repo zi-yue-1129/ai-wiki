@@ -79,6 +79,13 @@ The limit depends on Fisher stiffness, while **convergence speed also depends on
 
 
 
+### Interactive experiment: gradient steps versus Fisher stiffness
+
+Adjust the learning rate and two stiffness values, then use **Previous / Next**, **Play / Pause**, the step slider, speed selector or **Reset**. The plot runs the actual discrete quadratic update; dashed reference lines mark stationary points. Use Tab and the arrow keys for sliders. On narrow screens, focus the plot and scroll horizontally. The values are **constructed examples**, not measured weights or Fisher estimates; with JavaScript disabled, the static diagram and numerical table above remain readable.
+
+<div data-ewc-neat-lab="ewc" data-locale="en"><p>JavaScript-free fallback: the preceding table shows computed updates at steps 0, 1, 4, 8, 18 and the analytical limits.</p></div>
+
+
 ## Key methods
 
 ### Overcoming catastrophic forgetting in neural networks (Kirkpatrick et al., 2017)
