@@ -30,7 +30,7 @@ $$
 ### 動態幾何示範：旋轉與奇異值縮放
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img src="../../../assets/concept-animations/svd-unit-circle-still.svg" data-motion-src="../../../assets/concept-animations/svd-unit-circle-motion.svg" data-still-src="../../../assets/concept-animations/svd-unit-circle-still.svg" alt="單位圓先經右奇異向量的轉置旋轉，再依兩個奇異值拉伸，最後經左奇異向量旋轉成橢圓。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-unit-circle-still.svg" data-motion-src="../../../assets/concept-animations/svd-unit-circle-motion.svg" data-still-src="../../../assets/concept-animations/svd-unit-circle-still.svg" alt="單位圓先經右奇異向量的轉置旋轉，再依兩個奇異值拉伸，最後經左奇異向量旋轉成橢圓。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub 可讀的 SVD 靜態預覽](../../../assets/concept-animations/svd-unit-circle-still.svg)

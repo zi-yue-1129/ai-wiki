@@ -43,7 +43,7 @@ The right and left vectors thus come from the two Gram matrices, with eigenvalue
 ### Animated geometry: rotations and singular-value scaling
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img src="../../../assets/concept-animations/svd-unit-circle-still.svg" data-motion-src="../../../assets/concept-animations/svd-unit-circle-motion.svg" data-still-src="../../../assets/concept-animations/svd-unit-circle-still.svg" alt="A unit circle is successively rotated by V transpose, stretched along two singular directions, and rotated by U to produce an ellipse." style="width:640px;min-width:640px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-unit-circle-still.svg" data-motion-src="../../../assets/concept-animations/svd-unit-circle-motion.svg" data-still-src="../../../assets/concept-animations/svd-unit-circle-still.svg" alt="A unit circle is successively rotated by V transpose, stretched along two singular directions, and rotated by U to produce an ellipse." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub-safe static SVD diagram](../../../assets/concept-animations/svd-unit-circle-still.svg)

@@ -41,7 +41,7 @@ The parameter \(T\) is chosen to minimise the NLL of the labels on a held-out va
 
 <div style="max-width:100%;overflow-x:auto" role="group" aria-label="Temperature scaling animation">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/temperature-softmax-still.svg" data-motion-src="../../../../assets/concept-animations/temperature-softmax-motion.svg" alt="Three illustrative logits A=3, B=1, C=0; the softmax bars change as temperature rises from 0.5 to 2 and falls again, while A remains the predicted class." width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/temperature-softmax-still.svg" data-motion-src="../../../../assets/concept-animations/temperature-softmax-motion.svg" alt="Three illustrative logits A=3, B=1, C=0; the softmax bars change as temperature rises from 0.5 to 2 and falls again, while A remains the predicted class." width="640" height="360">
 </div>
 </div>
 
