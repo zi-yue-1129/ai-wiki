@@ -8,6 +8,9 @@ on:
       - "scripts/verify_concept_motion.py"
       - "scripts/verify_concept_svgs.py"
       - "scripts/test_uncertainty_motion_semantics.py"
+      - "docs/javascripts/ewc-neat-labs.js"
+      - "docs/stylesheets/ewc-neat-labs.css"
+      - "scripts/test_ewc_neat_labs_browser.py"
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
@@ -77,6 +80,8 @@ jobs:
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
         run: python scripts/test_ssl_causal_previews_browser.py
+      - name: Chromium EWC gradient steps and NEAT mutation semantics
+        run: python scripts/test_ewc_neat_labs_browser.py
       - name: Chromium gradient sensitivity, bilingual responsive layout
         run: python scripts/test_ssl_gradient_browser.py
       - name: Chromium discrete EMA trajectory integration
@@ -92,6 +97,7 @@ jobs:
             artifacts/self-supervised-labs/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
+            artifacts/ewc-neat-labs/*.png
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
