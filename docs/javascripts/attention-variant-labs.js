@@ -29,7 +29,7 @@
     function button(action,label){const node=elt('button',{type:'button','data-act':action},label);buttons.append(node);return node;}
     const prev=button('previous',T.prev),play=button('play',T.play),next=button('next',T.next),reset=button('reset',T.reset),speedBtn=button('speed',T.speed+': 1×');
     const stage=elt('div',{class:'attention-lab-stage',tabindex:0,'aria-label':kind==='window'?T.window:T.linear});
-    const svg=S('svg',{viewBox:kind==='window'?'0 0 650 344':'0 0 650 300',role:'img','aria-label':kind==='window'?'Causal mask and current visible keys':'Feature-weighted recurrent state and output'});
+    const svg=S('svg',{viewBox:kind==='window'?'0 0 650 300':'0 0 650 300',role:'img','aria-label':kind==='window'?'Causal mask and current visible keys':'Feature-weighted recurrent state and output'});
     stage.append(svg);
     const stats=elt('p',{class:'attention-lab-stats'}),trace=elt('div',{class:'attention-lab-table'}),status=elt('p',{class:'attention-lab-live',role:'status','aria-live':'polite'});
     root.replaceChildren(elt('h4',{},kind==='window'?T.window:T.linear),controls,buttons,stage,stats,trace,status,elt('p',{class:'attention-lab-note'},T.note));
@@ -38,7 +38,7 @@
     function drawWindow(){
       svg.replaceChildren(S('title',{},'Banded causal attention mask'));
       const x=57,y=36,p=18,n=12;
-      txt(svg,57,21,'Key →',13);txt(svg,16,326,'Query ↓',13);
+      txt(svg,57,21,'Key →',13);txt(svg,16,286,'Query ↓',13);
       for(let j=1;j<=n;j++)txt(svg,x+(j-1)*p+4,32,j,10);
       for(let i=1;i<=n;i++){
         txt(svg,36,y+(i-1)*p+13,i,10);
