@@ -26,6 +26,20 @@ def check(playwright, width, lang, reduced, out):
     assert mp.locator('.evo-niche').count()==24
     assert ga.locator('.evo-canvas').get_attribute('data-child')=='11010101'
     assert mp.locator('.evo-canvas').get_attribute('data-coverage')=='3'
+    # Verify user-initiated playback and an actually changing timeline.
+    ga.locator('button').filter(has_text='速度' if lang=='zh' else 'Speed').click()
+    ga.locator('button').filter(has_text='播放' if lang=='zh' else 'Play').click()
+    page.wait_for_function('document.querySelector("[data-evolution-lab=ga] .evo-canvas").dataset.step !== "0"',timeout=5000)
+    ga.locator('button').filter(has_text='暫停' if lang=='zh' else 'Pause').click()
+    ga.locator('button').filter(has_text='重設' if lang=='zh' else 'Reset').click()
+    assert ga.locator('.evo-canvas').get_attribute('data-step')=='0'
+    # Scrollable graphical region remains keyboard-focusable on narrow screens.
+    canvas=ga.locator('.evo-canvas')
+    assert canvas.get_attribute('tabindex')=='0'
+    if width<=360:
+        assert canvas.evaluate('(el) => el.scrollWidth>el.clientWidth+100')
+        canvas.focus();page.keyboard.press('ArrowRight')
+        page.wait_for_function('document.querySelector("[data-evolution-lab=ga] .evo-canvas").scrollLeft > 0',timeout=2000)
     # Every input is focusable and modifiable from the keyboard.
     ga.locator('input[aria-label]').first.focus();page.keyboard.press('ArrowRight')
     assert ga.locator('input[aria-label]').first.input_value()=='5'
@@ -49,6 +63,12 @@ def check(playwright, width, lang, reduced, out):
     mp.locator('input[aria-label]').nth(0).fill('0.61');mp.locator('input[aria-label]').nth(0).dispatch_event('input')
     mp.locator('input[aria-label]').nth(2).fill('2');mp.locator('input[aria-label]').nth(2).dispatch_event('input')
     assert mp.locator('.evo-canvas').get_attribute('data-last-decision') in ['Reject','拒絕']
+    mp.locator('input[aria-label]').nth(2).fill('3')
+    mp.locator('input[aria-label]').nth(2).dispatch_event('input')
+    assert mp.locator('.evo-canvas').get_attribute('data-coverage')=='4'
+    assert mp.locator('.evo-canvas').get_attribute('data-last-decision') in ['Replace','取代']
+    if width in (320, 1024) and not reduced:
+        page.screenshot(path=str(out).replace('.png','-replaced.png'),full_page=True)
     # Reset also resets the parameter sliders.
     mp.locator('button').filter(has_text='重設' if lang=='zh' else 'Reset').click()
     assert mp.locator('.evo-canvas').get_attribute('data-step')=='0'
