@@ -100,6 +100,12 @@ $n$ 個項目的完整相似度表需要 $O(n^2)$ 個值。每個項目只保留
 
 [矩陣分解](matrix-factorization.md)用學得的潛在向量表示使用者與項目，取代明確的鄰居表。[BPR](bpr.md)直接最佳化隱式回饋的排序準則，也適用於自適應 k 最近鄰模型。[^bpr] [神經協同過濾](neural-cf.md)學習神經網路的使用者—項目互動函數。[^ncf] 它們改變了表示或目標，不是上述加權總和的其他名稱。
 
+[^sarwar]: Sarwar 等人（2001），見參考文獻，尤其第 3.1–3.3 節與第 4.3 節。
+[^knn]: Surprise，*k-NN inspired algorithms*，見參考文獻。
+[^data]: GroupLens，*MovieLens 100K Dataset*，見參考文獻。
+[^bpr]: Rendle 等人，*BPR*，見參考文獻。
+[^ncf]: He 等人，*Neural Collaborative Filtering*，見參考文獻。
+
 ## 參考文獻
 
 - Sarwar, B., Karypis, G., Konstan, J. & Riedl, J. (2001). *Item-based collaborative filtering recommendation algorithms*. WWW10. [作者提供的全文](https://grouplens.org/site-content/uploads/Item-Based-WWW-2001.pdf) — 第 3–4 節說明相似度、預測、預先計算與實驗。
@@ -107,9 +113,3 @@ $n$ 個項目的完整相似度表需要 $O(n^2)$ 個值。每個項目只保留
 - GroupLens. *MovieLens 100K Dataset*. https://grouplens.org/datasets/movielens/100k/ — 官方基準資料下載與說明文件。
 - Rendle, S., Freudenthaler, C., Gantner, Z. & Schmidt-Thieme, L. (2009；arXiv 版本 2012). *BPR: Bayesian Personalized Ranking from Implicit Feedback*. https://arxiv.org/abs/1205.2618 — 適用於矩陣分解與自適應 kNN 的排序準則。
 - He, X., Liao, L., Zhang, H., Nie, L., Hu, X. & Chua, T.-S. (2017). *Neural Collaborative Filtering*. https://arxiv.org/abs/1708.05031 — 隱式回饋推薦的神經互動模型。
-
-[^sarwar]: Sarwar 等人（2001），見參考文獻，尤其第 3.1–3.3 節與第 4.3 節。
-[^knn]: Surprise，*k-NN inspired algorithms*，見參考文獻。
-[^data]: GroupLens，*MovieLens 100K Dataset*，見參考文獻。
-[^bpr]: Rendle 等人，*BPR*，見參考文獻。
-[^ncf]: He 等人，*Neural Collaborative Filtering*，見參考文獻。

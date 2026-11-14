@@ -108,6 +108,12 @@ Sparse co-rating support makes pair estimates fragile. A new item has no collabo
 
 [Matrix factorization](matrix-factorization.md) represents users and items with learned latent vectors instead of explicit neighbour tables. [BPR](bpr.md) directly optimises an implicit-feedback ranking criterion, including an adaptive k-nearest-neighbour model.[^bpr] [Neural collaborative filtering](neural-cf.md) learns a neural user–item interaction function.[^ncf] These change the representation or objective; they are not alternative names for the weighted sum above.
 
+[^sarwar]: Sarwar et al. (2001), References; especially §§3.1–3.3 and §4.3.
+[^knn]: Surprise, *k-NN inspired algorithms*, References.
+[^data]: GroupLens, *MovieLens 100K Dataset*, References.
+[^bpr]: Rendle et al., *BPR*, References.
+[^ncf]: He et al., *Neural Collaborative Filtering*, References.
+
 ## References
 
 - Sarwar, B., Karypis, G., Konstan, J. & Riedl, J. (2001). *Item-based collaborative filtering recommendation algorithms*. WWW10. [Author-hosted full text](https://grouplens.org/site-content/uploads/Item-Based-WWW-2001.pdf) — Sections 3–4 describe similarity, prediction, precomputation and experiments.
@@ -115,9 +121,3 @@ Sparse co-rating support makes pair estimates fragile. A new item has no collabo
 - GroupLens. *MovieLens 100K Dataset*. https://grouplens.org/datasets/movielens/100k/ — Official benchmark download and dataset documentation.
 - Rendle, S., Freudenthaler, C., Gantner, Z. & Schmidt-Thieme, L. (2009; arXiv version 2012). *BPR: Bayesian Personalized Ranking from Implicit Feedback*. https://arxiv.org/abs/1205.2618 — Ranking criterion applied to matrix factorisation and adaptive kNN.
 - He, X., Liao, L., Zhang, H., Nie, L., Hu, X. & Chua, T.-S. (2017). *Neural Collaborative Filtering*. https://arxiv.org/abs/1708.05031 — Neural interaction models for implicit-feedback recommendation.
-
-[^sarwar]: Sarwar et al. (2001), References; especially §§3.1–3.3 and §4.3.
-[^knn]: Surprise, *k-NN inspired algorithms*, References.
-[^data]: GroupLens, *MovieLens 100K Dataset*, References.
-[^bpr]: Rendle et al., *BPR*, References.
-[^ncf]: He et al., *Neural Collaborative Filtering*, References.
