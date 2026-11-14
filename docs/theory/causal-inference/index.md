@@ -46,7 +46,7 @@ Causal inference studies when an effect can be estimated from observational data
 
 <div class="causal-lab" data-causal-lab="backdoor" data-lang="en"></div>
 
-**Interactive quantitative check:** Adjust the shared target-population share \(q=P^*(U=1)\). For this constructed constant-effect example, the standardised risks are \(0.1+0.4q\) and \(0.5+0.4q\), so their difference stays \(0.40\). Only \(q=0.50\) is the causal contrast for the original population; other settings target different hypothetical populations. Keyboard arrows change the slider; Reset restores the original example. The static SVG above remains visible in GitHub and without JavaScript.
+**Interactive quantitative check:** Adjust the shared target-population share $q=P^*(U=1)$. For this constructed constant-effect example, the standardised risks are $0.1+0.4q$ and $0.5+0.4q$, so their difference stays $0.40$. Only $q=0.50$ is the causal contrast for the original population; other settings target different hypothetical populations. Keyboard arrows change the slider; Reset restores the original example. The static SVG above remains visible in GitHub and without JavaScript.
 
 In a **fully observed, correctly specified** causal graph $U\\to X$, $U\\to Y$, $X\\to Y$, standardising over $U$ blocks the back-door path.[^causal-motion-pearl] The animation uses an **invented binary population**, not fitted-model results: $P(U=1)=0.5$, $P(X=1\\mid U=0)=0.2$, $P(X=1\\mid U=1)=0.8$, and $P(Y=1\\mid X=x,U=u)=0.1+0.4x+0.4u$.
 
@@ -68,7 +68,7 @@ The moving turquoise bars show the confounder weights being standardised, and th
 
 <div class="causal-lab" data-causal-lab="collider" data-lang="en"></div>
 
-**Interactive selection experiment:** Let \(r=P(S=1\mid X=0,Y=0)\), with the other three binary pairs always retained. The conditional risks among selected samples become \(P(Y=1\mid X=0,S=1)=1/(1+r)\) and \(P(Y=1\mid X=1,S=1)=1/2\). Set \(r=1\) to recover independence or \(r=0\) to recover the deterministic collider example above. Intermediate values are **new, hypothetical probabilistic selection mechanisms**, not the original logical-OR rule. All numbers are constructed; Reset restores \(r=0\).
+**Interactive selection experiment:** Let $r=P(S=1\mid X=0,Y=0)$, with the other three binary pairs always retained. The conditional risks among selected samples become $P(Y=1\mid X=0,S=1)=1/(1+r)$ and $P(Y=1\mid X=1,S=1)=1/2$. Set $r=1$ to recover independence or $r=0$ to recover the deterministic collider example above. Intermediate values are **new, hypothetical probabilistic selection mechanisms**, not the original logical-OR rule. All numbers are constructed; Reset restores $r=0$.
 
 In a second **constructed** example, $X$ and $Y$ are independent fair binary variables, and $S=1$ exactly when $X=1$ **or** $Y=1$. Before conditioning, $P(Y=1\\mid X=0)=P(Y=1\\mid X=1)=0.5$. Conditioning on their common effect $S$ excludes the $X=0,Y=0$ pair. Therefore $P(Y=1\\mid X=0,S=1)=1$ while $P(Y=1\\mid X=1,S=1)=0.5$. The association arises from **selection**, not a causal arrow $X\\to Y$.[^causal-motion-pearl]
 
