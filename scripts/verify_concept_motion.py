@@ -183,7 +183,7 @@ def main() -> int:
             elif stem in {"pbwm-gate", "activity-silent-trace"}:
                 # Static-first source HTML provides a readable GitHub diagram
                 # and progressive MkDocs Play/Pause through data-motion-src.
-                image = re.search(r'<img\\s+[^>]*src="([^"]+)"\\s+data-motion-src="([^"]+)"', text)
+                image = re.search(r'<img\s+[^>]*src="([^"]+)"\s+data-motion-src="([^"]+)"', text)
                 if not image or (page.parent / image.group(1)).resolve() != static_path.resolve() or (page.parent / image.group(2)).resolve() != animated_path.resolve():
                     errors.append(f"{page}: missing static-first image with correct motion enhancement")
             elif stem in {"mle-bernoulli-likelihood", "map-beta-posterior"}:
