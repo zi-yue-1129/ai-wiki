@@ -41,6 +41,26 @@ def main():
                         assert article.locator('table').count() == 2
                         assert article.locator('h1').count() == 1
                         page.screenshot(path=str(OUT / f'{locale}-{width}.png'), full_page=True)
+                        record['tables'] = []
+                        for index, table in enumerate(article.locator('table').all()):
+                            state = table.evaluate("""table => {
+                                let wrap = table.parentElement;
+                                while (wrap && !(['auto', 'scroll'].includes(getComputedStyle(wrap).overflowX)
+                                    && wrap.scrollWidth > wrap.clientWidth + 1)) wrap = wrap.parentElement;
+                                if (!wrap) return {overflow: false};
+                                wrap.scrollIntoView({block: 'center'});
+                                wrap.scrollLeft = wrap.scrollWidth;
+                                const edge = table.rows[0].cells[table.rows[0].cells.length - 1].getBoundingClientRect();
+                                const box = wrap.getBoundingClientRect();
+                                return {overflow: true, left: wrap.scrollLeft,
+                                    max: wrap.scrollWidth - wrap.clientWidth,
+                                    lastColumnVisible: edge.right <= box.right + 1 && edge.left < box.right};
+                            }""")
+                            record['tables'].append(state)
+                            if state['overflow']:
+                                assert abs(state['left'] - state['max']) <= 1, state
+                                assert state['lastColumnVisible'], state
+                                page.screenshot(path=str(OUT / f'{locale}-{width}-table-{index}-right.png'))
                         # Real internal navigation away and back must preserve math and geometry.
                         article.locator('a[href="../"]').first.click()
                         page.wait_for_url('**/recommender/')
