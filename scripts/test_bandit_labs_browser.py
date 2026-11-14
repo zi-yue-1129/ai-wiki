@@ -48,16 +48,42 @@ def main():
                     ucb.locator('[data-role="seek"]').fill('2')
                     assert 'A' in ucb.locator('[data-role="metrics"]').inner_text()
                     assert '1.63' in ucb.locator('[data-role="metrics"]').inner_text()
-                    ucb.locator('[data-role="reward"]').fill('1')
+                    # A single good reward can overturn the second-pull switch.
+                    ucb.locator('[data-role="reward1"]').fill('1')
                     assert 'B' in ucb.locator('[data-role="metrics"]').inner_text()
+                    assert '0.000' not in ucb.locator('[data-role="metrics"]').inner_text()
+                    # The second reward must not affect the state after the first pull.
+                    ucb.locator('[data-role="seek"]').fill('1')
+                    score_before = ucb.locator('[data-role="metrics"]').inner_text()
+                    ucb.locator('[data-role="reward2"]').fill('1')
+                    assert ucb.locator('[data-role="metrics"]').inner_text() == score_before
+                    ucb.locator('[data-role="reward1"]').fill('0')
+                    assert ucb.locator('[data-role="metrics"]').inner_text() != score_before
+                    # At step two, reward2 can independently change the winner.
+                    ucb.locator('[data-role="seek"]').fill('2')
+                    assert 'B' in ucb.locator('[data-role="metrics"]').inner_text()
+                    ucb.locator('[data-role="reward2"]').fill('0')
+                    assert 'A' in ucb.locator('[data-role="metrics"]').inner_text()
+                    assert 'Highest observed mean' in ucb.locator('[data-role="metrics"]').inner_text() or lang == 'zh-TW'
                     ucb.locator('[data-action="reset"]').click()
                     assert ucb.locator('[data-role="seek"]').input_value() == '0'
+                    # Independent posterior-optimality probabilities must sum to one.
+                    probabilities = ts.locator('[data-role="probabilities"] [data-prob]')
+                    assert probabilities.count() == 3
+                    initial = [float(probabilities.nth(i).get_attribute('data-prob')) for i in range(3)]
+                    assert abs(sum(initial)-1.0) < 0.0001, initial
+                    assert 0.57 < initial[2] < 0.58, initial
+                    assert ts.locator('[role="meter"]').count() == 3
                     ts.locator('[data-action="next"]').click()
                     assert 'C' in ts.locator('[data-role="metrics"]').inner_text()
                     ts.locator('[data-action="next"]').click()
                     assert '(5,3)' in ts.locator('[data-role="metrics"]').inner_text()
+                    success = float(probabilities.nth(2).get_attribute('data-prob'))
+                    assert success > initial[2] and 0.66 < success < 0.67
                     ts.locator('[data-role="outcome"]').select_option('0')
                     assert '(4,4)' in ts.locator('[data-role="metrics"]').inner_text()
+                    failure = float(probabilities.nth(2).get_attribute('data-prob'))
+                    assert 0.45 < failure < 0.46 and failure < initial[2]
                     ts.locator('[data-action="next"]').click()
                     assert 'A' in ts.locator('[data-role="metrics"]').inner_text()
                     ts.locator('[data-action="reset"]').click()
