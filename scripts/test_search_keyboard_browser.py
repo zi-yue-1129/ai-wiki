@@ -2,7 +2,7 @@
 """Exercise keyboard search on the built, Pagefind-indexed bilingual site."""
 import argparse
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit
 from mkdocs.config import load_config
 from playwright.sync_api import sync_playwright, expect
 from test_built_motion_browser import serve_site
@@ -49,7 +49,7 @@ def main():
             expect(results.first).to_be_focused()
             target = results.first.get_attribute('href')
             page.keyboard.press('Enter')
-            page.wait_for_url(lambda url: url.path == target or url.path.rstrip('/') == target.rstrip('/'), timeout=30000)
+            page.wait_for_url(lambda url: urlsplit(url).path.rstrip('/') == urlsplit(target).path.rstrip('/'), timeout=30000)
             page.keyboard.press('/')
             query.fill('transformer')
             expect(results.first).to_be_visible(timeout=30000)
