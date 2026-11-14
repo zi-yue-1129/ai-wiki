@@ -1,0 +1,24 @@
+/* Progressive enhancement: the original SVG figure remains visible without JS. */
+.causal-lab { max-width: 800px; margin: 1rem auto 1.75rem; font-size: .84rem; }
+.causal-lab-panel { color: var(--md-default-fg-color, #213b50); border: 1px solid var(--md-default-fg-color--lightest, #cddbe4); background: var(--md-default-bg-color, #fff); border-radius: .7rem; padding: 1rem; }
+.causal-lab-toolbar { display:flex; gap:1.2rem; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+.causal-lab-toolbar label { display:grid; grid-template-columns: minmax(12rem,1fr) auto; align-items:center; gap:.4rem .6rem; flex:1 1 16rem; font-weight:650; }
+.causal-lab-toolbar input { grid-column:1/-1; width:100%; min-width:0; accent-color:#178b9a; cursor:pointer; }
+.causal-lab-toolbar button { border:1px solid #859ba9; border-radius:.45rem; padding:.3rem .7rem; background:transparent; color:inherit; cursor:pointer; font:inherit; }
+.causal-lab-toolbar input:focus-visible,.causal-lab-toolbar button:focus-visible { outline:3px solid #178b9a; outline-offset:3px; }
+.causal-lab-current { font-variant-numeric:tabular-nums; }
+.causal-lab-graphic { margin:.9rem 0 .6rem; background:var(--md-code-bg-color, #f3f7fa); border-radius:.6rem; padding:.8rem; }
+.causal-lab-explainer,.causal-lab-caption { font-size:.74rem; font-weight:700; margin-bottom:.4rem; }
+.causal-lab-cells { display:grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap:.4rem; margin-bottom:.8rem; }
+.causal-lab-cell { border:1px solid #8aabba; background:linear-gradient(90deg,rgba(31,144,156,.85) calc(var(--cell-share,1)*100%),transparent 0); border-radius:.35rem; text-align:center; font-weight:750; padding:.35rem .2rem; font-size:.76rem; font-variant-numeric:tabular-nums; }
+.causal-lab[data-causal-lab="backdoor"] .causal-lab-cells { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.causal-lab-series { display:grid; grid-template-columns: 3.4rem minmax(0,1fr) 3rem; align-items:center; gap:.5rem; margin:.35rem 0; font-size:.76rem; }
+.causal-lab-track { background:#cad9e2; height:1.2rem; border-radius:.3rem; overflow:hidden; }
+.causal-lab-fill { display:block; height:100%; width:0; }
+.causal-lab-fill.coral { background:#db8258; } .causal-lab-fill.teal { background:#218c9a; }
+.causal-lab-series output,.causal-lab-delta output { font-variant-numeric: tabular-nums; font-weight:750; text-align:right; }
+.causal-lab-delta { display:flex; align-items:center; justify-content:space-between; gap:.8rem; border-top:1px solid #c2d3de; margin-top:.65rem; padding-top:.5rem; font-weight:700; font-size:.76rem; }
+.causal-lab-context { margin:.55rem 0 !important; line-height:1.55; font-size:.76rem; }
+.causal-lab-live { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+@media(max-width:420px) { .causal-lab-panel { padding:.65rem; } .causal-lab-series { grid-template-columns:2.5rem minmax(0,1fr) 2.8rem; } }
+@media(prefers-reduced-motion:reduce) { .causal-lab * { animation:none!important; transition:none!important; } }

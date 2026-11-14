@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
   - brain-mind/neuroai
 ---
@@ -22,6 +22,48 @@ related:
 - **平均治療效應（ATE）**：在整個母體中，接受治療與未接受治療單位之間結果的平均差異。
 - **條件平均治療效應（CATE）**：由共變量定義的子群體的效應，可能因人而異。
 - **工具變數（instrumental variable）**：只透過治療影響結果的變數。當混淆無法完全測量時，可以用它來估計效應。
+
+## 因果路徑動態示意
+
+### 後門調整：將混淆因子的分布標準化
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="後門調整動畫；窄螢幕可水平捲動">
+<div style="width:800px">
+<img src="../../assets/concept-animations/backdoor-standardisation-still.svg" data-motion-src="../../assets/concept-animations/backdoor-standardisation-motion.svg" alt="兩個處理組別的 U=1 比例原為 0.20 與 0.80，結果風險為 0.18 與 0.82；將兩組的 U=1 權重統一為 0.50 後，結果風險變為 0.30 與 0.70。" width="800" height="430">
+</div>
+</div>
+
+<div class="causal-lab" data-causal-lab="backdoor" data-lang="zh"></div>
+
+**互動數值驗算：** 調整共同目標母體的 $q=P^*(U=1)$。此人工設定的固定處理效果模型，標準化風險分別為 $0.1+0.4q$ 與 $0.5+0.4q$，因此風險差維持 $0.40$。**只有 $q=0.50$ 對應原始母體的因果對比**；其他滑桿設定代表不同的假想目標母體。可使用方向鍵調整滑桿、按「重設示例」復原。GitHub 與停用 JavaScript 時仍能閱讀上方靜態 SVG。
+
+假設已完整觀測混淆因子，且因果圖為 $U\\to X$、$U\\to Y$、$X\\to Y$，對 $U$ 進行標準化可以阻斷後門路徑。[^causal-motion-pearl] 動畫使用**人工構造的二元母體**，並非模型實測資料：$P(U=1)=0.5$、$P(X=1\\mid U=0)=0.2$、$P(X=1\\mid U=1)=0.8$，以及 $P(Y=1\\mid X=x,U=u)=0.1+0.4x+0.4u$。
+
+未調整的觀察差為 $0.82-0.18=0.64$；將兩種處理狀態的 $U$ **統一加權至同一個邊際分布**後，因果風險差是 $0.70-0.30=0.40$：
+
+$
+P(Y=1\\mid\\operatorname{do}(X=x))=\\sum_{u=0}^{1}P(Y=1\\mid X=x,U=u)P(U=u).
+$
+
+青綠色長條代表標準化中的混淆因子權重，珊瑚色長條代表相應結果風險。圖中連續變化僅是**教學插值**，並非最佳化或實際介入的時間軌跡；因果識別仍取決於圖形假設、正值性，以及沒有其他未被阻斷的混淆路徑。
+
+### 碰撞點選擇偏誤：條件化反而引入關聯
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="碰撞點選擇偏誤動畫；窄螢幕可水平捲動">
+<div style="width:800px">
+<img src="../../assets/concept-animations/collider-selection-still.svg" data-motion-src="../../assets/concept-animations/collider-selection-motion.svg" alt="四組等機率的 X、Y 二元組合；選取 S=1（X 或 Y 至少一個為 1）時，0,0 組合被排除，X=0 時 Y=1 的條件機率由 0.5 變成 1，而 X=1 時仍為 0.5。" width="800" height="430">
+</div>
+</div>
+
+<div class="causal-lab" data-causal-lab="collider" data-lang="zh"></div>
+
+**互動選取實驗：** 設 $r=P(S=1\mid X=0,Y=0)$，其餘三種組合一律入選。在已選取樣本中，$P(Y=1\mid X=0,S=1)=1/(1+r)$，而 $P(Y=1\mid X=1,S=1)=1/2$。$r=1$ 時恢復獨立，$r=0$ 時對應上方確定性的碰撞點範例。中間數值是**額外構造的機率式選取機制**，不是原先的 OR 規則；所有數值皆非實測。按「重設示例」恢復 $r=0$。
+
+另一個**人工構造範例**令 $X$ 與 $Y$ 為相互獨立、機率各半的二元變數，並定義 $S=1$ 當且僅當 $X=1$ **或** $Y=1$。未進行選取時，$P(Y=1\\mid X=0)=P(Y=1\\mid X=1)=0.5$。若只保留 $S=1$ 的樣本，$(X,Y)=(0,0)$ 會被排除，因此 $P(Y=1\\mid X=0,S=1)=1$，但 $P(Y=1\\mid X=1,S=1)=0.5$。這項關聯來自對共同結果（碰撞點）進行**條件化**，不表示存在 $X\\to Y$ 的因果效果。[^causal-motion-pearl]
+
+**動畫與實驗操作：** MkDocs 網站可使用 SVG 的 Play／Pause 按鈕（Enter 或空白鍵），也可以用互動滑桿、方向鍵與「重設示例」操作兩組數值實驗。GitHub 或偏好減少動態效果時會顯示靜態回退圖；窄螢幕可聚焦圖框並水平捲動。所有數值皆為示意，非實測資料。
+
+[^causal-motion-pearl]: Pearl, J.（1995），*Causal diagrams for empirical research*，[Biometrika](https://doi.org/10.1093/biomet/82.4.669)，提出以因果圖判斷識別條件及條件化影響的方法。
 
 ## 運作方式
 
