@@ -1,0 +1,19 @@
+/* Accessible, static-first labs; all visual content is generated from deterministic toy arithmetic. */
+.dpl{max-width:860px;margin:1.2rem auto 1.6rem;padding:.75rem;border:1px solid var(--md-default-fg-color--lightest,#cad8e3);border-radius:.75rem;background:var(--md-default-bg-color,#fff);color:var(--md-default-fg-color,#263648)}
+.dpl-toolbar,.dpl-params{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem;margin-bottom:.65rem}
+.dpl button{font:inherit;font-size:.75rem;line-height:1.45;padding:.31rem .65rem;border:1px solid #8ca1b4;border-radius:.4rem;background:var(--md-code-bg-color,#edf3f8);color:inherit;cursor:pointer}
+.dpl label{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.4rem;font-size:.75rem}
+.dpl input[type=range]{accent-color:#267fb2;width:105px}
+.dpl output{min-width:2.8rem;font-variant-numeric:tabular-nums}
+.dpl select{font:inherit;font-size:.75rem;padding:.2rem;border:1px solid #8ca1b4;background:var(--md-code-bg-color,#edf3f8);color:inherit;border-radius:.35rem}
+.dpl button:focus-visible,.dpl input:focus-visible,.dpl select:focus-visible,.dpl-canvas:focus-visible{outline:3px solid #2789c0;outline-offset:3px}
+.dpl-canvas{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;border-radius:.55rem}
+.dpl-canvas svg{display:block;width:760px;min-width:760px;height:288px}
+.dpl-title{font:600 19px system-ui,sans-serif;fill:#24485f}
+.dpl-small{font:500 12px system-ui,sans-serif;fill:#50677f}
+.dpl-caption{font:600 12px system-ui,sans-serif;fill:#48647a}
+.dpl-wait{font:600 13px system-ui,sans-serif;fill:#697d94}
+.dpl-metrics{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;padding:.55rem .2rem;font-size:.75rem;font-variant-numeric:tabular-nums}
+.dpl-note{font-size:.72rem;line-height:1.55;color:var(--md-default-fg-color--light,#627487);margin:.2rem 0!important}
+.dpl-live{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
+@media(prefers-reduced-motion:reduce){.dpl *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

@@ -1094,6 +1094,7 @@ extra_javascript:
   - javascripts/ssl-gradient-sensitivity.js
   - javascripts/ssl-ema-trajectory.js
   - javascripts/ssl-temporal-provenance.js
+  - javascripts/diffusion-process-labs.js
   - javascripts/concept-motion.js
   - javascripts/distributed-motion-controls.js
   - javascripts/distributed-parameter-explorers.js
@@ -1110,6 +1111,7 @@ extra_css:
   - stylesheets/ssl-gradient-sensitivity.css
   - stylesheets/ssl-ema-trajectory.css
   - stylesheets/ssl-temporal-provenance.css
+  - stylesheets/diffusion-process-labs.css
   - stylesheets/concept-motion.css
   - stylesheets/distributed-motion-controls.css
   - stylesheets/distributed-parameter-explorers.css

@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
   - theory/models/computer-vision/video
   - theory/paradigms/unsupervised/density-and-generative-models
@@ -30,6 +30,23 @@ aliases:
 ## 核心想法
 
 Ho 等人把影像擴散模型擴展到影片：以包含時間注意力或時間卷積的網路對一串影格去噪，並顯示同一目標可以產生連貫的短片段 [(Ho et al., 2022)](https://arxiv.org/abs/2204.03458)。Imagen Video 採用影片擴散模型的串接：從低解析度的基礎模型開始，再經過高解析度的超解析度階段，每一階段都以文字為條件 [(Ho et al., 2022b)](https://arxiv.org/abs/2210.02303)。潛在影片擴散（如 Align your Latents）則在自編碼器產生的壓縮潛在空間中執行擴散過程，降低生成長時間、高解析度片段所需的計算 [(Blattmann et al., 2023)](https://arxiv.org/abs/2304.08818)。
+
+
+### 教學動畫：跨影格聯合去噪
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="可水平捲動的教學圖與動畫">
+  <img src="../../../../assets/concept-animations/video-joint-denoising-still.svg" data-motion-src="../../../../assets/concept-animations/video-joint-denoising-motion.svg" data-still-src="../../../../assets/concept-animations/video-joint-denoising-still.svg" alt="四個影格共同去噪：人造雜訊逐漸淡去，橘色物件在影格間保持連續運動。">
+</div>
+
+*原創教學視覺（CC BY-SA 4.0）.* 四個影格組成**共同去噪的影片張量**，不是逐格各自生成。橘色路徑表示影格間的時間關聯；彩色雜訊覆蓋層代表逆擴散過程中逐步降低的雜訊。這些影格、移動軌跡與轉場全是**人工教學示意，非模型輸出或實測結果**。聯合去噪也不保證長時間的完美一致性。參見 [Ho 等人（2022）](https://arxiv.org/abs/2204.03458)。 網站版可播放或暫停動畫，使用 Enter／Space 操作按鈕；偏好減少動態時顯示靜態圖。手機可用鍵盤或觸控左右捲動。 [開啟完整 SVG 動畫](../../../../assets/concept-animations/video-joint-denoising-motion.svg).
+
+### 互動實驗：影片的前向加雜訊方程式
+
+<div data-diffusion-lab="video" data-lang="zh-TW">
+  <p>未啟用 JavaScript 時，仍可閱讀上方 GitHub 相容的靜態教學圖。</p>
+</div>
+
+此**可重現的人工計算示例**使用四個 12×8 灰階影格與固定雜訊張量。調整訊號保留參數 `ᾱ`，可依照 `x_t = sqrt(ᾱ) x_0 + sqrt(1−ᾱ) ε` 重新計算每個影格；畫面的**雜訊 RMS** 是注入項 `sqrt(1−ᾱ) ε` 在全部 384 個元素上的均方根。雜訊張量固定，因此畫面差異來自雜訊程度而非重新抽樣。較低的 `ᾱ` 代表較多雜訊；播放時向上改變參數只是以解析式減少人造雜訊，**不是訓練後模型真正執行反向擴散的軌跡**。真實影片去噪網路還需推估雜訊與跨影格依賴；這個實驗不模擬已學得的時間注意力，也不衡量生成一致性。支援上一步／下一步、進度滑桿、播放／暫停、速度與重設，亦可用鍵盤操作。系統偏好減少動態時不自動播放。所有影格與數字均非模型實測。
 
 ## 方程式
 

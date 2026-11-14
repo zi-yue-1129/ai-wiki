@@ -8,6 +8,10 @@ on:
       - "scripts/verify_concept_motion.py"
       - "scripts/verify_concept_svgs.py"
       - "scripts/test_uncertainty_motion_semantics.py"
+      - "scripts/test_video_latent_motion_browser.py"
+      - "scripts/test_diffusion_process_labs_browser.py"
+      - "docs/javascripts/diffusion-process-labs.js"
+      - "docs/stylesheets/diffusion-process-labs.css"
       - "docs/javascripts/concept-motion.js"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
@@ -50,7 +54,7 @@ jobs:
         run: python scripts/verify_concept_animations.py
 
   validate-motion:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -71,6 +75,10 @@ jobs:
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
+      - name: Browser-check latent and video diffusion SVG playback, keyboard and fallback
+        run: python scripts/test_video_latent_motion_browser.py
+      - name: Browser-check interactive video and latent diffusion arithmetic
+        run: DIFFUSION_LAB_ARTIFACTS=artifacts/diffusion-process-labs python scripts/test_diffusion_process_labs_browser.py
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
@@ -83,6 +91,14 @@ jobs:
         run: python scripts/test_ssl_ema_trajectory_browser.py
       - name: Chromium FIFO lifetime and EMA historical attribution
         run: python scripts/test_ssl_temporal_provenance_browser.py
+      - name: Keep diffusion lab screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diffusion-process-labs-browser-review
+          path: artifacts/diffusion-process-labs/*.png
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
