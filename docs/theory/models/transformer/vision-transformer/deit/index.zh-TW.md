@@ -13,7 +13,7 @@ aliases:
   - DeiT
   - Data-efficient image Transformer
   - 資料高效影像 Transformer
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-15
 ---
 
 # DeiT：以資料高效方式訓練影像 Transformer
@@ -39,6 +39,12 @@ DeiT（Data-efficient image Transformer，資料高效影像 Transformer）只�
 
 *原創 CC BY-SA 4.0 教學動畫。兩條不同顏色的路徑表示**不同監督訊號**，不是模型實測激活值或最佳化軌跡。教師提供硬標籤，**不接收學生損失的梯度**；兩個輸出頭共同訓練學生，原始 DeiT 的推論則融合兩個輸出頭的機率預測。MkDocs 支援**播放／暫停**及 Enter／Space 鍵盤操作；手機可水平捲動。[GitHub 可閱讀的靜態概覽](../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg) · [完整動畫](../../../../../assets/concept-animations/deit-dual-head-distillation-motion.svg)（Touvron 等人，2021；參見參考文獻）。*
 
+
+### 互動雙頭損失與推論融合
+
+<div id="td-deit-zh" class="t5-deit-lab" data-lab="deit" data-lang="zh"></div>
+
+可調整兩個學生輸出頭對類別 A 的**人工機率**，並切換固定教師的硬標籤 A／B。真實標籤固定為 A，在此**二元類別示例**中，系統重新計算 `CE(CLS) = −ln p_cls(A)`、`CE(DIST) = −ln p_dist(y_teacher)` 及兩項平均的訓練損失。例如 `p_cls(A)=0.75`、`p_dist(A)=0.60`、教師標籤為 B，兩項交叉熵分別約為 0.288 與 0.916，平均為 0.602。最後一步另外展示**推論時平均兩個學生輸出頭的機率**，此時 `P(A)=0.675`；不需要在推論時執行教師。切換教師硬標籤只改變蒸餾的監督目標，**不會自動重算學生預測**。以上皆為人工數值，不是 DeiT 的實測激活或模擬訓練軌跡（Touvron 等人，2021；參見參考文獻）。
 
 編碼器的輸入是區塊嵌入，外加兩個額外 token：類別 token 與蒸餾 token。兩者各有自己的輸出頭。類別頭以真實標籤 \(y\) 訓練，蒸餾頭以教師的硬標籤 \(y_t\) 訓練，訓練損失是兩個交叉熵項的等權重和：
 
