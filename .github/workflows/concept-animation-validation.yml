@@ -83,7 +83,7 @@ jobs:
         run: python scripts/test_ssl_ema_trajectory_browser.py
       - name: Chromium FIFO lifetime and EMA historical attribution
         run: python scripts/test_ssl_temporal_provenance_browser.py
-      - name: Chromium GQA-free attention variants: sliding-window and recurrent states
+      - name: "Chromium sliding-window and recurrent linear-attention states"
         run: python scripts/test_attention_variants_browser.py
       - name: Keep rendered review screenshots
         if: always()
