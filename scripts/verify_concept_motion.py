@@ -5,6 +5,7 @@ stdlib-only check; rendered/browser validation is performed separately.
 """
 from __future__ import annotations
 
+from html.parser import HTMLParser
 from pathlib import Path
 import re
 import sys
@@ -64,6 +65,8 @@ TOPICS = {
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
+    "mle-bernoulli-likelihood": "theory/math/probability-statistics/maximum-likelihood",
+    "map-beta-posterior": "theory/math/probability-statistics/maximum-a-posteriori",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
 }
 GITHUB_GIF_PREVIEWS = {
@@ -72,6 +75,37 @@ GITHUB_GIF_PREVIEWS = {
 }
 FORBIDDEN = {"script", "foreignObject", "iframe", "image"}
 LIMIT = 50 * 1024
+
+
+class MotionImages(HTMLParser):
+    def __init__(self, text: str):
+        super().__init__()
+        self.images: list[dict[str, str | None]] = []
+        self.feed(text)
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "img":
+            attributes = {}
+            for name, value in attrs:
+                attributes.setdefault(name, value)
+            self.images.append(attributes)
+
+
+def verify_source_pair(page: Path, text: str, stem: str) -> list[str]:
+    """Check raw opt-in images in source coordinates, never built URL depths."""
+    images = [attrs for attrs in MotionImages(text).images
+              if "data-source-asset-urls" in attrs
+              and stem in (attrs.get("src") or "")]
+    if len(images) != 1:
+        return [f"{page}: expected one source-relative raw image for {stem}"]
+    errors = []
+    for attribute, kind in (("src", "still"), ("data-motion-src", "motion"),
+                            ("data-still-src", "still")):
+        value = images[0].get(attribute)
+        expected = (ASSETS / f"{stem}-{kind}.svg").resolve()
+        if not value or (page.parent / value).resolve() != expected:
+            errors.append(f"{page}: {attribute} must reference the source-relative {kind} asset")
+    return errors
 
 
 def verify_svg(path: Path, animated: bool) -> list[str]:
@@ -144,6 +178,10 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
+            elif stem in {"mle-bernoulli-likelihood", "map-beta-posterior"}:
+                # GitHub uses the raw static image; the opt-in hook rewrites
+                # all three source-relative attributes for each built locale.
+                errors.extend(verify_source_pair(page, text, stem))
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:

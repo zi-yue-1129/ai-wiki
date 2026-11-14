@@ -115,7 +115,7 @@ alt="校準 &amp; confidence &quot;example&quot;" width="640" height="360"/>'''
         self.assertEqual(Images(output).images[0]["src"],
                          "../../../../../assets/figure%20a%23b.svg?q=1#panel")
 
-    def test_four_repo_opt_ins_keep_github_source_paths_valid(self):
+    def test_repo_opt_ins_keep_github_source_paths_valid(self):
         expected = {f"{self.chapter}/{topic}{suffix}.md"
                     for topic in ("conformal-prediction", "temperature-scaling")
                     for suffix in ("", ".zh-TW")}
@@ -128,12 +128,19 @@ alt="校準 &amp; confidence &quot;example&quot;" width="640" height="360"/>'''
             if not images:
                 continue
             found.add(path.relative_to(ROOT / "docs").as_posix())
-            self.assertEqual(len(images), 1)
-            for attribute in ("src", "data-motion-src"):
-                value = images[0][attribute]
-                self.assertTrue(value.startswith("../../../../assets/"))
-                self.assertTrue((path.parent / unquote(urlsplit(value).path)).is_file())
-        self.assertEqual(found, expected)
+            for attrs in images:
+                self.assertIn("src", attrs)
+                for attribute in ("src", "data-motion-src", "data-still-src"):
+                    if attribute not in attrs:
+                        continue
+                    value = attrs[attribute]
+                    parts = urlsplit(value)
+                    self.assertFalse(parts.scheme or parts.netloc or parts.path.startswith("/"))
+                    target = (path.parent / unquote(parts.path)).resolve()
+                    self.assertTrue(target.is_relative_to(ROOT / "docs/assets"))
+                    self.assertTrue(target.is_file())
+        # New opt-ins are allowed; the original repaired pages must not regress.
+        self.assertTrue(expected.issubset(found), expected - found)
 
 
 if __name__ == "__main__":
