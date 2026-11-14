@@ -21,7 +21,7 @@ $$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |\hat{y}_i - y_i|$$
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="MAE 與 RMSE 動畫；可聚焦此圖並在窄螢幕水平捲動">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="五個絕對殘差中，四個固定為一，第五個從一增加到六再返回；MAE 的增幅小於 RMSE。">
+<img data-source-asset-urls src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="五個絕對殘差中，四個固定為一，第五個從一增加到六再返回；MAE 的增幅小於 RMSE。">
 </div>
 </div>
 

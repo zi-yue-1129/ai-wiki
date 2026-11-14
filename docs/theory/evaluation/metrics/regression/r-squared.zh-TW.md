@@ -21,7 +21,7 @@ $$R^2 = 1 - \frac{\sum_{i}(y_i - \hat{y}_i)^2}{\sum_{i}(y_i - \bar{y})^2}$$
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="R 平方與平均數基準的比較動畫；可聚焦並水平捲動">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" data-motion-src="../../../../assets/concept-animations/r2-mean-baseline-motion.svg" data-still-src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" alt="四個真實值維持固定，預測值移動；殘差平方和超過平均數基準平方和後，R 平方變為負數。">
+<img data-source-asset-urls src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" data-motion-src="../../../../assets/concept-animations/r2-mean-baseline-motion.svg" data-still-src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" alt="四個真實值維持固定，預測值移動；殘差平方和超過平均數基準平方和後，R 平方變為負數。">
 </div>
 </div>
 
@@ -39,7 +39,7 @@ $R^2$ 回答的問題與 MAE 或 RMSE 不同。後兩者說明誤差有多大；
 
 ## 範例
 
-沿用同樣的數值，真實值的平均為 $2.875$，總平方和為 $29.19$，殘差平方和為 $1.5$，因此 $R^2 = 1 - 1.5 / 29.19 \approx 0.949$。這裡模型解釋了約 95% 的變異，但這個數字本身無法說明 0.5 單位的誤差是否可以接受。
+取真實值 $(3, -0.5, 2, 7)$ 與預測值 $(2.5, 0, 2, 8)$，真實值的平均為 $2.875$，總平方和為 $29.19$，殘差平方和為 $1.5$，因此 $R^2 = 1 - 1.5 / 29.19 \approx 0.949$。這裡模型解釋了約 95% 的變異，但這個數字本身無法說明 0.5 單位的誤差是否可以接受。
 
 ## 性質與變體
 

@@ -21,7 +21,7 @@ $$\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (\hat{y}_i - y_i)^2}$$
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="RMSE 與 MAE 動畫；可聚焦並在窄螢幕水平捲動">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="四個殘差維持一，第五個逐漸增加至六再下降，RMSE 比 MAE 對此變動更敏感。">
+<img data-source-asset-urls src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="四個殘差維持一，第五個逐漸增加至六再下降，RMSE 比 MAE 對此變動更敏感。">
 </div>
 </div>
 
@@ -39,7 +39,7 @@ $$\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (\hat{y}_i - y_i)^2}$$
 
 ## 範例
 
-沿用同樣的數值，平方誤差為 $0.25, 0.25, 0, 1$，平均為 $0.375$，開根號後得到 RMSE $\approx 0.61$。RMSE 大於 MAE 的 0.5，因為平方後，單一誤差 1 的權重被放大了。
+取真實值 $(3, -0.5, 2, 7)$ 與預測值 $(2.5, 0, 2, 8)$，平方誤差為 $0.25, 0.25, 0, 1$，平均為 $0.375$，開根號後得到 RMSE $\approx 0.61$。RMSE 大於 MAE 的 0.5，因為平方後，單一誤差 1 的權重被放大了。
 
 ## 性質與變體
 

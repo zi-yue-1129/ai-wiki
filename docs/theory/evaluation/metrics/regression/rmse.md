@@ -21,7 +21,7 @@ A perfect model scores 0. Taking the square root returns the value to the units 
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="RMSE versus MAE animation; focus this image and scroll horizontally if needed">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="Four residuals remain at one; a fifth increases to six and returns, making RMSE grow more sharply than MAE.">
+<img data-source-asset-urls src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="Four residuals remain at one; a fifth increases to six and returns, making RMSE grow more sharply than MAE.">
 </div>
 </div>
 
@@ -39,7 +39,7 @@ Use RMSE when large errors are disproportionately costly, or when the target is 
 
 ## Worked example
 
-Using the same values, the squared errors are $0.25, 0.25, 0, 1$. Their mean is $0.375$, and the square root gives RMSE $\approx 0.61$. RMSE is larger than the MAE of 0.5 because squaring gives the single error of 1 more weight.
+For true values $(3, -0.5, 2, 7)$ and predictions $(2.5, 0, 2, 8)$, the squared errors are $0.25, 0.25, 0, 1$. Their mean is $0.375$, and the square root gives RMSE $\approx 0.61$. RMSE is larger than the MAE of 0.5 because squaring gives the single error of 1 more weight.
 
 ## Properties and variants
 

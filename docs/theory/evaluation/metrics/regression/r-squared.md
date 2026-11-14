@@ -21,7 +21,7 @@ where $\bar{y}$ is the mean of the true values. A perfect model scores 1.0. A mo
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="R squared prediction and mean-baseline animation; focus and scroll horizontally if needed">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" data-motion-src="../../../../assets/concept-animations/r2-mean-baseline-motion.svg" data-still-src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" alt="Four fixed targets and moving predictions; residual sum of squares crosses the mean-baseline sum of squares, driving R squared below zero.">
+<img data-source-asset-urls src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" data-motion-src="../../../../assets/concept-animations/r2-mean-baseline-motion.svg" data-still-src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" alt="Four fixed targets and moving predictions; residual sum of squares crosses the mean-baseline sum of squares, driving R squared below zero.">
 </div>
 </div>
 
@@ -39,7 +39,7 @@ Use $R^2$ to summarise how much of the target's variation a model explains, and 
 
 ## Worked example
 
-Using the same values, the mean of the true values is $2.875$. The total sum of squares is $29.19$ and the residual sum of squares is $1.5$, so $R^2 = 1 - 1.5 / 29.19 \approx 0.949$. The model explains about 95% of the variance here, but the number does not say whether errors of 0.5 units are acceptable.
+For true values $(3, -0.5, 2, 7)$ and predictions $(2.5, 0, 2, 8)$, the mean of the true values is $2.875$. The total sum of squares is $29.19$ and the residual sum of squares is $1.5$, so $R^2 = 1 - 1.5 / 29.19 \approx 0.949$. The model explains about 95% of the variance here, but the number does not say whether errors of 0.5 units are acceptable.
 
 ## Properties and variants
 

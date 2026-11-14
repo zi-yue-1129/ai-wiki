@@ -21,7 +21,7 @@ A perfect model scores 0. The value is a typical size of error, so an MAE of 2 m
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="MAE versus RMSE animation; focus this image and scroll horizontally if needed">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="Five residual bars: four stay at one, while the fifth rises from one to six. The MAE score grows more slowly than RMSE.">
+<img data-source-asset-urls src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="Five residual bars: four stay at one, while the fifth rises from one to six. The MAE score grows more slowly than RMSE.">
 </div>
 </div>
 
