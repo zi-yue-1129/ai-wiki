@@ -50,7 +50,7 @@ jobs:
         run: python scripts/verify_concept_animations.py
 
   validate-motion:
-    # Playwright 1.55 does not ship Chromium for Ubuntu 26.04.
+    # Playwright 1.55 supports Ubuntu 24.04, not the latest 26.04 image.
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
