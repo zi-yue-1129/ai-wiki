@@ -92,6 +92,8 @@ def main():
                         assert page.evaluate(
                             'document.querySelector(".bandit-lab-canvas").scrollWidth > document.querySelector(".bandit-lab-canvas").clientWidth'
                         )
+                        assert ucb.locator('.bandit-lab-scroll-hint').is_visible()
+                        assert ts.locator('.bandit-lab-scroll-hint').is_visible()
                     if reduced:
                         ucb.locator('[data-action="toggle"]').click()
                         assert ucb.locator('[data-action="toggle"]').inner_text() in ('Play', '播放')
@@ -99,7 +101,7 @@ def main():
                         ucb.locator('[data-action="toggle"]').click()
                         assert ucb.locator('[data-action="toggle"]').inner_text() in ('Pause', '暫停')
                         ucb.locator('[data-action="toggle"]').click()
-                    if width in (360, 1024) and not reduced:
+                    if width in (320, 360, 1024) and not reduced:
                         page.screenshot(path=str(ARTIFACTS / f'{lang}-{width}.png'), full_page=True)
                     cases += 1
                     context.close()
