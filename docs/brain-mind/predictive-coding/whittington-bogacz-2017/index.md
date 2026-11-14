@@ -45,6 +45,21 @@ Step 1 is what makes the scheme local. The hidden activity does the work that th
 
 *Original AI Wiki teaching animation, CC BY-SA 4.0.* This is a **one-dimensional analogy**, not the layer equations or a numerical reproduction of Whittington and Bogacz (2017). With fixed endpoints \(x=0.20\) and \(y=0.80\), minimise \(E(z)=\tfrac12(z-x)^2+\tfrac12(z-y)^2\). The hidden variable relaxes from \(z=0.20\) toward \(z^*=(x+y)/2=0.50\). The two absolute error magnitudes converge to \(0.30\) **rather than both vanishing**; opposing signed contributions balance, so net descent drive tends to zero. Only after settling does the orange pulse indicate a separate local synaptic update, schematically proportional to presynaptic activity times local error. No claim of exact backpropagation equivalence, biophysical timing or measured MNIST dynamics is made. Use Play/Pause on MkDocs; the [static GitHub preview](../../../assets/concept-animations/predictive-local-settling-still.svg) remains readable without scripts. See Whittington and Bogacz (2017) in References.
 
+### Interactive numerical lab: local error settling
+
+Adjust the two fixed endpoints \(a,b\) and the inference step size \(\eta\). Step through eight **actual scalar gradient-descent iterations**, inspecting the hidden state, the opposing signed local errors and their energy. Playback, single-step navigation, seeking, adjustable speed and Reset are available; keyboard focus and a horizontally scrollable diagram are supported.
+
+<div class="pc-lab" data-lab="settling" data-lang="en"></div>
+
+The constructed energy and *inference-only* update are
+
+\[
+E(z)=\tfrac12(z-a)^2+\tfrac12(z-b)^2,\qquad
+z_{k+1}=z_k-\eta(2z_k-a-b),\quad z_0=a.
+\]
+
+The optimum is \(z^*=(a+b)/2\). At the defaults \((a,b,\eta)=(0.20,0.80,0.25)\), the first iterate is \(z_1=0.35\); after convergence the local errors are opposite in sign, not both zero. For the permitted \(0<\eta<1\), the scalar recurrence is stable, although larger steps can oscillate around the optimum. **No Hebbian weight update occurs in this toy experiment**: the separate orange plasticity cue in the companion animation is not a computed synaptic update here. None of these values are neural recordings or paper benchmarks.
+
 ## Results
 
 The authors show that, with suitable parameters, the weight updates converge to those of backpropagation. Under those conditions the network performs much like a standard network on MNIST digit recognition.
