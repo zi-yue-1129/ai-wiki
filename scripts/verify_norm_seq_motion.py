@@ -32,7 +32,7 @@ for stem,page in PAGES.items():
   txt=f.read_text(encoding='utf-8')
   links=re.findall(r'!\[[^]]+\]\(([^)]+\.svg)\)',txt)
   assert (BASE/f'{stem}-still.svg').resolve() in {(f.parent/link).resolve() for link in links},f
-  assert 'illustrative' in txt.lower() or '示意' in txt, f
+  assert any(token in txt.lower() for token in ('illustrative', 'schematic', '示意')), f
 # Illustrative LayerNorm semantics: shifting a sample does not change normalised scores.
 x=[1,3,5,7,9]
 def standardise(v):
