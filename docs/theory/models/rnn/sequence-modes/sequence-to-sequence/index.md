@@ -42,6 +42,16 @@ where \(v\) is the fixed vector produced by the encoder, and each factor is a so
 *Original instructional visual (CC BY-SA 4.0).* On MkDocs, **Play/Pause** traces successive source-token updates through the encoder, the **single fixed-size vector** \(v\), and autoregressive decoder steps \(y_1,y_2,y_3\). The illustration follows the reversed-source encoder convention from Sutskever, Vinyals and Le (2014); **the decoder receives the context only through its initial state, with no per-step cross-attention**. The token symbols and flow timing are schematic, not a measured translation, attention map or learned representation. The GitHub static fallback shows the complete dependency structure; the website provides keyboard-accessible play/pause and reduced-motion fallback.
 
 
+### Explore: recurrent state and the one-time handoff
+
+Use **Previous / Next**, Play/Pause, the seek slider or playback speed to step through four source-token updates, one context handoff, and three decoder updates. Switch between the **reversed source order used in the original paper** and the original order to observe how a recurrent state depends on order. The encoder finishes before the single vector \(v\) becomes available; the decoder then starts from that same vector. The state is displayed at each intermediate step, not only at the final frame.
+
+<div data-norm-seq-lab="seq2seq" data-lang="en">
+  <p>The state-by-state interactive lab runs on the MkDocs website. The static SVG above remains the script-free GitHub explanation of the actual encoder–decoder dependencies.</p>
+</div>
+
+**Numerical model boundary:** This lab deliberately uses a *two-dimensional artificial recurrence*, \(h_t=0.65h_{t-1}+e(x_t)\), followed by \(s_0=v=h_4\) and \(s_t=0.7s_{t-1}+e(y_{t-1})\). Source embeddings are \(e(A)=(1,0.2)\), \(e(B)=(0.2,0.9)\), \(e(C)=(-0.6,0.4)\), \(e(D)=(0.6,-0.8)\); previous-symbol embeddings are \(e(\mathrm{BOS})=(0.1,0.15)\), \(e(y_1)=(0.15,-0.25)\), and \(e(y_2)=(-0.2,0.3)\). Fixed symbols \(y_1,y_2,y_3\) are placeholders, **not learned predictions**; this is *not* an LSTM cell or a language model and does not establish whether source reversal improves translation. It illustrates the **single initial-state context transfer, no decoder cross-attention**, as in the cited 2014 architecture.
+
 ## Results
 
 On WMT'14 English-to-French (the ntst14 test set), an ensemble of five reversed LSTMs with beam size 12 reached BLEU 34.81, against 33.30 for the phrase-based SMT baseline. Reversing the source raised a single model's BLEU from 25.9 to 30.6.
