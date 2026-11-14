@@ -14,6 +14,7 @@
       selected: 'Selected arm', note: 'Illustrative values, not empirical measurements or reproducible random draws.',
       graphA: 'UCB1 mean plus exploration bonus for three arms',
       graphB: 'Three Beta posterior density curves and constructed samples',
+      scrollHint: 'Swipe the plot horizontally, or focus it and use arrow keys to inspect all three arms.',
       sample: 'Constructed draws', posterior: 'Beta parameters',
       stage: ['Before pull', 'After B pull 1', 'After B pull 2'],
       ucbStatus: (s) => `After ${s.step} B observation(s), total pulls ${s.t}; optimistic arm ${s.winner}; highest sample mean ${s.greedy}; score margin ${round(s.margin)}.`,
@@ -31,6 +32,7 @@
       selected: '選擇的臂', note: '所有數值皆為人工教學示意，非實測結果或可重現的隨機抽樣。',
       graphA: '三個臂的 UCB1 經驗平均值與探索加分',
       graphB: '三個 Beta 後驗密度及人工指定的樣本值',
+      scrollHint: '可左右滑動圖表，或聚焦後使用方向鍵查看三個臂。',
       sample: '人工抽樣值', posterior: 'Beta 參數',
       stage: ['抽取之前', 'B 第一次抽取後', 'B 第二次抽取後'],
       ucbStatus: (s) => `B 新增 ${s.step} 次觀察，總抽取次數 ${s.t}；UCB 選擇 ${s.winner}、平均獎勵最高為 ${s.greedy}、分數差 ${round(s.margin)}。`,
@@ -89,6 +91,7 @@
         </div>
         <div class="bandit-lab-parameters">${kind==='ucb'?ui('0.25','reward1',tr.rewardFirst,0,1)+ui('0.25','reward2',tr.rewardSecond,0,1):ui('select','outcome',tr.outcome,0,0,[[1,tr.success],[0,tr.failure]])}</div>
         <div class="bandit-lab-canvas" tabindex="0" role="region" aria-label="${esc(kind==='ucb'?tr.graphA:tr.graphB)}"><svg viewBox="0 0 720 272" width="720" height="272" role="img" aria-label="${esc(kind==='ucb'?tr.graphA:tr.graphB)}" data-role="svg"></svg></div>
+        <p class="bandit-lab-scroll-hint">${esc(tr.scrollHint)}</p>
         <div class="bandit-lab-legend" data-role="legend"></div>
         ${kind==='thompson'?'<div class="bandit-lab-probabilities" data-role="probabilities" aria-label="${esc(tr.chance)}"></div>':''}
         <div class="bandit-lab-metrics" data-role="metrics"></div>
