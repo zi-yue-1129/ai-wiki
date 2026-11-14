@@ -70,6 +70,13 @@ L(\theta) = L_B(\theta) + \sum_i \frac{\lambda}{2}\,F_i\,(\theta_i - \theta^*_{A
 
 
 
+### 互動實驗：真實梯度步驟與 Fisher 剛度
+
+調整學習率與兩組剛度，再使用**上一步／下一步、播放／暫停、步驟滑桿、速度及重設**來觀察實際離散更新；虛線標示解析駐點。滑桿支援 Tab 與方向鍵操作，手機可聚焦圖面並水平捲動。數值為**人工建構的二次損失示例**，不是訓練網路的參數或 Fisher 實測值。若停用 JavaScript，仍可閱讀上方靜態圖與迭代表格。
+
+<div data-ewc-neat-lab="ewc" data-locale="zh-TW"><p>不使用 JavaScript 時，請參閱上方更新次數 0、1、4、8、18 與解析極限的數值表格。</p></div>
+
+
 ## 關鍵方法
 
 ### Overcoming catastrophic forgetting in neural networks（Kirkpatrick 等人，2017）
