@@ -34,7 +34,8 @@ permissions:
 
 jobs:
   chromium-motion:
-    runs-on: ubuntu-latest
+    # Playwright 1.55 has no Chromium bundle for Ubuntu 26.04 on ubuntu-latest.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
