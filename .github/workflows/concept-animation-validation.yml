@@ -30,6 +30,9 @@ on:
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
       - "scripts/test_lime_shap_motion_browser.py"
+      - "scripts/test_explanation_labs_browser.py"
+      - "docs/javascripts/explanation-labs.js"
+      - "docs/stylesheets/explanation-labs.css"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
@@ -86,6 +89,8 @@ jobs:
         run: python scripts/test_ssl_temporal_provenance_browser.py
       - name: Chromium LIME/SHAP bilingual and reduced-motion regression
         run: python scripts/test_lime_shap_motion_browser.py
+      - name: Chromium LIME/SHAP interactive numerics, controls and fallback
+        run: python scripts/test_explanation_labs_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -98,6 +103,7 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/explanation-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 
