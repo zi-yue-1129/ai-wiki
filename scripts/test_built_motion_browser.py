@@ -163,6 +163,138 @@ def assert_document_fits(page, viewport):
     return size
 
 
+def check_math_rendering(page):
+    """Wait for real MathJax output and reject re-typeset accessibility MathML."""
+    page.evaluate("""async () => {
+        let timer;
+        try {
+            await Promise.race([window.MathJax.startup.promise, new Promise((_, reject) => {
+                timer = setTimeout(() => reject(new Error('MathJax startup did not settle')), 15000);
+            })]);
+        } finally { clearTimeout(timer); }
+    }""")
+    state = page.evaluate("""() => {
+        const article = document.querySelector('.md-content__inner');
+        const roots = Array.from(article.querySelectorAll('.arithmatex'));
+        return {
+            sourceRoots: roots.length,
+            unrendered: roots.filter(node => !node.querySelector('mjx-container')).length,
+            containers: article.querySelectorAll('mjx-container').length,
+            nestedAssistive: article.querySelectorAll('mjx-assistive-mml mjx-container').length,
+            assistiveMathML: article.querySelectorAll('mjx-assistive-mml > math').length,
+            trackedItems: MathJax.startup.document.getMathItemsWithin(article).length
+        };
+    }""")
+    assert state["unrendered"] == 0, ("unrendered math source", state)
+    assert state["nestedAssistive"] == 0, ("assistive MathML was typeset again", state)
+    assert state["assistiveMathML"] == state["containers"], ("missing assistive MathML", state)
+    assert state["trackedItems"] == state["containers"], ("rendered MathItems were forgotten", state)
+    return state
+
+
+OVERFLOW_DIAGNOSTICS_JS = r"""() => {
+    const root = document.documentElement;
+    const limit = root.clientWidth;
+    const rect = r => ({left: r.left + scrollX, right: r.right + scrollX,
+                       top: r.top + scrollY, bottom: r.bottom + scrollY,
+                       width: r.width, height: r.height});
+    const selector = element => {
+        const parts = [];
+        for (let node = element; node && parts.length < 6; node = node.parentElement) {
+            let part = node.localName;
+            if (node.id) { parts.unshift(part + '#' + node.id); break; }
+            part += Array.from(node.classList || []).map(name => '.' + name).join('');
+            if (node.parentElement) {
+                part += ':nth-child(' + (Array.from(node.parentElement.children).indexOf(node) + 1) + ')';
+            }
+            parts.unshift(part);
+        }
+        return parts.join(' > ');
+    };
+    const style = element => {
+        const s = getComputedStyle(element);
+        return {overflowX: s.overflowX, overflowY: s.overflowY, position: s.position,
+                display: s.display, visibility: s.visibility, opacity: s.opacity,
+                transform: s.transform, contain: s.contain, whiteSpace: s.whiteSpace,
+                overflowWrap: s.overflowWrap, wordBreak: s.wordBreak,
+                fontFamily: s.fontFamily, fontSize: s.fontSize};
+    };
+    const clipping = element => {
+        const clips = [];
+        for (let node = element; node; node = node.parentElement) {
+            const s = getComputedStyle(node);
+            if (s.overflowX !== 'visible' || /(?:paint|strict|content)/.test(s.contain)) {
+                clips.push({selector: selector(node), rect: rect(node.getBoundingClientRect()),
+                            clientWidth: node.clientWidth, scrollWidth: node.scrollWidth,
+                            overflowX: s.overflowX, contain: s.contain});
+            }
+        }
+        return clips;
+    };
+    const outside = r => r.width > 0 && r.height > 0 &&
+        (r.right > limit + 0.01 || r.left < -0.01);
+    const describe = (element, r, clipStart) => {
+        const clips = clipping(clipStart);
+        // Bounds after ancestor clipping are diagnostic estimates, not a pass rule.
+        const clippedLeft = Math.max(r.left, ...clips.map(clip => clip.rect.left));
+        const clippedRight = Math.min(r.right, ...clips.map(clip => clip.rect.right));
+        return {selector: selector(element), text: (element.textContent || '').trim().slice(0, 180),
+                rect: r, style: style(element), clientWidth: element.clientWidth,
+                scrollWidth: element.scrollWidth, clippingAncestors: clips,
+                estimatedClippedBounds: {left: clippedLeft, right: clippedRight},
+                estimatedOutsideAfterClipping: clippedRight > clippedLeft &&
+                    (clippedRight > limit + 0.01 || clippedLeft < -0.01)};
+    };
+    const elements = [];
+    for (const element of document.querySelectorAll('*')) {
+        const r = rect(element.getBoundingClientRect());
+        if (outside(r)) elements.push(describe(element, r, element.parentElement));
+    }
+    const textRanges = [];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+        if (!node.textContent.trim()) continue;
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        for (const clientRect of range.getClientRects()) {
+            const r = rect(clientRect);
+            if (outside(r)) textRanges.push({...describe(node.parentElement, r, node.parentElement),
+                                            text: node.textContent.trim().slice(0, 240)});
+        }
+    }
+    return {
+        innerWidth, outerWidth, scrollX, scrollY, devicePixelRatio,
+        screen: {width: screen.width, height: screen.height, availWidth: screen.availWidth},
+        visualViewport: visualViewport ? {width: visualViewport.width, height: visualViewport.height,
+            scale: visualViewport.scale, offsetLeft: visualViewport.offsetLeft,
+            pageLeft: visualViewport.pageLeft} : null,
+        viewportMeta: Array.from(document.querySelectorAll('meta[name="viewport"]')).map(e => e.content),
+        documentElement: {clientWidth: root.clientWidth, scrollWidth: root.scrollWidth,
+                          rect: rect(root.getBoundingClientRect())},
+        body: {clientWidth: document.body.clientWidth, scrollWidth: document.body.scrollWidth,
+               rect: rect(document.body.getBoundingClientRect())},
+        fontsStatus: document.fonts.status,
+        mathJax: {present: !!window.MathJax, containers: document.querySelectorAll('mjx-container').length},
+        motionContainers: Array.from(document.querySelectorAll('.concept-motion-scroll, .concept-motion-player'))
+            .map(element => describe(element, rect(element.getBoundingClientRect()), element.parentElement)),
+        overflowingElements: elements, overflowingTextRanges: textRanges
+    };
+}"""
+
+
+def record_failure_diagnostics(page, output, result):
+    """Preserve failure evidence without altering layout, assertions, or the failure."""
+    try:
+        diagnostics = page.evaluate(OVERFLOW_DIAGNOSTICS_JS)
+        name = "overflow-diagnostics.json"
+        (output / name).write_text(json.dumps(diagnostics, ensure_ascii=False, indent=2) + "\n",
+                                   encoding="utf-8")
+        result["overflow_diagnostics"] = name
+    except Exception as error:
+        result["overflow_diagnostics_error"] = str(error)
+
+
 def check_image(page, image, url):
     # complete alone also becomes true for broken images, so check decoded size too.
     page.wait_for_function("""({alt, url}) => {
@@ -193,6 +325,7 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
         assert response and response.ok, f"Built page returned {response.status if response else 'no response'}"
         assert page.locator("html").get_attribute("lang") == target.locale
         assert page.evaluate("matchMedia('(prefers-reduced-motion: reduce)').matches") == reduced
+        result["math_rendering"] = check_math_rendering(page)
         # Wait for font layout before judging bounds or taking the review screenshots.
         page.evaluate("document.fonts.ready")
         result["images"] = []
@@ -232,6 +365,7 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
             capture("replayed", "motion", pause)
         result["status"] = "passed"
     except Exception:
+        record_failure_diagnostics(page, output, result)
         try:
             page.screenshot(path=str(output / "failure.png"))
         except Exception:

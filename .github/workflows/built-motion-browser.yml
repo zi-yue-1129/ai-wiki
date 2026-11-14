@@ -11,6 +11,7 @@ on:
       - "requirements.txt"
       - "scripts/test_built_motion_browser.py"
       - "scripts/test_built_motion_discovery.py"
+      - "scripts/test_mathjax_lifecycle.cjs"
       - "scripts/test_*motion_semantics.py"
       - "scripts/README-built-motion-browser.md"
       - ".github/workflows/built-motion-browser.yml"
@@ -38,7 +39,9 @@ jobs:
           sudo apt-get install -y --no-install-recommends fonts-noto-cjk
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
       - name: Test source discovery and language-specific output mapping
-        run: python scripts/test_built_motion_discovery.py
+        run: |
+          python scripts/test_built_motion_discovery.py
+          node scripts/test_mathjax_lifecycle.cjs
       - name: Check available motion numerical semantics
         run: |
           python - <<'PYTHON'
