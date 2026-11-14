@@ -38,6 +38,22 @@ $$
 
 where $f$ is the classifier, $\pi_x$ is the proximity weighting around $x$, $\mathcal{L}$ measures how poorly $g$ matches $f$ near $x$, and $\Omega(g)$ penalises complexity.
 
+## Animated walkthrough
+
+<div class="concept-motion-viewport" tabindex="0" aria-label="Scrollable LIME neighbourhood diagram">
+  <div class="concept-motion-fixed">
+    <img src="../../assets/concept-animations/lime-local-surrogate-still.svg" data-motion-src="../../assets/concept-animations/lime-local-surrogate-motion.svg" data-still-src="../../assets/concept-animations/lime-local-surrogate-still.svg" alt="A nonlinear black-box prediction curve; nearby perturbations receive stronger weights and a linear surrogate is fitted around x-zero" />
+  </div>
+</div>
+
+[Open the continuous SVG animation](../../assets/concept-animations/lime-local-surrogate-motion.svg) · [View the GitHub-safe static figure](../../assets/concept-animations/lime-local-surrogate-still.svg).
+
+The **blue curve** is a fixed black-box function, the teal points are deliberately sampled perturbations around the orange input $x_0$, and their marker sizes encode the **proximity-kernel weights**. The orange line is a weighted least-squares local surrogate; it is drawn only in the highlighted neighbourhood, **not** as a global description of $f$. On the MkDocs site, use **Play / Pause animation** (Tab then Enter or Space); the chart stays at full readable width and scrolls horizontally on narrow screens. GitHub and reduced-motion readers get the same static overview.
+
+For this **one-dimensional teaching analogue**, the synthetic function is $f(x)=0.27+0.34x+0.15\sin(2\pi x)+0.13(x-0.55)^2$, the input is $x_0=0.54$, and Gaussian weights are $\exp[-(x_i-x_0)^2/(2\cdot0.15^2)]$. Twelve fixed samples give approximately $g(x)=0.598-0.314x$ by weighted least squares. The sliding sample markers represent the *sampling and weighting workflow*, not trajectories of real data, and the line is not an experimental explanation of a trained model. Real LIME also uses interpretable feature representations and a complexity penalty; this diagram isolates **locality and fidelity**, as introduced by [Ribeiro, Singh and Guestrin (2016)](https://arxiv.org/abs/1602.04938).
+
+*Original instructional artwork, CC BY-SA 4.0.*
+
 ## Results
 
 The paper reports simulated user experiments and human-subject experiments. The simulated experiments ask whether explanations help users decide whether to trust a prediction or a model. The human-subject studies, with Mechanical Turk workers and graduate students, ask whether explanations help people choose which of two classifiers to trust. These results support the usefulness of the explanations for those decisions. They do not show that the explanations are accurate descriptions of the model.
