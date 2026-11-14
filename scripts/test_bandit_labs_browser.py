@@ -103,6 +103,17 @@ def main():
                         ucb.locator('[data-action="toggle"]').click()
                     if width in (320, 360, 1024) and not reduced:
                         page.screenshot(path=str(ARTIFACTS / f'{lang}-{width}.png'), full_page=True)
+                        # Review the independent reward switch and posterior failure visually,
+                        # not only the initial diagrams or XML structure.
+                        if width in (320, 1024):
+                            ucb.locator('[data-role="reward2"]').fill('1')
+                            ucb.locator('[data-role="seek"]').fill('2')
+                            ts.locator('[data-role="seek"]').fill('2')
+                            ts.locator('[data-role="outcome"]').select_option('0')
+                            page.screenshot(
+                                path=str(ARTIFACTS / f'{lang}-{width}-counterfactual.png'),
+                                full_page=True,
+                            )
                     cases += 1
                     context.close()
         browser.close()
