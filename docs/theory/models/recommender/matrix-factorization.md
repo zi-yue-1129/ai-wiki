@@ -36,7 +36,7 @@ $$\hat{r}_{ui} = \mu + b_i + b_u + q_i^{\top} p_u$$
 
 The parameters are fitted only on the known ratings $\kappa$, with a penalty on their size to reduce overfitting:
 
-$$\min_{q, p, b} \sum_{(u,i)\in\kappa} \left[ \left(r_{ui} - \hat{r}_{ui}\right)^2 + \lambda \left(\lVert q_i \rVert^2 + \lVert p_u \rVert^2 + b_u^2 + b_i^2\right) \right]$
+$$\min_{q, p, b} \sum_{(u,i)\in\kappa} \left[ \left(r_{ui} - \hat{r}_{ui}\right)^2 + \lambda \left(\lVert q_i \rVert^2 + \lVert p_u \rVert^2 + b_u^2 + b_i^2\right) \right]$$
 
 The constant $\lambda$ controls the strength of the penalty and is usually chosen by cross-validation.
 
