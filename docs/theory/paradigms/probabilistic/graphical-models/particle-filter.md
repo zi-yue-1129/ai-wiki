@@ -37,7 +37,7 @@ A subsequent **resampling** step selects ancestors with probabilities proportion
 
 ## Animated example: weighting and ancestor resampling
 
-![Bootstrap particle weights near an observation followed by systematic resampling of ten descendants](../../../../assets/concept-animations/particle-weight-resampling-motion.svg)
+![Bootstrap particle weights near an observation followed by systematic resampling of ten descendants](../../../../assets/concept-animations/particle-weight-resampling-still.svg){: data-motion-src="../../../../assets/concept-animations/particle-weight-resampling-motion.svg" }
 
 *Original educational animation, CC BY-SA 4.0.* [GitHub-readable final-state SVG](../../../../assets/concept-animations/particle-weight-resampling-still.svg). MkDocs provides **Play/Pause** using keyboard-operable controls; reduced-motion users see the static descendant population. On a narrow screen, scroll horizontally.
 
@@ -50,6 +50,14 @@ $$
 The synthetic observation is $y=6.6$, with likelihood $p(y\mid x)\propto\exp(-(x-y)^2/(2\cdot1.3^2))$. Normalising these likelihoods gives the bar heights. A fixed-offset **systematic resampling** example with thresholds $(0.045,0.145,\ldots,0.945)$ selects the **zero-based ancestor indices** $(4,5,6,6,6,7,7,8,8,9)$.
 
 The animation moves each selected descendant from its ancestor to the lower row; tiny horizontal offsets separate identical descendants **only for visibility** and are **not process noise or sample mutation**. The ten positions, measurement, and selected indices are artificial teaching values, **not real observations, an empirical posterior, or a stochastic trajectory measurement**.
+
+## Interactive calculation: likelihoods, ESS and systematic resampling
+
+Adjust the **observation** $y$, likelihood standard deviation $\sigma$, and systematic offset $u_0\in[0,0.1)$. Step through predicted samples, likelihood weights, cumulative weights and selected descendants. The display computes $\mathrm{ESS}=1/\sum_i w_i^2$ before resampling. Changing $u_0$ can alter the selected ancestors **without altering the normalised importance weights**. A repeated descendant is a selected ancestor copy, not a new transition or added noise.
+
+<div class="bayesian-filter-lab" data-lab="particle" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
+
+These ten states and observations are **synthetic teaching values**, not empirical state estimates. Each step is a display phase of one update, not an additional particle-filter iteration.
 
 ## Interpretation and limits
 

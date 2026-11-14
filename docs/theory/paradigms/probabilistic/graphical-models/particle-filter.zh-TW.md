@@ -25,7 +25,7 @@ $$
 
 ## 教學動畫：觀測加權與祖先重採樣
 
-![十個預測粒子依觀測概似計算權重，接著系統性重採樣產生後代](../../../../assets/concept-animations/particle-weight-resampling-motion.svg)
+![十個預測粒子依觀測概似計算權重，接著系統性重採樣產生後代](../../../../assets/concept-animations/particle-weight-resampling-still.svg){: data-motion-src="../../../../assets/concept-animations/particle-weight-resampling-motion.svg" }
 
 *原創教學動畫，CC BY-SA 4.0。* [GitHub 可讀的最終靜態圖](../../../../assets/concept-animations/particle-weight-resampling-still.svg)。MkDocs 網站提供**播放／暫停**與鍵盤操作，偏好減少動態效果時顯示靜態粒子群；窄螢幕請水平捲動。
 
@@ -38,6 +38,14 @@ $$
 假設觀測 $y=6.6$、概似 $p(y\mid x)\propto\exp(-(x-y)^2/(2\cdot1.3^2))$。將各粒子的概似值正規化後，得到圖中的權重長條。以固定起始偏移量執行**系統性重採樣**，門檻 $(0.045,0.145,\ldots,0.945)$ 選出**從 0 開始編號的祖先索引** $(4,5,6,6,6,7,7,8,8,9)$。
 
 動畫把每個被選中的後代，由祖先所在位置移往下方；為了看清重複粒子，圖中加上一點水平位移，**純粹是畫面錯開，不是程序雜訊或粒子突變**。所有數值與抽樣結果都只是教學示意，**不代表實際觀測、實測後驗或模型運算軌跡**。
+
+## 互動計算：概似、ESS 與系統性重採樣
+
+調整人工**觀測值** $y$、概似標準差 $\sigma$，以及系統性重採樣偏移量 $u_0\in[0,0.1)$。逐步檢視預測樣本、概似權重、累積權重及所選後代。介面在重採樣前計算 $\mathrm{ESS}=1/\sum_i w_i^2$。改變 $u_0$ 可能改變祖先選擇，**卻不會改變正規化的重要性權重**；重複出現的後代只是複製祖先，並未加入新的轉移或雜訊。
+
+<div class="bayesian-filter-lab" data-lab="particle" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
+
+十個位置與觀測均屬於**人工教學數值**，不是實際估計結果。每個步驟是同一次更新的展示階段，不代表額外執行濾波迭代。
 
 ## 解讀與限制
 

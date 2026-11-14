@@ -44,7 +44,7 @@ $$
 
 ## 教學動畫：增益加權的高斯融合
 
-![卡爾曼濾波器的先驗、量測概似與修正後信念，均值逐漸向觀測靠近](../../../../assets/concept-animations/kalman-gain-fusion-motion.svg)
+![卡爾曼濾波器的先驗、量測概似與修正後信念，均值逐漸向觀測靠近](../../../../assets/concept-animations/kalman-gain-fusion-still.svg){: data-motion-src="../../../../assets/concept-animations/kalman-gain-fusion-motion.svg" }
 
 *原創教學動畫，CC BY-SA 4.0。* [GitHub 可讀的最終靜態圖](../../../../assets/concept-animations/kalman-gain-fusion-still.svg)。MkDocs 網站提供**播放／暫停**；可用 Tab 與 Enter／Space 操作按鈕，偏好減少動態效果時顯示靜態圖。手機請水平捲動圖面。
 
@@ -60,6 +60,14 @@ P^+=(1-K)1.44\approx0.443.
 $$
 
 虛線分別表示先驗與形似概似函數的觀測資訊，實線則逐漸變成修正後的高斯信念。**為了比較形狀，三條曲線都將峰值正規化，而非以相同機率密度面積比例繪製。** 轉場是視覺插值，**不是額外的濾波迭代，也不是模型實測結果**；觀測曲線是以隱藏狀態為變數的概似，不是另一個後驗分布。
+
+## 互動計算：卡爾曼增益與高斯修正
+
+調整**預測變異數** $P^-$、**量測變異數** $R$，或人工觀測值 $y$，並使用「上一步／下一步」與進度滑桿檢視預測、創新量和修正。圖表即時計算 $K=P^-/(P^-+R)$、$\hat x^+=3+K(y-3)$ 及 $P^+=(1-K)P^-$；預測平均值固定為 3。**三條曲線皆正規化至相同峰值**，用於比較形狀，不代表相同面積尺度的機率密度。提高 $R$ 會讓修正更偏向先驗；提高 $P^-$ 則讓修正更仰賴觀測。
+
+<div class="bayesian-filter-lab" data-lab="kalman" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
+
+這些數值及轉換是**獨立計算的一維人工示意**，不是實測估計誤差，也不是連續多次量測的結果。
 
 ## 優點與限制
 

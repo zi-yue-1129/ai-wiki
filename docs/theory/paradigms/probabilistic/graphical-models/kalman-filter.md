@@ -56,7 +56,7 @@ In exact arithmetic the covariance update is $P_t^+=(I-K_tH_t)P_t^-$. The Joseph
 
 ## Animated example: gain-weighted Gaussian fusion
 
-![Kalman prediction, observation and updated belief with the mean moving toward the observation](../../../../assets/concept-animations/kalman-gain-fusion-motion.svg)
+![Kalman prediction, observation and updated belief with the mean moving toward the observation](../../../../assets/concept-animations/kalman-gain-fusion-still.svg){: data-motion-src="../../../../assets/concept-animations/kalman-gain-fusion-motion.svg" }
 
 *Original educational animation, CC BY-SA 4.0.* [GitHub-readable final-state SVG](../../../../assets/concept-animations/kalman-gain-fusion-still.svg). The MkDocs site adds **Play/Pause** controls; Tab and Enter/Space operate the button, and reduced-motion preference selects the final state. On narrow screens, scroll the figure horizontally.
 
@@ -72,6 +72,14 @@ P^+=(1-K)1.44\approx0.443.
 $$
 
 The dashed curves show the prior and a likelihood-shaped observation profile; the solid curve morphs toward the corrected Gaussian belief. **All curves are peak-normalised for visual comparison, not drawn to a common probability-density area scale.** The intermediate morph is visual interpolation, **not extra filtering iterations or measured model behaviour**. In particular, the observation curve is a likelihood in the latent state, not a second posterior.
+
+## Interactive calculation: Kalman gain and Gaussian correction
+
+Change the **predicted variance** $P^-$, **measurement variance** $R$, or synthetic observation $y$. Use Previous/Next or the seek control to inspect prediction, innovation and correction. The graphic recomputes $K=P^-/(P^-+R)$, $\hat x^+=3+K(y-3)$ and $P^+=(1-K)P^-$ from the chosen inputs; the predicted mean is fixed at 3. **All three curves are peak-normalised** to compare shapes rather than absolute probability densities. Increasing $R$ makes the update trust the prior more; increasing $P^-$ increases its reliance on the observation.
+
+<div class="bayesian-filter-lab" data-lab="kalman" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
+
+The values and transitions are an **independently computed scalar illustration**, not measured filtering accuracy or a sequence of actual observations.
 
 ## Strengths and limits
 
