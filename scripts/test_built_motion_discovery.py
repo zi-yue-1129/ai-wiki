@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Browser-free regression tests for the built-motion browser harness."""
 from pathlib import Path
+import json
 import tempfile
 from types import SimpleNamespace
 import unittest
 
 from test_built_motion_browser import (
     Images, MotionPage, assert_document_fits, check_built_page, discover_pages,
-    source_asset_url,
+    record_failure_diagnostics, source_asset_url,
 )
 
 BASE = "https://example.test/ai-wiki/"
@@ -135,9 +136,30 @@ class DiscoveryTests(unittest.TestCase):
         page.evaluate = lambda _js: {"inner": 980, "client": 980, "width": 980}
         with self.assertRaisesRegex(AssertionError, "actual viewport mismatch"):
             assert_document_fits(page, {"width": 390})
+        page.evaluate = lambda _js: {"inner": 391, "client": 390, "width": 391}
+        with self.assertRaisesRegex(AssertionError, "actual viewport mismatch"):
+            assert_document_fits(page, {"width": 390})
         page.evaluate = lambda _js: {"inner": 390, "client": 390, "width": 640}
         with self.assertRaisesRegex(AssertionError, "whole-document horizontal overflow"):
             assert_document_fits(page, {"width": 390})
+
+    def test_failure_diagnostics_keep_fractional_bounds_in_artifact(self):
+        diagnostic = {"innerWidth": 391, "overflowingTextRanges": [
+            {"text": "文字", "rect": {"right": 390.625}}]}
+        page = SimpleNamespace(evaluate=lambda _js: diagnostic)
+        result = {"status": "failed", "error": "original failure"}
+        record_failure_diagnostics(page, self.site, result)
+        self.assertEqual(result["error"], "original failure")
+        self.assertEqual(result["status"], "failed")
+        self.assertEqual(json.loads((self.site / result["overflow_diagnostics"]).read_text()), diagnostic)
+
+    def test_diagnostics_error_does_not_replace_original_failure(self):
+        def fail(_js):
+            raise RuntimeError("page unavailable")
+        result = {"status": "failed", "error": "original failure"}
+        record_failure_diagnostics(SimpleNamespace(evaluate=fail), self.site, result)
+        self.assertEqual(result, {"status": "failed", "error": "original failure",
+                                  "overflow_diagnostics_error": "page unavailable"})
 
 
 if __name__ == "__main__":
