@@ -43,6 +43,16 @@ Each unit's normalised activation is then scaled by its gain and shifted by its 
 *Original instructional visual (CC BY-SA 4.0).* On the MkDocs site, **Play/Pause** moves every raw feature and the sample mean together by **+2**, while the five standardised activations stay fixed. The figure uses the illustrative vector \(x=[1,3,5,7,9]\), mean \(5\), and population standard deviation \(\sqrt{8}\). After the common shift, the mean becomes \(7\) and the standard deviation and normalised vector do not change; the learned affine parameters are set to \(\gamma=1,\beta=0\). This is a single-sample feature-axis calculation, **not batch normalisation or model-measured activations**. GitHub displays the directly readable static comparison; the website progressively animates the shift and supports keyboard-accessible pause and reduced motion. The calculation illustrates the feature-wise definition in Ba, Kiros and Hinton (2016), cited in References.
 
 
+### Explore: common shifts versus a single-feature change
+
+The following **deterministic, keyboard-operated lab** recomputes LayerNorm after two independent perturbations. Adjust the *common shift* to add the same constant to all five coordinates, then change only feature 3. The orange trajectory tracks raw features and the blue trajectory tracks standardised values; the dashed path is the original standardised baseline. A horizontal scroller preserves readable SVG labels on mobile. The **Max |Δz|** readout compares the five current standardised features with the original baseline.
+
+<div data-norm-seq-lab="layernorm" data-lang="en">
+  <p>The interactive calculation is available on the MkDocs site. GitHub and no-script readers can use the original static SVG and its explanation above.</p>
+</div>
+
+For this lab only, \(\varepsilon=10^{-5}\), \(\gamma_i=1\), and \(\beta_i=0\). We compute \(z_i=(x_i-\mu)/\sqrt{\frac15\sum_j(x_j-\mu)^2+\varepsilon}\). A common shift changes \(\mu\) but not \(z_i\); an individual coordinate perturbation changes both the mean and other coordinates' normalised outputs. **This is a constructed five-number example, not measured network activations.**
+
 ## Results
 
 On order embeddings for MSCOCO, caption retrieval R@1 rose from 46.6 to 48.5 and image retrieval R@1 rose from 37.8 to 38.9. The model reached its best validation result in 60% of the baseline's training time. On binarised MNIST with DRAW, the layer-normalised model reached 82.09 nats after 200 epochs, against 82.36 for the baseline.
