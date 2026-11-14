@@ -68,7 +68,7 @@ For an **identity** hidden activation and input \(x=0.8,w=1.4\), the original ou
 
 ### Interactive experiment: mutation-state ledger
 
-Step through **#3 disabled → hidden node inserted → #8 enabled → #9 enabled**; the sequence inspects one atomic structural mutation. Change the input (x), edge weight (w), or choose **Identity / tanh** for the inserted hidden node. Compare original (wx) with the split route (w\phi(x)): they coincide with an identity activation, but need not coincide for nonlinear activation. Controls support **Previous / Next, Play / Pause, Seek, speed and Reset** with keyboard operation; narrow screens can scroll the plot. IDs and numerical values are constructed, not experimental results. The still diagram and gene-edit list above remain available without JavaScript.
+Step through **#3 disabled → hidden node inserted → #8 enabled → #9 enabled**; the sequence inspects one atomic structural mutation. Change the input \(x\), edge weight \(w\), or choose **Identity / tanh** for the inserted hidden node. Compare original \(wx\) with the split route \(w\phi(x)\): they coincide with an identity activation, but need not coincide for nonlinear activation. Controls support **Previous / Next, Play / Pause, Seek, speed and Reset** with keyboard operation; narrow screens can scroll the plot. IDs and numerical values are constructed, not experimental results. The still diagram and gene-edit list above remain available without JavaScript.
 
 <div data-ewc-neat-lab="neat" data-locale="en"><p>JavaScript-free fallback: the preceding three-step gene-edit list describes the disabled historical edge and the two new enabled edges.</p></div>
 
