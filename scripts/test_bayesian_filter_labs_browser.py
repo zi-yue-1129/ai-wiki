@@ -10,8 +10,8 @@ from playwright.async_api import async_playwright
 ROOT=Path(__file__).resolve().parent
 OUT=Path('artifacts/bayesian-filter-labs')
 OUT.mkdir(parents=True,exist_ok=True)
-JS= (ROOT/'bayesian-filter-labs.js').read_text(encoding='utf-8')
-CSS=(ROOT/'bayesian-filter-labs.css').read_text(encoding='utf-8')
+JS=(ROOT.parent/'docs/javascripts/bayesian-filter-labs.js').read_text(encoding='utf-8')
+CSS=(ROOT.parent/'docs/stylesheets/bayesian-filter-labs.css').read_text(encoding='utf-8')
 
 def fixture(lang='en'):
     fallback='Interactive numerical experiment requires JavaScript.' if lang=='en' else '互動數值實驗需要 JavaScript。'
@@ -23,7 +23,7 @@ def fixture(lang='en'):
 
 async def run():
     async with async_playwright() as pw:
-        browser=await pw.chromium.launch(headless=True,executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+        browser=await pw.chromium.launch(headless=True,args=['--no-sandbox'])
         cases=0
         for lang in ('en','zh'):
             for width in (320,360,800,1024):
