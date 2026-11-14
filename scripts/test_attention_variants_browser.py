@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rendered Chromium QA for new GQA and recurrent linear-attention teaching assets."""
+"""Rendered Chromium QA for new sliding-window and recurrent linear-attention teaching assets."""
 from pathlib import Path
 from xml.etree import ElementTree as ET
 from playwright.sync_api import sync_playwright
@@ -61,7 +61,7 @@ def main():
                     button=page.locator('.concept-motion-toggle')
                     assert button.count()==1,(stem,lang,width)
                     assert '-still.svg' in page.locator('img').get_attribute('src')
-                    assert page.locator('.concept-motion-player').evaluate('(el)=>el.scrollWidth>el.clientWidth') == (width<800)
+                    assert page.locator('.concept-motion-player').evaluate('(el)=>el.scrollWidth>el.clientWidth') == (width<=800)
                     button.focus();page.keyboard.press('Enter')
                     assert '-motion.svg' in page.locator('img').get_attribute('src')
                     page.keyboard.press('Space')
