@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
   - theory/paradigms/evolutionary
   - theory/models/mlp
@@ -41,6 +41,31 @@ NEAT 同時演化神經網路的連結權重與拓撲結構。它從沒有隱藏
 \]
 
 其中 \(E\) 與 \(D\) 分別為多出與不相交基因的數目，\(\bar W\) 為配對基因的平均權重差，\(N\) 為較大基因組的大小，\(c_1, c_2, c_3\) 為係數。距離低於門檻的基因組被歸入同一物種。
+
+
+## 動畫解讀：新增節點的結構突變
+
+<div role="region" tabindex="0" aria-label="可左右捲動的教學動畫">
+  <img src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" data-motion-src="../../../assets/concept-animations/neat-add-node-innovation-motion.svg" data-still-src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" alt="NEAT 將一條連結拆開、停用原始基因，並新增隱藏節點及兩個創新編號" />
+</div>
+
+[GitHub 靜態與減少動態效果預覽](../../../assets/concept-animations/neat-add-node-innovation-still.svg)。MkDocs 網站提供**播放／暫停**按鈕，鍵盤可透過 Tab 及 Enter 或空白鍵操作；靜態圖可同時比較突變前後的網路與基因狀態。
+
+左側只有一條從輸入連到輸出的有效連結，其創新編號為 **#3**。右側的*新增節點突變*會**停用 #3**、插入隱藏節點，並產生兩條新連結，編號示意為 **#8** 與 **#9**。橘色標記沿著新路徑移動。這些編號僅為說明歷史標記的**人工編號**，沒有特定數值意義；圖中是**單次結構突變，不是世代適應度或模型訓練軌跡**。在完整的 NEAT 族群中，具有相同歷史來源的結構創新會沿用對應編號，以協助交叉時對齊基因。原始方法見下方 Stanley 與 Miikkulainen（2002）。
+
+*原創教學動畫與靜態回退，CC BY-SA 4.0。*
+
+### 逐項檢查一次新增節點突變
+
+以下基因編輯是**一次原子性的結構突變**，不是三次互不相關的突變：
+
+1. 原始有效連結為 **#3**，從輸入連到輸出，權重 \(w\)。
+2. 將 **#3 標為停用**，但保留原基因與創新編號，以便之後做基因組對齊。
+3. 插入隱藏節點，新增有效連結 **#8**（輸入到隱藏節點，權重為 1）與 **#9**（隱藏節點到輸出，權重為 \(w\)）。兩個新編號代表不同的連結。
+
+若隱藏節點採用**恆等活化函數**，並設 \(x=0.8,w=1.4\)，原始輸出 \(wx=1.12\)，拆分後為 \(w(1x)=1.12\)。這說明典型初始權重配置的代數關係，但對**任意非線性活化函數**、偏置或之後的權重突變，**不能保證函數完全不變**。編號與數值都是人工示意；族群層級的歷史標記管理不在這個單一基因組案例的範圍內。
+
+
 
 ## 主要結果
 

@@ -14,6 +14,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "ewc-fisher-springs": "theory/paradigms/continual/regularisation-based/ewc",
+    "neat-add-node-innovation": "theory/paradigms/evolutionary/neat",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
@@ -132,6 +134,19 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
+            # GitHub must show a non-script still, while MkDocs may load the
+            # paired motion asset via progressive enhancement. Validate all
+            # three paths together, rather than accepting a stray data attribute.
+            enhanced_pairs = set()
+            for img in re.findall(r"<img\b[^>]*>", text, flags=re.IGNORECASE):
+                attrs = dict(re.findall(r'([\w-]+)="([^"]*)"', img))
+                src = attrs.get("src")
+                motion = attrs.get("data-motion-src")
+                still = attrs.get("data-still-src")
+                if src and motion and still and src == still:
+                    enhanced_pairs.add(
+                        ((page.parent / motion).resolve(), (page.parent / still).resolve())
+                    )
             if stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
@@ -144,7 +159,9 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif animated_path.resolve() not in linked_images:
+            elif animated_path.resolve() not in linked_images and (
+                animated_path.resolve(), static_path.resolve()
+            ) not in enhanced_pairs:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)

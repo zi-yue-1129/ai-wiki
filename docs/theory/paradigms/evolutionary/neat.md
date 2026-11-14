@@ -41,6 +41,31 @@ Crossover aligns the two genomes by innovation number. Matching genes are inheri
 
 where \(E\) and \(D\) count excess and disjoint genes, \(\bar W\) is the mean weight difference of matching genes, \(N\) is the size of the larger genome, and \(c_1, c_2, c_3\) are coefficients. Genomes whose distance falls below a threshold are placed in the same species.
 
+
+## Animated walkthrough: add-node mutation
+
+<div role="region" tabindex="0" aria-label="Horizontally scrollable teaching animation">
+  <img src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" data-motion-src="../../../assets/concept-animations/neat-add-node-innovation-motion.svg" data-still-src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" alt="NEAT splits a connection, disables its historical gene and introduces a hidden node with two new innovation IDs" />
+</div>
+
+[Static GitHub and reduced-motion preview](../../../assets/concept-animations/neat-add-node-innovation-still.svg). On MkDocs, use **Play/Pause** (Tab and Enter or Space); the still shows both topologies and the post-mutation genome.
+
+The left graph has a single enabled input-to-output connection with innovation ID **#3**. On the right, the *add-node* mutation **disables #3**, creates a hidden node, and introduces two enabled links with new innovation IDs **#8** and **#9**. The moving amber marker traces the new route after the structural edit. The ID values are invented to make historical marking visible; their particular magnitudes are not meaningful. This is **one mutation event, not a generational fitness or training trajectory**. In a full NEAT population, identical historical structural innovations share IDs for crossover alignment; each new structural innovation receives an appropriate innovation identifier. The underlying mechanism is described in Stanley and Miikkulainen (2002), already cited below.
+
+*Original instructional animation and static fallback, CC BY-SA 4.0.*
+
+### Trace a single add-node mutation
+
+The following schematic gene edit is **one atomic mutation**, not three independent mutations:
+
+1. Start with enabled connection **#3**, \(\mathrm{In}\to\mathrm{Out}\), weight \(w\).
+2. Mark connection **#3 as disabled**; preserve its gene and innovation ID for future genome alignment.
+3. Insert a new hidden node, with enabled **#8** (\(\mathrm{In}\to\mathrm{Hidden}\), weight 1) and **#9** (\(\mathrm{Hidden}\to\mathrm{Out}\), weight \(w\)). The two new innovation IDs denote distinct connections.
+
+For an **identity** hidden activation and input \(x=0.8,w=1.4\), the original output is \(wx=1.12\), and the split route gives \(w(1x)=1.12\). This algebra explains the usual initial weight assignment but **does not guarantee function preservation for arbitrary nonlinear hidden activations**, biases, or subsequent weight mutations. The numbering and values are constructed; population-level historical bookkeeping is outside this one-genome illustration.
+
+
+
 ## Key results
 
 The full text was not retrieved in this check, because the publisher page and the author's site refused access. This page therefore quotes no results. Its statements about the experiments, namely double pole balancing and growth from minimal networks, still need checking against the paper's experiment section.
