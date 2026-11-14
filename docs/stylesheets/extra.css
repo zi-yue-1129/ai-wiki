@@ -163,3 +163,21 @@ body.km-lock { overflow: hidden; }
     max-width: none;
   }
 }
+
+/* Attention-variant teaching figures keep SVG labels readable on mobile. */
+@media (max-width: 840px) {
+  .md-typeset .concept-motion-player.concept-motion-wide {
+    display: block; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain;
+  }
+  .md-typeset .concept-motion-player.concept-motion-wide img {
+    display: block; width: 800px; min-width: 800px; max-width: none;
+  }
+  .md-typeset p:has(> img[src*="sliding-window-mask-still"]),
+  .md-typeset p:has(> img[src*="linear-attention-recurrence-still"]) {
+    overflow-x: auto; max-width: 100%;
+  }
+  .md-typeset p > img[src*="sliding-window-mask-still"],
+  .md-typeset p > img[src*="linear-attention-recurrence-still"] {
+    display: block; width: 800px; min-width: 800px; max-width: none;
+  }
+}

@@ -15,19 +15,24 @@
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
-      const animated = img.dataset.motionSrc || img.getAttribute('src') || '';
+      const source = img.dataset.motionSrc || img.getAttribute('src') || '';
+      // Two GitHub-first still images are enhanced to motion only on MkDocs.
+      const attentionStill = /(?:sliding-window-mask|linear-attention-recurrence)-still\\.svg(?=$|[?#])/;
+      const isAttentionStill = attentionStill.test(source);
+      const animated = isAttentionStill ? source.replace(/-still\\.svg(?=$|[?#])/, '-motion.svg') : source;
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
-      const still = img.dataset.stillSrc || (pairedStill
+      const still = isAttentionStill ? source : (img.dataset.stillSrc || (pairedStill
         ? animated.replace(fileName, pairedStill)
-        : animated.replace(suffix, '-still.svg'));
+        : animated.replace(suffix, '-still.svg')));
       const isMoe = moeSuffix.test(animated);
       const tokenB = isMoe ? animated.replace(suffix, '-token-b.svg') : '';
       const chinese = /[\u3400-\u9fff]/.test(img.alt || '');
       const originalAlt = img.alt;
       const host = document.createElement('span');
-      host.className = 'concept-motion-player';
+      host.className = isAttentionStill ? 'concept-motion-player concept-motion-wide' : 'concept-motion-player';
+      if (isAttentionStill) host.tabIndex = 0;
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';

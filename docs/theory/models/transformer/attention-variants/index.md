@@ -36,9 +36,21 @@ In multi-head attention each head has its own keys and values. Multi-query atten
 
 Instead of attending to all earlier tokens, sparse attention restricts each query to a fixed pattern. The Sparse Transformer uses strided and fixed patterns that reach far back while keeping cost near \(O(n\sqrt{n})\). Longformer combines a sliding window with a few global tokens, which gives linear cost in \(n\). Sliding-window attention with a fixed window is used in Mistral 7B, where information still spreads through the layers because each layer passes information forward by one window. Local patterns are fast but cannot retrieve arbitrary distant tokens unless other mechanisms exist.
 
+
+
+![A four-token causal attention window slides across twelve tokens while the corresponding banded attention mask highlights each query row.](../../../../assets/concept-animations/sliding-window-mask-still.svg)
+
+*Original CC BY-SA 4.0 teaching visual. The orange query and its last four accessible keys move together across a 12-token, width-4 causal mask. Row (t) can read only keys (j\in[\max(1,t-3),t]); there are no global tokens in this example. The continuous positions between token indices are **visual interpolation**, not fractional token computation. [Open the motion SVG](../../../../assets/concept-animations/sliding-window-mask-motion.svg). On MkDocs, **Play/Pause** (also Enter/Space) switches between motion and a readable still, with reduced-motion settings respected. The colours and width are illustrative, not benchmark measurements (Beltagy et al., 2020; see References).*
+
 ### Linear attention
 
 Linear attention replaces the softmax with a kernel feature map \(\phi\), so that the product can be reordered as \(\phi(Q)\,(\phi(K)^\top V)\). The expression \(\phi(K)^\top V\) can be accumulated as a running state, which turns attention into a recurrent update with constant cost per token. Katharopoulos et al. (2020) showed this equivalence and its autoregressive form. Performers approximate the softmax kernel with random features (FAVOR+), so that the approximation can be made as accurate as needed by using more features.
+
+
+
+![Four causal feature-map updates accumulate a compact recurrent state S and z; the normalised output changes without replaying earlier keys and values.](../../../../assets/concept-animations/linear-attention-recurrence-still.svg)
+
+*Original CC BY-SA 4.0 teaching visual. In causal **normalised kernel linear attention**, (S_t=S_{t-1}+\phi(k_t)v_t^{\top}), (z_t=z_{t-1}+\phi(k_t)), and (y_t=\phi(q_t)^{\top}S_t/(\phi(q_t)^{\top}z_t)), assuming a nonzero denominator. The scalar illustration fixes (\phi(q_t)=1), keys ((1,2,1,2)) and values ((1,0,3,2)). Its cumulative ((S_t,z_t,y_t)) are ((1,1,1)), ((1,3,1/3)), ((4,4,1)), ((8,6,4/3)). This **changes the attention kernel**; it is not equivalent to standard softmax attention, and the token-flow interpolation is not a measured model trace. [Open the motion SVG](../../../../assets/concept-animations/linear-attention-recurrence-motion.svg); MkDocs adds keyboard-accessible **Play/Pause**, with a still fallback for reduced motion (Katharopoulos et al., 2020; see References).*
 
 ### IO-aware exact attention
 
