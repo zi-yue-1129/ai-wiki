@@ -760,6 +760,9 @@ plugins:
             Embeddings: 嵌入表示
             Time-Series Forecasting: 時間序列預測
             Recommender Systems: 推薦系統
+            Matrix Factorization: 矩陣分解
+            BPR: BPR 貝氏個人化排序
+            Neural Collaborative Filtering: 神經協同過濾
             Graph Neural Networks: 圖神經網路
             AI Agents: AI 代理人
             LLM Agent Survey (Xi et al., 2023): 基於 LLM 的代理人綜述
@@ -1809,7 +1812,11 @@ nav:
           - Multimodal Models: theory/models/multimodal/index.md
           - Embeddings: theory/models/embeddings/index.md
           - Time-Series Forecasting: theory/models/time-series/index.md
-          - Recommender Systems: theory/models/recommender/index.md
+          - Recommender Systems:
+              - theory/models/recommender/index.md
+              - Matrix Factorization: theory/models/recommender/matrix-factorization.md
+              - BPR: theory/models/recommender/bpr.md
+              - Neural Collaborative Filtering: theory/models/recommender/neural-cf.md
           - Graph Neural Networks:
               - theory/models/gnn/index.md
               - Message Passing:
