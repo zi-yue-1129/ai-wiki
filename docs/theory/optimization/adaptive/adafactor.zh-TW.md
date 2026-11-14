@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-11
+translation_reviewed: 2026-11-14
 ---
 
 # Adafactor
@@ -24,9 +24,16 @@ Adam 對每個參數保存兩個狀態值，即一階矩與二階矩。對大型
 
 因此只需儲存 \(n + m\) 個值，而非 \(n m\) 個。向量參數（如偏置）仍保留完整的二階矩，因為這種分解不適用於向量。
 
-![Adafactor 將平方梯度矩陣依序轉換成列和、行和，再以外積近似重建二階矩的連續教學動畫](../../../assets/concept-animations/adafactor-factored-moments-motion.svg)
+![Adafactor 將平方梯度矩陣依序轉換成列和、行和，再以外積近似重建二階矩的連續教學動畫](../../../assets/concept-animations/adafactor-factored-moments-still.svg)
 
 *原創連續動態教學圖（CC BY-SA 4.0）。* 由左至右閱讀：一個 **人工示意**的 3 × 4 平方梯度矩陣 `S` 先化為三個列和 `R`、四個行和 `C`，再以 `V̂ = R C / ΣR` 重建秩一估計。顏色只表示數值相對大小，不是實測梯度。範例 `S = [[1,2,1,0],[3,1,2,2],[0,2,4,2]]` 對應 `R=(4,8,8)`、`C=(4,5,7,4)`、`ΣR=20`；重建元素 `V̂₂₃ = 8×7/20 = 2.8`，而原本的 `S₂₃ = 2`。因此這是**近似表示而非無損壓縮**，也非模型實測結果。此示例將 12 個儲存值減為 7 個，矩陣更大時節省更明顯。圖中省略指數平均、更新裁剪與學習率排程。可使用 MkDocs Play/Pause 控制，或查看 [GitHub 可閱讀的靜態示意圖](../../../assets/concept-animations/adafactor-factored-moments-still.svg)。參考 [Shazeer 與 Stern（2018）](https://proceedings.mlr.press/v80/shazeer18a.html)。
+
+
+### 互動運算實驗
+
+<div data-adaptive-lab="adafactor" data-lang="zh"></div>
+
+此實驗提供**播放／暫停、上一步／下一步、進度滑桿及 0.5×／1×／2× 播放速度**，均可透過鍵盤操作。偏好減少動態效果時不會自動播放。所有數值均為**人工示意，並非模型實測**；GitHub 直接顯示靜態 SVG，MkDocs 額外呈現可操作的逐步運算。[觀看連續 SVG 動畫](../../../assets/concept-animations/adafactor-factored-moments-motion.svg)。
 
 ## 演算法
 

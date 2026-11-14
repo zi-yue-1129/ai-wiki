@@ -29,9 +29,16 @@ With a single global learning rate, features that occur rarely receive tiny upda
 
 Keep, for each coordinate \(i\), the running sum of its squared gradients. Divide the step on that coordinate by the square root of the sum. Coordinates with a history of large gradients get smaller steps, and coordinates with little history keep steps near the base rate.
 
-![AdaGrad continuously reveals frequent and sparse gradients, their accumulated squared gradients, and their inverse-root coordinate gains](../../../assets/concept-animations/adagrad-coordinate-gain-motion.svg)
+![AdaGrad continuously reveals frequent and sparse gradients, their accumulated squared gradients, and their inverse-root coordinate gains](../../../assets/concept-animations/adagrad-coordinate-gain-still.svg)
 
 *Original, continuously animated teaching graphic (CC BY-SA 4.0).* The orange dots are six **illustrative** gradient observations: the frequent coordinate has `g = (1, 1, 1, 1, 1, 1)`, while the sparse coordinate has `g = (1, 0, 0, 0, 1, 0)`. Each expanding bar represents the history `G_t = Σ g_s²`; the lines show the inverse-root gain `1 / √G_t` after observing each gradient. The frequent coordinate's gain falls every step, whereas the sparse coordinate retains its gain until the next nonzero observation. **The gain is not the actual parameter update:** a zero gradient still produces a zero update. The example sets `η = 1` and omits `ε` only for display; it is not a measured optimisation trajectory. Use the MkDocs Play/Pause control, or view the [GitHub-readable static comparison](../../../assets/concept-animations/adagrad-coordinate-gain-still.svg). Based on the update in [Duchi et al. (2011)](https://jmlr.org/papers/v12/duchi11a.html).
+
+
+### Interactive calculation lab
+
+<div data-adaptive-lab="adagrad" data-lang="en"></div>
+
+Use **Play/Pause, Previous/Next, the seek slider, and 0.5×/1×/2× playback speed**, all keyboard-operable. Reduced-motion preferences prevent automatic playback. All values are **constructed examples, not measured model trajectories**. GitHub displays the reviewed static SVG; MkDocs provides stepwise numerical exploration. [Open the continuous SVG animation](../../../assets/concept-animations/adagrad-coordinate-gain-motion.svg).
 
 ## Algorithm
 
