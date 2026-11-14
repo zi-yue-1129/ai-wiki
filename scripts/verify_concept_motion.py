@@ -181,11 +181,8 @@ def main() -> int:
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"pbwm-gate", "activity-silent-trace"}:
-                # Static-first source HTML provides a readable GitHub diagram
-                # and progressive MkDocs Play/Pause through data-motion-src.
-                image = re.search(r'<img\s+[^>]*src="([^"]+)"\s+data-motion-src="([^"]+)"', text)
-                if not image or (page.parent / image.group(1)).resolve() != static_path.resolve() or (page.parent / image.group(2)).resolve() != animated_path.resolve():
-                    errors.append(f"{page}: missing static-first image with correct motion enhancement")
+                # Shared source-to-built asset hook validates the static and motion URL pair.
+                errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"mle-bernoulli-likelihood", "map-beta-posterior"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
