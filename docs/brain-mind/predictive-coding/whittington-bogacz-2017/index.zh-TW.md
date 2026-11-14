@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
 - brain-mind/neuroai
 - brain-mind/neuroscience
@@ -33,6 +33,31 @@ Whittington 與 Bogacz（2017）顯示，具有明確預測誤差單元的預測
 3. 對訓練樣本重複。在適當的參數設定下，權重變化與反向傳播的一致。
 
 第 1 步使此方案具有局部性。隱藏層的活動完成了反向傳播中向後傳遞所做的工作，而誤差在每一層都可直接取得，無需從他處傳來。
+
+### 動態示範：先讓隱藏狀態收斂，再進行局部學習
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="預測編碼局部推論與學習示意動畫">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/predictive-local-settling-still.svg" data-motion-src="../../../assets/concept-animations/predictive-local-settling-motion.svg" alt="人工一維示例中，輸入 0.20 與目標 0.80 維持固定；隱藏狀態由 0.20 收斂到 0.50，兩側局部誤差的淨驅動逐漸抵銷，接著顯示局部突觸更新。" width="640" height="360">
+</div>
+</div>
+
+*AI Wiki 原創教學動畫，CC BY-SA 4.0。* 這是**一維概念類比**，並非 Whittington 與 Bogacz（2017）模型的原始層級方程式或數值重現。固定端點 \(x=0.20\)、\(y=0.80\)，考慮 \(E(z)=\tfrac12(z-x)^2+\tfrac12(z-y)^2\)，隱藏變數從 \(z=0.20\) 漸進到 \(z^*=(x+y)/2=0.50\)。兩個局部誤差的絕對值最後各為 \(0.30\)，**不是兩者都歸零**；帶符號的貢獻互相抵銷，總下降驅動才趨近零。狀態收斂後的橘色脈衝代表另一個局部突觸更新步驟，示意更新與突觸前活動和局部誤差的乘積有關。動畫不代表精確反向傳播等價、實際神經時間序列或 MNIST 訓練測量。MkDocs 可播放／暫停；[GitHub 靜態預覽](../../../assets/concept-animations/predictive-local-settling-still.svg)不需要指令碼。參見 References 中的 Whittington 與 Bogacz（2017）。
+
+### 互動數值實驗：局部誤差驅動的狀態收斂
+
+調整固定端點 \(a,b\) 與推論步長 \(\eta\)，逐步觀察**八次實際計算的純量梯度下降更新**，包含隱藏狀態、方向相反的帶符號局部誤差及能量。支援播放／暫停、單步、進度滑桿、速度調整與重設，也可用鍵盤操作並在手機水平捲動圖面。
+
+<div class="pc-lab" data-lab="settling" data-lang="zh"></div>
+
+本實驗採用人工設定的能量函數與**僅進行推論**的更新規則：
+
+\[
+E(z)=\tfrac12(z-a)^2+\tfrac12(z-b)^2,\qquad
+z_{k+1}=z_k-\eta(2z_k-a-b),\quad z_0=a.
+\]
+
+最小值出現在 \(z^*=(a+b)/2\)。預設 \((a,b,\eta)=(0.20,0.80,0.25)\)，第一次更新得到 \(z_1=0.35\)；收斂時兩個局部誤差符號相反，**不是兩者都歸零**。此範圍的 \(0<\eta<1\) 對應穩定的純量遞迴，較大步長仍可能使狀態來回振盪。**本實驗沒有執行赫柏式突觸權重更新**，原動畫的橘色可塑性提示不代表此處已計算突觸更新。數值不是論文實測或神經元記錄。
 
 ## 結果
 

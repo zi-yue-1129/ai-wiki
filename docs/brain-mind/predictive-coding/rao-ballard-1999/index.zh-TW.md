@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 related:
 - brain-mind/neuroai
 - brain-mind/visual-perception
@@ -34,6 +34,30 @@ Rao 與 Ballard（1999）提出，來自較高視覺區域的回饋連接攜帶�
 4. 在自然影像小塊上訓練連接權重，使網路學出一組特徵。
 
 關鍵假設是誤差單元與預測單元是各自獨立的群體，因此模型能對哪些神經元應表現哪些效應，提出可檢驗的主張。
+
+### 動態示範：預測修正與殘差
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="預測誤差修正示意動畫">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/rao-ballard-residual-still.svg" data-motion-src="../../../assets/concept-animations/rao-ballard-residual-motion.svg" alt="人工示意的感覺輸入固定在 0.85；由上而下的預測從 0.25 逐步升到 0.80，向上傳遞的殘差則從 0.60 降至 0.05。" width="640" height="360">
+</div>
+</div>
+
+*AI Wiki 原創教學動畫，CC BY-SA 4.0。* 此處是**人工設定的純量示例**：感覺輸入固定為 \(x=0.85\)，預測 \(\hat x\) 從 \(0.25\) 變到 \(0.80\)，因此帶符號的殘差 \(e=x-\hat x\) 從 \(0.60\) 降為 \(0.05\)。連續內插僅用於呈現修正過程，**不是** Rao 與 Ballard 網路的實際運算軌跡、神經元記錄或論文實測數值。MkDocs 網站可播放／暫停（支援鍵盤）；偏好減少動態效果或在 GitHub 閱讀時，[靜態回退圖](../../../assets/concept-animations/rao-ballard-residual-still.svg)以虛線標示初始值、實心長條呈現修正後結果。手機可水平捲動檢視。參見 References 中的 Rao 與 Ballard（1999）。
+
+### 互動數值實驗：依殘差修正預測
+
+調整感覺輸入 `x` 與修正步長 `η`，逐步檢視**八次實際計算的更新**。虛線目標維持不變，預測值與向上傳遞的帶符號殘差則持續變化。可使用上一步／下一步、播放／暫停、步驟滑桿、0.5×／1×／2× 速度與重設；手機可以透過鍵盤聚焦並水平捲動圖面。
+
+<div class="pc-lab" data-lab="residual" data-lang="zh"></div>
+
+本實驗刻意採用簡化的純量遞迴：
+
+\[
+p_{k+1}=p_k+\eta(x-p_k),\qquad e_k=x-p_k,\qquad p_0=0.25.
+\]
+
+預設 \(x=0.85\)、\(\eta=0.55\)，第一次修正為 \(p_1=0.58\)。當 \(1<\eta<2\)，帶符號殘差會交替變號，但其大小仍持續縮小；**過衝不等於必然發散**。此處是人工數值示範，並非論文中訓練網路的實際軌跡，也沒有執行突觸學習或神經元放電模擬。
 
 ## 結果
 
