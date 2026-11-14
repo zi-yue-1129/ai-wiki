@@ -1,0 +1,14 @@
+/* Bilingual segmentation simulations; uses native controls and system font. */
+.seg-lab-frame{border:1px solid var(--md-default-fg-color--lightest,#d3dde8);border-radius:12px;padding:12px;margin:14px 0;background:var(--md-default-bg-color,#fff);max-width:100%;min-width:0}
+.seg-lab-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;border-radius:10px}
+.seg-lab-art{min-width:690px;width:690px;line-height:0}
+.seg-lab-art svg{width:690px;height:435px;display:block}
+.seg-lab-options,.seg-lab-controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-top:12px}
+.seg-lab-options label,.seg-lab-controls label{display:flex;align-items:center;gap:8px;font-size:.85rem}
+.seg-lab-options input[type=range]{width:120px;accent-color:#0c8795}
+.seg-lab-controls input[type=range]{width:95px;accent-color:#0c8795}
+.seg-lab-controls button,.seg-lab-controls select,.seg-lab-options select{font:inherit;font-size:.83rem;color:var(--md-default-fg-color,#20384b);background:var(--md-default-bg-color,#fff);border:1px solid #91a5b6;border-radius:7px;padding:6px 9px;cursor:pointer}
+.seg-lab-controls button:focus-visible,.seg-lab-options input:focus-visible,.seg-lab-controls input:focus-visible,.seg-lab-controls select:focus-visible,.seg-lab-scroll:focus-visible{outline:3px solid #0c8795;outline-offset:2px}
+.seg-lab-readout{display:block;margin-top:12px;font-size:.83rem;font-variant-numeric:tabular-nums;line-height:1.6;overflow-wrap:anywhere}
+.seg-lab-note{font-size:.75rem;opacity:.78;margin:.35rem 0 0}
+@media (prefers-reduced-motion:reduce){.seg-lab-frame *{animation:none!important;transition:none!important}}
