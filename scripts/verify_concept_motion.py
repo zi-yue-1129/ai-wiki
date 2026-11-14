@@ -70,6 +70,8 @@ TOPICS = {
     "mle-bernoulli-likelihood": "theory/math/probability-statistics/maximum-likelihood",
     "map-beta-posterior": "theory/math/probability-statistics/maximum-a-posteriori",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
+    "strips-state-effects": "theory/paradigms/symbolic-ai/planning/strips",
+    "graphplan-layer-extraction": "theory/paradigms/symbolic-ai/planning/graphplan",
 }
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
@@ -181,11 +183,12 @@ def main() -> int:
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"mle-bernoulli-likelihood", "map-beta-posterior",
-                          "svd-unit-circle", "power-iteration-convergence"}:
+                          "svd-unit-circle", "power-iteration-convergence",
+                          "strips-state-effects", "graphplan-layer-extraction"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
-                if stem in {"svd-unit-circle", "power-iteration-convergence"}:
+                if stem in {"svd-unit-circle", "power-iteration-convergence", "strips-state-effects", "graphplan-layer-extraction"}:
                     static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                     if static_path.resolve() not in {
                         (page.parent / link).resolve() for link in static_links

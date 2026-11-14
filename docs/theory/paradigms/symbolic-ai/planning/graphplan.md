@@ -39,6 +39,24 @@ The expansion stops at a layer where all goal facts appear, so the search is ove
 
 *Illustration.* Suppose one action `move(A,B)` and another `move(B,C)` are available, and the goal is `at(C)` starting from `at(A)`. The first fact layer contains `at(A)`, the next adds `at(B)`, and the third adds `at(C)`. The goal therefore appears after two action layers, and a two-step plan is extracted. This schematic example is not a benchmark result.
 
+### Animated walkthrough: expand fact layers, then extract a plan
+
+<img data-source-asset-urls src="../../../../assets/concept-animations/graphplan-layer-extraction-still.svg" data-motion-src="../../../../assets/concept-animations/graphplan-layer-extraction-motion.svg" data-still-src="../../../../assets/concept-animations/graphplan-layer-extraction-still.svg" alt="Graphplan expands F0, F1 and F2 fact layers, marks a mutex pair at F1, and traces the supporting actions backward. " style="width:640px;min-width:640px;max-width:none;height:auto" />
+
+[GitHub-readable static planning graph](../../../../assets/concept-animations/graphplan-layer-extraction-still.svg)
+
+Start from \(F_0=\{\mathrm{At}(A)\}\). **Move(A,B)** can introduce \(\mathrm{At}(B)\) at \(F_1\), while persistence (no-op) support keeps \(\mathrm{At}(A)\) available as an **alternative possibility**. The two facts are **mutex** at \(F_1\): the move deletes \(\mathrm{At}(A)\), so those supports cannot be selected together. The next expansion introduces \(\mathrm{At}(C)\) through **Move(B,C)** at \(F_2\). A backward trace then chooses \(\mathrm{At}(C)\leftarrow\mathrm{Move}(B,C)\leftarrow\mathrm{At}(B)\leftarrow\mathrm{Move}(A,B)\leftarrow\mathrm{At}(A)\). Dotted lines schematically indicate persistence support; **not every no-op action or mutex edge is drawn**. A planning-graph fact layer is the union of *possibly true* facts, **not a single reachable world state**.
+
+These facts, arrows and timings are **schematic, not measured planner performance**. On MkDocs the **Play/Pause** button (also keyboard accessible) switches to a static explanation; reduced-motion users receive the still by default. Original **CC BY-SA 4.0** figure based on Blum and Furst (1997), already cited below.
+
+### Interactive computation: planning layers and mutex goals
+
+<div class="planning-lab" data-planning-lab="graphplan" data-lang="en">
+  <p>If scripts are disabled, the original GitHub static planning graph remains readable above.</p>
+</div>
+
+Seek through $F_0=\{\mathrm{At}(A)\}$, $F_1=\{\mathrm{At}(A),\mathrm{At}(B)\}$ and $F_2=\{\mathrm{At}(A),\mathrm{At}(B),\mathrm{At}(C)\}$. The experiment derives each fact layer using two grounded actions, **Move(A,B)** and **Move(B,C)**, plus persistence. Select goal **At(C)** to extract Move(A,B) then Move(B,C), or select joint goal **At(A) + At(B)** to see why two individually present facts **cannot** be jointly achieved. Mutex is exact here because the toy world contains **one robot in exactly one location**; the red marker illustrates this location invariant, not a general-purpose Graphplan mutex-propagation implementation. The fact layers are unions of alternative possibilities, **not simultaneously reachable states**. The example and extracted plan are synthetic, not planning-runtime measurements. Keyboard, reduced-motion and mobile scrolling are supported.
+
 ## Variants
 
 - **Parallel plans**: the standard GraphPlan finds a plan with the fewest parallel steps, not the fewest actions.
