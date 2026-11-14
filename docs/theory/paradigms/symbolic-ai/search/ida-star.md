@@ -37,6 +37,32 @@ A\* is optimal with an admissible heuristic, but it stores every frontier node, 
 
 The bound always increases, and each new value is the f-value of some node the previous iteration reached. So the process reaches the optimal cost after a finite number of iterations, when the search has a finite number of distinct f-values to pass through.
 
+
+### Animated walkthrough: increasing f-bounds and repeated depth-first work
+
+<div role="region" tabindex="0" aria-label="Scrollable concept diagram" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
+<img src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-still-src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-motion-src="../../../../assets/concept-animations/ida-bound-reexpansion-motion.svg" alt="IDA-star toy tree: an active depth-first cursor revisits nodes under increasing f-bounds 4, 6, 7 and 8 before reaching goal G." width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
+</div>
+
+
+#### Interactive lab: f-bounds, revisits and the DFS path
+
+<div data-aiwiki-lab="ida" data-lang="en">
+<p>Open the MkDocs site for the interactive simulator; the GitHub-compatible diagram above remains available.</p>
+</div>
+
+This is a **deterministic, hand-built search tree**, not a measured runtime trace. Each node examination increments the counter; a revisit is an examination of a previously examined node, including in a later iteration. Children are traversed left-to-right. Seek to any step to inspect cutoffs and repeated paths.
+
+Controls: **Play/Pause, Previous/Next, seek, 0.5×/1×/2× speed and Reset**. Native controls support keyboard input; reduced-motion users start paused and can inspect steps manually.
+
+The purple cursor follows a **depth-first traversal**; a node with \(f=g+h\) above the current bound is **examined and cut off, not expanded**. The next bound is the minimum \(f\) among cut-off nodes. In this illustrative tree the thresholds are **4 → 6 → 7 → 8**. At bounds 4, 6 and 7, the search repeatedly visits its earlier nodes before a new depth is admitted. At bound 8, the first permitted goal is **S → A → C → G**.
+
+The displayed scores are constructed values, **not empirical measurements**. Along the winning branch, illustrative edge costs \(2,2,4\) and admissible remaining-cost estimates \(h(S)=4,h(A)=4,h(C)=3,h(G)=0\) produce \(f(S)=4,f(A)=6,f(C)=7,f(G)=8\), with total goal cost 8. Other branches have larger cut-offs and no cheaper goal. The diagram visualises a **tree search**, not graph duplicate detection or the full search frontier.
+
+On narrow screens, focus and scroll the diagram horizontally rather than shrinking its labels.
+
+The MkDocs version uses the shared **Play/Pause** control (click or keyboard Enter/Space); reduced-motion preferences display the same reviewed static overview. GitHub displays this static preview without scripts. Original **CC BY-SA 4.0** teaching visual, based on Korf (1985) in the References below.
+
 ## Key methods
 
 - [A\* search](a-star.md): best-first search that keeps the whole frontier. It is optimal and memory-hungry, which motivates IDA\*.

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-14
 ---
 
 # 歸結
@@ -29,6 +29,30 @@ translation_reviewed: 2026-11-04
 從公理的子句與否定的目標子句出發，證明器反覆加入歸結式。當導出空子句時證明成功。策略控制要歸結哪些配對。支持集（set-of-support）策略只允許涉及否定目標的配對，線性歸結則延伸最近的子句。兩者都能使搜尋聚焦，同時保持完備性。
 
 **示例。**取子句 \(\neg p\lor q\) 與 \(p\)，以及否定的目標 \(\neg q\)。前兩個子句在 \(p\) 上歸結得到 \(q\)，再由 \(q\) 與 \(\neg q\) 歸結得到空子句，因此目標 \(q\) 得證。這是示意性的例子，並非來自特定系統。
+
+
+### 動畫解說：三次歸結導出空子句
+
+<div role="region" tabindex="0" aria-label="可水平捲動的概念動畫" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
+<img src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="命題歸結的三列推導：P 或 Q 與非 P 或 R 消去 P 得到 Q 或 R；搭配非 Q 消去 Q 得到 R；再搭配非 R 導出空子句。" width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
+</div>
+
+
+#### 可操作實驗：逐次消去互補文字
+
+<div data-aiwiki-lab="resolution" data-lang="zh-TW">
+<p>完整互動推導請在 MkDocs 網站開啟；GitHub 上方保留完整靜態反駁圖。</p>
+</div>
+
+本實驗以原始子句 \((P\lor Q),\ (\neg P\lor R),\ (\neg Q),\ (\neg R)\) 做**命題歸結**。每一步由程式實際移除選定的互補文字並組合剩餘文字；空子句代表整個原始子句集合無法同時滿足，**不**是測量證明器的搜尋時間，也不展示一階合一。
+
+控制：**播放／暫停、上一步、下一步、時間軸拖曳、0.5×／1×／2× 速度、重設**。原生控制可用鍵盤操作；偏好降低動態效果時預設靜止，可自行逐步檢視。
+
+每一列左側是**兩個父子句**，右側是**歸結後的子句**。紫色游標依序示範消去互補文字：\((P\lor Q)\) 與 \((\neg P\lor R)\) 得到 \(Q\lor R\)；再和 \(\neg Q\) 歸結得到 \(R\)；最後和 \(\neg R\) 歸結得到**空子句** \(\square\)。因此四個起始子句的**合取不可滿足**。上一列推得的子句會在下一列重複用作父子句。
+
+這是**人工設計的命題邏輯證明**，不是實際證明器執行軌跡、效能數據，也沒有展示一階邏輯的合一程序。手機閱讀時可聚焦圖像區塊並水平捲動，避免把圖內標籤縮到難以辨識。
+
+MkDocs 版支援滑鼠或鍵盤操作**播放／暫停**；降低動態效果與 GitHub Markdown 會顯示完整的靜態反駁過程。本原創圖以 **CC BY-SA 4.0** 授權，對應下方 Robinson（1965）的歸結規則文獻。
 
 ## 變體
 
