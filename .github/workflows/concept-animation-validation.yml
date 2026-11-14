@@ -30,6 +30,9 @@ on:
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
       - "scripts/test_bandit_motion_browser.py"
+      - "scripts/test_bandit_labs_browser.py"
+      - "docs/javascripts/bandit-labs.js"
+      - "docs/stylesheets/bandit-labs.css"
       - "scripts/verify_bandit_motion.py"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
@@ -89,6 +92,8 @@ jobs:
         run: python scripts/verify_bandit_motion.py
       - name: Chromium bandit controls, reduced-motion and native-size mobile scroll
         run: python scripts/test_bandit_motion_browser.py
+      - name: Chromium interactive UCB1 and Thompson counterfactual computations
+        run: python scripts/test_bandit_labs_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -101,6 +106,7 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/bandit-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 

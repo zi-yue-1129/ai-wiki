@@ -38,6 +38,22 @@ Regret compares the total reward with that of always playing the best arm. Lai a
 </div>
 
 *Original continuous teaching animation (CC BY-SA 4.0).* In the **Bernoulli** reward example, independent posterior models are $A\sim\operatorname{Beta}(3,3)$, $B\sim\operatorname{Beta}(2,5)$ and $C\sim\operatorname{Beta}(4,3)$. One **constructed draw per arm**, $(0.47,0.22,0.71)$, chooses C. A hypothetical successful observation for **C only** updates $C$ to $\operatorname{Beta}(5,3)$; new illustrative draws $(0.57,0.38,0.52)$ choose A. The moving dots are **example posterior draws**, not inferred means, predicted confidence scores, a recorded random seed or empirical algorithm output. The shape change is an interpolation between distinct Bayesian posteriors. MkDocs supports **Play/Pause** and keyboard **Enter/Space**; use the [GitHub static fallback](../../../../assets/concept-animations/thompson-beta-posterior-draws-still.svg) when motion is unavailable. See Agrawal & Goyal (2012) and Russo et al. (2018) in References.
+### Interactive computation lab — UCB1 reward sensitivity
+
+<div class="bandit-lab" data-bandit-lab="ucb" data-lang="en">
+  <p>The non-script static illustration above remains available when this interactive MkDocs lab cannot load.</p>
+</div>
+
+The controls recompute **actual UCB1 arithmetic** at $t=16,17,18$ from counts $(6,2,8)$ and cumulative rewards $(3.9,0.9,4.8)$. Change the hypothetical bounded reward $r\in[0,1]$ received on each of B's next two pulls; the empirical mean becomes $(0.9+kr)/(2+k)$ after $k=0,1,2$ new observations. Both pending B pulls are consistent with the UCB winner over the provided reward range. For $r=0$, the winners across the three snapshots are **B → B → A**; for $r=1$, B remains the winner after the second observation. Blue/green/brown segments represent empirical means by arm; gold represents the exploration bonus. The values are **analytically computed examples**, not experimental regret curves.
+
+### Interactive computation lab — Beta posterior update
+
+<div class="bandit-lab" data-bandit-lab="thompson" data-lang="en">
+  <p>The non-script static illustration above remains available when this interactive MkDocs lab cannot load.</p>
+</div>
+
+Use **Previous/Next, Play/Pause, the step slider, speed, and Reset** to inspect an initial posterior, constructed sample draws, an observation, and a second set of draws. The first artificial samples select C. Toggle C's observed Bernoulli outcome $r\in\{0,1\}$ to compute $\operatorname{Beta}(4+r,4-r)$ exactly: a success gives Beta(5,3), while a failure gives Beta(4,4). The other two posteriors do not change. The second set of *constructed*, not randomly generated, samples is $(0.57,0.38,0.52)$, so A wins that illustrative comparison even though C's posterior depends on the outcome. These are **not** reproduced Thompson-sampling trials, and moving between discrete snapshots does not assert continuous Bayesian updating. All controls are native keyboard-operable; motion is disabled under `prefers-reduced-motion`, but manual stepping works. On mobile, focus and horizontally scroll the 720px diagram.
+
 ## Connections
 
 Bandits are the one-step case of [reinforcement learning](../../reinforcement-learning/index.md), with no state transitions. The posterior sampling of Thompson sampling is the same Bayesian reasoning used in [probabilistic models](../../supervised/instance-based-and-probabilistic/index.md). The contextual extension is covered in [contextual bandits](../contextual-bandits/index.md).

@@ -34,6 +34,22 @@ translation_reviewed: 2026-11-14
 
 *原創連續教學動畫（CC BY-SA 4.0）。* 在**伯努利獎勵**的示意中，三臂各自具有獨立的後驗分布：$A\sim\operatorname{Beta}(3,3)$、$B\sim\operatorname{Beta}(2,5)$、$C\sim\operatorname{Beta}(4,3)$。對每個臂各抽取一次所建構的樣本 $(0.47,0.22,0.71)$，第一輪選出 C。假設 C 收到一次成功回饋，**只有 C** 的後驗更新為 $\operatorname{Beta}(5,3)$；下一輪假設的抽樣 $(0.57,0.38,0.52)$ 則選出 A。移動的圓點是**人工指定的後驗抽樣結果**，不是後驗平均數、模型信心、可重現隨機種子或實測輸出；密度曲線的連續變化也只是兩個離散後驗之間的視覺轉場。在 MkDocs 網站可使用播放／暫停和 Enter／Space 操作；GitHub 提供[靜態回退預覽](../../../../assets/concept-animations/thompson-beta-posterior-draws-still.svg)。科學依據請參見 References 中的 Agrawal 與 Goyal（2012）以及 Russo 等人（2018）。
 
+### 互動計算實驗：UCB1 對獎勵的敏感度
+
+<div class="bandit-lab" data-bandit-lab="ucb" data-lang="zh-TW">
+  <p>若 MkDocs 無法載入互動程式，仍可閱讀上方不需 JavaScript 的靜態教學圖。</p>
+</div>
+
+本實驗會依照抽取次數 $(6,2,8)$ 與累積獎勵 $(3.9,0.9,4.8)$，在 $t=16,17,18$ **重新計算 UCB1**。調整 B 接下來兩次抽取各收到的假設獎勵 $r\in[0,1]$；當 B 新增 $k=0,1,2$ 次觀察後，其經驗平均值為 $(0.9+kr)/(2+k)$。在滑桿允許的獎勵範圍內，前兩次選擇 B 都符合當時的 UCB 最大分數。當 $r=0$，三個決策狀態最高分依序是 **B → B → A**；當 $r=1$，第二次觀察後 B 仍領先。不同臂的彩色長條表示經驗平均獎勵，金色表示探索加分。數值是**解析式計算的人工示例**，不是實際遺憾或訓練曲線。
+
+### 互動計算實驗：Beta 後驗更新
+
+<div class="bandit-lab" data-bandit-lab="thompson" data-lang="zh-TW">
+  <p>若 MkDocs 無法載入互動程式，仍可閱讀上方不需 JavaScript 的靜態教學圖。</p>
+</div>
+
+透過**上一步／下一步、播放／暫停、步驟滑桿、速度調整與重設**，依序查看初始後驗、人工指定的首次抽樣、觀察結果與第二次抽樣。第一次抽樣選出 C；切換 C 的伯努利觀察獎勵 $r\in\{0,1\}$，可立即重新計算其後驗 $\operatorname{Beta}(4+r,4-r)$：成功時為 Beta(5,3)，失敗時為 Beta(4,4)，**其他兩臂的後驗維持不變**。第二組人工指定的抽樣為 $(0.57,0.38,0.52)$，這組候選值在任一假設結果下都選 A，但並非真正執行亂數抽樣所得的實驗紀錄。請勿把離散後驗的切換視為連續貝氏更新。控制項可透過鍵盤操作；開啟減少動態效果時不會自動播放，仍可手動逐步檢視。手機可聚焦於 720px 圖面後水平捲動。
+
 ## 關聯
 
 多臂吃角子老虎是沒有狀態轉移的[強化學習](../../reinforcement-learning/index.md)單步特例。Thompson 取樣使用的後驗推論，與[機率式模型](../../supervised/instance-based-and-probabilistic/index.md)的貝氏推論概念相通。若每個決策還可利用外部特徵，則延伸為[情境式多臂吃角子老虎](../contextual-bandits/index.md)。

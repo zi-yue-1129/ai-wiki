@@ -1,0 +1,21 @@
+/* Deterministic interactive lessons supplementing GitHub-safe static SVGs. */
+.bandit-lab { max-width: 860px; margin: 1.25rem auto 1.5rem; padding: .8rem; border: 1px solid var(--md-default-fg-color--lightest,#cbd5e1); border-radius: .75rem; background:var(--md-default-bg-color,#fff); color:var(--md-default-fg-color,#273649); }
+.bandit-lab-toolbar,.bandit-lab-parameters { display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; margin-bottom:.75rem; }
+.bandit-lab-toolbar button { font:inherit; font-size:.8rem; padding:.3rem .6rem; border:1px solid #8099ae; border-radius:.4rem; background:var(--md-code-bg-color,#f1f5f9); color:inherit; cursor:pointer; }
+.bandit-lab-toolbar button:focus-visible,.bandit-lab select:focus-visible,.bandit-lab input:focus-visible,.bandit-lab-canvas:focus-visible { outline:3px solid #1582bf; outline-offset:2px; }
+.bandit-lab-field { display:inline-flex; align-items:center; flex-wrap:wrap; gap:.35rem; font-size:.75rem; }
+.bandit-lab-field input[type="range"] { width:105px; accent-color:#237eab; }
+.bandit-lab-field output { font-variant-numeric:tabular-nums; min-width:2.5rem; }
+.bandit-lab-field select { font:inherit; background:var(--md-code-bg-color,#f1f5f9); color:inherit; border:1px solid #8099ae; padding:.25rem; border-radius:.3rem; }
+.bandit-lab-canvas { width:100%; max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; border-radius:.6rem; }
+.bandit-lab-canvas svg { width:720px; min-width:720px; height:272px; display:block; }
+.bandit-lab-canvas .bandit-lab-svg-title { font:600 17px system-ui,sans-serif; fill:#274052; }
+.bandit-lab-canvas .bandit-lab-svg-score { font:700 14px system-ui,sans-serif; fill:#274052; }
+.bandit-lab-canvas .bandit-lab-svg-small { font:500 12px system-ui,sans-serif; fill:#506578; }
+.bandit-lab-metrics { display:flex; flex-wrap:wrap; gap:.6rem 1.3rem; padding:.5rem .15rem; font-size:.76rem; font-variant-numeric:tabular-nums; }
+.bandit-lab-note { font-size:.7rem; color:var(--md-default-fg-color--light,#64748b); margin:.25rem 0!important; }
+.bandit-lab-live { position:absolute!important; width:1px!important; height:1px!important; overflow:hidden!important; clip-path:inset(50%)!important; white-space:nowrap!important; }
+@media(prefers-reduced-motion:reduce){ .bandit-lab * {scroll-behavior:auto!important;transition:none!important;animation:none!important;} }
+
+.bandit-lab-legend { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; font-size:.71rem; padding:.4rem .1rem .1rem; }
+.bandit-lab-swatch {display:inline-block;vertical-align:middle;width:.7rem;height:.7rem;border-radius:.13rem;margin-right:.25rem;}
