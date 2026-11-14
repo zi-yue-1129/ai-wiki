@@ -62,8 +62,8 @@
       a+=`<line class="ns-gridline" x1="50" y1="150" x2="662" y2="150"/><line class="ns-gridline" x1="50" y1="250" x2="662" y2="250"/>`;
       a+=line(raw,'ns-raw-line')+line(zb,'ns-baseline-line')+line(zn,'ns-norm-line');
       xs.forEach((v,i)=>{a+=circle(v,raw[i][1],'ns-raw-dot')+circle(v,zn[i][1],'ns-norm-dot');
-        a+=svgText(v,clamp(raw[i][1]-13,49,147),String(x[i]),'ns-small');
-        a+=svgText(v,clamp(zn[i][1]-14,213,309),nice(result.z[i]),'ns-small');
+        a+=svgText(v,raw[i][1]<64?raw[i][1]+23:raw[i][1]-13,String(x[i]),'ns-small');
+        a+=svgText(v,zn[i][1]<238?zn[i][1]+22:zn[i][1]-14,nice(result.z[i]),'ns-small');
         a+=svgText(v,319,`f${i+1}`,'ns-axis');});
       dynamic.innerHTML=a;
       const delta=Math.max(...result.z.map((v,i)=>Math.abs(v-base.z[i])));
