@@ -46,6 +46,20 @@ The key assumption is that the error units and the prediction units are separate
 
 *Original AI Wiki teaching animation, CC BY-SA 4.0.* For this **artificial scalar example**, the sensory input is fixed at \(x=0.85\), while an illustrative prediction changes from \(\hat x=0.25\) to \(0.80\); the signed residual \(e=x-\hat x\) therefore changes from \(0.60\) to \(0.05\). Continuous interpolation depicts successive correction, **not** Rao and Ballard's trained network, neural recordings or numerical results from the paper. On MkDocs use Play/Pause (keyboard-accessible); with reduced motion or in GitHub the [static fallback](../../../assets/concept-animations/rao-ballard-residual-still.svg) shows the corrected value and dashed initial outlines. On narrow screens, scroll horizontally. See Rao and Ballard (1999) in References.
 
+### Interactive numerical lab: residual-driven correction
+
+Adjust sensory input `x` and correction step size `η`, then step through **eight explicitly computed updates**. The dashed target stays fixed while the estimate and signed upward residual change. Use Previous/Next, Play/Pause, the step slider, 0.5×/1×/2× speed, and Reset; the horizontal chart can be scrolled with a keyboard on small screens.
+
+<div class="pc-lab" data-lab="residual" data-lang="en"></div>
+
+For the deliberately simplified scalar recurrence,
+
+\[
+p_{k+1}=p_k+\eta(x-p_k),\qquad e_k=x-p_k,\qquad p_0=0.25.
+\]
+
+At the defaults \(x=0.85\) and \(\eta=0.55\), the first correction gives \(p_1=0.58\). When \(1<\eta<2\), signed residuals alternate while their magnitude contracts; overshoot is **not automatically divergence**. These are eight synthetic numerical steps rather than the network's learned dynamics. The lab does not train synapses, simulate neuronal spikes, or reproduce the paper's model.
+
 ## Results
 
 The abstract reports that the trained network developed simple-cell-like receptive fields, and that a subset of the error-carrying units showed endstopping and other extra-classical effects. These results are qualitative. The abstract does not give a numerical measure of fit to recorded neurons, so this page does not quote one.
