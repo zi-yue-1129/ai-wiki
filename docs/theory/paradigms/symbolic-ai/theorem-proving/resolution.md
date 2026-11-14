@@ -51,6 +51,17 @@ eg q\) gives the empty clause, so the goal \(q\) is proved. This schematic examp
 <img src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="Three rows of propositional resolution: eliminate P from P or Q and not P or R to obtain Q or R; eliminate Q with not Q to obtain R; eliminate R with not R to obtain the empty clause." width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
 </div>
 
+
+#### Interactive lab: derive each resolvent
+
+<div data-aiwiki-lab="resolution" data-lang="en">
+<p>Open the MkDocs site to inspect each inference; the full static refutation remains available above.</p>
+</div>
+
+The simulator **computes** each propositional resolvent by removing a complementary literal pair and collecting the remaining literals. The empty clause proves the conjunction of the four original clauses unsatisfiable. It does **not** model prover runtimes, proof-search branching, or first-order unification.
+
+Controls: **Play/Pause, Previous/Next, seek, 0.5×/1×/2× speed and Reset**. Native controls support keyboard input; reduced-motion users start paused and can inspect steps manually.
+
 Each row takes **two parent clauses** on the left and produces a **resolvent** on the right. The purple cursor traces the elimination: \((P\lor Q)\) and \((\neg P\lor R)\) yield \(Q\lor R\); resolving with \(\neg Q\) yields \(R\); resolving with \(\neg R\) yields the **empty clause** \(\square\). The empty clause shows that the *entire conjunction of the four starting clauses is unsatisfiable*. A derived clause is reused as a parent on the following row.
 
 This is a **hand-constructed propositional proof**, not a prover execution, benchmark or demonstration of first-order unification. On narrow screens, focus and scroll the diagram horizontally rather than shrinking its labels.
