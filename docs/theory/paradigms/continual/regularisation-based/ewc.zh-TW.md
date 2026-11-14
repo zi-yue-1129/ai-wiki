@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-14
+translation_reviewed: 2026-11-15
 related:
   - theory/paradigms/continual/regularisation-based
   - theory/paradigms/continual/replay-and-memory
