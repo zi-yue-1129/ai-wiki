@@ -29,6 +29,12 @@ where $\bar{y}$ is the mean of the true values. A perfect model scores 1.0. A mo
 
 For **schematic** targets $y=(1,2,3,4)$, the fixed mean is $\bar y=2.5$ and $\mathrm{TSS}=5$. Predictions $\hat y_i=y_i+k(\bar y-y_i)$ move from mean-only ($k=1$, $R^2=0$) to perfect ($k=0$, $R^2=1$), then to worse-than-mean ($k=1.5$, $\mathrm{RSS}=11.25$ and $R^2=-1.25$), before returning. Thus $\mathrm{RSS}=5k^2$ and $R^2=1-k^2$. The horizontal score indicator follows that equation. The demonstration is not a training trajectory or a measured benchmark.
 
+### Interactive lab: crossing the mean baseline
+
+<div data-regression-lab="r2" data-lang="en"></div>
+
+Adjust $k$ between 0 and 1.5 to recompute all four predictions, the residual sum of squares, and $R^2=1-k^2$. At $k=0$ the predictions match the targets; at $k=1$ they match the mean-only baseline ($R^2=0$); at $k=1.5$ the score reaches $-1.25$. The blue circles represent fixed targets, orange circles represent changing predictions, and the dashed line is the target mean. Playback, stepping, resetting, speed selection, native keyboard input and reduced-motion fallback are supported. **This is a deterministic teaching example, not a model-training trajectory.** The static figure above remains available in GitHub.
+
 ## Interpretation
 
 $R^2$ answers a different question from MAE or RMSE. Those tell how large the errors are; $R^2$ tells whether the model does better than the mean. A low $R^2$ with a small RMSE can happen when the target has little variance, so both should be read together.

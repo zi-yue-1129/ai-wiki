@@ -5,6 +5,7 @@ tags:
   - evaluation
   - metrics
   - regression
+translation_reviewed: 2026-11-15
 ---
 
 # 平均絕對誤差
@@ -28,6 +29,12 @@ $$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |\hat{y}_i - y_i|$$
 *原創教學動畫，CC BY-SA 4.0。GitHub 顯示高誤差狀態的靜態圖；MkDocs 網站可播放或暫停，手機版可聚焦後水平捲動。* [完整 SVG 動畫](../../../../assets/concept-animations/outlier-mae-rmse-motion.svg)。
 
 在**人工示意**的五筆資料中，四個絕對殘差固定為 1，最後一筆從 1 連續增加到 6，再返回 1。MAE 由 $1$ 線性上升至 $(4+6)/5=2$；RMSE 則從 $1$ 上升至 $\sqrt{(4+6^2)/5}=\sqrt8\approx2.83$。右側數字是**峰值**，不是即時量測讀值；此處沒有訓練或評測模型。
+
+### 互動實驗：離群殘差敏感度
+
+<div data-regression-lab="outlier" data-lang="zh"></div>
+
+可拖曳第五筆絕對殘差 $d$（1 至 6），或使用**上一步／下一步、播放／暫停、重設與速度選單**。圖中的 MAE 與 RMSE 依目前數值重新計算；兩者差距擴大的原因，是 $d^2$ 比 $d$ 成長得更快。滑桿與按鈕支援鍵盤操作，手機可在 680 px 圖面內水平捲動；系統設定減少動態效果時停用自動播放。**所有數值為人工示意，不是模型實測結果。** GitHub Markdown 不執行互動程式，但前方靜態 SVG 仍可直接理解。
 
 ## 解讀
 

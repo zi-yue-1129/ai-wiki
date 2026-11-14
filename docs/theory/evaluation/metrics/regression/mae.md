@@ -29,6 +29,12 @@ A perfect model scores 0. The value is a typical size of error, so an MAE of 2 m
 
 In this **schematic** five-case example, four absolute residuals remain at 1 while the fifth changes continuously from 1 to 6 and back. MAE rises linearly, from $1$ to $(4+6)/5=2$, whereas RMSE rises from $1$ to $\sqrt{(4+6^2)/5}=\sqrt 8\approx2.83$. The labels at the right of the bars show **peak** scores, not continuously measured values. This is calculated from artificial residuals, not fitted-model performance.
 
+### Interactive lab: outlier sensitivity
+
+<div data-regression-lab="outlier" data-lang="en"></div>
+
+Move the fifth absolute residual $d$ between 1 and 6, or use **Previous / Next**, **Play / Pause**, **Reset**, and the speed selector. The plotted MAE and RMSE are recomputed at every position; the gap opens because the squared contribution of $d$ grows faster than its linear contribution. The sliders and buttons are keyboard-operable; the 680 px diagram can scroll inside its frame on narrow screens. Automatic playback is disabled when reduced motion is preferred. **The values are synthetic illustrations, not model measurements.** The earlier static SVG remains readable in GitHub Markdown, where this interactive experiment does not execute.
+
 ## Interpretation
 
 Because MAE grows linearly with each error, a few very large errors have a proportionate effect rather than a dominant one. Its minimiser is the median of the errors, so a model trained to minimise MAE predicts something close to the conditional median rather than the mean. Willmott and Matsuura (2005) argue that this makes MAE the more natural measure of average model performance.
