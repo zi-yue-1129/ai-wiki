@@ -1,7 +1,6 @@
 /* Original deterministic teaching labs for T5 and DeiT. No external resources. */
 (() => {
   'use strict';
-  const NS = 'http://www.w3.org/2000/svg';
   const messages = {
     en: {
       previous: 'Previous', next: 'Next', play: 'Play', pause: 'Pause', reset: 'Reset', speed: 'Speed', step: 'Step',
@@ -56,13 +55,13 @@
     }
     target.push('S2');
     s.encoder=enc;s.target=target;s.masked=remove.size;
-    const svg=`<svg viewBox="0 0 760 280" width="760" height="280" role="img" aria-label="T5 token span transformation with sentinel tokens"><rect width="760" height="280" rx="15" fill="#f8fbfe"/>${tokenLane(tokens,45,'Input',s.stage>=1?[...remove]:[])}${s.stage>=2?tokenLane(enc,115,'Encoder'):text(370,141,'···',20,'#a7bbc7')}${s.stage>=3?tokenLane(target,190,'Target'):text(370,215,'···',20,'#a7bbc7')}${text(740,266,`${remove.size}/10`,13,'#647d91','end')}</svg>`;
+    const svg=`<svg viewBox="0 0 760 280" width="760" height="280" role="img" aria-label="${s.zh?'T5 跨度破壞與哨兵 Token 轉換':'T5 span corruption and sentinel transformation'}"><rect width="760" height="280" rx="15" fill="#f8fbfe"/>${tokenLane(tokens,45,'Input',s.stage>=1?[...remove]:[])}${s.stage>=2?tokenLane(enc,115,'Encoder'):text(370,141,'···',20,'#a7bbc7')}${s.stage>=3?tokenLane(target,190,'Target'):text(370,215,'···',20,'#a7bbc7')}${text(740,266,`${remove.size}/10`,13,'#647d91','end')}</svg>`;
     return svg;
   }
   function deitDraw(s) {
     const p=s.p, d=s.d, teacher=s.teacher, ce1=-Math.log(p), ce2=-Math.log(teacher==='A'?d:1-d),total=(ce1+ce2)/2, avg=(p+d)/2;
     s.ce1=ce1;s.ce2=ce2;s.loss=total;s.avg=avg;
-    let svg=`<svg viewBox="0 0 760 300" width="760" height="300" role="img" aria-label="DeiT class and distillation heads, hard-label targets and cross entropy"><rect width="760" height="300" rx="15" fill="#f8fbfe"/>`;
+    let svg=`<svg viewBox="0 0 760 300" width="760" height="300" role="img" aria-label="${s.zh?'DeiT 分類與蒸餾雙頭、硬標籤與交叉熵':'DeiT class and distillation heads with cross entropy'}"><rect width="760" height="300" rx="15" fill="#f8fbfe"/>`;
     svg+=rect(22,47,145,74,'#e4f1f7')+text(94,79,'Student',17)+text(94,103,'ViT',14);
     svg+=rect(22,169,145,57,'#fff1e1')+text(94,193,'Teacher',16)+text(94,213,teacher,15);
     svg+=`<path d="M168 85H217 M168 196H217" stroke="#7d9bb0" stroke-width="2" stroke-dasharray="5 4"/>`;
@@ -82,9 +81,9 @@
     if(root.dataset.ready==='yes')return;
     root.dataset.ready='yes';
     const isT5=root.dataset.lab==='t5', zh=/zh/i.test(document.documentElement.lang||'')||root.dataset.lang==='zh', m=messages[zh?'zh':'en'];
-    const s=isT5?{stage:0,start1:1,len1:2,start2:7,len2:2}:{stage:0,p:0.75,d:0.6,teacher:'B'};
+    const s=isT5?{stage:0,start1:1,len1:2,start2:7,len2:2,zh}:{stage:0,p:0.75,d:0.6,teacher:'B',zh};
     const last=isT5?3:4;
-    root.innerHTML=`<div class="td-head"><strong>${esc(isT5?m.t5title:m.deittitle)}</strong></div><div class="td-params">${isT5 ? controls(root,m.first,1,4,2)+controls(root,m.firstLength,1,3,2)+controls(root,m.second,7,9,8)+controls(root,m.secondLength,1,2,2) : controls(root,m.classProb,.05,.95,.75,.05)+controls(root,m.distProb,.05,.95,.6,.05)+`<label class="td-field"><span>${m.teacher}</span><select><option value="A">A</option><option value="B" selected>B</option></select></label>`}</div><div class="td-viewport" role="region" tabindex="0" aria-label="${isT5?'Span corruption':'Distillation'} diagram, scroll horizontally if needed"><div class="td-art"></div></div><div class="td-state" aria-live="polite"></div><div class="td-transport"><button data-action="prev" type="button">${m.previous}</button><button data-action="next" type="button">${m.next}</button><button data-action="play" type="button">${m.play}</button><label>${m.step} <input class="td-seek" aria-label="${m.step}" type="range" min="0" max="${last}" step="1" value="0"/></label><label>${m.speed} <select class="td-speed"><option value="2">0.5×</option><option value="1" selected>1×</option><option value="0.5">2×</option></select></label><button data-action="reset" type="button">${m.reset}</button></div><p class="td-note">${isT5?m.t5note:m.deitnote}</p>`;
+    root.innerHTML=`<div class="td-head"><strong>${esc(isT5?m.t5title:m.deittitle)}</strong></div><div class="td-params">${isT5 ? controls(root,m.first,1,4,2)+controls(root,m.firstLength,1,3,2)+controls(root,m.second,7,9,8)+controls(root,m.secondLength,1,2,2) : controls(root,m.classProb,.05,.95,.75,.05)+controls(root,m.distProb,.05,.95,.6,.05)+`<label class="td-field"><span>${m.teacher}</span><select><option value="A">A</option><option value="B" selected>B</option></select></label>`}</div><div class="td-viewport" role="region" tabindex="0" aria-label="${zh?(isT5?'跨度破壞互動圖，可水平捲動':'蒸餾雙頭互動圖，可水平捲動'):(isT5?'Span corruption diagram, scroll horizontally if needed':'Distillation diagram, scroll horizontally if needed')}"><div class="td-art"></div></div><div class="td-state" aria-live="polite"></div><div class="td-transport"><button data-action="prev" type="button">${m.previous}</button><button data-action="next" type="button">${m.next}</button><button data-action="play" type="button">${m.play}</button><label>${m.step} <input class="td-seek" aria-label="${m.step}" type="range" min="0" max="${last}" step="1" value="0"/></label><label>${m.speed} <select class="td-speed"><option value="2">0.5×</option><option value="1" selected>1×</option><option value="0.5">2×</option></select></label><button data-action="reset" type="button">${m.reset}</button></div><p class="td-note">${isT5?m.t5note:m.deitnote}</p>`;
     const ranges=[...root.querySelectorAll('.td-params input')], out=root.querySelector('.td-state'), seek=root.querySelector('.td-seek');
     let timer=null;
     const stop=()=>{if(timer!==null){clearInterval(timer);timer=null;}root.querySelector('[data-action="play"]').textContent=m.play;};
@@ -103,10 +102,16 @@
       ranges.forEach((r,i)=>r.addEventListener('input',()=>{s[i?'d':'p']=Number(r.value);r.nextElementSibling.textContent=r.value;stop();render();}));
       root.querySelector('.td-params select').addEventListener('change',e=>{s.teacher=e.target.value;stop();render();});
     }
+    const start=()=>{
+      if(timer!==null)clearInterval(timer);
+      timer=setInterval(()=>{s.stage=(s.stage+1)%(last+1);render();},700*Number(root.querySelector('.td-speed').value));
+      root.querySelector('[data-action="play"]').textContent=m.pause;
+    };
+    root.querySelector('.td-speed').addEventListener('change',()=>{if(timer!==null)start();});
     root.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>{
       const act=b.dataset.action;
       if(act==='play'){if(timer!==null){stop();return;}if(s.stage===last)s.stage=0;
-        timer=setInterval(()=>{s.stage=(s.stage+1)%(last+1);render();},700*Number(root.querySelector('.td-speed').value));b.textContent=m.pause;
+        start();
       }else{stop();if(act==='prev')s.stage=Math.max(0,s.stage-1);if(act==='next')s.stage=Math.min(last,s.stage+1);
         if(act==='reset'){s.stage=0;if(isT5){Object.assign(s,{start1:1,len1:2,start2:7,len2:2});[2,2,8,2].forEach((v,i)=>{ranges[i].value=v;ranges[i].nextElementSibling.textContent=v;});}
           else{Object.assign(s,{p:.75,d:.6,teacher:'B'});ranges[0].value=.75;ranges[1].value=.6;ranges.forEach(r=>r.nextElementSibling.textContent=r.value);root.querySelector('.td-params select').value='B';}}
@@ -114,7 +119,6 @@
     }));
     seek.addEventListener('input',()=>{stop();s.stage=Number(seek.value);render();});
     document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
-    root.addEventListener('focusout',()=>{});
     render();
   }
   function scan(){document.querySelectorAll('.t5-deit-lab[data-lab]').forEach(init);}
