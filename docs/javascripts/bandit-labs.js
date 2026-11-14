@@ -139,6 +139,9 @@
           <rect x='239' y='101' width='12' height='12' rx='2' fill='#e9b87e'/><text x='258' y='112' font-size='13' fill='#365166'>B</text>
         </svg>`;
         get('boundary').innerHTML=`<div class='bandit-lab-boundary-scroll' tabindex='0' role='region' aria-label='${esc(tr.boundaryLabel)}'>${svg}</div><p class='bandit-lab-boundary-note'>${esc(tr.futureChoice)}: <strong>${winner}</strong>. ${esc(tr.cutoffLabel)} ${cutoff.toFixed(3)}.</p><p class='bandit-lab-boundary-hint'>${esc(tr.planeHint)}</p>`;
+        // Announce the future (counterfactual) choice when either slider or the
+        // plane changes; the current-step UCB choice is a different quantity.
+        get('status').textContent += ` ${tr.futureChoice}: ${winner}.`;
       }
       // A pointer click sets both hypothetical rewards. Recreating the SVG on
       // render is intentional: use a click rather than a persistent drag handle.
