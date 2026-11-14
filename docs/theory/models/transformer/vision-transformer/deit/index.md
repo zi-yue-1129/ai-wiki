@@ -39,6 +39,12 @@ The [original ViT](../index.md) reached its best results only after pre-training
 *Original CC BY-SA 4.0 teaching animation. The two coloured branches show **separate supervision signals**, not measured activations or an optimisation trajectory. The teacher generates a hard target and **does not receive the student's loss gradients**. Both supervised heads train the student; at inference, the original DeiT method combines their probability predictions. On MkDocs use **Play/Pause** (Enter/Space by keyboard); narrow screens can scroll horizontally. [GitHub-readable overview](../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg) · [Full animation](../../../../../assets/concept-animations/deit-dual-head-distillation-motion.svg) (Touvron et al., 2021; see References).*
 
 
+### Interactive two-head loss and inference fusion
+
+<div id="td-deit-en" class="t5-deit-lab" data-lab="deit" data-lang="en"></div>
+
+Change the two students' illustrative class-A probabilities and switch the fixed teacher's hard label between A and B. With ground truth A, this **two-class toy** recalculates `CE(CLS) = −ln p_cls(A)`, `CE(DIST) = −ln p_dist(y_teacher)`, and their equal-weight training loss. For `p_cls(A)=0.75`, `p_dist(A)=0.60` and teacher label B, the losses are approximately 0.288 and 0.916, averaging to 0.602. A separate final stage averages the **two student heads' probabilities at inference**, giving `P(A)=0.675` for these inputs; the teacher is not evaluated or updated at that inference step. Changing the teacher's hard label changes only the distillation supervision, not the student predictions automatically. These are fixed synthetic probabilities, **not** DeiT activation measurements or a simulated training trajectory (Touvron et al., 2021; see References).
+
 The input to the encoder is the patch embeddings with two extra tokens, the class token and the distillation token. Each token has its own output head. The class head is trained against the true label \(y\). The distillation head is trained against the teacher's hard label \(y_t\), and the training loss is the equal-weight sum of the two cross-entropy terms:
 
 \[
