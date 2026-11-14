@@ -30,7 +30,7 @@ Each user and item is represented by an embedding. Instead of taking the inner p
 
 ## Equation and training
 
-The prediction has the form $\hat{y}_{ui} = f(P^{\top} v_u^{U}, Q^{\top} v_i^{I} \mid P, Q, \Theta_f)$, where $v_u^{U}$ and $v_i^{I}$ are one-hot encodings of the user and item, $P$ and $Q$ are the embedding matrices, and $f$ is the network. The network is trained on observed interactions as positives and sampled unobserved items as negatives, with four negatives per positive in the main setup. The loss is log loss, which the paper identifies with binary cross-entropy. The objective is non-convex, so gradient methods find only locally optimal solutions.
+The prediction has the form $\hat{y}_{ui} = f(P^{\top} v_u^{U}, Q^{\top} v_i^{I} \mid P, Q, \Theta_f)$, where $v_u^{U}$ and $v_i^{I}$ are one-hot encodings of the user and item, $P$ and $Q$ are the embedding matrices, and $f$ is the network. The network is trained on observed interactions as positives and sampled unobserved items as negatives, with four negatives per positive in the main setup. The loss is log loss, which the paper identifies with binary cross-entropy. The objective is non-convex, so gradient methods are not guaranteed to find a global optimum.
 
 ## Architecture
 
@@ -43,7 +43,7 @@ The two paths are fused by concatenating the GMF product vector with the last ML
 
 ## Results
 
-The paper evaluates on two datasets. MovieLens has 1,000,209 interactions, 6,040 users and 3,706 items, with the explicit ratings converted to implicit feedback. The Pinterest subset has 1,500,809 interactions, 55,187 users and 9,916 items. The protocol is leave-one-out: one interaction of each user is held out as the test item, and it is ranked against 100 sampled items the user has not interacted with. Hit ratio (HR@10) and NDCG@10 measure the result.
+The paper evaluates on two datasets. MovieLens has 1,000,209 interactions, 6,040 users and 3,706 items, with the explicit ratings converted to implicit feedback. The Pinterest subset has 1,500,809 interactions, 55,187 users and 9,916 items. The protocol is leave-one-out: one interaction of each user is held out as the test item, and it is ranked against 100 sampled items the user has not interacted with. Hit ratio (HR@10) and NDCG@10 measure the result. The baselines include ItemPop, item-based nearest neighbours (ItemKNN), BPR and eALS.
 
 - With pre-training, NeuMF on MovieLens with 64 factors reaches HR@10 of 0.730 and NDCG@10 of 0.447.
 - On Pinterest with 8 factors, NeuMF with pre-training reaches HR@10 of 0.878 and NDCG@10 of 0.555.
@@ -54,9 +54,8 @@ The paper evaluates on two datasets. MovieLens has 1,000,209 interactions, 6,040
 
 - The paper's experiments focus on the pure collaborative-filtering setting. Side information is not used.
 - Pairwise learning for NCF, such as the [BPR](bpr.md) objective, is left as future work, and so is non-uniform negative sampling.
-- Item–item baselines are left out of the comparison.
 - Large embedding sizes may overfit and reduce performance.
-- Because the NeuMF objective is non-convex, gradient-based training finds locally optimal solutions only.
+- Because the NeuMF objective is non-convex, gradient-based training is not guaranteed to find a global optimum.
 - The evaluation uses sampled negatives. Scores on 100 sampled items are not the same as ranking the full catalogue.
 
 ## Connections
