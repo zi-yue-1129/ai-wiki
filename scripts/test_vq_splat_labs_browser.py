@@ -13,7 +13,7 @@ PAGES = [
 ]
 for p in PAGES:
     text = p.read_text(encoding='utf-8')
-    assert 'data-vq-splat-lab=' in text and '-still.svg' in text, p
+    assert 'data-vq-splat-lab=' in text and '-still.svg' in text and 'data-source-asset-urls' in text, p
 
 OUT = ROOT/'artifacts/vq-splat-labs'
 OUT.mkdir(parents=True, exist_ok=True)
