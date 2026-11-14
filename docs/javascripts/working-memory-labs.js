@@ -16,15 +16,15 @@
     const kind=root.dataset.wmLab, lang=root.dataset.lang==='zh-TW'?'zh':'en',w=words[lang];
     const max=kind==='gate'?3:8;
     let step=0,delay=600,timer=null;
-    root.setAttribute('role','group');root.setAttribute('aria-label',kind==='gate'?'PBWM gate lab':'Silent trace lab');
+    root.setAttribute('role','group');root.setAttribute('aria-label',kind==='gate'?(lang==='zh'?'PBWM 閘控實驗':'PBWM gate lab'):(lang==='zh'?'活動靜默痕跡實驗':'Silent trace lab'));
     const settings=make('div','wm-lab-settings');
     function setting(label,type,min,maxValue,value,increment){const wrap=make('label','wm-setting');wrap.append(make('span','',label));let inp=make('input');inp.type=type;if(type==='range'){inp.min=String(min);inp.max=String(maxValue);inp.step=String(increment);}if(type==='checkbox')inp.checked=Boolean(value);else inp.value=String(value);wrap.append(inp);const valueLabel=make('output','wm-value');if(type==='range'){wrap.append(valueLabel);const setValue=()=>{valueLabel.textContent=Number(inp.value).toFixed(1);};inp.addEventListener('input',()=>{setValue();render();});setValue();}else inp.addEventListener('change',render);settings.append(wrap);return inp;}
     const admitX=kind==='gate'?setting(w.distractor,'checkbox',0,1,false,1):null;
     const admitB=kind==='gate'?setting(w.replacement,'checkbox',0,1,true,1):null;
     const tau=kind==='silent'?setting(w.decay,'range',1.5,8,4,0.5):null;
     const refresh=kind==='silent'?setting(w.refresh,'checkbox',0,1,true,1):null;
-    const viewport=make('div','wm-lab-pan');viewport.tabIndex=0;viewport.setAttribute('role','region');viewport.setAttribute('aria-label',kind==='gate'?'Memory gate diagram':'Synaptic trace time series');
-    const board=svg('svg',{viewBox:'0 0 720 280',width:'720',height:'280',role:'img','aria-label':kind==='gate'?'Input, selected gate, resulting memory':'Bursts and decaying hidden synaptic trace'});viewport.append(board);
+    const viewport=make('div','wm-lab-pan');viewport.tabIndex=0;viewport.setAttribute('role','region');viewport.setAttribute('aria-label',kind==='gate'?(lang==='zh'?'記憶閘控示意圖':'Memory gate diagram'):(lang==='zh'?'突觸痕跡時間序列':'Synaptic trace time series'));
+    const board=svg('svg',{viewBox:'0 0 720 280',width:'720',height:'280',role:'img','aria-label':kind==='gate'?(lang==='zh'?'輸入、閘門選擇與記憶狀態':'Input, selected gate, resulting memory'):(lang==='zh'?'短暫脈衝與衰減中的隱藏突觸痕跡':'Bursts and decaying hidden synaptic trace')});viewport.append(board);
     const nav=make('div','wm-lab-controls');const prev=make('button','',w.previous),next=make('button','',w.next),play=make('button','',w.play),reset=make('button','',w.reset);
     for(const b of [prev,play,next,reset]){b.type='button';nav.append(b);}
     const seekWrap=make('label','wm-lab-seek');seekWrap.append(make('span','',w.seek));const seek=make('input');seek.type='range';seek.min='0';seek.max=String(max);seek.value='0';seekWrap.append(seek);nav.append(seekWrap);
@@ -43,7 +43,7 @@
       text(board,358,151,step?(event.open?'OPEN':'CLOSE'):'–',step?(event.open?'#115e59':'#991b1b'):'#64748b',16);
       board.append(svg('rect',{x:522,y:100,width:116,height:89,rx:16,fill:'#d1fae5',stroke:'#059669','stroke-width':2}));text(board,580,154,memory,'#065f46',36);
       if(step)text(board,358,246,event.open?'WRITE':'HOLD',event.open?'#0f766e':'#b45309',17);
-      status.textContent=w.step+" "+step+"/"+max+" · "+w.input+": "+event.value+" · "+w.gate+": "+(step?(event.open?"OPEN":"CLOSE"):"–")+" · "+w.store+": "+memory;
+      status.textContent=w.step+" "+step+"/"+max+" · "+w.input+": "+event.value+" · "+w.gate+": "+(step?(event.open?w.write:w.hold):"–")+" · "+w.store+": "+memory;
     }
     function silentFrame(){const k=Number(tau.value),trace=[1],spike=[1];for(let t=1;t<=max;t++){const event=t===4&&refresh.checked?0.55:0;trace.push(trace[t-1]*Math.exp(-1/k)+event);spike.push(event?1:0);}
       board.append(svg('rect',{x:40,y:15,width:645,height:240,rx:14,fill:'#f8fafc'}));
