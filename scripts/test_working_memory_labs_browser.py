@@ -7,6 +7,17 @@ OUT=ROOT/'artifacts/working-memory-labs';OUT.mkdir(parents=True,exist_ok=True)
 JS=ROOT/'docs/javascripts/working-memory-labs.js';CSS=ROOT/'docs/stylesheets/working-memory-labs.css'
 
 def run():
+    config=(ROOT/'mkdocs.yml').read_text(encoding='utf-8') if (ROOT/'mkdocs.yml').exists() else ''
+    if config:
+        assert 'javascripts/working-memory-labs.js' in config
+        assert 'stylesheets/working-memory-labs.css' in config
+        topics=(('pbwm','gate','pbwm-gate'),('activity-silent-working-memory','silent','activity-silent-trace'))
+        for topic,kind,stem in topics:
+            for suffix,lang in (('','en'),('.zh-TW','zh-TW')):
+                page=ROOT/'docs/brain-mind/working-memory-executive-function'/topic/('index'+suffix+'.md')
+                content=page.read_text(encoding='utf-8')
+                assert 'data-wm-lab="'+kind+'" data-lang="'+lang+'"' in content, page
+                assert stem+'-still.svg' in content and stem+'-motion.svg' in content, page
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True,executable_path='/usr/bin/chromium' if Path('/usr/bin/chromium').exists() else None,args=['--no-sandbox'])
         for lang in ('en','zh-TW'):
