@@ -14,6 +14,7 @@
       selected: 'Selected arm', note: 'Illustrative values, not empirical measurements or reproducible random draws.',
       graphA: 'UCB1 mean plus exploration bonus for three arms',
       graphB: 'Three Beta posterior density curves and constructed samples',
+      boundaryLabel: 'Counterfactual UCB1 third-decision reward map', futureChoice: 'Third decision if both B rewards were observed', cutoffLabel: 'Decision changes when r₁ + r₂ exceeds',
       scrollHint: 'Swipe the plot horizontally, or focus it and use arrow keys to inspect all three arms.',
       sample: 'Constructed draws', posterior: 'Beta parameters',
       stage: ['Before pull', 'After B pull 1', 'After B pull 2'],
@@ -32,6 +33,7 @@
       selected: '選擇的臂', note: '所有數值皆為人工教學示意，非實測結果或可重現的隨機抽樣。',
       graphA: '三個臂的 UCB1 經驗平均值與探索加分',
       graphB: '三個 Beta 後驗密度及人工指定的樣本值',
+      boundaryLabel: 'UCB1 第三次決策的反事實獎勵平面', futureChoice: '假設 B 兩次回饋都已發生，第三次會選擇', cutoffLabel: '決策分界為 r₁ + r₂ 大於',
       scrollHint: '可左右滑動圖表，或聚焦後使用方向鍵查看三個臂。',
       sample: '人工抽樣值', posterior: 'Beta 參數',
       stage: ['抽取之前', 'B 第一次抽取後', 'B 第二次抽取後'],
@@ -92,6 +94,7 @@
         <div class="bandit-lab-parameters">${kind==='ucb'?ui('0.25','reward1',tr.rewardFirst,0,1)+ui('0.25','reward2',tr.rewardSecond,0,1):ui('select','outcome',tr.outcome,0,0,[[1,tr.success],[0,tr.failure]])}</div>
         <div class="bandit-lab-canvas" tabindex="0" role="region" aria-label="${esc(kind==='ucb'?tr.graphA:tr.graphB)}"><svg viewBox="0 0 720 272" width="720" height="272" role="img" aria-label="${esc(kind==='ucb'?tr.graphA:tr.graphB)}" data-role="svg"></svg></div>
         <p class="bandit-lab-scroll-hint">${esc(tr.scrollHint)}</p>
+        ${kind==='ucb'?'<div class="bandit-lab-boundary" data-role="boundary"></div>':''}
         <div class="bandit-lab-legend" data-role="legend"></div>
         ${kind==='thompson'?'<div class="bandit-lab-probabilities" data-role="probabilities" aria-label="${esc(tr.chance)}"></div>':''}
         <div class="bandit-lab-metrics" data-role="metrics"></div>
@@ -100,6 +103,39 @@
       const q = selector => root.querySelector(selector);
       const get = id => q(`[data-role="${id}"]`);
       const stop = () => { if(state.timer) window.clearInterval(state.timer);state.timer=0; q('[data-action="toggle"]').textContent=tr.play; };
+      // Exact counterfactual third-choice map: with n=(6,4,8) at t=18,
+      // A beats C for every r1,r2 in [0,1]; B beats A iff r1+r2 > cutoff.
+      // The line is analytical, not a sampled or interpolated heatmap.
+      function renderUcbDecisionMap() {
+        const scoreA = 0.65 + Math.sqrt(2*Math.log(18)/6);
+        const scoreC = 0.60 + Math.sqrt(2*Math.log(18)/8);
+        const bonusB = Math.sqrt(2*Math.log(18)/4);
+        const cutoff = 4*(Math.max(scoreA,scoreC)-bonusB)-0.9;
+        const winner = (0.9+state.reward1+state.reward2)/4+bonusB > Math.max(scoreA,scoreC) ? 'B' : (scoreA>=scoreC?'A':'C');
+        const x0=55, y0=27, side=160, bottom=y0+side, xCut=x0+side*cutoff, yCut=bottom-side*cutoff;
+        let grid='';
+        for(let k=1;k<4;k++){
+          const v=side*k/4;
+          grid+=`<line x1='${x0+v}' y1='${y0}' x2='${x0+v}' y2='${bottom}' stroke='#fff' opacity='.35'/><line x1='${x0}' y1='${y0+v}' x2='${x0+side}' y2='${y0+v}' stroke='#fff' opacity='.35'/>`;
+        }
+        const cx=x0+side*state.reward1, cy=bottom-side*state.reward2;
+        const svg=`<svg viewBox='0 0 330 228' width='330' height='228' role='img' aria-label='${esc(tr.boundaryLabel)}'>
+          <rect width='330' height='228' rx='12' fill='#f8fafc'/>
+          <text x='25' y='16' font-size='12' fill='#365166'>r₂</text>
+          <rect x='55' y='27' width='160' height='160' fill='#e9b87e'/>
+          <polygon points='${x0},${bottom} ${xCut.toFixed(2)},${bottom} ${x0},${yCut.toFixed(2)}' fill='#8ebbd6'/>
+          ${grid}<line x1='${xCut.toFixed(2)}' y1='${bottom}' x2='${x0}' y2='${yCut.toFixed(2)}' stroke='#314858' stroke-width='2' stroke-dasharray='5 3'/>
+          <rect x='55' y='27' width='160' height='160' fill='none' stroke='#71869b' stroke-width='1'/>
+          <circle data-role='reward-marker' cx='${cx.toFixed(1)}' cy='${cy.toFixed(1)}' r='7' fill='#173951' stroke='#fff' stroke-width='2.3'/>
+          <text x='55' y='202' font-size='12' fill='#365166'>0</text><text x='211' y='202' font-size='12' text-anchor='end' fill='#365166'>1</text>
+          <text x='130' y='217' font-size='13' text-anchor='middle' fill='#365166'>r₁</text>
+          <text x='42' y='188' text-anchor='end' font-size='12' fill='#365166'>0</text><text x='42' y='36' text-anchor='end' font-size='12' fill='#365166'>1</text>
+          <text x='239' y='44' font-size='13' font-weight='600' fill='#365166'>t = 18</text>
+          <rect x='239' y='75' width='12' height='12' rx='2' fill='#8ebbd6'/><text x='258' y='86' font-size='13' fill='#365166'>A</text>
+          <rect x='239' y='101' width='12' height='12' rx='2' fill='#e9b87e'/><text x='258' y='112' font-size='13' fill='#365166'>B</text>
+        </svg>`;
+        get('boundary').innerHTML=`<div class='bandit-lab-boundary-scroll' tabindex='0' role='region' aria-label='${esc(tr.boundaryLabel)}'>${svg}</div><p class='bandit-lab-boundary-note'>${esc(tr.futureChoice)}: <strong>${winner}</strong>. ${esc(tr.cutoffLabel)} ${cutoff.toFixed(3)}.</p>`;
+      }
       function ucb() {
         const counts=[6,2+state.step,8], sums=[3.9,0.9+(state.step>=1?state.reward1:0)+(state.step>=2?state.reward2:0),4.8], t=counts.reduce((a,b)=>a+b,0);
         const means=counts.map((n,i)=>sums[i]/n);
@@ -122,6 +158,7 @@
         get('legend').innerHTML=`<span><i class="bandit-lab-swatch" style="background:#237eab"></i>${tr.mean} (A/B/C)</span><span><i class="bandit-lab-swatch" style="background:#e6a452"></i>${tr.bonus}</span>`;
         get('metrics').innerHTML=`<span>${tr.time}: <strong>${t}</strong></span><span>${tr.winner}: <strong>${winner}</strong></span><span>${tr.observed}: <strong>${state.step}</strong></span><span>${tr.greedy}: <strong>${greedy}</strong></span><span>${tr.margin}: <strong>${round(margin)}</strong></span><span>${tr.score}: <strong>${scores.map(round).join(' / ')}</strong></span>`;
         get('status').textContent=tr.ucbStatus({step:state.step,t,winner,greedy,margin});
+        renderUcbDecisionMap();
       }
       function thompson() {
         const posterior=[[3,3],[2,5],[4+(state.step>=2&&state.outcome===1?1:0),3+(state.step>=2&&state.outcome===0?1:0)]];
@@ -146,7 +183,9 @@
           }
           svg+=`<path d="${d}" fill="none" stroke="${colors[i]}" stroke-width="3.4" stroke-linejoin="round"/>`;
           svg+=`<text x="${364+i*94}" y="25" class="bandit-lab-svg-small" style="fill:${colors[i]}">${arms[i]}</text>`;
-          if(state.step>0){const x=draws[i],den=betaPDF(x,...posterior[i]);svg+=`<circle cx="${70+x*590}" cy="${224-den*46}" r="7" fill="${colors[i]}" stroke="#fff" stroke-width="2.5"/>`;}
+          // Previously drawn samples belong to the old posterior; never relocate
+          // them onto an updated density during the observation-only stage.
+          if(state.step===1 || state.step===3){const x=draws[i],den=betaPDF(x,...posterior[i]);svg+=`<circle cx="${70+x*590}" cy="${224-den*46}" r="7" fill="${colors[i]}" stroke="#fff" stroke-width="2.5"/>`;}
         }
         get('svg').innerHTML=svg;
         get('legend').innerHTML=arms.map((arm,i)=>`<span><i class="bandit-lab-swatch" style="background:${colors[i]}"></i>${arm}</span>`).join('');
