@@ -54,6 +54,14 @@ Training uses the LARS optimizer. The paper trains with batch sizes from 256 to 
 
 On MkDocs, use **Play/Pause** (also Enter/Space when the button has focus). The animation is disabled by default for reduced-motion preferences. GitHub displays the [static comparison](../../../../assets/concept-animations/simclr-temperature-competition-still.svg) even without scripts; for the [animated SVG](../../../../assets/concept-animations/simclr-temperature-competition-motion.svg) use an SVG-capable viewer.
 
+### Interactive experiment: temperature and positive-pair similarity
+
+<div class="concept-arithmetic-lab" data-concept-lab="simclr" data-lang="en">
+  The original static SVG above remains readable without JavaScript; the numerical experiment runs on MkDocs.
+</div>
+
+Use the **Step** slider (six temperatures: 1.2, 1.0, 0.8, 0.6, 0.4, 0.2), **Previous/Next**, **Play/Pause**, **Speed** and **Reset** to change softmax sharpness; adjust the positive similarity from −1 to 1 independently. Each step recalculates all five probabilities and the anchor's exact NT-Xent loss $-\ln p(+)$. The outlined bars are the $\tau=1$ reference for the **currently selected** similarity values. When the positive similarity falls *below* a negative, lowering temperature can **increase**, not decrease, the positive-pair loss. All five scores are artificial; this is neither representation training nor empirical classification confidence.
+
 ## Key methods
 
 ### A Simple Framework for Contrastive Learning of Visual Representations (Chen, Kornblith, Norouzi & Hinton, 2020)

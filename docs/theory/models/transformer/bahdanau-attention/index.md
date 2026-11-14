@@ -60,6 +60,14 @@ The green bars and connecting paths show how $c_i=\sum_j\alpha_{ij}h_j$ reweight
 
 On MkDocs, use **Play/Pause** or the focused button's Enter/Space keys; reduced-motion preferences show the still first. GitHub's [static alignment matrix](../../../../assets/concept-animations/bahdanau-alignment-context-still.svg) shows all three rows without JavaScript. An [animated SVG](../../../../assets/concept-animations/bahdanau-alignment-context-motion.svg) is also available for SVG-capable viewers.
 
+### Interactive experiment: decoder-specific context
+
+<div class="concept-arithmetic-lab" data-concept-lab="bahdanau" data-lang="en">
+  The static three-row alignment figure above remains available without JavaScript; the numerical experiment runs on MkDocs.
+</div>
+
+Use **Previous/Next**, **Play/Pause**, the **Step** slider, **Speed** and **Reset** to inspect three discrete output positions. Choose an encoder annotation $h_j$ and change its additive alignment-score bias from −2 to 2. The lab **recomputes** softmax over all four sources and the context $c_i=\sum_j \alpha_{ij}h_j$ for fixed two-dimensional toy annotations $h_1=(0.3,0.8)$, $h_2=(0.9,0.2)$, $h_3=(0.2,-0.4)$, $h_4=(-0.7,0.5)$. The starting weights are the three artificial vectors shown above; modifying a bias changes all *normalised* weights, not just the highlighted weight. This manually adjusted score is a pedagogical proxy for the learned additive scorer $a(s_{i-1},h_j)$—**not** a trained model, real token alignment, or translation measurement.
+
 ## Results
 
 The experiments use the WMT '14 English-to-French corpus, evaluated on the news-test-2014 set. Table 1 reports BLEU on all test sentences and on the subset with no unknown words.
