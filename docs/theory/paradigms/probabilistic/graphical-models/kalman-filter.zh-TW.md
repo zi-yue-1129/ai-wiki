@@ -79,6 +79,16 @@ $$
 
 ![卡爾曼增益對預測與觀測分配的相對權重及後驗平均值位置](../../../../assets/concept-animations/kalman-trust-weights-still.svg)
 
+**新增互動計算：Joseph 變異數來源分解。** 同步 SVG 將一維 Joseph 共變異數更新拆成「預測不確定性」與「量測雜訊」兩個非負貢獻：
+
+$
+P^+=(1-K)^2P^-+K^2R,\qquad K=\frac{P^-}{P^-+R}.
+$
+
+人工預設值下，兩項分別約為 $0.136$ 與 $0.307$，合計 $P^+\approx0.443$。所有長條共用**絕對變異數尺度**，後驗長條比先驗短；不能解讀為真實感測器誤差來源的實測比例。只有進入修正階段才揭露 Joseph 兩項貢獻；原有播放／暫停、單步、進度滑桿與變異數參數控制會同步重新計算。
+
+![卡爾曼 Joseph 更新中預測誤差與量測雜訊對後驗變異數的貢獻：GitHub 靜態回退預覽](../../../../assets/concept-animations/kalman-joseph-contributions-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="kalman" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
 
 這些數值及轉換是**獨立計算的一維人工示意**，不是實測估計誤差，也不是連續多次量測的結果。
