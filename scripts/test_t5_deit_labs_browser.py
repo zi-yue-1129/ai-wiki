@@ -65,7 +65,7 @@ with sync_playwright() as p:
                 page.locator('#t5 .td-params input').nth(1).fill('3')
                 page.locator('#t5 .td-params input').nth(2).fill('7')
                 assert page.locator('#t5 .td-params input').nth(2).input_value() == '8'
-                assert 'G' in page.locator('#t5 [data-lane="Encoder"]').inner_text()
+                assert 'G' in page.locator('#t5 [data-lane="Encoder"]').text_content()
                 page.locator('#t5 [data-action="reset"]').click()
                 assert 'Target:' not in page.locator('#t5 .td-state').inner_text()
                 page.locator('#t5 .td-seek').fill('3')
