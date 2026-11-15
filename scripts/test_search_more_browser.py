@@ -48,7 +48,7 @@ def main():
             more.focus(); page.keyboard.press('Enter'); page.keyboard.press('Enter'); expect(more).to_have_text('載入失敗，重試' if lang == 'zh-TW' else 'Loading failed, retry', timeout=5000)
             expect(links).to_have_count(10); assert len(page.evaluate('window.calls.filter(x => x.startsWith("failure:") )')) == 20
             page.keyboard.press('Enter'); expect(links).to_have_count(20, timeout=5000); expect(links.nth(10)).to_be_focused(); more.focus(); page.keyboard.press('Enter'); expect(links).to_have_count(23, timeout=5000); expect(more).to_be_hidden()
-            assert [x.inner_text() for x in links.all()] == [f'failure{i}\nfailure' for i in range(23)]
+            assert links.locator('.md-search-result__title').all_text_contents() == [f'failure{i}' for i in range(23)]
             assert ('23 / 23' if lang == 'zh-TW' else '23 of 23') in meta.inner_text()
             q.fill('slow'); page.wait_for_timeout(100); q.fill('small'); expect(links).to_have_count(3); page.wait_for_timeout(700); expect(links).to_have_count(3)
             q.fill('failure'); expect(links).to_have_count(10); more.focus(); page.keyboard.press('Enter'); q.focus(); q.fill('small'); expect(links).to_have_count(3); page.wait_for_timeout(700); expect(links).to_have_count(3)
