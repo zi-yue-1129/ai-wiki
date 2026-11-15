@@ -25,7 +25,9 @@ $$
 
 ## 教學動畫：觀測加權與祖先重採樣
 
-![十個預測粒子依觀測概似計算權重，接著系統性重採樣產生後代](../../../../assets/concept-animations/particle-weight-resampling-still.svg){: data-motion-src="../../../../assets/concept-animations/particle-weight-resampling-motion.svg" }
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/particle-weight-resampling-still.svg" data-motion-src="../../../../assets/concept-animations/particle-weight-resampling-motion.svg" data-still-src="../../../../assets/concept-animations/particle-weight-resampling-still.svg" alt="粒子概似加權與系統性重採樣的祖先選擇" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
 
 *原創教學動畫，CC BY-SA 4.0。* [GitHub 可讀的最終靜態圖](../../../../assets/concept-animations/particle-weight-resampling-still.svg)。MkDocs 網站提供**播放／暫停**與鍵盤操作，偏好減少動態效果時顯示靜態粒子群；窄螢幕請水平捲動。
 
