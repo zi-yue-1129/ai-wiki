@@ -91,7 +91,7 @@
         rect(baseX,314,5*scale,19,'#e3b96c',3);
         rect(baseX,345,rss*scale,19,'#f3ad75',3);
         graph.append(svg('line',{x1:thresholdX,x2:thresholdX,y1:307,y2:375,stroke:'#dce8f5','stroke-width':1.5,'stroke-dasharray':'3 3'}));
-        text(510,330,'RSS = TSS','#cddbea',14,'start');
+        text(510,330,'Boundary','#cddbea',14,'start');
         text(510,354,'R² = 0','#a6f0d4',14,'start');
         detail.textContent=`k=${fmt(k)} · TSS=5.000 · RSS=${fmt(rss)} · R²=1−RSS/TSS=${fmt(r2)}${r2<0?' · RSS > TSS':''}`;
       }
