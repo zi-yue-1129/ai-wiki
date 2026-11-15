@@ -9,7 +9,7 @@ ROOT = Path(os.environ.get('AIWIKI_LOCAL_TEST_ROOT', Path(__file__).resolve().pa
 ASSETS = ROOT / 'docs/assets/concept-animations'
 JS = ROOT / 'docs/javascripts/concept-motion.js'
 CSS = ROOT / 'docs/stylesheets/concept-motion.css'
-TOPICS = ('ucb1-optimism-switch', 'thompson-beta-posterior-draws')
+TOPICS = ('ucb1-optimism-switch', 'thompson-beta-posterior-draws', 'ucb1-bonus-sensitivity', 'thompson-evidence-concentration')
 ALTS = {'en': 'UCB and Thompson sampling update hypothetical arm preferences.', 'zh-TW': '多臂吃角子老虎教學動畫：呈現信賴上界與後驗分布的更新。'}
 
 def uri(path):
@@ -64,6 +64,6 @@ def main():
             assert shot1!=shot2,(topic,'SVG did not animate in Chromium')
             page.close()
         browser.close()
-    print(f'PASS: {count}/{count} bilingual viewport/reduced-motion/player cases; 2/2 animated SVG image changes')
+    print(f'PASS: {count}/{count} bilingual viewport/reduced-motion/player cases; 4/4 animated SVG image changes')
 
 if __name__=='__main__':main()
