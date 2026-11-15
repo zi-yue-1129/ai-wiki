@@ -51,6 +51,11 @@ The static concept image above remains available without JavaScript. The interac
 
 *Interactive exercise: change query index and window width; the mask, visible keys, and exact permitted-pair count update together. Use Previous/Next, the seek slider, Play/Pause, Speed and Reset. For 12 tokens and window width 4 there are **42** permitted causal pairs versus **78** in full causal attention. This is an analytic pattern count, not a measured runtime.*
 
+
+![Four causal sliding-window layers progressively expand the keys reachable by token twelve, from four to seven to ten to all twelve.](../../../../assets/concept-animations/sliding-window-depth-reach-still.svg)
+
+*Original CC BY-SA 4.0 multi-layer receptive-field animation.* A width-4 causal window gives the final token at position 12 access to positions **9–12** in one layer, **6–12** in two, **3–12** in three, and **1–12** in four. Under local mixing at each layer, without global tokens, the earliest possible source at depth \(L\) is \(\max(1,12-3L)\). The coloured rows distinguish **possible information dependence**, not learned attention weights or guaranteed retention. The four-stage emphasis shows how reach propagates through successive layers; it is **not a continuous fractional-layer computation**. [Open the animated SVG](../../../../assets/concept-animations/sliding-window-depth-reach-motion.svg). MkDocs supports Play/Pause, Enter/Space, keyboard-focusable horizontal scrolling and a reduced-motion still. This is a constructed example, not a model measurement (Beltagy et al., 2020; Jiang et al., 2023; see References).
+
 ### Linear attention
 
 Linear attention replaces the softmax with a kernel feature map \(\phi\), so that the product can be reordered as \(\phi(Q)\,(\phi(K)^\top V)\). The expression \(\phi(K)^\top V\) can be accumulated as a running state, which turns attention into a recurrent update with constant cost per token. Katharopoulos et al. (2020) showed this equivalence and its autoregressive form. Performers approximate the softmax kernel with random features (FAVOR+), so that the approximation can be made as accurate as needed by using more features.
@@ -69,6 +74,11 @@ The static concept image above remains available without JavaScript. The interac
 </div>
 
 *Interactive exercise: step through the exact scalar recurrence and change the third value from 3 to 5. The final state changes from \(S_4=8,z_4=6,y_4=4/3\) to \(S_4=10,z_4=6,y_4=5/3\). This uses \(\phi(q)=1\) and positive mapped keys; it is a toy calculation, not a trained model or softmax-equivalent computation.*
+
+
+![A causal triangular pairwise pattern grows to 55 query-key comparisons for ten tokens, beside ten sequential recurrent feature-state updates.](../../../../assets/concept-animations/linear-attention-work-growth-still.svg)
+
+*Original CC BY-SA 4.0 computational-pattern animation.* For an illustrative causal prefix of length \(n\), unrestricted pairwise query–key scoring considers exactly \(n(n+1)/2\) pairs (**55** at \(n=10\), including each token's self-pair). A fixed-dimension kernel linear-attention recurrence performs one **state-update event per incoming token** (**10** at \(n=10\)); the highlighted triangular rows and cumulative state updates grow with the prefix. This counts **different algorithmic primitives**, not equal-cost arithmetic operations or measured wall-clock speed. The kernel feature dimension must stay fixed as \(n\) grows, and the recurrence does **not** reproduce softmax attention numerically. [Open the animated SVG](../../../../assets/concept-animations/linear-attention-work-growth-motion.svg). On MkDocs, Play/Pause and Enter/Space use the shared accessible motion player; reduced-motion mode starts with the static fallback (Katharopoulos et al., 2020; see References).
 
 ### IO-aware exact attention
 

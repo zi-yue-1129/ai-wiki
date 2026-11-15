@@ -7,7 +7,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'docs/assets/concept-animations'
 PLAYER = ROOT / 'docs/javascripts/concept-motion.js'
-PAIRS = ('sliding-window-mask', 'linear-attention-recurrence')
+PAIRS = ('sliding-window-mask', 'linear-attention-recurrence', 'sliding-window-depth-reach', 'linear-attention-work-growth')
 SVGNS = '{http://www.w3.org/2000/svg}'
 
 def main():
