@@ -68,6 +68,28 @@ The orange dashed line marks the fixed conditioning coordinate. The teal segment
 
 *Original instructional animation and GitHub fallback, CC BY-SA 4.0.*
 
+### Interactive lab: conditional Gaussian updates and lag dependence
+
+<div class="gibbs-lab" data-gibbs-lab="gaussian" data-lang="en">
+  <p>If JavaScript is unavailable, the original [Gibbs conditional-sweep static diagram](../../../../assets/concept-animations/gibbs-coordinate-sweeps-still.svg) above remains readable.</p>
+</div>
+
+Change the target correlation $\rho$ and advance one **exact conditional update** at a time. The teal trajectory moves only along the coordinate being sampled; the orange dashed line holds the conditioning coordinate fixed. For $\rho=0.8$, starting at $(X_0,Y_0)=(0,1)$ and using the deliberately fixed standard-normal innovations $0.5,-1$, the first sweep gives $X_1=1.1$ then $Y_1=0.28$. Further updates use a fixed illustrative sequence for a **repeatable teaching example**, not independently generated samples or model measurements.[^roberts]
+
+The blue lag bars are the **theoretical stationary** autocorrelations $\operatorname{Corr}(Y_t,Y_{t+k})=\rho^{2k}$ at *full-sweep* boundaries; they are not estimated from the short displayed path. Compare a weakly correlated target with a high-$\rho$ target to see why accepted Gibbs steps need not mix quickly. Play/Pause, Previous/Next, seek, playback speed and Reset are keyboard-operable. On phones, focus the diagram and scroll horizontally; reduced-motion users can inspect each step manually.
+
+### Interactive lab: stationarity without irreducibility
+
+![Gibbs disconnected target: single-coordinate trapping versus a joint block transition](../../../../assets/concept-animations/gibbs-disconnected-still.svg)
+
+<div class="gibbs-lab" data-gibbs-lab="disconnected" data-lang="en">
+  <p>If JavaScript is unavailable, use the static diagram above: both modes remain stationary under single-coordinate updates, while joint block updates can switch modes.</p>
+</div>
+
+For the constructed target $p(0,0)=p(1,1)=1/2$, with zero mass on $(0,1)$ and $(1,0)$, every **single-site conditional Gibbs update stays put**. Select the initial mode, step through the updates and switch to the *joint block* kernel that draws the full state from the target. Both kernels preserve the target distribution, but only the block kernel can reach both supported states from either start. The block transitions shown use a fixed illustrative sequence of uniform values, **not empirical Markov-chain simulation**. This makes the distinction between invariance and convergence operational rather than treating 100% acceptance as a mixing guarantee.[^casella][^roberts]
+
+
+
 ## Connections
 
 A Gibbs step samples a variable given the current values of the others. Mean-field coordinate ascent instead optimises a distribution factor using an expectation over the other factors. [Mean-field variational inference](../variational-inference/mean-field.md).
