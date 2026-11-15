@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title description">
+<title id="title">RoPE position interpolation and unwrapped rotation angle</title><desc id="description">For a toy rotary frequency of 0.6 radians per token and positions 0 through 8 in training, moving from position 0 to 16 reaches 9.6 radians directly but only 4.8 radians if indices are scaled by a factor of one half. Arrows display angle modulo a full rotation; bars show cumulative unwrapped angle. Mathematical toy example, not measured model quality.</desc>
+<rect width="640" height="360" rx="18" fill="#fff"/><rect x="1" y="1" width="638" height="358" rx="17" stroke="#dee6ee" stroke-width="2" fill="none"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#25354a}.title{font-size:20px;font-weight:700}.sub{font-size:12px;fill:#63758b}.label{font-size:13px;font-weight:600}.tick{font-size:12px;fill:#64748b}</style>
+<text class="title" x="28" y="39">RoPE · position interpolation</text>
+<text class="sub" x="28" y="61">One 2D frequency pair · θ = 0.6 × position</text>
+<rect x="100" y="79" width="208" height="20" rx="6" fill="#deeee9"/><rect x="308" y="79" width="208" height="20" rx="6" fill="#fff0de"/>
+<text x="116" y="93" font-size="11" font-family="Arial" fill="#276b62">Trained 0–8</text><text x="324" y="93" font-size="11" font-family="Arial" fill="#945d16">Extended 9–16</text>
+<line x1="100" y1="108" x2="516" y2="108" stroke="#a6b5c5" stroke-width="2"/><line x1="308" y1="76" x2="308" y2="113" stroke="#8291a5" stroke-dasharray="3 3"/>
+<text class="tick" x="100" y="125" text-anchor="middle">0</text><text class="tick" x="308" y="125" text-anchor="middle">8</text><text class="tick" x="516" y="125" text-anchor="middle">16</text>
+<circle cx="100" cy="108" r="7" stroke="white" stroke-width="2" fill="#2563eb"><animate attributeName="cx" values="100;516;516" keyTimes="0;.83;1" dur="12s" calcMode="linear" repeatCount="indefinite"/></circle>
+<text class="label" x="189" y="142" text-anchor="middle">Direct</text><circle cx="189" cy="206" r="55" fill="#f8fafc" stroke="#ced8e4" stroke-width="1.6"/>
+<line x1="148" y1="206" x2="230" y2="206" stroke="#e4e9ef"/><line x1="189" y1="165" x2="189" y2="247" stroke="#e4e9ef"/>
+<g transform="rotate(0 189 206)"><line x1="189" y1="206" x2="236" y2="206" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/><path d="M238 206 l-13 -8 v16 z" fill="#2563eb"/><animateTransform attributeName="transform" type="rotate" values="0 189 206;-550.04 189 206;-550.04 189 206" keyTimes="0;.83;1" dur="12s" calcMode="linear" repeatCount="indefinite"/></g><circle cx="189" cy="206" r="5" fill="#273951"/>
+<text class="label" x="448" y="142" text-anchor="middle">Interpolated × ½</text><circle cx="448" cy="206" r="55" fill="#f8fafc" stroke="#ced8e4" stroke-width="1.6"/>
+<line x1="407" y1="206" x2="489" y2="206" stroke="#e4e9ef"/><line x1="448" y1="165" x2="448" y2="247" stroke="#e4e9ef"/>
+<g transform="rotate(0 448 206)"><line x1="448" y1="206" x2="495" y2="206" stroke="#e79b38" stroke-width="5" stroke-linecap="round"/><path d="M497 206 l-13 -8 v16 z" fill="#e79b38"/><animateTransform attributeName="transform" type="rotate" values="0 448 206;-275.02 448 206;-275.02 448 206" keyTimes="0;.83;1" dur="12s" calcMode="linear" repeatCount="indefinite"/></g><circle cx="448" cy="206" r="5" fill="#273951"/>
+<text class="tick" x="28" y="285">Direct θ</text><text class="tick" x="28" y="318">PI θ</text>
+<rect x="109" y="275" width="418" height="17" rx="6" fill="#e8edf4"/><rect x="109" y="308" width="418" height="17" rx="6" fill="#e8edf4"/>
+<line x1="318" y1="267" x2="318" y2="329" stroke="#7b8799" stroke-width="1.5" stroke-dasharray="4 4"/><text class="sub" x="324" y="267">train max θ=4.8</text>
+<rect x="109" y="275" width="0" height="17" rx="6" fill="#2563eb" opacity=".91"><animate attributeName="width" values="0;418;418" keyTimes="0;.83;1" dur="12s" calcMode="linear" repeatCount="indefinite"/></rect>
+<rect x="109" y="308" width="0" height="17" rx="6" fill="#e79b38" opacity=".91"><animate attributeName="width" values="0;209;209" keyTimes="0;.83;1" dur="12s" calcMode="linear" repeatCount="indefinite"/></rect>
+<text class="sub" x="530" y="289">end 9.6</text><text class="sub" x="530" y="322">end 4.8</text>
+</svg>
