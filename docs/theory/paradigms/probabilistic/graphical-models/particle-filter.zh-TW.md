@@ -57,6 +57,16 @@ $$
 
 ![粒子重採樣前的加權平均值與後代等權平均值在共同狀態軸上的比較](../../../../assets/concept-animations/particle-mean-shift-still.svg)
 
+**新增互動計算：累積後代數與期望質量的偏差。** 系統性重採樣使用等間距門檻；新圖對每個祖先邊界 $i$ 重新計算「實際累積複本數」減去「依權重預期的累積後代數」：
+
+$
+D_i=\sum_{j=1}^{i}N_j-N\sum_{j=1}^{i}w_j,\qquad |D_i|<1 \quad (u_0\in[0,1/N),\;i=1,\dots,N).
+$
+
+這個嚴格界限來自同一個隨機平移的等間距門檻序列，**不是**假設各祖先獨立抽樣；它限制的是各個**累積前綴**的偏差，不表示每個祖先的絕對誤差總和小於一。只有重採樣階段才揭露偏差軌跡；調整 $u_0$ 可改變實際複本數，卻不改變原始權重與期望值。十粒子均屬可重現的人工教學數值，非效能實測。
+
+![系統性重採樣的累積實際後代數減去期望質量：GitHub 靜態回退預覽](../../../../assets/concept-animations/particle-systematic-discrepancy-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="particle" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
 
 十個位置與觀測均屬於**人工教學數值**，不是實際估計結果。每個步驟是同一次更新的展示階段，不代表額外執行濾波迭代。
