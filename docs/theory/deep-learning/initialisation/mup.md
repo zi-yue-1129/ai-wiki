@@ -49,6 +49,26 @@ The wiki site provides **Play/Pause** (Enter/Space when focused), an initial sta
 
 [^mup-motion]: Yang et al. (2022), *Tensor Programs V*, the Adam multiplier form and zero-shot hyperparameter transfer; see the original paper in References.
 
+### A toy readout: why the output multiplier matters
+
+<div tabindex="0" role="region" aria-label="MuP readout-aggregation schematic animation; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-readout-aggregation-still.svg" data-motion-src="../../../assets/concept-animations/mup-readout-aggregation-motion.svg" data-still-src="../../../assets/concept-animations/mup-readout-aggregation-still.svg" alt="Schematic identical channel contributions: raw sum grows with channel count while multiplying by one over width keeps the readout at one." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original continuous/staged teaching animation, CC BY-SA 4.0.* This **explicitly artificial** scalar calculation fixes every hidden-channel contribution at $h_i=1$. Then $s_n=\sum_{i=1}^{n}h_i=n$, while the toy scaled readout $f_n=(1/n)s_n=1$ for $n=4,8,12,16$. The display isolates the algebraic effect of a $1/n$ output multiplier; it is **not** a derivation of all muP layer rules, a guarantee about correlated learned features, or a measured activation or loss.[^mup-motion]
+
+On the wiki site, use **Play/Pause** (Enter/Space while focused); reduced-motion users initially see the still preview. Narrow screens can scroll horizontally. [Open the moving diagram](../../../assets/concept-animations/mup-readout-aggregation-motion.svg) · [View the GitHub fallback](../../../assets/concept-animations/mup-readout-aggregation-still.svg).
+
+### Zero-shot transfer: search small, reuse large
+
+<div tabindex="0" role="region" aria-label="MuTransfer tune-and-reuse schematic animation; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-transfer-protocol-still.svg" data-motion-src="../../../assets/concept-animations/mup-transfer-protocol-motion.svg" data-still-src="../../../assets/concept-animations/mup-transfer-protocol-still.svg" alt="Illustrative muTransfer procedure: search four candidate learning rates at narrow width and reuse the selected candidate at wide width pending empirical validation." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original staged process animation, CC BY-SA 4.0.* A narrow model tests four **illustrative, arbitrary** candidate learning rates $\eta\in\{0.05,0.10,0.20,0.40\}$ and selects $0.20$ solely to illustrate the workflow. The same candidate is then reused at wider width **without repeating the hyperparameter search**. The figure does **not** assert these rates are optimal, represent actual training runs, or prove that transfer will succeed; evaluation at the wider width remains essential.[^mup-motion]
+
+On the wiki site, **Play/Pause** (Enter/Space while focused) reveals the staged search and transfer; reduced-motion users see the final static overview. [Open the motion](../../../assets/concept-animations/mup-transfer-protocol-motion.svg) · [View the GitHub fallback](../../../assets/concept-animations/mup-transfer-protocol-still.svg).
+
 ## Results
 
 The abstract reports that hyperparameters tuned on a small model can be used on a much larger one, and that this holds for Transformer and ResNet models. Two examples are given. Transferring from a 13M-parameter model gives pretraining hyperparameters that outperform the published BERT-large numbers, at a tuning cost equal to pretraining BERT-large once. Transferring from a 40M-parameter model outperforms the published 6.7B GPT-3 model, with a tuning cost of only 7% of its total pretraining cost [(Yang et al., 2022)](https://arxiv.org/abs/2203.03466).

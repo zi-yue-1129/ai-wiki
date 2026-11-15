@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-11-04
-translation_reviewed: 2026-11-13
+translation_reviewed: 2026-11-15
 related:
   - theory/deep-learning/initialisation
 tags:
@@ -49,6 +49,26 @@ Adam 的乘數形式如下，其中 $\text{fan\_in}$ 為該層的輸入寬度：
 在 Wiki 網站可透過**播放／暫停**按鈕操作（聚焦後按 Enter 或 Space）；偏好減少動態效果時，初始顯示靜態圖。窄螢幕可水平捲動。[開啟完整 SVG 動畫](../../../assets/concept-animations/mup-width-multipliers-motion.svg) · [查看靜態回退預覽](../../../assets/concept-animations/mup-width-multipliers-still.svg)。
 
 [^mup-motion]: Yang 等人（2022），《Tensor Programs V》中的 Adam 乘數參數化與零樣本超參數轉移；原始論文見參考文獻。
+
+### 讀出層加總的人工示例：為什麼要縮放輸出
+
+<div tabindex="0" role="region" aria-label="muP 讀出層加總縮放動畫；可在窄螢幕水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-readout-aggregation-still.svg" data-motion-src="../../../assets/concept-animations/mup-readout-aggregation-motion.svg" data-still-src="../../../assets/concept-animations/mup-readout-aggregation-still.svg" alt="人工設定的通道貢獻均為一，通道數增加時原始總和成長，乘上一除以寬度後仍為一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創分階段教學動畫，CC BY-SA 4.0。* 此處刻意將每個隱藏通道的貢獻設定為 $h_i=1$。因此，原始總和 $s_n=\sum_{i=1}^{n}h_i=n$ 隨 $n=4、8、12、16$ 增加；但人工讀出 $f_n=(1/n)s_n$ 仍等於 **1**。這是用來隔離說明輸出乘數 $1/n$ 的**代數示例**，不代表已推導全部 muP 層縮放規則，也不是訓練中的特徵、激活或損失實測結果。[^mup-motion]
+
+Wiki 網站提供**播放／暫停**（聚焦後可按 Enter 或 Space）；偏好減少動態效果時先顯示靜態預覽，手機可於圖內水平捲動。[開啟動畫](../../../assets/concept-animations/mup-readout-aggregation-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/mup-readout-aggregation-still.svg)。
+
+### 零樣本超參數轉移：窄模型搜尋，寬模型直接沿用
+
+<div tabindex="0" role="region" aria-label="muTransfer 窄模型調參、寬模型沿用參數動畫；可在窄螢幕水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-transfer-protocol-still.svg" data-motion-src="../../../assets/concept-animations/mup-transfer-protocol-motion.svg" data-still-src="../../../assets/concept-animations/mup-transfer-protocol-still.svg" alt="示意窄模型比較四個學習率候選，選出其中一個後直接沿用到寬模型，仍須實際驗證。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創流程動畫，CC BY-SA 4.0。* 圖中的窄模型先比較四個**任意設定、僅供示意**的學習率 $\eta\in\{0.05,0.10,0.20,0.40\}$，再假設選出 $0.20$；接著在較寬的模型**不重新執行完整調參搜尋**，直接沿用同一設定。這不是實際訓練比較，也不能證明該學習率最優或一定能轉移；仍須在大型模型上實證評估。[^mup-motion]
+
+Wiki 網站可透過**播放／暫停**（聚焦後按 Enter 或 Space）觀看搜尋到轉移的步驟；Reduced Motion 先顯示完整靜態圖。[開啟動畫](../../../assets/concept-animations/mup-transfer-protocol-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/mup-transfer-protocol-still.svg)。
 
 ## 結果
 
