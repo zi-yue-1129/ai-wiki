@@ -12,6 +12,8 @@ from pathlib import Path
 from threading import Thread
 from contextlib import contextmanager
 import hashlib
+from xml.etree import ElementTree as ET
+from math import exp, isclose
 
 from playwright.sync_api import sync_playwright
 
@@ -113,7 +115,24 @@ def check(page, base: str, width: int, locale: str, reduce: bool):
         assert img.get_attribute("src").endswith(stem + ("-still.svg" if reduce else "-motion.svg"))
 
 
+def check_numeric_bars():
+    """Guard against non-finite bars that XML parsing alone does not reject."""
+    expected = (1 + exp(-5)) / 1.5 * 195
+    for suffix in ("motion", "still"):
+        filename = ROOT / "docs/assets/concept-animations" / (
+            "flashattention-online-rescale-" + suffix + ".svg"
+        )
+        root = ET.parse(filename).getroot()
+        rects = [node for node in root.iter()
+                 if node.tag.endswith("rect")
+                 and node.get("y") == "208" and node.get("fill") == "#f59e0b"]
+        assert len(rects) == 1, (filename, "new tile bar missing")
+        width = float(rects[0].get("width"))
+        assert isclose(width, expected, abs_tol=1e-9), (filename, width, expected)
+
+
 def main():
+    check_numeric_bars()
     OUT.mkdir(parents=True, exist_ok=True)
     with serve() as base, sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True)
