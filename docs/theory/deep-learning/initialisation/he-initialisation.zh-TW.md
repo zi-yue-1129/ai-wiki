@@ -69,6 +69,25 @@ Wiki 網站提供鍵盤可操作的播放／暫停、偏好減少動態效果時
 
 Wiki 網站可使用播放／暫停（聚焦控制項後按 Enter 或 Space），偏好減少動態效果時顯示靜態回退；手機可於圖內水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/he-fan-mode-tradeoff-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg)。
 
+
+### ReLU 前激活平均值偏移：通過比例不等於保留的二階矩
+
+<div tabindex="0" role="region" aria-label="高斯 ReLU 平均值偏移動畫；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/he-relu-mean-shift-still.svg" data-motion-src="../../../assets/concept-animations/he-relu-mean-shift-motion.svg" data-still-src="../../../assets/concept-animations/he-relu-mean-shift-still.svg" alt="兩條解析曲線隨前激活平均值移動：高斯輸入通過 ReLU 的機率與保留的二階矩比例，只有在平均值為零時同為二分之一；偏移後兩者不同。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 常見的 ReLU 二階矩倍率 **1/2**，依賴前激活分布對零點對稱。另取一組**人工設定的高斯例子** $Z\sim\mathcal N(b,1)$，令 $\phi$ 與 $\Phi$ 分別為標準常態密度與累積分布，則
+
+$
+P(Z>0)=\Phi(b),\qquad
+\frac{\mathbb E[\operatorname{ReLU}(Z)^2]}{\mathbb E[Z^2]}
+=\frac{(1+b^2)\Phi(b)+b\phi(b)}{1+b^2}.
+$
+
+當 $b=0$，兩者均為 $0.5$；當 $b=-1$，約為 **0.1587、0.0377**；當 $b=1$，約為 **0.8413、0.9623**。**通過 ReLU 的機率不等於輸出所保留的平方訊號比例。** 因此，不能將基於對稱性得到的 $v=2/n_{\mathrm{in}}$ 二階矩論證原封不動套用到偏移後的前激活。圖中的值是解析式示意，**不是神經網路的實測激活分布，也不是推薦的 bias 初始化規則**。[^he][^propagation]
+
+Wiki 網站沿用播放／暫停（控制項聚焦後按 Enter 或 Space），偏好減少動態效果時顯示靜態回退；手機可於圖內水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/he-relu-mean-shift-motion.svg) · [GitHub 靜態預覽](../../../assets/concept-animations/he-relu-mean-shift-still.svg)。
+
 ## 方程式
 
 ### 常態與均勻分布形式

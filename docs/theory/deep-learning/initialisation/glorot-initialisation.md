@@ -71,6 +71,24 @@ The normal distribution's scale parameter here is a **standard deviation**, not 
 
 Some libraries expose a gain $g$: multiply $a$ or $\sigma_w$ by $g$, which multiplies the variance by $g^2$. The formulas above use $g=1$. PyTorch's Xavier functions default to that gain; its separately called gain helper recommends $5/3$ for tanh. Supplying that value explicitly changes the scale, rather than reproducing the unit-gain formula.[^implementation]
 
+
+### Tanh saturation: where the unit-slope approximation fails
+
+<div tabindex="0" role="region" aria-label="Tanh squared-derivative decay with Gaussian preactivation variance; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-tanh-saturation-still.svg" data-motion-src="../../../assets/concept-animations/glorot-tanh-saturation-motion.svg" data-still-src="../../../assets/concept-animations/glorot-tanh-saturation-still.svg" alt="A moving marker tracks the expected squared tanh derivative as Gaussian preactivation variance rises; the value falls from one toward 0.174 at variance nine, below a dashed unit-slope reference." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* Balancing linearised signal variance does **not** ensure the nonlinearity remains close to slope one. For a constructed preactivation $Z\sim\mathcal N(0,q)$, the **local squared derivative** of tanh has expectation
+
+$
+G(q)=\mathbb E\!\left[(\tanh'(Z))^2\right]
+=\mathbb E\!\left[\operatorname{sech}^4(Z)\right].
+$
+
+The purple curve is deterministic **Gaussian numerical quadrature**, not a fitted or measured training curve. It gives $G(0)=1$, $G(1)\approx0.4644$, and $G(9)\approx0.1742$. Increasing the input spread puts more preactivations in tanh's saturated tails, attenuating the local derivative. This factor alone does **not** give the full input-output Jacobian or imply a measured gradient norm: weight scaling, layer correlations and depth also matter.[^glorot][^propagation]
+
+The Wiki site supplies Play/Pause via the shared animation player, Enter/Space keyboard activation, a reduced-motion still fallback and horizontal scrolling inside small viewports. [Animated SVG](../../../assets/concept-animations/glorot-tanh-saturation-motion.svg) · [GitHub still preview](../../../assets/concept-animations/glorot-tanh-saturation-still.svg).
+
 ## Worked example: a rectangular layer
 
 These are original calculations under the linear approximation, not measured network results. Define forward and backward variance multipliers as $m_f=n_{\text{in}}\sigma_w^2$ and $m_b=n_{\text{out}}\sigma_w^2$.

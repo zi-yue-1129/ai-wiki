@@ -16,6 +16,8 @@ ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "glorot-fan-tradeoff": "theory/deep-learning/initialisation/glorot-initialisation",
+    "glorot-tanh-saturation": "theory/deep-learning/initialisation/glorot-initialisation",
+    "he-relu-mean-shift": "theory/deep-learning/initialisation/he-initialisation",
     "mup-width-multipliers": "theory/deep-learning/initialisation/mup",
     "mup-readout-aggregation": "theory/deep-learning/initialisation/mup",
     "mup-transfer-protocol": "theory/deep-learning/initialisation/mup",
@@ -194,7 +196,7 @@ def main() -> int:
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
-                          "glorot-fan-tradeoff", "mup-width-multipliers", "mup-readout-aggregation", "mup-transfer-protocol", "mup-update-budget", "mup-transfer-validation", "he-relu-second-moment",
+                          "glorot-fan-tradeoff", "glorot-tanh-saturation", "he-relu-mean-shift", "mup-width-multipliers", "mup-readout-aggregation", "mup-transfer-protocol", "mup-update-budget", "mup-transfer-validation", "he-relu-second-moment",
                           "prelu-slope-gain", "glorot-alternating-width",
                           "he-fan-mode-tradeoff", "glorot-equal-variance-densities",
                           "svd-unit-circle", "power-iteration-convergence"}:

@@ -68,6 +68,25 @@ The wiki provides Play/Pause with keyboard activation, a reduced-motion still im
 
 On the Wiki website, use Play/Pause (Enter or Space on the focused control); reduced-motion users receive the still preview. Narrow screens can scroll the figure horizontally. [Continuous SVG](../../../assets/concept-animations/he-fan-mode-tradeoff-motion.svg) · [GitHub still fallback](../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg).
 
+
+### ReLU mean shift: active probability is not retained energy
+
+<div tabindex="0" role="region" aria-label="Gaussian ReLU mean-shift animation; horizontally scroll on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/he-relu-mean-shift-still.svg" data-motion-src="../../../assets/concept-animations/he-relu-mean-shift-motion.svg" data-still-src="../../../assets/concept-animations/he-relu-mean-shift-still.svg" alt="Two moving analytic curves show that a Gaussian preactivation's active probability and its fraction of second moment surviving ReLU coincide at one half for zero mean, but separate as the mean shifts." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* The familiar ReLU factor **1/2** relies on a distribution symmetric about zero. In this separate **constructed Gaussian example**, let $Z\sim\mathcal N(b,1)$, with standard-normal density $\phi$ and cumulative distribution $\Phi$. Then
+
+$
+P(Z>0)=\Phi(b),\qquad
+\frac{\mathbb E[\operatorname{ReLU}(Z)^2]}{\mathbb E[Z^2]}
+=\frac{(1+b^2)\Phi(b)+b\phi(b)}{1+b^2}.
+$
+
+At $b=0$ both quantities equal $0.5$; at $b=-1$ they are approximately **0.1587 and 0.0377**, and at $b=1$ approximately **0.8413 and 0.9623**. **The active fraction is not the fraction of the squared signal retained.** Consequently the symmetric-preactivation moment argument motivating $v=2/n_{\mathrm{in}}$ cannot be applied unchanged to a shifted preactivation. These are analytically specified Gaussian expectations, **not empirical activation statistics or a proposed bias-initialisation rule**.[^he][^propagation]
+
+On the Wiki site, the moving markers can be paused via the existing Play/Pause control (keyboard Enter/Space); reduced-motion preference selects the static fallback, while a narrow screen scrolls inside the figure. [Animated SVG](../../../assets/concept-animations/he-relu-mean-shift-motion.svg) · [GitHub still preview](../../../assets/concept-animations/he-relu-mean-shift-still.svg).
+
 ## Equation
 
 ### Normal and uniform forms

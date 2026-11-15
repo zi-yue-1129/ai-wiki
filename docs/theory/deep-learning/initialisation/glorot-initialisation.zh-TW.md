@@ -72,6 +72,24 @@ $$
 
 部分函式庫提供增益 $g$：將 $a$ 或 $\sigma_w$ 乘以 $g$，變異數就會乘以 $g^2$。上式使用 $g=1$。PyTorch 的 Xavier 函式預設使用此增益；另行呼叫的增益輔助函式則為 tanh 建議 $5/3$。明確傳入該值會改變尺度，並不等於重現單位增益公式。[^implementation]
 
+
+### Tanh 飽和：為什麼單位斜率近似會失效
+
+<div tabindex="0" role="region" aria-label="高斯前激活變異數增加時 tanh 導數平方期望下降的動畫；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-tanh-saturation-still.svg" data-motion-src="../../../assets/concept-animations/glorot-tanh-saturation-motion.svg" data-still-src="../../../assets/concept-animations/glorot-tanh-saturation-still.svg" alt="游標追蹤高斯前激活變異數增加時的 tanh 導數平方期望；從一降至變異數九時約 0.174，低於虛線表示的單位斜率基準。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 使用 Glorot 初始化平衡線性化的訊號變異數，**不代表**非線性函數始終維持接近一的局部斜率。對於人工設定的 $Z\sim\mathcal N(0,q)$，tanh 的**局部導數平方期望**為
+
+$
+G(q)=\mathbb E\!\left[(\tanh'(Z))^2\right]
+=\mathbb E\!\left[\operatorname{sech}^4(Z)\right].
+$
+
+紫色曲線由確定性的**高斯數值積分**取得，並非訓練結果擬合或實測曲線。計算得到 $G(0)=1$、$G(1)\approx0.4644$、$G(9)\approx0.1742$。前激活分布變寬後，更多值落在 tanh 飽和區域，局部導數便下降。此單一因子**不等於**整層輸入輸出的 Jacobian，也不能直接視為實測梯度範數；權重尺度、層間相關性與深度均會影響結果。[^glorot][^propagation]
+
+Wiki 網站沿用共用的播放／暫停、Enter／Space 鍵盤操作、Reduced Motion 靜態回退與手機圖內水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/glorot-tanh-saturation-motion.svg) · [GitHub 靜態預覽](../../../assets/concept-animations/glorot-tanh-saturation-still.svg)。
+
 ## 算例：非方形層
 
 以下是在線性近似下自行計算的例子，並非實測網路結果。定義前向與反向變異數倍率為 $m_f=n_{\text{in}}\sigma_w^2$ 與 $m_b=n_{\text{out}}\sigma_w^2$。
