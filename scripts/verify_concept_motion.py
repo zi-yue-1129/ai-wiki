@@ -19,6 +19,8 @@ TOPICS = {
     "mup-width-multipliers": "theory/deep-learning/initialisation/mup",
     "mup-readout-aggregation": "theory/deep-learning/initialisation/mup",
     "mup-transfer-protocol": "theory/deep-learning/initialisation/mup",
+    "mup-update-budget": "theory/deep-learning/initialisation/mup",
+    "mup-transfer-validation": "theory/deep-learning/initialisation/mup",
     "he-relu-second-moment": "theory/deep-learning/initialisation/he-initialisation",
     "prelu-slope-gain": "theory/deep-learning/initialisation/he-initialisation",
     "glorot-alternating-width": "theory/deep-learning/initialisation/glorot-initialisation",
@@ -192,7 +194,7 @@ def main() -> int:
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
-                          "glorot-fan-tradeoff", "mup-width-multipliers", "mup-readout-aggregation", "mup-transfer-protocol", "he-relu-second-moment",
+                          "glorot-fan-tradeoff", "mup-width-multipliers", "mup-readout-aggregation", "mup-transfer-protocol", "mup-update-budget", "mup-transfer-validation", "he-relu-second-moment",
                           "prelu-slope-gain", "glorot-alternating-width",
                           "he-fan-mode-tradeoff", "glorot-equal-variance-densities",
                           "svd-unit-circle", "power-iteration-convergence"}:

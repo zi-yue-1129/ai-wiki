@@ -70,6 +70,27 @@ Wiki 網站提供**播放／暫停**（聚焦後可按 Enter 或 Space）；偏�
 
 Wiki 網站可透過**播放／暫停**（聚焦後按 Enter 或 Space）觀看搜尋到轉移的步驟；Reduced Motion 先顯示完整靜態圖。[開啟動畫](../../../assets/concept-animations/mup-transfer-protocol-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/mup-transfer-protocol-still.svg)。
 
+
+### 隱藏層權重更新量的人工範例：單一座標與總量不同
+
+<div tabindex="0" role="region" aria-label="muP 隱藏層權重更新量示意動畫；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-update-budget-still.svg" data-motion-src="../../../assets/concept-animations/mup-update-budget-motion.svg" data-still-src="../../../assets/concept-animations/mup-update-budget-still.svg" alt="十六個人工設定的等幅座標更新：從四個增加到十六個座標後，依寬度縮放的單一更新幅度下降，絕對更新量總和維持為一；不縮放的對照組則隨寬度增加。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創連續／分階段數學動畫，CC BY-SA 4.0。* 這是**人工算術例子，不是實際 Adam 更新**。令 $n=4、8、16$ 個座標各自具有 $|\Delta w_i|=1/n$，則 $\sum_i|\Delta w_i|=1$；刻意不依寬度縮放的對照則固定 $|\Delta w_i|=1/4$，得到總和 $1、2、4$。此例只用來隔離說明隱藏層權重學習率的扇入倒數倍率，**不代表**真實 muP 模型的權重更新 $L_1$ 範數、函數／特徵更新或梯度實測會維持固定。[^mup-motion]
+
+網站提供**播放／暫停**（聚焦後按 Enter 或 Space）、Reduced Motion 靜態回退及手機區域內水平捲動。[開啟 SVG 動畫](../../../assets/concept-animations/mup-update-budget-motion.svg) · [GitHub 靜態預覽](../../../assets/concept-animations/mup-update-budget-still.svg)。
+
+### 超參數轉移有適用條件：仍須驗證寬模型
+
+<div tabindex="0" role="region" aria-label="人工學習率最適點偏移的動畫；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-transfer-validation-still.svg" data-motion-src="../../../assets/concept-animations/mup-transfer-validation-motion.svg" data-still-src="../../../assets/concept-animations/mup-transfer-validation-still.svg" alt="兩條虛構凸目標曲線：窄模型最佳示意學習率為 0.20，假設寬模型最佳值逐漸移到 0.35，但沿用的學習率仍停留在 0.20。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創連續教學動畫，CC BY-SA 4.0。* 左圖是最佳點位於 $\eta=0.20$ 的**虛構**窄模型目標函數；右圖的**虛構**寬模型目標，從最佳點同樣為 $0.20$ 逐漸變為 $0.35$。終點可用人工函數 $L_{\mathrm{wide}}(\eta)=(\eta-0.35)^2+0.15$ 表示，因此沿用 $0.20$ 的示意超額損失為 $(0.20-0.35)^2=0.0225$。**所有曲線、最佳點及損失皆非實際訓練結果**，也不能據此推論 muTransfer 的實測成功率。零樣本超參數轉移是特定參數化與設定下的實證結果，不保證跨任何任務、最佳化器或超參數必然成立；寬模型仍需驗證。[^mup-motion]
+
+網站提供**播放／暫停**、鍵盤操作、減少動態偏好下的靜態圖與手機水平捲動。[開啟 SVG 動畫](../../../assets/concept-animations/mup-transfer-validation-motion.svg) · [GitHub 靜態預覽](../../../assets/concept-animations/mup-transfer-validation-still.svg)。
+
 ## 結果
 
 摘要報告，在小模型上調好的超參數，可以用到大得多的模型上，並且此結果對 Transformer 與 ResNet 模型成立。摘要舉了兩個例子。由 1,300 萬參數的模型轉移預訓練超參數，所得結果優於已發表的 BERT-large 數字，調參成本等同於預訓練 BERT-large 一次。由 4,000 萬參數的模型轉移，所得結果優於已發表的 67 億參數 GPT-3 模型，調參成本僅為其總預訓練成本的 7% [(Yang et al., 2022)](https://arxiv.org/abs/2203.03466)。

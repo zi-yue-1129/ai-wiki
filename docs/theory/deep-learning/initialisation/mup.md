@@ -69,6 +69,27 @@ On the wiki site, use **Play/Pause** (Enter/Space while focused); reduced-motion
 
 On the wiki site, **Play/Pause** (Enter/Space while focused) reveals the staged search and transfer; reduced-motion users see the final static overview. [Open the motion](../../../assets/concept-animations/mup-transfer-protocol-motion.svg) · [View the GitHub fallback](../../../assets/concept-animations/mup-transfer-protocol-still.svg).
 
+
+### Toy hidden-weight steps: the aggregate is not one coordinate
+
+<div tabindex="0" role="region" aria-label="Artificial muP hidden-weight update budget animation; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-update-budget-still.svg" data-motion-src="../../../assets/concept-animations/mup-update-budget-motion.svg" data-still-src="../../../assets/concept-animations/mup-update-budget-still.svg" alt="Sixteen synthetic equal-magnitude coordinate steps: widening from four to sixteen shrinks each width-scaled step while keeping the sum of absolute steps equal to one; a fixed per-coordinate step makes that sum grow." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original continuous/staged mathematical animation, CC BY-SA 4.0.* **Artificial arithmetic, not actual Adam updates:** for each of $n=4,8,16$ coordinates, set $|\Delta w_i|=1/n$, so $\sum_i|\Delta w_i|=1$. The contrasting, deliberately **unscaled** setting $|\Delta w_i|=1/4$ instead yields totals $1,2,4$. The diagram isolates the inverse-fan-in hidden-weight learning-rate factor under a toy equal-step assumption; it does **not** imply that muP preserves the $L_1$ norm of real learned weight updates, functional feature updates, or any measured gradient.[^mup-motion]
+
+The wiki player offers **Play/Pause** (Enter/Space while focused); reduced-motion mode starts with the static fallback, and narrow screens scroll inside the diagram. [Open the motion](../../../assets/concept-animations/mup-update-budget-motion.svg) · [View the GitHub-safe still](../../../assets/concept-animations/mup-update-budget-still.svg).
+
+### Transfer is conditional: a wide-model check still matters
+
+<div tabindex="0" role="region" aria-label="Artificial learning-rate optimum shift animation; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-transfer-validation-still.svg" data-motion-src="../../../assets/concept-animations/mup-transfer-validation-motion.svg" data-still-src="../../../assets/concept-animations/mup-transfer-validation-still.svg" alt="Two invented convex objective curves: the narrow learning-rate optimum stays at 0.20, while the hypothetical wide-model optimum moves toward 0.35 and the reused candidate remains fixed at 0.20." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* The left curve is a **fabricated** narrow-model objective with minimiser $\eta=0.20$. On the right, the **fabricated** wide-model objective morphs between an aligned minimiser $0.20$ and a shifted minimiser $0.35$. For illustration, the endpoint can be described by $L_{\mathrm{wide}}(\eta)=(\eta-0.35)^2+0.15$, so reusing $0.20$ produces a toy excess loss $(0.20-0.35)^2=0.0225$. None of these curves or optima are training measurements or claims about the empirical transfer rate. muTransfer is a useful empirical result under suitable parametrisation and settings, **not a mathematical promise that every task, optimiser, or hyperparameter transfers**. The transferred setting still requires wide-model validation.[^mup-motion]
+
+The site provides **Play/Pause**, keyboard operation and a reduced-motion still. [Open the motion](../../../assets/concept-animations/mup-transfer-validation-motion.svg) · [View the GitHub-safe still](../../../assets/concept-animations/mup-transfer-validation-still.svg).
+
 ## Results
 
 The abstract reports that hyperparameters tuned on a small model can be used on a much larger one, and that this holds for Transformer and ResNet models. Two examples are given. Transferring from a 13M-parameter model gives pretraining hyperparameters that outperform the published BERT-large numbers, at a tuning cost equal to pretraining BERT-large once. Transferring from a 40M-parameter model outperforms the published 6.7B GPT-3 model, with a tuning cost of only 7% of its total pretraining cost [(Yang et al., 2022)](https://arxiv.org/abs/2203.03466).
