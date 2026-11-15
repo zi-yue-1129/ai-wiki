@@ -103,6 +103,8 @@ with sync_playwright() as pw:
                 assert disc.locator('[data-to="11"]').get_attribute('data-probability')=='0.875'
                 disc.locator('[data-field="step"]').fill('2')
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.281'
+                if width in (320,1024) and not reduced:
+                    page.screenshot(path=str(ARTIFACT/f'{lang}-{width}-hybrid-refresh.png'),full_page=True)
                 disc.locator('[data-field="refresh"]').fill('1')
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.000'
                 disc.locator('[data-field="refresh"]').fill('0')
