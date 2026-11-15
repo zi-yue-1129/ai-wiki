@@ -55,26 +55,45 @@
     }
     target.push('S2');
     s.encoder=enc;s.target=target;s.masked=remove.size;
-    const svg=`<svg viewBox="0 0 760 280" width="760" height="280" role="img" aria-label="${s.zh?'T5 跨度破壞與哨兵 Token 轉換':'T5 span corruption and sentinel transformation'}"><rect width="760" height="280" rx="15" fill="#f8fbfe"/>${tokenLane(tokens,45,'Input',s.stage>=1?[...remove]:[])}${s.stage>=2?tokenLane(enc,115,'Encoder'):text(370,141,'···',20,'#a7bbc7')}${s.stage>=3?tokenLane(target,190,'Target'):text(370,215,'···',20,'#a7bbc7')}${text(740,266,`${remove.size}/10`,13,'#647d91','end')}</svg>`;
-    return svg;
+    let svg=`<svg viewBox="0 0 760 370" width="760" height="370" role="img" aria-label="${s.zh?'T5 跨度破壞與哨兵 Token 轉換':'T5 span corruption and sentinel transformation'}"><rect width="760" height="370" rx="15" fill="#f8fbfe"/>${tokenLane(tokens,45,'Input',s.stage>=1?[...remove]:[])}${s.stage>=2?tokenLane(enc,115,'Encoder'):text(370,141,'···',20,'#a7bbc7')}${s.stage>=3?tokenLane(target,190,'Target'):text(370,215,'···',20,'#a7bbc7')}${text(740,266,`${remove.size}/10`,13,'#647d91','end')}`;
+    const lengths = [['Input', 10, 0, '#879caf'], ['Encoder', enc.length, 2, '#169bab'], ['Target', target.length, 3, '#df8a34']];
+    lengths.forEach(([name, count, at, fill], i) => {
+      if(s.stage < at)return;
+      const y=284+26*i;
+      svg+=`<g data-length="${name}" data-count="${count}">${text(70,y+14,name,12,'#385367','start')}${rect(145,y+2,430,14,'#edf2f6')}${rect(145,y+2,43*count,14,fill,fill)}${text(591,y+14,`${count}/10`,12,'#385367','start')}</g>`;
+    });
+    return svg+'</svg>';
   }
   function deitDraw(s) {
     const p=s.p, d=s.d, teacher=s.teacher, ce1=-Math.log(p), ce2=-Math.log(teacher==='A'?d:1-d),total=(ce1+ce2)/2, avg=(p+d)/2;
     s.ce1=ce1;s.ce2=ce2;s.loss=total;s.avg=avg;
-    let svg=`<svg viewBox="0 0 760 300" width="760" height="300" role="img" aria-label="${s.zh?'DeiT 分類與蒸餾雙頭、硬標籤與交叉熵':'DeiT class and distillation heads with cross entropy'}"><rect width="760" height="300" rx="15" fill="#f8fbfe"/>`;
+    let svg=`<svg viewBox="0 0 760 402" width="760" height="402" role="img" aria-label="${s.zh?'DeiT 分類與蒸餾雙頭、硬標籤與交叉熵':'DeiT class and distillation heads with cross entropy'}"><rect width="760" height="402" rx="15" fill="#f8fbfe"/>`;
     svg+=rect(22,47,145,74,'#e4f1f7')+text(94,79,'Student',17)+text(94,103,'ViT',14);
     svg+=rect(22,169,145,57,'#fff1e1')+text(94,193,'Teacher',16)+text(94,213,teacher,15);
     svg+=`<path d="M168 85H217 M168 196H217" stroke="#7d9bb0" stroke-width="2" stroke-dasharray="5 4"/>`;
     const rows=[{name:'CLS',prob:p,y:55,color:'#169bab',target:'A',ce:ce1},{name:'DIST',prob:d,y:151,color:'#df8a34',target:teacher,ce:ce2}];
     rows.forEach((r,i)=>{
       svg+=rect(222,r.y,498,82,'#fff');svg+=text(256,r.y+28,r.name,15,'#294a5d','start');
-      svg+=rect(315,r.y+17,238,18,'#e9eef3');svg+=rect(315,r.y+17,238*r.prob,18,r.color,r.color);
-      svg+=text(567,r.y+32,`P(A) ${f(r.prob)}`,13,'#31566b','start');
+      if(s.stage>=1){
+        svg+=rect(315,r.y+17,238,18,'#e9eef3');svg+=rect(315,r.y+17,238*r.prob,18,r.color,r.color);
+        svg+=text(567,r.y+32,`P(A) ${f(r.prob)}`,13,'#31566b','start');
+      }
       if(s.stage>=2)svg+=text(311,r.y+65,`Target ${r.target}`,14,r.color,'start');
       if(s.stage>=3)svg+=text(496,r.y+65,`CE ${f(r.ce)}`,14,'#2a5169','start');
     });
     if(s.stage>=4)svg+=rect(236,247,475,40,'#d9f3e8')+text(475,273,`P(A) ${(100*avg).toFixed(1)}%  ·  Avg heads`,15,'#206d59');
     else if(s.stage>=3)svg+=text(477,273,`L = ${f(total)}`,17,'#28445b');
+    if(s.stage>=3){
+      const weight1=ce1/2,weight2=ce2/2, scale=104;
+      svg+=`<g data-diagnostic="loss-contributions">${text(35,330,'Loss split',15,'#385367','start')}`;
+      svg+=rect(175,315,350,22,'#e9eef3');
+      svg+=rect(175,315,weight1*scale,22,'#169bab','#169bab');
+      svg+=rect(175+weight1*scale,315,weight2*scale,22,'#df8a34','#df8a34');
+      svg+=text(545,332,`L ${f(total)}`,14,'#26485b','start');
+      svg+=text(185,369,`CLS × 0.5: ${f(weight1)}`,13,'#167e8e','start');
+      svg+=text(398,369,`DIST × 0.5: ${f(weight2)}`,13,'#9d5e1f','start');
+      svg+='</g>';
+    }
     svg+='</svg>';return svg;
   }
   function init(root) {
@@ -91,7 +110,21 @@
       root.querySelector('.td-art').innerHTML=isT5?t5Draw(s):deitDraw(s);
       seek.value=s.stage;
       const phase=(isT5?m.stageT5:m.stagesDeit)[s.stage];
-      out.textContent=isT5?`${phase} · ${s.masked}/10 (${s.masked*10}%) · Encoder: ${s.encoder.join(' ')} · Target: ${s.target.join(' ')}`:`${phase} · CE(CLS) ${f(s.ce1)} · CE(DIST) ${f(s.ce2)} · L ${f(s.loss)} · P(A) ${f(s.avg)}`;
+      // The live description must reveal only information available at this stage.
+      if(isT5){
+        const parts=[phase];
+        if(s.stage>=1)parts.push(`${s.masked}/10 (${s.masked*10}%)`);
+        if(s.stage>=2)parts.push(`Encoder: ${s.encoder.join(' ')}`);
+        if(s.stage>=3)parts.push(`Target: ${s.target.join(' ')}`);
+        out.textContent=parts.join(' · ');
+      }else{
+        const parts=[phase];
+        if(s.stage>=1)parts.push(`P_cls(A) ${f(s.p)}`,`P_dist(A) ${f(s.d)}`);
+        if(s.stage>=2)parts.push(`Target(CLS) A`,`Target(DIST) ${s.teacher}`);
+        if(s.stage>=3)parts.push(`CE(CLS) ${f(s.ce1)}`,`CE(DIST) ${f(s.ce2)}`,`L ${f(s.loss)}`);
+        if(s.stage>=4)parts.push(`Inference P(A) ${f(s.avg)}`);
+        out.textContent=parts.join(' · ');
+      }
     };
     if(isT5){ranges.forEach((r,i)=>r.addEventListener('input',()=>{s[['start1','len1','start2','len2'][i]]=Number(r.value)-(i%2===0?1:0); /* position labels 1-based */
       // First span must end before second; positions are zero-based internally.
