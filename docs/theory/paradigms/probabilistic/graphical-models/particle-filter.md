@@ -37,7 +37,9 @@ A subsequent **resampling** step selects ancestors with probabilities proportion
 
 ## Animated example: weighting and ancestor resampling
 
-![Bootstrap particle weights near an observation followed by systematic resampling of ten descendants](../../../../assets/concept-animations/particle-weight-resampling-still.svg){: data-motion-src="../../../../assets/concept-animations/particle-weight-resampling-motion.svg" }
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/particle-weight-resampling-still.svg" data-motion-src="../../../../assets/concept-animations/particle-weight-resampling-motion.svg" data-still-src="../../../../assets/concept-animations/particle-weight-resampling-still.svg" alt="Particle likelihood weighting and systematic ancestor resampling" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
 
 *Original educational animation, CC BY-SA 4.0.* [GitHub-readable final-state SVG](../../../../assets/concept-animations/particle-weight-resampling-still.svg). MkDocs provides **Play/Pause** using keyboard-operable controls; reduced-motion users see the static descendant population. On a narrow screen, scroll horizontally.
 
