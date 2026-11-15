@@ -12,6 +12,8 @@
       reduced:'Reduced-motion is enabled: playback will not start automatically.',
       diagnosticsGaussian:'Theoretical finite-sample effective size of the stationary Gibbs Y mean for 100 full sweeps as target correlation varies.',
       diagnosticsDisconnected:'Exact total variation distance from a point start to the two-mode target after each complete kernel transition.',
+      burninLabel:'Exact Gaussian marginal-law convergence from the fixed initial Y=1, showing mean and one-standard-deviation band by complete sweep.',
+      lawLabel:'Exact two-state probability mass after each transition, not visit counts from an illustrative trajectory.',
       gab:(s)=>`Step ${s.step} of 10; ρ ${s.rho.toFixed(2)}; X ${s.x.toFixed(3)}, Y ${s.y.toFixed(3)}; stationary lag-one correlation ρ² ${(s.rho*s.rho).toFixed(3)}; conditional σ ${Math.sqrt(1-s.rho*s.rho).toFixed(3)}.${s.step ? ` ${s.axis} conditional mean ${s.mean.toFixed(3)}; fixed standard-normal innovation ${s.z.toFixed(2)}.` : ''}`,
       dib:(s)=>`Step ${s.step} of 8; ${s.mode==='single'?'single-site conditional, fixed':'joint block conditional, possibly switching'}; current state (${s.bit},${s.bit}); P(next 00) ${s.p00.toFixed(2)}, P(next 11) ${s.p11.toFixed(2)}; block refresh p=${s.p.toFixed(2)}.`
     },
@@ -25,6 +27,8 @@
       reduced:'已開啟減少動態效果，不會自動播放。',
       diagnosticsGaussian:'相關高斯 Gibbs 平穩態 Y 平均數在一百輪完整掃描下，理論有限樣本有效樣本數隨相關係數變化的圖。',
       diagnosticsDisconnected:'從單一支援點出發，每次完整更新後與雙模態目標分布之間的精確總變異距離。',
+      burninLabel:'從固定起點 Y=1 出發，高斯 Gibbs 每輪完整掃描後的精確邊際分布、平均值與單一標準差區間。',
+      lawLabel:'雙狀態更新核每次轉移後的精確機率質量，不是人工軌跡的到訪次數。',
       gab:(s)=>`第 ${s.step}/10 步；ρ=${s.rho.toFixed(2)}；X=${s.x.toFixed(3)}，Y=${s.y.toFixed(3)}；平穩態單輪延遲相關 ρ²=${(s.rho*s.rho).toFixed(3)}；條件標準差 σ=${Math.sqrt(1-s.rho*s.rho).toFixed(3)}。${s.step ? `本步 ${s.axis} 條件平均 ${s.mean.toFixed(3)}；固定標準常態創新 ${s.z.toFixed(2)}。` : ''}`,
       dib:(s)=>`第 ${s.step}/8 步；${s.mode==='single'?'逐座標抽樣受困':'聯合分塊抽樣可跨模態'}；目前為 (${s.bit},${s.bit})；下一步到 (0,0) 的機率 ${s.p00.toFixed(2)}，到 (1,1) 的機率 ${s.p11.toFixed(2)}；分塊刷新 p=${s.p.toFixed(2)}。`
     }
@@ -58,6 +62,7 @@
       <div class="gibbs-lab-parameters">${kind==='gaussian'?`<label class="gibbs-lab-field">${L.rho} <input aria-label="${L.rho}" type="range" min="-0.95" max="0.95" step="0.05" value="0.8" data-field="rho"><output data-value="rho">0.80</output></label>`:opts(L.scan,[['single',L.single],['block',L.block],['mix',L.mixed]])+opts(L.start,[[0,'(0,0)'],[1,'(1,1)']])+`<label class="gibbs-lab-field">${L.refresh} <input aria-label="${L.refresh}" type="range" min="0" max="1" step="0.05" value="0.25" data-field="refresh"><output data-value="refresh">0.25</output></label>`}</div>
       <div class="gibbs-lab-scroll" tabindex="0" role="region" aria-label="${esc(kind==='gaussian'?L.gaussian:L.discrete)}"><svg data-graphic="main" role="img" width="640" height="330" viewBox="0 0 640 330" aria-label="${esc(kind==='gaussian'?L.gaussian:L.discrete)}"></svg></div>
       <div class="gibbs-lab-scroll gibbs-lab-diagnostic" tabindex="0" role="region" aria-label="${esc(kind==='gaussian'?L.diagnosticsGaussian:L.diagnosticsDisconnected)}"><svg data-graphic="diagnostic" width="640" height="170" viewBox="0 0 640 170" role="img" aria-label="${esc(kind==='gaussian'?L.diagnosticsGaussian:L.diagnosticsDisconnected)}"></svg></div>
+      <div class="gibbs-lab-scroll gibbs-lab-diagnostic" tabindex="0" role="region" aria-label="${esc(kind==='gaussian'?L.burninLabel:L.lawLabel)}"><svg data-graphic="evolution" width="640" height="200" viewBox="0 0 640 200" role="img" aria-label="${esc(kind==='gaussian'?L.burninLabel:L.lawLabel)}"></svg></div><p class="gibbs-lab-note" data-evolution-summary aria-live="polite"></p>
       <p class="gibbs-lab-hint">${L.scroll}</p><p class="gibbs-lab-status" role="status" aria-live="polite" data-status></p><p class="gibbs-lab-note">${L.note}</p>
     </div>`;
     const q=s=>host.querySelector(s);
@@ -108,6 +113,59 @@
           <line x1="457" y1="23" x2="476" y2="23" stroke="#168b88" stroke-width="3"/><text x="482" y="27" font-size="11" fill="#506779">Block</text><line x1="545" y1="23" x2="559" y2="23" stroke="#8e5aaa" stroke-width="3"/><text x="566" y="27" font-size="11" fill="#506779">Mix</text>`;
       }
     }
+    function renderEvolution() {
+      const chart=q('svg[data-graphic="evolution"]');
+      const base='<rect width="640" height="200" rx="13" fill="#f5f9fc"/><rect x="9" y="8" width="622" height="183" rx="11" fill="white" stroke="#d9e5ec"/>';
+      const label=(x,y,value,size=11,color='#506779',anchor='start')=>`<text x="${x}" y="${y}" fill="${color}" font-size="${size}" text-anchor="${anchor}">${value}</text>`;
+      if(kind==='gaussian'){
+        // From deterministic Y_0=1. Y_n|Y_0=1 ~ N(rho^(2n), 1-rho^(4n))
+        // for n full systematic sweeps, even though displayed realised innovations are fixed.
+        const n=Math.floor(state.step/2), rho=state.rho;
+        const rows=Array.from({length:6},(_,i)=>({mu:rho**(2*i),variance:Math.max(0,1-rho**(4*i))}));
+        const px=i=>96+91*i, py=y=>147-(y+1.25)*90/2.8;
+        const points=items=>items.map(([x,y])=>`${x.toFixed(2)},${y.toFixed(2)}`).join(' ');
+        const high=rows.map((v,i)=>[px(i),py(v.mu+Math.sqrt(v.variance))]);
+        const low=rows.map((v,i)=>[px(i),py(v.mu-Math.sqrt(v.variance))]);
+        const center=rows.map((v,i)=>[px(i),py(v.mu)]);
+        const r=rows[n];
+        chart.innerHTML=`${base}${label(23,30,'Exact Gaussian law',15,'#244259')}${label(23,47,'Y₀=1  ·  full sweeps',11)}
+          <line x1="81" y1="${py(0)}" x2="581" y2="${py(0)}" stroke="#788d9c" stroke-dasharray="5 5"/>
+          <line x1="81" y1="${py(1)}" x2="581" y2="${py(1)}" stroke="#b0c7d4" stroke-dasharray="2 5"/>
+          <line x1="81" y1="${py(-1)}" x2="581" y2="${py(-1)}" stroke="#b0c7d4" stroke-dasharray="2 5"/>
+          ${label(66,py(1)+4,'+1')}${label(71,py(0)+4,'0')}${label(66,py(-1)+4,'−1')}
+          <polygon data-gaussian-band points="${points(high.concat(low.reverse()))}" fill="#8e5aaa" fill-opacity=".19"/>
+          <polyline data-gaussian-mean points="${points(center)}" stroke="#168b88" stroke-width="3" fill="none" stroke-linejoin="round"/>
+          <line x1="${px(n)}" y1="58" x2="${px(n)}" y2="151" stroke="#d59449" stroke-dasharray="4 4"/>
+          <circle data-burnin-mean="${r.mu.toFixed(4)}" data-burnin-var="${r.variance.toFixed(4)}" data-sweep="${n}" cx="${px(n)}" cy="${py(r.mu).toFixed(2)}" r="6" fill="#168b88" stroke="#fff" stroke-width="2"/>
+          ${rows.map((v,i)=>label(px(i),174,String(i),11,'#506779','middle')).join('')}
+          ${label(543,190,'sweep',11)}${label(419,33,'μ ± 1σ',12,'#8e5aaa')}${label(419,47,`n=${n}   μ=${r.mu.toFixed(3)}`,11,'#168b88')}`;
+        q('[data-evolution-summary]').textContent=host.dataset.lang==='zh-TW'
+          ? `精確邊際分布：從固定 Y₀=1 出發，${n} 輪完整掃描後，Y 的理論平均為 ${r.mu.toFixed(4)}、變異數為 ${r.variance.toFixed(4)}；這與畫面中使用固定創新值的單一路徑不同。`
+          : `Exact marginal law from fixed Y₀=1: after ${n} complete sweeps, theoretical Y mean ${r.mu.toFixed(4)} and variance ${r.variance.toFixed(4)}. These are not statistics estimated from the displayed fixed-innovation path.`;
+      } else {
+        // Entire probability distribution, not the single displayed realised mode.
+        const p=state.mode==='single'?0:state.mode==='block'?1:state.refresh;
+        const n=state.step, law=k=>.5+(state.start===0?.5:-.5)*(1-p)**k;
+        const bar=Array.from({length:9},(_,i)=>{
+          const a=law(i), x=90+55*i, y=155-a*94;
+          return `<rect x="${x}" y="${y.toFixed(2)}" width="33" height="${(a*94).toFixed(2)}" rx="1" fill="#168b88"/>
+            <rect x="${x}" y="61" width="33" height="${((1-a)*94).toFixed(2)}" rx="1" fill="#8e5aaa"/>
+            ${label(x+16.5,174,i,11,'#506779','middle')}`;
+        }).join('');
+        const a=law(n),b=1-a;
+        chart.innerHTML=`${base}${label(23,30,'Exact probability law',15,'#244259')}
+          ${label(23,46,'From fixed start  ·  n transitions',11)}
+          <rect x="428" y="20" width="11" height="11" rx="2" fill="#168b88"/>${label(446,30,'00',12)}
+          <rect x="484" y="20" width="11" height="11" rx="2" fill="#8e5aaa"/>${label(502,30,'11',12)}
+          <line x1="77" y1="155" x2="587" y2="155" stroke="#8299a8"/>
+          <line x1="77" y1="108" x2="587" y2="108" stroke="#d59449" stroke-dasharray="5 5" stroke-width="1.5"/>
+          ${bar}<rect data-law-00="${a.toFixed(3)}" data-law-11="${b.toFixed(3)}" data-law-step="${n}" x="${87+55*n}" y="58" width="39" height="101" rx="3" fill="none" stroke="#d59449" stroke-width="2.2"/>
+          ${label(594,111,'0.5',11)}${label(544,190,'step',11)}`;
+        q('[data-evolution-summary]').textContent=host.dataset.lang==='zh-TW'
+          ? `精確機率分布：從 (${state.start},${state.start}) 起始，${n} 次更新後 P(00)=${a.toFixed(4)}，P(11)=${b.toFixed(4)}；此分布不是目前人工示意軌跡的出現頻率。`
+          : `Exact probability law starting at (${state.start},${state.start}): after ${n} transitions P(00)=${a.toFixed(4)}, P(11)=${b.toFixed(4)}. This distribution is not the visit frequency of the displayed illustrative path.`;
+      }
+    }
     function gaussian() {
       const s=getStates(state.rho), cur=s[state.step], xx=x=>222+x*57, yy=y=>182-y*57;
       const grid=[-2,-1,0,1,2].map(v=>`<line x1="${xx(v)}" y1="55" x2="${xx(v)}" y2="295" stroke="#e4edf2"/><line x1="83" y1="${yy(v)}" x2="359" y2="${yy(v)}" stroke="#e4edf2"/>`).join('');
@@ -134,7 +192,7 @@
       <text x="34" y="311" font-size="12" fill="#60778a">${state.step===0?'Start':state.step%2?'X | Y':'Y | X'} · ${state.step}/10</text>
       <text x="418" y="70" font-size="12" fill="#506779">ρ² = ${(state.rho**2).toFixed(3)}</text><text x="418" y="98" font-size="12" fill="#60778a">Full-sweep lag</text>
       ${[1,2,3,4,5].map(bar).join('')}`;
-      q('[data-status]').textContent=L.gab({...cur,step:state.step,rho:state.rho,axis:updatingX?'X':'Y',mean,z:state.step?innovations[state.step-1]:0});diagnostic();
+      q('[data-status]').textContent=L.gab({...cur,step:state.step,rho:state.rho,axis:updatingX?'X':'Y',mean,z:state.step?innovations[state.step-1]:0});diagnostic();renderEvolution();
     }
     function disconnected() {
       const p=state.mode==='single'?0:state.mode==='block'?1:state.refresh;
@@ -154,7 +212,7 @@
       <text x="420" y="197" font-size="12" fill="#557187">Kernel transition probabilities</text>
       <rect x="422" y="222" width="172" height="27" rx="5" fill="#e7f1f5"/><rect x="422" y="222" width="${172*state.step/max}" height="27" rx="5" fill="#91c7c2"/>
       <text x="420" y="279" font-size="13" fill="#4c6676">Step ${state.step} / ${max}</text>`;
-      q('[data-status]').textContent=L.dib({...state,bit,p00,p11,p});diagnostic();
+      q('[data-status]').textContent=L.dib({...state,bit,p00,p11,p});diagnostic();renderEvolution();
     }
     const render=()=>{q('[data-field="step"]').value=String(state.step);q('[data-value="step"]').textContent=`${state.step}/${max}`;if(kind==='gaussian'){q('[data-value="rho"]').textContent=state.rho.toFixed(2);gaussian()}else{q('[data-value="refresh"]').textContent=state.refresh.toFixed(2);q('[data-field="refresh"]').disabled=state.mode!=='mix';disconnected()}};
     const stop=()=>{if(state.timer!==null)clearInterval(state.timer);state.timer=null;q('[data-action="play"]').textContent=L.play;};

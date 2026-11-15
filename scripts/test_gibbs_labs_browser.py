@@ -36,6 +36,11 @@ with sync_playwright() as pw:
                 assert ga.locator('svg[data-graphic="diagnostic"]').count()==1
                 assert disc.locator('svg[data-graphic="diagnostic"]').count()==1
                 assert disc.locator('svg[data-graphic="main"]').count()==1
+                assert ga.locator('svg[data-graphic="evolution"]').count()==1
+                assert disc.locator('svg[data-graphic="evolution"]').count()==1
+                assert ga.locator('[data-burnin-mean]').get_attribute('data-burnin-mean')=='1.0000'
+                assert ga.locator('[data-burnin-var]').get_attribute('data-burnin-var')=='0.0000'
+                assert disc.locator('[data-law-00]').get_attribute('data-law-00')=='1.000'
                 assert '0.640' in ga.locator('[data-status]').inner_text()
                 # Playback remains user-controlled even with a reduced-motion preference.
                 ga.locator('[data-field="speed"]').select_option('2')
@@ -68,6 +73,8 @@ with sync_playwright() as pw:
                     page.screenshot(path=str(ARTIFACT/f'{lang}-{width}-conditional-mean.png'),full_page=True)
                 ga.locator('[data-action="next"]').click()
                 assert '0.280' in ga.locator('[data-status]').inner_text()
+                assert ga.locator('[data-burnin-mean]').get_attribute('data-burnin-mean')=='0.6400'
+                assert ga.locator('[data-burnin-var]').get_attribute('data-burnin-var')=='0.5904'
                 assert ga.locator('[data-conditional-mean]').get_attribute('data-conditional-mean')=='0.880'
                 ga.locator('[data-field="rho"]').fill('0.95')
                 assert '0.902' in ga.locator('[data-status]').inner_text() or '0.903' in ga.locator('[data-status]').inner_text()
@@ -103,12 +110,17 @@ with sync_playwright() as pw:
                 assert disc.locator('[data-to="11"]').get_attribute('data-probability')=='0.875'
                 disc.locator('[data-field="step"]').fill('2')
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.281'
+                assert disc.locator('[data-law-00]').get_attribute('data-law-00')=='0.219'
+                assert disc.locator('[data-law-11]').get_attribute('data-law-11')=='0.781'
+                assert '精確機率分布' in disc.locator('[data-evolution-summary]').inner_text() if lang=='zh-TW' else 'Exact probability law' in disc.locator('[data-evolution-summary]').inner_text()
                 if width in (320,1024) and not reduced:
                     page.screenshot(path=str(ARTIFACT/f'{lang}-{width}-hybrid-refresh.png'),full_page=True)
                 disc.locator('[data-field="refresh"]').fill('1')
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.000'
+                assert disc.locator('[data-law-00]').get_attribute('data-law-00')=='0.500'
                 disc.locator('[data-field="refresh"]').fill('0')
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.500'
+                assert disc.locator('[data-law-00]').get_attribute('data-law-00')=='0.000'
                 disc.locator('[data-action="reset"]').click()
                 assert '0/8' in disc.locator('[data-status]').inner_text() if lang=='zh-TW' else 'Step 0 of 8' in disc.locator('[data-status]').inner_text()
                 # Check that two languages are actually offered, controls are keyboard focusable,
@@ -122,6 +134,17 @@ with sync_playwright() as pw:
                     assert host.locator('svg[data-graphic="main"]').bounding_box()['width']==640
                     assert host.locator('svg[data-graphic="diagnostic"]').bounding_box()['height']==170
                     if width<640: assert host.locator('.gibbs-lab-scroll').first.evaluate('(e)=>e.scrollWidth>e.clientWidth')
+                # Render analytic probability laws at intermediate steps, including on mobile.
+                ga.locator('[data-field="rho"]').fill('0.8')
+                ga.locator('[data-field="step"]').fill('4')
+                assert ga.locator('[data-burnin-mean]').get_attribute('data-burnin-mean')=='0.4096'
+                assert ga.locator('[data-burnin-var]').get_attribute('data-burnin-var')=='0.8322'
+                disc.locator('[data-field="mode"]').select_option('mix')
+                disc.locator('[data-field="refresh"]').fill('0.25')
+                disc.locator('[data-field="step"]').fill('4')
+                assert disc.locator('[data-law-00]').get_attribute('data-law-00')=='0.658'
+                if width in (320,1024) and not reduced:
+                    page.screenshot(path=str(ARTIFACT/f'{lang}-{width}-analytic-laws.png'),full_page=True)
                 # Plot important post-update states, not just step 0.
                 ga.locator('[data-field="rho"]').fill('0.95')
                 ga.locator('[data-field="step"]').fill('10')

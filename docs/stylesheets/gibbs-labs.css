@@ -17,3 +17,6 @@
 
 .gibbs-lab-diagnostic { margin-top: .65rem; }
 .gibbs-lab-scroll svg[data-graphic="diagnostic"] { height: 170px; }
+
+/* Exact probability-law plots keep labels legible; mobile users scroll only the chart region. */
+.gibbs-lab-scroll svg[data-graphic="evolution"] { height: 200px; }

@@ -92,6 +92,18 @@ $
 
 At $\rho=0.8$, this gives approximately **22.44** independent-equivalent observations; at $\rho=0.95$, about **5.68**, despite all conditional updates being accepted. The slider now includes **negative and positive** correlations. Because the full-sweep autocorrelation depends on $\rho^{2k}$, the ESS curve is symmetric: $\rho=-0.8$ and $+0.8$ both give **22.44**, despite different conditional-update directions. Move the $\rho$ slider to recompute the curve and its marker. This is the theoretical stationary variance ratio for the $Y$ mean in this **constructed** Gaussian model, not a measured ESS or a statement about burn-in.
 
+#### Diagnostic: convergence from a fixed Gaussian starting point
+
+![Exact Gaussian Gibbs Y marginal distribution converges toward the stationary mean with a one-standard-deviation envelope](../../../../assets/concept-animations/gibbs-burnin-law-still.svg)
+
+The short teal path above uses **fixed artificial innovations**, but the new purple band follows the **exact probability law** of all possible Gibbs paths starting at \(Y_0=1\). For the systematic two-coordinate sweep, after \(n\) *complete sweeps* (not single-coordinate updates),
+
+$
+Y_n\mid Y_0=1\sim\mathcal{N}\bigl(\rho^{2n},\ 1-\rho^{4n}\bigr).
+$
+
+The teal centre line is the law's mean; the purple band is **mean ± one standard deviation**, not a fitted confidence interval. At \(\rho=0.8\) and \(n=2\), the mean is \(0.4096\) and the variance is \(0.83222784\). The band begins as a point mass at \(n=0\) and approaches the stationary \(\mathcal{N}(0,1)\) marginal. The existing step control highlights \(n=\lfloor\mathrm{step}/2\rfloor\); a half-completed sweep does not advance this law plot. It is an analytic convergence illustration, **not a model measurement or inference from the displayed example path**.[^roberts]
+
 ### Interactive lab: stationarity without irreducibility
 
 ![Gibbs disconnected target: single-coordinate trapping versus a joint block transition](../../../../assets/concept-animations/gibbs-disconnected-still.svg)
@@ -122,6 +134,19 @@ At $p=0.25$, four transitions leave TV distance $0.5(0.75)^4\approx0.1582$. At $
 ![Exact total variation distance from a fixed initial mode to the discrete target: single-site Gibbs stays at 0.5 while joint-block draws reach zero after one step](../../../../assets/concept-animations/gibbs-tv-diagnostic-still.svg)
 
 The second plot shows the **probability law** after $k$ complete transitions from either supported point, **not the distance of a particular sampled state**. For single-site Gibbs, the distance to $\pi=(1/2,1/2)$ stays **0.5** at every $k$ because the transition matrix is the identity. For the joint-block kernel, the distance is **0.5** at $k=0$ and exactly **zero for $k\geq 1$**, because each full-block transition redraws from $\pi$. Both endpoint kernels preserve $\pi$; the hybrid kernel also preserves it, and converges whenever $p>0$. Select the kernel and move the step slider to compare the exact analytic trajectory with the illustrative path.[^casella][^roberts]
+
+#### Diagnostic: how the entire discrete probability law moves
+
+![Exact two-mode probability masses after each hybrid Gibbs transition, distinct from the displayed illustrative sample path](../../../../assets/concept-animations/gibbs-law-propagation-still.svg)
+
+The extra stacked-bar plot evolves the **full probability distribution**, not just one currently highlighted Markov state. If \(p\) is the selected block-refresh probability and the start is \((0,0)\), then after \(n\) transitions:
+
+$
+P_n(00)=\tfrac12+\tfrac12(1-p)^n,\qquad
+P_n(11)=\tfrac12-\tfrac12(1-p)^n.
+$
+
+Starting at \((1,1)\) swaps the two probabilities. For \(p=0.25\), the probability of state \(00\) at \(n=4\) from \(00\) is \(0.658203125\), even if the separate **fixed-uniform illustrative path** happened to visit another mode. The orange half-mass reference is the stationary target. Use the existing kernel, initial-state, refresh-probability, and step controls; this is an **exact constructed two-state law**, not empirical frequencies.[^casella][^roberts]
 
 ## Connections
 
