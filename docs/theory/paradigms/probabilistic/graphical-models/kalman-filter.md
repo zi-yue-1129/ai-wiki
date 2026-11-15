@@ -56,7 +56,9 @@ In exact arithmetic the covariance update is $P_t^+=(I-K_tH_t)P_t^-$. The Joseph
 
 ## Animated example: gain-weighted Gaussian fusion
 
-![Kalman prediction, observation and updated belief with the mean moving toward the observation](../../../../assets/concept-animations/kalman-gain-fusion-still.svg){: data-motion-src="../../../../assets/concept-animations/kalman-gain-fusion-motion.svg" }
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/kalman-gain-fusion-still.svg" data-motion-src="../../../../assets/concept-animations/kalman-gain-fusion-motion.svg" data-still-src="../../../../assets/concept-animations/kalman-gain-fusion-still.svg" alt="Gaussian prediction, observation likelihood, and gain-weighted posterior update" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
 
 *Original educational animation, CC BY-SA 4.0.* [GitHub-readable final-state SVG](../../../../assets/concept-animations/kalman-gain-fusion-still.svg). The MkDocs site adds **Play/Pause** controls; Tab and Enter/Space operate the button, and reduced-motion preference selects the final state. On narrow screens, scroll the figure horizontally.
 
