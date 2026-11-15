@@ -91,6 +91,16 @@ Change the **predicted variance** $P^-$, **measurement variance** $R$, or synthe
 
 ![Kalman gain weighting prior and observation with the corrected mean on the state axis](../../../../assets/concept-animations/kalman-trust-weights-still.svg)
 
+**Additional computed diagnostic — Joseph covariance budget.** The new synchronized SVG separates the scalar Joseph update into the variance contributed by prediction uncertainty and that contributed by measurement noise:
+
+$
+P^+=(1-K)^2P^-+K^2R,\qquad K=\frac{P^-}{P^-+R}.
+$
+
+For the synthetic defaults, these contributions are approximately $0.136$ and $0.307$, summing to $P^+\approx0.443$. Both terms are nonnegative. The graphic uses a shared absolute variance scale: the stacked posterior bar is shorter than the prior bar; it is **not** a percentage-of-cause claim about a real sensor. Joseph contributions are shown only at the correction phase; Play/Pause, Seek, single-step and the existing variance controls recompute the chart.
+
+![Static GitHub preview: prior and observation-noise contributions to corrected Kalman variance](../../../../assets/concept-animations/kalman-joseph-contributions-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="kalman" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
 
 The values and transitions are an **independently computed scalar illustration**, not measured filtering accuracy or a sequence of actual observations.
