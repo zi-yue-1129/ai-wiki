@@ -12,14 +12,16 @@ OUT=Path('artifacts/bayesian-filter-labs')
 OUT.mkdir(parents=True,exist_ok=True)
 JS=(ROOT.parent/'docs/javascripts/bayesian-filter-labs.js').read_text(encoding='utf-8')
 CSS=(ROOT.parent/'docs/stylesheets/bayesian-filter-labs.css').read_text(encoding='utf-8')
+INSIGHT_JS=(ROOT.parent/'docs/javascripts/bayesian-filter-insights.js').read_text(encoding='utf-8')
+INSIGHT_CSS=(ROOT.parent/'docs/stylesheets/bayesian-filter-insights.css').read_text(encoding='utf-8')
 
 def fixture(lang='en'):
     fallback='Interactive numerical experiment requires JavaScript.' if lang=='en' else '互動數值實驗需要 JavaScript。'
-    return f'''<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{{max-width:960px;margin:0 auto;padding:12px;font-family:system-ui;background:#fff;color:#24394c}}*{{box-sizing:border-box}}{CSS}</style></head><body>
+    return f'''<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{{max-width:960px;margin:0 auto;padding:12px;font-family:system-ui;background:#fff;color:#24394c}}*{{box-sizing:border-box}}{CSS}{INSIGHT_CSS}</style></head><body>
     <h1>{'Bayesian filter labs' if lang=='en' else '貝氏濾波互動實驗'}</h1>
     <h2>Kalman filter</h2><div class="bayesian-filter-lab" data-lab="kalman" data-lang="{lang}"><p class="bayesian-filter-fallback">{fallback}</p></div>
     <h2>Particle filter</h2><div class="bayesian-filter-lab" data-lab="particle" data-lang="{lang}"><p class="bayesian-filter-fallback">{fallback}</p></div>
-    <script>{JS}</script></body></html>'''
+    <script>{JS}</script><script>{INSIGHT_JS}</script></body></html>'''
 
 async def run():
     async with async_playwright() as pw:
@@ -31,7 +33,8 @@ async def run():
                 await page.set_content(fixture(lang),wait_until='load')
                 labs=page.locator('.bf-panel');assert await labs.count()==2
                 assert await page.locator('.bayesian-filter-fallback').count()==0
-                assert await page.locator('.bf-graphic svg').count()==2
+                assert await page.locator('.bf-graphic svg').count()==4
+                assert await page.locator('svg[data-bf-diagnostic]').count()==2
                 assert await page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),f'{lang}/{width} page overflow'
                 # Dynamic Kalman numeric result; y=7, prior=3, P=1.44, R=.64.
                 ktext=await labs.nth(0).locator('.bf-output').inner_text()
@@ -41,6 +44,14 @@ async def run():
                 await labs.nth(0).get_by_role('button',name='Next' if lang=='en' else '下一步').click()
                 assert await labs.nth(0).locator('svg path').count()==3
                 assert '5.769' in await labs.nth(0).locator('.bf-output').inner_text()
+                gain_svg=labs.nth(0).locator('svg[data-bf-diagnostic="kalman"]')
+                assert abs(float(await gain_svg.get_attribute('data-gain'))-1.44/2.08)<1e-6
+                assert abs(float(await gain_svg.get_attribute('data-shift'))-4*1.44/2.08)<1e-6
+                assert abs(float(await gain_svg.get_attribute('data-posterior-variance'))-(1-1.44/2.08)*1.44)<1e-6
+                # R slider changes gain, not merely the plot's display coordinates.
+                await labs.nth(0).locator('.bf-ranges input').nth(1).fill('3')
+                assert float(await gain_svg.get_attribute('data-gain'))<.35
+                await labs.nth(0).locator('.bf-ranges input').nth(1).fill('.64')
                 # Particle weights exactly normalised, systematic ancestor sequence.
                 ptext=await labs.nth(1).locator('.bf-output').inner_text()
                 assert 'N = 10' in ptext,ptext
@@ -49,6 +60,20 @@ async def run():
                 await labs.nth(1).get_by_role('button',name='Next' if lang=='en' else '下一步').click()
                 await labs.nth(1).get_by_role('button',name='Next' if lang=='en' else '下一步').click()
                 assert await labs.nth(1).locator('svg circle').count()>=4
+                cdf_svg=labs.nth(1).locator('svg[data-bf-diagnostic="particle"]')
+                assert await cdf_svg.get_attribute('data-ancestors')=='4,5,6,6,6,7,7,8,8,9'
+                assert abs(float(await cdf_svg.get_attribute('data-weight-sum'))-1)<1e-6
+                ess=float(await cdf_svg.get_attribute('data-ess'))
+                # Changing only the systematic threshold offset cannot change weights/ESS.
+                await labs.nth(1).locator('.bf-ranges input').nth(2).fill('.025')
+                assert abs(float(await cdf_svg.get_attribute('data-ess'))-ess)<1e-6
+                await labs.nth(1).locator('.bf-ranges input').nth(2).fill('.045')
+                # All calculated SVG text remains inside its own viewBox.
+                for i in range(2):
+                    labels_outside=await page.locator('svg[data-bf-diagnostic]').nth(i).evaluate(
+                        "(svg)=>[...svg.querySelectorAll('text')].filter(e=>{const b=e.getBBox();return b.x < -1 || b.y < -1 || b.x+b.width > 701 || b.y+b.height > 231}).map(e=>e.textContent)"
+                    )
+                    assert not labels_outside,(lang,width,i,labels_outside)
                 # Seek and reset works.
                 await labs.nth(1).locator('.bf-step').fill('1')
                 await labs.nth(1).get_by_role('button',name='Reset' if lang=='en' else '重設').click()
