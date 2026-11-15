@@ -70,7 +70,7 @@ $$
 
 #### 診斷圖：平穩態平均數的有效資訊量
 
-![相關高斯 Gibbs 在一百輪完整掃描下，理論平均數有效樣本數隨目標相關係數增加而下降](../../../../assets/concept-animations/concept-animations/gibbs-ess-diagnostic-still.svg)
+![相關高斯 Gibbs 在一百輪完整掃描下，理論平均數有效樣本數隨目標相關係數增加而下降](../../../../assets/concept-animations/gibbs-ess-diagnostic-still.svg)
 
 在高斯 Gibbs 的**平穩態**，若觀察一百輪完整掃描的 $Y$，其樣本平均數的變異數等效有效樣本數，可利用理論自相關直接計算，**不是**從圖上短短幾步人工軌跡估計而來：[^roberts]
 

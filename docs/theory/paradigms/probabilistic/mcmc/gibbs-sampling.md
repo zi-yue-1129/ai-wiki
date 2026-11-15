@@ -80,7 +80,7 @@ The blue lag bars are the **theoretical stationary** autocorrelations $\operator
 
 #### Diagnostic: effective independent information
 
-![Analytic variance-equivalent effective sample size for the stationary Gaussian Gibbs mean at 100 sweeps, decreasing as target correlation increases](../../../../assets/concept-animations/concept-animations/gibbs-ess-diagnostic-still.svg)
+![Analytic variance-equivalent effective sample size for the stationary Gaussian Gibbs mean at 100 sweeps, decreasing as target correlation increases](../../../../assets/concept-animations/gibbs-ess-diagnostic-still.svg)
 
 For the **stationary** Gaussian full-sweep $Y$ sequence and a hypothetical window of $N=100$ sweeps, the variance-equivalent effective sample size for its **sample mean** is calculated analytically, not estimated from the short demonstration path:[^roberts]
 
