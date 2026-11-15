@@ -77,6 +77,10 @@ The dashed curves show the prior and a likelihood-shaped observation profile; th
 
 Change the **predicted variance** $P^-$, **measurement variance** $R$, or synthetic observation $y$. Use Previous/Next or the seek control to inspect prediction, innovation and correction. The graphic recomputes $K=P^-/(P^-+R)$, $\hat x^+=3+K(y-3)$ and $P^+=(1-K)P^-$ from the chosen inputs; the predicted mean is fixed at 3. **All three curves are peak-normalised** to compare shapes rather than absolute probability densities. Increasing $R$ makes the update trust the prior more; increasing $P^-$ increases its reliance on the observation.
 
+**New calculated view — innovation versus correction.** The extra three-track SVG reveals the predicted mean, the observation and the corrected mean on the *same state axis*. The shift is exactly $K(y-3)$, not the innovation $y-3$ unless $K=1$. Its posterior variance is $(1-K)P^-$. The phase display and all three tracks respond to the existing controls; on GitHub this script-free preview represents the synthetic default inputs, not a measured trace.
+
+![Static GitHub preview of scalar Kalman mean-shift tracks](../../../../assets/concept-animations/kalman-innovation-lab-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="kalman" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
 
 The values and transitions are an **independently computed scalar illustration**, not measured filtering accuracy or a sequence of actual observations.
