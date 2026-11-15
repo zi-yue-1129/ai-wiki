@@ -44,7 +44,9 @@ $$
 
 ## 教學動畫：增益加權的高斯融合
 
-![卡爾曼濾波器的先驗、量測概似與修正後信念，均值逐漸向觀測靠近](../../../../assets/concept-animations/kalman-gain-fusion-still.svg){: data-motion-src="../../../../assets/concept-animations/kalman-gain-fusion-motion.svg" }
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/kalman-gain-fusion-still.svg" data-motion-src="../../../../assets/concept-animations/kalman-gain-fusion-motion.svg" data-still-src="../../../../assets/concept-animations/kalman-gain-fusion-still.svg" alt="卡爾曼濾波預測、量測概似與增益加權後驗更新" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
 
 *原創教學動畫，CC BY-SA 4.0。* [GitHub 可讀的最終靜態圖](../../../../assets/concept-animations/kalman-gain-fusion-still.svg)。MkDocs 網站提供**播放／暫停**；可用 Tab 與 Enter／Space 操作按鈕，偏好減少動態效果時顯示靜態圖。手機請水平捲動圖面。
 
