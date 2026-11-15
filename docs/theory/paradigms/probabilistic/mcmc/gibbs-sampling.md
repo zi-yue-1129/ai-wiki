@@ -76,11 +76,13 @@ The orange dashed line marks the fixed conditioning coordinate. The teal segment
 
 Change the target correlation $\rho$ and advance one **exact conditional update** at a time. The teal trajectory moves only along the coordinate being sampled; the orange dashed line holds the conditioning coordinate fixed. For $\rho=0.8$, starting at $(X_0,Y_0)=(0,1)$ and using the deliberately fixed standard-normal innovations $0.5,-1$, the first sweep gives $X_1=1.1$ then $Y_1=0.28$. Further updates use a fixed illustrative sequence for a **repeatable teaching example**, not independently generated samples or model measurements.[^roberts]
 
+The **hollow purple marker** denotes the current full conditional's mean; the filled teal marker is the constructed draw after adding the fixed innovation scaled by $\sqrt{1-\rho^2}$. The dotted purple segment is the innovation displacement, **not a second Markov state**. With $\rho=-0.8$, the first artificial update gives $X_1=-0.5$ from conditional mean $-0.8$.
+
 The blue lag bars are the **theoretical stationary** autocorrelations $\operatorname{Corr}(Y_t,Y_{t+k})=\rho^{2k}$ at *full-sweep* boundaries; they are not estimated from the short displayed path. Compare a weakly correlated target with a high-$\rho$ target to see why accepted Gibbs steps need not mix quickly. Play/Pause, Previous/Next, seek, playback speed and Reset are keyboard-operable. On phones, focus the diagram and scroll horizontally; reduced-motion users can inspect each step manually.
 
 #### Diagnostic: effective independent information
 
-![Analytic variance-equivalent effective sample size for the stationary Gaussian Gibbs mean at 100 sweeps, decreasing as target correlation increases](../../../../assets/concept-animations/gibbs-ess-diagnostic-still.svg)
+![Analytic stationary Gaussian Gibbs ESS across negative and positive correlations, symmetric around zero](../../../../assets/concept-animations/gibbs-ess-diagnostic-still.svg)
 
 For the **stationary** Gaussian full-sweep $Y$ sequence and a hypothetical window of $N=100$ sweeps, the variance-equivalent effective sample size for its **sample mean** is calculated analytically, not estimated from the short demonstration path:[^roberts]
 
@@ -88,7 +90,7 @@ $
 N_{\mathrm{eff}}=\frac{100}{1+2\sum_{k=1}^{99}(1-k/100)\rho^{2k}}.
 $
 
-At $\rho=0.8$, this gives approximately **22.44** independent-equivalent observations; at $\rho=0.95$, about **5.68**, despite all conditional updates being accepted. Move the $\rho$ slider to recompute the curve and its marker. This is the theoretical stationary variance ratio for the $Y$ mean in this **constructed** Gaussian model, not a measured ESS or a statement about burn-in.
+At $\rho=0.8$, this gives approximately **22.44** independent-equivalent observations; at $\rho=0.95$, about **5.68**, despite all conditional updates being accepted. The slider now includes **negative and positive** correlations. Because the full-sweep autocorrelation depends on $\rho^{2k}$, the ESS curve is symmetric: $\rho=-0.8$ and $+0.8$ both give **22.44**, despite different conditional-update directions. Move the $\rho$ slider to recompute the curve and its marker. This is the theoretical stationary variance ratio for the $Y$ mean in this **constructed** Gaussian model, not a measured ESS or a statement about burn-in.
 
 ### Interactive lab: stationarity without irreducibility
 
@@ -98,7 +100,7 @@ At $\rho=0.8$, this gives approximately **22.44** independent-equivalent observa
   <p>If JavaScript is unavailable, use the static diagram above: both modes remain stationary under single-coordinate updates, while joint block updates can switch modes.</p>
 </div>
 
-For the constructed target $p(0,0)=p(1,1)=1/2$, with zero mass on $(0,1)$ and $(1,0)$, every **single-site conditional Gibbs update stays put**. Select the initial mode, step through the updates and switch to the *joint block* kernel that draws the full state from the target. Both kernels preserve the target distribution, but only the block kernel can reach both supported states from either start. The block transitions shown use a fixed illustrative sequence of uniform values, **not empirical Markov-chain simulation**. This makes the distinction between invariance and convergence operational rather than treating 100% acceptance as a mixing guarantee.[^casella][^roberts]
+For the constructed target $p(0,0)=p(1,1)=1/2$, with zero mass on $(0,1)$ and $(1,0)$, every **single-site conditional Gibbs update stays put**. Select the initial mode, step through the updates and switch to the *joint block* kernel that draws the full state from the target. Both kernels preserve the target distribution, but only the block kernel can reach both supported states from either start. The right-side **transition-probability bars** show the selected kernel row from the displayed state: single-site is $(1,0)$ or $(0,1)$; joint block is $(0.5,0.5)$ from either mode. These represent **probabilities**, not sampled transition frequencies. The block transitions shown use a fixed illustrative sequence of uniform values, **not empirical Markov-chain simulation**. This makes the distinction between invariance and convergence operational rather than treating 100% acceptance as a mixing guarantee.[^casella][^roberts]
 
 
 

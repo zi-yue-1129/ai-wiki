@@ -47,11 +47,22 @@ with sync_playwright() as pw:
                 assert ga.locator('[data-ess]').get_attribute('data-ess')=='100.000'
                 ga.locator('[data-field="rho"]').fill('0.8')
                 assert 20 < float(ga.locator('[data-ess]').get_attribute('data-ess')) < 24
+                positive_ess=ga.locator('[data-ess]').get_attribute('data-ess')
+                ga.locator('[data-field="rho"]').fill('-0.8')
+                assert ga.locator('[data-ess]').get_attribute('data-ess')==positive_ess
+                ga.locator('[data-action="next"]').click()
+                assert '-0.500' in ga.locator('[data-status]').inner_text()
+                assert ga.locator('[data-conditional-mean]').get_attribute('data-conditional-mean')=='-0.800'
+                ga.locator('[data-action="reset"]').click()
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.500'
+                assert disc.locator('[data-to="00"]').get_attribute('data-probability')=='1.000'
+                assert disc.locator('[data-to="11"]').get_attribute('data-probability')=='0.000'
                 ga.locator('[data-action="next"]').click()
                 assert '1.100' in ga.locator('[data-status]').inner_text()
+                assert ga.locator('[data-conditional-mean]').get_attribute('data-conditional-mean')=='0.800'
                 ga.locator('[data-action="next"]').click()
                 assert '0.280' in ga.locator('[data-status]').inner_text()
+                assert ga.locator('[data-conditional-mean]').get_attribute('data-conditional-mean')=='0.880'
                 ga.locator('[data-field="rho"]').fill('0.95')
                 assert '0.902' in ga.locator('[data-status]').inner_text() or '0.903' in ga.locator('[data-status]').inner_text()
                 # Theoretical full-sweep ACF changes with rho, not with a chosen sample.
@@ -65,6 +76,8 @@ with sync_playwright() as pw:
                 assert '(0,0)' in disc.locator('[data-status]').inner_text()
                 disc.locator('[data-field="mode"]').select_option('block')
                 assert '(1,1)' in disc.locator('[data-status]').inner_text()
+                assert disc.locator('[data-to="00"]').get_attribute('data-probability')=='0.500'
+                assert disc.locator('[data-to="11"]').get_attribute('data-probability')=='0.500'
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.000'
                 disc.locator('[data-action="next"]').click()
                 assert '(0,0)' in disc.locator('[data-status]').inner_text()
@@ -72,6 +85,8 @@ with sync_playwright() as pw:
                 disc.locator('[data-field="start"]').select_option('1')
                 disc.locator('[data-field="mode"]').select_option('single')
                 assert '(1,1)' in disc.locator('[data-status]').inner_text()
+                assert disc.locator('[data-to="00"]').get_attribute('data-probability')=='0.000'
+                assert disc.locator('[data-to="11"]').get_attribute('data-probability')=='1.000'
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.500'
                 disc.locator('[data-action="reset"]').click()
                 assert '0/8' in disc.locator('[data-status]').inner_text() if lang=='zh-TW' else 'Step 0 of 8' in disc.locator('[data-status]').inner_text()
