@@ -79,6 +79,10 @@ This strict bound follows from the single uniformly shifted threshold lattice, *
 
 ![GitHub preview: systematic resampling cumulative count minus expected weight-derived offspring](../../../../assets/concept-animations/particle-systematic-discrepancy-still.svg)
 
+**New sensitivity experiment — likelihood width versus weight degeneracy.** A fifth computed SVG sweeps the synthetic likelihood standard deviation $\sigma$ from $0.4$ to $3.0$ while holding the ten predicted positions and the current artificial observation $y$ fixed. At each width it recomputes $w_i(\sigma)\propto\exp(-(x_i-y)^2/(2\sigma^2))$ and $\mathrm{ESS}(\sigma)=1/\sum_iw_i(\sigma)^2$. The orange point marks the current slider value. Narrowing the likelihood concentrates importance weights and typically lowers ESS; this particular fixed-particle Gaussian example yields a nondecreasing ESS as $\sigma$ increases. The curve appears only **after likelihood weighting** and does not depend on the resampling offset $u_0$. This is a deterministic sensitivity scan, **not an empirical accuracy or Monte Carlo convergence curve**.
+
+![Synthetic particle ESS across likelihood widths with a live slider marker](../../../../assets/concept-animations/particle-ess-sensitivity-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="particle" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
 
 These ten states and observations are **synthetic teaching values**, not empirical state estimates. Each step is a display phase of one update, not an additional particle-filter iteration.

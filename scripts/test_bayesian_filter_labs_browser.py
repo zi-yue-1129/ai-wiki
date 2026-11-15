@@ -16,6 +16,7 @@ INSIGHT_JS=(ROOT.parent/'docs/javascripts/bayesian-filter-insights.js').read_tex
 INSIGHT_CSS=(ROOT.parent/'docs/stylesheets/bayesian-filter-insights.css').read_text(encoding='utf-8')
 COMPARISON_JS=(ROOT.parent/'docs/javascripts/bayesian-filter-comparisons.js').read_text(encoding='utf-8')
 INVARIANTS_JS=(ROOT.parent/'docs/javascripts/bayesian-filter-invariants.js').read_text(encoding='utf-8')
+INFORMATION_JS=(ROOT.parent/'docs/javascripts/bayesian-filter-information.js').read_text(encoding='utf-8')
 
 def fixture(lang='en'):
     fallback='Interactive numerical experiment requires JavaScript.' if lang=='en' else '互動數值實驗需要 JavaScript。'
@@ -23,7 +24,7 @@ def fixture(lang='en'):
     <h1>{'Bayesian filter labs' if lang=='en' else '貝氏濾波互動實驗'}</h1>
     <h2>Kalman filter</h2><div class="bayesian-filter-lab" data-lab="kalman" data-lang="{lang}"><p class="bayesian-filter-fallback">{fallback}</p></div>
     <h2>Particle filter</h2><div class="bayesian-filter-lab" data-lab="particle" data-lang="{lang}"><p class="bayesian-filter-fallback">{fallback}</p></div>
-    <script>{JS}</script><script>{INSIGHT_JS}</script><script>{COMPARISON_JS}</script><script>{INVARIANTS_JS}</script></body></html>'''
+    <script>{JS}</script><script>{INSIGHT_JS}</script><script>{COMPARISON_JS}</script><script>{INVARIANTS_JS}</script><script>{INFORMATION_JS}</script></body></html>'''
 
 async def run():
     async with async_playwright() as pw:
@@ -35,7 +36,8 @@ async def run():
                 await page.set_content(fixture(lang),wait_until='load')
                 labs=page.locator('.bf-panel');assert await labs.count()==2
                 assert await page.locator('.bayesian-filter-fallback').count()==0
-                assert await page.locator('.bf-graphic svg').count()==10
+                assert await page.locator('.bf-graphic svg').count()==12
+                assert await page.locator('svg[data-bf-information]').count()==2
                 assert await page.locator('svg[data-bf-invariant]').count()==2
                 assert await page.locator('svg[data-bf-comparison]').count()==2
                 assert await page.locator('svg[data-bf-diagnostic]').count()==2
@@ -45,6 +47,9 @@ async def run():
                 assert ('Prediction only' in init_k if lang=='en' else '預測階段' in init_k)
                 assert ('have not occurred' in init_p if lang=='en' else '尚未進行' in init_p)
                 assert await page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),f'{lang}/{width} page overflow'
+                assert await labs.nth(0).locator('svg[data-bf-information="kalman"]').get_attribute('data-stage')=='0'
+                assert await labs.nth(1).locator('svg[data-bf-information="particle"]').get_attribute('data-stage')=='0'
+                assert await labs.nth(1).locator('svg[data-bf-information="particle"] path').count()==0
                 # Dynamic Kalman numeric result; y=7, prior=3, P=1.44, R=.64.
                 ktext=await labs.nth(0).locator('.bf-output').inner_text()
                 assert '3.000' in ktext and '1.440' in ktext,ktext
@@ -65,6 +70,10 @@ async def run():
                 assert abs(j_prior-((1-1.44/2.08)**2*1.44))<1e-7
                 assert abs(j_noise-(1.44/2.08)**2*.64)<1e-7
                 assert await joseph.get_attribute('data-stage')=='2'
+                information_k=labs.nth(0).locator('svg[data-bf-information="kalman"]')
+                assert abs(float(await information_k.get_attribute('data-posterior-precision'))-(1/1.44+1/.64))<1e-7
+                assert abs(float(await information_k.get_attribute('data-posterior-variance'))-((1-1.44/2.08)*1.44))<1e-7
+                assert await information_k.get_attribute('data-stage')=='2'
                 nis_svg=labs.nth(0).locator('svg[data-bf-advanced="kalman"]')
                 assert abs(float(await nis_svg.get_attribute('data-nis'))-16/2.08)<1e-6
                 live_k=await labs.nth(0).locator('.bf-advanced + .bf-insight-summary').inner_text()
@@ -93,6 +102,8 @@ async def run():
                 assert len(gaps)==11 and abs(gaps[0])<1e-8 and abs(gaps[-1])<1e-8
                 assert max(map(abs,gaps))<1
                 assert await discrepancy.get_attribute('data-stage')=='3'
+                information_p=labs.nth(1).locator('svg[data-bf-information="particle"]')
+                assert float(await information_p.get_attribute('data-ess-at-min')) < float(await information_p.get_attribute('data-ess-at-max'))
                 assert await discrepancy.get_attribute('data-cumulative-last')=='10'
                 if width in (320,1024):
                     await page.screenshot(path=str(OUT/f'{lang}-{width}-final-comparison.png'),full_page=True)
@@ -111,12 +122,15 @@ async def run():
                 assert abs(float(await offspring.get_attribute('data-expected-total'))-10)<1e-6
                 assert abs(float(await cdf_svg.get_attribute('data-weight-sum'))-1)<1e-6
                 ess=float(await cdf_svg.get_attribute('data-ess'))
+                assert abs(float(await information_p.get_attribute('data-current-ess'))-ess)<1e-6
+                assert await information_p.get_attribute('data-stage')=='3'
                 # Changing only the systematic threshold offset cannot change weights/ESS.
                 before_disc=float(await discrepancy.get_attribute('data-max-discrepancy'))
                 await labs.nth(1).locator('.bf-ranges input').nth(2).fill('0.025')
                 assert abs(float(await discrepancy.get_attribute('data-max-discrepancy'))-before_disc)>1e-3
                 assert abs(float(await compare_p.get_attribute('data-resampled-mean'))-6.11)<1e-6
                 assert abs(float(await cdf_svg.get_attribute('data-ess'))-ess)<1e-6
+                assert abs(float(await information_p.get_attribute('data-current-ess'))-ess)<1e-6
                 await labs.nth(1).locator('.bf-ranges input').nth(2).fill('0.045')
                 # All calculated SVG text remains inside its own viewBox.
                 for i in range(2):
@@ -133,6 +147,10 @@ async def run():
                 for i in range(2):
                     bad=await page.locator('svg[data-bf-advanced]').nth(i).evaluate("(s)=>[...s.querySelectorAll('text')].filter(t=>{const b=t.getBBox();return b.x<-1||b.y<-1||b.x+b.width>701||b.y+b.height>231}).map(t=>t.textContent)")
                     assert not bad,(lang,width,i,bad)
+                # New information figures retain bounded, readable labels at every viewport.
+                for chart in await page.locator('svg[data-bf-information]').all():
+                    outside=await chart.evaluate("s=>[...s.querySelectorAll('text')].filter(t=>{const b=t.getBBox();return b.x<-1||b.y<-1||b.x+b.width>701||b.y+b.height>233}).map(t=>t.textContent)")
+                    assert not outside,(lang,width,outside)
                 # Seek and reset works.
                 await labs.nth(1).locator('.bf-step').fill('1')
                 assert await compare_p.get_attribute('data-stage')=='1'

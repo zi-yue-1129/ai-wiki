@@ -15,6 +15,7 @@ on:
       - "docs/javascripts/bayesian-filter-labs.js"
       - "docs/javascripts/bayesian-filter-insights.js"
       - "docs/javascripts/bayesian-filter-invariants.js"
+      - "docs/javascripts/bayesian-filter-information.js"
       - "docs/javascripts/bayesian-filter-comparisons.js"
       - "docs/stylesheets/bayesian-filter-insights.css"
       - "docs/stylesheets/bayesian-filter-labs.css"

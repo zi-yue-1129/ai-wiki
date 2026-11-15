@@ -89,6 +89,16 @@ $
 
 ![卡爾曼 Joseph 更新中預測誤差與量測雜訊對後驗變異數的貢獻：GitHub 靜態回退預覽](../../../../assets/concept-animations/kalman-joseph-contributions-still.svg)
 
+**新增計算視覺：精確度可相加，變異數不能直接相加。** 在量測雜訊獨立且採一維高斯假設時，後驗**精確度**（變異數的倒數）滿足：
+
+$
+\frac{1}{P^+}=\frac{1}{P^-}+\frac{1}{R}.
+$
+
+第六張同步 SVG 在同一個絕對精確度尺度上，分別顯示先驗資訊、量測資訊及兩者相加的後驗總量。預測階段只顯示先驗，進入量測階段才出現新增資訊，修正後才顯示總和。調整 $P^-$ 或 $R$ 會即時重算；人工預設值為 $0.694+1.563=2.257$，相當於 $P^+\approx0.443$。此圖是獨立一維高斯模型的代數恆等式，**不是感測器資訊量的實測結果**。
+
+![卡爾曼先驗與量測精確度相加得到後驗精確度的 GitHub 靜態預覽](../../../../assets/concept-animations/kalman-precision-addition-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="kalman" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
 
 這些數值及轉換是**獨立計算的一維人工示意**，不是實測估計誤差，也不是連續多次量測的結果。

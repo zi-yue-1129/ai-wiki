@@ -101,6 +101,16 @@ For the synthetic defaults, these contributions are approximately $0.136$ and $0
 
 ![Static GitHub preview: prior and observation-noise contributions to corrected Kalman variance](../../../../assets/concept-animations/kalman-joseph-contributions-still.svg)
 
+**Additional computed perspective — information adds, variance does not.** For the scalar model with independent Gaussian errors, the posterior **precision** (inverse variance) is the sum of the prior and observation precisions:
+
+$
+\frac{1}{P^+}=\frac{1}{P^-}+\frac{1}{R}.
+$
+
+The synchronized sixth SVG shows prior information, incoming measurement information and the final stacked total on one absolute precision scale. Prediction shows only the prior; the measurement term appears next; their sum appears only after correction. Change $P^-$ or $R$ to see the contributions recomputed. The synthetic default has precisions $0.694+1.563=2.257$, equivalent to $P^+\approx0.443$. This does **not** measure information from a real sensor; it is the reciprocal-variance identity for this illustrative independent scalar Gaussian model.
+
+![GitHub preview: additive prior and measurement precisions in the Kalman posterior](../../../../assets/concept-animations/kalman-precision-addition-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="kalman" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
 
 The values and transitions are an **independently computed scalar illustration**, not measured filtering accuracy or a sequence of actual observations.

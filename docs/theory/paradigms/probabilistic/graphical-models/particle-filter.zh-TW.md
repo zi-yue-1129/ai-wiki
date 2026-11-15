@@ -67,6 +67,10 @@ $
 
 ![系統性重採樣的累積實際後代數減去期望質量：GitHub 靜態回退預覽](../../../../assets/concept-animations/particle-systematic-discrepancy-still.svg)
 
+**新增敏感度實驗：概似寬度如何影響權重退化。** 第五張計算 SVG 固定十個人工預測粒子位置與目前設定的觀測值 $y$，將概似標準差 $\sigma$ 從 $0.4$ 掃描至 $3.0$。每個位置都重新計算 $w_i(\sigma)\propto\exp(-(x_i-y)^2/(2\sigma^2))$ 與 $\mathrm{ESS}(\sigma)=1/\sum_iw_i(\sigma)^2$；橘色點標出滑桿目前設定的寬度。當概似變窄，權重會集中，ESS 通常較低；在此固定粒子的一維高斯示例中，ESS 隨 $\sigma$ 增加而非遞減。曲線只在**概似加權後**出現，不依賴重採樣偏移 $u_0$。這是確定性的參數敏感度掃描，**不是濾波準確率或蒙地卡羅收斂的實測曲線**。
+
+![固定人工粒子下概似標準差對重採樣前 ESS 的敏感度及目前滑桿位置](../../../../assets/concept-animations/particle-ess-sensitivity-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="particle" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
 
 十個位置與觀測均屬於**人工教學數值**，不是實際估計結果。每個步驟是同一次更新的展示階段，不代表額外執行濾波迭代。
