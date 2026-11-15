@@ -106,6 +106,16 @@ $$
 
 Wiki 網站提供可用鍵盤啟動的播放／暫停；偏好減少動態效果時顯示靜態回退。[連續 SVG 動畫](../../../assets/concept-animations/glorot-alternating-width-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/glorot-alternating-width-still.svg)。
 
+### 相同變異數，不代表相同的尾部分布
+
+<div tabindex="0" role="region" aria-label="Glorot 均勻與高斯密度連續變化示意；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-equal-variance-densities-still.svg" data-motion-src="../../../assets/concept-animations/glorot-equal-variance-densities-motion.svg" data-still-src="../../../assets/concept-animations/glorot-equal-variance-densities-still.svg" alt="變異數同為一的均勻分布支援範圍介於負根號三到正根號三之間，而標準常態分布具有非零尾部機率；兩者平均值與變異數相同，形狀卻不同。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創連續教學動畫，CC BY-SA 4.0。* 令 $\sigma^2=2/(n_{\mathrm{in}}+n_{\mathrm{out}})$ 為 Glorot 的目標權重變異數。將權重除以 $\sigma$ 後，**均勻形式**為 $U\sim\mathcal U(-\sqrt3,\sqrt3)$，**常態形式**為 $G\sim\mathcal N(0,1)$。兩者平均值均為零、變異數均為一；但均勻分布的支援範圍有界，常態分布則對更大的幅度仍給予非零機率。[^implementation] 動畫中間狀態是**示意用的密度混合** $p_t=(1-t)p_U+tp_G$，$0\leq t\leq1$。因為兩端分布的平均值與變異數相同，任何中間混合亦維持兩者不變；**此混合並非標準的 Glorot 抽樣規則**。圖中是解析密度，不是抽樣權重直方圖或訓練模型的實測結果。
+
+網站提供播放／暫停（Enter／Space 鍵盤操作）、減少動態效果的靜態回退，手機可於圖內水平捲動。[連續 SVG 動畫](../../../assets/concept-animations/glorot-equal-variance-densities-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/glorot-equal-variance-densities-still.svg)。
+
 ## 實務使用與檢查
 
 1. 確認實際線性運算及其輸入、輸出維度，不要從無關的展平參數總數推斷扇數。

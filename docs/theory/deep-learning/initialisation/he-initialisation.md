@@ -58,6 +58,16 @@ The Wiki website provides **Play/Pause** (Enter/Space on the focused button), wi
 
 The wiki provides Play/Pause with keyboard activation, a reduced-motion still image and horizontal keyboard scrolling on narrow screens. [Continuous SVG](../../../assets/concept-animations/prelu-slope-gain-motion.svg) · [GitHub static fallback](../../../assets/concept-animations/prelu-slope-gain-still.svg).
 
+### Fan-in versus fan-out: one variance, two signal directions
+
+<div tabindex="0" role="region" aria-label="He fan-in and fan-out gain animation; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/he-fan-mode-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg" alt="For a rectangular ReLU layer with 128 inputs and 512 outputs, fan-in initialisation preserves forward second-moment gain at one but yields backward squared-gradient gain four; fan-out reverses that compromise, with gains one quarter and one." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* For a schematic **128-to-512 ReLU layer**, independent zero-mean weights and symmetric preactivations give an approximate forward second-moment gain $m_f=n_{\mathrm{in}}v/2$; the analogous backward **squared-gradient** multiplier $m_b=n_{\mathrm{out}}v/2$ additionally assumes independent backward gradients and a rectifier derivative active half the time.[^he] With **fan-in** variance $v=2/128$, $(m_f,m_b)=(1,4)$; with **fan-out** variance $v=2/512$, the pair is $(0.25,1)$. The continuously moving bars follow the **hypothetical interpolation** $v(t)=2/[128+384t]$, $0\leq t\leq1$, connecting these two valid endpoint rules. Intermediate values are **not a separately recommended initialiser**. These are analytic teaching multipliers, **not measured activations, gradients, or training outcomes**. Finite widths and dependency violations can change observed propagation.
+
+On the Wiki website, use Play/Pause (Enter or Space on the focused control); reduced-motion users receive the still preview. Narrow screens can scroll the figure horizontally. [Continuous SVG](../../../assets/concept-animations/he-fan-mode-tradeoff-motion.svg) · [GitHub still fallback](../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg).
+
 ## Equation
 
 ### Normal and uniform forms

@@ -105,6 +105,16 @@ On the wiki site, use **Play/Pause** (Enter or Space when focused); a reduced-mo
 
 The wiki provides Play/Pause with keyboard activation and a still fallback when reduced motion is preferred. [Continuous SVG](../../../assets/concept-animations/glorot-alternating-width-motion.svg) · [GitHub static fallback](../../../assets/concept-animations/glorot-alternating-width-still.svg).
 
+### Equal variance does not imply equal tails
+
+<div tabindex="0" role="region" aria-label="Glorot uniform and Gaussian density morph; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-equal-variance-densities-still.svg" data-motion-src="../../../assets/concept-animations/glorot-equal-variance-densities-motion.svg" data-still-src="../../../assets/concept-animations/glorot-equal-variance-densities-still.svg" alt="A bounded unit-variance uniform density with support from minus square root of three to plus square root of three is compared with an unbounded standard Gaussian density; their means and variances agree but their tails differ." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* Let $\sigma^2=2/(n_{\mathrm{in}}+n_{\mathrm{out}})$ be Glorot's target weight variance. After normalising a weight by $\sigma$, the **uniform** form has $U\sim\mathcal U(-\sqrt3,\sqrt3)$, whereas the **normal** form has $G\sim\mathcal N(0,1)$. Both have mean zero and variance one, but the uniform support is bounded, while the Gaussian assigns nonzero probability to larger magnitudes.[^implementation] The morph displays the **illustrative density mixture** $p_t=(1-t)p_U+tp_G$, $0\leq t\leq1$. Because the endpoint distributions share a mean and variance, all intermediate mixtures also have mean zero and variance one; **the mixture itself is not a standard Glorot sampling rule**. The plotted curves are analytic densities, not sampled weight histograms or trained-network outcomes.
+
+The site supports Play/Pause with Enter/Space, a reduced-motion still and horizontal scrolling on narrow screens. [Continuous SVG](../../../assets/concept-animations/glorot-equal-variance-densities-motion.svg) · [GitHub static fallback](../../../assets/concept-animations/glorot-equal-variance-densities-still.svg).
+
 ## Practical use and checks
 
 1. Identify the actual linear operation and its input/output dimensions. Do not infer fan values from an unrelated flattened parameter count.

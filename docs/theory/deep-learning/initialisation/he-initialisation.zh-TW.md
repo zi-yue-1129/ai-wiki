@@ -59,6 +59,16 @@ Wiki 網站提供**播放／暫停**按鈕（聚焦後按 Enter／Space），偏
 
 Wiki 網站提供鍵盤可操作的播放／暫停、偏好減少動態效果時的靜態回退，以及窄螢幕的水平鍵盤捲動。[連續 SVG 動畫](../../../assets/concept-animations/prelu-slope-gain-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/prelu-slope-gain-still.svg)。
 
+### 扇入與扇出：同一權重變異數無法兼顧兩個方向
+
+<div tabindex="0" role="region" aria-label="He 扇入與扇出增益動畫；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/he-fan-mode-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg" alt="128 個輸入、512 個輸出的 ReLU 層中，扇入初始化將前向二階矩倍率維持為一，但反向梯度平方倍率為四；扇出初始化則分別得到四分之一與一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創連續教學動畫，CC BY-SA 4.0。* 考慮**輸入寬度 128、輸出寬度 512 的 ReLU 層**。在權重獨立、零平均值、激活前分布對稱等假設下，前向二階矩倍率近似為 $m_f=n_{\mathrm{in}}v/2$；對反向**梯度平方的二階矩**，另外假設反向梯度獨立、整流導數有一半時間啟用，可得 $m_b=n_{\mathrm{out}}v/2$。[^he] 採用**扇入**變異數 $v=2/128$，則 $(m_f,m_b)=(1,4)$；採用**扇出**變異數 $v=2/512$，則為 $(0.25,1)$。連續動畫的中間狀態使用**純示意插值** $v(t)=2/[128+384t]$，$0\leq t\leq1$，連接上述兩種端點規則；**不代表推薦使用插值後的第三種初始化法**。圖中皆為解析式倍率，**不是實測激活值、梯度或訓練結果**；有限寬度與變數相依性都可能影響實際傳播。
+
+Wiki 網站可使用播放／暫停（聚焦控制項後按 Enter 或 Space），偏好減少動態效果時顯示靜態回退；手機可於圖內水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/he-fan-mode-tradeoff-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg)。
+
 ## 方程式
 
 ### 常態與均勻分布形式

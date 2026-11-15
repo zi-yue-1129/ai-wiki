@@ -20,6 +20,8 @@ TOPICS = {
     "he-relu-second-moment": "theory/deep-learning/initialisation/he-initialisation",
     "prelu-slope-gain": "theory/deep-learning/initialisation/he-initialisation",
     "glorot-alternating-width": "theory/deep-learning/initialisation/glorot-initialisation",
+    "he-fan-mode-tradeoff": "theory/deep-learning/initialisation/he-initialisation",
+    "glorot-equal-variance-densities": "theory/deep-learning/initialisation/glorot-initialisation",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
@@ -190,6 +192,7 @@ def main() -> int:
             elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "glorot-fan-tradeoff", "mup-width-multipliers", "he-relu-second-moment",
                           "prelu-slope-gain", "glorot-alternating-width",
+                          "he-fan-mode-tradeoff", "glorot-equal-variance-densities",
                           "svd-unit-circle", "power-iteration-convergence"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
