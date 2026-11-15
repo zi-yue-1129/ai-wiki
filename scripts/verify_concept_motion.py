@@ -15,6 +15,7 @@ ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "glorot-fan-tradeoff": "theory/deep-learning/initialisation/glorot-initialisation",
+    "he-relu-second-moment": "theory/deep-learning/initialisation/he-initialisation",
     "mup-width-multipliers": "theory/deep-learning/initialisation/mup",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
@@ -134,7 +135,7 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in {"glorot-fan-tradeoff", "mup-width-multipliers"}:
+            if stem in {"glorot-fan-tradeoff", "mup-width-multipliers", "he-relu-second-moment"}:
                 # GitHub renders a static img; MkDocs enhances via data-motion-src.
                 img_tags = re.findall(r"<img\b[^>]*>", text, flags=re.DOTALL)
                 wanted_still = f"{stem}-still.svg"

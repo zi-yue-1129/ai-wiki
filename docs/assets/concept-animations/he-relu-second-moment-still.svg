@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+<title id="title">ReLU second moment across depth with He and Xavier scales</title>
+<desc id="desc">Under independent symmetric preactivations with equal fan-in and fan-out, ReLU halves the second moment. He fan-in weights preserve it, whereas unit-gain Xavier weights halve it each layer. Moving markers follow the two theoretical curves.</desc>
+<defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#f9fcff"/><stop offset="1" stop-color="#edf4fb"/></linearGradient></defs>
+<style>text{font-family:Inter,system-ui,Arial,sans-serif;fill:#27394f}.tiny{font-size:12px;letter-spacing:1.3px;fill:#637d92;font-weight:700}@media(prefers-reduced-motion:reduce){animateMotion{display:none}}</style>
+<rect width="640" height="360" rx="18" fill="url(#bg)"/>
+<text class="tiny" x="30" y="37">HE · ReLU SIGNAL PROPAGATION</text>
+<text x="30" y="65" font-size="16" font-weight="600">Expected squared activation by layer</text>
+<rect x="25" y="86" width="610" height="230" rx="16" fill="#fff" stroke="#d5e1ed" stroke-width="1.5"/>
+<text class="tiny" x="52" y="115">E[x²] / INPUT</text>
+<g stroke="#e3ebf1" stroke-width="1"><line x1="88" y1="143" x2="604" y2="143"/><line x1="88" y1="206" x2="604" y2="206"/><line x1="88" y1="269" x2="604" y2="269"/></g>
+<line x1="88" y1="127" x2="88" y2="276" stroke="#a2b5c7" stroke-width="2"/>
+<line x1="88" y1="276" x2="607" y2="276" stroke="#a2b5c7" stroke-width="2"/>
+<text x="73" y="148" font-size="12" text-anchor="end" fill="#6f859a">1</text><text x="73" y="211" font-size="12" text-anchor="end" fill="#6f859a">.5</text><text x="73" y="273" font-size="12" text-anchor="end" fill="#6f859a">0</text>
+<path d="M105 143L222 206L339 237.5L456 253.25L573 261.1" fill="none" stroke="#dc9952" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M105 143H573" fill="none" stroke="#168b88" stroke-width="4.5" stroke-linecap="round"/>
+<g fill="#fff" stroke="#dc9952" stroke-width="3"><circle cx="105" cy="143" r="5"/><circle cx="222" cy="206" r="5"/><circle cx="339" cy="237.5" r="5"/><circle cx="456" cy="253.25" r="5"/><circle cx="573" cy="261.1" r="5"/></g>
+<g fill="#fff" stroke="#168b88" stroke-width="3"><circle cx="105" cy="143" r="5"/><circle cx="222" cy="143" r="5"/><circle cx="339" cy="143" r="5"/><circle cx="456" cy="143" r="5"/><circle cx="573" cy="143" r="5"/></g>
+<circle cx="105" cy="143" r="8" fill="#168b88" stroke="#fff" stroke-width="2"></circle>
+<circle cx="105" cy="143" r="8" fill="#dc9952" stroke="#fff" stroke-width="2"></circle>
+<g font-size="12" fill="#60788e"><text x="105" y="296" text-anchor="middle">0</text><text x="222" y="296" text-anchor="middle">1</text><text x="339" y="296" text-anchor="middle">2</text><text x="456" y="296" text-anchor="middle">3</text><text x="573" y="296" text-anchor="middle">4</text></g>
+<text x="341" y="313" font-size="12" text-anchor="middle" fill="#60788e">ReLU layers</text>
+<rect x="393" y="103" width="12" height="12" rx="3" fill="#168b88"/><text x="413" y="114" font-size="13" font-weight="600">He (2/n)</text>
+<rect x="501" y="103" width="12" height="12" rx="3" fill="#dc9952"/><text x="521" y="114" font-size="13" font-weight="600">Xavier (1/n)</text>
+<text x="31" y="338" font-size="12" fill="#60788e">Theoretical second moments; independent symmetric preactivations, square fan.</text>
+</svg>
