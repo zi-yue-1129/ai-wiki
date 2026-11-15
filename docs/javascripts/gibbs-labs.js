@@ -13,7 +13,7 @@
       diagnosticsGaussian:'Theoretical finite-sample effective size of the stationary Gibbs Y mean for 100 full sweeps as target correlation varies.',
       diagnosticsDisconnected:'Exact total variation distance from a point start to the two-mode target after each complete kernel transition.',
       gab:(s)=>`Step ${s.step} of 10; ρ ${s.rho.toFixed(2)}; X ${s.x.toFixed(3)}, Y ${s.y.toFixed(3)}; stationary lag-one correlation ρ² ${(s.rho*s.rho).toFixed(3)}.${s.step ? ` ${s.axis} conditional mean ${s.mean.toFixed(3)}; fixed standard-normal innovation ${s.z.toFixed(2)}.` : ''}`,
-      dib:(s)=>`Step ${s.step} of 8; ${s.mode==='single'?'single-site conditional, fixed':'joint block conditional, possibly switching'}; current state (${s.bit},${s.bit}).`
+      dib:(s)=>`Step ${s.step} of 8; ${s.mode==='single'?'single-site conditional, fixed':'joint block conditional, possibly switching'}; current state (${s.bit},${s.bit}); P(next 00) ${s.p00.toFixed(2)}, P(next 11) ${s.p11.toFixed(2)}.`
     },
     zh: { previous:'上一步',next:'下一步',play:'播放',pause:'暫停',reset:'重設',step:'步驟',speed:'速度',
       rho:'目標相關係數 ρ',scan:'更新方式',start:'初始狀態',single:'逐座標 Gibbs',block:'聯合分塊抽樣',
@@ -26,7 +26,7 @@
       diagnosticsGaussian:'相關高斯 Gibbs 平穩態 Y 平均數在一百輪完整掃描下，理論有限樣本有效樣本數隨相關係數變化的圖。',
       diagnosticsDisconnected:'從單一支援點出發，每次完整更新後與雙模態目標分布之間的精確總變異距離。',
       gab:(s)=>`第 ${s.step}/10 步；ρ=${s.rho.toFixed(2)}；X=${s.x.toFixed(3)}，Y=${s.y.toFixed(3)}；平穩態單輪延遲相關 ρ²=${(s.rho*s.rho).toFixed(3)}。${s.step ? `本步 ${s.axis} 條件平均 ${s.mean.toFixed(3)}；固定標準常態創新 ${s.z.toFixed(2)}。` : ''}`,
-      dib:(s)=>`第 ${s.step}/8 步；${s.mode==='single'?'逐座標抽樣受困':'聯合分塊抽樣可跨模態'}；目前為 (${s.bit},${s.bit})。`
+      dib:(s)=>`第 ${s.step}/8 步；${s.mode==='single'?'逐座標抽樣受困':'聯合分塊抽樣可跨模態'}；目前為 (${s.bit},${s.bit})；下一步到 (0,0) 的機率 ${s.p00.toFixed(2)}，到 (1,1) 的機率 ${s.p11.toFixed(2)}。`
     }
   };
   const esc = s => String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[ch]));
@@ -145,7 +145,7 @@
       <text x="420" y="197" font-size="12" fill="#557187">Kernel transition probabilities</text>
       <rect x="422" y="222" width="172" height="27" rx="5" fill="#e7f1f5"/><rect x="422" y="222" width="${172*state.step/max}" height="27" rx="5" fill="#91c7c2"/>
       <text x="420" y="279" font-size="13" fill="#4c6676">Step ${state.step} / ${max}</text>`;
-      q('[data-status]').textContent=L.dib({...state,bit});diagnostic();
+      q('[data-status]').textContent=L.dib({...state,bit,p00,p11});diagnostic();
     }
     const render=()=>{q('[data-field="step"]').value=String(state.step);q('[data-value="step"]').textContent=`${state.step}/${max}`;if(kind==='gaussian'){q('[data-value="rho"]').textContent=state.rho.toFixed(2);gaussian()}else disconnected()};
     const stop=()=>{if(state.timer!==null)clearInterval(state.timer);state.timer=null;q('[data-action="play"]').textContent=L.play;};
