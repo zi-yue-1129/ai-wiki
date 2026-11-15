@@ -53,6 +53,15 @@ def main():
                     assert trace.locator('[data-margin-step]').count() == 3
                     assert abs(float(trace.locator('[data-margin-step="0"]').get_attribute('data-delta')) - 0.503758) < 0.00001
                     assert abs(float(trace.locator('[data-margin-step="2"]').get_attribute('data-delta')) + 0.204400) < 0.00001
+                    # A separate compact chart must show the exact reason optimism wins at t=16.
+                    decomposition = trace.locator('svg[data-mean-gap]')
+                    assert decomposition.count() == 1
+                    gap_mean = float(decomposition.get_attribute('data-mean-gap'))
+                    gap_bonus = float(decomposition.get_attribute('data-bonus-gap'))
+                    gap_net = float(decomposition.get_attribute('data-net-gap'))
+                    assert abs(gap_mean + 0.2) < 1e-5
+                    assert abs(gap_bonus - 0.703758) < 1e-5
+                    assert abs(gap_net - (gap_mean + gap_bonus)) < 2e-6
                     # The phase plane itself selects the two counterfactual rewards.
                     # It must agree with the sliders and recomputed analytic winner.
                     boundary.locator('svg').click(position={'x': 199, 'y': 43})  # r1=r2=.9
@@ -71,6 +80,11 @@ def main():
                     ucb.locator('[data-role="seek"]').fill('2')
                     assert 'A' in ucb.locator('[data-role="metrics"]').inner_text()
                     assert '1.63' in ucb.locator('[data-role="metrics"]').inner_text()
+                    # With both constructed rewards zero, exploration no longer
+                    # offsets B's empirical disadvantage on the third decision.
+                    assert abs(float(decomposition.get_attribute('data-mean-gap')) + 0.425) < 1e-6
+                    assert 0.220 < float(decomposition.get_attribute('data-bonus-gap')) < 0.222
+                    assert float(decomposition.get_attribute('data-net-gap')) < 0
                     # A single good reward can overturn the second-pull switch.
                     ucb.locator('[data-role="reward1"]').fill('1')
                     assert float(boundary.locator('[data-role="reward-marker"]').get_attribute('cx')) > initial_x
@@ -101,6 +115,10 @@ def main():
                     assert abs(sum(initial)-1.0) < 0.0001, initial
                     assert 0.57 < initial[2] < 0.58, initial
                     assert ts.locator('[role="meter"]').count() == 3
+                    credible = ts.locator('[data-role="process"] svg[data-cred-low]')
+                    assert credible.count() == 1
+                    assert abs(float(credible.get_attribute('data-cred-low')) - 0.271338) < 1e-5
+                    assert abs(float(credible.get_attribute('data-cred-high')) - 0.846839) < 1e-5
                     ts.locator('[data-action="next"]').click()
                     assert 'C' in ts.locator('[data-role="metrics"]').inner_text()
                     assert '0.5714' in ts.locator('[data-role="metrics"]').inner_text()
@@ -109,6 +127,8 @@ def main():
                     assert evidence.get_attribute('data-alpha') == '4' and evidence.get_attribute('data-beta') == '3'
                     assert ts.locator('[data-new-pseudo]').count() == 0
                     assert ts.locator('[data-role="svg"] circle').count() == 3
+                    # Drawing a sample never changes an underlying Bayesian posterior.
+                    assert abs(float(credible.get_attribute('data-cred-low')) - 0.271338) < 1e-5
                     ts.locator('[data-action="next"]').click()
                     assert '(5,3)' in ts.locator('[data-role="metrics"]').inner_text()
                     # A sample dot from the old posterior must not be repositioned on the updated curve.
@@ -120,6 +140,8 @@ def main():
                     assert '0.0260' in ts.locator('[data-role="metrics"]').inner_text()
                     assert evidence.get_attribute('data-alpha') == '5' and evidence.get_attribute('data-beta') == '3'
                     assert ts.locator('[data-new-pseudo="alpha"]').count() == 1
+                    assert abs(float(credible.get_attribute('data-cred-low')) - 0.341261) < 1e-5
+                    assert abs(float(credible.get_attribute('data-cred-high')) - 0.871244) < 1e-5
                     success = float(probabilities.nth(2).get_attribute('data-prob'))
                     assert success > initial[2] and 0.66 < success < 0.67
                     ts.locator('[data-role="outcome"]').select_option('0')
@@ -129,6 +151,8 @@ def main():
                     assert evidence.get_attribute('data-alpha') == '4' and evidence.get_attribute('data-beta') == '4'
                     assert ts.locator('[data-new-pseudo="beta"]').count() == 1
                     assert ts.locator('[data-new-pseudo="alpha"]').count() == 0
+                    assert abs(float(credible.get_attribute('data-cred-low')) - 0.225322) < 1e-5
+                    assert abs(float(credible.get_attribute('data-cred-high')) - 0.774678) < 1e-5
                     failure = float(probabilities.nth(2).get_attribute('data-prob'))
                     assert 0.45 < failure < 0.46 and failure < initial[2]
                     ts.locator('[data-action="next"]').click()
@@ -143,6 +167,10 @@ def main():
                         assert ucb.locator('.bandit-lab-scroll-hint').is_visible()
                         assert ts.locator('.bandit-lab-scroll-hint').is_visible()
                         assert boundary.locator('.bandit-lab-boundary-scroll').is_visible()
+                        assert ts.locator('[data-role="process"]').get_attribute('tabindex') == '0'
+                        assert ts.locator('[data-role="process"]').evaluate(
+                            '(node) => node.scrollWidth > node.clientWidth'
+                        )
                     if reduced:
                         ucb.locator('[data-action="toggle"]').click()
                         assert ucb.locator('[data-action="toggle"]').inner_text() in ('Play', '播放')
