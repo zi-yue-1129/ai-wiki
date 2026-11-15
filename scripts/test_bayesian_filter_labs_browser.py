@@ -15,6 +15,7 @@ CSS=(ROOT.parent/'docs/stylesheets/bayesian-filter-labs.css').read_text(encoding
 INSIGHT_JS=(ROOT.parent/'docs/javascripts/bayesian-filter-insights.js').read_text(encoding='utf-8')
 INSIGHT_CSS=(ROOT.parent/'docs/stylesheets/bayesian-filter-insights.css').read_text(encoding='utf-8')
 COMPARISON_JS=(ROOT.parent/'docs/javascripts/bayesian-filter-comparisons.js').read_text(encoding='utf-8')
+INVARIANTS_JS=(ROOT.parent/'docs/javascripts/bayesian-filter-invariants.js').read_text(encoding='utf-8')
 
 def fixture(lang='en'):
     fallback='Interactive numerical experiment requires JavaScript.' if lang=='en' else '互動數值實驗需要 JavaScript。'
@@ -22,7 +23,7 @@ def fixture(lang='en'):
     <h1>{'Bayesian filter labs' if lang=='en' else '貝氏濾波互動實驗'}</h1>
     <h2>Kalman filter</h2><div class="bayesian-filter-lab" data-lab="kalman" data-lang="{lang}"><p class="bayesian-filter-fallback">{fallback}</p></div>
     <h2>Particle filter</h2><div class="bayesian-filter-lab" data-lab="particle" data-lang="{lang}"><p class="bayesian-filter-fallback">{fallback}</p></div>
-    <script>{JS}</script><script>{INSIGHT_JS}</script><script>{COMPARISON_JS}</script></body></html>'''
+    <script>{JS}</script><script>{INSIGHT_JS}</script><script>{COMPARISON_JS}</script><script>{INVARIANTS_JS}</script></body></html>'''
 
 async def run():
     async with async_playwright() as pw:
@@ -34,7 +35,8 @@ async def run():
                 await page.set_content(fixture(lang),wait_until='load')
                 labs=page.locator('.bf-panel');assert await labs.count()==2
                 assert await page.locator('.bayesian-filter-fallback').count()==0
-                assert await page.locator('.bf-graphic svg').count()==8
+                assert await page.locator('.bf-graphic svg').count()==10
+                assert await page.locator('svg[data-bf-invariant]').count()==2
                 assert await page.locator('svg[data-bf-comparison]').count()==2
                 assert await page.locator('svg[data-bf-diagnostic]').count()==2
                 assert await page.locator('svg[data-bf-advanced]').count()==2
@@ -56,6 +58,13 @@ async def run():
                 assert abs(float(await gain_svg.get_attribute('data-shift'))-4*1.44/2.08)<1e-6
                 compare_k=labs.nth(0).locator('svg[data-bf-comparison="kalman"]')
                 assert abs(float(await compare_k.get_attribute('data-posterior-mean'))-5.769230769230769)<1e-6
+                joseph=labs.nth(0).locator('svg[data-bf-invariant="kalman"]')
+                j_prior=float(await joseph.get_attribute('data-prior-contribution'))
+                j_noise=float(await joseph.get_attribute('data-noise-contribution'))
+                assert abs(j_prior+j_noise-(1-1.44/2.08)*1.44)<1e-7
+                assert abs(j_prior-((1-1.44/2.08)**2*1.44))<1e-7
+                assert abs(j_noise-(1.44/2.08)**2*.64)<1e-7
+                assert await joseph.get_attribute('data-stage')=='2'
                 nis_svg=labs.nth(0).locator('svg[data-bf-advanced="kalman"]')
                 assert abs(float(await nis_svg.get_attribute('data-nis'))-16/2.08)<1e-6
                 live_k=await labs.nth(0).locator('.bf-advanced + .bf-insight-summary').inner_text()
@@ -79,6 +88,12 @@ async def run():
                 compare_p=labs.nth(1).locator('svg[data-bf-comparison="particle"]')
                 assert abs(float(await compare_p.get_attribute('data-weighted-mean'))-6.369761008216016)<1e-6
                 assert abs(float(await compare_p.get_attribute('data-resampled-mean'))-6.48)<1e-6
+                discrepancy=labs.nth(1).locator('svg[data-bf-invariant="particle"]')
+                gaps=[float(x) for x in (await discrepancy.get_attribute('data-deltas')).split(',')]
+                assert len(gaps)==11 and abs(gaps[0])<1e-8 and abs(gaps[-1])<1e-8
+                assert max(map(abs,gaps))<1
+                assert await discrepancy.get_attribute('data-stage')=='3'
+                assert await discrepancy.get_attribute('data-cumulative-last')=='10'
                 if width in (320,1024):
                     await page.screenshot(path=str(OUT/f'{lang}-{width}-final-comparison.png'),full_page=True)
                     if width==320:
@@ -97,7 +112,9 @@ async def run():
                 assert abs(float(await cdf_svg.get_attribute('data-weight-sum'))-1)<1e-6
                 ess=float(await cdf_svg.get_attribute('data-ess'))
                 # Changing only the systematic threshold offset cannot change weights/ESS.
+                before_disc=float(await discrepancy.get_attribute('data-max-discrepancy'))
                 await labs.nth(1).locator('.bf-ranges input').nth(2).fill('0.025')
+                assert abs(float(await discrepancy.get_attribute('data-max-discrepancy'))-before_disc)>1e-3
                 assert abs(float(await compare_p.get_attribute('data-resampled-mean'))-6.11)<1e-6
                 assert abs(float(await cdf_svg.get_attribute('data-ess'))-ess)<1e-6
                 await labs.nth(1).locator('.bf-ranges input').nth(2).fill('0.045')
@@ -111,11 +128,17 @@ async def run():
                     bad=await page.locator('svg[data-bf-comparison]').nth(i).evaluate("(s)=>[...s.querySelectorAll('text')].filter(t=>{const b=t.getBBox();return b.x<-1||b.y<-1||b.x+b.width>701||b.y+b.height>225}).map(t=>t.textContent)")
                     assert not bad,(lang,width,i,bad)
                 for i in range(2):
+                    bad=await page.locator('svg[data-bf-invariant]').nth(i).evaluate("(s)=>[...s.querySelectorAll('text')].filter(t=>{const b=t.getBBox();return b.x<-1||b.y<-1||b.x+b.width>701||b.y+b.height>245}).map(t=>t.textContent)")
+                    assert not bad,(lang,width,i,bad)
+                for i in range(2):
                     bad=await page.locator('svg[data-bf-advanced]').nth(i).evaluate("(s)=>[...s.querySelectorAll('text')].filter(t=>{const b=t.getBBox();return b.x<-1||b.y<-1||b.x+b.width>701||b.y+b.height>231}).map(t=>t.textContent)")
                     assert not bad,(lang,width,i,bad)
                 # Seek and reset works.
                 await labs.nth(1).locator('.bf-step').fill('1')
                 assert await compare_p.get_attribute('data-stage')=='1'
+                assert await discrepancy.get_attribute('data-stage')=='1'
+                assert await discrepancy.locator('path').count()==0
+                assert ('Realised cumulative counts appear only' in await labs.nth(1).locator('.bf-invariant + .bf-insight-summary').inner_text() if lang=='en' else '才顯示實際累積' in await labs.nth(1).locator('.bf-invariant + .bf-insight-summary').inner_text())
                 assert 'resampled mean' not in (await labs.nth(1).locator('.bf-comparison + .bf-insight-summary').inner_text()).lower()
                 await labs.nth(1).get_by_role('button',name='Reset' if lang=='en' else '重設').click()
                 assert (await labs.nth(1).locator('.bf-step').input_value())=='0'
