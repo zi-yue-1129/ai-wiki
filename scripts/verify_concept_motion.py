@@ -17,6 +17,8 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "t5-span-corruption": "theory/models/transformer/architecture-families/t5/index",
     "deit-dual-head-distillation": "theory/models/transformer/vision-transformer/deit/index",
+    "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
+    "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
     "power-iteration-convergence": "theory/math/linear-algebra/eigendecomposition",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
@@ -199,7 +201,7 @@ def main() -> int:
                 linked = {(page.parent / link).resolve() for link in static_links}
                 if static_path.resolve() not in linked:
                     errors.append(f"{page}: missing GitHub-readable static SVG link")
-            elif stem in {"mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "power-iteration-convergence"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
@@ -226,6 +228,10 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+    # MAE and RMSE share one source-relative visual in both languages.
+    for suffix in (".md", ".zh-TW.md"):
+        page = DOCS / ("theory/evaluation/metrics/regression/rmse" + suffix)
+        errors.extend(verify_source_pair(page, page.read_text(encoding="utf-8"), "outlier-mae-rmse"))
     # The two reviewed process animations must show interpolated intermediate states,
     # not four discrete slides masquerading as motion.
     for stem in ("mae-visible-patch-reconstruction", "dinov2-dual-objective-ema"):

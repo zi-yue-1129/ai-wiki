@@ -1108,6 +1108,7 @@ extra_javascript:
   - javascripts/ssl-temporal-provenance.js
   - javascripts/concept-motion.js
   - javascripts/t5-deit-labs.js
+  - javascripts/regression-metric-labs.js
   - javascripts/distributed-motion-controls.js
   - javascripts/distributed-parameter-explorers.js
   - javascripts/distributed-computation-probes.js
@@ -1125,6 +1126,7 @@ extra_css:
   - stylesheets/ssl-temporal-provenance.css
   - stylesheets/concept-motion.css
   - stylesheets/t5-deit-labs.css
+  - stylesheets/regression-metric-labs.css
   - stylesheets/distributed-motion-controls.css
   - stylesheets/distributed-parameter-explorers.css
   - stylesheets/distributed-computation-probes.css
