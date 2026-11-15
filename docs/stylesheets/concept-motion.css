@@ -56,3 +56,20 @@
   max-width: none;
   height: auto;
 }
+
+/* 640px FlashAttention numerical walkthroughs: legible without JavaScript too. */
+.md-typeset p:has(> img[src*="flashattention-online-rescale-still.svg"]),
+.md-typeset p:has(> img[src*="flashattention-exact-merge-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="flashattention-online-rescale-still.svg"],
+.md-typeset p > img[src*="flashattention-exact-merge-still.svg"],
+.md-typeset .concept-motion-player.concept-motion-wide > img[src*="flashattention-online-rescale-"],
+.md-typeset .concept-motion-player.concept-motion-wide > img[src*="flashattention-exact-merge-"] {
+  display: block;
+  width: 640px;
+  min-width: 640px;
+  max-width: none;
+  height: auto;
+}
