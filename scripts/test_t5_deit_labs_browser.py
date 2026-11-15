@@ -59,6 +59,13 @@ with sync_playwright() as p:
                 # T5 variable span position and length recompute target and encoder.
                 page.locator('#t5 .td-params input').nth(0).fill('3')
                 assert 'C D' in page.locator('#t5 .td-state').inner_text()
+                # Adjacent removed regions must coalesce; the lab instead shifts the second
+                # start to leave one visible token between the two sentinel spans.
+                page.locator('#t5 .td-params input').nth(0).fill('4')
+                page.locator('#t5 .td-params input').nth(1).fill('3')
+                page.locator('#t5 .td-params input').nth(2).fill('7')
+                assert page.locator('#t5 .td-params input').nth(2).input_value() == '8'
+                assert 'G' in page.locator('#t5 [data-lane="Encoder"]').inner_text()
                 page.locator('#t5 [data-action="reset"]').click()
                 assert 'Target:' not in page.locator('#t5 .td-state').inner_text()
                 page.locator('#t5 .td-seek').fill('3')
