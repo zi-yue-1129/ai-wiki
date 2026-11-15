@@ -83,6 +83,8 @@ Change the **predicted variance** $P^-$, **measurement variance** $R$, or synthe
 
 ![Static GitHub preview of scalar Kalman mean-shift tracks](../../../../assets/concept-animations/kalman-innovation-lab-still.svg)
 
+**Normalised innovation diagnostic.** A third computed SVG uses $z=(y-3)/\sqrt{P^-+R}$ and $\mathrm{NIS}=z^2$ to compare the synthetic residual with its predictive scale. Shading $|z|\leq1.96$ denotes a 95% reference **only if Gaussian innovations are correctly modelled and calibrated**, not a statistical validation result from one invented observation. The observation marker appears only after prediction, and the existing playback/seek controls update the diagram.
+
 <div class="bayesian-filter-lab" data-lab="kalman" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
 
 The values and transitions are an **independently computed scalar illustration**, not measured filtering accuracy or a sequence of actual observations.

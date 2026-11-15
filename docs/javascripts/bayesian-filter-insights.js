@@ -45,7 +45,56 @@
     const update=()=>{const values=inputs.map(i=>Number(i.value)),stage=Number(panel.querySelector('.bf-step').value);const v=kind==='kalman'?kalman(svg,values,stage,L.k):particle(svg,values,stage,L.p);summary.textContent=kind==='kalman'?L.s(v.K,v.d,v.v):L.a(v.ess,v.idx,stage);};
     new MutationObserver(update).observe(output,{childList:true});host.addEventListener('input',update);update();
   }
-  const enhance=()=>document.querySelectorAll('.bayesian-filter-lab[data-lab]').forEach(init);
+
+  // Two additional mathematical diagnostics, driven by the EXISTING lab controls.
+  // They are illustrations, not performance measurements or extra filtering steps.
+  function diagnostics(host){
+    if(host.dataset.bfAdvancedReady)return;
+    const panel=host.querySelector('.bf-panel');if(!panel)return;
+    host.dataset.bfAdvancedReady='true';
+    const kind=host.dataset.lab,zh=host.dataset.lang==='zh';
+    const region=document.createElement('div');region.className='bf-graphic bf-insight bf-advanced';
+    region.tabIndex=0;region.setAttribute('role','region');
+    region.setAttribute('aria-label',zh?(kind==='kalman'?'標準化創新量診斷':'祖先後代份額診斷'):(kind==='kalman'?'Normalised innovation diagnostic':'Ancestor offspring diagnostic'));
+    const svg=E('svg');svg.dataset.bfAdvanced=kind;region.append(svg);
+    const note=document.createElement('p');note.className='bf-insight-summary';note.setAttribute('aria-live','polite');
+    panel.querySelector('.bf-output').before(region,note);
+    const inputs=[...panel.querySelectorAll('.bf-ranges input')],output=panel.querySelector('.bf-output');
+    const update=()=>{
+      const [a,b,c]=inputs.map(i=>Number(i.value)),stage=Number(panel.querySelector('.bf-step').value);
+      frame(svg,kind==='kalman'?'NORMALISED INNOVATION':'OFFSPRING / ANCESTORS',region.getAttribute('aria-label'));
+      if(kind==='kalman'){
+        const S=a+b,z=(c-3)/Math.sqrt(S),nis=z*z,lim=Math.max(4,Math.ceil(Math.abs(z)+.5)),px=t=>70+(t+lim)*570/(2*lim);
+        box(svg,px(-1.96),64,px(1.96)-px(-1.96),116,'#d0eae1',{'fill-opacity':'.8'});
+        stroke(svg,70,182,640,182,'#7c95a6',1.5);
+        let d='';for(let i=0;i<=200;i++){const v=-lim+i*2*lim/200;d+=(i?'L':'M')+px(v).toFixed(2)+' '+(182-92*Math.exp(-v*v/2)).toFixed(2)+' ';}
+        svg.append(E('path',{d,fill:'none',stroke:'#567bb4','stroke-width':3}));
+        [-lim,-1.96,0,1.96,lim].forEach(v=>txt(svg,px(v),198,v.toFixed(v===Math.round(v)?0:2),{'text-anchor':'middle','font-size':11}));
+        if(stage>=1){const x=px(z);stroke(svg,x,59,x,182,'#d4823f',2,{'stroke-dasharray':'5 4'});svg.append(E('circle',{cx:x,cy:182-92*Math.exp(-z*z/2),r:6,fill:'#d4823f'}));txt(svg,Math.max(82,Math.min(626,x)),54,'z = '+z.toFixed(2),{'text-anchor':'middle','font-weight':'700'});}
+        txt(svg,25,215,'S = '+S.toFixed(2)+(stage===0?'':',   NIS = '+nis.toFixed(2)),{'font-size':12});
+        txt(svg,666,215,'95% Gaussian reference',{'text-anchor':'end','font-size':11});
+        Object.assign(svg.dataset,{nis:nis.toFixed(8),innovationVariance:S.toFixed(8),stage:stage});
+        note.textContent=zh?'人工標準化創新量 z = '+z.toFixed(3)+'；NIS = '+nis.toFixed(3)+'。95% 區域是模型假設下的參考，不是實測檢定。':'Synthetic standardised innovation z = '+z.toFixed(3)+'; NIS = '+nis.toFixed(3)+'. The 95% band is a model-based reference, not a measured diagnostic.';
+      }else{
+        const raw=xs.map(x=>Math.exp(-.5*((x-a)/b)**2)),sum=raw.reduce((x,y)=>x+y,0),w=raw.map(v=>v/sum);
+        let q=0;const cdf=w.map(v=>(q+=v));
+        const idx=Array.from({length:10},(_,i)=>{const j=cdf.findIndex(v=>v>=c+i/10-1e-12);return j<0?9:j;});
+        const counts=xs.map((_,i)=>idx.filter(v=>v===i).length),expect=w.map(v=>10*v),uniq=counts.filter(v=>v>0).length;
+        const ess=1/w.reduce((x,y)=>x+y*y,0),high=Math.max(2,Math.ceil(Math.max(...counts,...expect))),scale=105/high,base=174;
+        txt(svg,30,60,'Expected',{'font-size':11,fill:'#527ab8'});box(svg,98,51,18,9,'#527ab8');
+        txt(svg,205,60,'Realised',{'font-size':11,fill:'#cc783e'});box(svg,267,51,18,9,'#cc783e');
+        stroke(svg,65,base,643,base,'#8299a8',1.5);
+        for(let i=0;i<10;i++){const x=90+i*57;if(stage>=1)box(svg,x-12,base-expect[i]*scale,12,expect[i]*scale,'#527ab8');if(stage===3)box(svg,x+3,base-counts[i]*scale,12,counts[i]*scale,'#cc783e');txt(svg,x,193,i,{'text-anchor':'middle','font-size':11});}
+        txt(svg,27,215,stage===0?'Predicted':stage===3?'Unique = '+uniq+'/10; ESS = '+ess.toFixed(2):'Pre-resampling ESS = '+ess.toFixed(2));
+        txt(svg,665,215,'Ancestor index',{'text-anchor':'end','font-size':11});
+        Object.assign(svg.dataset,{ess:ess.toFixed(8),counts:counts.join(','),unique:uniq,total:counts.reduce((x,y)=>x+y,0),expectedTotal:expect.reduce((x,y)=>x+y,0).toFixed(8),stage:stage});
+        note.textContent=zh?'預期後代份額總和為 10；實際 10 個複本來自 '+uniq+' 種祖先。重採樣前 ESS = '+ess.toFixed(2)+'，與起始偏移無關。':'Expected descendant mass totals 10; the ten realised copies have '+uniq+' unique ancestors. Pre-resampling ESS = '+ess.toFixed(2)+' and is independent of the offset.';
+      }
+    };
+    new MutationObserver(update).observe(output,{childList:true});
+    host.addEventListener('input',update);update();
+  }
+  const enhance=()=>document.querySelectorAll('.bayesian-filter-lab[data-lab]').forEach(h=>{init(h);diagnostics(h)});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);else enhance();
   if(window.document$?.subscribe)window.document$.subscribe(enhance);
 })();
