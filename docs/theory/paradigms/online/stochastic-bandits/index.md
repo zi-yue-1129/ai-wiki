@@ -52,6 +52,12 @@ The phase diagram is also **directly clickable or tappable**: selecting a point 
 
 **Decision-by-decision score margin.** The additional three-point plot is computed directly from the discrete UCB1 formula at $t=16,17,18$ for the chosen hypothetical rewards. It shows $\mathrm{UCB}_B-\mathrm{UCB}_A$: positive favours B, negative favours A, and the dashed zero line is the tie boundary. For $r_1=r_2=0$, the margin changes from about $+0.504$ to $+0.053$ to $-0.204$; for $r_1=r_2=1$, the final margin is $+0.296$. The enlarged dot marks the selected step; the other dots represent counterfactual earlier or future states. C remains below A throughout this bounded example. The discrete score calculations are not measured regret or a continuous learning trajectory.
 
+**Decomposing the UCB decision.** A second live SVG separates the score difference into *empirical-mean advantage* and *exploration-bonus advantage*, rather than displaying only their sum:
+
+$\mathrm{UCB}_B-\mathrm{UCB}_A=(\bar X_B-\bar X_A)+\left[\sqrt{2\ln(t)/n_B}-\sqrt{2\ln(t)/6}\right].$
+
+The zero line separates a B advantage from an A advantage; all three bars update exactly when the step or either hypothetical reward changes. At $t=16$, B has a **$-0.200$ empirical-mean gap**, outweighed by approximately **$+0.704$** in exploration bonus, for a net **$+0.504$**. With two zero rewards at $t=18$, these terms become approximately $-0.425$ and $+0.221$, producing a net **$-0.204$** and selecting A. These are counterfactual score calculations, *not* measured rewards or regret. On narrow screens the diagnostic strip scrolls horizontally and can be focused for keyboard scrolling.
+
 ### Interactive computation lab — Beta posterior update
 
 <div class="bandit-lab" data-bandit-lab="thompson" data-lang="en">
