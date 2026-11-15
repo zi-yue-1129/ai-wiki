@@ -94,7 +94,11 @@ def main():
                 if width == 320:
                     host.focus()
                     page.keyboard.press('ArrowRight')
-                    assert host.evaluate('(e)=>e.scrollLeft') > 0
+                    # Keyboard scrolling is asynchronous in Chromium (often smooth).
+                    page.wait_for_function(
+                        "() => document.querySelector('.concept-motion-player.concept-motion-wide')?.scrollLeft > 0",
+                        timeout=4000,
+                    )
                 page.close()
                 checked += 1
         browser.close()
