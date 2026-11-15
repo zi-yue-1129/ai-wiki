@@ -14,6 +14,8 @@ on:
       - "scripts/test_bayesian_filter_labs_browser.py"
       - "docs/javascripts/bayesian-filter-labs.js"
       - "docs/javascripts/bayesian-filter-insights.js"
+      - "docs/javascripts/bayesian-filter-invariants.js"
+      - "docs/javascripts/bayesian-filter-comparisons.js"
       - "docs/stylesheets/bayesian-filter-insights.css"
       - "docs/stylesheets/bayesian-filter-labs.css"
       - "docs/javascripts/concept-motion.js"
