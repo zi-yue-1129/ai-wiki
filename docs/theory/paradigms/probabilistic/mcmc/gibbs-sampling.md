@@ -76,7 +76,7 @@ The orange dashed line marks the fixed conditioning coordinate. The teal segment
 
 Change the target correlation $\rho$ and advance one **exact conditional update** at a time. The teal trajectory moves only along the coordinate being sampled; the orange dashed line holds the conditioning coordinate fixed. For $\rho=0.8$, starting at $(X_0,Y_0)=(0,1)$ and using the deliberately fixed standard-normal innovations $0.5,-1$, the first sweep gives $X_1=1.1$ then $Y_1=0.28$. Further updates use a fixed illustrative sequence for a **repeatable teaching example**, not independently generated samples or model measurements.[^roberts]
 
-The **hollow purple marker** denotes the current full conditional's mean; the filled teal marker is the constructed draw after adding the fixed innovation scaled by $\sqrt{1-\rho^2}$. The dotted purple segment is the innovation displacement, **not a second Markov state**. With $\rho=-0.8$, the first artificial update gives $X_1=-0.5$ from conditional mean $-0.8$.
+The **hollow purple marker** denotes the current full conditional's mean; the filled teal marker is the constructed draw after adding the fixed innovation scaled by $\sqrt{1-\rho^2}$. The dotted purple segment is the innovation displacement, **not a second Markov state**. The translucent purple interval shows the conditional mean ± one conditional standard deviation, $\sigma=\sqrt{1-\rho^2}$, along the coordinate being updated. For this Gaussian conditional, the interval holds about 68.3% of the conditional probability; it is **not** a Monte Carlo uncertainty estimate. Both its width and the constructed draw move when $\rho$ changes. [Non-script preview of the conditional interval](../../../../assets/concept-animations/gibbs-conditional-band-still.svg). With $\rho=-0.8$, the first artificial update gives $X_1=-0.5$ from conditional mean $-0.8$.
 
 The blue lag bars are the **theoretical stationary** autocorrelations $\operatorname{Corr}(Y_t,Y_{t+k})=\rho^{2k}$ at *full-sweep* boundaries; they are not estimated from the short displayed path. Compare a weakly correlated target with a high-$\rho$ target to see why accepted Gibbs steps need not mix quickly. Play/Pause, Previous/Next, seek, playback speed and Reset are keyboard-operable. On phones, focus the diagram and scroll horizontally; reduced-motion users can inspect each step manually.
 
@@ -104,11 +104,24 @@ For the constructed target $p(0,0)=p(1,1)=1/2$, with zero mass on $(0,1)$ and $(
 
 
 
+
+#### Hybrid kernel: how much blocking is enough?
+
+![A hybrid Gibbs refresh with probability p = 0.25 gives an exact decaying total-variation curve while keeping visible stay and switch probabilities](../../../../assets/concept-animations/gibbs-hybrid-refresh-still.svg)
+
+Choose **Hybrid refresh** and adjust the block probability $p$ from zero to one. Each transition uses the mixture kernel $K_p=(1-p)I+p\Pi$, where $I$ is the trapped single-site transition and every row of $\Pi$ is $(1/2,1/2)$. From either supported mode, the exact cross-mode probability per transition is **$p/2$**, not $p$; the probability of remaining is $1-p/2$. Therefore the distance of the entire **probability law**, after $n$ transitions from a point start, is
+
+$
+d_{\mathrm{TV}}(\delta_xK_p^n,\pi)=\tfrac12(1-p)^n.
+$
+
+At $p=0.25$, four transitions leave TV distance $0.5(0.75)^4\approx0.1582$. At $p=0$, the chain is reducible and never converges; for every $p>0$, this two-state kernel converges geometrically; at $p=1$, it reaches $\pi$ in one transition. The coloured moving marker represents this **analytic law**, not the distance of the current displayed sample from the target. The sample path uses **two fixed illustrative uniform sequences** (whether to refresh, and what state a refresh selects), not measured transitions or independent draws.[^casella][^roberts]
+
 #### Diagnostic: convergence in total variation
 
 ![Exact total variation distance from a fixed initial mode to the discrete target: single-site Gibbs stays at 0.5 while joint-block draws reach zero after one step](../../../../assets/concept-animations/gibbs-tv-diagnostic-still.svg)
 
-The second plot shows the **probability law** after $k$ complete transitions from either supported point, **not the distance of a particular sampled state**. For single-site Gibbs, the distance to $\pi=(1/2,1/2)$ stays **0.5** at every $k$ because the transition matrix is the identity. For the joint-block kernel, the distance is **0.5** at $k=0$ and exactly **zero for $k\geq 1$**, because each full-block transition redraws from $\pi$. Both kernels preserve $\pi$, but only the latter converges from every supported point. Select the kernel and move the step slider to compare the exact analytic trajectory with the illustrative path.[^casella][^roberts]
+The second plot shows the **probability law** after $k$ complete transitions from either supported point, **not the distance of a particular sampled state**. For single-site Gibbs, the distance to $\pi=(1/2,1/2)$ stays **0.5** at every $k$ because the transition matrix is the identity. For the joint-block kernel, the distance is **0.5** at $k=0$ and exactly **zero for $k\geq 1$**, because each full-block transition redraws from $\pi$. Both endpoint kernels preserve $\pi$; the hybrid kernel also preserves it, and converges whenever $p>0$. Select the kernel and move the step slider to compare the exact analytic trajectory with the illustrative path.[^casella][^roberts]
 
 ## Connections
 

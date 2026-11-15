@@ -53,6 +53,7 @@ with sync_playwright() as pw:
                 ga.locator('[data-action="next"]').click()
                 assert '-0.500' in ga.locator('[data-status]').inner_text()
                 assert ga.locator('[data-conditional-mean]').get_attribute('data-conditional-mean')=='-0.800'
+                assert ga.locator('[data-cond-sigma]').get_attribute('data-cond-sigma')=='0.600'
                 ga.locator('[data-action="reset"]').click()
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.500'
                 assert disc.locator('[data-to="00"]').get_attribute('data-probability')=='1.000'
@@ -60,6 +61,7 @@ with sync_playwright() as pw:
                 ga.locator('[data-action="next"]').click()
                 assert '1.100' in ga.locator('[data-status]').inner_text()
                 assert ga.locator('[data-conditional-mean]').get_attribute('data-conditional-mean')=='0.800'
+                assert ga.locator('[data-cond-sigma]').get_attribute('data-cond-sigma')=='0.600'
                 # Capture the meaningful first conditional draw and its mean marker;
                 # the standard 16-scenario captures later show a finished trajectory.
                 if width in (320,1024) and not reduced:
@@ -94,6 +96,16 @@ with sync_playwright() as pw:
                 assert '(1,1)' in disc.locator('[data-status]').inner_text()
                 assert disc.locator('[data-to="00"]').get_attribute('data-probability')=='0.000'
                 assert disc.locator('[data-to="11"]').get_attribute('data-probability')=='1.000'
+                assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.500'
+                disc.locator('[data-field="mode"]').select_option('mix')
+                disc.locator('[data-field="refresh"]').fill('0.25')
+                assert disc.locator('[data-to="00"]').get_attribute('data-probability')=='0.125'
+                assert disc.locator('[data-to="11"]').get_attribute('data-probability')=='0.875'
+                disc.locator('[data-field="step"]').fill('2')
+                assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.281'
+                disc.locator('[data-field="refresh"]').fill('1')
+                assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.000'
+                disc.locator('[data-field="refresh"]').fill('0')
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.500'
                 disc.locator('[data-action="reset"]').click()
                 assert '0/8' in disc.locator('[data-status]').inner_text() if lang=='zh-TW' else 'Step 0 of 8' in disc.locator('[data-status]').inner_text()
