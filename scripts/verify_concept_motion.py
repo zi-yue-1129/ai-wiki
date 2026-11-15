@@ -198,7 +198,7 @@ def main() -> int:
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
-                          "glorot-fan-tradeoff", "glorot-tanh-saturation", "he-relu-mean-shift", "mup-width-multipliers", "mup-readout-aggregation", "mup-transfer-protocol", "mup-update-budget", "mup-transfer-validation", "he-relu-second-moment",
+                          "glorot-fan-tradeoff", "glorot-tanh-saturation", "he-relu-mean-shift", "mup-width-multipliers", "mup-readout-aggregation", "mup-transfer-protocol", "mup-update-budget", "mup-transfer-validation", "mup-readout-noise", "mup-adam-sgd", "he-relu-second-moment",
                           "prelu-slope-gain", "glorot-alternating-width",
                           "he-fan-mode-tradeoff", "glorot-equal-variance-densities",
                           "svd-unit-circle", "power-iteration-convergence"}:
