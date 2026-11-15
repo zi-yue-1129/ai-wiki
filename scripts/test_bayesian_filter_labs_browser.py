@@ -64,6 +64,7 @@ async def run():
                 # R slider changes gain, not merely the plot's display coordinates.
                 await labs.nth(0).locator('.bf-ranges input').nth(1).fill('3')
                 assert float(await gain_svg.get_attribute('data-gain'))<.35
+                assert float(await compare_k.get_attribute('data-gain'))<.35
                 await labs.nth(0).locator('.bf-ranges input').nth(1).fill('0.64')
                 # Particle weights exactly normalised, systematic ancestor sequence.
                 ptext=await labs.nth(1).locator('.bf-output').inner_text()
@@ -78,6 +79,14 @@ async def run():
                 compare_p=labs.nth(1).locator('svg[data-bf-comparison="particle"]')
                 assert abs(float(await compare_p.get_attribute('data-weighted-mean'))-6.369761008216016)<1e-6
                 assert abs(float(await compare_p.get_attribute('data-resampled-mean'))-6.48)<1e-6
+                if width in (320,1024):
+                    await page.screenshot(path=str(OUT/f'{lang}-{width}-final-comparison.png'),full_page=True)
+                    if width==320:
+                        for region in page.locator('.bf-comparison').all():
+                            await region.evaluate('(e)=>e.scrollLeft=e.scrollWidth')
+                        await page.screenshot(path=str(OUT/f'{lang}-{width}-comparison-right.png'),full_page=True)
+                        for region in page.locator('.bf-comparison').all():
+                            await region.evaluate('(e)=>e.scrollLeft=0')
                 offspring=labs.nth(1).locator('svg[data-bf-advanced="particle"]')
                 assert await offspring.get_attribute('data-counts')=='0,0,0,0,1,1,3,2,2,1'
                 assert await offspring.get_attribute('data-total')=='10'
