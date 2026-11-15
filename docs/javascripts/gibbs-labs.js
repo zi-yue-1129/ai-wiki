@@ -24,7 +24,7 @@
       a:'高斯掃描',b:'不連通目標',fixed:'固定的座標',
       reduced:'已開啟減少動態效果，不會自動播放。',
       diagnosticsGaussian:'相關高斯 Gibbs 平穩態 Y 平均數在一百輪完整掃描下，理論有限樣本有效樣本數隨相關係數變化的圖。',
-      diagnosticsDisconnected:'從單一支援點出發，每次完整更新後與雙模態目標分布之間的精確總變異距離。'
+      diagnosticsDisconnected:'從單一支援點出發，每次完整更新後與雙模態目標分布之間的精確總變異距離。',
       gab:(s)=>`第 ${s.step}/10 步；ρ=${s.rho.toFixed(2)}；X=${s.x.toFixed(3)}，Y=${s.y.toFixed(3)}；平穩態單輪延遲相關 ρ²=${(s.rho*s.rho).toFixed(3)}。`,
       dib:(s)=>`第 ${s.step}/8 步；${s.mode==='single'?'逐座標抽樣受困':'聯合分塊抽樣可跨模態'}；目前為 (${s.bit},${s.bit})。`
     }
