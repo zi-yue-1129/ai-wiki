@@ -78,6 +78,18 @@ Change the target correlation $\rho$ and advance one **exact conditional update*
 
 The blue lag bars are the **theoretical stationary** autocorrelations $\operatorname{Corr}(Y_t,Y_{t+k})=\rho^{2k}$ at *full-sweep* boundaries; they are not estimated from the short displayed path. Compare a weakly correlated target with a high-$\rho$ target to see why accepted Gibbs steps need not mix quickly. Play/Pause, Previous/Next, seek, playback speed and Reset are keyboard-operable. On phones, focus the diagram and scroll horizontally; reduced-motion users can inspect each step manually.
 
+#### Diagnostic: effective independent information
+
+![Analytic variance-equivalent effective sample size for the stationary Gaussian Gibbs mean at 100 sweeps, decreasing as target correlation increases](../../../../assets/concept-animations/concept-animations/gibbs-ess-diagnostic-still.svg)
+
+For the **stationary** Gaussian full-sweep $Y$ sequence and a hypothetical window of $N=100$ sweeps, the variance-equivalent effective sample size for its **sample mean** is calculated analytically, not estimated from the short demonstration path:[^roberts]
+
+$
+N_{\mathrm{eff}}=\frac{100}{1+2\sum_{k=1}^{99}(1-k/100)\rho^{2k}}.
+$
+
+At $\rho=0.8$, this gives approximately **22.44** independent-equivalent observations; at $\rho=0.95$, about **5.68**, despite all conditional updates being accepted. Move the $\rho$ slider to recompute the curve and its marker. This is the theoretical stationary variance ratio for the $Y$ mean in this **constructed** Gaussian model, not a measured ESS or a statement about burn-in.
+
 ### Interactive lab: stationarity without irreducibility
 
 ![Gibbs disconnected target: single-coordinate trapping versus a joint block transition](../../../../assets/concept-animations/gibbs-disconnected-still.svg)
@@ -89,6 +101,12 @@ The blue lag bars are the **theoretical stationary** autocorrelations $\operator
 For the constructed target $p(0,0)=p(1,1)=1/2$, with zero mass on $(0,1)$ and $(1,0)$, every **single-site conditional Gibbs update stays put**. Select the initial mode, step through the updates and switch to the *joint block* kernel that draws the full state from the target. Both kernels preserve the target distribution, but only the block kernel can reach both supported states from either start. The block transitions shown use a fixed illustrative sequence of uniform values, **not empirical Markov-chain simulation**. This makes the distinction between invariance and convergence operational rather than treating 100% acceptance as a mixing guarantee.[^casella][^roberts]
 
 
+
+#### Diagnostic: convergence in total variation
+
+![Exact total variation distance from a fixed initial mode to the discrete target: single-site Gibbs stays at 0.5 while joint-block draws reach zero after one step](../../../../assets/concept-animations/gibbs-tv-diagnostic-still.svg)
+
+The second plot shows the **probability law** after $k$ complete transitions from either supported point, **not the distance of a particular sampled state**. For single-site Gibbs, the distance to $\pi=(1/2,1/2)$ stays **0.5** at every $k$ because the transition matrix is the identity. For the joint-block kernel, the distance is **0.5** at $k=0$ and exactly **zero for $k\geq 1$**, because each full-block transition redraws from $\pi$. Both kernels preserve $\pi$, but only the latter converges from every supported point. Select the kernel and move the step slider to compare the exact analytic trajectory with the illustrative path.[^casella][^roberts]
 
 ## Connections
 

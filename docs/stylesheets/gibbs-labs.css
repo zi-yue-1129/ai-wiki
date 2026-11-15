@@ -14,3 +14,6 @@
 .gibbs-lab-status { font-variant-numeric: tabular-nums; }
 @media (prefers-reduced-motion: reduce) { .gibbs-lab * { scroll-behavior: auto !important; transition: none !important; } }
 
+
+.gibbs-lab-diagnostic { margin-top: .65rem; }
+.gibbs-lab-scroll svg[data-graphic="diagnostic"] { height: 170px; }

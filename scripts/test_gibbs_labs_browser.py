@@ -33,8 +33,12 @@ with sync_playwright() as pw:
                 page.add_script_tag(content=JS.read_text(encoding='utf-8'))
                 ga=page.locator('[data-gibbs-lab="gaussian"]');disc=page.locator('[data-gibbs-lab="disconnected"]')
                 assert ga.locator('svg[data-graphic="main"]').count()==1
+                assert ga.locator('svg[data-graphic="diagnostic"]').count()==1
+                assert disc.locator('svg[data-graphic="diagnostic"]').count()==1
                 assert disc.locator('svg[data-graphic="main"]').count()==1
                 assert '0.640' in ga.locator('[data-status]').inner_text()
+                assert 20 < float(ga.locator('[data-ess]').get_attribute('data-ess')) < 24
+                assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.500'
                 ga.locator('[data-action="next"]').click()
                 assert '1.100' in ga.locator('[data-status]').inner_text()
                 ga.locator('[data-action="next"]').click()
@@ -43,19 +47,23 @@ with sync_playwright() as pw:
                 assert '0.902' in ga.locator('[data-status]').inner_text() or '0.903' in ga.locator('[data-status]').inner_text()
                 # Theoretical full-sweep ACF changes with rho, not with a chosen sample.
                 assert abs(float(ga.locator('[data-acf="1"]').get_attribute('width'))-140*.95**2)<.02
+                assert float(ga.locator('[data-ess]').get_attribute('data-ess')) < 10
                 ga.locator('[data-field="step"]').fill('10')
-                assert ga.locator('svg polyline').count()==1
+                assert ga.locator('svg[data-graphic="main"] polyline').count()==1
                 ga.locator('[data-action="reset"]').click()
                 assert '0.80' in ga.locator('[data-status]').inner_text()
                 disc.locator('[data-action="next"]').click()
                 assert '(0,0)' in disc.locator('[data-status]').inner_text()
                 disc.locator('[data-field="mode"]').select_option('block')
                 assert '(1,1)' in disc.locator('[data-status]').inner_text()
+                assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.000'
                 disc.locator('[data-action="next"]').click()
                 assert '(0,0)' in disc.locator('[data-status]').inner_text()
+                assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.000'
                 disc.locator('[data-field="start"]').select_option('1')
                 disc.locator('[data-field="mode"]').select_option('single')
                 assert '(1,1)' in disc.locator('[data-status]').inner_text()
+                assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.500'
                 disc.locator('[data-action="reset"]').click()
                 assert '0/8' in disc.locator('[data-status]').inner_text() if lang=='zh-TW' else 'Step 0 of 8' in disc.locator('[data-status]').inner_text()
                 # Check that two languages are actually offered, controls are keyboard focusable,
@@ -64,15 +72,18 @@ with sync_playwright() as pw:
                 assert ga.locator('[data-action="prev"]').inner_text()==expected
                 assert page.evaluate('document.documentElement.scrollWidth')<=width+1
                 for host in (ga,disc):
-                    box=host.locator('.gibbs-lab-scroll').bounding_box()
+                    box=host.locator('.gibbs-lab-scroll').first.bounding_box()
                     assert box['width']<=width,(width,lang,box)
-                    assert host.locator('svg').bounding_box()['width']==640
-                    if width<640: assert host.locator('.gibbs-lab-scroll').evaluate('(e)=>e.scrollWidth>e.clientWidth')
+                    assert host.locator('svg[data-graphic="main"]').bounding_box()['width']==640
+                    assert host.locator('svg[data-graphic="diagnostic"]').bounding_box()['height']==170
+                    if width<640: assert host.locator('.gibbs-lab-scroll').first.evaluate('(e)=>e.scrollWidth>e.clientWidth')
                 # Plot important post-update states, not just step 0.
                 ga.locator('[data-field="rho"]').fill('0.95')
                 ga.locator('[data-field="step"]').fill('10')
                 disc.locator('[data-field="mode"]').select_option('block')
                 disc.locator('[data-field="step"]').fill('7')
+                assert ga.locator('[data-ess]').count()==1
+                assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.000'
                 page.screenshot(path=str(ARTIFACT/f'{lang}-{width}-{"reduced" if reduced else "motion"}.png'),full_page=True)
                 assert not errors,errors
                 count+=1;page.close()
