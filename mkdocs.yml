@@ -1089,6 +1089,7 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/bayesian-filter-labs.js
+  - javascripts/bayesian-filter-insights.js
   - javascripts/concept-motion-detailed.js
   - javascripts/self-supervised-labs.js
   - javascripts/ssl-causal-comparisons.js
@@ -1106,6 +1107,7 @@ extra_javascript:
 
 extra_css:
   - stylesheets/bayesian-filter-labs.css
+  - stylesheets/bayesian-filter-insights.css
   - stylesheets/concept-motion-detailed.css
   - stylesheets/self-supervised-labs.css
   - stylesheets/ssl-causal-comparisons.css
