@@ -13,6 +13,8 @@
       update: 'Posterior update', redraw: 'Second posterior draw',
       selected: 'Selected arm', note: 'Illustrative values, not empirical measurements or reproducible random draws.',
       graphA: 'UCB1 mean plus exploration bonus for three arms',
+      marginGraph: 'Discrete UCB B minus A score margin at three successive pull counts; the larger marker is the selected stage.',
+      pseudocountGraph: 'C Beta posterior shape parameters alpha and beta, highlighting the newly added hypothetical observation.',
       graphB: 'Three Beta posterior density curves and constructed samples',
       predictive: 'C next-success probability', uncertainty: 'C posterior variance',
       planeHint: 'Click or tap the decision plane to set both rewards; keyboard users can adjust the two sliders.',
@@ -34,6 +36,8 @@
       update: '更新後驗', redraw: '第二次後驗抽樣',
       selected: '選擇的臂', note: '所有數值皆為人工教學示意，非實測結果或可重現的隨機抽樣。',
       graphA: '三個臂的 UCB1 經驗平均值與探索加分',
+      marginGraph: '連續三個抽取總數下 UCB B 減 A 的離散分數差，較大標記代表目前步驟。',
+      pseudocountGraph: 'C 的 Beta 後驗形狀參數 alpha 與 beta，深色外框標示新增的假設觀察。',
       graphB: '三個 Beta 後驗密度及人工指定的樣本值',
       predictive: 'C 下一次成功的預測機率', uncertainty: 'C 後驗變異數',
       planeHint: '可點選決策平面，同時設定兩次獎勵；鍵盤使用者可操作兩個滑桿。',
@@ -101,6 +105,7 @@
         ${kind==='ucb'?'<div class="bandit-lab-boundary" data-role="boundary"></div>':''}
         <div class="bandit-lab-legend" data-role="legend"></div>
         ${kind==='thompson'?'<div class="bandit-lab-probabilities" data-role="probabilities" aria-label="${esc(tr.chance)}"></div>':''}
+        <div class="bandit-lab-process" data-role="process"></div>
         <div class="bandit-lab-metrics" data-role="metrics"></div>
         <p class="bandit-lab-note">${tr.note}</p>
         <p class="bandit-lab-live" role="status" aria-live="polite" aria-atomic="true" data-role="status"></p>`;
@@ -160,6 +165,31 @@
         get('reward2').value=state.reward2.toFixed(2);
         render();
       });
+      function renderUcbMarginTrace(state, target, tr) {
+  // Score gap is an exact discrete UCB1 computation at three successive pull counts.
+  const deltas = [0, 1, 2].map(step => {
+    const t = 16 + step;
+    const a = 0.65 + Math.sqrt(2 * Math.log(t) / 6);
+    const b = (0.9 + (step >= 1 ? state.reward1 : 0) + (step >= 2 ? state.reward2 : 0)) / (2 + step) + Math.sqrt(2 * Math.log(t) / (2 + step));
+    return b - a;
+  });
+  const x = [61, 165, 269], top = 28, bottom = 120;
+  const y = v => top + (0.65 - v) * (bottom - top);
+  const zero = y(0);
+  const line = deltas.map((v, i) => `${x[i]},${y(v).toFixed(2)}`).join(' ');
+  const labels = deltas.map((v, i) => {
+    const cy = y(v), active = i === state.step;
+    return `<circle data-margin-step="${i}" data-delta="${v.toFixed(6)}" cx="${x[i]}" cy="${cy.toFixed(2)}" r="${active ? 6.5 : 4.2}" fill="${active ? '#173951' : '#237eab'}" stroke="white" stroke-width="2"/><text x="${x[i]}" y="${Math.max(16, cy + (v >= 0 ? -12 : 18)).toFixed(2)}" text-anchor="middle" font-size="11" font-weight="600" fill="#263d51">${v >= 0 ? '+' : ''}${v.toFixed(3)}</text><text x="${x[i]}" y="145" font-size="11" text-anchor="middle" fill="#506578">${16+i}</text>`;
+  }).join('');
+  target.innerHTML = `<svg viewBox="0 0 338 156" role="img" aria-label="${esc(tr.marginGraph)}"><rect width="338" height="156" rx="9" fill="#f8fafc"/><text x="12" y="17" font-size="13" font-weight="600" fill="#273e52">B − A</text><text x="299" y="148" font-size="11" fill="#506578">t</text><line x1="38" y1="${zero.toFixed(2)}" x2="294" y2="${zero.toFixed(2)}" stroke="#637b8f" stroke-dasharray="4 4" stroke-width="1.2"/><text x="17" y="${(zero-4).toFixed(2)}" font-size="10" fill="#506578">0</text><polyline points="${line}" fill="none" stroke="#237eab" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${labels}</svg>`;
+}
+      function renderThompsonEvidence(state, target, tr, ca, cb) {
+  // Alpha and beta include prior pseudo-counts; only the outlined unit is new evidence.
+  const extraAlpha = state.step >= 2 && Number(state.outcome) === 1;
+  const extraBeta = state.step >= 2 && Number(state.outcome) === 0;
+  const blocks = (count, color, cy, extra) => Array.from({length:count},(_,i) => `<rect x="${62+i*31}" y="${cy}" width="24" height="22" rx="4" fill="${color}" ${extra && i === count-1 ? `stroke="#173951" stroke-width="3" data-new-pseudo="${cy===51?'alpha':'beta'}"` : 'stroke="#fff" stroke-width="1"'}/>`).join('');
+  target.innerHTML = `<svg viewBox="0 0 338 137" role="img" aria-label="${esc(tr.pseudocountGraph)}" data-alpha="${ca}" data-beta="${cb}"><rect width="338" height="137" rx="9" fill="#f8fafc"/><text x="13" y="22" font-size="13" font-weight="600" fill="#273e52">C · Beta</text><text x="23" y="68" font-size="18" fill="#273e52">α</text><text x="23" y="110" font-size="18" fill="#273e52">β</text>${blocks(ca,'#237eab',51,extraAlpha)}${blocks(cb,'#e6a452',93,extraBeta)}<text x="251" y="68" font-size="14" font-weight="600" fill="#273e52">${ca}</text><text x="251" y="110" font-size="14" font-weight="600" fill="#273e52">${cb}</text></svg>`;
+}
       function ucb() {
         const counts=[6,2+state.step,8], sums=[3.9,0.9+(state.step>=1?state.reward1:0)+(state.step>=2?state.reward2:0),4.8], t=counts.reduce((a,b)=>a+b,0);
         const means=counts.map((n,i)=>sums[i]/n);
@@ -181,6 +211,7 @@
         get('svg').innerHTML=svg;
         get('legend').innerHTML=`<span><i class="bandit-lab-swatch" style="background:#237eab"></i>${tr.mean} (A/B/C)</span><span><i class="bandit-lab-swatch" style="background:#e6a452"></i>${tr.bonus}</span>`;
         get('metrics').innerHTML=`<span>${tr.time}: <strong>${t}</strong></span><span>${tr.winner}: <strong>${winner}</strong></span><span>${tr.observed}: <strong>${state.step}</strong></span><span>${tr.greedy}: <strong>${greedy}</strong></span><span>${tr.margin}: <strong>${round(margin)}</strong></span><span>${tr.score}: <strong>${scores.map(round).join(' / ')}</strong></span>`;
+        renderUcbMarginTrace(state, get('process'), tr);
         get('status').textContent=tr.ucbStatus({step:state.step,t,winner,greedy,margin});
         renderUcbDecisionMap();
       }
@@ -218,6 +249,7 @@
         get('legend').innerHTML=arms.map((arm,i)=>`<span><i class="bandit-lab-swatch" style="background:${colors[i]}"></i>${arm}</span>`).join('');
         get('probabilities').innerHTML=`<strong class="bandit-lab-prob-title">P(best)</strong>`+arms.map((arm,i)=>`<div class="bandit-lab-prob-row" data-prob="${chances[i].toFixed(6)}"><span>${arm}</span><div class="bandit-lab-prob-track" role="meter" aria-label="${arm} ${esc(tr.chance)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${(chances[i]*100).toFixed(1)}"><div class="bandit-lab-prob-fill" style="width:${(chances[i]*100).toFixed(2)}%;background:${colors[i]}"></div></div><output>${(chances[i]*100).toFixed(1)}%</output></div>`).join('');
         get('metrics').innerHTML=`<span>${esc(stages[state.step])}</span><span>${tr.selected}: <strong>${winner}</strong></span><span>${tr.sample}: <strong>${showDraw?draws.map(round).join(' / '):'—'}</strong></span><span>${tr.posterior}: <strong>${posterior.map(p=>`(${p.join(',')})`).join(' / ')}</strong></span><span>${tr.postMean}: <strong>${means.map(round).join(' / ')}</strong></span><span>${tr.predictive}: <strong>${nextSuccess.toFixed(4)}</strong></span><span>${tr.uncertainty}: <strong>${cVariance.toFixed(4)}</strong></span>`;
+        renderThompsonEvidence(state, get('process'), tr, ca, cb);
         get('status').textContent=tr.tsStatus({stage:stages[state.step],winner,cpost:`Beta(${posterior[2].join(', ')})`});
       }
       function render() {
