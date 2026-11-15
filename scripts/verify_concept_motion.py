@@ -143,6 +143,8 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
                 errors.append(f"{path}: animation requires a duration in seconds")
         for key, value in element.attrib.items():
             local_key = key.split("}")[-1]
+            if value.strip().lower() in {"nan", "+nan", "-nan", "inf", "+inf", "-inf", "infinity", "+infinity", "-infinity"}:
+                errors.append(f"{path}: non-finite numeric SVG attribute {local_key}={value!r}")
             if local_key.startswith("on"):
                 errors.append(f"{path}: event handler prohibited")
             if local_key == "href" and (
