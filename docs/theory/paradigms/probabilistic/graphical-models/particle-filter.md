@@ -65,6 +65,10 @@ Adjust the **observation** $y$, likelihood standard deviation $\sigma$, and syst
 
 ![Expected importance-weight offspring versus realised systematic resampling copies](../../../../assets/concept-animations/particle-offspring-still.svg)
 
+**Calculated comparison — resampling-induced mean shift.** A fourth synchronized SVG compares the weighted mean $\bar x_w=\sum_iw_ix_i$ before resampling with the equal-weight descendant mean $\bar x_r=N^{-1}\sum_jx_{a_j}$. Changing the systematic offset can change this **signed finite-sample difference**, but not the original weights or pre-resampling ESS. The descendant marker is shown only at the resampling step. This deterministic toy draw is **not evidence of improved filtering accuracy or measured uncertainty**.
+
+![Particle importance-weighted mean and realised resampled mean compared on a shared state axis](../../../../assets/concept-animations/particle-mean-shift-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="particle" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
 
 These ten states and observations are **synthetic teaching values**, not empirical state estimates. Each step is a display phase of one update, not an additional particle-filter iteration.

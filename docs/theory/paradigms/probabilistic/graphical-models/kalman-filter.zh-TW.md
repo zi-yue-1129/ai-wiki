@@ -75,6 +75,10 @@ $$
 
 ![卡爾曼人工標準化創新量及高斯參考區間](../../../../assets/concept-animations/kalman-nis-still.svg)
 
+**新增互動計算：預測與觀測的權重。** 第四張同步 SVG 顯示一維精確加權公式 $\mu^+=(1-K)\mu^-+Ky$，其中 $K=P^-/(P^-+R)$。藍色與橘色區段表示兩者的**相對權重**，三個標記則在相同狀態軸上表示預測、觀測及後驗平均值。降低 $R$ 將提高觀測權重，但不能解讀為訓練產生的信任分數或實測校準。只有修正階段才揭露後驗標記。
+
+![卡爾曼增益對預測與觀測分配的相對權重及後驗平均值位置](../../../../assets/concept-animations/kalman-trust-weights-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="kalman" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
 
 這些數值及轉換是**獨立計算的一維人工示意**，不是實測估計誤差，也不是連續多次量測的結果。

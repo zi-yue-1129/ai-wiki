@@ -14,6 +14,7 @@ JS=(ROOT.parent/'docs/javascripts/bayesian-filter-labs.js').read_text(encoding='
 CSS=(ROOT.parent/'docs/stylesheets/bayesian-filter-labs.css').read_text(encoding='utf-8')
 INSIGHT_JS=(ROOT.parent/'docs/javascripts/bayesian-filter-insights.js').read_text(encoding='utf-8')
 INSIGHT_CSS=(ROOT.parent/'docs/stylesheets/bayesian-filter-insights.css').read_text(encoding='utf-8')
+COMPARISON_JS=(ROOT.parent/'docs/javascripts/bayesian-filter-comparisons.js').read_text(encoding='utf-8')
 
 def fixture(lang='en'):
     fallback='Interactive numerical experiment requires JavaScript.' if lang=='en' else '互動數值實驗需要 JavaScript。'
@@ -21,7 +22,7 @@ def fixture(lang='en'):
     <h1>{'Bayesian filter labs' if lang=='en' else '貝氏濾波互動實驗'}</h1>
     <h2>Kalman filter</h2><div class="bayesian-filter-lab" data-lab="kalman" data-lang="{lang}"><p class="bayesian-filter-fallback">{fallback}</p></div>
     <h2>Particle filter</h2><div class="bayesian-filter-lab" data-lab="particle" data-lang="{lang}"><p class="bayesian-filter-fallback">{fallback}</p></div>
-    <script>{JS}</script><script>{INSIGHT_JS}</script></body></html>'''
+    <script>{JS}</script><script>{INSIGHT_JS}</script><script>{COMPARISON_JS}</script></body></html>'''
 
 async def run():
     async with async_playwright() as pw:
@@ -33,7 +34,8 @@ async def run():
                 await page.set_content(fixture(lang),wait_until='load')
                 labs=page.locator('.bf-panel');assert await labs.count()==2
                 assert await page.locator('.bayesian-filter-fallback').count()==0
-                assert await page.locator('.bf-graphic svg').count()==6
+                assert await page.locator('.bf-graphic svg').count()==8
+                assert await page.locator('svg[data-bf-comparison]').count()==2
                 assert await page.locator('svg[data-bf-diagnostic]').count()==2
                 assert await page.locator('svg[data-bf-advanced]').count()==2
                 init_k=await labs.nth(0).locator('.bf-advanced + .bf-insight-summary').inner_text()
@@ -52,6 +54,8 @@ async def run():
                 gain_svg=labs.nth(0).locator('svg[data-bf-diagnostic="kalman"]')
                 assert abs(float(await gain_svg.get_attribute('data-gain'))-1.44/2.08)<1e-6
                 assert abs(float(await gain_svg.get_attribute('data-shift'))-4*1.44/2.08)<1e-6
+                compare_k=labs.nth(0).locator('svg[data-bf-comparison="kalman"]')
+                assert abs(float(await compare_k.get_attribute('data-posterior-mean'))-5.769230769230769)<1e-6
                 nis_svg=labs.nth(0).locator('svg[data-bf-advanced="kalman"]')
                 assert abs(float(await nis_svg.get_attribute('data-nis'))-16/2.08)<1e-6
                 live_k=await labs.nth(0).locator('.bf-advanced + .bf-insight-summary').inner_text()
@@ -71,6 +75,9 @@ async def run():
                 assert await labs.nth(1).locator('svg circle').count()>=4
                 cdf_svg=labs.nth(1).locator('svg[data-bf-diagnostic="particle"]')
                 assert await cdf_svg.get_attribute('data-ancestors')=='4,5,6,6,6,7,7,8,8,9'
+                compare_p=labs.nth(1).locator('svg[data-bf-comparison="particle"]')
+                assert abs(float(await compare_p.get_attribute('data-weighted-mean'))-6.369761008216016)<1e-6
+                assert abs(float(await compare_p.get_attribute('data-resampled-mean'))-6.48)<1e-6
                 offspring=labs.nth(1).locator('svg[data-bf-advanced="particle"]')
                 assert await offspring.get_attribute('data-counts')=='0,0,0,0,1,1,3,2,2,1'
                 assert await offspring.get_attribute('data-total')=='10'
@@ -82,6 +89,7 @@ async def run():
                 ess=float(await cdf_svg.get_attribute('data-ess'))
                 # Changing only the systematic threshold offset cannot change weights/ESS.
                 await labs.nth(1).locator('.bf-ranges input').nth(2).fill('0.025')
+                assert abs(float(await compare_p.get_attribute('data-resampled-mean'))-6.11)<1e-6
                 assert abs(float(await cdf_svg.get_attribute('data-ess'))-ess)<1e-6
                 await labs.nth(1).locator('.bf-ranges input').nth(2).fill('0.045')
                 # All calculated SVG text remains inside its own viewBox.
@@ -91,10 +99,15 @@ async def run():
                     )
                     assert not labels_outside,(lang,width,i,labels_outside)
                 for i in range(2):
+                    bad=await page.locator('svg[data-bf-comparison]').nth(i).evaluate("(s)=>[...s.querySelectorAll('text')].filter(t=>{const b=t.getBBox();return b.x<-1||b.y<-1||b.x+b.width>701||b.y+b.height>225}).map(t=>t.textContent)")
+                    assert not bad,(lang,width,i,bad)
+                for i in range(2):
                     bad=await page.locator('svg[data-bf-advanced]').nth(i).evaluate("(s)=>[...s.querySelectorAll('text')].filter(t=>{const b=t.getBBox();return b.x<-1||b.y<-1||b.x+b.width>701||b.y+b.height>231}).map(t=>t.textContent)")
                     assert not bad,(lang,width,i,bad)
                 # Seek and reset works.
                 await labs.nth(1).locator('.bf-step').fill('1')
+                assert await compare_p.get_attribute('data-stage')=='1'
+                assert 'resampled mean' not in (await labs.nth(1).locator('.bf-comparison + .bf-insight-summary').inner_text()).lower()
                 await labs.nth(1).get_by_role('button',name='Reset' if lang=='en' else '重設').click()
                 assert (await labs.nth(1).locator('.bf-step').input_value())=='0'
                 # Keyboard access + focus outlines.

@@ -87,6 +87,10 @@ Change the **predicted variance** $P^-$, **measurement variance** $R$, or synthe
 
 ![Synthetic Kalman standardised innovation and Gaussian reference interval](../../../../assets/concept-animations/kalman-nis-still.svg)
 
+**Calculated comparison — prior and observation weighting.** The fourth synchronized SVG shows the exact scalar convex combination $\mu^+=(1-K)\mu^-+Ky$, where $K=P^-/(P^-+R)$. The blue and orange bar segments indicate **relative weights**, while dots show the prior, observation and posterior mean on the same state axis. Lowering $R$ gives the observation more weight; this is neither learned trust nor an empirical calibration result. The posterior dot appears only after the correction step.
+
+![Kalman gain weighting prior and observation with the corrected mean on the state axis](../../../../assets/concept-animations/kalman-trust-weights-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="kalman" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
 
 The values and transitions are an **independently computed scalar illustration**, not measured filtering accuracy or a sequence of actual observations.

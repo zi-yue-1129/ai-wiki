@@ -53,6 +53,10 @@ $$
 
 ![系統性重採樣下預期重要性權重後代份額與實際祖先複本](../../../../assets/concept-animations/particle-offspring-still.svg)
 
+**新增互動計算：重採樣造成的平均值位移。** 第四張同步 SVG 比較重採樣前的加權平均值 $\bar x_w=\sum_iw_ix_i$ 與抽得後代的等權平均值 $\bar x_r=N^{-1}\sum_jx_{a_j}$。改變系統性偏移量可能改變這個**有限樣本有號差值**，卻不會改變原始權重或重採樣前 ESS。後代標記只在最後的重採樣階段出現。此確定性人工範例**不能視為濾波準確度提升或實測不確定性**。
+
+![粒子重採樣前的加權平均值與後代等權平均值在共同狀態軸上的比較](../../../../assets/concept-animations/particle-mean-shift-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="particle" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
 
 十個位置與觀測均屬於**人工教學數值**，不是實際估計結果。每個步驟是同一次更新的展示階段，不代表額外執行濾波迭代。
