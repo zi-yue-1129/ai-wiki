@@ -46,6 +46,8 @@ The paper is also a survey of choices. It compares pre-training objectives, arch
 
 <div id="td-t5-en" class="t5-deit-lab" data-lab="t5" data-lang="en"></div>
 
+The new **stage-aware length bars** count each sequence independently. For an original length (N=10), two distinct nonempty masked spans totalling (M) tokens yield (N-M+2) encoder tokens (one sentinel per removed span) and (M+3) target tokens (the two span sentinels plus a final sentinel). The default (M=4) therefore gives **10 input, 8 encoder and 7 target tokens**. The bars and accessible status reveal the encoder and target only at their respective construction stages; they are exact counts for this toy sequence, **not** measured memory, throughput, or a model-generated output.
+
 The controls change the **start and length of two non-overlapping spans** in the fixed ten-token sequence. At each step, inspect the unmodified input, the removed tokens, the **one-sentinel-per-span encoder input**, and the decoder target containing the removed spans in original order followed by the final sentinel. For the default spans B–C and H–I, the encoder receives `A S0 D E F G S1 J` and the target is `S0 B C S1 H I S2`. The resulting 40% masked fraction is deliberately schematic; the T5 pre-training procedure typically corrupts around 15% of tokens. These strings are constructed, not actual decoder predictions (Raffel et al., 2020; see References).
 
 The encoder reads the corrupted input with bidirectional self-attention. The decoder generates the target sequence token by token, with causal self-attention and cross-attention to the encoder output. The loss is the usual cross-entropy on the target tokens.
