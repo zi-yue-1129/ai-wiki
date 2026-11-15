@@ -76,6 +76,19 @@ a'=e^{-3}(e^{-1}\cdot1+3)+(4-2e^{-5}),\qquad
 The result agrees with dense softmax up to floating-point rounding. The animated marker distinguishes the incorrect tile average from the exact streaming merge; the diagram is an **analytic illustration**, not an observed model output. The same MkDocs motion controls and reduced-motion fallback apply (Dao et al., 2022).
 
 
+
+### Causal block classification: skip, mask, or compute
+
+![Four by four causal score tiles for eight tokens: future blocks are skipped, diagonal blocks are partially masked, and past blocks are fully valid.](../../../../../assets/concept-animations/flashattention-causal-tiles-still.svg)
+
+*Original CC BY-SA 4.0 fallback; [open the 12-second SVG tile-scan animation](../../../../../assets/concept-animations/flashattention-causal-tiles-motion.svg).* For a synthetic **causal** sequence of eight tokens with a score-tile width of two, the four-by-four block grid contains **6 fully masked future tiles**, **4 diagonal tiles** with three permitted query–key pairs each, and **6 complete past tiles** with four pairs each. The total is \(6\times 0+4\times 3+6\times 4=36=8(8+1)/2\) directed causal pairs, compared with 64 entries in the unrestricted square grid. The blue marker visits every tile and the curve tracks the exact cumulative permitted-pair count; these are *algorithmic mask permissions*, not measured GPU execution, throughput, or guaranteed kernel tile-skipping behaviour. Actual implementations depend on block size and masking strategy (Dao et al., 2022; see References). MkDocs adds keyboard-accessible Play/Pause and a reduced-motion still.
+
+### Backward recomputation: save statistics instead of the probability matrix
+
+![FlashAttention saves the output and softmax row statistics but recomputes temporary score tiles during the backward pass.](../../../../../assets/concept-animations/flashattention-backward-remat-still.svg)
+
+*Original CC BY-SA 4.0 fallback; [open the 12-second SVG forward/backward data-flow animation](../../../../../assets/concept-animations/flashattention-backward-remat-motion.svg).* The schematic traces four operations: read query/key/value data into on-chip memory, save the output and row log-sum-exp statistics, reload the needed inputs in the backward pass, then **recompute each score tile** to recover local softmax probabilities and accumulate \(dQ,dK,dV\). The full \(n\times n\) attention probability matrix need not persist in high-bandwidth memory. Retained intermediates and gradient-kernel details vary between FlashAttention versions; the diagram shows the central **memory-versus-recomputation** trade-off rather than literal allocation sizes or hardware timings. This is an architectural explanation, not a measured model trace (Dao et al., 2022; see References). The built site supports Play/Pause and reduced-motion fallback.
+
 ## Results
 
 Dao et al. (2022) report that the method is faster than standard exact attention and uses less memory, with the same output. FlashAttention-2 (Dao, 2023) reports about twice the speed of the original, and reaches roughly 50 to 73 percent of the A100's theoretical peak FLOPs per second. FlashAttention-3 (Shah et al., 2024) reports attention that runs 1.5 to 2 times faster on H100 GPUs, at about 740 TFLOPs per second in FP16 and nearly 1.2 PFLOPs per second in FP8.

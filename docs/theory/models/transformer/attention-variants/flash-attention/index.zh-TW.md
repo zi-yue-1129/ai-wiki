@@ -56,6 +56,19 @@ a'=e^{-3}(e^{-1}\cdot1+3)+(4-2e^{-5}),\qquad
 結果與完整 Dense Softmax 一致（除浮點數四捨五入誤差）。動畫以不同標記呈現錯誤的區塊平均與精確的串流合併；這是**解析式教學示意，不是訓練模型輸出**。沿用 MkDocs 的播放／暫停、鍵盤操作及 Reduced Motion 靜態回退（Dao 等人，2022）。
 
 
+
+### 因果注意力分塊：略過、遮罩或完整計算
+
+![八個 Token 分為四乘四的分數區塊；未來區塊略過，對角區塊部分遮罩，過去區塊完整有效。](../../../../../assets/concept-animations/flashattention-causal-tiles-still.svg)
+
+*原創 CC BY-SA 4.0 回退預覽；[開啟 12 秒 SVG 分塊掃描動畫](../../../../../assets/concept-animations/flashattention-causal-tiles-motion.svg)。* 以八個人工 Token、每個分數區塊寬度為二的**因果注意力**為例，四乘四的分塊網格包含 **6 個全部位於未來的略過區塊**、**4 個各有三組合法 Query–Key 配對的對角區塊**，以及 **6 個各有四組合法配對的完整過去區塊**。因此共有 \(6\times 0+4\times 3+6\times 4=36=8(8+1)/2\) 組合法的有向因果配對，而未限制的八乘八網格則有 64 格。藍色游標依序掃過各區塊，折線累加每一步確切的合法配對數；這些是**注意力遮罩允許的連線**，並非實測 GPU 執行過程、吞吐量或特定核心程式一定會略過的工作量。實際區塊處理與遮罩策略依實作而定（Dao 等人，2022；見參考文獻）。MkDocs 提供鍵盤可操作的播放／暫停及 Reduced Motion 靜態回退。
+
+### 反向傳播重算：儲存統計量，而非機率矩陣
+
+![FlashAttention 保留輸出與每列 Softmax 統計量，反向傳播時重算暫存的分數區塊。](../../../../../assets/concept-animations/flashattention-backward-remat-still.svg)
+
+*原創 CC BY-SA 4.0 回退預覽；[開啟 12 秒 SVG 前向與反向資料流動畫](../../../../../assets/concept-animations/flashattention-backward-remat-motion.svg)。* 此示意流程包含四個操作：讀取 Query／Key／Value 至晶片上記憶體、保存輸出與每列 log-sum-exp 統計量、反向傳播時重新載入所需輸入，最後**重新計算分數區塊**，求出局部 Softmax 機率並累加 \(dQ,dK,dV\)。完整的 \(n\times n\) 注意力機率矩陣不必持續存放於高頻寬記憶體。各版本實際保留哪些中間結果以及梯度核心程式細節會有所不同；此圖解釋的是**儲存空間與重算成本的取捨**，不是記憶體配置或硬體耗時實測，也不是訓練模型的執行軌跡（Dao 等人，2022；見參考文獻）。網站支援播放／暫停和 Reduced Motion 回退。
+
 ## 結果
 
 Dao 等人（2022）報告，此方法比標準的精確注意力更快，且使用較少記憶體，輸出相同。FlashAttention-2（Dao，2023）報告其速度約為原版的兩倍，並達到 A100 理論峰值 FLOPs 每秒的約 50% 至 73%。FlashAttention-3（Shah 等人，2024）報告在 H100 GPU 上注意力快 1.5 至 2 倍，FP16 約達每秒 740 TFLOPs，FP8 則接近每秒 1.2 PFLOPs。

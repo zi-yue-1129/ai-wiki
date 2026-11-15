@@ -19,7 +19,8 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSET = "/docs/assets/concept-animations/"
-TOPICS = ("flashattention-online-rescale", "flashattention-exact-merge")
+TOPICS = ("flashattention-online-rescale", "flashattention-exact-merge",
+          "flashattention-causal-tiles", "flashattention-backward-remat")
 OUT = ROOT / "artifacts" / "flashattention-online"
 
 
@@ -46,10 +47,14 @@ def fixture(language: str) -> str:
     zh = language == "zh"
     labels = (
         ("在新最大值下重新縮放舊區塊的 Softmax 正規化質量",
-         "精確合併區塊加權輸出，不直接平均各區塊")
+         "精確合併區塊加權輸出，不直接平均各區塊",
+         "因果分塊掃描：未來區塊略過，對角區塊只允許部分配對",
+         "反向傳播重算分數區塊，並保留輸出與 Softmax 統計量")
         if zh else
         ("Rescale previous softmax mass after a new maximum",
-         "Merge tile outputs under one shared softmax normaliser")
+         "Merge tile outputs under one shared softmax normaliser",
+         "Causal tile scan: skip future blocks and mask diagonal blocks",
+         "Backward recomputes score tiles while retaining output and softmax statistics")
     )
     figures = "".join(
         f'<p><img alt="{alt}" src="{ASSET}{stem}-still.svg"></p>'
@@ -65,7 +70,7 @@ main{{max-width:960px;margin:auto}}p{{margin:0 0 16px}}</style>
 
 
 def image_loaded(page):
-    assert page.locator("img").count() == 2
+    assert page.locator("img").count() == len(TOPICS)
     for img in page.locator("img").all():
         page.wait_for_function(
             "(node) => node.complete && node.naturalWidth === 640",
@@ -83,7 +88,7 @@ def check(page, base: str, width: int, locale: str, reduce: bool):
         "Unexpected whole-page horizontal overflow", width, locale, reduce
     )
     controls = page.locator(".concept-motion-toggle")
-    assert controls.count() == 2, "player did not enhance both stills"
+    assert controls.count() == len(TOPICS), "player did not enhance all stills"
     for n, stem in enumerate(TOPICS):
         host = page.locator(".concept-motion-player").nth(n)
         assert "concept-motion-wide" in (host.get_attribute("class") or "")
@@ -131,7 +136,19 @@ def check_numeric_bars():
         assert isclose(width, expected, abs_tol=1e-9), (filename, width, expected)
 
 
+def check_causal_block_counts():
+    """Independently count causal query-key permissions per 2-by-2 block."""
+    counts = [sum(1 for i in range(2*r, 2*r+2)
+                  for j in range(2*c, 2*c+2) if j <= i)
+              for r in range(4) for c in range(4)]
+    assert counts == [3, 0, 0, 0, 4, 3, 0, 0,
+                      4, 4, 3, 0, 4, 4, 4, 3]
+    assert sum(counts) == 36
+    assert (counts.count(0), counts.count(3), counts.count(4)) == (6, 4, 6)
+
+
 def main():
+    check_causal_block_counts()
     check_numeric_bars()
     OUT.mkdir(parents=True, exist_ok=True)
     with serve() as base, sync_playwright() as pw:

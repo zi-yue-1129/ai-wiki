@@ -73,3 +73,20 @@
   max-width: none;
   height: auto;
 }
+
+/* Additional FlashAttention causal and backward teaching diagrams. */
+.md-typeset p:has(> img[src*="flashattention-causal-tiles-still.svg"]),
+.md-typeset p:has(> img[src*="flashattention-backward-remat-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="flashattention-causal-tiles-still.svg"],
+.md-typeset p > img[src*="flashattention-backward-remat-still.svg"],
+.md-typeset .concept-motion-player.concept-motion-wide > img[src*="flashattention-causal-tiles-"],
+.md-typeset .concept-motion-player.concept-motion-wide > img[src*="flashattention-backward-remat-"] {
+  display: block;
+  width: 640px;
+  min-width: 640px;
+  max-width: none;
+  height: auto;
+}

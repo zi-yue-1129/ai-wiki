@@ -17,6 +17,8 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "flashattention-online-rescale": "theory/models/transformer/attention-variants/flash-attention/index",
     "flashattention-exact-merge": "theory/models/transformer/attention-variants/flash-attention/index",
+    "flashattention-causal-tiles": "theory/models/transformer/attention-variants/flash-attention/index",
+    "flashattention-backward-remat": "theory/models/transformer/attention-variants/flash-attention/index",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
@@ -198,7 +200,7 @@ def main() -> int:
                         (page.parent / link).resolve() for link in static_links
                     }:
                         errors.append(f"{page}: missing GitHub-readable static link")
-            elif stem in {"flashattention-online-rescale", "flashattention-exact-merge"}:
+            elif stem in {"flashattention-online-rescale", "flashattention-exact-merge", "flashattention-causal-tiles", "flashattention-backward-remat"}:
                 # GitHub shows a static fallback; MkDocs upgrades the still to
                 # an interactive Play/Pause motion via concept-motion.js.
                 if static_path.resolve() not in linked_images:
