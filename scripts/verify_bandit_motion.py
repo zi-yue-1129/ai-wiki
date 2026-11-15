@@ -6,7 +6,7 @@ import re
 from xml.etree import ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
 D=ROOT/'docs/assets/concept-animations'
-PREFIXES=('ucb1-optimism-switch','thompson-beta-posterior-draws')
+PREFIXES=('ucb1-optimism-switch','thompson-beta-posterior-draws','ucb1-bonus-sensitivity','thompson-evidence-concentration')
 PAGES=[ROOT/'docs/theory/paradigms/online/stochastic-bandits/index.md',ROOT/'docs/theory/paradigms/online/stochastic-bandits/index.zh-TW.md']
 for name in PREFIXES:
     for suffix in ('motion','still'):
@@ -30,3 +30,8 @@ winners=[max(range(3),key=lambda i:means[j][i]+sqrt(2*log(16+j)/n[j][i])) for j 
 assert winners==[1,1,0],winners
 assert (4,3)==(4,3) and (5,3)==(4+1,3)
 print('PASS: 4 safe SVGs, 2 bilingual chapter links, UCB1 B/B/A calculation and Beta(4,3)→Beta(5,3)')
+# New analytical sensitivity guards: fixed-t bonus declines with arm samples,
+# while balanced Bernoulli evidence maintains the posterior mean at 1/2.
+assert all(sqrt(2*log(64)/n)>sqrt(2*log(64)/(2*n)) for n in (1,2,4,8,16))
+assert all(sqrt(2*log(256)/n)>sqrt(2*log(64)/n) for n in (1,2,4,8,16,32))
+assert all(a/(a+b)==0.5 for a,b in ((1,1),(2,2),(5,5),(11,11)))

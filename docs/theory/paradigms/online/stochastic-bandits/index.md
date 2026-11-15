@@ -31,6 +31,16 @@ Regret compares the total reward with that of always playing the best arm. Lai a
 
 *Original continuous teaching animation (CC BY-SA 4.0).* For each arm $i$, UCB1 scores $\bar X_i+\sqrt{2\ln(t)/n_i}$ and selects the largest value. The illustrated snapshot starts at $t=16$ with counts $(6,2,8)$ and empirical means $(0.65,0.45,0.60)$. Two **hypothetical zero rewards** after selecting B raise its sample count from 2 to 4 and lower its mean from 0.45 to 0.225; the winning score switches from B to A. Bars show the mean (blue) plus confidence bonus (orange), while the green ring identifies the optimistic winner. Intermediate motion interpolates between discrete decision snapshots, **not a continuous training trajectory or measured experiment**. No reward is inferred for unplayed arms. In MkDocs, use **Play/Pause** (keyboard **Enter/Space**); on narrow screens, scroll the focusable illustration horizontally. GitHub shows a [static fallback](../../../../assets/concept-animations/ucb1-optimism-switch-still.svg). See Auer, Cesa-Bianchi & Fischer (2002) in References.
 
+### Exploration bonus sensitivity: counts versus time
+
+<div class="bandit-motion-viewport" role="region" tabindex="0" aria-label="Horizontally scrollable UCB1 exploration-bonus comparison">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/ucb1-bonus-sensitivity-still.svg" data-motion-src="../../../../assets/concept-animations/ucb1-bonus-sensitivity-motion.svg" data-still-src="../../../../assets/concept-animations/ucb1-bonus-sensitivity-still.svg" alt="Analytical UCB1 bonus against arm sample count from 1 to 32 at fixed total rounds 64 and 256; bonus falls with more samples, while a larger total round count increases it at the same arm count." />
+</div>
+
+*Original continuous teaching animation (CC BY-SA 4.0).* UCB1 uses the exploration term $b_i(t)=\sqrt{2\ln(t)/n_i}$. The two **analytical, counterfactual** curves fix the total round count separately at $t=64$ and $t=256$, and compare possible sample counts $n_i=1,2,4,8,16,32$ for one arm. At fixed $t$, sampling that arm more often shrinks its bonus: for $t=64$ it falls from about **2.884** to **0.510**. At the same $n_i$, larger $t$ raises the bonus because other arms could have been sampled while this arm was not: at $n_i=8$, the values are approximately **1.020** and **1.177**. These pairs are **not a sequential trace** (varying $n_i$ while holding $t$ constant is a sensitivity comparison), and the exploration bonus alone is neither a posterior standard deviation nor a measured reward. Each displayed combination has $1\le n_i\le t$. The complete UCB score still adds the empirical mean.Auer, Cesa-Bianchi & Fischer (2002) in References
+
+The MkDocs player uses **Play/Pause** (keyboard **Enter/Space**), and reduced-motion mode starts with a static still. The illustration scrolls horizontally on narrow screens. [Open the SVG motion](../../../../assets/concept-animations/ucb1-bonus-sensitivity-motion.svg) · [GitHub fallback](../../../../assets/concept-animations/ucb1-bonus-sensitivity-still.svg).
+
 ### Thompson sampling — posterior draws and a local update
 
 <div class="bandit-motion-viewport" role="region" tabindex="0" aria-label="Horizontally scrollable Thompson sampling teaching animation">
@@ -38,6 +48,16 @@ Regret compares the total reward with that of always playing the best arm. Lai a
 </div>
 
 *Original continuous teaching animation (CC BY-SA 4.0).* In the **Bernoulli** reward example, independent posterior models are $A\sim\operatorname{Beta}(3,3)$, $B\sim\operatorname{Beta}(2,5)$ and $C\sim\operatorname{Beta}(4,3)$. One **constructed draw per arm**, $(0.47,0.22,0.71)$, chooses C. A hypothetical successful observation for **C only** updates $C$ to $\operatorname{Beta}(5,3)$; new illustrative draws $(0.57,0.38,0.52)$ choose A. The moving dots are **example posterior draws**, not inferred means, predicted confidence scores, a recorded random seed or empirical algorithm output. The shape change is an interpolation between distinct Bayesian posteriors. MkDocs supports **Play/Pause** and keyboard **Enter/Space**; use the [GitHub static fallback](../../../../assets/concept-animations/thompson-beta-posterior-draws-still.svg) when motion is unavailable. See Agrawal & Goyal (2012) and Russo et al. (2018) in References.
+### Posterior concentration without moving the mean
+
+<div class="bandit-motion-viewport" role="region" tabindex="0" aria-label="Horizontally scrollable Bernoulli Beta posterior concentration animation">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/thompson-evidence-concentration-still.svg" data-motion-src="../../../../assets/concept-animations/thompson-evidence-concentration-motion.svg" data-still-src="../../../../assets/concept-animations/thompson-evidence-concentration-still.svg" alt="Beta posterior sharpens from uniform Beta(1,1) to Beta(11,11) as 0, 2, 8, or 20 balanced illustrative Bernoulli outcomes accumulate; mean stays at one-half and the equal-tailed 90-percent credible interval narrows." />
+</div>
+
+*Original analytical teaching animation (CC BY-SA 4.0).* Begin with a **Beta(1,1) prior**, then consider balanced hypothetical Bernoulli outcomes: $(s,f)=(0,0),(1,1),(4,4),(10,10)$. The corresponding posteriors are **Beta(1,1), Beta(2,2), Beta(5,5), Beta(11,11)**. Every posterior has mean $\alpha/(\alpha+\beta)=0.5$, but its variance $\alpha\beta/[(\alpha+\beta)^2(\alpha+\beta+1)]$ decreases with evidence. The green band is the exact **90% equal-tailed credible interval** for the unknown arm probability: it contracts from **[0.050, 0.950]** initially to about **[0.328, 0.672]** after 20 balanced outcomes. The interpolated shapes illustrate the transition between discrete posteriors, **not fractional observations**; these are constructed outcomes, not sampled trials, training measurements, predictive intervals or a claim that Thompson sampling always receives balanced feedback. A posterior draw does not update the distribution; only observing a reward does.Agrawal & Goyal (2012) and Russo et al. (2018) in References
+
+On MkDocs, **Play/Pause** (keyboard **Enter/Space**) controls the animation; reduced-motion readers receive the still, and mobile readers can scroll the region. [Open the SVG motion](../../../../assets/concept-animations/thompson-evidence-concentration-motion.svg) · [GitHub fallback](../../../../assets/concept-animations/thompson-evidence-concentration-still.svg).
+
 ### Interactive computation lab — UCB1 reward sensitivity
 
 <div class="bandit-lab" data-bandit-lab="ucb" data-lang="en">

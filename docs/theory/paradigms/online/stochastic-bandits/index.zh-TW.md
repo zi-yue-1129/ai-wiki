@@ -26,6 +26,16 @@ translation_reviewed: 2026-11-15
 
 *原創連續教學動畫（CC BY-SA 4.0）。* UCB1 對每個臂 $i$ 使用 $\bar X_i+\sqrt{2\ln(t)/n_i}$ 計分，並選擇最大者。示例在 $t=16$ 開始，三臂的抽樣次數為 $(6,2,8)$，經驗平均值為 $(0.65,0.45,0.60)$。B 在兩次被選擇後，都得到**人為設定的零獎勵**，因此抽樣次數從 2 增至 4，平均值從 0.45 降至 0.225；樂觀分數最高的臂便由 B 轉為 A。藍色表示經驗平均值、橘色表示信賴寬度，綠色框表示目前分數最大的臂。動畫轉場只是不同離散決策狀態間的**視覺插值，並非模型實測或連續訓練軌跡**；未被選擇的臂不會在該步獲得回饋。在 MkDocs 網站可使用**播放／暫停**按鈕（鍵盤 **Enter／Space**）；手機畫面可聚焦後水平捲動。GitHub 也有可直接閱讀的[靜態預覽](../../../../assets/concept-animations/ucb1-optimism-switch-still.svg)。原始來源為 References 中的 Auer、Cesa-Bianchi 與 Fischer（2002）。
 
+### 探索加分的敏感度：抽樣次數與總輪數
+
+<div class="bandit-motion-viewport" role="region" tabindex="0" aria-label="可水平捲動的 UCB1 探索加分解析動畫">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/ucb1-bonus-sensitivity-still.svg" data-motion-src="../../../../assets/concept-animations/ucb1-bonus-sensitivity-motion.svg" data-still-src="../../../../assets/concept-animations/ucb1-bonus-sensitivity-still.svg" alt="固定總輪數為 64 或 256，單一臂的假設抽樣次數由 1 增至 32 時，UCB1 探索加分下降；同樣的抽樣次數在較晚的總輪數則有更高加分。" />
+</div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* UCB1 探索項為 $b_i(t)=\sqrt{2\ln(t)/n_i}$。兩條**解析式反事實曲線**分別固定總輪數 $t=64$ 與 $t=256$，比較同一臂可能具有的 $n_i=1,2,4,8,16,32$ 次抽樣。在固定 $t=64$ 下，探索加分從約 **2.884** 下降至 **0.510**；固定 $n_i=8$，總輪數從 64 增至 256，探索加分則從約 **1.020** 增至 **1.177**，表示其他臂可能持續被抽取、此臂卻沒有新增資訊。**固定總輪數而改變此臂抽樣次數，是敏感度分析，不是實際連續策略軌跡**。探索加分也不是後驗標準差或實測報酬；完整 UCB 分數仍須加上經驗平均值。圖中每組狀態均符合 $1\le n_i\le t$。原始 UCB1 理論見參考文獻中的 Auer 等人（2002）。
+
+網站播放器提供**播放／暫停**（鍵盤 Enter／Space），Reduced Motion 初始顯示靜態圖；手機可於圖面內水平捲動。[完整 SVG 動畫](../../../../assets/concept-animations/ucb1-bonus-sensitivity-motion.svg) · [GitHub 靜態預覽](../../../../assets/concept-animations/ucb1-bonus-sensitivity-still.svg)。
+
 ### Thompson 取樣：後驗抽樣及局部更新
 
 <div class="bandit-motion-viewport" role="region" tabindex="0" aria-label="可使用方向鍵水平捲動的 Thompson 取樣教學動畫">
@@ -33,6 +43,16 @@ translation_reviewed: 2026-11-15
 </div>
 
 *原創連續教學動畫（CC BY-SA 4.0）。* 在**伯努利獎勵**的示意中，三臂各自具有獨立的後驗分布：$A\sim\operatorname{Beta}(3,3)$、$B\sim\operatorname{Beta}(2,5)$、$C\sim\operatorname{Beta}(4,3)$。對每個臂各抽取一次所建構的樣本 $(0.47,0.22,0.71)$，第一輪選出 C。假設 C 收到一次成功回饋，**只有 C** 的後驗更新為 $\operatorname{Beta}(5,3)$；下一輪假設的抽樣 $(0.57,0.38,0.52)$ 則選出 A。移動的圓點是**人工指定的後驗抽樣結果**，不是後驗平均數、模型信心、可重現隨機種子或實測輸出；密度曲線的連續變化也只是兩個離散後驗之間的視覺轉場。在 MkDocs 網站可使用播放／暫停和 Enter／Space 操作；GitHub 提供[靜態回退預覽](../../../../assets/concept-animations/thompson-beta-posterior-draws-still.svg)。科學依據請參見 References 中的 Agrawal 與 Goyal（2012）以及 Russo 等人（2018）。
+
+### 後驗平均值不變，也可能持續降低不確定性
+
+<div class="bandit-motion-viewport" role="region" tabindex="0" aria-label="可水平捲動的伯努利 Beta 後驗集中動畫">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/thompson-evidence-concentration-still.svg" data-motion-src="../../../../assets/concept-animations/thompson-evidence-concentration-motion.svg" data-still-src="../../../../assets/concept-animations/thompson-evidence-concentration-still.svg" alt="伯努利 Beta 後驗在 0、2、8、20 筆成功失敗各半的人工回饋下，從均勻 Beta(1,1) 逐漸變成 Beta(11,11)；平均值保持 0.5，但 90% 等尾可信區間收窄。" />
+</div>
+
+*原創解析式教學動畫（CC BY-SA 4.0）。* 從 **Beta(1,1) 先驗**出發，考慮成功與失敗數量相同的四組**假設性**伯努利回饋 $(s,f)=(0,0),(1,1),(4,4),(10,10)$，得到後驗 **Beta(1,1)、Beta(2,2)、Beta(5,5)、Beta(11,11)**。它們的平均值 $\alpha/(\alpha+\beta)$ 都是 **0.5**，但後驗變異數 $\alpha\beta/[(\alpha+\beta)^2(\alpha+\beta+1)]$ 隨證據增加而下降。綠色帶顯示未知成功率參數的**90% 等尾後驗可信區間**，從 **[0.050, 0.950]** 收窄至約 **[0.328, 0.672]**。動畫的形狀過渡僅用於幫助理解離散後驗之間的差異，**不是分數筆回饋或連續貝氏更新**；這些回饋不是實際試驗紀錄、模型量測或預測區間，也不表示 Thompson 取樣一定取得平衡回饋。單純從後驗抽樣不會更新分布，只有收到觀測獎勵才會更新。理論參考原有 Agrawal 與 Goyal、Russo 等人的文獻。
+
+網站版可**播放／暫停**（鍵盤 Enter／Space），Reduced Motion 初始顯示靜態圖，手機圖面可水平捲動。[完整 SVG 動畫](../../../../assets/concept-animations/thompson-evidence-concentration-motion.svg) · [GitHub 回退預覽](../../../../assets/concept-animations/thompson-evidence-concentration-still.svg)。
 
 ### 互動計算實驗：UCB1 對獎勵的敏感度
 
