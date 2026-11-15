@@ -51,6 +51,8 @@ $$
 
 **預期與實際後代份額。** 第三張即時計算 SVG 比較 $Nw_i$ 與系統性重採樣**實際選出的整數祖先複本數**。藍色份額在加權階段顯示，橘色實際份額只在最後的重採樣階段出現。調整偏移量可能改變複本數與保留的祖先種類，卻不會改變權重或**重採樣前** ESS。兩種份額的總數都為 10；這些值不是模型實測或重複試驗的統計。
 
+![系統性重採樣下預期重要性權重後代份額與實際祖先複本](../../../../assets/concept-animations/particle-offspring-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="particle" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
 
 十個位置與觀測均屬於**人工教學數值**，不是實際估計結果。每個步驟是同一次更新的展示階段，不代表額外執行濾波迭代。

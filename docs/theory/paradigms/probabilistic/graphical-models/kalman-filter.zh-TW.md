@@ -73,6 +73,8 @@ $$
 
 **標準化創新量診斷。** 第三張即時計算的 SVG 使用 $z=(y-3)/\sqrt{P^-+R}$ 與 $\mathrm{NIS}=z^2$ 呈現創新量的尺度。陰影 $|z|\leq1.96$ 是創新量依照模型假設服從高斯分布時的 95% 參考範圍，**不能用一次人工觀測判定濾波器已通過或未通過統計驗證**。在預測階段尚不顯示觀測標記，進入量測階段才出現；原有播放、單步、進度和鍵盤控制會同步更新此圖。
 
+![卡爾曼人工標準化創新量及高斯參考區間](../../../../assets/concept-animations/kalman-nis-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="kalman" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
 
 這些數值及轉換是**獨立計算的一維人工示意**，不是實測估計誤差，也不是連續多次量測的結果。

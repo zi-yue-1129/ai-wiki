@@ -63,6 +63,8 @@ Adjust the **observation** $y$, likelihood standard deviation $\sigma$, and syst
 
 **Expected versus realised offspring.** A third recomputed SVG compares $Nw_i$ with the **integer number of selected ancestor copies** after systematic resampling. Blue expected mass appears after weighting; orange realised copies appear only at resampling. Changing the offset can change multiplicities and distinct ancestors without changing the weights or **pre-resampling** ESS. Both totals equal ten. This is one deterministic toy selection, not a model measurement or a Monte Carlo performance estimate.
 
+![Expected importance-weight offspring versus realised systematic resampling copies](../../../../assets/concept-animations/particle-offspring-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="particle" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
 
 These ten states and observations are **synthetic teaching values**, not empirical state estimates. Each step is a display phase of one update, not an additional particle-filter iteration.
