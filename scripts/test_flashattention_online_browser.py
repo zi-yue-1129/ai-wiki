@@ -72,10 +72,10 @@ def image_loaded(page):
         assert img.get_attribute("alt"), "missing localised alt text"
 
 
-def check(page, width: int, locale: str, reduce: bool):
+def check(page, base: str, width: int, locale: str, reduce: bool):
     page.route("**/flashattention-test", lambda route:
                route.fulfill(status=200, body=fixture(locale), content_type="text/html"))
-    page.goto(page.context._base_url + "/flashattention-test", wait_until="load")
+    page.goto(base + "/flashattention-test", wait_until="load")
     image_loaded(page)
     assert page.evaluate("document.documentElement.scrollWidth") == width, (
         "Unexpected whole-page horizontal overflow", width, locale, reduce
@@ -127,7 +127,7 @@ def main():
                         reduced_motion="reduce" if reduced else "no-preference",
                     )
                     page = context.new_page()
-                    check(page, viewport, locale, reduced)
+                    check(page, base, viewport, locale, reduced)
                     context.close()
                     total += 1
         # GitHub/no-JavaScript fallback remains legible and decodes.
