@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-14
+translation_reviewed: 2026-11-15
 ---
 
 # 粒子濾波器
@@ -42,6 +42,10 @@ $$
 ## 互動計算：概似、ESS 與系統性重採樣
 
 調整人工**觀測值** $y$、概似標準差 $\sigma$，以及系統性重採樣偏移量 $u_0\in[0,0.1)$。逐步檢視預測樣本、概似權重、累積權重及所選後代。介面在重採樣前計算 $\mathrm{ESS}=1/\sum_i w_i^2$。改變 $u_0$ 可能改變祖先選擇，**卻不會改變正規化的重要性權重**；重複出現的後代只是複製祖先，並未加入新的轉移或雜訊。
+
+**新增計算視覺：用累積權重反函數找出祖先。** 第二張 SVG 將 $[0,1]$ 切成寬度等於各粒子權重 $w_i$ 的區間，再以 $u_j=u_0+j/10$ 畫出十條等距門檻；每個門檻落入的累積區間決定祖先索引，第四階段才顯示選擇結果。調整 $u_0$ 只會移動門檻，不改變區間寬度或**重採樣前** ESS。下方 GitHub 回退圖使用人工預設值，並非實測重採樣效能。
+
+![系統性重採樣門檻與粒子累積權重區間的 GitHub 靜態預覽](../../../../assets/concept-animations/particle-cdf-thresholds-still.svg)
 
 <div class="bayesian-filter-lab" data-lab="particle" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
 
