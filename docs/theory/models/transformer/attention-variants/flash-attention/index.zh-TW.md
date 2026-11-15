@@ -40,13 +40,13 @@ m' = \max(m, \max(s)), \qquad
 
 ![當第二個分數區塊帶來更大的最大值時，線上 Softmax 先重新縮放舊區塊的正規化質量，再加入新區塊。](../../../../../assets/concept-animations/flashattention-online-rescale-still.svg)
 
-*原創 CC BY-SA 4.0 靜態預覽；[開啟 12 秒 SVG 動畫](../../../../../assets/concept-animations/flashattention-online-rescale-motion.svg)。* 以人工設定的兩個分數區塊 (A=[1,2])、(B=[5,0]) 為例。第一個區塊的最大值為 (m_A=2)，正規化項為 (ell_A=1+e^{-1}\approx1.368)。第二個區塊使共同最大值變成 (m'=5)，因此先前的正規化質量**必須乘上** (e^{2-5})，降至約 (0.068)；新區塊貢獻 (1+e^{-5}\approx1.007)，合併後為 (ell'\approx1.075)。直接相加各區塊在不同最大值下的質量會得到錯誤結果。圖內數值為解析計算並四捨五入至小數第三位，**不是模型實測或 GPU 耗時**。MkDocs 提供播放／暫停及鍵盤操作，偏好減少動態效果時預設顯示靜態圖（Milakov 與 Gimelshein，2018；Dao 等人，2022）。
+*原創 CC BY-SA 4.0 靜態預覽；[開啟 12 秒 SVG 動畫](../../../../../assets/concept-animations/flashattention-online-rescale-motion.svg)。* 以人工設定的兩個分數區塊 \(A=[1,2]\)、\(B=[5,0]\) 為例。第一個區塊的最大值為 \(m_A=2\)，正規化項為 \(\ell_A=1+e^{-1}\approx1.368\)。第二個區塊使共同最大值變成 \(m'=5\)，因此先前的正規化質量**必須乘上** \(e^{2-5}\)，降至約 \(0.068\)；新區塊貢獻 \(1+e^{-5}\approx1.007\)，合併後為 \(\ell'\approx1.075\)。直接相加各區塊在不同最大值下的質量會得到錯誤結果。圖內數值為解析計算並四捨五入至小數第三位，**不是模型實測或 GPU 耗時**。MkDocs 提供播放／暫停及鍵盤操作，偏好減少動態效果時預設顯示靜態圖（Milakov 與 Gimelshein，2018；Dao 等人，2022）。
 
 ### 區塊輸出的簡單平均不等於精確注意力
 
 ![兩個分數與數值區塊必須以共同的 Softmax 統計量合併；精確結果不同於各區塊輸出的簡單平均。](../../../../../assets/concept-animations/flashattention-exact-merge-still.svg)
 
-*原創 CC BY-SA 4.0 靜態預覽；[開啟 12 秒 SVG 動畫](../../../../../assets/concept-animations/flashattention-exact-merge-motion.svg)。* 設四個人工分數為 ([1,2,5,0])，對應數值為 ([1,3,4,-2])。各自正規化後，區塊 A 的輸出 (y_A\approx2.462)，區塊 B 的輸出 (y_B\approx3.960)；直接平均會得到 **3.211**，但兩個區塊的正規化質量並不相同。正確方法是先將*未正規化的數值加權總和*轉換到共同最大值 (m'=5)，再做合併：
+*原創 CC BY-SA 4.0 靜態預覽；[開啟 12 秒 SVG 動畫](../../../../../assets/concept-animations/flashattention-exact-merge-motion.svg)。* 設四個人工分數為 \([1,2,5,0]\)，對應數值為 \([1,3,4,-2]\)。各自正規化後，區塊 A 的輸出 \(y_A\approx2.462\)，區塊 B 的輸出 \(y_B\approx3.960\)；直接平均會得到 **3.211**，但兩個區塊的正規化質量並不相同。正確方法是先將*未正規化的數值加權總和*轉換到共同最大值 \(m'=5\)，再做合併：
 
 \[
 a'=e^{-3}(e^{-1}\cdot1+3)+(4-2e^{-5}),\qquad
