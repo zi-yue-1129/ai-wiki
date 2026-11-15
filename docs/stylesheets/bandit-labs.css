@@ -46,5 +46,7 @@
 .bandit-lab-boundary-hint { font:400 .7rem/1.45 system-ui,sans-serif; margin:.35rem .15rem .1rem!important; color:var(--md-default-fg-color--light,#586c80); }
 
 /* Exact discrete UCB margin and Beta conjugate-evidence transitions. */
-.bandit-lab-process { padding:.45rem .1rem; max-width:100%; }
-.bandit-lab-process svg { display:block; width:min(100%,338px); height:auto; min-width:0; border-radius:.55rem; }
+.bandit-lab-process { padding:.45rem .1rem; max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; }
+.bandit-lab-process:focus-visible { outline:3px solid #1582bf; outline-offset:2px; }
+.bandit-lab-process svg + svg { margin-top:.5rem; }
+.bandit-lab-process svg { display:block; width:338px; height:auto; min-width:338px; border-radius:.55rem; }
