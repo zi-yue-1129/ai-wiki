@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "flashattention-online-rescale": "theory/models/transformer/attention-variants/flash-attention/index",
+    "flashattention-exact-merge": "theory/models/transformer/attention-variants/flash-attention/index",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
@@ -122,7 +124,8 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    if root.tag != NS + "svg" or root.get("viewBox") != "0 0 640 360":
+    expected_viewbox = ("0 0 640 322" if path.name.startswith(("flashattention-online-rescale-", "flashattention-exact-merge-")) else "0 0 640 360")
+    if root.tag != NS + "svg" or root.get("viewBox") != expected_viewbox:
         errors.append(f"{path}: invalid SVG root/viewBox")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
@@ -193,6 +196,16 @@ def main() -> int:
                         (page.parent / link).resolve() for link in static_links
                     }:
                         errors.append(f"{page}: missing GitHub-readable static link")
+            elif stem in {"flashattention-online-rescale", "flashattention-exact-merge"}:
+                # GitHub shows a static fallback; MkDocs upgrades the still to
+                # an interactive Play/Pause motion via concept-motion.js.
+                if static_path.resolve() not in linked_images:
+                    errors.append(f"{page}: missing GitHub static fallback for {stem}")
+                motion_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if animated_path.resolve() not in {
+                    (page.parent / link).resolve() for link in motion_links
+                }:
+                    errors.append(f"{page}: missing linked animated SVG for {stem}")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
