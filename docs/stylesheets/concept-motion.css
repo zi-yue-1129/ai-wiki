@@ -15,3 +15,40 @@
 .md-typeset .concept-motion-player img.concept-motion-wide { display: block; width: 640px; min-width: 640px; max-width: none; height: 360px; }
 .md-typeset .concept-motion-player:has(img.concept-motion-wide) { width: 640px; min-width: 640px; max-width: none; }
 .md-typeset img.concept-motion-wide:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
+
+/* Keep wide causal-attention teaching diagrams legible at mobile widths. */
+.md-typeset .concept-motion-player.concept-motion-wide {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+.md-typeset .concept-motion-player.concept-motion-wide > img {
+  display: block;
+  width: 860px;
+  min-width: 860px;
+  max-width: none;
+  height: auto;
+}
+.md-typeset .concept-motion-player.concept-motion-wide:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 2px;
+}
+.md-typeset p:has(> img[src*="sliding-window-mask-still.svg"]),
+.md-typeset p:has(> img[src*="linear-attention-recurrence-still.svg"]),
+.md-typeset p:has(> img[src*="sliding-window-depth-reach-still.svg"]),
+.md-typeset p:has(> img[src*="linear-attention-work-growth-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="sliding-window-mask-still.svg"],
+.md-typeset p > img[src*="linear-attention-recurrence-still.svg"],
+.md-typeset p > img[src*="sliding-window-depth-reach-still.svg"],
+.md-typeset p > img[src*="linear-attention-work-growth-still.svg"] {
+  display: block;
+  width: 860px;
+  min-width: 860px;
+  max-width: none;
+  height: auto;
+}

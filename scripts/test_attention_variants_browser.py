@@ -68,6 +68,35 @@ def main():
                     assert '-still.svg' in page.locator('img').get_attribute('src')
                     assert ('播放' in button.inner_text()) if lang=='zh' else ('Play' in button.inner_text())
                     page.close();checked+=1
+        # Test the production CSS geometry, including the non-JS still fallback.
+        css = (ROOT / 'docs/stylesheets/concept-motion.css').read_text()
+        for stem in PAIRS:
+            for width in (320, 1024):
+                page = browser.new_page(viewport={'width': width, 'height': 550}, reduced_motion='reduce')
+                still = ASSETS / f'{stem}-still.svg'
+                motion = ASSETS / f'{stem}-motion.svg'
+                def local_assets(route):
+                    payload = motion if '-motion.svg' in route.request.url else still
+                    route.fulfill(content_type='image/svg+xml', body=payload.read_text())
+                page.route('**/assets/concept-animations/*.svg', local_assets)
+                page.set_content(
+                    '<meta name="viewport" content="width=device-width,initial-scale=1">'
+                    + '<style>body{margin:0}.md-typeset p{margin:0}' + css + '</style>'
+                    + '<article class="md-typeset"><p><img src="https://wiki.example/assets/concept-animations/'
+                    + stem + '-still.svg" alt="Teaching motion"></p></article>')
+                assert page.locator('p').evaluate('(e)=>e.scrollWidth>e.clientWidth') == (width < 860)
+                assert page.locator('body').evaluate('(e)=>e.scrollWidth<=innerWidth')
+                page.add_script_tag(content=PLAYER.read_text())
+                host=page.locator('.concept-motion-player.concept-motion-wide')
+                assert host.count() == 1, (stem,width)
+                assert host.evaluate('(e)=>e.scrollWidth>e.clientWidth') == (width < 860)
+                assert page.locator('img').evaluate('(e)=>parseFloat(getComputedStyle(e).width)') == 860
+                if width == 320:
+                    host.focus()
+                    page.keyboard.press('ArrowRight')
+                    assert host.evaluate('(e)=>e.scrollLeft') > 0
+                page.close()
+                checked += 1
         browser.close()
     print(f'PASS: {checked} Chromium render/control scenarios, bilingual fallback, reduced motion and exact causal recurrence')
 
