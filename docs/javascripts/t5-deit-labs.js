@@ -128,8 +128,12 @@
     };
     if(isT5){ranges.forEach((r,i)=>r.addEventListener('input',()=>{s[['start1','len1','start2','len2'][i]]=Number(r.value)-(i%2===0?1:0); /* position labels 1-based */
       // First span must end before second; positions are zero-based internally.
-      s.start1=Math.min(s.start1,3);s.start2=Math.max(6,s.start2);
-      r.nextElementSibling.textContent=r.value;stop();render();}));
+      s.start1=Math.min(s.start1,3);
+      // T5 merges contiguous removed tokens into one span: preserve an unmasked gap.
+      s.start2=Math.min(8,Math.max(6,s.start2,s.start1+s.len1+1));
+      ranges[2].value=s.start2+1;
+      ranges.forEach(input=>{input.nextElementSibling.textContent=input.value;});
+      stop();render();}));
       s.start1=1;s.start2=7; // Initial positions correspond to the original B-C and H-I example.
     }else{
       ranges.forEach((r,i)=>r.addEventListener('input',()=>{s[i?'d':'p']=Number(r.value);r.nextElementSibling.textContent=r.value;stop();render();}));
