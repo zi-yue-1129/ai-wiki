@@ -82,10 +82,10 @@ async def run():
                 if width in (320,1024):
                     await page.screenshot(path=str(OUT/f'{lang}-{width}-final-comparison.png'),full_page=True)
                     if width==320:
-                        for region in page.locator('.bf-comparison').all():
+                        for region in await page.locator('.bf-comparison').all():
                             await region.evaluate('(e)=>e.scrollLeft=e.scrollWidth')
                         await page.screenshot(path=str(OUT/f'{lang}-{width}-comparison-right.png'),full_page=True)
-                        for region in page.locator('.bf-comparison').all():
+                        for region in await page.locator('.bf-comparison').all():
                             await region.evaluate('(e)=>e.scrollLeft=0')
                 offspring=labs.nth(1).locator('svg[data-bf-advanced="particle"]')
                 assert await offspring.get_attribute('data-counts')=='0,0,0,0,1,1,3,2,2,1'
