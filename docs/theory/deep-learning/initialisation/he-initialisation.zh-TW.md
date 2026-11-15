@@ -42,7 +42,7 @@ $$
 ### ReLU 二階矩逐層傳播動畫
 
 <div tabindex="0" role="region" aria-label="He 與 Xavier 二階矩動畫，窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
-  <img src="../../../assets/concept-animations/he-relu-second-moment-still.svg" data-motion-src="../../../assets/concept-animations/he-relu-second-moment-motion.svg" data-still-src="../../../assets/concept-animations/he-relu-second-moment-still.svg" alt="He 初始化讓 ReLU 層二階矩保持一，單位增益 Xavier 依序減半至十六分之一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/he-relu-second-moment-still.svg" data-motion-src="../../../assets/concept-animations/he-relu-second-moment-motion.svg" data-still-src="../../../assets/concept-animations/he-relu-second-moment-still.svg" alt="He 初始化讓 ReLU 層二階矩保持一，單位增益 Xavier 依序減半至十六分之一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
 </div>
 
 *原創教學動畫，CC BY-SA 4.0。* 對扇入與扇出皆為 $n$ 的**方形層**，假設權重獨立、均值為零，激活前分布對零點對稱，且輸入二階矩 $q_0=1$，初始化近似給出 $q_{\ell+1}=(nv/2)q_\ell$。He 扇入權重變異數 $v=2/n$ 導致 $q_\ell=1$；**單位增益** Xavier 的 $v=1/n$ 則得到 $q_\ell=2^{-\ell}$，經過四層 ReLU 為 **0.0625**。移動標記追蹤的是解析式的**平方期望而非置中變異數**，也不是模型實測、單顆神經元或隨機模擬；相關性、殘差路徑與有限寬度都可能造成偏離。[^he][^glorot]

@@ -5,6 +5,7 @@ stdlib-only check; rendered/browser validation is performed separately.
 """
 from __future__ import annotations
 
+from html.parser import HTMLParser
 from pathlib import Path
 import re
 import sys
@@ -15,8 +16,12 @@ ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "glorot-fan-tradeoff": "theory/deep-learning/initialisation/glorot-initialisation",
-    "he-relu-second-moment": "theory/deep-learning/initialisation/he-initialisation",
     "mup-width-multipliers": "theory/deep-learning/initialisation/mup",
+    "he-relu-second-moment": "theory/deep-learning/initialisation/he-initialisation",
+    "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
+    "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
+    "svd-unit-circle": "theory/math/linear-algebra/svd",
+    "power-iteration-convergence": "theory/math/linear-algebra/eigendecomposition",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
@@ -67,6 +72,8 @@ TOPICS = {
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
+    "mle-bernoulli-likelihood": "theory/math/probability-statistics/maximum-likelihood",
+    "map-beta-posterior": "theory/math/probability-statistics/maximum-a-posteriori",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
 }
 GITHUB_GIF_PREVIEWS = {
@@ -75,6 +82,37 @@ GITHUB_GIF_PREVIEWS = {
 }
 FORBIDDEN = {"script", "foreignObject", "iframe", "image"}
 LIMIT = 50 * 1024
+
+
+class MotionImages(HTMLParser):
+    def __init__(self, text: str):
+        super().__init__()
+        self.images: list[dict[str, str | None]] = []
+        self.feed(text)
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "img":
+            attributes = {}
+            for name, value in attrs:
+                attributes.setdefault(name, value)
+            self.images.append(attributes)
+
+
+def verify_source_pair(page: Path, text: str, stem: str) -> list[str]:
+    """Check raw opt-in images in source coordinates, never built URL depths."""
+    images = [attrs for attrs in MotionImages(text).images
+              if "data-source-asset-urls" in attrs
+              and stem in (attrs.get("src") or "")]
+    if len(images) != 1:
+        return [f"{page}: expected one source-relative raw image for {stem}"]
+    errors = []
+    for attribute, kind in (("src", "still"), ("data-motion-src", "motion"),
+                            ("data-still-src", "still")):
+        value = images[0].get(attribute)
+        expected = (ASSETS / f"{stem}-{kind}.svg").resolve()
+        if not value or (page.parent / value).resolve() != expected:
+            errors.append(f"{page}: {attribute} must reference the source-relative {kind} asset")
+    return errors
 
 
 def verify_svg(path: Path, animated: bool) -> list[str]:
@@ -97,7 +135,7 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         name = element.tag.split("}")[-1]
         if name in FORBIDDEN:
             errors.append(f"{path}: prohibited {name}")
-        if name in ("animate", "animateMotion"):
+        if name in ("animate", "animateMotion", "animateTransform"):
             motions.append(element)
             if element.get("repeatCount") != "indefinite":
                 errors.append(f"{path}: animation must loop indefinitely")
@@ -135,18 +173,7 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in {"glorot-fan-tradeoff", "mup-width-multipliers", "he-relu-second-moment"}:
-                # GitHub renders a static img; MkDocs enhances via data-motion-src.
-                img_tags = re.findall(r"<img\b[^>]*>", text, flags=re.DOTALL)
-                wanted_still = f"{stem}-still.svg"
-                wanted_motion = f"{stem}-motion.svg"
-                if not any(wanted_still in tag and wanted_motion in tag
-                           and "data-motion-src=" in tag and "data-still-src=" in tag
-                           for tag in img_tags):
-                    errors.append(f"{page}: missing HTML static image + dynamic enhancement")
-                if not any(wanted_still in tag and "src=" in tag for tag in img_tags):
-                    errors.append(f"{page}: missing GitHub static fallback")
-            elif stem in GITHUB_GIF_PREVIEWS:
+            if stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
                 # links to the reviewed, continuously animated GIF preview.
@@ -158,6 +185,18 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
+            elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+                          "glorot-fan-tradeoff", "mup-width-multipliers", "he-relu-second-moment",
+                          "svd-unit-circle", "power-iteration-convergence"}:
+                # GitHub uses the raw static image; the opt-in hook rewrites
+                # all three source-relative attributes for each built locale.
+                errors.extend(verify_source_pair(page, text, stem))
+                if stem in {"svd-unit-circle", "power-iteration-convergence"}:
+                    static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                    if static_path.resolve() not in {
+                        (page.parent / link).resolve() for link in static_links
+                    }:
+                        errors.append(f"{page}: missing GitHub-readable static link")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
             if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
@@ -174,6 +213,11 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+    # MAE and RMSE share one source-relative visual in both languages.
+    for suffix in (".md", ".zh-TW.md"):
+        page = DOCS / ("theory/evaluation/metrics/regression/rmse" + suffix)
+        errors.extend(verify_source_pair(page, page.read_text(encoding="utf-8"), "outlier-mae-rmse"))
+
     # The two reviewed process animations must show interpolated intermediate states,
     # not four discrete slides masquerading as motion.
     for stem in ("mae-visible-patch-reconstruction", "dinov2-dual-objective-ema"):

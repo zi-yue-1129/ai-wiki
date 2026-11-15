@@ -41,7 +41,7 @@ Adam 的乘數形式如下，其中 $\text{fan\_in}$ 為該層的輸入寬度：
 ## Adam 乘數隨模型寬度的變化
 
 <div tabindex="0" role="region" aria-label="muP 寬度縮放動畫；窄螢幕可使用方向鍵水平捲動。" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
-  <img src="../../../assets/concept-animations/mup-width-multipliers-still.svg" data-motion-src="../../../assets/concept-animations/mup-width-multipliers-motion.svg" data-still-src="../../../assets/concept-animations/mup-width-multipliers-still.svg" alt="muP 的 Adam 乘數縮放示意：扇入從 128 增為 1024，隱藏層學習率與輸出乘數依寬度倒數下降，輸入與輸出層的 Adam 學習率倍率保持固定。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-width-multipliers-still.svg" data-motion-src="../../../assets/concept-animations/mup-width-multipliers-motion.svg" data-still-src="../../../assets/concept-animations/mup-width-multipliers-still.svg" alt="muP 的 Adam 乘數縮放示意：扇入從 128 增為 1024，隱藏層學習率與輸出乘數依寬度倒數下降，輸入與輸出層的 Adam 學習率倍率保持固定。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
 </div>
 
 *原創連續教學動畫，CC BY-SA 4.0。* 圖中以隱藏層參考扇入 $n_0=128$，將各乘數相對於此尺度正規化為一。當示意寬度 $n$ 增至 1024 時，**隱藏層權重的 Adam 學習率倍率**與**輸出乘數**皆依 $n_0/n$ 縮小至 **1/8**；在上節指定的 Adam 乘數形式中，**輸入層與輸出層的 Adam 學習率倍率**保持為一。[^mup-motion] 輸出乘數與輸出層的 Adam 學習率**不是同一個量**。這是**解析式縮放規則的示意**，不是訓練損失曲線、實測梯度，也不是超參數能轉移的實驗證據。

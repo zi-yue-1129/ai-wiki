@@ -89,7 +89,7 @@ $$
 ### 動態示意：前向與反向變異數的折衷
 
 <div tabindex="0" role="region" aria-label="Glorot 動畫；窄螢幕可使用方向鍵水平捲動。" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
-  <img src="../../../assets/concept-animations/glorot-fan-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/glorot-fan-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/glorot-fan-tradeoff-still.svg" alt="Glorot 初始化的解析式變異數倍率：扇出增加時，青綠色前向倍率下降，紫色反向倍率上升；只有方形層兩者同時為一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-fan-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/glorot-fan-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/glorot-fan-tradeoff-still.svg" alt="Glorot 初始化的解析式變異數倍率：扇出增加時，青綠色前向倍率下降，紫色反向倍率上升；只有方形層兩者同時為一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
 </div>
 
 *原創連續教學動畫，CC BY-SA 4.0。* 將扇入固定為 100，讓扇出從 100 變至 400，權重變異數為 $2/(100+n_{\text{out}})$。前向倍率 $200/(100+n_{\text{out}})$ 從 **1 降為 0.4**；反向倍率 $2n_{\text{out}}/(100+n_{\text{out}})$ 從 **1 升至 1.6**。長條上的虛線代表倍率一。這些是**解析式示意值，並非訓練模型的量測結果**；上述近似依賴先前說明的獨立性及近線性條件。[^glorot]
