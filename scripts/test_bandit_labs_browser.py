@@ -49,6 +49,10 @@ def main():
                     assert boundary.locator('svg polygon').count() == 1
                     assert boundary.locator('svg [data-role="reward-marker"]').count() == 1
                     assert '0.818' in boundary.inner_text()
+                    trace = ucb.locator('[data-role="process"]')
+                    assert trace.locator('[data-margin-step]').count() == 3
+                    assert abs(float(trace.locator('[data-margin-step="0"]').get_attribute('data-delta')) - 0.503758) < 0.00001
+                    assert abs(float(trace.locator('[data-margin-step="2"]').get_attribute('data-delta')) + 0.204400) < 0.00001
                     # The phase plane itself selects the two counterfactual rewards.
                     # It must agree with the sliders and recomputed analytic winner.
                     boundary.locator('svg').click(position={'x': 199, 'y': 43})  # r1=r2=.9
@@ -73,6 +77,7 @@ def main():
                     assert 'B' in boundary.locator('.bandit-lab-boundary-note').inner_text()
                     assert 'B' in ucb.locator('[data-role="metrics"]').inner_text()
                     assert '0.000' not in ucb.locator('[data-role="metrics"]').inner_text()
+                    assert float(trace.locator('[data-margin-step="2"]').get_attribute('data-delta')) > 0
                     # The second reward must not affect the state after the first pull.
                     ucb.locator('[data-role="seek"]').fill('1')
                     score_before = ucb.locator('[data-role="metrics"]').inner_text()
@@ -100,6 +105,9 @@ def main():
                     assert 'C' in ts.locator('[data-role="metrics"]').inner_text()
                     assert '0.5714' in ts.locator('[data-role="metrics"]').inner_text()
                     assert '0.0306' in ts.locator('[data-role="metrics"]').inner_text()
+                    evidence = ts.locator('[data-role="process"] svg')
+                    assert evidence.get_attribute('data-alpha') == '4' and evidence.get_attribute('data-beta') == '3'
+                    assert ts.locator('[data-new-pseudo]').count() == 0
                     assert ts.locator('[data-role="svg"] circle').count() == 3
                     ts.locator('[data-action="next"]').click()
                     assert '(5,3)' in ts.locator('[data-role="metrics"]').inner_text()
@@ -110,12 +118,17 @@ def main():
                     assert any('—' in v and ('draw' in v.lower() or '抽樣' in v) for v in selected_or_samples), selected_or_samples
                     assert '0.6250' in ts.locator('[data-role="metrics"]').inner_text()
                     assert '0.0260' in ts.locator('[data-role="metrics"]').inner_text()
+                    assert evidence.get_attribute('data-alpha') == '5' and evidence.get_attribute('data-beta') == '3'
+                    assert ts.locator('[data-new-pseudo="alpha"]').count() == 1
                     success = float(probabilities.nth(2).get_attribute('data-prob'))
                     assert success > initial[2] and 0.66 < success < 0.67
                     ts.locator('[data-role="outcome"]').select_option('0')
                     assert '(4,4)' in ts.locator('[data-role="metrics"]').inner_text()
                     assert '0.5000' in ts.locator('[data-role="metrics"]').inner_text()
                     assert '0.0278' in ts.locator('[data-role="metrics"]').inner_text()
+                    assert evidence.get_attribute('data-alpha') == '4' and evidence.get_attribute('data-beta') == '4'
+                    assert ts.locator('[data-new-pseudo="beta"]').count() == 1
+                    assert ts.locator('[data-new-pseudo="alpha"]').count() == 0
                     failure = float(probabilities.nth(2).get_attribute('data-prob'))
                     assert 0.45 < failure < 0.46 and failure < initial[2]
                     ts.locator('[data-action="next"]').click()
