@@ -90,3 +90,20 @@
   max-width: none;
   height: auto;
 }
+
+/* FlashAttention-2/3 GitHub-safe previews and local 640px controls. */
+.md-typeset p:has(> img[src*="flashattention2-query-parallel-still.svg"]),
+.md-typeset p:has(> img[src*="flashattention3-load-compute-pipeline-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="flashattention2-query-parallel-still.svg"],
+.md-typeset p > img[src*="flashattention3-load-compute-pipeline-still.svg"],
+.md-typeset .concept-motion-player.concept-motion-wide > img[src*="flashattention2-query-parallel-"],
+.md-typeset .concept-motion-player.concept-motion-wide > img[src*="flashattention3-load-compute-pipeline-"] {
+  display: block;
+  width: 640px;
+  min-width: 640px;
+  max-width: none;
+  height: auto;
+}

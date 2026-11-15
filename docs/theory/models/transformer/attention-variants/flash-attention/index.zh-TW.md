@@ -69,6 +69,19 @@ a'=e^{-3}(e^{-1}\cdot1+3)+(4-2e^{-5}),\qquad
 
 *原創 CC BY-SA 4.0 回退預覽；[開啟 12 秒 SVG 前向與反向資料流動畫](../../../../../assets/concept-animations/flashattention-backward-remat-motion.svg)。* 此示意流程包含四個操作：讀取 Query／Key／Value 至晶片上記憶體、保存輸出與每列 log-sum-exp 統計量、反向傳播時重新載入所需輸入，最後**重新計算分數區塊**，求出局部 Softmax 機率並累加 \(dQ,dK,dV\)。完整的 \(n\times n\) 注意力機率矩陣不必持續存放於高頻寬記憶體。各版本實際保留哪些中間結果以及梯度核心程式細節會有所不同；此圖解釋的是**儲存空間與重算成本的取捨**，不是記憶體配置或硬體耗時實測，也不是訓練模型的執行軌跡（Dao 等人，2022；見參考文獻）。網站支援播放／暫停和 Reduced Motion 回退。
 
+
+### FlashAttention-2：以 Query 區塊分工，避免跨區塊合併輸出
+
+![三個查詢列區塊同時依序處理四個鍵值區塊，各自累積獨立的注意力輸出與進度。](../../../../../assets/concept-animations/flashattention2-query-parallel-still.svg)
+
+*原創 CC BY-SA 4.0 靜態回退圖；[開啟 12 秒 Query 區塊分工動畫](../../../../../assets/concept-animations/flashattention2-query-parallel-motion.svg)。* 人工示例將三個 Query 列區塊分配給彼此獨立的運算工作單位，每組依序處理四個 K/V 區塊，且**各自維護**線上 Softmax 統計量與輸出，因此概念上共有 \(3\times4=12\) 次分塊操作。依**查詢列**切分時，每組工作單位擁有不同的輸出列，無須在不同工作單位間合併同一輸出列的局部結果；這與將同一列的 Key 維度分割給不同工作單位的做法不同。三個游標同步前進只是方便理解的示意，**不代表真實 GPU 執行緒區塊排程、吞吐量實測，也不代表實作一定只有三個區塊**。實際區塊尺寸及排程取決於核心程式與硬體（Dao，2023；見參考文獻）。MkDocs 提供播放／暫停、鍵盤操作及 Reduced Motion 回退；SVG 本身未提供單步或進度拖曳。
+
+### FlashAttention-3：重疊載入與矩陣乘法運算
+
+![四個資料區塊的串列載入與矩陣乘法時間軸，對比理想化雙階段管線的重疊排程。](../../../../../assets/concept-animations/flashattention3-load-compute-pipeline-still.svg)
+
+*原創 CC BY-SA 4.0 靜態回退圖；[開啟 12 秒管線時間軸動畫](../../../../../assets/concept-animations/flashattention3-load-compute-pipeline-motion.svg)。* 為了隔離資料相依關係，假設四個人工區塊各需要**一單位載入時間**與**一單位矩陣乘法時間**。完全串列處理需要 \(2T=8\) 單位；在理想化雙階段非同步管線中，處理第 \(i\) 個區塊的矩陣乘法時可同時載入第 \(i+1\) 個區塊，因此 \(T=4\) 時為 \(T+1=5\) 單位。移動游標凸顯載入與計算重疊，以及管線啟動與排空。**這些時間單位完全是假設值**：真實記憶體載入與矩陣運算時間未必相等，此圖忽略額外開銷，**8 與 5 不是 FlashAttention-3 的實測加速比**。實際核心程式利用硬體非同步載入及矩陣乘法排程（Shah 等人，2024；見參考文獻）。網站支援播放／暫停與減少動態效果回退。
+
 ## 結果
 
 Dao 等人（2022）報告，此方法比標準的精確注意力更快，且使用較少記憶體，輸出相同。FlashAttention-2（Dao，2023）報告其速度約為原版的兩倍，並達到 A100 理論峰值 FLOPs 每秒的約 50% 至 73%。FlashAttention-3（Shah 等人，2024）報告在 H100 GPU 上注意力快 1.5 至 2 倍，FP16 約達每秒 740 TFLOPs，FP8 則接近每秒 1.2 PFLOPs。

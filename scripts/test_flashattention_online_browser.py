@@ -20,7 +20,8 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 ASSET = "/docs/assets/concept-animations/"
 TOPICS = ("flashattention-online-rescale", "flashattention-exact-merge",
-          "flashattention-causal-tiles", "flashattention-backward-remat")
+          "flashattention-causal-tiles", "flashattention-backward-remat",
+          "flashattention2-query-parallel", "flashattention3-load-compute-pipeline")
 OUT = ROOT / "artifacts" / "flashattention-online"
 
 
@@ -49,12 +50,16 @@ def fixture(language: str) -> str:
         ("在新最大值下重新縮放舊區塊的 Softmax 正規化質量",
          "精確合併區塊加權輸出，不直接平均各區塊",
          "因果分塊掃描：未來區塊略過，對角區塊只允許部分配對",
-         "反向傳播重算分數區塊，並保留輸出與 Softmax 統計量")
+         "反向傳播重算分數區塊，並保留輸出與 Softmax 統計量",
+         "Query 區塊各自掃描 KV 並寫入獨立輸出列",
+         "兩階段非同步管線重疊載入和矩陣計算")
         if zh else
         ("Rescale previous softmax mass after a new maximum",
          "Merge tile outputs under one shared softmax normaliser",
          "Causal tile scan: skip future blocks and mask diagonal blocks",
-         "Backward recomputes score tiles while retaining output and softmax statistics")
+         "Backward recomputes score tiles while retaining output and softmax statistics",
+         "Independent query blocks stream KV tiles and write separate outputs",
+         "Two-stage async pipeline overlaps tile loads with matrix multiplication")
     )
     figures = "".join(
         f'<p><img alt="{alt}" src="{ASSET}{stem}-still.svg"></p>'
@@ -147,7 +152,18 @@ def check_causal_block_counts():
     assert (counts.count(0), counts.count(3), counts.count(4)) == (6, 4, 6)
 
 
+def check_pipeline_schedule():
+    """Check idealised two-stage makespan independently of the rendered labels."""
+    tiles = 4
+    serial = [(2*i, 2*i+1) for i in range(tiles)]
+    pipelined = [(i, i+1) for i in range(tiles)]
+    assert max(c for _, c in serial)+1 == 8
+    assert max(c for _, c in pipelined)+1 == 5
+    assert all(pipelined[i+1][0] == pipelined[i][1] for i in range(tiles-1))
+
+
 def main():
+    check_pipeline_schedule()
     check_causal_block_counts()
     check_numeric_bars()
     OUT.mkdir(parents=True, exist_ok=True)
