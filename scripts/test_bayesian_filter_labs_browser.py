@@ -145,6 +145,18 @@ async def run():
                             return hits;
                         }""")
                         assert not intersections,(lang,width,extreme_y,intersections)
+                    # The observation label must not be drawn over a large
+                    # descendant-count bubble (all ten may share one ancestor).
+                    clash=await labs.nth(1).locator('.bf-graphic svg').first.evaluate("""s=>{
+                        const t=[...s.querySelectorAll('text')].find(x=>x.textContent==='y');
+                        if(!t)return ['missing y'];
+                        const b=t.getBBox();
+                        return [...s.querySelectorAll('circle[fill="#209e9a"]')].filter(dot=>{
+                            const x=+dot.getAttribute('cx'),y=+dot.getAttribute('cy'),r=+dot.getAttribute('r');
+                            return b.x<x+r && b.x+b.width>x-r && b.y<y+r && b.y+b.height>y-r;
+                        }).map(dot=>dot.getAttribute('cx'));
+                    }""")
+                    assert not clash,(lang,width,extreme_y,clash)
                     if extreme_y==9 and width in (320,1024):
                         await page.screenshot(path=str(OUT/f'{lang}-{width}-extreme-comparison.png'),full_page=True)
 

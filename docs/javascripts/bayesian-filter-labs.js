@@ -65,7 +65,11 @@
       }
       label(svg,px,238,String(i),'middle');
     });
-    const ox=42+s.y/10*616;line(svg,ox,36,ox,220,'#d45e50',2,0.8);label(svg,Math.max(55,Math.min(645,ox+9)),51,'y');
+    const ox=42+s.y/10*616;
+    // In the resampled stage, large descendant-count bubbles can occupy the
+    // observation label's original y=51 position. Keep the marker below them.
+    line(svg,ox,s.stage===3?99:36,ox,220,'#d45e50',2,0.8);
+    label(svg,Math.max(55,Math.min(645,ox+9)),s.stage===3?114:51,'y');
     if(s.stage===2||s.stage===3){const threshold= s.offset;label(svg,46,278,`u₀=${threshold.toFixed(3)}  ·  ESS=${ess.toFixed(2)}`);}
     else label(svg,46,278,'ancestor index (0-based)');
     return {weights,cdf,idx,ess};
