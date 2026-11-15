@@ -83,7 +83,7 @@ with sync_playwright() as p:
         page=browser.new_page()
         page.set_content(html(lang))
         assert page.locator('.attention-lab[data-ready="yes"]').count()==0
-        assert page.get_by_text('Static').count()==2
+        assert page.get_by_text('Static').count()==4
         checks+=1
         page.close()
     browser.close()
