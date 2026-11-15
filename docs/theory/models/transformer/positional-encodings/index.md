@@ -49,9 +49,21 @@ Shaw et al. added learned vectors for each relative distance, clipped beyond a m
 
 ALiBi adds to each attention score a penalty proportional to the distance between the query and the key, with a different slope for each head. The model learns no position vectors, and Press et al. showed that models trained on short sequences could be evaluated on longer ones without the collapse seen with sinusoidal encodings.
 
+
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/alibi-distance-softmax-still.svg" data-motion-src="../../../../assets/concept-animations/alibi-distance-softmax-motion.svg" data-still-src="../../../../assets/concept-animations/alibi-distance-softmax-still.svg" alt="With equal causal content logits across eight keys, increasing the ALiBi distance-bias slope moves normalised attention mass toward the current key; a static side-by-side comparison remains visible on GitHub.">
+
+*Original CC BY-SA 4.0 teaching animation.* In the constructed eight-key causal example, all content logits are zero. For distance \(d\in\{0,\ldots,7\}\), a nonnegative head slope \(m\) gives \(a_d(m)=\exp(-md)/\sum_{r=0}^{7}\exp(-mr)\). At \(m=0\), every key has probability \(1/8\); at \(m=1\), the current key (\(d=0\)) has probability approximately **0.6323**. The animation sweeps through analytically evaluated slopes (with smooth visual interpolation between sampled states); it does **not** show learned content scores, head-specific slopes from a real model, or measured accuracy. The underlying ALiBi formulation is from Press et al. (2021; see References). [Open the SVG animation](../../../../assets/concept-animations/alibi-distance-softmax-motion.svg). On the MkDocs site, use **Play/Pause**; on narrow screens, focus or scroll the figure horizontally. The static image remains readable on GitHub and without JavaScript.
+
 ### Extending the context
 
 A RoPE model trained on 4,096 positions degrades when given 16,384, because the rotation angles reach values it never saw in training. Position interpolation divides the position indices so that the longer sequence maps back into the trained range, and then fine-tunes briefly. YaRN goes further: it leaves the high-frequency dimensions unchanged, interpolates only the low-frequency ones, and rescales attention so that its entropy stays comparable at longer lengths. A related idea, NTK-aware scaling, was first proposed in an informal community post rather than a paper, and YaRN analyses its behaviour.
+
+
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-interpolation-angle-still.svg" data-motion-src="../../../../assets/concept-animations/rope-interpolation-angle-motion.svg" data-still-src="../../../../assets/concept-animations/rope-interpolation-angle-still.svg" alt="At a toy rotary frequency of 0.6 radians per position, a position advances from zero to sixteen. Its unscaled angle reaches 9.6 radians while halving the position index keeps the interpolated angle at 4.8 radians, the example training maximum.">
+
+*Original CC BY-SA 4.0 teaching animation.* Consider **one** two-dimensional RoPE frequency pair with toy angular frequency \(\omega=0.6\) radians per position, and a hypothetical training range \(p=0,\ldots,8\). At the extended position \(p=16\), direct rotation has **unwrapped** angle \(\theta=\omega p=9.6\) radians; twofold position interpolation uses \(p'=p/2\), giving \(\theta'=\omega p'=4.8\) radians, inside the illustrated training-angle range. The arrows wrap modulo \(2\pi\) while the bottom bars display unwrapped angles. Interpolation changes relative rotary phases and requires empirical fine-tuning/evaluation; this toy angle calculation **does not** establish length-extrapolation quality or describe every frequency band. See Chen et al. (2023; References). [Open the SVG animation](../../../../assets/concept-animations/rope-interpolation-angle-motion.svg). MkDocs provides **Play/Pause**, keyboard-accessible controls and a reduced-motion still; GitHub displays the static endpoint comparison.
 
 ## Trade-offs
 
