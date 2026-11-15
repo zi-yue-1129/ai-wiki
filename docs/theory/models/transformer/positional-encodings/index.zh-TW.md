@@ -11,7 +11,7 @@ tags:
   - positional encoding
   - length generalisation
   - long context
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-16
 ---
 
 # 位置編碼
@@ -49,9 +49,21 @@ Shaw et al. 對截斷後的每個相對距離加入學到的向量，加到鍵�
 
 ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的懲罰，每個頭的斜率不同。模型不學習任何位置向量。Press et al. 指出，在短序列上訓練的模型，可以在更長的序列上評估，而不會像正弦編碼那樣崩潰。
 
+
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/alibi-distance-softmax-still.svg" data-motion-src="../../../../assets/concept-animations/alibi-distance-softmax-motion.svg" data-still-src="../../../../assets/concept-animations/alibi-distance-softmax-still.svg" alt="八個鍵的因果內容分數相同；當 ALiBi 距離偏置斜率增加時，正規化後的注意力權重逐漸集中到目前的鍵，GitHub 靜態回退圖則並列比較兩個端點。">
+
+*原創 CC BY-SA 4.0 教學動畫。* 在人工建構的八鍵因果注意力範例中，所有內容分數皆為零。對距離 \(d\in\{0,\ldots,7\}\) 與非負的注意力頭斜率 \(m\)，權重為 \(a_d(m)=\exp(-md)/\sum_{r=0}^{7}\exp(-mr)\)。當 \(m=0\)，每個鍵的機率都是 \(1/8\)；當 \(m=1\)，目前位置（\(d=0\)）的機率約為 **0.6323**。動畫依解析式計算多個斜率的結果，並在取樣狀態間平滑呈現；**不是**真實模型的內容分數、各注意力頭實際使用的斜率或準確率實測。ALiBi 的原始方法見 Press 等人（2021；參考文獻）。[開啟 SVG 動畫](../../../../assets/concept-animations/alibi-distance-softmax-motion.svg)。MkDocs 網站可使用**播放／暫停**，窄螢幕可聚焦圖面並水平捲動；GitHub 與停用 JavaScript 時仍能看見靜態對照圖。
+
 ### 延伸上下文
 
 在 4,096 個位置上訓練的 RoPE 模型，若給它 16,384 個位置，表現會下降，因為旋轉角度會超出訓練時見過的範圍。位置內插把位置索引除以一個係數，讓較長的序列映射回訓練範圍，再短暫微調。YaRN 更進一步：它保持高頻維度不變，只內插低頻維度，並調整注意力，使較長長度下的熵維持在可比較的水準。另一個想法 NTK-aware scaling，起源於 2023 年的非正式社群文章而非論文，YaRN 則分析了它的行為。
+
+
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-interpolation-angle-still.svg" data-motion-src="../../../../assets/concept-animations/rope-interpolation-angle-motion.svg" data-still-src="../../../../assets/concept-animations/rope-interpolation-angle-still.svg" alt="示意 RoPE 的單一旋轉頻率為每位置 0.6 弧度；位置由零增加到十六時，未縮放角度到達 9.6 弧度，而將位置索引減半後的角度維持在訓練範例上界 4.8 弧度。">
+
+*原創 CC BY-SA 4.0 教學動畫。* 假設 RoPE **其中一組二維頻率對**的角頻率是 \(\omega=0.6\) 弧度／位置，人工設定的訓練位置範圍為 \(p=0,\ldots,8\)。延長到 \(p=16\) 時，未縮放的**累積旋轉角**為 \(\theta=\omega p=9.6\) 弧度；若進行二倍位置內插，使用 \(p'=p/2\)，則 \(\theta'=\omega p'=4.8\) 弧度，回到本範例的訓練角度範圍。圓盤箭頭以 \(2\pi\) 為週期顯示方向，底部長條則呈現未取模的累積角度。內插**會改變相對旋轉相位**，仍須透過微調與實驗評估；這個人工角度例子**不是**長度泛化效果實測，也不代表 RoPE 所有頻段。參見 Chen 等人（2023；參考文獻）。[開啟 SVG 動畫](../../../../assets/concept-animations/rope-interpolation-angle-motion.svg)。MkDocs 網站提供**播放／暫停**、鍵盤操作與減少動態效果的靜態回退；GitHub 顯示端點對照圖。
 
 ## 取捨
 
