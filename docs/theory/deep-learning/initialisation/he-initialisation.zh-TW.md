@@ -49,6 +49,16 @@ $$
 
 Wiki 網站提供**播放／暫停**按鈕（聚焦後按 Enter／Space），偏好減少動態效果時顯示靜態圖，手機上可用鍵盤水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/he-relu-second-moment-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/he-relu-second-moment-still.svg)。
 
+### Leaky ReLU 負斜率與 He 增益的對應
+
+<div tabindex="0" role="region" aria-label="Leaky ReLU 增益隨斜率變化的動畫，窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/prelu-slope-gain-still.svg" data-motion-src="../../../assets/concept-animations/prelu-slope-gain-motion.svg" data-still-src="../../../assets/concept-animations/prelu-slope-gain-still.svg" alt="當 Leaky ReLU 負半軸斜率由零增加到一，若沿用 ReLU 專用權重變異數，平方激活期望倍率會由一增加到二；依斜率修正的 He 初始化能維持在一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 設負半軸斜率為固定的 **a ∈ [0, 1]**，若激活前分布對零對稱，則 **E[leaky-ReLU(z)²] = (1+a²)E[z²]/2**。繼續採用**僅適用 ReLU 的**權重變異數 **v = 2/n**，平方激活期望的倍率就是 **1+a²**，隨斜率從零到一由 **1 增加至 2**；改成 **v = 2/[n(1+a²)]** 後，倍率維持 **1**。兩個同步游標展示的是**解析式倍率，而非模型訓練量測結果**。推導假設零均值獨立權重及對稱的激活前分布，且初始化時斜率固定；PReLU 的可學習斜率會使訓練中的狀況不同。[^he][^pytorch]
+
+Wiki 網站提供鍵盤可操作的播放／暫停、偏好減少動態效果時的靜態回退，以及窄螢幕的水平鍵盤捲動。[連續 SVG 動畫](../../../assets/concept-animations/prelu-slope-gain-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/prelu-slope-gain-still.svg)。
+
 ## 方程式
 
 ### 常態與均勻分布形式

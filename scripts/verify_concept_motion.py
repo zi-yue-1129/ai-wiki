@@ -18,6 +18,8 @@ TOPICS = {
     "glorot-fan-tradeoff": "theory/deep-learning/initialisation/glorot-initialisation",
     "mup-width-multipliers": "theory/deep-learning/initialisation/mup",
     "he-relu-second-moment": "theory/deep-learning/initialisation/he-initialisation",
+    "prelu-slope-gain": "theory/deep-learning/initialisation/he-initialisation",
+    "glorot-alternating-width": "theory/deep-learning/initialisation/glorot-initialisation",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
@@ -187,6 +189,7 @@ def main() -> int:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "glorot-fan-tradeoff", "mup-width-multipliers", "he-relu-second-moment",
+                          "prelu-slope-gain", "glorot-alternating-width",
                           "svd-unit-circle", "power-iteration-convergence"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.

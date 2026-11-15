@@ -95,6 +95,16 @@ The rectangular examples show why “preserves variance in both directions” ne
 
 On the wiki site, use **Play/Pause** (Enter or Space when focused); a reduced-motion preference initially selects the still image. The 640-pixel graphic can be scrolled horizontally with the keyboard on small screens. [Open the continuous SVG](../../../assets/concept-animations/glorot-fan-tradeoff-motion.svg) · [View the static fallback](../../../assets/concept-animations/glorot-fan-tradeoff-still.svg).
 
+### Alternating widths: why variance still drifts with depth
+
+<div tabindex="0" role="region" aria-label="Glorot alternating-width propagation; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-alternating-width-still.svg" data-motion-src="../../../assets/concept-animations/glorot-alternating-width-motion.svg" data-still-src="../../../assets/concept-animations/glorot-alternating-width-still.svg" alt="Analytical forward variance across alternating 100 and 400 wide layers, dropping from 1 to 0.262 after six Glorot-initialised linearised layers." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* With widths **100 → 400 → 100 → 400 → 100 → 400 → 100**, each unit-gain, linearised layer uses unit-gain Glorot variance **2/(100 + 400)**. The forward variance multiplier alternates **0.4** and **1.6**. Its product over each two-layer pair is **0.64**, not 1; after six layers the **normalised forward variance is 0.64³ = 0.262144**. The moving marker follows these **theoretical expectations, not individual activations or measured network statistics**. The calculation assumes independent zero-mean weights, centred independent input features and locally near-linear activations; correlations, nonlinearity and residual connections change actual propagation.[^glorot]
+
+The wiki provides Play/Pause with keyboard activation and a still fallback when reduced motion is preferred. [Continuous SVG](../../../assets/concept-animations/glorot-alternating-width-motion.svg) · [GitHub static fallback](../../../assets/concept-animations/glorot-alternating-width-still.svg).
+
 ## Practical use and checks
 
 1. Identify the actual linear operation and its input/output dimensions. Do not infer fan values from an unrelated flattened parameter count.

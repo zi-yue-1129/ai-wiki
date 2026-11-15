@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-11-03
-translation_reviewed: 2026-11-13
+translation_reviewed: 2026-11-15
 related:
   - theory/deep-learning/initialisation
 tags:
@@ -95,6 +95,16 @@ $$
 *原創連續教學動畫，CC BY-SA 4.0。* 將扇入固定為 100，讓扇出從 100 變至 400，權重變異數為 $2/(100+n_{\text{out}})$。前向倍率 $200/(100+n_{\text{out}})$ 從 **1 降為 0.4**；反向倍率 $2n_{\text{out}}/(100+n_{\text{out}})$ 從 **1 升至 1.6**。長條上的虛線代表倍率一。這些是**解析式示意值，並非訓練模型的量測結果**；上述近似依賴先前說明的獨立性及近線性條件。[^glorot]
 
 在 Wiki 網站可透過**播放／暫停**按鈕操作（聚焦後按 Enter 或 Space）；偏好減少動態效果時，初始顯示靜態圖。手機可使用鍵盤方向鍵水平捲動。[開啟完整 SVG 動畫](../../../assets/concept-animations/glorot-fan-tradeoff-motion.svg) · [查看靜態回退預覽](../../../assets/concept-animations/glorot-fan-tradeoff-still.svg)。
+
+### 交替層寬：為何變異數仍會隨深度偏移
+
+<div tabindex="0" role="region" aria-label="Glorot 交替層寬傳播動畫，窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-alternating-width-still.svg" data-motion-src="../../../assets/concept-animations/glorot-alternating-width-motion.svg" data-still-src="../../../assets/concept-animations/glorot-alternating-width-still.svg" alt="在寬度 100 與 400 交替的線性化網路中，Glorot 前向變異數從 1 逐層降至 0.262；交替寬度不會讓尺度完全抵銷。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 設定層寬為 **100 → 400 → 100 → 400 → 100 → 400 → 100**，各層採用單位增益 Glorot 權重變異數 **2/(100 + 400)**，並假設激活函數可近似為斜率一的線性函數。前向變異數倍率在 **0.4** 與 **1.6** 之間交替，但每兩層的乘積是 **0.64**，而不是 1；經六層後，**相對初始變異數為 0.64³ = 0.262144**。移動標記代表**理論期望，並非單一激活值或模型實測結果**。推導依賴零均值獨立權重、置中且獨立的輸入特徵與近線性假設；非線性、相關性、殘差連接都會影響真實傳播。[^glorot]
+
+Wiki 網站提供可用鍵盤啟動的播放／暫停；偏好減少動態效果時顯示靜態回退。[連續 SVG 動畫](../../../assets/concept-animations/glorot-alternating-width-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/glorot-alternating-width-still.svg)。
 
 ## 實務使用與檢查
 

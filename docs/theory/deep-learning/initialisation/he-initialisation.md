@@ -48,6 +48,16 @@ Choosing $v=2/n_{\mathrm{in}}$ makes the multiplier one. The second moment and c
 
 The Wiki website provides **Play/Pause** (Enter/Space on the focused button), with a still image under reduced-motion preference and horizontal keyboard scrolling on small screens. [Animated SVG](../../../assets/concept-animations/he-relu-second-moment-motion.svg) · [GitHub static fallback](../../../assets/concept-animations/he-relu-second-moment-still.svg).
 
+### Leaky-ReLU slope and the matching He gain
+
+<div tabindex="0" role="region" aria-label="Leaky-ReLU gain sweep; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/prelu-slope-gain-still.svg" data-motion-src="../../../assets/concept-animations/prelu-slope-gain-motion.svg" data-still-src="../../../assets/concept-animations/prelu-slope-gain-still.svg" alt="As the leaky-rectifier negative slope increases from zero to one, keeping the original ReLU weight variance doubles the expected squared-activation multiplier; the slope-adjusted He variance preserves it at one." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* For a fixed negative slope **a ∈ [0, 1]**, a symmetric preactivation gives **E[leaky-ReLU(z)²] = (1 + a²)E[z²]/2**. Keeping **ReLU-specific** weight variance **v = 2/n** therefore produces the multiplier **1 + a²**, which rises from **1 to 2**. Adjusting the initialisation to **v = 2/[n(1+a²)]** keeps the expected squared-activation multiplier at **1**. The two synchronised markers show these **analytic multipliers rather than experimental training results**; the calculation assumes independent, zero-mean weights and suitable symmetric preactivations, with a fixed slope at initialisation. A learned PReLU slope changes this approximation during training.[^he][^pytorch]
+
+The wiki provides Play/Pause with keyboard activation, a reduced-motion still image and horizontal keyboard scrolling on narrow screens. [Continuous SVG](../../../assets/concept-animations/prelu-slope-gain-motion.svg) · [GitHub static fallback](../../../assets/concept-animations/prelu-slope-gain-still.svg).
+
 ## Equation
 
 ### Normal and uniform forms
