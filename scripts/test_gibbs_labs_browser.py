@@ -60,6 +60,10 @@ with sync_playwright() as pw:
                 ga.locator('[data-action="next"]').click()
                 assert '1.100' in ga.locator('[data-status]').inner_text()
                 assert ga.locator('[data-conditional-mean]').get_attribute('data-conditional-mean')=='0.800'
+                # Capture the meaningful first conditional draw and its mean marker;
+                # the standard 16-scenario captures later show a finished trajectory.
+                if width in (320,1024) and not reduced:
+                    page.screenshot(path=str(ARTIFACT/f'{lang}-{width}-conditional-mean.png'),full_page=True)
                 ga.locator('[data-action="next"]').click()
                 assert '0.280' in ga.locator('[data-status]').inner_text()
                 assert ga.locator('[data-conditional-mean]').get_attribute('data-conditional-mean')=='0.880'
@@ -78,6 +82,9 @@ with sync_playwright() as pw:
                 assert '(1,1)' in disc.locator('[data-status]').inner_text()
                 assert disc.locator('[data-to="00"]').get_attribute('data-probability')=='0.500'
                 assert disc.locator('[data-to="11"]').get_attribute('data-probability')=='0.500'
+                # The two bars are a row-stochastic transition kernel, not visit counts.
+                probs=[float(disc.locator(f'[data-to="{dest}"]').get_attribute('data-probability')) for dest in ('00','11')]
+                assert abs(sum(probs)-1)<1e-12,probs
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.000'
                 disc.locator('[data-action="next"]').click()
                 assert '(0,0)' in disc.locator('[data-status]').inner_text()
