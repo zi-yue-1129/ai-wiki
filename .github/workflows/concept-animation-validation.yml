@@ -34,6 +34,7 @@ on:
       - "docs/javascripts/regression-metric-labs.js"
       - "docs/stylesheets/regression-metric-labs.css"
       - "scripts/test_regression_metric_labs_browser.py"
+      - "scripts/test_positional_motion_browser.py"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
@@ -95,6 +96,8 @@ jobs:
         run: python scripts/test_ssl_temporal_provenance_browser.py
       - name: Test regression metric lab arithmetic, controls and bilingual responsive layout
         run: python scripts/test_regression_metric_labs_browser.py
+      - name: Render ALiBi/RoPE timelines and test bilingual accessible controls
+        run: python scripts/test_positional_motion_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -109,6 +112,7 @@ jobs:
             artifacts/ssl-temporal-provenance/*.png
             artifacts/linear-algebra-motion/
             artifacts/regression-metric-labs/*.png
+            artifacts/positional-motion/*.png
           if-no-files-found: ignore
           retention-days: 7
 
