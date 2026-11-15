@@ -26,8 +26,9 @@
     <div class="md-search__output">
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result">
-          <div class="md-search-result__meta" id="wiki-search-meta"></div>
+          <div class="md-search-result__meta" id="wiki-search-meta" role="status" aria-live="polite"></div>
           <ol class="md-search-result__list" id="wiki-search-list" role="presentation"></ol>
+          <button type="button" id="wiki-search-more" class="md-button" hidden></button>
         </div>
       </div>
     </div>
@@ -39,6 +40,7 @@
     var input = document.getElementById("wiki-search-query");
     var list = document.getElementById("wiki-search-list");
     var meta = document.getElementById("wiki-search-meta");
+    var more = document.getElementById("wiki-search-more");
     if (!form || !input) return;
 
     var base = "{{ base_url }}";
@@ -48,14 +50,16 @@
       clear: "清除搜尋",
       start: "輸入關鍵字開始搜尋",
       none: "找不到符合的頁面",
-      found: function (n) { return "找到 " + n + " 筆結果"; },
+      found: function (loaded, total) { return "顯示 " + loaded + " / " + total + " 筆結果"; },
+      more: "載入更多結果", loading: "載入中…", retry: "載入失敗，重試",
       unavailable: "搜尋索引尚未建置"
     } : {
       placeholder: "Search",
       clear: "Clear search",
       start: "Type to start searching",
       none: "No matching pages",
-      found: function (n) { return n + (n === 1 ? " matching page" : " matching pages"); },
+      found: function (loaded, total) { return "Showing " + loaded + " of " + total + " matching pages"; },
+      more: "Load more results", loading: "Loading…", retry: "Loading failed, retry",
       unavailable: "Search index is not built"
     };
     var clear = form.querySelector("button[type=reset]");
@@ -67,6 +71,9 @@
 
     var pagefind = null;
     var run = 0;
+    var results = [];
+    var loaded = 0;
+    var busy = false;
 
     function load() {
       if (!pagefind) {
@@ -77,9 +84,7 @@
       return pagefind;
     }
 
-    function render(total, items) {
-      list.innerHTML = "";
-      meta.textContent = total ? text.found(total) : text.none;
+    function render(items) {
       items.forEach(function (item) {
         var li = document.createElement("li");
         li.className = "md-search-result__item";
@@ -99,34 +104,65 @@
       });
     }
 
-    function search(query) {
-      var current = ++run;
-      if (!query) {
-        list.innerHTML = "";
-        meta.textContent = text.start;
-        return;
-      }
-      load()
-        .then(function (pf) { return pf.search(query); })
-        .then(function (res) {
-          return Promise.all(res.results.slice(0, 10).map(function (r) { return r.data(); }))
-            .then(function (items) { return { total: res.results.length, items: items }; });
-        })
-        .then(function (res) {
-          if (current === run) render(res.total, res.items);
+    function resetResults() {
+      results = [];
+      loaded = 0;
+      busy = false;
+      list.innerHTML = "";
+      more.hidden = true;
+      more.removeAttribute("aria-disabled");
+      meta.textContent = text.start;
+    }
+
+    function batch(current, focusNew) {
+      if (busy || loaded >= results.length) return;
+      busy = true;
+      more.hidden = false;
+      more.setAttribute("aria-disabled", "true");
+      more.textContent = text.loading;
+      var start = loaded;
+      Promise.all(results.slice(start, start + 10).map(function (r) { return r.data(); }))
+        .then(function (items) {
+          if (current !== run) return;
+          var shouldFocus = focusNew && document.activeElement === more;
+          render(items);
+          loaded += items.length;
+          busy = false;
+          meta.textContent = text.found(loaded, results.length);
+          more.removeAttribute("aria-disabled");
+          more.textContent = text.more;
+          more.hidden = loaded >= results.length;
+          if (shouldFocus) list.children[start].querySelector("a").focus();
         }, function () {
-          if (current === run) {
-            list.innerHTML = "";
-            meta.textContent = text.unavailable;
-          }
+          if (current !== run) return;
+          busy = false;
+          more.removeAttribute("aria-disabled");
+          more.textContent = text.retry;
+          meta.textContent = text.found(loaded, results.length) + ". " + text.retry;
         });
     }
+
+    function search(query) {
+      var current = ++run;
+      resetResults();
+      if (!query) return;
+      load().then(function (pf) { return pf.search(query); }).then(function (res) {
+        if (current !== run) return;
+        results = res.results;
+        if (!results.length) { meta.textContent = text.none; return; }
+        meta.textContent = text.found(0, results.length);
+        batch(current, false);
+      }, function () {
+        if (current === run) meta.textContent = text.unavailable;
+      });
+    }
+    more.addEventListener("click", function () { batch(run, true); });
 
     // The results panel is shown while the header toggle (#__search) is checked.
     var toggle = document.getElementById("__search");
     input.addEventListener("focus", function () { toggle.checked = true; });
     input.addEventListener("input", function () { search(input.value.trim()); });
-    form.addEventListener("reset", function () { ++run; list.innerHTML = ""; meta.textContent = text.start; input.focus(); });
+    form.addEventListener("reset", function () { ++run; resetResults(); input.focus(); });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && toggle.checked) {
         toggle.checked = false;
