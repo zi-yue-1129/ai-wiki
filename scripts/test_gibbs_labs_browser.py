@@ -37,6 +37,15 @@ with sync_playwright() as pw:
                 assert disc.locator('svg[data-graphic="diagnostic"]').count()==1
                 assert disc.locator('svg[data-graphic="main"]').count()==1
                 assert '0.640' in ga.locator('[data-status]').inner_text()
+                # Playback remains user-controlled even with a reduced-motion preference.
+                ga.locator('[data-field="speed"]').select_option('2')
+                ga.locator('[data-action="play"]').click()
+                assert ga.locator('[data-action="play"]').inner_text() in ('Pause','暫停')
+                ga.locator('[data-action="play"]').click()
+                assert ga.locator('[data-action="play"]').inner_text() in ('Play','播放')
+                ga.locator('[data-field="rho"]').fill('0')
+                assert ga.locator('[data-ess]').get_attribute('data-ess')=='100.000'
+                ga.locator('[data-field="rho"]').fill('0.8')
                 assert 20 < float(ga.locator('[data-ess]').get_attribute('data-ess')) < 24
                 assert disc.locator('[data-tv]').get_attribute('data-tv')=='0.500'
                 ga.locator('[data-action="next"]').click()
