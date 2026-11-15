@@ -51,7 +51,7 @@ async def run():
                 # R slider changes gain, not merely the plot's display coordinates.
                 await labs.nth(0).locator('.bf-ranges input').nth(1).fill('3')
                 assert float(await gain_svg.get_attribute('data-gain'))<.35
-                await labs.nth(0).locator('.bf-ranges input').nth(1).fill('.64')
+                await labs.nth(0).locator('.bf-ranges input').nth(1).fill('0.64')
                 # Particle weights exactly normalised, systematic ancestor sequence.
                 ptext=await labs.nth(1).locator('.bf-output').inner_text()
                 assert 'N = 10' in ptext,ptext
@@ -65,9 +65,9 @@ async def run():
                 assert abs(float(await cdf_svg.get_attribute('data-weight-sum'))-1)<1e-6
                 ess=float(await cdf_svg.get_attribute('data-ess'))
                 # Changing only the systematic threshold offset cannot change weights/ESS.
-                await labs.nth(1).locator('.bf-ranges input').nth(2).fill('.025')
+                await labs.nth(1).locator('.bf-ranges input').nth(2).fill('0.025')
                 assert abs(float(await cdf_svg.get_attribute('data-ess'))-ess)<1e-6
-                await labs.nth(1).locator('.bf-ranges input').nth(2).fill('.045')
+                await labs.nth(1).locator('.bf-ranges input').nth(2).fill('0.045')
                 # All calculated SVG text remains inside its own viewBox.
                 for i in range(2):
                     labels_outside=await page.locator('svg[data-bf-diagnostic]').nth(i).evaluate(
