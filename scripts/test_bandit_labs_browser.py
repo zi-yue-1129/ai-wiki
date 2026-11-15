@@ -123,7 +123,7 @@ def main():
                     assert 'C' in ts.locator('[data-role="metrics"]').inner_text()
                     assert '0.5714' in ts.locator('[data-role="metrics"]').inner_text()
                     assert '0.0306' in ts.locator('[data-role="metrics"]').inner_text()
-                    evidence = ts.locator('[data-role="process"] svg')
+                    evidence = ts.locator('[data-role="process"] svg[data-alpha][data-beta]')
                     assert evidence.get_attribute('data-alpha') == '4' and evidence.get_attribute('data-beta') == '3'
                     assert ts.locator('[data-new-pseudo]').count() == 0
                     assert ts.locator('[data-role="svg"] circle').count() == 3
