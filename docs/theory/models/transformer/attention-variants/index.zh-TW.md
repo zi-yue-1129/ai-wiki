@@ -45,6 +45,12 @@ GitHub 與停用 JavaScript 時仍可閱讀上方圖片；MkDocs 網站會啟用
 
 *互動練習：操作 KV Head 滑桿、上一步／下一步、播放／暫停、速度與重設，觀察對應連線及鍵值頭配置數。這是架構示意，而非準確率或延遲實測。*
 
+#### 解碼時的 KV 快取累積
+
+![八個查詢頭的 MHA 與兩個鍵值頭的 GQA，十個 Token 解碼後累積的鍵值頭位置數分別為八十與二十。](../../../../assets/concept-animations/gqa-cache-growth-still.svg)
+
+*原創 CC BY-SA 4.0 時間演進教學圖。* [開啟 11 秒 SVG 動畫](../../../../assets/concept-animations/gqa-cache-growth-motion.svg)，觀察逐 Token 解碼如何增加 MHA 與 GQA 的 KV 配置。固定八個查詢頭，完整 MHA 為 \(H_{kv}=8\)、示例 GQA 為 \(H_{kv}=2\)，累積 \(n\) 個 Token 的**每頭 K／V 成對位置數**為 \(8n\) 與 \(2n\)；\(n=10\) 時為 **80 與 20**。圖中一個 slot 表示相同單頭維度下的一組 K 與 V 位置，**不是實際位元組、整體模型記憶體節省或推論速度測量**。游標依離散 Token 移動，折線只是解析點之間的視覺連接。MkDocs 沿用播放／暫停、Enter／Space 及 Reduced Motion 靜態回退（Ainslie 等人，2023；見參考文獻）。
+
 ### 稀疏與局部模式
 
 稀疏注意力不讓每個查詢都看所有較早的 token，而是限制在固定模式內。Sparse Transformer 使用跨步與固定模式，能看得很遠，同時讓成本接近 \(O(n\sqrt{n})\)。Longformer 結合滑動窗口與少數全域 token，成本與 \(n\) 呈線性。Mistral 7B 使用固定窗口的滑動窗口注意力，資訊仍能隨層數擴散，因為每一層都把資訊向前傳遞一個窗口。局部模式很快，但除非有其他機制，否則無法檢索任意的遠距 token。
@@ -81,6 +87,12 @@ GitHub 與停用 JavaScript 時仍可閱讀上方圖片；MkDocs 網站會啟用
 </div>
 
 *互動練習：調整層數 0–3、開關全域 Token，或透過上一步／下一步、播放／暫停、速度與重設，觀察前一層來源集合如何擴展。*
+
+#### 局部與全域連線的配對數
+
+![雙向注意力的序列從四個 Token 成長至十二個 Token，對照完整注意力、半徑一局部注意力與局部加全域注意力的有向配對數。](../../../../assets/concept-animations/global-local-pair-count-still.svg)
+
+*原創 CC BY-SA 4.0 配對計數動畫。* [開啟 11 秒 SVG 動畫](../../../../assets/concept-animations/global-local-pair-count-motion.svg)，觀察**雙向編碼器**在局部半徑為 1、第 3 個 Token 具全域連線時，逐 Token 增加的連線數。對 \(4\le n\le12\)，計入自身但不重複計算的有向 Query–Key 配對數，完整注意力為 \(n^2\)、純局部為 \(3n-2\)、局部加全域為 \(5n-8\)，因此 \(n=12\) 時依序為 **144、34、52**。全域 Token 雙向連線與既有局部連線的交集不可重複計算。縱軸是允許的配對數，**不是等成本運算、注意力權重或實測加速效果**。游標依整數 Token 前進，折線僅供視覺連接。MkDocs 沿用播放／暫停、鍵盤操作與 Reduced Motion 回退（Beltagy 等人，2020；見參考文獻）。
 
 ### 線性注意力
 

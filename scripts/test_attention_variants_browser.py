@@ -7,7 +7,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'docs/assets/concept-animations'
 PLAYER = ROOT / 'docs/javascripts/concept-motion.js'
-PAIRS = ('sliding-window-mask', 'linear-attention-recurrence', 'sliding-window-depth-reach', 'linear-attention-work-growth')
+PAIRS = ('sliding-window-mask', 'linear-attention-recurrence', 'sliding-window-depth-reach', 'linear-attention-work-growth', 'gqa-cache-growth', 'global-local-pair-count')
 SVGNS = '{http://www.w3.org/2000/svg}'
 
 def main():
@@ -28,6 +28,13 @@ def main():
     for k,v in zip(ks,vs):
         s+=k*v;z+=k;rows.append((s,z,round(s/z,2)))
     assert rows==[(1,1,1),(1,3,0.33),(4,4,1),(8,6,1.33)]
+    # Derive sparse edge counts via sets, not only their analytic formulas.
+    for n in range(4,13):
+        local={(i,j) for i in range(1,n+1) for j in range(1,n+1) if abs(i-j)<=1}
+        global_edges={(i,3) for i in range(1,n+1)} | {(3,j) for j in range(1,n+1)}
+        assert len(local)==3*n-2
+        assert len(local|global_edges)==5*n-8
+        assert len(local|global_edges)<=n*n
     checked=0
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True,args=['--no-sandbox'])

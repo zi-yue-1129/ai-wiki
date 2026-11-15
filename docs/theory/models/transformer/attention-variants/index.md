@@ -45,6 +45,12 @@ The image above remains readable on GitHub or without JavaScript; MkDocs enables
 
 *Interactive exercise: use the KV-head slider, Previous/Next, Play/Pause, Speed and Reset. The connecting edges and allocated KV-head slots update for each grouping. This is an architectural illustration, not an accuracy or runtime measurement.*
 
+#### Incremental KV-cache growth
+
+![Cumulative KV-head slots for eight-query-head MHA and two-KV-head GQA as ten decoding tokens arrive.](../../../../assets/concept-animations/gqa-cache-growth-still.svg)
+
+*Original CC BY-SA 4.0 temporal visual.* [Open the 11-second SVG animation](../../../../assets/concept-animations/gqa-cache-growth-motion.svg) to watch a token-by-token cursor traverse both cumulative traces. With eight query heads, full MHA uses \(H_{kv}=8\) and this GQA example uses \(H_{kv}=2\). The number of stored **per-head K/V position pairs** is \(8n\) versus \(2n\); at \(n=10\), that is **80 versus 20**. Each plotted “slot” includes one K and V position at a fixed matched head dimension, **not** bytes, total model memory, or measured decoding speed. The points correspond to discrete decoded tokens; graph segments are only interpolation. MkDocs reuses Play/Pause, Enter/Space and a reduced-motion still (Ainslie et al., 2023; see References).
+
 ### Sparse and local patterns
 
 Instead of attending to all earlier tokens, sparse attention restricts each query to a fixed pattern. The Sparse Transformer uses strided and fixed patterns that reach far back while keeping cost near \(O(n\sqrt{n})\). Longformer combines a sliding window with a few global tokens, which gives linear cost in \(n\). Sliding-window attention with a fixed window is used in Mistral 7B, where information still spreads through the layers because each layer passes information forward by one window. Local patterns are fast but cannot retrieve arbitrary distant tokens unless other mechanisms exist.
@@ -81,6 +87,12 @@ The static example above remains readable on GitHub or without JavaScript; MkDoc
 </div>
 
 *Interactive exercise: choose depth 0–3, toggle the global token, or use Previous/Next, Play/Pause, Speed and Reset. Both the previous reachability set and new source positions are recalculated.*
+
+#### Counting local and global links
+
+![The directed query–key pair counts of dense, bidirectional radius-one local, and local-plus-global attention for lengths four to twelve.](../../../../assets/concept-animations/global-local-pair-count-still.svg)
+
+*Original CC BY-SA 4.0 counting animation.* [Open the 11-second SVG animation](../../../../assets/concept-animations/global-local-pair-count-motion.svg) to watch new positions arrive in a **bidirectional** local-radius-one encoder with token 3 globally connected. For \(4\le n\le12\), the number of distinct directed query–key pairs (including self-pairs) is \(n^2\) for dense attention, \(3n-2\) for local-only attention and \(5n-8\) for local-plus-global attention. At \(n=12\) the constructed counts are **144, 34, and 52**. Both directions of every global edge are considered but already-local edges are not double-counted. These are permitted connection counts, **not** equal-cost operations, measured runtime, or learned attention. The marker advances in integer token steps and connecting lines are visual interpolation. MkDocs provides Play/Pause, keyboard activation and reduced-motion stills (Beltagy et al., 2020; see References).
 
 ### Linear attention
 

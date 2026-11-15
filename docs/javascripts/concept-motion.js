@@ -17,7 +17,7 @@
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
       const source = img.dataset.motionSrc || img.getAttribute('src') || '';
       // Two GitHub-first still images are enhanced to motion only on MkDocs.
-      const attentionStill = /(?:sliding-window-mask|linear-attention-recurrence|sliding-window-depth-reach|linear-attention-work-growth)-still\.svg(?=$|[?#])/;
+      const attentionStill = /(?:sliding-window-mask|linear-attention-recurrence|sliding-window-depth-reach|linear-attention-work-growth|gqa-cache-growth|global-local-pair-count)-still\.svg(?=$|[?#])/;
       const isAttentionStill = attentionStill.test(source);
       const animated = isAttentionStill ? source.replace(/-still\.svg(?=$|[?#])/, '-motion.svg') : source;
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();

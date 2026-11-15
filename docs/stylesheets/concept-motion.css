@@ -35,6 +35,8 @@
   outline: 3px solid var(--md-accent-fg-color, #387e99);
   outline-offset: 2px;
 }
+.md-typeset p:has(> img[src*="gqa-cache-growth-still.svg"]),
+.md-typeset p:has(> img[src*="global-local-pair-count-still.svg"]),
 .md-typeset p:has(> img[src*="sliding-window-mask-still.svg"]),
 .md-typeset p:has(> img[src*="linear-attention-recurrence-still.svg"]),
 .md-typeset p:has(> img[src*="sliding-window-depth-reach-still.svg"]),
@@ -42,6 +44,8 @@
   max-width: 100%;
   overflow-x: auto;
 }
+.md-typeset p > img[src*="gqa-cache-growth-still.svg"],
+.md-typeset p > img[src*="global-local-pair-count-still.svg"],
 .md-typeset p > img[src*="sliding-window-mask-still.svg"],
 .md-typeset p > img[src*="linear-attention-recurrence-still.svg"],
 .md-typeset p > img[src*="sliding-window-depth-reach-still.svg"],
