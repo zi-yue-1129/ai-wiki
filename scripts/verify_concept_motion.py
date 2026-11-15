@@ -23,6 +23,8 @@ TOPICS = {
     "mup-transfer-protocol": "theory/deep-learning/initialisation/mup",
     "mup-update-budget": "theory/deep-learning/initialisation/mup",
     "mup-transfer-validation": "theory/deep-learning/initialisation/mup",
+    "mup-readout-noise": "theory/deep-learning/initialisation/mup",
+    "mup-adam-sgd": "theory/deep-learning/initialisation/mup",
     "he-relu-second-moment": "theory/deep-learning/initialisation/he-initialisation",
     "prelu-slope-gain": "theory/deep-learning/initialisation/he-initialisation",
     "glorot-alternating-width": "theory/deep-learning/initialisation/glorot-initialisation",

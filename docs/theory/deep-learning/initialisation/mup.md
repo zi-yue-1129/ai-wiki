@@ -90,6 +90,27 @@ The wiki player offers **Play/Pause** (Enter/Space while focused); reduced-motio
 
 The site provides **Play/Pause**, keyboard operation and a reduced-motion still. [Open the motion](../../../assets/concept-animations/mup-transfer-validation-motion.svg) · [View the GitHub-safe still](../../../assets/concept-animations/mup-transfer-validation-still.svg).
 
+
+### Averaging a readout: a stable mean can hide shrinking fluctuations
+
+<div tabindex="0" role="region" aria-label="muP toy readout mean and independent-noise fluctuation animation; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-readout-noise-still.svg" data-motion-src="../../../assets/concept-animations/mup-readout-noise-motion.svg" data-still-src="../../../assets/concept-animations/mup-readout-noise-still.svg" alt="For four to thirty-two independent toy channels with mean one and variance one, the scaled mean stays at one while the readout standard deviation falls as inverse square-root width." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original 12-second, four-width analytical teaching animation, CC BY-SA 4.0.* The preceding deterministic example used identical channel values $h_i=1$. Here, **only for a different, artificial independent-noise assumption**, let $h_i=1+\varepsilon_i$, with independent $\mathbb E[\varepsilon_i]=0$ and $\operatorname{Var}(\varepsilon_i)=1$. Then for $f_n=\frac{1}{n}\sum_i h_i$, **$\mathbb E[f_n]=1$** but **$\operatorname{SD}(f_n)=1/\sqrt n$**: at widths $n=4,8,16,32$, the standard deviation is approximately $0.500,0.354,0.250,0.177$. The moving markers distinguish a stable expectation from a contracting noise scale. This is *not* a prediction that every learned muP readout has vanishing noise: real channels may be correlated and width-scaled training dynamics are more involved.[^mup-motion] No values are empirical measurements.
+
+The wiki player supports **Play/Pause** (Enter/Space when focused). Reduced Motion starts with the static still; the diagram scrolls horizontally on phones. [Open the SVG motion](../../../assets/concept-animations/mup-readout-noise-motion.svg) · [GitHub-readable fallback](../../../assets/concept-animations/mup-readout-noise-still.svg).
+
+### Optimiser dependence: an Adam multiplier is not an SGD recipe
+
+<div tabindex="0" role="region" aria-label="Illustrative Adam versus SGD single-step scaling animation; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-adam-sgd-still.svg" data-motion-src="../../../assets/concept-animations/mup-adam-sgd-motion.svg" data-still-src="../../../assets/concept-animations/mup-adam-sgd-still.svg" alt="Synthetic positive gradients decrease as inverse square-root width; with the same inverse-width rate, the first bias-corrected Adam step and a plain SGD step decay at different rates." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*Original 12-second analytical teaching animation, CC BY-SA 4.0.* Take one **synthetic positive** scalar gradient $g_n=1/\sqrt n$ and apply the **same deliberately chosen** scalar rate $\eta_n=4/n$ to two *first-step* optimisers, starting with zero moments and zero weight decay. With bias-corrected Adam and the **illustrative special case $\epsilon=0$**, $|\Delta w_{\mathrm{Adam}}|=\eta_n g_n/|g_n|=4/n$; with SGD, $|\Delta w_{\mathrm{SGD}}|=\eta_n g_n=4/n^{3/2}$. The animated cursors track exact values at $n=4,8,16,32$. **Applying the Adam-oriented multiplier to SGD here is a counterexample, not a recommended SGD muP parametrisation.** Actual muP scaling depends on the optimiser, network architecture and parameter group.[^mup-motion] The artificial gradients are not model measurements or evidence that one optimiser trains better.
+
+The diagram uses the existing **Play/Pause** control and an accessible still for reduced motion. [Open the SVG motion](../../../assets/concept-animations/mup-adam-sgd-motion.svg) · [GitHub-readable fallback](../../../assets/concept-animations/mup-adam-sgd-still.svg).
+
 ## Results
 
 The abstract reports that hyperparameters tuned on a small model can be used on a much larger one, and that this holds for Transformer and ResNet models. Two examples are given. Transferring from a 13M-parameter model gives pretraining hyperparameters that outperform the published BERT-large numbers, at a tuning cost equal to pretraining BERT-large once. Transferring from a 40M-parameter model outperforms the published 6.7B GPT-3 model, with a tuning cost of only 7% of its total pretraining cost [(Yang et al., 2022)](https://arxiv.org/abs/2203.03466).

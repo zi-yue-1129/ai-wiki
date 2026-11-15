@@ -91,6 +91,27 @@ Wiki 網站可透過**播放／暫停**（聚焦後按 Enter 或 Space）觀看�
 
 網站提供**播放／暫停**、鍵盤操作、減少動態偏好下的靜態圖與手機水平捲動。[開啟 SVG 動畫](../../../assets/concept-animations/mup-transfer-validation-motion.svg) · [GitHub 靜態預覽](../../../assets/concept-animations/mup-transfer-validation-still.svg)。
 
+
+### 讀出層平均值不變，不代表隨機波動也不變
+
+<div tabindex="0" role="region" aria-label="muP 人工讀出層平均值與獨立雜訊波動動畫；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-readout-noise-still.svg" data-motion-src="../../../assets/concept-animations/mup-readout-noise-motion.svg" data-still-src="../../../assets/concept-animations/mup-readout-noise-still.svg" alt="四至三十二個人工獨立通道，平均值與變異數皆為一；縮放後的讀出期望值維持一，標準差則依寬度平方根的倒數下降。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創 12 秒四種寬度解析動畫，CC BY-SA 4.0。* 前面的確定性算例假設所有通道 $h_i=1$。此處改用**另一組刻意簡化、各通道獨立**的人工假設：$h_i=1+\varepsilon_i$，且 $\varepsilon_i$ 互相獨立、$\mathbb E[\varepsilon_i]=0$、$\operatorname{Var}(\varepsilon_i)=1$。此時 $f_n=\frac{1}{n}\sum_i h_i$，**期望值 $\mathbb E[f_n]=1$**，但**標準差 $\operatorname{SD}(f_n)=1/\sqrt n$**。在 $n=4、8、16、32$ 時，標準差約為 $0.500、0.354、0.250、0.177$。游標用來區分固定的平均值與逐漸縮小的雜訊尺度。**這不表示真實 muP 模型的讀出雜訊必然趨近零**：學得的通道可能相關，訓練的尺度分析也不能只靠獨立性假設。[^mup-motion] 圖中沒有任何模型實測值。
+
+網站端可**播放／暫停**（聚焦後按 Enter／Space），Reduced Motion 會先顯示靜態圖；手機可在圖面區域內水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/mup-readout-noise-motion.svg) · [GitHub 回退預覽](../../../assets/concept-animations/mup-readout-noise-still.svg)。
+
+### 最佳化器相依性：Adam 的倍率不能直接當作 SGD 規則
+
+<div tabindex="0" role="region" aria-label="Adam 與 SGD 的人工單步更新尺度比較動畫；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <img data-source-asset-urls src="../../../assets/concept-animations/mup-adam-sgd-still.svg" data-motion-src="../../../assets/concept-animations/mup-adam-sgd-motion.svg" data-still-src="../../../assets/concept-animations/mup-adam-sgd-still.svg" alt="人工正梯度隨寬度平方根的倒數下降；套用相同的反寬度學習率後，Adam 首次偏差修正的單步量與一般 SGD 更新量呈現不同的衰減速度。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+</div>
+
+*原創 12 秒解析動畫，CC BY-SA 4.0。* 人工設定單一**正的梯度** $g_n=1/\sqrt n$，再刻意將同一個學習率 $\eta_n=4/n$ 套用至從零動量、零權重衰減開始的兩種**第一步**更新。對有偏差修正的 Adam，若特別設 $\epsilon=0$，則 $|\Delta w_{\mathrm{Adam}}|=\eta_n g_n/|g_n|=4/n$；一般 SGD 則為 $|\Delta w_{\mathrm{SGD}}|=\eta_n g_n=4/n^{3/2}$。游標分別追蹤 $n=4、8、16、32$ 的解析數值。**此處刻意把 Adam 的倍率直接用在 SGD，只為呈現兩者不等價，並非推薦的 SGD muP 參數化。**真實 muP 的縮放規則與最佳化器、架構及參數群組有關。[^mup-motion] 此處不是模型的梯度量測，也不能比較訓練優劣。
+
+既有播放器提供**播放／暫停**及鍵盤操作；Reduced Motion 起始顯示靜態預覽。[完整 SVG 動畫](../../../assets/concept-animations/mup-adam-sgd-motion.svg) · [GitHub 回退預覽](../../../assets/concept-animations/mup-adam-sgd-still.svg)。
+
 ## 結果
 
 摘要報告，在小模型上調好的超參數，可以用到大得多的模型上，並且此結果對 Transformer 與 ResNet 模型成立。摘要舉了兩個例子。由 1,300 萬參數的模型轉移預訓練超參數，所得結果優於已發表的 BERT-large 數字，調參成本等同於預訓練 BERT-large 一次。由 4,000 萬參數的模型轉移，所得結果優於已發表的 67 億參數 GPT-3 模型，調參成本僅為其總預訓練成本的 7% [(Yang et al., 2022)](https://arxiv.org/abs/2203.03466)。
