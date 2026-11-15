@@ -123,6 +123,37 @@ As a check, \(\nabla f(2,1)=(5,8)\), so \(\nabla f\cdot(1,0.5)=9\). The diagram 
 
 The linked primal and tangent panels animate the two regions. At **\(x=0\)** the classical derivative does **not** exist, so neither panel assigns a unique derivative there. One-sided directional derivatives may exist, but they do not define one linear Jacobian map at the kink; an AD implementation's returned tangent there depends on its derivative convention. This is a constructed mathematical example, not an empirical model result. The MkDocs player can pause the movement, and its reduced-motion fallback shows both branches simultaneously.
 
+
+### Tangents through an iterative program
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable iteration and tangent sensitivity animation">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-loop-tangent-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-loop-tangent-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-loop-tangent-still.svg" alt="Paired teal primal values approach their fixed point while orange tangent values halve at each iteration, with synchronized animated markers across six steps." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching motion. [GitHub static fallback](../../../assets/concept-animations/forward-ad-loop-tangent-still.svg) · [12-second animated SVG](../../../assets/concept-animations/forward-ad-loop-tangent-motion.svg).* Consider the synthetic recurrence \(x_{t+1}=\tfrac12x_t+1\), initialized at \(x_0=4\). Seed the derivative of the **initial condition** with \(\dot x_0=\partial x_0/\partial x_0=1\), and keep the coefficient and constant fixed. One dual-number evaluation per iteration gives
+
+\[
+x_{t+1}=\tfrac12 x_t+1,\qquad \dot x_{t+1}=\tfrac12\dot x_t.
+\]
+
+The two synchronized curves show \(x_t=2+2^{1-t}\) approaching the fixed point \(2\) and \(\dot x_t=2^{-t}\) shrinking to zero. At \(t=5\), \(x_5=2.0625\) while \(\dot x_5=0.03125\). **Do not conflate state convergence with sensitivity:** the orange curve is the derivative with respect to the initial state, not the state itself. These are exact hand-calculated toy values, not measurements from a learned model. On MkDocs the shared player supports Play/Pause and keyboard activation; reduced-motion visitors initially see the still.
+
+### Forward-over-reverse: differentiate the gradient along a direction
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable Hessian-vector product teaching animation">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-hessian-vector-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-hessian-vector-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-hessian-vector-still.svg" alt="Synchronized dots move along a seed direction in input space and its image in gradient space; the gradient directional derivative is Hessian-vector product (1,-3)." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching motion. [GitHub static fallback](../../../assets/concept-animations/forward-ad-hessian-vector-still.svg) · [12-second animated SVG](../../../assets/concept-animations/forward-ad-hessian-vector-motion.svg).* For the synthetic quadratic \(f(x,y)=x^2+xy+2y^2\), first obtain its gradient \(g(x,y)=\nabla f(x,y)=(2x+y,\ x+4y)\). At \(p=(1,1)\), follow the seed \(v=(1,-1)\). The left marker moves along \(p(t)=(1+t,1-t)\) while the right marker follows
+
+\[
+g(p(t))=(3+t,\ 5-3t),\qquad
+\left.\frac{d}{dt}g(p(t))\right|_{t=0}
+=H_f(p)v=(1,-3).
+\]
+
+This is the **JVP of the gradient**: a forward-mode directional derivative applied to a gradient function that can be obtained by reverse mode. No full Hessian matrix needs to be materialized. Both curves and the value \(H_f(p)v\) are exact analytic examples, not timing or model-training results. The plotted axes use separate schematic scales; the paired points depict corresponding parameter values, not comparable Euclidean distances. The MkDocs player supports Play/Pause and a reduced-motion still, not seek or single-step. For the general forward/reverse tradeoff, see [Griewank and Walther (2008)](https://doi.org/10.1137/1.9780898717761).
+
 ## Equation
 
 For an elementary operation $v = \phi(u)$, the tangent rule is

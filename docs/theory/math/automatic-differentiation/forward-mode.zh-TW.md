@@ -124,6 +124,37 @@ z&=b+x=6,& \dot z&=\dot b+\dot x=9.
 
 左側的原始值曲線與右側的切向量圖會同步改變。**\(x=0\)** 處不存在唯一的古典導數，因此圖中不指定該位置的唯一導數。即使單側方向導數存在，也無法在這個折點形成單一線性的 Jacobian；不同自動微分實作可能依選用的導數約定回傳不同結果。這是數學示意，並非模型實測。網站版可暫停動作，減少動態效果的回退圖則一次展示兩個分支。
 
+
+### 迭代程式中的切向量傳播
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可用鍵盤水平捲動的迭代與切向敏感度動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-loop-tangent-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-loop-tangent-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-loop-tangent-still.svg" alt="左側青綠色原始值逐步趨近固定點，右側橘色切向量每次迭代減半；兩個移動圓點同步顯示第零至第五步的對應狀態。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。[GitHub 靜態回退預覽](../../../assets/concept-animations/forward-ad-loop-tangent-still.svg) · [12 秒循環 SVG 動畫](../../../assets/concept-animations/forward-ad-loop-tangent-motion.svg)。* 考慮人工設定的遞迴式 \(x_{t+1}=\tfrac12x_t+1\)，初始值 \(x_0=4\)。針對**初始條件**指定切向種子 \(\dot x_0=\partial x_0/\partial x_0=1\)，其餘係數與常數保持固定。每次迭代沿對偶數同步傳遞：
+
+\[
+x_{t+1}=\tfrac12x_t+1,\qquad \dot x_{t+1}=\tfrac12\dot x_t.
+\]
+
+兩條曲線同步表示原始狀態 \(x_t=2+2^{1-t}\) 漸近固定點 \(2\)，但敏感度 \(\dot x_t=2^{-t}\) 持續衰減。到 \(t=5\)，\(x_5=2.0625\)，\(\dot x_5=0.03125\)。**狀態收斂與敏感度收斂是不同概念**：橘線表示輸出對初始狀態的導數，而非狀態值。這些數字來自可手算的精確示例，不是訓練模型的實測結果。MkDocs 網站沿用可用鍵盤操作的播放／暫停功能，偏好減少動態效果的使用者預設看到靜態回退圖。
+
+### Forward-over-reverse：沿指定方向微分梯度
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可用鍵盤水平捲動的 Hessian 向量積教學動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-hessian-vector-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-hessian-vector-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-hessian-vector-still.svg" alt="左側圓點沿輸入空間的種子方向移動，右側圓點同步顯示梯度空間的變化，對應的 Hessian 向量積為 (1,-3)。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。[GitHub 靜態回退預覽](../../../assets/concept-animations/forward-ad-hessian-vector-still.svg) · [12 秒循環 SVG 動畫](../../../assets/concept-animations/forward-ad-hessian-vector-motion.svg)。* 對人工二次函數 \(f(x,y)=x^2+xy+2y^2\)，先計算梯度 \(g(x,y)=\nabla f(x,y)=(2x+y,\ x+4y)\)。從 \(p=(1,1)\) 沿種子 \(v=(1,-1)\) 前進。左側圓點表示 \(p(t)=(1+t,1-t)\)，右側圓點同步表示
+
+\[
+g(p(t))=(3+t,\ 5-3t),\qquad
+\left.\frac{d}{dt}g(p(t))\right|_{t=0}
+=H_f(p)v=(1,-3).
+\]
+
+這相當於對**梯度函數求 JVP**：梯度可以由反向模式求得，再利用前向模式取得其指定方向導數，**不必顯式建立完整 Hessian 矩陣**。兩條軌跡與 \(H_f(p)v\) 都是解析式的確切值，不是運算時間或模型訓練結果。左右座標軸使用不同的示意尺度，兩個圓點代表同一參數位置下的對應結果，而非可直接比較的幾何距離。網站播放器可播放／暫停並提供減少動態效果的回退圖，但不支援跳格或逐步控制。一般性的前向／反向模式取捨可參考 [Griewank 與 Walther（2008）](https://doi.org/10.1137/1.9780898717761)。
+
 ## 方程式
 
 對於基本運算 $v = \phi(u)$，切向規則為
