@@ -35,6 +35,8 @@ For **schematic** targets $y=(1,2,3,4)$, the fixed mean is $\bar y=2.5$ and $\ma
 
 Adjust $k$ between 0 and 1.5 to recompute all four predictions, the residual sum of squares, and $R^2=1-k^2$. At $k=0$ the predictions match the targets; at $k=1$ they match the mean-only baseline ($R^2=0$); at $k=1.5$ the score reaches $-1.25$. The blue circles represent fixed targets, orange circles represent changing predictions, and the dashed line is the target mean. Playback, stepping, resetting, speed selection, native keyboard input and reduced-motion fallback are supported. **This is a deterministic teaching example, not a model-training trajectory.** The static figure above remains available in GitHub.
 
+Below the changing predictions, **TSS** and **RSS** bars use the same fixed scale, and the vertical dashed reference marks TSS = 5. At $k=1$, the bars are equal ($\mathrm{RSS}=\mathrm{TSS}$, so $R^2=0$); for $k>1$, RSS extends past TSS and $R^2$ becomes negative. These bars represent sums of squares, not an empirical score trace.
+
 ## Interpretation
 
 $R^2$ answers a different question from MAE or RMSE. Those tell how large the errors are; $R^2$ tells whether the model does better than the mean. A low $R^2$ with a small RMSE can happen when the target has little variance, so both should be read together.

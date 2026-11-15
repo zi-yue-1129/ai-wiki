@@ -35,6 +35,8 @@ With five **illustrative** absolute errors $(1,1,1,1,d)$, varying $d$ from 1 to 
 
 Move the fifth absolute residual $d$ between 1 and 6, or use **Previous / Next**, **Play / Pause**, **Reset**, and the speed selector. The plotted MAE and RMSE are recomputed at every position; the gap opens because the squared contribution of $d$ grows faster than its linear contribution. The sliders and buttons are keyboard-operable; the 680 px diagram can scroll inside its frame on narrow screens. Automatic playback is disabled when reduced motion is preferred. **The values are synthetic illustrations, not model measurements.** The earlier static SVG remains readable in GitHub Markdown, where this interactive experiment does not execute.
 
+The live **Σe²** strip reveals the RMSE numerator before dividing by five and taking the square root: blue represents the four fixed squared residuals (total 4), and orange represents the changing $d^2$. Its shared zero-to-40 scale grows from a total of 5 at $d=1$ to 40 at $d=6$; this is a sum of squares, **not** the RMSE value.
+
 ## Interpretation
 
 Squaring makes a single error of size 10 count as much as a hundred errors of size 1. RMSE is therefore sensitive to outliers and rare large errors. It is the quantity that a least-squares fit minimises, which is why it is common in regression training and in forecasting. Willmott and Matsuura (2005) note that RMSE mixes the average error with its variability, so a large RMSE does not by itself indicate large average error.

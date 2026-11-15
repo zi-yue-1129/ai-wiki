@@ -1,5 +1,6 @@
 """Render the actual shared regression metric labs in Chromium and check math/controls."""
 from pathlib import Path
+from math import isclose
 import os
 from playwright.sync_api import sync_playwright
 
@@ -32,16 +33,26 @@ main{{max-width:1000px;margin:auto}}</style></head><body><main>
 </main><script>{JS}</script></body></html>"""
                     page.set_content(html)
                     assert page.locator(".rml-panel").count() == 2
+                    assert page.locator("svg[viewBox='0 0 680 390']").count() == 2
+                    assert page.locator("svg[aria-label]").count() == 2
                     assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), (language, width)
                     assert not errors, errors
                     outlier = page.locator('[data-regression-lab="outlier"]')
                     outlier.locator('input[type="range"]').fill("6")
                     assert "MAE=(4+d)/5=2.000" in outlier.locator(".rml-detail").inner_text()
                     assert "RMSE=√((4+d²)/5)=2.828" in outlier.locator(".rml-detail").inner_text()
+                    squared_piece = outlier.locator('svg rect[y="317"][fill="#f4ad70"]')
+                    assert isclose(float(squared_piece.get_attribute('width')), 270.0, abs_tol=0.01)
+                    assert outlier.locator('svg text').filter(has_text='40.000').count() == 1
                     squared = page.locator('[data-regression-lab="r2"]')
                     squared.locator('input[type="range"]').fill("1.5")
                     assert "RSS=11.250" in squared.locator(".rml-detail").inner_text()
                     assert "R²=1−RSS/TSS=-1.250" in squared.locator(".rml-detail").inner_text()
+                    rss_bar = squared.locator('svg rect[y="345"][fill="#f3ad75"]')
+                    assert isclose(float(rss_bar.get_attribute('width')), 350.0, abs_tol=0.01)
+                    squared.locator('input[type="range"]').fill("1")
+                    assert isclose(float(rss_bar.get_attribute('width')), 350 * 5 / 11.25, abs_tol=0.01)
+                    assert "R²=1−RSS/TSS=0.000" in squared.locator(".rml-detail").inner_text()
                     if motion == "reduce":
                         assert outlier.locator('.rml-button[aria-label="'+("播放" if language=="zh" else "Play")+'"]').is_disabled()
                     else:
