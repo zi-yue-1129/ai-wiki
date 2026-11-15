@@ -124,6 +124,30 @@ async def run():
                 await page.keyboard.press('End')
                 assert (await labs.nth(0).locator('.bf-step').input_value())=='2'
                 await page.screenshot(path=str(OUT/f'{lang}-{width}.png'),full_page=True)
+                # Extreme observations can move the mean toward the right edge.
+                # Verify no numerical label overlaps a drawn mean marker.
+                for extreme_y in (1, 9):
+                    await labs.nth(0).locator('.bf-ranges input').nth(2).fill(str(extreme_y))
+                    await labs.nth(1).locator('.bf-ranges input').nth(0).fill(str(extreme_y))
+                    await labs.nth(1).locator('.bf-ranges input').nth(1).fill('0.4')
+                    await labs.nth(1).locator('.bf-step').fill('3')
+                    for comparison in await page.locator('svg[data-bf-comparison]').all():
+                        intersections=await comparison.evaluate("""s=>{
+                            let hits=[];
+                            for(const t of s.querySelectorAll('text')){
+                                const b=t.getBBox();
+                                for(const dot of s.querySelectorAll('circle')){
+                                    const x=+dot.getAttribute('cx'), y=+dot.getAttribute('cy'), r=+dot.getAttribute('r');
+                                    if(b.x<x+r && b.x+b.width>x-r && b.y<y+r && b.y+b.height>y-r)
+                                        hits.push(t.textContent);
+                                }
+                            }
+                            return hits;
+                        }""")
+                        assert not intersections,(lang,width,extreme_y,intersections)
+                    if extreme_y==9 and width in (320,1024):
+                        await page.screenshot(path=str(OUT/f'{lang}-{width}-extreme-comparison.png'),full_page=True)
+
                 await page.close();cases+=1
         # Test reduced-motion without spontaneous autoplay, and no-script fallbacks.
         page=await browser.new_page(reduced_motion='reduce')
