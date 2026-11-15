@@ -69,6 +69,16 @@ Adjust the **observation** $y$, likelihood standard deviation $\sigma$, and syst
 
 ![Particle importance-weighted mean and realised resampled mean compared on a shared state axis](../../../../assets/concept-animations/particle-mean-shift-still.svg)
 
+**Additional computed diagnostic — cumulative-count discrepancy.** Systematic resampling uses equally spaced thresholds; for each ancestor boundary $i$, the new chart recomputes the signed difference between *realised cumulative descendants* and *expected cumulative mass*:
+
+$
+D_i=\sum_{j=1}^{i}N_j-N\sum_{j=1}^{i}w_j,\qquad |D_i|<1 \quad (u_0\in[0,1/N),\;i=1,\dots,N).
+$
+
+This strict bound follows from the single uniformly shifted threshold lattice, **not** from assuming independently sampled ancestors. It holds for cumulative prefixes, not for the sum of absolute errors across all individual ancestors. The trajectory is revealed only at resampling; moving $u_0$ changes the realised counts while leaving weight-derived expectations unchanged. The ten-particle figure is one deterministic teaching draw, not a performance benchmark.
+
+![GitHub preview: systematic resampling cumulative count minus expected weight-derived offspring](../../../../assets/concept-animations/particle-systematic-discrepancy-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="particle" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
 
 These ten states and observations are **synthetic teaching values**, not empirical state estimates. Each step is a display phase of one update, not an additional particle-filter iteration.
