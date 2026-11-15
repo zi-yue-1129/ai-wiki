@@ -1103,6 +1103,7 @@ extra_javascript:
   - javascripts/bayesian-filter-labs.js
   - javascripts/bayesian-filter-insights.js
   - javascripts/bayesian-filter-comparisons.js
+  - javascripts/bayesian-filter-invariants.js
   - javascripts/concept-motion-detailed.js
   - javascripts/self-supervised-labs.js
   - javascripts/ssl-causal-comparisons.js
