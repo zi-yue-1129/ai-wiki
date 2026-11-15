@@ -43,7 +43,7 @@ async def run():
                 # Move to final phase and assert posterior path appears.
                 await labs.nth(0).get_by_role('button',name='Next' if lang=='en' else '下一步').click()
                 await labs.nth(0).get_by_role('button',name='Next' if lang=='en' else '下一步').click()
-                assert await labs.nth(0).locator('svg path').count()==3
+                assert await labs.nth(0).locator('.bf-graphic').first.locator('svg path').count()==3
                 assert '5.769' in await labs.nth(0).locator('.bf-output').inner_text()
                 gain_svg=labs.nth(0).locator('svg[data-bf-diagnostic="kalman"]')
                 assert abs(float(await gain_svg.get_attribute('data-gain'))-1.44/2.08)<1e-6
