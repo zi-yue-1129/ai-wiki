@@ -55,6 +55,10 @@ The animation moves each selected descendant from its ancestor to the lower row;
 
 Adjust the **observation** $y$, likelihood standard deviation $\sigma$, and systematic offset $u_0\in[0,0.1)$. Step through predicted samples, likelihood weights, cumulative weights and selected descendants. The display computes $\mathrm{ESS}=1/\sum_i w_i^2$ before resampling. Changing $u_0$ can alter the selected ancestors **without altering the normalised importance weights**. A repeated descendant is a selected ancestor copy, not a new transition or added noise.
 
+**New calculated view — inverse CDF resampling.** The second SVG partitions the interval $[0,1]$ into segments of length $w_i$ and places ten equally spaced thresholds $u_j=u_0+j/10$. Each threshold selects the first cumulative interval containing it; only the fourth display stage reveals the chosen zero-based ancestor indices. Changing $u_0$ moves the thresholds but leaves the interval widths and the *pre-resampling* ESS unchanged. The GitHub snapshot below shows the invented default inputs; it is not empirical resampling performance.
+
+![Static GitHub preview of systematic resampling thresholds against cumulative particle weights](../../../../assets/concept-animations/particle-cdf-thresholds-still.svg)
+
 <div class="bayesian-filter-lab" data-lab="particle" data-lang="en"><p class="bayesian-filter-fallback">Interactive numerical experiment requires JavaScript. The static preview and worked example above remain available.</p></div>
 
 These ten states and observations are **synthetic teaching values**, not empirical state estimates. Each step is a display phase of one update, not an additional particle-filter iteration.
