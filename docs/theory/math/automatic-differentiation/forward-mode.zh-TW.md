@@ -87,6 +87,43 @@ J_F=\begin{bmatrix}5&2\\1&-1\end{bmatrix},
 
 依序觀察青綠色的第一次掃描與橘色的第二次掃描：每個基底種子只產生**一欄**，兩次結果才組成 \(J_F\)。這是資料與導數的傳遞示意，不是效能測試；任意一個種子方向的一次掃描只取得一個 JVP，**無法直接得到兩欄**。MkDocs 提供播放／暫停與減少動態效果的回退顯示，但沒有逐步執行或時間軸拖曳功能。
 
+
+### 對偶數算術：含捷徑連線的非線性運算鏈
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的對偶數非線性傳播動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-dual-chain-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-dual-chain-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-dual-chain-still.svg" alt="兩組輸入值與切向量依序通過乘法、平方及捷徑加總，最後原始輸出為 6、方向切向量為 9。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。[GitHub 靜態回退預覽](../../../assets/concept-animations/forward-ad-dual-chain-still.svg) · [SVG 動畫](../../../assets/concept-animations/forward-ad-dual-chain-motion.svg)。* 考慮人工設定的函數 \(f(x,y)=(xy)^2+x\)、輸入 \((2,1)\) 與種子 \((\dot x,\dot y)=(1,0.5)\)。每個方框同時呈現原始值（青綠色）與切向量（橘色），移動的連線表示直接由 \(x\) 通往最終加總的捷徑，以及非線性運算鏈的導數如何匯合：
+
+\[
+\begin{aligned}
+a&=xy=2,& \dot a&=y\dot x+x\dot y=1+1=2,\\
+b&=a^2=4,& \dot b&=2a\dot a=8,\\
+z&=b+x=6,& \dot z&=\dot b+\dot x=9.
+\end{aligned}
+\]
+
+可以另外以 \(\nabla f(2,1)=(5,8)\) 檢查，得到 \(\nabla f\cdot(1,0.5)=9\)。圖中的數值是**精確手算的示意範例**，不是模型實測。MkDocs 的共用播放器提供播放／暫停；偏好減少動畫的讀者預設看到靜態回退圖。
+
+### 分支敏感微分：ReLU 的折點
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的 ReLU 分支微分動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-branch-kink-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-branch-kink-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-branch-kink-still.svg" alt="移動圓點沿 ReLU 的負值平坦分支與正值斜率分支移動，切向量在零與一之間切換；空心圓標示 x 等於零時沒有唯一的古典導數。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創分支微分教學動畫，CC BY-SA 4.0。[GitHub 靜態回退預覽](../../../assets/concept-animations/forward-ad-branch-kink-still.svg) · [SVG 動畫](../../../assets/concept-animations/forward-ad-branch-kink-motion.svg)。* 對 \(y=\mathrm{ReLU}(x)=\max(0,x)\)，設定切向種子 \(\dot x=1\)，前向模式微分依照**實際執行的分支**運作。在折點之外，
+
+\[
+\dot y=
+\begin{cases}
+0,&x<0,\\
+1,&x>0.
+\end{cases}
+\]
+
+左側的原始值曲線與右側的切向量圖會同步改變。**\(x=0\)** 處不存在唯一的古典導數，因此圖中不指定該位置的唯一導數。即使單側方向導數存在，也無法在這個折點形成單一線性的 Jacobian；不同自動微分實作可能依選用的導數約定回傳不同結果。這是數學示意，並非模型實測。網站版可暫停動作，減少動態效果的回退圖則一次展示兩個分支。
+
 ## 方程式
 
 對於基本運算 $v = \phi(u)$，切向規則為

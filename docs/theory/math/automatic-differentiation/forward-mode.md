@@ -86,6 +86,43 @@ J_F=\begin{bmatrix}5&2\\1&-1\end{bmatrix},
 
 Follow the teal first sweep and amber second sweep: each basis seed supplies **one column**, and the two results form \(J_F\). The animation shows causal data flow, not a runtime benchmark; a single arbitrary seed gives a JVP, **not both columns**. The MkDocs player supports Play/Pause and a reduced-motion still, but not single-stepping or seeking.
 
+
+### Dual-number arithmetic: a nonlinear chain with a shortcut
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable nonlinear dual-number propagation">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-dual-chain-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-dual-chain-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-dual-chain-still.svg" alt="Two input value-and-tangent pairs propagate through a product, a square, and a skip-path sum; the final primal is 6 and the directional tangent is 9." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 animated calculation. [GitHub-readable static fallback](../../../assets/concept-animations/forward-ad-dual-chain-still.svg) · [animated SVG](../../../assets/concept-animations/forward-ad-dual-chain-motion.svg).* Consider \(f(x,y)=(xy)^2+x\) at the **synthetic** point \((2,1)\), with seed \((\dot x,\dot y)=(1,0.5)\). Each box shows a primal (teal) and its tangent (amber). The moving paths show how the direct skip connection from \(x\) and the nonlinear chain contribute to the same final JVP:
+
+\[
+\begin{aligned}
+a&=xy=2,& \dot a&=y\dot x+x\dot y=1+1=2,\\
+b&=a^2=4,& \dot b&=2a\dot a=8,\\
+z&=b+x=6,& \dot z&=\dot b+\dot x=9.
+\end{aligned}
+\]
+
+As a check, \(\nabla f(2,1)=(5,8)\), so \(\nabla f\cdot(1,0.5)=9\). The diagram represents **exact, hand-computed calculus**, not a measured model trace. On MkDocs, Play/Pause is available through the shared player; readers using reduced motion initially get the still image.
+
+### Branch-sensitive differentiation: ReLU at a kink
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable ReLU branchwise derivative">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-branch-kink-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-branch-kink-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-branch-kink-still.svg" alt="A moving point traverses ReLU's flat negative-input branch and sloped positive-input branch, while the tangent switches between zero and one; hollow circles mark the undefined classical derivative at zero." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 branchwise teaching motion. [GitHub-readable static fallback](../../../assets/concept-animations/forward-ad-branch-kink-still.svg) · [animated SVG](../../../assets/concept-animations/forward-ad-branch-kink-motion.svg).* For \(y=\mathrm{ReLU}(x)=\max(0,x)\) and a unit tangent seed \(\dot x=1\), forward-mode AD follows the **executed branch**. Away from the kink,
+
+\[
+\dot y=
+\begin{cases}
+0,&x<0,\\
+1,&x>0.
+\end{cases}
+\]
+
+The linked primal and tangent panels animate the two regions. At **\(x=0\)** the classical derivative does **not** exist, so neither panel assigns a unique derivative there. One-sided directional derivatives may exist, but they do not define one linear Jacobian map at the kink; an AD implementation's returned tangent there depends on its derivative convention. This is a constructed mathematical example, not an empirical model result. The MkDocs player can pause the movement, and its reduced-motion fallback shows both branches simultaneously.
+
 ## Equation
 
 For an elementary operation $v = \phi(u)$, the tangent rule is
