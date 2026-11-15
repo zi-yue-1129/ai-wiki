@@ -55,6 +55,27 @@ and the partial output is rescaled by the same factor \(e^{m - m'}\) before the 
 
 The memory needed for the attention output and the statistics is \(O(n)\) rather than \(O(n^2)\), while the arithmetic remains \(O(n^2 d)\).
 
+
+### Online softmax: rescaling when the maximum changes
+
+![After a larger score arrives, online softmax rescales the previous tile's mass before adding new contributions.](../../../../../assets/concept-animations/flashattention-online-rescale-still.svg)
+
+*Original CC BY-SA 4.0 preview; [open the 12-second SVG animation](../../../../../assets/concept-animations/flashattention-online-rescale-motion.svg).* For synthetic score tiles (A=[1,2]) and (B=[5,0]), tile A has running maximum (m_A=2) and mass (ell_A=1+e^{-1}\approx1.368). The second tile raises the maximum to (m'=5), so the **old mass must be rescaled** by (e^{2-5}). Its contribution becomes (0.068); the new tile contributes (1+e^{-5}\approx1.007), giving (ell'\approx1.075). Simply adding separately normalised tile masses would give an incorrect result. The graphic displays exact analytic calculations rounded to three decimals, **not model measurements or GPU timings**. On MkDocs, Play/Pause and keyboard activation select the animation or static fallback; reduced-motion users see the still initially (Milakov & Gimelshein, 2018; Dao et al., 2022).
+
+### Exact blockwise output is not the average of tile outputs
+
+![Two score/value tiles are combined with shared softmax statistics; the exact result differs from naively averaging independently normalised tile outputs.](../../../../../assets/concept-animations/flashattention-exact-merge-still.svg)
+
+*Original CC BY-SA 4.0 preview; [open the 12-second SVG animation](../../../../../assets/concept-animations/flashattention-exact-merge-motion.svg).* Give the four synthetic scores ([1,2,5,0]) values ([1,3,4,-2]). Independent softmax of tile A yields (y_A\approx2.462), and of tile B yields (y_B\approx3.960). Averaging those tile outputs gives **3.211**, which is wrong because their normalisation masses differ. Correctly merge the *unnormalised value-weighted sums* after moving both tiles to the shared maximum (m'=5):
+
+\[
+a'=e^{-3}(e^{-1}\cdot1+3)+(4-2e^{-5}),\qquad
+\ell'=e^{-3}(1+e^{-1})+1+e^{-5},\qquad y=a'/\ell'\approx3.865.
+\]
+
+The result agrees with dense softmax up to floating-point rounding. The animated marker distinguishes the incorrect tile average from the exact streaming merge; the diagram is an **analytic illustration**, not an observed model output. The same MkDocs motion controls and reduced-motion fallback apply (Dao et al., 2022).
+
+
 ## Results
 
 Dao et al. (2022) report that the method is faster than standard exact attention and uses less memory, with the same output. FlashAttention-2 (Dao, 2023) reports about twice the speed of the original, and reaches roughly 50 to 73 percent of the A100's theoretical peak FLOPs per second. FlashAttention-3 (Shah et al., 2024) reports attention that runs 1.5 to 2 times faster on H100 GPUs, at about 740 TFLOPs per second in FP16 and nearly 1.2 PFLOPs per second in FP8.
