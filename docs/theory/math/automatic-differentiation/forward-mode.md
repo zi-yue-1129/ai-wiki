@@ -57,6 +57,35 @@ Running any program on dual numbers, with the tangent part of each input set to 
 
 The same example can be checked by hand. Since $z = xy + 2x$, the derivative with respect to $x$ is $\partial z/\partial x = y + 2 = 5$, which matches the tangent $\dot{z}=5$ computed above.
 
+### Rotating the seed: a JVP measures a direction
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable forward-mode teaching motion">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-directional-jvp-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-directional-jvp-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-directional-jvp-still.svg" alt="A unit seed rotates around a fixed gradient (5,2) while a marker tracks the exact directional derivative 5 cos theta plus 2 sin theta." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching motion. [GitHub static preview](../../../assets/concept-animations/forward-ad-directional-jvp-still.svg) · [12-second animated SVG](../../../assets/concept-animations/forward-ad-directional-jvp-motion.svg).* At the same synthetic point \((x,y)=(2,3)\), the gradient of \(f(x,y)=xy+2x\) is \((5,2)\). A unit seed \(v(\theta)=(\cos\theta,\sin\theta)\) produces
+
+\[
+J_fv(\theta)=5\cos\theta+2\sin\theta.
+\]
+
+The orange arrow rotates counter-clockwise while the graph cursor follows the **corresponding analytic derivative**, not the function's output value. The examples \(\theta=0\) and \(\theta=\pi/2\) return **5** and **2**, respectively. The SVG approximates the smooth cursor trajectory with sampled points; the formula is exact. These are constructed derivatives, **not model measurements**. On MkDocs, use Play/Pause (including keyboard activation); reduced-motion users initially see the static preview.
+
+### Basis seeds: assemble a complete two-column Jacobian
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable forward-mode teaching motion">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-jacobian-columns-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-jacobian-columns-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-jacobian-columns-still.svg" alt="Two sequential basis-seed passes yield the first Jacobian column (5,1) and second column (2,-1), assembling a two-by-two matrix." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching motion. [GitHub static preview](../../../assets/concept-animations/forward-ad-jacobian-columns-still.svg) · [12-second animated SVG](../../../assets/concept-animations/forward-ad-jacobian-columns-motion.svg).* Extend the synthetic example to the **two-output** map \(F(x,y)=(xy+2x,\ x-y)\). At \((2,3)\), its Jacobian is
+
+\[
+J_F=\begin{bmatrix}5&2\\1&-1\end{bmatrix},
+\qquad J_Fe_1=(5,1)^\top,\quad J_Fe_2=(2,-1)^\top.
+\]
+
+Follow the teal first sweep and amber second sweep: each basis seed supplies **one column**, and the two results form \(J_F\). The animation shows causal data flow, not a runtime benchmark; a single arbitrary seed gives a JVP, **not both columns**. The MkDocs player supports Play/Pause and a reduced-motion still, but not single-stepping or seeking.
+
 ## Equation
 
 For an elementary operation $v = \phi(u)$, the tangent rule is

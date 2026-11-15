@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-11-15
-translation_reviewed: 2026-11-15
+translation_reviewed: 2026-11-16
 related:
   - theory/math/automatic-differentiation
   - theory/math
@@ -25,7 +25,7 @@ aliases:
 
 ## 問題
 
-許多科學與機器學習任務需要的是函數輸出對少數輸入的反應，或雅可比矩陣作用於單一向量的結果，而不是純量的完整梯度。反向模式在這些任務上很浪費：它對每個輸出產生雅可比的一列，而這些任務需要的是每個輸入一行，或只是一個乘積。問題在於如何在不建構完整雅可比的情況下，直接取得方向導數。
+許多科學與機器學習任務需要的是函數輸出對少數輸入的反應，或雅可比矩陣作用於單一向量的結果，而不是純量的完整梯度。反向模式在這些任務上很浪費：它對每個輸出產生雅可比的一列，而這些任務需要的是每個輸入一欄，或只是一個乘積。問題在於如何在不建構完整雅可比的情況下，直接取得方向導數。
 
 ## 關鍵概念
 
@@ -58,13 +58,42 @@ $$(a,\dot{a}) + (b,\dot{b}) = (a+b,\ \dot{a}+\dot{b}), \qquad (a,\dot{a})\,(b,\d
 
 同一個例子也可以手算驗證。由於 $z = xy + 2x$，對 $x$ 的導數為 $\partial z/\partial x = y + 2 = 5$，與上面計算出的切向量 $\dot{z}=5$ 相符。
 
+### 旋轉種子向量：JVP 衡量指定方向的變化率
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的前向模式微分教學動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-directional-jvp-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-directional-jvp-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-directional-jvp-still.svg" alt="橘色單位種子向量繞著固定梯度 (5,2) 旋轉，右側游標同步追蹤 5 cos θ 加 2 sin θ 的方向導數。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。[GitHub 靜態預覽](../../../assets/concept-animations/forward-ad-directional-jvp-still.svg) · [12 秒 SVG 動畫](../../../assets/concept-animations/forward-ad-directional-jvp-motion.svg)。* 在相同的人工設定 \((x,y)=(2,3)\) 下，\(f(x,y)=xy+2x\) 的梯度是 \((5,2)\)。對單位種子向量 \(v(\theta)=(\cos\theta,\sin\theta)\)，可得
+
+\[
+J_fv(\theta)=5\cos\theta+2\sin\theta.
+\]
+
+橘色箭頭逆時針轉動，右側游標對應的是**解析求得的方向導數**，不是函數輸出值。\(\theta=0\) 與 \(\theta=\pi/2\) 的結果分別為 **5** 與 **2**。SVG 的平滑游標軌跡由取樣點近似，公式本身則是精確的。這些都是人工構造的微分數值，**不是模型實測**。MkDocs 提供播放／暫停與鍵盤操作；偏好減少動態效果的使用者預設看到靜態圖。
+
+### 基底種子：逐欄組裝完整的雅可比矩陣
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的前向模式微分教學動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-jacobian-columns-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-jacobian-columns-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-jacobian-columns-still.svg" alt="兩次基底方向的前向掃描依序得到雅可比矩陣第一欄 (5,1) 及第二欄 (2,-1)，組合為二乘二矩陣。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。[GitHub 靜態預覽](../../../assets/concept-animations/forward-ad-jacobian-columns-still.svg) · [12 秒 SVG 動畫](../../../assets/concept-animations/forward-ad-jacobian-columns-motion.svg)。* 將人工範例擴展為**雙輸出**函數 \(F(x,y)=(xy+2x,\ x-y)\)。在 \((2,3)\) 時，
+
+\[
+J_F=\begin{bmatrix}5&2\\1&-1\end{bmatrix},
+\qquad J_Fe_1=(5,1)^\top,\quad J_Fe_2=(2,-1)^\top.
+\]
+
+依序觀察青綠色的第一次掃描與橘色的第二次掃描：每個基底種子只產生**一欄**，兩次結果才組成 \(J_F\)。這是資料與導數的傳遞示意，不是效能測試；任意一個種子方向的一次掃描只取得一個 JVP，**無法直接得到兩欄**。MkDocs 提供播放／暫停與減少動態效果的回退顯示，但沒有逐步執行或時間軸拖曳功能。
+
 ## 方程式
 
 對於基本運算 $v = \phi(u)$，切向規則為
 
 $$\dot{v} = \phi'(u)\,\dot{u}.$$
 
-對於計算 $y = f(x)$ 的程式，切線性模型會把種子 $\dot{x}$ 映射為 $\dot{y} = J_f(x)\,\dot{x}$。依序取每個標準基向量 $e_1, \dots, e_n$ 作為 $\dot{x}$，即可恢復雅可比的各行。因此完整的 $m \times n$ 雅可比需要 $n$ 次前向掃描，每個輸入一次。
+對於計算 $y = f(x)$ 的程式，切線性模型會把種子 $\dot{x}$ 映射為 $\dot{y} = J_f(x)\,\dot{x}$。依序取每個標準基向量 $e_1, \dots, e_n$ 作為 $\dot{x}$，即可恢復雅可比的各欄。因此完整的 $m \times n$ 雅可比需要 $n$ 次前向掃描，每個輸入一次。
 
 ## 結果
 
