@@ -31,14 +31,28 @@ with sync_playwright() as p:
                 assert not errors, errors
                 assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'), (lang,width,'document overflow')
                 assert page.locator('#t5 .td-viewport').evaluate('(x)=>x.scrollWidth>x.clientWidth') if width<=360 else True
-                assert 'B C' in page.locator('#t5 .td-state').inner_text() and 'H I' in page.locator('#t5 .td-state').inner_text()
-                assert abs(float(page.locator('#deit .td-state').inner_text().split('L ')[1].split(' ·')[0]) - ((-math.log(.75)-math.log(.4))/2)) <.002
+                # Stage 0 must not leak the future reconstructed target or training loss.
+                assert 'Target:' not in page.locator('#t5 .td-state').inner_text()
+                assert 'Encoder:' not in page.locator('#t5 .td-state').inner_text()
+                assert 'CE(' not in page.locator('#deit .td-state').inner_text()
+                assert page.locator('#t5 [data-length="Input"][data-count="10"]').count()==1
+                assert page.locator('#t5 [data-length="Encoder"]').count()==0
+                assert page.locator('#t5 [data-length="Target"]').count()==0
+                assert page.locator('#deit [data-diagnostic="loss-contributions"]').count()==0
                 # All SVG text elements must fit inside canvas at default/intermediate/final states.
                 for root in ('t5','deit'):
                     for _ in range(3):
                         page.locator(f'#{root} [data-action="next"]').click()
                         bad=page.locator(f'#{root} svg').evaluate('s=>[...s.querySelectorAll("text")].filter(t=>{let b=t.getBBox();return b.x < -1 || b.y < -1 || b.x+b.width > 760 || b.y+b.height > Number(s.viewBox.baseVal.height)}).map(t=>t.textContent)')
                         assert not bad,(lang,width,root,bad)
+                # The complete stages now reveal mathematically meaningful diagnostics.
+                assert page.locator('#t5 [data-length="Encoder"][data-count="8"]').count()==1
+                assert page.locator('#t5 [data-length="Target"][data-count="7"]').count()==1
+                assert 'B C' in page.locator('#t5 .td-state').inner_text() and 'H I' in page.locator('#t5 .td-state').inner_text()
+                assert page.locator('#deit [data-diagnostic="loss-contributions"]').count()==1
+                assert abs(float(page.locator('#deit .td-state').inner_text().split('L ')[1].split(' ·')[0]) - ((-math.log(.75)-math.log(.4))/2)) <.002
+                # These are visual shares, not new output heads: both must sum to the total loss.
+                assert page.locator('#deit [data-diagnostic="loss-contributions"] rect').count()==3
                 # Changed student head probability affects CE in correct direction.
                 page.locator('#deit .td-params input').first.fill('0.9')
                 assert 'CE(CLS) 0.105' in page.locator('#deit .td-state').inner_text()
@@ -46,8 +60,9 @@ with sync_playwright() as p:
                 page.locator('#t5 .td-params input').nth(0).fill('3')
                 assert 'C D' in page.locator('#t5 .td-state').inner_text()
                 page.locator('#t5 [data-action="reset"]').click()
-                assert 'B C' in page.locator('#t5 .td-state').inner_text()
+                assert 'Target:' not in page.locator('#t5 .td-state').inner_text()
                 page.locator('#t5 .td-seek').fill('3')
+                assert 'B C' in page.locator('#t5 .td-state').inner_text()
                 assert page.locator('#t5 [data-lane="Target"]').count()==1
                 # Keyboard step control, active playback speed and pause all remain operable.
                 seek = page.locator('#t5 .td-seek')
