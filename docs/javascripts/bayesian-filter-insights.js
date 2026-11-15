@@ -74,21 +74,21 @@
         txt(svg,25,215,'S = '+S.toFixed(2)+(stage===0?'':',   NIS = '+nis.toFixed(2)),{'font-size':12});
         txt(svg,666,215,'95% Gaussian reference',{'text-anchor':'end','font-size':11});
         Object.assign(svg.dataset,{nis:nis.toFixed(8),innovationVariance:S.toFixed(8),stage:stage});
-        note.textContent=zh?'人工標準化創新量 z = '+z.toFixed(3)+'；NIS = '+nis.toFixed(3)+'。95% 區域是模型假設下的參考，不是實測檢定。':'Synthetic standardised innovation z = '+z.toFixed(3)+'; NIS = '+nis.toFixed(3)+'. The 95% band is a model-based reference, not a measured diagnostic.';
+        note.textContent=stage===0?(zh?'預測階段：創新量變異數 S = '+S.toFixed(3)+'；尚未納入觀測值。':'Prediction only: innovation variance S = '+S.toFixed(3)+'; the observation has not been incorporated.'):(zh?'人工標準化創新量 z = '+z.toFixed(3)+'；NIS = '+nis.toFixed(3)+'。95% 區域是模型假設下的參考，不是實測檢定。':'Synthetic standardised innovation z = '+z.toFixed(3)+'; NIS = '+nis.toFixed(3)+'. The 95% band is a model-based reference, not a measured diagnostic.');
       }else{
         const raw=xs.map(x=>Math.exp(-.5*((x-a)/b)**2)),sum=raw.reduce((x,y)=>x+y,0),w=raw.map(v=>v/sum);
         let q=0;const cdf=w.map(v=>(q+=v));
         const idx=Array.from({length:10},(_,i)=>{const j=cdf.findIndex(v=>v>=c+i/10-1e-12);return j<0?9:j;});
         const counts=xs.map((_,i)=>idx.filter(v=>v===i).length),expect=w.map(v=>10*v),uniq=counts.filter(v=>v>0).length;
         const ess=1/w.reduce((x,y)=>x+y*y,0),high=Math.max(2,Math.ceil(Math.max(...counts,...expect))),scale=105/high,base=174;
-        txt(svg,30,60,'Expected',{'font-size':11,fill:'#527ab8'});box(svg,98,51,18,9,'#527ab8');
-        txt(svg,205,60,'Realised',{'font-size':11,fill:'#cc783e'});box(svg,267,51,18,9,'#cc783e');
+        if(stage>=1){txt(svg,30,60,'Expected',{'font-size':11,fill:'#527ab8'});box(svg,98,51,18,9,'#527ab8');}
+        if(stage===3){txt(svg,205,60,'Realised',{'font-size':11,fill:'#cc783e'});box(svg,267,51,18,9,'#cc783e');}
         stroke(svg,65,base,643,base,'#8299a8',1.5);
         for(let i=0;i<10;i++){const x=90+i*57;if(stage>=1)box(svg,x-12,base-expect[i]*scale,12,expect[i]*scale,'#527ab8');if(stage===3)box(svg,x+3,base-counts[i]*scale,12,counts[i]*scale,'#cc783e');txt(svg,x,193,i,{'text-anchor':'middle','font-size':11});}
         txt(svg,27,215,stage===0?'Predicted':stage===3?'Unique = '+uniq+'/10; ESS = '+ess.toFixed(2):'Pre-resampling ESS = '+ess.toFixed(2));
         txt(svg,665,215,'Ancestor index',{'text-anchor':'end','font-size':11});
         Object.assign(svg.dataset,{ess:ess.toFixed(8),counts:counts.join(','),unique:uniq,total:counts.reduce((x,y)=>x+y,0),expectedTotal:expect.reduce((x,y)=>x+y,0).toFixed(8),stage:stage});
-        note.textContent=zh?'預期後代份額總和為 10；實際 10 個複本來自 '+uniq+' 種祖先。重採樣前 ESS = '+ess.toFixed(2)+'，與起始偏移無關。':'Expected descendant mass totals 10; the ten realised copies have '+uniq+' unique ancestors. Pre-resampling ESS = '+ess.toFixed(2)+' and is independent of the offset.';
+        note.textContent=stage===0?(zh?'預測階段：尚未進行概似加權或重採樣。':'Predicted particles only: likelihood weighting and resampling have not occurred.'):stage<3?(zh?'已計算預期後代份額，總和為 10；重採樣前 ESS = '+ess.toFixed(2)+'。尚未選擇實際後代。':'Expected offspring mass totals 10; pre-resampling ESS = '+ess.toFixed(2)+'. Actual ancestors have not been selected.'):(zh?'實際 10 個複本來自 '+uniq+' 種祖先；重採樣前 ESS = '+ess.toFixed(2)+'，與起始偏移無關。':'Ten realised copies come from '+uniq+' unique ancestors; pre-resampling ESS = '+ess.toFixed(2)+' and is independent of the offset.');
       }
     };
     new MutationObserver(update).observe(output,{childList:true});
