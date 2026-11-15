@@ -80,10 +80,10 @@ Some libraries expose a gain $g$: multiply $a$ or $\sigma_w$ by $g$, which multi
 
 *Original teaching animation, CC BY-SA 4.0.* Balancing linearised signal variance does **not** ensure the nonlinearity remains close to slope one. For a constructed preactivation $Z\sim\mathcal N(0,q)$, the **local squared derivative** of tanh has expectation
 
-$
+$$
 G(q)=\mathbb E\!\left[(\tanh'(Z))^2\right]
 =\mathbb E\!\left[\operatorname{sech}^4(Z)\right].
-$
+$$
 
 The purple curve is deterministic **Gaussian numerical quadrature**, not a fitted or measured training curve. It gives $G(0)=1$, $G(1)\approx0.4644$, and $G(9)\approx0.1742$. Increasing the input spread puts more preactivations in tanh's saturated tails, attenuating the local derivative. This factor alone does **not** give the full input-output Jacobian or imply a measured gradient norm: weight scaling, layer correlations and depth also matter.[^glorot][^propagation]
 

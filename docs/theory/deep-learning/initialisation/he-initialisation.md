@@ -77,11 +77,11 @@ On the Wiki website, use Play/Pause (Enter or Space on the focused control); red
 
 *Original teaching animation, CC BY-SA 4.0.* The familiar ReLU factor **1/2** relies on a distribution symmetric about zero. In this separate **constructed Gaussian example**, let $Z\sim\mathcal N(b,1)$, with standard-normal density $\phi$ and cumulative distribution $\Phi$. Then
 
-$
+$$
 P(Z>0)=\Phi(b),\qquad
 \frac{\mathbb E[\operatorname{ReLU}(Z)^2]}{\mathbb E[Z^2]}
 =\frac{(1+b^2)\Phi(b)+b\phi(b)}{1+b^2}.
-$
+$$
 
 At $b=0$ both quantities equal $0.5$; at $b=-1$ they are approximately **0.1587 and 0.0377**, and at $b=1$ approximately **0.8413 and 0.9623**. **The active fraction is not the fraction of the squared signal retained.** Consequently the symmetric-preactivation moment argument motivating $v=2/n_{\mathrm{in}}$ cannot be applied unchanged to a shifted preactivation. These are analytically specified Gaussian expectations, **not empirical activation statistics or a proposed bias-initialisation rule**.[^he][^propagation]
 
