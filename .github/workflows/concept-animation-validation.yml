@@ -31,6 +31,9 @@ on:
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
+      - "docs/javascripts/regression-metric-labs.js"
+      - "docs/stylesheets/regression-metric-labs.css"
+      - "scripts/test_regression_metric_labs_browser.py"
       - "scripts/test_bandit_motion_browser.py"
       - "scripts/test_bandit_labs_browser.py"
       - "docs/javascripts/bandit-labs.js"
@@ -95,6 +98,8 @@ jobs:
         run: python scripts/test_ssl_ema_trajectory_browser.py
       - name: Chromium FIFO lifetime and EMA historical attribution
         run: python scripts/test_ssl_temporal_provenance_browser.py
+      - name: Test regression metric lab arithmetic, controls and bilingual responsive layout
+        run: python scripts/test_regression_metric_labs_browser.py
       - name: Validate bilingual bandit motion and numerical semantics
         run: python scripts/verify_bandit_motion.py
       - name: Chromium bandit controls, reduced-motion and native-size mobile scroll
@@ -113,8 +118,9 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
-            artifacts/bandit-labs/*.png
             artifacts/linear-algebra-motion/
+            artifacts/bandit-labs/*.png
+            artifacts/regression-metric-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 
