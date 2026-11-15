@@ -13,6 +13,9 @@
       update: 'Posterior update', redraw: 'Second posterior draw',
       selected: 'Selected arm', note: 'Illustrative values, not empirical measurements or reproducible random draws.',
       graphA: 'UCB1 mean plus exploration bonus for three arms',
+      decompositionGraph: 'Exact UCB B minus A gap split into empirical mean difference, exploration bonus difference and final margin.',
+      credibleGraph: 'C Beta posterior 90 percent equal-tailed credible interval with 5th and 95th percentiles and posterior mean.',
+      processGraph: 'Stepwise UCB margin and its exact decomposition, or Beta evidence and credible-interval movement.',
       marginGraph: 'Discrete UCB B minus A score margin at three successive pull counts; the larger marker is the selected stage.',
       pseudocountGraph: 'C Beta posterior shape parameters alpha and beta, highlighting the newly added hypothetical observation.',
       graphB: 'Three Beta posterior density curves and constructed samples',
@@ -36,6 +39,9 @@
       update: '更新後驗', redraw: '第二次後驗抽樣',
       selected: '選擇的臂', note: '所有數值皆為人工教學示意，非實測結果或可重現的隨機抽樣。',
       graphA: '三個臂的 UCB1 經驗平均值與探索加分',
+      decompositionGraph: 'UCB B 減 A 的精確分數差，拆成平均獎勵差、探索加分差與淨分數差。',
+      credibleGraph: 'C 的 Beta 後驗 90% 等尾可信區間，標出第 5、95 百分位數與後驗平均值。',
+      processGraph: 'UCB 決策分數差與分解，或 Beta 證據更新與可信區間變化。',
       marginGraph: '連續三個抽取總數下 UCB B 減 A 的離散分數差，較大標記代表目前步驟。',
       pseudocountGraph: 'C 的 Beta 後驗形狀參數 alpha 與 beta，深色外框標示新增的假設觀察。',
       graphB: '三個 Beta 後驗密度及人工指定的樣本值',
@@ -105,7 +111,7 @@
         ${kind==='ucb'?'<div class="bandit-lab-boundary" data-role="boundary"></div>':''}
         <div class="bandit-lab-legend" data-role="legend"></div>
         ${kind==='thompson'?'<div class="bandit-lab-probabilities" data-role="probabilities" aria-label="${esc(tr.chance)}"></div>':''}
-        <div class="bandit-lab-process" data-role="process"></div>
+        <div class="bandit-lab-process" data-role="process" tabindex="0" role="region" aria-label="${esc(tr.processGraph)}"></div>
         <div class="bandit-lab-metrics" data-role="metrics"></div>
         <p class="bandit-lab-note">${tr.note}</p>
         <p class="bandit-lab-live" role="status" aria-live="polite" aria-atomic="true" data-role="status"></p>`;
@@ -190,6 +196,39 @@
   const blocks = (count, color, cy, extra) => Array.from({length:count},(_,i) => `<rect x="${62+i*31}" y="${cy}" width="24" height="22" rx="4" fill="${color}" ${extra && i === count-1 ? `stroke="#173951" stroke-width="3" data-new-pseudo="${cy===51?'alpha':'beta'}"` : 'stroke="#fff" stroke-width="1"'}/>`).join('');
   target.innerHTML = `<svg viewBox="0 0 338 137" role="img" aria-label="${esc(tr.pseudocountGraph)}" data-alpha="${ca}" data-beta="${cb}"><rect width="338" height="137" rx="9" fill="#f8fafc"/><text x="13" y="22" font-size="13" font-weight="600" fill="#273e52">C · Beta</text><text x="23" y="68" font-size="18" fill="#273e52">α</text><text x="23" y="110" font-size="18" fill="#273e52">β</text>${blocks(ca,'#237eab',51,extraAlpha)}${blocks(cb,'#e6a452',93,extraBeta)}<text x="251" y="68" font-size="14" font-weight="600" fill="#273e52">${ca}</text><text x="251" y="110" font-size="14" font-weight="600" fill="#273e52">${cb}</text></svg>`;
 }
+function renderUcbDecomposition(state, target, tr) {
+  // Exactly decompose the UCB(B)-UCB(A) decision score into empirical and bonus gaps.
+  // No observations are added to A or C in this hypothetical two-pull sequence.
+  const t = 16 + state.step, n = 2 + state.step;
+  const meanGap = (0.9 + (state.step >= 1 ? state.reward1 : 0) + (state.step >= 2 ? state.reward2 : 0)) / n - 0.65;
+  const bonusGap = Math.sqrt(2 * Math.log(t) / n) - Math.sqrt(2 * Math.log(t) / 6);
+  const netGap = meanGap + bonusGap;
+  const px = v => 165.5 + v * 159.4;
+  const rows = [
+    ['Mean gap', meanGap, '#237eab', 49],
+    ['Bonus gap', bonusGap, '#e6a452', 92],
+    ['Net gap', netGap, '#173951', 135],
+  ];
+  const bars = rows.map(([name,value,color,y]) => {
+    const edge = px(value), positive = value >= 0;
+    return `<text x="12" y="${y-14}" font-size="11" fill="#273e52">${name}</text><rect x="${Math.min(165.5,edge).toFixed(2)}" y="${y-6}" width="${Math.max(1,Math.abs(edge-165.5)).toFixed(2)}" height="17" rx="2" fill="${color}"/><text x="${(edge+(positive?7:-7)).toFixed(2)}" y="${y+6}" text-anchor="${positive?'start':'end'}" font-size="12" font-weight="600" fill="#263d51">${positive?'+':''}${value.toFixed(3)}</text>`;
+  }).join('');
+  target.insertAdjacentHTML('beforeend', `<svg viewBox="0 0 338 174" role="img" aria-label="${esc(tr.decompositionGraph)}" data-mean-gap="${meanGap.toFixed(6)}" data-bonus-gap="${bonusGap.toFixed(6)}" data-net-gap="${netGap.toFixed(6)}"><rect width="338" height="174" rx="10" fill="#f8fafc"/><text x="12" y="18" font-size="13" font-weight="600" fill="#273e52">UCB score · B − A</text><line x1="165.5" y1="29" x2="165.5" y2="154" stroke="#637b8f" stroke-width="1.4" stroke-dasharray="4 4"/>${bars}<text x="165.5" y="168" text-anchor="middle" font-size="11" fill="#506578">0</text></svg>`);
+}
+      function renderThompsonCredible(target,tr,a,b) {
+  // Exact integer-Beta CDF inversion by bisection: equal-tailed posterior interval.
+  const quantile = p => {
+    let lo = 0, hi = 1;
+    for(let k=0;k<45;k++) {
+      const mid=(lo+hi)/2;
+      if(betaCDF(mid,a,b)<p) lo=mid; else hi=mid;
+    }
+    return (lo+hi)/2;
+  };
+  const lower=quantile(0.05), upper=quantile(0.95), mean=a/(a+b);
+  const px = v => 32 + 273*v;
+  target.insertAdjacentHTML('beforeend', `<svg viewBox="0 0 338 160" role="img" aria-label="${esc(tr.credibleGraph)}" data-cred-low="${lower.toFixed(6)}" data-cred-high="${upper.toFixed(6)}" data-cred-mean="${mean.toFixed(6)}"><rect width="338" height="160" rx="10" fill="#f8fafc"/><text x="12" y="21" font-size="13" font-weight="600" fill="#273e52">C · 90% CrI</text><line x1="32" y1="68" x2="305" y2="68" stroke="#a0b0bf" stroke-width="3"/><rect x="${px(lower).toFixed(2)}" y="56" width="${(px(upper)-px(lower)).toFixed(2)}" height="24" rx="4" fill="#b9decb"/><line x1="${px(lower).toFixed(2)}" y1="50" x2="${px(lower).toFixed(2)}" y2="86" stroke="#468969" stroke-width="2"/><line x1="${px(upper).toFixed(2)}" y1="50" x2="${px(upper).toFixed(2)}" y2="86" stroke="#468969" stroke-width="2"/><circle cx="${px(mean).toFixed(2)}" cy="68" r="6" fill="#173951" stroke="white" stroke-width="2"/><text x="${px(mean).toFixed(2)}" y="49" text-anchor="middle" font-size="12" fill="#173951">μ</text><text x="32" y="105" text-anchor="middle" font-size="11" fill="#506578">0</text><text x="168.5" y="105" text-anchor="middle" font-size="11" fill="#506578">0.5</text><text x="305" y="105" text-anchor="middle" font-size="11" fill="#506578">1</text><text x="90" y="139" text-anchor="middle" font-size="12" fill="#263d51">q05 ${lower.toFixed(3)}</text><text x="249" y="139" text-anchor="middle" font-size="12" fill="#263d51">q95 ${upper.toFixed(3)}</text></svg>`);
+}
       function ucb() {
         const counts=[6,2+state.step,8], sums=[3.9,0.9+(state.step>=1?state.reward1:0)+(state.step>=2?state.reward2:0),4.8], t=counts.reduce((a,b)=>a+b,0);
         const means=counts.map((n,i)=>sums[i]/n);
@@ -212,6 +251,7 @@
         get('legend').innerHTML=`<span><i class="bandit-lab-swatch" style="background:#237eab"></i>${tr.mean} (A/B/C)</span><span><i class="bandit-lab-swatch" style="background:#e6a452"></i>${tr.bonus}</span>`;
         get('metrics').innerHTML=`<span>${tr.time}: <strong>${t}</strong></span><span>${tr.winner}: <strong>${winner}</strong></span><span>${tr.observed}: <strong>${state.step}</strong></span><span>${tr.greedy}: <strong>${greedy}</strong></span><span>${tr.margin}: <strong>${round(margin)}</strong></span><span>${tr.score}: <strong>${scores.map(round).join(' / ')}</strong></span>`;
         renderUcbMarginTrace(state, get('process'), tr);
+        renderUcbDecomposition(state, get('process'), tr);
         get('status').textContent=tr.ucbStatus({step:state.step,t,winner,greedy,margin});
         renderUcbDecisionMap();
       }
@@ -250,6 +290,7 @@
         get('probabilities').innerHTML=`<strong class="bandit-lab-prob-title">P(best)</strong>`+arms.map((arm,i)=>`<div class="bandit-lab-prob-row" data-prob="${chances[i].toFixed(6)}"><span>${arm}</span><div class="bandit-lab-prob-track" role="meter" aria-label="${arm} ${esc(tr.chance)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${(chances[i]*100).toFixed(1)}"><div class="bandit-lab-prob-fill" style="width:${(chances[i]*100).toFixed(2)}%;background:${colors[i]}"></div></div><output>${(chances[i]*100).toFixed(1)}%</output></div>`).join('');
         get('metrics').innerHTML=`<span>${esc(stages[state.step])}</span><span>${tr.selected}: <strong>${winner}</strong></span><span>${tr.sample}: <strong>${showDraw?draws.map(round).join(' / '):'—'}</strong></span><span>${tr.posterior}: <strong>${posterior.map(p=>`(${p.join(',')})`).join(' / ')}</strong></span><span>${tr.postMean}: <strong>${means.map(round).join(' / ')}</strong></span><span>${tr.predictive}: <strong>${nextSuccess.toFixed(4)}</strong></span><span>${tr.uncertainty}: <strong>${cVariance.toFixed(4)}</strong></span>`;
         renderThompsonEvidence(state, get('process'), tr, ca, cb);
+        renderThompsonCredible(get('process'), tr, ca, cb);
         get('status').textContent=tr.tsStatus({stage:stages[state.step],winner,cpost:`Beta(${posterior[2].join(', ')})`});
       }
       function render() {
