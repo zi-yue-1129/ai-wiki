@@ -47,6 +47,8 @@
     function text(x,y,label,fill='#dce8f5',size=15,anchor='middle'){graph.append(svg('text',{x,y,fill,'font-size':size,'text-anchor':anchor,'font-family':'Arial, sans-serif'},label));}
     function rect(x,y,w,h,fill,round=5){graph.append(svg('rect',{x,y,width:w,height:Math.max(h,1),rx:round,fill}));}
     function draw(){
+      // Keep the native slider (including its accessible value) in sync with playback.
+      seek.value=String(Math.round(value/inc)*inc);
       graph.replaceChildren();rect(0,0,680,390,'#132238',14);
       current.textContent=Number(value).toFixed(type==='outlier'?1:2);
       if(type==='outlier'){

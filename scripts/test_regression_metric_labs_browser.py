@@ -31,6 +31,7 @@ main{{max-width:1000px;margin:auto}}</style></head><body><main>
 <div data-regression-lab='outlier' data-lang='{language}'></div>
 <div data-regression-lab='r2' data-lang='{language}'></div>
 </main><script>{JS}</script></body></html>"""
+                    page.clock.install()
                     page.set_content(html)
                     assert page.locator(".rml-panel").count() == 2
                     assert page.locator("svg[viewBox='0 0 680 390']").count() == 2
@@ -59,6 +60,38 @@ main{{max-width:1000px;margin:auto}}</style></head><body><main>
                         outlier.locator('.rml-button[aria-label="'+("重設" if language=="zh" else "Reset")+'"]').click()
                         outlier.locator('.rml-button[aria-label="'+("下一步" if language=="zh" else "Next")+'"]').click()
                         assert "d=1.100" in outlier.locator(".rml-detail").inner_text()
+                    if motion == "no-preference":
+                        # Use the real Chromium controls and deterministic animation time.
+                        for lab, minimum, step in ((outlier, 1.0, 0.1), (squared, 0.0, 0.05)):
+                            reset_label = "重設" if language == "zh" else "Reset"
+                            play_label = "播放" if language == "zh" else "Play"
+                            pause_label = "暫停" if language == "zh" else "Pause"
+                            lab.get_by_role("button", name=reset_label, exact=True).click()
+                            slider = lab.locator('input[type="range"]')
+                            play = lab.get_by_role("button", name=play_label, exact=True)
+                            play.focus()
+                            page.keyboard.press("Enter")
+                            page.clock.run_for(1200)
+                            lab.get_by_role("button", name=pause_label, exact=True).focus()
+                            page.keyboard.press("Space")
+                            paused = float(slider.input_value())
+                            shown = float(lab.locator(".rml-number").inner_text())
+                            assert paused > minimum, ("slider did not follow playback", language, width)
+                            assert abs(paused - shown) <= step / 2 + 0.001
+                            frozen = lab.locator(".rml-detail").inner_text()
+                            page.clock.run_for(500)
+                            assert lab.locator(".rml-detail").inner_text() == frozen
+                            assert float(slider.input_value()) == paused
+                            slider.focus()
+                            page.keyboard.press("ArrowRight")
+                            assert isclose(float(slider.input_value()), paused + step, abs_tol=0.001)
+                            assert isclose(float(lab.locator(".rml-number").inner_text()), paused + step, abs_tol=0.001)
+                            lab.get_by_role("button", name=play_label, exact=True).focus()
+                            page.keyboard.press("Space")
+                            page.clock.run_for(500)
+                            assert float(slider.input_value()) > paused + step
+                            lab.get_by_role("button", name=pause_label, exact=True).focus()
+                            page.keyboard.press("Enter")
                     assert len(page.locator("svg text").all_inner_texts()) >= 10
                     assert not errors, errors
                     if width in (320, 1024) and motion == "no-preference":
