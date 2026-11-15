@@ -155,7 +155,7 @@
     const previous=btn('previous',T.previous),play=btn('play',T.play),next=btn('next',T.next),reset=btn('reset',T.reset),rate=btn('speed',T.speed+': 1×');
     play.setAttribute('aria-pressed','false');
     const stage=html('div',{class:'attention-lab-stage',tabindex:0,'aria-label':kind==='gqa'?T.gqa:T.global});
-    const scene=svg('svg',{viewBox:'0 0 650 320',role:'img','aria-label':kind==='gqa'?'Query heads mapped to grouped KV heads':'Layer-wise reach with bidirectional global token'});
+    const scene=svg('svg',{viewBox:'0 0 650 320',role:'img','aria-label':kind==='gqa'?T.gqa:T.global});
     stage.append(scene);
     const stats=html('p',{class:'attention-lab-stats'}),live=html('p',{class:'attention-lab-live',role:'status','aria-live':'polite'});
     root.replaceChildren(html('h4',{},kind==='gqa'?T.gqa:T.global),controls,actions,stage,stats,live,html('p',{class:'attention-lab-note'},T.explanation));
@@ -189,7 +189,7 @@
     function reach(depth){let state=new Set([10]);for(let l=0;l<depth;l++){const next=new Set();for(const i of state)for(const j of adj(i))next.add(j);state=next;}return state;}
     function drawGlobal(){
       const before=reach(Math.max(0,step-1)),now=reach(step);
-      scene.replaceChildren(svg('title',{},'Global token brings all positions within two bidirectional encoder layers'));
+      scene.replaceChildren(svg('title',{},hasGlobal?'Global-token reach across bidirectional encoder layers':'Local-only reach across bidirectional encoder layers'));
       text(scene,27,26,'Previous',14);text(scene,27,159,'Reach',14);
       const x=i=>43+(i-1)*49;
       for(let i=1;i<=12;i++){
@@ -201,7 +201,7 @@
         text(scene,x(i)+19.5,208,String(i),14,hit&&!(i===3&&hasGlobal)?'#fff':'#1e293b','middle');
       }
       rect(scene,43+(10-1)*49,241,39,6,'#2563eb','#2563eb');
-      text(scene,45,270,'q = 10',14);text(scene,176,270,'radius = 1',14);text(scene,355,270,'global = 3',14);
+      text(scene,45,270,'q = 10',14);text(scene,176,270,'radius = 1',14);text(scene,355,270,hasGlobal?'global = 3':'global = OFF',14);
       text(scene,45,299,now.size+' / 12 sources',18,'#0f766e');
       stats.textContent='L='+step+' · '+T.reachable+': '+now.size+'/12 · global '+(hasGlobal?'ON':'OFF');
     }
