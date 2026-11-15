@@ -33,7 +33,7 @@ async def run():
                 await page.set_content(fixture(lang),wait_until='load')
                 labs=page.locator('.bf-panel');assert await labs.count()==2
                 assert await page.locator('.bayesian-filter-fallback').count()==0
-                assert await page.locator('.bf-graphic svg').count()==4
+                assert await page.locator('.bf-graphic svg').count()==6
                 assert await page.locator('svg[data-bf-diagnostic]').count()==2
                 assert await page.locator('svg[data-bf-advanced]').count()==2
                 assert await page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),f'{lang}/{width} page overflow'
