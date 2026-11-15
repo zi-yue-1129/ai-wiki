@@ -13,7 +13,7 @@ def html(lang):
     return ('<!doctype html><html lang="'+lang+'"><head><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<style>*{box-sizing:border-box}body{margin:0;padding:16px;font-family:Arial,sans-serif;max-width:100vw}'+CSS+'</style></head><body>'
             '<div class="attention-lab" data-lab="window" data-lang="'+lang+'">Static window preview is available above.</div>'
-            '<div class="attention-lab" data-lab="linear" data-lang="'+lang+'">Static recurrence preview is available above.</div></body></html>')
+            '<div class="attention-lab" data-lab="linear" data-lang="'+lang+'">Static recurrence preview is available above.</div><div class="attention-lab" data-lab="gqa" data-lang="'+lang+'">Static grouping preview is available above.</div><div class="attention-lab" data-lab="global" data-lang="'+lang+'">Static global-token preview is available above.</div></body></html>')
 
 with sync_playwright() as p:
     browser=p.chromium.launch(headless=True,args=['--no-sandbox'])
@@ -24,8 +24,8 @@ with sync_playwright() as p:
                 page=browser.new_page(viewport={'width':width,'height':850},reduced_motion=reduced)
                 page.set_content(html(lang))
                 page.add_script_tag(content=JS)
-                assert page.locator('.attention-lab[data-ready="yes"]').count()==2
-                assert page.locator('.attention-lab-stage svg').count()==2
+                assert page.locator('.attention-lab[data-ready="yes"]').count()==4
+                assert page.locator('.attention-lab-stage svg').count()==4
                 assert page.locator('body').evaluate('(e)=>e.scrollWidth<=innerWidth'),(lang,width)
                 assert page.locator('.attention-lab-stage').first.evaluate('(e)=>e.scrollWidth>e.clientWidth')==(width<680)
                 a=page.locator('.attention-lab[data-lab="window"]')
@@ -53,6 +53,29 @@ with sync_playwright() as p:
                 assert b.locator('[data-act="play"]').get_attribute('aria-pressed')=='true'
                 b.locator('[data-act="play"]').click()
                 assert b.locator('[data-act="play"]').get_attribute('aria-pressed')=='false'
+                c=page.locator('.attention-lab[data-lab="gqa"]')
+                d=page.locator('.attention-lab[data-lab="global"]')
+                assert '2/8 (25%)' in c.locator('.attention-lab-stats').inner_text()
+                c.locator('[data-act="next"]').click()
+                assert '4/8 (50%)' in c.locator('.attention-lab-stats').inner_text()
+                c.locator('[data-range="step"]').fill('0')
+                assert '1/8 (12.5%)' in c.locator('.attention-lab-stats').inner_text()
+                c.locator('[data-act="reset"]').click()
+                assert '2/8 (25%)' in c.locator('.attention-lab-stats').inner_text()
+                d.locator('[data-act="next"]').click()
+                assert '4/12' in d.locator('.attention-lab-stats').inner_text()
+                d.locator('[data-act="next"]').click()
+                assert '12/12' in d.locator('.attention-lab-stats').inner_text()
+                d.locator('[data-toggle="global"]').uncheck()
+                assert '5/12' in d.locator('.attention-lab-stats').inner_text()
+                d.locator('[data-act="reset"]').click()
+                assert '1/12' in d.locator('.attention-lab-stats').inner_text()
+                c.locator('[data-act="speed"]').click()
+                assert '2×' in c.locator('[data-act="speed"]').inner_text()
+                c.locator('[data-act="play"]').click()
+                assert c.locator('[data-act="play"]').get_attribute('aria-pressed')=='true'
+                c.locator('[data-act="play"]').click()
+                assert c.locator('[data-act="play"]').get_attribute('aria-pressed')=='false'
                 if width in (360,1024) and reduced=='reduce':
                     page.screenshot(path=str(OUT/(lang+'-'+str(width)+'.png')),full_page=True)
                 checks+=1

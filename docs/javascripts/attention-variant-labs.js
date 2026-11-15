@@ -116,3 +116,107 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);else enhance();
   if(window.document$?.subscribe)window.document$.subscribe(enhance);
 })();
+
+
+/* Original CC BY-SA 4.0. Calculated GQA and bidirectional global-token reach labs. */
+(() => {
+  'use strict';
+  const NS = 'http://www.w3.org/2000/svg';
+  const words = {
+    en: {gqa:'GQA: shared key/value heads', global:'Global token: two-layer reach',kv:'KV heads',depth:'Layers',site:'Global links',previous:'Previous',next:'Next',play:'Play',pause:'Pause',reset:'Reset',speed:'Speed',slots:'KV-head slots',reachable:'Reachable sources',explanation:'Synthetic topology — no measured quality or latency'},
+    zh: {gqa:'GQA：共享鍵值頭',global:'全域 Token：跨層可達性',kv:'KV 頭數',depth:'層數',site:'全域連線',previous:'上一步',next:'下一步',play:'播放',pause:'暫停',reset:'重設',speed:'速度',slots:'鍵值頭配置數',reachable:'可追溯來源',explanation:'人工拓樸示意，並非品質或延遲實測'}
+  };
+  const palette=['#0d9488','#2563eb','#9333ea','#ea580c','#be185d','#0369a1','#4d7c0f','#7c3aed'];
+  function html(tag,attrs={},text){const el=document.createElement(tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;}
+  function svg(tag,attrs={},text){const el=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;}
+  function rect(s,x,y,w,h,fill,stroke='#cbd5e1'){s.append(svg('rect',{x,y,width:w,height:h,rx:6,fill,stroke,'stroke-width':1.4}));}
+  function line(s,x1,y1,x2,y2,color,width=2){s.append(svg('path',{d:'M'+x1+','+y1+' L'+x2+','+y2,stroke:color,'stroke-width':width,'stroke-linecap':'round',fill:'none',opacity:'.78'}));}
+  function text(s,x,y,label,size=13,fill='#334155',anchor='start'){s.append(svg('text',{x,y,fill,'font-family':'Arial, sans-serif','font-size':size,'text-anchor':anchor},label));}
+  function mount(root){
+    if(root.dataset.ready==='yes')return;
+    const kind=root.dataset.lab;if(kind!=='gqa'&&kind!=='global')return;
+    const T=words[root.dataset.lang==='zh'?'zh':'en'];
+    let step=kind==='gqa'?1:0, max=kind==='gqa'?3:3, speed=1, timer=null, hasGlobal=true;
+    const counts=[1,2,4,8];
+    const controls=html('div',{class:'attention-lab-controls'});
+    const sliderWrap=html('label',{class:'attention-lab-range'});
+    const output=html('output',{'data-out':'step'});
+    sliderWrap.append(html('span',{},(kind==='gqa'?T.kv:T.depth)+': '),output);
+    const seek=html('input',{type:'range',min:0,max,step:1,value:step,'data-range':'step','aria-label':kind==='gqa'?T.kv:T.depth});
+    sliderWrap.append(seek);controls.append(sliderWrap);
+    const toggleLabel=html('label',{class:'attention-lab-global-switch'});
+    if(kind==='global'){
+      const toggle=html('input',{type:'checkbox','data-toggle':'global','aria-label':T.site});toggle.checked=true;
+      toggleLabel.append(toggle,html('span',{},T.site));controls.append(toggleLabel);
+      toggle.addEventListener('change',()=>{stop();hasGlobal=toggle.checked;draw();});
+    }
+    const actions=html('div',{class:'attention-lab-actions'});
+    function btn(act,label){const b=html('button',{type:'button','data-act':act},label);actions.append(b);return b;}
+    const previous=btn('previous',T.previous),play=btn('play',T.play),next=btn('next',T.next),reset=btn('reset',T.reset),rate=btn('speed',T.speed+': 1×');
+    play.setAttribute('aria-pressed','false');
+    const stage=html('div',{class:'attention-lab-stage',tabindex:0,'aria-label':kind==='gqa'?T.gqa:T.global});
+    const scene=svg('svg',{viewBox:'0 0 650 320',role:'img','aria-label':kind==='gqa'?'Query heads mapped to grouped KV heads':'Layer-wise reach with bidirectional global token'});
+    stage.append(scene);
+    const stats=html('p',{class:'attention-lab-stats'}),live=html('p',{class:'attention-lab-live',role:'status','aria-live':'polite'});
+    root.replaceChildren(html('h4',{},kind==='gqa'?T.gqa:T.global),controls,actions,stage,stats,live,html('p',{class:'attention-lab-note'},T.explanation));
+    function stop(){if(timer!==null){clearInterval(timer);timer=null;}play.textContent=T.play;play.setAttribute('aria-pressed','false');}
+    function set(n){step=Math.max(0,Math.min(max,n));seek.value=step;draw();}
+    function drawGQA(){
+      const m=counts[step],group=8/m;
+      scene.replaceChildren(svg('title',{},'Eight query heads share a configurable number of key/value heads'));
+      text(scene,58,24,'Q heads',17);text(scene,465,24,'KV heads',17);
+      for(let j=0;j<m;j++){
+        const cy=56+(j+.5)*224/m;
+        rect(scene,469,cy-13,100,26,palette[j]+'25',palette[j]);text(scene,519,cy+5,'KV '+(j+1),13,'#1e293b','middle');
+      }
+      for(let i=0;i<8;i++){
+        const y=52+i*31,j=Math.floor(i/group),cy=56+(j+.5)*224/m;
+        line(scene,124,y+12,469,cy,palette[j],2.3);
+      }
+      for(let i=0;i<8;i++){
+        const y=52+i*31,j=Math.floor(i/group);
+        rect(scene,46,y,80,24,palette[j]+'25',palette[j]);text(scene,86,y+17,'Q '+(i+1),12,'#1e293b','middle');
+      }
+      text(scene,58,302,'KV slots / full MHA',13,'#64748b');
+      for(let i=0;i<8;i++)rect(scene,304+i*34,283,26,16,i<m?'#0d9488':'#e2e8f0',i<m?'#0d9488':'#cbd5e1');
+      stats.textContent='8 Q → '+m+' KV · '+T.slots+': '+m+'/8 ('+(m*12.5)+'%)';
+    }
+    function adj(i){
+      const out=new Set([i]);for(let j=Math.max(1,i-1);j<=Math.min(12,i+1);j++)out.add(j);
+      if(hasGlobal){out.add(3);if(i===3)for(let j=1;j<=12;j++)out.add(j);}
+      return out;
+    }
+    function reach(depth){let state=new Set([10]);for(let l=0;l<depth;l++){const next=new Set();for(const i of state)for(const j of adj(i))next.add(j);state=next;}return state;}
+    function drawGlobal(){
+      const before=reach(Math.max(0,step-1)),now=reach(step);
+      scene.replaceChildren(svg('title',{},'Global token brings all positions within two bidirectional encoder layers'));
+      text(scene,27,26,'Previous',14);text(scene,27,159,'Reach',14);
+      const x=i=>43+(i-1)*49;
+      for(let i=1;i<=12;i++){
+        const was=before.has(i),hit=now.has(i),fresh=hit&&!was;
+        rect(scene,x(i),49,39,49,i===3&&hasGlobal?'#fef3c7':was?'#ccfbf1':'#f1f5f9',i===3&&hasGlobal?'#d97706':'#cbd5e1');
+        text(scene,x(i)+19.5,79,String(i),14,'#1e293b','middle');
+        if(fresh)line(scene,x(i)+19.5,101,x(i)+19.5,177,'#0d9488',1.8);
+        rect(scene,x(i),179,39,49,i===3&&hasGlobal?'#fef3c7':hit?'#0d9488':'#e2e8f0',i===3&&hasGlobal?'#d97706':hit?'#0d9488':'#cbd5e1');
+        text(scene,x(i)+19.5,208,String(i),14,hit&&!(i===3&&hasGlobal)?'#fff':'#1e293b','middle');
+      }
+      rect(scene,43+(10-1)*49,241,39,6,'#2563eb','#2563eb');
+      text(scene,45,270,'q = 10',14);text(scene,176,270,'radius = 1',14);text(scene,355,270,'global = 3',14);
+      text(scene,45,299,now.size+' / 12 sources',18,'#0f766e');
+      stats.textContent='L='+step+' · '+T.reachable+': '+now.size+'/12 · global '+(hasGlobal?'ON':'OFF');
+    }
+    function draw(){output.textContent=kind==='gqa'?counts[step]:step;previous.disabled=step===0;next.disabled=step===max;if(kind==='gqa')drawGQA();else drawGlobal();live.textContent=stats.textContent;}
+    seek.addEventListener('input',()=>{stop();set(Number(seek.value));});
+    previous.addEventListener('click',()=>{stop();set(step-1);});
+    next.addEventListener('click',()=>{stop();set(step+1);});
+    reset.addEventListener('click',()=>{stop();speed=1;rate.textContent=T.speed+': 1×';if(kind==='global'){hasGlobal=true;root.querySelector('[data-toggle="global"]').checked=true;}set(kind==='gqa'?1:0);});
+    function start(){if(step===max)set(0);stop();play.textContent=T.pause;play.setAttribute('aria-pressed','true');timer=setInterval(()=>{if(document.hidden||step===max){stop();return;}set(step+1);},1000/speed);}
+    play.addEventListener('click',()=>timer===null?start():stop());
+    rate.addEventListener('click',()=>{const running=timer!==null;speed=speed===1?2:speed===2?0.5:1;rate.textContent=T.speed+': '+speed+'×';if(running)start();});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+    draw();root.dataset.ready='yes';
+  }
+  function enhance(){document.querySelectorAll('.attention-lab[data-lab="gqa"],.attention-lab[data-lab="global"]').forEach(mount);}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);else enhance();
+  if(window.document$?.subscribe)window.document$.subscribe(enhance);
+})();

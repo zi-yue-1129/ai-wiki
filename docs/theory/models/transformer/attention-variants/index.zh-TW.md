@@ -10,7 +10,7 @@ tags:
   - attention
   - efficient inference
   - long context
-translation_reviewed: 2026-11-14
+translation_reviewed: 2026-11-15
 ---
 
 # 注意力變體
@@ -31,6 +31,19 @@ translation_reviewed: 2026-11-14
 ### 共享的鍵與值頭
 
 在多頭注意力中，每個頭都有自己的鍵與值。多查詢注意力（MQA）讓所有查詢頭共用一組鍵與值，因此鍵值快取會縮小為頭數的倒數。分組查詢注意力（GQA）則是在查詢頭的群組內共享鍵與值，介於完整多頭與多查詢之間。GQA 可以透過一段短暫的額外訓練，把既有的多頭檢查點轉換而成，這也是許多開源模型採用它的原因。
+
+
+![八個查詢頭分組共享兩個鍵值頭，原有八個鍵值頭配置數僅需兩組。](../../../../assets/concept-animations/gqa-sharing-still.svg)
+
+*原創 CC BY-SA 4.0 靜態回退預覽。* 八個 Query Head 可以映射至 1、2、4 或 8 個共享 KV Head。在每頭維度與上下文長度相同的前提下，相對於八頭 MHA 的**鍵值頭配置數**分別是 12.5%、25%、50%、100%；這不是完整模型記憶體比例或效能量測（[Ainslie 等人，2023](https://arxiv.org/abs/2305.13245)）。
+
+<div class="attention-lab" data-lab="gqa" data-lang="zh">
+
+GitHub 與停用 JavaScript 時仍可閱讀上方圖片；MkDocs 網站會啟用分組運算實驗。
+
+</div>
+
+*互動練習：操作 KV Head 滑桿、上一步／下一步、播放／暫停、速度與重設，觀察對應連線及鍵值頭配置數。這是架構示意，而非準確率或延遲實測。*
 
 ### 稀疏與局部模式
 
@@ -55,6 +68,19 @@ translation_reviewed: 2026-11-14
 ![四層寬度為四的因果滑動視窗，讓第十二個 token 可追溯的鍵從四個逐層增加為七個、十個及全部十二個。](../../../../assets/concept-animations/sliding-window-depth-reach-still.svg)
 
 *原創 CC BY-SA 4.0 多層感受範圍動畫。* 當因果視窗寬度為 4、最後的查詢位置為 12，第一層只能接觸第 **9–12** 個位置；第二層經由前一層的局部混合可間接接觸 **6–12**，第三層 **3–12**，第四層 **1–12**。在沒有全域 Token、每層都能混合視窗內資訊的假設下，深度 \(L\) 所能追溯的最早位置為 \(\max(1,12-3L)\)。色塊表示**可能的資訊依賴範圍**，不等於學得的注意力權重，也不保證資訊能完整保留。動畫的分層聚焦不是連續的小數層運算。[開啟 SVG 動畫](../../../../assets/concept-animations/sliding-window-depth-reach-motion.svg)。MkDocs 提供播放／暫停、Enter／Space、鍵盤聚焦後水平捲動與減少動態效果的靜態回退；數值皆為人工示意而非模型量測（參見 Beltagy 等人，2020；Jiang 等人，2023）。
+
+
+![雙向編碼器中的全域 Token，讓第十個查詢位置一層可接觸四個來源，兩層後可接觸全部十二個位置。](../../../../assets/concept-animations/global-token-reach-still.svg)
+
+*原創 CC BY-SA 4.0 靜態回退預覽。* 這是獨立的**雙向編碼器**實驗，查詢位置固定為 10，局部半徑為 1，並可選擇將第 3 個位置設為全域 Token。啟用全域連線時，深度 0–2 的可追溯來源數由 **1 → 4 → 12**；不啟用時則為 **1 → 3 → 5**。第一層來源集合為 {3, 9, 10, 11}，第二層可經全域 Token 3 間接接觸全部位置。這是**可能依賴的拓樸推演**，並非因果解碼器的遮罩、學得的權重或記憶效果實測（Beltagy 等人，2020）。
+
+<div class="attention-lab" data-lab="global" data-lang="zh">
+
+停用 JavaScript 時仍可閱讀上方靜態圖；MkDocs 網站可操作逐層可達性實驗。
+
+</div>
+
+*互動練習：調整層數 0–3、開關全域 Token，或透過上一步／下一步、播放／暫停、速度與重設，觀察前一層來源集合如何擴展。*
 
 ### 線性注意力
 

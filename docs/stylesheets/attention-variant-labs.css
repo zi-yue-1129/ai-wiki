@@ -19,3 +19,6 @@
 .attention-lab-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .attention-lab-note{font-size:.75rem;color:var(--md-default-fg-color--light,#64748b);margin:.4rem 0 0}
 @media(prefers-reduced-motion:reduce){.attention-lab *{animation:none!important;transition:none!important}}
+
+/* A keyboard-accessible toggle beside the depth slider. */
+.attention-lab-global-switch{display:flex;align-items:center;gap:.45rem;font-size:.85rem;white-space:nowrap;flex:0 0 auto}

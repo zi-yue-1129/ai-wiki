@@ -32,6 +32,19 @@ Standard scaled dot-product attention costs \(O(n^2)\) time and memory in the se
 
 In multi-head attention each head has its own keys and values. Multi-query attention (MQA) keeps one shared set of keys and values for all query heads, which shrinks the key–value cache by the number of heads. Grouped-query attention (GQA) shares keys and values within groups of query heads, so it sits between full multi-head and multi-query attention. GQA can be obtained by converting an existing multi-head checkpoint with a short extra training run, which is why many open models use it.
 
+
+![Eight query heads grouped into two shared key/value heads; only two of eight KV-head slots are required.](../../../../assets/concept-animations/gqa-sharing-still.svg)
+
+*Original CC BY-SA 4.0 fallback preview.* Eight query heads are mapped to 1, 2, 4 or 8 shared key/value heads. With equal head dimensions and context length, the **KV-head count** relative to eight-head MHA is 12.5%, 25%, 50% or 100%; this is not the complete model-memory ratio or a benchmark result. [Ainslie et al. (2023)](https://arxiv.org/abs/2305.13245).
+
+<div class="attention-lab" data-lab="gqa" data-lang="en">
+
+The image above remains readable on GitHub or without JavaScript; MkDocs enables the interactive head-sharing calculation.
+
+</div>
+
+*Interactive exercise: use the KV-head slider, Previous/Next, Play/Pause, Speed and Reset. The connecting edges and allocated KV-head slots update for each grouping. This is an architectural illustration, not an accuracy or runtime measurement.*
+
 ### Sparse and local patterns
 
 Instead of attending to all earlier tokens, sparse attention restricts each query to a fixed pattern. The Sparse Transformer uses strided and fixed patterns that reach far back while keeping cost near \(O(n\sqrt{n})\). Longformer combines a sliding window with a few global tokens, which gives linear cost in \(n\). Sliding-window attention with a fixed window is used in Mistral 7B, where information still spreads through the layers because each layer passes information forward by one window. Local patterns are fast but cannot retrieve arbitrary distant tokens unless other mechanisms exist.
@@ -55,6 +68,19 @@ The static concept image above remains available without JavaScript. The interac
 ![Four causal sliding-window layers progressively expand the keys reachable by token twelve, from four to seven to ten to all twelve.](../../../../assets/concept-animations/sliding-window-depth-reach-still.svg)
 
 *Original CC BY-SA 4.0 multi-layer receptive-field animation.* A width-4 causal window gives the final token at position 12 access to positions **9–12** in one layer, **6–12** in two, **3–12** in three, and **1–12** in four. Under local mixing at each layer, without global tokens, the earliest possible source at depth \(L\) is \(\max(1,12-3L)\). The coloured rows distinguish **possible information dependence**, not learned attention weights or guaranteed retention. The four-stage emphasis shows how reach propagates through successive layers; it is **not a continuous fractional-layer computation**. [Open the animated SVG](../../../../assets/concept-animations/sliding-window-depth-reach-motion.svg). MkDocs supports Play/Pause, Enter/Space, keyboard-focusable horizontal scrolling and a reduced-motion still. This is a constructed example, not a model measurement (Beltagy et al., 2020; Jiang et al., 2023; see References).
+
+
+![A bidirectional encoder's global token connects query ten to four sources after one layer and all twelve after two layers.](../../../../assets/concept-animations/global-token-reach-still.svg)
+
+*Original CC BY-SA 4.0 static fallback.* This separate **bidirectional encoder** experiment starts at query position 10, uses local radius 1, and optionally makes position 3 a globally connected token. With global links, backward reachability expands from **1 → 4 → 12** positions over depths 0–2; without the global token it is **1 → 3 → 5**. In the first layer the reachable set is {3, 9, 10, 11}. In the second layer token 3 itself attends all twelve positions. This is a graph-of-possible-dependencies calculation, **not a causal decoder mask**, learned attention strength, or measured recall (Beltagy et al., 2020).
+
+<div class="attention-lab" data-lab="global" data-lang="en">
+
+The static example above remains readable on GitHub or without JavaScript; MkDocs enables the layer-wise reachability explorer.
+
+</div>
+
+*Interactive exercise: choose depth 0–3, toggle the global token, or use Previous/Next, Play/Pause, Speed and Reset. Both the previous reachability set and new source positions are recalculated.*
 
 ### Linear attention
 
