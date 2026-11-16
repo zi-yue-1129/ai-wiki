@@ -54,6 +54,17 @@ translation_reviewed: 2026-11-16
 
 *原創教學動畫，CC BY-SA 4.0。* 圖內的 **$4\times4$／$2\times2$ 尺寸、四次掃描及二維排列皆為人工示例**，不代表論文中的實際網路尺寸、推論排程或效能量測。外圍留白是刻意設計：此圖未展示完整體積邊界如何處理，實務上需另訂邊界策略。MkDocs 網站可播放／暫停，減少動態效果時顯示靜態圖；[GitHub 靜態預覽](../../../../assets/concept-animations/3d-unet-context-tiling-still.svg)。[^original]
 
+
+### 三個正交方向的稀疏切片如何提供監督
+
+稀疏標註不一定只沿著單一方向選取連續切片。原始研究在極少標註的實驗中，也探討沿三個**互相正交的空間方向**選擇標註切面。動畫以人工體積依序強調軸向（axial）、冠狀面（coronal）與矢狀面（sagittal）。只有標註平面上的已知體素能提供對應監督；**其餘未標註體素不等於背景類別**。[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的三個正交稀疏切片教學動畫">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-orthogonal-slices-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-orthogonal-slices-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-orthogonal-slices-still.svg" alt="一個等角視角的示意體積依序強調軸向、冠狀面和矢狀面的標註平面；右側三組各五張切片的堆疊，分別以一張著色切片表示稀疏標註。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* 人工立方體、切片位置及**每個方向五張中取一張**都是幾何示意，不是原始臨床影像、論文資料尺寸或實際標註配置。MkDocs 網站可使用播放／暫停與鍵盤操作，偏好減少動態效果時顯示 [GitHub 靜態回退](../../../../assets/concept-animations/3d-unet-orthogonal-slices-still.svg)。[^original]
+
 ### 從稀疏標註學習
 
 訓練使用加權的 softmax 交叉熵。設 $\mathcal{A}$ 為輸出區塊中已標註的體素集合，$y_v$ 為已知標籤，$w_{y_v}$ 為其類別權重，$p_v(y_v)$ 為模型對該標籤預測的機率。下式列出哪些體素會計入損失。[^original]
@@ -82,6 +93,30 @@ $$
 </div>
 
 *原創教學動畫，CC BY-SA 4.0。* 本圖是**人工設定**的 30 個體素範例：三個簡化的前景標註、三個背景標註，其餘 24 個體素損失權重為零。游標逐一停在已標註位置，右側同步強調對應的損失項。**「未標註」不等於「標為背景」**。長條數值僅是任意設定的加權損失貢獻，並非模型預測、實測損失，或原論文三類標註的重現。MkDocs 網站提供播放／暫停與鍵盤操作；偏好減少動態效果時顯示靜態圖。[GitHub 可直接閱讀的回退預覽](../../../../assets/concept-animations/3d-unet-sparse-loss-still.svg)。[^original]
+
+
+#### 為何未標註的輸入上下文仍可能獲得梯度
+
+對**未標註的輸出體素**將監督損失設為零，不代表周圍的**輸入體素**會從卷積或梯度計算中消失。考慮以下**人工設計的一維 valid 卷積**：七個輸入、三個卷積核係數、五個輸出。
+
+$
+y_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\qquad
+\mathcal{L}=\ell(y_1)+\ell(y_3).
+$
+
+若 $\delta_j=\partial\ell(y_j)/\partial y_j$，同一個輸入 $x_3$ 會沿兩條已標註輸出路徑取得梯度貢獻：
+
+$
+\frac{\partial\mathcal{L}}{\partial x_3}=w_2\delta_1+w_0\delta_3.
+$
+
+雖然 $y_0,y_2,y_4$ 不計入監督損失，共用的輸入上下文仍會影響兩個有標註的預測。動畫光點展示的是**鏈式法則的依賴關係**，不是實測活化值或 GPU 執行排程。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的稀疏損失與共用輸入梯度動畫">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-sparse-context-gradient-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-sparse-context-gradient-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-sparse-context-gradient-still.svg" alt="七個輸入透過重疊的三元素視窗形成五個卷積輸出。只有 y1、y3 有監督損失；兩組反向顏色路徑匯集至共用輸入 x3，而 y0、y2、y4 不產生直接的監督損失。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* **一維三元素卷積是數學類比**，不是實際 3D U-Net 層、訓練紀錄或效能測量。被遮罩的輸出不提供直接的監督誤差，但共用輸入仍可能影響已標註的輸出。MkDocs 網站支援播放／暫停與鍵盤操作，減少動態效果時顯示 [GitHub 靜態回退](../../../../assets/concept-animations/3d-unet-sparse-context-gradient-still.svg)。[^original]
 
 ### 評估方式
 

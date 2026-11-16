@@ -65,6 +65,17 @@ In the published architecture, the input tile is $132\times132\times116$ voxels 
 
 *Original teaching animation, CC BY-SA 4.0.* The **$4\times4$ to $2\times2$ patch sizes, four passes and 2D layout are illustrative**, not the paper's network dimensions, an actual inference schedule or performance measurements. The unfilled outer margin is deliberate: this toy does not demonstrate full-volume border handling, which would require an explicit boundary strategy. On MkDocs use Play/Pause and the reduced-motion still; [GitHub-readable fallback](../../../../assets/concept-animations/3d-unet-context-tiling-still.svg).[^original]
 
+
+### How orthogonal labeled slices constrain a volume
+
+Sparse annotation need not consist of consecutive slices from only one view. In the original study's minimal-supervision experiment, annotated cross-sections could be selected along the three **orthogonal spatial planes**. The animation highlights axial, coronal and sagittal planes inside a synthetic volume. Each colored plane supplies supervised voxels where it intersects the volume; **all other, unlabeled voxels remain unlabeled, not background**.[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable orthogonal sparse-slice supervision animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-orthogonal-slices-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-orthogonal-slices-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-orthogonal-slices-still.svg" alt="An isometric volume successively highlights axial, coronal and sagittal annotated cross-sections, alongside three corresponding five-slice stacks with one colored slice per orientation." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching animation.* The toy cube, slice positions and **one-of-five slices per axis** are schematic, not reconstructed clinical annotations or the original dataset's dimensions. On the MkDocs site, use Play/Pause, including keyboard activation; reduced-motion visitors receive the [GitHub-readable still](../../../../assets/concept-animations/3d-unet-orthogonal-slices-still.svg).[^original]
+
 ### Learning from sparse labels
 
 The loss is a weighted softmax cross-entropy. Let $\mathcal{A}$ be the set of annotated voxels in the output tile, $y_v$ the known label, $w_{y_v}$ its class weight and $p_v(y_v)$ the predicted probability of that label. The following sum shows which voxels contribute.[^original]
@@ -93,6 +104,30 @@ The original 3D U-Net training procedure applies on-the-fly elastic deformation 
 </div>
 
 *Original CC BY-SA 4.0 teaching animation.* The **synthetic** 30-voxel tile has six annotated voxels: three simplified foreground and three labelled background voxels. As the marker visits each label, the corresponding contribution on the right is highlighted; the other 24 voxels have zero loss weight. **Unlabelled does not mean background.** The bars are arbitrary toy weighted-loss contributions, not predictions, measured training loss, or a reproduction of the paper's three-class annotation scheme. On the MkDocs site use Play/Pause (including keyboard activation); reduced-motion visitors receive the still. [GitHub-readable still](../../../../assets/concept-animations/3d-unet-sparse-loss-still.svg).[^original]
+
+
+#### Why unlabeled input context can still receive gradients
+
+Masking the training loss for an **unlabeled output voxel** does not mean that its neighboring **input voxels** are removed from the convolution or gradient computation. Consider the following **illustrative, one-dimensional valid convolution**, with seven input values, a three-tap kernel and five outputs:
+
+$
+y_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\qquad
+\mathcal{L}=\ell(y_1)+\ell(y_3).
+$
+
+With $\delta_j=\partial\ell(y_j)/\partial y_j$, the shared input $x_3$ receives contributions along both supervised paths:
+
+$
+\frac{\partial\mathcal{L}}{\partial x_3}=w_2\delta_1+w_0\delta_3.
+$
+
+No loss is attached to $y_0,y_2,y_4$, yet the input neighborhood remains relevant to the two supervised predictions. The moving dots trace these **chain-rule dependencies**, not measured activation values or a GPU execution schedule.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable sparse-loss and shared-input-gradient animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-sparse-context-gradient-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-sparse-context-gradient-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-sparse-context-gradient-still.svg" alt="Five convolution outputs depend on overlapping windows of seven inputs. Only outputs y1 and y3 incur loss; colored backward paths converge on shared input x3, while y0, y2 and y4 have no supervised loss." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching animation.* The **1D three-tap example is a mathematical analogy**, not an actual 3D U-Net layer, training trajectory, or benchmark. Masked outputs do not supply direct supervised error; shared inputs can nevertheless influence labeled outputs. On MkDocs the figure has Play/Pause and keyboard access; [GitHub-readable static fallback](../../../../assets/concept-animations/3d-unet-sparse-context-gradient-still.svg) is shown when motion is reduced.[^original]
 
 ### Evaluation protocols
 
