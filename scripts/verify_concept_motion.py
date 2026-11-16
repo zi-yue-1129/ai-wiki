@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "shaw-relative-clipping": "theory/models/transformer/positional-encodings/index",
+    "yarn-frequency-ramp": "theory/models/transformer/positional-encodings/index",
     "alibi-distance-softmax": "theory/models/transformer/positional-encodings/index",
     "alibi-content-recency": "theory/models/transformer/positional-encodings/index",
     "rope-frequency-bands": "theory/models/transformer/positional-encodings/index",

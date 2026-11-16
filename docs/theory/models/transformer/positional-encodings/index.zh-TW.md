@@ -41,6 +41,10 @@ translation_reviewed: 2026-11-16
 
 Shaw et al. 對截斷後的每個相對距離加入學到的向量，加到鍵與值上。RoPE 採用不同的做法：查詢或鍵中的每對維度，都會依 token 的位置旋轉一個角度。兩個旋轉後向量的內積，就只取決於它們位置的差。RoPE 不需要額外參數，可以搭配一般的鍵值快取，是許多現今開源模型的預設。
 
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/shaw-relative-clipping-still.svg" data-motion-src="../../../../assets/concept-animations/shaw-relative-clipping-motion.svg" data-still-src="../../../../assets/concept-animations/shaw-relative-clipping-still.svg" alt="查詢位置掃過九個 token 索引，原始相對距離持續變化，但裁切半徑為二的關係類別在遠距離處飽和，許多不同距離共用相同類別。">
+
+*原創 CC BY-SA 4.0 教學動畫。* 在 Shaw 等人（2018）的**裁切式相對位置表示**中，查詢位置 $i$ 與鍵位置 $j$ 對應的關係類別為 $b(i,j)=\operatorname{clip}(j-i,-K,K)$。此人工例子固定 $j=4$、裁切半徑 $K=2$，讓查詢掃過 $i=0,\ldots,8$。原始距離從 $4$ 降到 $-4$，而關係類別依序為 $2,2,2,1,0,-1,-2,-2,-2$。因此，不同的遠距離可以共用同一組可學習關係向量；這**不表示**對應 token 的內容或注意力權重相同。為便於觀察，動畫在**離散整數位置間做連續視覺內插**，並非模型實際執行紀錄。[開啟 SVG 動畫](../../../../assets/concept-animations/shaw-relative-clipping-motion.svg)。MkDocs 提供播放／暫停與鍵盤操作，手機可聚焦後在圖面內水平捲動；GitHub 顯示靜態回退預覽。方法依據 Shaw 等人（2018；參考文獻）。
+
 ![RoPE 動畫：查詢與鍵向量依 token 位置旋轉，同時平移兩個位置索引時，相對角度與內積維持不變。](../../../../assets/concept-animations/rope-relative-rotation.gif)
 
 *原創二維 RoPE 概念動畫，CC BY-SA 4.0。* 對於**相同的原始查詢與鍵向量**及固定旋轉頻率，將位置從 **(1, 3)** 一起平移至 **(4, 6)**，兩個向量會增加相同的旋轉角度。相對位移仍為兩個位置，因此內積不變：$(R_m q)^\top(R_n k)=q^\top R_{n-m}k$。動畫中的箭頭方向只是示意，**不是實測注意力分數**；完整 RoPE 在不同維度對使用不同的旋轉頻率。參見 [Su 等人（2021）](https://arxiv.org/abs/2104.09864)。
@@ -76,6 +80,10 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 
 *原創 CC BY-SA 4.0 教學動畫。* RoPE 會讓**不同維度對使用不同旋轉頻率**，因此單一維度對回到原有相位，不代表整個旋轉表示也已重複。固定人工二維查詢與鍵向量 $q=k=(1,0)$ 時，每個維度對在相對距離 $\Delta$ 的示意相似度為 $\cos(\omega\Delta)$。圖中選擇 $\omega_{\mathrm{fast}}=\pi/2$ 與 $\omega_{\mathrm{slow}}=\pi/10$ 弧度／位置。當 $\Delta=4$，快速分量完成 $2\pi$ 旋轉、相似度回到 $1$；慢速分量只旋轉 $2\pi/5$（72°），相似度 $\cos(2\pi/5)\approx 0.309$。圖上的兩個向量與曲線游標隨 $\Delta\in[0,16]$ 同步前進。這些刻意選取的頻率及向量只是**可解析的數學示例**，不代表任何真實模型使用的頻率配置、注意力權重或長度外推準確率。多頻率的旋轉規則依據 Su 等人（2021；參考文獻）。[開啟動態 SVG](../../../../assets/concept-animations/rope-frequency-bands-motion.svg)。MkDocs 沿用播放／暫停與鍵盤操作，GitHub 顯示完整可讀的靜態回退圖。
 
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/yarn-frequency-ramp-still.svg" data-motion-src="../../../../assets/concept-animations/yarn-frequency-ramp-motion.svg" data-still-src="../../../../assets/concept-animations/yarn-frequency-ramp-still.svg" alt="六組示意 RoPE 頻段在 YaRN 的波長分段內插下呈現不同變化：低頻縮放、中間頻段混合，高頻保留原有旋轉速度。">
+
+*原創 CC BY-SA 4.0 教學動畫。* **YaRN 由兩部分組成**：NTK-by-parts 頻率分段內插，以及額外的**注意力 logit 溫度校正**；此圖**僅呈現頻率部分**。令 $r=L/\lambda$ 為原始上下文長度內的旋轉週數，人工設定 $s=4$、$\alpha=1$、$\beta=4$。當 $\gamma(r)=\operatorname{clip}((r-\alpha)/(\beta-\alpha),0,1)$，有效頻率比例為 $\theta'(r)/\theta=\gamma(r)+(1-\gamma(r))/s$。六個示意頻段 $r=(0.5,1,1.5,2,3,4)$ 的最終比例為 $(0.25,0.25,0.375,0.5,0.75,1)$。動畫使各長條隨倒數比例 $1/s$ 從 $1$ 變化至 $1/4$ 再回復，清楚比較**低頻內插、中間頻段混合、高頻保留**的不同效果。**頻段、門檻與數值皆為人工教學設定，不是真實模型的 YaRN 參數、推論輸出或上下文效能實測。** 完整方法與注意力溫度校正見 Peng 等人（2023；參考文獻）。[開啟動態 SVG](../../../../assets/concept-animations/yarn-frequency-ramp-motion.svg)。MkDocs 使用播放／暫停及鍵盤操作；GitHub 與 Reduced Motion 則顯示靜態端點圖。
 
 ## 取捨
 
