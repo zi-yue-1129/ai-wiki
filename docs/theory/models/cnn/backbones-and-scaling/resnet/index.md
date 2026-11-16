@@ -34,7 +34,7 @@ This is a **local derivative at the addition** (or a pre-activation residual uni
 </div>
 </div>
 
-*Original 8-second SVG teaching animation (CC BY-SA 4.0). GitHub shows the static fallback; MkDocs enhances it with Play/Pause and a reduced-motion alternative. Values and trajectories are analytic illustrations, not measured model activations or gradients.* [Open full SVG animation](../../../../../assets/concept-animations/resnet-identity-gradient-motion.svg).
+*Original 8-second SVG teaching animation (CC BY-SA 4.0). GitHub shows the static fallback; MkDocs enhances it with Play/Pause and a reduced-motion alternative. Values and trajectories are analytic illustrations, not measured model activations or gradients.* [Open full SVG animation](../../../../../assets/concept-animations/resnet-identity-gradient-motion.svg). [GitHub static fallback](../../../../../assets/concept-animations/resnet-identity-gradient-still.svg).
 
 **2. A projection is needed when tensor shapes change.** Elementwise residual addition requires \(\operatorname{shape}(F(x))=\operatorname{shape}(P(x))\). In the constructed example, a \(4\times4\times1\) feature map goes through a stride-2 \(3\times3\) main convolution (with padding 1) to reach \(2\times2\times2\), while a learned stride-2 \(1\times1\) projection on the shortcut produces the *same* shape. Only then is \(y=F(x)+P(x)\) defined. A pure identity shortcut is suitable only when shapes already match; the illustrated sizes and channels are examples, not a specific ResNet layer.
 
@@ -44,7 +44,7 @@ This is a **local derivative at the addition** (or a pre-activation residual uni
 </div>
 </div>
 
-*Original 10-second SVG teaching animation (CC BY-SA 4.0). The colored sampling cells and moving markers are explanatory, not computed convolution outputs; projection weights are learned. GitHub renders the still; the MkDocs player provides Play/Pause, keyboard access and reduced-motion fallback.* [Open full SVG animation](../../../../../assets/concept-animations/resnet-projection-shortcut-motion.svg).
+*Original 10-second SVG teaching animation (CC BY-SA 4.0). The colored sampling cells and moving markers are explanatory, not computed convolution outputs; projection weights are learned. GitHub renders the still; the MkDocs player provides Play/Pause, keyboard access and reduced-motion fallback.* [Open full SVG animation](../../../../../assets/concept-animations/resnet-projection-shortcut-motion.svg). [GitHub static fallback](../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg).
 
 [^resnet-identity]: He, Zhang, Ren & Sun (2016), *Identity Mappings in Deep Residual Networks*: https://arxiv.org/abs/1603.05027 — Derives direct forward and backward propagation in identity-mapped residual units.
 
