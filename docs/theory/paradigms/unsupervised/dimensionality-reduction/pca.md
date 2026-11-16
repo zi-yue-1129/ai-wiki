@@ -42,6 +42,22 @@ which is the eigenvector of \(S\) with the largest eigenvalue. The next directio
 
 Equivalently, take the singular value decomposition \(X = U\Sigma V^\top\). The columns of \(V\) are the principal directions, and the rank-\(k\) reconstruction is \(X_k = U_k\Sigma_k V_k^\top\). This is the best rank-\(k\) approximation of \(X\) in squared Frobenius norm, which is the Eckart–Young theorem ([Eckart & Young, 1936](#references)). Projection to \(k\) dimensions is \(Z = XV_k\).
 
+## Animated walkthrough: variance and rank-one reconstruction
+
+### 1. Rotate a candidate direction to maximise variance
+
+![An orange candidate axis rotates across centred two-dimensional points while its projected variance follows the curve on the right; the teal line marks PC1.](../../../../assets/concept-animations/pca-variance-axis-motion.svg)
+
+*Original continuous teaching animation (CC BY-SA 4.0).* The orange candidate direction sweeps through 180 degrees; its point on the right-hand curve changes according to $w^\top S w$. The **teal PC1** line is fixed at the direction with the largest variance, and the maximum of the curve occurs when both directions coincide. The display is a geometric sweep **not an iterative PCA training procedure**. The MkDocs player supplies Play/Pause; [static preview for GitHub](../../../../assets/concept-animations/pca-variance-axis-still.svg).
+
+### 2. Project onto PC1 and compare reconstruction error
+
+![Orange reconstructions move continuously from the original points onto PC1; dashed residuals show the projection errors and the right panel compares squared residual totals.](../../../../assets/concept-animations/pca-rank1-reconstruction-motion.svg)
+
+*Original continuous teaching animation (CC BY-SA 4.0).* Each orange reconstruction moves onto its orthogonal foot on PC1 (teal). The dashed segments represent the original-to-reconstructed residuals. For this **centred synthetic** set of 12 points, before rotation by 28°, $u=\pm3,\pm1.6,\pm0.5$ and $v=\pm0.6,\pm0.8,\pm0.3$ occur in each group as all four sign combinations. Thus $\sum u_i^2=47.24$ and $\sum v_i^2=4.36$, giving **91.55% explained variance** and a rank-one PC1 residual sum of squares **4.36**. A line tilted by 35 degrees away from PC1 has a larger residual sum of squares, approximately **18.47**. The axes and error totals are **illustrative exact calculations**, not measured model results; the numerical scale has no benchmark meaning. The moving orange points show the geometric projection, **not an optimisation trajectory**. [Static preview for GitHub](../../../../assets/concept-animations/pca-rank1-reconstruction-still.svg).
+
+For both animations, pause or resume the motion using the site player or keyboard. With reduced motion enabled, the reviewed still overview remains available. The variance-maximisation and least-squares-reconstruction formulations are equivalent for centred data, as explained above and in the PCA references below.
+
 ## Key methods
 
 ### On lines and planes of closest fit to systems of points in space (Pearson, 1901)

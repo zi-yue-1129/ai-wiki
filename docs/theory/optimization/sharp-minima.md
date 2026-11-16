@@ -35,6 +35,16 @@ A minimum is sharp when the loss rises quickly in some directions away from it, 
 
 *Original continuous teaching SVG, CC BY-SA 4.0. GitHub shows a static, readable state; on MkDocs, Play/Pause toggles the looping version. The quadratic curves, numbers and trajectories are illustrative, not model measurements.* [Full SVG animation](../../assets/concept-animations/sharpness-radius-loss-motion.svg).
 
+
+
+### Interactive experiment: fixed-radius sharpness
+
+Adjust the common radius in the computed panel below. The two loss curves and their loss-rise bars update from the **same** (L_kappa(w)=kappa w^2/2) expressions as the reviewed animation. Use the native slider (arrow keys), **Next step**, Play/Pause and playback-speed control. At (ho=0.8), the constructed increases are (0.16) and (0.64), a 4:1 ratio.
+
+<div data-sharpness-lab="radius" data-lang="en"></div>
+
+*Calculated browser-side toy experiment, CC BY-SA 4.0. The GitHub-safe static SVG immediately above remains available without JavaScript; this panel only runs on MkDocs. Illustration, not an observed training trajectory.*
+
 **2. Sharpness is coordinate-dependent.** For \(L(w)=w^2\), introduce a reparameterisation \(w=a u\). The **same objective** now appears as \(\widetilde L(u)=a^2u^2\): its second derivative in \(u\) is \(2a^2\), while the second derivative in \(w\) remains 2. As \(a\) moves between 0.7 and 1.5, the right-hand curve steepens without changing the original left-hand function. The two markers use equal **coordinate** offsets \(0.5\), which are not equal physical perturbations because \(\Delta w=a\Delta u\). This is the limitation of unnormalised, fixed-radius flatness measures discussed by Dinh et al. (2017) in the References; it does **not** establish that sharp or flat minima generalise differently.
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Teaching animation; focus this region to scroll horizontally">
@@ -44,6 +54,16 @@ A minimum is sharp when the loss rises quickly in some directions away from it, 
 </div>
 
 *Original continuous teaching SVG, CC BY-SA 4.0. GitHub uses the static fallback; MkDocs provides Play/Pause and reduced-motion fallback. The scaling and Hessian values are analytic toy quantities, not measurements from a trained network.* [Full SVG animation](../../assets/concept-animations/sharpness-reparam-curvature-motion.svg).
+
+
+### Interactive experiment: coordinate-dependent curvature
+
+Change (a) while holding the *coordinate* offset (Delta u=0.6). The left plot remains (L(w)=w^2), whereas the right plot is (widetilde L(u)=a^2u^2). The readout calculates (H_u=2a^2), (Delta w=aDelta u) and (Deltawidetilde L=a^2(Delta u)^2) together; at (a=1.5), these are (4.5), (0.9) and (0.81), respectively. These are **not** two differently trained models.
+
+<div data-sharpness-lab="reparam" data-lang="en"></div>
+
+*Calculated interactive companion, CC BY-SA 4.0. The static fallback immediately above is readable on GitHub. Control by keyboard or slider; reduced-motion settings disable autoplay but retain manual computation.*
+
 
 ## Problem
 
