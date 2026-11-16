@@ -19,7 +19,7 @@ translation_reviewed: 2026-11-17
 
 ## 教學視覺化：殘差梯度與投影捷徑
 
-**1. 恆等捷徑同時傳遞訊號與梯度。** 對加法處的純量示意區塊 (y=x+F(x))，令 (x=2)、(F(x)=-0.5x)，前向結果為 (y=1)。反向傳播時，若上游梯度 (g_y=1)，恆等捷徑貢獻 (1)，殘差分支貢獻 (F'(x)g_y=-0.5)，因此輸入梯度 (g_x=0.5)：
+**1. 恆等捷徑同時傳遞訊號與梯度。** 對加法處的純量示意區塊 \(y=x+F(x)\)，令 \(x=2\)、\(F(x)=-0.5x\)，前向結果為 \(y=1\)。反向傳播時，若上游梯度 \(g_y=1\)，恆等捷徑貢獻 (1)，殘差分支貢獻 \(F'(x)g_y=-0.5\)，因此輸入梯度 \(g_x=0.5\)：
 
 \[
 \frac{\partial y}{\partial x}=1+\frac{\partial F}{\partial x},\qquad
@@ -36,7 +36,7 @@ g_x=g_y(1+F'(x)).
 
 *原創 8 秒 SVG 教學動畫（CC BY-SA 4.0）。GitHub 顯示靜態回退圖；MkDocs 網站提供播放／暫停與降低動態效果模式。數值與路徑均為解析式示意，並非模型實測激活值或梯度。* [開啟完整動畫](../../../../../assets/concept-animations/resnet-identity-gradient-motion.svg)。
 
-**2. 改變張量尺寸時必須對齊捷徑。** 逐元素相加要求 (operatorname{shape}(F(x))=operatorname{shape}(P(x)))。此人工示例將 (4\times4\times1) 的特徵圖，透過步幅 2、padding 1 的 (3\times3) 主分支卷積映射到 (2\times2\times2)；捷徑上可學習的 (1\times1) 投影也以步幅 2 產生**相同維度**，之後才執行 (y=F(x)+P(x))。維度原本相同時才可直接使用恆等捷徑。圖中的尺寸與通道數為示意，並非特定 ResNet 層的規格。
+**2. 改變張量尺寸時必須對齊捷徑。** 逐元素相加要求 \(\operatorname{shape}(F(x))=\operatorname{shape}(P(x))\)。此人工示例將 \(4\times4\times1\) 的特徵圖，透過步幅 2、padding 1 的 \(3\times3\) 主分支卷積映射到 \(2\times2\times2\)；捷徑上可學習的 \(1\times1\) 投影也以步幅 2 產生**相同維度**，之後才執行 \(y=F(x)+P(x)\)。維度原本相同時才可直接使用恆等捷徑。圖中的尺寸與通道數為示意，並非特定 ResNet 層的規格。
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="投影捷徑動畫；可聚焦並水平捲動">
 <div style="width:800px">
