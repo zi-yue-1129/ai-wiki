@@ -186,6 +186,37 @@ J=\begin{bmatrix}1&0&2&0\\0&3&0&4\\5&0&6&0\\0&7&0&8\end{bmatrix}.
 
 青綠色種子 \(s_A=(1,1,0,0)^\top\) 得到 \(Js_A=(1,3,5,7)^\top\)；橘色種子 \(s_B=(0,0,1,1)^\top\) 得到 \(Js_B=(2,4,6,8)^\top\)。因為已知各欄的非零位置，且每個群組在任一輸出列最多只有一個非零貢獻者，**兩次掃描就能還原八個非零元素**。如果不知道稀疏模式，合併後的 JVP 一般無法判斷是哪個輸入欄位造成輸出。動畫交替強調每次掃描對應的元素，並非真實執行時間或加速比；共用播放器提供鍵盤操作的播放／暫停及減少動態效果回退，不支援跳格與單步控制。
 
+
+### Softmax 的 JVP：機率變化量總和必須為零
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的 Softmax 切向量教學動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-softmax-tangent-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-softmax-tangent-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-softmax-tangent-still.svg" alt="三個類別的機率長條會隨著兩個 logit 朝反方向改變而重新分配；在中央輸入處，切向量分量為 0.375、負 0.0625、負 0.3125，總和為零。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。[GitHub 靜態預覽](../../../assets/concept-animations/forward-ad-softmax-tangent-still.svg) · [10 秒循環 SVG](../../../assets/concept-animations/forward-ad-softmax-tangent-motion.svg)。* 考慮**人工設定**的三類 Softmax：$z(0)=(\ln 2,0,0)$、$p(0)=(1/2,1/4,1/4)$，種子方向為 $v=(1,0,-1)$。由於分母的正規化，每個輸出都受所有 logit 影響：
+
+$
+\dot p_i=p_i\left(v_i-\sum_jp_jv_j\right),\qquad
+\dot p(0)=(3/8,-1/16,-5/16).
+$
+
+機率總和恆為 1，因此切向量的分量總和必須為 0。左側長條依解析式 $p(t)=\mathrm{softmax}(\ln 2+t,0,-t)$ 隨橘色指標連續變化；右側固定顯示 **$t=0$** 的 JVP，**不是**每個時間點的即時導數。數值完全來自人工數學範例，**不是模型實測**。MkDocs 可使用滑鼠或鍵盤操作播放／暫停，減少動態效果設定則以靜態圖呈現；本次未加入逐步、進度或速度控制。一般切線性鏈式法則參見 [Griewank 與 Walther（2008）](https://doi.org/10.1137/1.9780898717761)。
+
+### 矩陣乘積 JVP：兩條切向量傳遞路徑
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的矩陣乘積前向切向量動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-matmul-tangent-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-matmul-tangent-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-matmul-tangent-still.svg" alt="兩條持續流動的切向路徑：δA 乘 B 與 A 乘 δB，最終相加為兩列分別為（3,1）及（1,0）的輸出切向矩陣。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。[GitHub 靜態預覽](../../../assets/concept-animations/forward-ad-matmul-tangent-still.svg) · [循環 SVG](../../../assets/concept-animations/forward-ad-matmul-tangent-motion.svg)。* 對矩陣乘積 $C=AB$，若兩個運算元都會隨種子方向改變，前向模式需同時保留兩條導數來源：
+
+$
+\dot C=\dot A B+A\dot B.
+$
+
+在**人工設定**的 2×2 範例中，$A=\begin{bmatrix}1&2\\0&1\end{bmatrix}$、$B=\begin{bmatrix}2&0\\1&1\end{bmatrix}$、$\dot A=\begin{bmatrix}0&1\\0&0\end{bmatrix}$、$\dot B=\begin{bmatrix}0&0\\1&0\end{bmatrix}$。青綠路徑得到 $\dot AB=\begin{bmatrix}1&1\\0&0\end{bmatrix}$，橘色路徑得到 $A\dot B=\begin{bmatrix}2&0\\1&0\end{bmatrix}$，相加為 $\dot C=\begin{bmatrix}3&1\\1&0\end{bmatrix}$。連續移動的虛線表示**兩項貢獻同時存在**，不是實際計算核心的執行追蹤或效能數據。網站播放器提供鍵盤可操作的播放／暫停與減少動態效果的回退預覽。
+
+
 ## 方程式
 
 對於基本運算 $v = \phi(u)$，切向規則為

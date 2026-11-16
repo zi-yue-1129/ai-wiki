@@ -185,6 +185,37 @@ J=\begin{bmatrix}1&0&2&0\\0&3&0&4\\5&0&6&0\\0&7&0&8\end{bmatrix}.
 
 The highlighted teal seed \(s_A=(1,1,0,0)^\top\) gives \(Js_A=(1,3,5,7)^\top\); the amber seed \(s_B=(0,0,1,1)^\top\) gives \(Js_B=(2,4,6,8)^\top\). Because the sparsity pattern is known and each seed group has at most one nonzero contributor per row, these **two passes recover all eight nonzeros**. Without the structural pattern, a packed JVP generally cannot identify the contributing columns. The alternating highlight shows which entries a pass recovers, **not runtime speedup measurements**. The shared player supports keyboard-accessible Play/Pause and reduced-motion fallback; it does not add seeking or single-step controls.
 
+
+### Softmax JVP: probability changes must sum to zero
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable softmax tangent demonstration">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-softmax-tangent-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-softmax-tangent-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-softmax-tangent-still.svg" alt="Three probability bars redistribute continuously as one logit rises and another falls; the tangent vector at the centre has components 0.375, minus 0.0625, minus 0.3125, summing to zero." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching motion. [GitHub static fallback](../../../assets/concept-animations/forward-ad-softmax-tangent-still.svg) · [10-second animated SVG](../../../assets/concept-animations/forward-ad-softmax-tangent-motion.svg).* For a **synthetic**, three-class softmax, take $z(0)=(\ln 2,0,0)$, $p(0)=(1/2,1/4,1/4)$, and tangent seed $v=(1,0,-1)$. Each output depends on every logit through the normalization denominator. Differentiating the softmax gives
+
+$
+\dot p_i=p_i\left(v_i-\sum_j p_jv_j\right),\qquad
+\dot p(0)=(3/8,-1/16,-5/16).
+$
+
+Since the probabilities always sum to one, their tangents necessarily sum to zero. The left-hand bars follow the **analytic** $p(t)=\mathrm{softmax}(\ln 2+t,0,-t)$ as the orange indicator moves; the right-hand bars show the JVP specifically **at $t=0$**, not a continuously updated tangent. This is constructed mathematics, **not model measurements**. MkDocs provides keyboard-accessible Play/Pause and a reduced-motion still; step, seek and speed controls are not added. The general tangent-linear chain rule is detailed in [Griewank and Walther (2008)](https://doi.org/10.1137/1.9780898717761).
+
+### Matrix-product JVP: two simultaneous tangent paths
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable matrix multiplication tangent paths">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-matmul-tangent-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-matmul-tangent-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-matmul-tangent-still.svg" alt="The two continuously animated paths delta A times B and A times delta B combine into the two-by-two output tangent matrix with rows (3,1) and (1,0)." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching motion. [GitHub static fallback](../../../assets/concept-animations/forward-ad-matmul-tangent-still.svg) · [animated SVG](../../../assets/concept-animations/forward-ad-matmul-tangent-motion.svg).* For $C=AB$, both input operands may depend on the seed, so forward-mode AD requires the matrix-product rule
+
+$
+\dot C=\dot A B+A\dot B.
+$
+
+The exact **synthetic** 2×2 example uses $A=\begin{bmatrix}1&2\\0&1\end{bmatrix}$, $B=\begin{bmatrix}2&0\\1&1\end{bmatrix}$, $\dot A=\begin{bmatrix}0&1\\0&0\end{bmatrix}$ and $\dot B=\begin{bmatrix}0&0\\1&0\end{bmatrix}$. The teal path contributes $\dot AB=\begin{bmatrix}1&1\\0&0\end{bmatrix}$; the orange path contributes $A\dot B=\begin{bmatrix}2&0\\1&0\end{bmatrix}$, giving $\dot C=\begin{bmatrix}3&1\\1&0\end{bmatrix}$. Animated dashes show **both causal contributions concurrently**, not a measured execution trace or numerical speedup. The shared MkDocs player supports Play/Pause and a reduced-motion static fallback.
+
+
 ## Equation
 
 For an elementary operation $v = \phi(u)$, the tangent rule is
