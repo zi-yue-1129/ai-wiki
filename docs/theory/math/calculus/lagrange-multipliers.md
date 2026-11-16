@@ -29,7 +29,7 @@ Many learning problems have constraints. A margin classifier must separate the c
 - **Multiplier**: \(\lambda\) measures how much the optimal value would change if the constraint were relaxed.
 - **Inequality constraints**: \(h(x)\le 0\) add a non-negative multiplier \(\mu\ge 0\) and a complementary slackness condition \(\mu\,h(x)=0\).
 - **KKT conditions**: the first-order necessary conditions for constrained optimisation with inequalities, named after Karush, Kuhn and Tucker.
-- **Duality**: the dual problem maximises the Lagrangian over the primal variables. It can be easier to solve, and it is how kernels enter support vector machines.
+- **Duality**: for a minimisation problem, minimise the Lagrangian over the primal variables to obtain the dual function, then maximise that lower bound over dual-feasible multipliers. This formulation also yields the kernelised support vector machine dual.
 
 ## How it works
 
