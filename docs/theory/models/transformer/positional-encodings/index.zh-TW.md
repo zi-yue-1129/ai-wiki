@@ -68,7 +68,7 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 
 <img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/alibi-head-prefix-still.svg" data-motion-src="../../../../assets/concept-animations/alibi-head-prefix-motion.svg" data-still-src="../../../../assets/concept-animations/alibi-head-prefix-still.svg" alt="三個示意 ALiBi 注意力頭分別使用 0.25、0.5 和 1.0 的斜率；隨查詢前綴增長，各頭對可見鍵的機率熱度重新正規化，較大斜率更集中在最近的鍵。">
 
-*原創 CC BY-SA 4.0 教學動畫。* **不同注意力頭的近期偏好不只是偏置直線不同**，因為每增加一個可見鍵，Softmax 都要重新正規化。假設人工示意的因果序列目前查詢索引為 $t$，所有內容 logit 為零，三個頭的 ALiBi 斜率為 $m\in\{0.25,0.5,1\}$，則 $p_m(j\mid t)=\exp[-m(t-j)]/\sum_{r=0}^{t}\exp[-m(t-r)]$，其中 $0\le j\le t$。8 秒動畫以**每個離散時間點的解析式機率**繪製熱圖，讓 $t$ 從 0 移動到 7。最後八個鍵都可見時，最近鍵在三個頭的機率分別約為 **0.2558、0.4008、0.6323**。這些斜率與分數皆為人工設定，**不是**訓練模型的注意力結果，也不能視為準確率。 [開啟動畫](../../../../assets/concept-animations/alibi-head-prefix-motion.svg)。MkDocs 沿用播放／暫停及鍵盤操作；GitHub 與 Reduced Motion 顯示八鍵靜態回退。方法依據 Press 等人（2021；參考文獻）。
+*原創 CC BY-SA 4.0 教學動畫。* **不同注意力頭的近期偏好不只是偏置直線不同**，因為每增加一個可見鍵，Softmax 都要重新正規化。假設人工示意的因果序列目前查詢索引為 $t$，所有內容 logit 為零，三個頭的 ALiBi 斜率為 $m\in\{0.25,0.5,1\}$，則 $p_m(j\mid t)=e^{-m(t-j)}/Z_m(t)$，其中 $Z_m(t)=\sum_{r=0}^{t}e^{-m(t-r)}$，其中 $0\le j\le t$。8 秒動畫以**每個離散時間點的解析式機率**繪製熱圖，讓 $t$ 從 0 移動到 7。最後八個鍵都可見時，最近鍵在三個頭的機率分別約為 **0.2558、0.4008、0.6323**。這些斜率與分數皆為人工設定，**不是**訓練模型的注意力結果，也不能視為準確率。 [開啟動畫](../../../../assets/concept-animations/alibi-head-prefix-motion.svg)。MkDocs 沿用播放／暫停及鍵盤操作；GitHub 與 Reduced Motion 顯示八鍵靜態回退。方法依據 Press 等人（2021；參考文獻）。
 
 ### 延伸上下文
 
