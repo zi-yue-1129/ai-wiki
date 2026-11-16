@@ -63,6 +63,8 @@ TOPICS = {
     "viterbi-trellis": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "tree-belief-propagation": "theory/paradigms/probabilistic/graphical-models/belief-propagation",
     "3d-unet-depth-kernel": "theory/models/cnn/unet/3d-unet",
+    "3d-unet-skip-concat": "theory/models/cnn/unet/3d-unet",
+    "3d-unet-context-tiling": "theory/models/cnn/unet/3d-unet",
     "3d-unet-paired-warp": "theory/models/cnn/unet/3d-unet",
     "3d-unet-sparse-loss": "theory/models/cnn/unet/3d-unet",
     "3d-unet-evaluation-holdout": "theory/models/cnn/unet/3d-unet",
