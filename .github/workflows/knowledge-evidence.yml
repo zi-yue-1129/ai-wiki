@@ -1,0 +1,24 @@
+name: Knowledge evidence pilot
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install PyYAML==6.0.3
+      - name: Review metadata regressions
+        run: python -m unittest discover -s scripts -p 'test_wiki_review_status.py'
+      - name: Evidence schema and retrieval regressions
+        run: python -m unittest discover -s scripts -p 'test_knowledge.py'
+      - name: Validate local evidence references (not factual certification)
+        run: python scripts/knowledge.py validate
+      - name: Retrieval smoke test (not answer-accuracy benchmark)
+        run: python scripts/knowledge.py evaluate
