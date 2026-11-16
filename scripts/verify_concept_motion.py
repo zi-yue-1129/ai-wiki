@@ -56,6 +56,8 @@ TOPICS = {
     "stochastic-depth-paths": "theory/deep-learning/dropout/stochastic-depth",
     "dropout-inverted-sampling": "theory/deep-learning/dropout/dropout-method",
     "dropout-variance-tradeoff": "theory/deep-learning/dropout/dropout-method",
+    "dropblock-spatial-masking": "theory/deep-learning/dropout/dropout-method",
+    "mc-dropout-repeated-passes": "theory/deep-learning/dropout/index",
     "stochastic-depth-survival-samples": "theory/deep-learning/dropout/stochastic-depth",
     "stochastic-depth-scaling-conventions": "theory/deep-learning/dropout/stochastic-depth",
     "vae-reparameterisation": "theory/paradigms/unsupervised/density-and-generative-models/vae/index",
@@ -206,7 +208,7 @@ def main() -> int:
                 for fallback in fallbacks:
                     if fallback.resolve() not in linked:
                         errors.append(f"{page}: missing GitHub-readable fallback link {fallback.name}")
-            if stem in {"dropout-inverted-sampling", "stochastic-depth-survival-samples", "dropout-variance-tradeoff", "stochastic-depth-scaling-conventions"}:
+            if stem in {"dropout-inverted-sampling", "stochastic-depth-survival-samples", "dropout-variance-tradeoff", "stochastic-depth-scaling-conventions", "dropblock-spatial-masking", "mc-dropout-repeated-passes"}:
                 # Both languages must expose a GitHub-safe static fallback.
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {

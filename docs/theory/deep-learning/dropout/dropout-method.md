@@ -64,6 +64,13 @@ $
 
 The illustration varies the keep probability from $1$ to $0.25$ and back: the nonzero outcome moves from $2$ to $8$, the probability of zero grows from $0$ to $0.75$, and the variance rises from $0$ to $12$. Circle sizes represent relative probability mass schematically, rather than exact sampled counts. This **does not mean** the output of a nonlinear downstream network has the same expectation. No model was trained or measured. The website player offers Play/Pause and a reduced-motion fallback; [view the GitHub-compatible static preview](../../../assets/concept-animations/dropout-variance-tradeoff-still.svg).
 
+
+### Visual walkthrough: independent masks versus contiguous DropBlock
+
+![Two animated 6-by-6 feature maps compare independent zeroed units with a contiguous 3-by-3 DropBlock mask. Both hide nine locations. ](../../../assets/concept-animations/dropblock-spatial-masking-motion.svg)
+
+*Original instructional animation, CC BY-SA 4.0.* Both artificial $6\times6$ feature maps hide **exactly nine of 36 cells**. Left: four hand-chosen scattered unit masks. Right: four hand-chosen contiguous $3\times3$ masks. Because neighboring convolutional activations are correlated, a spatial block can suppress an entire local evidence region whereas independently removed units often leave neighboring evidence available. This illustrates the **structure of the masks**, not the original DropBlock sampling algorithm, its calibrated retention distribution, or an empirical accuracy comparison. The masks are schematic, not model observations. Ghiasi et al. describe block-based regularisation in the linked reference below. The existing MkDocs player offers Play/Pause and reduced-motion fallback; [GitHub-readable still](../../../assets/concept-animations/dropblock-spatial-masking-still.svg).
+
 ## Results
 
 The paper reports error rates for the same architecture with and without dropout. The comparisons below are the within-paper ones, taken from its tables for convolutional networks:
