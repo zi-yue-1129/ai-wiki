@@ -33,6 +33,27 @@ translation_reviewed: 2026-11-16
 
 *原創 CC BY-SA 4.0 教學動畫。* 每個光點代表**一個深度平面的貢獻**，不是一次乘加運算。9、18、27 為單一輸入通道在此人工幾何範例中的精確取樣數，**並非特徵強度或 GPU 效能實測**。MkDocs 網站可播放／暫停，也提供降低動態效果的靜態回退。[GitHub 靜態預覽](../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg)。[^original]
 
+
+### 編碼器跳接特徵如何與解碼器合併
+
+跳接連線讓編碼器的高解析度特徵繞過低解析度的瓶頸，直接提供給解碼器。解碼器的上採樣卷積提高空間解析度後，必須先讓兩路特徵的**空間尺寸對齊**，再沿著**通道維度串接（concatenation）**，而不是逐元素相加。原始 3D U-Net 採用 valid 卷積，因此必要時要裁切編碼器的特徵，才能與解碼器尺寸相符。[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的 3D U-Net 跳接特徵動畫">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-skip-concat-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-skip-concat-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-skip-concat-still.svg" alt="橘色四乘四編碼器高解析度網格沿上方的跳接路徑傳遞；藍色二乘二低解析度網格上採樣為四乘四。移動光點沿兩條路徑抵達同一空間尺寸的兩組通道，而不是把網格直接相加。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 圖中的**人工二維剖面**代表三維特徵體積，$4\times4$ 與 $2\times2$ 僅用於說明相對解析度，**不是原論文各層的實際尺寸**。終點兩組網格表示空間大小相同、通道群組不同。實際架構所需的跳接裁切已於上文說明，但這張簡化示意沒有另外演示裁切步驟；顏色及光點也不是模型活化值或 GPU 實際執行軌跡。MkDocs 網站支援播放／暫停及鍵盤操作，減少動態效果時使用[GitHub 靜態回退](../../../../assets/concept-animations/3d-unet-skip-concat-still.svg)。[^original]
+
+### 為何輸入區塊比預測區塊更大
+
+原始架構使用 $132\times132\times116$ 體素輸入，但只輸出 $44\times44\times28$ 體素。valid 卷積會縮小空間尺寸，而較大的輸入區塊則為每個輸出體素提供周圍上下文。下圖以**人工二維剖面**展示這個結果：每個 $4\times4$ 輸入視窗只產生中央 $2\times2$ 的預測區塊；當輸入視窗在 $6\times6$ 的區域移動，四個重疊輸入區塊所產生的中央預測，逐步拼成內部 $4\times4$ 區域。[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的 3D U-Net 輸入上下文與預測核心動畫">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-context-tiling-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-context-tiling-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-context-tiling-still.svg" alt="透明的四乘四輸入上下文視窗依序移動至六乘六人工網格的四個位置；每次僅中央二乘二區域產生預測。右側依序累積四個預測區塊，外圍邊界刻意留白。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 圖內的 **$4\times4$／$2\times2$ 尺寸、四次掃描及二維排列皆為人工示例**，不代表論文中的實際網路尺寸、推論排程或效能量測。外圍留白是刻意設計：此圖未展示完整體積邊界如何處理，實務上需另訂邊界策略。MkDocs 網站可播放／暫停，減少動態效果時顯示靜態圖；[GitHub 靜態預覽](../../../../assets/concept-animations/3d-unet-context-tiling-still.svg)。[^original]
+
 ### 從稀疏標註學習
 
 訓練使用加權的 softmax 交叉熵。設 $\mathcal{A}$ 為輸出區塊中已標註的體素集合，$y_v$ 為已知標籤，$w_{y_v}$ 為其類別權重，$p_v(y_v)$ 為模型對該標籤預測的機率。下式列出哪些體素會計入損失。[^original]
