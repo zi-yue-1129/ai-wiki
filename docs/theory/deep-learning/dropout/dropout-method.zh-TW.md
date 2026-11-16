@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-11-07
-translation_reviewed: 2026-11-07
+translation_reviewed: 2026-11-17
 related:
   - theory/deep-learning/dropout
 tags:
@@ -52,6 +52,18 @@ $$
 ![反向丟棄法動畫呈現各單元遮罩變化、保留激活值的放大，以及各單元不變的期望值。](../../../assets/concept-animations/dropout-inverted-sampling-motion.svg)
 
 *原創教學動畫，CC BY-SA 4.0。* 使用人工輸入 $h=(1,2,3,4)$ 與 $p=0.5$，反向丟棄法計算 $y_i=r_i h_i/p$，其中 $r_i\sim\mathrm{Bernoulli}(p)$。當遮罩為 $(1,0,1,0)$ 時，輸出為 $(2,0,6,0)$；重新取樣會改變各單元的輸出。對**每個單元**，$\mathbb{E}[y_i]=h_i$ 來自伯努利分布的期望值，不代表任一次取樣都保持總和不變，更不代表下游非線性網路的輸出期望相同。圖中遮罩是刻意設計的教學樣本，**不是模型實測或蒙地卡羅估計**。網站播放器提供播放／暫停和減少動態效果的回退；[查看 GitHub 可顯示的靜態預覽](../../../assets/concept-animations/dropout-inverted-sampling-still.svg)。
+
+### 視覺化：反向縮放的變異數代價
+
+![反向丟棄法兩點分布動畫：保留率下降時，非零輸出遠離零、遮蔽機率與變異數增加，但解析期望值維持不變。](../../../assets/concept-animations/dropout-variance-tradeoff-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 使用**人工設定的純量** $h=2$。反向丟棄法的輸出 $y$ 以機率 $1-p$ 為 $0$，以機率 $p$ 為 $h/p$。因此條件期望值為 $\mathbb{E}[y]=h=2$，但變異數為
+
+$
+\operatorname{Var}(y)=\frac{h^2(1-p)}{p}.
+$
+
+動畫讓保留機率從 $1$ 降至 $0.25$ 再回升：非零輸出從 $2$ 移至 $8$，歸零機率由 $0$ 增至 $0.75$，變異數由 $0$ 增至 $12$。圓點大小僅示意相對機率質量，並非實際抽樣次數。此處**不代表**經過下游非線性網路後，預測值的期望仍相同，也沒有訓練模型或進行效能量測。網站播放器提供播放／暫停及減少動態效果回退；[查看 GitHub 可顯示的靜態預覽](../../../assets/concept-animations/dropout-variance-tradeoff-still.svg)。
 
 ## 結果
 
