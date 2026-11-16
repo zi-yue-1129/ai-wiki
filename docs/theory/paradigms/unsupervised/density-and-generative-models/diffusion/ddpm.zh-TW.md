@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-11
+translation_reviewed: 2026-10-28
 ---
 
 # DDPM：去噪擴散機率模型

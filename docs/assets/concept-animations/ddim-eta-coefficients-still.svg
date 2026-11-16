@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" role="img" aria-labelledby="title description">
+<title id="title">DDIM stochasticity controls the fresh-noise coefficient</title>
+<desc id="description">At fixed cumulative alpha values, the squared clean coefficient stays at 0.64 as eta varies between 0 and 1. The predicted-noise squared coefficient shrinks while newly sampled Gaussian noise grows. Schematic scalar coefficients, not model measurements.</desc>
+<rect x="1" y="1" width="758" height="418" rx="18" fill="#f7fafc" stroke="#d2dce5" stroke-width="2"/>
+<text x="30" y="40" fill="#20384b" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700">DDIM stochasticity</text>
+<text x="30" y="68" fill="#52687a" font-family="Arial,Helvetica,sans-serif" font-size="15">Fixed schedule: ᾱt = 0.36 → ᾱs = 0.64</text>
+<text x="144" y="105" fill="#20384b" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="600">Squared coefficients</text>
+<rect x="355" y="93" width="13" height="13" rx="3" fill="#246e83"/><text x="374" y="105" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#344c5b">x₀</text>
+<rect x="413" y="93" width="13" height="13" rx="3" fill="#e2a44b"/><text x="432" y="105" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#344c5b">εθ</text>
+<rect x="478" y="93" width="13" height="13" rx="3" fill="#8f70b5"/><text x="497" y="105" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#344c5b">new z</text>
+<text x="83" y="159" fill="#243b4d" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="600">Current</text>
+<rect x="144" y="129" width="448" height="54" rx="8" fill="#e7eef4" stroke="#b1c2ce"/>
+<rect x="144" y="133" width="286.72" height="46" fill="#246e83"/>
+<rect id="pred" x="430.72" y="133" width="114.7" height="46" fill="#e2a44b"/>
+<rect id="fresh" x="545.42" y="133" width="46.58" height="46" fill="#8f70b5"/>
+<rect x="144" y="129" width="448" height="54" rx="8" fill="none" stroke="#7c92a4" stroke-width="1.2"/>
+<text x="283" y="164" fill="white" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700">64%</text>
+<text x="82" y="236" fill="#243b4d" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700">η</text>
+<line x1="144" x2="592" y1="229" y2="229" stroke="#aabcca" stroke-width="7" stroke-linecap="round"/>
+<circle id="knob" cx="435.2" cy="229" r="13" fill="#8f70b5" stroke="white" stroke-width="3"/>
+<text x="144" y="257" text-anchor="middle" fill="#52687a" font-family="Arial,Helvetica,sans-serif" font-size="14">0</text>
+<text x="592" y="257" text-anchor="middle" fill="#52687a" font-family="Arial,Helvetica,sans-serif" font-size="14">1</text>
+<line x1="30" x2="728" y1="275" y2="275" stroke="#dae3ea" stroke-width="1"/>
+<text x="60" y="323" fill="#243b4d" font-family="Arial,Helvetica,sans-serif" font-size="15">η = 0</text>
+<rect x="144" y="302" width="448" height="28" rx="6" fill="#e7eef4"/>
+<rect x="144" y="302" width="286.72" height="28" fill="#246e83"/>
+<rect x="430.72" y="302" width="161.28" height="28" fill="#e2a44b"/>
+<text x="60" y="376" fill="#243b4d" font-family="Arial,Helvetica,sans-serif" font-size="15">η = 1</text>
+<rect x="144" y="354" width="448" height="28" rx="6" fill="#e7eef4"/>
+<rect x="144" y="354" width="286.72" height="28" fill="#246e83"/>
+<rect x="430.72" y="354" width="51.03" height="28" fill="#e2a44b"/>
+<rect x="481.75" y="354" width="110.25" height="28" fill="#8f70b5"/>
+<text x="615" y="327" fill="#52687a" font-family="Arial,Helvetica,sans-serif" font-size="13">No new noise</text>
+<text x="615" y="379" fill="#52687a" font-family="Arial,Helvetica,sans-serif" font-size="13">Fresh noise</text>
+
+</svg>

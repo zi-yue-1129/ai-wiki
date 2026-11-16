@@ -50,9 +50,26 @@ Here \(t_{\text{prev}}\) is the previous step in the subsequence. In the paper's
 
 *Original looping instructional SVG, CC BY-SA 4.0.* The top row illustrates eight successive DDPM denoiser evaluations. The bottom row reuses **the same trained noise-prediction network** but skips intermediate training indices, showing four deterministic DDIM updates with $\eta=0$. ([Song et al. (2021)](https://arxiv.org/abs/2010.02502)) In this setting the DDIM transition does not add a fresh independent Gaussian noise draw; this differs from a stochastic ancestral DDPM sampler. The **8-vs-4 evaluations are an invented teaching schedule**, not a speed-up or quality measurement, and fewer evaluations do not guarantee equal sample fidelity. The MkDocs page supplies keyboard-accessible **Play/Pause** controls and a reduced-motion still. [Static preview for GitHub](../../../../../assets/concept-animations/ddim-strided-sampling-still.svg).
 
+## Stochasticity scale: eta versus transition noise
+
+The parameter \(\eta\) is **not another name for** \(\sigma\): it scales a transition-dependent standard deviation. For a DDIM update from \(t\) to an earlier \(s\) (\(\bar\alpha_s > \bar\alpha_t\)), the schedule of Song, Meng and Ermon (2021) can be written as
+
+\[
+\sigma_{t\to s}(\eta)
+= \eta\sqrt{\frac{1-\bar\alpha_s}{1-\bar\alpha_t}}
+  \sqrt{1-\frac{\bar\alpha_t}{\bar\alpha_s}},
+\qquad 0\leq\eta\leq 1.
+\]
+
+At \(\eta=0\), the update injects no fresh Gaussian draw. For \(\eta=1\) and **adjacent** steps \(s=t-1\), the update reproduces DDPM ancestral sampling with posterior variance \(\tilde\beta_t\). With skipped steps, \(\eta=1\) is a stochastic generalised sampler, **not literally the original full-step DDPM chain**. This matters when interpreting the results table below.
+
+![The animated eta slider reallocates squared update coefficients between predicted noise and newly sampled Gaussian noise, while the clean-image coefficient remains fixed.](../../../../../assets/concept-animations/ddim-eta-coefficients-motion.svg)
+
+*Original 10-second looping instructional SVG (CC BY-SA 4.0).* For invented cumulative coefficients \(\bar\alpha_t=0.36\) and \(\bar\alpha_s=0.64\), \(\sigma_{t\to s}^2=0.24609375\eta^2\). Colored widths represent **squared scalar coefficients** \((\bar\alpha_s,\ 1-\bar\alpha_s-\sigma^2,\ \sigma^2)\), which sum to one. They do **not** measure the variance or energy of model outputs, because the predicted clean image and noise can be correlated. The two reference rows show endpoint choices; the animated row varies \(\eta\) continuously. All values are mathematical examples, not fitted model parameters, Gaussian draws, or sample-quality measurements. The MkDocs player supplies keyboard-accessible Play/Pause and a reduced-motion still; [GitHub static preview](../../../../../assets/concept-animations/ddim-eta-coefficients-still.svg). Original method: [Song et al. (2021)](https://arxiv.org/abs/2010.02502).
+
 ## Results
 
-The paper's Table 1 reports FID on unconditional CIFAR-10 as the number of steps \(S\) varies. Here \(\eta\) is the paper's name for \(\sigma\): \(\eta = 0\) is DDIM and \(\eta = 1\) is DDPM.
+The paper's Table 1 reports FID on unconditional CIFAR-10 as the number of steps \(S\) varies. Here \(\eta\) scales the step-dependent \(\sigma_{t\to s}\), rather than being another name for \(\sigma\). The table calls \(\eta=0\) deterministic DDIM and \(\eta=1\) DDPM-style stochastic sampling; only adjacent steps reproduce the original ancestral chain.
 
 | Steps \(S\) | 10 | 20 | 50 | 100 | 1000 |
 |---|---|---|---|---|---|

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-11
+translation_reviewed: 2026-10-28
 ---
 
 # DDIM：去噪擴散隱式模型
@@ -40,9 +40,26 @@ x_{t_{\text{prev}}} = \sqrt{\bar\alpha_{t_{\text{prev}}}}\,\hat x_0 + \sqrt{1-\b
 
 *原創循環式 SVG 教學動畫，CC BY-SA 4.0。* 上排示意 DDPM 的八次連續去噪網路評估；下排使用**同一個已訓練的雜訊預測網路**，跳過部分訓練時間索引，顯示 $\eta=0$ 時四次確定性 DDIM 更新（參見 Song、Meng 與 Ermon，2021）。在此設定下，DDIM 的每次轉移不會再注入一份獨立抽取的高斯雜訊，與隨機的 DDPM 祖先取樣有所不同。**八次與四次只是人工設定的教學例子**，並非實際加速倍數或生成品質實測；減少更新次數也不保證品質相同。MkDocs 網站提供鍵盤可操作的**播放／暫停**控制及減少動態效果的靜態顯示。[GitHub 靜態預覽](../../../../../assets/concept-animations/ddim-strided-sampling-still.svg)。
 
+## 隨機程度：η 與每一步的雜訊標準差
+
+\(\eta\) **不是** \(\sigma\) 的另一種名稱，而是用來縮放每次轉移對應的雜訊標準差。對從時間 \(t\) 跳往較早的 \(s\)（\(\bar\alpha_s>\bar\alpha_t\)），Song、Meng 與 Ermon（2021）使用的設定可寫成
+
+\[
+\sigma_{t\to s}(\eta)
+= \eta\sqrt{\frac{1-\bar\alpha_s}{1-\bar\alpha_t}}
+  \sqrt{1-\frac{\bar\alpha_t}{\bar\alpha_s}},
+\qquad 0\leq\eta\leq 1.
+\]
+
+當 \(\eta=0\) 時，這次更新不會額外抽取高斯雜訊；當 \(\eta=1\) 且使用**相鄰時間步** \(s=t-1\) 時，會恢復 DDPM 使用後驗變異數 \(\tilde\beta_t\) 的祖先取樣。若跳過時間步，\(\eta=1\) 則是廣義的隨機取樣，**不等同原始完整逐步執行的 DDPM 馬可夫鏈**，閱讀下列表格時必須區分。
+
+![DDIM 動畫隨 η 改變預測雜訊與新抽樣高斯雜訊的平方係數比例，而乾淨影像係數保持不變。](../../../../../assets/concept-animations/ddim-eta-coefficients-motion.svg)
+
+*原創 10 秒循環式教學 SVG，CC BY-SA 4.0。* 以人工設定的累積係數 \(\bar\alpha_t=0.36\)、\(\bar\alpha_s=0.64\) 示範，得到 \(\sigma_{t\to s}^2=0.24609375\eta^2\)。色塊長度是**純量係數的平方** \((\bar\alpha_s,\ 1-\bar\alpha_s-\sigma^2,\ \sigma^2)\)，三者總和為一，但**不是模型輸出的實際變異數或能量分解**，因為預測的乾淨影像與雜訊可能相關。下方兩列固定呈現端點，上方動態列連續改變 \(\eta\)。所有數值皆為數學示意，非真實模型參數、高斯抽樣結果或品質量測。MkDocs 播放器提供鍵盤可操作的播放／暫停及減少動態效果時的靜態圖；另有 [GitHub 靜態預覽](../../../../../assets/concept-animations/ddim-eta-coefficients-still.svg)。原始方法見 [Song 等人（2021）](https://arxiv.org/abs/2010.02502)。
+
 ## 結果
 
-論文的表 1 報告無條件 CIFAR-10 上，FID 隨步數 \(S\) 的變化。這裡的 \(\eta\) 是論文對 \(\sigma\) 的命名：\(\eta = 0\) 為 DDIM，\(\eta = 1\) 為 DDPM。
+論文的表 1 報告無條件 CIFAR-10 上，FID 隨步數 \(S\) 的變化。這裡的 \(\eta\) 是縮放每一步 \(\sigma_{t\to s}\) 的參數，**不是 \(\sigma\) 的別名**；表中 \(\eta=0\) 表示確定性 DDIM，\(\eta=1\) 表示 DDPM 風格的隨機取樣（相鄰時間步才對應原始祖先取樣鏈）。
 
 | 步數 \(S\) | 10 | 20 | 50 | 100 | 1000 |
 |---|---|---|---|---|---|

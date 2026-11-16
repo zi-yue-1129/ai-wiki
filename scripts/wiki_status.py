@@ -22,8 +22,10 @@ backlog is listed as a count.
 
 Further reading and Further learning entries (and their zh-TW headings) need a clickable link in the same way, and are checked on changed pages too. `--unlinked` lists every reference and further-reading entry in the wiki that has no link, so the backlog can be fixed in batches.
 
-A page is stale when its last review (`last_reviewed:` front matter, falling back
-to its last git commit) is older than STALE_DAYS.
+Completeness is a writing-progress heuristic, not a factual verification badge.
+A page has a recorded review only when `last_reviewed:` is explicitly present.
+Git modification dates never imply an accuracy review. A recorded review is stale
+after `review_interval_days` (default STALE_DAYS); no review date means unknown.
 
 A translation (<name>.zh-TW.md) is outdated when the English page has a newer
 git commit than the translation, unless the translation's front matter sets
@@ -79,9 +81,11 @@ class Page:
     last_reviewed: dt.date | None
     translations: dict[str, str]  # lang -> "missing" | "up to date" | "outdated"
 
+    review_interval_days: int = STALE_DAYS
+
     @property
     def stale(self) -> bool:
-        return self.last_reviewed is not None and (TODAY - self.last_reviewed).days > STALE_DAYS
+        return self.last_reviewed is not None and (TODAY - self.last_reviewed).days > self.review_interval_days
 
 
 TODAY = dt.date.today()
@@ -105,9 +109,9 @@ def read(path: Path) -> tuple[dict, str]:
 
 
 def as_date(value) -> dt.date | None:
-    if isinstance(value, dt.date):
+    if type(value) is dt.date:
         return value
-    if isinstance(value, str):
+    if isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
         try:
             return dt.date.fromisoformat(value)
         except ValueError:
@@ -145,7 +149,10 @@ def load_page(path: Path) -> Page:
             status = "complete"
 
     last_commit = git_date(path)
-    last_reviewed = as_date(meta.get("last_reviewed")) or last_commit
+    last_reviewed = as_date(meta.get("last_reviewed"))
+    interval = meta.get("review_interval_days", STALE_DAYS)
+    if type(interval) is not int or not 1 <= interval <= STALE_DAYS:
+        interval = STALE_DAYS
 
     translations = {}
     for lang in TRANSLATIONS:
@@ -161,7 +168,7 @@ def load_page(path: Path) -> Page:
             translations[lang] = "up to date"
 
     section = rel.parts[0] if len(rel.parts) > 1 else "home"
-    return Page(rel, section, title, status, words, last_commit, last_reviewed, translations)
+    return Page(rel, section, title, status, words, last_commit, last_reviewed, translations, interval)
 
 
 def nav_paths() -> set[str]:
@@ -207,6 +214,12 @@ def render(pages: list[Page], base: str, heading: str) -> str:
         f"(**{done * 100 // max(total, 1)}%** complete). Generated {TODAY.isoformat()}.\n"
     )
 
+    out.append("Completeness describes writing progress, **not factual verification**. "
+               "A recorded review date is a contributor declaration, not independent certification. "
+               "Git edits do not refresh it.\n")
+    unknown = sum(p.last_reviewed is None for p in pages)
+    out.append(f"**{unknown}** pages have no explicit review date (review status unknown).\n")
+
     out.append("| Section | Pages | Complete | Draft | Stub | " + " | ".join(f"{l} translated" for l in TRANSLATIONS) + " |")
     out.append("|---|---:|---:|---:|---:|" + "---:|" * len(TRANSLATIONS))
     for section in sorted(by_section):
@@ -230,9 +243,9 @@ def render(pages: list[Page], base: str, heading: str) -> str:
     listing("Stubs waiting to be written", [p for p in pages if p.status == "stub"])
     listing("Drafts to expand", [p for p in pages if p.status == "draft"], lambda p: f" ({p.words} words)")
     listing(
-        f"Not reviewed in over {STALE_DAYS} days",
+        "Recorded reviews past their review interval",
         [p for p in pages if p.stale],
-        lambda p: f" (last reviewed {p.last_reviewed})",
+        lambda p: f" (last reviewed {p.last_reviewed}; interval {p.review_interval_days} days; last modified {p.last_commit or 'unknown'})",
     )
     for lang in TRANSLATIONS:
         listing(
@@ -471,6 +484,11 @@ def check(pages: list[Page]) -> int:
             problems.append(f"docs/{p.path.as_posix()}: status must be one of {', '.join(STATUSES)}")
         if "last_reviewed" in meta and as_date(meta["last_reviewed"]) is None:
             problems.append(f"docs/{p.path.as_posix()}: last_reviewed must be YYYY-MM-DD")
+        interval = meta.get("review_interval_days", STALE_DAYS)
+        if type(interval) is not int or not 1 <= interval <= STALE_DAYS:
+            problems.append(f"docs/{p.path.as_posix()}: review_interval_days must be an integer from 1 to {STALE_DAYS}")
+        if p.last_reviewed and p.last_reviewed > TODAY:
+            problems.append(f"docs/{p.path.as_posix()}: last_reviewed cannot be in the future")
         related = meta.get("related", [])
         if not isinstance(related, list):
             problems.append(f"docs/{p.path.as_posix()}: related must be a list of paths")
