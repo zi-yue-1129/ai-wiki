@@ -54,6 +54,25 @@ This algebra explains two equivalent implementations: supply a soft target to a 
 
 The identity assumes the stated cross-entropy and consistent reductions. If coefficients vary per example, combine the per-example losses before averaging the batch. For class-weighted reductions, additional smoothing or another loss function, check the actual definition rather than assuming identical behaviour.
 
+### Why the soft-target loss decomposes
+
+For a fixed illustrative prediction $p=(0.2,0.7,0.1)$ and a mixed target $(\lambda,1-\lambda,0)$, the same-prediction identity becomes
+
+$$
+\operatorname{CE}(p,\tilde y)
+=\lambda[-\log(0.2)]+(1-\lambda)[-\log(0.7)].
+$$
+
+At $\lambda=0.25$, the two contributions are approximately $0.40236$ and $0.26751$, summing to $0.66987$. The animation shows each contribution and their sum on a **shared numerical scale** as the target weights vary.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup weighted cross-entropy animation; keyboard-scrollable image">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-loss-decomposition-still.svg" data-still-src="../../../assets/concept-animations/mixup-loss-decomposition-still.svg" data-motion-src="../../../assets/concept-animations/mixup-loss-decomposition-motion.svg" alt="A moving mixing coefficient changes the two target weights and their separate hard-label cross-entropy contributions; the total equals their sum." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* The displayed prediction is **deliberately held fixed** to isolate the target-side algebra; a learned model's prediction $f_\theta(\tilde x)$ would ordinarily also change as the mixed input changes. Values are analytic examples, **not measured network losses**. MkDocs enables Play/Pause and keyboard Enter/Space; reduced-motion users and GitHub see the static view.
+
 ### Worked classification example
 
 This is an original numerical example, not a paper result. Use three classes and $\lambda=0.25$:
@@ -109,6 +128,19 @@ The paper also studies CIFAR classification, speech, tabular data, corrupted lab
 - **Label smoothing** changes the target toward a chosen prior while retaining the input. Mixup changes both the input and the target using another example; the two regularisers therefore impose different constraints.[^smoothing]
 - [Dropout](dropout-method.md) removes units during training, while [stochastic depth](stochastic-depth.md) bypasses network layers or residual paths. These differ from mixing data and can interact with mixup rather than being automatic substitutes.[^dropout][^depth]
 - **CutMix** copies image patches and weights labels by patch area, whereas ordinary mixup blends the inputs throughout. It provides a different assumption about spatial structure.[^cutmix]
+
+### CutMix area-to-label coupling
+
+CutMix replaces a rectangular source-image region rather than interpolating every pixel. Let $M$ mark copied pixels from image B. In classification, the target weight assigned to B follows the *actual pasted area*: $\lambda_B=|M|/(HW)$, and $\lambda_A=1-\lambda_B$.[^cutmix] A patch's nominal sampled width can differ from its realised clipped area; the label should use the realised mask.
+
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="CutMix area and target weight animation; keyboard-scrollable image">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-cutmix-area-still.svg" data-still-src="../../../assets/concept-animations/mixup-cutmix-area-still.svg" data-motion-src="../../../assets/concept-animations/mixup-cutmix-area-motion.svg" alt="An orange region grows inside a six-by-six green grid; its covered area and the class B label bar grow together while class A weight decreases." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* For a constructed $6\times6$ grid, the patch height is three cells and its width changes from zero to four cells. At full illustrated width, B covers $3\times4=12$ of the 36 cells, giving **B weight $1/3$ and A weight $2/3$**. Intermediate widths continuously demonstrate the *geometric area formula*, not the discrete integer-pixel masks of an actual CutMix sampler. No model results or image-content probabilities are implied. Play/Pause is available on MkDocs; GitHub and reduced-motion preferences use the static fallback.
 
 A convex combination can lie outside the natural data distribution. Integer token IDs, categorical codes, bounding boxes and segmentation masks need task-specific treatment; the classification recipe does not establish that arbitrary arithmetic on them is meaningful. Likewise, a soft training target alone does not establish calibrated probabilities on real examples.
 

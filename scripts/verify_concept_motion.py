@@ -17,6 +17,8 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "mixup-paired-interpolation": "theory/deep-learning/dropout/mixup",
     "mixup-beta-strength": "theory/deep-learning/dropout/mixup",
+    "mixup-loss-decomposition": "theory/deep-learning/dropout/mixup",
+    "mixup-cutmix-area": "theory/deep-learning/dropout/mixup",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
@@ -207,7 +209,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"mixup-paired-interpolation", "mixup-beta-strength", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "power-iteration-convergence",
                           "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
