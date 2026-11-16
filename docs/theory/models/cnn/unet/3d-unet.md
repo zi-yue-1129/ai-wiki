@@ -33,6 +33,17 @@ Replace all 2D operations of U-Net with 3D ones, train end to end from scratch, 
 
 The network follows the U-Net encoder–decoder with skip connections. The encoder uses $3\times3\times3$ convolutions and $2\times2\times2$ max pooling. The decoder upsamples in all three spatial dimensions and combines features from matching encoder levels. A final $1\times1\times1$ convolution produces per-voxel class scores. In the original architecture, a $132\times132\times116$ input tile yields a $44\times44\times28$ prediction tile. This allows the network to use surrounding voxels as context for a smaller output region.[^original]
 
+### How a 3D kernel uses neighboring slices
+
+A $3\times3\times3$ kernel at one output location reads a $3\times3$ spatial window at **each of three adjacent depth positions**. The figure follows one input channel: each plane supplies nine values, giving 27 spatial samples in total. Multiple input channels would each contribute their own 27 samples; the final convolution sums their weighted contributions to produce each output channel. Unlike an independent 2D slice convolution, this receptive field can directly combine information across depth.[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable 3D U-Net teaching animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-depth-kernel-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg" alt="Three adjacent five-by-five slice grids each highlight a three-by-three receptive window. Pulses travel from the three planes to one output, and a schematic input count progresses from 9 to 18 to 27." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+
+*Original CC BY-SA 4.0 teaching animation.* Each moving pulse represents one **plane contribution**, not an individual arithmetic multiply-accumulate. The numbers 9, 18 and 27 are exact kernel geometry for a **single input channel** in this toy view, **not measured feature magnitudes or GPU timings**. The MkDocs site offers Play/Pause and a reduced-motion still; [GitHub-readable static preview](../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg).[^original]
+
 ### Learning from sparse labels
 
 The loss is a weighted softmax cross-entropy. Let $\mathcal{A}$ be the set of annotated voxels in the output tile, $y_v$ the known label, $w_{y_v}$ its class weight and $p_v(y_v)$ the predicted probability of that label. The following sum shows which voxels contribute.[^original]
@@ -42,6 +53,17 @@ $$
 $$
 
 The paper assigns zero loss weight to unlabelled voxels and uses class weights to balance the annotated classes. In particular, an unlabelled voxel and a voxel annotated as background have different roles. Only the annotated background voxel contributes a background error. The network still takes the full input tile as context and produces scores throughout the output tile. During training, the same elastic deformation is applied to the image and its labels to keep them aligned.[^original]
+
+#### Why image and label must share the same spatial warp
+
+The original 3D U-Net training procedure applies on-the-fly elastic deformation to the image and its corresponding labels.[^original] Both must use the **same displacement field**: otherwise the deformed tissue location and its supervision target disagree. Image intensities and categorical labels may require different interpolation rules (for example, class-preserving nearest-neighbor resampling for discrete labels), even though their spatial coordinates are transformed consistently.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable 3D U-Net teaching animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-paired-warp-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-paired-warp-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-paired-warp-still.svg" alt="Two aligned original image and label panels appear on the left. On the right, a common nonrigid displacement bends both coordinate grids and their matching region outlines together without separating the label from the image." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+
+*Original CC BY-SA 4.0 teaching animation.* The grid and boundary are **synthetic 2D cross-sections** used to explain a deformation that can be applied to 3D training data. The identical spatial warp is the teaching point; neither a real clinical image nor an experimental augmentation trace is shown. On MkDocs use Play/Pause; reduced-motion mode uses the static [GitHub preview](../../../../assets/concept-animations/3d-unet-paired-warp-still.svg).[^original]
 
 #### How the sparse-loss mask changes the gradient
 

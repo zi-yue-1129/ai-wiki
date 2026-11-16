@@ -22,6 +22,17 @@ translation_reviewed: 2026-11-16
 
 網路沿用 U-Net 的編碼器、解碼器與跳接連線。編碼器使用 $3\times3\times3$ 卷積與 $2\times2\times2$ 最大池化。解碼器沿三個空間維度上採樣，並結合編碼器相同解析度的特徵。最後以 $1\times1\times1$ 卷積產生各體素的類別分數。原始架構輸入 $132\times132\times116$ 的區塊，輸出 $44\times44\times28$ 的預測區塊，因此能使用周圍體素作為較小輸出區域的上下文。[^original]
 
+### 三維卷積如何結合相鄰切片
+
+對單一輸出位置而言，$3\times3\times3$ 卷積核會同時讀取**三個相鄰深度位置**，每個深度各取一個 $3\times3$ 的空間視窗。圖中只考慮一個輸入通道：每層提供 9 個值，合計 27 個空間取樣值。若有多個輸入通道，每個通道都會提供相應的 27 個取樣值，再由卷積的權重加總形成各輸出通道。相較於逐張切片獨立運算的二維卷積，三維卷積可以直接融合跨深度資訊。[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的 3D U-Net 教學動畫">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-depth-kernel-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg" alt="三張相鄰的五乘五切片網格各自標出三乘三感受野。光點依序從各切片流向同一個輸出節點，示意單一輸入通道的取樣數由 9、18 累積至 27。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+
+*原創 CC BY-SA 4.0 教學動畫。* 每個光點代表**一個深度平面的貢獻**，不是一次乘加運算。9、18、27 為單一輸入通道在此人工幾何範例中的精確取樣數，**並非特徵強度或 GPU 效能實測**。MkDocs 網站可播放／暫停，也提供降低動態效果的靜態回退。[GitHub 靜態預覽](../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg)。[^original]
+
 ### 從稀疏標註學習
 
 訓練使用加權的 softmax 交叉熵。設 $\mathcal{A}$ 為輸出區塊中已標註的體素集合，$y_v$ 為已知標籤，$w_{y_v}$ 為其類別權重，$p_v(y_v)$ 為模型對該標籤預測的機率。下式列出哪些體素會計入損失。[^original]
@@ -31,6 +42,17 @@ $$
 $$
 
 論文將未標註體素的損失權重設為零，並以類別權重平衡已標註的各類別。未標註體素與標為背景的體素扮演不同角色，只有後者會計入背景分類的誤差。網路仍使用整個輸入區塊作為上下文，並為整個輸出區塊產生分數。訓練時，影像與標籤會套用相同的彈性形變，以維持對齊。[^original]
+
+#### 為何影像與標註需要一致的空間形變
+
+原始 3D U-Net 訓練會對影像與其標註套用即時的彈性形變。[^original] 兩者必須使用**相同的空間位移場**，才能讓變形後的組織位置仍對應正確的監督標籤。影像強度與離散類別標籤的插值方式可以不同（例如離散標籤可採保持類別值的最近鄰取樣），但空間座標的形變必須一致。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的 3D U-Net 教學動畫">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-paired-warp-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-paired-warp-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-paired-warp-still.svg" alt="左側的原始影像與標註區域彼此對齊；右側使用同一個非剛性位移場，讓兩張網格與對應輪廓同步彎曲，標註不會與影像位置錯開。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+
+*原創 CC BY-SA 4.0 教學動畫。* 此圖以**人工設計的二維剖面**說明同樣可用於三維訓練資料的空間形變；不是臨床影像，也不是論文中的實際增強紀錄。MkDocs 網站支援播放／暫停，降低動態效果時顯示靜態圖。[GitHub 靜態預覽](../../../../assets/concept-animations/3d-unet-paired-warp-still.svg)。[^original]
 
 #### 稀疏損失遮罩如何影響梯度
 
