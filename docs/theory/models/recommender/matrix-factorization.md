@@ -48,7 +48,7 @@ The constant $\lambda$ controls the strength of the penalty and is usually chose
 
 [GitHub-readable static preview](../../../assets/concept-animations/mf-coupled-sgd-still.svg)
 
-For one **illustrative** known rating, set the global and item/user biases to zero and omit regularisation: $r=1$, $p_u^{(0)}=(0.4,0.2)$, $q_i^{(0)}=(0.7,0.3)$, and learning rate $\eta=0.2$. A simultaneous SGD update based on the *pre-update* vectors is
+For one **illustrative** known rating, set the global and item/user biases to zero and omit regularisation: $r=1$, $p_u^{(0)}=(0.4,0.2)$, $q_i^{(0)}=(0.7,0.3)$, and learning rate $\eta=0.2$. For the half-squared-error loss $L=\tfrac12(r-p_u^\top q_i)^2$, a simultaneous SGD update using the *pre-update* vectors is
 $$
 e=r-p_u^\top q_i,\qquad
 p_u\leftarrow p_u+\eta e q_i,\qquad
