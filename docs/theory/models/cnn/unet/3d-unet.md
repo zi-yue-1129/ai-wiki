@@ -44,6 +44,27 @@ A $3\times3\times3$ kernel at one output location reads a $3\times3$ spatial win
 
 *Original CC BY-SA 4.0 teaching animation.* Each moving pulse represents one **plane contribution**, not an individual arithmetic multiply-accumulate. The numbers 9, 18 and 27 are exact kernel geometry for a **single input channel** in this toy view, **not measured feature magnitudes or GPU timings**. The MkDocs site offers Play/Pause and a reduced-motion still; [GitHub-readable static preview](../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg).[^original]
 
+
+### How the encoder skip rejoins the decoder
+
+A skip connection carries high-resolution encoder features to the decoder without routing them through every lower-resolution bottleneck. A decoder upconvolution raises the spatial resolution; the encoder feature must be **spatially aligned** with the decoder feature before the two are **concatenated along the channel axis**, not added elementwise. Because the original 3D U-Net uses valid convolutions, the encoder feature is cropped where necessary to match the decoder shape.[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable 3D U-Net skip-connection animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-skip-concat-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-skip-concat-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-skip-concat-still.svg" alt="An orange high-resolution four-by-four encoder grid travels along an upper skip path while a coarse two-by-two grid is upsampled into a blue four-by-four decoder grid. Moving markers follow both paths into two aligned channel groups, rather than adding the grids together." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* The **synthetic 2D slices** stand for 3D feature volumes; the displayed $4\times4$ and $2\times2$ grids illustrate relative spatial resolution, **not layer dimensions reported in the paper**. The final side-by-side grids represent two channel groups at the same spatial resolution. Real skip cropping is described above but omitted from this simplified route diagram. Neither colours nor moving markers are measured activations or GPU execution traces. On MkDocs the figure can be played/paused, including by keyboard, and reduced-motion visitors see the [GitHub-readable still](../../../../assets/concept-animations/3d-unet-skip-concat-still.svg).[^original]
+
+### Why the input patch exceeds the prediction patch
+
+In the published architecture, the input tile is $132\times132\times116$ voxels and the output tile is $44\times44\times28$ voxels. Valid convolutions reduce the spatial extent while the surrounding input supplies context for each predicted voxel. The following **toy 2D cross-section** makes the consequence visible: each $4\times4$ input window yields only a central $2\times2$ predicted core. Moving overlapping input windows across a $6\times6$ region accumulates four non-overlapping prediction cores into an interior $4\times4$ region.[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable 3D U-Net input-context and predicted-core animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-context-tiling-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-context-tiling-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-context-tiling-still.svg" alt="A translucent four-by-four input context window moves to four positions on a six-by-six synthetic grid. Only its central two-by-two core contributes a predicted tile. Four output tiles appear in sequence on the right while the surrounding boundary remains unfilled." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* The **$4\times4$ to $2\times2$ patch sizes, four passes and 2D layout are illustrative**, not the paper's network dimensions, an actual inference schedule or performance measurements. The unfilled outer margin is deliberate: this toy does not demonstrate full-volume border handling, which would require an explicit boundary strategy. On MkDocs use Play/Pause and the reduced-motion still; [GitHub-readable fallback](../../../../assets/concept-animations/3d-unet-context-tiling-still.svg).[^original]
+
 ### Learning from sparse labels
 
 The loss is a weighted softmax cross-entropy. Let $\mathcal{A}$ be the set of annotated voxels in the output tile, $y_v$ the known label, $w_{y_v}$ its class weight and $p_v(y_v)$ the predicted probability of that label. The following sum shows which voxels contribute.[^original]
