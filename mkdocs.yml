@@ -1060,6 +1060,7 @@ plugins:
             Tags: 標籤
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
+            Evidence & Retrieval Pilot: 證據與檢索試點
             Style Guide: 寫作風格指南
 
 markdown_extensions:
@@ -2241,4 +2242,5 @@ nav:
       - Tags: reference/tags/index.md
       - Contributing: reference/contributing/index.md
       - Roadmap & Coverage: reference/roadmap/index.md
+      - Evidence & Retrieval Pilot: reference/knowledge-pilot/index.md
       - Style Guide: reference/style-guide/index.md
