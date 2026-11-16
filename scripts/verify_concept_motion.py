@@ -68,6 +68,8 @@ TOPICS = {
     "dpll-backtrack": "theory/paradigms/symbolic-ai/theorem-proving/dpll",
     "viterbi-trellis": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "tree-belief-propagation": "theory/paradigms/probabilistic/graphical-models/belief-propagation",
+    "alibi-head-prefix": "theory/models/transformer/positional-encodings/index",
+    "rope-cache-reindex": "theory/models/transformer/positional-encodings/index",
     "forward-ad-jvp": "theory/math/automatic-differentiation/forward-mode",
     "reverse-ad-vjp": "theory/math/automatic-differentiation/reverse-mode",
     "gcn-aggregation": "theory/models/gnn/message-passing/gcn/index",

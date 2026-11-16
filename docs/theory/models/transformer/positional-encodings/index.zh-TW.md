@@ -65,6 +65,11 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 *原創 CC BY-SA 4.0 教學動畫。* 與上方所有內容分數相等的例子不同，這裡人工設定五個因果注意力鍵中**最舊的鍵**（距離 $d=4$）具有內容 logit $c_4=2$，另外四個鍵的內容 logit 為零。ALiBi 調整後為 $s_d=c_d-md$，注意力權重為 $\operatorname{softmax}(s)_d$。當 $m=0$，舊鍵的內容優勢使它權重最高；當 $m=1/2$，其分數 $2-4m=0$ 與目前鍵（$d=0$）相同，因此**正規化後的兩個機率也相等**，即使 softmax 分母還包含另外三個鍵。斜率繼續提高，較近的目前鍵便占優勢。動畫游標沿解析式計算的機率曲線移動，中間影格採取樣內插；**不是真實模型的注意力權重或準確率實測**。[開啟動態 SVG](../../../../assets/concept-animations/alibi-content-recency-motion.svg)。MkDocs 沿用播放／暫停及鍵盤控制，窄螢幕可以在圖面內水平捲動，GitHub 則顯示可獨立理解的靜態圖。方法依據 Press 等人（2021；參考文獻）。
 
 
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/alibi-head-prefix-still.svg" data-motion-src="../../../../assets/concept-animations/alibi-head-prefix-motion.svg" data-still-src="../../../../assets/concept-animations/alibi-head-prefix-still.svg" alt="三個示意 ALiBi 注意力頭分別使用 0.25、0.5 和 1.0 的斜率；隨查詢前綴增長，各頭對可見鍵的機率熱度重新正規化，較大斜率更集中在最近的鍵。">
+
+*原創 CC BY-SA 4.0 教學動畫。* **不同注意力頭的近期偏好不只是偏置直線不同**，因為每增加一個可見鍵，Softmax 都要重新正規化。假設人工示意的因果序列目前查詢索引為 $t$，所有內容 logit 為零，三個頭的 ALiBi 斜率為 $m\in\{0.25,0.5,1\}$，則 $p_m(j\mid t)=\exp[-m(t-j)]/\sum_{r=0}^{t}\exp[-m(t-r)]$，其中 $0\le j\le t$。8 秒動畫以**每個離散時間點的解析式機率**繪製熱圖，讓 $t$ 從 0 移動到 7。最後八個鍵都可見時，最近鍵在三個頭的機率分別約為 **0.2558、0.4008、0.6323**。這些斜率與分數皆為人工設定，**不是**訓練模型的注意力結果，也不能視為準確率。 [開啟動畫](../../../../assets/concept-animations/alibi-head-prefix-motion.svg)。MkDocs 沿用播放／暫停及鍵盤操作；GitHub 與 Reduced Motion 顯示八鍵靜態回退。方法依據 Press 等人（2021；參考文獻）。
+
 ### 延伸上下文
 
 在 4,096 個位置上訓練的 RoPE 模型，若給它 16,384 個位置，表現會下降，因為旋轉角度會超出訓練時見過的範圍。位置內插把位置索引除以一個係數，讓較長的序列映射回訓練範圍，再短暫微調。YaRN 更進一步：它保持高頻維度不變，只內插低頻維度，並調整注意力，使較長長度下的熵維持在可比較的水準。另一個想法 NTK-aware scaling，起源於 2023 年的非正式社群文章而非論文，YaRN 則分析了它的行為。
@@ -84,6 +89,11 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 <img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/yarn-frequency-ramp-still.svg" data-motion-src="../../../../assets/concept-animations/yarn-frequency-ramp-motion.svg" data-still-src="../../../../assets/concept-animations/yarn-frequency-ramp-still.svg" alt="六組示意 RoPE 頻段在 YaRN 的波長分段內插下呈現不同變化：低頻縮放、中間頻段混合，高頻保留原有旋轉速度。">
 
 *原創 CC BY-SA 4.0 教學動畫。* **YaRN 由兩部分組成**：NTK-by-parts 頻率分段內插，以及額外的**注意力 logit 溫度校正**；此圖**僅呈現頻率部分**。令 $r=L/\lambda$ 為原始上下文長度內的旋轉週數，人工設定 $s=4$、$\alpha=1$、$\beta=4$。當 $\gamma(r)=\operatorname{clip}((r-\alpha)/(\beta-\alpha),0,1)$，有效頻率比例為 $\theta'(r)/\theta=\gamma(r)+(1-\gamma(r))/s$。六個示意頻段 $r=(0.5,1,1.5,2,3,4)$ 的最終比例為 $(0.25,0.25,0.375,0.5,0.75,1)$。動畫使各長條隨倒數比例 $1/s$ 從 $1$ 變化至 $1/4$ 再回復，清楚比較**低頻內插、中間頻段混合、高頻保留**的不同效果。**頻段、門檻與數值皆為人工教學設定，不是真實模型的 YaRN 參數、推論輸出或上下文效能實測。** 完整方法與注意力溫度校正見 Peng 等人（2023；參考文獻）。[開啟動態 SVG](../../../../assets/concept-animations/yarn-frequency-ramp-motion.svg)。MkDocs 使用播放／暫停及鍵盤操作；GitHub 與 Reduced Motion 則顯示靜態端點圖。
+
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-cache-reindex-still.svg" data-motion-src="../../../../assets/concept-animations/rope-cache-reindex-motion.svg" data-still-src="../../../../assets/concept-animations/rope-cache-reindex-still.svg" alt="示意鍵的原始位置是二、查詢位置是六，淘汰部分 token 後仍相距四；若錯誤地把保留 token 的位置重新編為零到三，相對距離變成二，RoPE 的單頻餘弦貢獻也隨之改變。">
+
+*原創 CC BY-SA 4.0 教學動畫。* **KV 快取的緊密儲存位址不等於 RoPE 位置索引。** 假設 token 的原始位置為 $0,\ldots,6$，淘汰位置 $1,3,4$，只保留 $\{0,2,5,6\}$。原本位置 6 的查詢與位置 2 的鍵，相距 $6-2=4$。如果實作不只是壓縮儲存空間，還**錯誤地把保留 token 的位置重新編為 $0,1,2,3$**，這一對 token 的表面相對距離就變成 $3-1=2$。選取人工二維 RoPE 頻段、固定 $q=k=(1,0)$ 且 $\omega=\pi/6$，其內積貢獻將從 $\cos(4\omega)=-1/2$ 變為 $\cos(2\omega)=+1/2$。動畫先標示被淘汰的 token，再呈現錯誤的重新編號；靜態回退直接比較兩種結果。**將所有位置同時平移相同常數並不會出錯**，因為相對距離仍相同；這裡的問題是中間缺口被不均勻壓縮。這是位置一致性的數學示意，**不是**特定 KV 快取實作的實測注意力結果。[開啟動畫](../../../../assets/concept-animations/rope-cache-reindex-motion.svg)。MkDocs 沿用共用播放／暫停與鍵盤控制。旋轉內積恆等式依據 Su 等人（2021；參考文獻）。
 
 ## 取捨
 
