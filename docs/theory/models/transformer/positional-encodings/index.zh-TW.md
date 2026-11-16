@@ -74,7 +74,7 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 
 <img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-frequency-bands-still.svg" data-motion-src="../../../../assets/concept-animations/rope-frequency-bands-motion.svg" data-still-src="../../../../assets/concept-animations/rope-frequency-bands-still.svg" alt="RoPE 的快速與慢速頻率對會隨相對距離以不同速度旋轉。距離四時，快速頻率已完成一次週期，但慢速頻率仍處於不同相位。">
 
-*原創 CC BY-SA 4.0 教學動畫。* RoPE 會讓**不同維度對使用不同旋轉頻率**，因此單一維度對回到原有相位，不代表整個旋轉表示也已重複。固定人工二維查詢與鍵向量 $q=k=(1,0)$ 時，每個維度對在相對距離 $\Delta$ 的示意相似度為 $\cos(\omega\Delta)$。圖中選擇 $\omega_{\mathrm{fast}}=\pi/2$ 與 $\omega_{\mathrm{slow}}=\pi/10$ 弧度／位置。當 $\Delta=4$，快速分量完成 $2\pi$ 旋轉、相似度回到 $1$；慢速分量只旋轉 $2\pi/5$（72°），相似度 (cos$2\pi/5$approx0.309)。圖上的兩個向量與曲線游標隨 $\Delta\in[0,16]$ 同步前進。這些刻意選取的頻率及向量只是**可解析的數學示例**，不代表任何真實模型使用的頻率配置、注意力權重或長度外推準確率。多頻率的旋轉規則依據 Su 等人（2021；參考文獻）。[開啟動態 SVG](../../../../assets/concept-animations/rope-frequency-bands-motion.svg)。MkDocs 沿用播放／暫停與鍵盤操作，GitHub 顯示完整可讀的靜態回退圖。
+*原創 CC BY-SA 4.0 教學動畫。* RoPE 會讓**不同維度對使用不同旋轉頻率**，因此單一維度對回到原有相位，不代表整個旋轉表示也已重複。固定人工二維查詢與鍵向量 $q=k=(1,0)$ 時，每個維度對在相對距離 $\Delta$ 的示意相似度為 $\cos(\omega\Delta)$。圖中選擇 $\omega_{\mathrm{fast}}=\pi/2$ 與 $\omega_{\mathrm{slow}}=\pi/10$ 弧度／位置。當 $\Delta=4$，快速分量完成 $2\pi$ 旋轉、相似度回到 $1$；慢速分量只旋轉 $2\pi/5$（72°），相似度 $\cos(2\pi/5)\approx 0.309$。圖上的兩個向量與曲線游標隨 $\Delta\in[0,16]$ 同步前進。這些刻意選取的頻率及向量只是**可解析的數學示例**，不代表任何真實模型使用的頻率配置、注意力權重或長度外推準確率。多頻率的旋轉規則依據 Su 等人（2021；參考文獻）。[開啟動態 SVG](../../../../assets/concept-animations/rope-frequency-bands-motion.svg)。MkDocs 沿用播放／暫停與鍵盤操作，GitHub 顯示完整可讀的靜態回退圖。
 
 
 ## 取捨
