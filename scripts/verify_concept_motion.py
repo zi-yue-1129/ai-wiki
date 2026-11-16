@@ -206,7 +206,7 @@ def main() -> int:
                         errors.append(f"{page}: missing GitHub-readable fallback link {fallback.name}")
             if stem in {"dropout-inverted-sampling", "stochastic-depth-survival-samples"}:
                 # Both languages must expose a GitHub-safe static fallback.
-                static_links = re.findall(r"\\[[^]]+\\]\\(([^)]+\\.svg)\\)", text)
+                static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {
                     (page.parent / link).resolve() for link in static_links
                 }:
