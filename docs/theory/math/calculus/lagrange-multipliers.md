@@ -68,6 +68,16 @@ Let $f(x,y)=(x-2)^2+(y-1)^2$ with equality constraint $g(x,y)=x^2+y^2-1=0$. The 
 Consider the **analytic toy problem** $\min_{0\le x\le1}(x-a)^2$ while $a$ moves from $0.35$ to $1.70$. Throughout this chosen range the lower bound is inactive. With upper-bound constraint $h(x)=x-1\le0$, stationarity and complementary slackness give $2(x-a)+\mu=0$, $\mu\ge0$, and $\mu(x-1)=0$. Thus $x^*=\min(a,1)$ and $\mu^*=2\max(a-1,0)$. For $a<1$ the target is feasible and $\mu=0$; for $a>1$ the solution remains at $x^*=1$ while the multiplier increases (at $a=1.7$, $\mu=1.4$). The orange target, teal solution, and bar show these linked quantities across the parameter sweep, **not the time steps of an optimisation solver**. Intermediate positions are visual interpolation of analytic values, **not trained-model measurements**. This is a one-dimensional illustration of KKT complementary slackness as developed in Boyd and Vandenberghe (2004).
 
 
+## Dual lower bounds: when the primal-dual gap closes
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../assets/concept-animations/lagrange-dual-gap-still.svg" data-motion-src="../../../assets/concept-animations/lagrange-dual-gap-motion.svg" data-still-src="../../../assets/concept-animations/lagrange-dual-gap-still.svg" alt="An analytic dual lower bound rises to the primal optimum at multiplier two and falls afterward, while the Lagrangian minimizer reaches the active constraint." style="width:640px;min-width:640px;max-width:none;height:auto" />
+
+For the constructed convex problem $\min_x (x-2)^2$ subject to $x\le1$, the primal optimum is $x^*=1$, $p^*=1$. With $\lambda\ge0$, form $\mathcal L(x,\lambda)=(x-2)^2+\lambda(x-1)$. Minimising over unrestricted $x$ gives $x(\lambda)=2-\lambda/2$ and the **dual lower bound** $d(\lambda)=\lambda-\lambda^2/4\le p^*$. At $\lambda^*=2$, the dual bound touches the primal value, $d(2)=p^*=1$, and the Lagrangian minimiser reaches the active boundary $x=1$. Increasing the multiplier further does not improve the lower bound: for example, $d(3)=0.75$. The moving orange marker shows an **analytic multiplier sweep**, not an actual primal-dual optimisation run. These are schematic calculations, **not measured model training outcomes**. Strong duality in this convex, strictly feasible example is consistent with Boyd and Vandenberghe (2004; References).
+
+*Original instructional visual, CC BY-SA 4.0.* The MkDocs site inherits Play/Pause and keyboard support from its shared motion player; reduced-motion users see the static fallback and narrow screens can scroll the figure locally. [Open animated SVG](../../../assets/concept-animations/lagrange-dual-gap-motion.svg).
+
+[GitHub-readable still preview](../../../assets/concept-animations/lagrange-dual-gap-still.svg)
+
 ## Key methods
 
 - [Newton's method](newtons-method.md): a second-order method that can be applied to the Lagrangian's stationarity conditions, as an alternative to the first-order KKT approach.
