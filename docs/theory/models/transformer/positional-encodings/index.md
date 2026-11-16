@@ -37,6 +37,12 @@ Encodings fall into three groups:
 | Position interpolation | Position indices scaled down to fit the trained range, then briefly fine-tuned | Chen et al. (2023), [arXiv:2306.15595](https://arxiv.org/abs/2306.15595) |
 | YaRN | Frequency-dependent interpolation plus a temperature change in attention | Peng et al. (2023), [arXiv:2309.00071](https://arxiv.org/abs/2309.00071) |
 
+### Sinusoidal phase pairs across time scales
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/sinusoidal-multiscale-still.svg" data-motion-src="../../../../assets/concept-animations/sinusoidal-multiscale-motion.svg" data-still-src="../../../../assets/concept-animations/sinusoidal-multiscale-still.svg" alt="One position cursor moves through three sine curves with different periods. Associated sine-cosine phase vectors rotate at different rates.">
+
+*Original CC BY-SA 4.0 instructional animation.* The original Transformer adds paired channels $PE(p,2i)=\sin(\omega_i p)$ and $PE(p,2i+1)=\cos(\omega_i p)$, with $\omega_i=10000^{-2i/d_{model}}$, to its token embeddings. Every sine–cosine pair travels around a unit circle. A high-frequency pair can return to its earlier phase while a slower one still distinguishes the positions. This figure deliberately uses **toy periods 4, 12 and 24**, with positions $p=0,\ldots,12$, **not the original Transformer frequency schedule**. Markers are computed at integer positions and smoothly interpolated in between; arrows show the continuous toy phase. Values are mathematical illustrations, **not trained parameters or measured attention**. [Open the SVG motion](../../../../assets/concept-animations/sinusoidal-multiscale-motion.svg). MkDocs provides Play/Pause and keyboard control, while reduced-motion users and GitHub see the static figure. See Vaswani et al. (2017; References).
+
 ### Relative and rotary encodings
 
 Shaw et al. added learned vectors for each relative distance, clipped beyond a maximum, to the keys and values. RoPE takes a different route: each pair of dimensions in a query or key is rotated by an angle that grows with the token's position. The dot product of two rotated vectors then depends only on the difference of their positions. RoPE needs no extra parameters, works with the usual key–value cache, and is the default in many current open models.
@@ -53,6 +59,12 @@ Shaw et al. added learned vectors for each relative distance, clipped beyond a m
 ![RoPE animation: query and key vectors rotate with their token positions, and shifting both positions by the same amount preserves their relative angle and dot product.](../../../../assets/concept-animations/rope-relative-rotation.gif)
 
 *Original two-dimensional RoPE schematic, CC BY-SA 4.0.* For the **same underlying query and key vectors** and a fixed frequency, shifting positions from **(1, 3)** to **(4, 6)** adds the same rotation to both vectors. Their relative offset remains two positions, so their inner product is unchanged: $(R_m q)^\top(R_n k)=q^\top R_{n-m}k$. The animated arrows are schematic directions, **not measured attention scores**. In full RoPE, different pairs of dimensions use different rotation frequencies. See [Su et al. (2021)](https://arxiv.org/abs/2104.09864).
+
+### Axial 2D RoPE: separate horizontal and vertical phases
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-axial-2d-still.svg" data-motion-src="../../../../assets/concept-animations/rope-axial-2d-motion.svg" data-still-src="../../../../assets/concept-animations/rope-axial-2d-still.svg" alt="The key moves through a two-dimensional patch grid relative to a fixed query; horizontal and vertical rotary phase arrows and their mean cosine score respond independently to coordinate offsets.">
+
+*Original CC BY-SA 4.0 instructional animation.* An **axial 2D RoPE** construction assigns separate rotary dimension pairs to horizontal and vertical patch coordinates instead of treating a flattened patch index as the only position. The fixed query is $(x_q,y_q)=(1,1)$ and a key moves along $(1,1)\to(2,1)\to(3,1)\to(3,2)\to(3,3)$. With identical underlying unit vectors for each pair and illustrative $\omega_x=\pi/3$, $\omega_y=\pi/2$, the normalised two-pair dot-product contribution is $s=\tfrac12[\cos(\omega_x(x_k-x_q))+\cos(\omega_y(y_k-y_q))]$. At the final patch, $s=[\cos(2\pi/3)+\cos(\pi)]/2=\mathbf{-0.75}$. Grid shading is derived **only from this toy cosine formula**, **not measured attention, probabilities or model predictions**. Movement between discrete patch locations is visual interpolation. [Open the 10-second animation](../../../../assets/concept-animations/rope-axial-2d-motion.svg). MkDocs adds Play/Pause, keyboard and reduced-motion stills. Heo et al. (2024; References) analyse 2D RoPE for vision transformers.
 
 ### Bias-based encodings
 
@@ -132,6 +144,8 @@ Positional encodings matter for [attention variants](../attention-variants/index
 - Shaw, P., Uszkoreit, J. & Vaswani, A. (2018). "Self-Attention with Relative Position Representations". NAACL 2018. [arXiv:1803.02155](https://arxiv.org/abs/1803.02155) — Relative position vectors for clipped distances in self-attention.
 - Su, J., et al. (2021). "RoFormer: Enhanced Transformer with Rotary Position Embedding". [arXiv:2104.09864](https://arxiv.org/abs/2104.09864) — Rotary position embedding, which makes the dot product depend only on relative position.
 - Press, O., Smith, N. A. & Lewis, M. (2021). "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation". [arXiv:2108.12409](https://arxiv.org/abs/2108.12409) — ALiBi, a distance penalty on attention scores that extrapolates to longer inputs.
+
+- Heo, B., Park, S., Han, D. & Yun, S. (2024). *Rotary Position Embedding for Vision Transformer*. ECCV. https://arxiv.org/abs/2403.13298 — Analyses axial and other 2D rotary encodings for visual patch grids.
 
 ### Surveys and textbooks
 

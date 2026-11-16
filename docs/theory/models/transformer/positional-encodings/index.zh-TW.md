@@ -37,6 +37,12 @@ translation_reviewed: 2026-11-16
 | 位置內插 | 把位置索引縮放到訓練範圍內，再短暫微調 | Chen et al. (2023), [arXiv:2306.15595](https://arxiv.org/abs/2306.15595) |
 | YaRN | 依頻率的內插，加上注意力的溫度調整 | Peng et al. (2023), [arXiv:2309.00071](https://arxiv.org/abs/2309.00071) |
 
+### 正弦位置編碼：多尺度相位的同步演進
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/sinusoidal-multiscale-still.svg" data-motion-src="../../../../assets/concept-animations/sinusoidal-multiscale-motion.svg" data-still-src="../../../../assets/concept-animations/sinusoidal-multiscale-still.svg" alt="位置游標掃過三條週期不同的正弦曲線，右側的正弦與餘弦成對向量以不同速度旋轉；快速頻段重複時，其他頻段仍可能不同。">
+
+*原創 CC BY-SA 4.0 教學動畫。* 原始 Transformer 將 $PE(p,2i)=\sin(\omega_i p)$、$PE(p,2i+1)=\cos(\omega_i p)$ 加到 token 嵌入，其中 $\omega_i=10000^{-2i/d_{model}}$。每一組正弦／餘弦通道都相當於單位圓上的旋轉向量；**單一頻段相位重複，不代表整體位置表示相同**。本圖刻意使用**週期 4、12、24**、位置 $p=0,\ldots,12$，**不是 Transformer 原本的頻率配置**。整數位置的曲線取樣點依公式計算，中間移動為視覺內插；箭頭呈現連續的人工相位。這些不是模型參數或實測注意力。[開啟 SVG 動畫](../../../../assets/concept-animations/sinusoidal-multiscale-motion.svg)。MkDocs 沿用播放／暫停、鍵盤操作及減少動態效果的回退；GitHub 顯示靜態圖。依據 Vaswani 等人（2017；參考文獻）。
+
 ### 相對與旋轉式編碼
 
 Shaw et al. 對截斷後的每個相對距離加入學到的向量，加到鍵與值上。RoPE 採用不同的做法：查詢或鍵中的每對維度，都會依 token 的位置旋轉一個角度。兩個旋轉後向量的內積，就只取決於它們位置的差。RoPE 不需要額外參數，可以搭配一般的鍵值快取，是許多現今開源模型的預設。
@@ -53,6 +59,12 @@ Shaw et al. 對截斷後的每個相對距離加入學到的向量，加到鍵�
 ![RoPE 動畫：查詢與鍵向量依 token 位置旋轉，同時平移兩個位置索引時，相對角度與內積維持不變。](../../../../assets/concept-animations/rope-relative-rotation.gif)
 
 *原創二維 RoPE 概念動畫，CC BY-SA 4.0。* 對於**相同的原始查詢與鍵向量**及固定旋轉頻率，將位置從 **(1, 3)** 一起平移至 **(4, 6)**，兩個向量會增加相同的旋轉角度。相對位移仍為兩個位置，因此內積不變：$(R_m q)^\top(R_n k)=q^\top R_{n-m}k$。動畫中的箭頭方向只是示意，**不是實測注意力分數**；完整 RoPE 在不同維度對使用不同的旋轉頻率。參見 [Su 等人（2021）](https://arxiv.org/abs/2104.09864)。
+
+### 二維 Axial RoPE：水平與垂直位置分別旋轉
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-axial-2d-still.svg" data-motion-src="../../../../assets/concept-animations/rope-axial-2d-motion.svg" data-still-src="../../../../assets/concept-animations/rope-axial-2d-still.svg" alt="鍵在二維影像區塊格點間移動，查詢保持固定；水平與垂直方向各自的相位指針和平均餘弦分數會隨座標差改變。">
+
+*原創 CC BY-SA 4.0 教學動畫。* **Axial 2D RoPE** 將不同旋轉維度對分配給水平、垂直座標，而非直接以所有 patch 展平後的序號作為唯一位置。固定查詢 $(x_q,y_q)=(1,1)$，鍵依序移動 $(1,1)\to(2,1)\to(3,1)\to(3,2)\to(3,3)$。若每組旋轉平面內的原始查詢與鍵向量都是相同單位向量，人工設定 $\omega_x=\pi/3$、$\omega_y=\pi/2$，兩組旋轉內積的正規化示意為 $s=\tfrac12[\cos(\omega_x(x_k-x_q))+\cos(\omega_y(y_k-y_q))]$。最後到達 $(3,3)$ 時，$s=[\cos(2\pi/3)+\cos\pi]/2=\mathbf{-0.75}$。格點顏色**僅由這個人工餘弦公式產生**，不是實測注意力熱圖、機率或預測；鍵在離散 patch 之間的移動只是視覺內插。[開啟 10 秒動畫](../../../../assets/concept-animations/rope-axial-2d-motion.svg)。MkDocs 沿用播放／暫停、鍵盤操作及減少動態效果回退；Heo 等人（2024；參考文獻）研究視覺 Transformer 的二維 RoPE。
 
 ### 偏置式編碼
 
@@ -132,6 +144,8 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 - Shaw, P., Uszkoreit, J. & Vaswani, A. (2018). "Self-Attention with Relative Position Representations". NAACL 2018. [arXiv:1803.02155](https://arxiv.org/abs/1803.02155) — 在自注意力中，對截斷後的距離使用相對位置向量。
 - Su, J., et al. (2021). "RoFormer: Enhanced Transformer with Rotary Position Embedding". [arXiv:2104.09864](https://arxiv.org/abs/2104.09864) — 旋轉式位置嵌入，使內積只取決於相對位置。
 - Press, O., Smith, N. A. & Lewis, M. (2021). "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation". [arXiv:2108.12409](https://arxiv.org/abs/2108.12409) — ALiBi，對注意力分數加上距離懲罰，可外推到更長的輸入。
+
+- Heo, B., Park, S., Han, D. & Yun, S. (2024). *Rotary Position Embedding for Vision Transformer*. ECCV. https://arxiv.org/abs/2403.13298 — 分析視覺區塊的軸向與其他二維旋轉位置編碼。
 
 ### 綜述與教科書
 
