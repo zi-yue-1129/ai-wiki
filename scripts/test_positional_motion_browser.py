@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSET = ROOT / "docs/assets/concept-animations"
 PLAYER = ROOT / "docs/javascripts/concept-motion.js"
 CSS = ROOT / "docs/stylesheets/concept-motion.css"
-STEMS = ("alibi-distance-softmax", "rope-interpolation-angle")
+STEMS = ("alibi-distance-softmax", "rope-interpolation-angle", "alibi-content-recency", "rope-frequency-bands")
 ARTIFACT = ROOT / 'artifacts/positional-motion'
 SVG = "{http://www.w3.org/2000/svg}"
 
@@ -26,6 +26,16 @@ def validate_math():
         if m > 0:
             assert all(probabilities[i] > probabilities[i+1] for i in range(7))
     assert abs(1/sum(math.exp(-d) for d in range(8))-0.6323326828120425) < 1e-12
+    scores = lambda m: [2-4*m, -3*m, -2*m, -m, 0]
+    for m in (0.0,0.5,1.0):
+        exps=[math.exp(z) for z in scores(m)]
+        weights=[p/sum(exps) for p in exps]
+        assert abs(sum(weights)-1)<1e-12
+        if m==0: assert weights[0]>weights[4]
+        if m==0.5: assert abs(weights[0]-weights[4])<1e-12
+        if m==1: assert weights[0]<weights[4]
+    assert abs(math.cos(math.pi*4/2)-1.0)<1e-12
+    assert abs(math.cos(math.pi*4/10)-math.cos(2*math.pi/5))<1e-12
     assert abs(0.6*16-9.6) < 1e-12
     assert abs(0.6*(16/2)-4.8) < 1e-12
 

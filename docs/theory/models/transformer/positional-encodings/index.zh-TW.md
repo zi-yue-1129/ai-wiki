@@ -55,6 +55,12 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 
 *原創 CC BY-SA 4.0 教學動畫。* 在人工建構的八鍵因果注意力範例中，所有內容分數皆為零。對距離 \(d\in\{0,\ldots,7\}\) 與非負的注意力頭斜率 \(m\)，權重為 \(a_d(m)=\exp(-md)/\sum_{r=0}^{7}\exp(-mr)\)。當 \(m=0\)，每個鍵的機率都是 \(1/8\)；當 \(m=1\)，目前位置（\(d=0\)）的機率約為 **0.6323**。動畫依解析式計算多個斜率的結果，並在取樣狀態間平滑呈現；**不是**真實模型的內容分數、各注意力頭實際使用的斜率或準確率實測。ALiBi 的原始方法見 Press 等人（2021；參考文獻）。[開啟 SVG 動畫](../../../../assets/concept-animations/alibi-distance-softmax-motion.svg)。MkDocs 網站可使用**播放／暫停**，窄螢幕可聚焦圖面並水平捲動；GitHub 與停用 JavaScript 時仍能看見靜態對照圖。
 
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/alibi-content-recency-still.svg" data-motion-src="../../../../assets/concept-animations/alibi-content-recency-motion.svg" data-still-src="../../../../assets/concept-animations/alibi-content-recency-still.svg" alt="五個因果注意力鍵中，距離為四的舊鍵具有內容分數二；隨 ALiBi 斜率上升，舊鍵與目前鍵的正規化權重在斜率 0.5 時相等，靜態圖標出交會點。">
+
+*原創 CC BY-SA 4.0 教學動畫。* 與上方所有內容分數相等的例子不同，這裡人工設定五個因果注意力鍵中**最舊的鍵**（距離 (d=4)）具有內容 logit (c_4=2)，另外四個鍵的內容 logit 為零。ALiBi 調整後為 (s_d=c_d-md)，注意力權重為 (mathrm{softmax}(s)_d)。當 (m=0)，舊鍵的內容優勢使它權重最高；當 (m=1/2)，其分數 (2-4m=0) 與目前鍵（(d=0)）相同，因此**正規化後的兩個機率也相等**，即使 softmax 分母還包含另外三個鍵。斜率繼續提高，較近的目前鍵便占優勢。動畫游標沿解析式計算的機率曲線移動，中間影格採取樣內插；**不是真實模型的注意力權重或準確率實測**。[開啟動態 SVG](../../../../assets/concept-animations/alibi-content-recency-motion.svg)。MkDocs 沿用播放／暫停及鍵盤控制，窄螢幕可以在圖面內水平捲動，GitHub 則顯示可獨立理解的靜態圖。方法依據 Press 等人（2021；參考文獻）。
+
+
 ### 延伸上下文
 
 在 4,096 個位置上訓練的 RoPE 模型，若給它 16,384 個位置，表現會下降，因為旋轉角度會超出訓練時見過的範圍。位置內插把位置索引除以一個係數，讓較長的序列映射回訓練範圍，再短暫微調。YaRN 更進一步：它保持高頻維度不變，只內插低頻維度，並調整注意力，使較長長度下的熵維持在可比較的水準。另一個想法 NTK-aware scaling，起源於 2023 年的非正式社群文章而非論文，YaRN 則分析了它的行為。
@@ -64,6 +70,12 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 <img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-interpolation-angle-still.svg" data-motion-src="../../../../assets/concept-animations/rope-interpolation-angle-motion.svg" data-still-src="../../../../assets/concept-animations/rope-interpolation-angle-still.svg" alt="示意 RoPE 的單一旋轉頻率為每位置 0.6 弧度；位置由零增加到十六時，未縮放角度到達 9.6 弧度，而將位置索引減半後的角度維持在訓練範例上界 4.8 弧度。">
 
 *原創 CC BY-SA 4.0 教學動畫。* 假設 RoPE **其中一組二維頻率對**的角頻率是 \(\omega=0.6\) 弧度／位置，人工設定的訓練位置範圍為 \(p=0,\ldots,8\)。延長到 \(p=16\) 時，未縮放的**累積旋轉角**為 \(\theta=\omega p=9.6\) 弧度；若進行二倍位置內插，使用 \(p'=p/2\)，則 \(\theta'=\omega p'=4.8\) 弧度，回到本範例的訓練角度範圍。圓盤箭頭以 \(2\pi\) 為週期顯示方向，底部長條則呈現未取模的累積角度。內插**會改變相對旋轉相位**，仍須透過微調與實驗評估；這個人工角度例子**不是**長度泛化效果實測，也不代表 RoPE 所有頻段。參見 Chen 等人（2023；參考文獻）。[開啟 SVG 動畫](../../../../assets/concept-animations/rope-interpolation-angle-motion.svg)。MkDocs 網站提供**播放／暫停**、鍵盤操作與減少動態效果的靜態回退；GitHub 顯示端點對照圖。
+
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-frequency-bands-still.svg" data-motion-src="../../../../assets/concept-animations/rope-frequency-bands-motion.svg" data-still-src="../../../../assets/concept-animations/rope-frequency-bands-still.svg" alt="RoPE 的快速與慢速頻率對會隨相對距離以不同速度旋轉。距離四時，快速頻率已完成一次週期，但慢速頻率仍處於不同相位。">
+
+*原創 CC BY-SA 4.0 教學動畫。* RoPE 會讓**不同維度對使用不同旋轉頻率**，因此單一維度對回到原有相位，不代表整個旋轉表示也已重複。固定人工二維查詢與鍵向量 (q=k=(1,0)) 時，每個維度對在相對距離 (Delta) 的示意相似度為 (cos(omegaDelta))。圖中選擇 (omega_{mathrm{fast}}=pi/2) 與 (omega_{mathrm{slow}}=pi/10) 弧度／位置。當 (Delta=4)，快速分量完成 (2pi) 旋轉、相似度回到 (1)；慢速分量只旋轉 (2pi/5)（72°），相似度 (cos(2pi/5)approx0.309)。圖上的兩個向量與曲線游標隨 (Deltain[0,16]) 同步前進。這些刻意選取的頻率及向量只是**可解析的數學示例**，不代表任何真實模型使用的頻率配置、注意力權重或長度外推準確率。多頻率的旋轉規則依據 Su 等人（2021；參考文獻）。[開啟動態 SVG](../../../../assets/concept-animations/rope-frequency-bands-motion.svg)。MkDocs 沿用播放／暫停與鍵盤操作，GitHub 顯示完整可讀的靜態回退圖。
+
 
 ## 取捨
 
