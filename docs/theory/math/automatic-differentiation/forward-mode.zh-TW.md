@@ -155,6 +155,37 @@ g(p(t))=(3+t,\ 5-3t),\qquad
 
 這相當於對**梯度函數求 JVP**：梯度可以由反向模式求得，再利用前向模式取得其指定方向導數，**不必顯式建立完整 Hessian 矩陣**。兩條軌跡與 \(H_f(p)v\) 都是解析式的確切值，不是運算時間或模型訓練結果。左右座標軸使用不同的示意尺度，兩個圓點代表同一參數位置下的對應結果，而非可直接比較的幾何距離。網站播放器可播放／暫停並提供減少動態效果的回退圖，但不支援跳格或逐步控制。一般性的前向／反向模式取捨可參考 [Griewank 與 Walther（2008）](https://doi.org/10.1137/1.9780898717761)。
 
+
+### 對線性方程組求前向導數
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可用鍵盤水平捲動的線性方程組切向量動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-linear-solve-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-linear-solve-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-linear-solve-still.svg" alt="右側項 b 沿水平方向變動，固定矩陣 A 的解 x 則沿著三分之二、負三分之一的耦合方向同步移動。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。[GitHub 靜態回退預覽](../../../assets/concept-animations/forward-ad-linear-solve-still.svg) · [12 秒 SVG 動畫](../../../assets/concept-animations/forward-ad-linear-solve-motion.svg)。* 線性方程組的輸入出現無窮小擾動時，不必為每一個擾動都重新推導完整解。考慮**人工設定**、固定且可逆的矩陣：
+
+\[
+A=\begin{bmatrix}2&1\\1&2\end{bmatrix},\quad
+b=\begin{bmatrix}3\\3\end{bmatrix},\quad
+x=A^{-1}b=\begin{bmatrix}1\\1\end{bmatrix}.
+\]
+
+若令種子 \(\dot b=(1,0)^\top\)，且固定 \(A\)，對 \(Ax=b\) 微分後得到 \(A\dot x=\dot b\)，因此 \(\dot x=(2/3,-1/3)^\top\)。左右圓點同步顯示 \(b(t)=(3+t,3)\) 與 \(x(t)=(1+2t/3,1-t/3)\)：即使只擾動一個右側項座標，**解的兩個座標都可能變動**。當 \(A\) 也隨輸入改變時，非奇異系統的一般切向公式是 \(A\dot x=\dot b-\dot A x\)。兩個面板的座標尺度各自獨立，數值為可解析驗證的**數學示意，不是求解器效能實測**。MkDocs 網站沿用可用鍵盤操作的播放／暫停，並提供減少動態效果的回退圖。
+
+### 稀疏 Jacobian：合併互不干擾的種子方向
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可用鍵盤水平捲動的稀疏 Jacobian 種子合併動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-sparse-packing-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-sparse-packing-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-sparse-packing-still.svg" alt="四乘四稀疏 Jacobian 的兩組欄位在各輸出列互不重疊；兩次色彩區分的 JVP 結果分別為 (1,3,5,7) 與 (2,4,6,8)，足以重建全部八個非零元素。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。[GitHub 靜態回退預覽](../../../assets/concept-animations/forward-ad-sparse-packing-still.svg) · [12 秒 SVG 動畫](../../../assets/concept-animations/forward-ad-sparse-packing-motion.svg)。* 一般稠密四欄 Jacobian 需要四次單一基底方向的 JVP，但若**事先知道結構性稀疏模式**，便能在同一次掃描合併不會在同一輸出列出現非零值的欄位。考慮人工矩陣：
+
+\[
+J=\begin{bmatrix}1&0&2&0\\0&3&0&4\\5&0&6&0\\0&7&0&8\end{bmatrix}.
+\]
+
+青綠色種子 \(s_A=(1,1,0,0)^\top\) 得到 \(Js_A=(1,3,5,7)^\top\)；橘色種子 \(s_B=(0,0,1,1)^\top\) 得到 \(Js_B=(2,4,6,8)^\top\)。因為已知各欄的非零位置，且每個群組在任一輸出列最多只有一個非零貢獻者，**兩次掃描就能還原八個非零元素**。如果不知道稀疏模式，合併後的 JVP 一般無法判斷是哪個輸入欄位造成輸出。動畫交替強調每次掃描對應的元素，並非真實執行時間或加速比；共用播放器提供鍵盤操作的播放／暫停及減少動態效果回退，不支援跳格與單步控制。
+
 ## 方程式
 
 對於基本運算 $v = \phi(u)$，切向規則為
