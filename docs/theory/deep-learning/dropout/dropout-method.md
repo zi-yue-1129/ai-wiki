@@ -46,6 +46,12 @@ Training procedure, for each mini-batch:
 2. Compute the forward pass with the masked activations.
 3. Back-propagate through the kept units only, and update the weights as usual.
 
+### Visual walkthrough: sampled masks and expectation
+
+![Inverted dropout alternates unit masks and scales retained activations while preserving the per-unit expectation.](../../../assets/concept-animations/dropout-inverted-sampling-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* The synthetic input is $h=(1,2,3,4)$ and $p=0.5$. Inverted dropout computes $y_i=r_i h_i/p$, with $r_i\sim\mathrm{Bernoulli}(p)$. For the displayed mask $(1,0,1,0)$, the output is $(2,0,6,0)$; new masks change individual outputs. **For every unit**, $\mathbb{E}[y_i]=h_i$ follows analytically from the Bernoulli mean, but an individual masked sample need not preserve the sum or a downstream network prediction. These masks are intentionally constructed teaching draws, **not model measurements or a Monte Carlo estimate**. The website player supports Play/Pause and reduced-motion fallback; [view the GitHub-compatible static preview](../../../assets/concept-animations/dropout-inverted-sampling-still.svg).
+
 ## Results
 
 The paper reports error rates for the same architecture with and without dropout. The comparisons below are the within-paper ones, taken from its tables for convolutional networks:

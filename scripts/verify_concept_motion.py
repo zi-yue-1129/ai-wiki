@@ -54,6 +54,8 @@ TOPICS = {
     "spsa-two-evaluations": "theory/optimization/spsa",
     "batch-norm-train-infer": "theory/deep-learning/normalisation/batch-normalisation",
     "stochastic-depth-paths": "theory/deep-learning/dropout/stochastic-depth",
+    "dropout-inverted-sampling": "theory/deep-learning/dropout/dropout-method",
+    "stochastic-depth-survival-samples": "theory/deep-learning/dropout/stochastic-depth",
     "vae-reparameterisation": "theory/paradigms/unsupervised/density-and-generative-models/vae/index",
     "realnvp-affine-coupling": "theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/realnvp",
     "mh-accept-reject": "theory/paradigms/probabilistic/mcmc/metropolis-hastings",
@@ -202,6 +204,13 @@ def main() -> int:
                 for fallback in fallbacks:
                     if fallback.resolve() not in linked:
                         errors.append(f"{page}: missing GitHub-readable fallback link {fallback.name}")
+            if stem in {"dropout-inverted-sampling", "stochastic-depth-survival-samples"}:
+                # Both languages must expose a GitHub-safe static fallback.
+                static_links = re.findall(r"\\[[^]]+\\]\\(([^)]+\\.svg)\\)", text)
+                if static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in static_links
+                }:
+                    errors.append(f"{page}: missing GitHub static fallback for {stem}")
             if "CC BY-SA 4.0" not in text:
                 errors.append(f"{page}: missing original-diagram attribution")
         print(
