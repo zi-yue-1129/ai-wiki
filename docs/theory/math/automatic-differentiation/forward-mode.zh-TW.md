@@ -233,6 +233,35 @@ Baydin 等人的綜述在第 3.1 節介紹前向模式，在第 3.2 節介紹反
 
 更早的研究已描述了同樣的想法，也就是在計算程式數值的同時計算其導數 [(Wengert, 1964)](https://doi.org/10.1145/355586.364791)。Pearlmutter 與 Siskind 在函數式框架中提出反向模式微分，這是本頁的自然對應 [(Pearlmutter & Siskind, 2008)](https://doi.org/10.1145/1330017.1330018)。
 
+
+### 精確 JVP 與中央有限差分的差異
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的精確 JVP 與中央差分教學動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-finite-difference-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-finite-difference-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-finite-difference-still.svg" alt="三次函數上的中央割線隨步長縮小逐漸逼近精確切線；右側的截斷誤差長條依步長平方同步縮短。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。[GitHub 靜態預覽](../../../assets/concept-animations/forward-ad-finite-difference-still.svg) · [12 秒循環動畫](../../../assets/concept-animations/forward-ad-finite-difference-motion.svg)。* 使用**人工設定**的函數 \(f(x)=x^3\)，於 \(x=1\) 沿種子方向 \(\dot x=1\) 微分。前向模式 AD 直接得到精確方向導數 \(J_f(1)\dot x=3\)（實際程式仍受浮點運算影響）。若採用中央有限差分：
+
+\[
+D_h=\frac{f(1+h)-f(1-h)}{2h}=3+h^2,\qquad D_h-J_f(1)\dot x=h^2.
+\]
+
+當 \(h\) 從 \(1\) 縮小到 \(0.2\)，兩個割線端點向切點靠近，**截斷誤差**從 \(1\) 降至 \(0.04\)；動畫接著反向演示。紫色曲線以取樣折線描繪精確三次函數，公式則是解析結果。動畫**未模擬浮點消去誤差**，不能據此宣稱有限差分的步長愈小愈好。所有數值皆為教學示意，不是模型實測。MkDocs 支援可由鍵盤操作的播放／暫停及低動態偏好靜態回退，未新增單步、進度拖曳或速度控制。
+
+### 正規化 JVP：徑向擾動為何消失
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的單位向量正規化 JVP 教學動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-normalization-jvp-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-normalization-jvp-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-normalization-jvp-still.svg" alt="輸入種子方向由徑向轉向切向；單位向量正規化後的徑向梯度貢獻歸零，而與正規化向量垂直的輸出切向量逐漸增加。" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。[GitHub 靜態預覽](../../../assets/concept-animations/forward-ad-normalization-jvp-still.svg) · [12 秒循環動畫](../../../assets/concept-animations/forward-ad-normalization-jvp-motion.svg)。* 對**非零**向量進行單位向量正規化 \(u(x)=x/\|x\|\) 時，前向切向量為
+
+\[
+J_u(x)v=\frac{(I-uu^\top)v}{\|x\|}.
+\]
+
+人工設定 \(x=(3,4)\)、\(u=(3/5,4/5)\)，令其正交單位向量 \(q=(-4/5,3/5)\)，並使輸入種子 \(v(\theta)=\cos\theta\,u+\sin\theta\,q\) 旋轉。解析式給出 \(J_u(x)v(\theta)=(\sin\theta/5)q\)。青綠色的**徑向成分被消除**，紫色切向成分保留：當種子純粹沿徑向時 JVP 為零；當種子完全沿切向時 JVP 長度為 \(1/5\)。右側切向箭頭為了清晰而**放大五倍**，不是微分值被乘上五倍。\(x=0\) 處正規化與此微分公式皆未定義。這是解析式教學示例，不是模型訓練梯度實測。MkDocs 沿用播放／暫停、鍵盤操作與低動態靜態回退。
+
 ## 限制
 
 - 完整雅可比的成本隨輸入數量線性成長。對於有數百萬個參數、只有一個輸出的神經網路損失，前向模式需要對每個參數做一次掃描，這正是訓練改用反向模式的原因。

@@ -232,6 +232,35 @@ The survey by Baydin and colleagues presents forward mode in its Section 3.1 and
 
 Early work described the same idea of evaluating a program's derivatives alongside its values [(Wengert, 1964)](https://doi.org/10.1145/355586.364791). Pearlmutter and Siskind present reverse-mode differentiation in a functional framework, which is the natural counterpart to this page [(Pearlmutter & Siskind, 2008)](https://doi.org/10.1145/1330017.1330018).
 
+
+### Exact JVP versus centered finite differences
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable exact JVP and centered-difference animation">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-finite-difference-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-finite-difference-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-finite-difference-still.svg" alt="A centered secant of a cubic curve contracts toward the exact tangent as the step size decreases, while an adjacent truncation-error bar shrinks as h squared." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching animation. [GitHub static preview](../../../assets/concept-animations/forward-ad-finite-difference-still.svg) · [12-second animated SVG](../../../assets/concept-animations/forward-ad-finite-difference-motion.svg).* For the **constructed** scalar function \(f(x)=x^3\) at \(x=1\), take the seed \(\dot x=1\). Forward AD returns the exact directional derivative \(J_f(1)\dot x=3\) (up to floating-point arithmetic in an implementation). A symmetric finite-difference approximation instead gives
+
+\[
+D_h=\frac{f(1+h)-f(1-h)}{2h}=3+h^2,\qquad D_h-J_f(1)\dot x=h^2.
+\]
+
+As \(h\) decreases from \(1\) to \(0.2\), the secant endpoints converge toward the point of tangency and the **truncation error** falls from \(1\) to \(0.04\); the animation then reverses to make the dependence visible. The purple curve is a sampled rendering of the exact cubic, while the equations are analytic. The diagram **does not model floating-point cancellation**, so it must not be read as claiming that an arbitrarily small finite-difference step is numerically optimal. These are illustrative values, not model measurements. The MkDocs player provides keyboard-accessible Play/Pause and a reduced-motion static fallback, not step/seek/speed controls.
+
+### Normalization JVP: the radial component disappears
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable unit-vector normalization JVP animation">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-normalization-jvp-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-normalization-jvp-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-normalization-jvp-still.svg" alt="An input seed rotates from radial to tangential relative to a fixed vector. The radial component disappears after unit-vector normalization and the output tangent grows perpendicular to the normalized vector." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching animation. [GitHub static preview](../../../assets/concept-animations/forward-ad-normalization-jvp-still.svg) · [12-second animated SVG](../../../assets/concept-animations/forward-ad-normalization-jvp-motion.svg).* For unit-vector normalization \(u(x)=x/\|x\|\) at a **nonzero** vector, the forward tangent is
+
+\[
+J_u(x)v=\frac{(I-uu^\top)v}{\|x\|}.
+\]
+
+At the synthetic input \(x=(3,4)\), set \(u=(3/5,4/5)\), its orthogonal unit vector \(q=(-4/5,3/5)\), and \(v(\theta)=\cos\theta\,u+\sin\theta\,q\). The resulting directional derivative is exactly \(J_u(x)v(\theta)=(\sin\theta/5)q\). The teal radial component is **annihilated**, while the purple tangential component survives. The animation continuously rotates \(v\) between radial (zero JVP) and tangential (JVP norm \(1/5\)); its right-hand tangent arrow is **magnified fivefold for visibility**, not a change in the derivative. The derivative formula is undefined at \(x=0\). These are analytic toy values, not empirical model traces. MkDocs provides Play/Pause, keyboard activation and a reduced-motion still.
+
 ## Limitations
 
 - A full Jacobian grows linearly with the number of inputs. For a neural network loss with millions of parameters and a single output, forward mode would need one pass per parameter, which is why training uses reverse mode.
