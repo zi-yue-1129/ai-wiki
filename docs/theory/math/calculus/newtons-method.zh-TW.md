@@ -56,6 +56,16 @@ translation_reviewed: 2026-11-16
 使用**人工解析示例** $f(x)=x^4/4-x^2/2$，從 $x_0=0.4$ 出發，梯度為 $g=-0.336$，海森值為 $H=-0.52$。**原始**牛頓更新 $x_1=x_0-g/H\approx-0.246154$ 使損失由 $-0.0736$ **增加**至約 $-0.029378$。若用 $\lambda=1$ 修正局部曲率，則 $H+\lambda=0.48$，修正後 $x_1=x_0-g/(H+\lambda)=1.1$，損失**下降**至 $-0.238975$。兩個端點都是解析計算（顯示值經四捨五入）；動畫中圓點的連續移動僅為**單步的視覺插值**，不是額外的迭代。修正海森矩陣為正定可使方向成為下降方向，但非凸問題的一次完整步長仍未必保證下降，實務上還須配合步長控制或線搜尋（Boyd 與 Vandenberghe，2004）。數值純屬教學示意，**並非模型實測**。
 
 
+## 阻尼牛頓法：回溯線搜尋如何決定是否接受更新
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../assets/concept-animations/newton-armijo-backtracking-still.svg" data-motion-src="../../../assets/concept-animations/newton-armijo-backtracking-motion.svg" data-still-src="../../../assets/concept-animations/newton-armijo-backtracking-still.svg" alt="凸函數上的牛頓回溯線搜尋：完整與半步長造成目標上升，四分之一步長則使目標下降並通過 Armijo 條件。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+
+牛頓方向即使是下降方向，**直接使用完整步長**仍可能讓真實目標函數上升。回溯線搜尋會檢查逐步縮短的候選步長，而不是只相信局部二次近似。本動畫採用人工凸函數 $f(x)=\sqrt{1+x^2}$，從 $x_0=2$ 出發。此時 $f'(2)=2/\sqrt5$、$f''(2)=5^{-3/2}$，牛頓方向為 $p=-10$。當 $\alpha=1,1/2,1/4$ 時，候選位置依序為 $-8,-3,-0.5$，目標值分別為 $\sqrt{65}\approx8.0623$、$\sqrt{10}\approx3.1623$ 與 $\sqrt{1.25}\approx1.1180$，而起點為 $\sqrt5\approx2.2361$。以 $c=10^{-4}$ 的標準 Armijo 條件檢查，前兩次不通過，$\alpha=1/4$ 才通過。虛線保留被拒絕的完整步長作比較。**移動過程是解析候選點之間的平滑視覺內插，不是額外的求解器迭代；數值也不是模型實測。** 方法依據 Boyd 與 Vandenberghe（2004；見參考文獻）。
+
+*原創教學視覺，CC BY-SA 4.0。* MkDocs 網站沿用共用 Play／Pause 與鍵盤操作；偏好減少動態效果時顯示靜態回退圖，手機可在圖面內水平捲動。完整動畫：[SVG](../../../assets/concept-animations/newton-armijo-backtracking-motion.svg)。
+
+[GitHub 靜態預覽](../../../assets/concept-animations/newton-armijo-backtracking-still.svg)
+
 ## 主要方法
 
 - [梯度下降](../../optimization/index.md)：一階替代方法，每步成本較低，但接近極小值時較慢。
