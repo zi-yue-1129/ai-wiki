@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-14
+translation_reviewed: 2026-11-17
 related:
   - theory/models/recommender
 ---
@@ -29,6 +29,24 @@ $$p(i >_u j \mid \Theta) = \sigma\left(\hat{x}_{uij}(\Theta)\right), \qquad \sig
 $$\text{BPR-Opt} = \sum_{(u,i,j)\in D_S} \ln \sigma\left(\hat{x}_{uij}\right) - \lambda_\Theta \lVert \Theta \rVert^2$$
 
 其中 $D_S$ 是訓練三元組的集合，$\lambda_\Theta$ 是模型專屬的正則化參數。
+
+### 動畫算例：單一 BPR 配對的排序更新
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" data-motion-src="../../../assets/concept-animations/bpr-pairwise-ranking-motion.svg" data-still-src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" alt="BPR 梯度更新使已觀察項目與抽樣未觀察項目的分數逐漸分開，配對邏輯損失下降。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀的靜態預覽](../../../assets/concept-animations/bpr-pairwise-ranking-still.svg)
+
+以一組抽樣三元組 $(u,i,j)$ 示範，固定一維使用者因子 $p_u=1$，並設定兩個項目因子 $q_i=0.5$、$q_j=1.3$。起初，已觀察項目 $i$ 的預測分數**低於**未觀察項目 $j$。為了單獨呈現項目因子的梯度更新，此例固定 $p_u$，不加入正則化。令 $\Delta=p_u(q_i-q_j)$、$\eta=0.4$，則對 $\log\sigma(\Delta)$ 做一步梯度上升：
+$
+g=\sigma(-\Delta),\qquad q_i\leftarrow q_i+\eta g p_u,\qquad q_j\leftarrow q_j-\eta g p_u.
+$
+左圖顯示已觀察項目的分數上升，抽到的未觀察項目分數下降；右圖追蹤配對損失 $-\log\sigma(\Delta)$。四次更新後，分數差由 **−0.8000** 變為約 **0.8518**，損失則由 **1.1711** 降至 **0.3553**。
+
+所有數值皆為**人工解析計算**，不是模型實測。為隔離項目梯度而固定使用者因子，與完整 BPR-MF 訓練不同；更新之間的平滑動畫只是視覺過渡，不代表連續最佳化軌跡。「未觀察項目」只是訓練用的比較對象，**不能當作已確認的負向偏好**。
+
+在 MkDocs 網站中可使用支援鍵盤操作的**播放／暫停**控制；窄螢幕可聚焦圖像並水平捲動。GitHub 與 `prefers-reduced-motion` 模式使用靜態回退圖。原創圖像，**CC BY-SA 4.0**。
 
 ## 演算法
 

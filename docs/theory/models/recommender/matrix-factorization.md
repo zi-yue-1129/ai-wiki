@@ -40,6 +40,26 @@ $$\min_{q, p, b} \sum_{(u,i)\in\kappa} \left[ \left(r_{ui} - \hat{r}_{ui}\right)
 
 The constant $\lambda$ controls the strength of the penalty and is usually chosen by cross-validation.
 
+### Animated worked example: coupled factor updates
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/mf-coupled-sgd-still.svg" data-motion-src="../../../assets/concept-animations/mf-coupled-sgd-motion.svg" data-still-src="../../../assets/concept-animations/mf-coupled-sgd-still.svg" alt="Two latent factor vectors change with each SGD update while their dot product approaches the sample rating and the residual decreases." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/mf-coupled-sgd-still.svg)
+
+For one **illustrative** known rating, set the global and item/user biases to zero and omit regularisation: $r=1$, $p_u^{(0)}=(0.4,0.2)$, $q_i^{(0)}=(0.7,0.3)$, and learning rate $\eta=0.2$. A simultaneous SGD update based on the *pre-update* vectors is
+$
+e=r-p_u^\top q_i,\qquad
+p_u\leftarrow p_u+\eta e q_i,\qquad
+q_i\leftarrow q_i+\eta e p_u.
+$
+Both arrows in the shared latent space move at each update. The green bar shows their new dot product; the orange bar shows the remaining absolute error. Five displayed states (initial plus four updates) move the prediction from **0.3400** to approximately **0.7643**, reducing the absolute error from **0.6600** to **0.2357**.
+
+This is a computed, regularisation-free **toy example**, not trained-model measurements or a claim about convergence. Smooth interpolation between displayed iterations is visual only; SGD updates occur at the five marked states. Actual training uses many observed user–item pairs and generally includes biases and regularisation.
+
+In MkDocs, use the accessible **Play/Pause** control; on narrow screens, focus and horizontally scroll the illustration. The static fallback is available on GitHub and under `prefers-reduced-motion`. Original illustration, **CC BY-SA 4.0**.
+
 ## Learning algorithms
 
 The paper describes two ways to minimise the objective.

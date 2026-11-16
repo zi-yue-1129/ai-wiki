@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-14
+translation_reviewed: 2026-11-17
 related:
   - theory/models/recommender
 ---
@@ -29,6 +29,26 @@ $$\hat{r}_{ui} = \mu + b_i + b_u + q_i^{\top} p_u$$
 $$\min_{q, p, b} \sum_{(u,i)\in\kappa} \left[ \left(r_{ui} - \hat{r}_{ui}\right)^2 + \lambda \left(\lVert q_i \rVert^2 + \lVert p_u \rVert^2 + b_u^2 + b_i^2\right) \right]$$
 
 常數 $\lambda$ 控制懲罰的強度，通常以交叉驗證選定。
+
+### 動畫算例：使用者與項目因子共同更新
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/mf-coupled-sgd-still.svg" data-motion-src="../../../assets/concept-animations/mf-coupled-sgd-motion.svg" data-still-src="../../../assets/concept-animations/mf-coupled-sgd-still.svg" alt="使用者與項目的潛在因子隨 SGD 更新共同移動，內積預測逐步接近評分，殘差隨之縮小。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀的靜態預覽](../../../assets/concept-animations/mf-coupled-sgd-still.svg)
+
+以一筆**人工設定**的已知評分示範：將全域平均與使用者／項目偏差設為零，省略正則化，並設定 $r=1$、$p_u^{(0)}=(0.4,0.2)$、$q_i^{(0)}=(0.7,0.3)$、學習率 $\eta=0.2$。同時使用**更新前**的因子向量計算 SGD 更新：
+$
+e=r-p_u^\top q_i,\qquad
+p_u\leftarrow p_u+\eta e q_i,\qquad
+q_i\leftarrow q_i+\eta e p_u.
+$
+左圖的兩個因子向量會一起改變；右圖綠色長條表示內積預測值，橘色長條表示絕對殘差。五個狀態（初始狀態及四次更新）使預測值從 **0.3400** 增加到約 **0.7643**，而絕對殘差從 **0.6600** 減少至 **0.2357**。
+
+這是未加入正則化的**解析教學範例**，不是模型訓練實測，也不代表收斂保證。動畫在各次迭代間的平滑過渡僅供理解；實際 SGD 更新發生於五個標記狀態。真正的矩陣分解會以大量已觀察互動訓練，通常還包含偏差項與正則化。
+
+在 MkDocs 網站中可使用支援鍵盤操作的**播放／暫停**控制；窄螢幕可聚焦圖像並水平捲動。GitHub 與 `prefers-reduced-motion` 模式使用靜態回退圖。原創圖像，**CC BY-SA 4.0**。
 
 ## 學習演算法
 

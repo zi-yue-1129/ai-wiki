@@ -40,6 +40,24 @@ $$\text{BPR-Opt} = \sum_{(u,i,j)\in D_S} \ln \sigma\left(\hat{x}_{uij}\right) - 
 
 Here $D_S$ is the set of training triples and $\lambda_\Theta$ is a model-specific regularisation parameter.
 
+### Animated worked example: one BPR ranking pair
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" data-motion-src="../../../assets/concept-animations/bpr-pairwise-ranking-motion.svg" data-still-src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" alt="The observed and sampled unobserved item scores separate over BPR gradient updates while pairwise logistic loss decreases." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/bpr-pairwise-ranking-still.svg)
+
+For a single sampled triple $(u,i,j)$, use a fixed scalar user factor $p_u=1$ and two item factors $q_i=0.5$, $q_j=1.3$. The observed item $i$ is initially scored **below** the unobserved item $j$. To isolate the item updates, keep $p_u$ fixed and use no regularisation. With $\Delta=p_u(q_i-q_j)$ and $\eta=0.4$, one ascent step on $\log\sigma(\Delta)$ gives
+$
+g=\sigma(-\Delta),\qquad q_i\leftarrow q_i+\eta g p_u,\qquad q_j\leftarrow q_j-\eta g p_u.
+$
+The left panel pushes the observed-item score upward and the sampled unseen-item score downward; the right panel follows the pairwise loss $-\log\sigma(\Delta)$. Over four updates, the margin moves from **−0.8000** to approximately **0.8518**, and the loss decreases from **1.1711** to **0.3553**.
+
+The numbers are an **analytically computed toy sequence**, not a model experiment. The user factor is deliberately frozen, unlike full BPR-MF training; the animated interpolation between sampled updates is not a continuous optimisation trajectory. An unobserved item is a training comparison, **not verified negative preference**.
+
+In MkDocs, use the accessible **Play/Pause** control; on narrow screens, focus and horizontally scroll the illustration. The static fallback is available on GitHub and under `prefers-reduced-motion`. Original illustration, **CC BY-SA 4.0**.
+
 ## Algorithm
 
 The criterion is optimised by stochastic gradient ascent over sampled triples. The paper chooses the triples uniformly at random and uses bootstrap sampling with replacement, which means training can be stopped at any step. For each step, one observed pair $(u, i)$ is drawn with a randomly chosen unobserved item $j$, and the parameters move in the direction that increases $\ln \sigma(\hat{x}_{uij})$.
