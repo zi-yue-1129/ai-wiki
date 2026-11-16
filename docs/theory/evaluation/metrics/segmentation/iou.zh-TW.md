@@ -22,7 +22,7 @@ $$\text{IoU} = \frac{|A \cap B|}{|A \cup B|}$$
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="分割重疊指標教學動畫">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/iou-overlap-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/iou-overlap-sweep-motion.svg" alt="兩個等面積矩形遮罩連續靠近與分離，交集以綠色標示，IoU 比值隨重疊面積變化。" width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/iou-overlap-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/iou-overlap-sweep-motion.svg" alt="兩個等面積矩形遮罩連續靠近與分離，交集以綠色標示，IoU 比值隨重疊面積變化。" width="640" height="360">
 </div>
 </div>
 

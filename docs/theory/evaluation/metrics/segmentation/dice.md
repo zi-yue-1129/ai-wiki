@@ -21,7 +21,7 @@ On binary masks, with $TP$, $FP$ and $FN$ counted pixel by pixel, this equals $\
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Segmentation overlap metric animation">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/dice-overlap-response-still.svg" data-motion-src="../../../../assets/concept-animations/dice-overlap-response-motion.svg" alt="Moving prediction rectangle and linked Dice and IoU curves show Dice remains larger for partial overlap of equal-area masks." width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/dice-overlap-response-still.svg" data-motion-src="../../../../assets/concept-animations/dice-overlap-response-motion.svg" alt="Moving prediction rectangle and linked Dice and IoU curves show Dice remains larger for partial overlap of equal-area masks." width="640" height="360">
 </div>
 </div>
 

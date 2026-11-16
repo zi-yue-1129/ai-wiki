@@ -21,7 +21,7 @@ IoU is 1 when the regions are identical and 0 when they do not overlap. scikit-l
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Segmentation overlap metric animation">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/iou-overlap-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/iou-overlap-sweep-motion.svg" alt="Two equal-area rectangular masks slide together and apart, showing the green intersection and continuously changing IoU ratio." width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/iou-overlap-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/iou-overlap-sweep-motion.svg" alt="Two equal-area rectangular masks slide together and apart, showing the green intersection and continuously changing IoU ratio." width="640" height="360">
 </div>
 </div>
 

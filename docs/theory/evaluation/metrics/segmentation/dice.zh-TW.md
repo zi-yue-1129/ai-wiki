@@ -22,7 +22,7 @@ $$\text{Dice} = \frac{2\,|A \cap B|}{|A| + |B|}$$
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="分割重疊指標教學動畫">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/dice-overlap-response-still.svg" data-motion-src="../../../../assets/concept-animations/dice-overlap-response-motion.svg" alt="移動預測矩形時，Dice 與 IoU 曲線同步追蹤兩個遮罩的重疊程度，顯示部分重疊時 Dice 大於 IoU。" width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/dice-overlap-response-still.svg" data-motion-src="../../../../assets/concept-animations/dice-overlap-response-motion.svg" alt="移動預測矩形時，Dice 與 IoU 曲線同步追蹤兩個遮罩的重疊程度，顯示部分重疊時 Dice 大於 IoU。" width="640" height="360">
 </div>
 </div>
 
