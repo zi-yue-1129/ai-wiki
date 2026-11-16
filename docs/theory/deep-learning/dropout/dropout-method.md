@@ -52,6 +52,18 @@ Training procedure, for each mini-batch:
 
 *Original teaching animation, CC BY-SA 4.0.* The synthetic input is $h=(1,2,3,4)$ and $p=0.5$. Inverted dropout computes $y_i=r_i h_i/p$, with $r_i\sim\mathrm{Bernoulli}(p)$. For the displayed mask $(1,0,1,0)$, the output is $(2,0,6,0)$; new masks change individual outputs. **For every unit**, $\mathbb{E}[y_i]=h_i$ follows analytically from the Bernoulli mean, but an individual masked sample need not preserve the sum or a downstream network prediction. These masks are intentionally constructed teaching draws, **not model measurements or a Monte Carlo estimate**. The website player supports Play/Pause and reduced-motion fallback; [view the GitHub-compatible static preview](../../../assets/concept-animations/dropout-inverted-sampling-still.svg).
 
+### Visual walkthrough: variance under inverted scaling
+
+![Animated two-point inverted-dropout distribution: lower retention moves the kept outcome outward, increases zero-mask probability and variance, while the analytic mean stays fixed.](../../../assets/concept-animations/dropout-variance-tradeoff-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* With the **synthetic scalar** $h=2$, inverted dropout yields $y=0$ with probability $1-p$ and $y=h/p$ with probability $p$. Therefore the conditional mean is $\mathbb{E}[y]=h=2$, but the variance is
+
+$
+\operatorname{Var}(y)=\frac{h^2(1-p)}{p}.
+$
+
+The illustration varies the keep probability from $1$ to $0.25$ and back: the nonzero outcome moves from $2$ to $8$, the probability of zero grows from $0$ to $0.75$, and the variance rises from $0$ to $12$. Circle sizes represent relative probability mass schematically, rather than exact sampled counts. This **does not mean** the output of a nonlinear downstream network has the same expectation. No model was trained or measured. The website player offers Play/Pause and a reduced-motion fallback; [view the GitHub-compatible static preview](../../../assets/concept-animations/dropout-variance-tradeoff-still.svg).
+
 ## Results
 
 The paper reports error rates for the same architecture with and without dropout. The comparisons below are the within-paper ones, taken from its tables for convolutional networks:
