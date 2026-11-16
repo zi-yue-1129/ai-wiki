@@ -199,7 +199,7 @@ $
 \dot p(0)=(3/8,-1/16,-5/16).
 $
 
-Since the probabilities always sum to one, their tangents necessarily sum to zero. The left-hand bars follow the **analytic** $p(t)=\mathrm{softmax}(\ln 2+t,0,-t)$ as the orange indicator moves; the right-hand bars show the JVP specifically **at $t=0$**, not a continuously updated tangent. This is constructed mathematics, **not model measurements**. MkDocs provides keyboard-accessible Play/Pause and a reduced-motion still; step, seek and speed controls are not added. The general tangent-linear chain rule is detailed in [Griewank and Walther (2008)](https://doi.org/10.1137/1.9780898717761).
+Since the probabilities always sum to one, their tangents necessarily sum to zero. The left-hand bars sample the **analytic** $p(t)=\mathrm{softmax}(\ln 2+t,0,-t)$ at five positions and interpolate between those samples while the orange indicator moves. Intermediate heights are a visual approximation, not exact softmax evaluations at every instant. The right-hand bars show the **exact** JVP specifically **at $t=0$**, not a continuously updated tangent. This is constructed mathematics, **not model measurements**. MkDocs provides keyboard-accessible Play/Pause and a reduced-motion still; step, seek and speed controls are not added. The general tangent-linear chain rule is detailed in [Griewank and Walther (2008)](https://doi.org/10.1137/1.9780898717761).
 
 ### Matrix-product JVP: two simultaneous tangent paths
 
