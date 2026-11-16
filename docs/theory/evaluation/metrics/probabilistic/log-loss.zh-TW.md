@@ -24,7 +24,7 @@ $$L_{\log}(y, p) = -\big(y \log p + (1 - y) \log(1 - p)\big)$$
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="對數損失比較動畫；窄螢幕可聚焦此區域並水平捲動">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" data-motion-src="../../../../assets/concept-animations/log-loss-tail-penalty-motion.svg" data-still-src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" alt="同一垂直刻度下，對真正例的對數損失與 Brier 平方損失。預測正例機率接近零時，紅色對數損失標記急遽上升，而 Brier 標記維持在一以下。">
+<img data-source-asset-urls src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" data-motion-src="../../../../assets/concept-animations/log-loss-tail-penalty-motion.svg" data-still-src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" alt="同一垂直刻度下，對真正例的對數損失與 Brier 平方損失。預測正例機率接近零時，紅色對數損失標記急遽上升，而 Brier 標記維持在一以下。">
 </div>
 </div>
 

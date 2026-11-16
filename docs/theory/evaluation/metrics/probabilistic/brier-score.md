@@ -23,7 +23,7 @@ Lower is better. Predicting $p = 0.5$ everywhere gives 0.25, a simple baseline. 
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Brier score animation: focus here and scroll horizontally on narrow screens">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/brier-expected-risk-still.svg" data-motion-src="../../../../assets/concept-animations/brier-expected-risk-motion.svg" data-still-src="../../../../assets/concept-animations/brier-expected-risk-still.svg" alt="Three Brier-loss curves for a binary event: observed positive, observed negative, and expected loss. A forecast cursor sweeps toward the expected-risk minimum at probability 0.70.">
+<img data-source-asset-urls src="../../../../assets/concept-animations/brier-expected-risk-still.svg" data-motion-src="../../../../assets/concept-animations/brier-expected-risk-motion.svg" data-still-src="../../../../assets/concept-animations/brier-expected-risk-still.svg" alt="Three Brier-loss curves for a binary event: observed positive, observed negative, and expected loss. A forecast cursor sweeps toward the expected-risk minimum at probability 0.70.">
 </div>
 </div>
 

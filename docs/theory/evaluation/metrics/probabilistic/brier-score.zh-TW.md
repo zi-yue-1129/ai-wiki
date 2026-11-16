@@ -24,7 +24,7 @@ $$\text{Brier} = \frac{1}{n} \sum_{i=1}^{n} (p_i - y_i)^2$$
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Brier 分數動畫；窄螢幕可聚焦此區域並水平捲動">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/brier-expected-risk-still.svg" data-motion-src="../../../../assets/concept-animations/brier-expected-risk-motion.svg" data-still-src="../../../../assets/concept-animations/brier-expected-risk-still.svg" alt="二元事件的三條 Brier 損失曲線：正例、負例，以及加權的期望損失。預測機率游標沿曲線移動，期望風險在 0.70 最低。">
+<img data-source-asset-urls src="../../../../assets/concept-animations/brier-expected-risk-still.svg" data-motion-src="../../../../assets/concept-animations/brier-expected-risk-motion.svg" data-still-src="../../../../assets/concept-animations/brier-expected-risk-still.svg" alt="二元事件的三條 Brier 損失曲線：正例、負例，以及加權的期望損失。預測機率游標沿曲線移動，期望風險在 0.70 最低。">
 </div>
 </div>
 

@@ -31,6 +31,8 @@ Each circle is a section. A line joins two sections whose pages link to each oth
 
 -   :material-cube-outline: **[Models](theory/models/index.md)**
 
+    Explore [item-based collaborative filtering](theory/models/recommender/item-based-cf.md) for an explicit-neighbourhood recommender.
+
     ---
     Transformers, LLMs, diffusion, computer vision, NLP, speech, multimodal models, GNNs, agents, world models.
 

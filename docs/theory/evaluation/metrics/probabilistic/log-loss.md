@@ -23,7 +23,7 @@ The reported value is the mean over all samples. It is the same quantity that lo
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Log loss comparison animation: focus here and scroll horizontally on narrow screens">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" data-motion-src="../../../../assets/concept-animations/log-loss-tail-penalty-motion.svg" data-still-src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" alt="For a true positive, log loss and Brier penalty appear on one vertical scale. As the predicted positive probability approaches zero, the moving red log-loss marker rises sharply while the Brier marker stays below one.">
+<img data-source-asset-urls src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" data-motion-src="../../../../assets/concept-animations/log-loss-tail-penalty-motion.svg" data-still-src="../../../../assets/concept-animations/log-loss-tail-penalty-still.svg" alt="For a true positive, log loss and Brier penalty appear on one vertical scale. As the predicted positive probability approaches zero, the moving red log-loss marker rises sharply while the Brier marker stays below one.">
 </div>
 </div>
 
