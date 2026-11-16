@@ -35,10 +35,10 @@ $$
 #### 稀疏損失遮罩如何影響梯度
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的 3D U-Net 稀疏損失動畫">
-<img data-source-asset-urls src="../../../assets/concept-animations/3d-unet-sparse-loss-still.svg" data-motion-src="../../../assets/concept-animations/3d-unet-sparse-loss-motion.svg" data-still-src="../../../assets/concept-animations/3d-unet-sparse-loss-still.svg" alt="六乘五的預測切片有三個前景已標註體素、三個背景已標註體素，另有二十四個未標註體素。移動框僅逐一掃過六個已標註位置，並同步強調其加權損失貢獻。" style="width:800px;min-width:800px;max-width:none;height:auto">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-sparse-loss-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-sparse-loss-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-sparse-loss-still.svg" alt="六乘五的預測切片有三個前景已標註體素、三個背景已標註體素，另有二十四個未標註體素。移動框僅逐一掃過六個已標註位置，並同步強調其加權損失貢獻。" style="width:800px;min-width:800px;max-width:none;height:auto">
 </div>
 
-*原創教學動畫，CC BY-SA 4.0。* 本圖是**人工設定**的 30 個體素範例：三個簡化的前景標註、三個背景標註，其餘 24 個體素損失權重為零。游標逐一停在已標註位置，右側同步強調對應的損失項。**「未標註」不等於「標為背景」**。長條數值僅是任意設定的加權損失貢獻，並非模型預測、實測損失，或原論文三類標註的重現。MkDocs 網站提供播放／暫停與鍵盤操作；偏好減少動態效果時顯示靜態圖。[GitHub 可直接閱讀的回退預覽](../../../assets/concept-animations/3d-unet-sparse-loss-still.svg)。[^original]
+*原創教學動畫，CC BY-SA 4.0。* 本圖是**人工設定**的 30 個體素範例：三個簡化的前景標註、三個背景標註，其餘 24 個體素損失權重為零。游標逐一停在已標註位置，右側同步強調對應的損失項。**「未標註」不等於「標為背景」**。長條數值僅是任意設定的加權損失貢獻，並非模型預測、實測損失，或原論文三類標註的重現。MkDocs 網站提供播放／暫停與鍵盤操作；偏好減少動態效果時顯示靜態圖。[GitHub 可直接閱讀的回退預覽](../../../../assets/concept-animations/3d-unet-sparse-loss-still.svg)。[^original]
 
 ### 評估方式
 
@@ -48,10 +48,10 @@ $$
 ### 評估時究竟留出了什麼單位？
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="可水平捲動的 3D U-Net 評估切分動畫">
-<img data-source-asset-urls src="../../../assets/concept-animations/3d-unet-evaluation-holdout-still.svg" data-motion-src="../../../assets/concept-animations/3d-unet-evaluation-holdout-motion.svg" data-still-src="../../../assets/concept-animations/3d-unet-evaluation-holdout-still.svg" alt="三個體積的示意三折評估：左側每個體積只留出部分切片，右側則在每折留出整個體積，測試顏色隨折次改變。" style="width:800px;min-width:800px;max-width:none;height:auto">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-evaluation-holdout-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-evaluation-holdout-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-evaluation-holdout-still.svg" alt="三個體積的示意三折評估：左側每個體積只留出部分切片，右側則在每折留出整個體積，測試顏色隨折次改變。" style="width:800px;min-width:800px;max-width:none;height:auto">
 </div>
 
-*原創教學動畫，CC BY-SA 4.0。* 此處以**人工設定**的三個體積、各五張切片解釋切分單位；粉紅色代表測試資料，青綠色代表訓練資料。左側在每個體積內留出一張已標註**切片**，同一體積的其他切片仍可用於訓練。右側則每次完整留出一個**體積**，該體積的所有切片都不參與當折訓練。輪換的折次、切片數量與位置**不是論文實際的切分配置**。這兩種設計分別衡量部分已知體積的補全能力與跨體積遷移能力。[GitHub 可直接閱讀的回退預覽](../../../assets/concept-animations/3d-unet-evaluation-holdout-still.svg)；MkDocs 網站提供播放／暫停及減少動態效果的回退顯示。[^original]
+*原創教學動畫，CC BY-SA 4.0。* 此處以**人工設定**的三個體積、各五張切片解釋切分單位；粉紅色代表測試資料，青綠色代表訓練資料。左側在每個體積內留出一張已標註**切片**，同一體積的其他切片仍可用於訓練。右側則每次完整留出一個**體積**，該體積的所有切片都不參與當折訓練。輪換的折次、切片數量與位置**不是論文實際的切分配置**。這兩種設計分別衡量部分已知體積的補全能力與跨體積遷移能力。[GitHub 可直接閱讀的回退預覽](../../../../assets/concept-animations/3d-unet-evaluation-holdout-still.svg)；MkDocs 網站提供播放／暫停及減少動態效果的回退顯示。[^original]
 
 ## 主要結果
 
