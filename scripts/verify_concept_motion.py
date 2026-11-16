@@ -68,6 +68,8 @@ TOPICS = {
     "dpll-backtrack": "theory/paradigms/symbolic-ai/theorem-proving/dpll",
     "viterbi-trellis": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "tree-belief-propagation": "theory/paradigms/probabilistic/graphical-models/belief-propagation",
+    "shaw-relative-value": "theory/models/transformer/positional-encodings/index",
+    "yarn-attention-temperature": "theory/models/transformer/positional-encodings/index",
     "alibi-head-prefix": "theory/models/transformer/positional-encodings/index",
     "rope-cache-reindex": "theory/models/transformer/positional-encodings/index",
     "forward-ad-jvp": "theory/math/automatic-differentiation/forward-mode",
@@ -190,7 +192,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"shaw-relative-clipping", "yarn-frequency-ramp", "alibi-distance-softmax", "alibi-content-recency", "rope-frequency-bands", "rope-interpolation-angle", "alibi-head-prefix", "rope-cache-reindex", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"shaw-relative-value", "yarn-attention-temperature", "shaw-relative-clipping", "yarn-frequency-ramp", "alibi-distance-softmax", "alibi-content-recency", "rope-frequency-bands", "rope-interpolation-angle", "alibi-head-prefix", "rope-cache-reindex", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "power-iteration-convergence"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
