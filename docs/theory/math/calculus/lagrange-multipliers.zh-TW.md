@@ -55,6 +55,16 @@ translation_reviewed: 2026-11-16
 考慮**人工解析示例** $\min_{0\le x\le1}(x-a)^2$，讓 $a$ 在 $0.35$ 到 $1.70$ 之間移動。在這個刻意選取的範圍，下界始終不活躍。對上界限制 $h(x)=x-1\le0$，一階駐點與互補鬆弛條件為 $2(x-a)+\mu=0$、$\mu\ge0$、$\mu(x-1)=0$，因此 $x^*=\min(a,1)$、$\mu^*=2\max(a-1,0)$。當 $a<1$，目標本身可行，乘數為零；當 $a>1$，極小點固定在 $x^*=1$，乘數隨超出邊界的程度增加（$a=1.7$ 時 $\mu=1.4$）。橘點、青綠點與長條同步顯示參數掃描的解析變化，**並非最佳化求解器的時間步驟**；連續位置只是解析樣本間的視覺插值，**不是模型實測**。理論依據為 Boyd 與 Vandenberghe（2004）的 KKT 與互補鬆弛條件。
 
 
+## 對偶下界：原始－對偶間隙何時縮至零？
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../assets/concept-animations/lagrange-dual-gap-still.svg" data-motion-src="../../../assets/concept-animations/lagrange-dual-gap-motion.svg" data-still-src="../../../assets/concept-animations/lagrange-dual-gap-still.svg" alt="人工對偶下界隨乘數上升，在二時碰到原始最優值後再下降；拉格朗日函數的極小點同時到達有效約束。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+
+考慮人工凸最佳化問題 $\min_x(x-2)^2$，約束為 $x\le1$，原始最優解與最優值為 $x^*=1$、$p^*=1$。對 $\lambda\ge0$，建立 $\mathcal L(x,\lambda)=(x-2)^2+\lambda(x-1)$。先對不受限制的 $x$ 最小化，可得 $x(\lambda)=2-\lambda/2$，以及**對偶下界** $d(\lambda)=\lambda-\lambda^2/4\le p^*$。在 $\lambda^*=2$，對偶下界碰到原始最優值：$d(2)=p^*=1$，拉格朗日函數的極小點也剛好到達有效約束邊界 $x=1$。乘數並非越大越好，例如 $d(3)=0.75$。橘色移動標記顯示的是**解析式的乘數掃描**，不是實際的原始－對偶最佳化器運行；數值均為教學示意，**不是模型訓練實測**。此凸且嚴格可行的例子符合 Boyd 與 Vandenberghe（2004；見參考文獻）的強對偶條件。
+
+*原創教學視覺，CC BY-SA 4.0。* MkDocs 網站沿用共用 Play／Pause 與鍵盤操作；偏好減少動態效果時顯示靜態回退圖，手機可在圖面內水平捲動。完整動畫：[SVG](../../../assets/concept-animations/lagrange-dual-gap-motion.svg)。
+
+[GitHub 靜態預覽](../../../assets/concept-animations/lagrange-dual-gap-still.svg)
+
 ## 主要方法
 
 - [牛頓法](newtons-method.md)：可用於拉格朗日函數的駐點條件的二階方法，是一階 KKT 方法的替代。
