@@ -34,7 +34,7 @@ $$
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup 教學動畫，可以使用鍵盤左右捲動圖像">
 <div style="width:640px">
-<img src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-motion-src="../../../assets/concept-animations/mixup-paired-interpolation-motion.svg" alt="同一個 λ 使輸入在 A 與 B 兩個二維向量之間移動，同時將軟目標的 A 類與 B 類權重調整為 λ 與 1 − λ。" width="640" height="360">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-still-src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-motion-src="../../../assets/concept-animations/mixup-paired-interpolation-motion.svg" alt="同一個 λ 使輸入在 A 與 B 兩個二維向量之間移動，同時將軟目標的 A 類與 B 類權重調整為 λ 與 1 − λ。" width="640" height="360">
 </div>
 </div>
 
@@ -83,7 +83,7 @@ $$
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup 教學動畫，可以使用鍵盤左右捲動圖像">
 <div style="width:640px">
-<img src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-motion-src="../../../assets/concept-animations/mixup-beta-strength-motion.svg" alt="對稱 Beta 分布的係數密度在 alpha 為 0.35、1 與 5 時，分別呈現兩端較高、均勻與中間較高的形狀。" width="640" height="360">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-still-src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-motion-src="../../../assets/concept-animations/mixup-beta-strength-motion.svg" alt="對稱 Beta 分布的係數密度在 alpha 為 0.35、1 與 5 時，分別呈現兩端較高、均勻與中間較高的形狀。" width="640" height="360">
 </div>
 </div>
 

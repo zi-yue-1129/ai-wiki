@@ -33,7 +33,7 @@ Mixup favours approximately linear predictions between examples. It does not imp
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup instructional visual; keyboard-scrollable image">
 <div style="width:640px">
-<img src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-motion-src="../../../assets/concept-animations/mixup-paired-interpolation-motion.svg" alt="The same mixing coefficient moves a two-dimensional input between examples A and B while adjusting the two soft-target class weights." width="640" height="360">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-still-src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-motion-src="../../../assets/concept-animations/mixup-paired-interpolation-motion.svg" alt="The same mixing coefficient moves a two-dimensional input between examples A and B while adjusting the two soft-target class weights." width="640" height="360">
 </div>
 </div>
 
@@ -82,7 +82,7 @@ The paper uses different settings across experiments and reports underfitting fo
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup instructional visual; keyboard-scrollable image">
 <div style="width:640px">
-<img src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-motion-src="../../../assets/concept-animations/mixup-beta-strength-motion.svg" alt="Symmetric Beta densities at alpha 0.35, 1 and 5 change from edge-weighted to uniform to centre-weighted." width="640" height="360">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-still-src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-motion-src="../../../assets/concept-animations/mixup-beta-strength-motion.svg" alt="Symmetric Beta densities at alpha 0.35, 1 and 5 change from edge-weighted to uniform to centre-weighted." width="640" height="360">
 </div>
 </div>
 
