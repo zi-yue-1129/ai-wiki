@@ -19,7 +19,7 @@ Residual networks (ResNet) are deep convolutional networks whose blocks add thei
 
 ## Visual explanation: residual gradients and projection shortcuts
 
-**1. A shortcut carries both signals and derivatives.** For the *pre-activation, additive* scalar toy block (y=x+F(x)), let (x=2) and (F(x)=-0.5x). The forward result is (y=1). By the chain rule, the upstream derivative (g_y=1) branches into (g_y) through the identity shortcut and (F'(x)g_y=-0.5) through the learned branch, then sums to (g_x=0.5):
+**1. A shortcut carries both signals and derivatives.** For the *pre-activation, additive* scalar toy block \(y=x+F(x)\), let \(x=2\) and \(F(x)=-0.5x\). The forward result is \(y=1\). By the chain rule, the upstream derivative \(g_y=1\) branches into \(g_y\) through the identity shortcut and \(F'(x)g_y=-0.5\) through the learned branch, then sums to \(g_x=0.5\):
 
 \[
 \frac{\partial y}{\partial x}=1+\frac{\partial F}{\partial x},\qquad
@@ -36,7 +36,7 @@ This is a **local derivative at the addition** (or a pre-activation residual uni
 
 *Original 8-second SVG teaching animation (CC BY-SA 4.0). GitHub shows the static fallback; MkDocs enhances it with Play/Pause and a reduced-motion alternative. Values and trajectories are analytic illustrations, not measured model activations or gradients.* [Open full SVG animation](../../../../../assets/concept-animations/resnet-identity-gradient-motion.svg).
 
-**2. A projection is needed when tensor shapes change.** Elementwise residual addition requires (operatorname{shape}(F(x))=operatorname{shape}(P(x))). In the constructed example, a (4\times4\times1) feature map goes through a stride-2 (3\times3) main convolution (with padding 1) to reach (2\times2\times2), while a learned stride-2 (1\times1) projection on the shortcut produces the *same* shape. Only then is (y=F(x)+P(x)) defined. A pure identity shortcut is suitable only when shapes already match; the illustrated sizes and channels are examples, not a specific ResNet layer.
+**2. A projection is needed when tensor shapes change.** Elementwise residual addition requires \(\operatorname{shape}(F(x))=\operatorname{shape}(P(x))\). In the constructed example, a \(4\times4\times1\) feature map goes through a stride-2 \(3\times3\) main convolution (with padding 1) to reach \(2\times2\times2\), while a learned stride-2 \(1\times1\) projection on the shortcut produces the *same* shape. Only then is \(y=F(x)+P(x)\) defined. A pure identity shortcut is suitable only when shapes already match; the illustrated sizes and channels are examples, not a specific ResNet layer.
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Projection shortcut animation; focus to scroll horizontally">
 <div style="width:800px">
