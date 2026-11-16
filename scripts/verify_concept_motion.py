@@ -17,8 +17,10 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "newton-curvature-steps": "theory/math/calculus/newtons-method",
     "newton-indefinite-curvature": "theory/math/calculus/newtons-method",
+    "newton-armijo-backtracking": "theory/math/calculus/newtons-method",
     "lagrange-tangency": "theory/math/calculus/lagrange-multipliers",
     "lagrange-kkt-active-set": "theory/math/calculus/lagrange-multipliers",
+    "lagrange-dual-gap": "theory/math/calculus/lagrange-multipliers",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
@@ -186,12 +188,12 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"newton-curvature-steps", "newton-indefinite-curvature", "lagrange-tangency", "lagrange-kkt-active-set", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"newton-curvature-steps", "newton-indefinite-curvature", "newton-armijo-backtracking", "lagrange-tangency", "lagrange-dual-gap", "lagrange-kkt-active-set", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "power-iteration-convergence"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
-                if stem in {"svd-unit-circle", "power-iteration-convergence", "newton-curvature-steps", "newton-indefinite-curvature", "lagrange-tangency", "lagrange-kkt-active-set"}:
+                if stem in {"svd-unit-circle", "power-iteration-convergence", "newton-curvature-steps", "newton-indefinite-curvature", "newton-armijo-backtracking", "lagrange-tangency", "lagrange-dual-gap", "lagrange-kkt-active-set"}:
                     static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                     if static_path.resolve() not in {
                         (page.parent / link).resolve() for link in static_links
