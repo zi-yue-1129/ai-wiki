@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420" role="img" aria-labelledby="title description">
 <title id="title">DDIM stochasticity controls the fresh-noise coefficient</title>
 <desc id="description">At fixed cumulative alpha values, the squared clean coefficient stays at 0.64 as eta varies between 0 and 1. The predicted-noise squared coefficient shrinks while newly sampled Gaussian noise grows. Schematic scalar coefficients, not model measurements.</desc>
-<rect x="1" y="1" width="758" height="418" rx="18" fill="#f7fafc" stroke="#d2dce5" stroke-width="2"/>
+<rect x="1" y="1" width="798" height="418" rx="18" fill="#f7fafc" stroke="#d2dce5" stroke-width="2"/>
 <text x="30" y="40" fill="#20384b" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700">DDIM stochasticity</text>
 <text x="30" y="68" fill="#52687a" font-family="Arial,Helvetica,sans-serif" font-size="15">Fixed schedule: ᾱt = 0.36 → ᾱs = 0.64</text>
 <text x="144" y="105" fill="#20384b" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="600">Squared coefficients</text>
