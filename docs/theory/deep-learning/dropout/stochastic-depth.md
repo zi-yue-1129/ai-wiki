@@ -76,6 +76,14 @@ The torchvision operator takes a **drop probability** $q_l=1-p_l$. For $p_l>0$ i
 
 In torchvision, **batch** mode shares a mask across the mini-batch and **row** mode draws one mask per sample, broadcasting it across the other dimensions. The operator masks a tensor it receives. A call such as `stochastic_depth(f(x), q, mode, training)` computes `f(x)` before the mask is applied, so even batch mode in that call leaves the branch's forward compute in place.[^torchvision]
 
+### Visual walkthrough: two scaling conventions are not interchangeable
+
+![Animated comparison of original and inverted stochastic-depth scaling: binary residual-branch keep/skip decisions change train outputs while each convention has its own evaluation expectation.](../../../assets/concept-animations/stochastic-depth-scaling-conventions-motion.svg)
+
+*Original teaching animation, CC BY-SA 4.0.* For one **schematic pre-activation** with shortcut $s=2$, branch output $f=4$, survival probability $p=0.5$, and mask $b\sim\mathrm{Bernoulli}(p)$, the original convention has training values $s+bf\in\{2,6\}$ and evaluation value $s+pf=4$. Inverted scaling has training values $s+bf/p\in\{2,10\}$ and evaluation value $s+f=6$. The moving gate denotes **a binary mask**, not a continuously fractional branch; the orange train contribution disappears for the skipped branch, while the shortcut remains.
+
+Each evaluation rule equals **its own conditional expected pre-activation** at a fixed block input. These two conventions do **not** produce identical sampled values or imply equivalence after a nonlinear activation or through the whole network. The displayed numbers are illustrative arithmetic, **not model measurements or empirical training outcomes**.[^huang][^torchvision] The website player supports Play/Pause and reduced motion; [view the GitHub-compatible static preview](../../../assets/concept-animations/stochastic-depth-scaling-conventions-still.svg).
+
 ## Results
 
 Huang et al. reported CIFAR-10 test error of 5.25% with stochastic depth and 6.41% with constant depth for their 110-layer ResNet using standard augmentation. In a separate 1,202-layer comparison, the errors were 4.91% and 6.67%, respectively. For the 110-layer CIFAR-10 run, Table 2 reports training times of 15 h 7 min with stochastic depth and 20 h 42 min with constant depth.[^huang]
