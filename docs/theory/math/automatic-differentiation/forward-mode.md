@@ -154,6 +154,37 @@ g(p(t))=(3+t,\ 5-3t),\qquad
 
 This is the **JVP of the gradient**: a forward-mode directional derivative applied to a gradient function that can be obtained by reverse mode. No full Hessian matrix needs to be materialized. Both curves and the value \(H_f(p)v\) are exact analytic examples, not timing or model-training results. The plotted axes use separate schematic scales; the paired points depict corresponding parameter values, not comparable Euclidean distances. The MkDocs player supports Play/Pause and a reduced-motion still, not seek or single-step. For the general forward/reverse tradeoff, see [Griewank and Walther (2008)](https://doi.org/10.1137/1.9780898717761).
 
+
+### Differentiating through a linear solve
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable linear-solve tangent teaching animation">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-linear-solve-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-linear-solve-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-linear-solve-still.svg" alt="A moving right-hand side b changes horizontally while its solution x in the fixed linear system A x equals b moves in the coupled direction two-thirds and minus one-third." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching motion. [GitHub static preview](../../../assets/concept-animations/forward-ad-linear-solve-still.svg) · [12-second animated SVG](../../../assets/concept-animations/forward-ad-linear-solve-motion.svg).* A linear system need not be solved again for every infinitesimal input perturbation. For the **synthetic**, fixed matrix and input
+
+\[
+A=\begin{bmatrix}2&1\\1&2\end{bmatrix},\quad
+b=\begin{bmatrix}3\\3\end{bmatrix},\quad
+x=A^{-1}b=\begin{bmatrix}1\\1\end{bmatrix},
+\]
+
+differentiate \(Ax=b\) along the seed \(\dot b=(1,0)^\top\), keeping \(A\) fixed. Forward-mode differentiation propagates the tangent by solving \(A\dot x=\dot b\), which yields \(\dot x=(2/3,-1/3)^\top\). The synchronized dots trace \(b(t)=(3+t,3)\) and \(x(t)=(1+2t/3,1-t/3)\), so changing one input coordinate changes **both** solution coordinates. If \(A\) also depends on the input, the more general rule is \(A\dot x=\dot b-\dot A x\) for a nonsingular system. The panels use schematic independent scales. Values are exact toy arithmetic, **not measured solver timings**; use the MkDocs Play/Pause control or the reduced-motion still.
+
+### Sparse Jacobian: pack independent seed columns
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Horizontally scrollable sparse-Jacobian seed-packing animation">
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-ad-sparse-packing-still.svg" data-motion-src="../../../assets/concept-animations/forward-ad-sparse-packing-motion.svg" data-still-src="../../../assets/concept-animations/forward-ad-sparse-packing-still.svg" alt="A four by four Jacobian has disjoint nonzero rows in each pair of columns; two colored seed groups produce JVP vectors (1,3,5,7) and (2,4,6,8), recovering all eight known nonzeros." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching motion. [GitHub static preview](../../../assets/concept-animations/forward-ad-sparse-packing-still.svg) · [12-second animated SVG](../../../assets/concept-animations/forward-ad-sparse-packing-motion.svg).* A dense four-column Jacobian usually takes four one-hot JVP passes. **Known structural sparsity** can reduce the passes: when two selected columns never have nonzero entries in the same output row, their tangents can be seeded together without ambiguity. Consider the constructed Jacobian
+
+\[
+J=\begin{bmatrix}1&0&2&0\\0&3&0&4\\5&0&6&0\\0&7&0&8\end{bmatrix}.
+\]
+
+The highlighted teal seed \(s_A=(1,1,0,0)^\top\) gives \(Js_A=(1,3,5,7)^\top\); the amber seed \(s_B=(0,0,1,1)^\top\) gives \(Js_B=(2,4,6,8)^\top\). Because the sparsity pattern is known and each seed group has at most one nonzero contributor per row, these **two passes recover all eight nonzeros**. Without the structural pattern, a packed JVP generally cannot identify the contributing columns. The alternating highlight shows which entries a pass recovers, **not runtime speedup measurements**. The shared player supports keyboard-accessible Play/Pause and reduced-motion fallback; it does not add seeking or single-step controls.
+
 ## Equation
 
 For an elementary operation $v = \phi(u)$, the tangent rule is
