@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-12
+translation_reviewed: 2026-11-16
 ---
 
 # 拉格朗日乘數法
@@ -32,11 +32,28 @@ translation_reviewed: 2026-11-12
 
 ## 教學動畫：約束集合上的切觸條件
 
-<img src="../../../assets/concept-animations/lagrange-tangency-still.svg" data-motion-src="../../../assets/concept-animations/lagrange-tangency-motion.svg" data-still-src="../../../assets/concept-animations/lagrange-tangency-still.svg" alt="可行點沿圓形約束移動，目標等高線逐漸縮小；在最優點，目標梯度與約束梯度方向相反。" loading="lazy" />
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/lagrange-tangency-still.svg" data-motion-src="../../../assets/concept-animations/lagrange-tangency-motion.svg" data-still-src="../../../assets/concept-animations/lagrange-tangency-still.svg" alt="可行點沿圓形約束移動，目標等高線逐漸縮小；在最優點，目標梯度與約束梯度方向相反。" loading="lazy" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
 
 *原創連續數學教學動畫，CC BY-SA 4.0。GitHub 顯示靜態預覽；Wiki 網站提供鍵盤可操作的播放／暫停，以及減少動態效果回退。*
 
 設 $f(x,y)=(x-2)^2+(y-1)^2$，等式約束為 $g(x,y)=x^2+y^2-1=0$。橘色虛線圓是以 $(2,1)$ 為中心的目標函數等高線，藍色圓則是可行集合。單位圓上距離 $(2,1)$ 最近的解析解是 $(x^*,y^*)=(2/\sqrt5,1/\sqrt5)$。此處 $\nabla f=2((x^*,y^*)-(2,1))$ 與 $\nabla g=2(x^*,y^*)$ 方向相反，並以 $\lambda=\sqrt5-1$ 滿足 $\nabla f+\lambda\nabla g=0$。動畫沿可行集合的連續移動是**幾何掃描，並非最佳化演算法或學習軌跡**；所有等高線與梯度皆為解析示例，非實測數值。參見參考文獻 Boyd 與 Vandenberghe（2004）。
+
+[GitHub 靜態預覽](../../../assets/concept-animations/lagrange-tangency-still.svg)
+
+## 不等式約束：觀察有效約束集合如何改變
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/lagrange-kkt-active-set-still.svg" data-motion-src="../../../assets/concept-animations/lagrange-kkt-active-set-motion.svg" data-still-src="../../../assets/concept-animations/lagrange-kkt-active-set-still.svg" alt="目標 a 越過上界一時，受限極小點停留在邊界，非負 KKT 乘數從零開始上升。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可直接檢視的 KKT 有效約束靜態圖](../../../assets/concept-animations/lagrange-kkt-active-set-still.svg)
+
+*原創 10 秒連續插值教學動畫，CC BY-SA 4.0。網站沿用無障礙播放／暫停控制與減少動態效果靜態回退。*
+
+考慮**人工解析示例** $\min_{0\le x\le1}(x-a)^2$，讓 $a$ 在 $0.35$ 到 $1.70$ 之間移動。在這個刻意選取的範圍，下界始終不活躍。對上界限制 $h(x)=x-1\le0$，一階駐點與互補鬆弛條件為 $2(x-a)+\mu=0$、$\mu\ge0$、$\mu(x-1)=0$，因此 $x^*=\min(a,1)$、$\mu^*=2\max(a-1,0)$。當 $a<1$，目標本身可行，乘數為零；當 $a>1$，極小點固定在 $x^*=1$，乘數隨超出邊界的程度增加（$a=1.7$ 時 $\mu=1.4$）。橘點、青綠點與長條同步顯示參數掃描的解析變化，**並非最佳化求解器的時間步驟**；連續位置只是解析樣本間的視覺插值，**不是模型實測**。理論依據為 Boyd 與 Vandenberghe（2004）的 KKT 與互補鬆弛條件。
+
 
 ## 主要方法
 

@@ -44,11 +44,28 @@ Logistic regression is the classic example where the Newton method is practical,
 
 ## Animated example: curvature-adjusted updates
 
-<img src="../../../assets/concept-animations/newton-curvature-steps-still.svg" data-motion-src="../../../assets/concept-animations/newton-curvature-steps-motion.svg" data-still-src="../../../assets/concept-animations/newton-curvature-steps-still.svg" alt="Newton steps on a convex quartic: a moving iterate approaches the minimum while a dashed local quadratic changes with the Hessian." loading="lazy" />
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/newton-curvature-steps-still.svg" data-motion-src="../../../assets/concept-animations/newton-curvature-steps-motion.svg" data-still-src="../../../assets/concept-animations/newton-curvature-steps-still.svg" alt="Newton steps on a convex quartic: a moving iterate approaches the minimum while a dashed local quadratic changes with the Hessian." loading="lazy" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
 
 *Original continuous teaching visual, CC BY-SA 4.0. GitHub displays the static frame; the wiki player provides keyboard-accessible Play/Pause and respects reduced-motion preferences.*
 
 For the **illustrative function** $f(x)=x^4/4+x^2/2$, $f'(x)=x^3+x$ and $f''(x)=3x^2+1>0$. Starting at $x_0=2.2$, exact full Newton steps produce approximately $2.2\to1.3722\to0.7772\to0.3339\to0.0558\to0.00034$. The amber dashed parabola is the second-order Taylor approximation around the current iterate, not a globally identical objective; the teal dot moves continuously **only for illustration**, whereas the algorithm updates at discrete iterates. All values are analytic teaching calculations, **not model measurements**. See Boyd and Vandenberghe (2004) in References.
+
+[GitHub-readable static preview](../../../assets/concept-animations/newton-curvature-steps-still.svg)
+
+## Why an indefinite Hessian needs a safeguard
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/newton-indefinite-curvature-still.svg" data-motion-src="../../../assets/concept-animations/newton-indefinite-curvature-motion.svg" data-still-src="../../../assets/concept-animations/newton-indefinite-curvature-still.svg" alt="On the same double-well quartic, a raw Newton update with negative local curvature moves uphill, whereas a positive curvature shift gives a downhill candidate." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable Newton curvature-safeguard snapshot](../../../assets/concept-animations/newton-indefinite-curvature-still.svg)
+
+*Original 8-second looping instructional animation, CC BY-SA 4.0. The website adds keyboard-accessible Play/Pause and a reduced-motion static fallback.*
+
+For the **analytic toy objective** $f(x)=x^4/4-x^2/2$ at $x_0=0.4$, the gradient is $g=-0.336$ and the Hessian is $H=-0.52$. The **unmodified** Newton update $x_1=x_0-g/H\approx-0.246154$ raises the loss from $-0.0736$ to approximately $-0.029378$. Shifting local curvature by $\lambda=1$ instead gives $H+\lambda=0.48$ and the modified step $x_1=x_0-g/(H+\lambda)=1.1$, reducing the loss to $-0.238975$. Both endpoints are exact computations rounded for display; the dots travelling between them are **visual interpolation of one step**, not additional iterations. A positive shifted Hessian gives a descent **direction**, but an unrestricted full step is not guaranteed to lower the objective in every non-convex problem: practical safeguards also use step-size control or a line search (Boyd and Vandenberghe, 2004). The selected values are illustrative, **not model measurements**.
+
 
 ## Key methods
 

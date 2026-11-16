@@ -45,11 +45,28 @@ Lagrange multipliers also appear in deep learning as penalty terms with fixed or
 
 ## Animated example: tangency on a feasible circle
 
-<img src="../../../assets/concept-animations/lagrange-tangency-still.svg" data-motion-src="../../../assets/concept-animations/lagrange-tangency-motion.svg" data-still-src="../../../assets/concept-animations/lagrange-tangency-still.svg" alt="A constrained point travels around a circle while objective contours contract; at the optimum the two gradients are antiparallel." loading="lazy" />
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/lagrange-tangency-still.svg" data-motion-src="../../../assets/concept-animations/lagrange-tangency-motion.svg" data-still-src="../../../assets/concept-animations/lagrange-tangency-still.svg" alt="A constrained point travels around a circle while objective contours contract; at the optimum the two gradients are antiparallel." loading="lazy" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
 
 *Original continuous mathematical teaching animation, CC BY-SA 4.0. GitHub shows its static fallback; the wiki player adds keyboard-accessible Play/Pause and reduced-motion fallback.*
 
 Let $f(x,y)=(x-2)^2+(y-1)^2$ with equality constraint $g(x,y)=x^2+y^2-1=0$. The orange dashed circle is a level set of $f$ centred at $(2,1)$, while the blue circle is the feasible set. Minimising distance on the unit circle gives the analytic solution $(x^*,y^*)=(2/\sqrt5,1/\sqrt5)$. There $\nabla f=2((x^*,y^*)-(2,1))$ and $\nabla g=2(x^*,y^*)$ are oppositely directed; $\nabla f+\lambda\nabla g=0$ holds for $\lambda=\sqrt5-1$. The animated passage between feasible points is a **geometric sweep, not an optimisation algorithm or learned trajectory**. Contours and gradients use illustrative exact arithmetic, not empirical results. See Boyd and Vandenberghe (2004) in References.
+
+[GitHub-readable static preview](../../../assets/concept-animations/lagrange-tangency-still.svg)
+
+## Inequality constraints: watching the active set change
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/lagrange-kkt-active-set-still.svg" data-motion-src="../../../assets/concept-animations/lagrange-kkt-active-set-motion.svg" data-still-src="../../../assets/concept-animations/lagrange-kkt-active-set-still.svg" alt="A target a moves past the upper bound one; the constrained minimizer stops at the boundary and its non-negative KKT multiplier begins to rise." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable KKT active-set snapshot](../../../assets/concept-animations/lagrange-kkt-active-set-still.svg)
+
+*Original 10-second continuously interpolated instructional animation, CC BY-SA 4.0. The site's existing accessible player offers Play/Pause and a reduced-motion fallback.*
+
+Consider the **analytic toy problem** $\min_{0\le x\le1}(x-a)^2$ while $a$ moves from $0.35$ to $1.70$. Throughout this chosen range the lower bound is inactive. With upper-bound constraint $h(x)=x-1\le0$, stationarity and complementary slackness give $2(x-a)+\mu=0$, $\mu\ge0$, and $\mu(x-1)=0$. Thus $x^*=\min(a,1)$ and $\mu^*=2\max(a-1,0)$. For $a<1$ the target is feasible and $\mu=0$; for $a>1$ the solution remains at $x^*=1$ while the multiplier increases (at $a=1.7$, $\mu=1.4$). The orange target, teal solution, and bar show these linked quantities across the parameter sweep, **not the time steps of an optimisation solver**. Intermediate positions are visual interpolation of analytic values, **not trained-model measurements**. This is a one-dimensional illustration of KKT complementary slackness as developed in Boyd and Vandenberghe (2004).
+
 
 ## Key methods
 
