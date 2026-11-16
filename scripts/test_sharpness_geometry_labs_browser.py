@@ -12,7 +12,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 
 def run():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, executable_path=os.environ.get('AIWIKI_CHROMIUM_PATH','/usr/bin/chromium'), args=['--no-sandbox'])
+        browser = p.chromium.launch(headless=True, executable_path=os.environ.get('AIWIKI_CHROMIUM_PATH') or None, args=['--no-sandbox'])
         count = 0
         for language in ('en','zh'):
             for width in (320,390,768,1024):
