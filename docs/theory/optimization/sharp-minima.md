@@ -22,6 +22,29 @@ Keskar et al. (2017) reported that training with large batches converges to shar
 
 A minimum is sharp when the loss rises quickly in some directions away from it, and flat when it rises slowly. The idea is that a flat minimum tolerates small shifts between the training and test distributions, so the same parameters perform similarly on unseen data. A sharp minimum is more sensitive to such shifts. The question is what the optimiser does that makes the difference, and batch size is one candidate, because the gradient noise from small batches changes the path the optimiser takes.
 
+
+## Visual explanation: probing sharpness and changing coordinates
+
+**1. Equal-radius loss probe.** Consider two illustrative losses, \(L_\kappa(w)=\tfrac12\kappa w^2\), with curvatures \(\kappa=0.5\) and \(\kappa=2\). Both reach the same minimum value at \(w=0\), but a perturbation of radius \(\rho\) increases the loss by \(\Delta L_\kappa=\tfrac12\kappa\rho^2\). As the radius grows, the markers and loss-rise bars move continuously. At every common radius the sharp quadratic has **four times** the loss increase; this is a property of these constructed functions, **not evidence of different test accuracy**.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Teaching animation; focus this region to scroll horizontally">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/sharpness-radius-loss-still.svg" data-motion-src="../../assets/concept-animations/sharpness-radius-loss-motion.svg" data-still-src="../../assets/concept-animations/sharpness-radius-loss-still.svg" alt="Two quadratic loss wells share a zero minimum; increasing the same parameter radius raises the loss four times faster for the steeper curvature.">
+</div>
+</div>
+
+*Original continuous teaching SVG, CC BY-SA 4.0. GitHub shows a static, readable state; on MkDocs, Play/Pause toggles the looping version. The quadratic curves, numbers and trajectories are illustrative, not model measurements.* [Full SVG animation](../../assets/concept-animations/sharpness-radius-loss-motion.svg).
+
+**2. Sharpness is coordinate-dependent.** For \(L(w)=w^2\), introduce a reparameterisation \(w=a u\). The **same objective** now appears as \(\widetilde L(u)=a^2u^2\): its second derivative in \(u\) is \(2a^2\), while the second derivative in \(w\) remains 2. As \(a\) moves between 0.7 and 1.5, the right-hand curve steepens without changing the original left-hand function. The two markers use equal **coordinate** offsets \(0.5\), which are not equal physical perturbations because \(\Delta w=a\Delta u\). This is the limitation of unnormalised, fixed-radius flatness measures discussed by Dinh et al. (2017) in the References; it does **not** establish that sharp or flat minima generalise differently.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Teaching animation; focus this region to scroll horizontally">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/sharpness-reparam-curvature-still.svg" data-motion-src="../../assets/concept-animations/sharpness-reparam-curvature-motion.svg" data-still-src="../../assets/concept-animations/sharpness-reparam-curvature-still.svg" alt="The same quadratic objective is shown in physical and rescaled coordinates; the rescaled curve steepens and its Hessian bar grows while the physical curve stays fixed.">
+</div>
+</div>
+
+*Original continuous teaching SVG, CC BY-SA 4.0. GitHub uses the static fallback; MkDocs provides Play/Pause and reduced-motion fallback. The scaling and Hessian values are analytic toy quantities, not measurements from a trained network.* [Full SVG animation](../../assets/concept-animations/sharpness-reparam-curvature-motion.svg).
+
 ## Problem
 
 Large batches make each step cheaper in wall-clock time when many devices are used, but accuracy on held-out data often falls compared with small batches, even when training loss is matched. Keskar et al. ask whether the gap is due to the batch size itself and what kind of minimum each batch size reaches.

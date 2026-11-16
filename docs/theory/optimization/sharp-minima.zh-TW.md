@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-17
 ---
 
 # 尖銳極小值與大批次泛化
@@ -9,6 +9,29 @@ Keskar 等人（2017）報告，以大批次訓練會收斂到損失函數的尖
 ## 概述
 
 當損失在離開極小值的某些方向上快速上升時，該極小值是尖銳的；上升緩慢時則是平坦的。其想法是：平坦極小值能容忍訓練分布與測試分布之間的小偏移，因此同樣的參數在未見過的資料上表現相近。尖銳極小值對這類偏移則較為敏感。問題在於，最佳化器做了什麼，造成了這種差異。批次大小是一個候選因素，因為小批次的梯度雜訊會改變最佳化器所走的路徑。
+
+
+## 動態示範：損失地形銳度與重新參數化
+
+**1. 相同半徑下的損失增量。** 考慮兩個人工建構的損失函數 \(L_\kappa(w)=\tfrac12\kappa w^2\)，曲率分別為 \(\kappa=0.5\) 與 \(\kappa=2\)。兩者在 \(w=0\) 都有相同的最小損失，但在共同擾動半徑 \(\rho\) 下，損失增加量為 \(\Delta L_\kappa=\tfrac12\kappa\rho^2\)。動畫同步調整兩個曲線上的探測點及損失增量條。無論半徑多少，較尖銳曲線的損失增加量都是較平坦曲線的**四倍**；這只是示意二次函數的解析結果，**不是模型測試準確率的證據**。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="教學概念動畫；可聚焦此區域並水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/sharpness-radius-loss-still.svg" data-motion-src="../../assets/concept-animations/sharpness-radius-loss-motion.svg" data-still-src="../../assets/concept-animations/sharpness-radius-loss-still.svg" alt="兩個二次損失函數具有相同最小值；相同參數擾動半徑逐漸增加時，高曲率函數的損失增加量是低曲率函數的四倍。">
+</div>
+</div>
+
+*原創連續教學 SVG，CC BY-SA 4.0。GitHub 顯示可直接閱讀的靜態狀態；MkDocs 網站提供播放／暫停及減少動態效果回退。曲線、數值與軌跡皆為人工數學示意，非模型實測。* [觀看完整 SVG 動畫](../../assets/concept-animations/sharpness-radius-loss-motion.svg)。
+
+**2. 銳度依賴座標系統。** 對於 \(L(w)=w^2\)，進行重新參數化 \(w=a u\) 後，**同一個目標函數**在新座標下為 \(\widetilde L(u)=a^2u^2\)。對 \(u\) 的二階導數為 \(2a^2\)，而對原本 \(w\) 的二階導數固定為 2。當 \(a\) 在 0.7 至 1.5 之間變化，右側曲線會改變銳度，但左側代表的目標函數並未改變。兩側探測點使用相同的**座標偏移** 0.5，並不是相同的實際參數擾動，因為 \(\Delta w=a\Delta u\)。這說明 Dinh 等人（2017）在參考文獻指出的「固定半徑、未正規化銳度指標」限制；**不能據此推論泛化能力**。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="教學概念動畫；可聚焦此區域並水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/sharpness-reparam-curvature-still.svg" data-motion-src="../../assets/concept-animations/sharpness-reparam-curvature-motion.svg" data-still-src="../../assets/concept-animations/sharpness-reparam-curvature-still.svg" alt="相同二次損失以原始與縮放座標呈現，重新參數化曲線的曲率和 Hessian 長條隨縮放係數改變，原始曲線則保持不變。">
+</div>
+</div>
+
+*原創連續教學 SVG，CC BY-SA 4.0。GitHub 提供靜態回退預覽，MkDocs 網站支援播放／暫停與減少動態效果。縮放係數與 Hessian 為解析式示意數值，並非已訓練網路的量測結果。* [觀看完整 SVG 動畫](../../assets/concept-animations/sharpness-reparam-curvature-motion.svg)。
 
 ## 問題
 
