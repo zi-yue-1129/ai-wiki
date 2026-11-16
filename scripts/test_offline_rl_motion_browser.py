@@ -31,6 +31,7 @@ def main():
             md = (ROOT/'docs/theory/paradigms/reinforcement-learning/offline-rl'/topic/name).read_text()
             assert f'{stem}-motion.svg' in md and f'{stem}-still.svg' in md
             assert 'CC BY-SA 4.0' in md
+            assert not any(ord(char) < 32 and char not in '\\r\\n' for char in md), 'Markdown contains hidden ASCII control characters'
     values = [1, 2, 4]
     expectile = 19 / 6
     loss_balance = .8*(4-expectile) - .2*(expectile-1) - .2*(expectile-2)

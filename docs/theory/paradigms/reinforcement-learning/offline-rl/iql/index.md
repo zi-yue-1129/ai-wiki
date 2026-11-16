@@ -32,11 +32,11 @@ The Q-function is trained with the Bellman target \(r + \gamma V_\psi(s')\), whi
 
 ## Animated computation: upper expectile and policy extraction
 
-The three bars represent **dataset actions at the same state** with illustrative values (Q(s,A)=1), (Q(s,B)=2), and (Q(s,C)=4). The orange guide moves from their ordinary mean (2.33) to the **upper expectile** at (	au=0.8). In this three-sample example, the asymmetric least-squares optimum satisfies (0.8(4-V)=0.2(V-1)+0.2(V-2)), giving (V=19/6approx3.17). The lower bars then show how advantage-weighted behavioural cloning reweights **those same observed actions**, without ever querying an unseen one.[^iql-motion]
+The three bars show **only dataset actions at the same state**, with illustrative values $Q(s,A)=1$, $Q(s,B)=2$, and $Q(s,C)=4$. The orange guide moves from their arithmetic mean $7/3\approx2.33$ to the upper expectile at $\tau=0.8$. In this toy example the asymmetric least-squares optimum solves $0.8(4-V)=0.2(V-1)+0.2(V-2)$, hence $V=19/6\approx3.17$. The lower bars then reweight these **same observed actions** for policy extraction, without evaluating an unseen action.[^iql-motion]
 
 <img alt="Animated IQL example: three observed action values 1, 2 and 4; an upper-expectile guide moves from mean 2.33 to value 3.17; advantage-weighted cloning increasingly favours action C." src="../../../../../assets/concept-animations/offline-iql-expectile-still.svg" data-motion-src="../../../../../assets/concept-animations/offline-iql-expectile-motion.svg" data-still-src="../../../../../assets/concept-animations/offline-iql-expectile-still.svg">
 
-*Original instructional animation (CC BY-SA 4.0).* For (eta=0.5), normalising (exp[eta(Q(s,a)-V(s))]) across these three equally represented dataset actions produces approximately **14%, 23%, and 63%**. These numbers, the equal sample counts and the animated progression are **constructed for instruction**, not fitted IQL parameters, empirical action frequencies or training traces. On MkDocs, use Play/Pause (Enter or Space when focused); GitHub displays the complete static comparison. A reduced-motion preference defaults to that still.
+*Original instructional animation (CC BY-SA 4.0).* With $\beta=0.5$, normalising $\exp[\beta(Q(s,a)-V(s))]$ over the three equally represented dataset actions gives approximately **14%, 23%, and 63%**. These are constructed categorical weights, not measured action frequencies or empirical policy outputs. The moving values are pedagogic interpolations, not a record of training steps. On MkDocs use Play/Pause (Enter or Space on the focused button); GitHub renders a complete static comparison, and reduced-motion users receive the still by default.
 
 ## Results
 
