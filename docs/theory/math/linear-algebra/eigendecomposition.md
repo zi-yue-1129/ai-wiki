@@ -61,6 +61,36 @@ Choose the **synthetic positive-definite matrix** $A=Q\operatorname{diag}(3,1)Q^
 
 This convergence assumes a nonzero starting component along the unique largest-magnitude eigenvector; convergence can fail or differ without that assumption. Animated transitions between exact iterates are illustrative, not extra numerical steps or empirical timing. Use the MkDocs **Play/Pause** button, or inspect the GitHub-safe static diagram. On narrow screens the figure can be horizontally scrolled. Original illustration, **CC BY-SA 4.0**.
 
+
+### Animated example: a symmetric map fixes eigen-directions
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-linear-map-still.svg" data-motion-src="../../../assets/concept-animations/eigen-linear-map-motion.svg" data-still-src="../../../assets/concept-animations/eigen-linear-map-still.svg" alt="An orange unit vector sweeps a circle and its mapped teal vector traces an ellipse; the two eigen-directions remain fixed under the linear map." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static eigen-direction preview](../../../assets/concept-animations/eigen-linear-map-still.svg)
+
+Take the **synthetic symmetric** matrix \(A=Q\operatorname{diag}(3,1)Q^\top\) with \(Q=R(35^\circ)\). For its orthonormal eigenvectors \(\mathbf q_1,\mathbf q_2\),
+
+\[
+\mathbf x(\theta)=\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2,\qquad
+A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
+\]
+
+The input tip sweeps a circle while the output sweeps an ellipse. At \(\theta=0\), the \(\mathbf q_1\) component is multiplied by 3; at \(90^\circ\), the \(\mathbf q_2\) component is unchanged. In other directions, \(A\mathbf x\) is generally not collinear with \(\mathbf x\). **The panels use different drawing scales**, so compare within-panel shapes and directions rather than absolute arrow lengths across panels. The continuous angle sweep is geometry, **not an iterative solver or model training**. Original diagram, **CC BY-SA 4.0**.
+
+### Animated counterexample: a real rotation need not have real eigenvectors
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-rotation-no-real-still.svg" data-motion-src="../../../assets/concept-animations/eigen-rotation-no-real-motion.svg" data-still-src="../../../assets/concept-animations/eigen-rotation-no-real-still.svg" alt="Successive real vectors differ by a 90-degree rotation; the orbit marker advances through four cardinal directions before returning to its start." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static rotation-orbit preview](../../../assets/concept-animations/eigen-rotation-no-real-still.svg)
+
+The real rotation \(R=\begin{bmatrix}0&-1\\1&0\end{bmatrix}\) maps each nonzero vector to a perpendicular vector. The orange arrow is \(\mathbf x_{k-1}\), the teal arrow is \(\mathbf x_k=R\mathbf x_{k-1}\); the orbit marker shows the discrete state \(k\) modulo 4. After four multiplications, \(R^4\mathbf x_0=\mathbf x_0\). Since \(\mathbf x^\top R\mathbf x=0\) for any real \(\mathbf x\), and \(R\) is invertible, there is no nonzero real eigenvector. Its eigenvalues \(\pm i\) are **complex**, consistent with the spectral theorem's **symmetry** assumption. Intermediate animated orientations are *visual interpolation*, **not intermediate matrix multiplications**. Original diagram, **CC BY-SA 4.0**.
+
+For both examples, the MkDocs player supports **Play/Pause**; GitHub displays the static SVG directly. A reduced-motion preference starts the player paused. On mobile, focus the figure region and use the arrow keys to scroll horizontally.
+
 ## Key methods
 
 Eigendecomposition is one of the two landmark matrix factorisations of linear algebra. The other is the singular value decomposition.
