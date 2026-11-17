@@ -54,7 +54,9 @@ f(x) = \operatorname{sign}\Big(\sum_{i} \alpha_i\, y_i\, k(x_i, x) + b\Big)
 
 ## 間隔與合頁損失動畫
 
-![SVM 間隔與合頁損失動畫：正類樣本移入間隔、跨過決策邊界，右側游標同步呈現合頁損失。](../../../../assets/concept-animations/svm-margin-hinge-still.svg)
+<div role="region" tabindex="0" aria-label="Scrollable teaching figure" style="width:100%;overflow-x:auto">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/svm-margin-hinge-still.svg" data-motion-src="../../../../assets/concept-animations/svm-margin-hinge-motion.svg" data-still-src="../../../../assets/concept-animations/svm-margin-hinge-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="SVM 間隔與合頁損失動畫：正類樣本移入間隔、跨過決策邊界，右側游標同步呈現合頁損失。">
+</div>
 
 [查看原創連續 SVG 動畫](../../../../assets/concept-animations/svm-margin-hinge-motion.svg)
 

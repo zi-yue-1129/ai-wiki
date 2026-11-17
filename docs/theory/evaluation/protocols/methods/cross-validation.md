@@ -18,7 +18,9 @@ In k-fold cross-validation, the data is divided into k folds. Each fold is held 
 
 ## Animated five-fold walkthrough
 
-![Five-fold cross-validation matrix with one green held-out fold per fit, blue training folds and progressively revealed example scores.](../../../../assets/concept-animations/cv-fold-rotation-still.svg)
+<div role="region" tabindex="0" aria-label="Scrollable teaching figure" style="width:100%;overflow-x:auto">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/cv-fold-rotation-still.svg" data-motion-src="../../../../assets/concept-animations/cv-fold-rotation-motion.svg" data-still-src="../../../../assets/concept-animations/cv-fold-rotation-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="Five-fold cross-validation matrix with one green held-out fold per fit, blue training folds and progressively revealed example scores.">
+</div>
 
 [View original continuously animated SVG](../../../../assets/concept-animations/cv-fold-rotation-motion.svg)
 

@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "scope": "LoRA/QLoRA source-reading pilot; not a whole-wiki accuracy certification",
+  "license": "CC-BY-SA-4.0",
+  "sources": {
+    "lora-v2": {
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "url": "https://arxiv.org/abs/2106.09685v2",
+      "version": "v2"
+    },
+    "qlora-v1": {
+      "title": "QLoRA: Efficient Finetuning of Quantized LLMs",
+      "url": "https://arxiv.org/abs/2305.14314v1",
+      "version": "v1"
+    }
+  },
+  "claims": [
+    {
+      "id": "lora-update",
+      "page": "theory/model-compression/low-rank-and-efficient-architectures/lora/index.md",
+      "section": "Core idea",
+      "aliases": [
+        "LoRA",
+        "low-rank",
+        "frozen base",
+        "低秩",
+        "凍結"
+      ],
+      "summary": {
+        "en": "LoRA learns a low-rank update BA while W0 stays frozen.",
+        "zh-TW": "LoRA 訓練低秩更新 BA，W0 維持凍結。"
+      },
+      "limits": {
+        "en": "The rank constraint is on the update, not on the base matrix.",
+        "zh-TW": "低秩限制作用於更新，不是基底矩陣。"
+      },
+      "evidence": [
+        {
+          "source": "lora-v2",
+          "locator": "Section 4.1, equation 3"
+        }
+      ],
+      "review": {
+        "method": "source-reading",
+        "checked_on": "2026-11-16",
+        "scope": "This claim and its limitation only; not the whole linked page.",
+        "independently_reproduced": false
+      }
+    },
+    {
+      "id": "lora-merge",
+      "page": "theory/model-compression/low-rank-and-efficient-architectures/lora/index.md",
+      "section": "Equation or algorithm",
+      "aliases": [
+        "merge",
+        "inference latency",
+        "合併",
+        "推論延遲"
+      ],
+      "summary": {
+        "en": "A linear LoRA update can be merged into base weights for inference.",
+        "zh-TW": "線性 LoRA 更新可合併進基底權重以供推論。"
+      },
+      "limits": {
+        "en": "This is not a blanket latency guarantee for quantized deployment.",
+        "zh-TW": "這不是所有量化部署都沒有額外延遲的保證。"
+      },
+      "evidence": [
+        {
+          "source": "lora-v2",
+          "locator": "Section 4.1, No Additional Inference Latency"
+        }
+      ],
+      "review": {
+        "method": "source-reading",
+        "checked_on": "2026-11-16",
+        "scope": "This claim and its limitation only; not the whole linked page.",
+        "independently_reproduced": false
+      }
+    },
+    {
+      "id": "qlora-precision",
+      "page": "theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md",
+      "section": "How it works",
+      "aliases": [
+        "QLoRA",
+        "precision",
+        "BF16",
+        "4-bit",
+        "運算精度",
+        "儲存精度",
+        "全參數"
+      ],
+      "summary": {
+        "en": "QLoRA uses 4-bit base storage and BF16 computation; only adapters are trained.",
+        "zh-TW": "QLoRA 的基底以 4-bit 儲存、BF16 運算，只訓練適配器。"
+      },
+      "limits": {
+        "en": "It is not full-parameter 4-bit training.",
+        "zh-TW": "不是全參數 4-bit 訓練。"
+      },
+      "evidence": [
+        {
+          "source": "qlora-v1",
+          "locator": "Section 3, opening and equations 5–6"
+        }
+      ],
+      "review": {
+        "method": "source-reading",
+        "checked_on": "2026-11-16",
+        "scope": "This claim and its limitation only; not the whole linked page.",
+        "independently_reproduced": false
+      }
+    },
+    {
+      "id": "qlora-nf4",
+      "page": "theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md",
+      "section": "Key concepts",
+      "aliases": [
+        "NF4",
+        "NormalFloat",
+        "normal distribution",
+        "常態分布"
+      ],
+      "summary": {
+        "en": "NF4 allocates quantization levels for normally distributed weights.",
+        "zh-TW": "NF4 為常態分布的權重配置量化階層。"
+      },
+      "limits": {
+        "en": "Optimality is conditional on the distribution, not universal.",
+        "zh-TW": "最佳性有分布前提，不適用所有分布。"
+      },
+      "evidence": [
+        {
+          "source": "qlora-v1",
+          "locator": "Section 3, 4-bit NormalFloat Quantization"
+        }
+      ],
+      "review": {
+        "method": "source-reading",
+        "checked_on": "2026-11-16",
+        "scope": "This claim and its limitation only; not the whole linked page.",
+        "independently_reproduced": false
+      }
+    },
+    {
+      "id": "qlora-double",
+      "page": "theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md",
+      "section": "Key concepts",
+      "aliases": [
+        "double quantization",
+        "constants",
+        "雙重量化",
+        "常數"
+      ],
+      "summary": {
+        "en": "Double quantization compresses quantization constants.",
+        "zh-TW": "雙重量化壓縮量化常數。"
+      },
+      "limits": {
+        "en": "It does not mean quantizing the weights twice.",
+        "zh-TW": "不是把權重量化兩次。"
+      },
+      "evidence": [
+        {
+          "source": "qlora-v1",
+          "locator": "Section 3, Double Quantization"
+        }
+      ],
+      "review": {
+        "method": "source-reading",
+        "checked_on": "2026-11-16",
+        "scope": "This claim and its limitation only; not the whole linked page.",
+        "independently_reproduced": false
+      }
+    },
+    {
+      "id": "qlora-paging",
+      "page": "theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md",
+      "section": "Key concepts",
+      "aliases": [
+        "paged optimizer",
+        "paging",
+        "CPU",
+        "memory spike",
+        "分頁",
+        "記憶體尖峰"
+      ],
+      "summary": {
+        "en": "Paged optimizers move state pages between CPU and GPU to handle memory spikes.",
+        "zh-TW": "分頁最佳化器在 CPU 與 GPU 間搬移狀態頁，以處理記憶體尖峰。"
+      },
+      "limits": {
+        "en": "The paper does not establish no slowdown for every workload.",
+        "zh-TW": "論文未證明任何工作負載都不降速。"
+      },
+      "evidence": [
+        {
+          "source": "qlora-v1",
+          "locator": "Section 3, Paged Optimizers; Section 4"
+        }
+      ],
+      "review": {
+        "method": "source-reading",
+        "checked_on": "2026-11-16",
+        "scope": "This claim and its limitation only; not the whole linked page.",
+        "independently_reproduced": false
+      }
+    },
+    {
+      "id": "qlora-65b",
+      "page": "theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md",
+      "section": "Results",
+      "aliases": [
+        "65B",
+        "48GB",
+        "48 GB",
+        "GPU capacity",
+        "650億",
+        "容量"
+      ],
+      "summary": {
+        "en": "The authors report 65B-model fine-tuning on one 48 GB GPU.",
+        "zh-TW": "作者報告在單張 48 GB GPU 上微調 650 億參數模型。"
+      },
+      "limits": {
+        "en": "This is configuration-specific, not a universal memory guarantee.",
+        "zh-TW": "這是特定配置結果，不是通用記憶體保證。"
+      },
+      "evidence": [
+        {
+          "source": "qlora-v1",
+          "locator": "Abstract; Appendix B.2"
+        }
+      ],
+      "review": {
+        "method": "source-reading",
+        "checked_on": "2026-11-16",
+        "scope": "This claim and its limitation only; not the whole linked page.",
+        "independently_reproduced": false
+      }
+    },
+    {
+      "id": "qlora-comparison",
+      "page": "theory/model-compression/low-rank-and-efficient-architectures/lora/qlora.md",
+      "section": "Results",
+      "aliases": [
+        "full fine-tuning",
+        "16-bit",
+        "3B",
+        "baseline",
+        "全參數微調",
+        "比較",
+        "對照"
+      ],
+      "summary": {
+        "en": "Full-fine-tuning comparisons reach 3B; 7B–65B comparisons use 16-bit LoRA.",
+        "zh-TW": "全參數微調比較涵蓋至 30 億參數；7B–65B 的對照為 16-bit LoRA。"
+      },
+      "limits": {
+        "en": "Do not claim demonstrated 65B full-fine-tuning equivalence.",
+        "zh-TW": "不能據此宣稱已證實 65B 全參數微調等效。"
+      },
+      "evidence": [
+        {
+          "source": "qlora-v1",
+          "locator": "Section 4, paragraph on full-finetuning baselines"
+        }
+      ],
+      "review": {
+        "method": "source-reading",
+        "checked_on": "2026-11-16",
+        "scope": "This claim and its limitation only; not the whole linked page.",
+        "independently_reproduced": false
+      }
+    }
+  ]
+}

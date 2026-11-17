@@ -19,7 +19,9 @@ tags:
 
 ## 五摺交叉驗證動畫
 
-![五摺交叉驗證矩陣：每輪一個青綠色驗證摺、其餘藍色訓練摺，旁邊依序顯示示意分數。](../../../../assets/concept-animations/cv-fold-rotation-still.svg)
+<div role="region" tabindex="0" aria-label="Scrollable teaching figure" style="width:100%;overflow-x:auto">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/cv-fold-rotation-still.svg" data-motion-src="../../../../assets/concept-animations/cv-fold-rotation-motion.svg" data-still-src="../../../../assets/concept-animations/cv-fold-rotation-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="五摺交叉驗證矩陣：每輪一個青綠色驗證摺、其餘藍色訓練摺，旁邊依序顯示示意分數。">
+</div>
 
 [查看原創連續 SVG 動畫](../../../../assets/concept-animations/cv-fold-rotation-motion.svg)
 

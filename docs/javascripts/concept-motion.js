@@ -5,8 +5,6 @@
   'use strict';
   const suffix = /-motion\.svg(?=$|[?#])/;
   const moeSuffix = /moe-top2-routing-motion\.svg(?=$|[?#])/;
-  // These figures display a complete still on GitHub and use motion only on MkDocs.
-  const staticFirst = new Set(['svm-margin-hinge-still.svg', 'cv-fold-rotation-still.svg']);
   // Earlier CSS-animated diagrams keep their original filenames.
   const standalonePairs = {
     'flashattention-streaming-tiles.svg': 'flashattention-streaming-tiles-still.svg',
@@ -17,12 +15,7 @@
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
-      const originalSource = img.getAttribute('src') || '';
-      const originalName = originalSource.split(/[?#]/, 1)[0].split('/').pop();
-      const isStaticFirst = staticFirst.has(originalName);
-      const animated = isStaticFirst
-        ? originalSource.replace(/-still\.svg(?=$|[?#])/, '-motion.svg')
-        : (img.dataset.motionSrc || originalSource);
+      const animated = img.dataset.motionSrc || img.getAttribute('src') || '';
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
@@ -36,22 +29,7 @@
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
       img.before(host);
-      if (isStaticFirst) {
-        const scroller = document.createElement('span');
-        scroller.style.display = 'block';
-        scroller.style.maxWidth = '100%';
-        scroller.style.overflowX = 'auto';
-        scroller.tabIndex = 0;
-        scroller.setAttribute('role', 'region');
-        scroller.setAttribute('aria-label', chinese ? '可水平捲動的教學圖' : 'Scrollable teaching figure');
-        img.style.width = '640px';
-        img.style.minWidth = '640px';
-        img.style.maxWidth = 'none';
-        host.append(scroller);
-        scroller.append(img);
-      } else {
-        host.append(img);
-      }
+      host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';
 
       const controls = document.createElement('span');

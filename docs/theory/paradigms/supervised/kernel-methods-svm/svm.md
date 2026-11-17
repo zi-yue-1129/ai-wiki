@@ -65,7 +65,9 @@ The usual kernels are linear, polynomial and Gaussian (RBF):
 
 ## Margin-to-hinge visual walkthrough
 
-![Animated SVM margin example with a positive point crossing the unit-margin and a linked hinge-loss cursor.](../../../../assets/concept-animations/svm-margin-hinge-still.svg)
+<div role="region" tabindex="0" aria-label="Scrollable teaching figure" style="width:100%;overflow-x:auto">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/svm-margin-hinge-still.svg" data-motion-src="../../../../assets/concept-animations/svm-margin-hinge-motion.svg" data-still-src="../../../../assets/concept-animations/svm-margin-hinge-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="Animated SVM margin example with a positive point crossing the unit-margin and a linked hinge-loss cursor.">
+</div>
 
 [View original continuously animated SVG](../../../../assets/concept-animations/svm-margin-hinge-motion.svg)
 
