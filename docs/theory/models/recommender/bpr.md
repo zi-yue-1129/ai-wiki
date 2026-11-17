@@ -58,6 +58,26 @@ The numbers are an **analytically computed toy sequence**, not a model experimen
 
 In MkDocs, use the accessible **Play/Pause** control; on narrow screens, focus and horizontally scroll the illustration. The static fallback is available on GitHub and under `prefers-reduced-motion`. Original illustration, **CC BY-SA 4.0**.
 
+### Animated worked example: how the BPR gradient depends on the margin
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" data-motion-src="../../../assets/concept-animations/bpr-gradient-saturation-motion.svg" data-still-src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" alt="An animated marker traces exact pairwise logistic loss and gradient magnitude versus the score margin; the gradient bar shrinks as the observed item becomes correctly ranked above the sampled unobserved item." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/bpr-gradient-saturation-still.svg)
+
+For a **single** illustrative training triple, define the score gap $\Delta=\hat{x}_{ui}-\hat{x}_{uj}$ and minimise its negative log-likelihood:
+
+$
+\ell(\Delta)=-\log\sigma(\Delta)=\log(1+e^{-\Delta}),
+\qquad
+\frac{\partial\ell}{\partial\Delta}=-\sigma(-\Delta).
+$
+
+The teal curve and bar follow the **magnitude** of the loss derivative, $g=\sigma(-\Delta)$, not the signed derivative itself. At $\Delta=-2$, the observed item is misordered and $g\approx0.8808$ with $\ell\approx2.1269$; at $\Delta=+2$, $g\approx0.1192$ with $\ell\approx0.1269$. For a one-dimensional factor model with fixed $p_u=1$, the corresponding negative-loss-gradient update moves $q_i$ up and $q_j$ down by $\eta g$ (omitting regularisation). Thus the correction signal weakens as the margin becomes positive. The animation **sweeps an input margin** to explain its derivative; it is *not* a trained optimisation trajectory or a measurement of gradient norms in a real model. The logistic criterion comes from Rendle et al. in the References.
+
+Use the MkDocs **Play/Pause** control and keyboard-accessible horizontal scroll on mobile. GitHub and `prefers-reduced-motion` show the static comparison. Original artwork, **CC BY-SA 4.0**.
+
 ## Algorithm
 
 The criterion is optimised by stochastic gradient ascent over sampled triples. The paper chooses the triples uniformly at random and uses bootstrap sampling with replacement, which means training can be stopped at any step. For each step, one observed pair $(u, i)$ is drawn with a randomly chosen unobserved item $j$, and the parameters move in the direction that increases $\ln \sigma(\hat{x}_{uij})$.

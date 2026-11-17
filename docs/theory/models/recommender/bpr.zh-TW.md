@@ -48,6 +48,26 @@ $$
 
 在 MkDocs 網站中可使用支援鍵盤操作的**播放／暫停**控制；窄螢幕可聚焦圖像並水平捲動。GitHub 與 `prefers-reduced-motion` 模式使用靜態回退圖。原創圖像，**CC BY-SA 4.0**。
 
+### 動畫算例：BPR 梯度訊號如何隨排序分數差改變
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" data-motion-src="../../../assets/concept-animations/bpr-gradient-saturation-motion.svg" data-still-src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" alt="移動標記沿著配對邏輯損失與梯度大小曲線前進；當已觀察項目逐漸排在抽樣未觀察項目之前，右側梯度長條同步縮短。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可閱讀的靜態預覽](../../../assets/concept-animations/bpr-gradient-saturation-still.svg)
+
+對**單一人工訓練三元組**，定義分數差 $\Delta=\hat{x}_{ui}-\hat{x}_{uj}$，最小化負對數概似：
+
+$
+\ell(\Delta)=-\log\sigma(\Delta)=\log(1+e^{-\Delta}),
+\qquad
+\frac{\partial\ell}{\partial\Delta}=-\sigma(-\Delta).
+$
+
+青綠色曲線與長條代表**梯度大小** $g=\sigma(-\Delta)$，不是帶符號的導數。當 $\Delta=-2$ 時，已觀察項目排序錯誤，$g\approx0.8808$、$\ell\approx2.1269$；當 $\Delta=+2$ 時，$g\approx0.1192$、$\ell\approx0.1269$。在固定一維使用者因子 $p_u=1$ 且省略正則化的設定下，負損失梯度更新會讓 $q_i$ 增加、$q_j$ 減少，每次改變量為 $\eta g$。因此，排序分數差轉為正值後，校正訊號逐漸減弱。動畫只是**掃過輸入分數差以展示導數變化**，不是模型實際訓練的最佳化路徑或梯度範數實測。邏輯目標的文獻來源是下方 Rendle 等人的原始研究。
+
+MkDocs 網站提供**播放／暫停**與手機版的鍵盤水平捲動。GitHub 與 `prefers-reduced-motion` 模式使用靜態比較圖。原創圖像，**CC BY-SA 4.0**。
+
 ## 演算法
 
 此準則以在抽樣三元組上的隨機梯度上升來最佳化。論文以均勻隨機方式選取三元組，並採用有放回的拔靴法（bootstrap）抽樣，因此可以在任一步停止訓練。每一步抽出一個已觀察到的配對 $(u, i)$，再隨機選一個未觀察到的項目 $j$，然後沿著使 $\ln \sigma(\hat{x}_{uij})$ 增加的方向更新參數。

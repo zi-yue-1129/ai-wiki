@@ -50,6 +50,32 @@ $$
 
 在 MkDocs 網站中可使用支援鍵盤操作的**播放／暫停**控制；窄螢幕可聚焦圖像並水平捲動。GitHub 與 `prefers-reduced-motion` 模式使用靜態回退圖。原創圖像，**CC BY-SA 4.0**。
 
+### 動畫算例：交替嶺正則化最小平方法（ALS）
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/mf-als-alternating-still.svg" data-motion-src="../../../assets/concept-animations/mf-als-alternating-motion.svg" data-still-src="../../../assets/concept-animations/mf-als-alternating-still.svg" alt="兩個使用者因子與兩個項目因子交替以整個區塊更新；右側的嶺正則化目標函數在六次精確區塊更新後逐步降低。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可閱讀的靜態預覽](../../../assets/concept-animations/mf-als-alternating-still.svg)
+
+為了隔離交替最小平方法（ALS），此處只使用**一維潛在因子**，忽略偏差項，採用完整觀察的人工評分矩陣 $R=\begin{bmatrix}1&0.7\\0.3&0.9\end{bmatrix}$ 與 $\lambda=0.1$。本例使用**平方誤差總和**加上嶺正則化，而非前一張 SGD 動畫採用的半平方誤差：
+
+$
+F(p,q)=\sum_{u,i}(R_{ui}-p_uq_i)^2+\lambda\left(\sum_u p_u^2+\sum_iq_i^2\right).
+$
+
+固定項目因子後，各使用者因子都能獨立求得精確解；固定使用者因子時，各項目因子的更新式相同：
+
+$
+p_u\leftarrow\frac{\sum_iR_{ui}q_i}{\lambda+\sum_iq_i^2},
+\qquad
+q_i\leftarrow\frac{\sum_uR_{ui}p_u}{\lambda+\sum_up_u^2}.
+$
+
+從 $p=(0.4,0.6)$ 與 $q=(0.5,0.9)$ 開始，交替進行 **U、V、U、V、U、V** 六次區塊求解，正則化目標值由 **1.0432** 降至約 **0.5053**。左側僅有當下正在求解的因子家族改變；右側的曲線標記精確區塊更新之後的目標值。狀態間的平滑動畫**只是視覺插值**，不是額外的最佳化步驟。這些數字是人工算例，不是模型成效實測，也不保證達到全域最佳解。此標量解是下方 Koren 等人（2009）文獻討論之正則化 ALS 的一維特例。
+
+MkDocs 網站提供**播放／暫停**；窄螢幕可透過鍵盤聚焦圖像後水平捲動。GitHub 與 `prefers-reduced-motion` 模式使用已檢查的靜態回退圖。原創圖像，**CC BY-SA 4.0**。
+
 ## 學習演算法
 
 論文描述了兩種最小化目標函數的方法。

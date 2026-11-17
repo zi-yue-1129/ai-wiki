@@ -60,6 +60,32 @@ This is a computed, regularisation-free **toy example**, not trained-model measu
 
 In MkDocs, use the accessible **Play/Pause** control; on narrow screens, focus and horizontally scroll the illustration. The static fallback is available on GitHub and under `prefers-reduced-motion`. Original illustration, **CC BY-SA 4.0**.
 
+### Animated worked example: alternating ridge-ALS
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/mf-als-alternating-still.svg" data-motion-src="../../../assets/concept-animations/mf-als-alternating-motion.svg" data-still-src="../../../assets/concept-animations/mf-als-alternating-still.svg" alt="Two user factors and two item factors change in alternating blocks while a computed ridge-regularised objective decreases over six exact block updates." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/mf-als-alternating-still.svg)
+
+To isolate alternating least squares (ALS), use **one scalar latent dimension**, no biases, a fully observed illustrative rating matrix $R=\begin{bmatrix}1&0.7\\0.3&0.9\end{bmatrix}$, and $\lambda=0.1$. This example minimises the *sum* of squared errors plus ridge penalties, rather than the half-squared-error SGD convention used in the preceding figure:
+
+$
+F(p,q)=\sum_{u,i}(R_{ui}-p_uq_i)^2+\lambda\left(\sum_u p_u^2+\sum_iq_i^2\right).
+$
+
+Holding the two item factors fixed yields an independent exact solve for **each** user; holding the users fixed yields an analogous solve for each item:
+
+$
+p_u\leftarrow\frac{\sum_iR_{ui}q_i}{\lambda+\sum_iq_i^2},
+\qquad
+q_i\leftarrow\frac{\sum_uR_{ui}p_u}{\lambda+\sum_up_u^2}.
+$
+
+Starting from $p=(0.4,0.6)$ and $q=(0.5,0.9)$, the alternating sequence is **U, V, U, V, U, V**; the ridge objective drops from **1.0432** to approximately **0.5053**. In the left panel, only one factor family changes during each solve; the right panel shows objective values at exact block-update endpoints. The smooth motion *between* endpoints is illustrative interpolation, not intermediate optimisation iterations. These are computed toy numbers, **not measured model performance**, and the illustration does not assert global optimality. The scalar solves are a one-dimensional demonstration of ridge-regularised ALS, discussed in Koren et al. (2009) in the References.
+
+On the MkDocs site, use **Play/Pause**; keyboard users can focus the diagram and scroll horizontally on a narrow screen. GitHub and `prefers-reduced-motion` display the reviewed static fallback. Original artwork, **CC BY-SA 4.0**.
+
 ## Learning algorithms
 
 The paper describes two ways to minimise the objective.
