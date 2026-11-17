@@ -43,7 +43,7 @@ Here $D_S$ is the set of training triples and $\lambda_\Theta$ is a model-specif
 ### Animated worked example: one BPR ranking pair
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" data-motion-src="../../../assets/concept-animations/bpr-pairwise-ranking-motion.svg" data-still-src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" alt="The observed and sampled unobserved item scores separate over BPR gradient updates while pairwise logistic loss decreases." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" data-motion-src="../../../assets/concept-animations/bpr-pairwise-ranking-motion.svg" data-still-src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" alt="The observed and sampled unobserved item scores separate over BPR gradient updates while pairwise logistic loss decreases." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub-readable static preview](../../../assets/concept-animations/bpr-pairwise-ranking-still.svg)
@@ -54,25 +54,25 @@ g=\sigma(-\Delta),\qquad q_i\leftarrow q_i+\eta g p_u,\qquad q_j\leftarrow q_j-\
 $$
 The left panel pushes the observed-item score upward and the sampled unseen-item score downward; the right panel follows the pairwise loss $-\log\sigma(\Delta)$. Over four updates, the margin moves from **−0.8000** to approximately **0.8518**, and the loss decreases from **1.1711** to **0.3553**.
 
-The numbers are an **analytically computed toy sequence**, not a model experiment. The user factor is deliberately frozen, unlike full BPR-MF training; the animated interpolation between sampled updates is not a continuous optimisation trajectory. An unobserved item is a training comparison, **not verified negative preference**.
+The numbers are an **analytically computed toy sequence**, not a model experiment. The user factor is deliberately frozen, unlike full BPR-MF training; the animated interpolation between sampled updates is not a continuous optimisation trajectory. The second half rewinds the illustration for replay; it is not reverse training or further updates. An unobserved item is a training comparison, **not verified negative preference**.
 
 In MkDocs, use the accessible **Play/Pause** control; on narrow screens, focus and horizontally scroll the illustration. The static fallback is available on GitHub and under `prefers-reduced-motion`. Original illustration, **CC BY-SA 4.0**.
 
 ### Animated worked example: how the BPR gradient depends on the margin
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" data-motion-src="../../../assets/concept-animations/bpr-gradient-saturation-motion.svg" data-still-src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" alt="An animated marker traces exact pairwise logistic loss and gradient magnitude versus the score margin; the gradient bar shrinks as the observed item becomes correctly ranked above the sampled unobserved item." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" data-motion-src="../../../assets/concept-animations/bpr-gradient-saturation-motion.svg" data-still-src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" alt="An animated marker traces exact pairwise logistic loss and gradient magnitude versus the score margin; the gradient bar shrinks as the observed item becomes correctly ranked above the sampled unobserved item." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub-readable static preview](../../../assets/concept-animations/bpr-gradient-saturation-still.svg)
 
 For a **single** illustrative training triple, define the score gap $\Delta=\hat{x}_{ui}-\hat{x}_{uj}$ and minimise its negative log-likelihood:
 
-$
+\[
 \ell(\Delta)=-\log\sigma(\Delta)=\log(1+e^{-\Delta}),
 \qquad
 \frac{\partial\ell}{\partial\Delta}=-\sigma(-\Delta).
-$
+\]
 
 The teal curve and bar follow the **magnitude** of the loss derivative, $g=\sigma(-\Delta)$, not the signed derivative itself. At $\Delta=-2$, the observed item is misordered and $g\approx0.8808$ with $\ell\approx2.1269$; at $\Delta=+2$, $g\approx0.1192$ with $\ell\approx0.1269$. For a one-dimensional factor model with fixed $p_u=1$, the corresponding negative-loss-gradient update moves $q_i$ up and $q_j$ down by $\eta g$ (omitting regularisation). Thus the correction signal weakens as the margin becomes positive. The animation **sweeps an input margin** to explain its derivative; it is *not* a trained optimisation trajectory or a measurement of gradient norms in a real model. The logistic criterion comes from Rendle et al. in the References.
 

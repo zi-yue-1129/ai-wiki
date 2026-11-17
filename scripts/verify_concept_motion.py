@@ -15,10 +15,30 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "resnet-identity-gradient": "theory/models/cnn/backbones-and-scaling/resnet/index",
+    "resnet-projection-shortcut": "theory/models/cnn/backbones-and-scaling/resnet/index",
+    "resnet-postrelu-gate": "theory/models/cnn/backbones-and-scaling/resnet/index",
+    "resnet-depth-gradient-factors": "theory/models/cnn/backbones-and-scaling/resnet/index",
+    "mixup-paired-interpolation": "theory/deep-learning/dropout/mixup",
+    "mixup-beta-strength": "theory/deep-learning/dropout/mixup",
+    "mixup-loss-decomposition": "theory/deep-learning/dropout/mixup",
+    "mixup-cutmix-area": "theory/deep-learning/dropout/mixup",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
+    "ar-score-vs-sample": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-likelihood-accumulation": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-context-drift": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-eos-survival": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
+    "svd-rank-accumulation": "theory/math/linear-algebra/svd",
+    "svd-noise-amplification": "theory/math/linear-algebra/svd",
+    "svd-ls-orthogonal-residual": "theory/math/linear-algebra/svd",
+    "svd-degenerate-bases": "theory/math/linear-algebra/svd",
     "power-iteration-convergence": "theory/math/linear-algebra/eigendecomposition",
+    "eigen-linear-map": "theory/math/linear-algebra/eigendecomposition",
+    "eigen-rotation-no-real": "theory/math/linear-algebra/eigendecomposition",
+    "eigen-zero-eigenvalue": "theory/math/linear-algebra/eigendecomposition",
+    "eigen-jordan-shear": "theory/math/linear-algebra/eigendecomposition",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
@@ -60,6 +80,10 @@ TOPICS = {
     "hmc-leapfrog-trajectory": "theory/paradigms/probabilistic/mcmc/hamiltonian-monte-carlo",
     "astar-frontier": "theory/paradigms/symbolic-ai/search/a-star",
     "dpll-backtrack": "theory/paradigms/symbolic-ai/theorem-proving/dpll",
+    "hmm-forward-sum-product": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
+    "hmm-filter-smooth": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
+    "hmm-pairwise-posterior": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
+    "hmm-baum-welch-transition": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "viterbi-trellis": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "tree-belief-propagation": "theory/paradigms/probabilistic/graphical-models/belief-propagation",
     "3d-unet-depth-kernel": "theory/models/cnn/unet/3d-unet",
@@ -75,6 +99,10 @@ TOPICS = {
     "gcn-aggregation": "theory/models/gnn/message-passing/gcn/index",
     "gat-aggregation": "theory/models/gnn/message-passing/gat/index",
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-plusplus-d2": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-outlier-leverage": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-feature-scale": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-elbow-inertia": "theory/paradigms/unsupervised/clustering/k-means",
     "pca-variance-axis": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "pca-rank1-reconstruction": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
@@ -197,6 +225,8 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
+            elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
+                errors.extend(verify_source_pair(page, text, stem))
             elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
@@ -209,13 +239,15 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
-                          "svd-unit-circle", "power-iteration-convergence", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation",
+            elif stem in {"mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+                          "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
+                          "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
+                          "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
                           "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
-                if stem in {"svd-unit-circle", "power-iteration-convergence", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation"}:
+                if stem in {"mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
                     static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                     if static_path.resolve() not in {
                         (page.parent / link).resolve() for link in static_links
@@ -237,6 +269,31 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+    # GitHub's static previews and MkDocs's bilingual motion enhancement.
+    for stem, page in {
+        "brier-expected-risk": "brier-score",
+        "log-loss-tail-penalty": "log-loss",
+    }.items():
+        moving = ASSETS / f"{stem}-motion.svg"
+        still = ASSETS / f"{stem}-still.svg"
+        errors.extend(verify_svg(moving, True))
+        errors.extend(verify_svg(still, False))
+        for locale in (".md", ".zh-TW.md"):
+            doc = DOCS / "theory/evaluation/metrics/probabilistic" / (page + locale)
+            if not doc.is_file():
+                errors.append(f"{doc}: missing translation")
+                continue
+            body = doc.read_text(encoding="utf-8")
+            errors.extend(verify_source_pair(doc, body, stem))
+            relative = "../../../../assets/concept-animations/"
+            if f'src="{relative}{still.name}"' not in body:
+                errors.append(f"{doc}: missing actual GitHub static image src")
+            if f'data-motion-src="{relative}{moving.name}"' not in body:
+                errors.append(f"{doc}: missing animated source")
+            if f'data-still-src="{relative}{still.name}"' not in body:
+                errors.append(f"{doc}: missing reduced-motion fallback")
+            if "CC BY-SA 4.0" not in body:
+                errors.append(f"{doc}: missing original-art attribution")
     # MAE and RMSE share one source-relative visual in both languages.
     for suffix in (".md", ".zh-TW.md"):
         page = DOCS / ("theory/evaluation/metrics/regression/rmse" + suffix)

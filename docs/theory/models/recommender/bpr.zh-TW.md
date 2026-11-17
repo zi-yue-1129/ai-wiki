@@ -33,7 +33,7 @@ $$\text{BPR-Opt} = \sum_{(u,i,j)\in D_S} \ln \sigma\left(\hat{x}_{uij}\right) - 
 ### 動畫算例：單一 BPR 配對的排序更新
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" data-motion-src="../../../assets/concept-animations/bpr-pairwise-ranking-motion.svg" data-still-src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" alt="BPR 梯度更新使已觀察項目與抽樣未觀察項目的分數逐漸分開，配對邏輯損失下降。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" data-motion-src="../../../assets/concept-animations/bpr-pairwise-ranking-motion.svg" data-still-src="../../../assets/concept-animations/bpr-pairwise-ranking-still.svg" alt="BPR 梯度更新使已觀察項目與抽樣未觀察項目的分數逐漸分開，配對邏輯損失下降。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub 可讀的靜態預覽](../../../assets/concept-animations/bpr-pairwise-ranking-still.svg)
@@ -44,25 +44,25 @@ g=\sigma(-\Delta),\qquad q_i\leftarrow q_i+\eta g p_u,\qquad q_j\leftarrow q_j-\
 $$
 左圖顯示已觀察項目的分數上升，抽到的未觀察項目分數下降；右圖追蹤配對損失 $-\log\sigma(\Delta)$。四次更新後，分數差由 **−0.8000** 變為約 **0.8518**，損失則由 **1.1711** 降至 **0.3553**。
 
-所有數值皆為**人工解析計算**，不是模型實測。為隔離項目梯度而固定使用者因子，與完整 BPR-MF 訓練不同；更新之間的平滑動畫只是視覺過渡，不代表連續最佳化軌跡。「未觀察項目」只是訓練用的比較對象，**不能當作已確認的負向偏好**。
+所有數值皆為**人工解析計算**，不是模型實測。為隔離項目梯度而固定使用者因子，與完整 BPR-MF 訓練不同；更新之間的平滑動畫只是視覺過渡，不代表連續最佳化軌跡。 動畫後半段會倒播回起點以便重播，並非反向訓練或新的更新。「未觀察項目」只是訓練用的比較對象，**不能當作已確認的負向偏好**。
 
 在 MkDocs 網站中可使用支援鍵盤操作的**播放／暫停**控制；窄螢幕可聚焦圖像並水平捲動。GitHub 與 `prefers-reduced-motion` 模式使用靜態回退圖。原創圖像，**CC BY-SA 4.0**。
 
 ### 動畫算例：BPR 梯度訊號如何隨排序分數差改變
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" data-motion-src="../../../assets/concept-animations/bpr-gradient-saturation-motion.svg" data-still-src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" alt="移動標記沿著配對邏輯損失與梯度大小曲線前進；當已觀察項目逐漸排在抽樣未觀察項目之前，右側梯度長條同步縮短。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" data-motion-src="../../../assets/concept-animations/bpr-gradient-saturation-motion.svg" data-still-src="../../../assets/concept-animations/bpr-gradient-saturation-still.svg" alt="移動標記沿著配對邏輯損失與梯度大小曲線前進；當已觀察項目逐漸排在抽樣未觀察項目之前，右側梯度長條同步縮短。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub 可閱讀的靜態預覽](../../../assets/concept-animations/bpr-gradient-saturation-still.svg)
 
 對**單一人工訓練三元組**，定義分數差 $\Delta=\hat{x}_{ui}-\hat{x}_{uj}$，最小化負對數概似：
 
-$
+\[
 \ell(\Delta)=-\log\sigma(\Delta)=\log(1+e^{-\Delta}),
 \qquad
 \frac{\partial\ell}{\partial\Delta}=-\sigma(-\Delta).
-$
+\]
 
 青綠色曲線與長條代表**梯度大小** $g=\sigma(-\Delta)$，不是帶符號的導數。當 $\Delta=-2$ 時，已觀察項目排序錯誤，$g\approx0.8808$、$\ell\approx2.1269$；當 $\Delta=+2$ 時，$g\approx0.1192$、$\ell\approx0.1269$。在固定一維使用者因子 $p_u=1$ 且省略正則化的設定下，負損失梯度更新會讓 $q_i$ 增加、$q_j$ 減少，每次改變量為 $\eta g$。因此，排序分數差轉為正值後，校正訊號逐漸減弱。動畫只是**掃過輸入分數差以展示導數變化**，不是模型實際訓練的最佳化路徑或梯度範數實測。邏輯目標的文獻來源是下方 Rendle 等人的原始研究。
 
