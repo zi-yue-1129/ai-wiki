@@ -60,10 +60,10 @@ The **forward–backward** algorithm combines the forward pass with a backward p
 
 The moving dots represent **sum-product message flow**, not separately sampled state sequences. For the same synthetic two-state example used in the Viterbi animation below, use $\pi=(0.6,0.4)$, transition rows $(0.7,0.3)$ and $(0.4,0.6)$, and A/B emission likelihoods $(0.8,0.3)$, $(0.2,0.9)$, $(0.7,0.4)$. The forward recursion is
 
-$
+\[
 \alpha_t(j)=B_j(x_t)\sum_i \alpha_{t-1}(i)A_{ij},\qquad
 p(x_{1:3})=\sum_j\alpha_3(j).
-$
+\]
 
 The exact forward messages are $\alpha_1=(0.48,0.12)$, $\alpha_2=(0.0768,0.1944)$ and $\alpha_3=(0.092064,0.055872)$. Consequently $p(x_{1:3})=0.147936$. Unlike the **max-product** Viterbi path below, these scores **sum probability mass across all hidden paths**. Values are hand-calculated teaching probabilities, **not model measurements** (Rabiner, 1989; Kschischang et al., 2001).
 
@@ -79,10 +79,10 @@ The exact forward messages are $\alpha_1=(0.48,0.12)$, $\alpha_2=(0.0768,0.1944)
 
 Filtering estimates $p(z_t\mid x_{1:t})$ using only observations seen **up to** time $t$. Smoothing instead uses **all** observations, including future ones:
 
-$
+\[
 \beta_t(i)=\sum_j A_{ij}B_j(x_{t+1})\beta_{t+1}(j),\quad
 p(z_t=i\mid x_{1:T})=\frac{\alpha_t(i)\beta_t(i)}{p(x_{1:T})}.
-$
+\]
 
 For the synthetic example, the filtered probabilities of state A at $t=1,2,3$ are approximately **80.0%, 28.3%, 62.2%**. After the backward pass, the smoothed values become **73.3%, 31.7%, 62.2%**. No later observation exists after $t=3$, so the two estimates coincide at the final step. The continuous bar interpolation depicts the arrival of backward information, **not additional inference iterations or model training** (Rabiner, 1989).
 

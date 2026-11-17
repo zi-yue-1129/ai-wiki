@@ -99,3 +99,8 @@ for p in (ROOT/'docs/theory/paradigms/probabilistic/graphical-models').glob('hid
         for value in row:
             assert f'{value:.4f}' in s
 print('HMM: 8-path likelihood, filtering, smoothing, pairwise marginals, EM counts, SVG scales and bilingual figures passed')
+
+# A lone dollar delimiter across lines is rendered literally by Markdown.
+import re
+for p in (Path(__file__).resolve().parents[1] / "docs/theory/paradigms/probabilistic/graphical-models").glob("hidden-markov-models*.md"):
+    assert not re.search(r"^\$\s*$", p.read_text(), re.M), p
