@@ -11,6 +11,9 @@ on:
       - "scripts/test_linear_algebra_motion_semantics.py"
       - "scripts/render_linear_algebra_keyframes.py"
       - "docs/javascripts/concept-motion.js"
+      - "docs/javascripts/adaptive-optimiser-labs.js"
+      - "docs/stylesheets/adaptive-optimiser-labs.css"
+      - "scripts/test_adaptive_optimiser_labs_browser.py"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
       - "docs/javascripts/self-supervised-labs.js"
@@ -85,6 +88,8 @@ jobs:
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
+      - name: Chromium interactive AdaGrad and Adafactor numerical labs
+        run: python scripts/test_adaptive_optimiser_labs_browser.py
       - name: Render deterministic SVD and power-iteration SVG keyframes
         run: python scripts/render_linear_algebra_keyframes.py
       - name: Chromium mobile/desktop playback, pause and geometry
@@ -120,6 +125,7 @@ jobs:
             artifacts/linear-algebra-motion/
             artifacts/regression-metric-labs/*.png
             artifacts/sharpness-labs/*.png
+            artifacts/adaptive-optimiser-labs/*.png
             artifacts/gibbs-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
