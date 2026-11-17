@@ -51,7 +51,11 @@ D(x)^2=\min_{\mu\in S}\|x-\mu\|^2,\qquad
 P(x\text{ 為下一個中心})=\frac{D(x)^2}{\sum_{z\in X}D(z)^2}.
 $
 
-![k-means++ 距離平方加權初始化動畫：從八個人工一維資料點抽取下一個中心後，機率長條重新分配。](../../../../assets/concept-animations/kmeans-plusplus-d2-motion.svg)
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
+     src="../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg"
+     data-motion-src="../../../../assets/concept-animations/kmeans-plusplus-d2-motion.svg"
+     data-still-src="../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg"
+     alt="k-means++ 距離平方加權初始化動畫：從八個人工一維資料點抽取下一個中心後，機率長條重新分配。" width="640" height="360">
 
 *原創人工示意動畫，CC BY-SA 4.0。* 資料為 $X=\{0,1,2,3,8,9,10,11\}$，第一個中心選在 $1$，此時各點的距離平方權重為 $(1,0,1,4,49,64,81,100)$，總和 **300**。接著**可能**抽到 $10$，其機率為 $81/300=27\%$；即使 $11$ 的單點權重最大，也不代表一定會被選中。選入 $10$ 後，權重重算為 $(1,0,1,4,4,1,0,1)$（總和 **12**），下一個中心選到 $8$ 的機率為 $4/12=1/3$。動畫中的長條平滑轉變只是在兩組經計算的分布間作視覺插值，**不是**額外的抽樣步驟或模型效能實測。[GitHub 可直接閱讀的雙畫面靜態回退](../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg)。MkDocs 網站可以播放／暫停；偏好減少動態效果時會呈現靜態版本。
 
@@ -65,7 +69,11 @@ $
 
 平均數為 $(10+x)/6$；當 $x$ 從 $4$ 移到 $12$，平均數由 **2.333** 變為 **3.667**，但中位數維持 **2.5**。
 
-![k-means 中心對離群值的敏感性動畫：一個人工觀測點往右移動，平均數被拉動，但中位數維持不變。](../../../../assets/concept-animations/kmeans-outlier-leverage-motion.svg)
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
+     src="../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg"
+     data-motion-src="../../../../assets/concept-animations/kmeans-outlier-leverage-motion.svg"
+     data-still-src="../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg"
+     alt="k-means 中心對離群值的敏感性動畫：一個人工觀測點往右移動，平均數被拉動，但中位數維持不變。" width="640" height="360">
 
 *原創人工示意動畫，CC BY-SA 4.0。* 青綠色標記代表此固定單一群組的平方誤差最優**平均數**，不是多群 k-means 完整訓練結果。橘色中位數僅作穩健性對照：中位數最小化的是絕對誤差，**不是**標準 k-means 的平方誤差目標。動畫依解析式移動，並非模型實測軌跡。[檢視前後狀態的靜態比較](../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg)。MkDocs 網站沿用播放／暫停與減少動態效果回退機制。
 
