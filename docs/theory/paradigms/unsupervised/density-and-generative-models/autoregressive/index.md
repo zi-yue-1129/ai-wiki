@@ -47,9 +47,31 @@ Each prediction uses the observed prefix, a training setup called **teacher forc
 
 Suppose a toy text model assigns probabilities $0.5$ to *Drink* at the start, $0.2$ to *tea* after *Drink*, and $0.4$ to the end token after *Drink tea*. The complete sequence has probability $0.5 \cdot 0.2 \cdot 0.4 = 0.04$. Its negative log-likelihood is $-\log(0.04)\approx 3.22$ using natural logs. The model can score this sequence even when a typical sample would contain different words.
 
+#### Animated likelihood accumulation
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" alt="Three conditional probabilities for Drink, tea and EOS multiply to 0.04, while the cumulative prefix probability moves from 0.50 to 0.10 to 0.04." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+**Animated chain rule.** The moving marker follows the *prefix* probability, not a probability distribution over tokens. [Static GitHub preview](../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg).
+
+The three values and token sequence are synthetic arithmetic examples, not measured model outputs. The displayed NLL is the sum of the three negative natural logs. Original CC BY-SA 4.0 diagram.
+
+
 ### Draw a new sequence
 
 To generate text, draw a token from the next-token distribution, append it to the prefix, and repeat until the end token or a length limit. If the toy model draws *coffee* after *Drink*, the next prediction uses *Drink coffee*. This is **ancestral sampling**: each draw supplies part of the context for the next one. During generation, prefixes come from the model's own draws after any given prompt. Early mistakes can therefore move the rest of a sample into contexts the model handled less often during training.[^scheduled-sampling]
+
+#### Animated scoring versus generation
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" alt="Teacher forcing scores all observed next-token targets under a causal mask; ancestral sampling instead extends the generated prefix from Drink to coffee and EOS." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+**Teacher forcing versus sampling.** Blue columns use known shifted inputs and targets; orange tokens appear only after successive draws. [Static GitHub preview](../../../../../assets/concept-animations/ar-score-vs-sample-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg).
+
+For a causally masked Transformer, known targets can be scored in one forward pass; sampling must feed each sampled token into the next prefix. The illustrative draw is not a sampled run of a trained model. Original CC BY-SA 4.0 diagram.
+
 
 Ordinary sampling requires one sequential step for each new element. [Speculative decoding](../../../../../engineering/inference-optimization/speculative-decoding.md) can reduce the number of serial calls to the target model by proposing several tokens and checking them together. With the acceptance and correction rule from Leviathan et al., the resulting samples still follow the target distribution.[^speculative]
 

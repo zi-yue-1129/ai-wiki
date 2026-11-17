@@ -35,9 +35,31 @@ $$
 
 假設一個示範用的文字模型給出以下機率：句首出現 *Drink* 的機率為 $0.5$，在 *Drink* 之後出現 *tea* 的機率為 $0.2$，在 *Drink tea* 之後出現結束詞元的機率為 $0.4$。完整序列的機率為 $0.5 \cdot 0.2 \cdot 0.4 = 0.04$。使用自然對數時，負對數似然為 $-\log(0.04)\approx 3.22$。即使模型平常取樣可能產生其他字詞，仍能計算這個指定序列的機率。
 
+#### 似然累積動畫
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" alt="Drink、tea 與結束詞元 EOS 的三個條件機率相乘為 0.04；累積前綴機率依序為 0.50、0.10、0.04。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+**鏈式法則動畫。** 移動標記依序指向每個前綴的累積機率，而非詞元機率分布。 [Static GitHub preview](../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg).
+
+三個機率與詞元序列都是人工數學示例，不是模型實測輸出。圖中的負對數似然為三項自然對數負值之和。原創圖採 CC BY-SA 4.0 授權。
+
+
 ### 抽出新序列
 
 生成文字時，先從下一詞元的分布抽出一個詞元，把它接到前綴後方，再重複這個過程，直到抽到結束詞元或達到長度上限。如果示範模型在 *Drink* 之後抽到 *coffee*，下一次預測就會使用 *Drink coffee*。這是**祖先取樣**（ancestral sampling），每次抽樣的結果都會成為後續預測的部分上下文。生成時，給定的提示之後，前綴由模型自己抽出的詞元構成。前段的錯誤可能讓後續生成落入模型在訓練時較少處理的上下文。[^scheduled-sampling]
+
+#### 評分與生成的流程動畫
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" alt="教師強迫以因果遮罩對所有已知的下一詞元目標評分；祖先取樣則逐步擴張 Drink、coffee、EOS 的已生成前綴。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+**教師強迫與生成取樣。** 藍色欄位使用已知且位移後的輸入與目標；橘色詞元則在每次抽樣之後才逐一出現。 [Static GitHub preview](../../../../../assets/concept-animations/ar-score-vs-sample-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg).
+
+採用因果遮罩的 Transformer 可在一次前向傳遞中計算已知序列的各位置條件分數；生成則必須將每次抽到的詞元接回下一次的前綴。示意詞元不是訓練模型的實際取樣。原創圖採 CC BY-SA 4.0 授權。
+
 
 一般取樣每生成一個元素就要依序執行一步。[推測式解碼](../../../../../engineering/inference-optimization/speculative-decoding.md)可以先提出多個候選詞元，再一併驗證，減少依序呼叫目標模型的次數。使用 Leviathan 等人的接受與校正規則後，輸出樣本仍遵循目標分布。[^speculative]
 
