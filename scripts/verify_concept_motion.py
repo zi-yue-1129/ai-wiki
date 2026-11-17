@@ -91,6 +91,10 @@ TOPICS = {
     "gcn-aggregation": "theory/models/gnn/message-passing/gcn/index",
     "gat-aggregation": "theory/models/gnn/message-passing/gat/index",
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-plusplus-d2": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-outlier-leverage": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-feature-scale": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-elbow-inertia": "theory/paradigms/unsupervised/clustering/k-means",
     "pca-variance-axis": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "pca-rank1-reconstruction": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
@@ -225,6 +229,7 @@ def main() -> int:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
+                          "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
