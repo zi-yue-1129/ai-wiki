@@ -189,7 +189,7 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if stem in NAS_STEMS:
                 # GitHub-safe HTML still and MkDocs motion are all source-relative.
-                pattern = rf'<img\\s+src="([^"]+{stem}-still\\.svg)"\\s+data-motion-src="([^"]+{stem}-motion\\.svg)"\\s+data-still-src="([^"]+{stem}-still\\.svg)"'
+                pattern = rf'<img\s+src="([^"]+{stem}-still\.svg)"\s+data-motion-src="([^"]+{stem}-motion\.svg)"\s+data-still-src="([^"]+{stem}-still\.svg)"'
                 match = re.search(pattern, text)
                 if not match:
                     errors.append(f"{page}: missing NAS still/motion HTML source pair")
