@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-08
+translation_reviewed: 2026-11-17
 ---
 
 # 奇異值分解（SVD）
@@ -67,17 +67,61 @@ $$
 
 各列互相正交，所以 $AA^\top=\operatorname{diag}(18,8,2)$。奇異值是 $3\sqrt{2}$、$2\sqrt{2}$ 和 $\sqrt{2}$。第一個左奇異向量是第一個座標向量，因此秩一近似保留第一列，將其餘列設為零。其弗羅貝尼烏斯誤差為 $\sqrt{8+2}=\sqrt{10}$，譜範數誤差為 $2\sqrt{2}$。它保留原矩陣弗羅貝尼烏斯範數平方的 $18/28=9/14$。
 
+### 動態示範：逐項加入秩一分量與殘差能量
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/svd-rank-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" alt="三個互相正交的秩一分量依序加入三乘四矩陣。保留列數從一增加到三，弗羅貝尼烏斯殘差由根號十下降為根號二，再降為零。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可閱讀的三個秩近似靜態比較](../../../assets/concept-animations/svd-rank-accumulation-still.svg)
+
+沿用上方的**人工矩陣**：三列互相正交，奇異值依序為 $3\sqrt{2}$、$2\sqrt{2}$ 與 $\sqrt{2}$。保留前一、二、三個秩一項時，分別重建前一、二、三列，弗羅貝尼烏斯殘差精確為 $\sqrt{10}$、$\sqrt{2}$、$0$。彩色方格表示非零元素（青色／藍色為正，橘色為負）；淺色代表尚未加入的分量。移動標記只用來表達秩一分量加入重建矩陣的過程，**不是 SVD 求解器真正的運算流程**，也不是模型訓練實測值。MkDocs 可用鍵盤操作**播放／暫停**；窄螢幕可聚焦圖面並水平捲動。GitHub 與減少動態效果模式顯示三種秩的靜態比較。原創圖像，**CC BY-SA 4.0**。[^approx]
+
 將 $m\times n$ 權重矩陣儲存為兩個稠密的秩 $k$ 因子，並將 $\Sigma_k$ 併入其中一個因子後，共有 $k(m+n)$ 個純量。這個數量小於 $mn$ 時，儲存量就會下降。近似定理控制的是矩陣誤差。模型品質和延遲仍取決於模型其餘部分與實作，可在實際部署的工作負載上量測。[^approx]
 
 ## 最小平方法、PCA 與調適
+
+### 動態示範：小奇異值造成偽逆放大雜訊
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-noise-amplification-still.svg" data-motion-src="../../../assets/concept-animations/svd-noise-amplification-motion.svg" data-still-src="../../../assets/concept-animations/svd-noise-amplification-still.svg" alt="第二個觀測分量的擾動從負零點二變成正零點二，經零點二五的奇異值取逆後，解的第二個分量被放大四倍；門檻零點五的截斷偽逆則將其設為零。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可閱讀的偽逆雜訊敏感度靜態比較](../../../assets/concept-animations/svd-noise-amplification-still.svg)
+
+此**人工對角矩陣問題**設定 $A=\operatorname{diag}(3,0.25)$、$b=(3,\delta)$，其中 $-0.2\le\delta\le0.2$。直接取逆可得 $x=A^{-1}b=(1,4\delta)$；因第二個奇異值只有 $0.25$，沿該方向的觀測雜訊會被放大四倍。若使用門檻 $\tau=0.5$ 的**截斷 SVD 偽逆**，便捨棄該方向，得到 $x_\tau=(1,0)$。藍色水平線在這個示例中抑制了雜訊，**但截斷也可能捨棄真實訊號並引入偏差**，不能解讀為必然較佳。連續移動的標記只表示參數掃描，不是求解器迭代或模型實測。MkDocs 可用鍵盤**播放／暫停**並聚焦水平捲動；GitHub 與減少動態效果模式顯示靜態回退。原創圖像，**CC BY-SA 4.0**。[^approx][^accuracy]
 
 - **最小平方法。** Moore–Penrose 偽逆為 $A^+=V_r\Sigma_r^{-1}U_r^\top$。對右側向量 $b$，在使 $\|Ax-b\|_2$ 最小的解中，$A^+b$ 的歐幾里得範數最小。小的正奇異值取倒數後可能放大雜訊。數值秩的門檻會把部分小奇異值視為零，從而改變求解的問題。[^approx][^accuracy]
 - **主成分分析。** 令 $X$ 的每列是一筆中心化觀測值，共 $m>1$ 筆。$X$ 的右奇異向量是主方向，樣本共變異數矩陣的特徵值為 $\sigma_i^2/(m-1)$，必要時補零。前 $k$ 個主成分分數為 $XV_k=U_k\Sigma_k$。詳見[主成分分析](../../paradigms/unsupervised/dimensionality-reduction/pca.md)。[^pca]
 - **模型權重。** [截斷奇異值分解](../../model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md)近似既有權重矩陣。[LoRA](../../model-compression/low-rank-and-efficient-architectures/lora/index.md)凍結基礎權重，學習秩至多為所選適配器秩的更新 $BA$。[^lora]
 
+### 動態示範：最小平方法投影與殘差正交
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" data-motion-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-motion.svg" data-still-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" alt="觀測向量 b 與一維欄空間中的候選 Ax 隨參數掃描比較；殘差及平方誤差曲線同步變化，在 x 等於 1.2 達到最小值。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可閱讀的最小平方投影靜態圖](../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg)
+
+本例為人工設定的超定問題 $A=(2,1)^\top$、$b=(2,2)^\top$，最小平方解為 $x^*=(A^\top b)/(A^\top A)=6/5=1.2$。因此 $\hat b=(2.4,1.2)^\top$、$r=b-\hat b=(-0.4,0.8)^\top$，符合 $A^\top r=0$，且 $\|r\|_2^2=0.8$。右側描繪精確目標函數 $E(x)=5(x-1.2)^2+0.8$。動畫游標只是**參數掃描，不是求解器迭代或模型實測**。[^approx]
+
+MkDocs 沿用支援鍵盤的**播放／暫停**；小螢幕可聚焦後水平捲動。GitHub 與減少動態效果模式使用最佳投影位置的靜態回退。原創圖像，**CC BY-SA 4.0**。
+
 ## 解讀分解因子
 
 同時反轉一對奇異向量的符號，該秩一項會保持相同。重複的奇異值允許在共用子空間內選擇不同的標準正交基底。奇異值彼此接近時，個別計算出的向量也可能對擾動敏感。不同求解器產生的因子有差異時，可比較重建結果及相關子空間。[^accuracy]
+
+### 動態示範：重複奇異值的基底不唯一性
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" data-motion-src="../../../assets/concept-animations/svd-degenerate-bases-motion.svg" data-still-src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" alt="A 等於兩倍單位矩陣時，左右奇異向量基底一起旋轉，但固定輸入 x 及輸出 Ax 保持不變。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可閱讀的重複奇異值靜態圖](../../../assets/concept-animations/svd-degenerate-bases-still.svg)
+
+選用的人工矩陣 $A=2I_2$ 具有相等奇異值 $\sigma_1=\sigma_2=2$。對**任意**旋轉矩陣 $R(\theta)$，$A=R(\theta)(2I_2)R(\theta)^\top$ 都是有效的 SVD。彩色奇異向量基底同步旋轉，但綠色的固定輸入 $x$ 和輸出 $Ax=2x$ 不變。這說明**個別奇異向量可以不唯一**；並非矩陣 $A$ 隨時間變動，也不是 SVD 求解器的執行歷程。[^accuracy]
+
+MkDocs 提供**播放／暫停**，亦可用鍵盤水平捲動；GitHub／減少動態效果使用靜態回退。原創示意，**CC BY-SA 4.0**。
 
 [^svd]: 《LAPACK Users' Guide》的〈Singular Value Decomposition〉定義各因子並說明雙對角化。
 [^ey]: Eckart 與 Young（1936）建立並求解最小平方意義下的低秩近似問題。

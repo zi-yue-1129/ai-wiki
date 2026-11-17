@@ -16,3 +16,4 @@
 | [貢獻指南](contributing/index.zh-TW.md) | 如何新增或改進頁面 |
 | [路線圖與涵蓋範圍](roadmap/index.md) | 已規劃的內容與尚缺的內容 |
 | [風格指南](style-guide/index.zh-TW.md) | 本維基的寫作慣例 |
+| [證據與檢索試點](knowledge-pilot/index.zh-TW.md) | 雙語 LoRA／QLoRA 證據卡、離線查詢與驗證限制 |

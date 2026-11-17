@@ -51,9 +51,11 @@ aliases:
 
 ### 視覺化：MC Dropout 重複推論與樣本平均
 
-![推論階段兩個丟棄遮罩持續變動，依序產生八個人工預測值，累積的樣本平均隨推論次數變化。](../../../assets/concept-animations/mc-dropout-repeated-passes-motion.svg)
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Teaching figure; use arrow keys to scroll horizontally">
+<img data-source-asset-urls src="../../../assets/concept-animations/mc-dropout-repeated-passes-still.svg" data-motion-src="../../../assets/concept-animations/mc-dropout-repeated-passes-motion.svg" data-still-src="../../../assets/concept-animations/mc-dropout-repeated-passes-still.svg" alt="推論階段兩個丟棄遮罩持續變動，依序產生八個人工預測值，累積的樣本平均隨推論次數變化。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
 
-*原創教學動畫，CC BY-SA 4.0。* 蒙地卡羅丟棄法（MC Dropout）**在推論階段刻意維持隨機遮罩**，有別於一般測試時關閉遮罩的確定性推論。以**人工純量預測器**為例，令 $r_1,r_2\sim\operatorname{Bernoulli}(0.5)$ 且彼此獨立，$y=1+4r_1-2r_2$，解析期望值為 $\mathbb E[y]=2$。八組*刻意挑選*的遮罩得到 $y=(5,-1,3,1,5,3,-1,1)$，累積平均隨推論次數變化，最後恰好為 $2$ 是**示例設計**，不代表收斂速度或準確度保證。青綠色虛線表示目前的樣本平均，在最後一個示例步驟之前並非解析期望值。圖中沒有實際模型預測、經校準的認知不確定性或實測資料；貝氏解釋與限制可參考文獻中的 Gal 與 Ghahramani。手機窄畫面請在圖內水平捲動，以查看遮罩及樣本平均的變化。網站既有播放器支援播放／暫停和減少動態效果回退；[GitHub 可顯示的靜態預覽](../../../assets/concept-animations/mc-dropout-repeated-passes-still.svg)。
+*原創教學動畫，CC BY-SA 4.0。* 蒙地卡羅丟棄法（MC Dropout）**在推論階段刻意維持隨機遮罩**，有別於一般測試時關閉遮罩的確定性推論。以**人工純量預測器**為例，令 $r_1,r_2\sim\operatorname{Bernoulli}(0.5)$ 且彼此獨立，$y=1+4r_1-2r_2$，解析期望值為 $\mathbb E[y]=2$。八組*刻意挑選*的遮罩得到 $y=(5,-1,3,1,5,3,-1,1)$，累積平均隨推論次數變化，最後恰好為 $2$ 是**示例設計**，不代表收斂速度或準確度保證。青綠色虛線表示目前的樣本平均；在刻意挑選的第 2、4、8 次結果中，它恰好等於解析期望值，但任意取樣不保證出現這種相等。圖中沒有實際模型預測、經校準的認知不確定性或實測資料；貝氏解釋與限制可參考文獻中的 Gal 與 Ghahramani。手機窄畫面請在圖內水平捲動，以查看遮罩及樣本平均的變化。網站既有播放器支援播放／暫停和減少動態效果回退；[GitHub 可顯示的靜態預覽](../../../assets/concept-animations/mc-dropout-repeated-passes-still.svg)。
 
 ## 關聯
 

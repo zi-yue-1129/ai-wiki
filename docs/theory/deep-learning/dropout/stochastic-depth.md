@@ -66,7 +66,9 @@ For $L=4$ and $p_L=0.5$, the survival probabilities are $(0.875,\,0.75,\,0.625,\
 
 ### Visual walkthrough: survival probabilities versus sampled depth
 
-![Four residual-block survival thresholds compared against changing uniform random draws, with the active-branch count changing by sample.](../../../assets/concept-animations/stochastic-depth-survival-samples-motion.svg)
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Teaching figure; use arrow keys to scroll horizontally">
+<img data-source-asset-urls src="../../../assets/concept-animations/stochastic-depth-survival-samples-still.svg" data-motion-src="../../../assets/concept-animations/stochastic-depth-survival-samples-motion.svg" data-still-src="../../../assets/concept-animations/stochastic-depth-survival-samples-still.svg" alt="Four residual-block survival thresholds compared against changing uniform random draws, with the active-branch count changing by sample." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
 
 *Original teaching animation, CC BY-SA 4.0.* In this schematic four-block schedule, $p=(0.875,0.75,0.625,0.5)$. Each block receives a separate illustrative draw $u_l\sim\mathrm{Uniform}(0,1)$ and is active when $u_l<p_l$. The active-branch count changes between the shown draws, while $\mathbb{E}[\sum_l b_l]=2.75$ is fixed by the survival probabilities. **The four chosen draws do not estimate that mean**; the equality follows from linearity of expectation and does not predict actual training time. Even a skipped residual branch still passes the shortcut signal. This is a mathematical illustration, **not measured training activity**.[^huang] The MkDocs player supports Play/Pause and reduced-motion fallback; [view the GitHub-compatible static preview](../../../assets/concept-animations/stochastic-depth-survival-samples-still.svg).
 
@@ -78,7 +80,9 @@ In torchvision, **batch** mode shares a mask across the mini-batch and **row** m
 
 ### Visual walkthrough: two scaling conventions are not interchangeable
 
-![Animated comparison of original and inverted stochastic-depth scaling: binary residual-branch keep/skip decisions change train outputs while each convention has its own evaluation expectation.](../../../assets/concept-animations/stochastic-depth-scaling-conventions-motion.svg)
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Teaching figure; use arrow keys to scroll horizontally">
+<img data-source-asset-urls src="../../../assets/concept-animations/stochastic-depth-scaling-conventions-still.svg" data-motion-src="../../../assets/concept-animations/stochastic-depth-scaling-conventions-motion.svg" data-still-src="../../../assets/concept-animations/stochastic-depth-scaling-conventions-still.svg" alt="Animated comparison of original and inverted stochastic-depth scaling: binary residual-branch keep/skip decisions change train outputs while each convention has its own evaluation expectation." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
 
 *Original teaching animation, CC BY-SA 4.0.* For one **schematic pre-activation** with shortcut $s=2$, branch output $f=4$, survival probability $p=0.5$, and mask $b\sim\mathrm{Bernoulli}(p)$, the original convention has training values $s+bf\in\{2,6\}$ and evaluation value $s+pf=4$. Inverted scaling has training values $s+bf/p\in\{2,10\}$ and evaluation value $s+f=6$. The moving gate denotes **a binary mask**, not a continuously fractional branch; the orange train contribution disappears for the skipped branch, while the shortcut remains.
 
