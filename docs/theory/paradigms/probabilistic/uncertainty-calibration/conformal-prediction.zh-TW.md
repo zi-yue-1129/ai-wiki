@@ -56,6 +56,27 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 
 *原創教學動畫（CC BY-SA 4.0）。* 沿用前面八筆校準示例的**人工門檻** \(\hat q=0.54\)，一組假設的同分布測試資料中有 7/8 個分數不大於門檻，另一組假設的偏移測試資料則只有 3/8。移動的點是在**兩組人工分數清單間視覺插值**，不代表實際追蹤相同樣本，也不是部署資料或實測覆蓋率。這些計數**不能估計真正覆蓋機率**；它們示意測試分數的分布改變後，固定門檻下的涵蓋比例可能下降。更一般地，校準與測試資料不具可交換性時，原本的有限樣本保證未必成立（Barber 等人，2023）。[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-shift-coverage-still.svg)；MkDocs 可播放／暫停，窄螢幕支援水平捲動。
 
+
+### 共形化分位數迴歸：保留自適應寬度的校準區間
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="共形化分位數迴歸區間擴張動畫">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-cqr-expansion-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-cqr-expansion-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-cqr-expansion-still.svg" alt="兩個原始寬度不同的分位數預測區間，左右兩端各加上相同的人工校準修正量 q 等於 0.35。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 共形化分位數迴歸（CQR）使用獨立校準資料計算 $s_i=\max\{\hat q_L(x_i)-y_i,\ y_i-\hat q_U(x_i)\}$。假設五筆**人工**排序分數為 $[0.04,0.12,0.18,0.26,0.35]$，取 $\alpha=0.30$，有限樣本排序位置是 $\lceil(5+1)(1-0.30)\rceil=5$，示意修正量為 **$\hat q=0.35$**。原始區間 **A = [1.0, 2.0]**、**B = [3.0, 4.7]**，套用 $[\hat q_L(x)-\hat q,\hat q_U(x)+\hat q]$ 後，分別為 **[0.65, 2.35]** 與 **[2.65, 5.05]**。原始寬度不同，校準量卻相同；動畫僅示範區間擴張，**不是模型訓練或實測覆蓋率**。這些數值全部是人工解析示例，並非擬合模型輸出。CQR 的邊際覆蓋保證須有適當的訓練／校準切分與可交換性（Romano 等人，2019）。[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-cqr-expansion-still.svg)；MkDocs 支援播放／暫停，窄螢幕支援觸控或鍵盤水平捲動。
+
+### 加權共形校準：測試點在正無窮大的權重
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="加權校準分位數與測試點正無窮大權重動畫">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-weighted-quantile-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-weighted-quantile-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-weighted-quantile-still.svg" alt="五筆人工校準分數加上一筆位於正無窮大的測試點權重，調整權重使加權分位數依序由 0.58 跳至 0.44、0.31。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 對人工排序分數 **[0.10, 0.22, 0.31, 0.44, 0.58]**，另外加入位於 **$+\infty$** 的**測試點權重**，取目標累積正規化權重 $1-\alpha=0.70$。校準權重 **[1,1,1,1,1]** 搭配測試點權重 **1** 時，門檻是 **0.58**；校準權重變為 **[2.5,2,1,1,1]** 時是 **0.44**；變成 **[4,3,1,1,1]** 時則是 **0.31**，測試點權重都維持 **1**。標記在分位數跨越門檻時**離散跳動**，長條只是在替代性權重設定間插值，**不是實際模型推論歷程**。正無窮大測試點權重對這項有限樣本加權分位數構造相當重要；但理論有效性仍須共變量偏移假設與正確的密度比權重，**不能保證任意分布偏移都獲得修正**（Tibshirani 等人，2019）。上述權重是人工示例，**不是實測密度比**。[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-weighted-quantile-still.svg)；MkDocs 支援播放／暫停與鍵盤水平捲動。
+
 ## 變體
 
 - **分割式共形預測**使用單一校準集，是最簡單也最常見的形式。

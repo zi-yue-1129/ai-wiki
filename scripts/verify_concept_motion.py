@@ -17,6 +17,12 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "conformal-subgroup-coverage": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
     "conformal-shift-coverage": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-cqr-expansion": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-weighted-quantile": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "adagrad-coordinate-gain": "theory/optimization/adaptive/adagrad",
+    "adafactor-factored-moments": "theory/optimization/adaptive/adafactor",
+    "sharpness-reparam-curvature": "theory/optimization/sharp-minima",
+    "sharpness-radius-loss": "theory/optimization/sharp-minima",
     "itemcf-weighted-neighbors": "theory/models/recommender/item-based-cf",
     "neumf-dual-path": "theory/models/recommender/neural-cf",
     "resnet-identity-gradient": "theory/models/cnn/backbones-and-scaling/resnet/index",
@@ -180,7 +186,7 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    if root.tag != NS + "svg" or root.get("viewBox") not in {"0 0 640 360", "0 0 800 420"}:
+    if root.tag != NS + "svg" or root.get("viewBox") not in {"0 0 640 360", "0 0 720 460", "0 0 800 420"}:
         errors.append(f"{path}: invalid SVG root/viewBox")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
@@ -241,7 +247,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"conformal-subgroup-coverage", "conformal-shift-coverage"}:
+            elif stem in {"conformal-subgroup-coverage", "conformal-shift-coverage", "conformal-cqr-expansion", "conformal-weighted-quantile"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {
@@ -267,7 +273,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",

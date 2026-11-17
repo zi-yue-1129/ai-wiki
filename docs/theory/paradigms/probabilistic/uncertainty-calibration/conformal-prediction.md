@@ -68,6 +68,27 @@ and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 20
 
 *Original animated teaching visual (CC BY-SA 4.0).* Keep the **illustrative** calibration threshold \(\hat q=0.54\) from the preceding eight calibration examples. A matched *toy test batch* has 7/8 scores at or below the threshold, whereas an invented shifted batch has only 3/8. The colored dots move between **alternative constructed score lists**, not actual tracked observations or measurements of a deployment. These counts **do not estimate coverage probabilities**; they show that a fixed threshold need not retain the same realized inclusion fraction when test-score distributions change. More generally, without calibration/test exchangeability, the usual finite-sample guarantee need not hold (Barber et al., 2023). [GitHub static preview](../../../../assets/concept-animations/conformal-shift-coverage-still.svg); MkDocs provides Play/Pause, and narrow screens support horizontal scrolling.
 
+
+### Conformalized quantile regression: calibrated intervals with adaptive widths
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Conformalized quantile regression interval expansion animation">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-cqr-expansion-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-cqr-expansion-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-cqr-expansion-still.svg" alt="Two raw quantile intervals of different widths expand on both ends by the same illustrative calibration offset q of 0.35." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* In conformalized quantile regression (CQR), calibration nonconformity scores are $s_i=\max\{\hat q_L(x_i)-y_i,\ y_i-\hat q_U(x_i)\}$. For five **invented** ordered calibration scores $[0.04,0.12,0.18,0.26,0.35]$ and $\alpha=0.30$, the finite-sample order statistic is $\lceil(5+1)(1-0.30)\rceil=5$, giving **$\hat q=0.35$**. Raw intervals **A = [1.0, 2.0]** and **B = [3.0, 4.7]** become **[0.65, 2.35]** and **[2.65, 5.05]** via $[\hat q_L(x)-\hat q,\hat q_U(x)+\hat q]$. Different initial widths remain different; the motion illustrates *interval expansion*, not model training. **All values are analytic teaching examples, not fitted-model outputs or measured coverage.** Split-CQR's marginal guarantee needs an independent calibration split and exchangeability (Romano et al., 2019). [GitHub static preview](../../../../assets/concept-animations/conformal-cqr-expansion-still.svg); MkDocs provides Play/Pause. On narrow screens scroll horizontally with touch or keyboard.
+
+### Weighted calibration: the test-point atom at infinity
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Weighted conformal quantile and test infinity mass animation">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-weighted-quantile-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-weighted-quantile-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-weighted-quantile-still.svg" alt="Five synthetic calibration scores with an additional test-point mass at positive infinity, showing the weighted quantile moving in discrete steps from 0.58 to 0.31." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* Sort **invented** calibration scores as **[0.10, 0.22, 0.31, 0.44, 0.58]**, add a separate test-point weight at **$+\infty$**, and choose target cumulative normalized weight $1-\alpha=0.70$. Calibration weights **[1,1,1,1,1]** plus test weight **1** yield a threshold of **0.58**. Intermediate calibration weights **[2.5,2,1,1,1]** yield **0.44**, and final weights **[4,3,1,1,1]** yield **0.31**, each retaining the test weight **1**. The indicator *jumps at quantile crossings* while bar heights interpolate between alternative weighting choices; this is **not a stream of observed model outputs**. Including test mass at infinity matters to this particular finite-sample weighted conformal quantile. Theoretical validity depends on the covariate-shift assumptions and correct density-ratio weights; arbitrary distribution shift is **not** automatically corrected (Tibshirani et al., 2019). These invented weights **are not measured density ratios**. [GitHub static preview](../../../../assets/concept-animations/conformal-weighted-quantile-still.svg); MkDocs provides Play/Pause and keyboard-accessible horizontal scrolling.
+
 ## Variants
 
 - **Split conformal** uses one calibration set, which is the simplest and most common form.
