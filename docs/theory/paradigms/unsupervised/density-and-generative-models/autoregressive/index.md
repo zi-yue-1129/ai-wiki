@@ -73,6 +73,33 @@ To generate text, draw a token from the next-token distribution, append it to th
 For a causally masked Transformer, known targets can be scored in one forward pass; sampling must feed each sampled token into the next prefix. The illustrative draw is not a sampled run of a trained model. Original CC BY-SA 4.0 diagram. On the MkDocs site, use the Play/Pause control; on narrow screens, focus the figure and use the left/right arrow keys to scroll. A reduced-motion preference selects the still image.
 
 
+
+#### Animated divergence of generated contexts
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-context-drift-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-context-drift-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-context-drift-still.svg" alt="Two prefixes share BOS, We and ate. The observed path continues to rice, while the sampled path continues to cake. Their illustrative next-step EOS probabilities are 0.85 and 0.40." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+**Context drift.** The diagram first reveals the common prefix, then the differing next token, and finally the two next-step conditional probabilities. [Static GitHub preview](../../../../../assets/concept-animations/ar-context-drift-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-context-drift-motion.svg).
+
+These are *specified toy conditionals*, not model predictions or a claim that sampling *cake* is necessarily an error. Conditioning on a sampled prefix can change subsequent predictions; teacher forcing instead conditions on observed tokens. The distribution of encountered prefixes can therefore differ between training and rollout.[^scheduled-sampling] Original CC BY-SA 4.0 visual. The MkDocs site supports Play/Pause, keyboard-accessible horizontal scrolling on narrow screens, and a static fallback for reduced-motion preferences.
+
+#### Animated EOS stopping-time distribution
+
+Define $L$ as the position of the **first EOS token**, counting EOS itself as one position. If $q_k=P(L=k\mid L\ge k)$ is the EOS probability **among sequences still continuing before step $k$**, then
+
+$$
+P(L=k)=q_k\prod_{j=1}^{k-1}(1-q_j).
+$$
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-eos-survival-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" alt="Four synthetic EOS hazards 0.10, 0.25, 0.50 and 0.80 progressively reduce continuation mass; the probability of first EOS at steps 1 to 4 is 0.10, 0.225, 0.3375 and 0.27." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+**Stop versus continue.** The blue bar is the probability of *not* having drawn EOS after the current step; each orange column is the probability that EOS first occurs at that step. [Static GitHub preview](../../../../../assets/concept-animations/ar-eos-survival-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-eos-survival-motion.svg).
+
+With illustrative hazards $(0.10,0.25,0.50,0.80)$, the first-EOS probabilities are $(0.10,0.225,0.3375,0.27)$. The remaining probability of continuing **past step four** is $0.0675$; the displayed columns do **not** sum to one because later stopping positions are omitted. Hazards are synthetic and should not be interpreted as empirical sequence-length statistics. Original CC BY-SA 4.0 visual. On MkDocs, Play/Pause and reduced-motion fallback reuse the existing shared controls; focus the figure and use left/right arrows to scroll on mobile.
+
 Ordinary sampling requires one sequential step for each new element. [Speculative decoding](../../../../../engineering/inference-optimization/speculative-decoding.md) can reduce the number of serial calls to the target model by proposing several tokens and checking them together. With the acceptance and correction rule from Leviathan et al., the resulting samples still follow the target distribution.[^speculative]
 
 ## Key methods and applications
