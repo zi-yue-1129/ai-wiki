@@ -21,6 +21,10 @@ TOPICS = {
     "mixup-cutmix-area": "theory/deep-learning/dropout/mixup",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
+    "ar-score-vs-sample": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-likelihood-accumulation": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-context-drift": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-eos-survival": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
     "svd-rank-accumulation": "theory/math/linear-algebra/svd",
     "svd-noise-amplification": "theory/math/linear-algebra/svd",
@@ -230,6 +234,7 @@ def main() -> int:
             elif stem in {"eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
+                          "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
                           "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
