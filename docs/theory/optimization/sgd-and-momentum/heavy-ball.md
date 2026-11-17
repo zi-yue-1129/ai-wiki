@@ -45,7 +45,7 @@ Unrolled, the step is a weighted sum of all past gradients with weights that dec
 
 <div role="region" tabindex="0" aria-label="Teaching animation: use arrow keys to scroll horizontally; Play/Pause controls follow" style="max-width:100%;overflow-x:auto;">
   <div style="width:640px;max-width:none;">
-    <img src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" data-motion-src="../../../assets/concept-animations/heavy-ball-overshoot-motion.svg" data-still-src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" alt="A computed twelve-step comparison on a one-dimensional quadratic: momentum crosses the optimum, while gradient descent approaches it monotonically." width="640">
+    <img data-source-asset-urls src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" data-motion-src="../../../assets/concept-animations/heavy-ball-overshoot-motion.svg" data-still-src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" alt="A computed twelve-step comparison on a one-dimensional quadratic: momentum crosses the optimum, while gradient descent approaches it monotonically." width="640">
   </div>
 </div>
 

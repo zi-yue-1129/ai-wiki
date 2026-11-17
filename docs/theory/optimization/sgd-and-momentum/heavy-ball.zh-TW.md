@@ -34,7 +34,7 @@ v_t &= \beta\, v_{t-1} + g_t \\
 
 <div role="region" tabindex="0" aria-label="動畫圖：可用左右方向鍵水平捲動，圖下方有播放與暫停控制" style="max-width:100%;overflow-x:auto;">
   <div style="width:640px;max-width:none;">
-    <img src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" data-motion-src="../../../assets/concept-animations/heavy-ball-overshoot-motion.svg" data-still-src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" alt="一維二次函數的十二步精確遞迴比較：動量法跨越最佳點，普通梯度下降則單調接近最佳點。" width="640">
+    <img data-source-asset-urls src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" data-motion-src="../../../assets/concept-animations/heavy-ball-overshoot-motion.svg" data-still-src="../../../assets/concept-animations/heavy-ball-overshoot-still.svg" alt="一維二次函數的十二步精確遞迴比較：動量法跨越最佳點，普通梯度下降則單調接近最佳點。" width="640">
   </div>
 </div>
 
