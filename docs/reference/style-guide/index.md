@@ -82,11 +82,14 @@ All fields are optional.
 | Field | Values | Meaning |
 |---|---|---|
 | `status` | `stub`, `draft`, `complete` | Overrides the automatic status (stub if it has the marker above, draft under 400 words, otherwise complete) |
-| `last_reviewed` | `YYYY-MM-DD` | Last time someone checked the whole page is still accurate. Pages older than 12 months are flagged |
+| `last_reviewed` | `YYYY-MM-DD` | Explicit date a contributor checked the whole page for accuracy. Missing means unknown; git edits never count as reviews |
+| `review_interval_days` | integer, 1–365 | Recheck interval for an explicit review; default 365. Consider 30–90 for version-sensitive APIs or benchmarks |
 | `related` | list of topic folders (or `.md` pages) relative to `docs/` | Topics in other categories this one also belongs to. Builds a reciprocal *Related topics* section (see below) |
 | `tags` | list of words | Cross-cutting themes, collected on the Tags page |
 | `references` | `not-required` | Exempts a list or meta page from the References check |
 | `translation_reviewed` | `YYYY-MM-DD` | On a translation: last time it was checked against the English page |
+
+**Completeness is not verification.** `complete` is a writing-progress label (possibly inferred from length), not an expert-review badge. Record an accuracy review only after checking claims and sources; document its scope and unresolved issues in the PR. Do not refresh `last_reviewed` for formatting, animation, link-only edits, or a partial claim audit. A date is a contributor declaration, not independent certification or experimental reproduction. A missing date is reported as unknown, separately from overdue recorded reviews. See the [evidence and retrieval pilot](../knowledge-pilot/index.md) for claim-level provenance.
 
 ## Topics in more than one category
 

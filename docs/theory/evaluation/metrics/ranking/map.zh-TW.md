@@ -33,7 +33,7 @@ $$\text{AP} = \frac{1}{R} \sum_{k=1}^{N} P(k)\, \text{rel}(k)$$
 ## 視覺解讀：由兩個查詢得到 MAP
 
 <div role="region" tabindex="0" aria-label="可水平捲動的排序指標視覺示範" style="width:100%;overflow-x:auto">
-  <img src="../../../../assets/concept-animations/map-precision-at-hits-still.svg" data-motion-src="../../../../assets/concept-animations/map-precision-at-hits-motion.svg" data-still-src="../../../../assets/concept-animations/map-precision-at-hits-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="MAP：兩個查詢的二元相關性排序，掃描相關項目的精確率並累積各查詢 AP。">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/map-precision-at-hits-still.svg" data-motion-src="../../../../assets/concept-animations/map-precision-at-hits-motion.svg" data-still-src="../../../../assets/concept-animations/map-precision-at-hits-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="MAP：兩個查詢的二元相關性排序，掃描相關項目的精確率並累積各查詢 AP。">
 </div>
 
 *原創教學視覺，CC BY-SA 4.0。* 此原創連續動畫不只顯示單一 AP，而是計算兩個查詢後再取平均。查詢 A 的二元相關性為 $(1,0,1,0,0,1)$，相關位置 1、3、6 的精確率為 $1$、$2/3$、$1/2$，所以 $\mathrm{AP}_A=0.722$。查詢 B 為 $(0,1,1,0,1,0)$，相關位置 2、3、5 的精確率為 $1/2$、$2/3$、$3/5$，故 $\mathrm{AP}_B=0.589$，而 $\mathrm{MAP}=(\mathrm{AP}_A+\mathrm{AP}_B)/2=0.656$。橘色外框隨名次移動；只有相關項目才增加 AP 的貢獻，灰色不相關項目不加分。每個查詢右側標示的是**最終 AP**；長條依序累積。所有資料與數值皆為人工設計、由公式驗算的教材示例，並非模型輸出。

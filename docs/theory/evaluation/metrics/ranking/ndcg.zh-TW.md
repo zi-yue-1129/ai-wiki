@@ -29,7 +29,7 @@ NDCG 為 1.0 表示排序已是理想的。由於每個位置都有折損，把�
 ## 視覺解讀：逐名次累積 NDCG
 
 <div role="region" tabindex="0" aria-label="可水平捲動的排序指標視覺示範" style="width:100%;overflow-x:auto">
-  <img src="../../../../assets/concept-animations/ndcg-position-discount-still.svg" data-motion-src="../../../../assets/concept-animations/ndcg-position-discount-motion.svg" data-still-src="../../../../assets/concept-animations/ndcg-position-discount-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="NDCG：左右比較模型排序與理想排序，依序顯示每個名次的折損增益貢獻。">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/ndcg-position-discount-still.svg" data-motion-src="../../../../assets/concept-animations/ndcg-position-discount-motion.svg" data-still-src="../../../../assets/concept-animations/ndcg-position-discount-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="NDCG：左右比較模型排序與理想排序，依序顯示每個名次的折損增益貢獻。">
 </div>
 
 *原創教學視覺，CC BY-SA 4.0。* 此原創連續動畫使用與上方範例相同的六個相關性等級 $(3,2,3,0,1,2)$。藍色長條是模型排序在各名次的線性折損貢獻 $\mathrm{rel}_i/\log_2(i+1)$；綠色是理想排序 $(3,3,2,2,1,0)$。橘色指示器沿名次移動，長條逐步伸展，最後得到 $\mathrm{DCG}=6.861$、$\mathrm{IDCG}=7.141$ 與 $\mathrm{NDCG}\approx0.961$。畫面底部顯示的是完整排序的**最終分數**，不是每一影格的中途累積值。這些數值是人工設計且可由公式重算的示意數值，並非實際搜尋系統的評測結果。
