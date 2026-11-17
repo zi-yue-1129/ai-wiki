@@ -52,7 +52,9 @@ For squared loss, the pseudo-residuals are the plain residuals, so each tree fit
 
 ## Animated walkthrough: fit the residual, then update
 
-<img src="../../../../assets/concept-animations/boosting-residual-steps-still.svg" data-motion-src="../../../../assets/concept-animations/boosting-residual-steps-motion.svg" alt="Six observed regression targets remain fixed as a teal piecewise-constant prediction changes continuously from a global mean to two successive residual-fitting updates; dashed orange residual gaps change with the predictions." loading="lazy" />
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/boosting-residual-steps-still.svg" data-motion-src="../../../../assets/concept-animations/boosting-residual-steps-motion.svg" data-still-src="../../../../assets/concept-animations/boosting-residual-steps-still.svg" alt="Six observed regression targets remain fixed as a teal piecewise-constant prediction changes continuously from a global mean to two successive residual-fitting updates; dashed orange residual gaps change with the predictions." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
 
 *Original teaching animation, CC BY-SA 4.0.* [Open the animated SVG](../../../../assets/concept-animations/boosting-residual-steps-motion.svg) or [view the GitHub-safe static preview](../../../../assets/concept-animations/boosting-residual-steps-still.svg). The MkDocs player offers keyboard-accessible **Play/Pause** and a reduced-motion still. The fixed navy circles are targets; the teal line is the additive prediction; orange segments are residuals for the squared-error loss $L=\tfrac12(y-F)^2$, whose negative gradient is $y-F$.
 

@@ -38,7 +38,9 @@ related:
 
 ## 動畫解讀：擬合殘差並逐輪修正預測
 
-<img src="../../../../assets/concept-animations/boosting-residual-steps-still.svg" data-motion-src="../../../../assets/concept-animations/boosting-residual-steps-motion.svg" alt="六筆迴歸目標值固定不動，青綠色的分段常數預測從全域平均開始，經過兩次殘差擬合而連續變動；橘色虛線顯示殘差差距隨預測更新而改變。" loading="lazy" />
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/boosting-residual-steps-still.svg" data-motion-src="../../../../assets/concept-animations/boosting-residual-steps-motion.svg" data-still-src="../../../../assets/concept-animations/boosting-residual-steps-still.svg" alt="六筆迴歸目標值固定不動，青綠色的分段常數預測從全域平均開始，經過兩次殘差擬合而連續變動；橘色虛線顯示殘差差距隨預測更新而改變。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
 
 *原創教學動畫，CC BY-SA 4.0。* 可[開啟完整 SVG 動畫](../../../../assets/concept-animations/boosting-residual-steps-motion.svg)，或[查看 GitHub 可顯示的靜態預覽](../../../../assets/concept-animations/boosting-residual-steps-still.svg)。MkDocs 播放器支援可用鍵盤操作的**播放／暫停**，減少動態效果模式會顯示靜態圖。深藍色圓點是固定目標值，青綠色線是加法模型預測，橘色線段表示平方損失 $L=\tfrac12(y-F)^2$ 的殘差；其負梯度為 $y-F$。
 
