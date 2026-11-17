@@ -29,8 +29,8 @@ g_x=g_y(1+F'(x)).
 This is a **local derivative at the addition** (or a pre-activation residual unit), not the complete gradient of a post-addition ReLU block. The identity term provides a direct contribution, but the learned term can still cancel or amplify it; shortcuts do not guarantee non-vanishing gradients.[^resnet-identity]
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Residual forward and backward animation; focus to scroll horizontally">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-identity-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-identity-gradient-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-identity-gradient-still.svg" alt="Forward: input two plus residual negative one produces one. Backward: gradient one splits into an identity path of one and a residual path of negative one half, yielding input gradient one half.">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-identity-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-identity-gradient-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-identity-gradient-still.svg" alt="Forward: input two plus residual negative one produces one. Backward: gradient one splits into an identity path of one and a residual path of negative one half, yielding input gradient one half.">
 </div>
 </div>
 
@@ -39,8 +39,8 @@ This is a **local derivative at the addition** (or a pre-activation residual uni
 **2. A projection is needed when tensor shapes change.** Elementwise residual addition requires \(\operatorname{shape}(F(x))=\operatorname{shape}(P(x))\). In the constructed example, a \(4\times4\times1\) feature map goes through a stride-2 \(3\times3\) main convolution (with padding 1) to reach \(2\times2\times2\), while a learned stride-2 \(1\times1\) projection on the shortcut produces the *same* shape. Only then is \(y=F(x)+P(x)\) defined. A pure identity shortcut is suitable only when shapes already match; the illustrated sizes and channels are examples, not a specific ResNet layer.
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Projection shortcut animation; focus to scroll horizontally">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-projection-shortcut-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg" alt="A four-by-four single-channel feature grid splits into a stride-two convolution and a stride-two pointwise shortcut projection; both reach two-by-two two-channel tensors before being added.">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-projection-shortcut-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg" alt="A four-by-four single-channel feature grid splits into a stride-two convolution and a stride-two pointwise shortcut projection; both reach two-by-two two-channel tensors before being added.">
 </div>
 </div>
 
@@ -56,8 +56,8 @@ s(x)=x+(-0.2x-0.3)=0.8x-0.3,\qquad y(x)=\operatorname{ReLU}(s(x)).
 The derivative before activation is \(ds/dx=0.8\). After activation it is **zero where \(s<0\)** and **0.8 where \(s>0\)**; at \(s=0\) the classical derivative does not exist. Watch the forward point cross the kink while the right-hand derivative switches between these regimes. This is why the add-then-ReLU structure should not be conflated with an additive identity mapping that has no activation after the addition.[^resnet-identity]
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Post-addition ReLU derivative animation; focus to scroll horizontally">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-postrelu-gate-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" alt="A point crosses a ReLU kink after residual addition; the local derivative changes from zero on the negative side to 0.8 on the positive side. The derivative is undefined at the kink.">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-postrelu-gate-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" alt="A point crosses a ReLU kink after residual addition; the local derivative changes from zero on the negative side to 0.8 on the positive side. The derivative is undefined at the kink.">
 </div>
 </div>
 
@@ -66,8 +66,8 @@ The derivative before activation is \(ds/dx=0.8\). After activation it is **zero
 **4. Depth multiplies local Jacobian factors.** For a constructed one-dimensional chain of \(d\) blocks, if every plain layer has derivative \(-0.1\), then \(|\partial h_d/\partial h_0|=0.1^d\). An identity-shortcut block \(h_{k+1}=h_k+F_k(h_k)\) with \(F'_k=-0.1\) instead has local derivative \(0.9\) and total derivative magnitude \(0.9^d\). At six blocks these are \(10^{-6}\) and \(0.531441\), respectively. The animation follows how **each additional block** changes the two products. This is a deliberately uniform *scalar* analytic illustration, not empirical network gradients; actual learned residual Jacobians can amplify, cancel, or rotate signals, and the identity shortcut alone does not guarantee stable optimisation.[^resnet-identity]
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Depthwise residual and plain Jacobian factors animation; focus to scroll horizontally">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" alt="Two analytic derivative-magnitude curves as block depth grows from zero to six. Plain layer magnitudes shrink by a factor 0.1 per block while the residual example shrinks by 0.9 per block.">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" alt="Two analytic derivative-magnitude curves as block depth grows from zero to six. Plain layer magnitudes shrink by a factor 0.1 per block while the residual example shrinks by 0.9 per block.">
 </div>
 </div>
 

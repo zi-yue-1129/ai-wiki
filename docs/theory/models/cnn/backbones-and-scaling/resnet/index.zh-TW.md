@@ -29,8 +29,8 @@ g_x=g_y(1+F'(x)).
 此式是**加法節點的局部導數**（或後接恆等映射的 pre-activation 區塊），沒有包含傳統區塊在加法後 ReLU 的導數。捷徑提供直接的梯度項，但學習分支仍可能抵銷或放大梯度，不能據此保證梯度永不消失。[^resnet-identity]
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="殘差前向與反向動畫；可聚焦並水平捲動">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-identity-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-identity-gradient-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-identity-gradient-still.svg" alt="前向：輸入二加上殘差負一得到一。反向：梯度一分為恆等路徑的一與殘差路徑的負零點五，合計輸入梯度零點五。">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-identity-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-identity-gradient-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-identity-gradient-still.svg" alt="前向：輸入二加上殘差負一得到一。反向：梯度一分為恆等路徑的一與殘差路徑的負零點五，合計輸入梯度零點五。">
 </div>
 </div>
 
@@ -39,8 +39,8 @@ g_x=g_y(1+F'(x)).
 **2. 改變張量尺寸時必須對齊捷徑。** 逐元素相加要求 \(\operatorname{shape}(F(x))=\operatorname{shape}(P(x))\)。此人工示例將 \(4\times4\times1\) 的特徵圖，透過步幅 2、padding 1 的 \(3\times3\) 主分支卷積映射到 \(2\times2\times2\)；捷徑上可學習的 \(1\times1\) 投影也以步幅 2 產生**相同維度**，之後才執行 \(y=F(x)+P(x)\)。維度原本相同時才可直接使用恆等捷徑。圖中的尺寸與通道數為示意，並非特定 ResNet 層的規格。
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="投影捷徑動畫；可聚焦並水平捲動">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-projection-shortcut-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg" alt="四乘四單通道特徵圖分流至步幅二的主分支卷積與逐點投影捷徑，兩者均產生二乘二、雙通道張量，再逐元素相加。">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-projection-shortcut-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg" alt="四乘四單通道特徵圖分流至步幅二的主分支卷積與逐點投影捷徑，兩者均產生二乘二、雙通道張量，再逐元素相加。">
 </div>
 </div>
 
@@ -56,8 +56,8 @@ s(x)=x+(-0.2x-0.3)=0.8x-0.3,\qquad y(x)=\operatorname{ReLU}(s(x)).
 加法輸出的導數為 \(ds/dx=0.8\)，但經過 ReLU 後，**\(s<0\) 時導數為 0**，**\(s>0\) 時為 0.8**；在 \(s=0\) 的轉折點沒有唯一的傳統導數。動畫同步顯示前向取樣點跨過折點，以及右方導數強度切換。這也說明「加法後接 ReLU」不應直接等同於加法後維持恆等映射的結構。[^resnet-identity]
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="殘差加法後 ReLU 導數動畫；可聚焦並水平捲動">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-postrelu-gate-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" alt="加法後 ReLU 的前向取樣點穿越折點；負半軸的局部導數為零，正半軸的局部導數為 0.8，折點處導數未定義。">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-postrelu-gate-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" alt="加法後 ReLU 的前向取樣點穿越折點；負半軸的局部導數為零，正半軸的局部導數為 0.8，折點處導數未定義。">
 </div>
 </div>
 
@@ -66,8 +66,8 @@ s(x)=x+(-0.2x-0.3)=0.8x-0.3,\qquad y(x)=\operatorname{ReLU}(s(x)).
 **4. 深度增加時，局部 Jacobian 會逐層相乘。** 假設每個普通純量層的導數固定為 \(-0.1\)，串接 \(d\) 層時，導數量值為 \(0.1^d\)。相較之下，若殘差區塊為 \(h_{k+1}=h_k+F_k(h_k)\)，且每個 \(F'_k=-0.1\)，則局部導數為 \(0.9\)，總導數量值為 \(0.9^d\)。六層之後，兩者分別為 \(10^{-6}\) 與 \(0.531441\)。動畫沿著不同深度呈現兩個乘積的變化。這是**固定純量局部導數的數學示意**，不能當作實際訓練梯度：多維殘差 Jacobian 仍可能放大、抵銷或旋轉梯度，恆等捷徑不保證訓練穩定。[^resnet-identity]
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="殘差與普通層隨深度增加的 Jacobian 乘積動畫；可聚焦並水平捲動">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" alt="深度從零層增加至六層的兩條純量導數量值曲線；普通層每層乘 0.1，殘差示例每層乘 0.9。">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" alt="深度從零層增加至六層的兩條純量導數量值曲線；普通層每層乘 0.1，殘差示例每層乘 0.9。">
 </div>
 </div>
 
