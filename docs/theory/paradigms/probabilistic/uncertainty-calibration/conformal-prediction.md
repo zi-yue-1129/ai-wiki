@@ -109,6 +109,26 @@ and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 20
 
 *Original animated teaching visual (CC BY-SA 4.0).* With **eight invented sorted scores** **[0.08, 0.16, 0.24, 0.32, 0.42, 0.47, 0.54, 0.69]**, split conformal uses the rank $k(\alpha)=\lceil(8+1)(1-\alpha)\rceil$ and the order statistic $\hat q=s_{(k)}$, taking **$\hat q=+\infty$ when $k>8$**. For $\alpha=0.08, 0.13, 0.25, 0.37, 0.49$, the pairs $(k,\hat q)$ are **(9,+∞), (8,0.69), (7,0.54), (6,0.47), (5,0.42)**. The moving guide sweeps the miscoverage level smoothly while the rank **jumps at exact ceiling boundaries**; this is a *parameter sweep*, **not a training trajectory or a set of measured outcomes**. The infinity case indicates a vacuous unconstrained prediction set, not a replacement by the largest finite score. Under exchangeability, the finite-sample correction supports marginal coverage for a preselected $\alpha$ (Angelopoulos & Bates, 2023). [GitHub static preview](../../../../assets/concept-animations/conformal-alpha-staircase-still.svg); MkDocs provides Play/Pause and keyboard-accessible horizontal scrolling.
 
+### Mondrian calibration: different thresholds for predefined groups
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mondrian groupwise calibration animated comparison">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-mondrian-groups-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-mondrian-groups-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-mondrian-groups-still.svg" alt="Six synthetic nonconformity scores per group lead to quantiles 0.60 for A and 0.85 for B; the same invented test score 0.72 is excluded in A but included in B." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* Artificial sorted calibration scores are **A = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60]** and **B = [0.15, 0.25, 0.35, 0.55, 0.65, 0.85]**. With **α = 0.25** and six observations per group, $k_g=\lceil(6+1)(1-0.25)\rceil=6$, giving **$q_A=0.60$** and **$q_B=0.85$**. Pooling all 12 scores yields a single threshold **0.60** (rank 10). A hypothetical nonconformity score **0.72** is excluded by A's threshold but included by B's. The animation changes from the pooled-threshold comparison to groupwise B calibration; it does **not** depict training or a deployment time series. For **predefined, observable groups**, split Mondrian conformal can guarantee group-conditional coverage under **exchangeability within each group**, not coverage conditioned on every feature vector. With too few calibration examples, a group may yield a vacuous prediction set. **All scores and the test example are synthetic, not observed model outputs or coverage estimates** (Boström & Johansson, 2020). [GitHub static preview](../../../../assets/concept-animations/conformal-mondrian-groups-still.svg); MkDocs adds Play/Pause and keyboard-focusable horizontal scrolling.
+
+### RAPS: rank penalty alters the candidate score ordering
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="RAPS rank-penalty motion comparison">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-raps-penalty-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-raps-penalty-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-raps-penalty-still.svg" alt="Synthetic APS scores 0.45, 0.75, 0.90, 1.00 rise to 0.45, 0.75, 1.00, 1.20 under a RAPS penalty; at illustrative q 0.95, C crosses the cutoff." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* For artificial sorted class probabilities **[0.45, 0.30, 0.15, 0.10]**, the **nonrandomized** score $s_{\mathrm{APS}}(r)=\sum_{j=1}^{r}p_{(j)}$ equals **[0.45, 0.75, 0.90, 1.00]**. A rank penalty $s_{\mathrm{RAPS}}(r)=s_{\mathrm{APS}}(r)+\lambda\max(0,r-k_{\mathrm{reg}})$, with $k_{\mathrm{reg}}=2$ and **λ = 0.10**, yields **[0.45, 0.75, 1.00, 1.20]**. At a **purely illustrative common q = 0.95**, the score rule $s\le q$ selects **{A, B, C}** for APS and **{A, B}** for RAPS. The moving curve is a **parameter sweep**, not optimization. In a valid deployment, **each score design must calibrate its own conformal threshold**; using a common hypothetical cutoff does *not* establish smaller calibrated sets or retained coverage. Practical RAPS can use randomized scores; this toy deliberately uses the deterministic variant (Angelopoulos et al., 2021). No values are model measurements. [GitHub static preview](../../../../assets/concept-animations/conformal-raps-penalty-still.svg); MkDocs adds Play/Pause and keyboard navigation.
+
 ## Variants
 
 - **Split conformal** uses one calibration set, which is the simplest and most common form.
@@ -138,6 +158,9 @@ and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 20
 ## References
 
 ### Seminal papers
+
+- Angelopoulos, A. N., Bates, S., Malik, J. & Jordan, M. I. (2021). Uncertainty sets for image classifiers using conformal prediction. *ICLR 2021*. https://arxiv.org/abs/2009.14193 — Introduces rank regularization in conformal classification.
+- Boström, H. & Johansson, U. (2020). Mondrian conformal regressors. *PMLR* 128, 114–133. https://proceedings.mlr.press/v128/bostrom20a.html — Studies Mondrian calibration categories in regression.
 
 - Romano, Y., Sesia, M. & Candès, E. J. (2020). Classification with valid and adaptive coverage. *Advances in Neural Information Processing Systems* 33. https://proceedings.neurips.cc/paper_files/paper/2020/hash/244edd7e85dc81602b7615cd705545f5-Abstract.html — Introduces adaptive conformal classification scores that use class-probability rankings to construct prediction sets.
 

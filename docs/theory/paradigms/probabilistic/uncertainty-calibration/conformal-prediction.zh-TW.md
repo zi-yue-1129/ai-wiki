@@ -97,6 +97,26 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 
 *原創教學動畫（CC BY-SA 4.0）。* 設八筆**人工**排序分數為 **[0.08, 0.16, 0.24, 0.32, 0.42, 0.47, 0.54, 0.69]**。分割式共形分位數的位置是 $k(\alpha)=\lceil(8+1)(1-\alpha)\rceil$，取 $\hat q=s_{(k)}$；若 **$k>8$ 則 $\hat q=+\infty$**。當 $\alpha$ 分別為 **0.08、0.13、0.25、0.37、0.49**，$(k,\hat q)$ 依序為 **(9,+∞)、(8,0.69)、(7,0.54)、(6,0.47)、(5,0.42)**。動畫讓錯誤涵蓋率參數連續掃描，而排序位置只會在 ceiling 函數跨越門檻時**離散跳動**；這是**參數比較，不是模型訓練歷程或資料實測**。正無窮大代表該情況下沒有資訊量的全域集合，不可偷偷改以最大的有限校準分數代替。若事先固定 $\alpha$ 且符合可交換性，有限樣本校正可提供邊際覆蓋保證（Angelopoulos 與 Bates，2023）。[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-alpha-staircase-still.svg)；MkDocs 支援播放／暫停與鍵盤水平捲動。
 
+### 蒙德里安共形預測：各群組採用獨立校準門檻
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="蒙德里安分組校準動畫">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-mondrian-groups-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-mondrian-groups-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-mondrian-groups-still.svg" alt="兩個各含六筆人工分數的群組，分別使用 0.60 與 0.85 作為門檻；相同人工測試分數 0.72 在 A 群被排除，在 B 群被納入。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 兩組**人工排序**校準分數分別為 **A = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60]**、**B = [0.15, 0.25, 0.35, 0.55, 0.65, 0.85]**。每組六筆、**α = 0.25**，排序位置為 $k_g=\lceil(6+1)(1-0.25)\rceil=6$，得到 **$q_A=0.60$** 與 **$q_B=0.85$**。合併全部 12 筆資料校準，排序位置 10 會得到**共同門檻 0.60**。一個**人工測試分數 0.72** 在 A 群不符合門檻，在 B 群則符合。動畫比較共同門檻與 B 群專屬門檻，**不是訓練過程，也不是部署時間序列**。對**事前定義且推論時可得的分組**，若**群內具可交換性**且採群內正確校準，分割式 Mondrian 共形預測可有**依群組為條件**的覆蓋保證，但不保證每個特徵向量的條件式覆蓋；小群組可能產生無資訊量的預測集合。所有數值皆為人工示例，**不是模型實測或母體覆蓋率估計**（Boström 與 Johansson，2020）。[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-mondrian-groups-still.svg)；MkDocs 支援播放／暫停及鍵盤水平捲動。
+
+### RAPS：排名正則化如何改變集合成員
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="RAPS 排名懲罰示意動畫">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-raps-penalty-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-raps-penalty-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-raps-penalty-still.svg" alt="四個人工類別的 APS 累積分數在加入 RAPS 排名懲罰後改變；當 lambda 為 0.10 時，類別 C 超過示意門檻 q 0.95。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 人工排序後類別機率為 **[0.45, 0.30, 0.15, 0.10]**。**非隨機化** APS 分數 $s_{\mathrm{APS}}(r)=\sum_{j=1}^{r}p_{(j)}$ 為 **[0.45, 0.75, 0.90, 1.00]**。加入 $s_{\mathrm{RAPS}}(r)=s_{\mathrm{APS}}(r)+\lambda\max(0,r-k_{\mathrm{reg}})$，設定 $k_{\mathrm{reg}}=2$、**λ = 0.10**，得到 **[0.45, 0.75, 1.00, 1.20]**。若採用**純示意的共同門檻 q = 0.95**，$s\le q$ 規則在 APS 選出 **{A, B, C}**，在 RAPS 選出 **{A, B}**。曲線變化是**參數掃描，不是模型最佳化過程**。實際要維持共形保證，**每一種分數函數都必須各自重新校準門檻**；固定人工門檻的比較不足以宣稱已得到較小且有效的預測集合。實務 RAPS 可使用隨機化分數；本圖刻意使用確定性的教學變體（Angelopoulos 等人，2021）。數值都不是模型實測。[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-raps-penalty-still.svg)；MkDocs 支援播放／暫停與鍵盤操作。
+
 ## 變體
 
 - **分割式共形預測**使用單一校準集，是最簡單也最常見的形式。
@@ -127,6 +147,9 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 ## 參考文獻
 
 ### 奠基性論文
+
+- Angelopoulos, A. N., Bates, S., Malik, J. & Jordan, M. I. (2021). Uncertainty sets for image classifiers using conformal prediction. *ICLR 2021*. https://arxiv.org/abs/2009.14193 — 共形分類集合的排名正則化方法。
+- Boström, H. & Johansson, U. (2020). Mondrian conformal regressors. *PMLR* 128, 114–133. https://proceedings.mlr.press/v128/bostrom20a.html — 依 Mondrian 類別分開校準迴歸區間。
 
 - Romano, Y., Sesia, M. & Candès, E. J. (2020). Classification with valid and adaptive coverage. *Advances in Neural Information Processing Systems* 33. https://proceedings.neurips.cc/paper_files/paper/2020/hash/244edd7e85dc81602b7615cd705545f5-Abstract.html — 以類別機率排序構造自適應共形分類分數與預測集合。
 

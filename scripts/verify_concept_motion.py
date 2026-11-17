@@ -21,6 +21,10 @@ TOPICS = {
     "conformal-weighted-quantile": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
     "conformal-aps-cumulative": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
     "conformal-alpha-staircase": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-mondrian-groups": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-raps-penalty": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "group-norm-statistics": "theory/deep-learning/normalisation/group-normalisation",
+    "rmsnorm-shift-response": "theory/deep-learning/normalisation/rms-normalisation",
     "svm-margin-hinge": "theory/paradigms/supervised/kernel-methods-svm/svm",
     "cv-fold-rotation": "theory/evaluation/protocols/methods/cross-validation",
     "ndcg-position-discount": "theory/evaluation/metrics/ranking/ndcg",
@@ -255,7 +259,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"conformal-subgroup-coverage", "conformal-shift-coverage", "conformal-cqr-expansion", "conformal-weighted-quantile", "conformal-aps-cumulative", "conformal-alpha-staircase"}:
+            elif stem in {"conformal-subgroup-coverage", "conformal-shift-coverage", "conformal-cqr-expansion", "conformal-weighted-quantile", "conformal-aps-cumulative", "conformal-alpha-staircase", "conformal-mondrian-groups", "conformal-raps-penalty"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {
@@ -281,7 +285,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"svm-margin-hinge", "cv-fold-rotation", "ndcg-position-discount", "map-precision-at-hits", "heavy-ball-overshoot", "sgd-noise-batch", "adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"group-norm-statistics", "rmsnorm-shift-response", "svm-margin-hinge", "cv-fold-rotation", "ndcg-position-discount", "map-precision-at-hits", "heavy-ball-overshoot", "sgd-noise-batch", "adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
