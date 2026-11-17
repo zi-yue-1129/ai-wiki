@@ -47,6 +47,27 @@ and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 20
 
 *Original animated teaching visual (CC BY-SA 4.0).* With eight illustrative calibration scores and α=0.25, the finite-sample index is ceil((8+1)(1−0.25))=7; the seventh sorted score is q=0.54. For a separate illustrative test input, candidate-label nonconformity scores (A: 0.19, B: 0.48, C: 0.71) give the set **{A, B}**. The animation reveals the calibration scores, threshold, and set membership in that order. **The displayed values are invented for teaching, not empirical coverage or model measurements.** The marginal coverage statement requires exchangeability; it is not a per-input guarantee. MkDocs provides Play/Pause; the [GitHub static preview](../../../../assets/concept-animations/conformal-quantile-still.svg) shows the completed set. Scroll horizontally on narrow screens. See Shafer & Vovk (2008) and Angelopoulos & Bates (2023) in References.
 
+
+### Why marginal coverage is not subgroup coverage
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Synthetic marginal and group coverage animation">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-subgroup-coverage-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-subgroup-coverage-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-subgroup-coverage-still.svg" alt="Two synthetic groups of ten outcomes: group A has nine covered, group B seven, but the combined coverage count is sixteen of twenty." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* Consider **20 synthetic outcomes**: 9/10 covered in group A and 7/10 in group B. Their combined **observed fraction** is 16/20 = 80%, even though group B has only 70%. These deliberately arranged outcomes are **not model measurements or an estimate of any population probability**. They illustrate why the split-conformal **marginal** coverage guarantee cannot be read as a conditional or subgroup coverage guarantee (Angelopoulos & Bates, 2023). Green marks a covered outcome, orange a miss. The animation reveals each group's outcomes; GitHub shows the [static preview](../../../../assets/concept-animations/conformal-subgroup-coverage-still.svg). MkDocs provides Play/Pause; on narrow screens, use horizontal scrolling or keyboard navigation.
+
+### What changes when test scores shift
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Fixed threshold and distribution shift animation">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-shift-coverage-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-shift-coverage-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-shift-coverage-still.svg" alt="Eight invented matched test scores with seven below the fixed q 0.54 threshold transition to eight shifted scores with only three below it." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* Keep the **illustrative** calibration threshold \(\hat q=0.54\) from the preceding eight calibration examples. A matched *toy test batch* has 7/8 scores at or below the threshold, whereas an invented shifted batch has only 3/8. The colored dots move between **alternative constructed score lists**, not actual tracked observations or measurements of a deployment. These counts **do not estimate coverage probabilities**; they show that a fixed threshold need not retain the same realized inclusion fraction when test-score distributions change. More generally, without calibration/test exchangeability, the usual finite-sample guarantee need not hold (Barber et al., 2023). [GitHub static preview](../../../../assets/concept-animations/conformal-shift-coverage-still.svg); MkDocs provides Play/Pause, and narrow screens support horizontal scrolling.
+
 ## Variants
 
 - **Split conformal** uses one calibration set, which is the simplest and most common form.

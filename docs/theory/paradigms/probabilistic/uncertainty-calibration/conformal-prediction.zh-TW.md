@@ -35,6 +35,27 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 
 *原創教學動畫（CC BY-SA 4.0）。* 假設有八筆示意校準分數，α=0.25，有限樣本的排序位置為 ceil((8+1)(1−0.25))=7，因此第七小的分數為門檻 q=0.54。另一筆示意測試輸入的候選標籤分數分別為 A: 0.19、B: 0.48、C: 0.71，得到預測集合 **{A, B}**。動畫依序呈現校準分數、門檻與集合成員。**數值是教學假設，不是實測模型結果或經驗覆蓋率。** 邊際覆蓋保證須有可交換性，並非逐筆輸入保證。MkDocs 網站可播放／暫停；[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-quantile-still.svg) 顯示最終集合。手機可水平捲動。來源見 Shafer 與 Vovk（2008）、Angelopoulos 與 Bates（2023）。
 
+
+### 為什麼邊際覆蓋率不代表各子群都達標
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="人工邊際與子群覆蓋率動畫">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-subgroup-coverage-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-subgroup-coverage-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-subgroup-coverage-still.svg" alt="兩個各十筆的人工資料群組：A 有九筆被涵蓋，B 有七筆被涵蓋；合併後二十筆中有十六筆被涵蓋。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 假設 **20 筆人工設計的結果**：A 群有 9/10 被預測集合涵蓋，B 群只有 7/10，合併的**樣本內涵蓋比例**卻恰好是 16/20 = 80%。這些刻意安排的結果**不是模型實測，也不是任何母體覆蓋機率的估計**。它們用來區分分割式共形預測的**邊際**覆蓋保證與不保證的條件式／子群覆蓋率（Angelopoulos 與 Bates，2023）。綠點代表涵蓋、橘點代表未涵蓋；動畫依序顯示兩群。GitHub 顯示[靜態預覽](../../../../assets/concept-animations/conformal-subgroup-coverage-still.svg)；MkDocs 可播放／暫停，手機可水平捲動或使用鍵盤操作。
+
+### 測試分數分布改變時會發生什麼事
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="固定門檻與分布偏移動畫">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-shift-coverage-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-shift-coverage-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-shift-coverage-still.svg" alt="固定門檻 q 0.54 的八筆人工測試分數，從原本七筆符合門檻的情境，過渡為偏移後僅三筆符合門檻的情境。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 沿用前面八筆校準示例的**人工門檻** \(\hat q=0.54\)，一組假設的同分布測試資料中有 7/8 個分數不大於門檻，另一組假設的偏移測試資料則只有 3/8。移動的點是在**兩組人工分數清單間視覺插值**，不代表實際追蹤相同樣本，也不是部署資料或實測覆蓋率。這些計數**不能估計真正覆蓋機率**；它們示意測試分數的分布改變後，固定門檻下的涵蓋比例可能下降。更一般地，校準與測試資料不具可交換性時，原本的有限樣本保證未必成立（Barber 等人，2023）。[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-shift-coverage-still.svg)；MkDocs 可播放／暫停，窄螢幕支援水平捲動。
+
 ## 變體
 
 - **分割式共形預測**使用單一校準集，是最簡單也最常見的形式。

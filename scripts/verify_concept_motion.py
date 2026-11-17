@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "conformal-subgroup-coverage": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-shift-coverage": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
     "itemcf-weighted-neighbors": "theory/models/recommender/item-based-cf",
     "neumf-dual-path": "theory/models/recommender/neural-cf",
     "resnet-identity-gradient": "theory/models/cnn/backbones-and-scaling/resnet/index",
@@ -239,6 +241,13 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"conformal-subgroup-coverage", "conformal-shift-coverage"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                static_links = re.findall(r"\\[[^]]+\\]\\(([^)]+\\.svg)\\)", text)
+                if static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in static_links
+                }:
+                    errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
             elif stem in {"itemcf-weighted-neighbors", "neumf-dual-path"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
