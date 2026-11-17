@@ -17,6 +17,26 @@ $$R^2 = 1 - \frac{\sum_{i}(y_i - \hat{y}_i)^2}{\sum_{i}(y_i - \bar{y})^2}$$
 
 where $\bar{y}$ is the mean of the true values. A perfect model scores 1.0. A model that always predicts $\bar{y}$ scores 0.0, and a model worse than that scores below zero. scikit-learn's documentation gives the example of predictions that are the reverse of the truth, which score −3.0 (see References).
 
+## Animated explanation: beating the mean baseline
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="R squared prediction and mean-baseline animation; focus and scroll horizontally if needed">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" data-motion-src="../../../../assets/concept-animations/r2-mean-baseline-motion.svg" data-still-src="../../../../assets/concept-animations/r2-mean-baseline-still.svg" alt="Four fixed targets and moving predictions; residual sum of squares crosses the mean-baseline sum of squares, driving R squared below zero.">
+</div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0. GitHub displays the static worse-than-baseline case. MkDocs provides Play/Pause and keyboard-focusable horizontal scrolling.* [Full SVG animation](../../../../assets/concept-animations/r2-mean-baseline-motion.svg).
+
+For **schematic** targets $y=(1,2,3,4)$, the fixed mean is $\bar y=2.5$ and $\mathrm{TSS}=5$. Predictions $\hat y_i=y_i+k(\bar y-y_i)$ move from mean-only ($k=1$, $R^2=0$) to perfect ($k=0$, $R^2=1$), then to worse-than-mean ($k=1.5$, $\mathrm{RSS}=11.25$ and $R^2=-1.25$), before returning. Thus $\mathrm{RSS}=5k^2$ and $R^2=1-k^2$. The horizontal score indicator follows that equation. The demonstration is not a training trajectory or a measured benchmark.
+
+### Interactive lab: crossing the mean baseline
+
+<div data-regression-lab="r2" data-lang="en"></div>
+
+Adjust $k$ between 0 and 1.5 to recompute all four predictions, the residual sum of squares, and $R^2=1-k^2$. At $k=0$ the predictions match the targets; at $k=1$ they match the mean-only baseline ($R^2=0$); at $k=1.5$ the score reaches $-1.25$. The blue circles represent fixed targets, orange circles represent changing predictions, and the dashed line is the target mean. Playback, stepping, resetting, speed selection, native keyboard input and reduced-motion fallback are supported. **This is a deterministic teaching example, not a model-training trajectory.** The static figure above remains available in GitHub.
+
+Below the changing predictions, **TSS** and **RSS** bars use the same fixed scale, and the vertical dashed reference marks TSS = 5. At $k=1$, the bars are equal ($\mathrm{RSS}=\mathrm{TSS}$, so $R^2=0$); for $k>1$, RSS extends past TSS and $R^2$ becomes negative. These bars represent sums of squares, not an empirical score trace.
+
 ## Interpretation
 
 $R^2$ answers a different question from MAE or RMSE. Those tell how large the errors are; $R^2$ tells whether the model does better than the mean. A low $R^2$ with a small RMSE can happen when the target has little variance, so both should be read together.
@@ -27,7 +47,7 @@ Use $R^2$ to summarise how much of the target's variation a model explains, and 
 
 ## Worked example
 
-Using the same values, the mean of the true values is $2.875$. The total sum of squares is $29.19$ and the residual sum of squares is $1.5$, so $R^2 = 1 - 1.5 / 29.19 \approx 0.949$. The model explains about 95% of the variance here, but the number does not say whether errors of 0.5 units are acceptable.
+For true values $(3, -0.5, 2, 7)$ and predictions $(2.5, 0, 2, 8)$, the mean of the true values is $2.875$. The total sum of squares is $29.19$ and the residual sum of squares is $1.5$, so $R^2 = 1 - 1.5 / 29.19 \approx 0.949$. The model explains about 95% of the variance here, but the number does not say whether errors of 0.5 units are acceptable.
 
 ## Properties and variants
 
