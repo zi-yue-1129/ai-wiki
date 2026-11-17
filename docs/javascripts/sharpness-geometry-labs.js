@@ -2,6 +2,7 @@
 (() => {
   'use strict';
   const NS = 'http://www.w3.org/2000/svg';
+  const instances = new Map();
   const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
   const lang = {
     en: {
@@ -97,14 +98,14 @@
         text(469,257,'Flat','#08766f',13,'middle');text(558,257,'Sharp','#aa4f2a',13,'middle');
         detail.textContent=`${L.radiusDetail} ρ=${rho.toFixed(2)}; ΔLflat=${fmt(flat)}; ΔLsharp=${fmt(sharp)}; ratio=4.000`;
       } else {
-        const a=val, du=.6, dw=a*du,h=2*a*a,orig=du*du,scaled=a*a*du*du;
+        const a=val, du=.6, dw=a*du,h=2*a*a,scaled=a*a*du*du;
         rect(18,18,298,262,'#fff',12);rect(325,18,297,262,'#fff',12);
         text(35,44,'Physical w', '#17324d',16);text(342,44,'Coordinate u', '#17324d',16);
         line(37,244,300,244,'#b4c7d8');line(343,244,603,244,'#b4c7d8');
         line(167,68,167,249,'#bccbd9',1.2,'3 5');line(472,68,472,249,'#bccbd9',1.2,'3 5');
-        curve(167,244,94,70,1,1.12,'#08766f');curve(472,244,94,70,a*a,1.12,'#aa4f2a');
+        curve(167,244,94,45,1,1.12,'#08766f');curve(472,244,94,45,a*a,1.12,'#aa4f2a');
         for(const [cx,y0,k,c] of [[167,244,1,'#08766f'],[472,244,a*a,'#aa4f2a']]){
-          const x=cx+94*du,y=y0-70*k*du*du;
+          const x=cx+94*du,y=y0-45*k*du*du;
           line(cx,y0,x,y0,c,2,'5 4');line(x,y,x,y0,c,1.4,'4 4');
           chart.append(svg('circle',{cx:x,cy:y,r:6,fill:c,stroke:'#fff','stroke-width':2}));
         }
@@ -117,15 +118,26 @@
     function set(n){val=clamp(Number(n),range[0],range[1]);val=Math.round(val/range[2])*range[2];slider.value=String(val);draw();}
     function sync(){detail.setAttribute('aria-live',playing?'off':'polite');play.textContent=playing?'Ⅱ':'▶';play.setAttribute('aria-label',playing?L.pause:L.play);play.disabled=mq.matches;}
     function stop(){playing=false;cancelAnimationFrame(raf);raf=0;last=0;sync();}
-    function tick(now){if(!playing)return;if(last){val+=direction*(now-last)*(range[1]-range[0])*Number(speed.value)/5500;
+    function tick(now){if(!host.isConnected){dispose();return;}if(!playing)return;if(last){val+=direction*(now-last)*(range[1]-range[0])*Number(speed.value)/5500;
       if(val>=range[1]){val=range[1];direction=-1;}else if(val<=range[0]){val=range[0];direction=1;}
       slider.value=String(val);draw();}last=now;raf=requestAnimationFrame(tick);}
     slider.addEventListener('input',()=>{stop();set(slider.value);});
-    mq.addEventListener?.('change',()=>{if(mq.matches)stop();notice.textContent=L.note+(mq.matches?' '+L.reduce:'');sync();});
-    document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+    const motionChanged=()=>{if(mq.matches)stop();notice.textContent=L.note+(mq.matches?' '+L.reduce:'');sync();};
+    const visibilityChanged=()=>{if(document.hidden)stop();};
+    mq.addEventListener?.('change',motionChanged);
+    document.addEventListener('visibilitychange',visibilityChanged);
+    function dispose(){
+      stop();mq.removeEventListener?.('change',motionChanged);
+      document.removeEventListener('visibilitychange',visibilityChanged);
+      instances.delete(host);root.remove();delete host.dataset.sharpnessReady;
+    }
+    instances.set(host,dispose);
     draw();
   }
-  const enhance=()=>document.querySelectorAll('[data-sharpness-lab]').forEach(init);
+  const enhance=()=>{
+    for(const [host,dispose] of instances)if(!host.isConnected)dispose();
+    document.querySelectorAll('[data-sharpness-lab]').forEach(init);
+  };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);else enhance();
   if(window.document$ && typeof window.document$.subscribe==='function')window.document$.subscribe(enhance);
 })();

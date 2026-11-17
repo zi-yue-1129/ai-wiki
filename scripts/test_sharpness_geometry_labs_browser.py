@@ -23,7 +23,7 @@ def run():
                     page.clock.install()
                     html=f'''<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><style>{CSS}</style><style>body{{margin:0;padding:8px;font-family:Arial,sans-serif}}main{{max-width:1000px;margin:auto}}</style></head><body><main>
                     <div data-sharpness-lab="radius" data-lang="{language}"></div><div data-sharpness-lab="reparam" data-lang="{language}"></div>
-                    </main><script>{JS}</script></body></html>'''
+                    </main><script>window.document$={{subscribe(fn){{window.navigateSharpness=fn;fn();}}}};</script><script>{JS}</script></body></html>'''
                     page.set_content(html)
                     assert page.locator('.sgl-panel').count()==2
                     assert page.locator('.sgl-scroll svg').count()==2
@@ -56,6 +56,11 @@ def run():
                             v=lab.locator('.sgl-detail').inner_text()
                             page.clock.run_for(500)
                             assert lab.locator('.sgl-detail').inner_text()==v
+                        # Endpoint curves must remain below chart headings and Hessian labels.
+                        if kind=='reparam':
+                            slider.fill('1.6')
+                            bounds=lab.locator('svg path').evaluate_all('els=>els.map(e=>e.getBBox().y)')
+                            assert min(bounds)>90,bounds
                         # Numeric graph labels must stay within the SVG viewBox.
                         rects=lab.locator('svg text').evaluate_all('els => els.map(e => {let r=e.getBBox(); return [r.x,r.y,r.x+r.width,r.y+r.height]})')
                         assert all(-1<=x0 and -1<=y0 and x1<=641 and y1<=301 for x0,y0,x1,y1 in rects),rects
@@ -67,7 +72,38 @@ def run():
                         scroll=page.locator('.sgl-scroll').first
                         scroll.focus();page.keyboard.press('ArrowRight');page.wait_for_timeout(300)
                         assert scroll.evaluate('(e)=>e.scrollLeft>0'),(language,width)
+                    # Repeated document notifications do not duplicate controls. Navigation
+                    # disposes detached calculators; back navigation initializes them once.
+                    page.evaluate('navigateSharpness();navigateSharpness()')
+                    assert page.locator('.sgl-panel').count()==2
+                    if motion=='no-preference':
+                        page.locator('[data-sharpness-lab="radius"]').get_by_role('button',name='播放' if language=='zh' else 'Play').click()
+                        page.clock.run_for(100)
+                    page.evaluate('window.oldSharpness=document.querySelector("main");oldSharpness.remove();navigateSharpness()')
+                    page.clock.run_for(200)
+                    assert page.evaluate('oldSharpness.querySelectorAll(".sgl-panel").length')==0
+                    page.evaluate('document.body.prepend(oldSharpness);navigateSharpness();navigateSharpness()')
+                    assert page.locator('.sgl-panel').count()==2
+                    assert page.locator('[data-sharpness-lab="radius"] input').input_value()=='0.6'
+                    assert not errors,errors
                     page.close();count+=1
+        if os.environ.get('SHARPNESS_SITE_DIR'):
+            from test_built_motion_browser import serve_site, assert_document_fits, check_math_rendering
+            with serve_site(Path(os.environ['SHARPNESS_SITE_DIR']).resolve(),'https://zi-yue-1129.github.io/ai-wiki/') as base:
+                for locale in ('','zh-TW/'):
+                    for width in (390,1280):
+                        page=browser.new_page(viewport={'width':width,'height':900},reduced_motion='reduce')
+                        page.goto(base+locale+'theory/optimization/sharp-minima/',wait_until='networkidle')
+                        page.wait_for_selector('.sgl-panel')
+                        assert page.locator('.sgl-panel').count()==2
+                        check_math_rendering(page)
+                        assert_document_fits(page,{'width':width})
+                        lab=page.locator('[data-sharpness-lab="reparam"]')
+                        lab.locator('input').fill('1.6')
+                        assert 'Hessian(u)=5.120' in lab.locator('.sgl-detail').inner_text()
+                        lab.scroll_into_view_if_needed()
+                        page.screenshot(path=str(OUT/f'built-{locale.replace("/","") or "en"}-{width}.png'))
+                        page.close()
         browser.close()
         print(f'Sharpness geometry labs: {count}/16 Chromium viewport/language/motion scenarios passed')
 

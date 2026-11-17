@@ -57,11 +57,15 @@ jobs:
         run: mkdocs build --strict
       - name: Exercise built desktop, mobile and reduced-motion pages
         run: python scripts/test_built_motion_browser.py
+      - name: Exercise sharpness calculators in the built bilingual site
+        run: SHARPNESS_SITE_DIR=site python scripts/test_sharpness_geometry_labs_browser.py
       - name: Keep browser screenshots and diagnostic report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: built-motion-browser-review
-          path: artifacts/built-motion-browser/
+          path: |
+            artifacts/built-motion-browser/
+            artifacts/sharpness-labs/
           if-no-files-found: warn
           retention-days: 14
