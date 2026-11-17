@@ -34,7 +34,9 @@ Given a small number of hyperparameters, which settings should be tried on a reg
 
 For hyperparameters with candidate sets of sizes \(n_1, \dots, n_d\), the grid has \(|\mathcal G| = \prod_{i=1}^{d} n_i\) points. Every point is trained and scored, and the best one is returned. The number of runs therefore grows exponentially with the number of hyperparameters \(d\), and a grid with \(n\) values per hyperparameter has \(n^d\) runs.
 
-![Continuous grid-search animation: sixteen lattice trials appear across four x-values and project onto four repeated x positions.](../../../assets/concept-animations/grid-search-x-coverage-motion.svg)
+<div role="region" tabindex="0" aria-label="Scrollable search coverage figure" style="width:100%;overflow-x:auto">
+  <img data-source-asset-urls src="../../../assets/concept-animations/grid-search-x-coverage-still.svg" data-motion-src="../../../assets/concept-animations/grid-search-x-coverage-motion.svg" data-still-src="../../../assets/concept-animations/grid-search-x-coverage-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="Continuous grid-search animation: sixteen lattice trials appear across four x-values and project onto four repeated x positions.">
+</div>
 
 *Original continuous SVG teaching animation, CC BY-SA 4.0.* Grid search enumerates a 4 × 4 lattice. Each new trial appears in the left-hand parameter space and its x-value accumulates on the right. The same four x-values are reused four times, even though x is the influential parameter. The green strip is an invented narrow target interval x ∈ [0.68, 0.80], not a measured validation score or tuning result. This fixed **16-trial** illustration shows sampling coverage, not a guarantee that random search wins on any given problem. MkDocs provides keyboard-accessible Play/Pause and a reduced-motion static fallback; [GitHub-readable static preview](../../../assets/concept-animations/grid-search-x-coverage-still.svg).
 

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-17
 ---
 
 # 尖銳極小值與大批次泛化
@@ -9,6 +9,50 @@ Keskar 等人（2017）報告，以大批次訓練會收斂到損失函數的尖
 ## 概述
 
 當損失在離開極小值的某些方向上快速上升時，該極小值是尖銳的；上升緩慢時則是平坦的。其想法是：平坦極小值能容忍訓練分布與測試分布之間的小偏移，因此同樣的參數在未見過的資料上表現相近。尖銳極小值對這類偏移則較為敏感。問題在於，最佳化器做了什麼，造成了這種差異。批次大小是一個候選因素，因為小批次的梯度雜訊會改變最佳化器所走的路徑。
+
+
+## 動態示範：損失地形銳度與重新參數化
+
+**1. 相同半徑下的損失增量。** 考慮兩個人工建構的損失函數 \(L_\kappa(w)=\tfrac12\kappa w^2\)，曲率分別為 \(\kappa=0.5\) 與 \(\kappa=2\)。兩者在 \(w=0\) 都有相同的最小損失，但在共同擾動半徑 \(\rho\) 下，損失增加量為 \(\Delta L_\kappa=\tfrac12\kappa\rho^2\)。動畫同步調整兩個曲線上的探測點及損失增量條。無論半徑多少，較尖銳曲線的損失增加量都是較平坦曲線的**四倍**；這只是示意二次函數的解析結果，**不是模型測試準確率的證據**。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="教學概念動畫；可聚焦此區域並水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/sharpness-radius-loss-still.svg" data-motion-src="../../assets/concept-animations/sharpness-radius-loss-motion.svg" data-still-src="../../assets/concept-animations/sharpness-radius-loss-still.svg" alt="兩個二次損失函數具有相同最小值；相同參數擾動半徑逐漸增加時，高曲率函數的損失增加量是低曲率函數的四倍。">
+</div>
+</div>
+
+*原創連續教學 SVG，CC BY-SA 4.0。GitHub 顯示可直接閱讀的靜態狀態；MkDocs 網站提供播放／暫停及減少動態效果回退。曲線、數值與軌跡皆為人工數學示意，非模型實測。* [觀看完整 SVG 動畫](../../assets/concept-animations/sharpness-radius-loss-motion.svg)。
+
+
+
+### 可操作實驗：固定半徑下的銳度
+
+使用下方滑桿控制共同半徑，圖中的兩條損失曲線、探測點與損失增量長條，會依照 $L_\kappa(w)=\kappa w^2/2$ **重新計算**。可使用方向鍵、**下一步**、播放／暫停與速度選單。當 $\rho=0.8$ 時，兩種人工損失的增量分別為 $0.16$ 與 $0.64$，比例為 4:1。
+
+<div data-sharpness-lab="radius" data-lang="zh"></div>
+
+*原創可運算教學實驗，CC BY-SA 4.0。上方靜態 SVG 可供 GitHub 與無 JavaScript 環境閱讀；本實驗在 MkDocs 網站執行。所有數值皆為人工解析式示意，並非模型訓練軌跡。*
+
+
+**2. 銳度依賴座標系統。** 對於 \(L(w)=w^2\)，進行重新參數化 \(w=a u\) 後，**同一個目標函數**在新座標下為 \(\widetilde L(u)=a^2u^2\)。對 \(u\) 的二階導數為 \(2a^2\)，而對原本 \(w\) 的二階導數固定為 2。當 \(a\) 在 0.7 至 1.5 之間變化，右側曲線會改變銳度，但左側代表的目標函數並未改變。兩側探測點使用相同的**座標偏移** 0.5，並不是相同的實際參數擾動，因為 \(\Delta w=a\Delta u\)。這說明 Dinh 等人（2017）在參考文獻指出的「固定半徑、未正規化銳度指標」限制；**不能據此推論泛化能力**。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="教學概念動畫；可聚焦此區域並水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/sharpness-reparam-curvature-still.svg" data-motion-src="../../assets/concept-animations/sharpness-reparam-curvature-motion.svg" data-still-src="../../assets/concept-animations/sharpness-reparam-curvature-still.svg" alt="相同二次損失以原始與縮放座標呈現，重新參數化曲線的曲率和 Hessian 長條隨縮放係數改變，原始曲線則保持不變。">
+</div>
+</div>
+
+*原創連續教學 SVG，CC BY-SA 4.0。GitHub 提供靜態回退預覽，MkDocs 網站支援播放／暫停與減少動態效果。縮放係數與 Hessian 為解析式示意數值，並非已訓練網路的量測結果。* [觀看完整 SVG 動畫](../../assets/concept-animations/sharpness-reparam-curvature-motion.svg)。
+
+
+### 可操作實驗：重新參數化後的曲率
+
+調整 $a$，並固定**新座標**位移 $\Delta u=0.6$。左側仍為 $L(w)=w^2$，右側為 $\widetilde L(u)=a^2u^2$；面板同步計算 $H_u=2a^2$、原始參數位移 $\Delta w=a\Delta u$ 及損失變化 $\Delta\widetilde L=a^2(\Delta u)^2$。例如 $a=1.5$ 時，分別為 $4.5$、$0.9$ 及 $0.81$。**不是兩個模型的實測地形比較**。
+
+<div data-sharpness-lab="reparam" data-lang="zh"></div>
+
+*原創互動式數值示範，CC BY-SA 4.0。上方 GitHub 靜態預覽不依賴 JavaScript；可使用鍵盤、滑桿操作，減少動態效果模式停用自動播放而保留手動控制。*
+
 
 ## 問題
 

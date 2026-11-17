@@ -17,3 +17,4 @@
 | [Roadmap & Coverage](roadmap/index.md) | What is planned and what is missing |
 | [Style Guide](style-guide/index.md) | Writing conventions for this wiki |
 | [Tags](tags/index.md) | Cross-cutting themes that link pages across sections |
+| [Evidence & Retrieval Pilot](knowledge-pilot/index.md) | Bilingual LoRA/QLoRA evidence cards, offline queries and honest verification limits |

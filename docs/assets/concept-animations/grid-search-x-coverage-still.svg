@@ -21,7 +21,7 @@
 <line x1="416" y1="238" x2="416" y2="248" stroke="#6f849e"/><line x1="459.5" y1="238" x2="459.5" y2="248" stroke="#6f849e"/><line x1="503" y1="238" x2="503" y2="248" stroke="#6f849e"/><line x1="546.5" y1="238" x2="546.5" y2="248" stroke="#6f849e"/><line x1="590" y1="238" x2="590" y2="248" stroke="#6f849e"/>
 <text x="416" y="263" fill="#97abc4" font-family="Arial,Helvetica,sans-serif" font-size="10">0</text>
 <text x="590" y="263" text-anchor="end" fill="#97abc4" font-family="Arial,Helvetica,sans-serif" font-size="10">1</text>
-<text x="505" y="292" text-anchor="middle" fill="#fbbf68" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="bold">4 x-levels</text>
+<text x="505" y="292" text-anchor="middle" fill="#fbbf68" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="bold">FINAL: 4 x-levels</text>
 <text x="30" y="343" fill="#899fb7" font-family="Arial,Helvetica,sans-serif" font-size="10">SCHEMATIC · same evaluation budget</text>
 <g>
 <circle cx="108" cy="262" r="9.4" fill="#fbbf68" opacity=".17"/>

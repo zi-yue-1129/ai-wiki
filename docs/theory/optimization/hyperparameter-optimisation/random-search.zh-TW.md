@@ -26,7 +26,9 @@ translation_reviewed: 2026-11-12
 
 對於佔取樣質量比例為 \(p\) 的搜尋空間區域，\(n\) 次獨立試驗都不落在其中的機率為 \((1-p)^n\)，因此至少落在其中一次的機率為 \(1-(1-p)^n\)。例如 \(n = 60\)、\(p = 0.05\) 時，此機率約為 \(1 - 0.95^{60} \approx 0.95\)。
 
-![隨機搜尋連續動畫：16 個人工示意的隨機試驗逐次出現，並投影到 16 個不同的 x 位置。](../../../assets/concept-animations/random-search-x-coverage-motion.svg)
+<div role="region" tabindex="0" aria-label="Scrollable search coverage figure" style="width:100%;overflow-x:auto">
+  <img data-source-asset-urls src="../../../assets/concept-animations/random-search-x-coverage-still.svg" data-motion-src="../../../assets/concept-animations/random-search-x-coverage-motion.svg" data-still-src="../../../assets/concept-animations/random-search-x-coverage-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="隨機搜尋連續動畫：16 個人工示意的隨機試驗逐次出現，並投影到 16 個不同的 x 位置。">
+</div>
 
 *原創連續 SVG 教學動畫，CC BY-SA 4.0。* 固定的教學示例呈現 16 組獨立抽樣設定，每次加入一個試驗。同樣使用 16 次評估，其 x 維度投影涵蓋的不同位置多於 4 × 4 格點。本次示例恰好有 16 個不同的 x 值，但隨機搜尋不保證每次如此。 綠色直條為人工設定的狹窄目標區間 x ∈ [0.68, 0.80]，不代表真實模型分數或調參成果。本圖僅展示**固定 16 次試驗**下的取樣覆蓋率，不能推論隨機搜尋在每個問題都較好。MkDocs 網站提供鍵盤可操作的播放／暫停與減少動態效果時的靜態回退；[GitHub 靜態預覽](../../../assets/concept-animations/random-search-x-coverage-still.svg)。
 
