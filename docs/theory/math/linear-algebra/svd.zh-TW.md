@@ -95,9 +95,33 @@ $$
 - **主成分分析。** 令 $X$ 的每列是一筆中心化觀測值，共 $m>1$ 筆。$X$ 的右奇異向量是主方向，樣本共變異數矩陣的特徵值為 $\sigma_i^2/(m-1)$，必要時補零。前 $k$ 個主成分分數為 $XV_k=U_k\Sigma_k$。詳見[主成分分析](../../paradigms/unsupervised/dimensionality-reduction/pca.md)。[^pca]
 - **模型權重。** [截斷奇異值分解](../../model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md)近似既有權重矩陣。[LoRA](../../model-compression/low-rank-and-efficient-architectures/lora/index.md)凍結基礎權重，學習秩至多為所選適配器秩的更新 $BA$。[^lora]
 
+### 動態示範：最小平方法投影與殘差正交
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" data-motion-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-motion.svg" data-still-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" alt="觀測向量 b 與一維欄空間中的候選 Ax 隨參數掃描比較；殘差及平方誤差曲線同步變化，在 x 等於 1.2 達到最小值。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可閱讀的最小平方投影靜態圖](../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg)
+
+本例為人工設定的超定問題 $A=(2,1)^\top$、$b=(2,2)^\top$，最小平方解為 $x^*=(A^\top b)/(A^\top A)=6/5=1.2$。因此 $\hat b=(2.4,1.2)^\top$、$r=b-\hat b=(-0.4,0.8)^\top$，符合 $A^\top r=0$，且 $\|r\|_2^2=0.8$。右側描繪精確目標函數 $E(x)=5(x-1.2)^2+0.8$。動畫游標只是**參數掃描，不是求解器迭代或模型實測**。[^approx]
+
+MkDocs 沿用支援鍵盤的**播放／暫停**；小螢幕可聚焦後水平捲動。GitHub 與減少動態效果模式使用最佳投影位置的靜態回退。原創圖像，**CC BY-SA 4.0**。
+
 ## 解讀分解因子
 
 同時反轉一對奇異向量的符號，該秩一項會保持相同。重複的奇異值允許在共用子空間內選擇不同的標準正交基底。奇異值彼此接近時，個別計算出的向量也可能對擾動敏感。不同求解器產生的因子有差異時，可比較重建結果及相關子空間。[^accuracy]
+
+### 動態示範：重複奇異值的基底不唯一性
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" data-motion-src="../../../assets/concept-animations/svd-degenerate-bases-motion.svg" data-still-src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" alt="A 等於兩倍單位矩陣時，左右奇異向量基底一起旋轉，但固定輸入 x 及輸出 Ax 保持不變。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可閱讀的重複奇異值靜態圖](../../../assets/concept-animations/svd-degenerate-bases-still.svg)
+
+選用的人工矩陣 $A=2I_2$ 具有相等奇異值 $\sigma_1=\sigma_2=2$。對**任意**旋轉矩陣 $R(\theta)$，$A=R(\theta)(2I_2)R(\theta)^\top$ 都是有效的 SVD。彩色奇異向量基底同步旋轉，但綠色的固定輸入 $x$ 和輸出 $Ax=2x$ 不變。這說明**個別奇異向量可以不唯一**；並非矩陣 $A$ 隨時間變動，也不是 SVD 求解器的執行歷程。[^accuracy]
+
+MkDocs 提供**播放／暫停**，亦可用鍵盤水平捲動；GitHub／減少動態效果使用靜態回退。原創示意，**CC BY-SA 4.0**。
 
 [^svd]: 《LAPACK Users' Guide》的〈Singular Value Decomposition〉定義各因子並說明雙對角化。
 [^ey]: Eckart 與 Young（1936）建立並求解最小平方意義下的低秩近似問題。

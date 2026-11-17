@@ -108,9 +108,33 @@ This **chosen diagonal toy problem** uses $A=\operatorname{diag}(3,0.25)$ and $b
 - **PCA.** Let $X$ have $m>1$ centred observations in its rows. The right singular vectors of $X$ are principal directions, the sample covariance eigenvalues are $\sigma_i^2/(m-1)$ with additional zeros as needed, and the top $k$ scores are $XV_k=U_k\Sigma_k$. See [Principal component analysis](../../paradigms/unsupervised/dimensionality-reduction/pca.md).[^pca]
 - **Model weights.** [Truncated SVD](../../model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md) approximates an existing weight matrix. [LoRA](../../model-compression/low-rank-and-efficient-architectures/lora/index.md) freezes the base weights and learns an update $BA$ whose rank is at most the chosen adapter rank.[^lora]
 
+### Animated least-squares projection and residual orthogonality
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" data-motion-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-motion.svg" data-still-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" alt="An observation b and candidate Ax in a one-dimensional column space; residual and the squared-error parabola update during a parameter sweep and show their minimum at x 1.2." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable least-squares projection still](../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg)
+
+For the illustrative, overdetermined problem $A=(2,1)^\top$ and $b=(2,2)^\top$, the least-squares solution is $x^*=(A^\top b)/(A^\top A)=6/5=1.2$. Thus $\hat b=(2.4,1.2)^\top$, $r=b-\hat b=(-0.4,0.8)^\top$, $A^\top r=0$ and $\|r\|_2^2=0.8$. The right panel gives the exact objective $E(x)=5(x-1.2)^2+0.8$. The animated marker is a **parameter sweep, not a solver iteration or model measurement**.[^approx]
+
+The MkDocs site uses the existing keyboard-accessible **Play/Pause** control; narrow screens support focused horizontal scrolling. GitHub and reduced-motion mode display the static optimum. Original artwork, **CC BY-SA 4.0**.
+
 ## Interpreting the factors
 
 A singular-vector pair can have both signs flipped without changing its rank-one term. Repeated singular values permit different orthonormal bases in their shared subspace. Closely spaced singular values can also make individual computed vectors sensitive to perturbations. The reconstruction and the relevant subspace are useful comparisons when factors differ between solvers.[^accuracy]
+
+### Animated freedom of singular bases at repeated values
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" data-motion-src="../../../assets/concept-animations/svd-degenerate-bases-motion.svg" data-still-src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" alt="For the matrix A equal to two times the identity, the input and output singular-vector bases rotate together while a fixed x and Ax remain unchanged." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable equal-singular-value basis still](../../../assets/concept-animations/svd-degenerate-bases-still.svg)
+
+The chosen matrix $A=2I_2$ has equal singular values $\sigma_1=\sigma_2=2$. For **every** rotation $R(\theta)$, $A=R(\theta)(2I_2)R(\theta)^\top$ is a valid SVD. The coloured singular bases rotate together, while the green input $x$ and output $Ax=2x$ stay fixed. The changing basis illustrates the **non-uniqueness of individual singular vectors**; it is neither a change to $A$ nor the trajectory of an SVD solver.[^accuracy]
+
+MkDocs uses **Play/Pause**; keyboard scrolling and a GitHub/reduced-motion still remain available. Original schematic, **CC BY-SA 4.0**.
 
 [^svd]: *LAPACK Users' Guide*, “Singular Value Decomposition”, defines the factors and describes bidiagonal reduction.
 [^ey]: Eckart and Young (1936) formulate and solve the least-squares lower-rank approximation problem.
