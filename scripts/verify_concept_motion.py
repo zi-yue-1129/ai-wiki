@@ -243,7 +243,7 @@ def main() -> int:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"conformal-subgroup-coverage", "conformal-shift-coverage"}:
                 errors.extend(verify_source_pair(page, text, stem))
-                static_links = re.findall(r"\\[[^]]+\\]\\(([^)]+\\.svg)\\)", text)
+                static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {
                     (page.parent / link).resolve() for link in static_links
                 }:
