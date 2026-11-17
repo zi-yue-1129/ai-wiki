@@ -56,3 +56,8 @@ def test_elbow():
 if __name__=='__main__':
     test_d2();test_outlier();test_scaling();test_elbow()
     print('k-means D² probabilities, centroid motion, equal-scale distances and optimal inertia passed')
+
+# A lone dollar delimiter across lines is rendered literally by Markdown.
+import re
+for p in (Path(__file__).resolve().parents[1] / "docs/theory/paradigms/unsupervised/clustering").glob("k-means*.md"):
+    assert not re.search(r"^\$\s*$", p.read_text(), re.M), p

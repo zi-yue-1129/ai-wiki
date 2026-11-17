@@ -46,12 +46,12 @@ c(i) \leftarrow \arg\min_{j}\ \|x_i - \mu_j\|^2, \qquad
 
 k-means++ 先均勻隨機選一個資料點當作中心。後續中心則以資料點到**目前最近的已選中心之距離平方**作為抽樣權重：
 
-$
+\[
 D(x)^2=\min_{\mu\in S}\|x-\mu\|^2,\qquad
 P(x\text{ 為下一個中心})=\frac{D(x)^2}{\sum_{z\in X}D(z)^2}.
-$
+\]
 
-<img data-source-asset-urls tabindex="0"
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
      src="../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg"
      data-motion-src="../../../../assets/concept-animations/kmeans-plusplus-d2-motion.svg"
      data-still-src="../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg"
@@ -63,13 +63,13 @@ $
 
 對單一固定群組，**平方誤差總和**的最小化解為算術平均數，因此很遠的觀測值可能明顯拉動中心。考慮人工一維資料
 
-$
+\[
 X(x)=\{0,1,2,3,4,x\},\qquad 4\leq x\leq12.
-$
+\]
 
 平均數為 $(10+x)/6$；當 $x$ 從 $4$ 移到 $12$，平均數由 **2.333** 變為 **3.667**，但中位數維持 **2.5**。
 
-<img data-source-asset-urls tabindex="0"
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
      src="../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg"
      data-motion-src="../../../../assets/concept-animations/kmeans-outlier-leverage-motion.svg"
      data-still-src="../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg"
@@ -81,7 +81,7 @@ $
 
 採用歐氏距離的 k-means 會受到特徵單位影響。將第二個特徵乘上正比例因子 \(s\)，平方距離會變成 \(d_s^2(P,\mu)=(P_x-\mu_x)^2+s^2(P_y-\mu_y)^2\)。此範例固定兩個中心，**並非 Lloyd 演算法的完整訓練**。
 
-<img data-source-asset-urls tabindex="0"
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
      src="../../../../assets/concept-animations/kmeans-feature-scale-still.svg"
      data-motion-src="../../../../assets/concept-animations/kmeans-feature-scale-motion.svg"
      data-still-src="../../../../assets/concept-animations/kmeans-feature-scale-still.svg"
@@ -93,7 +93,7 @@ $
 
 允許更多群組時，最小的群內平方誤差總和不會上升。對**人工一維資料** \(X=\{0,1,2,8,9,10\}\)，當 \(k=1,2,3,4\) 時，最佳連續分割的 SSE 分別為 **100、4、2.5、1**。曲線以 **SSE 對數縱軸**顯示，使後段的較小改善仍然清晰。
 
-<img data-source-asset-urls tabindex="0"
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
      src="../../../../assets/concept-animations/kmeans-elbow-inertia-still.svg"
      data-motion-src="../../../../assets/concept-animations/kmeans-elbow-inertia-motion.svg"
      data-still-src="../../../../assets/concept-animations/kmeans-elbow-inertia-still.svg"

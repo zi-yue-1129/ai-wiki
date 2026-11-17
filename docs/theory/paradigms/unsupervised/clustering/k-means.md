@@ -54,12 +54,12 @@ where \(C_j\) is the set of points currently assigned to centre \(j\). Each step
 
 After its first uniformly chosen data point, k-means++ draws each subsequent centre with probability proportional to its **squared distance from the nearest centre already selected**:
 
-$
+\[
 D(x)^2=\min_{\mu\in S}\|x-\mu\|^2,\qquad
 P(x\text{ is drawn next})=\frac{D(x)^2}{\sum_{z\in X}D(z)^2}.
-$
+\]
 
-<img data-source-asset-urls tabindex="0"
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
      src="../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg"
      data-motion-src="../../../../assets/concept-animations/kmeans-plusplus-d2-motion.svg"
      data-still-src="../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg"
@@ -71,13 +71,13 @@ $
 
 Within one fixed cluster, the minimiser of **sum of squared errors** is its arithmetic mean. A single distant observation can therefore shift the centroid substantially. For the one-dimensional illustrative set
 
-$
+\[
 X(x)=\{0,1,2,3,4,x\},\qquad 4\leq x\leq12,
-$
+\]
 
 the mean is $(10+x)/6$, changing from **2.333** to **3.667** as $x$ moves from $4$ to $12$. The sample median remains **2.5** over this range.
 
-<img data-source-asset-urls tabindex="0"
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
      src="../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg"
      data-motion-src="../../../../assets/concept-animations/kmeans-outlier-leverage-motion.svg"
      data-still-src="../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg"
@@ -89,7 +89,7 @@ the mean is $(10+x)/6$, changing from **2.333** to **3.667** as $x$ moves from $
 
 Euclidean k-means is sensitive to feature units. Multiplying the second feature by a positive factor \(s\) changes the squared distance to \(d_s^2(P,\mu)=(P_x-\mu_x)^2+s^2(P_y-\mu_y)^2\). This example holds both centres fixed, so it **does not simulate Lloyd training**.
 
-<img data-source-asset-urls tabindex="0"
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
      src="../../../../assets/concept-animations/kmeans-feature-scale-still.svg"
      data-motion-src="../../../../assets/concept-animations/kmeans-feature-scale-motion.svg"
      data-still-src="../../../../assets/concept-animations/kmeans-feature-scale-still.svg"
@@ -101,7 +101,7 @@ Euclidean k-means is sensitive to feature units. Multiplying the second feature 
 
 The globally minimal within-cluster sum of squares cannot increase when k increases. For the **synthetic one-dimensional** data \(X=\{0,1,2,8,9,10\}\), the best contiguous partitions for \(k=1,2,3,4\) have exact SSE **100, 4, 2.5, 1**. The diagram uses a **logarithmic SSE axis** to make later smaller improvements visible.
 
-<img data-source-asset-urls tabindex="0"
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
      src="../../../../assets/concept-animations/kmeans-elbow-inertia-still.svg"
      data-motion-src="../../../../assets/concept-animations/kmeans-elbow-inertia-motion.svg"
      data-still-src="../../../../assets/concept-animations/kmeans-elbow-inertia-still.svg"
