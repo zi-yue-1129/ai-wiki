@@ -35,7 +35,9 @@ For a matrix parameter \(W \in \mathbb{R}^{n \times m}\), the second moment of t
 
 Only \(n + m\) values are stored instead of \(n m\). Vectors, such as biases, keep a full second moment, because the factorisation does not apply to them.
 
-![Adafactor progressively reveals row and column squared-gradient sums followed by a rank-one reconstructed moment matrix](../../../assets/concept-animations/adafactor-factored-moments-still.svg)
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Concept animation; focus to scroll horizontally">
+<img data-source-asset-urls src="../../../assets/concept-animations/adafactor-factored-moments-still.svg" data-motion-src="../../../assets/concept-animations/adafactor-factored-moments-motion.svg" data-still-src="../../../assets/concept-animations/adafactor-factored-moments-still.svg" alt="Adafactor progressively reveals row and column squared-gradient sums followed by a rank-one reconstructed moment matrix" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
 
 *Original, continuously animated teaching graphic (CC BY-SA 4.0).* Read the panels from left to right: a **schematic** 3 × 4 squared-gradient matrix `S` is reduced to three row sums `R` and four column sums `C`, then a rank-one estimate `V̂ = R C / ΣR` is reconstructed. The colors represent magnitude, not measured gradients. For illustration, `S = [[1,2,1,0],[3,1,2,2],[0,2,4,2]]` gives `R=(4,8,8)`, `C=(4,5,7,4)` and `ΣR=20`; reconstructed entry `V̂₂₃ = 8×7/20 = 2.8` differs from the original `S₂₃ = 2`. This is deliberately an **approximation**, not lossless compression or a measured model result. Here the factorised example stores 7 rather than 12 values; the memory benefit increases for larger matrices. The graphic omits exponential averaging, update clipping and the learning-rate schedule. Use the MkDocs Play/Pause control, or view the [GitHub-readable static overview](../../../assets/concept-animations/adafactor-factored-moments-still.svg). See [Shazeer and Stern (2018)](https://proceedings.mlr.press/v80/shazeer18a.html).
 

@@ -31,9 +31,3 @@
 .adaptive-lab-readout { min-height: 1.9em; margin-top: .55rem; font-size: .75rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
 @media (max-width: 460px) { .adaptive-lab { padding: .7rem; } .adaptive-lab-stats { grid-template-columns: 1fr; } .adaptive-lab-factor-wrap { gap: .5rem; } .adaptive-lab-matrix { grid-template-columns: repeat(4,27px); grid-template-rows: repeat(3,30px); gap: 3px; } .adaptive-lab-equals { font-size: 1.1rem; } .adaptive-lab-factor-results { font-size: .69rem; } .adaptive-lab-answer { font-size: .78rem; } }
 @media (prefers-reduced-motion: reduce) { .adaptive-lab-meter-fill { transition: none; } }
-/* Preserve full-size diagram labels at mobile widths. */
-.concept-motion-player:has(img[src*="adagrad-coordinate-gain"]),
-.concept-motion-player:has(img[src*="adafactor-factored-moments"]) { max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain; }
-.concept-motion-player img[src*="adagrad-coordinate-gain"],
-.concept-motion-player img[src*="adafactor-factored-moments"] { width:720px;max-width:none; }
-.concept-motion-player:focus-visible { outline:3px solid var(--md-accent-fg-color,#397da8);outline-offset:2px; }

@@ -3,6 +3,8 @@
  */
 (() => {
   'use strict';
+  const instances = new Map();
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const DATA = [
     [1, 2, 1, 0],
     [3, 1, 2, 2],
@@ -133,6 +135,7 @@
       readout.textContent = `${t.cell} (${row + 1},${col + 1}) · ${t.original} ${DATA[row][col]} · ${t.estimate} ${number(value)} · ${t.sum} = ${TOTAL} · ${t.state} 3 + 4 vs 12`;
     }
     function draw() {
+      readout.setAttribute('aria-live', timer === null ? 'polite' : 'off');
       slider.value = String(current);
       (mode === 'adagrad' ? adagrad : adafactor)();
       previous.disabled = current === Number(slider.min);
@@ -143,6 +146,7 @@
     }
     function stop() { if (timer !== null) clearInterval(timer); timer = null; draw(); }
     function cycle() {
+      if (!container.isConnected) { dispose(); return; }
       const max = Number(slider.max), min = Number(slider.min);
       current = current >= max ? min : current + 1;
       draw();
@@ -157,15 +161,25 @@
     slider.addEventListener('input', () => { const target = Number(slider.value); stop(); current = target; draw(); });
     toggle.addEventListener('click', () => timer === null ? start() : stop());
     speed.addEventListener('change', () => { if (timer !== null) { stop(); start(); } });
-    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
-    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener?.('change', e => { if (e.matches) stop(); });
-    // Avoid persistent animations across MkDocs instant-navigation page changes.
-    if (typeof window.document$?.subscribe === 'function') window.document$.subscribe(() => {
-      if (!container.isConnected) stop();
-    });
+    const visibilityChanged = () => { if (document.hidden) stop(); };
+    const motionChanged = e => { if (e.matches) stop(); };
+    document.addEventListener('visibilitychange', visibilityChanged);
+    motion.addEventListener?.('change', motionChanged);
+    function dispose() {
+      if (timer !== null) clearInterval(timer);
+      timer = null;
+      document.removeEventListener('visibilitychange', visibilityChanged);
+      motion.removeEventListener?.('change', motionChanged);
+      instances.delete(container);
+      container.replaceChildren();delete container.dataset.ready;
+    }
+    instances.set(container, dispose);
     draw();
   }
-  function boot() { document.querySelectorAll('[data-adaptive-lab]').forEach(enhance); }
+  function boot() {
+    for (const [container, dispose] of instances) if (!container.isConnected) dispose();
+    document.querySelectorAll('[data-adaptive-lab]').forEach(enhance);
+  }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
   if (typeof window.document$?.subscribe === 'function') window.document$.subscribe(boot);

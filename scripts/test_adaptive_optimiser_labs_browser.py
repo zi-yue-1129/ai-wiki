@@ -35,6 +35,7 @@ with sync_playwright() as p:
                     page.set_content('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1">'
                                      f'<main style="padding:10px"><div data-adaptive-lab="{mode}" data-lang="{lang}"></div></main>')
                     page.add_style_tag(path=str(CSS))
+                    page.evaluate('window.document$={subscribe(fn){window.navigateAdaptive=fn;fn();}}')
                     page.add_script_tag(path=str(JS))
                     assert page.locator('.adaptive-lab-title').count() == 1
                     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), (mode,lang,width,'overflow')
@@ -61,6 +62,24 @@ with sync_playwright() as p:
                         assert page.locator('.adaptive-lab-cell.adaptive-lab-selected').inner_text()=='1'
                         set_range(6)
                         assert page.locator('.adaptive-lab-selected').count()==1
+                    # Verify every mathematical state, not just one selected value.
+                    if mode=='adagrad':
+                        for step in range(1,7):
+                            set_range(step)
+                            cards=page.locator('.adaptive-lab-values').all_inner_texts()
+                            for k,history in enumerate(([1]*6,[1,0,0,0,1,0])):
+                                G=sum(g*g for g in history[:step]);gain=G**-.5
+                                assert f'{gain:.3f}' in cards[k]
+                                assert f'|Δθ| = {abs(history[step-1])*gain:.3f}' in cards[k]
+                        set_range(2)
+                    else:
+                        data=[[1,2,1,0],[3,1,2,2],[0,2,4,2]]
+                        for cell in range(12):
+                            set_range(cell);i,j=divmod(cell,4)
+                            estimate=sum(data[i])*sum(row[j] for row in data)/20
+                            assert f'{estimate:.3f}' in page.locator('.adaptive-lab-answer').inner_text()
+                            assert page.locator('.adaptive-lab-selected').inner_text()==str(data[i][j])
+                        set_range(6)
                     # The range and buttons must be reachable and respond to native keyboard keys.
                     slider.focus()
                     before=slider.input_value()
@@ -85,7 +104,31 @@ with sync_playwright() as p:
                     assert not errors
                     if width in (320,720) and not reduced:
                         page.screenshot(path=str(OUT / f'{mode}-{lang}-{width}.png'),full_page=True)
+                    page.evaluate('navigateAdaptive();navigateAdaptive()')
+                    assert page.locator('.adaptive-lab-title').count()==1
+                    page.locator('[data-action="toggle"]').click()
+                    assert page.locator('[role=status]').get_attribute('aria-live')=='off'
+                    page.evaluate('window.oldAdaptive=document.querySelector("main");oldAdaptive.remove();navigateAdaptive()')
+                    assert page.evaluate('oldAdaptive.querySelectorAll(".adaptive-lab-title").length')==0
+                    page.evaluate('document.body.prepend(oldAdaptive);navigateAdaptive();navigateAdaptive()')
+                    assert page.locator('.adaptive-lab-title').count()==1
+                    assert page.locator('[data-action="toggle"]').get_attribute('aria-pressed')=='false'
                     page.close()
                     cases+=1
+    if os.environ.get('ADAPTIVE_SITE_DIR'):
+        from test_built_motion_browser import serve_site, check_math_rendering, assert_document_fits
+        with serve_site(Path(os.environ['ADAPTIVE_SITE_DIR']).resolve(),'https://zi-yue-1129.github.io/ai-wiki/') as base:
+            for mode in ('adagrad','adafactor'):
+                for locale in ('','zh-TW/'):
+                    for width in (390,1280):
+                        page=browser.new_page(viewport={'width':width,'height':900},reduced_motion='reduce')
+                        page.goto(base+locale+'theory/optimization/adaptive/'+mode+'/',wait_until='networkidle')
+                        page.wait_for_selector('.adaptive-lab-title')
+                        check_math_rendering(page);assert_document_fits(page,{'width':width})
+                        page.locator('.adaptive-lab-range').fill('5' if mode=='adagrad' else '6')
+                        assert ('0.707' if mode=='adagrad' else '2.800') in page.locator('.adaptive-lab-readout').inner_text()
+                        page.locator('.adaptive-lab').scroll_into_view_if_needed()
+                        page.screenshot(path=str(OUT/f'built-{mode}-{locale.replace("/","") or "en"}-{width}.png'))
+                        page.close()
     browser.close()
 print(f'Adaptive optimiser labs Chromium regression: {cases}/{cases} cases passed')
