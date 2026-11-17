@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "itemcf-weighted-neighbors": "theory/models/recommender/item-based-cf",
+    "neumf-dual-path": "theory/models/recommender/neural-cf",
     "resnet-identity-gradient": "theory/models/cnn/backbones-and-scaling/resnet/index",
     "resnet-projection-shortcut": "theory/models/cnn/backbones-and-scaling/resnet/index",
     "resnet-postrelu-gate": "theory/models/cnn/backbones-and-scaling/resnet/index",
@@ -233,6 +235,13 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"itemcf-weighted-neighbors", "neumf-dual-path"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                static_links = re.findall(r"\\[[^]]+\\]\\(([^)]+\\.svg)\\)", text)
+                if static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in static_links
+                }:
+                    errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
             elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-14
+translation_reviewed: 2026-11-17
 related:
   - theory/models/recommender
 ---
@@ -30,6 +30,19 @@ NeuMF 結合兩條路徑，且論文允許每條路徑學習各自的嵌入。
 - **MLP 路徑。** 將使用者與項目嵌入串接，再經過帶有 ReLU 激活函數的隱藏層。
 
 兩條路徑的融合方式，是把 GMF 的乘積向量與 MLP 最後一個隱藏層串接起來。最後的輸出層使用 sigmoid 激活函數，給出預測分數。論文也研究在聯合訓練前，先分別預訓練各條路徑。
+
+### 動畫範例：NeuMF 雙分支與特徵融合
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/neumf-dual-path-still.svg" data-motion-src="../../../assets/concept-animations/neumf-dual-path-motion.svg" data-still-src="../../../assets/concept-animations/neumf-dual-path-still.svg" alt="使用者與項目訊號同時分流至 GMF 的逐元素乘法，以及使用獨立嵌入的 MLP 非線性轉換；兩組輸出串接後，再經 sigmoid 得到分數。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/neumf-dual-path-still.svg)
+
+
+以**人工數值**示範：GMF 分支使用 $p^G=(0.8,0.2)$ 與 $q^G=(0.5,0.9)$，逐元素相乘得到 $(0.40,0.18)$。MLP 分支使用**另一組獨立嵌入** $p^M=(0.6,0.1)$、$q^M=(0.2,0.7)$；自行設定兩個隱藏單元 $h=\operatorname{ReLU}(p^M_1-p^M_2,\;q^M_1-q^M_2)=(0.50,0)$。串接後 $z=(0.40,0.18,0.50,0)$。若示意輸出層權重全為一、偏差為零，則 $\sigma(\sum z)=\sigma(1.08)\approx0.7465$。
+
+移動標記用來凸顯**兩條路徑的並行運算與特徵融合**，不是依序訓練模型。使用者與項目嵌入都會進入**兩個**分支，不代表兩條路徑共用嵌入參數。上述向量、權重與分數**皆非論文的訓練結果、機率校準證據或推薦品質實測**；sigmoid 輸出不等於經驗證的機率估計。MkDocs 網站可使用 Play/Pause，並支援鍵盤水平捲動；GitHub 與減少動態效果模式使用靜態回退。原創圖像採 CC BY-SA 4.0 授權。
 
 ## 結果
 
