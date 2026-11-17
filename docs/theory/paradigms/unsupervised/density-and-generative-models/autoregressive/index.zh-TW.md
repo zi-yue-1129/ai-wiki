@@ -38,7 +38,7 @@ $$
 #### 似然累積動畫
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" alt="Drink、tea 與結束詞元 EOS 的三個條件機率相乘為 0.04；累積前綴機率依序為 0.50、0.10、0.04。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" alt="Drink、tea 與結束詞元 EOS 的三個條件機率相乘為 0.04；累積前綴機率依序為 0.50、0.10、0.04。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 **鏈式法則動畫。** 移動標記依序指向每個前綴的累積機率，而非詞元機率分布。 [Static GitHub preview](../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg).
@@ -53,7 +53,7 @@ $$
 #### 評分與生成的流程動畫
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" alt="教師強迫以因果遮罩對所有已知的下一詞元目標評分；祖先取樣則逐步擴張 Drink、coffee、EOS 的已生成前綴。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" alt="教師強迫以因果遮罩對所有已知的下一詞元目標評分；祖先取樣則逐步擴張 Drink、coffee、EOS 的已生成前綴。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 **教師強迫與生成取樣。** 藍色欄位使用已知且位移後的輸入與目標；橘色詞元則在每次抽樣之後才逐一出現。 [Static GitHub preview](../../../../../assets/concept-animations/ar-score-vs-sample-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg).
@@ -65,7 +65,7 @@ $$
 #### 生成前綴分歧動畫
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-context-drift-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-context-drift-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-context-drift-still.svg" alt="兩條前綴都以 BOS、We、ate 開始；觀測序列接著是 rice，示意抽樣序列則是 cake。兩種前綴後續預測 EOS 的人工條件機率分別為 0.85 和 0.40。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-context-drift-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-context-drift-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-context-drift-still.svg" alt="兩條前綴都以 BOS、We、ate 開始；觀測序列接著是 rice，示意抽樣序列則是 cake。兩種前綴後續預測 EOS 的人工條件機率分別為 0.85 和 0.40。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 **前綴分歧。** 動畫先顯示共同前綴，再顯示不同的下一個詞元，最後呈現後續預測 EOS 的兩個條件機率。[Static GitHub preview](../../../../../assets/concept-animations/ar-context-drift-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-context-drift-motion.svg)。
@@ -81,7 +81,7 @@ P(L=k)=q_k\prod_{j=1}^{k-1}(1-q_j).
 $$
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-eos-survival-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" alt="四個人工設定的 EOS 停止條件機率依序為 0.10、0.25、0.50、0.80；繼續生成的機率逐步減少，而第一次在第 1 至 4 步停止的機率為 0.10、0.225、0.3375、0.27。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-eos-survival-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" alt="四個人工設定的 EOS 停止條件機率依序為 0.10、0.25、0.50、0.80；繼續生成的機率逐步減少，而第一次在第 1 至 4 步停止的機率為 0.10、0.225、0.3375、0.27。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 **停止與繼續。** 藍色長條顯示目前步驟後尚未出現 EOS 的機率；每個橘色長條則表示第一次在對應步驟抽到 EOS 的機率。[Static GitHub preview](../../../../../assets/concept-animations/ar-eos-survival-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-eos-survival-motion.svg)。

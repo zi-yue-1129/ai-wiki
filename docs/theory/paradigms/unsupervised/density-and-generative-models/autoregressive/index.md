@@ -50,7 +50,7 @@ Suppose a toy text model assigns probabilities $0.5$ to *Drink* at the start, $0
 #### Animated likelihood accumulation
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" alt="Three conditional probabilities for Drink, tea and EOS multiply to 0.04, while the cumulative prefix probability moves from 0.50 to 0.10 to 0.04." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" alt="Three conditional probabilities for Drink, tea and EOS multiply to 0.04, while the cumulative prefix probability moves from 0.50 to 0.10 to 0.04." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 **Animated chain rule.** The moving marker follows the *prefix* probability, not a probability distribution over tokens. [Static GitHub preview](../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg).
@@ -65,7 +65,7 @@ To generate text, draw a token from the next-token distribution, append it to th
 #### Animated scoring versus generation
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" alt="Teacher forcing scores all observed next-token targets under a causal mask; ancestral sampling instead extends the generated prefix from Drink to coffee and EOS." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" alt="Teacher forcing scores all observed next-token targets under a causal mask; ancestral sampling instead extends the generated prefix from Drink to coffee and EOS." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 **Teacher forcing versus sampling.** Blue columns use known shifted inputs and targets; orange tokens appear only after successive draws. [Static GitHub preview](../../../../../assets/concept-animations/ar-score-vs-sample-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg).
@@ -77,7 +77,7 @@ For a causally masked Transformer, known targets can be scored in one forward pa
 #### Animated divergence of generated contexts
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-context-drift-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-context-drift-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-context-drift-still.svg" alt="Two prefixes share BOS, We and ate. The observed path continues to rice, while the sampled path continues to cake. Their illustrative next-step EOS probabilities are 0.85 and 0.40." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-context-drift-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-context-drift-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-context-drift-still.svg" alt="Two prefixes share BOS, We and ate. The observed path continues to rice, while the sampled path continues to cake. Their illustrative next-step EOS probabilities are 0.85 and 0.40." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 **Context drift.** The diagram first reveals the common prefix, then the differing next token, and finally the two next-step conditional probabilities. [Static GitHub preview](../../../../../assets/concept-animations/ar-context-drift-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-context-drift-motion.svg).
@@ -93,7 +93,7 @@ P(L=k)=q_k\prod_{j=1}^{k-1}(1-q_j).
 $$
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-eos-survival-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" alt="Four synthetic EOS hazards 0.10, 0.25, 0.50 and 0.80 progressively reduce continuation mass; the probability of first EOS at steps 1 to 4 is 0.10, 0.225, 0.3375 and 0.27." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-eos-survival-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" alt="Four synthetic EOS hazards 0.10, 0.25, 0.50 and 0.80 progressively reduce continuation mass; the probability of first EOS at steps 1 to 4 is 0.10, 0.225, 0.3375 and 0.27." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 **Stop versus continue.** The blue bar is the probability of *not* having drawn EOS after the current step; each orange column is the probability that EOS first occurs at that step. [Static GitHub preview](../../../../../assets/concept-animations/ar-eos-survival-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-eos-survival-motion.svg).
