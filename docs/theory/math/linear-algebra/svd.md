@@ -80,7 +80,29 @@ $$
 
 Its rows are orthogonal, so $AA^\top=\operatorname{diag}(18,8,2)$. The singular values are $3\sqrt{2}$, $2\sqrt{2}$ and $\sqrt{2}$. The first left singular vector is the first coordinate vector, so the rank-one approximation retains the first row and sets the other rows to zero. Its Frobenius error is $\sqrt{8+2}=\sqrt{10}$. Its spectral error is $2\sqrt{2}$. It retains $18/28=9/14$ of the original squared Frobenius norm.
 
+### Animated rank-one accumulation and residual energy
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/svd-rank-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" alt="Three orthogonal rank-one terms are added to a three-by-four matrix. The retained rows grow from one to three while Frobenius residual falls from square root of ten to square root of two, then zero." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable rank-one accumulation snapshots](../../../assets/concept-animations/svd-rank-accumulation-still.svg)
+
+In the **illustrative matrix above**, the three mutually orthogonal rows have singular values $3\sqrt{2}$, $2\sqrt{2}$ and $\sqrt{2}$. The rank-one, rank-two and rank-three reconstructions keep the first one, two and three rows respectively, with exact Frobenius residuals $\sqrt{10}$, $\sqrt{2}$ and $0$. Coloured cells mark nonzero entries (teal/blue positive, amber negative); pale cells mark omitted components. Moving dots show each rank-one contribution reaching the reconstruction, **not the numerical execution of an SVD solver**. The interpolated travel is schematic, not a measured training trace. MkDocs offers keyboard-accessible **Play/Pause**; on narrow screens, focus the diagram and scroll horizontally. GitHub and reduced-motion users get a static three-rank comparison. Original artwork, **CC BY-SA 4.0**.[^approx]
+
 For an $m\times n$ weight matrix stored as two dense factors of inner dimension $k$, the scalar count is $k(m+n)$ after folding $\Sigma_k$ into one factor. Storage shrinks when that count is less than $mn$. The approximation theorem controls matrix error. Model quality and latency depend on the surrounding model and implementation and can be measured on the deployment workload.[^approx]
+
+## Least squares, PCA and adaptation
+
+### Animated pseudoinverse sensitivity to small singular values
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-noise-amplification-still.svg" data-motion-src="../../../assets/concept-animations/svd-noise-amplification-motion.svg" data-still-src="../../../assets/concept-animations/svd-noise-amplification-still.svg" alt="As a perturbation in the second observation sweeps from minus 0.2 to plus 0.2, inversion through singular value 0.25 amplifies the second solution coordinate fourfold; truncation at threshold 0.5 instead sets it to zero." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable pseudoinverse sensitivity comparison](../../../assets/concept-animations/svd-noise-amplification-still.svg)
+
+This **chosen diagonal toy problem** uses $A=\operatorname{diag}(3,0.25)$ and $b=(3,\delta)$, with $-0.2\le\delta\le0.2$. Exact inversion gives $x=A^{-1}b=(1,4\delta)$, so the small singular value amplifies noise along the second singular direction by a factor of four. A **truncated SVD pseudoinverse** with threshold $\tau=0.5$ discards that direction and returns $x_\tau=(1,0)$. The blue zero line therefore suppresses the toy noise, **but truncation can also discard real signal and introduce bias**; it is not universally superior. Continuous marker travel represents a parameter sweep, not a solver iteration or measured model behaviour. MkDocs supports keyboard-accessible **Play/Pause** and focusable horizontal scrolling; GitHub and reduced-motion users see the still comparison. Original artwork, **CC BY-SA 4.0**.[^approx][^accuracy]
 
 ## Least squares, PCA and adaptation
 

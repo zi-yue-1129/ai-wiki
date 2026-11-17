@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-08
+translation_reviewed: 2026-11-17
 ---
 
 # 奇異值分解（SVD）
@@ -67,7 +67,29 @@ $$
 
 各列互相正交，所以 $AA^\top=\operatorname{diag}(18,8,2)$。奇異值是 $3\sqrt{2}$、$2\sqrt{2}$ 和 $\sqrt{2}$。第一個左奇異向量是第一個座標向量，因此秩一近似保留第一列，將其餘列設為零。其弗羅貝尼烏斯誤差為 $\sqrt{8+2}=\sqrt{10}$，譜範數誤差為 $2\sqrt{2}$。它保留原矩陣弗羅貝尼烏斯範數平方的 $18/28=9/14$。
 
+### 動態示範：逐項加入秩一分量與殘差能量
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/svd-rank-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" alt="三個互相正交的秩一分量依序加入三乘四矩陣。保留列數從一增加到三，弗羅貝尼烏斯殘差由根號十下降為根號二，再降為零。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可閱讀的三個秩近似靜態比較](../../../assets/concept-animations/svd-rank-accumulation-still.svg)
+
+沿用上方的**人工矩陣**：三列互相正交，奇異值依序為 $3\sqrt{2}$、$2\sqrt{2}$ 與 $\sqrt{2}$。保留前一、二、三個秩一項時，分別重建前一、二、三列，弗羅貝尼烏斯殘差精確為 $\sqrt{10}$、$\sqrt{2}$、$0$。彩色方格表示非零元素（青色／藍色為正，橘色為負）；淺色代表尚未加入的分量。移動標記只用來表達秩一分量加入重建矩陣的過程，**不是 SVD 求解器真正的運算流程**，也不是模型訓練實測值。MkDocs 可用鍵盤操作**播放／暫停**；窄螢幕可聚焦圖面並水平捲動。GitHub 與減少動態效果模式顯示三種秩的靜態比較。原創圖像，**CC BY-SA 4.0**。[^approx]
+
 將 $m\times n$ 權重矩陣儲存為兩個稠密的秩 $k$ 因子，並將 $\Sigma_k$ 併入其中一個因子後，共有 $k(m+n)$ 個純量。這個數量小於 $mn$ 時，儲存量就會下降。近似定理控制的是矩陣誤差。模型品質和延遲仍取決於模型其餘部分與實作，可在實際部署的工作負載上量測。[^approx]
+
+## 最小平方法、PCA 與調適
+
+### 動態示範：小奇異值造成偽逆放大雜訊
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-noise-amplification-still.svg" data-motion-src="../../../assets/concept-animations/svd-noise-amplification-motion.svg" data-still-src="../../../assets/concept-animations/svd-noise-amplification-still.svg" alt="第二個觀測分量的擾動從負零點二變成正零點二，經零點二五的奇異值取逆後，解的第二個分量被放大四倍；門檻零點五的截斷偽逆則將其設為零。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可閱讀的偽逆雜訊敏感度靜態比較](../../../assets/concept-animations/svd-noise-amplification-still.svg)
+
+此**人工對角矩陣問題**設定 $A=\operatorname{diag}(3,0.25)$、$b=(3,\delta)$，其中 $-0.2\le\delta\le0.2$。直接取逆可得 $x=A^{-1}b=(1,4\delta)$；因第二個奇異值只有 $0.25$，沿該方向的觀測雜訊會被放大四倍。若使用門檻 $\tau=0.5$ 的**截斷 SVD 偽逆**，便捨棄該方向，得到 $x_\tau=(1,0)$。藍色水平線在這個示例中抑制了雜訊，**但截斷也可能捨棄真實訊號並引入偏差**，不能解讀為必然較佳。連續移動的標記只表示參數掃描，不是求解器迭代或模型實測。MkDocs 可用鍵盤**播放／暫停**並聚焦水平捲動；GitHub 與減少動態效果模式顯示靜態回退。原創圖像，**CC BY-SA 4.0**。[^approx][^accuracy]
 
 ## 最小平方法、PCA 與調適
 
