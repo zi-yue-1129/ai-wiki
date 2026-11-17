@@ -91,8 +91,6 @@ $$
 
 此**人工對角矩陣問題**設定 $A=\operatorname{diag}(3,0.25)$、$b=(3,\delta)$，其中 $-0.2\le\delta\le0.2$。直接取逆可得 $x=A^{-1}b=(1,4\delta)$；因第二個奇異值只有 $0.25$，沿該方向的觀測雜訊會被放大四倍。若使用門檻 $\tau=0.5$ 的**截斷 SVD 偽逆**，便捨棄該方向，得到 $x_\tau=(1,0)$。藍色水平線在這個示例中抑制了雜訊，**但截斷也可能捨棄真實訊號並引入偏差**，不能解讀為必然較佳。連續移動的標記只表示參數掃描，不是求解器迭代或模型實測。MkDocs 可用鍵盤**播放／暫停**並聚焦水平捲動；GitHub 與減少動態效果模式顯示靜態回退。原創圖像，**CC BY-SA 4.0**。[^approx][^accuracy]
 
-## 最小平方法、PCA 與調適
-
 - **最小平方法。** Moore–Penrose 偽逆為 $A^+=V_r\Sigma_r^{-1}U_r^\top$。對右側向量 $b$，在使 $\|Ax-b\|_2$ 最小的解中，$A^+b$ 的歐幾里得範數最小。小的正奇異值取倒數後可能放大雜訊。數值秩的門檻會把部分小奇異值視為零，從而改變求解的問題。[^approx][^accuracy]
 - **主成分分析。** 令 $X$ 的每列是一筆中心化觀測值，共 $m>1$ 筆。$X$ 的右奇異向量是主方向，樣本共變異數矩陣的特徵值為 $\sigma_i^2/(m-1)$，必要時補零。前 $k$ 個主成分分數為 $XV_k=U_k\Sigma_k$。詳見[主成分分析](../../paradigms/unsupervised/dimensionality-reduction/pca.md)。[^pca]
 - **模型權重。** [截斷奇異值分解](../../model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md)近似既有權重矩陣。[LoRA](../../model-compression/low-rank-and-efficient-architectures/lora/index.md)凍結基礎權重，學習秩至多為所選適配器秩的更新 $BA$。[^lora]
