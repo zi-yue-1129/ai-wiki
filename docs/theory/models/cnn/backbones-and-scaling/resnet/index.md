@@ -46,6 +46,33 @@ This is a **local derivative at the addition** (or a pre-activation residual uni
 
 *Original 10-second SVG teaching animation (CC BY-SA 4.0). The colored sampling cells and moving markers are explanatory, not computed convolution outputs; projection weights are learned. GitHub renders the still; the MkDocs player provides Play/Pause, keyboard access and reduced-motion fallback.* [Open full SVG animation](../../../../../assets/concept-animations/resnet-projection-shortcut-motion.svg). [GitHub static fallback](../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg).
 
+
+**3. Post-addition ReLU can gate the shortcut gradient.** The direct additive derivative above is not necessarily the derivative of an entire *post-activation* block. To isolate the extra gate, consider the constructed scalar functions
+
+\[
+s(x)=x+(-0.2x-0.3)=0.8x-0.3,\qquad y(x)=\operatorname{ReLU}(s(x)).
+\]
+
+The derivative before activation is \(ds/dx=0.8\). After activation it is **zero where \(s<0\)** and **0.8 where \(s>0\)**; at \(s=0\) the classical derivative does not exist. Watch the forward point cross the kink while the right-hand derivative switches between these regimes. This is why the add-then-ReLU structure should not be conflated with an additive identity mapping that has no activation after the addition.[^resnet-identity]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Post-addition ReLU derivative animation; focus to scroll horizontally">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-postrelu-gate-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" alt="A point crosses a ReLU kink after residual addition; the local derivative changes from zero on the negative side to 0.8 on the positive side. The derivative is undefined at the kink.">
+</div>
+</div>
+
+*Original 10-second continuous-motion SVG (CC BY-SA 4.0). GitHub displays the inspected static fallback; the MkDocs player offers Play/Pause and a reduced-motion fallback. The values are analytic synthetic examples, **not measured gradients**.* [View animation](../../../../../assets/concept-animations/resnet-postrelu-gate-motion.svg). [GitHub fallback](../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg).
+
+**4. Depth multiplies local Jacobian factors.** For a constructed one-dimensional chain of \(d\) blocks, if every plain layer has derivative \(-0.1\), then \(|\partial h_d/\partial h_0|=0.1^d\). An identity-shortcut block \(h_{k+1}=h_k+F_k(h_k)\) with \(F'_k=-0.1\) instead has local derivative \(0.9\) and total derivative magnitude \(0.9^d\). At six blocks these are \(10^{-6}\) and \(0.531441\), respectively. The animation follows how **each additional block** changes the two products. This is a deliberately uniform *scalar* analytic illustration, not empirical network gradients; actual learned residual Jacobians can amplify, cancel, or rotate signals, and the identity shortcut alone does not guarantee stable optimisation.[^resnet-identity]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Depthwise residual and plain Jacobian factors animation; focus to scroll horizontally">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" alt="Two analytic derivative-magnitude curves as block depth grows from zero to six. Plain layer magnitudes shrink by a factor 0.1 per block while the residual example shrinks by 0.9 per block.">
+</div>
+</div>
+
+*Original 12-second SVG motion (CC BY-SA 4.0). The static image is readable directly on GitHub; on MkDocs the original player adds Play/Pause and reduced-motion fallback. Graph markers interpolate between six discrete depths for reading only; there are no intermediate real optimisation steps. Values are constructed mathematics, **not model measurements**.* [View animation](../../../../../assets/concept-animations/resnet-depth-gradient-factors-motion.svg). [GitHub fallback](../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg).
+
 [^resnet-identity]: He, Zhang, Ren & Sun (2016), *Identity Mappings in Deep Residual Networks*: https://arxiv.org/abs/1603.05027 — Derives direct forward and backward propagation in identity-mapped residual units.
 
 ## Problem

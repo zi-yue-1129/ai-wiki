@@ -46,6 +46,33 @@ g_x=g_y(1+F'(x)).
 
 *原創 10 秒 SVG 教學動畫（CC BY-SA 4.0）。著色取樣位置與移動標記只說明訊號流程，不是實際卷積數值；投影權重需要學習。GitHub 顯示靜態回退圖，網站提供播放／暫停、鍵盤操作與降低動態效果回退。* [開啟完整動畫](../../../../../assets/concept-animations/resnet-projection-shortcut-motion.svg)。 [GitHub 靜態回退圖](../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg)。
 
+
+**3. 加法之後的 ReLU 可能阻斷捷徑梯度。** 前面恆等加法的導數不等於所有傳統 post-activation 殘差區塊的完整導數。以下用人工純量函數隔離加法後啟動函數的影響：
+
+\[
+s(x)=x+(-0.2x-0.3)=0.8x-0.3,\qquad y(x)=\operatorname{ReLU}(s(x)).
+\]
+
+加法輸出的導數為 \(ds/dx=0.8\)，但經過 ReLU 後，**\(s<0\) 時導數為 0**，**\(s>0\) 時為 0.8**；在 \(s=0\) 的轉折點沒有唯一的傳統導數。動畫同步顯示前向取樣點跨過折點，以及右方導數強度切換。這也說明「加法後接 ReLU」不應直接等同於加法後維持恆等映射的結構。[^resnet-identity]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="殘差加法後 ReLU 導數動畫；可聚焦並水平捲動">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-postrelu-gate-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" alt="加法後 ReLU 的前向取樣點穿越折點；負半軸的局部導數為零，正半軸的局部導數為 0.8，折點處導數未定義。">
+</div>
+</div>
+
+*原創 10 秒連續 SVG 動畫（CC BY-SA 4.0）。GitHub 直接顯示已檢查的靜態回退圖；MkDocs 沿用播放／暫停與降低動態效果回退。數值是解析式人工示例，**不是模型實測梯度**。* [觀看動畫](../../../../../assets/concept-animations/resnet-postrelu-gate-motion.svg)。[靜態回退圖](../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg)。
+
+**4. 深度增加時，局部 Jacobian 會逐層相乘。** 假設每個普通純量層的導數固定為 \(-0.1\)，串接 \(d\) 層時，導數量值為 \(0.1^d\)。相較之下，若殘差區塊為 \(h_{k+1}=h_k+F_k(h_k)\)，且每個 \(F'_k=-0.1\)，則局部導數為 \(0.9\)，總導數量值為 \(0.9^d\)。六層之後，兩者分別為 \(10^{-6}\) 與 \(0.531441\)。動畫沿著不同深度呈現兩個乘積的變化。這是**固定純量局部導數的數學示意**，不能當作實際訓練梯度：多維殘差 Jacobian 仍可能放大、抵銷或旋轉梯度，恆等捷徑不保證訓練穩定。[^resnet-identity]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="殘差與普通層隨深度增加的 Jacobian 乘積動畫；可聚焦並水平捲動">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" alt="深度從零層增加至六層的兩條純量導數量值曲線；普通層每層乘 0.1，殘差示例每層乘 0.9。">
+</div>
+</div>
+
+*原創 12 秒 SVG 動畫（CC BY-SA 4.0）。GitHub 提供靜態圖，MkDocs 沿用播放／暫停與降低動態效果。圖上標記為輔助閱讀而在離散深度間移動，並非額外的最佳化步驟；所有數值均為人工計算，**不是模型實測值**。* [觀看動畫](../../../../../assets/concept-animations/resnet-depth-gradient-factors-motion.svg)。[靜態回退圖](../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg)。
+
 [^resnet-identity]: He、Zhang、Ren 與 Sun（2016），*Identity Mappings in Deep Residual Networks*：https://arxiv.org/abs/1603.05027 — 推導恆等捷徑的前向與反向訊號傳遞。
 
 ## 問題

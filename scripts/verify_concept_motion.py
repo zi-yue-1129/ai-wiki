@@ -17,6 +17,12 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "resnet-identity-gradient": "theory/models/cnn/backbones-and-scaling/resnet/index",
     "resnet-projection-shortcut": "theory/models/cnn/backbones-and-scaling/resnet/index",
+    "resnet-postrelu-gate": "theory/models/cnn/backbones-and-scaling/resnet/index",
+    "resnet-depth-gradient-factors": "theory/models/cnn/backbones-and-scaling/resnet/index",
+    "mixup-paired-interpolation": "theory/deep-learning/dropout/mixup",
+    "mixup-beta-strength": "theory/deep-learning/dropout/mixup",
+    "mixup-loss-decomposition": "theory/deep-learning/dropout/mixup",
+    "mixup-cutmix-area": "theory/deep-learning/dropout/mixup",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
@@ -207,13 +213,13 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
-                          "svd-unit-circle", "power-iteration-convergence", "resnet-identity-gradient", "resnet-projection-shortcut",
+            elif stem in {"resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+                          "svd-unit-circle", "power-iteration-convergence",
                           "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
-                if stem in {"svd-unit-circle", "power-iteration-convergence"}:
+                if stem in {"resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "svd-unit-circle", "power-iteration-convergence"}:
                     static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                     if static_path.resolve() not in {
                         (page.parent / link).resolve() for link in static_links
@@ -221,7 +227,7 @@ def main() -> int:
                         errors.append(f"{page}: missing GitHub-readable static link")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory", "resnet-identity-gradient", "resnet-projection-shortcut"}:
+            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)
@@ -235,6 +241,31 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+    # GitHub's static previews and MkDocs's bilingual motion enhancement.
+    for stem, page in {
+        "brier-expected-risk": "brier-score",
+        "log-loss-tail-penalty": "log-loss",
+    }.items():
+        moving = ASSETS / f"{stem}-motion.svg"
+        still = ASSETS / f"{stem}-still.svg"
+        errors.extend(verify_svg(moving, True))
+        errors.extend(verify_svg(still, False))
+        for locale in (".md", ".zh-TW.md"):
+            doc = DOCS / "theory/evaluation/metrics/probabilistic" / (page + locale)
+            if not doc.is_file():
+                errors.append(f"{doc}: missing translation")
+                continue
+            body = doc.read_text(encoding="utf-8")
+            errors.extend(verify_source_pair(doc, body, stem))
+            relative = "../../../../assets/concept-animations/"
+            if f'src="{relative}{still.name}"' not in body:
+                errors.append(f"{doc}: missing actual GitHub static image src")
+            if f'data-motion-src="{relative}{moving.name}"' not in body:
+                errors.append(f"{doc}: missing animated source")
+            if f'data-still-src="{relative}{still.name}"' not in body:
+                errors.append(f"{doc}: missing reduced-motion fallback")
+            if "CC BY-SA 4.0" not in body:
+                errors.append(f"{doc}: missing original-art attribution")
     # MAE and RMSE share one source-relative visual in both languages.
     for suffix in (".md", ".zh-TW.md"):
         page = DOCS / ("theory/evaluation/metrics/regression/rmse" + suffix)
