@@ -39,6 +39,34 @@ Clipping is applied to the gradient before the optimiser update. Normalised upda
 | Layer-wise normalisation (LARS) | Each layer's step | Step size proportional to the layer's weight norm |
 | Layer-wise normalisation (LAMB) | Each layer's Adam-style update | Adam direction, scaled by the layer's trust ratio |
 
+
+### Norm clipping versus coordinatewise value clipping
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Compare norm and coordinate clipping animated diagram">
+<div style="width:800px">
+<img data-source-asset-urls src="../../assets/concept-animations/gradient-clipping-comparison-still.svg" data-motion-src="../../assets/concept-animations/gradient-clipping-comparison-motion.svg" data-still-src="../../assets/concept-animations/gradient-clipping-comparison-still.svg" alt="A growing synthetic gradient is clipped by its global L2 norm or independently along the x and y coordinates; only global norm clipping preserves direction." width="800" height="420">
+</div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* The synthetic vector is \(g(s)=s(4,2)\), with \(0.35\le s\le1\). **Global L2 clipping** uses \(\tilde g=g\min(1,2/\|g\|_2)\), preserving direction, whereas **coordinate clipping** uses \(\tilde g_j=\max(-1.5,\min(1.5,g_j))\), which can rotate it. At \(s=1\), the global output is approximately **(1.789, 0.894)** and the coordinatewise output **(1.5, 1.5)**. The continuous sweep is a mathematical comparison, **not a measured gradient trace or optimizer trajectory**. [GitHub static preview](../../assets/concept-animations/gradient-clipping-comparison-still.svg). The MkDocs site offers Play/Pause; mobile users can scroll horizontally and focus the figure with a keyboard. Norm clipping follows Pascanu et al. (2013) in References.
+
+### Clipping before versus after averaging accumulated gradients
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Compare clip-before-mean and clip-after-mean animated diagram">
+<div style="width:800px">
+<img data-source-asset-urls src="../../assets/concept-animations/gradient-accumulation-clipping-order-still.svg" data-motion-src="../../assets/concept-animations/gradient-accumulation-clipping-order-motion.svg" data-still-src="../../assets/concept-animations/gradient-accumulation-clipping-order-still.svg" alt="Two alternative orders for averaging two synthetic microbatch gradients and global L2 clipping produce different final arrows: one comma one versus roughly one point seven nine comma zero point eight nine." width="800" height="420">
+</div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* Let two invented microbatch gradients be \(g_1=(4,0)\) and \(g_2=(0,2)\), with L2 threshold \(\tau=2\). The operations **do not commute**:
+
+\[
+\frac{\operatorname{clip}_2(g_1)+\operatorname{clip}_2(g_2)}{2}=(1,1),\qquad
+\operatorname{clip}_2\!\left(\frac{g_1+g_2}{2}\right)=\left(\frac{4}{\sqrt5},\frac{2}{\sqrt5}\right)\approx(1.789,0.894).
+\]
+
+The animation varies the second input continuously as \(g_2(t)=(0,2t)\); its intermediate frames compare **hypothetical inputs**, not successive updates. Real gradient accumulation may sum instead of average; any threshold must be interpreted in the chosen scaling convention. **All numbers are analytic teaching examples, not training measurements.** [GitHub static preview](../../assets/concept-animations/gradient-accumulation-clipping-order-still.svg). On MkDocs use Play/Pause; on narrow displays scroll the focusable figure horizontally. Norm clipping is discussed in Pascanu et al. (2013), already cited below.
+
 ## Key methods
 
 Three methods, each with its own page. The first is the oldest and the simplest.

@@ -61,6 +61,8 @@ TOPICS = {
     "mean-field-coordinate-ascent": "theory/paradigms/probabilistic/variational-inference/mean-field",
     "moe-top2-routing": "theory/models/mixture-of-experts/index",
     "cfg-extrapolation": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance",
+    "gradient-clipping-comparison": "theory/optimization/gradient-clipping-and-normalisation",
+    "gradient-accumulation-clipping-order": "theory/optimization/gradient-clipping-and-normalisation",
     "gradient-norm-clipping": "theory/optimization/norm-clipping",
     "swin-shifted-windows": "theory/models/transformer/vision-transformer/swin/index",
     "deformable-sampling": "theory/models/cnn/convolution-variants/deformable-convolution/index",

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-18
 ---
 
 # 梯度裁剪與正規化更新
@@ -26,6 +26,34 @@ translation_reviewed: 2026-10-28
 | 範數裁剪 | 整個梯度 | 梯度過大時限制步長；保留方向 |
 | 逐層正規化（LARS） | 每層的步長 | 步長與該層的權重範數成正比 |
 | 逐層正規化（LAMB） | 每層的 Adam 式更新 | 採用 Adam 的方向，並以該層的信任比縮放 |
+
+
+### 梯度範數裁剪與逐座標數值裁剪的差異
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="梯度範數裁剪與逐座標裁剪比較動畫">
+<div style="width:800px">
+<img data-source-asset-urls src="../../assets/concept-animations/gradient-clipping-comparison-still.svg" data-motion-src="../../assets/concept-animations/gradient-clipping-comparison-motion.svg" data-still-src="../../assets/concept-animations/gradient-clipping-comparison-still.svg" alt="同一個人工梯度隨參數放大；全域 L2 範數裁剪維持方向，而逐座標裁剪會在個別座標碰到門檻後改變方向。" width="800" height="420">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 使用人工向量 \(g(s)=s(4,2)\)，其中 \(0.35\le s\le1\)。**全域 L2 範數裁剪**依 \(\tilde g=g\min(1,2/\|g\|_2)\) 共同縮放所有座標，因此保留方向；**逐座標數值裁剪**則令 \(\tilde g_j=\max(-1.5,\min(1.5,g_j))\)，方向可能改變。當 \(s=1\) 時，兩者的結果分別約為 **(1.789, 0.894)** 與 **(1.5, 1.5)**。連續動態只是在比較不同輸入值，**不是實際訓練的梯度序列**。[GitHub 靜態回退預覽](../../assets/concept-animations/gradient-clipping-comparison-still.svg)。MkDocs 提供播放／暫停；手機可水平捲動，鍵盤可聚焦圖面。範數裁剪的原始文獻見下方 Pascanu 等人（2013）。
+
+### 梯度累積：先裁剪再平均，不等於先平均再裁剪
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="梯度累積的不同裁剪順序比較動畫">
+<div style="width:800px">
+<img data-source-asset-urls src="../../assets/concept-animations/gradient-accumulation-clipping-order-still.svg" data-motion-src="../../assets/concept-animations/gradient-accumulation-clipping-order-motion.svg" data-still-src="../../assets/concept-animations/gradient-accumulation-clipping-order-still.svg" alt="兩個人工微批次梯度，先各自裁剪再平均得到向量一逗號一；先平均再整體裁剪則得到約一點七八九逗號零點八九四，向量大小與方向不同。" width="800" height="420">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 設兩個人工微批次梯度 \(g_1=(4,0)\) 和 \(g_2=(0,2)\)，全域 L2 門檻 \(\tau=2\)。裁剪與平均**不符合交換律**：
+
+\[
+\frac{\operatorname{clip}_2(g_1)+\operatorname{clip}_2(g_2)}{2}=(1,1),\qquad
+\operatorname{clip}_2\!\left(\frac{g_1+g_2}{2}\right)=\left(\frac{4}{\sqrt5},\frac{2}{\sqrt5}\right)\approx(1.789,0.894).
+\]
+
+動畫令第二個輸入變為 \(g_2(t)=(0,2t)\)，只是在掃描**不同的假設輸入**，並非連續訓練步驟。實際梯度累積可能採總和或平均，因此必須配合使用的縮放方式解讀門檻。**所有數值皆為數學示例，並非模型實測。** [GitHub 靜態回退預覽](../../assets/concept-animations/gradient-accumulation-clipping-order-still.svg)。MkDocs 可播放／暫停，窄螢幕可水平捲動並用鍵盤聚焦。範數裁剪研究見下方 Pascanu 等人（2013）。
 
 ## 關鍵方法
 
