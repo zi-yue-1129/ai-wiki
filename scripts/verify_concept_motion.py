@@ -19,6 +19,8 @@ TOPICS = {
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "ar-score-vs-sample": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
     "ar-likelihood-accumulation": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-context-drift": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-eos-survival": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
     "power-iteration-convergence": "theory/math/linear-algebra/eigendecomposition",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
@@ -208,7 +210,7 @@ def main() -> int:
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
             elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
-                          "svd-unit-circle", "power-iteration-convergence", "ar-score-vs-sample", "ar-likelihood-accumulation",
+                          "svd-unit-circle", "power-iteration-convergence", "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
                           "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
