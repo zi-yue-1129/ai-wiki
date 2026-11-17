@@ -55,7 +55,7 @@ Suppose a toy text model assigns probabilities $0.5$ to *Drink* at the start, $0
 
 **Animated chain rule.** The moving marker follows the *prefix* probability, not a probability distribution over tokens. [Static GitHub preview](../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg).
 
-The three values and token sequence are synthetic arithmetic examples, not measured model outputs. The displayed NLL is the sum of the three negative natural logs. Original CC BY-SA 4.0 diagram.
+The three values and token sequence are synthetic arithmetic examples, not measured model outputs. The displayed NLL is the sum of the three negative natural logs. Original CC BY-SA 4.0 diagram. On the MkDocs site, use the Play/Pause control; on narrow screens, focus the figure and use the left/right arrow keys to scroll. A reduced-motion preference selects the still image.
 
 
 ### Draw a new sequence
@@ -70,7 +70,7 @@ To generate text, draw a token from the next-token distribution, append it to th
 
 **Teacher forcing versus sampling.** Blue columns use known shifted inputs and targets; orange tokens appear only after successive draws. [Static GitHub preview](../../../../../assets/concept-animations/ar-score-vs-sample-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg).
 
-For a causally masked Transformer, known targets can be scored in one forward pass; sampling must feed each sampled token into the next prefix. The illustrative draw is not a sampled run of a trained model. Original CC BY-SA 4.0 diagram.
+For a causally masked Transformer, known targets can be scored in one forward pass; sampling must feed each sampled token into the next prefix. The illustrative draw is not a sampled run of a trained model. Original CC BY-SA 4.0 diagram. On the MkDocs site, use the Play/Pause control; on narrow screens, focus the figure and use the left/right arrow keys to scroll. A reduced-motion preference selects the still image.
 
 
 Ordinary sampling requires one sequential step for each new element. [Speculative decoding](../../../../../engineering/inference-optimization/speculative-decoding.md) can reduce the number of serial calls to the target model by proposing several tokens and checking them together. With the acceptance and correction rule from Leviathan et al., the resulting samples still follow the target distribution.[^speculative]

@@ -43,7 +43,7 @@ $$
 
 **鏈式法則動畫。** 移動標記依序指向每個前綴的累積機率，而非詞元機率分布。 [Static GitHub preview](../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg).
 
-三個機率與詞元序列都是人工數學示例，不是模型實測輸出。圖中的負對數似然為三項自然對數負值之和。原創圖採 CC BY-SA 4.0 授權。
+三個機率與詞元序列都是人工數學示例，不是模型實測輸出。圖中的負對數似然為三項自然對數負值之和。原創圖採 CC BY-SA 4.0 授權。在 MkDocs 網站可使用「播放／暫停」控制；小螢幕可聚焦圖面後按左右方向鍵水平捲動。偏好減少動態效果時會顯示靜態回退圖。
 
 
 ### 抽出新序列
@@ -58,7 +58,7 @@ $$
 
 **教師強迫與生成取樣。** 藍色欄位使用已知且位移後的輸入與目標；橘色詞元則在每次抽樣之後才逐一出現。 [Static GitHub preview](../../../../../assets/concept-animations/ar-score-vs-sample-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg).
 
-採用因果遮罩的 Transformer 可在一次前向傳遞中計算已知序列的各位置條件分數；生成則必須將每次抽到的詞元接回下一次的前綴。示意詞元不是訓練模型的實際取樣。原創圖採 CC BY-SA 4.0 授權。
+採用因果遮罩的 Transformer 可在一次前向傳遞中計算已知序列的各位置條件分數；生成則必須將每次抽到的詞元接回下一次的前綴。示意詞元不是訓練模型的實際取樣。原創圖採 CC BY-SA 4.0 授權。在 MkDocs 網站可使用「播放／暫停」控制；小螢幕可聚焦圖面後按左右方向鍵水平捲動。偏好減少動態效果時會顯示靜態回退圖。
 
 
 一般取樣每生成一個元素就要依序執行一步。[推測式解碼](../../../../../engineering/inference-optimization/speculative-decoding.md)可以先提出多個候選詞元，再一併驗證，減少依序呼叫目標模型的次數。使用 Leviathan 等人的接受與校正規則後，輸出樣本仍遵循目標分布。[^speculative]
