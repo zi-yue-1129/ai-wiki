@@ -21,6 +21,10 @@ TOPICS = {
     "mixup-cutmix-area": "theory/deep-learning/dropout/mixup",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
+    "ar-score-vs-sample": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-likelihood-accumulation": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-context-drift": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
+    "ar-eos-survival": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
     "svd-rank-accumulation": "theory/math/linear-algebra/svd",
     "svd-noise-amplification": "theory/math/linear-algebra/svd",
@@ -49,6 +53,10 @@ TOPICS = {
     "mcts-search-cycle": "theory/paradigms/reinforcement-learning/mcts-and-self-play/index",
     "dqn-target-sync": "theory/paradigms/reinforcement-learning/deep-q-networks/index",
     "adamw-decoupled-paths": "theory/optimization/adaptive/adamw",
+    "adam-bias-correction": "theory/optimization/adaptive/adam",
+    "adam-scale-invariance": "theory/optimization/adaptive/adam",
+    "adam-sign-reversal": "theory/optimization/adaptive/adam",
+    "adam-epsilon-threshold": "theory/optimization/adaptive/adam",
     "td3-delayed-twin-critics": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/td3/index",
     "ppo-clipped-objective": "theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index",
     "prioritized-replay-cycle": "theory/paradigms/reinforcement-learning/experience-replay/index",
@@ -72,6 +80,10 @@ TOPICS = {
     "hmc-leapfrog-trajectory": "theory/paradigms/probabilistic/mcmc/hamiltonian-monte-carlo",
     "astar-frontier": "theory/paradigms/symbolic-ai/search/a-star",
     "dpll-backtrack": "theory/paradigms/symbolic-ai/theorem-proving/dpll",
+    "hmm-forward-sum-product": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
+    "hmm-filter-smooth": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
+    "hmm-pairwise-posterior": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
+    "hmm-baum-welch-transition": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "viterbi-trellis": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "tree-belief-propagation": "theory/paradigms/probabilistic/graphical-models/belief-propagation",
     "3d-unet-depth-kernel": "theory/models/cnn/unet/3d-unet",
@@ -87,10 +99,12 @@ TOPICS = {
     "gcn-aggregation": "theory/models/gnn/message-passing/gcn/index",
     "gat-aggregation": "theory/models/gnn/message-passing/gat/index",
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-plusplus-d2": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-outlier-leverage": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-feature-scale": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-elbow-inertia": "theory/paradigms/unsupervised/clustering/k-means",
     "pca-variance-axis": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "pca-rank1-reconstruction": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
-    "adam-bias-correction": "theory/optimization/adaptive/adam",
-    "adam-scale-invariance": "theory/optimization/adaptive/adam",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "mle-bernoulli-likelihood": "theory/math/probability-statistics/maximum-likelihood",
@@ -207,6 +221,8 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
+            elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
+                errors.extend(verify_source_pair(page, text, stem))
             elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
@@ -219,13 +235,15 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"adam-bias-correction", "adam-scale-invariance", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
+                          "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
+                          "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
                           "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
-                if stem in {"adam-bias-correction", "adam-scale-invariance", "eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
+                if stem in {"adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
                     static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                     if static_path.resolve() not in {
                         (page.parent / link).resolve() for link in static_links
