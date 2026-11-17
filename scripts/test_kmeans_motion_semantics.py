@@ -61,3 +61,7 @@ if __name__=='__main__':
 import re
 for p in (Path(__file__).resolve().parents[1] / "docs/theory/paradigms/unsupervised/clustering").glob("k-means*.md"):
     assert not re.search(r"^\$\s*$", p.read_text(), re.M), p
+
+r=root("kmeans-feature-scale-motion")
+footer=next(t for t in r.findall("s:text",N) if (t.text or "").startswith("Synthetic coordinates"))
+assert footer.get("y")=="406"
