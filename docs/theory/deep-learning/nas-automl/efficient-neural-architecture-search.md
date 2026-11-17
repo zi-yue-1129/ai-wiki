@@ -53,7 +53,7 @@ where \(M\) is the number of sampled architectures and \(b\) is typically an exp
 
 *Original educational SVG, CC BY-SA 4.0.* GitHub displays the [static preview](../../../assets/concept-animations/enas-shared-weight-transfer-still.svg); on MkDocs, the player provides Play/Pause and keyboard control. Reduced-motion mode uses the still image.
 
-For a **synthetic scalar demonstration**, define (f_A=w_s+w_A) and (f_B=w_s+w_B) with initial weights ((w_s,w_A,w_B)=(0.4,0.2,-0.3)). A single gradient step on **sampled A only** uses (L_A=\frac12(f_A-1)^2) and step size (0.5). Both (partial L_A/partial w_s) and (partial L_A/partial w_A) equal (-0.4). Therefore the new weights are ((0.6,0.4,-0.3)), and **B changes its prediction from 0.1 to 0.3 without being trained**, since B reads (w_s).
+For a **synthetic scalar demonstration**, define \(f_A=w_s+w_A\) and \(f_B=w_s+w_B\) with initial weights \((w_s,w_A,w_B)=(0.4,0.2,-0.3)\). A single gradient step on **sampled A only** uses \(L_A=\frac{1}{2}(f_A-1)^2\) and step size \(0.5\). Both \(\partial L_A/\partial w_s\) and \(\partial L_A/\partial w_A\) equal \(-0.4\). Therefore the new weights are \((0.6,0.4,-0.3)\), and **B changes its prediction from 0.1 to 0.3 without being trained**, since B reads \(w_s\).
 
 The moving marker represents parameter-sharing influence, not a second gradient step. These numbers are **not ENAS experiments or model measurements**. ENAS updates the controller on validation rewards separately from this training update.
 
