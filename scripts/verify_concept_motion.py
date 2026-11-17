@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "sharpness-reparam-curvature": "theory/optimization/sharp-minima",
+    "sharpness-radius-loss": "theory/optimization/sharp-minima",
     "itemcf-weighted-neighbors": "theory/models/recommender/item-based-cf",
     "neumf-dual-path": "theory/models/recommender/neural-cf",
     "resnet-identity-gradient": "theory/models/cnn/backbones-and-scaling/resnet/index",
@@ -258,7 +260,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",

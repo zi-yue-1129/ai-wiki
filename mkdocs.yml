@@ -1109,6 +1109,7 @@ extra_javascript:
   - javascripts/ssl-temporal-provenance.js
   - javascripts/concept-motion.js
   - javascripts/regression-metric-labs.js
+  - javascripts/sharpness-geometry-labs.js
   - javascripts/gibbs-labs.js
   - javascripts/distributed-motion-controls.js
   - javascripts/distributed-parameter-explorers.js
@@ -1127,6 +1128,7 @@ extra_css:
   - stylesheets/ssl-temporal-provenance.css
   - stylesheets/concept-motion.css
   - stylesheets/regression-metric-labs.css
+  - stylesheets/sharpness-geometry-labs.css
   - stylesheets/gibbs-labs.css
   - stylesheets/distributed-motion-controls.css
   - stylesheets/distributed-parameter-explorers.css
