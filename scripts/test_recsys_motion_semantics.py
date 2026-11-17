@@ -78,4 +78,5 @@ for name in ('bpr','matrix-factorization'):
         assert 'width:800px' not in s
         assert s.count('width:640px;min-width:640px;max-width:none;height:auto')==2
         assert s.count('\\[')==s.count('\\]')
+        assert '\\[\n\n' not in s and '\n\n\\]' not in s
 print('Recommender SVGs: joint old-state SGD, BPR signs, ridge ALS, 121 saturation keyframes + interpolation, bilingual math/layout passed')

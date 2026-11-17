@@ -51,9 +51,7 @@ Here $D_S$ is the set of training triples and $\lambda_\Theta$ is a model-specif
 For a single sampled triple $(u,i,j)$, use a fixed scalar user factor $p_u=1$ and two item factors $q_i=0.5$, $q_j=1.3$. The observed item $i$ is initially scored **below** the unobserved item $j$. To isolate the item updates, keep $p_u$ fixed and use no regularisation. With $\Delta=p_u(q_i-q_j)$ and $\eta=0.4$, one ascent step on $\log\sigma(\Delta)$ gives
 
 \[
-
 g=\sigma(-\Delta),\qquad q_i\leftarrow q_i+\eta g p_u,\qquad q_j\leftarrow q_j-\eta g p_u.
-
 \]
 
 The left panel pushes the observed-item score upward and the sampled unseen-item score downward; the right panel follows the pairwise loss $-\log\sigma(\Delta)$. Over four updates, the margin moves from **−0.8000** to approximately **0.8518**, and the loss decreases from **1.1711** to **0.3553**.

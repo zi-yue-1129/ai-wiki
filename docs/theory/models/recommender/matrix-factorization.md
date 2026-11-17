@@ -51,11 +51,9 @@ The constant $\lambda$ controls the strength of the penalty and is usually chose
 For one **illustrative** known rating, set the global and item/user biases to zero and omit regularisation: $r=1$, $p_u^{(0)}=(0.4,0.2)$, $q_i^{(0)}=(0.7,0.3)$, and learning rate $\eta=0.2$. For the half-squared-error loss $L=\tfrac12(r-p_u^\top q_i)^2$, a simultaneous SGD update using the *pre-update* vectors is
 
 \[
-
 e=r-p_u^\top q_i,\qquad
 p_u\leftarrow p_u+\eta e q_i,\qquad
 q_i\leftarrow q_i+\eta e p_u.
-
 \]
 
 Both arrows in the shared latent space move at each update. The green bar shows their new dot product; the orange bar shows the remaining absolute error. Five displayed states (initial plus four updates) move the prediction from **0.3400** to approximately **0.7643**, reducing the absolute error from **0.6600** to **0.2357**.
