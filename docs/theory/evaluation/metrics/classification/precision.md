@@ -17,6 +17,18 @@ $$\text{Precision} = \frac{TP}{TP + FP}$$
 
 Precision is undefined when the model predicts no positives, because the denominator is zero.
 
+## Animated explanation: Threshold sweep: when more alerts change precision
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Animated classification metric (focus to scroll horizontally)">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/precision-recall-threshold-still.svg" data-motion-src="../../../../assets/concept-animations/precision-recall-threshold-motion.svg" data-still-src="../../../../assets/concept-animations/precision-recall-threshold-still.svg" alt="Eight ranked toy cases, with four positive labels, are admitted as a score threshold moves. True positives, false positives, missed positives and both metrics change together." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation, CC BY-SA 4.0.* On MkDocs use Play/Pause and keyboard focus for horizontal scrolling; reduced-motion users see a still frame. GitHub shows the static preview. [GitHub static preview](../../../../assets/concept-animations/precision-recall-threshold-still.svg) · [Full SVG animation](../../../../assets/concept-animations/precision-recall-threshold-motion.svg).
+
+A **schematic** ranked set has eight scores (.95, .87, .81, .74, .67, .52, .41, .22) and true labels (+, −, +, +, −, +, −, −). Selecting the four highest scores gives TP = 3, FP = 1, FN = 1, so precision and recall are both **0.75**. As the threshold is lowered to include six cases, TP = 4 and FP = 2: recall rises to **1.00** while precision becomes **4/6 ≈ 0.667**. Neither the scores nor the labels are model measurements. Precision need **not** change monotonically: it increases when adding a true positive and decreases when adding a false positive.
+
 ## Interpretation
 
 Precision measures the cost of false alarms. A spam filter with high precision rarely sends real mail to the spam folder. Precision depends on the decision threshold: raising the threshold usually removes some false positives and raises precision, at the price of [recall](recall.md).

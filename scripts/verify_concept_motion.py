@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "precision-recall-threshold": "theory/evaluation/metrics/classification/precision",
+    "f1-harmonic-gap": "theory/evaluation/metrics/classification/f1",
     "checkpoint-recompute": "engineering/hardware/co-design/gradient-checkpointing",
     "fp16-loss-scaling": "engineering/hardware/co-design/mixed-precision",
     "effective-number-growth": "theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss",
@@ -263,6 +265,11 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
+            elif stem in {"precision-recall-threshold", "f1-harmonic-gap"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:
+                    errors.append(f"{page}: missing GitHub static preview link for {stem}")
             elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"itemcf-weighted-neighbors", "neumf-dual-path"}:
@@ -321,6 +328,15 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+    # Precision and recall share the same visual asset and must keep both translations.
+    for suffix in (".md", ".zh-TW.md"):
+        recall_page = DOCS / ("theory/evaluation/metrics/classification/recall" + suffix)
+        recall_body = recall_page.read_text(encoding="utf-8")
+        errors.extend(verify_source_pair(recall_page, recall_body, "precision-recall-threshold"))
+    import subprocess
+    semantics = subprocess.run([sys.executable, "scripts/test_classification_motion_semantics.py"], capture_output=True, text=True)
+    if semantics.returncode:
+        errors.append("Classification motion semantic regression: " + semantics.stdout + semantics.stderr)
     # GitHub's static previews and MkDocs's bilingual motion enhancement.
     for stem, page in {
         "brier-expected-risk": "brier-score",

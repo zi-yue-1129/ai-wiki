@@ -17,6 +17,18 @@ $$\text{Recall} = \frac{TP}{TP + FN}$$
 
 Recall is undefined when there are no true positives in the data, because the denominator is zero.
 
+## Animated explanation: Threshold sweep: the recall–false-alarm trade-off
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Animated classification metric (focus to scroll horizontally)">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/precision-recall-threshold-still.svg" data-motion-src="../../../../assets/concept-animations/precision-recall-threshold-motion.svg" data-still-src="../../../../assets/concept-animations/precision-recall-threshold-still.svg" alt="A continuously moving selection boundary among eight labelled cases changes the numbers of retrieved positives, false alarms and misses." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation, CC BY-SA 4.0.* On MkDocs use Play/Pause and keyboard focus for horizontal scrolling; reduced-motion users see a still frame. GitHub shows the static preview. [GitHub static preview](../../../../assets/concept-animations/precision-recall-threshold-still.svg) · [Full SVG animation](../../../../assets/concept-animations/precision-recall-threshold-motion.svg).
+
+This is the **same schematic eight-case ranking** shown on the precision page, not a separate experiment. At four selected cases: TP = 3 and FN = 1, so recall is **3/4 = 0.75**; at six selected cases: TP = 4 and FN = 0, so recall reaches **1.00**, but two false alarms remain. Lowering the threshold cannot decrease recall for a fixed set of scores and labels; it can, however, reduce precision. The illustration is not a measured classifier.
+
 ## Interpretation
 
 Recall measures the cost of misses. A screening test with high recall rarely lets a real case pass unflagged. Like precision, recall depends on the threshold: lowering the threshold catches more true positives and raises recall, at the price of more false alarms.
