@@ -33,6 +33,45 @@ Rabiner（1989）把標準問題整理為三項：
 
 **前向–後向**演算法把前向掃描與後向掃描 \(\beta_t\) 合併，得到每個時間點的後驗 \(p(z_t\mid x_{1:T})\)。它就是鏈上的[信念傳播](belief-propagation.md)。
 
+
+### 教學動畫：前向和積遞迴
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="隱馬可夫模型教學動畫，可使用方向鍵水平捲動">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-forward-sum-product-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" width="800" height="420" alt="前向演算法：A、B 兩個隱藏狀態間的訊息隨時間步傳遞，並累加所有路徑的觀測概似。">
+</div>
+</div>
+
+*原創 SVG 教學動畫，CC BY-SA 4.0。* GitHub 直接顯示最終狀態的靜態圖；MkDocs 網站提供**播放／暫停**控制（可用 Tab 與 Enter 操作），偏好減少動態效果的使用者會看到靜態回退圖。手機版可聚焦圖面並使用左右方向鍵水平捲動。
+
+移動的圓點代表**和積訊息傳遞**，不是另外抽樣的狀態路徑。沿用下方 Viterbi 示範的兩狀態人工數值：初始分布 $\pi=(0.6,0.4)$，轉移矩陣的兩列為 $(0.7,0.3)$ 與 $(0.4,0.6)$，三次觀測在 A/B 狀態下的發射概似為 $(0.8,0.3)$、$(0.2,0.9)$、$(0.7,0.4)$。前向遞迴為：
+
+$
+\alpha_t(j)=B_j(x_t)\sum_i \alpha_{t-1}(i)A_{ij},\qquad
+p(x_{1:3})=\sum_j\alpha_3(j).
+$
+
+精確的前向訊息依次為 $\alpha_1=(0.48,0.12)$、$\alpha_2=(0.0768,0.1944)$、$\alpha_3=(0.092064,0.055872)$，因此整段觀測序列的概似為 **0.147936**。與下方 Viterbi 的**最大乘積**路徑不同，前向演算法會對**所有隱藏路徑的機率質量求和**。這些皆為手算教學數值，**不是模型實測輸出**（Rabiner，1989；Kschischang 等人，2001）。
+
+### 教學動畫：過濾與平滑的差異
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="隱馬可夫模型教學動畫，可使用方向鍵水平捲動">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-filter-smooth-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" width="800" height="420" alt="前向過濾與後向平滑：新觀測自右往左修正較早時間點的狀態後驗機率。">
+</div>
+</div>
+
+*原創 SVG 教學動畫，CC BY-SA 4.0。* GitHub 顯示最終靜態比較；網站使用共用的**播放／暫停**控制與減少動態效果回退圖，窄螢幕可用鍵盤水平捲動。
+
+**過濾（filtering）**只利用時間 $t$ 以前（含當下）的觀測，估計 $p(z_t\mid x_{1:t})$。**平滑（smoothing）**則使用包含後續觀測的**完整序列**，藉由後向訊息更新較早的狀態後驗：
+
+$
+\beta_t(i)=\sum_j A_{ij}B_j(x_{t+1})\beta_{t+1}(j),\quad
+p(z_t=i\mid x_{1:T})=\frac{\alpha_t(i)\beta_t(i)}{p(x_{1:T})}.
+$
+
+示例中，時間 $t=1,2,3$ 的 A 狀態過濾機率依序約為 **80.0%、28.3%、62.2%**；加入後續觀測後，平滑機率變為 **73.3%、31.7%、62.2%**。在最後一個時間點沒有未來觀測，所以兩者相同。長條的連續變化僅用來表達後向資訊抵達的過程，**不是額外推論迭代，也不是模型訓練**（Rabiner，1989）。
+
 ### 教學動畫：Viterbi 解碼與回溯
 
 ![四階段 Viterbi 狀態格，呈現最大乘積分數與 A–B–A 回溯路徑](../../../../assets/concept-animations/viterbi-trellis-motion.svg)

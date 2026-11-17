@@ -47,6 +47,45 @@ Rabiner (1989) organises the standard problems into three:
 
 The **forward–backward** algorithm combines the forward pass with a backward pass, \(\beta_t\), to give the posterior \(p(z_t\mid x_{1:T})\) for every time step. It is an instance of [belief propagation](belief-propagation.md) on a chain.
 
+
+### Animated walkthrough: Forward sum-product inference
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="HMM teaching animation; use arrow keys to scroll horizontally">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-forward-sum-product-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" width="800" height="420" alt="Forward recursion: probability mass travels from both predecessor states into each next-state node, yielding total observation likelihood.">
+</div>
+</div>
+
+*Original instructional SVG animation, CC BY-SA 4.0.* GitHub displays the static final result; the MkDocs site provides **Play/Pause** (keyboard Tab/Enter), with a static fallback for reduced-motion preferences. At narrow widths, focus the figure and use the left/right arrow keys to scroll.
+
+The moving dots represent **sum-product message flow**, not separately sampled state sequences. For the same synthetic two-state example used in the Viterbi animation below, use $\pi=(0.6,0.4)$, transition rows $(0.7,0.3)$ and $(0.4,0.6)$, and A/B emission likelihoods $(0.8,0.3)$, $(0.2,0.9)$, $(0.7,0.4)$. The forward recursion is
+
+$
+\alpha_t(j)=B_j(x_t)\sum_i \alpha_{t-1}(i)A_{ij},\qquad
+p(x_{1:3})=\sum_j\alpha_3(j).
+$
+
+The exact forward messages are $\alpha_1=(0.48,0.12)$, $\alpha_2=(0.0768,0.1944)$ and $\alpha_3=(0.092064,0.055872)$. Consequently $p(x_{1:3})=0.147936$. Unlike the **max-product** Viterbi path below, these scores **sum probability mass across all hidden paths**. Values are hand-calculated teaching probabilities, **not model measurements** (Rabiner, 1989; Kschischang et al., 2001).
+
+### Animated walkthrough: Filtering versus smoothing
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="HMM teaching animation; use arrow keys to scroll horizontally">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-filter-smooth-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" width="800" height="420" alt="Filtering versus smoothing: future evidence travels backward and revises earlier state posteriors.">
+</div>
+</div>
+
+*Original instructional SVG animation, CC BY-SA 4.0.* GitHub shows the final static comparison. The site's **Play/Pause** control and reduced-motion fallback use the same shared visual; the figure can be scrolled with the keyboard on small screens.
+
+Filtering estimates $p(z_t\mid x_{1:t})$ using only observations seen **up to** time $t$. Smoothing instead uses **all** observations, including future ones:
+
+$
+\beta_t(i)=\sum_j A_{ij}B_j(x_{t+1})\beta_{t+1}(j),\quad
+p(z_t=i\mid x_{1:T})=\frac{\alpha_t(i)\beta_t(i)}{p(x_{1:T})}.
+$
+
+For the synthetic example, the filtered probabilities of state A at $t=1,2,3$ are approximately **80.0%, 28.3%, 62.2%**. After the backward pass, the smoothed values become **73.3%, 31.7%, 62.2%**. No later observation exists after $t=3$, so the two estimates coincide at the final step. The continuous bar interpolation depicts the arrival of backward information, **not additional inference iterations or model training** (Rabiner, 1989).
+
 ### Animated walkthrough: Viterbi decoding
 
 ![Four-stage Viterbi trellis showing max-product scores and the A–B–A traceback](../../../../assets/concept-animations/viterbi-trellis-motion.svg)
