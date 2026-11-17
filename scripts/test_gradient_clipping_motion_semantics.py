@@ -42,6 +42,26 @@ def validate():
     check("AMP incorrect",bad,(0.3,0.4))
     if not math.isclose(norm(good),2,abs_tol=1e-10) or not math.isclose(norm(bad),0.5,abs_tol=1e-10):
         e.append("AMP norm mismatch")
+
+    # Unit-wise adaptive clipping with weight-norm-relative budgets.
+    for s in (0.4, 0.75, 1.0, 2.0, 3.0):
+        for w in (1.0, 4.0):
+            cap = 0.5 * w
+            out = min(s, cap)
+            if out > cap + 1e-10 or not math.isclose(out, norm(clip((s, 0.0), cap)), rel_tol=1e-10):
+                e.append(f"AGC relative cap at gradient {s}, weight {w}")
+    check("AGC small-weight endpoint", clip((3.,0.),0.5), (0.5,0.))
+    check("AGC large-weight endpoint", clip((3.,0.),2.), (2.,0.))
+    # Decoupled weight decay is outside the loss-gradient norm clipping budget.
+    grad=clip((4.,0.),2.)
+    grad_step=tuple(-0.2*x for x in grad)
+    decay_step=tuple(-0.2*0.5*x for x in (3.,4.))
+    total_step=tuple(a+b for a,b in zip(grad_step,decay_step))
+    check("decoupled gradient displacement",grad_step,(-0.4,0.))
+    check("decoupled decay displacement",decay_step,(-0.3,-0.4))
+    check("total displacement",total_step,(-0.7,-0.4))
+    if not math.isclose(norm(total_step),math.sqrt(0.65),rel_tol=1e-10) or norm(total_step)<=0.4:
+        e.append("decoupled decay must exceed pure gradient step in this toy case")
     return e
 
 if __name__=="__main__":

@@ -15,10 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
-    "gradient-clipping-comparison": "theory/optimization/gradient-clipping-and-normalisation",
-    "gradient-accumulation-clipping-order": "theory/optimization/gradient-clipping-and-normalisation",
-    "gradient-global-layer-budget": "theory/optimization/gradient-clipping-and-normalisation",
-    "gradient-amp-unscale-order": "theory/optimization/gradient-clipping-and-normalisation",
+    "roc-threshold-sweep": "theory/evaluation/metrics/classification/roc-auc",
+    "pr-threshold-sweep": "theory/evaluation/metrics/classification/pr-auc",
     "dpr-dot-product-sweep": "engineering/vector-databases/dense-passage-retrieval",
     "colbert-maxsim-switch": "engineering/vector-databases/colbert",
     "paired-bootstrap-resampling": "theory/evaluation/protocols/methods/paired-bootstrap",
@@ -71,6 +69,12 @@ TOPICS = {
     "mean-field-coordinate-ascent": "theory/paradigms/probabilistic/variational-inference/mean-field",
     "moe-top2-routing": "theory/models/mixture-of-experts/index",
     "cfg-extrapolation": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance",
+    "gradient-clipping-comparison": "theory/optimization/gradient-clipping-and-normalisation",
+    "gradient-accumulation-clipping-order": "theory/optimization/gradient-clipping-and-normalisation",
+    "gradient-global-layer-budget": "theory/optimization/gradient-clipping-and-normalisation",
+    "gradient-amp-unscale-order": "theory/optimization/gradient-clipping-and-normalisation",
+    "gradient-agc-relative-cap": "theory/optimization/gradient-clipping-and-normalisation",
+    "gradient-decoupled-decay": "theory/optimization/gradient-clipping-and-normalisation",
     "gradient-norm-clipping": "theory/optimization/norm-clipping",
     "swin-shifted-windows": "theory/models/transformer/vision-transformer/swin/index",
     "deformable-sampling": "theory/models/cnn/convolution-variants/deformable-convolution/index",
@@ -280,7 +284,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"gradient-clipping-comparison", "gradient-accumulation-clipping-order", "gradient-global-layer-budget", "gradient-amp-unscale-order", "dpr-dot-product-sweep", "colbert-maxsim-switch", "paired-bootstrap-resampling", "elo-online-update", "grid-search-x-coverage", "random-search-x-coverage", "group-norm-statistics", "rmsnorm-shift-response", "svm-margin-hinge", "cv-fold-rotation", "ndcg-position-discount", "map-precision-at-hits", "heavy-ball-overshoot", "sgd-noise-batch", "adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"gradient-clipping-comparison", "gradient-accumulation-clipping-order", "gradient-global-layer-budget", "gradient-amp-unscale-order", "gradient-agc-relative-cap", "gradient-decoupled-decay", "roc-threshold-sweep", "pr-threshold-sweep", "dpr-dot-product-sweep", "colbert-maxsim-switch", "paired-bootstrap-resampling", "elo-online-update", "grid-search-x-coverage", "random-search-x-coverage", "group-norm-statistics", "rmsnorm-shift-response", "svm-margin-hinge", "cv-fold-rotation", "ndcg-position-discount", "map-precision-at-hits", "heavy-ball-overshoot", "sgd-noise-batch", "adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
@@ -288,7 +292,7 @@ def main() -> int:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
-                if stem in {"gradient-clipping-comparison", "gradient-accumulation-clipping-order", "gradient-global-layer-budget", "gradient-amp-unscale-order", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
+                if stem in {"gradient-clipping-comparison", "gradient-accumulation-clipping-order", "gradient-global-layer-budget", "gradient-amp-unscale-order", "gradient-agc-relative-cap", "gradient-decoupled-decay", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
                     static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                     if static_path.resolve() not in {
                         (page.parent / link).resolve() for link in static_links

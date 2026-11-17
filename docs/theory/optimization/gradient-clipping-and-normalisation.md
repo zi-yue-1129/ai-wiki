@@ -87,6 +87,33 @@ The animation varies the second input continuously as \(g_2(t)=(0,2t)\); its int
 
 *Original teaching animation (CC BY-SA 4.0).* Let the unscaled gradient be \(g=(3,4)\), with \(\|g\|_2=5\). A loss scaler multiplies it by \(S=4\), giving a scaled norm of \(20\), while the intended gradient clipping threshold is \(\tau=2\). **Correct:** \(\operatorname{clip}_2(Sg/S)\) has norm \(2\). **Incorrect:** \(\operatorname{clip}_2(Sg)/S\) has norm \(2/4=0.5\), because clipping was performed in the scaled rather than original units. With microbatch gradient accumulation, finish the entire effective batch's accumulation **before unscaling and clipping**. See the [official PyTorch automatic mixed precision example](https://docs.pytorch.org/docs/stable/notes/amp_examples.html), which uses GradScaler.unscale_ before clip_grad_norm_. The highlighted operations show computational order, **not measured training traces or recommended scaler values**; all values are analytical examples. [GitHub-readable static preview](../../assets/concept-animations/gradient-amp-unscale-order-still.svg). The MkDocs player offers Play/Pause, a reduced-motion static fallback, and a keyboard-focusable figure.
 
+
+### Adaptive gradient clipping: weight-relative thresholds
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Compare adaptive gradient clipping thresholds for units of different weight norms">
+<div style="width:800px">
+<img data-source-asset-urls src="../../assets/concept-animations/gradient-agc-relative-cap-still.svg" data-motion-src="../../assets/concept-animations/gradient-agc-relative-cap-motion.svg" data-still-src="../../assets/concept-animations/gradient-agc-relative-cap-still.svg" alt="One synthetic gradient norm grows from 0.4 to 3.0 in two differently scaled parameter units; adaptive clipping limits it to 0.5 for unit weight norm 1 but 2.0 for unit weight norm 4." width="800" height="420">
+</div>
+</div>
+
+*Original continuous teaching animation (CC BY-SA 4.0).* Adaptive Gradient Clipping (AGC) applies **unit-wise**, weight-relative thresholds rather than one universal scalar cap: for a unit with weight norm \(\|w_u\|_2\), a simplified nonzero-weight case uses \(\tau_u=\lambda\|w_u\|_2\), and \(\tilde g_u=g_u\min(1,\tau_u/\|g_u\|_2)\). Here \(\lambda=0.5\) is **deliberately exaggerated for visibility**, not a suggested hyperparameter. The same artificial gradient norm sweeps from \(0.4\) to \(3.0\); the two units have \(\|w_u\|=1\) and \(4\), giving endpoint caps of \(0.5\) and \(2.0\). Practical AGC uses a stabilising weight-norm floor for nearly zero weights and may define units differently for different tensor layouts; neither detail is depicted. This sweep is **not measured training data**. [GitHub-readable static preview](../../assets/concept-animations/gradient-agc-relative-cap-still.svg). On MkDocs, Play/Pause reveals the intermediate clipping thresholds; mobile readers can focus and horizontally scroll the figure. See Brock et al. (2021) in References.
+
+### Gradient clipping versus decoupled weight decay
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Visualise gradient-only versus decay-inclusive displacement">
+<div style="width:800px">
+<img data-source-asset-urls src="../../assets/concept-animations/gradient-decoupled-decay-still.svg" data-motion-src="../../assets/concept-animations/gradient-decoupled-decay-motion.svg" data-still-src="../../assets/concept-animations/gradient-decoupled-decay-still.svg" alt="A capped gradient step is followed by a separate decoupled decay vector. The gradient component has norm 0.400, while the combined parameter displacement has norm about 0.806." width="800" height="420">
+</div>
+</div>
+
+*Original sequential teaching animation (CC BY-SA 4.0).* Consider a **toy, momentum-free SGD update with explicitly decoupled decay**, not an AdamW optimisation trajectory:
+
+\[
+\theta^+=\theta-\eta\,\operatorname{clip}_{\tau}(g)-\eta\lambda\theta.
+\]
+
+Choose \(\theta=(3,4)\), \(g=(4,0)\), \(\tau=2\), \(\eta=0.2\), and \(\lambda=0.5\). The clipped gradient contributes \((-0.4,0)\), of norm \(0.4=\eta\tau\); decay contributes \((-0.3,-0.4)\), so the *total* displacement is \((-0.7,-0.4)\), whose norm is \(\sqrt{0.65}\approx0.806\). The gradient clipping budget **does not cap extra, separately applied optimizer terms**. All values are invented analytic examples and not empirical training measurements. [GitHub-readable static preview](../../assets/concept-animations/gradient-decoupled-decay-still.svg). The MkDocs player supports Play/Pause and reduced-motion fallback. See Loshchilov and Hutter (2019) in References.
+
 **A gradient cap is not an adaptive-update cap.** For plain SGD without extra terms, \(\|\tilde g\|_2\le\tau\) implies \(\|\Delta\theta\|_2\le\eta\tau\). For [Adam](adaptive/adam.md), momentum and elementwise preconditioning change the mapping from clipped raw gradients to the final step, so the same bound does not follow. The diagrams illustrate gradient-space operations, **not a bound on Adam parameter displacements**.
 
 ## Key methods
@@ -122,6 +149,9 @@ Three methods, each with its own page. The first is the oldest and the simplest.
 ## References
 
 ### Seminal papers
+
+- Brock, A., De, S., Smith, S. L. & Simonyan, K. (2021). *High-Performance Large-Scale Image Recognition Without Normalization*. ICML. https://arxiv.org/abs/2102.06171 — Introduces unit-wise adaptive gradient clipping in Normalizer-Free Networks.
+- Loshchilov, I. & Hutter, F. (2019). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — Separates the weight-decay displacement from the loss-gradient update.
 
 - Pascanu, R., Mikolov, T. & Bengio, Y. (2013). *On the Difficulty of Training Recurrent Neural Networks*. ICML. https://arxiv.org/abs/1211.5063 — Analyses exploding and vanishing gradients in recurrent networks and proposes gradient norm clipping.
 - You, Y., Gitman, I. & Ginsburg, B. (2017). *Large Batch Training of Convolutional Networks*. arXiv. https://arxiv.org/abs/1708.03888 — Introduces LARS, a layer-wise adaptive rate scaling method for training AlexNet and ResNet-50 with large batches.

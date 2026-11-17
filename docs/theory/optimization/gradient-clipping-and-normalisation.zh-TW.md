@@ -75,6 +75,33 @@ translation_reviewed: 2026-11-18
 
 *原創教學動畫（CC BY-SA 4.0）。* 設還原尺度後的人工梯度 \(g=(3,4)\)、\(\|g\|_2=5\)。使用損失縮放因子 \(S=4\) 時，縮放梯度的範數為 \(20\)，希望的裁剪門檻是 \(\tau=2\)。**正確流程**先還原再裁剪，\(\operatorname{clip}_2(Sg/S)\) 的範數為 \(2\)。**錯誤流程**先裁剪放大後的梯度再還原，\(\operatorname{clip}_2(Sg)/S\) 的範數只有 \(2/4=0.5\)，導致過度縮小。使用梯度累積時，應先完成有效批次的梯度累積，再執行 unscale 與 clipping，否則梯度語意可能改變；詳見 [PyTorch 官方 Automatic Mixed Precision 範例](https://docs.pytorch.org/docs/stable/notes/amp_examples.html) 中的 GradScaler.unscale_。動畫呈現運算依存次序，**不是模型實測資料，也不代表建議使用的縮放因子**。[GitHub 靜態回退預覽](../../assets/concept-animations/gradient-amp-unscale-order-still.svg)。MkDocs 沿用播放／暫停、降低動態效果時的靜態回退，以及鍵盤聚焦與水平捲動。
 
+
+### 自適應梯度裁剪：相對於權重尺度的門檻
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="比較兩組不同權重範數的自適應梯度裁剪門檻">
+<div style="width:800px">
+<img data-source-asset-urls src="../../assets/concept-animations/gradient-agc-relative-cap-still.svg" data-motion-src="../../assets/concept-animations/gradient-agc-relative-cap-motion.svg" data-still-src="../../assets/concept-animations/gradient-agc-relative-cap-still.svg" alt="同一個人工梯度範數從零點四增長到三；權重範數分別為一及四的兩個單元，依自適應裁剪門檻，輸出分別限制在零點五與二。" width="800" height="420">
+</div>
+</div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 自適應梯度裁剪（Adaptive Gradient Clipping, AGC）對**各參數單元**使用相對於權重範數的門檻，而不是共用一個絕對門檻。在權重範數非零且無須下限保護的簡化情況，\(\tau_u=\lambda\|w_u\|_2\)，\(\tilde g_u=g_u\min(1,\tau_u/\|g_u\|_2)\)。圖中刻意把 \(\lambda\) 設為 **0.5 以便觀察**，並非建議的超參數。相同的人工梯度範數從 \(0.4\) 增加至 \(3.0\)；兩個單元的權重範數為 \(1\) 與 \(4\)，末端分別裁剪到 \(0.5\) 與 \(2.0\)。實際 AGC 對近零權重範數會設定下限，單元的定義也取決於張量形狀；動畫未模擬這些細節。此為**人工解析示例，非模型實測**。[GitHub 靜態回退預覽](../../assets/concept-animations/gradient-agc-relative-cap-still.svg)。MkDocs 支援播放／暫停，窄螢幕可鍵盤聚焦並水平捲動。原始研究參見下方 Brock 等人（2021）。
+
+### 裁剪梯度不等於裁剪含權重衰減的總步長
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="呈現梯度位移與分離式權重衰減位移的向量加總">
+<div style="width:800px">
+<img data-source-asset-urls src="../../assets/concept-animations/gradient-decoupled-decay-still.svg" data-motion-src="../../assets/concept-animations/gradient-decoupled-decay-motion.svg" data-still-src="../../assets/concept-animations/gradient-decoupled-decay-still.svg" alt="梯度裁剪後先產生長度零點四的參數位移，再額外加入分離式權重衰減向量；總參數位移長度約為零點八零六。" width="800" height="420">
+</div>
+</div>
+
+*原創序列教學動畫（CC BY-SA 4.0）。* 採用**無動量 SGD 加上獨立權重衰減的人工更新**，不是 AdamW 的實際最佳化軌跡：
+
+\[
+\theta^+=\theta-\eta\,\operatorname{clip}_{\tau}(g)-\eta\lambda\theta.
+\]
+
+設 \(\theta=(3,4)\)、\(g=(4,0)\)、\(\tau=2\)、\(\eta=0.2\)、\(\lambda=0.5\)。裁剪後梯度造成 \((-0.4,0)\) 的位移，其範數為 \(0.4=\eta\tau\)；額外的權重衰減造成 \((-0.3,-0.4)\)。合併後的位移是 \((-0.7,-0.4)\)，範數為 \(\sqrt{0.65}\approx0.806\)。因此**梯度裁剪門檻不會同時限制最佳化器另外加入的更新項目**。所有數值都是人工數學示例，非真實訓練量測。[GitHub 靜態回退預覽](../../assets/concept-animations/gradient-decoupled-decay-still.svg)。MkDocs 支援播放／暫停及降低動態效果時的靜態回退。原理參見 Loshchilov 與 Hutter（2019）。
+
 **梯度上限不等於自適應更新上限。** 對沒有額外項目的普通 SGD 而言，\(\|\tilde g\|_2\le\tau\) 可推出 \(\|\Delta\theta\|_2\le\eta\tau\)。但 [Adam](adaptive/adam.md) 的動量與逐座標預條件化會改變從裁剪梯度到最終參數更新的對應關係，因此無法一般性地沿用相同界限。這四張圖呈現的是**梯度域運算，而非 Adam 最終步長上限**。
 
 ## 關鍵方法
@@ -110,6 +137,9 @@ translation_reviewed: 2026-11-18
 ## 參考文獻
 
 ### 開創性論文
+
+- Brock, A., De, S., Smith, S. L. & Simonyan, K. (2021). *High-Performance Large-Scale Image Recognition Without Normalization*. ICML. https://arxiv.org/abs/2102.06171 — 提出 Normalizer-Free Networks 使用的逐單元自適應梯度裁剪。
+- Loshchilov, I. & Hutter, F. (2019). *Decoupled Weight Decay Regularization*. ICLR. https://arxiv.org/abs/1711.05101 — 研究獨立權重衰減與梯度更新的差異。
 
 - Pascanu, R., Mikolov, T. & Bengio, Y. (2013). *On the Difficulty of Training Recurrent Neural Networks*. ICML. https://arxiv.org/abs/1211.5063 — 提出以範數裁剪處理梯度爆炸，並分析循環網路中的梯度消失。
 - You, Y., Gitman, I. & Ginsburg, B. (2017). *Large Batch Training of Convolutional Networks*. arXiv. https://arxiv.org/abs/1708.03888 — 提出 LARS，以逐層自適應學習率縮放，在大批次下訓練 AlexNet 與 ResNet-50。
