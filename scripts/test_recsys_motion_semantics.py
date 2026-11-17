@@ -74,7 +74,7 @@ for name in ('mf-coupled-sgd','mf-als-alternating','bpr-pairwise-ranking','bpr-g
         assert 'font-family:Arial,Helvetica,sans-serif' in (ASSETS/f'{name}-{kind}.svg').read_text()
 for name in ('bpr','matrix-factorization'):
     for pth in (ROOT/'docs/theory/models/recommender').glob(name+'*.md'):
-        s=pth.read_text();assert not re.search(r'^\s*\$\s*$',s,re.M)
+        s=pth.read_text();assert not re.search(r'^\s*\${1,2}\s*$',s,re.M)
         assert 'width:800px' not in s
         assert s.count('width:640px;min-width:640px;max-width:none;height:auto')==2
         assert s.count('\\[')==s.count('\\]')
