@@ -91,6 +91,29 @@ The real rotation \(R=\begin{bmatrix}0&-1\\1&0\end{bmatrix}\) maps each nonzero 
 
 For both examples, the MkDocs player supports **Play/Pause**; GitHub displays the static SVG directly. A reduced-motion preference starts the player paused. On mobile, focus the figure region and use the arrow keys to scroll horizontally.
 
+
+### Animated example: a zero eigenvalue collapses a dimension
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg" data-motion-src="../../../assets/concept-animations/eigen-zero-eigenvalue-motion.svg" data-still-src="../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg" alt="An orange unit vector rotates around a circle while the teal mapped vector stays on a horizontal line; the zero eigenvalue eliminates all vertical displacement." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static projection preview](../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg)
+
+For the **synthetic singular matrix** $A=\operatorname{diag}(2,0)$, the eigenpairs are $(2,e_1)$ and $(0,e_2)$. As $x(\theta)=(\cos\theta,\sin\theta)$ sweeps the unit circle, $Ax(\theta)=(2\cos\theta,0)$ traces a horizontal line segment. At $\theta=90^\circ$, $x=e_2\neq0$ but $Ax=0$: the second eigendirection lies in the null space. Consequently $\det(A)=0$ and $\operatorname{rank}(A)=1$. The diagram uses different scale factors in its two panels; no cross-panel pixel measurement represents the eigenvalue 2. The continuous sweep is a **constructed geometric illustration, not a measured training or numerical-algorithm trajectory**. Original art, **CC BY-SA 4.0**.
+
+### Animated counterexample: a repeated eigenvalue need not provide an eigenbasis
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-jordan-shear-still.svg" data-motion-src="../../../assets/concept-animations/eigen-jordan-shear-motion.svg" data-still-src="../../../assets/concept-animations/eigen-jordan-shear-still.svg" alt="A unit square continuously shears into a parallelogram and back; e1 remains fixed while e2 tilts, although two eigenvalues remain equal to one." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static Jordan shear preview](../../../assets/concept-animations/eigen-jordan-shear-still.svg)
+
+Consider the **synthetic family** $A(s)=\begin{bmatrix}1&s\\0&1\end{bmatrix}$ with $0\le s\le1$. Both algebraic eigenvalues remain 1 throughout the animation, but $A(s)e_1=e_1$ whereas $A(s)e_2=e_2+s e_1$. For every $s>0$, solving $(A(s)-I)v=0$ forces $v_2=0$: the eigenspace is only $\operatorname{span}(e_1)$, so the $2\times2$ matrix is **not diagonalizable** despite the repeated real eigenvalue. At $s=0$ the identity matrix is a special case with a two-dimensional eigenspace. The changing shear parameter is a **family of different linear maps**, not iterations of one fixed Jordan block or empirical observations. Original art, **CC BY-SA 4.0**.
+
+Both demonstrations reuse the MkDocs **Play/Pause** player and its reduced-motion static fallback. In GitHub the still SVG is directly readable. On narrow viewports, focus the figure and scroll horizontally with arrow keys.
+
 ## Key methods
 
 Eigendecomposition is one of the two landmark matrix factorisations of linear algebra. The other is the singular value decomposition.

@@ -78,6 +78,29 @@ A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
 
 兩組範例皆可在 MkDocs 使用**播放／暫停**控制；GitHub 直接顯示靜態 SVG。偏好減少動態時播放器預設暫停。手機可將焦點移到圖面區域，利用方向鍵水平捲動。
 
+
+### 動態範例：零特徵值使空間維度塌縮
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg" data-motion-src="../../../assets/concept-animations/eigen-zero-eigenvalue-motion.svg" data-still-src="../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg" alt="橘色單位向量沿圓周旋轉，青綠色映射後的向量始終落在水平直線上；零特徵值消除了垂直方向的分量。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀的零特徵值靜態預覽](../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg)
+
+考慮**人工設定的奇異矩陣** $A=\operatorname{diag}(2,0)$，兩組特徵對為 $(2,e_1)$ 和 $(0,e_2)$。當 $x(\theta)=(\cos\theta,\sin\theta)$ 掃過單位圓時，$Ax(\theta)=(2\cos\theta,0)$ 的終點只能落在水平線段上。當 $\theta=90^\circ$，$x=e_2\neq0$，但 $Ax=0$，因此第二個特徵方向屬於零空間；同時 $\det(A)=0$ 且 $\operatorname{rank}(A)=1$。**兩面板使用不同圖面縮放**，不能直接用跨面板的像素長度推論特徵值。此連續掃描只是**人工解析式幾何示意，非模型實測或演算法的訓練軌跡**。原創圖像，**CC BY-SA 4.0**。
+
+### 動態反例：重根不一定有足夠的特徵向量
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-jordan-shear-still.svg" data-motion-src="../../../assets/concept-animations/eigen-jordan-shear-motion.svg" data-still-src="../../../assets/concept-animations/eigen-jordan-shear-still.svg" alt="單位正方形連續變形成平行四邊形再復原；第一個基底向量保持固定，第二個基底向量傾斜，但兩個特徵值始終為一。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀的 Jordan 剪切靜態預覽](../../../assets/concept-animations/eigen-jordan-shear-still.svg)
+
+考慮**人工設定的矩陣族** $A(s)=\begin{bmatrix}1&s\\0&1\end{bmatrix}$，其中 $0\le s\le1$。整個動畫中兩個代數特徵值均為 1，但 $A(s)e_1=e_1$，而 $A(s)e_2=e_2+s e_1$。對任何 $s>0$，由 $(A(s)-I)v=0$ 可得 $v_2=0$，故特徵空間僅為 $\operatorname{span}(e_1)$，雖有重複實特徵值，**仍無法對角化**。當 $s=0$ 時矩陣是單位矩陣，此特例具有二維特徵空間。動畫展示的是**不同剪切參數對應的矩陣族**，不是反覆作用同一個 Jordan 區塊，也不是模型實測。原創圖像，**CC BY-SA 4.0**。
+
+兩組圖在 MkDocs 沿用**播放／暫停**及減少動態時的靜態回退。GitHub 可直接看靜態 SVG；窄螢幕可聚焦圖面後以方向鍵水平捲動。
+
 ## 主要方法
 
 特徵值分解是線性代數中兩個代表性的矩陣分解之一，另一個是奇異值分解。
