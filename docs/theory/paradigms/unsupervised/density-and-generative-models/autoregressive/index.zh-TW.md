@@ -61,6 +61,33 @@ $$
 採用因果遮罩的 Transformer 可在一次前向傳遞中計算已知序列的各位置條件分數；生成則必須將每次抽到的詞元接回下一次的前綴。示意詞元不是訓練模型的實際取樣。原創圖採 CC BY-SA 4.0 授權。在 MkDocs 網站可使用「播放／暫停」控制；小螢幕可聚焦圖面後按左右方向鍵水平捲動。偏好減少動態效果時會顯示靜態回退圖。
 
 
+
+#### 生成前綴分歧動畫
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-context-drift-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-context-drift-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-context-drift-still.svg" alt="兩條前綴都以 BOS、We、ate 開始；觀測序列接著是 rice，示意抽樣序列則是 cake。兩種前綴後續預測 EOS 的人工條件機率分別為 0.85 和 0.40。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+**前綴分歧。** 動畫先顯示共同前綴，再顯示不同的下一個詞元，最後呈現後續預測 EOS 的兩個條件機率。[Static GitHub preview](../../../../../assets/concept-animations/ar-context-drift-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-context-drift-motion.svg)。
+
+這些是**人工指定的條件機率**，不是模型實測結果，也不表示抽到 *cake* 必然是錯誤。以模型產生的詞元作為前綴，可能改變後續條件分布；教師強迫則使用已觀測詞元。因此，訓練與生成時遇到的前綴分布可能不同。[^scheduled-sampling] 原創視覺採 CC BY-SA 4.0 授權。MkDocs 網站沿用播放／暫停控制；小螢幕可聚焦圖面後以左右方向鍵捲動，減少動態效果偏好會顯示靜態回退圖。
+
+#### EOS 停止位置分布動畫
+
+令 $L$ 為**第一次出現 EOS 的位置**（位置計數包含 EOS 自身）。以 $q_k=P(L=k\mid L\ge k)$ 表示**到第 $k$ 步前尚未停止**的序列，在該步出現 EOS 的條件機率，則
+
+$$
+P(L=k)=q_k\prod_{j=1}^{k-1}(1-q_j).
+$$
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-eos-survival-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" alt="四個人工設定的 EOS 停止條件機率依序為 0.10、0.25、0.50、0.80；繼續生成的機率逐步減少，而第一次在第 1 至 4 步停止的機率為 0.10、0.225、0.3375、0.27。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+**停止與繼續。** 藍色長條顯示目前步驟後尚未出現 EOS 的機率；每個橘色長條則表示第一次在對應步驟抽到 EOS 的機率。[Static GitHub preview](../../../../../assets/concept-animations/ar-eos-survival-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-eos-survival-motion.svg)。
+
+對示意條件機率 $(0.10,0.25,0.50,0.80)$，首次停止機率為 $(0.10,0.225,0.3375,0.27)$。**超過第四步仍繼續**的機率為 $0.0675$；由於省略後續停止位置，圖中四個長條相加**不等於一**。圖中的機率完全是人工數學範例，不是實測序列長度分布。原創視覺採 CC BY-SA 4.0 授權。MkDocs 網站沿用播放／暫停與減少動態效果回退控制；小螢幕可聚焦圖面後按左右方向鍵捲動。
+
 一般取樣每生成一個元素就要依序執行一步。[推測式解碼](../../../../../engineering/inference-optimization/speculative-decoding.md)可以先提出多個候選詞元，再一併驗證，減少依序呼叫目標模型的次數。使用 Leviathan 等人的接受與校正規則後，輸出樣本仍遵循目標分布。[^speculative]
 
 ## 關鍵方法與應用
