@@ -1,0 +1,37 @@
+name: Item-based CF page browser QA
+on:
+  pull_request:
+    paths:
+      - 'docs/theory/models/recommender/**'
+      - 'scripts/test_item_cf_browser.py'
+      - 'scripts/test_built_motion_browser.py'
+      - '.github/workflows/item-cf-browser.yml'
+      - 'mkdocs.yml'
+      - 'docs/javascripts/mathjax.js'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  item-cf-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt 'playwright==1.55.0'
+          python -m playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+      - run: mkdocs build --strict
+      - run: python scripts/test_item_cf_browser.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: item-cf-browser-review
+          path: artifacts/item-cf-browser/
+          retention-days: 14

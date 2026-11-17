@@ -31,6 +31,14 @@ In single-label classification, $y_i$ and $y_j$ are one-hot class vectors. Their
 
 Mixup favours approximately linear predictions between examples. It does not impose the exact identity $f(\tilde{x})=\lambda f(x_i)+(1-\lambda)f(x_j)$ on every trained model.[^mixup]
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup instructional visual; keyboard-scrollable image">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-still-src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-motion-src="../../../assets/concept-animations/mixup-paired-interpolation-motion.svg" alt="The same mixing coefficient moves a two-dimensional input between examples A and B while adjusting the two soft-target class weights." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* The purple point interpolates between invented inputs $x_A=(1,0)$ and $x_B=(0,1)$ using $\lambda$. The two soft-label weights are $\lambda$ and $1-\lambda$. These are **analytic teaching inputs and targets, not model predictions or actual blended photographs**. MkDocs supports Play/Pause via button, Enter or Space; GitHub shows a static fallback, which is also the default when reduced motion is preferred.
+
 ## Soft targets and the loss
 
 Let $p=f_\theta(\tilde{x})$ be the class probabilities predicted **at the mixed input**. Ordinary unweighted cross-entropy is linear in its target:
@@ -45,6 +53,25 @@ $$
 This algebra explains two equivalent implementations: supply a soft target to a compatible loss, or combine two hard-target losses. Both losses on the right use the **same** prediction $p$. Averaging losses on the two original, unmixed inputs would optimise a different objective.
 
 The identity assumes the stated cross-entropy and consistent reductions. If coefficients vary per example, combine the per-example losses before averaging the batch. For class-weighted reductions, additional smoothing or another loss function, check the actual definition rather than assuming identical behaviour.
+
+### Why the soft-target loss decomposes
+
+For a fixed illustrative prediction $p=(0.2,0.7,0.1)$ and a mixed target $(\lambda,1-\lambda,0)$, the same-prediction identity becomes
+
+$$
+\operatorname{CE}(p,\tilde y)
+=\lambda[-\log(0.2)]+(1-\lambda)[-\log(0.7)].
+$$
+
+At $\lambda=0.25$, the two contributions are approximately $0.40236$ and $0.26751$, summing to $0.66987$. The animation shows each contribution and their sum on a **shared numerical scale** as the target weights vary.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup weighted cross-entropy animation; keyboard-scrollable image">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-loss-decomposition-still.svg" data-still-src="../../../assets/concept-animations/mixup-loss-decomposition-still.svg" data-motion-src="../../../assets/concept-animations/mixup-loss-decomposition-motion.svg" alt="A moving mixing coefficient changes the two target weights and their separate hard-label cross-entropy contributions; the total equals their sum." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* The displayed prediction is **deliberately held fixed** to isolate the target-side algebra; a learned model's prediction $f_\theta(\tilde x)$ would ordinarily also change as the mixed input changes. Values are analytic examples, **not measured network losses**. MkDocs enables Play/Pause and keyboard Enter/Space; reduced-motion users and GitHub see the static view.
 
 ### Worked classification example
 
@@ -72,6 +99,14 @@ The symmetric Beta distribution has mean $1/2$ for every positive $\alpha$. Its 
 
 The paper uses different settings across experiments and reports underfitting for large $\alpha$ in its ImageNet study. A larger value is not a universal improvement.[^settings] Exactly $\alpha=0$ is outside the Beta distribution's parameter domain; an implementation offering “mixup off” at zero needs an explicit bypass.
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup instructional visual; keyboard-scrollable image">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-still-src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-motion-src="../../../assets/concept-animations/mixup-beta-strength-motion.svg" alt="Symmetric Beta densities at alpha 0.35, 1 and 5 change from edge-weighted to uniform to centre-weighted." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* The three labelled states plot **analytic probability densities** for $\mathrm{Beta}(0.35,0.35)$, $\mathrm{Beta}(1,1)$ and $\mathrm{Beta}(5,5)$ over $\lambda\in[0.02,0.98]$. Intermediate frames **visually morph these exact curves; they are not exact distributions for intermediate alpha values, random draws, or training measurements**. Their common mean is 0.5 while their variance decreases. MkDocs supports Play/Pause and reduced-motion fallback; GitHub shows the still preview.
+
 ## Training and evaluation procedure
 
 1. Select a training minibatch and a random permutation of it to form pairs. The paper describes this single-loader approach as an alternative to drawing two separate minibatches.[^mixup]
@@ -93,6 +128,19 @@ The paper also studies CIFAR classification, speech, tabular data, corrupted lab
 - **Label smoothing** changes the target toward a chosen prior while retaining the input. Mixup changes both the input and the target using another example; the two regularisers therefore impose different constraints.[^smoothing]
 - [Dropout](dropout-method.md) removes units during training, while [stochastic depth](stochastic-depth.md) bypasses network layers or residual paths. These differ from mixing data and can interact with mixup rather than being automatic substitutes.[^dropout][^depth]
 - **CutMix** copies image patches and weights labels by patch area, whereas ordinary mixup blends the inputs throughout. It provides a different assumption about spatial structure.[^cutmix]
+
+### CutMix area-to-label coupling
+
+CutMix replaces a rectangular source-image region rather than interpolating every pixel. Let $M$ mark copied pixels from image B. In classification, the target weight assigned to B follows the *actual pasted area*: $\lambda_B=|M|/(HW)$, and $\lambda_A=1-\lambda_B$.[^cutmix] A patch's nominal sampled width can differ from its realised clipped area; the label should use the realised mask.
+
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="CutMix area and target weight animation; keyboard-scrollable image">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-cutmix-area-still.svg" data-still-src="../../../assets/concept-animations/mixup-cutmix-area-still.svg" data-motion-src="../../../assets/concept-animations/mixup-cutmix-area-motion.svg" alt="An orange region grows inside a six-by-six green grid; its covered area and the class B label bar grow together while class A weight decreases." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* For a constructed $6\times6$ grid, the patch height is three cells and its width changes from zero to four cells. At full illustrated width, B covers $3\times4=12$ of the 36 cells, giving **B weight $1/3$ and A weight $2/3$**. Intermediate widths continuously demonstrate the *geometric area formula*, not the discrete integer-pixel masks of an actual CutMix sampler. No model results or image-content probabilities are implied. Play/Pause is available on MkDocs; GitHub and reduced-motion preferences use the static fallback.
 
 A convex combination can lie outside the natural data distribution. Integer token IDs, categorical codes, bounding boxes and segmentation masks need task-specific treatment; the classification recipe does not establish that arbitrary arithmetic on them is meaningful. Likewise, a soft training target alone does not establish calibrated probabilities on real examples.
 

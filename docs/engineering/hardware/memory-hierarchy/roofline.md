@@ -49,9 +49,9 @@ The ceilings are computed once for each machine, not once for each kernel. Every
 
 ### Animated explanation: crossing the ridge point
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Roofline intensity sweep; focus and scroll horizontally on smaller screens">
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Roofline intensity sweep; focus and scroll horizontally on smaller screens">
 <div style="width:640px">
-<img src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" data-motion-src="../../../assets/concept-animations/roofline-ridge-sweep-motion.svg" data-still-src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" alt="Log-log Roofline graph. A moving marker follows the bandwidth ceiling then levels off at the compute ceiling; the ridge is at eight FLOP per byte.">
+<img data-source-asset-urls width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" data-motion-src="../../../assets/concept-animations/roofline-ridge-sweep-motion.svg" data-still-src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" alt="Log-log Roofline graph. A moving marker follows the bandwidth ceiling then levels off at the compute ceiling; the ridge is at eight FLOP per byte.">
 </div>
 </div>
 

@@ -36,9 +36,9 @@ P_{\text{attainable}} = \min\left(P_{\text{peak}},\; B \cdot I\right)
 
 ### 動態解說：跨越屋脊點
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Roofline 運算強度動畫；小螢幕可聚焦並水平捲動">
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Roofline 運算強度動畫；小螢幕可聚焦並水平捲動">
 <div style="width:640px">
-<img src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" data-motion-src="../../../assets/concept-animations/roofline-ridge-sweep-motion.svg" data-still-src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" alt="對數座標 Roofline 圖：游標沿頻寬上限持續上升，在每位元組八次浮點運算的屋脊點後轉為水平運算上限。">
+<img data-source-asset-urls width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" data-motion-src="../../../assets/concept-animations/roofline-ridge-sweep-motion.svg" data-still-src="../../../assets/concept-animations/roofline-ridge-sweep-still.svg" alt="對數座標 Roofline 圖：游標沿頻寬上限持續上升，在每位元組八次浮點運算的屋脊點後轉為水平運算上限。">
 </div>
 </div>
 
