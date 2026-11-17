@@ -55,6 +55,26 @@ translation_reviewed: 2026-11-18
 
 動畫令第二個輸入變為 \(g_2(t)=(0,2t)\)，只是在掃描**不同的假設輸入**，並非連續訓練步驟。實際梯度累積可能採總和或平均，因此必須配合使用的縮放方式解讀門檻。**所有數值皆為數學示例，並非模型實測。** [GitHub 靜態回退預覽](../../assets/concept-animations/gradient-accumulation-clipping-order-still.svg)。MkDocs 可播放／暫停，窄螢幕可水平捲動並用鍵盤聚焦。範數裁剪研究見下方 Pascanu 等人（2013）。
 
+### 全域梯度範數預算與逐層獨立裁剪
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="比較全域與逐層梯度範數裁剪動畫">
+<div style="width:800px">
+<img data-source-asset-urls src="../../assets/concept-animations/gradient-global-layer-budget-still.svg" data-motion-src="../../assets/concept-animations/gradient-global-layer-budget-motion.svg" data-still-src="../../assets/concept-animations/gradient-global-layer-budget-still.svg" alt="第二組參數的梯度逐漸變大，第一組保持不變。全域 L2 範數裁剪共用上限，因此同時縮小兩組；逐組裁剪不限制聯合範數。" width="800" height="420">
+</div>
+</div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 假設兩組**互相正交的參數群組**，梯度 L2 範數分別為 \(g_1=4\) 及 \(g_2=3s\)，其中 \(0\le s\le1\)。圖中的座標代表**群組梯度範數**，而非各張量本身的方向。若共用全域裁剪門檻 \(\tau=4\)，當 \(s=1\) 時整體範數為 \(5\)，兩組都要乘以 \(4/5\)，得到 \((3.2,2.4)\)，聯合範數為 \(4\)。若兩組各有獨立門檻 \(4\)，則各組範數都未超標，輸出仍是 \((4,3)\)，但其**聯合**範數為 \(5\)。因此，僅在共用門檻的情況下，第二組梯度增加才會使第一組輸出縮小。逐層裁剪亦不等同於 LARS 或 LAMB 的信任比縮放。動畫掃描的是**人工解析參數，並非模型訓練梯度軌跡**。[GitHub 靜態回退預覽](../../assets/concept-animations/gradient-global-layer-budget-still.svg)。MkDocs 支援播放／暫停、鍵盤聚焦與水平捲動。全域裁剪參考下方 Pascanu 等人（2013）。
+
+### 自動混合精度：先還原梯度尺度再裁剪
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="比較混合精度下梯度還原與裁剪的先後次序">
+<div style="width:800px">
+<img data-source-asset-urls src="../../assets/concept-animations/gradient-amp-unscale-order-still.svg" data-motion-src="../../assets/concept-animations/gradient-amp-unscale-order-motion.svg" data-still-src="../../assets/concept-animations/gradient-amp-unscale-order-still.svg" alt="混合精度下兩種處理順序的比較。正確流程先將梯度除回原尺度，再裁剪得到 L2 範數二；錯誤流程先裁剪放大後梯度再還原，得到過小的二分之一。" width="800" height="420">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 設還原尺度後的人工梯度 \(g=(3,4)\)、\(\|g\|_2=5\)。使用損失縮放因子 \(S=4\) 時，縮放梯度的範數為 \(20\)，希望的裁剪門檻是 \(\tau=2\)。**正確流程**先還原再裁剪，\(\operatorname{clip}_2(Sg/S)\) 的範數為 \(2\)。**錯誤流程**先裁剪放大後的梯度再還原，\(\operatorname{clip}_2(Sg)/S\) 的範數只有 \(2/4=0.5\)，導致過度縮小。使用梯度累積時，應先完成有效批次的梯度累積，再執行 unscale 與 clipping，否則梯度語意可能改變；詳見 [PyTorch 官方 Automatic Mixed Precision 範例](https://docs.pytorch.org/docs/stable/notes/amp_examples.html) 中的 GradScaler.unscale_。動畫呈現運算依存次序，**不是模型實測資料，也不代表建議使用的縮放因子**。[GitHub 靜態回退預覽](../../assets/concept-animations/gradient-amp-unscale-order-still.svg)。MkDocs 沿用播放／暫停、降低動態效果時的靜態回退，以及鍵盤聚焦與水平捲動。
+
 ## 關鍵方法
 
 三個方法各有獨立頁面。第一個最早，也最簡單。
@@ -97,3 +117,8 @@ translation_reviewed: 2026-11-18
 ### 綜述與教科書
 
 - Bottou, L., Curtis, F. E. & Nocedal, J. (2018). *Optimization Methods for Large-Scale Machine Learning*. SIAM Review. https://arxiv.org/abs/1606.04838 — 隨機梯度方法的綜述，討論步長控制與梯度大小。
+
+
+### 文章與官方文件
+
+- PyTorch Contributors. *Automatic Mixed Precision examples: Gradient clipping*. https://docs.pytorch.org/docs/stable/notes/amp_examples.html — 官方文件示範先對已累積梯度還原尺度，再執行梯度範數裁剪。
