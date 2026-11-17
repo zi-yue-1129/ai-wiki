@@ -50,6 +50,33 @@ where \(C_j\) is the set of points currently assigned to centre \(j\). Each step
 
 *Original teaching animation, CC BY-SA 4.0.* Blue and teal represent the two assigned clusters; outlined crosses are centroids, and dashed orange lines show centroid movement. The illustrated within-cluster squared-distance cost decreases from approximately 323k to 97k to 31k in arbitrary diagram-coordinate units. These values come from the twelve **synthetic plotted points**, not from a model benchmark. The final stage repeats assignment and mean update; the method may require further iterations on other data. The MkDocs player provides Play/Pause and a reduced-motion fallback; [view the four-stage static overview](../../../../assets/concept-animations/kmeans-lloyd-still.svg) on GitHub.
 
+### k-means++: why the next seed is distance-weighted
+
+After its first uniformly chosen data point, k-means++ draws each subsequent centre with probability proportional to its **squared distance from the nearest centre already selected**:
+
+$
+D(x)^2=\min_{\mu\in S}\|x-\mu\|^2,\qquad
+P(x\text{ is drawn next})=\frac{D(x)^2}{\sum_{z\in X}D(z)^2}.
+$
+
+![Animated k-means++ D-squared seeding on eight synthetic scalar points: the probability bars change after another centre is sampled.](../../../../assets/concept-animations/kmeans-plusplus-d2-motion.svg)
+
+*Original synthetic teaching animation, CC BY-SA 4.0.* The example has points $X=\{0,1,2,3,8,9,10,11\}$. After a first seed at $1$, the squared-distance weights are $(1,0,1,4,49,64,81,100)$, summing to **300**. A possible, **not deterministic**, draw at $10$ has probability $81/300=27\%$, even though $11$ has the largest individual weight. Once $10$ is selected, the recomputed weights are $(1,0,1,4,4,1,0,1)$ (sum **12**); a subsequent draw at $8$ then has probability $4/12=1/3$. The animated bar morph is a visual interpolation between two computed distributions, **not** a model measurement or additional sampling iteration. [View the two GitHub-safe static distributions](../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg). On the MkDocs site, use Play/Pause; with reduced motion enabled the static fallback is displayed.
+
+### Why a distant observation pulls the k-means centroid
+
+Within one fixed cluster, the minimiser of **sum of squared errors** is its arithmetic mean. A single distant observation can therefore shift the centroid substantially. For the one-dimensional illustrative set
+
+$
+X(x)=\{0,1,2,3,4,x\},\qquad 4\leq x\leq12,
+$
+
+the mean is $(10+x)/6$, changing from **2.333** to **3.667** as $x$ moves from $4$ to $12$. The sample median remains **2.5** over this range.
+
+![Animated sensitivity of a k-means centroid: one synthetic observation moves to the right, the mean follows, but the median remains fixed.](../../../../assets/concept-animations/kmeans-outlier-leverage-motion.svg)
+
+*Original synthetic teaching animation, CC BY-SA 4.0.* The teal marker is the squared-error-optimal **mean** for this single fixed group, not a completed multi-cluster k-means run. The orange median is only a robustness comparison: it minimises absolute error, **not** the standard k-means squared-error objective. The point motion and moving centroid follow the analytic formula rather than empirical training results. [View the before/after static comparison](../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg). The MkDocs player provides Play/Pause and reduced-motion fallback.
+
 ## Key methods
 
 ### Least squares quantization in PCM (Lloyd, 1982)

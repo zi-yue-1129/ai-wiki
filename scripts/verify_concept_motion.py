@@ -75,6 +75,8 @@ TOPICS = {
     "gcn-aggregation": "theory/models/gnn/message-passing/gcn/index",
     "gat-aggregation": "theory/models/gnn/message-passing/gat/index",
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-plusplus-d2": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-outlier-leverage": "theory/paradigms/unsupervised/clustering/k-means",
     "pca-variance-axis": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "pca-rank1-reconstruction": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
