@@ -19,6 +19,14 @@ TOPICS = {
     "conformal-shift-coverage": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
     "conformal-cqr-expansion": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
     "conformal-weighted-quantile": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-aps-cumulative": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-alpha-staircase": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "svm-margin-hinge": "theory/paradigms/supervised/kernel-methods-svm/svm",
+    "cv-fold-rotation": "theory/evaluation/protocols/methods/cross-validation",
+    "ndcg-position-discount": "theory/evaluation/metrics/ranking/ndcg",
+    "map-precision-at-hits": "theory/evaluation/metrics/ranking/map",
+    "heavy-ball-overshoot": "theory/optimization/sgd-and-momentum/heavy-ball",
+    "sgd-noise-batch": "theory/optimization/sgd-noise-scale",
     "adagrad-coordinate-gain": "theory/optimization/adaptive/adagrad",
     "adafactor-factored-moments": "theory/optimization/adaptive/adafactor",
     "sharpness-reparam-curvature": "theory/optimization/sharp-minima",
@@ -247,7 +255,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"conformal-subgroup-coverage", "conformal-shift-coverage", "conformal-cqr-expansion", "conformal-weighted-quantile"}:
+            elif stem in {"conformal-subgroup-coverage", "conformal-shift-coverage", "conformal-cqr-expansion", "conformal-weighted-quantile", "conformal-aps-cumulative", "conformal-alpha-staircase"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {
@@ -273,7 +281,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"svm-margin-hinge", "cv-fold-rotation", "ndcg-position-discount", "map-precision-at-hits", "heavy-ball-overshoot", "sgd-noise-batch", "adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",

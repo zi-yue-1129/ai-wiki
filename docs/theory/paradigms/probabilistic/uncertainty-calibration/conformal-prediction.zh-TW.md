@@ -77,6 +77,26 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 
 *原創教學動畫（CC BY-SA 4.0）。* 對人工排序分數 **[0.10, 0.22, 0.31, 0.44, 0.58]**，另外加入位於 **$+\infty$** 的**測試點權重**，取目標累積正規化權重 $1-\alpha=0.70$。校準權重 **[1,1,1,1,1]** 搭配測試點權重 **1** 時，門檻是 **0.58**；校準權重變為 **[2.5,2,1,1,1]** 時是 **0.44**；變成 **[4,3,1,1,1]** 時則是 **0.31**，測試點權重都維持 **1**。標記在分位數跨越門檻時**離散跳動**，長條只是在替代性權重設定間插值，**不是實際模型推論歷程**。正無窮大測試點權重對這項有限樣本加權分位數構造相當重要；但理論有效性仍須共變量偏移假設與正確的密度比權重，**不能保證任意分布偏移都獲得修正**（Tibshirani 等人，2019）。上述權重是人工示例，**不是實測密度比**。[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-weighted-quantile-still.svg)；MkDocs 支援播放／暫停與鍵盤水平捲動。
 
+### 自適應預測集合：逐類累加機率
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="APS 類別機率累積分數動畫">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-aps-cumulative-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-aps-cumulative-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-aps-cumulative-still.svg" alt="四個人工類別機率 0.45、0.30、0.15、0.10 依排序累加，得到 0.45、0.75、0.90、1.00；人工門檻 0.80 僅保留 A、B。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 假設四類別模型輸出的**人工機率**排序為 **[0.45, 0.30, 0.15, 0.10]**。在**不使用隨機化**的 APS 累積分數版本中，候選標籤分數等於排序後從第一名加到自身排名的機率和：$s(x,y)=\sum_{j:\operatorname{rank}(j)\leq\operatorname{rank}(y)}\hat p_j(x)$，因此四個分數是 **[0.45, 0.75, 0.90, 1.00]**。選擇**假設性的** $\hat q=0.80$，由 $s(x,y)\leq\hat q$ 得到預測集合 **{A, B}**；此版本**不會自動納入第一個跨越門檻的類別**，與部分採用跨越標籤納入規則的作法不同。動畫展示每個機率如何被累加再判斷是否納入。**機率與門檻皆為人工數值，不是模型實測，也不是經校準的分位數。** 實際要得到覆蓋保證，必須用**相同的 APS 分數定義**在獨立、可交換的校準集計算有限樣本門檻（Romano、Sesia 與 Candès，2020）；此圖本身沒有保證。[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-aps-cumulative-still.svg)；MkDocs 支援播放／暫停，窄螢幕可用鍵盤水平捲動。
+
+### 有限樣本分位數隨 α 階梯式變化
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="有限樣本共形分位數階梯動畫">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-alpha-staircase-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-alpha-staircase-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-alpha-staircase-still.svg" alt="八筆人工校準分數的有限樣本分位數隨 alpha 改變，排序位置從 9 離散下降至 5；當排序位置大於八時，門檻為正無窮大。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 設八筆**人工**排序分數為 **[0.08, 0.16, 0.24, 0.32, 0.42, 0.47, 0.54, 0.69]**。分割式共形分位數的位置是 $k(\alpha)=\lceil(8+1)(1-\alpha)\rceil$，取 $\hat q=s_{(k)}$；若 **$k>8$ 則 $\hat q=+\infty$**。當 $\alpha$ 分別為 **0.08、0.13、0.25、0.37、0.49**，$(k,\hat q)$ 依序為 **(9,+∞)、(8,0.69)、(7,0.54)、(6,0.47)、(5,0.42)**。動畫讓錯誤涵蓋率參數連續掃描，而排序位置只會在 ceiling 函數跨越門檻時**離散跳動**；這是**參數比較，不是模型訓練歷程或資料實測**。正無窮大代表該情況下沒有資訊量的全域集合，不可偷偷改以最大的有限校準分數代替。若事先固定 $\alpha$ 且符合可交換性，有限樣本校正可提供邊際覆蓋保證（Angelopoulos 與 Bates，2023）。[GitHub 靜態預覽](../../../../assets/concept-animations/conformal-alpha-staircase-still.svg)；MkDocs 支援播放／暫停與鍵盤水平捲動。
+
 ## 變體
 
 - **分割式共形預測**使用單一校準集，是最簡單也最常見的形式。
@@ -107,6 +127,8 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 ## 參考文獻
 
 ### 奠基性論文
+
+- Romano, Y., Sesia, M. & Candès, E. J. (2020). Classification with valid and adaptive coverage. *Advances in Neural Information Processing Systems* 33. https://proceedings.neurips.cc/paper_files/paper/2020/hash/244edd7e85dc81602b7615cd705545f5-Abstract.html — 以類別機率排序構造自適應共形分類分數與預測集合。
 
 - Vovk, V., Gammerman, A. & Shafer, G. (2005). *Algorithmic Learning in a Random World*. Springer. https://doi.org/10.1007/b106715 — 共形預測及其有效性理論的基礎專書。
 - Romano, Y., Patterson, E. & Candès, E. J. (2019). Conformalized quantile regression. In *Advances in Neural Information Processing Systems* 32. arXiv:1905.03222. https://arxiv.org/abs/1905.03222 — 將分位數迴歸與分割式共形校準結合，得到自適應區間。

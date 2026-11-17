@@ -89,6 +89,26 @@ and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 20
 
 *Original animated teaching visual (CC BY-SA 4.0).* Sort **invented** calibration scores as **[0.10, 0.22, 0.31, 0.44, 0.58]**, add a separate test-point weight at **$+\infty$**, and choose target cumulative normalized weight $1-\alpha=0.70$. Calibration weights **[1,1,1,1,1]** plus test weight **1** yield a threshold of **0.58**. Intermediate calibration weights **[2.5,2,1,1,1]** yield **0.44**, and final weights **[4,3,1,1,1]** yield **0.31**, each retaining the test weight **1**. The indicator *jumps at quantile crossings* while bar heights interpolate between alternative weighting choices; this is **not a stream of observed model outputs**. Including test mass at infinity matters to this particular finite-sample weighted conformal quantile. Theoretical validity depends on the covariate-shift assumptions and correct density-ratio weights; arbitrary distribution shift is **not** automatically corrected (Tibshirani et al., 2019). These invented weights **are not measured density ratios**. [GitHub static preview](../../../../assets/concept-animations/conformal-weighted-quantile-still.svg); MkDocs provides Play/Pause and keyboard-accessible horizontal scrolling.
 
+### Adaptive prediction sets: accumulate class probabilities
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Nonrandomized APS cumulative-score construction">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-aps-cumulative-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-aps-cumulative-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-aps-cumulative-still.svg" alt="Four sorted toy class probabilities 0.45, 0.30, 0.15, and 0.10 build cumulative scores 0.45, 0.75, 0.90, and 1.00; the illustrative cutoff 0.80 admits A and B, but not C and D." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* For a **synthetic four-class predictor**, sorted probabilities are **[0.45, 0.30, 0.15, 0.10]**. A **nonrandomized cumulative-score** variant of adaptive prediction sets (APS) gives each candidate label the sum of probabilities through its rank: $s(x,y)=\sum_{j:\operatorname{rank}(j)\leq\operatorname{rank}(y)}\hat p_j(x)$. The four scores are **[0.45, 0.75, 0.90, 1.00]**. With a **hypothetical** threshold **$\hat q=0.80$**, the rule $s(x,y)\leq\hat q$ includes **A and B**, but excludes **C and D**; unlike an alternative crossing-label construction, this example does **not** automatically include the first label exceeding the cutoff. The animated cumulative strip shows each probability being added before the decision. **The probabilities and cutoff are invented, not fitted-model results or an actually calibrated quantile.** For coverage validity, the **same APS score** must be computed on a held-out exchangeable calibration set to choose its own finite-sample quantile; this example alone makes no coverage claim (Romano, Sesia & Candès, 2020). [GitHub static preview](../../../../assets/concept-animations/conformal-aps-cumulative-still.svg); MkDocs provides Play/Pause, with keyboard-accessible horizontal scrolling on narrow screens.
+
+### Finite-sample quantiles change in discrete steps
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Conformal finite-sample alpha quantile staircase">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-alpha-staircase-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-alpha-staircase-motion.svg" data-still-src="../../../../assets/concept-animations/conformal-alpha-staircase-still.svg" alt="At eight synthetic calibration scores, moving alpha sweeps the ceiling-adjusted conformal rank k over 9, 8, 7, 6, and 5; the threshold jumps discretely and is positive infinity when k exceeds eight." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* With **eight invented sorted scores** **[0.08, 0.16, 0.24, 0.32, 0.42, 0.47, 0.54, 0.69]**, split conformal uses the rank $k(\alpha)=\lceil(8+1)(1-\alpha)\rceil$ and the order statistic $\hat q=s_{(k)}$, taking **$\hat q=+\infty$ when $k>8$**. For $\alpha=0.08, 0.13, 0.25, 0.37, 0.49$, the pairs $(k,\hat q)$ are **(9,+∞), (8,0.69), (7,0.54), (6,0.47), (5,0.42)**. The moving guide sweeps the miscoverage level smoothly while the rank **jumps at exact ceiling boundaries**; this is a *parameter sweep*, **not a training trajectory or a set of measured outcomes**. The infinity case indicates a vacuous unconstrained prediction set, not a replacement by the largest finite score. Under exchangeability, the finite-sample correction supports marginal coverage for a preselected $\alpha$ (Angelopoulos & Bates, 2023). [GitHub static preview](../../../../assets/concept-animations/conformal-alpha-staircase-still.svg); MkDocs provides Play/Pause and keyboard-accessible horizontal scrolling.
+
 ## Variants
 
 - **Split conformal** uses one calibration set, which is the simplest and most common form.
@@ -118,6 +138,8 @@ and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 20
 ## References
 
 ### Seminal papers
+
+- Romano, Y., Sesia, M. & Candès, E. J. (2020). Classification with valid and adaptive coverage. *Advances in Neural Information Processing Systems* 33. https://proceedings.neurips.cc/paper_files/paper/2020/hash/244edd7e85dc81602b7615cd705545f5-Abstract.html — Introduces adaptive conformal classification scores that use class-probability rankings to construct prediction sets.
 
 - Vovk, V., Gammerman, A. & Shafer, G. (2005). *Algorithmic Learning in a Random World*. Springer. https://doi.org/10.1007/b106715 — Foundational book on conformal prediction and its validity theory.
 - Romano, Y., Patterson, E. & Candès, E. J. (2019). Conformalized quantile regression. In *Advances in Neural Information Processing Systems* 32. arXiv:1905.03222. https://arxiv.org/abs/1905.03222 — Combines quantile regression with split conformal calibration for adaptive intervals.
