@@ -35,7 +35,7 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 ### 偏差校正與零初始化動差：動態示範
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/adam-bias-correction-still.svg" data-motion-src="../../../assets/concept-animations/adam-bias-correction-motion.svg" data-still-src="../../../assets/concept-animations/adam-bias-correction-still.svg" alt="兩張同步時間曲線顯示固定單位梯度下的一階與二階動差，未校正估計由下方向一靠近，而偏差校正後皆維持在一。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-bias-correction-still.svg" data-motion-src="../../../assets/concept-animations/adam-bias-correction-motion.svg" data-still-src="../../../assets/concept-animations/adam-bias-correction-still.svg" alt="兩張同步時間曲線顯示固定單位梯度下的一階與二階動差，未校正估計由下方向一靠近，而偏差校正後皆維持在一。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 
@@ -44,7 +44,7 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 ### 正梯度整體縮放的不變性：動態示範
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/adam-scale-invariance-still.svg" data-motion-src="../../../assets/concept-animations/adam-scale-invariance-motion.svg" data-still-src="../../../assets/concept-animations/adam-scale-invariance-still.svg" alt="左右面板比較固定正梯度歷史放大一倍與八倍的動差，一階動差和二階動差平方根等比例放大，但正規化的 Adam 更新方向大小不變。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-scale-invariance-still.svg" data-motion-src="../../../assets/concept-animations/adam-scale-invariance-motion.svg" data-still-src="../../../assets/concept-animations/adam-scale-invariance-still.svg" alt="左右面板比較固定正梯度歷史放大一倍與八倍的動差，一階動差和二階動差平方根等比例放大，但正規化的 Adam 更新方向大小不變。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 
@@ -54,7 +54,7 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 ### 梯度反向後的一階動差記憶：動態示範
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/adam-sign-reversal-still.svg" data-motion-src="../../../assets/concept-animations/adam-sign-reversal-motion.svg" data-still-src="../../../assets/concept-animations/adam-sign-reversal-still.svg" alt="十個人工梯度時間步在第五步由正變負；偏差校正後的一階動差仍保持兩步為正，第七步才轉負，動畫游標同步標示每個離散計算狀態。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-sign-reversal-still.svg" data-motion-src="../../../assets/concept-animations/adam-sign-reversal-motion.svg" data-still-src="../../../assets/concept-animations/adam-sign-reversal-still.svg" alt="十個人工梯度時間步在第五步由正變負；偏差校正後的一階動差仍保持兩步為正，第七步才轉負，動畫游標同步標示每個離散計算狀態。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 令**人工純量梯度序列** $g_1=\cdots=g_4=+1$、$g_5=\cdots=g_{10}=-1$，設定 $m_0=v_0=0$、$\beta_1=0.8$、$\beta_2=0.5$、$\epsilon=0$。由於每步 $g_t^2=1$，偏差校正後 $\hat v_t=1$，正規化更新比值 $\hat m_t/(\sqrt{\hat v_t}+\epsilon)$ 就等於 $\hat m_t$。梯度在第五步變負後，一階動差仍為**正值**：$\hat m_5\approx0.405$、$\hat m_6\approx0.024$，直到第七步才轉負（約 $-0.235$）。真正的**參數位移**則是此比值乘學習率再取負號。曲線連接離散計算結果只為便於辨識；步數間的插值不代表額外的最佳化運算。所有數值均為**解析式示意，並非實測梯度或收斂證據**。MkDocs 沿用支援鍵盤的播放／暫停控制，手機可聚焦圖面後水平捲動；[GitHub 靜態回退圖](../../../assets/concept-animations/adam-sign-reversal-still.svg)亦供偏好減少動態效果者使用。原創 CC BY-SA 4.0 視覺；參考 [Kingma 與 Ba](https://arxiv.org/abs/1412.6980)。
@@ -62,7 +62,7 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 ### Epsilon 對微小梯度更新的影響：動態示範
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/adam-epsilon-threshold-still.svg" data-motion-src="../../../assets/concept-animations/adam-epsilon-threshold-motion.svg" data-still-src="../../../assets/concept-animations/adam-epsilon-threshold-still.svg" alt="兩條曲線比較 epsilon 為零及零點一時，固定正純量梯度大小改變所造成的 Adam 正規化更新差異；游標與長條顯示非零 epsilon 在近零區域的抑制。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-epsilon-threshold-still.svg" data-motion-src="../../../assets/concept-animations/adam-epsilon-threshold-motion.svg" data-still-src="../../../assets/concept-animations/adam-epsilon-threshold-still.svg" alt="兩條曲線比較 epsilon 為零及零點一時，固定正純量梯度大小改變所造成的 Adam 正規化更新差異；游標與長條顯示非零 epsilon 在近零區域的抑制。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 若整段梯度歷史皆為固定正值 $g_t=c>0$，且動差從零初始化，則偏差校正後每步皆有 $\hat m_t=c$、$\sqrt{\hat v_t}=c$。因此無因次的更新比例為

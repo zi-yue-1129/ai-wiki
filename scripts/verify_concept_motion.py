@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "itemcf-weighted-neighbors": "theory/models/recommender/item-based-cf",
+    "neumf-dual-path": "theory/models/recommender/neural-cf",
     "resnet-identity-gradient": "theory/models/cnn/backbones-and-scaling/resnet/index",
     "resnet-projection-shortcut": "theory/models/cnn/backbones-and-scaling/resnet/index",
     "resnet-postrelu-gate": "theory/models/cnn/backbones-and-scaling/resnet/index",
@@ -78,6 +80,12 @@ TOPICS = {
     "spsa-two-evaluations": "theory/optimization/spsa",
     "batch-norm-train-infer": "theory/deep-learning/normalisation/batch-normalisation",
     "stochastic-depth-paths": "theory/deep-learning/dropout/stochastic-depth",
+    "dropout-inverted-sampling": "theory/deep-learning/dropout/dropout-method",
+    "dropout-variance-tradeoff": "theory/deep-learning/dropout/dropout-method",
+    "dropblock-spatial-masking": "theory/deep-learning/dropout/dropout-method",
+    "mc-dropout-repeated-passes": "theory/deep-learning/dropout/index",
+    "stochastic-depth-survival-samples": "theory/deep-learning/dropout/stochastic-depth",
+    "stochastic-depth-scaling-conventions": "theory/deep-learning/dropout/stochastic-depth",
     "vae-reparameterisation": "theory/paradigms/unsupervised/density-and-generative-models/vae/index",
     "realnvp-affine-coupling": "theory/paradigms/unsupervised/density-and-generative-models/flow/normalising-flows/realnvp",
     "mh-accept-reject": "theory/paradigms/probabilistic/mcmc/metropolis-hastings",
@@ -110,6 +118,10 @@ TOPICS = {
     "pca-variance-axis": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "pca-rank1-reconstruction": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
+    "mf-coupled-sgd": "theory/models/recommender/matrix-factorization",
+    "bpr-pairwise-ranking": "theory/models/recommender/bpr",
+    "mf-als-alternating": "theory/models/recommender/matrix-factorization",
+    "bpr-gradient-saturation": "theory/models/recommender/bpr",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "mle-bernoulli-likelihood": "theory/math/probability-statistics/maximum-likelihood",
     "map-beta-posterior": "theory/math/probability-statistics/maximum-a-posteriori",
@@ -227,6 +239,13 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"itemcf-weighted-neighbors", "neumf-dual-path"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in static_links
+                }:
+                    errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
             elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
@@ -239,7 +258,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
@@ -247,7 +266,7 @@ def main() -> int:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
-                if stem in {"adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
+                if stem in {"adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
                     static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                     if static_path.resolve() not in {
                         (page.parent / link).resolve() for link in static_links
@@ -262,6 +281,13 @@ def main() -> int:
                 for fallback in fallbacks:
                     if fallback.resolve() not in linked:
                         errors.append(f"{page}: missing GitHub-readable fallback link {fallback.name}")
+            if stem in {"dropout-inverted-sampling", "stochastic-depth-survival-samples", "dropout-variance-tradeoff", "stochastic-depth-scaling-conventions", "dropblock-spatial-masking", "mc-dropout-repeated-passes"}:
+                # Both languages must expose a GitHub-safe static fallback.
+                static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in static_links
+                }:
+                    errors.append(f"{page}: missing GitHub static fallback for {stem}")
             if "CC BY-SA 4.0" not in text:
                 errors.append(f"{page}: missing original-diagram attribution")
         print(

@@ -47,7 +47,7 @@ The paper's suggested defaults are \(\alpha = 0.001\) for the step size (written
 ### Animated bias correction for zero-initialised moments
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/adam-bias-correction-still.svg" data-motion-src="../../../assets/concept-animations/adam-bias-correction-motion.svg" data-still-src="../../../assets/concept-animations/adam-bias-correction-still.svg" alt="Two synchronized time plots trace raw and bias-corrected first and second moments for a constant unit gradient. The raw estimates approach one from below while corrected moments remain at one." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-bias-correction-still.svg" data-motion-src="../../../assets/concept-animations/adam-bias-correction-motion.svg" data-still-src="../../../assets/concept-animations/adam-bias-correction-still.svg" alt="Two synchronized time plots trace raw and bias-corrected first and second moments for a constant unit gradient. The raw estimates approach one from below while corrected moments remain at one." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 
@@ -56,7 +56,7 @@ For the **illustrative constant gradient** $g_t=1$, with $m_0=v_0=0$, $\beta_1=0
 ### Animated positive gradient rescaling
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/adam-scale-invariance-still.svg" data-motion-src="../../../assets/concept-animations/adam-scale-invariance-motion.svg" data-still-src="../../../assets/concept-animations/adam-scale-invariance-still.svg" alt="Two panels compare a constant positive gradient history at scale one and scale eight. The first moment and square root of the second moment each grow by the same factor, while the normalized Adam direction stays unchanged." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-scale-invariance-still.svg" data-motion-src="../../../assets/concept-animations/adam-scale-invariance-motion.svg" data-still-src="../../../assets/concept-animations/adam-scale-invariance-still.svg" alt="Two panels compare a constant positive gradient history at scale one and scale eight. The first moment and square root of the second moment each grow by the same factor, while the normalized Adam direction stays unchanged." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 
@@ -66,7 +66,7 @@ If **every gradient in a positive, constant history** is multiplied by $c=8$, th
 ### Animated sign reversal: first-moment memory
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/adam-sign-reversal-still.svg" data-motion-src="../../../assets/concept-animations/adam-sign-reversal-motion.svg" data-still-src="../../../assets/concept-animations/adam-sign-reversal-still.svg" alt="Ten synthetic gradient steps switch from positive to negative at step five. The bias-corrected first moment remains positive for two further steps before reversing; a synchronized cursor traces the discrete values." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-sign-reversal-still.svg" data-motion-src="../../../assets/concept-animations/adam-sign-reversal-motion.svg" data-still-src="../../../assets/concept-animations/adam-sign-reversal-still.svg" alt="Ten synthetic gradient steps switch from positive to negative at step five. The bias-corrected first moment remains positive for two further steps before reversing; a synchronized cursor traces the discrete values." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 For a **constructed scalar gradient sequence** $g_1=\cdots=g_4=+1$ and $g_5=\cdots=g_{10}=-1$, start at $m_0=v_0=0$ with $\beta_1=0.8$, $\beta_2=0.5$, and $\epsilon=0$. Because $g_t^2=1$ at every step, the bias-corrected second moment is exactly $\hat v_t=1$; the normalized update ratio is $\hat m_t/(\sqrt{\hat v_t}+\epsilon)=\hat m_t$. Immediately after the sign flip it remains **positive**: $\hat m_5\approx0.405$, $\hat m_6\approx0.024$, only becoming negative at $t=7$ ($\approx-0.235$). The actual *parameter displacement* is the negative of this ratio times the learning rate. The curve joins discrete computed states only for legibility; moving between steps does not represent extra optimiser operations. These are **analytic toy values, not measured training gradients or convergence evidence**. On MkDocs, use the existing Play/Pause control, focus the graphic to scroll horizontally on mobile, or view the [GitHub static fallback](../../../assets/concept-animations/adam-sign-reversal-still.svg), also used for reduced motion. Original CC BY-SA 4.0 artwork; see [Kingma and Ba](https://arxiv.org/abs/1412.6980).
@@ -74,7 +74,7 @@ For a **constructed scalar gradient sequence** $g_1=\cdots=g_4=+1$ and $g_5=\cdo
 ### Animated epsilon threshold: when gradient scale matters
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/adam-epsilon-threshold-still.svg" data-motion-src="../../../assets/concept-animations/adam-epsilon-threshold-motion.svg" data-still-src="../../../assets/concept-animations/adam-epsilon-threshold-still.svg" alt="An illustrative curve compares Adam's normalized update for epsilon zero and epsilon point one as the magnitude of a constant positive scalar gradient varies. A moving marker and bar reveal attenuation near zero for nonzero epsilon." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-epsilon-threshold-still.svg" data-motion-src="../../../assets/concept-animations/adam-epsilon-threshold-motion.svg" data-still-src="../../../assets/concept-animations/adam-epsilon-threshold-still.svg" alt="An illustrative curve compares Adam's normalized update for epsilon zero and epsilon point one as the magnitude of a constant positive scalar gradient varies. A moving marker and bar reveal attenuation near zero for nonzero epsilon." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 For a constant positive gradient history $g_t=c>0$ and zero-initialized moments, bias correction gives $\hat m_t=c$ and $\sqrt{\hat v_t}=c$ for every $t\ge1$. Therefore the dimensionless update factor is
