@@ -83,7 +83,7 @@ Its rows are orthogonal, so $AA^\top=\operatorname{diag}(18,8,2)$. The singular 
 ### Animated rank-one accumulation and residual energy
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/svd-rank-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" alt="Three orthogonal rank-one terms are added to a three-by-four matrix. The retained rows grow from one to three while Frobenius residual falls from square root of ten to square root of two, then zero." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/svd-rank-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" alt="Three orthogonal rank-one terms are added to a three-by-four matrix. The retained rows grow from one to three while Frobenius residual falls from square root of ten to square root of two, then zero." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub-readable rank-one accumulation snapshots](../../../assets/concept-animations/svd-rank-accumulation-still.svg)
@@ -97,7 +97,7 @@ For an $m\times n$ weight matrix stored as two dense factors of inner dimension 
 ### Animated pseudoinverse sensitivity to small singular values
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/svd-noise-amplification-still.svg" data-motion-src="../../../assets/concept-animations/svd-noise-amplification-motion.svg" data-still-src="../../../assets/concept-animations/svd-noise-amplification-still.svg" alt="As a perturbation in the second observation sweeps from minus 0.2 to plus 0.2, inversion through singular value 0.25 amplifies the second solution coordinate fourfold; truncation at threshold 0.5 instead sets it to zero." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-noise-amplification-still.svg" data-motion-src="../../../assets/concept-animations/svd-noise-amplification-motion.svg" data-still-src="../../../assets/concept-animations/svd-noise-amplification-still.svg" alt="As a perturbation in the second observation sweeps from minus 0.2 to plus 0.2, inversion through singular value 0.25 amplifies the second solution coordinate fourfold; truncation at threshold 0.5 instead sets it to zero." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub-readable pseudoinverse sensitivity comparison](../../../assets/concept-animations/svd-noise-amplification-still.svg)
@@ -111,7 +111,7 @@ This **chosen diagonal toy problem** uses $A=\operatorname{diag}(3,0.25)$ and $b
 ### Animated least-squares projection and residual orthogonality
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" data-motion-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-motion.svg" data-still-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" alt="An observation b and candidate Ax in a one-dimensional column space; residual and the squared-error parabola update during a parameter sweep and show their minimum at x 1.2." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" data-motion-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-motion.svg" data-still-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" alt="An observation b and candidate Ax in a one-dimensional column space; residual and the squared-error parabola update during a parameter sweep and show their minimum at x 1.2." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub-readable least-squares projection still](../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg)
@@ -127,7 +127,7 @@ A singular-vector pair can have both signs flipped without changing its rank-one
 ### Animated freedom of singular bases at repeated values
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" data-motion-src="../../../assets/concept-animations/svd-degenerate-bases-motion.svg" data-still-src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" alt="For the matrix A equal to two times the identity, the input and output singular-vector bases rotate together while a fixed x and Ax remain unchanged." style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" data-motion-src="../../../assets/concept-animations/svd-degenerate-bases-motion.svg" data-still-src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" alt="For the matrix A equal to two times the identity, the input and output singular-vector bases rotate together while a fixed x and Ax remain unchanged." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub-readable equal-singular-value basis still](../../../assets/concept-animations/svd-degenerate-bases-still.svg)

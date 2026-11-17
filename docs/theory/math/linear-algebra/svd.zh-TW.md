@@ -70,7 +70,7 @@ $$
 ### 動態示範：逐項加入秩一分量與殘差能量
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/svd-rank-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" alt="三個互相正交的秩一分量依序加入三乘四矩陣。保留列數從一增加到三，弗羅貝尼烏斯殘差由根號十下降為根號二，再降為零。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/svd-rank-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" alt="三個互相正交的秩一分量依序加入三乘四矩陣。保留列數從一增加到三，弗羅貝尼烏斯殘差由根號十下降為根號二，再降為零。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub 可閱讀的三個秩近似靜態比較](../../../assets/concept-animations/svd-rank-accumulation-still.svg)
@@ -84,7 +84,7 @@ $$
 ### 動態示範：小奇異值造成偽逆放大雜訊
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/svd-noise-amplification-still.svg" data-motion-src="../../../assets/concept-animations/svd-noise-amplification-motion.svg" data-still-src="../../../assets/concept-animations/svd-noise-amplification-still.svg" alt="第二個觀測分量的擾動從負零點二變成正零點二，經零點二五的奇異值取逆後，解的第二個分量被放大四倍；門檻零點五的截斷偽逆則將其設為零。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-noise-amplification-still.svg" data-motion-src="../../../assets/concept-animations/svd-noise-amplification-motion.svg" data-still-src="../../../assets/concept-animations/svd-noise-amplification-still.svg" alt="第二個觀測分量的擾動從負零點二變成正零點二，經零點二五的奇異值取逆後，解的第二個分量被放大四倍；門檻零點五的截斷偽逆則將其設為零。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub 可閱讀的偽逆雜訊敏感度靜態比較](../../../assets/concept-animations/svd-noise-amplification-still.svg)
@@ -98,7 +98,7 @@ $$
 ### 動態示範：最小平方法投影與殘差正交
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" data-motion-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-motion.svg" data-still-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" alt="觀測向量 b 與一維欄空間中的候選 Ax 隨參數掃描比較；殘差及平方誤差曲線同步變化，在 x 等於 1.2 達到最小值。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" data-motion-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-motion.svg" data-still-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" alt="觀測向量 b 與一維欄空間中的候選 Ax 隨參數掃描比較；殘差及平方誤差曲線同步變化，在 x 等於 1.2 達到最小值。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub 可閱讀的最小平方投影靜態圖](../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg)
@@ -114,7 +114,7 @@ MkDocs 沿用支援鍵盤的**播放／暫停**；小螢幕可聚焦後水平捲
 ### 動態示範：重複奇異值的基底不唯一性
 
 <div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
-<img data-source-asset-urls src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" data-motion-src="../../../assets/concept-animations/svd-degenerate-bases-motion.svg" data-still-src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" alt="A 等於兩倍單位矩陣時，左右奇異向量基底一起旋轉，但固定輸入 x 及輸出 Ax 保持不變。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" data-motion-src="../../../assets/concept-animations/svd-degenerate-bases-motion.svg" data-still-src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" alt="A 等於兩倍單位矩陣時，左右奇異向量基底一起旋轉，但固定輸入 x 及輸出 Ax 保持不變。" style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
 [GitHub 可閱讀的重複奇異值靜態圖](../../../assets/concept-animations/svd-degenerate-bases-still.svg)
