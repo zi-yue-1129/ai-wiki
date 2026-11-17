@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-11-09
-translation_reviewed: 2026-11-09
+translation_reviewed: 2026-11-17
 related:
   - theory/deep-learning/dropout
   - theory/models/cnn
@@ -65,11 +65,29 @@ $$
 
 若 $L=4$ 且 $p_L=0.5$，存活機率為 $(0.875,\,0.75,\,0.625,\,0.5)$，所以訓練時四個殘差分支平均有 2.75 個啟用。這個數量只計算殘差分支，捷徑的運算另計。
 
+### 視覺化：存活機率與抽樣後的有效深度
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Teaching figure; use arrow keys to scroll horizontally">
+<img data-source-asset-urls src="../../../assets/concept-animations/stochastic-depth-survival-samples-still.svg" data-motion-src="../../../assets/concept-animations/stochastic-depth-survival-samples-motion.svg" data-still-src="../../../assets/concept-animations/stochastic-depth-survival-samples-still.svg" alt="四個殘差區塊的存活門檻與持續變化的均勻亂數取樣比較，並顯示每次取樣啟用的分支數。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 此人工四區塊排程使用 $p=(0.875,0.75,0.625,0.5)$。每個區塊各自取得示意取樣 $u_l\sim\mathrm{Uniform}(0,1)$，當 $u_l<p_l$ 才啟用殘差分支。不同取樣的啟用數會改變，但 $\mathbb{E}[\sum_l b_l]=2.75$ 由存活機率決定，不隨某次抽樣而改變。**圖中的四次取樣不是期望值的統計估計**；等式來自期望值的線性性，也不能直接推得實際訓練時間。殘差分支停用時，捷徑訊號仍會通過。這是數學教學示意，**不是模型訓練活動實測**。[^huang] MkDocs 播放器提供播放／暫停與減少動態效果回退；[查看 GitHub 可顯示的靜態預覽](../../../assets/concept-animations/stochastic-depth-survival-samples-still.svg)。
+
 ### torchvision 的反向縮放
 
 torchvision 運算子接收的是**丟棄機率** $q_l=1-p_l$。當 $p_l>0$ 時，訓練會將保留的輸出乘上 $1/p_l$，因此訓練的殘差項為 $b_l f_l(\mathbf{x})/p_l$，評估的殘差項為 $f_l(\mathbf{x})$。固定輸入時，訓練殘差項的期望也是 $f_l(\mathbf{x})$。例如 $p_l=0.5$ 且分支輸出為 $4$ 時，訓練殘差項等機率為 $0$ 或 $8$，評估殘差項為 $4$。[^torchvision]
 
 torchvision 的 **batch** 模式讓整個小批次共用一個遮罩值，**row** 模式則為每筆樣本抽取一個遮罩值，再沿其他維度廣播。運算子對收到的張量套用遮罩。呼叫 `stochastic_depth(f(x), q, mode, training)` 時，`f(x)` 會先算好，所以即使用 batch 模式，這種呼叫方式仍會執行分支的前向運算。[^torchvision]
+
+### 視覺化：兩種縮放慣例不可直接混用
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Teaching figure; use arrow keys to scroll horizontally">
+<img data-source-asset-urls src="../../../assets/concept-animations/stochastic-depth-scaling-conventions-still.svg" data-motion-src="../../../assets/concept-animations/stochastic-depth-scaling-conventions-motion.svg" data-still-src="../../../assets/concept-animations/stochastic-depth-scaling-conventions-still.svg" alt="原始與反向縮放的隨機深度動畫：殘差分支以二元遮罩保留或跳過，各慣例的訓練輸出改變，但各自對應不同的評估期望值。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 以**人工設定、尚未經過激活函數的單一區塊**為例：捷徑 $s=2$、殘差分支輸出 $f=4$、存活機率 $p=0.5$，遮罩 $b\sim\mathrm{Bernoulli}(p)$。原始慣例的訓練值 $s+bf\in\{2,6\}$，評估值 $s+pf=4$；反向縮放的訓練值 $s+bf/p\in\{2,10\}$，評估值 $s+f=6$。移動的控制點代表**二元遮罩**，不是連續變動的部分啟用；跳過分支時橘色的分支貢獻消失，捷徑訊號仍保留。
+
+在固定區塊輸入下，各自的評估公式等於**該慣例本身的條件期望前激活值**。這不表示兩種慣例能直接混用、每次取樣會相同，或經過非線性激活與後續多層運算仍維持等價。圖中數字是數學示意，**不是模型實測或訓練結果**。[^huang][^torchvision] 網站播放器提供播放／暫停和減少動態效果回退；[查看 GitHub 可顯示的靜態預覽](../../../assets/concept-animations/stochastic-depth-scaling-conventions-still.svg)。
 
 ## 結果
 
