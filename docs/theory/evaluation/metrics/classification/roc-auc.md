@@ -31,9 +31,9 @@ Take four cases with scores. The two positives score 0.9 and 0.6, and the two ne
 
 ## Animated threshold sweep
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="ROC threshold sweep animation">
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC threshold sweep animation">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/roc-threshold-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/roc-threshold-sweep-motion.svg" alt="Ten sorted illustrative prediction scores: three positives and seven negatives. Lowering the threshold adds cases to the positive predictions, revealing a growing ROC staircase in true-positive and false-positive rates." width="640" height="360">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-threshold-sweep-still.svg" data-still-src="../../../../assets/concept-animations/roc-threshold-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/roc-threshold-sweep-motion.svg" alt="Ten sorted illustrative prediction scores: three positives and seven negatives. Lowering the threshold adds cases to the positive predictions, revealing a growing ROC staircase in true-positive and false-positive rates." width="640" height="360">
 </div>
 </div>
 

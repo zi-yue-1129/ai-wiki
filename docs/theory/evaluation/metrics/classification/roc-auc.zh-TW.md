@@ -31,9 +31,9 @@ ROC-AUC 只需要分數，不需要依門檻得出的標籤，因此可以在不
 
 ## 動畫示範：門檻掃描與 ROC 曲線
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="ROC 門檻掃描動畫">
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC 門檻掃描動畫">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/roc-threshold-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/roc-threshold-sweep-motion.svg" alt="十筆依預測分數降冪排列的示意資料，包含三筆正例與七筆負例；門檻逐步下降時，被預測為正的樣本持續增加，ROC 曲線隨真正例率及偽正例率更新。" width="640" height="360">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-threshold-sweep-still.svg" data-still-src="../../../../assets/concept-animations/roc-threshold-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/roc-threshold-sweep-motion.svg" alt="十筆依預測分數降冪排列的示意資料，包含三筆正例與七筆負例；門檻逐步下降時，被預測為正的樣本持續增加，ROC 曲線隨真正例率及偽正例率更新。" width="640" height="360">
 </div>
 </div>
 

@@ -21,7 +21,7 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 
 ## 解讀
 
-隨機分類器的精確率等於正例比例，因此隨機排序的 PR-AUC 就等於正例的盛行率。與 ROC-AUC 不同，基準線會隨資料改變，因此不同資料集之間的 PR-AUC 數值不能直接比較。應在同一個資料集上比較模型。
+在母體層級，與標籤獨立的隨機分數，其精確率參考線等於正例盛行率；這不等於有限樣本隨機排序時，不內插 AP 的精確期望。與 ROC-AUC 不同，基準線會隨資料改變，因此不同資料集之間的 PR-AUC 數值不能直接比較。應在同一個資料集上比較模型。
 
 ## 何時使用
 
@@ -29,21 +29,21 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 
 ## 範例
 
-沿用同樣的四個分數。依分數排序後為 0.9（正）、0.8（負）、0.6（正）、0.3（負）。兩個正例處的精確率分別為 $1/1$ 與 $2/3$，因此平均精確率為 $(1 + 2/3) / 2 \approx 0.83$，與 `average_precision_score` 的回傳值相同。隨機排序在此處的 PR-AUC 會是 0.5，即正例比例。
+沿用同樣的四個分數。依分數排序後為 0.9（正）、0.8（負）、0.6（正）、0.3（負）。兩個正例處的精確率分別為 $1/1$ 與 $2/3$，因此平均精確率為 $(1 + 2/3) / 2 \approx 0.83$，與 `average_precision_score` 的回傳值相同。盛行率參考值是 0.5，但枚舉兩筆正例的六種等機率位置組合，均勻隨機排序的有限樣本 AP 期望為 $49/72 \approx 0.681$。
 
 ## 動畫示範：排序掃描與平均精確率
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="精確率與召回率門檻掃描動畫">
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="精確率與召回率門檻掃描動畫">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/pr-threshold-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/pr-threshold-sweep-motion.svg" alt="十筆人工設定的排序分數，包含三筆正例與七筆負例；降低門檻時，負例進入預測正例集合會降低精確率但不改變召回率，正例進入則提升召回率；基準盛行率為 0.30。" width="640" height="360">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-threshold-sweep-still.svg" data-still-src="../../../../assets/concept-animations/pr-threshold-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/pr-threshold-sweep-motion.svg" alt="十筆人工設定的排序分數，包含三筆正例與七筆負例；降低門檻時，負例進入預測正例集合會降低精確率但不改變召回率，正例進入則提升召回率；基準盛行率為 0.30。" width="640" height="360">
 </div>
 </div>
 
-*原創教學動畫（CC BY-SA 4.0）。* 本圖採用與 ROC 新動畫**相同的十筆人工資料**，正例位於第 **1、3、6** 名，其餘七筆為負例。每納入一筆正例，召回率增加 $1/3$；每納入一筆負例，精確率下降、召回率不變。三筆正例出現時的精確率分別為 $1$、$2/3$、$3/6$，因此**不內插的平均精確率為 $AP=(1+2/3+1/2)/3=13/18 \approx 0.722$**。橫向虛線表示正例比例 $3/10=0.30$，這是常用的母體層級隨機分數參考線。**但對本圖有限的十筆樣本，將三筆正例隨機排列於十個位置的 120 種組合，其樣本 AP 期望約為 0.450，而非 0.300**。圖中的折線連接各門檻的操作點；**AP 是依召回率增量對精確率加權，不等於折線下方的梯形面積**（參見 scikit-learn 參考文件）。所有數值與標籤皆為**人工示意，非模型實測預測**。MkDocs 網站提供可使用鍵盤操作的播放／暫停按鈕，偏好減少動態效果時切換為靜態預覽；亦可直接開啟 [GitHub 靜態圖](../../../../assets/concept-animations/pr-threshold-sweep-still.svg)或[完整 SVG 動畫](../../../../assets/concept-animations/pr-threshold-sweep-motion.svg)。手機可橫向捲動。
+*原創教學動畫（CC BY-SA 4.0）。* 本圖採用與 ROC 新動畫**相同的十筆人工資料**，正例位於第 **1、3、6** 名，其餘七筆為負例。每納入一筆正例，召回率增加 $1/3$；每納入一筆負例，精確率下降、召回率不變。三筆正例出現時的精確率分別為 $1$、$2/3$、$3/6$，因此**不內插的平均精確率為 $AP=(1+2/3+1/2)/3=13/18 \approx 0.722$**。橫向虛線表示正例比例 $3/10=0.30$，這是常用的母體層級隨機分數參考線。**但對本圖有限的十筆樣本，將三筆正例隨機排列於十個位置的 120 種組合，其樣本 AP 期望約為 0.450，而非 0.300**。尚未納入任何樣本時，精確率未定義；圖中以 $(R,P)=(0,1)$ 作為端點慣例。圖中的折線連接各門檻的操作點；**AP 是依召回率增量對精確率加權，不等於折線下方的梯形面積**（參見 scikit-learn 參考文件）。所有數值與標籤皆為**人工示意，非模型實測預測**。MkDocs 網站提供可使用鍵盤操作的播放／暫停按鈕，偏好減少動態效果時切換為靜態預覽；亦可直接開啟 [GitHub 靜態圖](../../../../assets/concept-animations/pr-threshold-sweep-still.svg)或[完整 SVG 動畫](../../../../assets/concept-animations/pr-threshold-sweep-motion.svg)。手機可橫向捲動。
 
 ## 性質與變體
 
-- **基準線。** 隨機排序的 PR-AUC 等於盛行率，因此應對照該基準線解讀，如解讀一節所述。
+- **基準線。** 盛行率是母體層級的隨機分數參考線；有限樣本 AP 的期望可能更高，應說明採用哪一種基準。
 - **內插變體。** 較早期的基準（例如早期的 PASCAL VOC 評估）採用 11 點內插平均精確率。在召回率 $0, 0.1, \ldots, 1$ 的每一點上，取不低於該召回率的最大精確率，再求平均。這與此處的階梯式平均精確率不同。
 - **單點摘要。** 固定召回率（例如 90%）時的精確率是單點摘要，某些應用偏好此指標。
 - **限制。** 與 ROC-AUC 一樣，它評估排序而非校準，且數值依賴盛行率。
