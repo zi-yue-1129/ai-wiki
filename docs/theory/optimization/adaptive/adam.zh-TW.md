@@ -32,6 +32,24 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 
 論文建議的預設值為步長 \(\alpha = 0.001\)（此處寫作 \(\eta\)）、\(\beta_1 = 0.9\)、\(\beta_2 = 0.999\)，以及 \(\epsilon = 10^{-8}\)。由於更新量除以二階矩的平方根，每個座標每步大致移動 \(\eta\)，不論其梯度的尺度如何。有效步長仍會隨 \(v_t\) 變動而改變，這也是學習率排程在實務上重要的原因。
 
+### 偏差校正與零初始化動差：動態示範
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-bias-correction-still.svg" data-motion-src="../../../assets/concept-animations/adam-bias-correction-motion.svg" data-still-src="../../../assets/concept-animations/adam-bias-correction-still.svg" alt="兩張同步時間曲線顯示固定單位梯度下的一階與二階動差，未校正估計由下方向一靠近，而偏差校正後皆維持在一。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+
+在**人工設定的固定梯度** $g_t=1$、$m_0=v_0=0$、$\beta_1=0.8$、$\beta_2=0.5$ 下，離散時間的精確結果為 $m_t=1-0.8^t$、$v_t=1-0.5^t$，且每個 $t\ge1$ 都有 $\hat m_t=\hat v_t=1$。游標同步掃過各時間步；**整數時間步之間的移動只是視覺插值**，不是額外最佳化步驟，更不是模型實測軌跡。MkDocs 可透過支援鍵盤的播放／暫停控制觀看，手機可聚焦圖面後水平捲動；[GitHub 靜態預覽](../../../assets/concept-animations/adam-bias-correction-still.svg)同時作為低動態偏好回退圖。原創視覺，CC BY-SA 4.0。參考 [Kingma 與 Ba](https://arxiv.org/abs/1412.6980)。
+
+### 正梯度整體縮放的不變性：動態示範
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-scale-invariance-still.svg" data-motion-src="../../../assets/concept-animations/adam-scale-invariance-motion.svg" data-still-src="../../../assets/concept-animations/adam-scale-invariance-still.svg" alt="左右面板比較固定正梯度歷史放大一倍與八倍的動差，一階動差和二階動差平方根等比例放大，但正規化的 Adam 更新方向大小不變。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+
+若將**整段固定正梯度歷史**同時乘以 $c=8$，且初始動差為零，則 $\hat m_t$ 與 $\sqrt{\hat v_t}$ 都會放大八倍；當 $\epsilon=0$，兩者比值 $\hat m_t/\sqrt{\hat v_t}=1$ 保持不變。圖中的藍色、橘色長條連續變化表示**假設性的尺度掃描**，並非連續最佳化步驟；靜態面板呈現八倍端點。當 $\epsilon\ne0$，尤其梯度較小時，縮放不變性不再精確成立。這是解析式**示意數值，不是模型實測或收斂保證**。MkDocs 可播放／暫停並支援低動態偏好；[GitHub 靜態比較](../../../assets/concept-animations/adam-scale-invariance-still.svg)。原創視覺，CC BY-SA 4.0。參考 [Kingma 與 Ba](https://arxiv.org/abs/1412.6980)。
+
 ## 關鍵方法
 
 ### Adam（Kingma & Ba，2014/2015）

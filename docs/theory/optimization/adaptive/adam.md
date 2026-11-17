@@ -44,6 +44,24 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 
 The paper's suggested defaults are \(\alpha = 0.001\) for the step size (written \(\eta\) here), \(\beta_1 = 0.9\), \(\beta_2 = 0.999\) and \(\epsilon = 10^{-8}\). Because the update is divided by the root of the second moment, each coordinate moves by roughly \(\eta\) per step, whatever the scale of its gradients. The effective step still changes as \(v_t\) moves, which is why learning-rate schedules matter in practice.
 
+### Animated bias correction for zero-initialised moments
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-bias-correction-still.svg" data-motion-src="../../../assets/concept-animations/adam-bias-correction-motion.svg" data-still-src="../../../assets/concept-animations/adam-bias-correction-still.svg" alt="Two synchronized time plots trace raw and bias-corrected first and second moments for a constant unit gradient. The raw estimates approach one from below while corrected moments remain at one." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+
+For the **illustrative constant gradient** $g_t=1$, with $m_0=v_0=0$, $\beta_1=0.8$ and $\beta_2=0.5$, the exact discrete-time values are $m_t=1-0.8^t$, $v_t=1-0.5^t$, and $\hat m_t=\hat v_t=1$ at every $t\ge1$. The synchronised cursor follows those samples; the movement *between* integer steps is only visual interpolation, not extra optimiser steps or measured model behaviour. In MkDocs, use Play/Pause (keyboard accessible) and focus the illustration to scroll on narrow screens. The [GitHub-readable static plot](../../../assets/concept-animations/adam-bias-correction-still.svg) is also the reduced-motion fallback. Original artwork, CC BY-SA 4.0. See [Kingma and Ba](https://arxiv.org/abs/1412.6980).
+
+### Animated positive gradient rescaling
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-scale-invariance-still.svg" data-motion-src="../../../assets/concept-animations/adam-scale-invariance-motion.svg" data-still-src="../../../assets/concept-animations/adam-scale-invariance-still.svg" alt="Two panels compare a constant positive gradient history at scale one and scale eight. The first moment and square root of the second moment each grow by the same factor, while the normalized Adam direction stays unchanged." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+
+If **every gradient in a positive, constant history** is multiplied by $c=8$, then (with zero initial moments) $\hat m_t$ and $\sqrt{\hat v_t}$ both multiply by $8$. Thus $\hat m_t/\sqrt{\hat v_t}=1$ in both cases when $\epsilon=0$. The blue and orange bars interpolate a *hypothetical rescaling*, not consecutive optimiser updates. The static panel shows the target $8\times$ endpoint. With a nonzero $\epsilon$, exact scale invariance need not hold, especially for small gradients; this is a controlled scalar example, **not** a general performance or convergence guarantee. MkDocs provides Play/Pause and reduced-motion fallback; [GitHub-readable endpoint comparison](../../../assets/concept-animations/adam-scale-invariance-still.svg). Original artwork, CC BY-SA 4.0. See [Kingma and Ba](https://arxiv.org/abs/1412.6980).
+
 ## Key methods
 
 ### Adam (Kingma & Ba, 2014/2015)

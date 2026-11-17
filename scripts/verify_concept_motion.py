@@ -89,6 +89,8 @@ TOPICS = {
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
     "pca-variance-axis": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "pca-rank1-reconstruction": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
+    "adam-bias-correction": "theory/optimization/adaptive/adam",
+    "adam-scale-invariance": "theory/optimization/adaptive/adam",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "mle-bernoulli-likelihood": "theory/math/probability-statistics/maximum-likelihood",
