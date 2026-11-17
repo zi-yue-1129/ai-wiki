@@ -85,6 +85,30 @@ the mean is $(10+x)/6$, changing from **2.333** to **3.667** as $x$ moves from $
 
 *Original synthetic teaching animation, CC BY-SA 4.0.* The teal marker is the squared-error-optimal **mean** for this single fixed group, not a completed multi-cluster k-means run. The orange median is only a robustness comparison: it minimises absolute error, **not** the standard k-means squared-error objective. The point motion and moving centroid follow the analytic formula rather than empirical training results. [View the before/after static comparison](../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg). The MkDocs player provides Play/Pause and reduced-motion fallback.
 
+### Feature scaling changes the nearest centre
+
+Euclidean k-means is sensitive to feature units. Multiplying the second feature by a positive factor \(s\) changes the squared distance to \(d_s^2(P,\mu)=(P_x-\mu_x)^2+s^2(P_y-\mu_y)^2\). This example holds both centres fixed, so it **does not simulate Lloyd training**.
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
+     src="../../../../assets/concept-animations/kmeans-feature-scale-still.svg"
+     data-motion-src="../../../../assets/concept-animations/kmeans-feature-scale-motion.svg"
+     data-still-src="../../../../assets/concept-animations/kmeans-feature-scale-still.svg"
+     alt="A feature-scale animation with fixed prototypes: as the y coordinate is rescaled, the nearer prototype for P changes from B to A." width="640" height="360">
+
+*Original synthetic teaching animation, CC BY-SA 4.0.* For \(A=(0,0)\), \(B=(4,2)\), \(P=(2.3,0.5)\), at \(s=0.5\) the exact squared distances are **5.3525 (A)** and **3.4525 (B)**, so B is nearer. At \(s=2\) they are **6.29 (A)** and **11.89 (B)**, so A is nearer. Smooth movements and bars interpolate between computed sample states; they are visual aids, **not measured optimisation steps**. [GitHub-readable before/after comparison](../../../../assets/concept-animations/kmeans-feature-scale-still.svg). MkDocs supports Play/Pause and a reduced-motion fallback.
+
+### The inertia elbow is a heuristic, not an optimum-k guarantee
+
+The globally minimal within-cluster sum of squares cannot increase when k increases. For the **synthetic one-dimensional** data \(X=\{0,1,2,8,9,10\}\), the best contiguous partitions for \(k=1,2,3,4\) have exact SSE **100, 4, 2.5, 1**. The diagram uses a **logarithmic SSE axis** to make later smaller improvements visible.
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
+     src="../../../../assets/concept-animations/kmeans-elbow-inertia-still.svg"
+     data-motion-src="../../../../assets/concept-animations/kmeans-elbow-inertia-motion.svg"
+     data-still-src="../../../../assets/concept-animations/kmeans-elbow-inertia-still.svg"
+     alt="Animated comparisons of synthetic one-dimensional k-means partitions and log-scaled squared error for k equals one through four." width="640" height="360">
+
+*Original synthetic teaching animation, CC BY-SA 4.0.* Colours denote partition membership, **not ground-truth classes**. The marker travels between **discrete k values** only to compare configurations, not as a continuous training path. The large 100-to-4 reduction makes k=2 a plausible elbow **for this constructed example**; elbow selection remains subjective and cannot establish a universally correct k. [GitHub-readable static partition/SSE overview](../../../../assets/concept-animations/kmeans-elbow-inertia-still.svg). The website player supports Play/Pause and static reduced motion.
+
 ## Key methods
 
 ### Least squares quantization in PCM (Lloyd, 1982)

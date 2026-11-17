@@ -15,6 +15,10 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "mixup-paired-interpolation": "theory/deep-learning/dropout/mixup",
+    "mixup-beta-strength": "theory/deep-learning/dropout/mixup",
+    "mixup-loss-decomposition": "theory/deep-learning/dropout/mixup",
+    "mixup-cutmix-area": "theory/deep-learning/dropout/mixup",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "svd-unit-circle": "theory/math/linear-algebra/svd",
@@ -77,6 +81,8 @@ TOPICS = {
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
     "kmeans-plusplus-d2": "theory/paradigms/unsupervised/clustering/k-means",
     "kmeans-outlier-leverage": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-feature-scale": "theory/paradigms/unsupervised/clustering/k-means",
+    "kmeans-elbow-inertia": "theory/paradigms/unsupervised/clustering/k-means",
     "pca-variance-axis": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "pca-rank1-reconstruction": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
@@ -207,9 +213,9 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "power-iteration-convergence",
-                          "kmeans-plusplus-d2", "kmeans-outlier-leverage",
+                          "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
@@ -236,6 +242,31 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+    # GitHub's static previews and MkDocs's bilingual motion enhancement.
+    for stem, page in {
+        "brier-expected-risk": "brier-score",
+        "log-loss-tail-penalty": "log-loss",
+    }.items():
+        moving = ASSETS / f"{stem}-motion.svg"
+        still = ASSETS / f"{stem}-still.svg"
+        errors.extend(verify_svg(moving, True))
+        errors.extend(verify_svg(still, False))
+        for locale in (".md", ".zh-TW.md"):
+            doc = DOCS / "theory/evaluation/metrics/probabilistic" / (page + locale)
+            if not doc.is_file():
+                errors.append(f"{doc}: missing translation")
+                continue
+            body = doc.read_text(encoding="utf-8")
+            errors.extend(verify_source_pair(doc, body, stem))
+            relative = "../../../../assets/concept-animations/"
+            if f'src="{relative}{still.name}"' not in body:
+                errors.append(f"{doc}: missing actual GitHub static image src")
+            if f'data-motion-src="{relative}{moving.name}"' not in body:
+                errors.append(f"{doc}: missing animated source")
+            if f'data-still-src="{relative}{still.name}"' not in body:
+                errors.append(f"{doc}: missing reduced-motion fallback")
+            if "CC BY-SA 4.0" not in body:
+                errors.append(f"{doc}: missing original-art attribution")
     # MAE and RMSE share one source-relative visual in both languages.
     for suffix in (".md", ".zh-TW.md"):
         page = DOCS / ("theory/evaluation/metrics/regression/rmse" + suffix)
