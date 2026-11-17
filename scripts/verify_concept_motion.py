@@ -219,13 +219,13 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"adam-bias-correction", "adam-scale-invariance", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
-                if stem in {"eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
+                if stem in {"adam-bias-correction", "adam-scale-invariance", "eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
                     static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                     if static_path.resolve() not in {
                         (page.parent / link).resolve() for link in static_links
