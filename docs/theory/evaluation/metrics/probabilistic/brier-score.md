@@ -31,7 +31,13 @@ Lower is better. Predicting $p = 0.5$ everywhere gives 0.25, a simple baseline. 
 
 For a **schematic** Bernoulli event with true event rate $q=0.70$, the two observed-outcome squared losses are $(1-p)^2$ and $p^2$. The purple curve averages them using the **outcome probabilities**, not an observed dataset:
 
-$\mathbb E[L(p,Y)] = 0.7(1-p)^2+0.3p^2 = (p-0.7)^2+0.21.$
+$$
+\begin{aligned}
+\mathbb E[L(p,Y)]
+  &= 0.7(1-p)^2+0.3p^2 \\
+  &= (p-0.7)^2+0.21.
+\end{aligned}
+$$
 
 The moving forecast $p$ changes both possible losses at once. The minimum at $p=q=0.70$ is **0.21**, not zero: the residual $q(1-q)$ is the irreducible variability of the binary outcome. No model was trained or evaluated to produce these numbers.
 
