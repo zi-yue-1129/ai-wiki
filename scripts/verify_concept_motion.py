@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "itemcf-weighted-neighbors": "theory/models/recommender/item-based-cf",
+    "neumf-dual-path": "theory/models/recommender/neural-cf",
     "resnet-identity-gradient": "theory/models/cnn/backbones-and-scaling/resnet/index",
     "resnet-projection-shortcut": "theory/models/cnn/backbones-and-scaling/resnet/index",
     "resnet-postrelu-gate": "theory/models/cnn/backbones-and-scaling/resnet/index",
@@ -112,6 +114,10 @@ TOPICS = {
     "pca-variance-axis": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "pca-rank1-reconstruction": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
+    "mf-coupled-sgd": "theory/models/recommender/matrix-factorization",
+    "bpr-pairwise-ranking": "theory/models/recommender/bpr",
+    "mf-als-alternating": "theory/models/recommender/matrix-factorization",
+    "bpr-gradient-saturation": "theory/models/recommender/bpr",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
     "mle-bernoulli-likelihood": "theory/math/probability-statistics/maximum-likelihood",
     "map-beta-posterior": "theory/math/probability-statistics/maximum-a-posteriori",
@@ -229,6 +235,13 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"itemcf-weighted-neighbors", "neumf-dual-path"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in static_links
+                }:
+                    errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
             elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
@@ -241,7 +254,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
@@ -249,7 +262,7 @@ def main() -> int:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
-                if stem in {"resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
+                if stem in {"mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence"}:
                     static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                     if static_path.resolve() not in {
                         (page.parent / link).resolve() for link in static_links

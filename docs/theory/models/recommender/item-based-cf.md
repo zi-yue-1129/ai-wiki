@@ -94,6 +94,19 @@ Replace each neighbour rating in the numerator with $a_{ij}r_{uj}+b_{ij}$. For i
 
 Sarwar et al. describe regression-adjusted values, but their displayed regression notation runs in the other direction (neighbour from target). The predictive target-on-neighbour formulation above makes inference explicit; it is not a verbatim transcription of that equation.[^sarwar] Reversing a fitted least-squares line is generally not the same as fitting the opposite direction. A constant predictor or inadequate common support also needs a declared fallback.
 
+### Animated example: adding a rated neighbour
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/itemcf-weighted-neighbors-still.svg" data-motion-src="../../../assets/concept-animations/itemcf-weighted-neighbors-motion.svg" data-still-src="../../../assets/concept-animations/itemcf-weighted-neighbors-still.svg" alt="Two positively weighted neighbour ratings contribute four and 0.8 to a target item's numerator. Adding the second neighbour changes the normalized prediction from five to four." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/itemcf-weighted-neighbors-still.svg)
+
+
+Using the **constructed**, supplied similarities in the example above, $r_{uA}=5$, $r_{uB}=2$, $s_{iA}=0.8$ and $s_{iB}=0.4$. With only neighbour A the weighted prediction is $4/0.8=5$; including B gives $(4+0.8)/(0.8+0.4)=4$. The changing orange contribution and the cursor explicitly demonstrate why the **denominator changes too**. The blue bar is A's $0.8\times5=4$ numerator contribution, not its similarity.
+
+These are illustrative ratings and stipulated similarities, **not model measurements**. The interpolation between the two eligibility states is visual, not a recommender training procedure or proof that a second neighbour always improves accuracy. Missing ratings never enter as zero. On MkDocs, use **Play/Pause**; the diagram is keyboard-focusable and horizontally scrollable at phone widths. GitHub and reduced-motion users see the static snapshot. Original CC BY-SA 4.0 artwork.
+
 ## Precomputation and evaluation
 
 A full similarity table for $n$ items stores $O(n^2)$ values. Keeping $k$ neighbours per item reduces storage to $O(nk)$; intersecting a retained list with $I_u$ may yield fewer than $k$ usable neighbours. It need not equal finding the best $k$ items *within* $I_u$. The paper explicitly explores this storage/accuracy trade-off.[^sarwar]
