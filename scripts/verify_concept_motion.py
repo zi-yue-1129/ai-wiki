@@ -5,6 +5,7 @@ stdlib-only check; rendered/browser validation is performed separately.
 """
 from __future__ import annotations
 
+from html.parser import HTMLParser
 from pathlib import Path
 import re
 import sys
@@ -14,6 +15,14 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "darts-soft-operations": "theory/deep-learning/nas-automl/darts",
+    "aging-evolution-queue": "theory/deep-learning/nas-automl/regularized-evolution",
+    "enas-shared-weight-transfer": "theory/deep-learning/nas-automl/efficient-neural-architecture-search",
+    "mnasnet-latency-tradeoff": "theory/deep-learning/nas-automl/mnasnet",
+    "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
+    "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
+    "svd-unit-circle": "theory/math/linear-algebra/svd",
+    "power-iteration-convergence": "theory/math/linear-algebra/eigendecomposition",
     "mae-visible-patch-reconstruction": "theory/paradigms/self-supervised/masked-prediction/mae",
     "dinov2-dual-objective-ema": "theory/paradigms/self-supervised/non-contrastive-methods/dinov2",
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
@@ -57,24 +66,67 @@ TOPICS = {
     "dpll-backtrack": "theory/paradigms/symbolic-ai/theorem-proving/dpll",
     "viterbi-trellis": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "tree-belief-propagation": "theory/paradigms/probabilistic/graphical-models/belief-propagation",
+    "3d-unet-depth-kernel": "theory/models/cnn/unet/3d-unet",
+    "3d-unet-skip-concat": "theory/models/cnn/unet/3d-unet",
+    "3d-unet-orthogonal-slices": "theory/models/cnn/unet/3d-unet",
+    "3d-unet-sparse-context-gradient": "theory/models/cnn/unet/3d-unet",
+    "3d-unet-context-tiling": "theory/models/cnn/unet/3d-unet",
+    "3d-unet-paired-warp": "theory/models/cnn/unet/3d-unet",
+    "3d-unet-sparse-loss": "theory/models/cnn/unet/3d-unet",
+    "3d-unet-evaluation-holdout": "theory/models/cnn/unet/3d-unet",
     "forward-ad-jvp": "theory/math/automatic-differentiation/forward-mode",
     "reverse-ad-vjp": "theory/math/automatic-differentiation/reverse-mode",
     "gcn-aggregation": "theory/models/gnn/message-passing/gcn/index",
     "gat-aggregation": "theory/models/gnn/message-passing/gat/index",
     "kmeans-lloyd": "theory/paradigms/unsupervised/clustering/k-means",
+    "pca-variance-axis": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
+    "pca-rank1-reconstruction": "theory/paradigms/unsupervised/dimensionality-reduction/pca",
     "rmsprop-adaptive-memory": "theory/optimization/adaptive/rmsprop",
-    "darts-soft-operations": "theory/deep-learning/nas-automl/darts",
-    "aging-evolution-queue": "theory/deep-learning/nas-automl/regularized-evolution",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
+    "mle-bernoulli-likelihood": "theory/math/probability-statistics/maximum-likelihood",
+    "map-beta-posterior": "theory/math/probability-statistics/maximum-a-posteriori",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
+    "iou-overlap-sweep": "theory/evaluation/metrics/segmentation/iou",
+    "dice-overlap-response": "theory/evaluation/metrics/segmentation/dice",
 }
-HTML_FALLBACK_STEMS = {"darts-soft-operations", "aging-evolution-queue"}
+NAS_STEMS = {"darts-soft-operations", "aging-evolution-queue", "enas-shared-weight-transfer", "mnasnet-latency-tradeoff"}
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
     "byol-online-target": "byol-momentum-preview.gif",
 }
 FORBIDDEN = {"script", "foreignObject", "iframe", "image"}
 LIMIT = 50 * 1024
+
+
+class MotionImages(HTMLParser):
+    def __init__(self, text: str):
+        super().__init__()
+        self.images: list[dict[str, str | None]] = []
+        self.feed(text)
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "img":
+            attributes = {}
+            for name, value in attrs:
+                attributes.setdefault(name, value)
+            self.images.append(attributes)
+
+
+def verify_source_pair(page: Path, text: str, stem: str) -> list[str]:
+    """Check raw opt-in images in source coordinates, never built URL depths."""
+    images = [attrs for attrs in MotionImages(text).images
+              if "data-source-asset-urls" in attrs
+              and stem in (attrs.get("src") or "")]
+    if len(images) != 1:
+        return [f"{page}: expected one source-relative raw image for {stem}"]
+    errors = []
+    for attribute, kind in (("src", "still"), ("data-motion-src", "motion"),
+                            ("data-still-src", "still")):
+        value = images[0].get(attribute)
+        expected = (ASSETS / f"{stem}-{kind}.svg").resolve()
+        if not value or (page.parent / value).resolve() != expected:
+            errors.append(f"{page}: {attribute} must reference the source-relative {kind} asset")
+    return errors
 
 
 def verify_svg(path: Path, animated: bool) -> list[str]:
@@ -87,7 +139,7 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    if root.tag != NS + "svg" or root.get("viewBox") != "0 0 640 360":
+    if root.tag != NS + "svg" or root.get("viewBox") not in {"0 0 640 360", "0 0 800 420"}:
         errors.append(f"{path}: invalid SVG root/viewBox")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
@@ -97,7 +149,7 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         name = element.tag.split("}")[-1]
         if name in FORBIDDEN:
             errors.append(f"{path}: prohibited {name}")
-        if name in ("animate", "animateMotion"):
+        if name in ("animate", "animateMotion", "animateTransform"):
             motions.append(element)
             if element.get("repeatCount") != "indefinite":
                 errors.append(f"{path}: animation must loop indefinitely")
@@ -135,16 +187,27 @@ def main() -> int:
             text = page.read_text(encoding="utf-8")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in HTML_FALLBACK_STEMS:
-                # GitHub displays the static src; MkDocs enhances using data-motion-src.
-                pattern = rf'<img\s+src="([^"]+{stem}-still\.svg)"\s+data-motion-src="([^"]+{stem}-motion\.svg)"\s+data-still-src="([^"]+{stem}-still\.svg)"'
+            if stem in NAS_STEMS:
+                # GitHub-safe HTML still and MkDocs motion are all source-relative.
+                pattern = rf'<img\\s+src="([^"]+{stem}-still\\.svg)"\\s+data-motion-src="([^"]+{stem}-motion\\.svg)"\\s+data-still-src="([^"]+{stem}-still\\.svg)"'
                 match = re.search(pattern, text)
                 if not match:
-                    errors.append(f"{page}: missing GitHub static image / MkDocs motion pair")
+                    errors.append(f"{page}: missing NAS still/motion HTML source pair")
                 else:
                     for link, expected in zip(match.groups(), (static_path, animated_path, static_path)):
                         if (page.parent / link).resolve() != expected.resolve():
-                            errors.append(f"{page}: incorrect player path {link}")
+                            errors.append(f"{page}: invalid NAS image path {link}")
+            elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
+                # GitHub gets the static image; MkDocs enhances it via data-motion-src.
+                match = re.search(r'<img\s+data-source-asset-urls\s+[^>]*src="([^"]+)"\s+data-motion-src="([^"]+)"', text)
+                if not match:
+                    errors.append(f"{page}: missing source-relative HTML static/motion pair")
+                else:
+                    still_link, motion_link = match.groups()
+                    if (page.parent / still_link).resolve() != static_path.resolve():
+                        errors.append(f"{page}: invalid GitHub static fallback")
+                    if (page.parent / motion_link).resolve() != animated_path.resolve():
+                        errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
@@ -157,9 +220,21 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
+            elif stem in {"outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+                          "svd-unit-circle", "power-iteration-convergence",
+                          "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
+                # GitHub uses the raw static image; the opt-in hook rewrites
+                # all three source-relative attributes for each built locale.
+                errors.extend(verify_source_pair(page, text, stem))
+                if stem in {"svd-unit-circle", "power-iteration-convergence"}:
+                    static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                    if static_path.resolve() not in {
+                        (page.parent / link).resolve() for link in static_links
+                    }:
+                        errors.append(f"{page}: missing GitHub-readable static link")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
+            if stem in {"mae-visible-patch-reconstruction", "dinov2-dual-objective-ema", "moco-dictionary-cycle", "byol-online-target", "moe-top2-routing", "swin-shifted-windows", "deformable-sampling", "speculative-decoding", "orca-continuous-batching", "disaggregated-handoff", "streaming-kv-eviction", "mcts-search-cycle", "dqn-target-sync", "adamw-decoupled-paths", "td3-delayed-twin-critics", "ppo-clipped-objective", "prioritized-replay-cycle", "sam-two-gradient", "lbfgs-two-loop", "nesterov-lookahead", "hyperband-budget", "qmix-monotonic-greedy", "muzero-latent-planning", "gru-gate-flow", "kfac-factor-preconditioning", "maml-inner-outer-loop", "alpha-beta-cutoff", "cmaes-distribution-adaptation", "spsa-two-evaluations", "astar-frontier", "dpll-backtrack", "viterbi-trellis", "tree-belief-propagation", "mh-accept-reject", "hmc-leapfrog-trajectory", "batch-norm-train-infer", "stochastic-depth-paths", "vae-reparameterisation", "realnvp-affine-coupling", "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient", "forward-ad-jvp", "reverse-ad-vjp", "gibbs-coordinate-sweeps", "mean-field-coordinate-ascent", "gcn-aggregation", "gat-aggregation", "bpe-ordered-merges", "nerf-volume-rendering", "kmeans-lloyd", "rmsprop-adaptive-memory"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)
@@ -173,6 +248,11 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
+    # MAE and RMSE share one source-relative visual in both languages.
+    for suffix in (".md", ".zh-TW.md"):
+        page = DOCS / ("theory/evaluation/metrics/regression/rmse" + suffix)
+        errors.extend(verify_source_pair(page, page.read_text(encoding="utf-8"), "outlier-mae-rmse"))
+
     # The two reviewed process animations must show interpolated intermediate states,
     # not four discrete slides masquerading as motion.
     for stem in ("mae-visible-patch-reconstruction", "dinov2-dual-objective-ema"):

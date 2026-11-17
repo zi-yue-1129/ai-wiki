@@ -42,6 +42,16 @@ A reinforcement-learning controller samples a candidate architecture from the se
 
 where \(\mathrm{LAT}(m)\) is the measured latency, \(T\) is the target latency and \(w\) is an exponent that controls how strongly latency is penalised. The controller is updated to increase the expected reward.
 
+## Animated example: latency can reverse the ranking
+
+<img src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" alt="Candidate B has greater toy accuracy but the latency-adjusted reward may fall below A as B's hypothetical latency increases. The curve marker and bar move together." loading="lazy" />
+
+*Original educational SVG, CC BY-SA 4.0.* GitHub displays the [static preview](../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg). On MkDocs, use Play/Pause and keyboard controls; reduced-motion mode retains the still.
+
+For the **illustrative exponent** (w=-1), candidate A has synthetic accuracy (0.74) and latency ratio (mathrm{LAT}_A/T=0.8), so (R_A=0.74/0.8=0.925). Candidate B has higher synthetic accuracy (0.80), but its *hypothetical* latency ratio sweeps from (0.7) to (1.3), giving (R_B=0.80/(mathrm{LAT}_B/T)) from approximately (1.143) to (0.615). Its ranking falls below A after the ratio crosses (0.80/0.925\approx0.865).
+
+This is a **continuous parameter sweep, not a controller training trace, phone benchmark or replication of the paper's reward hyperparameters**. The example isolates why measured device latency can change architecture selection even when accuracy is higher.
+
 ## Key methods
 
 This page covers one method: a reinforcement-learning search whose reward is accuracy times a latency ratio, measured on a phone, over a factorised block-based search space.

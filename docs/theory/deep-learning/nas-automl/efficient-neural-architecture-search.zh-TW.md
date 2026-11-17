@@ -36,6 +36,16 @@ Zoph 與 Le（2017）的搜尋會從頭訓練每個取樣的架構，因此非�
 
 其中 \(M\) 為取樣的架構數，\(b\) 通常是過去獎勵的指數移動平均。搜尋結束後，控制器偏好的最佳取樣架構會從頭重新訓練，因為共享權重只是一種估計。
 
+## 動態範例：更新共用權重會影響其他架構
+
+<img src="../../../assets/concept-animations/enas-shared-weight-transfer-still.svg" data-motion-src="../../../assets/concept-animations/enas-shared-weight-transfer-motion.svg" data-still-src="../../../assets/concept-animations/enas-shared-weight-transfer-still.svg" alt="只訓練取樣架構 A，將共用權重由 0.40 更新至 0.60；未訓練的架構 B 也受到影響，但其專屬參數沒有改變。" loading="lazy" />
+
+*原創教學 SVG，CC BY-SA 4.0。* GitHub 顯示[靜態預覽](../../../assets/concept-animations/enas-shared-weight-transfer-still.svg)；MkDocs 提供播放／暫停和鍵盤操作，減少動態效果模式則使用靜態圖。
+
+這是**人工建構的純量示例**。令 (f_A=w_s+w_A)、(f_B=w_s+w_B)，起始參數為 ((w_s,w_A,w_B)=(0.4,0.2,-0.3))。只對**被取樣的 A** 執行一次梯度更新，損失 (L_A=\frac12(f_A-1)^2)、步長 (0.5)。由於 (partial L_A/partial w_s=partial L_A/partial w_A=-0.4)，更新後為 ((0.6,0.4,-0.3))。因此**未訓練 B，B 的預測也從 0.1 改變為 0.3**，因為 B 讀取了共用參數 (w_s)。
+
+移動標記表示共享參數造成的影響，而非第二次梯度步驟；上述數值**並非 ENAS 模型實測**。ENAS 控制器在驗證獎勵上的更新，是不同於圖中訓練梯度的另一個程序。
+
 ## 主要方法
 
 本頁只涵蓋一種方法：控制器在超圖的子圖上取樣，權重共享，並以驗證獎勵的策略梯度訓練。
