@@ -62,6 +62,8 @@ TOPICS = {
     "dpll-backtrack": "theory/paradigms/symbolic-ai/theorem-proving/dpll",
     "hmm-forward-sum-product": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "hmm-filter-smooth": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
+    "hmm-pairwise-posterior": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
+    "hmm-baum-welch-transition": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "viterbi-trellis": "theory/paradigms/probabilistic/graphical-models/hidden-markov-models",
     "tree-belief-propagation": "theory/paradigms/probabilistic/graphical-models/belief-propagation",
     "3d-unet-depth-kernel": "theory/models/cnn/unet/3d-unet",
@@ -195,7 +197,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth"}:
+            elif stem in {"hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the

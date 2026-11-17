@@ -86,6 +86,55 @@ $
 
 For the synthetic example, the filtered probabilities of state A at $t=1,2,3$ are approximately **80.0%, 28.3%, 62.2%**. After the backward pass, the smoothed values become **73.3%, 31.7%, 62.2%**. No later observation exists after $t=3$, so the two estimates coincide at the final step. The continuous bar interpolation depicts the arrival of backward information, **not additional inference iterations or model training** (Rabiner, 1989).
 
+
+### Animated walkthrough: Pairwise posterior state transitions
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="HMM pairwise posterior animation; use arrow keys to scroll horizontally">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-pairwise-posterior-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" width="800" height="420" alt="Three HMM state columns with posterior transition mass moving along adjacent edges; A-to-A, A-to-B, B-to-A and B-to-B bars update between the first and second transitions.">
+</div>
+</div>
+
+*Original 12-second instructional SVG animation, CC BY-SA 4.0.* GitHub renders the **final static state**. On MkDocs use **Play/Pause** with Tab/Enter; reduced-motion preferences show the static fallback. Focus and horizontally scroll the figure with arrow keys on smaller screens.
+
+A state **pairwise posterior** differs from a transition probability: it conditions on the entire observed sequence and includes uncertainty about both endpoint states. With forward and backward messages computed using the same *fixed* example HMM parameters,
+
+\[
+\xi_t(i,j)=p(z_t=i,z_{t+1}=j\mid x_{1:T})
+=\frac{\alpha_t(i)A_{ij}B_j(x_{t+1})\beta_{t+1}(j)}{p(x_{1:T})}.
+\]
+
+In the example the two 2-by-2 posterior tables, in row order **A,B** and column order **A,B**, are
+
+\[
+\xi_1\approx
+\begin{bmatrix}0.277093&0.455548\\0.039585&0.227774\end{bmatrix},
+\qquad
+\xi_2\approx
+\begin{bmatrix}0.254380&0.062297\\0.367943&0.315380\end{bmatrix}.
+\]
+
+Each entire table sums to one; each **row sum** equals the corresponding smoothed state posterior \(\gamma_t(i)=p(z_t=i\mid x_{1:T})\), **not** one. The animated particles indicate which adjacent-time transitions contribute to the displayed posterior masses. Bar interpolation is a visual transition between two exact tables, not an additional inference step. Values are **synthetic arithmetic, not measured model outputs** (Rabiner, 1989).
+
+### Animated walkthrough: Baum–Welch transition M-step
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Baum-Welch transition update animation; use arrow keys to scroll horizontally">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-baum-welch-transition-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" width="800" height="420" alt="Expected pairwise transition counts from the E-step accumulate and are normalized separately for each previous state to form updated HMM transition rows.">
+</div>
+</div>
+
+*Original 12-second instructional SVG animation, CC BY-SA 4.0.* GitHub shows the static updated transition matrix; MkDocs adds keyboard-accessible **Play/Pause** and a reduced-motion fallback. On narrow viewports, focus the diagram and use the arrow keys to scroll.
+
+Baum–Welch is **expectation–maximisation (EM)**. After the E-step computes the pairwise posterior tables above using the *old* parameters, the transition part of the M-step sums expected transition counts and normalizes **each source-state row**:
+
+\[
+N_{ij}=\sum_{t=1}^{T-1}\xi_t(i,j),\qquad
+A_{ij}^{\mathrm{new}}=\frac{N_{ij}}{\sum_kN_{ik}}.
+\]
+
+The synthetic expected counts are \(N\approx\begin{bmatrix}0.531473&0.517846\\0.407528&0.543154\end{bmatrix}\). For this three-observation example, the updated transition rows are approximately **(0.5065, 0.4935)** from state A and **(0.4287, 0.5713)** from state B, compared with the original **(0.7, 0.3)** and **(0.4, 0.6)**. Counts are *expected*, not hard-counted Viterbi transitions. This animation illustrates **only the transition-parameter M-step of one EM iteration**; a complete HMM update also re-estimates initial-state and emission parameters where applicable. The gradual bar fill is presentation, not iterative optimisation or an empirical likelihood curve (Baum et al., 1970; Rabiner, 1989).
+
 ### Animated walkthrough: Viterbi decoding
 
 ![Four-stage Viterbi trellis showing max-product scores and the A–B–A traceback](../../../../assets/concept-animations/viterbi-trellis-motion.svg)

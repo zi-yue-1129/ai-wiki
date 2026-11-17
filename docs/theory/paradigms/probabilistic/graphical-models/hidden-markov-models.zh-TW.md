@@ -72,6 +72,55 @@ $
 
 示例中，時間 $t=1,2,3$ 的 A 狀態過濾機率依序約為 **80.0%、28.3%、62.2%**；加入後續觀測後，平滑機率變為 **73.3%、31.7%、62.2%**。在最後一個時間點沒有未來觀測，所以兩者相同。長條的連續變化僅用來表達後向資訊抵達的過程，**不是額外推論迭代，也不是模型訓練**（Rabiner，1989）。
 
+
+### 教學動畫：相鄰狀態的聯合後驗機率
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="HMM 相鄰狀態後驗機率動畫，可使用方向鍵水平捲動">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-pairwise-posterior-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" width="800" height="420" alt="三個時間點的 HMM 狀態 A、B 與相鄰狀態連線；四種轉移組合的後驗機率長條從第一段轉移切換到第二段。">
+</div>
+</div>
+
+*原創 12 秒 SVG 教學動畫，CC BY-SA 4.0。* GitHub 顯示**最後狀態的靜態圖**；MkDocs 提供可用 Tab／Enter 操作的**播放／暫停**，偏好減少動態效果時顯示靜態回退圖。窄螢幕可聚焦圖面後使用左右方向鍵捲動。
+
+**相鄰狀態的聯合後驗機率**不是轉移矩陣的一列：它已對整段觀測序列進行條件化，包含兩端隱藏狀態的不確定性。以同一組**固定模型參數**執行前向及後向遞迴：
+
+\[
+\xi_t(i,j)=p(z_t=i,z_{t+1}=j\mid x_{1:T})
+=\frac{\alpha_t(i)A_{ij}B_j(x_{t+1})\beta_{t+1}(j)}{p(x_{1:T})}.
+\]
+
+此人工範例的兩個 2×2 後驗矩陣，列與欄均依 **A、B** 排列：
+
+\[
+\xi_1\approx
+\begin{bmatrix}0.277093&0.455548\\0.039585&0.227774\end{bmatrix},
+\qquad
+\xi_2\approx
+\begin{bmatrix}0.254380&0.062297\\0.367943&0.315380\end{bmatrix}.
+\]
+
+**整個**後驗矩陣的元素總和為 1；各**列的總和**是對應時間點的平滑狀態後驗 \(\gamma_t(i)=p(z_t=i\mid x_{1:T})\)，而**不是**每列都等於 1。移動圓點標示相鄰狀態轉移，長條的連續變化只是切換兩組精確結果的視覺插值，並非額外的推論步驟。所有機率均為**人工數學計算，非模型實測值**（Rabiner，1989）。
+
+### 教學動畫：Baum–Welch 轉移機率更新
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Baum–Welch 轉移矩陣更新動畫，可使用方向鍵水平捲動">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-baum-welch-transition-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" width="800" height="420" alt="Baum–Welch 的 E 步驟累積轉移的期望次數，再由 M 步驟針對每個起始狀態的列進行正規化。">
+</div>
+</div>
+
+*原創 12 秒 SVG 教學動畫，CC BY-SA 4.0。* GitHub 顯示完成後轉移機率的靜態圖；MkDocs 提供鍵盤可操作的**播放／暫停**及減少動態效果回退圖。小螢幕可聚焦圖面，再以左右方向鍵捲動。
+
+Baum–Welch 屬於**期望最大化（EM）**。E 步驟以**舊參數**計算上述相鄰狀態的後驗矩陣，M 步驟的轉移矩陣部分則將期望轉移次數加總，再以**每個來源狀態的列**為單位正規化：
+
+\[
+N_{ij}=\sum_{t=1}^{T-1}\xi_t(i,j),\qquad
+A_{ij}^{\mathrm{new}}=\frac{N_{ij}}{\sum_kN_{ik}}.
+\]
+
+本例的期望次數為 \(N\approx\begin{bmatrix}0.531473&0.517846\\0.407528&0.543154\end{bmatrix}\)。更新後，從 A 出發的轉移機率約為 **(0.5065, 0.4935)**，從 B 出發約為 **(0.4287, 0.5713)**；原先兩列分別為 **(0.7, 0.3)** 與 **(0.4, 0.6)**。這些是**後驗期望次數**，而不是以 Viterbi 最佳路徑硬計數。動畫只展示**一次 EM 迭代中的轉移參數 M 步驟**，完整的 HMM 更新也需依模型設定更新初始分布及發射參數。長條逐漸填入僅為呈現方式，**不是最佳化軌跡，也非效能實測**（Baum 等人，1970；Rabiner，1989）。
+
 ### 教學動畫：Viterbi 解碼與回溯
 
 ![四階段 Viterbi 狀態格，呈現最大乘積分數與 A–B–A 回溯路徑](../../../../assets/concept-animations/viterbi-trellis-motion.svg)
