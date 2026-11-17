@@ -16,11 +16,11 @@ tags:
 
 # Gradient Clipping and Normalised Updates
 
-Gradient clipping and normalised updates limit how large a step the optimiser can take. Clipping caps the gradient when its norm is too large, which stops rare explosions from destroying training. Layer-wise normalised updates, such as LARS and LAMB, scale each layer's step by the ratio of its weight norm to its update norm, so that very large batches can be used without the learning rate diverging.
+Gradient clipping limits raw gradient norms or coordinate values, while layer-wise normalised updates rescale optimiser directions. For adaptive optimisers, clipping the raw gradient **does not by itself place the same upper bound on the final parameter update**. Clipping mitigates unusually large gradients but cannot guarantee stable training. Layer-wise normalised updates, such as LARS and LAMB, scale each layer's step by the ratio of its weight norm to its update norm, so that very large batches can be used without the learning rate diverging.
 
 ## Overview
 
-Two problems call for different tools. The first is a rare, very large gradient, which can throw the parameters far from where they were useful. Recurrent networks are the classic case, where repeated multiplication through time makes gradients explode. Clipping caps the step in that case and leaves ordinary steps unchanged. The second problem is that a single global learning rate is wrong for layers whose weights differ in scale. Under very large batches, a global rate that suits the early layers can diverge in others. Layer-wise normalisation sets a per-layer step relative to the weight size, so every layer moves by a comparable fraction of its own norm.
+Two problems call for different tools. The first is a rare, very large gradient, which can throw the parameters far from where they were useful. Recurrent networks are the classic case, where repeated multiplication through time makes gradients explode. Norm clipping caps the gradient norm in that case and leaves gradients below the threshold unchanged. The second problem is that a single global learning rate is wrong for layers whose weights differ in scale. Under very large batches, a global rate that suits the early layers can diverge in others. Layer-wise normalisation sets a per-layer step relative to the weight size, so every layer moves by a comparable fraction of its own norm.
 
 ## Key concepts
 
@@ -35,7 +35,7 @@ Clipping is applied to the gradient before the optimiser update. Normalised upda
 
 | Technique | Acts on | Effect |
 |---|---|---|
-| Norm clipping | Whole gradient | Caps the step when the gradient is too large; direction preserved |
+| Norm clipping | Whole gradient | Caps the raw gradient norm, preserving direction; adaptive updates are not directly capped |
 | Layer-wise normalisation (LARS) | Each layer's step | Step size proportional to the layer's weight norm |
 | Layer-wise normalisation (LAMB) | Each layer's Adam-style update | Adam direction, scaled by the layer's trust ratio |
 
@@ -86,6 +86,8 @@ The animation varies the second input continuously as \(g_2(t)=(0,2t)\); its int
 </div>
 
 *Original teaching animation (CC BY-SA 4.0).* Let the unscaled gradient be \(g=(3,4)\), with \(\|g\|_2=5\). A loss scaler multiplies it by \(S=4\), giving a scaled norm of \(20\), while the intended gradient clipping threshold is \(\tau=2\). **Correct:** \(\operatorname{clip}_2(Sg/S)\) has norm \(2\). **Incorrect:** \(\operatorname{clip}_2(Sg)/S\) has norm \(2/4=0.5\), because clipping was performed in the scaled rather than original units. With microbatch gradient accumulation, finish the entire effective batch's accumulation **before unscaling and clipping**. See the [official PyTorch automatic mixed precision example](https://docs.pytorch.org/docs/stable/notes/amp_examples.html), which uses GradScaler.unscale_ before clip_grad_norm_. The highlighted operations show computational order, **not measured training traces or recommended scaler values**; all values are analytical examples. [GitHub-readable static preview](../../assets/concept-animations/gradient-amp-unscale-order-still.svg). The MkDocs player offers Play/Pause, a reduced-motion static fallback, and a keyboard-focusable figure.
+
+**A gradient cap is not an adaptive-update cap.** For plain SGD without extra terms, \(\|\tilde g\|_2\le\tau\) implies \(\|\Delta\theta\|_2\le\eta\tau\). For [Adam](adaptive/adam.md), momentum and elementwise preconditioning change the mapping from clipped raw gradients to the final step, so the same bound does not follow. The diagrams illustrate gradient-space operations, **not a bound on Adam parameter displacements**.
 
 ## Key methods
 
