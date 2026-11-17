@@ -37,8 +37,8 @@ Rabiner（1989）把標準問題整理為三項：
 ### 教學動畫：前向和積遞迴
 
 <div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="隱馬可夫模型教學動畫，可使用方向鍵水平捲動">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-forward-sum-product-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" width="800" height="420" alt="前向演算法：A、B 兩個隱藏狀態間的訊息隨時間步傳遞，並累加所有路徑的觀測概似。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-forward-sum-product-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" width="800" height="420" style="width:640px;min-width:640px;max-width:none;height:auto" alt="前向演算法：A、B 兩個隱藏狀態間的訊息隨時間步傳遞，並累加所有路徑的觀測概似。">
 </div>
 </div>
 
@@ -56,8 +56,8 @@ $
 ### 教學動畫：過濾與平滑的差異
 
 <div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="隱馬可夫模型教學動畫，可使用方向鍵水平捲動">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-filter-smooth-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" width="800" height="420" alt="前向過濾與後向平滑：新觀測自右往左修正較早時間點的狀態後驗機率。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-filter-smooth-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" width="800" height="420" style="width:640px;min-width:640px;max-width:none;height:auto" alt="前向過濾與後向平滑：新觀測自右往左修正較早時間點的狀態後驗機率。">
 </div>
 </div>
 
@@ -76,8 +76,8 @@ $
 ### 教學動畫：相鄰狀態的聯合後驗機率
 
 <div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="HMM 相鄰狀態後驗機率動畫，可使用方向鍵水平捲動">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-pairwise-posterior-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" width="800" height="420" alt="三個時間點的 HMM 狀態 A、B 與相鄰狀態連線；四種轉移組合的後驗機率長條從第一段轉移切換到第二段。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-pairwise-posterior-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" width="800" height="420" style="width:640px;min-width:640px;max-width:none;height:auto" alt="三個時間點的 HMM 狀態 A、B 與相鄰狀態連線；四種轉移組合的後驗機率長條從第一段轉移切換到第二段。">
 </div>
 </div>
 
@@ -105,8 +105,8 @@ $
 ### 教學動畫：Baum–Welch 轉移機率更新
 
 <div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Baum–Welch 轉移矩陣更新動畫，可使用方向鍵水平捲動">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-baum-welch-transition-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" width="800" height="420" alt="Baum–Welch 的 E 步驟累積轉移的期望次數，再由 M 步驟針對每個起始狀態的列進行正規化。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-baum-welch-transition-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" width="800" height="420" style="width:640px;min-width:640px;max-width:none;height:auto" alt="Baum–Welch 的 E 步驟累積轉移的期望次數，再由 M 步驟針對每個起始狀態的列進行正規化。">
 </div>
 </div>
 

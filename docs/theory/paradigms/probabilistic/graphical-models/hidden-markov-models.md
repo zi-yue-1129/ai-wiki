@@ -51,8 +51,8 @@ The **forward–backward** algorithm combines the forward pass with a backward p
 ### Animated walkthrough: Forward sum-product inference
 
 <div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="HMM teaching animation; use arrow keys to scroll horizontally">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-forward-sum-product-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" width="800" height="420" alt="Forward recursion: probability mass travels from both predecessor states into each next-state node, yielding total observation likelihood.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-forward-sum-product-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-forward-sum-product-still.svg" width="800" height="420" style="width:640px;min-width:640px;max-width:none;height:auto" alt="Forward recursion: probability mass travels from both predecessor states into each next-state node, yielding total observation likelihood.">
 </div>
 </div>
 
@@ -70,8 +70,8 @@ The exact forward messages are $\alpha_1=(0.48,0.12)$, $\alpha_2=(0.0768,0.1944)
 ### Animated walkthrough: Filtering versus smoothing
 
 <div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="HMM teaching animation; use arrow keys to scroll horizontally">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-filter-smooth-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" width="800" height="420" alt="Filtering versus smoothing: future evidence travels backward and revises earlier state posteriors.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-filter-smooth-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-filter-smooth-still.svg" width="800" height="420" style="width:640px;min-width:640px;max-width:none;height:auto" alt="Filtering versus smoothing: future evidence travels backward and revises earlier state posteriors.">
 </div>
 </div>
 
@@ -90,8 +90,8 @@ For the synthetic example, the filtered probabilities of state A at $t=1,2,3$ ar
 ### Animated walkthrough: Pairwise posterior state transitions
 
 <div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="HMM pairwise posterior animation; use arrow keys to scroll horizontally">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-pairwise-posterior-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" width="800" height="420" alt="Three HMM state columns with posterior transition mass moving along adjacent edges; A-to-A, A-to-B, B-to-A and B-to-B bars update between the first and second transitions.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-pairwise-posterior-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-pairwise-posterior-still.svg" width="800" height="420" style="width:640px;min-width:640px;max-width:none;height:auto" alt="Three HMM state columns with posterior transition mass moving along adjacent edges; A-to-A, A-to-B, B-to-A and B-to-B bars update between the first and second transitions.">
 </div>
 </div>
 
@@ -119,8 +119,8 @@ Each entire table sums to one; each **row sum** equals the corresponding smoothe
 ### Animated walkthrough: Baum–Welch transition M-step
 
 <div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Baum-Welch transition update animation; use arrow keys to scroll horizontally">
-<div style="width:800px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-baum-welch-transition-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" width="800" height="420" alt="Expected pairwise transition counts from the E-step accumulate and are normalized separately for each previous state to form updated HMM transition rows.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" data-motion-src="../../../../assets/concept-animations/hmm-baum-welch-transition-motion.svg" data-still-src="../../../../assets/concept-animations/hmm-baum-welch-transition-still.svg" width="800" height="420" style="width:640px;min-width:640px;max-width:none;height:auto" alt="Expected pairwise transition counts from the E-step accumulate and are normalized separately for each previous state to form updated HMM transition rows.">
 </div>
 </div>
 
