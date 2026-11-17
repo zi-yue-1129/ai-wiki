@@ -20,7 +20,7 @@ tags:
 ### 動態示意
 
 <div tabindex="0" role="region" aria-label="可用鍵盤聚焦與水平捲動的配對自助法示意圖" style="max-width:100%;overflow-x:auto;">
-  <img src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" data-motion-src="../../../../assets/concept-animations/paired-bootstrap-resampling-motion.svg" data-still-src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="配對自助法示意：五筆 A 減 B 差值以整筆成對資料重抽樣，第 4 筆在同一輪出現兩次。">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" data-motion-src="../../../../assets/concept-animations/paired-bootstrap-resampling-motion.svg" data-still-src="../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;" alt="配對自助法示意：五筆 A 減 B 差值以整筆成對資料重抽樣，第 4 筆在同一輪出現兩次。">
 </div>
 
 *原創連續教學動畫，CC BY-SA 4.0。網站可用播放／暫停按鈕及 Enter／Space 操作。青綠色與橘色標記**一同移動**，代表 A、B 在同一筆樣本上保持配對。這輪人工抽樣的原始索引為（4、2、4、1、5），差值為（+0.5、−0.1、+0.5、+0.3、−0.2），均值 +0.20；原始五筆資料的差值均值為 +0.14。重複第 4 筆表示**有放回抽樣**。**以上數值純屬教學設定，不是模型實測。** 單次重抽樣不能構成信賴區間，必須經多輪抽樣並指定區間方法；有群聚相依時應以獨立群集為單位抽樣。[GitHub 靜態預覽](../../../../assets/concept-animations/paired-bootstrap-resampling-still.svg)。*

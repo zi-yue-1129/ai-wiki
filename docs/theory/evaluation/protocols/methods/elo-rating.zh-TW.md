@@ -20,7 +20,7 @@ Elo 評分與競技場從成對結果為系統排名：評審（人類或模型�
 ### 動態示意
 
 <div tabindex="0" role="region" aria-label="可用鍵盤聚焦與水平捲動的 Elo 分數更新示意圖" style="max-width:100%;overflow-x:auto;">
-  <img src="../../../../assets/concept-animations/elo-online-update-still.svg" data-motion-src="../../../../assets/concept-animations/elo-online-update-motion.svg" data-still-src="../../../../assets/concept-animations/elo-online-update-still.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="Elo 線上更新示意：A 擊敗 B 後，A 的分數由 1500 升至 1532，B 降至 1468，A 下次的預期勝率從 0.5 上升到約 0.591。">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/elo-online-update-still.svg" data-motion-src="../../../../assets/concept-animations/elo-online-update-motion.svg" data-still-src="../../../../assets/concept-animations/elo-online-update-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;" alt="Elo 線上更新示意：A 擊敗 B 後，A 的分數由 1500 升至 1532，B 降至 1468，A 下次的預期勝率從 0.5 上升到約 0.591。">
 </div>
 
 *原創連續教學動畫，CC BY-SA 4.0。網站可用播放／暫停按鈕及 Enter／Space 操作。此為**線上 Elo 更新的人工示例**：兩者初始分數均為 1500，預期得分 0.5，並設 K=64。A 贏得一次比較後，依 R′ = R + K(S − E)，A 更新為 1532、B 為 1468；下一次 A 的預期勝率為 1/(1+10^((1468−1532)/400)) ≈ 0.591。**所有數值皆非競技場實測。** 以 Bradley–Terry 模型重新擬合排名，以及用 Bootstrap 估計信賴區間，都是不同的估計程序；本圖不暗示所有競技場都採逐局 Elo 更新。[GitHub 靜態預覽](../../../../assets/concept-animations/elo-online-update-still.svg)。*

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="240" viewBox="0 0 640 240" role="img" aria-label="Hybrid Gibbs refresh with probability one quarter, exact total variation decay"><rect width="640" height="240" rx="15" fill="#f5f9fc"/><rect x="15" y="16" width="610" height="208" rx="12" fill="white" stroke="#d9e5ec"/>
+<text x="34" y="46" font-family="sans-serif" font-size="17" font-weight="700" fill="#244259">Hybrid refresh</text><text x="34" y="77" font-family="sans-serif" font-size="13" fill="#506779">p = 0.25</text>
+<text x="34" y="118" font-family="sans-serif" font-size="13" fill="#506779">00 → 00</text><rect x="113" y="103" width="133" height="18" rx="4" fill="#e6eef3"/><rect x="113" y="103" width="116.4" height="18" rx="4" fill="#168b88"/><text x="249" y="118" font-family="sans-serif" font-size="13" fill="#244259">.875</text>
+<text x="34" y="157" font-family="sans-serif" font-size="13" fill="#506779">00 → 11</text><rect x="113" y="142" width="133" height="18" rx="4" fill="#e6eef3"/><rect x="113" y="142" width="16.6" height="18" rx="4" fill="#d59449"/><text x="249" y="157" font-family="sans-serif" font-size="13" fill="#244259">.125</text>
+<line x1="286" y1="63" x2="286" y2="201" stroke="#d9e5ec"/>
+<text x="307" y="78" font-family="sans-serif" font-size="15" font-weight="700" fill="#244259">Exact TV distance</text>
+<line x1="305" y1="85" x2="305" y2="185" stroke="#71899a"/><line x1="305" y1="185" x2="585" y2="185" stroke="#71899a"/>
+<text x="300" y="90" font-family="sans-serif" font-size="11" text-anchor="end" fill="#506779">.5</text><text x="305" y="202" font-family="sans-serif" font-size="11" fill="#506779">0</text><text x="579" y="202" font-family="sans-serif" font-size="11" fill="#506779">8</text>
+<polyline points="305,85.00 340,85.00 375,85.00 410,85.00 445,85.00 480,85.00 515,85.00 550,85.00 585,85.00" fill="none" stroke="#d59449" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="305,85.00 340,185.00 375,185.00 410,185.00 445,185.00 480,185.00 515,185.00 550,185.00 585,185.00" fill="none" stroke="#168b88" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="305,85.00 340,110.00 375,128.75 410,142.81 445,153.36 480,161.27 515,167.20 550,171.65 585,174.99" fill="none" stroke="#8e5aaa" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="445" cy="153.36" r="6" fill="#8e5aaa" stroke="white" stroke-width="2"/><text x="460" y="148" font-family="sans-serif" font-size="12" fill="#7e4f9d">p = .25</text>
+<text x="305" y="219" font-family="sans-serif" font-size="11" fill="#60778a">0: single-site · 1: block</text></svg>
