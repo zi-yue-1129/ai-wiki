@@ -174,11 +174,38 @@ $$
 
 For the top-one cutoff, $L(1)=C_{FN}/15$. For the top-four cutoff, $L(4)=0.30$. Among **all seven candidate cutoffs** $k=0,\ldots,6$, the minimum-cost choice is **$k=1$** when $C_{FN}=1$ (cost $0.0667$), but **$k=4$** when $C_{FN}=5$ (cost $0.300$); these two alternatives tie at $C_{FN}=4.5$. Over the **illustrated cost range** $1\le C_{FN}\le5$, the optimum is $k=1$ below 4.5, either $k=1$ or $k=4$ at 4.5, and $k=4$ above 4.5. The other five candidate cutoffs never improve on the better of these two choices in this range; the chart therefore shows only the two potentially optimal loss lines. The connection with **Youden J** is exact under a specific cost balance: if $C_{FN}p=C_{FP}(1-p)=w$, then
 
-$
+$$
 L(k)=w[1-J(k)].
-$
+$$
 
 Thus maximizing $J$ minimizes expected loss **when the conditional rates apply to the deployment population and these effective error weights match**. With the illustrated $p=0.10$ and $C_{FP}=1$, equality would require $C_{FN}=9$, **outside** the animation's cost sweep $1$–$5$. The $k=4$ optimum at $C_{FN}=5$ happens to agree with maximum $J$; that coincidence does not make the objectives generally equivalent. The ROC staircase comes from the six-case example; deployment prevalence and costs are **separate hypothetical assumptions**. The moving markers sweep assumptions, **not epochs or actual inference samples**. MkDocs offers keyboard-accessible Play/Pause and a reduced-motion still; scroll horizontally on phones. [GitHub static preview](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [Full SVG motion](../../../../assets/concept-animations/roc-youden-cost-motion.svg). For decision-theoretic context see Fawcett (2006) in References.
+
+## Animated cutoff switching under a prior shift
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC operating policy changes under a prevalence shift">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-prior-policy-still.svg" data-still-src="../../../../assets/concept-animations/roc-prior-policy-still.svg" data-motion-src="../../../../assets/concept-animations/roc-prior-policy-motion.svg" alt="With the ROC staircase unchanged, increasing synthetic positive prevalence from 5 to 60 percent shifts the least-cost decision from accepting the top one to accepting the top four; the expected-cost lines cross at prevalence 20 percent." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* Unlike the preceding PPV animation, which **holds the decision rule fixed**, this example **re-optimises** the rule as the deployment base rate changes. It uses the separate, artificial six-case ordering **+ − + + − −**, retaining the same class-conditional score distributions and ROC staircase under a **pure prior-probability shift**. Assume false-negative cost $C_{FN}=2$ and false-positive cost $C_{FP}=1$. The two undominated cutoffs have expected losses:
+
+$$
+L(1;p)=\frac{4p}{3}.
+$$
+
+$$
+L(4;p)=\frac{1-p}{3}.
+$$
+
+The lines intersect at $p=0.20$. For this particular pair of ROC operating points, the more general crossover is
+
+$$
+p^*=\frac{C_{FP}}{2C_{FN}+C_{FP}}.
+$$
+
+For **$p=0.10$**, top one costs **0.133** versus **0.300** for top four; for **$p=0.40$**, top four costs **0.200** versus **0.533** for top one. Both tie at **$p=0.20$**. All five other cutoffs are dominated by the better of these two across $0<p<1$. The selected ROC point switches, but **the underlying ROC curve does not**. The moving cursors trace a parameter sweep, **not model training or measured predictions**; all rates and costs are synthetic assumptions. MkDocs supports keyboard-operated Play/Pause and a reduced-motion still. The still marks the 20% crossover and GitHub displays it directly. On phones, scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-prior-policy-still.svg) · [Full SVG motion](../../../../assets/concept-animations/roc-prior-policy-motion.svg). See Fawcett (2006) in References for the ROC decision-cost interpretation.
+
 
 ## References
 
