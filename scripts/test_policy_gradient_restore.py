@@ -53,7 +53,18 @@ class Coverage(unittest.TestCase):
             self.assertIn('getComputedStyle', page.evaluate.call_args_list[2].args[0])
 
     def test_ci_execution_and_evidence(self):
-        path=ROOT/'.github/workflows/built-motion-browser.yml';d=yaml.safe_load(path.read_text());steps=d['jobs']['built-motion-browser']['steps'];self.assertTrue(any(x.get('run')=='python scripts/test_policy_gradient_motion_browser.py'for x in steps));self.assertTrue(any(x.get('run')=='python scripts/test_policy_gradient_restore.py'for x in steps));upload=next(x for x in steps if x.get('with',{}).get('name')=='policy-gradient-motion-review');self.assertEqual(upload['if'],'always()');self.assertEqual(upload['with']['path'],'artifacts/policy-gradient-motion/');self.assertEqual(upload['with']['if-no-files-found'],'error')
+        d=yaml.safe_load((ROOT/'.github/workflows/built-motion-browser.yml').read_text())
+        if 'support-browser' in d['jobs']:
+            steps=d['jobs']['support-browser']['steps'];run=next(x for x in steps if x.get('run')=='python scripts/run_motion_shard_support.py')
+            self.assertNotIn('if',run);self.assertNotIn('continue-on-error',run)
+            registry=json.loads((ROOT/'scripts/fixtures/browser-support-suites.json').read_text());entry=next(x for x in registry['suites'] if x['id']=='policy-gradient-motion')
+            self.assertEqual(entry['command'],['scripts/test_policy_gradient_motion_browser.py']);self.assertEqual(len(entry['expected_cases']),24);self.assertEqual(len(entry['expected_pngs']),114)
+            runs=[x.get('run','')for j in d['jobs'].values()for x in j['steps']]
+            self.assertTrue(any('python scripts/test_policy_gradient_restore.py' in x.splitlines() for x in runs))
+            self.assertTrue(any(x.get('uses','').startswith('actions/upload-artifact@') for x in steps))
+        else:
+            steps=d['jobs']['built-motion-browser']['steps'];self.assertTrue(any(x.get('run')=='python scripts/test_policy_gradient_motion_browser.py'for x in steps));self.assertTrue(any(x.get('run')=='python scripts/test_policy_gradient_restore.py'for x in steps));upload=next(x for x in steps if x.get('with',{}).get('name')=='policy-gradient-motion-review');self.assertEqual(upload['if'],'always()');self.assertEqual(upload['with']['path'],'artifacts/policy-gradient-motion/');self.assertEqual(upload['with']['if-no-files-found'],'error')
+
     def test_controls_and_native_glyph_contract_retained(self):
         src=(ROOT/'scripts/test_policy_gradient_motion_browser.py').read_text()
         for token in ['getBBox()','page.keyboard.press("Enter")','page.keyboard.press("Space")','i.naturalWidth===760','dimensions["scroll"]>=760','region.focus()','s.pauseAnimations(); s.setCurrentTime(t)']:self.assertIn(token,src)

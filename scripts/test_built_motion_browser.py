@@ -20,6 +20,8 @@ import tempfile
 from threading import Thread
 from urllib.parse import quote, unquote, urljoin, urlsplit
 
+from motion_shard_contract import case_id, identity, manifest, partition
+
 from markdown import Markdown
 from mkdocs.config import load_config
 from mkdocs.structure.files import File
@@ -593,19 +595,28 @@ def main():
     parser.add_argument("--keyboard-preflight", action="store_true",
                         help="Check seven bilingual keyboard/math topics on mobile before the separate full suite")
     parser.add_argument("--discover-only", action="store_true", help="Validate discovery and built attributes without Chromium")
+    parser.add_argument("--shard-index", type=int, default=0)
+    parser.add_argument("--shard-count", type=int, default=1)
     parser.add_argument("--executable-path", help="Optional local Chromium; CI uses Playwright's pinned browser")
     args = parser.parse_args()
     config = load_config(config_file=str(args.config.resolve()))
     site = (args.site_dir or Path(config.site_dir)).resolve()
     targets = discover_pages(config)
+    full_manifest = manifest(targets, VIEWPORTS, identity())
+    if args.keyboard_preflight and (args.shard_index != 0 or args.shard_count != 1):
+        parser.error('Preflight stays complete and cannot be sharded')
+    assigned = set(partition(full_manifest['expected_case_ids'], args.shard_index, args.shard_count))
     if args.keyboard_preflight:
         # Retain native-scroll regressions and fail fast on the new formula-overflow pages.
         names = MOBILE_PREFLIGHT_NAMES
         targets = [t for t in targets if t.source.rsplit('/', 1)[-1].removesuffix('.md').removesuffix('.zh-TW') in names]
         assert len(targets) == 14, 'Mobile preflight requires all seven bilingual topics'
     report = {"pages": [asdict(target) for target in targets], "cases": [],
-              "scope": "keyboard-preflight" if args.keyboard_preflight else "full"}
+              "scope": "keyboard-preflight" if args.keyboard_preflight else "full",
+              "identity": full_manifest['identity'], "manifest_sha256": full_manifest['sha256'],
+              "shard_index": args.shard_index, "shard_count": args.shard_count}
     args.output.mkdir(parents=True, exist_ok=True)
+    (args.output / "discovery-manifest.json").write_text(json.dumps(full_manifest, ensure_ascii=False, indent=2)+"\n")
     try:
         for target in targets:
             check_built_page(site, target, config.site_url)
@@ -630,9 +641,12 @@ def main():
                             continue
                         for reduced in (False, True):
                             mode = "reduce" if reduced else "no-preference"
+                            current_id = case_id(target.source, viewport, mode)
+                            if current_id not in assigned:
+                                continue
                             output = args.output / Path(target.source).with_suffix("") / f"{name}-{mode}"
                             output.mkdir(parents=True, exist_ok=True)
-                            result = {"source": target.source, "url": urljoin(base_url, target.url),
+                            result = {"case_id": current_id, "source": target.source, "url": urljoin(base_url, target.url),
                                       "viewport": viewport, "reduced_motion": mode,
                                       "artifact_directory": output.relative_to(args.output).as_posix()}
                             report["cases"].append(result)
@@ -643,6 +657,8 @@ def main():
                             print(f"{result['status'].upper()}: {target.source} {name} {mode}", flush=True)
             finally:
                 browser.close()
+        if not args.keyboard_preflight:
+            assert {c['case_id'] for c in report['cases']} == assigned, 'Incomplete assigned coverage'
         failures = [case for case in report["cases"] if case["status"] != "passed"]
         report["status"] = "failed" if failures else "passed"
         print(f"Built-page browser checks: {len(report['cases'])} cases, {len(failures)} failures")
