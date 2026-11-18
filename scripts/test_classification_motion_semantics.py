@@ -409,3 +409,49 @@ for filename, required_terms in (
     assert "C_{FN}=9" in page
 
 print("Prior-shift conditions and Youden effective-cost equivalence OK")
+
+
+# Prevalence-driven policy crossover while class-conditional ROC rates stay fixed.
+# This differs from the earlier PPV thought experiment: we REOPTIMISE the rule.
+# The six strictly ordered artificial labels have seven possible prefix cutoffs.
+# For the two undominated cutoffs, L1(p) = 4p/3 and L4(p) = (1-p)/3
+# under C_FN=2 and C_FP=1. All others are more costly for 0<p<1.
+assert math.isclose(1 / (2 * 2 + 1), 0.2)
+assert math.isclose(4 * .1 / 3, 2 / 15)
+assert math.isclose((1 - .1) / 3, .3)
+assert math.isclose(4 * .4 / 3, 8 / 15)
+assert math.isclose((1 - .4) / 3, .2)
+for i in range(1, 1000):
+    deployment_p = i / 1000
+    losses = []
+    for k in range(len(decision_labels) + 1):
+        tp = sum(decision_labels[:k])
+        fp = k - tp
+        losses.append(2 * deployment_p * (1 - tp / 3)
+                      + (1 - deployment_p) * fp / 3)
+    assert math.isclose(losses[1], 4 * deployment_p / 3)
+    assert math.isclose(losses[4], (1 - deployment_p) / 3)
+    optimum = min(losses)
+    expected = [1] if i < 200 else [4] if i > 200 else [1, 4]
+    actual = [k for k, loss in enumerate(losses)
+              if math.isclose(loss, optimum, abs_tol=1e-12)]
+    assert actual == expected, (i, actual, expected)
+
+asset_root = Path("docs/assets/concept-animations")
+policy_motion = (asset_root / "roc-prior-policy-motion.svg").read_text(encoding="utf-8")
+policy_still = (asset_root / "roc-prior-policy-still.svg").read_text(encoding="utf-8")
+assert "prefers-reduced-motion" in policy_motion
+assert 'class="moving"' in policy_motion
+assert "<animateMotion " in policy_motion and "<animate" not in policy_still
+for filename, language_marker in (
+    ("roc-auc.md", "Animated cutoff switching under a prior shift"),
+    ("roc-auc.zh-TW.md", "先驗比例漂移如何切換最低成本門檻"),
+):
+    page = (shared_dir / filename).read_text(encoding="utf-8")
+    assert language_marker in page
+    assert 'src="../../../../assets/concept-animations/roc-prior-policy-still.svg"' in page
+    assert 'data-motion-src="../../../../assets/concept-animations/roc-prior-policy-motion.svg"' in page
+    assert "[GitHub static preview]" in page or "[GitHub 靜態預覽]" in page
+    assert "p^*=\\frac{C_{FP}}{2C_{FN}+C_{FP}}" in page
+    assert "\n$$\nL(k)=w[1-J(k)].\n$$\n" in page
+print("Prevalence-driven policy crossover: all 999 positive base rates and seven cutoffs OK")
