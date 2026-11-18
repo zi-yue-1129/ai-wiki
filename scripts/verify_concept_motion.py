@@ -23,6 +23,8 @@ TOPICS = {
     "qk-norm-scale-sweep": "theory/models/transformer/qk-norm",
     "sigma-reparam-spectral-gain": "theory/models/transformer/sigma-reparam",
     "roc-tie-half-credit": "theory/evaluation/metrics/classification/roc-auc",
+    "f1-threshold-topk": "theory/evaluation/metrics/classification/f1",
+    "roc-randomized-operating-mix": "theory/evaluation/metrics/classification/roc-auc",
     "pr-ap-tied-threshold": "theory/evaluation/metrics/classification/pr-auc",
     "roc-pairwise-auc": "theory/evaluation/metrics/classification/roc-auc",
     "pr-ap-rectangles": "theory/evaluation/metrics/classification/pr-auc",
@@ -231,7 +233,7 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    if root.tag != NS + "svg" or root.get("viewBox") not in {"0 0 640 360", "0 0 720 460", "0 0 800 420"}:
+    if root.tag != NS + "svg" or root.get("viewBox") not in {"0 0 640 360", "0 0 720 400", "0 0 720 460", "0 0 800 420"}:
         errors.append(f"{path}: invalid SVG root/viewBox")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
@@ -290,7 +292,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {"roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
+            elif stem in {"f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:

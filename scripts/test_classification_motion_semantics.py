@@ -222,3 +222,31 @@ for stem in ("roc-tie-half-credit", "pr-ap-tied-threshold"):
     assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
     assert "<animate " in motion and "<animate " not in still
 print("Tied ROC-AUC credit and grouped-threshold AP semantics OK")
+
+# F1 selected-prefix sweep under eight distinct-ranked artificial scores.
+prefix_labels=(1,0,1,1,0,1,0,0)
+f1_at_k=[]
+for k in range(9):
+    tp=sum(prefix_labels[:k]); fp=k-tp; fn=4-tp
+    f1=2*tp/(2*tp+fp+fn)
+    assert math.isclose(f1,2*tp/(k+4))
+    f1_at_k.append(f1)
+assert f1_at_k.index(max(f1_at_k))==6
+assert math.isclose(f1_at_k[4],.75) and math.isclose(f1_at_k[5],2/3)
+assert math.isclose(f1_at_k[6],.8)
+
+# Two conditional operating rates combine linearly under independent rule randomization.
+for i in range(101):
+    weight=i/100
+    fpr=(1-weight)*.10+weight*.40
+    tpr=(1-weight)*.60+weight*.90
+    assert 0<=fpr<=1 and 0<=tpr<=1
+    assert math.isclose(tpr-fpr,.5)
+assert math.isclose((.10+.40)/2,.25) and math.isclose((.60+.90)/2,.75)
+for stem in ("f1-threshold-topk", "roc-randomized-operating-mix"):
+    root=Path("docs/assets/concept-animations")
+    motion=(root/(stem+"-motion.svg")).read_text(encoding="utf-8")
+    still=(root/(stem+"-still.svg")).read_text(encoding="utf-8")
+    assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
+    assert '<animate ' in motion and '<animate ' not in still
+print("F1 prefix sweep and randomized ROC mixture semantics OK")
