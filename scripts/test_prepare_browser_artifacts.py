@@ -141,12 +141,17 @@ class Packaging(unittest.TestCase):
         import yaml
         workflow=Path(__file__).resolve().parents[1]/'.github/workflows/built-motion-browser.yml'
         data=yaml.safe_load(workflow.read_text());job=data['jobs']['built-motion-browser']
-        self.assertEqual(job['timeout-minutes'],50)
+        # Transitional full-coverage run keeps every browser suite; budget approved at 75 minutes.
+        self.assertEqual(job['timeout-minutes'],75)
+        self.assertIn('policy-credit-labs',pack.DEFAULT_ROOTS)
+        self.assertIn('built-planning-evolution-labs',pack.DEFAULT_ROOTS)
         steps=job['steps'];names=[s.get('name') for s in steps]
         for name in ('Preflight native keyboard scroll settling on bilingual mobile pages',
                      'Exercise built desktop, mobile and reduced-motion pages',
                      'Check bilingual embedding prose, navigation and mathematical layout',
-                     'Exercise built adaptive optimiser calculators'):
+                     'Exercise built adaptive optimiser calculators',
+                     'Exercise actual bilingual policy-credit labs',
+                     'Exercise real bilingual planning and evolutionary labs'):
             self.assertIn(name,names)
         uploads=[s for s in steps if s.get('uses')=='actions/upload-artifact@v4' and
                  s.get('with',{}).get('name','').startswith('built-motion-browser-review-')]

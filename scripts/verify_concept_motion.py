@@ -70,6 +70,27 @@ TOPICS = {
     "adamw-epoch-timescale": "theory/optimization/weight-norm-dynamics/adamw-weight-decay-scaling",
     "paged-block-mapping": "engineering/inference-optimization/paged-attention",
     "expert-cache-miss": "engineering/inference-optimization/expert-offloading",
+    "reinforce-reward-to-go": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index",
+    "reinforce-return-credit": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index",
+    "grpo-group-advantages": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index",
+    "self-instruct-filter-loop": "engineering/synthetic-data/self-instruct",
+    "recursive-tail-loss": "engineering/synthetic-data/model-collapse",
+    "awq-salient-scaling": "theory/model-compression/quantisation/post-training/awq/index",
+    "gptq-error-compensation": "theory/model-compression/quantisation/post-training/gptq/index",
+    "saliency-local-gradient": "society/interpretability/saliency-maps",
+    "integrated-gradients-path": "society/interpretability/integrated-gradients",
+    "power-iteration-projection-contraction": "theory/math/linear-algebra/eigendecomposition",
+    "large-batch-warmup-ramp": "theory/optimization/gradual-warm-up",
+    "theta-gamma-phase-amplitude": "brain-mind/oscillations/theta-gamma-coupling/index",
+    "coherence-phase-gating": "brain-mind/oscillations/communication-through-coherence/index",
+    "strips-state-effects": "theory/paradigms/symbolic-ai/planning/strips",
+    "graphplan-layer-extraction": "theory/paradigms/symbolic-ai/planning/graphplan",
+    "genetic-crossover-mutation": "theory/paradigms/evolutionary/genetic-algorithms",
+    "map-elites-archive": "theory/paradigms/evolutionary/map-elites",
+    "place-cell-firing": "brain-mind/navigation-cognitive-maps/place-cells/index",
+    "successor-occupancy": "brain-mind/navigation-cognitive-maps/successor-representation/index",
+    "causal-lamp-intervention": "theory/paradigms/imitation/behavioural-cloning/causal-confusion",
+    "copycat-action-lag": "theory/paradigms/imitation/behavioural-cloning/causal-confusion",
     "ece-binned-calibration": "theory/paradigms/probabilistic/uncertainty-calibration/expected-calibration-error",
     "deep-ensemble-spread": "theory/paradigms/probabilistic/uncertainty-calibration/deep-ensembles",
     "tsne-kl-embedding": "theory/paradigms/unsupervised/dimensionality-reduction/t-sne",
@@ -183,6 +204,8 @@ TOPICS = {
     "ppo-clipped-objective": "theory/paradigms/reinforcement-learning/proximal-policy-optimisation/index",
     "prioritized-replay-cycle": "theory/paradigms/reinforcement-learning/experience-replay/index",
     "sam-two-gradient": "theory/optimization/sharpness-aware-minimisation",
+    "fgsm-sign-step": "theory/machine-learning/adversarial-robustness/fgsm",
+    "pgd-projection-path": "theory/machine-learning/adversarial-robustness/pgd-adversarial-training",
     "lbfgs-two-loop": "theory/optimization/lbfgs",
     "nesterov-lookahead": "theory/optimization/sgd-and-momentum/nesterov",
     "hyperband-budget": "theory/optimization/hyperparameter-optimisation/hyperband",
@@ -241,6 +264,8 @@ TOPICS = {
     "mf-als-alternating": "theory/models/recommender/matrix-factorization",
     "bpr-gradient-saturation": "theory/models/recommender/bpr",
     "bpe-ordered-merges": "theory/models/llm/tokenisation/byte-pair-encoding",
+    "ddm-first-passage": "brain-mind/decision-reward/diffusion-model/index",
+    "mbmf-revaluation": "brain-mind/decision-reward/model-based-vs-model-free/index",
     "mle-bernoulli-likelihood": "theory/math/probability-statistics/maximum-likelihood",
     "map-beta-posterior": "theory/math/probability-statistics/maximum-a-posteriori",
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
@@ -481,6 +506,31 @@ CANONICAL_VIEWBOXES = {
     'weak-supervision-vote-fusion': '0 0 640 360',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
     'wgan-gp-interpolation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
     'wgan-weight-clip': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'awq-salient-scaling': '0 0 640 360',  # reviewed f9e404e53521d1e64be9ec8101ea7366ac6ed038; original bf8271353848fe24f06d372f2371d19a10adf08b
+    'causal-lamp-intervention': '0 0 640 360',  # reviewed 61971e61b48992a48af218ac6be717b0aaed040e; original 0f93b7be168f292d755db1ce1293a29e8ccc6171
+    'coherence-phase-gating': '0 0 640 360',  # reviewed 207a66ffb0b90104d98ce6e976c517fe93833949; original 02a8664a1ed0e6290ea86544c2136843e02e1861
+    'copycat-action-lag': '0 0 640 360',  # reviewed 61971e61b48992a48af218ac6be717b0aaed040e; original 0f93b7be168f292d755db1ce1293a29e8ccc6171
+    'ddm-first-passage': '0 0 640 360',  # reviewed cdbb8dddaa623e56076fe5fe951810b6ac1dd14a; original 2f93f194afced89f5dfed835fd6ca8af83190bb5
+    'fgsm-sign-step': '0 0 640 360',  # reviewed 8ee06a9687632f0aa302c93b2954bd58f725ae6d; original 92c1dee77750616ac204397cdfd0a7b0ee6d7bb9
+    'genetic-crossover-mutation': '0 0 640 360',  # reviewed 6524c69fec9d152417530e516c7f7721b48ee3a4; original 359c4dc7ba807a43343f094f07b5920d90d30e5c
+    'gptq-error-compensation': '0 0 640 360',  # reviewed f9e404e53521d1e64be9ec8101ea7366ac6ed038; original bf8271353848fe24f06d372f2371d19a10adf08b
+    'graphplan-layer-extraction': '0 0 640 360',  # reviewed 36db488c4d4c5280a861d7bb7115b01ee9c3e603; original 257edd965ebfae42c5b7434e15d90fef4e322a15
+    'grpo-group-advantages': '0 0 760 400',  # reviewed 03712a68214369fb486ce526a9068aad77e95b2f; original fbf74b3a752b88b5dc2ebd41c1ad3b64cbd74514
+    'integrated-gradients-path': '0 0 640 360',  # reviewed 8c7b545d35ef17f0e8a6d1eb18b90d03605113a3; original e9ba167a80489797244f0f28aa4f0db699ea59d7
+    'large-batch-warmup-ramp': '0 0 640 360',  # reviewed 6666b751180ae28075de761cd38d5a17ef33b3cf; original 731713d8e65e987e459b54d1afd0e6c9b320a3ad
+    'map-elites-archive': '0 0 640 360',  # reviewed 6524c69fec9d152417530e516c7f7721b48ee3a4; original 359c4dc7ba807a43343f094f07b5920d90d30e5c
+    'mbmf-revaluation': '0 0 640 360',  # reviewed cdbb8dddaa623e56076fe5fe951810b6ac1dd14a; original 2f93f194afced89f5dfed835fd6ca8af83190bb5
+    'pgd-projection-path': '0 0 640 360',  # reviewed 8ee06a9687632f0aa302c93b2954bd58f725ae6d; original 92c1dee77750616ac204397cdfd0a7b0ee6d7bb9
+    'place-cell-firing': '0 0 640 360',  # reviewed 35b96aaafa6f08a090827274436416fe106f08d4; original 97ba72d8d622bfa7a705f81ed1ccd988e7e18fd9
+    'power-iteration-projection-contraction': '0 0 640 360',  # reviewed 6666b751180ae28075de761cd38d5a17ef33b3cf; original 731713d8e65e987e459b54d1afd0e6c9b320a3ad
+    'recursive-tail-loss': '0 0 640 360',  # reviewed 0ab27698f9a9d57ded630f900cac51ed23aeff93; original e060d4d715084d129680e9e82251887afae12eb6
+    'reinforce-return-credit': '0 0 760 400',  # reviewed 03712a68214369fb486ce526a9068aad77e95b2f; original e552657b72201fd94907effba63d5d0b31d1a874
+    'reinforce-reward-to-go': '0 0 640 360',  # reviewed 03712a68214369fb486ce526a9068aad77e95b2f; original fbf74b3a752b88b5dc2ebd41c1ad3b64cbd74514
+    'saliency-local-gradient': '0 0 640 360',  # reviewed 8c7b545d35ef17f0e8a6d1eb18b90d03605113a3; original e9ba167a80489797244f0f28aa4f0db699ea59d7
+    'self-instruct-filter-loop': '0 0 640 360',  # reviewed 0ab27698f9a9d57ded630f900cac51ed23aeff93; original e060d4d715084d129680e9e82251887afae12eb6
+    'strips-state-effects': '0 0 640 360',  # reviewed 36db488c4d4c5280a861d7bb7115b01ee9c3e603; original 257edd965ebfae42c5b7434e15d90fef4e322a15
+    'successor-occupancy': '0 0 640 360',  # reviewed 35b96aaafa6f08a090827274436416fe106f08d4; original 97ba72d8d622bfa7a705f81ed1ccd988e7e18fd9
+    'theta-gamma-phase-amplitude': '0 0 640 360',  # reviewed 207a66ffb0b90104d98ce6e976c517fe93833949; original 02a8664a1ed0e6290ea86544c2136843e02e1861
 }
 # Explicit non-TOPICS assets validated by main(), not generic name allowances.
 EXTRA_CANONICAL_FILENAMES = {
@@ -519,8 +569,8 @@ def expected_viewbox(path: Path) -> str | None:
 
 
 # Independently restored original page contracts; never inferred from image URLs.
-SOURCE_ALT_CONTRACT_STEMS = {'unigram-viterbi-lattice', 'weak-supervision-vote-fusion', 'expert-cache-miss', 'qk-norm-scale-sweep', 'qlora-frozen-flow', 'ivfpq-probe-pq-lookup', 'graphsage-sample-aggregate', 'gin-multiset-counts', 'minhash-lsh-band-collision', 'sigma-reparam-spectral-gain', 'dora-independent', 'unigram-sampling-alpha', 'hnsw-layer-descent', 'tsne-kl-embedding', 'umap-fuzzy-union', 'cfm-conditional-bridge', 'rectified-reflow-coupling', 'paged-block-mapping'}
-STATIC_PREVIEW_LINK_STEMS = {'clr-triangular2-sweep', 'weak-supervision-vote-fusion', 'ivfpq-probe-pq-lookup', 'graphsage-sample-aggregate', 'gin-multiset-counts', 'minhash-lsh-band-collision', 'deep-ensemble-spread', 'ece-binned-calibration', 'hnsw-layer-descent', 'cfm-conditional-bridge', 'rectified-reflow-coupling'}
+SOURCE_ALT_CONTRACT_STEMS = {'expert-cache-miss', 'ivfpq-probe-pq-lookup', 'sigma-reparam-spectral-gain', 'weak-supervision-vote-fusion', 'tsne-kl-embedding', 'unigram-sampling-alpha', 'reinforce-reward-to-go', 'paged-block-mapping', 'qk-norm-scale-sweep', 'rectified-reflow-coupling', 'graphsage-sample-aggregate', 'qlora-frozen-flow', 'dora-independent', 'minhash-lsh-band-collision', 'grpo-group-advantages', 'unigram-viterbi-lattice', 'gin-multiset-counts', 'umap-fuzzy-union', 'hnsw-layer-descent', 'cfm-conditional-bridge'}
+STATIC_PREVIEW_LINK_STEMS = {'ivfpq-probe-pq-lookup', 'place-cell-firing', 'pgd-projection-path', 'weak-supervision-vote-fusion', 'coherence-phase-gating', 'reinforce-reward-to-go', 'ece-binned-calibration', 'clr-triangular2-sweep', 'rectified-reflow-coupling', 'graphsage-sample-aggregate', 'cfm-conditional-bridge', 'saliency-local-gradient', 'awq-salient-scaling', 'graphplan-layer-extraction', 'fgsm-sign-step', 'grpo-group-advantages', 'minhash-lsh-band-collision', 'deep-ensemble-spread', 'theta-gamma-phase-amplitude', 'gptq-error-compensation', 'strips-state-effects', 'gin-multiset-counts', 'hnsw-layer-descent', 'integrated-gradients-path', 'successor-occupancy'}
 
 NAS_STEMS = {"darts-soft-operations", "aging-evolution-queue", "enas-shared-weight-transfer", "mnasnet-latency-tradeoff"}
 GITHUB_GIF_PREVIEWS = {
@@ -636,6 +686,8 @@ def main() -> int:
                 if stem == "clr-triangular2-sweep" and animated_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
                     errors.append(f"{page}: missing independent full comparison animation hyperlink for {stem}")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
+            # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
+            links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
             if stem in NAS_STEMS:
                 errors.extend(verify_source_pair(page, text, stem))
@@ -657,7 +709,7 @@ def main() -> int:
                     errors.append(f"{page}: missing GitHub static preview link for {stem}")
             elif stem in {"cfm-conditional-bridge", "deep-ensemble-spread", "ece-binned-calibration", "gated-sae-gate-magnitude", "glorot-alternating-width", "glorot-equal-variance-densities", "glorot-fan-tradeoff", "glorot-tanh-saturation", "he-fan-mode-tradeoff", "he-relu-mean-shift", "he-relu-second-moment", "hmm-baum-welch-transition", "hmm-filter-smooth", "hmm-forward-sum-product", "hmm-pairwise-posterior", "hnsw-layer-descent", "ivfpq-probe-pq-lookup", "jumprelu-threshold-jump", "lion-sign-momentum", "muon-spectral-balancing", "mup-adam-sgd", "mup-readout-aggregation", "mup-readout-noise", "mup-transfer-protocol", "mup-transfer-validation", "mup-update-budget", "mup-width-multipliers", "prelu-slope-gain", "qk-norm-scale-sweep", "react-evidence-loop", "rectified-reflow-coupling", "reflexion-memory-feedback", "sigma-reparam-spectral-gain", "tsne-kl-embedding", "umap-fuzzy-union", "unigram-sampling-alpha", "unigram-viterbi-lattice"}:
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"itemcf-weighted-neighbors", "neumf-dual-path"}:
+            elif stem in {"reinforce-reward-to-go", "reinforce-return-credit", "grpo-group-advantages", "itemcf-weighted-neighbors", "neumf-dual-path"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {
@@ -681,7 +733,7 @@ def main() -> int:
                 player = (DOCS / "javascripts" / "concept-motion.js").read_text(encoding="utf-8")
                 if f"'{stem}-still.svg'" not in player:
                     errors.append(f"{page}: static-first animation not registered in player")
-            elif stem in {"adafactor-factored-moments", "adagrad-coordinate-gain", "adam-bias-correction", "adam-epsilon-threshold", "adam-scale-invariance", "adam-sign-reversal", "adamw-epoch-timescale", "ant-colony-pheromone", "asam-neighborhood", "auc-ap-ranking-contrast", "bo-expected-improvement", "bo-gp-conditioning", "boosting-residual-steps", "bpr-gradient-saturation", "bpr-pairwise-ranking", "checkpoint-recompute", "clr-triangular2-sweep", "colbert-maxsim-switch", "cv-fold-rotation", "dora-independent", "dpr-dot-product-sweep", "dropblock-spatial-masking", "dropout-inverted-sampling", "dropout-variance-tradeoff", "effective-number-growth", "eigen-jordan-shear", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "elo-online-update", "forest-bootstrap-vote", "fp16-loss-scaling", "fp8-scale-range", "gin-multiset-counts", "graphsage-sample-aggregate", "grid-search-x-coverage", "group-norm-statistics", "heavy-ball-overshoot", "ida-bound-reexpansion", "lagrange-dual-gap", "lagrange-kkt-active-set", "lagrange-tangency", "lamb-adam-layer-trust", "lars-layer-trust-scaling", "logit-prior-decision", "lsq-step-size-sweep", "mahalanobis-ellipse-threshold", "map-beta-posterior", "map-precision-at-hits", "mc-dropout-repeated-passes", "mf-als-alternating", "mf-coupled-sgd", "minhash-lsh-band-collision", "mixup-beta-strength", "mixup-cutmix-area", "mixup-loss-decomposition", "mixup-paired-interpolation", "mle-bernoulli-likelihood", "ndcg-position-discount", "newton-armijo-backtracking", "newton-curvature-steps", "newton-indefinite-curvature", "odin-gradient-perturbation", "outlier-mae-rmse", "paired-bootstrap-resampling", "particle-swarm-best", "pr-threshold-sweep", "qat-fake-quant-ste", "qlora-frozen-flow", "r2-mean-baseline", "random-search-x-coverage", "resnet-depth-gradient-factors", "resnet-identity-gradient", "resnet-postrelu-gate", "resnet-projection-shortcut", "resolution-refutation-chain", "rf-bootstrap-oob", "rf-feature-subset", "rmsnorm-shift-response", "roc-rank-transform", "roc-threshold-sweep", "roofline-ridge-sweep", "rotational-norm-balance", "sgd-noise-batch", "shampoo-eigenmode", "sharpness-radius-loss", "sharpness-reparam-curvature", "stochastic-depth-scaling-conventions", "stochastic-depth-survival-samples", "svm-margin-hinge", "weak-supervision-vote-fusion", "wgan-gp-interpolation", "wgan-weight-clip",
+            elif stem in {"adafactor-factored-moments", "adagrad-coordinate-gain", "adam-bias-correction", "adam-epsilon-threshold", "adam-scale-invariance", "adam-sign-reversal", "adamw-epoch-timescale", "ant-colony-pheromone", "asam-neighborhood", "auc-ap-ranking-contrast", "awq-salient-scaling", "bo-expected-improvement", "bo-gp-conditioning", "boosting-residual-steps", "bpr-gradient-saturation", "bpr-pairwise-ranking", "causal-lamp-intervention", "checkpoint-recompute", "clr-triangular2-sweep", "coherence-phase-gating", "colbert-maxsim-switch", "copycat-action-lag", "cv-fold-rotation", "dora-independent", "dpr-dot-product-sweep", "dropblock-spatial-masking", "dropout-inverted-sampling", "dropout-variance-tradeoff", "effective-number-growth", "eigen-jordan-shear", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "elo-online-update", "forest-bootstrap-vote", "fp16-loss-scaling", "fp8-scale-range", "genetic-crossover-mutation", "gin-multiset-counts", "gptq-error-compensation", "graphplan-layer-extraction", "graphsage-sample-aggregate", "grid-search-x-coverage", "group-norm-statistics", "heavy-ball-overshoot", "ida-bound-reexpansion", "integrated-gradients-path", "lagrange-dual-gap", "lagrange-kkt-active-set", "lagrange-tangency", "lamb-adam-layer-trust", "large-batch-warmup-ramp", "lars-layer-trust-scaling", "logit-prior-decision", "lsq-step-size-sweep", "mahalanobis-ellipse-threshold", "map-beta-posterior", "map-elites-archive", "map-precision-at-hits", "mc-dropout-repeated-passes", "mf-als-alternating", "mf-coupled-sgd", "minhash-lsh-band-collision", "mixup-beta-strength", "mixup-cutmix-area", "mixup-loss-decomposition", "mixup-paired-interpolation", "mle-bernoulli-likelihood", "ndcg-position-discount", "newton-armijo-backtracking", "newton-curvature-steps", "newton-indefinite-curvature", "odin-gradient-perturbation", "outlier-mae-rmse", "paired-bootstrap-resampling", "particle-swarm-best", "place-cell-firing", "power-iteration-projection-contraction", "pr-threshold-sweep", "qat-fake-quant-ste", "qlora-frozen-flow", "r2-mean-baseline", "random-search-x-coverage", "recursive-tail-loss", "resnet-depth-gradient-factors", "resnet-identity-gradient", "resnet-postrelu-gate", "resnet-projection-shortcut", "resolution-refutation-chain", "rf-bootstrap-oob", "rf-feature-subset", "rmsnorm-shift-response", "roc-rank-transform", "roc-threshold-sweep", "roofline-ridge-sweep", "rotational-norm-balance", "saliency-local-gradient", "self-instruct-filter-loop", "sgd-noise-batch", "shampoo-eigenmode", "sharpness-radius-loss", "sharpness-reparam-curvature", "stochastic-depth-scaling-conventions", "stochastic-depth-survival-samples", "strips-state-effects", "successor-occupancy", "svm-margin-hinge", "theta-gamma-phase-amplitude", "weak-supervision-vote-fusion", "wgan-gp-interpolation", "wgan-weight-clip",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
@@ -697,8 +749,9 @@ def main() -> int:
                         errors.append(f"{page}: missing GitHub-readable static link")
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"3d-unet-context-tiling", "3d-unet-depth-kernel", "3d-unet-evaluation-holdout", "3d-unet-orthogonal-slices", "3d-unet-paired-warp", "3d-unet-skip-concat", "3d-unet-sparse-context-gradient", "3d-unet-sparse-loss", "adamw-decoupled-paths", "alpha-beta-cutoff", "astar-frontier", "batch-norm-train-infer", "bpe-ordered-merges", "byol-online-target", "cmaes-distribution-adaptation", "deformable-sampling", "dinov2-dual-objective-ema", "disaggregated-handoff", "dpll-backtrack", "dqn-target-sync", "expert-cache-miss", "forward-ad-jvp", "gat-aggregation", "gcn-aggregation", "gibbs-coordinate-sweeps", "gru-gate-flow", "hmc-leapfrog-trajectory", "hyperband-budget", "kfac-factor-preconditioning", "kmeans-lloyd", "lbfgs-two-loop", "lion-sign-momentum", "mae-visible-patch-reconstruction", "maml-inner-outer-loop", "mcts-search-cycle", "mean-field-coordinate-ascent", "mh-accept-reject", "moco-dictionary-cycle", "moe-top2-routing", "muon-spectral-balancing", "muzero-latent-planning", "nerf-volume-rendering", "nesterov-lookahead", "orca-continuous-batching", "paged-block-mapping", "ppo-clipped-objective", "prioritized-replay-cycle", "qk-norm-scale-sweep", "qmix-monotonic-greedy", "realnvp-affine-coupling", "reverse-ad-vjp", "rmsprop-adaptive-memory", "sam-two-gradient", "sigma-reparam-spectral-gain", "speculative-decoding", "spsa-two-evaluations", "stochastic-depth-paths", "streaming-kv-eviction", "swin-shifted-windows", "td3-delayed-twin-critics", "tree-belief-propagation", "tsne-kl-embedding", "umap-fuzzy-union", "vae-reparameterisation", "viterbi-trellis"}:
+            if stem in {"3d-unet-context-tiling", "3d-unet-depth-kernel", "3d-unet-evaluation-holdout", "3d-unet-orthogonal-slices", "3d-unet-paired-warp", "3d-unet-skip-concat", "3d-unet-sparse-context-gradient", "3d-unet-sparse-loss", "adamw-decoupled-paths", "alpha-beta-cutoff", "astar-frontier", "batch-norm-train-infer", "bpe-ordered-merges", "byol-online-target", "cmaes-distribution-adaptation", "ddm-first-passage", "deformable-sampling", "dinov2-dual-objective-ema", "disaggregated-handoff", "dpll-backtrack", "dqn-target-sync", "expert-cache-miss", "fgsm-sign-step", "forward-ad-jvp", "gat-aggregation", "gcn-aggregation", "gibbs-coordinate-sweeps", "gru-gate-flow", "hmc-leapfrog-trajectory", "hyperband-budget", "kfac-factor-preconditioning", "kmeans-lloyd", "lbfgs-two-loop", "lion-sign-momentum", "mae-visible-patch-reconstruction", "maml-inner-outer-loop", "mbmf-revaluation", "mcts-search-cycle", "mean-field-coordinate-ascent", "mh-accept-reject", "moco-dictionary-cycle", "moe-top2-routing", "muon-spectral-balancing", "muzero-latent-planning", "nerf-volume-rendering", "nesterov-lookahead", "orca-continuous-batching", "paged-block-mapping", "pgd-projection-path", "ppo-clipped-objective", "prioritized-replay-cycle", "qk-norm-scale-sweep", "qmix-monotonic-greedy", "realnvp-affine-coupling", "reverse-ad-vjp", "rmsprop-adaptive-memory", "sam-two-gradient", "sigma-reparam-spectral-gain", "speculative-decoding", "spsa-two-evaluations", "stochastic-depth-paths", "streaming-kv-eviction", "swin-shifted-windows", "td3-delayed-twin-critics", "tree-belief-propagation", "tsne-kl-embedding", "umap-fuzzy-union", "vae-reparameterisation", "viterbi-trellis"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                static_links += re.findall(r'<img[^>]*\s+src="([^"]+\.svg)"', text)
                 linked = {(page.parent / link).resolve() for link in static_links}
                 fallbacks = (static_path, ASSETS / "moe-top2-routing-token-b.svg") if stem == "moe-top2-routing" else (static_path,)
                 for fallback in fallbacks:

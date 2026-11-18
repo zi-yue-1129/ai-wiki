@@ -367,6 +367,9 @@ def record_failure_diagnostics(page, output, result):
 
 
 def check_image(page, image, url):
+    # Native lazy images must approach the viewport before waiting for decoding.
+    # Do not rely on unrelated keyboard-scroller coverage to load later images.
+    image.scroll_into_view_if_needed()
     # complete alone also becomes true for broken images, so check decoded size too.
     page.wait_for_function("""({alt, url}) => {
         const img = Array.from(document.images).find(img => img.alt === alt);
@@ -374,6 +377,58 @@ def check_image(page, image, url):
     }""", arg={"alt": image.get_attribute("alt"), "url": url})
     assert image.is_visible(), ("image hidden", url)
     return image.evaluate("img => ({src: img.src, complete: img.complete, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight})")
+
+
+def check_lazy_image_canary(browser, url, output):
+    """Prove native lazy loading and broken-image rejection in isolated Chromium."""
+    from playwright.sync_api import TimeoutError as BrowserTimeoutError
+    context = browser.new_context(viewport=VIEWPORTS['mobile'])
+    page = context.new_page()
+    folder = output / 'lazy-image-canary'
+    folder.mkdir(parents=True, exist_ok=True)
+    result = {'status': 'running', 'scope': 'isolated native lazy image canary'}
+    try:
+        response = page.goto(url, wait_until='load', timeout=45000)
+        assert response and response.ok
+        image_url = urljoin(url, '__isolated_lazy_canary__.svg')
+        broken_url = urljoin(url, '__isolated_broken_canary__.svg')
+        page.route(image_url, lambda route: route.fulfill(status=200, content_type='image/svg+xml',
+            body='<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="640" height="360" fill="teal"/></svg>'))
+        page.route(broken_url, lambda route: route.fulfill(status=200, content_type='image/svg+xml', body='not an SVG'))
+        page.evaluate('''src => {
+            document.body.replaceChildren();
+            const spacer = document.createElement('div'); spacer.style.height = '20000px';
+            const img = document.createElement('img'); img.alt = 'Isolated native lazy canary';
+            img.loading = 'lazy'; img.width = 320; img.height = 180; img.src = src;
+            document.body.append(spacer, img); scrollTo(0, 0);
+        }''', image_url)
+        image = page.get_by_alt_text('Isolated native lazy canary', exact=True)
+        page.wait_for_timeout(250)
+        result['before_scroll'] = image.evaluate('img => ({top: img.getBoundingClientRect().top, complete: img.complete, naturalWidth: img.naturalWidth})')
+        assert result['before_scroll']['top'] > 10000
+        assert result['before_scroll']['naturalWidth'] == 0, 'Negative lazy fixture loaded before scrolling'
+        page.set_default_timeout(5000)
+        result['after_scroll'] = check_image(page, image, image_url)
+        assert result['after_scroll']['naturalWidth'] == 640
+        page.screenshot(path=str(folder / 'loaded-after-scroll.png'))
+        image.evaluate('(img, src) => img.src = src', broken_url)
+        page.set_default_timeout(1000)
+        try:
+            check_image(page, image, broken_url)
+        except BrowserTimeoutError:
+            result['broken_rejected'] = True
+        else:
+            raise AssertionError('Broken image incorrectly accepted')
+        result['status'] = 'passed'
+        return result
+    except Exception as error:
+        result.update(status='failed', error=str(error))
+        raise
+    finally:
+        try:
+            (folder / 'report.json').write_text(json.dumps(result, indent=2) + '\n')
+        finally:
+            context.close()
 
 
 def settled_scroll_left(region):
@@ -488,7 +543,7 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
             image = page.get_by_alt_text(asset["alt"], exact=True)
             expect(image).to_have_count(1)
             expect(image).to_have_attribute("data-concept-motion-enhanced", "yes")
-            host = image.locator("xpath=parent::*")
+            host = image.locator("xpath=ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' concept-motion-player ')][1]")
             toggle = host.locator(".concept-motion-toggle").first
             chinese = bool(re.search(r"[\u3400-\u9fff]", asset["alt"]))
             play = "播放概念動畫" if chinese else "Play concept animation"
@@ -565,6 +620,8 @@ def main():
                                                      if args.executable_path else {}))
             try:
                 report["math_renderer_canary"] = check_math_renderer_canary(
+                    browser, urljoin(base_url, targets[0].url), args.output)
+                report["lazy_image_canary"] = check_lazy_image_canary(
                     browser, urljoin(base_url, targets[0].url), args.output)
                 for target in targets:
                     expected = check_built_page(site, target, base_url)

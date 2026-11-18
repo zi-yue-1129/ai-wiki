@@ -1,10 +1,10 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # GPTQ
 
-GPTQ 是一種訓練後方法，把大型語言模型的權重量化為 3 或 4 位元。它每次處理一層中的一行，捨入後再用校準資料的近似二階資訊，調整尚未量化的行，以補償捨入誤差。
+GPTQ 是一種訓練後方法，把大型語言模型的權重量化為 3 或 4 位元。它每次處理一層中的一欄，捨入後再用校準資料的近似二階資訊，調整尚未量化的欄，以補償捨入誤差。
 
 ## 問題
 
@@ -12,11 +12,34 @@ GPTQ 是一種訓練後方法，把大型語言模型的權重量化為 3 或 4 
 
 ## 核心想法
 
-逐行量化單一層的權重。每一行捨入後，用校準輸入的近似二階資訊，更新尚未量化的行，以補償捨入誤差。
+逐欄量化單一層的權重。每一欄捨入後，用校準輸入的近似二階資訊，更新尚未量化的欄，以補償捨入誤差。
+
+
+### 教學動畫：二階捨入補償
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="使用方向鍵左右捲動教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/gptq-error-compensation-still.svg" src="../../../../../assets/concept-animations/gptq-error-compensation-still.svg" data-motion-src="../../../../../assets/concept-animations/gptq-error-compensation-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="兩維權重先捨入第一個座標，再沿傾斜的二次誤差等值線補償第二個座標，最後與獨立捨入結果比較。">
+</div>
+</div>
+
+[GitHub 可閱讀靜態預覽](../../../../../assets/concept-animations/gptq-error-compensation-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/gptq-error-compensation-motion.svg)
+
+使用**兩權重的解析示例**：$w=(0.37,0.37)$，$H$ 為正定矩陣：
+
+$$
+H=\begin{bmatrix}1&0.8\\0.8&1\end{bmatrix}.
+$$
+
+等值線對應 $(\hat w-w)^\top H(\hat w-w)$，是**人工二次重建損失**，非實測 LLM Hessian。先將 $w_1$ 捨入至 $0.25$，誤差 $e_1=-0.12$。固定第一個座標後，最小化二次式得到 $w_2'=0.37-(H_{21}/H_{22})e_1=0.466$，再捨入至 $0.50$。補償後的 $(0.25,0.50)$ 平方誤差為 **0.00634**，兩座標直接捨入為 $(0.25,0.25)$ 則為 **0.05184**。此圖只展示 Frantar 等人（2022）方法所利用的誤差關聯，未呈現 GPTQ 真實的區塊更新或 Cholesky 實作。**數值不是模型實測值。**
+
+連續標記只在離散的捨入／更新狀態之間插值以便解說，不是最佳化軌跡；標示的最終點與損失長條全程作為參考結果。
+
+MkDocs 可用**播放／暫停**（Enter／Space）檢視第一個座標捨入、第二個座標補償及再次捨入；GitHub／減少動態效果模式顯示完整靜態路徑。原創圖像授權 **CC BY-SA 4.0**。
 
 ## 公式或演算法
 
-此方法遵循最佳腦部量化（optimal brain quantisation）的框架，利用該層平方誤差 \(\lVert WX - \hat{W}X \rVert^2\) 的反 Hessian \(H^{-1}\)，決定先捨入哪個權重，以及如何更新其餘權重。GPTQ 以分塊處理與 Cholesky 分解，使數十億參數的模型也能有效率地完成。
+此方法遵循最佳腦部量化（optimal brain quantisation）的框架，利用該層平方誤差 \(\lVert WX - \hat{W}X \rVert^2\) 的反 Hessian \(H^{-1}\)，推導補償更新。與 OBQ 貪婪選取權重不同，GPTQ 採用各列共用的任意固定欄順序。GPTQ 以分塊處理與 Cholesky 分解，使數十億參數的模型也能有效率地完成。
 
 ## 結果
 

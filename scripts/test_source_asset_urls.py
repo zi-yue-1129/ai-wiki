@@ -119,6 +119,9 @@ alt="校準 &amp; confidence &quot;example&quot;" width="640" height="360"/>'''
         expected = {f"{self.chapter}/{topic}{suffix}.md"
                     for topic in ("conformal-prediction", "temperature-scaling")
                     for suffix in ("", ".zh-TW")}
+        policy = "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic"
+        expected.update(f"{policy}/{topic}/index{suffix}.md"
+                        for topic in ("reinforce", "grpo") for suffix in ("", ".zh-TW"))
         found = set()
         for path in (ROOT / "docs").rglob("*.md"):
             html = path.read_text(encoding="utf-8")

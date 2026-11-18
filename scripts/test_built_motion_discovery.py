@@ -11,7 +11,7 @@ from unittest.mock import Mock, patch
 from test_built_motion_browser import (
     Images, MotionPage, assert_document_fits, check_built_page, check_math_rendering, discover_pages,
     record_failure_diagnostics, source_asset_url, check_keyboard_scrollers,
-    check_math_renderer_canary, MOBILE_PREFLIGHT_NAMES,
+    check_math_renderer_canary, MOBILE_PREFLIGHT_NAMES, check_image,
 )
 
 BASE = "https://example.test/ai-wiki/"
@@ -250,6 +250,41 @@ class DiscoveryTests(unittest.TestCase):
         record_failure_diagnostics(SimpleNamespace(evaluate=fail), self.site, result)
         self.assertEqual(result, {"status": "failed", "error": "original failure",
                                   "overflow_diagnostics_error": "page unavailable"})
+
+
+class LazyImageTests(unittest.TestCase):
+    def test_scroll_precedes_decode_wait_and_preserves_image_checks(self):
+        events = []
+        image = Mock()
+        image.scroll_into_view_if_needed.side_effect = lambda: events.append('scroll')
+        image.get_attribute.return_value = 'Later lazy image'
+        image.is_visible.return_value = True
+        image.evaluate.return_value = {'complete': True, 'naturalWidth': 640, 'naturalHeight': 360}
+        page = Mock()
+        def decoded(js, *, arg):
+            self.assertEqual(events, ['scroll'])
+            for condition in ('img.src === url', 'img.complete', 'img.naturalWidth > 0', 'img.naturalHeight > 0'):
+                self.assertIn(condition, js)
+            self.assertEqual(arg, {'alt': 'Later lazy image', 'url': 'https://example.test/later.svg'})
+            events.append('decoded')
+        page.wait_for_function.side_effect = decoded
+        self.assertEqual(check_image(page, image, 'https://example.test/later.svg')['naturalWidth'], 640)
+        self.assertEqual(events, ['scroll', 'decoded'])
+        image.is_visible.assert_called_once()
+
+    def test_broken_lazy_image_timeout_is_not_swallowed(self):
+        page, image = Mock(), Mock()
+        page.wait_for_function.side_effect = TimeoutError('image failed to decode')
+        with self.assertRaisesRegex(TimeoutError, 'failed to decode'):
+            check_image(page, image, 'https://example.test/broken.svg')
+        image.scroll_into_view_if_needed.assert_called_once()
+        image.evaluate.assert_not_called()
+
+    def test_hidden_image_still_rejected(self):
+        page, image = Mock(), Mock()
+        image.is_visible.return_value = False
+        with self.assertRaisesRegex(AssertionError, 'image hidden'):
+            check_image(page, image, 'https://example.test/hidden.svg')
 
 
 class KeyboardScrollTests(unittest.TestCase):

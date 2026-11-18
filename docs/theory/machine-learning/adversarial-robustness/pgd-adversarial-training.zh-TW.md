@@ -14,17 +14,54 @@ translation_reviewed: 2026-11-02
 
 - **投影**：每一步之後，把擾動裁回以乾淨輸入為中心的 \(\epsilon\) 球內。
 - **隨機起點**：攻擊從球內的隨機點開始，有助於跳出損失函數的平坦區域。
-- **極小極大目標**：\(\min_\theta \mathbb{E}\big[\max_{\|\delta\|\le\epsilon} J(\theta,x+\delta,y)\big]\)。
+- **極小極大目標**：
+
+$$
+\min_\theta\;\mathbb{E}\left[
+\max_{\|\delta\|\le\epsilon} J(\theta,x+\delta,y)
+\right]
+$$
 
 ## 運作方式
 
 從球內隨機的 \(\eta\) 出發，令 \(x^{(0)}=x+\eta\)，PGD 更新為
 
-\[
-x^{(t+1)}=\Pi_{\mathcal{B}_\epsilon(x)}\!\Big(x^{(t)}+\alpha\,\mathrm{sign}\big(\nabla_x J(\theta,x^{(t)},y)\big)\Big),
-\]
+$$
+\begin{gathered}
+g^{(t)}=\nabla_x J(\theta,x^{(t)},y),\\
+u^{(t)}=x^{(t)}+\alpha\,\mathrm{sign}(g^{(t)}),\\
+x^{(t+1)}=\Pi_{\mathcal{B}_\epsilon(x)}(u^{(t)}).
+\end{gathered}
+$$
 
 其中 \(\Pi\) 為投影到球上，\(\alpha\) 為步長。對抗訓練在每個小批次上計算這個內層最大化，並以得到的樣本更新參數。此方法成本高，因為每個訓練步需要多次計算梯度。
+
+### 動畫解說
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="可水平捲動的 PGD 投影步驟示意圖" style="overflow-x:auto;max-width:100%"><div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../../assets/concept-animations/pgd-projection-path-still.svg" data-motion-src="../../../assets/concept-animations/pgd-projection-path-motion.svg" data-still-src="../../../assets/concept-animations/pgd-projection-path-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="PGD 連續執行多次符號梯度上升，在方形擾動預算內移動；當候選點超出右側邊界時，投影回合法集合，右側同步呈現累積步驟的損失變化。"></div></div>
+
+*原創逐步教學動畫，CC BY-SA 4.0。* 青綠色標記代表**投影後的擾動位置**，不是模型權重更新。為了單獨展示投影機制，使用人工設定的二維凹函數
+
+$$
+\begin{aligned}
+J(\delta)&=2-0.6(\delta_1-1.3)^2\\
+&\quad-1.1(\delta_2-0.55)^2.
+\end{aligned}
+$$
+
+限制 $\delta\in[-1,1]^2$，步長 $\alpha=0.4$，起點 $\delta^{(0)}=(-0.85,-0.85)$。每步執行
+
+$$
+\begin{gathered}
+g^{(k)}=\nabla J(\delta^{(k)}),\\
+u^{(k)}=\delta^{(k)}+0.4\,\mathrm{sign}(g^{(k)}),\\
+\delta^{(k+1)}=\Pi_{[-1,1]^2}(u^{(k)}).
+\end{gathered}
+$$
+
+第 5 步時第一個座標的候選值為 $1.15$，因此投影回 $1$；粉紅色空心標記是**投影前的候選位置**。選定示例的損失從約 $-2.93$ 增加至第 5 步的 $1.90$，但一般 PGD **不保證每一步都使損失單調上升**。等值線、路徑與數值全是人工解析式示意，**不是分類器實測結果、認證穩健性或最優解證明**。MkDocs 網站提供播放／暫停及偏好減少動態效果時的靜態回退；手機可用觸控或鍵盤水平捲動。[GitHub 可閱讀的靜態預覽](../../../assets/concept-animations/pgd-projection-path-still.svg)。
+
+粉紅候選點是固定的第 5 步參考，不是各步當前的候選位置。橢圓是此二次函數的精確等值線，中心為 (1.3, 0.55)。整數步位置與損失標記同步更新，連線只是參考，不代表額外迭代；第 5、6 步損失相同。循環結束時重設，不代表反向最佳化。
 
 ## 威脅模型與可行集合
 
