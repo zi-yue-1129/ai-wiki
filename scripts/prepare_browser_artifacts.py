@@ -15,7 +15,8 @@ import stat
 import tempfile
 
 DEFAULT_ROOTS = ('keyboard-scroll-preflight', 'built-motion-browser',
-                 'sharpness-labs', 'adaptive-optimiser-labs', 'vi-prose', 'embedding-pages')
+                 'sharpness-labs', 'adaptive-optimiser-labs', 'vi-prose', 'embedding-pages',
+                 'policy-credit-labs', 'built-planning-evolution-labs')
 LIMIT = 100 * 1024 * 1024
 MAX_GROUPS = 24
 

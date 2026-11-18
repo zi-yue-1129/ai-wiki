@@ -16,11 +16,27 @@ on:
       - "scripts/test_built_motion_discovery.py"
       - "scripts/test_built_prose_browser.py"
       - "scripts/fixtures/embedding-prose-pages.json"
+      - "scripts/test_policy_credit_labs_browser.py"
+      - "scripts/test_policy_gradient_motion_browser.py"
+      - "scripts/test_policy_gradient_restore.py"
+      - "scripts/policy_glyph_contract.py"
+      - "scripts/policy_line_clearance.py"
+      - "scripts/test_policy_glyph_contract_motion_semantics.py"
+      - "scripts/test_policy_future_routes_motion_semantics.py"
+      - "scripts/test_built_planning_evolution_labs_browser.py"
       - "scripts/ci_font_archive.py"
       - "scripts/test_ci_font_archive.py"
       - ".github/actions/install-cjk-font/**"
       - "scripts/test_mathjax_lifecycle.cjs"
       - "scripts/test_reviewed_scroll_player.cjs"
+      - "scripts/test_planning_evolution_history.py"
+      - "scripts/test_policy_credit_labs_browser.py"
+      - "scripts/test_policy_gradient_motion_browser.py"
+      - "scripts/test_policy_gradient_restore.py"
+      - "scripts/policy_glyph_contract.py"
+      - "scripts/policy_line_clearance.py"
+      - "scripts/test_policy_glyph_contract_motion_semantics.py"
+      - "scripts/test_built_planning_evolution_labs_browser.py"
       - "scripts/test_*motion_semantics.py"
       - "scripts/README-built-motion-browser.md"
       - ".github/workflows/built-motion-browser.yml"
@@ -35,7 +51,9 @@ jobs:
     runs-on: ubuntu-24.04
     # Cold font/browser downloads took 24 minutes on an observed runner.
     # Preserve full growing bilingual coverage, prose checks and both lab suites.
-    timeout-minutes: 50
+    # Full 1,064-case transitional run plus native-scroll and calculator coverage.
+    # Deterministic shards are reviewed separately; never skip suites to fit a deadline.
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -63,6 +81,10 @@ jobs:
           python scripts/test_built_motion_discovery.py
           node scripts/test_mathjax_lifecycle.cjs
           node scripts/test_reviewed_scroll_player.cjs
+          python scripts/test_planning_evolution_history.py
+          python scripts/test_reinforce_layout_motion_semantics.py
+          python scripts/test_policy_history_motion_semantics.py
+          python scripts/test_policy_layout_ci_motion_semantics.py
       - name: Check available motion numerical semantics
         run: |
           python - <<'PYTHON'
@@ -74,6 +96,22 @@ jobs:
               print(f"Running {test}", flush=True)
               subprocess.run([sys.executable, str(test)], check=True)
           PYTHON
+      - name: Verify policy only-change CI execution routes
+        run: python scripts/test_policy_future_routes_motion_semantics.py
+      - name: Reject malformed original glyph geometry and disabled CI routes
+        run: python scripts/test_policy_glyph_contract_motion_semantics.py
+      - name: Verify restored policy SVG browser coverage contracts
+        run: python scripts/test_policy_gradient_restore.py
+      - name: Restore original 24 policy SVG and bilingual player browser cases
+        run: python scripts/test_policy_gradient_motion_browser.py
+      - name: Keep original policy SVG browser evidence including failure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: policy-gradient-motion-review
+          path: artifacts/policy-gradient-motion/
+          if-no-files-found: error
+          retention-days: 14
       - name: Build real bilingual pages
         run: mkdocs build --strict
       - name: Preflight native keyboard scroll settling on bilingual mobile pages
@@ -88,6 +126,10 @@ jobs:
         run: SHARPNESS_SITE_DIR=site python scripts/test_sharpness_geometry_labs_browser.py
       - name: Exercise built adaptive optimiser calculators
         run: ADAPTIVE_SITE_DIR=site python scripts/test_adaptive_optimiser_labs_browser.py
+      - name: Exercise actual bilingual policy-credit labs
+        run: POLICY_CREDIT_SITE_DIR=site python scripts/test_policy_credit_labs_browser.py
+      - name: Exercise real bilingual planning and evolutionary labs
+        run: PLANNING_EVOLUTION_SITE_DIR=site python scripts/test_built_planning_evolution_labs_browser.py
       - name: Test lossless artifact packaging contracts
         if: always()
         run: python scripts/test_prepare_browser_artifacts.py

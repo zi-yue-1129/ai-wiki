@@ -33,7 +33,8 @@
       const chinese = /[\u3400-\u9fff]/.test(img.alt || '');
       const originalAlt = img.alt;
       const host = document.createElement('span');
-      host.className = 'concept-motion-player';
+      const navigation = /^(place-cell-firing|successor-occupancy)-motion\.svg$/.test(fileName);
+      host.className = 'concept-motion-player' + (navigation ? ' concept-motion-navigation' : '');
       // The diagram stays at a legible native width on narrow viewports.
       // Make the overflow region reachable with keyboard arrow keys.
       if (stillFirstPairs.has(sourceName)) {
@@ -42,8 +43,27 @@
         host.setAttribute('role', 'region');
         host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫，使用左右方向鍵' : 'Scrollable concept animation; use Left and Right arrow keys');
       }
+      // Planning timelines use a fixed legible canvas on narrow screens;
+      // the focusable player region supports touch and arrow-key scrolling.
+      if (/(?:strips-state-effects|graphplan-layer-extraction)-motion\.svg/.test(animated)) {
+        host.classList.add('concept-motion-wide');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', chinese
+          ? '可水平捲動的教學規劃動畫'
+          : 'Horizontally scrollable planning animation');
+      }
       img.before(host);
-      host.append(img);
+      if (navigation) {
+        const viewport = document.createElement('span');
+        viewport.className = 'concept-motion-viewport';
+        viewport.tabIndex = 0;
+        viewport.setAttribute('aria-label', chinese ? '概念動畫：可使用方向鍵水平捲動' : 'Concept animation: use arrow keys to scroll horizontally');
+        host.append(viewport);
+        viewport.append(img);
+      } else {
+        host.append(img);
+      }
       img.dataset.conceptMotionEnhanced = 'yes';
 
       const controls = document.createElement('span');

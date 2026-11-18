@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Offline security regressions for untrusted font archive bytes."""
 import hashlib
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -158,8 +159,11 @@ class WorkflowTests(unittest.TestCase):
                         'test_built_motion_discovery.py', 'test_mathjax_lifecycle.cjs',
                         'test_*motion_semantics.py', 'test_built_motion_browser.py',
                         'test_built_prose_browser.py', 'test_sharpness_geometry_labs_browser.py',
-                        'test_adaptive_optimiser_labs_browser.py', 'timeout-minutes: 50']:
+                        'test_adaptive_optimiser_labs_browser.py']:
             self.assertIn(command, workflow)
+        timeouts = [int(value) for value in re.findall(r'^    timeout-minutes: ([0-9]+)$', workflow, re.M)]
+        self.assertTrue(timeouts, 'Browser job needs an explicit timeout budget')
+        self.assertTrue(all(value >= 50 for value in timeouts), 'Full coverage budget must not shrink')
         self.assertNotIn('cache-hit', workflow)
 
     def test_production_save_guard(self):

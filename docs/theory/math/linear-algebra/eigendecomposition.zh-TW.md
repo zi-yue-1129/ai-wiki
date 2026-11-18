@@ -1,5 +1,7 @@
 ---
 translation_reviewed: 2026-11-17
+
+translation_reviewed: 2026-11-13
 ---
 
 # 特徵值分解
@@ -100,6 +102,14 @@ A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
 考慮**人工設定的矩陣族** $A(s)=\begin{bmatrix}1&s\\0&1\end{bmatrix}$，其中 $0\le s\le1$。整個動畫中兩個代數特徵值均為 1，但 $A(s)e_1=e_1$，而 $A(s)e_2=e_2+s e_1$。對任何 $s>0$，由 $(A(s)-I)v=0$ 可得 $v_2=0$，故特徵空間僅為 $\operatorname{span}(e_1)$，雖有重複實特徵值，**仍無法對角化**。當 $s=0$ 時矩陣是單位矩陣，此特例具有二維特徵空間。動畫展示的是**不同剪切參數對應的矩陣族**，不是反覆作用同一個 Jordan 區塊，也不是模型實測。原創圖像，**CC BY-SA 4.0**。
 
 兩組圖在 MkDocs 沿用**播放／暫停**及減少動態時的靜態回退。GitHub 可直接看靜態 SVG；窄螢幕可聚焦圖面後以方向鍵水平捲動。
+
+### 冪迭代動態示範
+
+<div class="concept-motion-scroll" role="group" aria-label="冪迭代教學動畫；窄螢幕可水平捲動" tabindex="0" style="max-width:100%;overflow-x:auto">
+  <img data-source-asset-urls data-still-src="../../../assets/concept-animations/power-iteration-projection-contraction-still.svg" src="../../../assets/concept-animations/power-iteration-projection-contraction-still.svg" data-motion-src="../../../assets/concept-animations/power-iteration-projection-contraction-motion.svg" alt="冪迭代將單位向量逐次轉向主特徵向量；右側長條同步呈現主方向投影增加、正交方向投影下降。" style="display:block;width:640px;min-width:640px;height:auto">
+</div>
+
+*原創幾何教學動畫，CC BY-SA 4.0。* 此例使用二維對稱矩陣 \(A=Q\operatorname{diag}(1.60,0.45)Q^\top\)，其中主特徵向量與水平軸夾角為 28 度，並反覆計算 \(v_{k+1}=Av_k/\|Av_k\|_2\)。初始方向為 -44 度時，\(|q_1^\top v_k|\) 從約 0.309 上升至第三次迭代後約 0.998，正交方向投影則逐漸降低。離散迭代點之間的動態僅為視覺插值，**不是連續時間演算法，也不是模型實測軌跡**；動畫反向返回起點只是循環示範，並非冪迭代具有反向步驟。要收斂至唯一主方向，通常需要適當的特徵值絕對值間隔，以及初始向量在該方向有非零投影。Wiki 網站支援播放／暫停與鍵盤操作；GitHub 顯示靜態回退畫面。數值方法的依據見本頁參考文獻。
 
 ## 主要方法
 

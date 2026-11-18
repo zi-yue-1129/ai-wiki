@@ -1,0 +1,22 @@
+/* Scoped original dark-canvas teaching panels; native operable controls. */
+[data-policy-lab] { margin: 1rem 0 1.4rem; }
+.pcl-panel { border: 1px solid var(--md-default-fg-color--lightest,#c4ccd4); border-radius: 12px; padding: 14px; background: var(--md-default-bg-color,#fff); color:var(--md-default-fg-color,#26384c); }
+.pcl-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(165px,1fr)); gap:12px; margin:0 0 14px; }
+.pcl-field {display:grid; gap:7px; font-size:.76rem; min-width:0;}
+.pcl-label {display:flex; justify-content:space-between; gap:8px;}
+.pcl-num {font-weight:700; font-variant-numeric:tabular-nums;}
+.pcl-field input {width:100%; accent-color:#118b83; cursor:pointer;}
+.pcl-check {display:flex; align-items:center; gap:8px; font-size:.75rem;}
+.pcl-scroll {max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; padding-bottom:6px; border-radius:9px;}
+.pcl-scroll svg {width:700px; height:328px; max-width:none; display:block; font-family:system-ui,sans-serif;}
+.pcl-read {display:block; margin:10px 0; font:.72rem/1.6 ui-monospace,monospace; overflow-wrap:anywhere; font-variant-numeric:tabular-nums;}
+.pcl-controls {display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.pcl-btn {border:1px solid var(--md-default-fg-color--lighter,#9daab8); border-radius:7px; background:var(--md-default-bg-color,#fff); color:inherit; min-width:34px; min-height:34px; cursor:pointer; padding:3px 9px;}
+.pcl-btn:disabled {opacity:.45; cursor:default;}
+.pcl-seek { flex:1 1 130px; max-width:260px; accent-color:#128d8c;}
+.pcl-rate {min-height:34px; border:1px solid var(--md-default-fg-color--lighter,#9daab8); border-radius:7px; background:var(--md-default-bg-color,#fff); color:inherit;}
+.pcl-stage {margin-left:auto; font-size:.72rem; font-variant-numeric:tabular-nums;}
+.pcl-note {font-size:.69rem; color:var(--md-default-fg-color--light,#647586); margin:12px 0 0!important;}
+.pcl-btn:focus-visible, .pcl-scroll:focus-visible, .pcl-field input:focus-visible, .pcl-seek:focus-visible, .pcl-rate:focus-visible,.pcl-check input:focus-visible {outline:3px solid #1db8ad;outline-offset:2px;}
+@media(max-width:420px) {.pcl-panel{padding:10px}.pcl-stage{margin-left:0}}
+@media(prefers-reduced-motion: reduce) {.pcl-panel *, .pcl-panel *::before,.pcl-panel *::after {animation:none!important;transition:none!important}}

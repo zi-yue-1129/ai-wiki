@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json').read_text())
 EXPECTED_ALT = CONTRACTS['alt']
 EXPECTED_PREVIEWS = CONTRACTS['static_preview']
-assert len(EXPECTED_ALT) == 18 and len(EXPECTED_PREVIEWS) == 11
+assert len(EXPECTED_ALT) == 20 and len(EXPECTED_PREVIEWS) == 25
 
 
 class PageContracts(unittest.TestCase):
