@@ -15,6 +15,11 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'ucb1-optimism-switch': 'theory/paradigms/online/stochastic-bandits/index',
+    'ucb1-bonus-sensitivity': 'theory/paradigms/online/stochastic-bandits/index',
+    'thompson-beta-posterior-draws': 'theory/paradigms/online/stochastic-bandits/index',
+    'thompson-evidence-concentration': 'theory/paradigms/online/stochastic-bandits/index',
+
     "s4d-diagonal-modes": "theory/models/ssm/structured-state-spaces/s4d/index",
     "mamba2-ssd-causal-map": "theory/models/ssm/selective-state-spaces/mamba-2/index",
     "hnsw-layer-descent": "engineering/vector-databases/hnsw",
@@ -123,6 +128,14 @@ TOPICS = {
     "i3d-filter-inflation": "theory/models/computer-vision/video/i3d",
     "video-joint-denoising": "theory/models/computer-vision/video/video-diffusion",
     "latent-space-denoise": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion",
+    "layernorm-feature-shift": "theory/models/mlp/layer-normalisation/index",
+    "seq2seq-context-handoff": "theory/models/rnn/sequence-modes/sequence-to-sequence/index",
+    "lime-local-surrogate": "society/interpretability/lime",
+    "shap-coalition-marginals": "society/interpretability/shap",
+    "backdoor-standardisation": "theory/causal-inference/index",
+    "collider-selection": "theory/causal-inference/index",
+    "gqa-head-sharing": "engineering/inference-optimization/grouped-query-attention",
+    "gqa-uptraining-pooling": "engineering/inference-optimization/grouped-query-attention",
     "ece-binned-calibration": "theory/paradigms/probabilistic/uncertainty-calibration/expected-calibration-error",
     "deep-ensemble-spread": "theory/paradigms/probabilistic/uncertainty-calibration/deep-ensembles",
     "tsne-kl-embedding": "theory/paradigms/unsupervised/dimensionality-reduction/t-sne",
@@ -194,6 +207,12 @@ TOPICS = {
     "mixup-beta-strength": "theory/deep-learning/dropout/mixup",
     "mixup-loss-decomposition": "theory/deep-learning/dropout/mixup",
     "mixup-cutmix-area": "theory/deep-learning/dropout/mixup",
+    "flashattention-online-rescale": "theory/models/transformer/attention-variants/flash-attention/index",
+    "flashattention-exact-merge": "theory/models/transformer/attention-variants/flash-attention/index",
+    "flashattention-causal-tiles": "theory/models/transformer/attention-variants/flash-attention/index",
+    "flashattention-backward-remat": "theory/models/transformer/attention-variants/flash-attention/index",
+    "flashattention2-query-parallel": "theory/models/transformer/attention-variants/flash-attention/index",
+    "flashattention3-load-compute-pipeline": "theory/models/transformer/attention-variants/flash-attention/index",
     "outlier-mae-rmse": "theory/evaluation/metrics/regression/mae",
     "r2-mean-baseline": "theory/evaluation/metrics/regression/r-squared",
     "ar-score-vs-sample": "theory/paradigms/unsupervised/density-and-generative-models/autoregressive/index",
@@ -339,6 +358,7 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'astar-frontier': '0 0 640 360',
  'auc-ap-ranking-contrast': '0 0 640 360',
  'awq-salient-scaling': '0 0 640 360',
+ 'backdoor-standardisation': '0 0 800 430',
  'bahdanau-alignment-context': '0 0 640 360',
  'batch-norm-train-infer': '0 0 640 360',
  'bo-expected-improvement': '0 0 640 360',
@@ -356,6 +376,7 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'cmaes-distribution-adaptation': '0 0 640 360',
  'coherence-phase-gating': '0 0 640 360',
  'colbert-maxsim-switch': '0 0 640 360',
+ 'collider-selection': '0 0 800 430',
  'consistency-trajectory-map': '0 0 800 420',
  'copycat-action-lag': '0 0 640 360',
  'cv-fold-rotation': '0 0 640 360',
@@ -391,6 +412,12 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'fbeta-recall-emphasis': '0 0 640 360',
  'fgsm-sign-step': '0 0 640 360',
  'fixmatch-confidence-gate': '0 0 640 360',
+ 'flashattention-backward-remat': '0 0 640 360',
+ 'flashattention-causal-tiles': '0 0 640 360',
+ 'flashattention-exact-merge': '0 0 640 322',
+ 'flashattention-online-rescale': '0 0 640 322',
+ 'flashattention2-query-parallel': '0 0 640 360',
+ 'flashattention3-load-compute-pipeline': '0 0 640 360',
  'forest-bootstrap-vote': '0 0 640 360',
  'forward-ad-jvp': '0 0 640 360',
  'forward-prediction-correction': '0 0 640 360',
@@ -408,6 +435,8 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'glorot-fan-tradeoff': '0 0 640 360',
  'glorot-tanh-saturation': '0 0 640 360',
  'gptq-error-compensation': '0 0 640 360',
+ 'gqa-head-sharing': '0 0 640 360',
+ 'gqa-uptraining-pooling': '0 0 640 360',
  'gradient-norm-clipping': '0 0 640 360',
  'graphplan-layer-extraction': '0 0 640 360',
  'graphsage-sample-aggregate': '0 0 640 360',
@@ -448,7 +477,9 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'large-batch-warmup-ramp': '0 0 640 360',
  'lars-layer-trust-scaling': '0 0 640 360',
  'latent-space-denoise': '0 0 800 436',
+ 'layernorm-feature-shift': '0 0 860 440',
  'lbfgs-two-loop': '0 0 640 360',
+ 'lime-local-surrogate': '0 0 640 360',
  'lion-sign-momentum': '0 0 640 360',
  'logit-prior-decision': '0 0 640 360',
  'lsq-step-size-sweep': '0 0 640 360',
@@ -562,8 +593,10 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'sam-two-gradient': '0 0 640 360',
  'score-sde-flow': '0 0 800 420',
  'self-instruct-filter-loop': '0 0 640 360',
+ 'seq2seq-context-handoff': '0 0 860 440',
  'sgd-noise-batch': '0 0 640 360',
  'shampoo-eigenmode': '0 0 640 360',
+ 'shap-coalition-marginals': '0 0 640 360',
  'sharpness-radius-loss': '0 0 640 360',
  'sharpness-reparam-curvature': '0 0 640 360',
  'sigma-reparam-spectral-gain': '0 0 640 360',
@@ -588,8 +621,12 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  't5-span-corruption': '0 0 640 360',
  'td3-delayed-twin-critics': '0 0 640 360',
  'theta-gamma-phase-amplitude': '0 0 640 360',
+ 'thompson-beta-posterior-draws': '0 0 860 464',
+ 'thompson-evidence-concentration': '0 0 860 464',
  'tree-belief-propagation': '0 0 640 360',
  'tsne-kl-embedding': '0 0 640 360',
+ 'ucb1-bonus-sensitivity': '0 0 860 464',
+ 'ucb1-optimism-switch': '0 0 860 464',
  'umap-fuzzy-union': '0 0 640 360',
  'unigram-sampling-alpha': '0 0 640 360',
  'unigram-viterbi-lattice': '0 0 640 360',
@@ -609,15 +646,23 @@ EXTRA_CANONICAL_FILENAMES = {'brier-expected-risk-motion.svg': '0 0 640 360',
  'log-loss-tail-penalty-still.svg': '0 0 640 360',
  'moe-top2-routing-token-b.svg': '0 0 640 360'}
 # Preserve original source prefix contracts, including their valid named variants.
-PREFIX_VIEWBOXES = {'cfm-conditional-bridge': '0 0 760 410',
+PREFIX_VIEWBOXES = {'backdoor-standardisation-': '0 0 800 430',
+ 'cfm-conditional-bridge': '0 0 760 410',
+ 'collider-selection-': '0 0 800 430',
  'deep-ensemble-spread': '0 0 720 400',
  'dpo-preference-margin-': '0 0 760 420',
  'ece-binned-calibration': '0 0 720 400',
+ 'flashattention-exact-merge-': '0 0 640 322',
+ 'flashattention-online-rescale-': '0 0 640 322',
  'i3d-filter-inflation-': '0 0 800 440',
  'mamba2-ssd-causal-map-': '0 0 860 440',
  'rectified-reflow-coupling': '0 0 760 410',
  's4d-diagonal-modes-': '0 0 860 440',
  'sac-entropy-temperature-': '0 0 760 420',
+ 'thompson-beta-posterior-draws-': '0 0 860 464',
+ 'thompson-evidence-concentration-': '0 0 860 464',
+ 'ucb1-bonus-sensitivity-': '0 0 860 464',
+ 'ucb1-optimism-switch-': '0 0 860 464',
  'vivit-factorised-attention-': '0 0 800 440'}
 
 
@@ -646,8 +691,16 @@ def expected_viewbox(path: Path) -> str | None:
 SOURCE_ALT_CONTRACT_STEMS = {'cfm-conditional-bridge',
  'dora-independent',
  'expert-cache-miss',
+ 'flashattention-backward-remat',
+ 'flashattention-causal-tiles',
+ 'flashattention-exact-merge',
+ 'flashattention-online-rescale',
+ 'flashattention2-query-parallel',
+ 'flashattention3-load-compute-pipeline',
  'forward-prediction-correction',
  'gin-multiset-counts',
+ 'gqa-head-sharing',
+ 'gqa-uptraining-pooling',
  'graphsage-sample-aggregate',
  'grpo-group-advantages',
  'hnsw-layer-descent',
@@ -681,6 +734,8 @@ STATIC_PREVIEW_LINK_STEMS = {'awq-salient-scaling',
  'gaussian-splat-alpha-composite',
  'gin-multiset-counts',
  'gptq-error-compensation',
+ 'gqa-head-sharing',
+ 'gqa-uptraining-pooling',
  'graphplan-layer-extraction',
  'graphsage-sample-aggregate',
  'grpo-group-advantages',
@@ -780,6 +835,8 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
                 errors.append(f"{path}: animation requires a duration in seconds")
         for key, value in element.attrib.items():
             local_key = key.split("}")[-1]
+            if value.strip().lower() in {"nan", "+nan", "-nan", "inf", "+inf", "-inf", "infinity", "+infinity", "-infinity"}:
+                errors.append(f"{path}: non-finite numeric SVG attribute {local_key}={value!r}")
             if local_key.startswith("on"):
                 errors.append(f"{path}: event handler prohibited")
             if local_key == "href" and (
@@ -826,7 +883,7 @@ def main() -> int:
             # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
             links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in NAS_STEMS:
+            if stem in NAS_STEMS | {"gqa-head-sharing", "gqa-uptraining-pooling"}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
                 # GitHub gets the static image; MkDocs enhances it via data-motion-src.
@@ -887,11 +944,11 @@ def main() -> int:
                 linked = {(page.parent / link).resolve() for link in static_links}
                 if static_path.resolve() not in linked:
                     errors.append(f"{page}: missing GitHub-readable static SVG link")
-            elif stem in {"s4d-diagonal-modes", "mamba2-ssd-causal-map", "adafactor-factored-moments", "adagrad-coordinate-gain", "adam-bias-correction", "adam-epsilon-threshold", "adam-scale-invariance", "adam-sign-reversal", "adamw-epoch-timescale", "ant-colony-pheromone", "asam-neighborhood", "auc-ap-ranking-contrast", "awq-salient-scaling", "bahdanau-alignment-context", "bo-expected-improvement", "bo-gp-conditioning", "boosting-residual-steps", "bpr-gradient-saturation", "bpr-pairwise-ranking", "causal-lamp-intervention", "checkpoint-recompute", "clr-triangular2-sweep", "coherence-phase-gating", "colbert-maxsim-switch", "copycat-action-lag", "cv-fold-rotation", "dora-independent", "dpo-preference-margin", "dpr-dot-product-sweep", "dropblock-spatial-masking", "dropout-inverted-sampling", "dropout-variance-tradeoff", "effective-number-growth", "eigen-jordan-shear", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "elo-online-update", "ewc-fisher-springs", "fixmatch-confidence-gate", "forest-bootstrap-vote", "forward-prediction-correction", "fp16-loss-scaling", "fp8-scale-range", "gaussian-splat-alpha-composite", "genetic-crossover-mutation", "gin-multiset-counts", "gptq-error-compensation", "graphplan-layer-extraction", "graphsage-sample-aggregate", "grid-search-x-coverage", "group-norm-statistics", "heavy-ball-overshoot", "i3d-filter-inflation", "ia3-channel-gates", "ida-bound-reexpansion", "integrated-gradients-path", "kalman-gain-fusion", "lagrange-dual-gap", "lagrange-kkt-active-set", "lagrange-tangency", "lamb-adam-layer-trust", "large-batch-warmup-ramp", "lars-layer-trust-scaling", "logit-prior-decision", "lsq-step-size-sweep", "mahalanobis-ellipse-threshold", "map-beta-posterior", "map-elites-archive", "map-precision-at-hits", "mc-dropout-repeated-passes", "mean-teacher-ema-tracking", "mf-als-alternating", "mf-coupled-sgd", "minhash-lsh-band-collision", "mixup-beta-strength", "mixup-cutmix-area", "mixup-loss-decomposition", "mixup-paired-interpolation", "mle-bernoulli-likelihood", "ndcg-position-discount", "neat-add-node-innovation", "newton-armijo-backtracking", "newton-curvature-steps", "newton-indefinite-curvature", "odin-gradient-perturbation", "ofc-selective-feedback", "outlier-mae-rmse", "paired-bootstrap-resampling", "particle-swarm-best", "particle-weight-resampling", "place-cell-firing", "power-iteration-projection-contraction", "pr-threshold-sweep", "predictive-local-settling", "prefix-kv-attention", "prompt-injection-boundary", "qat-fake-quant-ste", "qlora-frozen-flow", "r2-mean-baseline", "random-search-x-coverage", "rao-ballard-residual", "recursive-tail-loss", "resnet-depth-gradient-factors", "resnet-identity-gradient", "resnet-postrelu-gate", "resnet-projection-shortcut", "resolution-refutation-chain", "rf-bootstrap-oob", "rf-feature-subset", "rmsnorm-shift-response", "roc-rank-transform", "roc-threshold-sweep", "roofline-ridge-sweep", "rotational-norm-balance", "sac-entropy-temperature", "saliency-local-gradient", "self-instruct-filter-loop", "sgd-noise-batch", "shampoo-eigenmode", "sharpness-radius-loss", "sharpness-reparam-curvature", "simclr-temperature-competition", "soap-eigenbasis-adam", "stochastic-depth-scaling-conventions", "stochastic-depth-survival-samples", "strips-state-effects", "successor-occupancy", "svi-minibatch-global", "svm-margin-hinge", "theta-gamma-phase-amplitude", "vivit-factorised-attention", "vqvae-codebook-snap", "watermark-greenlist-score", "weak-supervision-vote-fusion", "wgan-gp-interpolation", "wgan-weight-clip",
+            elif stem in {'ucb1-optimism-switch', 'ucb1-bonus-sensitivity', 'thompson-beta-posterior-draws', 'thompson-evidence-concentration', "s4d-diagonal-modes", "mamba2-ssd-causal-map", "adafactor-factored-moments", "adagrad-coordinate-gain", "adam-bias-correction", "adam-epsilon-threshold", "adam-scale-invariance", "adam-sign-reversal", "adamw-epoch-timescale", "ant-colony-pheromone", "asam-neighborhood", "auc-ap-ranking-contrast", "awq-salient-scaling", "bahdanau-alignment-context", "bo-expected-improvement", "bo-gp-conditioning", "boosting-residual-steps", "bpr-gradient-saturation", "bpr-pairwise-ranking", "causal-lamp-intervention", "checkpoint-recompute", "clr-triangular2-sweep", "coherence-phase-gating", "colbert-maxsim-switch", "copycat-action-lag", "cv-fold-rotation", "dora-independent", "dpo-preference-margin", "dpr-dot-product-sweep", "dropblock-spatial-masking", "dropout-inverted-sampling", "dropout-variance-tradeoff", "effective-number-growth", "eigen-jordan-shear", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "elo-online-update", "ewc-fisher-springs", "fixmatch-confidence-gate", "forest-bootstrap-vote", "forward-prediction-correction", "fp16-loss-scaling", "fp8-scale-range", "gaussian-splat-alpha-composite", "genetic-crossover-mutation", "gin-multiset-counts", "gptq-error-compensation", "graphplan-layer-extraction", "graphsage-sample-aggregate", "grid-search-x-coverage", "group-norm-statistics", "heavy-ball-overshoot", "i3d-filter-inflation", "ia3-channel-gates", "ida-bound-reexpansion", "integrated-gradients-path", "kalman-gain-fusion", "lagrange-dual-gap", "lagrange-kkt-active-set", "lagrange-tangency", "lamb-adam-layer-trust", "large-batch-warmup-ramp", "lars-layer-trust-scaling", "logit-prior-decision", "lsq-step-size-sweep", "mahalanobis-ellipse-threshold", "map-beta-posterior", "map-elites-archive", "map-precision-at-hits", "mc-dropout-repeated-passes", "mean-teacher-ema-tracking", "mf-als-alternating", "mf-coupled-sgd", "minhash-lsh-band-collision", "mixup-beta-strength", "mixup-cutmix-area", "mixup-loss-decomposition", "mixup-paired-interpolation", "mle-bernoulli-likelihood", "ndcg-position-discount", "neat-add-node-innovation", "newton-armijo-backtracking", "newton-curvature-steps", "newton-indefinite-curvature", "odin-gradient-perturbation", "ofc-selective-feedback", "outlier-mae-rmse", "paired-bootstrap-resampling", "particle-swarm-best", "particle-weight-resampling", "place-cell-firing", "power-iteration-projection-contraction", "pr-threshold-sweep", "predictive-local-settling", "prefix-kv-attention", "prompt-injection-boundary", "qat-fake-quant-ste", "qlora-frozen-flow", "r2-mean-baseline", "random-search-x-coverage", "rao-ballard-residual", "recursive-tail-loss", "resnet-depth-gradient-factors", "resnet-identity-gradient", "resnet-postrelu-gate", "resnet-projection-shortcut", "resolution-refutation-chain", "rf-bootstrap-oob", "rf-feature-subset", "rmsnorm-shift-response", "roc-rank-transform", "roc-threshold-sweep", "roofline-ridge-sweep", "rotational-norm-balance", "sac-entropy-temperature", "saliency-local-gradient", "self-instruct-filter-loop", "sgd-noise-batch", "shampoo-eigenmode", "sharpness-radius-loss", "sharpness-reparam-curvature", "simclr-temperature-competition", "soap-eigenbasis-adam", "stochastic-depth-scaling-conventions", "stochastic-depth-survival-samples", "strips-state-effects", "successor-occupancy", "svi-minibatch-global", "svm-margin-hinge", "theta-gamma-phase-amplitude", "vivit-factorised-attention", "vqvae-codebook-snap", "watermark-greenlist-score", "weak-supervision-vote-fusion", "wgan-gp-interpolation", "wgan-weight-clip",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
-                          "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
+                          "backdoor-standardisation", "collider-selection", "lime-local-surrogate", "shap-coalition-marginals", "3d-unet-depth-kernel", "3d-unet-paired-warp", "3d-unet-sparse-loss", "3d-unet-evaluation-holdout", "3d-unet-skip-concat", "3d-unet-context-tiling", "3d-unet-orthogonal-slices", "3d-unet-sparse-context-gradient"}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
@@ -901,9 +958,12 @@ def main() -> int:
                         (page.parent / link).resolve() for link in static_links
                     }:
                         errors.append(f"{page}: missing GitHub-readable static link")
+            elif stem in {"layernorm-feature-shift", "seq2seq-context-handoff", "flashattention-online-rescale", "flashattention-exact-merge", "flashattention-causal-tiles", "flashattention-backward-remat", "flashattention2-query-parallel", "flashattention3-load-compute-pipeline"}:
+
+                errors.extend(verify_source_pair(page, text, stem))
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {"3d-unet-context-tiling", "3d-unet-depth-kernel", "3d-unet-evaluation-holdout", "3d-unet-orthogonal-slices", "3d-unet-paired-warp", "3d-unet-skip-concat", "3d-unet-sparse-context-gradient", "3d-unet-sparse-loss", "adamw-decoupled-paths", "alpha-beta-cutoff", "astar-frontier", "batch-norm-train-infer", "bpe-ordered-merges", "byol-online-target", "cmaes-distribution-adaptation", "ddm-first-passage", "deformable-sampling", "dinov2-dual-objective-ema", "disaggregated-handoff", "dpll-backtrack", "dqn-target-sync", "expert-cache-miss", "fgsm-sign-step", "forward-ad-jvp", "gat-aggregation", "gcn-aggregation", "gibbs-coordinate-sweeps", "gru-gate-flow", "hmc-leapfrog-trajectory", "hyperband-budget", "kfac-factor-preconditioning", "kmeans-lloyd", "lbfgs-two-loop", "lion-sign-momentum", "mae-visible-patch-reconstruction", "maml-inner-outer-loop", "mbmf-revaluation", "mcts-search-cycle", "mean-field-coordinate-ascent", "mh-accept-reject", "moco-dictionary-cycle", "moe-top2-routing", "muon-spectral-balancing", "muzero-latent-planning", "nerf-volume-rendering", "nesterov-lookahead", "orca-continuous-batching", "paged-block-mapping", "pgd-projection-path", "ppo-clipped-objective", "prioritized-replay-cycle", "prompt-injection-boundary", "qk-norm-scale-sweep", "qmix-monotonic-greedy", "realnvp-affine-coupling", "reverse-ad-vjp", "rmsprop-adaptive-memory", "sam-two-gradient", "sigma-reparam-spectral-gain", "speculative-decoding", "spsa-two-evaluations", "stochastic-depth-paths", "streaming-kv-eviction", "swin-shifted-windows", "td3-delayed-twin-critics", "tree-belief-propagation", "tsne-kl-embedding", "umap-fuzzy-union", "vae-reparameterisation", "viterbi-trellis", "watermark-greenlist-score"}:
+            if stem in {"gqa-head-sharing", "gqa-uptraining-pooling", "3d-unet-context-tiling", "3d-unet-depth-kernel", "3d-unet-evaluation-holdout", "3d-unet-orthogonal-slices", "3d-unet-paired-warp", "3d-unet-skip-concat", "3d-unet-sparse-context-gradient", "3d-unet-sparse-loss", "adamw-decoupled-paths", "alpha-beta-cutoff", "astar-frontier", "batch-norm-train-infer", "bpe-ordered-merges", "byol-online-target", "cmaes-distribution-adaptation", "ddm-first-passage", "deformable-sampling", "dinov2-dual-objective-ema", "disaggregated-handoff", "dpll-backtrack", "dqn-target-sync", "expert-cache-miss", "fgsm-sign-step", "forward-ad-jvp", "gat-aggregation", "gcn-aggregation", "gibbs-coordinate-sweeps", "gru-gate-flow", "hmc-leapfrog-trajectory", "hyperband-budget", "kfac-factor-preconditioning", "kmeans-lloyd", "lbfgs-two-loop", "lion-sign-momentum", "mae-visible-patch-reconstruction", "maml-inner-outer-loop", "mbmf-revaluation", "mcts-search-cycle", "mean-field-coordinate-ascent", "mh-accept-reject", "moco-dictionary-cycle", "moe-top2-routing", "muon-spectral-balancing", "muzero-latent-planning", "nerf-volume-rendering", "nesterov-lookahead", "orca-continuous-batching", "paged-block-mapping", "pgd-projection-path", "ppo-clipped-objective", "prioritized-replay-cycle", "prompt-injection-boundary", "qk-norm-scale-sweep", "qmix-monotonic-greedy", "realnvp-affine-coupling", "reverse-ad-vjp", "rmsprop-adaptive-memory", "sam-two-gradient", "sigma-reparam-spectral-gain", "speculative-decoding", "spsa-two-evaluations", "stochastic-depth-paths", "streaming-kv-eviction", "swin-shifted-windows", "td3-delayed-twin-critics", "tree-belief-propagation", "tsne-kl-embedding", "umap-fuzzy-union", "vae-reparameterisation", "viterbi-trellis", "watermark-greenlist-score"}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 static_links += re.findall(r'<img[^>]*\s+src="([^"]+\.svg)"', text)
                 linked = {(page.parent / link).resolve() for link in static_links}

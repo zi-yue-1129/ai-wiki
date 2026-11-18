@@ -1,0 +1,16 @@
+/* A scoped, deterministic MkDocs enhancement; the separate SVG still works on GitHub. */
+.explanation-lab { margin: 1.2rem 0 1.6rem; padding: .85rem; border: 1px solid var(--md-default-fg-color--lightest,#cdd7e1); border-radius: .65rem; background: var(--md-default-bg-color,#fff); }
+.explanation-lab h4 { margin: .12rem 0 .4rem; font-size: 1rem; }
+.explanation-lab-hint,.explanation-lab-note { margin: .25rem 0 .7rem; font-size: .79rem; }
+.explanation-lab-note { margin: .7rem 0 0; opacity: .8; }
+.explanation-lab-scroll { width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+.explanation-lab-scroll svg { display: block; min-width: 640px; width: 640px; height: 330px; max-width: none; border-radius: .55rem; }
+.explanation-lab-scroll:focus-visible { outline: 3px solid var(--md-accent-fg-color,#388b9b); outline-offset: -3px; }
+.explanation-lab-controls { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; margin-top: .7rem; }
+.explanation-lab-controls label { display: inline-flex; gap: .35rem; align-items: center; flex-wrap: wrap; font-size: .76rem; }
+.explanation-lab-controls input[type=range] { accent-color: #158c89; min-width: 112px; max-width: 200px; }
+.explanation-lab-controls button,.explanation-lab-controls select { border:1px solid var(--md-default-fg-color--lighter,#9baab7); border-radius:.35rem; font:inherit; font-size:.77rem; padding:.3rem .55rem; color:var(--md-default-fg-color,#273b51); background:var(--md-default-bg-color,#fff); cursor:pointer; }
+.explanation-lab-controls button:disabled { opacity:.45; cursor:default; }
+.explanation-lab-controls :is(button,select,input):focus-visible { outline:3px solid var(--md-accent-fg-color,#388b9b); outline-offset:2px; }
+.explanation-lab-stats { margin-top:.7rem; padding:.45rem .6rem; border-radius:.35rem; background:var(--md-code-bg-color,#eff3f8); font: .78rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap:anywhere; }
+@media (prefers-reduced-motion:reduce) { .explanation-lab * { animation:none !important; transition:none !important; } }

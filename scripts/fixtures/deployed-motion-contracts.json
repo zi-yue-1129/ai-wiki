@@ -90,6 +90,36 @@
       "page": "docs/engineering/data/data-programming.md",
       "pr": 1071
     },
+    "flashattention-online-rescale": {
+      "page": "docs/theory/models/transformer/attention-variants/flash-attention/index.md",
+      "pr": 1145,
+      "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b"
+    },
+    "flashattention-exact-merge": {
+      "page": "docs/theory/models/transformer/attention-variants/flash-attention/index.md",
+      "pr": 1145,
+      "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b"
+    },
+    "flashattention-causal-tiles": {
+      "page": "docs/theory/models/transformer/attention-variants/flash-attention/index.md",
+      "pr": 1145,
+      "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b"
+    },
+    "flashattention-backward-remat": {
+      "page": "docs/theory/models/transformer/attention-variants/flash-attention/index.md",
+      "pr": 1145,
+      "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b"
+    },
+    "flashattention2-query-parallel": {
+      "page": "docs/theory/models/transformer/attention-variants/flash-attention/index.md",
+      "pr": 1145,
+      "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b"
+    },
+    "flashattention3-load-compute-pipeline": {
+      "page": "docs/theory/models/transformer/attention-variants/flash-attention/index.md",
+      "pr": 1145,
+      "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b"
+    },
     "forward-prediction-correction": {
       "page": "docs/brain-mind/motor-control/internal-forward-models/index.md",
       "pr": 1123,
@@ -119,6 +149,16 @@
       "page": "docs/engineering/llm-security/watermarking.md",
       "pr": 1121,
       "original_head": "44842ea12a6554a251759caa225f04f6fec505ea"
+    },
+    "gqa-head-sharing": {
+      "page": "docs/engineering/inference-optimization/grouped-query-attention.md",
+      "pr": 1061,
+      "original_head": "26d7b2719ca0f9d63cff780ba5e62fe0685197bf"
+    },
+    "gqa-uptraining-pooling": {
+      "page": "docs/engineering/inference-optimization/grouped-query-attention.md",
+      "pr": 1061,
+      "original_head": "26d7b2719ca0f9d63cff780ba5e62fe0685197bf"
     },
     "reinforce-reward-to-go": {
       "page": "docs/theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index.md",
@@ -3650,6 +3690,32 @@
         }
       ]
     },
+    "backdoor-standardisation": {
+      "viewBox": "0 0 800 430",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/backdoor-standardisation-motion.svg",
+          "origin_commit": "e3c28a8b0e4073e9ed32e8a129e9f8af9b2da364",
+          "origin_blob": "2636d2fe2b5d6713f4c870bcca12e49335e68f02"
+        },
+        {
+          "path": "docs/assets/concept-animations/backdoor-standardisation-still.svg",
+          "origin_commit": "e3c28a8b0e4073e9ed32e8a129e9f8af9b2da364",
+          "origin_blob": "eca56faa04e99fa8687b1a1241c33e09cac842cd"
+        }
+      ],
+      "reviewed_commit": "7bcc531f95c5a88f933c87e7ac5c8424bc5427af",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/backdoor-standardisation-motion.svg",
+          "blob": "9dc7fbc79bfc8be2d48847e404db623190c9af53"
+        },
+        {
+          "path": "docs/assets/concept-animations/backdoor-standardisation-still.svg",
+          "blob": "eca56faa04e99fa8687b1a1241c33e09cac842cd"
+        }
+      ]
+    },
     "bahdanau-alignment-context": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -3725,6 +3791,32 @@
         {
           "path": "docs/assets/concept-animations/coherence-phase-gating-still.svg",
           "blob": "eb57a9d559b03473c39cfd79a5a72f0460b7d588"
+        }
+      ]
+    },
+    "collider-selection": {
+      "viewBox": "0 0 800 430",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/collider-selection-motion.svg",
+          "origin_commit": "e3c28a8b0e4073e9ed32e8a129e9f8af9b2da364",
+          "origin_blob": "8aa8ce58a5ff1a4587fd3dcadddc0d6acb4e49e1"
+        },
+        {
+          "path": "docs/assets/concept-animations/collider-selection-still.svg",
+          "origin_commit": "e3c28a8b0e4073e9ed32e8a129e9f8af9b2da364",
+          "origin_blob": "1efae8732349b7865f2ce9daa5fa4ef11afe27bc"
+        }
+      ],
+      "reviewed_commit": "7bcc531f95c5a88f933c87e7ac5c8424bc5427af",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/collider-selection-motion.svg",
+          "blob": "4185a5d33eca6378a042ac8b3ab0d931b75d6aa4"
+        },
+        {
+          "path": "docs/assets/concept-animations/collider-selection-still.svg",
+          "blob": "ff863fc957b258ac5aa6aef0347b231ef50c00b7"
         }
       ]
     },
@@ -3936,6 +4028,162 @@
         }
       ]
     },
+    "flashattention-backward-remat": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/flashattention-backward-remat-motion.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "7499047372259e3bde40989f47e9fc53117e30c1"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention-backward-remat-still.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "b3e126df78bb5977c1e5e42179e7c52fd8a08f51"
+        }
+      ],
+      "reviewed_commit": "64f199092cc4ea13bf63e863f86fb37c052ced5e",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/flashattention-backward-remat-motion.svg",
+          "blob": "a39f50154e335c7284b2d227cf4659db72d7dc15"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention-backward-remat-still.svg",
+          "blob": "b3e126df78bb5977c1e5e42179e7c52fd8a08f51"
+        }
+      ]
+    },
+    "flashattention-causal-tiles": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/flashattention-causal-tiles-motion.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "cf88e4f8f8031c11b2f9c1ebd111d8952a202a8f"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention-causal-tiles-still.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "e6bce83ca88d0de72a8683fdd84c96683906e474"
+        }
+      ],
+      "reviewed_commit": "64f199092cc4ea13bf63e863f86fb37c052ced5e",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/flashattention-causal-tiles-motion.svg",
+          "blob": "cf88e4f8f8031c11b2f9c1ebd111d8952a202a8f"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention-causal-tiles-still.svg",
+          "blob": "e6bce83ca88d0de72a8683fdd84c96683906e474"
+        }
+      ]
+    },
+    "flashattention-exact-merge": {
+      "viewBox": "0 0 640 322",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/flashattention-exact-merge-motion.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "b8563507ae504ee37b0c45f8b106e8d186bbf935"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention-exact-merge-still.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "a7e2c28981dc63eef07bb8299a3b7c1898296d18"
+        }
+      ],
+      "reviewed_commit": "64f199092cc4ea13bf63e863f86fb37c052ced5e",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/flashattention-exact-merge-motion.svg",
+          "blob": "b8563507ae504ee37b0c45f8b106e8d186bbf935"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention-exact-merge-still.svg",
+          "blob": "a7e2c28981dc63eef07bb8299a3b7c1898296d18"
+        }
+      ]
+    },
+    "flashattention-online-rescale": {
+      "viewBox": "0 0 640 322",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/flashattention-online-rescale-motion.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "9725a4a2b41beae5bc9dd605029b723877a57f77"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention-online-rescale-still.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "65dc45fe101c4f3d8935c15d9b8204bd701a9343"
+        }
+      ],
+      "reviewed_commit": "64f199092cc4ea13bf63e863f86fb37c052ced5e",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/flashattention-online-rescale-motion.svg",
+          "blob": "9725a4a2b41beae5bc9dd605029b723877a57f77"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention-online-rescale-still.svg",
+          "blob": "65dc45fe101c4f3d8935c15d9b8204bd701a9343"
+        }
+      ]
+    },
+    "flashattention2-query-parallel": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/flashattention2-query-parallel-motion.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "23b3b51b074f6c144effe3d731da66fc0833b6f3"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention2-query-parallel-still.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "fc79229ce5709a6066b6cf9b67c942cca4901665"
+        }
+      ],
+      "reviewed_commit": "64f199092cc4ea13bf63e863f86fb37c052ced5e",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/flashattention2-query-parallel-motion.svg",
+          "blob": "23b3b51b074f6c144effe3d731da66fc0833b6f3"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention2-query-parallel-still.svg",
+          "blob": "fc79229ce5709a6066b6cf9b67c942cca4901665"
+        }
+      ]
+    },
+    "flashattention3-load-compute-pipeline": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/flashattention3-load-compute-pipeline-motion.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "c033a25830fc3cc06f0c14ba3569fdf0701355a1"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention3-load-compute-pipeline-still.svg",
+          "origin_commit": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+          "origin_blob": "fefd6c650ef9093ade3dcfd7f57e9c409586363a"
+        }
+      ],
+      "reviewed_commit": "64f199092cc4ea13bf63e863f86fb37c052ced5e",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/flashattention3-load-compute-pipeline-motion.svg",
+          "blob": "c033a25830fc3cc06f0c14ba3569fdf0701355a1"
+        },
+        {
+          "path": "docs/assets/concept-animations/flashattention3-load-compute-pipeline-still.svg",
+          "blob": "fefd6c650ef9093ade3dcfd7f57e9c409586363a"
+        }
+      ]
+    },
     "forward-prediction-correction": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -4037,6 +4285,58 @@
         {
           "path": "docs/assets/concept-animations/gptq-error-compensation-still.svg",
           "blob": "c45e8103d156816f2bca61d2dc4d54c7527b9856"
+        }
+      ]
+    },
+    "gqa-head-sharing": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/gqa-head-sharing-motion.svg",
+          "origin_commit": "26d7b2719ca0f9d63cff780ba5e62fe0685197bf",
+          "origin_blob": "9b8ca98d8cf7999fd96592010d5d4f25b3ac1f71"
+        },
+        {
+          "path": "docs/assets/concept-animations/gqa-head-sharing-still.svg",
+          "origin_commit": "26d7b2719ca0f9d63cff780ba5e62fe0685197bf",
+          "origin_blob": "cf1a76b3c839940686700f767a29857748ae31da"
+        }
+      ],
+      "reviewed_commit": "1705b8f36d306df6373c76c360988940b14b3a39",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/gqa-head-sharing-motion.svg",
+          "blob": "9b8ca98d8cf7999fd96592010d5d4f25b3ac1f71"
+        },
+        {
+          "path": "docs/assets/concept-animations/gqa-head-sharing-still.svg",
+          "blob": "cf1a76b3c839940686700f767a29857748ae31da"
+        }
+      ]
+    },
+    "gqa-uptraining-pooling": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/gqa-uptraining-pooling-motion.svg",
+          "origin_commit": "26d7b2719ca0f9d63cff780ba5e62fe0685197bf",
+          "origin_blob": "e6b2c4716c6a19e2c7312b70e936c24c9a4042f0"
+        },
+        {
+          "path": "docs/assets/concept-animations/gqa-uptraining-pooling-still.svg",
+          "origin_commit": "26d7b2719ca0f9d63cff780ba5e62fe0685197bf",
+          "origin_blob": "0356f79d135c79afba32ac7929c35f4d07d4a673"
+        }
+      ],
+      "reviewed_commit": "1705b8f36d306df6373c76c360988940b14b3a39",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/gqa-uptraining-pooling-motion.svg",
+          "blob": "e6b2c4716c6a19e2c7312b70e936c24c9a4042f0"
+        },
+        {
+          "path": "docs/assets/concept-animations/gqa-uptraining-pooling-still.svg",
+          "blob": "0356f79d135c79afba32ac7929c35f4d07d4a673"
         }
       ]
     },
@@ -4245,6 +4545,58 @@
         {
           "path": "docs/assets/concept-animations/latent-space-denoise-still.svg",
           "blob": "6c35b78a94a01b3dc67ea67288938f31f002380b"
+        }
+      ]
+    },
+    "layernorm-feature-shift": {
+      "viewBox": "0 0 860 440",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/layernorm-feature-shift-motion.svg",
+          "origin_commit": "df6d8fce4198c6a18d19ea18cc4f6e65d847af50",
+          "origin_blob": "a1bb2c669e7114ec0696969e7cc038d1b7f34e89"
+        },
+        {
+          "path": "docs/assets/concept-animations/layernorm-feature-shift-still.svg",
+          "origin_commit": "df6d8fce4198c6a18d19ea18cc4f6e65d847af50",
+          "origin_blob": "3437a8130097e63c35108c94a375a03df6327264"
+        }
+      ],
+      "reviewed_commit": "b33b1e5640a3baeb706345d716472b5c0cc0b07a",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/layernorm-feature-shift-motion.svg",
+          "blob": "46bb4e1b8c2ea4076e928ce58ddf14ba03e084c9"
+        },
+        {
+          "path": "docs/assets/concept-animations/layernorm-feature-shift-still.svg",
+          "blob": "8aef3c4dc0e51a7185deac580ddd2761b1adb901"
+        }
+      ]
+    },
+    "lime-local-surrogate": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/lime-local-surrogate-motion.svg",
+          "origin_commit": "8d294ef5c1ed13af951312683fd7322070bf9bbb",
+          "origin_blob": "459939662f6abbf6815c9f620edbca066f3c30ed"
+        },
+        {
+          "path": "docs/assets/concept-animations/lime-local-surrogate-still.svg",
+          "origin_commit": "8d294ef5c1ed13af951312683fd7322070bf9bbb",
+          "origin_blob": "1bee6c75c898a6f652b182e5b3e4954dd3a2ccb2"
+        }
+      ],
+      "reviewed_commit": "04dd0038776d619ad0ce95cc8ccdcff6ccdd3c74",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/lime-local-surrogate-motion.svg",
+          "blob": "35184147dc885584ff57aff7655d4ae31fadd445"
+        },
+        {
+          "path": "docs/assets/concept-animations/lime-local-surrogate-still.svg",
+          "blob": "1bee6c75c898a6f652b182e5b3e4954dd3a2ccb2"
         }
       ]
     },
@@ -4898,6 +5250,58 @@
         }
       ]
     },
+    "seq2seq-context-handoff": {
+      "viewBox": "0 0 860 440",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/seq2seq-context-handoff-motion.svg",
+          "origin_commit": "df6d8fce4198c6a18d19ea18cc4f6e65d847af50",
+          "origin_blob": "52024f33e8d41959e53d9e1c70b503b32f53e4bb"
+        },
+        {
+          "path": "docs/assets/concept-animations/seq2seq-context-handoff-still.svg",
+          "origin_commit": "df6d8fce4198c6a18d19ea18cc4f6e65d847af50",
+          "origin_blob": "f0c9af128c62e4b68664225193035ce786f3301d"
+        }
+      ],
+      "reviewed_commit": "b33b1e5640a3baeb706345d716472b5c0cc0b07a",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/seq2seq-context-handoff-motion.svg",
+          "blob": "b255062fc75e18ebab41fdcd00ed4db373c6d2dd"
+        },
+        {
+          "path": "docs/assets/concept-animations/seq2seq-context-handoff-still.svg",
+          "blob": "98cbb49fdac8ff2b584206e62ca007f8765724ff"
+        }
+      ]
+    },
+    "shap-coalition-marginals": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/shap-coalition-marginals-motion.svg",
+          "origin_commit": "8d294ef5c1ed13af951312683fd7322070bf9bbb",
+          "origin_blob": "42e50266daf6662849f1183365e125183dce8065"
+        },
+        {
+          "path": "docs/assets/concept-animations/shap-coalition-marginals-still.svg",
+          "origin_commit": "8d294ef5c1ed13af951312683fd7322070bf9bbb",
+          "origin_blob": "1c98e3d6bc2db0353009008f50fe4690f559473c"
+        }
+      ],
+      "reviewed_commit": "04dd0038776d619ad0ce95cc8ccdcff6ccdd3c74",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/shap-coalition-marginals-motion.svg",
+          "blob": "1c92c610a46f5c1e0eadad50b52cb5e09b3b4f3d"
+        },
+        {
+          "path": "docs/assets/concept-animations/shap-coalition-marginals-still.svg",
+          "blob": "1c98e3d6bc2db0353009008f50fe4690f559473c"
+        }
+      ]
+    },
     "simclr-temperature-competition": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -5080,6 +5484,110 @@
         }
       ]
     },
+    "thompson-beta-posterior-draws": {
+      "viewBox": "0 0 860 464",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/thompson-beta-posterior-draws-motion.svg",
+          "origin_commit": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+          "origin_blob": "279f9ce895d4b180eb8745213b6aa3aaab96f0e8"
+        },
+        {
+          "path": "docs/assets/concept-animations/thompson-beta-posterior-draws-still.svg",
+          "origin_commit": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+          "origin_blob": "ea70d93556dcffa1d1542f6873883a74a012292a"
+        }
+      ],
+      "reviewed_commit": "4e9e9267da19cd09e8ffff6a1c276e5a2e530c31",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/thompson-beta-posterior-draws-motion.svg",
+          "blob": "c636584b1d57bababedf47f2a9c357ce997ec9c8"
+        },
+        {
+          "path": "docs/assets/concept-animations/thompson-beta-posterior-draws-still.svg",
+          "blob": "c71a72e6c9e716f1b105954b6139134335cd739d"
+        }
+      ]
+    },
+    "thompson-evidence-concentration": {
+      "viewBox": "0 0 860 464",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/thompson-evidence-concentration-motion.svg",
+          "origin_commit": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+          "origin_blob": "7f7ffa5e66d761a477bfb6c1817d6ec308952a40"
+        },
+        {
+          "path": "docs/assets/concept-animations/thompson-evidence-concentration-still.svg",
+          "origin_commit": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+          "origin_blob": "70a7373be333246a77d526950696f6e1b3ab6a78"
+        }
+      ],
+      "reviewed_commit": "4e9e9267da19cd09e8ffff6a1c276e5a2e530c31",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/thompson-evidence-concentration-motion.svg",
+          "blob": "7f7ffa5e66d761a477bfb6c1817d6ec308952a40"
+        },
+        {
+          "path": "docs/assets/concept-animations/thompson-evidence-concentration-still.svg",
+          "blob": "70a7373be333246a77d526950696f6e1b3ab6a78"
+        }
+      ]
+    },
+    "ucb1-bonus-sensitivity": {
+      "viewBox": "0 0 860 464",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/ucb1-bonus-sensitivity-motion.svg",
+          "origin_commit": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+          "origin_blob": "9ae84149e028f99bc93f72f1ac56bdd9c84f0e80"
+        },
+        {
+          "path": "docs/assets/concept-animations/ucb1-bonus-sensitivity-still.svg",
+          "origin_commit": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+          "origin_blob": "2cee301cbc1477615ef6f8f1cc8e3aa3a3f6319b"
+        }
+      ],
+      "reviewed_commit": "4e9e9267da19cd09e8ffff6a1c276e5a2e530c31",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/ucb1-bonus-sensitivity-motion.svg",
+          "blob": "9ae84149e028f99bc93f72f1ac56bdd9c84f0e80"
+        },
+        {
+          "path": "docs/assets/concept-animations/ucb1-bonus-sensitivity-still.svg",
+          "blob": "2cee301cbc1477615ef6f8f1cc8e3aa3a3f6319b"
+        }
+      ]
+    },
+    "ucb1-optimism-switch": {
+      "viewBox": "0 0 860 464",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/ucb1-optimism-switch-motion.svg",
+          "origin_commit": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+          "origin_blob": "6c534234068d3c3b3adb78f8434311916a102b31"
+        },
+        {
+          "path": "docs/assets/concept-animations/ucb1-optimism-switch-still.svg",
+          "origin_commit": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+          "origin_blob": "53a9ccaa89617804f77078c97b72c1b9f170d7b8"
+        }
+      ],
+      "reviewed_commit": "4e9e9267da19cd09e8ffff6a1c276e5a2e530c31",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/ucb1-optimism-switch-motion.svg",
+          "blob": "715f71b8d3dde9ad3e65c1c216cf238f25fa1a2f"
+        },
+        {
+          "path": "docs/assets/concept-animations/ucb1-optimism-switch-still.svg",
+          "blob": "3a9bb3f9e5eb5bc0201929c83ab956dbbee97015"
+        }
+      ]
+    },
     "video-joint-denoising": {
       "viewBox": "0 0 800 436",
       "origins": [
@@ -5238,7 +5746,7 @@
       "pr": 1134,
       "original_head": "27e0d827fee24851a6daf24d7636384fcfa06076",
       "sample_stem": "sac-entropy-temperature",
-      "reviewed_guard_commit": "5ec7d639660f9cf8727f21cad40d56f0a9220b56",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
       "excluded_prefixes": []
     },
     "dpo-preference-margin-": {
@@ -5246,7 +5754,7 @@
       "pr": 1134,
       "original_head": "27e0d827fee24851a6daf24d7636384fcfa06076",
       "sample_stem": "dpo-preference-margin",
-      "reviewed_guard_commit": "5ec7d639660f9cf8727f21cad40d56f0a9220b56",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
       "excluded_prefixes": []
     },
     "vivit-factorised-attention-": {
@@ -5254,7 +5762,7 @@
       "pr": 1138,
       "original_head": "57b47f01967004ba759659ba65158ba923023dff",
       "sample_stem": "vivit-factorised-attention",
-      "reviewed_guard_commit": "5ec7d639660f9cf8727f21cad40d56f0a9220b56",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
       "excluded_prefixes": []
     },
     "i3d-filter-inflation-": {
@@ -5262,7 +5770,7 @@
       "pr": 1138,
       "original_head": "57b47f01967004ba759659ba65158ba923023dff",
       "sample_stem": "i3d-filter-inflation",
-      "reviewed_guard_commit": "5ec7d639660f9cf8727f21cad40d56f0a9220b56",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
       "excluded_prefixes": []
     },
     "s4d-diagonal-modes-": {
@@ -5270,7 +5778,7 @@
       "pr": 1139,
       "original_head": "12b0c5432151c731148cc6c68b9ce1eb6225449a",
       "sample_stem": "s4d-diagonal-modes",
-      "reviewed_guard_commit": "5ec7d639660f9cf8727f21cad40d56f0a9220b56",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
       "excluded_prefixes": []
     },
     "mamba2-ssd-causal-map-": {
@@ -5278,7 +5786,71 @@
       "pr": 1139,
       "original_head": "12b0c5432151c731148cc6c68b9ce1eb6225449a",
       "sample_stem": "mamba2-ssd-causal-map",
-      "reviewed_guard_commit": "5ec7d639660f9cf8727f21cad40d56f0a9220b56",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "excluded_prefixes": []
+    },
+    "ucb1-optimism-switch-": {
+      "viewBox": "0 0 860 464",
+      "pr": 1141,
+      "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+      "sample_stem": "ucb1-optimism-switch",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "excluded_prefixes": []
+    },
+    "ucb1-bonus-sensitivity-": {
+      "viewBox": "0 0 860 464",
+      "pr": 1141,
+      "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+      "sample_stem": "ucb1-bonus-sensitivity",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "excluded_prefixes": []
+    },
+    "thompson-beta-posterior-draws-": {
+      "viewBox": "0 0 860 464",
+      "pr": 1141,
+      "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+      "sample_stem": "thompson-beta-posterior-draws",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "excluded_prefixes": []
+    },
+    "thompson-evidence-concentration-": {
+      "viewBox": "0 0 860 464",
+      "pr": 1141,
+      "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
+      "sample_stem": "thompson-evidence-concentration",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "excluded_prefixes": []
+    },
+    "flashattention-online-rescale-": {
+      "viewBox": "0 0 640 322",
+      "pr": 1145,
+      "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+      "sample_stem": "flashattention-online-rescale",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "excluded_prefixes": []
+    },
+    "flashattention-exact-merge-": {
+      "viewBox": "0 0 640 322",
+      "pr": 1145,
+      "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b",
+      "sample_stem": "flashattention-exact-merge",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "excluded_prefixes": []
+    },
+    "backdoor-standardisation-": {
+      "viewBox": "0 0 800 430",
+      "pr": 1146,
+      "original_head": "e3c28a8b0e4073e9ed32e8a129e9f8af9b2da364",
+      "sample_stem": "backdoor-standardisation",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "excluded_prefixes": []
+    },
+    "collider-selection-": {
+      "viewBox": "0 0 800 430",
+      "pr": 1146,
+      "original_head": "e3c28a8b0e4073e9ed32e8a129e9f8af9b2da364",
+      "sample_stem": "collider-selection",
+      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
       "excluded_prefixes": []
     }
   },
@@ -5468,6 +6040,16 @@
       "page": "docs/theory/model-compression/quantisation/post-training/gptq/index.md",
       "pr": 1110,
       "original_head": "bf8271353848fe24f06d372f2371d19a10adf08b"
+    },
+    "gqa-head-sharing": {
+      "page": "docs/engineering/inference-optimization/grouped-query-attention.md",
+      "pr": 1061,
+      "original_head": "26d7b2719ca0f9d63cff780ba5e62fe0685197bf"
+    },
+    "gqa-uptraining-pooling": {
+      "page": "docs/engineering/inference-optimization/grouped-query-attention.md",
+      "pr": 1061,
+      "original_head": "26d7b2719ca0f9d63cff780ba5e62fe0685197bf"
     },
     "reinforce-reward-to-go": {
       "page": "docs/theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index.md",
