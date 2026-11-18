@@ -5,6 +5,7 @@ tags:
   - evaluation
   - metrics
   - classification
+translation_reviewed: 2026-11-19
 ---
 
 # 分類指標
