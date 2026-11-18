@@ -38,6 +38,12 @@ async def run():
                 assert await page.locator('.bayesian-filter-fallback').count()==0
                 assert await page.locator('.bf-graphic svg').count()==12
                 assert await page.locator('svg[data-bf-information]').count()==2
+                if width < 650:
+                    region=labs.nth(0).locator('.bf-graphic').first
+                    await region.focus()
+                    await page.keyboard.press('ArrowRight')
+                    await page.wait_for_timeout(150)
+                    assert await region.evaluate('(e)=>e.scrollLeft') > 0
                 assert await page.locator('svg[data-bf-invariant]').count()==2
                 assert await page.locator('svg[data-bf-comparison]').count()==2
                 assert await page.locator('svg[data-bf-diagnostic]').count()==2

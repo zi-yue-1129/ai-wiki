@@ -305,6 +305,46 @@ def check_image(page, image, url):
     return image.evaluate("img => ({src: img.src, complete: img.complete, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight})")
 
 
+def settled_scroll_left(region):
+    """Wait for native key-scroll animation to finish, not merely its first frame."""
+    return region.evaluate("""(e) => new Promise((resolve, reject) => {
+      let last = e.scrollLeft, stableSince = performance.now();
+      const started = stableSince;
+      function frame(now) {
+        const current = e.scrollLeft;
+        if (current !== last) { last = current; stableSince = now; }
+        if (now - stableSince >= 180) { resolve(current); return; }
+        if (now - started > 3000) { reject(new Error('Native scroll did not settle')); return; }
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })""")
+
+
+def check_keyboard_scrollers(page):
+    """Measure native keyboard scrolling, then restore the screenshot position."""
+    measured = []
+    regions = page.locator('.concept-motion-scroll[tabindex="0"]')
+    for index in range(regions.count()):
+        region = regions.nth(index)
+        if not region.is_visible():
+            continue
+        bounds = region.evaluate('(e) => ({clientWidth: e.clientWidth, scrollWidth: e.scrollWidth})')
+        if bounds['scrollWidth'] <= bounds['clientWidth'] + 2:
+            continue
+        region.evaluate('(e) => e.scrollTo({left: 0, behavior: "instant"})')
+        region.focus()
+        assert region.evaluate('(e) => document.activeElement === e'), 'Scroll region cannot receive focus'
+        region.press('ArrowRight')
+        page.wait_for_function('(e) => e.scrollLeft > 0', arg=region.element_handle(), timeout=2000)
+        bounds['afterArrowRight'] = settled_scroll_left(region)
+        assert bounds['afterArrowRight'] > 0, 'Keyboard scroll did not remain moved'
+        region.evaluate('(e) => { e.blur(); e.scrollTo({left: 0, behavior: "instant"}); }')
+        assert settled_scroll_left(region) == 0, 'Scroll region did not reset'
+        measured.append(bounds)
+    return measured
+
+
 def exercise_page(browser, target, expected, base_url, viewport, reduced, output, result):
     from playwright.sync_api import expect
 
@@ -328,6 +368,12 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
         result["math_rendering"] = check_math_rendering(page)
         # Wait for font layout before judging bounds or taking the review screenshots.
         page.evaluate("document.fonts.ready")
+        result['keyboard_scroll'] = check_keyboard_scrollers(page)
+        # These diagrams intentionally preserve a 640px reading width on phones.
+        topic = target.source.rsplit('/', 1)[-1].removesuffix('.md').removesuffix('.zh-TW')
+        if viewport['width'] < 600 and topic in {'t-sne', 'umap', 'minhash-deduplication', 'data-programming'}:
+            assert any(r['scrollWidth'] >= 640 and r['afterArrowRight'] > 0
+                       for r in result['keyboard_scroll']), 'Readable mobile diagram scroller is missing'
         result["images"] = []
         for index, asset in enumerate(expected, 1):
             image = page.get_by_alt_text(asset["alt"], exact=True)
@@ -380,13 +426,20 @@ def main():
     parser.add_argument("--config", type=Path, default=ROOT / "mkdocs.yml")
     parser.add_argument("--site-dir", type=Path, help="Already-built site (defaults to mkdocs.yml)")
     parser.add_argument("--output", type=Path, default=ROOT / "artifacts/built-motion-browser")
+    parser.add_argument("--keyboard-preflight", action="store_true",
+                        help="Check the four keyboard-scroll topics on mobile before the separate full suite")
     parser.add_argument("--discover-only", action="store_true", help="Validate discovery and built attributes without Chromium")
     parser.add_argument("--executable-path", help="Optional local Chromium; CI uses Playwright's pinned browser")
     args = parser.parse_args()
     config = load_config(config_file=str(args.config.resolve()))
     site = (args.site_dir or Path(config.site_dir)).resolve()
     targets = discover_pages(config)
-    report = {"pages": [asdict(target) for target in targets], "cases": []}
+    if args.keyboard_preflight:
+        names = {'t-sne', 'umap', 'minhash-deduplication', 'data-programming'}
+        targets = [t for t in targets if t.source.rsplit('/', 1)[-1].removesuffix('.md').removesuffix('.zh-TW') in names]
+        assert len(targets) == 8, 'Keyboard preflight requires all four bilingual topics'
+    report = {"pages": [asdict(target) for target in targets], "cases": [],
+              "scope": "keyboard-preflight" if args.keyboard_preflight else "full"}
     args.output.mkdir(parents=True, exist_ok=True)
     try:
         for target in targets:
@@ -404,6 +457,8 @@ def main():
                 for target in targets:
                     expected = check_built_page(site, target, base_url)
                     for name, viewport in VIEWPORTS.items():
+                        if args.keyboard_preflight and viewport["width"] >= 600:
+                            continue
                         for reduced in (False, True):
                             mode = "reduce" if reduced else "no-preference"
                             output = args.output / Path(target.source).with_suffix("") / f"{name}-{mode}"

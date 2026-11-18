@@ -75,7 +75,7 @@
     let cumulative = 0;
     const F = raw.map(x => (cumulative += x / sum));
     const targets = Array.from({length: 10}, (_, j) => u0 + j / 10);
-    const ancestors = targets.map(z => {const index = F.findIndex(f => f >= z - 1e-12); return index < 0 ? 9 : index;});
+    const ancestors = targets.map(z => {const index = F.findIndex(f => f > z); return index < 0 ? 9 : index;});
     const counts = particles.map((_, i) => ancestors.filter(j => j === i).length);
     let cumulativeDraws = 0;
     const deltas = [0, ...counts.map((count, i) => (cumulativeDraws += count) - 10 * F[i])];
@@ -103,7 +103,7 @@
     if (host.dataset.bfInvariantsReady) return;
     const panel = host.querySelector('.bf-panel');
     if (!panel) return;
-    const kind = host.dataset.lab, t = translations[host.dataset.lang === 'zh' ? 'zh' : 'en'];
+    const kind = host.dataset.lab, t = translations[host.dataset.lang.startsWith('zh') ? 'zh' : 'en'];
     if (kind !== 'kalman' && kind !== 'particle') return;
     host.dataset.bfInvariantsReady = 'true';
     const region = document.createElement('div');

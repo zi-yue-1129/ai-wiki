@@ -54,7 +54,7 @@
   function enhance(host){
     if(host.dataset.bfInformationReady)return;
     const panel=host.querySelector('.bf-panel');if(!panel)return;
-    const kind=host.dataset.lab,t=T[host.dataset.lang==='zh'?'zh':'en'];
+    const kind=host.dataset.lab,t=T[host.dataset.lang.startsWith('zh')?'zh':'en'];
     if(kind!=='kalman'&&kind!=='particle')return;
     host.dataset.bfInformationReady='true';
     const region=document.createElement('div');region.className='bf-graphic bf-insight bf-information';region.tabIndex=0;region.setAttribute('role','region');region.setAttribute('aria-label',t[kind]);

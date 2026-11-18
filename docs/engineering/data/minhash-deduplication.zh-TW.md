@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-11-12
 tags:
 - engineering
 - data
@@ -25,15 +26,26 @@ MinHash 去重能在太大、無法兩兩比較的語料中找出近似重複的
 
 每份文件先切出 shingle，轉成簽章，再由 LSH 分桶。候選配對接著做更精確的相似度檢查，每個重複群組只保留一份文件。
 
-```mermaid
-flowchart LR
-  D[文件] --> S[Shingles]
-  S --> M[MinHash 簽章]
-  M --> B[LSH 分段與分桶]
-  B --> C[候選配對]
-  C --> V[驗證相似度是否超過門檻]
-  V --> K[每個群組保留一份文件]
-```
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="教學圖：窄螢幕可聚焦後左右捲動">
+<div style="width:640px">
+<img data-source-asset-urls width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../assets/concept-animations/minhash-lsh-band-collision-still.svg" data-motion-src="../../assets/concept-animations/minhash-lsh-band-collision-motion.svg" data-still-src="../../assets/concept-animations/minhash-lsh-band-collision-still.svg" alt="MinHash 動畫：比較兩份文件的 shingle、四個最小雜湊值，以及 LSH 分段碰撞。">
+</div>
+</div>
+
+窄螢幕上可聚焦圖表，再按左右方向鍵或左右滑動，以原始字級閱讀完整內容。
+
+*原創教學動畫，CC BY-SA 4.0。* 兩個示意集合為 \(A=\{a,b,c,d\}\) 與 \(B=\{a,b,c,e\}\)，確切的 Jaccard 相似度是 \(3/5=0.60\)。四個人工指定的最小雜湊排列分別產生簽章 \((1,1,2,1)\) 與 \((1,1,1,2)\)，**四個位置有兩個相同**，故這次的簽章估計為 0.50，並不恰好等於真實相似度。當每個 LSH band 有兩列時，第一段碰撞、第二段不碰撞；碰撞只是產生待驗證的候選配對，**不是直接判定重複**。移動游標掃描簽章位置，訊號則流向候選桶。雜湊秩與數字都由人工設計，並非語料實測或四個雜湊必然的結果。MkDocs 播放器支援播放／暫停與降低動態效果；GitHub 及窄螢幕可[檢視靜態總覽](../../assets/concept-animations/minhash-lsh-band-collision-still.svg)。
+
+游標只用來引導閱讀完整結果，不表示雜湊值或標籤連續改變。它向前移動，在最後一項停留後再重新開始。
+
+以下給出可驗算的排列，從最小秩排到最大秩。每個簽章值是該文件所有 shingle 的最小**秩**，不是 shingle 識別碼。
+
+| Hash | Rank 1 → 5 | Min A | Min B |
+|---|---|---:|---:|
+| h1 | a, b, c, d, e | 1 | 1 |
+| h2 | b, c, a, d, e | 1 | 1 |
+| h3 | e, a, b, c, d | 2 | 1 |
+| h4 | d, a, b, c, e | 1 | 2 |
 
 ## 關鍵方法
 

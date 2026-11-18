@@ -44,8 +44,10 @@ $$
 
 ## 教學動畫：增益加權的高斯融合
 
-<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="示意圖，可用左右方向鍵水平捲動">
+<div style="width:640px;min-width:640px">
 <img data-source-asset-urls src="../../../../assets/concept-animations/kalman-gain-fusion-still.svg" data-motion-src="../../../../assets/concept-animations/kalman-gain-fusion-motion.svg" data-still-src="../../../../assets/concept-animations/kalman-gain-fusion-still.svg" alt="卡爾曼濾波預測、量測概似與增益加權後驗更新" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
 </div>
 
 *原創教學動畫，CC BY-SA 4.0。* [GitHub 可讀的最終靜態圖](../../../../assets/concept-animations/kalman-gain-fusion-still.svg)。MkDocs 網站提供**播放／暫停**；可用 Tab 與 Enter／Space 操作按鈕，偏好減少動態效果時顯示靜態圖。手機請水平捲動圖面。
@@ -69,35 +71,45 @@ $$
 
 **新增計算視覺：創新量與修正量的差異。** 第二張三軌 SVG 使用相同狀態座標軸，依序呈現預測均值、量測值、更新後均值。位移精確等於 $K(y-3)$，只有 $K=1$ 才等於完整創新量 $y-3$；後驗變異數為 $(1-K)P^-$。圖形與原本的參數及逐步控制同步。下方 GitHub 靜態預覽採人工預設數值，不是實測濾波軌跡。
 
-![一維卡爾曼預測、量測與均值修正三軌示意的 GitHub 回退預覽](../../../../assets/concept-animations/kalman-innovation-lab-still.svg)
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="示意圖，可用左右方向鍵水平捲動">
+<img data-source-asset-urls src="../../../../assets/concept-animations/kalman-innovation-lab-still.svg" alt="一維卡爾曼預測、量測與均值修正三軌示意的 GitHub 回退預覽" style="width:700px;min-width:700px;max-width:none;height:auto">
+</div>
 
 **標準化創新量診斷。** 第三張即時計算的 SVG 使用 $z=(y-3)/\sqrt{P^-+R}$ 與 $\mathrm{NIS}=z^2$ 呈現創新量的尺度。陰影 $|z|\leq1.96$ 是創新量依照模型假設服從高斯分布時的 95% 參考範圍，**不能用一次人工觀測判定濾波器已通過或未通過統計驗證**。在預測階段尚不顯示觀測標記，進入量測階段才出現；原有播放、單步、進度和鍵盤控制會同步更新此圖。
 
-![卡爾曼人工標準化創新量及高斯參考區間](../../../../assets/concept-animations/kalman-nis-still.svg)
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="示意圖，可用左右方向鍵水平捲動">
+<img data-source-asset-urls src="../../../../assets/concept-animations/kalman-nis-still.svg" alt="卡爾曼人工標準化創新量及高斯參考區間" style="width:700px;min-width:700px;max-width:none;height:auto">
+</div>
 
 **新增互動計算：預測與觀測的權重。** 第四張同步 SVG 顯示一維精確加權公式 $\mu^+=(1-K)\mu^-+Ky$，其中 $K=P^-/(P^-+R)$。藍色與橘色區段表示兩者的**相對權重**，三個標記則在相同狀態軸上表示預測、觀測及後驗平均值。降低 $R$ 將提高觀測權重，但不能解讀為訓練產生的信任分數或實測校準。只有修正階段才揭露後驗標記。
 
-![卡爾曼增益對預測與觀測分配的相對權重及後驗平均值位置](../../../../assets/concept-animations/kalman-trust-weights-still.svg)
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="示意圖，可用左右方向鍵水平捲動">
+<img data-source-asset-urls src="../../../../assets/concept-animations/kalman-trust-weights-still.svg" alt="卡爾曼增益對預測與觀測分配的相對權重及後驗平均值位置" style="width:700px;min-width:700px;max-width:none;height:auto">
+</div>
 
 **新增互動計算：Joseph 變異數來源分解。** 同步 SVG 將一維 Joseph 共變異數更新拆成「預測不確定性」與「量測雜訊」兩個非負貢獻：
 
-$
+$$
 P^+=(1-K)^2P^-+K^2R,\qquad K=\frac{P^-}{P^-+R}.
-$
+$$
 
 人工預設值下，兩項分別約為 $0.136$ 與 $0.307$，合計 $P^+\approx0.443$。所有長條共用**絕對變異數尺度**，後驗長條比先驗短；不能解讀為真實感測器誤差來源的實測比例。只有進入修正階段才揭露 Joseph 兩項貢獻；原有播放／暫停、單步、進度滑桿與變異數參數控制會同步重新計算。
 
-![卡爾曼 Joseph 更新中預測誤差與量測雜訊對後驗變異數的貢獻：GitHub 靜態回退預覽](../../../../assets/concept-animations/kalman-joseph-contributions-still.svg)
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="示意圖，可用左右方向鍵水平捲動">
+<img data-source-asset-urls src="../../../../assets/concept-animations/kalman-joseph-contributions-still.svg" alt="卡爾曼 Joseph 更新中預測誤差與量測雜訊對後驗變異數的貢獻：GitHub 靜態回退預覽" style="width:700px;min-width:700px;max-width:none;height:auto">
+</div>
 
 **新增計算視覺：精確度可相加，變異數不能直接相加。** 在量測雜訊獨立且採一維高斯假設時，後驗**精確度**（變異數的倒數）滿足：
 
-$
+$$
 \frac{1}{P^+}=\frac{1}{P^-}+\frac{1}{R}.
-$
+$$
 
 第六張同步 SVG 在同一個絕對精確度尺度上，分別顯示先驗資訊、量測資訊及兩者相加的後驗總量。預測階段只顯示先驗，進入量測階段才出現新增資訊，修正後才顯示總和。調整 $P^-$ 或 $R$ 會即時重算；人工預設值為 $0.694+1.563=2.257$，相當於 $P^+\approx0.443$。此圖是獨立一維高斯模型的代數恆等式，**不是感測器資訊量的實測結果**。
 
-![卡爾曼先驗與量測精確度相加得到後驗精確度的 GitHub 靜態預覽](../../../../assets/concept-animations/kalman-precision-addition-still.svg)
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="示意圖，可用左右方向鍵水平捲動">
+<img data-source-asset-urls src="../../../../assets/concept-animations/kalman-precision-addition-still.svg" alt="卡爾曼先驗與量測精確度相加得到後驗精確度的 GitHub 靜態預覽" style="width:700px;min-width:700px;max-width:none;height:auto">
+</div>
 
 <div class="bayesian-filter-lab" data-lab="kalman" data-lang="zh"><p class="bayesian-filter-fallback">互動數值實驗需要 JavaScript；上方靜態預覽與手算範例仍可閱讀。</p></div>
 

@@ -22,7 +22,7 @@
   function particle(svg,[y,sd,u0],stage,aria){
     const r=xs.map(x=>Math.exp(-.5*((x-y)/sd)**2)),tot=r.reduce((a,b)=>a+b,0),w=r.map(x=>x/tot),cdf=[0];
     w.forEach(x=>cdf.push(cdf.at(-1)+x));
-    const u=Array.from({length:10},(_,i)=>u0+i/10),idx=u.map(t=>Math.max(0,cdf.findIndex((c,i)=>i>0&&c>=t-1e-12)-1));
+    const u=Array.from({length:10},(_,i)=>u0+i/10),idx=u.map(t=>Math.max(0,cdf.findIndex((c,i)=>i>0&&c>t)-1));
     const ess=1/w.reduce((a,b)=>a+b*b,0);
     frame(svg,'INVERSE CDF / SYSTEMATIC DRAW',aria);
     txt(svg,45,67,stage===0?'Uniform initial weights':'Weight intervals');
@@ -36,13 +36,13 @@
   function init(host){
     if(host.dataset.bfInsightReady)return;
     const panel=host.querySelector('.bf-panel');if(!panel)return;
-    const kind=host.dataset.lab,L=T[host.dataset.lang==='zh'?'zh':'en'];if(kind!=='kalman'&&kind!=='particle')return;
+    const kind=host.dataset.lab,L=T[host.dataset.lang.startsWith('zh')?'zh':'en'];if(kind!=='kalman'&&kind!=='particle')return;
     host.dataset.bfInsightReady='true';
     const region=document.createElement('div');region.className='bf-graphic bf-insight';region.tabIndex=0;region.setAttribute('role','region');region.setAttribute('aria-label',L[kind==='kalman'?'k':'p']);
     const svg=E('svg');svg.dataset.bfDiagnostic=kind;region.append(svg);panel.querySelector('.bf-graphic').insertAdjacentElement('afterend',region);
     const summary=document.createElement('p');summary.className='bf-insight-summary';summary.setAttribute('aria-live','polite');region.insertAdjacentElement('afterend',summary);
     const inputs=[...panel.querySelectorAll('.bf-ranges input')],output=panel.querySelector('.bf-output');
-    const update=()=>{const values=inputs.map(i=>Number(i.value)),stage=Number(panel.querySelector('.bf-step').value);const v=kind==='kalman'?kalman(svg,values,stage,L.k):particle(svg,values,stage,L.p);summary.textContent=kind==='kalman'?L.s(v.K,v.d,v.v):L.a(v.ess,v.idx,stage);};
+    const update=()=>{const values=inputs.map(i=>Number(i.value)),stage=Number(panel.querySelector('.bf-step').value);const v=kind==='kalman'?kalman(svg,values,stage,L.k):particle(svg,values,stage,L.p);summary.textContent=kind==='kalman'?(stage===2?L.s(v.K,v.d,v.v):(host.dataset.lang.startsWith('zh')?'待修正階段才顯示後驗結果。':'Posterior results appear at correction.')):(stage===0?(host.dataset.lang.startsWith('zh')?'預測粒子；尚未計算觀測權重。':'Predicted particles; observation weights not yet calculated.'):L.a(v.ess,v.idx,stage));};
     new MutationObserver(update).observe(output,{childList:true});host.addEventListener('input',update);update();
   }
 
@@ -52,7 +52,7 @@
     if(host.dataset.bfAdvancedReady)return;
     const panel=host.querySelector('.bf-panel');if(!panel)return;
     host.dataset.bfAdvancedReady='true';
-    const kind=host.dataset.lab,zh=host.dataset.lang==='zh';
+    const kind=host.dataset.lab,zh=host.dataset.lang.startsWith('zh');
     const region=document.createElement('div');region.className='bf-graphic bf-insight bf-advanced';
     region.tabIndex=0;region.setAttribute('role','region');
     region.setAttribute('aria-label',zh?(kind==='kalman'?'標準化創新量診斷':'祖先後代份額診斷'):(kind==='kalman'?'Normalised innovation diagnostic':'Ancestor offspring diagnostic'));
@@ -64,7 +64,7 @@
       const [a,b,c]=inputs.map(i=>Number(i.value)),stage=Number(panel.querySelector('.bf-step').value);
       frame(svg,kind==='kalman'?'NORMALISED INNOVATION':'OFFSPRING / ANCESTORS',region.getAttribute('aria-label'));
       if(kind==='kalman'){
-        const S=a+b,z=(c-3)/Math.sqrt(S),nis=z*z,lim=Math.max(4,Math.ceil(Math.abs(z)+.5)),px=t=>70+(t+lim)*570/(2*lim);
+        const S=a+b,z=(c-3)/Math.sqrt(S),nis=z*z,lim=11,px=t=>70+(t+lim)*570/(2*lim);
         box(svg,px(-1.96),64,px(1.96)-px(-1.96),116,'#d0eae1',{'fill-opacity':'.8'});
         stroke(svg,70,182,640,182,'#7c95a6',1.5);
         let d='';for(let i=0;i<=200;i++){const v=-lim+i*2*lim/200;d+=(i?'L':'M')+px(v).toFixed(2)+' '+(182-92*Math.exp(-v*v/2)).toFixed(2)+' ';}
@@ -78,9 +78,9 @@
       }else{
         const raw=xs.map(x=>Math.exp(-.5*((x-a)/b)**2)),sum=raw.reduce((x,y)=>x+y,0),w=raw.map(v=>v/sum);
         let q=0;const cdf=w.map(v=>(q+=v));
-        const idx=Array.from({length:10},(_,i)=>{const j=cdf.findIndex(v=>v>=c+i/10-1e-12);return j<0?9:j;});
+        const idx=Array.from({length:10},(_,i)=>{const j=cdf.findIndex(v=>v>c+i/10);return j<0?9:j;});
         const counts=xs.map((_,i)=>idx.filter(v=>v===i).length),expect=w.map(v=>10*v),uniq=counts.filter(v=>v>0).length;
-        const ess=1/w.reduce((x,y)=>x+y*y,0),high=Math.max(2,Math.ceil(Math.max(...counts,...expect))),scale=105/high,base=174;
+        const ess=1/w.reduce((x,y)=>x+y*y,0),high=Math.max(2,Math.ceil(Math.max(...(stage===3?counts:[]),...expect))),scale=105/high,base=174;
         if(stage>=1){txt(svg,30,60,'Expected',{'font-size':11,fill:'#527ab8'});box(svg,98,51,18,9,'#527ab8');}
         if(stage===3){txt(svg,205,60,'Realised',{'font-size':11,fill:'#cc783e'});box(svg,267,51,18,9,'#cc783e');}
         stroke(svg,65,base,643,base,'#8299a8',1.5);
