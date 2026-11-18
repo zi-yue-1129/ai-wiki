@@ -24,7 +24,8 @@ jobs:
   built-motion-browser:
     # Keep the OS compatible with this pinned Playwright release.
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    # Full bilingual browser coverage plus cold dependency installation can exceed 20 minutes.
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
