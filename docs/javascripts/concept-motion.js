@@ -5,6 +5,9 @@
   'use strict';
   const suffix = /-motion\.svg(?=$|[?#])/;
   const motorStill = /(?:forward-prediction-correction|ofc-selective-feedback)-still\.svg(?=$|[?#])/;
+  // These two diagrams use GitHub-readable stills as their canonical Markdown sources.
+  const staticFirst = /(?:score-sde-flow|consistency-trajectory-map)-still\.svg(?=$|[?#])/;
+  const wideDiagram = /(?:score-sde-flow|consistency-trajectory-map)-motion\.svg(?=$|[?#])/;
   const moeSuffix = /moe-top2-routing-motion\.svg(?=$|[?#])/;
   // Earlier CSS-animated diagrams keep their original filenames.
   const standalonePairs = {
@@ -21,12 +24,13 @@
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
       const source = img.getAttribute('src') || '';
       const sourceName = source.split(/[?#]/, 1)[0].split('/').pop();
-      const animated = img.dataset.motionSrc || ((stillFirstPairs.has(sourceName) || motorStill.test(source))
+      const animated = img.dataset.motionSrc || ((stillFirstPairs.has(sourceName) || motorStill.test(source) || staticFirst.test(source))
         ? source.replace(/-still\.svg(?=$|[?#])/, '-motion.svg') : source);
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
-      const still = img.dataset.stillSrc || (pairedStill
+      const still = img.dataset.stillSrc || (staticFirst.test(source)
+        ? source : pairedStill
         ? animated.replace(fileName, pairedStill)
         : animated.replace(suffix, '-still.svg'));
       const isMoe = moeSuffix.test(animated);
@@ -56,15 +60,19 @@
           : 'Horizontally scrollable planning animation');
       }
       img.before(host);
+      const diffusion = wideDiagram.test(animated);
+      if (diffusion) host.classList.add('concept-motion-diffusion');
       if (motorStill.test(still)) host.className += ' concept-motion-motor';
-      if (navigation || motorStill.test(still)) {
+      if (navigation || motorStill.test(still) || diffusion) {
         const viewport = document.createElement('span');
-        viewport.className = 'concept-motion-viewport';
+        viewport.className = 'concept-motion-viewport' + (diffusion ? ' concept-motion-scroll' : '');
         viewport.tabIndex = 0;
         viewport.setAttribute('role', 'region');
-        viewport.setAttribute('aria-label', motorStill.test(still)
-          ? (chinese ? '可水平捲動的概念動畫，使用左右方向鍵' : 'Scrollable concept animation: use arrow keys to scroll horizontally')
-          : (chinese ? '概念動畫：可使用方向鍵水平捲動' : 'Concept animation: use arrow keys to scroll horizontally'));
+        viewport.setAttribute('aria-label', diffusion
+          ? (chinese ? '可水平捲動的教學動畫圖；聚焦後使用左右方向鍵' : 'Scrollable teaching animation; focus and use Left/Right arrow keys')
+          : motorStill.test(still)
+            ? (chinese ? '可水平捲動的概念動畫，使用左右方向鍵' : 'Scrollable concept animation: use arrow keys to scroll horizontally')
+            : (chinese ? '概念動畫：可使用方向鍵水平捲動' : 'Concept animation: use arrow keys to scroll horizontally'));
         host.append(viewport);
         viewport.append(img);
       } else {

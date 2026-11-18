@@ -1,0 +1,14 @@
+[
+  {
+    "source": "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md",
+    "screenshots": {
+      "schedule": ".md-content__inner h3:has-text(\"Stochasticity is schedule-dependent\")"
+    }
+  },
+  {
+    "source": "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.zh-TW.md",
+    "screenshots": {
+      "schedule": ".md-content__inner h3:has-text(\"隨機程度取決於時間排程\")"
+    }
+  }
+]

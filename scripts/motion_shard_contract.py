@@ -259,6 +259,11 @@ def validate_support(expected, receipt, artifact_rows, prose_sources=None, regis
             for source,width in wanted:
                 folder=source.replace('/','__').removesuffix('.md')+f'-{width}'
                 require(name+'/'+folder+'/top.png' in files,'Missing prose-case screenshot')
+                for png in suite.get('required_case_pngs', []):
+                    require(png and '/' not in png and png.endswith('.png'), 'Unsafe required prose screenshot')
+                    require(name+'/'+folder+'/'+png in files, 'Missing required prose-section screenshot')
+                    case = next(c for c in cases if c['source'] == source and c['width'] == width)
+                    require(png in case.get('required_screenshots', []), 'Prose section was not captured')
         elif kind=='report-cases':
             # Extensible lab reports: registry specifies exact tuple keys and expected tuples.
             fields=suite['case_fields'];wanted=[canonical(x) for x in suite['expected_cases']]

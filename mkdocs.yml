@@ -1108,6 +1108,12 @@ markdown_extensions:
 extra_javascript:
   - javascripts/symbolic-proof-labs.js
   - javascripts/semi-supervised-process-labs.js
+  - javascripts/working-memory-labs.js
+  - javascripts/bayesian-filter-labs.js
+  - javascripts/bayesian-filter-insights.js
+  - javascripts/bayesian-filter-comparisons.js
+  - javascripts/bayesian-filter-invariants.js
+  - javascripts/bayesian-filter-information.js
   - javascripts/concept-motion-detailed.js
   - javascripts/self-supervised-labs.js
   - javascripts/ssl-causal-comparisons.js
@@ -1117,19 +1123,25 @@ extra_javascript:
   - javascripts/policy-credit-math.js
   - javascripts/policy-credit-labs.js
   - javascripts/contrastive-alignment-labs.js
+  - javascripts/ewc-neat-labs.js
+  - javascripts/diffusion-process-labs.js
   - javascripts/concept-motion.js
   - javascripts/planning-labs.js
   - javascripts/evolution-labs.js
   - javascripts/vq-splat-labs.js
   - javascripts/t5-deit-labs.js
   - javascripts/predictive-coding-labs.js
+  - javascripts/sac-dpo-labs.js
+  - javascripts/segmentation-labs.js
   - javascripts/adaptive-optimiser-labs.js
   - javascripts/regression-metric-labs.js
   - javascripts/sharpness-geometry-labs.js
   - javascripts/gibbs-labs.js
+  - javascripts/ssm-duality-labs.js
   - javascripts/distributed-motion-controls.js
   - javascripts/distributed-parameter-explorers.js
   - javascripts/distributed-computation-probes.js
+  - javascripts/video-architecture-labs.js
   - javascripts/zoom.js
   - javascripts/mathjax.js
   - javascripts/knowledge-map.js
@@ -1138,6 +1150,9 @@ extra_javascript:
 extra_css:
   - stylesheets/symbolic-proof-labs.css
   - stylesheets/semi-supervised-process-labs.css
+  - stylesheets/working-memory-labs.css
+  - stylesheets/bayesian-filter-labs.css
+  - stylesheets/bayesian-filter-insights.css
   - stylesheets/concept-motion-detailed.css
   - stylesheets/self-supervised-labs.css
   - stylesheets/ssl-causal-comparisons.css
@@ -1146,19 +1161,25 @@ extra_css:
   - stylesheets/ssl-temporal-provenance.css
   - stylesheets/policy-credit-labs.css
   - stylesheets/contrastive-alignment-labs.css
+  - stylesheets/ewc-neat-labs.css
+  - stylesheets/diffusion-process-labs.css
   - stylesheets/concept-motion.css
   - stylesheets/planning-labs.css
   - stylesheets/evolution-labs.css
   - stylesheets/vq-splat-labs.css
   - stylesheets/t5-deit-labs.css
   - stylesheets/predictive-coding-labs.css
+  - stylesheets/sac-dpo-labs.css
+  - stylesheets/segmentation-labs.css
   - stylesheets/adaptive-optimiser-labs.css
   - stylesheets/regression-metric-labs.css
   - stylesheets/sharpness-geometry-labs.css
   - stylesheets/gibbs-labs.css
+  - stylesheets/ssm-duality-labs.css
   - stylesheets/distributed-motion-controls.css
   - stylesheets/distributed-parameter-explorers.css
   - stylesheets/distributed-computation-probes.css
+  - stylesheets/video-architecture-labs.css
   - stylesheets/zoom.css
   - stylesheets/extra.css
 
@@ -1506,6 +1527,8 @@ nav:
                   - theory/paradigms/probabilistic/graphical-models/index.md
                   - Belief Propagation: theory/paradigms/probabilistic/graphical-models/belief-propagation.md
                   - Hidden Markov Models: theory/paradigms/probabilistic/graphical-models/hidden-markov-models.md
+                  - Kalman Filter: theory/paradigms/probabilistic/graphical-models/kalman-filter.md
+                  - Particle Filter: theory/paradigms/probabilistic/graphical-models/particle-filter.md
               - Variational Inference:
                   - theory/paradigms/probabilistic/variational-inference/index.md
                   - Mean-Field Variational Inference: theory/paradigms/probabilistic/variational-inference/mean-field.md

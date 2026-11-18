@@ -1,0 +1,19 @@
+/* Native, keyboard-operable controls and legible wide diagrams on narrow devices. */
+[data-ewc-neat-lab] .en-lab{border:1px solid #b7cbd8;border-radius:12px;padding:1rem;margin:1rem 0;background:#f8fbfd;color:#213a4d;max-width:100%;box-sizing:border-box}
+[data-ewc-neat-lab] h4{font-size:1rem;margin:.15rem 0 .35rem;font-weight:700;color:#20384b}
+[data-ewc-neat-lab] .en-lab-note,[data-ewc-neat-lab] .en-lab-disclaimer{font-size:.83rem;line-height:1.55;margin:.2rem 0 .7rem}
+[data-ewc-neat-lab] .en-lab-settings{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,185px),1fr));gap:.7rem;margin:.7rem 0}
+[data-ewc-neat-lab] .en-lab-setting{display:grid;gap:.3rem;font-size:.85rem;font-weight:600}
+[data-ewc-neat-lab] .en-lab-setting output{font-variant-numeric:tabular-nums}
+[data-ewc-neat-lab] input[type=range]{width:100%;min-width:0;accent-color:#256d94}
+[data-ewc-neat-lab] .en-lab-frame{width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid #d8e5ed;border-radius:8px;background:#fff}
+[data-ewc-neat-lab] .en-lab-frame svg{display:block;width:620px;min-width:620px;height:260px}
+[data-ewc-neat-lab] .en-lab-results{display:block;font:600 .82rem/1.65 ui-monospace,monospace;overflow-wrap:anywhere;min-height:2.1rem;margin:.75rem 0}
+[data-ewc-neat-lab] .en-lab-controls{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+[data-ewc-neat-lab] .en-lab-controls button,[data-ewc-neat-lab] select{font:inherit;border:1px solid #7897aa;border-radius:6px;background:#fff;color:#183649;padding:.34rem .55rem;cursor:pointer}
+[data-ewc-neat-lab] .en-lab-controls button:disabled{opacity:.45;cursor:not-allowed}
+[data-ewc-neat-lab] .en-lab-controls label{display:inline-flex;align-items:center;gap:.3rem;font-size:.8rem;min-width:0}
+[data-ewc-neat-lab] .en-lab-controls label:has(input[type=range]){flex:1 1 140px}
+[data-ewc-neat-lab] :is(button,input,select,.en-lab-frame):focus-visible{outline:3px solid #ab6f1b;outline-offset:2px}
+[data-ewc-neat-lab] .en-lab-disclaimer{margin:.75rem 0 0;color:#536675}
+@media(prefers-reduced-motion:reduce){[data-ewc-neat-lab] *,[data-ewc-neat-lab] *::before,[data-ewc-neat-lab] *::after{animation:none!important;transition:none!important}}

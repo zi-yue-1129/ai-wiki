@@ -49,8 +49,10 @@ Exact inference by variable elimination has a cost set by the **treewidth** of t
 
 - [Belief propagation](belief-propagation.md): message passing on a factor graph. It is exact on trees and approximate on graphs with loops.
 - [Hidden Markov models](hidden-markov-models.md): a chain-structured directed model for sequences. Forward–backward and the Viterbi algorithm are the standard inference tools (Rabiner, 1989).
+- [Kalman filter](kalman-filter.md): exact Gaussian prediction and measurement updates for linear state-space models.
+- [Particle filter](particle-filter.md): weighted Monte Carlo prediction and resampling for more general state-space posteriors.
 
-Other named models in the family are summarised below. Only the methods above have their own pages in this section.
+Other named model families in this section are summarised below. The linked key methods above have dedicated explanations.
 
 | Type | Graph | Examples |
 |---|---|---|
