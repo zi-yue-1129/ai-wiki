@@ -29,19 +29,37 @@ Full-precision vectors take a lot of memory, and scanning them takes time propor
 
 ## How it works
 
-```mermaid
-flowchart LR
-  X[Query vector] --> C[Coarse quantiser picks nearest cells]
-  C --> P[Scan only the probed cells]
-  P --> L[Estimate distances with PQ lookup tables]
-  L --> R[Re-rank top candidates with exact distances]
-```
+<div style="overflow-x:auto" tabindex="0" role="region" aria-label="IVF-PQ coarse-cell probing followed by residual PQ lookup distance accumulation">
+<img src="../../assets/concept-animations/ivfpq-probe-pq-lookup-still.svg" data-motion-src="../../assets/concept-animations/ivfpq-probe-pq-lookup-motion.svg" data-still-src="../../assets/concept-animations/ivfpq-probe-pq-lookup-still.svg" data-source-asset-urls="true" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="IVF-PQ coarse-cell probing followed by residual PQ lookup distance accumulation">
+</div>
+
+[GitHub-compatible static preview](../../assets/concept-animations/ivfpq-probe-pq-lookup-still.svg).
+
+The diagram probes **two coarse posting lists** (`nprobe = 2`, teal rings), then highlights the three PQ lookup terms for **one illustrative residual code**. Its chosen toy contributions add to `0.09 + 0.16 + 0.04 = 0.29`. These numbers are **not FAISS measurements**, and the drawn circular cells are not exact Voronoi regions.
+
+For residual IVF-PQ, the vector is encoded relative to its coarse centroid $c_\ell$: $r=x-c_\ell$. The query uses $q-c_\ell$, giving the asymmetric squared-distance estimate
+
+$$
+\widehat D(q,x)=\sum_{j=1}^{m}\left\|(q-c_\ell)_j-d_{j,k_j}\right\|^2.
+$$
+
+Each probed list can require a distinct query-residual lookup table. PQ is approximate; examining only two lists does not guarantee exact recall. **Exact** reranking also requires access to the original vectors or another exact representation. See [Johnson, Douze and Jégou (2017)](https://arxiv.org/abs/1702.08734).
+
+The MkDocs site adds keyboard-operable **Play/Pause**, with a non-animated fallback on pause and for reduced motion. Original illustration, **CC BY-SA 4.0**.
+
+The query stays fixed. The orange ring is a scan-progress guide, not a moving query or an embedding trajectory. After both lists are indicated, the three fixed lookup terms are highlighted in order, followed by the total; all numbers are an overview, not a running accumulator. Resetting the loop is not another search step.
 
 ## Key ideas
 
 - **Problem:** storing and scanning full-precision vectors for billions of items exceeds the memory and time of a single GPU or server.
 - **Core idea:** split the collection into $n_{\text{list}}$ cells with a coarse quantiser (inverted file, IVF), so a query only scans the few cells nearest to it. Inside each cell, compress each vector with product quantisation (PQ): split it into $m$ sub-vectors and store the index of the nearest centroid for each, using one byte per sub-vector.
-- **Equation or algorithm:** distance to a compressed vector is approximated as $\lVert q - x \rVert^2 \approx \sum_{j=1}^{m} \lVert q_j - c_{j}(x_j) \rVert^2$, where $c_j(x_j)$ is the centroid stored for sub-vector $j$. Precomputed lookup tables make each term a table read.
+- **Equation or algorithm:** distance to a compressed vector is approximated as
+
+    $$
+    \lVert q - x \rVert^2 \approx \sum_{j=1}^{m} \lVert q_j - c_{j}(x_j) \rVert^2
+    $$
+
+    Here $c_j(x_j)$ is the centroid stored for sub-vector $j$. Precomputed lookup tables make each term a table read.
 - **Results:** the paper reports billion-scale similarity search on GPUs, with the trade-off between memory, speed and recall controlled by $m$ and the number of probed cells.
 - **Limitations:** PQ error limits recall, so systems often re-rank the top candidates with exact distances. Training the quantiser needs representative data.
 

@@ -32,8 +32,14 @@ on:
       - "scripts/test_ssl_gradient_browser.py"
       - "scripts/test_ssl_ema_trajectory_browser.py"
       - "scripts/test_ssl_temporal_provenance_browser.py"
+      - "scripts/test_inference_concept_motion_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
+      - "docs/javascripts/symbolic-proof-labs.js"
+      - "docs/stylesheets/symbolic-proof-labs.css"
+      - "scripts/test_symbolic_proof_labs_browser.py"
+      - "scripts/test_resolution_lab.cjs"
+      - "scripts/test_inference_player.cjs"
       - "docs/javascripts/regression-metric-labs.js"
       - "docs/stylesheets/regression-metric-labs.css"
       - "scripts/test_regression_metric_labs_browser.py"
@@ -81,6 +87,10 @@ jobs:
         run: node scripts/test_concept_motion_chapters.cjs
       - name: Test MoCo FIFO and BYOL EMA simulators
         run: node scripts/test_self_supervised_labs.cjs
+      - name: Check resolution inference and shared-player isolation
+        run: |
+          node scripts/test_resolution_lab.cjs
+          node scripts/test_inference_player.cjs
       - name: Install Chromium and Traditional Chinese fonts for visual tests
         run: |
           sudo apt-get update -qq
@@ -88,6 +98,12 @@ jobs:
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
+      - name: "Chromium symbolic proof labs: DFS state, resolution, keyboard and fallback"
+        run: python scripts/test_symbolic_proof_labs_browser.py --screenshots artifacts/symbolic-proof-labs
+      - name: Chromium OOD bilingual playback, keyboard and reduced motion
+        run: python scripts/test_ood_motion_browser.py
+      - name: Chromium bilingual inference diagrams, keyboard pause and mobile scroll
+        run: python scripts/test_inference_concept_motion_browser.py
       - name: Chromium interactive AdaGrad and Adafactor numerical labs
         run: python scripts/test_adaptive_optimiser_labs_browser.py
       - name: Render deterministic SVD and power-iteration SVG keyframes
@@ -122,6 +138,8 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/symbolic-proof-labs/*.png
+            artifacts/ood-motion/*.png
             artifacts/linear-algebra-motion/
             artifacts/regression-metric-labs/*.png
             artifacts/sharpness-labs/*.png

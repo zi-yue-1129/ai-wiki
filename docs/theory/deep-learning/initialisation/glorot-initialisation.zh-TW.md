@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-11-03
-translation_reviewed: 2026-11-03
+translation_reviewed: 2026-11-15
 related:
   - theory/deep-learning/initialisation
 tags:
@@ -57,20 +57,42 @@ $$
 原論文提出均勻分布。對稱均勻變數在 $[-a,a]$ 上的變異數為 $a^2/3$，因此：
 
 $$
-W_{ji}\sim\mathcal{U}(-a,a),\qquad
+\begin{gathered}
+W_{ji}\sim\mathcal{U}(-a,a),\\
 a=\sqrt{\frac{6}{n_{\text{in}}+n_{\text{out}}}}.
+\end{gathered}
 $$
 
 常見實作中的常態形式採用相同變異數：
 
 $$
-W_{ji}\sim\mathcal{N}(0,\sigma_w^2),\qquad
+\begin{gathered}
+W_{ji}\sim\mathcal{N}(0,\sigma_w^2),\\
 \sigma_w=\sqrt{\frac{2}{n_{\text{in}}+n_{\text{out}}}}.
+\end{gathered}
 $$
 
 此處常態分布的尺度參數是**標準差**，不是變異數。相同變異數並不表示兩個分布相同：均勻形式有界，常態形式則無界。[^implementation]
 
 部分函式庫提供增益 $g$：將 $a$ 或 $\sigma_w$ 乘以 $g$，變異數就會乘以 $g^2$。上式使用 $g=1$。PyTorch 的 Xavier 函式預設使用此增益；另行呼叫的增益輔助函式則為 tanh 建議 $5/3$。明確傳入該值會改變尺度，並不等於重現單位增益公式。[^implementation]
+
+
+### Tanh 飽和：為什麼單位斜率近似會失效
+
+<div tabindex="0" role="region" aria-label="高斯前激活變異數增加時 tanh 導數平方期望下降的動畫；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-tanh-saturation-still.svg" data-motion-src="../../../assets/concept-animations/glorot-tanh-saturation-motion.svg" data-still-src="../../../assets/concept-animations/glorot-tanh-saturation-still.svg" alt="游標追蹤高斯前激活變異數增加時的 tanh 導數平方期望；從一降至變異數九時約 0.174，低於虛線表示的單位斜率基準。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 使用 Glorot 初始化平衡線性化的訊號變異數，**不代表**非線性函數始終維持接近一的局部斜率。對於人工設定的 $Z\sim\mathcal N(0,q)$，tanh 的**局部導數平方期望**為
+
+$$
+G(q)=\mathbb E\!\left[(\tanh'(Z))^2\right]
+=\mathbb E\!\left[\operatorname{sech}^4(Z)\right].
+$$
+
+紫色曲線由確定性的**高斯數值積分**取得，並非訓練結果擬合或實測曲線。計算得到 $G(0)=1$、$G(1)\approx0.4644$、$G(9)\approx0.1742$。前激活分布變寬後，更多值落在 tanh 飽和區域，局部導數便下降。此單一因子**不等於**整層輸入輸出的 Jacobian，也不能直接視為實測梯度範數；權重尺度、層間相關性與深度均會影響結果。[^glorot][^propagation]
+
+Wiki 網站沿用共用的播放／暫停、Enter／Space 鍵盤操作、Reduced Motion 靜態回退與手機圖內水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/glorot-tanh-saturation-motion.svg) · [GitHub 靜態預覽](../../../assets/concept-animations/glorot-tanh-saturation-still.svg)。
 
 ## 算例：非方形層
 
@@ -85,6 +107,36 @@ $$
 對 100 個輸入、400 個輸出的層，$a=\sqrt{0.012}\approx0.10954$，且 $\sigma_w=\sqrt{0.004}\approx0.06325$。若改取兩個保持目標的平均，會得到 $(0.01+0.0025)/2=0.00625$，那是不同的規則。
 
 非方形算例說明為何「同時保持兩個方向的變異數」需要限定條件。即使正確實作 Glorot，一層仍可能縮小前向變異數並放大反向變異數。
+
+### 動態示意：前向與反向變異數的折衷
+
+<div tabindex="0" role="region" aria-label="Glorot 動畫；窄螢幕可使用方向鍵水平捲動。" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-fan-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/glorot-fan-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/glorot-fan-tradeoff-still.svg" alt="Glorot 初始化的解析式變異數倍率：扇出增加時，青綠色前向倍率下降，紫色反向倍率上升；只有方形層兩者同時為一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*原創連續教學動畫，CC BY-SA 4.0。* 將扇入固定為 100，讓扇出從 100 變至 400，權重變異數為 $2/(100+n_{\text{out}})$。前向倍率 $200/(100+n_{\text{out}})$ 從 **1 降為 0.4**；反向倍率 $2n_{\text{out}}/(100+n_{\text{out}})$ 從 **1 升至 1.6**。長條上的虛線代表倍率一。這些是**解析式示意值，並非訓練模型的量測結果**；上述近似依賴先前說明的獨立性及近線性條件。[^glorot]
+
+在 Wiki 網站可透過**播放／暫停**按鈕操作（聚焦後按 Enter 或 Space）；偏好減少動態效果時，初始顯示靜態圖。手機可使用鍵盤方向鍵水平捲動。[開啟完整 SVG 動畫](../../../assets/concept-animations/glorot-fan-tradeoff-motion.svg) · [查看靜態回退預覽](../../../assets/concept-animations/glorot-fan-tradeoff-still.svg)。
+
+### 交替層寬：為何變異數仍會隨深度偏移
+
+<div tabindex="0" role="region" aria-label="Glorot 交替層寬傳播動畫，窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-alternating-width-still.svg" data-motion-src="../../../assets/concept-animations/glorot-alternating-width-motion.svg" data-still-src="../../../assets/concept-animations/glorot-alternating-width-still.svg" alt="在寬度 100 與 400 交替的線性化網路中，Glorot 前向變異數從 1 逐層降至 0.262；交替寬度不會讓尺度完全抵銷。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 設定層寬為 **100 → 400 → 100 → 400 → 100 → 400 → 100**，各層採用單位增益 Glorot 權重變異數 **2/(100 + 400)**，並假設激活函數可近似為斜率一的線性函數。前向變異數倍率在 **0.4** 與 **1.6** 之間交替，但每兩層的乘積是 **0.64**，而不是 1；經六層後，**相對初始變異數為 0.64³ = 0.262144**。移動標記代表**理論期望，並非單一激活值或模型實測結果**。推導依賴零均值獨立權重、置中且獨立的輸入特徵與近線性假設；非線性、相關性、殘差連接都會影響真實傳播。[^glorot]
+
+Wiki 網站提供可用鍵盤啟動的播放／暫停；偏好減少動態效果時顯示靜態回退。[連續 SVG 動畫](../../../assets/concept-animations/glorot-alternating-width-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/glorot-alternating-width-still.svg)。
+
+### 相同變異數，不代表相同的尾部分布
+
+<div tabindex="0" role="region" aria-label="Glorot 均勻與高斯密度連續變化示意；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-equal-variance-densities-still.svg" data-motion-src="../../../assets/concept-animations/glorot-equal-variance-densities-motion.svg" data-still-src="../../../assets/concept-animations/glorot-equal-variance-densities-still.svg" alt="變異數同為一的均勻分布支援範圍介於負根號三到正根號三之間，而標準常態分布具有非零尾部機率；兩者平均值與變異數相同，形狀卻不同。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*原創連續教學動畫，CC BY-SA 4.0。* 令 $\sigma^2=2/(n_{\mathrm{in}}+n_{\mathrm{out}})$ 為 Glorot 的目標權重變異數。將權重除以 $\sigma$ 後，**均勻形式**為 $U\sim\mathcal U(-\sqrt3,\sqrt3)$，**常態形式**為 $G\sim\mathcal N(0,1)$。兩者平均值均為零、變異數均為一；但均勻分布的支援範圍有界，常態分布則對更大的幅度仍給予非零機率。[^implementation] 動畫中間狀態是**示意用的密度混合** $p_t=(1-t)p_U+tp_G$，$0\leq t\leq1$。因為兩端分布的平均值與變異數相同，任何中間混合亦維持兩者不變；**此混合並非標準的 Glorot 抽樣規則**。圖中是解析密度，不是抽樣權重直方圖或訓練模型的實測結果。
+
+網站提供播放／暫停（Enter／Space 鍵盤操作）、減少動態效果的靜態回退，手機可於圖內水平捲動。[連續 SVG 動畫](../../../assets/concept-animations/glorot-equal-variance-densities-motion.svg) · [GitHub 靜態回退](../../../assets/concept-animations/glorot-equal-variance-densities-still.svg)。
 
 ## 實務使用與檢查
 
@@ -115,6 +167,8 @@ PyTorch 文件中的全連接權重慣例為 $[n_{\text{out}},n_{\text{in}}]$，
 [^he]: He 等人（2015），第 2.2 節：考慮整流函數的初始化與前向、反向訊號尺度。
 [^propagation]: Saxe 等人（2013）的《Exact solutions》與 Schoenholz 等人（2016）的《Deep Information Propagation》：互補的學習動態與訊號傳播分析。
 [^normalisation]: Ioffe 與 Szegedy（2015），《Batch Normalization》：訓練時的正規化與對初始化敏感度的降低。
+
+離散深度與通道示例停留在精確整數狀態後重設；連線只是視覺引導，不是分數層或分數通道。參數掃描是示意插值，不是訓練軌跡；反向掃描參數不代表訓練倒退。密度圖只顯示高斯尾部的有限視窗，不會將截斷視窗重新正規化。
 
 ## 參考文獻
 

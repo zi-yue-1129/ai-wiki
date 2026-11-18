@@ -31,6 +31,24 @@ MnasNet 以一個獎勵函數搜尋行動端影像分類器，該獎勵結合了
 
 其中 \(\mathrm{LAT}(m)\) 為實測延遲，\(T\) 為目標延遲，\(w\) 為控制延遲懲罰強度的指數。控制器的更新目標是提高期望獎勵。
 
+原論文允許在目標延遲兩側使用不同指數：當 \(\mathrm{LAT}(m)\le T\) 時 \(w=\alpha\)，否則 \(w=\beta\)。論文的軟限制設定為 \(\alpha=\beta=-0.07\)；下方動畫刻意採用較強的人工懲罰值（Tan et al., 2019，第 3 節）。
+
+## 動態範例：延遲可能反轉架構排名
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="教學動畫（聚焦後可用方向鍵水平捲動）">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" alt="架構 B 的示意準確率比較高，但當 B 的假設延遲比率增加，其延遲調整後的獎勵可能低於 A；曲線標記與長條同步變化。" loading="lazy" width="800" height="420" style="width:800px;min-width:800px;max-width:none" />
+</div>
+</div>
+
+窄螢幕可聚焦圖框後使用方向鍵或滑動，水平捲動檢視原尺寸圖。
+
+*原創教學 SVG，CC BY-SA 4.0。* GitHub 顯示[靜態預覽](../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg)；MkDocs 可用鍵盤播放／暫停，減少動態效果模式保留靜態圖。
+
+取**人工設定的獎勵指數** \(w=-1\)。架構 A 的示意準確率為 \(0.74\)，延遲比率 \(\mathrm{LAT}_A/T=0.8\)，因此 \(R_A=0.74/0.8=0.925\)。架構 B 的示意準確率較高，為 \(0.80\)，但將其*假設*延遲比率由 \(0.7\) 掃描至 \(1.3\)，\(R_B=0.80/(\mathrm{LAT}_B/T)\) 就會從約 \(1.143\) 降到 \(0.615\)。比率超過 \(0.80/0.925\approx0.865\) 時，B 的獎勵低於 A。
+
+這是**連續參數掃描，並非控制器訓練軌跡、手機實測或原論文超參數的重現**。範例只用來說明：即使準確率比較高，裝置延遲仍可能改變架構選擇。
+
 ## 主要方法
 
 本頁只涵蓋一種方法：以準確率乘以延遲比為獎勵的強化學習搜尋，延遲在手機上實測，搜尋空間為分解的區塊式結構。

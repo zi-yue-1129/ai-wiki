@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-29
+translation_reviewed: 2026-11-18
 ---
 
 # ODIN
@@ -30,6 +30,18 @@ s(x)=\max_i S_i(\tilde x;T).
 $$
 
 當 $s(x)>\delta$ 時接受為 ID，否則標記為 OOD。實際流程是先做一次前向傳播，再做一次對輸入求梯度的反向傳播，最後對 $\tilde x$ 再做一次前向傳播。預測類別提供梯度目標，因此不需要真實標籤。分類輸出仍可使用原始影像。[^odin]
+
+### 視覺示範：提高分數的輸入擾動
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="ODIN 輸入梯度與分數變化示意">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls style="display:block;width:640px;min-width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/odin-gradient-perturbation-still.svg" data-still-src="../../../assets/concept-animations/odin-gradient-perturbation-still.svg" data-motion-src="../../../assets/concept-animations/odin-gradient-perturbation-motion.svg" width="640" height="360" alt="ODIN 一維示意：正向輸入梯度使 x 從 1 移動到 1.25；softmax 信心由 0.731 提高為 0.777，跨越 0.75 的示意決策門檻。">
+</div>
+</div>
+
+以 Tab 聚焦圖表區後，可按左右方向鍵捲動。白色圓環在上方信心座標軸追蹤目前輸入的分數；BEFORE／AFTER 固定顯示兩個端點。返回原點只是動畫重播，不是額外的 ODIN 更新。
+
+*原創教學動畫（CC BY-SA 4.0）。* 這裡使用**人工設定的一維可微分分類器**：logits 為 \(f_A(x)=2x\)、\(f_B(x)=0\)，溫度 \(T=2\)，起始 \(x=1\)，擾動幅度 \(\varepsilon=0.25\)。因為 \(S_A(x;2)=\sigma(x)\)，輸入方向導數 \(\partial_x\log S_A=1-S_A>0\)，所以 \(\tilde x=1.25\)。信心從約 **0.731** 上升至 **0.777**，跨越**任意選定**的示意接受門檻 \(\delta=0.75\)。連續動畫的中間位置採插值呈現。**這不是影像分類器的實測值、OOD 分數分布，也不構成偵測品質的證明。** MkDocs 網站可播放／暫停；GitHub 提供[靜態預覽](../../../assets/concept-animations/odin-gradient-perturbation-still.svg)，可同時看到前後狀態。手機可水平捲動保留圖中字體大小。理論來源見 References 的 Liang 等人（2018）。
 
 ### 提高溫度究竟改變了什麼
 

@@ -28,14 +28,19 @@ A query needs the stored vectors closest to it. A graph index links each vector 
 
 ## How it works
 
-```mermaid
-flowchart TD
-  Q[Query vector] --> T[Top layer: few long links]
-  T --> M[Middle layers: greedy descent]
-  M --> B[Bottom layer: all points, short links]
-  B --> K[Candidate list of size efSearch]
-  K --> R[k nearest neighbours]
-```
+<div style="overflow-x:auto" tabindex="0" role="region" aria-label="HNSW traversal across sparse upper and dense lower proximity graph layers">
+<img src="../../assets/concept-animations/hnsw-layer-descent-still.svg" data-motion-src="../../assets/concept-animations/hnsw-layer-descent-motion.svg" data-still-src="../../assets/concept-animations/hnsw-layer-descent-still.svg" data-source-asset-urls="true" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="HNSW traversal across sparse upper and dense lower proximity graph layers">
+</div>
+
+[GitHub-compatible static preview](../../assets/concept-animations/hnsw-layer-descent-still.svg).
+
+This **12-second schematic** moves a search token greedily across connected vertices in the sparse upper layer (L2), then descends through L1 to the dense L0 layer. The teal ring is the illustrated endpoint. The horizontal coordinates and graph edges are pedagogical, **not measured embedding distances**.
+
+The drawing isolates *layer descent*. Real HNSW search at L0 uses a bounded candidate set governed by `efSearch` and may explore more than one promising route. Returned neighbours are approximate; an exact global nearest neighbour is **not guaranteed**. Algorithm: [Malkov and Yashunin (2016)](https://arxiv.org/abs/1603.09320).
+
+The MkDocs site adds a keyboard-accessible **Play/Pause** button, with this still image shown on pause and under reduced-motion settings. Original illustration, **CC BY-SA 4.0**.
+
+The orange token indicates search progress, not a changing query. The orange summary rings appear only after the token reaches each layer endpoint (at 32%, 60%, and 88% of the loop); teal rings are fixed overview markers. In-between token positions are visual guides, not new graph vertices. The loop reset is not a reverse search.
 
 ## Key ideas
 

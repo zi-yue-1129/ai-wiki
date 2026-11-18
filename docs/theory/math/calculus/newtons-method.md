@@ -42,6 +42,52 @@ The Hessian's eigenvalues decide the behaviour. Directions with large eigenvalue
 
 Logistic regression is the classic example where the Newton method is practical, because the parameter count is small. Bishop (2006) shows the resulting iterative reweighted least squares update.
 
+## Animated example: curvature-adjusted updates
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/newton-curvature-steps-still.svg" data-motion-src="../../../assets/concept-animations/newton-curvature-steps-motion.svg" data-still-src="../../../assets/concept-animations/newton-curvature-steps-still.svg" alt="Newton steps on a convex quartic: a moving iterate approaches the minimum while a dashed local quadratic changes with the Hessian." loading="lazy" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+*Original continuous teaching visual, CC BY-SA 4.0. GitHub displays the static frame; the wiki player provides keyboard-accessible Play/Pause and respects reduced-motion preferences.*
+
+For the **illustrative function** $f(x)=x^4/4+x^2/2$, $f'(x)=x^3+x$ and $f''(x)=3x^2+1>0$. Starting at $x_0=2.2$, exact full Newton steps produce approximately
+
+$$
+\begin{gathered}
+2.2\to1.3722\to0.7772
+\\ \to0.3339\to0.0558\to0.00034.
+\end{gathered}
+$$
+
+ The amber dashed parabola is the second-order Taylor approximation at the preceding discrete iterate, held fixed as the dot moves to the next point, not a globally identical objective; the teal dot moves continuously **only for illustration**, whereas the algorithm updates at discrete iterates. All values are analytic teaching calculations, **not model measurements**. See Boyd and Vandenberghe (2004) in References.
+
+[GitHub-readable static preview](../../../assets/concept-animations/newton-curvature-steps-still.svg)
+
+## Why an indefinite Hessian needs a safeguard
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/newton-indefinite-curvature-still.svg" data-motion-src="../../../assets/concept-animations/newton-indefinite-curvature-motion.svg" data-still-src="../../../assets/concept-animations/newton-indefinite-curvature-still.svg" alt="On the same double-well quartic, a raw Newton update with negative local curvature moves uphill, whereas a positive curvature shift gives a downhill candidate." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable Newton curvature-safeguard snapshot](../../../assets/concept-animations/newton-indefinite-curvature-still.svg)
+
+*Original 8-second looping instructional animation, CC BY-SA 4.0. The website adds keyboard-accessible Play/Pause and a reduced-motion static fallback.*
+
+For the **analytic toy objective** $f(x)=x^4/4-x^2/2$ at $x_0=0.4$, the gradient is $g=-0.336$ and the Hessian is $H=-0.52$. The **unmodified** Newton update $x_1=x_0-g/H\approx-0.246154$ raises the loss from $-0.0736$ to approximately $-0.029378$. Shifting local curvature by $\lambda=1$ instead gives $H+\lambda=0.48$ and the modified step $x_1=x_0-g/(H+\lambda)=1.1$, reducing the loss to $-0.238975$. Both endpoints are exact computations rounded for display; the dots travelling between them are **visual interpolation of one step**, not additional iterations. A positive shifted Hessian gives a descent **direction**, but an unrestricted full step is not guaranteed to lower the objective in every non-convex problem: practical safeguards also use step-size control or a line search (Boyd and Vandenberghe, 2004). The selected values are illustrative, **not model measurements**.
+
+
+## Damped Newton: Armijo backtracking before accepting a step
+
+<div class="reviewed-motion-scroll" tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls class="concept-motion-wide" src="../../../assets/concept-animations/newton-armijo-backtracking-still.svg" data-motion-src="../../../assets/concept-animations/newton-armijo-backtracking-motion.svg" data-still-src="../../../assets/concept-animations/newton-armijo-backtracking-still.svg" alt="Trial step sizes on a smooth convex objective: the full and half Newton steps overshoot, while the quarter step lowers the loss and satisfies Armijo backtracking." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+The Newton direction can be a descent direction yet a **full step** may increase the true objective. Backtracking tests successively shorter trial steps against the objective, not just the local quadratic approximation. The original, independently designed animation uses the convex function $f(x)=\sqrt{1+x^2}$ at $x_0=2$. Here $f'(2)=2/\sqrt{5}$, $f''(2)=5^{-3/2}$, and the Newton direction is $p=-f'(2)/f''(2)=-10$. The candidates $x_0+\alpha p$ for $\alpha=1,1/2,1/4$ are $-8,-3,-0.5$, with objectives $\sqrt{65}\approx8.0623$, $\sqrt{10}\approx3.1623$, and $\sqrt{1.25}\approx1.1180$, against the starting $\sqrt5\approx2.2361$. The first two candidates fail a standard Armijo condition with $c=10^{-4}$, whereas $\alpha=1/4$ passes. The dashed segment retains the rejected full-step proposal as a reference. **Intermediate marker positions are smooth visual interpolation of analytic candidates, not extra solver iterations, and these values are not model measurements.** This example illustrates damped Newton and line search as discussed by Boyd and Vandenberghe (2004; References).
+
+*Original instructional visual, CC BY-SA 4.0.* The MkDocs site inherits Play/Pause and keyboard support from its shared motion player; reduced-motion users see the static fallback and narrow screens can scroll the figure locally. [Open animated SVG](../../../assets/concept-animations/newton-armijo-backtracking-motion.svg).
+
+[GitHub-readable still preview](../../../assets/concept-animations/newton-armijo-backtracking-still.svg)
+
 ## Key methods
 
 - [Gradient descent](../../optimization/index.md): the first-order alternative, cheaper per step and slower near a minimum.

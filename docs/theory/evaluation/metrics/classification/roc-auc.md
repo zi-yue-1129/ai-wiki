@@ -15,7 +15,7 @@ ROC-AUC is the area under the receiver operating characteristic curve. The curve
 
 At each threshold $t$, the true positive rate is $TP/(TP+FN)$ and the false positive rate is $FP/(FP+TN)$. The ROC curve collects these points, and ROC-AUC is the area under it.
 
-More precisely, ROC-AUC is the probability that an independently selected positive scores **strictly above** a negative, plus **half the probability of a tie**. Under a random ranking independent of labels, its **expected** value is 0.5; an individual small random sample need not have AUC exactly 0.5 (Fawcett, 2006).
+A useful reading is the ranking interpretation: ROC-AUC equals the probability that a randomly chosen positive receives a higher score than a randomly chosen negative. A perfect ranking gives 1.0 and random scores give 0.5 (Fawcett, 2006).
 
 ## Interpretation
 
@@ -23,7 +23,7 @@ ROC-AUC needs only the scores, not labels at a threshold, so it compares models 
 
 ## When to use it
 
-Use ROC-AUC to compare score rankings without first fixing a decision threshold. **Equal class sizes are not required**: ROC coordinates condition separately on positives and negatives. However, rare positives yield imprecise estimates; report class counts and uncertainty, and examine the **precision-recall curve** and relevant low-FPR region when false alarms or rare positives matter.
+Use ROC-AUC for model comparison when the operating threshold is not yet known, and when positives and negatives are of comparable size.
 
 ## Worked example
 
@@ -109,7 +109,12 @@ ROC-AUC counts an equal-score positive–negative pair as **half a correct ranki
 
 *Original teaching animation (CC BY-SA 4.0).* Consider two **hypothetical fixed decision rules** evaluated against the same underlying population: rule A has `(FPR, TPR)=(0.10, 0.60)` and rule B has `(0.40, 0.90)`. Independently for each new instance, choose B with probability `λ` or A otherwise. Conditional on either true label, the **expected** false-positive and true-positive rates are:
 
-$\mathrm{FPR}_{mix}=0.10+0.30\lambda$ and $\mathrm{TPR}_{mix}=0.60+0.30\lambda$.
+$$
+\begin{gathered}
+\mathrm{FPR}_{mix}=0.10+0.30\lambda,\\
+\mathrm{TPR}_{mix}=0.60+0.30\lambda.
+\end{gathered}
+$$
 
 The marker traces the straight line segment between A and B as `λ` changes continuously. For `λ=0.5`, the expected operating point is **(FPR 0.25, TPR 0.75)**. This represents randomized decisions between *two fixed rules*, **not** an interpolated model score, retraining, probability calibration, or a guarantee of exact finite-sample rates. It illustrates randomized points along an ROC operating envelope, as discussed by Fawcett (2006) in References. **These rates are constructed examples, not measurements.** MkDocs provides keyboard-operated Play/Pause and a reduced-motion still. [GitHub static preview](../../../../assets/concept-animations/roc-randomized-operating-mix-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-randomized-operating-mix-motion.svg). Scroll horizontally on narrow screens.
 
@@ -121,51 +126,18 @@ The marker traces the straight line segment between A and B as `λ` changes cont
 </div>
 </div>
 
-*Original instructional animation (CC BY-SA 4.0); all operating rates and cost inputs are **constructed, not measured or validated deployment statistics**.* Suppose four distinct ranked scores have labels `+ − + −`, with two positives and two negatives. Accepting the top $k=0,1,2,3,4$ items yields conditional $(FPR,TPR)$ points $(0,0),(0,1/2),(1/2,1/2),(1/2,1),(1,1)$. For a **hypothetical deployment population**, separately assume prevalence $p=0.25$, false-negative cost $C_{FN}=2$, and false-positive cost $C_{FP}=1$. Expected error cost per case is
+*Original instructional animation (CC BY-SA 4.0); all operating rates and cost inputs are **constructed, not measured or validated deployment statistics**.* Suppose four distinct ranked scores have labels `+ − + −`, with two positives and two negatives. Accepting the top $k=0,1,2,3,4$ items yields conditional $(FPR,TPR)$ points $(0,0)$, $(0,1/2)$, $(1/2,1/2)$, $(1/2,1)$, $(1,1)$. For a **hypothetical deployment population**, separately assume prevalence $p=0.25$, false-negative cost $C_{FN}=2$, and false-positive cost $C_{FP}=1$. Expected error cost per case is
 
 $$
-L(k)=C_{FN}p[1-TPR(k)]+C_{FP}(1-p)FPR(k).
+\begin{aligned}
+L(k)&=C_{FN}p[1-TPR(k)]\\
+&\quad+C_{FP}(1-p)FPR(k).
+\end{aligned}
 $$
 
 The five costs are respectively **0.500, 0.250, 0.625, 0.375, 0.750**. The moving outline and ROC marker jointly identify each threshold; the lowest illustrative expected cost occurs at **$k=1$**. Importantly, the balanced four-item ranking determines these illustrative **conditional** operating rates; the $25\%$ prevalence is a **separate assumption**, not inferred from those four cases. Actual deployment decisions additionally need calibrated cost estimates and representative rate estimates. **ROC-AUC does not select an optimal decision threshold by itself.** MkDocs offers keyboard-accessible Play/Pause and a reduced-motion still. [GitHub static preview](../../../../assets/concept-animations/roc-cost-operating-point-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-cost-operating-point-motion.svg). On mobile, scroll horizontally. See Fawcett (2006) in References for ROC operating-point interpretation.
 
-## Animated prevalence shift: ROC stays fixed while precision changes
-
-<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC and precision-recall prevalence shift">
-<div style="width:640px">
-<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-pr-prevalence-still.svg" data-still-src="../../../../assets/concept-animations/roc-pr-prevalence-still.svg" data-motion-src="../../../../assets/concept-animations/roc-pr-prevalence-motion.svg" alt="Five hypothetical class prevalence values change precision from 0.296 to 0.923 while the ROC operating point stays fixed at false-positive rate 0.10 and true-positive rate 0.80." width="640" height="360">
-</div>
-</div>
-
-*Original synthetic instructional animation (CC BY-SA 4.0).* Hold the **conditional** rates TPR = 0.80 and FPR = 0.10 fixed while positive prevalence increases across **five discrete, exact states**: 5%, 10%, 20%, 40%, and 60%. The ROC operating point stays at (0.10, 0.80); in precision-recall coordinates recall is 0.80, but precision is
-
-\[
-\operatorname{PPV}(p)=\frac{0.80p}{0.80p+0.10(1-p)}.
-\]
-
-These states produce precision values **0.296, 0.471, 0.667, 0.842, and 0.923**. This is a mathematical population-proportion illustration, **not measured model performance**. Fixed conditional rates are assumed, not guaranteed under dataset shift. Discrete steps keep the stated numerical states exact rather than pretending that this nonlinear formula interpolates linearly. MkDocs offers keyboard-operable Play/Pause; reduced-motion preferences show the still image. On mobile, focus the figure and scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-pr-prevalence-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-pr-prevalence-motion.svg).
-
-## Animated threshold selection: Youden J versus deployment error cost
-
-<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Youden J versus cost-sensitive threshold">
-<div style="width:640px">
-<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-youden-cost-still.svg" data-still-src="../../../../assets/concept-animations/roc-youden-cost-still.svg" data-motion-src="../../../../assets/concept-animations/roc-youden-cost-motion.svg" alt="Two synthetic objective curves across seven threshold positions. Youden J peaks after selecting the first two ranked cases; prevalence-weighted error cost is lowest when all six are predicted positive." width="640" height="360">
-</div>
-</div>
-
-*Original synthetic instructional animation (CC BY-SA 4.0).* Six cases with distinct scores have ranked labels `+ + − − − +`, with three positives and three negatives. At each of seven threshold positions, `k = 0, ..., 6`, the two objectives are
-
-\[
-J(k)=\operatorname{TPR}(k)-\operatorname{FPR}(k)
-\]
-
-and
-
-\[
-L(k)=5(0.40)[1-\operatorname{TPR}(k)]+(0.60)\operatorname{FPR}(k).
-\]
-
-**J is maximized at k = 2**, where `J = 2/3`. Under a **separate, hypothetical deployment prevalence of 0.40**, a false-negative cost of 5 units, and a false-positive cost of 1 unit, **expected loss is minimized at k = 6**: `L = 0.60` versus `L = 2/3` at k = 2. As a **cost-ratio counterfactual**, retain prevalence 0.40 and false-positive cost 1 but lower false-negative cost from 5 to **1**: then the unique loss minimum is **k = 2**, with `L(2) = 0.4/3 ≈ 0.133`, whereas `L(6) = 0.60`. The original `k = 6` minimum therefore depends on the cost assumptions, not on a different ROC curve. These are illustrative per-decision costs; conditional TPR/FPR values come from the artificial ranked set, not a fitted classifier. Thus a rate-balancing cutoff need not be the loss-minimizing deployment rule. MkDocs provides keyboard-operable Play/Pause and a reduced-motion still displaying both optima. On mobile, focus and scroll the figure horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-youden-cost-motion.svg).
+The mixture sweeps its probability forward and backward, not training time. Cost thresholds instead advance in discrete steps and reset; the ROC connector is a reference guide, not a sequence of fractional observations.
 
 ## References
 

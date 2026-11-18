@@ -9,7 +9,7 @@ tags:
 
 # PR-AUC
 
-PR-AUC 概括決策門檻變動時的精確率—召回率曲線。針對稀少正例的檢索任務通常很有參考價值，因為精確率直接反映被選取案例中正例的比例。**必須說明積分定義**：不內插的平均精確率（AP）與梯形法計算的 PR 面積是不同指標。
+PR-AUC 概括精確率—召回率曲線，該曲線描繪門檻改變時精確率對召回率的關係。當正例稀少時，這是應優先採用的指標，因為它著重於正例如何被排序。
 
 ## 定義
 
@@ -21,7 +21,7 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 
 ## 解讀
 
-在母體層級，與標籤獨立的隨機分數，其精確率參考線等於正例盛行率；這不等於有限樣本隨機排序時，不內插 AP 的精確期望。不同於隨機排序時期望值為 0.5 的 ROC-AUC 基準線，母體 PR 基準線取決於正例盛行率。因此，**不同盛行率資料集的原始 AP 數值必須審慎比較**，不能單憑數值判定哪個模型排序能力較好。宜優先使用同一評估分布進行成對比較，並報告正例比例與 AP 的計算定義。
+在母體層級，與標籤獨立的隨機分數，其精確率參考線等於正例盛行率；這不等於有限樣本隨機排序時，不內插 AP 的精確期望。與 ROC-AUC 不同，基準線會隨資料改變，因此不同資料集之間的 PR-AUC 數值不能直接比較。應在同一個資料集上比較模型。
 
 ## 何時使用
 
@@ -59,7 +59,16 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 </div>
 </div>
 
-*原創教學動畫（CC BY-SA 4.0）。* 使用同樣的四筆**人工排序** `+ − + −`，**不內插的 AP** 為 $(1/2)(1)+(1/2)(2/3)=5/6\approx0.833$。若將各門檻的 PR 操作點用直線連接（包含召回率相同時的垂直段），得到的**梯形面積**為 $A_{\mathrm{trap}}=19/24\approx0.792$（後半段貢獻 $(1/2)(1/2+2/3)/2=7/24$），此例差距 $1/24$。**梯形法並不保證分數總是較大**，其差異取決於排序與內插定義；不能把梯形面積直接稱為 `average_precision_score`。動畫先逐步顯示 AP 矩形，再顯示右側的插值區域，並非模型實測評估。MkDocs 支援鍵盤播放／暫停及 Reduced Motion 靜態回退。[GitHub 靜態比較圖](../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg)。手機可橫向捲動。
+*原創教學動畫（CC BY-SA 4.0）。* 使用同樣的四筆**人工排序** `+ − + −`，**不內插的 AP** 為 $(1/2)(1)+(1/2)(2/3)=5/6\approx0.833$。若將各門檻的 PR 操作點用直線連接（包含召回率相同時的垂直段），得到的**梯形面積**為：
+
+$$
+\begin{gathered}
+(1/2)(1)+(1/2)(1/2+2/3)/2 \\
+=19/24\approx0.792.
+\end{gathered}
+$$
+
+此例差距 $1/24$。**梯形法並不保證分數總是較大**，其差異取決於排序與內插定義；不能把梯形面積直接稱為 `average_precision_score`。動畫先逐步顯示 AP 矩形，再顯示右側的插值區域，並非模型實測評估。MkDocs 支援鍵盤播放／暫停及 Reduced Motion 靜態回退。[GitHub 靜態比較圖](../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg)。手機可橫向捲動。
 
 ## 動畫示範：ROC-AUC 相同，平均精確率仍可能不同
 
@@ -98,7 +107,16 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 
 *原創教學動畫，CC BY-SA 4.0 授權；GitHub 顯示靜態 SVG 回退。* [GitHub static preview](../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-ap-tied-threshold-motion.svg).
 
-依據分數門檻繪製 Precision–Recall 曲線時，**同分樣本必須在同一門檻一起納入**，不能以任意排序替代同分分組。本例 $0.90(+),0.70(+),0.70(-),0.20(-)$ 的不同門檻依序得到 $(R,P)=(1/2,1)$、$(1,2/3)$、$(1,1/2)$。因此不內插的 $AP=(1/2)(1)+(1/2)(2/3)=5/6\approx0.8333$。最後加入負例雖降低 Precision，卻未增加 Recall，因此 AP 不變。若強行拆開同分群組，逐筆計算正例名次的貢獻，可能得出不同結果；此圖採用 scikit-learn `average_precision_score` 的同分門檻分組方式。數值皆為**人工示例，非模型實測**。MkDocs 提供播放／暫停及鍵盤水平捲動。
+依據分數門檻繪製 Precision–Recall 曲線時，**同分樣本必須在同一門檻一起納入**，不能以任意排序替代同分分組。本例 $0.90(+),0.70(+),0.70(-),0.20(-)$ 的不同門檻依序得到 $(R,P)=(1/2,1)$、$(1,2/3)$、$(1,1/2)$。因此，不內插的平均精確率為：
+
+$$
+\begin{gathered}
+AP=(1/2)(1)+(1/2)(2/3)
+\\ =5/6\approx0.8333.
+\end{gathered}
+$$
+
+最後加入負例雖降低 Precision，卻未增加 Recall，因此 AP 不變。若強行拆開同分群組，逐筆計算正例名次的貢獻，可能得出不同結果；此圖採用 scikit-learn `average_precision_score` 的同分門檻分組方式。數值皆為**人工示例，非模型實測**。MkDocs 提供播放／暫停及鍵盤水平捲動。
 
 ## 動畫示範：有限樣本下隨機排序的 AP 基準
 
@@ -111,27 +129,16 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 *原創教學動畫（CC BY-SA 4.0）；所有標籤與分數均為**人工示例，非模型實測**。* 假設四筆資料包含**兩筆正例、兩筆負例**，分數互不相同，且隨機排序與真實標籤獨立。因此正例位置共有 $\binom{4}{2}=6$ 種等機率組合。每個正例在第 $r$ 名的 AP 貢獻為 $P@r/2$；六種完整排序的不內插 AP 依序為 $1,5/6,3/4,7/12,1/2,5/12$。動畫框線逐列掃描，並顯示已列舉組合的累積平均：
 
 $$
-\mathbb E[AP]=\frac{1+5/6+3/4+7/12+1/2+5/12}{6}
+\begin{gathered}
+\mathbb E[AP]=\tfrac16\left(1+\tfrac56+\tfrac34\right.\\
+\left.{}+\tfrac7{12}+\tfrac12+\tfrac5{12}\right)\\
 =\frac{49}{72}\approx0.681.
+\end{gathered}
 $$
 
 結果**不等於**正例比例 $2/4=0.5$。盛行率是與標籤獨立的分數在*母體層級*精確率曲線上的參考值，不是有限樣本不內插 AP 的確切期望。本圖只是小樣本的精確排列組合示例，**不可視為所有資料集都適用的隨機 AP 修正公式**。MkDocs 支援鍵盤操作播放／暫停；偏好減少動態效果時顯示完整靜態表格。[GitHub 靜態預覽](../../../../assets/concept-animations/pr-random-ap-expectation-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/pr-random-ap-expectation-motion.svg)。手機可橫向捲動。AP 定義對照既有 References 中的 scikit-learn 文件。
 
-## 動畫示範：盛行率改變時 ROC 固定、精確率改變
-
-<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC 與精確率—召回率在盛行率變動下的對照">
-<div style="width:640px">
-<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-pr-prevalence-still.svg" data-still-src="../../../../assets/concept-animations/roc-pr-prevalence-still.svg" data-motion-src="../../../../assets/concept-animations/roc-pr-prevalence-motion.svg" alt="固定偽正例率 0.10 與真正例率 0.80，讓假設的正例盛行率依序變成五種數值；ROC 操作點固定，但精確率由 0.296 升至 0.923。" width="640" height="360">
-</div>
-</div>
-
-*原創人工示意動畫（CC BY-SA 4.0）。* 固定條件式 TPR = 0.80 與 FPR = 0.10，讓正例盛行率依序採用**五個離散且精確的狀態**：5%、10%、20%、40%、60%。ROC 操作點維持在 (0.10, 0.80)，PR 座標的召回率仍是 0.80，但精確率變成
-
-\[
-\operatorname{PPV}(p)=\frac{0.80p}{0.80p+0.10(1-p)}.
-\]
-
-五種狀態的精確率依序為 **0.296、0.471、0.667、0.842、0.923**。以上是母體比例的**人工數學示意，不是模型實測**；條件式辨識率不變僅是假設，不能保證分布轉移後仍然成立。動畫採離散狀態，避免將非線性關係錯誤呈現為線性內插。MkDocs 提供鍵盤可操作的播放／暫停，偏好減少動態效果者可觀看靜態圖；手機請聚焦後水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-pr-prevalence-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-pr-prevalence-motion.svg)。
+框線掃描完整參考表格；每列是一種完整的替代排序，不是新觀測到的單筆資料。列舉順序可任意選擇，因此中途的累積平均不代表收斂保證。循環結束會重設到第一列。
 
 ## 參考文獻
 

@@ -32,13 +32,19 @@ For multiclass problems, it is the share of samples whose predicted class equals
 
 The illustration uses **hypothetical population rates, not sampled or measured classifier results**. If positive prevalence is $p$, with fixed sensitivity (TPR) $0.80$ and specificity (TNR) $0.90$:
 
-$\operatorname{Accuracy}(p)=0.80p+0.90(1-p)$, equivalently $\operatorname{Accuracy}(p)=0.90-0.10p$.
+$$
+\begin{gathered}
+\operatorname{Accuracy}(p) \\
+= p(0.80)+(1-p)(0.90) \\
+= 0.90-0.10p.
+\end{gathered}
+$$
 
 Balanced accuracy is the **unweighted mean of class recalls**, $(0.80+0.90)/2=0.85$. Varying $p$ from $0.10$ to $0.90$ thus moves ordinary accuracy from **0.89 to 0.81**, while balanced accuracy stays **0.85**.[^balanced-demo] This holds only if both conditional class-wise rates remain fixed; real distribution shifts can change them too.
 
 ## Interpretation
 
-Accuracy is easy to interpret once predicted labels are fixed. If a classifier outputs scores or probabilities, converting them to labels requires a decision threshold (or, for multiclass scores, a specified label-selection rule), so accuracy can change with that rule. Accuracy also depends on the class balance. If 99% of cases are negative, a model that never predicts a positive scores 99% accuracy while finding no positives at all.
+Accuracy needs no threshold and is easy to explain. Its weakness is that it depends on the class balance. If 99% of cases are negative, a model that never predicts a positive scores 99% accuracy while finding no positives at all.
 
 ## When to use it
 
@@ -46,7 +52,7 @@ Use accuracy when the classes are roughly balanced and every kind of error has t
 
 ## Worked example
 
-For the [shared synthetic 100-case confusion matrix](index.md), accuracy is $(40 + 30) / 100 = 0.70$. The same classifier has precision 0.80 and recall 0.67 (see [precision](precision.md) and [recall](recall.md)), so accuracy alone does not show which kind of error dominates.
+Using the 100 cases above, accuracy is $(40 + 30) / 100 = 0.70$. The same classifier has precision 0.80 and recall 0.67 (see [precision](precision.md) and [recall](recall.md)), so accuracy alone does not show which kind of error dominates.
 
 ## Properties and variants
 
