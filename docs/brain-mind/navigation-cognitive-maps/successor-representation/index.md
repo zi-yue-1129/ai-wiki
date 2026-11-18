@@ -41,20 +41,32 @@ Dayan (1993) shows how TD machinery can learn representations in which each stat
 
 Let \(M(s, s')\) be the expected discounted number of visits to state \(s'\) starting from state \(s\), and let \(R(s')\) be the reward at \(s'\). Then
 
-\(M(s, s') = \mathbb{E}\left[\sum_{t \ge 0} \gamma^{t}\, \mathbf{1}[s_t = s'] \,\middle|\, s_0 = s\right]\), and \(V(s) = \sum_{s'} M(s, s')\, R(s')\)
+$$
+M(s, s') = \mathbb{E}\left[\sum_{t \ge 0} \gamma^{t}\, \mathbf{1}[s_t = s'] \,\middle|\, s_0 = s\right]
+$$
+
+and
+
+$$
+V(s) = \sum_{s'} M(s, s')\, R(s')
+$$
 
 where \(\gamma\) is the discount factor. After an observed transition from \(s\) to \(s'\), the row \(M(s, \cdot)\) is updated with a TD step:
 
-\(M(s,\cdot) \leftarrow M(s,\cdot) + \alpha\,[\mathbf{1}_{s} + \gamma\, M(s',\cdot) - M(s,\cdot)]\)
+$$
+M(s,\cdot) \leftarrow M(s,\cdot) + \alpha\,[\mathbf{1}_{s} + \gamma\, M(s',\cdot) - M(s,\cdot)]
+$$
 
 with learning rate \(\alpha\). The reward weights \(R\) are estimated separately, from the rewards observed in each state. Because \(M\) is defined by the agent's policy, a change of policy changes \(M\).
 
 
 ### Animated occupancy and reward revaluation
 
-<img src="../../../assets/concept-animations/successor-occupancy-still.svg" data-motion-src="../../../assets/concept-animations/successor-occupancy-motion.svg" data-still-src="../../../assets/concept-animations/successor-occupancy-still.svg" alt="A token visits a five-state terminal chain as discounted occupancy bars accumulate; moving the reward marker changes value but not occupancy">
+<img data-source-asset-urls src="../../../assets/concept-animations/successor-occupancy-still.svg" data-motion-src="../../../assets/concept-animations/successor-occupancy-motion.svg" data-still-src="../../../assets/concept-animations/successor-occupancy-still.svg" alt="A token visits a five-state terminal chain as discounted occupancy bars accumulate; moving the reward marker changes value but not occupancy">
 
 *Original teaching animation (CC BY-SA 4.0).* A **deterministic, episodic, fixed-policy** chain visits $S_0\rightarrow S_1\rightarrow S_2\rightarrow S_3\rightarrow S_4$ exactly once, then terminates. With $\gamma=0.7$, $M(S_0,S_j)=\gamma^j$ for $j=0,\ldots,4$; this counts the terminal state once, **without** an infinite continuation of visits to an absorbing state. The orange marker traverses states while teal bars accumulate the corresponding discounted visits. The purple reward marker first gives $R(S_4)=1$, hence $V(S_0)=0.7^4=0.2401$; then reward is reassigned to $S_2$, giving $V(S_0)=0.7^2=0.49$ **without changing $M$**. This holds only while the transition dynamics and policy remain fixed. All numbers are schematic, not fitted animal behavior or empirical neural data. On MkDocs, use Play/Pause; see the [GitHub static preview](../../../assets/concept-animations/successor-occupancy-still.svg).
+
+Focus the figure viewport with Tab, then use Left/Right to scroll; playback controls remain visible.A discounted visit is added only on arrival at each state. Marker movement between states illustrates a transition, not a fractional visit. The completed row M stays fixed until the whole demonstration restarts; bottom labels show each completed visit weight.
 
 ## Results
 
