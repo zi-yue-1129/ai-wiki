@@ -1,0 +1,12 @@
+/* Accessible bilingual sharpness numerical labs; all SVG labels are sparse English. */
+.sgl-panel{margin:1rem 0 1.5rem;padding:.8rem;border:1px solid var(--md-default-fg-color--lightest,#afbecb);border-radius:12px;max-width:100%;box-sizing:border-box}
+.sgl-controls{display:flex;gap:.55rem;flex-wrap:wrap;align-items:end;margin-bottom:.6rem}
+.sgl-label{font-size:.86rem;font-weight:600;display:flex;flex:1 1 180px;gap:.3rem;flex-direction:column;min-width:150px}
+.sgl-range{width:100%;accent-color:#168e88}.sgl-number{font-variant-numeric:tabular-nums}
+.sgl-btn,.sgl-select{font:inherit;font-size:.85rem;padding:.38rem .65rem;border:1px solid #95a7bb;border-radius:7px;color:var(--md-default-fg-color,#223);background:var(--md-default-bg-color,#fff);cursor:pointer}
+.sgl-btn:disabled{opacity:.4;cursor:not-allowed}.sgl-btn:focus-visible,.sgl-select:focus-visible,.sgl-scroll:focus-visible,.sgl-range:focus-visible{outline:3px solid #168e88;outline-offset:2px}
+.sgl-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;outline-offset:3px;border-radius:12px}
+.sgl-scroll svg{width:640px;min-width:640px;height:300px;max-width:none;display:block}
+.sgl-detail{display:block;font-size:.82rem;min-height:1.5rem;margin-top:.5rem;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.sgl-note{font-size:.76rem;opacity:.8;margin:.35rem 0 0}
+@media(prefers-reduced-motion:reduce){.sgl-panel *, .sgl-panel *:before,.sgl-panel *:after{animation:none!important;transition:none!important}}
