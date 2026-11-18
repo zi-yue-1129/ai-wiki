@@ -47,7 +47,7 @@ At $p=0.01$ precision is **0.154**, at $p=0.10$ it is **0.667**, and at $p=0.50$
 
 ## Interpretation
 
-Precision measures the cost of false alarms. A spam filter with high precision rarely sends real mail to the spam folder. Precision depends on the decision threshold: raising the threshold usually removes some false positives and raises precision, at the price of [recall](recall.md).
+Precision measures the fraction of positive alerts that are correct; it does not quantify the cost of a false alarm. A spam filter with high precision rarely sends real mail to the spam folder. Precision depends on the decision threshold: raising the threshold usually removes some false positives and raises precision, at the price of [recall](recall.md).
 
 ## When to use it
 

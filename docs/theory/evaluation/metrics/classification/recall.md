@@ -31,7 +31,7 @@ This is the **same schematic eight-case ranking** shown on the precision page, n
 
 ## Interpretation
 
-Recall measures the cost of misses. A screening test with high recall rarely lets a real case pass unflagged. Like precision, recall depends on the threshold: lowering the threshold catches more true positives and raises recall, at the price of more false alarms.
+Recall measures the fraction of actual positives found; it does not quantify the cost of a missed case. A screening test with high recall rarely lets a real case pass unflagged. Like precision, recall depends on the threshold: lowering the threshold catches more true positives and raises recall, at the price of more false alarms.
 
 ## When to use it
 

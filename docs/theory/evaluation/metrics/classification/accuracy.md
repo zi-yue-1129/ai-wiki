@@ -38,7 +38,7 @@ Balanced accuracy is the **unweighted mean of class recalls**, $(0.80+0.90)/2=0.
 
 ## Interpretation
 
-Accuracy needs no threshold and is easy to explain. Its weakness is that it depends on the class balance. If 99% of cases are negative, a model that never predicts a positive scores 99% accuracy while finding no positives at all.
+Accuracy is easy to interpret once predicted labels are fixed. If a classifier outputs scores or probabilities, converting them to labels requires a decision threshold (or, for multiclass scores, a specified label-selection rule), so accuracy can change with that rule. Accuracy also depends on the class balance. If 99% of cases are negative, a model that never predicts a positive scores 99% accuracy while finding no positives at all.
 
 ## When to use it
 

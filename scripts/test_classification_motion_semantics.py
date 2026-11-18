@@ -313,3 +313,18 @@ for suffix in (".md", ".zh-TW.md"):
         assert "100 cases above" not in body
         assert "沿用上述 100 筆案例" not in body
 print("Bilingual shared 100-case confusion matrix: four metric pages agree")
+
+# Confusion-matrix metrics are label-based; the cost-sensitive decision rule is
+# a separate modeling choice. Protect the bilingual explanations against
+# regressions that incorrectly call accuracy threshold-free or metrics costs.
+_accuracy_en = (worked_root / "accuracy.md").read_text(encoding="utf-8")
+_accuracy_zh = (worked_root / "accuracy.zh-TW.md").read_text(encoding="utf-8")
+assert "decision threshold" in _accuracy_en and "label-selection rule" in _accuracy_en
+assert "決策門檻" in _accuracy_zh and "類別選取規則" in _accuracy_zh
+for metric, en_error, zh_error in (
+    ("precision", "Precision measures the cost of false alarms.", "精確率衡量誤報的代價。"),
+    ("recall", "Recall measures the cost of misses.", "召回率衡量漏報的代價。"),
+):
+    assert en_error not in (worked_root / (metric + ".md")).read_text(encoding="utf-8")
+    assert zh_error not in (worked_root / (metric + ".zh-TW.md")).read_text(encoding="utf-8")
+print("Bilingual threshold and error-cost semantics OK")
