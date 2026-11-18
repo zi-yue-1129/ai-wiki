@@ -118,6 +118,28 @@ $$
 
  The last negative lowers precision but does not increase recall or AP. A forced ordering of individual tied records can give a different positive-rank average; the illustration follows scikit-learn `average_precision_score` with grouped thresholds. The values are **synthetic, not measured**. MkDocs Play/Pause and keyboard horizontal scrolling are available.
 
+## Animated finite-sample random-ranking baseline for average precision
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Finite-sample random AP enumeration animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-random-ap-expectation-still.svg" data-still-src="../../../../assets/concept-animations/pr-random-ap-expectation-still.svg" data-motion-src="../../../../assets/concept-animations/pr-random-ap-expectation-motion.svg" alt="Every possible ranking of two positives and two negatives is displayed as coloured labels. Their six non-interpolated AP values and sequential running averages yield expected AP 49/72 or about 0.681, higher than prevalence 0.5." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0); all labels and scores are **synthetic, not measured model results**.* Assume four items with **two positives and two negatives**, unique exchangeable random scores, and uniform random ordering independent of the true labels. Exactly $\binom{4}{2}=6$ positive-label placements are equally likely. For a positive at rank $r$, its non-interpolated AP contribution is $P@r/2$; the six full-ranking AP values are $1,5/6,3/4,7/12,1/2,5/12$. The moving outline enumerates those possible rankings and the running mean over the enumerated orderings. Therefore
+
+$$
+\begin{gathered}
+\mathbb E[AP]=\tfrac16\left(1+\tfrac56+\tfrac34\right.\\
+\left.{}+\tfrac7{12}+\tfrac12+\tfrac5{12}\right)\\
+=\frac{49}{72}\approx0.681.
+\end{gathered}
+$$
+
+**not** the positive prevalence $2/4=0.5$. The prevalence reference belongs to the *population-level precision curve for label-independent scores*, not to the finite-sample mean of non-interpolated AP. This enumeration is a tiny exact combinatorial example, not a generally applicable random-AP correction formula. MkDocs supports keyboard-operable Play/Pause; reduced-motion readers see the completed table. [GitHub static preview](../../../../assets/concept-animations/pr-random-ap-expectation-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-random-ap-expectation-motion.svg). Scroll horizontally on small screens. The AP definition follows the scikit-learn documentation already cited in References.
+
+The outline scans a fully displayed reference table; rows are whole alternative rankings, not newly observed items. The ordering of this enumeration is arbitrary, so intermediate running means are not a convergence guarantee. The loop resets to the first row.
+
 ## References
 
 ### Seminal papers

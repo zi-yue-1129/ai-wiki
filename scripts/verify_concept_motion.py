@@ -22,7 +22,11 @@ TOPICS = {
     "graphsage-sample-aggregate": "theory/models/gnn/message-passing/graphsage/index",
     "qk-norm-scale-sweep": "theory/models/transformer/qk-norm",
     "sigma-reparam-spectral-gain": "theory/models/transformer/sigma-reparam",
+    "roc-cost-operating-point": "theory/evaluation/metrics/classification/roc-auc",
+    "pr-random-ap-expectation": "theory/evaluation/metrics/classification/pr-auc",
     "roc-tie-half-credit": "theory/evaluation/metrics/classification/roc-auc",
+    "f1-threshold-topk": "theory/evaluation/metrics/classification/f1",
+    "roc-randomized-operating-mix": "theory/evaluation/metrics/classification/roc-auc",
     "pr-ap-tied-threshold": "theory/evaluation/metrics/classification/pr-auc",
     "roc-pairwise-auc": "theory/evaluation/metrics/classification/roc-auc",
     "pr-ap-rectangles": "theory/evaluation/metrics/classification/pr-auc",
@@ -290,7 +294,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {"roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
+            elif stem in {"roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:
