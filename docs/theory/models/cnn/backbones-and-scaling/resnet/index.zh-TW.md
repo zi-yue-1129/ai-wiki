@@ -10,12 +10,70 @@ tags:
   - residual connections
   - deep networks
   - computer vision
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-17
 ---
 
 # 殘差網路
 
 殘差網路（ResNet）是深層卷積網路，其區塊會把輸入加回該輸入經過學習函數後的結果。He 等人於 2015 年在〈Deep Residual Learning for Image Recognition〉中提出了它們，而由這些網路組成的集成模型在 ILSVRC 2015 奪得第一名。
+
+## 教學視覺化：殘差梯度與投影捷徑
+
+**1. 恆等捷徑同時傳遞訊號與梯度。** 對加法處的純量示意區塊 \(y=x+F(x)\)，令 \(x=2\)、\(F(x)=-0.5x\)，前向結果為 \(y=1\)。反向傳播時，若上游梯度 \(g_y=1\)，恆等捷徑貢獻 \(1\)，殘差分支貢獻 \(F'(x)g_y=-0.5\)，因此輸入梯度 \(g_x=0.5\)：
+
+\[
+\frac{\partial y}{\partial x}=1+\frac{\partial F}{\partial x},\qquad
+g_x=g_y(1+F'(x)).
+\]
+
+此式是**加法節點的局部導數**（或後接恆等映射的 pre-activation 區塊），沒有包含傳統區塊在加法後 ReLU 的導數。捷徑提供直接的梯度項，但學習分支仍可能抵銷或放大梯度，不能據此保證梯度永不消失。[^resnet-identity]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="殘差前向與反向動畫；可聚焦並水平捲動">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-identity-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-identity-gradient-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-identity-gradient-still.svg" alt="前向：輸入二加上殘差負一得到一。反向：梯度一分為恆等路徑的一與殘差路徑的負零點五，合計輸入梯度零點五。">
+</div>
+</div>
+
+*原創 8 秒 SVG 教學動畫（CC BY-SA 4.0）。GitHub 顯示靜態回退圖；MkDocs 網站提供播放／暫停與降低動態效果模式。數值與路徑均為解析式示意，並非模型實測激活值或梯度。* [開啟完整動畫](../../../../../assets/concept-animations/resnet-identity-gradient-motion.svg)。 [GitHub 靜態回退圖](../../../../../assets/concept-animations/resnet-identity-gradient-still.svg)。
+
+**2. 改變張量尺寸時必須對齊捷徑。** 逐元素相加要求 \(\operatorname{shape}(F(x))=\operatorname{shape}(P(x))\)。此人工示例將 \(4\times4\times1\) 的特徵圖，透過步幅 2、padding 1 的 \(3\times3\) 主分支卷積映射到 \(2\times2\times2\)；捷徑上可學習的 \(1\times1\) 投影也以步幅 2 產生**相同維度**，之後才執行 \(y=F(x)+P(x)\)。維度原本相同時才可直接使用恆等捷徑。圖中的尺寸與通道數為示意，並非特定 ResNet 層的規格。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="投影捷徑動畫；可聚焦並水平捲動">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-projection-shortcut-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg" alt="四乘四單通道特徵圖分流至步幅二的主分支卷積與逐點投影捷徑，兩者均產生二乘二、雙通道張量，再逐元素相加。">
+</div>
+</div>
+
+*原創 10 秒 SVG 教學動畫（CC BY-SA 4.0）。著色取樣位置與移動標記只說明訊號流程，不是實際卷積數值；投影權重需要學習。GitHub 顯示靜態回退圖，網站提供播放／暫停、鍵盤操作與降低動態效果回退。* [開啟完整動畫](../../../../../assets/concept-animations/resnet-projection-shortcut-motion.svg)。 [GitHub 靜態回退圖](../../../../../assets/concept-animations/resnet-projection-shortcut-still.svg)。
+
+
+**3. 加法之後的 ReLU 可能阻斷捷徑梯度。** 前面恆等加法的導數不等於所有傳統 post-activation 殘差區塊的完整導數。以下用人工純量函數隔離加法後啟動函數的影響：
+
+\[
+s(x)=x+(-0.2x-0.3)=0.8x-0.3,\qquad y(x)=\operatorname{ReLU}(s(x)).
+\]
+
+加法輸出的導數為 \(ds/dx=0.8\)，但經過 ReLU 後，**\(s<0\) 時導數為 0**，**\(s>0\) 時為 0.8**；在 \(s=0\) 的轉折點沒有唯一的傳統導數。動畫同步顯示前向取樣點跨過折點，以及右方導數強度切換。這也說明「加法後接 ReLU」不應直接等同於加法後維持恆等映射的結構。[^resnet-identity]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="殘差加法後 ReLU 導數動畫；可聚焦並水平捲動">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-postrelu-gate-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg" alt="加法後 ReLU 的前向取樣點穿越折點；負半軸的局部導數為零，正半軸的局部導數為 0.8，折點處導數未定義。">
+</div>
+</div>
+
+*原創 10 秒連續 SVG 動畫（CC BY-SA 4.0）。GitHub 直接顯示已檢查的靜態回退圖；MkDocs 沿用播放／暫停與降低動態效果回退。數值是解析式人工示例，**不是模型實測梯度**。* [觀看動畫](../../../../../assets/concept-animations/resnet-postrelu-gate-motion.svg)。[靜態回退圖](../../../../../assets/concept-animations/resnet-postrelu-gate-still.svg)。
+
+**4. 深度增加時，局部 Jacobian 會逐層相乘。** 假設每個普通純量層的導數固定為 \(-0.1\)，串接 \(d\) 層時，導數量值為 \(0.1^d\)。相較之下，若殘差區塊為 \(h_{k+1}=h_k+F_k(h_k)\)，且每個 \(F'_k=-0.1\)，則局部導數為 \(0.9\)，總導數量值為 \(0.9^d\)。六層之後，兩者分別為 \(10^{-6}\) 與 \(0.531441\)。動畫沿著不同深度呈現兩個乘積的變化。這是**固定純量局部導數的數學示意**，不能當作實際訓練梯度：多維殘差 Jacobian 仍可能放大、抵銷或旋轉梯度，恆等捷徑不保證訓練穩定。[^resnet-identity]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="殘差與普通層隨深度增加的 Jacobian 乘積動畫；可聚焦並水平捲動">
+<div style="width:640px">
+<img style="width:640px;min-width:640px;max-width:none;height:auto" data-source-asset-urls src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" data-motion-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-motion.svg" data-still-src="../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg" alt="深度從零層增加至六層的兩條純量導數量值曲線；普通層每層乘 0.1，殘差示例每層乘 0.9。">
+</div>
+</div>
+
+*原創 12 秒 SVG 動畫（CC BY-SA 4.0）。GitHub 提供靜態圖，MkDocs 沿用播放／暫停與降低動態效果。圖上標記為輔助閱讀而在離散深度間移動，並非額外的最佳化步驟；所有數值均為人工計算，**不是模型實測值**。* [觀看動畫](../../../../../assets/concept-animations/resnet-depth-gradient-factors-motion.svg)。[靜態回退圖](../../../../../assets/concept-animations/resnet-depth-gradient-factors-still.svg)。
+
+[^resnet-identity]: He、Zhang、Ren 與 Sun（2016），*Identity Mappings in Deep Residual Networks*：https://arxiv.org/abs/1603.05027 — 推導恆等捷徑的前向與反向訊號傳遞。
 
 ## 問題
 
@@ -62,6 +120,8 @@ y = \mathcal{F}(x, \{W_i\}) + x
 ## 參考文獻
 
 ### 開創性論文
+
+- He, K.、Zhang, X.、Ren, S. 與 Sun, J.（2016）。*Identity Mappings in Deep Residual Networks*。ECCV。https://arxiv.org/abs/1603.05027 — 分析恆等捷徑與 pre-activation 殘差區塊的前向、反向訊號傳遞。
 
 - He, K., et al. (2015). "Deep Residual Learning for Image Recognition". [arXiv:1512.03385](https://arxiv.org/abs/1512.03385) — 殘差連接，使極深的 CNN 能夠訓練。
 - Simonyan, K. & Zisserman, A. (2015). "Very Deep Convolutional Networks for Large-Scale Image Recognition". [arXiv:1409.1556](https://arxiv.org/abs/1409.1556) — 堆疊小型 3×3 卷積的普通深層設計，即 VGG 的基礎。

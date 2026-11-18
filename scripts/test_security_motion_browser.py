@@ -7,6 +7,7 @@ Runs a local HTTP server so image loads and JS execute as on the site.
 from __future__ import annotations
 
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+import os
 from pathlib import Path
 from threading import Thread
 from urllib.parse import parse_qs, urlsplit
@@ -37,7 +38,7 @@ class Handler(SimpleHTTPRequestHandler):
         html = f'''<!doctype html><meta charset="utf-8">
 <link rel="stylesheet" href="/docs/stylesheets/concept-motion.css">
 <main style="width:100%;max-width:760px;margin:auto">
-<img src="/docs/assets/concept-animations/{stem}-motion.svg" alt="{alt}">
+<div class="concept-motion-scroll" tabindex="0" style="max-width:100%;overflow-x:auto"><div style="width:640px;min-width:640px"><img style="display:block;width:640px;min-width:640px;max-width:none" src="/docs/assets/concept-animations/{stem}-motion.svg" alt="{alt}"></div></div>
 </main><script src="/docs/javascripts/concept-motion.js"></script>'''
         data = html.encode("utf-8")
         self.send_response(200)
@@ -55,7 +56,7 @@ def main() -> None:
     passed = 0
     try:
         with sync_playwright() as pw:
-            browser = pw.chromium.launch(headless=True)
+            browser = pw.chromium.launch(headless=True, **({"executable_path": os.environ["CHROMIUM_EXECUTABLE"]} if os.environ.get("CHROMIUM_EXECUTABLE") else {}))
             for stem in STEMS:
                 for lang in ("en", "zh"):
                     for width in (320, 360, 760, 1024):
@@ -75,11 +76,14 @@ def main() -> None:
                         page.keyboard.press("Space")
                         assert img.get_attribute("src").endswith("-still.svg")
                         if width < 680:
-                            player = page.locator(".concept-motion-player")
+                            player = page.locator(".concept-motion-scroll")
                             assert player.evaluate("e => e.scrollWidth > e.clientWidth")
-                            player.evaluate("e => e.scrollLeft = 250")
                             bounds = button.bounding_box()
                             assert bounds and 0 <= bounds["x"] < width, bounds
+                            player.focus()
+                            player.press("ArrowRight")
+                            page.wait_for_function("() => document.querySelector('.concept-motion-scroll').scrollLeft > 0")
+                            player.evaluate('e => { e.blur(); e.scrollTo({left:0, behavior:"instant"}); }')
                         passed += 1
                         page.close()
                 page = browser.new_page()

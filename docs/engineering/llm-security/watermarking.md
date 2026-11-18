@@ -40,15 +40,22 @@ Passive detection is also studied. Mitchell et al. (2023) propose DetectGPT, whi
 
 ### Animated example: token greenlist and accumulated evidence
 
-![A sixteen-token keyed greenlist example appearing sequentially while the cumulative standardized green-token excess changes](../../assets/concept-animations/watermark-greenlist-score-motion.svg)
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable teaching illustration">
+<div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../assets/concept-animations/watermark-greenlist-score-still.svg" data-motion-src="../../assets/concept-animations/watermark-greenlist-score-motion.svg" data-still-src="../../assets/concept-animations/watermark-greenlist-score-still.svg" alt="A sixteen-token keyed greenlist example appearing sequentially while the cumulative standardized green-token excess changes" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto">
+</div></div>
 
 *Original analytic teaching animation (CC BY-SA 4.0).* Each highlighted tile represents a **schematic** token classified with a key-derived greenlist; the curve accumulates evidence from the count, **not** the model's raw token probability. With a simplified independent null model, a fixed greenlist fraction γ=0.5 and τ=16 tokens, the constructed example has 13 green tokens and a final statistic
 
 \[
-z_t=\frac{G_t-\gamma t}{\sqrt{t\gamma(1-\gamma)}},\qquad z_{16}=\frac{13-8}{\sqrt4}=2.50.
+\begin{gathered}
+z_t=\frac{G_t-\gamma t}{\sqrt{t\gamma(1-\gamma)}},\quad t\ge1,
+\\ z_{16}=\frac{13-8}{\sqrt4}=2.50.
+\end{gathered}
 \]
 
 The dashed \(z=2\) guide is **illustrative**, not a calibrated decision threshold or false-positive guarantee. Real watermark detectors account for the actual token-selection procedure, repeated contexts and dependencies; neither this sequence nor its statistic was measured from an LLM. MkDocs provides accessible Play/Pause and reduced-motion display. GitHub has a [static token and score preview](../../assets/concept-animations/watermark-greenlist-score-still.svg).
+
+The score marker and newly revealed curve update only when a token arrives; there is no statistic at zero tokens. Connecting segments are visual guides, not fractional-token statistics. Dim tiles preview the fixed constructed sequence. The final-count footer is a reference, not the current count. The loop resets.
 
 ## Limitations
 

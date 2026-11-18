@@ -33,9 +33,14 @@ aliases:
 
 ### 教學動畫：檢索資料如何跨越信任邊界
 
-![連續動畫對照未加防護時惡意檢索內容可能影響工具呼叫，以及應用層權限檢查只容許一般資料通過的路徑](../../assets/concept-animations/prompt-injection-boundary-motion.svg)
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可左右捲動的教學圖">
+<div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../assets/concept-animations/prompt-injection-boundary-still.svg" data-motion-src="../../assets/concept-animations/prompt-injection-boundary-motion.svg" data-still-src="../../assets/concept-animations/prompt-injection-boundary-still.svg" alt="連續動畫對照未加防護時惡意檢索內容可能影響工具呼叫，以及應用層權限檢查只容許一般資料通過的路徑" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto">
+</div></div>
 
 *原創教學動畫（CC BY-SA 4.0）。* **上方顯示一種可能的失敗路徑**：檢索頁面的惡意指示被錯誤提升為具有權限的指令，進而影響工具呼叫。**下方是應用程式層級的防護示意**：透過工具權限與輸出檢查，阻擋未授權操作，但仍允許一般檢索事實用於回答。此圖**不是**宣稱僅靠模型提示就能可靠隔離惡意文字。MkDocs 可利用支援鍵盤的播放／暫停控制及減少動態效果的回退；GitHub 可閱讀[靜態信任邊界圖](../../assets/concept-animations/prompt-injection-boundary-still.svg)。圖中是威脅模型示意，**非實測攻擊成功率或防護保證**。
+
+移動圓點表示資訊路徑，不代表實測時序或語意過濾成功。下方通道抽象表示應用程式的授權檢查；有用資料仍不受信任，不能授予工具權限。迴圈會重設。
+
 
 ## 關鍵想法
 

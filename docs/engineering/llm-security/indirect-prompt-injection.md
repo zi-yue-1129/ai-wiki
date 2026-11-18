@@ -32,9 +32,13 @@ A chat application that only sees the user's typing is hard to hijack from outsi
 
 ### Animated threat boundary: retrieved data versus tool authority
 
-![Continuous diagram contrasting an unguarded model following a retrieved instruction with a policy-gated application forwarding only useful data](../../assets/concept-animations/prompt-injection-boundary-motion.svg)
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable teaching illustration">
+<div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../assets/concept-animations/prompt-injection-boundary-still.svg" data-motion-src="../../assets/concept-animations/prompt-injection-boundary-motion.svg" data-still-src="../../assets/concept-animations/prompt-injection-boundary-still.svg" alt="Continuous diagram contrasting an unguarded model following a retrieved instruction with a policy-gated application forwarding only useful data" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto">
+</div></div>
 
 *Original teaching animation (CC BY-SA 4.0).* The **upper lane is a possible failure path**, where malicious instructions in a retrieved page are promoted to authority and influence a tool request. The **lower lane is a schematic control**, where application-enforced tool permissions and output checks prevent the attempted operation while permitting ordinary retrieved facts to inform the answer. The boundary does **not** imply that prompting the model to ignore untrusted text is an adequate security control. MkDocs provides Play/Pause (including keyboard access) and a reduced-motion fallback; GitHub readers can open the [static trust-boundary preview](../../assets/concept-animations/prompt-injection-boundary-still.svg). This diagram illustrates a threat model, **not a measured attack success rate or guarantee of protection**.
+
+Moving dots indicate information routes, not measured timing or successful semantic filtering. The lower lane abstracts application authorization checks; useful data remains untrusted and cannot grant tool authority. The loop resets.
 
 ## Key ideas
 

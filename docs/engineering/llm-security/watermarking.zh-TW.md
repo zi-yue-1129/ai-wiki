@@ -39,15 +39,22 @@ aliases:
 
 ### 教學動畫：詞元綠名單與統計證據累積
 
-![十六個詞元依序顯示是否落在金鑰決定的綠名單，並同步呈現標準化綠詞元超額次數的累積曲線](../../assets/concept-animations/watermark-greenlist-score-motion.svg)
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可左右捲動的教學圖">
+<div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../assets/concept-animations/watermark-greenlist-score-still.svg" data-motion-src="../../assets/concept-animations/watermark-greenlist-score-motion.svg" data-still-src="../../assets/concept-animations/watermark-greenlist-score-still.svg" alt="十六個詞元依序顯示是否落在金鑰決定的綠名單，並同步呈現標準化綠詞元超額次數的累積曲線" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto">
+</div></div>
 
 *原創解析式教學動畫（CC BY-SA 4.0）。* 每個方塊表示依金鑰所決定的綠名單分類之**人工示意**詞元；曲線累積的是綠名單命中次數的統計量，**不是**模型原始詞元機率。採用簡化的獨立虛無假設，固定綠名單比例 \(\gamma=0.5\)、詞元數 \(t=16\)，示例中有 13 個綠詞元，因此
 
 \[
-z_t=\frac{G_t-\gamma t}{\sqrt{t\gamma(1-\gamma)}},\qquad z_{16}=\frac{13-8}{\sqrt4}=2.50.
+\begin{gathered}
+z_t=\frac{G_t-\gamma t}{\sqrt{t\gamma(1-\gamma)}},\quad t\ge1,
+\\ z_{16}=\frac{13-8}{\sqrt4}=2.50.
+\end{gathered}
 \]
 
 虛線 \(z=2\) **僅為視覺參考**，不是經校準的判斷門檻或誤判率保證。實際偵測須考慮綠名單選取程序、重複上下文與樣本相依性；本圖的詞元與統計數值都**不是 LLM 實測結果**。MkDocs 提供支援鍵盤的播放／暫停與減少動態效果回退；GitHub 可閱讀[靜態詞元與分數預覽](../../assets/concept-animations/watermark-greenlist-score-still.svg)。
+
+分數標記與新顯示的曲線僅在詞元到達時更新；零個詞元時沒有統計量。連線只是視覺輔助，不代表分數詞元的統計量。暗色方塊預覽固定人工序列；最終計數頁尾是參考值，並非當前計數。迴圈會重設。
 
 ## 限制
 
