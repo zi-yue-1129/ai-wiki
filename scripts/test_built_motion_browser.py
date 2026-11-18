@@ -104,7 +104,7 @@ def check_built_page(site, target, base_url):
     expected = []
     for source in target.images:
         alt = source.get("alt")
-        assert alt, f"{target.source}: marked motion image needs alt text"
+        assert alt and alt.strip(), f"{target.source}: marked motion image needs non-whitespace alt text"
         matches = [img for img in built if img.get("alt") == alt]
         assert len(matches) == 1, f"{target.source}: expected one built image with alt {alt!r}"
         image = matches[0]

@@ -20,6 +20,25 @@ IMAGE = ('<img data-source-asset-urls src="../assets/plot-still.svg" '
 
 
 class DiscoveryTests(unittest.TestCase):
+    def test_real_parser_rejects_blank_alt_in_source_and_built_page(self):
+        # Source and built values are obtained through actual HTML parsers.
+        # Whitespace is not trimmed for matching valid accessible names.
+        from markdown import Markdown
+        for alt in (None, "", "   ", "\t", "&#32;&#9;", "&nbsp;"):
+            with self.subTest(alt=alt):
+                attr = "" if alt is None else f' alt="{alt}"'
+                html = '<img data-source-asset-urls src="../assets/plot-still.svg" data-motion-src="../assets/plot-motion.svg"' + attr + '>'
+                rendered = Markdown().convert(html)
+                target = MotionPage("topic/page.md", "en", "topic/page/", "page.html", Images(rendered).images)
+                (self.site / "page.html").write_text(rendered.replace("data-source-asset-urls", "").replace('../assets/', '/ai-wiki/assets/'))
+                with self.assertRaisesRegex(AssertionError, "non-whitespace alt"):
+                    check_built_page(self.site, target, BASE)
+        for alt in ("Descriptive name", "  保留完整名稱  "):
+            html = f'<img data-source-asset-urls src="../assets/plot-still.svg" data-motion-src="../assets/plot-motion.svg" alt="{alt}">'
+            target = MotionPage("topic/page.md", "en", "topic/page/", "page.html", Images(Markdown().convert(html)).images)
+            (self.site / "page.html").write_text(html.replace("data-source-asset-urls", "").replace('../assets/', '/ai-wiki/assets/'))
+            self.assertEqual(check_built_page(self.site, target, BASE)[0]["alt"], alt)
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

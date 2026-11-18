@@ -3,12 +3,16 @@ name: Validate concept animations
 on:
   pull_request:
     paths:
+      - "scripts/fixtures/deployed-motion-contracts.json"
       - "docs/assets/concept-animations/**"
       - "scripts/verify_concept_animations.py"
       - "scripts/verify_concept_motion.py"
       - "scripts/verify_concept_svgs.py"
       - "scripts/test_uncertainty_motion_semantics.py"
       - "scripts/test_scoped_viewbox_motion_semantics.py"
+      - "scripts/test_scoped_canvas_motion_semantics.py"
+      - "scripts/test_alt_accessibility_motion_semantics.py"
+      - "scripts/test_source_contract_retention_motion_semantics.py"
       - "scripts/test_linear_algebra_motion_semantics.py"
       - "scripts/render_linear_algebra_keyframes.py"
       - "docs/javascripts/concept-motion.js"
@@ -81,7 +85,11 @@ jobs:
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
       - name: Reject cross-topic canvas regressions with actual SVG mutations
-        run: python scripts/test_scoped_viewbox_motion_semantics.py
+        run: |
+          python scripts/test_scoped_viewbox_motion_semantics.py
+          python scripts/test_scoped_canvas_motion_semantics.py
+          python scripts/test_alt_accessibility_motion_semantics.py
+          python scripts/test_source_contract_retention_motion_semantics.py
       - name: Check uncertainty motion numerical semantics
         run: python scripts/test_uncertainty_motion_semantics.py
       - name: Check SVD geometry and power-iteration numerical timelines

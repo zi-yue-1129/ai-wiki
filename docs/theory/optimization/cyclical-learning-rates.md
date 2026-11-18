@@ -45,6 +45,8 @@ The triangular2 envelope can be read directly from the three peaks: the excursio
 
 On MkDocs, use **Play/Pause** (Tab, Enter or Space); reduced-motion preferences show the static comparison. On small screens, focus the figure and use the arrow keys to scroll. The earlier single-policy view remains available as a [triangular2 animation](../../assets/concept-animations/clr-triangular2-motion.svg) and [static diagram](../../assets/concept-animations/clr-triangular2-still.svg).
 
+Comparison figure: [static preview](../../assets/concept-animations/clr-triangular2-sweep-still.svg) · [complete animation](../../assets/concept-animations/clr-triangular2-sweep-motion.svg).
+
 ## Algorithm
 
 **Range test.** Train for a few epochs while the rate rises linearly from a small value to a large one, and plot accuracy against the rate. The lower bound is where accuracy starts to rise. The upper bound is where accuracy slows, becomes erratic, or starts to fall. The paper suggests setting the lower bound to one third or one quarter of the upper bound. The test takes 8 epochs for CIFAR-10 and 4 epochs for GoogLeNet in the paper.
