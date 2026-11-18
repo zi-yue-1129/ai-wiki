@@ -25,19 +25,29 @@ Quantise the weights of one layer one column at a time. After each column is rou
 
 ### Visual walkthrough: second-order error compensation
 
-<div class="concept-motion-horizontal-scroll" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
-<img src="../../../../../assets/concept-animations/gptq-error-compensation-still.svg" data-motion-src="../../../../../assets/concept-animations/gptq-error-compensation-motion.svg" alt="A two-weight vector is rounded in one coordinate, then compensated and rounded in the other; tilted quadratic contours and the naive rounding point remain visible.">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/gptq-error-compensation-still.svg" src="../../../../../assets/concept-animations/gptq-error-compensation-still.svg" data-motion-src="../../../../../assets/concept-animations/gptq-error-compensation-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="A two-weight vector is rounded in one coordinate, then compensated and rounded in the other; tilted quadratic contours and the naive rounding point remain visible.">
+</div>
 </div>
 
 [GitHub-readable fallback](../../../../../assets/concept-animations/gptq-error-compensation-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/gptq-error-compensation-motion.svg)
 
-A **two-weight analytic example** uses $w=(0.37,0.37)$ and $H=\begin{bmatrix}1&0.8\\0.8&1\end{bmatrix}$ (positive definite). The illustrated contours are level sets of $(\hat w-w)^\top H(\hat w-w)$, a **toy quadratic reconstruction loss**, not a measured LLM Hessian. First round $w_1$ to $0.25$ (error $e_1=-0.12$). Minimising this quadratic with that first coordinate fixed gives $w_2'=0.37-(H_{21}/H_{22})e_1=0.466$, which then rounds to $0.50$. The compensated final point $(0.25,0.50)$ has squared error **0.00634**, compared with **0.05184** for independent rounding to $(0.25,0.25)$. This isolates the coupling that motivates Frantar et al. (2022); it omits GPTQ's blockwise updates and Cholesky implementation. **No values are model measurements.**
+A **two-weight analytic example** uses $w=(0.37,0.37)$ and $H$ positive definite:
+
+$$
+H=\begin{bmatrix}1&0.8\\0.8&1\end{bmatrix}.
+$$
+
+ The illustrated contours are level sets of $(\hat w-w)^\top H(\hat w-w)$, a **toy quadratic reconstruction loss**, not a measured LLM Hessian. First round $w_1$ to $0.25$ (error $e_1=-0.12$). Minimising this quadratic with that first coordinate fixed gives $w_2'=0.37-(H_{21}/H_{22})e_1=0.466$, which then rounds to $0.50$. The compensated final point $(0.25,0.50)$ has squared error **0.00634**, compared with **0.05184** for independent rounding to $(0.25,0.25)$. This isolates the coupling that motivates Frantar et al. (2022); it omits GPTQ's blockwise updates and Cholesky implementation. **No values are model measurements.**
+
+The continuous marker interpolates between discrete rounding/update states for explanation; it is not an optimisation trajectory. The labelled final points and loss bars remain reference outcomes throughout the loop.
 
 On MkDocs use **Play/Pause** (Enter/Space); the path traverses rounding, compensation and the second rounding. GitHub/reduced-motion fallback shows the completed path. Original diagram, **CC BY-SA 4.0**.
 
 ## Equation or algorithm
 
-The method follows the optimal brain quantisation framework, which uses the inverse Hessian \(H^{-1}\) of the layer's squared error \(\lVert WX - \hat{W}X \rVert^2\) to decide which weight to round and how to update the rest. GPTQ makes this efficient for billions of parameters by processing columns in blocks and using a Cholesky decomposition.
+The method follows the optimal brain quantisation framework, which uses the inverse Hessian \(H^{-1}\) of the layer's squared error \(\lVert WX - \hat{W}X \rVert^2\) to derive compensating updates. Unlike greedy OBQ selection, GPTQ uses an arbitrary fixed column order shared across rows. GPTQ makes this efficient for billions of parameters by processing columns in blocks and using a Cholesky decomposition.
 
 ## Results
 
