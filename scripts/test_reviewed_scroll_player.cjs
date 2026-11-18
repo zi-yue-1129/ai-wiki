@@ -19,7 +19,7 @@ for(const topic of topics)for(const lang of ['', '.zh-TW']){
   const img=new El('img');for(const m of raw[0].matchAll(/([\w-]+)="([^"]*)"/g)){img.attrs[m[1]]=m[2];if(m[1].startsWith('data-'))img.dataset[m[1].slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase())]=m[2];}
   img.alt=img.attrs.alt;region.append(img);
   const red={matches:reduce,addEventListener:(k,f)=>red.change=f};let sub;
-  const document={readyState:'complete',querySelectorAll:()=>[img],createElement:t=>new El(t)};
+  const document={readyState:'complete',querySelectorAll:selector=>require('./concept_motion_fixture_selector.cjs')(selector,[img]),createElement:t=>new El(t)};
   vm.runInNewContext(fs.readFileSync('docs/javascripts/concept-motion.js','utf8'),{document,window:{matchMedia:()=>red,document$:{subscribe:f=>sub=f}}});
   assert.equal(img.parent.parent,region);assert.equal(region.attrs.tabindex,'0');assert.equal(region.attrs.role,'region');assert.equal(img.attrs.tabindex,undefined);
   const button=made.find(x=>x.tag==='button');assert(button);assert(img.attrs.src.endsWith(reduce?'-still.svg':'-motion.svg'));button.events.click();assert(img.attrs.src.endsWith(reduce?'-motion.svg':'-still.svg'));

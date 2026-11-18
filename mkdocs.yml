@@ -1114,6 +1114,8 @@ extra_javascript:
   - javascripts/bayesian-filter-comparisons.js
   - javascripts/bayesian-filter-invariants.js
   - javascripts/bayesian-filter-information.js
+  - javascripts/explanation-labs.js
+  - javascripts/causal-labs.js
   - javascripts/concept-motion-detailed.js
   - javascripts/self-supervised-labs.js
   - javascripts/ssl-causal-comparisons.js
@@ -1133,7 +1135,10 @@ extra_javascript:
   - javascripts/predictive-coding-labs.js
   - javascripts/sac-dpo-labs.js
   - javascripts/segmentation-labs.js
+  - javascripts/bandit-labs.js
+  - javascripts/norm-seq-labs.js
   - javascripts/adaptive-optimiser-labs.js
+  - javascripts/attention-variant-labs.js
   - javascripts/regression-metric-labs.js
   - javascripts/sharpness-geometry-labs.js
   - javascripts/gibbs-labs.js
@@ -1153,6 +1158,8 @@ extra_css:
   - stylesheets/working-memory-labs.css
   - stylesheets/bayesian-filter-labs.css
   - stylesheets/bayesian-filter-insights.css
+  - stylesheets/explanation-labs.css
+  - stylesheets/causal-labs.css
   - stylesheets/concept-motion-detailed.css
   - stylesheets/self-supervised-labs.css
   - stylesheets/ssl-causal-comparisons.css
@@ -1171,7 +1178,10 @@ extra_css:
   - stylesheets/predictive-coding-labs.css
   - stylesheets/sac-dpo-labs.css
   - stylesheets/segmentation-labs.css
+  - stylesheets/bandit-labs.css
+  - stylesheets/norm-seq-labs.css
   - stylesheets/adaptive-optimiser-labs.css
+  - stylesheets/attention-variant-labs.css
   - stylesheets/regression-metric-labs.css
   - stylesheets/sharpness-geometry-labs.css
   - stylesheets/gibbs-labs.css
