@@ -328,3 +328,20 @@ for metric, en_error, zh_error in (
     assert en_error not in (worked_root / (metric + ".md")).read_text(encoding="utf-8")
     assert zh_error not in (worked_root / (metric + ".zh-TW.md")).read_text(encoding="utf-8")
 print("Bilingual threshold and error-cost semantics OK")
+
+# Keep ranking-probability and metric semantics consistent in both translations.
+for suffix in (".md", ".zh-TW.md"):
+    _roc = (worked_root / ("roc-auc" + suffix)).read_text(encoding="utf-8")
+    _pr = (worked_root / ("pr-auc" + suffix)).read_text(encoding="utf-8")
+    _f1 = (worked_root / ("f1" + suffix)).read_text(encoding="utf-8")
+    if suffix == ".md":
+        assert "half the probability of a tie" in _roc
+        assert "expected" in _roc and "Equal class sizes are not required" in _roc
+        assert "raw AP comparisons across datasets" in _pr
+        assert "disagreement between precision and recall" in _f1
+    else:
+        assert "平手機率的一半" in _roc and "期望值" in _roc
+        assert "不要求正負例數量相當" in _roc
+        assert "不同盛行率資料集的原始 AP" in _pr
+        assert "精確率與召回率之間的差距" in _f1
+print("Bilingual ranking-baseline semantics and F1 interpretation OK")

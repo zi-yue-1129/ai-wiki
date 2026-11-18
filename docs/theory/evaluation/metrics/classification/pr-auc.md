@@ -9,7 +9,7 @@ tags:
 
 # PR-AUC
 
-PR-AUC summarises the precision-recall curve, which plots precision against recall as the decision threshold changes. It is the metric to prefer when positives are rare, because it focuses on how the positives are ranked.
+PR-AUC summarises the precision-recall curve as the decision threshold changes. It is often informative for rare-positive retrieval, because precision directly reflects the fraction of selected cases that are positive. **State the integration convention**: non-interpolated average precision (AP) and trapezoidal PR area are distinct metrics.
 
 ## Definition
 
@@ -21,7 +21,7 @@ where $P_n$ and $R_n$ are precision and recall at the $n$-th threshold. scikit-l
 
 ## Interpretation
 
-At population level, scores independent of the labels give a horizontal precision reference at the positive prevalence. This is not the exact expected non-interpolated AP of a finite randomly ordered sample. Unlike ROC-AUC, the baseline changes with the data, so PR-AUC values are not comparable across datasets with different prevalence. Compare models on the same dataset.
+At population level, scores independent of the labels give a horizontal precision reference at the positive prevalence. This is not the exact expected non-interpolated AP of a finite randomly ordered sample. Unlike the 0.5 expected ROC-AUC baseline for random rankings, the population PR baseline depends on prevalence. Therefore **raw AP comparisons across datasets with different prevalence require care**, and cannot by themselves establish that a model ranks better. Prefer paired comparisons on the same evaluation distribution, and report prevalence and the AP convention.
 
 ## When to use it
 

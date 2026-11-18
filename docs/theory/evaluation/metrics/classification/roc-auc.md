@@ -15,7 +15,7 @@ ROC-AUC is the area under the receiver operating characteristic curve. The curve
 
 At each threshold $t$, the true positive rate is $TP/(TP+FN)$ and the false positive rate is $FP/(FP+TN)$. The ROC curve collects these points, and ROC-AUC is the area under it.
 
-A useful reading is the ranking interpretation: ROC-AUC equals the probability that a randomly chosen positive receives a higher score than a randomly chosen negative. A perfect ranking gives 1.0 and random scores give 0.5 (Fawcett, 2006).
+More precisely, ROC-AUC is the probability that an independently selected positive scores **strictly above** a negative, plus **half the probability of a tie**. Under a random ranking independent of labels, its **expected** value is 0.5; an individual small random sample need not have AUC exactly 0.5 (Fawcett, 2006).
 
 ## Interpretation
 
@@ -23,7 +23,7 @@ ROC-AUC needs only the scores, not labels at a threshold, so it compares models 
 
 ## When to use it
 
-Use ROC-AUC for model comparison when the operating threshold is not yet known, and when positives and negatives are of comparable size.
+Use ROC-AUC to compare score rankings without first fixing a decision threshold. **Equal class sizes are not required**: ROC coordinates condition separately on positives and negatives. However, rare positives yield imprecise estimates; report class counts and uncertainty, and examine the **precision-recall curve** and relevant low-FPR region when false alarms or rare positives matter.
 
 ## Worked example
 
