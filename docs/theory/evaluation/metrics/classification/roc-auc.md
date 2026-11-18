@@ -223,18 +223,18 @@ For **$p=0.10$**, top one costs **0.133** versus **0.300** for top four; for **$
 
 The **prior-shift policy animation** selects the less permissive cutoff $k=1$ or the more permissive cutoff $k=4$. A third possibility is to choose $k=4$ independently for each future case with probability $\lambda$, and otherwise choose $k=1$, where $0\leq\lambda\leq1$. Crucially, the random choice must not depend on the case's unknown true label. For this synthetic ranking, the expected ROC rates become:
 
-$
+$$
 \begin{aligned}
 \mathrm{TPR}_{\lambda}&=\frac{1+2\lambda}{3},\\
 \mathrm{FPR}_{\lambda}&=\frac{\lambda}{3}.
 \end{aligned}
-$
+$$
 
 Under the same *linear* false-negative and false-positive cost model, this randomized rule has expected loss
 
-$
+$$
 L_{\lambda}(p)=(1-\lambda)\frac{4p}{3}+\lambda\frac{1-p}{3}.
-$
+$$
 
 At prevalence $p=0.10$, an equal mixture ($\lambda=0.5$) has loss **0.217**, higher than the **0.133** from always using $k=1$. At $p=0.40$, the same mixture costs **0.367**, higher than the **0.200** from always using $k=4$. At $p=0.20$, every mixture ties at $4/15\approx0.267$. Hence intermediate ROC points are possible, but **randomization cannot strictly improve on both endpoints when minimizing this unconstrained linear expected loss**. Additional constraints, such as a maximum allowed false-alarm rate, can make an intermediate feasible policy relevant.
 
@@ -242,11 +242,11 @@ At prevalence $p=0.10$, an equal mixture ($\lambda=0.5$) has loss **0.217**, hig
 
 Suppose the same **synthetic six-case ROC** must satisfy a population **FPR cap of 1/6**, with deployment prevalence **p = 0.40** and the same costs **C_FN = 2, C_FP = 1**. The unconstrained minimum-cost cutoff **k = 4** has FPR 1/3 and violates the cap; **k = 1** is feasible with FPR 0 but TPR only 1/3. Mixing these two cutoffs independently of the unknown label gives:
 
-$
+$$
 \mathrm{FPR}_{\lambda}=\frac{\lambda}{3}\leq\frac16
 \quad\Longrightarrow\quad\lambda\leq\frac12,
 \qquad\mathrm{TPR}_{1/2}=\frac23.
-$
+$$
 
 Within **this two-rule mixture family**, taking **λ = 1/2** maximizes TPR under the cap and minimizes its linear expected loss at **11/30 ≈ 0.367**, versus **8/15 ≈ 0.533** for feasible deterministic cutoff **k = 1**. Always choosing **k = 4** would cost **1/5 = 0.200**, but is **infeasible** under the budget. The FPR constraint concerns a *population conditional error rate*, not a guarantee on the number of false alarms in a finite sample. This is an illustrative constrained-policy calculation, not a performance measurement or a guarantee against all possible decision rules.
 
