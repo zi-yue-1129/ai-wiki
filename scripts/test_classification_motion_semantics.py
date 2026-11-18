@@ -370,3 +370,42 @@ for filename in ("roc-auc.md", "roc-auc.zh-TW.md"):
     assert "4.5" in page and "roc-youden-cost-still.svg" in page
 
 print("ROC prevalence-shift and Youden-versus-cost analytic cases OK")
+
+# Pure prevalence (prior-probability) shift: the same conditional rates, different PPV.
+# Under changes to P(score | class), these fixed-rate assumptions need not hold.
+for p in (.05, .10, .25, .60):
+    numerator = .8 * p
+    denominator = numerator + .1 * (1 - p)
+    assert math.isclose(shifted_ppv(p), numerator / denominator)
+
+# Youden J equivalence requires matching *effective* costs, not merely equal raw costs.
+# Here p=0.1, FP cost=1 so FN cost=9 equalizes the two terms.
+balanced_fn_cost = 9
+effective_weight = .9
+j_op = []
+l_op = []
+for k in range(7):
+    true_positives = sum(decision_labels[:k])
+    false_positives = k - true_positives
+    tpr = true_positives / 3
+    fpr = false_positives / 3
+    j_op.append(tpr - fpr)
+    l_op.append(balanced_fn_cost * .1 * (1 - tpr) + .9 * fpr)
+    assert math.isclose(l_op[-1], effective_weight * (1 - j_op[-1]))
+assert j_op.index(max(j_op)) == l_op.index(min(l_op)) == 4
+
+# Source regression: paired translations must state the prior-shift assumption,
+# equal-effective-cost condition and responsive display-math PPV equation.
+for filename, required_terms in (
+    ("roc-auc.md", ("class-conditional score distributions",
+                    "pure prevalence (prior-probability) shift")),
+    ("roc-auc.zh-TW.md", ("分數條件分布", "先驗比例")),
+):
+    page = (shared_dir / filename).read_text(encoding="utf-8")
+    for term in required_terms:
+        assert term in page, (filename, term)
+    assert "$$\nPPV(p)=" in page
+    assert "L(k)=w[1-J(k)]" in page
+    assert "C_{FN}=9" in page
+
+print("Prior-shift conditions and Youden effective-cost equivalence OK")
