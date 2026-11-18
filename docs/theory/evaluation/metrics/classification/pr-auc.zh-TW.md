@@ -100,6 +100,23 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 
 依據分數門檻繪製 Precision–Recall 曲線時，**同分樣本必須在同一門檻一起納入**，不能以任意排序替代同分分組。本例 $0.90(+),0.70(+),0.70(-),0.20(-)$ 的不同門檻依序得到 $(R,P)=(1/2,1)$、$(1,2/3)$、$(1,1/2)$。因此不內插的 $AP=(1/2)(1)+(1/2)(2/3)=5/6\approx0.8333$。最後加入負例雖降低 Precision，卻未增加 Recall，因此 AP 不變。若強行拆開同分群組，逐筆計算正例名次的貢獻，可能得出不同結果；此圖採用 scikit-learn `average_precision_score` 的同分門檻分組方式。數值皆為**人工示例，非模型實測**。MkDocs 提供播放／暫停及鍵盤水平捲動。
 
+## 動畫示範：有限樣本下隨機排序的 AP 基準
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="有限樣本隨機排序 AP 列舉動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-random-ap-expectation-still.svg" data-still-src="../../../../assets/concept-animations/pr-random-ap-expectation-still.svg" data-motion-src="../../../../assets/concept-animations/pr-random-ap-expectation-motion.svg" alt="列舉兩筆正例、兩筆負例的六種等機率排序，逐筆呈現不內插 AP 與累積平均；最終期望 AP 為 49/72，約 0.681，高於正例比例 0.5。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）；所有標籤與分數均為**人工示例，非模型實測**。* 假設四筆資料包含**兩筆正例、兩筆負例**，分數互不相同，且隨機排序與真實標籤獨立。因此正例位置共有 $\binom{4}{2}=6$ 種等機率組合。每個正例在第 $r$ 名的 AP 貢獻為 $P@r/2$；六種完整排序的不內插 AP 依序為 $1,5/6,3/4,7/12,1/2,5/12$。動畫框線逐列掃描，並顯示已列舉組合的累積平均：
+
+$$
+\mathbb E[AP]=\frac{1+5/6+3/4+7/12+1/2+5/12}{6}
+=\frac{49}{72}\approx0.681.
+$$
+
+結果**不等於**正例比例 $2/4=0.5$。盛行率是與標籤獨立的分數在*母體層級*精確率曲線上的參考值，不是有限樣本不內插 AP 的確切期望。本圖只是小樣本的精確排列組合示例，**不可視為所有資料集都適用的隨機 AP 修正公式**。MkDocs 支援鍵盤操作播放／暫停；偏好減少動態效果時顯示完整靜態表格。[GitHub 靜態預覽](../../../../assets/concept-animations/pr-random-ap-expectation-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/pr-random-ap-expectation-motion.svg)。手機可橫向捲動。AP 定義對照既有 References 中的 scikit-learn 文件。
+
 ## 參考文獻
 
 ### 開創性論文

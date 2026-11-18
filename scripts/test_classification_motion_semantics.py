@@ -250,3 +250,43 @@ for stem in ("f1-threshold-topk", "roc-randomized-operating-mix"):
     assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
     assert '<animate ' in motion and '<animate ' not in still
 print("F1 prefix sweep and randomized ROC mixture semantics OK")
+
+
+# Enumerate all six strictly ranked placements of two positive cases among four.
+from itertools import combinations
+baseline_ap = []
+baseline_auc = []
+for hits in combinations(range(4), 2):
+    labels = [int(i in hits) for i in range(4)]
+    seen = 0
+    ap_score = 0.0
+    for rank, label in enumerate(labels, start=1):
+        if label:
+            seen += 1
+            ap_score += (seen / rank) / 2
+    auc_score = sum(int(i < j) for i in range(4) for j in range(4)
+                    if labels[i] == 1 and labels[j] == 0) / 4
+    baseline_ap.append(ap_score)
+    baseline_auc.append(auc_score)
+assert all(math.isclose(a, b) for a, b in zip(baseline_ap, (1, 5/6, 3/4, 7/12, 1/2, 5/12)))
+assert math.isclose(sum(baseline_ap) / 6, 49/72)
+assert math.isclose(sum(baseline_auc) / 6, 1/2)
+assert 49/72 > 1/2  # finite-sample expected AP exceeds prevalence
+
+# Rank-order thresholds are mapped to conditional ROC rates; deployment prevalence is independent.
+costs = []
+label_prefix = (1, 0, 1, 0)
+for k in range(5):
+    tp = sum(label_prefix[:k])
+    fp = k - tp
+    tpr, fpr = tp/2, fp/2
+    costs.append(2 * .25 * (1 - tpr) + 1 * .75 * fpr)
+assert all(math.isclose(x, y) for x, y in zip(costs, (.5,.25,.625,.375,.75)))
+assert costs.index(min(costs)) == 1
+for stem in ("pr-random-ap-expectation", "roc-cost-operating-point"):
+    root=Path("docs/assets/concept-animations")
+    motion=(root/(stem+"-motion.svg")).read_text(encoding="utf-8")
+    still=(root/(stem+"-still.svg")).read_text(encoding="utf-8")
+    assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
+    assert "<animate " in motion and "<animate " not in still
+print("Finite-sample AP baseline and cost-aware ROC semantics OK")
