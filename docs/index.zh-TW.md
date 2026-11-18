@@ -31,6 +31,8 @@ hide:
 
 -   :material-cube-outline: **[模型與技術](theory/models/index.md)**
 
+    以[項目式協同過濾](theory/models/recommender/item-based-cf.md)了解使用明確鄰域的推薦方法。
+
     ---
     Transformer、LLM、擴散模型、電腦視覺、NLP、語音、多模態、GNN、代理人、世界模型。
 

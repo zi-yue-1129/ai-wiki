@@ -41,7 +41,7 @@ The trust ratio is defined in Equation 6 of the paper, and the momentum and weig
 
 ## Visual walkthrough
 
-![Animated LARS comparison of two layers' weight norms, gradient norms, trust ratios and resulting update magnitudes.](../../assets/concept-animations/lars-layer-trust-scaling-motion.svg)
+<img data-source-asset-urls src="../../assets/concept-animations/lars-layer-trust-scaling-still.svg" data-motion-src="../../assets/concept-animations/lars-layer-trust-scaling-motion.svg" data-still-src="../../assets/concept-animations/lars-layer-trust-scaling-still.svg" alt="Animated LARS comparison of two layers' weight norms, gradient norms, trust ratios and resulting update magnitudes." width="640" height="360" loading="lazy">
 
 *Original teaching animation, CC BY-SA 4.0.* Two artificial layers have weight norms 2 and 6, and gradient norms 8 and 3. Set the trust coefficient \(\eta=0.1\), global learning rate \(\gamma=1\), and both decay and momentum to zero. LARS then produces trust ratios \(0.025\) and \(0.2\), followed by update norms \(0.2\) and \(0.6\). Both layers have equal **relative** update norm \(\lVert\Delta w_\ell\rVert/\lVert w_\ell\rVert=0.1\), despite their different raw gradients. The graphic reveals weight norms, gradients, scaling and updates in order. All values are constructed for explanation, **not measured training data**. MkDocs adds Play/Pause and reduced-motion support; see the [static GitHub fallback](../../assets/concept-animations/lars-layer-trust-scaling-still.svg).
 

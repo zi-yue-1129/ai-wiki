@@ -30,7 +30,7 @@ Goyal 等人（2017）所用的線性學習率縮放加預熱，只在某個範�
 
 ## 動態演示
 
-![LARS 動畫：比較兩層的權重範數、梯度範數、逐層信任比與最後的更新幅度。](../../assets/concept-animations/lars-layer-trust-scaling-motion.svg)
+<img data-source-asset-urls src="../../assets/concept-animations/lars-layer-trust-scaling-still.svg" data-motion-src="../../assets/concept-animations/lars-layer-trust-scaling-motion.svg" data-still-src="../../assets/concept-animations/lars-layer-trust-scaling-still.svg" alt="LARS 動畫：比較兩層的權重範數、梯度範數、逐層信任比與最後的更新幅度。" width="640" height="360" loading="lazy">
 
 *原創教學動畫，CC BY-SA 4.0。* 兩個人工設定的層，其權重範數分別為 2、6，梯度範數則為 8、3。設定信任係數 \(\eta=0.1\)、全域學習率 \(\gamma=1\)，並暫時忽略權重衰減與動量，LARS 得到信任比 \(0.025\)、\(0.2\)，對應更新範數 \(0.2\)、\(0.6\)。因此，儘管兩層的原始梯度及絕對更新量不同，**相對更新範數** \(\lVert\Delta w_\ell\rVert/\lVert w_\ell\rVert=0.1\) 卻一致。動畫依序揭露權重、梯度、信任比及更新量；數值為人工示意，**不是模型實測資料**。MkDocs 提供播放／暫停及減少動態效果支援；GitHub 可[檢視靜態回退預覽](../../assets/concept-animations/lars-layer-trust-scaling-still.svg)。
 
