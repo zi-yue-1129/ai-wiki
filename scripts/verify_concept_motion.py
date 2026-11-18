@@ -15,6 +15,13 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "ece-binned-calibration": "theory/paradigms/probabilistic/uncertainty-calibration/expected-calibration-error",
+    "deep-ensemble-spread": "theory/paradigms/probabilistic/uncertainty-calibration/deep-ensembles",
+    "clr-triangular2-sweep": "theory/optimization/cyclical-learning-rates",
+    "gin-multiset-counts": "theory/models/gnn/message-passing/gin/index",
+    "graphsage-sample-aggregate": "theory/models/gnn/message-passing/graphsage/index",
+    "qk-norm-scale-sweep": "theory/models/transformer/qk-norm",
+    "sigma-reparam-spectral-gain": "theory/models/transformer/sigma-reparam",
     "roc-tie-half-credit": "theory/evaluation/metrics/classification/roc-auc",
     "pr-ap-tied-threshold": "theory/evaluation/metrics/classification/pr-auc",
     "roc-pairwise-auc": "theory/evaluation/metrics/classification/roc-auc",
@@ -288,7 +295,7 @@ def main() -> int:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:
                     errors.append(f"{page}: missing GitHub static preview link for {stem}")
-            elif stem in {"lion-sign-momentum", "muon-spectral-balancing", "hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
+            elif stem in {"qk-norm-scale-sweep", "sigma-reparam-spectral-gain", "ece-binned-calibration", "deep-ensemble-spread", "lion-sign-momentum", "muon-spectral-balancing", "hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"itemcf-weighted-neighbors", "neumf-dual-path"}:
                 errors.extend(verify_source_pair(page, text, stem))
@@ -309,7 +316,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"roc-rank-transform", "auc-ap-ranking-contrast", "lars-layer-trust-scaling", "lamb-adam-layer-trust", "bo-gp-conditioning", "bo-expected-improvement", "checkpoint-recompute", "fp16-loss-scaling", "effective-number-growth", "logit-prior-decision", "roofline-ridge-sweep", "fp8-scale-range", "roc-threshold-sweep", "pr-threshold-sweep", "dpr-dot-product-sweep", "colbert-maxsim-switch", "paired-bootstrap-resampling", "elo-online-update", "grid-search-x-coverage", "random-search-x-coverage", "group-norm-statistics", "rmsnorm-shift-response", "svm-margin-hinge", "cv-fold-rotation", "ndcg-position-discount", "map-precision-at-hits", "heavy-ball-overshoot", "sgd-noise-batch", "adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"gin-multiset-counts", "graphsage-sample-aggregate", "clr-triangular2-sweep", "roc-rank-transform", "auc-ap-ranking-contrast", "lars-layer-trust-scaling", "lamb-adam-layer-trust", "bo-gp-conditioning", "bo-expected-improvement", "checkpoint-recompute", "fp16-loss-scaling", "effective-number-growth", "logit-prior-decision", "roofline-ridge-sweep", "fp8-scale-range", "roc-threshold-sweep", "pr-threshold-sweep", "dpr-dot-product-sweep", "colbert-maxsim-switch", "paired-bootstrap-resampling", "elo-online-update", "grid-search-x-coverage", "random-search-x-coverage", "group-norm-statistics", "rmsnorm-shift-response", "svm-margin-hinge", "cv-fold-rotation", "ndcg-position-discount", "map-precision-at-hits", "heavy-ball-overshoot", "sgd-noise-batch", "adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
