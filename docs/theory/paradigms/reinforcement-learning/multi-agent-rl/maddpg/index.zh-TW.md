@@ -42,10 +42,12 @@ translation_reviewed: 2026-11-11
 ### 聯合動作的目標值 Bootstrap（以智能體 1 為例）
 
 從經驗回放取出聯合轉移後，每個**緩慢更新的目標演員**使用自身的下一個觀測產生動作，目標評論家再評估下一時間點的*聯合動作*：
+
 \[
 a'_j=\mu'_j(o'_j),\qquad
 y_1=r_1+\gamma(1-d)Q'_1(x',a'_1,\ldots,a'_N).
 \]
+
 其中 \(d=1\) 表示終止轉移，這時不再加入 Bootstrap 項。圖中為**人工構造的示意數值**：\(r_1=0.50\)、\(\gamma=0.90\)、\(d=0\)、目標評論家 \(Q'_1=1.80\)、當前評論家 \(Q_1=1.40\)，因此 \(y_1=2.12\)，帶符號的 TD 殘差 \(y_1-Q_1=0.72\)。此流程依據 Lowe 等人（2017）的 MADDPG 目標網路設計，而非實際訓練紀錄。
 
 <div class="marl-source-scroll" tabindex="0" role="region" aria-label="MADDPG 的回放下一狀態依序流向各目標演員、聯合目標評論家及 Bellman 殘差" style="max-width:100%;overflow-x:auto">

@@ -4,6 +4,14 @@ on:
   pull_request:
     paths:
       - "scripts/test_forward_math_markup.py"
+      - "docs/theory/math/automatic-differentiation/forward-mode.md"
+      - "docs/theory/math/automatic-differentiation/forward-mode.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md"
+      - "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md"
+      - "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md"
       - "scripts/test_distillation_player.cjs"
       - "scripts/test_diffusion_policy_player.cjs"
       - "scripts/test_fixture_dependency_motion_semantics.py"

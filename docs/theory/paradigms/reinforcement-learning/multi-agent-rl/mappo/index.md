@@ -40,6 +40,7 @@ The paper also finds that performance degrades when samples are reused too often
 ### GAE unfolds backwards through a centralised value critic
 
 For one representative agent's rollout, the training-only centralised critic supplies \(V(s_t)\). A standard PPO-style GAE recursion is
+
 \[
 \delta_t=r_t+\gamma(1-d_t)V(s_{t+1})-V(s_t).
 \]
@@ -47,6 +48,7 @@ For one representative agent's rollout, the training-only centralised critic sup
 \[
 \hat A_t=\delta_t+\gamma\lambda(1-d_t)\hat A_{t+1}.
 \]
+
 The display sets \(\gamma=0.9\), \(\lambda=0.8\), rewards \((0.2,0.4,0.6)\), critic values \((1.0,0.8,0.5,0)\), and a terminal final step. It obtains \(\delta=(-0.08,0.05,0.10)\), then **backwards** \(\hat A_2=0.10\), \(\hat A_1=0.122\), \(\hat A_0=0.00784\). This uses the global-value conditioning of MAPPO alongside standard GAE; it does **not** claim that these numbers arose from a trained policy or represent all agents' rewards.
 
 <div class="marl-source-scroll" tabindex="0" role="region" aria-label="MAPPO centralised value-based TD residuals and backward GAE recursion across three rollout steps" style="max-width:100%;overflow-x:auto">

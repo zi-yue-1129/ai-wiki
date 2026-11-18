@@ -46,10 +46,12 @@ The critic is trained with a temporal-difference target built from the target ac
 ### Joint target bootstrap (agent 1)
 
 For a sampled joint transition, each **slow target actor** computes its next action from its own next observation. The target critic then evaluates the *joint* next action:
+
 \[
 a'_j=\mu'_j(o'_j),\qquad
 y_1=r_1+\gamma(1-d)Q'_1(x',a'_1,\ldots,a'_N).
 \]
+
 Here \(d=1\) denotes a terminal transition, so the bootstrap term vanishes. The example below is deliberately constructed: \(r_1=0.50\), \(\gamma=0.90\), \(d=0\), target critic output \(Q'_1=1.80\), and online critic output \(Q_1=1.40\). Thus \(y_1=2.12\) and the signed residual \(y_1-Q_1=0.72\). The illustration follows the original MADDPG target-network construction (Lowe et al., 2017, in References), not a recorded training run.
 
 <div class="marl-source-scroll" tabindex="0" role="region" aria-label="MADDPG joint replay observation flows through target actors to the target critic and Bellman residual" style="max-width:100%;overflow-x:auto">
