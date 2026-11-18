@@ -36,17 +36,38 @@ Let \(L\) and \(R\) be the Shampoo statistics for a matrix parameter, with eigen
 
 ### Animated walkthrough: Adam in the Shampoo eigenbasis
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="SOAP eigenbasis and Adam animation">
-<div style="width:640px">
-<img src="../../../assets/concept-animations/soap-eigenbasis-adam-still.svg" data-motion-src="../../../assets/concept-animations/soap-eigenbasis-adam-motion.svg" alt="A two-by-two gradient matrix is rotated to a Shampoo eigenbasis, rescaled by an illustrative Adam update, and rotated back to the original parameter coordinates." width="640" height="360">
+<div class="concept-motion-scroll" tabindex="0" style="max-width:100%;overflow-x:auto" role="region" aria-label="SOAP eigenbasis and Adam animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls style="display:block;width:640px;min-width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/soap-eigenbasis-adam-still.svg" data-motion-src="../../../assets/concept-animations/soap-eigenbasis-adam-motion.svg" data-still-src="../../../assets/concept-animations/soap-eigenbasis-adam-still.svg" alt="A two-by-two gradient matrix is rotated to a Shampoo eigenbasis, rescaled by an illustrative Adam update, and rotated back to the original parameter coordinates." width="640" height="360">
 </div>
 </div>
 
-*Original continuous teaching animation (CC BY-SA 4.0).* The **constructed** two-dimensional example uses $G=\left[\begin{smallmatrix}3&1\\1&3\end{smallmatrix}\right]$ and the orthogonal basis $Q=2^{-1/2}\left[\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right]$, giving $Q^\top GQ=\operatorname{diag}(4,2)$. An **illustrative**, coordinate-wise adapted update in that basis, $\tilde U=\operatorname{diag}(1,1.6)$, is transformed back into $U=Q\tilde UQ^\top=\left[\begin{smallmatrix}1.3&-0.3\\-0.3&1.3\end{smallmatrix}\right]$. The middle matrix is not derived from a specified Adam moment history, and these numbers are **not model measurements or recommended update magnitudes**. The animation focuses on the coordinate transforms, not Shampoo's eigenbasis-refresh schedule or Adam bias correction; the parameter step is applied in the negative update direction. MkDocs offers Play/Pause and a reduced-motion still; [GitHub static overview](../../../assets/concept-animations/soap-eigenbasis-adam-still.svg). See Vyas et al. (2024) in References.
+*Original continuous teaching animation (CC BY-SA 4.0).* The **constructed** two-dimensional example uses 
+
+\[
+G=\left[\begin{smallmatrix}3&1\\1&3\end{smallmatrix}\right]
+\]
+
+ and the orthogonal basis 
+
+\[
+Q=2^{-1/2}\left[\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right]
+\]
+
+, giving $Q^\top GQ=\operatorname{diag}(4,2)$. An **illustrative**, coordinate-wise adapted update in that basis, $\tilde U=\operatorname{diag}(1,1.6)$, is transformed back into 
+
+\[
+U=Q\tilde UQ^\top=\left[\begin{smallmatrix}1.3&-0.3\\-0.3&1.3\end{smallmatrix}\right]
+\]
+
+. The middle matrix is not derived from a specified Adam moment history, and these numbers are **not model measurements or recommended update magnitudes**. The animation focuses on the coordinate transforms, not Shampoo's eigenbasis-refresh schedule or Adam bias correction; the parameter step is applied in the negative update direction. MkDocs offers Play/Pause and a reduced-motion still; [GitHub static overview](../../../assets/concept-animations/soap-eigenbasis-adam-still.svg). See Vyas et al. (2024) in References.
+
+All matrices are fixed reference values; highlights follow the arriving signals, not a measured execution schedule. This special symmetric example uses the same left and right orthogonal basis; general SOAP uses separate bases and maintains Adam state across refreshes. The loop resets.
+
 
 ## Key results
 
-In the large-batch regime, the abstract reports that SOAP reduces the number of iterations by over 40% and the wall-clock time by over 35% compared with AdamW. It reports about 20% improvements in both measures compared with Shampoo. The abstract does not describe the models in detail, so this page quotes only these figures.
+In the large-batch regime, the abstract reports that SOAP reduces the number of iterations by over 40% and the wall-clock time by over 35% compared with AdamW. It reports about 20% improvements in both measures compared with Shampoo. The updated abstract identifies 360M- and 660M-parameter language-model pretraining experiments; these reported gains apply to that evaluated setting, not every model or batch size.
 
 ## Limitations
 
