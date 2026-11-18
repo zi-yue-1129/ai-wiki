@@ -19,6 +19,22 @@ $$\text{ECE} = \sum_{m=1}^{M} \frac{|B_m|}{n} \left| \text{acc}(B_m) - \text{con
 
 其中 $\text{acc}(B_m)$ 是分箱 $m$ 中觀察到的正例比例，$\text{conf}(B_m)$ 是該分箱中平均的預測機率。Naeini et al.（2015）發展了這類以分箱為基礎的估計方法。結果取決於使用的分箱數，因此必須報告分箱數。
 
+## 動態解說：合併分箱掩蓋校準落差
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="ECE 分箱合併動畫；可聚焦並水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ece-bin-merging-still.svg" data-motion-src="../../../../assets/concept-animations/ece-bin-merging-motion.svg" data-still-src="../../../../assets/concept-animations/ece-bin-merging-still.svg" alt="兩組各四筆人工預測各有 0.2 校準落差，分開計算 ECE 為 0.2；合併後兩者互相抵銷，ECE 變成 0。">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。MkDocs 可播放／暫停；手機版可聚焦圖像並水平捲動。GitHub 保留靜態回退預覽。* [開啟完整 SVG 動畫](../../../../assets/concept-animations/ece-bin-merging-motion.svg).
+
+考慮**八筆人工二元預測**：四筆預測 $0.30$，另四筆預測 $0.70$。兩組各有四筆中的兩筆為正例，因此各組觀察到的正例比例都是 $0.50$。採兩個等寬分箱時，
+
+$\mathrm{ECE}_{2}=\frac48|0.50-0.30|+\frac48|0.50-0.70|=0.20.$
+
+若把兩組**合併為單一分箱**，平均預測與正例比例都成為 $0.50$，因此 $\mathrm{ECE}_{1}=0$。動畫依序標示兩側方向相反的校準落差，最後呈現合併後相互抵銷的結果。**案例、真實標籤與模型預測機率完全不變**，只有分箱規則改變。因此，合併後 ECE 較低，不能推論原本的分組校準更好。此為刻意簡化的人工案例，非實測；實際報告應註明分箱方式與樣本數。其他章節的 ECE 動畫已展示依筆數加權，此處專注說明*分箱敏感性*。
+
 ## 解讀
 
 ECE 接近零，表示信心平均而言接近觀察到的頻率。ECE 無法指出是哪一段信心範圍出了問題；可靠性圖（reliability diagram）會依分箱畫出觀察頻率對信心的關係，才能看出來。現代深度網路常常過度自信，這會拉高 ECE（Guo et al., 2017）。

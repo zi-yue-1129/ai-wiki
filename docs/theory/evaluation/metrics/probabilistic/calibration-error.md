@@ -19,6 +19,22 @@ $$\text{ECE} = \sum_{m=1}^{M} \frac{|B_m|}{n} \left| \text{acc}(B_m) - \text{con
 
 where $\text{acc}(B_m)$ is the observed fraction of positives in bin $m$ and $\text{conf}(B_m)$ is the mean predicted probability in that bin. Naeini et al. (2015) develop binning-based estimates of this kind. The result depends on how many bins are used, so the bin count must be reported.
 
+## Animated explanation: cancellation by bin merging
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="ECE bin-merge animation; focus and scroll horizontally on narrow screens">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ece-bin-merging-still.svg" data-motion-src="../../../../assets/concept-animations/ece-bin-merging-motion.svg" data-still-src="../../../../assets/concept-animations/ece-bin-merging-still.svg" alt="Two groups each have an absolute calibration gap of 0.2. Separate bins give ECE 0.2; merging the same eight cases makes ECE zero by cancellation.">
+</div>
+</div>
+
+*Original instructional animation, CC BY-SA 4.0. Play/Pause is available on MkDocs; keyboard-focus the image to pan on narrow screens. GitHub displays a complete static fallback.* [Open full SVG animation](../../../../assets/concept-animations/ece-bin-merging-motion.svg).
+
+Consider **eight constructed binary predictions**: four forecasts of $0.30$ and four of $0.70$. Both groups have two positives out of four cases, so each has an observed event rate of $0.50$. Separate equal-width bins give
+
+$\mathrm{ECE}_{2}=\frac48|0.50-0.30|+\frac48|0.50-0.70|=0.20.$
+
+If both groups are merged into **one bin**, the mean forecast and observed rate are both $0.50$, so $\mathrm{ECE}_{1}=0$. The animation highlights each opposing gap and then the cancelled aggregate. **The cases and their predicted probabilities never change**—only the binning convention changes. A lower empirical ECE after merging therefore does not establish better underlying calibration. This deliberately small example is not a model measurement, and practical evaluations should disclose the bin definition and counts. The existing ECE reliability-gap animation in the uncertainty-calibration chapter explains count weighting; this example isolates *binning sensitivity*.
+
 ## Interpretation
 
 An ECE near zero means the confidence is close to the observed frequency on average. ECE does not show which confidence range is at fault; a reliability diagram, which plots observed frequency against confidence per bin, does. Modern deep networks are often overconfident, which raises the ECE (Guo et al., 2017).
