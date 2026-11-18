@@ -43,9 +43,9 @@ translation_reviewed: 2026-11-19
 
 | 動畫（[靜態預覽]可在 GitHub 觀看，[完整 SVG]展示動態） | 保持不變 | 改變的參數 | 導致的結果 |
 |---|---|---|---|
-| [ROC 固定、精確率改變](roc-auc.md#動畫示範roc-操作點固定精確率隨盛行率改變)（[靜態預覽](../../../../assets/concept-animations/roc-pr-shift-still.svg) · [完整 SVG](../../../../assets/concept-animations/roc-pr-shift-motion.svg)） | TPR = 0.80、FPR = 0.10、各類別內的分數條件分布 | 正例盛行率 5% → 60% | Precision／PPV 由 0.296 → 0.923；ROC 操作點不移動 |
-| [Youden J 與錯誤成本](roc-auc.md#動畫示範youden-j-與部署錯誤成本的最佳門檻)（[靜態預覽](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [完整 SVG](../../../../assets/concept-animations/roc-youden-cost-motion.svg)） | 六筆人工排序、部署盛行率 10%、FP 成本 1 | FN 成本 1 → 5 | 最低成本門檻在 FN 成本 4.5 時由 k = 1 切換至 k = 4；最大 J 始終在 k = 4 |
-| [先驗比例漂移與最佳策略](roc-auc.md#動畫示範先驗比例漂移如何切換最低成本門檻)（[靜態預覽](../../../../assets/concept-animations/roc-prior-policy-still.svg) · [完整 SVG](../../../../assets/concept-animations/roc-prior-policy-motion.svg)） | 六筆人工排序與錯誤成本（FN = 2、FP = 1）、各類別內的分數條件分布 | 正例盛行率 5% → 60% | 最低成本門檻在盛行率 20% 時切換；ROC 曲線維持不變 |
+| [ROC 固定、精確率改變](roc-auc.md)（[靜態預覽](../../../../assets/concept-animations/roc-pr-shift-still.svg) · [完整 SVG](../../../../assets/concept-animations/roc-pr-shift-motion.svg)） | TPR = 0.80、FPR = 0.10、各類別內的分數條件分布 | 正例盛行率 5% → 60% | Precision／PPV 由 0.296 → 0.923；ROC 操作點不移動 |
+| [Youden J 與錯誤成本](roc-auc.md)（[靜態預覽](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [完整 SVG](../../../../assets/concept-animations/roc-youden-cost-motion.svg)） | 六筆人工排序、部署盛行率 10%、FP 成本 1 | FN 成本 1 → 5 | 最低成本門檻在 FN 成本 4.5 時由 k = 1 切換至 k = 4；最大 J 始終在 k = 4 |
+| [先驗比例漂移與最佳策略](roc-auc.md)（[靜態預覽](../../../../assets/concept-animations/roc-prior-policy-still.svg) · [完整 SVG](../../../../assets/concept-animations/roc-prior-policy-motion.svg)） | 六筆人工排序與錯誤成本（FN = 2、FP = 1）、各類別內的分數條件分布 | 正例盛行率 5% → 60% | 最低成本門檻在盛行率 20% 時切換；ROC 曲線維持不變 |
 
 **如何解讀：** 在**純先驗比例漂移**且固定決策規則時，ROC 操作點可保持不變，但 PPV 仍會改變。若因部署盛行率或錯誤成本改變而**重新最佳化門檻**，選中的 ROC 點可能移動，並不代表底層 ROC 曲線變了。若各類別內的分數條件分布也變動，ROC 曲線本身就可能變化。所有數值皆為人工母體假設，**非模型實測或部署統計**。MkDocs 提供播放／暫停及 Reduced Motion 靜態回退；GitHub 或不支援動畫時可使用靜態預覽。
 
