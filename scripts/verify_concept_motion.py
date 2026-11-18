@@ -246,6 +246,8 @@ TOPICS = {
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
     "iou-overlap-sweep": "theory/evaluation/metrics/segmentation/iou",
     "dice-overlap-response": "theory/evaluation/metrics/segmentation/dice",
+    "bernoulli-kl-direction": "theory/information-theory/index",
+    "binary-channel-information": "theory/information-theory/index",
 }
 NAS_STEMS = {"darts-soft-operations", "aging-evolution-queue", "enas-shared-weight-transfer", "mnasnet-latency-tradeoff"}
 GITHUB_GIF_PREVIEWS = {
@@ -358,7 +360,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {"roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
+            elif stem in {"bernoulli-kl-direction", "binary-channel-information", "roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:
@@ -476,6 +478,8 @@ def main() -> int:
     # expose the animated variant to the MkDocs player through data-motion-src.
     # Check both paths rather than accepting the data attribute as the fallback.
     html_motion_topics = {
+        "bernoulli-kl-direction": "theory/information-theory/index",
+        "binary-channel-information": "theory/information-theory/index",
         "odin-gradient-perturbation": "theory/machine-learning/ood-detection/odin",
         "mahalanobis-ellipse-threshold": "theory/machine-learning/ood-detection/mahalanobis-distance",
     }
