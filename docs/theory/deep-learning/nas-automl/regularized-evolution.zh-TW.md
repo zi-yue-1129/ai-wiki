@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 ---
 
 # 正則化演化（Real 等人，2019）
@@ -32,6 +32,20 @@ Zoph 與 Le（2017）以強化學習搜尋架構，當時普遍認為要有學�
 
 因為移除的是最老的成員，而非最差的成員，早期分數好的模型不會永遠留在族群中，搜尋也持續探索。
 
+## 教學動畫：錦標賽選擇、突變與老化替換
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="教學動畫（聚焦後可用方向鍵水平捲動）">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../assets/concept-animations/aging-evolution-queue-still.svg" data-motion-src="../../../assets/concept-animations/aging-evolution-queue-motion.svg" data-still-src="../../../assets/concept-animations/aging-evolution-queue-still.svg" alt="五個架構的佇列先標出錦標賽候選 B、C、E，選出 C 為親代，產生子代 F，並刪除高分但最老的 A。" loading="lazy" width="800" height="420" style="width:800px;min-width:800px;max-width:none" />
+</div>
+</div>
+
+窄螢幕可聚焦圖框後使用方向鍵或滑動，水平捲動檢視原尺寸圖。
+
+*原創 SVG 教學動畫，CC BY-SA 4.0。GitHub 顯示已驗收的最終族群靜態圖；MkDocs 提供可用鍵盤操作的播放／暫停與減少動態效果回退。另有[靜態終點圖](../../../assets/concept-animations/aging-evolution-queue-still.svg)。*
+
+依加入時間排列的**人工示意分數**為 \(A=0.94\)、\(B=0.71\)、\(C=0.86\)、\(D=0.82\)、\(E=0.75\)。錦標賽抽到 \(\{B,C,E\}\)，因此選出 \(C\)（分數 \(0.86\)）作親代；假設突變生成新子代 \(F\)，並在訓練及驗證後取得示意分數 \(0.88\)，加入族群後移除的是**最老的** \(A\)，即使它的分數最高，族群仍更新為 \((B,C,D,E,F)\)。所有分數均為**示意數字，不是實際訓練或驗證集量測**；此動畫表達 Real 等人（2019）的方法規則，不代表每次老化都立即改善準確率。
+
 ## 主要方法
 
 本頁只涵蓋一種方法：搭配錦標賽選擇與單次突變的老化演化。
@@ -56,7 +70,7 @@ Zoph 與 Le（2017）以強化學習搜尋架構，當時普遍認為要有學�
 ## 應用
 
 - **影像分類器搜尋**，在不想使用強化學習控制器的情況下。
-- **多工作者的搜尋**，子代可以平行訓練，族群也不需要同步。
+- **多工作者的搜尋**，工作者可非同步訓練及評估子代；共享族群的更新仍須協調。
 - **新架構搜尋方法的基準**。
 
 ## 開放問題

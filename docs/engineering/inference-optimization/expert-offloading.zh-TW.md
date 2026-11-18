@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-18
 last_reviewed: 2026-11-04
 related:
   - theory/models/mixture-of-experts
@@ -34,8 +34,14 @@ aliases:
 1. 以混合位元寬度的方案量化專家權重，以縮小其大小。
 2. 把專家保存在主機記憶體中，並在裝置上保留共享層與一份專家快取。
 3. 對每一層，由路由器為目前的 token 選擇專家。
-4. 載入所有被選中、但不在裝置上的專家。
-5. 依該方法定義的快取策略淘汰一個已快取的專家以騰出空間，然後繼續生成。
+4. 若選中的專家不在裝置上且快取已滿，先依快取策略騰出空間。
+5. 將缺少的專家傳輸至可用位置，待它常駐後再繼續生成。
+
+<img data-source-asset-urls src="../../assets/concept-animations/expert-cache-miss-still.svg" data-motion-src="../../assets/concept-animations/expert-cache-miss-motion.svg" data-still-src="../../assets/concept-animations/expert-cache-miss-still.svg" width="640" height="360" alt="當路由器選中 E2 時，兩格 GPU 快取並未保存它；系統從主機記憶體載入 E2 並替換 E1，之後再次選中 E2 就會快取命中。">
+
+動畫先騰出 GPU 位置，再傳輸 E2；LOADED 表示首次請求已可執行，直到另一個請求再次選中 E2 才顯示 HIT。主機上的 E1 副本仍保留；重播只重設示意狀態，時間與淘汰對象並非實測。
+
+*原創教學動畫，CC BY-SA 4.0。* 圖中是**只有兩個位置的示意快取**，並非推論效能實測，也不代表原始論文特定的替換策略。起初 GPU 存有 E0 與 E1，但路由器選中 E2，因此必須從主機記憶體載入 E2，並移除 GPU 上的 E1 副本。下一次再選中 E2 時便會**快取命中**，不必重新傳輸。虛線與移動圓點只示意傳輸，並非實際硬體追蹤；淘汰對象、時間與專家選擇均為人工設定。MkDocs 可使用**播放／暫停**（Enter 或 Space），偏好減少動態效果時顯示靜態圖；窄螢幕可聚焦圖像區域並以鍵盤水平捲動。[GitHub 可閱讀的載入後狀態](../../assets/concept-animations/expert-cache-miss-still.svg)。
 
 ## 結果
 

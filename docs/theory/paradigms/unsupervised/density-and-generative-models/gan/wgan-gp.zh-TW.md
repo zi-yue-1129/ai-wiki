@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/models/cnn
 tags:
@@ -36,6 +36,18 @@ L_{\text{critic}} = \mathbb E_{\tilde x}[f_w(\tilde x)] - \mathbb E_{x}[f_w(x)] 
 
 生成器損失與 WGAN 相同，即 \(-\mathbb E_z[f_w(g_\theta(z))]\)。由於懲罰項需要評論家的梯度，每一步評論家更新都要計算梯度的梯度。論文直接在評論家中省略批次正規化，並報告不用它也有良好表現。論文的預設值為 Adam，學習率 0.0001，\(\beta_1 = 0\)，\(\beta_2 = 0.9\)。
 
+### 內插樣本與梯度懲罰的動態示意
+
+<div role="region" aria-label="可用方向鍵水平捲動的教學動畫與靜態預覽" tabindex="0" style="width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto" src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" data-motion-src="../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg" data-still-src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" alt="內插點由生成樣本移向真實樣本，右側梯度範數跨過目標值一，平方懲罰先降為零再上升。" width="640" height="360">
+</div>
+</div>
+
+*原創示意動畫，CC BY-SA 4.0。* 移動中的點代表內插輸入 \(\hat x=(1-\epsilon)\tilde x+\epsilon x\)。右上曲線顯示輸入梯度範數；沿單位長度內插座標 \(s=\epsilon\) 人工定義的**一維評論家** \(f(s)=0.6s+0.4s^2\)，不是實際訓練的影像評論家。其梯度大小為 \(\lvert f'(s)\rvert=0.6+0.8s\)，取示意 \(\lambda=10\)，則懲罰為 \(10(0.8s-0.4)^2\)：兩端均為 1.6，中點 \(s=0.5\) 為零。此梯度是**對輸入**求導，而不是對評論家權重求導。懲罰施加於取樣的內插點，**不保證所有位置**都符合限制；全部數值為解析示例，並非模型實測。MkDocs 可播放／暫停，GitHub 則保留靜態圖。[開啟完整 SVG 動畫](../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg)。
+
+這個雙側懲罰鼓勵範數**等於**一，但 Lipschitz 條件要求的是**不大於**一。動畫為了教學而掃過內插座標；實際訓練則隨機取樣內插點（Gulrajani et al., 2017，第 4 節）。
+
 ## 關鍵方法
 
 WGAN-GP 與 [WGAN](wgan.md) 的差別只在於如何實施 Lipschitz 限制。兩者都屬於 [GAN 概覽](index.md)頁中的 Wasserstein 家族。
@@ -49,7 +61,7 @@ WGAN-GP 與 [WGAN](wgan.md) 的差別只在於如何實施 Lipschitz 限制。�
 - **核心想法：** 在真實與生成樣本的隨機內插點上，懲罰評論家梯度範數偏離一的程度，藉此約束評論家。
 - **公式或演算法：** 上述評論家損失，\(\lambda = 10\)，生成器損失沿用 WGAN。論文每次生成器更新對應五次評論家更新。
 - **結果：** 摘要指出，此方法可在幾乎不需超參數調校的情況下，穩定訓練多種 GAN 架構，包括深層殘差網路與離散資料上的語言模型。摘要也報告在 CIFAR-10 與 LSUN bedrooms 上有高品質的生成結果。
-- **限制：** 懲罰只在內插點上施加，因此限制只能近似地在各處成立。每個評論家步驟都需要額外的梯度計算。此方法仍需要合適的評論家架構，而論文對正規化的建議也是針對此方法而言。
+- **限制：** 懲罰鼓勵取樣內插點上的輸入梯度範數接近一；它不保證全域 Lipschitz 界限，也不控制遠離這些樣本的位置。每個評論家步驟都需要額外的梯度計算。此方法仍需要合適的評論家架構，而論文對正規化的建議也是針對此方法而言。
 
 ## 關聯
 

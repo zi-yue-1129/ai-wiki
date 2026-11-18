@@ -54,11 +54,13 @@ For a $\operatorname{Beta}(3,3)$ prior and two successes in two trials, the post
 
 ### Animated example: prior and successive posterior modes
 
-<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
+<div class="reviewed-motion-scroll" tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls class="concept-motion-wide"
      src="../../../assets/concept-animations/map-beta-posterior-still.svg"
      data-motion-src="../../../assets/concept-animations/map-beta-posterior-motion.svg"
      data-still-src="../../../assets/concept-animations/map-beta-posterior-still.svg"
      alt="A symmetric Beta prior and a progressively updated posterior density are shown as twelve Bernoulli trials arrive; vertical purple MAP and dashed amber MLE markers can be compared." width="640" height="360">
+</div>
 
 *Original 12-second teaching animation (CC BY-SA 4.0).* This **separate illustrative sequence** uses the same 12 observations as the [MLE animation](maximum-likelihood.md) and a fixed $\operatorname{Beta}(3,3)$ prior, also used in the two-success worked example above. With $s_n$ successes in $n$ observations, the posterior is $\operatorname{Beta}(3+s_n,3+n-s_n)$, whose interior mode is $\hat p_{\mathrm{MAP}}=(s_n+2)/(n+4)$. The dashed grey curve is the prior; purple is the posterior, and the amber marker is the MLE $s_n/n$. **Prior and posterior curves are each scaled to peak 1**, so their relative heights do not compare probability masses. At $n=2,s_n=2$, MAP is $2/3$ and MLE is $1$, matching the calculation above. At $n=12,s_n=8$, MAP is $10/16=0.625$ versus MLE $8/12\approx0.667$. The sample sequence is constructed for teaching, **not a measured result**. MkDocs has Play/Pause and a reduced-motion fallback; GitHub shows the [static preview](../../../assets/concept-animations/map-beta-posterior-still.svg).
 

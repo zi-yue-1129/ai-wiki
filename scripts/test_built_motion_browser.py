@@ -163,8 +163,12 @@ def assert_document_fits(page, viewport):
     return size
 
 
+MOBILE_PREFLIGHT_NAMES = frozenset({'t-sne', 'umap', 'minhash-deduplication',
+    'data-programming', 'regularized-evolution', 'asam', 'shampoo'})
+
+
 def check_math_rendering(page):
-    """Wait for real MathJax output and reject re-typeset accessibility MathML."""
+    """Reject rendered MathJax errors as well as incomplete/duplicate output."""
     page.evaluate("""async () => {
         let timer;
         try {
@@ -182,14 +186,81 @@ def check_math_rendering(page):
             containers: article.querySelectorAll('mjx-container').length,
             nestedAssistive: article.querySelectorAll('mjx-assistive-mml mjx-container').length,
             assistiveMathML: article.querySelectorAll('mjx-assistive-mml > math').length,
-            trackedItems: MathJax.startup.document.getMathItemsWithin(article).length
+            trackedItems: MathJax.startup.document.getMathItemsWithin(article).length,
+            // Error output still has mjx-container, so container counts alone pass.
+            // Inspect rendered DOM/MathML, never prose containing the word "error".
+            renderedErrors: Array.from(article.querySelectorAll(
+                'mjx-merror, [data-mjx-error], merror, [data-mml-node="merror"]'
+            )).map(node => ({
+                tag: node.localName,
+                message: node.getAttribute('data-mjx-error') || node.getAttribute('title') || node.textContent,
+                html: node.outerHTML.slice(0, 1200)
+            }))
         };
     }""")
+    assert not state["renderedErrors"], ("rendered MathJax error", state)
     assert state["unrendered"] == 0, ("unrendered math source", state)
     assert state["nestedAssistive"] == 0, ("assistive MathML was typeset again", state)
     assert state["assistiveMathML"] == state["containers"], ("missing assistive MathML", state)
     assert state["trackedItems"] == state["containers"], ("rendered MathItems were forgotten", state)
     return state
+
+
+def check_math_renderer_canary(browser, url, output):
+    """Exercise the real site renderer in a disposable context before real cases.
+
+    Valid -> invalid -> valid proves merror rejection even with a rendered
+    container and proves the failure is cleared. No fake MathJax or injected
+    renderer is used; only isolated TeX input is replaced on a real built page.
+    """
+    context = browser.new_context()
+    page = context.new_page()
+    result = {"status": "running", "scope": "isolated actual MathJax renderer canary"}
+    render = r"""async tex => {
+        const article = document.querySelector('.md-content__inner');
+        MathJax.typesetClear([article]);
+        const source = document.createElement('div');
+        source.className = 'arithmatex';
+        source.textContent = tex;
+        article.replaceChildren(source);
+        MathJax.texReset();
+        await MathJax.typesetPromise([source]);
+    }"""
+    folder = output / 'math-renderer-canary'
+    folder.mkdir(parents=True, exist_ok=True)
+    try:
+        response = page.goto(url, wait_until='load', timeout=45000)
+        assert response and response.ok, 'Renderer canary built page unavailable'
+        check_math_rendering(page)  # Also bounds startup settling before typesetPromise.
+        page.evaluate(render, r'\[x^2 + 1\]')
+        result['valid'] = check_math_rendering(page)
+        assert result['valid']['containers'] == 1
+        page.evaluate(render, r'\[\begin{definitelyUndefinedWikiAuditEnvironment}x\end{definitelyUndefinedWikiAuditEnvironment}\]')
+        try:
+            check_math_rendering(page)
+        except AssertionError as error:
+            if 'rendered MathJax error' not in str(error):
+                raise
+            invalid = error.args[0][1]
+            assert invalid['containers'] > 0, 'Negative canary did not produce a rendered container'
+            assert invalid['renderedErrors'], 'Negative canary did not produce a rendered error node'
+            result['invalid_rejected'] = invalid
+            page.screenshot(path=str(folder / 'invalid-rendered-error.png'))
+        else:
+            raise AssertionError('Invalid TeX renderer canary was incorrectly accepted')
+        page.evaluate(render, r'\[\frac{1}{2} + x\]')
+        result['cleared'] = check_math_rendering(page)
+        assert result['cleared']['containers'] == 1
+        result['status'] = 'passed'
+        return result
+    except Exception as error:
+        result.update(status='failed', error=str(error))
+        raise
+    finally:
+        try:
+            (folder / 'report.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
+        finally:
+            context.close()  # Never reuse the invalid-input document for real cases.
 
 
 OVERFLOW_DIAGNOSTICS_JS = r"""() => {
@@ -321,27 +392,59 @@ def settled_scroll_left(region):
     })""")
 
 
-def check_keyboard_scrollers(page):
-    """Measure native keyboard scrolling, then restore the screenshot position."""
+MOTION_SCROLL_DISCOVERY_JS = r"""() => {
+    const article = document.querySelector('.md-content__inner');
+    if (!article) throw new Error('Built article missing during scroll discovery');
+    const found = new Set();
+    for (const img of article.querySelectorAll('img[data-concept-motion-enhanced="yes"]')) {
+        for (let node = img.parentElement; node; node = node.parentElement) {
+            const overflow = getComputedStyle(node).overflowX;
+            if ((overflow === 'auto' || overflow === 'scroll') && node.scrollWidth > node.clientWidth + 2) {
+                found.add(node); // Do not prefilter tabindex: inaccessible regions must fail below.
+            }
+            if (node === article) break;
+        }
+    }
+    return Array.from(found);
+}"""
+
+
+def check_keyboard_scrollers(page, output=None):
+    """Discover actual overflowing ancestors, exercise native keys, retain right edges."""
     measured = []
-    regions = page.locator('.concept-motion-scroll[tabindex="0"]')
-    for index in range(regions.count()):
-        region = regions.nth(index)
-        if not region.is_visible():
-            continue
-        bounds = region.evaluate('(e) => ({clientWidth: e.clientWidth, scrollWidth: e.scrollWidth})')
-        if bounds['scrollWidth'] <= bounds['clientWidth'] + 2:
-            continue
-        region.evaluate('(e) => e.scrollTo({left: 0, behavior: "instant"})')
-        region.focus()
-        assert region.evaluate('(e) => document.activeElement === e'), 'Scroll region cannot receive focus'
-        region.press('ArrowRight')
-        page.wait_for_function('(e) => e.scrollLeft > 0', arg=region.element_handle(), timeout=2000)
-        bounds['afterArrowRight'] = settled_scroll_left(region)
-        assert bounds['afterArrowRight'] > 0, 'Keyboard scroll did not remain moved'
-        region.evaluate('(e) => { e.blur(); e.scrollTo({left: 0, behavior: "instant"}); }')
-        assert settled_scroll_left(region) == 0, 'Scroll region did not reset'
-        measured.append(bounds)
+    array = page.evaluate_handle(MOTION_SCROLL_DISCOVERY_JS)
+    try:
+        properties = array.get_properties()
+        regions = [properties[key].as_element() for key in sorted(properties, key=lambda k: int(k) if k.isdigit() else -1)
+                   if key.isdigit()]
+        for index, region in enumerate(regions, 1):
+            assert region is not None, 'Scroll discovery did not return a DOM element'
+            if not region.is_visible():
+                continue
+            bounds = region.evaluate('(e) => ({clientWidth: e.clientWidth, scrollWidth: e.scrollWidth})')
+            if bounds['scrollWidth'] <= bounds['clientWidth'] + 2:
+                continue
+            assert region.get_attribute('tabindex') == '0', 'Overflowing motion region lacks tabindex=0'
+            region.evaluate('(e) => e.scrollTo({left: 0, behavior: "instant"})')
+            region.focus()
+            assert region.evaluate('(e) => document.activeElement === e'), 'Scroll region cannot receive focus'
+            region.press('ArrowRight')
+            page.wait_for_function('(e) => e.scrollLeft > 0', arg=region, timeout=2000)
+            bounds['afterArrowRight'] = settled_scroll_left(region)
+            assert bounds['afterArrowRight'] > 0, 'Keyboard scroll did not remain moved'
+            if output is not None:
+                region.scroll_into_view_if_needed()
+                region.evaluate('(e) => e.scrollTo({left: e.scrollWidth, behavior: "instant"})')
+                bounds['rightEdge'] = settled_scroll_left(region)
+                assert bounds['rightEdge'] >= bounds['scrollWidth'] - bounds['clientWidth'] - 1, 'Scroll region cannot reach right edge'
+                screenshot = output / f'scroll-region-{index}-right.png'
+                page.screenshot(path=str(screenshot))
+                bounds['rightEdgeScreenshot'] = screenshot.name
+            region.evaluate('(e) => { e.blur(); e.scrollTo({left: 0, behavior: "instant"}); }')
+            assert settled_scroll_left(region) == 0, 'Scroll region did not reset'
+            measured.append(bounds)
+    finally:
+        array.dispose()
     return measured
 
 
@@ -368,7 +471,13 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
         result["math_rendering"] = check_math_rendering(page)
         # Wait for font layout before judging bounds or taking the review screenshots.
         page.evaluate("document.fonts.ready")
-        result['keyboard_scroll'] = check_keyboard_scrollers(page)
+        # Discovery uses enhanced targets; wait for every expected player before
+        # enumerating ancestors so delayed initialization cannot yield an empty pass.
+        for asset in expected:
+            expected_image = page.get_by_alt_text(asset["alt"], exact=True)
+            expect(expected_image).to_have_count(1)
+            expect(expected_image).to_have_attribute("data-concept-motion-enhanced", "yes")
+        result['keyboard_scroll'] = check_keyboard_scrollers(page, output)
         # These diagrams intentionally preserve a 640px reading width on phones.
         topic = target.source.rsplit('/', 1)[-1].removesuffix('.md').removesuffix('.zh-TW')
         if viewport['width'] < 600 and topic in {'t-sne', 'umap', 'minhash-deduplication', 'data-programming'}:
@@ -427,7 +536,7 @@ def main():
     parser.add_argument("--site-dir", type=Path, help="Already-built site (defaults to mkdocs.yml)")
     parser.add_argument("--output", type=Path, default=ROOT / "artifacts/built-motion-browser")
     parser.add_argument("--keyboard-preflight", action="store_true",
-                        help="Check the four keyboard-scroll topics on mobile before the separate full suite")
+                        help="Check seven bilingual keyboard/math topics on mobile before the separate full suite")
     parser.add_argument("--discover-only", action="store_true", help="Validate discovery and built attributes without Chromium")
     parser.add_argument("--executable-path", help="Optional local Chromium; CI uses Playwright's pinned browser")
     args = parser.parse_args()
@@ -435,9 +544,10 @@ def main():
     site = (args.site_dir or Path(config.site_dir)).resolve()
     targets = discover_pages(config)
     if args.keyboard_preflight:
-        names = {'t-sne', 'umap', 'minhash-deduplication', 'data-programming'}
+        # Retain native-scroll regressions and fail fast on the new formula-overflow pages.
+        names = MOBILE_PREFLIGHT_NAMES
         targets = [t for t in targets if t.source.rsplit('/', 1)[-1].removesuffix('.md').removesuffix('.zh-TW') in names]
-        assert len(targets) == 8, 'Keyboard preflight requires all four bilingual topics'
+        assert len(targets) == 14, 'Mobile preflight requires all seven bilingual topics'
     report = {"pages": [asdict(target) for target in targets], "cases": [],
               "scope": "keyboard-preflight" if args.keyboard_preflight else "full"}
     args.output.mkdir(parents=True, exist_ok=True)
@@ -454,6 +564,8 @@ def main():
             browser = playwright.chromium.launch(**({"executable_path": args.executable_path}
                                                      if args.executable_path else {}))
             try:
+                report["math_renderer_canary"] = check_math_renderer_canary(
+                    browser, urljoin(base_url, targets[0].url), args.output)
                 for target in targets:
                     expected = check_built_page(site, target, base_url)
                     for name, viewport in VIEWPORTS.items():
