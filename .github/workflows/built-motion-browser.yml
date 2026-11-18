@@ -11,6 +11,7 @@ on:
       - "requirements.txt"
       - "scripts/test_built_motion_browser.py"
       - "scripts/test_built_motion_discovery.py"
+      - "scripts/test_built_prose_browser.py"
       - "scripts/test_mathjax_lifecycle.cjs"
       - "scripts/test_*motion_semantics.py"
       - "scripts/README-built-motion-browser.md"
@@ -58,6 +59,8 @@ jobs:
         run: mkdocs build --strict
       - name: Exercise built desktop, mobile and reduced-motion pages
         run: python scripts/test_built_motion_browser.py
+      - name: Check bilingual variational-inference prose and mathematical layout
+        run: python scripts/test_built_prose_browser.py --sources docs/theory/paradigms/probabilistic/variational-inference/index.md docs/theory/paradigms/probabilistic/variational-inference/index.zh-TW.md --output artifacts/vi-prose
       - name: Exercise sharpness calculators in the built bilingual site
         run: SHARPNESS_SITE_DIR=site python scripts/test_sharpness_geometry_labs_browser.py
       - name: Exercise built adaptive optimiser calculators
@@ -71,5 +74,6 @@ jobs:
             artifacts/built-motion-browser/
             artifacts/sharpness-labs/
             artifacts/adaptive-optimiser-labs/
+            artifacts/vi-prose/
           if-no-files-found: warn
           retention-days: 14
