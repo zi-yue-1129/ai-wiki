@@ -246,6 +246,8 @@ TOPICS = {
     "nerf-volume-rendering": "theory/models/computer-vision/3d-and-neural-rendering/nerf",
     "iou-overlap-sweep": "theory/evaluation/metrics/segmentation/iou",
     "dice-overlap-response": "theory/evaluation/metrics/segmentation/dice",
+    "bernoulli-kl-direction": "theory/information-theory/index",
+    "binary-channel-information": "theory/information-theory/index",
 }
 NAS_STEMS = {"darts-soft-operations", "aging-evolution-queue", "enas-shared-weight-transfer", "mnasnet-latency-tradeoff"}
 GITHUB_GIF_PREVIEWS = {
@@ -476,6 +478,8 @@ def main() -> int:
     # expose the animated variant to the MkDocs player through data-motion-src.
     # Check both paths rather than accepting the data attribute as the fallback.
     html_motion_topics = {
+        "bernoulli-kl-direction": "theory/information-theory/index",
+        "binary-channel-information": "theory/information-theory/index",
         "odin-gradient-perturbation": "theory/machine-learning/ood-detection/odin",
         "mahalanobis-ellipse-threshold": "theory/machine-learning/ood-detection/mahalanobis-distance",
     }
