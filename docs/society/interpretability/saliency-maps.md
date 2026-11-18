@@ -36,7 +36,9 @@ $$
 
 ### Visual walkthrough
 
-<div role="region" tabindex="0" aria-label="Scrollable animated saliency illustration" style="overflow-x:auto;max-width:100%"><img src="../../assets/concept-animations/saliency-local-gradient-still.svg" data-motion-src="../../assets/concept-animations/saliency-local-gradient-motion.svg" data-still-src="../../assets/concept-animations/saliency-local-gradient-still.svg" width="640" height="360" style="width:640px;max-width:none" alt="Synthetic saturating score F(x): a moving input and its local tangent correspond to the instantaneous gradient magnitude, which shrinks near x=1."></div>
+<div role="region" tabindex="0" aria-label="Scrollable animated saliency illustration" style="overflow-x:auto;max-width:100%"><div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../assets/concept-animations/saliency-local-gradient-still.svg" data-motion-src="../../assets/concept-animations/saliency-local-gradient-motion.svg" data-still-src="../../assets/concept-animations/saliency-local-gradient-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="Synthetic saturating score F(x): a moving input and its local tangent correspond to the instantaneous gradient magnitude, which shrinks near x=1."></div></div>
+
+Focus the figure area with Tab, then use the Left and Right arrow keys to scroll.
 
 *Original continuous teaching animation, CC BY-SA 4.0.* The orange tangent follows the current input on the blue score curve; its slope corresponds to the marker on the green derivative curve. This is an **analytic one-dimensional illustration**, not an image classifier or measured saliency map. For $F(x)=1-e^{-4x}$, the derivative drops from about $2.68$ at $x=0.1$ to about $0.073$ at $x=1$, even though the output has changed substantially. The figure demonstrates *local sensitivity*, not causal importance. MkDocs adds Play/Pause controls and respects reduced-motion preferences. On narrow screens, scroll horizontally with touch or the keyboard. [GitHub-readable static overview](../../assets/concept-animations/saliency-local-gradient-still.svg).
 
