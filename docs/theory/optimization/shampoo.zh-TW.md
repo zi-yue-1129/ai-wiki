@@ -37,15 +37,21 @@ $$
 
 ### 觀察雙側預條件子隨時間改變
 
-<img src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-motion-src="../../assets/concept-animations/shampoo-eigenmode-motion.svg" data-still-src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-motion-scroll="true" tabindex="0" alt="重複的二乘二梯度逐步累積 Shampoo 左右兩側的矩陣統計量，預條件後的更新對較大特徵模態有更強的相對抑制。" width="640" height="360" />
+<div role="region" tabindex="0" aria-label="可水平捲動的動畫圖表" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-motion-src="../../assets/concept-animations/shampoo-eigenmode-motion.svg" data-still-src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-source-asset-urls="true" style="width:640px;min-width:640px;max-width:none;height:auto" alt="重複的二乘二梯度逐步累積 Shampoo 左右兩側的矩陣統計量，預條件後的更新對較大特徵模態有更強的相對抑制。" width="640" height="360" />
+</div>
+</div>
 
 *原創連續教學動畫（CC BY-SA 4.0）。* 使用刻意簡化的**解析式示例**：每一步皆套用 $G=\begin{psmallmatrix}2&1\\1&2\end{psmallmatrix}$，初始 $L_0=R_0=I$，因此 $t=0,\ldots,6$ 時有 $L_t=R_t=I+tG^2$。由於 $G$ 對稱，特徵值為 3 與 1，經雙側預條件後的 $U_t=L_t^{-1/4}G R_t^{-1/4}$ 兩個特徵值為
 
-$
+$$
 \sigma_1(U_t)=\frac{3}{\sqrt{1+9t}},\qquad \sigma_2(U_t)=\frac{1}{\sqrt{1+t}}.
-$
+$$
 
 藍色格子的顏色隨累積統計量加深；橘色更新矩陣與下方兩個模態長條同步縮小，其中較大模態相對於原始值受到更強的壓縮。整數步的數值由公式計算，步與步間僅為動畫插值。**重複相同梯度是教學假設，並非模型訓練、運算吞吐量或收斂速度的實測數據。** MkDocs 可使用支援鍵盤的播放／暫停，減少動態效果的偏好設定則顯示靜態圖；GitHub 可直接查看[靜態預覽](../../assets/concept-animations/shampoo-eigenmode-still.svg)。
+
+窄螢幕可左右滑動；鍵盤聚焦外框後可按左右方向鍵。 矩陣的反四次方根是譜函數，不是逐元素運算；一般 $k$ 階張量使用指數 $-1/(2k)$。正定初值為 $\epsilon I$，此圖取 $\epsilon=1$。圖中 $U_0=G$ 是累積前參考值；實際每步先累積再更新。時間由 0 前進到 6 後停留，再重新播放，不會反向刪除累積量。色彩僅供定性比較，長條每單位為 140 像素。
 
 ## 結果
 
@@ -54,7 +60,7 @@ $
 ## 限制
 
 - 計算逆根很昂貴，因此論文採用延遲的重算排程。更新間隔是額外的超參數，而論文「對精度幾乎沒有影響」的發現，來自其自身的實驗。
-- 此方法對矩陣與張量參數最為自然。對於偏置等向量，它會退化為對角方法。
+- 此方法對矩陣與張量參數最為自然。對一階張量，原始規則使用完整矩陣的反平方根，並非自動退化為對角方法。
 - 收斂比較是經驗性的主張。它相對於 Adam 的優勢取決於預條件子調校得好不好。
 
 ## 關鍵方法

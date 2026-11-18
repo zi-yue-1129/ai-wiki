@@ -47,15 +47,21 @@ The paper uses a delayed update: it recomputes the inverse roots once every 20 t
 
 ### Seeing the two-sided preconditioner evolve
 
-<img src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-motion-src="../../assets/concept-animations/shampoo-eigenmode-motion.svg" data-still-src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-motion-scroll="true" tabindex="0" alt="A repeated two-by-two gradient builds left and right Shampoo accumulators while the preconditioned update attenuates the dominant eigenmode more strongly." width="640" height="360" />
+<div role="region" tabindex="0" aria-label="Horizontally scrollable animation diagram" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-motion-src="../../assets/concept-animations/shampoo-eigenmode-motion.svg" data-still-src="../../assets/concept-animations/shampoo-eigenmode-still.svg" data-source-asset-urls="true" style="width:640px;min-width:640px;max-width:none;height:auto" alt="A repeated two-by-two gradient builds left and right Shampoo accumulators while the preconditioned update attenuates the dominant eigenmode more strongly." width="640" height="360" />
+</div>
+</div>
 
 *Original continuous teaching animation (CC BY-SA 4.0).* In a deliberately small **analytic** example, each step reuses $G=\begin{psmallmatrix}2&1\\1&2\end{psmallmatrix}$, starting with $L_0=R_0=I$. Thus $L_t=R_t=I+tG^2$ for $t=0,\ldots,6$. Because $G$ is symmetric with eigenvalues $3$ and $1$, the eigenvalues of the preconditioned update $U_t=L_t^{-1/4}G R_t^{-1/4}$ are
 
-$
+$$
 \sigma_1(U_t)=\frac{3}{\sqrt{1+9t}},\qquad \sigma_2(U_t)=\frac{1}{\sqrt{1+t}}.
-$
+$$
 
 The blue accumulator cells darken as statistics build, while the orange update and the two mode bars shrink; the larger mode is reduced more strongly relative to its original size. Values at whole-number steps are analytic, with interpolation used only for legible movement. **Repeated identical gradients and the pictured magnitudes are teaching assumptions, not observed training data, throughput or convergence results.** On MkDocs, use Play/Pause (keyboard supported) or the reduced-motion still. [GitHub-readable static view](../../assets/concept-animations/shampoo-eigenmode-still.svg).
+
+On narrow screens, swipe horizontally or focus the region and use the left/right arrow keys. Matrix inverse fourth roots are spectral functions, not elementwise powers; a rank-$k$ tensor uses exponent $-1/(2k)$. Positive-definite accumulators start at $\epsilon I$; this toy uses $\epsilon=1$. Here $U_0=G$ is a pre-accumulation reference; actual steps accumulate before updating. Time advances from 0 to 6 and holds before replay, without reversing the accumulation. Colours are qualitative; bars use 140 pixels per unit.
 
 ## Results
 
@@ -64,7 +70,7 @@ The abstract reports that the per-step runtime of Shampoo is "comparable to that
 ## Limitations
 
 - Computing the inverse roots is expensive, so the paper recomputes them on a delayed schedule. The refresh interval is an extra hyperparameter, and the paper's finding that it barely affects accuracy is for its own experiments.
-- The method is most natural for matrix and tensor parameters. For vectors such as biases, it reduces to a diagonal method.
+- The method is most natural for matrix and tensor parameters. For a rank-one tensor, the original rule uses a full-matrix inverse square root, not automatically a diagonal method.
 - The convergence comparison is an empirical claim. Its advantage over Adam depends on how well the preconditioners are tuned.
 
 ## Key methods
