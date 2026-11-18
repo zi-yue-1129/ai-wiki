@@ -54,7 +54,7 @@ C = \mathrm{KL}(P\,\|\,Q) = \sum_i\sum_{j} p_{ij}\log\frac{p_{ij}}{q_{ij}},
 
 ### 動畫示範：固定親和度如何引導嵌入更新
 
-<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="t-SNE 動畫；左右捲動查看完整圖表">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="t-SNE 動畫；左右捲動查看完整圖表">
 <div style="width:640px;min-width:640px">
 <img data-source-asset-urls src="../../../../assets/concept-animations/tsne-kl-embedding-still.svg" data-motion-src="../../../../assets/concept-animations/tsne-kl-embedding-motion.svg" data-still-src="../../../../assets/concept-animations/tsne-kl-embedding-still.svg" alt="六筆人工資料的 t-SNE 嵌入位置隨 KL 梯度逐漸改變，左側的原始親和度固定不變" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" loading="lazy">
 </div>
