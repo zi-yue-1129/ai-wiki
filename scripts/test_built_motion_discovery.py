@@ -5,10 +5,11 @@ import json
 import tempfile
 from types import SimpleNamespace
 import unittest
+from unittest.mock import Mock
 
 from test_built_motion_browser import (
     Images, MotionPage, assert_document_fits, check_built_page, check_math_rendering, discover_pages,
-    record_failure_diagnostics, source_asset_url,
+    record_failure_diagnostics, source_asset_url, check_keyboard_scrollers,
 )
 
 BASE = "https://example.test/ai-wiki/"
@@ -173,6 +174,39 @@ class DiscoveryTests(unittest.TestCase):
         record_failure_diagnostics(SimpleNamespace(evaluate=fail), self.site, result)
         self.assertEqual(result, {"status": "failed", "error": "original failure",
                                   "overflow_diagnostics_error": "page unavailable"})
+
+
+class KeyboardScrollTests(unittest.TestCase):
+    def fixture(self, width=640):
+        region = Mock()
+        region.is_visible.return_value = True
+        region.evaluate.side_effect = [
+            {'clientWidth': 358, 'scrollWidth': width}, None, True, 40, None, 0,
+        ]
+        page = Mock()
+        page.locator.return_value.count.return_value = 1
+        page.locator.return_value.nth.return_value = region
+        return page, region
+
+    def test_keyboard_scroll_is_measured_and_reset(self):
+        page, region = self.fixture()
+        result = check_keyboard_scrollers(page)
+        self.assertEqual(result, [{'clientWidth': 358, 'scrollWidth': 640, 'afterArrowRight': 40}])
+        region.focus.assert_called_once()
+        region.press.assert_called_once_with('ArrowRight')
+        page.wait_for_function.assert_called_once()
+        self.assertIn('scrollLeft > 0', page.wait_for_function.call_args.args[0])
+
+    def test_non_overflowing_region_is_not_falsely_reported(self):
+        page, region = self.fixture(width=358)
+        self.assertEqual(check_keyboard_scrollers(page), [])
+        region.press.assert_not_called()
+
+    def test_failed_native_scrolling_is_not_swallowed(self):
+        page, _ = self.fixture()
+        page.wait_for_function.side_effect = TimeoutError('No native scrolling')
+        with self.assertRaisesRegex(TimeoutError, 'No native scrolling'):
+            check_keyboard_scrollers(page)
 
 
 if __name__ == "__main__":

@@ -305,6 +305,29 @@ def check_image(page, image, url):
     return image.evaluate("img => ({src: img.src, complete: img.complete, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight})")
 
 
+def check_keyboard_scrollers(page):
+    """Measure native keyboard scrolling, then restore the screenshot position."""
+    measured = []
+    regions = page.locator('.concept-motion-scroll[tabindex="0"]')
+    for index in range(regions.count()):
+        region = regions.nth(index)
+        if not region.is_visible():
+            continue
+        bounds = region.evaluate('(e) => ({clientWidth: e.clientWidth, scrollWidth: e.scrollWidth})')
+        if bounds['scrollWidth'] <= bounds['clientWidth'] + 2:
+            continue
+        region.evaluate('(e) => e.scrollTo({left: 0, behavior: "instant"})')
+        region.focus()
+        assert region.evaluate('(e) => document.activeElement === e'), 'Scroll region cannot receive focus'
+        region.press('ArrowRight')
+        page.wait_for_function('(e) => e.scrollLeft > 0', arg=region.element_handle(), timeout=2000)
+        bounds['afterArrowRight'] = region.evaluate('(e) => e.scrollLeft')
+        region.evaluate('(e) => e.scrollTo({left: 0, behavior: "instant"})')
+        assert region.evaluate('(e) => e.scrollLeft') == 0, 'Scroll region did not reset'
+        measured.append(bounds)
+    return measured
+
+
 def exercise_page(browser, target, expected, base_url, viewport, reduced, output, result):
     from playwright.sync_api import expect
 
@@ -328,6 +351,12 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
         result["math_rendering"] = check_math_rendering(page)
         # Wait for font layout before judging bounds or taking the review screenshots.
         page.evaluate("document.fonts.ready")
+        result['keyboard_scroll'] = check_keyboard_scrollers(page)
+        # These diagrams intentionally preserve a 640px reading width on phones.
+        topic = target.source.rsplit('/', 1)[-1].removesuffix('.md').removesuffix('.zh-TW')
+        if viewport['width'] < 600 and topic in {'t-sne', 'umap', 'minhash-deduplication', 'data-programming'}:
+            assert any(r['scrollWidth'] >= 640 and r['afterArrowRight'] > 0
+                       for r in result['keyboard_scroll']), 'Readable mobile diagram scroller is missing'
         result["images"] = []
         for index, asset in enumerate(expected, 1):
             image = page.get_by_alt_text(asset["alt"], exact=True)

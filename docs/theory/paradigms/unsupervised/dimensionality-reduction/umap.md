@@ -59,7 +59,13 @@ The attractive terms pull connected points together, and the repulsive terms pus
 
 ### Animated walkthrough: asymmetric neighbours form a fuzzy edge
 
-<img data-source-asset-urls src="../../../../assets/concept-animations/umap-fuzzy-union-still.svg" data-motion-src="../../../../assets/concept-animations/umap-fuzzy-union-motion.svg" data-still-src="../../../../assets/concept-animations/umap-fuzzy-union-still.svg" alt="UMAP combines two directed neighbour strengths into a thicker undirected fuzzy-union edge" width="640" height="360" loading="lazy">
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="UMAP animation; scroll horizontally to view the complete figure">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/umap-fuzzy-union-still.svg" data-motion-src="../../../../assets/concept-animations/umap-fuzzy-union-motion.svg" data-still-src="../../../../assets/concept-animations/umap-fuzzy-union-still.svg" alt="UMAP combines two directed neighbour strengths into a thicker undirected fuzzy-union edge" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" loading="lazy">
+</div>
+</div>
+
+On small screens, scroll the figure horizontally. With a keyboard, focus the figure area using Tab, then use the Left and Right arrow keys.
 
 *Original teaching animation, CC BY-SA 4.0.* [Static GitHub preview](../../../../assets/concept-animations/umap-fuzzy-union-still.svg). On the MkDocs site use **Play/Pause** (keyboard: Tab and Enter); reduced-motion settings show the final undirected edges.
 

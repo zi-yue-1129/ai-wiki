@@ -9,6 +9,25 @@ def vals(a):return list(map(float,a.get('values').split(';')))
 def lerp(v,t):
  x=t*(len(v)-1);i=min(int(x),len(v)-2);return v[i]*(1-x+i)+v[i+1]*(x-i)
 class Semantics(unittest.TestCase):
+ def test_mobile_figures_preserve_readable_width_and_local_scroll(self):
+  from html.parser import HTMLParser
+  class Tags(HTMLParser):
+   def __init__(self): super().__init__(); self.tags=[]
+   def handle_starttag(self,tag,attrs): self.tags.append((tag,dict(attrs)))
+  for name in ['t-sne','umap']:
+   for lang in ['', '.zh-TW']:
+    text=(ROOT/f'docs/theory/paradigms/unsupervised/dimensionality-reduction/{name}{lang}.md').read_text()
+    parser=Tags();parser.feed(Markdown().convert(text))
+    i=next(i for i,(tag,a) in enumerate(parser.tags) if tag=='img' and 'data-motion-src' in a)
+    outer,inner,img=parser.tags[i-2:i+1]
+    self.assertEqual((outer[0],inner[0],img[0]),('div','div','img'))
+    self.assertEqual(outer[1]['tabindex'],'0');self.assertEqual(outer[1]['role'],'group')
+    self.assertIn('overflow-x:auto',outer[1]['style']);self.assertIn('max-width:100%',outer[1]['style'])
+    self.assertIn('min-width:640px',inner[1]['style'])
+    for rule in ['width:640px','min-width:640px','max-width:none','height:auto']:
+     self.assertIn(rule,img[1]['style'])
+    self.assertIn('左右捲動' if lang else 'scroll horizontally',outer[1]['aria-label'])
+    self.assertIn('左右方向鍵' if lang else 'Left and Right arrow keys',text)
  def test_affinities_and_gradient_by_finite_differences(self):
   p,ys=trajectory();self.assertAlmostEqual(sum(map(sum,p)),1)
   for i in range(6):
