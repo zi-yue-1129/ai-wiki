@@ -25,6 +25,16 @@ GraphSAGE 是一種歸納式（inductive）的節點嵌入方法，由 Hamilton�
 
 每個節點的表示是逐層建構的。在每一深度，節點把自己前一深度的表示，與其採樣鄰居表示的聚合結果結合起來，所用的學習權重則在所有節點間共享。由於參數是函數而非每個節點各自的查找表，未見過的節點只要把同一組函數套用到其特徵與鄰域上，就能取得嵌入。鄰居以固定大小的均勻隨機樣本取出，因此無論節點的度數多高，每個批次的成本都固定。論文指出，平均聚合器接近卷積層，而串接節點自身的表示則相當於一種簡單的跳接（skip connection）。
 
+### 教學動畫：採樣、聚合、串接
+
+<img data-source-asset-urls src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" data-motion-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg" data-still-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" alt="GraphSAGE 從六個鄰居中選取三個，計算示意特徵的平均值，再與中心節點特徵串接。">
+
+*依 Hamilton 等人（2017，見參考文獻）原創製作的 CC BY-SA 4.0 教學動畫。MkDocs 的 **Play/Pause** 支援鍵盤操作；偏好減少動態效果時，會優先顯示 [GitHub 可閱讀的靜態圖](../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg)。[開啟完整 SVG 動畫](../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg)。*
+
+示意節點自身特徵為 $h_v=4$，六個鄰居的純量特徵為 $\{1,3,2,4,5,6\}$。其中 **單次固定選取** 的三個鄰居 $\{1,2,5\}$，平均值為 $8/3\approx2.67$。一般性的採樣與聚合更新可將 $[4,8/3]$ 串接，再交給共享的 $\sigma(W^k[\cdot])$ 轉換。原論文另外提出 **省略串接步驟的 mean-convolution 變體**；圖中描繪的是一般串接更新配合鄰居平均聚合，不能混為同一個變體。實際 GraphSAGE 會學習向量轉換，也可能在不同迭代重新抽取鄰居。圖中數值及採樣邊均為教學示意，不是模型產生的嵌入或實測採樣結果。
+
+訊息移動是單向閱讀引導：抵達後停留，再重新開始，不表示反向傳播或另一次抽樣。顯示的聚合數值是完整結果，不是移動途中逐漸變化的特徵值。
+
 ## 方程式或演算法
 
 對每個深度 \(k = 1, \dots, K\)，節點 \(v\) 先聚合其採樣鄰居，再與自身前一深度的表示結合：
@@ -38,9 +48,23 @@ h_v^{k} = \sigma\big(W^{k} \cdot \mathrm{CONCAT}(h_v^{k-1},\, h_{\mathcal{N}(v)}
 
 論文給出以下聚合器：
 
-- **平均（Mean）：** \(h_v^{k} = \sigma\big(W \cdot \mathrm{MEAN}(\{h_v^{k-1}\} \cup \{h_u^{k-1}, \forall u \in \mathcal{N}(v)\})\big)\)，此形式省略串接步驟。
-- **池化（Pool）：** \(\mathrm{AGGREGATE}^{\mathrm{pool}}_k = \max\big(\{\sigma(W_{\mathrm{pool}}\, h_{u_i}^{k-1} + b), \forall u_i \in \mathcal{N}(v)\}\big)\)，即先經過共享的全連接層，再逐元素取最大值。
-- **LSTM：** 將 LSTM 套用於鄰居的隨機排列。論文未給出此聚合器的方程式。
+**平均（Mean）：**
+
+\[
+h_v^{k} = \sigma\big(W \cdot \mathrm{MEAN}(\{h_v^{k-1}\} \cup \{h_u^{k-1}, \forall u \in \mathcal{N}(v)\})\big)
+\]
+
+此形式省略串接步驟。
+
+**池化（Pool）：**
+
+\[
+\mathrm{AGGREGATE}^{\mathrm{pool}}_k = \max\big(\{\sigma(W_{\mathrm{pool}}\, h_{u_i}^{k-1} + b), \forall u_i \in \mathcal{N}(v)\}\big)
+\]
+
+即先經過共享的全連接層，再逐元素取最大值。
+
+**LSTM：** 將 LSTM 套用於鄰居的隨機排列。論文未給出此聚合器的方程式。
 
 無監督訓練時，論文使用基於圖的損失函數。節點 \(u\) 會被拉向與它出現在同一條短隨機漫步上的節點 \(v\)，並被推離負樣本：
 

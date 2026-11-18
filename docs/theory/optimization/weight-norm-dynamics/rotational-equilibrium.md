@@ -14,7 +14,7 @@ aliases:
 
 # Rotational Equilibrium
 
-Kosson, Messmer and Jaggi (2023) study how weight decay affects the update behaviour of individual neurons. Their main claim is that, under AdamW, the weights of each neuron reach an equilibrium in which the decay and the gradient updates balance. The equilibrium is reached on a timescale set by the product of the learning rate and the decay, and neurons with different gradient statistics settle at different rotation rates. The parent subtopic is [Weight-Norm Dynamics](index.md).
+Kosson, Messmer and Jaggi (2023) study how weight decay affects the update behaviour of individual neurons. Their main claim is that, under AdamW, the weights of each neuron reach an equilibrium in which the decay and the gradient updates balance. The equilibrium is reached on a timescale set by the product of the learning rate and the decay, and under the paper's AdamW assumptions the equilibrium rotation is balanced across neurons despite different gradient statistics. The parent subtopic is [Weight-Norm Dynamics](index.md).
 
 ## Overview
 
@@ -32,15 +32,21 @@ The paper follows each neuron's weights \(\omega \in \mathbb{R}^C\) under AdamW 
 \|\omega\| = \sqrt{\frac{\eta C}{2\lambda - \eta\lambda^2}} \approx \sqrt{\frac{\eta C}{2\lambda}},
 \]
 
-and the expected rotation per step in equilibrium is approximately \(\sqrt{2\eta\lambda(1-\beta_1)/(1+\beta_1)}\), where \(\beta_1\) is the momentum coefficient. The squared norm contracts towards this equilibrium by a factor of \((1-\eta\lambda)^2\) per step, so the timescale is about \(1/(\eta\lambda)\) steps. The paper presents the contraction as an approximation.
+and the expected rotation per step in equilibrium is approximately \(\sqrt{2\eta\lambda(1-\beta_1)/(1+\beta_1)}\), where \(\beta_1\) is the momentum coefficient. The squared norm contracts towards this equilibrium by a factor of \((1-\eta\lambda)^2\) per step, so the squared-norm deviation has an e-folding timescale of about \(1/(2\eta\lambda)\) steps. The paper presents the contraction as an approximation.
 
 Under this account, a decay that is too small gives a timescale much longer than the training run. The weights then may not reach equilibrium, and the norm keeps growing. A larger decay shortens the timescale, and the rotation reaches its steady value within the run.
 
 ## Visual explanation
 
-<div style="overflow-x:auto;max-width:100%;" tabindex="0"><img src="../../../assets/concept-animations/rotational-norm-balance-still.svg" data-motion-src="../../../assets/concept-animations/rotational-norm-balance-motion.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="Analytical weight vectors rotate step by step: with decay the norm approaches a stable radius, while without decay it keeps increasing." /></div>
+<div style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Horizontally scrollable animation diagram">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/rotational-norm-balance-still.svg" data-source-asset-urls="true" data-still-src="../../../assets/concept-animations/rotational-norm-balance-still.svg" data-motion-src="../../../assets/concept-animations/rotational-norm-balance-motion.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;" alt="Analytical weight vectors rotate step by step: with decay the norm approaches a stable radius, while without decay it keeps increasing." />
+</div>
+</div>
 
 *Original continuously animated teaching example (CC BY-SA 4.0).* The teal vector includes decay; the orange vector uses the same **orthogonal update magnitude** without decay. Both are calculated from the deliberately simplified tangent-step recurrence $w_{t+1}=a w_t+u v_t$, where $v_t$ is a unit vector orthogonal to $w_t$, $a=1-\eta\lambda$, $u=0.17$ and $\lVert w_0\rVert=0.30$. The squared norm obeys $r_{t+1}^2=a^2r_t^2+u^2$. With $a=0.96$, $r_\infty=u/\sqrt{1-a^2}\approx0.607$; after 24 steps, the norm is approximately **0.574**, compared with **0.885** without decay. The dashed teal circle marks the asymptotic radius. This is **not** a measured AdamW trajectory or the paper's AdamW equilibrium-norm formula: it isolates radial shrinkage and tangent motion while omitting adaptive moment statistics and momentum. On MkDocs, use the Play/Pause control (Enter or Space when focused); reduced-motion preferences display the still. [GitHub-readable static preview](../../../assets/concept-animations/rotational-norm-balance-still.svg).
+
+On narrow screens, swipe horizontally or focus the region and use the left/right arrow keys. Integer steps use the exact recurrence; intermediate radius and angle are interpolated, not fractional optimizer steps. The animation holds at step 24 before replay. The squared-norm deviation has exact e-folding time $-1/\log(a^2)$ steps, approximately $1/(2\eta\lambda)$ for small decay with $a=1-\eta\lambda$, distinct from the weight-memory timescale $1/(\eta\lambda)$.
 
 ## How it works
 

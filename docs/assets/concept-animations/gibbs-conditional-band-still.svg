@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="240" viewBox="0 0 640 240" role="img" aria-label="Conditional Gibbs Gaussian draw, mean, and one-standard-deviation interval"><rect width="640" height="240" rx="15" fill="#f5f9fc"/><rect x="15" y="16" width="610" height="208" rx="12" fill="white" stroke="#d9e5ec"/>
+<text x="36" y="48" font-family="sans-serif" font-size="17" font-weight="700" fill="#244259">Conditional Gaussian</text><text x="36" y="73" font-family="sans-serif" font-size="12" fill="#60778a">Y = 1.0, ρ = 0.8</text>
+<line x1="64" y1="158" x2="385" y2="158" stroke="#71899a" stroke-width="2"/>
+<rect x="139" y="117" width="144" height="36" rx="6" fill="#8e5aaa" fill-opacity="0.16" stroke="#8e5aaa" stroke-width="1.5"/><line x1="211" y1="102" x2="211" y2="170" stroke="#8e5aaa" stroke-width="2" stroke-dasharray="4 4"/>
+<circle cx="211" cy="134" r="7" fill="white" stroke="#8e5aaa" stroke-width="3"/><circle cx="247" cy="134" r="8" fill="#128f87" stroke="white" stroke-width="3"/><line x1="211" y1="134" x2="247" y2="134" stroke="#8e5aaa" stroke-width="2" stroke-dasharray="3 3"/>
+<g font-family="sans-serif" font-size="12" fill="#506779"><text x="133" y="188">0.2</text><text x="205" y="188">0.8</text><text x="278" y="188">1.4</text><text x="310" y="150">X | Y</text></g>
+<line x1="403" y1="91" x2="403" y2="185" stroke="#d9e5ec"/>
+<g font-family="sans-serif" fill="#244259"><text x="425" y="88" font-size="14" font-weight="700">μ = 0.800</text><text x="425" y="120" font-size="14" font-weight="700">σ = 0.600</text><text x="425" y="153" font-size="14" font-weight="700">Draw = 1.100</text><text x="425" y="185" font-size="12" fill="#60778a">±1σ interval</text></g></svg>

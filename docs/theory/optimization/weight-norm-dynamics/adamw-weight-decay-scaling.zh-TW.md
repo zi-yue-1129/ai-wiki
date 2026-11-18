@@ -27,9 +27,15 @@ Wang 與 Aitchison（2024）探討當模型或資料集變大時，AdamW 的權�
 
 ## 動態圖解
 
-<div style="overflow-x:auto;max-width:100%;" tabindex="0"><img src="../../../assets/concept-animations/adamw-epoch-timescale-still.svg" data-motion-src="../../../assets/concept-animations/adamw-epoch-timescale-motion.svg" width="640" height="360" style="width:640px;max-width:none;height:auto;" alt="僅考慮權重衰減時，比較每個 epoch 有 8 步與 32 步的六個 epoch 權重保留曲線：先固定衰減，再按每個 epoch 步數反比調整衰減。" /></div>
+<div style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="可水平捲動的動畫圖表">
+<div style="width:640px">
+<img src="../../../assets/concept-animations/adamw-epoch-timescale-still.svg" data-source-asset-urls="true" data-still-src="../../../assets/concept-animations/adamw-epoch-timescale-still.svg" data-motion-src="../../../assets/concept-animations/adamw-epoch-timescale-motion.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;" alt="僅考慮權重衰減時，比較每個 epoch 有 8 步與 32 步的六個 epoch 權重保留曲線：先固定衰減，再按每個 epoch 步數反比調整衰減。" />
+</div>
+</div>
 
 *原創連續教學動畫（CC BY-SA 4.0）。* 動態游標依序經過六個 epoch；青綠色表示**每個 epoch 有 8 步**，橘色表示 **32 步**，固定 $\eta=0.1$。圖中僅繪製**解耦衰減的保留倍率** $q(e)=(1-\eta\lambda)^{eS}$，其中 $S$ 為每個 epoch 的迭代步數；**不包含任何梯度更新**。取示意目標 $\tau_{\mathrm{epoch}}=3$，得 $\lambda_8=1/(0.1\cdot8\cdot3)\approx0.417$。左圖沿用相同 $\lambda_8$ 時，$S=32$ 經六個 epoch 後的保留倍率約 **0.00028**，而 $S=8$ 約為 **0.130**。右圖依步數反比調整至 $\lambda_{32}=1/(0.1\cdot32\cdot3)\approx0.104$ 後，六個 epoch 的保留倍率約為 **0.134**，與小資料集的曲線大致對齊；微小差距來自離散衰減與連續指數近似的不同。**以上為解析式人工數值，並非實測訓練結果或經驗上最佳的超參數。** 論文的最佳 epoch 時間尺度大致固定是特定實驗條件下的觀察，並非普遍保證。MkDocs 網站可透過可鍵盤操作的播放／暫停按鈕控制，偏好減少動態效果時顯示靜態圖。[GitHub 可讀的靜態預覽](../../../assets/concept-animations/adamw-epoch-timescale-still.svg)。
+
+窄螢幕可左右滑動；聚焦圖表外框後，鍵盤可用左右方向鍵捲動。 完整曲線是參考值，圓點表示目前 epoch，最後停留再重播。$\tau=1/(\eta\lambda)$ 是 EMA 慣用時間尺度；離散保留因子的精確 e-folding 時間為 $-1/[S\log(1-\eta\lambda)]$。圖中的分數步是連續繪圖延伸，實際迭代數為整數。
 
 ## 運作方式
 
