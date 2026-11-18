@@ -18,5 +18,13 @@
 .md-typeset .concept-motion-player:has(img.concept-motion-wide) { width: 640px; min-width: 640px; max-width: none; }
 .md-typeset img.concept-motion-wide:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
 
+/* Scope native-width scrolling to the planning player at any article width. */
+.concept-motion-player.concept-motion-wide { width:640px; max-width:100%; overflow-x:auto; overscroll-behavior-x:contain; }
+.concept-motion-player.concept-motion-wide img { width:640px; min-width:640px; max-width:none; height:auto; }
+.concept-motion-player.concept-motion-wide .concept-motion-controls { position:sticky; left:0; width:max-content; max-width:100%; }
+/* Navigation diagrams keep readable labels without changing other players. */
+.concept-motion-navigation .concept-motion-viewport { display:block; overflow-x:auto; max-width:100%; scroll-behavior:auto; }
+.concept-motion-player.concept-motion-navigation img { width:640px; min-width:640px; max-width:none; height:auto; }
+.concept-motion-navigation .concept-motion-viewport:focus-visible { outline:3px solid var(--md-accent-fg-color, #387e99); outline-offset:2px; }
 /* Explicit source-owned scroll regions, focusable before and after enhancement. */
 .md-typeset .reviewed-motion-scroll:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }

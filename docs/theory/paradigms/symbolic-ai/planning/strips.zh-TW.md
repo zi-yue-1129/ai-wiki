@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-18
 ---
 
 # STRIPS
@@ -26,6 +26,26 @@ STRIPS 是古典規劃的一種表示法，每個動作有前置條件列表、�
 \]
 
 計畫是一串可套用的動作，能從初始狀態導向包含目標事實的狀態。前向規劃器從初始狀態套用此規則，後向規劃器則透過動作對目標進行回推。兩者通常都由啟發式引導。例如，讓機器人從房間 1 移到房間 2 的動作，其前置條件可為 `At(robot, room1)`，新增 `At(robot, room2)`，刪除 `At(robot, room1)`。
+
+### 教學動畫：檢查前置條件、套用效果與保持未變事實
+
+<img data-source-asset-urls src="../../../../assets/concept-animations/strips-state-effects-still.svg" data-motion-src="../../../../assets/concept-animations/strips-state-effects-motion.svg" data-still-src="../../../../assets/concept-animations/strips-state-effects-still.svg" alt="STRIPS 狀態轉換：確認 At(A) 前置條件、移除 At(A)、加入 At(B)，而 Charged 事實維持不變。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+
+圖中 BEFORE／AFTER 是固定對照；移動標記與刪除／新增高亮僅表示教學步驟，STRIPS 動作仍為一次原子更新，重播不表示機器人倒退。
+
+[GitHub 可直接閱讀的靜態預覽](../../../../assets/concept-animations/strips-state-effects-still.svg)
+
+示意初始狀態為 \(s_0=\{\mathrm{At}(A),\mathrm{Charged}\}\)。**Move(A,B)** 要求 \(\mathrm{At}(A)\) 成立，並刪除 \(\mathrm{At}(A)\)、加入 \(\mathrm{At}(B)\)，得到 \(s_1=\{\mathrm{At}(B),\mathrm{Charged}\}\)。移動標記對應這次狀態更新；**Charged** 未列於新增或刪除效果，因此維持不變。圖中刻意區分「檢查前置條件」與「執行效果」；若前置條件不成立，就不能套用此動作。狀態與路徑都是**人工設計的教學示例，不是機器人真實軌跡或基準測試**。
+
+MkDocs 網站可使用支援鍵盤的**播放／暫停**按鈕；暫停或偏好減少動態效果時可閱讀靜態畫面。本圖為原創 **CC BY-SA 4.0** 教學視覺，依據下方 Fikes 與 Nilsson（1971）的 STRIPS 狀態轉移語義製作。
+
+### 互動計算：前置條件與原子式 STRIPS 效果
+
+<div class="planning-lab" data-planning-lab="strips" data-lang="zh-TW">
+  <p>停用 JavaScript 時，仍可閱讀上方已審查的靜態預覽。</p>
+</div>
+
+切換**起始包含 At(A)**，比較 Move(A,B) 可套用與前置條件失敗兩種情境；切換 **Charged**，驗證沒有被效果列出的事實是否保持不變。使用**上一步／下一步、播放／暫停、步驟滑桿、速度及重設**查看檢查前置條件、刪除與新增效果的示意順序。只有前置條件 At(A) 成立時，最終後繼狀態才依 $s'=(s\setminus\{\mathrm{At}(A)\})\cup\{\mathrm{At}(B)\}$ 計算。**STRIPS 動作的效果在語義上是原子性的**，畫面中逐步高亮刪除／新增只是教學拆解，並非真實世界的兩個中間狀態。前置條件失敗時不套用動作，初始狀態不變。資料是人工示例，非機器人執行或效能實測。操作支援鍵盤、減少動態效果設定及可聚焦的手機水平捲動。
 
 ## 變體
 

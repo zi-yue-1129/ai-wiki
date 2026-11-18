@@ -1113,7 +1113,11 @@ extra_javascript:
   - javascripts/ssl-gradient-sensitivity.js
   - javascripts/ssl-ema-trajectory.js
   - javascripts/ssl-temporal-provenance.js
+  - javascripts/policy-credit-math.js
+  - javascripts/policy-credit-labs.js
   - javascripts/concept-motion.js
+  - javascripts/planning-labs.js
+  - javascripts/evolution-labs.js
   - javascripts/adaptive-optimiser-labs.js
   - javascripts/regression-metric-labs.js
   - javascripts/sharpness-geometry-labs.js
@@ -1134,7 +1138,10 @@ extra_css:
   - stylesheets/ssl-gradient-sensitivity.css
   - stylesheets/ssl-ema-trajectory.css
   - stylesheets/ssl-temporal-provenance.css
+  - stylesheets/policy-credit-labs.css
   - stylesheets/concept-motion.css
+  - stylesheets/planning-labs.css
+  - stylesheets/evolution-labs.css
   - stylesheets/adaptive-optimiser-labs.css
   - stylesheets/regression-metric-labs.css
   - stylesheets/sharpness-geometry-labs.css

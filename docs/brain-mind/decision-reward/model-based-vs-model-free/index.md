@@ -24,6 +24,25 @@ This page is part of [Decision Making, Dopamine & Reward](../index.md). The pare
 
 Consider choosing between two routes to work after a road closure. A model-free habit says "last time I went left and it was fine, so go left". A model-based plan says "the closure is on the left, so go right", using knowledge of the road network. The habit is cheap and quick; the plan adapts immediately to changes but costs more computation and time.
 
+## Revaluation: planning versus cached values
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable teaching illustration">
+<div style="width:640px;min-width:640px"><img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" width="640" height="360" src="../../../assets/concept-animations/mbmf-revaluation-still.svg" data-motion-src="../../../assets/concept-animations/mbmf-revaluation-motion.svg" data-still-src="../../../assets/concept-animations/mbmf-revaluation-still.svg" alt="A reward change makes model-based planning immediately prefer Route B, while model-free cached values initially keep Route A until feedback arrives." loading="lazy">
+</div></div>
+
+*Original continuous teaching animation (CC BY-SA 4.0).* In a **constructed one-step decision task**, Route A initially rewards +5 and Route B +2. After A is **externally devalued to zero**, the model-based agent is **given that updated reward model**: its planned values change from $(5,2)$ to $(0,2)$, and it switches to B without sampling A again. The model-free agent initially retains cached values $(5,2)$ and chooses A; **after observing the zero reward**, a hypothetical update
+
+$$
+\begin{gathered}
+Q_A\leftarrow(1-\alpha)Q_A+\alpha r,\\
+(1-0.7)5+0.7(0)=1.5.
+\end{gathered}
+$$
+
+With $\alpha=0.7$, the update changes its estimate to 1.5, below $Q_B=2$. All numbers and timings are illustrative, **not behavioural data or proof that any particular brain region implements a separate controller**. On MkDocs use **Play/Pause animation** (Tab plus Enter/Space); GitHub and reduced-motion readers see the immediate post-change contrast. The distinction and arbitration proposal are discussed by [Daw, Niv and Dayan (2005)](https://doi.org/10.1038/nn1560).
+
+Revalue and Feedback mark discrete events: reward, planned values and planned choice change together at Revalue; only Feedback changes the cached value and cached choice. Bar lengths share 36 pixels per reward unit. The loop resets the whole example; the moving timeline is not an empirical reaction-time measurement. [GitHub static preview](../../../assets/concept-animations/mbmf-revaluation-still.svg).
+
 ## Key concepts
 
 - **Model-free value**: an estimate of how good an action is, learned from the reward that followed it. Updates use the reward prediction error, the difference between reward received and reward expected.

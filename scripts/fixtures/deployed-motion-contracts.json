@@ -89,6 +89,16 @@
       "original_head": "d21c2895a2181fbf0285b50b5c69f6f52ce11683",
       "page": "docs/engineering/data/data-programming.md",
       "pr": 1071
+    },
+    "reinforce-reward-to-go": {
+      "page": "docs/theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index.md",
+      "pr": 1047,
+      "original_head": "fbf74b3a752b88b5dc2ebd41c1ad3b64cbd74514"
+    },
+    "grpo-group-advantages": {
+      "page": "docs/theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index.md",
+      "pr": 1047,
+      "original_head": "fbf74b3a752b88b5dc2ebd41c1ad3b64cbd74514"
     }
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
@@ -3602,6 +3612,656 @@
         }
       ],
       "viewBox": "0 0 640 360"
+    },
+    "awq-salient-scaling": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/awq-salient-scaling-motion.svg",
+          "origin_commit": "bf8271353848fe24f06d372f2371d19a10adf08b",
+          "origin_blob": "a91d1f0c8188a110abb39683973763d3b390836c"
+        },
+        {
+          "path": "docs/assets/concept-animations/awq-salient-scaling-still.svg",
+          "origin_commit": "bf8271353848fe24f06d372f2371d19a10adf08b",
+          "origin_blob": "4ef6e401a24e5a6a32e0c2caa49a8ae03013a491"
+        }
+      ],
+      "reviewed_commit": "f9e404e53521d1e64be9ec8101ea7366ac6ed038",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/awq-salient-scaling-motion.svg",
+          "blob": "f06febfbafa0b6297dfb2f76b2dee98d9e4dfe88"
+        },
+        {
+          "path": "docs/assets/concept-animations/awq-salient-scaling-still.svg",
+          "blob": "6240c76ddf082771b852dffdaefc805a2caf701b"
+        }
+      ]
+    },
+    "causal-lamp-intervention": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/causal-lamp-intervention-motion.svg",
+          "origin_commit": "0f93b7be168f292d755db1ce1293a29e8ccc6171",
+          "origin_blob": "d619281364f4a2bb5bfaf40c2cc106afa70b52b4"
+        },
+        {
+          "path": "docs/assets/concept-animations/causal-lamp-intervention-still.svg",
+          "origin_commit": "0f93b7be168f292d755db1ce1293a29e8ccc6171",
+          "origin_blob": "4706f59bd64b85e6117d1fa04d4245efbc9e6b2a"
+        }
+      ],
+      "reviewed_commit": "61971e61b48992a48af218ac6be717b0aaed040e",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/causal-lamp-intervention-motion.svg",
+          "blob": "14398719c754742536bdfa5e250da5df390eb3fa"
+        },
+        {
+          "path": "docs/assets/concept-animations/causal-lamp-intervention-still.svg",
+          "blob": "0ae6ca83fb8c8ed8658421ccdc231b64089b1b72"
+        }
+      ]
+    },
+    "coherence-phase-gating": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/coherence-phase-gating-motion.svg",
+          "origin_commit": "02a8664a1ed0e6290ea86544c2136843e02e1861",
+          "origin_blob": "f4d90825f754525078a662519a6e5ac0ccf1dd09"
+        },
+        {
+          "path": "docs/assets/concept-animations/coherence-phase-gating-still.svg",
+          "origin_commit": "02a8664a1ed0e6290ea86544c2136843e02e1861",
+          "origin_blob": "eb57a9d559b03473c39cfd79a5a72f0460b7d588"
+        }
+      ],
+      "reviewed_commit": "207a66ffb0b90104d98ce6e976c517fe93833949",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/coherence-phase-gating-motion.svg",
+          "blob": "19d877f81eb079a88c43b444839d8cb28872f6e8"
+        },
+        {
+          "path": "docs/assets/concept-animations/coherence-phase-gating-still.svg",
+          "blob": "eb57a9d559b03473c39cfd79a5a72f0460b7d588"
+        }
+      ]
+    },
+    "copycat-action-lag": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/copycat-action-lag-motion.svg",
+          "origin_commit": "0f93b7be168f292d755db1ce1293a29e8ccc6171",
+          "origin_blob": "55fd29d6d766acc5dcec4e250c9d3af3e8f7c887"
+        },
+        {
+          "path": "docs/assets/concept-animations/copycat-action-lag-still.svg",
+          "origin_commit": "0f93b7be168f292d755db1ce1293a29e8ccc6171",
+          "origin_blob": "0791d6092e1d6ce46c7643a99a4e6f009a6d4d5b"
+        }
+      ],
+      "reviewed_commit": "61971e61b48992a48af218ac6be717b0aaed040e",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/copycat-action-lag-motion.svg",
+          "blob": "afab711bce0705577473b51ae35118f63821bc06"
+        },
+        {
+          "path": "docs/assets/concept-animations/copycat-action-lag-still.svg",
+          "blob": "0791d6092e1d6ce46c7643a99a4e6f009a6d4d5b"
+        }
+      ]
+    },
+    "ddm-first-passage": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/ddm-first-passage-motion.svg",
+          "origin_commit": "2f93f194afced89f5dfed835fd6ca8af83190bb5",
+          "origin_blob": "5911be4db3cc7b1f3e011f316c35035c4ccb98c8"
+        },
+        {
+          "path": "docs/assets/concept-animations/ddm-first-passage-still.svg",
+          "origin_commit": "2f93f194afced89f5dfed835fd6ca8af83190bb5",
+          "origin_blob": "d1263209b76b35332d9888b28f6c42caa4057ffe"
+        }
+      ],
+      "reviewed_commit": "cdbb8dddaa623e56076fe5fe951810b6ac1dd14a",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/ddm-first-passage-motion.svg",
+          "blob": "782066c7dc8ece640241090337ff12d9b7b7a04d"
+        },
+        {
+          "path": "docs/assets/concept-animations/ddm-first-passage-still.svg",
+          "blob": "4b8d419b6918052e4f93b3d1ce4f580caf85a0f5"
+        }
+      ]
+    },
+    "fgsm-sign-step": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/fgsm-sign-step-motion.svg",
+          "origin_commit": "92c1dee77750616ac204397cdfd0a7b0ee6d7bb9",
+          "origin_blob": "edf5bf73c240405b8e158fdfc97203340a54fd6d"
+        },
+        {
+          "path": "docs/assets/concept-animations/fgsm-sign-step-still.svg",
+          "origin_commit": "92c1dee77750616ac204397cdfd0a7b0ee6d7bb9",
+          "origin_blob": "1bbd578401f115ea7c2bcefbde2dde3dd063e9d1"
+        }
+      ],
+      "reviewed_commit": "8ee06a9687632f0aa302c93b2954bd58f725ae6d",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/fgsm-sign-step-motion.svg",
+          "blob": "a22518c9fbcc2cb8e2605e1979f9fbf57e5ee35a"
+        },
+        {
+          "path": "docs/assets/concept-animations/fgsm-sign-step-still.svg",
+          "blob": "412fb6eb190a4773eb24bbf4a1b2256841cd7829"
+        }
+      ]
+    },
+    "genetic-crossover-mutation": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/genetic-crossover-mutation-motion.svg",
+          "origin_commit": "359c4dc7ba807a43343f094f07b5920d90d30e5c",
+          "origin_blob": "36b80d04c1e6660e74868ea272f8386584d05d77"
+        },
+        {
+          "path": "docs/assets/concept-animations/genetic-crossover-mutation-still.svg",
+          "origin_commit": "359c4dc7ba807a43343f094f07b5920d90d30e5c",
+          "origin_blob": "368e414b822ad06a7cd31b5b9f829ba74a0265ce"
+        }
+      ],
+      "reviewed_commit": "6524c69fec9d152417530e516c7f7721b48ee3a4",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/genetic-crossover-mutation-motion.svg",
+          "blob": "5ebd9d064bf83b2861c97a8471a5e204e97853d1"
+        },
+        {
+          "path": "docs/assets/concept-animations/genetic-crossover-mutation-still.svg",
+          "blob": "368e414b822ad06a7cd31b5b9f829ba74a0265ce"
+        }
+      ]
+    },
+    "gptq-error-compensation": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/gptq-error-compensation-motion.svg",
+          "origin_commit": "bf8271353848fe24f06d372f2371d19a10adf08b",
+          "origin_blob": "91e4a7a03e7f37154a87d80dc39b124fc4359d68"
+        },
+        {
+          "path": "docs/assets/concept-animations/gptq-error-compensation-still.svg",
+          "origin_commit": "bf8271353848fe24f06d372f2371d19a10adf08b",
+          "origin_blob": "83be0d317149fdd433731e7b2b2d81df12c49222"
+        }
+      ],
+      "reviewed_commit": "f9e404e53521d1e64be9ec8101ea7366ac6ed038",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/gptq-error-compensation-motion.svg",
+          "blob": "beefd4942dfcd80ef96e4d4edf9bba2e90ba8393"
+        },
+        {
+          "path": "docs/assets/concept-animations/gptq-error-compensation-still.svg",
+          "blob": "c45e8103d156816f2bca61d2dc4d54c7527b9856"
+        }
+      ]
+    },
+    "graphplan-layer-extraction": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/graphplan-layer-extraction-motion.svg",
+          "origin_commit": "257edd965ebfae42c5b7434e15d90fef4e322a15",
+          "origin_blob": "784fd53f71001e9b1676aacbb73590739c3a940b"
+        },
+        {
+          "path": "docs/assets/concept-animations/graphplan-layer-extraction-still.svg",
+          "origin_commit": "257edd965ebfae42c5b7434e15d90fef4e322a15",
+          "origin_blob": "5cef7d29a7674f961cf1f45d350cf35b218a0368"
+        }
+      ],
+      "reviewed_commit": "36db488c4d4c5280a861d7bb7115b01ee9c3e603",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/graphplan-layer-extraction-motion.svg",
+          "blob": "834a4d2c0f4dc60cfae84e92799d10d7dc43883d"
+        },
+        {
+          "path": "docs/assets/concept-animations/graphplan-layer-extraction-still.svg",
+          "blob": "5669406d8158f110223ca183f07f7edf9998b0fd"
+        }
+      ]
+    },
+    "grpo-group-advantages": {
+      "viewBox": "0 0 760 400",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/grpo-group-advantages-motion.svg",
+          "origin_commit": "e552657b72201fd94907effba63d5d0b31d1a874",
+          "origin_blob": "8de5e7cf8cd00702bdc6400d429a8468a88797e8"
+        },
+        {
+          "path": "docs/assets/concept-animations/grpo-group-advantages-still.svg",
+          "origin_commit": "e552657b72201fd94907effba63d5d0b31d1a874",
+          "origin_blob": "5eb2d03aeff3f240aa448f2dd3e97776531652e1"
+        }
+      ],
+      "reviewed_commit": "03712a68214369fb486ce526a9068aad77e95b2f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/grpo-group-advantages-motion.svg",
+          "blob": "8de5e7cf8cd00702bdc6400d429a8468a88797e8"
+        },
+        {
+          "path": "docs/assets/concept-animations/grpo-group-advantages-still.svg",
+          "blob": "5eb2d03aeff3f240aa448f2dd3e97776531652e1"
+        }
+      ]
+    },
+    "integrated-gradients-path": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/integrated-gradients-path-motion.svg",
+          "origin_commit": "e9ba167a80489797244f0f28aa4f0db699ea59d7",
+          "origin_blob": "bf9f970e20035336257f9250db1da0763a77a4a3"
+        },
+        {
+          "path": "docs/assets/concept-animations/integrated-gradients-path-still.svg",
+          "origin_commit": "e9ba167a80489797244f0f28aa4f0db699ea59d7",
+          "origin_blob": "927a275f6da0a86cdf8614fb69f84b6f425c1fac"
+        }
+      ],
+      "reviewed_commit": "8c7b545d35ef17f0e8a6d1eb18b90d03605113a3",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/integrated-gradients-path-motion.svg",
+          "blob": "f8c5b75b418895b47fc4c3608519f949b0fda62e"
+        },
+        {
+          "path": "docs/assets/concept-animations/integrated-gradients-path-still.svg",
+          "blob": "452438458989e5b3e80c3ff719187c3542dd2146"
+        }
+      ]
+    },
+    "large-batch-warmup-ramp": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/large-batch-warmup-ramp-motion.svg",
+          "origin_commit": "731713d8e65e987e459b54d1afd0e6c9b320a3ad",
+          "origin_blob": "8c6db9ab23d95a3ff4fc7824d0e2a56331a3d877"
+        },
+        {
+          "path": "docs/assets/concept-animations/large-batch-warmup-ramp-still.svg",
+          "origin_commit": "731713d8e65e987e459b54d1afd0e6c9b320a3ad",
+          "origin_blob": "10b240bf0464cfd61c29ee183798e26d1096406a"
+        }
+      ],
+      "reviewed_commit": "6666b751180ae28075de761cd38d5a17ef33b3cf",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/large-batch-warmup-ramp-motion.svg",
+          "blob": "2ea01dbb6844f220818db2994ab8c8a0d0a01fa9"
+        },
+        {
+          "path": "docs/assets/concept-animations/large-batch-warmup-ramp-still.svg",
+          "blob": "275e77af201bdc8f10ced8c7aaf270f51d313b91"
+        }
+      ]
+    },
+    "map-elites-archive": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/map-elites-archive-motion.svg",
+          "origin_commit": "359c4dc7ba807a43343f094f07b5920d90d30e5c",
+          "origin_blob": "1b88b325bf072673c78c92bdd34885ce23e41efd"
+        },
+        {
+          "path": "docs/assets/concept-animations/map-elites-archive-still.svg",
+          "origin_commit": "359c4dc7ba807a43343f094f07b5920d90d30e5c",
+          "origin_blob": "cabc72434dd30bf1fb998bcfc764fd1e5f5f171d"
+        }
+      ],
+      "reviewed_commit": "6524c69fec9d152417530e516c7f7721b48ee3a4",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/map-elites-archive-motion.svg",
+          "blob": "93751bc164ff22b876e30a51dffaa91d2e76f743"
+        },
+        {
+          "path": "docs/assets/concept-animations/map-elites-archive-still.svg",
+          "blob": "cabc72434dd30bf1fb998bcfc764fd1e5f5f171d"
+        }
+      ]
+    },
+    "mbmf-revaluation": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/mbmf-revaluation-motion.svg",
+          "origin_commit": "2f93f194afced89f5dfed835fd6ca8af83190bb5",
+          "origin_blob": "34a78cdfec113908f4e5e727b9b01dd95ac73f2c"
+        },
+        {
+          "path": "docs/assets/concept-animations/mbmf-revaluation-still.svg",
+          "origin_commit": "2f93f194afced89f5dfed835fd6ca8af83190bb5",
+          "origin_blob": "9b76f0014df27d49e87ced347421434c454c12e6"
+        }
+      ],
+      "reviewed_commit": "cdbb8dddaa623e56076fe5fe951810b6ac1dd14a",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/mbmf-revaluation-motion.svg",
+          "blob": "e89826ae48d32980c3f7240e27ccaca36d49c448"
+        },
+        {
+          "path": "docs/assets/concept-animations/mbmf-revaluation-still.svg",
+          "blob": "f72ea611e0533ce58aa1d9d4a1b3ef4fb66782bf"
+        }
+      ]
+    },
+    "pgd-projection-path": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/pgd-projection-path-motion.svg",
+          "origin_commit": "92c1dee77750616ac204397cdfd0a7b0ee6d7bb9",
+          "origin_blob": "c83d9ac1ef43395754b3391838eab940026597b5"
+        },
+        {
+          "path": "docs/assets/concept-animations/pgd-projection-path-still.svg",
+          "origin_commit": "92c1dee77750616ac204397cdfd0a7b0ee6d7bb9",
+          "origin_blob": "307a83f25e911d51f89396fdc6191a2d44574317"
+        }
+      ],
+      "reviewed_commit": "8ee06a9687632f0aa302c93b2954bd58f725ae6d",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/pgd-projection-path-motion.svg",
+          "blob": "32fb340422c785d95dc61043c2e2ccdb59be154e"
+        },
+        {
+          "path": "docs/assets/concept-animations/pgd-projection-path-still.svg",
+          "blob": "84bb9d0434faaddd16618ee3ae9ceaa79f650da1"
+        }
+      ]
+    },
+    "place-cell-firing": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/place-cell-firing-motion.svg",
+          "origin_commit": "97ba72d8d622bfa7a705f81ed1ccd988e7e18fd9",
+          "origin_blob": "f58bd852504aea81d2217a0f0a88de307284be35"
+        },
+        {
+          "path": "docs/assets/concept-animations/place-cell-firing-still.svg",
+          "origin_commit": "97ba72d8d622bfa7a705f81ed1ccd988e7e18fd9",
+          "origin_blob": "2d610a6df06d3555a2827dba75e3364c89a5363b"
+        }
+      ],
+      "reviewed_commit": "35b96aaafa6f08a090827274436416fe106f08d4",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/place-cell-firing-motion.svg",
+          "blob": "24e19a069416228fdf1f01613e10e9ffe934f1a1"
+        },
+        {
+          "path": "docs/assets/concept-animations/place-cell-firing-still.svg",
+          "blob": "2d610a6df06d3555a2827dba75e3364c89a5363b"
+        }
+      ]
+    },
+    "power-iteration-projection-contraction": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/power-iteration-convergence-motion.svg",
+          "origin_commit": "731713d8e65e987e459b54d1afd0e6c9b320a3ad",
+          "origin_blob": "b688410f0209c4d219f33fa5f738c70a0c409bc4"
+        },
+        {
+          "path": "docs/assets/concept-animations/power-iteration-convergence-still.svg",
+          "origin_commit": "731713d8e65e987e459b54d1afd0e6c9b320a3ad",
+          "origin_blob": "2f6c3b3728d5dca573820a1d47f4d1a5afcdeae6"
+        }
+      ],
+      "reviewed_commit": "6666b751180ae28075de761cd38d5a17ef33b3cf",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/power-iteration-projection-contraction-motion.svg",
+          "blob": "ba5225eb4f178a65a771c5fd8952b45f57c4f700"
+        },
+        {
+          "path": "docs/assets/concept-animations/power-iteration-projection-contraction-still.svg",
+          "blob": "e881ef9622a9e18ccda7f89302b8887480a172b4"
+        }
+      ]
+    },
+    "recursive-tail-loss": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/recursive-tail-loss-motion.svg",
+          "origin_commit": "e060d4d715084d129680e9e82251887afae12eb6",
+          "origin_blob": "ce87d5462074c8677ff7d631b3419229163a6313"
+        },
+        {
+          "path": "docs/assets/concept-animations/recursive-tail-loss-still.svg",
+          "origin_commit": "e060d4d715084d129680e9e82251887afae12eb6",
+          "origin_blob": "eac43ca1b7d78aefcb4d3ecac75f4a6a8614ee7d"
+        }
+      ],
+      "reviewed_commit": "0ab27698f9a9d57ded630f900cac51ed23aeff93",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/recursive-tail-loss-motion.svg",
+          "blob": "f9985f8edf6d54eff64afe3f50068756829583ff"
+        },
+        {
+          "path": "docs/assets/concept-animations/recursive-tail-loss-still.svg",
+          "blob": "d4e8806e54ef027d12c25da10f8e7ce6b654b2f0"
+        }
+      ]
+    },
+    "reinforce-return-credit": {
+      "viewBox": "0 0 760 400",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/reinforce-return-credit-motion.svg",
+          "origin_commit": "e552657b72201fd94907effba63d5d0b31d1a874",
+          "origin_blob": "78b6e16fc770bd0edc8c4c350b7ba5c8aa3a73c8"
+        },
+        {
+          "path": "docs/assets/concept-animations/reinforce-return-credit-still.svg",
+          "origin_commit": "e552657b72201fd94907effba63d5d0b31d1a874",
+          "origin_blob": "19274f35610ffa8fc508bf1e2fbd97659243be3b"
+        }
+      ],
+      "reviewed_commit": "03712a68214369fb486ce526a9068aad77e95b2f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/reinforce-return-credit-motion.svg",
+          "blob": "411d38aacb3b2bf4396d2a0c4f7488f624be256f"
+        },
+        {
+          "path": "docs/assets/concept-animations/reinforce-return-credit-still.svg",
+          "blob": "19274f35610ffa8fc508bf1e2fbd97659243be3b"
+        }
+      ]
+    },
+    "reinforce-reward-to-go": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/reinforce-reward-to-go-motion.svg",
+          "origin_commit": "fbf74b3a752b88b5dc2ebd41c1ad3b64cbd74514",
+          "origin_blob": "611796f356bc9ed237e58446c9531dd456c9f41d"
+        },
+        {
+          "path": "docs/assets/concept-animations/reinforce-reward-to-go-still.svg",
+          "origin_commit": "fbf74b3a752b88b5dc2ebd41c1ad3b64cbd74514",
+          "origin_blob": "a89853c3cf645cb289faba6ff8694fe3583622e7"
+        }
+      ],
+      "reviewed_commit": "03712a68214369fb486ce526a9068aad77e95b2f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/reinforce-reward-to-go-motion.svg",
+          "blob": "611796f356bc9ed237e58446c9531dd456c9f41d"
+        },
+        {
+          "path": "docs/assets/concept-animations/reinforce-reward-to-go-still.svg",
+          "blob": "a89853c3cf645cb289faba6ff8694fe3583622e7"
+        }
+      ]
+    },
+    "saliency-local-gradient": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/saliency-local-gradient-motion.svg",
+          "origin_commit": "e9ba167a80489797244f0f28aa4f0db699ea59d7",
+          "origin_blob": "9e56725f37d2ee1d0bf7d7f58c10728ccd1cbd62"
+        },
+        {
+          "path": "docs/assets/concept-animations/saliency-local-gradient-still.svg",
+          "origin_commit": "e9ba167a80489797244f0f28aa4f0db699ea59d7",
+          "origin_blob": "8edd091eca6159c253b42c75eea466525f5398f5"
+        }
+      ],
+      "reviewed_commit": "8c7b545d35ef17f0e8a6d1eb18b90d03605113a3",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/saliency-local-gradient-motion.svg",
+          "blob": "bf697f2e120708b69b5e753e04196795e696549e"
+        },
+        {
+          "path": "docs/assets/concept-animations/saliency-local-gradient-still.svg",
+          "blob": "3377c55e29be22981aee68a50fb510e485e76f09"
+        }
+      ]
+    },
+    "self-instruct-filter-loop": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/self-instruct-filter-loop-motion.svg",
+          "origin_commit": "e060d4d715084d129680e9e82251887afae12eb6",
+          "origin_blob": "df1b1d10262db6575d075fa5ed02e9390ca8d171"
+        },
+        {
+          "path": "docs/assets/concept-animations/self-instruct-filter-loop-still.svg",
+          "origin_commit": "e060d4d715084d129680e9e82251887afae12eb6",
+          "origin_blob": "7d650bc39090ad50c165019561bfdee2dc33b5d9"
+        }
+      ],
+      "reviewed_commit": "0ab27698f9a9d57ded630f900cac51ed23aeff93",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/self-instruct-filter-loop-motion.svg",
+          "blob": "83f3166deacc0c36348845c698ec650fa50b330e"
+        },
+        {
+          "path": "docs/assets/concept-animations/self-instruct-filter-loop-still.svg",
+          "blob": "e1989e917e97cb7dd13f79c08e3590cf34888d07"
+        }
+      ]
+    },
+    "strips-state-effects": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/strips-state-effects-motion.svg",
+          "origin_commit": "257edd965ebfae42c5b7434e15d90fef4e322a15",
+          "origin_blob": "8e5034a453cb7b40813901021417e597cdaa916a"
+        },
+        {
+          "path": "docs/assets/concept-animations/strips-state-effects-still.svg",
+          "origin_commit": "257edd965ebfae42c5b7434e15d90fef4e322a15",
+          "origin_blob": "8a66780e408de95d35c823a78731569d34ec1b9d"
+        }
+      ],
+      "reviewed_commit": "36db488c4d4c5280a861d7bb7115b01ee9c3e603",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/strips-state-effects-motion.svg",
+          "blob": "5cec602aa462fd49da91d4cda4cef5e1d2e227e4"
+        },
+        {
+          "path": "docs/assets/concept-animations/strips-state-effects-still.svg",
+          "blob": "64bcfc0e62d52982705839c54f0c40a0021d0692"
+        }
+      ]
+    },
+    "successor-occupancy": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/successor-occupancy-motion.svg",
+          "origin_commit": "97ba72d8d622bfa7a705f81ed1ccd988e7e18fd9",
+          "origin_blob": "0d7c1f7129000eb2fa221e5751462498db4215a4"
+        },
+        {
+          "path": "docs/assets/concept-animations/successor-occupancy-still.svg",
+          "origin_commit": "97ba72d8d622bfa7a705f81ed1ccd988e7e18fd9",
+          "origin_blob": "c707e6d804b4d708c052fedfaf8edb6e4afb4d5a"
+        }
+      ],
+      "reviewed_commit": "35b96aaafa6f08a090827274436416fe106f08d4",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/successor-occupancy-motion.svg",
+          "blob": "9ac23848a0f724d7b5f2b9a20a9e20113f37129c"
+        },
+        {
+          "path": "docs/assets/concept-animations/successor-occupancy-still.svg",
+          "blob": "c707e6d804b4d708c052fedfaf8edb6e4afb4d5a"
+        }
+      ]
+    },
+    "theta-gamma-phase-amplitude": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/theta-gamma-phase-amplitude-motion.svg",
+          "origin_commit": "02a8664a1ed0e6290ea86544c2136843e02e1861",
+          "origin_blob": "a59c09416ccfdf63b343a78e234c560c4713f843"
+        },
+        {
+          "path": "docs/assets/concept-animations/theta-gamma-phase-amplitude-still.svg",
+          "origin_commit": "02a8664a1ed0e6290ea86544c2136843e02e1861",
+          "origin_blob": "e3b2957b149ab2f444d3828cce2def09cdd68536"
+        }
+      ],
+      "reviewed_commit": "207a66ffb0b90104d98ce6e976c517fe93833949",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/theta-gamma-phase-amplitude-motion.svg",
+          "blob": "0f9bbc326b3e59e786ece998db1f17af36f5f9fb"
+        },
+        {
+          "path": "docs/assets/concept-animations/theta-gamma-phase-amplitude-still.svg",
+          "blob": "e3b2957b149ab2f444d3828cce2def09cdd68536"
+        }
+      ]
     }
   },
   "extra": {
@@ -3709,6 +4369,76 @@
       "original_head": "d21c2895a2181fbf0285b50b5c69f6f52ce11683",
       "page": "docs/engineering/data/data-programming.md",
       "pr": 1071
+    },
+    "place-cell-firing": {
+      "page": "docs/brain-mind/navigation-cognitive-maps/place-cells/index.md",
+      "pr": 1119,
+      "original_head": "97ba72d8d622bfa7a705f81ed1ccd988e7e18fd9"
+    },
+    "successor-occupancy": {
+      "page": "docs/brain-mind/navigation-cognitive-maps/successor-representation/index.md",
+      "pr": 1119,
+      "original_head": "97ba72d8d622bfa7a705f81ed1ccd988e7e18fd9"
+    },
+    "strips-state-effects": {
+      "page": "docs/theory/paradigms/symbolic-ai/planning/strips.md",
+      "pr": 1116,
+      "original_head": "257edd965ebfae42c5b7434e15d90fef4e322a15"
+    },
+    "graphplan-layer-extraction": {
+      "page": "docs/theory/paradigms/symbolic-ai/planning/graphplan.md",
+      "pr": 1116,
+      "original_head": "257edd965ebfae42c5b7434e15d90fef4e322a15"
+    },
+    "theta-gamma-phase-amplitude": {
+      "page": "docs/brain-mind/oscillations/theta-gamma-coupling/index.md",
+      "pr": 1115,
+      "original_head": "02a8664a1ed0e6290ea86544c2136843e02e1861"
+    },
+    "coherence-phase-gating": {
+      "page": "docs/brain-mind/oscillations/communication-through-coherence/index.md",
+      "pr": 1115,
+      "original_head": "02a8664a1ed0e6290ea86544c2136843e02e1861"
+    },
+    "fgsm-sign-step": {
+      "page": "docs/theory/machine-learning/adversarial-robustness/fgsm.md",
+      "pr": 1114,
+      "original_head": "92c1dee77750616ac204397cdfd0a7b0ee6d7bb9"
+    },
+    "pgd-projection-path": {
+      "page": "docs/theory/machine-learning/adversarial-robustness/pgd-adversarial-training.md",
+      "pr": 1114,
+      "original_head": "92c1dee77750616ac204397cdfd0a7b0ee6d7bb9"
+    },
+    "saliency-local-gradient": {
+      "page": "docs/society/interpretability/saliency-maps.md",
+      "pr": 1112,
+      "original_head": "e9ba167a80489797244f0f28aa4f0db699ea59d7"
+    },
+    "integrated-gradients-path": {
+      "page": "docs/society/interpretability/integrated-gradients.md",
+      "pr": 1112,
+      "original_head": "e9ba167a80489797244f0f28aa4f0db699ea59d7"
+    },
+    "awq-salient-scaling": {
+      "page": "docs/theory/model-compression/quantisation/post-training/awq/index.md",
+      "pr": 1110,
+      "original_head": "bf8271353848fe24f06d372f2371d19a10adf08b"
+    },
+    "gptq-error-compensation": {
+      "page": "docs/theory/model-compression/quantisation/post-training/gptq/index.md",
+      "pr": 1110,
+      "original_head": "bf8271353848fe24f06d372f2371d19a10adf08b"
+    },
+    "reinforce-reward-to-go": {
+      "page": "docs/theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index.md",
+      "pr": 1047,
+      "original_head": "fbf74b3a752b88b5dc2ebd41c1ad3b64cbd74514"
+    },
+    "grpo-group-advantages": {
+      "page": "docs/theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index.md",
+      "pr": 1047,
+      "original_head": "fbf74b3a752b88b5dc2ebd41c1ad3b64cbd74514"
     }
   }
 }
