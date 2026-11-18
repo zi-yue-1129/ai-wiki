@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Chromium QA: evolutionary concept SVGs, GitHub stills, and MkDocs controls."""
 from __future__ import annotations
-import os
+import os, re
 from pathlib import Path
 from xml.etree import ElementTree as ET
 from playwright.sync_api import sync_playwright
@@ -65,10 +65,11 @@ with sync_playwright() as playwright:
                     page.route('https://motion.test/assets/concept-animations/*', serve_svg)
                     prefix='https://motion.test/assets/concept-animations/'
                     alt = '演化示意動畫' if lang == 'zh' else 'Evolutionary algorithm animation'
-                    html=(f'<div class="concept-motion-wide" role="region" tabindex="0" aria-label="Scroll animation">'
-                          f'<img src="{prefix}{stem}-still.svg" data-motion-src="{prefix}{stem}-motion.svg" '
-                          f'data-still-src="{prefix}{stem}-still.svg" alt="{alt}"></div>')
-                    page.set_content('<!doctype html><html><body>'+html+'</body></html>')
+                    topic = 'genetic-algorithms' if stem.startswith('genetic') else 'map-elites'
+                    source = (ROOT / f'docs/theory/paradigms/evolutionary/{topic}{".zh-TW" if lang == "zh" else ""}.md').read_text()
+                    html = re.search(r'<div class="concept-motion-wide".*?</div></div>', source, re.S).group(0)
+                    html = html.replace('../../../assets/concept-animations/', prefix)
+                    page.set_content(f'<!doctype html><html lang="{"zh-TW" if lang == "zh" else "en"}"><body>'+html+'</body></html>')
                     page.add_style_tag(content=CSS)
                     page.add_script_tag(content=JS)
                     button = page.locator('.concept-motion-toggle')
@@ -80,6 +81,9 @@ with sync_playwright() as playwright:
                         return i && i.complete && i.naturalWidth > 0; }''')
                     if width < 640:
                         assert page.locator('.concept-motion-wide').evaluate('(e)=>e.scrollWidth>e.clientWidth'),(stem,width,'no scroll')
+                        page.locator('.concept-motion-wide').focus(); page.keyboard.press('ArrowRight')
+                        page.wait_for_function('document.querySelector(".concept-motion-wide").scrollLeft > 0')
+                    assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 2')
                     button.click()
                     assert img.get_attribute('src').endswith('-motion.svg' if reduced else '-still.svg')
                     button.focus()

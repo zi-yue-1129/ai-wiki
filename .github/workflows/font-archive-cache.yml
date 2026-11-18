@@ -1,0 +1,103 @@
+name: Font archive cache safety
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci_font_archive.py'
+      - 'scripts/test_ci_font_archive.py'
+      - '.github/actions/install-cjk-font/**'
+      - '.github/workflows/font-archive-cache.yml'
+      - '.github/workflows/built-motion-browser.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci_font_archive.py'
+      - '.github/actions/install-cjk-font/**'
+      - '.github/workflows/font-archive-cache.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  seed:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    outputs:
+      key: ${{ steps.font.outputs.key }}
+      font-hash: ${{ steps.measure.outputs.font_hash }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: /usr/bin/python3 scripts/test_ci_font_archive.py
+      - name: Cold authenticated download and installation
+        id: font
+        uses: ./.github/actions/install-cjk-font
+        with:
+          mode: miss
+          test-key: font-verification-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Record installed font hash
+        id: measure
+        env:
+          REPORT: ${{ steps.font.outputs.report }}
+        run: |
+          /usr/bin/python3 - <<'PYTHON'
+          import json, os
+          report = json.load(open(os.environ['REPORT']))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              print('font_hash=' + report['font_file_sha256'], file=output)
+          PYTHON
+      - name: Save isolated verification payload
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ runner.temp }}/verified-cjk-font/restore
+          key: ${{ steps.font.outputs.key }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: font-seed-report
+          path: ${{ steps.font.outputs.report }}
+  verify:
+    needs: seed
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [auto, miss, disabled, corrupt, fallback]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exercise font cache mode on fresh runner
+        id: font
+        uses: ./.github/actions/install-cjk-font
+        with:
+          mode: ${{ matrix.mode }}
+          test-key: ${{ needs.seed.outputs.key }}
+      - name: Assert observed result, including same-size rejection
+        env:
+          MODE: ${{ matrix.mode }}
+          REPORT: ${{ steps.font.outputs.report }}
+          SEED_FONT_HASH: ${{ needs.seed.outputs.font-hash }}
+        run: |
+          /usr/bin/python3 - <<'PY'
+          import json, os
+          report = json.load(open(os.environ['REPORT']))
+          expected = {'auto':'verified-hit', 'miss':'miss', 'disabled':'disabled', 'corrupt':'rejected', 'fallback':'miss'}
+          assert report['cache'] == expected[os.environ['MODE']], report
+          assert report['installed_version'] == report['version']
+          assert 'Noto Sans CJK' in report['font_family']
+          assert report['font_file_sha256'] == os.environ['SEED_FONT_HASH'], report
+          if os.environ['MODE'] == 'corrupt':
+              assert 'SHA256 mismatch' in report['cache_detail'], report
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: font-${{ matrix.mode }}-report
+          path: ${{ steps.font.outputs.report }}
+          if-no-files-found: warn
+  seed-main:
+    needs: [seed, verify]
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-cjk-font
+        with:
+          save: 'true'

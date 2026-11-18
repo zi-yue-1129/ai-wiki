@@ -37,10 +37,14 @@ Mouret and Clune define a grid over a space of behavioural descriptors. Each can
 
 ### Visual walkthrough: archive replacement
 
-<div class="concept-motion-wide" tabindex="0" role="region" aria-label="Keyboard-scrollable concept animation"><img src="../../../assets/concept-animations/map-elites-archive-still.svg" data-motion-src="../../../assets/concept-animations/map-elites-archive-motion.svg" data-still-src="../../../assets/concept-animations/map-elites-archive-still.svg" alt="MAP-Elites archive of behavioural niches: empty-cell insertion, rejecting a worse candidate, replacing an elite, and adding another niche." loading="lazy"></div>
+<div class="concept-motion-wide" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Evolution animation, scroll with left and right arrow keys"><div style="width:640px"><img data-source-asset-urls="true" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../assets/concept-animations/map-elites-archive-still.svg" data-motion-src="../../../assets/concept-animations/map-elites-archive-motion.svg" data-still-src="../../../assets/concept-animations/map-elites-archive-still.svg" alt="MAP-Elites archive of behavioural niches: empty-cell insertion, rejecting a worse candidate, replacing an elite, and adding another niche." loading="lazy"></div></div>
 
 *Original teaching visual, CC BY-SA 4.0.* The 6 × 4 grid has **24 schematic behavioural niches**, initially three occupied. A candidate at descriptor cell (3, 1) with illustrative fitness **0.82** enters the empty cell; a candidate scoring **0.61** in the same cell is rejected; one scoring **0.93** replaces the incumbent; a candidate scoring **0.75** fills the new cell (2, 3). Coverage grows from **3/24 to 5/24** without preserving a globally single best solution. Colours encode per-cell quality, not a fitted probability. These values are constructed to show the insertion rule, **not measured MAP-Elites performance**. MkDocs adds Play/Pause and respects reduced-motion preferences; GitHub shows the static final archive and a [link to the full motion](../../../assets/concept-animations/map-elites-archive-motion.svg).
 
+
+Focus the diagram region and use the left/right arrow keys, or swipe horizontally on a narrow screen.
+
+The SVG and lab use different illustrative initial occupied cells; both start with three elites. Descriptor coordinates are zero-based, with rows increasing downward. The moving dot is a candidate in transit; the decision and archive update occur on arrival, and replay resets the example.
 
 #### Interactive lab: niche-local acceptance and rejection
 

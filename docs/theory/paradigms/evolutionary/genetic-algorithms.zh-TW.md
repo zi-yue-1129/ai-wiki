@@ -41,10 +41,12 @@ aliases:
 
 ### 視覺解說：交叉與突變
 
-<div class="concept-motion-wide" tabindex="0" role="region" aria-label="可使用鍵盤水平捲動的概念動畫"><img src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" data-motion-src="../../../assets/concept-animations/genetic-crossover-mutation-motion.svg" data-still-src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" alt="兩條八位元親代經選擇與單點交叉，子代第七個位元接著發生突變。" loading="lazy"></div>
+<div class="concept-motion-wide" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="演化動畫，可用左右方向鍵捲動"><div style="width:640px"><img data-source-asset-urls="true" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" data-motion-src="../../../assets/concept-animations/genetic-crossover-mutation-motion.svg" data-still-src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" alt="兩條八位元親代經選擇與單點交叉，子代第七個位元接著發生突變。" loading="lazy"></div></div>
 
 *原創教學視覺，CC BY-SA 4.0。* 藍色方塊表示 1，淺色方塊表示 0。此**人工示意例子**使用親代 A `11011010`、親代 B `00100101`，在第四位元後進行單點交叉，得到 `11010101`；接著翻轉第七位元，得到 `11010111`。動畫依序呈現位元繼承與一次突變，**不代表真實適應度、選擇機率或收斂實測**。MkDocs 網站可使用播放／暫停，並支援減少動態效果的靜態回退；GitHub 顯示完成狀態的靜態圖，也可[開啟完整動畫](../../../assets/concept-animations/genetic-crossover-mutation-motion.svg)。
 
+
+聚焦圖表外框後可用左右方向鍵捲動，或在手機上左右滑動。
 
 #### 互動實驗：逐位元交叉與突變
 
@@ -58,7 +60,7 @@ aliases:
 \mathbb{E}[m(H,t+1)] \ge m(H,t)\,\frac{f(H)}{\bar f}\left[1 - p_c\frac{\delta(H)}{l-1} - p_m\, o(H)\right],
 \]
 
-其中 \(m(H,t)\) 為第 \(t\) 代中符合 \(H\) 的成員數，\(f(H)\) 為它們的平均適應度，\(\bar f\) 為族群平均適應度，\(\delta(H)\) 為最外側固定位置之間的距離，\(o(H)\) 為固定位置的數目，\(l\) 為字串長度。短、低階且高於平均適應度的模式會在族群中增加。這就是模式定理，也是此方法為何有效的標準解釋。
+其中 \(m(H,t)\) 為第 \(t\) 代中符合 \(H\) 的成員數，\(f(H)\) 為它們的平均適應度，\(\bar f\) 為族群平均適應度，\(\delta(H)\) 為最外側固定位置之間的距離，\(o(H)\) 為固定位置的數目，\(l\) 為字串長度。此下界假設適應度比例選擇（適應度非負且平均值為正）、單點交叉與獨立位元突變。它描述單一世代的期望值，並不保證增加：交叉與突變的破壞可能抵消高於平均的適應度優勢。互動實驗固定親代與突變位置，因此不是此隨機定理的模擬。
 
 ## 關鍵方法
 

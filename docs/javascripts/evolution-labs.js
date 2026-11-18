@@ -16,8 +16,9 @@
       status: 'Event', no: 'Initial archive', added: 'Insert', rejected: 'Reject', replaced: 'Replace',
       start: 'Start with two parents', inheritA: 'Copy from parent A', inheritB: 'Copy from parent B',
       flipBit: 'Flip a single child bit', accepted: 'Accepted', progress: 'Progress',
-      gaHelp: 'Each step copies exactly one bit from the chosen parent. The last step flips one bit.',
-      mapHelp: 'Each candidate competes only with the existing elite in its descriptor cell.',
+      gaHelp: 'Each step copies exactly one bit from the chosen parent. The last step flips one bit. Focus the diagram and use arrow keys to scroll on narrow screens.',
+      mapHelp: 'Each candidate competes only with the existing elite in its descriptor cell. Focus the diagram and use arrow keys to scroll on narrow screens.',
+      gaRegion: 'Genome crossover; scroll with arrow keys', mapRegion: 'MAP-Elites archive; scroll with arrow keys', empty: 'empty',
       hypothetical: 'Illustrative values; not an experimental run.'},
     zh: {previous: '上一步', next: '下一步', play: '播放', pause: '暫停', reset: '重設',
       speed: '速度', step: '步驟', cut: '交叉切點', flip: '突變位元',
@@ -26,8 +27,9 @@
       status: '事件', no: '初始檔案庫', added: '插入', rejected: '拒絕', replaced: '取代',
       start: '從兩個親代開始', inheritA: '從親代 A 複製', inheritB: '從親代 B 複製',
       flipBit: '翻轉子代的一個位元', accepted: '接受', progress: '進度',
-      gaHelp: '每一步只從指定親代複製一個位元，最後一步翻轉指定的子代位元。',
-      mapHelp: '每個候選解只會與描述子對應格內的菁英比較適應度。',
+      gaHelp: '每一步只從指定親代複製一個位元，最後一步翻轉指定的子代位元。窄螢幕可聚焦圖表後按方向鍵捲動。',
+      mapHelp: '每個候選解只會與描述子對應格內的菁英比較適應度。窄螢幕可聚焦圖表後按方向鍵捲動。',
+      gaRegion: '基因交叉，可用方向鍵捲動', mapRegion: 'MAP-Elites 檔案庫，可用方向鍵捲動', empty: '空格',
       hypothetical: '所有數值均為人工示意，非演算法實測。'},
   };
   function create(tag, className, textContent) {
@@ -77,7 +79,7 @@
       updated();
       if (step === maxStep) halt();
     }
-    function tick() {if (step >= maxStep) halt(); else setStep(step + 1);}
+    function tick() {if (!root.isConnected || step >= maxStep) halt(); else setStep(step + 1);}
     function start() {
       halt();
       if (step === maxStep) setStep(0);
@@ -100,7 +102,7 @@
     let cut = 4, flip = 7;
     const params = create('div', 'evo-parameters'); root.append(params);
     const stage = create('div', 'evo-canvas'); stage.setAttribute('role', 'group');
-    stage.setAttribute('aria-label', 'Genome crossover');
+    stage.setAttribute('aria-label', lang.gaRegion);
     stage.tabIndex = 0;
     root.append(stage);
     const explanation = create('div','evo-feedback'); root.append(explanation);
@@ -131,7 +133,7 @@
       stage.replaceChildren(
         row('A', A, () => true, n >= 1 && n <= 8 && n-1 < cut ? n-1 : -1),
         row('B', B, () => true, n >= 1 && n <= 8 && n-1 >= cut ? n-1 : -1),
-        row('Child', final, i => n === 9 || i < upto, n === 9 ? flip - 1 : n >= 1 ? n - 1 : -1, true)
+        row(lang.child, final, i => n === 9 || i < upto, n === 9 ? flip - 1 : n >= 1 ? n - 1 : -1, true)
       );
       const phase = n === 0 ? lang.start : n <= 8 ? `${n <= cut ? lang.inheritA : lang.inheritB} · ${n}/8` : `${lang.flipBit} · ${flip}`;
       message.textContent = phase;
@@ -152,7 +154,7 @@
     let challenger = 0.61, replacement = 0.93;
     const params = create('div', 'evo-parameters'); root.append(params);
     const stage = create('div', 'evo-canvas'); stage.tabIndex=0;
-    stage.setAttribute('role','group');stage.setAttribute('aria-label','MAP-Elites archive');root.append(stage);
+    stage.setAttribute('role','group');stage.setAttribute('aria-label',lang.mapRegion);root.append(stage);
     const explanation=create('div','evo-feedback');root.append(explanation);
     const controls = board(root, lang, 4, () => {});
     const v1 = buildSlider(params, lang.rival, 0, 1, 0.01, challenger, v => {challenger=v; controls.halt(); controls.setStep(0);});
@@ -180,7 +182,7 @@
       for(let y=0;y<4;y++) for(let x=0;x<6;x++) {
         const id=`${x},${y}`, val=store.get(id);
         const cell=create('span','evo-niche'+(val?' evo-filled':''),val?val.fitness.toFixed(2):'·');
-        cell.title=`(${x},${y}) ${val?val.fitness.toFixed(2):'empty'}`;
+        cell.title=`(${x},${y}) ${val?val.fitness.toFixed(2):lang.empty}`;
         if(val) cell.style.setProperty('--evo-quality',String(val.fitness));
         if(current && current.x===x && current.y===y) cell.classList.add('evo-target');
         cells.append(cell);

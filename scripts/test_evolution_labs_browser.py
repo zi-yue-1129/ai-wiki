@@ -1,18 +1,18 @@
 """Chromium QA for two shared bilingual evolutionary algorithm labs (file-backed harness)."""
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-import argparse
+import argparse, os
 
 BASE = Path(__file__).resolve().parent
 JS = BASE.parent / 'docs/javascripts/evolution-labs.js'
 CSS = BASE.parent / 'docs/stylesheets/evolution-labs.css'
 if not JS.exists(): JS = BASE / 'evolution-labs.js'
 if not CSS.exists(): CSS = BASE / 'evolution-labs.css'
-HTML = '''<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="evolution-labs.css"><style>body{font-family:Arial, sans-serif;max-width:940px;padding:16px;margin:auto;background:#f9fafb;color:#203445}h2{margin:28px 0 12px} .md-content{max-width:100%}</style></head><body><main class="md-content"><h2>Genetic algorithms</h2><div data-evolution-lab="ga" data-lang="__LANG__"><p>Static image fallback is provided above.</p></div><h2>MAP-Elites</h2><div data-evolution-lab="map" data-lang="__LANG__"><p>Static image fallback is provided above.</p></div></main><script src="evolution-labs.js"></script></body></html>'''
+HTML = '''<!DOCTYPE html><html lang="__LANG__"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="evolution-labs.css"><style>body{font-family:Arial, sans-serif;max-width:940px;padding:16px;margin:auto;background:#f9fafb;color:#203445}h2{margin:28px 0 12px} .md-content{max-width:100%}</style></head><body><main class="md-content"><h2>Genetic algorithms</h2><div data-evolution-lab="ga" data-lang="__LANG__"><p>Static image fallback is provided above.</p></div><h2>MAP-Elites</h2><div data-evolution-lab="map" data-lang="__LANG__"><p>Static image fallback is provided above.</p></div></main><script src="evolution-labs.js"></script></body></html>'''
 
 
 def check(playwright, width, lang, reduced, out):
-    browser = playwright.chromium.launch(headless=True, executable_path='/usr/bin/chromium' if Path('/usr/bin/chromium').exists() else None, args=['--no-sandbox'])
+    browser = playwright.chromium.launch(headless=True, executable_path=os.environ.get('CHROMIUM_EXECUTABLE') or None, args=['--no-sandbox'])
     context = browser.new_context(viewport={'width':width,'height':1000},device_scale_factor=1,reduced_motion='reduce' if reduced else 'no-preference')
     page = context.new_page(); errors=[]
     page.on('pageerror',lambda err:errors.append(str(err)))
@@ -46,7 +46,7 @@ def check(playwright, width, lang, reduced, out):
     ga.locator('button').filter(has_text='下一步' if lang=='zh' else 'Next').first.click()
     assert ga.locator('.evo-canvas').get_attribute('data-step')=='1'
     ga.locator('input[aria-label]').nth(2).fill('9');ga.locator('input[aria-label]').nth(2).dispatch_event('input')
-    assert ga.locator('.evo-canvas').get_attribute('data-child')=='11010101' or ga.locator('.evo-canvas').get_attribute('data-step')=='9'
+    assert ga.locator('.evo-canvas').get_attribute('data-child')=='11011111'
     ga.locator('input[aria-label]').nth(0).fill('4');ga.locator('input[aria-label]').nth(0).dispatch_event('input')
     ga.locator('input[aria-label]').nth(1).fill('7');ga.locator('input[aria-label]').nth(1).dispatch_event('input')
     ga.locator('input[aria-label]').nth(2).fill('9');ga.locator('input[aria-label]').nth(2).dispatch_event('input')
@@ -59,6 +59,12 @@ def check(playwright, width, lang, reduced, out):
     mp.locator('input[aria-label]').nth(2).fill('2');mp.locator('input[aria-label]').nth(2).dispatch_event('input')
     assert mp.locator('.evo-canvas').get_attribute('data-coverage')=='4'
     assert mp.locator('.evo-canvas').get_attribute('data-last-decision') in ['Replace','取代']
+    # Equality must reject, and a later 0.93 must not replace a 0.95 elite.
+    mp.locator('input[aria-label]').nth(2).fill('3');mp.locator('input[aria-label]').nth(2).dispatch_event('input')
+    assert mp.locator('.evo-canvas').get_attribute('data-last-decision') in ['Reject','拒絕']
+    mp.locator('input[aria-label]').nth(0).fill('0.82');mp.locator('input[aria-label]').nth(0).dispatch_event('input')
+    mp.locator('input[aria-label]').nth(2).fill('2');mp.locator('input[aria-label]').nth(2).dispatch_event('input')
+    assert mp.locator('.evo-canvas').get_attribute('data-last-decision') in ['Reject','拒絕']
     # Subordinate lower score cannot displace an existing higher elite.
     mp.locator('input[aria-label]').nth(0).fill('0.61');mp.locator('input[aria-label]').nth(0).dispatch_event('input')
     mp.locator('input[aria-label]').nth(2).fill('2');mp.locator('input[aria-label]').nth(2).dispatch_event('input')

@@ -40,10 +40,12 @@ Good solutions tend to share useful building blocks. Crossover combines parts of
 
 ### Visual walkthrough: crossover and mutation
 
-<div class="concept-motion-wide" tabindex="0" role="region" aria-label="Keyboard-scrollable concept animation"><img src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" data-motion-src="../../../assets/concept-animations/genetic-crossover-mutation-motion.svg" data-still-src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" alt="One-point crossover from two selected eight-bit parents followed by a single mutation of the seventh offspring bit." loading="lazy"></div>
+<div class="concept-motion-wide" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Evolution animation, scroll with left and right arrow keys"><div style="width:640px"><img data-source-asset-urls="true" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" data-motion-src="../../../assets/concept-animations/genetic-crossover-mutation-motion.svg" data-still-src="../../../assets/concept-animations/genetic-crossover-mutation-still.svg" alt="One-point crossover from two selected eight-bit parents followed by a single mutation of the seventh offspring bit." loading="lazy"></div></div>
 
 *Original teaching visual, CC BY-SA 4.0.* Blue tiles denote 1 and pale tiles denote 0. In this **schematic**, parent A is `11011010` and parent B is `00100101`; one-point crossover after position four produces `11010101`, and flipping the seventh bit produces `11010111`. Tile copying and the single mutation are shown over time; these are deliberately chosen example operations, **not observed fitness, selection probabilities or measured convergence**. On the MkDocs site, Play/Pause controls the animation, with a static fallback for reduced-motion preferences. On GitHub, this image is the meaningful static end-state; [open the animated process](../../../assets/concept-animations/genetic-crossover-mutation-motion.svg).
 
+
+Focus the diagram region and use the left/right arrow keys, or swipe horizontally on a narrow screen.
 
 #### Interactive lab: per-bit crossover and mutation
 
@@ -57,7 +59,7 @@ In Holland's schema analysis, a schema \(H\) is a template over bit strings, wit
 \mathbb{E}[m(H,t+1)] \ge m(H,t)\,\frac{f(H)}{\bar f}\left[1 - p_c\frac{\delta(H)}{l-1} - p_m\, o(H)\right],
 \]
 
-where \(m(H,t)\) is the number of members that match \(H\) at generation \(t\), \(f(H)\) is their mean fitness, \(\bar f\) is the population mean fitness, \(\delta(H)\) is the distance between the outermost fixed positions, \(o(H)\) is the number of fixed positions, and \(l\) is the string length. Short, low-order, above-average schemata grow in the population. This is the schema theorem, and it is the standard explanation of why the method works.
+where \(m(H,t)\) is the number of members that match \(H\) at generation \(t\), \(f(H)\) is their mean fitness, \(\bar f\) is the population mean fitness, \(\delta(H)\) is the distance between the outermost fixed positions, \(o(H)\) is the number of fixed positions, and \(l\) is the string length. This lower bound assumes fitness-proportionate selection with nonnegative fitness and positive mean fitness, one-point crossover and independent bit mutation. It describes one generation in expectation, not guaranteed growth: disruption can outweigh an above-average fitness advantage. The illustrated lab fixes the parents and mutation bit, so it is not a simulation of this stochastic theorem.
 
 ## Key methods
 
