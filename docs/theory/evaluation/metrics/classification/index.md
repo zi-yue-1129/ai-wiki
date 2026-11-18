@@ -9,11 +9,11 @@ tags:
 
 # Classification Metrics
 
-Classification metrics score a model whose output is a class label or a score for each class. Some metrics read the labels at one decision threshold: accuracy, precision, recall and F1. Others read the scores across all thresholds and ask how well positives are ranked above negatives: ROC-AUC and PR-AUC. The two groups answer different questions, so a model can look strong on one and weak on the other.
+Classification metrics score a model whose output is a class label or a score for each class. Some metrics evaluate class labels under a fixed decision rule (for example, a binary cutoff, multiclass argmax, or directly emitted labels): accuracy, precision, recall and F1. Others read the scores across all thresholds and ask how well positives are ranked above negatives: ROC-AUC and PR-AUC. The two groups answer different questions, so a model can look strong on one and weak on the other.
 
 ## Key metrics
 
-| Metric | What it measures | Threshold needed | Use when |
+| Metric | What it measures | Fixed label decision needed | Use when |
 |---|---|---|---|
 | [Accuracy](accuracy.md) | Fraction of correct labels | Yes | Classes are balanced and every error costs the same |
 | [Precision](precision.md) | Share of predicted positives that are correct | Yes | False alarms are costly |
@@ -22,7 +22,19 @@ Classification metrics score a model whose output is a class label or a score fo
 | [ROC-AUC](roc-auc.md) | Ranking of positives above negatives | No | Comparing models without fixing a threshold |
 | [PR-AUC](pr-auc.md) | Precision across recall levels | No | Positives are rare |
 
-The label-based metrics change with the threshold, so report the threshold together with the number. The ranking metrics do not depend on one threshold, but they can look optimistic when positives are rare.
+For score-based classifiers, these label metrics can change with the decision rule: report the cutoff or label-selection policy alongside the metric. A numeric threshold is not needed when a classifier already outputs labels. The ranking metrics do not depend on one threshold, but they can look optimistic when positives are rare.
+
+## Shared synthetic 100-case example
+
+The worked examples for [accuracy](accuracy.md), [precision](precision.md), [recall](recall.md), and [F1](f1.md) all use **the same** binary-classification confusion matrix. Rows represent **actual** classes and columns represent **predicted** classes. Entries are counts, not probabilities.
+
+| Actual class | Predicted positive | Predicted negative | Total |
+|---|---:|---:|---:|
+| Positive | 40 (TP) | 20 (FN) | 60 |
+| Negative | 10 (FP) | 30 (TN) | 40 |
+| **Total** | **50** | **50** | **100** |
+
+From these identical 100 cases, accuracy is **70/100 = 0.700**, precision is **40/50 = 0.800**, recall is **40/60 ≈ 0.667**, and F1 is **80/110 ≈ 0.727**. This is a **constructed count example, not measured classifier performance**. The animations elsewhere in this section use *different* explicitly synthetic scores or population parameters; they are not results from this 100-case matrix.
 
 ## Connections
 
