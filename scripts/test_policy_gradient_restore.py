@@ -11,6 +11,19 @@ ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location('policy_svg_browser',ROOT/'scripts/test_policy_gradient_motion_browser.py')
 suite=importlib.util.module_from_spec(spec);spec.loader.exec_module(suite)
 
+def validate_player_barriers(source):
+    import ast
+    tree=ast.parse(source);player=next(n for n in tree.body if isinstance(n,ast.FunctionDef)and n.name=='check_player')
+    waits=[n for n in ast.walk(player)if isinstance(n,ast.Call)and isinstance(n.func,ast.Name)and n.func.id=='ready_image']
+    expected=[('initial-still-before-enhancement',"base+stem+'-still.svg'"),('enhanced',"base+stem+('-still.svg' if reduced else '-motion.svg')"),('clicked',"base+stem+('-motion.svg' if reduced else '-still.svg')"),('entered',"base+stem+('-still.svg' if reduced else '-motion.svg')"),('spaced',"base+stem+('-motion.svg' if reduced else '-still.svg')"),('final-still',"base+stem+'-still.svg'")]
+    assert [n.args[-1].value for n in waits]==[x[0]for x in expected]
+    for call,(_,expression)in zip(waits,expected):assert ast.dump(call.args[2])==ast.dump(ast.parse(expression,mode='eval').body)
+    top=[ast.unparse(n)for n in player.body]
+    assert next(i for i,x in enumerate(top)if 'initial-still-before-enhancement'in x)<next(i for i,x in enumerate(top)if 'page.add_script_tag'in x)
+    for stage,shot in [('clicked','clicked'),('entered','entered'),('spaced','spaced'),('final-still','final-still')]:
+        assert next(i for i,x in enumerate(top)if x.startswith('ready_image(')and repr(stage)in x)<next(i for i,x in enumerate(top)if x.startswith('shot(')and repr(shot)in x)
+    return tree,player,waits
+
 class Coverage(unittest.TestCase):
     def test_original_24_cases_and_every_time(self):
         cases=suite.cases();self.assertEqual(len(cases),24)
@@ -51,6 +64,78 @@ class Coverage(unittest.TestCase):
             self.assertEqual(page.evaluate.call_count, 3)
             self.assertIn('getBBox()', page.evaluate.call_args_list[2].args[0])
             self.assertIn('getComputedStyle', page.evaluate.call_args_list[2].args[0])
+
+    def test_actual_readiness_javascript_controlled_delay_and_wrong_resource_negatives(self):
+        import subprocess
+        harness=r"""
+const ready=eval('('+PREDICATE+')');const expected='https://aiwiki.test/assets/concept-animations/reinforce-return-credit-motion.svg';
+const img={src:expected,currentSrc:expected,complete:false,naturalWidth:0,naturalHeight:0,isConnected:true,getAttribute(k){return this[k]}};
+global.document={querySelector:()=>img};
+(async()=>{
+ if(ready(expected))throw Error('Incomplete resource accepted');
+ setTimeout(()=>Object.assign(img,{complete:true,naturalWidth:760,naturalHeight:400}),25);
+ const end=Date.now()+1000;while(!ready(expected)&&Date.now()<end)await new Promise(r=>setTimeout(r,2));
+ if(!ready(expected))throw Error('Delayed valid image not accepted');
+ for(const [key,value]of [['src',expected.replace('motion','still')],['currentSrc',expected.replace('motion','still')],['complete',false],['naturalWidth',759],['naturalHeight',399],['isConnected',false]]){
+   const old=img[key];img[key]=value;if(ready(expected))throw Error('Wrong state accepted '+key);img[key]=old;
+ }
+ document.querySelector=()=>null;if(ready(expected))throw Error('Missing image accepted');
+})().catch(e=>{console.error(e);process.exitCode=1});
+""".replace('PREDICATE',json.dumps(suite.IMAGE_READY))
+        subprocess.run(['node','-e',harness],check=True,capture_output=True,text=True)
+
+    def test_actual_decode_promise_has_deadline_and_cleans_every_timer(self):
+        import subprocess
+        harness=r"""
+const decode=eval('('+DECODE+')');const assert=require('node:assert/strict');
+const originalSet=setTimeout,originalClear=clearTimeout,active=new Set();
+global.setTimeout=(f,ms)=>{let id;id=originalSet(()=>{active.delete(id);f()},ms);active.add(id);return id};
+global.clearTimeout=id=>{active.delete(id);return originalClear(id)};
+(async()=>{
+ await decode({decode:()=>Promise.resolve()},40);assert.equal(active.size,0);
+ await assert.rejects(decode({decode:()=>Promise.reject(Error('bad image'))},40),/bad image/);assert.equal(active.size,0);
+ await assert.rejects(decode({decode:()=>{throw Error('synchronous decode error')}},40),/synchronous decode/);assert.equal(active.size,0);
+ const start=Date.now();await assert.rejects(decode({decode:()=>new Promise(()=>{})},20),/Image decode timeout/);
+ assert.ok(Date.now()-start<1000);assert.equal(active.size,0);
+})().catch(e=>{console.error(e);process.exitCode=1});
+""".replace('DECODE',json.dumps(suite.IMAGE_DECODE))
+        subprocess.run(['node','-e',harness],check=True,capture_output=True,text=True,timeout=3)
+
+    def test_readiness_helper_decode_failures_and_state_diagnostics(self):
+        expected='https://aiwiki.test/assets/concept-animations/reinforce-return-credit-motion.svg'
+        valid=dict(src=expected,currentSrc=expected,complete=True,width=760,height=400,connected=True)
+        for variant in [None,('src','wrong'),('currentSrc','wrong'),('complete',False),('width',759),('height',399),('decode','rejected'),('wait','timeout')]:
+            page=Mock();img=Mock();img.count.return_value=1;record={};state=dict(valid)
+            if variant and variant[0]not in ['decode','wait']:state[variant[0]]=variant[1]
+            before=dict(valid,complete=False,width=0,height=0)
+            if variant and variant[0]=='decode':img.evaluate.side_effect=[before,RuntimeError('decode rejected'),state]
+            elif variant and variant[0]=='wait':
+                page.wait_for_function.side_effect=TimeoutError('image stayed incomplete');img.evaluate.side_effect=[before,before]
+            else:img.evaluate.side_effect=[before,None,state,state]
+            if variant:
+                with self.assertRaises((AssertionError,RuntimeError,TimeoutError)):suite.ready_image(page,img,expected,record,'controlled')
+                self.assertEqual(record['image_states'][0]['status'],'failed');self.assertIn('failure_state',record['image_states'][0])
+            else:
+                suite.ready_image(page,img,expected,record,'controlled');self.assertEqual(record['image_states'][0]['status'],'passed')
+            page.wait_for_function.assert_called_once_with(suite.IMAGE_READY,arg=expected,timeout=5000)
+            if not variant or variant[0]!='wait':self.assertEqual(img.evaluate.call_args_list[1].args,(suite.IMAGE_DECODE,5000))
+
+    def test_every_original_player_transition_has_exact_readiness_barrier(self):
+        import ast
+        source=(ROOT/'scripts/test_policy_gradient_motion_browser.py').read_text()
+        tree,player,waits=validate_player_barriers(source)
+        for index in range(6):
+            changed=ast.parse(source);function=next(n for n in changed.body if isinstance(n,ast.FunctionDef)and n.name=='check_player')
+            calls=[n for n in ast.walk(function)if isinstance(n,ast.Call)and isinstance(n.func,ast.Name)and n.func.id=='ready_image']
+            calls[index].args[2]=ast.Constant(value='https://wrong.test/same-suffix-motion.svg')
+            with self.assertRaises(AssertionError):validate_player_barriers(ast.unparse(changed))
+            changed=ast.parse(source);function=next(n for n in changed.body if isinstance(n,ast.FunctionDef)and n.name=='check_player')
+            statements=[n for n in function.body if isinstance(n,ast.Expr)and isinstance(n.value,ast.Call)and isinstance(n.value.func,ast.Name)and n.value.func.id=='ready_image']
+            function.body.remove(statements[index])
+            with self.assertRaises(AssertionError):validate_player_barriers(ast.unparse(changed))
+        main=next(n for n in tree.body if isinstance(n,ast.FunctionDef)and n.name=='main')
+        self.assertTrue(any(isinstance(n,ast.Assert)and ast.unparse(n.test)=="not record['failed_requests']"for n in ast.walk(main)))
+        source=ast.unparse(player);self.assertIn('request.failure',source);self.assertIn("record['failed_requests'].append(request.url)",source)
 
     def test_ci_execution_and_evidence(self):
         d=yaml.safe_load((ROOT/'.github/workflows/built-motion-browser.yml').read_text())
