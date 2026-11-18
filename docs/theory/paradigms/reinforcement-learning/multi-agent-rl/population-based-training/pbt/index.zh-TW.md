@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 ---
 
 # 基於種群的訓練（Jaderberg 等人，2017）
@@ -29,6 +29,17 @@ PBT 保留一組工作者，每個工作者平行訓練自己的模型。每個�
 4. 對複製來的超參數進行擾動或重新抽樣：\(h \leftarrow \text{explore}(h)\)，然後繼續訓練。
 
 論文以 \(\text{exploit}\) 選擇記錄效能較高的成員，並以 \(\text{explore}\) 擾動超參數或從先驗中重新抽樣。在實驗中，截斷選擇會把底部 20% 的工作者替換為前 20% 中的某位成員；強化學習的執行則對近期的回報做 t 檢定。多數實驗中，每個超參數以 1.2 或 0.8 的倍數擾動，GAN 實驗則使用 2.0 或 0.5。
+
+
+### 動態解說：複製、探索與續訓
+
+<div class="population-source-scroll" tabindex="0" role="region" aria-label="PBT 種群工作者分數比較、模型權重與超參數複製、學習率擾動及繼續訓練的過程動畫" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../../assets/concept-animations/pbt-exploit-explore-still.svg" data-motion-src="../../../../../../assets/concept-animations/pbt-exploit-explore-motion.svg" data-still-src="../../../../../../assets/concept-animations/pbt-exploit-explore-still.svg" alt="PBT 種群工作者分數比較、模型權重與超參數複製、學習率擾動及繼續訓練的過程動畫" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 工作者先進行訓練與評估。表現較差的 W4 **同時複製**較佳工作者 W1 的模型權重與超參數，再對其中一項超參數進行**擾動**，接著繼續梯度更新。圖中的分數（0.92、0.74、0.61、0.40）與學習率（0.010 → 0.012，即乘以 1.2）均為**人工示意，非訓練實測**；複製權重不代表後續評估分數必然與來源相同。動畫展示單一工作者的週期，**不代表種群需全域同步**；PBT 可以非同步執行。MkDocs 網站可播放／暫停；GitHub 可查看[靜態回退預覽](../../../../../../assets/concept-animations/pbt-exploit-explore-still.svg)。依據 [Jaderberg 等人（2017）](https://arxiv.org/abs/1711.09846)。
+
+圖中的分數是複製前的固定評估快照，不會因為複製就改寫成供體分數。複製完成後才把已複製的學習率乘以 1.2；改變的是超參數，而不是把模型權重乘以 1.2。W4 之後以新設定繼續訓練，其他 worker 不必等待。手機可在可鍵盤聚焦的圖框內橫向捲動。
 
 ## 結果
 
