@@ -45,7 +45,13 @@ Because the oldest member is removed rather than the worst, a model that scored 
 
 ## Animated example: tournament, mutation, and aging
 
-<img src="../../../assets/concept-animations/aging-evolution-queue-still.svg" data-motion-src="../../../assets/concept-animations/aging-evolution-queue-motion.svg" data-still-src="../../../assets/concept-animations/aging-evolution-queue-still.svg" alt="A queue of five architectures highlights tournament candidates B C and E, chooses parent C, introduces mutated child F, and removes the oldest A despite its high score." loading="lazy" />
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Teaching animation (focus and use arrow keys to scroll horizontally)">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../assets/concept-animations/aging-evolution-queue-still.svg" data-motion-src="../../../assets/concept-animations/aging-evolution-queue-motion.svg" data-still-src="../../../assets/concept-animations/aging-evolution-queue-still.svg" alt="A queue of five architectures highlights tournament candidates B C and E, chooses parent C, introduces mutated child F, and removes the oldest A despite its high score." loading="lazy" width="800" height="420" style="width:800px;min-width:800px;max-width:none" />
+</div>
+</div>
+
+On narrow screens, focus the figure and use arrow keys or swipe to scroll at its natural size.
 
 *Original instructional SVG, CC BY-SA 4.0.* GitHub renders the reviewed final population; MkDocs adds keyboard-accessible Play/Pause and a reduced-motion fallback. [Open the static end state](../../../assets/concept-animations/aging-evolution-queue-still.svg).
 
@@ -75,7 +81,7 @@ This page covers one method: aging evolution with tournament selection and singl
 ## Applications
 
 - **Image classifier search** when a reinforcement-learning controller is not wanted.
-- **Searches with many workers**, since children can be trained in parallel and the population needs no synchronisation.
+- **Searches with many workers**, since workers can train and evaluate children asynchronously; updates to the shared population still require coordination.
 - **Baseline** for newer architecture-search methods.
 
 ## Open questions

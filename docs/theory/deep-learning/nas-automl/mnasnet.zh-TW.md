@@ -31,9 +31,17 @@ MnasNet 以一個獎勵函數搜尋行動端影像分類器，該獎勵結合了
 
 其中 \(\mathrm{LAT}(m)\) 為實測延遲，\(T\) 為目標延遲，\(w\) 為控制延遲懲罰強度的指數。控制器的更新目標是提高期望獎勵。
 
+原論文允許在目標延遲兩側使用不同指數：當 \(\mathrm{LAT}(m)\le T\) 時 \(w=\alpha\)，否則 \(w=\beta\)。論文的軟限制設定為 \(\alpha=\beta=-0.07\)；下方動畫刻意採用較強的人工懲罰值（Tan et al., 2019，第 3 節）。
+
 ## 動態範例：延遲可能反轉架構排名
 
-<img src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" alt="架構 B 的示意準確率比較高，但當 B 的假設延遲比率增加，其延遲調整後的獎勵可能低於 A；曲線標記與長條同步變化。" loading="lazy" />
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="教學動畫（聚焦後可用方向鍵水平捲動）">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" alt="架構 B 的示意準確率比較高，但當 B 的假設延遲比率增加，其延遲調整後的獎勵可能低於 A；曲線標記與長條同步變化。" loading="lazy" width="800" height="420" style="width:800px;min-width:800px;max-width:none" />
+</div>
+</div>
+
+窄螢幕可聚焦圖框後使用方向鍵或滑動，水平捲動檢視原尺寸圖。
 
 *原創教學 SVG，CC BY-SA 4.0。* GitHub 顯示[靜態預覽](../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg)；MkDocs 可用鍵盤播放／暫停，減少動態效果模式保留靜態圖。
 

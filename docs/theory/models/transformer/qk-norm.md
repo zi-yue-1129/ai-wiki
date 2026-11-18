@@ -16,7 +16,7 @@ aliases:
 
 # QK-Normalisation
 
-QK-normalisation applies a layer normalisation to the queries and keys of each attention head before their dot product. It bounds the attention logits regardless of how large the query and key weights become. Dehghani et al. (2023) use it to prevent divergence from uncontrolled attention-logit growth when training ViT-22B, a 22-billion-parameter Vision Transformer. The parent overview is [Transformers & Attention](index.md), and the broader norm-growth problem is on the [weight-norm dynamics](../../optimization/weight-norm-dynamics/index.md) page.
+QK-normalisation applies a layer normalisation to the queries and keys of each attention head before their dot product. At fixed LayerNorm affine parameters, it bounds the attention logits independently of the incoming query/key amplitude; learned gains can still change that bound. Dehghani et al. (2023) use it to prevent divergence from uncontrolled attention-logit growth when training ViT-22B, a 22-billion-parameter Vision Transformer. The parent overview is [Transformers & Attention](index.md), and the broader norm-growth problem is on the [weight-norm dynamics](../../optimization/weight-norm-dynamics/index.md) page.
 
 ## Overview
 
@@ -28,7 +28,7 @@ Growth of the attention logits is one source of training instability in large Tr
 
 ## Core idea
 
-Apply a layer normalisation to the query and key vectors of each head before the dot product, so that \(\text{softmax}\!\left(\text{LN}(Q)\,\text{LN}(K)^\top/\sqrt{d_k}\right)\). The normalisation removes the scale of \(Q\) and \(K\) from the logits, so the logits no longer grow with the weight norms that produce them.
+Apply a layer normalisation to the query and key vectors of each head before the dot product, so that \(\text{softmax}\!\left(\text{LN}(Q)\,\text{LN}(K)^\top/\sqrt{d_k}\right)\). With fixed affine parameters and negligible epsilon, normalisation removes positive common amplitude scaling of nonconstant query/key vectors. It does not make the logits independent of learned LayerNorm gains or changes in vector direction.
 
 ## How it works
 
@@ -38,6 +38,12 @@ Apply a layer normalisation to the query and key vectors of each head before the
 4. Leave the value projection and the rest of the block unchanged.
 
 The modification is local to attention, and the cost is one normalisation per head for queries and keys.
+
+### Visual walkthrough: amplitude growth versus QK normalisation
+
+<img data-source-asset-urls src="../../../assets/concept-animations/qk-norm-scale-sweep-still.svg" data-motion-src="../../../assets/concept-animations/qk-norm-scale-sweep-motion.svg" data-still-src="../../../assets/concept-animations/qk-norm-scale-sweep-still.svg" alt="Looping QK-normalisation comparison: increasing query/key amplitude saturates raw softmax probabilities while per-head normalisation preserves the probability profile." width="640" height="360" loading="lazy">
+
+*Original interactive-site SVG motion, CC BY-SA 4.0.* The illustration scales the same centred query and three key vectors by a shared positive factor $s$ from 1 to 4, and then back. Raw attention logits increase as $s^2$, making one softmax probability dominate; applying separate Q/K layer normalisation removes this common scale. For an explicitly simplified example, take $q=(1,-1,0)$ and keys $k_A=(1,-1,0)$, $k_B=(1,0,-1)$, and $k_C=(-1,1,0)$. The raw logits before scaling are $(2,1,-2)/\sqrt{3}$. The static preview shows the largest scale. In the illustration, LayerNorm has unit gain, zero bias and zero \(\epsilon\); real implementations have learned affine parameters and nonzero \(\epsilon\), so exact invariance is not unconditional. All vectors and probabilities are **computed illustrative values, not measured model behaviour**. The website's existing motion player allows pausing; reduced-motion users see a fixed frame. [GitHub-readable static preview](../../../assets/concept-animations/qk-norm-scale-sweep-still.svg). The method is described by [Dehghani et al. (2023)](https://proceedings.mlr.press/v202/dehghani23a.html).
 
 ## Results
 
@@ -58,7 +64,7 @@ Wortsman et al. (2023) reproduce attention-logit growth at small scale and test 
 
 ## Open questions
 
-- Whether query-key normalisation is enough in very long-context models, where the logits are summed over many more positions.
+- Whether query-key normalisation is enough in very long-context models, where the softmax normalises over many more keys.
 - How the normalisation interacts with rotary position encodings, which act on the same query and key vectors.
 
 ## References

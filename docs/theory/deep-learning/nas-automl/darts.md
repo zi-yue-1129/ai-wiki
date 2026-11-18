@@ -47,11 +47,17 @@ where \(\mathcal O\) is the set of candidate operations. The search is a bilevel
 \min_{\alpha} \; \mathcal L_{\text{val}}\bigl(w^\ast(\alpha), \alpha\bigr) \quad \text{s.t.} \quad w^\ast(\alpha) = \arg\min_w \mathcal L_{\text{train}}(w, \alpha).
 \]
 
-The inner problem is approximated by one gradient step, \(w' = w - \xi \nabla_w \mathcal L_{\text{train}}(w,\alpha)\), which gives a first-order or second-order update to \(\alpha\). After the search, each edge keeps the operation with the largest \(\alpha\), and each node keeps its two strongest incoming edges.
+The inner problem is approximated by one gradient step, \(w' = w - \xi \nabla_w \mathcal L_{\text{train}}(w,\alpha)\), which gives a first-order or second-order update to \(\alpha\). After the search, edge strength is the largest mixing weight among non-zero operations; each retained edge uses its strongest non-zero operation. Each intermediate node keeps its two strongest incoming edges for convolutional cells, but only one for recurrent cells (Liu et al., 2019, Section 2.4).
 
 ## Animated example: relaxed operation selection
 
-<img src="../../../assets/concept-animations/darts-soft-operations-still.svg" data-motion-src="../../../assets/concept-animations/darts-soft-operations-motion.svg" data-still-src="../../../assets/concept-animations/darts-soft-operations-still.svg" alt="Three candidate operations on one edge share the same input while their softmax mixing weights shift continuously toward a convolution; a fixed argmax produces a discrete operation." loading="lazy" />
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Teaching animation (focus and use arrow keys to scroll horizontally)">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../assets/concept-animations/darts-soft-operations-still.svg" data-motion-src="../../../assets/concept-animations/darts-soft-operations-motion.svg" data-still-src="../../../assets/concept-animations/darts-soft-operations-still.svg" alt="Three candidate operations on one edge share the same input while their softmax mixing weights shift continuously toward a convolution; a fixed argmax produces a discrete operation." loading="lazy" width="800" height="420" style="width:800px;min-width:800px;max-width:none" />
+</div>
+</div>
+
+On narrow screens, focus the figure and use arrow keys or swipe to scroll at its natural size.
 
 *Original instructional SVG, CC BY-SA 4.0.* GitHub shows the reviewed static endpoint; on MkDocs use the keyboard-accessible Play/Pause control. A [non-animated preview](../../../assets/concept-animations/darts-soft-operations-still.svg) is also available when motion is disabled.
 

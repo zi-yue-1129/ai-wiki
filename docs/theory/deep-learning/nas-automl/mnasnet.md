@@ -42,9 +42,17 @@ A reinforcement-learning controller samples a candidate architecture from the se
 
 where \(\mathrm{LAT}(m)\) is the measured latency, \(T\) is the target latency and \(w\) is an exponent that controls how strongly latency is penalised. The controller is updated to increase the expected reward.
 
+The original reward allows different exponents below and above the target: \(w=\alpha\) when \(\mathrm{LAT}(m)\le T\), and \(w=\beta\) otherwise. The paper’s soft-constraint setting uses \(\alpha=\beta=-0.07\); the animation below deliberately uses a stronger, synthetic penalty (Tan et al., 2019, Section 3).
+
 ## Animated example: latency can reverse the ranking
 
-<img src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" alt="Candidate B has greater toy accuracy but the latency-adjusted reward may fall below A as B's hypothetical latency increases. The curve marker and bar move together." loading="lazy" />
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Teaching animation (focus and use arrow keys to scroll horizontally)">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg" alt="Candidate B has greater toy accuracy but the latency-adjusted reward may fall below A as B's hypothetical latency increases. The curve marker and bar move together." loading="lazy" width="800" height="420" style="width:800px;min-width:800px;max-width:none" />
+</div>
+</div>
+
+On narrow screens, focus the figure and use arrow keys or swipe to scroll at its natural size.
 
 *Original educational SVG, CC BY-SA 4.0.* GitHub displays the [static preview](../../../assets/concept-animations/mnasnet-latency-tradeoff-still.svg). On MkDocs, use Play/Pause and keyboard controls; reduced-motion mode retains the still.
 

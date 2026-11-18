@@ -36,11 +36,17 @@ DARTS 把一個單元（cell）中運算的離散選擇放寬為加權和，使�
 \min_{\alpha} \; \mathcal L_{\text{val}}\bigl(w^\ast(\alpha), \alpha\bigr) \quad \text{s.t.} \quad w^\ast(\alpha) = \arg\min_w \mathcal L_{\text{train}}(w, \alpha).
 \]
 
-內層問題以一步梯度近似，\(w' = w - \xi \nabla_w \mathcal L_{\text{train}}(w,\alpha)\)，由此得到對 \(\alpha\) 的一階或二階更新。搜尋結束後，每條邊保留 \(\alpha\) 最大的運算，每個節點保留兩條最強的入邊。
+內層問題以一步梯度近似，\(w' = w - \xi \nabla_w \mathcal L_{\text{train}}(w,\alpha)\)，由此得到對 \(\alpha\) 的一階或二階更新。搜尋結束後，以非零運算的最大混合權重衡量邊的強度；保留的邊採用權重最大的非零運算。卷積單元的每個中間節點保留兩條最強入邊，循環單元則只保留一條（Liu et al., 2019，第 2.4 節）。
 
 ## 教學動畫：連續放寬與運算選擇
 
-<img src="../../../assets/concept-animations/darts-soft-operations-still.svg" data-motion-src="../../../assets/concept-animations/darts-soft-operations-motion.svg" data-still-src="../../../assets/concept-animations/darts-soft-operations-still.svg" alt="相同輸入分別經過三種候選運算，Softmax 混合權重逐步轉向卷積，最後以最大架構權重挑選離散運算。" loading="lazy" />
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="教學動畫（聚焦後可用方向鍵水平捲動）">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../assets/concept-animations/darts-soft-operations-still.svg" data-motion-src="../../../assets/concept-animations/darts-soft-operations-motion.svg" data-still-src="../../../assets/concept-animations/darts-soft-operations-still.svg" alt="相同輸入分別經過三種候選運算，Softmax 混合權重逐步轉向卷積，最後以最大架構權重挑選離散運算。" loading="lazy" width="800" height="420" style="width:800px;min-width:800px;max-width:none" />
+</div>
+</div>
+
+窄螢幕可聚焦圖框後使用方向鍵或滑動，水平捲動檢視原尺寸圖。
 
 *原創 SVG 教學動畫，CC BY-SA 4.0。GitHub 提供靜態終點預覽；MkDocs 網站提供可用鍵盤操作的播放／暫停按鈕。亦可查看[非動畫預覽](../../../assets/concept-animations/darts-soft-operations-still.svg)。*
 
