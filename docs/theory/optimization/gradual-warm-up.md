@@ -32,7 +32,7 @@ Two changes. First, the learning rate scales linearly with the minibatch size. S
 
 ## Algorithm
 
-Let \(\eta\) be the base rate for a minibatch of \(n\) images, and let the large minibatch be \(kn\) images. The paper uses a reference rate \(\eta = 0.1 \cdot kn/256\), so the base is a 256-image minibatch with a rate of 0.1.
+Let \(\eta\) be the base rate for a minibatch of \(n\) images, and let the large minibatch be \(kn\) images. The paper uses a target rate \(\hat\eta = 0.1 \cdot kn/256\), so the base is a 256-image minibatch with a rate of 0.1.
 
 1. **Linear scaling.** Set the target rate for the large minibatch to \(\hat\eta = k\eta\).
 2. **Gradual warm-up.** Start at \(\eta\) and increase the rate by a constant amount at each iteration, so that it reaches \(\hat\eta\) after 5 epochs.
@@ -48,8 +48,8 @@ The paper sets \(\mathrm{warmup\_steps} = 4000\) and uses \(d_{\mathrm{model}} =
 
 ### Large-batch warm-up in motion
 
-<div role="group" aria-label="Large-batch warm-up animation; scroll horizontally on narrow screens" tabindex="0" style="max-width:100%;overflow-x:auto">
-  <img src="../../assets/concept-animations/large-batch-warmup-ramp-still.svg" data-motion-src="../../assets/concept-animations/large-batch-warmup-ramp-motion.svg" alt="A fourfold batch-size scaling immediately uses learning rate 0.4 in orange, while a teal warm-up gradually raises the rate from 0.1 to 0.4 over five epochs; a fixed-gradient step bar grows in synchrony." style="display:block;width:640px;min-width:640px;height:auto">
+<div class="concept-motion-scroll" role="group" aria-label="Large-batch warm-up animation; scroll horizontally on narrow screens" tabindex="0" style="max-width:100%;overflow-x:auto">
+  <img data-source-asset-urls data-still-src="../../assets/concept-animations/large-batch-warmup-ramp-still.svg" src="../../assets/concept-animations/large-batch-warmup-ramp-still.svg" data-motion-src="../../assets/concept-animations/large-batch-warmup-ramp-motion.svg" alt="A fourfold batch-size scaling immediately uses learning rate 0.4 in orange, while a teal warm-up gradually raises the rate from 0.1 to 0.4 over five epochs; a fixed-gradient step bar grows in synchrony." style="display:block;width:640px;min-width:640px;height:auto">
 </div>
 
 *Original instructional animation, CC BY-SA 4.0.* For an **illustrative** fourfold batch-size increase, the target learning rate is 0.4 from a baseline of 0.1. The orange line applies that rate immediately; the teal line uses \(\eta(e)=0.1+0.3\min(e/5,1)\), so its rate is 0.25 after 2.5 epochs and reaches 0.4 at epoch 5. The right-hand bars compare \(\|\Delta\theta\|=\eta\|g\|\) **only with the gradient held fixed** to isolate the schedule. The flat portion after epoch 5 is for this comparison; real recipes subsequently decay the learning rate. These rates and step sizes are **schematic, not model measurements or evidence that warm-up guarantees stability**. The animation returns to epoch zero solely to loop. On the wiki website, Play/Pause and reduced-motion support use the shared player; GitHub shows the still. See Goyal et al. (2017) in References.

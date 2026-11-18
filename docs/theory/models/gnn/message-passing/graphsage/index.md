@@ -25,6 +25,16 @@ Earlier node-embedding methods are transductive. They learn an embedding for eve
 
 Each node's representation is built layer by layer. At each depth, the node combines its own representation from the previous depth with an aggregate of its sampled neighbours' representations, using learned weights that are shared across all nodes. Because the parameters are functions rather than per-node tables, an unseen node can be embedded by applying the same functions to its features and neighbourhood. Neighbours are drawn as a fixed-size uniform sample, which keeps the cost of each batch fixed whatever the node's degree. The paper notes that the mean aggregator is close to a convolutional layer, and that concatenating the node's own representation acts as a simple skip connection.
 
+### Animated walkthrough: sample, aggregate, concatenate
+
+<img data-source-asset-urls src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" data-motion-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg" data-still-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" alt="GraphSAGE chooses three neighbours out of six, averages their example features, and concatenates that result with the target node feature.">
+
+*Original CC BY-SA 4.0 teaching animation based on Hamilton et al. (2017; see References). The MkDocs **Play/Pause** control is keyboard accessible; reduced-motion preferences select the [GitHub-readable static overview](../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg). [Open the animated SVG](../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg).*
+
+One schematic node has feature $h_v=4$ and six neighbours with scalar features $\{1,3,2,4,5,6\}$. A **single fixed sample** of three neighbours, $\{1,2,5\}$, gives $\operatorname{mean}=8/3\approx2.67$. The general sample-and-aggregate update can concatenate $[4,8/3]$ before the shared transformation $\sigma(W^k[\cdot])$. The paper also studies a **mean-convolution variant that omits concatenation**; this diagram depicts the general concatenating update with a mean neighbourhood aggregate, not that variant. Real GraphSAGE learns vector-valued transforms and may resample neighbours across iterations. Every number and edge selection here is illustrative, not a trained embedding or measured sampling outcome.
+
+The message motion is a forward-only reading guide: it holds after arrival, then restarts, not a reverse propagation or another sample. Displayed aggregates are the completed result, not fractional intermediate feature values.
+
 ## Equation or algorithm
 
 For each depth \(k = 1, \dots, K\), each node \(v\) first aggregates its sampled neighbours, then combines the result with its own previous representation:
@@ -38,9 +48,23 @@ where \(\mathcal{S}_{\mathcal{N}(v)}\) is the fixed-size random sample of neighb
 
 The paper gives these aggregators:
 
-- **Mean:** \(h_v^{k} = \sigma\big(W \cdot \mathrm{MEAN}(\{h_v^{k-1}\} \cup \{h_u^{k-1}, \forall u \in \mathcal{N}(v)\})\big)\), which skips the concatenation step.
-- **Pool:** \(\mathrm{AGGREGATE}^{\mathrm{pool}}_k = \max\big(\{\sigma(W_{\mathrm{pool}}\, h_{u_i}^{k-1} + b), \forall u_i \in \mathcal{N}(v)\}\big)\), an element-wise max after a shared fully connected layer.
-- **LSTM:** an LSTM applied to a random permutation of the neighbours. The paper gives no equation for it.
+**Mean:**
+
+\[
+h_v^{k} = \sigma\big(W \cdot \mathrm{MEAN}(\{h_v^{k-1}\} \cup \{h_u^{k-1}, \forall u \in \mathcal{N}(v)\})\big)
+\]
+
+This skips the concatenation step.
+
+**Pool:**
+
+\[
+\mathrm{AGGREGATE}^{\mathrm{pool}}_k = \max\big(\{\sigma(W_{\mathrm{pool}}\, h_{u_i}^{k-1} + b), \forall u_i \in \mathcal{N}(v)\}\big)
+\]
+
+This applies an element-wise max after a shared fully connected layer.
+
+**LSTM:** an LSTM applied to a random permutation of the neighbours. The paper gives no equation for it.
 
 For unsupervised training, the paper uses a graph-based loss. A node \(u\) is pulled towards a node \(v\) that co-occurs with it on a short random walk, and pushed away from negative samples:
 

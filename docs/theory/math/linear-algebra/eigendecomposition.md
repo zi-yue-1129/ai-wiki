@@ -48,13 +48,79 @@ So each eigenvalue is the curvature of the quadratic in its own direction. This 
 
 A standard way to find the dominant eigenvector is power iteration, which repeatedly applies \(A\) and normalises the result. It converges to the eigenvector of the largest-magnitude eigenvalue when that eigenvalue is well separated from the rest (see Golub and Van Loan).
 
-### Power iteration in motion
+### Animated example: power iteration follows the dominant eigenvector
 
-<div role="group" aria-label="Power iteration animation; scroll horizontally on narrow screens" tabindex="0" style="max-width:100%;overflow-x:auto">
-  <img src="../../../assets/concept-animations/power-iteration-convergence-still.svg" data-motion-src="../../../assets/concept-animations/power-iteration-convergence-motion.svg" alt="Power iteration repeatedly rotates a unit vector toward the dominant eigenvector; synchronized bars show the leading projection increase and the orthogonal projection decrease." style="display:block;width:640px;min-width:640px;height:auto">
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/power-iteration-convergence-still.svg" data-motion-src="../../../assets/concept-animations/power-iteration-convergence-motion.svg" data-still-src="../../../assets/concept-animations/power-iteration-convergence-still.svg" alt="A normalized vector repeatedly grows under a symmetric matrix, is normalized, and approaches the leading eigenvector as its angular error shrinks." style="width:640px;min-width:640px;max-width:none;height:auto" />
 </div>
 
-*Original geometric teaching animation, CC BY-SA 4.0.* The example applies \(v_{k+1}=Av_k/\|Av_k\|_2\) to a two-dimensional symmetric matrix \(A=Q\operatorname{diag}(1.60,0.45)Q^\top\), with its leading eigenvector 28 degrees above the horizontal. From an initial direction of -44 degrees, \(|q_1^\top v_k|\) rises from approximately 0.309 to 0.998 after three iterations, while \(|q_2^\top v_k|\) decreases. The line connecting discrete iterates is a visual interpolation, **not a continuous-time algorithm or a measured model trajectory**. The reverse motion only resets this looping illustration; power iteration itself does not run backwards. Convergence to a unique dominant direction requires a suitable eigenvalue magnitude gap and a nonzero starting component in that eigendirection. On the wiki website, use Play/Pause or keyboard activation; the static view remains readable on GitHub. See the numerical-linear-algebra texts in References.
+[GitHub-safe static power-iteration diagram](../../../assets/concept-animations/power-iteration-convergence-still.svg)
+
+
+Choose the **synthetic positive-definite matrix** $A=Q\operatorname{diag}(3,1)Q^\top$ with $Q=R(25^\circ)$. Start from a unit vector $x_0$ at angle 97°, which differs from the dominant eigenvector $q_1$ by **72°**. Each iteration applies $Ax_k$ (the orange arrow briefly extends) and then normalizes it to $x_{k+1}=Ax_k/\|Ax_k\|_2$. The error consequently contracts as $\tan\delta_k=\tan(72^\circ)/3^k$: after five updates the approximate errors are **45.7°, 18.9°, 6.5°, 2.2°, and 0.7°**. The bar lengths are proportional to these angle errors, not a training loss. A row is highlighted only while the arrow holds at that normalized iterate; the highlight is hidden during the labelled apply/normalize transitions. After $x_5$, the loop resets to $x_0$.
+
+This convergence assumes a nonzero starting component along the unique largest-magnitude eigenvector; convergence can fail or differ without that assumption. Animated transitions between exact iterates are illustrative, not extra numerical steps or empirical timing. Use the MkDocs **Play/Pause** button, or inspect the GitHub-safe static diagram. On narrow screens the figure can be horizontally scrolled. Original illustration, **CC BY-SA 4.0**.
+
+
+### Animated example: a symmetric map fixes eigen-directions
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-linear-map-still.svg" data-motion-src="../../../assets/concept-animations/eigen-linear-map-motion.svg" data-still-src="../../../assets/concept-animations/eigen-linear-map-still.svg" alt="An orange unit vector sweeps a circle and its mapped teal vector traces an ellipse; the two eigen-directions remain fixed under the linear map." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static eigen-direction preview](../../../assets/concept-animations/eigen-linear-map-still.svg)
+
+Take the **synthetic symmetric** matrix \(A=Q\operatorname{diag}(3,1)Q^\top\) with \(Q=R(35^\circ)\). For its orthonormal eigenvectors \(\mathbf q_1,\mathbf q_2\),
+
+\[
+\mathbf x(\theta)=\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2,\qquad
+A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
+\]
+
+The input tip sweeps a circle while the output sweeps an ellipse. At \(\theta=0\), the \(\mathbf q_1\) component is multiplied by 3; at \(90^\circ\), the \(\mathbf q_2\) component is unchanged. In other directions, \(A\mathbf x\) is generally not collinear with \(\mathbf x\). **The panels use different drawing scales**, so compare within-panel shapes and directions rather than absolute arrow lengths across panels. The continuous angle sweep is geometry, **not an iterative solver or model training**. Original diagram, **CC BY-SA 4.0**.
+
+### Animated counterexample: a real rotation need not have real eigenvectors
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-rotation-no-real-still.svg" data-motion-src="../../../assets/concept-animations/eigen-rotation-no-real-motion.svg" data-still-src="../../../assets/concept-animations/eigen-rotation-no-real-still.svg" alt="Successive real vectors differ by a 90-degree rotation; the orbit marker advances through four cardinal directions before returning to its start." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static rotation-orbit preview](../../../assets/concept-animations/eigen-rotation-no-real-still.svg)
+
+The real rotation \(R=\begin{bmatrix}0&-1\\1&0\end{bmatrix}\) maps each nonzero vector to a perpendicular vector. The orange arrow is \(\mathbf x_{k-1}\), the teal arrow is \(\mathbf x_k=R\mathbf x_{k-1}\); the orbit marker shows the discrete state \(k\) modulo 4. After four multiplications, \(R^4\mathbf x_0=\mathbf x_0\). Since \(\mathbf x^\top R\mathbf x=0\) for any real \(\mathbf x\), and \(R\) is invertible, there is no nonzero real eigenvector. Its eigenvalues \(\pm i\) are **complex**, consistent with the spectral theorem's **symmetry** assumption. Intermediate animated orientations are *visual interpolation*, **not intermediate matrix multiplications**. Original diagram, **CC BY-SA 4.0**.
+
+For both examples, the MkDocs player supports **Play/Pause**; GitHub displays the static SVG directly. A reduced-motion preference starts the player paused. On mobile, focus the figure region and use the arrow keys to scroll horizontally.
+
+
+### Animated example: a zero eigenvalue collapses a dimension
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg" data-motion-src="../../../assets/concept-animations/eigen-zero-eigenvalue-motion.svg" data-still-src="../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg" alt="An orange unit vector rotates around a circle while the teal mapped vector stays on a horizontal line; the zero eigenvalue eliminates all vertical displacement." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static projection preview](../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg)
+
+For the **synthetic singular matrix** $A=\operatorname{diag}(2,0)$, the eigenpairs are $(2,e_1)$ and $(0,e_2)$. As $x(\theta)=(\cos\theta,\sin\theta)$ sweeps the unit circle, $Ax(\theta)=(2\cos\theta,0)$ traces a horizontal line segment. At $\theta=90^\circ$, $x=e_2\neq0$ but $Ax=0$: the second eigendirection lies in the null space. Consequently $\det(A)=0$ and $\operatorname{rank}(A)=1$. The diagram uses different scale factors in its two panels; no cross-panel pixel measurement represents the eigenvalue 2. The continuous sweep is a **constructed geometric illustration, not a measured training or numerical-algorithm trajectory**. Original art, **CC BY-SA 4.0**.
+
+### Animated counterexample: a repeated eigenvalue need not provide an eigenbasis
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-jordan-shear-still.svg" data-motion-src="../../../assets/concept-animations/eigen-jordan-shear-motion.svg" data-still-src="../../../assets/concept-animations/eigen-jordan-shear-still.svg" alt="A unit square continuously shears into a parallelogram and back; e1 remains fixed while e2 tilts, although two eigenvalues remain equal to one." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static Jordan shear preview](../../../assets/concept-animations/eigen-jordan-shear-still.svg)
+
+Consider the **synthetic family** $A(s)=\begin{bmatrix}1&s\\0&1\end{bmatrix}$ with $0\le s\le1$. Both algebraic eigenvalues remain 1 throughout the animation, but $A(s)e_1=e_1$ whereas $A(s)e_2=e_2+s e_1$. For every $s>0$, solving $(A(s)-I)v=0$ forces $v_2=0$: the eigenspace is only $\operatorname{span}(e_1)$, so the $2\times2$ matrix is **not diagonalizable** despite the repeated real eigenvalue. At $s=0$ the identity matrix is a special case with a two-dimensional eigenspace. The changing shear parameter is a **family of different linear maps**, not iterations of one fixed Jordan block or empirical observations. Original art, **CC BY-SA 4.0**.
+
+Both demonstrations reuse the MkDocs **Play/Pause** player and its reduced-motion static fallback. In GitHub the still SVG is directly readable. On narrow viewports, focus the figure and scroll horizontally with arrow keys.
+
+### Additional example: projection magnitudes under power iteration
+
+<div class="concept-motion-scroll" role="group" aria-label="Power iteration animation; scroll horizontally on narrow screens" tabindex="0" style="max-width:100%;overflow-x:auto">
+  <img data-source-asset-urls data-still-src="../../../assets/concept-animations/power-iteration-projection-contraction-still.svg" src="../../../assets/concept-animations/power-iteration-projection-contraction-still.svg" data-motion-src="../../../assets/concept-animations/power-iteration-projection-contraction-motion.svg" alt="Power iteration repeatedly rotates a unit vector toward the dominant eigenvector; synchronized bars show the leading projection increase and the orthogonal projection decrease." style="display:block;width:640px;min-width:640px;height:auto">
+</div>
+
+*Original geometric teaching animation, CC BY-SA 4.0.* The example applies \(v_{k+1}=Av_k/\|Av_k\|_2\) to a two-dimensional symmetric matrix \(A=Q\operatorname{diag}(1.60,0.45)Q^\top\), with its leading eigenvector 28 degrees above the horizontal. From an initial direction of -44 degrees, \(|q_1^\top v_k|\) rises from approximately 0.309 to 0.998 after three iterations, while \(|q_2^\top v_k|\) decreases. The unit-circle arc connecting discrete iterates is a visual interpolation, **not a continuous-time algorithm or a measured model trajectory**. The reverse motion only resets this looping illustration; power iteration itself does not run backwards. Convergence to a unique dominant direction requires a suitable eigenvalue magnitude gap and a nonzero starting component in that eigendirection. On the wiki website, use Play/Pause or keyboard activation; the static view remains readable on GitHub. See the numerical-linear-algebra texts in References.
 
 ## Key methods
 
