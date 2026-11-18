@@ -58,4 +58,44 @@ for stem in ("accuracy-prevalence", "fbeta-recall-emphasis"):
     assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
     assert "<animate " in motion and "<animate " not in still
 
-print("Classification motion semantics: 4 analytic cases OK")
+
+# Base-rate effect at fixed sensitivity and false-positive rate.
+def ppv(p):
+    return .9 * p / (.9 * p + .05 * (1 - p))
+
+assert math.isclose(ppv(.01), 2 / 13)
+assert math.isclose(ppv(.10), 2 / 3)
+assert math.isclose(ppv(.50), 18 / 19)
+assert all(ppv(i / 1000) < ppv((i + 1) / 1000) for i in range(10, 500))
+
+# Macro/micro F1 for a fixed 90:10 single-label class distribution.
+def f1_a(k):
+    return 180 / (190 - k)
+
+def f1_b(k):
+    return 2 * k / (10 + k)
+
+def macro_f1(k):
+    return (f1_a(k) + f1_b(k)) / 2
+
+def micro_f1(k):
+    return (90 + k) / 100
+
+assert math.isclose(macro_f1(0), 9 / 19)
+assert math.isclose(micro_f1(0), .9)
+assert math.isclose(macro_f1(10), 1)
+assert math.isclose(micro_f1(10), 1)
+for k in range(11):
+    # One-vs-rest: TP_A=90, FP_A=10-k, FN_A=0.
+    # TP_B=k, FP_B=0, FN_B=10-k.
+    assert math.isclose(f1_a(k), 2 * 90 / (2 * 90 + 10 - k))
+    assert math.isclose(f1_b(k), 2 * k / (2 * k + 10 - k))
+    assert micro_f1(k) >= macro_f1(k)
+for stem in ("precision-base-rate", "f1-macro-micro-imbalance"):
+    root = Path("docs/assets/concept-animations")
+    motion = (root / (stem + "-motion.svg")).read_text(encoding="utf-8")
+    still = (root / (stem + "-still.svg")).read_text(encoding="utf-8")
+    assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
+    assert "<animate " in motion and "<animate " not in still
+
+print("Classification motion semantics: 6 analytic cases OK")

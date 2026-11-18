@@ -19,6 +19,8 @@ TOPICS = {
     "f1-harmonic-gap": "theory/evaluation/metrics/classification/f1",
     "accuracy-prevalence": "theory/evaluation/metrics/classification/accuracy",
     "fbeta-recall-emphasis": "theory/evaluation/metrics/classification/f1",
+    "precision-base-rate": "theory/evaluation/metrics/classification/precision",
+    "f1-macro-micro-imbalance": "theory/evaluation/metrics/classification/f1",
     "checkpoint-recompute": "engineering/hardware/co-design/gradient-checkpointing",
     "fp16-loss-scaling": "engineering/hardware/co-design/mixed-precision",
     "effective-number-growth": "theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss",
@@ -100,6 +102,8 @@ TOPICS = {
     "lbfgs-two-loop": "theory/optimization/lbfgs",
     "nesterov-lookahead": "theory/optimization/sgd-and-momentum/nesterov",
     "hyperband-budget": "theory/optimization/hyperparameter-optimisation/hyperband",
+    "bo-gp-conditioning": "theory/optimization/hyperparameter-optimisation/bayesian-optimisation",
+    "bo-expected-improvement": "theory/optimization/hyperparameter-optimisation/bayesian-optimisation",
     "qmix-monotonic-greedy": "theory/paradigms/reinforcement-learning/multi-agent-rl/qmix/index",
     "muzero-latent-planning": "theory/paradigms/reinforcement-learning/model-based-rl/muzero/index",
     "gru-gate-flow": "theory/models/rnn/gated-cells/gru/index",
@@ -267,7 +271,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {"precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis"}:
+            elif stem in {"precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:
@@ -293,7 +297,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in gif_links
                 }:
                     errors.append(f"{page}: missing linked continuous GIF preview")
-            elif stem in {"checkpoint-recompute", "fp16-loss-scaling", "effective-number-growth", "logit-prior-decision", "roofline-ridge-sweep", "fp8-scale-range", "roc-threshold-sweep", "pr-threshold-sweep", "dpr-dot-product-sweep", "colbert-maxsim-switch", "paired-bootstrap-resampling", "elo-online-update", "grid-search-x-coverage", "random-search-x-coverage", "group-norm-statistics", "rmsnorm-shift-response", "svm-margin-hinge", "cv-fold-rotation", "ndcg-position-discount", "map-precision-at-hits", "heavy-ball-overshoot", "sgd-noise-batch", "adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
+            elif stem in {"bo-gp-conditioning", "bo-expected-improvement", "checkpoint-recompute", "fp16-loss-scaling", "effective-number-growth", "logit-prior-decision", "roofline-ridge-sweep", "fp8-scale-range", "roc-threshold-sweep", "pr-threshold-sweep", "dpr-dot-product-sweep", "colbert-maxsim-switch", "paired-bootstrap-resampling", "elo-online-update", "grid-search-x-coverage", "random-search-x-coverage", "group-norm-statistics", "rmsnorm-shift-response", "svm-margin-hinge", "cv-fold-rotation", "ndcg-position-discount", "map-precision-at-hits", "heavy-ball-overshoot", "sgd-noise-batch", "adagrad-coordinate-gain", "adafactor-factored-moments", "sharpness-reparam-curvature", "sharpness-radius-loss", "adam-bias-correction", "adam-scale-invariance", "adam-sign-reversal", "adam-epsilon-threshold", "mf-coupled-sgd", "bpr-pairwise-ranking", "mf-als-alternating", "bpr-gradient-saturation", "dropout-inverted-sampling", "dropout-variance-tradeoff", "dropblock-spatial-masking", "mc-dropout-repeated-passes", "stochastic-depth-survival-samples", "stochastic-depth-scaling-conventions", "resnet-identity-gradient", "resnet-projection-shortcut", "resnet-postrelu-gate", "resnet-depth-gradient-factors", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "eigen-jordan-shear", "mixup-paired-interpolation", "mixup-beta-strength", "mixup-loss-decomposition", "mixup-cutmix-area", "outlier-mae-rmse", "r2-mean-baseline", "mle-bernoulli-likelihood", "map-beta-posterior",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",
@@ -330,7 +334,7 @@ def main() -> int:
             f"{animated_path.stat().st_size if animated_path.exists() else '-'} / "
             f"{static_path.stat().st_size if static_path.exists() else '-'} bytes"
         )
-    # Precision and recall share the same visual asset and must keep both translations.
+    # The first precision/recall motion is embedded on both focused pages.
     for suffix in (".md", ".zh-TW.md"):
         recall_page = DOCS / ("theory/evaluation/metrics/classification/recall" + suffix)
         recall_body = recall_page.read_text(encoding="utf-8")
