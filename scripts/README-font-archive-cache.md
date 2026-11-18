@@ -64,3 +64,20 @@ References:
 - https://manpages.ubuntu.com/manpages/noble/man8/apt-get.8.html
 - https://apt-team.pages.debian.net/python-apt/library/apt.package.html
 - https://raw.githubusercontent.com/Debian/apt/main/apt-pkg/acquire-item.cc
+
+## Item-based CF browser consumer
+
+The Item-based CF workflow uses the same default `auto` composite action as the
+built-motion workflow, with no save permission and no cache-hit test bypass.
+The original strict build and complete `test_item_cf_browser.py` run remain
+mandatory after font verification. Its job budget is 35 minutes rather than 15:
+two observed runs exhausted 15 minutes during cold dependencies, before tests.
+This is a time budget, not a test reduction or a promise that downloads are fast.
+
+Changes to the CF workflow or its contract test also trigger the existing font
+safety workflow. That workflow preserves isolated `auto`, `miss`, `disabled`,
+`corrupt`, and `fallback` installation/hash checks. Those modes do not each run
+the complete CF browser test; the CF job exercises the production `auto` path.
+Fresh signed-metadata failure remains fatal, while absent/rejected archive bytes
+fall back to an authenticated download through the unchanged helper. Cache
+production seeding remains exclusively guarded by the existing main-only job.
