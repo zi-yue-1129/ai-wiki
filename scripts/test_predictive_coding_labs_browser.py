@@ -34,8 +34,14 @@ def render(pw) -> None:
                         + style + '</style></head><body style="margin:0;padding:8px">'
                         + f'<div class="pc-lab" data-lab="{mode}" data-lang="{lang}"></div>'
                         + '</body></html>')
+                    page.evaluate("""() => {
+                      window.__active=new Set();const set=window.setInterval.bind(window),clear=window.clearInterval.bind(window);
+                      window.setInterval=(fn,ms)=>{const id=set(fn,ms);__active.add(id);return id;};window.clearInterval=id=>{__active.delete(id);clear(id);};
+                      window.document$={subscribe:fn=>{window.__navigation=fn;}};
+                      const other=document.createElement('div');other.className='pc-lab';other.dataset.lab='unrelated';other.textContent='untouched';document.body.append(other);
+                    }""")
                     page.add_script_tag(content=script)
-                    lab = page.locator('.pc-lab')
+                    lab = page.locator(f'.pc-lab[data-lab="{mode}"]')
                     assert lab.locator('.pc-plot circle').count() == 9
                     assert lab.locator('[data-seek]').input_value() == '0'
                     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), (mode, lang, width)
@@ -75,6 +81,19 @@ def render(pw) -> None:
                         """es => es.map(e=>{let b=e.getBBox();return [b.x,b.y,b.width,b.height]})""")
                     assert all(x >= -1 and y >= -1 and x + w <= 661 and y + h <= 253
                                for x,y,w,h in bounds), (mode, lang, width, bounds)
+                    if width<=360:
+                        lab.locator('.pc-scroll').focus();page.keyboard.press('ArrowRight');page.wait_for_timeout(80)
+                        assert lab.locator('.pc-scroll').evaluate('e=>e.scrollLeft>0')
+                    page.evaluate('window.__navigation()')
+                    assert lab.locator('.pc-plot').count()==1
+                    lab.locator('[data-action="toggle"]').click();assert page.evaluate('__active.size')==1
+                    page.evaluate("Object.defineProperty(document,'hidden',{value:true,configurable:true});document.dispatchEvent(new Event('visibilitychange'))")
+                    assert page.evaluate('__active.size')==0
+                    page.evaluate("Object.defineProperty(document,'hidden',{value:false,configurable:true})")
+                    lab.locator('[data-action="toggle"]').click()
+                    lab.evaluate('e=>e.remove()');page.evaluate('window.__navigation()')
+                    assert page.evaluate('__active.size')==0
+                    assert page.locator('[data-lab=unrelated]').inner_text()=='untouched'
                     cases += 1
                     context.close()
     browser.close()

@@ -17,6 +17,14 @@
   };
   const fmt = x => (Math.abs(x) < 0.0005 ? 0 : x).toFixed(3);
   const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+  function compute(settling,v) {
+    const target=settling?(v.a+v.b)/2:v.x,states=[settling?v.a:.25];
+    for(let k=0;k<8;k++){const z=states[k];states.push(settling?z-v.eta*(2*z-v.a-v.b):z+v.eta*(v.x-z));}
+    return {states,target,v};
+  }
+  if(typeof module!=='undefined' && module.exports)module.exports={compute};
+  if(typeof document==='undefined')return;
+  const instances=new Map();
   function init(root) {
     if (root.dataset.ready) return;
     root.dataset.ready = '1';
@@ -42,16 +50,7 @@
       <p class="pc-readout" aria-live="polite"></p><p class="pc-note">${tr.explanation} ${settling?tr.settled:tr.limit}</p>`;
     const $ = q => root.querySelector(q);
     const values = () => Object.fromEntries(params.map(p => [p.id, Number($(`[data-param="${p.id}"]`).value)]));
-    const sequence = () => {
-      const v = values(), target=settling ? (v.a+v.b)/2 : v.x;
-      const states = [settling ? v.a : .25];
-      for (let k=0;k<8;k++) {
-        const z=states[k];
-        const delta=settling ? (2*z-v.a-v.b) : (v.x-z);
-        states.push(settling ? z-v.eta*delta : z+v.eta*delta);
-      }
-      return {states,target,v};
-    };
+    const sequence = () => compute(settling,values());
     function stop() {if(timer!==null){window.clearInterval(timer);timer=null;} $('[data-action="toggle"]').textContent=tr.play;}
     function plot() {
       const {states,target,v}=sequence(), val=states[pos];
@@ -82,13 +81,17 @@
       if(a==='next')pos=Math.min(8,pos+1);if(a==='prev')pos=Math.max(0,pos-1);plot();
     }));
     function start(){if(timer!==null)return;if(pos===8)pos=0;
-      timer=window.setInterval(()=>{pos=Math.min(8,pos+1);plot();if(pos===8)stop();},600/speed);
+      timer=window.setInterval(()=>{if(!root.isConnected){stop();return;}pos=Math.min(8,pos+1);plot();if(pos===8)stop();},600/speed);
       $('[data-action="toggle"]').textContent=tr.pause;
     }
-    document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+    instances.set(root,stop);
     plot();
   }
-  const activate=()=>document.querySelectorAll('.pc-lab[data-lab]').forEach(init);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)instances.forEach(stop=>stop());});
+  const activate=()=>{
+    instances.forEach((stop,root)=>{if(!root.isConnected){stop();instances.delete(root);delete root.dataset.ready;}});
+    document.querySelectorAll('.pc-lab[data-lab="residual"],.pc-lab[data-lab="settling"]').forEach(init);
+  };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',activate);
   else activate();
   if(typeof window.document$!=='undefined' && window.document$.subscribe)window.document$.subscribe(activate);

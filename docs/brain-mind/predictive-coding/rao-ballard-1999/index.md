@@ -38,13 +38,15 @@ The key assumption is that the error units and the prediction units are separate
 
 ### Visual walkthrough: prediction correction
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Prediction error correction illustration">
-<div style="width:640px">
-<img src="../../../assets/concept-animations/rao-ballard-residual-still.svg" data-motion-src="../../../assets/concept-animations/rao-ballard-residual-motion.svg" alt="Schematic scalar input stays fixed at 0.85 as a top-down prediction increases from 0.25 to 0.80 and its upward residual decreases from 0.60 to 0.05." width="640" height="360">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Prediction error correction illustration">
+<div style="min-width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/rao-ballard-residual-still.svg" data-still-src="../../../assets/concept-animations/rao-ballard-residual-still.svg" style="min-width:640px;max-width:none" data-motion-src="../../../assets/concept-animations/rao-ballard-residual-motion.svg" alt="Schematic scalar input stays fixed at 0.85 as a top-down prediction increases from 0.25 to 0.80 and its upward residual decreases from 0.60 to 0.05." width="640" height="360">
 </div>
 </div>
 
 *Original AI Wiki teaching animation, CC BY-SA 4.0.* For this **artificial scalar example**, the sensory input is fixed at \(x=0.85\), while an illustrative prediction changes from \(\hat x=0.25\) to \(0.80\); the signed residual \(e=x-\hat x\) therefore changes from \(0.60\) to \(0.05\). Continuous interpolation depicts successive correction, **not** Rao and Ballard's trained network, neural recordings or numerical results from the paper. On MkDocs use Play/Pause (keyboard-accessible); with reduced motion or in GitHub the [static fallback](../../../assets/concept-animations/rao-ballard-residual-still.svg) shows the corrected value and dashed initial outlines. On narrow screens, scroll horizontally. See Rao and Ballard (1999) in References.
+
+The final return segment resets the teaching loop; it is not another inference update.
 
 ### Interactive numerical lab: residual-driven correction
 

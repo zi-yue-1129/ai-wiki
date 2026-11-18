@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-29
+translation_reviewed: 2026-11-17
 related:
   - theory/paradigms/unsupervised/clustering
   - theory/paradigms/unsupervised/dimensionality-reduction
@@ -41,6 +41,65 @@ c(i) \leftarrow \arg\min_{j}\ \|x_i - \mu_j\|^2, \qquad
 ![Lloyd k-means 四階段動畫：初始中心、最近中心指派、移動到群內平均值，以及重新指派。](../../../../assets/concept-animations/kmeans-lloyd-motion.svg)
 
 *原創教學動畫，CC BY-SA 4.0。* 藍色與青綠色表示兩個群組，十字圓圈是群中心，橘色虛線顯示中心移動。群內平方距離成本由約 323k 降至 97k、31k；數值根據圖中 12 個**人工示意點**與任意座標單位計算，並非模型效能實測。最後一階段再次進行指派與均值更新；其他資料可能需要更多次迭代。MkDocs 網站提供播放／暫停及減少動態效果的靜態回退；GitHub 可[檢視四階段靜態總覽](../../../../assets/concept-animations/kmeans-lloyd-still.svg)。
+
+### k-means++：為什麼以距離平方決定下一個中心
+
+k-means++ 先均勻隨機選一個資料點當作中心。後續中心則以資料點到**目前最近的已選中心之距離平方**作為抽樣權重：
+
+\[
+D(x)^2=\min_{\mu\in S}\|x-\mu\|^2,\qquad
+P(x\text{ 為下一個中心})=\frac{D(x)^2}{\sum_{z\in X}D(z)^2}.
+\]
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
+     src="../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg"
+     data-motion-src="../../../../assets/concept-animations/kmeans-plusplus-d2-motion.svg"
+     data-still-src="../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg"
+     alt="k-means++ 距離平方加權初始化動畫：從八個人工一維資料點抽取下一個中心後，機率長條重新分配。" style="width:640px;min-width:640px;max-width:none;height:auto">
+
+*原創人工示意動畫，CC BY-SA 4.0。* 資料為 $X=\{0,1,2,3,8,9,10,11\}$，第一個中心選在 $1$，此時各點的距離平方權重為 $(1,0,1,4,49,64,81,100)$，總和 **300**。接著**可能**抽到 $10$，其機率為 $81/300=27\%$；即使 $11$ 的單點權重最大，也不代表一定會被選中。選入 $10$ 後，權重重算為 $(1,0,1,4,4,1,0,1)$（總和 **12**），下一個中心選到 $8$ 的機率為 $4/12=1/3$。動畫中的長條平滑轉變只是在兩組經計算的分布間作視覺插值，**不是**額外的抽樣步驟或模型效能實測。[GitHub 可直接閱讀的雙畫面靜態回退](../../../../assets/concept-animations/kmeans-plusplus-d2-still.svg)。MkDocs 網站可以播放／暫停；偏好減少動態效果時會呈現靜態版本。
+
+### 為什麼離群觀測值會拉動 k-means 中心
+
+對單一固定群組，**平方誤差總和**的最小化解為算術平均數，因此很遠的觀測值可能明顯拉動中心。考慮人工一維資料
+
+\[
+X(x)=\{0,1,2,3,4,x\},\qquad 4\leq x\leq12.
+\]
+
+平均數為 $(10+x)/6$；當 $x$ 從 $4$ 移到 $12$，平均數由 **2.333** 變為 **3.667**，但中位數維持 **2.5**。
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
+     src="../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg"
+     data-motion-src="../../../../assets/concept-animations/kmeans-outlier-leverage-motion.svg"
+     data-still-src="../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg"
+     alt="k-means 中心對離群值的敏感性動畫：一個人工觀測點往右移動，平均數被拉動，但中位數維持不變。" style="width:640px;min-width:640px;max-width:none;height:auto">
+
+*原創人工示意動畫，CC BY-SA 4.0。* 青綠色標記代表此固定單一群組的平方誤差最優**平均數**，不是多群 k-means 完整訓練結果。橘色中位數僅作穩健性對照：中位數最小化的是絕對誤差，**不是**標準 k-means 的平方誤差目標。動畫依解析式移動，並非模型實測軌跡。[檢視前後狀態的靜態比較](../../../../assets/concept-animations/kmeans-outlier-leverage-still.svg)。MkDocs 網站沿用播放／暫停與減少動態效果回退機制。
+
+### 特徵尺度如何改變最近中心的指派
+
+採用歐氏距離的 k-means 會受到特徵單位影響。將第二個特徵乘上正比例因子 \(s\)，平方距離會變成 \(d_s^2(P,\mu)=(P_x-\mu_x)^2+s^2(P_y-\mu_y)^2\)。此範例固定兩個中心，**並非 Lloyd 演算法的完整訓練**。
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
+     src="../../../../assets/concept-animations/kmeans-feature-scale-still.svg"
+     data-motion-src="../../../../assets/concept-animations/kmeans-feature-scale-motion.svg"
+     data-still-src="../../../../assets/concept-animations/kmeans-feature-scale-still.svg"
+     alt="特徵尺度動畫：固定兩個群中心，當第二維尺度增加，P 的最近中心由 B 改成 A。" style="width:640px;min-width:640px;max-width:none;height:auto">
+
+*原創人工示意動畫，CC BY-SA 4.0。* 設 \(A=(0,0)\)、\(B=(4,2)\)、\(P=(2.3,0.5)\)。當 \(s=0.5\) 時，到 A、B 的平方距離分別為 **5.3525、3.4525**，因此 B 較近。當 \(s=2\) 時變成 **6.29、11.89**，因此 A 較近。移動與長條只是在解析式算出的狀態之間進行視覺插值，**不是模型實測或額外的最佳化步驟**。[GitHub 可直接檢視前後對照](../../../../assets/concept-animations/kmeans-feature-scale-still.svg)。MkDocs 可播放／暫停，也支援減少動態效果的靜態回退。
+
+### 肘部法則只是啟發式方法
+
+允許更多群組時，最小的群內平方誤差總和不會上升。對**人工一維資料** \(X=\{0,1,2,8,9,10\}\)，當 \(k=1,2,3,4\) 時，最佳連續分割的 SSE 分別為 **100、4、2.5、1**。曲線以 **SSE 對數縱軸**顯示，使後段的較小改善仍然清晰。
+
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
+     src="../../../../assets/concept-animations/kmeans-elbow-inertia-still.svg"
+     data-motion-src="../../../../assets/concept-animations/kmeans-elbow-inertia-motion.svg"
+     data-still-src="../../../../assets/concept-animations/kmeans-elbow-inertia-still.svg"
+     alt="人工一維資料的群數與平方誤差比較動畫：依序強調 k 等於一至四時的最佳分割與對數 SSE。" style="width:640px;min-width:640px;max-width:none;height:auto">
+
+*原創人工示意動畫，CC BY-SA 4.0。* 顏色只代表分群，**不是資料的真實類別**。標記在**離散的 k 值**之間移動是為了視覺比較，並非連續訓練軌跡。此範例從 100 降至 4，讓 k=2 看似合理的肘部，但無法保證對其他資料同樣適用。[GitHub 可讀的分群與 SSE 靜態總覽](../../../../assets/concept-animations/kmeans-elbow-inertia-still.svg)。網站沿用播放／暫停與減少動態效果回退。
 
 ## 關鍵方法
 

@@ -37,13 +37,15 @@ Rao 與 Ballard（1999）提出，來自較高視覺區域的回饋連接攜帶�
 
 ### 動態示範：預測修正與殘差
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="預測誤差修正示意動畫">
-<div style="width:640px">
-<img src="../../../assets/concept-animations/rao-ballard-residual-still.svg" data-motion-src="../../../assets/concept-animations/rao-ballard-residual-motion.svg" alt="人工示意的感覺輸入固定在 0.85；由上而下的預測從 0.25 逐步升到 0.80，向上傳遞的殘差則從 0.60 降至 0.05。" width="640" height="360">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="預測誤差修正示意動畫">
+<div style="min-width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/rao-ballard-residual-still.svg" data-still-src="../../../assets/concept-animations/rao-ballard-residual-still.svg" style="min-width:640px;max-width:none" data-motion-src="../../../assets/concept-animations/rao-ballard-residual-motion.svg" alt="人工示意的感覺輸入固定在 0.85；由上而下的預測從 0.25 逐步升到 0.80，向上傳遞的殘差則從 0.60 降至 0.05。" width="640" height="360">
 </div>
 </div>
 
 *AI Wiki 原創教學動畫，CC BY-SA 4.0。* 此處是**人工設定的純量示例**：感覺輸入固定為 \(x=0.85\)，預測 \(\hat x\) 從 \(0.25\) 變到 \(0.80\)，因此帶符號的殘差 \(e=x-\hat x\) 從 \(0.60\) 降為 \(0.05\)。連續內插僅用於呈現修正過程，**不是** Rao 與 Ballard 網路的實際運算軌跡、神經元記錄或論文實測數值。MkDocs 網站可播放／暫停（支援鍵盤）；偏好減少動態效果或在 GitHub 閱讀時，[靜態回退圖](../../../assets/concept-animations/rao-ballard-residual-still.svg)以虛線標示初始值、實心長條呈現修正後結果。手機可水平捲動檢視。參見 References 中的 Rao 與 Ballard（1999）。
+
+動畫最後返回起點的片段只是教學循環重設，不代表另一個推論更新。
 
 ### 互動數值實驗：依殘差修正預測
 
