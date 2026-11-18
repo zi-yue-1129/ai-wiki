@@ -38,7 +38,7 @@ class Handler(SimpleHTTPRequestHandler):
         html = f'''<!doctype html><meta charset="utf-8">
 <link rel="stylesheet" href="/docs/stylesheets/concept-motion.css">
 <main style="width:100%;max-width:760px;margin:auto">
-<div class="concept-motion-scroll" tabindex="0" style="max-width:100%;overflow-x:auto"><div style="width:640px;min-width:640px"><img style="display:block;width:640px;min-width:640px;max-width:none" src="/docs/assets/concept-animations/{stem}-motion.svg" alt="{alt}"></div></div>
+<div class="concept-motion-scroll security-motion-scroll" tabindex="0" style="max-width:100%;overflow-x:auto"><div style="width:640px;min-width:640px"><img style="display:block;width:640px;min-width:640px;max-width:none" src="/docs/assets/concept-animations/{stem}-motion.svg" alt="{alt}"></div></div>
 </main><script src="/docs/javascripts/concept-motion.js"></script>'''
         data = html.encode("utf-8")
         self.send_response(200)
@@ -83,7 +83,11 @@ def main() -> None:
                             player.focus()
                             player.press("ArrowRight")
                             page.wait_for_function("() => document.querySelector('.concept-motion-scroll').scrollLeft > 0")
-                            player.evaluate('e => { e.blur(); e.scrollTo({left:0, behavior:"instant"}); }')
+                            player.evaluate('e => { e.blur(); e.scrollTo({left:250, behavior:"instant"}); }')
+                            page.wait_for_timeout(300)
+                            bounds = button.bounding_box()
+                            assert bounds and 0 <= bounds["x"] < width, bounds
+                            player.evaluate('e => e.scrollTo({left:0, behavior:"instant"})')
                         passed += 1
                         page.close()
                 page = browser.new_page()

@@ -32,7 +32,7 @@ A chat application that only sees the user's typing is hard to hijack from outsi
 
 ### Animated threat boundary: retrieved data versus tool authority
 
-<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable teaching illustration">
+<div class="concept-motion-scroll security-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable teaching illustration">
 <div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../assets/concept-animations/prompt-injection-boundary-still.svg" data-motion-src="../../assets/concept-animations/prompt-injection-boundary-motion.svg" data-still-src="../../assets/concept-animations/prompt-injection-boundary-still.svg" alt="Continuous diagram contrasting an unguarded model following a retrieved instruction with a policy-gated application forwarding only useful data" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto">
 </div></div>
 

@@ -33,7 +33,7 @@ aliases:
 
 ### 教學動畫：檢索資料如何跨越信任邊界
 
-<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可左右捲動的教學圖">
+<div class="concept-motion-scroll security-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可左右捲動的教學圖">
 <div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../assets/concept-animations/prompt-injection-boundary-still.svg" data-motion-src="../../assets/concept-animations/prompt-injection-boundary-motion.svg" data-still-src="../../assets/concept-animations/prompt-injection-boundary-still.svg" alt="連續動畫對照未加防護時惡意檢索內容可能影響工具呼叫，以及應用層權限檢查只容許一般資料通過的路徑" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto">
 </div></div>
 

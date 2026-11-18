@@ -40,7 +40,7 @@ Passive detection is also studied. Mitchell et al. (2023) propose DetectGPT, whi
 
 ### Animated example: token greenlist and accumulated evidence
 
-<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable teaching illustration">
+<div class="concept-motion-scroll security-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Scrollable teaching illustration">
 <div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../assets/concept-animations/watermark-greenlist-score-still.svg" data-motion-src="../../assets/concept-animations/watermark-greenlist-score-motion.svg" data-still-src="../../assets/concept-animations/watermark-greenlist-score-still.svg" alt="A sixteen-token keyed greenlist example appearing sequentially while the cumulative standardized green-token excess changes" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto">
 </div></div>
 

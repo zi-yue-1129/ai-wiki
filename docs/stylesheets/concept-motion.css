@@ -15,3 +15,6 @@
 .md-typeset .concept-motion-player img.concept-motion-wide { display: block; width: 640px; min-width: 640px; max-width: none; height: 360px; }
 .md-typeset .concept-motion-player:has(img.concept-motion-wide) { width: 640px; min-width: 640px; max-width: none; }
 .md-typeset img.concept-motion-wide:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
+
+/* Keep security-diagram controls reachable while panning their local wrapper. */
+.security-motion-scroll .concept-motion-controls { position: sticky; left: 0; width: max-content; max-width: 100%; }

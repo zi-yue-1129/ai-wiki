@@ -39,7 +39,7 @@ aliases:
 
 ### 教學動畫：詞元綠名單與統計證據累積
 
-<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可左右捲動的教學圖">
+<div class="concept-motion-scroll security-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可左右捲動的教學圖">
 <div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../assets/concept-animations/watermark-greenlist-score-still.svg" data-motion-src="../../assets/concept-animations/watermark-greenlist-score-motion.svg" data-still-src="../../assets/concept-animations/watermark-greenlist-score-still.svg" alt="十六個詞元依序顯示是否落在金鑰決定的綠名單，並同步呈現標準化綠詞元超額次數的累積曲線" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto">
 </div></div>
 
