@@ -48,9 +48,23 @@ where \(\mathcal{S}_{\mathcal{N}(v)}\) is the fixed-size random sample of neighb
 
 The paper gives these aggregators:
 
-- **Mean:** \(h_v^{k} = \sigma\big(W \cdot \mathrm{MEAN}(\{h_v^{k-1}\} \cup \{h_u^{k-1}, \forall u \in \mathcal{N}(v)\})\big)\), which skips the concatenation step.
-- **Pool:** \(\mathrm{AGGREGATE}^{\mathrm{pool}}_k = \max\big(\{\sigma(W_{\mathrm{pool}}\, h_{u_i}^{k-1} + b), \forall u_i \in \mathcal{N}(v)\}\big)\), an element-wise max after a shared fully connected layer.
-- **LSTM:** an LSTM applied to a random permutation of the neighbours. The paper gives no equation for it.
+**Mean:**
+
+\[
+h_v^{k} = \sigma\big(W \cdot \mathrm{MEAN}(\{h_v^{k-1}\} \cup \{h_u^{k-1}, \forall u \in \mathcal{N}(v)\})\big)
+\]
+
+This skips the concatenation step.
+
+**Pool:**
+
+\[
+\mathrm{AGGREGATE}^{\mathrm{pool}}_k = \max\big(\{\sigma(W_{\mathrm{pool}}\, h_{u_i}^{k-1} + b), \forall u_i \in \mathcal{N}(v)\}\big)
+\]
+
+This applies an element-wise max after a shared fully connected layer.
+
+**LSTM:** an LSTM applied to a random permutation of the neighbours. The paper gives no equation for it.
 
 For unsupervised training, the paper uses a graph-based loss. A node \(u\) is pulled towards a node \(v\) that co-occurs with it on a short random walk, and pushed away from negative samples:
 

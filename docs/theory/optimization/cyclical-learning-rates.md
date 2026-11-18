@@ -29,19 +29,21 @@ The learning rate is, in the paper's words, "the most important hyper-parameter 
 
 Estimate two bounds, \(\eta_{\min}\) and \(\eta_{\max}\), with a learning-rate range test: increase the rate linearly over several epochs and watch the accuracy. Then cycle the rate between those bounds for the rest of training.
 
-### Schedule in motion
+### Schedule in motion: triangular versus triangular2
 
-<div style="max-width:640px;width:100%" role="group" aria-label="Learning-rate schedule animation">
-<div style="width:100%">
-<img data-source-asset-urls src="../../assets/concept-animations/clr-triangular2-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-motion.svg" style="display:block;width:100%;height:auto" alt="Triangular2 learning-rate schedule over three cycles, each with half the preceding amplitude.">
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Learning-rate schedule animation">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-sweep-motion.svg" data-still-src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" style="display:block;width:640px;height:auto" alt="Triangular and triangular2 schedules share a time cursor: fixed peaks versus amplitudes halved each cycle.">
 </div>
 </div>
 
 *Original animation by AI Wiki, CC BY-SA 4.0.*
 
-The moving marker follows three triangular cycles of equal duration. Each cycle rises linearly and falls linearly, while its amplitude is halved between cycles; the lower bound stays fixed. The plotted values are normalized illustrations, not measured model learning rates or accuracy.
+The shared time cursor compares **triangular** (teal, fixed peaks) with **triangular2** (orange, halved amplitudes) over three equal-duration cycles. With illustrative bounds \(\eta_{\min}=0.10\), \(\eta_{\max}=1.00\) and half-cycle length \(s=2\), triangular reaches 1.00 every cycle, while triangular2 peaks at **1.00, 0.55, 0.325**. Both markers follow the same schedule time; where the curves coincide in cycle 1, their markers overlap. These are prescribed learning rates, **not model weights, accuracy or measured training results**.
 
 The triangular2 envelope can be read directly from the three peaks: the excursion above the fixed lower bound is proportional to \(1,\;1/2,\;1/4\) for cycles 1–3. More generally, for zero-indexed cycle \(k\), the peak is \(\eta_{\min}+(\eta_{\max}-\eta_{\min})/2^k\). This is a schematic schedule, not an empirical training trace.
+
+On MkDocs, use **Play/Pause** (Tab, Enter or Space); reduced-motion preferences show the static comparison. On small screens, focus the figure and use the arrow keys to scroll. The earlier single-policy view remains available as a [triangular2 animation](../../assets/concept-animations/clr-triangular2-motion.svg) and [static diagram](../../assets/concept-animations/clr-triangular2-still.svg).
 
 ## Algorithm
 

@@ -29,6 +29,13 @@ class GraphExamples(unittest.TestCase):
      if a.get('attributeName') not in ['cx','cy']:continue
      v=list(map(float,a.get('values').split(';')));self.assertEqual(v[0],v[1]);self.assertEqual(v[-1],v[-2]);self.assertEqual(a.get('keyTimes'),'0;0.15;0.6;1')
      if a.get('attributeName')=='cx':self.assertEqual(v[-1],target)
+ def test_graphsage_long_equations_use_scrollable_display_math(self):
+  for lang in ["", ".zh-TW"]:
+   s=(A.parents[1]/f"theory/models/gnn/message-passing/graphsage/index{lang}.md").read_text()
+   import re
+   inline=re.findall(r"\\\((.*?)\\\)",s)
+   self.assertFalse(any("MEAN" in t or "AGGREGATE" in t for t in inline))
+   self.assertIn("\\[\nh_v^{k} =",s)
  def test_bilingual_hooks_and_static_fallback(self):
   for topic in ['gin','graphsage']:
    for lang in ['', '.zh-TW']:

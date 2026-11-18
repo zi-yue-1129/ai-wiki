@@ -48,9 +48,23 @@ h_v^{k} = \sigma\big(W^{k} \cdot \mathrm{CONCAT}(h_v^{k-1},\, h_{\mathcal{N}(v)}
 
 論文給出以下聚合器：
 
-- **平均（Mean）：** \(h_v^{k} = \sigma\big(W \cdot \mathrm{MEAN}(\{h_v^{k-1}\} \cup \{h_u^{k-1}, \forall u \in \mathcal{N}(v)\})\big)\)，此形式省略串接步驟。
-- **池化（Pool）：** \(\mathrm{AGGREGATE}^{\mathrm{pool}}_k = \max\big(\{\sigma(W_{\mathrm{pool}}\, h_{u_i}^{k-1} + b), \forall u_i \in \mathcal{N}(v)\}\big)\)，即先經過共享的全連接層，再逐元素取最大值。
-- **LSTM：** 將 LSTM 套用於鄰居的隨機排列。論文未給出此聚合器的方程式。
+**平均（Mean）：**
+
+\[
+h_v^{k} = \sigma\big(W \cdot \mathrm{MEAN}(\{h_v^{k-1}\} \cup \{h_u^{k-1}, \forall u \in \mathcal{N}(v)\})\big)
+\]
+
+此形式省略串接步驟。
+
+**池化（Pool）：**
+
+\[
+\mathrm{AGGREGATE}^{\mathrm{pool}}_k = \max\big(\{\sigma(W_{\mathrm{pool}}\, h_{u_i}^{k-1} + b), \forall u_i \in \mathcal{N}(v)\}\big)
+\]
+
+即先經過共享的全連接層，再逐元素取最大值。
+
+**LSTM：** 將 LSTM 套用於鄰居的隨機排列。論文未給出此聚合器的方程式。
 
 無監督訓練時，論文使用基於圖的損失函數。節點 \(u\) 會被拉向與它出現在同一條短隨機漫步上的節點 \(v\)，並被推離負樣本：
 
