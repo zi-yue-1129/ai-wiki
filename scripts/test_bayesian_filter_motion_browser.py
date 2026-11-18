@@ -54,7 +54,7 @@ def make_html(stem: str, lang: str) -> str:
         '<!doctype html><html lang="' + lang + '"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f'<link rel="stylesheet" href="{CSS}"></head><body>'
-        f'<article><p><img src="{(ASSETS / (stem + "-motion.svg")).as_uri()}" alt="{alt}"></p></article>'
+        f'<article><div class="concept-motion-scroll" tabindex="0" style="max-width:100%;overflow-x:auto"><div style="width:640px;min-width:640px"><img src="{(ASSETS / (stem + "-motion.svg")).as_uri()}" alt="{alt}" style="width:640px;min-width:640px;max-width:none"></div></div></article>'
         f'<script src="{JS}"></script></body></html>'
     )
 
@@ -94,11 +94,17 @@ def main() -> None:
                                 "暫停" if lang == "zh" else "Pause"
                             ), (stem, lang, reduced, toggle.get_attribute("aria-label"))
                             # The keyboard-reachable figure and native control must work at all sizes.
-                            assert page.locator(".concept-motion-player").get_attribute("tabindex") == "0"
+                            assert page.locator(".concept-motion-scroll").get_attribute("tabindex") == "0"
                             if width <= 360:
-                                assert page.locator(".concept-motion-player").evaluate(
+                                assert page.locator(".concept-motion-scroll").evaluate(
                                     "(el) => el.scrollWidth > el.clientWidth"
                                 ), (stem, width, "missing horizontal scroll")
+                            if width <= 360:
+                                scroll=page.locator(".concept-motion-scroll")
+                                scroll.focus()
+                                page.keyboard.press("ArrowRight")
+                                page.wait_for_timeout(150)
+                                assert scroll.evaluate("(e)=>e.scrollLeft") > 0
                             toggle.focus()
                             toggle.press("Enter")
                             assert (img.get_attribute("src") or "").endswith("-motion.svg" if reduced else "-still.svg")
