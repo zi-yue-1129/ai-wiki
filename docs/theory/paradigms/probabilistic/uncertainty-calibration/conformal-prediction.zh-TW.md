@@ -29,7 +29,7 @@ C(x)=\{\,y : s(x,y)\le \hat q\,\},
 
 <div style="max-width:100%;overflow-x:auto" role="group" aria-label="共形預測動畫">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/conformal-quantile-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-quantile-motion.svg" alt="八筆排序後的示意校準分數，以第七筆 0.54 作為分割式共形預測門檻；候選標籤 A、B 納入預測集合，C 排除。" width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-quantile-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-quantile-motion.svg" alt="八筆排序後的示意校準分數，以第七筆 0.54 作為分割式共形預測門檻；候選標籤 A、B 納入預測集合，C 排除。" width="640" height="360">
 </div>
 </div>
 
