@@ -41,7 +41,7 @@ The bound always increases, and each new value is the f-value of some node the p
 ### Animated walkthrough: increasing f-bounds and repeated depth-first work
 
 <div role="region" tabindex="0" aria-label="Scrollable concept diagram" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
-<img src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-still-src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-motion-src="../../../../assets/concept-animations/ida-bound-reexpansion-motion.svg" alt="IDA-star toy tree: an active depth-first cursor revisits nodes under increasing f-bounds 4, 6, 7 and 8 before reaching goal G." width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-still-src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-motion-src="../../../../assets/concept-animations/ida-bound-reexpansion-motion.svg" alt="IDA-star toy tree: an active depth-first cursor revisits nodes under increasing f-bounds 4, 6, 7 and 8 before reaching goal G." width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
 </div>
 
 
@@ -62,6 +62,8 @@ The displayed scores are constructed values, **not empirical measurements**. Alo
 On narrow screens, focus and scroll the diagram horizontally rather than shrinking its labels.
 
 The MkDocs version uses the shared **Play/Pause** control (click or keyboard Enter/Space); reduced-motion preferences display the same reviewed static overview. GitHub displays this static preview without scripts. Original **CC BY-SA 4.0** teaching visual, based on Korf (1985) in the References below.
+
+The animation labels expansion, cutoff or goal only while the cursor rests on an examined node; edge travel is marked TRAVERSE. A new bound takes effect at the root of the next iteration, and the green solution path appears only after the goal is reached.
 
 ## Key methods
 

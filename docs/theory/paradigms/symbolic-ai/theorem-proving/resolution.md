@@ -39,16 +39,13 @@ From clauses \(C_1 = A\lor L\) and \(C_2 = B\lor\neg L'\), where \(\sigma\) is t
 
 Starting from the clauses of the axioms and the negated goal, the prover repeatedly adds resolvents. The proof succeeds when the empty clause is derived. A strategy controls which pairs to resolve. Set-of-support restricts resolution to pairs that involve the negated goal, and linear resolution extends the most recent clause. Both keep the search focused while preserving completeness.
 
-**Example.** Take the clauses \(
-eg p\lor q\) and \(p\), together with the negated goal \(
-eg q\). Resolving the first two on \(p\) gives \(q\), and resolving \(q\) with \(
-eg q\) gives the empty clause, so the goal \(q\) is proved. This schematic example is not from a particular system.
+**Example.** Take the clauses \(\neg p\lor q\) and \(p\), together with the negated goal \(\neg q\). Resolving the first two on \(p\) gives \(q\), and resolving \(q\) with \(\neg q\) gives the empty clause, so the goal \(q\) is proved. This schematic example is not from a particular system.
 
 
 ### Animated walkthrough: a three-step refutation
 
 <div role="region" tabindex="0" aria-label="Scrollable concept diagram" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
-<img src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="Three rows of propositional resolution: eliminate P from P or Q and not P or R to obtain Q or R; eliminate Q with not Q to obtain R; eliminate R with not R to obtain the empty clause." width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
+<img data-source-asset-urls src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-still-src="../../../../assets/concept-animations/resolution-refutation-chain-still.svg" data-motion-src="../../../../assets/concept-animations/resolution-refutation-chain-motion.svg" alt="Three rows of propositional resolution: eliminate P from P or Q and not P or R to obtain Q or R; eliminate Q with not Q to obtain R; eliminate R with not R to obtain the empty clause." width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
 </div>
 
 

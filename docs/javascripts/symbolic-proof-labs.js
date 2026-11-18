@@ -20,7 +20,7 @@
       resIntro: 'Select each inference to inspect the complementary pair and its resolvent. The empty clause proves the initial clauses inconsistent.',
       premises: 'Parent clauses', pivot: 'Eliminated pivot', resolvent: 'Resolvent',
       noResult: 'No derived clause yet', result: 'Empty clause: contradiction',
-      proof: 'Proof progress', initial: 'Initial clauses only',
+      proof: 'Proof progress', initial: 'Initial clauses only', pendingInference: 'Inference not performed yet',
       explanation: 'The complementary literals cancel; the remaining literals form the resolvent.',
       completed: 'All three resolution inferences complete',
       status: 'Current simulation state'
@@ -39,7 +39,7 @@
       resIntro: '逐步檢視互補文字及產生的歸結子句。推導出空子句即代表初始子句合取不可滿足。',
       premises: '父子句', pivot: '消去文字', resolvent: '歸結子句',
       noResult: '尚未推導子句', result: '空子句：產生矛盾',
-      proof: '證明進度', initial: '尚未進行歸結',
+      proof: '證明進度', initial: '尚未進行歸結', pendingInference: '尚未進行此步歸結',
       explanation: '消去兩個互補文字，並合併剩餘文字，得到新的子句。',
       completed: '已完成三次歸結',
       status: '目前模擬狀態'
@@ -103,7 +103,9 @@
     const a=left.includes(pivot), b=right.includes('¬'+pivot);
     const c=left.includes('¬'+pivot), d=right.includes(pivot);
     if(!((a&&b)||(c&&d))) throw new Error('Not a complementary pair');
-    return [...new Set([...left,...right].filter(x=>x!==pivot && x!=='¬'+pivot))];
+    const leftPivot = a && b ? pivot : '¬'+pivot;
+    const rightPivot = a && b ? '¬'+pivot : pivot;
+    return [...new Set([...left.filter(x=>x!==leftPivot),...right.filter(x=>x!==rightPivot)])];
   }
   const proofResults=proof.map(p=>resolve(p.left,p.right,p.pivot));
   if(JSON.stringify(proofResults)!==JSON.stringify([['Q','R'],['R'],[]])) throw new Error('Invalid resolution proof');
@@ -222,7 +224,7 @@
       proof.forEach((p,j)=>{
         const row=h('div','sp-proof-step'+(j<i?' sp-proof-done':'')+(j===i-1?' sp-proof-now':''));
         row.append(h('span','sp-proof-badge',String(j+1)));
-        row.append(h('span','sp-proof-equation',`${formatClause(p.left)}  +  ${formatClause(p.right)}  ⇒  ${formatClause(proofResults[j])}`));
+        row.append(h('span','sp-proof-equation',j<i ? `${formatClause(p.left)}  +  ${formatClause(p.right)}  ⇒  ${formatClause(proofResults[j])}` : t.pendingInference));
         progress.append(row);
       });
     });

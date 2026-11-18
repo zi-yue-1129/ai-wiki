@@ -55,11 +55,14 @@ def run(js_file: Path, css_file: Path, screenshots: Path|None=None) -> None:
                 assert ida.locator('.sp-lab-metric').nth(2).locator('strong').inner_text()=='0'
                 # Resolution must derive Q or R -> R -> empty clause.
                 res=page.locator('[data-aiwiki-lab="resolution"]')
+                assert '□' not in res.inner_text(), 'Future empty clause must not appear before inference'
                 res.get_by_role('button',name='Next' if width in (360,1024) else '下一步').click()
                 assert res.locator('.sp-proof-done').count()==1
+                assert '□' not in res.inner_text()
                 assert 'Q ∨ R' in ' '.join(res.locator('.sp-res-row').inner_text().split())
                 res.get_by_role('button',name='Next' if width in (360,1024) else '下一步').click()
                 assert '¬Q' in res.locator('.sp-res-row').inner_text()
+                assert '□' not in res.inner_text()
                 res.get_by_role('button',name='Next' if width in (360,1024) else '下一步').click()
                 assert res.locator('.sp-clause-empty').inner_text()=='□'
                 assert res.locator('.sp-proof-done').count()==3
@@ -67,6 +70,12 @@ def run(js_file: Path, css_file: Path, screenshots: Path|None=None) -> None:
                 slider=res.locator('input[type=range]')
                 slider.focus();slider.press('ArrowLeft')
                 assert res.locator('.sp-lab-counter').inner_text()=='3 / 4'
+                assert '□' not in res.inner_text()
+                reset=res.get_by_role('button',name='Reset' if width in (360,1024) else '重設')
+                reset.click(); reset.click()
+                assert res.locator('.sp-lab-counter').inner_text()=='1 / 4'
+                assert '□' not in res.inner_text()
+                slider.fill('2')
                 if screenshots:
                     screenshots.mkdir(parents=True,exist_ok=True)
                     res.get_by_role('button',name='Next' if width in (360,1024) else '下一步').click()
@@ -89,6 +98,19 @@ def run(js_file: Path, css_file: Path, screenshots: Path|None=None) -> None:
             assert ida.get_by_role('button',name='Pause').count()==1
             ida.get_by_role('button',name='Pause').click()
             assert ida.get_by_role('button',name='Play').count()==1
+            res=page.locator('[data-aiwiki-lab="resolution"]')
+            res.locator('select').select_option('2')
+            res.get_by_role('button',name='播放').click()
+            res.get_by_role('button',name='暫停').click()
+            res.get_by_role('button',name='播放').click()
+            page.wait_for_function("document.querySelector('[data-aiwiki-lab=resolution] .sp-lab-counter').textContent === '4 / 4'", timeout=4000)
+            assert res.get_by_role('button',name='播放').count()==1
+            res.get_by_role('button',name='播放').click()
+            assert res.locator('.sp-lab-counter').inner_text()=='1 / 4'
+            res.get_by_role('button',name='重設').click()
+            page.wait_for_timeout(600)
+            assert res.locator('.sp-lab-counter').inner_text()=='1 / 4'
+            assert '□' not in res.inner_text()
             browser.close()
 
 

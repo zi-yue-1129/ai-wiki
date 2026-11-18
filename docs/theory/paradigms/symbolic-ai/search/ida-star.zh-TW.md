@@ -30,7 +30,7 @@ IDA\* 是一種最佳的啟發式搜尋演算法，它以逐步放寬的成本�
 ### 動畫解說：逐步放寬 f 上界與重複深度優先搜尋
 
 <div role="region" tabindex="0" aria-label="可水平捲動的概念動畫" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
-<img src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-still-src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-motion-src="../../../../assets/concept-animations/ida-bound-reexpansion-motion.svg" alt="IDA 星號搜尋示意樹：紫色游標在 f 上界依序為 4、6、7、8 時重走深度優先路徑，最後抵達目標 G。" width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-still-src="../../../../assets/concept-animations/ida-bound-reexpansion-still.svg" data-motion-src="../../../../assets/concept-animations/ida-bound-reexpansion-motion.svg" alt="IDA 星號搜尋示意樹：紫色游標在 f 上界依序為 4、6、7、8 時重走深度優先路徑，最後抵達目標 G。" width="640" height="360" loading="lazy" style="display:block;width:640px;min-width:640px;max-width:none;">
 </div>
 
 
@@ -51,6 +51,8 @@ IDA\* 是一種最佳的啟發式搜尋演算法，它以逐步放寬的成本�
 手機閱讀時可聚焦圖像區塊並水平捲動，避免把圖內標籤縮到難以辨識。
 
 MkDocs 版可透過**播放／暫停**按鈕操作，支援鍵盤 Enter／Space；偏好降低動態效果時會顯示同一份已驗收的靜態圖。GitHub 直接呈現靜態預覽，不仰賴指令碼。本原創視覺以 **CC BY-SA 4.0** 授權，依據下方 Korf（1985）的參考文獻。
+
+動畫只在游標停於節點時顯示展開、截斷或目標判定；沿邊移動時顯示 TRAVERSE。新上界在回到根節點並開始下一輪時生效，綠色解路徑只在最後找到目標後出現。
 
 ## 主要方法
 
