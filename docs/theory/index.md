@@ -17,7 +17,7 @@ The core theory behind every AI technique.
 
 ## Theory or models?
 
-Theory explains how learning and reasoning work in general, independent of any particular network. [Models](models/index.md) is a subsection that covers the concrete model families and the systems built from them. If a page would still hold after its network was swapped for another, it belongs in Theory. The [style guide](../reference/style-guide/index.md) has the full rule.
+Theory explains how learning and reasoning work in general, independent of any particular network. [Models](models/index.md) is a subsection that covers the concrete model families and the systems built from them. If a page would still hold after its network was swapped for another, it belongs in Theory. For a concrete method in Models, see [item-based collaborative filtering](models/recommender/item-based-cf.md), which predicts ratings. The [style guide](../reference/style-guide/index.md) has the full rule.
 
 ## The three basic learning signals
 

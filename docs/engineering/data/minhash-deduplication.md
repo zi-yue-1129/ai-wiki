@@ -25,9 +25,20 @@ Exact deduplication, which hashes whole documents, misses the common case where 
 
 Each document is shingled, reduced to a signature, and bucketed by LSH. Candidate pairs are then checked more precisely and one document of each duplicate cluster is kept.
 
-![Animated MinHash signatures and LSH band collision for two toy shingle sets.](../../assets/concept-animations/minhash-lsh-band-collision-motion.svg)
+<img data-source-asset-urls src="../../assets/concept-animations/minhash-lsh-band-collision-still.svg" data-motion-src="../../assets/concept-animations/minhash-lsh-band-collision-motion.svg" data-still-src="../../assets/concept-animations/minhash-lsh-band-collision-still.svg" alt="Animated MinHash signatures and LSH band collision for two toy shingle sets.">
 
 *Original educational animation, CC BY-SA 4.0.* The two shingle sets are \(A=\{a,b,c,d\}\) and \(B=\{a,b,c,e\}\), so their exact Jaccard similarity is \(3/5=0.60\). Four illustrative min-hash permutations give signatures \((1,1,2,1)\) and \((1,1,1,2)\): **two of four positions agree**, giving a deliberately noisy estimate of 0.50. With two rows per LSH band, band 1 collides and band 2 does not; a collision only *nominates* a candidate for exact verification and does not establish that the documents are duplicates. The moving cursor scans the hash positions and the pulse reaches the candidate bucket. These are hand-constructed hash ranks, not measured corpus statistics or a guarantee about a four-hash estimate. The MkDocs player supports Play/Pause and reduced motion; [open the static overview](../../assets/concept-animations/minhash-lsh-band-collision-still.svg) for GitHub or a narrow display.
+
+The cursor is a reading guide over completed results, not continuously changing hash values or labels. It proceeds forward, holds on the last entry, then restarts.
+
+One explicit construction ranks shingles from smallest to largest as follows. Each signature entry is the minimum **rank** among the document’s shingles; it is not a shingle ID.
+
+| Hash | Rank 1 → 5 | Min A | Min B |
+|---|---|---:|---:|
+| h1 | a, b, c, d, e | 1 | 1 |
+| h2 | b, c, a, d, e | 1 | 1 |
+| h3 | e, a, b, c, d | 2 | 1 |
+| h4 | d, a, b, c, e | 1 | 2 |
 
 ## Key methods
 
