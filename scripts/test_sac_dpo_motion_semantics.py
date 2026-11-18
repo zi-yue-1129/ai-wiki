@@ -150,4 +150,64 @@ class ScopedLayoutRegression(unittest.TestCase):
       if any(command in step.get('run','').splitlines() for command in commands):step['if']=flag
     with self.assertRaises(AssertionError):verify(bad,paths,commands)
 
+class RuntimeDependencyRegression(unittest.TestCase):
+ def test_yaml_is_explicit_unconditional_and_before_consumer(self):
+  import copy,yaml
+  workflow=yaml.safe_load((R/'.github/workflows/concept-animation-validation.yml').read_text())
+  def verify(w):
+   job=w['jobs']['validate-motion'];assert 'if' not in job
+   steps=job['steps'];install=[];consumer=[]
+   for index,step in enumerate(steps):
+    lines=[line.strip()for line in step.get('run','').splitlines()]
+    if 'python -m pip install "PyYAML==6.0.3"' in lines:
+     assert 'if' not in step and (step.get('continue-on-error') is None or step.get('continue-on-error') is False)
+     install.append(index)
+    if 'python scripts/test_sac_dpo_motion_semantics.py' in lines:consumer.append(index)
+   assert len(install)==len(consumer)==1 and install[0]<consumer[0]
+  verify(workflow)
+  for replacement in ('','# python -m pip install "PyYAML==6.0.3"','python -m pip install "PyYAML==6.0.3" || true'):
+   bad=copy.deepcopy(workflow)
+   for step in bad['jobs']['validate-motion']['steps']:step['run']=step.get('run','').replace('python -m pip install "PyYAML==6.0.3"',replacement)
+   with self.assertRaises(AssertionError):verify(bad)
+  for flag in (False,None,'always()'):
+   bad=copy.deepcopy(workflow)
+   for step in bad['jobs']['validate-motion']['steps']:
+    if 'PyYAML==' in step.get('run',''):step['if']=flag
+   with self.assertRaises(AssertionError):verify(bad)
+ def test_svg_axis_text_api_preserves_assertion_and_rejects_missing_hidden_label(self):
+  from unittest.mock import Mock
+  from test_sac_dpo_labs_browser import assert_visible_loss_axis
+  for text,count,visible in [('8.0',1,True),('7.0',1,True),('8.0',0,True),('8.0',1,False)]:
+   svg=Mock();svg.text_content.return_value=text;svg.inner_text.side_effect=RuntimeError('Node is not an HTMLElement')
+   label=svg.locator.return_value.filter.return_value;label.count.return_value=count;label.is_visible.return_value=visible
+   if text=='8.0' and count==1 and visible:assert_visible_loss_axis(svg)
+   else:
+    with self.assertRaises(AssertionError):assert_visible_loss_axis(svg)
+   svg.inner_text.assert_not_called()
+  import ast
+  tree=ast.parse((R/'scripts/test_sac_dpo_labs_browser.py').read_text())
+  main=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='run')
+  self.assertTrue(any(isinstance(n,ast.Call) and isinstance(n.func,ast.Name)and n.func.id=='assert_visible_loss_axis' for n in ast.walk(main)))
+
+ def test_missing_yaml_dependency_fails_real_route_test_not_skipped(self):
+  import subprocess,sys
+  program=r'''
+import sys,importlib.abc,unittest
+sys.path.insert(0,sys.argv[1])
+class NoYaml(importlib.abc.MetaPathFinder):
+ def find_spec(self,fullname,path=None,target=None):
+  if fullname=='yaml' or fullname.startswith('yaml.'):
+   raise ModuleNotFoundError("No module named 'yaml' (intentional dependency negative)")
+sys.meta_path.insert(0,NoYaml())
+from test_sac_dpo_motion_semantics import ScopedLayoutRegression
+suite=unittest.TestSuite([ScopedLayoutRegression('test_actual_future_only_routes_and_required_unconditional_commands')])
+result=unittest.TextTestRunner().run(suite)
+sys.exit(0 if result.wasSuccessful() else 1)
+'''
+  result=subprocess.run([sys.executable,'-I','-c',program,str(R/'scripts')],text=True,capture_output=True)
+  self.assertEqual(result.returncode,1)
+  self.assertIn("No module named 'yaml' (intentional dependency negative)",result.stderr)
+  self.assertIn('FAILED (errors=1)',result.stderr)
+  self.assertNotIn('skipped=',result.stderr)
+
 if __name__=='__main__':unittest.main()

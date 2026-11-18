@@ -298,4 +298,49 @@ class SharpnessScreenshotContract(unittest.TestCase):
         r['pack']['files'].append(copy.deepcopy(item))
         with self.assertRaisesRegex(ValueError,'Duplicate packed file'):validate_support(m,r,a,p)
 
+class GateRuntimeDependencies(unittest.TestCase):
+    def test_gate_explicitly_installs_prose_import_dependency_before_tests(self):
+        import yaml
+        w=yaml.safe_load((ROOT/'.github/workflows/built-motion-browser.yml').read_text())
+        def verify(w):
+            job=w['jobs']['built-motion-browser'];steps=job['steps'];installs=[];tests=[]
+            for i,s in enumerate(steps):
+                lines=[line.strip()for line in s.get('run','').splitlines()]
+                if 'python -m pip install -r requirements.txt "playwright==1.55.0"' in lines:
+                    assert 'if' not in s and (s.get('continue-on-error') is None or s.get('continue-on-error') is False)
+                    installs.append(i)
+                if 'python scripts/test_motion_shard_ci.py' in lines:tests.append(i)
+            assert len(installs)==len(tests)==1 and installs[0]<tests[0]
+        verify(w)
+        for value in ('python -m pip install -r requirements.txt','# python -m pip install -r requirements.txt "playwright==1.55.0"','python -m pip install -r requirements.txt "playwright==1.55.0" || true'):
+            bad=copy.deepcopy(w)
+            for step in bad['jobs']['built-motion-browser']['steps']:
+                if step.get('name')=='Install independent discovery and build dependencies':step['run']=value
+            with self.assertRaises(AssertionError):verify(bad)
+        for condition in (False,None,'always()'):
+            bad=copy.deepcopy(w)
+            for step in bad['jobs']['built-motion-browser']['steps']:
+                if step.get('name')=='Install independent discovery and build dependencies':step['if']=condition
+            with self.assertRaises(AssertionError):verify(bad)
+    def test_missing_playwright_fails_actual_capture_negative_not_skipped(self):
+        import sys,subprocess
+        program=r'''
+import sys,importlib.abc,unittest
+sys.path.insert(0,sys.argv[1])
+class NoPlaywright(importlib.abc.MetaPathFinder):
+ def find_spec(self,fullname,path=None,target=None):
+  if fullname=='playwright' or fullname.startswith('playwright.'):
+   raise ModuleNotFoundError("No module named 'playwright' (intentional dependency negative)")
+sys.meta_path.insert(0,NoPlaywright())
+from test_motion_shard_ci import SupportGate
+result=unittest.TextTestRunner().run(unittest.TestSuite([SupportGate('test_required_prose_section_capture_is_not_optional')]))
+sys.exit(0 if result.wasSuccessful() else 1)
+'''
+        result=subprocess.run([sys.executable,'-I','-c',program,str(ROOT/'scripts')],text=True,capture_output=True)
+        self.assertEqual(result.returncode,1)
+        self.assertIn("No module named 'playwright' (intentional dependency negative)",result.stderr)
+        self.assertIn('FAILED (errors=1)',result.stderr)
+        self.assertNotIn('skipped=',result.stderr)
+
+
 if __name__=='__main__':unittest.main()

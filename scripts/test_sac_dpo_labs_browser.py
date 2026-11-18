@@ -3,7 +3,7 @@
 Run from repository root with playwright installed, including bundled Chromium.
 """
 from pathlib import Path
-import os
+import os,re
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,6 +22,13 @@ def html(lang):
 
 def close(actual, expected, tol=0.002):
     assert abs(float(actual) - expected) < tol, (actual, expected)
+
+
+def assert_visible_loss_axis(svg):
+    # SVGElement has textContent, not HTMLElement.innerText (Playwright 1.55).
+    assert '8.0' in (svg.text_content() or '')
+    label=svg.locator('text').filter(has_text=re.compile(r'^8\.0$'))
+    assert label.count()==1 and label.is_visible(), 'Expected visible expanded loss-axis maximum'
 
 
 def run():
@@ -97,7 +104,7 @@ def run():
                     dpo.locator('[data-param="pref"]').fill('0.1');dpo.locator('[data-param="reference"]').fill('0.8');dpo.locator('[data-param="beta"]').fill('2')
                     assert float(dpo.locator('[data-value="loss"]').inner_text())>7
                     dot=dpo.locator('.sd-dot');assert float(dot.get_attribute('cy'))>58
-                    assert '8.0' in dpo.locator('svg').inner_text()
+                    assert_visible_loss_axis(dpo.locator('svg'))
                     for lab in (sac,dpo):
                         if width<760:
                             sc=lab.locator('.sd-scroll');sc.focus();page.keyboard.press('ArrowRight');page.wait_for_timeout(80);assert sc.evaluate('e=>e.scrollLeft>0')
