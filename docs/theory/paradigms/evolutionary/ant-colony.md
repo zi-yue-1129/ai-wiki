@@ -44,7 +44,7 @@ where \(\tau_{ij}\) is the pheromone on the edge, \(\eta_{ij}\) is the heuristic
 
 <div style="max-width:100%;overflow-x:auto" role="group" aria-label="Ant colony pheromone feedback animation" tabindex="0">
 <div style="width:640px">
-<img src="../../../assets/concept-animations/ant-colony-pheromone-still.svg" data-motion-src="../../../assets/concept-animations/ant-colony-pheromone-motion.svg" alt="Two alternative S-to-G routes. Ants traverse both branches, after which evaporation and length-weighted pheromone deposits strengthen the shorter route more." width="640" height="360">
+<img data-source-asset-urls src="../../../assets/concept-animations/ant-colony-pheromone-still.svg" data-motion-src="../../../assets/concept-animations/ant-colony-pheromone-motion.svg" data-still-src="../../../assets/concept-animations/ant-colony-pheromone-still.svg" alt="Two alternative S-to-G routes. Ants traverse both branches, after which evaporation and length-weighted pheromone deposits strengthen the shorter route more." width="640" height="360">
 </div>
 </div>
 
@@ -53,11 +53,13 @@ where \(\tau_{ij}\) is the pheromone on the edge, \(\eta_{ij}\) is the heuristic
 In this deliberately small **two-route** example, the upper path has length $L_s=4$ and the lower path $L_l=6$. Each route starts with pheromone $\tau=1$. One artificial ant follows each route, then a single update evaporates $\rho=0.25$ and deposits $Q/L$ with $Q=4$:
 
 \[
-\tau_s'=0.75\cdot 1+4/4=1.75,\qquad
+\begin{gathered}
+\tau_s'=0.75\cdot 1+4/4=1.75 \\
 \tau_l'=0.75\cdot 1+4/6\approx1.42.
+\end{gathered}
 \]
 
-The moving dots trace the two chosen routes; line thickness and bars then show how the shorter route gains a stronger pheromone signal for *subsequent* decisions. This example fixes the routes instead of sampling them from $p_{ij}$, and omits the full-tour constraints of the travelling-salesperson problem. Continuous transitions are for explanation, **not extra ACO iterations or experimental measurements**. See Dorigo et al. (1996) in References.
+Route lengths are assigned costs; the geometric paths are not drawn to scale. Both bars use the same pheromone scale from 0 to 2, and coloured line width is proportional to pheromone. The moving dots trace the two chosen routes; line thickness and bars then show how the shorter route gains a stronger pheromone signal for *subsequent* decisions. This example fixes the routes instead of sampling them from $p_{ij}$, and omits the full-tour constraints of the travelling-salesperson problem. Continuous transitions are for explanation, **not extra ACO iterations or experimental measurements**. See Dorigo et al. (1996) in References.
 
 ## Key results
 

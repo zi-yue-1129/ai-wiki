@@ -43,7 +43,7 @@ p_{ij} = \frac{\tau_{ij}^{\alpha}\, \eta_{ij}^{\beta}}{\sum_{k \in \mathcal{N}_i
 
 <div style="max-width:100%;overflow-x:auto" role="group" aria-label="螞蟻演算法費洛蒙回饋動畫" tabindex="0">
 <div style="width:640px">
-<img src="../../../assets/concept-animations/ant-colony-pheromone-still.svg" data-motion-src="../../../assets/concept-animations/ant-colony-pheromone-motion.svg" alt="兩條由 S 到 G 的替代路徑。人工螞蟻分別沿路徑行進，費洛蒙揮發後，較短的路徑得到較多依路長加權的費洛蒙補充。" width="640" height="360">
+<img data-source-asset-urls src="../../../assets/concept-animations/ant-colony-pheromone-still.svg" data-motion-src="../../../assets/concept-animations/ant-colony-pheromone-motion.svg" data-still-src="../../../assets/concept-animations/ant-colony-pheromone-still.svg" alt="兩條由 S 到 G 的替代路徑。人工螞蟻分別沿路徑行進，費洛蒙揮發後，較短的路徑得到較多依路長加權的費洛蒙補充。" width="640" height="360">
 </div>
 </div>
 
@@ -52,11 +52,13 @@ p_{ij} = \frac{\tau_{ij}^{\alpha}\, \eta_{ij}^{\beta}}{\sum_{k \in \mathcal{N}_i
 此處刻意簡化為**兩條替代路徑**：上方路徑長度 $L_s=4$，下方 $L_l=6$，兩條路徑的初始費洛蒙皆為 $\tau=1$。每條路徑各有一隻人工螞蟻通行後，以 $\rho=0.25$ 揮發，再按 $Q/L$（$Q=4$）補充一次費洛蒙：
 
 \[
-\tau_s'=0.75\cdot1+4/4=1.75,\qquad
+\begin{gathered}
+\tau_s'=0.75\cdot1+4/4=1.75 \\
 \tau_l'=0.75\cdot1+4/6\approx1.42.
+\end{gathered}
 \]
 
-移動圓點表示**已選定路徑**的行進，線條粗細與右側長條則顯示費洛蒙更新，使較短路徑在**後續選擇**中獲得較強偏好。此例沒有依 $p_{ij}$ 隨機抽取路徑，也不包含旅行推銷員問題的完整巡迴限制；平滑過渡只為協助理解，**並非額外演算法迭代或模型實測**。原始方法見參考文獻中的 Dorigo 等人（1996）。
+路長是指定的成本值，圖中的幾何路徑並未按比例繪製。兩個長條共用費洛蒙 0–2 的尺度，彩色線寬也與費洛蒙成正比。移動圓點表示**已選定路徑**的行進，線條粗細與右側長條則顯示費洛蒙更新，使較短路徑在**後續選擇**中獲得較強偏好。此例沒有依 $p_{ij}$ 隨機抽取路徑，也不包含旅行推銷員問題的完整巡迴限制；平滑過渡只為協助理解，**並非額外演算法迭代或模型實測**。原始方法見參考文獻中的 Dorigo 等人（1996）。
 
 ## 關鍵結果
 
