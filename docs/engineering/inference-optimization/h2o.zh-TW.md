@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-11
 last_reviewed: 2026-11-04
 related:
   - theory/models/transformer/kv-cache
@@ -27,6 +27,21 @@ H2O 是生成式推論中的 KV 快取淘汰策略。它保留一小組「重擊
 ## 核心想法
 
 作者觀察到注意力是稀疏的：一小部分 token 在各層中獲得大部分的注意力權重。他們稱這些 token 為重擊手。H2O 追蹤每個 token 累積獲得的注意力，在固定預算內保留重擊手與最近的 token，並淘汰其餘部分。作者把「保留哪些 token」的選擇框定為次模選擇問題，並在溫和的假設下給出理論保證。
+
+### 動態示範：累積注意力與快取保留決策
+
+<div tabindex="0" role="region" aria-label="可水平捲動的概念動畫；使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/h2o-heavy-hitter-selection-still.svg" data-motion-src="../../assets/concept-animations/h2o-heavy-hitter-selection-motion.svg" data-still-src="../../assets/concept-animations/h2o-heavy-hitter-selection-still.svg" alt="H2O 動畫依序顯示 Token 的累積注意力分數，最後選出高分重擊手及最近 Token" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態回退預覽](../../assets/concept-animations/h2o-heavy-hitter-selection-still.svg) · 在 MkDocs 網站可使用 **播放／暫停**（支援鍵盤按鈕操作）。
+
+上方長條使用八個 Token 的**人工累積注意力分數** `[2, 1, 9, 3, 7, 2, 1, 0]`。在簡化的**四格快取預算**下，保留兩個重擊手 `t3`、`t5` 與兩個近期 Token `t7`、`t8`，淘汰其餘項目。分數、名額比例與選取結果都是**教學示意，不是實際注意力測量或 H2O 實驗結果**。真實演算法會隨解碼步驟更新分數，而且分數是基於當下可用的快取計算；被淘汰的內容不會因後續需求而自動恢復。H2O 用局部近似選取而非預知未來注意力。依據參考文獻中的 Zhang et al.（2023）。
+
+*原創教學視覺，CC BY-SA 4.0。*
+
+
+數字標籤是最終的示意分數；長條按同一比例揭示，標記沿路徑移到選定的快取槽位。這是固定資料的重播，不是解碼過程的即時模擬。
 
 ## 程序
 

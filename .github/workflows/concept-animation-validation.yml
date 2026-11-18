@@ -3,12 +3,18 @@ name: Validate concept animations
 on:
   pull_request:
     paths:
+      - "scripts/test_fixture_dependency_motion_semantics.py"
       - "scripts/test_reviewed_scroll_player.cjs"
       - "scripts/concept_motion_fixture_selector.cjs"
       - "scripts/test_concept_motion_fixture_selector.cjs"
       - "scripts/test_gqa_source_browser.py"
       - "scripts/test_gqa_player.cjs"
       - "scripts/test_gqa_source_semantics.py"
+      - "scripts/test_gradient_source_browser.py"
+      - "scripts/test_gradient_source_player.cjs"
+      - "scripts/test_gradient_actual_motion_semantics.py"
+      - "scripts/test_diffusion_source_browser.py"
+      - "scripts/test_diffusion_source_semantics.py"
       - "scripts/fixtures/deployed-motion-contracts.json"
       - "docs/assets/concept-animations/**"
       - "scripts/verify_concept_animations.py"
@@ -46,6 +52,7 @@ on:
       - "scripts/test_diffusion_motion_browser.py"
       - "scripts/test_diffusion_motion_semantics.py"
       - "scripts/test_diffusion_player.cjs"
+      - "scripts/test_diffusion_schedule_player.cjs"
       - "docs/javascripts/ewc-neat-labs.js"
       - "docs/stylesheets/ewc-neat-labs.css"
       - "scripts/test_ewc_neat_labs_browser.py"
@@ -147,6 +154,7 @@ on:
       - "scripts/test_sac_dpo_labs_browser.py"
       - "docs/javascripts/sac-dpo-labs.js"
       - "docs/stylesheets/sac-dpo-labs.css"
+      - "scripts/test_kivi_h2o_motion_browser.py"
       - "scripts/test_self_supervised_labs.cjs"
       - "docs/javascripts/symbolic-proof-labs.js"
       - "docs/stylesheets/symbolic-proof-labs.css"
@@ -175,13 +183,13 @@ on:
       - "docs/javascripts/regression-metric-labs.js"
       - "docs/stylesheets/regression-metric-labs.css"
       - "scripts/test_regression_metric_labs_browser.py"
-      - "scripts/test_concept_motion_chapters.cjs"
-      - "scripts/test_self_supervised_labs.cjs"
       - "scripts/test_bandit_motion_browser.py"
       - "scripts/test_bandit_labs_browser.py"
       - "docs/javascripts/bandit-labs.js"
       - "docs/stylesheets/bandit-labs.css"
       - "scripts/verify_bandit_motion.py"
+      - "scripts/test_positional_motion_browser.py"
+      - "scripts/test_positional_motion_semantics.py"
       - "docs/javascripts/gibbs-labs.js"
       - "docs/stylesheets/gibbs-labs.css"
       - "scripts/test_gibbs_labs_browser.py"
@@ -219,6 +227,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install source fixture import dependencies before all semantic consumers
+        run: |
+          python -m pip install "playwright==1.55.0"
+          python -m pip install "PyYAML==6.0.3"
+          python scripts/test_fixture_dependency_motion_semantics.py
       - name: Check predictive coding math and causal timelines
         run: |
           python scripts/test_predictive_coding_motion_semantics.py
@@ -247,6 +260,12 @@ jobs:
           python scripts/test_norm_seq_actual_motion_semantics.py
           node scripts/test_norm_seq_actual_math.cjs
           node scripts/test_norm_seq_actual_ui.cjs
+      - name: Check positional SVG phase and probability semantics
+        run: python scripts/test_positional_motion_semantics.py
+      - name: Check conformal coverage, calibration and actual SVG timelines
+        run: |
+          python scripts/test_conformal_motion_semantics.py
+          python scripts/test_conformal_coverage_motion_semantics.py
       - name: Reject cross-topic canvas regressions with actual SVG mutations
         run: |
           python scripts/test_scoped_viewbox_motion_semantics.py
@@ -276,6 +295,11 @@ jobs:
         run: |
           node scripts/test_ewc_neat_labs.cjs
           python scripts/test_ewc_neat_actual_motion_semantics.py
+      - name: Validate actual gradient clipping source schedules and player
+        run: |
+          python scripts/test_gradient_clipping_motion_semantics.py
+          python scripts/test_gradient_actual_motion_semantics.py
+          node scripts/test_gradient_source_player.cjs
       - name: Install Chromium and Traditional Chinese fonts for visual tests
         run: |
           sudo apt-get update -qq
@@ -300,6 +324,8 @@ jobs:
         run: python scripts/test_video_latent_motion_browser.py
       - name: Browser-check interactive video and latent diffusion arithmetic
         run: DIFFUSION_LAB_ARTIFACTS=artifacts/diffusion-process-labs python scripts/test_diffusion_process_labs_browser.py
+      - name: Verify gradient clipping source keyboard layout
+        run: python scripts/test_gradient_source_browser.py
       - name: Chromium interactive AdaGrad and Adafactor numerical labs
         run: python scripts/test_adaptive_optimiser_labs_browser.py
       - name: Render deterministic SVD and power-iteration SVG keyframes
@@ -436,6 +462,8 @@ jobs:
         run: python scripts/test_bandit_motion_browser.py
       - name: Chromium interactive UCB1 and Thompson counterfactual computations
         run: python scripts/test_bandit_labs_browser.py
+      - name: Render ALiBi/RoPE timelines and test bilingual accessible controls
+        run: python scripts/test_positional_motion_browser.py
       - name: Test bilingual sharpness geometry numerical labs, controls and responsive layout
         run: python scripts/test_sharpness_geometry_labs_browser.py
       - name: Test bilingual Gibbs Gaussian and disconnected mixing controls
@@ -458,6 +486,15 @@ jobs:
         run: |
           python scripts/test_eighth_integration_motion_semantics.py
           node scripts/test_explanation_math.cjs
+      - name: Chromium KIVI/H2O mobile, bilingual keyboard and reduced-motion regression
+        run: python scripts/test_kivi_h2o_motion_browser.py
+      - name: Verify diffusion schedule, source visuals and browser
+        run: |
+          python -m unittest discover -s scripts -p "test_*diffusion*semantics.py"
+          python -m unittest discover -s scripts -p "test_ddim_schedule_motion_semantics.py"
+          node scripts/test_diffusion_player.cjs
+          node scripts/test_diffusion_schedule_player.cjs
+          python scripts/test_diffusion_source_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -467,6 +504,7 @@ jobs:
             artifacts/predictive-coding-motion/*.png
             artifacts/predictive-coding-labs/*.png
             artifacts/diffusion-motion/*.png
+            artifacts/gradient-source/
             artifacts/self-supervised-labs/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
@@ -496,6 +534,8 @@ jobs:
             artifacts/explanation-labs/*.png
             artifacts/causal-labs/*.png
             artifacts/gqa-source/
+            artifacts/kivi-h2o-browser/*.png
+            artifacts/diffusion-source/
             artifacts/linear-algebra-motion/
             artifacts/planning-labs/*.png
             artifacts/t5-deit-motion/*.png
@@ -504,6 +544,7 @@ jobs:
             artifacts/regression-metric-labs/*.png
             artifacts/linear-algebra-motion/
             artifacts/bayesian-filter-labs/*.png
+            artifacts/positional-motion/*.png
             artifacts/sharpness-labs/*.png
             artifacts/adaptive-optimiser-labs/*.png
             artifacts/gibbs-labs/*.png

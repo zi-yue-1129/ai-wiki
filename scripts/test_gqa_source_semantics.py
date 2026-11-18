@@ -78,7 +78,7 @@ class NativeFixtureContract(unittest.TestCase):
  def test_future_only_changed_test_files_reach_native_and_semantic_steps(self):
   import yaml,fnmatch,copy
   w=yaml.safe_load((R/'.github/workflows/concept-animation-validation.yml').read_text())
-  paths=['scripts/test_diffusion_player.cjs','scripts/test_inference_player.cjs','scripts/test_motor_player.cjs','scripts/test_navigation_player.cjs','scripts/test_reviewed_scroll_player.cjs','scripts/concept_motion_fixture_selector.cjs','scripts/test_concept_motion_fixture_selector.cjs','scripts/test_gqa_source_browser.py','scripts/test_gqa_player.cjs','scripts/test_gqa_source_semantics.py']
+  paths=['scripts/test_gradient_source_player.cjs','scripts/test_diffusion_schedule_player.cjs','scripts/test_diffusion_player.cjs','scripts/test_inference_player.cjs','scripts/test_motor_player.cjs','scripts/test_navigation_player.cjs','scripts/test_reviewed_scroll_player.cjs','scripts/concept_motion_fixture_selector.cjs','scripts/test_concept_motion_fixture_selector.cjs','scripts/test_gqa_source_browser.py','scripts/test_gqa_player.cjs','scripts/test_gqa_source_semantics.py']
   commands=['node scripts/test_concept_motion_fixture_selector.cjs','python scripts/test_gqa_source_browser.py','node scripts/test_gqa_player.cjs','python -m unittest discover -s scripts -p "test_gqa_source_semantics.py"']
   def verify(w):
    patterns=w.get('on',w.get(True))['pull_request']['paths']
@@ -107,7 +107,7 @@ class NativeFixtureContract(unittest.TestCase):
 
  def test_shared_helper_cannot_drop_existing_eighth_mock_scope(self):
   import json,re
-  required={'test_gqa_player.cjs','test_diffusion_player.cjs','test_inference_player.cjs','test_motor_player.cjs','test_navigation_player.cjs','test_reviewed_scroll_player.cjs'}
+  required={'test_reviewed_scroll_player.cjs', 'test_gqa_player.cjs', 'test_motor_player.cjs', 'test_navigation_player.cjs', 'test_diffusion_schedule_player.cjs', 'test_gradient_source_player.cjs', 'test_inference_player.cjs', 'test_diffusion_player.cjs'}
   text=(R/'scripts/test_concept_motion_fixture_selector.cjs').read_text()
   def verify(source):
    match=re.search(r'^const requiredPlayers=(\[.*\]);$',source,re.M);assert match

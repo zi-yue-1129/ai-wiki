@@ -9,7 +9,7 @@ TOPICS={
  'theory/math/calculus/newtons-method':1,
  'theory/math/probability-statistics/maximum-a-posteriori':1,
  'theory/math/probability-statistics/maximum-likelihood':1,
- 'theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction':1,
+ 'theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction':9,
  'theory/paradigms/probabilistic/uncertainty-calibration/temperature-scaling':1,
  'theory/paradigms/unsupervised/clustering/k-means':4,
 }
