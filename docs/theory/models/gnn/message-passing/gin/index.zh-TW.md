@@ -28,7 +28,13 @@ translation_reviewed: 2026-10-28
 
 ### 教學動畫：為什麼鄰居數量重要
 
-<img data-source-asset-urls src="../../../../../assets/concept-animations/gin-multiset-counts-still.svg" data-motion-src="../../../../../assets/concept-animations/gin-multiset-counts-motion.svg" data-still-src="../../../../../assets/concept-animations/gin-multiset-counts-still.svg" alt="兩組鄰居特徵的訊息向中心節點傳遞：平均值相同，但加總能區分兩個與三個相同特徵。">
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="圖表可水平捲動；聚焦後使用方向鍵">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/gin-multiset-counts-still.svg" data-motion-src="../../../../../assets/concept-animations/gin-multiset-counts-motion.svg" data-still-src="../../../../../assets/concept-animations/gin-multiset-counts-still.svg" alt="兩組鄰居特徵的訊息向中心節點傳遞：平均值相同，但加總能區分兩個與三個相同特徵。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+</div>
+
+窄螢幕保留原尺寸以便閱讀；可滑動圖表，或聚焦圖框後使用方向鍵水平捲動。
 
 *依 Xu 等人（2018，見參考文獻）原創製作的 CC BY-SA 4.0 教學動畫。MkDocs 的 **Play/Pause** 可使用鍵盤操作；啟用減少動態效果偏好時，會優先顯示 [GitHub 可閱讀的靜態圖](../../../../../assets/concept-animations/gin-multiset-counts-still.svg)。[開啟完整 SVG 動畫](../../../../../assets/concept-animations/gin-multiset-counts-motion.svg)。*
 
