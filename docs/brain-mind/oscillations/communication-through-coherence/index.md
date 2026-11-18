@@ -26,11 +26,15 @@ Fries (2005) proposed that neuronal communication is carried by neuronal coheren
 
 ### Visual intuition: phase alignment and a toy communication gate
 
-<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Scroll the teaching diagram horizontally" style="max-width:100%;overflow-x:auto">
-<img src="../../../assets/concept-animations/coherence-phase-gating-still.svg" data-motion-src="../../../assets/concept-animations/coherence-phase-gating-motion.svg" data-still-src="../../../assets/concept-animations/coherence-phase-gating-still.svg" alt="Sender and receiver rhythmic signals shift from aligned to opposite phase and back, while a separate illustrative gain bar decreases and recovers." width="640" height="360" style="min-width:640px;display:block">
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Scroll the teaching diagram horizontally" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img data-source-asset-urls="true" src="../../../assets/concept-animations/coherence-phase-gating-still.svg" data-motion-src="../../../assets/concept-animations/coherence-phase-gating-motion.svg" data-still-src="../../../assets/concept-animations/coherence-phase-gating-still.svg" alt="Sender and receiver rhythmic signals shift from aligned to opposite phase and back, while a separate illustrative gain bar decreases and recovers." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block">
+</div>
 </div>
 
 *Original animated teaching visual, CC BY-SA 4.0.* The fixed sender rhythm and moving receiver rhythm illustrate a phase offset \(\Delta\phi\) swept from 0 to \(\pi\) and back. The turquoise bar uses the **toy**, bounded proxy \(g_{demo}=[1+\cos(\Delta\phi)]/2\): alignment raises the proxy and antiphase suppresses it. The formula is **not a physiological transfer function, measured coherence, or experimental effect size**. Actual coherence depends on consistent relative phase across time or trials; demonstrating causal communication requires more than this phase shift. MkDocs provides Play/Pause (Enter or Space); the [static GitHub preview](../../../assets/concept-animations/coherence-phase-gating-still.svg) is also readable. Narrow screens can scroll horizontally.
+
+Focus the diagram region and use the left/right arrow keys, or swipe horizontally on a narrow screen. A stable antiphase relation can also have high coherence magnitude: zero toy gain does not imply zero coherence or demonstrated suppression of neuronal communication. Receiver amplitude stays constant as phase shifts.
 
 ## Equation or algorithm
 

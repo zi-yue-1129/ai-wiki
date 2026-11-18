@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 tags:
   - transformer
   - attention
@@ -13,7 +13,7 @@ aliases:
 
 # QK 正規化
 
-QK 正規化在每個注意力頭做內積之前，先對其查詢（query）與鍵（key）套用層正規化。不論產生 \(Q\) 與 \(K\) 的權重範數有多大，它都能限制注意力的 logit。Dehghani 等人（2023）在訓練 220 億參數的視覺 Transformer（ViT-22B）時，用它來防止注意力 logit 失控增長所造成的發散。上層概述是[Transformer 與注意力](index.md)，更廣泛的範數增長問題見[權重範數動態](../../optimization/weight-norm-dynamics/index.md)頁面。
+QK 正規化在每個注意力頭做內積之前，先對其查詢（query）與鍵（key）套用層正規化。當 LayerNorm 的仿射參數固定時，注意力 logit 的界限不依賴輸入查詢／鍵的振幅；學習到的增益仍會改變此界限。Dehghani 等人（2023）在訓練 220 億參數的視覺 Transformer（ViT-22B）時，用它來防止注意力 logit 失控增長所造成的發散。上層概述是[Transformer 與注意力](index.md)，更廣泛的範數增長問題見[權重範數動態](../../optimization/weight-norm-dynamics/index.md)頁面。
 
 ## 概述
 
@@ -25,7 +25,7 @@ QK 正規化在每個注意力頭做內積之前，先對其查詢（query）與
 
 ## 核心想法
 
-在每個頭的內積之前，對其查詢與鍵向量套用層正規化，使注意力為 \(\text{softmax}\!\left(\text{LN}(Q)\,\text{LN}(K)^\top/\sqrt{d_k}\right)\)。正規化把 \(Q\) 與 \(K\) 的尺度從 logit 中移除，因此 logit 不再隨產生它們的權重範數增長。
+在每個頭的內積之前，對其查詢與鍵向量套用層正規化，使注意力為 \(\text{softmax}\!\left(\text{LN}(Q)\,\text{LN}(K)^\top/\sqrt{d_k}\right)\)。當仿射參數固定且 epsilon 可忽略時，正規化會消除非定值查詢／鍵向量的正共同振幅縮放；但 logit 仍會受學習到的 LayerNorm 增益及向量方向改變影響。
 
 ## 運作方式
 
@@ -35,6 +35,12 @@ QK 正規化在每個注意力頭做內積之前，先對其查詢（query）與
 4. 值的投影與區塊的其餘部分維持不變。
 
 這項修改只限於注意力內部，代價是每個頭對查詢與鍵各多一次正規化。
+
+### 動態示範：查詢與鍵的尺度增加時，注意力如何改變
+
+<img data-source-asset-urls src="../../../assets/concept-animations/qk-norm-scale-sweep-still.svg" data-motion-src="../../../assets/concept-animations/qk-norm-scale-sweep-motion.svg" data-still-src="../../../assets/concept-animations/qk-norm-scale-sweep-still.svg" alt="QK 正規化循環動畫：隨著查詢與鍵的共同尺度增加，未正規化的 Softmax 機率逐漸集中；各注意力頭先正規化後，機率分布保持一致。" width="640" height="360" loading="lazy">
+
+*原創 SVG 教學動畫，採 CC BY-SA 4.0 授權。* 圖中將同一個經中心化的 Query 與三個 Key 同時乘上正純量 $s$，由 1 增至 4 後再縮回。未正規化的注意力 Logit 隨 $s^2$ 放大，使 Softmax 越來越集中；在點積前分別對 Q、K 套用 LayerNorm，則可消除這種共同尺度變化。此例使用 $q=(1,-1,0)$，以及 $k_A=(1,-1,0)$、$k_B=(1,0,-1)$、$k_C=(-1,1,0)$，原始 Logit 為 $(2,1,-2)/\sqrt{3}$。圖內以單位增益、零偏置及零 \(\epsilon\) 簡化 LayerNorm；實務上有可學習仿射參數與非零 \(\epsilon\)，因此不能將完全不變性視為無條件保證。**向量與機率皆為依數學公式計算的教學示意，非模型實測。** 靜態回退顯示最大尺度，網站沿用可暫停播放器，偏好減少動態效果者會看到固定畫面。[GitHub 可讀的靜態預覽](../../../assets/concept-animations/qk-norm-scale-sweep-still.svg)。研究來源：[Dehghani 等人（2023）](https://proceedings.mlr.press/v202/dehghani23a.html)。
 
 ## 結果
 
@@ -55,7 +61,7 @@ Wortsman 等人（2023）在小規模上重現注意力 logit 的增長，並測
 
 ## 開放問題
 
-- 在超長上下文的模型中，查詢鍵正規化是否足夠，因為 logit 要對更多位置加總。
+- 在超長上下文的模型中，查詢鍵正規化是否足夠，因為 softmax 需要對更多鍵位置正規化。
 - 這個正規化如何與旋轉位置編碼互動，因為後者作用於同樣的查詢與鍵向量。
 
 ## 參考文獻

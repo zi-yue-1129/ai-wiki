@@ -6,6 +6,7 @@ real SVG assets, controlled network routing, narrow/desktop viewports,
 native buttons, keyboard input, and prefers-reduced-motion.
 """
 from pathlib import Path
+import re
 from urllib.parse import urlsplit
 from playwright.sync_api import sync_playwright
 
@@ -17,23 +18,13 @@ STEMS = ("theta-gamma-phase-amplitude", "coherence-phase-gating")
 
 
 def html(stem: str, zh: bool) -> str:
-    alt = (
-        "發送端與接收端的相位變化示意圖。" if zh and stem.startswith("coherence")
-        else "Theta 相位調變 gamma 振幅的示意圖。" if zh
-        else "Phase-aligned sender and receiver waveforms." if stem.startswith("coherence")
-        else "Theta phase modulates the gamma amplitude envelope."
-    )
+    topic = 'theta-gamma-coupling' if stem.startswith('theta') else 'communication-through-coherence'
+    source = (ROOT / f"docs/brain-mind/oscillations/{topic}/index{'.zh-TW' if zh else ''}.md").read_text()
+    markup = re.search(r'<div class="concept-motion-scroll".*?</div>\s*</div>', source, re.S).group(0)
+    markup = markup.replace('../../../assets/concept-animations/', '/assets/concept-animations/')
     return f"""<!doctype html><html lang="{'zh-TW' if zh else 'en'}">
-    <head><meta charset="utf-8">
-    <link rel="stylesheet" href="/stylesheets/concept-motion.css"></head>
-    <body><main><div class="concept-motion-scroll" role="region" tabindex="0"
-       style="overflow-x:auto;max-width:100%" aria-label="Scrollable diagram">
-    <img src="/assets/concept-animations/{stem}-still.svg"
-         data-motion-src="/assets/concept-animations/{stem}-motion.svg"
-         data-still-src="/assets/concept-animations/{stem}-still.svg"
-         width="640" height="360" style="min-width:640px;display:block"
-         alt="{alt}"></div></main>
-    <script src="/javascripts/concept-motion.js" defer></script></body></html>"""
+    <head><meta charset="utf-8"><link rel="stylesheet" href="/stylesheets/concept-motion.css"></head>
+    <body><main>{markup}</main><script src="/javascripts/concept-motion.js" defer></script></body></html>"""
 
 
 def main() -> None:
@@ -77,6 +68,7 @@ def main() -> None:
                         page.goto(HOST + "/test")
                         button = page.locator(".concept-motion-toggle")
                         button.wait_for()
+                        assert page.evaluate("document.documentElement.scrollWidth") <= width
                         image = page.locator("img")
                         expected = "still" if reduced else "motion"
                         assert image.get_attribute("src").endswith(f"-{expected}.svg")
@@ -107,8 +99,7 @@ def main() -> None:
                             scroll.evaluate("(e)=>e.scrollLeft=0")
                             scroll.focus()
                             page.keyboard.press("ArrowRight")
-                            page.wait_for_timeout(250)
-                            assert scroll.evaluate("(e)=>e.scrollLeft") > 0
+                            page.wait_for_function('document.querySelector(".concept-motion-scroll").scrollLeft > 0')
                         name = f"{stem}-{'zh' if zh else 'en'}-{width}-{'reduced' if reduced else 'motion'}.png"
                         page.screenshot(path=str(OUT / name), full_page=True)
                         scenarios += 1

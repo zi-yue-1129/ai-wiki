@@ -29,11 +29,15 @@ Later recordings in humans reported the coupling directly. Canolty et al. (2006)
 
 ### Visual intuition: slow phase, fast amplitude
 
-<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Scroll the teaching diagram horizontally" style="max-width:100%;overflow-x:auto">
-<img src="../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg" data-motion-src="../../../assets/concept-animations/theta-gamma-phase-amplitude-motion.svg" data-still-src="../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg" alt="Slow theta wave scanned by a vertical phase cursor; a faster gamma carrier has a larger amplitude envelope at the theta peak." width="640" height="360" style="min-width:640px;display:block">
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Scroll the teaching diagram horizontally" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img data-source-asset-urls="true" src="../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg" data-motion-src="../../../assets/concept-animations/theta-gamma-phase-amplitude-motion.svg" data-still-src="../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg" alt="Slow theta wave scanned by a vertical phase cursor; a faster gamma carrier has a larger amplitude envelope at the theta peak." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block">
+</div>
 </div>
 
 *Original animated teaching visual, CC BY-SA 4.0.* The blue theta trace and orange eight-cycle carrier use an **illustrative analytic signal**: \(\theta(u)=\sin(2\pi u-\pi/2)\) and \(A(u)=8+13[1+\theta(u)]\), so gamma amplitude follows theta phase as the violet cursor moves. Cyan dashed lines mark the envelope. This is **not a neural recording**; eight visible carrier cycles do not establish eight memory items, and phase–amplitude dependence alone cannot demonstrate item coding. On MkDocs, use Play/Pause (Enter or Space on the control); the static [GitHub preview](../../../assets/concept-animations/theta-gamma-phase-amplitude-still.svg) remains readable without animation. Narrow screens can scroll the figure horizontally.
+
+Focus the diagram region and use the left/right arrow keys, or swipe horizontally on a narrow screen. Both markers share the horizontal phase coordinate rather than moving at separate arc-length speeds. The animation clock is not a physiological oscillation frequency.
 
 ## Equation or algorithm
 
