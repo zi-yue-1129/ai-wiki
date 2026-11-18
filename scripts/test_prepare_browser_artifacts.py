@@ -141,7 +141,7 @@ class Packaging(unittest.TestCase):
         import yaml
         self.assertIn('policy-credit-labs',pack.DEFAULT_ROOTS)
         self.assertIn('built-planning-evolution-labs',pack.DEFAULT_ROOTS)
-        self.assertEqual(len(pack.DEFAULT_ROOTS),9)
+        self.assertEqual(len(pack.DEFAULT_ROOTS),10)
         root=Path(__file__).resolve().parents[1]
         data=yaml.safe_load((root/'.github/workflows/built-motion-browser.yml').read_text())
         for key in ('full-motion','support-browser'):

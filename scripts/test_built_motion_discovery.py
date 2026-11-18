@@ -359,5 +359,53 @@ class KeyboardScrollTests(unittest.TestCase):
             check_keyboard_scrollers(page)
 
 
+class DpoExactRewardSelectorTests(unittest.TestCase):
+    def run_selector(self, roots):
+        from test_built_motion_browser import DPO_REWARD_SELECTOR_JS
+        from motion_shard_contract import DPO_REWARD_TEX
+        # Execute the production JS, with only DOM/MathJax retrieval mocked.
+        program="""const roots=JSON.parse(process.argv[1]);
+        global.MathJax={startup:{document:{getMathItemsWithin:root=>root.items}}};
+        const elements=roots.map(root=>({closest:()=>root}));
+        const select=(%s);
+        try { process.stdout.write(JSON.stringify({index:select(elements,%s)})); }
+        catch(error) { process.stdout.write(JSON.stringify({error:String(error)})); }
+        """ % (DPO_REWARD_SELECTOR_JS,json.dumps(DPO_REWARD_TEX))
+        result=subprocess.run(['node','-e',program,json.dumps(roots)],check=True,text=True,capture_output=True)
+        return json.loads(result.stdout)
+    def test_actual_js_reordered_displays_and_zero_multiple_matches(self):
+        from motion_shard_contract import DPO_REWARD_TEX
+        reward={'items':[{'math':DPO_REWARD_TEX}]};policy={'items':[{'math':r'\pi_r(y|x)=p'}]}
+        self.assertEqual(self.run_selector([policy,reward]),{'index':1})
+        self.assertEqual(self.run_selector([reward,policy]),{'index':0})
+        self.assertEqual(self.run_selector([policy,{'items':[{'math':' \n'+DPO_REWARD_TEX+' \n'}]}]),{'index':1})
+        for roots in ([],[policy],[reward,reward],[policy,{'items':reward['items']*2}],[{'items':[{'math':None}]}],[None]):
+            with self.subTest(roots=roots):self.assertIn('error',self.run_selector(roots))
+    def test_real_producer_uses_unique_tex_selection_not_first_display(self):
+        from test_built_motion_browser import check_dpo_reward_identity,DPO_REWARD_SELECTOR_JS
+        from motion_shard_contract import DPO_REWARD_TEX
+        reward={'items':[{'math':DPO_REWARD_TEX}]};policy={'items':[{'math':'policy'}]}
+        for roots in ([policy,reward],[reward,policy],[policy],[reward,reward]):
+            page=Mock();displays=page.locator.return_value;formula=displays.nth.return_value
+            def evaluate(js,expected):
+                self.assertEqual(js,DPO_REWARD_SELECTOR_JS);self.assertEqual(expected,DPO_REWARD_TEX)
+                result=self.run_selector(roots)
+                if 'error' in result:raise ValueError(result['error'])
+                return result['index']
+            displays.evaluate_all.side_effect=evaluate;formula.count.return_value=1
+            # Stop only after real producer selects its target, before native geometry.
+            formula.scroll_into_view_if_needed.side_effect=RuntimeError('SELECTED_REWARD')
+            with self.subTest(roots=roots):
+                if len(roots)==2 and roots[0]!=roots[1]:
+                    with self.assertRaisesRegex(RuntimeError,'SELECTED_REWARD'):
+                        check_dpo_reward_identity(Mock(),page,'url',{'width':390,'height':844},False,Path('.'),{})
+                    displays.nth.assert_called_once_with(roots.index(reward))
+                else:
+                    with self.assertRaises(ValueError):
+                        check_dpo_reward_identity(Mock(),page,'url',{'width':390,'height':844},False,Path('.'),{})
+                    displays.nth.assert_not_called()
+                self.assertFalse(displays.first.called)
+
+
 if __name__ == "__main__":
     unittest.main()

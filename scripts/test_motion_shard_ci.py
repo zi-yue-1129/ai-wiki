@@ -13,8 +13,9 @@ def support_fixture():
         for mode in MODES:
             vp=V['mobile'];cases.append({'case_id':case_id(p['source'],vp,mode),'source':p['source'],'viewport':vp,'reduced_motion':mode,'status':'passed','artifact_directory':str(len(cases)),'keyboard_scroll':scroll_fixture(),'images':[{'states':{s:{'screenshot':s+'.png'} for s in ('initial','paused','replayed')}}]})
     reports={'keyboard-scroll-preflight':{'status':'passed','scope':'keyboard-preflight','identity':IDENT,'manifest_sha256':m['sha256'],'cases':cases,'math_renderer_canary':canary_fixture(),'lazy_image_canary':lazy_fixture()}}
-    prose={'vi-prose':['docs/vi.md','docs/vi.zh-TW.md'],'embedding-pages':['docs/emb.md','docs/emb.zh-TW.md']}
+    prose={'vi-prose':['docs/vi.md','docs/vi.zh-TW.md'],'embedding-pages':['docs/emb.md','docs/emb.zh-TW.md'],'ddim-prose':['docs/ddim.md','docs/ddim.zh-TW.md']}
     for suite,sources in prose.items():reports[suite]={'status':'passed','cases':[{'source':s,'width':w,'status':'passed','errors':[]} for s in sources for w in (390,1280)]}
+    for case in reports['ddim-prose']['cases']:case['required_screenshots']=['schedule.png']
     for suite in support_registry()['suites']:
         if suite['type']=='report-cases':
             reports[suite['id']]={'status':'passed','cases':[dict(zip(suite['case_fields'],v),status='passed') for v in suite['expected_cases']]}
@@ -35,6 +36,7 @@ def support_fixture():
     pngs=[f'keyboard-scroll-preflight/{c["artifact_directory"]}/{stage}.png' for c in cases for stage in ('initial','paused','replayed')]
     pngs += ['keyboard-scroll-preflight/lazy-image-canary/loaded-after-scroll.png','keyboard-scroll-preflight/math-renderer-canary/invalid-rendered-error.png'] + [f'keyboard-scroll-preflight/{c["artifact_directory"]}/scroll-region-1-right.png' for c in cases]
     pngs += [suite+'/'+source.replace('/','__').removesuffix('.md')+f'-{width}/top.png' for suite,sources in prose.items() for source in sources for width in (390,1280)]
+    pngs += ['ddim-prose/'+source.replace('/','__').removesuffix('.md')+f'-{width}/schedule.png' for source in prose['ddim-prose'] for width in (390,1280)]
     pngs += [f'sharpness-labs/{lang}-{width}.png' for lang in ('en','zh') for width in (320,390,768,1024)]
     pngs += [f'sharpness-labs/built-{lang}-{width}.png' for lang in ('en','zh-TW') for width in (390,1280)]
     pngs += [f'adaptive-optimiser-labs/{mode}-{lang}-{width}.png' for mode in ('adagrad','adafactor') for lang in ('en','zh') for width in (320,720)]
@@ -69,10 +71,51 @@ class SupportGate(unittest.TestCase):
                 validate_support(m,r,a,p)
 
     def test_complete_support(self):
-        self.assertEqual(validate_support(*support_fixture())['suite_count'],8)
+        self.assertEqual(validate_support(*support_fixture())['suite_count'],9)
     def rejected(self,mutation):
         m,r,a,p=support_fixture();mutation(m,r,a,p)
         with self.assertRaises((ValueError,KeyError)):validate_support(m,r,a,p)
+    def test_ddim_registry_and_real_source_sections(self):
+        suite=next(s for s in support_registry()['suites'] if s['id']=='ddim-prose')
+        self.assertEqual(suite['type'],'prose');self.assertEqual(suite['widths'],[390,1280])
+        self.assertEqual(suite['required_case_pngs'],['schedule.png'])
+        entries=json.loads((ROOT/suite['sources_manifest']).read_text())
+        base='docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim'
+        self.assertEqual([e['source'] for e in entries],[base+'.md',base+'.zh-TW.md'])
+        for entry,title in zip(entries,['Stochasticity is schedule-dependent','隨機程度取決於時間排程']):
+            self.assertEqual(entry['screenshots'],{'schedule':'.md-content__inner h3:has-text("'+title+'")'})
+            self.assertIn('### '+title,(ROOT/entry['source']).read_text())
+
+    def test_ddim_missing_suite_page_schedule_or_capture_claim_rejected(self):
+        for kind in ('suite','page','schedule','capture-claim'):
+            m,r,a,p=support_fixture();report=r['reports']['ddim-prose'];pack=r['pack']
+            if kind=='suite':
+                r['execution']['suites']=[x for x in r['execution']['suites'] if x['suite']!='ddim-prose']
+            elif kind=='page':report['cases'].pop()
+            elif kind=='capture-claim':report['cases'][0]['required_screenshots']=[]
+            else:
+                victim=next(f for f in pack['files'] if f['path'].startswith('ddim-prose/') and f['path'].endswith('/schedule.png'))
+                pack['files'].remove(victim)
+            for f in pack['files']:
+                if f['path']=='ddim-prose/report.json':f['sha256']=hashlib.sha256(json.dumps(report,ensure_ascii=False,indent=2).encode()).hexdigest()
+                if f['path']=='support-execution/report.json':f['sha256']=report_digest(r['execution'])
+            pack['file_count']=len(pack['files']);pack['raw_bytes']=sum(f['size'] for f in pack['files'])
+            pack['groups'][0].update(file_count=pack['file_count'],raw_bytes=pack['raw_bytes'])
+            with self.subTest(kind=kind),self.assertRaises(ValueError):validate_support(m,r,a,p)
+
+    def test_required_prose_section_capture_is_not_optional(self):
+        from unittest.mock import Mock
+        from test_built_prose_browser import capture_required_views
+        entry={'screenshots':{'schedule':'h3'}};page=Mock();element=page.locator.return_value
+        element.count.return_value=1;element.is_visible.return_value=True
+        self.assertEqual(capture_required_views(page,entry,Path('/tmp')),['schedule.png'])
+        element.scroll_into_view_if_needed.assert_called_once()
+        page.screenshot.assert_called_once_with(path='/tmp/schedule.png')
+        for count,visible in ((0,True),(2,True),(1,False)):
+            page=Mock();element=page.locator.return_value;element.count.return_value=count;element.is_visible.return_value=visible
+            with self.subTest(count=count,visible=visible),self.assertRaises(AssertionError):capture_required_views(page,entry,Path('/tmp'))
+            page.screenshot.assert_not_called()
+
     def test_preflight_topics_match_actual_harness_ast(self):
         import ast
         tree=ast.parse((ROOT/'scripts/test_built_motion_browser.py').read_text())
@@ -155,7 +198,7 @@ class SupportGate(unittest.TestCase):
         next(f for f in files if f['path']=='support-execution/report.json')['sha256']=report_digest(r['execution'])
         r['pack']['file_count']=len(files);r['pack']['raw_bytes']=sum(f['size'] for f in files)
         r['pack']['groups'][0].update(file_count=len(files),raw_bytes=r['pack']['raw_bytes'])
-        self.assertEqual(validate_support(m,r,a,prose,registry)['suite_count'],10)
+        self.assertEqual(validate_support(m,r,a,prose,registry)['suite_count'],11)
         # Merely passing the existing suites cannot satisfy the expanded registry.
         r['reports']['additional-lab-b']['cases'].pop()
         with self.assertRaises(ValueError):validate_support(m,r,a,prose,registry)
@@ -254,5 +297,50 @@ class SharpnessScreenshotContract(unittest.TestCase):
         item=next(f for f in r['pack']['files'] if f['path']=='sharpness-labs/en-320.png')
         r['pack']['files'].append(copy.deepcopy(item))
         with self.assertRaisesRegex(ValueError,'Duplicate packed file'):validate_support(m,r,a,p)
+
+class GateRuntimeDependencies(unittest.TestCase):
+    def test_gate_explicitly_installs_prose_import_dependency_before_tests(self):
+        import yaml
+        w=yaml.safe_load((ROOT/'.github/workflows/built-motion-browser.yml').read_text())
+        def verify(w):
+            job=w['jobs']['built-motion-browser'];steps=job['steps'];installs=[];tests=[]
+            for i,s in enumerate(steps):
+                lines=[line.strip()for line in s.get('run','').splitlines()]
+                if 'python -m pip install -r requirements.txt "playwright==1.55.0"' in lines:
+                    assert 'if' not in s and (s.get('continue-on-error') is None or s.get('continue-on-error') is False)
+                    installs.append(i)
+                if 'python scripts/test_motion_shard_ci.py' in lines:tests.append(i)
+            assert len(installs)==len(tests)==1 and installs[0]<tests[0]
+        verify(w)
+        for value in ('python -m pip install -r requirements.txt','# python -m pip install -r requirements.txt "playwright==1.55.0"','python -m pip install -r requirements.txt "playwright==1.55.0" || true'):
+            bad=copy.deepcopy(w)
+            for step in bad['jobs']['built-motion-browser']['steps']:
+                if step.get('name')=='Install independent discovery and build dependencies':step['run']=value
+            with self.assertRaises(AssertionError):verify(bad)
+        for condition in (False,None,'always()'):
+            bad=copy.deepcopy(w)
+            for step in bad['jobs']['built-motion-browser']['steps']:
+                if step.get('name')=='Install independent discovery and build dependencies':step['if']=condition
+            with self.assertRaises(AssertionError):verify(bad)
+    def test_missing_playwright_fails_actual_capture_negative_not_skipped(self):
+        import sys,subprocess
+        program=r'''
+import sys,importlib.abc,unittest
+sys.path.insert(0,sys.argv[1])
+class NoPlaywright(importlib.abc.MetaPathFinder):
+ def find_spec(self,fullname,path=None,target=None):
+  if fullname=='playwright' or fullname.startswith('playwright.'):
+   raise ModuleNotFoundError("No module named 'playwright' (intentional dependency negative)")
+sys.meta_path.insert(0,NoPlaywright())
+from test_motion_shard_ci import SupportGate
+result=unittest.TextTestRunner().run(unittest.TestSuite([SupportGate('test_required_prose_section_capture_is_not_optional')]))
+sys.exit(0 if result.wasSuccessful() else 1)
+'''
+        result=subprocess.run([sys.executable,'-I','-c',program,str(ROOT/'scripts')],text=True,capture_output=True)
+        self.assertEqual(result.returncode,1)
+        self.assertIn("No module named 'playwright' (intentional dependency negative)",result.stderr)
+        self.assertIn('FAILED (errors=1)',result.stderr)
+        self.assertNotIn('skipped=',result.stderr)
+
 
 if __name__=='__main__':unittest.main()

@@ -44,9 +44,27 @@ x_{t_{\text{prev}}} = \sqrt{\bar\alpha_{t_{\text{prev}}}}\,\hat x_0 + \sqrt{1-\b
 
 Here \(t_{\text{prev}}\) is the previous step in the subsequence. In the paper's notation \(\alpha_t\) denotes the cumulative product, so \(\alpha_t\) here is the \(\bar\alpha_t\) used above. With \(\sigma = 0\) the update is deterministic. The paper notes that this update resembles an Euler integration step of an ordinary differential equation, which is the basis of its connection to neural ODEs.
 
+### Stochasticity is schedule-dependent
+
+For an earlier selected index \(s=t_{\text{prev}}<t\), with \(0<\bar\alpha_t<\bar\alpha_s\leq1\), the dimensionless parameter \(0\leq\eta\leq1\) scales the transition's noise standard deviation, rather than being that standard deviation:
+
+\[
+\sigma_{t\to s}(\eta)
+=\eta\sqrt{\frac{1-\bar\alpha_s}{1-\bar\alpha_t}}
+\sqrt{1-\frac{\bar\alpha_t}{\bar\alpha_s}}.
+\]
+
+Here the \(\sigma\) in the update above means \(\sigma_{t\to s}(\eta)\). This is the schedule in [Song, Meng and Ermon (2021)](https://arxiv.org/abs/2010.02502), also implemented by the authors' [generalized sampler](https://github.com/ermongroup/ddim/blob/main/functions/denoising.py). At \(\eta=0\), no fresh Gaussian draw enters the update. At \(\eta=1\) with adjacent indices \(s=t-1\), its variance is the posterior variance
+
+\[
+\tilde\beta_t=\frac{\beta_t(1-\bar\alpha_{t-1})}{1-\bar\alpha_t}.
+\]
+
+This yields the corresponding DDPM ancestral transition. With skipped indices it is a stochastic generalized transition, not the original full-step chain; this statement does not identify every DDPM variance convention with this sampler.
+
 ## Results
 
-The paper's Table 1 reports FID on unconditional CIFAR-10 as the number of steps \(S\) varies. Here \(\eta\) is the paper's name for \(\sigma\): \(\eta = 0\) is DDIM and \(\eta = 1\) is DDPM.
+The paper's Table 1 reports FID on unconditional CIFAR-10 as the number of steps \(S\) varies. Here \(\eta\) scales the transition-dependent \(\sigma_{t\to s}\). The \(\eta=0\) row uses deterministic DDIM; the \(\eta=1\) row is DDPM-style stochastic sampling on the selected schedule, with the adjacent-step qualification above.
 
 | Steps \(S\) | 10 | 20 | 50 | 100 | 1000 |
 |---|---|---|---|---|---|

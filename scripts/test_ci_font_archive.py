@@ -174,6 +174,7 @@ def validate_support_execution_link(workflow, registry):
       'keyboard-scroll-preflight':('test_built_motion_browser.py',None),
       'policy-gradient-motion':('test_policy_gradient_motion_browser.py',None),
       'vi-prose':('test_built_prose_browser.py',None),
+      'ddim-prose':('test_built_prose_browser.py',None),
       'embedding-pages':('test_built_prose_browser.py',None),
       'sharpness-labs':('test_sharpness_geometry_labs_browser.py','SHARPNESS_SITE_DIR'),
       'adaptive-optimiser-labs':('test_adaptive_optimiser_labs_browser.py','ADAPTIVE_SITE_DIR'),
@@ -188,7 +189,7 @@ def validate_support_execution_link(workflow, registry):
         if not cmd or cmd[0]!='scripts/'+script:raise ValueError('Wrong executable for '+name)
         if env and entry.get('env',{}).get(env)!='site':raise ValueError('Lab no longer tests built site: '+name)
     if '--keyboard-preflight' not in by_id['keyboard-scroll-preflight']['command']:raise ValueError('Missing complete preflight')
-    for name in ('keyboard-scroll-preflight','vi-prose','embedding-pages'):
+    for name in ('keyboard-scroll-preflight','vi-prose','embedding-pages','ddim-prose'):
         cmd=by_id[name]['command']
         if '--output' not in cmd or cmd[cmd.index('--output')+1]!='artifacts/'+name:raise ValueError('Wrong support output root')
     return entries
@@ -229,7 +230,7 @@ class WorkflowTests(unittest.TestCase):
         root=Path(__file__).resolve().parents[1]
         workflow=(root/'.github/workflows/built-motion-browser.yml').read_text()
         registry=json.loads((root/'scripts/fixtures/browser-support-suites.json').read_text())
-        for index in range(7):
+        for index in range(len(registry['suites'])):
             removed=copy.deepcopy(registry);removed['suites'].pop(index)
             with self.assertRaises(ValueError):validate_support_execution_link(workflow,removed)
             changed=copy.deepcopy(registry);changed['suites'][index]['command'][0]='scripts/unrelated.py'

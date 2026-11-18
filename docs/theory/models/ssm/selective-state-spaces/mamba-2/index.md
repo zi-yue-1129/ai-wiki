@@ -12,7 +12,7 @@ tags:
   - structured matrices
   - attention duality
   - hardware-efficient training
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-14
 ---
 
 # Mamba-2
@@ -43,13 +43,34 @@ M_{ji} = (a_j a_{j-1}\cdots a_{i+1})\,(C_j^{\top} B_i) \qquad (j \ge i).
 
 In matrix form \(M = L \circ (C B^{\top})\), where \(L\) is a lower-triangular mask of cumulative products of the \(a_t\). The dual quadratic form is \((L \circ QK^{\top})V\), with \(Q = C\), \(K = B\) and \(V = X\). The chunked algorithm evaluates the diagonal blocks of \(M\) with this quadratic form. It handles the off-diagonal blocks with low-rank factors in three steps: each chunk computes its final state from zero, a short scan across chunks propagates the true states, and each chunk maps its incoming state to outputs.
 
+
+
+The matrix formula assumes a zero initial state; a nonzero initial state adds its propagated contribution. Selective parameters can depend on the input: equality for fixed parameters does not make the whole network a fixed linear map. The scalar transition-product mask is 1-semiseparable; after including vector B and C, the full M can have semiseparable rank greater than one.
+
+## Visual walkthrough: recurrence and causal matrix are the same map
+
+<div class="ssm-motion-viewport" tabindex="0" role="group" aria-label="Mamba-2 structured state-space duality visualisation">
+  <img data-source-asset-urls src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg" data-motion-src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-motion.svg" data-still-src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg" alt="Four recurrent state updates on the left produce the same output values as successively highlighted rows of a lower-triangular causal matrix on the right." />
+</div>
+
+The animation follows four outputs: the cyan state halo and causal matrix row identify the **same computation viewed two ways**. A one-dimensional illustrative case sets $B_t=C_t=1$, $h_0=0$, inputs $x=(1,0.7,-0.6,1.1)$ and transitions $(a_2,a_3,a_4)=(0.8,0.7,0.9)$. The scalar recurrence $h_t=a_th_{t-1}+x_t$ produces $y=h=(1,1.5,0.45,1.505)$. The matrix view gives exactly $y=Mx$; for example, $M_{4,1}=0.8\cdot0.7\cdot0.9=0.504$. The empty upper triangle indicates **causality**, not zeros resulting from softmax.
+
+This small real-valued example illustrates the scalar-transition, single-head part of SSD. It is **not** a complete Mamba-2 block, its chunked GPU algorithm, a softmax attention map, or measured model activations. The orange travelling dot represents scan order rather than a literal data packet. Original CC BY-SA 4.0 artwork, grounded in Dao and Gu (2024) in References. GitHub shows all four causal rows in the [static preview](../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg); [open the 12-second animated SVG](../../../../../assets/concept-animations/mamba2-ssd-causal-map-motion.svg). On MkDocs use **Play/Pause** (keyboard Enter/Space); reduced-motion mode initially displays the static view.
+
+
+### Explore the recurrent / matrix equivalence
+
+<div class="ssm-lab" data-ssm-lab="ssd" data-lang="en"></div>
+
+Adjust the scalar transitions $a_2,a_3,a_4$ or final input $x_4$, then step through the four outputs. The **left recurrence** and the **highlighted causal matrix row** recompute separately from the same parameters, while the displayed maximum absolute difference checks their equality. Use **Previous / Next, Play / Pause, Seek, speed (0.5×/1×/2×), or Reset**. Upper-triangular cells are structurally excluded by causality, not learned attention weights. This is a deterministic one-dimensional SSD illustration, **not a trained Mamba-2 activation, a softmax-attention map, or measured throughput**; the existing GitHub-safe SVG remains the no-script fallback.
+
 ## Results
 
 The abstract reports that the SSD layer is "2-8X faster" than the optimized selective-scan implementation of Mamba. The paper reports that the recurrent state can be "8× the size of Mamba or even higher, with minimal slowdown". Against FlashAttention-2, the paper reports that its SSD implementation is competitive, crossing over at sequence length about 2K and running 6 times faster at sequence length 16K. On the Pile, Mamba-2 with 2.7B parameters trained on 300B tokens outperforms Mamba-2.8B, Pythia-2.8B and Pythia-6.9B trained on the same data. The paper also claims that Mamba-2 Pareto-dominates Mamba and Transformer++ in perplexity and wall-clock time under Chinchilla-style scaling; the experimental details for that claim were not checked for this page.
 
 ## Limitations
 
-The scalar transition is a real restriction. The paper says it "slightly decreas[es] the expressive power in return for significant training efficiency improvements". The connection to attention covers only certain flavours of attention, and the dual form drops softmax. The 1-SS form is strictly less expressive than general semiseparable structured masked attention, and it cannot be written as a standard SSM. For short sequences the quadratic mode can be more efficient than the linear mode, and in the paper's comparison the SSD implementation is slower than FlashAttention-2 below about 2K tokens.
+The scalar transition is a real restriction. The paper says it "slightly decreas[es] the expressive power in return for significant training efficiency improvements". The connection to attention covers only certain flavours of attention, and the dual form drops softmax. Attention with a 1-SS mask is a scalar-identity SSM special case. In Remark 7, the object that cannot directly be described by a standard SSM is the more general semiseparable masked attention, not the 1-SS special case. For short sequences the quadratic mode can be more efficient than the linear mode, and in the paper's comparison the SSD implementation is slower than FlashAttention-2 below about 2K tokens.
 
 ## Connections
 

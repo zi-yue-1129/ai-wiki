@@ -48,6 +48,28 @@ The paper gives the full learning rule. This page gives the outline as numbered 
 3. The task produces an outcome. The critic compares its prediction with what happened. The difference is a prediction error of the kind described in the [dopamine reward prediction error](../../neuroscience/dopamine-reward-prediction-error/index.md) page, and it plays the same role as in the actor–critic methods covered in [Reinforcement Learning](../../../theory/paradigms/reinforcement-learning/index.md).
 4. The prediction error trains the critic and the actor. Future gating decisions then favour updates that proved useful.
 
+### Teaching animation: selective working-memory gating
+
+<div class="wm-motion-pan concept-motion-scroll" tabindex="0" role="region" aria-label="PBWM: inspect gating and memory contents">
+<img data-source-asset-urls src="../../../assets/concept-animations/pbwm-gate-still.svg" data-motion-src="../../../assets/concept-animations/pbwm-gate-motion.svg" data-still-src="../../../assets/concept-animations/pbwm-gate-still.svg" width="640" alt="PBWM walkthrough: cue A opens the basal-ganglia gate and enters PFC memory, distractor X is blocked while A is retained, then cue B opens the gate and replaces A.">
+</div>
+
+Each animation loop resets to its initial state, rather than reversing memory dynamics. A cue writes only upon arrival in the store; gate choices are hand selected, not learned.
+
+The **blue cue A** is admitted when the gate opens; the **orange distractor X** reaches a closed gate while the PFC store still holds A; a subsequent **teal cue B** passes through an open gate and updates the store. The task-relevant/irrelevant distinction and all three gate choices were assigned **by hand** to make the update rule visible. This is **not** a simulated learning run, an anatomical circuit diagram, or neural recording. See the O'Reilly and Frank (2006) model in References.
+
+On the MkDocs site, use **Play/Pause** (or focus the button and press **Enter/Space**); the image remains static when reduced motion is requested. On a narrow screen, focus the illustration region and scroll horizontally. GitHub displays the static three-state comparison. Both assets are original **CC BY-SA 4.0** teaching illustrations.
+
+
+### Interactive lab: gate decisions and overwritten memory
+
+<div data-wm-lab="gate" data-lang="en"></div>
+
+Use **Next / Previous**, the step slider, or **Play / Pause** to inspect the sequence A → X → B. Turn on **Admit distractor X** at step 2: the previously retained A is now overwritten by X. Turn off **Admit replacement B** at step 3 to keep the earlier memory instead of writing B. The symbolic update is $m_t=u_t$ when the gate is open and $m_t=m_{t-1}$ otherwise.
+
+This is a **hand-controlled categorical state machine**, not basal-ganglia activity or a learned PBWM gating policy. The inputs, gate choices, and memory symbols are fabricated. The plot and controls share one implementation with the Traditional Chinese page; all in-figure labels are English. On GitHub, the preceding reviewed SVG still supplies the no-script explanation. All controls are keyboard accessible; motion can be paused or stepped through manually.
+
+
 ## Results
 
 The paper tests the learning rule on working memory tasks, including the 1-2-AX task. This page does not report the comparison results, which should be read from the paper.
