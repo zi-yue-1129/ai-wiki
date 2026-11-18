@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-18
 tags:
 - motor control
 - internal models
@@ -37,15 +37,29 @@ Kawato、Furukawa 與 Suzuki（1987）提出一個用於隨意動作控制與學
 
 前向模型根據當前狀態與指令預測下一個狀態：
 
-\(\hat{x}_{t+1} = f(x_t, u_t)\)
+$$
+\hat{x}_{t+1} = f(x_t, u_t)
+$$
 
 預測的狀態在回饋抵達時會被修正。在線性情況下，這就是卡爾曼濾波器所用的更新式：
 
-\(\hat{x}_{t+1} \leftarrow \hat{x}_{t+1} + K\,(y_{t+1} - \hat{y}_{t+1})\)
+$$
+\hat{x}_{t+1} \leftarrow \hat{x}_{t+1} + K\,(y_{t+1} - \hat{y}_{t+1})
+$$
 
 其中 \(y_{t+1}\) 是觀察到的感覺回饋，\(\hat{y}_{t+1}\) 是預測的回饋，\(K\) 是增益，決定誤差在多大程度上改變估計。前向模型提供預測；增益則決定控制器相對於預測，對回饋的信任程度。
 
 學習通常以誤差驅動的方式描述。預測的感覺回饋與實際回饋之間的不一致，被用來調整前向模型。
+
+### 動態示例：先行預測、延遲回饋與狀態修正
+
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-prediction-correction-still.svg" data-motion-src="../../../assets/concept-animations/forward-prediction-correction-motion.svg" data-still-src="../../../assets/concept-animations/forward-prediction-correction-still.svg" alt="內部前向模型先產生藍色預測位置，橘色感覺回饋延遲出現，再以青綠色標示修正後的估計">
+
+*原創教學示意（CC BY-SA 4.0）。* GitHub 預設呈現可直接閱讀的靜態圖；MkDocs 網站則增強為 **12 秒連續動畫**，可使用播放／暫停與鍵盤操作，並遵循減少動態效果偏好。藍色預測位置先推進，橘色觀測值隨後出現，青綠色修正估計再向觀測值移動一部分。[直接開啟動畫 SVG](../../../assets/concept-animations/forward-prediction-correction-motion.svg)。
+
+此處為刻意簡化的**一維人工數值**：預測值 0.60、觀測值 0.90，因此感覺預測誤差為 +0.30。採用純示意增益 \(K=0.50\) 時，修正值為 \(0.60+0.50(0.90-0.60)=0.75\)。**不是人類神經資料或生理增益量測。** 動畫只呈現狀態估計中的觀測修正，不代表完整的運動控制迴路；其概念與下方引用的 Wolpert、Ghahramani 與 Jordan（1995）狀態估計框架相符。
+
+以 Tab 聚焦圖表區，再按左右方向鍵捲動；播放控制保持可見。結果保留到整段示範重新開始，不將返回起點畫成另一個回饋修正。頂部數值卡與虛線是固定摘要，不表示觀測值已到達。點的移動逐步揭示一次代數更新，並不是延遲補償器或多步濾波器的模擬。
 
 ## 結果
 

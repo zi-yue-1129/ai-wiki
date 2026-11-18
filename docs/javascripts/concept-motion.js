@@ -4,6 +4,7 @@
 (() => {
   'use strict';
   const suffix = /-motion\.svg(?=$|[?#])/;
+  const motorStill = /(?:forward-prediction-correction|ofc-selective-feedback)-still\.svg(?=$|[?#])/;
   const moeSuffix = /moe-top2-routing-motion\.svg(?=$|[?#])/;
   // Earlier CSS-animated diagrams keep their original filenames.
   const standalonePairs = {
@@ -20,7 +21,7 @@
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
       const source = img.getAttribute('src') || '';
       const sourceName = source.split(/[?#]/, 1)[0].split('/').pop();
-      const animated = img.dataset.motionSrc || (stillFirstPairs.has(sourceName)
+      const animated = img.dataset.motionSrc || ((stillFirstPairs.has(sourceName) || motorStill.test(source))
         ? source.replace(/-still\.svg(?=$|[?#])/, '-motion.svg') : source);
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
@@ -34,7 +35,8 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       const navigation = /^(place-cell-firing|successor-occupancy)-motion\.svg$/.test(fileName);
-      host.className = 'concept-motion-player' + (navigation ? ' concept-motion-navigation' : '');
+      host.className = 'concept-motion-player';
+      if (navigation) host.className += ' concept-motion-navigation';
       // The diagram stays at a legible native width on narrow viewports.
       // Make the overflow region reachable with keyboard arrow keys.
       if (stillFirstPairs.has(sourceName)) {
@@ -54,11 +56,15 @@
           : 'Horizontally scrollable planning animation');
       }
       img.before(host);
-      if (navigation) {
+      if (motorStill.test(still)) host.className += ' concept-motion-motor';
+      if (navigation || motorStill.test(still)) {
         const viewport = document.createElement('span');
         viewport.className = 'concept-motion-viewport';
         viewport.tabIndex = 0;
-        viewport.setAttribute('aria-label', chinese ? '概念動畫：可使用方向鍵水平捲動' : 'Concept animation: use arrow keys to scroll horizontally');
+        viewport.setAttribute('role', 'region');
+        viewport.setAttribute('aria-label', motorStill.test(still)
+          ? (chinese ? '可水平捲動的概念動畫，使用左右方向鍵' : 'Scrollable concept animation: use arrow keys to scroll horizontally')
+          : (chinese ? '概念動畫：可使用方向鍵水平捲動' : 'Concept animation: use arrow keys to scroll horizontally'));
         host.append(viewport);
         viewport.append(img);
       } else {

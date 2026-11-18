@@ -1,0 +1,16 @@
+/* Original teaching labs; diagrams remain readable at mobile native width. */
+.concept-arithmetic-lab{max-width:700px;margin:1.25rem 0;padding:.8rem;border:1px solid var(--md-default-fg-color--lightest,#cbd5e1);border-radius:.7rem;background:var(--md-default-bg-color,#fff);color:var(--md-default-fg-color,#243b53);font:inherit;font-size:.82rem}
+.cal-inputs,.cal-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem .8rem;margin:0 0 .65rem}
+.cal-field{display:inline-flex;flex:1 1 185px;align-items:center;gap:.5rem;flex-wrap:wrap}
+.cal-field input[type=range]{width:125px;accent-color:#08878c}
+.cal-field output{min-width:2rem;font-variant-numeric:tabular-nums}
+.cal-toolbar button{background:var(--md-code-bg-color,#eef3f7);color:inherit;border:1px solid #8ea7b7;border-radius:.4rem;padding:.3rem .55rem;font:inherit;cursor:pointer}
+.cal-toolbar button:disabled{opacity:.45;cursor:not-allowed}
+.cal-speed{display:inline-flex;align-items:center;gap:.35rem}
+.cal-toolbar select,.cal-field select{background:var(--md-code-bg-color,#eef3f7);color:inherit;border-radius:.25rem;padding:.25rem;font:inherit;border:1px solid #8ea7b7}
+.cal-scroll{width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;border:1px solid var(--md-default-fg-color--lightest,#d4dfe7);border-radius:.6rem}
+.cal-scroll svg{display:block;min-width:640px;width:640px;height:300px}
+.cal-readout{font-variant-numeric:tabular-nums;line-height:1.65;margin:.7rem 0;overflow-wrap:anywhere}
+.cal-note{font-size:.75rem;opacity:.8}
+.concept-arithmetic-lab :is(button,input,select,.cal-scroll):focus-visible{outline:3px solid #0b879e;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.concept-arithmetic-lab *{animation:none!important;transition:none!important}}
