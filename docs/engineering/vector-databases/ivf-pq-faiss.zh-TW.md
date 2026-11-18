@@ -30,7 +30,9 @@ IVF-PQ 結合了倒排檔案索引與乘積量化。它保存壓縮後的向量�
 
 ## 運作方式
 
-![IVF-PQ 先探查兩個粗量化區格，再加總殘差 PQ 查找表距離的示意動畫](../../assets/concept-animations/ivfpq-probe-pq-lookup-motion.svg)
+<div style="overflow-x:auto" tabindex="0" role="region" aria-label="IVF-PQ 先探查兩個粗量化區格，再加總殘差 PQ 查找表距離的示意動畫">
+<img src="../../assets/concept-animations/ivfpq-probe-pq-lookup-still.svg" data-motion-src="../../assets/concept-animations/ivfpq-probe-pq-lookup-motion.svg" data-still-src="../../assets/concept-animations/ivfpq-probe-pq-lookup-still.svg" data-source-asset-urls="true" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="IVF-PQ 先探查兩個粗量化區格，再加總殘差 PQ 查找表距離的示意動畫">
+</div>
 
 [GitHub 可預覽的靜態版本](../../assets/concept-animations/ivfpq-probe-pq-lookup-still.svg)。
 
@@ -38,19 +40,27 @@ IVF-PQ 結合了倒排檔案索引與乘積量化。它保存壓縮後的向量�
 
 殘差 IVF-PQ 會相對於粗質心 $c_\ell$ 編碼 $r=x-c_\ell$，查詢則使用 $q-c_\ell$，得到非對稱平方距離的近似估計：
 
-$
+$$
 \widehat D(q,x)=\sum_{j=1}^{m}\left\|(q-c_\ell)_j-d_{j,k_j}\right\|^2.
-$
+$$
 
 不同的探查清單可能需要各自的查詢殘差查找表。PQ 為近似距離，只檢查兩個清單不保證精確最近鄰召回率；若要以**精確距離**重排，也必須保有原始向量或其他能還原精確距離的表示。參考 [Johnson、Douze 與 Jégou（2017）](https://arxiv.org/abs/1702.08734)。
 
 MkDocs 網站提供可用鍵盤操作的**播放／暫停**，暫停與減少動態效果模式均顯示靜態圖。原創圖像，**CC BY-SA 4.0** 授權。
 
+查詢保持固定。橘色圓環是掃描進度引導，不是移動中的查詢或嵌入軌跡。指出兩個清單後，依序強調三個固定查找項，最後才強調總和；圖中數值為總覽，不是逐步累加器。循環重設並不是另一個搜尋步驟。
+
 ## 關鍵想法
 
 - **問題**：為數十億筆項目儲存並掃描全精度向量，超過單一 GPU 或伺服器的記憶體與時間。
 - **核心想法**：用粗量化器把資料集分成 $n_{\text{list}}$ 個區格（倒排檔案，IVF），使查詢只掃描最近的少數區格。在每個區格內，用乘積量化（PQ）壓縮每個向量：把它切成 $m$ 個子向量，並為每個子向量儲存最近質心的索引，每個子向量只佔一個位元組。
-- **方程式或演算法**：與壓縮向量的距離近似為 $\lVert q - x \rVert^2 \approx \sum_{j=1}^{m} \lVert q_j - c_{j}(x_j) \rVert^2$，其中 $c_j(x_j)$ 是第 $j$ 個子向量所儲存的質心。預先計算的查找表使每一項都只是一次表格讀取。
+- **方程式或演算法**：與壓縮向量的距離近似為
+
+    $$
+    \lVert q - x \rVert^2 \approx \sum_{j=1}^{m} \lVert q_j - c_{j}(x_j) \rVert^2
+    $$
+
+    其中 $c_j(x_j)$ 是第 $j$ 個子向量所儲存的質心。預先計算的查找表使每一項都只是一次表格讀取。
 - **結果**：論文指出在 GPU 上完成十億規模的相似度搜尋，記憶體、速度與召回率之間的取捨由 $m$ 與探查的區格數控制。
 - **限制**：PQ 的誤差會限制召回率，因此系統常以精確距離重新排序前幾名候選。訓練量化器需要有代表性的資料。
 

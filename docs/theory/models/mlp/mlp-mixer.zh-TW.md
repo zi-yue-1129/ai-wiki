@@ -1,78 +1,91 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 ---
 
 # MLP-Mixer
 
-MLP-Mixer 是只由多層感知器（MLP）構成的影像分類器，不使用卷積，也不使用注意力。Tolstikhin 等人（2021）顯示，當在大量資料上訓練或採用現代正規化時，這樣的網路能在影像基準上達到有競爭力的準確率。上層概述見[多層感知器](index.md)。
+MLP-Mixer 交替使用兩種多層感知器（MLP）進行影像分類。一種在影像小塊之間交換資訊，另一種混合特徵通道。架構還包含小塊投影、正規化、殘差連線及分類器。[多層感知器](index.zh-TW.md)。[^mixer]
 
 ## 概述
 
-與[視覺 Transformer](../transformer/vision-transformer/index.md)相同，MLP-Mixer 把影像切成不重疊的小塊，並把每一塊投影成一個向量。接著它交替使用兩種 MLP 處理這組小塊向量。與 Transformer 的差別在於，跨小塊的混合是由固定的 MLP 完成，而非注意力。
+假設影像高度 $H$ 和寬度 $W$ 都可被小塊邊長 $P$ 整除，先將影像切成不重疊的正方形小塊。每塊攤平後，透過共用的線性投影得到 $C$ 個特徵。所得矩陣 $X\in\mathbb{R}^{S\times C}$ 有 $S=HW/P^2$ 列，每列對應一個小塊 token。視覺 Transformer 也使用這種表示法。[視覺 Transformer](../transformer/vision-transformer/index.zh-TW.md)。[^mixer][^vit]
 
 ## 問題
 
-卷積與注意力在電腦視覺中都很常見，而兩者各自都對輸入有某種假設。論文提問：兩者是否必要？只用 MLP 構成的網路，能否以相當的成本把影像分類得很好？
+將影像表示成小塊後，模型需要讓相距較遠的位置交換資訊。Mixer 論文檢驗以全連接運算跨小塊混合，再逐塊轉換特徵，是否能支援大規模影像分類。[^mixer]
 
 ## 核心想法
 
-把視覺模型所需的兩種混合分開。跨小塊混合 MLP 在小塊之間混合資訊，因此承載空間資訊。通道混合 MLP 則在每一小塊的特徵之間混合資訊。堆疊這兩種層，便構成整個網路。
+**跨小塊混合**把同一個 MLP 套用到 $X$ 的每一欄。權重在通道間共用，並依小塊位置索引。推論時學得的位置權重固定，激活值則隨影像而變。架構因此直接利用小塊的排列順序。[^mixer]
+
+**通道混合**把同一個 MLP 套用到每一列，在單一小塊內混合特徵，權重在各小塊位置間共用。經過最後一層 Mixer 與正規化後，分類頭將小塊表示取平均，再套用線性分類器。[^mixer]
 
 ## 演算法
 
-影像被切成 \(S\) 個小塊，每塊投影到 \(C\) 個通道，得到大小為 \(S \times C\) 的表 \(X\)。每個 Mixer 層套用兩個帶有殘差連線的 MLP 區塊，非線性為 GELU \(\sigma\)：
+設 $D_S$ 和 $D_C$ 分別為跨小塊與通道 MLP 的隱藏寬度。每個 MLP 之前的層正規化 $\mathrm{LN}$ 都在每塊的 $C$ 個通道上運算。省略偏置，以 $\sigma$ 表示 GELU，並將通道向量寫成直行，更新式如下。[GELU](gelu/index.zh-TW.md)、[層正規化](layer-normalisation/index.zh-TW.md)。[^mixer][^gelu][^ln]
 
-\[
-U_{*,i} = X_{*,i} + W_2\, \sigma\!\big(W_1\, \mathrm{LayerNorm}(X)_{*,i}\big), \qquad i = 1, \ldots, C,
-\]
+$$
+\begin{aligned}
+U_{:,i} &= X_{:,i}+W_2\,\sigma\!\left(W_1\,\mathrm{LN}(X)_{:,i}\right),\\
+Y_{j,:}^{\top} &= U_{j,:}^{\top}+W_4\,\sigma\!\left(W_3\,\mathrm{LN}(U)_{j,:}^{\top}\right).
+\end{aligned}
+$$
 
-\[
-Y_{j,*} = U_{j,*} + W_4\, \sigma\!\big(W_3\, \mathrm{LayerNorm}(U)_{j,*}\big), \qquad j = 1, \ldots, S.
-\]
+第一式對 $i=1,\ldots,C$ 成立，第二式對 $j=1,\ldots,S$ 成立。兩次殘差更新的輸出形狀皆為 $S\times C$。四個權重矩陣的維度如下。[^mixer]
 
-第一式是跨小塊混合區塊：MLP 在每個通道的 \(S\) 個小塊上運作。第二式是通道混合區塊：MLP 在每個小塊的 \(C\) 個通道上運作。論文在第 2 節以逐元素 GELU（\(\sigma\)）寫出這些式子。
+$$
+W_1\in\mathbb{R}^{D_S\times S},\quad
+W_2\in\mathbb{R}^{S\times D_S},\quad
+W_3\in\mathbb{R}^{D_C\times C},\quad
+W_4\in\mathbb{R}^{C\times D_C}.
+$$
+
+以 $S=4$、$C=3$、$D_S=2$ 和 $D_C=5$ 為例。跨小塊 MLP 執行三次 $4\to2\to4$ 的映射，每個通道一次。通道 MLP 執行四次 $3\to5\to3$ 的映射，每個小塊一次。各 MLP 在重複運算時使用同一對矩陣。
+
+每張影像在每一層的全連接矩陣乘法，分別需要 $2CSD_S$ 和 $2SCD_C$ 次乘加運算，偏置、正規化與激活運算另計。固定 $C$、$D_S$ 和 $D_C$ 時，成本與 $S$ 成線性關係。若 $P=16$，將正方形輸入從 $224\times224$ 增為 $448\times448$，小塊數會從 $196$ 增至 $784$。兩個跨小塊混合矩陣都需配合新尺寸。論文的高解析度做法也按 $S$ 的比例增加 $D_S$，將預訓練矩陣複製到擴大後矩陣的對角區塊，再進行微調。[^mixer]
 
 ## 主要結果
 
-論文在兩張表中回報 ImageNet top-1 準確率：
+論文以 ImageNet 原始驗證標籤計算 top-1 準確率。下表列出各組結果的預訓練資料與微調時的輸入尺寸。[^mixer]
 
-- **ImageNet-21k 預訓練，加上額外正規化**（表 3）：Mixer-B/16 達 80.64%，Mixer-L/16 達 82.89%，兩者都是 224 解析度。
-- **ImageNet-21k 預訓練，公開檢查點**（表 2）：Mixer-L/16 在 448 解析度微調後達 84.15%。
+| 模型 | 預訓練資料 | 輸入尺寸 | Top-1 | 來源 |
+| --- | --- | --- | --- | --- |
+| Mixer-B/16 | ImageNet，加上額外正則化 | 224 | 76.44% | 表 3 |
+| Mixer-B/16 | ImageNet-21k，加上額外正則化 | 224 | 80.64% | 表 3 |
+| Mixer-L/16 | ImageNet-21k，加上額外正則化 | 224 | 82.89% | 表 3 |
+| Mixer-L/16 | ImageNet-21k，加上額外正則化 | 448 | 83.91% | 表 3 |
+| Mixer-L/16 | ImageNet-21k | 448 | 84.15% | 表 2 |
+| Mixer-H/14 | JFT-300M | 448 | 87.94% | 表 2 |
 
-正文給出 Mixer-L/16 在 224 解析度的 82.84%，表 3 則為 82.89%。本頁採用表中的數值。論文將這些分數描述為有競爭力，且預訓練與推論成本與最先進模型相當。
+表 3 將三次微調的結果取平均。第 3.1 節另將 224 像素的 Mixer-L/16 結果寫為 82.84%。上表該列採用表 3 的數值，84.15% 則來自表 2 的另一組比較。[^mixer]
 
 ## 限制
 
-- 摘要指出，模型在大型資料集上訓練或採用現代正規化方案時，才能達到有競爭力的分數。沒有這兩者時，論文不宣稱有競爭力的準確率。
-- 跨小塊混合的權重依小塊數量決定大小，因此改變輸入解析度會改變層的形狀。論文中較高解析度的結果來自在新解析度下的微調。
-- 論文描述的成本與最先進模型相當，而非更低。此架構並未消除大規模預訓練的運算成本。
+- 跨小塊混合取決於小塊數目與排列。固定小塊大小而改變解析度時，需調整該子層的矩陣維度。[^mixer]
+- 準確率與吞吐量取決於訓練資料、正則化、模型大小和輸入解析度。原論文指出，Mixer 直接在 ImageNet 從頭訓練時有過擬合現象，使用較大的預訓練資料集則得到較高的準確率。[^mixer]
 
 ## 關聯
 
-- [視覺 Transformer](../transformer/vision-transformer/index.md)是具有相同小塊前端、以注意力為核心的模型。兩者的比較可以分離出「以固定 MLP 取代注意力」的效果。
-- [多層感知器](index.md)是上層概述，MLP-Mixer 與它所用的兩個元件 [GELU](gelu/index.md) 與[層正規化](layer-normalisation/index.md)並列其中。
-- [電腦視覺](../computer-vision/index.md)涵蓋基於小塊的分類器所應用的任務。
+ResMLP 使用線性層跨小塊混合，並搭配通道 MLP。gMLP 則透過空間閘控單元混合位置。兩者都探索如何結合空間互動與逐 token 的特徵轉換。[ResMLP 論文](https://arxiv.org/abs/2105.03404)、[gMLP 論文](https://arxiv.org/abs/2105.08050)。[^resmlp][^gmlp]
 
 ## 應用
 
-- 在 ImageNet 上的影像分類，即論文所用的基準。
-- 將大規模預訓練的視覺模型遷移到下游影像任務。
+論文評估影像分類及向其他分類資料集遷移的表現，涵蓋 CIFAR 與 VTAB-1k 任務。[電腦視覺](../computer-vision/index.zh-TW.md)。[^mixer]
 
-## 開放問題
-
-- 增益來自兩種混合運算本身，還是來自論文所用的大規模預訓練資料？
-- 固定的跨小塊混合 MLP 如何處理大小會變化的輸入，例如偵測與分割？
+[^mixer]: Tolstikhin et al.，[*MLP-Mixer*](https://arxiv.org/html/2105.01601)，第 2 至 3 節及附錄 C。
+[^vit]: Dosovitskiy et al.，[*An Image is Worth 16x16 Words*](https://arxiv.org/abs/2010.11929)，第 3.1 節。
+[^gelu]: Hendrycks and Gimpel，[*Gaussian Error Linear Units*](https://arxiv.org/abs/1606.08415)，第 2 節。
+[^ln]: Ba et al.，[*Layer Normalization*](https://arxiv.org/abs/1607.06450)，第 3 節。
+[^resmlp]: Touvron et al.，[*ResMLP*](https://arxiv.org/abs/2105.03404)，第 2 節。
+[^gmlp]: Liu et al.，[*Pay Attention to MLPs*](https://arxiv.org/abs/2105.08050)，第 2 節。
 
 ## 參考文獻
 
 ### 開創性論文
 
-- Tolstikhin, I., Houlsby, N., Kolesnikov, A., 等人（2021）。*MLP-Mixer: An all-MLP Architecture for Vision*。NeurIPS 2021。https://proceedings.neurips.cc/paper/2021/hash/cba0a4ee5ccd02fda0fe3f9a3e7b89fe-Abstract.html — 提出 MLP-Mixer 及其跨小塊混合與通道混合區塊。查核：NeurIPS 論文條目；arXiv 2105.01601 的作者列表相符。
-- Dosovitskiy, A., Beyer, L., Kolesnikov, A., 等人（2021）。*An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*。arXiv。https://arxiv.org/abs/2010.11929 — 視覺 Transformer，與 MLP-Mixer 使用相同的小塊前端，但以注意力取代混合 MLP。查核：arXiv metadata。
-- Vaswani, A., 等人（2017）。*Attention Is All You Need*。NeurIPS 2017。https://proceedings.neurips.cc/paper/7181-attention-is-all-you-need — MLP-Mixer 在混合步驟中所取代的注意力架構。查核：NeurIPS 論文條目。
-- Hendrycks, D. & Gimpel, K.（2016）。*Gaussian Error Linear Units (GELUs)*。arXiv。https://arxiv.org/abs/1606.08415 — Mixer 所用的 GELU 激活函數。查核：arXiv metadata。
-- Ba, J. L., Kiros, J. R. & Hinton, G. E.（2016）。*Layer Normalization*。arXiv。https://arxiv.org/abs/1607.06450 — 每個 MLP 區塊之前所套用的正規化。查核：arXiv metadata。
-
-### 綜述與教科書
-
-- Liu, H., Dai, Z., So, D. R. & Le, Q. V.（2021）。*Pay Attention to MLPs*。arXiv。https://arxiv.org/abs/2105.08050 — 同期的純 MLP 視覺模型，帶有空間閘控單元，供比較之用。查核：arXiv metadata。
+- Tolstikhin 等人（2021）。*MLP-Mixer: An all-MLP Architecture for Vision*。NeurIPS。 https://arxiv.org/abs/2105.01601 — 定義兩種混合運算，並報告 ImageNet 實驗。
+- Dosovitskiy 等人（2021）。*An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*。ICLR。 https://arxiv.org/abs/2010.11929 — 提出以影像小塊嵌入為輸入的視覺 Transformer。
+- Hendrycks 與 Gimpel（2016）。*Gaussian Error Linear Units (GELUs)*。 https://arxiv.org/abs/1606.08415 — 定義 Mixer 內部 MLP 使用的逐元素激活函數。
+- Ba、Kiros 與 Hinton（2016）。*Layer Normalization*。 https://arxiv.org/abs/1607.06450 — 推導使用單一樣本特徵計算的正規化。
+- Touvron 等人（2021）。*ResMLP: Feedforward Networks for Image Classification with Data-Efficient Training*。 https://arxiv.org/abs/2105.03404 — 以線性層混合小塊，並搭配通道 MLP。
+- Liu、Dai、So 與 Le（2021）。*Pay Attention to MLPs*。 https://arxiv.org/abs/2105.08050 — 提出 gMLP，透過空間閘控單元讓 token 互動。

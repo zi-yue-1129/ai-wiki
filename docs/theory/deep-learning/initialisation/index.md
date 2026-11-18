@@ -32,14 +32,14 @@ A network computes its output by repeated linear maps and nonlinearities. At ini
 
 ## How it works
 
-For a linear layer with random weights of variance $\sigma^2$, the variance of the output scales with $n\sigma^2$, where $n$ is the fan-in. Glorot and Bengio chose a variance that balances the forward signal and the backward gradient, using the average of fan-in and fan-out [(Glorot and Bengio, 2010)](https://proceedings.mlr.press/v9/glorot10a.html). For rectified linear units, half the inputs are zeroed, so the variance must be doubled. He and colleagues derived an initialisation for this case, which made very deep rectifier networks trainable [(He et al., 2015)](https://arxiv.org/abs/1502.01852).
+For a linear layer with random weights of variance $\sigma^2$, the variance of the output scales with $n\sigma^2$, where $n$ is the fan-in. Glorot and Bengio chose a variance that balances the forward signal and the backward gradient, using the average of fan-in and fan-out [(Glorot and Bengio, 2010)](https://proceedings.mlr.press/v9/glorot10a.html). For a symmetric preactivation distribution, ReLU halves the second moment. Compensating for this gives weight variance $2/n$ with fan-in $n$. He and colleagues derived an initialisation for this case, which made very deep rectifier networks trainable [(He et al., 2015)](https://arxiv.org/abs/1502.01852).
 
 Saxe and colleagues studied the learning dynamics of deep linear networks and found exact solutions for the time course of learning under certain initial conditions [(Saxe, McClelland and Ganguli, 2013)](https://arxiv.org/abs/1312.6120). Schoenholz and colleagues used mean-field theory to study how signals propagate in random networks, and identified the depth scale over which correlations between inputs are lost, which is the basis of the edge-of-chaos view [(Schoenholz et al., 2016)](https://arxiv.org/abs/1611.01232).
 
 ## Key methods
 
 - [Glorot (Xavier) initialisation](glorot-initialisation.md): variance chosen to balance forward and backward signals.
-- [He initialisation](he-initialisation.md): variance adjusted for rectified activations.
+- [He initialisation](he-initialisation.md) uses a rectifier-dependent gain to stabilise the expected squared activation.
 - [Maximal update parametrisation (muP)](mup.md): a parametrisation under which the optimal hyperparameters stay stable as width grows.
 
 ## Residual connections and normalisation
