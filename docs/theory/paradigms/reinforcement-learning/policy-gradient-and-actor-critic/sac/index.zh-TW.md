@@ -38,8 +38,8 @@ J(\pi) = \sum_t \mathbb{E}\left[r(s_t, a_t) + \alpha\, \mathcal{H}\big(\pi(\cdot
 
 ### 教學動畫：溫度與策略熵
 
-<div class="concept-motion-wide" tabindex="0" role="region" aria-label="SAC 溫度與熵示意圖；窄螢幕可水平捲動">
-<img src="../../../../../assets/concept-animations/sac-entropy-temperature-still.svg" data-motion-src="../../../../../assets/concept-animations/sac-entropy-temperature-motion.svg" alt="三個動作的機率長條隨 Softmax 溫度下降而重新分配，旁邊的熵與溫度曲線同步標示策略熵。" loading="lazy">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="SAC 溫度與熵示意圖；窄螢幕可水平捲動">
+<div style="min-width:760px"><img data-source-asset-urls="true" src="../../../../../assets/concept-animations/sac-entropy-temperature-still.svg" data-still-src="../../../../../assets/concept-animations/sac-entropy-temperature-still.svg" style="width:760px;min-width:760px;max-width:none;height:auto" data-motion-src="../../../../../assets/concept-animations/sac-entropy-temperature-motion.svg" alt="三個動作的機率長條隨 Softmax 溫度下降而重新分配，旁邊的熵與溫度曲線同步標示策略熵。" loading="lazy"></div>
 </div>
 
 *原創向量教學動畫（CC BY-SA 4.0）。* 固定**人工設定**的三個離散動作價值 \(Q=[2,1,0]\)，有限動作集合的最大熵最佳策略可寫為：

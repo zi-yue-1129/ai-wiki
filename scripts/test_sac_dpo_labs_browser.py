@@ -41,6 +41,7 @@ def run():
                     # The page must retain static fallback text when JS is disabled.
                     assert page.get_by_text('Static SVG remains available.').count()==1
                     page.add_style_tag(content=CSS.read_text())
+                    page.evaluate("""() => {window.__active=new Set();const set=window.setInterval.bind(window),clear=window.clearInterval.bind(window);window.setInterval=(fn,ms)=>{const id=set(fn,ms);__active.add(id);return id;};window.clearInterval=id=>{__active.delete(id);clear(id);};window.document$={subscribe:fn=>window.__navigation=fn};const other=document.createElement('div');other.dataset.sacDpoLab='unrelated';other.textContent='untouched';document.body.append(other);}""")
                     page.add_script_tag(content=JS.read_text())
                     assert page.locator("[data-sac-dpo-ready='1']").count()==2
                     assert page.locator('.sd-scroll svg').count()==2
@@ -88,6 +89,29 @@ def run():
                         page.wait_for_timeout(430)
                         assert dpo.locator('[data-act="seek"]').input_value()==paused
                         dpo.locator('[data-act="reset"]').click()
+                    for idx in (0,1,7,50,139,140):
+                        sac.locator('[data-act="seek"]').fill(str(idx))
+                        close(sac.locator('[data-param="alpha"]').input_value(),3-idx*.02,1e-8)
+                    sac.locator('[data-param="alpha"]').fill('0.5')
+                    close(sac.locator('[data-act="seek"]').input_value(),125,1e-8)
+                    dpo.locator('[data-param="pref"]').fill('0.1');dpo.locator('[data-param="reference"]').fill('0.8');dpo.locator('[data-param="beta"]').fill('2')
+                    assert float(dpo.locator('[data-value="loss"]').inner_text())>7
+                    dot=dpo.locator('.sd-dot');assert float(dot.get_attribute('cy'))>58
+                    assert '8.0' in dpo.locator('svg').inner_text()
+                    for lab in (sac,dpo):
+                        if width<760:
+                            sc=lab.locator('.sd-scroll');sc.focus();page.keyboard.press('ArrowRight');page.wait_for_timeout(80);assert sc.evaluate('e=>e.scrollLeft>0')
+                        lab.locator('[data-act="reset"]').click()
+                        assert lab.locator('[data-act="speed"]').input_value()=='1'
+                    if not reduced and width in (320,1024):page.screenshot(path=str(OUT/f'{lang}-{width}-final.png'),full_page=True)
+                    page.evaluate('window.__navigation()');assert page.locator('.sd-scroll svg').count()==2
+                    assert page.locator('[data-sac-dpo-lab=unrelated]').inner_text()=='untouched'
+                    if not reduced:
+                        sac.locator('[data-act="play"]').click();assert page.evaluate('__active.size')==1
+                        page.evaluate("Object.defineProperty(document,'hidden',{value:true,configurable:true});document.dispatchEvent(new Event('visibilitychange'))")
+                        assert page.evaluate('__active.size')==0
+                        page.evaluate("Object.defineProperty(document,'hidden',{value:false,configurable:true})")
+                        sac.locator('[data-act="play"]').click();sac.evaluate('e=>e.remove()');page.evaluate('window.__navigation()');assert page.evaluate('__active.size')==0
                     assert not errors, errors
                     if (lang,width) in (('en',1024),('zh-TW',320),('zh-TW',360),('en',720)) and not reduced:
                         page.screenshot(path=str(OUT/f'{lang}-{width}.png'),full_page=True)

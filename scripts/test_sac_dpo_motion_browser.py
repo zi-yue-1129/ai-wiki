@@ -59,15 +59,15 @@ def main():
                             else: route.fulfill(status=404,body='not found')
                         page.route('https://aiwiki.invalid/assets/concept-animations/*',handle)
                         url='https://aiwiki.invalid/assets/concept-animations/'
-                        html=f'''<html><head><style>body{{margin:0}}{css}</style></head><body><div class="concept-motion-wide" tabindex="0"><img src="{url}{stem}-still.svg" data-motion-src="{url}{stem}-motion.svg" alt="{alt}"></div></body></html>'''
+                        html=f'''<html><head><style>body{{margin:0}}{css}</style></head><body><div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0"><div style="min-width:760px"><img style="width:760px;min-width:760px;max-width:none" src="{url}{stem}-still.svg" data-motion-src="{url}{stem}-motion.svg" alt="{alt}"></div></div></body></html>'''
                         page.set_content(html,wait_until='load')
                         page.add_script_tag(content=js)
-                        img=page.locator('.concept-motion-wide img')
+                        img=page.locator('.concept-motion-scroll img')
                         toggle=page.locator('.concept-motion-toggle')
                         assert toggle.count()==1
                         img.evaluate('(el)=>el.decode()')
                         assert ('-still.svg' if reduced else '-motion.svg') in img.get_attribute('src')
-                        assert page.locator('.concept-motion-wide').evaluate('(el)=>el.scrollWidth>el.clientWidth') == (viewport < 760)
+                        assert page.locator('.concept-motion-scroll').evaluate('(el)=>el.scrollWidth>el.clientWidth') == (viewport < 760)
                         if not reduced:
                             toggle.click()
                             assert '-still.svg' in img.get_attribute('src')
@@ -81,6 +81,9 @@ def main():
                             assert '-motion.svg' in img.get_attribute('src')
                         img.evaluate('(el)=>el.decode()')
                         assert img.evaluate('(el)=>el.naturalWidth') == 760
+                        assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+                        if viewport<760:
+                            sc=page.locator('.concept-motion-scroll');sc.focus();page.keyboard.press('ArrowRight');page.wait_for_timeout(80);assert sc.evaluate('e=>e.scrollLeft>0')
                         page.close()
                         successes+=1
         browser.close()

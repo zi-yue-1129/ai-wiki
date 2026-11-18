@@ -22,9 +22,15 @@ The KL-constrained objective has a known optimal policy. For a reference policy 
 
 The DPO loss over preference triples \((x, y_w, y_l)\) is
 
-\[
-\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l)} \left[\log \sigma\left(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right]
-\]
+$$
+\begin{aligned}
+\mathcal{L}_{\mathrm{DPO}}
+ &= -\mathbb{E}_{(x,y_w,y_l)}[\log\sigma(\beta\Delta)], \\
+\Delta
+ &= \log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)} \\
+ &\quad-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)}.
+\end{aligned}
+$$
 
 where \(y_w\) is the preferred completion, \(y_l\) the dispreferred one, and \(\beta\) controls the strength of the KL constraint. The procedure:
 
@@ -35,16 +41,19 @@ where \(y_w\) is the preferred completion, \(y_l\) the dispreferred one, and \(\
 
 ### Animated concept: a reference-relative preference margin
 
-<div class="concept-motion-wide" tabindex="0" role="region" aria-label="DPO preference margin diagram; scroll horizontally on narrow screens">
-<img src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" data-motion-src="../../../../../assets/concept-animations/dpo-preference-margin-motion.svg" alt="Preferred and rejected policy probabilities change against a fixed reference, while a point travels along the DPO logistic-loss curve as the preference margin increases." loading="lazy">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="DPO preference margin diagram; scroll horizontally on narrow screens">
+<div style="min-width:760px"><img data-source-asset-urls="true" src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" data-still-src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" style="width:760px;min-width:760px;max-width:none;height:auto" data-motion-src="../../../../../assets/concept-animations/dpo-preference-margin-motion.svg" alt="Preferred and rejected policy probabilities change against a fixed reference, while a point travels along the DPO logistic-loss curve as the preference margin increases." loading="lazy"></div>
 </div>
 
 *Original vector teaching animation (CC BY-SA 4.0).* In a **two-completion schematic** with \(\pi_{\mathrm{ref}}(y_w\mid x)=\pi_{\mathrm{ref}}(y_l\mid x)=0.5\), define the reference-adjusted margin
 
-\[
-\Delta=\log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)}-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)},\qquad
+$$
+\begin{aligned}
+\Delta&=\log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)} \\
+&\quad-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)},\\
 \ell_{\mathrm{DPO}}=-\log\sigma(\beta\Delta).
-\]
+\end{aligned}
+$$
 
 With \(\beta=1\), sweeping the **constructed** margin from \(-1.6\) to \(+1.6\) raises the preferred policy probability from \(0.168\) to \(0.832\) and lowers the loss from \(1.784\) to \(0.184\). Dashed bars show the fixed reference; the orange cursor tracks the exact logistic-loss curve. **The continuous sweep is visual interpolation across hypothetical policies, not gradient descent, reward-model predictions, or measured training data.** On the MkDocs website use **Play/Pause** or Enter/Space; static and reduced-motion views retain the positive-margin endpoint. See [Rafailov et al. (2023)](https://arxiv.org/abs/2305.18290).
 
@@ -56,10 +65,12 @@ With \(\beta=1\), sweeping the **constructed** margin from \(-1.6\) to \(+1.6\) 
 
 In this **artificial two-completion model**, adjust the preferred policy probability \(p\), the frozen preferred reference probability \(r\), and \(\beta\). The rejected probabilities are \(1-p\) and \(1-r\). The computed margin and pairwise logistic loss are
 
-\[
-\Delta=\operatorname{logit}(p)-\operatorname{logit}(r),\qquad
+$$
+\begin{aligned}
+\Delta=\operatorname{logit}(p)-\operatorname{logit}(r),\\
 \ell=\log(1+\exp(-\beta\Delta)).
-\]
+\end{aligned}
+$$
 
 When \(p=r\), the margin is zero and the loss is \(\ln 2\approx0.693\), even if the probabilities are not 0.5. If \(p<r\), the margin is negative **even when \(p>0.5\)**. The bars compare policy to reference; the curve is recomputed when \(r\) or \(\beta\) changes. Controls provide Previous/Next, Play/Pause, Seek, 0.5×/1×/2× speed and Reset, with native keyboard support, mobile horizontal scrolling, and reduced-motion manual stepping. The original static SVG remains the GitHub/no-JS fallback.
 

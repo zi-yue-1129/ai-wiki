@@ -1,0 +1,42 @@
+[
+  {
+    "source": "docs/theory/models/embeddings/word2vec.md",
+    "overview": "docs/theory/models/embeddings/index.md"
+  },
+  {
+    "source": "docs/theory/models/embeddings/glove.md",
+    "overview": "docs/theory/models/embeddings/index.md"
+  },
+  {
+    "source": "docs/theory/models/embeddings/facenet.md",
+    "overview": "docs/theory/models/embeddings/index.md"
+  },
+  {
+    "source": "docs/theory/models/embeddings/sentence-bert.md",
+    "overview": "docs/theory/models/embeddings/index.md"
+  },
+  {
+    "source": "docs/theory/models/embeddings/clip.md",
+    "overview": "docs/theory/models/embeddings/index.md"
+  },
+  {
+    "source": "docs/theory/models/embeddings/word2vec.zh-TW.md",
+    "overview": "docs/theory/models/embeddings/index.zh-TW.md"
+  },
+  {
+    "source": "docs/theory/models/embeddings/glove.zh-TW.md",
+    "overview": "docs/theory/models/embeddings/index.zh-TW.md"
+  },
+  {
+    "source": "docs/theory/models/embeddings/facenet.zh-TW.md",
+    "overview": "docs/theory/models/embeddings/index.zh-TW.md"
+  },
+  {
+    "source": "docs/theory/models/embeddings/sentence-bert.zh-TW.md",
+    "overview": "docs/theory/models/embeddings/index.zh-TW.md"
+  },
+  {
+    "source": "docs/theory/models/embeddings/clip.zh-TW.md",
+    "overview": "docs/theory/models/embeddings/index.zh-TW.md"
+  }
+]
