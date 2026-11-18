@@ -37,9 +37,9 @@ Chen、Kornblith、Norouzi 與 Hinton（2020）研究對比學習配方中哪些
 
 ## 動態圖解：NT-Xent 溫度與候選樣本競爭
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="SimCLR 溫度變化的對比式學習圖解">
-<div style="width:640px">
-<img src="../../../../assets/concept-animations/simclr-temperature-competition-still.svg" data-motion-src="../../../../assets/concept-animations/simclr-temperature-competition-motion.svg" alt="SimCLR 錨點具有一個正樣本視角與四個負樣本視角；當 Softmax 溫度下降，正樣本對的權重增加，其他候選樣本的權重下降。" width="640" height="360">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="SimCLR 溫度變化的對比式學習圖解">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../assets/concept-animations/simclr-temperature-competition-still.svg" src="../../../../assets/concept-animations/simclr-temperature-competition-still.svg" style="width:640px;min-width:640px;max-width:none" data-motion-src="../../../../assets/concept-animations/simclr-temperature-competition-motion.svg" alt="SimCLR 錨點具有一個正樣本視角與四個負樣本視角；當 Softmax 溫度下降，正樣本對的權重增加，候選樣本的權重重新分配。" width="640" height="360">
 </div>
 </div>
 

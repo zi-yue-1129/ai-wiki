@@ -22,6 +22,13 @@ def main():
           ctx=browser.new_context(viewport={'width':width,'height':900},reduced_motion='reduce' if reduced else 'no-preference')
           page=ctx.new_page()
           page.set_content(HTML.replace('LANG',lang))
+          page.evaluate("""() => {
+            window.__active=new Set(); const set=window.setInterval.bind(window),clear=window.clearInterval.bind(window);
+            window.setInterval=(fn,ms)=>{const id=set(fn,ms);__active.add(id);return id;};
+            window.clearInterval=id=>{__active.delete(id);clear(id);};
+            window.document$={subscribe:fn=>{window.__navigation=fn;}};
+            const other=document.createElement('div');other.dataset.conceptLab='unrelated';other.textContent='untouched';document.body.append(other);
+          }""")
           page.add_style_tag(content=CSS);page.add_script_tag(content=JS)
           assert page.locator('.cal-scroll svg').count()==2
           assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),(lang,width)
@@ -56,6 +63,19 @@ def main():
               assert el.evaluate('(e)=>e.scrollLeft>0')
           if width in (320,1024) and not reduced:
             page.screenshot(path=str(OUT/f'{lang}-{width}.png'),full_page=True)
+          assert page.locator('[data-concept-lab="unrelated"]').inner_text()=='untouched'
+          # Reinitialisation is idempotent; navigation and visibility clean timers.
+          page.evaluate('window.__navigation()')
+          assert page.locator('.cal-scroll svg').count()==2
+          sim.locator('button').nth(2).click()
+          assert page.evaluate('__active.size')==1
+          page.evaluate("Object.defineProperty(document,'hidden',{value:true,configurable:true});document.dispatchEvent(new Event('visibilitychange'))")
+          assert page.evaluate('__active.size')==0
+          page.evaluate("Object.defineProperty(document,'hidden',{value:false,configurable:true})")
+          sim.locator('button').nth(2).click()
+          page.evaluate("document.querySelector('[data-concept-lab=simclr]').remove();window.__navigation()")
+          assert page.evaluate('__active.size')==0
+          assert page.locator('[data-concept-lab="unrelated"]').inner_text()=='untouched'
           total+=1;ctx.close()
     browser.close()
   print(f'PASS {total}/16 bilingual size/reduced-motion cases, real SVG, numerical and keyboard controls')

@@ -41,19 +41,21 @@ $$
 
 ## 動態圖解：隨解碼步驟改變的軟對齊
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Bahdanau 注意力脈絡向量動畫">
-<div style="width:640px">
-<img src="../../../../assets/concept-animations/bahdanau-alignment-context-still.svg" data-motion-src="../../../../assets/concept-animations/bahdanau-alignment-context-motion.svg" alt="Bahdanau 解碼器逐步產生三個輸出位置；每一步對四個編碼器標註有不同且總和為一的注意力權重，並形成新的加權脈絡向量。" width="640" height="360">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Bahdanau 注意力脈絡向量動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../assets/concept-animations/bahdanau-alignment-context-still.svg" src="../../../../assets/concept-animations/bahdanau-alignment-context-still.svg" style="width:640px;min-width:640px;max-width:none" data-motion-src="../../../../assets/concept-animations/bahdanau-alignment-context-motion.svg" alt="Bahdanau 解碼器逐步產生三個輸出位置；每一步對四個編碼器標註有不同且總和為一的注意力權重，並形成新的加權脈絡向量。" width="640" height="360">
 </div>
 </div>
 
 *原創教學動畫，CC BY-SA 4.0。* 四個編碼器標註 $h_1,\ldots,h_4$ 保持固定，解碼器依序處理**三個假設的輸出步驟**；各步的軟對齊向量分別是：
 
-$
-\alpha_{1,:}=(0.65,0.20,0.10,0.05),\quad
-\alpha_{2,:}=(0.08,0.72,0.12,0.08),\quad
+$$
+\begin{aligned}
+\alpha_{1,:}=(0.65,0.20,0.10,0.05) \\
+\alpha_{2,:}=(0.08,0.72,0.12,0.08) \\
 \alpha_{3,:}=(0.05,0.15,0.20,0.60).
-$
+\end{aligned}
+$$
 
 青綠色長條及連線呈現 $c_i=\sum_j\alpha_{ij}h_j$ 如何對**全部**編碼器標註加權，而非只挑選一個來源詞。動畫中間的平滑轉場只是**離散解碼步驟之間的視覺插值**，並非真實翻譯過程中連續變化的注意力狀態；所有權重均為人工示意，**不是** Bahdanau 模型的實測對齊。原方法在每個輸出步驟計算 $e_{ij}=a(s_{i-1},h_j)$，再經 Softmax 得到脈絡向量，供循環式解碼器更新使用。
 

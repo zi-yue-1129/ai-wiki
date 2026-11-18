@@ -44,9 +44,9 @@ Training uses the LARS optimizer. The paper trains with batch sizes from 256 to 
 
 ## Visual walkthrough: NT-Xent temperature competition
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="SimCLR temperature comparison">
-<div style="width:640px">
-<img src="../../../../assets/concept-animations/simclr-temperature-competition-still.svg" data-motion-src="../../../../assets/concept-animations/simclr-temperature-competition-motion.svg" alt="One SimCLR anchor has one positive and four negative views; as softmax temperature falls, the positive-pair weight grows while other candidate weights shrink." width="640" height="360">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="SimCLR temperature comparison">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../assets/concept-animations/simclr-temperature-competition-still.svg" src="../../../../assets/concept-animations/simclr-temperature-competition-still.svg" style="width:640px;min-width:640px;max-width:none" data-motion-src="../../../../assets/concept-animations/simclr-temperature-competition-motion.svg" alt="One SimCLR anchor has one positive and four negative views; as softmax temperature falls, the positive-pair weight grows while the candidate weights redistribute." width="640" height="360">
 </div>
 </div>
 

@@ -42,19 +42,21 @@ Here $s_i$ is the decoder state, $y_i$ the output word and $T_x$ the source leng
 
 ## Visual walkthrough: decoder-dependent alignment
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Bahdanau attention context animation">
-<div style="width:640px">
-<img src="../../../../assets/concept-animations/bahdanau-alignment-context-still.svg" data-motion-src="../../../../assets/concept-animations/bahdanau-alignment-context-motion.svg" alt="A Bahdanau decoder visits three output steps; each has a different normalized attention distribution over four encoder annotations and forms a newly weighted context vector." width="640" height="360">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Bahdanau attention context animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../assets/concept-animations/bahdanau-alignment-context-still.svg" src="../../../../assets/concept-animations/bahdanau-alignment-context-still.svg" style="width:640px;min-width:640px;max-width:none" data-motion-src="../../../../assets/concept-animations/bahdanau-alignment-context-motion.svg" alt="A Bahdanau decoder visits three output steps; each has a different normalized attention distribution over four encoder annotations and forms a newly weighted context vector." width="640" height="360">
 </div>
 </div>
 
 *Original teaching animation, CC BY-SA 4.0.* The four encoder annotations $h_1,\ldots,h_4$ remain fixed while the decoder moves through **three hypothetical output steps**. Each step has its own normalized vector of soft alignment weights:
 
-$
-\alpha_{1,:}=(0.65,0.20,0.10,0.05),\quad
-\alpha_{2,:}=(0.08,0.72,0.12,0.08),\quad
+$$
+\begin{aligned}
+\alpha_{1,:}=(0.65,0.20,0.10,0.05) \\
+\alpha_{2,:}=(0.08,0.72,0.12,0.08) \\
 \alpha_{3,:}=(0.05,0.15,0.20,0.60).
-$
+\end{aligned}
+$$
 
 The green bars and connecting paths show how $c_i=\sum_j\alpha_{ij}h_j$ reweights **all** annotations rather than selecting one source token. The intermediate morph is a **visual interpolation between discrete decoding steps**; it is not a recorded translation or a continuously evolving attention state. The weights are synthetic teaching values, not measured alignments from the Bahdanau model. The original model computes $e_{ij}=a(s_{i-1},h_j)$, applies softmax separately at every target step, and uses the resulting context to update its recurrent decoder.
 

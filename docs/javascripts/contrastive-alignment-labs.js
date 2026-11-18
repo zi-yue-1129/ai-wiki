@@ -20,6 +20,11 @@
   const svgText=(svg,x,y,value,opts={})=>svg.append(node('text',{x,y,'font-size':13,'font-family':'system-ui, sans-serif',fill:'#2b3d50',...opts},value));
   const div = (className,text='')=>{const e=document.createElement('div');e.className=className;if(text)e.textContent=text;return e;};
   const softmax = scores => {const m=Math.max(...scores);const e=scores.map(v=>Math.exp(v-m));const z=e.reduce((a,b)=>a+b,0);return e.map(v=>v/z);};
+  const simclr = (positive, tau) => {const scores=[positive,.4,.1,-.2,-.4];const probs=softmax(scores.map(v=>v/tau));return {probs,loss:-Math.log(probs[0]),base:softmax(scores)};};
+  const alignment = (step, source, bias) => {const p=softmax(baseAlignment[step].map((v,i)=>Math.log(v)+(i===source?bias:0)));return {p,ctx:[0,1].map(k=>p.reduce((sum,v,i)=>sum+v*annotations[i][k],0))};};
+  if(typeof module==='object' && module.exports) module.exports={softmax,simclr,alignment};
+  if(typeof document==='undefined') return;
+  const instances=new Map();
   function makeLab(host){
     if(host.dataset.labReady==='true')return;
     const kind=host.dataset.conceptLab;
@@ -56,7 +61,7 @@
     const next=btn(t.next,()=>{pause();state.step=Math.min(total-1,state.step+1);render();});
     let play;
     const pause=()=>{if(state.timer!==null)window.clearInterval(state.timer);state.timer=null;state.playing=false;if(play)play.textContent=t.play;};
-    const tick=()=>{state.step=(state.step+1)%total;render();};
+    const tick=()=>{if(!host.isConnected){pause();return;}state.step=(state.step+1)%total;render();};
     const start=()=>{pause();state.playing=true;play.textContent=t.pause;state.timer=window.setInterval(tick,Math.round(1050/state.speed));};
     play=btn(t.play,()=>state.playing?pause():start());
     const speeds=document.createElement('select');speeds.setAttribute('aria-label',t.speed);
@@ -68,10 +73,8 @@
     host.append(settings,toolbar,scroll,output,note);
     const clear=title=>{svg.replaceChildren();svg.append(node('title',{},title),node('rect',{x:0,y:0,width:640,height:300,rx:12,fill:'#f8fafc'}));};
     function drawSimclr(){
-      const tau=temperatures[state.step],scores=[state.pos,.4,.1,-.2,-.4];
-      const probs=softmax(scores.map(v=>v/tau));const loss=-Math.log(probs[0]);
+      const tau=temperatures[state.step], {probs,loss,base}=simclr(state.pos,tau);
       clear(t.sim);svgText(svg,22,34,`τ = ${tau.toFixed(2)}    p(+) = ${fix(probs[0])}    L = ${fix(loss)}`,{'font-size':17,'font-weight':700});
-      const base=softmax(scores);
       probs.forEach((v,i)=>{
         const x=42+i*116,y=240,h=160*v,baseH=160*base[i];
         svg.append(node('rect',{x,y:y-baseH,width:66,height:baseH,rx:3,fill:'none',stroke:'#a8b7c9','stroke-width':1.5,'stroke-dasharray':'4 4'}));
@@ -82,8 +85,7 @@
       output.textContent=`${t.temperature}: ${tau.toFixed(2)} · ${t.probability}: ${fix(probs[0])} · ${t.loss}: ${fix(loss)} · Σp = ${fix(probs.reduce((a,b)=>a+b,0))}`;
     }
     function drawBahdanau(){
-      const raw=baseAlignment[state.step].map((v,i)=>Math.log(v)+(i===state.source?state.bias:0));
-      const p=softmax(raw),ctx=[0,1].map(k=>p.reduce((sum,v,i)=>sum+v*annotations[i][k],0));
+      const {p,ctx}=alignment(state.step,state.source,state.bias);
       clear(t.att);svgText(svg,22,32,`${t.frame} ${state.step+1}  ·  c = (${fix(ctx[0])}, ${fix(ctx[1])})`,{'font-size':17,'font-weight':700});
       p.forEach((v,i)=>{
         const y=58+i*45;
@@ -98,11 +100,12 @@
       output.textContent=`${t.frame}: ${state.step+1} · ${t.sum}: ${fix(p.reduce((a,b)=>a+b,0))} · ${t.context}: (${fix(ctx[0])}, ${fix(ctx[1])}) · α = (${p.map(fix).join(', ')})`;
     }
     function render(){seek.input.value=state.step;seek.val.textContent=String(state.step);prev.disabled=state.step===0;next.disabled=state.step===total-1;kind==='simclr'?drawSimclr():drawBahdanau();}
-    document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
+    instances.set(host,pause);
     host.addEventListener('keydown',e=>{if(e.key==='Escape')pause();});
     render();
   }
-  function initialise(){document.querySelectorAll('[data-concept-lab]').forEach(makeLab);}
+  function initialise(){for(const [host,pause] of instances){if(!host.isConnected){pause();instances.delete(host);delete host.dataset.labReady;}}document.querySelectorAll('[data-concept-lab=simclr], [data-concept-lab=bahdanau]').forEach(makeLab);}
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)for(const pause of instances.values())pause();});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialise,{once:true});else initialise();
   if(window.document$&&typeof window.document$.subscribe==='function')window.document$.subscribe(initialise);
 })();
