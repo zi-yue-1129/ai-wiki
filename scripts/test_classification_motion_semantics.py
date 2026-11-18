@@ -493,3 +493,33 @@ for prevalence in (.05, .1, .2, .4, .6):
 assert math.isclose(shifted_ppv(.05), 8 / 27)
 assert math.isclose(shifted_ppv(.6), 12 / 13)
 print("Bilingual ROC decision-workshop navigation and prior-shift caveats OK")
+
+# ROC secant-cost comparison regression: k=4 versus k=1 under prior shift.
+# This is an exact identity for the synthetic six-case score ordering.
+# The deployment prevalence is independent of the three-positive/three-negative sample.
+for c_fn in (0.5, 1.0, 2.0, 5.0, 10.0):
+    for c_fp in (0.5, 1.0, 3.0):
+        for i in range(1, 100):
+            p = i / 100
+            loss_k1 = c_fn * p * (2 / 3)
+            loss_k4 = c_fp * (1 - p) / 3
+            delta_tpr, delta_fpr = 2 / 3, 1 / 3
+            analytic_difference = (-c_fn * p * delta_tpr +
+                                   c_fp * (1 - p) * delta_fpr)
+            assert math.isclose(loss_k4 - loss_k1, analytic_difference,
+                                rel_tol=1e-12, abs_tol=1e-12)
+            better_k4 = (c_fn * p * delta_tpr >
+                         c_fp * (1 - p) * delta_fpr)
+            assert better_k4 == (loss_k4 < loss_k1)
+            crossover = c_fp / (2 * c_fn + c_fp)
+            assert better_k4 == (p > crossover)
+for name in ("index.md", "index.zh-TW.md"):
+    page = (shared_dir / name).read_text(encoding="utf-8")
+    # Cross-language anchors are brittle; style guide links directly to the page.
+    assert "](roc-auc.md#" not in page
+    assert page.count("](roc-auc.md)") >= 3
+for name in ("roc-auc.md", "roc-auc.zh-TW.md"):
+    page = (shared_dir / name).read_text(encoding="utf-8")
+    assert r"\Delta TPR" in page and r"\Delta FPR" in page
+    assert r"2C_{FN}p>C_{FP}(1-p)" in page
+print("ROC secant-cost comparison regression: 1485 scenarios OK")
