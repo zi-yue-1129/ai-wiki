@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-11-04
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-17
 related:
   - theory/deep-learning/dropout
 tags:
@@ -32,6 +32,14 @@ $$
 
 混合增強偏好樣本之間近似線性的預測，並不強制所有訓練後的模型都精確滿足 $f(\tilde{x})=\lambda f(x_i)+(1-\lambda)f(x_j)$。[^mixup]
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup 教學動畫，可以使用鍵盤左右捲動圖像">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-still-src="../../../assets/concept-animations/mixup-paired-interpolation-still.svg" data-motion-src="../../../assets/concept-animations/mixup-paired-interpolation-motion.svg" alt="同一個 λ 使輸入在 A 與 B 兩個二維向量之間移動，同時將軟目標的 A 類與 B 類權重調整為 λ 與 1 − λ。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 紫色點依 $\lambda$ 在人工輸入 $x_A=(1,0)$ 與 $x_B=(0,1)$ 之間移動，右側類別 A、B 的軟目標權重分別為 $\lambda$、$1-\lambda$。這些是解析式示意值，**不是模型預測或實際影像混合結果**。MkDocs 網站提供播放／暫停及 Enter／Space 鍵盤操作；GitHub 顯示靜態回退，偏好減少動態效果時預設不播放。
+
 ## 軟目標與損失
 
 令 $p=f_\theta(\tilde{x})$ 表示**在混合輸入上**預測的類別機率。一般未加權交叉熵對目標呈線性：
@@ -46,6 +54,25 @@ $$
 此代數關係說明兩種等價實作：向支援軟目標的損失函式提供軟目標，或組合兩個硬目標損失。右側兩個損失都使用**相同**預測 $p$。若改為平均兩個原始未混合輸入上的損失，最佳化的就是不同目標。
 
 此恆等式假設使用上述交叉熵與一致的彙總方式。若係數隨樣本而變，應先組合各樣本的損失，再對批次取平均。若使用類別加權的彙總、額外平滑或其他損失函式，應檢查實際定義，不要直接假定行為相同。
+
+### 為何軟目標損失可分解
+
+固定一個人工示意預測 $p=(0.2,0.7,0.1)$，令混合目標為 $(\lambda,1-\lambda,0)$，則同一預測上的交叉熵恆等式為
+
+$$
+\operatorname{CE}(p,\tilde y)
+=\lambda[-\log(0.2)]+(1-\lambda)[-\log(0.7)].
+$$
+
+當 $\lambda=0.25$，兩部分約為 $0.40236$、$0.26751$，相加為 $0.66987$。動畫將兩項加權損失及其總和放在**同一數值尺度**，顯示目標權重改變時的運算。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="混合增強加權交叉熵動畫，可用鍵盤水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-loss-decomposition-still.svg" data-still-src="../../../assets/concept-animations/mixup-loss-decomposition-still.svg" data-motion-src="../../../assets/concept-animations/mixup-loss-decomposition-motion.svg" alt="混合係數移動時，兩類軟目標權重及各自的硬標籤交叉熵貢獻同步變化；總損失為兩項貢獻之和。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 為隔離目標端的代數關係，圖中的預測 $p$ **刻意保持固定**；真實模型在混合輸入改變時，$f_\theta(\tilde x)$ 通常也會改變。所有數值都是解析式示意，**不是模型訓練損失實測**。MkDocs 支援播放／暫停及 Enter／Space 鍵盤操作；偏好減少動態效果或使用 GitHub 時顯示靜態預覽。
 
 ### 分類算例
 
@@ -73,6 +100,14 @@ $$
 
 論文在不同實驗中採用不同設定，並在 ImageNet 研究中報告較大的 $\alpha$ 會導致欠擬合。較大數值並非普遍較好。[^settings] 恰好 $\alpha=0$ 不在 Beta 分布的參數定義域內；若實作以零表示「停用混合增強」，就需要明確略過抽樣。
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Mixup 教學動畫，可以使用鍵盤左右捲動圖像">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-still-src="../../../assets/concept-animations/mixup-beta-strength-still.svg" data-motion-src="../../../assets/concept-animations/mixup-beta-strength-motion.svg" alt="對稱 Beta 分布的係數密度在 alpha 為 0.35、1 與 5 時，分別呈現兩端較高、均勻與中間較高的形狀。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 三個標示時點的曲線分別是 $\mathrm{Beta}(0.35,0.35)$、$\mathrm{Beta}(1,1)$、$\mathrm{Beta}(5,5)$ 的**理論機率密度**，繪製範圍為 $\lambda\in[0.02,0.98]$。過渡影格僅將曲線作視覺內插，**並非其他 $\alpha$ 值的精確密度，也不是實際抽樣或訓練結果**。這三個分布的平均數均為 0.5，但變異數依序下降。MkDocs 支援播放／暫停與減少動態效果回退；GitHub 顯示靜態預覽。
+
 ## 訓練與評估程序
 
 1. 選取一個訓練小批次，並以其隨機排列形成配對。論文將此單一資料載入器作法，描述為另取兩個小批次的替代方案。[^mixup]
@@ -94,6 +129,19 @@ $$
 - **標籤平滑**在保留輸入的同時，將目標往指定先驗分布移動。混合增強則利用另一個樣本，同時改變輸入與目標，因此兩種正則化施加不同約束。[^smoothing]
 - [丟棄法](dropout-method.md)在訓練時移除單元，[隨機深度](stochastic-depth.md)則略過網路層或殘差路徑。它們與混合資料不同，可能與混合增強產生交互作用，並非自動可互相替代。[^dropout][^depth]
 - **CutMix**複製影像區塊，並依區塊面積設定標籤權重；一般混合增強則對整個輸入進行混合。兩者對空間結構採取不同假設。[^cutmix]
+
+### CutMix 的區域面積與標籤權重
+
+CutMix 將來源影像的矩形區域貼入另一張影像，而不是逐像素取兩張圖的加權平均。若遮罩 $M$ 標記從影像 B 複製的像素，在分類設定中，B 的目標權重根據**實際貼入的面積**計算：$\lambda_B=|M|/(HW)$，A 則為 $\lambda_A=1-\lambda_B$。[^cutmix] 抽樣的名義區域若越過邊界，應採用裁切後的實際遮罩面積。
+
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="CutMix 面積與標籤權重動畫，可用鍵盤水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/mixup-cutmix-area-still.svg" data-still-src="../../../assets/concept-animations/mixup-cutmix-area-still.svg" data-motion-src="../../../assets/concept-animations/mixup-cutmix-area-motion.svg" alt="六乘六綠色網格中的橘色區域逐漸擴大；B 類標籤長條隨覆蓋面積增加，A 類標籤權重同時減少。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 人工設計的 $6\times6$ 網格中，區塊固定高三格、寬度從零變成四格。最終 B 佔據 $3\times4=12$ 格，共 36 格，因此 **B 的權重為 $1/3$，A 的權重為 $2/3$**。過渡畫格以連續寬度說明**幾何面積關係**，不代表實際 CutMix 抽樣時的整數像素遮罩。數值不是模型結果，也不表示圖像內容的預測機率。MkDocs 可播放／暫停；GitHub 與減少動態效果模式採用靜態回退。
 
 凸組合可能落在自然資料分布之外。整數 token 編號、類別代碼、邊界框與分割遮罩需要依任務處理；分類配方並不能證明任意對它們進行算術操作都有意義。同樣地，單靠軟訓練目標，不能證明模型在真實樣本上的機率已經校準。
 

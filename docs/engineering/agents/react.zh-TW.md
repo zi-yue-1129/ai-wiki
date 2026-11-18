@@ -32,11 +32,13 @@ ReAct 是一種提示方法，讓語言模型在同一段交錯的序列中寫�
 
 ## 動態流程示意
 
-<div style="max-width:100%;overflow-x:auto;" tabindex="0" role="region" aria-label="可水平捲動的教學概念圖"><div style="width:640px;min-width:640px;"><img src="../../assets/concept-animations/react-evidence-loop-still.svg" data-motion-src="../../assets/concept-animations/react-evidence-loop-motion.svg" data-still-src="../../assets/concept-animations/react-evidence-loop-still.svg" width="640" height="360" alt="ReAct 的兩輪循環：第一次思考導向搜尋與證據 A，下一次思考利用 A 進行查核，再取得證據 B 並作答。" loading="lazy"></div></div>
+<div style="max-width:100%;overflow-x:auto;" tabindex="0" role="region" aria-label="可水平捲動的教學概念圖"><div style="width:640px;min-width:640px;"><img data-source-asset-urls src="../../assets/concept-animations/react-evidence-loop-still.svg" data-motion-src="../../assets/concept-animations/react-evidence-loop-motion.svg" data-still-src="../../assets/concept-animations/react-evidence-loop-still.svg" width="640" height="360" alt="ReAct 的兩輪循環：第一次思考導向搜尋與證據 A，下一次思考利用 A 進行查核，再取得證據 B 並作答。" loading="lazy"></div></div>
 
 這是原創教學視覺，授權 CC BY-SA 4.0。**觀察結果如何改變下一個動作。** 動畫以兩輪示意流程呈現：模型產生思考、呼叫搜尋動作、接收觀察結果，再利用觀察結果修正下一段思考。觀察結果會加入上下文，但**不會直接更新模型參數**。證據 A、B 為人工教學標籤，**並非真實 Agent 執行紀錄、基準測試或實測結果**；移動標記代表資訊路徑，不代表實際執行時間。
 
 在 MkDocs 網站可以透過支援鍵盤的播放／暫停按鈕觀察流程；啟用 `prefers-reduced-motion` 時預設靜態畫面。GitHub 提供[完整靜態預覽](../../assets/concept-animations/react-evidence-loop-still.svg)。
+
+外框表示標記最後抵達的階段，與連續移動路徑共用到達時刻，不會提前強調下游階段。所有文字標籤是靜態總覽，不代表未來觀察已可使用。標記移動中的位置只是視覺引導，不是額外模型步驟；循環重設也不是資訊反向流動。
 
 ## 方程式或演算法
 

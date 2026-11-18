@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-14
 related:
   - theory/models/transformer/vision-transformer
   - theory/models/computer-vision
@@ -16,75 +16,88 @@ aliases:
 
 # MLP-Mixer
 
-MLP-Mixer is an image classifier built only from multilayer perceptrons (MLPs). It uses no convolutions and no attention. Tolstikhin et al. (2021) showed that such a network can reach competitive accuracy on image benchmarks when trained on large data or with modern regularisation. The parent overview is [Multilayer perceptrons](index.md).
+MLP-Mixer classifies images by alternating two multilayer perceptrons (MLPs). One exchanges information across image patches and the other across feature channels. The architecture also includes patch projection, normalisation, residual connections and a classifier. [Multilayer perceptrons](index.md).[^mixer]
 
 ## Overview
 
-Like the [Vision Transformer](../transformer/vision-transformer/index.md), MLP-Mixer cuts the image into non-overlapping patches and projects each one to a vector. It then alternates two kinds of MLP over this set of patch vectors. The difference from the Transformer is that the mixing across patches is done by a fixed MLP, not by attention.
+An image of height $H$ and width $W$ is split into non-overlapping square patches of side $P$, assuming both dimensions are divisible by $P$. A shared linear projection maps each flattened patch to $C$ features. The resulting table $X\in\mathbb{R}^{S\times C}$ has $S=HW/P^2$ rows. Each row is a patch token. This representation is also used by the Vision Transformer. [Vision Transformer](../transformer/vision-transformer/index.md).[^mixer][^vit]
 
 ## Problem
 
-Convolutions and attention are both common in computer vision, and each carries an assumption about the input. The paper asks whether either is necessary: whether a network built only from MLPs can classify images well at a comparable cost.
+A patch representation needs a way for distant locations to exchange information. The Mixer paper tests whether dense transformations over patch positions, paired with per-patch feature transformations, can support image classification at scale.[^mixer]
 
 ## Core idea
 
-Separate the two kinds of mixing that a vision model needs. A token-mixing MLP mixes information across patches, so it carries spatial information. A channel-mixing MLP mixes information across the features of each patch. Stacking these two kinds of layer gives the whole network.
+**Token mixing** applies the same MLP to each column of $X$. Its weights are shared across channels and indexed by patch position. The learned position weights are fixed at inference, while the activations depend on the image. The architecture therefore uses the ordering of the patches directly.[^mixer]
+
+**Channel mixing** applies the same MLP to each row. It combines features within one patch and shares its weights across patch positions. After the final Mixer layer and normalisation, the head averages the patch representations and applies a linear classifier.[^mixer]
 
 ## Algorithm
 
-The image is split into \(S\) patches, each projected to \(C\) channels, giving a table \(X\) of size \(S \times C\). Each Mixer layer applies two residual MLP blocks with GELU nonlinearity \(\sigma\):
+Let $D_S$ and $D_C$ be the hidden widths of the token and channel MLPs. Layer normalisation $\mathrm{LN}$ acts across the $C$ channels of each patch before each MLP. With biases omitted, $\sigma$ denoting GELU, and the channel vectors written as columns, the updates are as follows. [GELU](gelu/index.md), [Layer normalisation](layer-normalisation/index.md).[^mixer][^gelu][^ln]
 
-\[
-U_{*,i} = X_{*,i} + W_2\, \sigma\!\big(W_1\, \mathrm{LayerNorm}(X)_{*,i}\big), \qquad i = 1, \ldots, C,
-\]
+$$
+\begin{aligned}
+U_{:,i} &= X_{:,i}+W_2\,\sigma\!\left(W_1\,\mathrm{LN}(X)_{:,i}\right),\\
+Y_{j,:}^{\top} &= U_{j,:}^{\top}+W_4\,\sigma\!\left(W_3\,\mathrm{LN}(U)_{j,:}^{\top}\right).
+\end{aligned}
+$$
 
-\[
-Y_{j,*} = U_{j,*} + W_4\, \sigma\!\big(W_3\, \mathrm{LayerNorm}(U)_{j,*}\big), \qquad j = 1, \ldots, S.
-\]
+The first equation applies for $i=1,\ldots,C$ and the second for $j=1,\ldots,S$. Both residual outputs have shape $S\times C$. The four weight matrices have the following dimensions.[^mixer]
 
-The first equation is the token-mixing block: the MLP runs over the \(S\) patches of each channel. The second is the channel-mixing block: the MLP runs over the \(C\) channels of each patch. The paper states these equations in Section 2, using \(\sigma\) for the element-wise GELU.
+$$
+W_1\in\mathbb{R}^{D_S\times S},\quad
+W_2\in\mathbb{R}^{S\times D_S},\quad
+W_3\in\mathbb{R}^{D_C\times C},\quad
+W_4\in\mathbb{R}^{C\times D_C}.
+$$
+
+For a small shape example, set $S=4$, $C=3$, $D_S=2$ and $D_C=5$. The token MLP maps $4\to2\to4$ three times, once per channel. The channel MLP maps $3\to5\to3$ four times, once per patch. The same matrix pair is reused each time within its respective MLP.
+
+The dense multiplications cost $2CSD_S$ and $2SCD_C$ multiply-accumulates per layer per image, excluding bias, normalisation and activation. The cost is linear in $S$ when $C$, $D_S$ and $D_C$ stay fixed. With $P=16$, increasing a square input from $224\times224$ to $448\times448$ takes the patch count from $196$ to $784$. Both token-mixing matrices must accommodate the new count. The paper's higher-resolution recipe also widens $D_S$ in proportion to $S$, copies the pre-trained matrices into diagonal blocks of the larger matrices, and fine-tunes the result.[^mixer]
 
 ## Key results
 
-The paper reports ImageNet top-1 accuracy in two tables:
+The paper reports top-1 accuracy on the original ImageNet validation labels. The rows below specify the pre-training data and fine-tuning input size.[^mixer]
 
-- **ImageNet-21k pre-training, with extra regularisation** (Table 3): Mixer-B/16 reaches 80.64% and Mixer-L/16 reaches 82.89%, both at 224 resolution.
-- **ImageNet-21k pre-training, public checkpoint** (Table 2): Mixer-L/16 reaches 84.15% after fine-tuning at 448 resolution.
+| Model | Pre-training data | Input size | Top-1 | Source |
+| --- | --- | --- | --- | --- |
+| Mixer-B/16 | ImageNet with extra regularisation | 224 | 76.44% | Table 3 |
+| Mixer-B/16 | ImageNet-21k with extra regularisation | 224 | 80.64% | Table 3 |
+| Mixer-L/16 | ImageNet-21k with extra regularisation | 224 | 82.89% | Table 3 |
+| Mixer-L/16 | ImageNet-21k with extra regularisation | 448 | 83.91% | Table 3 |
+| Mixer-L/16 | ImageNet-21k | 448 | 84.15% | Table 2 |
+| Mixer-H/14 | JFT-300M | 448 | 87.94% | Table 2 |
 
-The text quotes 82.84% for Mixer-L/16 at 224 resolution, while Table 3 gives 82.89%. This page uses the table value. The paper describes these scores as competitive, with pre-training and inference cost comparable to state-of-the-art models.
+Table 3 averages three fine-tuning runs. Section 3.1 separately quotes 82.84% for the 224-pixel Mixer-L/16 result. The table above retains the value from Table 3 for that row. The 84.15% figure comes from the separate Table 2 comparison.[^mixer]
 
 ## Limitations
 
-- The abstract says the model reaches competitive scores when trained on large datasets or with modern regularisation schemes. Without either, the paper makes no claim of competitive accuracy.
-- The token-mixing weights are sized to the number of patches, so changing the input resolution changes the layer shapes. The paper's higher-resolution results come from fine-tuning at the new resolution.
-- Cost is described as comparable to state-of-the-art models, not lower. The architecture does not remove the compute cost of large pre-training.
+- Token mixing is tied to the number and ordering of patches. Changing the resolution at fixed patch size requires adjusting that sublayer's dimensions.[^mixer]
+- Accuracy and throughput depend on the training data, regularisation, model size and input resolution. The original experiments report overfitting when training Mixer from scratch on ImageNet, and stronger accuracy with larger pre-training datasets.[^mixer]
 
 ## Connections
 
-- [Vision Transformer](../transformer/vision-transformer/index.md) is the attention-based model with the same patch front end. The comparison isolates the effect of replacing attention with a fixed MLP.
-- [Multilayer perceptrons](index.md) is the overview where MLP-Mixer sits beside [GELU](gelu/index.md) and [layer normalisation](layer-normalisation/index.md), the two components it uses.
-- [Computer vision](../computer-vision/index.md) covers the tasks where patch-based classifiers are applied.
+ResMLP uses a linear cross-patch layer and a channel MLP. gMLP mixes positions through a spatial gating unit. Both explore how to combine spatial interaction with per-token feature transformations. [ResMLP paper](https://arxiv.org/abs/2105.03404), [gMLP paper](https://arxiv.org/abs/2105.08050).[^resmlp][^gmlp]
 
 ## Applications
 
-- Image classification on ImageNet, the benchmark used in the paper.
-- Transfer of large-scale pre-trained vision models to downstream image tasks.
+The paper evaluates image classification and transfer to other classification datasets, including CIFAR and the VTAB-1k tasks. [Computer vision](../computer-vision/index.md).[^mixer]
 
-## Open questions
-
-- Is the gain from the two mixing operations themselves, or from the scale of pre-training data the paper uses?
-- How well does a fixed token-mixing MLP handle inputs whose size varies, as in detection and segmentation?
+[^mixer]: Tolstikhin et al., [*MLP-Mixer*](https://arxiv.org/html/2105.01601), §§2–3 and Appendix C.
+[^vit]: Dosovitskiy et al., [*An Image is Worth 16x16 Words*](https://arxiv.org/abs/2010.11929), §3.1.
+[^gelu]: Hendrycks and Gimpel, [*Gaussian Error Linear Units*](https://arxiv.org/abs/1606.08415), §2.
+[^ln]: Ba et al., [*Layer Normalization*](https://arxiv.org/abs/1607.06450), §3.
+[^resmlp]: Touvron et al., [*ResMLP*](https://arxiv.org/abs/2105.03404), §2.
+[^gmlp]: Liu et al., [*Pay Attention to MLPs*](https://arxiv.org/abs/2105.08050), §2.
 
 ## References
 
 ### Seminal papers
 
-- Tolstikhin, I., Houlsby, N., Kolesnikov, A., et al. (2021). *MLP-Mixer: An all-MLP Architecture for Vision*. NeurIPS 2021. https://proceedings.neurips.cc/paper/2021/hash/cba0a4ee5ccd02fda0fe3f9a3e7b89fe-Abstract.html — Introduces MLP-Mixer and its token-mixing and channel-mixing blocks. Checked: NeurIPS proceedings entry; arXiv 2105.01601 matches the author list.
-- Dosovitskiy, A., Beyer, L., Kolesnikov, A., et al. (2021). *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*. arXiv. https://arxiv.org/abs/2010.11929 — The Vision Transformer, which uses the same patch front end with attention in place of the mixing MLP. Checked: arXiv metadata.
-- Vaswani, A., et al. (2017). *Attention Is All You Need*. NeurIPS 2017. https://proceedings.neurips.cc/paper/7181-attention-is-all-you-need — The attention architecture that MLP-Mixer replaces in its mixing step. Checked: NeurIPS proceedings entry.
-- Hendrycks, D. & Gimpel, K. (2016). *Gaussian Error Linear Units (GELUs)*. arXiv. https://arxiv.org/abs/1606.08415 — The GELU activation that the Mixer uses. Checked: arXiv metadata.
-- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). *Layer Normalization*. arXiv. https://arxiv.org/abs/1607.06450 — The normalisation applied before each MLP block. Checked: arXiv metadata.
-
-### Surveys and textbooks
-
-- Liu, H., Dai, Z., So, D. R. & Le, Q. V. (2021). *Pay Attention to MLPs*. arXiv. https://arxiv.org/abs/2105.08050 — A contemporaneous MLP-only vision model with a spatial gating unit, for comparison. Checked: arXiv metadata.
+- Tolstikhin, I., Houlsby, N., Kolesnikov, A., et al. (2021). *MLP-Mixer: An all-MLP Architecture for Vision*. NeurIPS. https://arxiv.org/abs/2105.01601 — Defines the two mixing operations and reports the ImageNet experiments.
+- Dosovitskiy, A., Beyer, L., Kolesnikov, A., et al. (2021). *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*. ICLR. https://arxiv.org/abs/2010.11929 — Introduces a vision Transformer built on image patch embeddings.
+- Hendrycks, D. & Gimpel, K. (2016). *Gaussian Error Linear Units (GELUs)*. https://arxiv.org/abs/1606.08415 — Defines the elementwise activation used inside the Mixer MLPs.
+- Ba, J. L., Kiros, J. R. & Hinton, G. E. (2016). *Layer Normalization*. https://arxiv.org/abs/1607.06450 — Derives normalisation from the features of a single example.
+- Touvron, H., Bojanowski, P., Caron, M., et al. (2021). *ResMLP: Feedforward Networks for Image Classification with Data-Efficient Training*. https://arxiv.org/abs/2105.03404 — Uses a linear cross-patch layer alongside a channel MLP.
+- Liu, H., Dai, Z., So, D. R. & Le, Q. V. (2021). *Pay Attention to MLPs*. https://arxiv.org/abs/2105.08050 — Introduces gMLP and its spatial gating unit for token interaction.

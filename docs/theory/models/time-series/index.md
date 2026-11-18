@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-13
 related:
   - theory/models/rnn/index.md
 tags:
@@ -45,11 +45,11 @@ Classical methods, such as exponential smoothing and autoregressive models, fit 
 
 ## Key methods
 
-Brief comparison. Each named method is a candidate for its own method page; those pages are not yet written, so the detail is given in this section for now.
+The three landmark methods below are compared briefly here. Each has its own page, which gives the problem, the core idea, the equations, the results and the limitations.
 
-- **DeepAR (probabilistic recurrent)**: autoregressive recurrent network trained on many series, with a distributional output. Natural for uncertainty, and sequential at inference.
-- **N-BEATS (residual basis expansion)**: no recurrence or attention; interpretable or generic. Strong on univariate benchmarks.
-- **Informer (efficient attention)**: a Transformer variant for long horizons, with a cheaper attention mechanism.
+- [DeepAR](deepar.md): an autoregressive recurrent network trained on many series, with a distributional output. Natural for uncertainty, and sequential at inference.
+- [N-BEATS](n-beats.md): stacked residual blocks that expand their outputs over basis functions, with no recurrence or attention. Interpretable or generic, and strong on univariate benchmarks.
+- [Informer](informer.md): a Transformer variant for long horizons, with a cheaper attention mechanism and a decoder that predicts the whole horizon at once. Its gains over simple baselines have been questioned.
 
 ## Connections
 
@@ -82,3 +82,5 @@ Neural recordings are time series too, so the same modelling questions arise in 
 
 - Lim, B. & Zohren, S. (2020). *Time Series Forecasting With Deep Learning: A Survey*. arXiv. https://arxiv.org/abs/2004.13408 — Surveys encoder and decoder designs for one-step-ahead and multi-horizon forecasting.
 - Hyndman, R. J. & Athanasopoulos, G. *Forecasting: Principles and Practice*, 3rd ed. OTexts. https://otexts.com/fpp3/ — A textbook on classical and modern forecasting methods, free to read online. The page does not state a year.
+- Makridakis, S., Spiliotis, E. & Assimakopoulos, V. (2020). The M4 Competition: 100,000 time series and 61 forecasting methods. *International Journal of Forecasting*, 36, 54–74. doi:[10.1016/j.ijforecast.2019.04.014](https://doi.org/10.1016/j.ijforecast.2019.04.014) — The large benchmark on which N-BEATS and other deep forecasters were evaluated.
+- Zeng, A., Chen, M., Zhang, L. & Xu, Q. (2023). Are Transformers effective for time series forecasting? *Proceedings of the AAAI Conference on Artificial Intelligence*, 37(9), 11121–11128. doi:[10.1609/aaai.v37i9.26317](https://doi.org/10.1609/aaai.v37i9.26317) — A critique showing that simple linear models match or beat several Transformer forecasters, including Informer.

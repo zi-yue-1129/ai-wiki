@@ -33,11 +33,13 @@ Reflexion 有三個角色。行動者（actor）在環境中產生一段行動�
 
 ## 動態流程示意
 
-<div style="max-width:100%;overflow-x:auto;" tabindex="0" role="region" aria-label="可水平捲動的教學概念圖"><div style="width:640px;min-width:640px;"><img src="../../assets/concept-animations/reflexion-memory-feedback-still.svg" data-motion-src="../../assets/concept-animations/reflexion-memory-feedback-motion.svg" data-still-src="../../assets/concept-animations/reflexion-memory-feedback-still.svg" width="640" height="360" alt="Reflexion：第一輪失敗經評估後產生反思、存入情節記憶，下一輪使用記憶作為上下文，但模型權重保持不變。" loading="lazy"></div></div>
+<div style="max-width:100%;overflow-x:auto;" tabindex="0" role="region" aria-label="可水平捲動的教學概念圖"><div style="width:640px;min-width:640px;"><img data-source-asset-urls src="../../assets/concept-animations/reflexion-memory-feedback-still.svg" data-motion-src="../../assets/concept-animations/reflexion-memory-feedback-motion.svg" data-still-src="../../assets/concept-animations/reflexion-memory-feedback-still.svg" width="640" height="360" alt="Reflexion：第一輪失敗經評估後產生反思、存入情節記憶，下一輪使用記憶作為上下文，但模型權重保持不變。" loading="lazy"></div></div>
 
 這是原創教學視覺，授權 CC BY-SA 4.0。**語言回饋改變上下文，而非模型權重。** 第一輪行動經評估後失敗，代理將失敗原因整理為語言反思並存入情節記憶；第二輪行動利用記憶作為上下文，再次接受評估。圖中第二輪成功只是示意，**Reflexion 並不保證重試一定成功**。這是上下文調整的人工流程示例，並非梯度更新或實測執行軌跡。
 
 在 MkDocs 網站可以透過支援鍵盤的播放／暫停按鈕觀察流程；啟用 `prefers-reduced-motion` 時預設靜態畫面。GitHub 提供[完整靜態預覽](../../assets/concept-animations/reflexion-memory-feedback-still.svg)。
+
+外框表示標記最後抵達的階段，與連續移動路徑共用到達時刻，不會提前強調下游階段。所有文字標籤是靜態總覽，不代表未來觀察已可使用。標記移動中的位置只是視覺引導，不是額外模型步驟；循環重設也不是資訊反向流動。
 
 ## 方程式或演算法
 
