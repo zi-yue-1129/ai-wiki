@@ -252,9 +252,9 @@ Within **this two-rule mixture family**, taking **λ = 1/2** maximizes TPR under
 
 **Finite-sample distinction.** The animation's FPR cap constrains the assumed *population conditional rate*, not every evaluation batch. Suppose three independent future negatives each have false-positive probability $1/6$ under the randomized decision rule. One or more false positives would give empirical FPR at least $1/3$, violating the nominal $1/6$ cap. The exact probability is
 
-$
+$$
 P(\widehat{\mathrm{FPR}}>1/6\mid n_{-}=3)=1-(5/6)^3=91/216\approx0.421.
-$
+$$
 
 Thus even if expected FPR equals the budget, a three-negative batch exceeds that budget with about **42.1% probability** under these illustrative independence assumptions. This is neither a statistical confidence bound nor evidence that a deployed model satisfies the assumed FPR.
 
