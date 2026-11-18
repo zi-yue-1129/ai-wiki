@@ -258,6 +258,23 @@ $$
 
 Thus even if expected FPR equals the budget, a three-negative batch exceeds that budget with about **42.1% probability** under these illustrative independence assumptions. This is neither a statistical confidence bound nor evidence that a deployed model satisfies the assumed FPR.
 
+
+### Animated finite-batch FPR: four possible false-alarm counts
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Finite-batch FPR versus population-rate budget">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-batch-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-batch-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-batch-motion.svg" alt="Three independent synthetic negatives can produce zero, one, two or three false alarms. A binomial histogram displays exact probabilities of 125, 75, 15 and 1 out of 216. A single false alarm already makes observed FPR one third, exceeding the population budget one sixth; the total exceedance probability is 91 out of 216." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0); entirely synthetic assumptions, not fitted-model estimates.* Let $K$ be the number of false alarms among **three independent true negatives**, each with an assumed false-positive probability $1/6$. Then
+
+$
+P(K=k)=\binom{3}{k}\left(\frac16\right)^k\left(\frac56\right)^{3-k},\qquad k=0,1,2,3.
+$
+
+The four exact probabilities are **125/216**, **75/216**, **15/216** and **1/216**, giving observed FPR values **0**, **1/3**, **2/3** and **1**, respectively. The animated outline moves through the **four possible counts**, while three negative-case markers show one possible arrangement for each count. **Every count gets equal screen time for explanation, not in proportion to its probability**; the fixed histogram encodes those unequal probabilities. Outcomes with $K\geq1$ exceed the population cap $1/6$, with combined probability **91/216 ≈ 42.1%**. These four states are alternative samples, **not consecutive training steps or a single batch accumulating false alarms**. MkDocs provides keyboard-operated Play/Pause; reduced-motion users see the complete histogram and one over-budget example. On narrow screens, focus the graphic and scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-batch-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-batch-motion.svg).
+
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="FPR-constrained randomized ROC policy">
 <div style="width:640px">
 <img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="A synthetic two-threshold ROC segment and a falling expected-cost line share a moving randomized-policy marker. The FPR cap at one sixth limits the mixing probability to one half; the feasible boundary has expected cost eleven thirtieths." width="640" height="360">

@@ -8065,6 +8065,21 @@
         }
       ]
     },
+    "roc-fpr-batch": {
+      "origins": [
+        {
+          "origin_blob": "2eee33e705b1e2cca2c2fe786568d6dfb4c83da3",
+          "origin_commit": "c6244496acffb169c3111945518a59105ee3a53c",
+          "path": "docs/assets/concept-animations/roc-fpr-batch-motion.svg"
+        },
+        {
+          "origin_blob": "8b3576e8bc62e3f0f4a14fa226e67f67be5df11b",
+          "origin_commit": "c6244496acffb169c3111945518a59105ee3a53c",
+          "path": "docs/assets/concept-animations/roc-fpr-batch-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "roc-fpr-budget-mix": {
       "origins": [
         {

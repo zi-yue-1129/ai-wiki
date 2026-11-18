@@ -636,3 +636,35 @@ for filename in ("roc-auc.md", "roc-auc.zh-TW.md"):
     assert r"\widehat{\mathrm{FPR}}" in page
     assert "42.1%" in page
 print("Finite-batch FPR risk: exact binomial probability 91/216 OK")
+
+# Discrete outcome animation and exact binomial masses: equal-duration visuals
+# illustrate possible counts, NOT samples drawn in proportion to probabilities.
+from math import comb
+binomial_counts = [Fraction(comb(3, k) * 5**(3-k), 6**3) for k in range(4)]
+assert binomial_counts == [Fraction(125,216), Fraction(75,216),
+                           Fraction(15,216), Fraction(1,216)]
+assert sum(binomial_counts) == 1
+assert sum(binomial_counts[1:]) == Fraction(91,216)
+assert [Fraction(k,3) > finite_fpr for k in range(4)] == [False,True,True,True]
+for kind in ("motion","still"):
+    path = asset_root / f"roc-fpr-batch-{kind}.svg"
+    source = path.read_text(encoding="utf-8")
+    assert 'viewBox="0 0 640 360"' in source
+    assert "125, 75, 15 and one out of 216" in source
+    assert "P(K ≥ 1) = 91/216 = 42.1%" in source
+    assert (source.count('calcMode="discrete"') == 4) == (kind == "motion")
+    assert ("<animate " in source) == (kind == "motion")
+    if kind == "motion":
+        assert "prefers-reduced-motion" in source
+        assert 'class="still"' in source and source.count('class="moving"') == 4
+for filename, title in (
+    ("roc-auc.md", "Animated finite-batch FPR: four possible false-alarm counts"),
+    ("roc-auc.zh-TW.md", "有限批次 FPR 分布動畫：母體限制與四種可能的誤報數"),
+):
+    page = (shared_dir / filename).read_text(encoding="utf-8")
+    assert title in page
+    assert 'src="../../../../assets/concept-animations/roc-fpr-batch-still.svg"' in page
+    assert 'data-motion-src="../../../../assets/concept-animations/roc-fpr-batch-motion.svg"' in page
+    assert "125/216" in page and "91/216" in page
+    assert "\n$$\nP(K=k)=" in page
+print("Finite-batch binomial outcomes: 4 exact masses, 4 states and bilingual fallback links OK")

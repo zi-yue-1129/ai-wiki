@@ -259,6 +259,23 @@ $$
 
 因此，即使預期 FPR 恰好位於預算邊界，在上述人工且各筆獨立的假設下，三筆負例的小批次仍有約 **42.1%** 的機率觀察到超額 FPR。這不是統計信賴上界，也不能當成模型實際部署時達到假設 FPR 的證據。
 
+
+### 有限批次 FPR 分布動畫：母體限制與四種可能的誤報數
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="有限批次 FPR 與母體誤報率上限">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-batch-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-batch-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-batch-motion.svg" alt="三筆互相獨立的人工負例可能產生零至三筆誤報。二項分布圖對應的精確機率分別為 216 分之 125、75、15、1；只要出現一筆誤報，觀察到的 FPR 就達到三分之一，超過六分之一母體上限。整體超額機率為 216 分之 91。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）；所有條件均為人工假設，不是已訓練模型的實測結果。* 設 $K$ 為三筆**互相獨立的真實負例**中發生的誤報數，每筆誤報的假設機率為 $1/6$。依二項分布：
+
+$
+P(K=k)=\binom{3}{k}\left(\frac16\right)^k\left(\frac56\right)^{3-k},\qquad k=0,1,2,3.
+$
+
+四種誤報數的精確機率依序為 **125/216**、**75/216**、**15/216**、**1/216**；相對應的實際觀察 FPR 分別是 **0**、**1/3**、**2/3**、**1**。動畫依序展示**四種可能的誤報數**，以三個負例標記展示各誤報數的一種排列。**每種結果的顯示時間相同只是教學安排，不代表它們有相同機率**；固定的長條圖才呈現不同結果的機率大小。只要 $K\geq1$ 就超過 $1/6$ 母體上限，合計機率為 **91/216 ≈ 42.1%**。四個畫面代表不同批次的**可能結果**，不是模型訓練的連續步驟，也不是同一批次逐步累積誤報。MkDocs 提供鍵盤可操作的播放／暫停；偏好減少動畫者會看到完整分布與一個超額示例。手機可聚焦圖形容器並水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-batch-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-batch-motion.svg)。
+
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="受 FPR 上限約束的隨機 ROC 決策規則">
 <div style="width:640px">
 <img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="人工 ROC 的兩個門檻連線與下降中的預期成本曲線共用隨機混合標記。FPR 上限為六分之一，因此混合機率最多二分之一；可行邊界的成本為三十分之十一。" width="640" height="360">
