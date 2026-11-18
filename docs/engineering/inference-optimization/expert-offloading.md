@@ -34,10 +34,12 @@ The method keeps the non-expert parts of the model and a cache of experts on the
 1. Quantise the expert weights with a mixed bit-width scheme, to reduce their size.
 2. Store the experts in host memory, and keep the shared layers and a cache of experts on the device.
 3. For each layer, let the router choose the experts for the current token.
-4. Load any selected expert that is not on the device.
-5. Evict a cached expert to make room, using the cache policy of the method, and continue generation.
+4. If a selected expert is missing and the cache is full, make room according to the cache policy before loading it.
+5. Transfer the missing expert to the available slot, then use the resident expert to continue generation.
 
-![Expert E2 is selected but missing from a two-slot GPU cache. It is transferred from host memory, replacing E1, and a later request for E2 hits the resident cache.](../../assets/concept-animations/expert-cache-miss-still.svg)
+<img data-source-asset-urls src="../../assets/concept-animations/expert-cache-miss-still.svg" data-motion-src="../../assets/concept-animations/expert-cache-miss-motion.svg" data-still-src="../../assets/concept-animations/expert-cache-miss-still.svg" width="640" height="360" alt="Expert E2 is selected but missing from a two-slot GPU cache. It is transferred from host memory, replacing E1, and a later request for E2 hits the resident cache.">
+
+The animation first frees the GPU slot, then transfers E2. LOADED means the first request can execute; HIT appears only when a later request selects E2 again. The host copy of E1 remains available. Looping resets the illustration; durations and eviction choices are not measurements.
 
 *Original instructional animation, CC BY-SA 4.0.* This is a **two-slot schematic cache**, not a measured inference trace or a claim about the original paper's cache policy. Initially the GPU holds E0 and E1 while the router selects E2; E2 must be loaded from host memory and E1's GPU copy is evicted. The following selection of E2 is a **cache hit** and needs no repeated transfer. The dashed path and moving dot depict a conceptual transfer, not a GPU hardware trace. The specific victim, timing, and expert choices are illustrative. On MkDocs use **Play/Pause** (Enter or Space); reduced-motion preferences show the still, and the image can be scrolled horizontally by keyboard on narrow screens. [GitHub-readable post-load state](../../assets/concept-animations/expert-cache-miss-still.svg).
 

@@ -36,9 +36,12 @@
       host.className = 'concept-motion-player';
       // The diagram stays at a legible native width on narrow viewports.
       // Make the overflow region reachable with keyboard arrow keys.
-      host.tabIndex = 0;
-      host.setAttribute('role', 'region');
-      host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫' : 'Scrollable concept animation');
+      if (stillFirstPairs.has(sourceName)) {
+        host.classList.add('concept-motion-inference');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫，使用左右方向鍵' : 'Scrollable concept animation; use Left and Right arrow keys');
+      }
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';
