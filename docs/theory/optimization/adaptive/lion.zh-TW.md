@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-11
+translation_reviewed: 2026-11-18
 ---
 
 # Lion
@@ -31,9 +31,11 @@ m_t = \beta_2 m_{t-1} + (1 - \beta_2) g_t,
 其中 \(\lambda\) 為解耦的權重衰減。\(c_t\) 的符號在每個座標上為 \(\pm 1\)，因此每個座標的步長大小相同。
 
 
-![Lion 五個時間步的梯度、動量內插量與等長符號更新；遊標沿時間序列移動](../../../assets/concept-animations/lion-sign-momentum-motion.svg)
+<img data-source-asset-urls src="../../../assets/concept-animations/lion-sign-momentum-still.svg" data-motion-src="../../../assets/concept-animations/lion-sign-momentum-motion.svg" data-still-src="../../../assets/concept-animations/lion-sign-momentum-still.svg" alt="Lion 五個時間步的梯度、動量內插量與等長符號更新；遊標沿時間序列移動" width="640" height="360" loading="lazy">
 
 *原創教學動畫（CC BY-SA 4.0）。* 此**單一參數座標的人工示例**設定 $g_t=(-1,-1,1,-1,1)$、$m_0=0.8$、$\beta_1=0.8$、$\beta_2=0.7$。藍色長條代表當前梯度，橘色長條代表 $c_t=\beta_1m_{t-1}+(1-\beta_1)g_t$；下方綠色或琥珀色箭頭表示**尚未計入解耦權重衰減**的更新 $\Delta\theta_t=-\eta\operatorname{sign}(c_t)$。即使梯度與動量內插值的大小不同，非零符號更新的長度仍相同。在 $t=1$ 與 $t=2$，當前梯度為負，但動量使 $c_t$ 仍為正。所有數字與軌跡皆為**人工示意，並非模型實測或預設超參數**。MkDocs 可透過支援鍵盤的播放／暫停控制檢視遊標移動；GitHub 可查看[靜態回退圖](../../../assets/concept-animations/lion-sign-momentum-still.svg)。此圖略去權重衰減及參數位置軌跡，詳見 [Chen 等人（2023）](https://arxiv.org/abs/2302.06675)。
+
+混合值長條採用一致的精確比例：每單位 $c_t$ 對應 100 個 SVG 單位，因此第二步的小正值確實呈現為很短的長條。游標依序走訪各步，在第五步停留後重新開始；欄位之間的移動是閱讀指引，不代表中間的最佳化器狀態。
 
 ## 主要結果
 

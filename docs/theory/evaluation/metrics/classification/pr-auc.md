@@ -21,7 +21,7 @@ where $P_n$ and $R_n$ are precision and recall at the $n$-th threshold. scikit-l
 
 ## Interpretation
 
-A random classifier has precision equal to the positive rate, so PR-AUC for a random ranking equals the prevalence of positives. Unlike ROC-AUC, the baseline changes with the data, so PR-AUC values are not comparable across datasets with different prevalence. Compare models on the same dataset.
+At population level, scores independent of the labels give a horizontal precision reference at the positive prevalence. This is not the exact expected non-interpolated AP of a finite randomly ordered sample. Unlike ROC-AUC, the baseline changes with the data, so PR-AUC values are not comparable across datasets with different prevalence. Compare models on the same dataset.
 
 ## When to use it
 
@@ -29,11 +29,21 @@ Use PR-AUC when positives are rare, as in fraud or fault detection, and when the
 
 ## Worked example
 
-Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (negative), 0.6 (positive), 0.3 (negative). Precision at the two positives is $1/1$ and $2/3$, so average precision is $(1 + 2/3) / 2 \approx 0.83$, which matches the value `average_precision_score` returns. A random ranking would score 0.5 here, the prevalence of positives.
+Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (negative), 0.6 (positive), 0.3 (negative). Precision at the two positives is $1/1$ and $2/3$, so average precision is $(1 + 2/3) / 2 \approx 0.83$, which matches the value `average_precision_score` returns. The prevalence reference is 0.5, but enumerating the six equally likely placements of two positives gives expected finite-sample AP $49/72 \approx 0.681$ under uniform random ordering.
+
+## Animated ranking and average precision
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Precision-recall threshold sweep animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-threshold-sweep-still.svg" data-still-src="../../../../assets/concept-animations/pr-threshold-sweep-still.svg" data-motion-src="../../../../assets/concept-animations/pr-threshold-sweep-motion.svg" alt="Ten illustrative ranked prediction scores, three positive and seven negative. Lowering the threshold adds cases; negative cases decrease precision without changing recall, while positive cases increase recall. The prevalence baseline is 0.30." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* This invented example uses the **same ten ranked scores as the ROC animation**: positives at ranks **1, 3, 6** and seven negatives. Each accepted positive increases recall by $1/3$; each accepted negative decreases precision while recall stays fixed. Precision at the three positive ranks is $1$, $2/3$ and $3/6$, giving **non-interpolated average precision $AP=(1+2/3+1/2)/3=13/18 \approx 0.722$**. The dashed line marks the positive prevalence $3/10=0.30$, a common population-level random-score reference. **For this finite ten-item example, the expected sample AP of a uniformly random permutation is about 0.450, not 0.300** (enumerating all 120 placements of three positives). At zero accepted cases, precision is undefined; the plot uses $(R,P)=(0,1)$ as an endpoint convention. The displayed polyline connects threshold operating points; **AP is the recall-increment-weighted mean of precisions, not the trapezoidal area underneath those segments** (see the scikit-learn reference). All scores and labels are **synthetic, not empirical model predictions**. MkDocs provides a keyboard-operable Play/Pause button and a reduced-motion still fallback; [GitHub static preview](../../../../assets/concept-animations/pr-threshold-sweep-still.svg) and [complete SVG animation](../../../../assets/concept-animations/pr-threshold-sweep-motion.svg) are also available. On narrow screens, scroll horizontally.
 
 ## Properties and variants
 
-- **Baseline.** A random ranking gives PR-AUC equal to the prevalence, so the value should be read against that baseline, as described in the interpretation section.
+- **Baseline.** Prevalence is the population-level random-score reference; finite-sample expected AP can be higher. State which baseline is being used.
 - **Interpolation variants.** Older benchmarks, such as early PASCAL VOC evaluations, used 11-point interpolated average precision. At recall levels $0, 0.1, \ldots, 1$ it takes the maximum precision at or above each level and averages those. This differs from the step-wise average precision used here.
 - **Single-point summaries.** Precision at a fixed recall, such as 90%, is a single-point summary that some applications prefer.
 - **Limit.** Like ROC-AUC it judges the ranking but not calibration, and its value depends on prevalence.

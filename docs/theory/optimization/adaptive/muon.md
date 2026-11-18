@@ -43,9 +43,11 @@ W_t = W_{t-1} - \eta_t\big(0.2\, O_t \sqrt{\max(A, B)} + \lambda W_{t-1}\big).
 The paper uses a pre-training weight decay of 0.1.
 
 
-![Muon matrix spectral balancing: two unequal singular values move toward one over six illustrative cubic Newton–Schulz iterations](../../../assets/concept-animations/muon-spectral-balancing-motion.svg)
+<img data-source-asset-urls src="../../../assets/concept-animations/muon-spectral-balancing-still.svg" data-motion-src="../../../assets/concept-animations/muon-spectral-balancing-motion.svg" data-still-src="../../../assets/concept-animations/muon-spectral-balancing-still.svg" alt="Muon matrix spectral balancing: two unequal singular values move toward one over six illustrative cubic Newton–Schulz iterations" width="640" height="360" loading="lazy">
 
 *Original teaching animation (CC BY-SA 4.0).* For the **artificial diagonal momentum matrix** $M=\operatorname{diag}(1.5,0.3)$, the two coloured bars show singular values during six iterations of the **classical cubic polar Newton–Schulz update**, $X_{k+1}=\tfrac12 X_k(3I-X_k^\top X_k)$. This particular $2\times2$ illustration is chosen so that the singular values converge towards $1$; the display is an **exact numerical calculation of the stated toy recurrence**, not measured Muon training. **Production Muon is not the cubic iteration shown**: Liu et al. describe a Nesterov-style momentum input, a different fixed-coefficient polynomial, and update scaling with weight decay. The illustration isolates the spectral-balancing principle, not the complete optimiser. On the MkDocs site use Play/Pause (keyboard accessible); the [static fallback](../../../assets/concept-animations/muon-spectral-balancing-still.svg) shows the final illustrative state. See the [original scalability paper](https://arxiv.org/abs/2502.16982) for the actual update.
+
+Bar widths are exact at the numbered iterations; continuous motion between them is linear interpolation for readability, not an additional Newton–Schulz iterate. Here $0<\sigma_0<\sqrt{3}$, so the first singular direction shrinks from $1.5$ to $0.5625$ before recovering towards $1$.
 
 ## Key results
 

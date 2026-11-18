@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-11
+translation_reviewed: 2026-11-18
 ---
 
 # Muon
@@ -31,9 +31,11 @@ W_t = W_{t-1} - \eta_t\big(0.2\, O_t \sqrt{\max(A, B)} + \lambda W_{t-1}\big).
 論文預訓練時的權重衰減為 0.1。
 
 
-![Muon 矩陣頻譜平衡：兩個不同大小的奇異值在六次示意 Newton–Schulz 迭代中逐漸接近一](../../../assets/concept-animations/muon-spectral-balancing-motion.svg)
+<img data-source-asset-urls src="../../../assets/concept-animations/muon-spectral-balancing-still.svg" data-motion-src="../../../assets/concept-animations/muon-spectral-balancing-motion.svg" data-still-src="../../../assets/concept-animations/muon-spectral-balancing-still.svg" alt="Muon 矩陣頻譜平衡：兩個不同大小的奇異值在六次示意 Newton–Schulz 迭代中逐漸接近一" width="640" height="360" loading="lazy">
 
 *原創教學動畫（CC BY-SA 4.0）。* 對**人工對角動量矩陣** $M=\operatorname{diag}(1.5,0.3)$，兩條彩色長條以六次**經典三次式極分解 Newton–Schulz 迭代** $X_{k+1}=\tfrac12 X_k(3I-X_k^\top X_k)$ 展示奇異值逐漸接近 $1$ 的過程。畫面數值是對上述玩具遞迴式的**實際數值計算，而非 Muon 模型的訓練實測**。特別注意：**Muon 實際實作並非這個三次式迭代**，Liu 等人採用 Nesterov 式動量輸入、不同固定係數多項式，以及更新縮放與權重衰減。動畫只解釋頻譜平衡的概念，不代表完整最佳化器。MkDocs 可使用支援鍵盤操作的播放／暫停；GitHub 可查看顯示最後示意狀態的[靜態回退圖](../../../assets/concept-animations/muon-spectral-balancing-still.svg)。實際演算法請參閱[原始 Muon 可擴展性論文](https://arxiv.org/abs/2502.16982)。
+
+長條寬度在整數迭代點對應精確計算值；兩點之間的連續移動是便於閱讀的線性插值，不是額外的 Newton–Schulz 迭代。本例 $0<\sigma_0<\sqrt{3}$，因此第一個奇異方向先從 $1.5$ 縮小至 $0.5625$，再逐步回升至 $1$。
 
 ## 主要結果
 

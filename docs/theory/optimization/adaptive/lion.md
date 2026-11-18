@@ -42,9 +42,11 @@ m_t = \beta_2 m_{t-1} + (1 - \beta_2) g_t,
 where \(\lambda\) is a decoupled weight decay. The sign of \(c_t\) is \(\pm 1\) per coordinate, so the step has the same magnitude in every coordinate.
 
 
-![Five-step Lion gradient sequence, interpolated momentum signal and equal-length sign-based parameter steps](../../../assets/concept-animations/lion-sign-momentum-motion.svg)
+<img data-source-asset-urls src="../../../assets/concept-animations/lion-sign-momentum-still.svg" data-motion-src="../../../assets/concept-animations/lion-sign-momentum-motion.svg" data-still-src="../../../assets/concept-animations/lion-sign-momentum-still.svg" alt="Five-step Lion gradient sequence, interpolated momentum signal and equal-length sign-based parameter steps" width="640" height="360" loading="lazy">
 
 *Original teaching animation (CC BY-SA 4.0).* In this **illustrative, one-coordinate** example, $g_t=(-1,-1,1,-1,1)$, $m_0=0.8$, $\beta_1=0.8$ and $\beta_2=0.7$. The orange bars show $c_t=\beta_1m_{t-1}+(1-\beta_1)g_t$, while the blue bars show the current gradients. The green or amber arrows show $\Delta\theta_t=-\eta\operatorname{sign}(c_t)$ **before adding decoupled weight decay**: nonzero sign steps have equal magnitude even though the gradients and $c_t$ differ. At $t=1$ and $t=2$, a negative current gradient still produces a positive $c_t$, demonstrating momentum's influence. The schematic numbers and trajectory are **not measured training results**; the example uses non-default hyperparameters solely for clarity. The indicator sweeps through five time steps; on the MkDocs site use Play/Pause (keyboard accessible), or consult the [GitHub-readable static fallback](../../../assets/concept-animations/lion-sign-momentum-still.svg). This animation omits weight decay and parameter trajectories; refer to [Chen et al. (2023)](https://arxiv.org/abs/2302.06675).
+
+The blend bars share an exact scale of 100 SVG units per unit of $c_t$ (so the small positive second blend is genuinely small). The cursor visits steps in increasing order, holds at step 5, then restarts; motion between columns is a reading guide, not an intermediate optimiser state.
 
 ## Key results
 
