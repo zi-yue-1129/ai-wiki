@@ -758,6 +758,11 @@ plugins:
             Speech & Audio: 語音與音訊
             Multimodal Models: 多模態模型
             Embeddings: 嵌入表示
+            word2vec: word2vec
+            GloVe: GloVe
+            FaceNet: FaceNet
+            Sentence-BERT: Sentence-BERT
+            CLIP: CLIP
             Time-Series Forecasting: 時間序列預測
             DeepAR: DeepAR
             N-BEATS: N-BEATS
@@ -1823,7 +1828,13 @@ nav:
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
-          - Embeddings: theory/models/embeddings/index.md
+          - Embeddings:
+              - theory/models/embeddings/index.md
+              - word2vec: theory/models/embeddings/word2vec.md
+              - GloVe: theory/models/embeddings/glove.md
+              - FaceNet: theory/models/embeddings/facenet.md
+              - Sentence-BERT: theory/models/embeddings/sentence-bert.md
+              - CLIP: theory/models/embeddings/clip.md
           - Time-Series Forecasting:
               - theory/models/time-series/index.md
               - DeepAR: theory/models/time-series/deepar.md

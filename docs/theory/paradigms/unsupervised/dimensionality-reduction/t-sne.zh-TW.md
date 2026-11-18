@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/unsupervised/dimensionality-reduction
   - theory/paradigms/unsupervised/clustering
@@ -51,6 +51,42 @@ C = \mathrm{KL}(P\,\|\,Q) = \sum_i\sum_{j} p_{ij}\log\frac{p_{ij}}{q_{ij}},
 \]
 
 論文的視覺化最佳化設定如下：前 50 次迭代時將 \(p_{ij}\) 乘以 4（早期誇大），總共迭代 1000 次；動量在第 250 次迭代前為 0.5，之後為 0.8；並先以 PCA 把資料降到 30 維。
+
+### 動畫示範：固定親和度如何引導嵌入更新
+
+<img data-source-asset-urls src="../../../../assets/concept-animations/tsne-kl-embedding-still.svg" data-motion-src="../../../../assets/concept-animations/tsne-kl-embedding-motion.svg" data-still-src="../../../../assets/concept-animations/tsne-kl-embedding-still.svg" alt="六筆人工資料的 t-SNE 嵌入位置隨 KL 梯度逐漸改變，左側的原始親和度固定不變" width="640" height="360" loading="lazy">
+
+*原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態預覽](../../../../assets/concept-animations/tsne-kl-embedding-still.svg)。在 MkDocs 網站可以使用**播放／暫停**（鍵盤 Tab、Enter），啟用減少動態效果設定時則顯示最終靜態結果。
+
+左側以六筆**人工建構的三維資料**、固定高斯頻寬 $\sigma=1$ 計算並對稱化親和度 $P$；右側根據 Student-t 親和度 $Q$ 與 t-SNE KL 梯度，以示意學習率 $\eta=3$ 更新 120 次，抽樣迭代之間的畫面使用插值顯示。範例中的 $\mathrm{KL}(P\|Q)$ 約從 **1.052 降至 0.043**，不表示一般情況均保證收斂。這個示範**省略**了使用 perplexity 自動選擇頻寬、PCA 前處理、early exaggeration 與 momentum；它是可重現的人工數值教學示意，**不是模型實測結果或效能基準**。相似度與梯度的公式依據參考文獻中的 van der Maaten 與 Hinton（2008）。
+
+矩陣 $X$ 的各列為六筆輸入：
+
+$$
+X=\begin{pmatrix}
+0 & 0 & 0 \\
+1.7 & .2 & 0 \\
+.2 & 1.7 & .1 \\
+4 & 4 & 4 \\
+5.7 & 4.1 & 4 \\
+4.1 & 5.7 & 4.2
+\end{pmatrix}.
+$$
+
+矩陣 $Y_0$ 的各列為對應的初始嵌入座標，最佳化前會先做中心化：
+
+$$
+Y_0=\begin{pmatrix}
+-.4 & .2 \\
+.5 & -.3 \\
+.4 & .3 \\
+-.5 & -.4 \\
+.1 & .5 \\
+0 & -.4
+\end{pmatrix}.
+$$
+
+左圖節點位置僅為示意，不是三維座標投影。保留全部 121 個最佳化狀態；動畫對座標插值，並在 601 個取樣點重新計算 KL，而不是對損失端點插值。KL 長條使用固定線性量尺；中間座標並非額外的梯度更新。
 
 ## 關鍵方法
 
