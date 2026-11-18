@@ -1,4 +1,5 @@
 ---
+translation_reviewed: 2026-11-12
 related:
 - engineering/vector-databases
 - engineering/rag
@@ -28,14 +29,19 @@ HNSW 是一種以圖結構為基礎的近似最近鄰索引。它是向量資料
 
 ## 運作方式
 
-```mermaid
-flowchart TD
-  Q[查詢向量] --> T[最上層：少量長距離連結]
-  T --> M[中間層：貪婪下降]
-  M --> B[最底層：所有點，短距離連結]
-  B --> K[大小為 efSearch 的候選清單]
-  K --> R[k 個最近鄰]
-```
+<div style="overflow-x:auto" tabindex="0" role="region" aria-label="HNSW 查詢沿稀疏上層與稠密底層鄰近圖逐層搜尋的示意動畫">
+<img src="../../assets/concept-animations/hnsw-layer-descent-still.svg" data-motion-src="../../assets/concept-animations/hnsw-layer-descent-motion.svg" data-still-src="../../assets/concept-animations/hnsw-layer-descent-still.svg" data-source-asset-urls="true" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="HNSW 查詢沿稀疏上層與稠密底層鄰近圖逐層搜尋的示意動畫">
+</div>
+
+[GitHub 可預覽的靜態版本](../../assets/concept-animations/hnsw-layer-descent-still.svg)。
+
+這段**12 秒的示意動畫**讓搜尋標記在稀疏上層 L2 沿相鄰節點貪婪移動，再依序下降至 L1 與稠密的 L0。青綠色圓環是示例結果；水平座標與連線是教學設計，**不是實際嵌入向量的距離量測**。
+
+動畫聚焦**逐層下降**。真正的 HNSW 在底層會維護由 `efSearch` 控制大小的候選集合，也可能擴展多條有希望的路徑。回傳的是近似鄰居，**不保證精確的全域最近鄰**。演算法依據：[Malkov 與 Yashunin（2016）](https://arxiv.org/abs/1603.09320)。
+
+MkDocs 網站提供可用鍵盤操作的**播放／暫停**按鈕，暫停或偏好減少動態效果時顯示靜態圖。原創圖像，**CC BY-SA 4.0** 授權。
+
+橘色標記表示搜尋進度，而非查詢本身改變。橘色摘要圓環只在標記抵達各層終點後出現（循環的 32%、60% 與 88%）；青綠圓環則是固定的總覽標記。移動中的位置只是視覺引導，不是新增圖節點；循環重設也不是反向搜尋。
 
 ## 關鍵想法
 

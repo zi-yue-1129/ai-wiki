@@ -10,12 +10,18 @@
     'flashattention-streaming-tiles.svg': 'flashattention-streaming-tiles-still.svg',
     'lstm-write-retain-read.svg': 'lstm-write-retain-read-still.svg',
   };
+  // These two chapters intentionally show a readable still in GitHub Markdown.
+  // MkDocs upgrades that exact preview to the matching loop automatically.
+  const stillFirstPairs = new Set(['paged-block-mapping-still.svg', 'expert-cache-miss-still.svg']);
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
-      const animated = img.dataset.motionSrc || img.getAttribute('src') || '';
+      const source = img.getAttribute('src') || '';
+      const sourceName = source.split(/[?#]/, 1)[0].split('/').pop();
+      const animated = img.dataset.motionSrc || (stillFirstPairs.has(sourceName)
+        ? source.replace(/-still\.svg(?=$|[?#])/, '-motion.svg') : source);
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
@@ -28,6 +34,14 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
+      // The diagram stays at a legible native width on narrow viewports.
+      // Make the overflow region reachable with keyboard arrow keys.
+      if (stillFirstPairs.has(sourceName)) {
+        host.classList.add('concept-motion-inference');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫，使用左右方向鍵' : 'Scrollable concept animation; use Left and Right arrow keys');
+      }
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';

@@ -47,6 +47,24 @@ The controller gradient uses the REINFORCE estimator with a baseline \(b\),
 
 where \(M\) is the number of sampled architectures and \(b\) is typically an exponential moving average of past rewards. After the search, the best sampled architecture is trained from scratch.
 
+## Animated example: a shared-weight update affects unsampled paths
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Teaching animation (focus and use arrow keys to scroll horizontally)">
+<div style="width:800px">
+<img data-source-asset-urls src="../../../assets/concept-animations/enas-shared-weight-transfer-still.svg" data-motion-src="../../../assets/concept-animations/enas-shared-weight-transfer-motion.svg" data-still-src="../../../assets/concept-animations/enas-shared-weight-transfer-still.svg" alt="Training sampled architecture A changes the shared parameter from 0.40 to 0.60, altering unsampled B without training its private weight." loading="lazy" width="800" height="420" style="width:800px;min-width:800px;max-width:none" />
+</div>
+</div>
+
+On narrow screens, focus the figure and use arrow keys or swipe to scroll at its natural size.
+
+*Original educational SVG, CC BY-SA 4.0.* GitHub displays the [static preview](../../../assets/concept-animations/enas-shared-weight-transfer-still.svg); on MkDocs, the player provides Play/Pause and keyboard control. Reduced-motion mode uses the still image.
+
+For a **synthetic scalar demonstration**, define \(f_A=w_s+w_A\) and \(f_B=w_s+w_B\) with initial weights \((w_s,w_A,w_B)=(0.4,0.2,-0.3)\). A single gradient step on **sampled A only** uses \(L_A=\frac{1}{2}(f_A-1)^2\) and step size \(0.5\). Both \(\partial L_A/\partial w_s\) and \(\partial L_A/\partial w_A\) equal \(-0.4\). Therefore the new weights are \((0.6,0.4,-0.3)\), and **B changes its prediction from 0.1 to 0.3 without being trained**, since B reads \(w_s\).
+
+The moving marker represents parameter-sharing influence, not a second gradient step. These numbers are **not ENAS experiments or model measurements**. ENAS updates the controller on validation rewards separately from this training update.
+
+The bar interpolates one update for illustration, holds the updated value, and resets only when the loop replays. This is not a sequence of training steps or an update that reverses itself.
+
 ## Key methods
 
 This page covers one method: a controller that samples subgraphs of a supergraph with shared weights, trained by policy gradients on validation reward.

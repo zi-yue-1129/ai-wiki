@@ -27,7 +27,13 @@ GraphSAGE 是一種歸納式（inductive）的節點嵌入方法，由 Hamilton�
 
 ### 教學動畫：採樣、聚合、串接
 
-<img data-source-asset-urls src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" data-motion-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg" data-still-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" alt="GraphSAGE 從六個鄰居中選取三個，計算示意特徵的平均值，再與中心節點特徵串接。">
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="圖表可水平捲動；聚焦後使用方向鍵">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" data-motion-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg" data-still-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" alt="GraphSAGE 從六個鄰居中選取三個，計算示意特徵的平均值，再與中心節點特徵串接。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+</div>
+
+窄螢幕保留原尺寸以便閱讀；可滑動圖表，或聚焦圖框後使用方向鍵水平捲動。
 
 *依 Hamilton 等人（2017，見參考文獻）原創製作的 CC BY-SA 4.0 教學動畫。MkDocs 的 **Play/Pause** 支援鍵盤操作；偏好減少動態效果時，會優先顯示 [GitHub 可閱讀的靜態圖](../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg)。[開啟完整 SVG 動畫](../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg)。*
 

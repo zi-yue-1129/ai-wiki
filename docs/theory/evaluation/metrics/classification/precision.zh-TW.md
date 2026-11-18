@@ -17,6 +17,34 @@ $$\text{精確率} = \frac{TP}{TP + FP}$$
 
 當模型沒有預測任何正例時，精確率沒有定義，因為分母為零。
 
+## 動態教學：門檻掃描：增加警報時精確率如何變化
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="分類指標計算動畫（可使用方向鍵水平捲動）">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/precision-recall-threshold-still.svg" data-motion-src="../../../../assets/concept-animations/precision-recall-threshold-motion.svg" data-still-src="../../../../assets/concept-animations/precision-recall-threshold-still.svg" alt="八筆依分數排序的人工資料，其中四筆是真正例。門檻移動時同步更新真正例、偽正例、漏報、精確率與召回率。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* MkDocs 網站可播放／暫停；鍵盤可聚焦後水平捲動。減少動態效果設定會顯示靜態影格；GitHub 顯示靜態預覽。 [GitHub 靜態預覽](../../../../assets/concept-animations/precision-recall-threshold-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/precision-recall-threshold-motion.svg).
+
+這是**人工示意案例**：八個分數依序為 .95、.87、.81、.74、.67、.52、.41、.22，真實標籤為（+、−、+、+、−、+、−、−）。若選取前四名，TP = 3、FP = 1、FN = 1，精確率與召回率皆為 **0.75**；放寬門檻至前六名，TP = 4、FP = 2，召回率升為 **1.00**，精確率則為 **4/6 ≈ 0.667**。分數與標籤均非模型實測。精確率**不保證隨門檻單調變化**：加入真正例可使精確率上升，加入偽正例則會使其下降。
+
+## 動態教學：基準率如何影響精確率
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="分類指標動畫（可聚焦後使用方向鍵水平捲動）">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/precision-base-rate-still.svg" data-motion-src="../../../../assets/concept-animations/precision-base-rate-motion.svg" data-still-src="../../../../assets/concept-animations/precision-base-rate-still.svg" alt="固定敏感度 90% 與偽陽性率 5%，當正例盛行率由 1% 提高到 50%，真正警報和誤報在所有正例警報中的比例會改變，精確率曲線非線性上升。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* MkDocs 提供播放／暫停；窄螢幕可聚焦後使用方向鍵捲動。減少動態效果設定使用靜態圖，GitHub 則顯示回退預覽。[GitHub 靜態預覽](../../../../assets/concept-animations/precision-base-rate-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/precision-base-rate-motion.svg)。
+
+以下是**人工設定的母體機率**，固定敏感度（TPR）$0.90$ 和偽陽性率（FPR）$0.05$。若正例盛行率為 $p$，貝氏法則給出正例預測的精確率：
+
+$\mathrm{PPV}(p)=\frac{0.90p}{0.90p+0.05(1-p)}.$
+
+當 $p=0.01$，精確率為 **0.154**；$p=0.10$ 時為 **0.667**；$p=0.50$ 時為 **0.947**。堆疊長條表示**所有正例警報的組成**，不是整個母體的比例。這只是固定條件辨識率的解析示例：沒有實際觀測樣本，也沒有重新訓練模型；連續動畫是盛行率參數掃描。即使 TPR 與 FPR 不變，精確率仍會隨部署族群的基準率大幅改變。
+
 ## 解讀
 
 精確率衡量誤報的代價。精確率高的垃圾郵件過濾器，很少把正常郵件放進垃圾信匣。精確率取決於決策門檻：提高門檻通常會減少偽正例、提高精確率，但代價是[召回率](recall.md)下降。

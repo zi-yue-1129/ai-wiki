@@ -28,7 +28,13 @@ A maximally powerful GNN must map different neighbourhoods to different represen
 
 ### Animated walkthrough: why neighbour counts matter
 
-<img data-source-asset-urls src="../../../../../assets/concept-animations/gin-multiset-counts-still.svg" data-motion-src="../../../../../assets/concept-animations/gin-multiset-counts-motion.svg" data-still-src="../../../../../assets/concept-animations/gin-multiset-counts-still.svg" alt="Two incoming feature multisets: the mean is identical, but summation distinguishes two and three copies of the same feature.">
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable figure; focus and use arrow keys">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/gin-multiset-counts-still.svg" data-motion-src="../../../../../assets/concept-animations/gin-multiset-counts-motion.svg" data-still-src="../../../../../assets/concept-animations/gin-multiset-counts-still.svg" alt="Two incoming feature multisets: the mean is identical, but summation distinguishes two and three copies of the same feature." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+</div>
+
+On narrow screens the figure stays at its natural size for legibility. Swipe, or focus the frame and use arrow keys, to scroll horizontally.
 
 *Original CC BY-SA 4.0 teaching animation based on Xu et al. (2018; see References). The MkDocs **Play/Pause** control supports keyboard input; a reduced-motion preference selects the [GitHub-readable static overview](../../../../../assets/concept-animations/gin-multiset-counts-still.svg). [Open the animated SVG](../../../../../assets/concept-animations/gin-multiset-counts-motion.svg).*
 

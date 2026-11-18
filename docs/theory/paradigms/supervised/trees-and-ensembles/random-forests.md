@@ -46,7 +46,41 @@ Then combine the trees. For classification, take a majority vote. For regression
 \hat f(x) = \frac{1}{T}\sum_{t=1}^{T} h_t(x)
 \]
 
-Breiman's paper argues that adding trees does not make the forest overfit. Because more trees do not hurt, the number of trees can be set large instead of being tuned for early stopping as in boosting.
+Breiman (2001, Theorem 1.2) proves that the forest's generalisation error converges almost surely to a limit as trees are added under the fixed randomised construction. This is not a guarantee that every additional tree improves a finite validation set, nor that arbitrary tree settings cannot overfit. Tree count can be increased until the out-of-bag or validation estimate stabilises, subject to computation cost.
+
+
+## Animated walkthrough: bootstrap diversity and voting
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/forest-bootstrap-vote-still.svg" data-motion-src="../../../../assets/concept-animations/forest-bootstrap-vote-motion.svg" data-still-src="../../../../assets/concept-animations/forest-bootstrap-vote-still.svg" alt="Six training rows feed three bootstrap samples; duplicate row indices are highlighted, one illustrative feature subset is shown for each tree, and three predictions A, B, A form a majority vote for A." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* [Open the animated SVG](../../../../assets/concept-animations/forest-bootstrap-vote-motion.svg) or [view the GitHub-safe static preview](../../../../assets/concept-animations/forest-bootstrap-vote-still.svg). On the MkDocs site, use the adjacent **Play/Pause** control (also keyboard accessible); reduced-motion preferences display the still image. The colored moving tokens indicate resampling, while highlighted duplicate row indices make **sampling with replacement** visible. The three displayed bootstrap index sequences are `[1,1,3,4,5,6]`, `[2,2,3,4,5,5]` and `[1,2,4,4,6,6]`. The `f1, f3`-style labels are **example feature subsets at one split**, not the entire tree's split history.
+
+The votes `A, B, A` and the resulting majority `A` are **schematic predictions**, not outputs from trees actually trained on those samples. The animation does not estimate out-of-bag error or imply that forest trees are statistically independent. The bootstrap-and-random-feature mechanism follows Breiman (2001), cited in References.
+
+
+### Out-of-bag cases: which trees may evaluate a training example?
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/rf-bootstrap-oob-still.svg" data-motion-src="../../../../assets/concept-animations/rf-bootstrap-oob-motion.svg" data-still-src="../../../../assets/concept-animations/rf-bootstrap-oob-still.svg" alt="Six training cases A to F are sampled six times with replacement into A, C, C, E, F, F; B and D are omitted and form the out-of-bag set for this particular tree." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe out-of-bag static preview](../../../../assets/concept-animations/rf-bootstrap-oob-still.svg) · [Open the moving SVG](../../../../assets/concept-animations/rf-bootstrap-oob-motion.svg)
+
+The six **illustrative** draws are $A,C,C,E,F,F$, so cases $B$ and $D$ are **out of bag for this one tree**; they were not used to fit that tree. Repeated $C$ and $F$ entries are separate draws of the same training rows, not separate independent observations. For an individual row in an $n$-draw bootstrap bag, the probability of being omitted is $(1-1/n)^n$, which equals $(5/6)^6\approx 0.3349$ here and approaches $e^{-1}$ as $n$ increases. Across the forest, an OOB prediction for row $i$ aggregates **only trees whose bootstrap samples excluded row $i$**, never the full forest. The diagram shows membership, not a fitted tree or an OOB error estimate; its sample is a constructed example, not a model measurement. Original animation, **CC BY-SA 4.0**. On MkDocs, use Play/Pause or the reduced-motion still; focus the scroll region and use arrow keys on narrow screens.
+
+### Random feature subsets: optimise only among candidates
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/rf-feature-subset-still.svg" data-motion-src="../../../../assets/concept-animations/rf-feature-subset-motion.svg" data-still-src="../../../../assets/concept-animations/rf-feature-subset-still.svg" alt="Four hypothetical feature impurity gains are shown. Two alternative random pairs are drawn at the same node: f2 and f3 select f2, whereas f1 and f4 select f1." style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe feature-subset static preview](../../../../assets/concept-animations/rf-feature-subset-still.svg) · [Open the moving SVG](../../../../assets/concept-animations/rf-feature-subset-motion.svg)
+
+For **one hypothetical node**, suppose the best attainable impurity decreases for features $f_1,f_2,f_3,f_4$ are respectively $0.30,0.18,0.12,0.22$. With a candidate subset of size two, a draw of $\{f_2,f_3\}$ selects $f_2$ (gain $0.18$), while an alternative draw of $\{f_1,f_4\}$ selects $f_1$ (gain $0.30$). These are **counterfactual candidate draws at the same node, not consecutive splits or fitted measurements**. A random forest chooses the best allowed split among its sampled features; it does **not** always inspect every feature and does not choose the feature at random after evaluating all gains. The restriction can diversify trees while sacrificing a stronger split at an individual node, as discussed by Breiman (2001) in References. Original animation, **CC BY-SA 4.0**. MkDocs provides Play/Pause and a reduced-motion static fallback; use keyboard horizontal scrolling on a narrow screen.
+
+In the first overview, moving connector dots and pulsing duplicate-row highlights run on independent loops; they indicate data flow and repeated membership, **not** synchronised bootstrap draws or retraining. Its feature pairs illustrate one candidate set at a split, not a permanent feature restriction for an entire tree. In the detailed bootstrap example, the out-of-bag result appears only after all six draw tokens reach the bag; loop resets do not undo sampling.
 
 ## Key methods
 

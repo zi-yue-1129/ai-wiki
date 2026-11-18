@@ -35,10 +35,36 @@ Kennedy and Eberhart (1995) model each particle as having a position \(x_i\) and
 With random numbers \(r_1, r_2\) drawn uniformly from \([0,1]\) at each step, the standard form is
 
 \[
-v_i \leftarrow \omega\, v_i + c_1 r_1 (p_i - x_i) + c_2 r_2 (g - x_i), \qquad x_i \leftarrow x_i + v_i,
+\begin{aligned}
+v_i &\leftarrow \omega\,v_i + c_1r_1(p_i-x_i)
+\\ &\quad + c_2r_2(g-x_i),
+\\ x_i &\leftarrow x_i+v_i.
+\end{aligned}
 \]
 
 where \(\omega\) is an inertia weight, and \(c_1\) and \(c_2\) weight the pull toward personal and neighbourhood bests. The inertia term was added later by Shi and Eberhart (1998); the original 1995 formulation has no such weight. After each move, \(p_i\) and \(g\) are updated if the new position is better. The method is not guaranteed to converge; in practice the swarm settles near the best region found.
+
+## Animated walkthrough: personal and global bests
+
+<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Particle swarm best-position memory animation" tabindex="0">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/particle-swarm-best-still.svg" data-motion-src="../../../assets/concept-animations/particle-swarm-best-motion.svg" data-still-src="../../../assets/concept-animations/particle-swarm-best-still.svg" alt="Three particles move over a two-dimensional quadratic objective. Dashed rings retain each particle's personal best, a teal halo marks the swarm's global best, and the best objective value decreases over iterations." width="640" height="360">
+</div>
+</div>
+
+*Original CC BY-SA 4.0 teaching animation.* [Static GitHub and reduced-motion preview](../../../assets/concept-animations/particle-swarm-best-still.svg). On MkDocs, use **Play animation / Pause animation** (keyboard Enter or Space); horizontally scroll the figure on narrow screens.
+
+The **solid particles** are current positions $x_i$, the **dashed rings** retain each personal best $p_i$, and the **teal ring** tracks the global best $g$. The background ellipses are level sets of the illustrative objective $f(x,y)=(x-4)^2+(y-3)^2$, not a fitted response surface. The example holds $\omega=0.6$ and the two *effective* pull coefficients $c_1r_1=c_2r_2=0.7$ fixed to make one reproducible trajectory; normal PSO resamples the random multipliers. The initial best objective is $5.20$; subsequent illustrated best values include $1.27$ and $0.51$ (rounded). Only the discrete positions at iteration boundaries are PSO updates; the smooth travel between them is a visual interpolation. **All positions and values are synthetic, not an empirical optimisation benchmark.** See Kennedy and Eberhart (1995) and Shi and Eberhart (1998) in References.
+
+Initial conditions, in the figure's colour order:
+
+- Blue: position $(1.2,5.2)$, velocity $(0.6,-0.1)$.
+- Gold: position $(5.4,4.8)$, velocity $(-0.4,-0.2)$.
+- Purple: position $(2.3,1.2)$, velocity $(0.2,0.4)$.
+
+Each initial personal best equals its position; the gold particle is the initial global best. Each round computes all velocities from the same pre-update positions, velocities, personal bests and global best, then moves and evaluates the new positions before updating the best records.
+
+The thin dashed paths show the precomputed illustrative trajectories, not only the history evaluated so far.
 
 ## Key results
 

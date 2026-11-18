@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/paradigms/supervised/trees-and-ensembles
   - theory/paradigms/supervised/kernel-methods-svm
@@ -37,7 +37,41 @@ related:
 \hat f(x) = \frac{1}{T}\sum_{t=1}^{T} h_t(x)
 \]
 
-Breiman 的論文主張，增加樹的數量不會使森林過擬合。由於增加樹不會造成傷害，樹的數量可以設得較大，而不必像提升法那樣為了提前停止而調校。
+Breiman（2001，定理 1.2）證明，在固定的隨機化建構方式下，隨著樹的數量增加，森林的泛化誤差幾乎必然收斂至某個極限。這不保證每增加一棵樹都能改善有限驗證集的表現，也不代表任意樹設定都不會過擬合。可在計算成本允許下增加樹數，直到袋外或驗證誤差估計趨於穩定。
+
+
+## 動畫解讀：自助抽樣、樹的差異與投票
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/forest-bootstrap-vote-still.svg" data-motion-src="../../../../assets/concept-animations/forest-bootstrap-vote-motion.svg" data-still-src="../../../../assets/concept-animations/forest-bootstrap-vote-still.svg" alt="六筆訓練資料流入三組自助抽樣資料，重複抽到的資料編號會被強調；每棵樹展示一組示意特徵子集，三個 A、B、A 預測以多數決得到 A。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 可[開啟完整 SVG 動畫](../../../../assets/concept-animations/forest-bootstrap-vote-motion.svg)，或[查看 GitHub 可顯示的靜態預覽](../../../../assets/concept-animations/forest-bootstrap-vote-still.svg)。MkDocs 網站提供可用鍵盤操作的**播放／暫停**控制；偏好減少動態效果的讀者會看到靜態版本。移動的彩色訊號代表重抽樣，重複的資料編號則凸顯**有放回抽樣**。三組示意抽樣索引依序為 `[1,1,3,4,5,6]`、`[2,2,3,4,5,5]` 與 `[1,2,4,4,6,6]`。`f1, f3` 等標籤只示範**某次分裂可考慮的特徵子集**，並非整棵樹的分裂紀錄。
+
+`A、B、A` 與多數決 `A` 都是**人工設定的預測結果**，不是對這些抽樣資料實際訓練後的模型輸出。此圖不計算袋外誤差，也不主張森林中的樹彼此在統計上獨立。自助抽樣與隨機選特徵的機制參照參考文獻中的 Breiman（2001）。
+
+
+### 袋外樣本：哪些樹能評估某筆訓練資料？
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/rf-bootstrap-oob-still.svg" data-motion-src="../../../../assets/concept-animations/rf-bootstrap-oob-motion.svg" data-still-src="../../../../assets/concept-animations/rf-bootstrap-oob-still.svg" alt="六筆訓練資料 A 到 F 經有放回抽樣六次，得到 A、C、C、E、F、F；B 和 D 沒有被抽中，因此是這棵樹的袋外樣本。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可顯示的袋外樣本靜態圖](../../../../assets/concept-animations/rf-bootstrap-oob-still.svg) · [開啟完整 SVG 動畫](../../../../assets/concept-animations/rf-bootstrap-oob-motion.svg)
+
+此**人工示例**抽出 $A,C,C,E,F,F$，因此 $B$、$D$ 是**這一棵樹**的袋外資料，並未參與該樹的擬合。重複的 $C$、$F$ 是同一筆資料被抽中多次，不是獨立的不同觀測。大小為 $n$ 的訓練集經 $n$ 次有放回抽樣，特定資料完全沒被抽中的機率為 $(1-1/n)^n$；在 $n=6$ 時是 $(5/6)^6\approx 0.3349$，$n$ 增大時趨近 $e^{-1}$。森林中資料 $i$ 的袋外預測，**只聚合那些未將 $i$ 抽入訓練樣本的樹**，而不是所有樹。此圖只示範樣本成員關係，沒有訓練模型或實測袋外誤差。原創教學動畫，**CC BY-SA 4.0**。MkDocs 可使用播放／暫停、減少動態效果的靜態回退，以及狹窄螢幕上的鍵盤水平捲動。
+
+### 隨機特徵子集：只在候選特徵中尋找最佳分裂
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../assets/concept-animations/rf-feature-subset-still.svg" data-motion-src="../../../../assets/concept-animations/rf-feature-subset-motion.svg" data-still-src="../../../../assets/concept-animations/rf-feature-subset-still.svg" alt="四個示意特徵的不純度改善量固定不變。同一節點的兩組替代性隨機抽樣：候選 f2、f3 時選 f2；候選 f1、f4 時選 f1。" style="width:800px;min-width:800px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可顯示的特徵子集靜態圖](../../../../assets/concept-animations/rf-feature-subset-still.svg) · [開啟完整 SVG 動畫](../../../../assets/concept-animations/rf-feature-subset-motion.svg)
+
+假設**同一個示意節點**的 $f_1,f_2,f_3,f_4$ 可達到的不純度減少量依序為 $0.30,0.18,0.12,0.22$。每次只抽兩個候選特徵時，若抽到 $\{f_2,f_3\}$，最佳可用特徵是 $f_2$（改善 $0.18$）；另一種可能抽樣 $\{f_1,f_4\}$，則會選擇 $f_1$（改善 $0.30$）。這是**同一節點下的兩種假設候選集合**，不是連續兩次的節點分裂，也不是模型實測的不純度分數。隨機森林先隨機限制特徵候選，再從候選中最佳化分裂，不是檢查全部特徵後隨機挑一個。此限制有助於樹之間的多樣性，但也可能錯過該節點原本更有利的分裂；其脈絡參照文末 Breiman（2001）。原創教學動畫，**CC BY-SA 4.0**。MkDocs 沿用播放／暫停、減少動態效果回退與鍵盤水平捲動功能。
+
+第一張總覽中，連線上的移動點與重複資料列的脈動標記採用獨立循環，表示資料流與重複納入，**不是**同步的 bootstrap 抽樣或重新訓練。圖中各組特徵對只示意某次分裂的候選集合，不代表整棵樹永久只能使用這些特徵。在詳細 bootstrap 範例中，六次抽樣標記全部抵達袋中後才顯示袋外結果；循環重設不代表撤銷抽樣。
 
 ## 關鍵方法
 

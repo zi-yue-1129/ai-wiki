@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # QLoRA
@@ -21,6 +21,17 @@ LoRA 減少了可訓練參數的數量，但凍結的基底模型仍須以完整
 基底模型的權重以 NF4 儲存並凍結。每個被適配的層，其輸出由 4 位元的基底權重（在矩陣乘法前反量化）加上 LoRA 更新組成，梯度則穿過凍結的 4 位元模型回傳到適配器。只有適配器會被訓練，並以較高精度儲存。雙重量化與分頁最佳化器分別減少常數與最佳化器狀態的記憶體。
 
 論文在 8 個指令資料集上微調了 1,000 多個模型，包括 LLaMA 與 T5 模型，其中包含 330 億與 650 億參數的規模。
+
+
+### 圖解凍結的 NF4 權重與適配器更新
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="可水平捲動的動畫圖表" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/qlora-frozen-flow-still.svg" data-source-asset-urls="true" data-motion-src="../../../../assets/concept-animations/qlora-frozen-flow-motion.svg" data-still-src="../../../../assets/concept-animations/qlora-frozen-flow-still.svg" alt="QLoRA 教學示意：凍結的 NF4 權重經反量化參與矩陣運算，低秩適配器提供額外輸出，反向更新只修改適配器" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+</div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 左側方格代表**凍結的四位元 NF4 編碼**，不是真實模型量測的權重矩陣，也不是 NF4 的實際分位數編碼表。橘色粒子代表**前向運算**：先反量化已儲存的權重以進行矩陣運算，再與 \(BA\) 適配器的輸出相加。紫色粒子代表**參數更新方向**：梯度用來訓練適配器，基底權重則維持凍結。梯度仍可**穿過**凍結的計算路徑傳回其他可微分的輸入；凍結不等於移除反向傳播。本圖略去雙重量化、分頁最佳化器搬移與底層精度核心。MkDocs 提供支援鍵盤的播放／暫停；GitHub 顯示上述靜態預覽，手機可聚焦並水平捲動。此圖為**示意流程，不是實測記憶體占用或訓練效能**；詳見 [Dettmers 等人（2023）](https://arxiv.org/abs/2305.14314)。
 
 ## 結果
 
@@ -59,3 +70,7 @@ QLoRA 是把 LoRA 應用於量化後的基底，因此 [LoRA](index.zh-TW.md) �
 
 - Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — 報告每通道 8 位元量化能讓多種 CNN 架構的分類準確度與浮點網路相差在 2% 以內，是基底以低位元儲存的後訓練對應做法。
 - Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張對 AI 服務而言，主要瓶頸是記憶體頻寬而非運算，而把基底儲存為 4 位元正能緩解這項壓力。
+
+小螢幕可左右滑動；鍵盤使用者可聚焦圖表外框後按左右方向鍵捲動。
+
+每個 10 秒循環依序展示同一步的儲存讀取、前向合流、反向傳播及更新，再重新播放；時間比例並非實測。
