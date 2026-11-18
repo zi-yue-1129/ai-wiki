@@ -3018,6 +3018,21 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "roc-pr-shift": {
+      "origins": [
+        {
+          "origin_blob": "c5c34967c4247aee5058192c2c9ee03740a89497",
+          "origin_commit": "ebe5adcd17199882319b6f59eb764b7c301e5de7",
+          "path": "docs/assets/concept-animations/roc-pr-shift-motion.svg"
+        },
+        {
+          "origin_blob": "132f94f42040d67856f9e6da96af1cd5c237d0f0",
+          "origin_commit": "f4a8534644c6af35bab70d722c1595190f58b9b2",
+          "path": "docs/assets/concept-animations/roc-pr-shift-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "roc-randomized-operating-mix": {
       "origins": [
         {
@@ -3074,6 +3089,21 @@
           "origin_blob": "d9cd12b96574a8fa9152bfd740635fa03a0e2c4b",
           "origin_commit": "15c481b6e404a995701352554969476d4bf66fc8",
           "path": "docs/assets/concept-animations/roc-tie-half-credit-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-youden-cost": {
+      "origins": [
+        {
+          "origin_blob": "6fcaf1392b50d52d150e0be44594db6800a34d82",
+          "origin_commit": "ebe5adcd17199882319b6f59eb764b7c301e5de7",
+          "path": "docs/assets/concept-animations/roc-youden-cost-motion.svg"
+        },
+        {
+          "origin_blob": "35e36b5268e239e90b7d574ce5c4ff089b479e9b",
+          "origin_commit": "f4a8534644c6af35bab70d722c1595190f58b9b2",
+          "path": "docs/assets/concept-animations/roc-youden-cost-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
