@@ -50,7 +50,7 @@ C = \sum_{i\ne j}\Big[v_{ij}\log\frac{v_{ij}}{w_{ij}} + (1-v_{ij})\log\frac{1-v_
 
 ### 動畫示範：非對稱鄰居關係如何形成模糊聯集
 
-<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="UMAP 動畫；左右捲動查看完整圖表">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="UMAP 動畫；左右捲動查看完整圖表">
 <div style="width:640px;min-width:640px">
 <img data-source-asset-urls src="../../../../assets/concept-animations/umap-fuzzy-union-still.svg" data-motion-src="../../../../assets/concept-animations/umap-fuzzy-union-motion.svg" data-still-src="../../../../assets/concept-animations/umap-fuzzy-union-still.svg" alt="UMAP 的雙向鄰居強度逐步合併，形成較粗的無向模糊聯集邊" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" loading="lazy">
 </div>

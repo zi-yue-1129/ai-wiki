@@ -63,7 +63,7 @@ The paper's optimisation settings for its visualisations are: the \(p_{ij}\) are
 
 ### Animated walkthrough: fixed affinities guide embedding updates
 
-<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="t-SNE animation; scroll horizontally to view the complete figure">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="t-SNE animation; scroll horizontally to view the complete figure">
 <div style="width:640px;min-width:640px">
 <img data-source-asset-urls src="../../../../assets/concept-animations/tsne-kl-embedding-still.svg" data-motion-src="../../../../assets/concept-animations/tsne-kl-embedding-motion.svg" data-still-src="../../../../assets/concept-animations/tsne-kl-embedding-still.svg" alt="Six synthetic points move under a t-SNE KL gradient while fixed high-dimensional affinities remain visible" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" loading="lazy">
 </div>

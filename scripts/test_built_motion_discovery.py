@@ -197,6 +197,21 @@ class KeyboardScrollTests(unittest.TestCase):
         page.wait_for_function.assert_called_once()
         self.assertIn('scrollLeft > 0', page.wait_for_function.call_args.args[0])
 
+    def test_scroll_settling_and_blur_are_not_skipped(self):
+        page, region = self.fixture()
+        check_keyboard_scrollers(page)
+        calls = [c.args[0] for c in region.evaluate.call_args_list]
+        self.assertEqual(sum('stableSince' in js for js in calls), 2)
+        self.assertTrue(any('e.blur()' in js and 'scrollTo' in js for js in calls))
+
+    def test_reset_failure_is_not_swallowed(self):
+        page, region = self.fixture()
+        region.evaluate.side_effect = [
+            {'clientWidth': 358, 'scrollWidth': 640}, None, True, 40, None, 2,
+        ]
+        with self.assertRaisesRegex(AssertionError, 'Scroll region did not reset'):
+            check_keyboard_scrollers(page)
+
     def test_non_overflowing_region_is_not_falsely_reported(self):
         page, region = self.fixture(width=358)
         self.assertEqual(check_keyboard_scrollers(page), [])

@@ -22,6 +22,7 @@ class Semantics(unittest.TestCase):
     outer,inner,img=parser.tags[i-2:i+1]
     self.assertEqual((outer[0],inner[0],img[0]),('div','div','img'))
     self.assertEqual(outer[1]['tabindex'],'0');self.assertEqual(outer[1]['role'],'group')
+    self.assertIn('concept-motion-scroll',outer[1].get('class','').split())
     self.assertIn('overflow-x:auto',outer[1]['style']);self.assertIn('max-width:100%',outer[1]['style'])
     self.assertIn('min-width:640px',inner[1]['style'])
     for rule in ['width:640px','min-width:640px','max-width:none','height:auto']:

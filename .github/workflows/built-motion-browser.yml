@@ -71,6 +71,8 @@ jobs:
           PYTHON
       - name: Build real bilingual pages
         run: mkdocs build --strict
+      - name: Preflight native keyboard scroll settling on bilingual mobile pages
+        run: python scripts/test_built_motion_browser.py --keyboard-preflight --output artifacts/keyboard-scroll-preflight
       - name: Exercise built desktop, mobile and reduced-motion pages
         run: python scripts/test_built_motion_browser.py
       - name: Check bilingual variational-inference prose and mathematical layout
@@ -87,6 +89,7 @@ jobs:
         with:
           name: built-motion-browser-review
           path: |
+            artifacts/keyboard-scroll-preflight/
             artifacts/built-motion-browser/
             artifacts/sharpness-labs/
             artifacts/adaptive-optimiser-labs/
