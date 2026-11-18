@@ -25,11 +25,13 @@ Mask R-CNN 保留 Faster R-CNN 的兩階段結構。區域提議網路先提出�
 
 ## 動態示範：取整取樣與對齊取樣
 
-<div style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="RoIAlign 與 RoIPool 取樣差異的教學圖，可水平捲動">
-<div style="width:800px">
-<img src="../../../../assets/concept-animations/roi-align-sampling-still.svg" data-motion-src="../../../../assets/concept-animations/roi-align-sampling-motion.svg" data-still-src="../../../../assets/concept-animations/roi-align-sampling-still.svg" width="800" height="460" alt="左右並列兩張特徵網格：橘色分數取樣位置連續移動；RoIPool 的取整位置和示意取樣值跳變，RoIAlign 依雙線性插值平滑改變。">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="RoIAlign 與 RoIPool 取樣差異的教學圖，可水平捲動">
+<div class="seg-motion-inner" style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/roi-align-sampling-still.svg" data-motion-src="../../../../assets/concept-animations/roi-align-sampling-motion.svg" data-still-src="../../../../assets/concept-animations/roi-align-sampling-still.svg" width="800" height="460" alt="左右並列兩張特徵網格：橘色分數取樣位置連續移動；RoIPool 的取整位置和示意取樣值跳變，RoIAlign 依雙線性插值平滑改變。">
 </div>
 </div>
+
+圖中只取一列兩個格點中心，值分別為 68/137 與 118/137；長條每單位為 137 像素，最近格點在中點切換。動畫單向掃描後重設，不代表反向運算。
 
 **觀察重點：** 橘色標記在兩張人工構造的特徵網格上連續移動。左側青綠色取樣位置在格點間跳變，使下方輸出長條突然改變；右側則以連續座標取得插值，輸出長條平滑變化。此圖刻意將 RoIPool 式座標量化簡化成**單一格點取樣**，並非完整的 RoIPool 最大池化計算。實際 RoIAlign 在每個 RoI 分格內對多個位置進行**雙線性插值**並聚合特徵。畫面是教學用的一維截面示意，並非真實影像的特徵圖或 [Mask R-CNN 論文](https://arxiv.org/abs/1703.06870)的實驗數值。
 

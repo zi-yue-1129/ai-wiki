@@ -26,11 +26,13 @@ related:
 
 ## 動態示範：單一提示的遮罩歧義
 
-<div style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="SAM 點提示與多個候選遮罩的教學圖，可水平捲動">
-<div style="width:800px">
-<img src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" data-motion-src="../../../../assets/concept-animations/sam-prompt-ambiguity-motion.svg" data-still-src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" width="800" height="460" alt="單一點提示落在具有整體、部分和子部分的巢狀形狀上，右側展示三種有效遮罩候選；額外框提示出現後，示意聚焦於整體遮罩。">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="SAM 點提示與多個候選遮罩的教學圖，可水平捲動">
+<div class="seg-motion-inner" style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" data-motion-src="../../../../assets/concept-animations/sam-prompt-ambiguity-motion.svg" data-still-src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" width="800" height="460" alt="單一點提示落在具有整體、部分和子部分的巢狀形狀上，右側展示三種有效遮罩候選；額外框提示出現後，示意聚焦於整體遮罩。">
 </div>
 </div>
+
+圖中的整體遮罩是加入框後手動指定的解讀，不是由「包含於框內」唯一推得；巢狀的小遮罩也在框內。互動實驗明確使用人工規則：候選遮罩的緊密外接框須與提示框完全相同，而非只要求包含。這不是 SAM 的演算法，也不保證真實模型只回傳一個遮罩。動畫每輪重設。
 
 位於巢狀物體內的單一點提示，同時可能對應**整體（whole）**、**部分（part）**與**子部分（subpart）**等多種合理遮罩。右側展示的是**不同粒度的有效候選**，不是類別 softmax，也不是三種語意分類標籤。當畫面加入框提示時，示意聚焦於一個受額外條件限制的輸出。原始 [Segment Anything 論文](https://arxiv.org/abs/2304.02643)在有歧義的單一提示下可輸出三張候選遮罩，多個提示時則輸出一張遮罩。**圖中的形狀與時間轉場全是人工示意**，並非 SAM 模型實際推論、信心分數或注意力量測。
 

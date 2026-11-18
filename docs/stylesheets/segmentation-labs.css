@@ -12,3 +12,7 @@
 .seg-lab-readout{display:block;margin-top:12px;font-size:.83rem;font-variant-numeric:tabular-nums;line-height:1.6;overflow-wrap:anywhere}
 .seg-lab-note{font-size:.75rem;opacity:.78;margin:.35rem 0 0}
 @media (prefers-reduced-motion:reduce){.seg-lab-frame *{animation:none!important;transition:none!important}}
+
+/* Keep only these two source figures at their intended readable width. */
+.seg-motion-inner > .concept-motion-player{width:800px;max-width:none;margin:0}
+.seg-motion-inner > img,.seg-motion-inner .concept-motion-player img{width:800px;max-width:none;height:auto}

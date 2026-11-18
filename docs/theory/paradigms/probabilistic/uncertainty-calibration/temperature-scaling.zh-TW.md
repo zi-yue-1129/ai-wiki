@@ -30,7 +30,7 @@ translation_reviewed: 2026-10-30
 
 <div style="max-width:100%;overflow-x:auto" role="group" aria-label="溫度縮放動畫">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/temperature-softmax-still.svg" data-motion-src="../../../../assets/concept-animations/temperature-softmax-motion.svg" alt="固定示意 logits 為 A=3、B=1、C=0；溫度從 0.5 上升至 2 再下降時，softmax 機率長條連續變化，但預測類別始終為 A。" width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/temperature-softmax-still.svg" data-motion-src="../../../../assets/concept-animations/temperature-softmax-motion.svg" alt="固定示意 logits 為 A=3、B=1、C=0；溫度從 0.5 上升至 2 再下降時，softmax 機率長條連續變化，但預測類別始終為 A。" width="640" height="360">
 </div>
 </div>
 

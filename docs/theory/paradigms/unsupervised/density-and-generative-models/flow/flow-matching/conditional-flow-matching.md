@@ -28,11 +28,21 @@ Continuous normalising flows (Chen et al., 2018) define a generative model throu
 - **Conditional path** \(p_t(x\mid x_1)\): a distribution over \(x\) at time \(t\), given a data point \(x_1\). At \(t=0\) it is noise, and at \(t=1\) it is concentrated on \(x_1\).
 - **Conditional vector field** \(u_t(x\mid x_1)\): the velocity that generates the conditional path.
 - **Marginal path and field**: the mixture over \(x_1\) of the conditional paths and fields. The marginal field generates the data distribution at \(t=1\).
-- **Gaussian conditional path**: \(p_t(x\mid x_1) = \mathcal N\big(x \mid \mu_t(x_1), \sigma_t(x_1)^2 I\big)\), with mean and scale functions chosen by the designer.
+- **Gaussian conditional path**: choose tractable mean and scale functions for
+
+    $$
+    p_t(x\mid x_1) = \mathcal N\big(x \mid \mu_t(x_1), \sigma_t(x_1)^2 I\big)
+    $$
 
 ## How it works
 
-The flow matching loss \(\mathcal L_{\text{FM}}(\theta) = \mathbb E_{t, x\sim p_t}\lVert v_\theta(t,x) - u_t(x)\rVert^2\) uses the marginal field \(u_t(x)\), which is an integral over all data points and cannot be computed. Lipman et al. replace it with the conditional loss
+The flow matching loss is
+
+$$
+\mathcal L_{\text{FM}}(\theta) = \mathbb E_{t, x\sim p_t}\lVert v_\theta(t,x) - u_t(x)\rVert^2
+$$
+
+It uses the marginal field \(u_t(x)\), an integral over all data points that is generally intractable. Lipman et al. replace it with the conditional loss
 
 \[
 \mathcal L_{\text{CFM}}(\theta) = \mathbb E_{t\sim\mathcal U[0,1],\; x_1\sim q(x_1),\; x\sim p_t(x\mid x_1)}\big\lVert v_\theta(t, x) - u_t(x\mid x_1)\big\rVert^2
@@ -40,13 +50,40 @@ The flow matching loss \(\mathcal L_{\text{FM}}(\theta) = \mathbb E_{t, x\sim p_
 
 The paper's Theorem 2 states that \(\mathcal L_{\text{FM}}\) and \(\mathcal L_{\text{CFM}}\) differ by a constant that does not depend on \(\theta\), so they have identical gradients. Minimising the tractable loss therefore trains the same model. Sampling draws \(x_0\sim\mathcal N(0,I)\) and integrates \(\mathrm{d}x/\mathrm{d}t = v_\theta(t,x)\) from \(t=0\) to \(t=1\) with a standard ODE solver.
 
+
+## Visual walkthrough: interpolated pairs and velocity targets
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Flow teaching animation; focus and use arrow keys to scroll">
+<div style="width:760px">
+<img data-source-asset-urls src="../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg" data-motion-src="../../../../../../assets/concept-animations/cfm-conditional-bridge-motion.svg" data-still-src="../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg" width="760" height="410" style="width:760px;min-width:760px;max-width:none;height:auto" alt="Three conditional paths progress continuously from hand-selected noise values to data values, with the corresponding velocity directions shown on the right.">
+</div>
+</div>
+
+*Original teaching visual, CC BY-SA 4.0.* [GitHub-readable static fallback](../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg). On the MkDocs site, use **Play/Pause** (or Enter/Space when the button has focus); reduced-motion preferences show the static image.
+
+The horizontal coordinate is time and the vertical coordinate is a **one-dimensional illustrative state**. For each paired sample, the moving marker obeys \(x_t=(1-t)x_0+t x_1\) at \(\sigma_{\min}=0\), with a constant **conditional** target \(u_t=x_1-x_0\). The right-hand arrows indicate the *sign*, not the magnitude, of each sample's velocity. The paths may cross: this is not a single learned ODE trajectory field; at an intersecting \((t,x)\), the marginal regression target averages conditional velocities according to their conditional probabilities. All states and paths are hand chosen—not model predictions, empirical transport trajectories, or measured results. See Lipman et al. (2023) in References.
+
+
+The state increases upward. In arbitrary units $x=(350-y_{\mathrm{SVG}})/100$, the pairs are A: $2.05\to2.30$, B: $1.29\to0.72$, C: $0.33\to1.59$, so their velocities are $+0.25,-0.57,+1.26$. All markers and the vertical time cursor use the same linear time parameter; the static view is $t=0.575$.
+
 ## Key methods
 
 ### Flow Matching for Generative Modeling (Lipman et al., 2023)
 
 - **Problem:** continuous normalising flows give exact likelihoods but need an ODE solve for each training step. Diffusion models train cheaply but are tied to a fixed stochastic process.
 - **Core idea:** regress the velocity field onto the conditional velocity of a chosen probability path. The per-sample target is unbiased for the marginal field, and no ODE is simulated during training.
-- **Equation or algorithm:** the paper's optimal-transport path, with \(\sigma_{\min}\) a small constant, has mean \(\mu_t(x_1)=t\,x_1\), scale \(\sigma_t = 1-(1-\sigma_{\min})t\), flow \(\psi_t(x)=(1-(1-\sigma_{\min})t)\,x + t\,x_1\), and conditional field \(u_t(x\mid x_1) = \dfrac{x_1 - (1-\sigma_{\min})x}{1-(1-\sigma_{\min})t}\). With \(\sigma_{\min}\to 0\) the path is the straight line from noise to data at constant speed. Each training step draws \(t\), a data point \(x_1\), and a noise point \(x_0\sim\mathcal N(0,I)\), forms \(x_t=\psi_t(x_0)\), and regresses \(v_\theta(t, x_t)\) onto \(u_t(x_t\mid x_1)\). For \(\sigma_{\min}=0\) this target is \(x_1 - x_0\).
+- **Equation or algorithm:** The optimal-transport path uses a small constant \(\sigma_{\min}\):
+
+    $$
+    \begin{aligned}
+    \mu_t(x_1)&=t\,x_1,\\
+    \sigma_t&=1-(1-\sigma_{\min})t,\\
+    \psi_t(x)&=(1-(1-\sigma_{\min})t)\,x+t\,x_1,\\
+    u_t(x\mid x_1)&=\frac{x_1-(1-\sigma_{\min})x}{1-(1-\sigma_{\min})t}.
+    \end{aligned}
+    $$
+
+    With \(\sigma_{\min}\to 0\) the path is the straight line from noise to data at constant speed. Each training step draws \(t\), a data point \(x_1\), and a noise point \(x_0\sim\mathcal N(0,I)\), forms \(x_t=\psi_t(x_0)\), and regresses \(v_\theta(t, x_t)\) onto \(u_t(x_t\mid x_1)\). For \(\sigma_{\min}=0\) this target is \(x_1 - x_0\).
 - **Results:** Table 1 of the paper reports unconditional ImageNet results. At 32×32, the optimal-transport path gives 3.53 bits/dim, FID 5.02 and 122 function evaluations, against 3.54, FID 6.37 and 193 for the diffusion path. At 64×64, the figures are 3.31 bits/dim and FID 14.45 for the optimal-transport path, against 3.33 and FID 16.88 for the diffusion path. At 128×128 the paper reports only the optimal-transport model, with 2.90 bits/dim and FID 20.9. The paper also states that on ImageNet 32×32 the optimal-transport sampler reaches the same error threshold with roughly 60% of the function evaluations of the diffusion path.
 - **Limitations:** generation needs several ODE evaluations (122 to 193 in Table 1), so sampling is slower than a single network pass. Exact likelihood needs one more ODE integration. The paper compares paths empirically and does not prove that the optimal-transport path is best in general.
 

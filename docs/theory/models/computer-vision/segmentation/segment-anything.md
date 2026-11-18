@@ -38,11 +38,13 @@ The image encoder is a Vision Transformer (ViT-H/16) initialised with masked aut
 
 ## Animated walkthrough: ambiguous prompt, several valid masks
 
-<div style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable SAM prompt-and-mask illustration">
-<div style="width:800px">
-<img src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" data-motion-src="../../../../assets/concept-animations/sam-prompt-ambiguity-motion.svg" data-still-src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" width="800" height="460" alt="A single point on a nested shape yields whole, part, and subpart mask candidates; adding a box prompt illustrates a narrower, single-mask response.">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable SAM prompt-and-mask illustration">
+<div class="seg-motion-inner" style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" data-motion-src="../../../../assets/concept-animations/sam-prompt-ambiguity-motion.svg" data-still-src="../../../../assets/concept-animations/sam-prompt-ambiguity-still.svg" width="800" height="460" alt="A single point on a nested shape yields whole, part, and subpart mask candidates; adding a box prompt illustrates a narrower, single-mask response.">
 </div>
 </div>
+
+The figure hand-selects the whole-object interpretation after the box appears; containment alone cannot select it uniquely because the smaller masks also lie inside the box. The lab uses an explicit toy rule: the candidate’s tight bounding box must equal the prompt box, not merely lie inside it. This is not SAM’s algorithm and does not guarantee that a real model returns one mask. Each animation loop resets.
 
 A single point in the nested object is consistent with several mask granularities: **whole**, **part**, or **subpart**. The three candidate silhouettes on the right are **distinct plausible outputs**, not a categorical softmax or three segmentation class labels. When an additional box prompt appears, the diagram highlights one constrained response; in the original [Segment Anything study](https://arxiv.org/abs/2304.02643), **ambiguous single prompts can yield three masks**, while multiple prompts use a single output mask. The silhouettes and their timing are **constructed illustrations**, not actual SAM predictions, confidence estimates, or recorded decoder attention.
 

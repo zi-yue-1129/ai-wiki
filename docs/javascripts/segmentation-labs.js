@@ -3,8 +3,8 @@
   'use strict';
   const lang = (el) => el.dataset.lang === 'zh' ? 'zh' : 'en';
   const T = {
-    en: {previous:'Previous',next:'Next',play:'Play',pause:'Pause',reset:'Reset',speed:'Speed',step:'Step',x:'Sample x',y:'Sample y',nearest:'Nearest',bilinear:'Bilinear',value:'Value',difference:'Difference',weights:'Corner weights',stage:['Sample','Four neighbours','Interpolate','Compare'],point:'Point only',box:'Point + box',candidate:'Candidate',whole:'Whole',part:'Part',subpart:'Subpart',mask:'Toy mask',allowed:'Possible masks',constrained:'Box-filtered mask',all:'All 3 plausible masks',single:'One constructed match',roiNote:'Synthetic feature values, not measured Mask R-CNN activations. Nearest-grid read is only a quantisation analogy.',samNote:'Constructed mask candidates and box filtering, not trained SAM predictions or confidence scores.'},
-    zh: {previous:'上一步',next:'下一步',play:'播放',pause:'暫停',reset:'重設',speed:'速度',step:'步驟',x:'取樣 x',y:'取樣 y',nearest:'最近格點',bilinear:'雙線性插值',value:'數值',difference:'差距',weights:'四角權重',stage:['定位取樣點','取得四角','計算插值','比較結果'],point:'單點提示',box:'點提示＋框提示',candidate:'候選遮罩',whole:'整體',part:'部分',subpart:'子部分',mask:'人工遮罩',allowed:'可能的遮罩',constrained:'受框條件限制的遮罩',all:'三個合理候選',single:'人工規則選取一個',roiNote:'人工特徵值，非 Mask R-CNN 實測活化；最近格點取樣僅用於說明座標量化。',samNote:'人工遮罩候選與框條件篩選，非 SAM 模型推論或信心分數。'}
+    en: {previous:'Previous',next:'Next',play:'Play',pause:'Pause',reset:'Reset',speed:'Speed',step:'Step',x:'Sample x',y:'Sample y',nearest:'Nearest',bilinear:'Bilinear',value:'Value',difference:'Difference',weights:'Corner weights',samStage:['Image','Point candidates','Box match','Summary'],stage:['Sample','Four neighbours','Interpolate','Compare'],point:'Point only',box:'Point + box',candidate:'Candidate',whole:'Whole',part:'Part',subpart:'Subpart',mask:'Toy mask',allowed:'Possible masks',constrained:'Box-filtered mask',all:'All 3 plausible masks',single:'One constructed match',roiNote:'Synthetic feature values, not measured Mask R-CNN activations. Nearest-grid read is only a quantisation analogy.',samNote:'Constructed mask candidates and box filtering, not trained SAM predictions or confidence scores.'},
+    zh: {previous:'上一步',next:'下一步',play:'播放',pause:'暫停',reset:'重設',speed:'速度',step:'步驟',x:'取樣 x',y:'取樣 y',nearest:'最近格點',bilinear:'雙線性插值',value:'數值',difference:'差距',weights:'四角權重',samStage:['影像','單點候選','外接框配對','摘要'],stage:['定位取樣點','取得四角','計算插值','比較結果'],point:'單點提示',box:'點提示＋框提示',candidate:'候選遮罩',whole:'整體',part:'部分',subpart:'子部分',mask:'人工遮罩',allowed:'可能的遮罩',constrained:'受框條件限制的遮罩',all:'三個合理候選',single:'人工規則選取一個',roiNote:'人工特徵值，非 Mask R-CNN 實測活化；最近格點取樣僅用於說明座標量化。',samNote:'人工遮罩候選與框條件篩選，非 SAM 模型推論或信心分數。'}
   };
   const grid = [
     [0.08,0.25,0.55,0.75],
@@ -55,7 +55,13 @@
     Array.from({length:8},(_,r)=>Array.from({length:8},(_,c)=> (c-3.5)**2/8+(r-3.5)**2/8<1.0)),
     Array.from({length:8},(_,r)=>Array.from({length:8},(_,c)=> (c-3.5)**2/3+(r-3.5)**2/3<1.0))
   ];
+  function maskBox(mask){
+    const cells=sets[mask].flatMap((row,r)=>row.flatMap((on,c)=>on?[[c,r]]:[]));
+    return [Math.min(...cells.map(p=>p[0])),Math.min(...cells.map(p=>p[1])),Math.max(...cells.map(p=>p[0]))+1,Math.max(...cells.map(p=>p[1]))+1];
+  }
+  function samMatches(mask,box,step){return [0,1,2].filter(i=>!box||step<2||maskBox(i).every((v,j)=>v===maskBox(mask)[j]));}
   function samSVG(s,step,t){
+    const matches=samMatches(s.mask,s.box,step), bounds=maskBox(s.mask);
     const candidateColors=['#0c8795','#c07829','#7460b6'];
     let g='';
     for(let r=0;r<8;r++)for(let c=0;c<8;c++){
@@ -66,14 +72,15 @@
     for(let i=0;i<3;i++){
       const x=388+i*92, y=144, selected=s.mask===i;
       candidates+=`<rect x="${x}" y="${y}" width="74" height="74" rx="10" fill="${selected?'#eaf9fa':'#f4f5fa'}" stroke="${selected?'#0c8795':'#bdc9d5'}" stroke-width="${selected?3:1}"/>`;
-      candidates+=`<circle cx="${x+37}" cy="${y+37}" r="${[28,21,12][i]}" fill="${candidateColors[i]}" opacity="${s.box&&i!==s.mask&&step>=2?'.18':'.8'}"/>`;
+      candidates+=`<circle cx="${x+37}" cy="${y+37}" r="${[28,21,12][i]}" fill="${candidateColors[i]}" opacity="${!matches.includes(i)?'.18':'.8'}"/>`;
       candidates+=mark(['Whole','Part','Subpart'][i],`x="${x+37}" y="${y+95}" text-anchor="middle" font-size="13" fill="#344b60"`);
-      if(s.box&&step>=2&&i!==s.mask)candidates+=`<line x1="${x+10}" y1="${y+62}" x2="${x+64}" y2="${y+13}" stroke="#c55050" stroke-width="2"/>`;
+      if(!matches.includes(i))candidates+=`<line x1="${x+10}" y1="${y+62}" x2="${x+64}" y2="${y+13}" stroke="#c55050" stroke-width="2"/>`;
     }
-    const bbox=s.box&&step>=2?`<rect x="${42+[0,1,2][s.mask]*32}" y="${60+[0,1,2][s.mask]*32}" width="${280-[0,1,2][s.mask]*64}" height="${280-[0,1,2][s.mask]*64}" fill="none" stroke="#db8b26" stroke-width="4" stroke-dasharray="8 5"/>`:'';
+    const bbox=s.box&&step>=2?`<rect x="${42+bounds[0]*35}" y="${60+bounds[1]*35}" width="${(bounds[2]-bounds[0])*35}" height="${(bounds[3]-bounds[1])*35}" fill="none" stroke="#db8b26" stroke-width="4" stroke-dasharray="8 5"/>`:'';
     const count=sets[s.mask].flat().filter(Boolean).length;
     return `<svg viewBox="0 0 690 420" role="img" aria-label="Nested synthetic masks and point box prompts"><rect width="690" height="420" rx="14" fill="#f9fbff"/>${mark('Toy image','x="42" y="34" font-size="18" font-weight="600" fill="#294358"')}${g}${step>=1?`<circle cx="182" cy="200" r="7" fill="#fc8c17" stroke="white" stroke-width="3"/>`:''}${bbox}${mark('Candidate masks','x="388" y="111" font-size="18" font-weight="600" fill="#294358"')}${candidates}${mark((s.box&&step>=2?'Point + box':'Point'), 'x="388" y="304" font-size="17" fill="#2f5c65"')}${mark('Cells: '+count,'x="388" y="339" font-size="16" fill="#425b6f"')}${step>=3?mark(s.box?'1 toy match':'3 plausible masks','x="388" y="372" font-size="17" font-weight="600" fill="#c07829"'):''}</svg>`;
   }
+  window.SegmentationTeachingMath=Object.freeze({roiState,grid,sets,maskBox,samMatches});
   function attach(host){
     if(host.dataset.segReady)return;host.dataset.segReady='yes';
     const type=host.dataset.segLab, t=T[lang(host)],state={step:0,speed:1,x:1.3,y:1.6,mask:0,box:false};
@@ -83,15 +90,16 @@
     function stop(){if(timer!==null){clearInterval(timer);timer=null;}}
     function draw(){
       const lab=type==='roi'?roiState(state.x,state.y):state;
+      host.dataset.matchCount=String(samMatches(state.mask,state.box,state.step).length);
       $('[data-art]').innerHTML=type==='roi'?roiSVG(lab,state.step,t):samSVG(lab,state.step,t);
-      const read=type==='roi'?`${t.stage[state.step]} · (${state.x.toFixed(1)}, ${state.y.toFixed(1)}) · ${t.nearest}: ${fmt(lab.near)} · ${t.bilinear}: ${fmt(lab.bi)} · ${t.difference}: ${fmt(Math.abs(lab.near-lab.bi))}`:`${t.stage[state.step]} · ${state.box?t.single:t.all} · ${[t.whole,t.part,t.subpart][state.mask]}`;
+      const read=type==='roi'?`${t.stage[state.step]} · (${state.x.toFixed(1)}, ${state.y.toFixed(1)}) · ${t.nearest}: ${fmt(lab.near)} · ${t.bilinear}: ${fmt(lab.bi)} · ${t.difference}: ${fmt(Math.abs(lab.near-lab.bi))}`:`${t.samStage[state.step]} · ${state.box&&state.step>=2?t.single:t.all} · ${[t.whole,t.part,t.subpart][state.mask]}`;
       $('[data-readout]').textContent=read;
       $('[data-action="seek"]').value=String(state.step);
       $('[data-action="toggle"]').textContent=timer===null?t.play:t.pause;
       host.querySelectorAll('[data-axis]').forEach(n=>{const o=$(`[data-out="${n.dataset.axis}"]`);o.textContent=state[n.dataset.axis].toFixed(1);});
     }
-    function advance(){state.step=(state.step+1)%4;draw();}
-    function start(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;stop();timer=setInterval(advance,1300/state.speed);draw();}
+    function advance(){state.step=Math.min(3,state.step+1);if(state.step===3)stop();draw();}
+    function start(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;stop();if(state.step===3)state.step=0;timer=setInterval(advance,1300/state.speed);draw();}
     host.addEventListener('input',e=>{
       const axis=e.target.dataset.axis,action=e.target.dataset.action;
       if(axis){state[axis]=Number(e.target.value);stop();draw();}

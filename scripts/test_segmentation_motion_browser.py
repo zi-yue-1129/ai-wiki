@@ -4,6 +4,7 @@
 Run from repository root after `python -m playwright install chromium`.
 """
 import asyncio
+import os
 import hashlib
 import tempfile
 from pathlib import Path
@@ -20,7 +21,7 @@ async def main():
         for suffix in ('motion', 'still'):
             assert (ASSETS / f'{stem}-{suffix}.svg').is_file()
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(headless=True, executable_path=os.environ.get("SEGMENTATION_CHROMIUM"))
         checks = 0
         for stem in PAIRS:
             for width in (320, 360, 800, 1024):
@@ -32,10 +33,10 @@ async def main():
                     # Same markup contract used by both bilingual wiki chapters.
                     markup = f'''<!doctype html><meta charset="utf-8">
                     <style>body{{margin:0;padding:10px}}.wide{{max-width:100%;overflow-x:auto}}.inner{{width:800px}}
-                    .concept-motion-player{{display:block;max-width:640px}}
+                    .seg-motion-inner > .concept-motion-player{{display:block;width:800px;max-width:none}}
                     .concept-motion-player img{{display:block;width:100%;height:auto}}
                     </style>
-                    <div class="wide" role="region" tabindex="0"><div class="inner">
+                    <div class="wide" role="region" tabindex="0"><div class="inner seg-motion-inner">
                     <img src="{still}" data-motion-src="{motion}" data-still-src="{still}" alt="{alt}" width="800" height="460"></div></div>
                     <script>{PLAYER.read_text(encoding='utf-8')}</script>'''
                     with tempfile.TemporaryDirectory() as d:
@@ -57,6 +58,10 @@ async def main():
                         if width <= 360:
                             s = await page.locator('.wide').evaluate('(e)=>({scroll:e.scrollWidth,client:e.clientWidth})')
                             assert s['scroll'] > s['client'] + 200, (stem, s)
+                            await page.locator('.wide').focus()
+                            await page.keyboard.press('ArrowRight')
+                            await page.wait_for_timeout(350)
+                            assert await page.locator('.wide').evaluate('(e)=>e.scrollLeft') > 0
                         checks += 1
                     await page.close()
             # Reduced motion must show still before any manual interaction.

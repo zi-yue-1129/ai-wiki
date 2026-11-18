@@ -63,9 +63,12 @@ def main():
                     original = sam.locator('[data-readout]').inner_text()
                     sam.locator('[data-pick="mask"]').select_option("2")
                     sam.locator('[data-pick="box"]').check()
+                    assert sam.get_attribute('data-match-count') == '3'
+                    assert sam.locator('svg line[stroke="#c55050"]').count() == 0
                     sam.locator('[data-action="seek"]').fill("3")
                     updated = sam.locator('[data-readout]').inner_text()
                     assert original != updated
+                    assert sam.get_attribute('data-match-count') == '1'
                     assert sam.locator('svg line[stroke="#c55050"]').count() == 2
                     sam.locator('[data-action="reset"]').click()
                     assert not sam.locator('[data-pick="box"]').is_checked()

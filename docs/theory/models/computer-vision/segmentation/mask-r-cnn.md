@@ -36,11 +36,13 @@ Two design choices matter most.
 
 ## Animated walkthrough: rounded versus aligned sampling
 
-<div style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable RoI sampling comparison">
-<div style="width:800px">
-<img src="../../../../assets/concept-animations/roi-align-sampling-still.svg" data-motion-src="../../../../assets/concept-animations/roi-align-sampling-motion.svg" data-still-src="../../../../assets/concept-animations/roi-align-sampling-still.svg" width="800" height="460" alt="Two matching feature grids: an orange target moves continuously, while rounded RoIPool-style sampling jumps and RoIAlign-style bilinear sampling varies smoothly.">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable RoI sampling comparison">
+<div class="seg-motion-inner" style="width:800px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/roi-align-sampling-still.svg" data-motion-src="../../../../assets/concept-animations/roi-align-sampling-motion.svg" data-still-src="../../../../assets/concept-animations/roi-align-sampling-still.svg" width="800" height="460" alt="Two matching feature grids: an orange target moves continuously, while rounded RoIPool-style sampling jumps and RoIAlign-style bilinear sampling varies smoothly.">
 </div>
 </div>
+
+The figure uses two grid centres on one row, with values 68/137 and 118/137. Bars use 137 pixels per unit; nearest selection switches at the midpoint. Each one-way sweep resets rather than reversing computation.
 
 **What changes?** The orange marker moves through the same invented feature grid in both panels. The teal sample on the left snaps between positions, producing an abrupt output-bar change; on the right the sample follows the continuous coordinate and the output bar changes smoothly. The illustration deliberately reduces RoIPool-style coordinate quantisation to a **single nearest-grid read**, not the full RoIPool max-pooling algorithm. Real RoIAlign evaluates **bilinearly interpolated feature values at locations inside every RoI bin**, then aggregates them. This is a schematic one-dimensional slice, not a measured feature map or the numerical result of [Mask R-CNN](https://arxiv.org/abs/1703.06870).
 
