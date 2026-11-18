@@ -60,19 +60,7 @@ The following schematic gene edit is **one atomic mutation**, not three independ
 
 1. Start with enabled connection **#3**, \(\mathrm{In}\to\mathrm{Out}\), weight \(w\).
 2. Mark connection **#3 as disabled**; preserve its gene and innovation ID for future genome alignment.
-3. Insert a new hidden node, with enabled **#8** (
-
-\[
-\mathrm{In}\to\mathrm{Hidden}
-\]
-
-, weight 1) and **#9** (
-
-\[
-\mathrm{Hidden}\to\mathrm{Out}
-\]
-
-, weight \(w\)). The two new innovation IDs denote distinct connections.
+3. Insert a new hidden node, with enabled **#8** (\(\mathrm{In}\to\mathrm{Hidden}\), weight 1) and **#9** (\(\mathrm{Hidden}\to\mathrm{Out}\), weight \(w\)). The two new innovation IDs denote distinct connections.
 
 For an **identity** hidden activation and input \(x=0.8,w=1.4\), the original output is \(wx=1.12\), and the split route gives \(w(1x)=1.12\). This algebra explains the usual initial weight assignment but **does not guarantee function preservation for arbitrary nonlinear hidden activations**, biases, or subsequent weight mutations. The numbering and values are constructed; population-level historical bookkeeping is outside this one-genome illustration.
 
@@ -87,7 +75,7 @@ Step through **#3 disabled → hidden node inserted → #8 enabled → #9 enable
 
 ## Key results
 
-The full text was not retrieved in this check, because the publisher page and the author's site refused access. This page therefore quotes no results. Its statements about the experiments, namely double pole balancing and growth from minimal networks, still need checking against the paper's experiment section.
+The original paper evaluates pole-balancing tasks and uses ablations to test historical crossover, protection of innovation, and incremental growth from minimal networks. These experiments concern complete evolving populations, not the single artificial edge split shown here; the animation and lab do not reproduce the paper's fitness or speed results.
 
 ## Limitations
 
