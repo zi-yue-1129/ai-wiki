@@ -247,6 +247,281 @@ TOPICS = {
     "iou-overlap-sweep": "theory/evaluation/metrics/segmentation/iou",
     "dice-overlap-response": "theory/evaluation/metrics/segmentation/dice",
 }
+# Canvas contracts are review-time literals, never inferred from the SVG under test.
+# Every new TOPICS entry must explicitly declare its reviewed geometry here.
+CANONICAL_VIEWBOXES = {
+    '3d-unet-context-tiling': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
+    '3d-unet-depth-kernel': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
+    '3d-unet-evaluation-holdout': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
+    '3d-unet-orthogonal-slices': '0 0 640 360',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
+    '3d-unet-paired-warp': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
+    '3d-unet-skip-concat': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
+    '3d-unet-sparse-context-gradient': '0 0 640 360',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
+    '3d-unet-sparse-loss': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
+    'accuracy-prevalence': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'adafactor-factored-moments': '0 0 720 460',  # origin 43a57b80f5174aacd6c7675d51ec77c353a06fa2
+    'adagrad-coordinate-gain': '0 0 720 460',  # origin 43a57b80f5174aacd6c7675d51ec77c353a06fa2
+    'adam-bias-correction': '0 0 800 420',  # origin fd91f1c27f1427dac41731911fb93f5f4612388c
+    'adam-epsilon-threshold': '0 0 800 420',  # origin 019e0d1b66d382cbe33d5d6a7b396ce0c3fdedba
+    'adam-scale-invariance': '0 0 800 420',  # origin fd91f1c27f1427dac41731911fb93f5f4612388c
+    'adam-sign-reversal': '0 0 800 420',  # origin 019e0d1b66d382cbe33d5d6a7b396ce0c3fdedba
+    'adamw-decoupled-paths': '0 0 640 360',  # origin 5378eb9fe6f826d1f15ce934e7589b2facb915ed
+    'adamw-epoch-timescale': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'aging-evolution-queue': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'alpha-beta-cutoff': '0 0 640 360',  # origin 4c4bfba7df3919ca11f77d9aa766be434878bdf0
+    'ant-colony-pheromone': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'ar-context-drift': '0 0 800 420',  # origin a3fc0fb64052cd9c9a08039f59cfae0858b9e6ec,4e8feb76eda11c3e6d15a935f1a40b7de47fa7a6
+    'ar-eos-survival': '0 0 800 420',  # origin 1f77bd440fbe818a9f0c5469ee8d489a3d65b291,39bec660675136ecc45e2c1654e258457cfb4aa0
+    'ar-likelihood-accumulation': '0 0 800 420',  # origin e21d44e6af6e7776c8219ad0106d6ee23a95c5a5
+    'ar-score-vs-sample': '0 0 800 420',  # origin e21d44e6af6e7776c8219ad0106d6ee23a95c5a5
+    'asam-neighborhood': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'astar-frontier': '0 0 640 360',  # origin f7337cf2638f3c1ff1532e7f718aabac0865d28b
+    'auc-ap-ranking-contrast': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'batch-norm-train-infer': '0 0 640 360',  # origin 255f92a3054b761cd178a1ec18a8d9e50d602d37
+    'bo-expected-improvement': '0 0 640 360',  # origin 740965999012f3cd02c0b99ab0433fe165d23b4e
+    'bo-gp-conditioning': '0 0 640 360',  # origin 740965999012f3cd02c0b99ab0433fe165d23b4e
+    'boosting-residual-steps': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'bpe-ordered-merges': '0 0 640 360',  # origin b6f21f5f932d3eda532f7e743af087c20ead0870
+    'bpr-gradient-saturation': '0 0 800 420',  # origin d63a71d59848759b91a71fe36ad6b96f764a9dc6
+    'bpr-pairwise-ranking': '0 0 800 420',  # origin d1919fd73d05deb6f56ee7676fbdd63e658af355
+    'byol-online-target': '0 0 640 360',  # origin 331d15f34b9f6772d986afeec1e928819f1b1f97
+    'cfg-extrapolation': '0 0 640 360',  # origin 5875288b4c31f3ceb3fde5beaa67e1c4e07a6090
+    'cfm-conditional-bridge': '0 0 760 410',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
+    'checkpoint-recompute': '0 0 640 360',  # origin c0924f0d4a260fdf4922a36c83ccb6c7c24990f2
+    'clr-triangular2-sweep': '0 0 640 360',  # origin 4b9f79e116755c0070af9e803fcb0bb62f67bbb0
+    'cmaes-distribution-adaptation': '0 0 640 360',  # origin d2c84dd00777ae7d0eea3ea38a13012146a4b1a5
+    'colbert-maxsim-switch': '0 0 640 360',  # origin 25770e6b084eaeba6998b658780caa03c96b2c48
+    'cv-fold-rotation': '0 0 640 360',  # origin 6695c6a7b352d64f98f511d2aa3fcf6edcf867bc
+    'darts-soft-operations': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'deep-ensemble-spread': '0 0 720 400',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
+    'deformable-sampling': '0 0 640 360',  # origin e00a7dd21eca5336c9865027674000f7578521dc
+    'dice-overlap-response': '0 0 640 360',  # origin 7c472a8dba6dd3a39ac74d438840ca27e1d8be3a
+    'dinov2-dual-objective-ema': '0 0 640 360',  # origin dec6fcf99253875a1a6ff8508acf458c2d0b5085
+    'disaggregated-handoff': '0 0 640 360',  # origin 1d54c4ae36eff5a4df7bb9587a2e0580ff5636ee
+    'dora-independent': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'dpll-backtrack': '0 0 640 360',  # origin f7337cf2638f3c1ff1532e7f718aabac0865d28b
+    'dpr-dot-product-sweep': '0 0 640 360',  # origin 25770e6b084eaeba6998b658780caa03c96b2c48
+    'dqn-target-sync': '0 0 640 360',  # origin 0f1ccb332c13f2d7d72faaf2394d9d173d8f665a
+    'dropblock-spatial-masking': '0 0 640 360',  # origin e434dff16b781d0facc56afa5840a4681dfedfd8
+    'dropout-inverted-sampling': '0 0 640 360',  # origin eee699618afdae1909247586f288d49418006b66
+    'dropout-variance-tradeoff': '0 0 640 360',  # origin b193cbd6879d351863724768390f9fadbc29d0c3,e450f3aeae496a8012a8e8e3b3bc5e8a348257fd
+    'ece-binned-calibration': '0 0 720 400',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
+    'effective-number-growth': '0 0 640 360',  # origin 4fada4af8d68a02c30cfa9ddbd51d3d393a11f89
+    'eigen-jordan-shear': '0 0 800 420',  # origin 15bdb38e1c312b578f4e4e41a4b96f483433e989
+    'eigen-linear-map': '0 0 800 420',  # origin 19e3913d7aba853b2f10d1652ff6b6c1e1f6117f
+    'eigen-rotation-no-real': '0 0 800 420',  # origin 19e3913d7aba853b2f10d1652ff6b6c1e1f6117f
+    'eigen-zero-eigenvalue': '0 0 800 420',  # origin 15bdb38e1c312b578f4e4e41a4b96f483433e989
+    'elo-online-update': '0 0 640 360',  # origin f7aefbad4b5af2090a85c4100e96326b34f25056
+    'enas-shared-weight-transfer': '0 0 800 420',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'expert-cache-miss': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'f1-harmonic-gap': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'f1-macro-micro-imbalance': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'f1-threshold-topk': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'fbeta-recall-emphasis': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'forest-bootstrap-vote': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'forward-ad-jvp': '0 0 640 360',  # origin a8432b46ebe9a070935048402bdfcb6cb1442809
+    'fp16-loss-scaling': '0 0 640 360',  # origin c0924f0d4a260fdf4922a36c83ccb6c7c24990f2
+    'fp8-scale-range': '0 0 640 360',  # origin 67e4091c01b3f94b8e6fbfbeb4511d0a93971f39
+    'gat-aggregation': '0 0 640 360',  # origin e2a78cc8d9c9e4f41393adecadc968c50e2a2912
+    'gated-sae-gate-magnitude': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'gcn-aggregation': '0 0 640 360',  # origin e2a78cc8d9c9e4f41393adecadc968c50e2a2912
+    'gibbs-coordinate-sweeps': '0 0 640 360',  # origin 39a25d3105b805ff71c44932982e0d5b5e5a3dba
+    'gin-multiset-counts': '0 0 640 360',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
+    'glorot-alternating-width': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'glorot-equal-variance-densities': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'glorot-fan-tradeoff': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'glorot-tanh-saturation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'gradient-norm-clipping': '0 0 640 360',  # origin 5875288b4c31f3ceb3fde5beaa67e1c4e07a6090
+    'graphsage-sample-aggregate': '0 0 640 360',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
+    'grid-search-x-coverage': '0 0 640 360',  # origin 75080f86df360900362cc3c04fa2680194e1d0cf
+    'group-norm-statistics': '0 0 640 360',  # origin 1b96705ef3e52dcad0fc061c8660305102de904d
+    'gru-gate-flow': '0 0 640 360',  # origin 269c6767663de40b11c8bad3c9ebd40fb8bd8ca3
+    'he-fan-mode-tradeoff': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'he-relu-mean-shift': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'he-relu-second-moment': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'heavy-ball-overshoot': '0 0 640 360',  # origin 20ab47cef45a7a5895987dc456f51c4d437912a5
+    'hmc-leapfrog-trajectory': '0 0 640 360',  # origin b3f965ab18f3cb57c91a8d488857581d0e544748
+    'hmm-baum-welch-transition': '0 0 800 420',  # origin 326513cb81d57184e3857da9a83017bc75f37039
+    'hmm-filter-smooth': '0 0 800 420',  # origin 620ee6d9d94415967d694b0e87c284b1223e5ebb
+    'hmm-forward-sum-product': '0 0 800 420',  # origin 620ee6d9d94415967d694b0e87c284b1223e5ebb
+    'hmm-pairwise-posterior': '0 0 800 420',  # origin 326513cb81d57184e3857da9a83017bc75f37039
+    'hnsw-layer-descent': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'hyperband-budget': '0 0 640 360',  # origin 0ca80d62237ba8063b37f07eff2648e545af5387
+    'ida-bound-reexpansion': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'iou-overlap-sweep': '0 0 640 360',  # origin 7c472a8dba6dd3a39ac74d438840ca27e1d8be3a
+    'itemcf-weighted-neighbors': '0 0 800 420',  # origin 12577fa11e8638d3ae3a26a74656dc162f8190c5
+    'ivfpq-probe-pq-lookup': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'jumprelu-threshold-jump': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'kfac-factor-preconditioning': '0 0 640 360',  # origin 269c6767663de40b11c8bad3c9ebd40fb8bd8ca3
+    'kmeans-elbow-inertia': '0 0 800 420',  # origin 53d6c5d17c6102c294ca716a345bebdfd379d455
+    'kmeans-feature-scale': '0 0 800 420',  # origin 53d6c5d17c6102c294ca716a345bebdfd379d455
+    'kmeans-lloyd': '0 0 640 360',  # origin b6f21f5f932d3eda532f7e743af087c20ead0870
+    'kmeans-outlier-leverage': '0 0 800 420',  # origin 743cc54ed4de3af9bef0a06fa1e020aced6337eb
+    'kmeans-plusplus-d2': '0 0 800 420',  # origin 743cc54ed4de3af9bef0a06fa1e020aced6337eb
+    'lagrange-dual-gap': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'lagrange-kkt-active-set': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'lagrange-tangency': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'lamb-adam-layer-trust': '0 0 640 360',  # origin a11018eea3dad5a2a5623b263e4db13859719341
+    'lars-layer-trust-scaling': '0 0 640 360',  # origin a11018eea3dad5a2a5623b263e4db13859719341
+    'lbfgs-two-loop': '0 0 640 360',  # origin 7b8fd624643589fcf0ccca7f08706f06e7cb5b39
+    'lion-sign-momentum': '0 0 640 360',  # origin 1083b195b9f48a497775b45c1de11e5104082001
+    'logit-prior-decision': '0 0 640 360',  # origin 4fada4af8d68a02c30cfa9ddbd51d3d393a11f89
+    'lsq-step-size-sweep': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'mae-visible-patch-reconstruction': '0 0 640 360',  # origin dec6fcf99253875a1a6ff8508acf458c2d0b5085
+    'mahalanobis-ellipse-threshold': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'maml-inner-outer-loop': '0 0 640 360',  # origin 4c4bfba7df3919ca11f77d9aa766be434878bdf0
+    'map-beta-posterior': '0 0 640 360',  # origin 1790e581b761fe90871b4e590328b5e004a14e3e
+    'map-precision-at-hits': '0 0 640 360',  # origin 7b8d8d6ecbdf8057cba16b1f27fee9ddee61dda9
+    'mc-dropout-repeated-passes': '0 0 640 360',  # origin e434dff16b781d0facc56afa5840a4681dfedfd8
+    'mcts-search-cycle': '0 0 640 360',  # origin 0f1ccb332c13f2d7d72faaf2394d9d173d8f665a
+    'mean-field-coordinate-ascent': '0 0 640 360',  # origin 39a25d3105b805ff71c44932982e0d5b5e5a3dba
+    'mf-als-alternating': '0 0 800 420',  # origin d63a71d59848759b91a71fe36ad6b96f764a9dc6
+    'mf-coupled-sgd': '0 0 800 420',  # origin d1919fd73d05deb6f56ee7676fbdd63e658af355
+    'mh-accept-reject': '0 0 640 360',  # origin b3f965ab18f3cb57c91a8d488857581d0e544748
+    'minhash-lsh-band-collision': '0 0 640 360',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
+    'mixup-beta-strength': '0 0 640 360',  # origin 197cb82e931330a8ecbc918601ff5cabb4953314
+    'mixup-cutmix-area': '0 0 640 360',  # origin 155c657a631dd76ed375778d19e556ba8a68efb1
+    'mixup-loss-decomposition': '0 0 640 360',  # origin 155c657a631dd76ed375778d19e556ba8a68efb1
+    'mixup-paired-interpolation': '0 0 640 360',  # origin 197cb82e931330a8ecbc918601ff5cabb4953314
+    'mle-bernoulli-likelihood': '0 0 640 360',  # origin 1790e581b761fe90871b4e590328b5e004a14e3e
+    'mnasnet-latency-tradeoff': '0 0 800 420',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'moco-dictionary-cycle': '0 0 640 360',  # origin 331d15f34b9f6772d986afeec1e928819f1b1f97
+    'moe-top2-routing': '0 0 640 360',  # origin 5875288b4c31f3ceb3fde5beaa67e1c4e07a6090
+    'muon-spectral-balancing': '0 0 640 360',  # origin 1083b195b9f48a497775b45c1de11e5104082001
+    'mup-adam-sgd': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'mup-readout-aggregation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'mup-readout-noise': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'mup-transfer-protocol': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'mup-transfer-validation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'mup-update-budget': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'mup-width-multipliers': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'muzero-latent-planning': '0 0 640 360',  # origin c1057975ae7734354fa2e335b1ea0dea67fbb356
+    'ndcg-position-discount': '0 0 640 360',  # origin 7b8d8d6ecbdf8057cba16b1f27fee9ddee61dda9
+    'nerf-volume-rendering': '0 0 640 360',  # origin b6f21f5f932d3eda532f7e743af087c20ead0870
+    'nesterov-lookahead': '0 0 640 360',  # origin 0ca80d62237ba8063b37f07eff2648e545af5387
+    'neumf-dual-path': '0 0 800 420',  # origin 12577fa11e8638d3ae3a26a74656dc162f8190c5
+    'newton-armijo-backtracking': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'newton-curvature-steps': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'newton-indefinite-curvature': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'odin-gradient-perturbation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'orca-continuous-batching': '0 0 640 360',  # origin af2ed229649acd6e2699911860c52a161fcc304b
+    'outlier-mae-rmse': '0 0 640 360',  # origin 3f85643dd79a62b8b104350a41b9a2ea77262d88
+    'paged-block-mapping': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'paired-bootstrap-resampling': '0 0 640 360',  # origin f7aefbad4b5af2090a85c4100e96326b34f25056
+    'particle-swarm-best': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'pca-rank1-reconstruction': '0 0 640 360',  # origin 38f8a0ffdaba8ee78383cf1b5d8671507e971d44
+    'pca-variance-axis': '0 0 640 360',  # origin 38f8a0ffdaba8ee78383cf1b5d8671507e971d44
+    'power-iteration-convergence': '0 0 640 360',  # origin e2abf17856e1fd83746aaf12f8fd5119d6f0d40e
+    'ppo-clipped-objective': '0 0 640 360',  # origin 69563b42b0f35762ff2500253396ddef91064993
+    'pr-ap-rectangles': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'pr-ap-tied-threshold': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'pr-ap-trapezoid-gap': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'pr-random-ap-expectation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'pr-threshold-sweep': '0 0 640 360',  # origin a8dae56d1f71737396ac4be1836092be8c8d5393
+    'precision-base-rate': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'precision-recall-threshold': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'prelu-slope-gain': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'prioritized-replay-cycle': '0 0 640 360',  # origin 69563b42b0f35762ff2500253396ddef91064993
+    'qat-fake-quant-ste': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'qk-norm-scale-sweep': '0 0 640 360',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
+    'qlora-frozen-flow': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'qmix-monotonic-greedy': '0 0 640 360',  # origin c1057975ae7734354fa2e335b1ea0dea67fbb356
+    'r2-mean-baseline': '0 0 640 360',  # origin 3f85643dd79a62b8b104350a41b9a2ea77262d88
+    'random-search-x-coverage': '0 0 640 360',  # origin 75080f86df360900362cc3c04fa2680194e1d0cf
+    'react-evidence-loop': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'realnvp-affine-coupling': '0 0 640 360',  # origin 83c4115c9a0a88e9659169d136db7107410f4b66
+    'rectified-reflow-coupling': '0 0 760 410',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
+    'reflexion-memory-feedback': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'resnet-depth-gradient-factors': '0 0 800 420',  # origin 262db96efe99958dda65bb7e3a320ef6fe38430e
+    'resnet-identity-gradient': '0 0 800 420',  # origin 72e0b1a5550f470df4fbce109dce8094a5e4e109
+    'resnet-postrelu-gate': '0 0 800 420',  # origin 262db96efe99958dda65bb7e3a320ef6fe38430e
+    'resnet-projection-shortcut': '0 0 800 420',  # origin 72e0b1a5550f470df4fbce109dce8094a5e4e109
+    'resolution-refutation-chain': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'reverse-ad-vjp': '0 0 640 360',  # origin a8432b46ebe9a070935048402bdfcb6cb1442809
+    'rf-bootstrap-oob': '0 0 800 420',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'rf-feature-subset': '0 0 800 420',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'rmsnorm-shift-response': '0 0 640 360',  # origin 1b96705ef3e52dcad0fc061c8660305102de904d
+    'rmsprop-adaptive-memory': '0 0 640 360',  # origin b6f21f5f932d3eda532f7e743af087c20ead0870
+    'roc-cost-operating-point': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'roc-pairwise-auc': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'roc-partial-area': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'roc-randomized-operating-mix': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'roc-rank-transform': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'roc-threshold-sweep': '0 0 640 360',  # origin a8dae56d1f71737396ac4be1836092be8c8d5393
+    'roc-tie-half-credit': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'roofline-ridge-sweep': '0 0 640 360',  # origin 67e4091c01b3f94b8e6fbfbeb4511d0a93971f39
+    'rotational-norm-balance': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'sam-two-gradient': '0 0 640 360',  # origin 7b8fd624643589fcf0ccca7f08706f06e7cb5b39
+    'sgd-noise-batch': '0 0 640 360',  # origin 20ab47cef45a7a5895987dc456f51c4d437912a5
+    'shampoo-eigenmode': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'sharpness-radius-loss': '0 0 640 360',  # origin 469ccacaea8b418e2e0a5078fd790ccfed00dc43
+    'sharpness-reparam-curvature': '0 0 640 360',  # origin 469ccacaea8b418e2e0a5078fd790ccfed00dc43
+    'sigma-reparam-spectral-gain': '0 0 640 360',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
+    'speculative-decoding': '0 0 640 360',  # origin af2ed229649acd6e2699911860c52a161fcc304b
+    'spsa-two-evaluations': '0 0 640 360',  # origin d2c84dd00777ae7d0eea3ea38a13012146a4b1a5
+    'stochastic-depth-paths': '0 0 640 360',  # origin 255f92a3054b761cd178a1ec18a8d9e50d602d37
+    'stochastic-depth-scaling-conventions': '0 0 640 360',  # origin cf135da6a3c3514a791ac9fef8d2c911ad5b067c,ad0d9a902490f60136e5f15ea4481b1208d4bc14
+    'stochastic-depth-survival-samples': '0 0 640 360',  # origin eee699618afdae1909247586f288d49418006b66
+    'streaming-kv-eviction': '0 0 640 360',  # origin 1d54c4ae36eff5a4df7bb9587a2e0580ff5636ee
+    'svd-degenerate-bases': '0 0 800 420',  # origin 4e9273d5f125f417ff90d9a72fdaec328b37ad2c
+    'svd-ls-orthogonal-residual': '0 0 800 420',  # origin 4e9273d5f125f417ff90d9a72fdaec328b37ad2c
+    'svd-noise-amplification': '0 0 800 420',  # origin 15ee47cca1facbe271d07664928f3cba3b6d5cd9
+    'svd-rank-accumulation': '0 0 800 420',  # origin 15ee47cca1facbe271d07664928f3cba3b6d5cd9
+    'svd-unit-circle': '0 0 640 360',  # origin e2abf17856e1fd83746aaf12f8fd5119d6f0d40e
+    'svm-margin-hinge': '0 0 640 360',  # origin 6695c6a7b352d64f98f511d2aa3fcf6edcf867bc
+    'swin-shifted-windows': '0 0 640 360',  # origin e00a7dd21eca5336c9865027674000f7578521dc
+    'td3-delayed-twin-critics': '0 0 640 360',  # origin 5378eb9fe6f826d1f15ce934e7589b2facb915ed
+    'tree-belief-propagation': '0 0 640 360',  # origin 273a612a84ccbe0748594ed51a27b63256af321a
+    'tsne-kl-embedding': '0 0 640 360',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
+    'umap-fuzzy-union': '0 0 640 360',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
+    'unigram-sampling-alpha': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'unigram-viterbi-lattice': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'vae-reparameterisation': '0 0 640 360',  # origin 83c4115c9a0a88e9659169d136db7107410f4b66
+    'viterbi-trellis': '0 0 640 360',  # origin 273a612a84ccbe0748594ed51a27b63256af321a
+    'weak-supervision-vote-fusion': '0 0 640 360',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
+    'wgan-gp-interpolation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+    'wgan-weight-clip': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
+}
+# Explicit non-TOPICS assets validated by main(), not generic name allowances.
+EXTRA_CANONICAL_FILENAMES = {
+    'moe-top2-routing-token-b.svg': '0 0 640 360',  # origin b818e3217c86c26dde61f83ad8ad43d90045006f
+    'brier-expected-risk-motion.svg': '0 0 640 360',  # origin 07ac637904c787a32fe192fdfec01bd80598ea89
+    'brier-expected-risk-still.svg': '0 0 640 360',  # origin 07ac637904c787a32fe192fdfec01bd80598ea89
+    'log-loss-tail-penalty-motion.svg': '0 0 640 360',  # origin 07ac637904c787a32fe192fdfec01bd80598ea89
+    'log-loss-tail-penalty-still.svg': '0 0 640 360',  # origin 07ac637904c787a32fe192fdfec01bd80598ea89
+}
+# Preserve original source prefix contracts, including their valid named variants.
+PREFIX_VIEWBOXES = {
+    "ece-binned-calibration": "0 0 720 400",
+    "deep-ensemble-spread": "0 0 720 400",
+    "cfm-conditional-bridge": "0 0 760 410",
+    "rectified-reflow-coupling": "0 0 760 410",
+}
+
+
+def expected_viewbox(path: Path) -> str | None:
+    if path.name in EXTRA_CANONICAL_FILENAMES:
+        return EXTRA_CANONICAL_FILENAMES[path.name]
+    name = path.stem
+    stem = re.sub(r"-(?:motion|still)$", "", name)
+    if stem in CANONICAL_VIEWBOXES:
+        return CANONICAL_VIEWBOXES[stem]
+    # A new registered topic cannot inherit a canvas accidentally via a prefix.
+    if stem in TOPICS:
+        return None
+    matches = [(prefix, box) for prefix, box in PREFIX_VIEWBOXES.items()
+               if name.startswith(prefix)]
+    if not matches:
+        return None
+    longest = max(len(prefix) for prefix, _ in matches)
+    boxes = {box for prefix, box in matches if len(prefix) == longest}
+    return next(iter(boxes)) if len(boxes) == 1 else None
+
+
+# Independently restored original page contracts; never inferred from image URLs.
+SOURCE_ALT_CONTRACT_STEMS = {'unigram-viterbi-lattice', 'weak-supervision-vote-fusion', 'expert-cache-miss', 'qk-norm-scale-sweep', 'qlora-frozen-flow', 'ivfpq-probe-pq-lookup', 'graphsage-sample-aggregate', 'gin-multiset-counts', 'minhash-lsh-band-collision', 'sigma-reparam-spectral-gain', 'dora-independent', 'unigram-sampling-alpha', 'hnsw-layer-descent', 'tsne-kl-embedding', 'umap-fuzzy-union', 'cfm-conditional-bridge', 'rectified-reflow-coupling', 'paged-block-mapping'}
+STATIC_PREVIEW_LINK_STEMS = {'clr-triangular2-sweep', 'weak-supervision-vote-fusion', 'ivfpq-probe-pq-lookup', 'graphsage-sample-aggregate', 'gin-multiset-counts', 'minhash-lsh-band-collision', 'deep-ensemble-spread', 'ece-binned-calibration', 'hnsw-layer-descent', 'cfm-conditional-bridge', 'rectified-reflow-coupling'}
+
 NAS_STEMS = {"darts-soft-operations", "aging-evolution-queue", "enas-shared-weight-transfer", "mnasnet-latency-tradeoff"}
 GITHUB_GIF_PREVIEWS = {
     "moco-dictionary-cycle": "moco-momentum-preview.gif",
@@ -278,6 +553,8 @@ def verify_source_pair(page: Path, text: str, stem: str) -> list[str]:
     if len(images) != 1:
         return [f"{page}: expected one source-relative raw image for {stem}"]
     errors = []
+    if not (images[0].get("alt") or "").strip():
+        errors.append(f"{page}: marked motion image needs non-whitespace alt text")
     for attribute, kind in (("src", "still"), ("data-motion-src", "motion"),
                             ("data-still-src", "still")):
         value = images[0].get(attribute)
@@ -297,17 +574,9 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    # Preserve the original source-specific contracts. A canvas accepted for a
-    # different topic is not interchangeable with these diagrams' geometry.
-    expected_viewbox = (
-        "0 0 720 400" if path.stem.startswith(("ece-binned-calibration", "deep-ensemble-spread"))
-        else "0 0 760 410" if path.stem.startswith(("cfm-conditional-bridge", "rectified-reflow-coupling"))
-        else None
-    )
-    invalid_viewbox = (root.get("viewBox") != expected_viewbox if expected_viewbox else
-                       root.get("viewBox") not in {"0 0 640 360", "0 0 720 400", "0 0 720 460", "0 0 760 410", "0 0 800 420"})
-    if root.tag != NS + "svg" or invalid_viewbox:
-        errors.append(f"{path}: invalid SVG root/viewBox")
+    expected = expected_viewbox(path)
+    if root.tag != NS + "svg" or expected is None or root.get("viewBox") != expected:
+        errors.append(f"{path}: invalid SVG root/viewBox (expected {expected!r})")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
             errors.append(f"{path}: missing accessible {label}")
@@ -339,6 +608,8 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
 
 def main() -> int:
     errors = []
+    if set(CANONICAL_VIEWBOXES) != set(TOPICS):
+        errors.append("Canvas registry must explicitly match all registered TOPICS")
     for stem, page_stem in TOPICS.items():
         animated_path = ASSETS / f"{stem}-motion.svg"
         static_path = ASSETS / f"{stem}-still.svg"
@@ -352,6 +623,18 @@ def main() -> int:
                 errors.append(f"{page}: missing translation")
                 continue
             text = page.read_text(encoding="utf-8")
+            if stem in SOURCE_ALT_CONTRACT_STEMS:
+                images = [img for img in MotionImages(text).images
+                          if stem in (img.get("src") or "")]
+                if not images or any(not (img.get("alt") or "").strip() for img in images):
+                    errors.append(f"{page}: marked motion image needs non-whitespace alt text")
+            if stem in STATIC_PREVIEW_LINK_STEMS:
+                # An image/fallback attribute is not an independently clickable preview.
+                preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
+                    errors.append(f"{page}: missing independent static preview hyperlink for {stem}")
+                if stem == "clr-triangular2-sweep" and animated_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
+                    errors.append(f"{page}: missing independent full comparison animation hyperlink for {stem}")
             links = re.findall(r"!\[[^]]+\]\(([^)]+\.svg)\)", text)
             linked_images = {(page.parent / link).resolve() for link in links}
             if stem in NAS_STEMS:

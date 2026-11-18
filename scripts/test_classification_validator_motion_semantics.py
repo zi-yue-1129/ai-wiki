@@ -9,22 +9,26 @@ ROOT = Path(__file__).resolve().parents[1]
 class ValidatorPreservation(unittest.TestCase):
     def test_existing_canvas_and_static_fallback_contracts_remain(self):
         tree = ast.parse((ROOT / "scripts/verify_concept_motion.py").read_text())
-        comparisons = [
-            node for node in ast.walk(tree)
-            if isinstance(node, ast.Compare)
-            and len(node.comparators) == 1
-            and isinstance(node.comparators[0], ast.Set)
-        ]
-        viewboxes = [
-            set(ast.literal_eval(node.comparators[0]))
-            for node in comparisons
-            if isinstance(node.left, ast.Call)
-            and any(isinstance(arg, ast.Constant) and arg.value == "viewBox"
-                    for arg in node.left.args)
-        ]
-        self.assertEqual(len(viewboxes), 1)
+        # Exercise the real guard on every formerly permitted canvas. A valid
+        # canvas for one topic must not be accepted for unrelated geometry.
+        import tempfile
+        from xml.etree import ElementTree as ET
+        import verify_concept_motion as validator
+        representatives = {}
+        for stem, box in validator.CANONICAL_VIEWBOXES.items():
+            representatives.setdefault(box, stem)
         self.assertTrue({"0 0 640 360", "0 0 720 460", "0 0 800 420",
-                         "0 0 720 400"} <= viewboxes[0])
+                         "0 0 720 400"} <= set(representatives))
+        with tempfile.TemporaryDirectory() as td:
+            for box, stem in representatives.items():
+                source = ROOT / f"docs/assets/concept-animations/{stem}-still.svg"
+                self.assertEqual(validator.verify_svg(source, False), [])
+                root = ET.parse(source).getroot()
+                for other in set(representatives) - {box}:
+                    root.set("viewBox", other)
+                    path = Path(td) / source.name
+                    path.write_bytes(ET.tostring(root))
+                    self.assertTrue(any("viewBox" in e for e in validator.verify_svg(path, False)))
         # The branch enforcing static preview links must retain both QK topics.
         checked = []
         for node in ast.walk(tree):
