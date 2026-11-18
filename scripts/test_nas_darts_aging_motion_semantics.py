@@ -23,4 +23,15 @@ class Geometry(unittest.TestCase):
   self.assertEqual(final,[36,149,262,375,488])
   label=next(g for g in r.iter(ns+'g') if any(t.text.startswith('Queue now') for t in g.findall(ns+'text')));self.assertEqual(at(label.find(ns+'animate'),.89),[0]);self.assertEqual(at(label.find(ns+'animate'),.91),[1])
   scores={k:float(g[k].findall(ns+'text')[1].text) for k in 'ABCDEF'};self.assertEqual(max('BCE',key=scores.get),'C');self.assertEqual(max('ABCDE',key=scores.get),'A')
+ def test_aging_scores_are_separate_wrappable_math_nodes(self):
+  root=B.parents[2]
+  for suffix in ['', '.zh-TW']:
+   body=(root/f'docs/theory/deep-learning/nas-automl/regularized-evolution{suffix}.md').read_text()
+   scores=['A=0.94','B=0.71','C=0.86','D=0.82','E=0.75']
+   positions=[]
+   for score in scores:
+    token='\\('+score+'\\)';self.assertEqual(body.count(token),1);positions.append(body.index(token))
+   self.assertEqual(positions,sorted(positions))
+   self.assertNotIn('A=0.94,',body)
+   self.assertIn('overflow-x:auto',body)
 if __name__=='__main__':unittest.main()
