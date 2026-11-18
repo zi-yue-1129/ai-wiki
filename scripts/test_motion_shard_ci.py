@@ -15,6 +15,10 @@ def support_fixture():
     reports={'keyboard-scroll-preflight':{'status':'passed','scope':'keyboard-preflight','identity':IDENT,'manifest_sha256':m['sha256'],'cases':cases,'math_renderer_canary':canary_fixture(),'lazy_image_canary':lazy_fixture()}}
     prose={'vi-prose':['docs/vi.md','docs/vi.zh-TW.md'],'embedding-pages':['docs/emb.md','docs/emb.zh-TW.md'],'ddim-prose':['docs/ddim.md','docs/ddim.zh-TW.md']}
     for suite,sources in prose.items():reports[suite]={'status':'passed','cases':[{'source':s,'width':w,'status':'passed','errors':[]} for s in sources for w in (390,1280)]}
+    for suite in support_registry()['suites']:
+        if suite['id'] in {'time-series-prose','causal-prose'}:
+            sources=json.loads((ROOT/suite['sources_manifest']).read_text());prose[suite['id']]=sources
+            reports[suite['id']]={'status':'passed','cases':[dict(source=s,lang='zh-TW' if s.endswith('.zh-TW.md') else 'en',width=w,status='passed',errors=[],screenshots=['top.png']) for s in sources for w in suite['widths']]}
     for case in reports['ddim-prose']['cases']:case['required_screenshots']=['schedule.png']
     for suite in support_registry()['suites']:
         if suite['type']=='report-cases':
@@ -35,7 +39,7 @@ def support_fixture():
     files.extend({'path':s+'/figure.png','size':1,'sha256':'d'*64} for s in SUPPORT_SUITES)
     pngs=[f'keyboard-scroll-preflight/{c["artifact_directory"]}/{stage}.png' for c in cases for stage in ('initial','paused','replayed')]
     pngs += ['keyboard-scroll-preflight/lazy-image-canary/loaded-after-scroll.png','keyboard-scroll-preflight/math-renderer-canary/invalid-rendered-error.png'] + [f'keyboard-scroll-preflight/{c["artifact_directory"]}/scroll-region-1-right.png' for c in cases]
-    pngs += [suite+'/'+source.replace('/','__').removesuffix('.md')+f'-{width}/top.png' for suite,sources in prose.items() for source in sources for width in (390,1280)]
+    pngs += [suite+'/'+source.replace('/','__').removesuffix('.md')+f'-{width}/top.png' for suite,sources in prose.items() for source in sources for width in next(x['widths'] for x in support_registry()['suites'] if x['id']==suite)]
     pngs += ['ddim-prose/'+source.replace('/','__').removesuffix('.md')+f'-{width}/schedule.png' for source in prose['ddim-prose'] for width in (390,1280)]
     pngs += [f'sharpness-labs/{lang}-{width}.png' for lang in ('en','zh') for width in (320,390,768,1024)]
     pngs += [f'sharpness-labs/built-{lang}-{width}.png' for lang in ('en','zh-TW') for width in (390,1280)]
@@ -71,7 +75,7 @@ class SupportGate(unittest.TestCase):
                 validate_support(m,r,a,p)
 
     def test_complete_support(self):
-        self.assertEqual(validate_support(*support_fixture())['suite_count'],9)
+        self.assertEqual(validate_support(*support_fixture())['suite_count'],11)
     def rejected(self,mutation):
         m,r,a,p=support_fixture();mutation(m,r,a,p)
         with self.assertRaises((ValueError,KeyError)):validate_support(m,r,a,p)
@@ -198,7 +202,7 @@ class SupportGate(unittest.TestCase):
         next(f for f in files if f['path']=='support-execution/report.json')['sha256']=report_digest(r['execution'])
         r['pack']['file_count']=len(files);r['pack']['raw_bytes']=sum(f['size'] for f in files)
         r['pack']['groups'][0].update(file_count=len(files),raw_bytes=r['pack']['raw_bytes'])
-        self.assertEqual(validate_support(m,r,a,prose,registry)['suite_count'],11)
+        self.assertEqual(validate_support(m,r,a,prose,registry)['suite_count'],13)
         # Merely passing the existing suites cannot satisfy the expanded registry.
         r['reports']['additional-lab-b']['cases'].pop()
         with self.assertRaises(ValueError):validate_support(m,r,a,prose,registry)

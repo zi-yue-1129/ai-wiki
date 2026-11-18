@@ -315,6 +315,8 @@ plugins:
             Expected Calibration Error: 期望校準誤差
             Information Theory: 資訊理論
             Causal Inference: 因果推論
+            Double/Debiased Machine Learning: 雙重／去偏機器學習
+            Causal Forests: 因果森林
             Machine Learning: 機器學習
             Deep Learning: 深度學習
             Normalisation: 正規化
@@ -1137,6 +1139,7 @@ extra_javascript:
   - javascripts/segmentation-labs.js
   - javascripts/bandit-labs.js
   - javascripts/norm-seq-labs.js
+  - javascripts/curiosity-labs.js
   - javascripts/adaptive-optimiser-labs.js
   - javascripts/attention-variant-labs.js
   - javascripts/regression-metric-labs.js
@@ -1180,6 +1183,7 @@ extra_css:
   - stylesheets/segmentation-labs.css
   - stylesheets/bandit-labs.css
   - stylesheets/norm-seq-labs.css
+  - stylesheets/curiosity-labs.css
   - stylesheets/adaptive-optimiser-labs.css
   - stylesheets/attention-variant-labs.css
   - stylesheets/regression-metric-labs.css
@@ -1226,7 +1230,10 @@ nav:
               - Maximum Likelihood: theory/math/probability-statistics/maximum-likelihood.md
               - Maximum A Posteriori: theory/math/probability-statistics/maximum-a-posteriori.md
       - Information Theory: theory/information-theory/index.md
-      - Causal Inference: theory/causal-inference/index.md
+      - Causal Inference:
+          - theory/causal-inference/index.md
+          - Double/Debiased Machine Learning: theory/causal-inference/double-machine-learning.md
+          - Causal Forests: theory/causal-inference/causal-forests.md
       - Machine Learning:
           - theory/machine-learning/index.md
           - Adversarial Robustness:

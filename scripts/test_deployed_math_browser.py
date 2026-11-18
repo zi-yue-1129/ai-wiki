@@ -13,12 +13,12 @@ from playwright.sync_api import sync_playwright
 from test_built_prose_browser import target
 from test_built_motion_browser import serve_site, check_math_rendering, assert_document_fits
 from test_forward_math_markup import (GUARDED_MATH_PAGES, MathContainers, render,
-    require_no_outside_tex, MappoRecurrenceMarkupTests, RetainedDeployedMathTests, CqlObjectiveMarkupTests)
+    require_no_outside_tex, MappoRecurrenceMarkupTests, RetainedDeployedMathTests, CqlObjectiveMarkupTests, DmlLimitationsMarkupTests)
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCES = ('docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md')
+SOURCES = ('docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md', 'docs/theory/causal-inference/double-machine-learning.md', 'docs/theory/causal-inference/double-machine-learning.zh-TW.md')
 WIDTHS = (320, 390, 1280)
-DISPLAY_COUNTS = dict(zip(SOURCES, (2,2,2,2,3,3,2,2)))
+DISPLAY_COUNTS = dict(zip(SOURCES, (2,2,2,2,3,3,2,2,6,6)))
 
 def compact(value):
     return re.sub(r'\s+', '', value)
@@ -31,6 +31,7 @@ def required_bodies(source):
     if '/mappo/' in source: return MappoRecurrenceMarkupTests.BODIES
     if '/maddpg/' in source: return [RetainedDeployedMathTests.MADDPG]
     if '/cql/' in source: return [CqlObjectiveMarkupTests.BODY]
+    if '/double-machine-learning' in source: return [DmlLimitationsMarkupTests.BODY]
     assert '/score-sde' in source
     return RetainedDeployedMathTests.SDE
 
@@ -46,7 +47,7 @@ INSPECT = r'''() => {
    const node=w.querySelector('mjx-container');
    if(!node || !node.getBoundingClientRect().height || node.querySelector('mjx-merror,[data-mjx-error]')) throw Error('Unrendered/error display');
    const li=w.closest('li');
-   return {index,tex:matches[0].math,li:li?{
+   return {index,tex:matches[0].math,list_titles:li?Array.from(li.parentElement.children).map(x=>x.querySelector('strong')?.textContent):null,li:li?{
      title:li.querySelector('strong')?.textContent,
      count:li.parentElement.querySelectorAll(':scope > li').length,
      index:Array.from(li.parentElement.children).indexOf(li),
@@ -82,6 +83,12 @@ def validate_snapshot(source, expected, snapshot):
         for i, (body,title) in enumerate(zip(required_bodies(source),titles)):
             row=snapshot['displays'][actual.index(compact(body))]
             assert row['li']=={'title':title,'count':3,'index':i,'displays':1,'paragraphs':2}, row
+    if '/double-machine-learning' in source:
+        record=DmlLimitationsMarkupTests.RECORDS[1 if '.zh-TW.' in source else 0]
+        row=snapshot['displays'][actual.index(compact(DmlLimitationsMarkupTests.BODY))]
+        assert row['li']==dict(title=record[3][1],count=5,index=1,displays=1,paragraphs=2),row
+        assert row['list_titles']==record[3],row
+
 
 def validate_geometry(g):
     assert all(isinstance(g[k],(float,int)) and not isinstance(g[k],bool) and __import__('math').isfinite(g[k]) for k in ('left','right','width','height','viewport'))
@@ -93,7 +100,7 @@ def validate_report(report):
     assert report['status']=='passed'
     expected={(s,w) for s in SOURCES for w in WIDTHS}
     literal_sources={source:source_displays((ROOT/source).read_text())for source in SOURCES}
-    cases=report['cases'];assert len(cases)==24 and {(x['source'],x['width']) for x in cases}==expected
+    cases=report['cases'];assert len(cases)==30 and {(x['source'],x['width']) for x in cases}==expected
     for case in cases:
         assert case['status']=='passed' and not case['errors']
         assert case['expected_displays']==DISPLAY_COUNTS[case['source']]
@@ -113,6 +120,7 @@ def validate_report(report):
         assert all(x['image']==f'display-{i:03d}.png' for i,x in enumerate(case['displays']))
         assert 'top.png' in case['screenshots']
         if '/score-sde' in case['source']:assert 'core-list.png' in case['screenshots']
+        if '/double-machine-learning' in case['source']:assert 'limitations.png' in case['screenshots']
 
 def image_receipt(path):
     data=path.read_bytes()
@@ -168,6 +176,8 @@ def main():
                   w.evaluate('''w=>{for(let e=w.querySelector('mjx-container');e;e=e.parentElement)e.scrollLeft=0}''')
               if '/score-sde' in source:
                 heading=page.locator('#核心想法' if lang=='zh-TW' else '#core-idea');heading.scroll_into_view_if_needed();capture(page,folder,'core-list.png',case);case['screenshots'].append('core-list.png')
+              if '/double-machine-learning' in source:
+                page.locator('#限制' if lang=='zh-TW' else '#limitations').scroll_into_view_if_needed();capture(page,folder,'limitations.png',case);case['screenshots'].append('limitations.png')
               assert not case['errors'],case['errors'];case['status']='passed'
             except Exception as error:
               case['status']='failed';case['failure']=repr(error)

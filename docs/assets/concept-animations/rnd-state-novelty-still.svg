@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 370" role="img" aria-labelledby="novel-still-title novel-still-desc">
+<title id="novel-still-title">RND novelty on familiar and unseen states</title>
+<desc id="novel-still-desc">Side-by-side comparison: for frequently visited state A, the predictor feature is close to the target feature and the bonus is low; for unseen state B, the frozen target has a different output, the predictor feature can be far away, and the bonus can be high. Illustrative only.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif}.hdr{font-size:19px;font-weight:700;fill:#263a51}.lbl{font-size:14px;fill:#52667d;font-weight:600}</style>
+<rect width="680" height="370" rx="16" fill="#fff"/>
+<text x="25" y="39" font-size="23" font-weight="700" fill="#17263b">RND · familiar vs unseen</text>
+<text x="25" y="62" font-size="15" fill="#596e85">Fixed target weights · different states, different features</text>
+<rect x="24" y="82" width="306" height="233" rx="15" fill="#f8fafc" stroke="#d5e0eb" stroke-width="2"/>
+<rect x="350" y="82" width="306" height="233" rx="15" fill="#f8fafc" stroke="#d5e0eb" stroke-width="2"/>
+<rect x="42" y="101" width="50" height="50" rx="12" fill="#e1eaf6"/><text x="67" y="136" text-anchor="middle" font-size="29" font-weight="700" fill="#376aa9">A</text>
+<text x="105" y="121" class="hdr">Familiar</text><text x="105" y="144" class="lbl">after training</text>
+<rect x="368" y="101" width="50" height="50" rx="12" fill="#f9eadd"/><text x="393" y="136" text-anchor="middle" font-size="29" font-weight="700" fill="#c67b36">B</text>
+<text x="431" y="121" class="hdr">Unseen</text><text x="431" y="144" class="lbl">possible novelty</text>
+<path d="M47 246H305M47 246V164M373 246H631M373 246V164" fill="none" stroke="#c6d3df" stroke-width="2"/>
+<path d="M47 205H305M177 164V246M373 205H631M503 164V246" stroke="#e6ecf2" stroke-width="1.5"/>
+<path d="M236 187L253 198" fill="none" stroke="#d5813c" stroke-width="3" stroke-dasharray="5 5"/>
+<circle cx="236" cy="187" r="10" fill="#138978" stroke="#fff" stroke-width="3"/><circle cx="253" cy="198" r="10" fill="#d5813c" stroke="#fff" stroke-width="3"/>
+<path d="M484 223L583 175" fill="none" stroke="#d5813c" stroke-width="3" stroke-dasharray="5 5"/>
+<circle cx="484" cy="223" r="10" fill="#138978" stroke="#fff" stroke-width="3"/><circle cx="583" cy="175" r="10" fill="#d5813c" stroke="#fff" stroke-width="3"/>
+<rect x="47" y="269" width="257" height="18" rx="9" fill="#e7eef6"/><rect x="50" y="272" width="25" height="12" rx="6" fill="#d5813c"/>
+<rect x="373" y="269" width="257" height="18" rx="9" fill="#e7eef6"/><rect x="376" y="272" width="230" height="12" rx="6" fill="#d5813c"/>
+<circle cx="47" cy="338" r="6" fill="#138978"/><text x="59" y="343" font-size="14" fill="#486078">Target feature</text>
+<circle cx="205" cy="338" r="6" fill="#d5813c"/><text x="217" y="343" font-size="14" fill="#486078">Predictor feature</text>
+<text x="462" y="343" font-size="13" fill="#61768e">Schematic, not measured</text>
+</svg>

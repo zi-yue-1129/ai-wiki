@@ -4339,6 +4339,32 @@
         }
       ]
     },
+    "cliff-walking": {
+      "viewBox": "0 0 440 548",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/cliff-walking-motion.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "fa5058ae512377bbe8336d0b77373853cc19ff36"
+        },
+        {
+          "path": "docs/assets/concept-animations/cliff-walking-still.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "b4bf9e24f9443b8b13b2d59310077d729a2a8a7a"
+        }
+      ],
+      "reviewed_commit": "15a65c08ba5066fdc178ec57d8b943ef6023bda2",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/cliff-walking-motion.svg",
+          "blob": "dde0e534f3ab9e2d24e529e5c2d16b0dc049f0f4"
+        },
+        {
+          "path": "docs/assets/concept-animations/cliff-walking-still.svg",
+          "blob": "f45d74c918a7cd0856aa3279f4a2c99ef4fc2ef2"
+        }
+      ]
+    },
     "coherence-phase-gating": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -5119,6 +5145,32 @@
         }
       ]
     },
+    "double-dqn-selector": {
+      "viewBox": "0 0 440 634",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/double-dqn-selector-motion.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "db36748d63cc7ecbb7f38a657d954e0b5daa58e3"
+        },
+        {
+          "path": "docs/assets/concept-animations/double-dqn-selector-still.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "ca74ac042c6b946ea9fb647358917a498ea99a45"
+        }
+      ],
+      "reviewed_commit": "15a65c08ba5066fdc178ec57d8b943ef6023bda2",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/double-dqn-selector-motion.svg",
+          "blob": "fb80160b3ffebe49a8f7edb20104e8b4b5f78d6a"
+        },
+        {
+          "path": "docs/assets/concept-animations/double-dqn-selector-still.svg",
+          "blob": "334a4730375f7ee1bec6abab2277dd5bc024aad5"
+        }
+      ]
+    },
     "dpo-preference-margin": {
       "viewBox": "0 0 760 420",
       "origins": [
@@ -5246,6 +5298,32 @@
         {
           "path": "docs/assets/concept-animations/dt-return-budget-still.svg",
           "blob": "36491c99870604340273e6c4c4d25618fd701f3d"
+        }
+      ]
+    },
+    "eligibility-trace-cut": {
+      "viewBox": "0 0 440 598",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/eligibility-trace-cut-motion.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "6c62fd329e1cfc7318a1229616529cc860667aa7"
+        },
+        {
+          "path": "docs/assets/concept-animations/eligibility-trace-cut-still.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "28eb99d6605813c24fd68739d18f1e836c589739"
+        }
+      ],
+      "reviewed_commit": "15a65c08ba5066fdc178ec57d8b943ef6023bda2",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/eligibility-trace-cut-motion.svg",
+          "blob": "b8e54523f6f5453a8c4a4e60df415148738aac3c"
+        },
+        {
+          "path": "docs/assets/concept-animations/eligibility-trace-cut-still.svg",
+          "blob": "334a69cadc6afe33fc4816c00a762110d69e93e8"
         }
       ]
     },
@@ -6367,6 +6445,58 @@
         }
       ]
     },
+    "icm-forward-inverse": {
+      "viewBox": "0 0 680 370",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/icm-forward-inverse-motion.svg",
+          "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+          "origin_blob": "b8048b98cc572a2c8417b8f626419ab6ebcdfae4"
+        },
+        {
+          "path": "docs/assets/concept-animations/icm-forward-inverse-still.svg",
+          "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+          "origin_blob": "dcdffeade3cba13079a54086924d31e0f9f84eaa"
+        }
+      ],
+      "reviewed_commit": "fbd27a70f835bd05e2c0eb23585d9bb5a3afb7d3",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/icm-forward-inverse-motion.svg",
+          "blob": "b8048b98cc572a2c8417b8f626419ab6ebcdfae4"
+        },
+        {
+          "path": "docs/assets/concept-animations/icm-forward-inverse-still.svg",
+          "blob": "dcdffeade3cba13079a54086924d31e0f9f84eaa"
+        }
+      ]
+    },
+    "icm-predictable-stochastic": {
+      "viewBox": "0 0 760 390",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/icm-predictable-stochastic-motion.svg",
+          "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+          "origin_blob": "9f3b0c12e27a59a0e520c3f046038456fed0f7f5"
+        },
+        {
+          "path": "docs/assets/concept-animations/icm-predictable-stochastic-still.svg",
+          "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+          "origin_blob": "5118bd6b8a078bc69fa2a3c824af5442b460ac44"
+        }
+      ],
+      "reviewed_commit": "fbd27a70f835bd05e2c0eb23585d9bb5a3afb7d3",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/icm-predictable-stochastic-motion.svg",
+          "blob": "9f3b0c12e27a59a0e520c3f046038456fed0f7f5"
+        },
+        {
+          "path": "docs/assets/concept-animations/icm-predictable-stochastic-still.svg",
+          "blob": "5118bd6b8a078bc69fa2a3c824af5442b460ac44"
+        }
+      ]
+    },
     "integrated-gradients-path": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -6887,6 +7017,32 @@
         }
       ]
     },
+    "nstep-lambda-forward": {
+      "viewBox": "0 0 520 626",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/nstep-lambda-forward-motion.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "a1e5ddfdd1fa87c022749d15cd9958331c3d8f48"
+        },
+        {
+          "path": "docs/assets/concept-animations/nstep-lambda-forward-still.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "c8311d093ac28d1f299541045376d17dd025398c"
+        }
+      ],
+      "reviewed_commit": "15a65c08ba5066fdc178ec57d8b943ef6023bda2",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/nstep-lambda-forward-motion.svg",
+          "blob": "3b3c3ef695da3e327050caf0930a24148dc61a86"
+        },
+        {
+          "path": "docs/assets/concept-animations/nstep-lambda-forward-still.svg",
+          "blob": "130a2e19be7b842bc9ffb9b97be8765e42ce35c7"
+        }
+      ]
+    },
     "ofc-selective-feedback": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -7303,6 +7459,84 @@
         }
       ]
     },
+    "q-sarsa-backup": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-backup-motion.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "f59933157b617b37a3b8410a32f276dbea7ed57a"
+        },
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-backup-still.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "232954b178cc99dce99c845b295e71aef4855cdf"
+        }
+      ],
+      "reviewed_commit": "15a65c08ba5066fdc178ec57d8b943ef6023bda2",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-backup-motion.svg",
+          "blob": "4ce72dacc627dfde7d5c84b37da9852fb178e3f8"
+        },
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-backup-still.svg",
+          "blob": "313106193698c6808a334a85ed860195be31175d"
+        }
+      ]
+    },
+    "q-sarsa-epsilon": {
+      "viewBox": "0 0 440 630",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-epsilon-motion.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "f222afc0da1c3fa304cc492ad8ea685d9b2def8f"
+        },
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-epsilon-still.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "dba288d0fad2fe46372497c782566229477e3f25"
+        }
+      ],
+      "reviewed_commit": "15a65c08ba5066fdc178ec57d8b943ef6023bda2",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-epsilon-motion.svg",
+          "blob": "03c7ac600a8c5bbab5a29a375c36e4bd1580684b"
+        },
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-epsilon-still.svg",
+          "blob": "e3a976f2dece09bc42946f90dd6020ec30553899"
+        }
+      ]
+    },
+    "q-sarsa-noisy-backups": {
+      "viewBox": "0 0 440 644",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-noisy-backups-motion.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "6333cc8b125c3920f5695690d79ec8ca0d2fb34d"
+        },
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-noisy-backups-still.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "e467e2bea0a0ffd23f62f3e75fb49ccc71e93a7b"
+        }
+      ],
+      "reviewed_commit": "15a65c08ba5066fdc178ec57d8b943ef6023bda2",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-noisy-backups-motion.svg",
+          "blob": "c3558c9604ee6d78a50ca93571b458085314726a"
+        },
+        {
+          "path": "docs/assets/concept-animations/q-sarsa-noisy-backups-still.svg",
+          "blob": "649834202e8b7244058fac6d1162254c7b9fcaec"
+        }
+      ]
+    },
     "rainbow-c51-projection": {
       "viewBox": "0 0 440 548",
       "origins": [
@@ -7586,6 +7820,58 @@
         {
           "path": "docs/assets/concept-animations/rlhf-reward-sums-still.svg",
           "blob": "6824bbc32368ec40e392abc806578ca2d6e8b7f6"
+        }
+      ]
+    },
+    "rnd-prediction-error": {
+      "viewBox": "0 0 680 370",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/rnd-prediction-error-motion.svg",
+          "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+          "origin_blob": "47c133ed70fab0433a382efd2bbdb6282da4b80e"
+        },
+        {
+          "path": "docs/assets/concept-animations/rnd-prediction-error-still.svg",
+          "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+          "origin_blob": "903f7220f19c07b1ba140f648aed1f25cee8617f"
+        }
+      ],
+      "reviewed_commit": "fbd27a70f835bd05e2c0eb23585d9bb5a3afb7d3",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/rnd-prediction-error-motion.svg",
+          "blob": "47c133ed70fab0433a382efd2bbdb6282da4b80e"
+        },
+        {
+          "path": "docs/assets/concept-animations/rnd-prediction-error-still.svg",
+          "blob": "903f7220f19c07b1ba140f648aed1f25cee8617f"
+        }
+      ]
+    },
+    "rnd-state-novelty": {
+      "viewBox": "0 0 680 370",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/rnd-state-novelty-motion.svg",
+          "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+          "origin_blob": "a6099c0fd429555152f1c4aa60014d64e2f9c3c8"
+        },
+        {
+          "path": "docs/assets/concept-animations/rnd-state-novelty-still.svg",
+          "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+          "origin_blob": "9725c32bd6acb3a0a939e429d430ba540ad26cc8"
+        }
+      ],
+      "reviewed_commit": "fbd27a70f835bd05e2c0eb23585d9bb5a3afb7d3",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/rnd-state-novelty-motion.svg",
+          "blob": "683319d55d555d18d8f47e9107d2e277e3b46b59"
+        },
+        {
+          "path": "docs/assets/concept-animations/rnd-state-novelty-still.svg",
+          "blob": "9725c32bd6acb3a0a939e429d430ba540ad26cc8"
         }
       ]
     },
@@ -8317,6 +8603,32 @@
         }
       ]
     },
+    "td-terminal-truncation": {
+      "viewBox": "0 0 440 602",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/td-terminal-truncation-motion.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "6b93ee816f66b828dc5ca963a0083d2759ac52d5"
+        },
+        {
+          "path": "docs/assets/concept-animations/td-terminal-truncation-still.svg",
+          "origin_commit": "50b53c57a27059f946e9180c1fb72b43f400d4ca",
+          "origin_blob": "a435696b517f74793e9f2abe1dc46461ca9fb7ff"
+        }
+      ],
+      "reviewed_commit": "15a65c08ba5066fdc178ec57d8b943ef6023bda2",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/td-terminal-truncation-motion.svg",
+          "blob": "fdbfcc66a8d30e323f4e7cb11dc26c6a7daabb76"
+        },
+        {
+          "path": "docs/assets/concept-animations/td-terminal-truncation-still.svg",
+          "blob": "eccf01b3fa5a1a5673d994a30264b5e6188b66bf"
+        }
+      ]
+    },
     "theta-gamma-phase-amplitude": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -8733,6 +9045,26 @@
       "origin_blob": "5d5e2b4c4bb32e7ad6bcd55604f73a612f2a816c",
       "origin_commit": "b818e3217c86c26dde61f83ad8ad43d90045006f",
       "viewBox": "0 0 640 360"
+    },
+    "rnd-state-novelty-mobile-motion.svg": {
+      "viewBox": "0 0 380 660",
+      "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+      "origin_blob": "615f5ddbcc344c3433482722043456f4b4dd8128"
+    },
+    "rnd-state-novelty-mobile-still.svg": {
+      "viewBox": "0 0 380 660",
+      "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+      "origin_blob": "90e5912e5317b400f56f5e9701849495a77fe5f8"
+    },
+    "icm-predictable-stochastic-mobile-motion.svg": {
+      "viewBox": "0 0 380 770",
+      "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+      "origin_blob": "efedd1f09d7241b610762c0b5061079cd636212d"
+    },
+    "icm-predictable-stochastic-mobile-still.svg": {
+      "viewBox": "0 0 380 770",
+      "origin_commit": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+      "origin_blob": "5faabd7cd41c10ecffbd10a0f3f17c3f1b75bc82"
     }
   },
   "prefix": {
@@ -8761,7 +9093,7 @@
       "pr": 1134,
       "original_head": "27e0d827fee24851a6daf24d7636384fcfa06076",
       "sample_stem": "sac-entropy-temperature",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "dpo-preference-margin-": {
@@ -8769,7 +9101,7 @@
       "pr": 1134,
       "original_head": "27e0d827fee24851a6daf24d7636384fcfa06076",
       "sample_stem": "dpo-preference-margin",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "vivit-factorised-attention-": {
@@ -8777,7 +9109,7 @@
       "pr": 1138,
       "original_head": "57b47f01967004ba759659ba65158ba923023dff",
       "sample_stem": "vivit-factorised-attention",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "i3d-filter-inflation-": {
@@ -8785,7 +9117,7 @@
       "pr": 1138,
       "original_head": "57b47f01967004ba759659ba65158ba923023dff",
       "sample_stem": "i3d-filter-inflation",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "s4d-diagonal-modes-": {
@@ -8793,7 +9125,7 @@
       "pr": 1139,
       "original_head": "12b0c5432151c731148cc6c68b9ce1eb6225449a",
       "sample_stem": "s4d-diagonal-modes",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "mamba2-ssd-causal-map-": {
@@ -8801,7 +9133,7 @@
       "pr": 1139,
       "original_head": "12b0c5432151c731148cc6c68b9ce1eb6225449a",
       "sample_stem": "mamba2-ssd-causal-map",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "ucb1-optimism-switch-": {
@@ -8809,7 +9141,7 @@
       "pr": 1141,
       "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
       "sample_stem": "ucb1-optimism-switch",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "ucb1-bonus-sensitivity-": {
@@ -8817,7 +9149,7 @@
       "pr": 1141,
       "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
       "sample_stem": "ucb1-bonus-sensitivity",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "thompson-beta-posterior-draws-": {
@@ -8825,7 +9157,7 @@
       "pr": 1141,
       "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
       "sample_stem": "thompson-beta-posterior-draws",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "thompson-evidence-concentration-": {
@@ -8833,7 +9165,7 @@
       "pr": 1141,
       "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
       "sample_stem": "thompson-evidence-concentration",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "flashattention-online-rescale-": {
@@ -8841,7 +9173,7 @@
       "pr": 1145,
       "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b",
       "sample_stem": "flashattention-online-rescale",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "flashattention-exact-merge-": {
@@ -8849,7 +9181,7 @@
       "pr": 1145,
       "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b",
       "sample_stem": "flashattention-exact-merge",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "backdoor-standardisation-": {
@@ -8857,7 +9189,7 @@
       "pr": 1146,
       "original_head": "e3c28a8b0e4073e9ed32e8a129e9f8af9b2da364",
       "sample_stem": "backdoor-standardisation",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "collider-selection-": {
@@ -8865,7 +9197,7 @@
       "pr": 1146,
       "original_head": "e3c28a8b0e4073e9ed32e8a129e9f8af9b2da364",
       "sample_stem": "collider-selection",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "forward-ad-": {
@@ -8873,7 +9205,7 @@
       "pr": 1168,
       "original_head": "2344156492c6ed156e45a19eedfefaa9d754f263",
       "sample_stem": "forward-ad-branch-kink",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": [
         "forward-ad-jvp-"
       ]
@@ -8883,7 +9215,7 @@
       "pr": 1043,
       "original_head": "af13dab60f87d4dad9d0381aa2bd3aac3cbb78ab",
       "sample_stem": "kd-soft-target-alignment",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "fitnets-hint-then-output-": {
@@ -8891,7 +9223,7 @@
       "pr": 1043,
       "original_head": "af13dab60f87d4dad9d0381aa2bd3aac3cbb78ab",
       "sample_stem": "fitnets-hint-then-output",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     },
     "rainbow-": {
@@ -8899,7 +9231,55 @@
       "pr": 1036,
       "original_head": "a30fb116c495c6eafd95d4f942ef68d7c9353d05",
       "sample_stem": "rainbow-c51-projection",
-      "reviewed_guard_commit": "632c67239e001ebc33c455d54e0cb0c1ee648113",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
+      "excluded_prefixes": []
+    },
+    "rnd-state-novelty-mobile-": {
+      "viewBox": "0 0 380 660",
+      "pr": 1032,
+      "original_head": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+      "sample_stem": "rnd-state-novelty-mobile",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
+      "excluded_prefixes": []
+    },
+    "icm-predictable-stochastic-mobile-": {
+      "viewBox": "0 0 380 770",
+      "pr": 1032,
+      "original_head": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+      "sample_stem": "icm-predictable-stochastic-mobile",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
+      "excluded_prefixes": []
+    },
+    "icm-predictable-stochastic-": {
+      "viewBox": "0 0 760 390",
+      "pr": 1032,
+      "original_head": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+      "sample_stem": "icm-predictable-stochastic",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
+      "excluded_prefixes": []
+    },
+    "rnd-prediction-error-": {
+      "viewBox": "0 0 680 370",
+      "pr": 1032,
+      "original_head": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+      "sample_stem": "rnd-prediction-error",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
+      "excluded_prefixes": []
+    },
+    "rnd-state-novelty-": {
+      "viewBox": "0 0 680 370",
+      "pr": 1032,
+      "original_head": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+      "sample_stem": "rnd-state-novelty",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
+      "excluded_prefixes": []
+    },
+    "icm-forward-inverse-": {
+      "viewBox": "0 0 680 370",
+      "pr": 1032,
+      "original_head": "fd388a3d94a8bb6c01970f2894b193e75c610da0",
+      "sample_stem": "icm-forward-inverse",
+      "reviewed_guard_commit": "ca981f19af3636e125e207fb4094c9059a463757",
       "excluded_prefixes": []
     }
   },
@@ -9509,6 +9889,26 @@
       "page": "docs/theory/paradigms/reinforcement-learning/model-based-rl/mbpo/index.md",
       "pr": 1039,
       "original_head": "394e02efd4c88f6f15e5df1d603cb72b895dc57f"
+    },
+    "rnd-prediction-error": {
+      "page": "docs/theory/paradigms/reinforcement-learning/exploration/rnd/index.md",
+      "pr": 1032,
+      "original_head": "fd388a3d94a8bb6c01970f2894b193e75c610da0"
+    },
+    "rnd-state-novelty": {
+      "page": "docs/theory/paradigms/reinforcement-learning/exploration/rnd/index.md",
+      "pr": 1032,
+      "original_head": "fd388a3d94a8bb6c01970f2894b193e75c610da0"
+    },
+    "icm-forward-inverse": {
+      "page": "docs/theory/paradigms/reinforcement-learning/exploration/icm/index.md",
+      "pr": 1032,
+      "original_head": "fd388a3d94a8bb6c01970f2894b193e75c610da0"
+    },
+    "icm-predictable-stochastic": {
+      "page": "docs/theory/paradigms/reinforcement-learning/exploration/icm/index.md",
+      "pr": 1032,
+      "original_head": "fd388a3d94a8bb6c01970f2894b193e75c610da0"
     }
   }
 }
