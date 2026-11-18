@@ -1,0 +1,21 @@
+[
+  {"query":"What does LoRA freeze?", "expected_ids":["lora-update"]},
+  {"query":"低秩更新是否代表基底矩陣低秩？", "expected_ids":["lora-update"]},
+  {"query":"Can the LoRA adapter merge remove inference latency?", "expected_ids":["lora-merge"]},
+  {"query":"LoRA 合併與推論延遲", "expected_ids":["lora-merge"]},
+  {"query":"QLoRA storage versus computation precision", "expected_ids":["qlora-precision"]},
+  {"query":"QLoRA 是全參數 4-bit 訓練嗎？", "expected_ids":["qlora-precision"]},
+  {"query":"Why NF4 for normal distribution?", "expected_ids":["qlora-nf4"]},
+  {"query":"NF4 常態分布假設", "expected_ids":["qlora-nf4"]},
+  {"query":"What does double quantization compress?", "expected_ids":["qlora-double"]},
+  {"query":"雙重量化壓縮什麼常數？", "expected_ids":["qlora-double"]},
+  {"query":"Paged optimizer memory spikes", "expected_ids":["qlora-paging"]},
+  {"query":"分頁最佳化器會不會降速？", "expected_ids":["qlora-paging"]},
+  {"query":"65B on 48GB GPU capacity", "expected_ids":["qlora-65b"]},
+  {"query":"650億參數的記憶體容量保證？", "expected_ids":["qlora-65b"]},
+  {"query":"What baseline was used for full fine-tuning comparison?", "expected_ids":["qlora-comparison"]},
+  {"query":"全參數微調比較的對照規模？", "expected_ids":["qlora-comparison"]},
+  {"query":"banana cake recipe", "expected_ids":[]},
+  {"query":"今日台北天氣", "expected_ids":[]},
+  {"query":"current API pricing", "expected_ids":[]}
+]

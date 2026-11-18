@@ -39,7 +39,11 @@ The paper finetunes more than 1,000 models across 8 instruction datasets, with L
 
 ### Visualising frozen NF4 storage and adapter updates
 
-![QLoRA computation schematic showing frozen NF4 weights, dequantisation for matmul, low-rank adapter contribution and backward adapter updates](../../../../assets/concept-animations/qlora-frozen-flow-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../../assets/concept-animations/qlora-frozen-flow-motion.svg" data-still-src="../../../../../assets/concept-animations/qlora-frozen-flow-still.svg" }
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Horizontally scrollable animation diagram" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/qlora-frozen-flow-still.svg" data-source-asset-urls="true" data-motion-src="../../../../assets/concept-animations/qlora-frozen-flow-motion.svg" data-still-src="../../../../assets/concept-animations/qlora-frozen-flow-still.svg" alt="QLoRA computation schematic showing frozen NF4 weights, dequantisation for matmul, low-rank adapter contribution and backward adapter updates" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+</div>
 
 *Original continuous teaching animation (CC BY-SA 4.0).* The left grid represents **frozen four-bit NF4 codes**, not a matrix of measured weights or the actual NF4 quantile codebook. Amber pulses follow the **forward computation**: stored codes are dequantised for computation, and the \(BA\) adapter branch contributes to the sum. Purple pulses follow the **parameter-update path**: gradients train the adapters, while the stored base weights remain frozen. Gradients can still propagate *through* the frozen computation to other differentiable inputs; frozen does not mean removing the base from backpropagation. The diagram omits double quantisation, paged optimiser transfers and detailed precision kernels. MkDocs adds keyboard-accessible Play/Pause; GitHub displays the static fallback above. On a phone, focus and horizontally scroll the full-size diagram. This is **schematic, not measured memory or training performance**; see [Dettmers et al. (2023)](https://arxiv.org/abs/2305.14314).
 
@@ -80,3 +84,7 @@ QLoRA is LoRA applied to a quantised base, so the adapter mathematics on the [Lo
 
 - Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — Reports that per-channel 8-bit quantisation keeps classification accuracy within 2% of floating-point networks across many CNN architectures, the post-training counterpart of storing the base in low bits.
 - Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory bandwidth, not compute, is the primary bottleneck for AI serving, the pressure that storing the base in 4 bits relieves.
+
+On narrow screens, swipe horizontally; keyboard users can focus the diagram region and use the left/right arrow keys.
+
+Each ten-second cycle shows one ordered step: storage read, forward contributions, backward propagation, then adapter update, before replay. Durations are illustrative, not measured.

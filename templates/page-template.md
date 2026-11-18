@@ -1,7 +1,8 @@
 ---
 # Optional metadata read by scripts/wiki_status.py. Delete lines you don't need.
-status: draft            # stub | draft | complete (otherwise inferred from the page)
-last_reviewed: 2026-01-01  # date someone last checked the whole page for accuracy
+status: draft            # writing progress only; NOT a verification badge
+# last_reviewed: YYYY-MM-DD  # add only after an actual whole-page accuracy review
+# review_interval_days: 365  # use 30–90 for fast-changing APIs/benchmarks
 related:                 # topics in other categories this one also belongs to (folders relative to docs/)
   - brain-mind/neuroai
 tags:                    # cross-cutting themes, listed on the Tags page

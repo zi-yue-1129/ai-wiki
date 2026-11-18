@@ -42,7 +42,11 @@ After training, the result can be merged into a single weight matrix, so inferen
 
 ### Visualising independent direction and magnitude changes
 
-![DoRA animated vector comparison: direction rotates first, followed by a separate magnitude increase](../../../../assets/concept-animations/dora-independent-still.svg){: .concept-motion-wide tabindex="0" data-motion-src="../../../../../assets/concept-animations/dora-independent-motion.svg" data-still-src="../../../../../assets/concept-animations/dora-independent-still.svg" }
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Horizontally scrollable animation diagram" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/dora-independent-still.svg" data-source-asset-urls="true" data-motion-src="../../../../assets/concept-animations/dora-independent-motion.svg" data-still-src="../../../../assets/concept-animations/dora-independent-still.svg" alt="DoRA animated vector comparison: direction rotates first, followed by a separate magnitude increase" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+</div>
 
 *Original continuous teaching animation (CC BY-SA 4.0).* Blue is a fixed, frozen weight column; teal is an adapted column. A **direction change occurs before a separate magnitude change**, illustrating why DoRA exposes these degrees of freedom separately. With the **illustrative, not measured** vectors \(W_0=(3,4)\), \(BA=(1,-1)\), the unnormalised direction becomes \(V=(4,3)\). Increasing the separately learned magnitude from \(5\) to \(6\) then gives \(W'=(4.8,3.6)\). The animation interpolates between these analytic endpoints; it **does not show an optimiser's measured gradient trajectory** or imply every DoRA update has this shape. Play/Pause is available on the MkDocs site (keyboard-operable); on GitHub the still above remains readable. On narrow screens, focus the image and scroll horizontally to see the full-size diagram. See the [DoRA paper](https://arxiv.org/abs/2402.09353).
 
@@ -75,3 +79,7 @@ DoRA sits in the LoRA family alongside [QLoRA](qlora.md), which quantises the fr
 - Dettmers, T., Pagnoni, A., Holtzman, A., Zettlemoyer, L. (2023). *QLoRA: Efficient Finetuning of Quantized LLMs*. arXiv:2305.14314. https://arxiv.org/abs/2305.14314 — Applies LoRA adapters to a 4-bit frozen base, the quantised counterpart in the same family.
 - Houlsby, N., et al. (2019). *Parameter-Efficient Transfer Learning for NLP*. arXiv:1902.00751. https://arxiv.org/abs/1902.00751 — Introduces adapters, the layer-adding alternative to low-rank updates.
 - Liu, H., et al. (2022). *Few-Shot Parameter-Efficient Fine-Tuning is Better and Cheaper than In-Context Learning*. arXiv:2205.05638. https://arxiv.org/abs/2205.05638 — Shows that parameter-efficient fine-tuning gives better accuracy and much lower compute than few-shot in-context learning.
+
+On narrow screens, swipe horizontally; keyboard users can focus the diagram region and use the left/right arrow keys.
+
+The drawing uses piecewise-linear interpolation: intermediate norm error relative to the magnitude control is below 0.12 pixels; the endpoints are analytic.
