@@ -169,3 +169,7 @@ The source's 75-minute monolithic transitional budget is superseded here by
 50-minute full-shard/support jobs and a 30-minute independent strict-build gate.
 Tests parse the actual job budgets numerically; the original full coverage and
 all support suites remain. The unsharded reference fixture is historical only.
+
+### DDIM schedule prose coverage
+
+The support registry additionally requires `ddim-prose`: the English and Traditional Chinese DDIM chapters at 390 and 1280 pixels. It uses the real built prose harness and `ddim-prose-pages.json`, with a required `schedule.png` for the schedule-dependent stochasticity section in every case. The gate rejects a missing suite, page, section screenshot, or capture claim; the original seven support suites remain intact. Packaging retains the ninth `ddim-prose` root.

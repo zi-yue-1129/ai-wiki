@@ -43,6 +43,63 @@ Each weight behaves like a spring attached to its old value, with stiffness \(\l
 
 For the Atari experiments, the paper recomputes the Fisher diagonal at each task switch, using 100 mini-batches from the replay buffer. The main text does not say whether the Fisher is estimated from sampled model predictions or from empirical gradients.
 
+
+## Animated walkthrough: constrained adaptation
+
+<div role="region" tabindex="0" aria-label="Horizontally scrollable teaching animation" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain"><div style="width:640px;min-width:640px">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/ewc-fisher-springs-still.svg" data-motion-src="../../../../assets/concept-animations/ewc-fisher-springs-motion.svg" data-still-src="../../../../assets/concept-animations/ewc-fisher-springs-still.svg" alt="Two Fisher-weighted EWC coordinates move from an old-task anchor to different regularised task-B optima" />
+</div></div>
+
+[Static GitHub and reduced-motion preview](../../../../assets/concept-animations/ewc-fisher-springs-still.svg). On MkDocs, the accessible **Play/Pause** control (Tab, then Enter or Space) switches between the looping motion and a complete still.
+
+This **constructed, separable quadratic** example makes the regularisation effect calculable. Let the old-task anchor be \(\theta_A^*=0\), the new-task loss for each coordinate be 
+
+\[
+L_B(\theta)=\tfrac12(\theta-1)^2
+\]
+
+, and the EWC penalty be \(\tfrac{\lambda F}{2}\theta^2\). Then the optimum is \(\theta^*=1/(1+\lambda F)\): a high-importance coordinate with \(\lambda F=4\) stops at **0.20**, while a lower-importance coordinate with \(\lambda F=0.25\) reaches **0.80**. The dots interpolate between anchor and optimum **for teaching only**; they are not gradient-descent iterates, measured Fisher values, or reported experiments. A diagonal Fisher approximation does not capture cross-parameter interactions. The quadratic construction illustrates the penalty introduced by Kirkpatrick et al. (2017), already cited below.
+
+*Original instructional animation and static fallback, CC BY-SA 4.0.*
+
+### Reproducible update steps (constructed quadratic)
+
+The animation above interpolates to the exact stationary points; it **does not** run an optimiser. To see the actual discrete dynamics, take \(\eta=0.024\), start both coordinates at \(\theta_0=0\), and use the gradient of the stated quadratic:
+
+\[
+\theta_{k+1}=\theta_k-\eta\bigl[(\theta_k-1)+(\lambda F)\theta_k\bigr].
+\]
+
+For stiffness \(s=\lambda F\), the closed-form iterate is 
+
+\[
+\theta_k=\tfrac{1}{1+s}[1-(1-\eta(1+s))^k]
+\]
+
+. The same **fixed** learning rate yields distinct paths:
+
+| Update \(k\) | High stiffness \(s=4\) | Low stiffness \(s=0.25\) |
+| ---: | ---: | ---: |
+| 0 | 0.000 | 0.000 |
+| 1 | 0.024 | 0.024 |
+| 4 | 0.080 | 0.092 |
+| 8 | 0.128 | 0.173 |
+| 18 | 0.180 | 0.338 |
+| Limit \(k\to\infty\) | 0.200 | 0.800 |
+
+The limit depends on Fisher stiffness, while **convergence speed also depends on the chosen learning rate**. None of these numbers is a trained-network result. This table is a numerical computation separate from the interpolated SVG.
+
+
+
+### Interactive experiment: gradient steps versus Fisher stiffness
+
+Adjust the learning rate and two stiffness values, then use **Previous / Next**, **Play / Pause**, the step slider, speed selector or **Reset**. The plot runs the actual discrete quadratic update; dashed reference lines mark stationary points. Use Tab and the arrow keys for sliders. On narrow screens, focus the plot and scroll horizontally. The values are **constructed examples**, not measured weights or Fisher estimates; with JavaScript disabled, the static diagram and numerical table above remain readable.
+
+<div data-ewc-neat-lab="ewc" data-locale="en"><p>JavaScript-free fallback: the preceding table shows computed updates at steps 0, 1, 4, 8, 18 and the analytical limits.</p></div>
+
+
+The interactive controls identify coordinates 1 and 2 rather than assuming a fixed stiffness ranking: their allowed ranges can overlap. The default coordinate 1 is stiffer. All slider settings satisfy 0 < η(1+s) < 2, so the toy iterates converge; values above 1 produce alternating errors rather than monotone movement. The original SVG remains an interpolation, holds its endpoint, and resets at the next loop.
+
 ## Key methods
 
 ### Overcoming catastrophic forgetting in neural networks (Kirkpatrick et al., 2017)

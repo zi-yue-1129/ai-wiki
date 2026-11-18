@@ -24,6 +24,7 @@ on:
       - "scripts/test_motion_scroll_discovery.cjs"
       - "scripts/test_built_prose_browser.py"
       - "scripts/fixtures/embedding-prose-pages.json"
+      - "scripts/fixtures/ddim-prose-pages.json"
       - "scripts/test_policy_gradient_motion_browser.py"
       - "scripts/test_policy_gradient_restore.py"
       - "scripts/policy_glyph_contract.py"
@@ -219,7 +220,7 @@ jobs:
           python-version: "3.12"
           cache: pip
       - name: Install independent discovery and build dependencies
-        run: python -m pip install -r requirements.txt
+        run: python -m pip install -r requirements.txt "playwright==1.55.0"
       - name: Test fail-closed coverage gate
         run: |
           python scripts/test_motion_shard_contract.py

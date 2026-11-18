@@ -16,7 +16,7 @@ import tempfile
 
 DEFAULT_ROOTS = ('keyboard-scroll-preflight', 'built-motion-browser',
                  'sharpness-labs', 'adaptive-optimiser-labs', 'vi-prose', 'embedding-pages',
-                 'policy-credit-labs', 'built-planning-evolution-labs', 'policy-gradient-motion')
+                 'policy-credit-labs', 'built-planning-evolution-labs', 'ddim-prose', 'policy-gradient-motion')
 LIMIT = 100 * 1024 * 1024
 MAX_GROUPS = 24
 

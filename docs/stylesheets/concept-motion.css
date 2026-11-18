@@ -32,5 +32,24 @@
 .concept-motion-motor .concept-motion-viewport { display:block; overflow-x:auto; max-width:100%; }
 .concept-motion-player.concept-motion-motor img { width:640px; min-width:640px; max-width:none; height:auto; }
 .concept-motion-motor .concept-motion-viewport:focus-visible { outline:3px solid var(--md-accent-fg-color, #387e99); outline-offset:2px; }
+/* Only the two 800px diffusion schematics: controls never move with the viewport. */
+.concept-motion-diffusion { max-width: 100%; }
+.concept-motion-diffusion .concept-motion-viewport { display: block; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+.concept-motion-diffusion .concept-motion-viewport img { width: 800px; min-width: 800px; max-width: none; height: auto; }
+.concept-motion-diffusion .concept-motion-viewport:focus-visible { outline: 3px solid #387e99; outline-offset: 2px; }
+/* Static-first working-memory visuals: preserve readable 640px labels on phones. */
+.wm-motion-pan { display: block; max-width: 640px; margin: .5rem auto 1rem; overflow-x: auto; overscroll-behavior-inline: contain; border-radius: .55rem; }
+.wm-motion-pan > .concept-motion-player { width: 640px; max-width: none; margin: 0; }
+.wm-motion-pan .concept-motion-player img, .wm-motion-pan > img { display: block; width: 640px; min-width: 640px; max-width: none; height: 360px; }
+.wm-motion-pan:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 3px; }
+/* Scope fixed-width diffusion figures without changing other motion topics. */
+.diffusion-motion-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;margin:.5rem auto 1rem}
+.diffusion-motion-scroll .concept-motion-player{width:800px;max-width:none;margin:0}
+.diffusion-motion-scroll img,.diffusion-motion-scroll .concept-motion-player img{display:block;width:800px;min-width:800px;max-width:none;height:auto}
+.diffusion-motion-scroll:focus-visible{outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:3px}
 /* Explicit source-owned scroll regions, focusable before and after enhancement. */
 .md-typeset .reviewed-motion-scroll:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
+
+/* Only SAC/DPO native 760px figures: no generic 640px centered-host overhang. */
+.sac-dpo-motion-scroll > .sac-dpo-motion-frame { width:760px; min-width:760px; max-width:none; margin:0 auto; }
+.sac-dpo-motion-frame > .concept-motion-player { width:760px; max-width:none; margin:.5rem 0 1rem; }

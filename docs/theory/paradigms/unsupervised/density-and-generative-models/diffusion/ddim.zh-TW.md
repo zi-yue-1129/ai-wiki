@@ -34,9 +34,27 @@ x_{t_{\text{prev}}} = \sqrt{\bar\alpha_{t_{\text{prev}}}}\,\hat x_0 + \sqrt{1-\b
 
 其中 \(t_{\text{prev}}\) 是子序列中的前一步。論文的記號中，\(\alpha_t\) 表示累積乘積，因此這裡的 \(\alpha_t\) 就是上面的 \(\bar\alpha_t\)。當 \(\sigma = 0\) 時，更新是確定性的。論文指出，這個更新類似常微分方程的歐拉積分一步，這也是它與神經 ODE 相關的基礎。
 
+### 隨機程度取決於時間排程
+
+對選定的較早索引 \(s=t_{\text{prev}}<t\)，若 \(0<\bar\alpha_t<\bar\alpha_s\leq1\)，無因次參數 \(0\leq\eta\leq1\) 是轉移雜訊標準差的縮放因子，並非標準差本身：
+
+\[
+\sigma_{t\to s}(\eta)
+=\eta\sqrt{\frac{1-\bar\alpha_s}{1-\bar\alpha_t}}
+\sqrt{1-\frac{\bar\alpha_t}{\bar\alpha_s}}.
+\]
+
+上方更新式中的 \(\sigma\) 指 \(\sigma_{t\to s}(\eta)\)。這是 [Song、Meng 與 Ermon（2021）](https://arxiv.org/abs/2010.02502) 的排程，作者的[廣義取樣器實作](https://github.com/ermongroup/ddim/blob/main/functions/denoising.py) 也採用此式。當 \(\eta=0\) 時，更新不加入新的高斯抽樣；當 \(\eta=1\) 且索引相鄰、\(s=t-1\) 時，其變異數為後驗變異數
+
+\[
+\tilde\beta_t=\frac{\beta_t(1-\bar\alpha_{t-1})}{1-\bar\alpha_t}.
+\]
+
+因此得到對應的 DDPM 祖先取樣轉移。若跳過中間索引，則是隨機的廣義轉移，不是原本逐步執行的完整鏈；這不表示 DDPM 的所有變異數設定都等同此取樣器。
+
 ## 結果
 
-論文的表 1 報告無條件 CIFAR-10 上，FID 隨步數 \(S\) 的變化。這裡的 \(\eta\) 是論文對 \(\sigma\) 的命名：\(\eta = 0\) 為 DDIM，\(\eta = 1\) 為 DDPM。
+論文的表 1 報告無條件 CIFAR-10 上，FID 隨步數 \(S\) 的變化。這裡的 \(\eta\) 用來縮放依轉移而定的 \(\sigma_{t\to s}\)。\(\eta=0\) 一列採確定性 DDIM；\(\eta=1\) 一列是在選定排程上的 DDPM 式隨機取樣，須注意上方相鄰步驟的限定。
 
 | 步數 \(S\) | 10 | 20 | 50 | 100 | 1000 |
 |---|---|---|---|---|---|

@@ -746,6 +746,26 @@
       "report_trailing_newline": false
     },
     {
+      "id": "ddim-prose",
+      "type": "prose",
+      "command": [
+        "scripts/test_built_prose_browser.py",
+        "--manifest",
+        "scripts/fixtures/ddim-prose-pages.json",
+        "--output",
+        "artifacts/ddim-prose"
+      ],
+      "sources_manifest": "scripts/fixtures/ddim-prose-pages.json",
+      "widths": [
+        390,
+        1280
+      ],
+      "required_case_pngs": [
+        "schedule.png"
+      ],
+      "report_trailing_newline": false
+    },
+    {
       "id": "policy-gradient-motion",
       "type": "report-cases",
       "command": [

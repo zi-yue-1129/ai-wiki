@@ -18,6 +18,8 @@ TOPICS = {
     "roc-pr-shift": "theory/evaluation/metrics/classification/roc-auc",
     "roc-prior-policy": "theory/evaluation/metrics/classification/roc-auc",
     "roc-youden-cost": "theory/evaluation/metrics/classification/roc-auc",
+    "s4d-diagonal-modes": "theory/models/ssm/structured-state-spaces/s4d/index",
+    "mamba2-ssd-causal-map": "theory/models/ssm/selective-state-spaces/mamba-2/index",
     "hnsw-layer-descent": "engineering/vector-databases/hnsw",
     "ivfpq-probe-pq-lookup": "engineering/vector-databases/ivf-pq-faiss",
     "forest-bootstrap-vote": "theory/paradigms/supervised/trees-and-ensembles/random-forests",
@@ -110,6 +112,20 @@ TOPICS = {
     "soap-eigenbasis-adam": "theory/optimization/adaptive/soap",
     "t5-span-corruption": "theory/models/transformer/architecture-families/t5/index",
     "deit-dual-head-distillation": "theory/models/transformer/vision-transformer/deit/index",
+    "score-sde-flow": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde",
+    "consistency-trajectory-map": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/consistency-models",
+    "ewc-fisher-springs": "theory/paradigms/continual/regularisation-based/ewc",
+    "neat-add-node-innovation": "theory/paradigms/evolutionary/neat",
+    "pbwm-gate": "brain-mind/working-memory-executive-function/pbwm/index",
+    "activity-silent-trace": "brain-mind/working-memory-executive-function/activity-silent-working-memory/index",
+    "sac-entropy-temperature": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/sac/index",
+    "dpo-preference-margin": "theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo/index",
+    "roi-align-sampling": "theory/models/computer-vision/segmentation/mask-r-cnn",
+    "sam-prompt-ambiguity": "theory/models/computer-vision/segmentation/segment-anything",
+    "vivit-factorised-attention": "theory/models/computer-vision/video/vivit",
+    "i3d-filter-inflation": "theory/models/computer-vision/video/i3d",
+    "video-joint-denoising": "theory/models/computer-vision/video/video-diffusion",
+    "latent-space-denoise": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/latent-diffusion",
     "ece-binned-calibration": "theory/paradigms/probabilistic/uncertainty-calibration/expected-calibration-error",
     "deep-ensemble-spread": "theory/paradigms/probabilistic/uncertainty-calibration/deep-ensembles",
     "tsne-kl-embedding": "theory/paradigms/unsupervised/dimensionality-reduction/t-sne",
@@ -202,6 +218,8 @@ TOPICS = {
     "moco-dictionary-cycle": "theory/paradigms/self-supervised/contrastive-learning/moco",
     "byol-online-target": "theory/paradigms/self-supervised/non-contrastive-methods/byol",
     "gibbs-coordinate-sweeps": "theory/paradigms/probabilistic/mcmc/gibbs-sampling",
+    "kalman-gain-fusion": "theory/paradigms/probabilistic/graphical-models/kalman-filter",
+    "particle-weight-resampling": "theory/paradigms/probabilistic/graphical-models/particle-filter",
     "mean-field-coordinate-ascent": "theory/paradigms/probabilistic/variational-inference/mean-field",
     "moe-top2-routing": "theory/models/mixture-of-experts/index",
     "cfg-extrapolation": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/classifier-free-guidance",
@@ -295,301 +313,321 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {
-    'roc-pr-shift': '0 0 640 360',
-    'roc-prior-policy': '0 0 640 360',
-    'roc-youden-cost': '0 0 640 360',
-    '3d-unet-context-tiling': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
-    '3d-unet-depth-kernel': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
-    '3d-unet-evaluation-holdout': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
-    '3d-unet-orthogonal-slices': '0 0 640 360',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
-    '3d-unet-paired-warp': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
-    '3d-unet-skip-concat': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
-    '3d-unet-sparse-context-gradient': '0 0 640 360',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
-    '3d-unet-sparse-loss': '0 0 800 420',  # origin 9ab22a24338e92717d61e54e33f9c8b04b588033
-    'accuracy-prevalence': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'adafactor-factored-moments': '0 0 720 460',  # origin 43a57b80f5174aacd6c7675d51ec77c353a06fa2
-    'adagrad-coordinate-gain': '0 0 720 460',  # origin 43a57b80f5174aacd6c7675d51ec77c353a06fa2
-    'adam-bias-correction': '0 0 800 420',  # origin fd91f1c27f1427dac41731911fb93f5f4612388c
-    'adam-epsilon-threshold': '0 0 800 420',  # origin 019e0d1b66d382cbe33d5d6a7b396ce0c3fdedba
-    'adam-scale-invariance': '0 0 800 420',  # origin fd91f1c27f1427dac41731911fb93f5f4612388c
-    'adam-sign-reversal': '0 0 800 420',  # origin 019e0d1b66d382cbe33d5d6a7b396ce0c3fdedba
-    'adamw-decoupled-paths': '0 0 640 360',  # origin 5378eb9fe6f826d1f15ce934e7589b2facb915ed
-    'adamw-epoch-timescale': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'aging-evolution-queue': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'alpha-beta-cutoff': '0 0 640 360',  # origin 4c4bfba7df3919ca11f77d9aa766be434878bdf0
-    'ant-colony-pheromone': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'ar-context-drift': '0 0 800 420',  # origin a3fc0fb64052cd9c9a08039f59cfae0858b9e6ec,4e8feb76eda11c3e6d15a935f1a40b7de47fa7a6
-    'ar-eos-survival': '0 0 800 420',  # origin 1f77bd440fbe818a9f0c5469ee8d489a3d65b291,39bec660675136ecc45e2c1654e258457cfb4aa0
-    'ar-likelihood-accumulation': '0 0 800 420',  # origin e21d44e6af6e7776c8219ad0106d6ee23a95c5a5
-    'ar-score-vs-sample': '0 0 800 420',  # origin e21d44e6af6e7776c8219ad0106d6ee23a95c5a5
-    'asam-neighborhood': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'astar-frontier': '0 0 640 360',  # origin f7337cf2638f3c1ff1532e7f718aabac0865d28b
-    'auc-ap-ranking-contrast': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'batch-norm-train-infer': '0 0 640 360',  # origin 255f92a3054b761cd178a1ec18a8d9e50d602d37
-    'bo-expected-improvement': '0 0 640 360',  # origin 740965999012f3cd02c0b99ab0433fe165d23b4e
-    'bo-gp-conditioning': '0 0 640 360',  # origin 740965999012f3cd02c0b99ab0433fe165d23b4e
-    'boosting-residual-steps': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'bpe-ordered-merges': '0 0 640 360',  # origin b6f21f5f932d3eda532f7e743af087c20ead0870
-    'bpr-gradient-saturation': '0 0 800 420',  # origin d63a71d59848759b91a71fe36ad6b96f764a9dc6
-    'bpr-pairwise-ranking': '0 0 800 420',  # origin d1919fd73d05deb6f56ee7676fbdd63e658af355
-    'byol-online-target': '0 0 640 360',  # origin 331d15f34b9f6772d986afeec1e928819f1b1f97
-    'cfg-extrapolation': '0 0 640 360',  # origin 5875288b4c31f3ceb3fde5beaa67e1c4e07a6090
-    'cfm-conditional-bridge': '0 0 760 410',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
-    'checkpoint-recompute': '0 0 640 360',  # origin c0924f0d4a260fdf4922a36c83ccb6c7c24990f2
-    'clr-triangular2-sweep': '0 0 640 360',  # origin 4b9f79e116755c0070af9e803fcb0bb62f67bbb0
-    'cmaes-distribution-adaptation': '0 0 640 360',  # origin d2c84dd00777ae7d0eea3ea38a13012146a4b1a5
-    'colbert-maxsim-switch': '0 0 640 360',  # origin 25770e6b084eaeba6998b658780caa03c96b2c48
-    'cv-fold-rotation': '0 0 640 360',  # origin 6695c6a7b352d64f98f511d2aa3fcf6edcf867bc
-    'darts-soft-operations': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'deep-ensemble-spread': '0 0 720 400',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
-    'deformable-sampling': '0 0 640 360',  # origin e00a7dd21eca5336c9865027674000f7578521dc
-    'dice-overlap-response': '0 0 640 360',  # origin 7c472a8dba6dd3a39ac74d438840ca27e1d8be3a
-    'dinov2-dual-objective-ema': '0 0 640 360',  # origin dec6fcf99253875a1a6ff8508acf458c2d0b5085
-    'disaggregated-handoff': '0 0 640 360',  # origin 1d54c4ae36eff5a4df7bb9587a2e0580ff5636ee
-    'dora-independent': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'dpll-backtrack': '0 0 640 360',  # origin f7337cf2638f3c1ff1532e7f718aabac0865d28b
-    'dpr-dot-product-sweep': '0 0 640 360',  # origin 25770e6b084eaeba6998b658780caa03c96b2c48
-    'dqn-target-sync': '0 0 640 360',  # origin 0f1ccb332c13f2d7d72faaf2394d9d173d8f665a
-    'dropblock-spatial-masking': '0 0 640 360',  # origin e434dff16b781d0facc56afa5840a4681dfedfd8
-    'dropout-inverted-sampling': '0 0 640 360',  # origin eee699618afdae1909247586f288d49418006b66
-    'dropout-variance-tradeoff': '0 0 640 360',  # origin b193cbd6879d351863724768390f9fadbc29d0c3,e450f3aeae496a8012a8e8e3b3bc5e8a348257fd
-    'ece-binned-calibration': '0 0 720 400',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
-    'effective-number-growth': '0 0 640 360',  # origin 4fada4af8d68a02c30cfa9ddbd51d3d393a11f89
-    'eigen-jordan-shear': '0 0 800 420',  # origin 15bdb38e1c312b578f4e4e41a4b96f483433e989
-    'eigen-linear-map': '0 0 800 420',  # origin 19e3913d7aba853b2f10d1652ff6b6c1e1f6117f
-    'eigen-rotation-no-real': '0 0 800 420',  # origin 19e3913d7aba853b2f10d1652ff6b6c1e1f6117f
-    'eigen-zero-eigenvalue': '0 0 800 420',  # origin 15bdb38e1c312b578f4e4e41a4b96f483433e989
-    'elo-online-update': '0 0 640 360',  # origin f7aefbad4b5af2090a85c4100e96326b34f25056
-    'enas-shared-weight-transfer': '0 0 800 420',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'expert-cache-miss': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'f1-harmonic-gap': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'f1-macro-micro-imbalance': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'f1-threshold-topk': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'fbeta-recall-emphasis': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'forest-bootstrap-vote': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'forward-ad-jvp': '0 0 640 360',  # origin a8432b46ebe9a070935048402bdfcb6cb1442809
-    'fp16-loss-scaling': '0 0 640 360',  # origin c0924f0d4a260fdf4922a36c83ccb6c7c24990f2
-    'fp8-scale-range': '0 0 640 360',  # origin 67e4091c01b3f94b8e6fbfbeb4511d0a93971f39
-    'gat-aggregation': '0 0 640 360',  # origin e2a78cc8d9c9e4f41393adecadc968c50e2a2912
-    'gated-sae-gate-magnitude': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'gcn-aggregation': '0 0 640 360',  # origin e2a78cc8d9c9e4f41393adecadc968c50e2a2912
-    'gibbs-coordinate-sweeps': '0 0 640 360',  # origin 39a25d3105b805ff71c44932982e0d5b5e5a3dba
-    'gin-multiset-counts': '0 0 640 360',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
-    'glorot-alternating-width': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'glorot-equal-variance-densities': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'glorot-fan-tradeoff': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'glorot-tanh-saturation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'gradient-norm-clipping': '0 0 640 360',  # origin 5875288b4c31f3ceb3fde5beaa67e1c4e07a6090
-    'graphsage-sample-aggregate': '0 0 640 360',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
-    'grid-search-x-coverage': '0 0 640 360',  # origin 75080f86df360900362cc3c04fa2680194e1d0cf
-    'group-norm-statistics': '0 0 640 360',  # origin 1b96705ef3e52dcad0fc061c8660305102de904d
-    'gru-gate-flow': '0 0 640 360',  # origin 269c6767663de40b11c8bad3c9ebd40fb8bd8ca3
-    'he-fan-mode-tradeoff': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'he-relu-mean-shift': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'he-relu-second-moment': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'heavy-ball-overshoot': '0 0 640 360',  # origin 20ab47cef45a7a5895987dc456f51c4d437912a5
-    'hmc-leapfrog-trajectory': '0 0 640 360',  # origin b3f965ab18f3cb57c91a8d488857581d0e544748
-    'hmm-baum-welch-transition': '0 0 800 420',  # origin 326513cb81d57184e3857da9a83017bc75f37039
-    'hmm-filter-smooth': '0 0 800 420',  # origin 620ee6d9d94415967d694b0e87c284b1223e5ebb
-    'hmm-forward-sum-product': '0 0 800 420',  # origin 620ee6d9d94415967d694b0e87c284b1223e5ebb
-    'hmm-pairwise-posterior': '0 0 800 420',  # origin 326513cb81d57184e3857da9a83017bc75f37039
-    'hnsw-layer-descent': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'hyperband-budget': '0 0 640 360',  # origin 0ca80d62237ba8063b37f07eff2648e545af5387
-    'ida-bound-reexpansion': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'iou-overlap-sweep': '0 0 640 360',  # origin 7c472a8dba6dd3a39ac74d438840ca27e1d8be3a
-    'itemcf-weighted-neighbors': '0 0 800 420',  # origin 12577fa11e8638d3ae3a26a74656dc162f8190c5
-    'ivfpq-probe-pq-lookup': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'jumprelu-threshold-jump': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'kfac-factor-preconditioning': '0 0 640 360',  # origin 269c6767663de40b11c8bad3c9ebd40fb8bd8ca3
-    'kmeans-elbow-inertia': '0 0 800 420',  # origin 53d6c5d17c6102c294ca716a345bebdfd379d455
-    'kmeans-feature-scale': '0 0 800 420',  # origin 53d6c5d17c6102c294ca716a345bebdfd379d455
-    'kmeans-lloyd': '0 0 640 360',  # origin b6f21f5f932d3eda532f7e743af087c20ead0870
-    'kmeans-outlier-leverage': '0 0 800 420',  # origin 743cc54ed4de3af9bef0a06fa1e020aced6337eb
-    'kmeans-plusplus-d2': '0 0 800 420',  # origin 743cc54ed4de3af9bef0a06fa1e020aced6337eb
-    'lagrange-dual-gap': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'lagrange-kkt-active-set': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'lagrange-tangency': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'lamb-adam-layer-trust': '0 0 640 360',  # origin a11018eea3dad5a2a5623b263e4db13859719341
-    'lars-layer-trust-scaling': '0 0 640 360',  # origin a11018eea3dad5a2a5623b263e4db13859719341
-    'lbfgs-two-loop': '0 0 640 360',  # origin 7b8fd624643589fcf0ccca7f08706f06e7cb5b39
-    'lion-sign-momentum': '0 0 640 360',  # origin 1083b195b9f48a497775b45c1de11e5104082001
-    'logit-prior-decision': '0 0 640 360',  # origin 4fada4af8d68a02c30cfa9ddbd51d3d393a11f89
-    'lsq-step-size-sweep': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'mae-visible-patch-reconstruction': '0 0 640 360',  # origin dec6fcf99253875a1a6ff8508acf458c2d0b5085
-    'mahalanobis-ellipse-threshold': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'maml-inner-outer-loop': '0 0 640 360',  # origin 4c4bfba7df3919ca11f77d9aa766be434878bdf0
-    'map-beta-posterior': '0 0 640 360',  # origin 1790e581b761fe90871b4e590328b5e004a14e3e
-    'map-precision-at-hits': '0 0 640 360',  # origin 7b8d8d6ecbdf8057cba16b1f27fee9ddee61dda9
-    'mc-dropout-repeated-passes': '0 0 640 360',  # origin e434dff16b781d0facc56afa5840a4681dfedfd8
-    'mcts-search-cycle': '0 0 640 360',  # origin 0f1ccb332c13f2d7d72faaf2394d9d173d8f665a
-    'mean-field-coordinate-ascent': '0 0 640 360',  # origin 39a25d3105b805ff71c44932982e0d5b5e5a3dba
-    'mf-als-alternating': '0 0 800 420',  # origin d63a71d59848759b91a71fe36ad6b96f764a9dc6
-    'mf-coupled-sgd': '0 0 800 420',  # origin d1919fd73d05deb6f56ee7676fbdd63e658af355
-    'mh-accept-reject': '0 0 640 360',  # origin b3f965ab18f3cb57c91a8d488857581d0e544748
-    'minhash-lsh-band-collision': '0 0 640 360',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
-    'mixup-beta-strength': '0 0 640 360',  # origin 197cb82e931330a8ecbc918601ff5cabb4953314
-    'mixup-cutmix-area': '0 0 640 360',  # origin 155c657a631dd76ed375778d19e556ba8a68efb1
-    'mixup-loss-decomposition': '0 0 640 360',  # origin 155c657a631dd76ed375778d19e556ba8a68efb1
-    'mixup-paired-interpolation': '0 0 640 360',  # origin 197cb82e931330a8ecbc918601ff5cabb4953314
-    'mle-bernoulli-likelihood': '0 0 640 360',  # origin 1790e581b761fe90871b4e590328b5e004a14e3e
-    'mnasnet-latency-tradeoff': '0 0 800 420',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'moco-dictionary-cycle': '0 0 640 360',  # origin 331d15f34b9f6772d986afeec1e928819f1b1f97
-    'moe-top2-routing': '0 0 640 360',  # origin 5875288b4c31f3ceb3fde5beaa67e1c4e07a6090
-    'muon-spectral-balancing': '0 0 640 360',  # origin 1083b195b9f48a497775b45c1de11e5104082001
-    'mup-adam-sgd': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'mup-readout-aggregation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'mup-readout-noise': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'mup-transfer-protocol': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'mup-transfer-validation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'mup-update-budget': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'mup-width-multipliers': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'muzero-latent-planning': '0 0 640 360',  # origin c1057975ae7734354fa2e335b1ea0dea67fbb356
-    'ndcg-position-discount': '0 0 640 360',  # origin 7b8d8d6ecbdf8057cba16b1f27fee9ddee61dda9
-    'nerf-volume-rendering': '0 0 640 360',  # origin b6f21f5f932d3eda532f7e743af087c20ead0870
-    'nesterov-lookahead': '0 0 640 360',  # origin 0ca80d62237ba8063b37f07eff2648e545af5387
-    'neumf-dual-path': '0 0 800 420',  # origin 12577fa11e8638d3ae3a26a74656dc162f8190c5
-    'newton-armijo-backtracking': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'newton-curvature-steps': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'newton-indefinite-curvature': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'odin-gradient-perturbation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'orca-continuous-batching': '0 0 640 360',  # origin af2ed229649acd6e2699911860c52a161fcc304b
-    'outlier-mae-rmse': '0 0 640 360',  # origin 3f85643dd79a62b8b104350a41b9a2ea77262d88
-    'paged-block-mapping': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'paired-bootstrap-resampling': '0 0 640 360',  # origin f7aefbad4b5af2090a85c4100e96326b34f25056
-    'particle-swarm-best': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'pca-rank1-reconstruction': '0 0 640 360',  # origin 38f8a0ffdaba8ee78383cf1b5d8671507e971d44
-    'pca-variance-axis': '0 0 640 360',  # origin 38f8a0ffdaba8ee78383cf1b5d8671507e971d44
-    'power-iteration-convergence': '0 0 640 360',  # origin e2abf17856e1fd83746aaf12f8fd5119d6f0d40e
-    'ppo-clipped-objective': '0 0 640 360',  # origin 69563b42b0f35762ff2500253396ddef91064993
-    'pr-ap-rectangles': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'pr-ap-tied-threshold': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'pr-ap-trapezoid-gap': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'pr-random-ap-expectation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'pr-threshold-sweep': '0 0 640 360',  # origin a8dae56d1f71737396ac4be1836092be8c8d5393
-    'precision-base-rate': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'precision-recall-threshold': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'prelu-slope-gain': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'prioritized-replay-cycle': '0 0 640 360',  # origin 69563b42b0f35762ff2500253396ddef91064993
-    'qat-fake-quant-ste': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'qk-norm-scale-sweep': '0 0 640 360',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
-    'qlora-frozen-flow': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'qmix-monotonic-greedy': '0 0 640 360',  # origin c1057975ae7734354fa2e335b1ea0dea67fbb356
-    'r2-mean-baseline': '0 0 640 360',  # origin 3f85643dd79a62b8b104350a41b9a2ea77262d88
-    'random-search-x-coverage': '0 0 640 360',  # origin 75080f86df360900362cc3c04fa2680194e1d0cf
-    'react-evidence-loop': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'realnvp-affine-coupling': '0 0 640 360',  # origin 83c4115c9a0a88e9659169d136db7107410f4b66
-    'rectified-reflow-coupling': '0 0 760 410',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
-    'reflexion-memory-feedback': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'resnet-depth-gradient-factors': '0 0 800 420',  # origin 262db96efe99958dda65bb7e3a320ef6fe38430e
-    'resnet-identity-gradient': '0 0 800 420',  # origin 72e0b1a5550f470df4fbce109dce8094a5e4e109
-    'resnet-postrelu-gate': '0 0 800 420',  # origin 262db96efe99958dda65bb7e3a320ef6fe38430e
-    'resnet-projection-shortcut': '0 0 800 420',  # origin 72e0b1a5550f470df4fbce109dce8094a5e4e109
-    'resolution-refutation-chain': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'reverse-ad-vjp': '0 0 640 360',  # origin a8432b46ebe9a070935048402bdfcb6cb1442809
-    'rf-bootstrap-oob': '0 0 800 420',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'rf-feature-subset': '0 0 800 420',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'rmsnorm-shift-response': '0 0 640 360',  # origin 1b96705ef3e52dcad0fc061c8660305102de904d
-    'rmsprop-adaptive-memory': '0 0 640 360',  # origin b6f21f5f932d3eda532f7e743af087c20ead0870
-    'roc-cost-operating-point': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'roc-pairwise-auc': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'roc-partial-area': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'roc-randomized-operating-mix': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'roc-rank-transform': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'roc-threshold-sweep': '0 0 640 360',  # origin a8dae56d1f71737396ac4be1836092be8c8d5393
-    'roc-tie-half-credit': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'roofline-ridge-sweep': '0 0 640 360',  # origin 67e4091c01b3f94b8e6fbfbeb4511d0a93971f39
-    'rotational-norm-balance': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'sam-two-gradient': '0 0 640 360',  # origin 7b8fd624643589fcf0ccca7f08706f06e7cb5b39
-    'sgd-noise-batch': '0 0 640 360',  # origin 20ab47cef45a7a5895987dc456f51c4d437912a5
-    'shampoo-eigenmode': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'sharpness-radius-loss': '0 0 640 360',  # origin 469ccacaea8b418e2e0a5078fd790ccfed00dc43
-    'sharpness-reparam-curvature': '0 0 640 360',  # origin 469ccacaea8b418e2e0a5078fd790ccfed00dc43
-    'sigma-reparam-spectral-gain': '0 0 640 360',  # origin 4a611378445ea5c5396a3488f71c4e374b2c939e
-    'speculative-decoding': '0 0 640 360',  # origin af2ed229649acd6e2699911860c52a161fcc304b
-    'spsa-two-evaluations': '0 0 640 360',  # origin d2c84dd00777ae7d0eea3ea38a13012146a4b1a5
-    'stochastic-depth-paths': '0 0 640 360',  # origin 255f92a3054b761cd178a1ec18a8d9e50d602d37
-    'stochastic-depth-scaling-conventions': '0 0 640 360',  # origin cf135da6a3c3514a791ac9fef8d2c911ad5b067c,ad0d9a902490f60136e5f15ea4481b1208d4bc14
-    'stochastic-depth-survival-samples': '0 0 640 360',  # origin eee699618afdae1909247586f288d49418006b66
-    'streaming-kv-eviction': '0 0 640 360',  # origin 1d54c4ae36eff5a4df7bb9587a2e0580ff5636ee
-    'svd-degenerate-bases': '0 0 800 420',  # origin 4e9273d5f125f417ff90d9a72fdaec328b37ad2c
-    'svd-ls-orthogonal-residual': '0 0 800 420',  # origin 4e9273d5f125f417ff90d9a72fdaec328b37ad2c
-    'svd-noise-amplification': '0 0 800 420',  # origin 15ee47cca1facbe271d07664928f3cba3b6d5cd9
-    'svd-rank-accumulation': '0 0 800 420',  # origin 15ee47cca1facbe271d07664928f3cba3b6d5cd9
-    'svd-unit-circle': '0 0 640 360',  # origin e2abf17856e1fd83746aaf12f8fd5119d6f0d40e
-    'svm-margin-hinge': '0 0 640 360',  # origin 6695c6a7b352d64f98f511d2aa3fcf6edcf867bc
-    'swin-shifted-windows': '0 0 640 360',  # origin e00a7dd21eca5336c9865027674000f7578521dc
-    'td3-delayed-twin-critics': '0 0 640 360',  # origin 5378eb9fe6f826d1f15ce934e7589b2facb915ed
-    'tree-belief-propagation': '0 0 640 360',  # origin 273a612a84ccbe0748594ed51a27b63256af321a
-    'tsne-kl-embedding': '0 0 640 360',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
-    'umap-fuzzy-union': '0 0 640 360',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
-    'unigram-sampling-alpha': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'unigram-viterbi-lattice': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'vae-reparameterisation': '0 0 640 360',  # origin 83c4115c9a0a88e9659169d136db7107410f4b66
-    'viterbi-trellis': '0 0 640 360',  # origin 273a612a84ccbe0748594ed51a27b63256af321a
-    'weak-supervision-vote-fusion': '0 0 640 360',  # origin c028c848a3e1e3d7013ae6ca35aaa9f9e2ced3d8
-    'wgan-gp-interpolation': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'wgan-weight-clip': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
-    'awq-salient-scaling': '0 0 640 360',  # reviewed f9e404e53521d1e64be9ec8101ea7366ac6ed038; original bf8271353848fe24f06d372f2371d19a10adf08b
-    'bahdanau-alignment-context': '0 0 640 360',  # reviewed 50c62584b37b5577ad75aca0ec6669443ee2a351; original 6438fbec5f4fedb2e9e500ed3a6aad7e5504c29a
-    'causal-lamp-intervention': '0 0 640 360',  # reviewed 61971e61b48992a48af218ac6be717b0aaed040e; original 0f93b7be168f292d755db1ce1293a29e8ccc6171
-    'coherence-phase-gating': '0 0 640 360',  # reviewed 207a66ffb0b90104d98ce6e976c517fe93833949; original 02a8664a1ed0e6290ea86544c2136843e02e1861
-    'copycat-action-lag': '0 0 640 360',  # reviewed 61971e61b48992a48af218ac6be717b0aaed040e; original 0f93b7be168f292d755db1ce1293a29e8ccc6171
-    'ddm-first-passage': '0 0 640 360',  # reviewed cdbb8dddaa623e56076fe5fe951810b6ac1dd14a; original 2f93f194afced89f5dfed835fd6ca8af83190bb5
-    'deit-dual-head-distillation': '0 0 640 360',  # reviewed db029dd5c4744888cee697cb54aa684b8780063e; original 26ef38b04201c0c2b623982f1f31e92ad7e15d2b
-    'fgsm-sign-step': '0 0 640 360',  # reviewed 8ee06a9687632f0aa302c93b2954bd58f725ae6d; original 92c1dee77750616ac204397cdfd0a7b0ee6d7bb9
-    'fixmatch-confidence-gate': '0 0 640 360',  # reviewed 886f82abe73a4eed86ed69d705cc2fddc714a526; original f1e778b2bd8fed1a3d8ba22dfaf5b47c3437363b
-    'forward-prediction-correction': '0 0 640 360',  # reviewed a5ce5f568f6c17131d7f5469ac759aea3af27814; original 0f700ddbec5ed4f47dd88fa7ff82838833014e12
-    'gaussian-splat-alpha-composite': '0 0 640 360',  # reviewed 34bfed441215ad4fe475494f71fd836c02f75f3f; original d0b9e58f3351c9b36a866c8945f194fb5f70203b
-    'genetic-crossover-mutation': '0 0 640 360',  # reviewed 6524c69fec9d152417530e516c7f7721b48ee3a4; original 359c4dc7ba807a43343f094f07b5920d90d30e5c
-    'gptq-error-compensation': '0 0 640 360',  # reviewed f9e404e53521d1e64be9ec8101ea7366ac6ed038; original bf8271353848fe24f06d372f2371d19a10adf08b
-    'graphplan-layer-extraction': '0 0 640 360',  # reviewed 36db488c4d4c5280a861d7bb7115b01ee9c3e603; original 257edd965ebfae42c5b7434e15d90fef4e322a15
-    'grpo-group-advantages': '0 0 760 400',  # reviewed 03712a68214369fb486ce526a9068aad77e95b2f; original fbf74b3a752b88b5dc2ebd41c1ad3b64cbd74514
-    'ia3-channel-gates': '0 0 640 360',  # reviewed 4bd1d8e61debb3295dc5a14d1b5f10097fb0d833; original 0727eeb16284911371fc1608bf97bf4d47cbe1ad
-    'integrated-gradients-path': '0 0 640 360',  # reviewed 8c7b545d35ef17f0e8a6d1eb18b90d03605113a3; original e9ba167a80489797244f0f28aa4f0db699ea59d7
-    'large-batch-warmup-ramp': '0 0 640 360',  # reviewed 6666b751180ae28075de761cd38d5a17ef33b3cf; original 731713d8e65e987e459b54d1afd0e6c9b320a3ad
-    'map-elites-archive': '0 0 640 360',  # reviewed 6524c69fec9d152417530e516c7f7721b48ee3a4; original 359c4dc7ba807a43343f094f07b5920d90d30e5c
-    'mbmf-revaluation': '0 0 640 360',  # reviewed cdbb8dddaa623e56076fe5fe951810b6ac1dd14a; original 2f93f194afced89f5dfed835fd6ca8af83190bb5
-    'mean-teacher-ema-tracking': '0 0 640 360',  # reviewed 886f82abe73a4eed86ed69d705cc2fddc714a526; original f1e778b2bd8fed1a3d8ba22dfaf5b47c3437363b
-    'ofc-selective-feedback': '0 0 640 360',  # reviewed a5ce5f568f6c17131d7f5469ac759aea3af27814; original 0f700ddbec5ed4f47dd88fa7ff82838833014e12
-    'pgd-projection-path': '0 0 640 360',  # reviewed 8ee06a9687632f0aa302c93b2954bd58f725ae6d; original 92c1dee77750616ac204397cdfd0a7b0ee6d7bb9
-    'place-cell-firing': '0 0 640 360',  # reviewed 35b96aaafa6f08a090827274436416fe106f08d4; original 97ba72d8d622bfa7a705f81ed1ccd988e7e18fd9
-    'power-iteration-projection-contraction': '0 0 640 360',  # reviewed 6666b751180ae28075de761cd38d5a17ef33b3cf; original 731713d8e65e987e459b54d1afd0e6c9b320a3ad
-    'predictive-local-settling': '0 0 640 360',  # reviewed c293e42d87ac091c7aca2ebd6509f42c7287d1ac; original 9c09412b80b713424975df9a1c813a53fa201f5f
-    'prefix-kv-attention': '0 0 640 360',  # reviewed 4bd1d8e61debb3295dc5a14d1b5f10097fb0d833; original 0727eeb16284911371fc1608bf97bf4d47cbe1ad
-    'prompt-injection-boundary': '0 0 640 360',  # reviewed 127631bcf2d029e36961029d54e5720fb10066f3; original 44842ea12a6554a251759caa225f04f6fec505ea
-    'rao-ballard-residual': '0 0 640 360',  # reviewed c293e42d87ac091c7aca2ebd6509f42c7287d1ac; original 9c09412b80b713424975df9a1c813a53fa201f5f
-    'recursive-tail-loss': '0 0 640 360',  # reviewed 0ab27698f9a9d57ded630f900cac51ed23aeff93; original e060d4d715084d129680e9e82251887afae12eb6
-    'reinforce-return-credit': '0 0 760 400',  # reviewed 03712a68214369fb486ce526a9068aad77e95b2f; original e552657b72201fd94907effba63d5d0b31d1a874
-    'reinforce-reward-to-go': '0 0 640 360',  # reviewed 03712a68214369fb486ce526a9068aad77e95b2f; original fbf74b3a752b88b5dc2ebd41c1ad3b64cbd74514
-    'saliency-local-gradient': '0 0 640 360',  # reviewed 8c7b545d35ef17f0e8a6d1eb18b90d03605113a3; original e9ba167a80489797244f0f28aa4f0db699ea59d7
-    'self-instruct-filter-loop': '0 0 640 360',  # reviewed 0ab27698f9a9d57ded630f900cac51ed23aeff93; original e060d4d715084d129680e9e82251887afae12eb6
-    'simclr-temperature-competition': '0 0 640 360',  # reviewed 50c62584b37b5577ad75aca0ec6669443ee2a351; original 6438fbec5f4fedb2e9e500ed3a6aad7e5504c29a
-    'soap-eigenbasis-adam': '0 0 640 360',  # reviewed 78da2d1e774f357cb06947c48b4cb25a21eb57b8; original c9764ebd2327d96687a7a72b64fb2c396c4da61a
-    'strips-state-effects': '0 0 640 360',  # reviewed 36db488c4d4c5280a861d7bb7115b01ee9c3e603; original 257edd965ebfae42c5b7434e15d90fef4e322a15
-    'successor-occupancy': '0 0 640 360',  # reviewed 35b96aaafa6f08a090827274436416fe106f08d4; original 97ba72d8d622bfa7a705f81ed1ccd988e7e18fd9
-    'svi-minibatch-global': '0 0 640 360',  # reviewed 78da2d1e774f357cb06947c48b4cb25a21eb57b8; original c9764ebd2327d96687a7a72b64fb2c396c4da61a
-    't5-span-corruption': '0 0 640 360',  # reviewed db029dd5c4744888cee697cb54aa684b8780063e; original 26ef38b04201c0c2b623982f1f31e92ad7e15d2b
-    'theta-gamma-phase-amplitude': '0 0 640 360',  # reviewed 207a66ffb0b90104d98ce6e976c517fe93833949; original 02a8664a1ed0e6290ea86544c2136843e02e1861
-    'vqvae-codebook-snap': '0 0 640 360',  # reviewed 34bfed441215ad4fe475494f71fd836c02f75f3f; original d0b9e58f3351c9b36a866c8945f194fb5f70203b
-    'watermark-greenlist-score': '0 0 640 360',  # reviewed 127631bcf2d029e36961029d54e5720fb10066f3; original 44842ea12a6554a251759caa225f04f6fec505ea
-}
+CANONICAL_VIEWBOXES = {'roc-pr-shift': '0 0 640 360',
+ 'roc-prior-policy': '0 0 640 360',
+ 'roc-youden-cost': '0 0 640 360',
+ '3d-unet-context-tiling': '0 0 800 420',
+ '3d-unet-depth-kernel': '0 0 800 420',
+ '3d-unet-evaluation-holdout': '0 0 800 420',
+ '3d-unet-orthogonal-slices': '0 0 640 360',
+ '3d-unet-paired-warp': '0 0 800 420',
+ '3d-unet-skip-concat': '0 0 800 420',
+ '3d-unet-sparse-context-gradient': '0 0 640 360',
+ '3d-unet-sparse-loss': '0 0 800 420',
+ 'accuracy-prevalence': '0 0 640 360',
+ 'activity-silent-trace': '0 0 640 360',
+ 'adafactor-factored-moments': '0 0 720 460',
+ 'adagrad-coordinate-gain': '0 0 720 460',
+ 'adam-bias-correction': '0 0 800 420',
+ 'adam-epsilon-threshold': '0 0 800 420',
+ 'adam-scale-invariance': '0 0 800 420',
+ 'adam-sign-reversal': '0 0 800 420',
+ 'adamw-decoupled-paths': '0 0 640 360',
+ 'adamw-epoch-timescale': '0 0 640 360',
+ 'aging-evolution-queue': '0 0 640 360',
+ 'alpha-beta-cutoff': '0 0 640 360',
+ 'ant-colony-pheromone': '0 0 640 360',
+ 'ar-context-drift': '0 0 800 420',
+ 'ar-eos-survival': '0 0 800 420',
+ 'ar-likelihood-accumulation': '0 0 800 420',
+ 'ar-score-vs-sample': '0 0 800 420',
+ 'asam-neighborhood': '0 0 640 360',
+ 'astar-frontier': '0 0 640 360',
+ 'auc-ap-ranking-contrast': '0 0 640 360',
+ 'awq-salient-scaling': '0 0 640 360',
+ 'bahdanau-alignment-context': '0 0 640 360',
+ 'batch-norm-train-infer': '0 0 640 360',
+ 'bo-expected-improvement': '0 0 640 360',
+ 'bo-gp-conditioning': '0 0 640 360',
+ 'boosting-residual-steps': '0 0 640 360',
+ 'bpe-ordered-merges': '0 0 640 360',
+ 'bpr-gradient-saturation': '0 0 800 420',
+ 'bpr-pairwise-ranking': '0 0 800 420',
+ 'byol-online-target': '0 0 640 360',
+ 'causal-lamp-intervention': '0 0 640 360',
+ 'cfg-extrapolation': '0 0 640 360',
+ 'cfm-conditional-bridge': '0 0 760 410',
+ 'checkpoint-recompute': '0 0 640 360',
+ 'clr-triangular2-sweep': '0 0 640 360',
+ 'cmaes-distribution-adaptation': '0 0 640 360',
+ 'coherence-phase-gating': '0 0 640 360',
+ 'colbert-maxsim-switch': '0 0 640 360',
+ 'consistency-trajectory-map': '0 0 800 420',
+ 'copycat-action-lag': '0 0 640 360',
+ 'cv-fold-rotation': '0 0 640 360',
+ 'darts-soft-operations': '0 0 640 360',
+ 'ddm-first-passage': '0 0 640 360',
+ 'deep-ensemble-spread': '0 0 720 400',
+ 'deformable-sampling': '0 0 640 360',
+ 'deit-dual-head-distillation': '0 0 640 360',
+ 'dice-overlap-response': '0 0 640 360',
+ 'dinov2-dual-objective-ema': '0 0 640 360',
+ 'disaggregated-handoff': '0 0 640 360',
+ 'dora-independent': '0 0 640 360',
+ 'dpll-backtrack': '0 0 640 360',
+ 'dpo-preference-margin': '0 0 760 420',
+ 'dpr-dot-product-sweep': '0 0 640 360',
+ 'dqn-target-sync': '0 0 640 360',
+ 'dropblock-spatial-masking': '0 0 640 360',
+ 'dropout-inverted-sampling': '0 0 640 360',
+ 'dropout-variance-tradeoff': '0 0 640 360',
+ 'ece-binned-calibration': '0 0 720 400',
+ 'effective-number-growth': '0 0 640 360',
+ 'eigen-jordan-shear': '0 0 800 420',
+ 'eigen-linear-map': '0 0 800 420',
+ 'eigen-rotation-no-real': '0 0 800 420',
+ 'eigen-zero-eigenvalue': '0 0 800 420',
+ 'elo-online-update': '0 0 640 360',
+ 'enas-shared-weight-transfer': '0 0 800 420',
+ 'ewc-fisher-springs': '0 0 640 360',
+ 'expert-cache-miss': '0 0 640 360',
+ 'f1-harmonic-gap': '0 0 640 360',
+ 'f1-macro-micro-imbalance': '0 0 640 360',
+ 'f1-threshold-topk': '0 0 640 360',
+ 'fbeta-recall-emphasis': '0 0 640 360',
+ 'fgsm-sign-step': '0 0 640 360',
+ 'fixmatch-confidence-gate': '0 0 640 360',
+ 'forest-bootstrap-vote': '0 0 640 360',
+ 'forward-ad-jvp': '0 0 640 360',
+ 'forward-prediction-correction': '0 0 640 360',
+ 'fp16-loss-scaling': '0 0 640 360',
+ 'fp8-scale-range': '0 0 640 360',
+ 'gat-aggregation': '0 0 640 360',
+ 'gated-sae-gate-magnitude': '0 0 640 360',
+ 'gaussian-splat-alpha-composite': '0 0 640 360',
+ 'gcn-aggregation': '0 0 640 360',
+ 'genetic-crossover-mutation': '0 0 640 360',
+ 'gibbs-coordinate-sweeps': '0 0 640 360',
+ 'gin-multiset-counts': '0 0 640 360',
+ 'glorot-alternating-width': '0 0 640 360',
+ 'glorot-equal-variance-densities': '0 0 640 360',
+ 'glorot-fan-tradeoff': '0 0 640 360',
+ 'glorot-tanh-saturation': '0 0 640 360',
+ 'gptq-error-compensation': '0 0 640 360',
+ 'gradient-norm-clipping': '0 0 640 360',
+ 'graphplan-layer-extraction': '0 0 640 360',
+ 'graphsage-sample-aggregate': '0 0 640 360',
+ 'grid-search-x-coverage': '0 0 640 360',
+ 'group-norm-statistics': '0 0 640 360',
+ 'grpo-group-advantages': '0 0 760 400',
+ 'gru-gate-flow': '0 0 640 360',
+ 'he-fan-mode-tradeoff': '0 0 640 360',
+ 'he-relu-mean-shift': '0 0 640 360',
+ 'he-relu-second-moment': '0 0 640 360',
+ 'heavy-ball-overshoot': '0 0 640 360',
+ 'hmc-leapfrog-trajectory': '0 0 640 360',
+ 'hmm-baum-welch-transition': '0 0 800 420',
+ 'hmm-filter-smooth': '0 0 800 420',
+ 'hmm-forward-sum-product': '0 0 800 420',
+ 'hmm-pairwise-posterior': '0 0 800 420',
+ 'hnsw-layer-descent': '0 0 640 360',
+ 'hyperband-budget': '0 0 640 360',
+ 'i3d-filter-inflation': '0 0 800 440',
+ 'ia3-channel-gates': '0 0 640 360',
+ 'ida-bound-reexpansion': '0 0 640 360',
+ 'integrated-gradients-path': '0 0 640 360',
+ 'iou-overlap-sweep': '0 0 640 360',
+ 'itemcf-weighted-neighbors': '0 0 800 420',
+ 'ivfpq-probe-pq-lookup': '0 0 640 360',
+ 'jumprelu-threshold-jump': '0 0 640 360',
+ 'kalman-gain-fusion': '0 0 640 360',
+ 'kfac-factor-preconditioning': '0 0 640 360',
+ 'kmeans-elbow-inertia': '0 0 800 420',
+ 'kmeans-feature-scale': '0 0 800 420',
+ 'kmeans-lloyd': '0 0 640 360',
+ 'kmeans-outlier-leverage': '0 0 800 420',
+ 'kmeans-plusplus-d2': '0 0 800 420',
+ 'lagrange-dual-gap': '0 0 640 360',
+ 'lagrange-kkt-active-set': '0 0 640 360',
+ 'lagrange-tangency': '0 0 640 360',
+ 'lamb-adam-layer-trust': '0 0 640 360',
+ 'large-batch-warmup-ramp': '0 0 640 360',
+ 'lars-layer-trust-scaling': '0 0 640 360',
+ 'latent-space-denoise': '0 0 800 436',
+ 'lbfgs-two-loop': '0 0 640 360',
+ 'lion-sign-momentum': '0 0 640 360',
+ 'logit-prior-decision': '0 0 640 360',
+ 'lsq-step-size-sweep': '0 0 640 360',
+ 'mae-visible-patch-reconstruction': '0 0 640 360',
+ 'mahalanobis-ellipse-threshold': '0 0 640 360',
+ 'mamba2-ssd-causal-map': '0 0 860 440',
+ 'maml-inner-outer-loop': '0 0 640 360',
+ 'map-beta-posterior': '0 0 640 360',
+ 'map-elites-archive': '0 0 640 360',
+ 'map-precision-at-hits': '0 0 640 360',
+ 'mbmf-revaluation': '0 0 640 360',
+ 'mc-dropout-repeated-passes': '0 0 640 360',
+ 'mcts-search-cycle': '0 0 640 360',
+ 'mean-field-coordinate-ascent': '0 0 640 360',
+ 'mean-teacher-ema-tracking': '0 0 640 360',
+ 'mf-als-alternating': '0 0 800 420',
+ 'mf-coupled-sgd': '0 0 800 420',
+ 'mh-accept-reject': '0 0 640 360',
+ 'minhash-lsh-band-collision': '0 0 640 360',
+ 'mixup-beta-strength': '0 0 640 360',
+ 'mixup-cutmix-area': '0 0 640 360',
+ 'mixup-loss-decomposition': '0 0 640 360',
+ 'mixup-paired-interpolation': '0 0 640 360',
+ 'mle-bernoulli-likelihood': '0 0 640 360',
+ 'mnasnet-latency-tradeoff': '0 0 800 420',
+ 'moco-dictionary-cycle': '0 0 640 360',
+ 'moe-top2-routing': '0 0 640 360',
+ 'muon-spectral-balancing': '0 0 640 360',
+ 'mup-adam-sgd': '0 0 640 360',
+ 'mup-readout-aggregation': '0 0 640 360',
+ 'mup-readout-noise': '0 0 640 360',
+ 'mup-transfer-protocol': '0 0 640 360',
+ 'mup-transfer-validation': '0 0 640 360',
+ 'mup-update-budget': '0 0 640 360',
+ 'mup-width-multipliers': '0 0 640 360',
+ 'muzero-latent-planning': '0 0 640 360',
+ 'ndcg-position-discount': '0 0 640 360',
+ 'neat-add-node-innovation': '0 0 640 360',
+ 'nerf-volume-rendering': '0 0 640 360',
+ 'nesterov-lookahead': '0 0 640 360',
+ 'neumf-dual-path': '0 0 800 420',
+ 'newton-armijo-backtracking': '0 0 640 360',
+ 'newton-curvature-steps': '0 0 640 360',
+ 'newton-indefinite-curvature': '0 0 640 360',
+ 'odin-gradient-perturbation': '0 0 640 360',
+ 'ofc-selective-feedback': '0 0 640 360',
+ 'orca-continuous-batching': '0 0 640 360',
+ 'outlier-mae-rmse': '0 0 640 360',
+ 'paged-block-mapping': '0 0 640 360',
+ 'paired-bootstrap-resampling': '0 0 640 360',
+ 'particle-swarm-best': '0 0 640 360',
+ 'particle-weight-resampling': '0 0 640 360',
+ 'pbwm-gate': '0 0 640 360',
+ 'pca-rank1-reconstruction': '0 0 640 360',
+ 'pca-variance-axis': '0 0 640 360',
+ 'pgd-projection-path': '0 0 640 360',
+ 'place-cell-firing': '0 0 640 360',
+ 'power-iteration-convergence': '0 0 640 360',
+ 'power-iteration-projection-contraction': '0 0 640 360',
+ 'ppo-clipped-objective': '0 0 640 360',
+ 'pr-ap-rectangles': '0 0 640 360',
+ 'pr-ap-tied-threshold': '0 0 640 360',
+ 'pr-ap-trapezoid-gap': '0 0 640 360',
+ 'pr-random-ap-expectation': '0 0 640 360',
+ 'pr-threshold-sweep': '0 0 640 360',
+ 'precision-base-rate': '0 0 640 360',
+ 'precision-recall-threshold': '0 0 640 360',
+ 'predictive-local-settling': '0 0 640 360',
+ 'prefix-kv-attention': '0 0 640 360',
+ 'prelu-slope-gain': '0 0 640 360',
+ 'prioritized-replay-cycle': '0 0 640 360',
+ 'prompt-injection-boundary': '0 0 640 360',
+ 'qat-fake-quant-ste': '0 0 640 360',
+ 'qk-norm-scale-sweep': '0 0 640 360',
+ 'qlora-frozen-flow': '0 0 640 360',
+ 'qmix-monotonic-greedy': '0 0 640 360',
+ 'r2-mean-baseline': '0 0 640 360',
+ 'random-search-x-coverage': '0 0 640 360',
+ 'rao-ballard-residual': '0 0 640 360',
+ 'react-evidence-loop': '0 0 640 360',
+ 'realnvp-affine-coupling': '0 0 640 360',
+ 'rectified-reflow-coupling': '0 0 760 410',
+ 'recursive-tail-loss': '0 0 640 360',
+ 'reflexion-memory-feedback': '0 0 640 360',
+ 'reinforce-return-credit': '0 0 760 400',
+ 'reinforce-reward-to-go': '0 0 640 360',
+ 'resnet-depth-gradient-factors': '0 0 800 420',
+ 'resnet-identity-gradient': '0 0 800 420',
+ 'resnet-postrelu-gate': '0 0 800 420',
+ 'resnet-projection-shortcut': '0 0 800 420',
+ 'resolution-refutation-chain': '0 0 640 360',
+ 'reverse-ad-vjp': '0 0 640 360',
+ 'rf-bootstrap-oob': '0 0 800 420',
+ 'rf-feature-subset': '0 0 800 420',
+ 'rmsnorm-shift-response': '0 0 640 360',
+ 'rmsprop-adaptive-memory': '0 0 640 360',
+ 'roc-cost-operating-point': '0 0 640 360',
+ 'roc-pairwise-auc': '0 0 640 360',
+ 'roc-partial-area': '0 0 640 360',
+ 'roc-randomized-operating-mix': '0 0 640 360',
+ 'roc-rank-transform': '0 0 640 360',
+ 'roc-threshold-sweep': '0 0 640 360',
+ 'roc-tie-half-credit': '0 0 640 360',
+ 'roi-align-sampling': '0 0 800 460',
+ 'roofline-ridge-sweep': '0 0 640 360',
+ 'rotational-norm-balance': '0 0 640 360',
+ 's4d-diagonal-modes': '0 0 860 440',
+ 'sac-entropy-temperature': '0 0 760 420',
+ 'saliency-local-gradient': '0 0 640 360',
+ 'sam-prompt-ambiguity': '0 0 800 460',
+ 'sam-two-gradient': '0 0 640 360',
+ 'score-sde-flow': '0 0 800 420',
+ 'self-instruct-filter-loop': '0 0 640 360',
+ 'sgd-noise-batch': '0 0 640 360',
+ 'shampoo-eigenmode': '0 0 640 360',
+ 'sharpness-radius-loss': '0 0 640 360',
+ 'sharpness-reparam-curvature': '0 0 640 360',
+ 'sigma-reparam-spectral-gain': '0 0 640 360',
+ 'simclr-temperature-competition': '0 0 640 360',
+ 'soap-eigenbasis-adam': '0 0 640 360',
+ 'speculative-decoding': '0 0 640 360',
+ 'spsa-two-evaluations': '0 0 640 360',
+ 'stochastic-depth-paths': '0 0 640 360',
+ 'stochastic-depth-scaling-conventions': '0 0 640 360',
+ 'stochastic-depth-survival-samples': '0 0 640 360',
+ 'streaming-kv-eviction': '0 0 640 360',
+ 'strips-state-effects': '0 0 640 360',
+ 'successor-occupancy': '0 0 640 360',
+ 'svd-degenerate-bases': '0 0 800 420',
+ 'svd-ls-orthogonal-residual': '0 0 800 420',
+ 'svd-noise-amplification': '0 0 800 420',
+ 'svd-rank-accumulation': '0 0 800 420',
+ 'svd-unit-circle': '0 0 640 360',
+ 'svi-minibatch-global': '0 0 640 360',
+ 'svm-margin-hinge': '0 0 640 360',
+ 'swin-shifted-windows': '0 0 640 360',
+ 't5-span-corruption': '0 0 640 360',
+ 'td3-delayed-twin-critics': '0 0 640 360',
+ 'theta-gamma-phase-amplitude': '0 0 640 360',
+ 'tree-belief-propagation': '0 0 640 360',
+ 'tsne-kl-embedding': '0 0 640 360',
+ 'umap-fuzzy-union': '0 0 640 360',
+ 'unigram-sampling-alpha': '0 0 640 360',
+ 'unigram-viterbi-lattice': '0 0 640 360',
+ 'vae-reparameterisation': '0 0 640 360',
+ 'video-joint-denoising': '0 0 800 436',
+ 'viterbi-trellis': '0 0 640 360',
+ 'vivit-factorised-attention': '0 0 800 440',
+ 'vqvae-codebook-snap': '0 0 640 360',
+ 'watermark-greenlist-score': '0 0 640 360',
+ 'weak-supervision-vote-fusion': '0 0 640 360',
+ 'wgan-gp-interpolation': '0 0 640 360',
+ 'wgan-weight-clip': '0 0 640 360'}
 # Explicit non-TOPICS assets validated by main(), not generic name allowances.
-EXTRA_CANONICAL_FILENAMES = {
-    'moe-top2-routing-token-b.svg': '0 0 640 360',  # origin b818e3217c86c26dde61f83ad8ad43d90045006f
-    'brier-expected-risk-motion.svg': '0 0 640 360',  # origin 07ac637904c787a32fe192fdfec01bd80598ea89
-    'brier-expected-risk-still.svg': '0 0 640 360',  # origin 07ac637904c787a32fe192fdfec01bd80598ea89
-    'log-loss-tail-penalty-motion.svg': '0 0 640 360',  # origin 07ac637904c787a32fe192fdfec01bd80598ea89
-    'log-loss-tail-penalty-still.svg': '0 0 640 360',  # origin 07ac637904c787a32fe192fdfec01bd80598ea89
-}
+EXTRA_CANONICAL_FILENAMES = {'brier-expected-risk-motion.svg': '0 0 640 360',
+ 'brier-expected-risk-still.svg': '0 0 640 360',
+ 'log-loss-tail-penalty-motion.svg': '0 0 640 360',
+ 'log-loss-tail-penalty-still.svg': '0 0 640 360',
+ 'moe-top2-routing-token-b.svg': '0 0 640 360'}
 # Preserve original source prefix contracts, including their valid named variants.
-PREFIX_VIEWBOXES = {
-    "ece-binned-calibration": "0 0 720 400",
-    "deep-ensemble-spread": "0 0 720 400",
-    "cfm-conditional-bridge": "0 0 760 410",
-    "rectified-reflow-coupling": "0 0 760 410",
-}
+PREFIX_VIEWBOXES = {'cfm-conditional-bridge': '0 0 760 410',
+ 'deep-ensemble-spread': '0 0 720 400',
+ 'dpo-preference-margin-': '0 0 760 420',
+ 'ece-binned-calibration': '0 0 720 400',
+ 'i3d-filter-inflation-': '0 0 800 440',
+ 'mamba2-ssd-causal-map-': '0 0 860 440',
+ 'rectified-reflow-coupling': '0 0 760 410',
+ 's4d-diagonal-modes-': '0 0 860 440',
+ 'sac-entropy-temperature-': '0 0 760 420',
+ 'vivit-factorised-attention-': '0 0 800 440'}
 
+
+PREFIX_EXCLUSIONS = {}
 
 def expected_viewbox(path: Path) -> str | None:
     if path.name in EXTRA_CANONICAL_FILENAMES:
@@ -602,7 +640,7 @@ def expected_viewbox(path: Path) -> str | None:
     if stem in TOPICS:
         return None
     matches = [(prefix, box) for prefix, box in PREFIX_VIEWBOXES.items()
-               if name.startswith(prefix)]
+               if name.startswith(prefix) and not any(name.startswith(excluded) for excluded in PREFIX_EXCLUSIONS.get(prefix, ()))]
     if not matches:
         return None
     longest = max(len(prefix) for prefix, _ in matches)
@@ -611,8 +649,71 @@ def expected_viewbox(path: Path) -> str | None:
 
 
 # Independently restored original page contracts; never inferred from image URLs.
-SOURCE_ALT_CONTRACT_STEMS = {'ia3-channel-gates', 'expert-cache-miss', 'ivfpq-probe-pq-lookup', 'sigma-reparam-spectral-gain', 'weak-supervision-vote-fusion', 'tsne-kl-embedding', 'watermark-greenlist-score', 'unigram-sampling-alpha', 'reinforce-reward-to-go', 'paged-block-mapping', 'qk-norm-scale-sweep', 'rectified-reflow-coupling', 'graphsage-sample-aggregate', 'qlora-frozen-flow', 'dora-independent', 'minhash-lsh-band-collision', 'grpo-group-advantages', 'forward-prediction-correction', 'ofc-selective-feedback', 'unigram-viterbi-lattice', 'prefix-kv-attention', 'prompt-injection-boundary', 'gin-multiset-counts', 'umap-fuzzy-union', 'hnsw-layer-descent', 'cfm-conditional-bridge'}
-STATIC_PREVIEW_LINK_STEMS = {'ia3-channel-gates', 'predictive-local-settling', 'ivfpq-probe-pq-lookup', 'fixmatch-confidence-gate', 'pgd-projection-path', 'place-cell-firing', 'weak-supervision-vote-fusion', 'gaussian-splat-alpha-composite', 'coherence-phase-gating', 'watermark-greenlist-score', 'reinforce-reward-to-go', 'ece-binned-calibration', 'clr-triangular2-sweep', 'rectified-reflow-coupling', 'graphsage-sample-aggregate', 'cfm-conditional-bridge', 'saliency-local-gradient', 'awq-salient-scaling', 'graphplan-layer-extraction', 'mean-teacher-ema-tracking', 'fgsm-sign-step', 'grpo-group-advantages', 'minhash-lsh-band-collision', 'rao-ballard-residual', 'deep-ensemble-spread', 'theta-gamma-phase-amplitude', 'gptq-error-compensation', 'strips-state-effects', 'deit-dual-head-distillation', 'prefix-kv-attention', 'prompt-injection-boundary', 'gin-multiset-counts', 'vqvae-codebook-snap', 'hnsw-layer-descent', 't5-span-corruption', 'integrated-gradients-path', 'successor-occupancy'}
+SOURCE_ALT_CONTRACT_STEMS = {'cfm-conditional-bridge',
+ 'dora-independent',
+ 'expert-cache-miss',
+ 'forward-prediction-correction',
+ 'gin-multiset-counts',
+ 'graphsage-sample-aggregate',
+ 'grpo-group-advantages',
+ 'hnsw-layer-descent',
+ 'ia3-channel-gates',
+ 'ivfpq-probe-pq-lookup',
+ 'minhash-lsh-band-collision',
+ 'ofc-selective-feedback',
+ 'paged-block-mapping',
+ 'prefix-kv-attention',
+ 'prompt-injection-boundary',
+ 'qk-norm-scale-sweep',
+ 'qlora-frozen-flow',
+ 'rectified-reflow-coupling',
+ 'reinforce-reward-to-go',
+ 'sigma-reparam-spectral-gain',
+ 'tsne-kl-embedding',
+ 'umap-fuzzy-union',
+ 'unigram-sampling-alpha',
+ 'unigram-viterbi-lattice',
+ 'watermark-greenlist-score',
+ 'weak-supervision-vote-fusion'}
+STATIC_PREVIEW_LINK_STEMS = {'awq-salient-scaling',
+ 'cfm-conditional-bridge',
+ 'clr-triangular2-sweep',
+ 'coherence-phase-gating',
+ 'deep-ensemble-spread',
+ 'deit-dual-head-distillation',
+ 'ece-binned-calibration',
+ 'fgsm-sign-step',
+ 'fixmatch-confidence-gate',
+ 'gaussian-splat-alpha-composite',
+ 'gin-multiset-counts',
+ 'gptq-error-compensation',
+ 'graphplan-layer-extraction',
+ 'graphsage-sample-aggregate',
+ 'grpo-group-advantages',
+ 'hnsw-layer-descent',
+ 'ia3-channel-gates',
+ 'integrated-gradients-path',
+ 'ivfpq-probe-pq-lookup',
+ 'kalman-gain-fusion',
+ 'mean-teacher-ema-tracking',
+ 'minhash-lsh-band-collision',
+ 'particle-weight-resampling',
+ 'pgd-projection-path',
+ 'place-cell-firing',
+ 'predictive-local-settling',
+ 'prefix-kv-attention',
+ 'prompt-injection-boundary',
+ 'rao-ballard-residual',
+ 'rectified-reflow-coupling',
+ 'reinforce-reward-to-go',
+ 'saliency-local-gradient',
+ 'strips-state-effects',
+ 'successor-occupancy',
+ 't5-span-corruption',
+ 'theta-gamma-phase-amplitude',
+ 'vqvae-codebook-snap',
+ 'watermark-greenlist-score',
+ 'weak-supervision-vote-fusion'}
 
 NAS_STEMS = {"darts-soft-operations", "aging-evolution-queue", "enas-shared-weight-transfer", "mnasnet-latency-tradeoff"}
 GITHUB_GIF_PREVIEWS = {
@@ -744,12 +845,12 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {"roc-pr-shift", "roc-prior-policy", "roc-youden-cost", "roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
+            elif stem in {"roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:
                     errors.append(f"{page}: missing GitHub static preview link for {stem}")
-            elif stem in {"cfm-conditional-bridge", "deep-ensemble-spread", "ece-binned-calibration", "gated-sae-gate-magnitude", "glorot-alternating-width", "glorot-equal-variance-densities", "glorot-fan-tradeoff", "glorot-tanh-saturation", "he-fan-mode-tradeoff", "he-relu-mean-shift", "he-relu-second-moment", "hmm-baum-welch-transition", "hmm-filter-smooth", "hmm-forward-sum-product", "hmm-pairwise-posterior", "hnsw-layer-descent", "ivfpq-probe-pq-lookup", "jumprelu-threshold-jump", "lion-sign-momentum", "muon-spectral-balancing", "mup-adam-sgd", "mup-readout-aggregation", "mup-readout-noise", "mup-transfer-protocol", "mup-transfer-validation", "mup-update-budget", "mup-width-multipliers", "prelu-slope-gain", "prompt-injection-boundary", "qk-norm-scale-sweep", "react-evidence-loop", "rectified-reflow-coupling", "reflexion-memory-feedback", "sigma-reparam-spectral-gain", "tsne-kl-embedding", "umap-fuzzy-union", "unigram-sampling-alpha", "unigram-viterbi-lattice", "watermark-greenlist-score"}:
+            elif stem in {"activity-silent-trace", "cfm-conditional-bridge", "consistency-trajectory-map", "deep-ensemble-spread", "ece-binned-calibration", "gated-sae-gate-magnitude", "glorot-alternating-width", "glorot-equal-variance-densities", "glorot-fan-tradeoff", "glorot-tanh-saturation", "he-fan-mode-tradeoff", "he-relu-mean-shift", "he-relu-second-moment", "hmm-baum-welch-transition", "hmm-filter-smooth", "hmm-forward-sum-product", "hmm-pairwise-posterior", "hnsw-layer-descent", "ivfpq-probe-pq-lookup", "jumprelu-threshold-jump", "latent-space-denoise", "lion-sign-momentum", "muon-spectral-balancing", "mup-adam-sgd", "mup-readout-aggregation", "mup-readout-noise", "mup-transfer-protocol", "mup-transfer-validation", "mup-update-budget", "mup-width-multipliers", "pbwm-gate", "prelu-slope-gain", "prompt-injection-boundary", "qk-norm-scale-sweep", "react-evidence-loop", "rectified-reflow-coupling", "reflexion-memory-feedback", "roi-align-sampling", "sam-prompt-ambiguity", "score-sde-flow", "sigma-reparam-spectral-gain", "tsne-kl-embedding", "umap-fuzzy-union", "unigram-sampling-alpha", "unigram-viterbi-lattice", "video-joint-denoising", "watermark-greenlist-score"}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"reinforce-reward-to-go", "reinforce-return-credit", "grpo-group-advantages", "itemcf-weighted-neighbors", "neumf-dual-path"}:
                 errors.extend(verify_source_pair(page, text, stem))
@@ -792,7 +893,7 @@ def main() -> int:
                 linked = {(page.parent / link).resolve() for link in static_links}
                 if static_path.resolve() not in linked:
                     errors.append(f"{page}: missing GitHub-readable static SVG link")
-            elif stem in {"adafactor-factored-moments", "adagrad-coordinate-gain", "adam-bias-correction", "adam-epsilon-threshold", "adam-scale-invariance", "adam-sign-reversal", "adamw-epoch-timescale", "ant-colony-pheromone", "asam-neighborhood", "auc-ap-ranking-contrast", "awq-salient-scaling", "bahdanau-alignment-context", "bo-expected-improvement", "bo-gp-conditioning", "boosting-residual-steps", "bpr-gradient-saturation", "bpr-pairwise-ranking", "causal-lamp-intervention", "checkpoint-recompute", "clr-triangular2-sweep", "coherence-phase-gating", "colbert-maxsim-switch", "copycat-action-lag", "cv-fold-rotation", "dora-independent", "dpr-dot-product-sweep", "dropblock-spatial-masking", "dropout-inverted-sampling", "dropout-variance-tradeoff", "effective-number-growth", "eigen-jordan-shear", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "elo-online-update", "fixmatch-confidence-gate", "forest-bootstrap-vote", "forward-prediction-correction", "fp16-loss-scaling", "fp8-scale-range", "gaussian-splat-alpha-composite", "genetic-crossover-mutation", "gin-multiset-counts", "gptq-error-compensation", "graphplan-layer-extraction", "graphsage-sample-aggregate", "grid-search-x-coverage", "group-norm-statistics", "heavy-ball-overshoot", "ia3-channel-gates", "ida-bound-reexpansion", "integrated-gradients-path", "lagrange-dual-gap", "lagrange-kkt-active-set", "lagrange-tangency", "lamb-adam-layer-trust", "large-batch-warmup-ramp", "lars-layer-trust-scaling", "logit-prior-decision", "lsq-step-size-sweep", "mahalanobis-ellipse-threshold", "map-beta-posterior", "map-elites-archive", "map-precision-at-hits", "mc-dropout-repeated-passes", "mean-teacher-ema-tracking", "mf-als-alternating", "mf-coupled-sgd", "minhash-lsh-band-collision", "mixup-beta-strength", "mixup-cutmix-area", "mixup-loss-decomposition", "mixup-paired-interpolation", "mle-bernoulli-likelihood", "ndcg-position-discount", "newton-armijo-backtracking", "newton-curvature-steps", "newton-indefinite-curvature", "odin-gradient-perturbation", "ofc-selective-feedback", "outlier-mae-rmse", "paired-bootstrap-resampling", "particle-swarm-best", "place-cell-firing", "power-iteration-projection-contraction", "pr-threshold-sweep", "predictive-local-settling", "prefix-kv-attention", "prompt-injection-boundary", "qat-fake-quant-ste", "qlora-frozen-flow", "r2-mean-baseline", "random-search-x-coverage", "rao-ballard-residual", "recursive-tail-loss", "resnet-depth-gradient-factors", "resnet-identity-gradient", "resnet-postrelu-gate", "resnet-projection-shortcut", "resolution-refutation-chain", "rf-bootstrap-oob", "rf-feature-subset", "rmsnorm-shift-response", "roc-rank-transform", "roc-threshold-sweep", "roofline-ridge-sweep", "rotational-norm-balance", "saliency-local-gradient", "self-instruct-filter-loop", "sgd-noise-batch", "shampoo-eigenmode", "sharpness-radius-loss", "sharpness-reparam-curvature", "simclr-temperature-competition", "soap-eigenbasis-adam", "stochastic-depth-scaling-conventions", "stochastic-depth-survival-samples", "strips-state-effects", "successor-occupancy", "svi-minibatch-global", "svm-margin-hinge", "theta-gamma-phase-amplitude", "vqvae-codebook-snap", "watermark-greenlist-score", "weak-supervision-vote-fusion", "wgan-gp-interpolation", "wgan-weight-clip",
+            elif stem in {"s4d-diagonal-modes", "mamba2-ssd-causal-map", "adafactor-factored-moments", "adagrad-coordinate-gain", "adam-bias-correction", "adam-epsilon-threshold", "adam-scale-invariance", "adam-sign-reversal", "adamw-epoch-timescale", "ant-colony-pheromone", "asam-neighborhood", "auc-ap-ranking-contrast", "awq-salient-scaling", "bahdanau-alignment-context", "bo-expected-improvement", "bo-gp-conditioning", "boosting-residual-steps", "bpr-gradient-saturation", "bpr-pairwise-ranking", "causal-lamp-intervention", "checkpoint-recompute", "clr-triangular2-sweep", "coherence-phase-gating", "colbert-maxsim-switch", "copycat-action-lag", "cv-fold-rotation", "dora-independent", "dpo-preference-margin", "dpr-dot-product-sweep", "dropblock-spatial-masking", "dropout-inverted-sampling", "dropout-variance-tradeoff", "effective-number-growth", "eigen-jordan-shear", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "elo-online-update", "ewc-fisher-springs", "fixmatch-confidence-gate", "forest-bootstrap-vote", "forward-prediction-correction", "fp16-loss-scaling", "fp8-scale-range", "gaussian-splat-alpha-composite", "genetic-crossover-mutation", "gin-multiset-counts", "gptq-error-compensation", "graphplan-layer-extraction", "graphsage-sample-aggregate", "grid-search-x-coverage", "group-norm-statistics", "heavy-ball-overshoot", "i3d-filter-inflation", "ia3-channel-gates", "ida-bound-reexpansion", "integrated-gradients-path", "kalman-gain-fusion", "lagrange-dual-gap", "lagrange-kkt-active-set", "lagrange-tangency", "lamb-adam-layer-trust", "large-batch-warmup-ramp", "lars-layer-trust-scaling", "logit-prior-decision", "lsq-step-size-sweep", "mahalanobis-ellipse-threshold", "map-beta-posterior", "map-elites-archive", "map-precision-at-hits", "mc-dropout-repeated-passes", "mean-teacher-ema-tracking", "mf-als-alternating", "mf-coupled-sgd", "minhash-lsh-band-collision", "mixup-beta-strength", "mixup-cutmix-area", "mixup-loss-decomposition", "mixup-paired-interpolation", "mle-bernoulli-likelihood", "ndcg-position-discount", "neat-add-node-innovation", "newton-armijo-backtracking", "newton-curvature-steps", "newton-indefinite-curvature", "odin-gradient-perturbation", "ofc-selective-feedback", "outlier-mae-rmse", "paired-bootstrap-resampling", "particle-swarm-best", "particle-weight-resampling", "place-cell-firing", "power-iteration-projection-contraction", "pr-threshold-sweep", "predictive-local-settling", "prefix-kv-attention", "prompt-injection-boundary", "qat-fake-quant-ste", "qlora-frozen-flow", "r2-mean-baseline", "random-search-x-coverage", "rao-ballard-residual", "recursive-tail-loss", "resnet-depth-gradient-factors", "resnet-identity-gradient", "resnet-postrelu-gate", "resnet-projection-shortcut", "resolution-refutation-chain", "rf-bootstrap-oob", "rf-feature-subset", "rmsnorm-shift-response", "roc-rank-transform", "roc-threshold-sweep", "roofline-ridge-sweep", "rotational-norm-balance", "sac-entropy-temperature", "saliency-local-gradient", "self-instruct-filter-loop", "sgd-noise-batch", "shampoo-eigenmode", "sharpness-radius-loss", "sharpness-reparam-curvature", "simclr-temperature-competition", "soap-eigenbasis-adam", "stochastic-depth-scaling-conventions", "stochastic-depth-survival-samples", "strips-state-effects", "successor-occupancy", "svi-minibatch-global", "svm-margin-hinge", "theta-gamma-phase-amplitude", "vivit-factorised-attention", "vqvae-codebook-snap", "watermark-greenlist-score", "weak-supervision-vote-fusion", "wgan-gp-interpolation", "wgan-weight-clip",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",

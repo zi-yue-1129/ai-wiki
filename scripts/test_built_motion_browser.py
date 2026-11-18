@@ -20,7 +20,7 @@ import tempfile
 from threading import Thread
 from urllib.parse import quote, unquote, urljoin, urlsplit
 
-from motion_shard_contract import case_id, identity, manifest, partition
+from motion_shard_contract import case_id, identity, manifest, partition, dpo_mobile
 
 from markdown import Markdown
 from mkdocs.config import load_config
@@ -505,6 +505,80 @@ def check_keyboard_scrollers(page, output=None):
     return measured
 
 
+DPO_REWARD_SELECTOR_JS = r"""(elements, expected) => {
+    const compact = value => value.replace(/\s+/g, '');
+    const matches = [];
+    elements.forEach((element, index) => {
+        const root = element.closest('.arithmatex');
+        if (!root) throw new Error('Display lacks its MathJax source wrapper');
+        const items = MathJax.startup.document.getMathItemsWithin(root);
+        if (items.length === 1 && typeof items[0].math === 'string' && compact(items[0].math) === compact(expected)) matches.push(index);
+    });
+    if (matches.length !== 1) throw new Error('Missing or ambiguous exact DPO reward identity');
+    return matches[0];
+}"""
+
+
+def check_dpo_reward_identity(browser, page, url, viewport, reduced, output, record):
+    """Measure the real built MathJax identity and reproduce its old inline overflow.
+
+    Only the four existing bilingual mobile cases call this. Original image-state
+    checks and screenshots remain unchanged. The negative page is disposable.
+    """
+    from motion_shard_contract import DPO_REWARD_TEX, validate_dpo_reward_measurement
+    displays=page.locator('.md-content__inner mjx-container[display="true"]')
+    reward_index=displays.evaluate_all(DPO_REWARD_SELECTOR_JS, DPO_REWARD_TEX)
+    formula=displays.nth(reward_index)
+    assert formula.count()==1, 'Missing display reward identity'
+    formula.scroll_into_view_if_needed()
+    assert formula.is_visible()
+    record.update(formula.evaluate("""e => {
+      const rect=e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}};
+      const root=e.closest('.arithmatex');const items=MathJax.startup.document.getMathItemsWithin(root);
+      if(items.length!==1)throw new Error('Ambiguous rendered reward identity');
+      return {tex:items[0].math,display:e.getAttribute('display')==='true',visible:!!e.getClientRects().length,
+        math:rect(e.querySelector('mjx-math')),article:rect(document.querySelector('.md-content__inner'))};
+    }"""))
+    record['document']=assert_document_fits(page,viewport)
+    record['screenshot']='dpo-reward-identity.png'
+    page.screenshot(path=str(output/record['screenshot']))
+    context=browser.new_context(viewport=viewport,device_scale_factor=1,is_mobile=True,has_touch=True,
+                                reduced_motion='reduce' if reduced else 'no-preference',color_scheme='light')
+    negative=context.new_page();errors=[]
+    negative.on('pageerror',lambda error:errors.append(str(error)))
+    try:
+        response=negative.goto(url,wait_until='load',timeout=45000)
+        assert response and response.ok
+        check_math_rendering(negative);negative.evaluate('document.fonts.ready')
+        assert_document_fits(negative,viewport)  # No pre-existing overflow may stand in for this canary.
+        old_tex=r'\(r(x, y) = \beta \log(\pi_r(y \mid x)/\pi_{\text{ref}}(y \mid x)) + \beta \log Z(x)\)'
+        negative.evaluate(r"""async tex => {
+          const article=document.querySelector('.md-content__inner');MathJax.typesetClear([article]);
+          const p=document.createElement('p'),span=document.createElement('span');span.className='arithmatex';
+          span.textContent=tex;p.append(span);article.replaceChildren(p);MathJax.texReset();await MathJax.typesetPromise([span]);
+        }""",old_tex)
+        check_math_rendering(negative);negative.evaluate('document.fonts.ready')
+        old=negative.evaluate("""() => ({inner:innerWidth,client:document.documentElement.clientWidth,width:document.documentElement.scrollWidth,
+          mathRight:document.querySelector('.md-content__inner mjx-math').getBoundingClientRect().right,
+          display:document.querySelector('.md-content__inner mjx-container').getAttribute('display')==='true',rejected:false})""")
+        record['original_inline']=old
+        try:assert_document_fits(negative,viewport)
+        except AssertionError:old['rejected']=True
+        else:raise AssertionError('Original DPO inline formula did not reproduce viewport overflow')
+        assert not errors,errors
+        record['old_inline_screenshot']='dpo-original-inline.png'
+        negative.screenshot(path=str(output/record['old_inline_screenshot']))
+    finally:
+        try:
+            negative.screenshot(path=str(output/'dpo-original-inline.png'))
+            (output/'dpo-reward-measurement.json').write_text(json.dumps(record,indent=2))
+        finally:context.close()
+    record['status']='passed'
+    validate_dpo_reward_measurement(record,viewport)
+    (output/'dpo-reward-measurement.json').write_text(json.dumps(record,indent=2))
+    return record
+
+
 def exercise_page(browser, target, expected, base_url, viewport, reduced, output, result):
     from playwright.sync_api import expect
 
@@ -528,6 +602,9 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
         result["math_rendering"] = check_math_rendering(page)
         # Wait for font layout before judging bounds or taking the review screenshots.
         page.evaluate("document.fonts.ready")
+        if dpo_mobile(target.source, viewport):
+            result["dpo_reward_identity"] = {"status":"running"}
+            check_dpo_reward_identity(browser, page, urljoin(base_url,target.url), viewport, reduced, output, result["dpo_reward_identity"])
         # Discovery uses enhanced targets; wait for every expected player before
         # enumerating ancestors so delayed initialization cannot yield an empty pass.
         for asset in expected:

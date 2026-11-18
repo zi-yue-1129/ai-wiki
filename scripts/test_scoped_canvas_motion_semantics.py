@@ -16,7 +16,9 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 277 and len(EXPECTED_EXTRAS) == 5 and len(EXPECTED_PREFIXES) == 4
+assert len(EXPECTED_CANVASES) == 295 and len(EXPECTED_EXTRAS) == 5 and len(EXPECTED_PREFIXES) == 10
+
+EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
 # These are candidates, NOT an allowance: only a stem's literal registry value passes.
 CANDIDATES = {'0 0 640 360', '0 0 720 400', '0 0 720 460', '0 0 760 410', '0 0 800 420', '0 0 641 361', '0 0 1 1'} | set(EXPECTED_CANVASES.values()) | set(EXPECTED_EXTRAS.values())
@@ -26,6 +28,7 @@ class ScopedCanvas(unittest.TestCase):
         self.assertEqual(v.CANONICAL_VIEWBOXES, EXPECTED_CANVASES)
         self.assertEqual(v.EXTRA_CANONICAL_FILENAMES, EXPECTED_EXTRAS)
         self.assertEqual(v.PREFIX_VIEWBOXES, EXPECTED_PREFIXES)
+        self.assertEqual(v.PREFIX_EXCLUSIONS, EXPECTED_EXCLUSIONS)
         self.assertEqual(set(v.TOPICS), set(EXPECTED_CANVASES))
 
     def test_reviewed_registry_cannot_shrink_clear_or_substitute(self):
@@ -113,12 +116,20 @@ class ScopedCanvas(unittest.TestCase):
                 for variant in ('-reviewed-variant-motion', '-reviewed-variant-still'):
                     kind = 'motion' if variant.endswith('motion') else 'still'
                     path = Path(td) / f'{prefix}{variant}.svg'
-                    root = ET.parse(ASSETS / f'{prefix}-{kind}.svg').getroot()
+                    sample = CONTRACTS['prefix'][prefix].get('sample_stem', prefix)
+                    root = ET.parse(ASSETS / f'{sample}-{kind}.svg').getroot()
                     path.write_bytes(ET.tostring(root))
                     self.assertEqual(v.expected_viewbox(path), box)
                     self.assertEqual(v.verify_svg(path, kind == 'motion'), [])
                     root.set('viewBox', '0 0 1 1'); path.write_bytes(ET.tostring(root))
                     self.assertTrue(any('viewBox' in e for e in v.verify_svg(path, kind == 'motion')))
+
+    def test_original_prefix_exclusions_are_not_broadened(self):
+        for prefix, excluded in EXPECTED_EXCLUSIONS.items():
+            with patch.object(v, 'PREFIX_EXCLUSIONS', {}):
+                with self.assertRaises(AssertionError):self.assert_reviewed_registry()
+            for exception in excluded:
+                self.assertIsNone(v.expected_viewbox(Path(exception + 'unregistered-variant-motion.svg')))
 
     def test_longest_explicit_prefix_wins_and_registered_topics_never_inherit(self):
         with patch.dict(v.PREFIX_VIEWBOXES, {'ece-binned-calibration-special': '0 0 800 420'}):

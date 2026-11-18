@@ -16,6 +16,20 @@ def target(source):
     path = stem.removesuffix('index') if stem.endswith('/index') else stem+'/'
     return lang, ('' if lang == 'en' else 'zh-TW/')+path
 
+def capture_required_views(page, entry, folder):
+    """Capture explicitly requested sections, never silently skip a missing heading."""
+    captured = []
+    for name, selector in entry.get('screenshots', {}).items():
+        assert name and name.replace('-', '').isalnum(), 'Unsafe screenshot name'
+        element = page.locator(selector)
+        assert element.count() == 1, ('Required section missing/ambiguous', selector)
+        element.scroll_into_view_if_needed()
+        assert element.is_visible(), ('Required section hidden', selector)
+        page.screenshot(path=str(folder / (name + '.png')))
+        captured.append(name + '.png')
+    return captured
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
@@ -68,6 +82,7 @@ def main():
                         if element.count():
                             element.scroll_into_view_if_needed()
                             page.screenshot(path=str(folder/f'{name}.png'))
+                    case['required_screenshots'] = capture_required_views(page, entry, folder)
                     assert not case['errors'], case
                     case['status'] = 'passed'
                     page.close()
