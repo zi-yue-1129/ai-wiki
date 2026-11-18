@@ -30,7 +30,7 @@
   const rect = (x,y,w,h,fill,stroke='#d7e2eb') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="${fill}" stroke="${stroke}"/>`;
   const text = (x,y,s,size=15,fill='#28445b',anchor='middle') => `<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" text-anchor="${anchor}" font-family="system-ui,Arial,sans-serif">${esc(s)}</text>`;
   function controls(root, label, min, max, value, step = 1) {
-    const id = `${root.id || 'lab'}-${label.replace(/\W/g,'')}`;
+    const id = `${root.id || 'lab'}-${Array.from(label).map(c=>c.codePointAt(0).toString(16)).join('-')}`;
     return `<label class="td-field" for="${id}"><span>${esc(label)}</span><input id="${id}" type="range" min="${min}" max="${max}" step="${step}" value="${value}"/><output for="${id}">${value}</output></label>`;
   }
   function tokenLane(items, y, label, active = [], dim = false) {
@@ -55,7 +55,7 @@
     }
     target.push('S2');
     s.encoder=enc;s.target=target;s.masked=remove.size;
-    let svg=`<svg viewBox="0 0 760 370" width="760" height="370" role="img" aria-label="${s.zh?'T5 跨度破壞與哨兵 Token 轉換':'T5 span corruption and sentinel transformation'}"><rect width="760" height="370" rx="15" fill="#f8fbfe"/>${tokenLane(tokens,45,'Input',s.stage>=1?[...remove]:[])}${s.stage>=2?tokenLane(enc,115,'Encoder'):text(370,141,'···',20,'#a7bbc7')}${s.stage>=3?tokenLane(target,190,'Target'):text(370,215,'···',20,'#a7bbc7')}${text(740,266,`${remove.size}/10`,13,'#647d91','end')}`;
+    let svg=`<svg viewBox="0 0 760 370" width="760" height="370" role="img" aria-label="${s.zh?'T5 跨度破壞與哨兵 Token 轉換':'T5 span corruption and sentinel transformation'}"><rect width="760" height="370" rx="15" fill="#f8fbfe"/>${tokenLane(tokens,45,'Input',s.stage>=1?[...remove]:[])}${s.stage>=2?tokenLane(enc,115,'Encoder'):text(370,141,'···',20,'#a7bbc7')}${s.stage>=3?tokenLane(target,190,'Target'):text(370,215,'···',20,'#a7bbc7')}${s.stage>=1?text(740,266,`${remove.size}/10`,13,'#647d91','end'):''}`;
     const lengths = [['Input', 10, 0, '#879caf'], ['Encoder', enc.length, 2, '#169bab'], ['Target', target.length, 3, '#df8a34']];
     lengths.forEach(([name, count, at, fill], i) => {
       if(s.stage < at)return;
@@ -69,8 +69,8 @@
     s.ce1=ce1;s.ce2=ce2;s.loss=total;s.avg=avg;
     let svg=`<svg viewBox="0 0 760 402" width="760" height="402" role="img" aria-label="${s.zh?'DeiT 分類與蒸餾雙頭、硬標籤與交叉熵':'DeiT class and distillation heads with cross entropy'}"><rect width="760" height="402" rx="15" fill="#f8fbfe"/>`;
     svg+=rect(22,47,145,74,'#e4f1f7')+text(94,79,'Student',17)+text(94,103,'ViT',14);
-    svg+=rect(22,169,145,57,'#fff1e1')+text(94,193,'Teacher',16)+text(94,213,teacher,15);
-    svg+=`<path d="M168 85H217 M168 196H217" stroke="#7d9bb0" stroke-width="2" stroke-dasharray="5 4"/>`;
+    svg+=rect(22,169,145,57,'#fff1e1')+text(94,193,'Teacher',16)+text(94,213,s.stage>=2?teacher:'···',15);
+    svg+=`<path d="M168 85H217 M190 85V192H217" fill="none" stroke="#7d9bb0" stroke-width="2" stroke-dasharray="5 4"/>`;
     const rows=[{name:'CLS',prob:p,y:55,color:'#169bab',target:'A',ce:ce1},{name:'DIST',prob:d,y:151,color:'#df8a34',target:teacher,ce:ce2}];
     rows.forEach((r,i)=>{
       svg+=rect(222,r.y,498,82,'#fff');svg+=text(256,r.y+28,r.name,15,'#294a5d','start');
@@ -141,20 +141,21 @@
     }
     const start=()=>{
       if(timer!==null)clearInterval(timer);
-      timer=setInterval(()=>{s.stage=(s.stage+1)%(last+1);render();},700*Number(root.querySelector('.td-speed').value));
+      timer=setInterval(()=>{if(document.hidden || !root.isConnected){stop();return;}s.stage=Math.min(last,s.stage+1);render();if(s.stage===last)stop();},700*Number(root.querySelector('.td-speed').value));
       root.querySelector('[data-action="play"]').textContent=m.pause;
     };
     root.querySelector('.td-speed').addEventListener('change',()=>{if(timer!==null)start();});
     root.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>{
       const act=b.dataset.action;
       if(act==='play'){if(timer!==null){stop();return;}if(s.stage===last)s.stage=0;
-        start();
+        render();start();
       }else{stop();if(act==='prev')s.stage=Math.max(0,s.stage-1);if(act==='next')s.stage=Math.min(last,s.stage+1);
         if(act==='reset'){s.stage=0;if(isT5){Object.assign(s,{start1:1,len1:2,start2:7,len2:2});[2,2,8,2].forEach((v,i)=>{ranges[i].value=v;ranges[i].nextElementSibling.textContent=v;});}
           else{Object.assign(s,{p:.75,d:.6,teacher:'B'});ranges[0].value=.75;ranges[1].value=.6;ranges.forEach(r=>r.nextElementSibling.textContent=r.value);root.querySelector('.td-params select').value='B';}}
         render();}
     }));
     seek.addEventListener('input',()=>{stop();s.stage=Number(seek.value);render();});
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener?.('change',event=>{if(event.matches)stop();});
     document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
     render();
   }

@@ -11,6 +11,9 @@ on:
       - "scripts/test_linear_algebra_motion_semantics.py"
       - "scripts/render_linear_algebra_keyframes.py"
       - "docs/javascripts/concept-motion.js"
+      - "docs/javascripts/adaptive-optimiser-labs.js"
+      - "docs/stylesheets/adaptive-optimiser-labs.css"
+      - "scripts/test_adaptive_optimiser_labs_browser.py"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
       - "docs/javascripts/self-supervised-labs.js"
@@ -31,6 +34,7 @@ on:
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_t5_deit_motion_browser.py"
       - "scripts/test_t5_deit_labs_browser.py"
+      - "scripts/test_t5_deit_labs.cjs"
       - "docs/javascripts/t5-deit-labs.js"
       - "docs/stylesheets/t5-deit-labs.css"
       - "docs/javascripts/regression-metric-labs.js"
@@ -38,6 +42,12 @@ on:
       - "scripts/test_regression_metric_labs_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
+      - "docs/javascripts/gibbs-labs.js"
+      - "docs/stylesheets/gibbs-labs.css"
+      - "scripts/test_gibbs_labs_browser.py"
+      - "docs/javascripts/sharpness-geometry-labs.js"
+      - "docs/stylesheets/sharpness-geometry-labs.css"
+      - "scripts/test_sharpness_geometry_labs_browser.py"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
@@ -76,6 +86,10 @@ jobs:
         run: node scripts/test_concept_motion_chapters.cjs
       - name: Test MoCo FIFO and BYOL EMA simulators
         run: node scripts/test_self_supervised_labs.cjs
+      - name: T5 and DeiT actual JavaScript and SVG semantics
+        run: |
+          node scripts/test_t5_deit_labs.cjs
+          python scripts/test_t5_deit_actual_motion_semantics.py
       - name: Install Chromium and Traditional Chinese fonts for visual tests
         run: |
           sudo apt-get update -qq
@@ -83,6 +97,8 @@ jobs:
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
+      - name: Chromium interactive AdaGrad and Adafactor numerical labs
+        run: python scripts/test_adaptive_optimiser_labs_browser.py
       - name: Render deterministic SVD and power-iteration SVG keyframes
         run: python scripts/render_linear_algebra_keyframes.py
       - name: Chromium mobile/desktop playback, pause and geometry
@@ -103,6 +119,10 @@ jobs:
         run: python scripts/test_t5_deit_labs_browser.py
       - name: Test regression metric lab arithmetic, controls and bilingual responsive layout
         run: python scripts/test_regression_metric_labs_browser.py
+      - name: Test bilingual sharpness geometry numerical labs, controls and responsive layout
+        run: python scripts/test_sharpness_geometry_labs_browser.py
+      - name: Test bilingual Gibbs Gaussian and disconnected mixing controls
+        run: python scripts/test_gibbs_labs_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -119,6 +139,9 @@ jobs:
             artifacts/t5-deit-labs/*.png
             artifacts/regression-metric-labs/*.png
             artifacts/linear-algebra-motion/
+            artifacts/sharpness-labs/*.png
+            artifacts/adaptive-optimiser-labs/*.png
+            artifacts/gibbs-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 

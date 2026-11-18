@@ -35,7 +35,9 @@ DeiT（Data-efficient image Transformer，資料高效影像 Transformer）只�
 
 ### 蒸餾 token 教學動畫
 
+<div role="region" tabindex="0" aria-label="教學動畫，可用左右方向鍵水平捲動" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain"><div style="width:640px;min-width:640px">
 <img data-source-asset-urls src="../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg" data-motion-src="../../../../../assets/concept-animations/deit-dual-head-distillation-motion.svg" data-still-src="../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg" alt="影像區塊同時輸入學生視覺 Transformer 與獨立的 CNN 教師。類別 token 輸出頭接受真實標籤監督；蒸餾 token 輸出頭接受教師預測的硬標籤監督，形成兩個訓練損失。" />
+</div></div>
 
 *原創 CC BY-SA 4.0 教學動畫。兩條不同顏色的路徑表示**不同監督訊號**，不是模型實測激活值或最佳化軌跡。教師提供硬標籤，**不接收學生損失的梯度**；兩個輸出頭共同訓練學生，原始 DeiT 的推論則融合兩個輸出頭的機率預測。MkDocs 支援**播放／暫停**及 Enter／Space 鍵盤操作；手機可水平捲動。[GitHub 可閱讀的靜態概覽](../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg) · [完整動畫](../../../../../assets/concept-animations/deit-dual-head-distillation-motion.svg)（Touvron 等人，2021；參見參考文獻）。*
 
@@ -44,7 +46,19 @@ DeiT（Data-efficient image Transformer，資料高效影像 Transformer）只�
 
 <div id="td-deit-zh" class="t5-deit-lab" data-lab="deit" data-lang="zh"></div>
 
-新增的**損失貢獻長條**只在兩項監督目標已顯示後，才分別呈現 $\tfrac12\mathrm{CE}(\mathrm{CLS})$ 與 $\tfrac12\mathrm{CE}(\mathrm{DIST})$。以預設人工機率計算，兩者約為 **0.144**、**0.458**，合計 **0.602**。切換教師硬標籤只會改變蒸餾項，分類頭仍以真實標籤監督。互動流程將學生預測、教師目標、訓練損失與推論時的雙頭平均明確分開。這些數值僅是教學用損失運算，**不是**實測梯度或參數更新。
+新增的**損失貢獻長條**只在兩項監督目標已顯示後，才分別呈現 
+
+\[
+\tfrac12\mathrm{CE}(\mathrm{CLS})
+\]
+
+ 與 
+
+\[
+\tfrac12\mathrm{CE}(\mathrm{DIST})
+\]
+
+。以預設人工機率計算，兩者約為 **0.144**、**0.458**，合計 **0.602**。切換教師硬標籤只會改變蒸餾項，分類頭仍以真實標籤監督。互動流程將學生預測、教師目標、訓練損失與推論時的雙頭平均明確分開。這些數值僅是教學用損失運算，**不是**實測梯度或參數更新。
 
 可調整兩個學生輸出頭對類別 A 的**人工機率**，並切換固定教師的硬標籤 A／B。真實標籤固定為 A，在此**二元類別示例**中，系統重新計算 `CE(CLS) = −ln p_cls(A)`、`CE(DIST) = −ln p_dist(y_teacher)` 及兩項平均的訓練損失。例如 `p_cls(A)=0.75`、`p_dist(A)=0.60`、教師標籤為 B，兩項交叉熵分別約為 0.288 與 0.916，平均為 0.602。最後一步另外展示**推論時平均兩個學生輸出頭的機率**，此時 `P(A)=0.675`；不需要在推論時執行教師。切換教師硬標籤只改變蒸餾的監督目標，**不會自動重算學生預測**。以上皆為人工數值，不是 DeiT 的實測激活或模擬訓練軌跡（Touvron 等人，2021；參見參考文獻）。
 
@@ -55,6 +69,8 @@ DeiT（Data-efficient image Transformer，資料高效影像 Transformer）只�
 \]
 
 其中 \(\psi\) 是線性分類器，\(y_t = \arg\max_c Z_t(c)\) 是教師預測的類別。測試時，論文的主要方法是把兩個頭的 softmax 輸出相加來融合。蒸餾 token 與類別 token 注意相同的區塊，因此教師的訊號會透過注意力層傳給學生。
+
+本互動實驗固定真實標籤為 A，使用未平滑的二元交叉熵；論文對真實標籤另使用 0.1 label smoothing，教師偽標籤不平滑。推論機率平均與論文兩個 softmax 相加有相同 argmax，但提供正規化機率。箭頭是前向資訊流，不是梯度或實測延遲。
 
 ## 關鍵方法
 

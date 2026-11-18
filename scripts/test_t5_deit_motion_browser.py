@@ -85,25 +85,22 @@ def main():
                             )
 
                         page.route("**/concept-animations/*.svg", serve)
-                        html = (
-                            '<!doctype html><html><head><base href="https://example.test/">'
-                            f'<style>body{{margin:0;padding:12px;font:16px Arial}}{css}</style>'
-                            '</head><body><main>'
-                            f'<img src="{still}" data-motion-src="{animated}" '
-                            f'data-still-src="{still}" alt="{attrs["alt"]}">'
-                            f'</main><script>{js}</script></body></html>'
-                        )
+                        source = (DOCS / (page_stem + suffix)).read_text()
+                        markup = re.search(r'<div role="region".*?</div></div>', source, re.S).group(0)
+                        markup = re.sub(r'(src|data-motion-src|data-still-src)="[^"]*/([^/" ]+\.svg)"', lambda m: f'{m[1]}="concept-animations/{m[2]}"', markup)
+                        html = (f'<!doctype html><html lang="{language}"><head><base href="https://example.test/"><style>body{{margin:0;padding:12px;font:16px Arial}}{css}</style></head><body><main class="md-typeset">{markup}</main><script>{js}</script></body></html>')
                         page.set_content(html)
                         page.wait_for_timeout(250)
                         host = page.locator(".concept-motion-player")
+                        region = page.locator("[role=region]")
                         image = host.locator("img")
                         toggle = host.locator("button")
                         assert host.count() == 1 and toggle.count() == 1
                         expect = still if motion == "reduce" else animated
                         assert image.get_attribute("src") == expect
                         assert image.evaluate("img => img.complete && img.naturalWidth > 0")
-                        assert host.get_attribute("tabindex") == "0"
-                        assert host.get_attribute("role") == "region"
+                        assert region.get_attribute("tabindex") == "0"
+                        assert region.get_attribute("role") == "region"
                         toggle.click()
                         assert image.get_attribute("src") != expect
                         toggle.focus()
@@ -112,14 +109,15 @@ def main():
                         page.keyboard.press("Space")
                         assert image.get_attribute("src") != expect
                         if width == 320:
-                            assert host.evaluate("x => x.scrollWidth > x.clientWidth")
-                            host.focus()
+                            assert region.evaluate("x => x.scrollWidth > x.clientWidth")
+                            region.focus()
                             page.keyboard.press("ArrowRight")
                             page.wait_for_timeout(250)
-                            assert host.evaluate("x => x.scrollLeft > 0")
-                        if language == "en" and motion == "no-preference":
+                            assert region.evaluate("x => x.scrollLeft > 0")
+                        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+                        if True:
                             page.screenshot(
-                                path=str(screenshot_dir / f"{stem}-{width}.png")
+                                path=str(screenshot_dir / f"{stem}-{language}-{width}-{motion}.png")
                             )
                         count += 1
                         page.close()

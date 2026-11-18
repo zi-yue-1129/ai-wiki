@@ -82,7 +82,7 @@ with sync_playwright() as p:
                 assert (page.locator('#t5 [data-action="play"]').inner_text() == ('Pause' if lang == 'en' else '暫停'))
                 page.locator('#t5 .td-speed').select_option('0.5')
                 assert (page.locator('#t5 [data-action="play"]').inner_text() == ('Pause' if lang == 'en' else '暫停'))
-                page.locator('#t5 [data-action="play"]').click()
+                page.wait_for_function("document.querySelector('#t5 .td-seek').value === '3'")
                 assert (page.locator('#t5 [data-action="play"]').inner_text() == ('Play' if lang == 'en' else '播放'))
                 # Swapping the teacher's fixed hard label changes CE(DIST), not student logits.
                 page.locator('#deit .td-params select').select_option('A')

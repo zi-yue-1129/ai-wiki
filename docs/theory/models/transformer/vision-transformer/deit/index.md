@@ -34,7 +34,9 @@ The [original ViT](../index.md) reached its best results only after pre-training
 
 ### Distillation-token teaching animation
 
+<div role="region" tabindex="0" aria-label="Teaching animation; use left and right arrow keys to scroll" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain"><div style="width:640px;min-width:640px">
 <img data-source-asset-urls src="../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg" data-motion-src="../../../../../assets/concept-animations/deit-dual-head-distillation-motion.svg" data-still-src="../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg" alt="Image patches feed a student Vision Transformer and separate CNN teacher. The class-token head receives a ground-truth supervision signal; the distillation-token head receives the teacher's hard label, forming two training losses." />
+</div></div>
 
 *Original CC BY-SA 4.0 teaching animation. The two coloured branches show **separate supervision signals**, not measured activations or an optimisation trajectory. The teacher generates a hard target and **does not receive the student's loss gradients**. Both supervised heads train the student; at inference, the original DeiT method combines their probability predictions. On MkDocs use **Play/Pause** (Enter/Space by keyboard); narrow screens can scroll horizontally. [GitHub-readable overview](../../../../../assets/concept-animations/deit-dual-head-distillation-still.svg) · [Full animation](../../../../../assets/concept-animations/deit-dual-head-distillation-motion.svg) (Touvron et al., 2021; see References).*
 
@@ -43,7 +45,19 @@ The [original ViT](../index.md) reached its best results only after pre-training
 
 <div id="td-deit-en" class="t5-deit-lab" data-lab="deit" data-lang="en"></div>
 
-The **loss-contribution bar** now exposes the two summands only after both supervision targets have been introduced: $\tfrac12\mathrm{CE}(\mathrm{CLS})$ and $\tfrac12\mathrm{CE}(\mathrm{DIST})$. For the default synthetic probabilities, these contribute about **0.144** and **0.458**, summing to **0.602**. Changing the teacher's hard label changes the distillation summand, not the class-head target. The interaction keeps student predictions, teacher targets, training loss and inference-time head averaging as separate stages; these are illustrative loss calculations, **not** measured gradients or parameter updates.
+The **loss-contribution bar** now exposes the two summands only after both supervision targets have been introduced: 
+
+\[
+\tfrac12\mathrm{CE}(\mathrm{CLS})
+\]
+
+ and 
+
+\[
+\tfrac12\mathrm{CE}(\mathrm{DIST})
+\]
+
+. For the default synthetic probabilities, these contribute about **0.144** and **0.458**, summing to **0.602**. Changing the teacher's hard label changes the distillation summand, not the class-head target. The interaction keeps student predictions, teacher targets, training loss and inference-time head averaging as separate stages; these are illustrative loss calculations, **not** measured gradients or parameter updates.
 
 Change the two students' illustrative class-A probabilities and switch the fixed teacher's hard label between A and B. With ground truth A, this **two-class toy** recalculates `CE(CLS) = −ln p_cls(A)`, `CE(DIST) = −ln p_dist(y_teacher)`, and their equal-weight training loss. For `p_cls(A)=0.75`, `p_dist(A)=0.60` and teacher label B, the losses are approximately 0.288 and 0.916, averaging to 0.602. A separate final stage averages the **two student heads' probabilities at inference**, giving `P(A)=0.675` for these inputs; the teacher is not evaluated or updated at that inference step. Changing the teacher's hard label changes only the distillation supervision, not the student predictions automatically. These are fixed synthetic probabilities, **not** DeiT activation measurements or a simulated training trajectory (Touvron et al., 2021; see References).
 
@@ -54,6 +68,8 @@ The input to the encoder is the patch embeddings with two extra tokens, the clas
 \]
 
 Here \(\psi\) is the linear classifier and \(y_t = \arg\max_c Z_t(c)\) is the teacher's predicted class. At test time the paper's main method fuses the two heads by adding their softmax outputs. The distillation token attends to the same patches as the class token, so the teacher's signal reaches the student through the attention layers.
+
+This binary lab fixes the true class to A and uses unsmoothed cross-entropy; the paper additionally uses 0.1 label smoothing for true labels, not teacher pseudo-labels. Averaging probabilities has the same argmax as the paper’s sum of two softmax outputs, while providing normalized probabilities. Moving markers represent forward information flow, not gradients or measured latency.
 
 ## Key methods
 

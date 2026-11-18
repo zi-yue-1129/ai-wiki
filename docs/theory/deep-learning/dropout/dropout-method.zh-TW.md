@@ -1,7 +1,7 @@
 ---
 status: draft
 last_reviewed: 2026-11-07
-translation_reviewed: 2026-11-07
+translation_reviewed: 2026-11-17
 related:
   - theory/deep-learning/dropout
 tags:
@@ -46,6 +46,37 @@ $$
 1. 為每個套用丟棄法的層抽取新的遮罩 $\mathbf{r}$。
 2. 以遮罩後的激活值計算前向傳播。
 3. 只沿被保留的單元反向傳播，並照常更新權重。
+
+### 視覺化：遮罩取樣與期望值
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Teaching figure; use arrow keys to scroll horizontally">
+<img data-source-asset-urls src="../../../assets/concept-animations/dropout-inverted-sampling-still.svg" data-motion-src="../../../assets/concept-animations/dropout-inverted-sampling-motion.svg" data-still-src="../../../assets/concept-animations/dropout-inverted-sampling-still.svg" alt="反向丟棄法動畫呈現各單元遮罩變化、保留激活值的放大，以及各單元不變的期望值。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 使用人工輸入 $h=(1,2,3,4)$ 與 $p=0.5$，反向丟棄法計算 $y_i=r_i h_i/p$，其中 $r_i\sim\mathrm{Bernoulli}(p)$。當遮罩為 $(1,0,1,0)$ 時，輸出為 $(2,0,6,0)$；重新取樣會改變各單元的輸出。對**每個單元**，$\mathbb{E}[y_i]=h_i$ 來自伯努利分布的期望值，不代表任一次取樣都保持總和不變，更不代表下游非線性網路的輸出期望相同。圖中遮罩是刻意設計的教學樣本，**不是模型實測或蒙地卡羅估計**。網站播放器提供播放／暫停和減少動態效果的回退；[查看 GitHub 可顯示的靜態預覽](../../../assets/concept-animations/dropout-inverted-sampling-still.svg)。
+
+### 視覺化：反向縮放的變異數代價
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Teaching figure; use arrow keys to scroll horizontally">
+<img data-source-asset-urls src="../../../assets/concept-animations/dropout-variance-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/dropout-variance-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/dropout-variance-tradeoff-still.svg" alt="反向丟棄法兩點分布動畫：保留率下降時，非零輸出遠離零、遮蔽機率與變異數增加，但解析期望值維持不變。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 使用**人工設定的純量** $h=2$。反向丟棄法的輸出 $y$ 以機率 $1-p$ 為 $0$，以機率 $p$ 為 $h/p$。因此條件期望值為 $\mathbb{E}[y]=h=2$，但變異數為
+
+\[
+\operatorname{Var}(y)=\frac{h^2(1-p)}{p}.
+\]
+
+動畫讓保留機率從 $1$ 降至 $0.25$ 再回升：非零輸出從 $2$ 移至 $8$，歸零機率由 $0$ 增至 $0.75$，變異數由 $0$ 增至 $12$。圓點大小僅示意相對機率質量，並非實際抽樣次數。此處**不代表**經過下游非線性網路後，預測值的期望仍相同，也沒有訓練模型或進行效能量測。網站播放器提供播放／暫停及減少動態效果回退；[查看 GitHub 可顯示的靜態預覽](../../../assets/concept-animations/dropout-variance-tradeoff-still.svg)。
+
+
+### 視覺化：獨立單元遮罩與連續區塊遮罩
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Teaching figure; use arrow keys to scroll horizontally">
+<img data-source-asset-urls src="../../../assets/concept-animations/dropblock-spatial-masking-still.svg" data-motion-src="../../../assets/concept-animations/dropblock-spatial-masking-motion.svg" data-still-src="../../../assets/concept-animations/dropblock-spatial-masking-still.svg" alt="兩張六乘六特徵圖同步展示分散的單元遮罩與連續三乘三 DropBlock 遮罩；兩者每次都遮蔽九個位置。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 兩張人工設計的 $6\times6$ 特徵圖都**遮蔽 36 個位置中的 9 個**。左側依序顯示四種分散單元遮罩，右側顯示四種連續的 $3\times3$ 區塊遮罩。由於相鄰卷積特徵常具有相關性，連續區塊可能一次遮蔽整個局部證據區域；個別遮蔽則仍可能留下周圍資訊。此圖只比較**遮罩的空間結構**，並未重現原始 DropBlock 的抽樣演算法、保留率校正或實驗準確率。所有遮罩皆為人工示意，非模型實測。方法來源為下方 Ghiasi 等人的論文。手機窄畫面請在圖內水平捲動，以比較左右兩種遮罩。MkDocs 既有播放器提供播放／暫停及減少動態效果回退；[GitHub 可顯示的靜態預覽](../../../assets/concept-animations/dropblock-spatial-masking-still.svg)。
 
 ## 結果
 
