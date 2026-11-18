@@ -4,6 +4,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Thread
 from urllib.parse import parse_qs, urlsplit
+import re
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,11 +28,12 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_error(400)
             return
         alt = "鍵值注意力教學動畫" if args.get("lang", ["en"])[0] == "zh" else "KV attention teaching animation"
-        html = f"""<!doctype html><meta charset="utf-8">
-<link rel="stylesheet" href="/docs/stylesheets/concept-motion.css">
-<main style="max-width:760px;margin:auto">
-<img src="/docs/assets/concept-animations/{stem}-motion.svg" alt="{alt}">
-</main><script src="/docs/javascripts/concept-motion.js"></script>"""
+        lang = args.get("lang", ["en"])[0]
+        topic = 'ia3' if stem.startswith('ia3') else 'prefix-tuning'
+        source = (ROOT / f'docs/theory/paradigms/transfer/fine-tuning-and-adaptation/{topic}{".zh-TW" if lang == "zh" else ""}.md').read_text()
+        markup = re.search(r'<div style="width:100%;overflow-x:auto".*?</div></div>', source, re.S).group(0)
+        markup = markup.replace('../../../../assets/', '/docs/assets/')
+        html = f'<!doctype html><html lang="{"zh-TW" if lang == "zh" else "en"}"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/docs/stylesheets/concept-motion.css"><body><main style="max-width:760px;margin:auto">{markup}</main><script src="/docs/javascripts/concept-motion.js"></script></body></html>'
         data = html.encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -68,13 +70,18 @@ def main():
                         page.keyboard.press("Space")
                         assert img.get_attribute("src").endswith("-still.svg")
                         if width < 640:
-                            host = page.locator(".concept-motion-player")
+                            host = page.locator("div[role=region]")
                             assert host.get_attribute("tabindex") == "0"
                             assert host.evaluate("(e)=>e.scrollWidth > e.clientWidth")
-                            host.evaluate("(e)=>e.scrollLeft = 240")
+                            host.focus(); page.keyboard.press("ArrowRight")
+                            page.wait_for_function("el => el.scrollLeft > 0", arg=host.element_handle())
                             assert host.evaluate("(e)=>e.scrollLeft > 0")
                             bb = button.bounding_box()
                             assert bb and 0 <= bb["x"] < width
+                        assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 2')
+                        assert ('播放' if lang == 'zh' else 'Play') in button.inner_text()
+                        out = ROOT / 'artifacts/peft-motion'; out.mkdir(parents=True, exist_ok=True)
+                        page.screenshot(path=str(out / f'{stem}-{lang}-{width}.png'), full_page=True)
                         passed += 1
                         page.close()
                 page = browser.new_page()

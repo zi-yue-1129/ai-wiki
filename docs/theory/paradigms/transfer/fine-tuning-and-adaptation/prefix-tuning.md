@@ -37,9 +37,23 @@ For each task, a prefix is trained by gradient descent on the task's objective w
 
 ### Virtual-prefix attention process animation
 
-![Attention shifts from real tokens toward learned virtual prefix key/value positions while the query stays fixed](../../../../assets/concept-animations/prefix-kv-attention-motion.svg)
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Adaptation diagram, scroll with left/right arrow keys"><div style="width:640px"><img data-source-asset-urls="true" src="../../../../assets/concept-animations/prefix-kv-attention-still.svg" data-motion-src="../../../../assets/concept-animations/prefix-kv-attention-motion.svg" data-still-src="../../../../assets/concept-animations/prefix-kv-attention-still.svg" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="Attention shifts from real tokens toward learned virtual prefix key/value positions while the query stays fixed" loading="lazy"></div></div>
 
-*Original instructional animation, CC BY-SA 4.0.* Orange dashed slots are **trainable virtual prefix key/value positions**; blue slots are ordinary input tokens. A fixed query attends to both. For **synthetic** scores \(s(t)=(-1.8+4.8t,-1.4+2.6t,1.2,0.4)\), the bars show \(a_i(t)=\exp(s_i(t))/\sum_j\exp(s_j(t))\). As \(t\) goes from 0 to 1 and returns, the first virtual slot increases from approximately 0.032 to 0.712 of the attention weight, although ordinary-token scores stay fixed. This is a **controlled logit interpolation**, not a learned-model attention trace or training trajectory. Actual prefix tuning learns per-layer key/value activations without changing the frozen backbone. MkDocs provides Play/Pause and reduced-motion fallback; GitHub readers can view the [final-state static preview](../../../../assets/concept-animations/prefix-kv-attention-still.svg).
+*Original instructional animation, CC BY-SA 4.0.* Orange dashed slots are **trainable virtual prefix key/value positions**; blue slots are ordinary input tokens. A fixed query attends to both. For **synthetic** scores
+
+\[
+s(t)=(-1.8+4.8t,-1.4+2.6t,1.2,0.4)
+\]
+
+, the bars show
+
+\[
+a_i(t)=\exp(s_i(t))/\sum_j\exp(s_j(t))
+\]
+
+. As \(t\) goes from 0 to 1 and returns, the first virtual slot increases from approximately 0.032 to 0.712 of the attention weight, although ordinary-token scores stay fixed. This is a **controlled logit interpolation**, not a learned-model attention trace or training trajectory. Actual prefix tuning learns per-layer key/value activations without changing the frozen backbone. MkDocs provides Play/Pause and reduced-motion fallback; GitHub readers can view the [final-state static preview](../../../../assets/concept-animations/prefix-kv-attention-still.svg).
+
+Focus the diagram region and use left/right arrow keys, or swipe horizontally.  This is a conditional slice of one attention head: Q and ordinary-token K/V are held fixed to isolate prefix-key effects, not claimed invariant throughout a deep model. The diagram shows attention weights, not the resulting weighted sum of value vectors. Bar ticks span 0 to 0.75; edge thickness and opacity encode the same weights.
 
 ## Results
 

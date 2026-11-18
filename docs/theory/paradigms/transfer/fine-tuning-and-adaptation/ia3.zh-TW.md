@@ -23,11 +23,19 @@ translation_reviewed: 2026-11-13
 
 ### 激活縮放過程動畫
 
-![固定的四個輸入激活通道經過可學習乘法增益，輸出隨增益改變而連續變化](../../../../assets/concept-animations/ia3-channel-gates-motion.svg)
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="參數調校示意圖，可用左右方向鍵捲動"><div style="width:640px"><img data-source-asset-urls="true" src="../../../../assets/concept-animations/ia3-channel-gates-still.svg" data-motion-src="../../../../assets/concept-animations/ia3-channel-gates-motion.svg" data-still-src="../../../../assets/concept-animations/ia3-channel-gates-still.svg" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="固定的四個輸入激活通道經過可學習乘法增益，輸出隨增益改變而連續變化" loading="lazy"></div></div>
 
-*原創教學動畫，CC BY-SA 4.0。* 藍色長條是固定輸入，橘色圓點是任務專用的可學習增益，青綠色長條為縮放後的輸出。採用**人工示意數值** \(h=(0.70,0.90,0.50,0.80)\) 與 \(g^*=(1.30,0.60,1.10,0.40)\)，動畫令 \(g(t)=\mathbf{1}+t(g^*-\mathbf{1})\)、\(h'(t)=g(t)\odot h\) 隨 \(t\in[0,1]\) 往返變化，終點輸出為 \((0.91,0.54,0.55,0.32)\)。這是**受控參數掃描**，並非實際訓練紀錄或效能基準。(IA)³ 的真實做法是縮放注意力的鍵、值及前饋網路中間激活，預訓練權重維持凍結。MkDocs 支援播放／暫停及減少動態效果；GitHub 讀者可查看[最終狀態靜態預覽](../../../../assets/concept-animations/ia3-channel-gates-still.svg)。
+*原創教學動畫，CC BY-SA 4.0。* 藍色長條是固定輸入，橘色圓點是任務專用的可學習增益，青綠色長條為縮放後的輸出。採用**人工示意數值** \(h=(0.70,0.90,0.50,0.80)\) 與 \(g^*=(1.30,0.60,1.10,0.40)\)，動畫令
+
+\[
+g(t)=\mathbf{1}+t(g^*-\mathbf{1})
+\]
+
+、\(h'(t)=g(t)\odot h\) 隨 \(t\in[0,1]\) 往返變化，終點輸出為 \((0.91,0.54,0.55,0.32)\)。這是**受控參數掃描**，並非實際訓練紀錄或效能基準。(IA)³ 的真實做法是縮放注意力的鍵、值及前饋網路中間激活，預訓練權重維持凍結。MkDocs 支援播放／暫停及減少動態效果；GitHub 讀者可查看[最終狀態靜態預覽](../../../../assets/concept-animations/ia3-channel-gates-still.svg)。
 
 T-Few 是圍繞此方法建立的配方。它以 T0 模型為骨幹，並把三種損失加總：標準語言建模損失、unlikelihood 損失，以及長度正規化損失。論文在 T0-3B 上的設計實驗顯示，長度正規化把準確度從 60.7% 提高到 62.7%，再加上 unlikelihood 損失後達到 63.3%。
+
+聚焦圖表外框後可用左右方向鍵捲動，或在手機左右滑動。 此處固定輸入只為隔離單一縮放運算；凍結權重不表示深層模型的所有激活都不變。增益不必介於 0 與 1，通常也不限制為正值；本圖只展示所選正值範圍。
 
 ## 結果
 

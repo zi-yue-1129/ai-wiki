@@ -1,0 +1,32 @@
+name: Search keyboard browser regression
+on:
+  pull_request:
+    paths:
+      - 'overrides/partials/search.html'
+      - 'scripts/test_search_keyboard_browser.py'
+      - 'scripts/test_search_more_browser.py'
+      - 'scripts/test_built_motion_browser.py'
+      - '.github/workflows/search-keyboard-browser.yml'
+      - 'mkdocs.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: pip install -r requirements.txt 'playwright==1.55.0'
+      - run: python -m playwright install --with-deps chromium
+      - run: mkdocs build --strict
+      - run: npx --yes pagefind@1.3.0 --site site
+      - run: python scripts/test_search_keyboard_browser.py
+      - run: python scripts/test_search_more_browser.py
