@@ -26,4 +26,4 @@ for(const topic of topics)for(const lang of ['', '.zh-TW']){
   const n=made.length;sub();assert.equal(made.length,n);assert.equal(img.parent.parent,region);count++;
  }
 }
-assert.equal(count,40);console.log(`PASS ${count} actual shared-player structural DOM cases; focusable ancestor preserved, bilingual/reduced/toggle/reentry. Not a browser layout test.`);
+assert.equal(count,72);console.log(`PASS ${count} actual shared-player structural DOM cases; focusable ancestor preserved, bilingual/reduced/toggle/reentry. Not a browser layout test.`);

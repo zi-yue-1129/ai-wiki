@@ -159,12 +159,31 @@ class RuntimeDependencyRegression(unittest.TestCase):
    steps=job['steps'];install=[];consumer=[]
    for index,step in enumerate(steps):
     lines=[line.strip()for line in step.get('run','').splitlines()]
-    if 'python -m pip install "PyYAML==6.0.3"' in lines:
-     assert 'if' not in step and (step.get('continue-on-error') is None or step.get('continue-on-error') is False)
-     install.append(index)
-    if 'python scripts/test_sac_dpo_motion_semantics.py' in lines:consumer.append(index)
-   assert len(install)==len(consumer)==1 and install[0]<consumer[0]
+    valid='if' not in step and (step.get('continue-on-error') is None or step.get('continue-on-error') is False)
+    if 'python -m pip install "PyYAML==6.0.3"' in lines and valid:install.append(index)
+    if 'python scripts/test_sac_dpo_motion_semantics.py' in lines:
+     assert valid, 'The consumer cannot be conditional or soft-failing'
+     consumer.append(index)
+   assert install and len(consumer)==1 and min(install)<consumer[0]
   verify(workflow)
+  # An ineffective redundant provider cannot invalidate an effective earlier one.
+  for field,value in [('if',False),('if',None),('if','always()'),('continue-on-error',True),('continue-on-error',0)]:
+   good=copy.deepcopy(workflow);good['jobs']['validate-motion']['steps'].append({'run':'python -m pip install "PyYAML==6.0.3"',field:value});verify(good)
+   # Also cover the actual retained later installation, not merely an added fake step.
+   retained=copy.deepcopy(workflow);suppliers=[step for step in retained['jobs']['validate-motion']['steps']if 'python -m pip install "PyYAML==6.0.3"' in step.get('run','').splitlines()]
+   if len(suppliers)>1:suppliers[-1][field]=value;verify(retained)
+   bad=copy.deepcopy(workflow)
+   for step in bad['jobs']['validate-motion']['steps']:
+    if 'python -m pip install "PyYAML==6.0.3"' in step.get('run','').splitlines():step[field]=value
+   with self.assertRaises(AssertionError):verify(bad)
+   bad=copy.deepcopy(workflow)
+   for step in bad['jobs']['validate-motion']['steps']:
+    if 'python scripts/test_sac_dpo_motion_semantics.py' in step.get('run','').splitlines():step[field]=value
+   with self.assertRaises(AssertionError):verify(bad)
+  late=copy.deepcopy(workflow)
+  for step in late['jobs']['validate-motion']['steps']:step['run']=step.get('run','').replace('python -m pip install "PyYAML==6.0.3"','')
+  late['jobs']['validate-motion']['steps'].append({'run':'python -m pip install "PyYAML==6.0.3"'})
+  with self.assertRaises(AssertionError):verify(late)
   for replacement in ('','# python -m pip install "PyYAML==6.0.3"','python -m pip install "PyYAML==6.0.3" || true'):
    bad=copy.deepcopy(workflow)
    for step in bad['jobs']['validate-motion']['steps']:step['run']=step.get('run','').replace('python -m pip install "PyYAML==6.0.3"',replacement)
