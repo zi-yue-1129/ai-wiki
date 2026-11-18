@@ -299,7 +299,16 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    if root.tag != NS + "svg" or root.get("viewBox") not in {"0 0 640 360", "0 0 720 400", "0 0 720 460", "0 0 760 410", "0 0 800 420"}:
+    # Preserve the original source-specific contracts. A canvas accepted for a
+    # different topic is not interchangeable with these diagrams' geometry.
+    expected_viewbox = (
+        "0 0 720 400" if path.stem.startswith(("ece-binned-calibration", "deep-ensemble-spread"))
+        else "0 0 760 410" if path.stem.startswith(("cfm-conditional-bridge", "rectified-reflow-coupling"))
+        else None
+    )
+    invalid_viewbox = (root.get("viewBox") != expected_viewbox if expected_viewbox else
+                       root.get("viewBox") not in {"0 0 640 360", "0 0 720 400", "0 0 720 460", "0 0 760 410", "0 0 800 420"})
+    if root.tag != NS + "svg" or invalid_viewbox:
         errors.append(f"{path}: invalid SVG root/viewBox")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
