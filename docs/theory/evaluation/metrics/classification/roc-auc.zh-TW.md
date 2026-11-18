@@ -174,11 +174,38 @@ $$
 
 接受前一筆時 $L(1)=C_{FN}/15$；接受前四筆時 $L(4)=0.30$。在**全部七個候選門檻** $k=0,\ldots,6$ 中，$C_{FN}=1$ 時最低損失門檻為 **$k=1$**（$0.0667$），$C_{FN}=5$ 時變成 **$k=4$**（$0.300$）；兩者在 $C_{FN}=4.5$ 時同分。在**動畫顯示的成本範圍** $1\le C_{FN}\le5$ 中，低於 4.5 時以 $k=1$ 最佳；等於 4.5 時兩者並列最佳；高於 4.5 時以 $k=4$ 最佳。另外五個候選門檻在此範圍內都無法優於這兩者中的較低成本，因此右側圖只繪製兩條可能成為最優解的損失曲線，而非全部七條。**Youden J 與成本最小化**在特定成本權重下可精確對應：若 $C_{FN}p=C_{FP}(1-p)=w$，則
 
-$
+$$
 L(k)=w[1-J(k)].
-$
+$$
 
 因此，只有在這些條件式辨識率適用於部署族群、且兩種錯誤的**有效權重相等**時，最大化 $J$ 才必然等於最小化預期損失。本例 $p=0.10$、$C_{FP}=1$，須 $C_{FN}=9$ 才符合權重相等，**超出**動畫掃描的 $1$ 至 $5$；在 $C_{FN}=5$ 時 $k=4$ 恰巧也讓 $J$ 最大，不代表兩個目標普遍相同。ROC 階梯來自六筆人工資料，而部署盛行率與成本為**另外指定的假設**；動畫是參數掃描，並非訓練時間或實際推論紀錄。MkDocs 可用鍵盤操作播放／暫停，偏好減少動態效果時提供靜態圖，手機可水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-youden-cost-motion.svg)。決策理論背景可參考文末 Fawcett（2006）。
+
+## 動畫示範：先驗比例漂移如何切換最低成本門檻
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="部署盛行率改變時最低成本 ROC 操作點切換動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-prior-policy-still.svg" data-still-src="../../../../assets/concept-animations/roc-prior-policy-still.svg" data-motion-src="../../../../assets/concept-animations/roc-prior-policy-motion.svg" alt="ROC 階梯保持不變，但人工假設的正例盛行率由 5% 增加到 60% 時，最低成本門檻從接受前一筆切換到前四筆，兩條預期成本線於盛行率 20% 相交。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 前一項 PPV 動畫**固定決策規則**，這裡則在部署基準率改變後**重新最佳化門檻**。使用另一組人工排序 **+ − + + − −**，假設僅有正負例先驗比例改變，兩類內部的條件分數分布與 ROC 階梯維持不變。另行設定偽陰性成本 $C_{FN}=2$、偽陽性成本 $C_{FP}=1$。兩個非劣候選門檻的預期損失分別為：
+
+$$
+L(1;p)=\frac{4p}{3}.
+$$
+
+$$
+L(4;p)=\frac{1-p}{3}.
+$$
+
+兩者在盛行率 $p=0.20$ 相交。針對這一對 ROC 操作點，一般化的切換條件為：
+
+$$
+p^*=\frac{C_{FP}}{2C_{FN}+C_{FP}}.
+$$
+
+當 **$p=0.10$**，接受前一筆的成本 **0.133** 低於前四筆的 **0.300**；當 **$p=0.40$**，前四筆的 **0.200** 低於前一筆的 **0.533**；在 **$p=0.20$** 時兩者同分。對於 $0<p<1$，其餘五個候選門檻都無法勝過這兩者中的較低損失。**切換的是最佳決策操作點，ROC 曲線本身沒有改變。** 動畫游標掃描人工參數，**不是模型訓練歷程或實測預測**；所有辨識率與成本均為示意假設。MkDocs 提供鍵盤可操作的播放／暫停及 Reduced Motion 靜態回退；手機可水平捲動。靜態圖直接呈現 20% 的交點，可在 GitHub 預覽。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-prior-policy-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-prior-policy-motion.svg)。ROC 決策成本解讀參見 References 的 Fawcett（2006）。
+
 
 ## 參考文獻
 
