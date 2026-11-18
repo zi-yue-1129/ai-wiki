@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-12
 related:
   - theory/math/probability-statistics
   - theory/optimization
@@ -18,75 +18,96 @@ aliases:
 
 # Hamiltonian Monte Carlo
 
-Hamiltonian Monte Carlo (HMC) proposes distant states by simulating the physical dynamics of a particle that moves through the target distribution, and then corrects the result with a Metropolis step. Its use of gradients makes it far more efficient than random-walk proposals in high dimensions. Part of [Markov chain Monte Carlo](index.md).
+Hamiltonian Monte Carlo (HMC) uses gradients of a continuous target density to propose new positions along a simulated trajectory. A Metropolis step corrects for the numerical integration error so that the target distribution is stationary.[^neal][^stan]
 
 ## Overview
 
-Random-walk proposals move slowly in high dimensions, because most proposed moves land in low-probability regions and are rejected. HMC avoids this by introducing auxiliary momentum variables \(p\) and following Hamiltonian dynamics, which keep the total energy nearly constant. The trajectory explores the distribution along long, smooth paths, and the final state is accepted or rejected to correct for numerical error.
+HMC introduces auxiliary momentum and uses it to turn local gradients into a sequence of directed moves. A trajectory can cover more distance than a random-walk proposal while keeping the total energy close to its starting value. This can improve exploration when the density is smooth and the integration is accurate. [Markov chain Monte Carlo](index.md).[^neal][^geometry]
 
 ## Key concepts
 
-- **Potential energy**: \(U(\theta) = -\log\pi(\theta)\), so that low-energy regions are high-probability regions.
-- **Kinetic energy**: \(K(p) = \tfrac12 p^\top M^{-1} p\), with a mass matrix \(M\) that is usually diagonal.
-- **Leapfrog integrator**: a symplectic numerical method that simulates the dynamics with small steps of size \(\varepsilon\) while approximately conserving energy.
-- **Step size and path length**: the step size controls accuracy, and the number of steps sets how far the trajectory travels.
-- **No-U-Turn Sampler (NUTS)**: an extension that chooses the number of steps automatically by stopping when the trajectory starts to double back (Hoffman & Gelman, 2014).
+Let $\pi(\theta)$ denote the target density, which may be known up to a constant factor. Choose a fixed positive-definite mass matrix $M$ and give the momentum $p$ a Gaussian distribution independent of $\theta$. The negative log of the joint density is the Hamiltonian $H$ up to an additive constant.[^stan]
+
+$$
+U(\theta)=-\log\pi(\theta),\qquad
+K(p)=\tfrac12 p^\top M^{-1}p,\qquad
+H(\theta,p)=U(\theta)+K(p).
+$$
+
+Here $U$ is potential energy and $K$ is kinetic energy. The joint density is proportional to $e^{-H(\theta,p)}$. Integrating out $p$ leaves the target density for $\theta$.[^stan]
 
 ## How it works
 
-Each HMC iteration does three things:
+### One leapfrog step
 
-1. Draw a fresh momentum \(p \sim \mathcal{N}(0, M)\).
-2. Simulate Hamiltonian dynamics for \(L\) leapfrog steps from \((\theta, p)\) to \((\theta^\*, p^\*)\).
-3. Accept \((\theta^\*, p^\*)\) with probability \(\min\!\big(1, \exp(H(\theta,p)-H(\theta^\*,p^\*))\big)\), where \(H = U + K\).
+Leapfrog approximates Hamiltonian dynamics by taking two half steps in momentum around a full step in position. For step size $\varepsilon$, the updates from step $j$ to step $j+1$ are[^neal][^stan]
 
-Because the leapfrog integrator nearly conserves \(H\), the acceptance probability stays high even for long trajectories. Neal (2011) reviews the method and shows why the dynamics give proposals that are both distant and likely to be accepted. The original idea was published as hybrid Monte Carlo in lattice physics by Duane et al. (1987).
+$$
+\begin{aligned}
+p_{j+1/2} &= p_j-\tfrac{\varepsilon}{2}\nabla U(\theta_j),\\
+\theta_{j+1} &= \theta_j+\varepsilon M^{-1}p_{j+1/2},\\
+p_{j+1} &= p_{j+1/2}-\tfrac{\varepsilon}{2}\nabla U(\theta_{j+1}).
+\end{aligned}
+$$
 
-Hoffman and Gelman (2014) show that NUTS performs well without hand-tuned path lengths, which made HMC practical in probabilistic programming systems.
+The middle update uses the intermediate momentum, and the last update uses the gradient at the new position.
+
+### One HMC transition
+
+1. From the current position $\theta_0$, draw $p_0\sim\mathcal{N}(0,M)$.
+2. Apply $L$ leapfrog steps. The position proposal is $\theta_L$.
+3. Compute $\Delta H=H(\theta_L,p_L)-H(\theta_0,p_0)$ and $\alpha=\min(1,e^{-\Delta H})$. Draw $u$ uniformly on $[0,1]$. Keep $\theta_L$ if $u<\alpha$, and keep $\theta_0$ otherwise. Record the retained position as the next draw, including when it repeats the previous one.[^neal]
+
+Leapfrog preserves volume in the joint position–momentum space. Applying the trajectory map followed by a momentum flip gives a proposal that undoes itself when applied twice. These properties let the Metropolis correction use the joint density ratio $e^{-\Delta H}$. The flip leaves $K$ unchanged and can be omitted when retaining only positions and fully refreshing momentum at the next iteration.[^neal]
 
 ## Animated walkthrough
 
-![Four-stage HMC walkthrough: momentum refresh, half kick, leapfrog integration and Metropolis correction](../../../../assets/concept-animations/hmc-leapfrog-trajectory-motion.svg)
+![Four-stage HMC walkthrough with momentum refresh, half kick, leapfrog integration and Metropolis correction](../../../../assets/concept-animations/hmc-leapfrog-trajectory-motion.svg)
 
-[Static final-state preview for GitHub and reduced-motion readers](../../../../assets/concept-animations/hmc-leapfrog-trajectory-still.svg). The MkDocs **Play animation / Pause animation** button supports keyboard Tab/Enter. The moving markers trace **positions**, not independent posterior draws.
+The moving markers trace positions along one trajectory. Use the MkDocs Play/Pause button with Tab and Enter. [Static final-state preview](../../../../assets/concept-animations/hmc-leapfrog-trajectory-still.svg).
 
-For a constructed two-dimensional standard Gaussian, let \(U(\theta)=\|\theta\|^2/2\), \(M=I\), initial \(\theta=(-1.6,0.4)\), refreshed \(p=(0.6,1.1)\), step size \(\varepsilon=0.35\) and \(L=5\). Leapfrog applies a half momentum kick, a position drift and another half kick per step, ending near \(\theta^*=(0.898,1.023)\). Directly evaluating \(H=U+K\) gives \(H_{\mathrm{start}}=2.145\) and \(H_{\mathrm{end}}\approx2.132\), hence \(\Delta H\approx-0.013\) and \(\alpha=\min(1,e^{-\Delta H})=1\); an illustrative \(u=0.50\) accepts the proposal. The momentum is refreshed **once per trajectory**, not at every leapfrog step. These are computed **toy values**, not measured HMC performance. See Neal (2011) below for the integrator and acceptance correction.
+In the animation, a two-dimensional standard Gaussian gives $U(\theta)=\|\theta\|^2/2$ up to a constant. With $M=I$, $\theta_0=(-1.6,0.4)$, $p_0=(0.6,1.1)$ and $\varepsilon=0.35$, five steps give $\theta_L\approx(0.898,1.023)$. Energy changes from $2.145$ to about $2.132$, so $\Delta H\approx-0.013$ and the proposal is accepted with probability $1$.
 
-*Original instructional animation and fallback: CC BY-SA 4.0.*
+A separate one-dimensional example shows rejection. With $U(\theta)=\theta^2/2$, $M=1$, $\theta_0=0$, $p_0=1$ and $\varepsilon=1$, one step gives $(\theta_1,p_1)=(1,0.5)$. Then $\Delta H=0.125$ and $\alpha\approx0.882$. For $u=0.90$, the recorded position remains $0$. Both examples use constructed teaching values.
+
+*Original instructional animation and fallback, CC BY-SA 4.0.*
 
 ## Key methods
 
-- [Metropolis–Hastings](metropolis-hastings.md): the random-walk method that HMC improves on, and the acceptance correction that HMC still uses.
-- No-U-Turn Sampler (NUTS): the adaptive variant described in the references, which removes the need to set the path length by hand.
+- [Metropolis–Hastings](metropolis-hastings.md) supplies the accept/reject construction. HMC builds its proposal by integrating a trajectory.[^neal]
+- **No-U-Turn Sampler (NUTS)** builds a trajectory in both directions, stops expansion when it detects a U-turn or hits a stopping limit, and selects a candidate from the trajectory according to its sampling rule. In Stan, step size and the mass matrix are tuned during warmup. NUTS still chooses a trajectory length for each transition during sampling.[^nuts][^stan]
 
 ## Connections
 
-- [Markov chain Monte Carlo](index.md) describes the general framework that HMC belongs to.
-- [Calculus and optimisation](../../../math/calculus/index.md) provides the gradients that drive the dynamics, and [optimisation](../../../optimization/index.md) covers gradient methods on the same kinds of functions.
-- Langevin dynamics, which uses gradients without momentum, is related to the sampling used in [score-based diffusion models](../../unsupervised/density-and-generative-models/diffusion/index.md).
+Gradients guide HMC proposals, and the resulting chain targets a distribution over positions. Gradient-based optimisers use gradients to search for extrema. [Calculus](../../../math/calculus/index.md), [Optimisation](../../../optimization/index.md).[^geometry]
 
 ## Applications
 
-- **Probabilistic programming**: the default sampler in systems such as Stan, where users write models and the sampler runs inference (Hoffman & Gelman, 2014).
-- **Hierarchical models**: posterior geometry that is hard for random-walk samplers, handled well by HMC (Neal, 2011).
-- **Lattice field theory**: the original use, where the method was introduced for simulating quantum field theories (Duane et al., 1987).
+Duane et al. introduced the method for lattice field simulations. Stan uses NUTS by default to sample continuous posterior parameters.[^duane][^stan]
 
-## Open questions
+## Limitations
 
-- Gradient cost: each step needs gradients of the log-density, which is expensive for large models.
-- Tuning the mass matrix and step size remains partly manual outside NUTS, and the guarantees for adaptive schemes are limited.
-- Multimodal posteriors can trap trajectories within one mode, so HMC still needs complementary methods.
+- Each leapfrog step uses gradient information. A very small step size increases the number of steps needed to travel a given distance, and a large step size can cause inaccurate trajectories. The mass matrix can adjust for differences in scale and correlation across parameters.[^stan]
+- Divergences flag trajectories with large integration error and can indicate that the sampler struggles to explore a region. Well-separated modes can also be hard to traverse even when local proposals have high acceptance.[^stan][^neal]
+
+[^neal]: Neal, [*MCMC Using Hamiltonian Dynamics*](https://arxiv.org/html/1206.1901), §§2.3, 3.2 and 5.7.
+[^stan]: Stan Development Team, [*MCMC Sampling*](https://mc-stan.org/docs/reference-manual/mcmc.html), sections on leapfrog, automatic tuning, NUTS and divergences.
+[^geometry]: Betancourt, [*A Conceptual Introduction to Hamiltonian Monte Carlo*](https://arxiv.org/abs/1701.02434), §§2–4.
+[^nuts]: Hoffman and Gelman, [*The No-U-Turn Sampler*](https://jmlr.org/papers/v15/hoffman14a.html), §§3–4.
+[^duane]: Duane et al., [*Hybrid Monte Carlo*](https://www.sciencedirect.com/science/article/abs/pii/037026938791197X), abstract.
 
 ## References
 
 ### Seminal papers
 
-- Duane, S., Kennedy, A. D., Pendleton, B. J. & Roweth, D. (1987). Hybrid Monte Carlo. *Physics Letters B* 195(2), 216–222. https://ui.adsabs.harvard.edu/abs/1987PhLB..195..216D/abstract — Introduces the hybrid method that combines molecular dynamics with a Metropolis correction.
-- Hoffman, M. D. & Gelman, A. (2014). The No-U-Turn sampler: adaptively setting path lengths in Hamiltonian Monte Carlo. *Journal of Machine Learning Research* 15. https://jmlr.org/papers/v15/hoffman14a.html — Introduces NUTS, which chooses the path length automatically.
+- Duane, S., Kennedy, A. D., Pendleton, B. J. & Roweth, D. (1987). *Hybrid Monte Carlo*. Physics Letters B 195(2), 216–222. https://www.sciencedirect.com/science/article/abs/pii/037026938791197X — Introduces the hybrid algorithm for simulation of lattice field theories.
+- Hoffman, M. D. & Gelman, A. (2014). *The No-U-Turn Sampler: Adaptively Setting Path Lengths in Hamiltonian Monte Carlo*. JMLR 15, 1593–1623. https://jmlr.org/papers/v15/hoffman14a.html — Derives dynamic trajectory construction and step-size adaptation for HMC.
 
 ### Surveys and textbooks
 
-- Neal, R. M. (2011). MCMC using Hamiltonian dynamics. In *Handbook of Markov Chain Monte Carlo*. arXiv:1206.1901. https://arxiv.org/abs/1206.1901 — Review of HMC, including the leapfrog integrator, energy conservation and tuning.
-- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://doi.org/10.1023/A:1020281327116 — Tutorial that places HMC among the general MCMC algorithms.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers HMC and its gradient requirements.
-- Gelman, A. et al. (2013). *Bayesian Data Analysis*, 3rd ed. CRC Press. https://sites.stat.columbia.edu/gelman/book — Discusses HMC and NUTS for posterior simulation in applied models.
+- Neal, R. M. (2011). *MCMC Using Hamiltonian Dynamics*. In Handbook of Markov Chain Monte Carlo. https://arxiv.org/abs/1206.1901 — Derives the leapfrog transition and explains its detailed balance and tuning.
+- Betancourt, M. (2017). *A Conceptual Introduction to Hamiltonian Monte Carlo*. https://arxiv.org/abs/1701.02434 — Explains the geometry of HMC and its practical trajectory construction.
+
+### Articles and documentation
+
+- Stan Development Team. *MCMC Sampling*. Stan Reference Manual. https://mc-stan.org/docs/reference-manual/mcmc.html — Documents the implemented samplers, warmup configuration and divergent transitions.

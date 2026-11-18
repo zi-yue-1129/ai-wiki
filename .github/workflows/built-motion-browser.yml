@@ -1,0 +1,75 @@
+name: Built motion browser regression
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "hooks/**"
+      - "overrides/**"
+      - "includes/**"
+      - "mkdocs.yml"
+      - "requirements.txt"
+      - "scripts/test_built_motion_browser.py"
+      - "scripts/test_built_motion_discovery.py"
+      - "scripts/test_mathjax_lifecycle.cjs"
+      - "scripts/test_*motion_semantics.py"
+      - "scripts/README-built-motion-browser.md"
+      - ".github/workflows/built-motion-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  built-motion-browser:
+    # Keep the OS compatible with this pinned Playwright release.
+    runs-on: ubuntu-24.04
+    # Full bilingual browser coverage plus cold dependency installation can exceed 20 minutes.
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install wiki and browser dependencies
+        run: |
+          python -m pip install -r requirements.txt "playwright==1.55.0"
+          python -m playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+          fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
+      - name: Test source discovery and language-specific output mapping
+        run: |
+          python scripts/test_built_motion_discovery.py
+          node scripts/test_mathjax_lifecycle.cjs
+      - name: Check available motion numerical semantics
+        run: |
+          python - <<'PYTHON'
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          for test in sorted(Path("scripts").glob("test_*motion_semantics.py")):
+              print(f"Running {test}", flush=True)
+              subprocess.run([sys.executable, str(test)], check=True)
+          PYTHON
+      - name: Build real bilingual pages
+        run: mkdocs build --strict
+      - name: Exercise built desktop, mobile and reduced-motion pages
+        run: python scripts/test_built_motion_browser.py
+      - name: Exercise sharpness calculators in the built bilingual site
+        run: SHARPNESS_SITE_DIR=site python scripts/test_sharpness_geometry_labs_browser.py
+      - name: Exercise built adaptive optimiser calculators
+        run: ADAPTIVE_SITE_DIR=site python scripts/test_adaptive_optimiser_labs_browser.py
+      - name: Keep browser screenshots and diagnostic report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review
+          path: |
+            artifacts/built-motion-browser/
+            artifacts/sharpness-labs/
+            artifacts/adaptive-optimiser-labs/
+          if-no-files-found: warn
+          retention-days: 14
