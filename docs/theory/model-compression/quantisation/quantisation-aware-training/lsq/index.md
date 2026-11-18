@@ -22,19 +22,38 @@ Fixed rules for the step size, such as setting it from the statistics of a tenso
 
 ## Core idea
 
-Make the step size a parameter of each quantiser, and update it from the loss in the same way as the weights. The gradient with respect to the step size passes through the rounding function with the straight-through approximation, so the step size moves to where the loss is lowest for the given bit-width.
+Make the step size a parameter of each quantiser, and update it from the loss in the same way as the weights. The gradient with respect to the step size passes through the rounding function with the straight-through approximation, to seek lower task loss at the given bit-width, without guaranteeing a global minimum.
 
 ## Equation or algorithm
 
-The quantised value is \(\hat{x} = s \cdot \operatorname{round}(\operatorname{clip}(x/s, -Q_n, Q_p))\), where \(s\) is the learned step size and \(Q_n\), \(Q_p\) set the integer range for the bit-width. The gradient with respect to \(s\) is taken through the rounding with the straight-through estimator. The paper scales this gradient by \(g = 1/\sqrt{N Q_p}\), where \(N\) is the number of weights (or features) in the layer, so that the step size learns at a sensible rate relative to the weights.
+The quantised value is
+
+\[
+\hat{x} = s \cdot \operatorname{round}(\operatorname{clip}(x/s, -Q_n, Q_p))
+\]
+
+, where \(s\) is the learned step size and \(Q_n\), \(Q_p\) set the integer range for the bit-width. The gradient with respect to \(s\) is taken through the rounding with the straight-through estimator. The paper scales this gradient by \(g = 1/\sqrt{N Q_p}\), where \(N\) is the number of weights (or features) in the layer, so that the step size learns at a sensible rate relative to the weights.
+
+For clarity, the LSQ surrogate step-size derivative retains the rounded value in the forward computation (Esser et al., 2020, Equation 3):
+
+$$
+\frac{\partial \hat x}{\partial s} \approx
+\begin{cases}
+-Q_n,& x/s\le -Q_n,\\
+\operatorname{round}(x/s)-x/s,& -Q_n<x/s<Q_p,\\
+Q_p,& x/s\ge Q_p.
+\end{cases}
+$$
 
 ## Instructional animation: step-size sweep and rounding error
 
-<div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Horizontally scrollable quantisation figure">
-  <img src="../../../../../assets/concept-animations/lsq-step-size-sweep-still.svg" data-motion-src="../../../../../assets/concept-animations/lsq-step-size-sweep-motion.svg" alt="Four fixed float weights and snapped teal values on a quantisation grid as step size moves from 1.0 to 0.6; orange dotted segments show rounding error." style="width:640px;max-width:none;height:auto" loading="lazy">
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Horizontally scrollable quantisation figure">
+  <img data-source-asset-urls src="../../../../../assets/concept-animations/lsq-step-size-sweep-still.svg" data-motion-src="../../../../../assets/concept-animations/lsq-step-size-sweep-motion.svg" data-still-src="../../../../../assets/concept-animations/lsq-step-size-sweep-still.svg" alt="Four fixed float weights and snapped teal values on a quantisation grid as step size moves from 1.0 to 0.6; orange dotted segments show rounding error." style="width:640px;min-width:640px;max-width:none;height:auto" loading="lazy">
 </div>
 
 *Original 10-second instructional animation (CC BY-SA 4.0). The four fixed synthetic weights are $(-1.1,-0.6,0.7,1.7)$ in a signed 3-bit grid $[-4,3]$. Sweeping $s$ from 1.0 to 0.6 changes quantised values from $(-1,-1,1,2)$ to $(-1.2,-0.6,0.6,1.8)$, reducing their illustrative summed squared rounding error from $0.35$ to $0.03$. This is a **fixed-weight sweep**, not an observed LSQ gradient-descent trajectory; smaller quantisation error does not guarantee lower task loss.* MkDocs adds keyboard-operable Play/Pause; reduced-motion mode starts with a still image, and the focusable figure can be scrolled horizontally on mobile. [View complete animated SVG](../../../../../assets/concept-animations/lsq-step-size-sweep-motion.svg); [GitHub-readable still](../../../../../assets/concept-animations/lsq-step-size-sweep-still.svg).
+
+All four weights remain inside the clipping range throughout this sweep. Code changes occur exactly at half-integer boundaries; nearest rounding determines the code away from a boundary, while exact-tie conventions are implementation-dependent. The moving grid shows all eight signed 3-bit codes, including −4.
 
 ## Results
 
