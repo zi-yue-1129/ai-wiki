@@ -60,6 +60,8 @@ For squared loss, the pseudo-residuals are the plain residuals, so each tree fit
 
 The reproducible **illustrative** targets are $y=(1,2,1,4,5,4)$, with a fixed two-leaf split after the third item and learning rate $\nu=0.6$. The initial mean is $F_0=17/6\approx2.833$. The first weak learner fits group residual means $(-1.5,+1.5)$, yielding group predictions $F_1\approx(1.933,3.733)$. Refitting residual group means $(-0.6,+0.6)$ yields $F_2\approx(1.573,4.093)$. A smooth interpolation between these exact stages helps visualize their change; **intermediate frames are not separate optimizer iterations**. The fixed split, numbers and residuals are not model benchmarks, and the figure omits split search, regularization and line search. This is the squared-loss case of Friedman's (2001) functional gradient procedure cited in References.
 
+The plot uses the exact affine scale $y_{\mathrm{SVG}}=300-34F$: the line and every residual endpoint share the same interpolated prediction. The second update is held to the end; restarting the loop resets to $F_0$ and is **not** a reverse optimisation step.
+
 ## Key methods
 
 ### Greedy function approximation: a gradient boosting machine (Friedman, 2001)

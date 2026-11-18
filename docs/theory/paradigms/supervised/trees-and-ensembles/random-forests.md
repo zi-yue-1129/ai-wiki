@@ -46,7 +46,7 @@ Then combine the trees. For classification, take a majority vote. For regression
 \hat f(x) = \frac{1}{T}\sum_{t=1}^{T} h_t(x)
 \]
 
-Breiman's paper argues that adding trees does not make the forest overfit. Because more trees do not hurt, the number of trees can be set large instead of being tuned for early stopping as in boosting.
+Breiman (2001, Theorem 1.2) proves that the forest's generalisation error converges almost surely to a limit as trees are added under the fixed randomised construction. This is not a guarantee that every additional tree improves a finite validation set, nor that arbitrary tree settings cannot overfit. Tree count can be increased until the out-of-bag or validation estimate stabilises, subject to computation cost.
 
 
 ## Animated walkthrough: bootstrap diversity and voting
@@ -79,6 +79,8 @@ The six **illustrative** draws are $A,C,C,E,F,F$, so cases $B$ and $D$ are **out
 [GitHub-safe feature-subset static preview](../../../../assets/concept-animations/rf-feature-subset-still.svg) · [Open the moving SVG](../../../../assets/concept-animations/rf-feature-subset-motion.svg)
 
 For **one hypothetical node**, suppose the best attainable impurity decreases for features $f_1,f_2,f_3,f_4$ are respectively $0.30,0.18,0.12,0.22$. With a candidate subset of size two, a draw of $\{f_2,f_3\}$ selects $f_2$ (gain $0.18$), while an alternative draw of $\{f_1,f_4\}$ selects $f_1$ (gain $0.30$). These are **counterfactual candidate draws at the same node, not consecutive splits or fitted measurements**. A random forest chooses the best allowed split among its sampled features; it does **not** always inspect every feature and does not choose the feature at random after evaluating all gains. The restriction can diversify trees while sacrificing a stronger split at an individual node, as discussed by Breiman (2001) in References. Original animation, **CC BY-SA 4.0**. MkDocs provides Play/Pause and a reduced-motion static fallback; use keyboard horizontal scrolling on a narrow screen.
+
+In the first overview, moving connector dots and pulsing duplicate-row highlights run on independent loops; they indicate data flow and repeated membership, **not** synchronised bootstrap draws or retraining. Its feature pairs illustrate one candidate set at a split, not a permanent feature restriction for an entire tree. In the detailed bootstrap example, the out-of-bag result appears only after all six draw tokens reach the bag; loop resets do not undo sampling.
 
 ## Key methods
 
