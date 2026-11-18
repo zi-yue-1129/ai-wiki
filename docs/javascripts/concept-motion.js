@@ -23,10 +23,12 @@
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
       const source = img.getAttribute('src') || '';
+      const attentionStill = /(?:sliding-window-mask|linear-attention-recurrence|sliding-window-depth-reach|linear-attention-work-growth|gqa-cache-growth|global-local-pair-count|flashattention-online-rescale|flashattention-exact-merge|flashattention-causal-tiles|flashattention-backward-remat|flashattention2-query-parallel|flashattention3-load-compute-pipeline)-still\.svg(?=$|[?#])/;
       const sourceName = source.split(/[?#]/, 1)[0].split('/').pop();
-      const animated = img.dataset.motionSrc || ((stillFirstPairs.has(sourceName) || motorStill.test(source) || staticFirst.test(source))
+      const animated = img.dataset.motionSrc || ((stillFirstPairs.has(sourceName) || motorStill.test(source) || staticFirst.test(source) || attentionStill.test(source))
         ? source.replace(/-still\.svg(?=$|[?#])/, '-motion.svg') : source);
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
+      const isAttentionTopic = attentionStill.test(animated.replace('-motion.svg','-still.svg'));
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
       const still = img.dataset.stillSrc || (staticFirst.test(source)
@@ -59,6 +61,13 @@
           ? '可水平捲動的教學規劃動畫'
           : 'Horizontally scrollable planning animation');
       }
+      if (/^(layernorm-feature-shift|seq2seq-context-handoff)-motion\.svg$/.test(fileName)) {
+        host.classList.add('norm-seq-wide');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫區域' : 'Horizontally scrollable concept animation');
+      }
+      if (isAttentionTopic) {host.classList.add('concept-motion-wide');host.classList.add('attention-motion-wide');host.tabIndex = 0;host.setAttribute('role','region');host.setAttribute('aria-label',chinese?'注意力圖解，可水平捲動':'Attention diagram, horizontally scrollable');}
       img.before(host);
       const diffusion = wideDiagram.test(animated);
       if (diffusion) host.classList.add('concept-motion-diffusion');

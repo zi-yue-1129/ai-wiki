@@ -47,6 +47,105 @@
 .diffusion-motion-scroll .concept-motion-player{width:800px;max-width:none;margin:0}
 .diffusion-motion-scroll img,.diffusion-motion-scroll .concept-motion-player img{display:block;width:800px;min-width:800px;max-width:none;height:auto}
 .diffusion-motion-scroll:focus-visible{outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:3px}
+/* Topic-scoped, focusable LIME/SHAP native-resolution diagrams. */
+.explanation-motion { max-width:100%;overflow-x:auto;overscroll-behavior-x:contain; }
+.explanation-motion .concept-motion-fixed { width:640px;min-width:640px; }
+.explanation-motion:focus-visible { outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:-3px; }
+/* Keep wide causal-attention teaching diagrams legible at mobile widths. */
+.md-typeset .concept-motion-player.attention-motion-wide {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+.md-typeset .concept-motion-player.attention-motion-wide > img {
+  display: block;
+  width: 860px;
+  min-width: 860px;
+  max-width: none;
+  height: auto;
+}
+.md-typeset .concept-motion-player.attention-motion-wide:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 2px;
+}
+.md-typeset p:has(> img[src*="gqa-cache-growth-still.svg"]),
+.md-typeset p:has(> img[src*="global-local-pair-count-still.svg"]),
+.md-typeset p:has(> img[src*="sliding-window-mask-still.svg"]),
+.md-typeset p:has(> img[src*="linear-attention-recurrence-still.svg"]),
+.md-typeset p:has(> img[src*="sliding-window-depth-reach-still.svg"]),
+.md-typeset p:has(> img[src*="linear-attention-work-growth-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="gqa-cache-growth-still.svg"],
+.md-typeset p > img[src*="global-local-pair-count-still.svg"],
+.md-typeset p > img[src*="sliding-window-mask-still.svg"],
+.md-typeset p > img[src*="linear-attention-recurrence-still.svg"],
+.md-typeset p > img[src*="sliding-window-depth-reach-still.svg"],
+.md-typeset p > img[src*="linear-attention-work-growth-still.svg"] {
+  display: block;
+  width: 860px;
+  min-width: 860px;
+  max-width: none;
+  height: auto;
+}
+
+/* 640px FlashAttention numerical walkthroughs: legible without JavaScript too. */
+.md-typeset p:has(> img[src*="flashattention-online-rescale-still.svg"]),
+.md-typeset p:has(> img[src*="flashattention-exact-merge-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="flashattention-online-rescale-still.svg"],
+.md-typeset p > img[src*="flashattention-exact-merge-still.svg"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention-online-rescale-"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention-exact-merge-"] {
+  display: block;
+  width: 640px;
+  min-width: 640px;
+  max-width: none;
+  height: auto;
+}
+
+/* Additional FlashAttention causal and backward teaching diagrams. */
+.md-typeset p:has(> img[src*="flashattention-causal-tiles-still.svg"]),
+.md-typeset p:has(> img[src*="flashattention-backward-remat-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="flashattention-causal-tiles-still.svg"],
+.md-typeset p > img[src*="flashattention-backward-remat-still.svg"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention-causal-tiles-"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention-backward-remat-"] {
+  display: block;
+  width: 640px;
+  min-width: 640px;
+  max-width: none;
+  height: auto;
+}
+
+/* FlashAttention-2/3 GitHub-safe previews and local 640px controls. */
+.md-typeset p:has(> img[src*="flashattention2-query-parallel-still.svg"]),
+.md-typeset p:has(> img[src*="flashattention3-load-compute-pipeline-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="flashattention2-query-parallel-still.svg"],
+.md-typeset p > img[src*="flashattention3-load-compute-pipeline-still.svg"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention2-query-parallel-"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention3-load-compute-pipeline-"] {
+  display: block;
+  width: 640px;
+  min-width: 640px;
+  max-width: none;
+  height: auto;
+}
+/* Only the shared-KV / mean-pooling source diagrams: preserve readable 640px art. */
+.md-typeset .gqa-source-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain}
+.md-typeset .gqa-source-scroll img{display:block;width:640px;min-width:640px;max-width:none;height:auto}
+.md-typeset .gqa-source-scroll:focus-visible{outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:2px}
 /* Explicit source-owned scroll regions, focusable before and after enhancement. */
 .md-typeset .reviewed-motion-scroll:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
 
