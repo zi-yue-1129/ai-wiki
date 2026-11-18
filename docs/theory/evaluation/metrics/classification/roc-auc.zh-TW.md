@@ -165,7 +165,7 @@ J(k)=\operatorname{TPR}(k)-\operatorname{FPR}(k)
 L(k)=5(0.40)[1-\operatorname{TPR}(k)]+(0.60)\operatorname{FPR}(k).
 \]
 
-**k = 2 時 J = 2/3 最大**。若額外假設**部署正例比例是 0.40**、漏報成本為 5、誤報成本為 1，則**k = 6 時預期成本 L = 0.60 最低**，低於 k = 2 的 `L = 2/3`。成本單位是每次決策的假設損失，TPR／FPR 則由人工排序資料估算。因此條件式辨識率所偏好的門檻，不必然是部署損失最低的門檻。**以上並非模型實測結果。** MkDocs 提供鍵盤可操作的播放／暫停；偏好減少動態效果時展示兩個最適點的靜態圖。手機請聚焦後橫向捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-youden-cost-motion.svg)。
+**k = 2 時 J = 2/3 最大**。若額外假設**部署正例比例是 0.40**、漏報成本為 5、誤報成本為 1，則**k = 6 時預期成本 L = 0.60 最低**，低於 k = 2 的 `L = 2/3`。再做一組**成本比率的反事實比較**：維持盛行率 0.40 與誤報成本 1，但將漏報成本從 5 改為 **1**，此時**唯一的最低成本門檻變成 k = 2**，`L(2) = 0.4/3 ≈ 0.133`，而 `L(6) = 0.60`。原先 k = 6 最佳的結果取決於成本假設，並非 ROC 曲線發生變化。成本單位是每次決策的假設損失，TPR／FPR 則由人工排序資料估算。因此條件式辨識率所偏好的門檻，不必然是部署損失最低的門檻。**以上並非模型實測結果。** MkDocs 提供鍵盤可操作的播放／暫停；偏好減少動態效果時展示兩個最適點的靜態圖。手機請聚焦後橫向捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-youden-cost-motion.svg)。
 
 ## 參考文獻
 

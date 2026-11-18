@@ -13,7 +13,7 @@ Classification metrics score a model whose output is a class label or a score fo
 
 ## Key metrics
 
-| Metric | What it measures | Threshold needed | Use when |
+| Metric | What it measures | Fixed label-decision rule? | Use when |
 |---|---|---|---|
 | [Accuracy](accuracy.md) | Fraction of correct labels | Yes | Classes are balanced and every error costs the same |
 | [Precision](precision.md) | Share of predicted positives that are correct | Yes | False alarms are costly |
@@ -22,7 +22,7 @@ Classification metrics score a model whose output is a class label or a score fo
 | [ROC-AUC](roc-auc.md) | Ranking of positives above negatives | No | Comparing models without fixing a threshold |
 | [PR-AUC](pr-auc.md) | Precision across recall levels | No | Positives are rare |
 
-The label-based metrics change with the threshold, so report the threshold together with the number. The ranking metrics do not depend on one threshold, but they can look optimistic when positives are rare.
+For a score-based **binary** classifier, label metrics generally change when the cutoff changes. Multiclass predictions may instead use `argmax`, and models may supply labels directly; neither case requires a single numeric cutoff. Report the label-decision rule (and any relevant cutoff) alongside accuracy, precision, recall and F1. ROC-AUC and PR-AUC aggregate across score thresholds rather than choosing one operating point; inspect precision and class prevalence when positives are rare.
 
 ## Shared synthetic 100-case example
 
@@ -35,6 +35,15 @@ The worked examples for [accuracy](accuracy.md), [precision](precision.md), [rec
 | **Total** | **50** | **50** | **100** |
 
 From these *identical* 100 cases, accuracy is **70/100 = 0.700**, precision is **40/50 = 0.800**, recall is **40/60 ≈ 0.667**, and F1 is **80/110 ≈ 0.727**. This is a **constructed count example, not measured classifier performance**. The animations linked in the metric pages use their own explicitly stated synthetic score sets or population parameters and **must not be read as sequential results from these 100 cases**.
+
+## Guided animations: two different evaluation questions
+
+The following **synthetic**, bilingual demonstrations are shared with the detailed metric pages. They explain different decisions; neither displays measured classifier outcomes.
+
+- **Does a changing base rate move the ROC point?** The [ROC/PR prevalence animation](roc-auc.md) holds TPR = 0.80 and FPR = 0.10 constant while positive prevalence varies from 5% to 60%. Its ROC point stays fixed, but precision rises from about 0.296 to 0.923. The same animation is explained in [PR-AUC](pr-auc.md). [GitHub static preview](../../../../assets/concept-animations/roc-pr-prevalence-still.svg).
+- **Which threshold should be deployed?** The [Youden-J versus expected-loss animation](roc-auc.md) compares seven cutoffs on six distinct-score ranked cases. Maximum J occurs at k = 2; for hypothetical prevalence 0.40, false-positive cost 1 and false-negative cost 5, minimum expected loss instead occurs at k = 6. If false-negative cost were 1, the loss minimum would move back to k = 2. [GitHub static preview](../../../../assets/concept-animations/roc-youden-cost-still.svg).
+
+On MkDocs, use the keyboard-accessible Play/Pause control. With reduced motion the static frame is shown; on narrow screens focus and scroll horizontally.
 
 ## Connections
 

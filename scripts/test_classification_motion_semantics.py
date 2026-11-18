@@ -374,3 +374,29 @@ for stem in ("roc-pr-prevalence", "roc-youden-cost"):
         page = (worked_root / ("roc-auc" + suffix)).read_text(encoding="utf-8")
         assert stem + "-motion.svg" in page and stem + "-still.svg" in page
 print("Bilingual prevalence-shift and Youden tradeoff motion semantics OK")
+
+
+# Regression: the very same ranked ROC example selects different operating
+# points when only the relative cost of missing a positive changes.
+for _fn_cost, _expected_k in ((1, 2), (5, 6)):
+    _hypothetical = []
+    for _k in range(7):
+        _tp = sum(_synthetic_labels[:_k])
+        _fp = _k - _tp
+        _tpr, _fpr = _tp / 3, _fp / 3
+        _hypothetical.append(_fn_cost * .4 * (1 - _tpr) + .6 * _fpr)
+    assert _hypothetical.index(min(_hypothetical)) == _expected_k
+    if _fn_cost == 1:
+        assert math.isclose(_hypothetical[2], 2 / 15)
+        assert math.isclose(_hypothetical[6], .6)
+for _suffix, _guide, _counterfactual in (
+    (".md", "Guided animations", "cost-ratio counterfactual"),
+    (".zh-TW.md", "教學動畫導覽", "成本比率的反事實比較"),
+):
+    _overview = (worked_root / ("index" + _suffix)).read_text(encoding="utf-8")
+    _roc_text = (worked_root / ("roc-auc" + _suffix)).read_text(encoding="utf-8")
+    assert _guide in _overview
+    assert "roc-pr-prevalence-still.svg" in _overview
+    assert "roc-youden-cost-still.svg" in _overview
+    assert _counterfactual in _roc_text
+print("Bilingual navigation and cost-ratio counterfactual OK")
