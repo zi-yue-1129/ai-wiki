@@ -45,10 +45,12 @@ Accept as ID when $s(x)>\delta$; otherwise flag OOD. The practical sequence is a
 ### Visual walkthrough: score-increasing input step
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="ODIN input-gradient visual">
-<div style="width:640px">
-<img src="../../../assets/concept-animations/odin-gradient-perturbation-still.svg" data-motion-src="../../../assets/concept-animations/odin-gradient-perturbation-motion.svg" width="640" height="360" alt="In an illustrative one-dimensional ODIN detector, a positive input-gradient step moves x from 1 to 1.25; the softmax confidence rises from 0.731 to 0.777 and crosses a decision threshold at 0.75.">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls style="display:block;width:640px;min-width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/odin-gradient-perturbation-still.svg" data-still-src="../../../assets/concept-animations/odin-gradient-perturbation-still.svg" data-motion-src="../../../assets/concept-animations/odin-gradient-perturbation-motion.svg" width="640" height="360" alt="In an illustrative one-dimensional ODIN detector, a positive input-gradient step moves x from 1 to 1.25; the softmax confidence rises from 0.731 to 0.777 and crosses a decision threshold at 0.75.">
 </div>
 </div>
+
+Focus the figure area with Tab, then use the Left and Right arrow keys to scroll. The white ring on the upper confidence axis tracks the current input score; BEFORE and AFTER remain fixed endpoint references. The return motion resets the demonstration, rather than applying another ODIN update.
 
 *Original animated teaching visual (CC BY-SA 4.0).* The diagram uses an **invented differentiable classifier**, with logits \(f_A(x)=2x\), \(f_B(x)=0\), temperature \(T=2\), initial \(x=1\), and perturbation magnitude \(\varepsilon=0.25\). Since \(S_A(x;2)=\sigma(x)\), the input derivative \(\partial_x\log S_A=1-S_A>0\) makes \(\tilde x=1.25\). Thus the confidence increases from approximately **0.731 to 0.777**, crossing an **arbitrary** illustrative acceptance threshold \(\delta=0.75\). The intermediate trajectory is interpolated for teaching. **It is not an image-classifier measurement, an empirical OOD score distribution, or proof of detection quality.** On the MkDocs site, use Play/Pause; on GitHub the [static preview](../../../assets/concept-animations/odin-gradient-perturbation-still.svg) shows the endpoints. The figure scrolls horizontally on small screens. See Liang et al. (2018) in References.
 

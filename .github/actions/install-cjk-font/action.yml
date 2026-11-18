@@ -1,0 +1,105 @@
+name: Verified CJK font archive
+description: Restore only font download bytes and validate against fresh signed Ubuntu metadata.
+inputs:
+  mode:
+    description: auto, miss, disabled, corrupt, or fallback (last two are fault-injection tests)
+    default: auto
+  test-key:
+    description: Isolated verification cache key; never used by normal consumers
+    default: ''
+  save:
+    description: Save production cache on trusted main only
+    default: 'false'
+outputs:
+  key:
+    value: ${{ steps.prepare.outputs.key }}
+  export:
+    value: ${{ steps.prepare.outputs.directory }}/export
+  report:
+    value: ${{ steps.prepare.outputs.directory }}/report.json
+runs:
+  using: composite
+  steps:
+    - name: Refresh authenticated package metadata
+      shell: bash
+      run: |
+        set -euo pipefail
+        sudo apt-get -o APT::Update::Error-Mode=any update -qq
+        sudo apt-get install -y --no-install-recommends python3-apt
+    - name: Resolve current signed candidate and isolated workspace
+      id: prepare
+      shell: bash
+      env:
+        MODE: ${{ inputs.mode }}
+        TEST_KEY: ${{ inputs.test-key }}
+        VALIDATOR_HASH: ${{ hashFiles('scripts/ci_font_archive.py') }}
+      run: |
+        set -euo pipefail
+        case "$MODE" in auto|miss|disabled|corrupt|fallback) ;; *) exit 2 ;; esac
+        directory="$RUNNER_TEMP/verified-cjk-font"
+        test ! -e "$directory"
+        mkdir "$directory"
+        mkdir "$directory/restore"
+        key=$(/usr/bin/python3 scripts/ci_font_archive.py key)
+        echo "directory=$directory" >> "$GITHUB_OUTPUT"
+        echo "key=${TEST_KEY:-$key-$VALIDATOR_HASH}" >> "$GITHUB_OUTPUT"
+    - name: Restore untrusted archive bytes
+      id: restore
+      if: inputs.mode == 'auto' || inputs.mode == 'corrupt'
+      continue-on-error: true
+      uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      env:
+        SEGMENT_DOWNLOAD_TIMEOUT_MINS: '1'
+      with:
+        path: ${{ steps.prepare.outputs.directory }}/restore
+        key: ${{ steps.prepare.outputs.key }}
+    - name: Inject cache transport failure for fallback verification
+      if: inputs.mode == 'fallback'
+      continue-on-error: true
+      shell: bash
+      run: exit 1
+    - name: Inject same-size corruption for verifier regression
+      if: inputs.mode == 'corrupt'
+      shell: bash
+      env:
+        PAYLOAD: ${{ steps.prepare.outputs.directory }}/restore/font.deb
+      run: |
+        /usr/bin/python3 - <<'PY'
+        import os
+        from pathlib import Path
+        p = Path(os.environ['PAYLOAD'])
+        with p.open('r+b') as f:
+            byte = f.read(1)
+            assert byte, 'Corruption test requires a restored nonempty font archive'
+            f.seek(0)
+            f.write(bytes([byte[0] ^ 1]))
+        PY
+    - name: Validate bytes and install through APT
+      shell: bash
+      env:
+        DIRECTORY: ${{ steps.prepare.outputs.directory }}
+        MODE: ${{ inputs.mode }}
+      run: |
+        set -euo pipefail
+        flags=()
+        if [ "$MODE" = disabled ]; then flags+=(--disabled); fi
+        sudo /usr/bin/python3 scripts/ci_font_archive.py install \
+          --cache "$DIRECTORY/restore" --export "$DIRECTORY/export" \
+          --report "$DIRECTORY/report.json" "${flags[@]}"
+    - name: Stage verified bytes for optional save
+      shell: bash
+      env:
+        DIRECTORY: ${{ steps.prepare.outputs.directory }}
+      run: |
+        set -euo pipefail
+        rm -rf -- "$DIRECTORY/restore"
+        mkdir "$DIRECTORY/restore"
+        cp -- "$DIRECTORY/export/font.deb" "$DIRECTORY/restore/font.deb"
+    - name: Save verified archive for sibling pull requests
+      if: inputs.save == 'true' && inputs.test-key == '' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+      continue-on-error: true
+      uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      with:
+        # Same path schema as restore: copy a single verified payload, not root state.
+        path: ${{ steps.prepare.outputs.directory }}/restore
+        key: ${{ steps.prepare.outputs.key }}

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-30
+translation_reviewed: 2026-11-18
 ---
 
 # 馬氏距離偵測器
@@ -56,12 +56,14 @@ $$
 ### 視覺示範：共變異數決定的接受邊界
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="馬氏距離特徵空間動畫">
-<div style="width:640px">
-<img src="../../../assets/concept-animations/mahalanobis-ellipse-threshold-still.svg" data-motion-src="../../../assets/concept-animations/mahalanobis-ellipse-threshold-motion.svg" width="640" height="360" alt="兩個類別均值為 (0,0) 和 (4,0)，共享共變異數形成兩個等距橢圓；特徵從 (2,1) 移至 (0,2)，使最小平方馬氏距離從 2 增加至 4，跨越門檻 3。">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls style="display:block;width:640px;min-width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/mahalanobis-ellipse-threshold-still.svg" data-still-src="../../../assets/concept-animations/mahalanobis-ellipse-threshold-still.svg" data-motion-src="../../../assets/concept-animations/mahalanobis-ellipse-threshold-motion.svg" width="640" height="360" alt="兩個類別均值為 (0,0) 和 (4,0)，共享共變異數形成兩個等距橢圓；特徵從 (2,1) 移至 (0,2)，使最小平方馬氏距離從 2 增加至 4，跨越門檻 3。">
 </div>
 </div>
 
-*原創教學動畫（CC BY-SA 4.0）。* 採用前述**人工假設**的類別均值及共變異數；紫色虛線橢圓表示 \(D_c^2=3\) 的等距輪廓，**不是實際抽樣的特徵密度**。示意特徵沿 \(z(t)=(2-2t,1+t)\) 移動，\(0\le t\le1\)，最小平方距離為 \(D_{\min}^2(t)=2+2t^2\)。因此在任意設定的 \(D_{\min}^2<3\) 規則下，從 **2（接受）**移至 **4（拒絕）**，在 \(t>1/\sqrt{2}\) 時跨越邊界。動態位置是解析路徑的插值呈現，並非模型實測特徵或 OOD 偵測率。MkDocs 網站支援播放／暫停；[GitHub 靜態預覽](../../../assets/concept-animations/mahalanobis-ellipse-threshold-still.svg) 同時顯示兩個端點。手機可水平捲動。原始方法見 References 的 Lee 等人（2018）。
+以 Tab 聚焦圖表區後，可按左右方向鍵捲動。
+
+*原創教學動畫（CC BY-SA 4.0）。* 採用前述**人工假設**的類別均值及共變異數；紫色虛線橢圓表示 \(D_c^2=3\) 的等距輪廓，**不是實際抽樣的特徵密度**。示意特徵沿 \(z(t)=(2-2t,1+t)\) 移動，\(0\le t\le1\)，最小平方距離為 \(D_{\min}^2(t)=2+2t^2\)。因此在任意設定的 \(D_{\min}^2<3\) 規則下，從 **2（接受）**移至 **4（拒絕）**，在 \(t=1/\sqrt{2}\) 抵達邊界，並於 \(t\ge1/\sqrt{2}\) 時拒絕。動態位置是解析路徑的插值呈現，並非模型實測特徵或 OOD 偵測率。MkDocs 網站支援播放／暫停；[GitHub 靜態預覽](../../../assets/concept-animations/mahalanobis-ellipse-threshold-still.svg) 同時顯示兩個端點。手機可水平捲動。原始方法見 References 的 Lee 等人（2018）。
 
 ## 輸入前處理與多層特徵
 
