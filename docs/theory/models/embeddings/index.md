@@ -49,13 +49,13 @@ Four families of training signal cover most embeddings in use.
 
 ## Key methods
 
-Brief comparison. Each named method is a candidate for its own method page; those pages are not yet written, so the detail is given in this section for now.
+Each method below has its own page, with the problem, the training objective, the reported results and the limitations.
 
-- **word2vec (prediction from context)**: local context prediction, fast on large text. Produces static word vectors, one per word.
-- **GloVe (co-occurrence factorisation)**: global counts, static word vectors. Similar role to word2vec, with a different route to the vectors.
-- **FaceNet (metric learning)**: a learned embedding for identity, trained with a triplet-based objective. Specialised to comparisons between instances.
-- **Sentence-BERT (siamese encoder)**: contextual sentence vectors that can be compared quickly. Trained for similarity rather than generation.
-- **CLIP (modality alignment)**: a shared space for images and text, learned from paired data.
+- [word2vec](word2vec.md) (prediction from context): local context prediction, fast on large text. Produces static word vectors, one per word.
+- [GloVe](glove.md) (co-occurrence factorisation): fits global counts, so it uses corpus-wide statistics. Static vectors, with a different route to similar results.
+- [FaceNet](facenet.md) (metric learning): a learned embedding for identity, trained directly on distances with a triplet loss. Specialised to comparisons between instances.
+- [Sentence-BERT](sentence-bert.md) (siamese encoder): sentence vectors from a pre-trained transformer that can be compared quickly with cosine similarity. Trained for similarity rather than generation.
+- [CLIP](clip.md) (modality alignment): a shared space for images and text, learned from paired data, which supports zero-shot classification.
 
 ## Connections
 

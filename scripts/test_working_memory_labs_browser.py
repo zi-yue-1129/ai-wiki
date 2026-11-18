@@ -37,9 +37,9 @@ def run():
                     gctrl.nth(2).click();gctrl.nth(2).click()
                     assert 'A' in gate.locator('.wm-lab-status').inner_text(), 'closed distractor must retain A'
                     gate.locator('input[type=checkbox]').first.check()
-                    assert 'X' in gate.locator('.wm-lab-status').inner_text(), 'open distractor must overwrite A'
+                    assert gate.get_attribute('data-current-memory')=='X', 'open distractor must overwrite A'
                     gate.locator('input[type=checkbox]').first.uncheck()
-                    gctrl.nth(2).click();assert 'B' in gate.locator('.wm-lab-status').inner_text()
+                    gctrl.nth(2).click();assert gate.get_attribute('data-current-memory')=='B'
                     gctrl.nth(3).click();assert '0/3' in gate.locator('.wm-lab-status').inner_text()
                     gctrl.nth(2).focus();page.keyboard.press('Enter')
                     assert '1/3' in gate.locator('.wm-lab-status').inner_text()

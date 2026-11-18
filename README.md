@@ -41,6 +41,14 @@ The wiki is written in English and includes Traditional Chinese (繁體中文) t
 
 Start with the [Glossary](docs/reference/glossary/index.md) if a term is unfamiliar, or the [Learning Paths](docs/start/learning-paths/index.md) if you want a guided route.
 
+## 🔎 Evidence retrieval pilot
+
+For read-only agent access, the [LoRA/QLoRA pilot](docs/reference/knowledge-pilot/index.md) provides eight bilingual, source-linked evidence cards and an offline Python CLI. Search returns candidates with limitations and source versions, not generated answers or a whole-wiki accuracy guarantee. No API key is required.
+
+```bash
+python scripts/knowledge.py search "QLoRA 運算精度"
+```
+
 ## 🛠️ Local preview
 
 Requires Python 3.12 or newer.

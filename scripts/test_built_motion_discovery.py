@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """Browser-free regression tests for the built-motion browser harness."""
 from pathlib import Path
+import json
 import tempfile
 from types import SimpleNamespace
 import unittest
+from unittest.mock import Mock
 
 from test_built_motion_browser import (
-    Images, MotionPage, assert_document_fits, check_built_page, discover_pages,
-    source_asset_url,
+    Images, MotionPage, assert_document_fits, check_built_page, check_math_rendering, discover_pages,
+    record_failure_diagnostics, source_asset_url, check_keyboard_scrollers,
 )
 
 BASE = "https://example.test/ai-wiki/"
@@ -135,9 +137,91 @@ class DiscoveryTests(unittest.TestCase):
         page.evaluate = lambda _js: {"inner": 980, "client": 980, "width": 980}
         with self.assertRaisesRegex(AssertionError, "actual viewport mismatch"):
             assert_document_fits(page, {"width": 390})
+        page.evaluate = lambda _js: {"inner": 391, "client": 390, "width": 391}
+        with self.assertRaisesRegex(AssertionError, "actual viewport mismatch"):
+            assert_document_fits(page, {"width": 390})
         page.evaluate = lambda _js: {"inner": 390, "client": 390, "width": 640}
         with self.assertRaisesRegex(AssertionError, "whole-document horizontal overflow"):
             assert_document_fits(page, {"width": 390})
+
+    def test_failure_diagnostics_keep_fractional_bounds_in_artifact(self):
+        diagnostic = {"innerWidth": 391, "overflowingTextRanges": [
+            {"text": "文字", "rect": {"right": 390.625}}]}
+        page = SimpleNamespace(evaluate=lambda _js: diagnostic)
+        result = {"status": "failed", "error": "original failure"}
+        record_failure_diagnostics(page, self.site, result)
+        self.assertEqual(result["error"], "original failure")
+        self.assertEqual(result["status"], "failed")
+        self.assertEqual(json.loads((self.site / result["overflow_diagnostics"]).read_text()), diagnostic)
+
+    def test_math_rendering_rejects_nested_or_forgotten_assistive_output(self):
+        valid = {"sourceRoots": 1, "unrendered": 0, "containers": 1,
+                 "nestedAssistive": 0, "assistiveMathML": 1, "trackedItems": 1}
+        page = SimpleNamespace(evaluate=lambda _js: valid)
+        self.assertEqual(check_math_rendering(page), valid)
+        for changes, message in [({"nestedAssistive": 1}, "typeset again"),
+                                 ({"unrendered": 1}, "unrendered math"),
+                                 ({"assistiveMathML": 0}, "missing assistive"),
+                                 ({"trackedItems": 0}, "forgotten")]:
+            page.evaluate = lambda _js: {**valid, **changes}
+            with self.assertRaisesRegex(AssertionError, message):
+                check_math_rendering(page)
+
+    def test_diagnostics_error_does_not_replace_original_failure(self):
+        def fail(_js):
+            raise RuntimeError("page unavailable")
+        result = {"status": "failed", "error": "original failure"}
+        record_failure_diagnostics(SimpleNamespace(evaluate=fail), self.site, result)
+        self.assertEqual(result, {"status": "failed", "error": "original failure",
+                                  "overflow_diagnostics_error": "page unavailable"})
+
+
+class KeyboardScrollTests(unittest.TestCase):
+    def fixture(self, width=640):
+        region = Mock()
+        region.is_visible.return_value = True
+        region.evaluate.side_effect = [
+            {'clientWidth': 358, 'scrollWidth': width}, None, True, 40, None, 0,
+        ]
+        page = Mock()
+        page.locator.return_value.count.return_value = 1
+        page.locator.return_value.nth.return_value = region
+        return page, region
+
+    def test_keyboard_scroll_is_measured_and_reset(self):
+        page, region = self.fixture()
+        result = check_keyboard_scrollers(page)
+        self.assertEqual(result, [{'clientWidth': 358, 'scrollWidth': 640, 'afterArrowRight': 40}])
+        region.focus.assert_called_once()
+        region.press.assert_called_once_with('ArrowRight')
+        page.wait_for_function.assert_called_once()
+        self.assertIn('scrollLeft > 0', page.wait_for_function.call_args.args[0])
+
+    def test_scroll_settling_and_blur_are_not_skipped(self):
+        page, region = self.fixture()
+        check_keyboard_scrollers(page)
+        calls = [c.args[0] for c in region.evaluate.call_args_list]
+        self.assertEqual(sum('stableSince' in js for js in calls), 2)
+        self.assertTrue(any('e.blur()' in js and 'scrollTo' in js for js in calls))
+
+    def test_reset_failure_is_not_swallowed(self):
+        page, region = self.fixture()
+        region.evaluate.side_effect = [
+            {'clientWidth': 358, 'scrollWidth': 640}, None, True, 40, None, 2,
+        ]
+        with self.assertRaisesRegex(AssertionError, 'Scroll region did not reset'):
+            check_keyboard_scrollers(page)
+
+    def test_non_overflowing_region_is_not_falsely_reported(self):
+        page, region = self.fixture(width=358)
+        self.assertEqual(check_keyboard_scrollers(page), [])
+        region.press.assert_not_called()
+
+    def test_failed_native_scrolling_is_not_swallowed(self):
+        page, _ = self.fixture()
+        page.wait_for_function.side_effect = TimeoutError('No native scrolling')
+        with self.assertRaisesRegex(TimeoutError, 'No native scrolling'):
+            check_keyboard_scrollers(page)
 
 
 if __name__ == "__main__":

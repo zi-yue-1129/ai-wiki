@@ -1,5 +1,15 @@
 /* Original illustrative simulations; no fitted neural parameters or measured recordings. */
 (() => {
+  function gateState(step,admitX,admitB){
+    const events=[{value:'–',open:false},{value:'A',open:true},{value:'X',open:admitX},{value:'B',open:admitB}];
+    let memory='–';for(let i=1;i<=step;i++)if(events[i].open)memory=events[i].value;
+    return {event:events[step],memory};
+  }
+  function silentTrace(tau,refresh,max=8){
+    const trace=[1],spike=[1];for(let t=1;t<=max;t++){const event=t===4&&refresh?0.55:0;trace.push(trace[t-1]*Math.exp(-1/tau)+event);spike.push(event?1:0);}
+    return {trace,spike};
+  }
+  window.WMTeachingMath=Object.freeze({gateState,silentTrace});
   const svgNS = 'http://www.w3.org/2000/svg';
   const words = {
     en: {step:'Step',previous:'Previous',next:'Next',play:'Play',pause:'Pause',seek:'Step',speed:'Speed',reset:'Reset',distractor:'Admit distractor X',replacement:'Admit replacement B',decay:'Trace time constant (steps)',refresh:'Refresh burst',store:'Memory',input:'Input',gate:'Gate',hold:'HOLD',write:'WRITE',none:'Empty',quiet:'Silent',burst:'Burst',trace:'Trace',spikes:'Spikes',remaining:'Trace value',interval:'Delay',off:'Off'},
@@ -33,7 +43,7 @@
     root.append(settings,viewport,nav,status);
     const stop=()=>{if(timer!==null){clearInterval(timer);timer=null;}play.textContent=w.play;play.setAttribute('aria-pressed','false');};
     const tick=()=>{if(step===max){stop();return;}step++;render();if(step===max)stop();};
-    function gateFrame(){const events=[{value:'–',open:false},{value:'A',open:true},{value:'X',open:admitX.checked},{value:'B',open:admitB.checked}];let memory='–';for(let i=1;i<=step;i++)if(events[i].open)memory=events[i].value;const event=events[step];
+    function gateFrame(){const {event,memory}=gateState(step,admitX.checked,admitB.checked);root.dataset.currentMemory=memory;
       board.append(svg('rect',{x:25,y:45,width:670,height:174,rx:14,fill:'#f1f5f9'}));
       for(const [x,label] of [[132,'INPUT'],[358,'GATE'],[580,'STORE']])text(board,x,79,label,'#475569',14);
       line(board,196,144,300,144,'#94a3b8',4);line(board,412,144,512,144,'#94a3b8',4);
@@ -45,11 +55,11 @@
       if(step)text(board,358,246,event.open?'WRITE':'HOLD',event.open?'#0f766e':'#b45309',17);
       status.textContent=w.step+" "+step+"/"+max+" · "+w.input+": "+event.value+" · "+w.gate+": "+(step?(event.open?w.write:w.hold):"–")+" · "+w.store+": "+memory;
     }
-    function silentFrame(){const k=Number(tau.value),trace=[1],spike=[1];for(let t=1;t<=max;t++){const event=t===4&&refresh.checked?0.55:0;trace.push(trace[t-1]*Math.exp(-1/k)+event);spike.push(event?1:0);}
+    function silentFrame(){const k=Number(tau.value),{trace,spike}=silentTrace(k,refresh.checked,max);
       board.append(svg('rect',{x:40,y:15,width:645,height:240,rx:14,fill:'#f8fafc'}));
       for(let t=0;t<=max;t++){const x=73+70*t;line(board,x,207,x,214,'#94a3b8',1);text(board,x,232,String(t),'#64748b',12);}line(board,73,209,633,209,'#94a3b8',2);
       text(board,42,66,'SPIKES','#475569',13);text(board,42,148,'TRACE','#475569',13);
-      line(board,73,105,633,105,'#d1d5db',1);line(board,73,185,633,185,'#d1d5db',1);
+      line(board,73,105,633,105,'#d1d5db',1);line(board,73,187,633,187,'#d1d5db',1);
       for(let t=0;t<=step;t++){const x=73+70*t;if(spike[t]){line(board,x,101,x,52,'#2563eb',6);circle(board,x,50,5,'#2563eb');}}
       let d='';for(let t=0;t<=step;t++){const x=73+70*t,y=187-65*trace[t];d+=(t===0?'M':'L')+x+' '+y+' ';circle(board,x,y,4,'#0f766e');}board.append(svg('path',{d,fill:'none',stroke:'#0f766e','stroke-width':4,'stroke-linecap':'round','stroke-linejoin':'round'}));
       const cx=73+70*step;line(board,cx,30,cx,206,'#f59e0b',1.8);

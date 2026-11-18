@@ -50,9 +50,11 @@ The paper gives the full learning rule. This page gives the outline as numbered 
 
 ### Teaching animation: selective working-memory gating
 
-<div class="wm-motion-pan" tabindex="0" role="region" aria-label="PBWM: inspect gating and memory contents">
+<div class="wm-motion-pan concept-motion-scroll" tabindex="0" role="region" aria-label="PBWM: inspect gating and memory contents">
 <img data-source-asset-urls src="../../../assets/concept-animations/pbwm-gate-still.svg" data-motion-src="../../../assets/concept-animations/pbwm-gate-motion.svg" data-still-src="../../../assets/concept-animations/pbwm-gate-still.svg" width="640" alt="PBWM walkthrough: cue A opens the basal-ganglia gate and enters PFC memory, distractor X is blocked while A is retained, then cue B opens the gate and replaces A.">
 </div>
+
+Each animation loop resets to its initial state, rather than reversing memory dynamics. A cue writes only upon arrival in the store; gate choices are hand selected, not learned.
 
 The **blue cue A** is admitted when the gate opens; the **orange distractor X** reaches a closed gate while the PFC store still holds A; a subsequent **teal cue B** passes through an open gate and updates the store. The task-relevant/irrelevant distinction and all three gate choices were assigned **by hand** to make the update rule visible. This is **not** a simulated learning run, an anatomical circuit diagram, or neural recording. See the O'Reilly and Frank (2006) model in References.
 

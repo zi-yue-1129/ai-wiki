@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-14
 related:
   - theory/models/embeddings/index.md
 tags:
@@ -34,22 +34,23 @@ Three broad approaches are used. **Collaborative filtering** predicts a user's p
 
 ## How it works
 
-**Neighbourhood methods.** Sarwar et al. (2001) recommend items that are similar to those a user already likes. Similarity is computed between items from the users who rated both, and a prediction is a weighted average over the user's own ratings. The method is simple, interpretable and scales to large catalogues when item similarities are precomputed.
+**Neighbourhood methods.** Sarwar et al. (2001) study item-based collaborative filtering, which predicts a user's preference from the user's own ratings of similar items rather than from similar users. The method is simple and interpretable, and item similarities can be computed ahead of time. See [Item-based Collaborative Filtering](item-based-cf.md) for similarity measures, prediction and edge cases.
 
-**Matrix factorisation.** Koren, Bell and Volinsky (2009) describe the factorisation approach that became standard in large rating-prediction problems. Each user and item receives a latent vector, and their inner product predicts the rating. The vectors are fitted to the observed ratings with regularisation, and the same vectors are reused as embeddings, see [Embeddings and Representation Learning](../embeddings/index.md).
+**Matrix factorisation.** Koren, Bell and Volinsky (2009) describe the factorisation approach that became standard in large rating-prediction problems. Each user and item receives a latent vector, and their inner product predicts the rating. The vectors are fitted to the observed ratings with regularisation, and the same vectors are reused as embeddings, see [Embeddings and Representation Learning](../embeddings/index.md). Details are on the [Matrix Factorization](matrix-factorization.md) page.
 
-**Learning from implicit feedback.** Rendle et al. (2012) note that the most common scenario is implicit feedback, such as clicks and purchases. Their Bayesian Personalised Ranking (BPR) objective trains on pairs: an observed item should be ranked above an unobserved one for the same user. This optimises the ranking directly, rather than fitting a rating.
+**Learning from implicit feedback.** Rendle et al. (2012) note that the most common scenario is implicit feedback, such as clicks and purchases. Their Bayesian Personalised Ranking (BPR) objective trains on pairs: an observed item should be ranked above an unobserved one for the same user. This optimises the ranking directly, rather than fitting a rating. See the [BPR](bpr.md) page.
 
-**Neural collaborative filtering.** He et al. (2017) replace the inner product of matrix factorisation with a neural network, which can learn an arbitrary interaction function from data. 
+**Neural collaborative filtering.** He et al. (2017) replace the inner product of matrix factorisation with a neural network, which can learn an interaction function from data. See the [Neural Collaborative Filtering](neural-cf.md) page.
 
 ## Key methods
 
-Brief comparison. Each method named above is a candidate for its own method page; those pages are not yet written, so the detail is given in this section for now.
+Brief comparison, with a link to each method's own page.
 
-- **Item-based neighbourhood (Sarwar et al.)**: similarity between items, no training of latent factors. Interpretable, and weaker on sparse data.
-- **Matrix factorisation (Koren et al.)**: latent factors fitted to ratings. Strong for rating prediction, and its vectors serve as embeddings.
-- **BPR (Rendle et al.)**: pairwise ranking loss on implicit feedback, the standard starting point for top-N ranking.
-- **Neural collaborative filtering (He et al.)**: a learned interaction function in place of the inner product. More flexible, with more to tune.
+- **[Matrix factorisation (Koren et al., 2009)](matrix-factorization.md)**: latent factors fitted to ratings, with biases. Strong for rating prediction, and its vectors serve as embeddings.
+- **[BPR (Rendle et al., 2012)](bpr.md)**: a pairwise ranking loss on implicit feedback, the standard starting point for top-N ranking.
+- **[Neural collaborative filtering (He et al., 2017)](neural-cf.md)**: a learned interaction function in place of the inner product. More flexible, with more to tune, and it is evaluated on top-N ranking.
+
+- **[Item-based collaborative filtering (Sarwar et al., 2001)](item-based-cf.md)**: explicit item neighbourhoods and weighted or regression-adjusted ratings, without latent factors.
 
 ## Connections
 
@@ -72,11 +73,11 @@ Recommendation shares its representation tools with [Embeddings and Representati
 
 ### Seminal papers
 
-- Sarwar, B., Karypis, G., Konstan, J. & Riedl, J. (2001). Item-based collaborative filtering recommendation algorithms. In *Proceedings of the 10th International World Wide Web Conference (WWW10)*. https://ir.webis.de/anthology/2001.wwwconf_conference-2001.30 — Introduces item-based neighbourhood methods for collaborative filtering.
-- Koren, Y., Bell, R. & Volinsky, C. (2009). Matrix factorization techniques for recommender systems. *IEEE Computer*, August 2009. https://www.cs.columbia.edu/%7Eblei/fogm/2023F/readings/KorenBellVolinsky2009.pdf — Describes latent-factor models fitted to ratings, the standard matrix factorisation approach. The link is a course-hosted copy of the article.
-- Rendle, S., Freudenthaler, C., Gantner, Z. & Schmidt-Thieme, L. (2012). *BPR: Bayesian Personalized Ranking from Implicit Feedback*. arXiv. https://arxiv.org/abs/1205.2618 — Pairwise ranking objective for implicit feedback, with a Bayesian derivation.
-- He, X., Liao, L., Zhang, H., Nie, L., Hu, X. & Chua, T.-S. (2017). *Neural Collaborative Filtering*. arXiv. https://arxiv.org/abs/1708.05031 — Replaces the inner product in matrix factorisation with a neural network that learns the interaction function.
+- Sarwar, B., Karypis, G., Konstan, J. & Riedl, J. (2001). Item-based collaborative filtering recommendation algorithms. In *Proceedings of the 10th International World Wide Web Conference (WWW10)*, pp. 285–295. https://doi.org/10.1145/371920.372071 — Introduces item-based neighbourhood methods for collaborative filtering.
+- Koren, Y., Bell, R. & Volinsky, C. (2009). Matrix factorization techniques for recommender systems. *Computer*, 42, pp. 30–37. https://doi.org/10.1109/MC.2009.263 — Describes latent-factor models fitted to ratings, the standard matrix factorisation approach.
+- Rendle, S., Freudenthaler, C., Gantner, Z. & Schmidt-Thieme, L. (2012). *BPR: Bayesian Personalized Ranking from Implicit Feedback*. arXiv:1205.2618, first published at UAI 2009. https://arxiv.org/abs/1205.2618 — Pairwise ranking objective for implicit feedback, with a Bayesian derivation.
+- He, X., Liao, L., Zhang, H., Nie, L., Hu, X. & Chua, T.-S. (2017). Neural collaborative filtering. In *Proceedings of the 26th International Conference on World Wide Web (WWW 2017)*, pp. 173–182. https://doi.org/10.1145/3038912.3052569 — Replaces the inner product in matrix factorisation with a neural network that learns the interaction function.
 
 ### Surveys and textbooks
 
-- Ricci, F., Rokach, L. & Shapira, B. (eds.) (2015). *Recommender Systems Handbook*, 2nd ed. Springer. https://link.springer.com/referencework/10.1007/978-1-4899-7637-6 — Reference handbook covering collaborative, content-based and hybrid methods, and evaluation.
+- Ricci, F., Rokach, L. & Shapira, B. (eds.) (2015). *Recommender Systems Handbook*, 2nd ed. Springer. https://doi.org/10.1007/978-1-4899-7637-6 — Reference handbook covering collaborative, content-based and hybrid methods, and evaluation.

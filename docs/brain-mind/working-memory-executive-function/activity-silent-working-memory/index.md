@@ -52,9 +52,11 @@ The steps describe a simplified model. Other hidden-state mechanisms are possibl
 
 ### Teaching animation: spiking, silent delay and synaptic refresh
 
-<div class="wm-motion-pan" tabindex="0" role="region" aria-label="Activity-silent memory: compare spiking and a hidden synaptic trace">
+<div class="wm-motion-pan concept-motion-scroll" tabindex="0" role="region" aria-label="Activity-silent memory: compare spiking and a hidden synaptic trace">
 <img data-source-asset-urls src="../../../assets/concept-animations/activity-silent-trace-still.svg" data-motion-src="../../../assets/concept-animations/activity-silent-trace-motion.svg" data-still-src="../../../assets/concept-animations/activity-silent-trace-still.svg" width="640" alt="Schematic temporal traces: an initial burst of spikes loads a transient synaptic trace, the trace decays slowly while spiking is quiet, and a later refresh burst increases it again.">
 </div>
+
+Each animation loop resets. The shared cursor reveals spikes and trace in order, without a trace rise before the loading or refresh burst. Lines in the interactive lab connect discrete samples; they are not a continuous-time neural model.
 
 The top track displays **brief spiking bursts**, separated by a **quiet delay**. The lower track shows a **hidden, decaying synaptic facilitation trace** that remains above its initial level during that delay, before a later burst refreshes it. The moving cursor reveals the two signals along a shared illustrative timeline. The key distinction is *maintenance without continuous visible spiking*, not complete absence of neural activity. The waveform, decay profile and times are **schematic and not measured calcium, synaptic efficacy or firing data**, nor a numerical reproduction of Mongillo et al. (2008). Activity-silent memory is one account, not a claim that all working-memory tasks suppress persistent firing (see Stokes, 2015).
 
