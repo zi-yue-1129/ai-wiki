@@ -149,9 +149,9 @@ The mixture sweeps its probability forward and backward, not training time. Cost
 
 *Original instructional SVG (CC BY-SA 4.0).* This is a **synthetic population-rate thought experiment**, not model training or measured deployment performance. Sensitivity $TPR=0.80$ and false-positive rate $FPR=0.10$ stay fixed while prevalence $p$ changes from $0.05$ to $0.60$. The ROC operating point therefore **does not move**, but the positive-alert precision follows Bayes' rule:
 
-$
+$$
 PPV(p)=\frac{0.80p}{0.80p+0.10(1-p)}.
-$
+$$
 
 At the two endpoints, precision rises from **0.296** to **0.923**. A fixed ROC point is therefore insufficient to predict alert precision without a prevalence assumption. **This animation assumes a pure prevalence (prior-probability) shift:** the class-conditional score distributions, and therefore TPR/FPR at the fixed decision rule, stay unchanged. A change in score distributions *within* either class can move the ROC point too; prevalence change alone is not a guarantee that an arbitrary deployed model has fixed TPR/FPR. This complements the [precision base-rate animation](precision.md), which examines alert composition rather than placing both metrics side by side. In MkDocs, the animation has keyboard-operable Play/Pause; reduced-motion users receive a still image. On narrow screens, focus the figure and scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-pr-shift-still.svg) · [Full SVG motion](../../../../assets/concept-animations/roc-pr-shift-motion.svg).
 
