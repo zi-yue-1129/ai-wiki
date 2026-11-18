@@ -27,20 +27,28 @@ By 2020, diffusion-style and score-based models were built from discrete noise s
 The framework has three parts.
 
 - **Forward SDE.** A drift \(f(x,t)\) and a diffusion coefficient \(g(t)\) define how data is perturbed over time:
-\[
-dx = f(x,t)\,dt + g(t)\,dw
-\]
-This process is fixed and does not depend on the data or on any learned parameters.
+
+    \[
+    dx = f(x,t)\,dt + g(t)\,dw
+    \]
+
+    This process is fixed and does not depend on the data or on any learned parameters.
+
 - **Reverse-time SDE.** Reversing the process requires the score \(\nabla_x \log p_t(x)\) of each marginal distribution. Anderson (1982) gives the reverse SDE:
-\[
-dx = \big[f(x,t) - g(t)^2 \nabla_x \log p_t(x)\big]\,dt + g(t)\,d\bar w
-\]
-Here \(\bar w\) is a Wiener process running backward in time. A neural network is trained to approximate the score across noise levels, and then this equation is solved to generate samples.
+
+    \[
+    dx = \big[f(x,t) - g(t)^2 \nabla_x \log p_t(x)\big]\,dt + g(t)\,d\bar w
+    \]
+
+    Here \(\bar w\) is a Wiener process running backward in time. A neural network is trained to approximate the score across noise levels, and then this equation is solved to generate samples.
+
 - **Probability flow ODE.** The deterministic ODE
-\[
-dx = \big[f(x,t) - \tfrac{1}{2} g(t)^2 \nabla_x \log p_t(x)\big]\,dt
-\]
-has the same marginal densities \(p_t\) as the SDE. Because it is an ODE, it gives exact likelihoods when the score is a neural network, and it allows fast deterministic sampling.
+
+    \[
+    dx = \big[f(x,t) - \tfrac{1}{2} g(t)^2 \nabla_x \log p_t(x)\big]\,dt
+    \]
+
+    has the same marginal densities \(p_t\) as the SDE. Because it is an ODE, it gives exact likelihoods when the score is a neural network, and it allows fast deterministic sampling.
 
 ### Visualising SDE versus probability-flow ODE
 
