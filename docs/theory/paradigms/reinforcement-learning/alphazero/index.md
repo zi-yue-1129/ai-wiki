@@ -43,6 +43,80 @@ The network proposes moves and judges positions. Monte Carlo tree search, guided
 
 Here \(p\) and \(v\) are the network's move probabilities and value for a position, and \(c\) controls weight regularisation.
 
+### PUCT: choosing the next edge to explore
+
+At a search node, AlphaZero balances an action's estimated value \(Q\) and its prior-weighted exploration bonus \(U\). A common PUCT-style form is
+
+\[
+a^*=\arg\max_a\{Q(s,a)+U(s,a)\},\qquad
+U(s,a)=cP(s,a)\frac{\sqrt{\sum_b N(s,b)}}{1+N(s,a)}.
+\]
+
+The **constructed snapshot** uses \(Q=(0.60,0.48,0.30)\), \(P=(0.20,0.65,0.15)\), \(N=(9,4,3)\), and illustrative \(c=1.5\). With 16 total visits, \(U=(0.12,0.78,0.225)\); the totals \((0.72,1.26,0.525)\) select **B**, although Q alone favors **A**. The animation adds U to Q before highlighting the selected action.
+
+<div style="max-width:100%;overflow-x:auto" class="concept-motion-scroll" tabindex="0" role="group" aria-label="Horizontally scrollable AlphaZero illustration">
+<div style="width:640px" markdown="1">
+<img data-source-asset-urls src="../../../../assets/concept-animations/alphazero-puct-select-still.svg" data-motion-src="../../../../assets/concept-animations/alphazero-puct-select-motion.svg" data-still-src="../../../../assets/concept-animations/alphazero-puct-select-still.svg" alt="PUCT action values combine with prior-weighted exploration bonuses to select the next search edge" width="640" height="360">
+</div>
+</div>
+
+[Animated SVG](../../../../assets/concept-animations/alphazero-puct-select-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* Arithmetic is exact for the chosen synthetic parameters, but the figure rounds U and total scores to two decimal places. **These are not measured AlphaZero search statistics**; the fixed \(c\) is a pedagogical simplification, not a claim about the full published exploration schedule. Use Play/Pause on MkDocs or the [GitHub PUCT static fallback](../../../../assets/concept-animations/alphazero-puct-select-still.svg). See the search mechanism in [Silver et al. (2018)](https://doi.org/10.1126/science.aar6404).
+
+### Search visits as a policy-improvement target
+
+The network prior \(p=(0.60,0.30,0.10)\) initially guides tree search. In the hypothetical 100-visit example below, the search instead allocates \(N=(12,54,34)\) visits to moves A, B, and C. AlphaZero converts these search counts into a policy target; for temperature \(\tau=1\), it is simply \(\pi=(0.12,0.54,0.34)\):
+
+\[
+\pi(a\mid s)=\frac{N(s,a)^{1/\tau}}{\sum_b N(s,b)^{1/\tau}}.
+\]
+
+<div style="max-width:100%;overflow-x:auto" class="concept-motion-scroll" tabindex="0" role="group" aria-label="Horizontally scrollable AlphaZero illustration">
+<div style="width:640px" markdown="1">
+<img data-source-asset-urls src="../../../../assets/concept-animations/alphazero-policy-target-still.svg" data-motion-src="../../../../assets/concept-animations/alphazero-policy-target-motion.svg" data-still-src="../../../../assets/concept-animations/alphazero-policy-target-still.svg" alt="AlphaZero policy prior, growing search-visit counts, and the resulting policy training target" width="640" height="360">
+</div>
+</div>
+
+[Animated SVG](../../../../assets/concept-animations/alphazero-policy-target-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* The changing bars trace how a search may reallocate simulations away from the network prior. The prior, counts, intermediate bar heights, and target are **constructed examples, not AlphaZero measurements**; each discrete snapshot has integer counts and its exactly normalised target at \(\tau=1\). On MkDocs use Play/Pause; on GitHub consult the [static policy-target overview](../../../../assets/concept-animations/alphazero-policy-target-still.svg). This illustrates the search-to-policy step in [Silver et al. (2018)](https://doi.org/10.1126/science.aar6404), not a guarantee that each search improves a move distribution.
+
+### Self-play policy targets and terminal value labels
+
+During a game, every searched position provides an MCTS visit-distribution target \(\pi_t\). The value label \(z_t\), by contrast, is only available **after the game terminates** and is interpreted from the player-to-move perspective. In the three-position hypothetical sequence below, White eventually wins; the value targets for White, Black and White to move are \(+1,-1,+1\), respectively. A draw would correspond to \(0\) in chess or shogi.
+
+<div style="max-width:100%;overflow-x:auto" class="concept-motion-scroll" tabindex="0" role="group" aria-label="Horizontally scrollable AlphaZero illustration">
+<div style="width:640px" markdown="1">
+<img data-source-asset-urls src="../../../../assets/concept-animations/alphazero-selfplay-labels-still.svg" data-motion-src="../../../../assets/concept-animations/alphazero-selfplay-labels-motion.svg" data-still-src="../../../../assets/concept-animations/alphazero-selfplay-labels-still.svg" alt="AlphaZero self-play positions receive search policies before their terminal outcome value labels" width="640" height="360">
+</div>
+</div>
+
+[Animated SVG](../../../../assets/concept-animations/alphazero-selfplay-labels-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* The mini-bars are illustrative policy distributions, and the terminal result propagates to historical positions only once the game ends; this is **not a recorded match, measured network prediction, or gradient propagation across moves**. Use Play/Pause on MkDocs or the [GitHub-readable terminal-target overview](../../../../assets/concept-animations/alphazero-selfplay-labels-still.svg). The tuples \((s_t,\pi_t,z_t)\) provide the policy and value targets used in the combined training objective described above.
+
+### Backing up values across alternating players
+
+The two-player zero-sum value is interpreted from the perspective of the **player to move**. In a search tree, that perspective changes after each ply; when values are stored for each parent state's actor, a returned leaf evaluation changes sign with each step toward the root. This is **not** backpropagation of neural-network gradients through played moves.
+
+<div style="max-width:100%;overflow-x:auto" class="concept-motion-scroll" tabindex="0" role="group" aria-label="Horizontally scrollable AlphaZero illustration">
+<div style="width:640px" markdown="1">
+<img data-source-asset-urls src="../../../../assets/concept-animations/alphazero-value-backup-still.svg" data-motion-src="../../../../assets/concept-animations/alphazero-value-backup-motion.svg" data-still-src="../../../../assets/concept-animations/alphazero-value-backup-still.svg" alt="Black and White alternate viewpoints as a leaf evaluation propagates toward the search root" width="640" height="360">
+</div>
+</div>
+
+[Animated SVG](../../../../assets/concept-animations/alphazero-value-backup-motion.svg)
+
+*Original teaching animation (CC BY-SA 4.0).* In a **hypothetical** White–Black–White–Black path, the Black-to-move leaf has \(v=+0.60\); from the parent toward the root, the White, Black and White actor viewpoints receive \(-0.60,+0.60,-0.60\). If the chosen root edge previously had \(N=4\), \(Q=0.20\), its updated mean is \(N=5\),
+
+\[Q=(4\cdot0.20-0.60)/5=0.04.\]
+
+These exact synthetic values are **not model measurements**. MkDocs provides Play/Pause; GitHub uses the [static value-backup fallback](../../../../assets/concept-animations/alphazero-value-backup-still.svg). Implementations may differ in how values are stored; here each action value uses its parent player's perspective.
+
+
+Each loop is an independent illustration with an explicit reset, not reverse learning. The policy view uses discrete visit snapshots (1,1,1), (4,8,3), (8,25,17), and (12,54,34), not a measured search trajectory. Prior and target share 200 px = 1 probability; counts use 2 px = 1 visit. PUCT bars share 94 px = 1 score, revealing the fixed exploration term before the winner. The postgame moving cue assigns retrospective labels, not gradients; backup labels appear only after each cue arrives. Focus an illustration region and use arrow keys to scroll, or open its full SVG.
+
 ## Results
 
 - **Chess**: against Stockfish, the 2016 TCEC champion, the paper's text reports no losses for AlphaZero across its matches.

@@ -23,6 +23,22 @@ PETS has two components:
 
 The agent re-plans at every step (model-predictive control), and it uses only the first action of the chosen sequence.
 
+### Visualising ensemble trajectory sampling
+
+<div tabindex="0" role="region" aria-label="Horizontally scrollable model-based RL diagram" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/pets-ensemble-particles-still.svg" data-motion-src="../../../../../assets/concept-animations/pets-ensemble-particles-motion.svg" data-still-src="../../../../../assets/concept-animations/pets-ensemble-particles-still.svg" alt="PETS particle paths fan out through a four-step imagined horizon, followed by the first-action decision" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+*Original animated teaching schematic (CC BY-SA 4.0).* Teal and violet paths illustrate multiple stochastic trajectory particles associated with two ensemble members for **one candidate action sequence**. A planner evaluates **many** candidate sequences using particle-averaged predicted returns, executes only the first action of its selected sequence, observes the next real state and replans. This picture does not specify PETS's model-resampling variant. Particle coordinates, spread and colours are schematic—not measured predictions, calibrated uncertainties or optimisation results. Use **Play/Pause** on MkDocs; GitHub readers can open the [static particle-and-decision overview](../../../../../assets/concept-animations/pets-ensemble-particles-still.svg). See [Chua et al. (2018)](https://arxiv.org/abs/1805.12114).
+
+### Visualising CEM candidate scoring and refitting
+
+<div tabindex="0" role="region" aria-label="Horizontally scrollable model-based RL diagram" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/pets-cem-refit-still.svg" data-motion-src="../../../../../assets/concept-animations/pets-cem-refit-motion.svg" data-still-src="../../../../../assets/concept-animations/pets-cem-refit-still.svg" alt="PETS CEM scores five candidate action coordinates and updates the sampling mean from selected elites" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+*Original animated teaching schematic (CC BY-SA 4.0).* In a **single illustrative CEM iteration**, five complete candidate action sequences are represented only by their **first action coordinate** $a_0=(-1,-0.5,0,0.5,1)$; their invented particle-averaged scores are $(1,4,2,6,5)$. The two elite sequences have $a_0=0.5$ and $1$, giving the elite mean $(0.5+1)/2=0.75$, compared with the previous illustrative mean $0$. A full PETS planner samples and refits distributions over **all coordinates of whole action sequences**, repeatedly; the curves are schematic rather than a calibrated CEM density or model prediction, and no performance measurements are implied. Use **Play/Pause** on MkDocs; [GitHub static overview](../../../../../assets/concept-animations/pets-cem-refit-still.svg). Source: [Chua et al. (2018)](https://arxiv.org/abs/1805.12114).
+
 ## Equation or algorithm
 
 For each planning step, the agent:

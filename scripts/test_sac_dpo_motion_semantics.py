@@ -54,6 +54,17 @@ class DpoRewardMobile(unittest.TestCase):
    with self.assertRaises(AssertionError):check_dpo_reward_display(text.replace('$$'+block+'$$',original))
    for old,new in [(r'+\beta\log Z(x)',r'-\beta\log Z(x)'),(r'\beta\log\frac',r'\log\frac'),(r'\pi_{\mathrm{ref}}',r'\pi_r')]:
     with self.subTest(name=name,mutation=old),self.assertRaises(AssertionError):check_dpo_reward_display(text.replace(old,new,1))
+ def test_later_source_policy_display_is_preserved_alongside_reward(self):
+  policy=r"\["+"\n"+r"\pi_r(y\mid x)\propto\pi_{\text{ref}}(y\mid x)e^{r(x,y)/\beta}."+"\n"+r"\]"
+  def check(text):
+   assert policy in text, 'Original optimal-policy display must not collapse into inline text'
+   check_dpo_reward_display(text)
+  for suffix in ('.md','.zh-TW.md'):
+   text=(R/'docs/theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo'/('index'+suffix)).read_text()
+   check(text)
+   for replacement in ('',r'\(\pi_r(y|x)\propto\pi_{ref}(y|x)e^{r/\beta}\)'):
+    with self.subTest(suffix=suffix,replacement=replacement),self.assertRaises(AssertionError):check(text.replace(policy,replacement))
+
  def test_reward_identity_and_partition_cancellation_numerically(self):
   # Recover rewards from the KL-optimal policy, not merely a formula snapshot.
   for beta in (.1,.3,1.,2.,5.):
