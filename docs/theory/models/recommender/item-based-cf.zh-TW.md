@@ -1,0 +1,128 @@
+---
+translation_reviewed: 2026-11-17
+---
+
+# 項目式協同過濾（Item-based Collaborative Filtering）
+
+項目式協同過濾使用同一位使用者對相關項目的評分，預測未知評分。這裡的「相關」指歷史評分資料中的一致性，而非共同的文字、影像或商品分類。
+
+本方法屬於[推薦系統](index.md)。Sarwar 等人（2001）比較三種項目相似度、加權總和與迴歸預測，以及預先計算的鄰域。[^sarwar]
+
+## 問題與核心概念
+
+令 $r_{ui}$ 為使用者 $u$ 對項目 $i$ 的已觀察評分，$I_u$ 為該使用者已評分的項目集合。當 $i\notin I_u$ 時，我們希望估計 $r_{ui}$。缺漏代表未知，不是零顆星的評價。
+
+一次預測涉及兩群不同的人：
+
+- **其他使用者**提供兩個項目表現相似的證據。
+- **目標使用者自己的評分**提供預測時要組合的數值。
+
+例如，其他人的評分可以顯示兩部電影有相似的受眾；替 Alice 預測時，則使用 Alice 的電影評分。不必在收到請求時搜尋「最像 Alice 的使用者」。
+
+## 相似度：究竟減去誰的平均？
+
+對一對項目，令 $U_{ij}$ 為兩者都評過分的使用者。以共同觀察集合計算時，收集這些使用者的兩個評分向量，餘弦為
+
+$$
+s_{ij}^{\mathrm{cos}}=
+\frac{\sum_{v\in U_{ij}}r_{vi}r_{vj}}
+{\sqrt{\sum_{v\in U_{ij}}r_{vi}^2}\sqrt{\sum_{v\in U_{ij}}r_{vj}^2}}.
+$$
+
+必須說明採用的觀察集合：原論文也將餘弦描述為完整使用者空間中的向量運算。補零的完整向量與僅限共同評分的向量，其範數可能不同。補零是一種表示選擇，不是「不喜歡」的證據。
+
+兩種中心化方式回答不同問題：
+
+| 度量 | 從每個已觀察評分減去 | 意義 |
+| --- | --- | --- |
+| 項目 Pearson 相關 | 對應項目的平均評分 | 使用者是否同時將兩項目評得高於或低於各自的項目平均？ |
+| 調整後餘弦 | 該使用者在訓練資料中所有已觀察評分的平均 | 使用者是否將兩項目都評得高於或低於自己平常的水準？ |
+
+對調整後餘弦，令 $x_{vi}=r_{vi}-\bar r_v$，則
+
+$$
+s_{ij}^{\mathrm{adj}}=
+\frac{\sum_{v\in U_{ij}}x_{vi}x_{vj}}
+{\sqrt{\sum_{v\in U_{ij}}x_{vi}^2}\sqrt{\sum_{v\in U_{ij}}x_{vj}^2}}.
+$$
+
+原論文的項目相關公式改為減去項目平均，並將其稱作項目的平均評分。實作時應交代平均值來自該項目的完整訓練歷史，還是該項目對的共同觀察集合。[^sarwar] 不要默默把使用者平均換成項目平均；這會改變估計方法。
+
+### 自行構造的中心化範例
+
+以下三位使用者恰好只評過 A、B、C。所有數字都是教學用的虛構資料。
+
+| 使用者 | A | B | C | 使用者平均 |
+| --- | --- | --- | --- | --- |
+| 1 | 5 | 4 | 3 | 4 |
+| 2 | 3 | 2 | 1 | 2 |
+| 3 | 1 | 2 | 3 | 2 |
+
+原始 A 與 B 的內積為 $28$，範數為 $\sqrt{35}$ 與 $\sqrt{24}$，所以餘弦約為 $0.966$。減去使用者平均後，A 為 $(1,1,-1)$，B 為 $(0,0,0)$。因為 B 的範數為零，調整後餘弦**未定義**。若沒有說明後備規則就回報零或一，會掩蓋資訊不足。相較之下，減去項目平均的 Pearson 相關約為 $0.866$：同一批觀察資料，得到另一個有定義的計算結果。
+
+## 預測：先選鄰居，再組合
+
+令 $N_i(u)\subseteq I_u$ 包含目標項目 $i$ 最多 $k$ 個符合條件的鄰居。原論文的加權總和為[^sarwar]
+
+$$
+\hat r_{ui}=\frac{\sum_{j\in N_i(u)}s_{ij}r_{uj}}
+{\sum_{j\in N_i(u)}|s_{ij}|}.
+$$
+
+**保留負權重時，這個分母不保證結果落在評分範圍內。** 權重非負且分母非零時，這是凸組合；若只有一個 $s=-1$、評分為 5 的鄰居，結果就是 $-5$。系統必須明確選擇權重符號規則、基準殘差形式或裁切。這些是模型設計選擇，不是上述公式可互換的實作。舉例而言，Surprise 的 `KNNBasic` 只組合正相似度鄰居，數量不足時退回全域平均。[^knn]
+
+### 自行構造的預測與迴歸範例
+
+假設目標使用者評 A=5、B=2，給定與目標項目的相似度 $s_{iA}=0.8$、$s_{iB}=0.4$，加權預測為 $(0.8\cdot5+0.4\cdot2)/1.2=4$。這些相似度是範例設定，並非由前一張表估計。
+
+迴歸先將鄰居評分校準到目標項目的尺度。為明確表示方向，**本頁的教學形式**以鄰居預測目標，擬合最小平方：
+
+$$
+(a_{ij},b_{ij})=\arg\min_{a,b}\sum_{v\in U_{ij}}
+(r_{vi}-a r_{vj}-b)^2.
+$$
+
+將分子中各鄰居的評分換成 $a_{ij}r_{uj}+b_{ij}$。假設擬合出的示意映射為 $A\mapsto0.5A+1$ 與 $B\mapsto B+1$，兩個目標估計為 3.5 與 3，加權後得到 $10/3$。這是原創數值範例，不是重製論文的實驗結果。
+
+Sarwar 等人描述以迴歸調整評分，但印出的迴歸記號方向相反（由目標預測鄰居）。上面的「鄰居預測目標」形式將推論方向寫清楚，並非逐字轉寫該公式。[^sarwar] 將已擬合的最小平方直線反解，通常不等於反方向重新擬合。若預測變數為常數，或共同觀察不足，也需要明訂後備規則。
+
+### 動畫範例：納入第二個已評分鄰居
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/itemcf-weighted-neighbors-still.svg" data-motion-src="../../../assets/concept-animations/itemcf-weighted-neighbors-motion.svg" data-still-src="../../../assets/concept-animations/itemcf-weighted-neighbors-still.svg" alt="兩個正相似度鄰居的加權評分貢獻分別為四與零點八；納入第二個鄰居後，正規化預測從五變成四。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/itemcf-weighted-neighbors-still.svg)
+
+
+沿用上方**人工設定**的評分與相似度：$r_{uA}=5$、$r_{uB}=2$、$s_{iA}=0.8$、$s_{iB}=0.4$。只有 A 時，加權預測為 $4/0.8=5$；納入 B 後，變為 $(4+0.8)/(0.8+0.4)=4$。橘色貢獻長條與預測游標共同說明：**分母的權重總和也會改變**。藍色長條代表 A 的 $0.8\times5=4$ 分子貢獻，而非相似度本身。
+
+數字和相似度均為教學示意，**不是模型實測值**。兩個鄰域狀態之間的平滑移動僅用於視覺解釋，不是訓練過程，也不表示加入第二個鄰居一定能提升準確率。缺漏評分不會當成零。MkDocs 網站可使用 **Play/Pause**；手機上可用鍵盤聚焦與水平捲動。GitHub 與偏好減少動態效果的讀者可看到靜態回退。原創圖像採 CC BY-SA 4.0 授權。
+
+## 預先計算與評估
+
+$n$ 個項目的完整相似度表需要 $O(n^2)$ 個值。每個項目只保留 $k$ 個鄰居，儲存量降為 $O(nk)$；保留清單與 $I_u$ 取交集後，可能剩不到 $k$ 個可用鄰居。這不一定等於直接在 $I_u$ *之內*挑出最好的 $k$ 個項目。原論文明確探討此儲存量與準確度的取捨。[^sarwar]
+
+論文使用 MovieLens 評分與平均絕對誤差（MAE）評估；在該設定下，調整後餘弦與基本加權預測表現良好，迴歸則不一定較佳。[^sarwar] 這些比較不能證明普遍優勢，也不代表現代點擊排序的品質。GroupLens 提供 MovieLens 100K 基準資料與說明文件。[^data]
+
+可重現的評估應交代資料切分、評分覆蓋率、後備與裁切規則、最低共同觀察數、鄰域大小及權重符號規則。平均值、相似度與迴歸參數只能從訓練資料計算，否則保留測試的目標評分會洩漏進預測器。調參應與最終評估分開，並回報無法形成鄰域的頻率。
+
+## 限制與關聯
+
+共同評分稀少，會讓項目對的估計不穩定。新項目沒有協同鄰居，新使用者沒有可組合的評分；限制儲存量也可能移除使用者確實評過的項目。明確評分的準確度本身無法證明 Top-N 排序有用。
+
+[矩陣分解](matrix-factorization.md)用學得的潛在向量表示使用者與項目，取代明確的鄰居表。[BPR](bpr.md)直接最佳化隱式回饋的排序準則，也適用於自適應 k 最近鄰模型。[^bpr] [神經協同過濾](neural-cf.md)學習神經網路的使用者—項目互動函數。[^ncf] 它們改變了表示或目標，不是上述加權總和的其他名稱。
+
+[^sarwar]: Sarwar 等人（2001），見參考文獻，尤其第 3.1–3.3 節與第 4.3 節。
+[^knn]: Surprise，*k-NN inspired algorithms*，見參考文獻。
+[^data]: GroupLens，*MovieLens 100K Dataset*，見參考文獻。
+[^bpr]: Rendle 等人，*BPR*，見參考文獻。
+[^ncf]: He 等人，*Neural Collaborative Filtering*，見參考文獻。
+
+## 參考文獻
+
+- Sarwar, B., Karypis, G., Konstan, J. & Riedl, J. (2001). *Item-based collaborative filtering recommendation algorithms*. WWW10. [作者提供的全文](https://grouplens.org/site-content/uploads/Item-Based-WWW-2001.pdf) — 第 3–4 節說明相似度、預測、預先計算與實驗。
+- Surprise documentation. *k-NN inspired algorithms*. https://surprise.readthedocs.io/en/stable/knn_inspired.html — 定義該實作的正相似度鄰居與最低鄰居數規則。
+- GroupLens. *MovieLens 100K Dataset*. https://grouplens.org/datasets/movielens/100k/ — 官方基準資料下載與說明文件。
+- Rendle, S., Freudenthaler, C., Gantner, Z. & Schmidt-Thieme, L. (2009；arXiv 版本 2012). *BPR: Bayesian Personalized Ranking from Implicit Feedback*. https://arxiv.org/abs/1205.2618 — 適用於矩陣分解與自適應 kNN 的排序準則。
+- He, X., Liao, L., Zhang, H., Nie, L., Hu, X. & Chua, T.-S. (2017). *Neural Collaborative Filtering*. https://arxiv.org/abs/1708.05031 — 隱式回饋推薦的神經互動模型。

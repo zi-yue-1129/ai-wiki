@@ -37,13 +37,19 @@ L(\theta) = L_B(\theta) + \sum_i \frac{\lambda}{2}\,F_i\,(\theta_i - \theta^*_{A
 
 ## 動畫解讀：受約束的新任務適應
 
-<div role="region" tabindex="0" aria-label="可左右捲動的教學動畫">
-  <img src="../../../../assets/concept-animations/ewc-fisher-springs-still.svg" data-motion-src="../../../../assets/concept-animations/ewc-fisher-springs-motion.svg" data-still-src="../../../../assets/concept-animations/ewc-fisher-springs-still.svg" alt="兩個舊任務重要性不同的 EWC 參數，從共同錨點移向不同的新任務正則化最佳值" />
-</div>
+<div role="region" tabindex="0" aria-label="可左右捲動的教學動畫" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain"><div style="width:640px;min-width:640px">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/ewc-fisher-springs-still.svg" data-motion-src="../../../../assets/concept-animations/ewc-fisher-springs-motion.svg" data-still-src="../../../../assets/concept-animations/ewc-fisher-springs-still.svg" alt="兩個舊任務重要性不同的 EWC 參數，從共同錨點移向不同的新任務正則化最佳值" />
+</div></div>
 
 [GitHub 靜態與減少動態效果預覽](../../../../assets/concept-animations/ewc-fisher-springs-still.svg)。在 MkDocs 網站可操作**播放／暫停**控制；鍵盤可按 Tab 聚焦，再按 Enter 或空白鍵操作。
 
-這是**人工建構、各維度可分離的二次損失**：舊任務參數錨點為 \(\theta_A^*=0\)，新任務每個座標的損失為 \(L_B(\theta)=\tfrac12(\theta-1)^2\)，EWC 額外懲罰為 \(\tfrac{\lambda F}{2}\theta^2\)。因此最佳值為 \(\theta^*=1/(1+\lambda F)\)。高重要性參數 \(\lambda F=4\) 停在 **0.20**，較低重要性參數 \(\lambda F=0.25\) 可移至 **0.80**。圓點的連續移動只是便於理解的插值，**不是梯度下降實際迭代、Fisher 實測值或論文實驗曲線**。對角 Fisher 近似也未捕捉參數間的耦合。此圖對應下方 Kirkpatrick 等人（2017）提出的正則化項。
+這是**人工建構、各維度可分離的二次損失**：舊任務參數錨點為 \(\theta_A^*=0\)，新任務每個座標的損失為 
+
+\[
+L_B(\theta)=\tfrac12(\theta-1)^2
+\]
+
+，EWC 額外懲罰為 \(\tfrac{\lambda F}{2}\theta^2\)。因此最佳值為 \(\theta^*=1/(1+\lambda F)\)。高重要性參數 \(\lambda F=4\) 停在 **0.20**，較低重要性參數 \(\lambda F=0.25\) 可移至 **0.80**。圓點的連續移動只是便於理解的插值，**不是梯度下降實際迭代、Fisher 實測值或論文實驗曲線**。對角 Fisher 近似也未捕捉參數間的耦合。此圖對應下方 Kirkpatrick 等人（2017）提出的正則化項。
 
 *原創教學動畫與靜態回退，CC BY-SA 4.0。*
 
@@ -55,7 +61,13 @@ L(\theta) = L_B(\theta) + \sum_i \frac{\lambda}{2}\,F_i\,(\theta_i - \theta^*_{A
 \theta_{k+1}=\theta_k-\eta\bigl[(\theta_k-1)+(\lambda F)\theta_k\bigr].
 \]
 
-令剛度 \(s=\lambda F\)，則 \(\theta_k=\tfrac{1}{1+s}[1-(1-\eta(1+s))^k]\)。同一個**固定學習率**會產生不同的參數軌跡：
+令剛度 \(s=\lambda F\)，則 
+
+\[
+\theta_k=\tfrac{1}{1+s}[1-(1-\eta(1+s))^k]
+\]
+
+。同一個**固定學習率**會產生不同的參數軌跡：
 
 | 更新次數 \(k\) | 高剛度 \(s=4\) | 低剛度 \(s=0.25\) |
 | ---: | ---: | ---: |
@@ -76,6 +88,8 @@ L(\theta) = L_B(\theta) + \sum_i \frac{\lambda}{2}\,F_i\,(\theta_i - \theta^*_{A
 
 <div data-ewc-neat-lab="ewc" data-locale="zh-TW"><p>不使用 JavaScript 時，請參閱上方更新次數 0、1、4、8、18 與解析極限的數值表格。</p></div>
 
+
+互動控制以座標 1、2 區分，不假設剛度排序固定，因為兩個可調範圍會重疊；預設座標 1 較硬。所有滑桿設定都滿足 0 < η(1+s) < 2，因此人工迭代收斂；當 η(1+s) > 1 時誤差會交替正負，不是單調移動。原 SVG 仍是插值，停留在終點，下一輪才重設。
 
 ## 關鍵方法
 

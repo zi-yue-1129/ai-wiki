@@ -4,9 +4,9 @@
   const names = {
     en: { step:'Step',previous:'Previous',next:'Next',play:'Play',pause:'Pause',reset:'Reset',speed:'Speed',
       objective:'Toy calculation, not a trained model', scroll:'Scrollable calculation plot',
-      eta:'Learning rate η',stiff:'High stiffness s',low:'Low stiffness s',
+      eta:'Learning rate η',stiff:'Coordinate 1 stiffness s',low:'Coordinate 2 stiffness s',
       ewcTitle:'Real gradient-descent steps', ewcExplanation:'These curves use discrete gradient descent, not the interpolation shown above. The stationary points do not change with η.',
-      near:'High Fisher',far:'Low Fisher', weight:'Weight w',input:'Input x',activation:'Hidden activation',
+      near:'Coordinate 1',far:'Coordinate 2', weight:'Weight w',input:'Input x',activation:'Hidden activation',
       neatTitle:'Inspect one add-node mutation',neatExplanation:'Innovation IDs are illustrative. This timeline visualises the successive edits of one atomic mutation, not multiple generations.',
       initial:'Original edge #3 is enabled',disabled:'Old edge #3 is disabled but retained',
       inserted:'A hidden node is inserted',first:'New edge #8 (weight 1) is enabled',
@@ -15,9 +15,9 @@
       accurate:'Identity activation preserves this toy linear function.',caution:'Nonlinear hidden activations need not preserve the original function.' },
     zh: { step:'步驟',previous:'上一步',next:'下一步',play:'播放',pause:'暫停',reset:'重設',speed:'速度',
       objective:'人工計算，並非訓練模型的實測值', scroll:'可水平捲動的計算圖',
-      eta:'學習率 η',stiff:'高剛度 s',low:'低剛度 s',
+      eta:'學習率 η',stiff:'座標 1 剛度 s',low:'座標 2 剛度 s',
       ewcTitle:'實際梯度下降迭代',ewcExplanation:'曲線來自離散梯度下降，不是上方動畫的插值；學習率 η 不會改變駐點位置。',
-      near:'高 Fisher',far:'低 Fisher',weight:'權重 w',input:'輸入 x',activation:'隱藏節點活化函數',
+      near:'座標 1',far:'座標 2',weight:'權重 w',input:'輸入 x',activation:'隱藏節點活化函數',
       neatTitle:'檢查一次新增節點突變',neatExplanation:'創新編號均為人工示例。分鏡逐項檢查同一次原子性突變，不代表多個世代。',
       initial:'原始連結 #3 啟用',disabled:'停用 #3，但保留歷史基因',
       inserted:'插入新的隱藏節點',first:'啟用新連結 #8（權重 1）',
@@ -35,7 +35,7 @@
     let step=0,timer=null;
     const pause=()=>{ if(timer!==null){clearInterval(timer);timer=null;}play.textContent=t.play;play.setAttribute('aria-pressed','false'); };
     function show() { seek.value=String(step); prev.disabled=step===0; next.disabled=step===max; render(step); }
-    function advance() { if(step>=max){pause();return;}step++;show(); if(step===max) pause(); }
+    function advance() { if(document.hidden || !host.isConnected){pause();return;}if(step>=max){pause();return;}step++;show(); if(step===max) pause(); }
     function start(){ if(timer!==null)return; if(step===max) step=0; show();timer=setInterval(advance,900/Number(velocity.value));play.textContent=t.pause;play.setAttribute('aria-pressed','true'); }
     prev.addEventListener('click',()=>{pause();step=Math.max(0,step-1);show();});
     next.addEventListener('click',()=>{pause();step=Math.min(max,step+1);show();});
@@ -43,7 +43,7 @@
     reset.addEventListener('click',()=>{pause();step=0;host.querySelectorAll('[data-setting]').forEach(el=>{el.value=el.dataset.default;});show();});
     seek.addEventListener('input',()=>{pause();step=Number(seek.value);show();});
     velocity.addEventListener('change',()=>{if(timer!==null){pause();start();}});
-    host.querySelectorAll('[data-setting]').forEach(x=>x.addEventListener('input',show));
+    host.querySelectorAll('[data-setting]').forEach(x=>x.addEventListener('input',()=>{pause();show();}));
     document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
     const mq=window.matchMedia?.('(prefers-reduced-motion: reduce)');
     if(mq?.addEventListener)mq.addEventListener('change',e=>{if(e.matches)pause();});
@@ -64,7 +64,7 @@
       const grid=[0,.5,1].map(v=>`<path d="M52 ${Y(v)} H582" stroke="#d7e0e7"/><text x="44" y="${Y(v)+4}" text-anchor="end">${v.toFixed(1)}</text>`).join('');
       const ticks=[0,6,12,18].map(i=>`<text x="${X(i)}" y="235" text-anchor="middle">${i}</text>`).join('');
       const path=(a,c)=>`<polyline points="${a.join(' ')}" stroke="${c}" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${X(k)}" cy="${Y(theta(c==='#256d94'?high:low,k))}" r="5.5" fill="${c}" stroke="white" stroke-width="2"/>`;
-      svg.innerHTML=`<title>Discrete Fisher-weighted gradient descent, step ${k}</title><rect width="620" height="260" fill="#fff"/><g fill="#455a69" font-size="15" font-family="system-ui,sans-serif"><text x="52" y="18">θ</text>${grid}${ticks}<text x="582" y="252" text-anchor="end">step</text></g><path d="M52 27 V211 H582" stroke="#64798a" stroke-width="1.7" fill="none"/><path d="M52 ${Y(1/(1+high))} H582" stroke="#256d94" stroke-dasharray="3 7" opacity=".45"/><path d="M52 ${Y(1/(1+low))} H582" stroke="#ba713b" stroke-dasharray="3 7" opacity=".45"/>${path(h,'#256d94')}${path(l,'#ba713b')}`;
+      svg.innerHTML=`<title>${t.ewcTitle}, ${t.step} ${k}</title><rect width="620" height="260" fill="#fff"/><g fill="#455a69" font-size="15" font-family="system-ui,sans-serif"><text x="52" y="18">θ</text>${grid}${ticks}<text x="582" y="252" text-anchor="end">step</text></g><path d="M52 27 V211 H582" stroke="#64798a" stroke-width="1.7" fill="none"/><path d="M52 ${Y(1/(1+high))} H582" stroke="#256d94" stroke-dasharray="3 7" opacity=".45"/><path d="M52 ${Y(1/(1+low))} H582" stroke="#ba713b" stroke-dasharray="3 7" opacity=".45"/>${path(h,'#256d94')}${path(l,'#ba713b')}`;
       output.textContent=`${t.step} ${k}/18 · ${t.near}: θ=${num(theta(high,k))} → θ*=${num(1/(1+high))} · ${t.far}: θ=${num(theta(low,k))} → θ*=${num(1/(1+low))}`;
     }
     controller(host,18,render,t);
@@ -82,7 +82,7 @@
       const disabled=k>=1, hidden=k>=2,first=k>=3,second=k>=4;
       const line=(x1,y1,x2,y2,c,dash='',label='')=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="5" ${dash?'stroke-dasharray="7 7"':''} stroke-linecap="round"/><text x="${(x1+x2)/2}" y="${(y1+y2)/2-15}" text-anchor="middle" fill="#334b5b" font-size="16">${label}</text>`;
       const circle=(x1,y1,label,active)=>`<circle cx="${x1}" cy="${y1}" r="25" fill="${active?'#d8edf7':'#f0f4f7'}" stroke="#315d76" stroke-width="2"/><text x="${x1}" y="${label==='Hidden'?166:y1+49}" text-anchor="middle" fill="#334b5b" font-size="15">${label}</text>`;
-      svg.innerHTML=`<title>NEAT one add-node mutation, edit state ${k}</title><rect width="620" height="260" fill="#fff"/><rect x="19" y="18" width="582" height="224" rx="13" fill="#f7fafd" stroke="#d2e0e8"/><g font-family="system-ui,sans-serif">${line(160,125,460,125,disabled?'#aeb9c0':'#256d94',disabled,'#3')}${hidden&&first?line(172,117,285,72,'#1d8675','', '#8'):''}${hidden&&second?line(334,72,452,117,'#ba713b','', '#9'):''}${circle(135,125,'Input',true)}${circle(485,125,'Output',true)}${hidden?circle(310,63,'Hidden',true):''}<text x="34" y="217" fill="#465c6a" font-size="16">#3 ${disabled?'disabled':'enabled'}</text>${first?'<text x="275" y="217" fill="#1d8675" font-size="16">#8</text>':''}${second?'<text x="385" y="217" fill="#ba713b" font-size="16">#9</text>':''}</g>`;
+      svg.innerHTML=`<title>${t.neatTitle}, ${t.step} ${k}</title><rect width="620" height="260" fill="#fff"/><rect x="19" y="18" width="582" height="224" rx="13" fill="#f7fafd" stroke="#d2e0e8"/><g font-family="system-ui,sans-serif">${line(160,125,460,125,disabled?'#aeb9c0':'#256d94',disabled,'#3')}${hidden&&first?line(172,117,285,72,'#1d8675','', '#8'):''}${hidden&&second?line(334,72,452,117,'#ba713b','', '#9'):''}${circle(135,125,'Input',true)}${circle(485,125,'Output',true)}${hidden?circle(310,63,'Hidden',true):''}<text x="34" y="217" fill="#465c6a" font-size="16">#3 ${disabled?'disabled':'enabled'}</text>${first?'<text x="275" y="217" fill="#1d8675" font-size="16">#8</text>':''}${second?'<text x="385" y="217" fill="#ba713b" font-size="16">#9</text>':''}</g>`;
       let message=`${t.step} ${k}/5 · ${t[stages[k]]} · ${t.before}: ${num(original)} · ${t.after}: ${second?num(after):t.none}`;
       if(second)message+=` · ${t.delta}: ${num(after-original)}. ${act==='identity'?t.accurate:t.caution}`;
       output.textContent=message;

@@ -45,9 +45,9 @@ NEAT 同時演化神經網路的連結權重與拓撲結構。它從沒有隱藏
 
 ## 動畫解讀：新增節點的結構突變
 
-<div role="region" tabindex="0" aria-label="可左右捲動的教學動畫">
-  <img src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" data-motion-src="../../../assets/concept-animations/neat-add-node-innovation-motion.svg" data-still-src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" alt="NEAT 將一條連結拆開、停用原始基因，並新增隱藏節點及兩個創新編號" />
-</div>
+<div role="region" tabindex="0" aria-label="可左右捲動的教學動畫" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain"><div style="width:640px;min-width:640px">
+  <img data-source-asset-urls src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" data-motion-src="../../../assets/concept-animations/neat-add-node-innovation-motion.svg" data-still-src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" alt="NEAT 將一條連結拆開、停用原始基因，並新增隱藏節點及兩個創新編號" />
+</div></div>
 
 [GitHub 靜態與減少動態效果預覽](../../../assets/concept-animations/neat-add-node-innovation-still.svg)。MkDocs 網站提供**播放／暫停**按鈕，鍵盤可透過 Tab 及 Enter 或空白鍵操作；靜態圖可同時比較突變前後的網路與基因狀態。
 

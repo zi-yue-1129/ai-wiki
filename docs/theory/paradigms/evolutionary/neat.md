@@ -44,9 +44,9 @@ where \(E\) and \(D\) count excess and disjoint genes, \(\bar W\) is the mean we
 
 ## Animated walkthrough: add-node mutation
 
-<div role="region" tabindex="0" aria-label="Horizontally scrollable teaching animation">
-  <img src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" data-motion-src="../../../assets/concept-animations/neat-add-node-innovation-motion.svg" data-still-src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" alt="NEAT splits a connection, disables its historical gene and introduces a hidden node with two new innovation IDs" />
-</div>
+<div role="region" tabindex="0" aria-label="Horizontally scrollable teaching animation" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain"><div style="width:640px;min-width:640px">
+  <img data-source-asset-urls src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" data-motion-src="../../../assets/concept-animations/neat-add-node-innovation-motion.svg" data-still-src="../../../assets/concept-animations/neat-add-node-innovation-still.svg" alt="NEAT splits a connection, disables its historical gene and introduces a hidden node with two new innovation IDs" />
+</div></div>
 
 [Static GitHub and reduced-motion preview](../../../assets/concept-animations/neat-add-node-innovation-still.svg). On MkDocs, use **Play/Pause** (Tab and Enter or Space); the still shows both topologies and the post-mutation genome.
 
@@ -60,7 +60,19 @@ The following schematic gene edit is **one atomic mutation**, not three independ
 
 1. Start with enabled connection **#3**, \(\mathrm{In}\to\mathrm{Out}\), weight \(w\).
 2. Mark connection **#3 as disabled**; preserve its gene and innovation ID for future genome alignment.
-3. Insert a new hidden node, with enabled **#8** (\(\mathrm{In}\to\mathrm{Hidden}\), weight 1) and **#9** (\(\mathrm{Hidden}\to\mathrm{Out}\), weight \(w\)). The two new innovation IDs denote distinct connections.
+3. Insert a new hidden node, with enabled **#8** (
+
+\[
+\mathrm{In}\to\mathrm{Hidden}
+\]
+
+, weight 1) and **#9** (
+
+\[
+\mathrm{Hidden}\to\mathrm{Out}
+\]
+
+, weight \(w\)). The two new innovation IDs denote distinct connections.
 
 For an **identity** hidden activation and input \(x=0.8,w=1.4\), the original output is \(wx=1.12\), and the split route gives \(w(1x)=1.12\). This algebra explains the usual initial weight assignment but **does not guarantee function preservation for arbitrary nonlinear hidden activations**, biases, or subsequent weight mutations. The numbering and values are constructed; population-level historical bookkeeping is outside this one-genome illustration.
 

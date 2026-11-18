@@ -47,6 +47,9 @@ def main():
                         assert tab.locator('[data-ewc-neat-lab="ewc"] .en-lab-frame').get_attribute('tabindex') == '0'
                         ewc = tab.locator('[data-ewc-neat-lab="ewc"]')
                         neat = tab.locator('[data-ewc-neat-lab="neat"]')
+                        if width <= 360:
+                            region=ewc.locator('.en-lab-frame');region.focus();tab.keyboard.press('ArrowRight');tab.wait_for_timeout(250)
+                            assert region.evaluate('x=>x.scrollLeft>0')
                         ewc.locator('[data-action=seek]').fill('1')
                         assert '0.080' in ewc.locator('.en-lab-results').inner_text()  # eta .08, θ1=.08
                         ewc.locator('[data-setting=eta]').fill('0.12')
