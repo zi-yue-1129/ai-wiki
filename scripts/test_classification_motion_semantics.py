@@ -621,3 +621,18 @@ for filename, label in (
     assert 'data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg"' in page
     assert "11/30" in page and "1/6" in page
 print("ROC FPR-budget motion: 501 continuous feasible policies, bilingual exact-source links OK")
+
+# Population FPR constraints do not bound the observed error fraction in
+# every independent finite batch. Three negatives and one false alarm imply
+# empirical FPR >= 1/3, exceeding the 1/6 assumed conditional rate.
+from fractions import Fraction
+finite_fpr = Fraction(1, 6)
+prob_over_budget = 1 - (1 - finite_fpr) ** 3
+assert prob_over_budget == Fraction(91, 216)
+assert Fraction(1, 3) > finite_fpr
+for filename in ("roc-auc.md", "roc-auc.zh-TW.md"):
+    page = (shared_dir / filename).read_text(encoding="utf-8")
+    assert "91/216" in page
+    assert r"\widehat{\mathrm{FPR}}" in page
+    assert "42.1%" in page
+print("Finite-batch FPR risk: exact binomial probability 91/216 OK")
