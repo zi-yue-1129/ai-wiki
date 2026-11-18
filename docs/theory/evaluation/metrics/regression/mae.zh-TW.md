@@ -5,6 +5,7 @@ tags:
   - evaluation
   - metrics
   - regression
+translation_reviewed: 2026-11-15
 ---
 
 # 平均絕對誤差
@@ -16,6 +17,26 @@ tags:
 $$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |\hat{y}_i - y_i|$$
 
 完美的模型得分為 0。這個數值代表典型的誤差大小，因此 MAE 為 2 表示預測平均差 2 個單位。
+
+## 動畫解讀：線性誤差與平方誤差的差異
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="MAE 與 RMSE 動畫；可聚焦此圖並在窄螢幕水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="五個絕對殘差中，四個固定為一，第五個從一增加到六再返回；MAE 的增幅小於 RMSE。">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。GitHub 顯示高誤差狀態的靜態圖；MkDocs 網站可播放或暫停，手機版可聚焦後水平捲動。* [完整 SVG 動畫](../../../../assets/concept-animations/outlier-mae-rmse-motion.svg)。
+
+在**人工示意**的五筆資料中，四個絕對殘差固定為 1，最後一筆從 1 連續增加到 6，再返回 1。MAE 由 $1$ 線性上升至 $(4+6)/5=2$；RMSE 則從 $1$ 上升至 $\sqrt{(4+6^2)/5}=\sqrt8\approx2.83$。右側數字是**峰值**，不是即時量測讀值；此處沒有訓練或評測模型。
+
+### 互動實驗：離群殘差敏感度
+
+<div data-regression-lab="outlier" data-lang="zh"></div>
+
+可拖曳第五筆絕對殘差 $d$（1 至 6），或使用**上一步／下一步、播放／暫停、重設與速度選單**。圖中的 MAE 與 RMSE 依目前數值重新計算；兩者差距擴大的原因，是 $d^2$ 比 $d$ 成長得更快。滑桿與按鈕支援鍵盤操作，手機可在 680 px 圖面內水平捲動；系統設定減少動態效果時停用自動播放。**所有數值為人工示意，不是模型實測結果。** GitHub Markdown 不執行互動程式，但前方靜態 SVG 仍可直接理解。
+
+下方的 **Σe²** 堆疊長條顯示 RMSE 公式在除以五、開平方根之前的平方誤差總和：藍色是四筆固定殘差的平方和 4，橘色是隨 $d$ 改變的 $d^2$。長條共用 0 至 40 的固定尺度；$d=1$ 時總和為 5，$d=6$ 時為 40。**這不是最終 RMSE 數值。**
 
 ## 解讀
 

@@ -17,6 +17,26 @@ $$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |\hat{y}_i - y_i|$$
 
 A perfect model scores 0. The value is a typical size of error, so an MAE of 2 means predictions are off by 2 units on average.
 
+## Animated explanation: linear versus squared error response
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="MAE versus RMSE animation; focus this image and scroll horizontally if needed">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="Five residual bars: four stay at one, while the fifth rises from one to six. The MAE score grows more slowly than RMSE.">
+</div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0. GitHub shows the informative static end state; on MkDocs select Play/Pause. Focus the figure and scroll horizontally on narrow screens.* [Full SVG animation](../../../../assets/concept-animations/outlier-mae-rmse-motion.svg).
+
+In this **schematic** five-case example, four absolute residuals remain at 1 while the fifth changes continuously from 1 to 6 and back. MAE rises linearly, from $1$ to $(4+6)/5=2$, whereas RMSE rises from $1$ to $\sqrt{(4+6^2)/5}=\sqrt 8\approx2.83$. The labels at the right of the bars show **peak** scores, not continuously measured values. This is calculated from artificial residuals, not fitted-model performance.
+
+### Interactive lab: outlier sensitivity
+
+<div data-regression-lab="outlier" data-lang="en"></div>
+
+Move the fifth absolute residual $d$ between 1 and 6, or use **Previous / Next**, **Play / Pause**, **Reset**, and the speed selector. The plotted MAE and RMSE are recomputed at every position; the gap opens because the squared contribution of $d$ grows faster than its linear contribution. The sliders and buttons are keyboard-operable; the 680 px diagram can scroll inside its frame on narrow screens. Automatic playback is disabled when reduced motion is preferred. **The values are synthetic illustrations, not model measurements.** The earlier static SVG remains readable in GitHub Markdown, where this interactive experiment does not execute.
+
+The live **Σe²** strip reveals the RMSE numerator before dividing by five and taking the square root: blue represents the four fixed squared residuals (total 4), and orange represents the changing $d^2$. Its shared zero-to-40 scale grows from a total of 5 at $d=1$ to 40 at $d=6$; this is a sum of squares, **not** the RMSE value.
+
 ## Interpretation
 
 Because MAE grows linearly with each error, a few very large errors have a proportionate effect rather than a dominant one. Its minimiser is the median of the errors, so a model trained to minimise MAE predicts something close to the conditional median rather than the mean. Willmott and Matsuura (2005) argue that this makes MAE the more natural measure of average model performance.

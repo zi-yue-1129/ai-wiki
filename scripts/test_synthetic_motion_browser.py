@@ -30,14 +30,15 @@ def test_all() -> int:
             for stem, page_stem in TOPICS.items():
                 for suffix in (".md", ".zh-TW.md"):
                     source = (DOCS / (page_stem + suffix)).read_text(encoding="utf-8")
-                    match = re.search(
-                        r'<img\s+src="([^"]+)"\s+data-motion-src="([^"]+)"[^>]+alt="([^"]+)"', source,
-                    )
-                    assert match, f"Missing static/motion/alt markup: {page_stem}{suffix}"
-                    static_name, motion_name = (Path(match.group(i)).name for i in (1, 2))
+                    match = re.search(r'<div class="concept-motion-scroll".*?</div>\s*</div>', source, re.S)
+                    assert match, f"Missing authored scroll markup: {page_stem}{suffix}"
+                    markup = match.group(0)
+                    attrs = dict(re.findall(r'([\w-]+)="([^"]*)"', re.search(r'<img[^>]+>', markup).group(0)))
+                    static_name = Path(attrs['src']).name
+                    motion_name = Path(attrs['data-motion-src']).name
                     assert static_name == f"{stem}-still.svg"
                     assert motion_name == f"{stem}-motion.svg"
-                    alt = match.group(3)
+                    alt = attrs['alt']
                     if suffix == ".zh-TW.md":
                         assert re.search(r"[\u3400-\u9fff]", alt)
                     for width in (320, 720):
@@ -52,15 +53,17 @@ def test_all() -> int:
 
                             page.route("**/assets/concept-animations/*.svg", route_svg)
                             url_base = "https://wiki.test/assets/concept-animations/"
+                            authored = markup.replace('../../assets/concept-animations/', url_base)
                             page.set_content(
-                                '<!doctype html><html><head><style>body{margin:0;padding:8px}'
-                                + CSS + '</style></head><body><img src="'
-                                + url_base + static_name + '" data-motion-src="'
-                                + url_base + motion_name + '" alt="' + alt + '"></body></html>'
+                                '<!doctype html><html lang="' + ('zh-TW' if suffix == '.zh-TW.md' else 'en') + '"><head><style>body{margin:0;padding:8px}'
+                                + CSS + '</style></head><body>' + authored + '</body></html>'
                             )
                             page.add_script_tag(content=JS)
                             button = page.locator(".concept-motion-toggle")
                             button.wait_for()
+                            if suffix == ".zh-TW.md":
+                                assert re.search(r"[\u3400-\u9fff]", button.inner_text())
+                            assert page.evaluate("document.documentElement.scrollWidth") <= width
                             image = page.locator(".concept-motion-player img")
                             expected = static_name if reduced else motion_name
                             assert image.get_attribute("src").endswith(expected)
@@ -83,8 +86,7 @@ def test_all() -> int:
                                 assert size["client"] < 640 <= size["scroll"] and size["tab"] == 0
                                 host.focus()
                                 page.keyboard.press("ArrowRight")
-                                page.wait_for_timeout(80)
-                                assert host.evaluate("n => n.scrollLeft") > 0
+                                page.wait_for_function('document.querySelector(".concept-motion-scroll").scrollLeft > 0')
                             checked += 1
                             page.close()
         finally:
