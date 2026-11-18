@@ -163,6 +163,12 @@
 /* Preserve native SayCan and RT-2 source figures only. */
 .grounded-action-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
 .grounded-action-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
+/* Native readable PBT and FTW source figures only. */
+.population-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
+.population-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
+/* Scoped MADDPG / MAPPO original source figures. */
+.marl-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
+.marl-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
 
 /* Only SAC/DPO native 760px figures: no generic 640px centered-host overhang. */
 .sac-dpo-motion-scroll > .sac-dpo-motion-frame { width:760px; min-width:760px; max-width:none; margin:0 auto; }

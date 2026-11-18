@@ -3,9 +3,19 @@ name: Validate concept animations
 on:
   pull_request:
     paths:
+      - "scripts/test_forward_math_markup.py"
+      - "scripts/test_distillation_player.cjs"
       - "scripts/test_diffusion_policy_player.cjs"
       - "scripts/test_fixture_dependency_motion_semantics.py"
       - "scripts/test_reviewed_scroll_player.cjs"
+      - "scripts/test_population_actual_motion_semantics.py"
+      - "scripts/test_population_fixture_motion_semantics.py"
+      - "scripts/test_population_source_player.cjs"
+      - "scripts/test_population_source_browser.py"
+      - "scripts/test_marl_source_semantics.py"
+      - "scripts/test_marl_fixture_motion_semantics.py"
+      - "scripts/test_marl_source_player.cjs"
+      - "scripts/test_marl_source_browser.py"
       - "scripts/concept_motion_fixture_selector.cjs"
       - "scripts/test_concept_motion_fixture_selector.cjs"
       - "scripts/test_gqa_source_browser.py"
@@ -92,6 +102,12 @@ on:
       - "docs/javascripts/bayesian-filter-comparisons.js"
       - "docs/stylesheets/bayesian-filter-insights.css"
       - "docs/stylesheets/bayesian-filter-labs.css"
+      - "scripts/test_ddpg_motion_browser.py"
+      - "scripts/test_ddpg_motion_semantics.py"
+      - "scripts/test_sac_motion_browser.py"
+      - "scripts/test_sac_source_motion_semantics.py"
+      - "scripts/test_sac_source_browser.py"
+      - "scripts/test_sac_source_player.cjs"
       - "docs/javascripts/concept-motion.js"
       - "docs/javascripts/adaptive-optimiser-labs.js"
       - "docs/stylesheets/adaptive-optimiser-labs.css"
@@ -142,6 +158,9 @@ on:
       - "scripts/test_segmentation_labs_browser.py"
       - "docs/javascripts/segmentation-labs.js"
       - "docs/stylesheets/segmentation-labs.css"
+      - "scripts/test_dreamer_motion_browser.py"
+      - "scripts/test_dreamer_motion_semantics.py"
+      - "docs/theory/models/world-models/dreamer*.md"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_evolution_motion_browser.py"
       - "scripts/test_evolution_labs_browser.py"
@@ -328,6 +347,14 @@ jobs:
         run: |
           python scripts/test_grounded_action_actual_motion_semantics.py
           node scripts/test_grounded_action_source_player.cjs
+      - name: Validate population source schedules and player
+        run: |
+          python scripts/test_population_actual_motion_semantics.py
+          node scripts/test_population_source_player.cjs
+      - name: Validate MARL source semantics and player
+        run: |
+          python scripts/test_marl_source_semantics.py
+          node scripts/test_marl_source_player.cjs
       - name: Install Chromium and Traditional Chinese fonts for visual tests
         run: |
           sudo apt-get update -qq
@@ -364,6 +391,14 @@ jobs:
         run: python scripts/test_openvla_source_browser.py
       - name: Verify grounded action source keyboard layout
         run: python scripts/test_grounded_action_source_browser.py
+      - name: Verify population source keyboard layout
+        run: |
+          python scripts/test_population_fixture_motion_semantics.py
+          python scripts/test_population_source_browser.py
+      - name: Verify MARL source keyboard layout
+        run: |
+          python scripts/test_marl_fixture_motion_semantics.py
+          python scripts/test_marl_source_browser.py
       - name: Chromium interactive AdaGrad and Adafactor numerical labs
         run: python scripts/test_adaptive_optimiser_labs_browser.py
       - name: Render deterministic SVD and power-iteration SVG keyframes
@@ -394,6 +429,10 @@ jobs:
         run: python scripts/test_bayesian_filter_motion_browser.py
       - name: Chromium Kalman and particle numerical labs
         run: python scripts/test_bayesian_filter_labs_browser.py
+      - name: DDPG actual SVG mathematics and causal timing
+        run: python scripts/test_ddpg_motion_semantics.py
+      - name: Chromium DDPG gradient, target tracking, replay/bootstrap and OU noise
+        run: python scripts/test_ddpg_motion_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -492,6 +531,10 @@ jobs:
         run: python scripts/test_causal_labs_browser.py
       - name: Chromium Diffusion Policy diagrams and bilingual keyboard player
         run: python scripts/test_diffusion_policy_motion_browser.py
+      - name: Check Dreamer numerical and temporal causal semantics
+        run: python scripts/test_dreamer_motion_semantics.py
+      - name: Chromium Dreamer visual stages, playback and reduced-motion fallback
+        run: python scripts/test_dreamer_motion_browser.py
       - name: Test regression metric lab arithmetic, controls and bilingual responsive layout
         run: python scripts/test_regression_metric_labs_browser.py
       - name: Execute actual bandit numeric and lifecycle regression
@@ -539,6 +582,14 @@ jobs:
         run: |
           node scripts/test_act_source_player.cjs
           python scripts/test_act_source_browser.py
+      - name: Check actual SAC source geometry and causal timing
+        run: python scripts/test_sac_source_motion_semantics.py
+      - name: Actual SAC player and source-owned scroll regression
+        run: |
+          node scripts/test_sac_source_player.cjs
+          python scripts/test_sac_source_browser.py
+      - name: Chromium SAC soft-target and temperature motion / accessible controls
+        run: python scripts/test_sac_motion_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -552,6 +603,8 @@ jobs:
             artifacts/federated-source/
             artifacts/openvla-source/
             artifacts/grounded-action-source/
+            artifacts/population-source/
+            artifacts/marl-source/
             artifacts/self-supervised-labs/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
@@ -585,6 +638,7 @@ jobs:
             artifacts/diffusion-source/
             artifacts/diffusion-policy-motion/*.png
             artifacts/act-source-browser/*.png
+            artifacts/dreamer-motion/**
             artifacts/linear-algebra-motion/
             artifacts/planning-labs/*.png
             artifacts/t5-deit-motion/*.png
@@ -603,6 +657,9 @@ jobs:
             artifacts/ssm-duality-labs/*.png
             artifacts/attention-variant-labs/*.png
             artifacts/flashattention-online/*.png
+            artifacts/ddpg-motion/*.png
+            artifacts/sac-motion/*.png
+            artifacts/sac-source-browser/*.png
           if-no-files-found: ignore
           retention-days: 7
 
@@ -628,6 +685,8 @@ jobs:
           cache: pip
       - name: Install wiki dependencies
         run: pip install -r requirements.txt
+      - name: Check forward AD production Markdown math containers
+        run: python scripts/test_forward_math_markup.py
       - name: Check actual STDP and e-prop geometry, timing and bilingual hooks
         run: python scripts/test_snn_credit_motion_semantics.py
       - name: Strict MkDocs build

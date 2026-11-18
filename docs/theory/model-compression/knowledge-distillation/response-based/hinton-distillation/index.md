@@ -28,18 +28,35 @@ Train the small model on the teacher's softened outputs. A temperature \(T\) spr
 The combined loss is
 
 \[
-\mathcal{L} = (1-\alpha)\, \mathrm{CE}(y, \sigma(z_s)) + \alpha\, T^2\, \mathrm{KL}\!\left(\sigma(z_t/T)\,\Vert\,\sigma(z_s/T)\right)
+\begin{aligned}
+\mathcal{L} &= (1-\alpha)\,\mathrm{CE}(y,\sigma(z_s))\\
+&\quad + \alpha T^2\mathcal{L}_{\mathrm{soft}},\\
+\mathcal{L}_{\mathrm{soft}} &= \mathrm{KL}(p_T\Vert q_T),\\
+p_T&=\sigma(z_t/T),\quad q_T=\sigma(z_s/T).
+\end{aligned}
 \]
 
 where \(z_s\) and \(z_t\) are the student and teacher logits, \(\sigma\) is the softmax, \(T\) is the temperature and \(\alpha\) weights the two terms. The factor \(T^2\) keeps the gradient sizes comparable across temperatures.
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Temperature-softened teacher to student probability alignment">
+<div style="width:720px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg" data-motion-src="../../../../../assets/concept-animations/kd-soft-target-alignment-motion.svg" data-still-src="../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg" alt="Three teacher class probabilities become less peaked as temperature rises from one to three; arrows convey the resulting soft targets and the student bars approach the teacher bars." width="720" height="400">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* The **teacher logits (3, 1, 0)** produce probabilities about **(0.844, 0.114, 0.042)** at \(T=1\), and **(0.532, 0.273, 0.196)** at \(T=3\). The purple student's illustrative initial \(T=3\) distribution **(0.48, 0.30, 0.22)** moves toward the softened teacher distribution. The interpolated bars illustrate target alignment, **not a measured optimisation trajectory, gradient step or model benchmark**. On MkDocs, use the accessible Play/Pause button; GitHub displays the [static fallback](../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg). Both teacher and student probabilities in the distillation loss are computed at the *same* temperature; hard-label CE still uses the unsoftened student predictions. [Original source](https://arxiv.org/abs/1503.02531).
+
 The paper also gives a useful analysis. When the temperature is high relative to the logit magnitudes, the gradient of the soft-target term with respect to each student logit \(z_i\) is approximately
 
 \[
-\frac{\partial \mathcal{L}}{\partial z_i} \approx \frac{1}{N T^2}\,(z_i - v_i)
+\frac{\partial \mathcal{L}_{\mathrm{soft}}}{\partial z_i} \approx \frac{1}{N T^2}\,(z_i - v_i)
 \]
 
 where \(v_i\) are the teacher logits and \(N\) is the number of classes. Under the paper's zero-mean assumption on the logits, distillation at high temperature is therefore equivalent to matching the student's logits to the teacher's. The paper also proposes a specialist ensemble: one generalist model plus many specialists, each trained on a subset of confusable classes. Unlike a mixture of experts, the specialists can be trained quickly and in parallel.
+
+The teacher switches discretely between the two exact softmax distributions, not along a linear-temperature path. Both rows share 100 pixels per unit probability. The student row stays at T=3; matching is shown only after the teacher switches. The loop ends with an explicit reset. Here $\mathcal{L}_{\mathrm{soft}}$ denotes the **unscaled soft-target cross-entropy (or KL)**, not the combined loss above. Its high-temperature gradient shrinks approximately as $1/T^2$; multiplying by $T^2$ compensates this leading-order effect, not an exact gradient invariance at arbitrary temperatures.
+
+[Full SVG animation](../../../../../assets/concept-animations/kd-soft-target-alignment-motion.svg).
 
 ## Results
 
