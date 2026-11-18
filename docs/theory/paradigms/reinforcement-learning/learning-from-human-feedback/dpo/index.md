@@ -16,7 +16,16 @@ Reinforcement learning from human feedback first trains a reward model on compar
 
 ## Core idea
 
-The KL-constrained objective has a known optimal policy. For a reference policy \(\pi_{\text{ref}}\), a coefficient \(\beta\) and a reward \(r\), the optimum is \(\pi_r(y \mid x) \propto \pi_{\text{ref}}(y \mid x)\exp(r(x, y)/\beta)\). Rearranging this gives the reward in terms of the policy, \(r(x, y) = \beta \log(\pi_r(y \mid x)/\pi_{\text{ref}}(y \mid x)) + \beta \log Z(x)\). Substituting this into the Bradley–Terry preference model makes the partition term cancel, and the reward model disappears. What remains is a loss on the policy and the reference model alone.
+The KL-constrained objective has a known optimal policy. For a reference policy \(\pi_{\text{ref}}\), a coefficient \(\beta\) and a reward \(r\), the optimum is \(\pi_r(y \mid x) \propto \pi_{\text{ref}}(y \mid x)\exp(r(x, y)/\beta)\). Rearranging this gives the reward in terms of the policy,
+
+$$
+\begin{aligned}
+r(x,y)&=\beta\log\frac{\pi_r(y\mid x)}{\pi_{\mathrm{ref}}(y\mid x)}\\
+&\quad+\beta\log Z(x).
+\end{aligned}
+$$
+
+Substituting this into the Bradley–Terry preference model makes the partition term cancel, and the reward model disappears. What remains is a loss on the policy and the reference model alone.
 
 ## Equation or algorithm
 
@@ -41,8 +50,8 @@ where \(y_w\) is the preferred completion, \(y_l\) the dispreferred one, and \(\
 
 ### Animated concept: a reference-relative preference margin
 
-<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="DPO preference margin diagram; scroll horizontally on narrow screens">
-<div style="min-width:760px"><img data-source-asset-urls="true" src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" data-still-src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" style="width:760px;min-width:760px;max-width:none;height:auto" data-motion-src="../../../../../assets/concept-animations/dpo-preference-margin-motion.svg" alt="Preferred and rejected policy probabilities change against a fixed reference, while a point travels along the DPO logistic-loss curve as the preference margin increases." loading="lazy"></div>
+<div class="concept-motion-scroll sac-dpo-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="DPO preference margin diagram; scroll horizontally on narrow screens">
+<div class="sac-dpo-motion-frame" style="min-width:760px"><img data-source-asset-urls="true" src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" data-still-src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" style="width:760px;min-width:760px;max-width:none;height:auto" data-motion-src="../../../../../assets/concept-animations/dpo-preference-margin-motion.svg" alt="Preferred and rejected policy probabilities change against a fixed reference, while a point travels along the DPO logistic-loss curve as the preference margin increases." loading="lazy"></div>
 </div>
 
 *Original vector teaching animation (CC BY-SA 4.0).* In a **two-completion schematic** with \(\pi_{\mathrm{ref}}(y_w\mid x)=\pi_{\mathrm{ref}}(y_l\mid x)=0.5\), define the reference-adjusted margin

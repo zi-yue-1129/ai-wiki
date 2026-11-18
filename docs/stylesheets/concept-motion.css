@@ -49,3 +49,7 @@
 .diffusion-motion-scroll:focus-visible{outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:3px}
 /* Explicit source-owned scroll regions, focusable before and after enhancement. */
 .md-typeset .reviewed-motion-scroll:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
+
+/* Only SAC/DPO native 760px figures: no generic 640px centered-host overhang. */
+.sac-dpo-motion-scroll > .sac-dpo-motion-frame { width:760px; min-width:760px; max-width:none; margin:0 auto; }
+.sac-dpo-motion-frame > .concept-motion-player { width:760px; max-width:none; margin:.5rem 0 1rem; }

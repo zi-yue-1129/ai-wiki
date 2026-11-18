@@ -37,8 +37,8 @@ The paper omits the temperature from its algorithm, and reports reward scale as 
 
 ### Animated concept: temperature and entropy
 
-<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="SAC entropy diagram; scroll horizontally on narrow screens">
-<div style="min-width:760px"><img data-source-asset-urls="true" src="../../../../../assets/concept-animations/sac-entropy-temperature-still.svg" data-still-src="../../../../../assets/concept-animations/sac-entropy-temperature-still.svg" style="width:760px;min-width:760px;max-width:none;height:auto" data-motion-src="../../../../../assets/concept-animations/sac-entropy-temperature-motion.svg" alt="Three action-probability bars move as the softmax temperature decreases, while an entropy-versus-temperature curve traces the change in entropy." loading="lazy"></div>
+<div class="concept-motion-scroll sac-dpo-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="SAC entropy diagram; scroll horizontally on narrow screens">
+<div class="sac-dpo-motion-frame" style="min-width:760px"><img data-source-asset-urls="true" src="../../../../../assets/concept-animations/sac-entropy-temperature-still.svg" data-still-src="../../../../../assets/concept-animations/sac-entropy-temperature-still.svg" style="width:760px;min-width:760px;max-width:none;height:auto" data-motion-src="../../../../../assets/concept-animations/sac-entropy-temperature-motion.svg" alt="Three action-probability bars move as the softmax temperature decreases, while an entropy-versus-temperature curve traces the change in entropy." loading="lazy"></div>
 </div>
 
 *Original vector teaching animation (CC BY-SA 4.0).* For **fixed**, schematic action values \(Q=[2,1,0]\), the finite-action maximum-entropy optimum is

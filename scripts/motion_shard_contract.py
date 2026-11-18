@@ -88,6 +88,45 @@ def validate_lazy_canary(report, files, root):
     require(root + '/lazy-image-canary/loaded-after-scroll.png' in files, 'Missing lazy canary screenshot')
 
 
+DPO_REWARD_SOURCES = {
+    'theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo/index.md',
+    'theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo/index.zh-TW.md',
+}
+DPO_REWARD_TEX = r'\begin{aligned}r(x,y)&=\beta\log\frac{\pi_r(y\mid x)}{\pi_{\mathrm{ref}}(y\mid x)}\\&\quad+\beta\log Z(x).\end{aligned}'
+
+def dpo_mobile(source, viewport):
+    return source in DPO_REWARD_SOURCES and viewport['width'] < 600
+
+def validate_dpo_reward_measurement(record, viewport):
+    import math,re
+    require(record.get('status') == 'passed', 'DPO reward formula was not verified')
+    require(re.sub(r'\s+','',record.get('tex','')) == re.sub(r'\s+','',DPO_REWARD_TEX), 'Wrong DPO reward identity rendered')
+    require(record.get('display') is True and record.get('visible') is True, 'DPO reward identity is not visibly displayed')
+    for key in ('math','article'):
+        box=record.get(key,{})
+        require(set(box)=={'left','right','top','bottom','width','height'}, 'Missing formula/article bounds')
+        require(all(type(v) in (int,float) and math.isfinite(v) for v in box.values()), 'Nonfinite formula bounds')
+        require(box['width']>0 and box['height']>0 and box['right']>=box['left'] and box['bottom']>=box['top'], 'Empty formula bounds')
+    box,article=record['math'],record['article']
+    require(box['left']>=article['left'] and box['right']<=article['right']<=viewport['width'], 'DPO formula right edge exceeds article')
+    require(box['left']>=0 and box['top']>=0 and box['bottom']<=viewport['height'], 'DPO formula not fully in screenshot viewport')
+    require(record.get('document')=={'inner':viewport['width'],'client':viewport['width'],'width':viewport['width']}, 'DPO document viewport mismatch')
+    old=record.get('original_inline',{})
+    require(old.get('rejected') is True, 'Original inline overflow was not reproduced')
+    require(all(type(old.get(k)) in (int,float) and math.isfinite(old[k]) for k in ('inner','client','width','mathRight')), 'Missing original inline bounds')
+    require(old['client']==viewport['width'] and old['width']>viewport['width'] and old['mathRight']>viewport['width'] and old.get('display') is False, 'Original inline canary did not overflow')
+
+def validate_dpo_reward_evidence(case, files, root, used):
+    if not dpo_mobile(case['source'],case['viewport']):return
+    record=case.get('dpo_reward_identity',{})
+    validate_dpo_reward_measurement(record,case['viewport'])
+    for key,expected in [('screenshot','dpo-reward-identity.png'),('old_inline_screenshot','dpo-original-inline.png')]:
+        require(record.get(key)==expected, 'Missing DPO formula screenshot reference')
+        path=root+'/'+case['artifact_directory']+'/'+expected
+        require(path in files and path not in used, 'Missing/reused DPO formula screenshot')
+        used.add(path)
+
+
 def validate_scroll_evidence(case, files, root, used):
     require('keyboard_scroll' in case, 'Missing scroll discovery evidence')
     for bounds in case['keyboard_scroll']:
@@ -166,6 +205,7 @@ def validate_shards(expected, receipts, count, artifact_rows):
         screenshot_paths=set()
         for c in report['cases']:
             validate_scroll_evidence(c, files, 'built-motion-browser', screenshot_paths)
+            validate_dpo_reward_evidence(c, files, 'built-motion-browser', screenshot_paths)
             require([i.get('alt') for i in c['images']]==[i.get('alt') for i in discovered[c['source']]],'Missing/extra/disordered discovered image coverage')
             for image in c['images']:
                 for state in image['states'].values():

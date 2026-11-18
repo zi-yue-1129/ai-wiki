@@ -14,7 +14,16 @@ translation_reviewed: 2026-11-14
 
 ## 核心想法
 
-帶 KL 約束的目標有已知的最佳策略。對參考策略 \(\pi_{\text{ref}}\)、係數 \(\beta\) 與獎勵 \(r\)，其最佳解為 \(\pi_r(y \mid x) \propto \pi_{\text{ref}}(y \mid x)\exp(r(x, y)/\beta)\)。整理後可以用策略表示獎勵：\(r(x, y) = \beta \log(\pi_r(y \mid x)/\pi_{\text{ref}}(y \mid x)) + \beta \log Z(x)\)。把它代入 Bradley–Terry 偏好模型後，配分項會消去，獎勵模型也隨之消失。剩下的只是一個只涉及策略與參考模型的損失。
+帶 KL 約束的目標有已知的最佳策略。對參考策略 \(\pi_{\text{ref}}\)、係數 \(\beta\) 與獎勵 \(r\)，其最佳解為 \(\pi_r(y \mid x) \propto \pi_{\text{ref}}(y \mid x)\exp(r(x, y)/\beta)\)。整理後可以用策略表示獎勵：
+
+$$
+\begin{aligned}
+r(x,y)&=\beta\log\frac{\pi_r(y\mid x)}{\pi_{\mathrm{ref}}(y\mid x)}\\
+&\quad+\beta\log Z(x).
+\end{aligned}
+$$
+
+把它代入 Bradley–Terry 偏好模型後，配分項會消去，獎勵模型也隨之消失。剩下的只是一個只涉及策略與參考模型的損失。
 
 ## 方程式與演算法
 
@@ -39,8 +48,8 @@ $$
 
 ### 教學動畫：相對參考模型的偏好差距
 
-<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="DPO 偏好差距示意圖；窄螢幕可水平捲動">
-<div style="min-width:760px"><img data-source-asset-urls="true" src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" data-still-src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" style="width:760px;min-width:760px;max-width:none;height:auto" data-motion-src="../../../../../assets/concept-animations/dpo-preference-margin-motion.svg" alt="在固定參考模型下，偏好與拒絕回應的策略機率持續改變，橘色游標隨偏好差距移動於 DPO 邏輯損失曲線。" loading="lazy"></div>
+<div class="concept-motion-scroll sac-dpo-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="DPO 偏好差距示意圖；窄螢幕可水平捲動">
+<div class="sac-dpo-motion-frame" style="min-width:760px"><img data-source-asset-urls="true" src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" data-still-src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" style="width:760px;min-width:760px;max-width:none;height:auto" data-motion-src="../../../../../assets/concept-animations/dpo-preference-margin-motion.svg" alt="在固定參考模型下，偏好與拒絕回應的策略機率持續改變，橘色游標隨偏好差距移動於 DPO 邏輯損失曲線。" loading="lazy"></div>
 </div>
 
 *原創向量教學動畫（CC BY-SA 4.0）。* 考慮只有兩個回應的**人工示例**，令 \(\pi_{\mathrm{ref}}(y_w\mid x)=\pi_{\mathrm{ref}}(y_l\mid x)=0.5\)，相對參考模型的偏好差距與 DPO 損失為：

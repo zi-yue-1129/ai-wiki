@@ -398,6 +398,7 @@ jobs:
             artifacts/contrastive-alignment-labs/*.png
             artifacts/working-memory-labs/*.png
             artifacts/sac-dpo-labs/*.png
+            artifacts/sac-dpo-motion/
             artifacts/segmentation-labs/*.png
             artifacts/video-motion/*.png
             artifacts/video-architecture-labs/*.png

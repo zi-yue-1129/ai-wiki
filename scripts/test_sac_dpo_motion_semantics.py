@@ -33,4 +33,121 @@ class SacDpoMotion(unittest.TestCase):
     for token in ['data-source-asset-urls','data-still-src','concept-motion-scroll','tabindex="0"','min-width:760px']:self.assertIn(token,text)
     self.assertNotIn('class="concept-motion-wide"',text)
     self.assertEqual(text.count(r'\begin{aligned}'),text.count(r'\end{aligned}'))
+
+
+def check_dpo_reward_display(text):
+ import re
+ blocks=re.findall(r'\$\$(.*?)\$\$',text,re.S)
+ expected=r'\begin{aligned}r(x,y)&=\beta\log\frac{\pi_r(y\mid x)}{\pi_{\mathrm{ref}}(y\mid x)}\\&\quad+\beta\log Z(x).\end{aligned}'
+ compact=lambda x:re.sub(r'\s+','',x)
+ matches=[b for b in blocks if 'r(x,y)' in compact(b)]
+ assert len(matches)==1 and compact(matches[0])==compact(expected), 'Reward identity must retain all terms in the reviewed two-line display'
+ assert not re.search(r'\\\(\s*r\(x,\s*y\)\s*=',text), 'Former overflowing inline reward identity'
+ return matches[0]
+
+class DpoRewardMobile(unittest.TestCase):
+ def test_bilingual_two_line_identity_and_original_inline_negative(self):
+  base=R/'docs/theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo'
+  for name in ('index.md','index.zh-TW.md'):
+   text=(base/name).read_text();block=check_dpo_reward_display(text)
+   original=r'\(r(x, y) = \beta \log(\pi_r(y \mid x)/\pi_{\text{ref}}(y \mid x)) + \beta \log Z(x)\)'
+   with self.assertRaises(AssertionError):check_dpo_reward_display(text.replace('$$'+block+'$$',original))
+   for old,new in [(r'+\beta\log Z(x)',r'-\beta\log Z(x)'),(r'\beta\log\frac',r'\log\frac'),(r'\pi_{\mathrm{ref}}',r'\pi_r')]:
+    with self.subTest(name=name,mutation=old),self.assertRaises(AssertionError):check_dpo_reward_display(text.replace(old,new,1))
+ def test_reward_identity_and_partition_cancellation_numerically(self):
+  # Recover rewards from the KL-optimal policy, not merely a formula snapshot.
+  for beta in (.1,.3,1.,2.,5.):
+   for ref in ((.1,.2,.7),(.6,.3,.1),(.01,.98,.01)):
+    for rewards in ((-2.,0.,3.),(.5,-.7,1.2),(4.,4.,4.)):
+     logits=[math.log(p)+r/beta for p,r in zip(ref,rewards)];m=max(logits);logZ=m+math.log(sum(math.exp(x-m)for x in logits));logpolicy=[x-logZ for x in logits]
+     recovered=[beta*(lp-math.log(p))+beta*logZ for lp,p in zip(logpolicy,ref)]
+     for actual,expected in zip(recovered,rewards):self.assertAlmostEqual(actual,expected,places=12)
+     margin=beta*((logpolicy[0]-math.log(ref[0]))-(logpolicy[1]-math.log(ref[1])))
+     self.assertAlmostEqual(margin,rewards[0]-rewards[1],places=12)
+
+class ScopedLayoutRegression(unittest.TestCase):
+ def test_geometry_boundary_rejects_old_host_without_weakening_mobile_scroll(self):
+  from test_sac_dpo_motion_browser import assert_scroll_geometry
+  for viewport in (320,360,760,1024):
+   good={'innerWidth':viewport,'clientWidth':viewport,'documentWidth':viewport,'region':{'clientWidth':viewport,'scrollWidth':max(viewport,760)}}
+   assert_scroll_geometry(good,viewport)
+   bad={**good,'region':{'clientWidth':viewport,'scrollWidth':viewport if viewport<760 else viewport+60}}
+   with self.assertRaises(AssertionError):assert_scroll_geometry(bad,viewport)
+  with self.assertRaises(AssertionError):assert_scroll_geometry({'innerWidth':408,'clientWidth':390,'documentWidth':408,'region':{'clientWidth':358,'scrollWidth':760}},390)
+ def test_four_pages_and_fixture_share_scoped_host_without_global_change(self):
+  css=(R/'docs/stylesheets/concept-motion.css').read_text()
+  self.assertIn('.sac-dpo-motion-frame > .concept-motion-player',css)
+  self.assertIn('max-width: 640px',css)
+  browser=(R/'scripts/test_sac_dpo_motion_browser.py').read_text()
+  self.assertIn('for viewport in (320,360,760,1024)',browser)
+  self.assertIn('for reduced in (False, True)',browser)
+  self.assertIn('old_host_counterfactual(browser, html, js, handle, record)',browser)
+  for folder in ('learning-from-human-feedback/dpo','policy-gradient-and-actor-critic/sac'):
+   for suffix in ('.md','.zh-TW.md'):
+    source=(R/'docs/theory/paradigms/reinforcement-learning'/folder/('index'+suffix)).read_text()
+    self.assertIn('class="concept-motion-scroll sac-dpo-motion-scroll"',source)
+    self.assertIn('class="sac-dpo-motion-frame"',source)
+ def test_built_producer_and_gate_keep_original_states_and_explicit_formula_call(self):
+  import ast
+  tree=ast.parse((R/'scripts/test_built_motion_browser.py').read_text())
+  exercise=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='exercise_page')
+  calls=[n.func.id for n in ast.walk(exercise) if isinstance(n,ast.Call) and isinstance(n.func,ast.Name)]
+  self.assertIn('dpo_mobile',calls);self.assertIn('check_dpo_reward_identity',calls)
+  gate=ast.parse((R/'scripts/motion_shard_contract.py').read_text())
+  validate=next(n for n in gate.body if isinstance(n,ast.FunctionDef) and n.name=='validate_shards')
+  self.assertTrue(any(isinstance(n,ast.Call) and isinstance(n.func,ast.Name) and n.func.id=='validate_dpo_reward_evidence' for n in ast.walk(validate)))
+
+ def test_native_counterfactual_producer_path_and_cleanup_with_mock_browser(self):
+  # Mock only browser transport: run the real producer and unchanged geometry assertion.
+  # This is not native-renderer evidence; new CI must supply the real measurements.
+  from unittest.mock import MagicMock,patch
+  import test_sac_dpo_motion_browser as b
+  for overflow in (True,False):
+   page=MagicMock();browser=MagicMock();browser.new_page.return_value=page
+   geometry={'innerWidth':760,'clientWidth':760,'documentWidth':760,
+      'host':{'width':640},'img':{'width':760},'region':{'clientWidth':760,'scrollWidth':820 if overflow else 760}}
+   record={'id':'mock-only'}
+   with patch.object(b,'scroll_geometry',return_value=geometry):
+    if overflow:b.old_host_counterfactual(browser,'<div class="sac-dpo-motion-frame">','js',lambda _:None,record)
+    else:
+     with self.assertRaises(AssertionError):b.old_host_counterfactual(browser,'<div class="sac-dpo-motion-frame">','js',lambda _:None,record)
+   page.close.assert_called_once();page.add_script_tag.assert_called_once_with(content='js')
+   self.assertIn('old-sac-dpo-motion-frame',page.set_content.call_args.args[0])
+   self.assertEqual(record['old_host_counterfactual']['rejected'],overflow)
+
+ def test_exact_original_32_case_matrix_missing_duplicate_failed_rejected(self):
+  import copy
+  from test_sac_dpo_motion_browser import TOPICS,validate_case_matrix
+  rows=[dict(stem=s,lang=l,viewport=w,reduced=r,status='passed') for s in TOPICS for l in ('en','zh') for w in (320,360,760,1024) for r in (False,True)]
+  validate_case_matrix(rows)
+  variants=[rows[:-1],rows[:-1]+[rows[0]],copy.deepcopy(rows)]
+  variants[-1][-1]['status']='failed'
+  for variant in variants:
+   with self.assertRaises(AssertionError):validate_case_matrix(variant)
+
+ def test_actual_future_only_routes_and_required_unconditional_commands(self):
+  import copy,fnmatch,yaml
+  def verify(workflow,paths,commands):
+   event=workflow.get('on',workflow.get(True));patterns=event['pull_request']['paths']
+   assert all(any(fnmatch.fnmatchcase(path,pattern)for pattern in patterns)for path in paths)
+   runs=[]
+   for job in workflow['jobs'].values():
+    if 'if' in job or job.get('continue-on-error') is not None and job.get('continue-on-error') is not False:continue
+    for step in job.get('steps',[]):
+     if 'if' not in step and (step.get('continue-on-error') is None or step.get('continue-on-error') is False):
+      runs.extend(line.strip()for line in step.get('run','').splitlines())
+   assert all(command in runs for command in commands)
+  configurations=[('concept-animation-validation.yml',['scripts/test_sac_dpo_motion_browser.py','scripts/test_sac_dpo_motion_semantics.py','docs/stylesheets/concept-motion.css'],['python scripts/test_sac_dpo_motion_browser.py','python scripts/test_sac_dpo_motion_semantics.py']),
+   ('built-motion-browser.yml',['scripts/motion_shard_contract.py','scripts/test_motion_shard_contract.py','scripts/test_built_motion_browser.py'],['python scripts/test_motion_shard_contract.py','python scripts/test_built_motion_browser.py --shard-index ${{ matrix.shard }} --shard-count 4'])]
+  for filename,paths,commands in configurations:
+   w=yaml.safe_load((R/'.github/workflows'/filename).read_text());verify(w,paths,commands)
+   bad=copy.deepcopy(w);bad.get('on',bad.get(True))['pull_request']['paths']=[]
+   with self.assertRaises(AssertionError):verify(bad,paths,commands)
+   for flag in (False,None,'always()'):
+    bad=copy.deepcopy(w)
+    for job in bad['jobs'].values():
+     for step in job.get('steps',[]):
+      if any(command in step.get('run','').splitlines() for command in commands):step['if']=flag
+    with self.assertRaises(AssertionError):verify(bad,paths,commands)
+
 if __name__=='__main__':unittest.main()

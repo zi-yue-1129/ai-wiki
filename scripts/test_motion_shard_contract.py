@@ -105,4 +105,48 @@ class ShardContract(unittest.TestCase):
     def test_empty_duplicate_invalid_partition(self):
         for args in [([],0,4),(['a','a'],0,2),(['a'],1,4),(['a'],-1,4),(['a'],0,0)]:
             with self.assertRaises(ValueError):partition(*args)
+class DpoRewardContract(unittest.TestCase):
+    def evidence(self):
+        pages=[{'source':p,'url':p,'output':p+'.html','images':[{'src':p+'.svg'}]} for p in sorted(DPO_REWARD_SOURCES)]
+        m,r,a=fixture(pages)
+        for receipt in r:
+            pack=receipt['pack']
+            for case in receipt['report']['cases']:
+                if not dpo_mobile(case['source'],case['viewport']):continue
+                case['dpo_reward_identity']={'status':'passed','tex':DPO_REWARD_TEX,'display':True,'visible':True,
+                    'math':dict(left=30,right=350,top=200,bottom=260,width=320,height=60),
+                    'article':dict(left=16,right=374,top=-100,bottom=2000,width=358,height=2100),
+                    'document':dict(inner=390,client=390,width=390),
+                    'original_inline':dict(inner=408,client=390,width=408,mathRight=407.5,display=False,rejected=True),
+                    'screenshot':'dpo-reward-identity.png','old_inline_screenshot':'dpo-original-inline.png'}
+                for name in ('dpo-reward-identity.png','dpo-original-inline.png'):
+                    path=f"built-motion-browser/{case['artifact_directory']}/{name}"
+                    pack['files'].append(dict(path=path,artifact_path=path,artifact=pack['groups'][0]['artifact'],size=1,sha256='d'*64))
+            self.resign(receipt)
+        return m,r,a
+    def resign(self,receipt):
+        digest=report_digest(receipt['report']);receipt['report_file_sha256']=digest
+        pack=receipt['pack']
+        for f in pack['files']:
+            if f['path']=='built-motion-browser/report.json':f['sha256']=digest
+        for obj in (pack,pack['groups'][0]):obj['file_count']=obj['raw_bytes']=len(pack['files'])
+    def test_real_gate_requires_all_four_mobile_measurements(self):
+        m,r,a=self.evidence();self.assertEqual(validate_shards(m,r,4,a)['case_count'],8)
+        self.assertEqual(sum('dpo_reward_identity' in c for x in r for c in x['report']['cases']),4)
+    def test_rehashed_bad_measurement_or_missing_artifact_rejected(self):
+        mutations=[lambda c:c.pop('dpo_reward_identity')]
+        for key,value in [('status','running'),('tex','x'),('display',False),('visible',False),('screenshot','initial.png')]:
+            mutations.append(lambda c,k=key,v=value:c['dpo_reward_identity'].__setitem__(k,v))
+        for section,key,value in [('math','right',391),('math','width',float('nan')),('math','height',True),('math','bottom',900),('document','width',408),('original_inline','rejected',False),('original_inline','width',390),('original_inline','mathRight',374),('original_inline','display',True)]:
+            mutations.append(lambda c,s=section,k=key,v=value:c['dpo_reward_identity'][s].__setitem__(k,v))
+        for mutation in mutations:
+            m,r,a=self.evidence();receipt=next(x for x in r if any('dpo_reward_identity' in c for c in x['report']['cases']))
+            case=next(c for c in receipt['report']['cases'] if 'dpo_reward_identity' in c);mutation(case);self.resign(receipt)
+            with self.assertRaises((ValueError,KeyError,TypeError)):validate_shards(m,r,4,a)
+        for filename in ('dpo-reward-identity.png','dpo-original-inline.png'):
+            m,r,a=self.evidence()
+            for receipt in r:
+                receipt['pack']['files']=[f for f in receipt['pack']['files'] if not f['path'].endswith(filename)];self.resign(receipt)
+            with self.assertRaises(ValueError):validate_shards(m,r,4,a)
+
 if __name__=='__main__':unittest.main()
