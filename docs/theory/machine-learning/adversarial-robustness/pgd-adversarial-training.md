@@ -26,23 +26,54 @@ A single FGSM step can miss the region of highest loss. PGD takes many steps and
 
 - **Projection**: after each step, the perturbation is clipped back into the \(\epsilon\)-ball around the clean input.
 - **Random start**: the attack begins at a random point in the ball, which helps it escape flat regions of the loss.
-- **Min–max objective**: \(\min_\theta \mathbb{E}\big[\max_{\|\delta\|\le\epsilon} J(\theta,x+\delta,y)\big]\).
+- **Min–max objective**:
+
+$$
+\min_\theta\;\mathbb{E}\left[
+\max_{\|\delta\|\le\epsilon} J(\theta,x+\delta,y)
+\right]
+$$
 
 ## How it works
 
 Starting from \(x^{(0)}=x+\eta\) with a random \(\eta\) in the ball, PGD updates
 
-\[
-x^{(t+1)}=\Pi_{\mathcal{B}_\epsilon(x)}\!\Big(x^{(t)}+\alpha\,\mathrm{sign}\big(\nabla_x J(\theta,x^{(t)},y)\big)\Big),
-\]
+$$
+\begin{gathered}
+g^{(t)}=\nabla_x J(\theta,x^{(t)},y),\\
+u^{(t)}=x^{(t)}+\alpha\,\mathrm{sign}(g^{(t)}),\\
+x^{(t+1)}=\Pi_{\mathcal{B}_\epsilon(x)}(u^{(t)}).
+\end{gathered}
+$$
 
 where \(\Pi\) is the projection onto the ball and \(\alpha\) is the step size. Adversarial training computes this inner maximisation for each minibatch and updates the parameters on the resulting examples. The approach is expensive, because each training step needs several gradient computations.
 
 ### Visual walkthrough
 
-<div role="region" tabindex="0" aria-label="Scrollable PGD projected-steps illustration" style="overflow-x:auto;max-width:100%"><img src="../../../assets/concept-animations/pgd-projection-path-still.svg" data-motion-src="../../../assets/concept-animations/pgd-projection-path-motion.svg" data-still-src="../../../assets/concept-animations/pgd-projection-path-still.svg" width="640" height="360" style="width:640px;max-width:none" alt="A sign-gradient ascent attack takes successive steps inside a square perturbation budget, reaches the right boundary and projects an out-of-budget proposal back to the square. The loss trajectory rises as steps accumulate."></div>
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Scrollable PGD projected-steps illustration" style="overflow-x:auto;max-width:100%"><div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../../assets/concept-animations/pgd-projection-path-still.svg" data-motion-src="../../../assets/concept-animations/pgd-projection-path-motion.svg" data-still-src="../../../assets/concept-animations/pgd-projection-path-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="A sign-gradient ascent attack takes successive steps inside a square perturbation budget, reaches the right boundary and projects an out-of-budget proposal back to the square. The loss trajectory rises as steps accumulate."></div></div>
 
-*Original discrete-step teaching animation, CC BY-SA 4.0.* The teal point is the **projected iterate**, not a parameter update. To isolate the projection operation, use a hand-chosen two-coordinate concave attack loss $J(\delta)=2-0.6(\delta_1-1.3)^2-1.1(\delta_2-0.55)^2$, with $\delta\in[-1,1]^2$, $\alpha=0.4$ and initial $\delta^{(0)}=(-0.85,-0.85)$. At each step, apply $\delta^{(k+1)}=\Pi_{[-1,1]^2}(\delta^{(k)}+0.4\,\mathrm{sign}(\nabla J(\delta^{(k)})))$. At step 5, the first-coordinate proposal would be $1.15$ and is projected back to $1$; the small pink hollow marker indicates this **unprojected proposal**. The selected loss values rise from about $-2.93$ initially to $1.90$ by step 5, but PGD does **not** guarantee monotonic ascent in general. The contour geometry, trajectory and losses are synthetic analytic values, **not classifier measurements, certified robustness or optimality evidence**. The MkDocs site offers Play/Pause and a reduced-motion static fallback; scroll horizontally with touch or keyboard on mobile. [GitHub-readable static preview](../../../assets/concept-animations/pgd-projection-path-still.svg).
+*Original discrete-step teaching animation, CC BY-SA 4.0.* The teal point is the **projected iterate**, not a parameter update. To isolate the projection operation, use a hand-chosen two-coordinate concave attack loss
+
+$$
+\begin{aligned}
+J(\delta)&=2-0.6(\delta_1-1.3)^2\\
+&\quad-1.1(\delta_2-0.55)^2.
+\end{aligned}
+$$
+
+Use $\delta\in[-1,1]^2$, $\alpha=0.4$ and initial $\delta^{(0)}=(-0.85,-0.85)$. At each step, apply
+
+$$
+\begin{gathered}
+g^{(k)}=\nabla J(\delta^{(k)}),\\
+u^{(k)}=\delta^{(k)}+0.4\,\mathrm{sign}(g^{(k)}),\\
+\delta^{(k+1)}=\Pi_{[-1,1]^2}(u^{(k)}).
+\end{gathered}
+$$
+
+At step 5, the first-coordinate proposal would be $1.15$ and is projected back to $1$; the small pink hollow marker indicates this **unprojected proposal**. The selected loss values rise from about $-2.93$ initially to $1.90$ by step 5, but PGD does **not** guarantee monotonic ascent in general. The contour geometry, trajectory and losses are synthetic analytic values, **not classifier measurements, certified robustness or optimality evidence**. The MkDocs site offers Play/Pause and a reduced-motion static fallback; scroll horizontally with touch or keyboard on mobile. [GitHub-readable static preview](../../../assets/concept-animations/pgd-projection-path-still.svg).
+
+The pink proposal is a fixed step-5 reference, not the proposal for every current iterate. The contour ellipses are exact level sets of this quadratic, centered at (1.3, 0.55). Integer iterates and loss markers change together; connecting lines are guides, not extra iterations. Steps 5 and 6 have equal loss, and the loop resets rather than undoing optimization.
 
 ## Threat model and feasible set
 
