@@ -482,7 +482,7 @@ for filename, expected in (
 ):
     chapter = (shared_dir / filename).read_text(encoding="utf-8")
     assert expected in chapter
-    assert "finite samples" in chapter if filename.endswith("/roc-auc.md") else "抽樣波動" in chapter
+    assert ("finite samples" in chapter) if filename == "roc-auc.md" else ("抽樣波動" in chapter)
 
 # Distinguish population invariance from precision changes at fixed conditional rates.
 for prevalence in (.05, .1, .2, .4, .6):
