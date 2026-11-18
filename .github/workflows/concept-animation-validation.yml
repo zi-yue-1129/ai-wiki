@@ -9,6 +9,12 @@ on:
       - "scripts/verify_concept_motion.py"
       - "scripts/verify_concept_svgs.py"
       - "scripts/test_uncertainty_motion_semantics.py"
+      - "scripts/test_predictive_coding_motion_browser.py"
+      - "scripts/test_predictive_coding_motion_semantics.py"
+      - "scripts/test_predictive_coding_labs.cjs"
+      - "scripts/test_predictive_coding_labs_browser.py"
+      - "docs/javascripts/predictive-coding-labs.js"
+      - "docs/stylesheets/predictive-coding-labs.css"
       - "scripts/test_scoped_viewbox_motion_semantics.py"
       - "scripts/test_scoped_canvas_motion_semantics.py"
       - "scripts/test_alt_accessibility_motion_semantics.py"
@@ -44,12 +50,26 @@ on:
       - "scripts/test_planning_labs_browser.py"
       - "docs/javascripts/planning-labs.js"
       - "docs/stylesheets/planning-labs.css"
+      - "scripts/test_simclr_bahdanau_motion_browser.py"
+      - "scripts/test_contrastive_alignment_labs_browser.py"
+      - "scripts/test_contrastive_alignment_labs.cjs"
+      - "docs/javascripts/contrastive-alignment-labs.js"
+      - "docs/stylesheets/contrastive-alignment-labs.css"
+      - "scripts/test_svi_soap_motion_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_evolution_motion_browser.py"
       - "scripts/test_evolution_labs_browser.py"
       - "scripts/test_evolution_labs.cjs"
       - "docs/javascripts/evolution-labs.js"
       - "docs/stylesheets/evolution-labs.css"
+      - "scripts/test_security_motion_browser.py"
+      - "scripts/test_vq_splat_motion_browser.py"
+      - "scripts/test_vq_splat_labs_browser.py"
+      - "scripts/test_vq_splat_labs.cjs"
+      - "docs/javascripts/vq-splat-labs.js"
+      - "docs/stylesheets/vq-splat-labs.css"
+      - "docs/theory/models/computer-vision/3d-and-neural-rendering/gaussian-splatting*"
+      - "docs/theory/paradigms/unsupervised/density-and-generative-models/vae/vq-vae*"
       - "scripts/test_self_supervised_labs.cjs"
       - "docs/javascripts/symbolic-proof-labs.js"
       - "docs/stylesheets/symbolic-proof-labs.css"
@@ -57,12 +77,23 @@ on:
       - "scripts/test_resolution_lab.cjs"
       - "scripts/test_inference_player.cjs"
       - "scripts/test_navigation_player.cjs"
+      - "scripts/test_motor_player.cjs"
+      - "scripts/test_motor_motion_browser.py"
       - "scripts/test_planning_lab_semantics.cjs"
       - "scripts/test_causal_imitation_browser.py"
       - "scripts/verify_causal_imitation_motion.py"
+      - "scripts/test_peft_motion_browser.py"
+      - "scripts/test_t5_deit_motion_browser.py"
+      - "scripts/test_t5_deit_labs_browser.py"
+      - "scripts/test_t5_manual_pause_motion_semantics.py"
+      - "scripts/test_t5_deit_labs.cjs"
+      - "docs/javascripts/t5-deit-labs.js"
+      - "docs/stylesheets/t5-deit-labs.css"
       - "docs/javascripts/regression-metric-labs.js"
       - "docs/stylesheets/regression-metric-labs.css"
       - "scripts/test_regression_metric_labs_browser.py"
+      - "scripts/test_concept_motion_chapters.cjs"
+      - "scripts/test_self_supervised_labs.cjs"
       - "docs/javascripts/gibbs-labs.js"
       - "docs/stylesheets/gibbs-labs.css"
       - "scripts/test_gibbs_labs_browser.py"
@@ -97,6 +128,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Check predictive coding math and causal timelines
+        run: |
+          python scripts/test_predictive_coding_motion_semantics.py
+          node scripts/test_predictive_coding_labs.cjs
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
       - name: Validate bilingual causal-imitation motion pairs
@@ -120,7 +155,12 @@ jobs:
           node scripts/test_resolution_lab.cjs
           node scripts/test_inference_player.cjs
           node scripts/test_navigation_player.cjs
+          node scripts/test_motor_player.cjs
           node scripts/test_planning_lab_semantics.cjs
+      - name: T5 and DeiT actual JavaScript and SVG semantics
+        run: |
+          node scripts/test_t5_deit_labs.cjs
+          python scripts/test_t5_deit_actual_motion_semantics.py
       - name: Install Chromium and Traditional Chinese fonts for visual tests
         run: |
           sudo apt-get update -qq
@@ -138,14 +178,32 @@ jobs:
         run: python scripts/test_synthetic_motion_browser.py
       - name: Chromium bilingual oscillation playback and keyboard scrolling
         run: python scripts/test_oscillation_motion_browser.py
+      - name: Chromium PEFT diagrams, bilingual controls and mobile fallback
+        run: python scripts/test_peft_motion_browser.py
       - name: Chromium interactive AdaGrad and Adafactor numerical labs
         run: python scripts/test_adaptive_optimiser_labs_browser.py
       - name: Render deterministic SVD and power-iteration SVG keyframes
         run: python scripts/render_linear_algebra_keyframes.py
       - name: Chromium navigation motion, revaluation and responsive bilingual controls
         run: python scripts/test_navigation_motion_browser.py
+      - name: Motor-control bilingual responsive playback, keyboard and fallback
+        run: python scripts/test_motor_motion_browser.py
+      - name: Semi-supervised SVG production-player checks
+        run: python scripts/test_semi_supervised_motion_browser.py
+      - name: Semi-supervised interactive numerical labs
+        run: python scripts/test_semi_process_labs_browser.py
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
+      - name: Chromium VQ-VAE and Gaussian splatting SVG motion
+        run: python scripts/test_vq_splat_motion_browser.py
+      - name: VQ and alpha colour numerical and DOM regression
+        run: node scripts/test_vq_splat_labs.cjs
+      - name: Chromium VQ-VAE and Gaussian compositing numerical labs
+        run: python scripts/test_vq_splat_labs_browser.py
+      - name: Predictive-coding SVG, bilingual controls and reduced motion in Chromium
+        run: python scripts/test_predictive_coding_motion_browser.py
+      - name: Chromium predictive coding numerical laboratories
+        run: python scripts/test_predictive_coding_labs_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -168,6 +226,22 @@ jobs:
         run: python scripts/test_evolution_labs_browser.py
       - name: Test causal imitation player in Chromium (mobile, bilingual, reduced motion)
         run: python scripts/test_causal_imitation_browser.py
+      - name: Chromium security concepts, bilingual player, keyboard and reduced-motion
+        run: python scripts/test_security_motion_browser.py
+      - name: Chromium SimCLR and Bahdanau bilingual motion, controls and fallback
+        run: python scripts/test_simclr_bahdanau_motion_browser.py
+      - name: Test exact NT-Xent and alignment arithmetic
+        run: node scripts/test_contrastive_alignment_labs.cjs
+      - name: Chromium interactive NT-Xent and decoder attention arithmetic
+        run: python scripts/test_contrastive_alignment_labs_browser.py
+      - name: Chromium SVI/SOAP animations, bilingual pause and fallback
+        run: python scripts/test_svi_soap_motion_browser.py
+      - name: Chromium T5/DeiT bilingual motion, fallbacks and keyboard controls
+        run: python scripts/test_t5_deit_motion_browser.py
+      - name: Reject lost T5 manual pause and future CI routes
+        run: python scripts/test_t5_manual_pause_motion_semantics.py
+      - name: Chromium bilingual T5 span and DeiT dual-head numerical laboratories
+        run: python scripts/test_t5_deit_labs_browser.py
       - name: Test regression metric lab arithmetic, controls and bilingual responsive layout
         run: python scripts/test_regression_metric_labs_browser.py
       - name: Test bilingual sharpness geometry numerical labs, controls and responsive layout
@@ -180,10 +254,14 @@ jobs:
         with:
           name: self-supervised-lab-browser-review
           path: |
+            artifacts/predictive-coding-motion/*.png
+            artifacts/predictive-coding-labs/*.png
             artifacts/self-supervised-labs/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
             artifacts/navigation-motion/*.png
+            artifacts/motor-motion/*.png
+            artifacts/semi-supervised-process-labs/*.png
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
@@ -191,13 +269,21 @@ jobs:
             artifacts/ood-motion/*.png
             artifacts/evolution-motion/*.png
             artifacts/evolution-labs/*.png
+            artifacts/vq-splat-labs/*.png
+            artifacts/vq-splat-motion/*.png
+            artifacts/simclr-bahdanau-motion/*.png
+            artifacts/contrastive-alignment-labs/*.png
             artifacts/linear-algebra-motion/
             artifacts/planning-labs/*.png
+            artifacts/t5-deit-motion/*.png
+            artifacts/t5-deit-labs/*.png
             artifacts/regression-metric-labs/*.png
+            artifacts/linear-algebra-motion/
             artifacts/sharpness-labs/*.png
             artifacts/adaptive-optimiser-labs/*.png
             artifacts/gibbs-labs/*.png
             artifacts/causal-imitation/*.png
+            artifacts/peft-motion/*.png
           if-no-files-found: ignore
           retention-days: 7
 

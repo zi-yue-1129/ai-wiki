@@ -16,7 +16,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 259 and len(EXPECTED_EXTRAS) == 5 and len(EXPECTED_PREFIXES) == 4
+assert len(EXPECTED_CANVASES) == 277 and len(EXPECTED_EXTRAS) == 5 and len(EXPECTED_PREFIXES) == 4
 
 # These are candidates, NOT an allowance: only a stem's literal registry value passes.
 CANDIDATES = {'0 0 640 360', '0 0 720 400', '0 0 720 460', '0 0 760 410', '0 0 800 420', '0 0 641 361', '0 0 1 1'} | set(EXPECTED_CANVASES.values()) | set(EXPECTED_EXTRAS.values())
@@ -27,20 +27,6 @@ class ScopedCanvas(unittest.TestCase):
         self.assertEqual(v.EXTRA_CANONICAL_FILENAMES, EXPECTED_EXTRAS)
         self.assertEqual(v.PREFIX_VIEWBOXES, EXPECTED_PREFIXES)
         self.assertEqual(set(v.TOPICS), set(EXPECTED_CANVASES))
-
-    def test_new_roc_assets_match_independently_reviewed_git_blob_origins(self):
-        for stem in ("roc-pr-shift", "roc-youden-cost", "roc-prior-policy"):
-            origin = CONTRACTS["canonical"][stem]
-            self.assertEqual(origin["viewBox"], "0 0 640 360")
-            self.assertEqual(len(origin["origins"]), 2)
-            for record in origin["origins"]:
-                source = ROOT / record["path"]
-                data = source.read_bytes()
-                git_blob_sha = hashlib.sha1(
-                    f"blob {len(data)}".encode("utf-8") + bytes([0]) + data
-                ).hexdigest()
-                with self.subTest(asset=source.name):
-                    self.assertEqual(git_blob_sha, record["origin_blob"])
 
     def test_reviewed_registry_cannot_shrink_clear_or_substitute(self):
         for attribute, expected in [('CANONICAL_VIEWBOXES', EXPECTED_CANVASES), ('EXTRA_CANONICAL_FILENAMES', EXPECTED_EXTRAS), ('PREFIX_VIEWBOXES', EXPECTED_PREFIXES)]:
@@ -169,6 +155,20 @@ class ScopedCanvas(unittest.TestCase):
             self.assertTrue(any('no animation' in e for e in v.verify_svg(path, True)))
             path.write_text('<svg>')
             self.assertTrue(any('invalid XML' in e for e in v.verify_svg(path, True)))
+
+    def test_new_roc_assets_match_independently_reviewed_git_blob_origins(self):
+        for stem in ("roc-pr-shift", "roc-youden-cost", "roc-prior-policy"):
+            origin = CONTRACTS["canonical"][stem]
+            self.assertEqual(origin["viewBox"], "0 0 640 360")
+            self.assertEqual(len(origin["origins"]), 2)
+            for record in origin["origins"]:
+                source = ROOT / record["path"]
+                data = source.read_bytes()
+                git_blob_sha = hashlib.sha1(
+                    f"blob {len(data)}".encode("utf-8") + bytes([0]) + data
+                ).hexdigest()
+                with self.subTest(asset=source.name):
+                    self.assertEqual(git_blob_sha, record["origin_blob"])
 
 if __name__ == '__main__':
     unittest.main()

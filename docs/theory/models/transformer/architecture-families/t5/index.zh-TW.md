@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-15
 ---
 
 # T5：文字到文字遷移 Transformer
@@ -21,6 +21,23 @@ BERT 式的模型需要為每個任務加上專屬的輸出層，而分類、跨
 
 ## 運作方式
 
+### 跨度破壞教學動畫
+
+<div role="region" tabindex="0" aria-label="教學動畫，可用左右方向鍵水平捲動" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain"><div style="width:640px;min-width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/t5-span-corruption-still.svg" data-motion-src="../../../../../assets/concept-animations/t5-span-corruption-motion.svg" data-still-src="../../../../../assets/concept-animations/t5-span-corruption-still.svg" alt="原始序列 A 到 J，其中 B–C 與 H–I 兩段在編碼器輸入中被不同哨兵 token 取代；解碼器依序生成 S0、B、C、S1、H、I、S2。" />
+</div></div>
+
+*原創 CC BY-SA 4.0 教學動畫。為清楚展示兩個連續跨度，本例將十個 token 中的**四個移除（40%）**；這是人工示意，**不代表** T5 論文慣用的 **15% 破壞比例**，也不是模型實際輸出。S0、S1 代表不同的哨兵 token，S2 為常見 T5 格式中結束目標序列的哨兵。MkDocs 可透過**播放／暫停**按鈕或 Enter／Space 操作；手機可水平捲動。[GitHub 可閱讀的靜態概覽](../../../../../assets/concept-animations/t5-span-corruption-still.svg) · [完整動畫](../../../../../assets/concept-animations/t5-span-corruption-motion.svg)。動畫呈現移除跨度、哨兵替換、目標序列逐步生成，而非梯度下降過程（Raffel 等人，2020；參見參考文獻）。*
+
+
+### 互動跨度破壞：改變兩段遮蓋範圍
+
+<div id="td-t5-zh" class="t5-deit-lab" data-lab="t5" data-lang="zh"></div>
+
+新增的**分階段序列長度長條**會分別計算三種序列。原始長度 $N=10$，兩個獨立且非空的移除跨度合計 $M$ 個 Token 時，編碼器輸入有 $N-M+2$ 個 Token（每段各一個哨兵），解碼器目標有 $M+3$ 個 Token（兩個跨度哨兵，最後再補一個結尾哨兵）。預設 $M=4$，三種長度依序為 **10、8、7**。兩段移除範圍之間一定保留至少一個可見 Token；若滑桿操作會使兩段相鄰，第二段起點會自動調整至有效位置。圖面與無障礙即時狀態只在實際建構的階段揭露編碼器或目標內容。這是人工序列的精確計數，**不是**推論輸出或實測記憶體與吞吐效能。
+
+可分別調整兩個**不重疊跨度的起點與長度**，依步驟檢查原始序列、移除的 Token、**每段以一個哨兵替換**的編碼器輸入，以及依原順序串接被移除跨度、最後再補上結尾哨兵的解碼器目標。預設 B–C 與 H–I 兩段時，編碼器輸入是 `A S0 D E F G S1 J`，目標是 `S0 B C S1 H I S2`。40% 的移除比例僅為便於教學的示意，不代表 T5 預訓練常用的約 15%。所有字串皆為人工構造，**不是實際解碼結果**（Raffel 等人，2020；參見參考文獻）。
+
 編碼器以雙向自注意力讀取被破壞的輸入。解碼器則以因果自注意力與對編碼器輸出的交叉注意力，逐 token 生成目標序列。損失是目標 token 上常見的交叉熵。
 
 在跨度破壞中，論文隨機移除 15% 的輸入 token，並把每段連續被移除的 token 替換為一個哨兵 token。目標是被移除的跨度序列，每段前面接著其哨兵。這與 BERT 式的遮蓋語言模型不同：目標是被移除的跨度，而非原位的遮蓋 token，且跨度由解碼器生成。
@@ -30,6 +47,8 @@ BERT 式的模型需要為每個任務加上專屬的輸出層，而分類、跨
 \]
 
 其中 \(\tilde{x}\) 是帶有哨兵的被破壞輸入，\(y\) 是被移除跨度的目標序列。
+
+計數僅包含圖中 Token 與哨兵，不計額外 EOS、padding 或 decoder 起始 Token。箭頭標記為構造順序示意，並非量測延遲。
 
 ## 關鍵方法
 

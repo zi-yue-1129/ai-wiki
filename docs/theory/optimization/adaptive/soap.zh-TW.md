@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # SOAP
@@ -22,9 +22,41 @@ Shampoo 的更新使用矩陣統計量的逆根，計算成本高，而且對重
 
 令 \(L\) 與 \(R\) 為矩陣參數的 Shampoo 統計量，其特徵向量分別為 \(Q_L\) 與 \(Q_R\)，並定期重算。梯度 \(G\) 旋轉為 \(\tilde G = Q_L^\top G\, Q_R\)。對 \(\tilde G\) 執行 Adam，再把所得更新旋轉回去。特徵基的更新頻率低於梯度，與 Shampoo 相同。
 
+
+### 教學動畫：在 Shampoo 特徵基中執行 Adam
+
+<div class="concept-motion-scroll" tabindex="0" style="max-width:100%;overflow-x:auto" role="region" aria-label="SOAP 特徵基與 Adam 教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls style="display:block;width:640px;min-width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/soap-eigenbasis-adam-still.svg" data-motion-src="../../../assets/concept-animations/soap-eigenbasis-adam-motion.svg" data-still-src="../../../assets/concept-animations/soap-eigenbasis-adam-still.svg" alt="二乘二梯度矩陣先旋轉到 Shampoo 的特徵基，經過示意的 Adam 逐座標縮放，再轉回原本的參數座標系。" width="640" height="360">
+</div>
+</div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* **人工設定**的二維範例以 
+
+\[
+G=\left[\begin{smallmatrix}3&1\\1&3\end{smallmatrix}\right]
+\]
+
+ 與正交基底 
+
+\[
+Q=2^{-1/2}\left[\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right]
+\]
+
+ 表示，因此 $Q^\top GQ=\operatorname{diag}(4,2)$。在旋轉座標中的**示意**自適應更新取 $\tilde U=\operatorname{diag}(1,1.6)$；轉回原座標可得 
+
+\[
+U=Q\tilde UQ^\top=\left[\begin{smallmatrix}1.3&-0.3\\-0.3&1.3\end{smallmatrix}\right]
+\]
+
+。中間的更新矩陣**不是**從完整指定的 Adam 動量歷史推導而來，也不是模型實測或建議步長。動畫聚焦於座標轉換，而非 Shampoo 特徵基更新頻率、Adam 偏差校正等細節；最終參數更新須沿**負方向**套用。MkDocs 可播放／暫停並支援減少動態效果；GitHub 可檢視[靜態總覽](../../../assets/concept-animations/soap-eigenbasis-adam-still.svg)。參考 Vyas 等人（2024）。
+
+所有矩陣都是固定參考值；框線依訊號到達順序亮起，不代表實測執行時序。此特殊對稱範例使用相同左右正交基；一般 SOAP 使用不同左右基，並須處理基底更新時的 Adam 狀態。迴圈會重設。
+
+
 ## 主要結果
 
-摘要報告，在大批次情況下，與 AdamW 相比，SOAP 把迭代次數減少超過 40%，把實際執行時間減少超過 35%。與 Shampoo 相比，兩項指標都改善約 20%。摘要未詳述所用模型，因此本頁只引用這些數字。
+摘要報告，在大批次情況下，與 AdamW 相比，SOAP 把迭代次數減少超過 40%，把實際執行時間減少超過 35%。與 Shampoo 相比，兩項指標都改善約 20%。更新版摘要指出實驗為 3.6 億與 6.6 億參數語言模型預訓練；上述改善限於該評估設定，並非對所有模型或批次大小的保證。
 
 ## 限制
 

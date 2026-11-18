@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-15
 related:
   - theory/paradigms/unsupervised/autoencoders-and-representations
 tags:
@@ -23,7 +23,13 @@ van den Oord、Vinyals 與 Kavukcuoglu（2017）指出，潛在變數為一組�
 ## 關鍵概念
 
 - **碼本**：一組嵌入向量 \(e_1, \dots, e_K\)。每個編碼器輸出會對映到最近的那一個。
-- **最近鄰量化**：編碼索引為 \(k = \arg\min_j \lVert z_e(x) - e_j \rVert_2\)，解碼器接收 \(e_k\)。
+- **最近鄰量化**：編碼索引為
+
+\[
+k = \arg\min_j \lVert z_e(x) - e_j \rVert_2
+\]
+
+，解碼器接收 \(e_k\)。
 - **直通梯度（straight-through）**：量化步驟沒有梯度，因此把解碼器輸入的梯度原樣複製到編碼器輸出。
 - **承諾損失（commitment loss）**：讓編碼器輸出貼近其所選的編碼，以 \(\beta\) 加權。
 - **兩階段訓練**：先訓練自編碼器，之後才在離散編碼上擬合先驗。
@@ -39,6 +45,26 @@ L = \log p(x \mid z_q(x)) + \lVert \operatorname{sg}[z_e(x)] - e \rVert_2^2 + \b
 其中 \(\operatorname{sg}\) 為停止梯度運算子。第一項為重建，第二項把碼本向量拉向編碼器輸出，第三項防止編碼器輸出漂移。論文在所有實驗中使用 \(\beta = 0.25\)。
 
 對於 128 乘 128 乘 3 的 ImageNet 影像，論文以 \(K = 512\) 個編碼，把每張影像壓縮為 32 乘 32 乘 1 的離散潛在變數。接著 PixelCNN 以自迴歸方式對此潛在網格建模，因此取樣得到的潛在變數可以解碼為影像。
+
+### 視覺化說明：碼本的離散選擇
+
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可用左右方向鍵捲動教學圖"><div style="width:640px"><img style="width:640px;min-width:640px;max-width:none;height:auto;display:block" data-source-asset-urls src="../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg" data-still-src="../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg" data-motion-src="../../../../../assets/concept-animations/vqvae-codebook-snap-motion.svg" alt="VQ-VAE 動畫：編碼器向量在潛在空間移動，跨過最近鄰邊界後，離散編碼從第一個碼本向量跳換為第二個。"></div></div>
+
+[GitHub 可閱讀的 VQ-VAE 靜態預覽](../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg)
+
+外框圓點代表連續的編碼器輸出 \(z_e\)，三個彩色圓點代表固定的碼本向量。當輸出跨越最近鄰的分界線，量化結果 \(z_q=e_{k^*}\) 會從 \(e_1\) **不連續地切換**到 \(e_2\)，而不是對兩個嵌入向量做線性內插。動畫展示的是**前向量化**，不是碼本訓練軌跡；訓練時的直通估計量將解碼器梯度複製給編碼器，而碼本損失及承諾損失各自處理不同的參數更新。
+
+所有二維座標、移動路徑與分界線均為**人工教學示意，並非模型學得的表徵或實測輸出**。MkDocs 網站提供可用鍵盤操作的**播放／暫停**按鈕來控制 12 秒循環；GitHub 則可閱讀連結中的靜態圖。原創視覺，**CC BY-SA 4.0**；機制參考下方 van den Oord 等人（2017）的文獻。
+
+### 互動實驗：碼本距離與不連續量化（MkDocs）
+
+<div data-vq-splat-lab="vq" data-lang="zh">
+  <p>GitHub 或停用 JavaScript 時，可利用上方靜態 SVG 理解最近鄰碼本切換。</p>
+</div>
+
+調整「**編碼器 x／y**」，設定人工連續潛在向量的終點，再以「**上一步／下一步、播放／暫停、進度、0.5×／1×／2× 與重設**」觀察中間計算。移動路徑從 (0.10, 0.35) 線性前進至所選位置。每一步都實際重新計算三個碼本向量的**歐氏距離平方**、最近碼本編號與量化誤差。輸入向量連續變化，但**離散碼本的選擇會跳換**。固定的人工碼本為 (0.20, 0.35)、(0.75, 0.35)、(0.48, 0.82)；不是模型學得的表徵，也未實作直通梯度或碼本訓練。
+
+聚焦圖表外框後可用左右方向鍵捲動，或在手機左右滑動。 靜態／SVG 圖與互動實驗採用不同的示意碼本。互動圖的兩軸使用相同比例，距離為真正的二維歐氏距離；相等距離時選索引較小者。六個步驟取樣連續線段，不表示播放時每一個中間位置都被求值。直通估計只影響反向梯度，不會讓前向碼本選擇變成插值。
 
 ## 關鍵方法
 

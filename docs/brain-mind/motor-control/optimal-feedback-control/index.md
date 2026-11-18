@@ -38,11 +38,23 @@ The authors argue that the pattern of movement variability follows from this sin
 
 The general problem is to choose controls \(u_t\) that minimise an expected cost, given a state \(x_t\) that evolves with noise:
 
-\(\min_{u} \ \mathbb{E}\left[\sum_{t=0}^{T} c(x_t, u_t)\right] \quad \text{subject to} \quad x_{t+1} = f(x_t, u_t) + \xi_t\)
+$$
+\min_{u} \ \mathbb{E}\left[\sum_{t=0}^{T} c(x_t, u_t)\right] \quad \text{subject to} \quad x_{t+1} = f(x_t, u_t) + \xi_t
+$$
 
 Here \(c\) is the cost, combining task error and effort, \(f\) is the body's dynamics, and \(\xi_t\) is noise. The controller can only observe a noisy version of the state, so it must estimate the state from its observations, as a Kalman filter does in the linear case.
 
 In the linear-quadratic-Gaussian case, the optimal control law is a linear feedback rule, \(u_t = -L_t \hat{x}_t\), where \(\hat{x}_t\) is the estimated state and the gain \(L_t\) follows from the cost and the dynamics. The gain is larger in directions where errors affect the cost, and smaller where they do not. That is the mechanism behind the selective correction described above.
+
+### Worked motion: task-relevant versus irrelevant perturbations
+
+<img data-source-asset-urls src="../../../assets/concept-animations/ofc-selective-feedback-still.svg" data-motion-src="../../../assets/concept-animations/ofc-selective-feedback-motion.svg" data-still-src="../../../assets/concept-animations/ofc-selective-feedback-still.svg" alt="Static comparison of feedback correcting a task-relevant y perturbation while retaining an irrelevant x displacement">
+
+*Original instructional illustration (CC BY-SA 4.0).* GitHub shows the completed comparison; on MkDocs the **12-second continuous animation** exposes the perturbation and subsequent recovery. The orange point departs from, then returns toward, the green **goal manifold** \(y=0\); the blue point is displaced only in \(x\) and is not pushed back. Play/Pause and reduced-motion/keyboard support are available on the website. [View the animated SVG directly](../../../assets/concept-animations/ofc-selective-feedback-motion.svg).
+
+For a **schematic** controller with task cost \(c(x,y,u)=q y^2+r\lVert u\rVert^2\) and no penalty on \(x\) itself, feedback can correct \(y\)-error while leaving an \(x\)-only deviation. The paths are deliberately drawn for conceptual clarity, **not integrated from a particular LQG controller or measured human trajectories**. Real feedback gains depend on the assumed body dynamics, task cost and uncertainty. This illustrates the minimal-intervention principle in Todorov and Jordan (2002), cited below.
+
+Focus the figure viewport with Tab, then use Left/Right to scroll; playback controls remain visible. Results hold until the whole demonstration restarts, rather than depicting the reset as another feedback correction.
 
 ## Results
 
