@@ -5,6 +5,7 @@ tags:
   - evaluation
   - metrics
   - regression
+translation_reviewed: 2026-11-15
 ---
 
 # 均方根誤差
@@ -17,6 +18,26 @@ $$\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (\hat{y}_i - y_i)^2}$$
 
 完美的模型得分為 0。取平方根是為了把數值換回目標值的單位。
 
+## 動畫解讀：離群誤差為何放大 RMSE
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="RMSE 與 MAE 動畫；可聚焦並在窄螢幕水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" data-motion-src="../../../../assets/concept-animations/outlier-mae-rmse-motion.svg" data-still-src="../../../../assets/concept-animations/outlier-mae-rmse-still.svg" alt="四個殘差維持一，第五個逐漸增加至六再下降，RMSE 比 MAE 對此變動更敏感。">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。GitHub 顯示靜態離群值案例；MkDocs 提供播放／暫停，窄螢幕可使用鍵盤水平捲動。* [完整 SVG 動畫](../../../../assets/concept-animations/outlier-mae-rmse-motion.svg)。
+
+對**人工設定**的五個絕對殘差 $(1,1,1,1,d)$，當 $d$ 從 1 增加至 6 時，$\mathrm{MAE}=(4+d)/5$，但 $\mathrm{RMSE}=\sqrt{(4+d^2)/5}$。當 $d=6$，兩者分別為 $2$ 與 $\sqrt8\approx2.83$。圖右側數字是峰值而非連續更新的讀值，本例不是模型訓練結果。
+
+### 互動實驗：離群殘差敏感度
+
+<div data-regression-lab="outlier" data-lang="zh"></div>
+
+可拖曳第五筆絕對殘差 $d$（1 至 6），或使用**上一步／下一步、播放／暫停、重設與速度選單**。圖中的 MAE 與 RMSE 依目前數值重新計算；兩者差距擴大的原因，是 $d^2$ 比 $d$ 成長得更快。滑桿與按鈕支援鍵盤操作，手機可在 680 px 圖面內水平捲動；系統設定減少動態效果時停用自動播放。**所有數值為人工示意，不是模型實測結果。** GitHub Markdown 不執行互動程式，但前方靜態 SVG 仍可直接理解。
+
+下方的 **Σe²** 堆疊長條顯示 RMSE 公式在除以五、開平方根之前的平方誤差總和：藍色是四筆固定殘差的平方和 4，橘色是隨 $d$ 改變的 $d^2$。長條共用 0 至 40 的固定尺度；$d=1$ 時總和為 5，$d=6$ 時為 40。**這不是最終 RMSE 數值。**
+
 ## 解讀
 
 平方使一個大小為 10 的誤差，其影響等同於一百個大小為 1 的誤差。因此 RMSE 對離群值與稀有的大誤差很敏感。它正是最小平方擬合所最小化的量，這也是它在迴歸訓練與預測中常見的原因。Willmott 與 Matsuura（2005）指出，RMSE 把平均誤差與誤差的變異混在一起，因此 RMSE 很大不一定表示平均誤差很大。
@@ -27,7 +48,7 @@ $$\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (\hat{y}_i - y_i)^2}$$
 
 ## 範例
 
-沿用同樣的數值，平方誤差為 $0.25, 0.25, 0, 1$，平均為 $0.375$，開根號後得到 RMSE $\approx 0.61$。RMSE 大於 MAE 的 0.5，因為平方後，單一誤差 1 的權重被放大了。
+取真實值 $(3, -0.5, 2, 7)$ 與預測值 $(2.5, 0, 2, 8)$，平方誤差為 $0.25, 0.25, 0, 1$，平均為 $0.375$，開根號後得到 RMSE $\approx 0.61$。RMSE 大於 MAE 的 0.5，因為平方後，單一誤差 1 的權重被放大了。
 
 ## 性質與變體
 

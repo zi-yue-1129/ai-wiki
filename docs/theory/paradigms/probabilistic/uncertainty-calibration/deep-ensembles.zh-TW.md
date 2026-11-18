@@ -24,13 +24,15 @@ translation_reviewed: 2026-11-12
 Fort、Hu 與 Lakshminarayanan（2019）認為，集成成員的多樣性來自它們位於損失地形的不同盆地中，這也解釋了為何獨立訓練的網路比同一次訓練的網路更容易分歧。
 
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="深度集成機率平均與成員分歧動畫">
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="深度集成機率平均與成員分歧動畫">
 <div style="width:720px">
-<img src="../../../../assets/concept-animations/deep-ensemble-spread-still.svg" data-motion-src="../../../../assets/concept-animations/deep-ensemble-spread-motion.svg" alt="三個假設分類器對兩種輸入各產生機率；較一致的 0.72、0.76、0.80 平均為 0.76，分歧較大的 0.20、0.50、0.80 平均為 0.50。" width="720" height="400">
+<img data-source-asset-urls src="../../../../assets/concept-animations/deep-ensemble-spread-still.svg" data-motion-src="../../../../assets/concept-animations/deep-ensemble-spread-motion.svg" data-still-src="../../../../assets/concept-animations/deep-ensemble-spread-still.svg" alt="三個假設分類器對兩種輸入各產生機率；較一致的 0.72、0.76、0.80 平均為 0.76，分歧較大的 0.20、0.50、0.80 平均為 0.50。" width="720" height="400">
 </div>
 </div>
 
 *原創教學動畫（CC BY-SA 4.0）。* 不同顏色的點是**獨立集成成員的預測，不是訓練軌跡**。第一種示意輸入得到 (0.72, 0.76, 0.80)，平均 0.76、成員分歧小；第二種得到 (0.20, 0.50, 0.80)，平均 0.50、成員分歧較大。點沿機率軸移動後才顯示成員範圍與集成平均。**上述數值完全為人工示意，非模型實測**。成員分歧可作為不確定性的經驗線索，但不等同已校準的認知不確定性後驗，也不保證能偵測分布外資料。MkDocs 網站可用 Play／Pause；[GitHub 靜態預覽](../../../../assets/concept-animations/deep-ensemble-spread-still.svg)呈現兩組完整比較。窄螢幕可水平捲動。依據 References 中的 Lakshminarayanan 等人（2017）。
+
+點在抵達前的位置只是由來源送入圖表的閱讀引導，不是中間預測機率；抵達後才顯示平均與最小至最大值的範圍，該範圍不是信賴區間。兩列是不同輸入，不能把列間差異解讀為只改變分歧的控制實驗。聚焦圖框後可用左右方向鍵捲動。
 
 ## 變體
 

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-15
 related:
   - theory/models/embeddings/index.md
 ---
@@ -24,22 +24,23 @@ related:
 
 ## 運作方式
 
-**鄰域方法。** Sarwar 等人（2001）推薦與使用者已喜歡的項目相似的項目。相似度在兩個項目都被評過分的使用者之間計算，預測則是使用者自己評分的加權平均。這個方法簡單、可解釋，並且在預先計算項目相似度時能擴展到大型目錄。
+**鄰域方法。** Sarwar 等人（2001）研究以項目為基礎的協同過濾，它根據使用者對相似項目的評分來預測偏好，而不是根據相似的使用者。這個方法簡單、可解釋，而且項目之間的相似度可以事先計算。相似度、預測與邊界情況詳見[項目式協同過濾](item-based-cf.md)。
 
-**矩陣分解。** Koren、Bell 與 Volinsky（2009）描述了在大型評分預測問題中成為標準的分解方法。每個使用者與項目各得到一個潛在向量，兩者的內積預測評分。向量在正則化下擬合已觀察到的評分，同樣的向量也可作為嵌入使用，見[嵌入表示與表徵學習](../embeddings/index.md)。
+**矩陣分解。** Koren、Bell 與 Volinsky（2009）描述了在大型評分預測問題中成為標準的分解方法。每個使用者與項目各得到一個潛在向量，兩者的內積預測評分。向量在正則化下擬合已觀察到的評分，同樣的向量也可作為嵌入使用，見[嵌入表示與表徵學習](../embeddings/index.md)。細節見[矩陣分解](matrix-factorization.md)頁面。
 
-**從隱式回饋學習。** Rendle 等人（2012）指出，最常見的情境是隱式回饋，例如點擊與購買。他們的貝氏個人化排序（BPR）目標以配對為訓練單位：對同一使用者而言，已觀察到的項目應排在未觀察到的項目之前。這直接最佳化排序，而非擬合評分。
+**從隱式回饋學習。** Rendle 等人（2012）指出，最常見的情境是隱式回饋，例如點擊與購買。他們的貝氏個人化排序（BPR）目標以配對為訓練單位：對同一使用者而言，已觀察到的項目應排在未觀察到的項目之前。這直接最佳化排序，而非擬合評分。見 [BPR](bpr.md) 頁面。
 
-**神經協同過濾。** He 等人（2017）以神經網路取代矩陣分解中的內積，這個網路可以從資料中學習任意的互動函數。
+**神經協同過濾。** He 等人（2017）以神經網路取代矩陣分解中的內積，這個網路可以從資料中學習互動函數。見[神經協同過濾](neural-cf.md)頁面。
 
 ## 關鍵方法
 
-簡要比較。上面提到的每個方法都可以有自己的方法頁面；這些頁面尚未撰寫，因此目前在本節提供細節。
+簡要比較，並連結到每個方法自己的頁面。
 
-- **項目鄰域法（Sarwar 等人）**：以項目間的相似度為基礎，不需訓練潛在因子。可解釋，但在稀疏資料上較弱。
-- **矩陣分解（Koren 等人）**：對評分擬合的潛在因子。在評分預測上表現穩定，其向量可作為嵌入。
-- **BPR（Rendle 等人）**：針對隱式回饋的配對排序損失，是 Top-N 排序的標準起點。
-- **神經協同過濾（He 等人）**：以學得的互動函數取代內積。較有彈性，但需要調校的項目較多。
+- **[矩陣分解（Koren 等人，2009）](matrix-factorization.md)**：對評分擬合的潛在因子，並含偏差項。在評分預測上表現穩定，其向量可作為嵌入。
+- **[BPR（Rendle 等人，2012）](bpr.md)**：針對隱式回饋的配對排序損失，是 Top-N 排序的標準起點。
+- **[神經協同過濾（He 等人，2017）](neural-cf.md)**：以學得的互動函數取代內積。較有彈性，但需要調校的項目較多，並以 Top-N 排序進行評估。
+
+- **[項目式協同過濾（Sarwar 等人，2001）](item-based-cf.md)**：使用明確的項目鄰域，組合加權或迴歸調整的評分，不需要潛在因子。
 
 ## 關聯
 
@@ -62,11 +63,11 @@ related:
 
 ### 開創性論文
 
-- Sarwar, B., Karypis, G., Konstan, J. & Riedl, J. (2001). Item-based collaborative filtering recommendation algorithms. In *Proceedings of the 10th International World Wide Web Conference (WWW10)*. https://ir.webis.de/anthology/2001.wwwconf_conference-2001.30 — 提出以項目為基礎的鄰域協同過濾方法。
-- Koren, Y., Bell, R. & Volinsky, C. (2009). Matrix factorization techniques for recommender systems. *IEEE Computer*, 2009 年 8 月號。https://www.cs.columbia.edu/%7Eblei/fogm/2023F/readings/KorenBellVolinsky2009.pdf — 描述對評分擬合的潛在因子模型，即標準的矩陣分解方法。連結為課程網站上的文章副本。
-- Rendle, S., Freudenthaler, C., Gantner, Z. & Schmidt-Thieme, L. (2012). *BPR: Bayesian Personalized Ranking from Implicit Feedback*. arXiv. https://arxiv.org/abs/1205.2618 — 針對隱式回饋的配對排序目標，附貝氏推導。
-- He, X., Liao, L., Zhang, H., Nie, L., Hu, X. & Chua, T.-S. (2017). *Neural Collaborative Filtering*. arXiv. https://arxiv.org/abs/1708.05031 — 以神經網路取代矩陣分解中的內積，學習互動函數。
+- Sarwar, B., Karypis, G., Konstan, J. & Riedl, J. (2001). Item-based collaborative filtering recommendation algorithms. In *Proceedings of the 10th International World Wide Web Conference (WWW10)*, pp. 285–295. https://doi.org/10.1145/371920.372071 — 提出以項目為基礎的鄰域協同過濾方法。
+- Koren, Y., Bell, R. & Volinsky, C. (2009). Matrix factorization techniques for recommender systems. *Computer*, 42, pp. 30–37. https://doi.org/10.1109/MC.2009.263 — 描述對評分擬合的潛在因子模型，即標準的矩陣分解方法。
+- Rendle, S., Freudenthaler, C., Gantner, Z. & Schmidt-Thieme, L. (2012). *BPR: Bayesian Personalized Ranking from Implicit Feedback*. arXiv:1205.2618，首次發表於 UAI 2009。https://arxiv.org/abs/1205.2618 — 針對隱式回饋的配對排序目標，附貝氏推導。
+- He, X., Liao, L., Zhang, H., Nie, L., Hu, X. & Chua, T.-S. (2017). Neural collaborative filtering. In *Proceedings of the 26th International Conference on World Wide Web (WWW 2017)*, pp. 173–182. https://doi.org/10.1145/3038912.3052569 — 以神經網路取代矩陣分解中的內積，學習互動函數。
 
 ### 綜述與教科書
 
-- Ricci, F., Rokach, L. & Shapira, B. (eds.) (2015). *Recommender Systems Handbook*, 2nd ed. Springer. https://link.springer.com/referencework/10.1007/978-1-4899-7637-6 — 參考手冊，涵蓋協同式、內容式與混合式方法，以及評估。
+- Ricci, F., Rokach, L. & Shapira, B. (eds.) (2015). *Recommender Systems Handbook*, 2nd ed. Springer. https://doi.org/10.1007/978-1-4899-7637-6 — 參考手冊，涵蓋協同式、內容式與混合式方法，以及評估。
