@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-15
+translation_reviewed: 2026-11-17
 ---
 
 # 項目式協同過濾（Item-based Collaborative Filtering）
@@ -85,6 +85,19 @@ $$
 將分子中各鄰居的評分換成 $a_{ij}r_{uj}+b_{ij}$。假設擬合出的示意映射為 $A\mapsto0.5A+1$ 與 $B\mapsto B+1$，兩個目標估計為 3.5 與 3，加權後得到 $10/3$。這是原創數值範例，不是重製論文的實驗結果。
 
 Sarwar 等人描述以迴歸調整評分，但印出的迴歸記號方向相反（由目標預測鄰居）。上面的「鄰居預測目標」形式將推論方向寫清楚，並非逐字轉寫該公式。[^sarwar] 將已擬合的最小平方直線反解，通常不等於反方向重新擬合。若預測變數為常數，或共同觀察不足，也需要明訂後備規則。
+
+### 動畫範例：納入第二個已評分鄰居
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/itemcf-weighted-neighbors-still.svg" data-motion-src="../../../assets/concept-animations/itemcf-weighted-neighbors-motion.svg" data-still-src="../../../assets/concept-animations/itemcf-weighted-neighbors-still.svg" alt="兩個正相似度鄰居的加權評分貢獻分別為四與零點八；納入第二個鄰居後，正規化預測從五變成四。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/itemcf-weighted-neighbors-still.svg)
+
+
+沿用上方**人工設定**的評分與相似度：$r_{uA}=5$、$r_{uB}=2$、$s_{iA}=0.8$、$s_{iB}=0.4$。只有 A 時，加權預測為 $4/0.8=5$；納入 B 後，變為 $(4+0.8)/(0.8+0.4)=4$。橘色貢獻長條與預測游標共同說明：**分母的權重總和也會改變**。藍色長條代表 A 的 $0.8\times5=4$ 分子貢獻，而非相似度本身。
+
+數字和相似度均為教學示意，**不是模型實測值**。兩個鄰域狀態之間的平滑移動僅用於視覺解釋，不是訓練過程，也不表示加入第二個鄰居一定能提升準確率。缺漏評分不會當成零。MkDocs 網站可使用 **Play/Pause**；手機上可用鍵盤聚焦與水平捲動。GitHub 與偏好減少動態效果的讀者可看到靜態回退。原創圖像採 CC BY-SA 4.0 授權。
 
 ## 預先計算與評估
 

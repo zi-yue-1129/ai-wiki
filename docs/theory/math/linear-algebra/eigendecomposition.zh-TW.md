@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-12
+translation_reviewed: 2026-11-17
 ---
 
 # 特徵值分解
@@ -47,6 +47,59 @@ A = Q\Lambda Q^\top, \qquad \Lambda = \operatorname{diag}(\lambda_1, \dots, \lam
 設定**人工合成的正定矩陣** $A=Q\operatorname{diag}(3,1)Q^\top$，其中 $Q=R(25^\circ)$。初始單位向量 $x_0$ 位於 97°，與主特徵向量 $q_1$ 相差 **72°**。每次先計算 $Ax_k$（橘色箭頭會暫時伸長），再依 $x_{k+1}=Ax_k/\|Ax_k\|_2$ 正規化。角度誤差遵循 $\tan\delta_k=\tan(72^\circ)/3^k$；前五次更新後，誤差依序約為 **45.7°、18.9°、6.5°、2.2°、0.7°**。右側長條的長度與這些角度誤差成正比，並非訓練損失。只有箭頭停留在正規化迭代點時，對應列才會反白；標示「套用矩陣／正規化」的過渡期間不顯示列框。到達 $x_5$ 後，循環重設為 $x_0$。
 
 此收斂需要起始向量在唯一、絕對值最大的特徵值所對應方向具有非零分量；條件不成立時，結果可能不同。動畫中連接精確迭代點的過渡影格只是幾何示意，**不代表額外計算步驟或實測執行時間**。MkDocs 提供**播放／暫停**控制；GitHub 可直接查看靜態版本。窄螢幕可以水平捲動。原創圖像，**CC BY-SA 4.0**。
+
+
+### 動態範例：對稱映射保留特徵方向
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-linear-map-still.svg" data-motion-src="../../../assets/concept-animations/eigen-linear-map-motion.svg" data-still-src="../../../assets/concept-animations/eigen-linear-map-still.svg" alt="橘色單位向量沿圓周轉動，青綠色轉換結果沿橢圓移動；兩條特徵方向在映射後保持固定。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀的特徵方向靜態預覽](../../../assets/concept-animations/eigen-linear-map-still.svg)
+
+考慮**人工合成的對稱矩陣** \(A=Q\operatorname{diag}(3,1)Q^\top\)，其中 \(Q=R(35^\circ)\)。對正交特徵向量 \(\mathbf q_1,\mathbf q_2\)，
+
+\[
+\mathbf x(\theta)=\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2,\qquad
+A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
+\]
+
+輸入端點沿圓周移動，輸出端點則描繪橢圓。\(\theta=0\) 時，\(\mathbf q_1\) 分量放大三倍；\(\theta=90^\circ\) 時，\(\mathbf q_2\) 分量保持不變。一般方向的輸入與輸出不一定共線。**左右圖面採不同繪圖尺度**，應比較各圖內的形狀與方向，而非跨圖箭頭的絕對長度。角度掃描只是幾何示範，**不是迭代求解或模型訓練**。原創圖，**CC BY-SA 4.0**。
+
+### 動態反例：實數旋轉矩陣未必有實特徵向量
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-rotation-no-real-still.svg" data-motion-src="../../../assets/concept-animations/eigen-rotation-no-real-motion.svg" data-still-src="../../../assets/concept-animations/eigen-rotation-no-real-still.svg" alt="相鄰兩次迭代的實向量相差九十度，右側軌跡的標記依序走過四個方向並回到起點。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀的旋轉軌跡靜態預覽](../../../assets/concept-animations/eigen-rotation-no-real-still.svg)
+
+旋轉矩陣 \(R=\begin{bmatrix}0&-1\\1&0\end{bmatrix}\) 將每個非零**實向量**映射到與原向量正交的方向。橘色箭頭代表 \(\mathbf x_{k-1}\)，青綠色箭頭代表 \(\mathbf x_k=R\mathbf x_{k-1}\)；右側標記顯示模 4 的離散迭代狀態。四次矩陣乘法後，\(R^4\mathbf x_0=\mathbf x_0\)。因為對任意實向量皆有 \(\mathbf x^\top R\mathbf x=0\)，而 \(R\) 可逆，因此不存在非零**實**特徵向量。其特徵值 \(\pm i\) 位於**複數域**，與要求矩陣**對稱**的譜定理不矛盾。兩個離散轉向之間的平滑畫面僅為*視覺插值*，**不代表額外的矩陣乘法**。原創圖，**CC BY-SA 4.0**。
+
+兩組範例皆可在 MkDocs 使用**播放／暫停**控制；GitHub 直接顯示靜態 SVG。偏好減少動態時播放器預設暫停。手機可將焦點移到圖面區域，利用方向鍵水平捲動。
+
+
+### 動態範例：零特徵值使空間維度塌縮
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg" data-motion-src="../../../assets/concept-animations/eigen-zero-eigenvalue-motion.svg" data-still-src="../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg" alt="橘色單位向量沿圓周旋轉，青綠色映射後的向量始終落在水平直線上；零特徵值消除了垂直方向的分量。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀的零特徵值靜態預覽](../../../assets/concept-animations/eigen-zero-eigenvalue-still.svg)
+
+考慮**人工設定的奇異矩陣** $A=\operatorname{diag}(2,0)$，兩組特徵對為 $(2,e_1)$ 和 $(0,e_2)$。當 $x(\theta)=(\cos\theta,\sin\theta)$ 掃過單位圓時，$Ax(\theta)=(2\cos\theta,0)$ 的終點只能落在水平線段上。當 $\theta=90^\circ$，$x=e_2\neq0$，但 $Ax=0$，因此第二個特徵方向屬於零空間；同時 $\det(A)=0$ 且 $\operatorname{rank}(A)=1$。**兩面板使用不同圖面縮放**，不能直接用跨面板的像素長度推論特徵值。此連續掃描只是**人工解析式幾何示意，非模型實測或演算法的訓練軌跡**。原創圖像，**CC BY-SA 4.0**。
+
+### 動態反例：重根不一定有足夠的特徵向量
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/eigen-jordan-shear-still.svg" data-motion-src="../../../assets/concept-animations/eigen-jordan-shear-motion.svg" data-still-src="../../../assets/concept-animations/eigen-jordan-shear-still.svg" alt="單位正方形連續變形成平行四邊形再復原；第一個基底向量保持固定，第二個基底向量傾斜，但兩個特徵值始終為一。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀的 Jordan 剪切靜態預覽](../../../assets/concept-animations/eigen-jordan-shear-still.svg)
+
+考慮**人工設定的矩陣族** $A(s)=\begin{bmatrix}1&s\\0&1\end{bmatrix}$，其中 $0\le s\le1$。整個動畫中兩個代數特徵值均為 1，但 $A(s)e_1=e_1$，而 $A(s)e_2=e_2+s e_1$。對任何 $s>0$，由 $(A(s)-I)v=0$ 可得 $v_2=0$，故特徵空間僅為 $\operatorname{span}(e_1)$，雖有重複實特徵值，**仍無法對角化**。當 $s=0$ 時矩陣是單位矩陣，此特例具有二維特徵空間。動畫展示的是**不同剪切參數對應的矩陣族**，不是反覆作用同一個 Jordan 區塊，也不是模型實測。原創圖像，**CC BY-SA 4.0**。
+
+兩組圖在 MkDocs 沿用**播放／暫停**及減少動態時的靜態回退。GitHub 可直接看靜態 SVG；窄螢幕可聚焦圖面後以方向鍵水平捲動。
 
 ## 主要方法
 
