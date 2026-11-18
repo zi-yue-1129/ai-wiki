@@ -80,17 +80,61 @@ $$
 
 Its rows are orthogonal, so $AA^\top=\operatorname{diag}(18,8,2)$. The singular values are $3\sqrt{2}$, $2\sqrt{2}$ and $\sqrt{2}$. The first left singular vector is the first coordinate vector, so the rank-one approximation retains the first row and sets the other rows to zero. Its Frobenius error is $\sqrt{8+2}=\sqrt{10}$. Its spectral error is $2\sqrt{2}$. It retains $18/28=9/14$ of the original squared Frobenius norm.
 
+### Animated rank-one accumulation and residual energy
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/svd-rank-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/svd-rank-accumulation-still.svg" alt="Three orthogonal rank-one terms are added to a three-by-four matrix. The retained rows grow from one to three while Frobenius residual falls from square root of ten to square root of two, then zero." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable rank-one accumulation snapshots](../../../assets/concept-animations/svd-rank-accumulation-still.svg)
+
+In the **illustrative matrix above**, the three mutually orthogonal rows have singular values $3\sqrt{2}$, $2\sqrt{2}$ and $\sqrt{2}$. The rank-one, rank-two and rank-three reconstructions keep the first one, two and three rows respectively, with exact Frobenius residuals $\sqrt{10}$, $\sqrt{2}$ and $0$. Coloured cells mark nonzero entries (teal/blue positive, amber negative); pale cells mark omitted components. Moving dots show each rank-one contribution reaching the reconstruction, **not the numerical execution of an SVD solver**. The interpolated travel is schematic, not a measured training trace. MkDocs offers keyboard-accessible **Play/Pause**; on narrow screens, focus the diagram and scroll horizontally. GitHub and reduced-motion users get a static three-rank comparison. Original artwork, **CC BY-SA 4.0**.[^approx]
+
 For an $m\times n$ weight matrix stored as two dense factors of inner dimension $k$, the scalar count is $k(m+n)$ after folding $\Sigma_k$ into one factor. Storage shrinks when that count is less than $mn$. The approximation theorem controls matrix error. Model quality and latency depend on the surrounding model and implementation and can be measured on the deployment workload.[^approx]
 
 ## Least squares, PCA and adaptation
+
+### Animated pseudoinverse sensitivity to small singular values
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-noise-amplification-still.svg" data-motion-src="../../../assets/concept-animations/svd-noise-amplification-motion.svg" data-still-src="../../../assets/concept-animations/svd-noise-amplification-still.svg" alt="As a perturbation in the second observation sweeps from minus 0.2 to plus 0.2, inversion through singular value 0.25 amplifies the second solution coordinate fourfold; truncation at threshold 0.5 instead sets it to zero." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable pseudoinverse sensitivity comparison](../../../assets/concept-animations/svd-noise-amplification-still.svg)
+
+This **chosen diagonal toy problem** uses $A=\operatorname{diag}(3,0.25)$ and $b=(3,\delta)$, with $-0.2\le\delta\le0.2$. Exact inversion gives $x=A^{-1}b=(1,4\delta)$, so the small singular value amplifies noise along the second singular direction by a factor of four. A **truncated SVD pseudoinverse** with threshold $\tau=0.5$ discards that direction and returns $x_\tau=(1,0)$. The blue zero line therefore suppresses the toy noise, **but truncation can also discard real signal and introduce bias**; it is not universally superior. Continuous marker travel represents a parameter sweep, not a solver iteration or measured model behaviour. MkDocs supports keyboard-accessible **Play/Pause** and focusable horizontal scrolling; GitHub and reduced-motion users see the still comparison. Original artwork, **CC BY-SA 4.0**.[^approx][^accuracy]
 
 - **Least squares.** The Moore–Penrose pseudoinverse is $A^+=V_r\Sigma_r^{-1}U_r^\top$. For a right-hand side $b$, the vector $A^+b$ has minimum Euclidean norm among minimisers of $\|Ax-b\|_2$. Small positive singular values can amplify noise when inverted. A numerical rank threshold treats selected small values as zero and changes the problem being solved.[^approx][^accuracy]
 - **PCA.** Let $X$ have $m>1$ centred observations in its rows. The right singular vectors of $X$ are principal directions, the sample covariance eigenvalues are $\sigma_i^2/(m-1)$ with additional zeros as needed, and the top $k$ scores are $XV_k=U_k\Sigma_k$. See [Principal component analysis](../../paradigms/unsupervised/dimensionality-reduction/pca.md).[^pca]
 - **Model weights.** [Truncated SVD](../../model-compression/low-rank-and-efficient-architectures/truncated-svd/index.md) approximates an existing weight matrix. [LoRA](../../model-compression/low-rank-and-efficient-architectures/lora/index.md) freezes the base weights and learns an update $BA$ whose rank is at most the chosen adapter rank.[^lora]
 
+### Animated least-squares projection and residual orthogonality
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" data-motion-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-motion.svg" data-still-src="../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg" alt="An observation b and candidate Ax in a one-dimensional column space; residual and the squared-error parabola update during a parameter sweep and show their minimum at x 1.2." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable least-squares projection still](../../../assets/concept-animations/svd-ls-orthogonal-residual-still.svg)
+
+For the illustrative, overdetermined problem $A=(2,1)^\top$ and $b=(2,2)^\top$, the least-squares solution is $x^*=(A^\top b)/(A^\top A)=6/5=1.2$. Thus $\hat b=(2.4,1.2)^\top$, $r=b-\hat b=(-0.4,0.8)^\top$, $A^\top r=0$ and $\|r\|_2^2=0.8$. The right panel gives the exact objective $E(x)=5(x-1.2)^2+0.8$. The animated marker is a **parameter sweep, not a solver iteration or model measurement**.[^approx]
+
+The MkDocs site uses the existing keyboard-accessible **Play/Pause** control; narrow screens support focused horizontal scrolling. GitHub and reduced-motion mode display the static optimum. Original artwork, **CC BY-SA 4.0**.
+
 ## Interpreting the factors
 
 A singular-vector pair can have both signs flipped without changing its rank-one term. Repeated singular values permit different orthonormal bases in their shared subspace. Closely spaced singular values can also make individual computed vectors sensitive to perturbations. The reconstruction and the relevant subspace are useful comparisons when factors differ between solvers.[^accuracy]
+
+### Animated freedom of singular bases at repeated values
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" data-motion-src="../../../assets/concept-animations/svd-degenerate-bases-motion.svg" data-still-src="../../../assets/concept-animations/svd-degenerate-bases-still.svg" alt="For the matrix A equal to two times the identity, the input and output singular-vector bases rotate together while a fixed x and Ax remain unchanged." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable equal-singular-value basis still](../../../assets/concept-animations/svd-degenerate-bases-still.svg)
+
+The chosen matrix $A=2I_2$ has equal singular values $\sigma_1=\sigma_2=2$. For **every** rotation $R(\theta)$, $A=R(\theta)(2I_2)R(\theta)^\top$ is a valid SVD. The coloured singular bases rotate together, while the green input $x$ and output $Ax=2x$ stay fixed. The changing basis illustrates the **non-uniqueness of individual singular vectors**; it is neither a change to $A$ nor the trajectory of an SVD solver.[^accuracy]
+
+MkDocs uses **Play/Pause**; keyboard scrolling and a GitHub/reduced-motion still remain available. Original schematic, **CC BY-SA 4.0**.
 
 [^svd]: *LAPACK Users' Guide*, “Singular Value Decomposition”, defines the factors and describes bidiagonal reduction.
 [^ey]: Eckart and Young (1936) formulate and solve the least-squares lower-rank approximation problem.

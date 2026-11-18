@@ -42,7 +42,7 @@ $$
 ### ReLU 二階矩逐層傳播動畫
 
 <div tabindex="0" role="region" aria-label="He 與 Xavier 二階矩動畫，窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
-  <img data-source-asset-urls src="../../../assets/concept-animations/he-relu-second-moment-still.svg" data-motion-src="../../../assets/concept-animations/he-relu-second-moment-motion.svg" data-still-src="../../../assets/concept-animations/he-relu-second-moment-still.svg" alt="He 初始化讓 ReLU 層二階矩保持一，單位增益 Xavier 依序減半至十六分之一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/he-relu-second-moment-still.svg" data-motion-src="../../../assets/concept-animations/he-relu-second-moment-motion.svg" data-still-src="../../../assets/concept-animations/he-relu-second-moment-still.svg" alt="He 初始化讓 ReLU 層二階矩保持一，單位增益 Xavier 依序減半至十六分之一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
 </div>
 
 *原創教學動畫，CC BY-SA 4.0。* 對扇入與扇出皆為 $n$ 的**方形層**，假設權重獨立、均值為零，激活前分布對零點對稱，且輸入二階矩 $q_0=1$，初始化近似給出 $q_{\ell+1}=(nv/2)q_\ell$。He 扇入權重變異數 $v=2/n$ 導致 $q_\ell=1$；**單位增益** Xavier 的 $v=1/n$ 則得到 $q_\ell=2^{-\ell}$，經過四層 ReLU 為 **0.0625**。移動標記追蹤的是解析式的**平方期望而非置中變異數**，也不是模型實測、單顆神經元或隨機模擬；相關性、殘差路徑與有限寬度都可能造成偏離。[^he][^glorot]
@@ -52,7 +52,7 @@ Wiki 網站提供**播放／暫停**按鈕（聚焦後按 Enter／Space），偏
 ### Leaky ReLU 負斜率與 He 增益的對應
 
 <div tabindex="0" role="region" aria-label="Leaky ReLU 增益隨斜率變化的動畫，窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
-  <img data-source-asset-urls src="../../../assets/concept-animations/prelu-slope-gain-still.svg" data-motion-src="../../../assets/concept-animations/prelu-slope-gain-motion.svg" data-still-src="../../../assets/concept-animations/prelu-slope-gain-still.svg" alt="當 Leaky ReLU 負半軸斜率由零增加到一，若沿用 ReLU 專用權重變異數，平方激活期望倍率會由一增加到二；依斜率修正的 He 初始化能維持在一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/prelu-slope-gain-still.svg" data-motion-src="../../../assets/concept-animations/prelu-slope-gain-motion.svg" data-still-src="../../../assets/concept-animations/prelu-slope-gain-still.svg" alt="當 Leaky ReLU 負半軸斜率由零增加到一，若沿用 ReLU 專用權重變異數，平方激活期望倍率會由一增加到二；依斜率修正的 He 初始化能維持在一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
 </div>
 
 *原創教學動畫，CC BY-SA 4.0。* 設負半軸斜率為固定的 **a ∈ [0, 1]**，若激活前分布對零對稱，則 **E[leaky-ReLU(z)²] = (1+a²)E[z²]/2**。繼續採用**僅適用 ReLU 的**權重變異數 **v = 2/n**，平方激活期望的倍率就是 **1+a²**，隨斜率從零到一由 **1 增加至 2**；改成 **v = 2/[n(1+a²)]** 後，倍率維持 **1**。兩個同步游標展示的是**解析式倍率，而非模型訓練量測結果**。推導假設零均值獨立權重及對稱的激活前分布，且初始化時斜率固定；PReLU 的可學習斜率會使訓練中的狀況不同。[^he][^pytorch]
@@ -62,7 +62,7 @@ Wiki 網站提供鍵盤可操作的播放／暫停、偏好減少動態效果時
 ### 扇入與扇出：同一權重變異數無法兼顧兩個方向
 
 <div tabindex="0" role="region" aria-label="He 扇入與扇出增益動畫；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
-  <img data-source-asset-urls src="../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/he-fan-mode-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg" alt="128 個輸入、512 個輸出的 ReLU 層中，扇入初始化將前向二階矩倍率維持為一，但反向梯度平方倍率為四；扇出初始化則分別得到四分之一與一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/he-fan-mode-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg" alt="128 個輸入、512 個輸出的 ReLU 層中，扇入初始化將前向二階矩倍率維持為一，但反向梯度平方倍率為四；扇出初始化則分別得到四分之一與一。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
 </div>
 
 *原創連續教學動畫，CC BY-SA 4.0。* 考慮**輸入寬度 128、輸出寬度 512 的 ReLU 層**。在權重獨立、零平均值、激活前分布對稱等假設下，前向二階矩倍率近似為 $m_f=n_{\mathrm{in}}v/2$；對反向**梯度平方的二階矩**，另外假設反向梯度獨立、整流導數有一半時間啟用，可得 $m_b=n_{\mathrm{out}}v/2$。[^he] 採用**扇入**變異數 $v=2/128$，則 $(m_f,m_b)=(1,4)$；採用**扇出**變異數 $v=2/512$，則為 $(0.25,1)$。連續動畫的中間狀態使用**純示意插值** $v(t)=2/[128+384t]$，$0\leq t\leq1$，連接上述兩種端點規則；**不代表推薦使用插值後的第三種初始化法**。圖中皆為解析式倍率，**不是實測激活值、梯度或訓練結果**；有限寬度與變數相依性都可能影響實際傳播。
@@ -73,15 +73,17 @@ Wiki 網站可使用播放／暫停（聚焦控制項後按 Enter 或 Space）�
 ### ReLU 前激活平均值偏移：通過比例不等於保留的二階矩
 
 <div tabindex="0" role="region" aria-label="高斯 ReLU 平均值偏移動畫；窄螢幕可水平捲動" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
-  <img data-source-asset-urls src="../../../assets/concept-animations/he-relu-mean-shift-still.svg" data-motion-src="../../../assets/concept-animations/he-relu-mean-shift-motion.svg" data-still-src="../../../assets/concept-animations/he-relu-mean-shift-still.svg" alt="兩條解析曲線隨前激活平均值移動：高斯輸入通過 ReLU 的機率與保留的二階矩比例，只有在平均值為零時同為二分之一；偏移後兩者不同。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/he-relu-mean-shift-still.svg" data-motion-src="../../../assets/concept-animations/he-relu-mean-shift-motion.svg" data-still-src="../../../assets/concept-animations/he-relu-mean-shift-still.svg" alt="兩條解析曲線隨前激活平均值移動：高斯輸入通過 ReLU 的機率與保留的二階矩比例，只有在平均值為零時同為二分之一；偏移後兩者不同。" width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
 </div>
 
 *原創教學動畫，CC BY-SA 4.0。* 常見的 ReLU 二階矩倍率 **1/2**，依賴前激活分布對零點對稱。另取一組**人工設定的高斯例子** $Z\sim\mathcal N(b,1)$，令 $\phi$ 與 $\Phi$ 分別為標準常態密度與累積分布，則
 
 $$
-P(Z>0)=\Phi(b),\qquad
+\begin{gathered}
+P(Z>0)=\Phi(b),\\
 \frac{\mathbb E[\operatorname{ReLU}(Z)^2]}{\mathbb E[Z^2]}
 =\frac{(1+b^2)\Phi(b)+b\phi(b)}{1+b^2}.
+\end{gathered}
 $$
 
 當 $b=0$，兩者均為 $0.5$；當 $b=-1$，約為 **0.1587、0.0377**；當 $b=1$，約為 **0.8413、0.9623**。**通過 ReLU 的機率不等於輸出所保留的平方訊號比例。** 因此，不能將基於對稱性得到的 $v=2/n_{\mathrm{in}}$ 二階矩論證原封不動套用到偏移後的前激活。圖中的值是解析式示意，**不是神經網路的實測激活分布，也不是推薦的 bias 初始化規則**。[^he][^propagation]
@@ -95,11 +97,13 @@ Wiki 網站沿用播放／暫停（控制項聚焦後按 Enter 或 Space），�
 對於負半軸斜率為 $a$ 的整流函數，增益為 $g=\sqrt{2/(1+a^2)}$。前向規則使用下列分布，ReLU 對應於 $a=0$。使用 PReLU 時，採用斜率在初始化時的值。[^he][^pytorch]
 
 $$
+\begin{gathered}
 w_{ij}\sim\mathcal{N}\!\left(0,\frac{g^2}{n_{\mathrm{in}}}\right),
-\qquad
+\\
 w_{ij}\sim\mathcal{U}(-u,u),
-\qquad
+\\
 u=g\sqrt{\frac{3}{n_{\mathrm{in}}}}.
+\end{gathered}
 $$
 
 兩種分布有相同的權重變異數，因為 $[-u,u]$ 上的均勻分布具有 $u^2/3$ 的變異數。常態分布的標準差為 $g/\sqrt{n_{\mathrm{in}}}$。
@@ -143,6 +147,8 @@ Glorot 初始化在增益為一時使用 $2/(n_{\mathrm{in}}+n_{\mathrm{out}})$ 
 [^pytorch]: PyTorch 2.15，[*torch.nn.init*](https://docs.pytorch.org/docs/2.15/nn.init.html)，增益表與 Kaiming 常態／均勻初始化文件。
 [^propagation]: Schoenholz 等人，[*Deep Information Propagation*](https://arxiv.org/abs/1611.01232)，摘要與第 2 節。
 [^fixup]: Zhang、Dauphin 與 Ma，[*Fixup Initialization*](https://arxiv.org/abs/1901.09321)，第 2 至 3 節。
+
+離散深度與通道示例停留在精確整數狀態後重設；連線只是視覺引導，不是分數層或分數通道。參數掃描是示意插值，不是訓練軌跡；反向掃描參數不代表訓練倒退。密度圖只顯示高斯尾部的有限視窗，不會將截斷視窗重新正規化。
 
 ## 參考文獻
 
