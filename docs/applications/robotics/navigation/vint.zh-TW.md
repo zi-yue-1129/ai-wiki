@@ -42,6 +42,16 @@ ViNT 由 Shah、Sridhar、Dashora、Stachowicz、Black、Hirose 與 Levine 提�
 
 在調整時，整個模型以 10⁻⁴ 的學習率端到端微調五個 epoch。學習得到的目標 token 可以取代影像目標編碼器，使模型也能接受其他形式的目標，例如 GPS 路點或路線指令。
 
+## 動畫解讀：目標條件式路點預測
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="完整導航教學圖；聚焦後用方向鍵水平捲動" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/vint-goal-waypoint-flow-still.svg" data-motion-src="../../../assets/concept-animations/vint-goal-waypoint-flow-motion.svg" data-still-src="../../../assets/concept-animations/vint-goal-waypoint-flow-still.svg" alt="ViNT 結合歷史觀測與目標影像，逐步呈現時間距離估計及五個局部路點">
+</div>
+
+歷史影像列是示意；模型輸入包含當前影像加上五張過去影像。五個預測航點來自同一次前向計算，不是五次自迴歸呼叫；依序顯示只是閱讀輔助，輸入脈衝完成後才顯示輸出。 圖框保留 640px 可讀文字，手機可聚焦後用方向鍵水平捲動。這裡呈現視覺目標導航，不是語言條件動作生成。
+
+*原創教學動畫（CC BY-SA 4.0）。* 歷史觀測畫面與目標影像共同構成 ViNT 的條件輸入。模型的距離輸出頭估計的是**時間距離**，路點輸出頭則預測**五個相對局部路點**。動畫沿時間展開路徑，用來區分單次局部路點預測與額外的長距離子目標搜尋；**並非**真實機器人行進軌跡。畫面中的 `d = 6` 與路徑均為**人工示意，非模型預測或實測數據**。MkDocs 網站可使用播放／暫停觀察過程；[GitHub 可閱讀的完整結果靜態預覽](../../../assets/concept-animations/vint-goal-waypoint-flow-still.svg)適合不支援動畫的環境。原始研究為參考文獻中的 Shah 等人（2023）。
+
 ## 結果
 
 論文主文描述訓練資料為八個機器人平台上的十一個資料集，並給出超過 100 小時的軌跡。論文的其他表格與圖說給出不同的總量，因此確切數量應以論文的資料表為準。在無方向的目標到達任務中，ViNT 在室內與室外分別得分 0.94 與 1.00；同樣的設定下，端到端的行為克隆分別為 0.72 與 0.44，RECON 則為 0.19 與 0.23（Shah et al., 2023, Table 1）。

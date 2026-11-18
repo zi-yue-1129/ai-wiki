@@ -10,18 +10,36 @@ tags:
 
 # Federated Averaging
 
-Federated averaging is the basic algorithm of federated learning. Each participating device trains a copy of the model on its own data for a few local steps, and a server averages the resulting models. The raw data never leaves the devices, and only model updates are communicated.
+Federated averaging is the basic algorithm of federated learning. Each participating device trains a copy of the model on its own data for a few local steps, and a server averages the resulting models. The raw data stays on the devices, and only model updates are communicated; these updates may still leak information, so FedAvg itself is not a privacy protocol.
 
 ## Overview
 
 A round of training picks a subset of clients, sends them the current global model, has each run local stochastic gradient descent, and averages the returned weights, usually weighted by the number of local examples. Local steps reduce communication, but they also make the local models drift apart when the data differs between clients.
+
+## Animated walkthrough: local updates and weighted averaging
+
+<div class="federated-source-scroll" tabindex="0" role="region" aria-label="FedAvg teaching animation: the server broadcasts a global model to three clients, which perform local updates before sample-count-weighted aggregation." style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../assets/concept-animations/fedavg-weighted-round-still.svg" data-motion-src="../../../../assets/concept-animations/fedavg-weighted-round-motion.svg" data-still-src="../../../../assets/concept-animations/fedavg-weighted-round-still.svg" alt="FedAvg teaching animation: the server broadcasts a global model to three clients, which perform local updates before sample-count-weighted aggregation." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original process animation, CC BY-SA 4.0.* Moving markers represent **local model parameters**, not training data uploaded to the server. Three schematic scalar models start at `θ = 0` and finish at `−1.0, +0.5, +2.0` after local steps. With client dataset sizes `n = 2, 3, 5`, the server combines them by **data-size weighting**:
+
+\[
+w^{t+1}=\sum_{k\in S_t}\frac{n_k}{\sum_{j\in S_t}n_j}w_k^{t+1}
+=\frac{2(-1.0)+3(0.5)+5(2.0)}{10}=0.95.
+\]
+
+This is **illustrative scalar arithmetic, not a model measurement**. Real FedAvg aggregates parameter vectors; local training on non-IID data may drift, and accuracy need not improve every round. Based on [McMahan et al. (2017)](https://proceedings.mlr.press/v54/mcmahan17a.html). The MkDocs site adds a Play/Pause button; a [GitHub-readable static fallback](../../../../assets/concept-animations/fedavg-weighted-round-still.svg) shows the final state.
+
+
+The markers share a parameter scale of 22 pixels per unit; continuous motion is schematic interpolation, not measured SGD steps. Uploads follow local updates, and the aggregate appears after all uploads. On mobile, scroll within the keyboard-focusable figure.
 
 ## Key ideas
 
 - **Local updates**: several local steps per round trade extra computation on devices for fewer communication rounds.
 - **Weighted averaging**: combine client models in proportion to their data sizes, which is the simplest form of aggregation.
 - **Client sampling**: train on a random subset of devices each round, which keeps the cost manageable with millions of phones.
-- **Proximal regularisation**: add a term that keeps local models close to the global model, which stabilises training when clients are heterogeneous.
+- **Proximal regularisation (FedProx extension)**: add a term that keeps local models close to the global model, which stabilises training when clients are heterogeneous.
 
 ## Connections
 

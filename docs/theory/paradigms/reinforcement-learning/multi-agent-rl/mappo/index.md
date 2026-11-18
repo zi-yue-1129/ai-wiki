@@ -25,10 +25,37 @@ MAPPO is the PPO algorithm of [Proximal Policy Optimisation](../../proximal-poli
 - **Value normalisation** to stabilise value learning.
 - **Value input** with both local, agent-specific features and global features, where these are available.
 - **Limited epochs.** Up to 10 training epochs on difficult environments and 15 on easy ones.
-- **Clipping** with the ratio kept under 0.2, tuned within that range.
+- **Clipping** with the width parameter \(\epsilon<0.2\), tuned within that range. This is not a probability-ratio bound of 0.2: the clipped surrogate uses \([1-\epsilon,1+\epsilon]\), without guaranteeing the actual ratio stays inside it.
 - **Large batches**, tuned for sample efficiency. The paper gives no fixed number.
 
 The paper also finds that performance degrades when samples are reused too often in multi-agent domains.
+
+<div class="marl-source-scroll" tabindex="0" role="region" aria-label="MAPPO local observations pass through a shared policy; training-only global value estimates support advantages and the PPO parameter update" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/mappo-shared-advantage-still.svg" data-motion-src="../../../../../assets/concept-animations/mappo-shared-advantage-motion.svg" data-still-src="../../../../../assets/concept-animations/mappo-shared-advantage-still.svg" alt="MAPPO local observations pass through a shared policy; training-only global value estimates support advantages and the PPO parameter update" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* **Blue pulses** show two homogeneous agents applying the **same policy parameters** to their separate local observations. During training, the **teal path** summarises how a centralised \(V(s)\) supports generalised advantage estimation (GAE), while the **orange/pink path** depicts the clipped PPO objective updating the shared policy. GAE additionally requires rewards and rollout data (not drawn); the critic is **not an execution-time input** to the actors. Example \(A_1=+0.8\) and \(A_2=-0.3\) are **invented teaching values**, not measured advantages or precise optimiser steps. On MkDocs, use Play/Pause; see the [GitHub-readable static fallback](../../../../../assets/concept-animations/mappo-shared-advantage-still.svg). The methodology follows Yu et al. (2022) and Schulman et al. (2017), listed in References.
+
+
+### GAE unfolds backwards through a centralised value critic
+
+For one representative agent's rollout, the training-only centralised critic supplies \(V(s_t)\). A standard PPO-style GAE recursion is
+\[
+\delta_t=r_t+\gamma(1-d_t)V(s_{t+1})-V(s_t).
+\]
+
+\[
+\hat A_t=\delta_t+\gamma\lambda(1-d_t)\hat A_{t+1}.
+\]
+The display sets \(\gamma=0.9\), \(\lambda=0.8\), rewards \((0.2,0.4,0.6)\), critic values \((1.0,0.8,0.5,0)\), and a terminal final step. It obtains \(\delta=(-0.08,0.05,0.10)\), then **backwards** \(\hat A_2=0.10\), \(\hat A_1=0.122\), \(\hat A_0=0.00784\). This uses the global-value conditioning of MAPPO alongside standard GAE; it does **not** claim that these numbers arose from a trained policy or represent all agents' rewards.
+
+<div class="marl-source-scroll" tabindex="0" role="region" aria-label="MAPPO centralised value-based TD residuals and backward GAE recursion across three rollout steps" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/mappo-backward-gae-still.svg" data-motion-src="../../../../../assets/concept-animations/mappo-backward-gae-motion.svg" data-still-src="../../../../../assets/concept-animations/mappo-backward-gae-still.svg" alt="MAPPO centralised value-based TD residuals and backward GAE recursion across three rollout steps" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* Read each time column's reward and critic value first, then follow the amber pulses from the latest advantage back to earlier steps. The changing outlines mark the recursion's dependency order rather than a four-frame slide deck. All values are **invented teaching values**, not learned estimates. MkDocs supports Play/Pause; the [GitHub-readable static fallback](../../../../../assets/concept-animations/mappo-backward-gae-still.svg) contains every computed result. See Yu et al. (2022) and Schulman et al. (2017) in References.
+
+Values remain printed for checking; packets and outlines mark calculation dependencies, not measured signals. Each packet reaches its next node before the dependent stage; backward GAE runs from the last step toward the first. The figure stays 640 pixels wide inside a keyboard-focusable horizontal scroller.
 
 ## Results
 

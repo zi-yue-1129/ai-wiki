@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - theory/models/multimodal
   - theory/models/llm
@@ -20,6 +20,16 @@ Brohan 等人想知道：在網路資料上預訓練的視覺語言模型，能�
 ## 核心想法
 
 RT-2 把網路預訓練的視覺語言模型，與機器人軌跡以及一般的視覺語言任務（例如視覺問答）一起共同微調（co-fine-tuning）。機器人動作寫成文字 token，因此與語言共用同一種格式。作者把這類模型稱為視覺語言動作（VLA）模型。
+
+## 視覺解說：從動作 token 到機器人控制
+
+<div class="grounded-action-source-scroll" tabindex="0" role="region" aria-label="RT-2 動畫：相機觀察與文字指令輸入視覺語言模型，依序產生八個示意動作 token，再解碼成機器人指令" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../assets/concept-animations/rt2-action-token-decoding-still.svg" data-motion-src="../../../assets/concept-animations/rt2-action-token-decoding-motion.svg" data-still-src="../../../assets/concept-animations/rt2-action-token-decoding-still.svg" alt="RT-2 動畫：相機觀察與文字指令輸入視覺語言模型，依序產生八個示意動作 token，再解碼成機器人指令" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 相機影像及文字指令作為視覺語言模型的條件輸入，模型**自迴歸產生八個整數動作 token**：一個終止旗標、六個末端執行器姿態位移分量，以及一個夾爪分量。其中七個連續動作維度分別量化為 **256 個區間**；終止旗標另行表示，**並不是第八個以 256 區間量化的連續軸**。動畫由左至右顯示 token 序列，再示意將索引解碼為機器人動作指令；模型不是直接輸出連續的關節扭矩。`128`、`178`、`220` 等都是**人工示意 token，不是 RT-2 實際推論輸出或量測動作**，實際物理單位取決於機器人與動作尺度。MkDocs 網站可透過支援鍵盤的播放／暫停控制操作，GitHub 則可查看[完整靜態 token 序列](../../../assets/concept-animations/rt2-action-token-decoding-still.svg)。實際編碼與共同微調方式參見 [Brohan 等人（2023）](https://arxiv.org/abs/2307.15818)。
+
+這裡的「動作 token」指八個動作分量的編碼欄位；PaLI-X 使用既有的一對一整數 token，PaLM-E 則重新指定 256 個低頻 token（論文第 3.2 節）。因此圖中整數是動作區間值，不是各模型通用的詞彙 ID。每格完整出現後才生成下一格；全部分量到齊後才標示命令可用。RT-2 是 VLA，因為同一策略利用影像與語言指令預測可解碼的機器人動作，不是因為單獨採用了離散 token。這不代表每一種 VLA 都必須採用相同量化方法。手機可在可鍵盤聚焦的圖框內橫向捲動。
 
 ## 程序
 

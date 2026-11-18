@@ -39,13 +39,28 @@ Approximate the gradient with an eligibility trace for each synapse, which is co
 
 ## Equation or algorithm
 
-The weight update sums, over time, the learning signal multiplied by the eligibility trace,
+Use a gradient-descent convention: learning signals have loss-derivative sign, so the sum is an approximate gradient, not the learning-rate-scaled weight update,
 
 \[
-\Delta W_{ji} = \sum_t L_j(t)\, e_{ji}(t)
+\begin{aligned}
+\widehat g_{ji} &= \sum_t L_j(t)\, e_{ji}(t), \\
+\Delta W_{ji} &= -\eta\,\widehat g_{ji},\qquad \eta>0.
+\end{aligned}
 \]
 
 where \(L_j(t)\) is the learning signal for neuron j and \(e_{ji}(t)\) is the eligibility trace of the synapse from neuron i to neuron j. The trace is updated at each time step from local quantities, so the rule needs no stored history.
+
+## Animated walkthrough: local eligibility meets a learning signal
+
+<div class="snn-motion-scroll" tabindex="0" role="region" aria-label="Horizontally scrollable teaching animation" style="max-width:100%;overflow-x:auto"><div style="width:640px;min-width:640px"><img src="../../../assets/concept-animations/eprop-local-credit-still.svg" data-motion-src="../../../assets/concept-animations/eprop-local-credit-motion.svg" data-still-src="../../../assets/concept-animations/eprop-local-credit-still.svg" data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="A forward-growing eligibility trace combines with delayed positive and negative learning signals to produce local synaptic update contributions" width="640" height="360"></div></div>
+
+Focus the figure with Tab and use Left/Right arrow keys to scroll; operate Play/Pause with Enter or Space.
+
+[Static eligibility-and-learning-signal preview for GitHub and reduced-motion readers](../../../assets/concept-animations/eprop-local-credit-still.svg). In MkDocs, use **Play animation / Pause animation** (Tab, Enter or Space work). The blue curve represents a forward-computed synaptic trace; the orange and purple signals are supplied at the neuron, and their products create the green positive and purple negative gradient contributions. In a deliberately simplified **toy leaky trace** \(e_t=0.7e_{t-1}+x_t\), with \(e_0=0\), \(x_1=x_4=1\) and zero input otherwise, \(e_3=0.49\) and \(e_5=0.9401\). Taking \(L_3=+1.2\) and \(L_5=-0.4\) gives \(L_3e_3=+0.588\), \(L_5e_5=-0.37604\), and a signed sum of approximately \(+0.212\). This is an **illustration, not an experiment or the full e-prop eligibility recurrence**: actual e-prop traces depend on recurrent neuron dynamics and pseudoderivatives, and this page fixes gradient descent, so a positive sum gives a negative weight step. Ideal learning signals yield an eligibility-based gradient factorisation but include indirect future effects that are generally unavailable online; practical e-prop approximates those signals, not exact BPTT. See Bellec et al. (2020) below.
+
+The polyline connects discrete-time samples only, not extra inputs between samples. Signals and gradient products appear only when the sweep reaches time 3 or 5. Each row uses one common scale for positive and negative bars.
+
+*Original instructional motion and GitHub fallback: CC BY-SA 4.0.*
 
 ## Results
 

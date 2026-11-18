@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - theory/models/multimodal
   - theory/models/llm
@@ -19,6 +19,34 @@ Kim 等人發表了 OpenVLA，這是一個擁有 70 億參數、開源的視覺�
 ## 核心想法
 
 OpenVLA 建立在 Prismatic-7B 視覺語言模型上。它的視覺編碼器把 DINOv2 與 SigLIP 特徵依通道串接，由兩層 MLP 投影到語言模型中，再由 70 億參數的 Llama 2 骨幹生成動作 token（第 3.1 節）。論文拿它與擁有 550 億參數的封閉模型 RT-2-X 比較，報告 OpenVLA 在 29 項任務上的絕對成功率高出 16.5%（摘要）。
+
+## 教學動畫：視覺特徵融合與動作離散化
+
+<div class="openvla-source-scroll" tabindex="0" role="region" aria-label="OpenVLA 教學動畫：同一張影像分別進入 DINOv2 與 SigLIP 編碼器，對應區塊特徵沿通道維度串接，再由 MLP 投影至 Llama 2" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../assets/concept-animations/openvla-dual-encoder-fusion-still.svg" data-motion-src="../../../assets/concept-animations/openvla-dual-encoder-fusion-motion.svg" data-still-src="../../../assets/concept-animations/openvla-dual-encoder-fusion-still.svg" alt="OpenVLA 教學動畫：同一張影像分別進入 DINOv2 與 SigLIP 編碼器，對應區塊特徵沿通道維度串接，再由 MLP 投影至 Llama 2" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* **同一張相機觀察影像**分別進入 DINOv2 與 SigLIP 兩條特徵路徑。相對應的影像區塊特徵會**沿通道維度串接**，再由兩層 MLP 投影成 Llama 2 骨幹處理的視覺 token。移動標記用來展示資料流向，並非實測神經元活化值，也不表示兩個編碼器輸出相同的特徵。MkDocs 網站可使用播放／暫停按鈕（焦點在按鈕時按 Enter 或空白鍵），也可查看 [GitHub 靜態融合預覽](../../../assets/concept-animations/openvla-dual-encoder-fusion-still.svg)。這是**架構示意而非實際前向傳播紀錄**。依據 [Kim 等人（2024）](https://arxiv.org/abs/2406.09246) 第 3.1 節。
+
+<div class="openvla-source-scroll" tabindex="0" role="region" aria-label="OpenVLA 教學動畫：示意動作數值限制在訓練資料第 1 與第 99 百分位數之間，再映射至 256 個離散動作區間" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../assets/concept-animations/openvla-percentile-action-bins-still.svg" data-motion-src="../../../assets/concept-animations/openvla-percentile-action-bins-motion.svg" data-still-src="../../../assets/concept-animations/openvla-percentile-action-bins-still.svg" alt="OpenVLA 教學動畫：示意動作數值限制在訓練資料第 1 與第 99 百分位數之間，再映射至 256 個離散動作區間" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* **七個動作分量會各自離散化（包含夾爪控制）**。對其中一維，先將動作值限制在訓練資料第 1 與第 99 百分位數之間，再把區間均分成 **256 個等寬的區間**。圖內短刻度是視覺簡化，**不代表實際只有 32 個區間**。若採用*人工設定*的上下界 $[-1,+1]$，示例動作值 $-1.40$、$+0.40$ 和 $+1.60$ 依序得到索引 $0$、$179$ 和 $255$，其公式為
+
+\[
+b=\min\!\left(255,\left\lfloor\frac{256(a_{\mathrm{clip}}+1)}{2}\right\rfloor\right).
+\]
+
+。原始 OpenVLA 將 Llama tokenizer 最少使用的 256 個 token 重指定為動作 token，以 next-token cross entropy 訓練其預測。**圖中所有數值、直方圖和 token 結果均為人工教學示例，非模型輸出或機器人實測值。**網站可用播放／暫停按鈕，GitHub 讀者可查看[完整靜態離散化示例](../../../assets/concept-animations/openvla-percentile-action-bins-still.svg)。依據 [Kim 等人（2024）](https://arxiv.org/abs/2406.09246) 第 3.2 節。
+
+### 論文示意與官方 tokenizer 的差別
+
+上圖保留論文式「256 個等寬區間」的教學公式，不是官方程式的精確 token ID。官方 [ActionTokenizer](https://github.com/openvla/openvla/blob/main/prismatic/vla/action_tokenizer.py) 用 `linspace(-1, 1, 256)` 建立 **256 個邊界值、255 個區間**，再以 `digitize` 產生 1 到 256 的編號。對已正規化的輸入 `[-1.40, 0.40, 1.60]`，裁剪後編號為 `[1, 179, 256]`；減一才是 `[0, 178, 255]`，token ID 則為詞彙表大小減去編號。解碼使用區間中心，最高編號與前一個編號共用最後的中心。
+
+官方 [資料正規化](https://github.com/openvla/openvla/blob/main/prismatic/vla/datasets/rlds/utils/data_utils.py) 以各資料集／維度的 q01、q99 映射至 `[-1,1]` 並裁剪；遮罩可排除特定分量，程式另含防止除零的 epsilon。上圖使用人為端點，省略這些實作細節。圖中的高亮是離散索引選擇，不是連續滑過中間 token；高亮寬度為可見性而放大。
+
+融合圖僅展示視覺路徑：語言指令與自回歸動作輸出未畫出，但仍是完整 VLA 的必要部分。同一影像可經編碼器各自的前處理；對應 patch 的特徵沿通道串接，而不是增加 patch 數或把特徵相加。手機可在可鍵盤聚焦的圖框內橫向捲動。
 
 ## 程序
 

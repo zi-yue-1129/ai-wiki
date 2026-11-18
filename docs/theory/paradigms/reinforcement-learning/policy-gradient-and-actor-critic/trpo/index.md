@@ -23,7 +23,10 @@ TRPO optimises a local surrogate of the expected return, which uses the old stat
 The practical problem is
 
 \[
-\max_\theta\ L_{\theta_{\text{old}}}(\theta) \quad \text{subject to} \quad \bar{D}_{\text{KL}}(\theta_{\text{old}}, \theta) \le \delta
+\begin{aligned}
+&\max_\theta\ L_{\theta_{\text{old}}}(\theta)\\
+&\text{subject to}\quad\bar D_{\text{KL}}(\theta_{\text{old}},\theta)\le\delta.
+\end{aligned}
 \]
 
 where \(L\) is the surrogate and \(\bar{D}_{\text{KL}}\) is the average KL divergence over visited states. The paper estimates both quantities from samples with importance sampling. Two sampling schemes are given, a single-path method and a vine method. The procedure:
@@ -34,6 +37,33 @@ where \(L\) is the surrogate and \(\bar{D}_{\text{KL}}\) is the average KL diver
 4. Set \(\theta_{\text{old}} \leftarrow \theta\) and repeat.
 
 The paper uses \(\delta = 0.01\) in all of its experiments.
+
+
+## Teaching animation: the trust-region line search
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Teaching diagram, horizontally scrollable" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../../../assets/concept-animations/trpo-kl-backtracking-still.svg" data-motion-src="../../../../../assets/concept-animations/trpo-kl-backtracking-motion.svg" data-still-src="../../../../../assets/concept-animations/trpo-kl-backtracking-still.svg" alt="TRPO policy update proposes an out-of-bound step, checks the KL limit and backtracks to an accepted step">
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* A candidate moves away from the old policy; its **illustrative** average KL ratio is \(1.8\delta\), which violates the budget. Backtracking shrinks the step toward a point with ratio \(0.55\delta\), inside the constraint. A practical TRPO line search also checks **surrogate improvement**; the KL bound by itself is not an acceptance rule. The ellipse approximates local two-dimensional policy geometry, **not an exact contour or empirical estimate**. Play/Pause is available on MkDocs; [view the static GitHub fallback](../../../../../assets/concept-animations/trpo-kl-backtracking-still.svg). See [Schulman et al. (2015)](https://arxiv.org/abs/1502.05477).
+
+## Teaching animation: importance-weighted surrogate
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Teaching diagram, horizontally scrollable" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../../../assets/concept-animations/trpo-ratio-surrogate-still.svg" data-motion-src="../../../../../assets/concept-animations/trpo-ratio-surrogate-motion.svg" data-still-src="../../../../../assets/concept-animations/trpo-ratio-surrogate-still.svg" alt="TRPO multiplies per-sample advantages by new-over-old action-probability ratios and aggregates their contributions">
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* Under the old-policy sample distribution, the policy-dependent surrogate uses $L(\theta)=\mathbb{E}_{\pi_{\mathrm{old}}}[r_t(\theta)A_t]$ with the ratio $r_t$ defined below. Three **invented** examples pair $A=(1,-0.5,0.4)$ with $r=(1.2,0.8,1.1)$, giving contributions $(1.2,-0.4,0.44)$ and a mean of approximately $0.413$, compared with the old-policy sample mean $0.300$. Increasing this empirical surrogate **does not by itself satisfy the KL constraint or guarantee monotonic improvement**. The bars are schematic signed contributions, not measured probability distributions. MkDocs offers Play/Pause; [static GitHub fallback](../../../../../assets/concept-animations/trpo-ratio-surrogate-still.svg). Based on [Schulman et al. (2015)](https://arxiv.org/abs/1502.05477).
+
+
+The accepted candidate additionally assumes surrogate improvement; passing KL while worsening the surrogate still requires rejection. The candidate shrinks along the same direction, but the displayed KL values are not computed from ellipse pixels. Contribution bars share a zero axis at x=480 and a scale of 60px per unit: negative extends left, positive right, and numeric labels appear after bar completion. Samples may come from different states, so their three importance ratios need not sum to one.
+
+\[
+r_t(\theta)=\frac{\pi_\theta(a_t\mid s_t)}{\pi_{\mathrm{old}}(a_t\mid s_t)}.
+\]
+
+
+Static dots mark reference candidate locations; the moving highlight indicates the decision timeline. The figures retain a readable 640px width; focus them to scroll horizontally with arrow keys on phones. All timing and numbers are teaching examples.
 
 ## Results
 

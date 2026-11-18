@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - theory/paradigms/reinforcement-learning/model-based-rl
   - brain-mind/computational-neuroscience
@@ -37,7 +37,10 @@ Dreamer 代理人有三個學習得來的部分。世界模型把觀測編碼成
 對 DreamerV1 而言，想像狀態上的 λ 加權價值目標（折扣為 \(\gamma\)，混合權重為 \(\lambda\)）為
 
 \[
-V_\lambda(s_\tau) \doteq (1-\lambda)\sum_{n=1}^{H-1}\lambda^{n-1}V^{n}_{N}(s_\tau) + \lambda^{H-1}V^{H}_{N}(s_\tau)
+\begin{aligned}
+V_\lambda(s_\tau) \doteq {}&(1-\lambda)\sum_{n=1}^{H-1}\lambda^{n-1}V^{n}_{N}(s_\tau)\\
+&+\lambda^{H-1}V^{H}_{N}(s_\tau).
+\end{aligned}
 \]
 
 其中 \(V^{k}_{N}\) 是 \(k\) 步估計，會加總想像的獎勵，並由學到的價值函數做自舉（bootstrap）。行動者最大化沿想像軌跡的價值總和，
@@ -49,8 +52,55 @@ V_\lambda(s_\tau) \doteq (1-\lambda)\sum_{n=1}^{H-1}\lambda^{n-1}V^{n}_{N}(s_\ta
 世界模型則最大化由觀測、獎勵與 KL 項組成的變分下界，
 
 \[
-J_{\text{REC}} = \mathbb{E}_p\Big[\sum_t \big(\ln q(o_t\mid s_t) + \ln q(r_t\mid s_t) - \beta\,\mathrm{KL}[\,p(s_t\mid s_{t-1},a_{t-1},o_t)\,\|\,q(s_t\mid s_{t-1},a_{t-1})\,]\big)\Big] + \text{const}
+\begin{aligned}
+J_{\text{REC}}&=\mathbb{E}_p\Big[\sum_t \ell_t\Big]+\text{const},\\
+\ell_t&=\ln q(o_t\mid s_t)+\ln q(r_t\mid s_t)\\
+&\quad-\beta\,\mathrm{KL}[p_t\|q_t],\\
+p_t&=p(s_t\mid s_{t-1},a_{t-1},o_t),\\
+q_t&=q(s_t\mid s_{t-1},a_{t-1}).
+\end{aligned}
 \]
+
+### 動畫解說：後驗狀態推論與先驗想像展開
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Dreamer 教學圖，可水平捲動" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/dreamer-posterior-prior-still.svg" data-motion-src="../../../assets/concept-animations/dreamer-posterior-prior-motion.svg" data-still-src="../../../assets/concept-animations/dreamer-posterior-prior-still.svg" alt="Dreamer 先以真實觀測推論後驗潛在狀態，再以先驗轉移模型逐步產生想像狀態與預測獎勵">
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 上方流程中的**後驗表示模型**接收真實觀測，推論潛在狀態並用於訓練世界模型（包括重建觀測）；下方流程則從該狀態出發，由學得的**先驗轉移模型**依照 actor 動作產生後續潛在狀態與預測獎勵，**不會取得未來影像**。為避免圖面過度複雜，省略 RSSM 中的確定性遞迴狀態。此為機制示意，並非模型實測軌跡。MkDocs 網站可用播放／暫停；[GitHub 靜態預覽](../../../assets/concept-animations/dreamer-posterior-prior-still.svg) 同時呈現兩條路徑。此區分依據 References 中的 Hafner 等人（2020）。
+
+### 動畫解說：由想像獎勵反向遞迴 λ 回報
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Dreamer 教學圖，可水平捲動" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/dreamer-lambda-bootstrap-still.svg" data-motion-src="../../../assets/concept-animations/dreamer-lambda-bootstrap-motion.svg" data-still-src="../../../assets/concept-animations/dreamer-lambda-bootstrap-still.svg" alt="Dreamer 從想像軌跡末端的評論家估值自舉，由右至左逐步計算 λ 回報">
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 先用想像時程末端的價值估計自舉，逐步往前計算回報。假設**三步、尚未終止的人工示例**：\(\hat r_{1:3}=(1,0,2)\)、\(\gamma=0.9\)、\(\lambda=0.8\)，且 \(v(s_1)=0.8\), \(v(s_2)=1.1\), \(v(s_3)=1.5\)。令 \(G_3^\lambda=v(s_3)\)，則
+
+\[
+\begin{aligned}
+G_t^\lambda={}&\hat r_{t+1}+\gamma\bigl[(1-\lambda)v(s_{t+1})\\
+&\qquad+\lambda G_{t+1}^\lambda\bigr].
+\end{aligned}
+\]
+
+依序得到 \(G_2^\lambda=3.350\)、\(G_1^\lambda=2.610\)、\(G_0^\lambda=3.0232\)（圖中四捨五入至 3.023）。**反向遞迴計算回報不等於神經網路的反向傳播**；DreamerV1 的 actor 則會進一步透過想像動態路徑對預測價值微分。所有數值均為**人工教學示例，並非模型訓練實測**。MkDocs 可播放／暫停，或參閱 [GitHub 靜態預覽](../../../assets/concept-animations/dreamer-lambda-bootstrap-still.svg)。研究來源為 References 中的 Hafner 等人（2020）。
+
+
+圖框固定 640px，手機可聚焦後用方向鍵水平捲動。脈衝抵達後才標亮狀態或揭露回報；靜態底圖是流程總覽，不表示所有狀態已提前計算。圖中的 s₀ 是當前後驗狀態的局部重新編號，oₜ 仍是當前真實觀測。
+
+此非終止示例每步都延續。若轉移真正終止，應令有效折扣為零，使終止後的估值不再流入目標；時間上限截斷不必等同真正終止。以延續指標 c 表示時：
+
+\[
+\begin{aligned}
+d_{t+1}&=\gamma c_{t+1},\\
+G_t^\lambda&=\hat r_{t+1}+d_{t+1}B_{t+1},\\
+B_{t+1}&=(1-\lambda)v(s_{t+1})\\
+&\quad+\lambda G_{t+1}^\lambda.
+\end{aligned}
+\]
+
+在想像軌跡中，延續機率／折扣來自學得的模型，不是偷看未來真實終止訊號；原論文也以預測折扣的累積乘積加權 actor/critic 目標。
 
 ## 關鍵方法
 

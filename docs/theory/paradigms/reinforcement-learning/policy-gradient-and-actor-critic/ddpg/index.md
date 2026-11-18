@@ -23,16 +23,84 @@ The actor \(\mu(s \mid \theta^\mu)\) outputs an action directly, with no samplin
 The actor update, with the deterministic policy gradient, is
 
 \[
-\nabla_{\theta^\mu} J \approx \mathbb{E}_{s}\left[\nabla_a Q(s, a \mid \theta^Q)\big|_{a = \mu(s)}\, \nabla_{\theta^\mu} \mu(s \mid \theta^\mu)\right]
+\begin{aligned}
+g_a(s)&=\nabla_a Q(s,a\mid\theta^Q)\big|_{a=\mu(s)}, \\
+\nabla_{\theta^\mu}J&\approx\mathbb{E}_{s\sim\mathcal R}\!\left[g_a(s)\,\nabla_{\theta^\mu}\mu(s)\right].
+\end{aligned}
 \]
 
-The critic minimises the squared loss \(L = \frac{1}{N}\sum_i (y_i - Q(s_i, a_i \mid \theta^Q))^2\), where
+The critic minimises the squared loss 
 
 \[
-y_i = r_i + \gamma\, Q'\big(s_{i+1}, \mu'(s_{i+1} \mid \theta^{\mu'}) \mid \theta^{Q'}\big)
+L = \frac{1}{N}\sum_i (y_i - Q(s_i, a_i \mid \theta^Q))^2
 \]
 
-and the target networks are updated as \(\theta' \leftarrow \tau\theta + (1 - \tau)\theta'\), with \(\tau = 0.001\) in the paper. The replay buffer holds \(10^6\) transitions, and the minibatch size is 64 for low-dimensional states and 16 when learning from pixels. The discount is \(\gamma = 0.99\).
+, where
+
+\[
+\begin{aligned}
+a'_i &= \mu'(s_{i+1}\mid\theta^{\mu'}), \\
+q'_i &= Q'(s_{i+1},a'_i\mid\theta^{Q'}), \\
+y_i &= r_i+\gamma(1-d_i)q'_i.
+\end{aligned}
+\]
+
+and the target networks are updated as 
+
+\[
+\theta' \leftarrow \tau\theta + (1 - \tau)\theta'
+\]
+
+, with \(\tau = 0.001\) in the paper. The replay buffer holds \(10^6\) transitions, and the minibatch size is 64 for low-dimensional states and 16 when learning from pixels. The discount is \(\gamma = 0.99\).
+
+
+Here dᵢ denotes a true MDP termination; a time-limit truncation alone normally still bootstraps. Treat targets as constants in the critic update; ascend the actor gradient with the critic fixed and states sampled from replay.
+
+### Visual walkthrough: actor gradient through a deterministic action
+
+<div class="ddpg-motion-scroll" tabindex="0" role="region" aria-label="Horizontally scrollable DDPG teaching figure" style="max-width:100%;overflow-x:auto"><div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../../../../assets/concept-animations/ddpg-actor-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/ddpg-actor-gradient-motion.svg" data-still-src="../../../../../assets/concept-animations/ddpg-actor-gradient-still.svg" alt="Animated DDPG actor evaluation and critic-to-actor gradient flow, with a one-dimensional illustrative Q landscape" width="640" height="360"></div></div>
+
+Focus the figure with Tab, then scroll with Left/Right arrow keys.
+
+*Original instructional animation (CC BY-SA 4.0).* The **teal** trace evaluates 
+
+\[
+s \rightarrow \mu_{\theta^\mu}(s) \rightarrow Q_{\theta^Q}(s,a)
+\]
+
+. The **magenta** trace represents \(\nabla_a Q\) flowing through \(\nabla_{\theta^\mu}\mu\) to update the *actor parameters*, not to train the critic from the actor loss. The **amber** point moves uphill on an **invented one-dimensional Q slice** only to illustrate the intended local policy improvement; it is not a measured learning trajectory and cannot guarantee global optimality. The critic remains fixed during this conceptual actor-gradient step. Use the site's Play/Pause button (Enter or Space when focused); [GitHub-readable static overview](../../../../../assets/concept-animations/ddpg-actor-gradient-still.svg). See [Silver et al. (2014)](https://proceedings.mlr.press/v32/silver14.html) and [Lillicrap et al. (2016)](https://arxiv.org/abs/1509.02971).
+
+### Visual walkthrough: slow target-network tracking
+
+<div class="ddpg-motion-scroll" tabindex="0" role="region" aria-label="Horizontally scrollable DDPG teaching figure" style="max-width:100%;overflow-x:auto"><div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../../../../assets/concept-animations/ddpg-polyak-target-still.svg" data-motion-src="../../../../../assets/concept-animations/ddpg-polyak-target-motion.svg" data-still-src="../../../../../assets/concept-animations/ddpg-polyak-target-still.svg" alt="Animated online and target DDPG parameter tracks and successive Polyak updates" width="640" height="360"></div></div>
+
+Focus the figure with Tab, then scroll with Left/Right arrow keys.
+
+*Original instructional animation (CC BY-SA 4.0).* The **teal online parameter** jumps as optimisation changes it; the **magenta target parameter** follows a weighted average rather than copying the new value. The toy scalar values are \(\theta=(0,1,-0.2,0.8,0.4)\) at steps 0–4. With \(\theta'_0=0\), an intentionally exaggerated illustrative rate **\(\tau=0.2\)** yields \(\theta'=(0,0.2,0.12,0.256,0.2848)\). In the actual DDPG paper **\(\tau=0.001\)**; the displayed speed and numbers are neither its training hyperparameters nor measured model parameters. This mechanism applies separately to actor and critic target networks, and the smooth travel between discrete updates is a visual interpolation only. The lower row reveals each completed step over time. Use Play/Pause, or see the [GitHub-readable static overview](../../../../../assets/concept-animations/ddpg-polyak-target-still.svg). See [Lillicrap et al. (2016)](https://arxiv.org/abs/1509.02971).
+
+### Visual walkthrough: replay and terminal-masked critic bootstrap
+
+<div class="ddpg-motion-scroll" tabindex="0" role="region" aria-label="Horizontally scrollable DDPG teaching figure" style="max-width:100%;overflow-x:auto"><div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../../../../assets/concept-animations/ddpg-replay-bootstrap-still.svg" data-motion-src="../../../../../assets/concept-animations/ddpg-replay-bootstrap-motion.svg" data-still-src="../../../../../assets/concept-animations/ddpg-replay-bootstrap-still.svg" alt="DDPG replay minibatch passes a nonterminal transition through the target actor and critic while a terminal transition bypasses bootstrap" width="640" height="360"></div></div>
+
+Focus the figure with Tab, then scroll with Left/Right arrow keys.
+
+*Original instructional animation (CC BY-SA 4.0).* A replay buffer supplies off-policy transitions `(s, a, r, s', done)`; the **target actor** proposes the next action and the **target critic** evaluates that action for **nonterminal** transitions. The terminal flag suppresses the bootstrap term: \(y=r+\gamma(1-d)Q'(s',\mu'(s'))\). With **illustrative, not measured** values \(\gamma=0.9\) and \(Q'=1.50\), sample A \((r=0.40,d=0)\) yields \(1.75\), whereas terminal sample B \((r=1.20,d=1)\) yields \(1.20\). The image focuses on target formation, not the subsequent online-critic squared-error minimisation. Use the site's Play/Pause control (Enter/Space while focused) or the [GitHub-readable static fallback](../../../../../assets/concept-animations/ddpg-replay-bootstrap-still.svg). See [Lillicrap et al. (2016)](https://arxiv.org/abs/1509.02971).
+
+### Visual walkthrough: correlated OU exploration and independent noise
+
+<div class="ddpg-motion-scroll" tabindex="0" role="region" aria-label="Horizontally scrollable DDPG teaching figure" style="max-width:100%;overflow-x:auto"><div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../../../../assets/concept-animations/ddpg-ou-noise-still.svg" data-motion-src="../../../../../assets/concept-animations/ddpg-ou-noise-motion.svg" data-still-src="../../../../../assets/concept-animations/ddpg-ou-noise-still.svg" alt="DDPG deterministic actor adds exploratory noise while an OU sequence retains its previous value and an independent sequence does not" width="640" height="360"></div></div>
+
+Focus the figure with Tab, then scroll with Left/Right arrow keys.
+
+*Original instructional animation (CC BY-SA 4.0).* A deterministic actor requires an **external behaviour-policy exploration process** during data collection. Compare Ornstein–Uhlenbeck (OU) noise 
+
+\[
+\epsilon_{t+1}=(1-\theta)\epsilon_t+\sigma\xi_t
+\]
+
+ (for unit time steps and zero mean) with independently sampled \(\epsilon_{t+1}=\sigma\xi_t\). The animation draws each time step from the **same hand-picked innovation sequence**, with **illustrative** \(\theta=0.25,\sigma=0.20\); these curves are not empirical trajectories or evidence that one noise type always improves performance. DDPG's original experiments used OU-style temporally correlated exploration; independent Gaussian action noise is a common simpler alternative. The exploration term is applied to the actor's action during interaction, not to the deterministic target actor when computing this DDPG critic target. Use Play/Pause or the [GitHub-readable static fallback](../../../../../assets/concept-animations/ddpg-ou-noise-still.svg). See [Lillicrap et al. (2016)](https://arxiv.org/abs/1509.02971).
+
+This is an Euler-discretised OU illustration, not the exact continuous-time OU transition. Start at ε₀=0 with hand-picked innovations (0.8, 0.7, −0.3, −0.9, −0.8, 0.6); both panels use 100 pixels per unit and zero at y=227. Connecting lines only identify discrete samples, not continuous observations.
 
 ## Results
 
