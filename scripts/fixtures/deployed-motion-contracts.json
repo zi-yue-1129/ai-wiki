@@ -3033,6 +3033,21 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "roc-prior-policy": {
+      "origins": [
+        {
+          "origin_blob": "a1d0af3e2ebbcd194f05ddaf146cf8e7edcaf913",
+          "origin_commit": "caf469aa6f375dec090f610a072a7e6036bb5fc6",
+          "path": "docs/assets/concept-animations/roc-prior-policy-motion.svg"
+        },
+        {
+          "origin_blob": "8a45d402816597575718a3d4abc6e2bd7cfdb2b5",
+          "origin_commit": "eadece8407c7e89322914c19627e4bd61c845f88",
+          "path": "docs/assets/concept-animations/roc-prior-policy-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "roc-randomized-operating-mix": {
       "origins": [
         {
