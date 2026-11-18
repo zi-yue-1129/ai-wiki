@@ -117,6 +117,22 @@ $$
 
 結果**不等於**正例比例 $2/4=0.5$。盛行率是與標籤獨立的分數在*母體層級*精確率曲線上的參考值，不是有限樣本不內插 AP 的確切期望。本圖只是小樣本的精確排列組合示例，**不可視為所有資料集都適用的隨機 AP 修正公式**。MkDocs 支援鍵盤操作播放／暫停；偏好減少動態效果時顯示完整靜態表格。[GitHub 靜態預覽](../../../../assets/concept-animations/pr-random-ap-expectation-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/pr-random-ap-expectation-motion.svg)。手機可橫向捲動。AP 定義對照既有 References 中的 scikit-learn 文件。
 
+## 動畫示範：盛行率改變時 ROC 固定、精確率改變
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC 與精確率—召回率在盛行率變動下的對照">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-pr-prevalence-still.svg" data-still-src="../../../../assets/concept-animations/roc-pr-prevalence-still.svg" data-motion-src="../../../../assets/concept-animations/roc-pr-prevalence-motion.svg" alt="固定偽正例率 0.10 與真正例率 0.80，讓假設的正例盛行率依序變成五種數值；ROC 操作點固定，但精確率由 0.296 升至 0.923。" width="640" height="360">
+</div>
+</div>
+
+*原創人工示意動畫（CC BY-SA 4.0）。* 固定條件式 TPR = 0.80 與 FPR = 0.10，讓正例盛行率依序採用**五個離散且精確的狀態**：5%、10%、20%、40%、60%。ROC 操作點維持在 (0.10, 0.80)，PR 座標的召回率仍是 0.80，但精確率變成
+
+\[
+\operatorname{PPV}(p)=\frac{0.80p}{0.80p+0.10(1-p)}.
+\]
+
+五種狀態的精確率依序為 **0.296、0.471、0.667、0.842、0.923**。以上是母體比例的**人工數學示意，不是模型實測**；條件式辨識率不變僅是假設，不能保證分布轉移後仍然成立。動畫採離散狀態，避免將非線性關係錯誤呈現為線性內插。MkDocs 提供鍵盤可操作的播放／暫停，偏好減少動態效果者可觀看靜態圖；手機請聚焦後水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-pr-prevalence-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-pr-prevalence-motion.svg)。
+
 ## 參考文獻
 
 ### 開創性論文

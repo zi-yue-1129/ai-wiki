@@ -345,3 +345,32 @@ for suffix in (".md", ".zh-TW.md"):
         assert "不同盛行率資料集的原始 AP" in _pr
         assert "精確率與召回率之間的差距" in _f1
 print("Bilingual ranking-baseline semantics and F1 interpretation OK")
+
+# Exact population PPV and a cost-sensitive ROC threshold counterexample.
+_prevalences = (.05, .10, .20, .40, .60)
+_ppv_values = tuple(.8 * p / (.8 * p + .1 * (1 - p)) for p in _prevalences)
+assert all(math.isclose(v, expected, abs_tol=0.0005) for v, expected in
+           zip(_ppv_values, (.296296, .470588, .666667, .842105, .923077)))
+assert all(left < right for left, right in zip(_ppv_values, _ppv_values[1:]))
+_synthetic_labels = (1, 1, 0, 0, 0, 1)
+_youden, _loss = [], []
+for k in range(7):
+    tp = sum(_synthetic_labels[:k])
+    fp = k - tp
+    tpr, fpr = tp / 3, fp / 3
+    _youden.append(tpr - fpr)
+    _loss.append(5 * .4 * (1 - tpr) + .6 * fpr)
+assert _youden.index(max(_youden)) == 2
+assert _loss.index(min(_loss)) == 6
+assert math.isclose(_youden[2], 2 / 3)
+assert math.isclose(_loss[2], 2 / 3) and math.isclose(_loss[6], .6)
+for stem in ("roc-pr-prevalence", "roc-youden-cost"):
+    svg_dir = Path("docs/assets/concept-animations")
+    motion = (svg_dir / (stem + "-motion.svg")).read_text(encoding="utf-8")
+    still = (svg_dir / (stem + "-still.svg")).read_text(encoding="utf-8")
+    assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
+    assert "<animate " in motion and "<animate " not in still
+    for suffix in (".md", ".zh-TW.md"):
+        page = (worked_root / ("roc-auc" + suffix)).read_text(encoding="utf-8")
+        assert stem + "-motion.svg" in page and stem + "-still.svg" in page
+print("Bilingual prevalence-shift and Youden tradeoff motion semantics OK")

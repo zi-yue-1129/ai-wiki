@@ -129,6 +129,44 @@ $$
 
 五個門檻的成本依序為 **0.500、0.250、0.625、0.375、0.750**。動畫將目前門檻與 ROC 點同步標示；在此假設下，**$k=1$** 的成本最低。特別注意：四筆資料的正負比例各半，只用來建構示意性的**條件式**辨識率；$25\%$ 的部署盛行率是**獨立設定**，並非從這四筆資料推得。實際決策還需可靠的部署族群比例、錯誤成本及辨識率估計；**ROC-AUC 本身不會決定最佳分類門檻**。MkDocs 提供鍵盤播放／暫停、Reduced Motion 靜態圖；[GitHub 靜態預覽](../../../../assets/concept-animations/roc-cost-operating-point-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-cost-operating-point-motion.svg)。手機可橫向捲動。操作點的定義參考既有 References 中的 Fawcett（2006）。
 
+## 動畫示範：盛行率改變時 ROC 固定、精確率改變
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC 與精確率—召回率在盛行率變動下的對照">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-pr-prevalence-still.svg" data-still-src="../../../../assets/concept-animations/roc-pr-prevalence-still.svg" data-motion-src="../../../../assets/concept-animations/roc-pr-prevalence-motion.svg" alt="固定偽正例率 0.10 與真正例率 0.80，讓假設的正例盛行率依序變成五種數值；ROC 操作點固定，但精確率由 0.296 升至 0.923。" width="640" height="360">
+</div>
+</div>
+
+*原創人工示意動畫（CC BY-SA 4.0）。* 固定條件式 TPR = 0.80 與 FPR = 0.10，讓正例盛行率依序採用**五個離散且精確的狀態**：5%、10%、20%、40%、60%。ROC 操作點維持在 (0.10, 0.80)，PR 座標的召回率仍是 0.80，但精確率變成
+
+\[
+\operatorname{PPV}(p)=\frac{0.80p}{0.80p+0.10(1-p)}.
+\]
+
+五種狀態的精確率依序為 **0.296、0.471、0.667、0.842、0.923**。以上是母體比例的**人工數學示意，不是模型實測**；條件式辨識率不變僅是假設，不能保證分布轉移後仍然成立。動畫採離散狀態，避免將非線性關係錯誤呈現為線性內插。MkDocs 提供鍵盤可操作的播放／暫停，偏好減少動態效果者可觀看靜態圖；手機請聚焦後水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-pr-prevalence-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-pr-prevalence-motion.svg)。
+
+## 動畫示範：Youden J 最大與部署成本最小的門檻未必相同
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Youden J 與成本敏感的分類門檻對照">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-youden-cost-still.svg" data-still-src="../../../../assets/concept-animations/roc-youden-cost-still.svg" data-motion-src="../../../../assets/concept-animations/roc-youden-cost-motion.svg" alt="七種人工門檻的兩條目標曲線：選取前兩筆時 Youden J 最大，但假設部署正例比例與漏報成本後，預測六筆皆為正的預期錯誤成本最低。" width="640" height="360">
+</div>
+</div>
+
+*原創人工示意動畫（CC BY-SA 4.0）。* 六筆分數互不相同的人工案例，其排序標籤依序為 `+ + − − − +`，正負例各三筆。對七個門檻位置 `k = 0, ..., 6`，分別計算
+
+\[
+J(k)=\operatorname{TPR}(k)-\operatorname{FPR}(k)
+\]
+
+及
+
+\[
+L(k)=5(0.40)[1-\operatorname{TPR}(k)]+(0.60)\operatorname{FPR}(k).
+\]
+
+**k = 2 時 J = 2/3 最大**。若額外假設**部署正例比例是 0.40**、漏報成本為 5、誤報成本為 1，則**k = 6 時預期成本 L = 0.60 最低**，低於 k = 2 的 `L = 2/3`。成本單位是每次決策的假設損失，TPR／FPR 則由人工排序資料估算。因此條件式辨識率所偏好的門檻，不必然是部署損失最低的門檻。**以上並非模型實測結果。** MkDocs 提供鍵盤可操作的播放／暫停；偏好減少動態效果時展示兩個最適點的靜態圖。手機請聚焦後橫向捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-youden-cost-motion.svg)。
+
 ## 參考文獻
 
 ### 開創性論文

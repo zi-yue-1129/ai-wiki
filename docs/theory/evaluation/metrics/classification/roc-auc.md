@@ -129,6 +129,44 @@ $$
 
 The five costs are respectively **0.500, 0.250, 0.625, 0.375, 0.750**. The moving outline and ROC marker jointly identify each threshold; the lowest illustrative expected cost occurs at **$k=1$**. Importantly, the balanced four-item ranking determines these illustrative **conditional** operating rates; the $25\%$ prevalence is a **separate assumption**, not inferred from those four cases. Actual deployment decisions additionally need calibrated cost estimates and representative rate estimates. **ROC-AUC does not select an optimal decision threshold by itself.** MkDocs offers keyboard-accessible Play/Pause and a reduced-motion still. [GitHub static preview](../../../../assets/concept-animations/roc-cost-operating-point-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-cost-operating-point-motion.svg). On mobile, scroll horizontally. See Fawcett (2006) in References for ROC operating-point interpretation.
 
+## Animated prevalence shift: ROC stays fixed while precision changes
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC and precision-recall prevalence shift">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-pr-prevalence-still.svg" data-still-src="../../../../assets/concept-animations/roc-pr-prevalence-still.svg" data-motion-src="../../../../assets/concept-animations/roc-pr-prevalence-motion.svg" alt="Five hypothetical class prevalence values change precision from 0.296 to 0.923 while the ROC operating point stays fixed at false-positive rate 0.10 and true-positive rate 0.80." width="640" height="360">
+</div>
+</div>
+
+*Original synthetic instructional animation (CC BY-SA 4.0).* Hold the **conditional** rates TPR = 0.80 and FPR = 0.10 fixed while positive prevalence increases across **five discrete, exact states**: 5%, 10%, 20%, 40%, and 60%. The ROC operating point stays at (0.10, 0.80); in precision-recall coordinates recall is 0.80, but precision is
+
+\[
+\operatorname{PPV}(p)=\frac{0.80p}{0.80p+0.10(1-p)}.
+\]
+
+These states produce precision values **0.296, 0.471, 0.667, 0.842, and 0.923**. This is a mathematical population-proportion illustration, **not measured model performance**. Fixed conditional rates are assumed, not guaranteed under dataset shift. Discrete steps keep the stated numerical states exact rather than pretending that this nonlinear formula interpolates linearly. MkDocs offers keyboard-operable Play/Pause; reduced-motion preferences show the still image. On mobile, focus the figure and scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-pr-prevalence-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-pr-prevalence-motion.svg).
+
+## Animated threshold selection: Youden J versus deployment error cost
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Youden J versus cost-sensitive threshold">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-youden-cost-still.svg" data-still-src="../../../../assets/concept-animations/roc-youden-cost-still.svg" data-motion-src="../../../../assets/concept-animations/roc-youden-cost-motion.svg" alt="Two synthetic objective curves across seven threshold positions. Youden J peaks after selecting the first two ranked cases; prevalence-weighted error cost is lowest when all six are predicted positive." width="640" height="360">
+</div>
+</div>
+
+*Original synthetic instructional animation (CC BY-SA 4.0).* Six cases with distinct scores have ranked labels `+ + − − − +`, with three positives and three negatives. At each of seven threshold positions, `k = 0, ..., 6`, the two objectives are
+
+\[
+J(k)=\operatorname{TPR}(k)-\operatorname{FPR}(k)
+\]
+
+and
+
+\[
+L(k)=5(0.40)[1-\operatorname{TPR}(k)]+(0.60)\operatorname{FPR}(k).
+\]
+
+**J is maximized at k = 2**, where `J = 2/3`. Under a **separate, hypothetical deployment prevalence of 0.40**, a false-negative cost of 5 units, and a false-positive cost of 1 unit, **expected loss is minimized at k = 6**: `L = 0.60` versus `L = 2/3` at k = 2. These are illustrative per-decision costs; conditional TPR/FPR values come from the artificial ranked set, not a fitted classifier. Thus a rate-balancing cutoff need not be the loss-minimizing deployment rule. MkDocs provides keyboard-operable Play/Pause and a reduced-motion still displaying both optima. On mobile, focus and scroll the figure horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-youden-cost-motion.svg).
+
 ## References
 
 ### Seminal papers
