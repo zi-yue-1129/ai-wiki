@@ -153,3 +153,39 @@ for name in ("roc-partial-area","pr-ap-trapezoid-gap"):
     assert "prefers-reduced-motion" in motion and 'class="still"' in motion
     assert "<animate " in motion and "<animate " not in still
 print("Restricted ROC area and PR trapezoid semantics OK")
+
+
+# Monotone transformations preserve each strictly ordered positive/negative pair.
+from itertools import product as pairs_product
+for i in range(201):
+    t = i / 200
+    transform = lambda s: (1 - t) * math.sqrt(s) + t * s**3
+    wins = sum(float(transform(p) > transform(n)) +
+               0.5 * float(transform(p) == transform(n))
+               for p, n in pairs_product((.9, .6), (.8, .3)))
+    assert wins == 3
+assert all(math.sqrt(a) < math.sqrt(b) for a, b in ((.3, .6), (.6, .8), (.8, .9)))
+
+# AUC 0.5 need not imply identical average precision.
+for labels, target_ap in (((1, 0, 0, 1), .75), ((0, 1, 1, 0), 7/12)):
+    n_pos = sum(labels)
+    n_neg = len(labels) - n_pos
+    hits = 0
+    ap_value = 0
+    for rank, positive in enumerate(labels, start=1):
+        if positive:
+            hits += 1
+            ap_value += (hits / rank) / n_pos
+    pair_wins = sum(int(i < j) for i, p in enumerate(labels)
+                    for j, neg in enumerate(labels) if p and not neg)
+    assert math.isclose(ap_value, target_ap)
+    assert math.isclose(pair_wins / (n_pos * n_neg), .5)
+
+for stem in ("roc-rank-transform", "auc-ap-ranking-contrast"):
+    root = Path("docs/assets/concept-animations")
+    moving = (root / (stem + "-motion.svg")).read_text(encoding="utf-8")
+    still = (root / (stem + "-still.svg")).read_text(encoding="utf-8")
+    assert "prefers-reduced-motion" in moving
+    assert 'class="moving"' in moving and 'class="still"' in moving
+    assert "<animate " in moving and "<animate " not in still
+print("Rank-transform and AUC/AP contrast semantics OK")

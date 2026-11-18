@@ -24,6 +24,8 @@ TOPICS = {
     "precision-base-rate": "theory/evaluation/metrics/classification/precision",
     "f1-macro-micro-imbalance": "theory/evaluation/metrics/classification/f1",
     "roc-partial-area": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-rank-transform": "theory/evaluation/metrics/classification/roc-auc",
+    "auc-ap-ranking-contrast": "theory/evaluation/metrics/classification/pr-auc",
     "pr-ap-trapezoid-gap": "theory/evaluation/metrics/classification/pr-auc",
     "lion-sign-momentum": "theory/optimization/adaptive/lion",
     "muon-spectral-balancing": "theory/optimization/adaptive/muon",

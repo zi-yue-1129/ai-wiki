@@ -61,6 +61,16 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 
 *原創教學動畫（CC BY-SA 4.0）。* 使用同樣的四筆**人工排序** `+ − + −`，**不內插的 AP** 為 $(1/2)(1)+(1/2)(2/3)=5/6\approx0.833$。若將各門檻的 PR 操作點用直線連接（包含召回率相同時的垂直段），得到的**梯形面積**為 $(1/2)(1)+(1/2)(1/2+2/3)/2=19/24\approx0.792$，此例差距 $1/24$。**梯形法並不保證分數總是較大**，其差異取決於排序與內插定義；不能把梯形面積直接稱為 `average_precision_score`。動畫先逐步顯示 AP 矩形，再顯示右側的插值區域，並非模型實測評估。MkDocs 支援鍵盤播放／暫停及 Reduced Motion 靜態回退。[GitHub 靜態比較圖](../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg)。手機可橫向捲動。
 
+## 動畫示範：ROC-AUC 相同，平均精確率仍可能不同
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC-AUC 與平均精確率排序差異動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/auc-ap-ranking-contrast-still.svg" data-still-src="../../../../assets/concept-animations/auc-ap-ranking-contrast-still.svg" data-motion-src="../../../../assets/concept-animations/auc-ap-ranking-contrast-motion.svg" alt="兩組各四筆人工排序資料都只有四組正負配對中的兩組排序正確，所以 ROC-AUC 同為 0.5；但正例位置不同，平均精確率分別是 0.750 與 0.583。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 比較兩組**分數互不相同的人工排序**，每組皆有兩筆正例及兩筆負例。排序 A 為 `+ − − +`，正例位於**第 1、4 名**，故 **$AP_A=(1+2/4)/2=0.750$**；排序 B 為 `− + + −`，正例位於**第 2、3 名**，故 **$AP_B=(1/2+2/3)/2=7/12\approx0.583$**。兩者四組正負配對中都只有**兩組排序正確**，所以 **ROC-AUC 都是 $0.500$**。掃描線逐步通過各名次時，僅遇到正例才新增 AP 貢獻長條；圖上的 AP 與 AUC 總結是根據**完整四筆排序**計算，並非掃描尚未結束時的中途指標。此例說明相同的成對區辨能力，不代表相關項目出現在相同排名位置；不屬於模型實測值。MkDocs 支援鍵盤播放／暫停，偏好減少動畫時顯示靜態回退。[GitHub 靜態預覽](../../../../assets/concept-animations/auc-ap-ranking-contrast-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/auc-ap-ranking-contrast-motion.svg)。手機請橫向捲動；參考來源見 References 中的 Fawcett（2006）與 scikit-learn AP 文件。
+
 ## 性質與變體
 
 - **基準線。** 盛行率是母體層級的隨機分數參考線；有限樣本 AP 的期望可能更高，應說明採用哪一種基準。
