@@ -54,11 +54,13 @@ $$
 
 使用十筆**人工二元案例**：五筆預測機率為 $p=0.2$，該組實際正例比例為 $0.4$；另五筆預測為 $p=0.8$，實際正例比例為 $0.6$。整體共有五筆正例。因為同組預測機率完全相同，可以使用 Murphy 分解的**有限樣本精確恆等式**：[^murphy1973]
 
-$
-\mathrm{BS}=\underbrace{0.25}_{\text{uncertainty}}
-+\underbrace{0.04}_{\text{reliability}}
--\underbrace{0.01}_{\text{resolution}}=0.28.
-$
+$$
+\mathrm{BS}=\mathrm{UNC}+\mathrm{REL}-\mathrm{RES}
+$$
+
+$$
+=0.25+0.04-0.01=0.28.
+$$
 
 動畫先標示整體基準率的不確定性 $\bar y(1-\bar y)=0.25$，接著加上預測與分組觀察比例的平方差懲罰 $0.04$，最後扣除分組事件比例相對整體比例的解析度 $0.01$。逐筆計算十筆平方誤差的平均，也等於 $0.28$。**可靠度誤差愈小、解析度愈高，Brier 分數愈低**；解析度前面的負號具有實際意義。數字皆為人工示意，不是模型實測。此處每組預測機率完全相同；若任意合併不同機率，粗分箱分解可能出現近似誤差。
 
@@ -91,6 +93,8 @@ $
 [對數損失](log-loss.md)對自信錯誤的懲罰更重。[校準誤差](calibration-error.md)則單獨分離出校準的部分。家族概述見[機率指標](index.md)。
 
 ## 參考文獻
+
+### 開創性論文
 
 - Murphy, A. H. (1973). *A New Vector Partition of the Probability Score*. *Journal of Applied Meteorology*, 12(4), 595–600. https://doi.org/10.1175/1520-0450(1973)012%3C0595:ANVPOT%3E2.0.CO;2 — 提出 Brier 分數的可靠度、解析度及不確定性分解。
 

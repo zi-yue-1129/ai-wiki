@@ -53,11 +53,13 @@ The moving forecast $p$ changes both possible losses at once. The minimum at $p=
 
 For a **constructed sample** of ten binary outcomes, five have forecast $p=0.2$ and an observed event rate of $0.4$; the other five have $p=0.8$ and an observed rate of $0.6$. There are five positives in total. Because all predictions within a group are identical, the **exact finite-sample** Murphy decomposition applies:[^murphy1973]
 
-$
-\mathrm{BS}=\underbrace{0.25}_{\text{uncertainty}}
-+\underbrace{0.04}_{\text{reliability}}
--\underbrace{0.01}_{\text{resolution}}=0.28.
-$
+$$
+\mathrm{BS}=\mathrm{UNC}+\mathrm{REL}-\mathrm{RES}
+$$
+
+$$
+=0.25+0.04-0.01=0.28.
+$$
 
 The diagram first identifies the base-rate uncertainty $\bar y(1-\bar y)=0.25$, then adds the squared forecast-versus-bin-frequency penalty $0.04$, and subtracts $0.01$ for the bin frequencies' separation from the overall rate. Directly averaging the ten casewise squared errors also gives $0.28$. **Lower reliability error and higher resolution improve the Brier score**; the negative sign on resolution is intentional. These are illustrative counts, not observed model performance. The exact identity here depends on grouping *identical* forecasts; arbitrary coarse bins can introduce a within-bin approximation.
 
@@ -90,6 +92,8 @@ Using the same predictions, the squared errors are $0.01$, $0.64$, $0.09$ and $0
 [Log-loss](log-loss.md) penalises confident errors more strongly. [Calibration error](calibration-error.md) isolates the calibration part. The family overview is [Probabilistic Metrics](index.md).
 
 ## References
+
+### Seminal papers
 
 - Murphy, A. H. (1973). *A New Vector Partition of the Probability Score*. *Journal of Applied Meteorology*, 12(4), 595–600. https://doi.org/10.1175/1520-0450(1973)012%3C0595:ANVPOT%3E2.0.CO;2 — Original reliability–resolution–uncertainty decomposition of probability scores.
 

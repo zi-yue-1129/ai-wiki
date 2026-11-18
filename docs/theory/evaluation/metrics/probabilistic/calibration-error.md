@@ -31,7 +31,13 @@ where $\text{acc}(B_m)$ is the observed fraction of positives in bin $m$ and $\t
 
 Consider **eight constructed binary predictions**: four forecasts of $0.30$ and four of $0.70$. Both groups have two positives out of four cases, so each has an observed event rate of $0.50$. Separate equal-width bins give
 
-$\mathrm{ECE}_{2}=\frac48|0.50-0.30|+\frac48|0.50-0.70|=0.20.$
+$$
+\mathrm{ECE}_{2}=0.5(0.20)+0.5(0.20)
+$$
+
+$$
+\mathrm{ECE}_{2}=0.20,\quad \mathrm{ECE}_{1}=0.
+$$
 
 If both groups are merged into **one bin**, the mean forecast and observed rate are both $0.50$, so $\mathrm{ECE}_{1}=0$. The animation highlights each opposing gap and then the cancelled aggregate. **The cases and their predicted probabilities never change**—only the binning convention changes. A lower empirical ECE after merging therefore does not establish better underlying calibration. This deliberately small example is not a model measurement, and practical evaluations should disclose the bin definition and counts. The existing ECE reliability-gap animation in the uncertainty-calibration chapter explains count weighting; this example isolates *binning sensitivity*.
 
