@@ -109,8 +109,7 @@ ROC-AUC 將正例與負例**分數相同**的配對計為半次排序成功。�
 
 *原創教學動畫（CC BY-SA 4.0）。* 假設在相同目標族群中有兩個**固定**決策規則：A 的 `(FPR, TPR)=(0.10, 0.60)`，B 為 `(0.40, 0.90)`。對每筆新資料獨立以機率 `λ` 選擇 B，否則採用 A，則在各個真實類別條件下，**期望**偽正例率與真正例率為：
 
-$\mathrm{FPR}_{mix}=(1-\lambda)(0.10)+\lambda(0.40),\qquad
-\mathrm{TPR}_{mix}=(1-\lambda)(0.60)+\lambda(0.90).$
+$\mathrm{FPR}_{mix}=0.10+0.30\lambda$，$\mathrm{TPR}_{mix}=0.60+0.30\lambda$。
 
 動畫讓 `λ` 連續變動，操作點沿 A、B 的直線移動。`λ=0.5` 時，期望座標為 **(FPR 0.25, TPR 0.75)**。這是**在兩個固定規則間隨機選擇**，並非重新訓練、分數內插、機率校準，也不能保證每個有限樣本的比率完全等於期望值。此示意有助於理解 ROC 操作包絡中可由隨機規則組成的線段；理論背景參見 References 的 Fawcett（2006）。**所有數值為人工設定，非模型實測。** MkDocs 提供鍵盤播放／暫停與減少動態效果的靜態回退。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-randomized-operating-mix-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-randomized-operating-mix-motion.svg)。手機可橫向捲動。
 

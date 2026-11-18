@@ -109,8 +109,7 @@ ROC-AUC counts an equal-score positive–negative pair as **half a correct ranki
 
 *Original teaching animation (CC BY-SA 4.0).* Consider two **hypothetical fixed decision rules** evaluated against the same underlying population: rule A has `(FPR, TPR)=(0.10, 0.60)` and rule B has `(0.40, 0.90)`. Independently for each new instance, choose B with probability `λ` or A otherwise. Conditional on either true label, the **expected** false-positive and true-positive rates are:
 
-$\mathrm{FPR}_{mix}=(1-\lambda)(0.10)+\lambda(0.40),\qquad
-\mathrm{TPR}_{mix}=(1-\lambda)(0.60)+\lambda(0.90).$
+$\mathrm{FPR}_{mix}=0.10+0.30\lambda$ and $\mathrm{TPR}_{mix}=0.60+0.30\lambda$.
 
 The marker traces the straight line segment between A and B as `λ` changes continuously. For `λ=0.5`, the expected operating point is **(FPR 0.25, TPR 0.75)**. This represents randomized decisions between *two fixed rules*, **not** an interpolated model score, retraining, probability calibration, or a guarantee of exact finite-sample rates. It illustrates randomized points along an ROC operating envelope, as discussed by Fawcett (2006) in References. **These rates are constructed examples, not measurements.** MkDocs provides keyboard-operated Play/Pause and a reduced-motion still. [GitHub static preview](../../../../assets/concept-animations/roc-randomized-operating-mix-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-randomized-operating-mix-motion.svg). Scroll horizontally on narrow screens.
 
