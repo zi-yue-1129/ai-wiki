@@ -84,6 +84,7 @@ TOPICS = {
     "qk-norm-scale-sweep": "theory/models/transformer/qk-norm",
     "sigma-reparam-spectral-gain": "theory/models/transformer/sigma-reparam",
     "roc-pr-shift": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-prior-policy": "theory/evaluation/metrics/classification/roc-auc",
     "roc-youden-cost": "theory/evaluation/metrics/classification/roc-auc",
     "roc-cost-operating-point": "theory/evaluation/metrics/classification/roc-auc",
     "pr-random-ap-expectation": "theory/evaluation/metrics/classification/pr-auc",
@@ -445,6 +446,7 @@ CANONICAL_VIEWBOXES = {
     'rmsnorm-shift-response': '0 0 640 360',  # origin 1b96705ef3e52dcad0fc061c8660305102de904d
     'rmsprop-adaptive-memory': '0 0 640 360',  # origin b6f21f5f932d3eda532f7e743af087c20ead0870
     'roc-pr-shift': '0 0 640 360',  # reviewed original prevalence-shift motion and still
+    'roc-prior-policy': '0 0 640 360',  # rendered original policy-switch motion and still
     'roc-youden-cost': '0 0 640 360',  # reviewed original cost-sweep motion and still
     'roc-cost-operating-point': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
     'roc-pairwise-auc': '0 0 640 360',  # origin 15c481b6e404a995701352554969476d4bf66fc8
@@ -654,7 +656,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {"roc-pr-shift", "roc-youden-cost", "roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
+            elif stem in {"roc-pr-shift", "roc-prior-policy", "roc-youden-cost", "roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:
