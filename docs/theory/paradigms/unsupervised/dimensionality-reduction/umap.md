@@ -57,6 +57,22 @@ C = \sum_{i\ne j}\Big[v_{ij}\log\frac{v_{ij}}{w_{ij}} + (1-v_{ij})\log\frac{1-v_
 
 The attractive terms pull connected points together, and the repulsive terms push unconnected points apart.
 
+### Animated walkthrough: asymmetric neighbours form a fuzzy edge
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="UMAP animation; scroll horizontally to view the complete figure">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/umap-fuzzy-union-still.svg" data-motion-src="../../../../assets/concept-animations/umap-fuzzy-union-motion.svg" data-still-src="../../../../assets/concept-animations/umap-fuzzy-union-still.svg" alt="UMAP combines two directed neighbour strengths into a thicker undirected fuzzy-union edge" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" loading="lazy">
+</div>
+</div>
+
+On small screens, scroll the figure horizontally. With a keyboard, focus the figure area using Tab, then use the Left and Right arrow keys.
+
+*Original teaching animation, CC BY-SA 4.0.* [Static GitHub preview](../../../../assets/concept-animations/umap-fuzzy-union-still.svg). On the MkDocs site use **Play/Pause** (keyboard: Tab and Enter); reduced-motion settings show the final undirected edges.
+
+The moving teal and amber dots mark opposite **directed membership values**, not moving data samples. The illustrative pair A/B has $v_{B\mid A}=0.35$ and $v_{A\mid B}=0.70$, yielding $v_{AB}=0.35+0.70-(0.35)(0.70)=\mathbf{0.805}$. For C/D, values 0.20 and 0.50 combine to **0.60**. Final edge thickness depicts the merged membership; fuzzy union is **not an arithmetic mean**. These weights are **chosen by hand, not fitted from a dataset**, and the visual omits nearest-neighbour search, local scale estimation, negative sampling and layout optimisation. The union rule follows McInnes, Healy and Melville (2018), cited in References.
+
+The directed pulses move only along their indicated arrows, then restart; they are reading guides, not weight updates. Both union edges remain constant: their widths are exactly ten SVG units per unit membership, without an additive offset.
+
 ## Key methods
 
 ### UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction (McInnes, Healy & Melville, 2018)

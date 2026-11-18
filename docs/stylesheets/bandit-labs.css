@@ -50,3 +50,11 @@
 .bandit-lab-process:focus-visible { outline:3px solid #1582bf; outline-offset:2px; }
 .bandit-lab-process svg + svg { margin-top:.5rem; }
 .bandit-lab-process svg { display:block; width:338px; height:auto; min-width:338px; border-radius:.55rem; }
+
+/* Native-width, keyboard-scrollable learning diagrams for stochastic bandits. */
+.bandit-motion-viewport { display: block; width: 100%; max-width: 100%; overflow-x: auto; overflow-y: hidden; overscroll-behavior-inline: contain; border-radius: .55rem; }
+.bandit-motion-viewport:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 3px; }
+.bandit-motion-viewport > img,
+.bandit-motion-viewport .concept-motion-player,
+.bandit-motion-viewport .concept-motion-player img { display: block; width: 860px; min-width: 860px; max-width: none; height: auto; }
+.bandit-motion-viewport .concept-motion-player { margin: .5rem 0 1rem; }

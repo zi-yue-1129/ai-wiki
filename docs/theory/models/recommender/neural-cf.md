@@ -41,6 +41,19 @@ NeuMF combines two paths, and the paper lets each path learn its own embeddings.
 
 The two paths are fused by concatenating the GMF product vector with the last MLP hidden layer. A final output layer with a sigmoid activation gives the predicted score. The paper also studies pre-training each path before the joint training.
 
+### Animated example: NeuMF's two branches and fusion
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/neumf-dual-path-still.svg" data-motion-src="../../../assets/concept-animations/neumf-dual-path-motion.svg" data-still-src="../../../assets/concept-animations/neumf-dual-path-still.svg" alt="Both user and item signals branch into GMF elementwise multiplication and a separate MLP nonlinear transformation. Their outputs are concatenated before a sigmoid score." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/neumf-dual-path-still.svg)
+
+
+A **synthetic** two-dimensional GMF branch uses $p^G=(0.8,0.2)$ and $q^G=(0.5,0.9)$, whose elementwise product is $(0.40,0.18)$. The MLP branch has **separate embeddings**, $p^M=(0.6,0.1)$ and $q^M=(0.2,0.7)$. For an invented two-unit hidden map, $h=\operatorname{ReLU}(p^M_1-p^M_2,\;q^M_1-q^M_2)=(0.50,0)$. Concatenating the branches gives $z=(0.40,0.18,0.50,0)$; a hand-chosen unit output vector and zero bias yield $\sigma(\sum z)=\sigma(1.08)\approx0.7465$.
+
+The moving markers highlight **parallel computation and feature fusion**, not sequential model training. Both user and item embeddings participate in **both** branches; the branch embeddings need not be shared. The numbers, hidden map, and score are **illustrative, not the paper's trained weights, probability calibration, or measured recommendation quality**. The score is a sigmoid output, not a validated probability estimate. Play/Pause is available on MkDocs, with keyboard-scroll access and a GitHub/reduced-motion static fallback. Original CC BY-SA 4.0 illustration.
+
 ## Results
 
 The paper evaluates on two datasets. MovieLens has 1,000,209 interactions, 6,040 users and 3,706 items, with the explicit ratings converted to implicit feedback. The Pinterest subset has 1,500,809 interactions, 55,187 users and 9,916 items. The protocol is leave-one-out: one interaction of each user is held out as the test item, and it is ranked against 100 sampled items the user has not interacted with. Hit ratio (HR@10) and NDCG@10 measure the result. The baselines include ItemPop, item-based nearest neighbours (ItemKNN), BPR and eALS.

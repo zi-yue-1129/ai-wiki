@@ -11,6 +11,9 @@ on:
       - "scripts/test_linear_algebra_motion_semantics.py"
       - "scripts/render_linear_algebra_keyframes.py"
       - "docs/javascripts/concept-motion.js"
+      - "docs/javascripts/adaptive-optimiser-labs.js"
+      - "docs/stylesheets/adaptive-optimiser-labs.css"
+      - "scripts/test_adaptive_optimiser_labs_browser.py"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
       - "docs/javascripts/self-supervised-labs.js"
@@ -39,6 +42,12 @@ on:
       - "docs/javascripts/bandit-labs.js"
       - "docs/stylesheets/bandit-labs.css"
       - "scripts/verify_bandit_motion.py"
+      - "docs/javascripts/gibbs-labs.js"
+      - "docs/stylesheets/gibbs-labs.css"
+      - "scripts/test_gibbs_labs_browser.py"
+      - "docs/javascripts/sharpness-geometry-labs.js"
+      - "docs/stylesheets/sharpness-geometry-labs.css"
+      - "scripts/test_sharpness_geometry_labs_browser.py"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
@@ -84,6 +93,8 @@ jobs:
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m playwright install chromium
+      - name: Chromium interactive AdaGrad and Adafactor numerical labs
+        run: python scripts/test_adaptive_optimiser_labs_browser.py
       - name: Render deterministic SVD and power-iteration SVG keyframes
         run: python scripts/render_linear_algebra_keyframes.py
       - name: Chromium mobile/desktop playback, pause and geometry
@@ -100,12 +111,18 @@ jobs:
         run: python scripts/test_ssl_temporal_provenance_browser.py
       - name: Test regression metric lab arithmetic, controls and bilingual responsive layout
         run: python scripts/test_regression_metric_labs_browser.py
+      - name: Execute actual bandit numeric and lifecycle regression
+        run: node scripts/test_bandit_actual_labs.cjs
       - name: Validate bilingual bandit motion and numerical semantics
         run: python scripts/verify_bandit_motion.py
       - name: Chromium bandit controls, reduced-motion and native-size mobile scroll
         run: python scripts/test_bandit_motion_browser.py
       - name: Chromium interactive UCB1 and Thompson counterfactual computations
         run: python scripts/test_bandit_labs_browser.py
+      - name: Test bilingual sharpness geometry numerical labs, controls and responsive layout
+        run: python scripts/test_sharpness_geometry_labs_browser.py
+      - name: Test bilingual Gibbs Gaussian and disconnected mixing controls
+        run: python scripts/test_gibbs_labs_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -121,6 +138,9 @@ jobs:
             artifacts/linear-algebra-motion/
             artifacts/bandit-labs/*.png
             artifacts/regression-metric-labs/*.png
+            artifacts/sharpness-labs/*.png
+            artifacts/adaptive-optimiser-labs/*.png
+            artifacts/gibbs-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 

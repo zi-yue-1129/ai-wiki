@@ -110,7 +110,7 @@
         <p class="bandit-lab-scroll-hint">${esc(tr.scrollHint)}</p>
         ${kind==='ucb'?'<div class="bandit-lab-boundary" data-role="boundary"></div>':''}
         <div class="bandit-lab-legend" data-role="legend"></div>
-        ${kind==='thompson'?'<div class="bandit-lab-probabilities" data-role="probabilities" aria-label="${esc(tr.chance)}"></div>':''}
+        ${kind==='thompson'?`<div class="bandit-lab-probabilities" data-role="probabilities" aria-label="${esc(tr.chance)}"></div>`:''}
         <div class="bandit-lab-process" data-role="process" tabindex="0" role="region" aria-label="${esc(tr.processGraph)}"></div>
         <div class="bandit-lab-metrics" data-role="metrics"></div>
         <p class="bandit-lab-note">${tr.note}</p>
@@ -165,7 +165,7 @@
         const y=(event.clientY-bounds.top)*228/bounds.height;
         if(x<55||x>215||y<27||y>187)return;
         const quantise=value=>Math.max(0,Math.min(1,Math.round(value*20)/20));
-        state.reward1=quantise((x-55)/160);
+        stop();state.reward1=quantise((x-55)/160);
         state.reward2=quantise((187-y)/160);
         get('reward1').value=state.reward1.toFixed(2);
         get('reward2').value=state.reward2.toFixed(2);
@@ -211,7 +211,7 @@ function renderUcbDecomposition(state, target, tr) {
   ];
   const bars = rows.map(([name,value,color,y]) => {
     const edge = px(value), positive = value >= 0;
-    return `<text x="12" y="${y-14}" font-size="11" fill="#273e52">${name}</text><rect x="${Math.min(165.5,edge).toFixed(2)}" y="${y-6}" width="${Math.max(1,Math.abs(edge-165.5)).toFixed(2)}" height="17" rx="2" fill="${color}"/><text x="${(edge+(positive?7:-7)).toFixed(2)}" y="${y+6}" text-anchor="${positive?'start':'end'}" font-size="12" font-weight="600" fill="#263d51">${positive?'+':''}${value.toFixed(3)}</text>`;
+    return `<text x="12" y="${y-14}" font-size="11" fill="#273e52">${name}</text><rect x="${Math.min(165.5,edge).toFixed(2)}" y="${y-6}" width="${Math.abs(edge-165.5).toFixed(2)}" height="17" rx="2" fill="${color}"/><text x="${(edge+(positive?7:-7)).toFixed(2)}" y="${y+6}" text-anchor="${positive?'start':'end'}" font-size="12" font-weight="600" fill="#263d51">${positive?'+':''}${value.toFixed(3)}</text>`;
   }).join('');
   target.insertAdjacentHTML('beforeend', `<svg viewBox="0 0 338 174" role="img" aria-label="${esc(tr.decompositionGraph)}" data-mean-gap="${meanGap.toFixed(6)}" data-bonus-gap="${bonusGap.toFixed(6)}" data-net-gap="${netGap.toFixed(6)}"><rect width="338" height="174" rx="10" fill="#f8fafc"/><text x="12" y="18" font-size="13" font-weight="600" fill="#273e52">UCB score · B − A</text><line x1="165.5" y1="29" x2="165.5" y2="154" stroke="#637b8f" stroke-width="1.4" stroke-dasharray="4 4"/>${bars}<text x="165.5" y="168" text-anchor="middle" font-size="11" fill="#506578">0</text></svg>`);
 }
@@ -300,7 +300,7 @@ function renderUcbDecomposition(state, target, tr) {
       }
       function go(to){state.step=Math.min(max,Math.max(0,to));render();if(state.step===max)stop();}
       const interval=()=>Math.round(1400/state.speed);
-      const play=()=>{if(reduced.matches){stop();return;} if(state.step===max)state.step=0;stop();state.timer=window.setInterval(()=>go(state.step+1),interval());q('[data-action="toggle"]').textContent=tr.pause;render();};
+      const play=()=>{if(reduced.matches){stop();return;} if(state.step===max)state.step=0;stop();state.timer=window.setInterval(()=>{if(!root.isConnected||document.hidden){stop();return;}go(state.step+1)},interval());q('[data-action="toggle"]').textContent=tr.pause;render();};
       q('[data-action="previous"]').addEventListener('click',()=>{stop();go(state.step-1);});
       q('[data-action="next"]').addEventListener('click',()=>{stop();go(state.step+1);});
       q('[data-action="reset"]').addEventListener('click',()=>{stop();state.step=0;state.reward1=0;state.reward2=0;state.outcome=1;state.speed=1;get('speed').value='1'; if(kind==='ucb'){get('reward1').value='0';get('reward2').value='0';}else get('outcome').value='1';render();});
@@ -308,8 +308,8 @@ function renderUcbDecomposition(state, target, tr) {
       get('seek').addEventListener('input',()=>{stop();go(Number(get('seek').value));});
       get('speed').value='1';
       get('speed').addEventListener('change',()=>{state.speed=Number(get('speed').value);if(state.timer)play();});
-      if(kind==='ucb')for(const id of ['reward1','reward2'])get(id).addEventListener('input',()=>{state[id]=Number(get(id).value);render();});
-      else get('outcome').addEventListener('change',()=>{state.outcome=Number(get('outcome').value);render();});
+      if(kind==='ucb')for(const id of ['reward1','reward2'])get(id).addEventListener('input',()=>{stop();state[id]=Number(get(id).value);render();});
+      else get('outcome').addEventListener('change',()=>{stop();state.outcome=Number(get('outcome').value);render();});
       document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
       reduced.addEventListener?.('change',e=>{if(e.matches)stop();});
       render();

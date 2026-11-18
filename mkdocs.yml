@@ -758,6 +758,11 @@ plugins:
             Speech & Audio: 語音與音訊
             Multimodal Models: 多模態模型
             Embeddings: 嵌入表示
+            word2vec: word2vec
+            GloVe: GloVe
+            FaceNet: FaceNet
+            Sentence-BERT: Sentence-BERT
+            CLIP: CLIP
             Time-Series Forecasting: 時間序列預測
             DeepAR: DeepAR
             N-BEATS: N-BEATS
@@ -1060,6 +1065,7 @@ plugins:
             Tags: 標籤
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
+            Evidence & Retrieval Pilot: 證據與檢索試點
             Style Guide: 寫作風格指南
 
 markdown_extensions:
@@ -1108,7 +1114,10 @@ extra_javascript:
   - javascripts/ssl-temporal-provenance.js
   - javascripts/concept-motion.js
   - javascripts/bandit-labs.js
+  - javascripts/adaptive-optimiser-labs.js
   - javascripts/regression-metric-labs.js
+  - javascripts/sharpness-geometry-labs.js
+  - javascripts/gibbs-labs.js
   - javascripts/distributed-motion-controls.js
   - javascripts/distributed-parameter-explorers.js
   - javascripts/distributed-computation-probes.js
@@ -1126,7 +1135,10 @@ extra_css:
   - stylesheets/ssl-temporal-provenance.css
   - stylesheets/concept-motion.css
   - stylesheets/bandit-labs.css
+  - stylesheets/adaptive-optimiser-labs.css
   - stylesheets/regression-metric-labs.css
+  - stylesheets/sharpness-geometry-labs.css
+  - stylesheets/gibbs-labs.css
   - stylesheets/distributed-motion-controls.css
   - stylesheets/distributed-parameter-explorers.css
   - stylesheets/distributed-computation-probes.css
@@ -1818,7 +1830,13 @@ nav:
           - Natural Language Processing: theory/models/nlp/index.md
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
-          - Embeddings: theory/models/embeddings/index.md
+          - Embeddings:
+              - theory/models/embeddings/index.md
+              - word2vec: theory/models/embeddings/word2vec.md
+              - GloVe: theory/models/embeddings/glove.md
+              - FaceNet: theory/models/embeddings/facenet.md
+              - Sentence-BERT: theory/models/embeddings/sentence-bert.md
+              - CLIP: theory/models/embeddings/clip.md
           - Time-Series Forecasting:
               - theory/models/time-series/index.md
               - DeepAR: theory/models/time-series/deepar.md
@@ -2243,4 +2261,5 @@ nav:
       - Tags: reference/tags/index.md
       - Contributing: reference/contributing/index.md
       - Roadmap & Coverage: reference/roadmap/index.md
+      - Evidence & Retrieval Pilot: reference/knowledge-pilot/index.md
       - Style Guide: reference/style-guide/index.md

@@ -32,7 +32,7 @@ def main():
                         page.set_content('<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;padding:10px}</style></head><body>'
                             '<div class="bandit-motion-viewport" role="region" tabindex="0" aria-label="Scrollable visual">'
                             '<img alt="'+ALTS[lang]+'" src="'+still+'" data-motion-src="'+motion+'" data-still-src="'+still+'"></div></body></html>')
-                        page.add_style_tag(content=CSS.read_text())
+                        page.add_style_tag(content=CSS.read_text()+(ROOT/'docs/stylesheets/bandit-labs.css').read_text())
                         page.add_script_tag(content=JS.read_text())
                         toggle=page.locator('.concept-motion-toggle')
                         img=page.locator('img')
