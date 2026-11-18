@@ -45,9 +45,19 @@ Consistency models take the third route. Song et al. (2023) describe them as sup
 
 ### Visualising the consistency map
 
-![Animation: three states at different noise levels along a single schematic diffusion trajectory are mapped, one after another, to the same clean endpoint by a consistency function.](../../../../../assets/concept-animations/consistency-trajectory-map-still.svg)
+<img data-source-asset-urls src="../../../../../assets/concept-animations/consistency-trajectory-map-still.svg" data-motion-src="../../../../../assets/concept-animations/consistency-trajectory-map-motion.svg" data-still-src="../../../../../assets/concept-animations/consistency-trajectory-map-still.svg" alt="Animation: three states at different noise levels along a single schematic diffusion trajectory are mapped, one after another, to the same clean endpoint by a consistency function." width="800" height="420" />
 
-*Original 12-second looping schematic (CC BY-SA 4.0).* The blue, amber and teal points represent three noise levels along **one** illustrative trajectory; successive moving dots trace each learned mapping \(f_\theta(x_t,t)\) directly to the same \(x_0\). These are **not** denoising integration steps, measured latent coordinates, or actual model outputs. The defining property holds ideally for states on the same probability-flow ODE trajectory; practical learned models approximate it. A single network evaluation can map from \(x_T\) to the endpoint, while optional multiple-step refinement is a separate sampling procedure. On the website, Play/Pause is available; GitHub and reduced-motion users see the reviewed still. See Song et al. (2023) in References.
+[Static diagram](../../../../../assets/concept-animations/consistency-trajectory-map-still.svg)
+
+*Original 12-second looping schematic (CC BY-SA 4.0).* The blue, amber and teal points represent three noise levels along **one** illustrative trajectory; successive moving dots trace each learned mapping \(f_\theta(x_t,t)\) directly to the same \(x_\epsilon\). These are **not** denoising integration steps, measured latent coordinates, or actual model outputs. The defining property holds ideally for states on the same probability-flow ODE trajectory; practical learned models approximate it. A single network evaluation can map from \(x_T\) to the endpoint, while optional multiple-step refinement is a separate sampling procedure. On the website, Play/Pause is available; GitHub and reduced-motion users see the reviewed still. See Song et al. (2023) in References.
+
+The diagram keeps its readable 800px native width. Focus the scroll region and use Left/Right arrow keys to inspect the right side; Play/Pause controls stay in place.
+
+The figure uses the paper’s positive terminal time \(\epsilon\) rather than claiming exactly zero noise. Its three input times satisfy \(T>t_2>t_1>\epsilon\). The ideal map obeys the boundary condition:
+
+\[
+f(x_\epsilon,\epsilon)=x_\epsilon.
+\]
 
 ## Key methods
 

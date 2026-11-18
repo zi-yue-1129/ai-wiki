@@ -55,12 +55,13 @@ async def main():
                     for width in (320, 360, 720, 1024):
                         page = await browser.new_page(viewport={"width":width,"height":650})
                         await page.goto(sample.as_uri())
+                        await page.screenshot(path=str(OUT / f"{stem}-{chinese}-{width}-initial.png"))
                         btn = page.locator(".concept-motion-toggle").first
                         assert await btn.count() == 1, (stem, chinese, width)
                         image = page.locator("img")
                         await image.evaluate("(img) => img.decode()")
                         assert await image.get_attribute("src") == (ASSETS / (stem + "-motion.svg")).as_uri()
-                        host = page.locator(".concept-motion-wide")
+                        host = page.locator(".concept-motion-diffusion .concept-motion-viewport")
                         assert await host.count() == 1
                         assert await host.get_attribute("tabindex") == "0"
                         await btn.click()
@@ -73,7 +74,15 @@ async def main():
                         assert "-still.svg" in (await image.get_attribute("src"))
                         if width <= 360:
                             dims=await host.evaluate("(el) => ({scroll:el.scrollWidth,client:el.clientWidth})")
-                            assert dims["scroll"] > dims["client"], dims
+                            assert dims["scroll"] == 800 and dims["scroll"] > dims["client"], dims
+                            assert await page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+                            before = await btn.bounding_box()
+                            await host.focus()
+                            await page.keyboard.press("ArrowRight")
+                            await page.wait_for_timeout(300)
+                            assert await host.evaluate("el => el.scrollLeft") > 0
+                            after = await btn.bounding_box()
+                            assert abs(before["x"]-after["x"]) < 1, (before, after)
                         await page.screenshot(path=str(OUT / f"{stem}-{'zh' if chinese else 'en'}-{width}.png"))
                         count += 1
                         await page.close()
@@ -86,6 +95,7 @@ async def main():
                     await page.goto(sample.as_uri())
                     assert "-still.svg" in (await page.locator("img").get_attribute("src"))
                     assert "Play" in (await page.locator(".concept-motion-toggle").inner_text())
+                    await page.screenshot(path=str(OUT / f"{stem}-reduced-{width}.png"))
                 count += 1
                 await page.close()
         await browser.close()

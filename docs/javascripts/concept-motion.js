@@ -34,15 +34,21 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
-      if (wideDiagram.test(animated)) {
-        host.classList.add('concept-motion-wide');
-        host.tabIndex = 0;
-        host.setAttribute('role', 'region');
-        host.setAttribute('aria-label', /[\u3400-\u9fff]/.test(img.alt || '')
-          ? '可水平捲動的教學動畫圖' : 'Scrollable teaching animation');
-      }
       img.before(host);
-      host.append(img);
+      if (wideDiagram.test(animated)) {
+        host.classList.add('concept-motion-diffusion');
+        const viewport = document.createElement('span');
+        viewport.className = 'concept-motion-viewport concept-motion-scroll';
+        viewport.tabIndex = 0;
+        viewport.setAttribute('role', 'region');
+        viewport.setAttribute('aria-label', chinese
+          ? '可水平捲動的教學動畫圖；聚焦後使用左右方向鍵'
+          : 'Scrollable teaching animation; focus and use Left/Right arrow keys');
+        host.append(viewport);
+        viewport.append(img);
+      } else {
+        host.append(img);
+      }
       img.dataset.conceptMotionEnhanced = 'yes';
 
       const controls = document.createElement('span');
