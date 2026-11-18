@@ -7,6 +7,7 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const dictionary = {
     en: {
+      blackBox: 'Black box', localFit: 'Local fit', barHeading: 'Bar: Δv · Number: Δv × w',
       limeTitle: 'Re-fit a local surrogate', sigma: 'Kernel bandwidth', slope: 'Slope', rmse: 'Weighted RMSE',
       limeHint: 'Move the bandwidth: the same twelve samples receive different weights, so the local fit changes.',
       shapTitle: 'Recompute exact Shapley credit', feature: 'Feature', step: 'Coalitions included',
@@ -19,6 +20,7 @@
       chartShap: 'Four coalition marginal contributions and running weighted credit'
     },
     zh: {
+      blackBox: '黑箱函數', localFit: '局部擬合', barHeading: '長條：Δv · 數值：Δv × w',
       limeTitle: '重新擬合局部替代模型', sigma: '核函數頻寬', slope: '斜率', rmse: '加權 RMSE',
       limeHint: '調整頻寬：固定的十二個樣本將得到不同權重，局部擬合也隨之改變。',
       shapTitle: '重新計算精確 Shapley 貢獻', feature: '特徵', step: '納入的聯盟數',
@@ -55,7 +57,7 @@
     if(txt) node.textContent=txt;
     return node;
   }
-  function drawLime(chart, sigma) {
+  function drawLime(chart, sigma, t=dictionary.en) {
     chart.replaceChildren();
     const X=x=>52+x*520, Y=y=>280-y*310;
     chart.append(svg('rect',{x:0,y:0,width:640,height:330,rx:14,fill:'#101e33'}));
@@ -71,8 +73,8 @@
     chart.append(svg('path',{d:`M${fixed(X(x0),1)} 36 V281`,stroke:'#f5ac59','stroke-dasharray':'4 5','stroke-width':1.6}));
     chart.append(svg('circle',{cx:fixed(X(x0),1),cy:fixed(Y(f(x0)),1),r:5,fill:'#ffdf98'}));
     chart.append(svg('text',{x:fixed(X(x0)+7,1),y:39,fill:'#ffdf98','font-size':14,'font-family':'sans-serif'},'x₀'));
-    chart.append(svg('text',{x:65,y:30,fill:'#76aefa','font-size':13,'font-family':'sans-serif'},'Black box'));
-    chart.append(svg('text',{x:445,y:30,fill:'#f5ac59','font-size':13,'font-family':'sans-serif'},'Local fit'));
+    chart.append(svg('text',{x:65,y:30,fill:'#76aefa','font-size':13,'font-family':'sans-serif'},t.blackBox));
+    chart.append(svg('text',{x:445,y:30,fill:'#f5ac59','font-size':13,'font-family':'sans-serif'},t.localFit));
     for(let j=0;j<5;j++)chart.append(svg('text',{x:fixed(X(j/4),1),y:302,fill:'#c8d6e6','font-size':12,'text-anchor':'middle','font-family':'sans-serif'},fixed(j/4,2)));
     return {a,b,err};
   }
@@ -86,14 +88,14 @@
     const bandwidth=el('output',{},'0.15');label.append(slider,bandwidth);
     const stats=el('div',{class:'explanation-lab-stats','aria-live':'polite'});
     controls.append(label);host.append(title,hint,area,controls,stats,el('p',{class:'explanation-lab-note'},t.modelNote));
-    function update(){const sigma=Number(slider.value), v=drawLime(chart,sigma);bandwidth.textContent=fixed(sigma,2);stats.textContent=`g(x) = ${fixed(v.a)} ${v.b<0?'−':'+'} ${fixed(Math.abs(v.b))}x   ·   ${t.slope}: ${fixed(v.b)}   ·   ${t.rmse}: ${fixed(v.err,4)}`;}
+    function update(){const sigma=Number(slider.value), v=drawLime(chart,sigma,t);bandwidth.textContent=fixed(sigma,2);stats.textContent=`g(x) = ${fixed(v.a)} ${v.b<0?'−':'+'} ${fixed(Math.abs(v.b))}x   ·   ${t.slope}: ${fixed(v.b)}   ·   ${t.rmse}: ${fixed(v.err,4)}`;}
     slider.addEventListener('input',update);update();
   }
   const coefficients = {A:0.20,B:0.12,C:0.08,AB:0.12,AC:-0.08,BC:0.05,ABC:0.06};
   function value(set){let s=0.10;for(const [key,c] of Object.entries(coefficients))if([...key].every(ch=>set.includes(ch)))s+=c;return s;}
   const weights=[1/3,1/6,1/6,1/3];
   const coalitions = feature => {const [a,b]='ABC'.split('').filter(x=>x!==feature);return [[],[a],[b],[a,b]];};
-  function calcShap(feature){return coalitions(feature).map((s,i)=>({coal:s,contribution:value([...s,feature])-value(s),weight:weights[i]}));}
+  function calcShap(feature){return coalitions(feature).map((s,i)=>({coal:s,contribution:Math.abs(value([...s,feature])-value(s))<1e-12?0:value([...s,feature])-value(s),weight:weights[i]}));}
   function initShap(host,t){
     host.classList.add('explanation-lab');
     const title=el('h4',{},t.shapTitle),hint=el('p',{class:'explanation-lab-hint'},t.shapHint);
@@ -115,14 +117,14 @@
       back.disabled=n===0;forward.disabled=n===4;
       chart.replaceChildren();chart.append(svg('rect',{width:640,height:330,rx:14,fill:'#101e33'}));
       chart.append(svg('text',{x:36,y:30,fill:'#cad6e6','font-size':13,'font-family':'sans-serif'},`S   →   S + ${feature.value}`));
-      chart.append(svg('text',{x:377,y:30,fill:'#cad6e6','font-size':13,'font-family':'sans-serif'},'Δv × w'));
+      chart.append(svg('text',{x:310,y:30,fill:'#cad6e6','font-size':13,'font-family':'sans-serif'},t.barHeading));
       rows.forEach((r,i)=>{
         const y=64+i*49,active=i<n;
         chart.append(svg('rect',{x:24,y:y-20,width:593,height:42,rx:8,fill:active?'#1a4853':'#1b2c44',stroke:active?'#2faeac':'#2b4664','stroke-width':1}));
-        chart.append(svg('text',{x:42,y:y+7,fill:active?'#effefa':'#9db2c7','font-size':15,'font-family':'sans-serif'},`{${r.coal.join(',') || '∅'}}   + ${feature.value}`));
-        const len=r.contribution*410;
-        chart.append(svg('rect',{x:255,y:y-9,width:active?len:0,height:18,rx:4,fill:'#64d8c7'}));
-        chart.append(svg('rect',{x:255,y:y-9,width:len,height:18,rx:4,fill:'none',stroke:'#47677b','stroke-width':1}));
+        chart.append(svg('text',{x:42,y:y+7,fill:active?'#effefa':'#9db2c7','font-size':15,'font-family':'sans-serif'},`${r.coal.length ? '{'+r.coal.join(',')+'}' : '∅'}   + ${feature.value}`));
+        const len=Math.abs(r.contribution)*410, barX=255+Math.min(0,r.contribution*410);
+        chart.append(svg('rect',{x:barX,y:y-9,width:active?len:0,height:18,rx:4,fill:'#64d8c7'}));
+        chart.append(svg('rect',{x:barX,y:y-9,width:len,height:18,rx:4,fill:'none',stroke:'#47677b','stroke-width':1}));
         chart.append(svg('text',{x:555,y:y+6,fill:active?'#ffe1a5':'#9db2c7','font-size':13,'font-family':'sans-serif','text-anchor':'middle'},fixed(r.contribution*r.weight)));
       });
       chart.append(svg('path',{d:'M42 286 H594',stroke:'#5a7890','stroke-width':2}));
@@ -144,6 +146,7 @@
     reduced.addEventListener('change',()=>{stop();motionPreference();});
     update();
   }
+  window.ExplanationTeachingMath=Object.freeze({f,samples,x0,gauss,fit,value,weights,coalitions,calcShap,drawLime,initShap,dictionary});
   function boot(root=document){for(const host of root.querySelectorAll('[data-explanation-lab]')){
     if(host.dataset.explanationReady==='yes')continue;
     host.dataset.explanationReady='yes';

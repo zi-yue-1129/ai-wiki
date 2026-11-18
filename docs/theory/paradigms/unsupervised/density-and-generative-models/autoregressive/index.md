@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-17
 related:
   - theory/models/llm/index.md
   - theory/models/speech/index.md
@@ -19,72 +19,122 @@ aliases:
 
 # Autoregressive Generative Models
 
-An autoregressive generative model writes the joint probability of a data object as a product of conditional probabilities, one element at a time. For an image, a sound or a sentence, this turns the hard problem of modelling everything at once into a sequence of easier problems: predict the next pixel, the next sample of audio or the next token, given everything before it. Language models are the best-known example, and the same idea generates images and audio.
+An autoregressive generative model assigns probabilities to ordered data by predicting one element at a time. The same probability rule can score an observed sentence, image or waveform and generate a new one.
 
 ## Overview
 
-The chain rule of probability states that for a sequence $x_1, \dots, x_n$,
+For a sequence $x_{1:n}=(x_1,\dots,x_n)$, write $x_{<i}$ for the prefix before position $i$. The probability chain rule gives
 
 $$
-p(x_1, \dots, x_n) = \prod_{i=1}^{n} p(x_i \mid x_1, \dots, x_{i-1}),
+p_\theta(x_{1:n}) = \prod_{i=1}^{n} p_\theta(x_i \mid x_{<i}).
 $$
 
-so a model that can predict each element from its predecessors defines a full distribution over the sequence. Training maximises the sum of the log conditional probabilities over the data, which is exact maximum likelihood with no latent variables and no approximation of the likelihood. Sampling runs the chain forward: draw $x_1$, then $x_2$ given $x_1$, and so on.
+The first factor has an empty prefix. Every factor is a distribution over the possible next values, so their product defines a normalised distribution over sequences of a fixed length.[^pixel-rnn] For variable-length text, a model can include an end-of-sequence token and stop when it draws that token. An observed sentence then includes the probability of ending at that particular position.
 
-The price is in sampling. Generation takes one step per element, and the steps cannot be parallelised across the sequence in the usual way. The ordering of the elements is also a design choice, because the factorisation depends on it, even though the joint distribution does not.
-
-## Key concepts
-
-- **Factorisation**: the choice of order in which elements are modelled. For images, the order is usually raster order, row by row.
-- **Likelihood**: the model's log probability of the data, which can be computed exactly and compared across models.
-- **Teacher forcing**: during training each conditional is fitted with the true previous elements, so all positions are trained in parallel.
-- **Tokens**: discrete units, such as words or codebook entries, over which the conditionals are defined. Images or audio are often mapped to tokens first.
-- **Sampling cost**: the number of sequential steps needed to generate one object.
+The chain rule can express the same joint distribution in any order. A fitted model's performance can still depend on the order, because its architecture and training data determine how well it learns each conditional. PixelRNN, for example, follows a row-by-row order, turning the pixels above and to the left into context for the next prediction.[^pixel-rnn]
 
 ## How it works
 
-**Pixels.** PixelRNN (van den Oord, Kalchbrenner & Kavukcuoglu, 2016) models an image by predicting its pixels sequentially along the two spatial dimensions, so that each pixel depends on the pixels before it in the ordering. The paper's abstract describes a deep network that sequentially predicts the pixels in an image in this way. Convolutional variants, known as PixelCNN, follow the same factorisation and can be computed more efficiently during training.
+### Score a known sequence
 
-**Raw audio.** WaveNet (van den Oord et al., 2016) is a deep network for generating raw audio waveforms. It predicts each audio sample from the samples before it, which gives a model that can produce speech and music one sample at a time.
+For directly observed discrete tokens, maximum likelihood training minimises the negative log-likelihood on the data. The loss for one sequence is
 
-**Transformers over pixels.** Image GPT (Chen et al., 2020) trains a sequence Transformer to predict pixels auto-regressively, without built-in knowledge of the two-dimensional structure of the input. The approach is the same next-element objective as language modelling, applied to image pixels. The Transformer architecture itself is described in [Attention Is All You Need](../../../../models/transformer/attention-is-all-you-need/index.md), which the paper introduces as "based solely on attention mechanisms, dispensing with recurrence and convolutions entirely" (Vaswani et al., 2017).
+$$
+-\log p_\theta(x_{1:n}) = -\sum_{i=1}^{n} \log p_\theta(x_i \mid x_{<i}).
+$$
 
-**Tokens and latent codes.** Modelling every pixel is expensive, so many systems first compress the data. VQ-VAE (van den Oord, Vinyals & Kavukcuoglu, 2017) learns discrete latent representations by incorporating vector quantisation into an autoencoder. An autoregressive prior can then be fitted over the discrete codes, which is much shorter than the raw data.
+Each prediction uses the observed prefix, a training setup called **teacher forcing**.[^scheduled-sampling] A Transformer decoder takes a start token followed by the observed tokens shifted one position to the right. A **causal mask** blocks attention to later input positions, so the prediction for $x_i$ sees only $x_{<i}$ and the start token. With the whole training sequence available, the decoder computes the conditional scores for all positions in one forward pass. Recurrent networks can also use teacher forcing while still updating their hidden states sequentially.[^transformer][^scheduled-sampling]
 
-## Key methods
+Suppose a toy text model assigns probabilities $0.5$ to *Drink* at the start, $0.2$ to *tea* after *Drink*, and $0.4$ to the end token after *Drink tea*. The complete sequence has probability $0.5 \cdot 0.2 \cdot 0.4 = 0.04$. Its negative log-likelihood is $-\log(0.04)\approx 3.22$ using natural logs. The model can score this sequence even when a typical sample would contain different words.
 
-Brief comparison. Each named method is a candidate for its own method page; those pages are not yet written, so the detail is given in this section for now.
+#### Animated likelihood accumulation
 
-- **PixelRNN and PixelCNN (pixel-level)**: the ordering is spatial, and the model predicts each pixel's value. Exact likelihood on images, slow sampling at full resolution.
-- **WaveNet (sample-level)**: the same factorisation applied to audio samples, which are very long sequences.
-- **Image GPT (Transformer over pixels)**: a Transformer in place of a recurrent or convolutional model, with the same next-element objective used for language.
-- **Token-based autoregressive priors (VQ-VAE)**: the autoregressive model runs over a short sequence of discrete codes, not over pixels.
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg" alt="Three conditional probabilities for Drink, tea and EOS multiply to 0.04, while the cumulative prefix probability moves from 0.50 to 0.10 to 0.04." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+**Animated chain rule.** The moving marker follows the *prefix* probability, not a probability distribution over tokens. [Static GitHub preview](../../../../../assets/concept-animations/ar-likelihood-accumulation-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-likelihood-accumulation-motion.svg).
+
+The three values and token sequence are synthetic arithmetic examples, not measured model outputs. The displayed NLL is the sum of the three negative natural logs. Original CC BY-SA 4.0 diagram. On the MkDocs site, use the Play/Pause control; on narrow screens, focus the figure and use the left/right arrow keys to scroll. A reduced-motion preference selects the still image.
+
+
+### Draw a new sequence
+
+To generate text, draw a token from the next-token distribution, append it to the prefix, and repeat until the end token or a length limit. If the toy model draws *coffee* after *Drink*, the next prediction uses *Drink coffee*. This is **ancestral sampling**: each draw supplies part of the context for the next one. During generation, prefixes come from the model's own draws after any given prompt. Early mistakes can therefore move the rest of a sample into contexts the model handled less often during training.[^scheduled-sampling]
+
+#### Animated scoring versus generation
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-score-vs-sample-still.svg" alt="Teacher forcing scores all observed next-token targets under a causal mask; ancestral sampling instead extends the generated prefix from Drink to coffee and EOS." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+**Teacher forcing versus sampling.** Blue columns use known shifted inputs and targets; orange tokens appear only after successive draws. [Static GitHub preview](../../../../../assets/concept-animations/ar-score-vs-sample-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-score-vs-sample-motion.svg).
+
+For a causally masked Transformer, known targets can be scored in one forward pass; sampling must feed each sampled token into the next prefix. The illustrative draw is not a sampled run of a trained model. Original CC BY-SA 4.0 diagram. On the MkDocs site, use the Play/Pause control; on narrow screens, focus the figure and use the left/right arrow keys to scroll. A reduced-motion preference selects the still image.
+
+
+
+#### Animated divergence of generated contexts
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-context-drift-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-context-drift-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-context-drift-still.svg" alt="Two prefixes share BOS, We and ate. The observed path continues to rice, while the sampled path continues to cake. Their illustrative next-step EOS probabilities are 0.85 and 0.40." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+**Context drift.** The diagram first reveals the common prefix, then the differing next token, and finally the two next-step conditional probabilities. [Static GitHub preview](../../../../../assets/concept-animations/ar-context-drift-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-context-drift-motion.svg).
+
+These are *specified toy conditionals*, not model predictions or a claim that sampling *cake* is necessarily an error. Conditioning on a sampled prefix can change subsequent predictions; teacher forcing instead conditions on observed tokens. The distribution of encountered prefixes can therefore differ between training and rollout.[^scheduled-sampling] Original CC BY-SA 4.0 visual. The MkDocs site supports Play/Pause, keyboard-accessible horizontal scrolling on narrow screens, and a static fallback for reduced-motion preferences.
+
+#### Animated EOS stopping-time distribution
+
+Define $L$ as the position of the **first EOS token**, counting EOS itself as one position. If $q_k=P(L=k\mid L\ge k)$ is the EOS probability **among sequences still continuing before step $k$**, then
+
+$$
+P(L=k)=q_k\prod_{j=1}^{k-1}(1-q_j).
+$$
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" data-motion-src="../../../../../assets/concept-animations/ar-eos-survival-motion.svg" data-still-src="../../../../../assets/concept-animations/ar-eos-survival-still.svg" alt="Four synthetic EOS hazards 0.10, 0.25, 0.50 and 0.80 progressively reduce continuation mass; the probability of first EOS at steps 1 to 4 is 0.10, 0.225, 0.3375 and 0.27." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+**Stop versus continue.** The blue bar is the probability of *not* having drawn EOS after the current step; each orange column is the probability that EOS first occurs at that step. [Static GitHub preview](../../../../../assets/concept-animations/ar-eos-survival-still.svg) · [SVG motion](../../../../../assets/concept-animations/ar-eos-survival-motion.svg).
+
+With illustrative hazards $(0.10,0.25,0.50,0.80)$, the first-EOS probabilities are $(0.10,0.225,0.3375,0.27)$. The remaining probability of continuing **past step four** is $0.0675$; the displayed columns do **not** sum to one because later stopping positions are omitted. Hazards are synthetic and should not be interpreted as empirical sequence-length statistics. Original CC BY-SA 4.0 visual. On MkDocs, Play/Pause and reduced-motion fallback reuse the existing shared controls; focus the figure and use left/right arrows to scroll on mobile.
+
+Ordinary sampling requires one sequential step for each new element. [Speculative decoding](../../../../../engineering/inference-optimization/speculative-decoding.md) can reduce the number of serial calls to the target model by proposing several tokens and checking them together. With the acceptance and correction rule from Leviathan et al., the resulting samples still follow the target distribution.[^speculative]
+
+## Key methods and applications
+
+| Data | Example | What the conditional predicts |
+|---|---|---|
+| Image pixels | PixelRNN and PixelCNN | The next pixel's colour channels in a spatial order. PixelCNN uses masked convolutions to enforce that order.[^pixel-rnn] |
+| Audio samples | WaveNet | The next quantised waveform value. Causal convolutions support parallel training on known waveforms and sequential synthesis.[^wavenet] |
+| Flattened images | Image GPT | The next pixel token using a Transformer trained on a one-dimensional sequence.[^image-gpt] |
+| Learned image or audio codes | [VQ-VAE with an autoregressive prior](../vae/vq-vae.md) | The next discrete latent code. After sampling the codes, a decoder maps them back to the data space.[^vq-vae] |
 
 ## Connections
 
-The same objective underlies [Large Language Models](../../../../models/llm/index.md), which generate text one token at a time, and the speech models on the [Speech & Audio](../../../../models/speech/index.md) page. Among the other generative families, [diffusion models](../diffusion/index.md) generate by iterative denoising rather than by a fixed order, and comparisons of the two are part of the [Generative Models](../generative-models/index.md) overview.
+[Large language models](../../../../models/llm/index.md) use this factorisation over text tokens, while the examples above apply it to different representations. The [generative models overview](../generative-models/index.md) puts this approach alongside other ways of learning a data distribution. In the brain and mind section, [predictive coding](../../../../../brain-mind/predictive-coding/index.md) discusses a related idea of using context to predict a signal in theories of perception.
 
-The brain connection is at the level of prediction. Predictive frameworks in neuroscience propose that the brain anticipates its next input, which is the same objective as next-element prediction. Whether neural circuits implement this as an autoregressive model is an open question, discussed in [NeuroAI](../../../../../brain-mind/neuroai/index.md).
+## Limitations and open questions
 
-## Applications
+- **Representation and likelihood.** The log-likelihood sum is exact for the tokens being modelled. With learned latent codes, the prior scores the code sequence, while the likelihood of the original data under the entire generative model also depends on the decoder and involves summing over latent sequences.[^vq-vae] Compare per-token likelihood measures on the same data and tokenisation.
+- **Ordering and context.** An image has two spatial axes, and a one-dimensional scan changes which nearby pixels are available at each step. PixelRNN and Image GPT illustrate different ways to encode dependencies under an ordering.[^pixel-rnn][^image-gpt]
+- **Sampling latency.** A representation with fewer elements needs fewer autoregressive steps to generate the same object, but its decoder and the details it preserves also affect the result.[^vq-vae] How to choose a representation that balances cost and fidelity depends on the application.
 
-- **Text.** Language models that generate text token by token.
-- **Speech and audio.** Waveform and codec models that generate speech or music.
-- **Images.** Pixel-level and token-level models for image generation and completion.
-
-## Open questions
-
-- Sampling is sequential, so generating long objects is slow. Parallel decoding schemes narrow the gap but add complexity.
-- Errors made early in the sequence can compound, because later conditionals depend on them.
-- The best ordering for images and other non-sequential data is not obvious, and different orderings give different models.
-- Autoregressive and diffusion models trade off exact likelihood, sampling speed and sample quality differently, and the best choice depends on the data and the task.
+[^pixel-rnn]: van den Oord et al. (2016), §§2–3, give the image factorisation, colour-channel ordering and masked convolutions.
+[^scheduled-sampling]: Bengio et al. (2015), §2, describe training on observed prefixes and the change in context at generation time.
+[^transformer]: Vaswani et al. (2017), §§3.1 and 3.2.3, describe shifting the output sequence and masking decoder self-attention.
+[^speculative]: Leviathan et al. (2023), §2, derive a speculative sampler that preserves the target distribution.
+[^wavenet]: van den Oord et al. (2016), §§2–2.3, describe training with causal convolutions and generating quantised samples.
+[^image-gpt]: Chen et al. (2020), §2, describe autoregressive pretraining with raster-ordered pixel tokens.
+[^vq-vae]: van den Oord et al. (2017), §§3.2–3.3, distinguish the full likelihood from the code prior and explain sampling from that prior.
 
 ## References
 
-### Seminal papers
-
-- van den Oord, A., Kalchbrenner, N. & Kavukcuoglu, K. (2016). *Pixel Recurrent Neural Networks*. arXiv. https://arxiv.org/abs/1601.06759 — Models images by predicting their pixels sequentially along the spatial dimensions, the basis of the PixelRNN family.
-- van den Oord, A., Dieleman, S., Zen, H., Simonyan, K., Vinyals, O., Graves, A., Kalchbrenner, N., Senior, A. & Kavukcuoglu, K. (2016). *WaveNet: A Generative Model for Raw Audio*. arXiv. https://arxiv.org/abs/1609.03499 — A deep network that generates raw audio waveforms sample by sample.
-- Chen, M., Radford, A., Child, R., Wu, J., Jun, H., Luan, D. & Sutskever, I. (2020). Generative Pretraining from Pixels. In *Proceedings of the 37th International Conference on Machine Learning (ICML 2020)*, PMLR 108. https://cdn.openai.com/papers/Generative_Pretraining_from_Pixels_V1_ICML.pdf — A sequence Transformer trained to predict pixels auto-regressively, with no built-in two-dimensional structure.
-- van den Oord, A., Vinyals, O. & Kavukcuoglu, K. (2017). *Neural Discrete Representation Learning*. arXiv. https://arxiv.org/abs/1711.00937 — VQ-VAE, which learns discrete latent codes with vector quantisation, so that priors can be fitted over short token sequences.
-- Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł. & Polosukhin, I. (2017). *Attention Is All You Need*. arXiv. https://arxiv.org/abs/1706.03762 — The Transformer, used as the sequence model in autoregressive generation.
+- van den Oord, A., Kalchbrenner, N. & Kavukcuoglu, K. (2016). *Pixel Recurrent Neural Networks*. ICML. https://proceedings.mlr.press/v48/oord16.html — Develops the image likelihood and compares recurrent and masked convolutional approaches.
+- van den Oord, A. et al. (2016). *WaveNet: A Generative Model for Raw Audio*. arXiv. https://arxiv.org/abs/1609.03499 — Explains sample-level audio generation and training with dilated causal convolutions.
+- Chen, M. et al. (2020). *Generative Pretraining from Pixels*. ICML. https://proceedings.mlr.press/v119/chen20s.html — Studies autoregressive pixel prediction as a way to pretrain visual representations.
+- van den Oord, A., Vinyals, O. & Kavukcuoglu, K. (2017). *Neural Discrete Representation Learning*. NeurIPS. https://arxiv.org/abs/1711.00937 — Describes vector-quantised representations and a separate autoregressive model over the learned codes.
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS. https://arxiv.org/abs/1706.03762 — Introduces the Transformer and explains how the decoder enforces causal attention.
+- Bengio, S., Vinyals, O., Jaitly, N. & Shazeer, N. (2015). *Scheduled Sampling for Sequence Prediction with Recurrent Neural Networks*. NeurIPS. https://arxiv.org/abs/1506.03099 — Describes how training on true prefixes differs from generating with model-produced prefixes.
+- Leviathan, Y., Kalman, M. & Matias, Y. (2023). *Fast Inference from Transformers via Speculative Decoding*. ICML. https://proceedings.mlr.press/v202/leviathan23a.html — Presents multi-token proposals and a correction rule that preserves the target sampling distribution.

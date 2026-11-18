@@ -46,7 +46,7 @@ def run():
                     page.route('https://animation.test/**',respond)
                     alt=('LIME 局部模型與特徵擾動' if stem.startswith('lime') else 'SHAP 聯盟的加權邊際貢獻') if lang=='zh' else ('LIME weighted local surrogate' if stem.startswith('lime') else 'SHAP coalition contributions')
                     html=f'''<!doctype html><html><head><meta charset="utf-8" /></head><body>
-                    <div class="concept-motion-viewport" tabindex="0" aria-label="Concept visualisation">
+                    <div class="concept-motion-viewport concept-motion-scroll explanation-motion" tabindex="0" aria-label="Concept visualisation">
                     <div class="concept-motion-fixed"><img alt="{alt}" src="https://animation.test/concept-animations/{stem}-still.svg"
                     data-motion-src="https://animation.test/concept-animations/{stem}-motion.svg" data-still-src="https://animation.test/concept-animations/{stem}-still.svg" /></div></div>
                     </body></html>'''
@@ -77,7 +77,7 @@ def run():
                     page.close()
             page=browser.new_page(viewport={'width':720,'height':650},reduced_motion='reduce')
             page.route('https://animation.test/**',lambda route:route.fulfill(status=200,content_type='image/svg+xml',body=originals['still'] if route.request.url.endswith('-still.svg') else originals['motion']))
-            page.set_content(f'<div class="concept-motion-viewport"><div class="concept-motion-fixed"><img alt="SHAP 測試" src="https://animation.test/concept-animations/{stem}-still.svg" data-motion-src="https://animation.test/concept-animations/{stem}-motion.svg" /></div></div>')
+            page.set_content(f'<div class="concept-motion-viewport concept-motion-scroll explanation-motion"><div class="concept-motion-fixed"><img alt="SHAP 測試" src="https://animation.test/concept-animations/{stem}-still.svg" data-motion-src="https://animation.test/concept-animations/{stem}-motion.svg" /></div></div>')
             page.add_script_tag(content=JS.read_text())
             page.locator('.concept-motion-toggle').wait_for()
             assert page.locator('img').get_attribute('src').endswith('-still.svg')
