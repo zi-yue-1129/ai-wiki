@@ -43,11 +43,23 @@ Here $c_i$ is the view-dependent colour of Gaussian $i$, and $\alpha_i$ is its o
 
 ### Visual walkthrough: depth-ordered alpha compositing
 
-<img data-source-asset-urls src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg" data-motion-src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-motion.svg" alt="Animated Gaussian splatting: three sorted projected splats accumulate premultiplied pixel-contribution weights from near to far.">
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Teaching diagram, scroll with left/right arrow keys"><div style="width:640px"><img style="width:640px;min-width:640px;max-width:none;height:auto;display:block" data-source-asset-urls src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg" data-still-src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg" data-motion-src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-motion.svg" alt="Animated Gaussian splatting: three sorted projected splats accumulate premultiplied pixel-contribution weights from near to far."></div></div>
 
 [Static Gaussian splatting compositing overview for GitHub](../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg)
 
-The ellipses represent **schematic projected splat footprints** at a single pixel, ordered from near to far. Given fixed *effective pixel opacities* \(\alpha=(0.50,0.60,0.80)\), front-to-back compositing assigns weights \(w_1=0.50\), \(w_2=(1-0.50)(0.60)=0.30\), and \(w_3=(1-0.50)(1-0.60)(0.80)=0.16\), leaving transmittance \(T_3=0.04\). The coloured sections in the right panel depict **contribution weights**, *not* the literal final RGB mixture. The rendered colour is \(C=\sum_i w_i c_i+T_3 C_{\mathrm{bg}}\), where the background term vanishes for black.
+The ellipses represent **schematic projected splat footprints** at a single pixel, ordered from near to far. Given fixed *effective pixel opacities* \(\alpha=(0.50,0.60,0.80)\), front-to-back compositing assigns weights \(w_1=0.50\), \(w_2=(1-0.50)(0.60)=0.30\), and
+
+\[
+w_3=(1-0.50)(1-0.60)(0.80)=0.16
+\]
+
+, leaving transmittance \(T_3=0.04\). The coloured sections in the right panel depict **contribution weights**, *not* the literal final RGB mixture. The rendered colour is
+
+\[
+C=\sum_i w_i c_i+T_3 C_{\mathrm{bg}}
+\]
+
+, where the background term vanishes for black.
 
 All alphas, colours and splats are **chosen teaching values, not fitted scene parameters or measured pixels**. This isolates the visibility-aware blending step; real 3D Gaussian splatting additionally projects anisotropic covariances and evaluates view-dependent colours. On MkDocs use the keyboard-accessible **Play/Pause** control; GitHub displays the linked static fallback. Original diagram, **CC BY-SA 4.0**; see Kerbl et al. (2023) in References.
 
@@ -57,7 +69,15 @@ All alphas, colours and splats are **chosen teaching values, not fitted scene pa
   <p>The static SVG above is the GitHub and no-script fallback for the same depth-ordered visibility calculation.</p>
 </div>
 
-Adjust the three **effective pixel opacities** and step from the near splat to the far splat with **Previous / Next**, **Play / Pause**, a seek slider, playback speed, or **Reset**. The display recomputes each visible contribution $w_i=\alpha_i \prod_{j<i}(1-\alpha_j)$, residual transmittance $T$, and the final pixel RGB using illustrative layer colours (235,93,98), (79,171,223), (239,193,100) and background (30,39,60). At intermediate steps, **the unprocessed depth layers are temporarily replaced by background**; the preview is not the fully composited result. For the original alphas $(0.50,0.60,0.80)$, the final weights are $(0.50,0.30,0.16)$ with $T=0.04$. This is an analytic toy demonstration of per-pixel alpha blending, not a measurement or a 3D Gaussian projection simulator.
+Adjust the three **effective pixel opacities** and step from the near splat to the far splat with **Previous / Next**, **Play / Pause**, a seek slider, playback speed, or **Reset**. The display recomputes each visible contribution
+
+\[
+w_i=\alpha_i \prod_{j<i}(1-\alpha_j)
+\]
+
+, residual transmittance $T$, and the final pixel RGB using illustrative layer colours (235,93,98), (79,171,223), (239,193,100) and background (30,39,60). At intermediate steps, **the unprocessed depth layers are temporarily replaced by background**; the preview is not the fully composited result. For the original alphas $(0.50,0.60,0.80)$, the final weights are $(0.50,0.30,0.16)$ with $T=0.04$. This is an analytic toy demonstration of per-pixel alpha blending, not a measurement or a 3D Gaussian projection simulator.
+
+Focus the diagram region and use left/right arrow keys, or swipe horizontally.  The SVG updates weights and residual transmittance only when each layer is accumulated, then holds the final state until replay. The lab’s listed RGB values are sRGB-encoded: decode to linear light, sum weighted colours including the background, then encode and round to display sRGB. Contribution bars are categorical swatches, not the blended preview. Depth order is fixed; changing order generally changes the resulting colour.
 
 ## Results
 

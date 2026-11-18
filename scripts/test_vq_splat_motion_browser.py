@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Chromium smoke tests for VQ-VAE and Gaussian-splatting animations."""
 from __future__ import annotations
-import asyncio, os, shutil, base64
+import asyncio, os, shutil, base64, re
 from pathlib import Path
 from playwright.async_api import async_playwright
 
@@ -26,7 +26,11 @@ async def run():
                         still=data_svg('still')
                         alt='量化編碼動態演示' if lang=='zh' else 'Animated codebook walkthrough'
                         css=(DOCS/'stylesheets/concept-motion.css').read_text()
-                        html=f'<meta charset="utf-8"><style>{css}</style><main><img alt="{alt}" src="{still}" data-motion-src="{img}" data-still-src="{still}"></main>'
+                        topic = 'theory/paradigms/unsupervised/density-and-generative-models/vae/vq-vae' if stem.startswith('vqvae') else 'theory/models/computer-vision/3d-and-neural-rendering/gaussian-splatting'
+                        source = (DOCS / f'{topic}{".zh-TW" if lang == "zh" else ""}.md').read_text()
+                        markup = re.search(r'<div style="width:100%;overflow-x:auto".*?</div></div>',source,re.S).group(0)
+                        markup = re.sub(r'(src|data-motion-src|data-still-src)="[^"]+"',lambda m:f'{m[1]}="{img if m[1]=="data-motion-src" else still}"',markup)
+                        html=f'<html lang="{"zh-TW" if lang=="zh" else "en"}"><meta charset="utf-8"><style>{css}</style><main>{markup}</main></html>'
                         await page.set_content(html)
                         # Without JavaScript (including GitHub's sanitised Markdown),
                         # this element must directly show the static fallback.
@@ -47,12 +51,18 @@ async def run():
                         assert ('-still.svg' in src) == reduce, ('second toggle failed',stem,width)
                         if width <= 680:
                             dims=await page.evaluate("""() => {
-                                const node=document.querySelector('.concept-motion-player');
+                                const node=document.querySelector('div[role=region]');
                                 const img=node.querySelector('img');
                                 const button=node.querySelector('button');
                                 return [node.clientWidth,node.scrollWidth,img.getBoundingClientRect().width,button.getBoundingClientRect().left];
                             }""")
                             assert dims[1] > dims[0] and abs(dims[2]-640)<1 and dims[3]<width, (stem,lang,width,dims)
+                        if width < 640:
+                            region=page.locator('div[role=region]');await region.focus();await page.keyboard.press('ArrowRight')
+                            await page.wait_for_function('el => el.scrollLeft > 0',arg=await region.element_handle())
+                        assert await page.evaluate('document.documentElement.scrollWidth <= innerWidth+2')
+                        out=ROOT/'artifacts/vq-splat-motion';out.mkdir(parents=True,exist_ok=True)
+                        await page.screenshot(path=str(out/f'{stem}-{lang}-{width}-{int(reduce)}.png'),full_page=True)
                         count+=1
                         await page.close()
         await browser.close()

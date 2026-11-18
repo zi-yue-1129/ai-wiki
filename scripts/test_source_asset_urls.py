@@ -116,13 +116,10 @@ alt="校準 &amp; confidence &quot;example&quot;" width="640" height="360"/>'''
                          "../../../../../assets/figure%20a%23b.svg?q=1#panel")
 
     def test_repo_opt_ins_keep_github_source_paths_valid(self):
-        # New topic diagrams can opt in without breaking this regression.
-        # Check every marked source path, while retaining the original four examples.
         expected = {f"{self.chapter}/{topic}{suffix}.md"
                     for topic in ("conformal-prediction", "temperature-scaling")
                     for suffix in ("", ".zh-TW")}
         found = set()
-        asset_root = (ROOT / "docs/assets").resolve()
         for path in (ROOT / "docs").rglob("*.md"):
             html = path.read_text(encoding="utf-8")
             if MARKER not in html:
@@ -132,14 +129,17 @@ alt="校準 &amp; confidence &quot;example&quot;" width="640" height="360"/>'''
                 continue
             found.add(path.relative_to(ROOT / "docs").as_posix())
             for attrs in images:
+                self.assertIn("src", attrs)
                 for attribute in ("src", "data-motion-src", "data-still-src"):
                     if attribute not in attrs:
                         continue
                     value = attrs[attribute]
-                    self.assertTrue(value and not urlsplit(value).scheme, (path, value))
-                    target = (path.parent / unquote(urlsplit(value).path)).resolve()
-                    self.assertTrue(target.is_relative_to(asset_root), (path, value))
-                    self.assertTrue(target.is_file(), (path, value))
+                    parts = urlsplit(value)
+                    self.assertFalse(parts.scheme or parts.netloc or parts.path.startswith("/"))
+                    target = (path.parent / unquote(parts.path)).resolve()
+                    self.assertTrue(target.is_relative_to(ROOT / "docs/assets"))
+                    self.assertTrue(target.is_file())
+        # New opt-ins are allowed; the original repaired pages must not regress.
         self.assertTrue(expected.issubset(found), expected - found)
 
 

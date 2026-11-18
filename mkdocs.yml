@@ -759,7 +759,14 @@ plugins:
             Multimodal Models: 多模態模型
             Embeddings: 嵌入表示
             Time-Series Forecasting: 時間序列預測
+            DeepAR: DeepAR
+            N-BEATS: N-BEATS
+            Informer: Informer
+            Item-based Collaborative Filtering: 項目式協同過濾
             Recommender Systems: 推薦系統
+            Matrix Factorization: 矩陣分解
+            BPR: BPR 貝氏個人化排序
+            Neural Collaborative Filtering: 神經協同過濾
             Graph Neural Networks: 圖神經網路
             AI Agents: AI 代理人
             LLM Agent Survey (Xi et al., 2023): 基於 LLM 的代理人綜述
@@ -1053,6 +1060,7 @@ plugins:
             Tags: 標籤
             Contributing: 參與貢獻
             Roadmap & Coverage: 路線圖與覆蓋率
+            Evidence & Retrieval Pilot: 證據與檢索試點
             Style Guide: 寫作風格指南
 
 markdown_extensions:
@@ -1101,6 +1109,10 @@ extra_javascript:
   - javascripts/ssl-temporal-provenance.js
   - javascripts/concept-motion.js
   - javascripts/vq-splat-labs.js
+  - javascripts/adaptive-optimiser-labs.js
+  - javascripts/regression-metric-labs.js
+  - javascripts/sharpness-geometry-labs.js
+  - javascripts/gibbs-labs.js
   - javascripts/distributed-motion-controls.js
   - javascripts/distributed-parameter-explorers.js
   - javascripts/distributed-computation-probes.js
@@ -1118,6 +1130,10 @@ extra_css:
   - stylesheets/ssl-temporal-provenance.css
   - stylesheets/concept-motion.css
   - stylesheets/vq-splat-labs.css
+  - stylesheets/adaptive-optimiser-labs.css
+  - stylesheets/regression-metric-labs.css
+  - stylesheets/sharpness-geometry-labs.css
+  - stylesheets/gibbs-labs.css
   - stylesheets/distributed-motion-controls.css
   - stylesheets/distributed-parameter-explorers.css
   - stylesheets/distributed-computation-probes.css
@@ -1810,8 +1826,17 @@ nav:
           - Speech & Audio: theory/models/speech/index.md
           - Multimodal Models: theory/models/multimodal/index.md
           - Embeddings: theory/models/embeddings/index.md
-          - Time-Series Forecasting: theory/models/time-series/index.md
-          - Recommender Systems: theory/models/recommender/index.md
+          - Time-Series Forecasting:
+              - theory/models/time-series/index.md
+              - DeepAR: theory/models/time-series/deepar.md
+              - N-BEATS: theory/models/time-series/n-beats.md
+              - Informer: theory/models/time-series/informer.md
+          - Recommender Systems:
+              - theory/models/recommender/index.md
+              - Item-based Collaborative Filtering: theory/models/recommender/item-based-cf.md
+              - Matrix Factorization: theory/models/recommender/matrix-factorization.md
+              - BPR: theory/models/recommender/bpr.md
+              - Neural Collaborative Filtering: theory/models/recommender/neural-cf.md
           - Graph Neural Networks:
               - theory/models/gnn/index.md
               - Message Passing:
@@ -2225,4 +2250,5 @@ nav:
       - Tags: reference/tags/index.md
       - Contributing: reference/contributing/index.md
       - Roadmap & Coverage: reference/roadmap/index.md
+      - Evidence & Retrieval Pilot: reference/knowledge-pilot/index.md
       - Style Guide: reference/style-guide/index.md

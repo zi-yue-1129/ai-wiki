@@ -25,7 +25,7 @@ with sync_playwright() as playwright:
                 page = browser.new_page(viewport={'width':width,'height':850},reduced_motion='reduce' if reduced else 'no-preference')
                 errors=[]
                 page.on('pageerror', lambda e: errors.append(str(e)))
-                body = f'''<!doctype html><html><meta charset="utf-8"><style>body {{font-family:Arial,sans-serif;margin:16px;max-width:1080px}} {CSS}</style><body>
+                body = f'''<!doctype html><html lang="{lang}"><meta charset="utf-8"><style>body {{font-family:Arial,sans-serif;margin:16px;max-width:1080px}} {CSS}</style><body>
                 <section data-vq-splat-lab="vq" data-lang="{lang}"><p>Static fallback is in the Markdown page.</p></section>
                 <section data-vq-splat-lab="splat" data-lang="{lang}"><p>Static fallback is in the Markdown page.</p></section><script>{JS}</script></body></html>'''
                 page.set_content(body)
@@ -48,8 +48,12 @@ with sync_playwright() as playwright:
                     assert scope.locator('[data-value="0"]').inner_text()=='0.40'
                     scope.locator('[data-action=play]').click()
                     assert scope.locator('[data-action=play]').get_attribute('aria-pressed')=='true'
+                    page.wait_for_function('el => el.value !== "0"',arg=scope.locator('[data-action=seek]').element_handle())
                     scope.locator('[data-action=play]').click()
                     assert scope.locator('[data-action=play]').get_attribute('aria-pressed')=='false'
+                    if width < 720:
+                        region=scope.locator('.vq-splat-scroll');region.focus();page.keyboard.press('ArrowRight')
+                        page.wait_for_function('el => el.scrollLeft>0',arg=region.element_handle())
                 if width==320 and not reduced: page.screenshot(path=str(OUT/f'{lang}-mobile.png'),full_page=True)
                 page.close()
                 print('PASS',lang,width,'reduced' if reduced else 'normal')

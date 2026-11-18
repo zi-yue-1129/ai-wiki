@@ -44,11 +44,23 @@ $$C = \sum_{i \in N} c_i \,\alpha_i \prod_{j=1}^{i-1}(1 - \alpha_j)$$
 
 ### 視覺化說明：依深度排序的 Alpha 合成
 
-<img data-source-asset-urls src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg" data-motion-src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-motion.svg" alt="3D Gaussian Splatting 動畫：三個按深度排序的高斯投影，在同一像素由近至遠逐層累積顏色貢獻權重。">
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可用左右方向鍵捲動教學圖"><div style="width:640px"><img style="width:640px;min-width:640px;max-width:none;height:auto;display:block" data-source-asset-urls src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg" data-still-src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg" data-motion-src="../../../../assets/concept-animations/gaussian-splat-alpha-composite-motion.svg" alt="3D Gaussian Splatting 動畫：三個按深度排序的高斯投影，在同一像素由近至遠逐層累積顏色貢獻權重。"></div></div>
 
 [GitHub 可閱讀的高斯潑濺靜態預覽](../../../../assets/concept-animations/gaussian-splat-alpha-composite-still.svg)
 
-左側橢圓是**單一像素上的高斯投影形狀示意**，依由近至遠排列。令固定的*像素有效不透明度*為 \(\alpha=(0.50,0.60,0.80)\)，由前往後合成的權重依序為 \(w_1=0.50\)、\(w_2=(1-0.50)(0.60)=0.30\) 與 \(w_3=(1-0.50)(1-0.60)(0.80)=0.16\)，剩餘透射率 \(T_3=0.04\)。右側色帶代表的是**各層貢獻權重**，**不是**最後像素 RGB 的真實混色值；合成顏色為 \(C=\sum_i w_i c_i+T_3 C_{\mathrm{bg}}\)，黑色背景時最後一項為零。
+左側橢圓是**單一像素上的高斯投影形狀示意**，依由近至遠排列。令固定的*像素有效不透明度*為 \(\alpha=(0.50,0.60,0.80)\)，由前往後合成的權重依序為 \(w_1=0.50\)、\(w_2=(1-0.50)(0.60)=0.30\) 與
+
+\[
+w_3=(1-0.50)(1-0.60)(0.80)=0.16
+\]
+
+，剩餘透射率 \(T_3=0.04\)。右側色帶代表的是**各層貢獻權重**，**不是**最後像素 RGB 的真實混色值；合成顏色為
+
+\[
+C=\sum_i w_i c_i+T_3 C_{\mathrm{bg}}
+\]
+
+，黑色背景時最後一項為零。
 
 所有不透明度、色彩與橢圓均屬**人工教學示意，並非經訓練的場景參數或實測像素**。此圖單獨說明遮蔽感知的合成步驟；完整 3D Gaussian Splatting 還包含非等向共變異數投影及視角相關的色彩計算。MkDocs 可透過鍵盤操作的**播放／暫停**控制；GitHub 以靜態圖回退顯示。原創視覺，**CC BY-SA 4.0**，參照下方 Kerbl 等人（2023）文獻。
 
@@ -58,7 +70,15 @@ $$C = \sum_{i \in N} c_i \,\alpha_i \prod_{j=1}^{i-1}(1 - \alpha_j)$$
   <p>GitHub 或停用 JavaScript 時，上方原創靜態 SVG 仍可解讀相同的遮蔽權重計算。</p>
 </div>
 
-調整三個圖層的「**有效不透明度**」，使用「**上一步／下一步、播放／暫停、進度、速度與重設**」依由近至遠的順序逐層合成。系統會重新計算每層對像素的貢獻權重 $w_i=\alpha_i\prod_{j<i}(1-\alpha_j)$、剩餘透射率 $T$，以及人工示例的最終 RGB。三層固定色彩為 (235,93,98)、(79,171,223)、(239,193,100)，背景是 (30,39,60)。**尚未處理的圖層會在中間步驟暫以背景替代**，因此預覽不是完整合成結果。預設 $\alpha=(0.50,0.60,0.80)$ 時，最終權重為 (0.50,0.30,0.16)，且 $T=0.04$。此計算只展示像素 Alpha 合成，並非 3D 高斯投影模擬或實測場景。
+調整三個圖層的「**有效不透明度**」，使用「**上一步／下一步、播放／暫停、進度、速度與重設**」依由近至遠的順序逐層合成。系統會重新計算每層對像素的貢獻權重
+
+\[
+w_i=\alpha_i\prod_{j<i}(1-\alpha_j)
+\]
+
+、剩餘透射率 $T$，以及人工示例的最終 RGB。三層固定色彩為 (235,93,98)、(79,171,223)、(239,193,100)，背景是 (30,39,60)。**尚未處理的圖層會在中間步驟暫以背景替代**，因此預覽不是完整合成結果。預設 $\alpha=(0.50,0.60,0.80)$ 時，最終權重為 (0.50,0.30,0.16)，且 $T=0.04$。此計算只展示像素 Alpha 合成，並非 3D 高斯投影模擬或實測場景。
+
+聚焦圖表外框後可用左右方向鍵捲動，或在手機左右滑動。 SVG 逐層完成累加後才更新權重與剩餘透射率，最終數值保持不變直到重播。互動實驗列出的 RGB 是 sRGB 編碼值：先解碼至線性光，再以權重加總（包含背景），最後編碼及四捨五入為顯示 sRGB。權重長條是分類色塊，並非混色預覽。深度順序固定；改變順序通常會改變最終色彩。
 
 ## 結果
 

@@ -47,6 +47,15 @@ Mixup changes the data instead of the network. Two examples and their labels are
 
 Dropout can be read as training an ensemble of thinned networks that share weights. Gal and Ghahramani showed that dropout applied at test time can be interpreted as approximate Bayesian inference, which gives a way to estimate model uncertainty from repeated stochastic predictions [(Gal and Ghahramani, 2016)](https://arxiv.org/abs/1506.02142). These readings are useful, but they are approximations, and the exact connection depends on the model and the choice of dropout rate.
 
+
+### Visual walkthrough: Monte Carlo dropout across inference passes
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Teaching figure; use arrow keys to scroll horizontally">
+<img data-source-asset-urls src="../../../assets/concept-animations/mc-dropout-repeated-passes-still.svg" data-motion-src="../../../assets/concept-animations/mc-dropout-repeated-passes-motion.svg" data-still-src="../../../assets/concept-animations/mc-dropout-repeated-passes-still.svg" alt="At inference, two changing dropout masks yield eight synthetic predictions; the running sample mean moves as the predictions accumulate." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+*Original instructional animation, CC BY-SA 4.0.* Monte Carlo (MC) dropout deliberately **keeps stochastic masks active during inference**, unlike standard deterministic test-time dropout. For a **synthetic scalar toy predictor**, let $r_1,r_2\sim\operatorname{Bernoulli}(0.5)$ independently and $y=1+4r_1-2r_2$. Its analytic expectation is $\mathbb E[y]=2$. The eight *hand-selected* masks produce $y=(5,-1,3,1,5,3,-1,1)$; the running average changes with the number of passes and ends at $2$ **by construction**, not by a convergence or accuracy guarantee. The dashed horizontal line is the current sample mean. It happens to equal the analytic expectation at passes 2, 4 and 8 in these selected draws; that equality is not guaranteed for arbitrary draws. These are not model predictions, calibrated epistemic uncertainties, or measured samples. The Bayesian interpretation and limitations are discussed by Gal and Ghahramani in the References. On narrow screens, horizontally scroll to the mask and running-mean panel. The existing site player offers Play/Pause and reduced-motion fallback; [GitHub-readable still](../../../assets/concept-animations/mc-dropout-repeated-passes-still.svg).
+
 ## Connections
 
 Normalisation layers, covered in [Normalisation](../normalisation/index.md), also act as a form of regularisation during training. Convolutional networks use dropout in their classifier heads and stochastic depth in deep residual stacks; see [CNNs](../../models/cnn/index.md). The statistical ideas behind uncertainty are in [Probability and statistics](../../math/index.md).

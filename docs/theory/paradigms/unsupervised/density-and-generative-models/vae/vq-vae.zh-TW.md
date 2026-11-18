@@ -23,7 +23,13 @@ van den Oord、Vinyals 與 Kavukcuoglu（2017）指出，潛在變數為一組�
 ## 關鍵概念
 
 - **碼本**：一組嵌入向量 \(e_1, \dots, e_K\)。每個編碼器輸出會對映到最近的那一個。
-- **最近鄰量化**：編碼索引為 \(k = \arg\min_j \lVert z_e(x) - e_j \rVert_2\)，解碼器接收 \(e_k\)。
+- **最近鄰量化**：編碼索引為
+
+\[
+k = \arg\min_j \lVert z_e(x) - e_j \rVert_2
+\]
+
+，解碼器接收 \(e_k\)。
 - **直通梯度（straight-through）**：量化步驟沒有梯度，因此把解碼器輸入的梯度原樣複製到編碼器輸出。
 - **承諾損失（commitment loss）**：讓編碼器輸出貼近其所選的編碼，以 \(\beta\) 加權。
 - **兩階段訓練**：先訓練自編碼器，之後才在離散編碼上擬合先驗。
@@ -42,7 +48,7 @@ L = \log p(x \mid z_q(x)) + \lVert \operatorname{sg}[z_e(x)] - e \rVert_2^2 + \b
 
 ### 視覺化說明：碼本的離散選擇
 
-<img data-source-asset-urls src="../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg" data-motion-src="../../../../../assets/concept-animations/vqvae-codebook-snap-motion.svg" alt="VQ-VAE 動畫：編碼器向量在潛在空間移動，跨過最近鄰邊界後，離散編碼從第一個碼本向量跳換為第二個。">
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可用左右方向鍵捲動教學圖"><div style="width:640px"><img style="width:640px;min-width:640px;max-width:none;height:auto;display:block" data-source-asset-urls src="../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg" data-still-src="../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg" data-motion-src="../../../../../assets/concept-animations/vqvae-codebook-snap-motion.svg" alt="VQ-VAE 動畫：編碼器向量在潛在空間移動，跨過最近鄰邊界後，離散編碼從第一個碼本向量跳換為第二個。"></div></div>
 
 [GitHub 可閱讀的 VQ-VAE 靜態預覽](../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg)
 
@@ -57,6 +63,8 @@ L = \log p(x \mid z_q(x)) + \lVert \operatorname{sg}[z_e(x)] - e \rVert_2^2 + \b
 </div>
 
 調整「**編碼器 x／y**」，設定人工連續潛在向量的終點，再以「**上一步／下一步、播放／暫停、進度、0.5×／1×／2× 與重設**」觀察中間計算。移動路徑從 (0.10, 0.35) 線性前進至所選位置。每一步都實際重新計算三個碼本向量的**歐氏距離平方**、最近碼本編號與量化誤差。輸入向量連續變化，但**離散碼本的選擇會跳換**。固定的人工碼本為 (0.20, 0.35)、(0.75, 0.35)、(0.48, 0.82)；不是模型學得的表徵，也未實作直通梯度或碼本訓練。
+
+聚焦圖表外框後可用左右方向鍵捲動，或在手機左右滑動。 靜態／SVG 圖與互動實驗採用不同的示意碼本。互動圖的兩軸使用相同比例，距離為真正的二維歐氏距離；相等距離時選索引較小者。六個步驟取樣連續線段，不表示播放時每一個中間位置都被求值。直通估計只影響反向梯度，不會讓前向碼本選擇變成插值。
 
 ## 關鍵方法
 
