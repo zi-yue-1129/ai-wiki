@@ -250,6 +250,14 @@ $$
 
 Within **this two-rule mixture family**, taking **λ = 1/2** maximizes TPR under the cap and minimizes its linear expected loss at **11/30 ≈ 0.367**, versus **8/15 ≈ 0.533** for feasible deterministic cutoff **k = 1**. Always choosing **k = 4** would cost **1/5 = 0.200**, but is **infeasible** under the budget. The FPR constraint concerns a *population conditional error rate*, not a guarantee on the number of false alarms in a finite sample. This is an illustrative constrained-policy calculation, not a performance measurement or a guarantee against all possible decision rules.
 
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="FPR-constrained randomized ROC policy">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="A synthetic two-threshold ROC segment and a falling expected-cost line share a moving randomized-policy marker. The FPR cap at one sixth limits the mixing probability to one half; the feasible boundary has expected cost eleven thirtieths." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0); synthetic rates and costs, not model or deployment measurements.* The marker moves continuously from $\lambda=0$ to $1$ and back, showing that the **unconstrained** lower-cost endpoint (right of the vertical budget line) is **infeasible** under the FPR cap. The outlined midpoint at $\lambda=0.5$ is the minimum-cost **feasible** choice in the illustrated two-rule mixture family, with $\mathrm{FPR}=1/6$, $\mathrm{TPR}=2/3$, and $L=11/30$. Shaded regions distinguish feasible and over-budget choices. The animation advances *policy mixing probability*, not model training time. On MkDocs use keyboard-accessible Play/Pause; reduced-motion users see the static cap point. On phones focus and horizontally scroll the figure. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg).
+
 The earlier [randomized ROC-rule static preview](../../../../assets/concept-animations/roc-randomized-operating-mix-still.svg) and [full animation](../../../../assets/concept-animations/roc-randomized-operating-mix-motion.svg) show the same interpolation mechanism with **different hypothetical operating rates**. Do not combine that visual's numbers with this six-case policy example. All rates and costs here are constructed assumptions, not deployment measurements; see Fawcett (2006) in References.
 
 ## References

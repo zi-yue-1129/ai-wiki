@@ -6523,6 +6523,21 @@
         }
       ]
     },
+    "roc-fpr-budget-mix": {
+      "origins": [
+        {
+          "origin_blob": "7d206389f79dad9d21599738eecd2171fc02e57d",
+          "origin_commit": "0113d23f15ce1a711c6b988d866d0d1da3d80844",
+          "path": "docs/assets/concept-animations/roc-fpr-budget-mix-motion.svg"
+        },
+        {
+          "origin_blob": "4c7da14ffb89748417cc1bb5b8985427eb088b46",
+          "origin_commit": "0113d23f15ce1a711c6b988d866d0d1da3d80844",
+          "path": "docs/assets/concept-animations/roc-fpr-budget-mix-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "roc-pr-shift": {
       "origins": [
         {

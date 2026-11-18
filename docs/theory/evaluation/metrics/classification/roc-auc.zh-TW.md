@@ -251,6 +251,14 @@ $$
 
 在**這兩個門檻所構成的混合策略族**之內，取 **λ = 1/2** 能在上限內取得最高 TPR，並將線性預期成本降到 **11/30 ≈ 0.367**，低於可行的固定門檻 **k = 1** 之 **8/15 ≈ 0.533**。固定使用 **k = 4** 雖然只有 **1/5 = 0.200** 的預期成本，卻**違反限制**。這裡的 FPR 上限限制的是**母體條件錯誤率**，並非保證有限樣本一定只會出現特定數量的誤報。所有數值均為人工示意，不能解讀為模型量測，也不主張優於所有可能的決策規則。
 
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="受 FPR 上限約束的隨機 ROC 決策規則">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="人工 ROC 的兩個門檻連線與下降中的預期成本曲線共用隨機混合標記。FPR 上限為六分之一，因此混合機率最多二分之一；可行邊界的成本為三十分之十一。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）；所有機率、錯誤率及成本均為人工示意，非模型或部署實測。* 標記在 $\lambda=0$ 到 $1$ 之間連續來回移動，顯示無限制時成本更低的右端策略已經**違反 FPR 上限**。當 $\lambda=0.5$，空心圓代表此**兩門檻混合策略族內**最低成本的可行選擇：$\mathrm{FPR}=1/6$、$\mathrm{TPR}=2/3$、$L=11/30$。底色區隔可行區與超出上限的區域。動畫變化的是**策略混合機率**，不是模型訓練時間。MkDocs 提供可由鍵盤操作的播放／暫停；偏好減少動態效果時呈現靜態邊界結果。手機可聚焦圖片容器並水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg)。
+
 前文的[隨機化 ROC 決策規則靜態預覽](../../../../assets/concept-animations/roc-randomized-operating-mix-still.svg)與[完整動畫](../../../../assets/concept-animations/roc-randomized-operating-mix-motion.svg)，使用的是**不同的人工操作率**，只用來說明相同的插值機制，不可把數值與這組六筆排序混用。所有辨識率與成本均為示意假設，不是部署量測；相關決策背景參見文末 Fawcett（2006）。
 
 ## 參考文獻

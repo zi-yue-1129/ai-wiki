@@ -587,3 +587,37 @@ for name, marker in (
     assert "\n$\n" not in page
     assert "\n$$\nL_{\\lambda}(p)=" in page
 print("Constrained ROC mixture: 501 budget-feasible states, 7 deterministic cutoffs and bilingual display maths OK")
+
+# An animated FPR budget must use the SAME synthetic conditional rates
+# and cost assumptions as the constrained-policy derivation, not the
+# different operating points shown by the previously linked generic animation.
+fpr_cap = 1 / 6
+for i in range(501):
+    mixing_probability = i / 1000
+    true_positive_rate = (1 + 2 * mixing_probability) / 3
+    false_positive_rate = mixing_probability / 3
+    expected_cost = .8 * (1 - true_positive_rate) + .6 * false_positive_rate
+    assert false_positive_rate <= fpr_cap + 1e-12
+    assert expected_cost >= 11 / 30 - 1e-12
+    assert math.isclose(expected_cost, 8 / 15 - mixing_probability / 3,
+                        abs_tol=1e-12)
+assert math.isclose(.8 * (1 - 2/3) + .6 / 6, 11/30)
+for kind in ("motion", "still"):
+    path = asset_root / f"roc-fpr-budget-mix-{kind}.svg"
+    source = path.read_text(encoding="utf-8")
+    assert 'viewBox="0 0 640 360"' in source
+    assert "false-positive-rate budget" in source
+    assert 'x1="473.5"' in source  # budget at lambda=0.5
+    assert "0.367" in source and "0.533" in source
+    assert ("<animateMotion" in source) == (kind == "motion")
+    assert ("prefers-reduced-motion" in source)
+for filename, label in (
+    ("roc-auc.md", "FPR-constrained randomized ROC policy"),
+    ("roc-auc.zh-TW.md", "受 FPR 上限約束的隨機 ROC 決策規則"),
+):
+    page = (shared_dir / filename).read_text(encoding="utf-8")
+    assert label in page
+    assert f'src="{root}roc-fpr-budget-mix-still.svg"' in page
+    assert f'data-motion-src="{root}roc-fpr-budget-mix-motion.svg"' in page
+    assert "11/30" in page and "1/6" in page
+print("ROC FPR-budget motion: 501 continuous feasible policies, bilingual exact-source links OK")

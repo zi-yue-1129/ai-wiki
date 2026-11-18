@@ -16,7 +16,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 344 and len(EXPECTED_EXTRAS) == 5 and len(EXPECTED_PREFIXES) == 18
+assert len(EXPECTED_CANVASES) == 345 and len(EXPECTED_EXTRAS) == 5 and len(EXPECTED_PREFIXES) == 18
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -168,7 +168,7 @@ class ScopedCanvas(unittest.TestCase):
             self.assertTrue(any('invalid XML' in e for e in v.verify_svg(path, True)))
 
     def test_new_roc_assets_match_independently_reviewed_git_blob_origins(self):
-        for stem in ("roc-pr-shift", "roc-youden-cost", "roc-prior-policy"):
+        for stem in ("roc-pr-shift", "roc-youden-cost", "roc-prior-policy", "roc-fpr-budget-mix"):
             origin = CONTRACTS["canonical"][stem]
             self.assertEqual(origin["viewBox"], "0 0 640 360")
             self.assertEqual(len(origin["origins"]), 2)
