@@ -91,8 +91,8 @@
   function latentRender(svg,step,f,tr,metrics) {
     const z=compress(f),cols=16/f, p=step/8;
     const zNoise=z.map((x,i)=>p*x+(1-p)*seededNoise(i+913));
-    const decoded=decode(z,f);
-    const mse=decoded.reduce((s,v,i)=>s+(v-source[i])**2,0)/256;
+    const decoded=step===8?decode(z,f):null;
+    const mse=decoded?decoded.reduce((s,v,i)=>s+(v-source[i])**2,0)/256:null;
     let picture=background+`<text class="dpl-title" x="22" y="29">Latent · z<tspan baseline-shift="sub" font-size="11">t</tspan></text><text class="dpl-small" x="613" y="29">f = ${f} · ${step}/8</text>`;
     picture+=`<text class="dpl-caption" x="46" y="69">x</text><text class="dpl-caption" x="337" y="69">zₜ</text><text class="dpl-caption" x="638" y="69">D(z₀)</text>`;
     picture+=grid(source,16,22,82,176,176);
@@ -106,6 +106,7 @@
     metrics.innerHTML=`<span>${esc(tr.sample)} <strong>${z.length}</strong></span><span>${esc(tr.ratio)} <strong>${f*f}:1</strong></span><span>${esc(tr.mse)} <strong>${step===8?mse.toFixed(4):'—'}</strong></span>`;
     return {mse};
   }
+  window.DiffusionTeachingMath=Object.freeze({alphas,cleanVideo,videoNoise,source,compress,decode,videoRender,latentRender,translations});
   function enhance(root) {
     if(root.dataset.dplReady) return;
     const kind=root.getAttribute('data-diffusion-lab');

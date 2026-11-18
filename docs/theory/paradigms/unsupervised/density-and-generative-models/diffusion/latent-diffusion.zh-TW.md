@@ -21,9 +21,11 @@ translation_reviewed: 2026-11-14
 
 ### 教學動畫：在潛在空間取樣
 
-<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="可水平捲動的教學圖與動畫">
-  <img src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" data-motion-src="../../../../../assets/concept-animations/latent-space-denoise-motion.svg" data-still-src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" alt="左側示意訓練時影像編碼為潛在表徵，右側示意生成時潛在去噪並只在最後解碼。">
+<div class="concept-motion-scroll diffusion-motion-scroll" tabindex="0" role="region" aria-label="可水平捲動的教學圖與動畫">
+  <img data-source-asset-urls src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" data-motion-src="../../../../../assets/concept-animations/latent-space-denoise-motion.svg" data-still-src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" alt="左側示意訓練時影像編碼為潛在表徵，右側示意生成時潛在去噪並只在最後解碼。">
 </div>
+
+動畫於潛在狀態完成後才顯示解碼結果，每輪重設。互動實驗只在最後一步計算解碼與 MSE；固定通道數下的空間格數比不是位元率或生成品質。
 
 *原創教學視覺（CC BY-SA 4.0）.* **左側**說明訓練階段以自編碼器 $E$ 將影像 $x$ 壓縮成潛在表徵 $z_0$；**右側**示意取樣從隨機雜訊 $z_T$ 開始，經過潛在空間的多步去噪得到 $z_0$，最後才用解碼器 $D$ 產生影像。色塊與過渡都是**人工示意而非學得的潛在值、模型輸出或實測速度**，亦不表示生成前需要先編碼一張影像。參見 [Rombach 等人（2022）](https://arxiv.org/abs/2112.10752)。 網站版可播放或暫停動畫，使用 Enter／Space 操作按鈕；偏好減少動態時顯示靜態圖。手機可用鍵盤或觸控左右捲動。 [開啟完整 SVG 動畫](../../../../../assets/concept-animations/latent-space-denoise-motion.svg).
 

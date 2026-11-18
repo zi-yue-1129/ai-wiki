@@ -30,7 +30,7 @@ def run():
                 for reduced in (False, True):
                     page = browser.new_page(viewport={'width': width, 'height': 700}, reduced_motion='reduce' if reduced else 'no-preference')
                     # Style mirrors raw-HTML GitHub fallback used in both bilingual chapters.
-                    html = '''<!doctype html><html lang="en"><meta charset="UTF-8"><style>body{margin:0;padding:12px;font-family:Arial}</style><div class="concept-motion-scroll" tabindex="0" aria-label="Scrollable diagram">
+                    html = '''<!doctype html><html lang="en"><meta charset="UTF-8"><style>body{margin:0;padding:12px;font-family:Arial}</style><div class="concept-motion-scroll diffusion-motion-scroll" tabindex="0" aria-label="Scrollable diagram">
                       <img src="''' + still + '" data-motion-src="' + motion + '" data-still-src="' + still + '" alt="Latent/video explanatory diagram"></div></html>'
                     page.set_content(html)
                     page.add_style_tag(content=CSS.read_text())
@@ -54,6 +54,8 @@ def run():
                         assert viewport[1]>viewport[0], (topic,width,'mobile horizontal scroll')
                         page.locator('.concept-motion-scroll').focus()
                         page.keyboard.press('ArrowRight')
+                        page.wait_for_timeout(350)
+                        assert page.locator('.concept-motion-scroll').evaluate('(e)=>e.scrollLeft') > 0
                     tests += 1
                     page.close()
         browser.close()

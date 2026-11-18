@@ -33,9 +33,11 @@ Train a perceptual autoencoder once to compress images into a latent \(z = E(x)\
 
 ### Visual walkthrough: sampling in latent space
 
-<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="Scrollable teaching diagram and animation">
-  <img src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" data-motion-src="../../../../../assets/concept-animations/latent-space-denoise-motion.svg" data-still-src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" alt="Left: image-to-latent encoding during training; right: denoise noisy latent and decode once during generation.">
+<div class="concept-motion-scroll diffusion-motion-scroll" tabindex="0" role="region" aria-label="Scrollable teaching diagram and animation">
+  <img data-source-asset-urls src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" data-motion-src="../../../../../assets/concept-animations/latent-space-denoise-motion.svg" data-still-src="../../../../../assets/concept-animations/latent-space-denoise-still.svg" alt="Left: image-to-latent encoding during training; right: denoise noisy latent and decode once during generation.">
 </div>
+
+The animation reveals the decoded image only after the latent transition completes, then resets each loop. The lab computes decoding and MSE only at its final step; the fixed-channel spatial cell ratio is neither bit-rate nor generation quality.
 
 *Original teaching visual (CC BY-SA 4.0).* **Left:** during training, a pretrained encoder $E$ compresses an image $x$ into $z_0$. **Right:** synthesis starts with random latent $z_T$, repeatedly denoises to $z_0$, and **decodes only once** using $D$. Colours and changes are **constructed examples, not learned latents, generated samples, or speed measurements**. Unconditional synthesis does not first require encoding an input image. See [Rombach et al. (2022)](https://arxiv.org/abs/2112.10752). The website provides Play/Pause with Enter/Space, a static still for reduced-motion preferences, and horizontally scrollable diagrams on narrow screens. [Open the animated SVG](../../../../../assets/concept-animations/latent-space-denoise-motion.svg).
 

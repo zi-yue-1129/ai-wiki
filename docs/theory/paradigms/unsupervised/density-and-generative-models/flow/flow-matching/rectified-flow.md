@@ -37,7 +37,29 @@ Draw \(X_0\sim\pi_0\) and \(X_1\sim\pi_1\) independently, form \(X_t\) as above,
 \min_v \int_0^1 \mathbb E\big[\lVert (X_1 - X_0) - v(X_t, t)\rVert^2\big]\,\mathrm{d}t
 \]
 
-Reflow then takes a trained flow with \(k\) rounds, simulates it from \(\pi_0\) to obtain endpoint pairs \((Z^k_0, Z^k_1)\), and trains a new rectified flow on those pairs, giving \(Z^{k+1} = \mathrm{RectFlow}\big((Z^k_0, Z^k_1)\big)\). Each round makes the paths straighter. The paper cautions that too many rounds accumulate estimation error.
+Reflow then takes a trained flow with \(k\) rounds, simulates it from \(\pi_0\) to obtain endpoint pairs \((Z^k_0, Z^k_1)\), and trains a new rectified flow on those pairs, giving
+
+$$
+Z^{k+1} = \mathrm{RectFlow}\big((Z^k_0, Z^k_1)\big)
+$$
+
+In the idealised analysis, repeated rectification promotes straightness; finite learned models need not improve on every round. The paper cautions that too many rounds accumulate estimation error.
+
+
+## Visual walkthrough: endpoint coupling for reflow
+
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Flow teaching animation; focus and use arrow keys to scroll">
+<div style="width:760px">
+<img data-source-asset-urls src="../../../../../../assets/concept-animations/rectified-reflow-coupling-still.svg" data-motion-src="../../../../../../assets/concept-animations/rectified-reflow-coupling-motion.svg" data-still-src="../../../../../../assets/concept-animations/rectified-reflow-coupling-still.svg" width="760" height="410" style="width:760px;min-width:760px;max-width:none;height:auto" alt="Two curved schematic trajectories from a previous transport supply new endpoint pairs whose straight chords become the next reflow training targets.">
+</div>
+</div>
+
+*Original teaching visual, CC BY-SA 4.0.* [GitHub-readable static fallback](../../../../../../assets/concept-animations/rectified-reflow-coupling-still.svg). The MkDocs **Play/Pause** control is keyboard accessible; reduced-motion preferences show the static figure.
+
+The left panel depicts **hypothetical** trajectories from a previously trained ODE. The dashed lines are endpoint chords, **not** literal Euler updates. Reflow simulates the prior model, retains its start/end coupling, and uses straight interpolation between those paired endpoints as regression targets in the next round; the right panel illustrates those new targets. Reflow seeks straighter learned paths, but the right-hand line is a *training target*, not a guarantee that the next learned ODE exactly follows it. Geometry and trajectories are schematic, with no trained model or measured sampling speed. See Liu, Gong and Liu (2022) in References.
+
+
+The dots share an illustrative time parameter $t\in[0,1]$: the left uses hand-specified cubic Bézier curves and the right uses linear endpoint interpolation. The static view takes $t=0.5$ on both, not halfway along each curve by arc length. This synchronized comparison is not the chronological order of training; endpoints must first be obtained before the next reflow fit.
 
 ## Key methods
 

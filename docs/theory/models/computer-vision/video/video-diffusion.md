@@ -33,9 +33,11 @@ Ho and colleagues extend the image diffusion model to video by denoising a seque
 
 ### Visual walkthrough: jointly denoising a video
 
-<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="Scrollable teaching diagram and animation">
-  <img src="../../../../assets/concept-animations/video-joint-denoising-still.svg" data-motion-src="../../../../assets/concept-animations/video-joint-denoising-motion.svg" data-still-src="../../../../assets/concept-animations/video-joint-denoising-still.svg" alt="Four frames denoise together: synthetic noise fades while an orange object moves coherently across time.">
+<div class="concept-motion-scroll diffusion-motion-scroll" tabindex="0" role="region" aria-label="Scrollable teaching diagram and animation">
+  <img data-source-asset-urls src="../../../../assets/concept-animations/video-joint-denoising-still.svg" data-motion-src="../../../../assets/concept-animations/video-joint-denoising-motion.svg" data-still-src="../../../../assets/concept-animations/video-joint-denoising-still.svg" alt="Four frames denoise together: synthetic noise fades while an orange object moves coherently across time.">
 </div>
+
+Frame indices are not diffusion timesteps; all frames share one illustrative denoising clock. The lab’s fixed Box–Muller noise is additionally scaled by 0.46, not a unit-variance random draw. Colors clip to the display range, but RMS uses unclipped values. Playback sweeps signal retention upward; it is not learned reverse sampling.
 
 *Original teaching visual (CC BY-SA 4.0).* The four frames belong to a **jointly denoised video tensor**, not four independent frame samplers. The orange trajectory indicates temporal dependence; coloured tiles fade as corruption is removed. All frames, motion paths and transitions are **schematic rather than generated samples or measurements**. Joint denoising also does not guarantee perfect long-range coherence. See [Ho et al. (2022)](https://arxiv.org/abs/2204.03458). The website provides Play/Pause with Enter/Space, a static still for reduced-motion preferences, and horizontally scrollable diagrams on narrow screens. [Open the animated SVG](../../../../assets/concept-animations/video-joint-denoising-motion.svg).
 
@@ -45,13 +47,24 @@ Ho and colleagues extend the image diffusion model to video by denoising a seque
   <p>The GitHub-compatible static animation above remains available without JavaScript.</p>
 </div>
 
-This **deterministic toy calculation** constructs a four-frame, 12-by-8 grayscale clip and a fixed noise tensor. Scrub the signal-retention parameter `ᾱ` to recompute each noisy frame from `x_t = sqrt(ᾱ) x_0 + sqrt(1−ᾱ) ε`; the displayed **Noise RMS** is the root mean square of the injected term `sqrt(1−ᾱ) ε` over all 384 elements. The noise tensor remains fixed, so any visual change comes from the selected noise level rather than from resampling. A lower `ᾱ` means more corruption; the playable upward sweep merely removes synthetic corruption by changing the equation's parameter. **This is the forward corruption law, not the learned reverse diffusion trajectory**. Real video denoisers are trained to infer noise and preserve temporal dependencies; the lab does not model learned temporal attention or evaluate coherence. Use Previous/Next, Seek, Play/Pause, speed or Reset; native controls work with a keyboard. Reduced-motion preferences disable autoplay. All frames and numerical values are schematic and not model outputs.
+This **deterministic toy calculation** constructs a four-frame, 12-by-8 grayscale clip and a fixed noise tensor. Scrub the signal-retention parameter `ᾱ` to recompute each noisy frame from the following equation:
+
+$$
+x_t = \sqrt{\bar\alpha}\,x_0 + \sqrt{1-\bar\alpha}\,\epsilon.
+$$
+
+The displayed **Noise RMS** is the root mean square of the injected term `sqrt(1−ᾱ) ε` over all 384 elements. The noise tensor remains fixed, so any visual change comes from the selected noise level rather than from resampling. A lower `ᾱ` means more corruption; the playable upward sweep merely removes synthetic corruption by changing the equation's parameter. **This is the forward corruption law, not the learned reverse diffusion trajectory**. Real video denoisers are trained to infer noise and preserve temporal dependencies; the lab does not model learned temporal attention or evaluate coherence. Use Previous/Next, Seek, Play/Pause, speed or Reset; native controls work with a keyboard. Reduced-motion preferences disable autoplay. All frames and numerical values are schematic and not model outputs.
 
 ## Equation
 
 The training objective is the denoising loss of the diffusion model, applied to a noised video $\mathbf{x}_t$:
 
-$$\mathcal{L} = \mathbb{E}_{\mathbf{x}_0, \boldsymbol{\epsilon}, t}\left[\, \lVert \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t) \rVert^2 \,\right], \qquad \mathbf{x}_t = \sqrt{\bar\alpha_t}\,\mathbf{x}_0 + \sqrt{1-\bar\alpha_t}\,\boldsymbol{\epsilon}$$
+$$
+\begin{aligned}
+\mathcal{L} = \mathbb{E}_{\mathbf{x}_0, \boldsymbol{\epsilon}, t}\left[\, \lVert \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t) \rVert^2 \,\right], \\
+\mathbf{x}_t = \sqrt{\bar\alpha_t}\,\mathbf{x}_0 + \sqrt{1-\bar\alpha_t}\,\boldsymbol{\epsilon}
+\end{aligned}
+$$
 
 Here $\mathbf{x}_0$ is a clip, $\boldsymbol{\epsilon}$ is Gaussian noise, and $\bar\alpha_t$ is a noise schedule. The network $\boldsymbol{\epsilon}_\theta$ predicts the noise. The image case of this objective was introduced by Ho, Jain and Abbeel [(Ho, Jain and Abbeel, 2020)](https://arxiv.org/abs/2006.11239).
 

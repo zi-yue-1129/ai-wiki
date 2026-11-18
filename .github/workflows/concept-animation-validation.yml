@@ -8,11 +8,17 @@ on:
       - "scripts/verify_concept_motion.py"
       - "scripts/verify_concept_svgs.py"
       - "scripts/test_uncertainty_motion_semantics.py"
+      - "scripts/test_diffusion_process_motion_semantics.py"
       - "scripts/test_video_latent_motion_browser.py"
       - "scripts/test_diffusion_process_labs_browser.py"
       - "docs/javascripts/diffusion-process-labs.js"
       - "docs/stylesheets/diffusion-process-labs.css"
+      - "scripts/test_linear_algebra_motion_semantics.py"
+      - "scripts/render_linear_algebra_keyframes.py"
       - "docs/javascripts/concept-motion.js"
+      - "docs/javascripts/adaptive-optimiser-labs.js"
+      - "docs/stylesheets/adaptive-optimiser-labs.css"
+      - "scripts/test_adaptive_optimiser_labs_browser.py"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
       - "docs/javascripts/self-supervised-labs.js"
@@ -33,6 +39,15 @@ on:
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_self_supervised_labs.cjs"
+      - "docs/javascripts/regression-metric-labs.js"
+      - "docs/stylesheets/regression-metric-labs.css"
+      - "scripts/test_regression_metric_labs_browser.py"
+      - "docs/javascripts/gibbs-labs.js"
+      - "docs/stylesheets/gibbs-labs.css"
+      - "scripts/test_gibbs_labs_browser.py"
+      - "docs/javascripts/sharpness-geometry-labs.js"
+      - "docs/stylesheets/sharpness-geometry-labs.css"
+      - "scripts/test_sharpness_geometry_labs_browser.py"
       - "mkdocs.yml"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
@@ -54,6 +69,7 @@ jobs:
         run: python scripts/verify_concept_animations.py
 
   validate-motion:
+    # Playwright 1.55 supports Ubuntu 24.04, not the latest 26.04 image.
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -62,8 +78,12 @@ jobs:
           python-version: "3.12"
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
+      - name: Check diffusion toy arithmetic and decode timing
+        run: python scripts/test_diffusion_process_motion_semantics.py
       - name: Check uncertainty motion numerical semantics
         run: python scripts/test_uncertainty_motion_semantics.py
+      - name: Check SVD geometry and power-iteration numerical timelines
+        run: python scripts/test_linear_algebra_motion_semantics.py
       - name: Exercise bilingual guided motion controls and fallback
         run: node scripts/test_concept_motion_chapters.cjs
       - name: Test MoCo FIFO and BYOL EMA simulators
@@ -79,6 +99,10 @@ jobs:
         run: python scripts/test_video_latent_motion_browser.py
       - name: Browser-check interactive video and latent diffusion arithmetic
         run: DIFFUSION_LAB_ARTIFACTS=artifacts/diffusion-process-labs python scripts/test_diffusion_process_labs_browser.py
+      - name: Chromium interactive AdaGrad and Adafactor numerical labs
+        run: python scripts/test_adaptive_optimiser_labs_browser.py
+      - name: Render deterministic SVD and power-iteration SVG keyframes
+        run: python scripts/render_linear_algebra_keyframes.py
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
@@ -99,6 +123,12 @@ jobs:
           path: artifacts/diffusion-process-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
+      - name: Test regression metric lab arithmetic, controls and bilingual responsive layout
+        run: python scripts/test_regression_metric_labs_browser.py
+      - name: Test bilingual sharpness geometry numerical labs, controls and responsive layout
+        run: python scripts/test_sharpness_geometry_labs_browser.py
+      - name: Test bilingual Gibbs Gaussian and disconnected mixing controls
+        run: python scripts/test_gibbs_labs_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -111,6 +141,11 @@ jobs:
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
+            artifacts/linear-algebra-motion/
+            artifacts/regression-metric-labs/*.png
+            artifacts/sharpness-labs/*.png
+            artifacts/adaptive-optimiser-labs/*.png
+            artifacts/gibbs-labs/*.png
           if-no-files-found: ignore
           retention-days: 7
 
