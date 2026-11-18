@@ -34,12 +34,18 @@ related:
 
 ## 動態圖解：條件內插與速度目標
 
-![三條人工設定的雜訊至資料條件路徑隨時間連續移動，右側以箭頭顯示每對樣本的速度方向。](../../../../../../assets/concept-animations/cfm-conditional-bridge-motion.svg)
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="流匹配教學動畫；聚焦後可用方向鍵水平捲動">
+<div style="width:760px">
+<img data-source-asset-urls src="../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg" data-motion-src="../../../../../../assets/concept-animations/cfm-conditional-bridge-motion.svg" data-still-src="../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg" width="760" height="410" style="width:760px;min-width:760px;max-width:none;height:auto" alt="三條人工設定的雜訊至資料條件路徑隨時間連續移動，右側以箭頭顯示每對樣本的速度方向。">
+</div>
+</div>
 
 *原創教學圖，CC BY-SA 4.0。* [GitHub 可讀的靜態回退圖](../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg)。在 MkDocs 網站可使用**播放／暫停**按鈕；按鈕聚焦後可用 Enter／空白鍵操作，偏好減少動態效果時顯示靜態圖。
 
 橫軸是時間，縱軸是**人工示意的一維狀態**。每對樣本的移動點依 \(x_t=(1-t)x_0+t x_1\) 內插，此處設定 \(\sigma_{\min}=0\)，條件速度目標 \(u_t=x_1-x_0\) 沿單一路徑保持不變。右側箭頭只顯示速度**正負方向**，不表示大小。條件路徑可能交叉；圖中的直線不是單一已學得 ODE 速度場的軌跡。當不同條件樣本落在同一個 \((t,x)\)，邊際回歸目標會依條件機率平均速度。圖中數值與路徑均為人工設定，**不是模型預測、實際傳輸路徑或實測結果**。研究來源見參考文獻的 Lipman 等人（2023）。
 
+
+狀態值向上增加。取任意單位 $x=(350-y_{\mathrm{SVG}})/100$，三對樣本為 A：$2.05\to2.30$、B：$1.29\to0.72$、C：$0.33\to1.59$，所以速度為 $+0.25,-0.57,+1.26$。三個移動點與垂直時間游標使用同一個線性時間參數；靜態圖為 $t=0.575$。
 
 ## 關鍵方法
 

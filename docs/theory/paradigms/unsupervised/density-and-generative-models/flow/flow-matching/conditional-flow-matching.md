@@ -43,12 +43,18 @@ The paper's Theorem 2 states that \(\mathcal L_{\text{FM}}\) and \(\mathcal L_{\
 
 ## Visual walkthrough: interpolated pairs and velocity targets
 
-![Three conditional paths progress continuously from hand-selected noise values to data values, with the corresponding velocity directions shown on the right.](../../../../../../assets/concept-animations/cfm-conditional-bridge-motion.svg)
+<div role="group" tabindex="0" style="max-width:100%;overflow-x:auto" aria-label="Flow teaching animation; focus and use arrow keys to scroll">
+<div style="width:760px">
+<img data-source-asset-urls src="../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg" data-motion-src="../../../../../../assets/concept-animations/cfm-conditional-bridge-motion.svg" data-still-src="../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg" width="760" height="410" style="width:760px;min-width:760px;max-width:none;height:auto" alt="Three conditional paths progress continuously from hand-selected noise values to data values, with the corresponding velocity directions shown on the right.">
+</div>
+</div>
 
 *Original teaching visual, CC BY-SA 4.0.* [GitHub-readable static fallback](../../../../../../assets/concept-animations/cfm-conditional-bridge-still.svg). On the MkDocs site, use **Play/Pause** (or Enter/Space when the button has focus); reduced-motion preferences show the static image.
 
 The horizontal coordinate is time and the vertical coordinate is a **one-dimensional illustrative state**. For each paired sample, the moving marker obeys \(x_t=(1-t)x_0+t x_1\) at \(\sigma_{\min}=0\), with a constant **conditional** target \(u_t=x_1-x_0\). The right-hand arrows indicate the *sign*, not the magnitude, of each sample's velocity. The paths may cross: this is not a single learned ODE trajectory field; at an intersecting \((t,x)\), the marginal regression target averages conditional velocities according to their conditional probabilities. All states and paths are hand chosen—not model predictions, empirical transport trajectories, or measured results. See Lipman et al. (2023) in References.
 
+
+The state increases upward. In arbitrary units $x=(350-y_{\mathrm{SVG}})/100$, the pairs are A: $2.05\to2.30$, B: $1.29\to0.72$, C: $0.33\to1.59$, so their velocities are $+0.25,-0.57,+1.26$. All markers and the vertical time cursor use the same linear time parameter; the static view is $t=0.575$.
 
 ## Key methods
 
