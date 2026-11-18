@@ -206,13 +206,13 @@ $$
 
 The switch can also be read **directly from the slope between the two ROC points**, rather than by treating the 20% crossover as a memorised constant. Compare the more permissive cutoff $k=4$ against $k=1$. Its gain in sensitivity is $\Delta TPR=2/3$, accompanied by $\Delta FPR=1/3$. For a deployment prevalence $p$ and strictly positive error costs, the expected-loss difference is
 
-$
+$$
 \begin{aligned}
 L(4;p)-L(1;p)
 &=-C_{FN}p\,\Delta TPR\\
 &\quad+C_{FP}(1-p)\,\Delta FPR.
 \end{aligned}
-$
+$$
 
 Thus $k=4$ wins exactly when $C_{FN}p\,\Delta TPR>C_{FP}(1-p)\,\Delta FPR$, or here **$2C_{FN}p>C_{FP}(1-p)$**; equality gives a tie. The relevant trade-off is the ROC **secant slope** $\Delta TPR/\Delta FPR=2$, not AUC alone. With $C_{FN}=2$ and $C_{FP}=1$ this recovers $p>0.20$. This is a comparison of the two synthetic candidate policies under the assumed error costs, not a universal calibrated-probability threshold or an experimentally measured deployment rule.
 
