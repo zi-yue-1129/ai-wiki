@@ -333,7 +333,7 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
             image = page.get_by_alt_text(asset["alt"], exact=True)
             expect(image).to_have_count(1)
             expect(image).to_have_attribute("data-concept-motion-enhanced", "yes")
-            host = image.locator("xpath=parent::*")
+            host = image.locator("xpath=ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' concept-motion-player ')][1]")
             toggle = host.locator(".concept-motion-toggle").first
             chinese = bool(re.search(r"[\u3400-\u9fff]", asset["alt"]))
             play = "播放概念動畫" if chinese else "Play concept animation"

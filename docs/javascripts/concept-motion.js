@@ -30,14 +30,16 @@
       const navigation = /^(place-cell-firing|successor-occupancy)-motion\.svg$/.test(fileName);
       host.className = 'concept-motion-player' + (navigation ? ' concept-motion-navigation' : '');
       img.before(host);
-      const viewport = document.createElement('span');
-      viewport.className = 'concept-motion-viewport';
       if (navigation) {
-      viewport.tabIndex = 0; // Keep scroll focus separate from the always-visible controls.
-      viewport.setAttribute('aria-label', chinese ? '概念動畫：可使用方向鍵水平捲動' : 'Concept animation: use arrow keys to scroll horizontally');
+        const viewport = document.createElement('span');
+        viewport.className = 'concept-motion-viewport';
+        viewport.tabIndex = 0;
+        viewport.setAttribute('aria-label', chinese ? '概念動畫：可使用方向鍵水平捲動' : 'Concept animation: use arrow keys to scroll horizontally');
+        host.append(viewport);
+        viewport.append(img);
+      } else {
+        host.append(img);
       }
-      host.append(viewport);
-      viewport.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';
 
       const controls = document.createElement('span');
