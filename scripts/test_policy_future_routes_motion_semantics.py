@@ -24,6 +24,7 @@ def validate(workflow,registry=None):
   for name,script in [('policy-gradient-motion','test_policy_gradient_motion_browser.py'),('policy-credit-labs','test_policy_credit_labs_browser.py')]:
    entries=[x for x in registry['suites']if x['id']==name];assert len(entries)==1
    assert entries[0]['command']==['scripts/'+script]
+   if name=='policy-gradient-motion':assert set(entries[0].get('source_dependencies',[]))=={'scripts/policy_glyph_contract.py','scripts/policy_line_clearance.py'}
  else:
   job=workflow['jobs']['built-motion-browser'];assert 'if' not in job
   for script in ['test_policy_glyph_contract_motion_semantics.py','test_policy_gradient_restore.py','test_policy_gradient_motion_browser.py','test_policy_future_routes_motion_semantics.py']:
@@ -36,6 +37,12 @@ class FutureRoutes(unittest.TestCase):
  def data(self):
   workflow=yaml.safe_load((ROOT/'.github/workflows/built-motion-browser.yml').read_text());p=ROOT/'scripts/fixtures/browser-support-suites.json';return workflow,json.loads(p.read_text())if p.exists()else None
  def test_all_only_change_events_reach_real_runner_and_gate(self):validate(*self.data())
+ def test_policy_dependency_removal_rejected(self):
+  w,r=self.data()
+  if r is None:self.skipTest('unsharded workflow has no support registry')
+  for dependency in ['scripts/policy_glyph_contract.py','scripts/policy_line_clearance.py']:
+   bad=copy.deepcopy(r);entry=next(x for x in bad['suites']if x['id']=='policy-gradient-motion');entry['source_dependencies'].remove(dependency)
+   with self.subTest(dependency=dependency),self.assertRaises(AssertionError):validate(w,bad)
  def test_each_missing_trigger_rejected(self):
   w,r=self.data();files=validate(w,r)
   for file in files:
