@@ -41,7 +41,7 @@ and under exchangeability \(P(Y\in C(X))\ge 1-\alpha\) (Angelopoulos & Bates, 20
 
 <div style="max-width:100%;overflow-x:auto" role="group" aria-label="Conformal prediction animation">
 <div style="width:640px">
-<img src="../../../../assets/concept-animations/conformal-quantile-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-quantile-motion.svg" alt="Eight ordered illustrative calibration scores select the seventh score 0.54 as the split-conformal threshold; candidate labels A and B are included, while C is excluded." width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/conformal-quantile-still.svg" data-motion-src="../../../../assets/concept-animations/conformal-quantile-motion.svg" alt="Eight ordered illustrative calibration scores select the seventh score 0.54 as the split-conformal threshold; candidate labels A and B are included, while C is excluded." width="640" height="360">
 </div>
 </div>
 

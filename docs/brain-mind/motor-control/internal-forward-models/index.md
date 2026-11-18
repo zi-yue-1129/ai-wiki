@@ -38,11 +38,15 @@ Kawato, Furukawa and Suzuki (1987) proposed a hierarchical network for the contr
 
 A forward model predicts the next state from the current state and command:
 
-\(\hat{x}_{t+1} = f(x_t, u_t)\)
+$$
+\hat{x}_{t+1} = f(x_t, u_t)
+$$
 
 The predicted state is then corrected when feedback arrives. In the linear case this is the update used by a Kalman filter:
 
-\(\hat{x}_{t+1} \leftarrow \hat{x}_{t+1} + K\,(y_{t+1} - \hat{y}_{t+1})\)
+$$
+\hat{x}_{t+1} \leftarrow \hat{x}_{t+1} + K\,(y_{t+1} - \hat{y}_{t+1})
+$$
 
 Here \(y_{t+1}\) is the observed sensory feedback, \(\hat{y}_{t+1}\) is the predicted feedback, and \(K\) is a gain that sets how much the error changes the estimate. The forward model supplies the prediction. The gain sets how much the controller trusts the feedback relative to the prediction.
 
@@ -50,11 +54,13 @@ Learning is often described as error-driven. The mismatch between predicted and 
 
 ### Worked motion: prediction, delayed feedback, and correction
 
-![Static overview of forward-model predicted state, delayed sensory feedback, and corrected estimate](../../../assets/concept-animations/forward-prediction-correction-still.svg)
+<img data-source-asset-urls src="../../../assets/concept-animations/forward-prediction-correction-still.svg" data-motion-src="../../../assets/concept-animations/forward-prediction-correction-motion.svg" data-still-src="../../../assets/concept-animations/forward-prediction-correction-still.svg" alt="Static overview of forward-model predicted state, delayed sensory feedback, and corrected estimate">
 
 *Original instructional illustration (CC BY-SA 4.0).* On MkDocs, the static GitHub preview becomes a **12-second continuous animation** with Play/Pause, keyboard operation and reduced-motion support. The blue prediction advances before the orange delayed observation appears; the teal corrected estimate then moves partway toward the observation. [View the animated SVG directly](../../../assets/concept-animations/forward-prediction-correction-motion.svg).
 
 For the deliberately **one-dimensional, illustrative** example, a prediction of 0.60 and an observation of 0.90 produce a sensory prediction error of +0.30. With scalar gain \(K=0.50\), the corrected estimate is \(0.60+0.50(0.90-0.60)=0.75\). These values are **not human neural recordings or estimates of physiological gain**. The diagram isolates the measurement-update step rather than the entire recurrent motor controller. This is consistent with the state-estimation framework discussed by Wolpert, Ghahramani and Jordan (1995), already cited below.
+
+Focus the figure viewport with Tab, then use Left/Right to scroll; playback controls remain visible. Results hold until the whole demonstration restarts, rather than depicting the reset as another feedback correction.Top value cards and dashed guides are fixed summary references, not evidence that the observation has already arrived. Marker interpolation progressively reveals one algebraic update; it is not a simulation of a delay compensator or iterative filter.
 
 ## Results
 

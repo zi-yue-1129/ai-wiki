@@ -31,11 +31,17 @@
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
       img.before(host);
-      host.append(img);
       if (motorStill.test(still)) {
-        host.tabIndex = 0;
-        host.setAttribute('role', 'region');
-        host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫' : 'Scrollable concept animation');
+        host.className += ' concept-motion-motor';
+        const viewport = document.createElement('span');
+        viewport.className = 'concept-motion-viewport';
+        viewport.tabIndex = 0;
+        viewport.setAttribute('role', 'region');
+        viewport.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫' : 'Scrollable concept animation');
+        host.append(viewport);
+        viewport.append(img);
+      } else {
+        host.append(img);
       }
       img.dataset.conceptMotionEnhanced = 'yes';
 
