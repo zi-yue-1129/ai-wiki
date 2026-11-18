@@ -617,7 +617,7 @@ for filename, label in (
 ):
     page = (shared_dir / filename).read_text(encoding="utf-8")
     assert label in page
-    assert f'src="{root}roc-fpr-budget-mix-still.svg"' in page
-    assert f'data-motion-src="{root}roc-fpr-budget-mix-motion.svg"' in page
+    assert 'src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg"' in page
+    assert 'data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg"' in page
     assert "11/30" in page and "1/6" in page
 print("ROC FPR-budget motion: 501 continuous feasible policies, bilingual exact-source links OK")
