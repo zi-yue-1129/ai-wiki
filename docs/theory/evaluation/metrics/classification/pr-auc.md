@@ -87,6 +87,19 @@ Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (nega
 
 [ROC-AUC](roc-auc.md) is the threshold-free metric that uses the true and false positive rates instead. [Precision](precision.md) and [recall](recall.md) are the points on the curve. The family overview is [Classification Metrics](index.md).
 
+
+## Animated explanation: Average precision with tied scores
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Animated explanation: Average precision with tied scores">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg" data-motion-src="../../../../assets/concept-animations/pr-ap-tied-threshold-motion.svg" data-still-src="../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg" alt="Four schematic predictions include one positive and one negative tied at 0.70. The threshold admits both together, making noninterpolated AP rise to about 0.833." width="640" height="360">
+</div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0; GitHub shows the static fallback.* [GitHub static preview](../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-ap-tied-threshold-motion.svg).
+
+A score-threshold precision–recall curve admits **every item at a tied score together**, rather than breaking ties arbitrarily. With artificial scores $0.90(+),0.70(+),0.70(-),0.20(-)$, distinct thresholds yield $(R,P)=(1/2,1)$, $(1,2/3)$, $(1,1/2)$. Non-interpolated $AP=(1/2)(1)+(1/2)(2/3)=5/6\approx0.8333$. The last negative lowers precision but does not increase recall or AP. A forced ordering of individual tied records can give a different positive-rank average; the illustration follows scikit-learn `average_precision_score` with grouped thresholds. The values are **synthetic, not measured**. MkDocs Play/Pause and keyboard horizontal scrolling are available.
+
 ## References
 
 ### Seminal papers

@@ -189,3 +189,36 @@ for stem in ("roc-rank-transform", "auc-ap-ranking-contrast"):
     assert 'class="moving"' in moving and 'class="still"' in moving
     assert "<animate " in moving and "<animate " not in still
 print("Rank-transform and AUC/AP contrast semantics OK")
+
+# Positive/negative tied scores contribute half-credit to pairwise ROC-AUC.
+tied_pos = (.90, .80)
+tied_neg = (.80, .20)
+tied_credits = [1.0 if p > n else .5 if p == n else 0.0
+                for p in tied_pos for n in tied_neg]
+assert tied_credits == [1.0, 1.0, .5, 1.0]
+assert math.isclose(sum(tied_credits) / 4, .875)
+
+# An AP score-threshold sweep enters all equal-score observations as a group.
+tied_samples = ((.90, 1), (.70, 1), (.70, 0), (.20, 0))
+prev_recall = 0.
+group_ap = 0.
+states = []
+for threshold in sorted({s for s, _ in tied_samples}, reverse=True):
+    subset = [(s, y) for s, y in tied_samples if s >= threshold]
+    tp = sum(y for _, y in subset)
+    recall = tp / 2
+    precision = tp / len(subset)
+    group_ap += (recall - prev_recall) * precision
+    prev_recall = recall
+    states.append((len(subset), recall, precision, group_ap))
+assert [x[0] for x in states] == [1, 3, 4]
+assert math.isclose(states[1][3], 5/6)
+assert math.isclose(states[2][3], 5/6)
+assert math.isclose(group_ap, 5/6)
+for stem in ("roc-tie-half-credit", "pr-ap-tied-threshold"):
+    root = Path("docs/assets/concept-animations")
+    motion = (root / f"{stem}-motion.svg").read_text(encoding="utf-8")
+    still = (root / f"{stem}-still.svg").read_text(encoding="utf-8")
+    assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
+    assert "<animate " in motion and "<animate " not in still
+print("Tied ROC-AUC credit and grouped-threshold AP semantics OK")

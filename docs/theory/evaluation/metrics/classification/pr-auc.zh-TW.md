@@ -87,6 +87,19 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 
 [ROC-AUC](roc-auc.md)是與門檻無關、改以真正例率與偽正例率計算的指標。[精確率](precision.md)與[召回率](recall.md)則是曲線上的點。家族概述見[分類指標](index.md)。
 
+
+## 動畫解說：同分門檻下的平均精確率
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="動畫解說：同分門檻下的平均精確率">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg" data-motion-src="../../../../assets/concept-animations/pr-ap-tied-threshold-motion.svg" data-still-src="../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg" alt="四筆人工樣本中，一筆正例與負例同為 0.70；門檻到 0.70 時必須一起納入，AP 累積至約 0.833。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0 授權；GitHub 顯示靜態 SVG 回退。* [GitHub static preview](../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-ap-tied-threshold-motion.svg).
+
+依據分數門檻繪製 Precision–Recall 曲線時，**同分樣本必須在同一門檻一起納入**，不能以任意排序替代同分分組。本例 $0.90(+),0.70(+),0.70(-),0.20(-)$ 的不同門檻依序得到 $(R,P)=(1/2,1)$、$(1,2/3)$、$(1,1/2)$。因此不內插的 $AP=(1/2)(1)+(1/2)(2/3)=5/6\approx0.8333$。最後加入負例雖降低 Precision，卻未增加 Recall，因此 AP 不變。若強行拆開同分群組，逐筆計算正例名次的貢獻，可能得出不同結果；此圖採用 scikit-learn `average_precision_score` 的同分門檻分組方式。數值皆為**人工示例，非模型實測**。MkDocs 提供播放／暫停及鍵盤水平捲動。
+
 ## 參考文獻
 
 ### 開創性論文

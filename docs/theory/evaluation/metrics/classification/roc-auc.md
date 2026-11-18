@@ -85,6 +85,19 @@ Take four cases with scores. The two positives score 0.9 and 0.6, and the two ne
 
 [PR-AUC](pr-auc.md) is the precision-recall counterpart. The family overview is [Classification Metrics](index.md).
 
+
+## Animated explanation: Tied scores count as half a pair
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Animated explanation: Tied scores count as half a pair">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-tie-half-credit-still.svg" data-motion-src="../../../../assets/concept-animations/roc-tie-half-credit-motion.svg" data-still-src="../../../../assets/concept-animations/roc-tie-half-credit-still.svg" alt="A two-by-two positive–negative matrix adds three strict ranking wins and one tied pair for ROC-AUC 0.875." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation, CC BY-SA 4.0; GitHub uses the static SVG fallback.* [GitHub static preview](../../../../assets/concept-animations/roc-tie-half-credit-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-tie-half-credit-motion.svg).
+
+ROC-AUC counts an equal-score positive–negative pair as **half a correct ranking pair**. With artificial positive scores (0.90, 0.80) and negative scores (0.80, 0.20), the four credits are 1, 1, 1/2, 1, so $\mathrm{AUC}=(1+1+0.5+1)/4=0.875$. Watch each pair in turn before the final matrix is complete. The reduced-motion still presents the completed comparison. These are schematic scores, **not model measurements**. On MkDocs use Play/Pause and focus the frame for keyboard horizontal scrolling.
+
 ## References
 
 ### Seminal papers
