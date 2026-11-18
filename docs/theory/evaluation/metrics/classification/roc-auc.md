@@ -49,6 +49,16 @@ Take four cases with scores. The two positives score 0.9 and 0.6, and the two ne
 
 *Original teaching animation (CC BY-SA 4.0).* This second visualization explains the **ranking interpretation** rather than repeating the threshold sweep. In a **synthetic** four-case example, positive scores are 0.90 and 0.60; negative scores are 0.80 and 0.30. The four positive-negative comparisons yield **three wins and one loss**, so `AUC = 3 / 4 = 0.75`. In general, `AUC = (wins + 0.5 × ties) / (n_positive × n_negative)`; a tie contributes one half. Comparisons are revealed one at a time, and the final grid is visible in the static fallback. The running count is **not a valid final AUC until all four pairs are considered**. All values are invented, not predictions from a fitted model. MkDocs provides a keyboard-operable Play/Pause control, while reduced-motion users get the still. [GitHub static preview](../../../../assets/concept-animations/roc-pairwise-auc-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-pairwise-auc-motion.svg). On a phone, scroll the figure horizontally.
 
+## Animated partial ROC area at low false-positive rates
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Partial ROC area cutoff">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-partial-area-still.svg" data-still-src="../../../../assets/concept-animations/roc-partial-area-still.svg" data-motion-src="../../../../assets/concept-animations/roc-partial-area-motion.svg" alt="Six synthetic ranked labels positive negative positive negative negative negative. A vertical FPR cutoff moves over the ROC staircase, revealing raw area 0.125 up to FPR 0.25 compared with full area 0.875." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* Six distinct-score, **synthetic** examples ranked `+ − + − − −` contain two positives and four negatives. The first positive reaches TPR $1/2$ at FPR $0$; the first negative moves to FPR $1/4$; the second positive reaches TPR $1$. Seven of eight positive–negative pair comparisons are correctly ranked, giving **full AUC $7/8=0.875$**. Restricting the integral to **FPR $\le 0.25$** produces the **raw partial ROC area $0.25\times 0.5=0.125$**. The animated cutoff reveals additional area as the FPR range expands to $1$. This is the **unnormalised** area, *not* the **standardized partial AUC** that scikit-learn's `roc_auc_score(max_fpr=...)` may return. All numbers are schematic, not classifier measurements. MkDocs offers keyboard-operated Play/Pause and a reduced-motion still. [GitHub static preview](../../../../assets/concept-animations/roc-partial-area-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-partial-area-motion.svg). Scroll horizontally on mobile.
+
 ## Properties and variants
 
 - **Probabilistic meaning.** ROC-AUC equals the probability that a random positive receives a higher score than a random negative, with ties counted as one half. This is the Mann-Whitney U statistic divided by the number of positive-negative pairs.

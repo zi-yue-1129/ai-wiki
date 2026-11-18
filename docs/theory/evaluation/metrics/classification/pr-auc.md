@@ -51,6 +51,16 @@ Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (nega
 
 *Original teaching animation (CC BY-SA 4.0).* Unlike the threshold-sweep visualization above, this panel **builds AP from the actual recall increments**. Four invented scores are ordered 0.90 **(positive)**, 0.80 (negative), 0.60 **(positive)**, 0.30 (negative). Positive hits at ranks 1 and 3 contribute rectangular areas `(1/2) × (1/1)` and `(1/2) × (2/3)`, respectively. Thus **AP = 1/2 + 1/3 = 5/6 ≈ 0.833**. Selecting a negative case does not increase recall, so it adds **zero area** even though it changes the precision of the active prefix. The rectangles encode **non-interpolated average precision**, not a linearly interpolated trapezoidal PR area. No probabilities or measurements were fitted to data. Use the MkDocs Play/Pause control or reduced-motion still; [GitHub static preview](../../../../assets/concept-animations/pr-ap-rectangles-still.svg) and [full SVG animation](../../../../assets/concept-animations/pr-ap-rectangles-motion.svg) are provided. The figure scrolls horizontally on narrow screens.
 
+## Animated AP versus trapezoidal PR integration
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="AP rectangles and trapezoidal area comparison">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg" data-still-src="../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg" data-motion-src="../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg" alt="Four synthetic ranks positive negative positive negative. Non-interpolated average precision rectangles sum to 0.833, but straight-line interpolation between precision-recall points yields 0.792 trapezoidal area." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* For the same four **synthetic** cases `+ − + −`, **non-interpolated average precision** sums two recall-weighted rectangles: $AP=(1/2)(1)+(1/2)(2/3)=5/6\approx0.833$. Connecting the *threshold-derived* PR points with straight lines, including vertical changes at fixed recall, instead produces **trapezoidal area** $(1/2)(1)+(1/2)(1/2+2/3)/2=19/24\approx0.792$. The difference is $1/24$ for this ranking. **Neither integration convention is always greater**; the ranking and interpolation rule matter. The animation reveals AP rectangles before the linearly interpolated region. These are analytic, not empirical classifier measurements; do not call the trapezoidal value `average_precision_score`. MkDocs supplies keyboard-operable Play/Pause and a reduced-motion still. [GitHub static comparison](../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg). The scikit-learn AP reference below defines the step-wise formula.
+
 ## Properties and variants
 
 - **Baseline.** Prevalence is the population-level random-score reference; finite-sample expected AP can be higher. State which baseline is being used.

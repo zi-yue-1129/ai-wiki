@@ -130,3 +130,26 @@ for stem in ("roc-pairwise-auc", "pr-ap-rectangles"):
     assert "<animate " in motion and "<animate " not in still
 
 print("Classification motion semantics: 8 analytic cases OK")
+
+# Independent regression for restricted ROC integration and PR area conventions.
+order=(1,0,1,0,0,0)
+wins=sum(1 for i,a in enumerate(order) for j,b in enumerate(order) if a==1 and b==0 and i<j)
+assert wins==7 and math.isclose(wins/(2*4),7/8)
+def raw_partial(c):
+    assert .25<=c<=1
+    return .25*.5+(c-.25)
+assert math.isclose(raw_partial(.25),.125)
+assert math.isclose(raw_partial(1),.875)
+assert all(raw_partial(i/100)<raw_partial((i+1)/100) for i in range(25,100))
+ap_step=.5+(1/2)*(2/3)
+ap_trap=.5+(1/2)*(.5+2/3)/2
+assert math.isclose(ap_step,5/6)
+assert math.isclose(ap_trap,19/24)
+assert math.isclose(ap_step-ap_trap,1/24)
+for name in ("roc-partial-area","pr-ap-trapezoid-gap"):
+    root=Path("docs/assets/concept-animations")
+    motion=(root/(name+"-motion.svg")).read_text(encoding="utf-8")
+    still=(root/(name+"-still.svg")).read_text(encoding="utf-8")
+    assert "prefers-reduced-motion" in motion and 'class="still"' in motion
+    assert "<animate " in motion and "<animate " not in still
+print("Restricted ROC area and PR trapezoid semantics OK")

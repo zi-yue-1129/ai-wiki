@@ -51,6 +51,16 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 
 *原創教學動畫（CC BY-SA 4.0）。* 此圖與前面的門檻掃描不同，直接展示 **AP 如何按召回率增量累積**。四筆**人工分數**依序為 0.90（正例）、0.80（負例）、0.60（正例）、0.30（負例）。第 1 名與第 3 名正例的矩形面積分別為 `(1/2) × (1/1)` 及 `(1/2) × (2/3)`，因此 **AP = 1/2 + 1/3 = 5/6 ≈ 0.833**。遇到負例時召回率不增加，新增面積為**零**，即使目前選取前綴的精確率會改變。這是**不做線性內插的平均精確率**，而不是將 PR 折線以梯形法積分；亦非任何模型實測數據。MkDocs 網站可播放／暫停，偏好減少動畫時會顯示靜態圖；另提供[GitHub 靜態預覽](../../../../assets/concept-animations/pr-ap-rectangles-still.svg)及[完整 SVG 動畫](../../../../assets/concept-animations/pr-ap-rectangles-motion.svg)。手機請橫向捲動觀看。
 
+## 動畫示範：階梯式 AP 與梯形 PR 面積
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="平均精確率與梯形面積對照動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg" data-still-src="../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg" data-motion-src="../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg" alt="同樣四筆人工排序的正負標籤，兩個矩形加總的 AP 約為 0.833；門檻 PR 操作點用直線相連的梯形面積約為 0.792。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 使用同樣的四筆**人工排序** `+ − + −`，**不內插的 AP** 為 $(1/2)(1)+(1/2)(2/3)=5/6\approx0.833$。若將各門檻的 PR 操作點用直線連接（包含召回率相同時的垂直段），得到的**梯形面積**為 $(1/2)(1)+(1/2)(1/2+2/3)/2=19/24\approx0.792$，此例差距 $1/24$。**梯形法並不保證分數總是較大**，其差異取決於排序與內插定義；不能把梯形面積直接稱為 `average_precision_score`。動畫先逐步顯示 AP 矩形，再顯示右側的插值區域，並非模型實測評估。MkDocs 支援鍵盤播放／暫停及 Reduced Motion 靜態回退。[GitHub 靜態比較圖](../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg)。手機可橫向捲動。
+
 ## 性質與變體
 
 - **基準線。** 盛行率是母體層級的隨機分數參考線；有限樣本 AP 的期望可能更高，應說明採用哪一種基準。
