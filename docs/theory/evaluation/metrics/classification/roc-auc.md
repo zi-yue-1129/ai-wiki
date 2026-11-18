@@ -219,6 +219,27 @@ Thus $k=4$ wins exactly when $C_{FN}p\,\Delta TPR>C_{FP}(1-p)\,\Delta FPR$, or h
 For **$p=0.10$**, top one costs **0.133** versus **0.300** for top four; for **$p=0.40$**, top four costs **0.200** versus **0.533** for top one. Both tie at **$p=0.20$**. All five other cutoffs are dominated by the better of these two across $0<p<1$. The selected ROC point switches, but **the underlying ROC curve does not**. The moving cursors trace a parameter sweep, **not model training or measured predictions**; all rates and costs are synthetic assumptions. MkDocs supports keyboard-operated Play/Pause and a reduced-motion still. The still marks the 20% crossover and GitHub displays it directly. On phones, scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-prior-policy-still.svg) · [Full SVG motion](../../../../assets/concept-animations/roc-prior-policy-motion.svg). See Fawcett (2006) in References for the ROC decision-cost interpretation.
 
 
+## Why randomizing between optimal cutoffs cannot beat both endpoints
+
+The **prior-shift policy animation** selects the less permissive cutoff $k=1$ or the more permissive cutoff $k=4$. A third possibility is to choose $k=4$ independently for each future case with probability $\lambda$, and otherwise choose $k=1$, where $0\leq\lambda\leq1$. Crucially, the random choice must not depend on the case's unknown true label. For this synthetic ranking, the expected ROC rates become:
+
+$
+\begin{aligned}
+\mathrm{TPR}_{\lambda}&=\frac{1+2\lambda}{3},\\
+\mathrm{FPR}_{\lambda}&=\frac{\lambda}{3}.
+\end{aligned}
+$
+
+Under the same *linear* false-negative and false-positive cost model, this randomized rule has expected loss
+
+$
+L_{\lambda}(p)=(1-\lambda)\frac{4p}{3}+\lambda\frac{1-p}{3}.
+$
+
+At prevalence $p=0.10$, an equal mixture ($\lambda=0.5$) has loss **0.217**, higher than the **0.133** from always using $k=1$. At $p=0.40$, the same mixture costs **0.367**, higher than the **0.200** from always using $k=4$. At $p=0.20$, every mixture ties at $4/15\approx0.267$. Hence intermediate ROC points are possible, but **randomization cannot strictly improve on both endpoints when minimizing this unconstrained linear expected loss**. Additional constraints, such as a maximum allowed false-alarm rate, can make an intermediate feasible policy relevant.
+
+The earlier [randomized ROC-rule static preview](../../../../assets/concept-animations/roc-randomized-operating-mix-still.svg) and [full animation](../../../../assets/concept-animations/roc-randomized-operating-mix-motion.svg) show the same interpolation mechanism with **different hypothetical operating rates**. Do not combine that visual's numbers with this six-case policy example. All rates and costs here are constructed assumptions, not deployment measurements; see Fawcett (2006) in References.
+
 ## References
 
 ### Seminal papers

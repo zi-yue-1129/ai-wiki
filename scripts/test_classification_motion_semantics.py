@@ -526,3 +526,29 @@ for name in ("roc-auc.md", "roc-auc.zh-TW.md"):
     page = (shared_dir / name).read_text(encoding="utf-8")
     assert "\n$$\n\\begin{aligned}\nL(4;p)-L(1;p)" in page
 print("ROC secant-cost comparison regression: 1485 scenarios OK")
+
+# Independent randomized-policy regression, tied to two undominated ROC cutoffs.
+# A distinct pre-existing motion illustrates interpolation with different rates.
+for prevalence in (.10, .20, .40):
+    loss1, loss4 = 4 * prevalence / 3, (1 - prevalence) / 3
+    for step in range(101):
+        lam = step / 100
+        tpr, fpr = (1 + 2 * lam) / 3, lam / 3
+        mixed = (1 - lam) * loss1 + lam * loss4
+        direct = 2 * prevalence * (1 - tpr) + (1 - prevalence) * fpr
+        assert math.isclose(mixed, direct, abs_tol=1e-12)
+        assert mixed >= min(loss1, loss4) - 1e-12
+        if prevalence == .20:
+            assert math.isclose(mixed, 4 / 15, abs_tol=1e-12)
+assert math.isclose((4 * .10 / 3 + .90 / 3) / 2, 13 / 60)
+assert math.isclose((4 * .40 / 3 + .60 / 3) / 2, 11 / 30)
+for filename, marker in (
+    ("roc-auc.md", "Why randomizing between optimal cutoffs cannot beat both endpoints"),
+    ("roc-auc.zh-TW.md", "為什麼隨機混合門檻不會同時勝過兩端策略"),
+):
+    content = (shared_dir / filename).read_text(encoding="utf-8")
+    assert marker in content
+    assert r"L_{\lambda}(p)=(1-\lambda)" in content
+    for suffix in ("-motion.svg", "-still.svg"):
+        assert "roc-randomized-operating-mix" + suffix in content
+print("ROC randomized-policy interpolation: 303 cost/rate states OK")
