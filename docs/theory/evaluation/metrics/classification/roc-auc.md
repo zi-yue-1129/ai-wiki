@@ -165,12 +165,12 @@ At the two endpoints, precision rises from **0.296** to **0.923**. A fixed ROC p
 
 *Original instructional SVG (CC BY-SA 4.0).* Consider **six strictly ranked artificial labels** `+ − + + − −` (three positive, three negative). Accepting the top four scores gives $TPR=1$, $FPR=1/3$, and the maximum Youden statistic $J=TPR-FPR=2/3$. This maximises **balanced sensitivity minus false-positive rate**, not necessarily expected deployment utility. Separately hypothesise a deployment population with prevalence $p=0.10$, false-positive cost $C_{FP}=1$, and false-negative cost $C_{FN}$ moving from $1$ to $5$:
 
-$
+$$
 \begin{aligned}
 L(k) &= C_{FN}p[1-TPR(k)]\\
 &\quad+C_{FP}(1-p)FPR(k).
 \end{aligned}
-$
+$$
 
 For the top-one cutoff, $L(1)=C_{FN}/15$. For the top-four cutoff, $L(4)=0.30$. Among **all seven candidate cutoffs** $k=0,\ldots,6$, the minimum-cost choice is **$k=1$** when $C_{FN}=1$ (cost $0.0667$), but **$k=4$** when $C_{FN}=5$ (cost $0.300$); these two alternatives tie at $C_{FN}=4.5$. Over the **illustrated cost range** $1\le C_{FN}\le5$, the optimum is $k=1$ below 4.5, either $k=1$ or $k=4$ at 4.5, and $k=4$ above 4.5. The other five candidate cutoffs never improve on the better of these two choices in this range; the chart therefore shows only the two potentially optimal loss lines. The ROC staircase comes from the six-case example; deployment prevalence and costs are **separate hypothetical assumptions**. The moving markers sweep assumptions, **not epochs or actual inference samples**. MkDocs offers keyboard-accessible Play/Pause and a reduced-motion still; scroll horizontally on phones. [GitHub static preview](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [Full SVG motion](../../../../assets/concept-animations/roc-youden-cost-motion.svg). For decision-theoretic context see Fawcett (2006) in References.
 

@@ -366,7 +366,7 @@ for index in range(81):
 # Multi-line equations must use display delimiters in both translations.
 for filename in ("roc-auc.md", "roc-auc.zh-TW.md"):
     page = (shared_dir / filename).read_text(encoding="utf-8")
-    assert "\n$\n" in page and r"\begin{aligned}" in page and r"\end{aligned}" in page
+    assert "\n$$\n" in page and r"\begin{aligned}" in page and r"\end{aligned}" in page
     assert "4.5" in page and "roc-youden-cost-still.svg" in page
 
 print("ROC prevalence-shift and Youden-versus-cost analytic cases OK")
