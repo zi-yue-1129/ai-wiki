@@ -6,6 +6,11 @@ on:
       - 'scripts/test_item_cf_browser.py'
       - 'scripts/test_built_motion_browser.py'
       - '.github/workflows/item-cf-browser.yml'
+      - '.github/actions/install-cjk-font/**'
+      - 'scripts/ci_font_archive.py'
+      - 'scripts/test_ci_font_archive.py'
+      - 'scripts/test_ci_item_cf_workflow.py'
+      - 'requirements.txt'
       - 'mkdocs.yml'
       - 'docs/javascripts/mathjax.js'
   workflow_dispatch:
@@ -14,7 +19,9 @@ permissions:
 jobs:
   item-cf-browser:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    # Cold browser/font downloads exhausted the old 15-minute job twice.
+    # Keep the full strict build and browser test on cache hits and misses.
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -25,8 +32,20 @@ jobs:
         run: |
           pip install -r requirements.txt 'playwright==1.55.0'
           python -m playwright install --with-deps chromium
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+      - name: Install verified Traditional Chinese font
+        id: font
+        uses: ./.github/actions/install-cjk-font
+      - name: Verify dependency safety and CF workflow contracts
+        run: |
+          python scripts/test_ci_font_archive.py
+          python scripts/test_ci_item_cf_workflow.py
+      - name: Keep font dependency measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: item-cf-font-dependency-report
+          path: ${{ steps.font.outputs.report }}
+          if-no-files-found: warn
       - run: mkdocs build --strict
       - run: python scripts/test_item_cf_browser.py
       - uses: actions/upload-artifact@v4
