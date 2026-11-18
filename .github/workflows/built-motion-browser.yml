@@ -3,6 +3,7 @@ name: Built motion browser regression
 on:
   pull_request:
     paths:
+      - "scripts/fixtures/deployed-motion-contracts.json"
       - "docs/**"
       - "hooks/**"
       - "overrides/**"

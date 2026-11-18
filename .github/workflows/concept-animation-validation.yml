@@ -3,6 +3,7 @@ name: Validate concept animations
 on:
   pull_request:
     paths:
+      - "scripts/fixtures/deployed-motion-contracts.json"
       - "docs/assets/concept-animations/**"
       - "scripts/verify_concept_animations.py"
       - "scripts/verify_concept_motion.py"

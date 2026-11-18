@@ -1,6 +1,7 @@
 """Mutate actual bilingual source in memory; execute the unchanged real main loop."""
 import contextlib
 import io
+import json
 import os
 from pathlib import Path
 import re
@@ -8,10 +9,23 @@ import unittest
 from unittest.mock import patch
 import verify_concept_motion as v
 ROOT = Path(__file__).resolve().parents[1]
+# Reviewed original PR/head/page evidence, independent of the validator under test.
+CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json').read_text())
+EXPECTED_ALT = CONTRACTS['alt']
+EXPECTED_PREVIEWS = CONTRACTS['static_preview']
+assert len(EXPECTED_ALT) == 18 and len(EXPECTED_PREVIEWS) == 11
+
 
 class PageContracts(unittest.TestCase):
+    def assert_reviewed_scopes(self):
+        self.assertEqual(set(v.SOURCE_ALT_CONTRACT_STEMS), set(EXPECTED_ALT))
+        self.assertEqual(set(v.STATIC_PREVIEW_LINK_STEMS), set(EXPECTED_PREVIEWS))
+        for stem, source in {**EXPECTED_ALT, **EXPECTED_PREVIEWS}.items():
+            self.assertEqual('docs/' + v.TOPICS.get(stem, '') + '.md', source['page'])
+
     @classmethod
     def setUpClass(cls):
+        cls().assert_reviewed_scopes()
         previous = Path.cwd()
         try:
             os.chdir(ROOT)
@@ -20,6 +34,19 @@ class PageContracts(unittest.TestCase):
                     raise AssertionError('Unmodified actual main must pass before mutation checks')
         finally:
             os.chdir(previous)
+
+    def test_reviewed_scope_cannot_shrink_clear_or_substitute(self):
+        for attribute, expected in [('SOURCE_ALT_CONTRACT_STEMS', EXPECTED_ALT), ('STATIC_PREVIEW_LINK_STEMS', EXPECTED_PREVIEWS)]:
+            original = set(expected)
+            mutations = [('empty', set())]
+            for stem in original:
+                mutations.append(('delete:' + stem, original - {stem}))
+                mutations.append(('replace:' + stem, (original - {stem}) | {'unreviewed-substitute'}))
+            for label, mutation in mutations:
+                with self.subTest(attribute=attribute, mutation=label):
+                    with patch.object(v, attribute, mutation):
+                        with self.assertRaises(AssertionError):
+                            self.assert_reviewed_scopes()
 
     def run_main_with_page(self, page, replacement):
         original = Path.read_text
@@ -35,9 +62,9 @@ class PageContracts(unittest.TestCase):
             os.chdir(previous)
 
     def test_original_empty_and_whitespace_alt_guards_cover_all_bilingual_main_branches(self):
-        for stem in v.SOURCE_ALT_CONTRACT_STEMS:
+        for stem in EXPECTED_ALT:
             for suffix in ('.md', '.zh-TW.md'):
-                page = ROOT / 'docs' / (v.TOPICS[stem] + suffix)
+                page = ROOT / (EXPECTED_ALT[stem]['page'][:-3] + suffix)
                 text = page.read_text()
                 tags = list(re.finditer(r'<img\b[^>]*>', text))
                 target = next(m for m in tags if f'{stem}-still.svg' in m.group())
@@ -49,9 +76,9 @@ class PageContracts(unittest.TestCase):
                         self.assertNotEqual(self.run_main_with_page(page, mutation), 0)
 
     def test_independent_preview_links_cannot_be_replaced_by_image_or_attributes(self):
-        for stem in v.STATIC_PREVIEW_LINK_STEMS:
+        for stem in EXPECTED_PREVIEWS:
             for suffix in ('.md', '.zh-TW.md'):
-                page = ROOT / 'docs' / (v.TOPICS[stem] + suffix)
+                page = ROOT / (EXPECTED_PREVIEWS[stem]['page'][:-3] + suffix)
                 text = page.read_text()
                 pattern = r'(?<!!)\[[^]]+\]\(([^)]+/' + re.escape(stem) + r'-still\.svg)\)'
                 matches = list(re.finditer(pattern, text))
