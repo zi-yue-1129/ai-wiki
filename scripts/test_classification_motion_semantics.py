@@ -32,4 +32,30 @@ for stem in ("precision-recall-threshold", "f1-harmonic-gap"):
     still = (root / (stem + "-still.svg")).read_text(encoding="utf-8")
     assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
     assert "<animate " in motion and "<animate " not in still
-print("Classification motion semantics: 2 analytic cases OK")
+
+# Fixed-conditional-rate prevalence sweep (population rates, not samples).
+for i in range(10, 91):
+    prevalence = i / 100
+    accuracy = .8 * prevalence + .9 * (1 - prevalence)
+    balanced = (.8 + .9) / 2
+    assert math.isclose(accuracy, .9 - .1 * prevalence, abs_tol=1e-12)
+    assert math.isclose(balanced, .85, abs_tol=1e-12)
+assert math.isclose(.8 * .1 + .9 * .9, .89)
+assert math.isclose(.8 * .9 + .9 * .1, .81)
+
+# F-beta with a fixed analytic precision/recall pair.
+def fbeta(beta, precision=.45, recall=.9):
+    return (1 + beta**2) * precision * recall / (beta**2 * precision + recall)
+
+assert math.isclose(fbeta(.5), .5)
+assert math.isclose(fbeta(1), .6)
+assert math.isclose(fbeta(2), .75)
+assert all(fbeta(i / 20) <= fbeta((i + 1) / 20) for i in range(10, 40))
+for stem in ("accuracy-prevalence", "fbeta-recall-emphasis"):
+    root = Path("docs/assets/concept-animations")
+    motion = (root / (stem + "-motion.svg")).read_text(encoding="utf-8")
+    still = (root / (stem + "-still.svg")).read_text(encoding="utf-8")
+    assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
+    assert "<animate " in motion and "<animate " not in still
+
+print("Classification motion semantics: 4 analytic cases OK")

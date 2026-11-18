@@ -17,6 +17,8 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "precision-recall-threshold": "theory/evaluation/metrics/classification/precision",
     "f1-harmonic-gap": "theory/evaluation/metrics/classification/f1",
+    "accuracy-prevalence": "theory/evaluation/metrics/classification/accuracy",
+    "fbeta-recall-emphasis": "theory/evaluation/metrics/classification/f1",
     "checkpoint-recompute": "engineering/hardware/co-design/gradient-checkpointing",
     "fp16-loss-scaling": "engineering/hardware/co-design/mixed-precision",
     "effective-number-growth": "theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss",
@@ -265,7 +267,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {"precision-recall-threshold", "f1-harmonic-gap"}:
+            elif stem in {"precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:
