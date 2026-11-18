@@ -1,7 +1,8 @@
 """Independent numerical and geometry checks for the two didactic examples."""
-import math,unittest,xml.etree.ElementTree as E
+import math,re,unittest,xml.etree.ElementTree as E
+from markdown import Markdown
 from pathlib import Path
-from tsne_motion_example import affinities,trajectory,loss,gradient
+from tsne_motion_example import X,Y0,affinities,trajectory,loss,gradient
 ROOT=Path(__file__).resolve().parents[1];NS={'s':'http://www.w3.org/2000/svg'}
 def svg(stem,kind='motion'):return E.parse(ROOT/f'docs/assets/concept-animations/{stem}-{kind}.svg').getroot()
 def vals(a):return list(map(float,a.get('values').split(';')))
@@ -43,6 +44,20 @@ class Semantics(unittest.TestCase):
     for a in c.findall('s:animate',NS):
      v=vals(a);self.assertEqual(len(v),2)
      self.assertEqual(v,[94,230] if c.get('cy') in ['113','226'] else [230,94])
+ def test_coordinate_lists_are_display_matrices_with_unchanged_values(self):
+  for lang in ['', '.zh-TW']:
+   source=(ROOT/f'docs/theory/paradigms/unsupervised/dimensionality-reduction/t-sne{lang}.md').read_text()
+   blocks=re.findall(r'^\$\$\n(.*?)\n\$\$$',source,re.M|re.S)
+   for name,expected in [('X',X),('Y_0',Y0)]:
+    matches=[b for b in blocks if b.startswith(name+'=')]
+    self.assertEqual(len(matches),1)
+    block=matches[0]
+    matrix=block.split(r'\begin{pmatrix}')[1].split(r'\end{pmatrix}')[0]
+    rows=[tuple(float(x.strip()) for x in row.split('&')) for row in matrix.strip().split(r'\\')]
+    self.assertEqual(tuple(rows),expected)
+    html=Markdown(extensions=['pymdownx.arithmatex'],extension_configs={'pymdownx.arithmatex':{'generic':True}}).convert('$$\n'+block+'\n$$')
+    self.assertIn('<div class="arithmatex">',html)
+    self.assertNotIn('<span class="arithmatex">',html)
  def test_static_and_language_hooks(self):
   for topic,stem in [('t-sne','tsne-kl-embedding'),('umap','umap-fuzzy-union')]:
    self.assertFalse(svg(stem,'still').findall('.//s:animate',NS))

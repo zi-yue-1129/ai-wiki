@@ -69,7 +69,33 @@ The paper's optimisation settings for its visualisations are: the \(p_{ij}\) are
 
 The left panel shows fixed pairwise affinities $P$ calculated from six **synthetic three-dimensional points** with a common Gaussian bandwidth $\sigma=1$ and subsequent symmetrisation. The right panel visualises Student-t affinities $Q$ and applies the t-SNE KL gradient with a fixed illustrative learning rate $\eta=3$ for 120 iterations; positions between sampled iterations are interpolated to animate the transition. This example reduces $\mathrm{KL}(P\|Q)$ from approximately **1.052 to 0.043**, but does not establish a general convergence guarantee. It deliberately **omits perplexity-based bandwidth selection, PCA preprocessing, early exaggeration and momentum**. These are computed synthetic teaching values, **not measured model outputs or a benchmark**. The similarity and gradient equations follow van der Maaten and Hinton (2008), cited in References.
 
-The six input points are $(0,0,0),(1.7,.2,0),(.2,1.7,.1),(4,4,4),(5.7,4.1,4),(4.1,5.7,4.2)$. Initial map coordinates are $(-.4,.2),(.5,-.3),(.4,.3),(-.5,-.4),(.1,.5),(0,-.4)$, then centered. The left-node positions are schematic, not the 3D coordinates. All 121 optimiser states are retained; the motion interpolates coordinates and recomputes KL at 601 samples (rather than interpolating loss endpoints). The KL bar uses one fixed linear scale. Intermediate positions are not additional gradient steps.
+The rows of $X$ are the six input points:
+
+$$
+X=\begin{pmatrix}
+0 & 0 & 0 \\
+1.7 & .2 & 0 \\
+.2 & 1.7 & .1 \\
+4 & 4 & 4 \\
+5.7 & 4.1 & 4 \\
+4.1 & 5.7 & 4.2
+\end{pmatrix}.
+$$
+
+The rows of $Y_0$ are the corresponding initial map coordinates, centered before optimisation:
+
+$$
+Y_0=\begin{pmatrix}
+-.4 & .2 \\
+.5 & -.3 \\
+.4 & .3 \\
+-.5 & -.4 \\
+.1 & .5 \\
+0 & -.4
+\end{pmatrix}.
+$$
+
+The left-node positions are schematic, not the 3D coordinates. All 121 optimiser states are retained; the motion interpolates coordinates and recomputes KL at 601 samples (rather than interpolating loss endpoints). The KL bar uses one fixed linear scale. Intermediate positions are not additional gradient steps.
 
 ## Key methods
 
