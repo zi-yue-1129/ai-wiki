@@ -40,10 +40,11 @@ for page in pages:
             errors.append(f"{page}: broken motion/static link for {stem}")
     if "CC BY-SA 4.0" not in text:
         errors.append(f"{page}: license missing")
-player = (root / "javascripts/concept-motion.js").read_text(encoding="utf-8")
-for stem in stems:
-    if stem+"-still.svg" not in player or stem+"-motion.svg" not in player:
-        errors.append(f"player mapping missing for {stem}")
+# Source-relative markup uses the canonical data-motion-src player, without global mappings.
+for page in pages:
+    text = page.read_text(encoding="utf-8")
+    if text.count('data-source-asset-urls') != 2 or text.count('width:640px') < 2:
+        errors.append(f"{page}: missing source hooks or local readable wrappers")
 for err in errors:
     print("ERROR:", err, file=sys.stderr)
 print(f"Causal imitation motion: {len(errors)} validation errors")

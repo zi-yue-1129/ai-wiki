@@ -25,9 +25,12 @@ aliases:
 
 ## 視覺示例：介入煞車燈訊號
 
-![危險狀態與專家煞車動作維持不變，煞車燈被抑制時，依賴燈號的捷徑策略反應同步降低](../../../../assets/concept-animations/causal-lamp-intervention-still.svg)
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="教學動畫，可用左右方向鍵捲動"><div style="width:640px"><img data-source-asset-urls="true" src="../../../../assets/concept-animations/causal-lamp-intervention-still.svg" data-motion-src="../../../../assets/concept-animations/causal-lamp-intervention-motion.svg" data-still-src="../../../../assets/concept-animations/causal-lamp-intervention-still.svg" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="危險狀態與專家煞車動作維持不變，煞車燈被抑制時，依賴燈號的捷徑策略反應同步降低" loading="lazy"></div></div>
 
 *原創教學示意（CC BY-SA 4.0）。* 玩具因果鏈為「**危險狀態 → 專家煞車 → 煞車燈**」。介入只抑制燈號，不改變危險狀態或專家動作。依賴危險狀態的策略仍會煞車；錯將燈號當成決策依據的捷徑策略，反應則隨燈號下降。長條代表**人工設定的正規化訊號**，不是已訓練策略的量測值，也不是論文實驗結果。MkDocs 支援播放／暫停；GitHub 則顯示[完整靜態預覽](../../../../assets/concept-animations/causal-lamp-intervention-still.svg)，亦可[開啟連續 SVG 動畫](../../../../assets/concept-animations/causal-lamp-intervention-motion.svg)。
+
+
+聚焦圖表外框後可用左右方向鍵捲動，或在手機上左右滑動。紅色斜線表示燈號輸入由外部設定，取代原本來自專家動作的因果連結；不是關閉實際煞車。玩具模型令危險、專家反應與因果策略反應皆為 1，捷徑反應等於設定燈號 ℓ∈[0,1]。燈號繪圖透明度為 0.08+0.92ℓ，殘餘輪廓僅供辨識，不代表非零訊號。
 
 ## 核心概念
 
@@ -46,7 +49,13 @@ aliases:
     - **策略執行**：在環境中執行每個候選策略，以其回合報酬作為證據。
 3. 選出最可能的圖，並以它指定的輸入作為因果模型。
 
-若以標準的克隆目標寫出，基準方法是在所有觀測 \(o\) 上最小化 \(\sum_{(o,a)\in\mathcal D}\ell(\pi_\theta(o), a)\)。修正方式是對選定的圖 \(G^\star\)，把 \(o\) 限制在因果子集 \(S_{G^\star}\) 上。
+若以標準的克隆目標寫出，基準方法是在所有觀測 \(o\) 上最小化
+
+\[
+\sum_{(o,a)\in\mathcal D}\ell(\pi_\theta(o), a)
+\]
+
+。修正方式是對選定的圖 \(G^\star\)，把 \(o\) 限制在因果子集 \(S_{G^\star}\) 上。
 
 ## 關鍵方法
 
@@ -62,9 +71,12 @@ aliases:
 
 Wen 等人（2020）研究 *copycat agents*，也就是從觀測歷史做行為克隆時，策略預測的是前一個專家動作而非下一個動作。由於專家動作在時間上常高度相關，複製上一個動作是降低訓練損失的簡單方法。這是同一機制的具體例子：一個捷徑特徵在示範上能很好地預測目標，卻不反映真正想學的行為。
 
-![八個時間步的專家與複製型策略動作對照；紅框標出 t3 與 t6 轉換時的一步延遲錯誤](../../../../assets/concept-animations/copycat-action-lag-still.svg)
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="教學動畫，可用左右方向鍵捲動"><div style="width:640px"><img data-source-asset-urls="true" src="../../../../assets/concept-animations/copycat-action-lag-still.svg" data-motion-src="../../../../assets/concept-animations/copycat-action-lag-motion.svg" data-still-src="../../../../assets/concept-animations/copycat-action-lag-still.svg" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="八個時間步的專家與複製型策略動作對照；紅框標出 t3 與 t6 轉換時的一步延遲錯誤" loading="lazy"></div></div>
 
 *原創教學示意（CC BY-SA 4.0）。* 專家動作依序為 GO、GO、GO、STOP、STOP、STOP、GO、GO。人工設計的複製型策略在 \(t=0\) 初始化為 GO，之後使用 \(\hat a_t=a^{\mathrm{expert}}_{t-1}\)（\(t\ge1\)），直接複製前一個時間步的專家動作。連續動作時看似準確，但在 \(t=3\) 與 \(t=6\) 切換時延遲一步（紅框）；游標連續掃過八個時間點。這是**確定性的人工教學序列，不是訓練或評估結果**。MkDocs 支援播放／暫停；可另看 [SVG 動畫](../../../../assets/concept-animations/copycat-action-lag-motion.svg)及 [GitHub 靜態預覽](../../../../assets/concept-animations/copycat-action-lag-still.svg)。
+
+
+此處每一步都提供「前一步專家動作」，不是讓自主策略回饋自身輸出的閉迴路模擬。八格中有六格相符（此構造序列為 75%），不能推論訓練模型的準確率或部署回報。游標只向前掃描，停在最後一格後重播。
 
 ## 關聯
 
