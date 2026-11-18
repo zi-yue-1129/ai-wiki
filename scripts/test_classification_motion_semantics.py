@@ -290,3 +290,28 @@ for stem in ("pr-random-ap-expectation", "roc-cost-operating-point"):
     assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
     assert "<animate " in motion and "<animate " not in still
 print("Finite-sample AP baseline and cost-aware ROC semantics OK")
+
+# Shared, explicitly synthetic 100-case count example.
+# Check that all four bilingual metric pages reference the same defined sample.
+tp, fp, fn, tn = 40, 10, 20, 30
+assert tp + fp + fn + tn == 100
+assert math.isclose((tp + tn) / 100, 0.7)
+assert math.isclose(tp / (tp + fp), 0.8)
+assert math.isclose(tp / (tp + fn), 2 / 3)
+assert math.isclose(2 * tp / (2 * tp + fp + fn), 8 / 11)
+shared_dir = Path("docs/theory/evaluation/metrics/classification")
+for name in ("index.md", "index.zh-TW.md"):
+    contents = (shared_dir / name).read_text(encoding="utf-8")
+    for count in ("40 (TP)", "20 (FN)", "10 (FP)", "30 (TN)", "80/110"):
+        assert count in contents, (name, count)
+for metric in ("accuracy", "precision", "recall", "f1"):
+    contents_en = (shared_dir / f"{metric}.md").read_text(encoding="utf-8")
+    contents_zh = (shared_dir / f"{metric}.zh-TW.md").read_text(encoding="utf-8")
+    assert "[shared synthetic 100-case confusion matrix](index.md)" in contents_en
+    assert "[共用的人工 100 筆混淆矩陣範例](index.md)" in contents_zh
+    assert "Using the 100 cases above" not in contents_en
+    assert "沿用上述 100 筆案例" not in contents_zh
+assert "Accuracy needs no threshold" not in (shared_dir / "accuracy.md").read_text(encoding="utf-8")
+assert "Precision measures the cost" not in (shared_dir / "precision.md").read_text(encoding="utf-8")
+assert "Recall measures the cost" not in (shared_dir / "recall.md").read_text(encoding="utf-8")
+print("Bilingual count example and decision-rule regression OK")
