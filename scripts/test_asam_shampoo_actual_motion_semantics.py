@@ -42,6 +42,19 @@ class AdaptiveGeometryTests(unittest.TestCase):
                 expected=140*(3/math.sqrt(1+9*step) if e.get('y')=='280' else 1/math.sqrt(1+step))
                 self.assertLess(abs(at(e,'width',t)-expected),.22)
         self.assertEqual(at(bars[0],'width',0),420)
+    def test_asam_zh_long_formulas_are_standalone(self):
+        # Regress the two long unbreakable inline expressions on the 390px page.
+        # Real MathJax/viewport fitting remains enforced by built-motion Chromium CI.
+        import re
+        text=(ROOT/'docs/theory/optimization/asam.zh-TW.md').read_text()
+        blocks=re.findall(r'\$\$\s*\n(.*?)\n\s*\$\$',text,re.S)
+        for formula in [r'T_w = \mathrm{diag}(|w_1|, \ldots, |w_k|).',
+                        r'g = \nabla_w L_B\big(w + \hat\varepsilon(w)\big).']:
+            self.assertIn(formula,blocks)
+            self.assertNotIn(r'\('+formula.rstrip('.')+r'\)',text)
+        self.assertNotIn('overflow-x:hidden',text)
+        self.assertNotIn('overflow:hidden',text)
+
     def test_zero_coordinate_and_rank_caveats_bilingual(self):
         for lang in ['', '.zh-TW']:
             for topic in ['asam','shampoo']:

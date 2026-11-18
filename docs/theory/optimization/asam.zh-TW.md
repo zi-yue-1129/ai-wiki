@@ -20,7 +20,13 @@ SAM 在權重空間中使用固定半徑 \(\rho\) 的球。許多網路的層（
 
 ## 演算法
 
-ASAM 以正規化運算子 \(T_w\) 定義自適應銳度。論文採用的逐元素選擇為 \(T_w = \mathrm{diag}(|w_1|, \ldots, |w_k|)\)，自適應銳度為
+ASAM 以正規化運算子 \(T_w\) 定義自適應銳度。論文採用的逐元素選擇為
+
+$$
+T_w = \mathrm{diag}(|w_1|, \ldots, |w_k|).
+$$
+
+自適應銳度為
 
 \[
 \max_{\|T_w^{-1}\varepsilon\|_p \le \rho} L_S(w + \varepsilon) - L_S(w),
@@ -32,7 +38,13 @@ ASAM 以正規化運算子 \(T_w\) 定義自適應銳度。論文採用的逐元
 \hat\varepsilon(w) = \rho\,\frac{T_w^2 \nabla_w L_S(w)}{\|T_w \nabla_w L_S(w)\|_2}.
 \]
 
-訓練步驟接著在擾動後的點上取梯度，\(g = \nabla_w L_B\big(w + \hat\varepsilon(w)\big)\)，與 SAM 完全相同。論文也為卷積層提供逐濾波器的 \(T_w\) 選擇：某個濾波器的對角元素使用該濾波器的 \(\ell_2\) 範數，其餘權重則使用絕對值。
+訓練步驟接著在擾動後的點上取梯度，與 SAM 完全相同：
+
+$$
+g = \nabla_w L_B\big(w + \hat\varepsilon(w)\big).
+$$
+
+論文也為卷積層提供逐濾波器的 \(T_w\) 選擇：某個濾波器的對角元素使用該濾波器的 \(\ell_2\) 範數，其餘權重則使用絕對值。
 
 
 ### 自適應擾動鄰域的動態比較
