@@ -4,6 +4,12 @@ on:
   pull_request:
     paths:
       - "scripts/test_forward_math_markup.py"
+      - "scripts/test_deployed_math_browser.py"
+      - "scripts/test_deployed_math_contract.py"
+      - "scripts/test_built_motion_browser.py"
+      - "scripts/test_built_prose_browser.py"
+      - "scripts/motion_shard_contract.py"
+      - "requirements.txt"
       - "docs/theory/math/automatic-differentiation/forward-mode.md"
       - "docs/theory/math/automatic-differentiation/forward-mode.zh-TW.md"
       - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md"
@@ -682,7 +688,7 @@ jobs:
         run: python scripts/verify_concept_svgs.py
 
   build-docs:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -693,6 +699,12 @@ jobs:
           cache: pip
       - name: Install wiki dependencies
         run: pip install -r requirements.txt
+      - name: Install built article browser package
+        run: pip install playwright==1.55.0 Pillow==13.0.0
+      - name: Install built article Chromium dependencies
+        run: python -m playwright install --with-deps chromium
+      - name: Check built article native coverage contract
+        run: python scripts/test_deployed_math_contract.py
       - name: Check forward AD production Markdown math containers
         run: python scripts/test_forward_math_markup.py
       - name: Check actual STDP and e-prop geometry, timing and bilingual hooks
@@ -703,3 +715,13 @@ jobs:
         run: python scripts/test_explanation_motion_semantics.py
       - name: Check causal mechanism math and timeline
         run: python scripts/test_causal_motion_semantics.py
+      - name: Capture every repaired article display at three widths
+        run: python scripts/test_deployed_math_browser.py
+      - name: Upload built article math evidence including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployed-math-browser
+          path: artifacts/deployed-math/
+          if-no-files-found: error
+          retention-days: 7
