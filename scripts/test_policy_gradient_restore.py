@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 import yaml
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -32,6 +32,26 @@ class Coverage(unittest.TestCase):
     def test_launch_failure_retains_all_cases(self):
         with tempfile.TemporaryDirectory() as d,patch.object(suite,'OUT',Path(d)),patch.object(suite,'sync_playwright',side_effect=RuntimeError('launch blocked canary')):
             self.assertEqual(suite.main(),1);r=json.loads((Path(d)/'report.json').read_text());self.assertEqual(r['status'],'failed');self.assertEqual(len(r['cases']),24);self.assertTrue(all(x['status']=='blocked'for x in r['cases']));self.assertIn('launch blocked canary',r['error'])
+    def test_native_sample_path_measures_line_and_rejects_original_crossing(self):
+        from test_policy_glyph_contract_motion_semantics import sample
+        for y, valid in [(185., True), (170., False)]:
+            page = Mock()
+            page.evaluate.side_effect = [sample(kind='still')['boxes'], [0,0,760,400],
+                dict(text=dict(x=369.5546875,y=y,w=71.1630859375,h=12.),
+                     line=dict(x=141.,y=179.,w=541.,h=0.),stroke=3.)]
+            record = {}
+            with patch.object(suite, 'shot'):
+                if valid:
+                    suite.check_svg(page, 'reinforce-return-credit', 'still', record)
+                    self.assertEqual(record['line_clearance'][0]['gap'], 4.5)
+                else:
+                    with self.assertRaisesRegex(AssertionError, 'glyph/line clearance'):
+                        suite.check_svg(page, 'reinforce-return-credit', 'still', record)
+                    self.assertEqual(record['line_clearance'][0]['geometry']['text']['y'], 170.)
+            self.assertEqual(page.evaluate.call_count, 3)
+            self.assertIn('getBBox()', page.evaluate.call_args_list[2].args[0])
+            self.assertIn('getComputedStyle', page.evaluate.call_args_list[2].args[0])
+
     def test_ci_execution_and_evidence(self):
         path=ROOT/'.github/workflows/built-motion-browser.yml';d=yaml.safe_load(path.read_text());steps=d['jobs']['built-motion-browser']['steps'];self.assertTrue(any(x.get('run')=='python scripts/test_policy_gradient_motion_browser.py'for x in steps));self.assertTrue(any(x.get('run')=='python scripts/test_policy_gradient_restore.py'for x in steps));upload=next(x for x in steps if x.get('with',{}).get('name')=='policy-gradient-motion-review');self.assertEqual(upload['if'],'always()');self.assertEqual(upload['with']['path'],'artifacts/policy-gradient-motion/');self.assertEqual(upload['with']['if-no-files-found'],'error')
     def test_controls_and_native_glyph_contract_retained(self):

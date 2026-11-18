@@ -90,3 +90,32 @@ for kind in ('motion', 'still'):
     else:
         raise AssertionError('The former same-colour label/bar overlap was accepted')
 print('GRPO actual SVG label clearance and old-coordinate negative cases: passed')
+
+# A separate text/line contract closes the native screenshot defect that
+# text-versus-text glyph boxes cannot detect. Do not weaken their 3px rule.
+from policy_line_clearance import check_return_credit_source, check_return_credit_clearance
+for kind in ('motion', 'still'):
+    svg = ET.parse(assets / f'reinforce-return-credit-{kind}.svg').getroot()
+    assert check_return_credit_source(svg) >= 3
+    label = next(t for t in svg.iter(ns+'text') if t.text == 'Reward-to-go')
+    label.set('y', '180')  # exact former crossing, not a manufactured extreme
+    try:
+        check_return_credit_source(svg)
+    except AssertionError:
+        pass
+    else:
+        raise AssertionError('Former Reward-to-go y=180 crossing was accepted')
+# Actual old Chromium box and its baseline-only translation; native CI will
+# measure fresh glyph boxes rather than reusing this recorded font envelope.
+line = dict(x=141., y=179., w=541., h=0.)
+old = dict(x=369.5546875, y=170., w=71.1630859375, h=12.)
+new = {**old, 'y':185.}
+assert check_return_credit_clearance(new, line, 3.) == 4.5
+for invalid_box, stroke in [(old, 3.), (new, 14.)]:
+    try:
+        check_return_credit_clearance(invalid_box, line, stroke)
+    except AssertionError:
+        pass
+    else:
+        raise AssertionError('Actual glyph/stroked-line intersection was accepted')
+print('REINFORCE actual SVG line clearance and old-coordinate native-box negatives: passed')

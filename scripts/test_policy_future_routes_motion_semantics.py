@@ -3,7 +3,7 @@ import copy,fnmatch,json,re,unittest
 from pathlib import Path
 import yaml
 ROOT=Path(__file__).resolve().parents[1]
-COMMON=['scripts/policy_glyph_contract.py','scripts/test_policy_glyph_contract_motion_semantics.py','scripts/test_policy_gradient_motion_browser.py','scripts/test_policy_gradient_restore.py','scripts/test_policy_credit_labs_browser.py','scripts/test_policy_union_motion_semantics.py','scripts/test_policy_history_motion_semantics.py','scripts/test_policy_future_routes_motion_semantics.py','.github/workflows/built-motion-browser.yml']
+COMMON=['scripts/policy_line_clearance.py','scripts/policy_glyph_contract.py','scripts/test_policy_glyph_contract_motion_semantics.py','scripts/test_policy_gradient_motion_browser.py','scripts/test_policy_gradient_restore.py','scripts/test_policy_credit_labs_browser.py','scripts/test_policy_union_motion_semantics.py','scripts/test_policy_history_motion_semantics.py','scripts/test_policy_future_routes_motion_semantics.py','.github/workflows/built-motion-browser.yml']
 SHARD=['scripts/fixtures/browser-support-suites.json','scripts/fixtures/built-motion-browser-unsharded-reference.yml','scripts/motion_shard_contract.py','scripts/test_motion_shard_ci.py','scripts/run_motion_shard_support.py','scripts/motion_shard_ci.py','scripts/prepare_browser_artifacts.py','scripts/test_prepare_browser_artifacts.py','scripts/test_ci_font_archive.py','scripts/test_policy_original_gate_motion_semantics.py']
 def executable(job,command,allow_always=False):
  assert ('if' not in job or (allow_always and job['if']=='always()')) and (job.get('continue-on-error') is None or job.get('continue-on-error') is False),'Disabled job'

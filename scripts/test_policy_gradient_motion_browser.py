@@ -28,6 +28,7 @@ def cases():
 
 # Shared pure checker retains original bounds and overlap arithmetic unchanged.
 from policy_glyph_contract import check_boxes, validate_glyph_sample
+from policy_line_clearance import check_return_credit_clearance
 
 def shot(page, record, name):
     path = OUT / record["id"] / (name + ".png")
@@ -49,6 +50,17 @@ def check_svg(page, stem, kind, record):
         record.setdefault("samples", []).append(sample)
         shot(page, record, "time-"+str(t))
         validate_glyph_sample(sample, stem, kind, t)
+        if stem == "reinforce-return-credit":
+            geometry = page.evaluate("""() => {
+              const label = Array.from(document.querySelectorAll('svg text')).find(e => e.textContent === 'Reward-to-go');
+              const paths = Array.from(document.querySelectorAll('svg path')).filter(e => e.getAttribute('stroke') === '#d46a3a');
+              if (!label || paths.length !== 1) throw new Error('Missing or ambiguous reward-to-go geometry');
+              const box = e => { const b=e.getBBox(); return {x:b.x,y:b.y,w:b.width,h:b.height}; };
+              return {text:box(label),line:box(paths[0]),stroke:Number.parseFloat(getComputedStyle(paths[0]).strokeWidth)};
+            }""")
+            clearance = dict(time=t, geometry=geometry)
+            record.setdefault('line_clearance', []).append(clearance)
+            clearance['gap'] = check_return_credit_clearance(geometry['text'], geometry['line'], geometry['stroke'])
 
 def check_player(browser, stem, lang, width, reduced=False, record=None):
     context=browser.new_context(viewport={"width":width,"height":550},
