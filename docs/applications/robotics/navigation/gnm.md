@@ -40,6 +40,16 @@ The policy has two heads, trained jointly by supervised learning:
 
 The paper uses five past observations as context. The exact loss weighting between the two heads is not stated in the text read for this page.
 
+## Visual walkthrough: shared normalized action space
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Complete navigation diagram; focus and use arrow keys to scroll horizontally" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/gnm-speed-normalization-still.svg" data-motion-src="../../../assets/concept-animations/gnm-speed-normalization-motion.svg" data-still-src="../../../assets/concept-animations/gnm-speed-normalization-still.svg" alt="GNM animation showing how physical displacement is normalized by each robot&#x27;s maximum speed, producing a shared 0.50 command">
+</div>
+
+The paper scales relative waypoints by a robot-specific factor corresponding to top speed. This one-second example makes the time unit explicit: the two physical lines share one distance scale, and the normalized bars reveal the fixed target 0.50 only after the displacements finish. Deployment unnormalizes waypoints before a robot-specific controller tracks them. The frame preserves readable 640px labels and supports keyboard horizontal scrolling on phones. This depicts visual-goal navigation, not language-conditioned action generation.
+
+*Original instructional animation (CC BY-SA 4.0).* Over an **illustrative one-second interval**, Robot A moves 0.5 m with a 1.0 m/s maximum speed, while Robot B moves 1.0 m with a 2.0 m/s maximum speed. Both yield a dimensionless forward command of `0.5` when their physical displacement is divided by maximum speed times elapsed time: `0.5/(1.0 × 1) = 1.0/(2.0 × 1) = 0.5`. The rising tracks show different **physical** displacements converging to the same **normalized** action; this is the representation-level intuition behind GNM's cross-platform action space, **not** a claim that differing robots have identical dynamics. These are invented teaching numbers, **not training observations, policy predictions, or experimentally measured performance**. Use the MkDocs Play/Pause control or see the [GitHub-readable final-state preview](../../../assets/concept-animations/gnm-speed-normalization-still.svg). The normalization principle is discussed by Shah et al. (2022) in References.
+
 ## Results
 
 On the action-space comparison, the authors evaluate on ten environments with a LoCoBot. Success rates are reported for easy and moderate environments (Shah et al., 2022, Table V):

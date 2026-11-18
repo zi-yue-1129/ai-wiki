@@ -29,6 +29,19 @@ DART is a method for imitation learning that makes the expert's demonstrations c
 - **Recovery data**: the perturbed states and their clean labels, which show how to return to the expert's path after an error.
 - **Noise level**: the amount of noise is set from the error of the current learned policy, so the perturbed states resemble those the learner will visit. The paper's noise is Gaussian, with a covariance that is scaled to an anticipated error level \(\alpha\).
 
+### Noisy execution versus clean expert label — visual walkthrough
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Complete teaching diagram; focus and use arrow keys to scroll horizontally" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../../assets/concept-animations/dart-noisy-expert-recovery-still.svg" data-motion-src="../../../../assets/concept-animations/dart-noisy-expert-recovery-motion.svg" data-still-src="../../../../assets/concept-animations/dart-noisy-expert-recovery-still.svg" alt="DART animation: injected action noise moves an expert demonstration away from the reference route while labels record the clean action at each visited state">
+</div>
+
+[GitHub-readable static diagram](../../../../assets/concept-animations/dart-noisy-expert-recovery-still.svg). The coral trace represents the **perturbed executed controls**, while teal arrows represent the **unperturbed expert actions evaluated at those same visited states**. The saved sample is `(s, π*(s))` — **not** `(s, u)` — even though `u = π*(s) + ε` is what changes the robot state. The reference route and curves are **schematic**: they are not draws from the paper's calibrated Gaussian covariance, nor measured recovery success. This collection stage requires the expert; the method avoids **subsequent online queries during learner-policy rollouts**, not expert participation altogether. Play/Pause controls the 12-second loop on the wiki; reduced-motion settings show the complete static state.
+
+
+The arrows distinguish clean labels from perturbed controls; they are not numerical dynamics integrated to generate the curve. Blue pairs transfer only after their corresponding states have been visited. At deployment the learned policy runs without the demonstration-collection noise. On phones the figure keeps its 640px labels; focus its frame and use arrow keys to scroll horizontally.
+
+*Original teaching diagram, CC BY-SA 4.0. Based on Laskey et al. (2017), cited in References.*
+
 ## How it works
 
 Let \(\pi^*\) be the expert and \(x_t\) the state at step \(t\). During demonstration, the executed control is drawn as
@@ -37,7 +50,7 @@ Let \(\pi^*\) be the expert and \(x_t\) the state at step \(t\). During demonstr
 u_t \sim \mathcal N\big(\pi^*(x_t), \Sigma\big),
 \]
 
-while the recorded training pair is \((x_t, \pi^*(x_t))\), with the clean expert action as the label. The covariance \(\Sigma\) is estimated from how far the current learned policy deviates from the expert on the states it reaches, and is then rescaled so that its size matches the anticipated error \(\alpha\) of the final policy. The procedure is:
+while the recorded training pair is \((x_t, \pi^*(x_t))\), with the clean expert action as the label. The covariance \(\Sigma\) is estimated from the current learner–expert action disagreement on states collected by the noise-injected supervisor, not from executing learner rollouts, and is then rescaled so that its size matches the anticipated error \(\alpha\) of the final policy. The procedure is:
 
 1. Start from a policy learned on clean demonstrations.
 2. Collect demonstrations with the noisy executed controls above, with \(\Sigma\) set from the current policy's deviation.
