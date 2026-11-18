@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-10-31
 ---
 
 # 循環學習率
@@ -17,6 +17,22 @@ translation_reviewed: 2026-10-28
 ## 核心概念
 
 以學習率範圍測試估計兩個上下界 \(\eta_{\min}\) 與 \(\eta_{\max}\)：在數個 epoch 中讓學習率線性增加，並觀察準確率。接著，在其餘的訓練中讓學習率在這兩個界限之間循環。
+
+### 動態排程示意：triangular 與 triangular2
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="學習率排程動畫">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-sweep-motion.svg" data-still-src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" style="display:block;width:640px;height:auto" alt="Triangular 與 triangular2 共用時間游標：前者峰值固定，後者相對下界的振幅逐輪減半。">
+</div>
+</div>
+
+*AI Wiki 原創動畫，CC BY-SA 4.0。*
+
+同一條時間游標對照三個等長週期的 **triangular**（青綠色，峰值固定）與 **triangular2**（橘色，振幅逐輪減半）。人工設定下界 \(\eta_{\min}=0.10\)、上界 \(\eta_{\max}=1.00\)、半週期長度 \(s=2\)；triangular 每輪峰值都是 1.00，triangular2 的峰值則依序為 **1.00、0.55、0.325**。兩個標記追蹤相同的排程時間；第一輪曲線相同，因此標記會重疊。這些是預先指定的學習率，**不是模型權重、準確率或實測訓練結果**。
+
+從圖中的三個峰值可直接看出 triangular2 的振幅包絡：相對於固定下界的增量，在第 1–3 輪依序為 \(1,\;1/2,\;1/4\)。一般而言，若循環索引 \(k\) 從零開始，峰值為 \(\eta_{\min}+(\eta_{\max}-\eta_{\min})/2^k\)。這是排程示意，不是實際訓練紀錄。
+
+MkDocs 提供**播放／暫停**（Tab、Enter 或 Space），減少動態效果模式會顯示靜態對照圖。窄螢幕可聚焦圖形後以方向鍵水平捲動。先前的單一策略圖仍可透過 [triangular2 動畫](../../assets/concept-animations/clr-triangular2-motion.svg)與[靜態圖](../../assets/concept-animations/clr-triangular2-still.svg)閱讀。
 
 ## 演算法
 

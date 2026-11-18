@@ -30,32 +30,58 @@ Split the encoder into a gate and a magnitude path. A gate pre-activation passes
 For a baseline sparse autoencoder with a ReLU encoder, the features and loss are
 
 $$
-f(x) = \mathrm{ReLU}\big(W_{\text{enc}}(x - b_{\text{dec}}) + b_{\text{enc}}\big), \qquad \mathcal{L} = \lVert x - \hat{x}(f(x)) \rVert_2^2 + \lambda \lVert f(x) \rVert_1
+\begin{aligned}
+f(x)&=\mathrm{ReLU}\big(W_{\text{enc}}(x-b_{\text{dec}})+b_{\text{enc}}\big),\\
+\mathcal L&=\lVert x-\hat{x}(f(x))\rVert_2^2+\lambda\lVert f(x)\rVert_1.
+\end{aligned}
 $$
 
-The gated encoder uses a gate pre-activation $\pi_{\text{gate}}(x) = W_{\text{gate}}(x - b_{\text{dec}}) + b_{\text{gate}}$ and a magnitude pre-activation $\pi_{\text{mag}}(x) = W_{\text{mag}}(x - b_{\text{dec}}) + b_{\text{mag}}$:
+The gated encoder computes gate and magnitude pre-activations:
+
+$$
+\begin{aligned}
+\pi_{\text{gate}}(x)&=W_{\text{gate}}(x-b_{\text{dec}})+b_{\text{gate}},\\
+\pi_{\text{mag}}(x)&=W_{\text{mag}}(x-b_{\text{dec}})+b_{\text{mag}}.
+\end{aligned}
+$$
+
 
 $$
 \tilde{f}(x) = \mathbf{1}\big[\pi_{\text{gate}}(x) > 0\big] \odot \mathrm{ReLU}\big(\pi_{\text{mag}}(x)\big)
 $$
 
-The magnitude weights are tied to the gate weights by a row-wise rescaling, $W_{\text{mag}} = \exp(r_{\text{mag}}) \odot W_{\text{gate}}$, where $r_{\text{mag}}$ is learned. The training loss is
+The magnitude weights are tied to the gate weights by a row-wise rescaling:
 
 $$
-\mathcal{L}_{\text{gated}}(x) = \lVert x - \hat{x}(\tilde{f}(x)) \rVert_2^2 + \lambda \lVert \mathrm{ReLU}(\pi_{\text{gate}}(x)) \rVert_1 + \lVert x - \hat{x}_{\text{frozen}}\big(\mathrm{ReLU}(\pi_{\text{gate}}(x))\big) \rVert_2^2
+W_{\text{mag}} = \exp(r_{\text{mag}}) \odot W_{\text{gate}}
+$$
+
+Here $r_{\text{mag}}$ is learned. The training loss is
+
+$$
+\begin{aligned}
+\mathcal L_{\text{gated}}(x)
+&=\lVert x-\hat{x}(\tilde f(x))\rVert_2^2\\
+&\quad+\lambda\lVert\mathrm{ReLU}(\pi_{\text{gate}}(x))\rVert_1\\
+&\quad+\lVert x-\hat{x}_{\text{frozen}}\big(\mathrm{ReLU}(\pi_{\text{gate}}(x))\big)\rVert_2^2.
+\end{aligned}
 $$
 
 The last term is an auxiliary reconstruction that passes through a frozen copy of the decoder, so its gradient does not reach the decoder. The paper's ablations report that freezing this copy matters.
 
 ### Visual walkthrough: gate versus magnitude
 
-<div class="concept-motion-scroll" role="region" aria-label="Horizontally scrollable instructional diagram" tabindex="0">
-<img src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" width="640" data-motion-src="../../assets/concept-animations/gated-sae-gate-magnitude-motion.svg" data-still-src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" alt="Gated sparse autoencoder: negative gate blocks feature A even with positive magnitude, while positive gates transmit B and C magnitudes.">
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" role="region" aria-label="Horizontally scrollable instructional diagram" tabindex="0">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto" src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" width="640" data-motion-src="../../assets/concept-animations/gated-sae-gate-magnitude-motion.svg" data-still-src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" alt="Gated sparse autoencoder: negative gate blocks feature A even with positive magnitude, while positive gates transmit B and C magnitudes.">
+</div>
 </div>
 
 *Original instructional animation, CC BY-SA 4.0.* In this **illustrative forward pass**, three gate pre-activations are $(-0.7, 0.6, 0.9)$ and the corresponding magnitude pre-activations are $(1.5, 2.0, 0.7)$. The gate indicators are $(0,1,1)$, so the final sparse code is **$(0,2.0,0.7)$**. The gate controls *whether* a feature fires; the magnitude branch controls *how much* passes. The animation reveals the gate values, then the magnitude values, then the masked result. It does not portray fitted weights, a training trajectory, the tied encoder parametrisation, or the auxiliary reconstruction loss.
 
 On the MkDocs site, use **Play/Pause** to inspect the animated flow; a [GitHub-readable static overview](../../assets/concept-animations/gated-sae-gate-magnitude-still.svg) remains available without scripts or motion. All values are pedagogical examples, **not measured model outputs**.
+
+Bars use a common 40 SVG pixels per unit, with gate zero at x=132; negative gates extend left. These are fixed values revealed by opacity in order, not values growing during computation. The output reveal starts only after the magnitude reveal finishes.
 
 ## Results
 

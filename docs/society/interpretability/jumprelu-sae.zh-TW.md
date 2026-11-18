@@ -43,13 +43,17 @@ $$
 
 ### 動態圖解：跨過閾值時的激活跳躍
 
-<div class="concept-motion-scroll" role="region" aria-label="可水平捲動的教學概念圖" tabindex="0">
-<img src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" width="640" data-motion-src="../../assets/concept-animations/jumprelu-threshold-jump-motion.svg" data-still-src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" alt="JumpReLU 激活曲線：輸入游標跨過閾值 1.5 時，輸出由零直接跳到未縮減的正輸入值。">
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" role="region" aria-label="可水平捲動的教學概念圖" tabindex="0">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto" src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" width="640" data-motion-src="../../assets/concept-animations/jumprelu-threshold-jump-motion.svg" data-still-src="../../assets/concept-animations/jumprelu-threshold-jump-still.svg" alt="JumpReLU 激活曲線：輸入游標跨過閾值 1.5 時，輸出由零直接跳到未縮減的正輸入值。">
+</div>
 </div>
 
 *Original instructional animation, CC BY-SA 4.0.* 針對**單一人工示例特徵**，固定 $\theta=1.5$；當 $z\leq1.5$ 時輸出為零，當 $z>1.5$ 時輸出則是**完整的前激活值 $z$**。橘色游標連續掃過輸入區間，青綠色輸出在閾值處不連續地跳升，而非像平移 ReLU 一樣從零逐漸增加。上方分支使用空心圓，提醒讀者條件是嚴格大於。此圖只呈現一維激活函數，**不是模型訓練軌跡，也沒有模擬直通梯度估計器**。
 
 MkDocs 網站可透過**播放／暫停**操作；GitHub 或偏好減少動態效果的讀者可查看[靜態 SVG 預覽](../../assets/concept-animations/jumprelu-threshold-jump-still.svg)。閾值與輸入掃描均為**人工示意值，非模型實測或擬合結果**。
+
+掃描共用精確尺度：$x_{\mathrm{SVG}}=74+85z$、$y_{\mathrm{SVG}}=292-54f(z)$，長條寬度則為每單位 $50$ 像素。輸入從 $z=0$ 向前掃至 $3$，保持後重設；重設不是反向激活軌跡。分支切換的瞬間，動態標記呈現右側極限；固定的閉點 $(\theta,0)$ 才定義精確門檻值。靜態總覽採 $z=2.25$。
 
 ## 結果
 

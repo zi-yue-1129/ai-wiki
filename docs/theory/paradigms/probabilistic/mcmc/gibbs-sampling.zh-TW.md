@@ -1,70 +1,168 @@
 ---
-translation_reviewed: 2026-10-29
+translation_reviewed: 2026-11-15
 ---
 
 # 吉布斯抽樣
 
-吉布斯抽樣透過反覆地從每個變數在其他所有變數條件下的條件分布中抽樣，來從聯合分布抽樣。每個提議都被接受，因此不需要接受–拒絕步驟。它是具共軛條件分布模型的標準抽樣器。本頁是[馬可夫鏈蒙地卡羅](index.md)的一部分。
+吉布斯抽樣反覆從單一變數或變數區塊的完全條件分布抽樣，以建立馬可夫鏈。每次精確的條件更新都保持目標聯合分布。[馬可夫鏈蒙地卡羅](index.zh-TW.md)。[^casella]
 
 ## 概述
 
-假設一個變數 \((\theta_1,\dots,\theta_d)\) 上的聯合分布難以直接抽樣，但每個條件分布 \(p(\theta_j\mid\theta_{-j})\) 都容易抽樣。吉布斯抽樣依序循環各變數，並從其條件分布重新抽樣。所得的鏈以聯合分布為穩態分布。在階層貝氏模型中，許多條件分布是標準分布，因此此方法很方便。
+即使條件分布容易抽樣，直接從聯合分布抽樣仍可能很困難。例如，階層貝氏模型可利用共軛性，把各未知變數的條件分布寫成常見分布族。吉布斯抽樣利用這些條件分布在聯合空間建立一條鏈。[^gelfand]
 
 ## 關鍵概念
 
-- **完全條件分布**：\(p(\theta_j\mid\theta_{-j})\)，即其他所有變數固定時，單一變數的分布。
-- **掃描順序**：系統掃描以固定順序更新變數，隨機掃描則隨機挑選一個變數。
-- **分塊**：同時更新數個相關變數，通常能改善混合。
-- **摺疊吉布斯抽樣**：以解析方式積分掉部分變數，可降低其餘變數之間的相關性。
+- **完全條件分布** $p(\theta_j\mid\theta_{-j})$ 以其他所有座標為條件。
+- **系統掃描**依固定順序更新座標，每輪各更新一次。**隨機掃描**則在每一步依固定機率選擇座標。[^he]
+- **分塊**在給定其餘變數後，同時抽取數個變數。若這些變數通常一起變動，且從區塊的條件分布抽樣的成本可接受，分塊可能改善混合。[^roberts]
 
 ## 運作方式
 
-抽樣器的一次掃描為：
+### 為何條件更新保持目標分布
 
-1. 對 \(j = 1,\dots,d\)，抽取 \(\theta_j^{(t+1)} \sim p(\theta_j \mid \theta_1^{(t+1)},\dots,\theta_{j-1}^{(t+1)}, \theta_{j+1}^{(t)},\dots,\theta_d^{(t)})\)。
+假設當前的 $(X,Y)$ 服從聯合密度 $p(x,y)$。從 $p(x'\mid y)$ 抽取 $X'$ 時，$Y$ 保持原值。對舊的 $X$ 積分，可得更新後的聯合密度。[^casella]
 
-每次更新都是一個以完全條件分布為提議的 Metropolis–Hastings 移動，因此其接受機率為一（Andrieu et al., 2003）。於是每一步都滿足細緻平衡，聯合分布保持不變。
+$$
+\int p(x,y)p(x'\mid y)\,dx=p(y)p(x'\mid y)=p(x',y).
+$$
 
-當變數高度相關時，此方法的混合可能很慢，因為每次更新只沿一個座標移動。常見的補救方法是分塊與重新參數化。
+更新另一座標也適用同樣的推導，因此依序執行各更新仍會保持聯合分布。每個完全條件更新都可逆。固定順序的一輪更新仍保持平穩分布，但組合後未必可逆。以有限狀態鏈為例，滿足不可約性與非週期性等條件時，鏈會從起點逐步接近目標分布。[^casella][^he]
+
+在系統掃描中，每次抽樣都使用其他座標的最新值。以兩個座標為例，先給定 $Y_t$ 抽取 $X_{t+1}$，再給定 $X_{t+1}$ 抽取 $Y_{t+1}$。若視為 Metropolis–Hastings 提議，提議中的條件密度會與接受比率中聯合密度的對應因子相消，因此精確吉布斯抽樣的接受機率為一。[Metropolis–Hastings](metropolis-hastings.zh-TW.md)。[^casella]
+
+### 相關高斯分布算例
+
+考慮均值為零、邊際變異數皆為一、相關係數滿足 $|\rho|<1$ 的二維常態分布。$\mathcal{N}$ 的第二個引數是變異數。一輪包含下列兩次抽樣。[^roberts]
+
+$$
+X_{t+1}\mid Y_t=y\sim\mathcal{N}(\rho y,1-\rho^2),
+\qquad
+Y_{t+1}\mid X_{t+1}=x\sim\mathcal{N}(\rho x,1-\rho^2).
+$$
+
+當 $\rho=0.8$ 時，條件標準差為 $0.6$。從 $Y_0=1$ 開始，使用兩個示意的標準常態抽樣值 $0.5$ 與 $-1$。第一次更新得到 $X_1=0.8+0.6(0.5)=1.1$，第二次得到 $Y_1=0.8(1.1)-0.6=0.28$。
+
+把第一次更新代入第二次，可得下列遞迴式，其中 $\epsilon_t$ 和 $\eta_t$ 是每輪彼此獨立的標準常態抽樣值。
+
+$$
+Y_{t+1}=\rho^2Y_t+\sqrt{1-\rho^2}\,(\rho\epsilon_t+\eta_t).
+$$
+
+在平穩狀態下，按完整掃描輪次記錄的 $Y$，相鄰兩輪的相關係數是 $\rho^2$。當 $\rho=0.8$ 時為 $0.64$，當 $\rho=0.99$ 時為 $0.9801$。因此即使每步都接受，強相依性仍會讓連續樣本十分接近。[^roberts]
 
 ## 動畫示範
 
 ![吉布斯抽樣連續四次條件抽樣，交替沿水平 x 與垂直 y 方向更新相關聯合分布中的座標](../../../../assets/concept-animations/gibbs-coordinate-sweeps-motion.svg)
 
-[GitHub 與減少動態效果模式適用的最終狀態靜態預覽](../../../../assets/concept-animations/gibbs-coordinate-sweeps-still.svg)。在 MkDocs 網站可使用**播放動畫／暫停動畫**按鈕，也可按 Tab 聚焦後以 Enter 操作。橘色虛線代表固定的條件座標，青綠色線段代表另一個座標的條件抽樣；兩次水平及兩次垂直更新構成兩輪示意掃描。不同於一般 Metropolis–Hastings 提議，從精確完全條件分布抽出的吉布斯樣本不需要接受／拒絕檢定。圖中的等高線與抽樣位置皆為**教學示意，並非實際執行的馬可夫鏈或後驗實測結果**；幾何形狀不代表經過校準的機率密度。
+橘色虛線標出固定的條件座標，青綠色線段呈現另一座標的更新。兩次水平與兩次垂直移動構成兩輪掃描。圖中的等高線與抽樣位置皆為示意。可用 Tab 和 Enter 操作 MkDocs 的播放／暫停按鈕。[最終掃描的靜態預覽](../../../../assets/concept-animations/gibbs-coordinate-sweeps-still.svg)。
 
-*原創教學動畫及 GitHub 回退預覽：CC BY-SA 4.0。*
+*原創教學動畫及 GitHub 靜態預覽，CC BY-SA 4.0。*
 
-## 主要方法
+### 互動實驗：相關高斯條件更新與延遲相依性
 
-- [Metropolis–Hastings](metropolis-hastings.md)：一般方法，吉布斯抽樣是其中所有提議都被接受的特殊情形。
-- [哈密頓蒙地卡羅](hamiltonian-monte-carlo.md)：沿聯合分布的幾何移動，因此較能處理相關變數，但需要梯度。
+<div class="gibbs-lab" data-gibbs-lab="gaussian" data-lang="zh-TW">
+  <p>若瀏覽器無法執行 JavaScript，仍可閱讀上方既有的[吉布斯掃描靜態預覽](../../../../assets/concept-animations/gibbs-coordinate-sweeps-still.svg)。</p>
+</div>
+
+調整目標相關係數 $\rho$，再逐步查看**精確的條件分布更新**。青綠色軌跡每次只沿被抽樣的座標移動，橘色虛線則標示保持不變的條件座標。在 $\rho=0.8$、起點 $(X_0,Y_0)=(0,1)$ 且使用人工指定的標準常態創新值 $0.5,-1$ 時，首輪依序得到 $X_1=1.1$、$Y_1=0.28$。後續更新同樣使用固定的示意創新序列，**不是實際隨機模擬或模型實測數值**。[^roberts]
+
+圖中的**紫色空心點**表示當前完整條件分布的平均值；青綠色實心點才是加上固定創新量乘以 $\sqrt{1-\rho^2}$ 後的人工更新結果。紫色點到實心點的虛線表示創新位移，**不是第二個馬可夫狀態**。半透明紫色區間顯示更新座標的條件平均值加減一個條件標準差，$\sigma=\sqrt{1-\rho^2}$。此高斯條件分布有約 68.3% 的機率落在區間內；這**不是**從抽樣路徑估計的不確定性。改變 $\rho$ 會同時改變區間寬度與人工抽樣位置。[條件標準差的 GitHub 靜態預覽](../../../../assets/concept-animations/gibbs-conditional-band-still.svg)。當 $\rho=-0.8$，第一次人工更新會從條件平均 $-0.8$ 得到 $X_1=-0.5$。
+
+藍色長條是**平穩分布下的理論自相關** $\operatorname{Corr}(Y_t,Y_{t+k})=\rho^{2k}$，其中 $k$ 以完整掃描輪次計算，**並非**根據畫面中少量示意樣本估算。改變相關係數即可比較即使 Gibbs 每步均接受，高相依性仍會降低混合效率。支援上一步／下一步、播放／暫停、進度滑桿、速度與重設；手機圖面可聚焦後水平捲動，減少動態效果模式仍可手動逐步查看。
+
+#### 診斷圖：平穩態平均數的有效資訊量
+
+![相關高斯 Gibbs 一百輪完整掃描的理論 ESS，正負相關係數呈對稱曲線](../../../../assets/concept-animations/gibbs-ess-diagnostic-still.svg)
+
+在高斯 Gibbs 的**平穩態**，若觀察一百輪完整掃描的 $Y$，其樣本平均數的變異數等效有效樣本數，可利用理論自相關直接計算，**不是**從圖上短短幾步人工軌跡估計而來：[^roberts]
+
+$
+N_{\mathrm{eff}}=\frac{100}{1+2\sum_{k=1}^{99}(1-k/100)\rho^{2k}}.
+$
+
+$\rho=0.8$ 時約為 **22.44**，$\rho=0.95$ 時約為 **5.68**。即使每次條件抽樣都被接受，相關性仍使一百輪提供的獨立等效資訊量降低。滑桿現在涵蓋**正負相關係數**：由於完整掃描的自相關為 $\rho^{2k}$，ESS 曲線呈對稱，$\rho=-0.8$ 與 $+0.8$ 都是**約 22.44**，但更新路徑方向不同。移動相關係數滑桿可重新計算曲線和游標；此數值只適用於本人工高斯模型在平穩態的 $Y$ 平均數，**不是模型實測 ESS，也不能用來推論暖身期已完成**。
+
+#### 診斷圖：從固定高斯起點接近平穩分布
+
+![高斯吉布斯完整掃描後的精確 Y 邊際分布，以平均值與一倍標準差區間呈現接近平穩態的過程](../../../../assets/concept-animations/gibbs-burnin-law-still.svg)
+
+上方青綠色軌跡使用**固定的人工創新值**，新增紫色區間則表示從 \(Y_0=1\) 出發時，**所有可能抽樣路徑的精確機率分布**。對二維高斯的系統式掃描，經過 \(n\) 輪**完整掃描**（不是單次座標更新）後：
+
+$
+Y_n\mid Y_0=1\sim\mathcal{N}\bigl(\rho^{2n},\ 1-\rho^{4n}\bigr).
+$
+
+青綠色曲線是此分布的平均值，紫色區間是**平均值 ± 一個標準差**，不是由圖上短路徑擬合出的信賴區間。當 \(\rho=0.8\)、\(n=2\) 時，平均值為 \(0.4096\)、變異數為 \(0.83222784\)。起始 \(n=0\) 是集中在 1 的點質量，之後逐漸接近平穩邊際 \(\mathcal{N}(0,1)\)。既有步驟滑桿以 \(n=\lfloor\mathrm{step}/2\rfloor\) 標示完整輪數；只走完半輪時不會移動這張圖的進度。這是**解析上的收斂示例，不是模型實測，也不是從人工軌跡估計**。[^roberts]
+
+### 互動實驗：平穩分布不代表可達性
+
+![吉布斯離散不連通目標，對比逐座標受困與聯合分塊跨模態轉移](../../../../assets/concept-animations/gibbs-disconnected-still.svg)
+
+<div class="gibbs-lab" data-gibbs-lab="disconnected" data-lang="zh-TW">
+  <p>若無法執行 JavaScript，上方靜態圖仍呈現兩種核的差異：逐座標更新無法跨模態，聯合分塊抽樣則能切換。</p>
+</div>
+
+考慮人工目標 $p(0,0)=p(1,1)=1/2$，而 $(0,1)$ 與 $(1,0)$ 的機率為零。對任一支援點，逐座標 Gibbs 更新皆**只能留在原處**。可以切換起點、逐步更新，再切換為從整個聯合目標抽樣的**分塊更新核**；兩者都能保持目標的平穩分布，但只有分塊更新能從任一起點到達兩個支援點。右側的**轉移機率長條**顯示目前狀態對應的更新核轉移列：逐座標為 $(1,0)$ 或 $(0,1)$；分塊更新對兩個起點皆為 $(0.5,0.5)$。這是**理論轉移機率**，不是樣本轉移次數。畫面的分塊轉移使用固定人工均勻數值，**不是實測馬可夫鏈**。這個對比凸顯「保持分布不變」與「從任意起點收斂」的條件不同，不能以百分之百接受率直接推論混合良好。[^casella][^roberts]
+
+
+
+
+#### 混合更新核：分塊抽樣比例如何影響收斂？
+
+![混合吉布斯更新以四分之一機率執行分塊刷新，顯示留在原狀態與跨模態的轉移機率及精確總變異距離衰減](../../../../assets/concept-animations/gibbs-hybrid-refresh-still.svg)
+
+選擇**混合更新**，再把分塊刷新機率 $p$ 調整為零至一。每次更新使用 $K_p=(1-p)I+p\Pi$，其中 $I$ 是受困於原狀態的逐座標更新，而 $\Pi$ 的每列皆為 $(1/2,1/2)$。從任一支援點出發，每次**跨模態**的精確機率是 **$p/2$**，不是 $p$；留在原狀態的機率則是 $1-p/2$。從單一狀態起始，經過 $n$ 次完整轉移後，**機率分布**的總變異距離為
+
+$
+d_{\mathrm{TV}}(\delta_xK_p^n,\pi)=\tfrac12(1-p)^n.
+$
+
+當 $p=0.25$，四次轉移後的距離是 $0.5(0.75)^4\approx0.1582$。$p=0$ 時鏈可約、永不收斂；任何 $p>0$ 時，此二狀態鏈都以幾何速度收斂；$p=1$ 則一步到達 $\pi$。圖中的游標代表**解析的分布距離**，而不是畫面中單一樣本點的距離。示意路徑使用兩組固定人工均勻值（是否刷新，以及刷新後選哪個狀態），不是實際量測的轉移或獨立亂數模擬。[^casella][^roberts]
+
+#### 診斷圖：總變異距離下的收斂
+
+![從單一支援點出發的精確總變異距離：逐座標 Gibbs 維持零點五，聯合分塊更新在一步後歸零](../../../../assets/concept-animations/gibbs-tv-diagnostic-still.svg)
+
+第二張圖比較的是從任一支援點出發、經過 $k$ 次完整更新後的**機率分布**與目標 $\pi=(1/2,1/2)$ 的總變異距離，**不是某一條抽樣路徑上兩個狀態的距離**。逐座標 Gibbs 的轉移矩陣為單位矩陣，因此所有步驟的距離都維持 **0.5**；聯合分塊更新每次直接從 $\pi$ 抽取，故 $k=0$ 時距離為 **0.5**，而 $k\geq 1$ 後精確等於 **0**。兩個端點核與混合更新核都保持 $\pi$；只要 $p>0$，混合更新核同樣能從任何支援點收斂至目標。切換更新核並移動步驟滑桿，即可對照理論距離與人工示範路徑。[^casella][^roberts]
+
+#### 診斷圖：整體離散機率分布的演進
+
+![兩個支援狀態在混合 Gibbs 更新後的精確機率質量堆疊長條，與人工示意的單一抽樣軌跡區分](../../../../assets/concept-animations/gibbs-law-propagation-still.svg)
+
+新增堆疊長條會呈現**整個機率分布**的演進，而不只是目前被標記的單一馬可夫狀態。若以 \((0,0)\) 為起點，分塊刷新機率為 \(p\)，經過 \(n\) 次轉移後：
+
+$
+P_n(00)=\tfrac12+\tfrac12(1-p)^n,\qquad
+P_n(11)=\tfrac12-\tfrac12(1-p)^n.
+$
+
+從 \((1,1)\) 開始時，兩項機率對調。例如 \(p=0.25\)、由 \((0,0)\) 起始，四次轉移後 \(P_4(00)=0.658203125\)，即使另外那條使用**固定人工均勻數值**的軌跡此時可能剛好位於另一個狀態。橘色的半數參考線是目標平穩分布。讀者可沿用既有的更新核、起點、刷新機率與步驟控制；數值來自**人工構造之二狀態核的解析公式，不是實際抽樣頻率**。[^casella][^roberts]
 
 ## 與其他頁面的連結
 
-- [馬可夫鏈蒙地卡羅](index.md)提供框架與診斷。
-- [機率與統計](../../../math/probability-statistics/index.md)提供使吉布斯步驟容易計算的條件分布與共軛性。
-- 在共軛模型中，吉布斯抽樣與平均場變分推論密切相關。抽樣器從後驗抽樣，平均場更新則近似後驗，參見[變分推論](../variational-inference/index.md)。
+吉布斯抽樣依其他變數的當前值來抽取單一變數。平均場座標上升則對其他因子取期望，再最佳化一個分布因子。[平均場變分推論](../variational-inference/mean-field.zh-TW.md)。
 
 ## 應用
 
-- **階層貝氏模型**：共軛條件分布使吉布斯抽樣對許多標準模型都有效率（Gelman et al., 2013）。
+Gelfand 與 Smith 以吉布斯抽樣估計貝氏模型的邊際分布。Geman 與 Geman 則在影像復原的隨機鬆弛與退火方法中使用條件更新。[^gelfand][^geman]
 
-## 開放問題
+## 限制
 
-- 相關性強的後驗可能使吉布斯抽樣極慢，而若不比較多條鏈，很難診斷這一點。
-- 一般而言，分塊方式與掃描順序的自動選擇仍未解決。
+- 掃描順序、分塊與參數化方式都可能影響混合。較大的區塊增加聯合抽樣的成本，但可能降低相鄰輪次的相依性。[^roberts][^he]
+- 完全條件更新必須能讓鏈在相關區域之間移動。例如，若目標分布只在 $(0,0)$ 和 $(1,1)$ 有機率質量，每個座標都由另一座標決定。逐座標更新的鏈會留在起點，即使目標分布確實是平穩分布。
+
+[^casella]: *Explaining the Gibbs Sampler*. https://www2.stat.duke.edu/~scs/Courses/Stat376/Papers/Basic/CasellaGeorge1992.pdf
+[^roberts]: *Updating Schemes, Correlation Structure, Blocking and Parameterization for the Gibbs Sampler*. https://www2.stat.duke.edu/~scs/Courses/Stat376/Papers/ConvergeRates/GibbsSampling/RobertsSahu1997.pdf
+[^he]: *Scan Order in Gibbs Sampling: Models in Which it Matters and Bounds on How Much*. https://arxiv.org/abs/1606.03432
+[^gelfand]: *Sampling-Based Approaches to Calculating Marginal Densities*. https://www.ma.imperial.ac.uk/~das01/MyWeb/SCBI/Papers/GelfandSmith.pdf
+[^geman]: *Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images*. https://cseweb.ucsd.edu/~dasgupta/291-bayes/geman-geman.pdf
 
 ## 參考文獻
 
 ### 奠基性論文
 
-- Hastings, W. K. (1970). Monte Carlo sampling methods using Markov chains and their applications. *Biometrika* 57(1), 97–109. https://doi.org/10.1093/biomet/57.1.97 — 給出一般的接受比率框架，吉布斯更新是其特例。
-- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://doi.org/10.1023/A:1020281327116 — 說明吉布斯更新是接受機率為一的 Metropolis–Hastings 移動。
-
-### 綜述與教科書
-
-- Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer. https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf — 抽樣一章以實例涵蓋吉布斯抽樣。
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋圖模型的吉布斯抽樣。
-- Gelman, A. et al. (2013). *Bayesian Data Analysis*, 3rd ed. CRC Press. https://sites.stat.columbia.edu/gelman/book — 在階層模型中使用吉布斯抽樣，並討論其收斂檢查。
-- Neal, R. M. (2011). MCMC using Hamiltonian dynamics. arXiv:1206.1901. https://arxiv.org/abs/1206.1901 — 在相關性強的情境中比較吉布斯型與以梯度為基礎的抽樣器。
+- Casella 與 George（1992）。*Explaining the Gibbs Sampler*。The American Statistician 46(3)，167–174。 https://www2.stat.duke.edu/~scs/Courses/Stat376/Papers/Basic/CasellaGeorge1992.pdf — 說明如何透過接續的條件抽樣取得目標邊際分布。
+- Roberts 與 Sahu（1997）。*Updating Schemes, Correlation Structure, Blocking and Parameterization for the Gibbs Sampler*。JRSS B 59(2)，291–317。 https://www2.stat.duke.edu/~scs/Courses/Stat376/Papers/ConvergeRates/GibbsSampling/RobertsSahu1997.pdf — 分析掃描方式與分塊如何影響高斯目標的收斂。
+- He、De Sa、Mitliagkas 與 Ré（2016）。*Scan Order in Gibbs Sampling: Models in Which it Matters and Bounds on How Much*。NeurIPS。 https://arxiv.org/abs/1606.03432 — 比較掃描順序，並分析混合時間的差異。
+- Gelfand 與 Smith（1990）。*Sampling-Based Approaches to Calculating Marginal Densities*。JASA 85(410)，398–409。 https://www.ma.imperial.ac.uk/~das01/MyWeb/SCBI/Papers/GelfandSmith.pdf — 將吉布斯更新用於貝氏模型的邊際推論。
+- Geman 與 Geman（1984）。*Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images*。IEEE TPAMI 6(6)，721–741。 https://cseweb.ucsd.edu/~dasgupta/291-bayes/geman-geman.pdf — 發展貝氏影像復原所用的條件更新與退火方法。
