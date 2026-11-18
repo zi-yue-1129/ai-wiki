@@ -52,7 +52,7 @@ $$
 
 *原創教學動畫，CC BY-SA 4.0。MkDocs 可播放／暫停；手機版可聚焦圖像並水平捲動。GitHub 保留靜態回退預覽。* [開啟完整 SVG 動畫](../../../../assets/concept-animations/brier-murphy-decomposition-motion.svg).
 
-使用十筆**人工二元案例**：五筆預測機率為 $p=0.2$，該組實際正例比例為 $0.4$；另五筆預測為 $p=0.8$，實際正例比例為 $0.6$。整體共有五筆正例。因為同組預測機率完全相同，可以使用 Murphy 分解的**有限樣本精確恆等式**：[^murphy1973]
+使用十筆**人工二元案例**：五筆預測機率為 $p=0.2$，該組實際正例比例為 $0.4$；另五筆預測為 $p=0.8$，實際正例比例為 $0.6$。整體共有五筆正例。因為同組預測機率完全相同，可以使用 Murphy 分解的**有限樣本精確恆等式**：
 
 $$
 \mathrm{BS}=\mathrm{UNC}+\mathrm{REL}-\mathrm{RES}
@@ -108,5 +108,3 @@ $$
 - Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — 提供免費線上草稿的機率機器學習教科書。
 - Niculescu-Mizil, A. & Caruana, R. (2005). Predicting good probabilities with supervised learning. ICML. https://doi.org/10.1145/1102351.1102430 — 比較常見分類器的機率校準，以及校準方法的效果。
 - *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*, 2nd edition. https://hastie.su.domains/ElemStatLearn/ — 統計學習的標準教科書，涵蓋其評估方法。
-
-[^murphy1973]: Murphy (1973), as listed under References above.

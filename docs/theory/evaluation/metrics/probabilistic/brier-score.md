@@ -51,7 +51,7 @@ The moving forecast $p$ changes both possible losses at once. The minimum at $p=
 
 *Original instructional animation, CC BY-SA 4.0. Play/Pause is available on MkDocs; keyboard-focus the image to pan on narrow screens. GitHub displays a complete static fallback.* [Open full SVG animation](../../../../assets/concept-animations/brier-murphy-decomposition-motion.svg).
 
-For a **constructed sample** of ten binary outcomes, five have forecast $p=0.2$ and an observed event rate of $0.4$; the other five have $p=0.8$ and an observed rate of $0.6$. There are five positives in total. Because all predictions within a group are identical, the **exact finite-sample** Murphy decomposition applies:[^murphy1973]
+For a **constructed sample** of ten binary outcomes, five have forecast $p=0.2$ and an observed event rate of $0.4$; the other five have $p=0.8$ and an observed rate of $0.6$. There are five positives in total. Because all predictions within a group are identical, the **exact finite-sample** Murphy decomposition applies:
 
 $$
 \mathrm{BS}=\mathrm{UNC}+\mathrm{REL}-\mathrm{RES}
@@ -107,5 +107,3 @@ Using the same predictions, the squared errors are $0.01$, $0.64$, $0.09$ and $0
 - Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — Textbook with a free online draft on probabilistic machine learning.
 - Niculescu-Mizil, A. & Caruana, R. (2005). Predicting good probabilities with supervised learning. ICML. https://doi.org/10.1145/1102351.1102430 — Compares probability calibration across common classifiers and the effect of calibration methods.
 - *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*, 2nd edition. https://hastie.su.domains/ElemStatLearn/ — Standard textbook on statistical learning and its evaluation.
-
-[^murphy1973]: Murphy (1973), as listed under References above.
