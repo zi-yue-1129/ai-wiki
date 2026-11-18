@@ -35,5 +35,5 @@ class DataMotion(unittest.TestCase):
  def test_bilingual_hooks(self):
   for topic in ['minhash-deduplication','data-programming']:
    for lang in ['', '.zh-TW']:
-    s=(A.parents[1]/f'engineering/data/{topic}{lang}.md').read_text();self.assertIn('<img data-source-asset-urls',s)
+    s=(A.parents[1]/f'engineering/data/{topic}{lang}.md').read_text();self.assertIn('<img data-source-asset-urls',s);self.assertIn('tabindex="0"',s);self.assertIn('overflow-x:auto',s);self.assertIn('min-width:640px;max-width:none',s)
 if __name__=='__main__':unittest.main()

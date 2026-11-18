@@ -26,7 +26,13 @@ aliases:
 
 標註函式對每個樣本投票。生成式模型把投票整合成機率型標籤，下游的分類器則在這些標籤上訓練。撰寫新函式並檢查覆蓋率與衝突，是人們實際花時間的迴圈。
 
-<img data-source-asset-urls src="../../assets/concept-animations/weak-supervision-vote-fusion-still.svg" data-motion-src="../../assets/concept-animations/weak-supervision-vote-fusion-motion.svg" data-still-src="../../assets/concept-animations/weak-supervision-vote-fusion-still.svg" alt="弱監督動畫：三個標註函式對四個範例投票、棄權或相互衝突，並產生機率型標籤。">
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="教學圖：窄螢幕可聚焦後左右捲動">
+<div style="width:640px">
+<img data-source-asset-urls width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../assets/concept-animations/weak-supervision-vote-fusion-still.svg" data-motion-src="../../assets/concept-animations/weak-supervision-vote-fusion-motion.svg" data-still-src="../../assets/concept-animations/weak-supervision-vote-fusion-still.svg" alt="弱監督動畫：三個標註函式對四個範例投票、棄權或相互衝突，並產生機率型標籤。">
+</div>
+</div>
+
+窄螢幕上可聚焦圖表，再按左右方向鍵或左右滑動，以原始字級閱讀完整內容。
 
 *原創教學動畫，CC BY-SA 4.0。* E1–E4 是四筆虛構樣本；LF1–LF3 投下正（+）、負（−）或棄權（–）的票。移動的外框把投票欄位對應到右邊的軟標籤，顯示 \(P(y=+)\) 約為 **0.93、0.71、0.13、0.65**。為了使示意機率可以驗算，假設二元類別先驗為 0.5，且三個標註函式的對稱準確率已知、在給定真實標籤下相互獨立，依序為 0.85、0.70、0.75；棄權不提供概似比。以 E2 為例，LF1 與 LF2 的投票衝突，正類勝算為 \((0.85/0.15)(0.30/0.70)\)，故 \(P(y=+)\approx0.71\)。**此圖並未用四筆樣本實際擬合標籤模型**；資料編程需要在模型假設下利用大量未標註資料估計標註來源的準確率與相依性，對高度相關的函式尤其需要審慎處理。MkDocs 提供播放／暫停與降低動態效果；GitHub 可[檢視靜態投票總覽](../../assets/concept-animations/weak-supervision-vote-fusion-still.svg)。
 
