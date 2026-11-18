@@ -15,7 +15,7 @@ ROC-AUC is the area under the receiver operating characteristic curve. The curve
 
 At each threshold $t$, the true positive rate is $TP/(TP+FN)$ and the false positive rate is $FP/(FP+TN)$. The ROC curve collects these points, and ROC-AUC is the area under it.
 
-A useful reading is the ranking interpretation: ROC-AUC equals the probability that a randomly chosen positive receives a higher score than a randomly chosen negative. A perfect ranking gives 1.0 and random scores give 0.5 (Fawcett, 2006).
+A useful ranking interpretation is: ROC-AUC equals the probability that a randomly chosen positive has a strictly higher score than a randomly chosen negative, **plus half the probability of a tie**. A perfect ranking gives 1.0; for independent, identically distributed random scores, the **expected** AUC is 0.5, not necessarily the AUC of a particular finite sample (Fawcett, 2006).
 
 ## Interpretation
 
@@ -23,7 +23,7 @@ ROC-AUC needs only the scores, not labels at a threshold, so it compares models 
 
 ## When to use it
 
-Use ROC-AUC for model comparison when the operating threshold is not yet known, and when positives and negatives are of comparable size.
+Use ROC-AUC to compare ranking discrimination across thresholds when the deployment operating point is not yet fixed. ROC-AUC does **not** mathematically require similarly sized positive and negative classes, but a low false-positive rate can still correspond to many false alarms when prevalence is low. In that setting, inspect precision–recall performance and the deployment base rate as well as ROC-AUC.
 
 ## Worked example
 
@@ -172,7 +172,7 @@ L(k) &= C_{FN}p[1-TPR(k)]\\
 \end{aligned}
 $
 
-For the top-one cutoff, $L(1)=C_{FN}/15$. For the top-four cutoff, $L(4)=0.30$. Among **all seven candidate cutoffs** $k=0,\ldots,6$, the minimum-cost choice is **$k=1$** when $C_{FN}=1$ (cost $0.0667$), but **$k=4$** when $C_{FN}=5$ (cost $0.300$); these two alternatives tie at $C_{FN}=4.5$. The ROC staircase comes from the six-case example; deployment prevalence and costs are **separate hypothetical assumptions**. The moving markers sweep assumptions, **not epochs or actual inference samples**. MkDocs offers keyboard-accessible Play/Pause and a reduced-motion still; scroll horizontally on phones. [GitHub static preview](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [Full SVG motion](../../../../assets/concept-animations/roc-youden-cost-motion.svg). For decision-theoretic context see Fawcett (2006) in References.
+For the top-one cutoff, $L(1)=C_{FN}/15$. For the top-four cutoff, $L(4)=0.30$. Among **all seven candidate cutoffs** $k=0,\ldots,6$, the minimum-cost choice is **$k=1$** when $C_{FN}=1$ (cost $0.0667$), but **$k=4$** when $C_{FN}=5$ (cost $0.300$); these two alternatives tie at $C_{FN}=4.5$. Over the **illustrated cost range** $1\le C_{FN}\le5$, the optimum is $k=1$ below 4.5, either $k=1$ or $k=4$ at 4.5, and $k=4$ above 4.5. The other five candidate cutoffs never improve on the better of these two choices in this range; the chart therefore shows only the two potentially optimal loss lines. The ROC staircase comes from the six-case example; deployment prevalence and costs are **separate hypothetical assumptions**. The moving markers sweep assumptions, **not epochs or actual inference samples**. MkDocs offers keyboard-accessible Play/Pause and a reduced-motion still; scroll horizontally on phones. [GitHub static preview](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [Full SVG motion](../../../../assets/concept-animations/roc-youden-cost-motion.svg). For decision-theoretic context see Fawcett (2006) in References.
 
 ## References
 

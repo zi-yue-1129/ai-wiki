@@ -348,4 +348,25 @@ for stem in ("roc-pr-shift", "roc-youden-cost"):
     assert "prefers-reduced-motion" in motion
     assert 'class="moving"' in motion and 'class="baseline"' in still
     assert "<animate" in motion and "<animate" not in still
+# Verify the seven-cutoff lower envelope, not merely the two displayed endpoints.
+for index in range(81):
+    fn_cost = 1 + index / 20
+    losses = []
+    for k in range(7):
+        tp = sum(decision_labels[:k])
+        fp = k - tp
+        losses.append(fn_cost * .1 * (1 - tp / 3) + .9 * (fp / 3))
+    minimum = min(losses)
+    assert math.isclose(minimum, min(losses[1], losses[4]), abs_tol=1e-12)
+    optima = [k for k, loss in enumerate(losses)
+              if math.isclose(loss, minimum, abs_tol=1e-12)]
+    expected = [1] if fn_cost < 4.5 else [4] if fn_cost > 4.5 else [1, 4]
+    assert optima == expected, (fn_cost, optima, expected)
+
+# Multi-line equations must use display delimiters in both translations.
+for filename in ("roc-auc.md", "roc-auc.zh-TW.md"):
+    page = (shared_dir / filename).read_text(encoding="utf-8")
+    assert "\n$\n" in page and r"\begin{aligned}" in page and r"\end{aligned}" in page
+    assert "4.5" in page and "roc-youden-cost-still.svg" in page
+
 print("ROC prevalence-shift and Youden-versus-cost analytic cases OK")
