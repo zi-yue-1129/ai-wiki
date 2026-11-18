@@ -27,11 +27,13 @@ Each node's representation is built layer by layer. At each depth, the node comb
 
 ### Animated walkthrough: sample, aggregate, concatenate
 
-![GraphSAGE chooses three neighbours out of six, averages their example features, and concatenates that result with the target node feature.](../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg)
+<img data-source-asset-urls src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" data-motion-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg" data-still-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" alt="GraphSAGE chooses three neighbours out of six, averages their example features, and concatenates that result with the target node feature.">
 
 *Original CC BY-SA 4.0 teaching animation based on Hamilton et al. (2017; see References). The MkDocs **Play/Pause** control is keyboard accessible; reduced-motion preferences select the [GitHub-readable static overview](../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg). [Open the animated SVG](../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg).*
 
 One schematic node has feature $h_v=4$ and six neighbours with scalar features $\{1,3,2,4,5,6\}$. A **single fixed sample** of three neighbours, $\{1,2,5\}$, gives $\operatorname{mean}=8/3\approx2.67$. The general sample-and-aggregate update can concatenate $[4,8/3]$ before the shared transformation $\sigma(W^k[\cdot])$. The paper also studies a **mean-convolution variant that omits concatenation**; this diagram depicts the general concatenating update with a mean neighbourhood aggregate, not that variant. Real GraphSAGE learns vector-valued transforms and may resample neighbours across iterations. Every number and edge selection here is illustrative, not a trained embedding or measured sampling outcome.
+
+The message motion is a forward-only reading guide: it holds after arrival, then restarts, not a reverse propagation or another sample. Displayed aggregates are the completed result, not fractional intermediate feature values.
 
 ## Equation or algorithm
 

@@ -42,14 +42,14 @@ The statistical view explains most of the loss functions used in practice. Maxim
 - Mean squared error is the negative log-likelihood of a Gaussian with fixed variance, up to constants.
 - L2 weight regularisation corresponds to a Gaussian prior on the weights when a MAP estimate is computed.
 
-Estimation has two standard routes. [Maximum likelihood](maximum-likelihood.md) picks the parameter that makes the observed data most probable. [Maximum a posteriori](maximum-a-posteriori.md) estimation adds the log-prior to the likelihood, so the prior acts as a regulariser. Full Bayesian inference keeps the whole posterior, which is usually intractable and is approximated by [variational inference](../../paradigms/probabilistic/variational-inference/index.md) or [Markov chain Monte Carlo](../../paradigms/probabilistic/mcmc/index.md).
+Estimation has two standard routes. [Maximum likelihood](maximum-likelihood.md) picks the parameter that makes the observed data most probable. [Maximum a posteriori](maximum-a-posteriori.md) estimation maximises the sum of the log-likelihood and log-prior, so the prior acts as a regulariser. Full Bayesian inference keeps the whole posterior, which is usually intractable and is approximated by [variational inference](../../paradigms/probabilistic/variational-inference/index.md) or [Markov chain Monte Carlo](../../paradigms/probabilistic/mcmc/index.md).
 
 ## Key methods
 
 Two estimators are the landmark methods of this area. Each has its own page.
 
 - [Maximum likelihood estimation](maximum-likelihood.md): chooses the parameter that maximises the probability of the data. Used to train almost every parametric model.
-- [Maximum a posteriori estimation](maximum-a-posteriori.md): adds a prior to the likelihood. It equals maximum likelihood when the prior is flat, and it turns priors such as Gaussians into regularisers.
+- [Maximum a posteriori estimation](maximum-a-posteriori.md): finds a posterior mode. With a constant prior over the same parameter domain, its maximisers agree with maximum likelihood.
 
 ## Connections
 

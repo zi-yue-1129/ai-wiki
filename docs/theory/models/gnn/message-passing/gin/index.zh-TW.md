@@ -28,11 +28,13 @@ translation_reviewed: 2026-10-28
 
 ### 教學動畫：為什麼鄰居數量重要
 
-![兩組鄰居特徵的訊息向中心節點傳遞：平均值相同，但加總能區分兩個與三個相同特徵。](../../../../../assets/concept-animations/gin-multiset-counts-motion.svg)
+<img data-source-asset-urls src="../../../../../assets/concept-animations/gin-multiset-counts-still.svg" data-motion-src="../../../../../assets/concept-animations/gin-multiset-counts-motion.svg" data-still-src="../../../../../assets/concept-animations/gin-multiset-counts-still.svg" alt="兩組鄰居特徵的訊息向中心節點傳遞：平均值相同，但加總能區分兩個與三個相同特徵。">
 
 *依 Xu 等人（2018，見參考文獻）原創製作的 CC BY-SA 4.0 教學動畫。MkDocs 的 **Play/Pause** 可使用鍵盤操作；啟用減少動態效果偏好時，會優先顯示 [GitHub 可閱讀的靜態圖](../../../../../assets/concept-animations/gin-multiset-counts-still.svg)。[開啟完整 SVG 動畫](../../../../../assets/concept-animations/gin-multiset-counts-motion.svg)。*
 
 示意鄰域分別為 $A=\{1,1\}$ 與 $B=\{1,1,1\}$。兩者的平均值都是 $1$，但總和分別為 $2$ 與 $3$。移動的圓點代表逐一傳入的鄰居訊息；右側數值是 **MLP 之前的聚合結果**，不是模型訓練得到的節點嵌入。此例假設 GIN-0 的中心節點特徵在兩種情境都為 $0$，使自身項不影響比較。這個示例只展示平均聚合丟失的一種計數資訊，**不表示任意連續值多重集合的求和必然為單射**，也不是模型實測。原論文的表達能力結論有輸入特徵域與函數表示能力的前提。
+
+訊息移動是單向閱讀引導：抵達後停留，再重新開始，不表示反向傳播或另一次抽樣。顯示的聚合數值是完整結果，不是移動途中逐漸變化的特徵值。
 
 ## 方程式或演算法
 

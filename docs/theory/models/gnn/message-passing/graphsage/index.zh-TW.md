@@ -27,11 +27,13 @@ GraphSAGE 是一種歸納式（inductive）的節點嵌入方法，由 Hamilton�
 
 ### 教學動畫：採樣、聚合、串接
 
-![GraphSAGE 從六個鄰居中選取三個，計算示意特徵的平均值，再與中心節點特徵串接。](../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg)
+<img data-source-asset-urls src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" data-motion-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg" data-still-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" alt="GraphSAGE 從六個鄰居中選取三個，計算示意特徵的平均值，再與中心節點特徵串接。">
 
 *依 Hamilton 等人（2017，見參考文獻）原創製作的 CC BY-SA 4.0 教學動畫。MkDocs 的 **Play/Pause** 支援鍵盤操作；偏好減少動態效果時，會優先顯示 [GitHub 可閱讀的靜態圖](../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg)。[開啟完整 SVG 動畫](../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg)。*
 
 示意節點自身特徵為 $h_v=4$，六個鄰居的純量特徵為 $\{1,3,2,4,5,6\}$。其中 **單次固定選取** 的三個鄰居 $\{1,2,5\}$，平均值為 $8/3\approx2.67$。一般性的採樣與聚合更新可將 $[4,8/3]$ 串接，再交給共享的 $\sigma(W^k[\cdot])$ 轉換。原論文另外提出 **省略串接步驟的 mean-convolution 變體**；圖中描繪的是一般串接更新配合鄰居平均聚合，不能混為同一個變體。實際 GraphSAGE 會學習向量轉換，也可能在不同迭代重新抽取鄰居。圖中數值及採樣邊均為教學示意，不是模型產生的嵌入或實測採樣結果。
+
+訊息移動是單向閱讀引導：抵達後停留，再重新開始，不表示反向傳播或另一次抽樣。顯示的聚合數值是完整結果，不是移動途中逐漸變化的特徵值。
 
 ## 方程式或演算法
 
