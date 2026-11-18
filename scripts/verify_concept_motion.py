@@ -15,6 +15,9 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "reinforce-reward-to-go": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index",
+    "reinforce-return-credit": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index",
+    "grpo-group-advantages": "theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/grpo/index",
     "ece-binned-calibration": "theory/paradigms/probabilistic/uncertainty-calibration/expected-calibration-error",
     "deep-ensemble-spread": "theory/paradigms/probabilistic/uncertainty-calibration/deep-ensembles",
     "clr-triangular2-sweep": "theory/optimization/cyclical-learning-rates",
@@ -217,7 +220,7 @@ def verify_svg(path: Path, animated: bool) -> list[str]:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as exc:
         return [f"{path}: invalid XML: {exc}"]
-    if root.tag != NS + "svg" or root.get("viewBox") not in {"0 0 640 360", "0 0 720 460", "0 0 800 420", "0 0 720 400"}:
+    if root.tag != NS + "svg" or root.get("viewBox") not in {"0 0 760 400", "0 0 640 360", "0 0 720 460", "0 0 800 420", "0 0 720 400"}:
         errors.append(f"{path}: invalid SVG root/viewBox")
     for label in ("title", "desc"):
         if root.find(NS + label) is None:
@@ -278,7 +281,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {"qk-norm-scale-sweep", "sigma-reparam-spectral-gain", "ece-binned-calibration", "deep-ensemble-spread", "lion-sign-momentum", "muon-spectral-balancing", "hmm-forward-sum-product", "hmm-filter-smooth", "hmm-pairwise-posterior", "hmm-baum-welch-transition"}:
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"itemcf-weighted-neighbors", "neumf-dual-path"}:
+            elif stem in {"reinforce-reward-to-go", "reinforce-return-credit", "grpo-group-advantages", "itemcf-weighted-neighbors", "neumf-dual-path"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {
