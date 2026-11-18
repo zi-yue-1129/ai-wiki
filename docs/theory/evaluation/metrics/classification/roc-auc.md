@@ -269,9 +269,9 @@ Thus even if expected FPR equals the budget, a three-negative batch exceeds that
 
 *Original instructional animation (CC BY-SA 4.0); entirely synthetic assumptions, not fitted-model estimates.* Let $K$ be the number of false alarms among **three independent true negatives**, each with an assumed false-positive probability $1/6$. Then
 
-$
+$$
 P(K=k)=\binom{3}{k}\left(\frac16\right)^k\left(\frac56\right)^{3-k},\qquad k=0,1,2,3.
-$
+$$
 
 The four exact probabilities are **125/216**, **75/216**, **15/216** and **1/216**, giving observed FPR values **0**, **1/3**, **2/3** and **1**, respectively. The animated outline moves through the **four possible counts**, while three negative-case markers show one possible arrangement for each count. **Every count gets equal screen time for explanation, not in proportion to its probability**; the fixed histogram encodes those unequal probabilities. Outcomes with $K\geq1$ exceed the population cap $1/6$, with combined probability **91/216 ≈ 42.1%**. These four states are alternative samples, **not consecutive training steps or a single batch accumulating false alarms**. MkDocs provides keyboard-operated Play/Pause; reduced-motion users see the complete histogram and one over-budget example. On narrow screens, focus the graphic and scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-batch-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-batch-motion.svg).
 
