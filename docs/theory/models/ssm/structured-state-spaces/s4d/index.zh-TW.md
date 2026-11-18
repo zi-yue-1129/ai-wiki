@@ -31,7 +31,13 @@ S4D 把 S4 的計算方式與參數化，和 DSS 的初始化結合起來。它�
 
 ## 方程式或演算法
 
-連續系統為 \(x'(t) = Ax(t) + Bu(t)\)、\(y(t) = Cx(t)\)，其核為 \(K(t) = Ce^{tA}B\)。雙線性離散化給出 \(\bar A = (I - \tfrac{\Delta}{2}A)^{-1}(I + \tfrac{\Delta}{2}A)\)。當 \(\bar A\) 為對角矩陣時，離散核是一個 Vandermonde 乘積，\(\bar K = (\bar B^\top \circ C)\,V_L(\bar A)\)，其中 \(V_L(\bar A)_{n,\ell} = \bar A_n^{\ell}\)。逐項寫出為
+連續系統為 \(x'(t) = Ax(t) + Bu(t)\)、\(y(t) = Cx(t)\)，其核為 \(K(t) = Ce^{tA}B\)。雙線性離散化給出
+
+\[
+\bar A = (I - \tfrac{\Delta}{2}A)^{-1}(I + \tfrac{\Delta}{2}A) .
+\]
+
+。當 \(\bar A\) 為對角矩陣時，離散核是一個 Vandermonde 乘積，\(\bar K = (\bar B^\top \circ C)\,V_L(\bar A)\)，其中 \(V_L(\bar A)_{n,\ell} = \bar A_n^{\ell}\)。逐項寫出為
 
 \[
 \bar K_\ell = \sum_{n=1}^{N} C_n\,\bar B_n\,\bar A_n^{\ell}, \qquad \ell = 0, \dots, L-1 .
@@ -40,14 +46,37 @@ S4D 把 S4 的計算方式與參數化，和 DSS 的初始化結合起來。它�
 兩種具名初始化使用以下對角元素：
 
 \[
-A_n^{\text{Inv}} = -\tfrac{1}{2} + i\,\tfrac{N}{\pi}\left(\tfrac{N}{2n+1} - 1\right), \qquad A_n^{\text{Lin}} = -\tfrac{1}{2} + i\pi n .
+A_n^{\text{Inv}} = -\tfrac{1}{2} + i\,\tfrac{N}{\pi}\left(\tfrac{N}{2n+1} - 1\right) .
 \]
 
+\[
+A_n^{\text{Lin}} = -\tfrac{1}{2} + i\pi n .
+\]
+
+
+
+同一雙線性離散化慣例還需要
+
+\[
+\bar B=(I-\tfrac{\Delta}{2}A)^{-1}\Delta B.
+\]
+
+以零初始狀態及先更新再讀出的索引慣例，
+
+\[
+\begin{aligned}
+h_k&=\bar A h_{k-1}+\bar B u_k,\\
+y_k&=C h_k,\\
+y_k&=\sum_{\ell=0}^{k} C\bar A^\ell\bar B\,u_{k-\ell}.
+\end{aligned}
+\]
+
+圖中的整數延遲樣本由解析式算出；樣本之間的線段和游標採線性插值，並非分數延遲的精確解析振盪。循環重設只是展示，不是狀態演化。
 
 ## 動態圖解：由對角模態組合成卷積核
 
 <div class="ssm-motion-viewport" tabindex="0" role="group" aria-label="S4D 對角模態脈衝響應示意">
-  <img src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" data-motion-src="../../../../../assets/concept-animations/s4d-diagonal-modes-motion.svg" data-still-src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" alt="藍色與青綠色兩組衰減振盪的對角模態，隨時間延遲從零增加至十五，逐步組合成橘色的實數脈衝響應卷積核。" />
+  <img data-source-asset-urls src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" data-motion-src="../../../../../assets/concept-animations/s4d-diagonal-modes-motion.svg" data-still-src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" alt="藍色與青綠色兩組衰減振盪的對角模態，隨時間延遲從零增加至十五，逐步組合成橘色的實數脈衝響應卷積核。" />
 </div>
 
 移動的圓點沿著**延遲（lag）** $\ell=0,\ldots,15$ 前進：兩組複數共軛模態各自產生實數的衰減振盪，兩者相加得到卷積核。此處**僅為人工構造的純量範例**：$k_A[\ell]=0.79^\ell\cos(0.96\ell)$、$k_B[\ell]=0.63(0.93)^\ell\cos(0.32\ell)$，因此 $K[\ell]=k_A[\ell]+k_B[\ell]$。每個實數餘弦項都能表示為一組複數共軛對角特徵值與共軛係數，符合 S4D 的 Vandermonde 卷積核形式。

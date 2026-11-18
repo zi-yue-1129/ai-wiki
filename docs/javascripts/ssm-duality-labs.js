@@ -21,8 +21,8 @@
     const grid=[-1.5,-.75,0,.75,1.5].map(v=>`<line x1="55" x2="704" y1="${y(v)}" y2="${y(v)}" stroke="#dce5ed" stroke-dasharray="3 5"/>`).join('');
     const i = state.step;
     const legend = [['#416dbb','A'],['#159b92','B'],['#e18b3c','K']].map(([c,s],index)=>`<circle cx="${510+index*68}" cy="30" r="5" fill="${c}"/><text x="${522+index*68}" y="34" font-size="14" fill="#314253">${s}</text>`).join('');
-    const visual = svgHead+`<rect x="0" y="0" width="760" height="340" rx="12" fill="#f8fafc"/>${grid}<path d="M55 50V290H704" fill="none" stroke="#879bad" stroke-width="1.2"/><text x="15" y="53" font-size="12" fill="#516478">1.5</text><text x="17" y="294" font-size="12" fill="#516478">-1.5</text><text x="51" y="315" font-size="13" fill="#516478">0</text><text x="681" y="315" font-size="13" fill="#516478">15</text><text x="357" y="330" font-size="13" fill="#516478">lag</text>${legend}${poly(a,'#416dbb',x,y)}${poly(b,'#159b92',x,y)}${poly(sum,'#e18b3c',x,y)}<line x1="${x(i)}" x2="${x(i)}" y1="48" y2="291" stroke="#374e63" stroke-dasharray="5 5"/>${[[a[i],'#416dbb'],[b[i],'#159b92'],[sum[i],'#e18b3c']].map(([v,c])=>`<circle cx="${x(i)}" cy="${y(v)}" r="6" fill="${c}" stroke="#fff" stroke-width="2"/>`).join('')}<text x="70" y="38" fill="#314253" font-size="14">ℓ = ${i}</text></svg>`;
-    return {visual, stats:[['Mode A',fmt(a[i])],['Mode B',fmt(b[i])],['Kernel',fmt(sum[i])]], equation:`K[${i}] = ${fmt(a[i])} + ${fmt(b[i])} = ${fmt(sum[i])}`,stepMax:15};
+    const visual = svgHead+`<rect x="0" y="0" width="760" height="340" rx="12" fill="#f8fafc"/>${grid}<path d="M55 50V290H704" fill="none" stroke="#879bad" stroke-width="1.2"/><text x="15" y="69" font-size="12" fill="#516478">1.5</text><text x="17" y="279" font-size="12" fill="#516478">-1.5</text><text x="51" y="315" font-size="13" fill="#516478">0</text><text x="681" y="315" font-size="13" fill="#516478">15</text><text x="357" y="330" font-size="13" fill="#516478">lag</text>${legend}${poly(a,'#416dbb',x,y)}${poly(b,'#159b92',x,y)}${poly(sum,'#e18b3c',x,y)}<line x1="${x(i)}" x2="${x(i)}" y1="48" y2="291" stroke="#374e63" stroke-dasharray="5 5"/>${[[a[i],'#416dbb'],[b[i],'#159b92'],[sum[i],'#e18b3c']].map(([v,c])=>`<circle cx="${x(i)}" cy="${y(v)}" r="6" fill="${c}" stroke="#fff" stroke-width="2"/>`).join('')}<text x="70" y="38" fill="#314253" font-size="14">ℓ = ${i}</text></svg>`;
+    return {visual, stats:[['Mode A',fmt(a[i])],['Mode B',fmt(b[i])],['Kernel',fmt(sum[i])]], equation:`K[${i}] = ${fmt(a[i])} + ${fmt(b[i])} = ${fmt(sum[i])}`,stepMax:15,a,b,sum};
   }
 
   function ssd(state) {
@@ -41,12 +41,16 @@
     }).join('')).join('');
     const states=h.map((v,j)=>{
       const xx=65+j*83, yy=190-v*44;
-      return `<line x1="${xx}" y1="188" x2="${xx}" y2="${yy}" stroke="${j===i?'#e18b3c':'#52a3a1'}" stroke-width="8" stroke-linecap="round"/><circle cx="${xx}" cy="${yy}" r="${j===i?10:6}" fill="${j===i?'#e18b3c':'#248c89'}"/><text x="${xx}" y="239" text-anchor="middle" fill="#33475b" font-size="13">${j+1}</text><text x="${xx}" y="${Math.min(yy-14,165)}" text-anchor="middle" fill="#33475b" font-size="13">${fmt(v)}</text>`;
+      return `<line x1="${xx}" y1="190" x2="${xx}" y2="${yy}" stroke="${j===i?'#e18b3c':'#52a3a1'}" stroke-width="8" stroke-linecap="round"/><circle cx="${xx}" cy="${yy}" r="${j===i?10:6}" fill="${j===i?'#e18b3c':'#248c89'}"/><text x="${xx}" y="239" text-anchor="middle" fill="#33475b" font-size="13">${j+1}</text><text x="${xx}" y="${v>=0?yy-14:yy+20}" text-anchor="middle" fill="#33475b" font-size="13">${fmt(v)}</text>`;
     }).join('');
     const visual=svgHead+`<rect width="760" height="340" rx="12" fill="#f8fafc"/><text x="47" y="40" fill="#30475b" font-size="16">Recurrence</text><text x="425" y="40" fill="#30475b" font-size="16">Causal map</text><line x1="385" y1="28" x2="385" y2="298" stroke="#d6e1e9"/>${states}<path d="M42 190H352" stroke="#aabcc9" stroke-width="1.5"/>${cells}<text x="48" y="285" fill="#30475b" font-size="14">h${i+1} = ${fmt(h[i])}</text><text x="425" y="332" fill="#30475b" font-size="14">Mx = ${fmt(mat[i])}</text><text x="54" y="328" fill="#728397" font-size="13">t</text></svg>`;
-    return {visual, stats:[['Recurrence',fmt(h[i])],['Matrix',fmt(mat[i])],['Max |difference|',error.toExponential(1)]],equation:`h${i+1} = ${fmt(trans[i])} × ${fmt(i?h[i-1]:0)} + ${fmt(x[i])} = ${fmt(h[i])}`,stepMax:3,error};
+    return {visual, stats:[['Recurrence',fmt(h[i])],['Matrix',fmt(mat[i])],['Max |difference|',error.toExponential(1)]],equation:`h${i+1} = ${fmt(trans[i])} × ${fmt(i?h[i-1]:0)} + ${fmt(x[i])} = ${fmt(h[i])}`,stepMax:3,error,h,mat,M,x};
   }
 
+  if(typeof module!=='undefined')module.exports={s4d,ssd};
+  if(typeof document==='undefined')return;
+  const instances=new Map();
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   function mount(host) {
     if(host.dataset.ssmReady==='yes')return;
     const kind=host.dataset.ssmLab, chinese=host.dataset.lang==='zh';
@@ -75,7 +79,7 @@
       el(host,'[data-action="play"]').textContent=timer===null?t('Play','播放',chinese):t('Pause','暫停',chinese);
       el(host,'[data-role="status"]').textContent=`${t('Step','步驟',chinese)} ${state.step+1}/${result.stepMax+1} · ${result.equation}`;
     };
-    const start=()=>{stop();if(state.step===(kind==='s4d'?15:3))state.step=0;timer=setInterval(()=>{if(state.step===(kind==='s4d'?15:3)){stop();draw();return;}setStep(state.step+1);},900/speed);draw();};
+    const start=()=>{stop();if(state.step===(kind==='s4d'?15:3))state.step=0;timer=setInterval(()=>{if(!host.isConnected||document.hidden){stop();return;}if(state.step===(kind==='s4d'?15:3)){stop();draw();return;}setStep(state.step+1);},900/speed);draw();};
     for(const input of host.querySelectorAll('[data-param]'))input.addEventListener('input',()=>{
       const id=input.dataset.param,value=n(input.value,0);
       if(kind==='s4d')state[id]=value;
@@ -91,12 +95,14 @@
       else if(action==='speed'){speed=speed===1?2:speed===2?.5:1;button.textContent=speed+'×';if(timer!==null)start();}
       else if(action==='reset'){stop();Object.assign(state,JSON.parse(JSON.stringify(defaults)));speed=1;el(host,'[data-action="speed"]').textContent='1×';host.querySelectorAll('[data-param]').forEach(input=>{const id=input.dataset.param;const value=kind==='s4d'?state[id]:id==='lastInput'?state.lastInput:state.transitions[Number(id.at(-1))-2];input.value=value;el(host,`[data-value="${id}"]`).textContent=value.toFixed(2);});draw();}
     }));
-    document.addEventListener('visibilitychange',()=>{if(document.hidden){stop();draw();}});
+    instances.set(host,()=>{stop();if(host.isConnected)draw();});
     // No autoplay. Reduced-motion users can explicitly step or opt into playback.
     draw();
   }
-  const boot=()=>document.querySelectorAll('[data-ssm-lab]').forEach(mount);
+  const boot=()=>{for(const [host,stop] of instances)if(!host.isConnected){stop();instances.delete(host);}document.querySelectorAll('[data-ssm-lab="s4d"],[data-ssm-lab="ssd"]').forEach(mount);};
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)instances.forEach(stop=>stop());});
+  reduced.addEventListener?.('change',()=>{if(reduced.matches)instances.forEach(stop=>stop());});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);
   else boot();
-  if(document.document$?.subscribe)document.document$.subscribe(boot);
+  if(window.document$?.subscribe)window.document$.subscribe(boot);
 })();

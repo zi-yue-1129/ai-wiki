@@ -34,7 +34,10 @@ async def main():
                     <div class="ssm-lab" data-ssm-lab="ssd" data-lang="{lang}"></div></main></body></html>'''
                     await page.set_content(html)
                     await page.add_style_tag(path=str(css))
+                    await page.evaluate("""() => {window.nav=[];window.document$={subscribe:f=>window.nav.push(f)};window.liveTimers=new Set();const a=window.setInterval,b=window.clearInterval;window.setInterval=(...v)=>{const id=a(...v);window.liveTimers.add(id);return id};window.clearInterval=id=>{window.liveTimers.delete(id);b(id)};const div=document.createElement('div');div.id='unrelated';div.dataset.ssmLab='unrelated';div.innerHTML='<b>untouched</b>';document.body.append(div)}""")
                     await page.add_script_tag(path=str(js))
+                    await page.evaluate('window.nav.forEach(f=>f())')
+                    assert await page.locator('#unrelated').inner_html()=='<b>untouched</b>'
                     labs=page.locator('.ssm-lab')
                     assert await labs.count()==2
                     assert await page.locator('.ssm-lab-viewport svg').count()==2
@@ -74,6 +77,22 @@ async def main():
                         assert await page.evaluate("matchMedia('(prefers-reduced-motion: reduce)').matches")
                     if (width,lang,motion) in ((320,'zh','reduce'),(360,'en','no-preference'),(1024,'en','no-preference'),(1024,'zh','reduce')):
                         await page.screenshot(path=str(args.out/f'{lang}-{width}-{motion}.png'),full_page=True)
+                    if width<760:
+                        await s4d.locator('.ssm-lab-viewport').focus()
+                        await page.keyboard.press('ArrowRight')
+                        await page.wait_for_timeout(250)
+                        assert await s4d.locator('.ssm-lab-viewport').evaluate('(v)=>v.scrollLeft>0')
+                    await ssd.locator('[data-action=reset]').click()
+                    assert await ssd.locator('[data-action=speed]').inner_text()=='1×'
+                    await ssd.locator('[data-action=play]').click()
+                    assert await page.evaluate('window.liveTimers.size')==1
+                    await page.evaluate("Object.defineProperty(document,'hidden',{configurable:true,value:true});document.dispatchEvent(new Event('visibilitychange'))")
+                    assert await page.evaluate('window.liveTimers.size')==0
+                    await page.evaluate("Object.defineProperty(document,'hidden',{configurable:true,value:false})")
+                    await ssd.locator('[data-action=play]').click()
+                    await ssd.evaluate('(e)=>e.remove()')
+                    await page.evaluate('window.nav.forEach(f=>f())')
+                    assert await page.evaluate('window.liveTimers.size')==0
                     successes.append((lang,width,motion))
                     await page.close()
         await browser.close()

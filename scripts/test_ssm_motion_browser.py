@@ -27,7 +27,7 @@ async def main():
     docs=Path('docs').resolve()
     js=docs/'javascripts/concept-motion.js'
     css=docs/'stylesheets/concept-motion.css'
-    extra=docs/'stylesheets/extra.css'
+    extra=docs/'stylesheets/ssm-duality-labs.css'
     # The harness serves real SVGs and runs the existing site JS without mocking media events.
     args.screenshots.mkdir(parents=True,exist_ok=True)
     for stem in STEMS:
@@ -81,7 +81,9 @@ async def main():
                     assert await img.get_attribute('src')==(still if lang=='zh' else motion)
                     if width < 860:
                         await page.locator('.ssm-motion-viewport').focus()
-                        await page.keyboard.press('End')
+                        await page.keyboard.press('ArrowRight')
+                        await page.wait_for_timeout(250)
+                        assert await page.locator('.ssm-motion-viewport').evaluate('(v)=>v.scrollLeft>0')
                         # Scrollable and focusable rather than shrinking the SVG.
                         assert await page.evaluate("document.querySelector('.ssm-motion-viewport').scrollWidth > document.querySelector('.ssm-motion-viewport').clientWidth")
                     checks.append(f'{stem}/{lang}/{width}: load, keyboard, toggle, fallback, mobile scroll OK')

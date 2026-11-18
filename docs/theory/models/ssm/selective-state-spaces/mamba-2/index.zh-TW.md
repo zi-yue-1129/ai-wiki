@@ -44,10 +44,13 @@ M_{ji} = (a_j a_{j-1}\cdots a_{i+1})\,(C_j^{\top} B_i) \qquad (j \ge i)。
 以矩陣形式寫成 \(M = L \circ (C B^{\top})\)，其中 \(L\) 是由 \(a_t\) 的累積乘積構成的下三角遮罩。對偶的二次形式為 \((L \circ QK^{\top})V\)，其中 \(Q = C\)、\(K = B\)、\(V = X\)。分塊演算法以此二次形式計算 \(M\) 的對角區塊；非對角區塊則以低秩因子分三步處理：每個區塊從零初始狀態算出其最終狀態，一段跨區塊的短掃描傳播真正的狀態，最後每個區塊把進入的狀態映射為輸出。
 
 
+
+以上矩陣式假設初始狀態為零；非零初始狀態需另加傳播項。選擇性參數可依賴輸入，因此固定參數後的矩陣等價，不代表完整網路對輸入是固定線性映射。純量轉移的乘積遮罩是 1-半可分；加入向量 B、C 後，完整 M 的半可分秩可高於 1。
+
 ## 動態圖解：遞迴與因果矩陣是同一個映射
 
 <div class="ssm-motion-viewport" tabindex="0" role="group" aria-label="Mamba-2 結構化狀態空間對偶示意">
-  <img src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg" data-motion-src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-motion.svg" data-still-src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg" alt="左側四個遞迴狀態更新，與右側依序亮起的下三角因果矩陣各列，計算出完全相同的四個輸出數值。" />
+  <img data-source-asset-urls src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg" data-motion-src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-motion.svg" data-still-src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg" alt="左側四個遞迴狀態更新，與右側依序亮起的下三角因果矩陣各列，計算出完全相同的四個輸出數值。" />
 </div>
 
 動畫逐一追蹤四個輸出；左側青綠色的狀態光圈，與右側亮起的矩陣列，代表**同一個計算的兩種表示方式**。人工構造的一維範例取 $B_t=C_t=1$、$h_0=0$、輸入 $x=(1,0.7,-0.6,1.1)$，轉移係數 $(a_2,a_3,a_4)=(0.8,0.7,0.9)$。純量遞迴 $h_t=a_th_{t-1}+x_t$ 得到 $y=h=(1,1.5,0.45,1.505)$，與矩陣表示 $y=Mx$ 完全相同。例如 $M_{4,1}=0.8\cdot0.7\cdot0.9=0.504$。空白的上三角表示**因果性**，不是 softmax 產生的零值。
@@ -67,7 +70,7 @@ M_{ji} = (a_j a_{j-1}\cdots a_{i+1})\,(C_j^{\top} B_i) \qquad (j \ge i)。
 
 ## 限制
 
-純量轉移確實是一項限制。論文表示，此設計 "slightly decreasing the expressive power in return for significant training efficiency improvements"（以顯著的訓練效率提升，換取表達力的小幅下降）。與注意力的連結只涵蓋某些注意力變體，而對偶形式捨棄了 softmax。1-SS 形式的表達力嚴格弱於一般的半可分結構化遮罩注意力，且無法寫成標準的 SSM。對於短序列，二次模式可能比線性模式更有效率；在論文的比較中，約 2K token 以下時 SSD 實作慢於 FlashAttention-2。
+純量轉移確實是一項限制。論文表示，此設計 "slightly decreasing the expressive power in return for significant training efficiency improvements"（以顯著的訓練效率提升，換取表達力的小幅下降）。與注意力的連結只涵蓋某些注意力變體，而對偶形式捨棄了 softmax。1-SS 遮罩注意力正是純量乘單位矩陣轉移的 SSM 特例；論文 Remark 7 所說不能直接寫成標準 SSM 的對象，是更一般的半可分遮罩注意力，而不是 1-SS 特例。對於短序列，二次模式可能比線性模式更有效率；在論文的比較中，約 2K token 以下時 SSD 實作慢於 FlashAttention-2。
 
 ## 相關連結
 

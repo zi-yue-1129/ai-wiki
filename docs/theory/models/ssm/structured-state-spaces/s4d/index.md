@@ -31,7 +31,13 @@ S4D combines S4's computation and parameterisation with DSS's initialisation. It
 
 ## Equation or algorithm
 
-The continuous system is \(x'(t) = Ax(t) + Bu(t)\), \(y(t) = Cx(t)\), with kernel \(K(t) = Ce^{tA}B\). Bilinear discretisation gives \(\bar A = (I - \tfrac{\Delta}{2}A)^{-1}(I + \tfrac{\Delta}{2}A)\). With a diagonal \(\bar A\), the discrete kernel is a Vandermonde product, \(\bar K = (\bar B^\top \circ C)\,V_L(\bar A)\), where \(V_L(\bar A)_{n,\ell} = \bar A_n^{\ell}\). Entrywise,
+The continuous system is \(x'(t) = Ax(t) + Bu(t)\), \(y(t) = Cx(t)\), with kernel \(K(t) = Ce^{tA}B\). Bilinear discretisation gives
+
+\[
+\bar A = (I - \tfrac{\Delta}{2}A)^{-1}(I + \tfrac{\Delta}{2}A) .
+\]
+
+. With a diagonal \(\bar A\), the discrete kernel is a Vandermonde product, \(\bar K = (\bar B^\top \circ C)\,V_L(\bar A)\), where \(V_L(\bar A)_{n,\ell} = \bar A_n^{\ell}\). Entrywise,
 
 \[
 \bar K_\ell = \sum_{n=1}^{N} C_n\,\bar B_n\,\bar A_n^{\ell}, \qquad \ell = 0, \dots, L-1 .
@@ -40,14 +46,37 @@ The continuous system is \(x'(t) = Ax(t) + Bu(t)\), \(y(t) = Cx(t)\), with kerne
 The two named initialisations use these diagonal entries:
 
 \[
-A_n^{\text{Inv}} = -\tfrac{1}{2} + i\,\tfrac{N}{\pi}\left(\tfrac{N}{2n+1} - 1\right), \qquad A_n^{\text{Lin}} = -\tfrac{1}{2} + i\pi n .
+A_n^{\text{Inv}} = -\tfrac{1}{2} + i\,\tfrac{N}{\pi}\left(\tfrac{N}{2n+1} - 1\right) .
 \]
 
+\[
+A_n^{\text{Lin}} = -\tfrac{1}{2} + i\pi n .
+\]
+
+
+
+The same bilinear convention also requires
+
+\[
+\bar B=(I-\tfrac{\Delta}{2}A)^{-1}\Delta B.
+\]
+
+With zero initial state and an update-then-read indexing convention,
+
+\[
+\begin{aligned}
+h_k&=\bar A h_{k-1}+\bar B u_k,\\
+y_k&=C h_k,\\
+y_k&=\sum_{\ell=0}^{k} C\bar A^\ell\bar B\,u_{k-\ell}.
+\end{aligned}
+\]
+
+Integer-lag samples in the figure are analytic. Segments and cursors between samples use linear interpolation, not the exact oscillatory formula at fractional lag. Loop reset is presentation, not state evolution.
 
 ## Visual walkthrough: diagonal modes build a convolution kernel
 
 <div class="ssm-motion-viewport" tabindex="0" role="group" aria-label="S4D diagonal-mode impulse response visualisation">
-  <img src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" data-motion-src="../../../../../assets/concept-animations/s4d-diagonal-modes-motion.svg" data-still-src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" alt="Two decaying oscillatory diagonal modes, shown in blue and teal, contribute to one real-valued orange impulse-response kernel as the lag increases from zero to fifteen." />
+  <img data-source-asset-urls src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" data-motion-src="../../../../../assets/concept-animations/s4d-diagonal-modes-motion.svg" data-still-src="../../../../../assets/concept-animations/s4d-diagonal-modes-still.svg" alt="Two decaying oscillatory diagonal modes, shown in blue and teal, contribute to one real-valued orange impulse-response kernel as the lag increases from zero to fifteen." />
 </div>
 
 The moving dots sweep over **lag** $\ell=0,\ldots,15$: two complex-conjugate mode pairs contribute real decaying oscillations whose sum yields a convolution kernel. For this **constructed scalar illustration only**, the mode contributions are $k_A[\ell]=0.79^\ell\cos(0.96\ell)$ and $k_B[\ell]=0.63(0.93)^\ell\cos(0.32\ell)$, with $K[\ell]=k_A[\ell]+k_B[\ell]$. Each real cosine can be represented by a conjugate pair of complex diagonal eigenvalues and conjugate coefficients in S4D's Vandermonde kernel.
