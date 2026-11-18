@@ -315,3 +315,37 @@ assert "Accuracy needs no threshold" not in (shared_dir / "accuracy.md").read_te
 assert "Precision measures the cost" not in (shared_dir / "precision.md").read_text(encoding="utf-8")
 assert "Recall measures the cost" not in (shared_dir / "recall.md").read_text(encoding="utf-8")
 print("Bilingual count example and decision-rule regression OK")
+
+# ROC operating rates are fixed under a prevalence shift, while PPV is not.
+def shifted_ppv(p):
+    return .8 * p / (.8 * p + .1 * (1 - p))
+
+assert math.isclose(shifted_ppv(.05), 8 / 27)
+assert math.isclose(shifted_ppv(.60), 12 / 13)
+assert all(shifted_ppv(k / 1000) < shifted_ppv((k + 1) / 1000)
+           for k in range(50, 600))
+
+# Synthetic ordering: + - + + - -, with 3 positives and 3 negatives.
+# J peaks at k=4; the deployment-optimal cutoff changes with FN cost.
+decision_labels = (1, 0, 1, 1, 0, 0)
+j_values, low_cost, high_cost = [], [], []
+for k in range(7):
+    tp = sum(decision_labels[:k])
+    fp = k - tp
+    tpr, fpr = tp / 3, fp / 3
+    j_values.append(tpr - fpr)
+    low_cost.append(.1 * (1 - tpr) + .9 * fpr)
+    high_cost.append(5 * .1 * (1 - tpr) + .9 * fpr)
+assert j_values.index(max(j_values)) == 4
+assert low_cost.index(min(low_cost)) == 1
+assert high_cost.index(min(high_cost)) == 4
+assert math.isclose(low_cost[1], 1 / 15)
+assert math.isclose(high_cost[4], .3)
+for stem in ("roc-pr-shift", "roc-youden-cost"):
+    asset = Path("docs/assets/concept-animations")
+    motion = (asset / f"{stem}-motion.svg").read_text(encoding="utf-8")
+    still = (asset / f"{stem}-still.svg").read_text(encoding="utf-8")
+    assert "prefers-reduced-motion" in motion
+    assert 'class="moving"' in motion and 'class="baseline"' in still
+    assert "<animate" in motion and "<animate" not in still
+print("ROC prevalence-shift and Youden-versus-cost analytic cases OK")

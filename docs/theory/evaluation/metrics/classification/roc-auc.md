@@ -139,6 +139,41 @@ The five costs are respectively **0.500, 0.250, 0.625, 0.375, 0.750**. The movin
 
 The mixture sweeps its probability forward and backward, not training time. Cost thresholds instead advance in discrete steps and reset; the ROC connector is a reference guide, not a sequence of fractional observations.
 
+## Animated ROC versus precision under prevalence shift
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC versus precision under shifting prevalence">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-pr-shift-still.svg" data-still-src="../../../../assets/concept-animations/roc-pr-shift-still.svg" data-motion-src="../../../../assets/concept-animations/roc-pr-shift-motion.svg" alt="With sensitivity fixed at 0.80 and false-positive rate at 0.10, the ROC point remains still while positive prevalence moves from five to sixty percent and positive predictive value rises from 29.6 to 92.3 percent." width="640" height="360">
+</div>
+</div>
+
+*Original instructional SVG (CC BY-SA 4.0).* This is a **synthetic population-rate thought experiment**, not model training or measured deployment performance. Sensitivity $TPR=0.80$ and false-positive rate $FPR=0.10$ stay fixed while prevalence $p$ changes from $0.05$ to $0.60$. The ROC operating point therefore **does not move**, but the positive-alert precision follows Bayes' rule:
+
+$
+PPV(p)=\frac{0.80p}{0.80p+0.10(1-p)}.
+$
+
+At the two endpoints, precision rises from **0.296** to **0.923**. A fixed ROC point is therefore insufficient to predict alert precision without a prevalence assumption. This complements the [precision base-rate animation](precision.md), which examines alert composition rather than placing both metrics side by side. In MkDocs, the animation has keyboard-operable Play/Pause; reduced-motion users receive a still image. On narrow screens, focus the figure and scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-pr-shift-still.svg) · [Full SVG motion](../../../../assets/concept-animations/roc-pr-shift-motion.svg).
+
+## Animated Youden J versus deployment error cost
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Youden J and minimum deployment cost under changing false-negative cost">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-youden-cost-still.svg" data-still-src="../../../../assets/concept-animations/roc-youden-cost-still.svg" data-motion-src="../../../../assets/concept-animations/roc-youden-cost-motion.svg" alt="A synthetic six-case ranking yields the largest Youden J at the top-four cutoff, while the cost chart shows a switch in minimum expected cost from top one to top four as the assumed false-negative cost increases." width="640" height="360">
+</div>
+</div>
+
+*Original instructional SVG (CC BY-SA 4.0).* Consider **six strictly ranked artificial labels** `+ − + + − −` (three positive, three negative). Accepting the top four scores gives $TPR=1$, $FPR=1/3$, and the maximum Youden statistic $J=TPR-FPR=2/3$. This maximises **balanced sensitivity minus false-positive rate**, not necessarily expected deployment utility. Separately hypothesise a deployment population with prevalence $p=0.10$, false-positive cost $C_{FP}=1$, and false-negative cost $C_{FN}$ moving from $1$ to $5$:
+
+$
+\begin{aligned}
+L(k) &= C_{FN}p[1-TPR(k)]\\
+&\quad+C_{FP}(1-p)FPR(k).
+\end{aligned}
+$
+
+For the top-one cutoff, $L(1)=C_{FN}/15$. For the top-four cutoff, $L(4)=0.30$. Among **all seven candidate cutoffs** $k=0,\ldots,6$, the minimum-cost choice is **$k=1$** when $C_{FN}=1$ (cost $0.0667$), but **$k=4$** when $C_{FN}=5$ (cost $0.300$); these two alternatives tie at $C_{FN}=4.5$. The ROC staircase comes from the six-case example; deployment prevalence and costs are **separate hypothetical assumptions**. The moving markers sweep assumptions, **not epochs or actual inference samples**. MkDocs offers keyboard-accessible Play/Pause and a reduced-motion still; scroll horizontally on phones. [GitHub static preview](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [Full SVG motion](../../../../assets/concept-animations/roc-youden-cost-motion.svg). For decision-theoretic context see Fawcett (2006) in References.
+
 ## References
 
 ### Seminal papers

@@ -139,6 +139,41 @@ $$
 
 混合動畫來回掃描機率參數，而非訓練時間。成本門檻則逐步離散前進並在循環結束時重設；ROC 連線只是參考，不代表非整數筆數的觀測。
 
+## 動畫示範：ROC 操作點固定，精確率隨盛行率改變
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="盛行率變化下 ROC 與精確率的比較動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-pr-shift-still.svg" data-still-src="../../../../assets/concept-animations/roc-pr-shift-still.svg" data-motion-src="../../../../assets/concept-animations/roc-pr-shift-motion.svg" alt="敏感度固定為 0.80、偽陽性率固定為 0.10。ROC 操作點保持不動；正例盛行率由 5% 增至 60% 時，陽性預測值由 29.6% 上升至 92.3%。" width="640" height="360">
+</div>
+</div>
+
+*原創教學 SVG（CC BY-SA 4.0）。* 此圖是**人工母體比率的思想實驗**，不是訓練軌跡或部署實測結果。敏感度 $TPR=0.80$ 與偽陽性率 $FPR=0.10$ 維持不變，正例盛行率 $p$ 從 $0.05$ 變至 $0.60$，因此 ROC 操作點**不移動**，但陽性警報的精確率依貝氏法則改變：
+
+$
+PPV(p)=\frac{0.80p}{0.80p+0.10(1-p)}.
+$
+
+兩端的精確率分別約為 **0.296** 與 **0.923**。因此，只知道 ROC 操作點，而沒有部署族群的盛行率，無法推算陽性警報的精確率。本圖與[精確率的基準率動畫](precision.md)互補：後者呈現陽性警報組成，本圖直接對照固定的 ROC 位置與變動的精確率。MkDocs 提供鍵盤可操作的播放／暫停控制，偏好減少動態效果時顯示靜態回退；手機可聚焦圖框後水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-pr-shift-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-pr-shift-motion.svg)。
+
+## 動畫示範：Youden J 與部署錯誤成本的最佳門檻
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Youden J 與偽陰性成本改變時的最低預期損失動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-youden-cost-still.svg" data-still-src="../../../../assets/concept-animations/roc-youden-cost-still.svg" data-motion-src="../../../../assets/concept-animations/roc-youden-cost-motion.svg" alt="六筆人工排序資料的 Youden J 在接受前四筆時最大；但提高假設的偽陰性成本後，預期損失最低的門檻會從接受前一筆改為接受前四筆。" width="640" height="360">
+</div>
+</div>
+
+*原創教學 SVG（CC BY-SA 4.0）。* 使用六筆**分數互不相同的人工標籤** `+ − + + − −`（正負例各三筆）。接受前四筆時，$TPR=1$、$FPR=1/3$，且 Youden 指標 $J=TPR-FPR=2/3$ 達最大值。但最大化 Youden J **不等於**在所有部署成本設定下讓預期損失最小。另行假設部署盛行率 $p=0.10$、偽陽性成本 $C_{FP}=1$，偽陰性成本 $C_{FN}$ 從 $1$ 掃描至 $5$：
+
+$
+\begin{aligned}
+L(k) &= C_{FN}p[1-TPR(k)]\\
+&\quad+C_{FP}(1-p)FPR(k).
+\end{aligned}
+$
+
+接受前一筆時 $L(1)=C_{FN}/15$；接受前四筆時 $L(4)=0.30$。在**全部七個候選門檻** $k=0,\ldots,6$ 中，$C_{FN}=1$ 時最低損失門檻為 **$k=1$**（$0.0667$），$C_{FN}=5$ 時變成 **$k=4$**（$0.300$）；兩者在 $C_{FN}=4.5$ 時同分。ROC 階梯來自六筆人工資料，而部署盛行率與成本為**另外指定的假設**；動畫是參數掃描，並非訓練時間或實際推論紀錄。MkDocs 可用鍵盤操作播放／暫停，偏好減少動態效果時提供靜態圖，手機可水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-youden-cost-motion.svg)。決策理論背景可參考文末 Fawcett（2006）。
+
 ## 參考文獻
 
 ### 開創性論文
