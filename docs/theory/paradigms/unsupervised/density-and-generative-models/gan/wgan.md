@@ -47,13 +47,15 @@ In the paper's algorithm, the critic is updated several times (five by default) 
 
 ### Weight clipping in motion
 
-<div role="region" aria-label="Scrollable teaching animation and static preview" tabindex="0" style="max-width:100%;overflow-x:auto">
+<div role="region" aria-label="Scrollable teaching animation and static preview" tabindex="0" style="width:100%;overflow-x:auto">
 <div style="width:640px;min-width:640px">
-<img src="../../../../../assets/concept-animations/wgan-weight-clip-still.svg" data-motion-src="../../../../../assets/concept-animations/wgan-weight-clip-motion.svg" data-still-src="../../../../../assets/concept-animations/wgan-weight-clip-still.svg" alt="Five critic parameters move into the clipping interval; values outside the bounds converge to plus or minus c." width="640" height="360">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto" src="../../../../../assets/concept-animations/wgan-weight-clip-still.svg" data-motion-src="../../../../../assets/concept-animations/wgan-weight-clip-motion.svg" data-still-src="../../../../../assets/concept-animations/wgan-weight-clip-still.svg" alt="Five critic parameters move into the clipping interval; values outside the bounds converge to plus or minus c." width="640" height="360">
 </div>
 </div>
 
 *Original schematic animation, CC BY-SA 4.0.* The teal parameters are clamped after a critic update, while orange points retain their pre-clipping positions. For illustration, five scalar weights start at \((-0.055,-0.041,-0.012,0.046,0.057)\) with \(c=0.030\), and become \((-0.030,-0.030,-0.012,0.030,0.030)\). This is **not a training trace**. Elementwise clipping constrains network parameters but **does not itself certify** that an arbitrary multi-layer critic has global Lipschitz constant one; this is an approximate enforcement mechanism, and the original paper uses a different default \(c=0.01\). The GitHub preview is a static, fully labelled state; on MkDocs use Play/Pause (including keyboard Enter or Space) to compare the before and after states. [View the standalone motion SVG](../../../../../assets/concept-animations/wgan-weight-clip-motion.svg).
+
+The smooth motion visualises a single componentwise clamp, then holds the result until replay. It is not a continuous optimisation path, and clipping does not reverse itself.
 
 ## Key methods
 

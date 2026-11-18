@@ -39,13 +39,15 @@ The generator loss is unchanged from WGAN, \(-\mathbb E_z[f_w(g_\theta(z))]\). B
 
 ### Interpolation and penalty in motion
 
-<div role="region" aria-label="Scrollable teaching animation and static preview" tabindex="0" style="max-width:100%;overflow-x:auto">
+<div role="region" aria-label="Scrollable teaching animation and static preview" tabindex="0" style="width:100%;overflow-x:auto">
 <div style="width:640px;min-width:640px">
-<img src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" data-motion-src="../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg" data-still-src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" alt="An interpolation point moves from fake to real, while the gradient-norm indicator crosses the target of one and the gradient penalty decreases to zero then increases." width="640" height="360">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto" src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" data-motion-src="../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg" data-still-src="../../../../../assets/concept-animations/wgan-gp-interpolation-still.svg" alt="An interpolation point moves from fake to real, while the gradient-norm indicator crosses the target of one and the gradient penalty decreases to zero then increases." width="640" height="360">
 </div>
 </div>
 
-*Original schematic animation, CC BY-SA 4.0.* The moving marker is an interpolated input \(\hat x=(1-\epsilon)\tilde x+\epsilon x\). The upper plot shows a **constructed one-dimensional** critic \(f(s)=0.6s+0.4s^2\) along the unit-length interpolation coordinate \(s=\epsilon\), not a learned image critic. Its gradient magnitude is \(\lvert f'(s)\rvert=0.6+0.8s\), so with the illustrative \(\lambda=10\) the penalty is \(10(0.8s-0.4)^2\): it is 1.6 at either end and zero at \(s=0.5\). The penalty is computed **with respect to the input**, not the critic's weights. It is applied at sampled interpolations, **not guaranteed everywhere**. Numbers are analytic examples, not measured training results. On MkDocs use Play/Pause, with a static GitHub fallback. [View the standalone motion SVG](../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg).
+*Original schematic animation, CC BY-SA 4.0.* The moving marker is an interpolated input \(\hat x=(1-\epsilon)\tilde x+\epsilon x\). The upper plot shows the input-gradient norm of a **constructed one-dimensional** critic \(f(s)=0.6s+0.4s^2\) along the unit-length interpolation coordinate \(s=\epsilon\), not a learned image critic. Its gradient magnitude is \(\lvert f'(s)\rvert=0.6+0.8s\), so with the illustrative \(\lambda=10\) the penalty is \(10(0.8s-0.4)^2\): it is 1.6 at either end and zero at \(s=0.5\). The penalty is computed **with respect to the input**, not the critic's weights. It is applied at sampled interpolations, **not guaranteed everywhere**. Numbers are analytic examples, not measured training results. On MkDocs use Play/Pause, with a static GitHub fallback. [View the standalone motion SVG](../../../../../assets/concept-animations/wgan-gp-interpolation-motion.svg).
+
+This two-sided penalty encourages norm **equal to** one, whereas the Lipschitz condition requires norm **at most** one. The animation sweeps the interpolation coordinate for explanation; training instead draws random interpolation samples (Gulrajani et al., 2017, Section 4).
 
 ## Key methods
 
@@ -60,7 +62,7 @@ WGAN-GP differs from [WGAN](wgan.md) only in how the Lipschitz constraint is enf
 - **Core idea:** constrain the critic by penalising deviations of its gradient norm from one on random interpolations between real and generated samples.
 - **Equation or algorithm:** the critic loss above, with \(\lambda = 10\) and the generator loss from WGAN. The paper trains the critic five times per generator step.
 - **Results:** the abstract reports stable training of a wide variety of GAN architectures with almost no hyperparameter tuning, including deep residual networks and language models over discrete data. The abstract also reports high-quality generations on CIFAR-10 and LSUN bedrooms.
-- **Limitations:** the penalty is enforced only on interpolated points, so the constraint holds approximately everywhere. Each critic step costs an extra gradient computation. The method still needs a suitable critic architecture, and the paper's guidance on normalisation is specific to it.
+- **Limitations:** the penalty encourages unit input-gradient norm at sampled interpolations; it does not guarantee a global Lipschitz bound or control the critic away from those samples. Each critic step costs an extra gradient computation. The method still needs a suitable critic architecture, and the paper's guidance on normalisation is specific to it.
 
 ## Connections
 
