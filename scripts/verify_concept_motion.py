@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "roc-pairwise-auc": "theory/evaluation/metrics/classification/roc-auc",
+    "pr-ap-rectangles": "theory/evaluation/metrics/classification/pr-auc",
     "precision-recall-threshold": "theory/evaluation/metrics/classification/precision",
     "f1-harmonic-gap": "theory/evaluation/metrics/classification/f1",
     "accuracy-prevalence": "theory/evaluation/metrics/classification/accuracy",
@@ -271,7 +273,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {"precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance"}:
+            elif stem in {"precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-pairwise-auc", "pr-ap-rectangles"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:

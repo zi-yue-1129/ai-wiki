@@ -41,6 +41,16 @@ $$AP = \sum_n (R_n - R_{n-1})\, P_n$$
 
 *原創教學動畫（CC BY-SA 4.0）。* 本圖採用與 ROC 新動畫**相同的十筆人工資料**，正例位於第 **1、3、6** 名，其餘七筆為負例。每納入一筆正例，召回率增加 $1/3$；每納入一筆負例，精確率下降、召回率不變。三筆正例出現時的精確率分別為 $1$、$2/3$、$3/6$，因此**不內插的平均精確率為 $AP=(1+2/3+1/2)/3=13/18 \approx 0.722$**。橫向虛線表示正例比例 $3/10=0.30$，這是常用的母體層級隨機分數參考線。**但對本圖有限的十筆樣本，將三筆正例隨機排列於十個位置的 120 種組合，其樣本 AP 期望約為 0.450，而非 0.300**。尚未納入任何樣本時，精確率未定義；圖中以 $(R,P)=(0,1)$ 作為端點慣例。圖中的折線連接各門檻的操作點；**AP 是依召回率增量對精確率加權，不等於折線下方的梯形面積**（參見 scikit-learn 參考文件）。所有數值與標籤皆為**人工示意，非模型實測預測**。MkDocs 網站提供可使用鍵盤操作的播放／暫停按鈕，偏好減少動態效果時切換為靜態預覽；亦可直接開啟 [GitHub 靜態圖](../../../../assets/concept-animations/pr-threshold-sweep-still.svg)或[完整 SVG 動畫](../../../../assets/concept-animations/pr-threshold-sweep-motion.svg)。手機可橫向捲動。
 
+## 動畫示範：以召回率增量累積平均精確率
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="平均精確率矩形貢獻動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-ap-rectangles-still.svg" data-still-src="../../../../assets/concept-animations/pr-ap-rectangles-still.svg" data-motion-src="../../../../assets/concept-animations/pr-ap-rectangles-motion.svg" alt="四筆人工排序資料的正例位於第一與第三名。每遇到一筆正例，累加一個寬度為二分之一召回率、長度為當下精確率的矩形，平均精確率最終為六分之五，約 0.833。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 此圖與前面的門檻掃描不同，直接展示 **AP 如何按召回率增量累積**。四筆**人工分數**依序為 0.90（正例）、0.80（負例）、0.60（正例）、0.30（負例）。第 1 名與第 3 名正例的矩形面積分別為 `(1/2) × (1/1)` 及 `(1/2) × (2/3)`，因此 **AP = 1/2 + 1/3 = 5/6 ≈ 0.833**。遇到負例時召回率不增加，新增面積為**零**，即使目前選取前綴的精確率會改變。這是**不做線性內插的平均精確率**，而不是將 PR 折線以梯形法積分；亦非任何模型實測數據。MkDocs 網站可播放／暫停，偏好減少動畫時會顯示靜態圖；另提供[GitHub 靜態預覽](../../../../assets/concept-animations/pr-ap-rectangles-still.svg)及[完整 SVG 動畫](../../../../assets/concept-animations/pr-ap-rectangles-motion.svg)。手機請橫向捲動觀看。
+
 ## 性質與變體
 
 - **基準線。** 盛行率是母體層級的隨機分數參考線；有限樣本 AP 的期望可能更高，應說明採用哪一種基準。

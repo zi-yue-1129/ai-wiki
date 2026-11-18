@@ -98,4 +98,35 @@ for stem in ("precision-base-rate", "f1-macro-micro-imbalance"):
     assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
     assert "<animate " in motion and "<animate " not in still
 
-print("Classification motion semantics: 6 analytic cases OK")
+
+# Independent ranking interpretations for four strictly ordered artificial scores.
+from itertools import product
+
+positive_scores = (0.90, 0.60)
+negative_scores = (0.80, 0.30)
+pair_wins = sum(float(p > n) + 0.5 * float(p == n)
+                for p, n in product(positive_scores, negative_scores))
+assert pair_wins == 3
+assert math.isclose(pair_wins / (len(positive_scores) * len(negative_scores)), 0.75)
+assert (float(0.5 > 0.5) + 0.5 * float(0.5 == 0.5)) == 0.5
+
+ranked_labels = (1, 0, 1, 0)
+positives = sum(ranked_labels)
+hits = 0
+ap = 0.0
+for rank, label in enumerate(ranked_labels, start=1):
+    if label:
+        hits += 1
+        ap += (hits / rank) / positives
+assert math.isclose(ap, 5 / 6)
+assert math.isclose((0.5 * 1.0) + (0.5 * (2 / 3)), ap)
+
+for stem in ("roc-pairwise-auc", "pr-ap-rectangles"):
+    root = Path("docs/assets/concept-animations")
+    motion = (root / (stem + "-motion.svg")).read_text(encoding="utf-8")
+    still = (root / (stem + "-still.svg")).read_text(encoding="utf-8")
+    assert "prefers-reduced-motion" in motion
+    assert 'class="motion-layer moving"' in motion
+    assert "<animate " in motion and "<animate " not in still
+
+print("Classification motion semantics: 8 analytic cases OK")
