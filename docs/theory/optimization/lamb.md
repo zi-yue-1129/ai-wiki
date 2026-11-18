@@ -38,6 +38,14 @@ For layer \(\ell\) with weights \(x_t\), let \(r_t = \dfrac{\hat m_t}{\sqrt{\hat
 
 The update is taken from the method description in the paper and was checked against the full text.
 
+
+## Visual walkthrough
+
+<img data-source-asset-urls src="../../assets/concept-animations/lamb-adam-layer-trust-still.svg" data-motion-src="../../assets/concept-animations/lamb-adam-layer-trust-motion.svg" data-still-src="../../assets/concept-animations/lamb-adam-layer-trust-still.svg" alt="Animated LAMB comparison of Adam directions, layerwise trust ratios and rescaled update vectors." width="640" height="360" loading="lazy">
+
+*Original teaching animation, CC BY-SA 4.0.* Consider two layers whose bias-corrected Adam directions each have norm 1, while their weight norms are 2 and 5. Under \(\lambda=0\), \(\phi(z)=z\) (no clipping), and learning rate \(0.1\), the layerwise trust ratios are 2 and 5. Their update norms therefore become \(0.2\) and \(0.5\). Blue arrows depict the input Adam directions; teal arrows show the positive update directions $s=0.1\rho r$ on the **same scale**, so they are respectively 0.2 and 0.5 times as long. The parameter change is $\Delta w=-s$, opposite to these arrows. Arrow tips grow with their shafts, revealing fixed illustrative vectors rather than successive optimiser steps. **Layerwise scaling preserves the direction of the Adam update while changing its magnitude.** The vectors and numbers are constructed for explanation, not measured on BERT; actual LAMB also computes adaptive first and second moments and may include weight decay and clipping. MkDocs provides Play/Pause; GitHub readers can use the [static fallback](../../assets/concept-animations/lamb-adam-layer-trust-still.svg).
+
+
 ## Results
 
 - The abstract reports training with very large batch sizes of 32,868 "without any degradation of performance".
