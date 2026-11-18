@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-15
+translation_reviewed: 2026-11-18
 related:
   - theory/paradigms/semi-supervised/consistency-regularisation
   - theory/paradigms/semi-supervised/pseudo-labelling-and-self-training
@@ -42,11 +42,13 @@ J_{\text{cons}}(\theta) = \mathbb E_{x,\eta,\eta'}\Big[\big\|f(x;\theta,\eta) - 
 
 ## 動態圖解：教師以 EMA 追隨學生，而非接收梯度
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Mean Teacher 權重平均動畫" tabindex="0">
-<div style="width:640px">
-<img src="../../../../assets/concept-animations/mean-teacher-ema-tracking-still.svg" data-motion-src="../../../../assets/concept-animations/mean-teacher-ema-tracking-motion.svg" alt="示意的學生單一權重在梯度更新後起伏，教師權重以 0.75 的指數移動平均係數平滑追隨，教師本身不接收梯度。" width="640" height="360">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" aria-label="Mean Teacher 權重平均動畫" tabindex="0">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/mean-teacher-ema-tracking-still.svg" data-motion-src="../../../../assets/concept-animations/mean-teacher-ema-tracking-motion.svg" data-still-src="../../../../assets/concept-animations/mean-teacher-ema-tracking-still.svg" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="示意的學生單一權重在梯度更新後起伏，教師權重以 0.75 的指數移動平均係數平滑追隨，教師本身不接收梯度。" width="640" height="360">
 </div>
 </div>
+
+以 Tab 聚焦圖表區，再按左右方向鍵捲動。完整折線是預先算好的參考軌跡；游標僅沿線導讀，兩次更新之間不套用額外 EMA。下方互動實驗則逐步揭示已計算的值。
 
 *原創教學動畫（CC BY-SA 4.0）。* 藍線是假設的**學生單一參數**在第 0–4 步之數值：(0.15, 0.85, 0.35, 0.95, 0.50)。為讓效果易於觀察，故意使用較小的示意係數 **α=0.75**，教師從 0.15 開始，其 EMA 更新依序約為 (0.150, 0.325, 0.331, 0.486, 0.489)。移動游標展示教師如何**平滑且延遲追隨學生參數的變動**。步驟之間的連線只是視覺插值，**不是連續時間的梯度動力學**；實際實驗通常使用更大的 α。這是**人工數值，不是模型實測訓練曲線**。演算法中僅學生接收監督與一致性損失的梯度，教師則在學生更新**之後**以 EMA 更新權重。
 

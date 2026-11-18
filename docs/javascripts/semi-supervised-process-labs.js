@@ -10,7 +10,7 @@
   function init(host){
     if(host.dataset.ready)return;
     const fix=host.dataset.kind==='fixmatch',L=str[host.dataset.lang==='zh'?'zh':'en'],last=fix?3:5,state={t:0,playing:false,speed:1,timer:null,values:{...defaults}};
-    const root=document.createElement('div'),inputs=html('div',root,{class:'semi-inputs'}),bar=html('div',root,{class:'semi-bar'}),viewport=html('div',root,{class:'semi-viewport',tabindex:'0',role:'group','aria-label':'Scrollable teaching diagram'}),figure=svg('svg',viewport,{viewBox:'0 0 640 300',width:'640',height:'300',role:'img','aria-label':fix?'FixMatch confidence gate calculation':'Mean Teacher EMA trajectory'}),read=html('div',root,{class:'semi-read',role:'status','aria-live':'polite'}),note=html('p',root,{class:'semi-note'},fix?L.noteF:L.noteT);
+    const root=document.createElement('div'),inputs=html('div',root,{class:'semi-inputs'}),bar=html('div',root,{class:'semi-bar'}),viewport=html('div',root,{class:'semi-viewport',tabindex:'0',role:'group','aria-label':host.dataset.lang==='zh'?'可使用左右方向鍵捲動的教學圖':'Teaching diagram: use Left/Right to scroll'}),figure=svg('svg',viewport,{viewBox:'0 0 640 300',width:'640',height:'300',role:'img','aria-label':fix?'FixMatch confidence gate calculation':'Mean Teacher EMA trajectory'}),read=html('div',root,{class:'semi-read',role:'status','aria-live':'polite'}),note=html('p',root,{class:'semi-note'},fix?L.noteF:L.noteT);
     const params=fix?[['weak',.5,.99,L.weak],['gate',.6,.99,L.gate],['strong',.1,.99,L.strong]]:[['alpha',.5,.99,L.alpha]];
     const controls={};
     for(const [key,min,max,label] of params){
@@ -23,13 +23,14 @@
     for(const value of [.5,1,2])html('option',speed,{value:String(value)},value+'×');speed.value='1';
     function stop(){if(state.timer!==null)clearInterval(state.timer);state.timer=null;state.playing=false;buttons.play.textContent=L.play;buttons.play.setAttribute('aria-pressed','false');}
     function go(t){state.t=Math.max(0,Math.min(last,t));draw();if(state.t===last)stop();}
-    function play(){if(state.t===last)go(0);state.playing=true;buttons.play.textContent=L.pause;buttons.play.setAttribute('aria-pressed','true');state.timer=setInterval(()=>go(state.t+1),850/state.speed);}
+    function play(){if(state.t===last)go(0);state.playing=true;buttons.play.textContent=L.pause;buttons.play.setAttribute('aria-pressed','true');state.timer=setInterval(()=>{if(!host.isConnected){stop();return;}go(state.t+1);},850/state.speed);}
     buttons.prev.addEventListener('click',()=>{stop();go(state.t-1);});
     buttons.next.addEventListener('click',()=>{stop();go(state.t+1);});
     buttons.play.addEventListener('click',()=>state.playing?stop():play());
     buttons.reset.addEventListener('click',()=>{stop();for(const [key] of params){state.values[key]=defaults[key];controls[key].input.value=String(defaults[key]);controls[key].out.textContent=fmt(defaults[key]);}state.speed=1;speed.value='1';go(0);});
     seek.addEventListener('input',()=>{stop();go(+seek.value);});
     speed.addEventListener('change',()=>{state.speed=+speed.value;if(state.playing){stop();play();}});
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{if(e.matches)stop();});
     document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
     function rect(x,y,w,h,fill,stroke='#cedce4'){svg('rect',figure,{x,y,width:w,height:h,rx:10,fill,stroke,'stroke-width':1.5});}
     function text(x,y,value,color='#243e52',size=16){svg('text',figure,{x,y,'font-family':'system-ui,Arial,sans-serif','font-size':size,'font-weight':600,fill:color,'text-anchor':'middle'},String(value));}

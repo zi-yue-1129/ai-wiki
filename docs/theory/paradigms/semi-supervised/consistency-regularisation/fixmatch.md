@@ -51,11 +51,13 @@ For ImageNet, the paper uses \(\tau = 0.7\) and \(\lambda_u = 10\) (Appendix C).
 
 ## Visual walkthrough: the confidence gate
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="FixMatch confidence-gate animation" tabindex="0">
-<div style="width:640px">
-<img src="../../../../assets/concept-animations/fixmatch-confidence-gate-still.svg" data-motion-src="../../../../assets/concept-animations/fixmatch-confidence-gate-motion.svg" alt="Two unlabelled examples have weak-view confidence 0.97 and 0.82 against a 0.95 gate; only the accepted example contributes a strong-view cross-entropy loss." width="640" height="360">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" aria-label="FixMatch confidence-gate animation" tabindex="0">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/fixmatch-confidence-gate-still.svg" data-motion-src="../../../../assets/concept-animations/fixmatch-confidence-gate-motion.svg" data-still-src="../../../../assets/concept-animations/fixmatch-confidence-gate-still.svg" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="Two unlabelled examples have weak-view confidence 0.97 and 0.82 against a 0.95 gate; only the accepted example contributes a strong-view cross-entropy loss." width="640" height="360">
 </div>
 </div>
+
+Focus the figure viewport with Tab, then use Left/Right to scroll.
 
 *Original animated teaching visual (CC BY-SA 4.0).* Follow the moving marker from the weak augmentation's class probability to the threshold, then to the strong-view loss **only if the gate passes**. Example A has a synthetic maximum weak-view probability of **0.97**, so its hard pseudo-label is used as a target for the strong view. Example B has **0.82**, below the illustrative **τ=0.95** gate, so its unsupervised contribution is zero. Both examples are different hypothetical inputs, not one sample improving during training. The numbers and abstract image blocks are **schematic, not trained-model measurements**. The diagram isolates the unsupervised loss, not the supervised loss or a full training iteration.
 

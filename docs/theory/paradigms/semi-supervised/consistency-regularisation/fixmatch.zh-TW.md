@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-15
+translation_reviewed: 2026-11-18
 related:
   - theory/paradigms/semi-supervised/consistency-regularisation
   - theory/paradigms/semi-supervised/pseudo-labelling-and-self-training
@@ -42,11 +42,13 @@ ImageNet 方面，論文使用 \(\tau = 0.7\) 與 \(\lambda_u = 10\)（附錄 C�
 
 ## 動態圖解：信心門檻
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="FixMatch 信心門檻動畫" tabindex="0">
-<div style="width:640px">
-<img src="../../../../assets/concept-animations/fixmatch-confidence-gate-still.svg" data-motion-src="../../../../assets/concept-animations/fixmatch-confidence-gate-motion.svg" alt="兩筆未標記樣本的弱增強信心分別為 0.97、0.82，與 0.95 門檻比較，只有通過者的強增強視角參與交叉熵損失。" width="640" height="360">
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" aria-label="FixMatch 信心門檻動畫" tabindex="0">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/fixmatch-confidence-gate-still.svg" data-motion-src="../../../../assets/concept-animations/fixmatch-confidence-gate-motion.svg" data-still-src="../../../../assets/concept-animations/fixmatch-confidence-gate-still.svg" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="兩筆未標記樣本的弱增強信心分別為 0.97、0.82，與 0.95 門檻比較，只有通過者的強增強視角參與交叉熵損失。" width="640" height="360">
 </div>
 </div>
+
+以 Tab 聚焦圖表區，再按左右方向鍵捲動。
 
 *原創教學動畫（CC BY-SA 4.0）。* 沿著移動標記觀察弱增強視角的類別信心如何進入門檻判斷；**只有通過門檻，才會進入強增強視角的無監督交叉熵損失**。人工樣本 A 的最大預測信心是 **0.97**，因此保留硬偽標籤；人工樣本 B 為 **0.82**，低於示意門檻 **τ=0.95**，因此其無監督損失貢獻為零。兩列是不同的假設樣本，**不是同一樣本在訓練中逐漸提高信心**。數值及抽象影像皆為**教學示意，而非模型實測結果**。圖中只呈現無監督損失路徑，未畫出監督損失或完整訓練回合。
 
