@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-12
+translation_reviewed: 2026-10-31
 ---
 
 # 附暖重啟的餘弦退火
@@ -18,6 +18,18 @@ translation_reviewed: 2026-11-12
 
 在第 \(i\) 輪中，學習率沿餘弦曲線從 \(\eta^i_{\max}\) 下降到 \(\eta^i_{\min}\)。該輪結束時，學習率重設為 \(\eta^i_{\max}\)，這就是「暖重啟」，接著開始第 \(i+1\) 輪。每一輪的長度是前一輪的 \(T_{\mathrm{mult}}\) 倍，因此訓練後段的每個階段都較長。
 
+### 動態排程示意
+
+<div style="max-width:640px;width:100%" role="group" aria-label="學習率排程動畫">
+<div style="width:100%">
+<img data-source-asset-urls src="../../assets/concept-animations/sgdr-restart-still.svg" data-motion-src="../../assets/concept-animations/sgdr-restart-motion.svg" style="display:block;width:100%;height:auto" alt="餘弦學習率在逐次延長的週期內下降，並於重啟時跳回上限。">
+</div>
+</div>
+
+*AI Wiki 原創動畫，CC BY-SA 4.0。*
+
+移動標記呈現週期長度依序為 1、2、4 的示意排程，學習率上下界保持固定。每次重啟只將**學習率**調回上限，不會重設模型權重。時間與學習率皆為正規化示意值，並非模型訓練量測。
+
 ## 演算法
 
 令 \(T_i\) 為第 \(i\) 輪的長度（以 epoch 計），\(T_{\mathrm{cur}}\) 為距離上一次重啟所經過的 epoch 數。論文在每個批次後更新 \(T_{\mathrm{cur}}\)，因此它可以取小數值。學習率為
@@ -27,18 +39,6 @@ translation_reviewed: 2026-11-12
 \]
 
 在重啟時學習率等於 \(\eta^i_{\max}\)，到該輪結束時降到 \(\eta^i_{\min}\)。論文在各次重啟之間保持上下界不變，並設定 \(T_{i+1} = T_{\mathrm{mult}}\, T_i\)。當 \(T_{\mathrm{mult}} = 1\) 時，每一輪的長度相同。論文在各輪結束時取快照，並將這些快照組合成集成模型。
-
-### 動態圖解：餘弦衰減與暖重啟
-
-<div class="concept-motion-scroll" role="region" aria-label="可水平捲動的餘弦重啟學習率教學圖" tabindex="0" style="overflow-x:auto;max-width:100%">
-<img src="../../assets/concept-animations/sgdr-cosine-restart-still.svg" width="640" style="min-width:640px" data-motion-src="../../assets/concept-animations/sgdr-cosine-restart-motion.svg" data-still-src="../../assets/concept-animations/sgdr-cosine-restart-still.svg" alt="餘弦暖重啟示意：三輪餘弦衰減分別持續二、四、八步，並在第二與第六步將學習率跳回上界。">
-</div>
-
-*原創教學動畫，採 CC BY-SA 4.0 授權。* 使用**人工設定、非實測**的 $\eta_{\min}=0.10$、$\eta_{\max}=1.00$、$T_0=2$、$T_{\mathrm{mult}}=2$，曲線依序顯示長度為 **2、4、8 步**的三輪餘弦衰減。在第 **2** 與第 **6** 步，學習率由下界跳回上界，但最佳化器持有的**模型參數不會重新初始化**。橘色虛線標出學習率重啟的位置，底部區間則凸顯各輪長度逐漸增加。
-
-排程根據[SGDR 原始論文](https://arxiv.org/abs/1608.03983)。移動的游標代表*預先指定的學習率*，而不是損失、準確率、參數位置或實際訓練結果。最後的第 14 步僅表示示意訓練預算結束，不代表再次重啟。
-
-在 MkDocs 網站可使用**播放／暫停**，並以 Tab、Enter 或 Space 操作；偏好減少動態效果時，初始顯示靜態圖。GitHub 可閱讀 [靜態回退預覽](../../assets/concept-animations/sgdr-cosine-restart-still.svg)；瀏覽器亦可開啟 [完整 SVG 動畫](../../assets/concept-animations/sgdr-cosine-restart-motion.svg)。**所有數值皆為人工示意，不是模型實測結果。**
 
 ## 結果
 

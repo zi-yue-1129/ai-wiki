@@ -30,6 +30,18 @@ Training budgets are finite, and the usual decay is fixed before training starts
 
 Within run \(i\), the rate falls along a cosine curve from \(\eta^i_{\max}\) to \(\eta^i_{\min}\). At the end of the run it is reset to \(\eta^i_{\max}\), which is the warm restart, and run \(i+1\) begins. Each run is \(T_{\mathrm{mult}}\) times as long as the one before, so the late part of training has longer phases.
 
+### Schedule in motion
+
+<div style="max-width:640px;width:100%" role="group" aria-label="Learning-rate schedule animation">
+<div style="width:100%">
+<img data-source-asset-urls src="../../assets/concept-animations/sgdr-restart-still.svg" data-motion-src="../../assets/concept-animations/sgdr-restart-motion.svg" style="display:block;width:100%;height:auto" alt="Cosine learning-rate decay over successively longer cycles, with upward resets at each restart.">
+</div>
+</div>
+
+*Original animation by AI Wiki, CC BY-SA 4.0.*
+
+The moving marker traces a schematic schedule with cycle lengths 1, 2 and 4 and fixed learning-rate bounds. At each restart the rate jumps back to its maximum; the model weights are **not** reset. Time and rates are normalized illustration values, not measurements from training.
+
 ## Algorithm
 
 Let \(T_i\) be the length of run \(i\) in epochs, and let \(T_{\mathrm{cur}}\) be the epochs elapsed since the last restart. The paper updates \(T_{\mathrm{cur}}\) after every batch, so it takes fractional values. The learning rate is
@@ -39,18 +51,6 @@ Let \(T_i\) be the length of run \(i\) in epochs, and let \(T_{\mathrm{cur}}\) b
 \]
 
 The rate equals \(\eta^i_{\max}\) at a restart and falls to \(\eta^i_{\min}\) at the end of the run. The paper keeps the bounds fixed across restarts and sets \(T_{i+1} = T_{\mathrm{mult}}\, T_i\). A setting with \(T_{\mathrm{mult}} = 1\) gives runs of equal length. The paper takes snapshots at the ends of runs and combines them in an ensemble.
-
-### Visual walkthrough: cosine decay and warm restarts
-
-<div class="concept-motion-scroll" role="region" aria-label="Horizontally scrollable cosine-restart learning-rate diagram" tabindex="0" style="overflow-x:auto;max-width:100%">
-<img src="../../assets/concept-animations/sgdr-cosine-restart-still.svg" width="640" style="min-width:640px" data-motion-src="../../assets/concept-animations/sgdr-cosine-restart-motion.svg" data-still-src="../../assets/concept-animations/sgdr-cosine-restart-still.svg" alt="Cosine warm-restart schedule showing three cosine decays lasting two, four, and eight steps, with learning-rate resets at steps two and six.">
-</div>
-
-*Original instructional visualisation, CC BY-SA 4.0.* Using **illustrative, not measured**, values $\eta_{\min}=0.10$, $\eta_{\max}=1.00$, $T_0=2$, and $T_{\mathrm{mult}}=2$, the plot reveals three cosine intervals of **2, 4, and 8** steps. At steps **2** and **6**, the rate returns from the minimum to the maximum, while the optimiser's model parameters are **not** reinitialised. Orange dashed vertical boundaries mark the abrupt schedule resets; the progressively longer bands show the next cycle's duration.
-
-The schedule is based on the original [SGDR paper](https://arxiv.org/abs/1608.03983). The moving point represents *the prescribed learning rate*, not loss, accuracy, optimiser position, or an observed training run. The final step at 14 is the end of the illustrated budget, not another restart.
-
-On MkDocs use **Play/Pause**, including Tab, Enter and Space keyboard controls. Reduced-motion users start with the static diagram. GitHub provides the [static fallback preview](../../assets/concept-animations/sgdr-cosine-restart-still.svg) and a browser can open the [complete SVG animation](../../assets/concept-animations/sgdr-cosine-restart-motion.svg). **All values are illustrative, not empirical model results.**
 
 ## Results
 

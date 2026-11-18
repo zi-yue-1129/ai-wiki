@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-12
+translation_reviewed: 2026-10-31
 ---
 
 # 循環學習率
@@ -18,6 +18,22 @@ translation_reviewed: 2026-11-12
 
 以學習率範圍測試估計兩個上下界 \(\eta_{\min}\) 與 \(\eta_{\max}\)：在數個 epoch 中讓學習率線性增加，並觀察準確率。接著，在其餘的訓練中讓學習率在這兩個界限之間循環。
 
+### 動態排程示意：triangular 與 triangular2
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="學習率排程動畫">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-sweep-motion.svg" data-still-src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" style="display:block;width:640px;height:auto" alt="Triangular 與 triangular2 共用時間游標：前者峰值固定，後者相對下界的振幅逐輪減半。">
+</div>
+</div>
+
+*AI Wiki 原創動畫，CC BY-SA 4.0。*
+
+同一條時間游標對照三個等長週期的 **triangular**（青綠色，峰值固定）與 **triangular2**（橘色，振幅逐輪減半）。人工設定下界 \(\eta_{\min}=0.10\)、上界 \(\eta_{\max}=1.00\)、半週期長度 \(s=2\)；triangular 每輪峰值都是 1.00，triangular2 的峰值則依序為 **1.00、0.55、0.325**。兩個標記追蹤相同的排程時間；第一輪曲線相同，因此標記會重疊。這些是預先指定的學習率，**不是模型權重、準確率或實測訓練結果**。
+
+從圖中的三個峰值可直接看出 triangular2 的振幅包絡：相對於固定下界的增量，在第 1–3 輪依序為 \(1,\;1/2,\;1/4\)。一般而言，若循環索引 \(k\) 從零開始，峰值為 \(\eta_{\min}+(\eta_{\max}-\eta_{\min})/2^k\)。這是排程示意，不是實際訓練紀錄。
+
+MkDocs 提供**播放／暫停**（Tab、Enter 或 Space），減少動態效果模式會顯示靜態對照圖。窄螢幕可聚焦圖形後以方向鍵水平捲動。先前的單一策略圖仍可透過 [triangular2 動畫](../../assets/concept-animations/clr-triangular2-motion.svg)與[靜態圖](../../assets/concept-animations/clr-triangular2-still.svg)閱讀。
+
 ## 演算法
 
 **範圍測試。** 訓練數個 epoch，同時讓學習率從很小的值線性增加到很大的值，並繪製準確率與學習率的關係。下界是準確率開始上升之處；上界是準確率增長趨緩、變得不穩定，或開始下降之處。論文建議將下界設為上界的三分之一或四分之一。論文中，CIFAR-10 的測試為 8 個 epoch，GoogLeNet 為 4 個 epoch。
@@ -31,18 +47,6 @@ translation_reviewed: 2026-11-12
 學習率因此每 \(2s\) 次迭代線性上升並下降一次。*三角2*策略在每個循環後將振幅減半。*exp_range* 策略則讓上下界隨時間指數式縮小。論文指出，視窗形狀的選擇影響不大，因此採用最簡單的三角視窗。
 
 **步長。** 論文發現結果對循環長度「相當穩健」，並建議步長為每個 epoch 迭代次數的 2 至 10 倍。對於每個 epoch 有 500 次迭代的 CIFAR-10，步長設為 2,000（即 4,000 次迭代的循環）。對於 ImageNet 上的 AlexNet 與 GoogLeNet，步長則為 30,000 次迭代。
-
-### 動態圖解：三角策略與 triangular2
-
-<div class="concept-motion-scroll" role="region" aria-label="可水平捲動的循環學習率教學圖" tabindex="0" style="overflow-x:auto;max-width:100%">
-<img src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" width="640" style="min-width:640px" data-motion-src="../../assets/concept-animations/clr-triangular2-sweep-motion.svg" data-still-src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" alt="循環學習率示意：triangular 的峰值每輪相同，triangular2 每輪將峰值相對下界的振幅減半；動畫游標沿兩條曲線移動。">
-</div>
-
-*原創教學動畫，採 CC BY-SA 4.0 授權。* 以人工設定的上下界 $\eta_{\min}=0.10$、$\eta_{\max}=1.00$，半週期步長 $s=2$，以及**三個各四步的週期**為例：青綠色 triangular 每輪都回到 $1.00$；橘色 triangular2 則在每輪後將**相對下界的振幅減半**，三個峰值依序為 $1.00$、$0.55$、$0.325$。掃描線隨排程時間前進，兩個游標分別追蹤當前的學習率。
-
-此圖依據[循環學習率原始論文](https://arxiv.org/abs/1506.01186)的策略公式。曲線的連續揭露代表*學習率的變化*，不代表權重學習軌跡或觀測到的準確率；圖中沒有執行模型訓練。
-
-在 MkDocs 網站可使用**播放／暫停**，並以 Tab、Enter 或 Space 操作；偏好減少動態效果時，初始顯示靜態圖。GitHub 可閱讀 [靜態回退預覽](../../assets/concept-animations/clr-triangular2-sweep-still.svg)；瀏覽器亦可開啟 [完整 SVG 動畫](../../assets/concept-animations/clr-triangular2-sweep-motion.svg)。**所有數值皆為人工示意，不是模型實測結果。**
 
 ## 結果
 

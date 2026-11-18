@@ -29,6 +29,22 @@ The learning rate is, in the paper's words, "the most important hyper-parameter 
 
 Estimate two bounds, \(\eta_{\min}\) and \(\eta_{\max}\), with a learning-rate range test: increase the rate linearly over several epochs and watch the accuracy. Then cycle the rate between those bounds for the rest of training.
 
+### Schedule in motion: triangular versus triangular2
+
+<div style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Learning-rate schedule animation">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" data-motion-src="../../assets/concept-animations/clr-triangular2-sweep-motion.svg" data-still-src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" style="display:block;width:640px;height:auto" alt="Triangular and triangular2 schedules share a time cursor: fixed peaks versus amplitudes halved each cycle.">
+</div>
+</div>
+
+*Original animation by AI Wiki, CC BY-SA 4.0.*
+
+The shared time cursor compares **triangular** (teal, fixed peaks) with **triangular2** (orange, halved amplitudes) over three equal-duration cycles. With illustrative bounds \(\eta_{\min}=0.10\), \(\eta_{\max}=1.00\) and half-cycle length \(s=2\), triangular reaches 1.00 every cycle, while triangular2 peaks at **1.00, 0.55, 0.325**. Both markers follow the same schedule time; where the curves coincide in cycle 1, their markers overlap. These are prescribed learning rates, **not model weights, accuracy or measured training results**.
+
+The triangular2 envelope can be read directly from the three peaks: the excursion above the fixed lower bound is proportional to \(1,\;1/2,\;1/4\) for cycles 1–3. More generally, for zero-indexed cycle \(k\), the peak is \(\eta_{\min}+(\eta_{\max}-\eta_{\min})/2^k\). This is a schematic schedule, not an empirical training trace.
+
+On MkDocs, use **Play/Pause** (Tab, Enter or Space); reduced-motion preferences show the static comparison. On small screens, focus the figure and use the arrow keys to scroll. The earlier single-policy view remains available as a [triangular2 animation](../../assets/concept-animations/clr-triangular2-motion.svg) and [static diagram](../../assets/concept-animations/clr-triangular2-still.svg).
+
 ## Algorithm
 
 **Range test.** Train for a few epochs while the rate rises linearly from a small value to a large one, and plot accuracy against the rate. The lower bound is where accuracy starts to rise. The upper bound is where accuracy slows, becomes erratic, or starts to fall. The paper suggests setting the lower bound to one third or one quarter of the upper bound. The test takes 8 epochs for CIFAR-10 and 4 epochs for GoogLeNet in the paper.
@@ -42,18 +58,6 @@ Estimate two bounds, \(\eta_{\min}\) and \(\eta_{\max}\), with a learning-rate r
 so the rate rises and falls linearly, once per \(2s\) iterations. The *triangular2* policy halves the amplitude after each cycle. The *exp_range* policy shrinks the bounds exponentially over time. The paper reports that the choice of window shape made little difference, and it uses the triangular window as the simplest.
 
 **Step size.** The paper finds results "quite robust" to the cycle length, and suggests a step size of 2 to 10 times the number of iterations in an epoch. For CIFAR-10 with 500 iterations per epoch it uses a step size of 2,000 (a 4,000-iteration cycle). For AlexNet and GoogLeNet on ImageNet it uses 30,000 iterations.
-
-### Visual walkthrough: triangular versus triangular2
-
-<div class="concept-motion-scroll" role="region" aria-label="Horizontally scrollable cyclical learning-rate diagram" tabindex="0" style="overflow-x:auto;max-width:100%">
-<img src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" width="640" style="min-width:640px" data-motion-src="../../assets/concept-animations/clr-triangular2-sweep-motion.svg" data-still-src="../../assets/concept-animations/clr-triangular2-sweep-still.svg" alt="Cyclical learning-rate schedule: triangular repeats three identical peaks, while triangular2 halves the peak amplitude after every cycle; an animated cursor follows both curves.">
-</div>
-
-*Original instructional visualisation, CC BY-SA 4.0.* With illustrative bounds $\eta_{\min}=0.10$ and $\eta_{\max}=1.00$, a half-cycle step size $s=2$, and **three four-step cycles**, the teal triangular policy reaches the same peak of $1.00$ every cycle. The orange triangular2 policy halves its **amplitude above the lower bound** after each cycle: its peaks are $1.00$, $0.55$, and $0.325$. The scan line advances in schedule time, while both markers track their respective learning rates.
-
-The original [CLR paper](https://arxiv.org/abs/1506.01186) defines these policies. The continuous line reveal interpolates *learning-rate values*, not learned model weights or observed accuracy; no model was trained for this figure.
-
-On MkDocs use **Play/Pause**, including Tab, Enter and Space keyboard controls. Reduced-motion users start with the static diagram. GitHub provides the [static fallback preview](../../assets/concept-animations/clr-triangular2-sweep-still.svg) and a browser can open the [complete SVG animation](../../assets/concept-animations/clr-triangular2-sweep-motion.svg). **All values are illustrative, not empirical model results.**
 
 ## Results
 
