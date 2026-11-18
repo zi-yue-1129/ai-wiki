@@ -344,6 +344,8 @@ def main() -> int:
     for stem, page in {
         "brier-expected-risk": "brier-score",
         "log-loss-tail-penalty": "log-loss",
+        "brier-murphy-decomposition": "brier-score",
+        "ece-bin-merging": "calibration-error",
     }.items():
         moving = ASSETS / f"{stem}-motion.svg"
         still = ASSETS / f"{stem}-still.svg"
