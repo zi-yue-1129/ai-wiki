@@ -455,3 +455,41 @@ for filename, language_marker in (
     assert "p^*=\\frac{C_{FP}}{2C_{FN}+C_{FP}}" in page
     assert "\n$$\nL(k)=w[1-J(k)].\n$$\n" in page
 print("Prevalence-driven policy crossover: all 999 positive base rates and seven cutoffs OK")
+
+
+# Bilingual decision-workshop navigation must connect all three original
+# motion/still pairs without treating their unrelated synthetic inputs as one sample.
+# The overview distinguishes a held-fixed rule from re-optimised deployment rules.
+for filename, markers in (
+    ("index.md", ("Three linked ROC decision experiments", "pure prior-probability shift",
+                  "20% prevalence", "FN cost 4.5")),
+    ("index.zh-TW.md", ("三組相互對照的 ROC 決策動畫", "純先驗比例漂移",
+                        "盛行率 20%", "FN 成本 4.5")),
+):
+    overview = (shared_dir / filename).read_text(encoding="utf-8")
+    for marker in markers:
+        assert marker in overview, (filename, marker)
+    for stem in ("roc-pr-shift", "roc-youden-cost", "roc-prior-policy"):
+        for suffix in ("-motion.svg", "-still.svg"):
+            asset_name = stem + suffix
+            assert f"../../../../assets/concept-animations/{asset_name}" in overview
+            assert (asset_root / asset_name).is_file(), (filename, asset_name)
+    assert "100" in overview and "ROC-AUC" in overview
+
+for filename, expected in (
+    ("roc-auc.md", "pure prior-probability shift"),
+    ("roc-auc.zh-TW.md", "純先驗比例漂移"),
+):
+    chapter = (shared_dir / filename).read_text(encoding="utf-8")
+    assert expected in chapter
+    assert "finite samples" in chapter if filename.endswith("/roc-auc.md") else "抽樣波動" in chapter
+
+# Distinguish population invariance from precision changes at fixed conditional rates.
+for prevalence in (.05, .1, .2, .4, .6):
+    tpr, fpr = .8, .1  # fixed conditional rates; synthetic
+    positive_mass = tpr * prevalence
+    predicted_positive_mass = positive_mass + fpr * (1 - prevalence)
+    assert math.isclose(positive_mass / predicted_positive_mass, shifted_ppv(prevalence))
+assert math.isclose(shifted_ppv(.05), 8 / 27)
+assert math.isclose(shifted_ppv(.6), 12 / 13)
+print("Bilingual ROC decision-workshop navigation and prior-shift caveats OK")

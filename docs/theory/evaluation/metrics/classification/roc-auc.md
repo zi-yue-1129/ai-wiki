@@ -72,7 +72,7 @@ Take four cases with scores. The two positives score 0.9 and 0.6, and the two ne
 ## Properties and variants
 
 - **Probabilistic meaning.** ROC-AUC equals the probability that a random positive receives a higher score than a random negative, with ties counted as one half. This is the Mann-Whitney U statistic divided by the number of positive-negative pairs.
-- **Invariances.** The value does not change under any strictly increasing transformation of the scores. It also does not depend on prevalence, because TPR and FPR are rates within each class.
+- **Invariances and assumptions.** Strictly increasing score transformations preserve ROC-AUC. Under a *pure prior-probability shift* with unchanged class-conditional score distributions, the **population** ROC curve and AUC remain unchanged even when prevalence changes, because TPR and FPR are conditional rates. Class-conditional distribution shift can change both, and empirical AUC estimates still vary with finite samples.
 - **Partial AUC.** The area over a restricted range of FPR, such as 0 to 0.1, focuses on the low false-alarm regime.
 - **Limit.** ROC-AUC can be high while precision is poor when positives are rare, and it does not measure calibration.
 

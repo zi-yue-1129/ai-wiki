@@ -22,7 +22,7 @@ Classification metrics score a model whose output is a class label or a score fo
 | [ROC-AUC](roc-auc.md) | Ranking of positives above negatives | No | Comparing models without fixing a threshold |
 | [PR-AUC](pr-auc.md) | Precision across recall levels | No | Positives are rare |
 
-For score-based classifiers, these label metrics can change with the decision rule: report the cutoff or label-selection policy alongside the metric. A numeric threshold is not needed when a classifier already outputs labels. The ranking metrics do not depend on one threshold, but they can look optimistic when positives are rare.
+For score-based classifiers, these label metrics can change with the decision rule: report the cutoff or label-selection policy alongside the metric. A numeric threshold is not needed when a classifier already outputs labels. Ranking metrics do not depend on a single cutoff. However, ROC-AUC alone may conceal low precision at a rare-event deployment base rate; precision–recall summaries are prevalence-sensitive and their integration conventions must be stated.
 
 ## Shared synthetic 100-case example
 
@@ -35,6 +35,18 @@ The worked examples for [accuracy](accuracy.md), [precision](precision.md), [rec
 | **Total** | **50** | **50** | **100** |
 
 From these identical 100 cases, accuracy is **70/100 = 0.700**, precision is **40/50 = 0.800**, recall is **40/60 ≈ 0.667**, and F1 is **80/110 ≈ 0.727**. This is a **constructed count example, not measured classifier performance**. The animations elsewhere in this section use *different* explicitly synthetic scores or population parameters; they are not results from this 100-case matrix.
+
+## Three linked ROC decision experiments
+
+These **three separate synthetic experiments** connect ranking performance, positive-prediction reliability and deployment decisions. They are *not* repeated measurements from the shared 100-case confusion matrix above. The [ROC-AUC chapter](roc-auc.md) contains the full animated explanations, assumptions and derivations.
+
+| Animation ([full SVG] links open the motion; [still] links work on GitHub) | Held constant | Changed parameter | Consequence |
+|---|---|---|---|
+| [Fixed ROC, changing precision](roc-auc.md#animated-roc-versus-precision-under-prevalence-shift) ([still](../../../../assets/concept-animations/roc-pr-shift-still.svg) · [full SVG](../../../../assets/concept-animations/roc-pr-shift-motion.svg)) | TPR = 0.80, FPR = 0.10, class-conditional score distributions | Positive prevalence: 5% → 60% | Precision / PPV: 0.296 → 0.923; the ROC point stays put |
+| [Youden J versus cost](roc-auc.md#animated-youden-j-versus-deployment-error-cost) ([still](../../../../assets/concept-animations/roc-youden-cost-still.svg) · [full SVG](../../../../assets/concept-animations/roc-youden-cost-motion.svg)) | Six-case score ranking, deployment prevalence 10%, FP cost 1 | FN cost: 1 → 5 | Minimum-cost cutoff switches from k = 1 to k = 4 at FN cost 4.5; maximum J stays at k = 4 |
+| [Prior shift and optimal policy](roc-auc.md#animated-cutoff-switching-under-a-prior-shift) ([still](../../../../assets/concept-animations/roc-prior-policy-still.svg) · [full SVG](../../../../assets/concept-animations/roc-prior-policy-motion.svg)) | Six-case score ranking and costs (FN = 2, FP = 1); conditional score distributions | Positive prevalence: 5% → 60% | Cost-optimal cutoff switches at 20% prevalence, although the ROC curve is unchanged |
+
+**Interpretation:** A fixed decision rule can keep its ROC point under a **pure prior-probability shift** while its PPV changes. Re-optimising the rule against altered prevalence or error costs is a different operation, and may move the *chosen* ROC point without changing the underlying ROC curve. If class-conditional score distributions also shift, the ROC curve itself may change. All numbers are illustrative population assumptions, not fitted-model results or deployment measurements. MkDocs offers Play/Pause and reduced-motion stills; use the static previews for GitHub or when animation is unavailable.
 
 ## Connections
 
