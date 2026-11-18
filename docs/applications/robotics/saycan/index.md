@@ -22,6 +22,16 @@ A language model can suggest plausible steps for a task, such as "bring me a dri
 
 The robot has a library of pretrained skills. Each skill has a value function, which the paper treats as an affordance function: the probability that the skill succeeds from the current state. SayCan multiplies the language model's score for a skill by that affordance. The language model supplies the task-level plan, while the skills and their value functions ground that plan in the physical scene.
 
+## Visual walkthrough: language relevance × affordance
+
+<div class="grounded-action-source-scroll" tabindex="0" role="region" aria-label="Animated SayCan skill ranking: language likelihood, current-scene affordance and their product grow in sequence for three candidate skills" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../assets/concept-animations/saycan-skill-grounding-still.svg" data-motion-src="../../../assets/concept-animations/saycan-skill-grounding-motion.svg" data-still-src="../../../assets/concept-animations/saycan-skill-grounding-still.svg" alt="Animated SayCan skill ranking: language likelihood, current-scene affordance and their product grow in sequence for three candidate skills" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* The teal bars represent language-model task relevance, orange bars represent skill success affordance in the current state, and purple bars represent their products. The language model ranks **Fetch drink** highest (0.80), yet its affordance is only 0.20. **Go to table** instead wins the product comparison (0.55 × 0.85 = 0.4675, displayed rounded to 0.468), despite lower language relevance. The three skills and scores are **hand-authored illustrative examples, not model predictions or measured robot success rates**. This product is a *selection score*, not a calibrated whole-task success probability. The animation exposes each factor before the product and selected skill. On MkDocs use the keyboard-accessible Play/Pause control; GitHub users can open the [static, complete ranking](../../../assets/concept-animations/saycan-skill-grounding-still.svg). This follows the selection rule in [Ahn et al. (2022)](https://arxiv.org/abs/2204.01691).
+
+The bars progressively reveal fixed example scores, not frame-by-frame success estimates; the three language scores need not sum to one over this displayed skill set. This is one decision, with later scores conditioned on the new state and selected-skill history. SayCan selects pretrained skills for separate controllers; it is not the same architecture as RT-2, whose VLA directly predicts low-level actions from vision and language. On mobile, scroll within the keyboard-focusable figure.
+
 ## Equation
 
 Let *i* be the instruction, *s* the current state, and ℓπ the language description of skill π. The language model gives p(ℓπ | i), and the affordance function gives p(cπ | s, ℓπ), the probability that skill π completes successfully from s. SayCan selects

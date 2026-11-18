@@ -43,6 +43,16 @@ NoMaD is a conditional denoising diffusion policy:
 
 The model has about 19 million parameters, as listed in the paper's comparison table.
 
+## Visual walkthrough: the goal-mask switch
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Complete navigation diagram; focus and use arrow keys to scroll horizontally" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/nomad-goal-mask-routing-still.svg" data-motion-src="../../../assets/concept-animations/nomad-goal-mask-routing-motion.svg" data-still-src="../../../assets/concept-animations/nomad-goal-mask-routing-still.svg" alt="NoMaD goal mask m equals one blocks goal conditioning for exploration, while m equals zero permits goal-conditioned navigation">
+</div>
+
+Masking blocks attention to the fused observation–goal token; it is not a switch between two separately trained policies. The two routes illustrate different conditioning, not the intermediate denoising iterates. The frame preserves readable 640px labels and supports keyboard horizontal scrolling on phones. This depicts visual-goal navigation, not language-conditioned action generation.
+
+*Original instructional animation (CC BY-SA 4.0).* The two matched scenes share the **same encoder, policy and conditional diffusion action decoder**; they do **not** depict separately trained policies. With `m = 1`, the goal token is hidden from attention and the schematic route heads toward an exploration frontier. With `m = 0`, the goal token is visible and the illustrative candidate route is goal-directed. The drawn paths are **not sampled trajectories, guaranteed collision-free solutions or experimental results**. The goal mask is a conditioning switch, not a direct steering command; in the paper, exploration additionally uses an online topological graph and frontier selection. Use the site's Play/Pause control or the [GitHub-readable static overview](../../../assets/concept-animations/nomad-goal-mask-routing-still.svg). See Sridhar et al. (2023) in References.
+
 ## Results
 
 The paper reports two kinds of evaluation. Exploration is scored by the share of successful runs and the number of collisions. Table I of the paper gives these values for NoMaD and for comparison methods:

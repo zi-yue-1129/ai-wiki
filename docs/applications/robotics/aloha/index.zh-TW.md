@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - theory/paradigms/imitation
   - theory/models/transformer
@@ -31,6 +31,44 @@ ACT 一次預測一段未來的動作（一個 chunk），而不是每一步預�
 3. **推論與時間集成**：每個時間步都查詢策略，再以權重 exp(−m·i) 平均同一時間步的重疊預測，其中 i = 0 為最舊的預測。m 越小，新觀察的權重越大（第 IV-A 節，Alg. 2）。
 
 每個相機的影像經過 ResNet-18 骨幹，所得特徵展平成 transformer 的 token。模型約有 8,000 萬個參數，在一張 11 GB 的 GPU 上約 5 小時完成訓練，推論約為 0.01 秒（第 IV-C 節）。
+
+## 動畫解析：重疊動作區塊與時間集成
+
+<div tabindex="0" role="region" aria-label="可水平捲動的 ACT 示意圖" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../assets/concept-animations/act-temporal-ensemble-still.svg" data-motion-src="../../../assets/concept-animations/act-temporal-ensemble-motion.svg" data-still-src="../../../assets/concept-animations/act-temporal-ensemble-still.svg" alt="ACT 四次策略查詢的動作區塊在同一執行時間步重疊，並依序加入指數權重計算動作" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態回退預覽](../../../assets/concept-animations/act-temporal-ensemble-still.svg) · 在 MkDocs 網站可使用播放／暫停按鈕，觀察查詢、權重與最終動作如何依序出現。
+
+每一列代表一次策略查詢，每一欄代表**執行時間步**。在執行 $a_4$ 時，$q_0$ 到 $q_3$ 的預測都涵蓋同一時刻。ACT 的時間集成平均的是**同一執行時間步**、由不同查詢產生的預測，並非平均相鄰時間步的動作。[^act-motion]
+
+\[
+\begin{gathered}
+\bar a_4 = \frac{\sum_{i=0}^{3} e^{-mi}\,\hat a_4^{(i)}}{\sum_{i=0}^{3}e^{-mi}},
+\\
+i=0\text{ 代表最早的查詢。}
+\end{gathered}
+\]
+
+動畫為了教學採用縮小後的區塊長度 $k=5$、$m=0.5$，以及四筆**人工示意**標量預測 $(0.70,1.00,0.80,1.20)$，加權後約為 **0.850**。這不是機器人實測關節指令；原始論文的主要設定是每次預測 100 個動作時間步。權重的索引從最早的查詢開始，$m$ 越小，較新預測的**相對影響力**越大，並不代表只要 $m>0$，最新預測就一定有最大的權重。
+
+圖中為了清楚呈現重疊，只畫四個已存在的查詢；實際線上迴圈也可納入當下剛產生的區塊。最早查詢排在前面的索引，對應[官方實作的時間緩衝區與指數權重](https://github.com/tonyzhaozh/act/blob/main/imitate_episodes.py)，這裡的四列不是完整查詢排程。
+
+## 動畫解析：CVAE 訓練與部署推論
+
+<div tabindex="0" role="region" aria-label="可水平捲動的 ACT 示意圖" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../assets/concept-animations/act-cvae-train-deploy-still.svg" data-motion-src="../../../assets/concept-animations/act-cvae-train-deploy-motion.svg" data-still-src="../../../assets/concept-animations/act-cvae-train-deploy-still.svg" alt="ACT 在訓練階段由示範動作編碼風格潛變數，再以條件式解碼器重建動作區塊；推論階段不使用編碼器，將潛變數設為零" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態回退預覽](../../../assets/concept-animations/act-cvae-train-deploy-still.svg) · MkDocs 網站可暫停流動的輸入與潛變數標記，追蹤各階段實際存在的計算路徑。
+
+**訓練階段**：CVAE 編碼器利用示範的動作序列與機器人關節狀態推得風格潛變數 $z$，策略解碼器則依據當下觀察與 $z$ 重建**整段動作**；訓練目標包含動作重建損失與相對標準常態先驗的 KL 正則化。**部署推論階段**：移除編碼器，將 $z$ 固定為零，但仍保留以當下觀察為條件的解碼器，輸出動作區塊。[^act-motion] 圖中只呈現架構與訊號流向，並非訓練後模型的數值實測。
+
+兩張圖均為原創 CC BY-SA 4.0 教學視覺，另提供不依賴 SVG 動畫的 GitHub 靜態回退版本。
+
+圖中的 Obs 包含相機觀測與關節位置 q；通往編碼器的分支只帶關節位置，不帶相機影像。動點依依賴關係依序揭示資訊流，不代表實測延遲。
+
+[^act-motion]: Zhao, T. Z. 等人（2023），*Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware*，IV-A、IV-B 節。https://arxiv.org/abs/2304.13705
 
 ## 結果
 
